@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65201B06E74
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 09:04:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1044862.1414892 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6C0AB06F18
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 09:37:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1044868.1414901 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubwBF-0002Pc-Ht; Wed, 16 Jul 2025 07:03:53 +0000
+	id 1ubwgY-0006cL-UL; Wed, 16 Jul 2025 07:36:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1044862.1414892; Wed, 16 Jul 2025 07:03:53 +0000
+Received: by outflank-mailman (output) from mailman id 1044868.1414901; Wed, 16 Jul 2025 07:36:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubwBF-0002Mx-EW; Wed, 16 Jul 2025 07:03:53 +0000
-Received: by outflank-mailman (input) for mailman id 1044862;
- Wed, 16 Jul 2025 07:03:51 +0000
+	id 1ubwgY-0006a8-RK; Wed, 16 Jul 2025 07:36:14 +0000
+Received: by outflank-mailman (input) for mailman id 1044868;
+ Wed, 16 Jul 2025 07:36:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=L52i=Z5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ubwBD-0002Mj-Hr
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 07:03:51 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6L/7=Z5=linux.intel.com=andriy.shevchenko@srs-se1.protection.inumbo.net>)
+ id 1ubwgX-0006a1-M4
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 07:36:13 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 061bf955-6213-11f0-b894-0df219b8e170;
- Wed, 16 Jul 2025 09:03:49 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3a531fcaa05so3510906f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 00:03:49 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74eb9f25269sm13542217b3a.107.2025.07.16.00.03.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jul 2025 00:03:48 -0700 (PDT)
+ id 8938288f-6217-11f0-b894-0df219b8e170;
+ Wed, 16 Jul 2025 09:36:09 +0200 (CEST)
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2025 00:36:06 -0700
+Received: from smile.fi.intel.com ([10.237.72.52])
+ by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2025 00:35:51 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.98.2)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1ubwg6-0000000Fr3T-1IQh; Wed, 16 Jul 2025 10:35:46 +0300
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,91 +45,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 061bf955-6213-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752649429; x=1753254229; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lQjFPrLZSC7DoLS8LlUShpk04opc4O1qT+Wrm5x9GZ4=;
-        b=b7+rPltV2Tl0jZzgEvmvwISfVibBCKeBCpnY4yBXDjx52I6IvxBsVhjNdXN8tmexgX
-         5ACjk4bzKMelj8H1SGsnJG+UH3/dfSSeLlkxPxoKsay3NNhwfWa4tcQ7Z+7LRMk4fUr/
-         Ph2HpSFqQVB/sie7Uyh2AKDN3DHbFue0Ue1A8rGoiXG3u/Q2V9JJAEdxv2IU4hekGYmY
-         +8FHeMpWV4Mg0xcGaE8N8hfC7vhI14KJ6Yqe1b4mRVhMo0iak1xAdxUZnWG4LtmSyCKE
-         AGmRmBGclg1jx7JprrJFV8i+nk6U1upL4mF0dkAIDqvM0LwX8HIAbivjbDqUbL9YYGV4
-         eO0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752649429; x=1753254229;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lQjFPrLZSC7DoLS8LlUShpk04opc4O1qT+Wrm5x9GZ4=;
-        b=E2bP2KCfhwPSDmzRn3Mr4JFGuIb9ZHMi4x+NAtHeh2bdjuQ7EDaf+EDSDVqV4X68AQ
-         EgDzeJ17APFVIwpR2UZAtWnJn8KLVDwashbZsm74HBQQEWiIwGGZsZbl9LdOgKhITaNX
-         zVDYc0JeqWsuEG1XjLBr6osEEZR7mecRyn1mUExHyk1SUMW0DpV4beYgk7aOst1AdTdF
-         AjTlwvI+xAKAes+4Rh5ZBmIulqJwB7EPNiWBX5Cd5ke4bVaeOXuwI2o3b0xjM64lOw/H
-         w/heDFH/E34ehMg250N0XAxCUzi4h/zwcpYFgIgpYu9PE9rOk46+LvS+m1ewwd3QIymZ
-         M7jQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUfxWPFR+U7kBec4zglyWEfV9fZIBZopwTz+Y/NC0r+8RJGOlrLUkjiEFzcoG4EYBS67PTDCbSQ1qU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YytNl9C/JOp1wjal28Ib6IpGXZkg3XUeWg5CfThKCpFmf5ezxEA
-	t+cX+kVwgdDUFPKgBRuJqKVuYhUdYukYOC4fTBP123xDDNiyVuEShEPDq5nGJJAsEQ==
-X-Gm-Gg: ASbGncvbeAmaEKnybv3zipuGElXSvsGq7Ye0fw5U0E9fIsDUByloptH1rZXb9Z7YzNF
-	BPu+rWl9sKR6b89cDdE6amP9gXjO6GaeWOxzWrb2Bjsyqr+nUUmMFvQeX9I0g6LhONu9WESflVh
-	0X/71TKBenfM/aLeM45U3CtWkpttFHQQ0s0Rw5EwFOU+qQQDkyXrqKC54Xk2/WNpnFSJseoN81u
-	crO9mpBFKtdrpzDK0IFKkQAu/sFDCKUNJqkpM5c3bA3vdkKJ59B6CmMp+R5XRUi0y2tl5BfmH4M
-	vEkAg0OicCCRUfY0fUTv4ERrJz17t2ikKRqhRW5z+LlI+9mrHmI/tf0N2m9Uc5WOwSX/op/TkAs
-	/hkxQ1BlX3X598fcPtx6RN0tXYsVdyoNc6e7MPO47AhsHb/PPWTCqievLfJCTvRrQ8kHuxLXvL1
-	5z69tavuc=
-X-Google-Smtp-Source: AGHT+IF607oIKCIckooomqE38jafmGnUrXJxg9Xw9bnVulXbmxHQRNKIhz9JbgNzkugTUR71fRTiPw==
-X-Received: by 2002:a05:6000:288e:b0:3a4:c9d4:2fb2 with SMTP id ffacd0b85a97d-3b60e51bbdamr846050f8f.46.1752649429015;
-        Wed, 16 Jul 2025 00:03:49 -0700 (PDT)
-Message-ID: <328f56ac-1d5f-421d-9afb-bcd5690a0c2a@suse.com>
-Date: Wed, 16 Jul 2025 09:03:41 +0200
+X-Inumbo-ID: 8938288f-6217-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1752651369; x=1784187369;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=SLxwHXEqd1OUWiEYMVIKGR7ibc8WPwr3uMVi8v3Vptw=;
+  b=lYde8jT0G/T/oS8Fp20q+qq3CHrSmhmMeZjc3qCLMGfqoUqzRGpm7LkR
+   /GqnITmcZTeOLtUaBuwDQmv8xgh541WEkai45ReacZtshFzg5IYoHvtn5
+   I76I3beyYlUwOkxe0pb7HBO6Y2sQROe4d1LcOwDVK3spiCG5zj3BkPHMC
+   DYS7A8qsdRXlGcBaR3HRCsykx0n5ihtmt7gfndlsQHkTUTWb88u0aOUKF
+   GKTX6P8JN4RzpBlYDi5VYkhC6OacB5XDymKZM/tSybHgVRjGNRrG0RRxG
+   k00XPwgwNeihQB+Bacyb4jnaPCC2u0hPk1/dxsLJyYSuRhO72Fd1fCbAf
+   A==;
+X-CSE-ConnectionGUID: 0yslpo14Qp+0p2kFvzJx2A==
+X-CSE-MsgGUID: EjX9zuX9RX+Ce8Bwa6REGg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11493"; a="65458024"
+X-IronPort-AV: E=Sophos;i="6.16,315,1744095600"; 
+   d="scan'208";a="65458024"
+X-CSE-ConnectionGUID: hY0dnPHtTOiIv2bf3XuWdg==
+X-CSE-MsgGUID: +jK6Yk6xTfOJ47JGHLkZWQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,315,1744095600"; 
+   d="scan'208";a="157985544"
+Date: Wed, 16 Jul 2025 10:35:46 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: WangYuli <wangyuli@uniontech.com>
+Cc: airlied@gmail.com, akpm@linux-foundation.org,
+	alison.schofield@intel.com, andrew+netdev@lunn.ch,
+	arend.vanspriel@broadcom.com, bp@alien8.de,
+	brcm80211-dev-list.pdl@broadcom.com, brcm80211@lists.linux.dev,
+	colin.i.king@gmail.com, cvam0000@gmail.com,
+	dan.j.williams@intel.com, dave.hansen@linux.intel.com,
+	dave.jiang@intel.com, dave@stgolabs.net, davem@davemloft.net,
+	dri-devel@lists.freedesktop.org, edumazet@google.com,
+	gregkh@linuxfoundation.org, guanwentao@uniontech.com, hpa@zytor.com,
+	ilpo.jarvinen@linux.intel.com, intel-xe@lists.freedesktop.org,
+	ira.weiny@intel.com, j@jannau.net, jeff.johnson@oss.qualcomm.com,
+	jgross@suse.com, jirislaby@kernel.org, johannes.berg@intel.com,
+	jonathan.cameron@huawei.com, kuba@kernel.org, kvalo@kernel.org,
+	kvm@vger.kernel.org, linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-wireless@vger.kernel.org, linux@treblig.org,
+	lucas.demarchi@intel.com, marcin.s.wojtas@gmail.com,
+	ming.li@zohomail.com, mingo@kernel.org, mingo@redhat.com,
+	netdev@vger.kernel.org, niecheng1@uniontech.com,
+	oleksandr_tyshchenko@epam.com, pabeni@redhat.com,
+	pbonzini@redhat.com, quic_ramess@quicinc.com, ragazenta@gmail.com,
+	rodrigo.vivi@intel.com, seanjc@google.com, shenlichuan@vivo.com,
+	simona@ffwll.ch, sstabellini@kernel.org, tglx@linutronix.de,
+	thomas.hellstrom@linux.intel.com, vishal.l.verma@intel.com,
+	x86@kernel.org, xen-devel@lists.xenproject.org,
+	yujiaoliang@vivo.com, zhanjun@uniontech.com
+Subject: Re: [PATCH v2 6/8] serial: 8250_dw: Fix typo "notifer"
+Message-ID: <aHdWUu58e_nCadX4@smile.fi.intel.com>
+References: <BD5C52D2838AEA48+20250715134050.539234-1-wangyuli@uniontech.com>
+ <2BF1749F02ADE664+20250715134407.540483-6-wangyuli@uniontech.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: Drop rep_nop() and use the PAUSE mnemonic directly
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250715204628.1848686-1-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250715204628.1848686-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2BF1749F02ADE664+20250715134407.540483-6-wangyuli@uniontech.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 15.07.2025 22:46, Andrew Cooper wrote:
-> In udelay(), use cpu_relax() directly which, for better or worse, is the
-> common way to refer to the PAUSE instruction.
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On Tue, Jul 15, 2025 at 09:44:05PM +0800, WangYuli wrote:
+> There is a spelling mistake of 'notifer' in the comment which
+> should be 'notifier'.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
 
