@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70240B0796A
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 17:19:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1045344.1415455 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31E60B0796F
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 17:20:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1045349.1415465 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc3uK-0006ee-Nj; Wed, 16 Jul 2025 15:18:56 +0000
+	id 1uc3vK-0007B1-0T; Wed, 16 Jul 2025 15:19:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1045344.1415455; Wed, 16 Jul 2025 15:18:56 +0000
+Received: by outflank-mailman (output) from mailman id 1045349.1415465; Wed, 16 Jul 2025 15:19:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc3uK-0006dD-KN; Wed, 16 Jul 2025 15:18:56 +0000
-Received: by outflank-mailman (input) for mailman id 1045344;
- Wed, 16 Jul 2025 15:18:55 +0000
+	id 1uc3vJ-00079H-TO; Wed, 16 Jul 2025 15:19:57 +0000
+Received: by outflank-mailman (input) for mailman id 1045349;
+ Wed, 16 Jul 2025 15:19:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L52i=Z5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uc3uJ-0006d7-56
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 15:18:55 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ id 1uc3vI-000797-74
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 15:19:56 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2e89cf76-6258-11f0-b894-0df219b8e170;
- Wed, 16 Jul 2025 17:18:52 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3a528243636so3855515f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 08:18:52 -0700 (PDT)
+ id 5344f589-6258-11f0-b894-0df219b8e170;
+ Wed, 16 Jul 2025 17:19:54 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-3a6d77b43c9so5817485f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 08:19:54 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31c9f115cc9sm1589472a91.0.2025.07.16.08.18.45
+ d2e1a72fcca58-74eb9f64c73sm14644252b3a.141.2025.07.16.08.19.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jul 2025 08:18:51 -0700 (PDT)
+ Wed, 16 Jul 2025 08:19:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2e89cf76-6258-11f0-b894-0df219b8e170
+X-Inumbo-ID: 5344f589-6258-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752679132; x=1753283932; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752679194; x=1753283994; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=eVfpt9hUszJJgRULtKsNYJPNndjJ7V5TvHV2gKnGTg8=;
-        b=TJALFkt1Nv8Wpt7u7sOdadEbPEm/N7ZgjB12Ei25bioTm/ABTMh/ksjVhTNGwRfoCB
-         T0QdCYl8GQpMuaAwI4PiStztZfFq73GjfCqQwGWl866DY0hgWQhhAaNpzLW+dn445N8D
-         YZV+48g5mjwvSH6t+sz0qInLNEd9N+OIuaI2N/8RKUw/k/6PuejtN61QuHdfBuUPlMJH
-         RF6eMYt4l9ma3XRQt/SCuSjem3vJx6VZvXJkxxpPvftce42AYoleFP91WgRlQ4m+nS56
-         Y7aqZAnt8pGYxkpgNhEARFamj24Ao27lkjA5KPRo7oh4+Ebw5fxHtsSNd23U8Xss6ZsJ
-         2xcA==
+        bh=3qAOXInLZy6o3IJnUk6Gv1BwrtjuCeFaBfJ6LPcD5nk=;
+        b=G72/AJNTRPLA15unZlIs9sYVEJwPyzabUkZpOu0mhBEJbYFCG7P1/Wj6rkuzJbgOYi
+         9Ttexk+IK+6CLr3GycIr/M22wMsOCF3ayrmiEMeiZ0uDh+aYfah6mfJYv1beI/9zl1Uy
+         R+fW9q4ntd6751xTZ2UwfZvZp+AXx8Bj6VDnqtoheojOMuV8mpN2qwMlOlW4ZI1oMdgm
+         OeaVU24AtK8PCA3ZVpwYVLCGeO25f8lhzcaMrVIOm4pFE3uHSplfDPEmun0ChIBvasNY
+         CQS1sMgGi3IZu0N6PU+fiQihVBSMzHCpcmrtlK0eLs7b1fZOcqjRszbBoY39lwCQdPuR
+         vIvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752679132; x=1753283932;
+        d=1e100.net; s=20230601; t=1752679194; x=1753283994;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=eVfpt9hUszJJgRULtKsNYJPNndjJ7V5TvHV2gKnGTg8=;
-        b=SwxFSV/TkKbLpVzvDtEZCQTwfkICCQQxWj1YqrgOb5Y632CliGwJ5B4fQLQGHTnu+5
-         HSboNmCItDT5cUqlgsG6IjV7gsguGHvtNX1rzy5bg0BdPxGAtghggrVXkhWJ5PFWcyHA
-         QvOza7rdBP1f95Qe70MBnAYEAWj/JQ8qSdJHl4G+1obcv8FyveTTnLAm2hHa3LduvD0A
-         n7QJN54bLwvJJbzx0vjKiscJfkqnt0FbcAxtPsLa6mjip322LJMUDniaNdl5xAjMiepc
-         1p/4w12ogiAguzc+R6PAl3ZEXyR0qvTv7BQ1BNlU8SNWde/zAAzKLTuOqgUEjhpe4+hr
-         WmAA==
-X-Forwarded-Encrypted: i=1; AJvYcCUjecharLHWaacW8PJwHdzzCpwgBQ7deO9nmRDUV9z+BLIPU2SycB7gSgmp4qkqO0WU2PsWLbeyFrI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxgGICnBNQtiKYevI3wEGB8n8i8K80qAj9YcRj8TJCcH+EKiozF
-	6pwvZ+nsQw2HAFLOHhv076UoH6bfb+h0nlkGXYMPQf2v7G90nAW/kGaMfRqig6d+Gg==
-X-Gm-Gg: ASbGnctzXK612RUITPhKJPfNeqsA59EqSGwsZv8HbVy/9bNZSDmRqhre0xlMrJBOMaF
-	lAva1g6GW4A06zJTkIgH100oxWkMvlfRlzMf6mwHVD0GSOVVzJDZ1Mcd1cACrx2esSfZ7yryK4D
-	a9x0Q0Js4SGqZaff6oDLaRBvXxn9FZ9T9fvZoeP/6ZxK5AOlln4g3W45sKubeZPnWwbNlx97Qcl
-	7j29waRTmSn2+PM8ZqRQTNymF09Ue20AiTo94j8TyeFdHhOX/YNAFsrk7eBp5KxRzZV86zpQdC2
-	DDUGtH6bnI94sUtynjsRR78Wvx3Zw2IlMicdObymRXCHZk9EjPnBJKs+BEIjkamQTALUUat6oYN
-	WZRNGEmP7Nw2xcHTB7+WnAUG1WLgmR4Bm4Msy4EcId7Z/rmt7AzP8YIgq+G9GNO1c75ze0tZbu3
-	dCk/d0sWs=
-X-Google-Smtp-Source: AGHT+IE5JYx78vD09cXobccWxk/MyD+n9pnCXI/W7fDssGP3w0nc+n2Rw/YXn3OiFn8uENq4gHtYCw==
-X-Received: by 2002:adf:9ccb:0:b0:3a5:39d7:3f17 with SMTP id ffacd0b85a97d-3b60dd898c7mr2214363f8f.47.1752679132090;
-        Wed, 16 Jul 2025 08:18:52 -0700 (PDT)
-Message-ID: <0033e953-93ad-40f5-b5d7-a68f18069b24@suse.com>
-Date: Wed, 16 Jul 2025 17:18:41 +0200
+        bh=3qAOXInLZy6o3IJnUk6Gv1BwrtjuCeFaBfJ6LPcD5nk=;
+        b=fXJknzHT9R0PhDjPumYIJhL7xryeEqfPSP8vt6xXJT6EdULnDsfcRgfrBLXs9fgZyR
+         X938vJM5OXwFzYn1f2xremkwTngD+MWr1aY46yuC4t4/e9sXxJSjY92mX9ZZ/c3PCMnN
+         qnzyPppXCoGkiag7uEujaz95j/bSCEEl1GwiDuexz/+gn6fo2qEyeo7Rmo3JPA5/plsQ
+         WOn+FlvDLsP9/KdqcsEeFN3X83hCpQX+lGGhghuBKnJEtDku9ckWapNSOxwmyeW3mcoi
+         FnMZskJrhWPfWWUU9HKvBBnSCjmzQKm2/wOAmRTYBxZEvl+11QcGbbg9MMC3YBjLlvdy
+         M/VQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW0V6uZw97szOYTNJSSc8Qi7wkaYcxCks2ZwSGIrq1GfwXQsiU9s/+RFlr3NxjgbN6oXxmmh+qbLoE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxbokDC0rTOopHT/5m1761G2DsctYLcTo8UU4gxa/GXaKF5CIV0
+	lBSxIcQSwmM4Y2bNVjtkn6jRov7Oej+EBruw3V+llnKvEeP/dqei93sgAtQFMHWX6w==
+X-Gm-Gg: ASbGncvWwb+g1a/6huxx+dpFkVby/VcfkfHsST2CynANbPGmNY96QCJZq0RJNqBw8pa
+	iiU7Fx5emS3/yM8+sNxsw/cpIKKUA4E81HVz1VeM3W2BP7sFlVBsofRaEYSdv6xmKN01ZxYfxX4
+	TiZZYK0WNbcxiiED4TW9AHJjC/xBaC/Cb12FNlrjyxzTnUA0zNAd5wG27BDMeXRSUJMw4ITzjgx
+	S2r66wNR06f78F85djgVuEa/3v7xCZof67Phx1EznV8g1U0a3m3pBVIo7q/VO1i9EwjS24ijQm+
+	q5YzIu9iYBu0q+N+2DfrsnZjCGoAmO9z7aeFyEzo/oEM4XIIDPlZQl0PaAvI/GmE+otZRzu1m3p
+	Lvyt953y7Mtq8+6z4HtccOr3FNGGwyPBBMoGIO4o8yvenV4j36PQ0ShnR51SL788L9p0gqZNEpQ
+	WbsZ+oFf0=
+X-Google-Smtp-Source: AGHT+IGfjwxVr5oWfvUIa+/D2qfjMXsYPQHqR/XKrB1l+6sfJJ1ZYHvTcCxc1ONGH/7c2cOBBD4RBg==
+X-Received: by 2002:a05:6000:22c1:b0:3a6:f30b:2dd6 with SMTP id ffacd0b85a97d-3b60e4d2b6fmr2658957f8f.26.1752679193810;
+        Wed, 16 Jul 2025 08:19:53 -0700 (PDT)
+Message-ID: <64875817-7016-4693-842b-4c736b6d7373@suse.com>
+Date: Wed, 16 Jul 2025 17:19:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 08/19] xen/cpufreq: rename cppc preset name to
- "XEN_SYSCTL_CPPC_SET_PRESET_ONDEMAND"
+Subject: Re: [PATCH v6 09/19] xen/cpufreq: neglect unsupported-mode request
+ from DOM0
 To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+ xen-devel@lists.xenproject.org
 References: <20250711035106.2540522-1-Penny.Zheng@amd.com>
- <20250711035106.2540522-9-Penny.Zheng@amd.com>
+ <20250711035106.2540522-10-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,14 +121,16 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250711035106.2540522-9-Penny.Zheng@amd.com>
+In-Reply-To: <20250711035106.2540522-10-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 11.07.2025 05:50, Penny Zheng wrote:
-> "ondemand" is more suitable to describe a preset in which epp value is set
-> with medium(CPPC_ENERGY_PERF_BALANCE), showing no preference over performance or
-> powersave, minimum with lowest and maximum with highest.
+> DOM0 could deliever whatever performance statistic (Px, _CPC) it parses, it is
+> Xen's responsibility to decide which one it shall accept.
+> Xen rely on XEN_PROCESSOR_PM_xxx flag to tell which mode ( Px or CPPC )
+> current cpufreq driver supports, and accepts relative info. It will neglect
+> unsupported-mode request and yields success.
 > 
 > Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 
