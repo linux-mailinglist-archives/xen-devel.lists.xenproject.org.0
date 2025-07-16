@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 432DCB07752
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 15:48:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1045223.1415334 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FFAFB0776E
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 15:57:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1045236.1415346 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc2UU-0004zb-2U; Wed, 16 Jul 2025 13:48:10 +0000
+	id 1uc2cu-00075N-Qw; Wed, 16 Jul 2025 13:56:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1045223.1415334; Wed, 16 Jul 2025 13:48:10 +0000
+Received: by outflank-mailman (output) from mailman id 1045236.1415346; Wed, 16 Jul 2025 13:56:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc2UT-0004x4-W4; Wed, 16 Jul 2025 13:48:09 +0000
-Received: by outflank-mailman (input) for mailman id 1045223;
- Wed, 16 Jul 2025 13:48:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uc2cu-00072D-Mz; Wed, 16 Jul 2025 13:56:52 +0000
+Received: by outflank-mailman (input) for mailman id 1045236;
+ Wed, 16 Jul 2025 13:56:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L52i=Z5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uc2US-0004wy-3r
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 13:48:08 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7fedea4e-624b-11f0-b894-0df219b8e170;
- Wed, 16 Jul 2025 15:48:05 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3a4fd1ba177so623320f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 06:48:05 -0700 (PDT)
+ id 1uc2ct-000727-Pm
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 13:56:51 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b8c3f308-624c-11f0-a319-13f23c93f187;
+ Wed, 16 Jul 2025 15:56:50 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3a57c8e247cso4473204f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 06:56:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23de4333e6csm130158455ad.162.2025.07.16.06.48.01
+ d9443c01a7336-23de4346b70sm128262375ad.195.2025.07.16.06.56.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jul 2025 06:48:04 -0700 (PDT)
+ Wed, 16 Jul 2025 06:56:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7fedea4e-624b-11f0-b894-0df219b8e170
+X-Inumbo-ID: b8c3f308-624c-11f0-a319-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752673685; x=1753278485; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752674210; x=1753279010; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wiC18QX+BPP+7v1u2bwaxEeuoSiLuXdMHqwx5GPEAig=;
-        b=ShFBC+TogfRnhV0cMYl1edZmBs9xDOI2T8q1y463MgJyrq/bbn0+Q6+lYfDshU+j7Q
-         H+Byul9pQM+IYBtVmkGDNV/+rimIMcGLAlHQ7WnEHkBEFEJtVpxHir1k7i3ybqcuq/9i
-         Q6+3/Msyt2XymRh52W8iA2b5ay0kbWfJfFFlMwXE3SX3BqCh2HkB3ioyGC9+f4NUqtW2
-         ud0xYqR5R928mPopgXIBsIo2JUShtdjsCoTOJgfn07yyzA/MV88vHirLaptAMiI2UPid
-         Gb3LCl410kXIoR2rG9AVNbEOMTcJLnSThRoWx5SS8kSoHYoJnnaMq86FfaosCUteJHtg
-         o/nA==
+        bh=2hAdu/wq4uFfl4jnUk8biIe/WaWjGvHH93yTmeJzp7Q=;
+        b=MnLDTKkdDUlN9ZPOrG3j1WpcuBrIaXmtZmzAtarxmR2xZfuGhQDNd44K/qqlakofZ/
+         aszq5o4PtLJta17OJB3XkIvHbzcD5/EaOaOyalYpe5PaL1NPuQQE3j+gCPyFZ+v3C1N4
+         ax46C5KsW8jdHRhC6O3DghqHwhX6XpqOTx0kZr/doyNYfosEzEWYtLpPP5AACJbJnNjH
+         xKZbvKramSF3Wrp7Z9WwoV1NsHC8CC7cNO7/wIBQe7FD1W6xXvOg5PKLBbwDS3JyuiU7
+         gwG1cJN78yErXqNWFbxLywrNUcIUNVaRSksuvQFQuJZJaC0YdpZ0K5BpQ2SLrjmHKRtq
+         MYxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752673685; x=1753278485;
+        d=1e100.net; s=20230601; t=1752674210; x=1753279010;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wiC18QX+BPP+7v1u2bwaxEeuoSiLuXdMHqwx5GPEAig=;
-        b=wTpL+7yxjhGJzlwtwfXOIoZ2q+0qAZgE9uRxOaIhRQYkpkFZafXUC3kS/kkt7ThkgA
-         Rjk1oSOyQG3xPa9A9bVF70nzOAVjzf9QD+oHXK2TMx+R96GbMD6q4XYfuws6onFvrOUh
-         KVmPNXp8+DY5giRgHqK/KZvjz1y9ftUQRR6+nz9aIKfXgy6pnNPmXuo2n+rfQFu/OGkV
-         FAPQpcfoD1QCZd+0pbh9NjTLr//jMq32/Oe1PYMfHxrw35j4UeDBoyEsDYGPeg10jQN8
-         FljFgNnQ0WxQtLbNlVcBYMM+SnJqPPIFFMyMOPR/aLwnzg2JAtuJ0rvHY1wPVqg72v73
-         o8zA==
-X-Forwarded-Encrypted: i=1; AJvYcCVKT+v12m+9w+QHRpmGsmLupCefGpS63xmPaTgR4/jULhQ89au2NT0yx+KU31j95HkR4HjeEhVEZWY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzKq42np+ERvEQeZ2jb77I+4FceHOD3XKLv+H2XkDH0zOZCnTLz
-	HoJhibBSRMs+7ZfMMUNAJCg04UaB3dOaqjDkFdczc5cQD/U+s//a9FsXO8dyLEXbRg==
-X-Gm-Gg: ASbGnct2fCSjMSJTFMP1iuPWBJgmwN7tgXxuxA610N/RlXCLst9PCw+VtaxE6bT7l/x
-	f1uysY1lDu8+2VLhme1m/vYN33I98om7MsmRH6EUgw5JHTgLdzaVGM4OgBjY6MsXfg9ARxD4njb
-	ttfKcAFVB1EeOxwIB+mbKH9OEppE2Z0HYfhU3qfsfm+VHqBsFMee29UUaBA3bGQFGy5B/BmhD5Y
-	jvUkPjmkOX2A5zcMHu6ebMgW5mIKjj7ZPWLooBwtEzm7VWjOBEzE3XuBZ/iqFt0/iwJl4F7sCaN
-	HaJV/zmsE5U+VqsKZZkk8yuiFk+IgK9/8LlKf4QjCC+ggKnbTQipzZKAl5SVdJAkTeowTQWKnLx
-	CsXciLrZAyDL1HncGmhmPc+lzgNO/+N7INnG6Ghg5VvKBvLIqhJPHNgQq6Y/bLlYqAIoC5PuX72
-	iN89BV4jE=
-X-Google-Smtp-Source: AGHT+IFFtm7N/cjKo75sy2LZpGWHK/S/sZb+V31xGtd6uAHmqKa1Mv1NUntacuNtZyQ0bEVn+6TNvg==
-X-Received: by 2002:a05:6000:2909:b0:3a4:e238:6496 with SMTP id ffacd0b85a97d-3b60953af17mr6142604f8f.18.1752673685088;
-        Wed, 16 Jul 2025 06:48:05 -0700 (PDT)
-Message-ID: <9feece5c-4ca7-42b5-b41f-6d9843e07c21@suse.com>
-Date: Wed, 16 Jul 2025 15:47:57 +0200
+        bh=2hAdu/wq4uFfl4jnUk8biIe/WaWjGvHH93yTmeJzp7Q=;
+        b=sC1lCTdH8QtettQ4OSSD6g4CtP+OKmTwByyXT1FgpftHLXV0tcMGzpUbYUd1tEds6z
+         kVUxrSvAsYTbCimvOGNf++GievyX4p5GN0P/EZO2JGtaJua4YvP+Kt6Nl31gsks5ERHH
+         1XmB3cfkTO3ISJPfxb6DtuZuZSKYvId1i/qFL5WltXYh2Uz6bWWnbtikn3nEJB6fULDP
+         MhDk4blsltL+E4abImghpT9Ra9nEUanPYHv5jkVHbFHfzFO/KPE9lcKDtlX6ovc90bPh
+         ezLdG1WA/IMzjwBMR+Sn9F5nEBM3kNqvKTySS73qYJX36KV7gNHs2IqXU/eRTtYXwteH
+         YEUw==
+X-Forwarded-Encrypted: i=1; AJvYcCWzOZ4IWxskEzK3it5GOKzOAsuiyn/8TWb+rNGsMuSwmxqi4Lvx5hotYbt8E977YESZHDeruOpzHI0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyqeebA/PhG/TDiq0vP6Ii06WcEPXptTm6kynDUGLRmih9F/AtZ
+	up28+WltRdWGvxUqe00Ir0U8DxObd0P863Tv3AIxyGPH/Atq6wI4o2nrhPXu3uOBzg==
+X-Gm-Gg: ASbGncsSZN63ZA6m8gBpk9ctUgDoRNzI710jA5I18+cGBitwBK3AQuaQcPAVNMOxr8X
+	1WIRtOOmukMoKO50DIh438STmDvQOLrrXIEfdsKzBAsdi5rHonXL9rXsdf2ZhMPA4rML6vKipRC
+	6D9ZhzMaHvP7n7e5/vcgAUoqiPj/+yIZyfxEDsip5DtqqlxRiuq7/xeS/PlWrPrGHbkEoR6m25i
+	eRiHHMUN1AJuc/it3wHT6hDe69OwkTfylUBS5e5ttU6yiK3COpNHMF2LN5d/UIQcBgqQF4V5N10
+	JsJGkyKQ+Pd5CN9CrHMCyNJSy5z1dmOosHVbAsve5tuh5nTA6Yxg5rGfPxpavV+Xkeo5XrXvi9n
+	K5ZPznD34ntOxt+I7skpyIWkSH/sS8iG8fNvVKhLqHJ9iMEH8kSgABFJHEsMHRyQ9p3KQHsX14p
+	MxnCzYdG8+i3gTC0ezHg==
+X-Google-Smtp-Source: AGHT+IFGVfMMXvMVzlK+nHnZ23mCwbqKYthevGvxkP7bY+IXSjoF5uwNOsCVxUXqUh8AWDVHLUmeoA==
+X-Received: by 2002:a05:6000:2dc2:b0:3a4:d6ed:8e00 with SMTP id ffacd0b85a97d-3b60e51ca38mr2462773f8f.33.1752674209932;
+        Wed, 16 Jul 2025 06:56:49 -0700 (PDT)
+Message-ID: <f8808232-dc06-4ecc-85bb-e05d8f948d00@suse.com>
+Date: Wed, 16 Jul 2025 15:56:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] x86: Rearrange struct cpuinfo_x86 to introduce a vfm
- field
+Subject: Re: [PATCH 2/3] x86/intel-family: Resync with Linux
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250716132843.2086965-1-andrew.cooper3@citrix.com>
- <20250716132843.2086965-2-andrew.cooper3@citrix.com>
+ <20250716132843.2086965-3-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,79 +119,71 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250716132843.2086965-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20250716132843.2086965-3-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 16.07.2025 15:28, Andrew Cooper wrote:
-> Intel have run out of model space in Family 6 and will start using Family 19
-> starting with Diamond Rapids.  Xen, like Linux, has model checking logic which
-> will malfunction owing to bad assumptions about the family field.
+> This snapshot is prior to Linux commit db4001f9cc32 ("x86/cpu/vfm: Delete all
+> the *_FAM6_ CPU #defines") at the end of their conversion phase.
 > 
-> Reorder the family, vendor and model fields so they can be accessed together
-> as a single vfm field.
+> In addition to non-FAM6 infixed names, defines are added for the Pentium Pro,
+> ArrowLake U, and reintroduced the PHI defines which were incorrectly deleted
+> in the past.
 > 
-> As we're cleaning up the logic, take the opportunity to introduce better
-> names, dropping the x86 prefix.
+> In cpufeature.h, provide VFM_* macros to transform constants to/from the
+> cpuinfo_x86 representation.
 > 
 > No functional change.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> I meant to object to deleting PHI at the time, but was too late.  Just because
+> Xen has stopped supporting the PHI doesn't mean the model numbers have ceased
+> existing.
 
-In principle
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+I don't mind their re-introduction, yet I wonder what value their presence has
+when we don't use them anywhere. In the public cpufeatureset.h they serve a
+documentation purpose, to have less holes there. This could be view the same
+here, yes, but it still seems (yet) less relevant.
 
-Two remarks, though:
+> --- a/xen/arch/x86/include/asm/intel-family.h
+> +++ b/xen/arch/x86/include/asm/intel-family.h
+> @@ -13,8 +13,8 @@
+>   *	INTEL_FAM6{OPTFAMILY}_{MICROARCH}{OPTDIFF}
+>   * where:
+>   * OPTFAMILY	Describes the family of CPUs that this belongs to. Default
+> - *		is assumed to be "_CORE" (and should be omitted). The other
+> - *		value currently in use is _ATOM.
+> + *		is assumed to be "_CORE" (and should be omitted). Other values
+> + *		currently in use are _ATOM and _XEON_PHI
 
-> --- a/xen/arch/x86/include/asm/cpufeature.h
-> +++ b/xen/arch/x86/include/asm/cpufeature.h
-> @@ -20,10 +20,30 @@
->  #ifndef __ASSEMBLY__
+Nit: You lost the full stop.
+
+> @@ -40,131 +40,223 @@
+>   * their own names :-(
+>   */
 >  
->  struct cpuinfo_x86 {
-> -    unsigned char x86;                 /* CPU family */
-> -    unsigned char x86_vendor;          /* CPU vendor */
-> -    unsigned char x86_model;
-> -    unsigned char x86_mask;
-> +    /* TODO: Phase out the x86 prefixed names. */
-> +    union {
-> +        struct {
-> +            union {
-> +                uint8_t x86_model;
-> +                uint8_t model;
-> +            };
-> +            union {
-> +                uint8_t x86;
-> +                uint8_t family;
-> +            };
-> +            union {
-> +                uint8_t x86_vendor;
-> +                uint8_t vendor;
-> +            };
-> +            uint8_t _rsvd;
-
-Can we perhaps name this e.g. _zero, so it's clear that it cannot be
-repurposed?
-
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -178,7 +178,9 @@ void *stack_start = cpu0_stack + STACK_SIZE - sizeof(struct cpu_info);
->  /* Used by the boot asm and EFI to stash the multiboot_info paddr. */
->  unsigned int __initdata multiboot_ptr;
+> +#define IFM(_fam, _model)	VFM_MAKE(X86_VENDOR_INTEL, _fam, _model)
+> +
+>  /* Wildcard match for FAM6 so X86_MATCH_INTEL_FAM6_MODEL(ANY) works */
+>  #define INTEL_FAM6_ANY			X86_MODEL_ANY
+> +/* Wildcard match for FAM6 so X86_MATCH_VFM(ANY) works */
+> +#define INTEL_ANY			IFM(X86_FAMILY_ANY, X86_MODEL_ANY)
+> +
+> +#define INTEL_PENTIUM_PRO		IFM(6, 0x01)
 >  
-> -struct cpuinfo_x86 __read_mostly boot_cpu_data = { 0, 0, 0, 0, -1 };
-> +struct cpuinfo_x86 __read_mostly boot_cpu_data = {
-> +    .cpuid_level = -1,
-> +};
+>  #define INTEL_FAM6_CORE_YONAH		0x0E
+> +#define INTEL_CORE_YONAH		IFM(6, 0x0E)
 
-So you retain the bogus setting of this field. Would you mind taking a
-look at [1], one of the many things that I never heard back on? I'm
-deliberately purging that non-sense there as a (side-)effect. Plus
-really I'm getting tired of having to re-base my long-pending changes
-over ones you are helped getting in pretty quickly. No matter that this
-one's going to be one of the easy ones (I hope).
+Here and below I assume it is deliberate that you use a raw number again,
+rather than making use of the immediately preceding #define? Perhaps for
+the sake of brevity?
+
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
-
-[1] https://lists.xen.org/archives/html/xen-devel/2024-02/msg00726.html
 
