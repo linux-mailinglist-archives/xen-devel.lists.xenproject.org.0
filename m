@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3D7DB0787B
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 16:47:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1045308.1415395 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03791B078F0
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 17:01:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1045314.1415404 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc3Pc-0007zF-Ae; Wed, 16 Jul 2025 14:47:12 +0000
+	id 1uc3dE-0002PC-C7; Wed, 16 Jul 2025 15:01:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1045308.1415395; Wed, 16 Jul 2025 14:47:12 +0000
+Received: by outflank-mailman (output) from mailman id 1045314.1415404; Wed, 16 Jul 2025 15:01:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc3Pc-0007wA-7p; Wed, 16 Jul 2025 14:47:12 +0000
-Received: by outflank-mailman (input) for mailman id 1045308;
- Wed, 16 Jul 2025 14:47:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uc3dE-0002N2-9R; Wed, 16 Jul 2025 15:01:16 +0000
+Received: by outflank-mailman (input) for mailman id 1045314;
+ Wed, 16 Jul 2025 15:01:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L52i=Z5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uc3Pa-0007w4-Ky
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 14:47:10 +0000
+ id 1uc3dD-0002Mv-BO
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 15:01:15 +0000
 Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
  [2a00:1450:4864:20::433])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c02db91d-6253-11f0-a319-13f23c93f187;
- Wed, 16 Jul 2025 16:47:09 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b15d75a4-6255-11f0-b894-0df219b8e170;
+ Wed, 16 Jul 2025 17:01:03 +0200 (CEST)
 Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3a531fcaa05so3761922f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 07:47:09 -0700 (PDT)
+ ffacd0b85a97d-3a6d1369d4eso3866249f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 08:01:03 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23de4323daesm126481325ad.139.2025.07.16.07.47.04
+ d9443c01a7336-23de42abf9fsm132458745ad.59.2025.07.16.08.00.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jul 2025 07:47:08 -0700 (PDT)
+ Wed, 16 Jul 2025 08:00:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c02db91d-6253-11f0-a319-13f23c93f187
+X-Inumbo-ID: b15d75a4-6255-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752677229; x=1753282029; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752678063; x=1753282863; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YeqH7GeVFUndsb+NLUaXQWyIOxd8tZQNZZju/PCbdCU=;
-        b=M9hf3XtWRa6Sf9JhlYyptf1t8BAyyK5hfvDcXy+SxQrzl9SXB8m8ScQdKTGvb0ou8L
-         0JrYFXsAZRQTh8QHgupN7rIZvqlW5GGf1DY5SHEwrbDF2Txjau4gFqpBHOcve0nH8/xm
-         I3Fqo0nVQTfDSleI7V2Zf1F5bH6JQUOGIAy1lO0l4wNNq7+WHcr3x5IYNBbo0jy8u2br
-         9k31M0qn2+y92nurSrRcSLGOg0im0uSAFWSia426OBKgg0fJc2PXc6znL+UGy45aG0Qb
-         PgO1HwPYMqhVCwEQRDs0ScT0SZ+E2FCKzApXglGhm36+U16T7mLGE3GRNRR1DVS0oMyR
-         hK+A==
+        bh=yVAJgdxVm3wD3Alhp+hd748LiF/Y5PhfWLChjg0z27w=;
+        b=IlOTVDRv4pwOZKCtioRehofEU/aviznWp/sTXqv6Y+71C1tX8HqXz4arUsPNnGNZj7
+         p1Acqnwmml77GI3mxaYy8qnnM2qYh3FWVHwxMsqDqFOQcLa0P5pz0YyxHoVckSR8mZyT
+         McSZVdgerLyibg9lEYtoaanbtviYTXxuUHcKJ7Rtn86L+87tnI+BbqMSJ4SpuiFj0H3f
+         g9c9oiXcd90P1c8HxpRhH/8PV7RZNRotS8Q1NWHs9cYqjmrIyVSUBBRK0kPMw7LTm1RN
+         Z589++PGyWypI/ZFgjxhYIZO8GDIs00cOHL6ueLJesUe6XNLxf56u5JyPW1l2isx72FB
+         yS+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752677229; x=1753282029;
+        d=1e100.net; s=20230601; t=1752678063; x=1753282863;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YeqH7GeVFUndsb+NLUaXQWyIOxd8tZQNZZju/PCbdCU=;
-        b=SGPsoO/EGpuxXxt8hcvxHk05hrYZKAE+jtQuB4rQG0AKC2jujUFv3RNANcIW4wPIKS
-         3JVTILqhqYUvPEb1Yas3qXA1ww6/dCQ7I/HueA31OE/npUFDFOZrL6EB2V4eiACSbTMK
-         OXTwKMb7LMz6izP19cSdZ2w+ccODIeLoYdKLzEzxmNjv+JoSXHu907UKeSPTh8FY+S7+
-         lGzmlQKgj5CMSbZ0sekF5jRrVb+L5JJZBp+RnZztGpAChEbIUSq7pGbosx2+5Hqc9Rn9
-         heRga5LcL8JOiC5xXJLLvJSo7YgYaFJeQ+4DDhnYLNGnwkPgs4lTM3oQ8EgAKd6QgPA+
-         547A==
-X-Forwarded-Encrypted: i=1; AJvYcCUmYzfAqZWUWEUBN8/hxtPpRNx3eMFdrYi8skrvaM+8KSgfcdIVApuDI/LMuzNX6LRwPAsoWyXQkGw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxUDYiK7F4Oy92KmUJMWbIT5pOlZ5qFiNSL7K/cQLY7gMUn8t7U
-	97KDqlbdwzLvYUM6PsfZxA5cO75S80Lya63YkopuPYzewXQZTxr/1Q736zQ4ogQqlA==
-X-Gm-Gg: ASbGncuxARBZkDlzU14UaAvGojIqj/xuY9/2aG8Rce93Ullaejd49lmmc0VmhQmAofv
-	9Pgpx1BEufhdk5UuZrSZrSXRySnOI5ZzsY4GMjNiqmJXy7TBE9MlXSYyT7REXPYppN64I1Ghy2p
-	fU84VWi4i+KXCa0bfDhnDqHX3vF39UlZPSafVOqbkKs2/x3Gm0cimyrlzFKkVda/w3horrhDa7g
-	/lwl8VU64PRgIw3EXrJ69JGrIMkTBueEIRFwaK1EyOY3+Cn4lruTVyLNf6tc19zkbB+geP16RB+
-	9Ec49JPMJ3OIRkOPLVXu8Z+Pe39ZrxJAJrv2tXw+oOzKiKFOLyCNgH1uK4xhMjOx9K7Mjq/IWI3
-	rYtx+Ma1jyq44SBOHBdpLWLot6O9bzMjNrOLsGbIDihas53PA4i8qXz9h11+EfZ0lKPdr8o6lu7
-	zWD3KKGQKn5v5kqihYbw==
-X-Google-Smtp-Source: AGHT+IEGbeOygEvTNPD8cdLizy/enML2xIBUzZwp7yVkQ3wo2iJWEGzoZ7IQnM1yC8uI3NOlXdptmA==
-X-Received: by 2002:a05:6000:230e:b0:3b3:9cb4:43f9 with SMTP id ffacd0b85a97d-3b60e4d0135mr2539587f8f.16.1752677228891;
-        Wed, 16 Jul 2025 07:47:08 -0700 (PDT)
-Message-ID: <f6c00d62-e68b-4022-9573-089683aca260@suse.com>
-Date: Wed, 16 Jul 2025 16:47:00 +0200
+        bh=yVAJgdxVm3wD3Alhp+hd748LiF/Y5PhfWLChjg0z27w=;
+        b=SECjOv57lvXFvBpm+k5kyC0qFOwxcskZN+SsRpvQhP6wZozkgNRKaK/RpmcOUvTtLN
+         mXnabMdFhdCT7FDxmH4z3segKWCqMGuIAOrvxYsM5xqpHpazgXg5JECK0Wu3PrXbiWU6
+         xzU0wjRvgoVWfaDEXhHqpmLetDWECeWn30WMAk8+yI++EyBb57VFXEF9EHvRgDhzPtCS
+         B860crW8hwHCLWBLFVVa5rC33S0kwNOUIrra3u7rr99zpf97kEGoCeVSz7EJZ7i+jqlx
+         r41yCmwOIYLbjtuR4OGr5AQA5KwAhzSyT2SOLEElDn5pKEZ2GkrG61P/MpTb1UhE5Wk8
+         vHMA==
+X-Forwarded-Encrypted: i=1; AJvYcCXEC+sMleMonJG5+YLwGj445Dj17RxzPECeTBugcQYWhdGmc1V9VBmIYipYF8WNH3PvhvANmBmmaRQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzvt8e87b2RQe9Uqho+0JQee227RJwZrZtCmwCt2NLMv6j1aJP7
+	LGHAb8TxJ76klhhrAJ28nbL7dP8CJBntL1MyMTOCuWlNgMrKJwMn4RgHFh/86V7Ko/2y9rlRe1K
+	BaoE=
+X-Gm-Gg: ASbGnctA6Fdh654oUkps36kkxyV+OI2Zp05k7/J+c9qrSUf/DA+FmvBX4T2JMRbv/8B
+	4SK90vfBdbjY9sJRymDmBMZtrD2T0ETE0xFVeiHXo2B5N6DKIOLuw5C/WprlxApk0WesRVKiPzh
+	bltze+j85o6SHZG1hGVuEs0TKGMGkoikWPy19qdUcAevEf50tKlRa944yuUHry6swxzhEZaIUkW
+	mUf0jyIuthuEcQAuCKrhlFmLtqDwIK0hA74xH5VeB0QPMMKqBf9T0EkKThO6Fmg2mzvV1vX0MYC
+	uy8BRnhSc1JDI80/w55LMTs529JBbN7eFtxxkJlKWdgzWn1Ukvw3dNGC7es0zl66rAe/8c7lkJ+
+	ka5k2VFzGzVONyU5qXVwC06WbG4U/DB2bp4syTVBCrN05xM7l4OHiw7ztk2FeYFue+Rm8hDL3XP
+	s17EeBJZE=
+X-Google-Smtp-Source: AGHT+IFh2N0IgQYiZ0nyWRB1mUzqZuZ1Fu9mSJ5ubcSjKRkqnKZrzyRgeIaiw2IMA7ty8KUUTyL7vg==
+X-Received: by 2002:a05:6000:2002:b0:3a3:7ba5:9618 with SMTP id ffacd0b85a97d-3b60dd95c7dmr2690456f8f.29.1752678062644;
+        Wed, 16 Jul 2025 08:01:02 -0700 (PDT)
+Message-ID: <e9bc1036-2ab4-4e9a-9d43-8e11d4f67776@suse.com>
+Date: Wed, 16 Jul 2025 17:00:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 04/19] x86/cpufreq: continue looping other than -EBUSY
- or successful return
+Subject: Re: [PATCH v6 05/19] xen/cpufreq: refactor cmdline "cpufreq=xxx"
 To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+Cc: ray.huang@amd.com, xen-devel@lists.xenproject.org
 References: <20250711035106.2540522-1-Penny.Zheng@amd.com>
- <20250711035106.2540522-5-Penny.Zheng@amd.com>
+ <20250711035106.2540522-6-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,25 +119,62 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250711035106.2540522-5-Penny.Zheng@amd.com>
+In-Reply-To: <20250711035106.2540522-6-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 11.07.2025 05:50, Penny Zheng wrote:
-> Right now, only when we failed cpufreq driver registration with -ENODEV, we get
-> the chance to try the fallback option.
-> There are two code path erroring out other than -ENODEV in cpufreq driver
-> registration: one is when the driver itself is broken, like missing mandatory
-> hooks, cpufreq_register_driver() will fail with -EINVAL, in which we shall
-> be able to try the fallback option, and the other is -EBUSY due to repeated
-> registration, in which we shall just exit the loop.
-> 
-> So in conclusion, when error code is -EBUSY or successful return, both
-> indicating a proper driver is already registered, we shall bail the loop,
-> other than that, we shall continue to try the fallback option.
-> 
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> --- a/xen/drivers/cpufreq/cpufreq.c
+> +++ b/xen/drivers/cpufreq/cpufreq.c
+> @@ -64,12 +64,53 @@ LIST_HEAD_READ_MOSTLY(cpufreq_governor_list);
+>  /* set xen as default cpufreq */
+>  enum cpufreq_controller cpufreq_controller = FREQCTL_xen;
+>  
+> -enum cpufreq_xen_opt __initdata cpufreq_xen_opts[2] = { CPUFREQ_xen,
+> -                                                        CPUFREQ_none };
+> +enum cpufreq_xen_opt __initdata cpufreq_xen_opts[NR_CPUFREQ_OPTS] = {
+> +    CPUFREQ_xen,
+> +    CPUFREQ_none
+> +};
+>  unsigned int __initdata cpufreq_xen_cnt = 1;
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-(and perhaps also a Reported-by: or Suggested-by: ...)
+Given this, isn't the array index 1 initializer quite pointless above? Or
+else, if you really mean to explicitly fill all slots with CPUFREQ_none
+(despite that deliberately having numeric value 0), why not
+"[1 ... NR_CPUFREQ_OPTS - 1] = CPUFREQ_none" (or using ARRAY_SIZE(), as
+per below)?
+
+>  static int __init cpufreq_cmdline_parse(const char *s, const char *e);
+>  
+> +static bool __init cpufreq_opts_contain(enum cpufreq_xen_opt option)
+> +{
+> +    unsigned int count = cpufreq_xen_cnt;
+> +
+> +    while ( count-- )
+> +    {
+> +        if ( cpufreq_xen_opts[count] == option )
+> +            return true;
+> +    }
+> +
+> +    return false;
+> +}
+> +
+> +static int __init handle_cpufreq_cmdline(enum cpufreq_xen_opt option)
+> +{
+> +    int ret = 0;
+> +
+> +    if ( cpufreq_opts_contain(option) )
+> +        return 0;
+> +
+> +    cpufreq_controller = FREQCTL_xen;
+> +    ASSERT(cpufreq_xen_cnt < NR_CPUFREQ_OPTS);
+
+This would better use ARRAY_SIZE(), at which point NR_CPUFREQ_OPTS can go
+away again. What's worse, though, is that on release builds ...
+
+> +    cpufreq_xen_opts[cpufreq_xen_cnt++] = option;
+
+... you then still overrun this array if something's wrong in this regard.
+
+Jan
 
