@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35E79B07B07
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 18:21:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1045483.1415604 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06EAFB07B33
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 18:31:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1045499.1415615 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc4sP-000824-J3; Wed, 16 Jul 2025 16:21:01 +0000
+	id 1uc52M-0001kU-S2; Wed, 16 Jul 2025 16:31:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1045483.1415604; Wed, 16 Jul 2025 16:21:01 +0000
+Received: by outflank-mailman (output) from mailman id 1045499.1415615; Wed, 16 Jul 2025 16:31:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc4sP-0007zd-G7; Wed, 16 Jul 2025 16:21:01 +0000
-Received: by outflank-mailman (input) for mailman id 1045483;
- Wed, 16 Jul 2025 16:21:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uc52M-0001h4-PK; Wed, 16 Jul 2025 16:31:18 +0000
+Received: by outflank-mailman (input) for mailman id 1045499;
+ Wed, 16 Jul 2025 16:31:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L52i=Z5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uc4sO-0007zX-JW
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 16:21:00 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id db60d052-6260-11f0-b894-0df219b8e170;
- Wed, 16 Jul 2025 18:20:58 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3a50956e5d3so23736f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 09:20:58 -0700 (PDT)
+ id 1uc52L-0001fl-0U
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 16:31:17 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4b4f4b0e-6262-11f0-a319-13f23c93f187;
+ Wed, 16 Jul 2025 18:31:16 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3a50956e5d3so31878f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 09:31:16 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23de4285ecbsm130172995ad.48.2025.07.16.09.20.51
+ d9443c01a7336-23de42aef84sm132671935ad.71.2025.07.16.09.31.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jul 2025 09:20:57 -0700 (PDT)
+ Wed, 16 Jul 2025 09:31:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,69 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db60d052-6260-11f0-b894-0df219b8e170
+X-Inumbo-ID: 4b4f4b0e-6262-11f0-a319-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752682858; x=1753287658; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752683475; x=1753288275; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=IwVjAT0moOk87hPanS258jzGvrWDt8uZdQcRTx/MZQE=;
-        b=bXjFsiD5RNcwX9NR/JQxH8Paqpeog6QBd91UmZDvKgAtDWG2MjGMupyBF8QPnZ3lwg
-         JBP5668NCqTWE3f3U5KG/tSBOe7GQAvYPapMH8YFvXiPCn9aH+SbwzdYxeA/By3Czaaq
-         Lr+qRZ4UjwERcJTo5uZxx1JMM5BMhvmyAFkOtvqWiZUBqJNDkDJ81qNbHRKMvmZkabVX
-         3PfKi2nzdTHareIFvMKPrZXhJjgTLuonvuiECOQ92KwAKi5OHmWXWNiYbEJdquItSHVN
-         ab65NLKQlsOTCRogj7E6m52q3oekOtGVAtERnKY23OzwWKrcIOfqwaZazaf1U7x/yFNE
-         iWjA==
+        bh=dcEuRD8WIRPZp7REvSMahrWK8EZHyEQDAtE3THa+Hww=;
+        b=BMWE22Ah4g7QySq5o7q9DfoC68bCsdrmRa3UyFA4OzQwdBAVJabYCT8O1pVf/dmhk3
+         1vWwfJxR1ce56UuarVIwGO9vuk0/SdbWK397lDsygzHLLOws56T9ItByVLmXHZDOIDbY
+         H90crVE8WC6628Pl2m58nCftCfLb3vjNLYvSLZdCZSB7vkUyeWURM5VMOu6VT2nwxuUr
+         /o98AWVpEm/qNGIiWllkLZsP1hrqpOCPfQepjGT6uySlOAZ27SKi+mAQkII4uqexrB3r
+         BNonIfm7CAOZdR7T/EVNlNdVpcOcdXOuTz7EeN2jfOb11vMxbjvi3b+DDN7YWi6SYpur
+         KQMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752682858; x=1753287658;
+        d=1e100.net; s=20230601; t=1752683475; x=1753288275;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IwVjAT0moOk87hPanS258jzGvrWDt8uZdQcRTx/MZQE=;
-        b=f7CFeTlL0igsRchCv8COKaLlTKz7Cesd02nryNw31OJaKWxs7nLwvwGYGa3u721luQ
-         t2uPWq9SWrHtuGS8kVhU1eVeTBAhzVLFOWZ+mXtspzN/nV2UwRvLTOKFlizy1vIKs/5B
-         fw7GLqRpTOIQ50GDVjWPMgq2FzRLOtVArJRBcWMTBetIUA6INPNppHcGUvWeN4lqSVl6
-         5GyyF2dyQCCXVAbcoZVggw3178r9+ZglcIT7BFOPVL/asNbYErUYWzBCrgDBlTkniatZ
-         i1+wzmgsijpc8sqpoQiqynbQhIo3i068nDa9D44XRYj+piH82yLrWoWMtdo8ao7iYmF+
-         Wxrw==
-X-Gm-Message-State: AOJu0YwV43yfN3HDSVjW3GPtWgncI2NHfwSgPSyEgyk0QpHC/HJtZhQx
-	M8/gtHboGyEvCRFeo4o2Wmv7SWDf7h/SuVCWw8+UaDVEJ0TJqDE+WacZ3wvLQzGpLg==
-X-Gm-Gg: ASbGncvaSWVSJHm6CHi7u3XB47D02fHCek3RReD6Fzvcx7Sfps9/MAr+OnIEouWMJvp
-	GUqfm+Uf6hIRxuQ5xnAx7LGWfFHo3MExnvUvtzoQWjW0aAUJBOInxPm25zcCZgtp41Pvb4QHe6V
-	WoHEz9/l8hNAYDEmYPJ4w5bAlKbTsSNL2S70+MOOQJ+/eODX9+Bj1ktMlLAvGYsxpvdqIl5QE59
-	2zN8bfwnYrrDcBPUPuW6UOuJ1TQIZkndGc1FTFZAHDh4LjjR4CGohYMO+TbbQq7Bv6H3upPQ59N
-	OWklS40PwzMZK9es7aWOLEDM2QoNX62IkG5fSXCK1mmaRPsBSo8sxYAW1wJEjbMpZPu4MlyvP2r
-	QHCKL/mR67oZiWODF2OV2g0LfoiFyLDIhRygca8qgNXmNk05TnX27lJ1Ia3QJREaZ0ne3D5QgNk
-	ZpegRkORI=
-X-Google-Smtp-Source: AGHT+IHZ7U+OJgPKvCNuQiXiilSDsl2b4HWizdy3wtX24PXKyjFzy1nSrQEImYpXoSI6zFxfMkXw2w==
-X-Received: by 2002:a05:6000:2b03:b0:3a4:d722:5278 with SMTP id ffacd0b85a97d-3b60dd7b038mr2062869f8f.39.1752682858054;
-        Wed, 16 Jul 2025 09:20:58 -0700 (PDT)
-Message-ID: <b75a26bc-90e2-4bec-a862-ab0cc564277c@suse.com>
-Date: Wed, 16 Jul 2025 18:20:46 +0200
+        bh=dcEuRD8WIRPZp7REvSMahrWK8EZHyEQDAtE3THa+Hww=;
+        b=XaDAckX/PGJNvZdlYvzJz8ochNNz/Zc121fU3YtP8UqRmPwCkuScQVMvvhVLrUuPOw
+         EzUNJ538qISER7I4OgNoTioWFckrM/LMu00jTg0t6swxbZd7pDY4p0pZ4KJAsSDOm/oB
+         CLorPtrjlcpWkr8xnCKVG/RltjLOtj49/4kMsaeTWYJgp0pln7vhaovtpKx7jzVr3UQ/
+         HORa7Z4/AGwg7p4up4qQo9uKgkjRd/Pl/cvy1T3dzMHfAY3/xvlM8zg+D4B6xxHZ1lWV
+         cBkKCAwZmWswCRyQNMyHtgi5dy5tmNd7gsvOA83sinztUnJ3vd4I6lPmCw755269QWRu
+         /nug==
+X-Forwarded-Encrypted: i=1; AJvYcCXPk/VxDcZgf9fbEajI/eEez/jEqWhZQsp2C7hdb3LVPITAGo6oXpgyoGi9pm3tT4hqXyB+JEu86ek=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyUOK93MNDcFk4mu/O29SJuVeZ7KsFtUASAQH2464sTzSKlhtrD
+	3D5+BSwIT7Fekwq0Zfo+Stg/LuMLh2boUwPbi4rYUVY3yy0zEVtSQYXBsNAO/sP5eQ==
+X-Gm-Gg: ASbGncsTKppIARoLOHEwG6U1TjYql/EmB+sDliY9ff7OYg6kp32SUXRp9HtgyshCAHs
+	r6/u/NWgxlVBmXoK2OKXwGXVb8MWMvTdL9EOK0c2ypSikK8zMKeu0SvXiY3fvdPmQ0QePGi85bu
+	bwm9czK+AMG6FC10+KDt4LL47W+kEddJSqbz0H+X54UWjENM9WSHl6rrj1RVjiJBSKMKZ0nWbzh
+	opoz3mUARVwyO/FNf42XzuKRwKtg0A65oWq+XJr2Ymsz0X07Dlwp23SAy6+BI9+i2sGET88vGpH
+	wbzHO3jtkA8ddx+A3x8l+jMFudneTMku2Zfc1Ht97/P/SXe1SdGUoORPYf62gFWHCF3/5JgCEZ8
+	uWFe7UrL4u6bYIfPpNq+pPJzYsDSK5h3u4eotL8iCJyqGpVamM27EK8KiHcpqre5Qdy2wArv5gI
+	ldPlFeVww=
+X-Google-Smtp-Source: AGHT+IFd5TQjKBytrnhM8J5fLNGXSXDg3aMHQAPNYpHPH8alAIHlA3ZOa4PHigcNogwe4vZsSZoeRw==
+X-Received: by 2002:a05:6000:658:b0:3a4:eeb5:58c0 with SMTP id ffacd0b85a97d-3b60dd4f752mr3831575f8f.20.1752683475337;
+        Wed, 16 Jul 2025 09:31:15 -0700 (PDT)
+Message-ID: <4bffb6b1-ebe7-444f-905d-092e69a2d8ef@suse.com>
+Date: Wed, 16 Jul 2025 18:31:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 3/3] eclair: add deviations of MISRA C Rule 5.5
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Stefano Stabellini <stefano.stabellini@amd.com>
-References: <cover.1752096263.git.dmytro_prokopchuk1@epam.com>
- <e47d08e4465f913f03348830954e800f420c652d.1752096263.git.dmytro_prokopchuk1@epam.com>
- <b5759332d598ec9b3d7df520735d9dbe@bugseng.com>
- <alpine.DEB.2.22.394.2507111712120.605088@ubuntu-linux-20-04-desktop>
- <bd89ecfe-83b3-471b-8455-83b9974bdaf2@suse.com>
- <d8e714ad-e1a9-4d9d-9a2b-8eb796f21e04@epam.com>
- <a8fe1fc0-8dba-4a58-ba1f-0851dcc21e9d@suse.com>
- <ef86b7e7-1d3b-46fe-9d75-f55077c9f32a@epam.com>
- <e47fafa1-e02c-432b-84bc-44c48af66859@suse.com>
- <312509c2-fb06-4fef-b632-c4719264efb8@epam.com>
+Subject: Re: [PATCH] xen/livepatch: fixup relocations to replaced symbols
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20250716160007.92461-1-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -133,47 +122,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <312509c2-fb06-4fef-b632-c4719264efb8@epam.com>
+In-Reply-To: <20250716160007.92461-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.07.2025 18:04, Dmytro Prokopchuk1 wrote:
+On 16.07.2025 18:00, Roger Pau Monne wrote:
+> In a livepatch payload relocations will refer to included functions.  If
+> that function happens to be a replacement for an existing Xen function, the
+> relocations on the livepatch payload will use the newly introduced symbol,
+> rather than the old one.  This is usually fine, but if the result of the
+> relocation is stored for later use (for example in the domain struct),
+> usages of this address will lead to a page-fault once the livepatch is
+> reverted.
 > 
-> 
-> On 7/15/25 13:50, Jan Beulich wrote:
->> On 15.07.2025 12:07, Dmytro Prokopchuk1 wrote:
->>> ARM only are:
->>> -config=MC3A2.R5.5,reports+={deliberate,
->>> "any_area(all_loc(file(^xen/include/xen/bitops\\.h$)))"}
->>
->> This one's probably fine.
->>
->>> -config=MC3A2.R5.5,reports+={deliberate,
->>> "all_area(decl(name(parse_gnttab_limit))||macro(name(parse_gnttab_limit)))"}
->>> -config=MC3A2.R5.5,reports+={deliberate,
->>> "all_area(decl(name(update_gnttab_par))||macro(name(update_gnttab_par)))"}
->>
->> These two look too broad: They're affecting common/grant_table.c only, aren't
->> they?
->>
->>> -config=MC3A2.R5.5,reports+={deliberate,
->>> "all_area(decl(name(pirq_cleanup_check))||macro(name(pirq_cleanup_check)))"}
->>
->> This one also looks overly broad, but it's perhaps unavoidable to be that way.
-> 
-> Those deviations can be narrowed (specifying file name):
-> 
-> -config=MC3A2.R5.5,reports+={deliberate, 
-> "any_area(any_loc(file(^xen/include/xen/bitops\\.h$)) && 
-> macro(name(__test_and_set_bit||__test_and_clear_bit||__test_and_change_bit||test_bit)))"}
-> -config=MC3A2.R5.5,reports+={deliberate, 
-> "any_area(any_loc(file(^xen/common/grant_table\\.c$))&&macro(name(update_gnttab_par||parse_gnttab_limit)))"}
-> -config=MC3A2.R5.5,reports+={deliberate, 
-> "any_area(any_loc(file(^xen/include/xen/irq\\.h$))&&macro(name(pirq_cleanup_check)))"}
-> 
-> Are you OK with it?
+> Implement a second pass over relocations once the list of replaced
+> functions has been loaded, and fixup any references to replaced functions
+> to use the old symbol address instead of the new one.  There are some
+> sections that must be special cased to continue using the new symbol
+> address, as those instances must reference the newly added livepatch
+> content (for example the alternative patch sites).
 
-This looks acceptable to me, yes.
+This is what I was fearing, when you first mentioned the problem (and the
+plan) to me. What I don't see is why you do your fixing up regardless of
+relocation type. Relative relocations within the payload ought to be fine
+to not override? At which point some of the special casing may already no
+longer be necessary.
+
+(Later) Except that if code uses PC-relative addressing to determine a
+pointer to store into some struct, that'll appear as a relative relocation
+type, too. But then you may have a bigger problem: When referencing and
+referenced code are in the same section and in the same translation unit,
+the assembler could avoid emitting a relocation altogether. You would see
+nothing to fix up ...
 
 Jan
 
