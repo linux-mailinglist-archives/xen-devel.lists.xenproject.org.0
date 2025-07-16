@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 912FAB074ED
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 13:44:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1045097.1415174 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71C55B0754E
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 14:08:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1045124.1415197 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc0YI-0001QR-Kg; Wed, 16 Jul 2025 11:43:58 +0000
+	id 1uc0vb-0004o0-Pu; Wed, 16 Jul 2025 12:08:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1045097.1415174; Wed, 16 Jul 2025 11:43:58 +0000
+Received: by outflank-mailman (output) from mailman id 1045124.1415197; Wed, 16 Jul 2025 12:08:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc0YI-0001Nq-Hc; Wed, 16 Jul 2025 11:43:58 +0000
-Received: by outflank-mailman (input) for mailman id 1045097;
- Wed, 16 Jul 2025 11:43:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=L52i=Z5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uc0YH-0001Nk-LB
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 11:43:57 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 27b1d350-623a-11f0-a319-13f23c93f187;
- Wed, 16 Jul 2025 13:43:56 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3a507e88b0aso4851727f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 04:43:56 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b3f15c28bf4sm1109196a12.26.2025.07.16.04.43.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jul 2025 04:43:54 -0700 (PDT)
+	id 1uc0vb-0004kv-Mn; Wed, 16 Jul 2025 12:08:03 +0000
+Received: by outflank-mailman (input) for mailman id 1045124;
+ Wed, 16 Jul 2025 12:08:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=nLWN=Z5=epam.com=dmytro_prokopchuk1@srs-se1.protection.inumbo.net>)
+ id 1uc0va-0004kZ-FS
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 12:08:02 +0000
+Received: from DB3PR0202CU003.outbound.protection.outlook.com
+ (mail-northeuropeazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c200::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 844de1e1-623d-11f0-b894-0df219b8e170;
+ Wed, 16 Jul 2025 14:08:00 +0200 (CEST)
+Received: from GV2PR03MB9572.eurprd03.prod.outlook.com (2603:10a6:150:da::5)
+ by VI2PR03MB10596.eurprd03.prod.outlook.com (2603:10a6:800:26d::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.26; Wed, 16 Jul
+ 2025 12:07:56 +0000
+Received: from GV2PR03MB9572.eurprd03.prod.outlook.com
+ ([fe80::edd1:842f:9b14:509e]) by GV2PR03MB9572.eurprd03.prod.outlook.com
+ ([fe80::edd1:842f:9b14:509e%3]) with mapi id 15.20.8901.028; Wed, 16 Jul 2025
+ 12:07:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,261 +47,212 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27b1d350-623a-11f0-a319-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752666236; x=1753271036; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qf/0M6Ya0lKNqeluRlo+wccntJ9C9CX/rEM46xtkd38=;
-        b=ANCpUsnVbMgZ+dhwvqz7eoz/xILiBjJ/CyuXkeenZp2EjSNx99fsIUmL1AH+zJdHq4
-         HyT9gR200ouQbPKu3KVVJcElruCc1iyD7AxS6IimGrOREuxoassG/c3OzQ610X0Iqp50
-         6tNKrd6FFU32xA98yoK5VO9bBt3vfiF/WpqBsS+SpP33r7znKcRDZ2rwrcAWbxGOHFWR
-         0ZumBd+19GTJdHf5/QcjdS83zB71MzRuzRYwldppVN84jSneXBhWBC1AedDCujaVJxGj
-         DVkGbYht/HJHLT6Jv1XfkNi0+XOujIyx+2qaTG4D+BpJqeMEc0y2MKUhURNCUG/9eP7U
-         TbCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752666236; x=1753271036;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qf/0M6Ya0lKNqeluRlo+wccntJ9C9CX/rEM46xtkd38=;
-        b=HHjRwAK/7rheUUML7PD2ARKE4sOUqCUfMUATuxgMagCix9rvuILuB1Ty0DDoIaRxC1
-         cJ2GPYcakXbbp0GMOrGIhAZNL6blUnsTKH96t6xUOnbUUNfJH6PnG/qElw5mcor4baet
-         +4qS8Mf6sgMUcOBYVsUr9s70rIAVOM5vZuaYkXX4oqRmuFQntZQEcUVBkBzzsYwc1Usi
-         RunqccWg78OlLR0d9g7P8or6942x+lG4fwlDr/jo1bPHJxSoebi99gediF/89A6vUmLK
-         MrQNZ+1a8XsyBR3jMnIKwzLUA/CEo/qk5F8kfX1J5jnW7t5EVhoisKLuMM2k2O4Yjid9
-         H8dA==
-X-Forwarded-Encrypted: i=1; AJvYcCXnaCzwgp69ljOZPAvnIYmLBZVNuhz2vAsmLALNyvyAR9mgqaZFhqjATLhWaQ7w/oikC3NuQ4tfdtg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxG7Hrn8IucwOKVRpP1iAHhqX3KKLs8Y+hH/uNdGSJYSATP42XU
-	1CSYaWMirD+tuHndSVDydDF0SW7w+AWj4h7rDM61x/wSx+RSRI5e/OH139uThHnHdQ==
-X-Gm-Gg: ASbGncuRLx0mzBxc+SnW/ZaWJSxqO0Z0rU9K21iq+O9LCq2sNR76kPfcZiboquJ3fmr
-	CE5PloFvCF6+moGrEiou/1PASMcJbpmgP11U28hH1vjAMx8bhSgSG4sntG3F/w8lgVRh3eQRELl
-	okEwx5semf+amEnG3X3IghrdXC95BxxKGjIerrYPeyeeGNqymjMW8dqP3j+aSnzM22imMZjhmFs
-	vEQuE2tRh7gUu6KWUjYEA5kdN0Qzq4KAJP+3HiQhaobfAFwOrQQKuQvjFmHp6b8B3WIalwrn98d
-	df6B2QWdcXY30UOcUha6mQeSykl7q2BlPg/VAG9vXNuRqIcfpBaUb6XB99J0xo2L43uLVEiVdJt
-	ZdfCPc9KMWbHFh2lss2dz/l836GKXKMzRYcrnMwxGpYOFikuLV47B4gVwmbb/whd2+dLZKV/ZE4
-	zAJqBAy/c=
-X-Google-Smtp-Source: AGHT+IE1wzBmO+403aN4G9w63PE8QGh/J/0F82DW15ex+E98W/9WfKohbzOnJchC+HOhqQAzMiEZ9w==
-X-Received: by 2002:a5d:584e:0:b0:3a4:fbaf:3f99 with SMTP id ffacd0b85a97d-3b60e4c8e2emr1604735f8f.13.1752666235527;
-        Wed, 16 Jul 2025 04:43:55 -0700 (PDT)
-Message-ID: <aabb6eeb-fe2a-4b95-b844-560d2c70bcd5@suse.com>
-Date: Wed, 16 Jul 2025 13:43:44 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 14/17] xen/riscv: implement p2m_next_level()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <cc696a9e4e74233c81f0cbcfd303cee91b8271af.1749555949.git.oleksii.kurochko@gmail.com>
- <1496586d-484c-4e99-aea7-974be335150f@suse.com>
- <b0013513-2646-4de4-a172-0d2ea571a3e8@gmail.com>
+X-Inumbo-ID: 844de1e1-623d-11f0-b894-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vVI9U66QfScmxFVk6qwCZnkjggVhfdySY5WnM58cvBM6XDe9hGDlh8SSytarH4AzBgQ0jXk7ixoAM5wugNSmjgeaMq0fpw/akUK2tV8aUjvNSPB174lbm1txKvh9/N0NsZn5CDnK6b8LbcgR5jByX5cOLSWkGyE2JLtmlZOBCJYA67ZmA4cHx9cJ3S9zSIVt8qUnzj+Z9PySfUTEX3OwHbCbvoAwbdEGCJ08GYLRD2XRJn3xcKB8BmM0qwR+fQQRwBtxTascmS8DwBpJrcLlf0/LoTyQsi7jvxqVXMEqkTldC3rGKmyvNyrik2HEq/rD1cZIJzU21zl+fDsXswAC4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HDbNjGaYD8yV9+VttaUaCF0qxIZx4mdAh+Vdd/hW/iI=;
+ b=KvXuTTyrEjEUliHsL1vsBOtMWA63/pBrXH+AWYHPivnj6XlTD1NN/pEZFeldCgbCP+F141Elyfak5rTrambbk9qfGRsz2uhMgZF6cUa/xl3LJ5mECkV+iuEKhKkS4VQ1TAMjOl5qmSotw8gyCLlV+Ouk1+RDsYJ9Vjcb55HLk1F/9tDSfFv+ZWNE8FCnT0aGsc7PKsBsn3EpO8g3BR20ugCDYxPG2MYQaXmss9r5O4VAPpcR55h0zf/4d5b1U+CQnTIRy6UgWIIX2G/3kKZeXiRnaRDLtoX6l+J9yRa0+2o/seAVVpv7E298uGKCV9REFgY4iJdwsx8a2c6znkKA8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HDbNjGaYD8yV9+VttaUaCF0qxIZx4mdAh+Vdd/hW/iI=;
+ b=VsPmQ6MhMVr1MrooyFMPev3bbuB/em10+LjpS4q3wwGSTmKQRryLjydiKHa0GSrsXHAUboiOlXSWxZ9jTp9Jqpu8hZehVndT1uNtFJiD2BSXo4nU0a7wQ4H0JgEg7+SFBKko/8e+GShCgZjR0F+QmD7j+e1LZGxB9m4DqnIvxwSyVygb8dvipWu4aDKiVnB5ZK2EcllCZN30WlC31VfvukxOj9Apz8Qj0nz1VyEX3Rr63u25xMaQIGF7dDkXBcRHIToSf6X2bjPIPE5zO4nhFyieEcLCmlGXO443YW+o3mr3deuqvm+7Fc7Sbt/xQbKXCFo4gowGBGuxhFVhLk/CCA==
+From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Nicola Vetrini <nicola.vetrini@bugseng.com>, Doug Goldstein
+	<cardoe@cardoe.com>, Stefano Stabellini <sstabellini@kernel.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>
+Subject: [PATCH] misra: tailor the definition of Rule 12.2 to C standard types
+Thread-Topic: [PATCH] misra: tailor the definition of Rule 12.2 to C standard
+ types
+Thread-Index: AQHb9kpD31dTcYF/7UCF8hLOSjEN6g==
+Date: Wed, 16 Jul 2025 12:07:56 +0000
+Message-ID:
+ <f486aa4ac823085afb7e068f6e84ea6be3cab19b.1752667611.git.dmytro_prokopchuk1@epam.com>
+Accept-Language: en-US, uk-UA, ru-RU
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b0013513-2646-4de4-a172-0d2ea571a3e8@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV2PR03MB9572:EE_|VI2PR03MB10596:EE_
+x-ms-office365-filtering-correlation-id: 500e24ed-a5da-468c-b822-08ddc461664a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|7416014|376014|42112799006|38070700018;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?rEmMSSR450ykffxzjuxYwG4zo+abyIwxGnI3LzuX7SrbZG+PVKh2uU64Fk?=
+ =?iso-8859-1?Q?I8R9BcNmVrIru8HEr1HzQIxOElaHwu8kaZK1U/R5lIuoBXvHTFOTN5fQmT?=
+ =?iso-8859-1?Q?mDvTHbVJLWar+nlYJrYf/tNMkWh9+ZhX4m7ZL3ARtkMUgiBdA+HqdQM8XD?=
+ =?iso-8859-1?Q?eD+BdgQXoX5obWpPNXCtLQGhjqlFlbizC2mklc7VrTkCNpYPInSk5ebzHL?=
+ =?iso-8859-1?Q?gcfTV7K2rdw4MWmoETJe621jd5qV9OM+F2+2fOJNWklvmLNsX4SK98RO0k?=
+ =?iso-8859-1?Q?pUpGKFsbJLSiAq/Rbwlyr5yjyQgm/jRhh315fp1o+X4WH/OpnlaF/xx5Ex?=
+ =?iso-8859-1?Q?KgoyPZPlAicsInJ2AuxZapD+SC1Mwce8YIoe52Tqkn6dxRjDuQsD0vpbHi?=
+ =?iso-8859-1?Q?8XIXjo6lOe9x/PUHQqbC1S+38KaSb8hep9M/gAIg1JpnzRnD5nDohnzUkQ?=
+ =?iso-8859-1?Q?mWbbzG686BzuVFhbxic3YsPsA5h2THfYdKRxh5ayDFBwj7cPZYg4OCo08Q?=
+ =?iso-8859-1?Q?qT2kLvU0VIX0cof4DzfvBHgRgfMFn0zNhXOseirY5fGW56U2d0Xzr8TLIa?=
+ =?iso-8859-1?Q?EVmDlqhr0fXAYuxAcYZZn1Hfe9M4YPKthugLUmJDRJ3WWXPBmoU1+rzYrX?=
+ =?iso-8859-1?Q?6iJz/RfvKX16/jo41aGC1Na358ijMDiIu693LT+BXvFbOtyrMhoAqt9R+a?=
+ =?iso-8859-1?Q?ZYI5BJKYAqj1O9f3BjTVbLceOzsm8zk7rBL+PVT4rHWkyJevCpITpgfpta?=
+ =?iso-8859-1?Q?bTIVwayxHwpr1UW5Bk4vUDY1WX0/oIsaMyMZGcqwGIOhpvg6KpViofYujK?=
+ =?iso-8859-1?Q?S/4CHIKHTw7cOWJrItIDNDXwZ4I4AiraPRwSKFZ9Pm0DbAwBx8/YZRL0z/?=
+ =?iso-8859-1?Q?5lTXeQS4vZPQu/Qm2ABhwVgRzENFRltoOo7eBR8lu5tBnAyUTPwzai8QHY?=
+ =?iso-8859-1?Q?qKPCX0zNzR2Ro6uj7RrFKFOtkc2cfYTN2sLG418IkvuJQwuim3ohWENDMt?=
+ =?iso-8859-1?Q?9xgQAonUrFiCTcViZ7X917JUBjhU6EWNG62bJ5zq6hDc320W6QMou9Ha7y?=
+ =?iso-8859-1?Q?8f1VzitvNmhQ/+2oPO4+V7kZ12dK4ddoxE6BPNdc7LVamfHV50cPf9RcJb?=
+ =?iso-8859-1?Q?xrBvpD/BDOWfocmH6uVlsGMVy5j1Zw5l8F6gsORTPL7Xb/DsyGRHYMxLgb?=
+ =?iso-8859-1?Q?0yJjmGaSUQ6lU0+aWfiZ20+bflx1XR9clH/C5fsEtn1AXr0+LKDuxOUCnv?=
+ =?iso-8859-1?Q?oKa67KOoeNmv1HaT/Hx8LI+9ReD+AtaQRS47TQNNJBoYMlHj/sn7HyFIsk?=
+ =?iso-8859-1?Q?Kl+f2MM5JFh9niDxZEKsbVp1l7HA6XPBTclWPoiNYTQzp6F3m3B6q6PpmO?=
+ =?iso-8859-1?Q?nRBy6uNSuLHytN+0igoflkra8pC9bsDJe97i1s5Rpll3wNsfOdreu2O2UD?=
+ =?iso-8859-1?Q?ku258A1nKsdan9ihO8BDAzZpzlxVUrK8h+9PjMTdvL31eQg+emKCJb+1FC?=
+ =?iso-8859-1?Q?w3b42gQyaawLCuIpkyzZtrHk6ama15z1ZB6hrlBCnmzw=3D=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB9572.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(42112799006)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?nUvNaDL2/Z5MqhAguZUpAm3GHRzcXi2moZpguolDpi4NNLP/sz9UX+Elwy?=
+ =?iso-8859-1?Q?hcxZBWgfAWtkb82Qh5DdaRP1wHP1TtGDhDlIu9I5Q+zp48jV5zqrVR1tJd?=
+ =?iso-8859-1?Q?/N/q75/cftN84ZqYOBA2Cq+0P5qEktUN/RWcz0iZ/a6VOQrsjH3+Sm14ai?=
+ =?iso-8859-1?Q?PV//oKy8fYF8dhnrO5Y5l5gQkYeHTmcePqsWt+iWHoXDyrJNhpKKPuCYfH?=
+ =?iso-8859-1?Q?4yDkaCU39LpjSLa6GZJ2X41wbgMVh/4888NncorqoTDx9cKLXPIy1rKT3f?=
+ =?iso-8859-1?Q?SnE5nKTHgpTcbONTcbsG+PIS7cpXKWujQXSn6dxdsK/Lq0uI0mV2tNNQ3j?=
+ =?iso-8859-1?Q?SCXYMBQNuTKIyiyr1VF4o8Iwdwpj0SLZsoS4AyAPWoFRbC7rAGLrjWPE71?=
+ =?iso-8859-1?Q?vHUW9e0l+zVSWVq94+4lTpDankm9rCS/Fwsxk2bt5ZsuXFwtxHDEiSHw2z?=
+ =?iso-8859-1?Q?k8CU91tah72HF/pEUs9tQ4NAySeXPhwo8UTA/f4yjDJ5qPNLsWdMqrpT+1?=
+ =?iso-8859-1?Q?y61mH5tn2yaqK2USDV0ggSisaDa56bIuwy0wg/dXqyF7gMd6Yb8A4cUDiB?=
+ =?iso-8859-1?Q?fMbr7yea58L4VZkVzrBaLUlaUiRNTe9QiiTndxhsPClROMzb64SHk/TylX?=
+ =?iso-8859-1?Q?W4lCH13Wcpp3nTVwArLPewici+MSjPRsLFOsJYWiQu+ztBtP1WbQVkuDLG?=
+ =?iso-8859-1?Q?Ahy/Cc5H/xaDP20T5WmUI5YnfrkBEZB5sW8TkFWrgCThUkxydOQ78ONsxP?=
+ =?iso-8859-1?Q?l8th9uufi7EGPO4zy6Az19H64l6GPMRNagPOy3oi+AEerd8AvFr1QhaFpX?=
+ =?iso-8859-1?Q?J0pXYWIOw/bIvS+YjVQ/ayP8XH2ZlmA0tQblvaWUIJpsuUZLn35UZo3cqq?=
+ =?iso-8859-1?Q?ynHM9MYofm7ZsIwYNY5IGCbxbMUR3B73IY8FWqCD7FigS9GwzQCIy8vTVt?=
+ =?iso-8859-1?Q?5DsRCkkpHVQG6CIY9/3TCAL6OFGF+Y/GmqjW35Yyy1g2s8tN11SogMdQ0H?=
+ =?iso-8859-1?Q?p9OSUXblLnNUEjA5ds2SL69Xnv1FIj9typOqd7mt1sn89Bmswa+m6P+//f?=
+ =?iso-8859-1?Q?gXJtEto7EwDYaFvFQcD2xfhe7XEy2aaQKDADgMhlfW6cninLxWZxLWwbV7?=
+ =?iso-8859-1?Q?iQoGbU5SillmTCNgnH7PI5JwwIS7/+9Z4B2FyClbZtPgmLwPy3jtSeAPyy?=
+ =?iso-8859-1?Q?XSOA+6zFEiQVIoHs8j/CerQHPQJoqt6JoD9AaubD89VnyKFgE6L2IHM8Sy?=
+ =?iso-8859-1?Q?/XuKzS7Fnd6kMONuRb/R+A9PkCmJAcShnHXUVAHgc0HgmG7MTmimLyOpmn?=
+ =?iso-8859-1?Q?pvrWf+7M5azvoYwjKXOXYE4mUcSZSkBz2OsfgBxVjbiEs2Oudqf6QRzmME?=
+ =?iso-8859-1?Q?rI5ysZKrtW6WTEm/KWdY13Iy7ng6RMjJKhy1Hj13Ru8lwuUl8Afoc6PDuZ?=
+ =?iso-8859-1?Q?rtIeqqdJow8ci0V0UH9LjaVFP+S7UhGk7V0+BtpnGGMew9ClplIX9rM+KR?=
+ =?iso-8859-1?Q?+jSvoBod24Bt52bS0XO2YCAFiUIGxHIOdQC+MAfwgNZW/0h+lVSSwgQ15X?=
+ =?iso-8859-1?Q?XsWzixlfS8jvvgP5qZgF6R7BqEI563MlrTgCBaye4gB8nAHWXZYIM4t614?=
+ =?iso-8859-1?Q?1PahL4zd3dLPgmqffMgroTevDfDKivN9Q4ybBxN7cREYJD5YaB/OUCiQ?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB9572.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 500e24ed-a5da-468c-b822-08ddc461664a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jul 2025 12:07:56.3331
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: bgJKZ+1Qhprk/1FM0P3+yNnKuBy+VQKWq/GAMTeJ5hEqjiW8nvHYZxvMzYXRyjmYTz/pI95M1ou7t5KNWSsuI8NvRj1T1nOil9UNWnWTswI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR03MB10596
 
-On 16.07.2025 13:32, Oleksii Kurochko wrote:
-> On 7/2/25 10:35 AM, Jan Beulich wrote:
->> On 10.06.2025 15:05, Oleksii Kurochko wrote:
->>> --- a/xen/arch/riscv/p2m.c
->>> +++ b/xen/arch/riscv/p2m.c
->>> @@ -387,6 +387,17 @@ static inline bool p2me_is_valid(struct p2m_domain *p2m, pte_t pte)
->>>       return p2m_type_radix_get(p2m, pte) != p2m_invalid;
->>>   }
->>>   
->>> +/*
->>> + * pte_is_* helpers are checking the valid bit set in the
->>> + * PTE but we have to check p2m_type instead (look at the comment above
->>> + * p2me_is_valid())
->>> + * Provide our own overlay to check the valid bit.
->>> + */
->>> +static inline bool p2me_is_mapping(struct p2m_domain *p2m, pte_t pte)
->>> +{
->>> +    return p2me_is_valid(p2m, pte) && (pte.pte & PTE_ACCESS_MASK);
->>> +}
->> Same question as on the earlier patch - does P2M type apply to intermediate
->> page tables at all? (Conceptually it shouldn't.)
-> 
-> It doesn't matter whether it is an intermediate page table or a leaf PTE pointing
-> to a page — PTE should be valid. Considering that in the current implementation
-> it’s possible for PTE.v = 0 but P2M.v = 1, it is better to check P2M.v instead
-> of PTE.v.
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-I'm confused by this reply. If you want to name 2nd level page table entries
-P2M - fine (but unhelpful). But then for any memory access there's only one
-of the two involved: A PTE (Xen accesses) or a P2M (guest accesses). Hence
-how can there be "PTE.v = 0 but P2M.v = 1"?
+The definition of MISRA C Rule 12.2 ("The right hand operand of a shift
+operator shall lie in the range zero to one less than the width in bits
+of the essential type of the left hand operand") is concerned with the
+essential type of an expression, while the C Undefined Behaviour is
+related to C standard types, which may be wider but not narrower than
+the MISRA C essential type. For this reason, it is safe to consider the
+C standard type, rather than the essential type when checking the rule.
 
-An intermediate page table entry is something Xen controls entirely. Hence
-it has no (guest induced) type.
+To avoid regressions, tag the rule as clean and add it to the
+monitored set.
 
->>> @@ -492,6 +503,70 @@ static pte_t p2m_entry_from_mfn(struct p2m_domain *p2m, mfn_t mfn, p2m_type_t t,
->>>       return e;
->>>   }
->>>   
->>> +/* Generate table entry with correct attributes. */
->>> +static pte_t page_to_p2m_table(struct p2m_domain *p2m, struct page_info *page)
->>> +{
->>> +    /*
->>> +     * Since this function generates a table entry, according to "Encoding
->>> +     * of PTE R/W/X fields," the entry's r, w, and x fields must be set to 0
->>> +     * to point to the next level of the page table.
->>> +     * Therefore, to ensure that an entry is a page table entry,
->>> +     * `p2m_access_n2rwx` is passed to `mfn_to_p2m_entry()` as the access value,
->>> +     * which overrides whatever was passed as `p2m_type_t` and guarantees that
->>> +     * the entry is a page table entry by setting r = w = x = 0.
->>> +     */
->>> +    return p2m_entry_from_mfn(p2m, page_to_mfn(page), p2m_ram_rw, p2m_access_n2rwx);
->> Similarly P2M access shouldn't apply to intermediate page tables. (Moot
->> with that, but (ab)using p2m_access_n2rwx would also look wrong: You did
->> read what it means, didn't you?)
-> 
-> |p2m_access_n2rwx| was chosen not really because of the description mentioned near
-> its declaration, but because it sets r=w=x=0, which RISC-V expects for a PTE that
-> points to the next-level page table.
-> 
-> Generally, I agree that P2M access shouldn't be applied to intermediate page tables.
-> 
-> What I can suggest in this case is to use|p2m_access_rwx| instead of|p2m_access_n2rwx|,
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+ automation/eclair_analysis/ECLAIR/deviations.ecl | 8 ++++++++
+ automation/eclair_analysis/ECLAIR/monitored.ecl  | 1 +
+ automation/eclair_analysis/ECLAIR/tagging.ecl    | 1 +
+ docs/misra/deviations.rst                        | 8 ++++++++
+ 4 files changed, 18 insertions(+)
 
-No. p2m_access_* shouldn't come into play here at all. Period. Just like P2M types
-shouldn't. As per above - intermediate page tables are Xen internal constructs.
-
-> which will ensure that the P2M access type isn't applied when|p2m_entry_from_mfn() |is called, and then, after calling|p2m_entry_from_mfn()|, simply set|PTE.r,w,x=0|.
-> So this function will look like:
->      /* Generate table entry with correct attributes. */
->      static pte_t page_to_p2m_table(struct p2m_domain *p2m, struct page_info *page)
->      {
->          /*
->          * p2m_ram_rw is chosen for a table entry as p2m table should be valid
->          * from both P2M and hardware point of view.
->          *
->          * p2m_access_rwx is chosen to restrict access permissions, what mean
->          * do not apply access permission for a table entry
->          */
->          pte_t pte = p2m_pte_from_mfn(p2m, page_to_mfn(page), _gfn(0), p2m_ram_rw,
->                                      p2m_access_rwx);
-> 
->          /*
->          * Since this function generates a table entry, according to "Encoding
->          * of PTE R/W/X fields," the entry's r, w, and x fields must be set to 0
->          * to point to the next level of the page table.
->          */
->          pte.pte &= ~PTE_ACCESS_MASK;
-> 
->          return pte;
->      }
-> 
-> Does this make sense? Or would it be better to keep the current version of
-> |page_to_p2m_table()| and just improve the comment explaining why|p2m_access_n2rwx |is used for a table entry?
-
-No to both, as per above.
-
->>> +static struct page_info *p2m_alloc_page(struct domain *d)
->>> +{
->>> +    struct page_info *pg;
->>> +
->>> +    /*
->>> +     * For hardware domain, there should be no limit in the number of pages that
->>> +     * can be allocated, so that the kernel may take advantage of the extended
->>> +     * regions. Hence, allocate p2m pages for hardware domains from heap.
->>> +     */
->>> +    if ( is_hardware_domain(d) )
->>> +    {
->>> +        pg = alloc_domheap_page(d, MEMF_no_owner);
->>> +        if ( pg == NULL )
->>> +            printk(XENLOG_G_ERR "Failed to allocate P2M pages for hwdom.\n");
->>> +    }
->> The comment looks to have been taken verbatim from Arm. Whatever "extended
->> regions" are, does the same concept even exist on RISC-V?
-> 
-> Initially, I missed that it’s used only for Arm. Since it was mentioned in
-> |doc/misc/xen-command-line.pandoc|, I assumed it applied to all architectures.
-> But now I see that it’s Arm-specific:: ### ext_regions (Arm)
-> 
->>
->> Also, special casing Dom0 like this has benefits, but also comes with a
->> pitfall: If the system's out of memory, allocations will fail. A pre-
->> populated pool would avoid that (until exhausted, of course). If special-
->> casing of Dom0 is needed, I wonder whether ...
->>
->>> +    else
->>> +    {
->>> +        spin_lock(&d->arch.paging.lock);
->>> +        pg = page_list_remove_head(&d->arch.paging.p2m_freelist);
->>> +        spin_unlock(&d->arch.paging.lock);
->>> +    }
->> ... going this path but with a Dom0-only fallback to general allocation
->> wouldn't be the better route.
-> 
-> IIUC, then it should be something like:
->    static struct page_info *p2m_alloc_page(struct domain *d)
->    {
->        struct page_info *pg;
->        
->        spin_lock(&d->arch.paging.lock);
->        pg = page_list_remove_head(&d->arch.paging.p2m_freelist);
->        spin_unlock(&d->arch.paging.lock);
-> 
->        if ( !pg && is_hardware_domain(d) )
->        {
->              /* Need to allocate more memory from domheap */
->              pg = alloc_domheap_page(d, MEMF_no_owner);
->              if ( pg == NULL )
->              {
->                  printk(XENLOG_ERR "Failed to allocate pages.\n");
->                  return pg;
->              }
->              ACCESS_ONCE(d->arch.paging.total_pages)++;
->              page_list_add_tail(pg, &d->arch.paging.freelist);
->        }
->     
->        return pg;
-> }
-> 
-> And basically use|d->arch.paging.freelist| for both dom0less and dom0 domains,
-> with the only difference being that in the case of Dom0,|d->arch.paging.freelist |could be extended.
-> 
-> Do I understand your idea correctly?
-
-Broadly yes, but not in the details. For example, I don't think such a
-page allocated from the general heap would want appending to freelist.
-Commentary and alike also would want tidying.
-
-And of course going forward, for split hardware and control domains the
-latter may want similar treatment.
-
-Jan
+diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/=
+eclair_analysis/ECLAIR/deviations.ecl
+index 8504e850c1..483507e7b9 100644
+--- a/automation/eclair_analysis/ECLAIR/deviations.ecl
++++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+@@ -413,6 +413,14 @@ write or not"
+ }
+ -doc_end
+=20
++#
++# Series 12
++#
++
++-doc_begin=3D"Consider the C standard type instead of the essential type f=
+or the purposes of determining the width in bits of the operand."
++-config=3DMC3A2.R12.2,out_of_bounds=3Dnegative_or_too_big_for_type
++-doc_end
++
+ #
+ # Series 13
+ #
+diff --git a/automation/eclair_analysis/ECLAIR/monitored.ecl b/automation/e=
+clair_analysis/ECLAIR/monitored.ecl
+index e2ad224d79..00bff9edbe 100644
+--- a/automation/eclair_analysis/ECLAIR/monitored.ecl
++++ b/automation/eclair_analysis/ECLAIR/monitored.ecl
+@@ -48,6 +48,7 @@
+ -enable=3DMC3A2.R11.7
+ -enable=3DMC3A2.R11.8
+ -enable=3DMC3A2.R11.9
++-enable=3DMC3A2.R12.2
+ -enable=3DMC3A2.R12.5
+ -enable=3DMC3A2.R13.1
+ -enable=3DMC3A2.R13.2
+diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/ecl=
+air_analysis/ECLAIR/tagging.ecl
+index f39beced9b..879485b680 100644
+--- a/automation/eclair_analysis/ECLAIR/tagging.ecl
++++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
+@@ -63,6 +63,7 @@ MC3A2.R11.2||
+ MC3A2.R11.6||
+ MC3A2.R11.7||
+ MC3A2.R11.9||
++MC3A2.R12.2||
+ MC3A2.R12.5||
+ MC3A2.R13.2||
+ MC3A2.R13.6||
+diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+index 620e97f0bd..e78179fcb8 100644
+--- a/docs/misra/deviations.rst
++++ b/docs/misra/deviations.rst
+@@ -386,6 +386,14 @@ Deviations related to MISRA C:2012 Rules:
+        integers for this purpose is allowed.
+      - Tagged as `deliberate` for ECLAIR.
+=20
++   * - R12.2
++     - The width in bits of the C standard type is considered instead of
++       the width of the essential type of the left-hand operand of a shift
++       operator. This is safe because the occurrence of Undefined Behavior
++       only relates to the width of the C standard type, which is possibly
++       wider than its essential type.
++     - Project-wide deviation.
++
+    * - R13.5
+      - All developers and reviewers can be safely assumed to be well aware=
+ of
+        the short-circuit evaluation strategy for logical operators.
+--=20
+2.43.0
 
