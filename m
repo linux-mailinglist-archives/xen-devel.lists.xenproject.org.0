@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7641AB07863
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 16:43:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1045294.1415384 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3D7DB0787B
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 16:47:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1045308.1415395 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc3MF-0007DX-P6; Wed, 16 Jul 2025 14:43:43 +0000
+	id 1uc3Pc-0007zF-Ae; Wed, 16 Jul 2025 14:47:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1045294.1415384; Wed, 16 Jul 2025 14:43:43 +0000
+Received: by outflank-mailman (output) from mailman id 1045308.1415395; Wed, 16 Jul 2025 14:47:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc3MF-0007Az-Lf; Wed, 16 Jul 2025 14:43:43 +0000
-Received: by outflank-mailman (input) for mailman id 1045294;
- Wed, 16 Jul 2025 14:43:42 +0000
+	id 1uc3Pc-0007wA-7p; Wed, 16 Jul 2025 14:47:12 +0000
+Received: by outflank-mailman (input) for mailman id 1045308;
+ Wed, 16 Jul 2025 14:47:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L52i=Z5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uc3ME-0007At-54
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 14:43:42 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ id 1uc3Pa-0007w4-Ky
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 14:47:10 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 43e8a025-6253-11f0-a319-13f23c93f187;
- Wed, 16 Jul 2025 16:43:41 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3a4f72cba73so658515f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 07:43:41 -0700 (PDT)
+ id c02db91d-6253-11f0-a319-13f23c93f187;
+ Wed, 16 Jul 2025 16:47:09 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3a531fcaa05so3761922f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 07:47:09 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b3bbec94a82sm13702061a12.8.2025.07.16.07.43.36
+ d9443c01a7336-23de4323daesm126481325ad.139.2025.07.16.07.47.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jul 2025 07:43:39 -0700 (PDT)
+ Wed, 16 Jul 2025 07:47:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43e8a025-6253-11f0-a319-13f23c93f187
+X-Inumbo-ID: c02db91d-6253-11f0-a319-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752677020; x=1753281820; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752677229; x=1753282029; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=p3J/qlQM8J6O2t8N4GGPOjA+woYKtWY4gghR0G70ask=;
-        b=CKWZg8Qogp3cXmKgbL4Hooqfva8FohIuajBO4P0F7K7G5FB5mOXxkKfSAO2WmXPm9G
-         307qYkkDYhwyyW+UHZoMr+iansPOq9uK3brLOA1JjFymiTX9xLebPz17mr85FX9d8meD
-         LCqO+a/Bn2gOLF3iquBvHi7H6hPAFHtl0FgzH4OcQyArtAq931H4LpfZe7GdPz7DKa/1
-         vGYr6kMWj5O3CgQ0q8sR9GGBw4H5u3y8ZYLfoDVJoDKpK4p4PnLgCkwAbtHSqVFhk4O8
-         cvLu2aT+L6WQHIQEViwAJgK6vBqhiJk+DcAkMaVaHhwQRtGuwaAGGQPD59U6bI1ul9Or
-         1ptg==
+        bh=YeqH7GeVFUndsb+NLUaXQWyIOxd8tZQNZZju/PCbdCU=;
+        b=M9hf3XtWRa6Sf9JhlYyptf1t8BAyyK5hfvDcXy+SxQrzl9SXB8m8ScQdKTGvb0ou8L
+         0JrYFXsAZRQTh8QHgupN7rIZvqlW5GGf1DY5SHEwrbDF2Txjau4gFqpBHOcve0nH8/xm
+         I3Fqo0nVQTfDSleI7V2Zf1F5bH6JQUOGIAy1lO0l4wNNq7+WHcr3x5IYNBbo0jy8u2br
+         9k31M0qn2+y92nurSrRcSLGOg0im0uSAFWSia426OBKgg0fJc2PXc6znL+UGy45aG0Qb
+         PgO1HwPYMqhVCwEQRDs0ScT0SZ+E2FCKzApXglGhm36+U16T7mLGE3GRNRR1DVS0oMyR
+         hK+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752677020; x=1753281820;
+        d=1e100.net; s=20230601; t=1752677229; x=1753282029;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=p3J/qlQM8J6O2t8N4GGPOjA+woYKtWY4gghR0G70ask=;
-        b=Q+SF6RycvqY6SA4kFCVmJ6CHzJ5JbMfy2Nw74NNCwILp1vh+WmzH5hJ0rLviDfJ4pW
-         8/zJgh4GOcGuFmSOfdDMQdc18TszFYg5T4rvkF+br1rnGWc0JxVkJiYl8fRFWzObyNrm
-         CCEAKpnAtwCW1pE6S06gVCxC7uVZTaKWS9zAMCcqRsKquw14/xVb2ZorYnmBLp84CUYd
-         jYoObLLRTn85zGa2drIG0OO+QW/JzwedGuJDDJ5lzyfMM/yg23LuBc9/gZBfAs/nC1M0
-         R0GZmS4izzmEiDmp1CHQPP7codCa2O/i6L8jcPDdz3nduO/b7nBZrNicvxcFBJdGSBhL
-         DVBg==
-X-Forwarded-Encrypted: i=1; AJvYcCXTqTzGCbWP599VmB/E2EHq0R7A2jTxd2N8HECNcR9wpmjnnk9dp2/JLdw9OPrKOJwbE5NWcP3672Q=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YybwNGL1IeXwn2GYxx3FhgUtWSHgDPCyc/LsWc5MaSCoy66kbHn
-	YPATAxxTmq9EAGgtQodOg1+BXQ1/y+xijZvoPtQ+J+pQZzRz98eWqFVILD7itD7okA==
-X-Gm-Gg: ASbGncs2zFqGXZ1GddH44Vd9ltKhvfjLwq1HzgZireaQamhZC9Lwn5EZxUZP9RYgdGD
-	c4IyCWpqHrAHGanbN+Pc8Af+k+dUIEC57j8tWbg/l7/MB8jRxu6jjgTs7n18lMTt8UunwHLA4E/
-	ZJouO6rGWfWCMWZMuJ2Pl3o1jNwB3JCeZ8IUVceoYEloWJDxf/pnKWLwLT6yWt7uRnRZ3JDAmm0
-	IN/hintqEHE+1C4AkpHvokmkSgMsxLr8Z+D9ULHJPflGgKnM4RNPSSULbh5jN3PLu/fxToLA3+a
-	wwJgvRY3IBTElW3KCWHviHb81bg7GJ9duCVmC132hQSDQ0XPDXMgjxzlqzJA6D3meBNuYkl4Ir6
-	w4rcKhe0DmDKrdAsPAFYjfBziADp+IOrdE5tNIcLBzDblOLZpkhVVxfkX71X1UB/c9dVh3WPrVH
-	VPKeBPIgI=
-X-Google-Smtp-Source: AGHT+IHVe3WNaqPPrzmwXwI810lXw+WVTaF4FIfawf1b1z7IFPPDKPaboCwKCWozbSf8H4L/xx0qVQ==
-X-Received: by 2002:a05:6000:26c9:b0:3a4:e1f5:41f4 with SMTP id ffacd0b85a97d-3b60953aebbmr6504598f8f.17.1752677020454;
-        Wed, 16 Jul 2025 07:43:40 -0700 (PDT)
-Message-ID: <09887347-4b42-46f9-8462-0b76babb2617@suse.com>
-Date: Wed, 16 Jul 2025 16:43:32 +0200
+        bh=YeqH7GeVFUndsb+NLUaXQWyIOxd8tZQNZZju/PCbdCU=;
+        b=SGPsoO/EGpuxXxt8hcvxHk05hrYZKAE+jtQuB4rQG0AKC2jujUFv3RNANcIW4wPIKS
+         3JVTILqhqYUvPEb1Yas3qXA1ww6/dCQ7I/HueA31OE/npUFDFOZrL6EB2V4eiACSbTMK
+         OXTwKMb7LMz6izP19cSdZ2w+ccODIeLoYdKLzEzxmNjv+JoSXHu907UKeSPTh8FY+S7+
+         lGzmlQKgj5CMSbZ0sekF5jRrVb+L5JJZBp+RnZztGpAChEbIUSq7pGbosx2+5Hqc9Rn9
+         heRga5LcL8JOiC5xXJLLvJSo7YgYaFJeQ+4DDhnYLNGnwkPgs4lTM3oQ8EgAKd6QgPA+
+         547A==
+X-Forwarded-Encrypted: i=1; AJvYcCUmYzfAqZWUWEUBN8/hxtPpRNx3eMFdrYi8skrvaM+8KSgfcdIVApuDI/LMuzNX6LRwPAsoWyXQkGw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxUDYiK7F4Oy92KmUJMWbIT5pOlZ5qFiNSL7K/cQLY7gMUn8t7U
+	97KDqlbdwzLvYUM6PsfZxA5cO75S80Lya63YkopuPYzewXQZTxr/1Q736zQ4ogQqlA==
+X-Gm-Gg: ASbGncuxARBZkDlzU14UaAvGojIqj/xuY9/2aG8Rce93Ullaejd49lmmc0VmhQmAofv
+	9Pgpx1BEufhdk5UuZrSZrSXRySnOI5ZzsY4GMjNiqmJXy7TBE9MlXSYyT7REXPYppN64I1Ghy2p
+	fU84VWi4i+KXCa0bfDhnDqHX3vF39UlZPSafVOqbkKs2/x3Gm0cimyrlzFKkVda/w3horrhDa7g
+	/lwl8VU64PRgIw3EXrJ69JGrIMkTBueEIRFwaK1EyOY3+Cn4lruTVyLNf6tc19zkbB+geP16RB+
+	9Ec49JPMJ3OIRkOPLVXu8Z+Pe39ZrxJAJrv2tXw+oOzKiKFOLyCNgH1uK4xhMjOx9K7Mjq/IWI3
+	rYtx+Ma1jyq44SBOHBdpLWLot6O9bzMjNrOLsGbIDihas53PA4i8qXz9h11+EfZ0lKPdr8o6lu7
+	zWD3KKGQKn5v5kqihYbw==
+X-Google-Smtp-Source: AGHT+IEGbeOygEvTNPD8cdLizy/enML2xIBUzZwp7yVkQ3wo2iJWEGzoZ7IQnM1yC8uI3NOlXdptmA==
+X-Received: by 2002:a05:6000:230e:b0:3b3:9cb4:43f9 with SMTP id ffacd0b85a97d-3b60e4d0135mr2539587f8f.16.1752677228891;
+        Wed, 16 Jul 2025 07:47:08 -0700 (PDT)
+Message-ID: <f6c00d62-e68b-4022-9573-089683aca260@suse.com>
+Date: Wed, 16 Jul 2025 16:47:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 03/19] tools: optimize cpufreq average freq print
+Subject: Re: [PATCH v6 04/19] x86/cpufreq: continue looping other than -EBUSY
+ or successful return
 To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Anthony PERARD <anthony.perard@vates.tech>,
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20250711035106.2540522-1-Penny.Zheng@amd.com>
- <20250711035106.2540522-4-Penny.Zheng@amd.com>
+ <20250711035106.2540522-5-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,19 +121,25 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250711035106.2540522-4-Penny.Zheng@amd.com>
+In-Reply-To: <20250711035106.2540522-5-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 11.07.2025 05:50, Penny Zheng wrote:
-> Unlike Cx/Px states, for which we need an extra loop to summerize residency (
-> sum_cx[]/sum_px[]), we could call get_avgfreq_by_cpuid() right before printing.
-> Also, with later introduction of CPPC mode, average frequency print shall
-> not depend on the existence of legacy P-states, so we remove "px_cap"
-> dependancy check.
+> Right now, only when we failed cpufreq driver registration with -ENODEV, we get
+> the chance to try the fallback option.
+> There are two code path erroring out other than -ENODEV in cpufreq driver
+> registration: one is when the driver itself is broken, like missing mandatory
+> hooks, cpufreq_register_driver() will fail with -EINVAL, in which we shall
+> be able to try the fallback option, and the other is -EBUSY due to repeated
+> registration, in which we shall just exit the loop.
+> 
+> So in conclusion, when error code is -EBUSY or successful return, both
+> indicating a proper driver is already registered, we shall bail the loop,
+> other than that, we shall continue to try the fallback option.
 > 
 > Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
+(and perhaps also a Reported-by: or Suggested-by: ...)
 
