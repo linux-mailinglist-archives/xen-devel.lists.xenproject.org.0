@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4F2CB07A2F
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 17:45:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1045397.1415505 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33AC2B07A63
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 17:54:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1045406.1415515 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc4Je-0005AE-K2; Wed, 16 Jul 2025 15:45:06 +0000
+	id 1uc4S0-000737-Hz; Wed, 16 Jul 2025 15:53:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1045397.1415505; Wed, 16 Jul 2025 15:45:06 +0000
+Received: by outflank-mailman (output) from mailman id 1045406.1415515; Wed, 16 Jul 2025 15:53:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc4Je-00058i-Gl; Wed, 16 Jul 2025 15:45:06 +0000
-Received: by outflank-mailman (input) for mailman id 1045397;
- Wed, 16 Jul 2025 15:45:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uc4S0-00071T-E9; Wed, 16 Jul 2025 15:53:44 +0000
+Received: by outflank-mailman (input) for mailman id 1045406;
+ Wed, 16 Jul 2025 15:53:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uFaK=Z5=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uc4Jc-00058J-QZ
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 15:45:04 +0000
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [2a00:1450:4864:20::443])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d71d4c7b-625b-11f0-a319-13f23c93f187;
- Wed, 16 Jul 2025 17:45:04 +0200 (CEST)
-Received: by mail-wr1-x443.google.com with SMTP id
- ffacd0b85a97d-3a57c8e247cso4588625f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 08:45:04 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b5e8e0d4cbsm18475309f8f.50.2025.07.16.08.45.02
+ <SRS0=vAMf=Z5=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uc4Rz-00071N-13
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 15:53:43 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0add9762-625d-11f0-b894-0df219b8e170;
+ Wed, 16 Jul 2025 17:53:40 +0200 (CEST)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-607434e1821so9280275a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 08:53:40 -0700 (PDT)
+Received: from [192.168.1.17] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-611fb169550sm6964015a12.50.2025.07.16.08.53.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jul 2025 08:45:02 -0700 (PDT)
+ Wed, 16 Jul 2025 08:53:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,180 +45,582 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d71d4c7b-625b-11f0-a319-13f23c93f187
+X-Inumbo-ID: 0add9762-625d-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1752680703; x=1753285503; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=p8YCPjZD4M528sFrOIkM3wvEws3TgPogaTWPGX+h1xQ=;
-        b=kCQAaM/fR7ddE01zOnc/KkvnuvhwSiQQhBI7asRSoZ911OkwXFNs5bZeaTAhtB3uew
-         9Ohb3PBLCzsAt2stOcKmEld7/HYnBfoZxwiAuR3o7qKmONE9R19QwZ0Fm2DJfnCLGlrU
-         5CpOkwIzPV1gTJ1srXnbHPfTdLLLMX5EYTx+0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752680703; x=1753285503;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1752681220; x=1753286020; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=p8YCPjZD4M528sFrOIkM3wvEws3TgPogaTWPGX+h1xQ=;
-        b=Iu5U8V7uLk1WsnLe6FlHGBVdV/LrecEQakOevXjmaReSKI754c5ZETdyMkJ1U8r1nn
-         Os7SawzUSYFMBJbGBwUG11voSnWi5SgFmPv3iFDZ21/gIh7m3O6EZDABJWtaiggfyYec
-         PdiqBPNDcDmFSvztYSmRHRo/7NE13w+xOpsGZa2+vg/s1zNoF8GI4eLRoOAl9fF/HBha
-         5dfVeSPavDMDOriJGSpmKajapjtL1pyAXz3ixyEA0zTgclILIA5Yb4tNTMrDDk73XkHw
-         +xqrwT5VU5vzlTfDFoDzLShnPY1wCrfPegVVVY/IpYs+Yl7L/7aYmrM/gaFi2bj3yNJx
-         nXiw==
-X-Forwarded-Encrypted: i=1; AJvYcCXB9dWKbbb51Yo5hZibLToJ3njattGAZbhCmFyCrtPWRtSU1+LIa+BAnV1H7fiPSOLhail5h18q+mA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzPEb/1tbNPwrmx9dXbjf/TDJ1RiZYT+kkAf5CHNOflVbZEFN4e
-	Voue6I0Me+TSoTk/JX3hPrXQW2GPbes7kM/eRwa6XVgFWSSCU/s7EU2rMZ71fsDWr2M=
-X-Gm-Gg: ASbGncvDbzEyCKacjZDo3dxiPWKIbgT3LY5kF2TAXyGRCC++c1sfZXM2+UV4LseLKdC
-	2278E4G32/17RYAYhATFm/iv8UhIIZd3K30t4QZ9EASDJmfqIlbelojE8NkiH5cZWLxm7+JSqPS
-	yqUWdw2ibESijKLIobbMuQrT17x/Uqv3/8sD2u6BHtrOs0U/0PTMQpVgUjt6AFpEuXIbZvxD/5P
-	d7xlqS86Nly1ZedSrS09V9KCEILEqjdNhN3NKM0tZbQennlnM3/WTrYu87BImmb1gS4sdxEYJZm
-	l9qJ71BWjSbOUik7Wz1J6qtRiGYzRxCjaHLPqpPGOAxWjcnvKgD28mTIuYL2HcwR9Dt8YN19l9u
-	0iUVhIWlfS1qBXvisgwNY0JnXopQ00ERjaR1Kk4xdewjgkktiwaJDvXOpYdaVOgVMtywcqkxYMQ
-	OUy5c=
-X-Google-Smtp-Source: AGHT+IHOjQDoMCA8PuCZ78Q3PIFECRYIojGWddGiM5Qx4JBh+eBwe0xPR0XzgvNmofdEEHSDjeZqkA==
-X-Received: by 2002:a05:6000:2388:b0:3b4:9721:2b13 with SMTP id ffacd0b85a97d-3b60e4d2559mr2944299f8f.14.1752680703343;
-        Wed, 16 Jul 2025 08:45:03 -0700 (PDT)
-Message-ID: <0c8e178e-434e-4620-a79b-08bb55b848bd@citrix.com>
-Date: Wed, 16 Jul 2025 16:45:02 +0100
+        bh=qQkdmkwXv+dkDUMp61lkdTgJ2gP0Y+dPMnPs2ye8gJ8=;
+        b=jyW1m52sq39D+rlTdSM+KqRvRuzeMLjZFGo1+M4rVGI9j/hGIxe+YRYB3Vq/pfURy5
+         P56n8Xqozacz55dBc52xxKbjFdZ2dpYCzdQHlzmC2Li4cUO1JE54XR6T3DpPXDcL/bWI
+         L02zfts8XzS/Vejl3BNsNHJY+XNPBJmHNEuXYFO7BsmNVS4t2IOWpk2iiBG1Jsj4Ac/q
+         LkHNJaMA8gDM1eCrRP1GRTTIlIbDyUkvvRR7iszSILpoZXFpt051AyCr0QTo4eVXC9PL
+         01X+jPbtz55JL0E3Olk3ne3JvshV4g89bsg3rNqEaUiNiP81fsP+PWr75tQZBipfIkIe
+         VyOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1752681220; x=1753286020;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=qQkdmkwXv+dkDUMp61lkdTgJ2gP0Y+dPMnPs2ye8gJ8=;
+        b=NasHZX9aSW35+DEEKOHJdh7DtQH1XyP+qthl+kv5z+tQDuNFdb2ks8p+Qz3CQpzURg
+         o40qUzcCNvPQd1Wj1dBE4D3l79jJvr3WymgjXETu3mMjbkzOLs9P4CL8lVidmLRqHmDR
+         feqLXvVIS0wztLryP5YjOJvuYSNTDkNq1jXGg3GA4PW7wOh0X1EE370yeqxni4eFI33k
+         OYML5qybpuzy11+ZPOcIt3mPgm2qbKsjNJ+0EB+DsN1Q1xFmFi08gENaMiMTT2tIFQDW
+         96SXFLxK8ZJpt6Mt0yIhTAzFTZh5KcqnSSN5ECpcdGKuwguzQfZQQNiRDl7pRC04Kwa7
+         MwMw==
+X-Forwarded-Encrypted: i=1; AJvYcCXqfVgE3Xal85rXCMwitkCHmTcBJseJq4lDvwKgvKDyvPDVJ1xrCVBZx3QGGUgS0Wt1yzPlp9MeNHA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyrqEITD3LonEK8KCOXb8nbwD9yKlyPE1RM7HTM/3hIVg0hMW1K
+	OdrMg79Ic2qHKk+efA6q4F+1YlWT5Z5H6WAiOEtkm0RL6PdeosPD7LLG
+X-Gm-Gg: ASbGnctobqyiwZ5npWLUaoIva/QysAw1b4KwXfBGbCMI8Pai9ilrtXUaI/fU0GRzuUD
+	k3FeNle9wmXgReitAJsdz8yvXiR2tIYgtV74neFkFhZnv/JkxjnSKNhAwAiVcJE8goJjSHxcVSv
+	EIq9M9aUA9iXfme4zhXWJcaZIZhQ7AcJRBGbR0BTCBqM5eimRpRO503ReN0coqp+zVjn3AFvDq4
+	oYySBpPhLQSCRxHn4BY6VKJ4sIWBN/unVVgAJzE8hfeMevd2qVCIaib7OIx6PATgGUBMt0uLY96
+	jE9J+cIaAgzPGysKi6x/OGadn2ml7o52HkIaPWEIZNUQgey0d8V7GrflSSyDBiy0HSkOsNGA31c
+	O1G+sYMQSDdt/i/qEMJEt0fB3/OQIRwR1p4PaZChmKMIRwctrUGC4vLVvChYfj7xdu+pL26B19L
+	3DbWiLRM8=
+X-Google-Smtp-Source: AGHT+IHsKM4rTEj92QEkz9oXHMP3eKqEmsFG/6bdY2Fwhm69vxM168Oudoe35vVA5uHATdatf4QCbw==
+X-Received: by 2002:a05:6402:90d:b0:606:a99d:91d4 with SMTP id 4fb4d7f45d1cf-61285c03c78mr3289137a12.27.1752681219342;
+        Wed, 16 Jul 2025 08:53:39 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------9UdMog6SUmcEbF0Ec36Ntq7B"
+Message-ID: <d63ab4e1-d98b-4251-a5c7-87bf4688d5bb@gmail.com>
+Date: Wed, 16 Jul 2025 17:53:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] x86: Rearrange struct cpuinfo_x86 to introduce a vfm
- field
+Subject: Re: [PATCH v2 14/17] xen/riscv: implement p2m_next_level()
 To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250716132843.2086965-1-andrew.cooper3@citrix.com>
- <20250716132843.2086965-2-andrew.cooper3@citrix.com>
- <9feece5c-4ca7-42b5-b41f-6d9843e07c21@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <9feece5c-4ca7-42b5-b41f-6d9843e07c21@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
+ <cc696a9e4e74233c81f0cbcfd303cee91b8271af.1749555949.git.oleksii.kurochko@gmail.com>
+ <1496586d-484c-4e99-aea7-974be335150f@suse.com>
+ <b0013513-2646-4de4-a172-0d2ea571a3e8@gmail.com>
+ <aabb6eeb-fe2a-4b95-b844-560d2c70bcd5@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <aabb6eeb-fe2a-4b95-b844-560d2c70bcd5@suse.com>
 
-On 16/07/2025 2:47 pm, Jan Beulich wrote:
-> On 16.07.2025 15:28, Andrew Cooper wrote:
->> Intel have run out of model space in Family 6 and will start using Family 19
->> starting with Diamond Rapids.  Xen, like Linux, has model checking logic which
->> will malfunction owing to bad assumptions about the family field.
+This is a multi-part message in MIME format.
+--------------9UdMog6SUmcEbF0Ec36Ntq7B
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+On 7/16/25 1:43 PM, Jan Beulich wrote:
+> On 16.07.2025 13:32, Oleksii Kurochko wrote:
+>> On 7/2/25 10:35 AM, Jan Beulich wrote:
+>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
+>>>> --- a/xen/arch/riscv/p2m.c
+>>>> +++ b/xen/arch/riscv/p2m.c
+>>>> @@ -387,6 +387,17 @@ static inline bool p2me_is_valid(struct p2m_domain *p2m, pte_t pte)
+>>>>        return p2m_type_radix_get(p2m, pte) != p2m_invalid;
+>>>>    }
+>>>>    
+>>>> +/*
+>>>> + * pte_is_* helpers are checking the valid bit set in the
+>>>> + * PTE but we have to check p2m_type instead (look at the comment above
+>>>> + * p2me_is_valid())
+>>>> + * Provide our own overlay to check the valid bit.
+>>>> + */
+>>>> +static inline bool p2me_is_mapping(struct p2m_domain *p2m, pte_t pte)
+>>>> +{
+>>>> +    return p2me_is_valid(p2m, pte) && (pte.pte & PTE_ACCESS_MASK);
+>>>> +}
+>>> Same question as on the earlier patch - does P2M type apply to intermediate
+>>> page tables at all? (Conceptually it shouldn't.)
+>> It doesn't matter whether it is an intermediate page table or a leaf PTE pointing
+>> to a page — PTE should be valid. Considering that in the current implementation
+>> it’s possible for PTE.v = 0 but P2M.v = 1, it is better to check P2M.v instead
+>> of PTE.v.
+> I'm confused by this reply. If you want to name 2nd level page table entries
+> P2M - fine (but unhelpful). But then for any memory access there's only one
+> of the two involved: A PTE (Xen accesses) or a P2M (guest accesses). Hence
+> how can there be "PTE.v = 0 but P2M.v = 1"?
+
+I think I understand your confusion, let me try to rephrase.
+
+The reason for having both|p2m_is_valid()| and|pte_is_valid()| is that I want to
+have the ability to use the P2M PTE valid bit to track which pages were accessed
+by a vCPU, so that cleaning and invalidating RAM associated with the guest vCPU
+won't be too expensive, for example.
+In this case, the P2M PTE valid bit will be set to 0, but the P2M PTE type bits
+will be set to something other than|p2m_invalid| (even for a table entries),
+so when an MMU fault occurs, we can properly resolve it.
+
+So, if the P2M PTE type (what|p2m_is_valid()| checks) is set to|p2m_invalid|, it
+means that the valid bit (what|pte_is_valid()| checks) should be set to 0, so
+the P2M PTE is genuinely invalid.
+
+It could also be the case that the P2M PTE type isn't|p2m_invalid (and P2M PTE valid will be intentionally set to 0 to have 
+ability to track which pages were accessed for the reason I wrote above)|, and when MMU fault occurs we could
+properly handle it and set to 1 P2M PTE valid bit to 1...
+
+>
+> An intermediate page table entry is something Xen controls entirely. Hence
+> it has no (guest induced) type.
+
+... And actually it is a reason why it is needed to set a type even for an
+intermediate page table entry.
+
+I hope now it is a lit bit clearer what and why was done.
+
+>
+>>>> @@ -492,6 +503,70 @@ static pte_t p2m_entry_from_mfn(struct p2m_domain *p2m, mfn_t mfn, p2m_type_t t,
+>>>>        return e;
+>>>>    }
+>>>>    
+>>>> +/* Generate table entry with correct attributes. */
+>>>> +static pte_t page_to_p2m_table(struct p2m_domain *p2m, struct page_info *page)
+>>>> +{
+>>>> +    /*
+>>>> +     * Since this function generates a table entry, according to "Encoding
+>>>> +     * of PTE R/W/X fields," the entry's r, w, and x fields must be set to 0
+>>>> +     * to point to the next level of the page table.
+>>>> +     * Therefore, to ensure that an entry is a page table entry,
+>>>> +     * `p2m_access_n2rwx` is passed to `mfn_to_p2m_entry()` as the access value,
+>>>> +     * which overrides whatever was passed as `p2m_type_t` and guarantees that
+>>>> +     * the entry is a page table entry by setting r = w = x = 0.
+>>>> +     */
+>>>> +    return p2m_entry_from_mfn(p2m, page_to_mfn(page), p2m_ram_rw, p2m_access_n2rwx);
+>>> Similarly P2M access shouldn't apply to intermediate page tables. (Moot
+>>> with that, but (ab)using p2m_access_n2rwx would also look wrong: You did
+>>> read what it means, didn't you?)
+>> |p2m_access_n2rwx| was chosen not really because of the description mentioned near
+>> its declaration, but because it sets r=w=x=0, which RISC-V expects for a PTE that
+>> points to the next-level page table.
 >>
->> Reorder the family, vendor and model fields so they can be accessed together
->> as a single vfm field.
+>> Generally, I agree that P2M access shouldn't be applied to intermediate page tables.
 >>
->> As we're cleaning up the logic, take the opportunity to introduce better
->> names, dropping the x86 prefix.
+>> What I can suggest in this case is to use|p2m_access_rwx| instead of|p2m_access_n2rwx|,
+> No. p2m_access_* shouldn't come into play here at all.
+
+Okay, then it seems like I just can't explicitly re-use p2m_pte_from_mfn() in
+page_to_p2m_table() and have to open-code p2m_pte_from_mfn() or add another one
+argument is_table to decide if p2m_access_t and/or p2m_type_t should be applied.
+
+>   Period. Just like P2M types
+> shouldn't. As per above - intermediate page tables are Xen internal constructs.
+
+Look please at the explaining above why p2m types is needed despite of the fact that
+logically it isn't really needed.
+
+>
+>> which will ensure that the P2M access type isn't applied when|p2m_entry_from_mfn() |is called, and then, after calling|p2m_entry_from_mfn()|, simply set|PTE.r,w,x=0|.
+>> So this function will look like:
+>>       /* Generate table entry with correct attributes. */
+>>       static pte_t page_to_p2m_table(struct p2m_domain *p2m, struct page_info *page)
+>>       {
+>>           /*
+>>           * p2m_ram_rw is chosen for a table entry as p2m table should be valid
+>>           * from both P2M and hardware point of view.
+>>           *
+>>           * p2m_access_rwx is chosen to restrict access permissions, what mean
+>>           * do not apply access permission for a table entry
+>>           */
+>>           pte_t pte = p2m_pte_from_mfn(p2m, page_to_mfn(page), _gfn(0), p2m_ram_rw,
+>>                                       p2m_access_rwx);
 >>
->> No functional change.
+>>           /*
+>>           * Since this function generates a table entry, according to "Encoding
+>>           * of PTE R/W/X fields," the entry's r, w, and x fields must be set to 0
+>>           * to point to the next level of the page table.
+>>           */
+>>           pte.pte &= ~PTE_ACCESS_MASK;
 >>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> In principle
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>           return pte;
+>>       }
+>>
+>> Does this make sense? Or would it be better to keep the current version of
+>> |page_to_p2m_table()| and just improve the comment explaining why|p2m_access_n2rwx |is used for a table entry?
+> No to both, as per above.
 >
-> Two remarks, though:
+>>>> +static struct page_info *p2m_alloc_page(struct domain *d)
+>>>> +{
+>>>> +    struct page_info *pg;
+>>>> +
+>>>> +    /*
+>>>> +     * For hardware domain, there should be no limit in the number of pages that
+>>>> +     * can be allocated, so that the kernel may take advantage of the extended
+>>>> +     * regions. Hence, allocate p2m pages for hardware domains from heap.
+>>>> +     */
+>>>> +    if ( is_hardware_domain(d) )
+>>>> +    {
+>>>> +        pg = alloc_domheap_page(d, MEMF_no_owner);
+>>>> +        if ( pg == NULL )
+>>>> +            printk(XENLOG_G_ERR "Failed to allocate P2M pages for hwdom.\n");
+>>>> +    }
+>>> The comment looks to have been taken verbatim from Arm. Whatever "extended
+>>> regions" are, does the same concept even exist on RISC-V?
+>> Initially, I missed that it’s used only for Arm. Since it was mentioned in
+>> |doc/misc/xen-command-line.pandoc|, I assumed it applied to all architectures.
+>> But now I see that it’s Arm-specific:: ### ext_regions (Arm)
+>>
+>>> Also, special casing Dom0 like this has benefits, but also comes with a
+>>> pitfall: If the system's out of memory, allocations will fail. A pre-
+>>> populated pool would avoid that (until exhausted, of course). If special-
+>>> casing of Dom0 is needed, I wonder whether ...
+>>>
+>>>> +    else
+>>>> +    {
+>>>> +        spin_lock(&d->arch.paging.lock);
+>>>> +        pg = page_list_remove_head(&d->arch.paging.p2m_freelist);
+>>>> +        spin_unlock(&d->arch.paging.lock);
+>>>> +    }
+>>> ... going this path but with a Dom0-only fallback to general allocation
+>>> wouldn't be the better route.
+>> IIUC, then it should be something like:
+>>     static struct page_info *p2m_alloc_page(struct domain *d)
+>>     {
+>>         struct page_info *pg;
+>>         
+>>         spin_lock(&d->arch.paging.lock);
+>>         pg = page_list_remove_head(&d->arch.paging.p2m_freelist);
+>>         spin_unlock(&d->arch.paging.lock);
+>>
+>>         if ( !pg && is_hardware_domain(d) )
+>>         {
+>>               /* Need to allocate more memory from domheap */
+>>               pg = alloc_domheap_page(d, MEMF_no_owner);
+>>               if ( pg == NULL )
+>>               {
+>>                   printk(XENLOG_ERR "Failed to allocate pages.\n");
+>>                   return pg;
+>>               }
+>>               ACCESS_ONCE(d->arch.paging.total_pages)++;
+>>               page_list_add_tail(pg, &d->arch.paging.freelist);
+>>         }
+>>      
+>>         return pg;
+>> }
+>>
+>> And basically use|d->arch.paging.freelist| for both dom0less and dom0 domains,
+>> with the only difference being that in the case of Dom0,|d->arch.paging.freelist |could be extended.
+>>
+>> Do I understand your idea correctly?
+> Broadly yes, but not in the details. For example, I don't think such a
+> page allocated from the general heap would want appending to freelist.
+> Commentary and alike also would want tidying.
+
+Could you please explain why it wouldn't want appending to freelist?
+
 >
->> --- a/xen/arch/x86/include/asm/cpufeature.h
->> +++ b/xen/arch/x86/include/asm/cpufeature.h
->> @@ -20,10 +20,30 @@
->>  #ifndef __ASSEMBLY__
->>  
->>  struct cpuinfo_x86 {
->> -    unsigned char x86;                 /* CPU family */
->> -    unsigned char x86_vendor;          /* CPU vendor */
->> -    unsigned char x86_model;
->> -    unsigned char x86_mask;
->> +    /* TODO: Phase out the x86 prefixed names. */
->> +    union {
->> +        struct {
->> +            union {
->> +                uint8_t x86_model;
->> +                uint8_t model;
->> +            };
->> +            union {
->> +                uint8_t x86;
->> +                uint8_t family;
->> +            };
->> +            union {
->> +                uint8_t x86_vendor;
->> +                uint8_t vendor;
->> +            };
->> +            uint8_t _rsvd;
-> Can we perhaps name this e.g. _zero, so it's clear that it cannot be
-> repurposed?
+> And of course going forward, for split hardware and control domains the
+> latter may want similar treatment.
 
-It can be repurposed; it just must be done in coordination with VFM_MAKE().
+Could you please clarify what is the difference between hardware and control
+domains?
+I thought that it is the same or is it for the case when we have
+dom0 (control domain) which runs domD (hardware domain) and guest domain?
 
-I can add a comment to this effect, but it would need to be in the
-subsequent patch when VFM_MAKE() is introduced.
+Thanks.
 
->
->> --- a/xen/arch/x86/setup.c
->> +++ b/xen/arch/x86/setup.c
->> @@ -178,7 +178,9 @@ void *stack_start = cpu0_stack + STACK_SIZE - sizeof(struct cpu_info);
->>  /* Used by the boot asm and EFI to stash the multiboot_info paddr. */
->>  unsigned int __initdata multiboot_ptr;
->>  
->> -struct cpuinfo_x86 __read_mostly boot_cpu_data = { 0, 0, 0, 0, -1 };
->> +struct cpuinfo_x86 __read_mostly boot_cpu_data = {
->> +    .cpuid_level = -1,
->> +};
-> So you retain the bogus setting of this field. Would you mind taking a
-> look at [1], one of the many things that I never heard back on? I'm
-> deliberately purging that non-sense there as a (side-)effect. Plus
-> really I'm getting tired of having to re-base my long-pending changes
-> over ones you are helped getting in pretty quickly. No matter that this
-> one's going to be one of the easy ones (I hope).
->
-> Jan
->
-> [1] https://lists.xen.org/archives/html/xen-devel/2024-02/msg00726.html
+~ Oleksii
 
-I can rebase.
+--------------9UdMog6SUmcEbF0Ec36Ntq7B
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-~Andrew
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 7/16/25 1:43 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:aabb6eeb-fe2a-4b95-b844-560d2c70bcd5@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 16.07.2025 13:32, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On 7/2/25 10:35 AM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 10.06.2025 15:05, Oleksii Kurochko wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/p2m.c
++++ b/xen/arch/riscv/p2m.c
+@@ -387,6 +387,17 @@ static inline bool p2me_is_valid(struct p2m_domain *p2m, pte_t pte)
+      return p2m_type_radix_get(p2m, pte) != p2m_invalid;
+  }
+  
++/*
++ * pte_is_* helpers are checking the valid bit set in the
++ * PTE but we have to check p2m_type instead (look at the comment above
++ * p2me_is_valid())
++ * Provide our own overlay to check the valid bit.
++ */
++static inline bool p2me_is_mapping(struct p2m_domain *p2m, pte_t pte)
++{
++    return p2me_is_valid(p2m, pte) &amp;&amp; (pte.pte &amp; PTE_ACCESS_MASK);
++}
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Same question as on the earlier patch - does P2M type apply to intermediate
+page tables at all? (Conceptually it shouldn't.)
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+It doesn't matter whether it is an intermediate page table or a leaf PTE pointing
+to a page — PTE should be valid. Considering that in the current implementation
+it’s possible for PTE.v = 0 but P2M.v = 1, it is better to check P2M.v instead
+of PTE.v.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+I'm confused by this reply. If you want to name 2nd level page table entries
+P2M - fine (but unhelpful). But then for any memory access there's only one
+of the two involved: A PTE (Xen accesses) or a P2M (guest accesses). Hence
+how can there be "PTE.v = 0 but P2M.v = 1"?</pre>
+    </blockquote>
+    <pre>I think I understand your confusion, let me try to rephrase.
+
+The reason for having both <code>p2m_is_valid()</code> and <code>pte_is_valid()</code> is that I want to
+have the ability to use the P2M PTE valid bit to track which pages were accessed
+by a vCPU, so that cleaning and invalidating RAM associated with the guest vCPU
+won't be too expensive, for example.
+In this case, the P2M PTE valid bit will be set to 0, but the P2M PTE type bits
+will be set to something other than <code>p2m_invalid</code> (even for a table entries),
+so when an MMU fault occurs, we can properly resolve it.
+
+So, if the P2M PTE type (what <code>p2m_is_valid()</code> checks) is set to <code>p2m_invalid</code>, it
+means that the valid bit (what <code>pte_is_valid()</code> checks) should be set to 0, so
+the P2M PTE is genuinely invalid.</pre>
+    <pre>It could also be the case that the P2M PTE type isn't <code>p2m_invalid (and P2M PTE
+valid will be intentionally set to 0 to have ability to track which pages were
+accessed for the reason I wrote above)</code>, and when MMU fault occurs we could
+properly handle it and set to 1 P2M PTE valid bit to 1...
+</pre>
+    <blockquote type="cite"
+      cite="mid:aabb6eeb-fe2a-4b95-b844-560d2c70bcd5@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+An intermediate page table entry is something Xen controls entirely. Hence
+it has no (guest induced) type.</pre>
+    </blockquote>
+    <pre>... And actually it is a reason why it is needed to set a type even for an
+intermediate page table entry.
+
+I hope now it is a lit bit clearer what and why was done.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:aabb6eeb-fe2a-4b95-b844-560d2c70bcd5@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">@@ -492,6 +503,70 @@ static pte_t p2m_entry_from_mfn(struct p2m_domain *p2m, mfn_t mfn, p2m_type_t t,
+      return e;
+  }
+  
++/* Generate table entry with correct attributes. */
++static pte_t page_to_p2m_table(struct p2m_domain *p2m, struct page_info *page)
++{
++    /*
++     * Since this function generates a table entry, according to "Encoding
++     * of PTE R/W/X fields," the entry's r, w, and x fields must be set to 0
++     * to point to the next level of the page table.
++     * Therefore, to ensure that an entry is a page table entry,
++     * `p2m_access_n2rwx` is passed to `mfn_to_p2m_entry()` as the access value,
++     * which overrides whatever was passed as `p2m_type_t` and guarantees that
++     * the entry is a page table entry by setting r = w = x = 0.
++     */
++    return p2m_entry_from_mfn(p2m, page_to_mfn(page), p2m_ram_rw, p2m_access_n2rwx);
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Similarly P2M access shouldn't apply to intermediate page tables. (Moot
+with that, but (ab)using p2m_access_n2rwx would also look wrong: You did
+read what it means, didn't you?)
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+|p2m_access_n2rwx| was chosen not really because of the description mentioned near
+its declaration, but because it sets r=w=x=0, which RISC-V expects for a PTE that
+points to the next-level page table.
+
+Generally, I agree that P2M access shouldn't be applied to intermediate page tables.
+
+What I can suggest in this case is to use|p2m_access_rwx| instead of|p2m_access_n2rwx|,
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+No. p2m_access_* shouldn't come into play here at all.</pre>
+    </blockquote>
+    <pre>Okay, then it seems like I just can't explicitly re-use p2m_pte_from_mfn() in
+page_to_p2m_table() and have to open-code p2m_pte_from_mfn() or add another one
+argument is_table to decide if p2m_access_t and/or p2m_type_t should be applied.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:aabb6eeb-fe2a-4b95-b844-560d2c70bcd5@suse.com">
+      <pre wrap="" class="moz-quote-pre"> Period. Just like P2M types
+shouldn't. As per above - intermediate page tables are Xen internal constructs.</pre>
+    </blockquote>
+    <pre>Look please at the explaining above why p2m types is needed despite of the fact that
+logically it isn't really needed. 
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:aabb6eeb-fe2a-4b95-b844-560d2c70bcd5@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">which will ensure that the P2M access type isn't applied when|p2m_entry_from_mfn() |is called, and then, after calling|p2m_entry_from_mfn()|, simply set|PTE.r,w,x=0|.
+So this function will look like:
+     /* Generate table entry with correct attributes. */
+     static pte_t page_to_p2m_table(struct p2m_domain *p2m, struct page_info *page)
+     {
+         /*
+         * p2m_ram_rw is chosen for a table entry as p2m table should be valid
+         * from both P2M and hardware point of view.
+         *
+         * p2m_access_rwx is chosen to restrict access permissions, what mean
+         * do not apply access permission for a table entry
+         */
+         pte_t pte = p2m_pte_from_mfn(p2m, page_to_mfn(page), _gfn(0), p2m_ram_rw,
+                                     p2m_access_rwx);
+
+         /*
+         * Since this function generates a table entry, according to "Encoding
+         * of PTE R/W/X fields," the entry's r, w, and x fields must be set to 0
+         * to point to the next level of the page table.
+         */
+         pte.pte &amp;= ~PTE_ACCESS_MASK;
+
+         return pte;
+     }
+
+Does this make sense? Or would it be better to keep the current version of
+|page_to_p2m_table()| and just improve the comment explaining why|p2m_access_n2rwx |is used for a table entry?
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+No to both, as per above.
+
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">+static struct page_info *p2m_alloc_page(struct domain *d)
++{
++    struct page_info *pg;
++
++    /*
++     * For hardware domain, there should be no limit in the number of pages that
++     * can be allocated, so that the kernel may take advantage of the extended
++     * regions. Hence, allocate p2m pages for hardware domains from heap.
++     */
++    if ( is_hardware_domain(d) )
++    {
++        pg = alloc_domheap_page(d, MEMF_no_owner);
++        if ( pg == NULL )
++            printk(XENLOG_G_ERR "Failed to allocate P2M pages for hwdom.\n");
++    }
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">The comment looks to have been taken verbatim from Arm. Whatever "extended
+regions" are, does the same concept even exist on RISC-V?
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+Initially, I missed that it’s used only for Arm. Since it was mentioned in
+|doc/misc/xen-command-line.pandoc|, I assumed it applied to all architectures.
+But now I see that it’s Arm-specific:: ### ext_regions (Arm)
+
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">
+Also, special casing Dom0 like this has benefits, but also comes with a
+pitfall: If the system's out of memory, allocations will fail. A pre-
+populated pool would avoid that (until exhausted, of course). If special-
+casing of Dom0 is needed, I wonder whether ...
+
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">+    else
++    {
++        spin_lock(&amp;d-&gt;arch.paging.lock);
++        pg = page_list_remove_head(&amp;d-&gt;arch.paging.p2m_freelist);
++        spin_unlock(&amp;d-&gt;arch.paging.lock);
++    }
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">... going this path but with a Dom0-only fallback to general allocation
+wouldn't be the better route.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+IIUC, then it should be something like:
+   static struct page_info *p2m_alloc_page(struct domain *d)
+   {
+       struct page_info *pg;
+       
+       spin_lock(&amp;d-&gt;arch.paging.lock);
+       pg = page_list_remove_head(&amp;d-&gt;arch.paging.p2m_freelist);
+       spin_unlock(&amp;d-&gt;arch.paging.lock);
+
+       if ( !pg &amp;&amp; is_hardware_domain(d) )
+       {
+             /* Need to allocate more memory from domheap */
+             pg = alloc_domheap_page(d, MEMF_no_owner);
+             if ( pg == NULL )
+             {
+                 printk(XENLOG_ERR "Failed to allocate pages.\n");
+                 return pg;
+             }
+             ACCESS_ONCE(d-&gt;arch.paging.total_pages)++;
+             page_list_add_tail(pg, &amp;d-&gt;arch.paging.freelist);
+       }
+    
+       return pg;
+}
+
+And basically use|d-&gt;arch.paging.freelist| for both dom0less and dom0 domains,
+with the only difference being that in the case of Dom0,|d-&gt;arch.paging.freelist |could be extended.
+
+Do I understand your idea correctly?
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Broadly yes, but not in the details. For example, I don't think such a
+page allocated from the general heap would want appending to freelist.
+Commentary and alike also would want tidying.</pre>
+    </blockquote>
+    <pre>Could you please explain why it wouldn't want appending to freelist?
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:aabb6eeb-fe2a-4b95-b844-560d2c70bcd5@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+And of course going forward, for split hardware and control domains the
+latter may want similar treatment.
+</pre>
+    </blockquote>
+    <pre>Could you please clarify what is the difference between hardware and control
+domains?
+I thought that it is the same or is it for the case when we have
+dom0 (control domain) which runs domD (hardware domain) and guest domain?
+
+Thanks.
+
+~ Oleksii</pre>
+  </body>
+</html>
+
+--------------9UdMog6SUmcEbF0Ec36Ntq7B--
 
