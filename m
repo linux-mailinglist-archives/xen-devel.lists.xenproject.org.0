@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FFAFB0776E
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 15:57:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1045236.1415346 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74B60B0778C
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 16:02:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1045249.1415354 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc2cu-00075N-Qw; Wed, 16 Jul 2025 13:56:52 +0000
+	id 1uc2hW-0000QO-CR; Wed, 16 Jul 2025 14:01:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1045236.1415346; Wed, 16 Jul 2025 13:56:52 +0000
+Received: by outflank-mailman (output) from mailman id 1045249.1415354; Wed, 16 Jul 2025 14:01:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc2cu-00072D-Mz; Wed, 16 Jul 2025 13:56:52 +0000
-Received: by outflank-mailman (input) for mailman id 1045236;
- Wed, 16 Jul 2025 13:56:51 +0000
+	id 1uc2hW-0000OH-9i; Wed, 16 Jul 2025 14:01:38 +0000
+Received: by outflank-mailman (input) for mailman id 1045249;
+ Wed, 16 Jul 2025 14:01:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L52i=Z5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uc2ct-000727-Pm
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 13:56:51 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
+ id 1uc2hU-0000O6-Mg
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 14:01:36 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b8c3f308-624c-11f0-a319-13f23c93f187;
- Wed, 16 Jul 2025 15:56:50 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3a57c8e247cso4473204f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 06:56:50 -0700 (PDT)
+ id 6312b02f-624d-11f0-a319-13f23c93f187;
+ Wed, 16 Jul 2025 16:01:36 +0200 (CEST)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-553b3316160so7090832e87.2
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 07:01:36 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23de4346b70sm128262375ad.195.2025.07.16.06.56.46
+ 98e67ed59e1d1-31c923bd7d0sm2325885a91.1.2025.07.16.07.01.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jul 2025 06:56:49 -0700 (PDT)
+ Wed, 16 Jul 2025 07:01:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8c3f308-624c-11f0-a319-13f23c93f187
+X-Inumbo-ID: 6312b02f-624d-11f0-a319-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752674210; x=1753279010; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752674496; x=1753279296; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2hAdu/wq4uFfl4jnUk8biIe/WaWjGvHH93yTmeJzp7Q=;
-        b=MnLDTKkdDUlN9ZPOrG3j1WpcuBrIaXmtZmzAtarxmR2xZfuGhQDNd44K/qqlakofZ/
-         aszq5o4PtLJta17OJB3XkIvHbzcD5/EaOaOyalYpe5PaL1NPuQQE3j+gCPyFZ+v3C1N4
-         ax46C5KsW8jdHRhC6O3DghqHwhX6XpqOTx0kZr/doyNYfosEzEWYtLpPP5AACJbJnNjH
-         xKZbvKramSF3Wrp7Z9WwoV1NsHC8CC7cNO7/wIBQe7FD1W6xXvOg5PKLBbwDS3JyuiU7
-         gwG1cJN78yErXqNWFbxLywrNUcIUNVaRSksuvQFQuJZJaC0YdpZ0K5BpQ2SLrjmHKRtq
-         MYxA==
+        bh=KOJ6wqN28h5vBWJRf3yHXIR/6KI8Zgoi4/fS6aC509c=;
+        b=XGOHNRuNJf8FGAqRsREe9Q4IzuRLk+wkilpa/uekAtHnC+IbXIC8hTk5/Zi2vHs0uw
+         9RudwVmM0nXkV3s++bxY7UdL4MaWkQsN3CNEx0RT05b7ZDdkN05fgP03FZyA15BjD3zI
+         8lZ2L5qLYlcwyvCIqfZUc92FSaIhmApJIqMtW+3oc5xM2J4MS05e538xBE2egjqJRiy3
+         VxiIWCTRvKpF9NXnNRIZtu6dfyd9ZpPpE1XP+HEDtzsRBob9jQMhCm1mOe2C8xWQh5SH
+         XHe+K0HDVuzcxlK8PnwG/IIIm8t19RmVB7xNShQGrUBqhlFUKNw6+FtajP2S3msDqimN
+         CmKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752674210; x=1753279010;
+        d=1e100.net; s=20230601; t=1752674496; x=1753279296;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2hAdu/wq4uFfl4jnUk8biIe/WaWjGvHH93yTmeJzp7Q=;
-        b=sC1lCTdH8QtettQ4OSSD6g4CtP+OKmTwByyXT1FgpftHLXV0tcMGzpUbYUd1tEds6z
-         kVUxrSvAsYTbCimvOGNf++GievyX4p5GN0P/EZO2JGtaJua4YvP+Kt6Nl31gsks5ERHH
-         1XmB3cfkTO3ISJPfxb6DtuZuZSKYvId1i/qFL5WltXYh2Uz6bWWnbtikn3nEJB6fULDP
-         MhDk4blsltL+E4abImghpT9Ra9nEUanPYHv5jkVHbFHfzFO/KPE9lcKDtlX6ovc90bPh
-         ezLdG1WA/IMzjwBMR+Sn9F5nEBM3kNqvKTySS73qYJX36KV7gNHs2IqXU/eRTtYXwteH
-         YEUw==
-X-Forwarded-Encrypted: i=1; AJvYcCWzOZ4IWxskEzK3it5GOKzOAsuiyn/8TWb+rNGsMuSwmxqi4Lvx5hotYbt8E977YESZHDeruOpzHI0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyqeebA/PhG/TDiq0vP6Ii06WcEPXptTm6kynDUGLRmih9F/AtZ
-	up28+WltRdWGvxUqe00Ir0U8DxObd0P863Tv3AIxyGPH/Atq6wI4o2nrhPXu3uOBzg==
-X-Gm-Gg: ASbGncsSZN63ZA6m8gBpk9ctUgDoRNzI710jA5I18+cGBitwBK3AQuaQcPAVNMOxr8X
-	1WIRtOOmukMoKO50DIh438STmDvQOLrrXIEfdsKzBAsdi5rHonXL9rXsdf2ZhMPA4rML6vKipRC
-	6D9ZhzMaHvP7n7e5/vcgAUoqiPj/+yIZyfxEDsip5DtqqlxRiuq7/xeS/PlWrPrGHbkEoR6m25i
-	eRiHHMUN1AJuc/it3wHT6hDe69OwkTfylUBS5e5ttU6yiK3COpNHMF2LN5d/UIQcBgqQF4V5N10
-	JsJGkyKQ+Pd5CN9CrHMCyNJSy5z1dmOosHVbAsve5tuh5nTA6Yxg5rGfPxpavV+Xkeo5XrXvi9n
-	K5ZPznD34ntOxt+I7skpyIWkSH/sS8iG8fNvVKhLqHJ9iMEH8kSgABFJHEsMHRyQ9p3KQHsX14p
-	MxnCzYdG8+i3gTC0ezHg==
-X-Google-Smtp-Source: AGHT+IFGVfMMXvMVzlK+nHnZ23mCwbqKYthevGvxkP7bY+IXSjoF5uwNOsCVxUXqUh8AWDVHLUmeoA==
-X-Received: by 2002:a05:6000:2dc2:b0:3a4:d6ed:8e00 with SMTP id ffacd0b85a97d-3b60e51ca38mr2462773f8f.33.1752674209932;
-        Wed, 16 Jul 2025 06:56:49 -0700 (PDT)
-Message-ID: <f8808232-dc06-4ecc-85bb-e05d8f948d00@suse.com>
-Date: Wed, 16 Jul 2025 15:56:42 +0200
+        bh=KOJ6wqN28h5vBWJRf3yHXIR/6KI8Zgoi4/fS6aC509c=;
+        b=thpP0iu90PEpj3/2mjQUvYdlFf8lepOrgKLsuKLyzY2g7StCTOMRiFO5u4er4JIpvy
+         MlYt78cGjQfwyJTofhbUoa1Xvu2D+m5Cr7zIZhyzjyYZqKLA6fi3vpaBUvIJMQM2bSjd
+         NKlvmneOz2ujkHHUngW4U4Ec+o5q2ozJEO3GIVqlKGi8+vZ5UXxGVND1doRkq5EG6pV9
+         Q+QkEryY1lZ/yAlWFb+GqSX9MEF4dBXP382GTw4hjE+tMc/HUYGu5M9vq2mTpKJyTKFS
+         IaiPzhhgSENswXYqkuoikn7xEG7nJRCmS23/ajOOMExFFGjSQ1LTG+Ouf4qPgUkWg8E1
+         nOdw==
+X-Forwarded-Encrypted: i=1; AJvYcCUd9grtrX1vONyHQt8Jsn4F00qlGUF9sK1iEPdTFfRZOHZHTj+WUieF7dUuCIbi4R/8Xl1G9kAnn0s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwJzp2znzY2D66aIY9gZMYOpavKtKSxiwojwKAi+BPbFQRC2EFs
+	yWOreRRgBFd8erCjq0XCNocfVXDQ5CMq6XpJvflZmi87ywWVupr6j3fyNy4wLxf6nA==
+X-Gm-Gg: ASbGnctr5iavVXYOmE9enaBKDu15iABlv7pvQWFvflvmFYMKYywelAT259EaCW1c0X4
+	TucqnHBKB4J/XG5njv6PIajdw3X6n21sFiSyXWPU/ZYF4Ikfyq9RE49umK+Dzg2K+ILpMxk4EAI
+	EhKjsMJHDEu72ZYDBXSJGNrsKgrdoCtRjgUr1VQYCQf8n+hGT5jg/7dJ+Uq+eFQHDGqf6zlheUL
+	Q8RWpa2oKbRMUIjtowyi/3hoCx9iWkvM77G2FVb+hrswe9Xm969YSEjiAKZE7v44LhVpAM7vcNL
+	pWGb7AvEp6wFjR4Semimocrv5M/Ai9a2j+PuhEzPJIyW1hzmKC4z7gtbNdod6q+HPyYV6DIdCDD
+	y2xsekI8/+Cn0XGE+4iX0JZHmJd5Cf7ZemmbScYe1RJDDlcV//AuJyclsuLi3Jmho5Cxegyyche
+	pLIYjHgZs=
+X-Google-Smtp-Source: AGHT+IEXYezPwSxMSjStxIoUjnoACRluh+75jPw/+sVatm5x/YkXPuru1jtlE5Dz/AFsBq22sUP1Tw==
+X-Received: by 2002:a05:6512:618b:b0:553:3770:c907 with SMTP id 2adb3069b0e04-55a23ee7fedmr896423e87.10.1752674495010;
+        Wed, 16 Jul 2025 07:01:35 -0700 (PDT)
+Message-ID: <efdc04a6-b759-4112-aa0c-5085b7007ccc@suse.com>
+Date: Wed, 16 Jul 2025 16:01:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] x86/intel-family: Resync with Linux
+Subject: Re: [PATCH 3/3] x86/vtd: Switch model check to VFM
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250716132843.2086965-1-andrew.cooper3@citrix.com>
- <20250716132843.2086965-3-andrew.cooper3@citrix.com>
+ <20250716132843.2086965-4-andrew.cooper3@citrix.com>
+ <5d99e194-22a6-45a6-a338-a80d3321ad6f@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,71 +120,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250716132843.2086965-3-andrew.cooper3@citrix.com>
+In-Reply-To: <5d99e194-22a6-45a6-a338-a80d3321ad6f@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 16.07.2025 15:28, Andrew Cooper wrote:
-> This snapshot is prior to Linux commit db4001f9cc32 ("x86/cpu/vfm: Delete all
-> the *_FAM6_ CPU #defines") at the end of their conversion phase.
+On 16.07.2025 15:32, Andrew Cooper wrote:
+> On 16/07/2025 2:28 pm, Andrew Cooper wrote:
+>> diff --git a/xen/arch/x86/include/asm/cpufeature.h b/xen/arch/x86/include/asm/cpufeature.h
+>> index ba2c1c1c7416..f8b85c0f9520 100644
+>> --- a/xen/arch/x86/include/asm/cpufeature.h
+>> +++ b/xen/arch/x86/include/asm/cpufeature.h
+>> @@ -28,7 +28,7 @@
+>>  
+>>  #define VFM_MAKE(v, f, m) (MASK_INSR(v, VFM_VENDOR_MASK) | \
+>>                             MASK_INSR(f, VFM_FAMILY_MASK) | \
+>> -                           MASK_INSR(f, VFM_MODEL_MASK))
+>> +                           MASK_INSR(m, VFM_MODEL_MASK))
+>>  
 > 
-> In addition to non-FAM6 infixed names, defines are added for the Pentium Pro,
-> ArrowLake U, and reintroduced the PHI defines which were incorrectly deleted
-> in the past.
-> 
-> In cpufeature.h, provide VFM_* macros to transform constants to/from the
-> cpuinfo_x86 representation.
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> I meant to object to deleting PHI at the time, but was too late.  Just because
-> Xen has stopped supporting the PHI doesn't mean the model numbers have ceased
-> existing.
+> This hunk should be in the prior patch.  Fixed up locally.
 
-I don't mind their re-introduction, yet I wonder what value their presence has
-when we don't use them anywhere. In the public cpufeatureset.h they serve a
-documentation purpose, to have less holes there. This could be view the same
-here, yes, but it still seems (yet) less relevant.
-
-> --- a/xen/arch/x86/include/asm/intel-family.h
-> +++ b/xen/arch/x86/include/asm/intel-family.h
-> @@ -13,8 +13,8 @@
->   *	INTEL_FAM6{OPTFAMILY}_{MICROARCH}{OPTDIFF}
->   * where:
->   * OPTFAMILY	Describes the family of CPUs that this belongs to. Default
-> - *		is assumed to be "_CORE" (and should be omitted). The other
-> - *		value currently in use is _ATOM.
-> + *		is assumed to be "_CORE" (and should be omitted). Other values
-> + *		currently in use are _ATOM and _XEON_PHI
-
-Nit: You lost the full stop.
-
-> @@ -40,131 +40,223 @@
->   * their own names :-(
->   */
->  
-> +#define IFM(_fam, _model)	VFM_MAKE(X86_VENDOR_INTEL, _fam, _model)
-> +
->  /* Wildcard match for FAM6 so X86_MATCH_INTEL_FAM6_MODEL(ANY) works */
->  #define INTEL_FAM6_ANY			X86_MODEL_ANY
-> +/* Wildcard match for FAM6 so X86_MATCH_VFM(ANY) works */
-> +#define INTEL_ANY			IFM(X86_FAMILY_ANY, X86_MODEL_ANY)
-> +
-> +#define INTEL_PENTIUM_PRO		IFM(6, 0x01)
->  
->  #define INTEL_FAM6_CORE_YONAH		0x0E
-> +#define INTEL_CORE_YONAH		IFM(6, 0x0E)
-
-Here and below I assume it is deliberate that you use a raw number again,
-rather than making use of the immediately preceding #define? Perhaps for
-the sake of brevity?
-
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Then:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
