@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 771ABB06E6B
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 09:02:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1044854.1414883 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65201B06E74
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 09:04:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1044862.1414892 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubw9e-0001pU-4w; Wed, 16 Jul 2025 07:02:14 +0000
+	id 1ubwBF-0002Pc-Ht; Wed, 16 Jul 2025 07:03:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1044854.1414883; Wed, 16 Jul 2025 07:02:14 +0000
+Received: by outflank-mailman (output) from mailman id 1044862.1414892; Wed, 16 Jul 2025 07:03:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubw9e-0001mb-1v; Wed, 16 Jul 2025 07:02:14 +0000
-Received: by outflank-mailman (input) for mailman id 1044854;
- Wed, 16 Jul 2025 07:02:12 +0000
+	id 1ubwBF-0002Mx-EW; Wed, 16 Jul 2025 07:03:53 +0000
+Received: by outflank-mailman (input) for mailman id 1044862;
+ Wed, 16 Jul 2025 07:03:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L52i=Z5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ubw9c-0001mV-9e
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 07:02:12 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ id 1ubwBD-0002Mj-Hr
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 07:03:51 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id caf01d63-6212-11f0-b894-0df219b8e170;
- Wed, 16 Jul 2025 09:02:10 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3a4f379662cso4689688f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 00:02:10 -0700 (PDT)
+ id 061bf955-6213-11f0-b894-0df219b8e170;
+ Wed, 16 Jul 2025 09:03:49 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3a531fcaa05so3510906f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 00:03:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31c9f2a2549sm811747a91.42.2025.07.16.00.01.57
+ d2e1a72fcca58-74eb9f25269sm13542217b3a.107.2025.07.16.00.03.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jul 2025 00:02:09 -0700 (PDT)
+ Wed, 16 Jul 2025 00:03:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,67 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: caf01d63-6212-11f0-b894-0df219b8e170
+X-Inumbo-ID: 061bf955-6213-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752649330; x=1753254130; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752649429; x=1753254229; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5TKArfb607cXs268gasBSZ38f4IEot460N/YWEr+Vng=;
-        b=GYDVwRwqm0d2vPSq2YIcH5T0XicLRwp/BjrxolpOpc98UstIwAo0UF5OSPCisE8ufP
-         BVL6CV17FlhaZQ6HW6+Tag5e/XEL4FWfNVmibq3BKjrdJOPvcoJzrVa1peZ3EFpUese3
-         7EwpSZw1gYGXEWc8dW8R8VfZIxGmo9PoKo+bwU4ZenSRL2SSB2N/QJuNWbwwrbdMWoLz
-         4NyyNRinKf18UrAuWG4ELLO9+ZKXF/uCE1N403NhIVTaS9v5R1sNzRpCAtRLnE71cCE8
-         i3Bv2x5TsCjcn6ehhkg3pDD9CmzFDQADKSfgyu3FCsICquVFhXsjAFCQoU2Y+hfvAsgg
-         kt7w==
+        bh=lQjFPrLZSC7DoLS8LlUShpk04opc4O1qT+Wrm5x9GZ4=;
+        b=b7+rPltV2Tl0jZzgEvmvwISfVibBCKeBCpnY4yBXDjx52I6IvxBsVhjNdXN8tmexgX
+         5ACjk4bzKMelj8H1SGsnJG+UH3/dfSSeLlkxPxoKsay3NNhwfWa4tcQ7Z+7LRMk4fUr/
+         Ph2HpSFqQVB/sie7Uyh2AKDN3DHbFue0Ue1A8rGoiXG3u/Q2V9JJAEdxv2IU4hekGYmY
+         +8FHeMpWV4Mg0xcGaE8N8hfC7vhI14KJ6Yqe1b4mRVhMo0iak1xAdxUZnWG4LtmSyCKE
+         AGmRmBGclg1jx7JprrJFV8i+nk6U1upL4mF0dkAIDqvM0LwX8HIAbivjbDqUbL9YYGV4
+         eO0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752649330; x=1753254130;
+        d=1e100.net; s=20230601; t=1752649429; x=1753254229;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5TKArfb607cXs268gasBSZ38f4IEot460N/YWEr+Vng=;
-        b=IBdcYf0o1I5i87iLujaewG8ViqibLHWmMuGWQsunq94AKbMa0ps86ZcAM6zHvIIXoS
-         PwRJF/P+bo4bNg0bG+8YeV6ELCd12d1dPEPwShkFIwdoPUGXR8UfclyPfuWoFPBzGF3j
-         Sn0woW1+8EJ66xhqrB2dBiOBPIGcfil/6YtHrDkHr2RMSX3vhsVJmbMkONj0f/jhrXbe
-         3uxYeUScohuxGlISW4/lhLNrWfnpZSPL+racBHYK07OwNUxrZLCabNrwD0FQOkZvLoc9
-         ojgcseExRDtl6MkzH9hCGvw0XGEs7iuKNzYZchWCrC2914AtadYOXNCwAzTN3O54qZmo
-         ZtIg==
-X-Gm-Message-State: AOJu0Yzrhs9zy37TM+lhlSDpI+RlSqa7DyUFSdAVSohD7YYj8sFrgEQ/
-	dZEpT4wLwGJBj6qW0FX98wy5SgIyefNMEQ63L2M6wxFK5o8Q0s78Klhfn9d2lmXAkg==
-X-Gm-Gg: ASbGncsRu8DzXo3+mePwfek5Fkk18wG63ZC53ie2fW0B0vN0NaotPqjceX3Mlgygfu/
-	r69E0rUb8W5VJQ1G4gugMDbA86iOs3W0Ie6BPYRShKc1D9yoH88uZ0Uh85zEeV4zFjPLwK8o7n2
-	nr9oVXVzuhlPkJRAPQvITTveFiUru1Rt8oxmQaAMih7wwME9W5VfcI65nSVix+jVM6kCTgmCgrs
-	M5FwqNtTHWVPZtkVDIvT/Mxnu/xvjAjaPhre1XEhuFjD9GAGCpEZHMGUOYkrzmi3GOqXRU6eYS0
-	rjbCNOJT/vxG+eGi71ckLB6ecF3DdsTjXmaRl3lGAO8Vm7VIKlJcUr9H+lOJsqxHTHapQpmY6l2
-	jTRujIdqMhhpM4+ndpzIvRnkSJilcSreVLVOLzRR5OK1Yj7qCRr92aDG22bZm1twuGKQRs3+B1N
-	lhYWXmpcU=
-X-Google-Smtp-Source: AGHT+IFhwY9g7bwUaVfePAU3FOfbGN9SkysZFKpuw80jNZH4RS1IERHlXq54FFYFFpZgz1sAQj/8Mw==
-X-Received: by 2002:a05:6000:4619:b0:3a4:fc07:f453 with SMTP id ffacd0b85a97d-3b60e4b8592mr813624f8f.8.1752649329872;
-        Wed, 16 Jul 2025 00:02:09 -0700 (PDT)
-Message-ID: <4df052eb-1757-488c-ae8a-3a9cc2c38a49@suse.com>
-Date: Wed, 16 Jul 2025 09:01:53 +0200
+        bh=lQjFPrLZSC7DoLS8LlUShpk04opc4O1qT+Wrm5x9GZ4=;
+        b=E2bP2KCfhwPSDmzRn3Mr4JFGuIb9ZHMi4x+NAtHeh2bdjuQ7EDaf+EDSDVqV4X68AQ
+         EgDzeJ17APFVIwpR2UZAtWnJn8KLVDwashbZsm74HBQQEWiIwGGZsZbl9LdOgKhITaNX
+         zVDYc0JeqWsuEG1XjLBr6osEEZR7mecRyn1mUExHyk1SUMW0DpV4beYgk7aOst1AdTdF
+         AjTlwvI+xAKAes+4Rh5ZBmIulqJwB7EPNiWBX5Cd5ke4bVaeOXuwI2o3b0xjM64lOw/H
+         w/heDFH/E34ehMg250N0XAxCUzi4h/zwcpYFgIgpYu9PE9rOk46+LvS+m1ewwd3QIymZ
+         M7jQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUfxWPFR+U7kBec4zglyWEfV9fZIBZopwTz+Y/NC0r+8RJGOlrLUkjiEFzcoG4EYBS67PTDCbSQ1qU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YytNl9C/JOp1wjal28Ib6IpGXZkg3XUeWg5CfThKCpFmf5ezxEA
+	t+cX+kVwgdDUFPKgBRuJqKVuYhUdYukYOC4fTBP123xDDNiyVuEShEPDq5nGJJAsEQ==
+X-Gm-Gg: ASbGncvbeAmaEKnybv3zipuGElXSvsGq7Ye0fw5U0E9fIsDUByloptH1rZXb9Z7YzNF
+	BPu+rWl9sKR6b89cDdE6amP9gXjO6GaeWOxzWrb2Bjsyqr+nUUmMFvQeX9I0g6LhONu9WESflVh
+	0X/71TKBenfM/aLeM45U3CtWkpttFHQQ0s0Rw5EwFOU+qQQDkyXrqKC54Xk2/WNpnFSJseoN81u
+	crO9mpBFKtdrpzDK0IFKkQAu/sFDCKUNJqkpM5c3bA3vdkKJ59B6CmMp+R5XRUi0y2tl5BfmH4M
+	vEkAg0OicCCRUfY0fUTv4ERrJz17t2ikKRqhRW5z+LlI+9mrHmI/tf0N2m9Uc5WOwSX/op/TkAs
+	/hkxQ1BlX3X598fcPtx6RN0tXYsVdyoNc6e7MPO47AhsHb/PPWTCqievLfJCTvRrQ8kHuxLXvL1
+	5z69tavuc=
+X-Google-Smtp-Source: AGHT+IF607oIKCIckooomqE38jafmGnUrXJxg9Xw9bnVulXbmxHQRNKIhz9JbgNzkugTUR71fRTiPw==
+X-Received: by 2002:a05:6000:288e:b0:3a4:c9d4:2fb2 with SMTP id ffacd0b85a97d-3b60e51bbdamr846050f8f.46.1752649429015;
+        Wed, 16 Jul 2025 00:03:49 -0700 (PDT)
+Message-ID: <328f56ac-1d5f-421d-9afb-bcd5690a0c2a@suse.com>
+Date: Wed, 16 Jul 2025 09:03:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 0/7] xen: introduce CONFIG_SYSCTL
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, xen-devel@dornerworks.com,
- ray.huang@amd.com, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Nathan Studer <nathan.studer@dornerworks.com>,
- Stewart Hildebrand <stewart@stew.dk>, Dario Faggioli <dfaggioli@suse.com>,
- Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Penny Zheng <Penny.Zheng@amd.com>
-References: <20250711043158.2566880-1-Penny.Zheng@amd.com>
- <alpine.DEB.2.22.394.2507151823170.15546@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH] x86: Drop rep_nop() and use the PAUSE mnemonic directly
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250715204628.1848686-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,17 +118,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2507151823170.15546@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20250715204628.1848686-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.07.2025 03:24, Stefano Stabellini wrote:
-> Heads up, I intend to commit this series shortly as it has been
-> thoroughly reviewed by multiple people and has been on the list for a
-> long time now.
+On 15.07.2025 22:46, Andrew Cooper wrote:
+> In udelay(), use cpu_relax() directly which, for better or worse, is the
+> common way to refer to the PAUSE instruction.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-I would have already committed it if it had all necessary acks. XSM ones
-in particular are missing.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
 
