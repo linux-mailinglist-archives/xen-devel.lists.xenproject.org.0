@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D511FB07350
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 12:28:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1045065.1415122 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A966B07392
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 12:37:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1045071.1415132 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubzMm-00056n-DC; Wed, 16 Jul 2025 10:28:00 +0000
+	id 1ubzVE-00078T-6T; Wed, 16 Jul 2025 10:36:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1045065.1415122; Wed, 16 Jul 2025 10:28:00 +0000
+Received: by outflank-mailman (output) from mailman id 1045071.1415132; Wed, 16 Jul 2025 10:36:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubzMm-00053j-AY; Wed, 16 Jul 2025 10:28:00 +0000
-Received: by outflank-mailman (input) for mailman id 1045065;
- Wed, 16 Jul 2025 10:27:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ubzVE-00076A-3S; Wed, 16 Jul 2025 10:36:44 +0000
+Received: by outflank-mailman (input) for mailman id 1045071;
+ Wed, 16 Jul 2025 10:36:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L52i=Z5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ubzMl-00053d-7j
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 10:27:59 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8a5d703d-622f-11f0-a319-13f23c93f187;
- Wed, 16 Jul 2025 12:27:57 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-451d6ade159so46973435e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 03:27:57 -0700 (PDT)
+ id 1ubzVC-000763-DB
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 10:36:42 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c1a4a726-6230-11f0-b894-0df219b8e170;
+ Wed, 16 Jul 2025 12:36:39 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a4fd1ba177so500657f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 03:36:40 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23de4323ee2sm120249895ad.138.2025.07.16.03.27.52
+ d9443c01a7336-23de43352b5sm124081195ad.165.2025.07.16.03.36.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jul 2025 03:27:56 -0700 (PDT)
+ Wed, 16 Jul 2025 03:36:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a5d703d-622f-11f0-a319-13f23c93f187
+X-Inumbo-ID: c1a4a726-6230-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752661677; x=1753266477; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752662199; x=1753266999; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=IT9UdHco8EvE328Js+NjxTF9nMhZR/PHllP//xshk84=;
-        b=OhROSEDLRKArKCNAgxoTvspcyA+OaZFjDNfv0udDO1ATyIO2SLbzwJSPaFlPUSUBZH
-         S9EG++UW+BcZ5Y8e9PynjaB8t7a6qqhQUCbUzyQq4bnVcZexGbyF8DV+/SpK0is6b6BQ
-         /bzz834a6W0YxM9ggVKdgEdyGoQys+Q9Gahme0ek1vFZsKPnbO/kL/yIRaieTs+2seLE
-         oA7lVmWWSrp2/an08A8hMEeMmIGHz1hOr1UwGUMOgIT0+6hFN1wprL6jPvK7EP/7ufG5
-         U+4J/YTGSkn6pm0/9UAHzCziPlBrjHic+rcdxTaR9/twlN5I5MdhNEWEtPCFak/ggd5b
-         b3Fw==
+        bh=jEh+lvp+8WZMFkkSjylUrpAEMmLN46a46gHMVRFyGzg=;
+        b=W+kz5he1R5G3jPkHOoTFggBwCungP+X1c4FqlatPA1SAJ3J8iLrkPI622ahs1pzSmE
+         LEiPSMG4gzemp8p9RYo8fVByJfctkzjIDj4wIOPp6zWsKXGPuoiBqcBa25b23h0VpM3E
+         PjELNdxLzskIFBc+dZ2Ouc0dEsckB1GwoyzotHTiiSLzUO5D3u+N1NhjHKpkxi6Bi6Nb
+         TXQ4E+LnxXmm+BPJxeI8NRSwoAvcYQCJFWnl7eaVrFLn24A9IforhKXCLFswVcek0qfB
+         MK3OJp0D76TWyrxU8BOjQOc0XEr9PLatOeHW9W4ZN9Dgxoaj/zze12blioX7r+Qkd6xW
+         E+Eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752661677; x=1753266477;
+        d=1e100.net; s=20230601; t=1752662199; x=1753266999;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IT9UdHco8EvE328Js+NjxTF9nMhZR/PHllP//xshk84=;
-        b=okBNp00iGB9WAD1JkaU7hsOVdM98lnNGj3Y6B6qsyH2y95AXH53qCuoU3yu7UGBK+N
-         RAwoyvLHUMtuR1cqCMrkDhVr0Lgd/nVg7YD3Vkb5U18P7VD1p+NVMw0khpJNPQutpjPL
-         NtEzgbSq6lWCGyNBYN/+fG4qgT/CzMnlwkUsb1zBHujogW8ELb742LjJxXYzeG7BVZMD
-         sUS5hzPbbBFxVfCd4+2eacB52OvPTAUjiYT2FOFORvJHtKT3twYnDx+zoir9bax4Ltvd
-         7accporaGXz+GQxwIGugboTus68JdqZoKvIMcyBV25MVi2DEPkW1Vtr6XXBMw6dJHXiu
-         dsQg==
-X-Forwarded-Encrypted: i=1; AJvYcCVt7Srq3LJ3yoFswsY7LmfGspvD3VEG4SwatUKeyW+HY7/nI9RwyGqG1zvZPMWGKOJClZ1q2DVPd0w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxo27kMouV/ZsAualvEtuPpi2dwCR8XgLCdBlwcAgPnFLfIAOtG
-	kHh4/RVnyeXHi6s64+H6aE5Ht2ZNde54FXGEhrcC+g3V1T4ED/60PfpzDcYw18A1eA==
-X-Gm-Gg: ASbGncuKPXHyNanGqwk5LGmQ/IQRdmndJstIe5NMVCBmoJ71SSx40QoGZJHv/asBHKb
-	cTnSO/Ndf5v3hKX9ojYtmCKF4jjce02tWr7cZ+Kiw2Ep7SxyvwNkP145r/kmXhU1HuzPSS5jksW
-	jPRT2HVwW6/1r9bKoM8Ft7eNylIBDivadj/kErpwHwUwThRAX9la5WJUqtfW5lUX5MjYWOQ3DY5
-	Z+DRQsMzi/4A9pAecYbUAUMJAa+kA2Ttp1KdpwL3XcOlLjeH4xIzw1Dwl3NOGuFyIiZN3T1YDdM
-	ZR1NtHUHy27IVlH5pS2McFfr8maUQFlrQarR3QF5DKYDIOmYJMT35pK6dHamuxOQmrQwOmTE43G
-	2XSrpoTjd0Tk0wM2nLgzcwAs4+JOb7OL0eu+IPBEI7kNofv4W0eEkcad0Gd5X0DTzVunNhUYpjf
-	ruQ5Is3n4=
-X-Google-Smtp-Source: AGHT+IFKOBu4vlFLWlxI8yB2dXPHqDkcch+rSTVYsG71WQyXy1ieN2tOC8aiPKaNNMAst3CPQrVnQg==
-X-Received: by 2002:a05:6000:41ea:b0:3a5:2c18:b181 with SMTP id ffacd0b85a97d-3b60e54bb64mr1659751f8f.53.1752661676855;
-        Wed, 16 Jul 2025 03:27:56 -0700 (PDT)
-Message-ID: <9357cd00-3557-46ff-9a74-ae44c298bc47@suse.com>
-Date: Wed, 16 Jul 2025 12:27:48 +0200
+        bh=jEh+lvp+8WZMFkkSjylUrpAEMmLN46a46gHMVRFyGzg=;
+        b=pnAqAzdEVTy2W3+Ub7jDk4ylci4P9elkPBgGDAYGi7BrQgb0W+tJQZVNSZC7WpDjcr
+         FeT1489bdX7LKlnwPcCOfmT15rSdpPzTo2MOJ+AMlYCBh+VrdfDJZdpq87xwY5/21AYS
+         Yyow+oNVMAH/oPGcJPljvHVOk008xVOCADUc6IiRtFmj08ChkI4gnHzSCL6GfgR4wOqu
+         hN/+uVKS35tg3WCSHq3nL9AjLoh3mSf0Df9Fr0wXorlMmphtsaR7+faqVCCIllVvl8Po
+         eKE6h/5mIML0/C025ZmR4/4b75DHWE3eA51+Gkb5jZq7COOBiHEDQjMdfl9HN8lBOK6c
+         xSHw==
+X-Forwarded-Encrypted: i=1; AJvYcCWe0gyf1MdsOnNdQGFt3XC01z1GBxZ6mi62UAsDqrL7mIkEXc8Gvr3ine6UawTsDgjWe8F9NmXjnKs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxVIDzgfwKZBqqgm/T5g/joGzXQA6fw+Rsi5aRxJuZGKuczFBdt
+	rcdoM2G3hBeP0Jw+Mjg0TP+ogJIhzmefBNhvlQ4y/lligyf17/vUMT5RoQih9acQoQ==
+X-Gm-Gg: ASbGncszDvWxB3hS02RCHjg1FTosxEyJzXvG3yQ9gS2TZBlxqt8SXIKn1+267TtYCFr
+	blP1vgN1XBe5Y3no7kGRL5D5dY9CarOBF1izUnFbKeGU783SSs7O09rDYyrvg97wzrpKuQ+Y2e6
+	MEl99cjOsugWowrcm2E/AVEX2lhia95hp8+4Rc0nE35tXJowN6q+MExNKaA2VBvJ9Sv1OdJQWjF
+	4OTaIx04q3W2qa3wvIKDVndxoi4YRwBNKfQiKDNdk2RaxTCrzUKRkd9NqtrXs4zY0ioG2M2O9tT
+	z7JxDZI6syUqfi6tDxztTzr2D/mO34JvIpVBK807PDSEnQKk03pUv9144s3KD9mhrj+D5kCaSOY
+	73lLqUhUek9LGCzWJqwjhorQ8sBdtUzELolBB+rYDSQkaRm7sUUgduv4NkwdI75w0nrdTooYqF4
+	VGD4qACA4=
+X-Google-Smtp-Source: AGHT+IFilChow4OolAP4OkA7TQsKmGOtYngHKOrccKVMJXjXzuQKBln1FERV0YLtbBN8Iq/7dR6xDw==
+X-Received: by 2002:a05:6000:250d:b0:3b5:e07f:9442 with SMTP id ffacd0b85a97d-3b60953f674mr5791694f8f.19.1752662199335;
+        Wed, 16 Jul 2025 03:36:39 -0700 (PDT)
+Message-ID: <117dea4d-b872-4ba4-9acd-aa0de0edd7f3@suse.com>
+Date: Wed, 16 Jul 2025 12:36:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] hvmloader: fix SMBIOS table length checks
+Subject: Re: [PATCH v2 3/3] hvmloader: add new SMBIOS tables (7, 8, 9, 26, 27,
+ 28)
 To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Anton Belousov <blsvntn@outlook.com>, xen-devel@lists.xenproject.org
 References: <cover.1752533080.git.w1benny@gmail.com>
- <9494aa56929b5cb443b9cccb0e671510071b4aab.1752533080.git.w1benny@gmail.com>
+ <07aedca58d88ed741e13e073f39fdc20f29292cc.1752533080.git.w1benny@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,158 +122,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9494aa56929b5cb443b9cccb0e671510071b4aab.1752533080.git.w1benny@gmail.com>
+In-Reply-To: <07aedca58d88ed741e13e073f39fdc20f29292cc.1752533080.git.w1benny@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 15.07.2025 00:49, Petr Beneš wrote:
-> --- a/tools/firmware/hvmloader/smbios.c
-> +++ b/tools/firmware/hvmloader/smbios.c
-> @@ -47,6 +47,8 @@ static void
->  smbios_pt_init(void);
->  static void*
->  get_smbios_pt_struct(uint8_t type, uint32_t *length_out);
-> +static void *
-> +smbios_pt_copy(void *start, uint8_t type, uint16_t handle, size_t table_size);
+> From: Petr Beneš <w1benny@gmail.com>
+> 
+> Some SMBIOS tables are used by certain malware families to detect virtualized
+> environments via WMI queries.
+> 
+> To improve stealth for sandboxing purposes, this patch adds support
+> for populating these SMBIOS tables from an external binary specified
+> via the "smbios_firmware" domain config option:
+> 
+> * 7 - Cache Info
+> * 8 - Port Connector
+> * 9 - System Slots
+> * 26 - Voltage Probe
+> * 27 - Cooling Device
+> * 28 - Temperature Probe
+> 
+> If particular table is absent in binary file, then it will not be mapped to
+> memory. This method works for Windows domains as tables 7,8,9,26,27,28 are not
+> critical for OS boot and runtime. Also if "smbios_firmware" parameter is not
+> provided, these tables will be skipped in write_smbios_tables function.
+> 
+> Signed-off-by: Petr Beneš <w1benny@gmail.com>
+> Signed-off-by: Anton Belousov <blsvntn@outlook.com>
 
-This new helper function isn't mentioned at all in the description. Its
-connection to the purpose of the change also is unclear to me. Should
-its introduction have been a separate change? And then here only the
-length checks be adjusted? (I wouldn't insist on splitting, but the
-description at least wants to reflect this addition and in particular
-its purpose.)
+Once again - who's the original author of this patch? Anton, aiui. Hence his S-o-b
+wants to be first (chronological order), and he wants to be tagged as the author
+of the patch via From:.
 
-> @@ -154,6 +156,25 @@ get_smbios_pt_struct(uint8_t type, uint32_t *length_out)
->      return NULL;
->  }
->  
-> +static void *
-> +smbios_pt_copy(void *start, uint8_t type, uint16_t handle, size_t table_size)
-> +{
-> +    struct smbios_structure_header *header = start;
-> +
-> +    void *pts;
-> +    uint32_t length;
-
-Nit: Excess blank line in the middle of declarations.
-
-> @@ -381,16 +402,11 @@ smbios_type_0_init(void *start, const char *xen_version,
->      struct smbios_type_0 *p = start;
->      static const char *smbios_release_date = __SMBIOS_DATE__;
->      const char *s;
-> -    void *pts;
-> -    uint32_t length;
-> +    void* next;
-
-Nit: Misplaced *.
-
-> @@ -440,16 +456,11 @@ smbios_type_1_init(void *start, const char *xen_version,
->      char uuid_str[37];
->      struct smbios_type_1 *p = start;
->      const char *s;
-> -    void *pts;
-> -    uint32_t length;
-> +    void* next;
-
-Again.
-
-> @@ -499,25 +510,27 @@ smbios_type_2_init(void *start)
->      struct smbios_type_2 *p = start;
->      const char *s;
->      uint8_t *ptr;
-> -    void *pts;
-> -    uint32_t length;
-> +    void *next;
->      unsigned int counter = 0;
->  
-> -    pts = get_smbios_pt_struct(2, &length);
-> -    if ( pts != NULL && length > 0 )
-> -    {
-> -        memcpy(start, pts, length);
-> -        p->header.handle = SMBIOS_HANDLE_TYPE2;
-> +    /*
-> +     * Specification says Type 2 table has length of at least 08h,
-> +     * which corresponds with "Asset Tag" field offset.
-> +     */
-
-This comment looks to be entirely unrelated to the code which follows.
-What is this about? Did you mean to ...
-
-> +    next = smbios_pt_copy(start, 2, SMBIOS_HANDLE_TYPE2, sizeof(*p));
-
-... replace the sizeof() here, using offsetof() instead?
-
-This applies elsewhere as well. Interestingly for type 39 you do use
-offsetof(). Actually, for type 0 the descrpition also says "at least",
-without that being reflected in the code.
-
-> +    if ( next != start )
-> +    {
->          /* Set current chassis handle if present */
-> -        if ( p->header.length > 13 )
-> +        if ( p->header.length >= offsetof(struct smbios_type_2, board_type) )
-
-Comment and code don't fit together, unless one goes check that board_type
-is the field immediately following chassis_handle.
-
->          {
-> -            ptr = ((uint8_t*)start) + 11;            
-> +            ptr = ((uint8_t*)start) + offsetof(struct smbios_type_2,
-> +                                               chassis_handle);
-
-The cast can also be dropped at the same time.
-
->              if ( *((uint16_t*)ptr) != 0 )
->                  *((uint16_t*)ptr) = SMBIOS_HANDLE_TYPE3;
-
-Why not switch to p->chassis_handle, without any use of "ptr"? Yet then I
-fear I don't really understand what is being done here. Why would an
-arbitrary non-zero value be overwritten with a fixed value?
-
-> @@ -946,20 +949,14 @@ smbios_type_32_init(void *start)
->  static void *
->  smbios_type_39_init(void *start)
->  {
-> -    struct smbios_type_39 *p = start;
-> -    void *pts;
-> -    uint32_t length;
-> -
-> -    pts = get_smbios_pt_struct(39, &length);
-> -    if ( pts != NULL && length > 0 )
-> -    {
-> -        memcpy(start, pts, length);
-> -        p->header.handle = SMBIOS_HANDLE_TYPE39;
-> -        return start + length;
-> -    }
-> +    /*
-> +     * Specification says Type 39 table has length of at least 10h,
-> +     * which corresponds with "Input Voltage Probe Handle" offset.
-> +     */
->  
-> -    /* Only present when passed in */
-> -    return start;
-> +    return smbios_pt_copy(start, 39, SMBIOS_HANDLE_TYPE39,
-> +                          offsetof(struct smbios_type_39,
-> +                                   input_voltage_probe_handle));
->  }
-
-The other comment may want retaining, though.
-
-> --- a/tools/firmware/hvmloader/smbios_types.h
-> +++ b/tools/firmware/hvmloader/smbios_types.h
-> @@ -252,9 +252,9 @@ struct smbios_type_39 {
->      uint8_t revision_level_str;
->      uint16_t max_capacity;
->      uint16_t characteristics;
-> -    uint16_t input_voltage_probe_handle;
-> -    uint16_t cooling_device_handle;
-> -    uint16_t input_current_probe_handle;
-> +    uint16_t input_voltage_probe_handle;    /* Optional */
-> +    uint16_t cooling_device_handle;         /* Optional */
-> +    uint16_t input_current_probe_handle;    /* Optional */
->  } __attribute__ ((packed));
-
-Why not also mark other optional fields as such?
+The patch itself looks okay to me now. Yet I think we want a SUPPORT.md addition,
+clarifying that passing in any such overrides is unsupported. After all a guest
+can easily be presented bad information this way.
 
 Jan
 
