@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B23AB07A15
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 17:39:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1045381.1415484 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA6BFB07A17
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 17:39:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1045382.1415495 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc4Dy-0002mg-Q1; Wed, 16 Jul 2025 15:39:14 +0000
+	id 1uc4E7-00032G-16; Wed, 16 Jul 2025 15:39:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1045381.1415484; Wed, 16 Jul 2025 15:39:14 +0000
+Received: by outflank-mailman (output) from mailman id 1045382.1415495; Wed, 16 Jul 2025 15:39:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc4Dy-0002k4-N7; Wed, 16 Jul 2025 15:39:14 +0000
-Received: by outflank-mailman (input) for mailman id 1045381;
- Wed, 16 Jul 2025 15:39:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XbuO=Z5=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1uc4Dw-0002jx-M1
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 15:39:12 +0000
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on20606.outbound.protection.outlook.com
- [2a01:111:f403:2407::606])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0432420c-625b-11f0-b894-0df219b8e170;
- Wed, 16 Jul 2025 17:39:10 +0200 (CEST)
-Received: from DS7PR05CA0007.namprd05.prod.outlook.com (2603:10b6:5:3b9::12)
- by MN2PR12MB4048.namprd12.prod.outlook.com (2603:10b6:208:1d5::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.33; Wed, 16 Jul
- 2025 15:39:07 +0000
-Received: from CH3PEPF00000015.namprd21.prod.outlook.com
- (2603:10b6:5:3b9:cafe::70) by DS7PR05CA0007.outlook.office365.com
- (2603:10b6:5:3b9::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8964.12 via Frontend Transport; Wed,
- 16 Jul 2025 15:39:06 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CH3PEPF00000015.mail.protection.outlook.com (10.167.244.120) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8964.1 via Frontend Transport; Wed, 16 Jul 2025 15:39:06 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 16 Jul
- 2025 10:39:04 -0500
-Received: from [172.19.134.125] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 16 Jul 2025 10:39:04 -0500
+	id 1uc4E6-00030G-U6; Wed, 16 Jul 2025 15:39:22 +0000
+Received: by outflank-mailman (input) for mailman id 1045382;
+ Wed, 16 Jul 2025 15:39:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=L52i=Z5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uc4E6-0002zr-7D
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 15:39:22 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0992b593-625b-11f0-a319-13f23c93f187;
+ Wed, 16 Jul 2025 17:39:19 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3a4e742dc97so604200f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 08:39:19 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-31c9f20e812sm1606639a91.33.2025.07.16.08.39.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 16 Jul 2025 08:39:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,108 +45,293 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0432420c-625b-11f0-b894-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R5Xl3C/7/SewFvriHIpHigF8hfuXyv/+ZiMY1pfhfiztVMJbaZzfRHs4nhacgm/VXEpS7ornVKzpeU4zU7uPka9K6O27dbaRYUeTWCegtZje9X1tChANGFGH8nR0meCUDq+8rBxI6HuWjiD84xtV0x3xOrg8vnr+tN2OqHK8NUOo0ayquPCUQVXPOPi6huJiV8+TRrHHTwcWAHj5wmP/H98xMIFCU6W8umAR7kUMScZLGyysK9FbbyvEQH4i+Ebz/zcrHGAt4Y95tkjxyQCDkLo1Lb+2oPbeQ1JSn1AGAH/W9q1eZvlGDWafGnLlu9VxE//OrIO7Y+xAdszFbrnQRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jrIEvn3tag9p59Ci/xP2si2qWGx3qV8raXGQnnFKfqo=;
- b=tQ0tdPD64h+6cwdb2LKVSzka+cFR7QtHGOp31O0ULpAb74Jkv/2ReaQ8uW2Z92SsmZmS5y/lWotSsmE7m7VLuiciFcikv79vA4vJu/RZAZAbt5KykAkau4azorUkcj9yfoZ6BPAfRPOYXdB+wIUnMHtxD6RiJMq5W51C6WEjs4EPZ4UGczzLQAY3f3bMFmarXkz/8UGzhRHt9J+kLZdq8UYpsA+1f8vKH0wT8VbfsrnAjOK6QERk36CUtL/Hascm4hfYD/wsHSFFgAZyYVRvonHxXZlEeY/jwyk+HL2Z0tMac0w71dIqcduac91nRlJu7Jc1kCZLDe5rouWdo399UA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jrIEvn3tag9p59Ci/xP2si2qWGx3qV8raXGQnnFKfqo=;
- b=t8HQVpXKplv6R4zIx4B47KpgvG5iH5vNsq48/jIXmogC0aBSjv3CACUUzJv8del1XAsHYoaQvrqYis4HhQ9nt655qykZJAqAunmzdAHtfWfYUWjkDXPpNIPAJ4Nc/W0h0A0LEs5Rnq2MPntUYjZkwCqoRMBApSQT++dugAUz0pA=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <74098139-731b-459f-91f0-88b7cc2c7f7b@amd.com>
-Date: Wed, 16 Jul 2025 11:39:00 -0400
+X-Inumbo-ID: 0992b593-625b-11f0-a319-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1752680358; x=1753285158; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=jOBMhPkFwvcdHtLA93Be6UyKC5dBxPVlPMyPp97D4yo=;
+        b=LZZTIenEd4Z73d+K8orZB8BUuqj5XhZa1KuD1xzI81AnUqi29dM2nlzUmTqsFrLLPo
+         XX07vPnE253ICajd2hb4SQZrpZqGpxX9VHHfzUiPZ3CvnRVmgLawQ0+dXDPt2nR2Ls9y
+         QNpriLF/rZnssRiSjRCXB0l0/WwMkSDIq1kdrAqr5qWu6NTp5yqhHrz2KnVma3N14M+r
+         QM1VZs8YLPzH8uoFdnkMb5mPq8OP6kZl38SL2ujoC/8EBd+VMO9dK89CrWmcNdmLxtAr
+         lkHczAygWLBpXOsB5Z5LZE5ICqm66AJPpyw91+vnDuJ4+ZsLwUgYLEQR7gMD4ZKf22Ot
+         iTzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1752680358; x=1753285158;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jOBMhPkFwvcdHtLA93Be6UyKC5dBxPVlPMyPp97D4yo=;
+        b=FZR8+HUXGIjFRzIMQRoHdIO8w75eTDCH7Nac9yDHJBGCioQ3EpZ9F7DoxaSAVxCK3R
+         F+vbv9NU3bhD/ZAJODwb/tnGoRqKG0SbqoMJeu4VkO2vZzCcywbJEWtF8pnzKilmv45m
+         41JVdl/dhZoQRIZrtX1RR+C2lmtH2qehXSxP5TiAeuKjxqMoa6ihOZ78Y3DIhaAh5XZH
+         cgwV6UDwKj2onHuULtfEv/OX2/s1BF6F6q5vvUxr26KNSe2kXmorAAIOkXztLQF0OwDa
+         YqqMpqry0xa5+QfHdiCW4DTzIvrLhOetpHfciqaBC/wfOY8BBjC3coRc+LOEZ4/vJx7N
+         mntQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWrMhT/KALhQtVDTvHLA92MqfgGs07g81eBWI1zKnK9sxXw/nSwTNuCq5RYaw/nBNH4OQqMVpP6xhg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YydiyeFu6/y/TGXYyXOMcCQgPtSuemIQq8MqJwXIXUPCMm1xj7h
+	6RorG5ki9rdVDiJUCNTOtQsRK1ZXdreBpO7IfxG3Ug3ZEieXAolg/POZruH/ZIAJWA==
+X-Gm-Gg: ASbGnctOVP7Er3zzRd0ktyMy8mNy/EH61Iz5M1UO2sWjNAvkcAszqBjG6gc1iJvol7T
+	XX1SoZ2v5vm+95+DU4CIcnSXQ/lmkgYHQs7GzcYWS2nEwLOqB7IBhKqo8xBMM0jFCanjz8nNANT
+	BtzhqAxJ+lFoYNQqrOIVTQuf5C26ZFMXEx0MYH3UXQ3t7Bup2dG6Mmz+zBxfhGKWF9WA41N7BD/
+	ikNQ1AnfzMQ7pUkFBCyEFjT06tJf/d2rMdtdphD1i0noclxdFtOKc3nWaZBlGjGy98dUdHA7N8z
+	qKGL2r4DuvCwDH88jMvQ48UZzyzOgW7n0nWoHg5xHxBqmgflo7/cLR3iLA9SiUpuSLGMKfIDehI
+	GyXNuTFu03sQJGAWUB1hOaOYeTUf4wzbi5N1SWFWFbxsPRqlSB/oZP1w8X+/AGTaoyzveX5HJ/s
+	lPq4YIFN4=
+X-Google-Smtp-Source: AGHT+IEJaF75DsVZVt+/n4EwVhkxdUn2u6CLNMroZ4j8KeBrilhrVCqg8lBiEyQxoTUy3JutCZ9URA==
+X-Received: by 2002:a05:6000:65b:b0:3a5:270e:7d3 with SMTP id ffacd0b85a97d-3b613909f16mr18947f8f.13.1752680358487;
+        Wed, 16 Jul 2025 08:39:18 -0700 (PDT)
+Message-ID: <916162aa-01fa-42a3-82c6-42a2c635f082@suse.com>
+Date: Wed, 16 Jul 2025 17:39:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: Prefer d->max_vcpus to dom0_max_vcpus()
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
-	<xen-devel@lists.xenproject.org>
-CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>
-References: <20250716141807.52585-1-alejandro.garciavallejo@amd.com>
+Subject: Re: [PATCH v6 10/19] xen/cpufreq: introduce new sub-hypercall to
+ propagate CPPC data
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250711035106.2540522-1-Penny.Zheng@amd.com>
+ <20250711035106.2540522-11-Penny.Zheng@amd.com>
 Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20250716141807.52585-1-alejandro.garciavallejo@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250711035106.2540522-11-Penny.Zheng@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000015:EE_|MN2PR12MB4048:EE_
-X-MS-Office365-Filtering-Correlation-Id: 89526c31-a9ca-4a9b-dacb-08ddc47ee664
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700013|1800799024|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?V1RacEFsRlduVGp5NWkyS3dyTnIxekZBaDNxb2dtWHRDN1pGenZ1N0k3TjlU?=
- =?utf-8?B?NDZpNHBBQ25YRXJGMy9KWDUrNkZUcGRlNnhIOS9PM1lzOXBVLzNweWJjN1k4?=
- =?utf-8?B?S2xHV1RoU1FHR1RyZU8zOW5wMjJzaklaKzJtR1luZ3M2d09JV1lnNGFDZ3Ry?=
- =?utf-8?B?Z2wvM3N4UWplVW5ZZjE0bnVOWlVZNlRqNE9VeHJFTUFXYk95N3FLUkxadElS?=
- =?utf-8?B?WXdWRE4vd0R6Y2VEdGtlUFE1QlNmMnk3UVZPTEphcDBpTlU3Q3d2dVhGN3dL?=
- =?utf-8?B?cDNTRFRDVVFYQWhrMjNrMWxZSjRhcWIvVjhpcFIreTNWRnFEcDJCa0RqbXZW?=
- =?utf-8?B?WHNEcGl5OVEvb09QS1RsY2x2bmt1bDM5WWNUZVhEcm12RE9nUy8waTB0WVly?=
- =?utf-8?B?ZVVQYmo4Q0JEb3NWaDRZN1lvbVN6b2U2ZnRpSW5ZNGhOaHppVjJvdEFmdG5D?=
- =?utf-8?B?TTdYNTNDeUVnSUNzbk1mSGtEQnBjY1ZsN1ZGNFZaZUtjOGJsaHJrR3luMDdk?=
- =?utf-8?B?b2xwdEx3Y1d3dXpZQ2JjVmNLbldyMm5YanFzUjFnS3c3TGtKQ0JxTzVQMTMr?=
- =?utf-8?B?ZHNUNlpJcVpIV0xzSXRlZTZPYWVNT1RjdnhlWDBsY3VKUjBlelJuOEJDaE9R?=
- =?utf-8?B?VWFxT0FZdXZ3VEFCZytkbFdobElzRDZUQm45TCtyYW4wUTZac1h0dnVrN2h4?=
- =?utf-8?B?K0dDZHl4eWs3OE1vUTRBaHdXSW1va3RnaE1WY0ZoWGp4WWVrUytwODVXc2c1?=
- =?utf-8?B?Q2JOVHJvRzhKKzFnUU5RcUdQV2FOdmhiSWl6Mk5uakJma2l2UnEwS0x4SDRz?=
- =?utf-8?B?TFVHQnBSRktmTDEweVZNTEF3bWV3Vy8xdkdZMy9nYTc3WEtuRi9FbWNvRFo3?=
- =?utf-8?B?VSsxamVzVGxRbHhUVWJDZ21TcG5PTC9NNkZKV2ZJeFkrNkRzWitORWFiMVRz?=
- =?utf-8?B?aksveVp0czN4Mk1oOEk1Y3VtZDR1UjVQVjIxUW5LaUQ4d3lzK1hXMDB4RVgv?=
- =?utf-8?B?RmkwcFNnRWw2bisya1VoZ1o5WWpaOW81a1JQQUJ0a1dXRmRjRmVqTmVZbDQ2?=
- =?utf-8?B?NjY5ZFBIbHF0MmIvM1oySUZDVGJhY2hyYU85QVpyUnJOVU5KcEgwM2szZCtv?=
- =?utf-8?B?eCtqNjVWSHdjb1B4a2laR0d6dlAzVGd4L2tvSm9BSEJnbzBZK25rd3Zyd2Mw?=
- =?utf-8?B?UjhaSVJsa1Q4RUQxdy84RnlNRHYzdGxzbmZrbk1NMStEcW5wSFkvU21yVTVi?=
- =?utf-8?B?eWh4WDhvckt3aDJMS0hWckNIbFFwTFc0Z2ExK1phZ0ltaTlML3owS3o1L0xO?=
- =?utf-8?B?cVF5L1UrbDdjaWd5NXRIZzV0WEhOOHUrY2xPcXRmUHduVTBsNnNUWGFhSUNn?=
- =?utf-8?B?RkJYTUFlR1JFbHo2ejd1SytoUWtMTytqYkFiMG9qN29IMkFpY3JoU3R1eVM3?=
- =?utf-8?B?MFB5WE1wRmdVaWd0SGdIa0g0c0ZOV1BXOVI4NWw0S1hkd1hiS1VadXhiT2hy?=
- =?utf-8?B?dnJCMWllb2ttL3p4UTJQUTRDa1BoZWtRNW0vK2F6WlR6dzdKbVp5VXovVTFJ?=
- =?utf-8?B?Z09MKzVjYjlDQUtSVVVhL0VDYzl6SlorL3pOaEs5djRWWlJMM0ovQzlWRnhq?=
- =?utf-8?B?Ulh0RDcxbnpwdlltRXpnOTMwSHlrNSs1RnNPQTVkQitaNW5DMGpVOFFaaW5N?=
- =?utf-8?B?YUpmLytPM0pkVldkNjNIYUVnODZtRk9WUnpZOHE1NmRyUVhxbFp3MjlnU3J1?=
- =?utf-8?B?dzQ5MDltcjUwYVNnSEZpb3RFOVNYUXNmSnl0UWViWHlNVXRicFBtSVlOeWxO?=
- =?utf-8?B?bVIwVUJwY09sNzAya0FCNllDN3pXV2Y1OG5EWUVhdlNUZEpSVk9zd281ZkJa?=
- =?utf-8?B?SFJnNDhnWFN1NlkweFlkMlViQkJCaDBxdDFtZE1PN2JZS1lzU2tsV2gzM3hP?=
- =?utf-8?B?K3V1anBUKzUwUXMzTlNzNFpFUEJXWnc3NjlmcmtUTnFsdG0xYzZKRGlvcmkw?=
- =?utf-8?Q?2DzwpIZ/PnUK0U13ksV4wkRiFj6BbY=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2025 15:39:06.6239
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 89526c31-a9ca-4a9b-dacb-08ddc47ee664
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF00000015.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4048
 
-On 2025-07-16 10:18, Alejandro Vallejo wrote:
-> These days d->max_vcpus is populated on domain_create(), so use that instead and
-> avoid a function call.
-> 
-> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+On 11.07.2025 05:50, Penny Zheng wrote:
+> --- a/xen/drivers/acpi/pm-op.c
+> +++ b/xen/drivers/acpi/pm-op.c
+> @@ -91,7 +91,8 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
+>      pmpt = processor_pminfo[op->cpuid];
+>      policy = per_cpu(cpufreq_cpu_policy, op->cpuid);
+>  
+> -    if ( !pmpt || !pmpt->perf.states ||
+> +    if ( !pmpt || ((pmpt->init & XEN_PX_INIT) && !pmpt->perf.states) ||
+> +         ((pmpt->init & XEN_CPPC_INIT) && pmpt->perf.state_count) ||
 
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+Nit: I think this would be neater if the PX_INIT part was also moved to its own
+line.
+
+> @@ -697,6 +703,122 @@ int acpi_set_pdc_bits(unsigned int acpi_id, XEN_GUEST_HANDLE(uint32) pdc)
+>      return ret;
+>  }
+>  
+> +static void print_CPPC(const struct xen_processor_cppc *cppc_data)
+> +{
+> +    printk("\t_CPC: highest_perf=%u, lowest_perf=%u, "
+> +           "nominal_perf=%u, lowest_nonlinear_perf=%u, "
+> +           "nominal_mhz=%uMHz, lowest_mhz=%uMHz\n",
+> +           cppc_data->cpc.highest_perf, cppc_data->cpc.lowest_perf,
+> +           cppc_data->cpc.nominal_perf, cppc_data->cpc.lowest_nonlinear_perf,
+> +           cppc_data->cpc.nominal_mhz, cppc_data->cpc.lowest_mhz);
+> +}
+> +
+> +int set_cppc_pminfo(unsigned int acpi_id,
+> +                    const struct xen_processor_cppc *cppc_data)
+> +{
+> +    int ret = 0, cpuid;
+> +    struct processor_pminfo *pm_info;
+> +
+> +    cpuid = get_cpu_id(acpi_id);
+> +    if ( cpuid < 0 )
+> +    {
+> +        ret = -EINVAL;
+> +        goto out;
+> +    }
+> +
+> +    if ( cppc_data->pad[0] || cppc_data->pad[1] || cppc_data->pad[2] )
+> +    {
+> +        ret = -EINVAL;
+> +        goto out;
+> +    }
+> +
+> +    if ( cpufreq_verbose )
+> +        printk("Set CPU acpi_id(%u) cpuid(%d) CPPC State info:\n",
+
+May I suggest "Set CPU%d (ACPI ID %u) CPPC state info:\n"
+
+> +               acpi_id, cpuid);
+> +
+> +    pm_info = processor_pminfo[cpuid];
+> +    if ( !pm_info )
+> +    {
+> +        pm_info = xvzalloc(struct processor_pminfo);
+> +        if ( !pm_info )
+> +        {
+> +            ret = -ENOMEM;
+> +            goto out;
+> +        }
+> +        processor_pminfo[cpuid] = pm_info;
+> +    }
+> +    pm_info->acpi_id = acpi_id;
+> +    pm_info->id = cpuid;
+> +    pm_info->cppc_data = *cppc_data;
+> +
+> +    if ( cppc_data->flags & XEN_CPPC_PSD )
+> +        if ( !check_psd_pminfo(cppc_data->shared_type) )
+
+Please convert these into a single if().
+
+> +        {
+> +            ret = -EINVAL;
+> +            goto out;
+> +        }
+> +
+> +    if ( cppc_data->flags & XEN_CPPC_CPC )
+> +    {
+> +        if ( cppc_data->cpc.highest_perf == 0 ||
+> +             cppc_data->cpc.highest_perf > UINT8_MAX ||
+> +             cppc_data->cpc.nominal_perf == 0 ||
+> +             cppc_data->cpc.nominal_perf > UINT8_MAX ||
+> +             cppc_data->cpc.lowest_nonlinear_perf == 0 ||
+> +             cppc_data->cpc.lowest_nonlinear_perf > UINT8_MAX ||
+> +             cppc_data->cpc.lowest_perf == 0 ||
+> +             cppc_data->cpc.lowest_perf > UINT8_MAX ||
+> +             cppc_data->cpc.lowest_perf >
+> +                cppc_data->cpc.lowest_nonlinear_perf ||
+> +             cppc_data->cpc.lowest_nonlinear_perf >
+> +                cppc_data->cpc.nominal_perf ||
+
+Indentation is a little odd here. Best may be to use parentheses:
+
+             cppc_data->cpc.lowest_perf > UINT8_MAX ||
+             (cppc_data->cpc.lowest_perf >
+              cppc_data->cpc.lowest_nonlinear_perf) ||
+             (cppc_data->cpc.lowest_nonlinear_perf >
+              cppc_data->cpc.nominal_perf) ||
+
+Otherwise, strictly speaking, no extra indentation should be used. I can see
+though that this would hamper readability, so the next best alternative would
+appear to be to make the extra indentation a proper level (i.e. 4 blanks):
+
+             cppc_data->cpc.lowest_perf > UINT8_MAX ||
+             cppc_data->cpc.lowest_perf >
+                 cppc_data->cpc.lowest_nonlinear_perf ||
+             cppc_data->cpc.lowest_nonlinear_perf >
+                 cppc_data->cpc.nominal_perf ||
+
+> +             cppc_data->cpc.nominal_perf > cppc_data->cpc.highest_perf )
+> +            /*
+> +             * Right now, Xen doesn't actually use highest_perf/nominal_perf/
+> +             * lowest_nonlinear_perf/lowest_perf values read from ACPI _CPC
+> +             * table. Xen reads CPPC capability MSR to get these four values.
+> +             * So warning is enough.
+> +             */
+> +            printk_once(XENLOG_WARNING
+> +                        "Broken CPPC perf values: lowest(%u), nonlinear_lowest(%u), nominal(%u), highest(%u)\n",
+> +                        cppc_data->cpc.lowest_perf,
+> +                        cppc_data->cpc.lowest_nonlinear_perf,
+> +                        cppc_data->cpc.nominal_perf,
+> +                        cppc_data->cpc.highest_perf);
+> +
+> +        /* lowest_mhz and nominal_mhz are optional value */
+> +        if ( cppc_data->cpc.lowest_mhz > cppc_data->cpc.nominal_mhz )
+
+If they're optional, what if lowest_mhz is provided but nominal_mhz isn't?
+Wouldn't the warning needlessly trigger in that case?
+
+> +        {
+> +            printk_once(XENLOG_WARNING
+> +                        "Broken CPPC freq values: lowest(%u), nominal(%u)\n",
+> +                        cppc_data->cpc.lowest_mhz,
+> +                        cppc_data->cpc.nominal_mhz);
+> +            /* Re-set with zero values, instead of keeping invalid values */
+> +            pm_info->cppc_data.cpc.nominal_mhz = 0;
+> +            pm_info->cppc_data.cpc.lowest_mhz = 0;
+> +        }
+> +    }
+> +
+> +    if ( cppc_data->flags == (XEN_CPPC_PSD | XEN_CPPC_CPC) )
+> +    {
+> +        if ( cpufreq_verbose )
+> +        {
+> +            print_PSD(&pm_info->cppc_data.domain_info);
+> +            print_CPPC(&pm_info->cppc_data);
+> +        }
+> +
+> +        pm_info->init = XEN_CPPC_INIT;
+> +        ret = cpufreq_cpu_init(cpuid);
+> +        if ( ret )
+> +            printk_once(XENLOG_WARNING
+> +                        "CPU%u failed amd-cppc mode init; use \"cpufreq=xen\" instead",
+> +                        cpuid);
+
+cpuid is still int, so wants printing with %d.
+
+> --- a/xen/include/public/platform.h
+> +++ b/xen/include/public/platform.h
+> @@ -363,6 +363,7 @@ DEFINE_XEN_GUEST_HANDLE(xenpf_getidletime_t);
+>  #define XEN_PM_PX   1
+>  #define XEN_PM_TX   2
+>  #define XEN_PM_PDC  3
+> +#define XEN_PM_CPPC 4
+>  
+>  /* Px sub info type */
+>  #define XEN_PX_PCT   1
+> @@ -370,6 +371,10 @@ DEFINE_XEN_GUEST_HANDLE(xenpf_getidletime_t);
+>  #define XEN_PX_PPC   4
+>  #define XEN_PX_PSD   8
+>  
+> +/* CPPC sub info type */
+> +#define XEN_CPPC_PSD   1
+> +#define XEN_CPPC_CPC   2
+
+As per this, ...
+
+> @@ -457,6 +462,26 @@ struct xen_processor_performance {
+>  typedef struct xen_processor_performance xen_processor_performance_t;
+>  DEFINE_XEN_GUEST_HANDLE(xen_processor_performance_t);
+>  
+> +struct xen_processor_cppc {
+> +    uint8_t flags; /* IN: XEN_CPPC_xxx */
+
+... it's a type that's living here, not a collection of flags. Any reason the
+field isn't named "type"?
+
+> +    uint8_t pad[3];
+> +    /*
+> +     * IN: Subset _CPC fields useful for CPPC-compatible cpufreq
+> +     * driver's initialization
+> +     */
+> +    struct {
+> +        uint32_t highest_perf;
+> +        uint32_t nominal_perf;
+> +        uint32_t lowest_nonlinear_perf;
+> +        uint32_t lowest_perf;
+> +        uint32_t lowest_mhz;
+> +        uint32_t nominal_mhz;
+> +    } cpc;
+
+What, again, was the reason to wrap these into a sub-struct?
+
+Jan
 
