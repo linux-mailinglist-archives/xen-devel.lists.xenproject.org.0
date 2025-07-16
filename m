@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 948B7B07AF3
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 18:19:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1045476.1415595 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35E79B07B07
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 18:21:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1045483.1415604 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc4qA-0006Qg-8A; Wed, 16 Jul 2025 16:18:42 +0000
+	id 1uc4sP-000824-J3; Wed, 16 Jul 2025 16:21:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1045476.1415595; Wed, 16 Jul 2025 16:18:42 +0000
+Received: by outflank-mailman (output) from mailman id 1045483.1415604; Wed, 16 Jul 2025 16:21:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc4qA-0006OV-4x; Wed, 16 Jul 2025 16:18:42 +0000
-Received: by outflank-mailman (input) for mailman id 1045476;
- Wed, 16 Jul 2025 16:18:40 +0000
+	id 1uc4sP-0007zd-G7; Wed, 16 Jul 2025 16:21:01 +0000
+Received: by outflank-mailman (input) for mailman id 1045483;
+ Wed, 16 Jul 2025 16:21:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L52i=Z5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uc4q8-0006OI-HY
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 16:18:40 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ id 1uc4sO-0007zX-JW
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 16:21:00 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 87fabebb-6260-11f0-b894-0df219b8e170;
- Wed, 16 Jul 2025 18:18:38 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3a582e09144so18550f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 09:18:38 -0700 (PDT)
+ id db60d052-6260-11f0-b894-0df219b8e170;
+ Wed, 16 Jul 2025 18:20:58 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3a50956e5d3so23736f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 09:20:58 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23de4322b2dsm129653155ad.92.2025.07.16.09.18.31
+ d9443c01a7336-23de4285ecbsm130172995ad.48.2025.07.16.09.20.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jul 2025 09:18:37 -0700 (PDT)
+ Wed, 16 Jul 2025 09:20:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87fabebb-6260-11f0-b894-0df219b8e170
+X-Inumbo-ID: db60d052-6260-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752682718; x=1753287518; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752682858; x=1753287658; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0FiZ9+4d8MN3OAHt2JjrA5my30p4ZgMlQWu8i6F+yoM=;
-        b=Rdmcu7+nJkOFeD8etUy28BqIQR7b6QEPJ/A8azGq6PHU0YSgWtuWTld66pdUskHvNb
-         it6z9Djc74wrwjfzy44jo6+HjRYCEpTpB8ujULga/lnBTpwsLx9kqhpRD4PyHFLBGWYT
-         slw9ygxUbm+y0ey9Yop6V23tucZ0yg6B7HOw38HLQ0zBxoOZwuoFNokFIWuJ6DcdufRM
-         aLNT8UM/WiQSLFMp3CJoAo5QToTCWQbnXzoGUnq6tz/ItNWjCOwr4gcvQznBCUpvkzjI
-         U8Ri0UyP+znqcrcGkKtsV6wOl+sIawFwh2gFzERtq11wEG8GH6Jg1W+kRtJ30ps5f9WE
-         fqPQ==
+        bh=IwVjAT0moOk87hPanS258jzGvrWDt8uZdQcRTx/MZQE=;
+        b=bXjFsiD5RNcwX9NR/JQxH8Paqpeog6QBd91UmZDvKgAtDWG2MjGMupyBF8QPnZ3lwg
+         JBP5668NCqTWE3f3U5KG/tSBOe7GQAvYPapMH8YFvXiPCn9aH+SbwzdYxeA/By3Czaaq
+         Lr+qRZ4UjwERcJTo5uZxx1JMM5BMhvmyAFkOtvqWiZUBqJNDkDJ81qNbHRKMvmZkabVX
+         3PfKi2nzdTHareIFvMKPrZXhJjgTLuonvuiECOQ92KwAKi5OHmWXWNiYbEJdquItSHVN
+         ab65NLKQlsOTCRogj7E6m52q3oekOtGVAtERnKY23OzwWKrcIOfqwaZazaf1U7x/yFNE
+         iWjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752682718; x=1753287518;
+        d=1e100.net; s=20230601; t=1752682858; x=1753287658;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0FiZ9+4d8MN3OAHt2JjrA5my30p4ZgMlQWu8i6F+yoM=;
-        b=F1c7anrn++QgSRKroyDmiRLN8wbrNJZQWq/wNge5rfkJw7bixFh0c9kZmNIA8PDR4f
-         cC32TGUzjlyRvdgzNBd5QY7plcIEyfK4oEZHQfiM1NCdFoSk21Ue2kHZemCTp6p03o5u
-         Phk2LTMhuMmiOdx2tXXLuDW05A/tIQVpIK636JPS3gtFbaNOTil9ahCfKhmCgwfsiKJA
-         sPLRgW6k56DOwVyBfVFdEo8uODVG3NU68II+T4uREEupqiQCUdcqN0RSQdw/hQCIsauT
-         zq4YXSZ1lEQScccgWEjjD8FGcITvHchrfHAcxIgJCidsxyg9F4Z6dEOjaPUm3qv6YO8x
-         s+jg==
-X-Forwarded-Encrypted: i=1; AJvYcCW/aaGWimgAHUrjTwsnKBfSydQ33A5iI7uYJ3linXN40yAZipuSWBINinfE1iIMybnBnMrwi7bgSV4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzutAhcfO51c4THQXc6HN37bx9hUXqM4TQ5ceqrTWjN0mwuDS6P
-	W2RHGQhPpcd79k+jCKQxVAO+N6O9I5dQgjVpqqytweK2PDLCvUpAyt5dlUOk+ucTRw==
-X-Gm-Gg: ASbGncuBATPt4MqqFfUuXICfvkWzYfcNZdNxyL2/W0dm/+mqSTdCYQM8q8aaydYWEhW
-	y8rBHfoK1wbc7XYsFYZvTODIInejAYLMp3lM2reQb1Csj1/2992SRo9D0/JKAA+9spwoZkUpUpk
-	q5fGYLkxDx1yVma2tissFZzk3B261OZCVwWiczAxNjEo+PyssqOdy29+lMh6yCTCXHE3ecdpJWN
-	1Jgggz2mdc/xnwRNcI2bPmurHXyAbT+LaNTh/SLKCGrrpLyQ5Z1Xd1n/uMJSUP/xDb5lrIkiUx/
-	+zLamq880Bt4J7/SlqSVUKQCfkgIkmOlH5uKlIyp8eO9VpyrncwLkk84x9HzSK+T133QrLoqUnI
-	+KVW0BjPjPmCPtv/ylNv/isI1AWY8IpouACpUdPbQ1n/FHimocNNv/38tqObwqHmlKNbZVZYEH8
-	SNIl5rdW4=
-X-Google-Smtp-Source: AGHT+IF9KtAj0mQ7iUcMluXVapV68yEiMt5DrldDKcYhRMI+ND9C225YUgrXwn27RTXy4SQER6F5IA==
-X-Received: by 2002:a05:6000:4006:b0:3a4:f975:30f7 with SMTP id ffacd0b85a97d-3b60e55040fmr3064701f8f.56.1752682718122;
-        Wed, 16 Jul 2025 09:18:38 -0700 (PDT)
-Message-ID: <15c9cb8e-8452-4dc3-933a-5713fc86a12a@suse.com>
-Date: Wed, 16 Jul 2025 18:18:26 +0200
+        bh=IwVjAT0moOk87hPanS258jzGvrWDt8uZdQcRTx/MZQE=;
+        b=f7CFeTlL0igsRchCv8COKaLlTKz7Cesd02nryNw31OJaKWxs7nLwvwGYGa3u721luQ
+         t2uPWq9SWrHtuGS8kVhU1eVeTBAhzVLFOWZ+mXtspzN/nV2UwRvLTOKFlizy1vIKs/5B
+         fw7GLqRpTOIQ50GDVjWPMgq2FzRLOtVArJRBcWMTBetIUA6INPNppHcGUvWeN4lqSVl6
+         5GyyF2dyQCCXVAbcoZVggw3178r9+ZglcIT7BFOPVL/asNbYErUYWzBCrgDBlTkniatZ
+         i1+wzmgsijpc8sqpoQiqynbQhIo3i068nDa9D44XRYj+piH82yLrWoWMtdo8ao7iYmF+
+         Wxrw==
+X-Gm-Message-State: AOJu0YwV43yfN3HDSVjW3GPtWgncI2NHfwSgPSyEgyk0QpHC/HJtZhQx
+	M8/gtHboGyEvCRFeo4o2Wmv7SWDf7h/SuVCWw8+UaDVEJ0TJqDE+WacZ3wvLQzGpLg==
+X-Gm-Gg: ASbGncvaSWVSJHm6CHi7u3XB47D02fHCek3RReD6Fzvcx7Sfps9/MAr+OnIEouWMJvp
+	GUqfm+Uf6hIRxuQ5xnAx7LGWfFHo3MExnvUvtzoQWjW0aAUJBOInxPm25zcCZgtp41Pvb4QHe6V
+	WoHEz9/l8hNAYDEmYPJ4w5bAlKbTsSNL2S70+MOOQJ+/eODX9+Bj1ktMlLAvGYsxpvdqIl5QE59
+	2zN8bfwnYrrDcBPUPuW6UOuJ1TQIZkndGc1FTFZAHDh4LjjR4CGohYMO+TbbQq7Bv6H3upPQ59N
+	OWklS40PwzMZK9es7aWOLEDM2QoNX62IkG5fSXCK1mmaRPsBSo8sxYAW1wJEjbMpZPu4MlyvP2r
+	QHCKL/mR67oZiWODF2OV2g0LfoiFyLDIhRygca8qgNXmNk05TnX27lJ1Ia3QJREaZ0ne3D5QgNk
+	ZpegRkORI=
+X-Google-Smtp-Source: AGHT+IHZ7U+OJgPKvCNuQiXiilSDsl2b4HWizdy3wtX24PXKyjFzy1nSrQEImYpXoSI6zFxfMkXw2w==
+X-Received: by 2002:a05:6000:2b03:b0:3a4:d722:5278 with SMTP id ffacd0b85a97d-3b60dd7b038mr2062869f8f.39.1752682858054;
+        Wed, 16 Jul 2025 09:20:58 -0700 (PDT)
+Message-ID: <b75a26bc-90e2-4bec-a862-ab0cc564277c@suse.com>
+Date: Wed, 16 Jul 2025 18:20:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 13/17] xen/riscv: Implement p2m_entry_from_mfn() and
- support PBMT configuration
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [XEN PATCH v2 3/3] eclair: add deviations of MISRA C Rule 5.5
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <994ab3dd6822c4cd02a6a576041da115abeff6ed.1749555949.git.oleksii.kurochko@gmail.com>
- <f6e789cd-0ef3-488d-94da-1b7c94946720@suse.com>
- <640178f8-a189-4f84-abff-0ef87ba566a5@gmail.com>
- <0265e61a-ad08-4b6b-a87d-dba304f6d27d@suse.com>
- <e1c469c3-47d5-4a38-8abd-985a26cb8365@gmail.com>
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>
+References: <cover.1752096263.git.dmytro_prokopchuk1@epam.com>
+ <e47d08e4465f913f03348830954e800f420c652d.1752096263.git.dmytro_prokopchuk1@epam.com>
+ <b5759332d598ec9b3d7df520735d9dbe@bugseng.com>
+ <alpine.DEB.2.22.394.2507111712120.605088@ubuntu-linux-20-04-desktop>
+ <bd89ecfe-83b3-471b-8455-83b9974bdaf2@suse.com>
+ <d8e714ad-e1a9-4d9d-9a2b-8eb796f21e04@epam.com>
+ <a8fe1fc0-8dba-4a58-ba1f-0851dcc21e9d@suse.com>
+ <ef86b7e7-1d3b-46fe-9d75-f55077c9f32a@epam.com>
+ <e47fafa1-e02c-432b-84bc-44c48af66859@suse.com>
+ <312509c2-fb06-4fef-b632-c4719264efb8@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,70 +133,47 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e1c469c3-47d5-4a38-8abd-985a26cb8365@gmail.com>
+In-Reply-To: <312509c2-fb06-4fef-b632-c4719264efb8@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 16.07.2025 18:07, Oleksii Kurochko wrote:
-> On 7/16/25 1:31 PM, Jan Beulich wrote:
->> On 15.07.2025 16:47, Oleksii Kurochko wrote:
->>> On 7/1/25 5:08 PM, Jan Beulich wrote:
->>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
->>>>> --- a/xen/arch/riscv/p2m.c
->>>>> +++ b/xen/arch/riscv/p2m.c
->>>>> @@ -345,6 +345,26 @@ static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
->>>>>        return __map_domain_page(p2m->root + root_table_indx);
->>>>>    }
->>>>>    
->>>>> +static int p2m_type_radix_set(struct p2m_domain *p2m, pte_t pte, p2m_type_t t)
->>>> See comments on the earlier patch regarding naming.
->>>>
->>>>> +{
->>>>> +    int rc;
->>>>> +    gfn_t gfn = mfn_to_gfn(p2m->domain, mfn_from_pte(pte));
->>>> How does this work, when you record GFNs only for Xenheap pages?
+On 16.07.2025 18:04, Dmytro Prokopchuk1 wrote:
 > 
 > 
->>> I think I don't understand what is an issue. Could you please provide
->>> some extra details?
->> Counter question: The mfn_to_gfn() you currently have is only a stub. It only
->> works for 1:1 mapped domains. Can you show me the eventual final implementation
->> of the function, making it possible to use it here?
+> On 7/15/25 13:50, Jan Beulich wrote:
+>> On 15.07.2025 12:07, Dmytro Prokopchuk1 wrote:
+>>> ARM only are:
+>>> -config=MC3A2.R5.5,reports+={deliberate,
+>>> "any_area(all_loc(file(^xen/include/xen/bitops\\.h$)))"}
+>>
+>> This one's probably fine.
+>>
+>>> -config=MC3A2.R5.5,reports+={deliberate,
+>>> "all_area(decl(name(parse_gnttab_limit))||macro(name(parse_gnttab_limit)))"}
+>>> -config=MC3A2.R5.5,reports+={deliberate,
+>>> "all_area(decl(name(update_gnttab_par))||macro(name(update_gnttab_par)))"}
+>>
+>> These two look too broad: They're affecting common/grant_table.c only, aren't
+>> they?
+>>
+>>> -config=MC3A2.R5.5,reports+={deliberate,
+>>> "all_area(decl(name(pirq_cleanup_check))||macro(name(pirq_cleanup_check)))"}
+>>
+>> This one also looks overly broad, but it's perhaps unavoidable to be that way.
 > 
-> At the moment, I planned to support only 1:1 mapped domains, so it is final
-> implementation.
-
-Isn't that on overly severe limitation?
-
->>>> In this context (not sure if I asked before): With this use of a radix tree,
->>>> how do you intend to bound the amount of memory that a domain can use, by
->>>> making Xen insert very many entries?
->>> I didn’t think about that. I assumed it would be enough to set the amount of
->>> memory a guest domain can use by specifying|xen,domain-p2m-mem-mb| in the DTS,
->>> or using some predefined value if|xen,domain-p2m-mem-mb| isn’t explicitly set.
->> Which would require these allocations to come from that pool.
+> Those deviations can be narrowed (specifying file name):
 > 
-> Yes, and it is true only for non-hardware domains with the current implementation.
-
-???
-
->>> Also, it seems this would just lead to the issue you mentioned earlier: when
->>> the memory runs out,|domain_crash()| will be called or PTE will be zapped.
->> Or one domain exhausting memory would cause another domain to fail. A domain
->> impacting just itself may be tolerable. But a domain affecting other domains
->> isn't.
+> -config=MC3A2.R5.5,reports+={deliberate, 
+> "any_area(any_loc(file(^xen/include/xen/bitops\\.h$)) && 
+> macro(name(__test_and_set_bit||__test_and_clear_bit||__test_and_change_bit||test_bit)))"}
+> -config=MC3A2.R5.5,reports+={deliberate, 
+> "any_area(any_loc(file(^xen/common/grant_table\\.c$))&&macro(name(update_gnttab_par||parse_gnttab_limit)))"}
+> -config=MC3A2.R5.5,reports+={deliberate, 
+> "any_area(any_loc(file(^xen/include/xen/irq\\.h$))&&macro(name(pirq_cleanup_check)))"}
 > 
-> But it seems like this issue could happen in any implementation. It won't happen only
-> if we will have only pre-populated pool for any domain type (hardware, control, guest
-> domain) without ability to extend them or allocate extra pages from domheap in runtime.
-> Otherwise, if extra pages allocation is allowed then we can't really do something
-> with this issue.
+> Are you OK with it?
 
-But that's why I brought this up: You simply have to. Or, as indicated, the
-moment you mark Xen security-supported on RISC-V, there will be an XSA needed.
-This is the kind of thing you need to consider up front. Or at least mark with
-a prominent FIXME annotation. All of which would need resolving before even
-considering to mark code as supported.
+This looks acceptable to me, yes.
 
 Jan
 
