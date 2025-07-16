@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B89FB080E8
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 01:23:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1045943.1416178 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95090B080EA
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 01:24:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1045950.1416188 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucBSi-0001Jd-Uz; Wed, 16 Jul 2025 23:22:56 +0000
+	id 1ucBTf-0001sQ-AU; Wed, 16 Jul 2025 23:23:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1045943.1416178; Wed, 16 Jul 2025 23:22:56 +0000
+Received: by outflank-mailman (output) from mailman id 1045950.1416188; Wed, 16 Jul 2025 23:23:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucBSi-0001HW-RU; Wed, 16 Jul 2025 23:22:56 +0000
-Received: by outflank-mailman (input) for mailman id 1045943;
- Wed, 16 Jul 2025 23:22:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ucBTf-0001pI-78; Wed, 16 Jul 2025 23:23:55 +0000
+Received: by outflank-mailman (input) for mailman id 1045950;
+ Wed, 16 Jul 2025 23:23:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=38Or=Z5=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1ucBSh-0001HQ-3M
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 23:22:55 +0000
+ id 1ucBTd-0001pB-Po
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 23:23:53 +0000
 Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ca704251-629b-11f0-b894-0df219b8e170;
- Thu, 17 Jul 2025 01:22:52 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1752708162405175.1069830219334;
- Wed, 16 Jul 2025 16:22:42 -0700 (PDT)
+ [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ecd7a055-629b-11f0-a319-13f23c93f187;
+ Thu, 17 Jul 2025 01:23:49 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1752708219653644.1867974100865;
+ Wed, 16 Jul 2025 16:23:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,35 +38,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca704251-629b-11f0-b894-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; t=1752708165; cv=none; 
+X-Inumbo-ID: ecd7a055-629b-11f0-a319-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; t=1752708221; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=C7JmK8UjO+Uamb4hS8hB41sbqhlVC0WLJKeD8t/aBhX/2SXXFHQiOPJrDnQBV2F/6L8m7ETKsaHrZH5TzbQZE2odkrCqkBUDRr/F2PmHairhegVG77weOo/3/Z0vG34l1g3rpRcqgKJ6SUQc34ej5PyGIRk5QhYHy0I4d2k5zxk=
+	b=YvG0v1AWTVBKU0n4+Ygj6cZsYYnL/qR/Y66s3MbWdAghBPBGtrdv07tHb+/h8T31aBZqbTtZK1o+z4z4/cVF1frQfdW2z11lEG6YELG4kMClQTUF1tVmgT5+H9rlxKyiYlpkTzhY5vItIIW62EZ/g2j/feGveQdPG0dqLTOgFtY=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1752708165; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=6Ffc7DloKEOuChRHysXu6XCEyJz/JRtmo2Oef75mK38=; 
-	b=hcz0f3mcMLbMiq7onmHTEVpHuSUTOVs7YeyoZj+3oRuK1UzF3Jn3h8wF2kGpPawTpwIlNJ4Jpsk1u2e8mcLlUAnH+HGzCOFOEucSrV6x+r0CWejYMwMR8xHejv8FoldaNPGkKSMiu5qXV6LYSO6AOq2WOTbz7i8eenfldPPB/2w=
+	t=1752708221; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=o3ixMko8fWGC/DoUqsUnOHbJIE5t2z0+jGxuTu+1iDA=; 
+	b=dDKwXqEUHWmPdUEnyXzosBwRvkv608jlMHnX8EjemLeV4i3ReZQmzlpioQ6+4eO+rz6zdTkBxoJYYewno6EUtSKL/UoAotDdhBPhFxe8k/iwIt9d8RKItBpacC//JsK5EuDPawqkld/8ZB6IBv1Xqnk2ETJJ7q+XQZFqDhVRchI=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1752708165;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1752708221;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=6Ffc7DloKEOuChRHysXu6XCEyJz/JRtmo2Oef75mK38=;
-	b=HjZ0r2It9DKi8Hou4f7ihkAOa5BY8cvmOqaC6rz0/W3RwjB/8ksBmnO5ChlsWvq4
-	9gJsazQzzomyVT57HH0rJAxw3Ya08A5M5AtrWdu0DqLUbRmue2D+D7KrwxIarFZCkGl
-	USnHUjn4uahtYB1NaiXNg5rBiNJJdCAn0mcEh8a4=
-Message-ID: <87500910-b20e-4b91-b38e-8baab6bb4dc3@apertussolutions.com>
-Date: Wed, 16 Jul 2025 19:22:40 -0400
+	bh=o3ixMko8fWGC/DoUqsUnOHbJIE5t2z0+jGxuTu+1iDA=;
+	b=eklOWHmeN446ol+SBnh3Giuwmq6dECAUfnWFU7nIazUsSzvmddil6sivTny6Qtl3
+	/hSU8B2Dl83+Q/XMsPUsYjXL42W9Sbye5Eu1MbiiZyJzIeRcNHTJnT3YwcA8RtFMzL5
+	B+joQb87PqgyKKKnyepP0u3wnnMVfw9IvfNz+0nw=
+Message-ID: <943670c0-2f41-4cfa-9e92-f0efa9c99c0b@apertussolutions.com>
+Date: Wed, 16 Jul 2025 19:23:37 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/7] xen/xsm: wrap around xsm_sysctl with CONFIG_SYSCTL
-To: Penny Zheng <Penny.Zheng@amd.com>, xen-devel@lists.xenproject.org
-Cc: ray.huang@amd.com, Stefano Stabellini <sstabellini@kernel.org>
-References: <20250711043158.2566880-1-Penny.Zheng@amd.com>
- <20250711043158.2566880-2-Penny.Zheng@amd.com>
+Subject: Re: [PATCH v8 2/7] xen/sysctl: wrap around XEN_SYSCTL_readconsole
 Content-Language: en-US
+To: Penny Zheng <Penny.Zheng@amd.com>, xen-devel@lists.xenproject.org
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20250711043158.2566880-1-Penny.Zheng@amd.com>
+ <20250711043158.2566880-3-Penny.Zheng@amd.com>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
@@ -99,18 +103,28 @@ Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
  p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
  NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <20250711043158.2566880-2-Penny.Zheng@amd.com>
+In-Reply-To: <20250711043158.2566880-3-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
 
 On 7/11/25 00:31, Penny Zheng wrote:
-> As function xsm_sysctl() is solely invoked in sysctl.c, we need to
-> wrap around it with CONFIG_SYSCTL
+> The following functions is to deal with XEN_SYSCTL_readconsole sub-op, and
+> shall be wrapped:
+> - xsm_readconsole()
+> - read_console_ring()
 > 
 > Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 > ---
+> v2 -> v3:
+> - move #endif up ahead of the blank line
+> ---
+> v3 -> v4:
+> - remove transient "#ifdef CONFIG_SYSCTL"
+> ---
+
+
 
 Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
