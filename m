@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 430DAB06E5F
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 09:00:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1044848.1414871 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 771ABB06E6B
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 09:02:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1044854.1414883 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubw7S-0000E4-Oo; Wed, 16 Jul 2025 06:59:58 +0000
+	id 1ubw9e-0001pU-4w; Wed, 16 Jul 2025 07:02:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1044848.1414871; Wed, 16 Jul 2025 06:59:58 +0000
+Received: by outflank-mailman (output) from mailman id 1044854.1414883; Wed, 16 Jul 2025 07:02:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubw7S-0000Bg-Lk; Wed, 16 Jul 2025 06:59:58 +0000
-Received: by outflank-mailman (input) for mailman id 1044848;
- Wed, 16 Jul 2025 06:59:57 +0000
+	id 1ubw9e-0001mb-1v; Wed, 16 Jul 2025 07:02:14 +0000
+Received: by outflank-mailman (input) for mailman id 1044854;
+ Wed, 16 Jul 2025 07:02:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L52i=Z5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ubw7R-0000Ba-5C
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 06:59:57 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ id 1ubw9c-0001mV-9e
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 07:02:12 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7a158d73-6212-11f0-b894-0df219b8e170;
- Wed, 16 Jul 2025 08:59:54 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3a4f72cba73so356321f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 15 Jul 2025 23:59:54 -0700 (PDT)
+ id caf01d63-6212-11f0-b894-0df219b8e170;
+ Wed, 16 Jul 2025 09:02:10 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a4f379662cso4689688f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 00:02:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31c9248d466sm1026360a91.2.2025.07.15.23.59.50
+ 98e67ed59e1d1-31c9f2a2549sm811747a91.42.2025.07.16.00.01.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Jul 2025 23:59:53 -0700 (PDT)
+ Wed, 16 Jul 2025 00:02:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a158d73-6212-11f0-b894-0df219b8e170
+X-Inumbo-ID: caf01d63-6212-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752649194; x=1753253994; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=vBzrShIR/2CpHU6XZg+2Ng+YAKvNsS/+gHsNdbasztU=;
-        b=OgN6SBZ76YRKPeCa/BxuVW++t6dOOIRbPT3/mIzOr0oleU7GVZ/plcLEP0np3pKc0g
-         m74n+ezYkXdTRMrcUKyfNaltNyQNAM5pgxvBGSa8yhDaoxNCm9szAlBpDQ4YCRbi+Qtc
-         /xUvwd1lVJqqXKTxa93hCG5a6B7F4on2t79oLs9AVtY2PadvaFv2aU6Zdmh66CV/84TO
-         RLNCUjvuFFBTsbNzKV1LDChkwTy64HYsX47Pvr4NlTeQ7dxug1w1NnGJrVVLH5WI0DXh
-         vOR0qlQjGy9QAvacOoSKEBTZBppg4/W39lFdWNPXYTayAHp75GjR/7Oj0spm0ebEKBxr
-         7OLw==
+        d=suse.com; s=google; t=1752649330; x=1753254130; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=5TKArfb607cXs268gasBSZ38f4IEot460N/YWEr+Vng=;
+        b=GYDVwRwqm0d2vPSq2YIcH5T0XicLRwp/BjrxolpOpc98UstIwAo0UF5OSPCisE8ufP
+         BVL6CV17FlhaZQ6HW6+Tag5e/XEL4FWfNVmibq3BKjrdJOPvcoJzrVa1peZ3EFpUese3
+         7EwpSZw1gYGXEWc8dW8R8VfZIxGmo9PoKo+bwU4ZenSRL2SSB2N/QJuNWbwwrbdMWoLz
+         4NyyNRinKf18UrAuWG4ELLO9+ZKXF/uCE1N403NhIVTaS9v5R1sNzRpCAtRLnE71cCE8
+         i3Bv2x5TsCjcn6ehhkg3pDD9CmzFDQADKSfgyu3FCsICquVFhXsjAFCQoU2Y+hfvAsgg
+         kt7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752649194; x=1753253994;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=vBzrShIR/2CpHU6XZg+2Ng+YAKvNsS/+gHsNdbasztU=;
-        b=FccNn9iGZUyO+jEFED8OrgT7ppDeUHbrFvCONZKrhqVC+P95tU4vSo+HULKMZJSrQc
-         +L8jm9OWFJkXODERF8VadNZPSDhFELpf0lsfJA1zpbp8grbYe30gyE5auibPcr6ozqeM
-         xHK4dKOUdnayFPUXwqLSbi/LfB4m3Eryci1zUYHQzeSnPC2xqUKbrOjSVjYoYkD4gjpo
-         IjVO4+aItrQYiu51vKuhAOnWWcb1OS2R4cx/M8KBqBBOwNtA9amNbRrr8A1xf1FuwS1g
-         6PhDqt/hmsdVRpF68P5v20J5PnKHpq/96OA2aMMLOUueMCgHOX6Tyw6fLEICtcj4Jd/r
-         J+rg==
-X-Gm-Message-State: AOJu0YwETSvP5X8WALAfNaH1NLSGk7QiA8I7eThFywewSmgSvxFIoOCF
-	xxRyRurskSyCrRHzIaSP99a9CMggBfYSAWwEgJnsPbzy4r49wAwygVCHTFcAw7AUk6Mk1PzCuyn
-	mWBo=
-X-Gm-Gg: ASbGncuYHfXTJJSnBqqSnZiEGmAYv1rPXz1hhQiLpi7iscb54CgwKVGISV/O8Qy9ub3
-	4FeHwu6jGlVq19h2M4pRXnojrD2ptJhO+V8kqdWVCS2aHFxqb330WIqL8ceIo0NwEhQq8hHyDdd
-	KM0hK4QKu2cTNbK6Ass2njBan8NTfJOn8dRShtyPT3FpQsxxGPDOAoRMvlaUKCWtdRmYGwsSQ7g
-	MD8arEi6fTU1cMmaQAD4w6X+3/CWgXW9KaY9wIFj1D8jkClaJIXT9zXzVFbmqZLWLKVBIqA4buj
-	ONLsovAJejxO/y9Lg6nHyZnttjsD+1kNJSWJMeLD9bhSdo8OySiFXis8bF0mRrzzT4XsInd8VH7
-	MBCHsLeVORA1jJemN4a8/aEDg/ZqIrYKUlHtsLG2dqXeEr7Dpb+J2VvtKq73jObaSjpVpdJP0Vu
-	CwmeSx7vo=
-X-Google-Smtp-Source: AGHT+IFZ9OKJt4oVMV1ZiE0vhtYzw5kO9uI52hJNc3/nbJ4jpA1XLCGo74ee+f3TjCSu1l77YkFBTA==
-X-Received: by 2002:a5d:64e3:0:b0:3a4:eb7a:2ccb with SMTP id ffacd0b85a97d-3b60953af23mr5362399f8f.16.1752649194114;
-        Tue, 15 Jul 2025 23:59:54 -0700 (PDT)
-Message-ID: <73d725a9-4163-4dd8-a9ac-b1c234005ced@suse.com>
-Date: Wed, 16 Jul 2025 08:59:45 +0200
+        d=1e100.net; s=20230601; t=1752649330; x=1753254130;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5TKArfb607cXs268gasBSZ38f4IEot460N/YWEr+Vng=;
+        b=IBdcYf0o1I5i87iLujaewG8ViqibLHWmMuGWQsunq94AKbMa0ps86ZcAM6zHvIIXoS
+         PwRJF/P+bo4bNg0bG+8YeV6ELCd12d1dPEPwShkFIwdoPUGXR8UfclyPfuWoFPBzGF3j
+         Sn0woW1+8EJ66xhqrB2dBiOBPIGcfil/6YtHrDkHr2RMSX3vhsVJmbMkONj0f/jhrXbe
+         3uxYeUScohuxGlISW4/lhLNrWfnpZSPL+racBHYK07OwNUxrZLCabNrwD0FQOkZvLoc9
+         ojgcseExRDtl6MkzH9hCGvw0XGEs7iuKNzYZchWCrC2914AtadYOXNCwAzTN3O54qZmo
+         ZtIg==
+X-Gm-Message-State: AOJu0Yzrhs9zy37TM+lhlSDpI+RlSqa7DyUFSdAVSohD7YYj8sFrgEQ/
+	dZEpT4wLwGJBj6qW0FX98wy5SgIyefNMEQ63L2M6wxFK5o8Q0s78Klhfn9d2lmXAkg==
+X-Gm-Gg: ASbGncsRu8DzXo3+mePwfek5Fkk18wG63ZC53ie2fW0B0vN0NaotPqjceX3Mlgygfu/
+	r69E0rUb8W5VJQ1G4gugMDbA86iOs3W0Ie6BPYRShKc1D9yoH88uZ0Uh85zEeV4zFjPLwK8o7n2
+	nr9oVXVzuhlPkJRAPQvITTveFiUru1Rt8oxmQaAMih7wwME9W5VfcI65nSVix+jVM6kCTgmCgrs
+	M5FwqNtTHWVPZtkVDIvT/Mxnu/xvjAjaPhre1XEhuFjD9GAGCpEZHMGUOYkrzmi3GOqXRU6eYS0
+	rjbCNOJT/vxG+eGi71ckLB6ecF3DdsTjXmaRl3lGAO8Vm7VIKlJcUr9H+lOJsqxHTHapQpmY6l2
+	jTRujIdqMhhpM4+ndpzIvRnkSJilcSreVLVOLzRR5OK1Yj7qCRr92aDG22bZm1twuGKQRs3+B1N
+	lhYWXmpcU=
+X-Google-Smtp-Source: AGHT+IFhwY9g7bwUaVfePAU3FOfbGN9SkysZFKpuw80jNZH4RS1IERHlXq54FFYFFpZgz1sAQj/8Mw==
+X-Received: by 2002:a05:6000:4619:b0:3a4:fc07:f453 with SMTP id ffacd0b85a97d-3b60e4b8592mr813624f8f.8.1752649329872;
+        Wed, 16 Jul 2025 00:02:09 -0700 (PDT)
+Message-ID: <4df052eb-1757-488c-ae8a-3a9cc2c38a49@suse.com>
+Date: Wed, 16 Jul 2025 09:01:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 0/7] xen: introduce CONFIG_SYSCTL
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, xen-devel@dornerworks.com,
+ ray.huang@amd.com, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Nathan Studer <nathan.studer@dornerworks.com>,
+ Stewart Hildebrand <stewart@stew.dk>, Dario Faggioli <dfaggioli@suse.com>,
+ Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Penny Zheng <Penny.Zheng@amd.com>
+References: <20250711043158.2566880-1-Penny.Zheng@amd.com>
+ <alpine.DEB.2.22.394.2507151823170.15546@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/gen-cpuid: correct cycle detection
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -116,88 +131,17 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2507151823170.15546@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-With the processing done linearly (rather than recursively), checking
-whether any of the features was previously seen is wrong: That would
-e.g. trigger for this simple set of dependencies
+On 16.07.2025 03:24, Stefano Stabellini wrote:
+> Heads up, I intend to commit this series shortly as it has been
+> thoroughly reviewed by multiple people and has been on the list for a
+> long time now.
 
-    X: [A, B]
-    A: [C]
-    B: [C]
+I would have already committed it if it had all necessary acks. XSM ones
+in particular are missing.
 
-(observed in reality when making AMX-AVX512 dependent upon both
-AMX-TILE and AVX512F, causing XSAVE to see AMX-AVX512 twice in its list
-of dependents). But checking the whole accumulated set also isn't
-necessary - just checking the feature we're processing dependents of is
-sufficient. We may detect a cycle later that way, but we still will
-detect it. What we need to avoid is adding a feature again when we've
-already seen it.
-
-As a result, seeding "seen[]" with "feat" isn't necessary anymore.
-
-Fixes: fe4408d180f4 ("xen/x86: Generate deep dependencies of features")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Doing AMX-AVX512's dependencies like mentioned above still isn't quite
-right; we really need AVX512F || AVX10, which can't be expressed right
-now.
-
-This contextually collides with patch 2 of "x86/cpu-policy: minor
-adjustments", posted almost 2 years ago and still pending (afair) any
-kind of feedback.
-
-I'd like to note that the commented out code in the loop (sitting
-between the two hunks beklow) doesn't really work for ARCH_CAPS: The
-first unused bit (between XAPIC_STATUS and OVRCLK_STATUS) triggers
-
-Traceback (most recent call last):
-  File ".../xen/../xen/tools/gen-cpuid.py", line 608, in <module>
-    sys.exit(main())
-  File ".../xen/../xen/tools/gen-cpuid.py", line 602, in main
-    crunch_numbers(state)
-  File ".../xen/../xen/tools/gen-cpuid.py", line 382, in crunch_numbers
-    (state.names[feat], repl(seen)))
-  File ".../xen/../xen/tools/gen-cpuid.py", line 378, in repl
-    return "[" + ", ".join((state.names[x] for x in l)) + "]"
-  File ".../xen/../xen/tools/gen-cpuid.py", line 378, in <genexpr>
-    return "[" + ", ".join((state.names[x] for x in l)) + "]"
-KeyError: 534
-
-(line numbers slightly shifted due to other debugging code I had added).
-My Python clearly isn't good enough to try to guess how to fix that.
-
---- a/xen/tools/gen-cpuid.py
-+++ b/xen/tools/gen-cpuid.py
-@@ -350,7 +350,7 @@ def crunch_numbers(state):
- 
-     for feat in deep_features:
- 
--        seen = [feat]
-+        seen = []
-         to_process = list(deps[feat])
- 
-         while len(to_process):
-@@ -363,14 +363,14 @@ def crunch_numbers(state):
- 
-             f = to_process.pop(0)
- 
--            if f in seen:
--                raise Fail("ERROR: Cycle found with %s when processing %s"
--                           % (state.names[f], state.names[feat]))
-+            if f == feat:
-+                raise Fail("ERROR: Cycle found with %s" % (state.names[f], ))
- 
--            seen.append(f)
--            to_process = list(set(to_process + deps.get(f, [])))
-+            if not (f in seen):
-+                seen.append(f)
-+                to_process = list(set(to_process + deps.get(f, [])))
- 
--        state.deep_deps[feat] = seen[1:]
-+        state.deep_deps[feat] = seen
- 
-     state.deep_features = deps.keys()
-     state.nr_deep_deps = len(state.deep_deps.keys())
+Jan
 
