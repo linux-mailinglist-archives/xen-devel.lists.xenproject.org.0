@@ -2,45 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 509C8B07059
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 10:23:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1044945.1414981 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65104B070AD
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 10:35:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1044951.1414992 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubxPi-0001Xi-3x; Wed, 16 Jul 2025 08:22:54 +0000
+	id 1ubxb8-0003he-Qk; Wed, 16 Jul 2025 08:34:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1044945.1414981; Wed, 16 Jul 2025 08:22:54 +0000
+Received: by outflank-mailman (output) from mailman id 1044951.1414992; Wed, 16 Jul 2025 08:34:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubxPi-0001Un-1Q; Wed, 16 Jul 2025 08:22:54 +0000
-Received: by outflank-mailman (input) for mailman id 1044945;
- Wed, 16 Jul 2025 08:22:52 +0000
+	id 1ubxb8-0003g2-OC; Wed, 16 Jul 2025 08:34:42 +0000
+Received: by outflank-mailman (input) for mailman id 1044951;
+ Wed, 16 Jul 2025 08:34:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iI5F=Z5=suse.de=osalvador@srs-se1.protection.inumbo.net>)
- id 1ubxPg-0001Uf-Fq
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 08:22:52 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mFG0=Z5=bounce.vates.tech=bounce-md_30504962.6877641d.v1-05a0ad372f58408286f8c5d20831ec7d@srs-se1.protection.inumbo.net>)
+ id 1ubxb6-0003fr-NN
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 08:34:40 +0000
+Received: from mail145-16.atl61.mandrillapp.com
+ (mail145-16.atl61.mandrillapp.com [198.2.145.16])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 104be718-621e-11f0-a319-13f23c93f187;
- Wed, 16 Jul 2025 10:22:51 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9648F1F38E;
- Wed, 16 Jul 2025 08:22:49 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E588A138D2;
- Wed, 16 Jul 2025 08:22:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id WqVdNVdhd2icEgAAD6G6ig
- (envelope-from <osalvador@suse.de>); Wed, 16 Jul 2025 08:22:47 +0000
+ id b5d6db72-621f-11f0-a319-13f23c93f187;
+ Wed, 16 Jul 2025 10:34:39 +0200 (CEST)
+Received: from pmta06.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail145-16.atl61.mandrillapp.com (Mailchimp) with ESMTP id
+ 4bhq9T41xLz8XRqhP
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 08:34:37 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 05a0ad372f58408286f8c5d20831ec7d; Wed, 16 Jul 2025 08:34:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,126 +43,345 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 104be718-621e-11f0-a319-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1752654170; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eYaQzTxO2EXAgTj5Tmh3qSEBV9qTyqV769ionVDxydo=;
-	b=yc7y2C6OOZgd4x9WIB5Fsl5oTCcbpQz4jm9Kq+EoQ9QCutH+KbLCj+1v0aHvRp1LeurUkI
-	FRfAMBG3EYJvSVy/R8oTFZl4/s2L/BXL5ak5CEHwZqwepHvnP8qYDdwm2w1DImdMO8wo5W
-	9xerIS40xW1fufGncx8MwTgRWWJmQy0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1752654170;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eYaQzTxO2EXAgTj5Tmh3qSEBV9qTyqV769ionVDxydo=;
-	b=fOdMwmH8kyrOPeSCUT5zBSuQ4lVq/Id6NVZseDv1XtbuqIDi6Ll775JTt4ecNanN5XH1Ew
-	GQ5E28xqUI+nL6DQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=SKtCDwxJ;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=VQapEGWN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1752654169; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eYaQzTxO2EXAgTj5Tmh3qSEBV9qTyqV769ionVDxydo=;
-	b=SKtCDwxJo8nPlZdaW/yBPWECZgSEX/cx5Irqq/nvAQZvIzEYHdR2l6HG4Wp3ZpYwuAws+5
-	VowBBx1gQ5vvxwv7gamBKohfkbdqAIm5hoyZKQri15D6GihKP3XFHBoIhCJ/xqvsK3tK9L
-	COaG7EuEkg8Syz/YKsGgM+fDj8uaQvQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1752654169;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eYaQzTxO2EXAgTj5Tmh3qSEBV9qTyqV769ionVDxydo=;
-	b=VQapEGWNmv38Ig5isE+uVRHaUwcAwA70C/LQrjGZLGVEAwj5qiXZ7Nl9qdWIWHjMFl73fN
-	RWNDObOLEczLSQDg==
-Date: Wed, 16 Jul 2025 10:22:46 +0200
-From: Oscar Salvador <osalvador@suse.de>
-To: David Hildenbrand <david@redhat.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	xen-devel@lists.xenproject.org, linux-fsdevel@vger.kernel.org,
-	nvdimm@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-	"Liam R. Howlett" <Liam.Howlett@oracle.com>,
-	Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
-	Hugh Dickins <hughd@google.com>, Lance Yang <lance.yang@linux.dev>,
-	David Vrabel <david.vrabel@citrix.com>
-Subject: Re: [PATCH v1 9/9] mm: rename vm_ops->find_special_page() to
- vm_ops->find_normal_page()
-Message-ID: <aHdhVpGzOYHiDEq8@localhost.localdomain>
-References: <20250715132350.2448901-1-david@redhat.com>
- <20250715132350.2448901-10-david@redhat.com>
+X-Inumbo-ID: b5d6db72-621f-11f0-a319-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1752654877; x=1752924877;
+	bh=u3od19rekVXiF67E+RmFuqEYGSWLRc7VmgRmgnphynw=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=ToqlVHffMi0O+3SqcxYRGm/Zsdic2dkyHhLzgDLU+8N1JHdw84DWANCop4dOpozG5
+	 DqqKc9AXkop3shgAMZbsRxHlwg6vVnKPkCtE4lIEbypE2sDLkbwPc+eme2Kb/8YDzu
+	 RIiQ7PrkV2sM3HMMu8By+4U6edqcPLl/8KWu2KXzmZodK654FcywIvEuMUuG/Km61D
+	 cRJiSxAIBxy8+7r3WBjDLFgEJGdLkiXq3yXezRsDx5WpdT++TNtyd5R5x4TTY1fMPP
+	 WT+aL361tMqfxXAkVz1uUCplwfV0P+vrLhzi0pgkEDwGEjMOkzSllZaSj4IW87q4x3
+	 yVP2Ozca077WQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1752654877; x=1752915377; i=teddy.astie@vates.tech;
+	bh=u3od19rekVXiF67E+RmFuqEYGSWLRc7VmgRmgnphynw=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=u7QRI5ae4DVoyuIlZ491EOfP0O+Z+Ybtqzmw69FUgKbT8MvCxfgpQ7Xyjc7a6YxbL
+	 4zpBPThoQ8Sp8HOWYzyIxxmrhtY2MYV70RreUfd4rLLejwYzP9cGw8OTuQjlK08bAh
+	 1nBO/IOH88QAHv8sVY4K/GixPjJaZ0DW+JcT1IfuBZKz9kmwWAVr6KdQPDJF5rXHSB
+	 34E98YVGzR/Zsvx8Snx/QthEgmTSa8RKMqBLyhBjS7qxBZn4LQEWXv8yMQVUMJmrCB
+	 6Oa2dJsMpTJky4a2QnwsXbkcB/5Q3z5qLOO8eTa0u7s6yEbFJLB782+K/tEHHN+7Kf
+	 JenwFgchYh2uA==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v8]=20xen/console:=20introduce=20domain=5Fconsole=20struct?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1752654876131
+Message-Id: <9ee0645e-2cf3-46b2-b35d-c8a37a0afb8b@vates.tech>
+To: dmukhin@ford.com, xen-devel@lists.xenproject.org
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org
+References: <20250716020447.1029992-1-dmukhin@ford.com>
+In-Reply-To: <20250716020447.1029992-1-dmukhin@ford.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.05a0ad372f58408286f8c5d20831ec7d?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250716:md
+Date: Wed, 16 Jul 2025 08:34:37 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250715132350.2448901-10-david@redhat.com>
-X-Spam-Level: 
-X-Spam-Flag: NO
-X-Rspamd-Queue-Id: 9648F1F38E
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[32];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RL88oxspsx4bg3gu1yybyqiqt4)];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[localhost.localdomain:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email]
-X-Spam-Score: -4.51
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 15, 2025 at 03:23:50PM +0200, David Hildenbrand wrote:
-> ... and hide it behind a kconfig option. There is really no need for
-> any !xen code to perform this check.
+Le 16/07/2025 =C3=A0 07:11, dmukhin@ford.com a =C3=A9crit=C2=A0:
+> From: Denis Mukhin <dmukhin@ford.com>
 > 
-> The naming is a bit off: we want to find the "normal" page when a PTE
-> was marked "special". So it's really not "finding a special" page.
+> Introduce domain_console for grouping data structures used for integratin=
+g
+> domain's diagnostic console with Xen's console driver.
 > 
-> Improve the documentation, and add a comment in the code where XEN ends
-> up performing the pte_mkspecial() through a hypercall. More details can
-> be found in commit 923b2919e2c3 ("xen/gntdev: mark userspace PTEs as
-> special on x86 PV guests").
+> Group all pbuf-related data structures under domain_console. Rename the m=
+oved
+> fields to plain .buf, .idx and .lock names, since all uses of the fields =
+are
+> touched.
 > 
-> Cc: David Vrabel <david.vrabel@citrix.com>
-> Signed-off-by: David Hildenbrand <david@redhat.com>
+> Bump the domain console buffer allocation size to 256. No extra symbol fo=
+r the
+> value since it is used only once during data structure declaration. All s=
+ize
+> checks use ARRAY_SIZE().
+> 
+> Allocate domain_console from the heap so that the parent domain struct si=
+ze
+> stays below PAGE_SIZE boundary to account for more console-related fields
+> added in the future.
+> 
+> Finally, update the domain_console allocation and initialization code.
+> 
+> No functional change.
+> 
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 
-Reviewed-by: Oscar Salvador <osalvador@suse.de>
+Reviewed-by: Teddy Astie <teddy.astie@vates.tech>
 
- 
+> ---
+> Changes since v7:
+> - use ARRAY_SIZE() for cons->buf checks
+> - update the commit message
+> ---
+>   xen/arch/arm/vpl011.c      |  2 +-
+>   xen/arch/x86/hvm/hvm.c     | 18 ++++++++++--------
+>   xen/arch/x86/pv/shim.c     |  2 +-
+>   xen/common/domain.c        | 19 +++++++++----------
+>   xen/drivers/char/console.c | 21 +++++++++++----------
+>   xen/include/xen/sched.h    | 22 ++++++++++++----------
+>   6 files changed, 44 insertions(+), 40 deletions(-)
+> 
+> diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c
+> index 480fc664fc62..d0d17c76b72c 100644
+> --- a/xen/arch/arm/vpl011.c
+> +++ b/xen/arch/arm/vpl011.c
+> @@ -713,7 +713,7 @@ int domain_vpl011_init(struct domain *d, struct vpl01=
+1_init_info *info)
+>       }
+>       else
+>       {
+> -        d->console.input_allowed =3D true;
+> +        d->console->input_allowed =3D true;
+>           vpl011->backend_in_domain =3D false;
+>   
+>           vpl011->backend.xen =3D xzalloc(struct vpl011_xen_backend);
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index 56c7de39778b..684d2c0c195c 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -559,7 +559,8 @@ void hvm_do_resume(struct vcpu *v)
+>   static int cf_check hvm_print_line(
+>       int dir, unsigned int port, unsigned int bytes, uint32_t *val)
+>   {
+> -    struct domain *cd =3D current->domain;
+> +    const struct domain *d =3D current->domain;
+> +    struct domain_console *cons =3D d->console;
+>       char c =3D *val;
+>   
+>       ASSERT(bytes =3D=3D 1 && port =3D=3D XEN_HVM_DEBUGCONS_IOPORT);
+> @@ -571,16 +572,17 @@ static int cf_check hvm_print_line(
+>       if ( !is_console_printable(c) )
+>           return X86EMUL_OKAY;
+>   
+> -    spin_lock(&cd->pbuf_lock);
+> +    spin_lock(&cons->lock);
+> +    ASSERT(cons->idx < ARRAY_SIZE(cons->buf));
+>       if ( c !=3D '\n' )
+> -        cd->pbuf[cd->pbuf_idx++] =3D c;
+> -    if ( (cd->pbuf_idx =3D=3D (DOMAIN_PBUF_SIZE - 1)) || (c =3D=3D '\n')=
+ )
+> +        cons->buf[cons->idx++] =3D c;
+> +    if ( (cons->idx =3D=3D (ARRAY_SIZE(cons->buf) - 1)) || (c =3D=3D '\n=
+') )
+>       {
+> -        cd->pbuf[cd->pbuf_idx] =3D '\0';
+> -        guest_printk(cd, XENLOG_G_DEBUG "%s\n", cd->pbuf);
+> -        cd->pbuf_idx =3D 0;
+> +        cons->buf[cons->idx] =3D '\0';
+> +        guest_printk(d, XENLOG_G_DEBUG "%s\n", cons->buf);
+> +        cons->idx =3D 0;
+>       }
+> -    spin_unlock(&cd->pbuf_lock);
+> +    spin_unlock(&cons->lock);
+>   
+>       return X86EMUL_OKAY;
+>   }
+> diff --git a/xen/arch/x86/pv/shim.c b/xen/arch/x86/pv/shim.c
+> index bc2a7dd5fae5..bd29c53a2d34 100644
+> --- a/xen/arch/x86/pv/shim.c
+> +++ b/xen/arch/x86/pv/shim.c
+> @@ -239,7 +239,7 @@ void __init pv_shim_setup_dom(struct domain *d, l4_pg=
+entry_t *l4start,
+>        */
+>       d->max_pages =3D domain_tot_pages(d);
+>   
+> -    d->console.input_allowed =3D true;
+> +    d->console->input_allowed =3D true;
+>   }
+>   
+>   static void write_start_info(struct domain *d)
+> diff --git a/xen/common/domain.c b/xen/common/domain.c
+> index 303c338ef293..caef4cc8d649 100644
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -669,7 +669,7 @@ static void _domain_destroy(struct domain *d)
+>       BUG_ON(!d->is_dying);
+>       BUG_ON(atomic_read(&d->refcnt) !=3D DOMAIN_DESTROYED);
+>   
+> -    xfree(d->pbuf);
+> +    xvfree(d->console);
+>   
+>       argo_destroy(d);
+>   
+> @@ -835,8 +835,6 @@ struct domain *domain_create(domid_t domid,
+>           flags |=3D CDF_hardware;
+>           if ( old_hwdom )
+>               old_hwdom->cdf &=3D ~CDF_hardware;
+> -
+> -        d->console.input_allowed =3D true;
+>       }
+>   
+>       /* Holding CDF_* internal flags. */
+> @@ -866,8 +864,6 @@ struct domain *domain_create(domid_t domid,
+>       spin_lock_init(&d->shutdown_lock);
+>       d->shutdown_code =3D SHUTDOWN_CODE_INVALID;
+>   
+> -    spin_lock_init(&d->pbuf_lock);
+> -
+>       rwlock_init(&d->vnuma_rwlock);
+>   
+>   #ifdef CONFIG_HAS_PCI
+> @@ -877,6 +873,14 @@ struct domain *domain_create(domid_t domid,
+>   
+>       /* All error paths can depend on the above setup. */
+>   
+> +    err =3D -ENOMEM;
+> +    d->console =3D xvzalloc(typeof(*d->console));
+> +    if ( !d->console )
+> +        goto fail;
+> +
+> +    spin_lock_init(&d->console->lock);
+> +    d->console->input_allowed =3D is_hardware_domain(d);
+> +
+>       /*
+>        * Allocate d->vcpu[] and set ->max_vcpus up early.  Various per-do=
+main
+>        * resources want to be sized based on max_vcpus.
+> @@ -959,11 +963,6 @@ struct domain *domain_create(domid_t domid,
+>       if ( (err =3D argo_init(d)) !=3D 0 )
+>           goto fail;
+>   
+> -    err =3D -ENOMEM;
+> -    d->pbuf =3D xzalloc_array(char, DOMAIN_PBUF_SIZE);
+> -    if ( !d->pbuf )
+> -        goto fail;
+> -
+>       if ( (err =3D sched_init_domain(d, config->cpupool_id)) !=3D 0 )
+>           goto fail;
+>   
+> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+> index ba5a809a99fb..b0d50a910e27 100644
+> --- a/xen/drivers/char/console.c
+> +++ b/xen/drivers/char/console.c
+> @@ -521,7 +521,7 @@ struct domain *console_get_domain(void)
+>       if ( !d )
+>           return NULL;
+>   
+> -    if ( d->console.input_allowed )
+> +    if ( d->console->input_allowed )
+>           return d;
+>   
+>       rcu_unlock_domain(d);
+> @@ -564,7 +564,7 @@ static void console_switch_input(void)
+>           {
+>               rcu_unlock_domain(d);
+>   
+> -            if ( !d->console.input_allowed )
+> +            if ( !d->console->input_allowed )
+>                   continue;
+>   
+>               console_rx =3D next_rx;
+> @@ -744,6 +744,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARA=
+M(char) buffer,
+>           else
+>           {
+>               char *kin =3D kbuf, *kout =3D kbuf, c;
+> +            struct domain_console *cons =3D cd->console;
+>   
+>               /* Strip non-printable characters */
+>               do
+> @@ -756,22 +757,22 @@ static long guest_console_write(XEN_GUEST_HANDLE_PA=
+RAM(char) buffer,
+>               } while ( --kcount > 0 );
+>   
+>               *kout =3D '\0';
+> -            spin_lock(&cd->pbuf_lock);
+> +            spin_lock(&cons->lock);
+>               kcount =3D kin - kbuf;
+>               if ( c !=3D '\n' &&
+> -                 (cd->pbuf_idx + (kout - kbuf) < (DOMAIN_PBUF_SIZE - 1))=
+ )
+> +                 (cons->idx + (kout - kbuf) < (ARRAY_SIZE(cons->buf) - 1=
+)) )
+>               {
+>                   /* buffer the output until a newline */
+> -                memcpy(cd->pbuf + cd->pbuf_idx, kbuf, kout - kbuf);
+> -                cd->pbuf_idx +=3D (kout - kbuf);
+> +                memcpy(cons->buf + cons->idx, kbuf, kout - kbuf);
+> +                cons->idx +=3D kout - kbuf;
+>               }
+>               else
+>               {
+> -                cd->pbuf[cd->pbuf_idx] =3D '\0';
+> -                guest_printk(cd, XENLOG_G_DEBUG "%s%s\n", cd->pbuf, kbuf=
+);
+> -                cd->pbuf_idx =3D 0;
+> +                cons->buf[cons->idx] =3D '\0';
+> +                guest_printk(cd, XENLOG_G_DEBUG "%s%s\n", cons->buf, kbu=
+f);
+> +                cons->idx =3D 0;
+>               }
+> -            spin_unlock(&cd->pbuf_lock);
+> +            spin_unlock(&cons->lock);
+>           }
+>   
+>           guest_handle_add_offset(buffer, kcount);
+> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+> index fe53d4fab7ba..f7bb44328bbc 100644
+> --- a/xen/include/xen/sched.h
+> +++ b/xen/include/xen/sched.h
+> @@ -371,6 +371,17 @@ struct evtchn_port_ops;
+>   
+>   #define MAX_NR_IOREQ_SERVERS 8
+>   
+> +/* Domain console settings. */
+> +struct domain_console {
+> +    /* Permission to take ownership of the physical console input. */
+> +    bool input_allowed;
+> +
+> +    /* hvm_print_line() and guest_console_write() logging. */
+> +    unsigned int idx;
+> +    spinlock_t lock;
+> +    char buf[256];
+> +};
+> +
+>   struct domain
+>   {
+>       domid_t          domain_id;
+> @@ -562,12 +573,6 @@ struct domain
+>       /* Control-plane tools handle for this domain. */
+>       xen_domain_handle_t handle;
+>   
+> -    /* hvm_print_line() and guest_console_write() logging. */
+> -#define DOMAIN_PBUF_SIZE 200
+> -    char       *pbuf;
+> -    unsigned int pbuf_idx;
+> -    spinlock_t  pbuf_lock;
+> -
+>       /* OProfile support. */
+>       struct xenoprof *xenoprof;
+>   
+> @@ -653,10 +658,7 @@ struct domain
+>   #endif
+>   
+>       /* Console settings. */
+> -    struct {
+> -        /* Permission to take ownership of the physical console input. *=
+/
+> -        bool input_allowed;
+> -    } console;
+> +    struct domain_console *console;
+>   } __aligned(PAGE_SIZE);
+>   
+>   static inline struct page_list_head *page_to_list(
 
--- 
-Oscar Salvador
-SUSE Labs
+
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
 
