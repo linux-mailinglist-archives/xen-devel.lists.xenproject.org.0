@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BC44B0725D
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 12:00:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1045026.1415092 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FB28B07278
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 12:03:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1045034.1415102 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubyvW-0006pI-Ot; Wed, 16 Jul 2025 09:59:50 +0000
+	id 1ubyyZ-0000J0-6O; Wed, 16 Jul 2025 10:02:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1045026.1415092; Wed, 16 Jul 2025 09:59:50 +0000
+Received: by outflank-mailman (output) from mailman id 1045034.1415102; Wed, 16 Jul 2025 10:02:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubyvW-0006nD-Lf; Wed, 16 Jul 2025 09:59:50 +0000
-Received: by outflank-mailman (input) for mailman id 1045026;
- Wed, 16 Jul 2025 09:59:49 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1ubyyZ-0000Fm-3C; Wed, 16 Jul 2025 10:02:59 +0000
+Received: by outflank-mailman (input) for mailman id 1045034;
+ Wed, 16 Jul 2025 10:02:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ubyvV-0006n7-0q
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 09:59:49 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1ubyvU-002z1l-2J;
- Wed, 16 Jul 2025 09:59:48 +0000
-Received: from [15.248.3.92] (helo=[10.24.67.240])
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1ubyvU-00BzXT-1i;
- Wed, 16 Jul 2025 09:59:48 +0000
+ (envelope-from <SRS0=L52i=Z5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ubyyX-0000Ff-Ox
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 10:02:57 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0b1a6b16-622c-11f0-b894-0df219b8e170;
+ Wed, 16 Jul 2025 12:02:55 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-455e6fb8057so51820295e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 03:02:55 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-74eb9f64c73sm14130999b3a.141.2025.07.16.03.02.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 16 Jul 2025 03:02:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,152 +45,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
-	bh=u1+pGE8a2Gd3yDa94WOgJ4EjPRD9SFBIJU4uzxSTwRk=; b=I2MEv+fpD6yMjt/ZYcZoUmvwJm
-	P/a3ZQDbx/hyT1LNjAq9zqXUZAnbELoJyxTg6g2UqcpdJIM+LoDyPUK4G209ER9QjuJgvWH17k26q
-	Ztq3gOqdrKsh0KaUKA0OJ+wa/Dlv1mtDkb145iZg85z7vS2xirOYbiG6SRGIj9K/JTpU=;
-Message-ID: <5cc13cbf-bb66-42e1-8b20-604b282fdfa4@xen.org>
-Date: Wed, 16 Jul 2025 10:59:46 +0100
+X-Inumbo-ID: 0b1a6b16-622c-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1752660175; x=1753264975; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=onwhGk6Lsb/8tW0JaKHuT95WimKdwyBN9aeijqwgIxY=;
+        b=Yeg+op9sU3bQCPQtNBe6TRtwnThj96PyQWX9LjZH6//XL7RFfVkekbLiFGQaWp37YP
+         g4V+Pdm6bN+iSMu8YMEfTe/GLQUxYAOHbP5Tx+6N8j4GFaWywufXzreXp2vVWTxTJNTL
+         x+gVspNPXnTMf6xNS0lGe0ErN8LtjmvSYqp02+pbcyHRizHH0ljlbFGdWGJQKlzUzmzY
+         G/i1pCe0g/O/ePu9kIlIbgsrLjqpHtKlkimE644upvgP2DhR/L29K9pNR9USWnn1ybTO
+         FUNh8WSVmMaFmdLMoW7J1b6jbmZuTyxk8njzd3G+i1UfUS23e+3kse7Slg7qsff9LYqo
+         +/sA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1752660175; x=1753264975;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=onwhGk6Lsb/8tW0JaKHuT95WimKdwyBN9aeijqwgIxY=;
+        b=ruaHgmF0TwNmseuZAWF+/v8irp6Bn97AHDY4pxnYes7GzvmjJBtSJxvRv90nM90v06
+         gvqCHuTAdYWXfrXso2+lwlQxgNn+9toBTiA7N5nWrL5YGFsC/BLhOkbyBB4S1PKnLR7I
+         SiqjY/WzjmuQ96pFL/7U1w+hIQhtTRorgOogIdaJb4XdG3vo6mGDGt520mMgIn1NaAXP
+         /zcf8E/z1IPL1JxNK/eFQRd1A4aaxBjiYtpwPJDL0KpbU3I6JWpydhDfhNd7dKG2U3KX
+         p6fCRdzQmafDNFpmRknZdFzbylaRMhA181rMLWVkSkY14eD7kK3IAjfQ34clHN9kAQY0
+         SDvQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUOI22Sr+FBhLO+3ZV3vkgn9Pf1YjcTR5c/3fskSX7EIYkDwEhjeKPsfsWJfMXpWkrPjN9lUt59uxg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyXmguS8sB4+8FYrOHchkyPSsGKpJJ0UGIbvn+yEXT903fuiLyv
+	VOuDw17kB/Za6Wt8E9cWBb65tI4ruCIvGo2sOqtt6cuHL2vc6VsHdHLhVvYoBsMdhA==
+X-Gm-Gg: ASbGnctdM61Hy2TWJSLk/Bu+Oh8+Wrn36wET+dxIx+4c3yF12/kbFbsNWDhlwaZXDqG
+	30YweCZ3gNicgW9B7vW9bvZ4IdMNQ+xAjvTs8OPhjU9TRm6uUWC0s/81HVR0vtbe28xmi/OMlUp
+	ssC7h/l1Tt8za2NF87NomsdlWJFgY3OqajAmOog43VxlLKcl+fydQ/O776pQZFdgrkItcCDEio7
+	/PZEFbvBOUqAU+h1ZQF8EIXDe30MmMJj8KIkFS2AnftKWLxUqtcV0Z196EyXqtQHyQJhQrsdtuK
+	nJ3qfoMV0Md7LvIUz41LECJOjT2Cib6IjMAZfjtKCRIfOjfIfAvaxoB5t1iFQqBsj+Q8Ob8Qf04
+	DH8e1s/zyRhp8g0apA9YFeoXvThddbZelmpnquQQApSx7wlHKBc9nSrjpofReckIxcIwUdzeZ/O
+	CzcU71riA=
+X-Google-Smtp-Source: AGHT+IFu7sMWHsuH8iU3b4Cir9g611c1cJRgC1Y/t06ReeTm7hmeNRikMYncqNHB3G+9aKFIAoPymA==
+X-Received: by 2002:a05:6000:1448:b0:3a1:fa6c:4735 with SMTP id ffacd0b85a97d-3b60e4f2c5fmr1571073f8f.35.1752660175028;
+        Wed, 16 Jul 2025 03:02:55 -0700 (PDT)
+Message-ID: <47207b59-7393-43c0-989d-ff2faa28b950@suse.com>
+Date: Wed, 16 Jul 2025 12:02:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/arm: fix arm_iommu_map_page after f9f6b22ab
-From: Julien Grall <julien@xen.org>
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Stefano Stabellini <stefano.stabellini@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Rahul Singh <rahul.singh@arm.com>, jason.andryuk@amd.com
-References: <alpine.DEB.2.22.394.2507101724180.605088@ubuntu-linux-20-04-desktop>
- <d62f045d-86ae-4ef8-bee5-225b8fa6594d@xen.org>
- <e3a03602-656e-4efb-b9b6-3a6d33781ca0@amd.com>
- <b17f56d8-9021-4220-8c39-8c073fe5e281@xen.org>
- <2e2f3a53-15a9-439d-af57-1fdf881b7e8b@amd.com>
- <be21ce7b-4d9f-4a8a-b96c-6c0eb76bf9cf@xen.org>
+Subject: Re: [PATCH v2 1/3] hvmloader: clean up SMBIOS code style and
+ formatting
+To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <cover.1752533080.git.w1benny@gmail.com>
+ <8ab4c14518b4ae4eb327fb147058f0eec3ff29c7.1752533080.git.w1benny@gmail.com>
 Content-Language: en-US
-In-Reply-To: <be21ce7b-4d9f-4a8a-b96c-6c0eb76bf9cf@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <8ab4c14518b4ae4eb327fb147058f0eec3ff29c7.1752533080.git.w1benny@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-
-
-On 16/07/2025 10:56, Julien Grall wrote:
-> On 15/07/2025 16:58, Stewart Hildebrand wrote:
->> On 7/14/25 18:47, Julien Grall wrote:
->>> Hi Stewards,
->>>
->>> On 14/07/2025 22:12, Stewart Hildebrand wrote:
->>>> On 7/12/25 06:08, Julien Grall wrote:
->>>>> Hi Stefano,
->>>>>
->>>>> On 11/07/2025 01:25, Stefano Stabellini wrote:
->>>>>> diff --git a/xen/drivers/passthrough/arm/iommu_helpers.c b/xen/ 
->>>>>> drivers/passthrough/arm/iommu_helpers.c
->>>>>> index 5cb1987481..dae5fc0caa 100644
->>>>>> --- a/xen/drivers/passthrough/arm/iommu_helpers.c
->>>>>> +++ b/xen/drivers/passthrough/arm/iommu_helpers.c
->>>>>> @@ -36,17 +36,6 @@ int __must_check arm_iommu_map_page(struct 
->>>>>> domain *d, dfn_t dfn, mfn_t mfn,
->>>>>>     {
->>>>>>         p2m_type_t t;
->>>>>>    -    /*
->>>>>> -     * Grant mappings can be used for DMA requests. The dev_bus_addr
->>>>>> -     * returned by the hypercall is the MFN (not the IPA). For 
->>>>>> device
->>>>>> -     * protected by an IOMMU, Xen needs to add a 1:1 mapping in 
->>>>>> the domain
->>>>>> -     * p2m to allow DMA request to work.
->>>>>> -     * This is only valid when the domain is directed mapped. 
->>>>>> Hence this
->>>>>> -     * function should only be used by gnttab code with gfn == 
->>>>>> mfn == dfn.
->>>>>> -     */
->>>>>> -    BUG_ON(!is_domain_direct_mapped(d));
->>>>>> -    BUG_ON(mfn_x(mfn) != dfn_x(dfn));
->>>>>> -
->>>>>
->>>>> Shouldn't arm_iommu_unmap_page() also be updated? It would not 
->>>>> result to a crash, but we would not be able to
->>>>> remove the mapping.
->>>>
->>>> f9f6b22abf1d didn't add any calls to iommu_unmap(). As this is still
->>>> only hwdom for now, hwdom is not expected to be destroyed, so the
->>>> mapping is not expected to be removed for now.
->>>
->>> I already gathered that by looking at the fixes tag in my previous 
->>> answer. Maybe I should have been clearer at that point. Even though 
->>> iommu_unmap() is not called today, this is meant to be the reverse of 
->>> what was done by iommu_map(). So it looks very odd to update one but 
->>> not the other.
->>>
->>> Furthermore, AFAIU, this patch is going a bit further than just 
->>> fixing the bug introduced by f9f6b22abf1d. At which point, we should 
->>> properly
->>> fix it in the same patch rather than hoping that someone else will 
->>> remember that this needed be updated.
->>
->> I'd like to suggest splitting this into two patches then, so we don't
->> let preparation for future work get in the way of fixing the reported
->> issue:
->>
->> Patch #1 to fix the reported issue with a simple
->> s/is_domain_direct_mapped/domain_use_host_layout/ in both
->> arm_iommu_map_page() and arm_iommu_unmap_page().
->>
->> Patch #2 to allow translated mappings in preparation for future work.
+On 15.07.2025 00:49, Petr Beneš wrote:
+> From: Petr Beneš <w1benny@gmail.com>
 > 
-> This sounds good to me.
+> * Removed trailing whitespaces
+> * Removed unnecessary pointer casts
+> * Added whitespaces around &&
+> * Removed superfluous parentheses
+> * Use variables in sizeof() where applicable
 > 
->>
->>>>
->>>> With that said, in the future when we expose vITS to domU, you'd be
->>>> right. In the xlnx downstream we have something like this:
->>>>
->>>> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
->>>> index ef8bd4b6ab33..2f5b79279ff9 100644
->>>> --- a/xen/arch/arm/p2m.c
->>>> +++ b/xen/arch/arm/p2m.c
->>>> @@ -133,7 +133,8 @@ static inline int p2m_remove_mapping(struct 
->>>> domain *d,
->>>>            mfn_t mfn_return = p2m_get_entry(p2m, gfn_add(start_gfn, 
->>>> i), &t, NULL,
->>>>                                             &cur_order, NULL);
->>>>    -        if ( p2m_is_any_ram(t) &&
->>>> +        if ( !mfn_eq(mfn, INVALID_MFN) &&
->>>> +             p2m_is_any_ram(t) &&
->>>
->>> I don't quite understand why you need to update this function. Can 
->>> you clarify?
->>
->> Since arm_iommu_unmap_page() doesn't have the mfn, we needed a way to
->> remove a p2m mapping without the mfn available. INVALID_MFN is a
->> sentinel/placeholder in lieu of the missing mfn.
+> No functional change.
 > 
-> Ah, I didn't spot you changed the MFN passed in 
-> guest_physmap_remove_page() below. Hmmm... The code in 
-> p2m_remove_mapping() is checking MFN to avoid any race. IIRC this is to 
-> close a race in the grant-table mapping.
-> 
-> So I am a bit uncomfortable to allow bypassing the check when 
-> INVALID_MFN is passed. Looking at the code, I see the check is also 
-> gated with p2m_is_any_ram(). I would argue that none of the IOMMU 
-> mapping we are creating should be considered as RAM (the grant mapping 
-> is arguable, but definitely not the doorbell). So I think it would be 
-> better to use a different p2m type for the IOMMU mapping.
+> Signed-off-by: Petr Beneš <w1benny@gmail.com>
 
-Actually, looking at the code, IOMMU mapping will use 
-p2m_iommu_map_{rw,ro}. If I am not mistaken, neither of them are 
-included in p2m_is_any_ram(). So I don't see why this check is needed in 
-upstream.
+Acked-by: Jan Beulich <jbeulich@suse.com>
+with a few more adjustment, which I may take the liberty to do while
+committing:
 
-Did I miss anything? Do you happen to have downstream change?
+> @@ -411,12 +411,12 @@ smbios_type_0_init(void *start, const char *xen_version,
+>      /* Extended Characteristics: Enable Targeted Content Distribution. */
+>      p->characteristics_extension_bytes[1] = 0x04;
+>  
+> -    p->major_release = (uint8_t) xen_major_version;
+> -    p->minor_release = (uint8_t) xen_minor_version;
+> +    p->major_release = (uint8_t)xen_major_version;
+> +    p->minor_release = (uint8_t)xen_minor_version;
 
-Cheers,
+These casts are pointless, too. Since you touch the lines, you could as
+well have purged them at the same time.
 
--- 
-Julien Grall
+> @@ -482,21 +482,21 @@ smbios_type_1_init(void *start, const char *xen_version,
+>      strcpy((char *)start, s);
+>      start += strlen(s) + 1;
+>  
+> -    uuid_to_string(uuid_str, uuid); 
+> +    uuid_to_string(uuid_str, uuid);
+>      s = xenstore_read(HVM_XS_SYSTEM_SERIAL_NUMBER, uuid_str);
+>      strcpy((char *)start, s);
+>      start += strlen(s) + 1;
+>  
+>      *((uint8_t *)start) = 0;
+> -    
+> -    return start+1; 
+> +
+> +    return start+1;
 
+Add the missing blanks here as well while touching the line?
+
+> @@ -920,24 +920,24 @@ smbios_type_22_init(void *start)
+>  
+>      *((uint8_t *)start) = 0;
+>  
+> -    return start+1; 
+> +    return start+1;
+
+Same here.
+
+Jan
 
