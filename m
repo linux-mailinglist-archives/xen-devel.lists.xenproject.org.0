@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65104B070AD
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 10:35:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1044951.1414992 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFA7FB070B5
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 10:36:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1044957.1415002 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubxb8-0003he-Qk; Wed, 16 Jul 2025 08:34:42 +0000
+	id 1ubxcn-0004Ex-69; Wed, 16 Jul 2025 08:36:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1044951.1414992; Wed, 16 Jul 2025 08:34:42 +0000
+Received: by outflank-mailman (output) from mailman id 1044957.1415002; Wed, 16 Jul 2025 08:36:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubxb8-0003g2-OC; Wed, 16 Jul 2025 08:34:42 +0000
-Received: by outflank-mailman (input) for mailman id 1044951;
- Wed, 16 Jul 2025 08:34:40 +0000
+	id 1ubxcn-0004D7-1V; Wed, 16 Jul 2025 08:36:25 +0000
+Received: by outflank-mailman (input) for mailman id 1044957;
+ Wed, 16 Jul 2025 08:36:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mFG0=Z5=bounce.vates.tech=bounce-md_30504962.6877641d.v1-05a0ad372f58408286f8c5d20831ec7d@srs-se1.protection.inumbo.net>)
- id 1ubxb6-0003fr-NN
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 08:34:40 +0000
-Received: from mail145-16.atl61.mandrillapp.com
- (mail145-16.atl61.mandrillapp.com [198.2.145.16])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=L52i=Z5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ubxcl-0004Cu-OD
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 08:36:23 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b5d6db72-621f-11f0-a319-13f23c93f187;
- Wed, 16 Jul 2025 10:34:39 +0200 (CEST)
-Received: from pmta06.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail145-16.atl61.mandrillapp.com (Mailchimp) with ESMTP id
- 4bhq9T41xLz8XRqhP
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 08:34:37 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 05a0ad372f58408286f8c5d20831ec7d; Wed, 16 Jul 2025 08:34:37 +0000
+ id f40b55de-621f-11f0-a319-13f23c93f187;
+ Wed, 16 Jul 2025 10:36:22 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3a507e88b0aso4723104f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 01:36:22 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-74eb9e075e2sm13988720b3a.52.2025.07.16.01.36.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 16 Jul 2025 01:36:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,345 +45,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5d6db72-621f-11f0-a319-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1752654877; x=1752924877;
-	bh=u3od19rekVXiF67E+RmFuqEYGSWLRc7VmgRmgnphynw=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=ToqlVHffMi0O+3SqcxYRGm/Zsdic2dkyHhLzgDLU+8N1JHdw84DWANCop4dOpozG5
-	 DqqKc9AXkop3shgAMZbsRxHlwg6vVnKPkCtE4lIEbypE2sDLkbwPc+eme2Kb/8YDzu
-	 RIiQ7PrkV2sM3HMMu8By+4U6edqcPLl/8KWu2KXzmZodK654FcywIvEuMUuG/Km61D
-	 cRJiSxAIBxy8+7r3WBjDLFgEJGdLkiXq3yXezRsDx5WpdT++TNtyd5R5x4TTY1fMPP
-	 WT+aL361tMqfxXAkVz1uUCplwfV0P+vrLhzi0pgkEDwGEjMOkzSllZaSj4IW87q4x3
-	 yVP2Ozca077WQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1752654877; x=1752915377; i=teddy.astie@vates.tech;
-	bh=u3od19rekVXiF67E+RmFuqEYGSWLRc7VmgRmgnphynw=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=u7QRI5ae4DVoyuIlZ491EOfP0O+Z+Ybtqzmw69FUgKbT8MvCxfgpQ7Xyjc7a6YxbL
-	 4zpBPThoQ8Sp8HOWYzyIxxmrhtY2MYV70RreUfd4rLLejwYzP9cGw8OTuQjlK08bAh
-	 1nBO/IOH88QAHv8sVY4K/GixPjJaZ0DW+JcT1IfuBZKz9kmwWAVr6KdQPDJF5rXHSB
-	 34E98YVGzR/Zsvx8Snx/QthEgmTSa8RKMqBLyhBjS7qxBZn4LQEWXv8yMQVUMJmrCB
-	 6Oa2dJsMpTJky4a2QnwsXbkcB/5Q3z5qLOO8eTa0u7s6yEbFJLB782+K/tEHHN+7Kf
-	 JenwFgchYh2uA==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v8]=20xen/console:=20introduce=20domain=5Fconsole=20struct?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1752654876131
-Message-Id: <9ee0645e-2cf3-46b2-b35d-c8a37a0afb8b@vates.tech>
-To: dmukhin@ford.com, xen-devel@lists.xenproject.org
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org
-References: <20250716020447.1029992-1-dmukhin@ford.com>
-In-Reply-To: <20250716020447.1029992-1-dmukhin@ford.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.05a0ad372f58408286f8c5d20831ec7d?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250716:md
-Date: Wed, 16 Jul 2025 08:34:37 +0000
+X-Inumbo-ID: f40b55de-621f-11f0-a319-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1752654982; x=1753259782; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=khOvqm/sZV0KW+7bqczmDmyaiOo//EmbeqKrtDwECxg=;
+        b=ITYSDxRy+JiTnuON5YeUlWRd4NwXhj45r5S4gLxO8cnHY++x1wg4zBzVOJmrqMPjaE
+         lRTmYFqZ6Nyc7KQORUh8GB+2HNuTO0Bh2wWWh0bko3nSYeOcK0zqwvbaNpz0Ft7LRMMf
+         XRcYDzqbWzaH2onZHHj369xyxn+N0wgkjbSv/NwXge4NVw0FZ/cWbg2TTBk4dnpK+fmu
+         JAlOhhj9OdYSQmL1h1fEw27edAW8I5N7cQ2Mrkmm+V7F11ZCGqQsGrU126sq+y4iv7ki
+         mkCG8JmLUax8Tk3MV/CO54wODaPrZGknUBH5dYf/8feVJL34YwNKDZ6VWDrqtcoTIzC2
+         j5kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1752654982; x=1753259782;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=khOvqm/sZV0KW+7bqczmDmyaiOo//EmbeqKrtDwECxg=;
+        b=IOigFRYEkjrOJUKs7C6RSxC0Aky9Q7xTEofhFWsVBWKFN2UrgNf2ky/cSCLZnz2pY/
+         1Pw2w8hWReDCFBUqbgex1MIZK9Ymt+cc4jLYGJnP4rKC0EKkiBews1CSqr5jbHcU2fWo
+         ftVjvS4NqMuAy1peS9qiV0YCx3A4woyLWdznr+TbuhuhjM1zvQHPGsC+iJcPvhCCQZZv
+         lN7VVNs/R/BqW/4iLYfvGWikk5nSdisaRXKJ21lq2B/P6WSfnU+3rN1RZdTbnsCtedPs
+         WF3HkHL8XD8fq9gMBWOt+xZ8i1Vzl1rjxJiJ4m1yuAfGxOj1qcAVDkwmKKSoxZitjHgr
+         unaw==
+X-Forwarded-Encrypted: i=1; AJvYcCX2bLRfeWX8VEcBRhfId1c4DXY+hGJ14Rp1I3XRDLeMyXN+OaE0D9SR2sxdHJh8h1UpFQNwZmCYp98=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy6LRYwQpDNP4zHL+8bYvLx2Rww3BGhHq0S3H0WM8H3hM9SRgNt
+	oZB8V5B4oY0Unw7GuyI6sVDD6tVppxoKxKeUIyu+AVoDNhGJ2sLmjsHBWNC+C/+ryg==
+X-Gm-Gg: ASbGncvxYPhpPpP1RO/Ysjs3WFf5jKXFdJmz8bc9sIo7GBXbkd0dFoaLKz4JlHDtSt2
+	DOrshPp200vIMSb2bHGxXVmE1tapKv01hrBCOuq4j+nmZ+C1zuAr44HHDMOfLJemiBP/W+lrQe5
+	+bUExVB0sGpCyEeD5VCDVDs44gm7drE/MDihYM/LmHk7EnX8okNhgrJk1fdppiYjVYNYoCg6ob+
+	hxciP4j/3q4YucYrasCfE6TTEEOpIpOEVGg2lzC4jG+2mpmmcsVxmpABEG+M1q2TXYcFZXfmBbx
+	G9EH25PsbUztKd8mo46i40rol19mqPLEywOCCuSm0TNrMqB6gGi0bV9r2wNRDbAnTuuGOwKto6W
+	Bp7CEzAbkPyz5kMtOwePjUwBGB7y2TaqcYaXkzdnwahZiy+TC61InNhmHgICoXw6GrW+34mHTUR
+	dhTYXVsrM=
+X-Google-Smtp-Source: AGHT+IEyClXzRES47IZslWOhhUesI8+r8l9NWQPBke9AH5B4gzUYCu6ZZshGtG/WGBGYtd4ML4Fr+g==
+X-Received: by 2002:a05:6000:1a85:b0:3a4:f744:e00e with SMTP id ffacd0b85a97d-3b60e4be7aemr1241475f8f.4.1752654982171;
+        Wed, 16 Jul 2025 01:36:22 -0700 (PDT)
+Message-ID: <82575b1a-970a-4d70-8fdd-5615cd3f3195@suse.com>
+Date: Wed, 16 Jul 2025 10:36:12 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 1/2] arm/pci: add pci_passhtrough_enabled check to
+ pci_device_reset
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <cover.1752649797.git.mykyta_poturai@epam.com>
+ <daa6b4a6f1e0d90ddf5fd4c25cd941e3fb0d4774.1752649797.git.mykyta_poturai@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <daa6b4a6f1e0d90ddf5fd4c25cd941e3fb0d4774.1752649797.git.mykyta_poturai@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Le 16/07/2025 =C3=A0 07:11, dmukhin@ford.com a =C3=A9crit=C2=A0:
-> From: Denis Mukhin <dmukhin@ford.com>
-> 
-> Introduce domain_console for grouping data structures used for integratin=
-g
-> domain's diagnostic console with Xen's console driver.
-> 
-> Group all pbuf-related data structures under domain_console. Rename the m=
-oved
-> fields to plain .buf, .idx and .lock names, since all uses of the fields =
-are
-> touched.
-> 
-> Bump the domain console buffer allocation size to 256. No extra symbol fo=
-r the
-> value since it is used only once during data structure declaration. All s=
-ize
-> checks use ARRAY_SIZE().
-> 
-> Allocate domain_console from the heap so that the parent domain struct si=
-ze
-> stays below PAGE_SIZE boundary to account for more console-related fields
-> added in the future.
-> 
-> Finally, update the domain_console allocation and initialization code.
-> 
-> No functional change.
-> 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+On 16.07.2025 09:43, Mykyta Poturai wrote:
+> Without pci-passthrough=on Xen does not know anything about present PCI
+> devices due to PHYSDEVOP_pci_device_add not executing.
 
-Reviewed-by: Teddy Astie <teddy.astie@vates.tech>
+While the latter half of the sentence is true, Xen may know of PCI devices
+be other means. It scans the bus itself after all on x86, under certain
+conditions. Furthermore "pci-passthrough" is an Arm-only option, when the
+change here affects x86 as much. The description therefore will need some
+improvement; the code change itself is okay (on the assumption that it can
+be justified properly).
 
-> ---
-> Changes since v7:
-> - use ARRAY_SIZE() for cons->buf checks
-> - update the commit message
-> ---
->   xen/arch/arm/vpl011.c      |  2 +-
->   xen/arch/x86/hvm/hvm.c     | 18 ++++++++++--------
->   xen/arch/x86/pv/shim.c     |  2 +-
->   xen/common/domain.c        | 19 +++++++++----------
->   xen/drivers/char/console.c | 21 +++++++++++----------
->   xen/include/xen/sched.h    | 22 ++++++++++++----------
->   6 files changed, 44 insertions(+), 40 deletions(-)
-> 
-> diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c
-> index 480fc664fc62..d0d17c76b72c 100644
-> --- a/xen/arch/arm/vpl011.c
-> +++ b/xen/arch/arm/vpl011.c
-> @@ -713,7 +713,7 @@ int domain_vpl011_init(struct domain *d, struct vpl01=
-1_init_info *info)
->       }
->       else
->       {
-> -        d->console.input_allowed =3D true;
-> +        d->console->input_allowed =3D true;
->           vpl011->backend_in_domain =3D false;
->   
->           vpl011->backend.xen =3D xzalloc(struct vpl011_xen_backend);
-> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-> index 56c7de39778b..684d2c0c195c 100644
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -559,7 +559,8 @@ void hvm_do_resume(struct vcpu *v)
->   static int cf_check hvm_print_line(
->       int dir, unsigned int port, unsigned int bytes, uint32_t *val)
->   {
-> -    struct domain *cd =3D current->domain;
-> +    const struct domain *d =3D current->domain;
-> +    struct domain_console *cons =3D d->console;
->       char c =3D *val;
->   
->       ASSERT(bytes =3D=3D 1 && port =3D=3D XEN_HVM_DEBUGCONS_IOPORT);
-> @@ -571,16 +572,17 @@ static int cf_check hvm_print_line(
->       if ( !is_console_printable(c) )
->           return X86EMUL_OKAY;
->   
-> -    spin_lock(&cd->pbuf_lock);
-> +    spin_lock(&cons->lock);
-> +    ASSERT(cons->idx < ARRAY_SIZE(cons->buf));
->       if ( c !=3D '\n' )
-> -        cd->pbuf[cd->pbuf_idx++] =3D c;
-> -    if ( (cd->pbuf_idx =3D=3D (DOMAIN_PBUF_SIZE - 1)) || (c =3D=3D '\n')=
- )
-> +        cons->buf[cons->idx++] =3D c;
-> +    if ( (cons->idx =3D=3D (ARRAY_SIZE(cons->buf) - 1)) || (c =3D=3D '\n=
-') )
->       {
-> -        cd->pbuf[cd->pbuf_idx] =3D '\0';
-> -        guest_printk(cd, XENLOG_G_DEBUG "%s\n", cd->pbuf);
-> -        cd->pbuf_idx =3D 0;
-> +        cons->buf[cons->idx] =3D '\0';
-> +        guest_printk(d, XENLOG_G_DEBUG "%s\n", cons->buf);
-> +        cons->idx =3D 0;
->       }
-> -    spin_unlock(&cd->pbuf_lock);
-> +    spin_unlock(&cons->lock);
->   
->       return X86EMUL_OKAY;
->   }
-> diff --git a/xen/arch/x86/pv/shim.c b/xen/arch/x86/pv/shim.c
-> index bc2a7dd5fae5..bd29c53a2d34 100644
-> --- a/xen/arch/x86/pv/shim.c
-> +++ b/xen/arch/x86/pv/shim.c
-> @@ -239,7 +239,7 @@ void __init pv_shim_setup_dom(struct domain *d, l4_pg=
-entry_t *l4start,
->        */
->       d->max_pages =3D domain_tot_pages(d);
->   
-> -    d->console.input_allowed =3D true;
-> +    d->console->input_allowed =3D true;
->   }
->   
->   static void write_start_info(struct domain *d)
-> diff --git a/xen/common/domain.c b/xen/common/domain.c
-> index 303c338ef293..caef4cc8d649 100644
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -669,7 +669,7 @@ static void _domain_destroy(struct domain *d)
->       BUG_ON(!d->is_dying);
->       BUG_ON(atomic_read(&d->refcnt) !=3D DOMAIN_DESTROYED);
->   
-> -    xfree(d->pbuf);
-> +    xvfree(d->console);
->   
->       argo_destroy(d);
->   
-> @@ -835,8 +835,6 @@ struct domain *domain_create(domid_t domid,
->           flags |=3D CDF_hardware;
->           if ( old_hwdom )
->               old_hwdom->cdf &=3D ~CDF_hardware;
-> -
-> -        d->console.input_allowed =3D true;
->       }
->   
->       /* Holding CDF_* internal flags. */
-> @@ -866,8 +864,6 @@ struct domain *domain_create(domid_t domid,
->       spin_lock_init(&d->shutdown_lock);
->       d->shutdown_code =3D SHUTDOWN_CODE_INVALID;
->   
-> -    spin_lock_init(&d->pbuf_lock);
-> -
->       rwlock_init(&d->vnuma_rwlock);
->   
->   #ifdef CONFIG_HAS_PCI
-> @@ -877,6 +873,14 @@ struct domain *domain_create(domid_t domid,
->   
->       /* All error paths can depend on the above setup. */
->   
-> +    err =3D -ENOMEM;
-> +    d->console =3D xvzalloc(typeof(*d->console));
-> +    if ( !d->console )
-> +        goto fail;
-> +
-> +    spin_lock_init(&d->console->lock);
-> +    d->console->input_allowed =3D is_hardware_domain(d);
-> +
->       /*
->        * Allocate d->vcpu[] and set ->max_vcpus up early.  Various per-do=
-main
->        * resources want to be sized based on max_vcpus.
-> @@ -959,11 +963,6 @@ struct domain *domain_create(domid_t domid,
->       if ( (err =3D argo_init(d)) !=3D 0 )
->           goto fail;
->   
-> -    err =3D -ENOMEM;
-> -    d->pbuf =3D xzalloc_array(char, DOMAIN_PBUF_SIZE);
-> -    if ( !d->pbuf )
-> -        goto fail;
-> -
->       if ( (err =3D sched_init_domain(d, config->cpupool_id)) !=3D 0 )
->           goto fail;
->   
-> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> index ba5a809a99fb..b0d50a910e27 100644
-> --- a/xen/drivers/char/console.c
-> +++ b/xen/drivers/char/console.c
-> @@ -521,7 +521,7 @@ struct domain *console_get_domain(void)
->       if ( !d )
->           return NULL;
->   
-> -    if ( d->console.input_allowed )
-> +    if ( d->console->input_allowed )
->           return d;
->   
->       rcu_unlock_domain(d);
-> @@ -564,7 +564,7 @@ static void console_switch_input(void)
->           {
->               rcu_unlock_domain(d);
->   
-> -            if ( !d->console.input_allowed )
-> +            if ( !d->console->input_allowed )
->                   continue;
->   
->               console_rx =3D next_rx;
-> @@ -744,6 +744,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARA=
-M(char) buffer,
->           else
->           {
->               char *kin =3D kbuf, *kout =3D kbuf, c;
-> +            struct domain_console *cons =3D cd->console;
->   
->               /* Strip non-printable characters */
->               do
-> @@ -756,22 +757,22 @@ static long guest_console_write(XEN_GUEST_HANDLE_PA=
-RAM(char) buffer,
->               } while ( --kcount > 0 );
->   
->               *kout =3D '\0';
-> -            spin_lock(&cd->pbuf_lock);
-> +            spin_lock(&cons->lock);
->               kcount =3D kin - kbuf;
->               if ( c !=3D '\n' &&
-> -                 (cd->pbuf_idx + (kout - kbuf) < (DOMAIN_PBUF_SIZE - 1))=
- )
-> +                 (cons->idx + (kout - kbuf) < (ARRAY_SIZE(cons->buf) - 1=
-)) )
->               {
->                   /* buffer the output until a newline */
-> -                memcpy(cd->pbuf + cd->pbuf_idx, kbuf, kout - kbuf);
-> -                cd->pbuf_idx +=3D (kout - kbuf);
-> +                memcpy(cons->buf + cons->idx, kbuf, kout - kbuf);
-> +                cons->idx +=3D kout - kbuf;
->               }
->               else
->               {
-> -                cd->pbuf[cd->pbuf_idx] =3D '\0';
-> -                guest_printk(cd, XENLOG_G_DEBUG "%s%s\n", cd->pbuf, kbuf=
-);
-> -                cd->pbuf_idx =3D 0;
-> +                cons->buf[cons->idx] =3D '\0';
-> +                guest_printk(cd, XENLOG_G_DEBUG "%s%s\n", cons->buf, kbu=
-f);
-> +                cons->idx =3D 0;
->               }
-> -            spin_unlock(&cd->pbuf_lock);
-> +            spin_unlock(&cons->lock);
->           }
->   
->           guest_handle_add_offset(buffer, kcount);
-> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-> index fe53d4fab7ba..f7bb44328bbc 100644
-> --- a/xen/include/xen/sched.h
-> +++ b/xen/include/xen/sched.h
-> @@ -371,6 +371,17 @@ struct evtchn_port_ops;
->   
->   #define MAX_NR_IOREQ_SERVERS 8
->   
-> +/* Domain console settings. */
-> +struct domain_console {
-> +    /* Permission to take ownership of the physical console input. */
-> +    bool input_allowed;
-> +
-> +    /* hvm_print_line() and guest_console_write() logging. */
-> +    unsigned int idx;
-> +    spinlock_t lock;
-> +    char buf[256];
-> +};
-> +
->   struct domain
->   {
->       domid_t          domain_id;
-> @@ -562,12 +573,6 @@ struct domain
->       /* Control-plane tools handle for this domain. */
->       xen_domain_handle_t handle;
->   
-> -    /* hvm_print_line() and guest_console_write() logging. */
-> -#define DOMAIN_PBUF_SIZE 200
-> -    char       *pbuf;
-> -    unsigned int pbuf_idx;
-> -    spinlock_t  pbuf_lock;
-> -
->       /* OProfile support. */
->       struct xenoprof *xenoprof;
->   
-> @@ -653,10 +658,7 @@ struct domain
->   #endif
->   
->       /* Console settings. */
-> -    struct {
-> -        /* Permission to take ownership of the physical console input. *=
-/
-> -        bool input_allowed;
-> -    } console;
-> +    struct domain_console *console;
->   } __aligned(PAGE_SIZE);
->   
->   static inline struct page_list_head *page_to_list(
-
-
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
-
+Jan
 
