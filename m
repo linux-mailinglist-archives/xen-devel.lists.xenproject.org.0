@@ -2,54 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5205B07280
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 12:05:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1045040.1415112 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D511FB07350
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 12:28:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1045065.1415122 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubz0G-00015x-Hs; Wed, 16 Jul 2025 10:04:44 +0000
+	id 1ubzMm-00056n-DC; Wed, 16 Jul 2025 10:28:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1045040.1415112; Wed, 16 Jul 2025 10:04:44 +0000
+Received: by outflank-mailman (output) from mailman id 1045065.1415122; Wed, 16 Jul 2025 10:28:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubz0G-000138-Eq; Wed, 16 Jul 2025 10:04:44 +0000
-Received: by outflank-mailman (input) for mailman id 1045040;
- Wed, 16 Jul 2025 10:04:42 +0000
+	id 1ubzMm-00053j-AY; Wed, 16 Jul 2025 10:28:00 +0000
+Received: by outflank-mailman (input) for mailman id 1045065;
+ Wed, 16 Jul 2025 10:27:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8M8J=Z5=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1ubz0D-00012u-Vt
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 10:04:42 +0000
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c200::3])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=L52i=Z5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ubzMl-00053d-7j
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 10:27:59 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 495fd130-622c-11f0-a319-13f23c93f187;
- Wed, 16 Jul 2025 12:04:40 +0200 (CEST)
-Received: from AS8PR04CA0102.eurprd04.prod.outlook.com (2603:10a6:20b:31e::17)
- by GV1PR08MB10456.eurprd08.prod.outlook.com (2603:10a6:150:16d::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.24; Wed, 16 Jul
- 2025 10:04:37 +0000
-Received: from AMS0EPF000001B3.eurprd05.prod.outlook.com
- (2603:10a6:20b:31e:cafe::e0) by AS8PR04CA0102.outlook.office365.com
- (2603:10a6:20b:31e::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.20 via Frontend Transport; Wed,
- 16 Jul 2025 10:04:37 +0000
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AMS0EPF000001B3.mail.protection.outlook.com (10.167.16.167) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.21
- via Frontend Transport; Wed, 16 Jul 2025 10:04:36 +0000
-Received: from DU2PR08MB7272.eurprd08.prod.outlook.com (2603:10a6:10:2d7::16)
- by GV1PR08MB8643.eurprd08.prod.outlook.com (2603:10a6:150:84::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.35; Wed, 16 Jul
- 2025 10:04:03 +0000
-Received: from DU2PR08MB7272.eurprd08.prod.outlook.com
- ([fe80::ab1e:55db:9d8:afbc]) by DU2PR08MB7272.eurprd08.prod.outlook.com
- ([fe80::ab1e:55db:9d8:afbc%3]) with mapi id 15.20.8922.028; Wed, 16 Jul 2025
- 10:04:02 +0000
+ id 8a5d703d-622f-11f0-a319-13f23c93f187;
+ Wed, 16 Jul 2025 12:27:57 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-451d6ade159so46973435e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 03:27:57 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23de4323ee2sm120249895ad.138.2025.07.16.03.27.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 16 Jul 2025 03:27:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,180 +45,233 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 495fd130-622c-11f0-a319-13f23c93f187
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=P1F4MTI+2PBjGE/xCYb31VLWqOEYqHuWGZHAWlGMMO59f4utnlz8qhBDZP/5xF76S+xDcnz91uzkwb5FnwapX8iuyQBpG+tN4bN1C3RCG1e7sbGOWk5mljRtmS5GYw/bP1stLxtFh7qhurZj4JKAtQlQQmhITAFZIEoMligEi9ncFfcVUgyTkIpFNMvITFoDaEou3eNuh0nIZ5ZCKLbtErmMLPI96jQ0e2Rx9aX6Zb2eN08L6kchsL7/HpndYkOdJJZhd7DUUavFptN9fksPSMy0xOlNMGv3CBbaKf2z643b6SYIZLrUpXmbzfWfYece7Hy/JLJZtdyPXUmrmgRfLw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zj/ajiLYgjvTA5SyKGr14FjhbY6zAyC+cF0wRnADeBc=;
- b=WarkHJPLDgNFvk3k1sqkM/SNPHWWAaVVLnGHyYU8533WMKGnNVtt4aWKGT3Gbo/YWybSWloYnxJCunVlAPUMF2Agji09Vhsr3Dc+lb1qP0WX2kSJxri+QNeJVQd9q4R66gdVe34dW+Sa1iMHykghLcll9UkcJ6jsoVUQ3fwDXBYHLZXd04Fz+H6eQIXDMgSfce0EapfLR2WPyWhq0l1kPb7uP2pm3/XIr4PG0SLblv6AyQGQ/cXHHnFBnaD5MfBp+0FhnE3tpx69R1xjrO5xBl/kF6HhzFa60HCgi+36F5u0vkL0GiFTis8pNNCANowZia7Vh1qZdCUSlsV2CitcbA==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=amd.com smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zj/ajiLYgjvTA5SyKGr14FjhbY6zAyC+cF0wRnADeBc=;
- b=BeYK4DL/XQZkreywIgSk26zu9tGZrjiI/tGd7tT13Pf5G7Ac4gDYiDgsWUsLGSE4wiqdCzCD7jXcMo4qz8z6Tz86ugG8Gf1vuOV0kKi4vCaKkNE56Tp8WUCRK3HI33XbXs5ghG+eQoXiHAGWxVzVZDMgYyUvzNWPPjc5fYrUrRg=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qZNnfCQYZIhKamQW6MySABorfLPqumM4RvnIzhBTg68X04a/oTbLCS36KCsUq/8OKDBgRKU4gjfMNQqsNMT+ly14uUNSV5bndDcklFnzCtebwN+35aYK4HG4YLZCRkN+spreVYlDjDrlvKTcbaNKgM4uuzEcMG7HX2AM2bJfOn8jboFIhdvq1Gs+eNvV98N7rzSd1mpH0yle83H8YlcxqLkR5fIV9a2FW72Wjal4Bdi/uA72+Fe0ktV/xvufCe23Ul3W93TOa2m683SrezHXE3tIuIg68kfnik2has6trQJ1d2iFnK8K2YePTHcovzFgqPFvyqLLm/Dolz36zIi/Zg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zj/ajiLYgjvTA5SyKGr14FjhbY6zAyC+cF0wRnADeBc=;
- b=CDNvIbS6Hu+QKsvlRdcANNnY+RqtaEwZqwTnumoEUvhNY1GbSz6h0zwnym1TxthRxAZjpH3Z77KD8syAhqEcTBadftDwDkpOtzBoQvgk2s0gHlYLCdiggt5lCkZOioAx6PgRgeEf2qCRYk05EjayedsLgVS7uZYb6vWYN/w53PuZhrpSUQoKHVxPNvLl1Z2UiB4rdtXW9h3NWe2+FcONlH7YjpK7kFrS+M0OyjzKqs1gJEdUwz8bRhC0WXUhrWdqMD+M0wG2+ip5a2NXndwWZS9/JnjzNHk6neNh98ZAhNZSd8KBUFsXr4YHgYd8MNRt1oYkYJlHkYdZwSI/SXkvOg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zj/ajiLYgjvTA5SyKGr14FjhbY6zAyC+cF0wRnADeBc=;
- b=BeYK4DL/XQZkreywIgSk26zu9tGZrjiI/tGd7tT13Pf5G7Ac4gDYiDgsWUsLGSE4wiqdCzCD7jXcMo4qz8z6Tz86ugG8Gf1vuOV0kKi4vCaKkNE56Tp8WUCRK3HI33XbXs5ghG+eQoXiHAGWxVzVZDMgYyUvzNWPPjc5fYrUrRg=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
-To: Michal Orzel <michal.orzel@amd.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"sstabellini@kernel.org" <sstabellini@kernel.org>,
-	"Oleksandr_Tyshchenko@epam.com" <Oleksandr_Tyshchenko@epam.com>
-Subject: Re: [ImageBuilder][PATCH] Fix DOM0_CMD options for early console
-Thread-Topic: [ImageBuilder][PATCH] Fix DOM0_CMD options for early console
-Thread-Index: AQHb9jPQpyk3GIaLd0CZWTgDvVj/1rQ0hV0A
-Date: Wed, 16 Jul 2025 10:04:02 +0000
-Message-ID: <6248C012-DDC1-4E70-B697-CF04CD22B19C@arm.com>
-References: <20250716092613.13954-1-michal.orzel@amd.com>
-In-Reply-To: <20250716092613.13954-1-michal.orzel@amd.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3826.600.51.1.1)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	DU2PR08MB7272:EE_|GV1PR08MB8643:EE_|AMS0EPF000001B3:EE_|GV1PR08MB10456:EE_
-X-MS-Office365-Filtering-Correlation-Id: d08fbe50-6c81-43fd-222b-08ddc4502b84
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|366016|1800799024|376014|38070700018;
-X-Microsoft-Antispam-Message-Info-Original:
- =?utf-8?B?YXJ2S280OXIxRGw5dWkxNUEra2g3RXdheFh0eXlCZEpuQ2MzOEhjbzBrMzJE?=
- =?utf-8?B?SlI1MDF1YkV1dGYzNDl3QlNIb1RSVzN5NCsrL2QvSTRPWXY4SmN0Mnl3YmFM?=
- =?utf-8?B?VXl3Q2wreFhmejJKc2M1SFJOcHdkWXE0QkZyeWorc3g1QlRVQmpCejFIR0JV?=
- =?utf-8?B?cnNWT0JBRnliYnhwblhzd1VSYmpOYS9vQ0hnc3FzRTF0eXViT3hQeGY4Rk54?=
- =?utf-8?B?UXZEcUJ6Y1BqZ1V6RkhGY0hzY1lPMGQwT0dQcVJtSktOMG9VbHNUbG1UYTJL?=
- =?utf-8?B?WWJ6YTRWUkdZejZLdHdGRmR3UHVMeExwVm9ZNGNxWXN2TmJOVGVtaVltcnNv?=
- =?utf-8?B?QmpORS9ZWmQ1SGNaZXRwVUo0U3A5bDkwVWo4SDJJMzI3clAzTVRGZnFJUFhC?=
- =?utf-8?B?VEdWYUJTZm1GZjdlU2g4aEpMenNvQWNFcHI1RUpqeU10b1pVNlhJQUI5Q1oy?=
- =?utf-8?B?S0tJVHhXOWhPTUtlZVhueXpGNTFONnlReUs0alVkNnl3NXkyYm1aTWFYS05z?=
- =?utf-8?B?QVBFa3FKVGdub0NYRnZteEZhZFoyMU1seWZMK001aU42VWNIWXBMUFNOYU9q?=
- =?utf-8?B?VDFsNWRTUVJmSUsyeDNVSW51Z0hKYSt6aG9MWlhpWVZwNzdEcU1IVCtYUG9G?=
- =?utf-8?B?N1lUVDc0T1c5akt6alFWenJMald2eEw4Z2F4VDJTaXlFZEZSRTJaSUNzYmxL?=
- =?utf-8?B?blRRMXA4eCtERjZxNjZJQkRNRE94SlNXcy8waXpOQlJZOWEyQUphZmFFSVdF?=
- =?utf-8?B?U1d4VXA5UTg1Q0JRd3h5MFFRMlorckVWTHVhNzJmMm1zL3Y1RWo4RlFaUDVW?=
- =?utf-8?B?K2lLeXQ4dUhmc1Q0UGoydEpkQzY4ajg0Mm5ZdnRGNklYckVqaEhEbHZ6bGR1?=
- =?utf-8?B?bkNKVFNpYlFNK1RQMURERUR4QzFaNm5BNVh2UGc0MWpIcWkzWVVlQWJvRUov?=
- =?utf-8?B?ZEhOZ1Z3MTV6SGxVSEV4OGdJRnRJdUdCalJUdGZpUW1kREtXTjdHMFM0T21q?=
- =?utf-8?B?NW4xcVpzTUI5N2JiaHVqMzV5VHFsc20vbGU1blhUNUJ5RnFvVUNON21LT0Y3?=
- =?utf-8?B?TTJrRmJRRVhDb092NEgrY2oxYlg3eXlmZTFyKzNrQ2NmeEdvRmx3K2VEcHph?=
- =?utf-8?B?dHoybGtkRGI2eEdOcU82ZmZXbENlT2JydFd2a1lQMEVTTTFya2dmSmhnRnpF?=
- =?utf-8?B?ME9tdjJCY3ZqTERBaU0wYVR5VGdBT2VPVlhmT3hRS1RlaktJMEJMcER2bXc2?=
- =?utf-8?B?RFRSN0RyZHk2WWZpNWVnQUtaWU9rZEVhS3VsU09rYXU2cmoyRHZGNnV4Y3ZC?=
- =?utf-8?B?akQ2dDU2ZmQzaVpiNkJyWmlJQUJYRGhhZUdGSzZmUUpJN1dIdEJJOFZYaEtk?=
- =?utf-8?B?ditFcnVEQlpUZ3lGb0kxeTBJaDFlcHEyOEFtejlvZ2kvaFU3aTlhMngycHNx?=
- =?utf-8?B?L3Z5SENrL1czNUNTTkdsakR2NVdMTlN2YXNkMlJYRngzV3Blb3JOZzFZKzVx?=
- =?utf-8?B?K20wekErZXloNmx5bG81RDBCU04xRHRGUS9wMWpTT2E1d3RpdXJNMmZDQnBt?=
- =?utf-8?B?VFIyQS9ESnIrR2JnVDFiRFNoQVMwOUVGYVI3bTBac1VXbDBvclExV1BIRW81?=
- =?utf-8?B?QnozdlNuUWV1c2RaS0djakhlWWdkdTV6dTZmc2J4WWVZV1VyZmw1WmRGRWtS?=
- =?utf-8?B?V2dld0ZXVmRBWHhVd25LUkQwU2h0eWZ1bWFad0lkbTVsVEVtaUFzL0N4UUpt?=
- =?utf-8?B?Ky85UmFtL2FYNy9DRDVtaWptdTlQWmI4dWQxTy9JMnJKMkFteVRLWGRKbnRm?=
- =?utf-8?B?bVZiY2dxOHl3WXlpNkU5VlJMb3BqNWQ3dGpveklYZDZuSjc3NlkwVmFzaHlJ?=
- =?utf-8?B?b0xSMTBKcjRyMWMrcDFYOERPeVlQb2FoWGhmdUNQYXNpSmE5T0xob1hkVjMy?=
- =?utf-8?Q?WIbPcNOfCoI=3D?=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR08MB7272.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(38070700018);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <FA06C60E0078C243BB312A70AC43D36D@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 8a5d703d-622f-11f0-a319-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1752661677; x=1753266477; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=IT9UdHco8EvE328Js+NjxTF9nMhZR/PHllP//xshk84=;
+        b=OhROSEDLRKArKCNAgxoTvspcyA+OaZFjDNfv0udDO1ATyIO2SLbzwJSPaFlPUSUBZH
+         S9EG++UW+BcZ5Y8e9PynjaB8t7a6qqhQUCbUzyQq4bnVcZexGbyF8DV+/SpK0is6b6BQ
+         /bzz834a6W0YxM9ggVKdgEdyGoQys+Q9Gahme0ek1vFZsKPnbO/kL/yIRaieTs+2seLE
+         oA7lVmWWSrp2/an08A8hMEeMmIGHz1hOr1UwGUMOgIT0+6hFN1wprL6jPvK7EP/7ufG5
+         U+4J/YTGSkn6pm0/9UAHzCziPlBrjHic+rcdxTaR9/twlN5I5MdhNEWEtPCFak/ggd5b
+         b3Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1752661677; x=1753266477;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IT9UdHco8EvE328Js+NjxTF9nMhZR/PHllP//xshk84=;
+        b=okBNp00iGB9WAD1JkaU7hsOVdM98lnNGj3Y6B6qsyH2y95AXH53qCuoU3yu7UGBK+N
+         RAwoyvLHUMtuR1cqCMrkDhVr0Lgd/nVg7YD3Vkb5U18P7VD1p+NVMw0khpJNPQutpjPL
+         NtEzgbSq6lWCGyNBYN/+fG4qgT/CzMnlwkUsb1zBHujogW8ELb742LjJxXYzeG7BVZMD
+         sUS5hzPbbBFxVfCd4+2eacB52OvPTAUjiYT2FOFORvJHtKT3twYnDx+zoir9bax4Ltvd
+         7accporaGXz+GQxwIGugboTus68JdqZoKvIMcyBV25MVi2DEPkW1Vtr6XXBMw6dJHXiu
+         dsQg==
+X-Forwarded-Encrypted: i=1; AJvYcCVt7Srq3LJ3yoFswsY7LmfGspvD3VEG4SwatUKeyW+HY7/nI9RwyGqG1zvZPMWGKOJClZ1q2DVPd0w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxo27kMouV/ZsAualvEtuPpi2dwCR8XgLCdBlwcAgPnFLfIAOtG
+	kHh4/RVnyeXHi6s64+H6aE5Ht2ZNde54FXGEhrcC+g3V1T4ED/60PfpzDcYw18A1eA==
+X-Gm-Gg: ASbGncuKPXHyNanGqwk5LGmQ/IQRdmndJstIe5NMVCBmoJ71SSx40QoGZJHv/asBHKb
+	cTnSO/Ndf5v3hKX9ojYtmCKF4jjce02tWr7cZ+Kiw2Ep7SxyvwNkP145r/kmXhU1HuzPSS5jksW
+	jPRT2HVwW6/1r9bKoM8Ft7eNylIBDivadj/kErpwHwUwThRAX9la5WJUqtfW5lUX5MjYWOQ3DY5
+	Z+DRQsMzi/4A9pAecYbUAUMJAa+kA2Ttp1KdpwL3XcOlLjeH4xIzw1Dwl3NOGuFyIiZN3T1YDdM
+	ZR1NtHUHy27IVlH5pS2McFfr8maUQFlrQarR3QF5DKYDIOmYJMT35pK6dHamuxOQmrQwOmTE43G
+	2XSrpoTjd0Tk0wM2nLgzcwAs4+JOb7OL0eu+IPBEI7kNofv4W0eEkcad0Gd5X0DTzVunNhUYpjf
+	ruQ5Is3n4=
+X-Google-Smtp-Source: AGHT+IFKOBu4vlFLWlxI8yB2dXPHqDkcch+rSTVYsG71WQyXy1ieN2tOC8aiPKaNNMAst3CPQrVnQg==
+X-Received: by 2002:a05:6000:41ea:b0:3a5:2c18:b181 with SMTP id ffacd0b85a97d-3b60e54bb64mr1659751f8f.53.1752661676855;
+        Wed, 16 Jul 2025 03:27:56 -0700 (PDT)
+Message-ID: <9357cd00-3557-46ff-9a74-ae44c298bc47@suse.com>
+Date: Wed, 16 Jul 2025 12:27:48 +0200
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB8643
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AMS0EPF000001B3.eurprd05.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	bf18b32a-e0d7-4088-67a1-08ddc4501788
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|35042699022|36860700013|82310400026|376014|14060799003|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?d1ZSUFlyZEdnc2xaa0VJMWRocWdrSCsxdGw3TnhWSjVwQ0x5akR3TlhSVUVF?=
- =?utf-8?B?MWtIbURkejViMmVIK0o5Smt0WFdCUHFZT2c5ZjQ5bjFOYllNMUZTZk9INGtU?=
- =?utf-8?B?czVUSU83QWc3d2lhK0tjNklxd2lvTElQdXI4WVpNS2k0OXZSbkRJQ3RMMlZq?=
- =?utf-8?B?cnYxbWl2Q0pNeklYTllnZWF3aFVZOFUrS0hQOG9EYmx2RFBGank0QlhXaTdu?=
- =?utf-8?B?NG5rYkdMV01neW9TWXdva2c3L2tBd3Y5cjJsamFHOERjeS9UVk04eWpOcUFv?=
- =?utf-8?B?MXVGOE9HU2hCME03NmlDWndmUUdRdGp2YTdueXYrZmNoK1JSTkxhTEpNOG9w?=
- =?utf-8?B?eG9HK3B6MzV5MHZzOFAzN3JGTThoODVPZ1BTTVluYkhWa3ByVUJ5b25VNFM3?=
- =?utf-8?B?NGI0NUpWRWVHKzdCd3FYS3Y4czBLdURXY1J1dGdmZUV1QlZJTlBqRlZ2SDhj?=
- =?utf-8?B?Wm1JVW5KNFdFK3NzY0JiemthVmZzMUl1bTU0KzZjcGQvTG0yUkhWOXdVVEFn?=
- =?utf-8?B?WVVWcFNBMXdwTENuczVNa1V4K3ZZU29EYzhoU1R5cUpLWHNYSlJhSG50Z1Iz?=
- =?utf-8?B?a2ZvdjZhMEFWRDZNV0x5S0ZvRnZiVGVraml1MG4rNUNiSTYrT1dabGNZNXZW?=
- =?utf-8?B?M25ZQWFsZEthMlV0Ujd3aDhJemV1b0MwR3hyQ21RdWYwdFhhcWpjc2plakhN?=
- =?utf-8?B?VlJhVkx3SDJtZElDcERQRDg5ZHRQdWs3ZWxxMXB0M2g3cDhnbDQzd1pjell2?=
- =?utf-8?B?UDdwa1R4ckhxRkJMY1JITWd2WGZ6OEZ0emVYT25vYlpqNEdsOGRUVEhscXFX?=
- =?utf-8?B?SVNSTDVIOWhFWHNBNk9PM0p2ellJbm9yNGdDTnBKbk9ib2E5N1BKd3dobzlF?=
- =?utf-8?B?b0hIU0x6U0NxVlMxUWJOUWkzVGlYdWlmTmxsOXU3K0NWU3V3YW42dlc2VWJC?=
- =?utf-8?B?bC9BZERXZzRhUk40eDkzVDB0dG9IOUFZOEhHRjBhYVVhUkVLLzE2Rlp2KzVr?=
- =?utf-8?B?QlErc1JGTUpnM2o1QjFIdGRlYXBLUE55bUpPc05mL0dwRHBWSGFoUUF0V2NG?=
- =?utf-8?B?RktmUlduYi83S0JLaTFBRjhYbXRmNS9BUlVGNjgwRmdJTFE2MzR6V1FuY0dZ?=
- =?utf-8?B?WkROV1hSUWpiR2Fsb2ExNnUvajdKSnh2SkRaVUpEME53ZVJTSnRScFZDTWlK?=
- =?utf-8?B?UjdMTCs0blJ5MDFNMGkrc29wZ2hIWUxIMkM5YnZId2oxUGZJeDI2VFVITzNE?=
- =?utf-8?B?a0tYYmFCQ29xU3ZvdEhRMElCMFRFeFhJUVRSVE9VNEF1L1pZWjQva3BHQkRP?=
- =?utf-8?B?VERhOCtVYTNGVkpyRmdkZkV5dHFHblZZT2VpWno4b3kyOHRLQ2w1aGJBREIv?=
- =?utf-8?B?aHFaWUZMazQ1Y3dzeVlyb2liWFZoUmtvdVFFUGRUTFA3Tm1ZQ0RpOHlLcU9y?=
- =?utf-8?B?a21Eb2ZiUFZLd1d5c2JDT1Jwc1VwWDFIa0o3Y0t6RjNCYWdwU1RNT3I2cnAx?=
- =?utf-8?B?c1grWWFidUVNcmEvSzkxaTRjWHpmektZWTU1T1VHdm42bXpFM0JpS0gvT0U1?=
- =?utf-8?B?NVk4WitFbDJwWEFYL0hxMWFzblhBRVNjOHArMVozTUZmQ3JBaGJYTXpQaHFX?=
- =?utf-8?B?YzFWU0xCdXJwNmtuZkN3M2VHc2VjMFRSR1lTMTM0WHNrNkN2WE1wWC9NSVho?=
- =?utf-8?B?TXd1OEdYc0VTSno1eE9xYkZYdW1TcCtRVVl2OU1CYUgxWkd1T3FvcDVkZE9V?=
- =?utf-8?B?dVRGTDUwZkdyQk1IMkpOd294ZVpYdUQxMzVvaDlwckd5dTFaR0tjMTBhNjlv?=
- =?utf-8?B?azVPLzZmT0hqdkhWTnhDb1VYSDRnQ29GeHBJK2RPV2RidmUvOE1mL1JyWlYr?=
- =?utf-8?B?NVI1MFlsOWgwRlJjSzNiNDZmMUtFOStvQlJiR0hQdzJFejM4TllQOXVOR1pH?=
- =?utf-8?B?Y0N1MjMxQW9uMWlvSWlXc2NTL2lTTXNwSll3dktvMk9TaGpkL3dlYWZzM0ZQ?=
- =?utf-8?B?TTBhK0syNEZnPT0=?=
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(35042699022)(36860700013)(82310400026)(376014)(14060799003)(1800799024)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2025 10:04:36.1934
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d08fbe50-6c81-43fd-222b-08ddc4502b84
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS0EPF000001B3.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB10456
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] hvmloader: fix SMBIOS table length checks
+To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <cover.1752533080.git.w1benny@gmail.com>
+ <9494aa56929b5cb443b9cccb0e671510071b4aab.1752533080.git.w1benny@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <9494aa56929b5cb443b9cccb0e671510071b4aab.1752533080.git.w1benny@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-SGkgTWljaGFsLA0KDQo+IE9uIDE2IEp1bCAyMDI1LCBhdCAxMDoyNiwgTWljaGFsIE9yemVsIDxt
-aWNoYWwub3J6ZWxAYW1kLmNvbT4gd3JvdGU6DQo+IA0KPiBGaXggaW5jb3JyZWN0IGVhcmx5Y29u
-IG9wdGlvbiB0aGF0IHNob3VsZCBiZSB4ZW5ib290IGluc3RlYWQgb2YgeGVuLg0KPiBSZWZlcjoN
-Cj4gaHR0cHM6Ly9lbGl4aXIuYm9vdGxpbi5jb20vbGludXgvdjYuMTUuNi9zb3VyY2UvZHJpdmVy
-cy90dHkvaHZjL2h2Y194ZW4uYyNMNzcyDQo+IA0KPiBGaXggaW5jb3JyZWN0IGVhcmx5cHJpbnRr
-IG9wdGlvbi4gT24gQXJtMzIgKEFybTY0IGRvZXMgbm90IGhhdmUNCj4gZWFybHlwcmludGspLCBp
-dCBzaG91bGQgYmUganVzdCBlYXJseXByaW50ayB3aGljaCB3aWxsIGVuYWJsZSBjb21waWxlZA0K
-PiBpbiAoaWYgYXQgYWxsKSBkZWJ1ZyBwcmludGsgY29kZS4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6
-IE1pY2hhbCBPcnplbCA8bWljaGFsLm9yemVsQGFtZC5jb20+DQo+IC0tLQ0KDQpJ4oCZbSBub3Qg
-YW4gSW1hZ2VCdWlsZGVyIGV4cGVydCwgYnV0IHRoZSBjaGFuZ2UgbG9va3Mgc2Vuc2libGUgdG8g
-bWU6DQoNClJldmlld2VkLWJ5OiBMdWNhIEZhbmNlbGx1IDxsdWNhLmZhbmNlbGx1QGFybS5jb20+
-DQoNCg0K
+On 15.07.2025 00:49, Petr Beneš wrote:
+> --- a/tools/firmware/hvmloader/smbios.c
+> +++ b/tools/firmware/hvmloader/smbios.c
+> @@ -47,6 +47,8 @@ static void
+>  smbios_pt_init(void);
+>  static void*
+>  get_smbios_pt_struct(uint8_t type, uint32_t *length_out);
+> +static void *
+> +smbios_pt_copy(void *start, uint8_t type, uint16_t handle, size_t table_size);
+
+This new helper function isn't mentioned at all in the description. Its
+connection to the purpose of the change also is unclear to me. Should
+its introduction have been a separate change? And then here only the
+length checks be adjusted? (I wouldn't insist on splitting, but the
+description at least wants to reflect this addition and in particular
+its purpose.)
+
+> @@ -154,6 +156,25 @@ get_smbios_pt_struct(uint8_t type, uint32_t *length_out)
+>      return NULL;
+>  }
+>  
+> +static void *
+> +smbios_pt_copy(void *start, uint8_t type, uint16_t handle, size_t table_size)
+> +{
+> +    struct smbios_structure_header *header = start;
+> +
+> +    void *pts;
+> +    uint32_t length;
+
+Nit: Excess blank line in the middle of declarations.
+
+> @@ -381,16 +402,11 @@ smbios_type_0_init(void *start, const char *xen_version,
+>      struct smbios_type_0 *p = start;
+>      static const char *smbios_release_date = __SMBIOS_DATE__;
+>      const char *s;
+> -    void *pts;
+> -    uint32_t length;
+> +    void* next;
+
+Nit: Misplaced *.
+
+> @@ -440,16 +456,11 @@ smbios_type_1_init(void *start, const char *xen_version,
+>      char uuid_str[37];
+>      struct smbios_type_1 *p = start;
+>      const char *s;
+> -    void *pts;
+> -    uint32_t length;
+> +    void* next;
+
+Again.
+
+> @@ -499,25 +510,27 @@ smbios_type_2_init(void *start)
+>      struct smbios_type_2 *p = start;
+>      const char *s;
+>      uint8_t *ptr;
+> -    void *pts;
+> -    uint32_t length;
+> +    void *next;
+>      unsigned int counter = 0;
+>  
+> -    pts = get_smbios_pt_struct(2, &length);
+> -    if ( pts != NULL && length > 0 )
+> -    {
+> -        memcpy(start, pts, length);
+> -        p->header.handle = SMBIOS_HANDLE_TYPE2;
+> +    /*
+> +     * Specification says Type 2 table has length of at least 08h,
+> +     * which corresponds with "Asset Tag" field offset.
+> +     */
+
+This comment looks to be entirely unrelated to the code which follows.
+What is this about? Did you mean to ...
+
+> +    next = smbios_pt_copy(start, 2, SMBIOS_HANDLE_TYPE2, sizeof(*p));
+
+... replace the sizeof() here, using offsetof() instead?
+
+This applies elsewhere as well. Interestingly for type 39 you do use
+offsetof(). Actually, for type 0 the descrpition also says "at least",
+without that being reflected in the code.
+
+> +    if ( next != start )
+> +    {
+>          /* Set current chassis handle if present */
+> -        if ( p->header.length > 13 )
+> +        if ( p->header.length >= offsetof(struct smbios_type_2, board_type) )
+
+Comment and code don't fit together, unless one goes check that board_type
+is the field immediately following chassis_handle.
+
+>          {
+> -            ptr = ((uint8_t*)start) + 11;            
+> +            ptr = ((uint8_t*)start) + offsetof(struct smbios_type_2,
+> +                                               chassis_handle);
+
+The cast can also be dropped at the same time.
+
+>              if ( *((uint16_t*)ptr) != 0 )
+>                  *((uint16_t*)ptr) = SMBIOS_HANDLE_TYPE3;
+
+Why not switch to p->chassis_handle, without any use of "ptr"? Yet then I
+fear I don't really understand what is being done here. Why would an
+arbitrary non-zero value be overwritten with a fixed value?
+
+> @@ -946,20 +949,14 @@ smbios_type_32_init(void *start)
+>  static void *
+>  smbios_type_39_init(void *start)
+>  {
+> -    struct smbios_type_39 *p = start;
+> -    void *pts;
+> -    uint32_t length;
+> -
+> -    pts = get_smbios_pt_struct(39, &length);
+> -    if ( pts != NULL && length > 0 )
+> -    {
+> -        memcpy(start, pts, length);
+> -        p->header.handle = SMBIOS_HANDLE_TYPE39;
+> -        return start + length;
+> -    }
+> +    /*
+> +     * Specification says Type 39 table has length of at least 10h,
+> +     * which corresponds with "Input Voltage Probe Handle" offset.
+> +     */
+>  
+> -    /* Only present when passed in */
+> -    return start;
+> +    return smbios_pt_copy(start, 39, SMBIOS_HANDLE_TYPE39,
+> +                          offsetof(struct smbios_type_39,
+> +                                   input_voltage_probe_handle));
+>  }
+
+The other comment may want retaining, though.
+
+> --- a/tools/firmware/hvmloader/smbios_types.h
+> +++ b/tools/firmware/hvmloader/smbios_types.h
+> @@ -252,9 +252,9 @@ struct smbios_type_39 {
+>      uint8_t revision_level_str;
+>      uint16_t max_capacity;
+>      uint16_t characteristics;
+> -    uint16_t input_voltage_probe_handle;
+> -    uint16_t cooling_device_handle;
+> -    uint16_t input_current_probe_handle;
+> +    uint16_t input_voltage_probe_handle;    /* Optional */
+> +    uint16_t cooling_device_handle;         /* Optional */
+> +    uint16_t input_current_probe_handle;    /* Optional */
+>  } __attribute__ ((packed));
+
+Why not also mark other optional fields as such?
+
+Jan
 
