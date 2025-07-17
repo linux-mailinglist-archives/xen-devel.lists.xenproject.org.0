@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2ED4BB09554
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 22:02:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1047382.1417858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CF44B0955F
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 22:04:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1047397.1417898 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucUoW-0006C0-VS; Thu, 17 Jul 2025 20:02:44 +0000
+	id 1ucUpl-0007y3-1A; Thu, 17 Jul 2025 20:04:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1047382.1417858; Thu, 17 Jul 2025 20:02:44 +0000
+Received: by outflank-mailman (output) from mailman id 1047397.1417898; Thu, 17 Jul 2025 20:04:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucUoW-00069u-Sr; Thu, 17 Jul 2025 20:02:44 +0000
-Received: by outflank-mailman (input) for mailman id 1047382;
- Thu, 17 Jul 2025 20:02:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ucUpk-0007wY-Ta; Thu, 17 Jul 2025 20:04:00 +0000
+Received: by outflank-mailman (input) for mailman id 1047397;
+ Thu, 17 Jul 2025 20:03:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gTIS=Z6=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1ucUoV-00069o-Jt
- for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 20:02:43 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2062a.outbound.protection.outlook.com
- [2a01:111:f403:2418::62a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fe92449a-6348-11f0-b894-0df219b8e170;
- Thu, 17 Jul 2025 22:02:40 +0200 (CEST)
-Received: from CH0P223CA0008.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:116::19)
- by BN7PPFD3499E3E3.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::6e3) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.29; Thu, 17 Jul
- 2025 20:02:37 +0000
-Received: from CH1PEPF0000AD7A.namprd04.prod.outlook.com
- (2603:10b6:610:116:cafe::31) by CH0P223CA0008.outlook.office365.com
- (2603:10b6:610:116::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.20 via Frontend Transport; Thu,
- 17 Jul 2025 20:02:37 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH1PEPF0000AD7A.mail.protection.outlook.com (10.167.244.59) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8943.21 via Frontend Transport; Thu, 17 Jul 2025 20:02:37 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 17 Jul
- 2025 15:02:29 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 17 Jul
- 2025 15:02:19 -0500
-Received: from [172.19.134.125] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Thu, 17 Jul 2025 15:02:18 -0500
+ <SRS0=AT3b=Z6=oracle.com=lorenzo.stoakes@srs-se1.protection.inumbo.net>)
+ id 1ucUpj-00077m-D7
+ for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 20:03:59 +0000
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2c1e41f2-6349-11f0-a319-13f23c93f187;
+ Thu, 17 Jul 2025 22:03:58 +0200 (CEST)
+Received: from pps.filterd (m0333520.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56HJXnFZ014639;
+ Thu, 17 Jul 2025 20:03:31 GMT
+Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 47uhjfcf5t-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 17 Jul 2025 20:03:31 +0000 (GMT)
+Received: from pps.filterd
+ (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
+ with ESMTP id 56HIVAil030299; Thu, 17 Jul 2025 20:03:30 GMT
+Received: from nam10-bn7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2048.outbound.protection.outlook.com [40.107.92.48])
+ by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 47ue5d56bw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 17 Jul 2025 20:03:30 +0000
+Received: from DM4PR10MB8218.namprd10.prod.outlook.com (2603:10b6:8:1cc::16)
+ by BN0PR10MB4823.namprd10.prod.outlook.com (2603:10b6:408:12d::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.39; Thu, 17 Jul
+ 2025 20:03:27 +0000
+Received: from DM4PR10MB8218.namprd10.prod.outlook.com
+ ([fe80::2650:55cf:2816:5f2]) by DM4PR10MB8218.namprd10.prod.outlook.com
+ ([fe80::2650:55cf:2816:5f2%6]) with mapi id 15.20.8922.037; Thu, 17 Jul 2025
+ 20:03:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,172 +63,273 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fe92449a-6348-11f0-b894-0df219b8e170
+X-Inumbo-ID: 2c1e41f2-6349-11f0-a319-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=corp-2025-04-25; bh=BPmqIkFYa4DxTKgv8X
+	wSshFpi+qeYU3CmTihr48sTaU=; b=EBsVVt+31y2rg6sTjPNoYT7NZBJbbsom1k
+	Qg1SXEpIhCvDGaz0lQXJPllqU+y14rbjAp6Qcu+VF1bqSmYyxNHKx4R/vSOWmWyQ
+	LJh+2koiSBD39+Wyor6/FjFq99VjnJbm1IH6dXfiMZzs7ZoH2Vax/T4K/r141Pz+
+	XUQDK19WiZ3+TFOlb0RK7QweBlKCcyEJWp8qlsXjeQJgQ3nZ5pfKbPbA1BOgE3cF
+	rp5oVTVujaDPZYwPbiYEt9aVEE7eoUJTZdK+tpetEox2019NBvXTTjWmiQSRDxKS
+	YHodtkHeOsZnk0+i5miTaGw8xBwWIy8p10PwBp1ozqh3i3PhMGWg==
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jXUW4TK/TX5tPlrsMIZ0g+qNwjzVMbwiqBIglwH32NYPwOePX/0iJjG9WgxyhF6DsLfOCJrPOjN08jVsshbzRaqcOiiTgxfZqGGNCezu2JDyss2SjY4DJra4SHEEYoq7i2uhZiBL4GE7RwrGMuTCK6TD8sBiHz2BgeWAqgg/ob5BFKF6C9rsvb/P4jwnD9KcgCf4nInEMGh/mmk6WrtAAC5PkBPk7PCucYE7t9QKyV4q6Zf8w7topAV+3XueEeJv47xmmT+zekH2SPTCoNvtsIYkV3yyc8hcpBjMOHJKaVrWe5vXPqDI3Mx8Q58Cr/fo8yFetAiqGDdkFohL5Bebnw==
+ b=xJQvCglQqgFSkCWITQ0Ztjpc7+dHF0GP1okMw+e5OmAFtizzeI4BpodQyo7LcoSNCnDAdNXGpryXCF9eYbQblZBR97o4GdbOrYMh3BDPIx1y6GOk251CosGwBSV5QObTwklBqdxwp4RzjwfGXsUKzyjN78hHkV6/52tlwkEan0waC7l9zWL1l0MpJQcZGq2rcChVoZd3zWPU7vwMG4+mxVUfBaWcL4iJJVrhPoOH7qKPbn81aRm5490o7Kj6ZWJy1jtolWzu7I5LoegmhmrCngbcdo77lm9g7r1AgEdZz2UpvmVEFRau+oslJvvh01//nbwtKB/tSv/0EPJd50/skQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V4jSH3SslUkUMZYNYcUqPeXMhxtkwbKgaKG3ZL4+Zpg=;
- b=v/OROobeHPujGm4YUr9+e+36s3ody3i/mbBA+ESc7t2538eOQsjTP+UtcELZshgxeLBkSpWXcHBOAjHvCKTicQrFwlSwLyqHr8tzOFRkQ+2h/5k+fgwayJbxUivElLX0Foto+H5y85pUJu5i+a7aOW5P7yJWPanjifBfI5MRASZYU9SDbAHnMBbzz68nUWyK/7YWsvpV2lSaoXbOxFD0BDGpZiGV7QjjaSv+S5ntZlIzD1bZI9WcBTm2ttxypINx28B2gZSdNR7eITtPzNmGBdS56NgBJCwM/4/+rFqfPE+ajq77LvYjdrjnsZGX6FbvEDZOrsL2Ww92RcSveoYAMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=BPmqIkFYa4DxTKgv8XwSshFpi+qeYU3CmTihr48sTaU=;
+ b=w5A9bX00QebSRkVfed7VHtoAYYC0XllJis6qHd7VQ+6feqSyPCOkkUuwSY/ykOqUv57c4JXUkFYi+I0ttifIE/JwWHKg3Id/rEh6LU/EdORAOBk7RB37uixb7Tp/7TmkfSBrW6YYTeNJoWmU7mFLRpnW8oxbStkVpIeWBwqFutQJBXy4Z/WDw3GDANiI+9T/CsNArokOohrGHtXYAm9o2vxHTbNxGISVsK6FNv+J6Nzaf6yfDL1GeLbtTnZFIj9mxv1+1ACJtnIiiM5CT1NaXvDekugOdym+GWz6TzUkP3fowFkSJ6gR6QzmXSfB3zQDPgIGN+B4189ozbo0mt7n0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V4jSH3SslUkUMZYNYcUqPeXMhxtkwbKgaKG3ZL4+Zpg=;
- b=FqonovzwQIa9gA8rLbHlQah/CA9RtEOxGJrjtG9svbC3CRFBNmB00jnDAXiO1v4NjrirgUTYBzWD8xBbMkyUR0kBmBAKF6Xyr3t6dGoav74SokZ00O1IvMABmoEeFBtvYAJUj4MfHqhzrcqC01zwJeoH/g6nhUz6ismNt3DovZU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <fc3b75ec-e2c9-4749-92d0-6b046ee0f725@amd.com>
-Date: Thu, 17 Jul 2025 16:02:17 -0400
+ bh=BPmqIkFYa4DxTKgv8XwSshFpi+qeYU3CmTihr48sTaU=;
+ b=agmug8V9NMnggP2U6mpaIXwmO+j39uwC6+3nwjOqOxUtQ9/Y+ubFMsVtsWfPzi+Z/1pXQo+5+f0K0tKekhRzeLkXHyddJ1qdaFpV8VsUpBbOKk/id5kYQ/A97j9mFeYdALIFrdGlNZ0zGtBFgJckhxZ0UfFMQlHI987UzGxLxbE=
+Date: Thu, 17 Jul 2025 21:03:24 +0100
+From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+To: David Hildenbrand <david@redhat.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+        xen-devel@lists.xenproject.org, linux-fsdevel@vger.kernel.org,
+        nvdimm@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
+        Juergen Gross <jgross@suse.com>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+        Dan Williams <dan.j.williams@intel.com>,
+        Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+        Alexander Viro <viro@zeniv.linux.org.uk>,
+        Christian Brauner <brauner@kernel.org>,
+        "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+        Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
+        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+        Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+        Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
+        Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+        Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+        Hugh Dickins <hughd@google.com>, Oscar Salvador <osalvador@suse.de>,
+        Lance Yang <lance.yang@linux.dev>
+Subject: Re: [PATCH v2 8/9] mm: introduce and use vm_normal_page_pud()
+Message-ID: <4750f39e-279b-4806-9eee-73f9fcc58187@lucifer.local>
+References: <20250717115212.1825089-1-david@redhat.com>
+ <20250717115212.1825089-9-david@redhat.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250717115212.1825089-9-david@redhat.com>
+X-ClientProxiedBy: LO2P265CA0296.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a5::20) To DM4PR10MB8218.namprd10.prod.outlook.com
+ (2603:10b6:8:1cc::16)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/17] xen/dom0less: store xenstore event channel in
- page
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>, Jan Beulich
-	<jbeulich@suse.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
-	<michal.orzel@amd.com>, <xen-devel@lists.xenproject.org>
-References: <20250716211504.291104-1-jason.andryuk@amd.com>
- <20250716211504.291104-10-jason.andryuk@amd.com>
- <eca10872-aafe-4990-a86a-1582e87a6af2@suse.com>
- <b408a253-d483-4a72-9691-b7ef724eaab6@suse.com>
- <a84facc6-ea1e-4418-9c4e-e223b3ae204b@suse.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <a84facc6-ea1e-4418-9c4e-e223b3ae204b@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7A:EE_|BN7PPFD3499E3E3:EE_
-X-MS-Office365-Filtering-Correlation-Id: e11dec78-2ea0-429a-3879-08ddc56ce0bd
+X-MS-TrafficTypeDiagnostic: DM4PR10MB8218:EE_|BN0PR10MB4823:EE_
+X-MS-Office365-Filtering-Correlation-Id: d9645e33-b8a6-488f-f7c1-08ddc56cfe65
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700013;
+	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?TXphcFlaWExpcXZiVVIzL0RVbGNFdk1YVXoxdkl0dEZSK0YzdW9BRXhTNDk3?=
- =?utf-8?B?S1JLakdYZzJ0THhuM3lTeHdwd0VuR0lEVTlLbk01bFcxM3A2R0hmdE02cE5C?=
- =?utf-8?B?SUJRZXg1NHRNejlVU0tRMmtXM3k1a2tLaE5DL0szZ0NLWXkzZUFicHUwYVI0?=
- =?utf-8?B?c2loKzJsWDNpcmJTWHNHdUdSbER5R0FFV2hJaGt1YnhoVWdsTGwzMDQrNFdF?=
- =?utf-8?B?MGptZTlYblVrelhwbmFjQ0NwUDlVVUlQRmVxcnFjTDhjS3NubGQ2Rlp2OGVD?=
- =?utf-8?B?cE5WOExDR29TNnVRRnRXV0p2NCtTSkY3R1h5NVZJaFdvQlVwWjcvcnlzRk5s?=
- =?utf-8?B?UVZOdnU0MlRXQ3daVjhjQ2xoZ2lLKzlqYzBpMldjWE5pT2VyUTlvMmhzczF6?=
- =?utf-8?B?TFN0bDNrdmhZQmFxLzZxOUpaNktTK2l3TGh0NUJhNDJIR1duK2xXWDJiaFVD?=
- =?utf-8?B?MDIrUUx5T1puMzJNV3VocFNTMUk4eFFUZW9JYXVrcWdyb2JVY0hiUjYvUVph?=
- =?utf-8?B?TjE2RlhhcldyRTg5eE1ZQXNmREFUZDMyYkFBWFZYdHhpQUh1T3ZoTkhSVGRB?=
- =?utf-8?B?aHV6cUpEd2lKT2hUK1U2dHdJc2VPODlmOFljTjN4TmI3RmE5M1FTWmlKL3hi?=
- =?utf-8?B?QzhoTVdoMmE5dWYrRW1BYVdNL2RnalQwNEhBM0tkZ3VzMFdPclhrUW0xZ1Nx?=
- =?utf-8?B?cUZVQ1RNenphV0NuMEh1SXBrMVRNV0s3TXRGcEFwWm5KSW1ZbDl1N0cwUzdX?=
- =?utf-8?B?TlVKWE02QXRaQkZUM2FoNXhIbzl4V05hT1NGcXIzbkdxUzdKRUFCK1NFY0JC?=
- =?utf-8?B?cnk2cjRzblVVU0o5UDZ3RW50N2ltYUVXVFg1andYNVozRENXdTlUTmd1UWp6?=
- =?utf-8?B?OGRROERGNGFKNmxQR0FZUzd6ZGRnT2ZYVE5JWnRsOEN3YkVoRDFveVJhTUE0?=
- =?utf-8?B?NFZ3OG00c3hvbzI4MTEwRW9ibDVBNGVaVXIyVDg3VVM4ZUlGc0U5SmRYMU5F?=
- =?utf-8?B?ZHJUUEgzbTFCVWFaVkZPd1dSQlZJazd5VEozK21hZ0cydXQvVDR0VFRIL2J5?=
- =?utf-8?B?UDRaWForTWZwand4Qk1Wd1ZtVkxOaUMxaEUwZE9xSmtTZTA5S05oejdYUlBJ?=
- =?utf-8?B?Z0JZTUYzSDRzTkZSVnBETWpjKzJRYnU2aTJOeUhrRUV1ZkZha1VOSC96M0cw?=
- =?utf-8?B?a3Fzb09sbGN6aUFuWEw0QmNhL0VYb1hOclRMQzdEdFArQkZtbGc1MmRhRkY1?=
- =?utf-8?B?ejJnUmFDWW53VFNOVnZTdXdscWVncEg2OW9ITHVja1U3TW9FZkU3ZS9vRU5w?=
- =?utf-8?B?V09LZ2tMa2hVa0F6VFZYRXpXdHYxR3ExMEhjVk5iT1dmVmVqbzdjVFY4NDA0?=
- =?utf-8?B?aG1FTGd2S0VMM2M3dFJ3SHQ4K3hRcDBUSExIRjdqZ2VwM2Y4bXVBbEhqNGhy?=
- =?utf-8?B?bEhVWWV5WWRPeis2UFFpRU1JY29NU0g3WnVVa3JBQnBhZkhsVzkrSDVRNDhi?=
- =?utf-8?B?ci9ySkFFYllLd2x1U083U2tTZE80K1p2YmxFVFoxRWNTa1VWWUt5SjArSGxa?=
- =?utf-8?B?SDhDYjJ5bHdZZEF6aFlJT3RuWW40TjdmWFRKNGZ3T2c2VkJZMkJJTnBadzdF?=
- =?utf-8?B?Z2prUWduRUdvRnJUMllPNU9adWFMNHpRZmFCalB5Qk11a2Y2QnhCQVZmRUJ0?=
- =?utf-8?B?OElkVDdyQUl4Q1dXelNvZUZTVXhkUXk1OTdhTmNHQWEvZm9WUWNkOWV5Njc3?=
- =?utf-8?B?aXZjNWVEclZYOGl5VkdoVkNSM20ycUwxZkhMT0h1WEtCbVh5L1Y4NnZEL3Nx?=
- =?utf-8?B?UUx5Mmt1S0s1MVZ0b0VldEVoWkIyY2VsZkllYy9FZHlNNlRESGFHRVZuWUpn?=
- =?utf-8?B?R1M4TzBLcEVvU0ZiamZGRDgxUjV2UDJteXFOSnhTRVhtUmd6OStOSUJSSTFk?=
- =?utf-8?B?cFhkaVFTK3hyaktLNVRmZHppRFNEUWJ0M0l0WHVYblBMNTRBMzZwVXg0dE80?=
- =?utf-8?B?ekZ0TDRya3RZTWRTV1VycEN4T2pIeXdGV2RpOWNjb0l4d2RNdmtiZGJabkdO?=
- =?utf-8?Q?mAIGNT?=
+	=?us-ascii?Q?7+KragAeqx0FMSNkdaX1kUCGgoGqQwoToLJe5iS4F/tH5S9s/tJBPcUtIx0a?=
+ =?us-ascii?Q?vCHXM42ZSCMorpZP90HiM+seSJ0SUYmQIYOK787/mqGR5KRqzSYpxvyx8NLY?=
+ =?us-ascii?Q?xn824xhci6+9Hot+LJjfAuP4ylegOqN+qLZKQSigbQaIwlmkbcp4Z/UaYWLi?=
+ =?us-ascii?Q?FEuFDionfiIix8m+0JeHYgrOCMlLl5kBMmr4bamihfmfrR9lzSi9Gqsvcm5y?=
+ =?us-ascii?Q?JhmKiSgNQV1trMuZkc8g+a6TxbzhSXtRUVlqdhzuCfg5QbGsAfpjgXZdZKIw?=
+ =?us-ascii?Q?Q25qcutyc4mI5XMOqKVPcQ0stCWGuQNnbv7V50GE3GE6p3wqyLR1D/oNPa51?=
+ =?us-ascii?Q?eHXrIdHCjFlzvdwtUdjxwD6bhyWeSf7RCuATk/nXnBkeqH1f4f82Xeeu5YBG?=
+ =?us-ascii?Q?93MhZEYt5Tm2jEIwwla69am+Bwh5/T9JeuZfkYsOOCzO2kjfJXyZXcl8t2vy?=
+ =?us-ascii?Q?0GEiVrSa8vCHRhE2khDqelpmSO9Gzhtoifdekf+u6pE3rxdh42vB2cSfG5Ho?=
+ =?us-ascii?Q?RNm/YbXjN1BZr4a64BrnUAVM/+tsCr6XV4i4JvS1vWEqoUwA5fMtvKrLqi7k?=
+ =?us-ascii?Q?xWJl4UCn9+30r3L77OsUAHqS4tmw351y6Lzgym9mH8s4XdzsYgwyEw0hdn78?=
+ =?us-ascii?Q?867MBKw1OJ7LvPGbrECCH4m0vTnGJDxprNqO3X8H1joQgbIP+Aa4ZHSILfwp?=
+ =?us-ascii?Q?Wjzjdf/Nip30cSe7/LNL4eysf3cR+TMDNaMdKrMMHYRAGtQOYsRGi7td+Ix3?=
+ =?us-ascii?Q?1ry53RF0RqoFL9WWImp6zRZfioUKQb5DeKhZROVaD3I6WEfHJ3+N8eiwu4vI?=
+ =?us-ascii?Q?biomGABoSfPUrS+6ysaxl3Vx37dfRzuvxF0SsZUjSYtYye1slPqgVwLZxD9q?=
+ =?us-ascii?Q?P+sUrJ838mt+ez5WTIO0UNJ1C+hAcBgX2wOeEGrMoteRmqvokNgwdlhXbItJ?=
+ =?us-ascii?Q?wmC8CT1NmM9j7uwF6Oni3ky89zAws7S+V/91Ku1DF91PnSPR1mJl2rkGSGg9?=
+ =?us-ascii?Q?iiX4g2gUo0Ef0lR3BTcEWzPosRTSTHiH9gjk/AdPe63aDWgms9NEEkWfYN5j?=
+ =?us-ascii?Q?mJtc4Y2v98Jb+/tElebcPL4i95hzqk4RwNk4SLYH6E7A5MduAbF6/UzsYg3x?=
+ =?us-ascii?Q?fdSQrAuOqTVgZJiJ9I7nVJFEprYGThiBnpYQEgiJbX4LWvSPbE7rg8KMZ9bc?=
+ =?us-ascii?Q?7gHbkYXmRFsbP4u4F3tYcvj5GzO1KaioWW01qiAgrZ8+PrHQErkvxlDHGmSR?=
+ =?us-ascii?Q?Cf7OyB691dWo0cEDX2wBcaHv05ECHN5QD2O/dRB89WzGfpiIzSK05D10QQS9?=
+ =?us-ascii?Q?o/9R7MELSIILw+lsXzt3BbNW3RlNWu1fyR5b7VUj52fclQEbtFCwyBIouyzY?=
+ =?us-ascii?Q?SF4JdOm7Ne7n0rdVetwUUrm/Kxi4PK+e3i8GQPKunObqHWQ+B3zoJ+whciRG?=
+ =?us-ascii?Q?zEH3a/N2Psg=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2025 20:02:37.3562
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR10MB8218.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?V6XvGjMvyNQaOGzxhBgSiE3om5A4ltQf1p9zPkLBFNI6d6JBryEwWFowWgXl?=
+ =?us-ascii?Q?kp893DvW0N/CGtweTRHMsWboI5f6O/tdOal6y75RKXPVfHcICcPz10Oqm1DL?=
+ =?us-ascii?Q?yVbE7D5YW+1xF8pkr+mwq+NjhouLixZdGcCZbHBWxuBxRh1oc0NI8CXFXEe1?=
+ =?us-ascii?Q?tClgo1ro6K3K1rPwecrPsNXs1jV9iFhmHWuPxTpZ5Qy7SW38DFP34I+RGX4/?=
+ =?us-ascii?Q?Z8MBf5YZTITM3s5PibeyhycSclFAjGWgAMyt+Ab3Lizvl35+KbC2YIOascZF?=
+ =?us-ascii?Q?DsMlwKR9j31eIUj/uy1fA9yC4HJTljw8pvSthNA+YfcQISsFhVWkLq/hwO1I?=
+ =?us-ascii?Q?Q1UTE3Xp2LBJyHAD2wNch8qzl9sX8PGGoyvPXyyT4Ci5rrWlK+C/Ql2uURbs?=
+ =?us-ascii?Q?nqoad8pT5uQs8fLSNum1Ui87ljgF5L08rL8cwBEPSzXpi68hJjNmxZ6ulYCY?=
+ =?us-ascii?Q?/zHfsshJ2ofNLf40X23FM40ixKbZ64iuExymtjD6tmN/AH4x4jpzlHG+Y4I/?=
+ =?us-ascii?Q?VWYj997kkD0XOY+2Cz9luLPXbLXt5eKr9h3oSyZQFgHAEhN8n9bu1CQ+iLF+?=
+ =?us-ascii?Q?p8OKZdDw16bxkPpGFNUXxDD0mUiGhfUH8ci1RzWZBwQsceQ0nCH9+ZOLHgYJ?=
+ =?us-ascii?Q?MeD6HhggD4kSwOqDWoosOy/uVuBKXKA255ekQv/zrQ6q81phBfcyHmZ/mjnO?=
+ =?us-ascii?Q?9VEyaI35ZrodoEoWcBLr/2Ibh8Y/dwtmM6gyUGefdKfFjAWoV8omOFiZz+N0?=
+ =?us-ascii?Q?QrDpRlS9XSs2BRMsyGZRDdM5FBVRUSRMxXfo8wOF9neqDUuaceESvKCPohNm?=
+ =?us-ascii?Q?PGYhShX3Ucfk5QY7dU9w7lVSjuYPh67k1+rPSbAwGW+cklYo0Shv+Nq1BpaK?=
+ =?us-ascii?Q?fjLezDzYdE1QhMPD09nPyg/ee52CK+OjCYFpKaIHh8h+gtQsjbS7XpdMwlt+?=
+ =?us-ascii?Q?FaZb41drVJREWPdORhn+79Nxjx4zhCZx5YlgmjlyhaTwJAdTQ9wB5JmhMsGZ?=
+ =?us-ascii?Q?ZPYL7qCXEYZVXpuXCa6C3o9FlxViyCqs73jA/HrsmJwE0F2jPxmznwxZb16x?=
+ =?us-ascii?Q?DokfdLd94KBOLwxwAZiLKe/Rm1QEFZVLIw6eGuj0XT39CGW06KSAdp1APm3L?=
+ =?us-ascii?Q?B8lXqmW37m0CLlT9QoGh707GvAiMkAVw7SDhbjgzHIWoHYYPkWtqFsP5Jlmx?=
+ =?us-ascii?Q?9ZVffZbKddHjs16vAY2lwckJ4K+5K3DifIf0PxZ4Pd/nADVBfvvFrVnNWiPj?=
+ =?us-ascii?Q?nqYdXBT1PmJsrNhFDNbN7QRSpKVkUu+gnu58cT0STs2/bO1vsHLHF39FhBIH?=
+ =?us-ascii?Q?4okDDVN58Y85hwczlxDoLwEFheqTHXZuXAbhr2OHmgvLWseJeIPMKOGtTXFy?=
+ =?us-ascii?Q?EkK+hMk2XoQiraJPqn8HSbBTsaeIXllI4lan4rFvdFFUk3KfwLKEoiCrpG7B?=
+ =?us-ascii?Q?0fLo0y2BLa0M8qU79nTXe8qW2onmJUbVJk5t1EvEj+sv2wlJWH5zHpN+YMPc?=
+ =?us-ascii?Q?Rf1rc5GaXj81jaBdl4beSLv078FRMyBOYDh5+1YSKkTZnjUYd4iCEcDT5eTJ?=
+ =?us-ascii?Q?5svg9H0aoL4Z/GCGmwVgFaxHgfZ5ZIKjb21MhIOd9lIF69Xw1lrqT47J62EE?=
+ =?us-ascii?Q?HA=3D=3D?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	yjbGCamHIovXJQkuvfD95140CIxhM/1tfIAiTGiEV4GHAW8NGPgGd2dIBaHntS8KnIhFE8cr7oIKtdgDdYjCQXL3+1E/57m5EzYq0SRJwVvctxhynglfUs3WW01x1Wm7sA/yawtd3ZpH2BQ3o6Tcw7IJSQkwmkNkKohn02CQVTkeCVroIZd8cRgzMHqSmTZUsCeKGWld0anJugDG+GXqLjI9jM4aVgbvBiT05Wok1wYaF9wUMlfAszY2ehQ7GR2vE5SIdS47C3wnlVVbgUDj5c/xUKlBS0k8ZZYPdVon/Xo8mOSiMSGpnRlQZAXcQ/vuEAfhe0a+c6ecAj9oNiDi3utMc657lZUeaMBLFY+i8/jYbf/1WhaNOPDvgrCV5/heTWMbLsZSX179u1+jI2YE19KFgfNfp180fcekOzFoRCOviNOlcmtwRkOL2bchlc06FyoS3WrLhMsjYGqgB8yuZ8oB6tqRz5oj3K7cbavWOJkTM5ayZ2lsKo/Z/RIT+anXSJoPwdUWQIgBMye07S+Zmr7gQxeFzFGSLK9RyFGJAw8+5Chd2C3HjQtyWTJkvO1+dhSGbFPaF5/UWndzRxhsdHI7OTkCbw21VEX3tEdg36Q=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9645e33-b8a6-488f-f7c1-08ddc56cfe65
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR10MB8218.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2025 20:03:27.2966
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e11dec78-2ea0-429a-3879-08ddc56ce0bd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000AD7A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPFD3499E3E3
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qxmZBjvmimSN+tdgTH9GPWqnXzjeYeqmw7jRv3d3A+GbY+0eBUkbmXbMvZBwMb5amMMqhbzy4X/uy/3YFlEddNPyh45FVrhYcKG4B1JHrfA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN0PR10MB4823
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-07-17_03,2025-07-17_02,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0 suspectscore=0
+ malwarescore=0 bulkscore=0 adultscore=0 spamscore=0 mlxlogscore=999
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2505160000 definitions=main-2507170177
+X-Proofpoint-GUID: K4O2RgHUzsCTtWb3ndUf0gsBWLBpQKo9
+X-Authority-Analysis: v=2.4 cv=O6g5vA9W c=1 sm=1 tr=0 ts=68795713 cx=c_pps a=XiAAW1AwiKB2Y8Wsi+sD2Q==:117 a=XiAAW1AwiKB2Y8Wsi+sD2Q==:17 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=wKuvFiaSGQ0qltdbU6+NXLB8nM8=:19
+ a=Ol13hO9ccFRV9qXi2t6ftBPywas=:19 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10 a=Wb1JkmetP80A:10 a=GoEa3M9JfhUA:10 a=20KFwNOVAAAA:8 a=yPCof4ZbAAAA:8 a=_vYpphbN4_vJ8DAqhOgA:9 a=0bXxn9q0MV6snEgNplNhOjQmxlI=:19 a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: K4O2RgHUzsCTtWb3ndUf0gsBWLBpQKo9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzE3MDE3NyBTYWx0ZWRfX49V4FwNvX4JM OGXxnxbbvc8K+HTLxHjUVAYGlnop1Kj3TD313wMAAJNG4a9SYVoCTcUFizevSCNg9UxIcjWLFec lKJiRHx2aMdemMGGdOYcL38FAZ4dcBgaJoYaeqxj+9Yg3s1+kUReA8fP0UtinpOyJ4hjg+AiSTJ
+ q3xoQJ4gcN77XBqpl4uVhXeHkkA0DpJRmWufQmBC6IH40Trn3Sva4arr5gnX1AIvRedO1W78mKy VURVceCBNDRMfUkfjJF3Fa57QK8eUPuwTZPBEEe4jMgljPpibO2K0MIb46iK2Yx/SkqxWx51HaY iF6jpFXLc7qrfOi1UesA0SXyINJwGYRWaXvEN47C4CGyD1r4aJHnA9xtkeL5Pnz/uiX6caJtLpK
+ trfxLweB+Dlw9nCnUeiLgUQIaIgDY3Xj5VX9vmh2uTblQ7j72MMeDbHdq75Y1Af+5bBje5zs
 
+On Thu, Jul 17, 2025 at 01:52:11PM +0200, David Hildenbrand wrote:
+> Let's introduce vm_normal_page_pud(), which ends up being fairly simple
+> because of our new common helpers and there not being a PUD-sized zero
+> folio.
+>
+> Use vm_normal_page_pud() in folio_walk_start() to resolve a TODO,
+> structuring the code like the other (pmd/pte) cases. Defer
+> introducing vm_normal_folio_pud() until really used.
 
+I mean fine :P but does anybody really use this?
 
-On 2025-07-17 02:43, Jürgen Groß wrote:
-> On 17.07.25 08:25, Jan Beulich wrote:
->> On 17.07.2025 08:19, Juergen Gross wrote:
->>> On 16.07.25 23:14, Jason Andryuk wrote:
->>>> Write the associated event channel into the xenstore page so xenstored
->>>> can read it.  xenstored can map the grant by the reserved grant table
->>>> entry, and then read out the event channel and bind it.  This 
->>>> eliminates
->>>> the need for an additional mechanism to discover the event channel.
->>>>
->>>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->>>> ---
->>>>    xen/common/device-tree/dom0less-build.c | 7 +++++++
->>>>    1 file changed, 7 insertions(+)
->>>>
->>>> diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/ 
->>>> device-tree/dom0less-build.c
->>>> index a2789e3bdf..284139bf14 100644
->>>> --- a/xen/common/device-tree/dom0less-build.c
->>>> +++ b/xen/common/device-tree/dom0less-build.c
->>>> @@ -26,6 +26,7 @@
->>>>    #include <public/io/xs_wire.h>
->>>>    #include <asm/dom0less-build.h>
->>>> +#include <asm/guest_access.h>
->>>>    #include <asm/setup.h>
->>>>    #include <xen/static-memory.h>
->>>> @@ -126,8 +127,14 @@ static void __init initialize_domU_xenstore(void)
->>>>            if ( gfn != XENSTORE_PFN_LATE_ALLOC && 
->>>> IS_ENABLED(CONFIG_GRANT_TABLE) )
->>>>            {
->>>> +            evtchn_port_t port = d- 
->>>> >arch.hvm.params[HVM_PARAM_STORE_EVTCHN];
->>>> +            paddr_t evtchn_gaddr = gfn_to_gaddr(_gfn(gfn)) +
->>>> +                offsetof(struct xenstore_domain_interface, 
->>>> evtchn_port);
->>>> +
->>>>                ASSERT(gfn < UINT32_MAX);
->>>>                gnttab_seed_entry(d, GNTTAB_RESERVED_XENSTORE, 
->>>> xs_domid, gfn);
->>>> +            access_guest_memory_by_gpa(d, evtchn_gaddr, &port, 
->>>> sizeof(port),
->>>> +                                       true /* is_write */);
->>>
->>> I couldn't find access_guest_memory_by_gpa() for x86. I think you 
->>> either need to
->>> introduce it for all archs, or you need to handle this differently.
->>
->> This code isn't buildable (yet) for x86, is it? There's a series of 
->> Alejandro's
->> moving in that direction, but that didn't go in yet. And even then 
->> aiui this
->> file would still be excluded.
-> 
-> I think this would need to be explicitly mentioned in the commit message
-> then. I thought this whole work would be targeting x86 as well, but I
-> might be wrong, of course.
+>
+> Reviewed-by: Oscar Salvador <osalvador@suse.de>
+> Signed-off-by: David Hildenbrand <david@redhat.com>
 
-Truth be told, I wrote this when dom0less was still in arch/arm.  For 
-x86, I modified the hyperlaunch code to use hvm_copy_to_guest_phys(). 
-Looks like Xen needs some unified accessors.
+Seems ok to me, so:
 
-Thanks,
-Jason
+Reviewed-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+
+> ---
+>  include/linux/mm.h |  2 ++
+>  mm/memory.c        | 27 +++++++++++++++++++++++++++
+>  mm/pagewalk.c      | 20 ++++++++++----------
+>  3 files changed, 39 insertions(+), 10 deletions(-)
+>
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index abc47f1f307fb..0eb991262fbbf 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -2349,6 +2349,8 @@ struct folio *vm_normal_folio_pmd(struct vm_area_struct *vma,
+>  				  unsigned long addr, pmd_t pmd);
+>  struct page *vm_normal_page_pmd(struct vm_area_struct *vma, unsigned long addr,
+>  				pmd_t pmd);
+> +struct page *vm_normal_page_pud(struct vm_area_struct *vma, unsigned long addr,
+> +		pud_t pud);
+>
+>  void zap_vma_ptes(struct vm_area_struct *vma, unsigned long address,
+>  		  unsigned long size);
+> diff --git a/mm/memory.c b/mm/memory.c
+> index c43ae5e4d7644..00a0d7ae3ba4a 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -796,6 +796,33 @@ struct folio *vm_normal_folio_pmd(struct vm_area_struct *vma,
+>  		return page_folio(page);
+>  	return NULL;
+>  }
+> +
+> +/**
+> + * vm_normal_page_pud() - Get the "struct page" associated with a PUD
+> + * @vma: The VMA mapping the @pud.
+> + * @addr: The address where the @pud is mapped.
+> + * @pud: The PUD.
+> + *
+> + * Get the "struct page" associated with a PUD. See vm_normal_page_pfn()
+> + * for details.
+> + *
+> + * Return: Returns the "struct page" if this is a "normal" mapping. Returns
+> + *	   NULL if this is a "special" mapping.
+> + */
+> +struct page *vm_normal_page_pud(struct vm_area_struct *vma,
+> +		unsigned long addr, pud_t pud)
+> +{
+> +	unsigned long pfn = pud_pfn(pud);
+> +
+> +	if (unlikely(pud_special(pud))) {
+> +		if (vma->vm_flags & (VM_PFNMAP | VM_MIXEDMAP))
+> +			return NULL;
+> +
+> +		print_bad_page_map(vma, addr, pud_val(pud), NULL);
+> +		return NULL;
+> +	}
+> +	return vm_normal_page_pfn(vma, addr, pfn, pud_val(pud));
+> +}
+>  #endif
+>
+>  /**
+> diff --git a/mm/pagewalk.c b/mm/pagewalk.c
+> index 648038247a8d2..c6753d370ff4e 100644
+> --- a/mm/pagewalk.c
+> +++ b/mm/pagewalk.c
+> @@ -902,23 +902,23 @@ struct folio *folio_walk_start(struct folio_walk *fw,
+>  		fw->pudp = pudp;
+>  		fw->pud = pud;
+>
+> -		/*
+> -		 * TODO: FW_MIGRATION support for PUD migration entries
+> -		 * once there are relevant users.
+> -		 */
+> -		if (!pud_present(pud) || pud_special(pud)) {
+> +		if (pud_none(pud)) {
+>  			spin_unlock(ptl);
+>  			goto not_found;
+> -		} else if (!pud_leaf(pud)) {
+> +		} else if (pud_present(pud) && !pud_leaf(pud)) {
+>  			spin_unlock(ptl);
+>  			goto pmd_table;
+> +		} else if (pud_present(pud)) {
+> +			page = vm_normal_page_pud(vma, addr, pud);
+> +			if (page)
+> +				goto found;
+>  		}
+>  		/*
+> -		 * TODO: vm_normal_page_pud() will be handy once we want to
+> -		 * support PUD mappings in VM_PFNMAP|VM_MIXEDMAP VMAs.
+> +		 * TODO: FW_MIGRATION support for PUD migration entries
+> +		 * once there are relevant users.
+>  		 */
+> -		page = pud_page(pud);
+> -		goto found;
+> +		spin_unlock(ptl);
+> +		goto not_found;
+>  	}
+>
+>  pmd_table:
+> --
+> 2.50.1
+>
 
