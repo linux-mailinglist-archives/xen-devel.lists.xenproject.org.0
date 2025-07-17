@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DC6EB087F4
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 10:31:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1046386.1416700 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C5D0B08802
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 10:36:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1046392.1416709 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucK1p-0002yS-3d; Thu, 17 Jul 2025 08:31:45 +0000
+	id 1ucK6N-0003XL-Kg; Thu, 17 Jul 2025 08:36:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1046386.1416700; Thu, 17 Jul 2025 08:31:45 +0000
+Received: by outflank-mailman (output) from mailman id 1046392.1416709; Thu, 17 Jul 2025 08:36:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucK1p-0002vw-0Y; Thu, 17 Jul 2025 08:31:45 +0000
-Received: by outflank-mailman (input) for mailman id 1046386;
- Thu, 17 Jul 2025 08:31:44 +0000
+	id 1ucK6N-0003VD-I1; Thu, 17 Jul 2025 08:36:27 +0000
+Received: by outflank-mailman (input) for mailman id 1046392;
+ Thu, 17 Jul 2025 08:36:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Kd8q=Z6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ucK1o-0002vq-2q
- for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 08:31:44 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ id 1ucK6L-0003V7-H8
+ for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 08:36:25 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 76f2aacc-62e8-11f0-b894-0df219b8e170;
- Thu, 17 Jul 2025 10:31:41 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3a582e09144so378269f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 17 Jul 2025 01:31:41 -0700 (PDT)
+ id 1ed5d220-62e9-11f0-b894-0df219b8e170;
+ Thu, 17 Jul 2025 10:36:23 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-451d3f72391so5876395e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Jul 2025 01:36:23 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23de435f262sm136986235ad.236.2025.07.17.01.31.37
+ 41be03b00d2f7-b3bbe52cdaesm15352085a12.10.2025.07.17.01.36.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Jul 2025 01:31:40 -0700 (PDT)
+ Thu, 17 Jul 2025 01:36:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76f2aacc-62e8-11f0-b894-0df219b8e170
+X-Inumbo-ID: 1ed5d220-62e9-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752741101; x=1753345901; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752741383; x=1753346183; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5twmBI/aw0mAd7EFVKNJu8fenpnZg+65IFkjLPIz4Nk=;
-        b=O2qn8YLSJphweOH6u1YlZhchXWAM5t/4RbAG75frz4PoD+rVGcoXCyRvygEVLrn6HW
-         Rp0aQ1DRmRTO3HZm7f71R81lmeT7j9IuqfXnQXCwKhKdJlUiIP47RJgnKkmEreaTCULx
-         oWWAd8Q64rmkHiBsICI3kS6FaiVWyh4bc0InrRyQx08kBXW6uiJCtBuEzYa5dj9/fe9M
-         lzlzT38HFS/1bbfHB35xSCoSF8btgA8FvC5EFzTU8S9K8tuiaA2ShR5nqnaI7WwVNCNz
-         0aFnXqLozp9V/fIDXG+X4rlqMjV4nC6cCzrhUSEI4QftM09ES2DP1ru6sadcv58eYYKg
-         +BVA==
+        bh=ip4Q3/HNx5Jj5pLFerg5GSyF7uOqp0iNk2jET3D7mjA=;
+        b=M80Lmstx5DHGydzOgIGjQTeMiKS83ppljTRfAJwM7niF6fDVD4h9GTl0cAf21mkvwz
+         ZOxqNVu5OZ25X5o527AjCT46sKxyf+aUXnZMSo5rs98ZDv4XX1GNHrNNJNL57aPPOKOq
+         +EGRSyM/bgkrvnhZr7WU+CkczSL423f+r5CqTPNpDZJ2bE+LM/9qBTwnhc8WsXeDWvyq
+         zwp1eGqhmjSbGZZXsRJqOiNFTZE3jeg0//e5q5fQJFSrzjh2nhYiHGHHA0bZZ5e+cocq
+         wpDxF4NjxT/WJ0+tm5VuhkQrVaDUEjiBZgUITNS1Gqh832nCJl6D6ZpyQ2jmAU15sNzk
+         d3ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752741101; x=1753345901;
+        d=1e100.net; s=20230601; t=1752741383; x=1753346183;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5twmBI/aw0mAd7EFVKNJu8fenpnZg+65IFkjLPIz4Nk=;
-        b=iaGWwQWPeDSCCdaj8qRAG8JRE3fhAtyTAlREMru6oSWc7n3BCqDzdQvhTYU0PyT+EK
-         nybe4RJCsWh4obZNOd4+bU+ZDZlQz3XspQQS+tFBTFCl6QJQg2nCY7Vd/tP62eDV28VX
-         p4zMBUNN0vbp9/E8JdvFI9HXESVZBFQp8p3GHoCUTioVvGOR1EDzcQaSDqG60/irr5sR
-         Ska9HSbS/VPbhvFr2iigo/Fb8FhK8K4mtbMQewdytZxe0pTFTMnsr3dZb+QqD/qeKlAL
-         RJPDwUxxiIsKYMD0YX7tu31iOZGSLkYDMtepSyMzYyK2+lYUrhM7WyZSPNuexZ0AsAwe
-         BBJg==
-X-Forwarded-Encrypted: i=1; AJvYcCWsTeXaGB7ooiqzsSNQfzKbUbOCw9D7g+o82ZcGwrI+YoWwJKmeVAAaUM0/hMT69abd2A6VCQDmrUI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YypBnYg1vYnsQCf6knIgvMNumsKc3K0ympbX20pGQ70I5H4qypE
-	S8290cRLITC07Z2hUXDxlbXXn6MPzmLwV0a5G/3LMqJ35pNsXcg1riOp3kWBAyipbg==
-X-Gm-Gg: ASbGnctB8Mp+SeStv4fu4pq6EXfm/QQhyCFblLfWg27v/eTDZMcC7+21SdndnkXdiBK
-	+bG35gTDsy/cx5F1GUzL0HA0tmaPxkJ9NndcZKTKo8cFYPcU94vU1/c9OJTGRPD+g/3FuBJ5RbP
-	qkj6BJlatwfoNyncSRsp1kswhHEoAqiEEyB7V0C53Qb8e4BvIGUBEUQ3mysMKjqYyimz/u/1ElT
-	npJ0WLNEUulBao8XUWFcxsNcYqqPrznVaOIJxLpmTmFDGz4y6oftzgSQWj12bBgl9LUdtupPsSk
-	SzpeyHMISaPP0Ww+1C98aDaWymY02v/g8v9n+1ZtY6+0ch5Egv+8M12pldETbnimcgVTQGtoum1
-	3zDroMw1aPmk0IGg/IK1Y3Id0AR0V+uy8sSakz2ZiGXkaHAeg18fZ3XbK9OFeOq++i6GovYSVWY
-	+pLQqlSyo=
-X-Google-Smtp-Source: AGHT+IFr7RXUnndHPHRODJuzOgA3T4Ei3vaB2pDzTvbypuID9WboJatCzXPcJPHD2DaJS1smULB22A==
-X-Received: by 2002:a05:6000:2f88:b0:3a6:d26a:f0f5 with SMTP id ffacd0b85a97d-3b60e4ed4f2mr4516162f8f.21.1752741101004;
-        Thu, 17 Jul 2025 01:31:41 -0700 (PDT)
-Message-ID: <3e3df60f-be4f-451c-aeb9-12a8d490cdc2@suse.com>
-Date: Thu, 17 Jul 2025 10:31:33 +0200
+        bh=ip4Q3/HNx5Jj5pLFerg5GSyF7uOqp0iNk2jET3D7mjA=;
+        b=rcSKhTtXX5kNF7N7SFZFxLxwoSz9I+ZpwoOp+aGyDbAIYShjH+CaWM93omD8bL+/Hl
+         hncU0EY7GsK/cfQocSlSwGRXpbbNjVjzN/trL5PsSNk4UbnAqBZ2KbB7t6WoEff9BGEw
+         On6SA4LNMlCsaSNEbccY/BXZAnuQHxHI1cJvupFN8XAdP1N5R8GMxFBJQ2+lkgXQD51h
+         lo2ZQPeLCDpeNYDtFQlu1hCPFzRAl9R18Yad2v1dndSFub9Nvu11jQBOOHtRd310fG7z
+         qAXptq0p3HofgMNLgzf8K2MjSN0zIvrMiemzoPenk9pfI3DnWh5a3jsEfUvKtQiRUclg
+         RAig==
+X-Forwarded-Encrypted: i=1; AJvYcCWSf4TD6l5CckEP8Nne5X0Hphm7ABWsGYXUtUewfnOl7fvOxweoa55+/An6Q3gGSjscxl1AhojyfT8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzO+XyWmuHnyvMVwJ6BupGxatbU7Yk0yUrsrxpbGTw34VXcsfJs
+	zlBy1Oo4RIdxQRq9PV0dAtmMK9DusIF9iAufLkTyHKIokhXgbtAJicVV0kmptSl2DA==
+X-Gm-Gg: ASbGncttbGBnr+hifSMWJJyMwUHL0OFeGGbzT0TNEc4hjaU4/ROzoXuaKHV9LPdS7/Q
+	K5V1ZR61C0GdHh+Svea7oFeedtSmOsUnq8e4OUZDh12XBHy6nW3U0B1QJqzSsO7pgrOlroUNvkn
+	O7JmnkXpzhG5NtSVwUERYZ8fqDvKbJcQykX/8Mok1yyTkWp5ZJ+aKQ4VYrY3wLKvikzyVe/O1tZ
+	fa03iiBDb/NnVA3kRBgySkLQJteq5L3jCRxHhnm0VO0+hNiE50+JgH66tUh5ZMu2pQY/bMBdR+A
+	DuQPGF+QAXgRHPON2Nf5zl7at3Rgpe9l1qve6C/AEXutwfTgvCouqVHp+VJdS6zkhTpiKpUc9ok
+	1tIzA/yjVVev7AgRwbBBMVc/ul2MeBtavX0J+gBtX6NmHhjBVV+M+XzTfeqPnexlt70FsVUrGYi
+	2OiUxbHMJfdxyvqWwSiA==
+X-Google-Smtp-Source: AGHT+IGtkzQrts7f4XJ7rh1iK2xHY5nB+NkzjS3ijtx6mB9Xyk9VfEmN5XS7FUi6wRxIB2DTasWprA==
+X-Received: by 2002:a5d:5f52:0:b0:3a4:dc42:a0ac with SMTP id ffacd0b85a97d-3b60e539d7fmr4039939f8f.49.1752741382715;
+        Thu, 17 Jul 2025 01:36:22 -0700 (PDT)
+Message-ID: <46feb3ba-d298-4139-a97f-fb3961b0f8d4@suse.com>
+Date: Thu, 17 Jul 2025 10:36:12 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/6] x86/apic: Convert the TSC deadline errata table to
- X86_MATCH_*()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250716173132.2213891-1-andrew.cooper3@citrix.com>
- <20250716173132.2213891-7-andrew.cooper3@citrix.com>
+Subject: Re: xen.efi has MEM_DISCARDABLE flag in Characteristics field of
+ .reloc section
+To: Yann Sionneau <yann.sionneau@vates.tech>
+Cc: yann@sionneau.net,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Xen developer discussion <xen-devel@lists.xenproject.org>, nickc@redhat.com,
+ Demi Marie Obenour <demiobenour@gmail.com>
+References: <39104717-4b64-483c-b6fd-d30069df4c58@gmail.com>
+ <7e039262-1f54-46e1-8f70-ac3f03607d5a@suse.com>
+ <7a7f40b8-5d73-421a-9358-30421d12a243@vates.tech>
+ <2e1d2e67-ac14-4cb7-a6ea-4351d1418be9@suse.com>
+ <06ad1fe7-cc79-4976-8748-318a7f8f2b45@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,94 +127,54 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250716173132.2213891-7-andrew.cooper3@citrix.com>
+In-Reply-To: <06ad1fe7-cc79-4976-8748-318a7f8f2b45@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.07.2025 19:31, Andrew Cooper wrote:
-> --- a/xen/arch/x86/apic.c
-> +++ b/xen/arch/x86/apic.c
-> @@ -1051,64 +1051,32 @@ static void setup_APIC_timer(void)
->      local_irq_restore(flags);
->  }
->  
-> -#define DEADLINE_MODEL_MATCH(m, fr) \
-> -    { .vendor = X86_VENDOR_INTEL, .family = 6, .model = (m), \
-> -      .feature = X86_FEATURE_TSC_DEADLINE, \
-> -      .driver_data = (void *)(unsigned long)(fr) }
-> +static const struct x86_cpu_id __initconst deadline_match[] = {
-> +    X86_MATCH_VFMS(INTEL_HASWELL_X,   0x2, 0x3a), /* EP */
-> +    X86_MATCH_VFMS(INTEL_HASWELL_X,   0x4, 0x0f), /* EX */
->  
-> -static unsigned int __init hsx_deadline_rev(void)
-> -{
-> -    switch ( boot_cpu_data.x86_mask )
-> -    {
-> -    case 0x02: return 0x3a; /* EP */
-> -    case 0x04: return 0x0f; /* EX */
-> -    }
-> +    X86_MATCH_VFM (INTEL_BROADWELL_X,      0x0b000020),
->  
-> -    return ~0U;
-> -}
-> +    X86_MATCH_VFMS(INTEL_BROADWELL_D, 0x2, 0x00000011),
-> +    X86_MATCH_VFMS(INTEL_BROADWELL_D, 0x3, 0x0700000e),
-> +    X86_MATCH_VFMS(INTEL_BROADWELL_D, 0x4, 0x0f00000c),
-> +    X86_MATCH_VFMS(INTEL_BROADWELL_D, 0x5, 0x0e000003),
+On 17.07.2025 10:28, Yann Sionneau wrote:
+> On 7/17/25 10:22, Jan Beulich wrote:
+>> On 17.07.2025 09:32, Yann Sionneau wrote:
+>>> Hello Demi Marie, Jan, Nick, all,
+>>>
+>>> Thank you Demi Marie for bringing this topic on the mailing list.
+>>>
+>>> I discussed it a bit with Jan on Matrix but the situation is not pretty,
+>>> there is no clean solution that stands out easily.
+>>>
+>>> As Jan said, it seems .reloc is meant to be discardable, so we can't
+>>> blame binutils LD for putting it:
+>>>
+>>> https://github.com/bminor/binutils-gdb/commit/25c80428af3311e761c87d8f706596b9701602ec#diff-078cf751467928c038996b40073a682425712b9b01182424e68cf18fb08a75b5R953-R977
+>>>
+>>> And we can't obviously blame the loaders for honoring this flag.
+>>>
+>>> Most reasonable solution indeed would be to ask binutils to add a link
+>>> flag to say "please do not put the DISCARDABLE flag on the .reloc section"
+>>>
+>>> I'm adding Nick Clifton from binutils in CC so that he can comment on
+>>> this possible outcome or any other possible solution.
+>>>
+>>> In the mean time, while waiting for a solution to emerge (and be merged,
+>>> and released) what do we do?
+>>>
+>>> Do we put some hack in Xen build Makefiles so that xen.efi is
+>>> post-processed to strip this bit?
+>>>
+>>> This could be the temporary solution.
+>>
+>> As indicated - I don't think this is just a temporary solution. Beyond Xen,
+>> I simply don't see value in adding a linker flag (which then, sooner or
+>> later, llvm would also need to support just for Xen). The question rather
+>> is how to make the Xen side hack as little hacky as possible, without
+>> relying on the fragile behavior of objcopy.
+> 
+> Ok I didn't understand your previous answer, it's more clear now, thank you.
+> Would you consider using a tool like this less fragile than objcopy: 
+> https://github.com/fallen/keeprelocs ?
 
-Hmm, actually - why are Broadwell and ...
-
-> -static unsigned int __init bdx_deadline_rev(void)
-> -{
-> -    switch ( boot_cpu_data.x86_mask )
-> -    {
-> -    case 0x02: return 0x00000011;
-> -    case 0x03: return 0x0700000e;
-> -    case 0x04: return 0x0f00000c;
-> -    case 0x05: return 0x0e000003;
-> -    }
-> +    X86_MATCH_VFMS(INTEL_SKYLAKE_X,   0x3, 0x01000136),
-> +    X86_MATCH_VFMS(INTEL_SKYLAKE_X,   0x4, 0x02000014),
-
-... Skylake each split ...
-
-> -    return ~0U;
-> -}
-> +    X86_MATCH_VFM (INTEL_HASWELL,          0x22),
-> +    X86_MATCH_VFM (INTEL_HASWELL_L,        0x20),
-> +    X86_MATCH_VFM (INTEL_HASWELL_G,        0x17),
->  
-> -static unsigned int __init skx_deadline_rev(void)
-> -{
-> -    switch ( boot_cpu_data.x86_mask )
-> -    {
-> -    case 0x00 ... 0x02: return ~0U;
-> -    case 0x03: return 0x01000136;
-> -    case 0x04: return 0x02000014;
-> -    }
-> -
-> -    return 0;
-> -}
-> -
-> -static const struct x86_cpu_id __initconstrel deadline_match[] = {
-> -    DEADLINE_MODEL_MATCH(0x3c, 0x22),             /* Haswell */
-> -    DEADLINE_MODEL_MATCH(0x3f, hsx_deadline_rev), /* Haswell EP/EX */
-> -    DEADLINE_MODEL_MATCH(0x45, 0x20),             /* Haswell D */
-> -    DEADLINE_MODEL_MATCH(0x46, 0x17),             /* Haswell H */
-> +    X86_MATCH_VFM (INTEL_BROADWELL,        0x25),
-> +    X86_MATCH_VFM (INTEL_BROADWELL_G,      0x17),
-
-... into disjoint groups (continuing ...
-
-> -    DEADLINE_MODEL_MATCH(0x3d, 0x25),             /* Broadwell */
-> -    DEADLINE_MODEL_MATCH(0x47, 0x17),             /* Broadwell H */
-> -    DEADLINE_MODEL_MATCH(0x4f, 0x0b000020),       /* Broadwell EP/EX */
-> -    DEADLINE_MODEL_MATCH(0x56, bdx_deadline_rev), /* Broadwell D */
-> +    X86_MATCH_VFM (INTEL_SKYLAKE_L,        0xb2),
-> +    X86_MATCH_VFM (INTEL_SKYLAKE,          0xb2),
-
-... here)? The patch already isn't overly straightforward to review without
-that.
+Well, something like that. Generalized enough to at least be halfway easy to
+later also use for further purposes, and if at all possible using the header
+we already have for PE (efi/pe.h).
 
 Jan
 
