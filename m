@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7104B08884
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 10:55:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1046430.1416769 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C54FB08889
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 10:55:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1046439.1416780 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucKOU-000163-Fi; Thu, 17 Jul 2025 08:55:10 +0000
+	id 1ucKOw-0001l0-Ol; Thu, 17 Jul 2025 08:55:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1046430.1416769; Thu, 17 Jul 2025 08:55:10 +0000
+Received: by outflank-mailman (output) from mailman id 1046439.1416780; Thu, 17 Jul 2025 08:55:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucKOU-00014M-Cc; Thu, 17 Jul 2025 08:55:10 +0000
-Received: by outflank-mailman (input) for mailman id 1046430;
- Thu, 17 Jul 2025 08:55:08 +0000
+	id 1ucKOw-0001jI-K4; Thu, 17 Jul 2025 08:55:38 +0000
+Received: by outflank-mailman (input) for mailman id 1046439;
+ Thu, 17 Jul 2025 08:55:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=XlL5=Z6=epam.com=dmytro_prokopchuk1@srs-se1.protection.inumbo.net>)
- id 1ucKOS-0000qS-O8
- for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 08:55:08 +0000
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c200::3])
+ id 1ucKOv-0000qS-FD
+ for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 08:55:37 +0000
+Received: from OSPPR02CU001.outbound.protection.outlook.com
+ (mail-norwayeastazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c20f::7])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bc25fea1-62eb-11f0-b894-0df219b8e170;
- Thu, 17 Jul 2025 10:55:06 +0200 (CEST)
+ id cdaba98b-62eb-11f0-b894-0df219b8e170;
+ Thu, 17 Jul 2025 10:55:35 +0200 (CEST)
 Received: from GV2PR03MB9572.eurprd03.prod.outlook.com (2603:10a6:150:da::5)
  by AM9PR03MB7076.eurprd03.prod.outlook.com (2603:10a6:20b:281::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.24; Thu, 17 Jul
- 2025 08:55:04 +0000
+ 2025 08:55:33 +0000
 Received: from GV2PR03MB9572.eurprd03.prod.outlook.com
  ([fe80::edd1:842f:9b14:509e]) by GV2PR03MB9572.eurprd03.prod.outlook.com
  ([fe80::edd1:842f:9b14:509e%3]) with mapi id 15.20.8901.028; Thu, 17 Jul 2025
- 08:55:04 +0000
+ 08:55:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,41 +47,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc25fea1-62eb-11f0-b894-0df219b8e170
+X-Inumbo-ID: cdaba98b-62eb-11f0-b894-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FO1w8Tng84y0jq7bIfac6VdTE4bB4W/3cQEVTv9SEQ4rJZEq3+6LihtS+U/Y51qqojLd7uIS6+Yu2j4aYD5bCTAVuC0qgSJOHxcv5F1unecQcy7FyFaeiXfjD5M6EVzXLjl8fSDqofjk7RUfOpnZ6hUhYALFqmLacacqL3SuaCD0yoRFdGTruSW6TvAnQTlIz7ZiCbOM+i9IIfT32YZ3z0oIjrMndFAPeOIr6nBhysO6p61VwIJYKBQF1XKaeXZF7Y0kIJU6qbOOykfHguqiEdxokKyHG2FxK7iBZGaPbuyn1w+79dBJQ1WgzBuuqqfAj+OMQ/ioOrwguO94lP2BIA==
+ b=w7BzrjTY1psQWJ6FrjVHiScwzfZnb68AqBfwtbxDQK7u7FWPME7U0ETMOQ2K/yJ+S2nDOlk7gzErQ0yzdV70tomXy6FZovXRN7t4FikfxTCVtgq+V4cqI1SCJAjtf6R+mtFDJ0TB1z7LLT+fRbNM+RM96+XWKm4yNIEVVOy6XZ1LGFcYQZFZamFLb0KiVlpCauceDikHW4oqL5HdC+R1rPYQj/NTy/py3ozop1XsKv1oR3X2s7oGje1Zco3Kxbm4v0wpy7IO3H4BLgAyY0sFkZBQQuZT8s+rlq5e3R3usXCX0l67ziroNX1Ve2Tn7efL8kLq3OYMAjeDj88mC858GA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I2zHv1/6a68qFfzDrraCK1/l1C7WPXJIVfQCjKFw9ws=;
- b=Eay9kf7PuTY0xEhWmgeG+5nR3u5Y5VtSQS3qGEIm5gCUanOcvkNUVkTB/NStX/xO+BdPjbEn+H6q4cHYHzDMFa9jzw4dxmRe9mwOpND9dipKWNCSow5QlSxAHuKnyvq8E1bK/mTU2Wp2Phi7zBLOnjHAn05R3kKkfFMCIwSZC/V7pcDA2Z3wXWx6Yi5Du8rRS6KurNhEy6jhYxIQiCmdJbpgsOBQY+o+M8Am0L+dSdhRA0k8bc32iRYjAW1xtxKkpBXBOV1tL5JftqQftCnV7zAJOl92Ry7PJo6oPWwT3gNak1hwsSdi9xjLz+jHq94dOlFEm4dkYnMEE0K+ICnR3Q==
+ bh=PBhXucYb7qgcTr1ZdGsZyLMDM1M2o6rlgKy1CAt15+0=;
+ b=nkq5KEuGlTHGO4oEfgpAyCWcsodaWccW2oYqorOfPCtbkTaT8D1fSfoQeEVT45vqa/5Sw3xP3vq1u/Y2fybkb+ikZ66+lFKFPVAVsAD4XRT7ymga1+iQXTxw1ZFp/tnrrcOd37RuTxIuV4hwzCyLmZSzz1LjF2UYT6al15fXAnZsEesb8aE/U5+KwNyADgj0U+5zLUfF8EpxByaPI0c63Uz+7GNiDacvq3/AwqzUm6bcRUBHiKUHIDhdc/mwFvCaTYO27cimILqXDHGdEGa/zXzquIoRQA1Vgygj++VhdOgUs7YnI80aydZ1MT/aED1Fu/j+3g2/Pg9tqcCoS4SIqA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I2zHv1/6a68qFfzDrraCK1/l1C7WPXJIVfQCjKFw9ws=;
- b=gAq/7S0MZawTa4dsnOWynh1qhJiyhx/xo6CDYvE61lj4pP+gXZyAFsn337OjbW1aBt9f5NP95wmm0AuwSxi+NBCbjxgJlztyXxjRidz/rrdiKxUlPexBgOpRWMEuE6P5Y6rZHSjID9M1vvdPzMlSUfpeQm/siwSmzFQZoB5Wgl630JKTTt9AoeVZ2hS2xXhgzTqqNdAacXYNFM3hJL7RWt5fK3+sGPs+DjMSRmJUf12l4eQ4JUqQVtOOshDqYdm8vUHNcEt2gzPyaWz3D2cPMnaGi3kQhDwXTNML0GVLXPz0BZ3E6/mji+3qvx8wACH1QtqQ/PWgN2nSWLSTYDPrug==
+ bh=PBhXucYb7qgcTr1ZdGsZyLMDM1M2o6rlgKy1CAt15+0=;
+ b=EcDFegfowBDkub8Cz9UNFsjuF7pqU3T7Nc5dq5d1AFkZzFTUstr9mKTz7eRoTUVbO6tLadIDx9LLVrH+tbmdMMfhuIMvn+K5QMr/9ZaRhVk5z/PgsRIl+hz8DBbFgJWaodYeVnw285LLTh4LC7FLR2YACiwKXr5DhF9Xm2nhqD2qaSTCt01unBr3DwfAbjTqBcueL7V1Bf78SibgBSdBFc28fHcKqMusCmY+zX1lN3jqKPqYQ0IIHk4DRCdkDgSDkrEEHXdzfUW1aBAJtDK/erXzxa2PWEpea1nF7n2Xyk6z/KpFjtkCr3pZQyY5+wysXchcZJyqL2SE4lQrJ1Vxxg==
 From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Nicola
- Vetrini <nicola.vetrini@bugseng.com>, Doug Goldstein <cardoe@cardoe.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Julien
- Grall <julien@xen.org>, =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] misra: tailor the definition of Rule 12.2 to C standard
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Nicola Vetrini <nicola.vetrini@bugseng.com>, Doug Goldstein
+	<cardoe@cardoe.com>, Stefano Stabellini <sstabellini@kernel.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Dmytro Prokopchuk1
+	<dmytro_prokopchuk1@epam.com>
+Subject: [PATCH v2] misra: tailor the definition of Rule 12.2 to C standard
  types
-Thread-Topic: [PATCH] misra: tailor the definition of Rule 12.2 to C standard
- types
-Thread-Index: AQHb9kpD31dTcYF/7UCF8hLOSjEN6rQ1gkOAgABeDICAACQUgA==
-Date: Thu, 17 Jul 2025 08:55:03 +0000
-Message-ID: <3276745d-fe9b-4fe1-ab72-71bc6afb04b1@epam.com>
-References:
- <f486aa4ac823085afb7e068f6e84ea6be3cab19b.1752667611.git.dmytro_prokopchuk1@epam.com>
- <alpine.DEB.2.22.394.2507161809120.15546@ubuntu-linux-20-04-desktop>
- <a6fcdb51-8bd1-4595-8f28-deafcc15ef86@suse.com>
-In-Reply-To: <a6fcdb51-8bd1-4595-8f28-deafcc15ef86@suse.com>
+Thread-Topic: [PATCH v2] misra: tailor the definition of Rule 12.2 to C
+ standard types
+Thread-Index: AQHb9viNL5XnNBRP9kGTDIT2uXOcAw==
+Date: Thu, 17 Jul 2025 08:55:33 +0000
+Message-ID:
+ <195fd80d047d1533b5dae2b9922cd7aa4baf3913.1752741869.git.dmytro_prokopchuk1@epam.com>
 Accept-Language: en-US, uk-UA, ru-RU
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -90,120 +87,179 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: GV2PR03MB9572:EE_|AM9PR03MB7076:EE_
-x-ms-office365-filtering-correlation-id: 29e5b6b2-a6a3-4d04-1c23-08ddc50f9f05
+x-ms-office365-filtering-correlation-id: 49ebb85e-2a79-49c3-ed3b-08ddc50fb06d
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam:
  BCL:0;ARA:13230040|366016|42112799006|376014|1800799024|7416014|38070700018;
 x-microsoft-antispam-message-info:
- =?utf-8?B?cUdPaHFpZ29mMmtoVXN0OXZnSWVCbzlwTkRSRXZkYU9PWEx5bDBiNjFuS1Fu?=
- =?utf-8?B?ZGk3bDFWa0xXZVpiSzA3Q2VyUGljUnJtYXl0Q2hmcERaeTFiYzVsZGNOdWtI?=
- =?utf-8?B?Um9nOWpQNDBUK3NLWG9Cd3pXRFhlZGMrRmtidktCS3lDWFVhNU1BSW41NlRM?=
- =?utf-8?B?eU1KOE1ZSkk5SE1JODlYakFXRnN5NTdEUVo4QVl4TE5qRnJKVWJCSFV3YnpP?=
- =?utf-8?B?azZOK0swZzU1RGE3K0Nkck1pTUU3bVdZSHdPaFluNTNjNHFBdXBSRERHcXZp?=
- =?utf-8?B?TFVvOXRyb3NyWmtyclp5K1RrWFNobXJiTkkxbm9jSWRSTnpxa05Kc0lobnN4?=
- =?utf-8?B?S01KMEJnWlVtNGRPSHhkMzh0VHRKekdRS1pHNVdzUit5SkxqY0ZZYzVXMmk3?=
- =?utf-8?B?cmYvT2M5bUlDYytJRkFXRlJPc05MNTVWYkJJN2I2NkN5T2V6c2srMEc0eWpZ?=
- =?utf-8?B?aUdUZW1SOWlHMVQ0SmtwRms3UWNJRUpjU0ZOY3hNRjQvKzYxbHk0NUJ3UUl5?=
- =?utf-8?B?ZEV1UmxLY09JdVpXT3hxWnB3WVlEakxKRHpTb3dCZVBRcWhmeFQ5aG5sU0dV?=
- =?utf-8?B?azhyMHhDZURiMVhLUXpRWndCNVMwSjMxcGVVbGY2Rkc2WDB1MWxkcTcvSGlR?=
- =?utf-8?B?cVZ3S0dVNzNYN1JIR3ZCbTNWL1RIcjdKVDhSSnUzSXF1TFRIbjB6K0lzMEtu?=
- =?utf-8?B?L2twWTFNazl1Y0lyVnpSa3FhRTk1KzUvNitKbDNMVGFJczY4NWx4bGsxU3Jy?=
- =?utf-8?B?M2g0aDNJTkdSS29TYUVwU2x1UjBuZ01rUVFkcUxYUmtzeVJBS293cENPN1B4?=
- =?utf-8?B?dDlXZXFsc0pMcnA5NHN4aUdhTkYxSkh0dy9tYjNrK1IwOUZnSlp3d21aWndK?=
- =?utf-8?B?WFZZbU12anF3amVIa1JPVGRsNmlVQ09vNGlRMFdsMVhvVmE5NnJ3L3djYnpR?=
- =?utf-8?B?NEFLMXJRaEV4VTRTankvbVhyUDZUS0MyWkVUOGJUeS9nbjlWL2FGNDNCTlhq?=
- =?utf-8?B?dWs5djJSQXgzT2drcWNyM05HQm9TRnBYTnJuNmNSSjZLMVdVdS93eDNHRlZY?=
- =?utf-8?B?N2wrYVJvMkl6bnA2L2QwdGZFNktMeDFCLzhuWHNCZWlaelAyL0tlUHVRNUtp?=
- =?utf-8?B?UjV2M2VoSFRaKzQ2RTJyYUxWVDZRY24vL2VOaHpPL1YxWXRoRDEwa1Y1YmFG?=
- =?utf-8?B?R1p4aFlNbk1oUjczNC9US0N5VEMxVUtFWGNaOHlyV1h1aU4yVkQ1SU4rblhG?=
- =?utf-8?B?ZDRXRVJmVjJkUVJSNnU5OTJhTXRNZDkveXlkSWt2a2x0R3hDNUFYc2RzSzRa?=
- =?utf-8?B?Y2hic0dvMGtzZjBwdVRZSXdYNDZUZ0VUS2UvRkNZV1oyaEpxdkFNQzh1UExK?=
- =?utf-8?B?ZmNyL2g1TFQ5NU5mdGYyV3hOMEduRzByeXMvajBqamcyZng0M2hqV0Ftc0tv?=
- =?utf-8?B?QnV1eTNtbUdqMkwzVHRkWkc5Wll4MHhYRXVwbzlMWHVMNExnV2ppUk51L3c1?=
- =?utf-8?B?NXpGZlVPTDJUS0RsTXZtSWEwRUpFNTRTL2QranJZK3pXdThsQ3NiaHNxdU1v?=
- =?utf-8?B?a2JIbHZtRjRyQkxJdGwwOURQSEJzRWc1d082Mi9TNXpBQVlncG1MODBOSXZk?=
- =?utf-8?B?NUhsVVA5YzVzNy9aUU41QlFjVnRVWFRLclozNFBod2xPNjZqZGkwUTErZnNW?=
- =?utf-8?B?NWVkeDdtZnNuR2FXREs2dERKdEVucUZEQkdNWXdPRC9TY3dtaG1keWZmUUQw?=
- =?utf-8?B?ZmRzdUNMcHVQT3h4VHpWblhHT29Wd1V6NW9zR3dHTHBwVFBUSS9JRlFCU0hO?=
- =?utf-8?B?eW80bnY4ZFpLa01yRFpHdEg4YUE0eWM2ajFMZnE0dEZPNzZ3dEhYeHVkSFEw?=
- =?utf-8?B?cVFVb2ZWc1plbUJEeGpKM0VVTk1qamlsM0R2TG1uTGt4RVVFMGhGWW03cEhZ?=
- =?utf-8?B?TVBzQ2M5bUFrbm51ZmtBZk81WU8zK0VScTBGNTlqZXlwVTRhVERoRUNkbEFN?=
- =?utf-8?B?Y1lFaVlLSlJRPT0=?=
+ =?iso-8859-1?Q?OQTSbubj3kJg0wHe9JQPbdDxk98LLI9TdbIH1awo5a1rLQsdJEgdfVaTm8?=
+ =?iso-8859-1?Q?Sb7uCQQc2yTd8H00u566PCPE07lHfP5TqS4/86NKk5xih0nu+OsuAVqzXI?=
+ =?iso-8859-1?Q?txeh2KW7boR8KSEnaNwpOpiFlvjvc7rBFmo2lIuHA59qCP//Y3VJpnZJDy?=
+ =?iso-8859-1?Q?XZUmu7LgE6HWyThTK1LId1NPxtH/srBNTTe4ANlL/aLevtOEm4m3Hc2Qzg?=
+ =?iso-8859-1?Q?H18MiaxQOEITWFW/YBoianOV5boY0UE2KgvQHolh+vqRIfE4aHKcmuhg5y?=
+ =?iso-8859-1?Q?asq1FbwLjy5QeqG6ceiq8Jdcy1nQ3YLFvSMisGtHy8fuA57Q1RUKE9c6G2?=
+ =?iso-8859-1?Q?ni09p587g9lpzBE6FvpupubabGANX+uTipEBMdDb3mdVqF+OxWaTgxeBpG?=
+ =?iso-8859-1?Q?q0YMPImNW2kQRywIMYCOffmIi2CmIDbANXMLdgdRV7B/NNGcD/roE3/Fsj?=
+ =?iso-8859-1?Q?2Ku9bId9ZRgfKONyGMV1mFNwU3O6GPWzsC7tdIrpZT6n14CcC7LISq+nGf?=
+ =?iso-8859-1?Q?uhq9y6g4+9hP1sYFZCrqXU1q9UZp16hiJh794h6qemgPl0oCd/eir4ZWdt?=
+ =?iso-8859-1?Q?AoOpUbPwONMjcJRYz8XBO6eFgMoQXAG3lz8RIC/yDCv0J0k14l55UkU+az?=
+ =?iso-8859-1?Q?NVFQ2u6D2kmiDvolw8Eb+cGnaVqiCO7lsqBSb8445F8+icAUMtf96dKeTJ?=
+ =?iso-8859-1?Q?c618SQu5rAzAZroOZSSRONQFrkpO+Rxqzv1fh/rFDSHMQcxiWNsiHg3LPl?=
+ =?iso-8859-1?Q?xUESUn+iGEEvIrz0IRun67f9QiD9TJ61u509JaueJoMf6q2ROB+DUpdLFn?=
+ =?iso-8859-1?Q?396EQnVkWPcQCboSqHEDORd+Jxw01jGvRYuzWV8XeFvmsA5AOV/uQC3IJB?=
+ =?iso-8859-1?Q?j0KDgn26zEtVgQt7MFqcJuy/ou08E9BUaQQD9zXlbIXskT0HC3owLuWYdO?=
+ =?iso-8859-1?Q?V3WvhSHoE2+gpMFtWoYK0Tqxu1oeahcEHDyTj6BOquNA2koMRLyXwpmNve?=
+ =?iso-8859-1?Q?mcPTk0TBPXHl+gHCQ4EGX5XVIL3IrZxIJlxjAEpZksLDguvY+4on8Po/Mt?=
+ =?iso-8859-1?Q?t73SFT8JNQ2faQ06Clmn4aNedYoYqGddFrCxdxPhcnLj3ZK8HA9FPKPcPn?=
+ =?iso-8859-1?Q?AhyI2DZN3eR/T6WXxFbau82wSZOd11mntiTPZUKnURqyhV9sGA72lXpdnK?=
+ =?iso-8859-1?Q?ng6Lrf3BiDlWwAF6alrtCAuI533zaGE4W0QgqVkUZv7rwoYFZLvdUgg4Yb?=
+ =?iso-8859-1?Q?cGO3pAFeqwBWpDzRtHGHvd6UdetbQuQ9f0MzmFY42i2oFARlI0lkaACndN?=
+ =?iso-8859-1?Q?L1fvcQZ4exvaYZDW9yC1kubmLuiITkcU5Qe1rEb6LpHONZZng3ZFTLAvni?=
+ =?iso-8859-1?Q?uY6tY3KSfOIdPPWJ5mb6Ol/OmwkY1pNaqbZ02Y4sljch4ONRwO2C2e68ig?=
+ =?iso-8859-1?Q?pR58uIDlHUj6B0KVoAvsbXltGqJ74KLfp72gEPXa+C00GAdNUQ8xZZgPhU?=
+ =?iso-8859-1?Q?NW5wRRSJgYJVQmoKJ2039BBD0x3poOKMr9q3itRo5Llw=3D=3D?=
 x-forefront-antispam-report:
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB9572.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(42112799006)(376014)(1800799024)(7416014)(38070700018);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?UHpXTkdDaUZPekZlMk1md0hVanJDWm8xMzh0ZlB5cmd2bkFVWE1lcHdobTRH?=
- =?utf-8?B?cXpPb2VCVk8wcm04bldXTGZwRVFiY1FIMzhmc3NDMzRIRFpHVHNWai9yNVFU?=
- =?utf-8?B?TjVlT1AxYTJaang3THlOZnVnWGVkS0x1bUg5Q0N0M1UrdXVTN0RVcDg5VE9S?=
- =?utf-8?B?WDB3azRKWlFjb2tLUC8vVzRTTjI2c2hGSUpPWW5BWDdETW01MGZLOXZqY1U5?=
- =?utf-8?B?aEhsZkRtOTRGYzNqMmdXZFFQM2dQNFhrVUhPeE5ja2NEc2pmNWpLOW4rZGdu?=
- =?utf-8?B?L3BIQjdiWGkwR2haVHByTXpTWEU4VjBBOUREQXRYbTRoMFE0Z01kZEZQK2NK?=
- =?utf-8?B?R01jQ2ZYN3VUN1FkbXMxSDVyb3VTV1pBNnFRdkVSUjd2NzVlNzdsL1dJWVJV?=
- =?utf-8?B?ZnMwN3BHd1VUY2hFZUVOMFUyTEMrVXA3NFBLYjllOEZaVEFzWHVvMnhnNjRi?=
- =?utf-8?B?RGhQWFFBRnRPQWxuemI3MERLUlFoV3NIemJxSmRPa0lJMEp4OXE5ZTNFS2hi?=
- =?utf-8?B?bW1NeHJsQ0VUelYzV1RGTEFsMTNUaFh5ZVZYaE9hN2Y1aVM2K2wzamlDRVVS?=
- =?utf-8?B?WWpFa3B1TmlTT2dUWlNsUEYydjY1Q1ZFVUJrT295Z2dFQ2NKUzRMV2puUDZI?=
- =?utf-8?B?d3ZMYlVEakcyRGFrUUtvMXZVR05wRkc3MkdlVGlodmtodHpVNzVFeUJxVGJx?=
- =?utf-8?B?RWREYTFJTWZDd2RmZlVmR0FBRTNnMlQ4cnpiMThoRGErcklySmswclllbE5F?=
- =?utf-8?B?UVUwWTlCSVpZS2lOUkgyTlZDaGZobndVRCtCYnBzYy9iYTFVRGV6LzZTYk05?=
- =?utf-8?B?Y0cwK3NCbUlCUktUQ2hITUJZZjVhR2FDOUV6ZTVnMTBaUDVpSVFINUR1YmFB?=
- =?utf-8?B?elg0Yjd6dU1TLzBkbVZIMDdyQUUrWGt6aGpCWEZTZDh2aHlKK21HTjl4VzdS?=
- =?utf-8?B?SlVwUVZ0RzVFM2NSdThkUmhKNlJvUU5IMFptWGdvZE5LbE9mekszMG1kZUNT?=
- =?utf-8?B?YWUyNkgxblppYVppTWxhdTRTWm9RN3hRaWhQSEsvdTBBOWh1eWtMSllDdjN3?=
- =?utf-8?B?b2dxczl4OENOZ0gvZjN1eUJwU0xIVzBBL3JqR0x1a2RlaElnQjhQdG1BYlZE?=
- =?utf-8?B?blNBWks1ZVRVWUhPZzlqQTZzd21sei94VHhFMU5UOTUzV1NweTRObzl5WnUx?=
- =?utf-8?B?bGdzeEtleTVPYmhIVDZGV2JWSzcyR2xxWU5GTnJqSndzWUl4blpZeDFPdDRT?=
- =?utf-8?B?TzVXaW5CKytPM2QxTTh1WVNoNGlXR1d5VzJpL3VrMEhQMGtMZERGa3hzQUxp?=
- =?utf-8?B?RnJxQWM2UXdweWptaGs3VUNKUUNEMWZ3NTlNZTJQY3ViVFgxYnlTL1ZLUHo5?=
- =?utf-8?B?bVErS2pxVFNxU2FqWTYwcVNwbitQWHBCYkhZY0RBSWlWaFJvNUFvZ25COFZY?=
- =?utf-8?B?TERObGxCZ1pRZi9vcm92UnUrV2NDZUZFNWd1TlU3SWV3dTl1OG85R20vUk40?=
- =?utf-8?B?d1NMMndXNm8ySlV1cXEwSXMrZGFhQ21JdWJUNEJtbWM5SEFVZ2tNSkc0TzZz?=
- =?utf-8?B?bUV2d2xwTk5qVmNhbk02S3E2ZThucXlCUkZUN29idnJ5OG9yc3p2aGZMNGlT?=
- =?utf-8?B?Q1BzSXhCck0zT1VIbW5xbzlmdU5uQkhoTWNRdUluY0c1aWZJckRMRHp3a0cy?=
- =?utf-8?B?T25LUDJFRk9YVXd2WWdHOTJzejN1WERuTnN5YUpORlFpQ2pFeS85VndsdzVz?=
- =?utf-8?B?cUtjYW1JOFlmOTFheldMMFJLcVJRd1FRR0tpN2RoOTlNTWl5WFpxQzVyOVU2?=
- =?utf-8?B?RHRLUEVaZVhnc3picnJJSkloVjgyRlY1RXZCaHJ0UFlZSEFjU2R0cnpHZUhW?=
- =?utf-8?B?cEtLU3JpQWVhc05uQ2svZDZFWTRTVlVBRkx3WStxWXdzTTNZUUlGc2VoWFMy?=
- =?utf-8?B?ZFVXY0R1ZDdiWW9Zd043S2d6NzhnbEd3QTNNakRhOVBTWiswMERlZnR3cTBZ?=
- =?utf-8?B?dUJjRVB5VFYwTmYzTUtzTVRsVGJDOEZKRW0vOUFPV1pjR1FFVHNEdWxPazgr?=
- =?utf-8?B?dHkrMlRjZ0dDdHFzbVJnaEdicU81M0pwL2VCcGRFd2R2cU5wME91eXh5ak1i?=
- =?utf-8?B?d01jZXlSRTRXdVVnRU1yZmJaZ2JiQ3ZvWUlBYkoxbnEyWFp2WjYreVhPOGtj?=
- =?utf-8?B?NUE9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <CEDFB8A78E8DBF4A96053D59DDD36E89@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ =?iso-8859-1?Q?M1pA2lxMuM64rEx+YIopVZGxX6XdWk1JtVLjEHOFjty4FtEkxgTFt/dlpw?=
+ =?iso-8859-1?Q?Yb9MpoMqEfrbThwzsLt8vG+AW2hrPIbORWJu3MkORip/J/4jOH6plAqfsX?=
+ =?iso-8859-1?Q?4+HpNsyo5y9XRxZhjCh8mTji8UfEgNQved3hMs4cdI/wurq8mQj0n1sLwj?=
+ =?iso-8859-1?Q?JqAsbpPo+B/2niqvRj2kybGrt/Q7tNCxAmNLt71eTKMP0I9Wv1XN26V8g2?=
+ =?iso-8859-1?Q?gunQHhzwugWV6bWeR4DYJT8gaFfciGm8FbhiJWaRgqh2EjYjI8bNuwra3f?=
+ =?iso-8859-1?Q?sLMfF0QPb+lzgr96Nnw4fgCUl4Wu6uMz6S+T8/xhmLYPv86iwuJuuW1rMr?=
+ =?iso-8859-1?Q?Q2tqezPBRiIT4qmB5ARcQjjpiLoXOGgp4W3kKslIY0opCpfg4vY/uPyajP?=
+ =?iso-8859-1?Q?/FM0pJySGOarDiXToMUWw7TxBQ5qDGdNQNF5s/MtIa1RtP6If5x/CCuIUC?=
+ =?iso-8859-1?Q?hGzU/Rgut+nQIIEbHcx6sjV9OxaYzaAnleRMXWVkdpYKptDSsA0T7YIFHO?=
+ =?iso-8859-1?Q?ZaOYGl1rhfwTwFYXKhz8MD9+8amUML8UrDqARoU4Wm0cc7DW0fgw6H3ndf?=
+ =?iso-8859-1?Q?BrQ6bU5VzHOJHOx5lTqSqDUsGXdrjbXK5HVT8/JEUMK4x+MG7nBP4E/AOa?=
+ =?iso-8859-1?Q?tLuXeavd1hi/N79Ck1tKZGMP7D+cDsMR6bkt5i0bw8TF4qPI2snTmqf8mL?=
+ =?iso-8859-1?Q?7TovhSQ0wFg6LbGRY/1ChnLgrZ2AohnY9YCIVsmUlBPJ/Nx6V3s4NGH796?=
+ =?iso-8859-1?Q?900rmtm0jzNZn1QiQGnP3np2ZzHwisS6GM/0Zc253Z7RCJ6pNvUNbCfJxP?=
+ =?iso-8859-1?Q?ffuMLPfvrJepbHsPOBGGNZUC8RvuB8b9RwIECdHmOVhOVhFpcFk63eGJcj?=
+ =?iso-8859-1?Q?L49Zyrbl2nd23MBPw7YPcKWJJe27t61l12IQ9NNsMJvToZxFGyEl+onoFy?=
+ =?iso-8859-1?Q?32UsUUxfCCnnxESbplTEpF3iHkrddBjG2Ggy6aWDvNLh4q8OLZJ8t7ja1e?=
+ =?iso-8859-1?Q?WoJurccW3aLDybmFU7BxaqIXf+E6XmX35jei6rxdL+bZIFcyorHuRxHG+7?=
+ =?iso-8859-1?Q?VoHt+RdaoCeULv7NVa6xwnaEWk2li+hX4w0ZXBQANIcsClHP9xyHVTr1v8?=
+ =?iso-8859-1?Q?yVJZKxONJnxL7CCAZ6Z6+0T2916IFZepHHlJXdnwki8b6/ZB8UqRAbTT0w?=
+ =?iso-8859-1?Q?6K7Ly5EDkgpV5h4zt8Uy89wKlI9b+BA0bzen6O+/v3odaNYHScoKIXuD0/?=
+ =?iso-8859-1?Q?+rV+EZqTeu1JM4Pwq6hUpKXGPFOpb+R0/bCJ/gKjAIW9qLved0e5XMuun0?=
+ =?iso-8859-1?Q?DAkINerHnxICjEhK5eZk5BLKvzYTUS5wqaTHHHNvJI0Da1esOmDduLcJ1o?=
+ =?iso-8859-1?Q?5zKp0FOYbDkvJBrTSwljDeyUS4qjGBuiixFqKE2vf8yPoJiED9sE3CONbz?=
+ =?iso-8859-1?Q?l67UWMTEPEynoQDcI5XZfgx8z3ptSskaaXNghYKe7UdiBI/hexJCi3v3v9?=
+ =?iso-8859-1?Q?3ajBxNABV+F7vVRZt5TpssymOjtMDX6v04hel06yGgYZ0u0Q3rfgZmGilF?=
+ =?iso-8859-1?Q?n3cxzQLS2jV99YZ237oagYFsON3+d5qaVF3mo0Yi69csMaInuJ7E4AMRfF?=
+ =?iso-8859-1?Q?t3TnhjwJF6J7hJPDoDW9DHcwRxZPlzLoFpoBxiJ5p09qWTpNCyrroV0Q?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB9572.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29e5b6b2-a6a3-4d04-1c23-08ddc50f9f05
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jul 2025 08:55:03.8883
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49ebb85e-2a79-49c3-ed3b-08ddc50fb06d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jul 2025 08:55:33.0837
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +burNH0RYuNFLZrBZmR1SJKzY+USlSh98gA3W77k/G+C+uVqDDDkyOmocqttA+PlUThxXS2rEPfJv+QD4/MUnKX6gIKlUUxUIKV6r7NHscw=
+X-MS-Exchange-CrossTenant-userprincipalname: 93kutCV1WxCHDjwKg3wsmST2BbnZhJDcEwkNeFvwPRVmMzUwl6tGsZjyAaMC/L9t5VcQMNmiZ2V5oCh1UI0AaXzunLv+fARq21+YuOw88cY=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7076
 
-DQoNCk9uIDcvMTcvMjUgMDk6NDUsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAxNy4wNy4yMDI1
-IDAzOjA5LCBTdGVmYW5vIFN0YWJlbGxpbmkgd3JvdGU6DQo+PiBPbiBXZWQsIDE2IEp1bCAyMDI1
-LCBEbXl0cm8gUHJva29wY2h1azEgd3JvdGU6DQo+Pj4gRnJvbTogTmljb2xhIFZldHJpbmkgPG5p
-Y29sYS52ZXRyaW5pQGJ1Z3NlbmcuY29tPg0KPj4+DQo+Pj4gVGhlIGRlZmluaXRpb24gb2YgTUlT
-UkEgQyBSdWxlIDEyLjIgKCJUaGUgcmlnaHQgaGFuZCBvcGVyYW5kIG9mIGEgc2hpZnQNCj4+PiBv
-cGVyYXRvciBzaGFsbCBsaWUgaW4gdGhlIHJhbmdlIHplcm8gdG8gb25lIGxlc3MgdGhhbiB0aGUg
-d2lkdGggaW4gYml0cw0KPj4+IG9mIHRoZSBlc3NlbnRpYWwgdHlwZSBvZiB0aGUgbGVmdCBoYW5k
-IG9wZXJhbmQiKSBpcyBjb25jZXJuZWQgd2l0aCB0aGUNCj4+PiBlc3NlbnRpYWwgdHlwZSBvZiBh
-biBleHByZXNzaW9uLCB3aGlsZSB0aGUgQyBVbmRlZmluZWQgQmVoYXZpb3VyIGlzDQo+Pj4gcmVs
-YXRlZCB0byBDIHN0YW5kYXJkIHR5cGVzLCB3aGljaCBtYXkgYmUgd2lkZXIgYnV0IG5vdCBuYXJy
-b3dlciB0aGFuDQo+Pj4gdGhlIE1JU1JBIEMgZXNzZW50aWFsIHR5cGUuIEZvciB0aGlzIHJlYXNv
-biwgaXQgaXMgc2FmZSB0byBjb25zaWRlciB0aGUNCj4+PiBDIHN0YW5kYXJkIHR5cGUsIHJhdGhl
-ciB0aGFuIHRoZSBlc3NlbnRpYWwgdHlwZSB3aGVuIGNoZWNraW5nIHRoZSBydWxlLg0KPj4+DQo+
-Pj4gVG8gYXZvaWQgcmVncmVzc2lvbnMsIHRhZyB0aGUgcnVsZSBhcyBjbGVhbiBhbmQgYWRkIGl0
-IHRvIHRoZQ0KPj4+IG1vbml0b3JlZCBzZXQuDQo+Pj4NCj4+PiBTaWduZWQtb2ZmLWJ5OiBOaWNv
-bGEgVmV0cmluaSA8bmljb2xhLnZldHJpbmlAYnVnc2VuZy5jb20+DQo+Pg0KPj4gUmV2aWV3ZWQt
-Ynk6IFN0ZWZhbm8gU3RhYmVsbGluaSA8c3N0YWJlbGxpbmlAa2VybmVsLm9yZz4NCj4gDQo+IEkg
-d2FzIGFib3V0IHRvIGNvbW1pdCB0aGlzLCBidXQgRG15dHJvIC0geW91ciBTLW8tYiBpcyBtaXNz
-aW5nLg0KPiANCj4gSmFuDQpTb3JyeSBhYm91dCB0aGF0LiBBZGRlZC4NCg0KRG15dHJv
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+
+The definition of MISRA C Rule 12.2 ("The right hand operand of a shift
+operator shall lie in the range zero to one less than the width in bits
+of the essential type of the left hand operand") is concerned with the
+essential type of an expression, while the C Undefined Behaviour is
+related to C standard types, which may be wider but not narrower than
+the MISRA C essential type. For this reason, it is safe to consider the
+C standard type, rather than the essential type when checking the rule.
+
+To avoid regressions, tag the rule as clean and add it to the
+monitored set.
+
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+---
+Changes since v1:
+- added tags
+---
+ automation/eclair_analysis/ECLAIR/deviations.ecl | 8 ++++++++
+ automation/eclair_analysis/ECLAIR/monitored.ecl  | 1 +
+ automation/eclair_analysis/ECLAIR/tagging.ecl    | 1 +
+ docs/misra/deviations.rst                        | 8 ++++++++
+ 4 files changed, 18 insertions(+)
+
+diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/=
+eclair_analysis/ECLAIR/deviations.ecl
+index 8504e850c1..483507e7b9 100644
+--- a/automation/eclair_analysis/ECLAIR/deviations.ecl
++++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+@@ -413,6 +413,14 @@ write or not"
+ }
+ -doc_end
+=20
++#
++# Series 12
++#
++
++-doc_begin=3D"Consider the C standard type instead of the essential type f=
+or the purposes of determining the width in bits of the operand."
++-config=3DMC3A2.R12.2,out_of_bounds=3Dnegative_or_too_big_for_type
++-doc_end
++
+ #
+ # Series 13
+ #
+diff --git a/automation/eclair_analysis/ECLAIR/monitored.ecl b/automation/e=
+clair_analysis/ECLAIR/monitored.ecl
+index e2ad224d79..00bff9edbe 100644
+--- a/automation/eclair_analysis/ECLAIR/monitored.ecl
++++ b/automation/eclair_analysis/ECLAIR/monitored.ecl
+@@ -48,6 +48,7 @@
+ -enable=3DMC3A2.R11.7
+ -enable=3DMC3A2.R11.8
+ -enable=3DMC3A2.R11.9
++-enable=3DMC3A2.R12.2
+ -enable=3DMC3A2.R12.5
+ -enable=3DMC3A2.R13.1
+ -enable=3DMC3A2.R13.2
+diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/ecl=
+air_analysis/ECLAIR/tagging.ecl
+index f39beced9b..879485b680 100644
+--- a/automation/eclair_analysis/ECLAIR/tagging.ecl
++++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
+@@ -63,6 +63,7 @@ MC3A2.R11.2||
+ MC3A2.R11.6||
+ MC3A2.R11.7||
+ MC3A2.R11.9||
++MC3A2.R12.2||
+ MC3A2.R12.5||
+ MC3A2.R13.2||
+ MC3A2.R13.6||
+diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+index 620e97f0bd..e78179fcb8 100644
+--- a/docs/misra/deviations.rst
++++ b/docs/misra/deviations.rst
+@@ -386,6 +386,14 @@ Deviations related to MISRA C:2012 Rules:
+        integers for this purpose is allowed.
+      - Tagged as `deliberate` for ECLAIR.
+=20
++   * - R12.2
++     - The width in bits of the C standard type is considered instead of
++       the width of the essential type of the left-hand operand of a shift
++       operator. This is safe because the occurrence of Undefined Behavior
++       only relates to the width of the C standard type, which is possibly
++       wider than its essential type.
++     - Project-wide deviation.
++
+    * - R13.5
+      - All developers and reviewers can be safely assumed to be well aware=
+ of
+        the short-circuit evaluation strategy for logical operators.
+--=20
+2.43.0
 
