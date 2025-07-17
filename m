@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B398B085B4
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 08:59:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1046245.1416517 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A717EB08637
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 09:11:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1046250.1416528 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucIam-0004oy-Mj; Thu, 17 Jul 2025 06:59:44 +0000
+	id 1ucIlQ-0007xB-LV; Thu, 17 Jul 2025 07:10:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1046245.1416517; Thu, 17 Jul 2025 06:59:44 +0000
+Received: by outflank-mailman (output) from mailman id 1046250.1416528; Thu, 17 Jul 2025 07:10:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucIam-0004mu-K0; Thu, 17 Jul 2025 06:59:44 +0000
-Received: by outflank-mailman (input) for mailman id 1046245;
- Thu, 17 Jul 2025 06:59:43 +0000
+	id 1ucIlQ-0007vO-Hi; Thu, 17 Jul 2025 07:10:44 +0000
+Received: by outflank-mailman (input) for mailman id 1046250;
+ Thu, 17 Jul 2025 07:10:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Kd8q=Z6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ucIal-0004mo-BV
- for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 06:59:43 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1ucIlO-0007vG-Qt
+ for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 07:10:42 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9d2e7e84-62db-11f0-a319-13f23c93f187;
- Thu, 17 Jul 2025 08:59:42 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3a53359dea5so251236f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 23:59:42 -0700 (PDT)
+ id 25da9229-62dd-11f0-a319-13f23c93f187;
+ Thu, 17 Jul 2025 09:10:41 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4561514c7f0so5965905e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Jul 2025 00:10:41 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74eb9f1b540sm15002793b3a.74.2025.07.16.23.59.36
+ d9443c01a7336-23de435c238sm138490125ad.234.2025.07.17.00.10.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jul 2025 23:59:41 -0700 (PDT)
+ Thu, 17 Jul 2025 00:10:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d2e7e84-62db-11f0-a319-13f23c93f187
+X-Inumbo-ID: 25da9229-62dd-11f0-a319-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752735582; x=1753340382; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752736240; x=1753341040; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=OtcnQn6I3tPthY9L/6nuYnF1TKGlC7LcsA1Jlvp7xIw=;
-        b=ZVafoCMu2z47ezmn6ZzpcdeQ9WDTEJt8/Ra6IcUWEAmtjoqYGZQJSrQhzA5WxmDHoT
-         QelvZv9eSYcv/qIen0RgCfzmSxRm1KxpmAyLUrsKbB4E6iwQcwMVyKvTBTZ+yqpv5XDN
-         Qr6lqg4HCeG3Bkj9wBk5x6hU+wDL+8LQZlT02epl6NjfFh4+4X+E2qjuwAA41BwCeIjg
-         fy2oSQzm3Ozdlz/o59J+D5GTBknEUXVSjZO6D+DktW1IiLqh6XCqYfLENWutvVRamJ+/
-         wsNxvkarGbfoDBPcVofSWidoi9M0WeZuxj6SCk0HvoDtbNaAiJOkrGkHy8CQ/D41WRQU
-         bLew==
+        bh=9d8pQdKsD2b/iqpI1rE6T9MtPoPkBwTiNq4dbrcGM1M=;
+        b=INHjtXRTicwGFihTBLGjqZVIHi0uGvDc9CziJpLfrbGZKmq4yREAz1mLwdzrQ1M20s
+         f3QAtlr07iaYk6cfoiOWTgnsR95PySZO8klb3emjvbNEe1tycBT3DE4P/0vDxMn7q5rK
+         II1Uc8MW09mkZpyKMxVGKxJkzBOev4zrZS3Yv0pN4IeuyGArHLisdVZl0DKHTTKw+S/J
+         7pbyx+ucyspbTjtUZxZef+TKVPgTQz+vSGDOq2M1lENm+k6C3E0gfZNWTRjtutN5/rdB
+         WqMuaM9EeWMahJxaUUaPko17wkZJw8SXy1voUrW2vZk32wOGddxTadwL6Nl49rZrr+5J
+         Iw7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752735582; x=1753340382;
+        d=1e100.net; s=20230601; t=1752736240; x=1753341040;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OtcnQn6I3tPthY9L/6nuYnF1TKGlC7LcsA1Jlvp7xIw=;
-        b=YTtrnCeffJCyfhcEbGui0FtCVHdEPoQlnyaMVKSbuv4yHCrseZi/n2JOkY+NZHoASL
-         Tv2t1Mg2Qm3RJpvEe45f+wdQW1/7QCsT+aGkzWMvFbWp6aSv/nqr9wo9q4VEV4QfH1zx
-         8sWHGWsXP0FyAeHC+kuydjtiUCOzEkhXS4/kTgin+X0H0zMFuR4oVnCBpBHpcAJi4rCH
-         bQnKew8aM9wA64Kh12q/Ju45CZRP969kLk23w0Yr122qEo440/+a6qqxNBUkc3l832Jq
-         naTfmmjQ+HLy3y6rOdIWtuf0x86sn53vHxrumU3ohpuHgsH9Gm0hLWLWstD8rfAkmOYL
-         8ftw==
-X-Forwarded-Encrypted: i=1; AJvYcCVc1wYz6sTQdgdUcHeUT1fqmAoZJ655CNmr/nd8/EFj967Hf/19Qp4qFJXEpeT8UktuHqO1niuTehs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzAQXqeOvz/7t86Oiu0xXw6cuq8VBBF59xwpVQYbSDzZMv920QW
-	IR5W54gt0Xu+XdT1Bmkj76zuMTnjwKaINWooG56iNJ3zVSNksNAXZkIFpaqzK5nNuw==
-X-Gm-Gg: ASbGncu5Zp/J6UQtybP+vkuaojboxj6qVxyFPerAefMFFVdtx4+Hgdbqz9za3FpX+Bm
-	DRYUgdvlwoktt9ZN3AQTr0BjmxKXuZQ26XRuxk8PqoCnhJA/V0EkMkqqvmI4r2MBKNw1wlwP4B8
-	3CR2Y04xOLdObS2EsLiPr/ta3raVfnI+/Zc9Qw1iN49zZTrhwzRJJxWbSYHcmiWIQr9ZVtusudH
-	6r1Dr5p1fAwPjePNzNAAPilTXYUgPnRG5Aw+imy8W0c9HXcxKzrlh4+vOegmp6hu8c5qPwjNaiB
-	NnDhrxabxud0mHj/YXHMsMD1ZTum9Vcen36JUaPNXD/3CaFYmyh/XwAm5T0Ub6Ksto6RQIeBgO2
-	cqLAtA0MlHY2zErJdLnGFqStpLzKjCcTL6rmndZasvKCYJW8SieJe+MfgpXHPSPtFrlOiz3SpFK
-	NPxn/NPl8=
-X-Google-Smtp-Source: AGHT+IFp0x5d1NCqmkNLFDCecpW39Gd00EcvfqHKX+cMRDBOLs0kosw5NGF+mnMAGTBA5yDeLv5RUQ==
-X-Received: by 2002:a05:6000:420f:b0:3a5:2257:17b4 with SMTP id ffacd0b85a97d-3b60e55003amr4185494f8f.55.1752735581840;
-        Wed, 16 Jul 2025 23:59:41 -0700 (PDT)
-Message-ID: <0f0495a9-4ac1-44e0-babe-8fe278d37fec@suse.com>
-Date: Thu, 17 Jul 2025 08:59:31 +0200
+        bh=9d8pQdKsD2b/iqpI1rE6T9MtPoPkBwTiNq4dbrcGM1M=;
+        b=VWUsvCiUjJ/Ot0u6N6h3y6Q5LTgfDFRvRulrM2GGVy6OiyvM3o3IlvZJ29CEdxz4TS
+         UUQEjG1d2nOEmZKAoItmXtKUHpvlI+UVwx9DjMgP0PdRJagJdUhnY/gyS62zLYsKXntt
+         fIrTxAmDkmYJN6zRbySeuUyS06dm4G653Nh70JdwQZKwXvAgqM/NNMgZX9eT0l6qlk9F
+         nUeTSZdd9aBmzkJ9fuugrFigqjO2wlDp8RErrw5p6oXOgVefSAnFXhwWoPbI9VN7z0yN
+         jmVhwjXiNpR95xI3FkrbyRWFiB67fI8fYJycqTg+9MAY7MCI4gVrnkReWrifJ2OKBrce
+         pyeA==
+X-Forwarded-Encrypted: i=1; AJvYcCVM7i0XC8wCX5YGKWNdG/f2DMDPRhHe88M7IJXkV/zrxh/7M+qPmuXW5o3sLitSA5sVroPFgL0bDs4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx6J1k+7JJ+o31FPMYnAFF8URoUAl1HQLhfWuY1BkpJ1ineK09x
+	U6j8zrHl7zoB5ZauAz04JUffodRxzoGclAAKMvhhLLkLdi3IUBg89KuelfLfNSG9dA==
+X-Gm-Gg: ASbGnctdIPd/5Q3M5k+dyjrFFrvwZVqi+m3zp752S5tbGB6HtUQviHWhQBZuTIxRfVO
+	Y7PwpAw6ACfvSU450dmTeuSK/DBgRZS+tT5NCjqWhpUCqCUAet8aKVyjb+qR37oWsG9cEen1Y8q
+	gSS+Hd4WxA06CxYm4TumwqCWts6oSWf5m6XkMMSuwpNaDXly312tJOz6LVkmq8sGa/17/YSkMfB
+	xYWbNXlGbF0v7jHGo5GZg83Mm6GX9Qd3PMr7qA69A9AhU8sr6aVJaEMAHQMYrlVJt9m0zWUwib9
+	PYJ/QxwsJamEsa5IrcpPC4ZFPF8DGmcvmNfxeXKE/dukqBA+wKNZpgvvnYxVjTm+ynBHY2EXc9l
+	UP/5YEaEhnMw9F/EFOktYcyU6CU9kfsKcczdbzBOzr4x6KmMiQqY4p4WbfOABqmCV9ME9DLv7/6
+	DPDVMwJn4=
+X-Google-Smtp-Source: AGHT+IF+gOPHGMkG5i/DE7fgH/ZOYxTnR01MhvsyPeV76b4U7Vxipn3b51XhfCE5uy+rA5olGmwJZg==
+X-Received: by 2002:a5d:5d0c:0:b0:3b6:463:d886 with SMTP id ffacd0b85a97d-3b60e4ccea6mr4952092f8f.20.1752736240562;
+        Thu, 17 Jul 2025 00:10:40 -0700 (PDT)
+Message-ID: <fcd4e2da-7d34-45f6-8d3a-0c60010a5da1@suse.com>
+Date: Thu, 17 Jul 2025 09:10:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Config: update Mini-OS commit id
-To: Juergen Gross <jgross@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250717065648.10163-1-jgross@suse.com>
+Subject: Re: [PATCH 1/6] x86: Sort headers
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250716173132.2213891-1-andrew.cooper3@citrix.com>
+ <20250716173132.2213891-2-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,14 +119,16 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250717065648.10163-1-jgross@suse.com>
+In-Reply-To: <20250716173132.2213891-2-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17.07.2025 08:56, Juergen Gross wrote:
-> Use the newest Mini-OS.
+On 16.07.2025 19:31, Andrew Cooper wrote:
+> In intel.c, drop asm/mwait.h and asm/uaccess.h, neither of which are used.
 > 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 Acked-by: Jan Beulich <jbeulich@suse.com>
 
