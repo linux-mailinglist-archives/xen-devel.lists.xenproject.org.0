@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61E3DB084E2
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 08:30:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1046181.1416427 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16DC1B084F6
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 08:33:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1046186.1416438 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucI83-0004P1-Mh; Thu, 17 Jul 2025 06:30:03 +0000
+	id 1ucIAp-0005t3-3m; Thu, 17 Jul 2025 06:32:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1046181.1416427; Thu, 17 Jul 2025 06:30:03 +0000
+Received: by outflank-mailman (output) from mailman id 1046186.1416438; Thu, 17 Jul 2025 06:32:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucI83-0004Lp-Jx; Thu, 17 Jul 2025 06:30:03 +0000
-Received: by outflank-mailman (input) for mailman id 1046181;
- Thu, 17 Jul 2025 06:30:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ucIAp-0005qb-0f; Thu, 17 Jul 2025 06:32:55 +0000
+Received: by outflank-mailman (input) for mailman id 1046186;
+ Thu, 17 Jul 2025 06:32:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Kd8q=Z6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ucI83-0003yh-37
- for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 06:30:03 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7729a5c7-62d7-11f0-a319-13f23c93f187;
- Thu, 17 Jul 2025 08:30:00 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3a588da60dfso324109f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 23:30:00 -0700 (PDT)
+ id 1ucIAn-0005qV-FY
+ for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 06:32:53 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dcda8ad1-62d7-11f0-b894-0df219b8e170;
+ Thu, 17 Jul 2025 08:32:51 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3a575a988f9so342872f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 23:32:51 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74ebfd2d26asm13414914b3a.76.2025.07.16.23.29.47
+ d2e1a72fcca58-74eb9dd603asm15796482b3a.12.2025.07.16.23.32.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jul 2025 23:29:59 -0700 (PDT)
+ Wed, 16 Jul 2025 23:32:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,69 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7729a5c7-62d7-11f0-a319-13f23c93f187
+X-Inumbo-ID: dcda8ad1-62d7-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752733800; x=1753338600; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752733971; x=1753338771; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zJhgk75TSen/8gpSOKaI+DYa5yxcM2Lboo2pZZ3NkAA=;
-        b=dHgCNN1VyGmql/YO094JXEJFb6RmUNop8TFfWn34YpENwVPpf/qpwz0Nz1Ih+PriFP
-         WHiHeEsiQMWWPrUC7xqNGkWzk6qeQgtDLLDYQnsmUJNI9D3FBeyRVShimpR0U/A55UQg
-         2oKtT8lkd1W045voi0nwzx0LJ28s+EFAV5/zsiqkHhy5gUb3XvZpTtqK2Scq5EK7Gs9g
-         g9wKWqAX5ntfFtHR0nMm+XzWpnRHt1FTIrlMk+RybAB0SCw0QPpKTeiw0kSK184aV6ah
-         t+cjW2iHBlCJqwBaiGx9i+0nrVCrkv26VRIt8fgHGEwa8cTdg4uzCRyNwUYmKhyuniyU
-         q+Iw==
+        bh=d437x+rQqw58o+wv4U6unwmLqUHUgHTpeRxV83qDZxI=;
+        b=NrPpzgydGU3YatW+fmZFe+ZT5ZPuOLttmiG7geLk0WuuxWhbojspRcoSt9JpT7XeRS
+         +jxAg91NdFPRH1DADzt3ZiqaeKUuOP7q3jJcQcjceCEJUvVMscHZcA2BU29Nee4VBcLC
+         I03AL/Si/lXt0Q05aNfATXlVCYQQAAH5GCq8xgbHeoYqbR4nScQxyJcbYx9b7+by3M8J
+         ECSNTQeGm1HEWu8+BD6ugEmHftS+9lC0V1GqOIvmUtQ55QBu6vsLidT8qCYaSvCehHSZ
+         iGsMKHc3NeKeKF5wEXhVG0dWKKJAcOhqLLa7ZL6R3XulZbWTqPiiJQwrP/eSAAkAmJqF
+         cGJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752733800; x=1753338600;
+        d=1e100.net; s=20230601; t=1752733971; x=1753338771;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=zJhgk75TSen/8gpSOKaI+DYa5yxcM2Lboo2pZZ3NkAA=;
-        b=jh5c5AVD8zQO2Q/RAvS8zUHq/N4LMWYmIFa0E+nAqCwxCkFInTJkt60vxGNh0yNZH7
-         +I5Ju3OqMLlzEF2rpmS7YRSoKEyKiqiY1mRsR5s6PXXJd8gft2HuQCDZmvR3YbTlsHt5
-         S7uVgaytVPRRxa6ushqJtj2SVCJ2sNAd1zpDXUiIFcJzCe7POHlA7UGWKSKGThrYzQ/k
-         FqkQ5qiVVcnbrLvDGt7edXvamzot+bUxHR5xvg2Pf4CgtpUQydPdBsMeOF/nJmoa/tYW
-         Teqc75jcrb3eEQHvOg7K6h0W/LDcKbK0tMaDG9bZOf11fbiLUqvd+jsy61yFjM7LttPo
-         0p5g==
-X-Gm-Message-State: AOJu0YxXWETqckVCHQwN2svhQIwalJewnPL9PZaE/oIRseXEdP0lY5Rj
-	PTmCLRiHxP6HljtabGseLWWDOb15Glw0a5NqB4V+n8o9Ykh3Dte0jh+8AZv4qi/EXw==
-X-Gm-Gg: ASbGnctTQ7lqYHPndg+OKo6PBFbDnfzirBYcCNe17eMNO+xxgXvDcBJ2i4LH+Zwh3KP
-	l7/6nrZ87Q8isCLm2b6he83jcoEOZexaVxU+V5XadJi5pQCA1dfldneJyYIjb0PuZimovn/lIrM
-	TwRZUV953OEXZ/gVKgmNlh4RDXL7aqRU8Sr+QYvTff4U5NMIz2Kh6b7peEZi/tTLozYGqSjgP4o
-	JFEGiPPCItl2w9vjP/XSp6eH4ttYnGMDaXOX/IqFCgMDmw/r9u0npzwdAdmufo+SsiG7pt4ACuO
-	zAS3yayWZsBf/zoAvxzsrCy6zjatetB3BdiVQ2ntMppjycl0Pc8JA1F2Hx9zlfWbQojIVbk19Ql
-	UKL4xuILB/2akZ5fDkkxVohGT2AOXVfNXziOSSOzheml/nmjZqRDmIOuRQK5MUzCO9fS6ygy67G
-	DJDYkPDws=
-X-Google-Smtp-Source: AGHT+IGD8uV+NCbPKS56SKr5QMRzsfywTWU7Y59Tw6SYB7WhhBiDPaw4Niz7JbJRAGjMoU7CCe4KFw==
-X-Received: by 2002:a05:6000:40ca:b0:3a8:6262:e78 with SMTP id ffacd0b85a97d-3b60e513909mr3701556f8f.37.1752733799950;
-        Wed, 16 Jul 2025 23:29:59 -0700 (PDT)
-Message-ID: <f1021db3-ecd1-4c27-890f-b474e20cc5e3@suse.com>
-Date: Thu, 17 Jul 2025 08:29:42 +0200
+        bh=d437x+rQqw58o+wv4U6unwmLqUHUgHTpeRxV83qDZxI=;
+        b=orRa9zp+XUOXLtBX0ogKLdaDvnmc2GuQo5KrHvqTRHNFx4XKzdR87X3IjturOVB5Ok
+         9UjR73Bgoasl1ORJZjaCU8kIZ8/H4GiyGPkhXzAA2dGGStupxCHq0X9TbT1i2IpKKqWe
+         wWZn0B/NIknj9x7bBviQv0EQZQROCOsDgfAuERsi2SgRDq/1kVkvmZmpm4xPF+5n/MJ0
+         GbtRwLMWIpnL5aQ0075/HFkujFgCx8jm2TEhR1dk/0CRi8HBcDVFx/E0HS4Qi2XNg2C4
+         GU5QQbkk4//rUYWAyTRUSeMqKv3UyOiB9kK402lNc/P4Nt601Ru66Pq0lRQHHUPbm1pk
+         +QRA==
+X-Forwarded-Encrypted: i=1; AJvYcCUFKelIK5s0wrQdo3h5mlrjmkaD6HKCwwfx+aJKe6tqIwhIEk1LV9axjaODEzBfglHZfDQrKFpH120=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxafckMm+YpKCZkw3oWYJ5zX3w7rByDEMWw8cnxqnh/O53rdgBh
+	+qnmBS9TcJihIEwRmM1dpa0g6NRjx450l3qK5K4twZdWcBWY4ZUJ1BBPHKQbPHaAuaYPFSTv25z
+	9BXc=
+X-Gm-Gg: ASbGncud1VNXOXZWA56SNW/6Yrf128oB0tT6hVHvRTdQRkRLQlBYP4DkioYAhJlauzX
+	QFuaVo1KuQsbuaWICmYka+V2csCmosGfEvJU5AcX5gz6ge/JTI8G2/0D4OCPpvMZGpcP5ooZPG+
+	/1mOO8j3auDXYp4csSQxvTxLJfrmJgi0RffaWdM+D1sMFASb0a9Op3JGj+ya1tkNX0MIH8059dH
+	GMbaZTG7Recrsywe/xjQ+IVpUUiIFBmOYizW8jtwo+zQnpum9X34XrCO2OCyFt7Yn0Q3X+Y9xXg
+	/tQ0m8YrtqebjSMyKxgyXOFHv9SIuEjD9+0CQe7rceMhnKBNbLm/MdU5awMg+F1Re5wi7tps/0Y
+	5z9fKFjPWwzrtn+Ip+VTMh1kZ3M2oKO+mNF5OeH1JOh8+/at6fT2tZd21kkavKnZIa8DeC0Hc+K
+	jD9nEgoRk=
+X-Google-Smtp-Source: AGHT+IE3Zl82EHkafppAKF872oqyXXJYqYROr4uc4t4gZf5Y5bFOre4V3z0oIbAMR0eyjQS/y4vFLg==
+X-Received: by 2002:a05:6000:18af:b0:3a3:67bb:8f46 with SMTP id ffacd0b85a97d-3b60dd918a6mr5787406f8f.57.1752733970704;
+        Wed, 16 Jul 2025 23:32:50 -0700 (PDT)
+Message-ID: <72ece915-2a95-41f6-b319-03f821feb7a8@suse.com>
+Date: Thu, 17 Jul 2025 08:32:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 0/7] xen: introduce CONFIG_SYSCTL
+Subject: Re: [PATCH v7 0/7] x86: memcpy() / memset() (non-)ERMS flavors plus
+ fallout
 From: Jan Beulich <jbeulich@suse.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, xen-devel@dornerworks.com,
- ray.huang@amd.com, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Nathan Studer <nathan.studer@dornerworks.com>,
- Stewart Hildebrand <stewart@stew.dk>, Dario Faggioli <dfaggioli@suse.com>,
- Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Penny Zheng <Penny.Zheng@amd.com>
-References: <20250711043158.2566880-1-Penny.Zheng@amd.com>
- <alpine.DEB.2.22.394.2507151823170.15546@ubuntu-linux-20-04-desktop>
- <4df052eb-1757-488c-ae8a-3a9cc2c38a49@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Jason Andryuk <jason.andryuk@amd.com>
+References: <0b57c6f0-9fd0-4f8a-93f8-dc494a1e952c@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -132,24 +121,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4df052eb-1757-488c-ae8a-3a9cc2c38a49@suse.com>
+In-Reply-To: <0b57c6f0-9fd0-4f8a-93f8-dc494a1e952c@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.07.2025 09:01, Jan Beulich wrote:
-> On 16.07.2025 03:24, Stefano Stabellini wrote:
->> Heads up, I intend to commit this series shortly as it has been
->> thoroughly reviewed by multiple people and has been on the list for a
->> long time now.
+On 02.07.2025 14:10, Jan Beulich wrote:
+> While the performance varies quite a bit on older (pre-ERMS) and newer
+> (ERMS) hardware, so far we've been going with just a single flavor of
+> these two functions, and oddly enough with ones not consistent with one
+> another. Using plain memcpy() / memset() on MMIO (video frame buffer)
+> is generally okay, but the ERMS variant of memcpy() turned out to
+> regress (boot) performance in a way easily visible to the human eye
+> (meanwhile addressed by using ioremap_wc() there).
 > 
-> I would have already committed it if it had all necessary acks. XSM ones
-> in particular are missing.
+> 1: x86: suppress ERMS for internal use when MISC_ENABLE.FAST_STRING is clear
+> 2: x86/alternatives: serialize after (self-)modifying code
+> 3: x86: re-work memset()
+> 4: x86: re-work memcpy()
+> 5: x86: control memset() and memcpy() inlining
+> 6: x86: introduce "hot" and "cold" page clearing functions
+> 7: mm: allow page scrubbing routine(s) to be arch controlled
 
-While the XSM acks did arrive, you still committed part of this series not
-fully ack-ed. As much as I can understand your eagerness, I think chasing
-all necessary acks is important. If nothing else, then to avoid after-the-
-fact discussions (as I could see happening for the second to last patch of
-the series).
+This series now again having all necessary R-b (Jason - thanks!), I'm
+intending to commit it early next week unless I hear substantial arguments
+to the contrary.
 
 Jan
 
