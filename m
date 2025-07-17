@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31902B08E00
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 15:21:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1046890.1417295 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD7B9B08E5E
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 15:36:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1046905.1417304 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucOXb-0003MM-Bx; Thu, 17 Jul 2025 13:20:51 +0000
+	id 1ucOmG-0007Mw-K3; Thu, 17 Jul 2025 13:36:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1046890.1417295; Thu, 17 Jul 2025 13:20:51 +0000
+Received: by outflank-mailman (output) from mailman id 1046905.1417304; Thu, 17 Jul 2025 13:36:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucOXb-0003KO-8V; Thu, 17 Jul 2025 13:20:51 +0000
-Received: by outflank-mailman (input) for mailman id 1046890;
- Thu, 17 Jul 2025 13:20:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=68ni=Z6=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1ucOXZ-0003KI-Bi
- for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 13:20:49 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2061c.outbound.protection.outlook.com
- [2a01:111:f403:2418::61c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d98bf5ac-6310-11f0-a319-13f23c93f187;
- Thu, 17 Jul 2025 15:20:47 +0200 (CEST)
-Received: from DM6PR12CA0014.namprd12.prod.outlook.com (2603:10b6:5:1c0::27)
- by DM6PR12MB4468.namprd12.prod.outlook.com (2603:10b6:5:2ac::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.24; Thu, 17 Jul
- 2025 13:20:43 +0000
-Received: from DS3PEPF000099DD.namprd04.prod.outlook.com
- (2603:10b6:5:1c0:cafe::c9) by DM6PR12CA0014.outlook.office365.com
- (2603:10b6:5:1c0::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.20 via Frontend Transport; Thu,
- 17 Jul 2025 13:20:43 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS3PEPF000099DD.mail.protection.outlook.com (10.167.17.199) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8943.21 via Frontend Transport; Thu, 17 Jul 2025 13:20:42 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 17 Jul
- 2025 08:20:42 -0500
-Received: from [172.21.62.237] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Thu, 17 Jul 2025 08:20:41 -0500
+	id 1ucOmG-0007KP-Go; Thu, 17 Jul 2025 13:36:00 +0000
+Received: by outflank-mailman (input) for mailman id 1046905;
+ Thu, 17 Jul 2025 13:35:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Kd8q=Z6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ucOmF-0007KJ-Bn
+ for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 13:35:59 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f8037901-6312-11f0-b894-0df219b8e170;
+ Thu, 17 Jul 2025 15:35:57 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3a50956e5d3so737383f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Jul 2025 06:35:57 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-31caf7e8984sm1570191a91.23.2025.07.17.06.35.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 17 Jul 2025 06:35:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,248 +45,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d98bf5ac-6310-11f0-a319-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IVH9yQgWyFNedzB4SjS6WZuxYi1quBtn7IpNIS6KJIrJ1WeHyN5x7z3IWkEnKXi2+Le/Uyc4vm5/Zl9ZXUjSHLe6EHphpAly9zv1if7Oy1WhN7+llRVrYo7u4I4fHGaaV2mE7tzQ33dsdDf7XWpFn1avQPXNdhTlFnFhbzEkaSSyA7U46bRJBsPW24wXCOduBcHwn0nDwID1krMQfCxDoqf7Zi1CF5HgQi24pH9UJbC2bvKtFb3WDnqT6G/D6xSKG5EW+A0Gw1kz7AV2WmIKLCD0qyNs3pKymlkNGWs35NDVQVuvn4Of/2VbmXR41cqpZyPDDOt/uk0Rxz7S70AtnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k+3G5X7FVn8MiJi955OOZDwsokiHYaq1BBDMSaA91ro=;
- b=ZXCGTIDUDjoq/faufZm6/50/oOMGkW8TIm2yIofqFVhf3MjUh97JNhnKw5XScl2fVkl/479Bd/hlrFr5njq8Lx4p/CG1YdfcAqm8nI0uZ09CaEcALOsY88P1JehAzbdZxLfxm0SBIZYZ5+UGxv90mnROxjDa5Y29OtQ5B71ffwKKIqfDJmtgwd2zOQ9cW0Yay+ZLVJ4RAjfajyActiTQAe2bL0tqDEVWaKZG+38oj6WolDwl1mbNrCkFHyFMCc64Bxv8XkFECnNgJ/DKSW/fWReDmKAQvk42V8N+2cF1KJqzhEOVUlKy5zYI9A930wwxmJDxPoMYBKLcrPWFfFnu4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=boeing.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k+3G5X7FVn8MiJi955OOZDwsokiHYaq1BBDMSaA91ro=;
- b=NbyGFDDNhKUDO2b+SZE9nsj0XKIIrQMW3tagqFGAAM7ztCufzKhvtRhrK7soT5GTnC6Fd73mJtJcSi9jHA9Q2R2OzHSc0OcyUuy4grDp/ApqECBwlJpLU0/6loxwIyaTHYip6g3aH+AZczrwMiBtW1eslQYyj/j/5ipvuhFSsIQ=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <2c4837b7-404f-47a5-8c6c-f3a707bb544e@amd.com>
-Date: Thu, 17 Jul 2025 09:20:40 -0400
+X-Inumbo-ID: f8037901-6312-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1752759356; x=1753364156; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=e5lSuzlGnalG5cLFrCoxzDU8Kpt81zzps6eBTogKWTY=;
+        b=gl8whRs4WQg5qQaM0v7l3bj9QzDq73E0eRnaTwtuZBzD31TZW+iq1xhuq5a/oWgeYS
+         k1OA8HBC8XmpOMIE0EPg8kCOqmfsQY41ygwaIDfOpcayC5v9GWTjGLek25AInO/lEABF
+         DrNznIIyqcw5q7sPHi2RaeBUBsCqnp1fetS6hBhL+4SOymDugmnwFZrsSdHwGJyxNbC0
+         NyskTfqN0bEB/6CeZV3VQNBtAZK4UYyEdMmOOY9LeYqjjB6UQC11Egideb00a8tgLVnE
+         c1ZtmfaB8gqEtjr/TG6rhFlAuhGlkYiwJvWkg3tXei0EZD9pAZGXv7i0gv1O5VIrkxoV
+         czpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1752759356; x=1753364156;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=e5lSuzlGnalG5cLFrCoxzDU8Kpt81zzps6eBTogKWTY=;
+        b=j6OdAIu57M31G0JQn1RfeG2JK8hahI6Ev+etq30rrorD65zgpmvWCGiwzmb14NFahC
+         EJema0ofkMY3z3v0jK0bcfpSUlq2I35qmmvLpxONB4psRtDKbVqoWODYgTK+Xm+Gkq/h
+         3dwXzVW8gjE/ZjOi5GJV2vp/nrfVxT8dAo/iEN5BVvoJjYPA4/tkb2o78jTO3TeRaBQB
+         hYnOTpMhCxxLFN/Kr8nwMtVFZttQJWxzkbJbwVduCogvOghjven/ZW3xZyMKenZztDFL
+         GPTnayPqcJPEY2E7LHK/h329X5A/b9OlWbzdOYwgJNn0QBHofjdZuDX4lB0nqCLgMThb
+         Rhqg==
+X-Forwarded-Encrypted: i=1; AJvYcCW4v7hhKICsj/1gRrwMCgxL4D1XeJT3ege8LUlX6eAL3kjqa8p6qdOuIs2RGr8KC2N6CiwtFI3jkDg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyp/Pb1CXs9csiqWi88WlOsnj3MroS6CwY+l1lp5mc0on/hua2p
+	Y32QNhmNNhNBRG/KKkCQZCUpdiDwPqIhAZ1HJ874rETPIDRy8LHIZvEo9vxa7HWeJg==
+X-Gm-Gg: ASbGncsKkB+zrcQc+/z+eTprgiTwWnLLgFQtdei4L+YlyoEwxYylBowpAEoqEQ/cXty
+	nHOie608QO1ZWznfRdDrQxH5+iVXHNtNalsKNO2PRqCTvlcubg87Bw9yxOMwsyTBIUhoTlOTPdh
+	yTMTcftgSBw8WWLytwonqxeWPAo9mDLJgiB8tNiO+BPoNBuKXjHZNVL5MhMx1kz0qKPRMpyxt4Z
+	eEwxXb9jtFkQ9fcqT5YMIrsyqq031Hn1Hyl2Mw5OXRZz53vQDlvn7N0JRov+8UKEZnE596X5iOa
+	fMjqM0MK4I0UPgejKRmorgPxQ2rxbBYEfOGcnwgPBczXnlX9LSgVtIeG8khTQu1FQIQkBfGeect
+	9ItiIAmCywto4mYHSfYZhfFSCWTIgznki2tT3n46CLrIfTJr3nGyfkkN0t4LvtAV7yMV5RabnkE
+	desxNtVpE=
+X-Google-Smtp-Source: AGHT+IFl1htb5zhVitQbd27fsKxV64/WBeIO89fmaM03C1DsUYeSkk+kxEf7eiXxLDgDeX/LpyEfmQ==
+X-Received: by 2002:adf:b646:0:b0:3a4:f50a:bd5f with SMTP id ffacd0b85a97d-3b60dd7303cmr4450391f8f.31.1752759356415;
+        Thu, 17 Jul 2025 06:35:56 -0700 (PDT)
+Message-ID: <cc8f85f6-8c22-411a-bcba-085cf51defb3@suse.com>
+Date: Thu, 17 Jul 2025 15:35:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2] xen/arinc653: fix delay in the start of major
- frame
-To: Anderson Choi <anderson.choi@boeing.com>, <xen-devel@lists.xenproject.org>
-CC: <matthew.l.weber3@boeing.com>, <joshua.c.whitehead@boeing.com>, Nathan
- Studer <nathan.studer@dornerworks.com>, Stewart Hildebrand <stewart@stew.dk>,
-	Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>, George
- Dunlap <gwd@xenproject.org>, <xen-devel@dornerworks.com>
-References: <c3234cf8d5fb5da84e10ebdb95250c594f644198.1752197811.git.anderson.choi@boeing.com>
+Subject: Re: [PATCH v6 13/19] xen/x86: implement amd-cppc-epp driver for CPPC
+ in active mode
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250711035106.2540522-1-Penny.Zheng@amd.com>
+ <20250711035106.2540522-14-Penny.Zheng@amd.com>
 Content-Language: en-US
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <c3234cf8d5fb5da84e10ebdb95250c594f644198.1752197811.git.anderson.choi@boeing.com>
-Content-Type: text/plain; charset="UTF-8"
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250711035106.2540522-14-Penny.Zheng@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB04.amd.com: stewart.hildebrand@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099DD:EE_|DM6PR12MB4468:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6944be74-d53c-4e0c-4ab4-08ddc534bb4a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|376014|7416014|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?WlIzL012blJ5WlNmcWJ0ZzBXKzJMZjE4S0NYU0hvcVc1UUd6eHBMY1A3UXB2?=
- =?utf-8?B?b3FuazFVMHNMVFdmNVdqZ0VzaEtsSjY4b015SGtHTGtUY2xZUjl6dUtJaVRF?=
- =?utf-8?B?ZFdlZ1BNMlhIdzhjVzJpYU1OenRBeHRmQnhaUE1JZE03MW9IMkdYTlZxM1NG?=
- =?utf-8?B?MEx1R3VaNkdidkpWdWxZMFhycGdpMkZibFVuSU8va1pCUUo1NHBVTG5ZdmZm?=
- =?utf-8?B?Q1lOcG9HMmpRWDBvYW9zWUxvMThSWjhuNkhQNzNiR0xjVVBjMDBTZFl4bm93?=
- =?utf-8?B?QWVINjhHMEMweUZJVnpteHV1Rzd4elJCZC92Z0o3OEI3YWV4ZGJ4cU5La3R3?=
- =?utf-8?B?Z2tsb0hETlVoalJFYnZHQVpLdzgvKzltaTJCUE80MGI4U2Q4NW5IQ29rL2Er?=
- =?utf-8?B?cE5jcjkxS0ZrZENJQVJOT2QzaDRPVnljbndNczRlMy9UMU9Za1Mxem5lSCth?=
- =?utf-8?B?UEFzT2lLYmhiTFA5TWpKRXZXci9VSzhJcGl4bWwrOGdxWk45Q0xKN3RQaUFv?=
- =?utf-8?B?b3NVK2szdWVlOGxoVFBMNE9YV0ZBVjZHdjQzeEx3MFZEcXBybVhXVHRaL2dX?=
- =?utf-8?B?Wit2YisrMExaMzdLNm9USUhRTmhEcHBHQ1hKc21XVVczdW9DY0lzQWFvaWMy?=
- =?utf-8?B?WXR6NU1DK25qUW5TNG9LWUwyb3FMTG9uZE1YcGtXeVFaVGRnRmtDcmVydy9C?=
- =?utf-8?B?L1MrdkZQUzZlbkhkMkFXMTdwMzNJZElzZ1QwVGFHUksrazFNMktYZnQyUHh3?=
- =?utf-8?B?ZkZab2MrdWFabkpDT2hLemtIZWFucU1Lc3RkOEVFV2pvYjlhdkhjWlBiYndB?=
- =?utf-8?B?elBYVU9tK3pyYVhlRDQycXBzZi9zRnZBYVk0RkZObjF4ekJIOGxsY2NQMFIx?=
- =?utf-8?B?dDJxK0ZmaDl1eUJsMTFNejhSRy9xZWZ5bWdlTDIyKzNMRHNaL3dhcEs1WFd4?=
- =?utf-8?B?K0Q1RzlPVFJidzJpNHV0Y3JkK2dkdnB4VzhyREJKRzg0V3NFUkhDditnU0Nm?=
- =?utf-8?B?WFNJUzZGNlI2dS9sMjdZbFhUV3J2UDRaY3A0YUdLcDlaR3A3L3F0NEZkTVl2?=
- =?utf-8?B?aCtQMXVBMnRlWDFqb0dZaXBHR043MThqbFJrNTg3SlAzQTV2NHplc2pMY1U2?=
- =?utf-8?B?ZFdkbzQ1ejh4cTVuRGVHZ2RXeUQrbWtDdGJBaG9JME5ucUd1TUw0QU1FR0JH?=
- =?utf-8?B?dWhmajIyUytiSHZpSElnNlBmR1JtYnd4ZHRBWHdYczVuWWZmMUdtRi9QWjFM?=
- =?utf-8?B?WXg1WHdZRmkzbEFrbm1Ha0N0U0ExSHRlQUhycmRIZ2RVWnRmdHByeWlQR2tm?=
- =?utf-8?B?TXY0QS9taFdEdUxvWUhrOGIzaHg3UGNaSnJLcGJXS0VpeXFPWUZyMExuRXNi?=
- =?utf-8?B?Y2doMUhTWXFpc08waGVueGY0bDlYejVOanpWUzZ6M0g0N20rVWs4Z09jbStH?=
- =?utf-8?B?VUlPZlRoOStRb0w0ckdpZEUzTFpxbFZhR0E1TXpMOGdWcnRQYjMrUnZ2aDgr?=
- =?utf-8?B?eDRhaS8zTUIvZ3FpLzBBN2h1dDhGNEVUMHVVb3FoblBKV2sxcmV4dGpQbXZB?=
- =?utf-8?B?SVp6OUEzN2hGTWxIS04zc3VkdUNqYUp5b2lMb0V6OUhuS1NsSWlrR2lyQnZD?=
- =?utf-8?B?ZUJ0T1pteGxOZ29JYnMwNXh1N1ZNNDZYRFY5c1hFeElFUEx0ZGJMQndMM3pQ?=
- =?utf-8?B?b1JvZTA0cGx6L28wbjFLVEUyL1Z1STJjQlB3K1hGSmY3Nk5GQ1V0a0JrN2V0?=
- =?utf-8?B?aFVWcmtreGF2cEFkeGVsTW1hMEgrY0JBaVBTTldmSFpUZUJiR0pFN3NsY1Mv?=
- =?utf-8?B?NTJvaFVIZGhCTVQ4bnZUSDBaUHpadEdXLytPZS90UlFxYjJYWERTQkM2VUIx?=
- =?utf-8?B?T3VpVitiL3VXTUgwajF0ODIwZ1hYSGRzUGhGUCsxb1ZOZ0t4Z0lIMnNsaEhs?=
- =?utf-8?B?NGlDV054ZmlHNVEvSjhzV3BDaHdOOFhXRkxWdkczeFlsWTlBdW9TL2x6am5z?=
- =?utf-8?B?QmpORXNMbzNwNjlZU0tpU1FzNk16bnBIODJtcmhPNXBJS1pvTVFxOFI3dVZu?=
- =?utf-8?Q?+T6a6C?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(376014)(7416014)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2025 13:20:42.6859
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6944be74-d53c-4e0c-4ab4-08ddc534bb4a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF000099DD.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4468
 
-On 7/14/25 23:16, Anderson Choi wrote:
-> ARINC653 specificaion requires partition scheduling to be deterministic
+On 11.07.2025 05:51, Penny Zheng wrote:
+> --- a/xen/arch/x86/acpi/cpufreq/amd-cppc.c
+> +++ b/xen/arch/x86/acpi/cpufreq/amd-cppc.c
+> @@ -67,7 +67,14 @@
+>   * max_perf.
+>   * Field des_perf conveys performance level Xen governor is requesting. And it
+>   * may be set to any performance value in the range [min_perf, max_perf],
+> - * inclusive.
+> + * inclusive. In active mode, desf_perf must be zero.
 
-s/specificaion/specification/
+Nit (typo): des_perf
 
-> and periodic over time.
-> 
-> However, the use of current timestamp (now) as the baseline to calculate
-> next_major_frame and next_switch_time introduces a delay in the start of
-> major frame at every period, which breaks determinism and periodicity in
-> partition scheduling.
-> 
-> For example, we observe 3.5 msec of accumulated delay at the 21st major
-> frame with the following configuration.
-> 
-> Target : qemuarm64
-> xen version : 4.19 (43aeacff86, x86/IRQ: constrain creator-domain-ID assertion)
-> dom1 : 10 msec runtime
-> dom2 : 10 msec runtime
-> 
-> $ a653_sched -p Pool-arinc dom1:10 dom2:10
-> 
-> 0.014553536 ---x d?v? runstate_change d1v0 runnable->running //1st major
-> frame
-> 0.034629712 ---x d?v? runstate_change d1v0 runnable->running //2nd major
-> frame
-> <snip>
-> 0.397747008 |||x d?v? runstate_change d1v0 runnable->running //20th
-> major frame
-> 0.418066096 -||x d?v? runstate_change d1v0 runnable->running //21st
-> major frame
-> 
-> This is due to an inherent delta between the time value the scheduler timer
-> is programmed to be fired with and the time value the schedule function
-> is executed.
-> 
-> Another observation that breaks the deterministic behavior of partition
-> scheduling is a delayed execution of schedule(); It was called 14 msec
-> later than programmed.
-> 
-> 1.530603952 ---x d?v? runstate_change d1v0 runnable->running
-> 1.564956784 --|x d?v? runstate_change d1v0 runnable->running
-> 
-> Enforce the periodic behavior of partition scheduling by using the value
-> next_major_frame as the base to calculate the start of major frame and
-> the next domain switch time.
-> 
-> Per discussion with Nathan Studer, there are odd cases the first minor
-> frame can be also missed. In that sceanario, iterate through the schedule after resyncing
-
-s/sceanario/scenario/
-
-> the expected next major frame.
-> 
-> Signed-off-by: Anderson Choi <anderson.choi@boeing.com>
-> Suggested-by: Nathan Studer <nathan.studer@dornerworks.com>
-
-I think this wants a Fixes: tag:
-
-Fixes: 22787f2e107c ("ARINC 653 scheduler")
-
-> 
-> ---
-> Changes in v2:
-> - Changed the logic to resync major frame and to find correct
->   minor frame after a miss suggested by Nathan
-> ---
->  xen/common/sched/arinc653.c | 38 ++++++++++++++++++++-----------------
->  1 file changed, 21 insertions(+), 17 deletions(-)
-> 
-> diff --git a/xen/common/sched/arinc653.c b/xen/common/sched/arinc653.c
-> index 930361fa5c..a7937ed2fd 100644
-> --- a/xen/common/sched/arinc653.c
-> +++ b/xen/common/sched/arinc653.c
-> @@ -526,27 +526,31 @@ a653sched_do_schedule(
+> @@ -259,11 +276,18 @@ static void cf_check amd_cppc_write_request_msrs(void *info)
+>  }
 >  
->      spin_lock_irqsave(&sched_priv->lock, flags);
+>  static void amd_cppc_write_request(unsigned int cpu, uint8_t min_perf,
+> -                                   uint8_t des_perf, uint8_t max_perf)
+> +                                   uint8_t des_perf, uint8_t max_perf,
+> +                                   uint8_t epp)
+>  {
+>      struct amd_cppc_drv_data *data = per_cpu(amd_cppc_drv_data, cpu);
+>      uint64_t prev = data->req.raw;
 >  
-> -    if ( sched_priv->num_schedule_entries < 1 )
-> -        sched_priv->next_major_frame = now + DEFAULT_TIMESLICE;
-> -    else if ( now >= sched_priv->next_major_frame )
-> +    /* Switch to next major frame while handling potentially missed frames */
-> +    while ( now >= sched_priv->next_major_frame )
->      {
-> -        /* time to enter a new major frame
-> -         * the first time this function is called, this will be true */
-> -        /* start with the first domain in the schedule */
->          sched_priv->sched_index = 0;
-> -        sched_priv->next_major_frame = now + sched_priv->major_frame;
-> -        sched_priv->next_switch_time = now + sched_priv->schedule[0].runtime;
-> -    }
-> -    else
-> -    {
-> -        while ( (now >= sched_priv->next_switch_time) &&
-> -                (sched_priv->sched_index < sched_priv->num_schedule_entries) )
+> +    if ( !opt_active_mode )
+> +        data->req.des_perf = des_perf;
+> +    else
+> +        data->req.des_perf = 0;
+
+In amd_cppc_epp_set_policy() you pass 0 anyway. Why is this needed? With this
+change dropped, opt_active_mode can become __initdata. (But of course you may
+want to add an assertion instead, in which case the variable needs to stay
+where it is at least in debug builds.)
+
+> +    data->req.epp = epp;
+
+Ahead of this patch, aren't you mis-handling this field then, in that you
+clear it (as you never read the MSR)?
+
+>      data->req.min_perf = min_perf;
+>      data->req.max_perf = max_perf;
+>      data->req.des_perf = des_perf;
+
+Don't you need to delete this line with the addition above, or alternatively
+change the above to
+
+    if ( opt_active_mode )
+        data->req.des_perf = 0;
+
+?
+
+> @@ -274,6 +298,14 @@ static void amd_cppc_write_request(unsigned int cpu, uint8_t min_perf,
+>      on_selected_cpus(cpumask_of(cpu), amd_cppc_write_request_msrs, data, 1);
+>  }
+>  
+> +static void read_epp_init(void)
+> +{
+> +    uint64_t val;
 > +
-> +        if ( sched_priv->num_schedule_entries < 1 )
->          {
-> -            /* time to switch to the next domain in this major frame */
-> -            sched_priv->sched_index++;
-> -            sched_priv->next_switch_time +=
-> -                sched_priv->schedule[sched_priv->sched_index].runtime;
-> +            sched_priv->next_major_frame += DEFAULT_TIMESLICE;
-> +            sched_priv->next_switch_time = sched_priv->next_major_frame;
->          }
-> +        else
-> +        {
-> +            sched_priv->next_switch_time = sched_priv->next_major_frame +
-> +                sched_priv->schedule[0].runtime;
-> +            sched_priv->next_major_frame += sched_priv->major_frame;
-> +        }
-> +    }
+> +    rdmsrl(MSR_AMD_CPPC_REQ, val);
+> +    this_cpu(epp_init) = MASK_EXTR(val, AMD_CPPC_EPP_MASK);
+> +}
 
-There's no need for the above loop, this can be fixed by subtracting the
-remainder (modulus major_frame). E.g.:
+I'm unconvinced this is worth a separate function.
 
-    if ( now >= sched_priv->next_major_frame )
-    {
-        s_time_t major_frame = sched_priv->num_schedule_entries < 1
-                               ? DEFAULT_TIMESLICE
-                               : sched_priv->major_frame;
-        s_time_t remainder = (now - sched_priv->next_major_frame) % major_frame;
-
-        sched_priv->sched_index = 0;
-        sched_priv->next_major_frame = now - remainder + major_frame;
-        sched_priv->next_switch_time = now - remainder +
-                                       (sched_priv->num_schedule_entries < 1
-                                        ? DEFAULT_TIMESLICE
-                                        : sched_priv->schedule[0].runtime);
-    }
-
-The commit description may want some minor updating to reflect this.
-
-> + 
-> +    /* Switch minor frame or find correct minor frame after a miss */
-> +    while ( (now >= sched_priv->next_switch_time) &&
-> +        (sched_priv->sched_index < sched_priv->num_schedule_entries) )
+> +static int cf_check amd_cppc_epp_set_policy(struct cpufreq_policy *policy)
+> +{
+> +    const struct amd_cppc_drv_data *data = per_cpu(amd_cppc_drv_data,
+> +                                                   policy->cpu);
+> +    uint8_t max_perf, min_perf, epp;
+> +
+> +    /*
+> +     * On default, set min_perf with lowest_nonlinear_perf, and max_perf
+> +     * with the highest, to ensure performance scaling in P-states range.
+> +     */
+> +    max_perf = data->caps.highest_perf;
+> +    min_perf = data->caps.lowest_nonlinear_perf;
+> +
+> +    /*
+> +     * In policy CPUFREQ_POLICY_PERFORMANCE, increase min_perf to
+> +     * highest_perf to achieve ultmost performance.
+> +     * In policy CPUFREQ_POLICY_POWERSAVE, decrease max_perf to
+> +     * lowest_nonlinear_perf to achieve ultmost power saving.
+> +     */
+> +    switch ( policy->policy )
 > +    {
-> +        sched_priv->sched_index++;
-> +        sched_priv->next_switch_time +=
-> +            sched_priv->schedule[sched_priv->sched_index].runtime;
->      }
->  
->      /*
+> +    case CPUFREQ_POLICY_PERFORMANCE:
+> +        /* Force the epp value to be zero for performance policy */
+> +        epp = CPPC_ENERGY_PERF_MAX_PERFORMANCE;
+> +        min_perf = data->caps.highest_perf;
 
+Use the local variable you have, i.e. max_perf?
+
+> +        break;
+> +
+> +    case CPUFREQ_POLICY_POWERSAVE:
+> +        /* Force the epp value to be 0xff for powersave policy */
+> +        epp = CPPC_ENERGY_PERF_MAX_POWERSAVE;
+> +        max_perf = data->caps.lowest_nonlinear_perf;
+
+Use the local variable you have, i.e. min_perf?
+
+> --- a/xen/arch/x86/include/asm/msr-index.h
+> +++ b/xen/arch/x86/include/asm/msr-index.h
+> @@ -245,6 +245,7 @@
+>  #define MSR_AMD_CPPC_ENABLE                 0xc00102b1U
+>  #define  AMD_CPPC_ENABLE                    (_AC(1, ULL) << 0)
+>  #define MSR_AMD_CPPC_REQ                    0xc00102b3U
+> +#define  AMD_CPPC_EPP_MASK                  (_AC(0xff, ULL) << 24)
+
+The reason I noticed the EPP issue in amd_cppc_write_request() is because
+I wondered why you would need this, when you have the fields defined in
+struct amd_cppc_drv_data.
+
+Jan
 
