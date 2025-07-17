@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAB3AB08A60
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 12:16:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1046508.1416849 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 274CCB08A73
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 12:25:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1046513.1416860 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucLdq-0000S4-Px; Thu, 17 Jul 2025 10:15:06 +0000
+	id 1ucLoA-0002It-NJ; Thu, 17 Jul 2025 10:25:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1046508.1416849; Thu, 17 Jul 2025 10:15:06 +0000
+Received: by outflank-mailman (output) from mailman id 1046513.1416860; Thu, 17 Jul 2025 10:25:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucLdq-0000P4-NF; Thu, 17 Jul 2025 10:15:06 +0000
-Received: by outflank-mailman (input) for mailman id 1046508;
- Thu, 17 Jul 2025 10:15:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ucLoA-0002HS-KZ; Thu, 17 Jul 2025 10:25:46 +0000
+Received: by outflank-mailman (input) for mailman id 1046513;
+ Thu, 17 Jul 2025 10:25:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Kd8q=Z6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ucLdo-0000Oy-O0
- for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 10:15:04 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e7309c1c-62f6-11f0-a319-13f23c93f187;
- Thu, 17 Jul 2025 12:15:03 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3a6f2c6715fso633595f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 17 Jul 2025 03:15:03 -0700 (PDT)
+ id 1ucLo9-0002HL-9G
+ for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 10:25:45 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 649e8558-62f8-11f0-b894-0df219b8e170;
+ Thu, 17 Jul 2025 12:25:43 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3b45edf2303so694552f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Jul 2025 03:25:43 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74eb9f4bc51sm15535880b3a.116.2025.07.17.03.14.59
+ 98e67ed59e1d1-31c9f2b5221sm3044297a91.44.2025.07.17.03.25.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Jul 2025 03:15:01 -0700 (PDT)
+ Thu, 17 Jul 2025 03:25:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7309c1c-62f6-11f0-a319-13f23c93f187
+X-Inumbo-ID: 649e8558-62f8-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752747302; x=1753352102; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=j0cPNOrVrngHH9v6EctdaaNUieY6XJCl1CRr4F/05Y0=;
-        b=IdiASTVbVS6K+o71mE+GnUii7Wk7zvg1KDRe8xUAGYj8H22ARazLfaCZxVUuDxgJj4
-         Pn2ueVeP8SZrxk33VH+bX3Fe+jmyMuKMnPeQJJRUlVaLq394Dz6h1DbSUns9fYlBD9n7
-         6DDH9JtHDgrPHpHhfSSP8iTaD2rap59oQeAGyplzKQWxy8WVAkF3J1AEekcKlzGLgOhl
-         SkKwSAIgoT3MAP25lrn87or0OvWNLageBjqp0PxAeOeG741ro32LVW6Urw4eoFK2AKcy
-         AlE36nYhJkivkbrHVyXNdGgPhtdw5qxeQPAQXGWaxT99T34BLFhEAmNVM1N7kMUNNni1
-         6ofA==
+        d=suse.com; s=google; t=1752747942; x=1753352742; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ynIVlEc1we2Dot9WmVCeSuG01rhvnYHJMlhhMjjNppE=;
+        b=cUDRd0ktM1REIHY7aWItdTPhqEyK2lTGb2lMr9swdkuRxfyv754k+YAJVXRHpZFLqS
+         HHuy6c67DgTGyVeIfUmqYUTB+hHLnaN9pdzHYQvriJyV3CLgzHvaMZ+J42CRG8Z9pye3
+         4SQ3W1kv2+fSrAvOK7JCuEPpzSBE568Ho1Qa6Seq9LPFUsovlzaSa/2h1PC1o+f4/7Y5
+         huFysVNkfF1GyconoUkGk0ZEmnJv9F5qNuf//qIivrgHdNrVdZR/9s/hODk2mM3EZTlX
+         L1UxofT4rhHNy9ITeJqM6EAdcwNratxmVltdN1YG8qFilXehZG/aXh5sFbeqtbJn1MJK
+         1jzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752747302; x=1753352102;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=j0cPNOrVrngHH9v6EctdaaNUieY6XJCl1CRr4F/05Y0=;
-        b=pZW7J9pjNVMECSZawHRPrVT0JG+vCwD5NQwww7tcwY6tMlp+2ZqP6tyxJiks68QglN
-         BG6j+xJ2tuIAwIEsrZeY1MpnClwnE4e6fKdqzHYuOb6cuBR/MlSjZNjoS+eU7MPM7i0v
-         PB47A9OYc5ka3f+RmWU6XnYtBZyCYv/I5PKdP/y/dTpScGGXD5SRmPU5EjPGExmCLJsv
-         hfDW+XwQg2muTr8J8wditLcaWQPGEm4KgLo7FOu36ww9Kav69v41ZBgvBpfQE6jv59sr
-         AbfWn9QxgQs+KgMBT1WytuWzEA+uHR3C3/uYDUquGf4Ng4mFD1saMQ6nJWC3wxn1Wh4o
-         DszQ==
-X-Gm-Message-State: AOJu0Yyk2bD7Oq770QhqtB98v5E4HO97urfgOS1bs30XAJVheVdLfX6K
-	kMMTJTquq1cTWp6Z5x95GFLdM+zl9p9UdYpHXM5WN7Pz7+BbKQqUuJKVw6m15EyviKpoOHinoAV
-	5ZQA=
-X-Gm-Gg: ASbGncvIrUBYlmjR56wRWc50HIarhzXehgf62SBnuEs7jzPDuF73UatuK0Xw2Yi5w+U
-	deK5Xa5fXh9gXQpuvzKH3gobKzvWPJZIiXJLJXvkV6XShA2wP5oQgNIy1qkSEnJOCFAVkOfOK+o
-	LIqXuL5O47oHdzL3pxzVLKoG+m9Uvux6eDbT4iRUunSqWhOYbW1tIuIWSln4hphDxV7z7uuPgy/
-	uK8gLsiP16KlqPEH1LsrTiOx1fcKrbjvDNPhGu1NV3RX4XZJUVhPxCvDGvaRvFCW+TKDRxnFgcv
-	CcX2I8j51WeRrIt27sxB6EsVN9SJMsUX4A/Z9SfkBuwY1JoCm5L7hBcJX08l8nVqlFybLVhFqNp
-	gPV/FcSLPjb7yzcQAjEOMOM0Oxdhjn7JPnQeoOE02GxvhDUm0ymiZPApZIVuc35hD0fWIMHLKA4
-	GDtVQAudU=
-X-Google-Smtp-Source: AGHT+IHefGfkoZe5ny8oMPSqcTY5pauMt1R1oo5smwMQXBg8f6ph23eExugdONBtghY80qw5SRMhoQ==
-X-Received: by 2002:a05:6000:24c9:b0:3a5:1c0d:85e8 with SMTP id ffacd0b85a97d-3b60e4c219fmr4190888f8f.22.1752747302359;
-        Thu, 17 Jul 2025 03:15:02 -0700 (PDT)
-Message-ID: <662a4b19-1ea7-47e4-a89e-204fcef3a6f7@suse.com>
-Date: Thu, 17 Jul 2025 12:14:54 +0200
+        d=1e100.net; s=20230601; t=1752747942; x=1753352742;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ynIVlEc1we2Dot9WmVCeSuG01rhvnYHJMlhhMjjNppE=;
+        b=EvQ6iKih0I2CZ+s5hgNKHGbvzP2cG42b9PyybPg9+At3Z2g+cf5HiS9RHa2SKndg8/
+         IyipH7sYiaXfO9mXiK8TnMIpzrocR79jjijxZjlbZs3NY1f/y02RxXe7nroSOWfCqkKc
+         nSjXR6sXOMHE5lGAqIma+4SzKJHikYSdtO/lI/qgs3NUZucikxh+yjrwqr9C65a+1EUI
+         r3A+P7CGyqW+vbIO0Gnh2JegEjQ7Kut0zpwGlmEF9jLOiGXQnZc9g26BI0ICos9eI6kt
+         gtzI+54t2cw/cwmxhXmkfMflZ+XWO6eaqah5s0HnQ8fGRCoE/GGX87qzI1dWP1bY8LTJ
+         l/ng==
+X-Forwarded-Encrypted: i=1; AJvYcCUk1t9fvAdVmTFx8tivAhvAhDV9kzG8OuhNv3InYl7cjdW8Dcmyo72YqO+9DKBctsVfhiLHXcgbDn4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yypw84py2ZYgy9InAzzQFVFuXSpXAwYPkR+AD/bfBi9737YFdZ0
+	8QVpcDEOTbPKUfYb42rcdYmXAjUwPaq+hh6Z2//bqcrnqhSZXHVSXpIrC2YuGjlf/Q==
+X-Gm-Gg: ASbGncsLKF4pie/vAX7NkNHh+1wO3OEDjX0hkwKIo9ccvAVOk9wEoCVoXkK5Af+bD/p
+	HOsAVgrYXkvHcs9+Il+gZ9mBTwQ0ps/d2rGAqBEuGCZdmwM+JSgz6YD6bcpLpytKm+kwloQ8R6i
+	+qPtILWT3dZQN10BhLkLRTN9Q0AYQRGhbAdEBL+LOWtCbY8eOOfYIboDVggC2Nz+sA9sg5H0CAx
+	4vJwaL/gEJmDDbHijaRTBXTn4wcH0PQHS7qWjFjFHhSg6hh9Et9WiWyUCJaCn90DRHlvVreOhAy
+	XbpCtkIBcCsS+K753fK7i7QW7tWeYoEHrRNkqBKL76oaBUZ6GDrgp1P7aj5OzyoQXDEHb8dhWC+
+	IzDIvVBvPgFA2V8ycyHPYlcko9Un+KRIYvc+sgIsFnD9669DRURS79hDScaayoXUeP7u3ys3/An
+	G3y6En5jw=
+X-Google-Smtp-Source: AGHT+IHPWAuiB8iGxNoY20RSQ32nKsOEpOkS2xTYLU6Mjr6CJnU9dclfP7mr9y1/jhNm4gUe122T7g==
+X-Received: by 2002:a05:6000:24c5:b0:3a5:2ef8:34f9 with SMTP id ffacd0b85a97d-3b60dd73204mr5400155f8f.27.1752747942420;
+        Thu, 17 Jul 2025 03:25:42 -0700 (PDT)
+Message-ID: <007654f3-e26b-43b1-bc81-40ba25c9d787@suse.com>
+Date: Thu, 17 Jul 2025 12:25:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 13/17] xen/riscv: Implement p2m_entry_from_mfn() and
+ support PBMT configuration
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
+ <994ab3dd6822c4cd02a6a576041da115abeff6ed.1749555949.git.oleksii.kurochko@gmail.com>
+ <f6e789cd-0ef3-488d-94da-1b7c94946720@suse.com>
+ <640178f8-a189-4f84-abff-0ef87ba566a5@gmail.com>
+ <0265e61a-ad08-4b6b-a87d-dba304f6d27d@suse.com>
+ <e1c469c3-47d5-4a38-8abd-985a26cb8365@gmail.com>
+ <15c9cb8e-8452-4dc3-933a-5713fc86a12a@suse.com>
+ <958ae1b0-d139-41e8-b965-43ce640569c5@gmail.com>
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/S3: don't lose previously collected CPU data
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -116,31 +131,98 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <958ae1b0-d139-41e8-b965-43ce640569c5@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-smp_store_cpu_info() doesn't call identify_cpu() again during S3 resume,
-hence it is wrong to overwrite APs' data using boot_cpu_data. With
-7126b7f806d54 ("x86/CPU: re-work populating of cpu_data[]") this now
-results in a crash, as the cpu_to_socket() use in smp_store_cpu_info()
-then obtains a bad socket number, much like was already observed in [1].
+On 17.07.2025 10:56, Oleksii Kurochko wrote:
+> On 7/16/25 6:18 PM, Jan Beulich wrote:
+>> On 16.07.2025 18:07, Oleksii Kurochko wrote:
+>>> On 7/16/25 1:31 PM, Jan Beulich wrote:
+>>>> On 15.07.2025 16:47, Oleksii Kurochko wrote:
+>>>>> On 7/1/25 5:08 PM, Jan Beulich wrote:
+>>>>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
+>>>>>>> --- a/xen/arch/riscv/p2m.c
+>>>>>>> +++ b/xen/arch/riscv/p2m.c
+>>>>>>> @@ -345,6 +345,26 @@ static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
+>>>>>>>         return __map_domain_page(p2m->root + root_table_indx);
+>>>>>>>     }
+>>>>>>>     
+>>>>>>> +static int p2m_type_radix_set(struct p2m_domain *p2m, pte_t pte, p2m_type_t t)
+>>>>>> See comments on the earlier patch regarding naming.
+>>>>>>
+>>>>>>> +{
+>>>>>>> +    int rc;
+>>>>>>> +    gfn_t gfn = mfn_to_gfn(p2m->domain, mfn_from_pte(pte));
+>>>>>> How does this work, when you record GFNs only for Xenheap pages?
+>>>
+>>>>> I think I don't understand what is an issue. Could you please provide
+>>>>> some extra details?
+>>>> Counter question: The mfn_to_gfn() you currently have is only a stub. It only
+>>>> works for 1:1 mapped domains. Can you show me the eventual final implementation
+>>>> of the function, making it possible to use it here?
+>>> At the moment, I planned to support only 1:1 mapped domains, so it is final
+>>> implementation.
+>> Isn't that on overly severe limitation?
+> 
+> I wouldn't say that it's a severe limitation, as it's just a matter of how
+> |mfn_to_gfn()| is implemented. When non-1:1 mapped domains are supported,
+> |mfn_to_gfn()| can be implemented differently, while the code where it’s called
+> will likely remain unchanged.
+> 
+> What I meant in my reply is that, for the current state and current limitations,
+> this is the final implementation of|mfn_to_gfn()|. But that doesn't mean I don't
+> see the value in, or the need for, non-1:1 mapped domains—it's just that this
+> limitation simplifies development at the current stage of the RISC-V port.
 
-[1] https://lists.xen.org/archives/html/xen-devel/2025-06/msg01879.html
+Simplification is fine in some cases, but not supporting the "normal" way of
+domain construction looks like a pretty odd restriction. I'm also curious
+how you envision to implement mfn_to_gfn() then, suitable for generic use like
+the one here. Imo, current limitation or not, you simply want to avoid use of
+that function outside of the special gnttab case.
 
-Fixes: bb502a8ca5925 ("x86: check feature flags after resume")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>>>> In this context (not sure if I asked before): With this use of a radix tree,
+>>>>>> how do you intend to bound the amount of memory that a domain can use, by
+>>>>>> making Xen insert very many entries?
+>>>>> I didn’t think about that. I assumed it would be enough to set the amount of
+>>>>> memory a guest domain can use by specifying|xen,domain-p2m-mem-mb| in the DTS,
+>>>>> or using some predefined value if|xen,domain-p2m-mem-mb| isn’t explicitly set.
+>>>> Which would require these allocations to come from that pool.
+>>> Yes, and it is true only for non-hardware domains with the current implementation.
+>> ???
+> 
+> I meant that pool is used now only for non-hardware domains at the moment.
 
---- a/xen/arch/x86/smpboot.c
-+++ b/xen/arch/x86/smpboot.c
-@@ -370,7 +370,9 @@ void asmlinkage start_secondary(void)
- 
-     cpu_init();
- 
--    initialize_cpu_data(cpu);
-+    /* During resume, must not clear previously collected data. */
-+    if ( system_state != SYS_STATE_resume )
-+        initialize_cpu_data(cpu);
- 
-     microcode_update_one();
- 
+And how does this matter here? The memory required for the radix tree doesn't
+come from that pool anyway.
+
+>>>>> Also, it seems this would just lead to the issue you mentioned earlier: when
+>>>>> the memory runs out,|domain_crash()| will be called or PTE will be zapped.
+>>>> Or one domain exhausting memory would cause another domain to fail. A domain
+>>>> impacting just itself may be tolerable. But a domain affecting other domains
+>>>> isn't.
+>>> But it seems like this issue could happen in any implementation. It won't happen only
+>>> if we will have only pre-populated pool for any domain type (hardware, control, guest
+>>> domain) without ability to extend them or allocate extra pages from domheap in runtime.
+>>> Otherwise, if extra pages allocation is allowed then we can't really do something
+>>> with this issue.
+>> But that's why I brought this up: You simply have to. Or, as indicated, the
+>> moment you mark Xen security-supported on RISC-V, there will be an XSA needed.
+> 
+> Why it isn't XSA for other architectures? At least, Arm then should have such
+> XSA.
+
+Does Arm use a radix tree for storing types? It uses one for mem-access, but
+it's not clear to me whether that's actually a supported feature.
+
+> I don't understand why x86 won't have the same issue. Memory is the limited
+> and shared resource, so if one of the domain will use to much memory then it could
+> happen that other domains won't have enough memory for its purpose...
+
+The question is whether allocations are bounded. With this use of a radix tree,
+you give domains a way to have Xen allocate pretty much arbitrary amounts of
+memory to populate that tree. That unbounded-ness is the problem, not memory
+allocations in general.
+
+Jan
 
