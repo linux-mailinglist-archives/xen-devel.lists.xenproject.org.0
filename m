@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7B1FB08D9C
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 14:55:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1046820.1417192 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BADC1B08D9D
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 14:55:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1046824.1417202 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucO8I-0000lg-6I; Thu, 17 Jul 2025 12:54:42 +0000
+	id 1ucO97-0001KQ-EK; Thu, 17 Jul 2025 12:55:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1046820.1417192; Thu, 17 Jul 2025 12:54:42 +0000
+Received: by outflank-mailman (output) from mailman id 1046824.1417202; Thu, 17 Jul 2025 12:55:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucO8I-0000kE-1f; Thu, 17 Jul 2025 12:54:42 +0000
-Received: by outflank-mailman (input) for mailman id 1046820;
- Thu, 17 Jul 2025 12:54:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yjFy=Z6=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1ucO8G-0000is-3a
- for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 12:54:40 +0000
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on20610.outbound.protection.outlook.com
- [2a01:111:f403:2409::610])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 31e431e1-630d-11f0-a319-13f23c93f187;
- Thu, 17 Jul 2025 14:54:38 +0200 (CEST)
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
- by IA0PR12MB9045.namprd12.prod.outlook.com (2603:10b6:208:406::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.33; Thu, 17 Jul
- 2025 12:54:33 +0000
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13%6]) with mapi id 15.20.8922.028; Thu, 17 Jul 2025
- 12:54:33 +0000
+	id 1ucO97-0001HI-An; Thu, 17 Jul 2025 12:55:33 +0000
+Received: by outflank-mailman (input) for mailman id 1046824;
+ Thu, 17 Jul 2025 12:55:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Kd8q=Z6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ucO96-0001HA-Dh
+ for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 12:55:32 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4cb6340e-630d-11f0-b894-0df219b8e170;
+ Thu, 17 Jul 2025 14:55:22 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-3a6e2d85705so491072f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Jul 2025 05:55:22 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-74eb9e06aa6sm16544612b3a.62.2025.07.17.05.55.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 17 Jul 2025 05:55:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,228 +45,277 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 31e431e1-630d-11f0-a319-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wS4zNCywbmEVQI8jBMDcogqwFYuFy/p+j2b+rPIuSQOCUVQJfihWAHYQMg85jQKX+EitJr1OiSYr3+cfbxmCFoH2NQTPs6j3JxA1fPtfIpKhkB+ZYxCDLL49T7gLYE1six9fTa4N4KJVW/OAxt/tMoczwCNyq6Ebwebgg+470cnrqoiHWtOacEo/gwupChhrFB8S4/Xkhg7YBntHLx7KWJ7fT/XoW/UJNwSMdnW3H6cv7Fhuoy4TP3QzkfJ8wHLfhq8jsI9nEEX1G3/SPmmEJ/KEUCQ/VB4gWH17gv+oc7hFFVGYtJICKN552teQaChpzIjLF4ie3SGQfDeZjIz73w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WfF4Lp9C8aqBJ4UpT4VZIun+uhkOa2LDtmbOWFHEeIE=;
- b=EB5OwSFMM4gZk2DDfDYB61vBhqXAqPQ0Xa2mihurmIZ2pW3LyMBOqSzHfMo+ktRxhNW6L7qi6HslV+voT0qnblqjHdnDuHD3MM8FwlwCVAViaSTX/PAtoa2oBYW0VIatIOGxagVWJnVIT5ngMkVqwdyjHGoRifNFJ7COK7dJ0WLLqR4vSq/GgKS9+s1WNpPznoAOJFwDh2Nhx5yvfthVlDWInb+7f0nF2lcbBWVNzR2wXUvwYRow6D06TDuQVYbcqOtVXbqSxCsH+s+nTNKYi/D/NVOE/T1CnYCEqqvn935M0qj33zp2mP39sAUoMQSPPKHdxLe16ja5FLTEojBZRg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WfF4Lp9C8aqBJ4UpT4VZIun+uhkOa2LDtmbOWFHEeIE=;
- b=YUtatn6cm1gaICEDrXdQo2EHkX0KAretZNtfpBUzhCMeGzucNsXWvPJeg8LrcPDYi4TMjhxoyUXmqMNODDSWyduB/FVpYwyl+TbGIrm5iaai72gcbeSLQAcZQ5T2B89mGY2U92vjRD32n153PTyjZmA2Lg2XSqxqs8R0PQh8JbM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <43e05cb4-c17e-41ac-bd14-413e073f2c2e@amd.com>
-Date: Thu, 17 Jul 2025 14:54:30 +0200
+X-Inumbo-ID: 4cb6340e-630d-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1752756921; x=1753361721; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=lZj1ugm/rH8LlQgYO4waxF9EpBwzrvMjes7U4Y3V9Xs=;
+        b=dwAqrW5C8IyrOEKciHglaf2B2ywbP91GbpODCopfiAWW5SOA6zlnF4sGzQij7wnZu5
+         GJwUejsq3mkO6pVpcFcNA4JEaq6+WL+ENqLq8Ymz/CU95Vn/sH1PBbLkzRY3F6jj/3jt
+         jGqG8JHKzSCR2ZCtJXCsQOF5SOZ5mXVq0sSge8P/vPhUoZCGM/FMufOWxz/SU+OCMXA5
+         CHM0y7ql1Ux1//7JkTQjTC1Olu++5L/8gMv3KnuGU+/QruxurVb40UGmxju9HiAGGELH
+         0hBSxRdOtJ9RKoE5/AxZ7IKXMh6x5vV3qdVW1kWGVHda/A+QuWfDy7cAS44jLAuXlBN+
+         FN+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1752756921; x=1753361721;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lZj1ugm/rH8LlQgYO4waxF9EpBwzrvMjes7U4Y3V9Xs=;
+        b=j61K0O6yv7sKSp+jrJ4gp9sBCf4bzCDkIM3mRh2XBzE/9VSNorKx1Csgja6arm8fRA
+         lyH7HBADyx1V6/NNEgznlePobuCGRmXbYcJkS53d4GMZ6L8xX+a5MSHZnIx1Gn16/UgG
+         JJgIXRSWfuGd0WfQSKqv/bZnz82oDcq8u9X4PP0S58kOX6FtCbA0yP2h145nlsCgzS4n
+         Uq/w8AmGJoLx2isKnWg97raqlZfmTfLjDJJo9WIETdUvX5hdTQfdiDgY+dwzzGAFdyEV
+         ZehI+cgeScInIcKBE09ovGCPPyd9iy1VLxM7Rxzy0TPX815boPEnj9QHfbYiaJERjAi6
+         TKFg==
+X-Forwarded-Encrypted: i=1; AJvYcCXKcREWWhQruRH8ruxwM2khejVNMaOEcO9mTdFjmHWan2xFsLZVQe+hiMQhNj1wyuzETeGTdTJh1rg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxphocQXdaHuZR9Y0+mt9uFtgSTLGdYoKuSW/L6+UM981tOf904
+	fZqtsLqY5/8rJHuCZPBVhpsVm+A3WM/yCZ7yZyGCGUxr68KPwGIaBG38UQg2beNc/Q==
+X-Gm-Gg: ASbGncvVa9na8kChu1daJT7QmT0B4ilefoOp+ODXGpUNmTuBKa4MkFn0mgkNac2lG5m
+	pk2ylFvrF+09NlkeIbWPy/pMui4WvhjWZO0D63NgF5FCerngzJh9/YlJaaSVd1tlRLxPk9Cwumn
+	2dlpnPJAY8Ptxxmi+UCY2fZ8+ql/j/FlkGmDO/gDJBhE2Ymq8IeBnTtDDDFbYx1OTheQJF77XPI
+	96WVfHsy+BvTEe5L0JI/IRnX9F//wGDUjrYbmk47J27egbezpiN3s10yGw6cpKYR8A91XJHqTIC
+	+DgfzIzHIEhSB975wCDDEY4zphd/DDdlsF6Qj1SPUzIKVQgoV0oFt/G5JdMzHnPryn5+Z0ho2xZ
+	Rl7WQhtHGSulmzN3dN63qs2ISPb11TPU9xlDDnhUht/NY80h/lUQr7UiCnI5S/FMcQdML6iFOYJ
+	DCiBJFZsU=
+X-Google-Smtp-Source: AGHT+IHtrVpreAWVxKVF0hAUsiEDVwIRnShOjGn2MdOVkoYFYhiK/0uMogTHsh/WkCwdOfpDZAbVYA==
+X-Received: by 2002:a05:6000:2c06:b0:3a4:ee40:6c85 with SMTP id ffacd0b85a97d-3b60ddc61d8mr5384865f8f.54.1752756921423;
+        Thu, 17 Jul 2025 05:55:21 -0700 (PDT)
+Message-ID: <1899ebd0-c64a-4bb8-bf3d-0bf90f2b6299@suse.com>
+Date: Thu, 17 Jul 2025 14:55:10 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/6] arm/mpu: Implement early_fdt_map support in MPU
- systems
-To: Hari Limaye <hari.limaye@arm.com>, xen-devel@lists.xenproject.org
-Cc: luca.fancellu@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-References: <cover.1752565274.git.hari.limaye@arm.com>
- <e6a881be371c54a6bceccfac2a7c2fae887ea023.1752565274.git.hari.limaye@arm.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
+Subject: Re: [PATCH v6 12/19] xen/cpufreq: implement amd-cppc driver for CPPC
+ in passive mode
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250711035106.2540522-1-Penny.Zheng@amd.com>
+ <20250711035106.2540522-13-Penny.Zheng@amd.com>
 Content-Language: en-US
-In-Reply-To: <e6a881be371c54a6bceccfac2a7c2fae887ea023.1752565274.git.hari.limaye@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250711035106.2540522-13-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0066.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:93::10) To BN9PR12MB5273.namprd12.prod.outlook.com
- (2603:10b6:408:11e::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|IA0PR12MB9045:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba7d492e-a2fa-458b-8681-08ddc53113db
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?TjFsTlUrbElpMzhVaDB0V2wySzBLQTlnMFJqRXRVM0xabEEwNlFHN0N4dkpn?=
- =?utf-8?B?ejBFQnZkcUtsOW9XUFFBRmtXQVoreGZsK1pOcFdVUlFTTWhVVXA3MThyYzdv?=
- =?utf-8?B?V0RKS3U4bTBhR3lvSmx5VU15dHJNeGR0WjBiVmtSUThyN2hGdzdKdFhYeDI2?=
- =?utf-8?B?VVZWNzZOZVRiM0xkSitqSFZFRjJ0V1RUcEdLK0FOc0RsVWl4V0hPNnlDZVhl?=
- =?utf-8?B?OUlEUnZLZHRURUhVTk04dzlPeXJzcytSNXBjTWtxa0oxZjN6a25SUlJHTm51?=
- =?utf-8?B?SVowcEM4KytVZE1aeG44OFBMeXlVTEYyYnZxM0Q5ekNkY1g0cEZ3TCsxOG15?=
- =?utf-8?B?UkplTXdNc0U2b1p6OUh3QmhnbWlQTTFJWEd3Ty9BVzRPdWsxZmt3N0IvR1Av?=
- =?utf-8?B?Wm9GK1JIRW1LVU91Z3NvbFZ5QlY1enBpdkhqYUJ3aFNmRFVTU3IwN2hvK0Fr?=
- =?utf-8?B?M25IVlAwbmdrUnFhbzdUZXRmdi9YeDMwUy9YZjhrRUwxZ2t5MTlyd0NOeWpv?=
- =?utf-8?B?SU1DYzQxTGprMXh1RUNYRFlnNGtJVWllODZPV05ETzgvenR5Tnk2OWRqWi9E?=
- =?utf-8?B?QlBYUmZFajQvSG5MaFJDaVMvMXMvdVlQckVKRDd6dWNxYjZkdGxPMEpzQ29E?=
- =?utf-8?B?K3h3bjhNbUx0Ym96ZTR0MmE2bjlWVURBYXVYSmdxNnR5Mi9KZlFIQXdwVmQ3?=
- =?utf-8?B?cVJxVEY1UDRUaDY4ekJQeVZjUk5UcEJBaUhkdkhGV2N2WDlIdXE0MnZzZVg5?=
- =?utf-8?B?eExWTC9OOGJTM0RITzBpRWRkaVBLVVlQZVp2MGZvQk9jeWpuNHh4UXdONVFm?=
- =?utf-8?B?R0RxbHMwUFBHd25jTmQ2MThtU1M3SmhhVU5hVVppMDRaOExsTmN6djhnRHk4?=
- =?utf-8?B?elFxM1pGc2dFWGg3TXJnMWhkSEJIcjg3bW1tclN1RXFsNlV5RDYyWDJ6SWlI?=
- =?utf-8?B?MzF6bmhxYmhEK2JWTXZPd3Q5V1dDZ0lZdEl1dkNyRlZEWjZ3eDMrd2hRaUNF?=
- =?utf-8?B?dG5qSW92UjZPZ2hDWUlQSDF0WGRDS0dXUVdyVmxLSEhJeW1FbGFTU1BzTXVV?=
- =?utf-8?B?bDJsd0U3ZC83ZktmMFJiQUV4TlFlR0JsM0ZURFphcFROV1g1cE13K3E2RkRt?=
- =?utf-8?B?by9TbHN2VHZnSlpiSERiSWxzbFZLOXNVeTBwREtSektIaWFmMkQwTHFMQ1NH?=
- =?utf-8?B?alZPUkkyRzdGT2RUbFl5c0s5cWpjRTF1Z1pDcS9tMXdZSW5Hd1Awd2t4ZEgv?=
- =?utf-8?B?dVh4QTVXcyt2WHIxd1BNWnh1N0JmRlFpTWxRL2FNUy9VNUJhVGMrSUZMNERM?=
- =?utf-8?B?ZW1veU1hbzRzQXpKUzZwejI4WlU2K2lzM3pKODRJeXVMMWpZU0ZoRTRMa0xq?=
- =?utf-8?B?cHJXM2JQNkI5NklURjlBV0JmRXF3MG1WMThkdHhCblNIZk1DTXhjNEo5V2xy?=
- =?utf-8?B?NW03QTQ2aFMrSzBUM0NITm1JNFdlSHdPODE1bkNLUmFDNnNzbFgrTlBJT3dz?=
- =?utf-8?B?ZSs1eEU2NDNoVnVvWkwwLzZCS29lYWVzYXZWQk1mWURaTWh3amZRTFFXaXFv?=
- =?utf-8?B?RlpjSlFqa01vL0ZLaW5PYWFsbW4vRTVramFZWHY0dG1XdGVuU093bTZ2UGww?=
- =?utf-8?B?aFNXbDlsL1R1WmRINkpmQkVzelRzdkFBTEZXQ2tmeS93NEJIRHZuMldwNVRi?=
- =?utf-8?B?ZjV2QStBd3lhblpEY1NaL29TamtyY1gvcnpTcE1IU2FlYU40YXdVdmxON0g5?=
- =?utf-8?B?am0vUk04V3NhcFVVWUlYSlovVVN0czdkYytqLzBaUkgrSVRuQzFpb09iWlZE?=
- =?utf-8?B?M2pIT0VJcFRULzVKTkJEUy8rMm1tRTA5ZnowZEpyUUZEQjV3amRtZTJUQUtS?=
- =?utf-8?B?ZytlbEVkZGp4QnBjTXBLaUdXRSs4dnFqVkNobk1mcmwzK3dqTC9jV3dGTldj?=
- =?utf-8?Q?ogqTSdisn0I=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bmtKOEVVbVJwbWtLWk9mUXZxS01na2ZZemhJY0JlaVd0VjRnZUc5UmxXQkh3?=
- =?utf-8?B?emxLdmt4a2lGWmhOdThpdWZCQnJHT1k3RnhteEEvbFNZMVFkaXhpZDFxc0pZ?=
- =?utf-8?B?UVBZd0lNb0pzRFBZZ2JNSkM1dXd2VGtFV2lvNkN5LzNFQTNDOW5Ha3NhaytY?=
- =?utf-8?B?SlFxQlJmdGlIcktjUm9vSjlkRXVNNXBaVEFsdHg5a1dER1V0a3VHdFZUaGkx?=
- =?utf-8?B?SnU4NmpFekpqd2dJZ0grM2M1UStrcmV2T0w2OFk3bi9sa1ppMU5KOWY2UGxa?=
- =?utf-8?B?emg5NHB2OWRsVzlZL3RHOCtQOXVPaFhtRk4rbFlwNUNLZ1dTcDFvU1BnU3lC?=
- =?utf-8?B?cEdOcjR5THE2NHFNcGNSbWNTUjArK2ZXYXh4cFdBbnk5dFpRenZNdmlvSVRu?=
- =?utf-8?B?TEkvVW4wcXF1aXFmMHRNQi9pclg4ZjVQWFIrSTBuOFJvNVN1bjIvWFA5eEcx?=
- =?utf-8?B?c1hSdVFVSXVsc3lpdkJwbmRQd05MYXJqRWFkYjFvcTZLZGluZDZkdzg2WDQv?=
- =?utf-8?B?WlhDeU9naTA1VFI0SmJOakg2VnV0c0dOZU0xc3NtejZVL0NKV21aNUlQc0JE?=
- =?utf-8?B?clphNlZYajA5Tkh3MnZoRlhuY29jQVQvTzZHYVdWMnpQNlZGMnl4V1Uxdktz?=
- =?utf-8?B?eVdIeUNFWTBabjFlQmpJRmdjVE1LdEVyRlUrdGFxMUE1V3RoeEVhc3BqaHJu?=
- =?utf-8?B?ei9abUE1d1VUUHFTRjBZbzJXd0UvcGhYNSt1aGgxQ1ZFTk5nbnVic2c4dHlN?=
- =?utf-8?B?MklwNzdYN095MWg2NzExVTQ2UXZHL3VHc3FKQUU2WEV4ZFVQOHlqNk4xNVIy?=
- =?utf-8?B?OVFtWktqemd4MkdQL3hvL29DOXlEMENKMnMwbEdRNUtWcGlRb2cxd1NEYkJr?=
- =?utf-8?B?blFmd1VaUXVuZDdzVlB5enhQZlFwNzU2eG5SNlhWOVhPQUQxN1Y5d2xhQmRV?=
- =?utf-8?B?KzExL2t6QXZRRUFWOHZBeFlTbGFVVTVlTXlmM2NBYldFYnpMdmZFOVluWC9r?=
- =?utf-8?B?WVFPOTJ1bG0rdzBUOGR2VkhGUHZRSFpldUk0aDF0NXZIeFFYYzBKV0J2SnI5?=
- =?utf-8?B?Z09xK2JkeHZIYWM3YVFhYkxiL1ZDdkNpd1BON21HTkh0TCtRN0tOdzZyZmF6?=
- =?utf-8?B?UkEzUklCUXQ5N2dzTTRBcmhIZ0xudlhPbWxLQkx6b3lqcHRmUjVSWGE2TWkv?=
- =?utf-8?B?c1J5RFlkMTJqL0Jzc0lhUkgyTEQrdkoxTVk5M2k4UktRcWhlc3VNV1NkWVNw?=
- =?utf-8?B?am5scmZ6SGgwb1I1ZkNSK0pVUDhtM2I5UyswT0JvbXpXbDZVSWZoblE2TXM3?=
- =?utf-8?B?SC9JQ3NaWWo3aW1YUWp4Z3hlTW5tbTY3S1dJV3kwd0Z6U0ZEcFFpZXhhYWI4?=
- =?utf-8?B?ZTRvWVpRbFBLT21QNHRGd25ZYjVWVDVmRkpIU0VNbm1oWXM0K0JjUkZ1TkMw?=
- =?utf-8?B?MEJjWDZ6NDkvOTdFVmQyT0p1a1dlZnpNNUcyQU0vMW03OVFmaWNGa25oZ1I0?=
- =?utf-8?B?OXJoQUk4VmYzbk1SRkh4RS9OMDdoUlY3TFdrQmN0alVpS2c0WlVHZ2pKVjJ0?=
- =?utf-8?B?ZjdJSWREWUpMMVowSUdiY3dNdXlRYk5nT01jZ2dhMG5SLzEvVVEyRTkxQlBS?=
- =?utf-8?B?UEk5dUNQUlJKcWFicTNnV2dDS2lBOFNReXliVDB6a3hZQmo2cGdacHhid25Q?=
- =?utf-8?B?ZG9ITjlkOXNDOGxveWljZWxQVUVZbWxxRTBsbDMxU1B6RmZFNzBhLzdPVVR3?=
- =?utf-8?B?elFuS2lCbjZpdlB6L0p6NGhzRnZRMjdtbkJZckh5MTZDTlZkUUVQN2NaSDRQ?=
- =?utf-8?B?VnZFUXpGK0NpZ0J6TWpremoreWhDZ3VjNWF6SHJld1ZiUllobmdTKzExamY2?=
- =?utf-8?B?US9CYnJSQnRZZ2RjcjZEZzlYQ3hkNHlZaVFFUnNnYm9IQU5TMEg2ZkJ2dGFD?=
- =?utf-8?B?WUZWY3FETUZqcEhUdWJxQnNJZ1lQNUhzUm9JaStQcDBHNWtFRFhlMDh1elEv?=
- =?utf-8?B?dmNSWWNKUVlyNjZOOFRSYWNyVzFoUG5jQTdYS1ZjTVhxM21QTmFKWlFpeHdj?=
- =?utf-8?B?MGtOS0w4b3JFNWtCUU5RcG9mbWhpUGdzZndkb1dycGwwbklBNytpcWk3MDdH?=
- =?utf-8?Q?gVRGOrzT2bTS7xCYIgLGFhaQk?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba7d492e-a2fa-458b-8681-08ddc53113db
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2025 12:54:33.7235
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4n49z0g15rro+Gv3SZ/qbtbXHWI6nYtfTzdIjoDAZkyGrIh/rQAfAxoV96os8sLV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB9045
 
-
-
-On 15/07/2025 09:45, Hari Limaye wrote:
-> From: Luca Fancellu <luca.fancellu@arm.com>
-> 
-> Implement the function early_fdt_map(), which is responsible for mapping
-> the Device Tree Blob in the early stages of the boot process, for MPU
-> systems.
-> 
-> We make use of the map_pages_to_xen() and destroy_xen_mappings() APIs.
-> In particular the latter function is necessary in the case that the
-> initial mapping of the fdt_header is insufficient to cover the entire
-> DTB, as we must destroy and then remap the region due to the APIs no
-> providing support for extending the size of an existing region.
-> 
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-> Signed-off-by: Hari Limaye <hari.limaye@arm.com>
-> Reviewed-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> ---
-> Changes from v1:
-> - Add Ayan's R-b
-> 
-> Changes from v2:
-> - Rename mapped_fdt_paddr -> mapped_fdt_base
-> - Remove full stops
-> - Add sanity check for MAX_FDT_SIZE
-> - Improve comment regarding early return when DTB already mapped
-> ---
->  xen/arch/arm/mpu/setup.c | 83 +++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 81 insertions(+), 2 deletions(-)
-> 
-> diff --git a/xen/arch/arm/mpu/setup.c b/xen/arch/arm/mpu/setup.c
-> index b4da77003f..a8cea0d9af 100644
-> --- a/xen/arch/arm/mpu/setup.c
-> +++ b/xen/arch/arm/mpu/setup.c
-> @@ -1,17 +1,96 @@
->  /* SPDX-License-Identifier: GPL-2.0-only */
->  
-> +#include <xen/bootfdt.h>
->  #include <xen/bug.h>
+On 11.07.2025 05:50, Penny Zheng wrote:
+> --- a/xen/arch/x86/acpi/cpufreq/amd-cppc.c
+> +++ b/xen/arch/x86/acpi/cpufreq/amd-cppc.c
+> @@ -14,7 +14,95 @@
+>  #include <xen/domain.h>
 >  #include <xen/init.h>
-> +#include <xen/libfdt/libfdt.h>
->  #include <xen/mm.h>
-> +#include <xen/pfn.h>
->  #include <xen/types.h>
-> +#include <xen/sizes.h>
->  #include <asm/setup.h>
->  
-> +static paddr_t __initdata mapped_fdt_base = INVALID_PADDR;
-> +static paddr_t __initdata mapped_fdt_limit = INVALID_PADDR;
+>  #include <xen/param.h>
+> +#include <xen/percpu.h>
+> +#include <xen/xvmalloc.h>
+>  #include <acpi/cpufreq/cpufreq.h>
+> +#include <asm/amd.h>
+> +#include <asm/msr-index.h>
 > +
->  void __init setup_pagetables(void) {}
+> +#define amd_cppc_err(cpu, fmt, args...)                             \
+> +    printk(XENLOG_ERR "AMD-CPPC: CPU%u error: " fmt, cpu, ## args)
+> +#define amd_cppc_warn(cpu, fmt, args...)                            \
+> +    printk(XENLOG_WARNING "AMD-CPPC: CPU%u warning: " fmt, cpu, ## args)
+> +#define amd_cppc_verbose(cpu, fmt, args...)                         \
+> +({                                                                  \
+> +    if ( cpufreq_verbose )                                          \
+> +        printk(XENLOG_DEBUG "AMD-CPPC: CPU%u " fmt, cpu, ## args);  \
+> +})
+> +
+> +/*
+> + * Field highest_perf, nominal_perf, lowest_nonlinear_perf, and lowest_perf
+> + * contain the values read from CPPC capability MSR. They represent the limits
+> + * of managed performance range as well as the dynamic capability, which may
+> + * change during processor operation
+> + * Field highest_perf represents highest performance, which is the absolute
+> + * maximum performance an individual processor may reach, assuming ideal
+> + * conditions. This performance level may not be sustainable for long
+> + * durations and may only be achievable if other platform components
+> + * are in a specific state; for example, it may require other processors be
+> + * in an idle state. This would be equivalent to the highest frequencies
+> + * supported by the processor.
+> + * Field nominal_perf represents maximum sustained performance level of the
+> + * processor, assuming ideal operating conditions. All cores/processors are
+> + * expected to be able to sustain their nominal performance state\
+
+Nit: Stray trailing backslash.
+
+> + * simultaneously.
+> + * Field lowest_nonlinear_perf represents Lowest Nonlinear Performance, which
+> + * is the lowest performance level at which nonlinear power savings are
+> + * achieved. Above this threshold, lower performance levels should be
+> + * generally more energy efficient than higher performance levels. So in
+> + * traditional terms, this represents the P-state range of performance levels.
+> + * Field lowest_perf represents the absolute lowest performance level of the
+> + * platform. Selecting it may cause an efficiency penalty but should reduce
+> + * the instantaneous power consumption of the processor. So in traditional
+> + * terms, this represents the T-state range of performance levels.
+> + *
+> + * Field max_perf, min_perf, des_perf store the values for CPPC request MSR.
+> + * Software passes performance goals through these fields.
+> + * Field max_perf conveys the maximum performance level at which the platform
+> + * may run. And it may be set to any performance value in the range
+> + * [lowest_perf, highest_perf], inclusive.
+> + * Field min_perf conveys the minimum performance level at which the platform
+> + * may run. And it may be set to any performance value in the range
+> + * [lowest_perf, highest_perf], inclusive but must be less than or equal to
+> + * max_perf.
+> + * Field des_perf conveys performance level Xen governor is requesting. And it
+> + * may be set to any performance value in the range [min_perf, max_perf],
+> + * inclusive.
+> + */
+> +struct amd_cppc_drv_data
+> +{
+> +    const struct xen_processor_cppc *cppc_data;
+> +    union {
+> +        uint64_t raw;
+> +        struct {
+> +            unsigned int lowest_perf:8;
+> +            unsigned int lowest_nonlinear_perf:8;
+> +            unsigned int nominal_perf:8;
+> +            unsigned int highest_perf:8;
+> +            unsigned int :32;
+> +        };
+> +    } caps;
+> +    union {
+> +        uint64_t raw;
+> +        struct {
+> +            unsigned int max_perf:8;
+> +            unsigned int min_perf:8;
+> +            unsigned int des_perf:8;
+> +            unsigned int epp:8;
+> +            unsigned int :32;
+> +        };
+> +    } req;
+> +
+> +    int err;
+> +};
+> +
+> +static DEFINE_PER_CPU_READ_MOSTLY(struct amd_cppc_drv_data *,
+> +                                  amd_cppc_drv_data);
+> +/*
+> + * Core max frequency read from PstateDef as anchor point
+> + * for freq-to-perf transition
+> + */
+> +static DEFINE_PER_CPU_READ_MOSTLY(unsigned int, pxfreq_mhz);
 >  
->  void * __init early_fdt_map(paddr_t fdt_paddr)
+>  static bool __init amd_cppc_handle_option(const char *s, const char *end)
 >  {
-> -    BUG_ON("unimplemented");
-> -    return NULL;
-> +    /* Map at least a page containing the DTB address, exclusive range */
-> +    paddr_t base = round_pgdown(fdt_paddr);
-> +    paddr_t limit = round_pgup(fdt_paddr + sizeof(struct fdt_header));
-> +    unsigned int flags = PAGE_HYPERVISOR_RO;
-> +    void *fdt_virt = (void *)fdt_paddr; /* virt == paddr for MPU */
-> +    int rc;
-> +    uint32_t size;
-> +    unsigned long nr_mfns;
+> @@ -50,10 +138,327 @@ int __init amd_cppc_cmdline_parse(const char *s, const char *e)
+>      return 0;
+>  }
+>  
+> +/*
+> + * If CPPC lowest_freq and nominal_freq registers are exposed then we can
+> + * use them to convert perf to freq and vice versa. The conversion is
+> + * extrapolated as an linear function passing by the 2 points:
+> + *  - (Low perf, Low freq)
+> + *  - (Nominal perf, Nominal freq)
+> + * Parameter freq is always in kHz.
+> + */
+> +static int amd_cppc_khz_to_perf(const struct amd_cppc_drv_data *data,
+> +                                unsigned int freq, uint8_t *perf)
+> +{
+> +    const struct xen_processor_cppc *cppc_data = data->cppc_data;
+> +    unsigned int mul, div;
+> +    int offset = 0, res;
 > +
-> +    /*
-> +     * Check whether the physical FDT address is set and meets the minimum
-> +     * alignment requirement. Since we are relying on MIN_FDT_ALIGN to be at
-> +     * least 8 bytes so that we always access the magic and size fields
-> +     * of the FDT header after mapping the first chunk, double check if
-> +     * that is indeed the case.
-> +     */
-> +    BUILD_BUG_ON(MIN_FDT_ALIGN < 8);
-> +    if ( !fdt_paddr || fdt_paddr % MIN_FDT_ALIGN )
-> +        return NULL;
-> +
-> +    /*
-> +     * DTB at this address has already been mapped.`start_xen` calls this twice,
-> +     * before and after `setup_page_tables`, which is a no-op on MPU.
-> +     */
-> +    if ( mapped_fdt_base == fdt_paddr )
-> +        return fdt_virt;
-> +
-> +    /*
-> +     * DTB starting at a different address has been mapped, so destroy this
-> +     * before continuing.
-I don't understand this scenario. Can you describe it in more details?
-I know that early_fdt_map will be called twice. First time, mapped_fdt_base ==
-INVALID_PADDR and second time, mapped_fdt_base == fdt_paddr. What's the other
-option?
+> +    if ( cppc_data->cpc.lowest_mhz && cppc_data->cpc.nominal_mhz &&
+> +         data->caps.nominal_perf != data->caps.lowest_perf &&
+> +         cppc_data->cpc.nominal_mhz != cppc_data->cpc.lowest_mhz )
 
-~Michal
+While I understand that required relations are being checked elsewhere, if
+you used > in place of != here, that would not only serve a doc aspect, but
+also allow to drop one part:
 
+    if ( cppc_data->cpc.lowest_mhz &&
+         data->caps.nominal_perf > data->caps.lowest_perf &&
+         cppc_data->cpc.nominal_mhz > cppc_data->cpc.lowest_mhz )
+
+> +    {
+> +        mul = data->caps.nominal_perf - data->caps.lowest_perf;
+> +        div = cppc_data->cpc.nominal_mhz - cppc_data->cpc.lowest_mhz;
+> +
+> +        /*
+> +         * We don't need to convert to kHz for computing offset and can
+> +         * directly use nominal_mhz and lowest_mhz as the division
+> +         * will remove the frequency unit.
+> +         */
+> +        offset = data->caps.nominal_perf -
+> +                 (mul * cppc_data->cpc.nominal_mhz) / div;
+> +    }
+> +    else
+> +    {
+> +        /* Read Processor Max Speed(MHz) as anchor point */
+> +        mul = data->caps.highest_perf;
+> +        div = this_cpu(pxfreq_mhz);
+> +        if ( !div )
+> +            return -EOPNOTSUPP;
+> +    }
+> +
+> +    res = offset + (mul * freq) / (div * 1000);
+> +    if ( res > UINT8_MAX )
+
+Why UINT8_MAX here but ...
+
+> +    {
+> +        printk_once(XENLOG_WARNING
+> +                    "Perf value exceeds maximum value 255: %d\n", res);
+> +        *perf = 0xff;
+
+... 0xff here?
+
+> +        return 0;
+> +    }
+> +    if ( res < 0 )
+> +    {
+> +        printk_once(XENLOG_WARNING
+> +                    "Perf value smaller than minimum value 0: %d\n", res);
+> +        *perf = 0;
+> +        return 0;
+> +    }
+> +    *perf = res;
+
+Considering that amd_cppc_init_msrs() rejects perf values of 0 as invalid,
+is 0 actually valid as an output here?
+
+> +/*
+> + * _CPC may define nominal frequecy and lowest frequency, if not, use
+> + * Processor Max Speed as anchor point to calculate.
+> + * Output freq stores cpc frequency in kHz
+> + */
+> +static int amd_get_cpc_freq(const struct amd_cppc_drv_data *data,
+> +                            uint32_t cpc_mhz, uint8_t perf, unsigned int *freq)
+
+Once again no need for uint32_t when unsigned int will do.
+
+Jan
 
