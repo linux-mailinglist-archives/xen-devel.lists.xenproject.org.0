@@ -2,40 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC542B08FC1
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 16:44:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1046988.1417365 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82B7FB08FF6
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 16:59:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1046995.1417375 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucPq8-0006P9-J3; Thu, 17 Jul 2025 14:44:04 +0000
+	id 1ucQ4P-0000CX-RE; Thu, 17 Jul 2025 14:58:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1046988.1417365; Thu, 17 Jul 2025 14:44:04 +0000
+Received: by outflank-mailman (output) from mailman id 1046995.1417375; Thu, 17 Jul 2025 14:58:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucPq8-0006MG-GN; Thu, 17 Jul 2025 14:44:04 +0000
-Received: by outflank-mailman (input) for mailman id 1046988;
- Thu, 17 Jul 2025 14:44:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ucQ4P-0000As-Ne; Thu, 17 Jul 2025 14:58:49 +0000
+Received: by outflank-mailman (input) for mailman id 1046995;
+ Thu, 17 Jul 2025 14:58:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yjFy=Z6=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1ucPq7-0006M6-3v
- for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 14:44:03 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20613.outbound.protection.outlook.com
- [2a01:111:f403:2414::613])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 74b50254-631c-11f0-a319-13f23c93f187;
- Thu, 17 Jul 2025 16:43:53 +0200 (CEST)
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
- by SJ5PPFDDE56F72B.namprd12.prod.outlook.com
- (2603:10b6:a0f:fc02::9a5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8699.25; Thu, 17 Jul
- 2025 14:43:47 +0000
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13%6]) with mapi id 15.20.8922.028; Thu, 17 Jul 2025
- 14:43:47 +0000
+ <SRS0=0tNy=Z6=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1ucQ4O-0000Ak-4o
+ for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 14:58:48 +0000
+Received: from OSPPR02CU001.outbound.protection.outlook.com
+ (mail-norwayeastazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c20f::7])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 895816ba-631e-11f0-b894-0df219b8e170;
+ Thu, 17 Jul 2025 16:58:45 +0200 (CEST)
+Received: from CWLP265CA0339.GBRP265.PROD.OUTLOOK.COM (2603:10a6:401:5a::15)
+ by DB9PR08MB8410.eurprd08.prod.outlook.com (2603:10a6:10:3d6::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.27; Thu, 17 Jul
+ 2025 14:58:42 +0000
+Received: from AMS0EPF000001B0.eurprd05.prod.outlook.com
+ (2603:10a6:401:5a:cafe::dd) by CWLP265CA0339.outlook.office365.com
+ (2603:10a6:401:5a::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.22 via Frontend Transport; Thu,
+ 17 Jul 2025 14:58:42 +0000
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ AMS0EPF000001B0.mail.protection.outlook.com (10.167.16.164) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.21
+ via Frontend Transport; Thu, 17 Jul 2025 14:58:41 +0000
+Received: from DB9PR08MB6588.eurprd08.prod.outlook.com (2603:10a6:10:25a::24)
+ by PAVPR08MB9842.eurprd08.prod.outlook.com (2603:10a6:102:31e::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.39; Thu, 17 Jul
+ 2025 14:55:20 +0000
+Received: from DB9PR08MB6588.eurprd08.prod.outlook.com
+ ([fe80::a8fc:ea0d:baf1:23a]) by DB9PR08MB6588.eurprd08.prod.outlook.com
+ ([fe80::a8fc:ea0d:baf1:23a%6]) with mapi id 15.20.8922.037; Thu, 17 Jul 2025
+ 14:55:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,146 +61,611 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 74b50254-631c-11f0-a319-13f23c93f187
+X-Inumbo-ID: 895816ba-631e-11f0-b894-0df219b8e170
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=hk/I28mSdqQw5KVSK4irGDzpH4R3fQa1uKIGromeb5D/jw26gQuex+UEYcy4cWSvQGVPe5gI5tTMnpnFh74NohuG8lK1ZWAuh94kg8ipKBUoGd0z8tww/a/GdkxAMLQ9yUCW4MHNXB4AEf6dRaSdw+B5GM64u6F1uPGL4gETWHiGI0dW2TsunxXLnuCIVs4so8dNIwM5bcWShD797OkZkdr2Ly9gKdAEtAGzLk7xVcq73SF/m/OQvNVrfQFfcWBeqMCVKhTZZzy0JHknhSIPnIV4Wobqs3xPmpZK+5+elMfmiT2a0puLSno8Zwkqmu9aj7aEj4nrCvZdvGjW3RM1mg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vCOUp3zybXuRnUus77EylJ7lIH4OXkT6lWLlPlk3fcQ=;
+ b=BbUv5ubQ7hA/dwUGe4A6DgTIRr0TIAz0j021zB4J7wlWrtDK1nQ6E6eHzKJjwwyTP2LV7I6oROJZYTrEBOH3NLeCgJBifCLWWxw4yLDkHYnqZwE3mn/RSPHNYB/RdgUVDDh4Mv5P0AFBczM8/Aucbt1YNUuBmFELUOBgX8hjR246cjkdRW1exBkEtPpTSM45KggTC5TvQNyXHyQPJhsBWdQ0N5mA6GZUwp1PAElcOs2BiWJB57vlX4Wk8dPYklhQf56wrLA8HlrIIfihOLshnE6qCnf/z3qH7uCMNa4PvwINx2H+V3mB7967xHaxCNlnWuBeCSXtBAicvq8SIZIYDg==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=epam.com smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vCOUp3zybXuRnUus77EylJ7lIH4OXkT6lWLlPlk3fcQ=;
+ b=RKxpaAqW0104KsuQ+ltHynaAgWMUp5bCaqgd9taHPXWAn9u4nnET1wi0fP/IUqPJm3QT2DaAbmiADiEzyp9cnbUV/rvjXoo7lwN5F4Qx4VVNTh5CaO1jSQvXb/5OMz6tPU6cbwUW2wRMoHMUn39J2fRkQkhE+XYBJJWfN9N4aNE=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wvMEsp3WDOvobV//elBkxQmqhwnxy55Vr4QEs0I0mw9rJ1HXqtvdY4AhnNNT4sQyn+5Vm5uRp2FwMAQW3agZVX9gg34oUCX77xMm6oCmJGVzSWhWxBesR/NfPkeornwvB1Zbx5o8Jyz0vkD6keIr/KNzDNpRAMk+nszU9YJRl+jmRTdjXghAVXA60QDg0IYX3kFIAPJI8p6xWlD1ML+REes3qH43kxYFUylUp2gmdYxru7pPWDUaw2XJycDUVtu/0myoKidBxiMcmebA68GFG3m21zUI8VOsyOEhrsYVEhMmahyHRFItrrG0SzIQ5ZgsMw66zPtUUO8lfoRNao8IkQ==
+ b=arZJokadE1SztxH4Ql/OV7BW21d9DU1Cx2fH2BvoyV5eST3avHqyvWeL515hfbr424d6cSWLjQMYeH5B8RoOm3QeSkBnMXbHzZSI0hMiTV3yZOoKRwhBCUlmc2EGXQzhpLXm0thGOMFmO1rz9JJk+eqp2FRH90RXvtivxGYDLRpyyINc7//R3q/t1Z1y6M4KrNHYv9JUrEbR9TZBGegLgNNacl+OYB/nlTfeUy2Df8QHhDnPiphlSCxfB+YnWdDBJ1nLsIGr2NrnvRA/8DNBl4klNQcYWW4s/9T4z9bRr8awXsO5CKNWnrM6o5ZqROocw9XklCTp8N9SGtnHdwnLwA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/FtPNdQWU2FaZ1mNLmFoHIv/iSkXslvOhnsw76/rXR8=;
- b=vsRnUsvNo75/lJKn7Ojx1TNkXB75zC9hh74jgLmlx0A1JdrXymQWlUHa7FLrJ8lHGI37sP7R0efQWzvVxCYgP7QmVzzyxywPmpmombpNxn/Kwh5ACxQVV3sHPoeXD7xgxF1MN/ROaMADaSB+uJWPwgXQCJlL8dEMsr6cEgmBefxCCbFwseLplCW2OxNFdUK0czjhbUq36vwoF1Us4BIIwuGxgDejtv9XuiLDKNu8PufNS9XTnVBpFKo/zAb3i/I5DtISSFuJUQs1Rxtmpc+QREfF5DIhMKnlVT+rWUVS3SpI/+Zy8ycNJLo4BZ0zzNnG4P3ZktD1+rBjxgW1V4hXeQ==
+ bh=vCOUp3zybXuRnUus77EylJ7lIH4OXkT6lWLlPlk3fcQ=;
+ b=lCPEtqUv4FIX9GsZP2Dw0YmGzVHBuDRQipwiohgSQqwx2wNJFYT5O2CkyzHrQzj0b0ppyQHrRfCBpkv03N3RSNYkLe/qprAzO4ijRaiJYxo7Ep7HIn1pS3pEOrtwWOKmPRpvTuD9t6N8mc67lFHUJKC16Rp4vUJ97HtG8t9XozY72l5FcH9ESEyNHxMudvG7HPnGcClC19u/kwM0ZyqVp8Oazy8ImbS5aLctZ46k3IP0feYXx2so/hVlC+aa1IRzMO4Msbt2b8fX8Vx9EJT2iqIpq4VsQ1o0HIRl7nfXhLfgqOHUMViGvqvlD2wgnKwh4WNm1Cs2ugzQ1CMQFJmXOw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/FtPNdQWU2FaZ1mNLmFoHIv/iSkXslvOhnsw76/rXR8=;
- b=n7DpiCWmmVXWk+XDyP+O8/U83ZFOF7+7WISC7gitOmdkoEKmY7sdR6B1fsqV9pnZzfXIGhnw9CV4NYmBpxqEwKkrBLbv38Zrk3X11/45d0/ZLIxppzffbrhclY7zjtHFVqEx7BYtmed9DMz0rIrNyV1lC/Jf8Z8+vrcOU9rDntw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <248e5f27-775e-4bd4-ad52-233c2deac1cb@amd.com>
-Date: Thu, 17 Jul 2025 16:43:44 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 07/11] xen/dt: Extract bootinfo-independent functions
- to bootfdt.c
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>
-References: <20250715161108.141126-1-alejandro.garciavallejo@amd.com>
- <20250715161108.141126-8-alejandro.garciavallejo@amd.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
+ bh=vCOUp3zybXuRnUus77EylJ7lIH4OXkT6lWLlPlk3fcQ=;
+ b=RKxpaAqW0104KsuQ+ltHynaAgWMUp5bCaqgd9taHPXWAn9u4nnET1wi0fP/IUqPJm3QT2DaAbmiADiEzyp9cnbUV/rvjXoo7lwN5F4Qx4VVNTh5CaO1jSQvXb/5OMz6tPU6cbwUW2wRMoHMUn39J2fRkQkhE+XYBJJWfN9N4aNE=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Ayan Kumar Halder <ayankuma@amd.com>
+CC: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>,
+	Artem Mygaiev <artem_mygaiev@epam.com>
+Subject: Re: [PATCH v3 2/2] docs: fusa: Add the requirements for few commands
+ of XEN_VERSION
+Thread-Topic: [PATCH v3 2/2] docs: fusa: Add the requirements for few commands
+ of XEN_VERSION
+Thread-Index: AQHbwNT/t0poWSgC+UCvRirhbzGp97PdENyAgBSxyYCARRFFgA==
+Date: Thu, 17 Jul 2025 14:55:19 +0000
+Message-ID: <09C806B4-4C30-4469-A908-F948C4B78EBA@arm.com>
+References: <20250509112447.2931909-1-ayan.kumar.halder@amd.com>
+ <20250509112447.2931909-2-ayan.kumar.halder@amd.com>
+ <F4CC8423-AC3F-4F7D-AC99-047D4F8C7BF3@arm.com>
+ <d99b0d90-d792-438d-911d-bcabbf9444c2@amd.com>
+In-Reply-To: <d99b0d90-d792-438d-911d-bcabbf9444c2@amd.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-In-Reply-To: <20250715161108.141126-8-alejandro.garciavallejo@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0386.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f7::14) To BN9PR12MB5273.namprd12.prod.outlook.com
- (2603:10b6:408:11e::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|SJ5PPFDDE56F72B:EE_
-X-MS-Office365-Filtering-Correlation-Id: 65878476-71c7-46ce-c848-08ddc540560c
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3826.600.51.1.1)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	DB9PR08MB6588:EE_|PAVPR08MB9842:EE_|AMS0EPF000001B0:EE_|DB9PR08MB8410:EE_
+X-MS-Office365-Filtering-Correlation-Id: 31efca55-271e-44dd-f190-08ddc5426b62
+x-checkrecipientrouted: true
+nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|1800799024|366016|376014|13003099007|38070700018;
+X-Microsoft-Antispam-Message-Info-Original:
+ =?us-ascii?Q?2gWemWGo5g9rZYPqsW0V9pXFbme4KkH2tcjx4AqiUUDVDC03E2pXhAsIQp8e?=
+ =?us-ascii?Q?oeqWnRlIHCE7RYwRxpe4nMjjHdk7R8XOqOjhsjwpgiq1IEvHmj1as7Vn85xw?=
+ =?us-ascii?Q?j4TKsCCXyoDtpHGF+8+/UdYuCIHkHFy2XdTuG5kNMOuW8ijFWLbrApvBzfBN?=
+ =?us-ascii?Q?LneJHEykIU5veGS3QAnZwYNwf8J7wt2zmz3hQadLZBQh55EbnBwovzNIeB09?=
+ =?us-ascii?Q?CvnPz1LmgNWbrkMMA+lwBMFbrdkX8WtJoPbj55aMdqW0kVG0NIFKgLCvlGDv?=
+ =?us-ascii?Q?BYN3nPBSc1DsYSLjKYQryvnSn3NS552ZFQJLcSlYTyZc+FQdAwN+kCeOn2nl?=
+ =?us-ascii?Q?NXE2iHnzJYqrBkt4XZ1Y53d0TCnRP/XeIipAV2wTUO3gi2+ZZm8DNv9NYVLm?=
+ =?us-ascii?Q?Jxi5pKg8YgE3SgOC5ZKjNVIL+Tslm2ntmUZY1ETIFhWnP1qzOWHjhfqEidmw?=
+ =?us-ascii?Q?Ej9mG7p6RKTNVdtaFviQM3V7oJPH1g4KrSEBXgeYbO3QuRdGAjfl71Jib+aI?=
+ =?us-ascii?Q?PrN2enPHlAzAMt0fbjM7OOeTtK09OcIEk6+Z3wYplv/ObOLcHV6wyAIvteGQ?=
+ =?us-ascii?Q?Zo26iKqTx3OWdiRhYz6D071PwSa0QzceOlWmrOHFbIvSNfs/UA23LbahDBne?=
+ =?us-ascii?Q?eugKs4GtPoCZAwz/6ItrJCgK0NU//rOj8GvXoNtTfABdV2DujweJKc+YnHgn?=
+ =?us-ascii?Q?GQMAzew047T8F9URLNyB92H5Gcjcz4wGS+KJXHpZM37pIB2v0fECUPRa5EOG?=
+ =?us-ascii?Q?WyIUkbyew+BR1xE/lmwbMFk+lDcjz8bheIqOJy3HbSq9tQEwdRlq+d8ETA9t?=
+ =?us-ascii?Q?ErK6oM5rSDc3XwVL876CVX3BPY080IckQirJubvhrE4yI1YeKDJCkkevA7oQ?=
+ =?us-ascii?Q?PT4ilc6YOzJuinCJeiyMSB/VhVD77iv1gX8nVhXNOW/uH66c2f8iLi8zi4NE?=
+ =?us-ascii?Q?OheD24J79dthdO0td7dDzxh20awu2+By+7MiyJ4XG1s1a+l2q6TR3p9mtJSJ?=
+ =?us-ascii?Q?OjjDZr8fqfzo+BPYU0u+KZUBXk8jfN9zYNFZWGvKcMmRdUFXt8NJGhkUn5wR?=
+ =?us-ascii?Q?XSNzZgBKEEuqNBvw2vujmqsdIoiXPI+8Te4ruHN/loGtuX34d41JVNxgd8t5?=
+ =?us-ascii?Q?Tbl197lkxwJ3RiR4xwP0EGr9JH/30DXEZ4X/BA95MUwhUilAv2qkV4L4LJU6?=
+ =?us-ascii?Q?El1XIxU53IculjXcMEIUMj313Hq8IotZSfHOjWTQXWWGfNEgILhfj4gcXplT?=
+ =?us-ascii?Q?FhcHxKVMW6uktFL1po3k6Py+rrc/H0bKU8d6WBN/HH4ZPuaz48an+tEpLAff?=
+ =?us-ascii?Q?ak4KiZv8s983b3pfA/FFN5SCXzlg9y1SnoTQU7ZgD0JOu+FwgS8LnOwcAer8?=
+ =?us-ascii?Q?pbyPYA3uSON1790DYcjDOJqzKljB5TR+VteWWmvyk+MxxDA4YpsgDlrlQ4pb?=
+ =?us-ascii?Q?IoRDDq4SGN0=3D?=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6588.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(13003099007)(38070700018);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <9E5ED7DDB29AF14895BC5A9B7083EEF4@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR08MB9842
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AMS0EPF000001B0.eurprd05.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	58e84a7b-f774-404e-08d5-08ddc541f320
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|14060799003|376014|35042699022|36860700013|82310400026|13003099007;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?aEgrVFNKM210SmRRR3YwRUlObkl3T2lQdStSS2ZFdUZMblVQK1o1bThDNjlj?=
- =?utf-8?B?a0ZhUFFEM0o4Wi9nby9iZ1NSY2ZpRENaOUdwWnhzTnQ3SllYWFBIQTZScTk0?=
- =?utf-8?B?SHpMY3FsdUxWams2TVdNLzltVjhud3BjbWlMa1ZKNzZBbXZxc2hLV3hLUURU?=
- =?utf-8?B?UnE1MUx3WjdxQ0MvN2R1QjV0OWJtaU5PNDc0dngxMEY0OWs3dWFEeWg2QUwr?=
- =?utf-8?B?ekRTV2VCNTVLR0ppV2FGTHBHQkJvVE9hNUoxMG94cm45dEl5UXpSODBzSTND?=
- =?utf-8?B?RUtuNjVlRE5UTUFOdTgrVWJNc1NtdVl0N2lDVlpTTVlmdGxaOUR3NkF3cU5s?=
- =?utf-8?B?MU0yTVpXQlF2d3E2N0hEMm5BK2tad2t5Nys5SFBwTDl5OTZJVzJwR3F5K3hW?=
- =?utf-8?B?ZjBOY2pSd2I3ZkpRR3Juc3hhbkxQVmxBWVVYRGcyZmlDdkcrSUV3czFXRDZO?=
- =?utf-8?B?djJZME5wMFpNTzNZdmRJaWQxaHcrZXVOaHhCRzVPREEwYjZyeUZKc0NQbWJh?=
- =?utf-8?B?U2h5V2dIY3JLVTA3azU1Q0FvS1FmSXhwNEJxbWswTVdOUkRXYnh3VmFPSEZN?=
- =?utf-8?B?ZEwrRWl1djhseXJBNWJYVGxQWXlqbzRmaCtVYkx5S3lTdjA4d29ldnFWM3JC?=
- =?utf-8?B?cDRVelhIZjc0ampqdm96Mk5GLzUrUm16MTJ6UG1NK0ZvYjRqWCtjdE5RRXdD?=
- =?utf-8?B?ZjlYUU5YSWo4cW9NL3p4eGV6RFBGdSs0MGJVL0ozbVVWV2w3RFNmRUY4VFRa?=
- =?utf-8?B?ejBFdlY5UXc0ZkpTa3Jid0xvbGg5Sy9BZkNhQjdEWHVsTCtoWEkyMWMwYkE4?=
- =?utf-8?B?U1JZVTU2NE9rTG52VEJzejE1R3I0QlI3aDdFdHdCSml5N2VhNW1FNm5ST0lB?=
- =?utf-8?B?d2ViKzYwTU5PbDl6VzF4VGpzVnllWWpiZ21vTmtzZ2dldWk3V3NSWkVSVlg0?=
- =?utf-8?B?VHdRY3B5NEJocEN5UEhqeWY5OVJkczA5WDNFeUEvcXNqM3B4WldlTmpGSWRT?=
- =?utf-8?B?QXI2UE5PU3U4Uit2c3E4c0RxWUdVYnAyNkkreFUza2Jqdi9jdWFyQmhHSWlt?=
- =?utf-8?B?N3d6NEw2ZkF1aEtRR0tTOTBLQ2hRdlJ2WXJWNkNyOUhjWU1GNkhGaG9tYmhO?=
- =?utf-8?B?Rmx4Ulppc3prTmo4WWsvMUpWNmh5aXRxa2NNZlFSalJ5Y1ZTNEVxZjRwSXoy?=
- =?utf-8?B?UEZZc05uRmo4TlNOZnVTTmNqeTFUTzBWQWphSXdPN21zSjQrdUN0SXUwdkZ0?=
- =?utf-8?B?NUIvTzk1VGFjK0gvKzBZTmcyS21BMlpKQ1pFbU5lL2hRSW8yU25XZDF5STVZ?=
- =?utf-8?B?N29EQU5RWWtQRnlHTG00Tk9JVUZPcFlPZ3Ntb2NPRE5GV1N4ekFPMWtvSmlU?=
- =?utf-8?B?L1J0T2gyNjhsOVEyMmNIeDBNT1hTQitTNDVsQkQvVUhOclowSEFRdk96bnFL?=
- =?utf-8?B?VlRFa1dkR1gvZWNYaG51VmhwYlRhWFBYdzJ4MHFNdmVHbmx0MDJueS9PRmtQ?=
- =?utf-8?B?czlUK2cvc2oxeWJYU1lDNHNaNTRaQXhEbU5kQ3FZOHZ5UzhGYWpOZnhHMENi?=
- =?utf-8?B?RUlyL2VJaWJZdTZlQStpd3ZJUEd2c1h0RmU4cTIzME4wWWRQa2V5Rk5SdmFV?=
- =?utf-8?B?Umc0NjZqSEt4OWVNUFZyQTRuR3RCWWhFd2hCMjJkd1YrbTNrVVB0MDBNbTR3?=
- =?utf-8?B?dmtFUTVGR3RJTm12dXo3V0owZjhXY1pONXFyZGlqelpRc0tGcGdrc0pMWjZa?=
- =?utf-8?B?S1NQZVhnNmYwZ2RnM1k3OFEwRFU1RDcyQVFaZzZFWm9LTEt1c2E3Zlp6S1BD?=
- =?utf-8?B?VTNRZDBaSHBFQ3Boc2hTZzJTanRWYnJMMXhGQURqeVFuMDMzWGNTcXVrUmp5?=
- =?utf-8?B?eU9EMzRUYTRSZlk1cGhROUp4aFJOS3J4Zk5pSW1oNGpxbTZaRG5laitjN3JV?=
- =?utf-8?Q?eV8G53n2pa0=3D?=
+	=?us-ascii?Q?RVI2Xr6aLw5bMvHglDCDpWtI9GiAXkTJM9MpZdYBJ5ZDc4DJE1IeYIBBpGK7?=
+ =?us-ascii?Q?wJeZA9B1NpCAYrtRgdZseJ42WFozf9t3zXfiPj5F2U1N6h/QEzrojeZR4QAx?=
+ =?us-ascii?Q?s7WC3Om0+C0QuWl6cHZtv9nP5+vzl/iljs6GTg35eCNQivr7v80sxfQGDUXg?=
+ =?us-ascii?Q?KBAeclh5vJB9WG44haBDqQ3UMKbns58fycyRyy6eaG+t2/aTY2lAXXKPUdq/?=
+ =?us-ascii?Q?QQuj4iaXd1mZi+KaZgPOBrY1WkviAW67zAzRdcjXyAYP2hQ2uDuLJiVV0yvr?=
+ =?us-ascii?Q?/dNyGD5cJLgUNDgE/yrUKexXxbORwtJH0Qf7wuAoT95b3o9jsQKczuXXPIZ7?=
+ =?us-ascii?Q?93xegyf92B85j7V+gEcuBdp28jU+NaPFO3wv6te8sFKqoWUaD9DcbuRdY7J/?=
+ =?us-ascii?Q?/ZFuHGh3qnCQ5HF2PcW+NjfWS7oJ8e58TvVXZxj4rVsG/Q/IufOKl8ZU3Wad?=
+ =?us-ascii?Q?oa6NlSSGGlMME1tzFS+9OKRcPnrcAAN1XPSKdWLz8h+KqeWNm4/X9UL4gk3V?=
+ =?us-ascii?Q?Rxhiwd795sRQ04QUmpx5+R9vWXnw7MATfyqFep6rAf6lzeHtP3TIfPL52WWY?=
+ =?us-ascii?Q?SiRt6APhuaSLyW8WpJcbubxpr3ahRfXHXpQmubipjRhUvC+MQ59ciw3pbirA?=
+ =?us-ascii?Q?LL1l3I76spzMAH60XcHp4mVyn71apcoY30p6y061GoS+f2ivxe2ZnkoNTbhd?=
+ =?us-ascii?Q?mWz0RSqIRdJm6qebVEzhQiC0gpk202Mg5aiy9jMSLcoWwksd+5nssrrHMmq5?=
+ =?us-ascii?Q?/Xb7U0Hj/vaLs3S+VhqQqo7wvftyFKGJc1Q6+3zAxBzyAJNESKRrCkBEhVgt?=
+ =?us-ascii?Q?S074gl6fPwjJQZSeOeMpwnxvZclh8uO/b6n2185l8KwB/B/U70l6XXPZWI8n?=
+ =?us-ascii?Q?VWDqvBvL86kj4XxeTKC0WN6Tc4c1hTkdnLKQKzQb2CBQeGITNOrrVbm/QfCa?=
+ =?us-ascii?Q?snMrkLz29pZR/xif81JH3R7sE+TL7orXOuSqZaFvngUNfWVhW+p0/CYrjFcM?=
+ =?us-ascii?Q?QBH8EW1LivlPPL+I4cxlzvjPTB1mljtUNI3XOTwgi57Loky3dAatm9Mdo0bw?=
+ =?us-ascii?Q?tdnlMPfuACU2XxI0ISO2vcv/hEud+fFiCeKdBreTWhnT6upTDBHuXAn5k++z?=
+ =?us-ascii?Q?Esv8N4yhVmuFKMgLmM0KyI9Vx+LVhz2cKmM+gpoJvoiWCnD6RNBW+EhW5djd?=
+ =?us-ascii?Q?RyTr1SJPe2byqqZg8w9x2zn3JoH1oDstZprhddt+WZqQ7VzkDXMAYnYCnke6?=
+ =?us-ascii?Q?R7fmfiUPkB6ZRKkgqf+DAmqcZXWM17r7pCHJnxGBQzpFZxmKnP1/ACZP/c+q?=
+ =?us-ascii?Q?ZsuVIFVDrMc/oyR1/F5W1YIfEAdQbNkrSiCbPealiuWQQ6oL7KzNQriTsjMM?=
+ =?us-ascii?Q?EwRORJyqQ9cv1+Hnbn1mYczpAUmaklTBFSSGstQpeJFzveUpm7GsCQYBMGo2?=
+ =?us-ascii?Q?ndX2DtRliVZk2mKkfIkGOgh+NYNPb8RP3YAIyr+zOn24DP8Yckngqw=3D=3D?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bnVEREE2a2JoQ1kvV2FXVnFEMmlNdTVFVmgxWFJZMGVjekVkYnlnNGhBWmor?=
- =?utf-8?B?b0tRclhQNTlKQTFxQlRmSlRIRm82NFRWUU9OYXlvQTllN3RMNGFLMmJOTkhH?=
- =?utf-8?B?ODVVSUYycStjL2Q4TWt6MUlYd0EycXhzWlVPRlF6dko5TVdNWEhiNE9wREZx?=
- =?utf-8?B?VUJ3QS9JTzJTcXVtdXhiZkx2M3B4dDk1N0EyeFVwUzZ0Mm15OGtmaHVLSk5V?=
- =?utf-8?B?bHA0eDFqWUxZL2pPZ3NxUi83L0lmZHp1MDF6bWdTSWs2QmtnS3I2cDRzMFdy?=
- =?utf-8?B?b1JYMVAwQVowZkd0ZlhETUNqZUNTY0ZNbHowallkbVNlUzVlYjhZV2pZU2Q2?=
- =?utf-8?B?NGRJbE5DalFCalRxVzBtNUVaMDJvdmRtZXV2WVpPWEtmVlFRMHVZL3EzSml1?=
- =?utf-8?B?M1RQYWpTbW55bEsrckhWZ3Nxd1paSFBnaEVFWnBKZ0JoSzRESUpCRFU5bVE0?=
- =?utf-8?B?TGM1Mks4VkNodmJpVGJWRXBlNFF5ZkN0WmNjNEF4K016MXhNdEpGWU90T0xj?=
- =?utf-8?B?Q28raDhZcTAyYjQva3NGWnN4Ry9ueGsxMlBUaDM0ajVUMldQajRBQnk2Ulo5?=
- =?utf-8?B?YUJBVmxzUVVVRjVFSzRsT0JhVTFOTnlHY000ai9YWGVJb29FMWsxdm1ucnNY?=
- =?utf-8?B?aks4dkh1Y210Nmg5UlpmUU5uV1FoSUxobEZWOTZlR2pNeWY4alpxZ3REejFB?=
- =?utf-8?B?ZlY2SDIwL1dnczd6eEN2V0hZRndaQlFQakVLbE90YTNxTXh0NzU4WHdwMk96?=
- =?utf-8?B?cHBiT2JBYk5tWHR2R2FDRzZxN3R1dTJQM2Uvc0tvR1c4b1c5bzM1ak1xU01u?=
- =?utf-8?B?aXlUcncvUWNRTDVGSGZ4blkxQUFZOHdtczVYeHNYWkloU3ZySnB0eFpJSmlm?=
- =?utf-8?B?c2FCN1pXc0ZFQXFJUnNScnJKMzljblVtVk5XK1FvaVpkQk5aWDU0UnBOd0RT?=
- =?utf-8?B?Q2tIS2QxeE9tMDhEUk92N3dXOXdRT0hFQjQ4bzFIOFJkaFBwTDFFOGozWUdr?=
- =?utf-8?B?c2c1OHQvR1h3MDRtN0hxdm9yNS9MYkFaS2JPU0RhUkdlcjIrditQc3Y2U08v?=
- =?utf-8?B?ZndwT0JsUWQyVkRKYXRPUkRVWWhVbE1TVzREaGNrditUUWUxOUVyRTJwdllX?=
- =?utf-8?B?RTlCWkV2NitLZjVNNndleHhHb3lFRTByTzZkYVVtTEJxTHk4eHkwSTBQV1k2?=
- =?utf-8?B?R3dXbENzYjlqaGg1TktCdUxJc1c3QzdVSjdGT1J6Smc4Uk8yM0ljdVo0dGtI?=
- =?utf-8?B?Qnpsenh2VEltRHNnWWxyTzVKQTdRakhicEdURytxTG5nRytSdTkyVWJQdW1a?=
- =?utf-8?B?VTcwSm5ZeFJMeFZwY3B5UnB3V2oxSjZucGFqYlVGV2ZubStvTldSZTBHbFp5?=
- =?utf-8?B?emlnalN6bEVwRHdPM29acnVmbUtXSWlhbnhkTW5kMmRGN2g2cnVha215d2dV?=
- =?utf-8?B?aFZDWGc5NEpmeTF5RDF2bi9wQU1pRERQNjFPMzd6UHJCVUh3MGY1M2REYmM1?=
- =?utf-8?B?QUIvck9XcUlYNG0xdHYwbEw4WEZiNTYxL01UZDBHZEJOZlpMRHFzV2dETXpW?=
- =?utf-8?B?S3VMZkpXQkZrc3JrNlhMaHVMRmxraTJxZ0hMZWduaU1jNXJwdE1nRld1QjVi?=
- =?utf-8?B?dStiTVVHdkxSSjhzTy9qVFkwWmhrQm1MN2hNL1NoQm9EdVRSczh1RDg4d0tJ?=
- =?utf-8?B?T2Fia0RaSWlVbFhjdEl2T0xmdkdmWmJoRFNweUV3MTArMVRmbGxvaXBQMGlr?=
- =?utf-8?B?d0ZRaUt2L1VBZjVHbi9McXpUdkdnMmdoVlowbjl3S3RvdHVPQ2RzUFJxbTQ4?=
- =?utf-8?B?U0NzT3lNVkFtVExOanVoRGZOM1ZiYUo1N1lZS2NaQmZSNGdwTFFrQmJvbE5E?=
- =?utf-8?B?dDQwL0UzQ1h0S0Q2N202S0JGYnF0RWh5WlVvaHdLb3N2SXNnREZLUmIzeEl5?=
- =?utf-8?B?YmRUN0xicFRIaWNJOEJ2OFMwbytXS0xUVG9rYUdEZ21oVktidjd5NldRUld2?=
- =?utf-8?B?YUszWU1XOXJhb0dYWHhyejc2OE5TZ2JIU2xldDREZ2xlVWJ2VXA5VkpTUHRI?=
- =?utf-8?B?SmpPUm1wM3BwczNDOU4veFg3T3lmdHRnZ0xhSFZFV1RPMHNMS0FrTmZ5V1JS?=
- =?utf-8?Q?J8BKjt44L7pfpnoF+5XapvmBV?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65878476-71c7-46ce-c848-08ddc540560c
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2025 14:43:47.1016
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(14060799003)(376014)(35042699022)(36860700013)(82310400026)(13003099007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2025 14:58:41.5648
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RfQos21P0IwM8/CZoGBIy5PgOB/xw4w6Alyvc3gSzI1BH6E66Cgs9ISzi9467UxH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFDDE56F72B
+X-MS-Exchange-CrossTenant-Network-Message-Id: 31efca55-271e-44dd-f190-08ddc5426b62
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AMS0EPF000001B0.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB8410
 
+Hi Ayan,
 
+Sorry for the delay.
 
-On 15/07/2025 18:11, Alejandro Vallejo wrote:
-> Move all functions independent of "struct bootinfo" back to bootfdt.c
-> 
-> Not a functional change.
-> 
-> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>\
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> On 3 Jun 2025, at 18:11, Ayan Kumar Halder <ayankuma@amd.com> wrote:
+>=20
+>=20
+> On 21/05/2025 13:10, Bertrand Marquis wrote:
+>> Hi Ayan,
+> Hi Bertrand,
+>>=20
+>>> On 9 May 2025, at 13:24, Ayan Kumar Halder <ayan.kumar.halder@amd.com> =
+wrote:
+>>>=20
+>>> Define requirements for specific commands.
+>>>=20
+>>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+>>> ---
+>>> Changes from -
+>>>=20
+>>> v1 - 1. Reworded the requirement so as to avoid mentioining variable na=
+mes
+>>> or hardcoded strings. Otherwise, one would need to change the requireme=
+nt
+>>> each time the code changes.
+>>>=20
+>>> v2 - 1. Moved few changes to previous patch.
+>>>=20
+>>> .../fusa/reqs/design-reqs/arm64/hypercall.rst | 15 ++++
+>>> .../design-reqs/arm64/version_hypercall.rst   | 34 ++++++++
+>>> .../reqs/design-reqs/version_hypercall.rst    | 82 ++++++++++++++++++
+>>> docs/fusa/reqs/index.rst                      |  3 +
+>>> docs/fusa/reqs/product-reqs/hypercall.rst     | 20 +++++
+>>> .../reqs/product-reqs/version_hypercall.rst   | 83 +++++++++++++++++++
+>>> 6 files changed, 237 insertions(+)
+>>> create mode 100644 docs/fusa/reqs/design-reqs/arm64/version_hypercall.r=
+st
+>>> create mode 100644 docs/fusa/reqs/design-reqs/version_hypercall.rst
+>>> create mode 100644 docs/fusa/reqs/product-reqs/hypercall.rst
+>>>=20
+>>> diff --git a/docs/fusa/reqs/design-reqs/arm64/hypercall.rst b/docs/fusa=
+/reqs/design-reqs/arm64/hypercall.rst
+>>> index f00b0b00f9..f58a9d50aa 100644
+>>> --- a/docs/fusa/reqs/design-reqs/arm64/hypercall.rst
+>>> +++ b/docs/fusa/reqs/design-reqs/arm64/hypercall.rst
+>>> @@ -56,3 +56,18 @@ Comments:
+>>> Covers:
+>>>  - `XenProd~version_hyp_first_param~1`
+>>>  - `XenProd~version_hyp_second_param~1`
+>>> +
+>>> +Return value
+>>> +------------
+>>> +
+>>> +`XenSwdgn~arm64_ret_val~1`
+>>> +
+>>> +Description:
+>>> +Xen shall store the return value in first cpu core register.
+>> use x0 instead.
+> Ack
+>>=20
+>>> +
+>>> +Rationale:
+>>> +
+>>> +Comments:
+>>> +
+>>> +Covers:
+>>> + - `XenProd~hyp_err_ret_val~1`
+>>> diff --git a/docs/fusa/reqs/design-reqs/arm64/version_hypercall.rst b/d=
+ocs/fusa/reqs/design-reqs/arm64/version_hypercall.rst
+>>> new file mode 100644
+>>> index 0000000000..3aa12ea2c2
+>>> --- /dev/null
+>>> +++ b/docs/fusa/reqs/design-reqs/arm64/version_hypercall.rst
+>>> @@ -0,0 +1,34 @@
+>>> +.. SPDX-License-Identifier: CC-BY-4.0
+>>> +
+>>> +Capabilities
+>>> +------------
+>>> +
+>>> +`XenSwdgn~arm64_capabilities~1`
+>>> +
+>>> +Description:
+>>> +Xen shall have an internal constant string to denote that the cpu is r=
+unning
+>>> +in arm64 mode.
+>> This is untestable if this is purely internal so this cannot be a requir=
+ement
+>> I am not quite sure why you need this, can you explain ?
+>=20
+> We had agreed on this wording in "[PATCH v1 2/2] docs: fusa: Add the requ=
+irements for some of the commands of XEN_VERSION". You had mentioned this
+>=20
+> ```
+>=20
+> All in all, the design just need to say that it must be stored somewhere =
+"bounded" to the source code so that a tester can check it.
+>=20
+> ```
+>=20
+> So, I infer that needs to be validated by code inspection. The string is =
+set in init_xen_cap_info().
 
-~Michal
+ok at the end this might be tested by inspecting the image ro data section.
+
+>=20
+>>=20
+>>> +
+>>> +Rationale:
+>>> +
+>>> +Comments:
+>>> +
+>>> +Covers:
+>>> + - `XenProd~version_hyp_capabilities_cmd~1`
+>>> +
+>>> +Capabilities AArch32
+>>> +--------------------
+>>> +
+>>> +`XenSwdgn~arm64_capabilities_aarch32~1`
+>>> +
+>>> +Description:
+>>> +Xen shall have a internal constant string to denote that the cpu is ru=
+nning in
+>>> +arm32 mode.
+>>> +
+>>> +Rationale:
+>>> +
+>>> +Comments:
+>>> +
+>>> +Covers:
+>>> + - `XenProd~version_hyp_capabilities_cmd~1`
+>>> +
+>>> diff --git a/docs/fusa/reqs/design-reqs/version_hypercall.rst b/docs/fu=
+sa/reqs/design-reqs/version_hypercall.rst
+>>> new file mode 100644
+>>> index 0000000000..aac5896965
+>>> --- /dev/null
+>>> +++ b/docs/fusa/reqs/design-reqs/version_hypercall.rst
+>>> @@ -0,0 +1,82 @@
+>>> +.. SPDX-License-Identifier: CC-BY-4.0
+>>> +
+>>> +Version
+>>> +-------
+>>> +
+>>> +`XenSwdgn~version~1`
+>>> +
+>>> +Description:
+>>> +Xen shall have a internal constant (XEN_VERSION) storing the version n=
+umber
+>>> +coming from the Makefile.
+>> I really have doubts about this and the following one.
+>>=20
+>> If this only goal is to say what should be returned in the XEN_VERSION h=
+ypcall you might
+>> just need something saying it and mention this as a comment because you =
+will have a very
+>> hard time to test such a requirement.
+>=20
+> Should I say
+>=20
+> Description:
+>=20
+> Xen shall return its version when XENVER_version command is invoked.
+
+yes that sounds better.
+
+>=20
+> If so , then ...
+>=20
+>>=20
+>>> +
+>>> +Rationale:
+>>> +
+>>> +Comments:
+>>> +
+>>> +Covers:
+>>> + - `XenProd~version_hyp_version_cmd~1`
+>>> +
+>>> +Subversion
+>>> +----------
+>>> +
+>>> +`XenSwdgn~subversion~1`
+>>> +
+>>> +Description:
+>>> +Xen shall have a internal constant (XEN_SUBVERSION) storing the sub ve=
+rsion
+>>> +number coming from the Makefile.
+> Xen shall return its extra version when XENVER_extraversion command is in=
+voked.
+
+yes
+
+>>> +
+>>> +Rationale:
+>>> +
+>>> +Comments:
+>>> +
+>>> +Covers:
+>>> + - `XenProd~version_hyp_version_cmd~1`
+>>> +
+>>> +Error copying buffer
+>>> +--------------------
+>>> +
+>>> +`XenSwdgn~error_copy_buffer~1`
+>>> +
+>>> +Description:
+>>> +Xen shall return -EFAULT if it is not able to copy data to domain's bu=
+ffer.
+>>> +
+>>> +Rationale:
+>>> +-EFAULT is one of the error code defined in
+>>> +http://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dblob;f=3Dxen/include/pu=
+blic/errno.h.
+>>> +
+>>> +Comments:
+>>> +
+>>> +Covers:
+>>> + - `XenProd~hyp_err_ret_val~1`
+>>> +
+>>> +Extraversion
+>>> +------------
+>>> +
+>>> +`XenSwdgn~extraversion~1`
+>>> +
+>>> +Description:
+>>> +Xen shall have a internal constant (XEN_EXTRAVERSION) storing the extr=
+aversion
+>>> +coming from the build environment.
+>>> +
+>>> +Rationale:
+>>> +
+>>> +Comments:
+>>> +
+>>> +Covers:
+>>> + - `XenProd~version_hyp_extraversion_cmd~1`
+>>> +
+>>> +Changeset
+>>> +---------
+>>> +
+>>> +`XenSwdgn~changeset~1`
+>>> +
+>>> +Description:
+>>> +Xen shall have a internal constant string (XEN_CHANGESET) storing the =
+date,
+>>> +time and git hash of the last change made to Xen's codebase.
+>>> +
+>>> +Rationale:
+>>> +
+>>> +Comments:
+>>> +
+>>> +Covers:
+>>> + - `XenProd~version_hyp_changeset_cmd~1`
+>>> diff --git a/docs/fusa/reqs/index.rst b/docs/fusa/reqs/index.rst
+>>> index d8683edce7..de19b0cda2 100644
+>>> --- a/docs/fusa/reqs/index.rst
+>>> +++ b/docs/fusa/reqs/index.rst
+>>> @@ -11,6 +11,9 @@ Requirements documentation
+>>>    product-reqs/reqs
+>>>    product-reqs/arm64/reqs
+>>>    product-reqs/version_hypercall
+>>> +   product-reqs/hypercall
+>>>    design-reqs/arm64/generic-timer
+>>>    design-reqs/arm64/sbsa-uart
+>>>    design-reqs/arm64/hypercall
+>>> +   design-reqs/arm64/version_hypercall
+>>> +   design-reqs/version_hypercall
+>>> diff --git a/docs/fusa/reqs/product-reqs/hypercall.rst b/docs/fusa/reqs=
+/product-reqs/hypercall.rst
+>>> new file mode 100644
+>>> index 0000000000..b57b9acde8
+>>> --- /dev/null
+>>> +++ b/docs/fusa/reqs/product-reqs/hypercall.rst
+>>> @@ -0,0 +1,20 @@
+>>> +.. SPDX-License-Identifier: CC-BY-4.0
+>>> +
+>>> +Error Return Value
+>>> +------------------
+>>> +
+>>> +`XenProd~hyp_err_ret_val~1`
+>>> +
+>>> +Description:
+>>> +In case the hypercall fails, Xen shall return one of the error codes d=
+efined
+>>> +in http://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dblob;f=3Dxen/include=
+/public/errno.h.
+>> s/the/an/ hypercall otherwise it is not quite clear which hypercall you =
+mean.
+> Ack
+>>=20
+>>> +
+>>> +Rationale:
+>>> +
+>>> +Comments:
+>>> +
+>>> +Covers:
+>>> + - `XenMkt~version_hypercall~1`
+>>> +
+>>> +Needs:
+>>> + - XenSwdgn
+>>> diff --git a/docs/fusa/reqs/product-reqs/version_hypercall.rst b/docs/f=
+usa/reqs/product-reqs/version_hypercall.rst
+>>> index 400d51bbeb..2ef1c4f9ca 100644
+>>> --- a/docs/fusa/reqs/product-reqs/version_hypercall.rst
+>>> +++ b/docs/fusa/reqs/product-reqs/version_hypercall.rst
+>>> @@ -41,3 +41,86 @@ Covers:
+>>>=20
+>>> Needs:
+>>>  - XenSwdgn
+>>> +
+>>> +Version command
+>>> +---------------
+>>> +
+>>> +`XenProd~version_hyp_version_cmd~1`
+>>> +
+>>> +Description:
+>>> +Xen shall provide a command (num 0) for  hypercall (num 17) to retriev=
+e Xen's
+>>> +version in the domain's register 0.
+>>> +
+>>> +Rationale:
+>>> +
+>>> +Comments:
+>>> +Xen version is composed of major and minor number.
+>> How Xen version is encoded should be a requirement, you can add this dir=
+ectly into
+>> the definition of this one in fact i think.
+>=20
+> Do you mean the description should be :-
+>=20
+> Description:
+>=20
+> Xen shall provide a command (num 0) for  hypercall (num 17) to retrieve X=
+en's
+> version (composed of major and minor number) in the domain's register 0.
+
+If you want to test that the version is what you expect you need to know ho=
+w it is encoded.
+So might be something like major number in bits x to y, minor in xxx etc.
+
+>=20
+>>=20
+>>> +
+>>> +Covers:
+>>> + - `XenMkt~version_hypercall~1`
+>>> +
+>>> +Needs:
+>>> + - XenSwdgn
+>>> +
+>>> +Extraversion command
+>>> +--------------------
+>>> +
+>>> +`XenProd~version_hyp_extraversion_cmd~1`
+>>> +
+>>> +Description:
+>>> +Xen shall provide a command (num 1) for hypercall (num 17) to copy its
+>>> +extraversion in the domain's buffer.
+>>> +
+>>> +Rationale:
+>>> +
+>>> +Comments:
+>>> +Xen's extra version consists of a string passed with 'XEN_VENDORVERSIO=
+N' command
+>>> +line parameter while building Xen.
+>>> +
+>>> +Covers:
+>>> + - `XenMkt~version_hypercall~1`
+>>> +
+>>> +Needs:
+>>> + - XenSwdgn
+>>> +
+>>> +Capabilities command
+>>> +--------------------
+>>> +
+>>> +`XenProd~version_hyp_capabilities_cmd~1`
+>>> +
+>>> +Description:
+>>> +Xen shall provide a command (num 3) for hypercall (num 17) to copy its
+>>> +capabilities to the domain's buffer.
+>>> +
+>>> +Rationale:
+>>> +
+>>> +Comments:
+>>> +Capabilities related information is represented by char[1024].
+>>> +For Arm64, the capabilities should contain "xen-3.0-aarch64" string.
+>> Isn't it mandatory for xen to return aarch64 for arm64 ?
+>> This could be turned into a requirement (easily testable).
+>=20
+> So should I change the following design requirement
+>=20
+> "Xen shall have an internal constant string to denote that the cpu is run=
+ning in arm64 mode."
+>=20
+> to
+>=20
+> "Xen shall return xen-3.0-aarch64 to denote that the cpu is running in ar=
+m64 mode."
+
+yes
+
+>=20
+>>=20
+>>> +
+>>> +Covers:
+>>> + - `XenMkt~version_hypercall~1`
+>>> +
+>>> +Needs:
+>>> + - XenSwdgn
+>>> +
+>>> +Changeset command
+>>> +-----------------
+>>> +
+>>> +`XenProd~version_hyp_changeset_cmd~1`
+>>> +
+>>> +Description:
+>>> +Xen shall provide a command (num 4) for hypercall (num 17) to copy cha=
+ngeset
+>>> +to the domain's buffer.
+>>> +
+>>> +Rationale:
+>>> +
+>>> +Comments:
+>>> +Changeset is string denoting the date, time and git hash of the last c=
+hange
+>>> +made to Xen's codebase.
+>> Does this has a standard format ? if so it should be explained.
+>=20
+> This is a implementation level detail. The format is autogenerated in com=
+pile.h
+>=20
+> "Mon Dec 30 22:00:31 2024 +0100 git:0d729221ab"
+>=20
+> How do you want me explain this ?
+
+No then the sentence is ok as is i would say.
+
+Cheers
+Bertrand
+
+>=20
+> - Ayan
+>=20
+>>=20
+>>> +
+>>> +Covers:
+>>> + - `XenMkt~version_hypercall~1`
+>>> +
+>>> +Needs:
+>>> + - XenSwdgn
+>>> --=20
+>>> 2.25.1
+>>>=20
+>> Cheers
+>> Bertrand
+
 
 
