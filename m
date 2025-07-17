@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24914B08542
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 08:46:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1046218.1416488 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDB26B08568
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 08:50:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1046232.1416497 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucINd-0001Nu-70; Thu, 17 Jul 2025 06:46:09 +0000
+	id 1ucIRT-00034x-MA; Thu, 17 Jul 2025 06:50:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1046218.1416488; Thu, 17 Jul 2025 06:46:09 +0000
+Received: by outflank-mailman (output) from mailman id 1046232.1416497; Thu, 17 Jul 2025 06:50:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucINd-0001M8-3r; Thu, 17 Jul 2025 06:46:09 +0000
-Received: by outflank-mailman (input) for mailman id 1046218;
- Thu, 17 Jul 2025 06:46:08 +0000
+	id 1ucIRT-00033W-Iz; Thu, 17 Jul 2025 06:50:07 +0000
+Received: by outflank-mailman (input) for mailman id 1046232;
+ Thu, 17 Jul 2025 06:50:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Kd8q=Z6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ucINc-000126-A3
- for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 06:46:08 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ id 1ucIRS-0002wy-5O
+ for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 06:50:06 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b6dfe5cb-62d9-11f0-b894-0df219b8e170;
- Thu, 17 Jul 2025 08:46:06 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-454f428038eso5407145e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 23:46:06 -0700 (PDT)
+ id 443bc0c3-62da-11f0-b894-0df219b8e170;
+ Thu, 17 Jul 2025 08:50:03 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3b611665b96so300520f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 23:50:03 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31caf7aa71csm832799a91.8.2025.07.16.23.45.59
+ d9443c01a7336-23de4285ee1sm136549845ad.38.2025.07.16.23.49.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jul 2025 23:46:05 -0700 (PDT)
+ Wed, 16 Jul 2025 23:50:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6dfe5cb-62d9-11f0-b894-0df219b8e170
+X-Inumbo-ID: 443bc0c3-62da-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752734766; x=1753339566; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752735003; x=1753339803; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=DCeZGXYHqA5R2HGfoD4db7/VwCFssAu7wxJMKIldbyM=;
-        b=Hv1Y+Y53iH3mrElaxIhT8+QYP0KKPbOo0Z0oGGKoYSJKWm/URMFZNuYXf9QeZ7r+8M
-         KreMjoq3rTxVufy1BUrHLcbawOYZ6PSrwnD/o/KGpWSdJoWMxBw3YJa67jwt70Z2eXmp
-         c2xxvWNMpJiIIjAXdawrSlE0H59AP9OjdXS7tZtlRoSLM/fyLKiTU2ODyDqMJb4IZMvw
-         PPD7zt70zllOf626lgzxIVftLFGp+HdiiOoogAzj6HFStJlcpMNHYL4tj2t+IFOYJcdn
-         iKCH8xDQjCa6OOQVf2DyDEqttw2HBIr5nJR4rQLadYpvhkaM9S7WiXBgp8h7OjomUiGH
-         txAA==
+        bh=rRLOFQcJTfpKuyv4K++mQ5zYdfEDDXLN1zP3OLwuoq4=;
+        b=aToWr9Zh+JMPWwwyzmBInQGZW34zSMN3HovpR2/cJxmR3yEmBcYrJzvCMqPaJ9lCQy
+         09iXUy+CWwOqxIWJgJOAYwPqmBKRnaXaQxSPpGS6R6RDITePVDCgQxjtBym8A4CN8OcJ
+         zCe1waAzXV+RENxwxHKcs1fnDlZZGq7daRJE1ZxCngUcyQ2TOE1DWLQEBpSCR2tRO3Fp
+         KpVB7GHi2MEBB7dD6HB4ZyFVFlc58iTKvghOU67EooXXiQNi+CuI7gbQicoUi6GAUqMO
+         kupaoFDjkEvCIMPTrZNwfR0lM2IAtluCXvTVTGvRTSv5R3VZI/fqi30UyQo66pbiAc9Q
+         GdHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752734766; x=1753339566;
+        d=1e100.net; s=20230601; t=1752735003; x=1753339803;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=DCeZGXYHqA5R2HGfoD4db7/VwCFssAu7wxJMKIldbyM=;
-        b=fh5GY73rt4PyNNTBqZUo+QxnBE3yLQE71XzcnwdMlB193DCPULxa8HswDoPUKsKpje
-         PDT//1e6q3i+iCtUq1CywU5j0YZwejlJJE4vxOuVKqyL9ZjEGqkvfsbL99OZJhukcUOt
-         4V+tyaksSl2M5k94pqIWyyxUM8fVZDsfVqDdv8Mnv0ssjsYcv00QMu+G7lLd5xO8GHZW
-         ODkE202PYItH3pNjNPmCKQvHebHxosb3mRKFx0BEpCS4gFtXOCd4rGIQgiLoH2103STh
-         b0dMO9NcyiEZ0CGT8Df4tWOi6jQqjMVepM0J3UptTsx/wS+4Gumhru8K9TzT658ta8G6
-         gkIA==
-X-Gm-Message-State: AOJu0YyAIhmt6HPD8wWr0T9lCSjv1D3Ug7f3Qae2YufiD5bSCjO1Usnj
-	k/4wuorFQziYHPMum/CoxVAf5+h3Ett3HLXbGp7vz5p74NQnQVktrLuB8GgKXi67zQ==
-X-Gm-Gg: ASbGncv/CVOVfI9j3Fm4UerjMnECm9NdXBQzwisHonKXgabpOhae5CEgPgM/JWDGcmd
-	ojlXh5ZSzYc2DIn2NzxXKaxUC0BUUJzRNPHSQq5CubFy88nQDnEC2HmY+sIEy8kZm2aduDW3Cgb
-	KcU796peQTLXYXYDycL4As4JRa206g3IwCjXzucl0TbfiJ4D9Up2z8SRXZEd1JKKooRQ8+VYrcy
-	KQWE8w0lhbVgXmXAryKFU6oyW21BkFsW1p4UJh4WHuelSTuwuJ6/YSj9ENKaaeaIelKABg3cGtF
-	W83U+kHWkaV+5ChZlb1cilhOM8yLNn/Iw7B/5W7frPt23QdjKS1Asv7s01YLP9rKY7J8M/Zo7q4
-	r865aVV59qyUGZCMeyYmXSzJE2Ha0I23vZesU7QjRnQ/EhtrEi9Oti2ZYD9Sh7yGwm+QKnWwwKx
-	t50vmUMsU=
-X-Google-Smtp-Source: AGHT+IHXRIFLAzUu8h8dJYiz5aBAbjHfhfT2CSSX7CzaLVGkaZPpInzBg6yLUzSgvElwLbY2gZ6QFw==
-X-Received: by 2002:a05:6000:20ca:b0:3b6:1175:b62b with SMTP id ffacd0b85a97d-3b61175b62emr1598475f8f.41.1752734766111;
-        Wed, 16 Jul 2025 23:46:06 -0700 (PDT)
-Message-ID: <a6fcdb51-8bd1-4595-8f28-deafcc15ef86@suse.com>
-Date: Thu, 17 Jul 2025 08:45:55 +0200
+        bh=rRLOFQcJTfpKuyv4K++mQ5zYdfEDDXLN1zP3OLwuoq4=;
+        b=VYT18uVU9ed2Ih7FlmC9/hs1IgcOhmSDWKwcJrGfjOqOmp7Gjib2V041IdRW/CGvsM
+         18gCtvKia3meB938HFo1lTiF14lZv3FEt9AK/9hJeJtdKmG/x8sjOuFNYOXzdXnwpz2d
+         w6+eMhPeCSlSFS0Sl9J0kngezq5VC0yDcX+osp+dqHF/yk62enGjJpASLBsR9kwLKqr8
+         LDV8dAfyNrIGQq46VRbDTgan2TTMJhHiMVyP0F/taWfGzBZ72gozepsjpvrKoIycvb6i
+         aG/sb/KUIzls8HOJqs8Qt/uMcTTt2EyrMT2uOpezWPD9SS3yIe43zBzGpPXtlG0s3aHu
+         maTw==
+X-Forwarded-Encrypted: i=1; AJvYcCV5+hHRXZpSHUHg842JHJSLvMXDCreWw7ihz2KfG094LNf2FmaK7bWFXO/0m7jNJQSXcnr5zuqoeAQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyidJv/J7CpLci+E+KkX+EpeXoztKCNU2f5r0L1vfKtBa8u71FQ
+	XFJ+27GNXH8WG+E8Thi6NdAoCDKEl0E42tXv3+139OyvmZDiP+EmBQuEyl/AkECaZQ==
+X-Gm-Gg: ASbGncujnS/IeXygYU2xoG6lWII9b465PzawNCEgE2SB52B9k4pepXUlPxUnjJ/VO12
+	mypSLPKRsfy+fnqV57Ag5b2m1amhA8UdzyZktIkEgospodDMGu9YRbRDQnjSBlQlYD7LW7jIwvY
+	wBcfi5Ql2JCWb4qkJpQAVxJVnJN1i11RAt/HgOF9BB4wTg9StWenoStX/BpEeThlwBCEMLIP92w
+	P6lxVXO9eCkYw6INkEGytAmaORsx6/QV/rx0NDDV7nve7yqBXNzc/9yZfG2qxsePmWFu0qJyGpO
+	Rr5XvUXSQif4hl5J6M8UHX6bwOJcfiflK8nXEbGnJbQomBVOjm3X9l9U6FB5Mkj1Tg7s3vmrpuL
+	rdD0LldX48HGCyUH0dXiMfuQ+8F55e74+lDYbk8K2eK9mm4KuGxHC+SIqCL72ACWgm18TgeroYK
+	hFyjpaYEc=
+X-Google-Smtp-Source: AGHT+IGcJeZNmBUKovqH1Fti3H/x+pt4vZOaLU4C+js8mE8Dvtcek2GVHl9ckau5RY16Omx+pVuBmA==
+X-Received: by 2002:a05:6000:1ac5:b0:3b6:938:86b7 with SMTP id ffacd0b85a97d-3b60e513724mr4528984f8f.35.1752735003085;
+        Wed, 16 Jul 2025 23:50:03 -0700 (PDT)
+Message-ID: <39f6555a-acea-4fd6-acdc-f19b681705c0@suse.com>
+Date: Thu, 17 Jul 2025 08:49:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] misra: tailor the definition of Rule 12.2 to C standard
- types
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH] x86: Prefer d->max_vcpus to dom0_max_vcpus()
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <f486aa4ac823085afb7e068f6e84ea6be3cab19b.1752667611.git.dmytro_prokopchuk1@epam.com>
- <alpine.DEB.2.22.394.2507161809120.15546@ubuntu-linux-20-04-desktop>
+ xen-devel@lists.xenproject.org
+References: <20250716141807.52585-1-alejandro.garciavallejo@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,30 +119,16 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2507161809120.15546@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20250716141807.52585-1-alejandro.garciavallejo@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17.07.2025 03:09, Stefano Stabellini wrote:
-> On Wed, 16 Jul 2025, Dmytro Prokopchuk1 wrote:
->> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>
->> The definition of MISRA C Rule 12.2 ("The right hand operand of a shift
->> operator shall lie in the range zero to one less than the width in bits
->> of the essential type of the left hand operand") is concerned with the
->> essential type of an expression, while the C Undefined Behaviour is
->> related to C standard types, which may be wider but not narrower than
->> the MISRA C essential type. For this reason, it is safe to consider the
->> C standard type, rather than the essential type when checking the rule.
->>
->> To avoid regressions, tag the rule as clean and add it to the
->> monitored set.
->>
->> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> 
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+On 16.07.2025 16:18, Alejandro Vallejo wrote:
+> These days d->max_vcpus is populated on domain_create(), so use that instead and
+> avoid a function call.
 
-I was about to commit this, but Dmytro - your S-o-b is missing.
+One further nit though: Please limit commit message line length to 75 chars,
+such that certain git output (indenting by 4 chars) still stays below 80.
 
 Jan
 
