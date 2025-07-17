@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8253B08C03
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 13:52:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1046609.1416994 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF976B08C09
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 13:52:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1046611.1417004 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucNA8-0002Eq-BX; Thu, 17 Jul 2025 11:52:32 +0000
+	id 1ucNAA-0002XY-Kl; Thu, 17 Jul 2025 11:52:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1046609.1416994; Thu, 17 Jul 2025 11:52:32 +0000
+Received: by outflank-mailman (output) from mailman id 1046611.1417004; Thu, 17 Jul 2025 11:52:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucNA8-0002Cs-7a; Thu, 17 Jul 2025 11:52:32 +0000
-Received: by outflank-mailman (input) for mailman id 1046609;
- Thu, 17 Jul 2025 11:52:31 +0000
+	id 1ucNAA-0002Uq-GM; Thu, 17 Jul 2025 11:52:34 +0000
+Received: by outflank-mailman (input) for mailman id 1046611;
+ Thu, 17 Jul 2025 11:52:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tiP3=Z6=redhat.com=dhildenb@srs-se1.protection.inumbo.net>)
- id 1ucNA7-0001TV-8e
- for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 11:52:31 +0000
+ id 1ucNA9-0001TV-8h
+ for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 11:52:33 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 83145ad0-6304-11f0-b894-0df219b8e170;
- Thu, 17 Jul 2025 13:52:29 +0200 (CEST)
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ id 84c4110c-6304-11f0-b894-0df219b8e170;
+ Thu, 17 Jul 2025 13:52:31 +0200 (CEST)
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-111-kjiagve7N_6QEj5t06ikXg-1; Thu, 17 Jul 2025 07:52:26 -0400
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-3a4f6ff23ccso739374f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 17 Jul 2025 04:52:26 -0700 (PDT)
+ us-mta-444-MVqQcbgHNFWQmrKk00w84w-1; Thu, 17 Jul 2025 07:52:29 -0400
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-3a52bfda108so444016f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Jul 2025 04:52:28 -0700 (PDT)
 Received: from localhost
  (p200300d82f1f36000dc826ee9aa9fdc7.dip0.t-ipconnect.de.
  [2003:d8:2f1f:3600:dc8:26ee:9aa9:fdc7])
  by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-45634f9d599sm19697745e9.33.2025.07.17.04.52.23
+ ffacd0b85a97d-3b5e8e25e75sm20438446f8f.87.2025.07.17.04.52.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Jul 2025 04:52:24 -0700 (PDT)
+ Thu, 17 Jul 2025 04:52:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,46 +51,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83145ad0-6304-11f0-b894-0df219b8e170
+X-Inumbo-ID: 84c4110c-6304-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1752753147;
+	s=mimecast20190719; t=1752753150;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=WawR8xzOLp+WGO3JwZK8yJOVf+K8h9KX2DcE6xt9pRU=;
-	b=hovra43iMTyf0y8y9ueFmfIlzTlKFSW85ZKj24pk26m2sk/zCuGwdFc1b9n+0nwL1LGXPv
-	YRqpIjXYYzNu5384WCA3GLgRoiuY3IEAiPQTcJLRu0Y+C0krfTbk7RHKcjCApe9uh/Hk/a
-	GbduXrK3iB9/sGKyvP/BdRv1AkNAEqU=
-X-MC-Unique: kjiagve7N_6QEj5t06ikXg-1
-X-Mimecast-MFC-AGG-ID: kjiagve7N_6QEj5t06ikXg_1752753145
+	bh=WXxbBdWkSFir8qoOw7q+QMZqWjLZWA9TcFjO3xeUJH4=;
+	b=dzFJrD9BXtOo90nvysQW+6hWrxvznyBjLpwndhVXoQOD3gweHcP6iZiH9RLPvnSL3YuYbe
+	f+epGBITaMKXV1MAALtRUrTZx7IHoRoxSHC2//jsxCS0ZVOC3mud6OpvCoSDayI741UcTq
+	XV3zGdcTOG+nZyZHh425dsySe4wwWTY=
+X-MC-Unique: MVqQcbgHNFWQmrKk00w84w-1
+X-Mimecast-MFC-AGG-ID: MVqQcbgHNFWQmrKk00w84w_1752753148
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752753145; x=1753357945;
+        d=1e100.net; s=20230601; t=1752753148; x=1753357948;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=WawR8xzOLp+WGO3JwZK8yJOVf+K8h9KX2DcE6xt9pRU=;
-        b=WuXmcp7kg0umeDQBlK36LSHc166ZvB2rHoG/oOkM/ktQaeE50tBIk72rWCcM6YXcPw
-         DtVkwtOVt+S0cn7qVA4G19M+yc4ZGjYvfAcwWtXhkmEKZ0sBin0e+yVyu3Sm8ZVidTE3
-         k1PBwHBrTzV9JJWuTmKlp5Sn1BRNX009n92KwW49V4Ig2pbfMmpbOCVPGHAUIbn/u+1A
-         2C70FgwWZQKUmZHB/BKHBGh3vaKe9UvKvRxNQopOAU81oaWw786C5CorViDJ+8O67J2w
-         BEL4rao77Fj2OcZ7iUUAfcoLm1fcknY4an+80wSLsxIkOsjpBO/rb57TF8IX4pfearQ+
-         j5aw==
-X-Forwarded-Encrypted: i=1; AJvYcCUoQOCK2GM+owTWD5DUFPim7QMTe1Yrse+nouBCzO1WxfGhGovL9E7u4RQDlV4vI0XGPDMvJAwfkVQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YygUDHNqpaTATXamXmGGT2/MbedWjsnrOAJ+nscf8x9zmLH9BN5
-	UKbgj1qxBqQWu07mArMpsdc023nUslG6n8uIDG7m02DkyVk4YBXreYxGDFMDXOTo99XZdpJnTFb
-	LTJyORV9/EmeGRBW4poQVraQf/FjY0ZOP4y0IM13afa3fWJnQdxsIzvEDwHZhOy4j77oS
-X-Gm-Gg: ASbGnct0ASP8utII9vhaFtc6pQY7A8uDVPy23qGHUyF7iVVweFIza+Rfr2GfYDdWTIC
-	/2g5htGyH+DdhTHNFGkDjXweI1GHsK4WeM84cJfJtPqakohxswiuWubxsNEoe+Wm21MSIeMgGUi
-	cpdsY4mOB6dOxjwLqg5CEJ7gahebP3V3WiI5YYHa5sW7RqxghqnG7veHOjtbVOc6OdS6aUa0DDU
-	uRCMVQETDl0sXE0FWHzwBDIE6Z+qvQe8Mjb91i0yEzaCu15Uh1c8MBeiZ4FaRjKMOlbNycEFdIV
-	mDic/sfXcmm7wEVKM4mz07CCnOdW9dzL25CVRQwUt42z2axuWoaQHJ5ieP5zOP2Ik79G3I5sc2B
-	vvrLjY+fbhD+WPI92ZdAV5Pw=
-X-Received: by 2002:a05:6000:4b02:b0:3a5:52d4:5b39 with SMTP id ffacd0b85a97d-3b60dd4ab27mr4713882f8f.8.1752753145080;
-        Thu, 17 Jul 2025 04:52:25 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFDhmg9Ls7QQA6yWIIBzDvc6abI92P/fYxcVRDFmyoxlxNBqWLFwcd4nrVInyOX88jAc9Q7DA==
-X-Received: by 2002:a05:6000:4b02:b0:3a5:52d4:5b39 with SMTP id ffacd0b85a97d-3b60dd4ab27mr4713858f8f.8.1752753144606;
-        Thu, 17 Jul 2025 04:52:24 -0700 (PDT)
+        bh=WXxbBdWkSFir8qoOw7q+QMZqWjLZWA9TcFjO3xeUJH4=;
+        b=Nv0CB8V3JeFdt2XYfrdSQT3v8aKlOGrehON/h/CTGOXdBhUSK2cCBLrvRZHTV7mdPR
+         9FgM5qRKOofCZkhFwODCrf5PNGrUx20kuIlQnOYJdk1dILZ0tEEKRuzGAH69xm9G/4ys
+         itr7Tu9OdNqCfVVFOVNHkukN8vQ/XGeaB+ajB2RjJlWnmxfJPT8KFOjv07OIrYNF0vaj
+         RUN1+fZQmHLauavivYVw1xCK5taox4QDjwRIhXW8DnkDeLEls62Jj6YtTuuzuR1bEmOA
+         aKtdO9pTYnazzlngIds2ReaWt6LbDKEvEc+AYyofbj+f0jwXeJ0hqWGVyu4GTcKdIBms
+         KJLg==
+X-Forwarded-Encrypted: i=1; AJvYcCUl3NgHPNrFSmaEnPs1qxk3vwP9H3TrPV/PW+0eLzkoKi+6EH3n5TtNnyk6Ye5LBLAapaiyDNViYvc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YweSDaXGYtSvZDfaPKZHWSzg9glU2o9Nt6vXnxB/ZAHP10+QAco
+	onIb3KFs+L9nV7clMKsQiZIsTsPDKzRBbcDCcNkXMi72MVh1/lMTYHiuHlKRPQsCJFjWozZ05SJ
+	iGDWI1zrUJ+cCr8nsyUnGmqOqNAm78/MtwpsQ8yNinM0IAyYu0bowD4OOAHpAYjBUvoug
+X-Gm-Gg: ASbGncsjpXN3G74JZPw8/9IhsJg/WQEOFsafM7YlF03i0xVkN+7/2XEUwdOWwxTlJ/w
+	rsNm4vT2g370tVuFm5XtsDZA3hFHHV9L04+IyKiLTebrVilgaxPhwIv2fWA2orkEbLtmB/A5ezd
+	RCCb8oSb117/spGf92V8Z28m9c/+dvDrt0LJUB2Hq9xlGtjDygP9m1NYRg6ZJ9OS+N2EoHF35/i
+	ZDy2vmtldlghyQtxopW/SEepK7xNRkz4O7QB49scD1SYw0bjyCWzhKsR/DKmgeoCdyAXfm2kVMm
+	1n8KzUcw0cHTW/96xu67jIw3P8OFcUnzduAOmjiHO4s2RPC+NvmRskgQ/cqaXuzmv6eGnIetzle
+	abcTgi2OpnoyQMkJc187xGhs=
+X-Received: by 2002:a05:6000:4b05:b0:3a4:e4ee:4ca9 with SMTP id ffacd0b85a97d-3b60dd72378mr5333948f8f.23.1752753147609;
+        Thu, 17 Jul 2025 04:52:27 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEVug96IdPAxHxRCwLhhCK8Tw1f2oOZhwD0absH2YXaDMF3tjDXL2HLEbyWszstU7d4tmbzEQ==
+X-Received: by 2002:a05:6000:4b05:b0:3a4:e4ee:4ca9 with SMTP id ffacd0b85a97d-3b60dd72378mr5333908f8f.23.1752753147033;
+        Thu, 17 Jul 2025 04:52:27 -0700 (PDT)
 From: David Hildenbrand <david@redhat.com>
 To: linux-kernel@vger.kernel.org
 Cc: linux-mm@kvack.org,
@@ -123,120 +123,104 @@ Cc: linux-mm@kvack.org,
 	Pedro Falcato <pfalcato@suse.de>,
 	Hugh Dickins <hughd@google.com>,
 	Oscar Salvador <osalvador@suse.de>,
-	Lance Yang <lance.yang@linux.dev>,
-	Alistair Popple <apopple@nvidia.com>
-Subject: [PATCH v2 4/9] fs/dax: use vmf_insert_folio_pmd() to insert the huge zero folio
-Date: Thu, 17 Jul 2025 13:52:07 +0200
-Message-ID: <20250717115212.1825089-5-david@redhat.com>
+	Lance Yang <lance.yang@linux.dev>
+Subject: [PATCH v2 5/9] mm/huge_memory: mark PMD mappings of the huge zero folio special
+Date: Thu, 17 Jul 2025 13:52:08 +0200
+Message-ID: <20250717115212.1825089-6-david@redhat.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250717115212.1825089-1-david@redhat.com>
 References: <20250717115212.1825089-1-david@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: auIxs0mUXqhVbQcRUmwxmDAXCs5ylYdjA84hB6aTJH0_1752753145
+X-Mimecast-MFC-PROC-ID: BGHfqqQjQBNTckfb2hV6vPxv6QBdEJZRNAXTRBi-8tg_1752753148
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
 
-Let's convert to vmf_insert_folio_pmd().
+The huge zero folio is refcounted (+mapcounted -- is that a word?)
+differently than "normal" folios, similarly (but different) to the ordinary
+shared zeropage.
 
-There is a theoretical change in behavior: in the unlikely case there is
-already something mapped, we'll now still call trace_dax_pmd_load_hole()
-and return VM_FAULT_NOPAGE.
+For this reason, we special-case these pages in
+vm_normal_page*/vm_normal_folio*, and only allow selected callers to
+still use them (e.g., GUP can still take a reference on them).
 
-Previously, we would have returned VM_FAULT_FALLBACK, and the caller
-would have zapped the PMD to try a PTE fault.
+vm_normal_page_pmd() already filters out the huge zero folio. However,
+so far we are not marking it as special like we do with the ordinary
+shared zeropage. Let's mark it as special, so we can further refactor
+vm_normal_page_pmd() and vm_normal_page().
 
-However, that behavior was different to other PTE+PMD faults, when there
-would already be something mapped, and it's not even clear if it could
-be triggered.
+While at it, update the doc regarding the shared zero folios.
 
-Assuming the huge zero folio is already mapped, all good, no need to
-fallback to PTEs.
-
-Assuming there is already a leaf page table ... the behavior would be
-just like when trying to insert a PMD mapping a folio through
-dax_fault_iter()->vmf_insert_folio_pmd().
-
-Assuming there is already something else mapped as PMD? It sounds like
-a BUG, and the behavior would be just like when trying to insert a PMD
-mapping a folio through dax_fault_iter()->vmf_insert_folio_pmd().
-
-So, it sounds reasonable to not handle huge zero folios differently
-to inserting PMDs mapping folios when there already is something mapped.
-
-Reviewed-by: Alistair Popple <apopple@nvidia.com>
+Reviewed-by: Oscar Salvador <osalvador@suse.de>
 Signed-off-by: David Hildenbrand <david@redhat.com>
 ---
- fs/dax.c | 47 ++++++++++-------------------------------------
- 1 file changed, 10 insertions(+), 37 deletions(-)
+ mm/huge_memory.c |  5 ++++-
+ mm/memory.c      | 14 +++++++++-----
+ 2 files changed, 13 insertions(+), 6 deletions(-)
 
-diff --git a/fs/dax.c b/fs/dax.c
-index 4229513806bea..ae90706674a3f 100644
---- a/fs/dax.c
-+++ b/fs/dax.c
-@@ -1375,51 +1375,24 @@ static vm_fault_t dax_pmd_load_hole(struct xa_state *xas, struct vm_fault *vmf,
- 		const struct iomap_iter *iter, void **entry)
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index db08c37b87077..3f9a27812a590 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -1320,6 +1320,7 @@ static void set_huge_zero_folio(pgtable_t pgtable, struct mm_struct *mm,
  {
- 	struct address_space *mapping = vmf->vma->vm_file->f_mapping;
--	unsigned long pmd_addr = vmf->address & PMD_MASK;
--	struct vm_area_struct *vma = vmf->vma;
- 	struct inode *inode = mapping->host;
--	pgtable_t pgtable = NULL;
- 	struct folio *zero_folio;
--	spinlock_t *ptl;
--	pmd_t pmd_entry;
--	unsigned long pfn;
-+	vm_fault_t ret;
+ 	pmd_t entry;
+ 	entry = folio_mk_pmd(zero_folio, vma->vm_page_prot);
++	entry = pmd_mkspecial(entry);
+ 	pgtable_trans_huge_deposit(mm, pmd, pgtable);
+ 	set_pmd_at(mm, haddr, pmd, entry);
+ 	mm_inc_nr_ptes(mm);
+@@ -1429,7 +1430,9 @@ static vm_fault_t insert_pmd(struct vm_area_struct *vma, unsigned long addr,
+ 	if (fop.is_folio) {
+ 		entry = folio_mk_pmd(fop.folio, vma->vm_page_prot);
  
- 	zero_folio = mm_get_huge_zero_folio(vmf->vma->vm_mm);
+-		if (!is_huge_zero_folio(fop.folio)) {
++		if (is_huge_zero_folio(fop.folio)) {
++			entry = pmd_mkspecial(entry);
++		} else {
+ 			folio_get(fop.folio);
+ 			folio_add_file_rmap_pmd(fop.folio, &fop.folio->page, vma);
+ 			add_mm_counter(mm, mm_counter_file(fop.folio), HPAGE_PMD_NR);
+diff --git a/mm/memory.c b/mm/memory.c
+index 92fd18a5d8d1f..173eb6267e0ac 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -537,7 +537,13 @@ static void print_bad_pte(struct vm_area_struct *vma, unsigned long addr,
+  *
+  * "Special" mappings do not wish to be associated with a "struct page" (either
+  * it doesn't exist, or it exists but they don't want to touch it). In this
+- * case, NULL is returned here. "Normal" mappings do have a struct page.
++ * case, NULL is returned here. "Normal" mappings do have a struct page and
++ * are ordinarily refcounted.
++ *
++ * Page mappings of the shared zero folios are always considered "special", as
++ * they are not ordinarily refcounted. However, selected page table walkers
++ * (such as GUP) can still identify these mappings and work with the
++ * underlying "struct page".
+  *
+  * There are 2 broad cases. Firstly, an architecture may define a pte_special()
+  * pte bit, in which case this function is trivial. Secondly, an architecture
+@@ -567,9 +573,8 @@ static void print_bad_pte(struct vm_area_struct *vma, unsigned long addr,
+  *
+  * VM_MIXEDMAP mappings can likewise contain memory with or without "struct
+  * page" backing, however the difference is that _all_ pages with a struct
+- * page (that is, those where pfn_valid is true) are refcounted and considered
+- * normal pages by the VM. The only exception are zeropages, which are
+- * *never* refcounted.
++ * page (that is, those where pfn_valid is true, except the shared zero
++ * folios) are refcounted and considered normal pages by the VM.
+  *
+  * The disadvantage is that pages are refcounted (which can be slower and
+  * simply not an option for some PFNMAP users). The advantage is that we
+@@ -649,7 +654,6 @@ struct page *vm_normal_page_pmd(struct vm_area_struct *vma, unsigned long addr,
+ {
+ 	unsigned long pfn = pmd_pfn(pmd);
  
--	if (unlikely(!zero_folio))
--		goto fallback;
--
--	pfn = page_to_pfn(&zero_folio->page);
--	*entry = dax_insert_entry(xas, vmf, iter, *entry, pfn,
--				  DAX_PMD | DAX_ZERO_PAGE);
--
--	if (arch_needs_pgtable_deposit()) {
--		pgtable = pte_alloc_one(vma->vm_mm);
--		if (!pgtable)
--			return VM_FAULT_OOM;
--	}
--
--	ptl = pmd_lock(vmf->vma->vm_mm, vmf->pmd);
--	if (!pmd_none(*(vmf->pmd))) {
--		spin_unlock(ptl);
--		goto fallback;
-+	if (unlikely(!zero_folio)) {
-+		trace_dax_pmd_load_hole_fallback(inode, vmf, zero_folio, *entry);
-+		return VM_FAULT_FALLBACK;
- 	}
+-	/* Currently it's only used for huge pfnmaps */
+ 	if (unlikely(pmd_special(pmd)))
+ 		return NULL;
  
--	if (pgtable) {
--		pgtable_trans_huge_deposit(vma->vm_mm, vmf->pmd, pgtable);
--		mm_inc_nr_ptes(vma->vm_mm);
--	}
--	pmd_entry = folio_mk_pmd(zero_folio, vmf->vma->vm_page_prot);
--	set_pmd_at(vmf->vma->vm_mm, pmd_addr, vmf->pmd, pmd_entry);
--	spin_unlock(ptl);
--	trace_dax_pmd_load_hole(inode, vmf, zero_folio, *entry);
--	return VM_FAULT_NOPAGE;
-+	*entry = dax_insert_entry(xas, vmf, iter, *entry, folio_pfn(zero_folio),
-+				  DAX_PMD | DAX_ZERO_PAGE);
- 
--fallback:
--	if (pgtable)
--		pte_free(vma->vm_mm, pgtable);
--	trace_dax_pmd_load_hole_fallback(inode, vmf, zero_folio, *entry);
--	return VM_FAULT_FALLBACK;
-+	ret = vmf_insert_folio_pmd(vmf, zero_folio, false);
-+	if (ret == VM_FAULT_NOPAGE)
-+		trace_dax_pmd_load_hole(inode, vmf, zero_folio, *entry);
-+	return ret;
- }
- #else
- static vm_fault_t dax_pmd_load_hole(struct xa_state *xas, struct vm_fault *vmf,
 -- 
 2.50.1
 
