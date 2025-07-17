@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1C97B09586
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 22:13:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1047424.1417919 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42F76B0958B
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 22:14:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1047430.1417929 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucUyL-0002wR-6f; Thu, 17 Jul 2025 20:12:53 +0000
+	id 1ucV08-0003rL-HY; Thu, 17 Jul 2025 20:14:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1047424.1417919; Thu, 17 Jul 2025 20:12:53 +0000
+Received: by outflank-mailman (output) from mailman id 1047430.1417929; Thu, 17 Jul 2025 20:14:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucUyL-0002uD-3M; Thu, 17 Jul 2025 20:12:53 +0000
-Received: by outflank-mailman (input) for mailman id 1047424;
- Thu, 17 Jul 2025 20:12:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ucV08-0003oT-EY; Thu, 17 Jul 2025 20:14:44 +0000
+Received: by outflank-mailman (input) for mailman id 1047430;
+ Thu, 17 Jul 2025 20:14:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=z0s4=Z6=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1ucUyJ-0002u3-Ft
- for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 20:12:51 +0000
+ id 1ucV06-0003oL-Il
+ for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 20:14:42 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 68d088eb-634a-11f0-b894-0df219b8e170;
- Thu, 17 Jul 2025 22:12:49 +0200 (CEST)
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id aac5f230-634a-11f0-a319-13f23c93f187;
+ Thu, 17 Jul 2025 22:14:40 +0200 (CEST)
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-610-xGGynuoIPpqeo0If1dFTiA-1; Thu, 17 Jul 2025 16:12:42 -0400
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-45624f0be48so7181755e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 17 Jul 2025 13:12:42 -0700 (PDT)
+ us-mta-30-n9AhBr-lMqyrJo356WRJHQ-1; Thu, 17 Jul 2025 16:14:37 -0400
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-3a54a8a0122so757869f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Jul 2025 13:14:37 -0700 (PDT)
 Received: from ?IPV6:2003:d8:2f35:2b00:b1a5:704a:6a0c:9ae?
  (p200300d82f352b00b1a5704a6a0c09ae.dip0.t-ipconnect.de.
  [2003:d8:2f35:2b00:b1a5:704a:6a0c:9ae])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b600a39281sm13907105f8f.73.2025.07.17.13.12.38
+ 5b1f17b1804b1-4562e8026e4sm59374615e9.11.2025.07.17.13.14.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Jul 2025 13:12:39 -0700 (PDT)
+ Thu, 17 Jul 2025 13:14:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,53 +51,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 68d088eb-634a-11f0-b894-0df219b8e170
+X-Inumbo-ID: aac5f230-634a-11f0-a319-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1752783168;
+	s=mimecast20190719; t=1752783279;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=KwbrI84IedQLHDSyTV7Sjdel/mNA8veF7wrxE3TB6nI=;
-	b=aLVQ1DhBi9iITgkFWytJRgfnHHKO3yG/QmU/NP4w4tLvmkyVETVQ5/TkHCCbPPFnZMxApk
-	qQ3uSIprdAdXfnnXUaZEytO5gcVX/VXosL9Lrbb23nHRqlEXKV0ZBqIY++UBLlQnSMW6uK
-	Q+rL75d6VEj0oULHxctw0hMeyrMZuik=
-X-MC-Unique: xGGynuoIPpqeo0If1dFTiA-1
-X-Mimecast-MFC-AGG-ID: xGGynuoIPpqeo0If1dFTiA_1752783161
+	bh=QlYYu3k/BYRc6Kiix2dPUNypQutbN2D0tRZWGefeAe0=;
+	b=CDRwIJK8ExvupyRFOJgHsDXJRunhlV05GKSz7HULnosxB+9rqwzsjvGxr2RvKJHGdQS4Lj
+	sbsktbcG/mGlT5EkD4O8AL98s/SOnicQDlye42V6o/wXyDSRSBtrxUJuPpKojq3bIGjrAi
+	wxve42Lpe1Ve8SnJc5Qy5i8Ms9ok98A=
+X-MC-Unique: n9AhBr-lMqyrJo356WRJHQ-1
+X-Mimecast-MFC-AGG-ID: n9AhBr-lMqyrJo356WRJHQ_1752783276
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752783161; x=1753387961;
+        d=1e100.net; s=20230601; t=1752783276; x=1753388076;
         h=content-transfer-encoding:in-reply-to:organization:autocrypt
          :content-language:from:references:cc:to:subject:user-agent
          :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=KwbrI84IedQLHDSyTV7Sjdel/mNA8veF7wrxE3TB6nI=;
-        b=AF1iF7PSs2b/hmEICGe3syB6jl96gFMOFissBA9aUswpFArrGU/C70OrRNYYMP1u82
-         mDXcFNitmH3iEW/Z2xWi10Q6Spx6M1EB6a6HXCp2TuBcEFfNdtApax4Wo00SJoCXX67d
-         9op/a/6MIQctf8OpQikZeHCMiXq/n2/p34ktc3RFGV2DqPU4VY8qIzmC32jcrVJ22aGC
-         vyHqfTycL8/j2yzaU0D77/WcK6EXoJj47QlhhHmTDqdeIJZs7L2fdsJZb62r53Bqv4SG
-         eTBhjzfFw+UVRGPOaDzvceSO+15gPLSnAK6aCRjQekwDaeEzErfgDJdSYhA3G+o4Uka3
-         Zr+g==
-X-Forwarded-Encrypted: i=1; AJvYcCU0FU7CKIZa1gpSsRXtdguq9aj5iwZurWv7BT6XMZ5139kB+Fb8G/QbxLpLtRvphp2leisvfyF2AFM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwLGIsxlqA37KK4wzykAgn/MExZi9SyyMok3nIq18OW5e1DId4Y
-	wV6I9aFGc8mzQp4XJF6B1Q8N6zXr40yIMIvXayWJM8Aw1158OOLzSde5wXCIqAaj4pWTRqbNQ2m
-	y4mJwS8pOqfFY9+4gaph1d/+k9j23C1vmPzTgbEZF8XBuogl75cK55LcRS3cqayGQ+cyT
-X-Gm-Gg: ASbGncsqlfrtyUJ2fwUy0LpsVlmAwJ1i+6NIUAeadkWETNnIvu2F+EPQnRn9l61GsDr
-	CsaVSCHYQxOgc1eBO7dI/Fgi//5VjUQmJWLgohZR+wlssT17ysa86FyOU9MZM3T7fQhgp+MexVv
-	66rTpkXUYKDhGRfU1XKthWXpM2q4HGWPXDfYmZfewyEv7oDaEmOwc23AwidPVGMwXKxbKFxzELp
-	7+UY9P8JDBiPgD3mLV23zJ3PACoT/N0Lyquun4NuLzYtqUBIRHpOvrJ38ArA7sra7RcWUvIWrV2
-	zfYfYGZca9XZHiDEuhLjQwLjZp5GBcsz+R0oHfrPzga0kgVlZlQMABdPpFTzoVXUw2D0p+MHDGP
-	1XEtB7keYZpKu4II08l1ETFhxW4hd5CGhmNUCL0qRdebA708zpaAdLSvaZDUAw3aZ
-X-Received: by 2002:a05:600c:8209:b0:456:eb9:5236 with SMTP id 5b1f17b1804b1-4563253d35emr65010865e9.15.1752783160755;
-        Thu, 17 Jul 2025 13:12:40 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHauEOdTi1gNn5e67j5pIyWoWtoQZGIdE1jxaf6Cv3U+77VZ32+s2gCNs4Xz5QMDsPlAlc41Q==
-X-Received: by 2002:a05:600c:8209:b0:456:eb9:5236 with SMTP id 5b1f17b1804b1-4563253d35emr65010405e9.15.1752783160218;
-        Thu, 17 Jul 2025 13:12:40 -0700 (PDT)
-Message-ID: <d62fd5c9-6ee1-466f-850b-97046b14ebff@redhat.com>
-Date: Thu, 17 Jul 2025 22:12:37 +0200
+        bh=QlYYu3k/BYRc6Kiix2dPUNypQutbN2D0tRZWGefeAe0=;
+        b=WkkQrHllRCCWljRGmdBS3L/WX7QBU1nI7qCbUFTYqf7l4BgwJysxqZB+VDhhKldVWK
+         r5weeNUST7VTQllp99xvP1+IMV2/Kd0qUC20D7t3TksRS5YUJdJ42myBTQTf4b1fXAP6
+         Wt/r+DY+/d5Q64ct5g9CpkXZ7zmMshKWDNTOFdxLq2bBWyTld8dATUWynuqa+7s+9adU
+         Mx+2YXA08gF+qm1iIzo6z4kMYbv5O4ZCg+/rJDNhxBMm3QiLdtxEp+SybVSj76V1rGl2
+         JchYQ8F+b2/uRwAC/kCZ/ZJsAES86g8BtNyWf5PWAeKpzV413so3K2ImV27q8+Yid8QU
+         1w6A==
+X-Forwarded-Encrypted: i=1; AJvYcCUyJmcVuck6ScQrbbBrzBKTxpXu0LBPvOu+ohpMqP2Ur8voPKyQVFgVLhU/OBj74q5ewh9CAPBz2zQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy5qIj+VCW141EY1P4D7j+8hehVPrplFwbcp6PZ4e2UVKiBcLj/
+	K+dFjkQ3vqZjJLwhdYyT8XItx+HVv4IPHwvjBKH5OIvEdTZ5R0ckh/7BkrOLSr6WKro3QBnaYvb
+	ev8AvGkJnpXZ/203u1lXPKk3oqiVMaKbLlLtI0fM1G0UnfNVr7lYOkrGdCGWPmTm5f+Xu
+X-Gm-Gg: ASbGncvaJFH5pta2kGqSUmevAoCF/u7s4O5TnntvwbUSutweqMmqnLSHwGCqh82i7B9
+	6Be4cVBt+wziwZ2LJ3Q0BRODdD81wLkxnZy4o/zpaJaVW5kAL503Wy42paWZVbHDAFZ7uyYkRA0
+	PlFdi032NaBZfp/dctKds86O0EpBDSRz3UIoSsX2Zhjb3DpH16oUBiDbwkhpYs6ozyxOWmgMyZh
+	SDOAQYQeWo7n5h/HVeXR6e9+tcp2lFNU3WMYNcHYZSka1xoWpwVU+OordsUC0sS0fuJ5jmsrCmg
+	7rqLT00xLw4yy6EbM41Qka3mCGD0ksLgBBeZOlKPj/jPBE1RIk7s9S78H0ndasFEWQz4ZWztVOo
+	Wq/2fsXTUjqfwFQO5fdN6lpyDXayPoWr2xmJMI50C7si4yRw0dtHzhrQiHiIjOXOn
+X-Received: by 2002:a05:6000:992:b0:3a4:f663:acb9 with SMTP id ffacd0b85a97d-3b61b0ec0dbmr197213f8f.9.1752783276426;
+        Thu, 17 Jul 2025 13:14:36 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEXZyoKOBqIpYS/jO2KmsvWvIMoN9zXhccC8DWWsod9nvdf0NNHfT+L/AueK3GG0g1XLIDWaQ==
+X-Received: by 2002:a05:6000:992:b0:3a4:f663:acb9 with SMTP id ffacd0b85a97d-3b61b0ec0dbmr197194f8f.9.1752783275956;
+        Thu, 17 Jul 2025 13:14:35 -0700 (PDT)
+Message-ID: <fdc7f162-e027-493c-bfa1-3e3905930c24@redhat.com>
+Date: Thu, 17 Jul 2025 22:14:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/9] mm/memory: factor out common code from
- vm_normal_page_*()
+Subject: Re: [PATCH v2 8/9] mm: introduce and use vm_normal_page_pud()
 To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
 Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
  xen-devel@lists.xenproject.org, linux-fsdevel@vger.kernel.org,
@@ -119,8 +118,8 @@ Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
  Hugh Dickins <hughd@google.com>, Oscar Salvador <osalvador@suse.de>,
  Lance Yang <lance.yang@linux.dev>
 References: <20250717115212.1825089-1-david@redhat.com>
- <20250717115212.1825089-8-david@redhat.com>
- <1aef6483-18e6-463b-a197-34dd32dd6fbd@lucifer.local>
+ <20250717115212.1825089-9-david@redhat.com>
+ <4750f39e-279b-4806-9eee-73f9fcc58187@lucifer.local>
 From: David Hildenbrand <david@redhat.com>
 Autocrypt: addr=david@redhat.com; keydata=
  xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
@@ -167,147 +166,28 @@ Autocrypt: addr=david@redhat.com; keydata=
  WBe5lqcozu9LpNDH/brVSzHCSb7vjNGvvSVESDuoiHK8gNlf0v+epy5WYd7CGAgODPvDShGN
  g3eXuA==
 Organization: Red Hat
-In-Reply-To: <1aef6483-18e6-463b-a197-34dd32dd6fbd@lucifer.local>
+In-Reply-To: <4750f39e-279b-4806-9eee-73f9fcc58187@lucifer.local>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: hpEmRQfiJlMCYb6OPmS9A9lxT4yC8BV4pzELzHxhmmY_1752783161
+X-Mimecast-MFC-PROC-ID: r8pQDAqxqW8JQd0-qD4Urr80XONUHey2A8ap-1Nbn70_1752783276
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
+On 17.07.25 22:03, Lorenzo Stoakes wrote:
+> On Thu, Jul 17, 2025 at 01:52:11PM +0200, David Hildenbrand wrote:
+>> Let's introduce vm_normal_page_pud(), which ends up being fairly simple
+>> because of our new common helpers and there not being a PUD-sized zero
+>> folio.
 >>
->> -/*
->> - * vm_normal_page -- This function gets the "struct page" associated with a pte.
->> +/**
->> + * vm_normal_page_pfn() - Get the "struct page" associated with a PFN in a
->> + *			  non-special page table entry.
+>> Use vm_normal_page_pud() in folio_walk_start() to resolve a TODO,
+>> structuring the code like the other (pmd/pte) cases. Defer
+>> introducing vm_normal_folio_pud() until really used.
 > 
-> This is a bit nebulous/confusing, I mean you'll get PTE entries with PTE special
-> bit that'll have a PFN but just no struct page/folio to look at, or should not
-> be touched.
-> 
-> So the _pfn() bit doesn't really properly describe what it does.
-> 
-> I wonder if it'd be better to just separate out the special handler, have
-> that return a boolean indicating special of either form, and then separate
-> other shared code separately from that?
+> I mean fine :P but does anybody really use this?
 
-Let me think about that; I played with various approaches and this was 
-the best I was come up with before running in circles.
-
-> 
->> + * @vma: The VMA mapping the @pfn.
->> + * @addr: The address where the @pfn is mapped.
->> + * @pfn: The PFN.
->> + * @entry: The page table entry value for error reporting purposes.
->>    *
->>    * "Special" mappings do not wish to be associated with a "struct page" (either
->>    * it doesn't exist, or it exists but they don't want to touch it). In this
->> @@ -603,10 +608,10 @@ static void print_bad_page_map(struct vm_area_struct *vma,
->>    * (such as GUP) can still identify these mappings and work with the
->>    * underlying "struct page".
->>    *
->> - * There are 2 broad cases. Firstly, an architecture may define a pte_special()
->> - * pte bit, in which case this function is trivial. Secondly, an architecture
->> - * may not have a spare pte bit, which requires a more complicated scheme,
->> - * described below.
->> + * There are 2 broad cases. Firstly, an architecture may define a "special"
->> + * page table entry bit (e.g., pte_special()), in which case this function is
->> + * trivial. Secondly, an architecture may not have a spare page table
->> + * entry bit, which requires a more complicated scheme, described below.
-> 
-> Strikes me this bit of the comment should be with vm_normal_page(). As this
-> implies the 2 broad cases are handled here and this isn't the case.
-
-Well, pragmatism. Splitting up the doc doesn't make sense. Having it at 
-vm_normal_page() doesn't make sense.
-
-I'm sure the educated reader will be able to make sense of it :P
-
-But I'm happy to hear suggestions on how to do it differently :)
-
-> 
->>    *
->>    * A raw VM_PFNMAP mapping (ie. one that is not COWed) is always considered a
->>    * special mapping (even if there are underlying and valid "struct pages").
->> @@ -639,15 +644,72 @@ static void print_bad_page_map(struct vm_area_struct *vma,
->>    * don't have to follow the strict linearity rule of PFNMAP mappings in
->>    * order to support COWable mappings.
->>    *
->> + * This function is not expected to be called for obviously special mappings:
->> + * when the page table entry has the "special" bit set.
-> 
-> Hmm this is is a bit weird though, saying "obviously" special, because you're
-> handling "special" mappings here, but only for architectures that don't specify
-> the PTE special bit.
-> 
-> So it makes it quite nebulous what constitutes 'obviously' here, really you mean
-> pte_special().
-
-Yes, I can clarify that.
-
-> 
->> + *
->> + * Return: Returns the "struct page" if this is a "normal" mapping. Returns
->> + *	   NULL if this is a "special" mapping.
->> + */
->> +static inline struct page *vm_normal_page_pfn(struct vm_area_struct *vma,
->> +		unsigned long addr, unsigned long pfn, unsigned long long entry)
->> +{
->> +	/*
->> +	 * With CONFIG_ARCH_HAS_PTE_SPECIAL, any special page table mappings
->> +	 * (incl. shared zero folios) are marked accordingly and are handled
->> +	 * by the caller.
->> +	 */
->> +	if (!IS_ENABLED(CONFIG_ARCH_HAS_PTE_SPECIAL)) {
->> +		if (unlikely(vma->vm_flags & (VM_PFNMAP | VM_MIXEDMAP))) {
->> +			if (vma->vm_flags & VM_MIXEDMAP) {
->> +				/* If it has a "struct page", it's "normal". */
->> +				if (!pfn_valid(pfn))
->> +					return NULL;
->> +			} else {
->> +				unsigned long off = (addr - vma->vm_start) >> PAGE_SHIFT;
->> +
->> +				/* Only CoW'ed anon folios are "normal". */
->> +				if (pfn == vma->vm_pgoff + off)
->> +					return NULL;
->> +				if (!is_cow_mapping(vma->vm_flags))
->> +					return NULL;
->> +			}
->> +		}
->> +
->> +		if (is_zero_pfn(pfn) || is_huge_zero_pfn(pfn))
-> 
-> This handles zero/zero huge page handling for non-pte_special() case
-> only. I wonder if we even need to bother having these marked special
-> generally since you can just check the PFN every time anyway.
-
-Well, that makes (a) pte_special() a bit weird -- not set for some 
-special pages and (b) requires additional runtime checks for the case we 
-all really care about -- pte_special().
-
-So I don't think we should change that.
-
-[...]
-
->>
->> +/**
->> + * vm_normal_folio() - Get the "struct folio" associated with a PTE
->> + * @vma: The VMA mapping the @pte.
->> + * @addr: The address where the @pte is mapped.
->> + * @pte: The PTE.
->> + *
->> + * Get the "struct folio" associated with a PTE. See vm_normal_page_pfn()
->> + * for details.
->> + *
->> + * Return: Returns the "struct folio" if this is a "normal" mapping. Returns
->> + *	   NULL if this is a "special" mapping.
->> + */
-> 
-> Nice to add a comment, but again feels weird to have the whole explanation in
-> vm_normal_page_pfn() but then to invoke vm_normal_page()..
-
-You want people to do pointer chasing to find what they are looking for? :)
+This is a unified PFN walker (!hugetlb + hugetlb), so you can easily run 
+into hugetlb PUDs, DAX PUDs and huge pfnmap (vfio) PUDs :)
 
 -- 
 Cheers,
