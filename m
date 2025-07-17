@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 861C1B09200
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 18:38:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1047113.1417479 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 726C6B0923F
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 18:52:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1047158.1417597 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucRcG-0004EY-0p; Thu, 17 Jul 2025 16:37:52 +0000
+	id 1ucRqL-00089v-EV; Thu, 17 Jul 2025 16:52:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1047113.1417479; Thu, 17 Jul 2025 16:37:51 +0000
+Received: by outflank-mailman (output) from mailman id 1047158.1417597; Thu, 17 Jul 2025 16:52:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucRcF-0004D7-UC; Thu, 17 Jul 2025 16:37:51 +0000
-Received: by outflank-mailman (input) for mailman id 1047113;
- Thu, 17 Jul 2025 16:37:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ucRqL-00087B-Ay; Thu, 17 Jul 2025 16:52:25 +0000
+Received: by outflank-mailman (input) for mailman id 1047158;
+ Thu, 17 Jul 2025 16:52:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=83TL=Z6=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1ucRcE-0004D1-6r
- for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 16:37:50 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5f50c4d6-632c-11f0-b894-0df219b8e170;
- Thu, 17 Jul 2025 18:37:47 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-ae35f36da9dso230136866b.0
- for <xen-devel@lists.xenproject.org>; Thu, 17 Jul 2025 09:37:47 -0700 (PDT)
-Received: from [192.168.1.17] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ae6e82dede9sm1375552066b.167.2025.07.17.09.37.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Jul 2025 09:37:46 -0700 (PDT)
+ <SRS0=68ni=Z6=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1ucRqJ-000875-Gf
+ for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 16:52:23 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20620.outbound.protection.outlook.com
+ [2a01:111:f403:2415::620])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6781d7de-632e-11f0-a319-13f23c93f187;
+ Thu, 17 Jul 2025 18:52:21 +0200 (CEST)
+Received: from SJ0P220CA0003.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::34)
+ by MW4PR12MB6998.namprd12.prod.outlook.com (2603:10b6:303:20a::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.36; Thu, 17 Jul
+ 2025 16:52:17 +0000
+Received: from BY1PEPF0001AE1D.namprd04.prod.outlook.com
+ (2603:10b6:a03:41b:cafe::d5) by SJ0P220CA0003.outlook.office365.com
+ (2603:10b6:a03:41b::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.21 via Frontend Transport; Thu,
+ 17 Jul 2025 16:52:17 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BY1PEPF0001AE1D.mail.protection.outlook.com (10.167.242.106) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8943.21 via Frontend Transport; Thu, 17 Jul 2025 16:52:15 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 17 Jul
+ 2025 11:52:10 -0500
+Received: from [172.21.62.237] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Thu, 17 Jul 2025 11:52:09 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,698 +59,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f50c4d6-632c-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1752770267; x=1753375067; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=z6mfpfm2ieN7hPkSwCRk7jV7e/f3IxRs4I1MpXQhYTI=;
-        b=MoxOGr6uJQNjLQKbV1o/Z29CN3Y9n1vwfav5fj4rIu/kOLfVlowErcL+wt1fNCnpYe
-         nAqZ24DQ0T9fe7eJPWeA7r0MOlJLV1KDHO1nm84t3NlbIXh40tScNSAL7WUwFwkBThkN
-         iOzS5DHy4F3IAk/AkN+/Ew6mNebAwAsMk7ZYvxtIRuG1fSvhCjBXj+SYx+ltFzFjT70i
-         CBPhhOz1RYBoazbi+D/0q+0hSGoq4PO0JPfCvm/WiBQOlgFCK3cZ8MK9lV/+QyTxvVt3
-         pq3xebtk0IpOwAThy5sR2SnFjUF+irSWFRR40zq1UiRvKz0itPxwR9tX1GoAvPeJpnSX
-         LR8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752770267; x=1753375067;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=z6mfpfm2ieN7hPkSwCRk7jV7e/f3IxRs4I1MpXQhYTI=;
-        b=cCCbD07zjciWnmU4LuxNXuYJirxLinWRdpFF6sH+7qLoX25WBhFPTPu3+6NoMkF+p+
-         GjL2g3ztVvyeNbheJXcq8UdXY2g2QM/wJtG/liOptxwnD03r4iW4UR8Vj444x7oKh3wf
-         2oL8iF0TqKQchG2OSiu2/zl3ckn2heAAL2PPEpLarFWdEC2TiuMliA2uH4MbrUSNukLo
-         DxLDgPRiCIc62dLkKWefRHrHYEi2DcjkveZztLXLih6JZWk8CuNqDuQuPZfI8KoySPp/
-         iHEmInBHZXOBrJIHARxesp35vbbpU9TyHJ4WJQKNhRZssI0UdtQaIS1ZbnOj4Uj5LPyd
-         cgaA==
-X-Forwarded-Encrypted: i=1; AJvYcCUI9XXs0XVgBkRefT7qTGGU30iS/LkfCxMSoKfiHEOdBI5FuzyYFZQGplkvwSkoMbKiyhzFFWLKh34=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxoo43gbN8HIwKNu/UgR19FNjd/1CxyFcv5rxBObuK36Z0vx3MX
-	fapT/JonXT1pgKVSobfrMIK2PaCfe4R3ti3rtd7EWhBR4x5dqQyNkPp5
-X-Gm-Gg: ASbGncsum3G5QBj5QrOXesjUG9wRKsg3q39lj0xvQ8DgDcCVUVKWp8oivB+AGcZQAh8
-	lZc2q8B9mlP1dKXmtrUtxKtwaXuY/xQle4auI/Tf+0Dbu2NNNgr2t+a2/TOrFaHWX/AC6FRW0bq
-	l9gYGgyMG9CT2+7oAFdpBJ6VusaDbO195QQOAGIYpgy/OQmWHM4Rz2p4X1HVeAwugf15IiM9Lf4
-	8X89e8zKKt760M7qvHEGGdhoPHSi9mb9EfjZXeU61EduwWoWTSwmyKOojoSWHi1PWWQLtGaWX5a
-	xCiG+/AWWwkGg3GD/aRsbgeZkkxnwB9lSWx4jWgqBB5PI0zEVZRaODMF+DFP3sXfaPDwgbxMwpz
-	tzTxgP10VryOLSWGJBMZ38V1EmOVzvogb6a8vUw2xC/F0P+KM2k9WMHd6QzShjuuJ5lrSOFuZ
-X-Google-Smtp-Source: AGHT+IGnqkGOCLuqGB1oRCdrVvPyfgz2CGMlUqax2ifgxQvLogIbsgL2P6GaYc2x9VXEfpZRAe2fPQ==
-X-Received: by 2002:a17:907:d2e7:b0:ae3:67c7:54a6 with SMTP id a640c23a62f3a-ae9ce07df63mr637655466b.34.1752770266938;
-        Thu, 17 Jul 2025 09:37:46 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------D3xmnBoha0xIcG8sS2m3p9Gg"
-Message-ID: <e2227002-e38c-41e1-8bea-7585138ec5ba@gmail.com>
-Date: Thu, 17 Jul 2025 18:37:45 +0200
+X-Inumbo-ID: 6781d7de-632e-11f0-a319-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=laxLMABEbrO6miA7DeYzDoP554xnAhyz0k1Rj5nTS479TS0yW3zY8rvsczjl2PdS14HeoWWpCYvK94MxsZoepwnHIpz6fMm0D+uSK2NFoo+gU7PX0XK2J5fi2Z4h3PedEcyR9+jcNO/6orMJFMXjkoQIpVw6OSzTvBCFtn45T33WfAlEj7AmqxCKuEGGSPTvryGdBWUsXFmJ2ul1U5YSZhZZCxlsLM77bK2c7cb/GP1AuJIjYIm1lmjVrrUk41VXJi0ThnwQbLMuTMm/p7h5LNO3vKFH6U9AwavnUzacgFbzgHLzVa+apyvFa0nphluI96egJHQ9G+WiLzU0JKAjOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Bi3BuegjuyGqGBu46oGSNwqeeW1iII/8AGVYTkEWrhM=;
+ b=npLB0xuDpcKFvnaO4txhR0A1GojrLLWqnvo8omqgBkLhNQHjCGJ70u2AughVIidzgJd9s81jLgFFEOO5L/g0j6LNizl2OGZ7/ZWTcee7cMhnCIOwiTAofZlihV/OReHStX4icNUlscjdc9Bq9yY8T2ekTbx74418Nr0ox+k3TPlti4IMy+NAG/oMiNkA5/lHmZ3dzVt+blbvNVSpUFncGEzQCifTBA6Ows+OS2qL0G+P6I3bQYzyTbk3Ln2tzEKkn2yzq9GTubnSj7ANG2fJkJz36GbX4o0jSKlWx2vr1lRB96/sdwgZseqfEY0qFuFzILw0RgTENP8vRVVb7Rtdjg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Bi3BuegjuyGqGBu46oGSNwqeeW1iII/8AGVYTkEWrhM=;
+ b=EDlHfv7SghMEnCRr13a0iz/miP/zP2vWW5TEDEJYqs/FvG3TmRCLmjEqknGBaJEB+DAW+rDEgzEoZolj3+8FXlBsbO74CYVhQ/BFgB+/VFFPN0pD8hwYHZQRE5Z+9RaFPYcwdPk292PYGVcXhFBbGJ7iSoYhKFnBVU+NIxHqPx4=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <e6aec41b-4578-4d4e-9965-0082a39c796c@amd.com>
+Date: Thu, 17 Jul 2025 12:52:09 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 15/17] xen/riscv: Implement superpage splitting for p2m
- mappings
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <7cdd3272f2eba32dfa00be4fd72da6921eac243d.1749555949.git.oleksii.kurochko@gmail.com>
- <9be8eeb4-281e-4b9b-9ea7-04ff738dc4db@suse.com>
+Subject: Re: [PATCH v2] xen/arm: fix arm_iommu_map_page after f9f6b22ab
+To: Julien Grall <julien@xen.org>, Stefano Stabellini
+	<stefano.stabellini@amd.com>, <xen-devel@lists.xenproject.org>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
+	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	"Rahul Singh" <rahul.singh@arm.com>, <jason.andryuk@amd.com>
+References: <alpine.DEB.2.22.394.2507101724180.605088@ubuntu-linux-20-04-desktop>
+ <d62f045d-86ae-4ef8-bee5-225b8fa6594d@xen.org>
+ <e3a03602-656e-4efb-b9b6-3a6d33781ca0@amd.com>
+ <b17f56d8-9021-4220-8c39-8c073fe5e281@xen.org>
+ <2e2f3a53-15a9-439d-af57-1fdf881b7e8b@amd.com>
+ <be21ce7b-4d9f-4a8a-b96c-6c0eb76bf9cf@xen.org>
+ <5cc13cbf-bb66-42e1-8b20-604b282fdfa4@xen.org>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <9be8eeb4-281e-4b9b-9ea7-04ff738dc4db@suse.com>
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <5cc13cbf-bb66-42e1-8b20-604b282fdfa4@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB03.amd.com: stewart.hildebrand@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE1D:EE_|MW4PR12MB6998:EE_
+X-MS-Office365-Filtering-Correlation-Id: d184d8a6-05af-4ecb-4b9d-08ddc552491e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?Ni9xTEMrK2JsU1I4UStHUFh2dmc5QkFQZlArZVV4VDYzSU9pTGt4WFNFTm5p?=
+ =?utf-8?B?QUV2OFZIRzZqSHRyUmlzUWgvOTNPdjNzTFJ3Q1dzWmM2SUgrNEdrYmdjS1cr?=
+ =?utf-8?B?emF6cWx6UGlmbVJoMVA5TkxvYjh1MHJOdW9VMkpxN3N3VXo1QU9pQkd0N3Ji?=
+ =?utf-8?B?c2tUNElLckdtZ045SXdwTlZZZmpnWVdkNzk4dHJHYyt0bFNxZlhLVVZIeHZU?=
+ =?utf-8?B?cURMQlg5ejdaM2VQN25uNjltNEM2OU1zOGdnQkpXYUZTcHhDM2xUYkRNMkli?=
+ =?utf-8?B?MDJVOVZVWmRaVEJ4ZVF4dGRsWmowYm5yaW15UnpuWVZxazFsdzMwMDMzZFI2?=
+ =?utf-8?B?MzdYczJxaGJ4aGoxN2h2SXFjamdGWWU2ZVN0RW8wdkhHTU8xdGN3a0FvNlB2?=
+ =?utf-8?B?SmhYczVMeExiRnRDbEVkbDg4bG01UjRXdlVBREcycWJMdXJrcXRhVXRuVjRX?=
+ =?utf-8?B?YTlyRVFRMXVYbGEvTEdxYWdVYVZkOXRTSEpxRCtXZzFISENGTmthOTluNHpz?=
+ =?utf-8?B?d1NZWkoxM09rd0VyTHRmeS9ob2dRNU1CemxXUHpjUkY3cmo1NkhPZXd5ejlj?=
+ =?utf-8?B?SjhTNmpTbWdlbktSRHBxc3F5eHh2V2I3cXoyc2dCaGc5QXZ3eVhsSWlKb3V1?=
+ =?utf-8?B?WDRJSkloeklSeEJtL1ZHU250MWtpY0t4T0JJcHlxdExrbUdiUi9oVEp6Q2xR?=
+ =?utf-8?B?eVo1R2VucVNPNzVuNTZqck80UDlrVENDSWtvZ0NzVmsxWk8zUzltTnJGa2Vm?=
+ =?utf-8?B?OGx3Y0tnNVBwaWRoUTAvM1lGUStNbCtQRUs1ckRJd1JGRmVVS0F0MTFDczMv?=
+ =?utf-8?B?SmJtb2pZRm5ESlhTb3JLWlUyZXZMV3hDcm41UmRId1hUK1RpNlZZdUw0emla?=
+ =?utf-8?B?aFM3YW5TVHBpRVQxNkVyQ2pud1JyUUVPKzA3a01xcVRNbHR1K3g3bDdhZ0lR?=
+ =?utf-8?B?NnpXSDZkU3dwT054dmpvcGdwRVV4YVNLZmhZT3lRVnZEdkY3ODZNdnRUWmI4?=
+ =?utf-8?B?eU5LVTJaWnl4OFJzdGFlTzV4d0xOb1NPbkxLTm5HZ29lTWEwaE1OS1pLWXBD?=
+ =?utf-8?B?T2RKbWMzSmRtRloySFBXeHpZdW4yb2M0TE1LcDlPMzQxKzB0Ny83ZUw0Wi9J?=
+ =?utf-8?B?OXFJTkdvODZmTnMxVHVIY0NxM2pCTFQycWFXTEViUHp2TnV1bXNRa0IxTUNP?=
+ =?utf-8?B?QTNjbFFnMTVmaEQrZ1cvQTczallRVjlrOXhnZFFocXJKNU9lQWN2TzkrT0E1?=
+ =?utf-8?B?SThYTTA0U2liT1NBMTFzUXo2bXMzUnNSQ2FVNERsVysrUnd2cEowTnBFa1Y0?=
+ =?utf-8?B?b0hWSUFubDQ0alNqQ24xS21KL256bkRBb3pjVmlyWFYyamcyd1BEWHhLQndP?=
+ =?utf-8?B?SmpKTUJOa09aMVo2dk5zZVZ1VkdxQWsvYTZOTExBTTFpRWVhczBJenVYYUNx?=
+ =?utf-8?B?Y2haWXh6QVBoUWc3am81d1V4Z0g2QXZ3VXFWa2wrcWVjMVVLc1RHa0QwbTNz?=
+ =?utf-8?B?SmZFQUxFUTh6d29SbDRReWl4a3czakI5aVlWTTVKSlNrRDhRd1llS2plZkhz?=
+ =?utf-8?B?TFkzMWdNVnlMdVlPNERiTjVlZUZzaHdrUmYzRWVxUVorRXk0azBCOXA3em8y?=
+ =?utf-8?B?cG5vRTFTZk40Rzg5TzRDNzg1ZEo0OEkyRzBEV25UcWsrYlBwTFBnQmxuTnVs?=
+ =?utf-8?B?eG5kRnY5dnJZY1BBS1RMS20rWGxpTDNlQzJkZGhVQ2kwa24zaENERTdkTG05?=
+ =?utf-8?B?cnhNa3dYSzh5ditiZTZVaFo0ZkNvMXBxY3dqZkp4K0RSOE9WWWt1Y290YW55?=
+ =?utf-8?B?OSs0NkZsWFJHMmZqZ3RrK0xzbjJTWXg0UXVMTG1UTXZFbHdpYmU3dzVSK2hG?=
+ =?utf-8?B?MmpwOHU4Z1k4V3hvOFhtTXlubTNzMzZuQkZ5eVZoTGJjUlpoZ1MrbncxWm9i?=
+ =?utf-8?B?dk4zK0VYOG5QaU9yemZ1dGdrNE40M3Z1dzJWV2k1OGswNG5zT3JXYmUxNkpu?=
+ =?utf-8?B?QW9yaERpbnB1T2ZVVmNoUmZmdDVyQzVDekthRWhiU0M5aHVEbkFFWGRBZXZB?=
+ =?utf-8?Q?kjS2te?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2025 16:52:15.9827
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d184d8a6-05af-4ecb-4b9d-08ddc552491e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF0001AE1D.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6998
 
-This is a multi-part message in MIME format.
---------------D3xmnBoha0xIcG8sS2m3p9Gg
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-
-On 7/2/25 11:25 AM, Jan Beulich wrote:
-> On 10.06.2025 15:05, Oleksii Kurochko wrote:
->> Add support for down large memory mappings ("superpages") in the RISC-V
->> p2m mapping so that smaller, more precise mappings ("finer-grained entries")
->> can be inserted into lower levels of the page table hierarchy.
+On 7/16/25 05:59, Julien Grall wrote:
+> On 16/07/2025 10:56, Julien Grall wrote:
+>> On 15/07/2025 16:58, Stewart Hildebrand wrote:
+>>> On 7/14/25 18:47, Julien Grall wrote:
+>>>> Hi Stewards,
+>>>>
+>>>> On 14/07/2025 22:12, Stewart Hildebrand wrote:
+>>>>> On 7/12/25 06:08, Julien Grall wrote:
+>>>>>> Hi Stefano,
+>>>>>>
+>>>>>> On 11/07/2025 01:25, Stefano Stabellini wrote:
+>>>>>>> diff --git a/xen/drivers/passthrough/arm/iommu_helpers.c b/xen/ drivers/passthrough/arm/iommu_helpers.c
+>>>>>>> index 5cb1987481..dae5fc0caa 100644
+>>>>>>> --- a/xen/drivers/passthrough/arm/iommu_helpers.c
+>>>>>>> +++ b/xen/drivers/passthrough/arm/iommu_helpers.c
+>>>>>>> @@ -36,17 +36,6 @@ int __must_check arm_iommu_map_page(struct domain *d, dfn_t dfn, mfn_t mfn,
+>>>>>>>     {
+>>>>>>>         p2m_type_t t;
+>>>>>>>    -    /*
+>>>>>>> -     * Grant mappings can be used for DMA requests. The dev_bus_addr
+>>>>>>> -     * returned by the hypercall is the MFN (not the IPA). For device
+>>>>>>> -     * protected by an IOMMU, Xen needs to add a 1:1 mapping in the domain
+>>>>>>> -     * p2m to allow DMA request to work.
+>>>>>>> -     * This is only valid when the domain is directed mapped. Hence this
+>>>>>>> -     * function should only be used by gnttab code with gfn == mfn == dfn.
+>>>>>>> -     */
+>>>>>>> -    BUG_ON(!is_domain_direct_mapped(d));
+>>>>>>> -    BUG_ON(mfn_x(mfn) != dfn_x(dfn));
+>>>>>>> -
+>>>>>>
+>>>>>> Shouldn't arm_iommu_unmap_page() also be updated? It would not result to a crash, but we would not be able to
+>>>>>> remove the mapping.
+>>>>>
+>>>>> f9f6b22abf1d didn't add any calls to iommu_unmap(). As this is still
+>>>>> only hwdom for now, hwdom is not expected to be destroyed, so the
+>>>>> mapping is not expected to be removed for now.
+>>>>
+>>>> I already gathered that by looking at the fixes tag in my previous answer. Maybe I should have been clearer at that point. Even though iommu_unmap() is not called today, this is meant to be the reverse of what was done by iommu_map(). So it looks very odd to update one but not the other.
+>>>>
+>>>> Furthermore, AFAIU, this patch is going a bit further than just fixing the bug introduced by f9f6b22abf1d. At which point, we should properly
+>>>> fix it in the same patch rather than hoping that someone else will remember that this needed be updated.
+>>>
+>>> I'd like to suggest splitting this into two patches then, so we don't
+>>> let preparation for future work get in the way of fixing the reported
+>>> issue:
+>>>
+>>> Patch #1 to fix the reported issue with a simple
+>>> s/is_domain_direct_mapped/domain_use_host_layout/ in both
+>>> arm_iommu_map_page() and arm_iommu_unmap_page().
+>>>
+>>> Patch #2 to allow translated mappings in preparation for future work.
 >>
->> To implement that the following is done:
->> - Introduce p2m_split_superpage(): Recursively shatters a superpage into
->>    smaller page table entries down to the target level, preserving original
->>    permissions and attributes.
->> - __p2m_set_entry() updated to invoke superpage splitting when inserting
->>    entries at lower levels within a superpage-mapped region.
+>> This sounds good to me.
 >>
->> This implementation is based on the ARM code, with modifications to the part
->> that follows the BBM (break-before-make) approach. Unlike ARM, RISC-V does
->> not require BBM, so there is no need to invalidate the PTE and flush the
->> TLB before updating it with the newly created, split page table.
-> But some flushing is going to be necessary. As long as you only ever do
-> global flushes, the one after the individual PTE modification (within the
-> split table) will do (if BBM isn't required, see below), but once you move
-> to more fine-grained flushing, that's not going to be enough anymore. Not
-> sure it's a good idea to leave such a pitfall.
-
-I think that I don't fully understand what is an issue.
-
->
-> As to (no need for) BBM: I couldn't find anything to that effect in the
-> privileged spec. Can you provide some pointer? What I found instead is e.g.
-> this sentence: "To ensure that implicit reads observe writes to the same
-> memory locations, an SFENCE.VMA instruction must be executed after the
-> writes to flush the relevant cached translations." And this: "Accessing the
-> same location using different cacheability attributes may cause loss of
-> coherence." (This may not only occur when the same physical address is
-> mapped twice at different VAs, but also after the shattering of a superpage
-> when the new entry differs in cacheability.)
-
-I also couldn't find that RISC-V spec mandates BBM explicitly as Arm does it.
-
-What I meant that on RISC-V can do:
-- Write new PTE
-- Flush TLB
-
-While on Arm it is almost always needed to do:
-- Write zero to PTE
-- Flush TLB
-- Write new PTE
-
-For example, the common CoW code path where you copy from a read only page to
-a new page, then map that new page as writable just works on RISC-V without
-extra considerations and on Arm it requires BBM.
-
-It seems to me that BBM is mandated for Arm only because that TLB is shared
-among cores, so there is no any guarantee that no prior entry for same VA
-remains in TLB. In case of RISC-V's TLB isn't shared and after a flush it is
-guaranteed that no prior entry for the same VA remains in the TLB.
-
-But in the same time it could be cases, I guess, where BBM will be needed for
-RISC-V too. Even the case of CoW mentioned above will need some kind of BBM,
-but nothing that'll the CPU misbehave by doing CoW without BBM on RISC-V.
-
->
->> Additionally, the page table walk logic has been adjusted, as ARM uses the
->> opposite walk order compared to RISC-V.
-> I think you used some similar wording already in an earlier patch. I find
-> this confusing: Walk order is, aiui, the same. It's merely the numbering
-> of levels that is the opposite way round, isn't it?
-
-Yes, the numbering of levels is different and I counted that as a different
-walk order. If it is too confusing, I will reword it and use numbering of levels.
-
->
->> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
->> ---
->> Changes in V2:
->>   - New patch. It was a part of a big patch "xen/riscv: implement p2m mapping
->>     functionality" which was splitted to smaller.
->>   - Update the commit above the cycle which creates new page table as
->>     RISC-V travserse page tables in an opposite to ARM order.
->>   - RISC-V doesn't require BBM so there is no needed for invalidating
->>     and TLB flushing before updating PTE.
->> ---
->>   xen/arch/riscv/p2m.c | 102 ++++++++++++++++++++++++++++++++++++++++++-
->>   1 file changed, 101 insertions(+), 1 deletion(-)
+>>>
+>>>>>
+>>>>> With that said, in the future when we expose vITS to domU, you'd be
+>>>>> right. In the xlnx downstream we have something like this:
+>>>>>
+>>>>> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+>>>>> index ef8bd4b6ab33..2f5b79279ff9 100644
+>>>>> --- a/xen/arch/arm/p2m.c
+>>>>> +++ b/xen/arch/arm/p2m.c
+>>>>> @@ -133,7 +133,8 @@ static inline int p2m_remove_mapping(struct domain *d,
+>>>>>            mfn_t mfn_return = p2m_get_entry(p2m, gfn_add(start_gfn, i), &t, NULL,
+>>>>>                                             &cur_order, NULL);
+>>>>>    -        if ( p2m_is_any_ram(t) &&
+>>>>> +        if ( !mfn_eq(mfn, INVALID_MFN) &&
+>>>>> +             p2m_is_any_ram(t) &&
+>>>>
+>>>> I don't quite understand why you need to update this function. Can you clarify?
+>>>
+>>> Since arm_iommu_unmap_page() doesn't have the mfn, we needed a way to
+>>> remove a p2m mapping without the mfn available. INVALID_MFN is a
+>>> sentinel/placeholder in lieu of the missing mfn.
 >>
->> diff --git a/xen/arch/riscv/p2m.c b/xen/arch/riscv/p2m.c
->> index 87dd636b80..79c4473f1f 100644
->> --- a/xen/arch/riscv/p2m.c
->> +++ b/xen/arch/riscv/p2m.c
->> @@ -743,6 +743,77 @@ static void p2m_free_entry(struct p2m_domain *p2m,
->>       p2m_free_page(p2m->domain, pg);
->>   }
->>   
->> +static bool p2m_split_superpage(struct p2m_domain *p2m, pte_t *entry,
->> +                                unsigned int level, unsigned int target,
->> +                                const unsigned int *offsets)
->> +{
->> +    struct page_info *page;
->> +    unsigned int i;
->> +    pte_t pte, *table;
->> +    bool rv = true;
->> +
->> +    /* Convenience aliases */
->> +    mfn_t mfn = pte_get_mfn(*entry);
->> +    unsigned int next_level = level - 1;
->> +    unsigned int level_order = XEN_PT_LEVEL_ORDER(next_level);
->> +
->> +    /*
->> +     * This should only be called with target != level and the entry is
->> +     * a superpage.
->> +     */
->> +    ASSERT(level > target);
->> +    ASSERT(p2me_is_superpage(p2m, *entry, level));
->> +
->> +    page = p2m_alloc_page(p2m->domain);
->> +    if ( !page )
->> +        return false;
->> +
->> +    page_list_add(page, &p2m->pages);
-> Is there a reason this list maintenance isn't done in p2m_alloc_page()?
+>> Ah, I didn't spot you changed the MFN passed in guest_physmap_remove_page() below. Hmmm... The code in p2m_remove_mapping() is checking MFN to avoid any race. IIRC this is to close a race in the grant-table mapping.
+>>
+>> So I am a bit uncomfortable to allow bypassing the check when INVALID_MFN is passed. Looking at the code, I see the check is also gated with p2m_is_any_ram(). I would argue that none of the IOMMU mapping we are creating should be considered as RAM (the grant mapping is arguable, but definitely not the doorbell). So I think it would be better to use a different p2m type for the IOMMU mapping.
+> 
+> Actually, looking at the code, IOMMU mapping will use p2m_iommu_map_{rw,ro}. If I am not mistaken, neither of them are included in p2m_is_any_ram(). So I don't see why this check is needed in upstream.
+> 
+> Did I miss anything? Do you happen to have downstream change?
 
-No there is no any reason, I will move that inside p2m_alloc_page().
-
->
->> +    table = __map_domain_page(page);
->> +
->> +    /*
->> +     * We are either splitting a second level 1G page into 512 first level
->> +     * 2M pages, or a first level 2M page into 512 zero level 4K pages.
->> +     */
->> +    for ( i = 0; i < XEN_PT_ENTRIES; i++ )
->> +    {
->> +        pte_t *new_entry = table + i;
->> +
->> +        /*
->> +         * Use the content of the superpage entry and override
->> +         * the necessary fields. So the correct permission are kept.
->> +         */
->> +        pte = *entry;
->> +        pte_set_mfn(&pte, mfn_add(mfn, i << level_order));
-> While okay as long as you only permit superpages up to 1G, this is another
-> trap for someone to fall into: Imo i would better be unsigned long right
-> away, considering that RISC-V permits large pages at all levels.
->
->> +        write_pte(new_entry, pte);
->> +    }
->> +
->> +    /*
->> +     * Shatter superpage in the page to the level we want to make the
->> +     * changes.
->> +     * This is done outside the loop to avoid checking the offset to
->> +     * know whether the entry should be shattered for every entry.
->> +     */
->> +    if ( next_level != target )
->> +        rv = p2m_split_superpage(p2m, table + offsets[next_level],
->> +                                 level - 1, target, offsets);
-> I don't understand the comment: Under what conditions would every entry
-> need (further) shattering? And where's that happening? Or is this merely
-> a word ordering issue in the sentence, and "for every entry" wants
-> moving ahead? (In that case I'm unconvinced this is in need of commenting
-> upon.)
-
-It is wording question. It should be something like:
-+    /*
-+     * Shatter superpage in the page to the level we want to make the
-+     * changes.
-+     * This is done outside the loop to avoid checking the offset for every
-+     * entry (of new page table) to know whether the entry should be shattered.
-+     */
-
-
->
->> +    /* TODO: why it is necessary to have clean here? Not somewhere in the caller */
->> +    if ( p2m->clean_pte )
->> +        clean_dcache_va_range(table, PAGE_SIZE);
->> +
->> +    unmap_domain_page(table);
-> Again likely not something that wants taking care of right away, but there
-> again is an inefficiency here: The caller almost certainly wants to map
-> the same page again, to update the one entry that caused the request to
-> shatter the page.
-
-I'll add TODO.
-
->
->> +    /*
->> +     * Even if we failed, we should install the newly allocated PTE
->> +     * entry. The caller will be in charge to free the sub-tree.
->> +     */
->> +    p2m_write_pte(entry, page_to_p2m_table(p2m, page), p2m->clean_pte);
-> Why would it be wrong to free the page right here, vacating the entry at
-> the same time (or leaving just that to the caller)? (IOW - if this is an
-> implementation decision of yours, I think the word "should" would want
-> dropping.) After all, the caller invoking p2m_free_entry() on the thus
-> split PTE is less efficient (needs to iterate over all entries) than on
-> the original one (where it's just a single superpage).
-
-I think that I didn't get your idea.
-
->
->> @@ -806,7 +877,36 @@ static int __p2m_set_entry(struct p2m_domain *p2m,
->>        */
->>       if ( level > target )
-> This condition is likely too strong, unless you actually mean to also
-> split a superpage if it really wouldn't need splitting (new entry written
-> still fitting with the superpage mapping, i.e. suitable MFN and same
-> attributes).
-
-I am not really sure that I fully understand.
-My understanding is if level != target then the splitting is needed, I am
-not really get the part "split a superpage if it really wouldn't need splitting".
-
->
->>       {
->> -        panic("Shattering isn't implemented\n");
->> +        /* We need to split the original page. */
->> +        pte_t split_pte = *entry;
->> +
->> +        ASSERT(p2me_is_superpage(p2m, *entry, level));
->> +
->> +        if ( !p2m_split_superpage(p2m, &split_pte, level, target, offsets) )
->> +        {
->> +            /* Free the allocated sub-tree */
->> +            p2m_free_entry(p2m, split_pte, level);
->> +
->> +            rc = -ENOMEM;
->> +            goto out;
->> +        }
->> +
->> +        p2m_write_pte(entry, split_pte, p2m->clean_pte);
->> +
->> +        /* Then move to the level we want to make real changes */
->> +        for ( ; level < target; level++ )
-> Don't you mean to move downwards here? At which point I wonder: Did you test
-> this code?
-
-No as the test for this case was missed. I will add one.
-
->
->> +        {
->> +            rc = p2m_next_level(p2m, true, level, &table, offsets[level]);
->> +
->> +            /*
->> +             * The entry should be found and either be a table
->> +             * or a superpage if level 0 is not targeted
->> +             */
->> +            ASSERT(rc == GUEST_TABLE_NORMAL ||
->> +                   (rc == GUEST_TABLE_SUPER_PAGE && target > 0));
->> +        }
-> This, too, is inefficient (but likely good enough as a starting point): You walk
-> tables twice - first when splitting, and then again when finding the target level.
->
-> Considering the enclosing if(), this also again is a do/while() candidate.
-
-I will add TODO to make that part more efficient. And based on your reply regarding
-statement inside if(), I'll likely to use do/while().
-
-Thanks.
-
-~ Oleksii
-
-
---------------D3xmnBoha0xIcG8sS2m3p9Gg
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 7/2/25 11:25 AM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:9be8eeb4-281e-4b9b-9ea7-04ff738dc4db@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 10.06.2025 15:05, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Add support for down large memory mappings ("superpages") in the RISC-V
-p2m mapping so that smaller, more precise mappings ("finer-grained entries")
-can be inserted into lower levels of the page table hierarchy.
-
-To implement that the following is done:
-- Introduce p2m_split_superpage(): Recursively shatters a superpage into
-  smaller page table entries down to the target level, preserving original
-  permissions and attributes.
-- __p2m_set_entry() updated to invoke superpage splitting when inserting
-  entries at lower levels within a superpage-mapped region.
-
-This implementation is based on the ARM code, with modifications to the part
-that follows the BBM (break-before-make) approach. Unlike ARM, RISC-V does
-not require BBM, so there is no need to invalidate the PTE and flush the
-TLB before updating it with the newly created, split page table.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-But some flushing is going to be necessary. As long as you only ever do
-global flushes, the one after the individual PTE modification (within the
-split table) will do (if BBM isn't required, see below), but once you move
-to more fine-grained flushing, that's not going to be enough anymore. Not
-sure it's a good idea to leave such a pitfall.</pre>
-    </blockquote>
-    <pre>I think that I don't fully understand what is an issue.
-</pre>
-    <blockquote type="cite"
-      cite="mid:9be8eeb4-281e-4b9b-9ea7-04ff738dc4db@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-As to (no need for) BBM: I couldn't find anything to that effect in the
-privileged spec. Can you provide some pointer? What I found instead is e.g.
-this sentence: "To ensure that implicit reads observe writes to the same
-memory locations, an SFENCE.VMA instruction must be executed after the
-writes to flush the relevant cached translations." And this: "Accessing the
-same location using different cacheability attributes may cause loss of
-coherence." (This may not only occur when the same physical address is
-mapped twice at different VAs, but also after the shattering of a superpage
-when the new entry differs in cacheability.)</pre>
-    </blockquote>
-    <pre>I also couldn't find that RISC-V spec mandates BBM explicitly as Arm does it.
-
-What I meant that on RISC-V can do:
-- Write new PTE
-- Flush TLB
-
-While on Arm it is almost always needed to do:
-- Write zero to PTE
-- Flush TLB
-- Write new PTE
-
-For example, the common CoW code path where you copy from a read only page to
-a new page, then map that new page as writable just works on RISC-V without
-extra considerations and on Arm it requires BBM.
-
-It seems to me that BBM is mandated for Arm only because that TLB is shared
-among cores, so there is no any guarantee that no prior entry for same VA
-remains in TLB. In case of RISC-V's TLB isn't shared and after a flush it is
-guaranteed that no prior entry for the same VA remains in the TLB.
-
-But in the same time it could be cases, I guess, where BBM will be needed for
-RISC-V too. Even the case of CoW mentioned above will need some kind of BBM,
-but nothing that'll the CPU misbehave by doing CoW without BBM on RISC-V.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:9be8eeb4-281e-4b9b-9ea7-04ff738dc4db@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Additionally, the page table walk logic has been adjusted, as ARM uses the
-opposite walk order compared to RISC-V.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I think you used some similar wording already in an earlier patch. I find
-this confusing: Walk order is, aiui, the same. It's merely the numbering
-of levels that is the opposite way round, isn't it?</pre>
-    </blockquote>
-    <pre>Yes, the numbering of levels is different and I counted that as a different
-walk order. If it is too confusing, I will reword it and use numbering of levels.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:9be8eeb4-281e-4b9b-9ea7-04ff738dc4db@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Signed-off-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
----
-Changes in V2:
- - New patch. It was a part of a big patch "xen/riscv: implement p2m mapping
-   functionality" which was splitted to smaller.
- - Update the commit above the cycle which creates new page table as
-   RISC-V travserse page tables in an opposite to ARM order.
- - RISC-V doesn't require BBM so there is no needed for invalidating
-   and TLB flushing before updating PTE.
----
- xen/arch/riscv/p2m.c | 102 ++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 101 insertions(+), 1 deletion(-)
-
-diff --git a/xen/arch/riscv/p2m.c b/xen/arch/riscv/p2m.c
-index 87dd636b80..79c4473f1f 100644
---- a/xen/arch/riscv/p2m.c
-+++ b/xen/arch/riscv/p2m.c
-@@ -743,6 +743,77 @@ static void p2m_free_entry(struct p2m_domain *p2m,
-     p2m_free_page(p2m-&gt;domain, pg);
- }
- 
-+static bool p2m_split_superpage(struct p2m_domain *p2m, pte_t *entry,
-+                                unsigned int level, unsigned int target,
-+                                const unsigned int *offsets)
-+{
-+    struct page_info *page;
-+    unsigned int i;
-+    pte_t pte, *table;
-+    bool rv = true;
-+
-+    /* Convenience aliases */
-+    mfn_t mfn = pte_get_mfn(*entry);
-+    unsigned int next_level = level - 1;
-+    unsigned int level_order = XEN_PT_LEVEL_ORDER(next_level);
-+
-+    /*
-+     * This should only be called with target != level and the entry is
-+     * a superpage.
-+     */
-+    ASSERT(level &gt; target);
-+    ASSERT(p2me_is_superpage(p2m, *entry, level));
-+
-+    page = p2m_alloc_page(p2m-&gt;domain);
-+    if ( !page )
-+        return false;
-+
-+    page_list_add(page, &amp;p2m-&gt;pages);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Is there a reason this list maintenance isn't done in p2m_alloc_page()?</pre>
-    </blockquote>
-    <pre>No there is no any reason, I will move that inside p2m_alloc_page().
-</pre>
-    <blockquote type="cite"
-      cite="mid:9be8eeb4-281e-4b9b-9ea7-04ff738dc4db@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    table = __map_domain_page(page);
-+
-+    /*
-+     * We are either splitting a second level 1G page into 512 first level
-+     * 2M pages, or a first level 2M page into 512 zero level 4K pages.
-+     */
-+    for ( i = 0; i &lt; XEN_PT_ENTRIES; i++ )
-+    {
-+        pte_t *new_entry = table + i;
-+
-+        /*
-+         * Use the content of the superpage entry and override
-+         * the necessary fields. So the correct permission are kept.
-+         */
-+        pte = *entry;
-+        pte_set_mfn(&amp;pte, mfn_add(mfn, i &lt;&lt; level_order));
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-While okay as long as you only permit superpages up to 1G, this is another
-trap for someone to fall into: Imo i would better be unsigned long right
-away, considering that RISC-V permits large pages at all levels.
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+        write_pte(new_entry, pte);
-+    }
-+
-+    /*
-+     * Shatter superpage in the page to the level we want to make the
-+     * changes.
-+     * This is done outside the loop to avoid checking the offset to
-+     * know whether the entry should be shattered for every entry.
-+     */
-+    if ( next_level != target )
-+        rv = p2m_split_superpage(p2m, table + offsets[next_level],
-+                                 level - 1, target, offsets);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I don't understand the comment: Under what conditions would every entry
-need (further) shattering? And where's that happening? Or is this merely
-a word ordering issue in the sentence, and "for every entry" wants
-moving ahead? (In that case I'm unconvinced this is in need of commenting
-upon.)</pre>
-    </blockquote>
-    <pre>It is wording question. It should be something like:
-+    /*
-+     * Shatter superpage in the page to the level we want to make the
-+     * changes.
-+     * This is done outside the loop to avoid checking the offset for every
-+     * entry (of new page table) to know whether the entry should be shattered.
-+     */</pre>
-    <pre>
-</pre>
-    <p><br>
-    </p>
-    <blockquote type="cite"
-      cite="mid:9be8eeb4-281e-4b9b-9ea7-04ff738dc4db@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    /* TODO: why it is necessary to have clean here? Not somewhere in the caller */
-+    if ( p2m-&gt;clean_pte )
-+        clean_dcache_va_range(table, PAGE_SIZE);
-+
-+    unmap_domain_page(table);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Again likely not something that wants taking care of right away, but there
-again is an inefficiency here: The caller almost certainly wants to map
-the same page again, to update the one entry that caused the request to
-shatter the page.</pre>
-    </blockquote>
-    <pre>I'll add TODO.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:9be8eeb4-281e-4b9b-9ea7-04ff738dc4db@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    /*
-+     * Even if we failed, we should install the newly allocated PTE
-+     * entry. The caller will be in charge to free the sub-tree.
-+     */
-+    p2m_write_pte(entry, page_to_p2m_table(p2m, page), p2m-&gt;clean_pte);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Why would it be wrong to free the page right here, vacating the entry at
-the same time (or leaving just that to the caller)? (IOW - if this is an
-implementation decision of yours, I think the word "should" would want
-dropping.) After all, the caller invoking p2m_free_entry() on the thus
-split PTE is less efficient (needs to iterate over all entries) than on
-the original one (where it's just a single superpage).</pre>
-    </blockquote>
-    <pre>I think that I didn't get your idea.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:9be8eeb4-281e-4b9b-9ea7-04ff738dc4db@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">@@ -806,7 +877,36 @@ static int __p2m_set_entry(struct p2m_domain *p2m,
-      */
-     if ( level &gt; target )
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-This condition is likely too strong, unless you actually mean to also
-split a superpage if it really wouldn't need splitting (new entry written
-still fitting with the superpage mapping, i.e. suitable MFN and same
-attributes).</pre>
-    </blockquote>
-    <pre>I am not really sure that I fully understand.
-My understanding is if level != target then the splitting is needed, I am
-not really get the part "split a superpage if it really wouldn't need splitting".
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:9be8eeb4-281e-4b9b-9ea7-04ff738dc4db@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">     {
--        panic("Shattering isn't implemented\n");
-+        /* We need to split the original page. */
-+        pte_t split_pte = *entry;
-+
-+        ASSERT(p2me_is_superpage(p2m, *entry, level));
-+
-+        if ( !p2m_split_superpage(p2m, &amp;split_pte, level, target, offsets) )
-+        {
-+            /* Free the allocated sub-tree */
-+            p2m_free_entry(p2m, split_pte, level);
-+
-+            rc = -ENOMEM;
-+            goto out;
-+        }
-+
-+        p2m_write_pte(entry, split_pte, p2m-&gt;clean_pte);
-+
-+        /* Then move to the level we want to make real changes */
-+        for ( ; level &lt; target; level++ )
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Don't you mean to move downwards here? At which point I wonder: Did you test
-this code?</pre>
-    </blockquote>
-    <pre>No as the test for this case was missed. I will add one.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:9be8eeb4-281e-4b9b-9ea7-04ff738dc4db@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+        {
-+            rc = p2m_next_level(p2m, true, level, &amp;table, offsets[level]);
-+
-+            /*
-+             * The entry should be found and either be a table
-+             * or a superpage if level 0 is not targeted
-+             */
-+            ASSERT(rc == GUEST_TABLE_NORMAL ||
-+                   (rc == GUEST_TABLE_SUPER_PAGE &amp;&amp; target &gt; 0));
-+        }
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-This, too, is inefficient (but likely good enough as a starting point): You walk
-tables twice - first when splitting, and then again when finding the target level.
-
-Considering the enclosing if(), this also again is a do/while() candidate.
-</pre>
-    </blockquote>
-    <pre>I will add TODO to make that part more efficient. And based on your reply regarding
-statement inside if(), I'll likely to use do/while().
-
-Thanks.
-
-~ Oleksii
-</pre>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------D3xmnBoha0xIcG8sS2m3p9Gg--
+Ah, no, I think you're right. Since the p2m_is_any_ram() check does not
+include p2m_iommu_map_{rw,ro}, no change to p2m_remove_mapping() should
+be needed. This was an oversight in our downstream.
 
