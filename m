@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 721C7B0906B
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 17:19:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1047012.1417394 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1310EB090AC
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 17:35:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1047018.1417405 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucQNv-0004Ub-MD; Thu, 17 Jul 2025 15:18:59 +0000
+	id 1ucQcc-0007l3-Ug; Thu, 17 Jul 2025 15:34:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1047012.1417394; Thu, 17 Jul 2025 15:18:59 +0000
+Received: by outflank-mailman (output) from mailman id 1047018.1417405; Thu, 17 Jul 2025 15:34:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucQNv-0004Rm-Jd; Thu, 17 Jul 2025 15:18:59 +0000
-Received: by outflank-mailman (input) for mailman id 1047012;
- Thu, 17 Jul 2025 15:18:58 +0000
+	id 1ucQcc-0007iB-RB; Thu, 17 Jul 2025 15:34:10 +0000
+Received: by outflank-mailman (input) for mailman id 1047018;
+ Thu, 17 Jul 2025 15:34:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Kd8q=Z6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ucQNu-0004Rg-N7
- for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 15:18:58 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ id 1ucQcb-0007i5-Ea
+ for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 15:34:09 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5bc46298-6321-11f0-a319-13f23c93f187;
- Thu, 17 Jul 2025 17:18:57 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3a4fd1ba177so720551f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 17 Jul 2025 08:18:57 -0700 (PDT)
+ id 7a63fa83-6323-11f0-a319-13f23c93f187;
+ Thu, 17 Jul 2025 17:34:08 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a4fd1ba177so732599f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Jul 2025 08:34:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74eb9f8f343sm16301036b3a.161.2025.07.17.08.18.53
+ 98e67ed59e1d1-31c9f29e2efsm3529472a91.38.2025.07.17.08.34.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Jul 2025 08:18:56 -0700 (PDT)
+ Thu, 17 Jul 2025 08:34:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5bc46298-6321-11f0-a319-13f23c93f187
+X-Inumbo-ID: 7a63fa83-6323-11f0-a319-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752765537; x=1753370337; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=8Gnfomx3X2pAFzFU6MDRocaMhyxthavaez674R7uHAs=;
-        b=AxCj0maIFe4ZBwnrilwlYQ9zdbGvv4vYp6vsJRB7eA6gYmcKQcAlV1Kd0c+iFplSQs
-         Wv4H2NU0WFCd5cUOk+KuDrdFYnqEHg+ko6hAcTx6QMyGjpFHkS/bPWJEQ3CtuxqgSga/
-         XsZJ8P/9MTH89Z/nC358yT1bJ47pUyTlyF6oci1kuHxqM30A1HEJbUN3A/GjIj/a7cRS
-         cGsrv/CqVntIc5WbBWbNvIcvXBnvLW2tPWnB/o4QbaVILLicDmL53aTzxKuqOmsdsPN3
-         nqI2zenbxyI05CocqruAhrrWTRCouum0RnDQwENBSVlwIaerw6Pf652cMuAesKCjp5ju
-         mNdg==
+        d=suse.com; s=google; t=1752766447; x=1753371247; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=7ZpaUTY1i6p7eZfxCjpQQq5Fy7fW4479dfbKaqvGBMk=;
+        b=eWTURNa2q+eY+1GLnFw2qrxyOV7vdqFPlihHG3/oLg3+PerbnpYw5/W6m9+fRKfjFN
+         0459JVm86nJFjFo3lVSHDg0GEh3jTQsu9H9YP6Y0kpIGZK+dLXwLXgy47bAd1SnWWy98
+         2Pk+zNAYeng3fRERn5Vrr/llf/Muic6s51ASn7iXlvGUNfxj3TXdvmT+teZ2jzXK0nVO
+         CuUxYIFSpC0ON6VcjJ7nFgDJibKlDk7WcC8+7AU9SDHERVDTSQXZo4hB2sFylmlIZsm5
+         iqLGM11DQqb80fQPSe7VoInk1mRuNGz6TT74VU23t7hJUvfMoA/l5ySAX2sq6O87emhV
+         FM9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752765537; x=1753370337;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8Gnfomx3X2pAFzFU6MDRocaMhyxthavaez674R7uHAs=;
-        b=EPbLSWzSevd3IpbflLuZbMtzEns25ydRf8UTGvNk7MCJJdh7n2mRsVS5WDqLddWxvs
-         roaHJj2p0sS/1XPZPKYgrq1NvN98b+MVUehM+xp6NDieqoRGMne80X1zro7p6J8f8/W0
-         cZySTabCR/PQ0+Z3EzF1eOnYqdkEmda9zs2Zx3CPGFeSYu4OVpiKkbXrHWrCYUTI2lKr
-         Wo4NSaYDpW3eQsZs1qs6lJEVXc57tkqVfIWkt+BmS3oDvuNNe7XALQbH4Gr1EMhnSqnu
-         fdeG4Kx96ToQZyONS/AsPV8xz4/vBoDQGaFP8L0cTvWTVWdHiCWG+0e8CNxFptDxK/y3
-         Hk0A==
-X-Gm-Message-State: AOJu0Yz8ODhEXhfEQCcsEJYqSxhJicZLnnZ6iTHdL9u/Jx5VWiyObJiH
-	Bnu5Z9WcfjP4fXonNdFajbO05CfZp+MyNpY1ciAEBd2cXEipte+AuniG9VLFcXjX8jQ/EZKgTD1
-	a4Kw=
-X-Gm-Gg: ASbGnctOtrXuJZF7lvyySL9of0mUmv3uwwYSRZD8VpbYx/1DfBS+nJf56GkzAT9x2RH
-	BbHoQ7hMTp1rVRorzVENcRpwWT9q/eQ3dX3DszsjmB8tfoqth252xmBedjtdUriH4qBVi/5m6Ca
-	04OS3uJvgPjfnXhcwyS9AjpAuPMHCVqS1cTTEYvq+vJDuZtlQkVvNAaU9FOc/krgdxkQPGKEA/2
-	p90u1TfOggkhBCEk+UnfoQvoUQIy+dQKvs3W2iIiIPzdb1CAhnmYAj4mFSzKp0yb2tEbG330WLG
-	5qzD9vmbgjuK37a5SiL3TeboMQcEPXaOVKUnyB1ccPuoD8Daob3UX5brpI/8KViYLHf4PtcaLzt
-	LE6rCC8kBeXo9tn8+K0ZtZUFt+3l0Uh1NUyBONlTo4GMoSzrWqGOuSYzDxDbQh4uaCOOc9C2Q+M
-	0FwpBrjJ0=
-X-Google-Smtp-Source: AGHT+IHaGxvr5hiYdpWdD5l+NlByKScYtcoGKhBoF7Aadi2HAzIK/gS/Ei5GiYizcuv2b1JvRYpLdQ==
-X-Received: by 2002:a05:6000:26d1:b0:3a4:e238:6496 with SMTP id ffacd0b85a97d-3b619cc0de2mr215278f8f.18.1752765536844;
-        Thu, 17 Jul 2025 08:18:56 -0700 (PDT)
-Message-ID: <40ea8cc6-d5f0-4e3f-97ba-2e35ef4c5698@suse.com>
-Date: Thu, 17 Jul 2025 17:18:48 +0200
+        d=1e100.net; s=20230601; t=1752766447; x=1753371247;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7ZpaUTY1i6p7eZfxCjpQQq5Fy7fW4479dfbKaqvGBMk=;
+        b=G6pGReu8XpUgvj2XJNjJ5sDYsMKzmYtCfW2GF38uS6s3Oq5F0gGn7aELFembLe4VBj
+         GcPBnx1AjYAlPxGZ5YXywE7kSFYfLya/OjRjxGi7PBPWMyPitUMONnmBh8q1/4nGKvN7
+         erOB0hHnnHa6riYhqg0moXPnA5GIbB91OrDesk6UZ9DCcwHDQQiMz5Dy8XjFTleItygx
+         bh7R8h6Yv10wxBMnjN8skSlYqiRO5liTcrsD6nwg5izi4Ao0jjNEnu0+Zix9vo/Tbof3
+         5X4UUmp27vEYCIN8HvDFpuNXDaxO+Iu9hhJ2+0hwsgPPdoSbDXzo+9254UuIubo7/MRZ
+         H4xw==
+X-Forwarded-Encrypted: i=1; AJvYcCWLvSp8ptkNw80DJnCClq0yMtrmAyFwlcRo+LREo6kpNxSfkouhywiuAPZGkW3Lgzm4REMV6ZDlE58=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy0ZF+Gb2MZLDIRCXq0I7G1SDwrruTFjydAKPdi3+RkOeaP05qm
+	MKKFLQusCbejYicNmXr0cRtg7Eko9EoMrqbe3Le099lwcoe7VLU5Oyz0g4a0dQwQmQ==
+X-Gm-Gg: ASbGncvDmUdoK6ThvY2NvP6FD6Nxr0xjK0p0zstsKHr3qxmcEW3cOIZANr9n55Hx8C6
+	1Q9Uv/8VQ/k62SPAOsA5rnyxRiFbUw0T4LTmV4Ndl0A+J2202fkw20q9DjTlsuVP+rDryd1wzzJ
+	PawvmUDaND4JgcMUbPs8gGv4DK/Qz1O4qmnyNPuu+gsXIkomp1hzFMwsQUHWziZB+08d1WYJO5H
+	K9aq+28idYAEgpTqv0ggvYueIzPnv01P7/LINRd7T0WyEhM8a9dctFPFgkrQjMUfqAI0A+I379u
+	wGhOTAMYEH4jVqsfDa00R7KmAugYyITmWi1k4P293blWhk6vYSMuI70mub9Ga/rSiH7qpOKaXY9
+	4P8Ch4/Q+crYOhjZOPuoE5UkNtk1epypIxclx6YesRf0uZBA8zVDJfPvhcM5PMSSdsD0baYx6+b
+	r0rpsRIYA=
+X-Google-Smtp-Source: AGHT+IHbDDLE/gjGZi9Ghg6zrkPEGXxsg3I2hWbbLH1I7XmEPiQAu3rdK/UQWRt9Igp7HbXcOrtHjw==
+X-Received: by 2002:adf:a286:0:b0:3a5:8991:64b7 with SMTP id ffacd0b85a97d-3b619cd1403mr150333f8f.26.1752766447084;
+        Thu, 17 Jul 2025 08:34:07 -0700 (PDT)
+Message-ID: <10e9c04f-7de8-4aa2-a555-0a5cb975e91f@suse.com>
+Date: Thu, 17 Jul 2025 17:33:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [XEN][PATCH] xen/evtchn: enable build optimization for
+ evtchn_move_pirqs()/send_guest_pirq()
+To: Grygorii Strashko <grygorii_strashko@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Roger Pau Monne <roger.pau@citrix.com>, Ayan Kumar Halder
+ <ayankuma@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250717130147.2842159-1-grygorii_strashko@epam.com>
+ <d8778c57-c934-46d5-a600-dcdb2ca5ec26@suse.com>
+ <72a6cd66-e811-4776-ad93-979b65e69a10@epam.com>
+Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/S3: don't lose previously collected CPU data (AMD extra)
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -116,26 +126,103 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <72a6cd66-e811-4776-ad93-979b65e69a10@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-smp_store_cpu_info() doesn't call identify_cpu() again during S3 resume,
-hence it is wrong to zap APs' data while bringing them down (and we're
-not just parking them there) during suspend.
+On 17.07.2025 16:41, Grygorii Strashko wrote:
+> 
+> 
+> On 17.07.25 16:10, Jan Beulich wrote:
+>> On 17.07.2025 15:01, Grygorii Strashko wrote:
+>>> --- a/xen/common/event_channel.c
+>>> +++ b/xen/common/event_channel.c
+>>> @@ -975,6 +975,9 @@ void send_guest_pirq(struct domain *d, const struct pirq *pirq)
+>>>       int port;
+>>>       struct evtchn *chn;
+>>>   
+>>> +    if (!IS_ENABLED(CONFIG_HAS_PIRQ))
+>>> +        return;
+>>> +
+>>>       /*
+>>>        * PV guests: It should not be possible to race with __evtchn_close(). The
+>>>        *     caller of this function must synchronise with pirq_guest_unbind().
+>>
+>> Isn't this function unreachable on Arm, and hence a Misra rule 2.1 violation,
+>> requiring #ifdef around the entire function to address?
+> 
+> Yes. It's unused on Arm, only x86 is an user.
+> I can put it under ifdef.
+> 
+>>
+>>> @@ -1710,10 +1713,15 @@ void evtchn_destroy_final(struct domain *d)
+>>>   void evtchn_move_pirqs(struct vcpu *v)
+>>>   {
+>>>       struct domain *d = v->domain;
+>>> -    const cpumask_t *mask = cpumask_of(v->processor);
+>>> +    const cpumask_t *mask;
+>>
+>> This change shouldn't be necessary; compilers ought to be able to DCE the
+>> code.
+> 
+> Unfortunately not, with "-O1" more code is generated as cpumask_of() is complicated inside.
+> 
+>>
+>>>       unsigned int port;
+>>>       struct evtchn *chn;
+>>>   
+>>> +    if (!IS_ENABLED(CONFIG_HAS_PIRQ))
+>>
+>> Nit (style): Missing blanks (see other nearby if()-s).
+>>
+>> I wonder though whether we wouldn't better have x86'es arch_move_irqs()
+>> invoke this function, and then #ifdef it out here altogether as well.
+> 
+> Do you mean as in the below diff?
 
-Fixes: 7126b7f806d5 ("x86/CPU: re-work populating of cpu_data[]")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Along these lines, yes. I guess personally I wouldn't convert to an
+out-of-line function. If an inline function fails to compile (and that
+isn't easily fixable), use a macro instead.
 
---- a/xen/arch/x86/smpboot.c
-+++ b/xen/arch/x86/smpboot.c
-@@ -982,7 +982,8 @@ static void cpu_smpboot_free(unsigned in
- 
-     if ( remove )
-     {
--        reset_cpuinfo(&c[cpu], false);
-+        if ( system_state != SYS_STATE_suspend )
-+            reset_cpuinfo(&c[cpu], false);
- 
-         FREE_CPUMASK_VAR(per_cpu(cpu_sibling_mask, cpu));
-         FREE_CPUMASK_VAR(per_cpu(cpu_core_mask, cpu));
+Jan
+
+> --- a/xen/arch/x86/include/asm/irq.h
+> +++ b/xen/arch/x86/include/asm/irq.h
+> @@ -224,7 +224,7 @@ void cleanup_domain_irq_mapping(struct domain *d);
+>   
+>   bool cpu_has_pending_apic_eoi(void);
+>   
+> -static inline void arch_move_irqs(struct vcpu *v) { }
+> +void arch_move_irqs(struct vcpu *v);
+>   
+>   struct msi_info;
+>   int allocate_and_map_gsi_pirq(struct domain *d, int index, int *pirq_p);
+> diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
+> index 556134f85aa0..b8d8f202119d 100644
+> --- a/xen/arch/x86/irq.c
+> +++ b/xen/arch/x86/irq.c
+> @@ -1851,6 +1851,10 @@ void pirq_guest_unbind(struct domain *d, struct pirq *pirq)
+>           cleanup_domain_irq_pirq(d, irq, pirq);
+>   }
+>   
+> +void arch_move_irqs(struct vcpu *v) {
+> +    evtchn_move_pirqs(v);
+> +}
+> +
+>   static bool pirq_guest_force_unbind(struct domain *d, struct pirq *pirq)
+>   {
+>       struct irq_desc *desc;
+> diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+> index 13fdf57e57b9..ad6032fb2865 100644
+> --- a/xen/common/sched/core.c
+> +++ b/xen/common/sched/core.c
+> @@ -642,7 +642,6 @@ int sched_init_vcpu(struct vcpu *v)
+>   static void vcpu_move_irqs(struct vcpu *v)
+>   {
+>       arch_move_irqs(v);
+> -    evtchn_move_pirqs(v);
+>   }
+> 
+> 
+
 
