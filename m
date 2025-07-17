@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D603B08C6E
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 14:05:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1046706.1417090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DA68B08C6B
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 14:05:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1046691.1417080 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucNMu-0001aT-1L; Thu, 17 Jul 2025 12:05:44 +0000
+	id 1ucNMC-0000ty-Oe; Thu, 17 Jul 2025 12:05:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1046706.1417090; Thu, 17 Jul 2025 12:05:44 +0000
+Received: by outflank-mailman (output) from mailman id 1046691.1417080; Thu, 17 Jul 2025 12:05:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucNMt-0001Yw-Td; Thu, 17 Jul 2025 12:05:43 +0000
-Received: by outflank-mailman (input) for mailman id 1046706;
- Thu, 17 Jul 2025 12:05:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ucNMC-0000rg-Lj; Thu, 17 Jul 2025 12:05:00 +0000
+Received: by outflank-mailman (input) for mailman id 1046691;
+ Thu, 17 Jul 2025 12:04:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Kd8q=Z6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ucNBR-0001Ft-S3
- for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 11:53:53 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b5c06c84-6304-11f0-a319-13f23c93f187;
- Thu, 17 Jul 2025 13:53:53 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3a4e742dc97so1030941f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 17 Jul 2025 04:53:53 -0700 (PDT)
+ id 1ucNMB-0000pu-7k
+ for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 12:04:59 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4197fc4b-6306-11f0-b894-0df219b8e170;
+ Thu, 17 Jul 2025 14:04:57 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-3a54700a46eso536307f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Jul 2025 05:04:57 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23de4286d71sm147721835ad.16.2025.07.17.04.53.48
+ d9443c01a7336-23de43228b3sm146604365ad.135.2025.07.17.05.04.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Jul 2025 04:53:51 -0700 (PDT)
+ Thu, 17 Jul 2025 05:04:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5c06c84-6304-11f0-a319-13f23c93f187
+X-Inumbo-ID: 4197fc4b-6306-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752753232; x=1753358032; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=qG5fISwhYTTvlkJ4wL7+gjhUo/XKqFG7Qr6TfbRB4rA=;
-        b=Sw2dqr/JepYV4p4bRnfSS8rql8531h0tz50gOTpZ+BdnjL9f9Lxq6VNkhkRNWhSSeo
-         7KtEkyzSlFcMlciLXOrzlz4IRW+zkzzPLfDpr9uD4qa6604tM/TENZEYh9wqiz3WLyq9
-         4C7fV/CPPUCajnCGMES/ioyDXh/WsXXcl+OYdpjl5MlrZ2A4frOuQW3s1F8P+qEQkjf4
-         HId3UO2sCB4qOAjm2hQdUTzoe+dQ+mS3OsaNU9pUCKla/AQl+8UOaWEaJRuOOeqPLAQt
-         8z0BjDgr0AujzPTlUHGC30rAHMNaESa8eZORn5uNq6A43rf2bPKXzIHgdR5t37pK/xRz
-         glIw==
+        d=suse.com; s=google; t=1752753896; x=1753358696; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=tm3AQY5snUNJM04Iir1CQrnRHvnoHlcgrh58p36jbUQ=;
+        b=HgtCng7aIRnq5q6HNQdC326eha2OEQV5qwUdEX+eSt3FqqgpSVVGMct5wKdT2GOJCn
+         K1pV/v/wUPB+jF9X9g8YO9pKiPC+ZUSN05GHagtfoGBPIcxKXEQY7qSEC/R7CbCR/42J
+         1CkNmtqxAdyvpDJuBNTaxmwz3+l2IkQnjxknbrlCgHLcgNTgMqDiUrRid1checpAglfS
+         uUkvLJloe2+ijarEt9IYBRUL84a/dO+JKj1pRS9ovR0QakPfHFMlFF2gBWPOyusoyBNK
+         3kl/x5W07gw1lHswshf4RasjkBtsz/8uCk1kbNa9nBdUsXZVvA/KR1fwp16mUu3qH138
+         35gg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752753232; x=1753358032;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qG5fISwhYTTvlkJ4wL7+gjhUo/XKqFG7Qr6TfbRB4rA=;
-        b=fbcNkzeB/2JUdauPrqpgeAnpePWKU1nR1IOXzSW2CqOyoqzPzdHShRB2aKQps1vQjN
-         5hW6rYip2t/OHoDz+JY5rNpzIf5wGFacmQXyxAfo+qORGATcbTJ+SsI12CThXxe0Un79
-         Uno4TlYsgIRehfYqtwQIVXaX9IAkct07GGxzfg2eQofKYJczucvq3qiB/bsyWiNv2LE3
-         05K35B8RGM0iAF8Jgnm2gaLQlvNyiG8m/nyDqaOCUYoJyT8I1q0NWX8DcT8mL2klLTs/
-         KtuyKG1cUWKA+M3kVdLxo2tJS8dXK/7HWQ29rqfKzXzRCeOylaE4Kee5giMal0gRTL1s
-         Jocw==
-X-Gm-Message-State: AOJu0Yy8Ai3iLn8lC6W8Us/LlxDv+NZjDwM1H/7VYap13bT+lCrWZ1bS
-	+n4PKCpfnRqFJZw2izwMI5RwBxKFCYoG9TFEzEwMUpGbjg9dxEwCfEvfPQHoIzfXMg==
-X-Gm-Gg: ASbGncv99DUzCT3EHC8OURBw4b8cwXrkzPoq/Q09joROEPxKP3BMBr0udv0tYSn6DAZ
-	4TcN3rynXvcwsOC+Gs+nc5o1nNRaelXkwlnpHiEAaM+Vt2Mc4x5KIn8+wBnNDDaPQvR2CMwPk4n
-	og98mivPyzBz+BuoQ5yiAytnGUfnBOHrHLMLblQ8rksNj7NtFjYWLjVOyvoj9NNSqfi9HNWFwZe
-	v/h/2r4OyDLdZZ7Rt+tLVt8f39mst+9o1Z3i2vSPjRN0y6sstzhe1OzMgQXMqihtR5kEVlcQfDx
-	WZT632Mb7dOWc9W5fUDXz83ZrJURsCyifusY8K0NmN+9ymnvDEDkHl2UBcufBVmjNZ5GqbYk007
-	KnSBP3j/+oN02M+F4rc7yK8Th1U2ZnuuCMQqS8E/YYy+bsgxrOD9ZFAF73xVBu689wYpQwO9TMw
-	fBzw2ec9U=
-X-Google-Smtp-Source: AGHT+IEMkdLp5woadsyibzhTDCWBnPe58129JPz+8JtUkzencrvbkvTKBCZv09DEMHTRks0CosPQxQ==
-X-Received: by 2002:adf:ed06:0:b0:3a5:5136:bd25 with SMTP id ffacd0b85a97d-3b613a0896bmr2378868f8f.1.1752753232302;
-        Thu, 17 Jul 2025 04:53:52 -0700 (PDT)
-Message-ID: <b96d2109-6c84-495c-8efe-f2fcfa95608d@suse.com>
-Date: Thu, 17 Jul 2025 13:53:43 +0200
+        d=1e100.net; s=20230601; t=1752753896; x=1753358696;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tm3AQY5snUNJM04Iir1CQrnRHvnoHlcgrh58p36jbUQ=;
+        b=glP2Xxpe+VwTorHMmSSB+UjggHXESC7GkBef7HP19qHtEEt01nYUOBEDNE20Z76zWq
+         RbqnI+HD6Wx47PXN+9otxSjyixSJ4S2pbji7mBVUfzV61hyRqQ8OYNmTAfGGyMA/5c89
+         K6Dc8b7FZmqNw4WNFh0F0GByWWJdau5V3xqHd6ecspo9ohJY3Sjk4e7EvTWNPxbcxcxV
+         Rkc1PhILo7eIMrnQPEex/Nb/62D3Dwb0WcLQhMGblJyGvcWE1V7yeBqBULboE6waNXMV
+         AlmAqb6xpc+7V/2lvQxPz+e/03eBSwxCYOunBnHWSS0aD7sn6lIBqa/Kf/1mLe6laafR
+         X3Jw==
+X-Gm-Message-State: AOJu0YzbtnAbgXvXrFyJ+1DOzlgwwBznRUZ/OPq0jr7t3bcvTehmOzb3
+	zyOTY7H1wHLDPmliQ1sTVx1JKXVWfqW9q+aw5Wg/1miitl9nM5g3RvPQS8B60pwdVg==
+X-Gm-Gg: ASbGncvXq81AQseq6IUZmEnBLOxWc64uNdywCKym8bujq8WeENI6lRAMDIlHsNaLHkO
+	A4AeVpl8PLfK7TcSrEv5m3oGS++3GcI+5RJQ5/5y3uOiXkmVK0ZyjGhh9zxZSTl+QC1aN96WzUh
+	MMl1Z1cyNfuXCRNbFgwAa4QHoUxDskw7LEeKZgK3C5hSKqh343ca+9F+Vr4KsmS5ReXisMiGXKP
+	/CobJHsa9r39lMA5HJt8/IUskSstuI/pJl4M07A4Wm48478CXGaVl3AGdZaLVAY9/kPvBqvlNIV
+	/Kqxw0t15rj6rmteFybV/kdmbpr+uyZzWPk5gCRc1da/1QzyR9pq/76Stzqy8IcczOTJkrE42Yu
+	YWotfrv+FUDx0/9aHk/efudznJLvqgHpi/S75fHj+yS0GOjtOespUwVtSXXLoK9jsGMKDWTC/c6
+	JlL16/f04=
+X-Google-Smtp-Source: AGHT+IF/8m9SyuDknt/TqVQ/10+lucQBdICIufGJ+swp2KSfmDJQp4sVxWY+bjTB1+ZnVjIwG/o21w==
+X-Received: by 2002:a05:6000:1a8e:b0:3a4:f7e7:416b with SMTP id ffacd0b85a97d-3b613e66f70mr2512817f8f.16.1752753896170;
+        Thu, 17 Jul 2025 05:04:56 -0700 (PDT)
+Message-ID: <8219b634-c6d8-43e4-82f6-b5622fd7afdd@suse.com>
+Date: Thu, 17 Jul 2025 14:04:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Minios-devel <minios-devel@lists.xenproject.org>
+Subject: Re: [PATCH] kexec: initialize kexec_page in kexec()
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Juergen Gross <jgross@suse.com>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Minios-devel <minios-devel@lists.xenproject.org>
+References: <b96d2109-6c84-495c-8efe-f2fcfa95608d@suse.com>
+ <7e9a8486-b60d-4929-bb37-275578a53359@suse.com>
+Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] kexec: initialize kexec_page in kexec()
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -116,25 +119,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <7e9a8486-b60d-4929-bb37-275578a53359@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-For the error patch to not see it uninitialized.
+On 17.07.2025 13:58, Jürgen Groß wrote:
+> On 17.07.25 13:53, Jan Beulich wrote:
+>> For the error patch to not see it uninitialized.
+>>
+>> Fixes: 560c2a5584c4 ("mini-os: kexec: do the final kexec step")
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Reviewed-by: Juergen Gross <jgross@suse.com>
 
-Fixes: 560c2a5584c4 ("mini-os: kexec: do the final kexec step")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-In the meantime I'll revert the MiniOS commit update in the main tree.
+Thanks.
 
---- a/kexec.c
-+++ b/kexec.c
-@@ -168,7 +168,7 @@ int kexec(void *kernel, unsigned long kernel_size, const char *cmdline)
- {
-     int ret;
-     unsigned long *func;
--    void *kexec_page;
-+    void *kexec_page = NULL;
- 
-     ret = analyze_kernel(kernel, kernel_size);
-     if ( ret )
+The revert actually didn't help, the problem was already introduced earlier.
+I now don't understand how things built previously. I'll re-apply the patch
+bumping the new revision to this about-to-be-committed fix.
+
+Jan
 
