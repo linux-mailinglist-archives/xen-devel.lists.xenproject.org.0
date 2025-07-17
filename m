@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16DC1B084F6
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 08:33:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1046186.1416438 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 370DCB08518
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 08:39:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1046192.1416447 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucIAp-0005t3-3m; Thu, 17 Jul 2025 06:32:55 +0000
+	id 1ucIH1-0006Re-M9; Thu, 17 Jul 2025 06:39:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1046186.1416438; Thu, 17 Jul 2025 06:32:55 +0000
+Received: by outflank-mailman (output) from mailman id 1046192.1416447; Thu, 17 Jul 2025 06:39:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucIAp-0005qb-0f; Thu, 17 Jul 2025 06:32:55 +0000
-Received: by outflank-mailman (input) for mailman id 1046186;
- Thu, 17 Jul 2025 06:32:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ucIH1-0006QD-JW; Thu, 17 Jul 2025 06:39:19 +0000
+Received: by outflank-mailman (input) for mailman id 1046192;
+ Thu, 17 Jul 2025 06:39:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Kd8q=Z6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ucIAn-0005qV-FY
- for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 06:32:53 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dcda8ad1-62d7-11f0-b894-0df219b8e170;
- Thu, 17 Jul 2025 08:32:51 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3a575a988f9so342872f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 23:32:51 -0700 (PDT)
+ id 1ucIGz-0006Q7-Ty
+ for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 06:39:17 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c2825895-62d8-11f0-a319-13f23c93f187;
+ Thu, 17 Jul 2025 08:39:16 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-3a531fcaa05so229123f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 23:39:16 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74eb9dd603asm15796482b3a.12.2025.07.16.23.32.47
+ d9443c01a7336-23de435bc15sm135181975ad.219.2025.07.16.23.39.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jul 2025 23:32:50 -0700 (PDT)
+ Wed, 16 Jul 2025 23:39:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dcda8ad1-62d7-11f0-b894-0df219b8e170
+X-Inumbo-ID: c2825895-62d8-11f0-a319-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752733971; x=1753338771; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=d437x+rQqw58o+wv4U6unwmLqUHUgHTpeRxV83qDZxI=;
-        b=NrPpzgydGU3YatW+fmZFe+ZT5ZPuOLttmiG7geLk0WuuxWhbojspRcoSt9JpT7XeRS
-         +jxAg91NdFPRH1DADzt3ZiqaeKUuOP7q3jJcQcjceCEJUvVMscHZcA2BU29Nee4VBcLC
-         I03AL/Si/lXt0Q05aNfATXlVCYQQAAH5GCq8xgbHeoYqbR4nScQxyJcbYx9b7+by3M8J
-         ECSNTQeGm1HEWu8+BD6ugEmHftS+9lC0V1GqOIvmUtQ55QBu6vsLidT8qCYaSvCehHSZ
-         iGsMKHc3NeKeKF5wEXhVG0dWKKJAcOhqLLa7ZL6R3XulZbWTqPiiJQwrP/eSAAkAmJqF
-         cGJQ==
+        d=suse.com; s=google; t=1752734356; x=1753339156; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=jJN1pquswrMh83lvttX+Uq5Cymk1wQESpVRr7L1l168=;
+        b=O0NAl7LZ7wmRqtU5phhSdVfP+UiJqaoXhLX6LDsiXrmw+/k026E3qSgxTFye8lBsvI
+         iq/Ik98nUR2ItEVcD4Nef89NvN3260up9pwPs7RSbzcz7io2gWIeH5pwAXLWUpnk4WFC
+         4J/kldP5J3mlnseCc+TZcBUDAA35/7I6ZKgOds5VzKcgwbcCmQQzK/0eniVgix1rIdda
+         1vPeyZPpjWAq5i/Tajvg7ASdNm2qis/3a1w1YRvBVfPDBZlO8IQCXqKUR1mNhYhyMDXM
+         cYX4rLSdMo/LlgvA0oICmI/U3Ex8iD5I7W2DNCAQTzli2l4JrHHwI0uSKEV3O6EeqCZY
+         yoLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752733971; x=1753338771;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=d437x+rQqw58o+wv4U6unwmLqUHUgHTpeRxV83qDZxI=;
-        b=orRa9zp+XUOXLtBX0ogKLdaDvnmc2GuQo5KrHvqTRHNFx4XKzdR87X3IjturOVB5Ok
-         9UjR73Bgoasl1ORJZjaCU8kIZ8/H4GiyGPkhXzAA2dGGStupxCHq0X9TbT1i2IpKKqWe
-         wWZn0B/NIknj9x7bBviQv0EQZQROCOsDgfAuERsi2SgRDq/1kVkvmZmpm4xPF+5n/MJ0
-         GbtRwLMWIpnL5aQ0075/HFkujFgCx8jm2TEhR1dk/0CRi8HBcDVFx/E0HS4Qi2XNg2C4
-         GU5QQbkk4//rUYWAyTRUSeMqKv3UyOiB9kK402lNc/P4Nt601Ru66Pq0lRQHHUPbm1pk
-         +QRA==
-X-Forwarded-Encrypted: i=1; AJvYcCUFKelIK5s0wrQdo3h5mlrjmkaD6HKCwwfx+aJKe6tqIwhIEk1LV9axjaODEzBfglHZfDQrKFpH120=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxafckMm+YpKCZkw3oWYJ5zX3w7rByDEMWw8cnxqnh/O53rdgBh
-	+qnmBS9TcJihIEwRmM1dpa0g6NRjx450l3qK5K4twZdWcBWY4ZUJ1BBPHKQbPHaAuaYPFSTv25z
-	9BXc=
-X-Gm-Gg: ASbGncud1VNXOXZWA56SNW/6Yrf128oB0tT6hVHvRTdQRkRLQlBYP4DkioYAhJlauzX
-	QFuaVo1KuQsbuaWICmYka+V2csCmosGfEvJU5AcX5gz6ge/JTI8G2/0D4OCPpvMZGpcP5ooZPG+
-	/1mOO8j3auDXYp4csSQxvTxLJfrmJgi0RffaWdM+D1sMFASb0a9Op3JGj+ya1tkNX0MIH8059dH
-	GMbaZTG7Recrsywe/xjQ+IVpUUiIFBmOYizW8jtwo+zQnpum9X34XrCO2OCyFt7Yn0Q3X+Y9xXg
-	/tQ0m8YrtqebjSMyKxgyXOFHv9SIuEjD9+0CQe7rceMhnKBNbLm/MdU5awMg+F1Re5wi7tps/0Y
-	5z9fKFjPWwzrtn+Ip+VTMh1kZ3M2oKO+mNF5OeH1JOh8+/at6fT2tZd21kkavKnZIa8DeC0Hc+K
-	jD9nEgoRk=
-X-Google-Smtp-Source: AGHT+IE3Zl82EHkafppAKF872oqyXXJYqYROr4uc4t4gZf5Y5bFOre4V3z0oIbAMR0eyjQS/y4vFLg==
-X-Received: by 2002:a05:6000:18af:b0:3a3:67bb:8f46 with SMTP id ffacd0b85a97d-3b60dd918a6mr5787406f8f.57.1752733970704;
-        Wed, 16 Jul 2025 23:32:50 -0700 (PDT)
-Message-ID: <72ece915-2a95-41f6-b319-03f821feb7a8@suse.com>
-Date: Thu, 17 Jul 2025 08:32:42 +0200
+        d=1e100.net; s=20230601; t=1752734356; x=1753339156;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jJN1pquswrMh83lvttX+Uq5Cymk1wQESpVRr7L1l168=;
+        b=G9m9Y7bELw6rHjJNWTuYG0/IR7+esLo2t+9Z9vr37XerYfj3VXRy2EucXD5E5XbXR0
+         nZBiId60vHRyZx/10Sq9sPGDQ0Dvoimc0WDFda4JGCzapqw7+mHmZPRlmJXXeDXpuyUG
+         06mnLuIt0PGpkSigBJzZr45Eqs0O3swt6+FXsPt+jeRZyOP6Z1LuItYwMkUy5kpqLSPL
+         m2ztNCgQJb3jpjFcrFKYu8VP+YUq8UuIP+Mtgr6guc4+z0KJVcjmBkxO1c09CludBLfL
+         GmpIQ2FwmStWft1p142+nequyR1YSM11q5ighLq0+bfu7jqBRkgs6odIQJQpiVb+CfxO
+         5TFQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXB8LIsVlTidmlw9VXj95vxRKQIo221lGRhHC5ZJ5wJz7YgCYVQK7iltcQwpGwMfdwzgIeN8AX3HbI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxjRl/3XdIRYebyjpHPqFtWEwPo8IlZCj/5f5xsiu+aXVGNBXOU
+	GCoMSH2vtRbnvNf3CUcrKv+bC+D0210GlqdwzpHlFmaiV8JYlvNSkeCbFbHtXEs43g==
+X-Gm-Gg: ASbGncsBCc02eLbz5EAqEjmhblL92EIZxklWK2FEaRu4hUlWZ9kWfOKg+PloSbFNZUz
+	3RLPHda0b9xRrM9ZDh+gcezqkvsx2GLarLhF6okdBfe5DG0JDidiurykO+Nca8u52kfMutxPqrA
+	3rUB5gA4zPBZ0jV9i1nPKoscD83XBioaa0i/KYQFjHBijc1zJ1qUH5w2SMCRNEQcXZnn0lulRsW
+	JbjweakGa7xzQIYUrWfmrg+OQoVb9mO84UZ9ZA/+oDtuDH5egsRQpwbwo2XaAkpZ6uwUIlQ/LNA
+	YAU21JENnTb7mRnaldQPTuy6IEVCMr1Iiv1Ldx4ldbf3ZauEw6lD1rcQbYAYrzGIyVEEvZykF43
+	rh/jRB7sYc4kwbFPEn2UPtMkeO4JBFV2q3Hxa4Ur4j+DcYzx2rfmrsTC22hIhj+8cr+c+YkPyfO
+	zBLbQVcqmWrdwUM6w/lA==
+X-Google-Smtp-Source: AGHT+IEp4uBKqrImiXb96jQHFb9G8/FmZ/oRhcO9eIVu95oGEGCntu2RA7i9G10dGKxB2e1a3MfsKA==
+X-Received: by 2002:a05:6000:4382:b0:3b3:9c56:b834 with SMTP id ffacd0b85a97d-3b60e4c513emr4693353f8f.1.1752734355959;
+        Wed, 16 Jul 2025 23:39:15 -0700 (PDT)
+Message-ID: <ec59afd8-93e6-418a-b6ab-0db87ac986cb@suse.com>
+Date: Thu, 17 Jul 2025 08:39:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 0/7] x86: memcpy() / memset() (non-)ERMS flavors plus
- fallout
-From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Jason Andryuk <jason.andryuk@amd.com>
-References: <0b57c6f0-9fd0-4f8a-93f8-dc494a1e952c@suse.com>
+Subject: Re: [PATCH 0/9] Enable Xenstore-stubdom Live Update
+To: Juergen Gross <jgross@suse.com>
+Cc: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Julien Grall <julien@xen.org>, Anthony PERARD <anthony.perard@vates.tech>,
+ xen-devel@lists.xenproject.org
+References: <20250702081305.14440-1-jgross@suse.com>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -121,30 +119,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0b57c6f0-9fd0-4f8a-93f8-dc494a1e952c@suse.com>
+In-Reply-To: <20250702081305.14440-1-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 02.07.2025 14:10, Jan Beulich wrote:
-> While the performance varies quite a bit on older (pre-ERMS) and newer
-> (ERMS) hardware, so far we've been going with just a single flavor of
-> these two functions, and oddly enough with ones not consistent with one
-> another. Using plain memcpy() / memset() on MMIO (video frame buffer)
-> is generally okay, but the ERMS variant of memcpy() turned out to
-> regress (boot) performance in a way easily visible to the human eye
-> (meanwhile addressed by using ioremap_wc() there).
+On 02.07.2025 10:12, Juergen Gross wrote:
+> With this series applied I was able to perform Live Update of Xenstore
+> running in a PVH stubdom.
 > 
-> 1: x86: suppress ERMS for internal use when MISC_ENABLE.FAST_STRING is clear
-> 2: x86/alternatives: serialize after (self-)modifying code
-> 3: x86: re-work memset()
-> 4: x86: re-work memcpy()
-> 5: x86: control memset() and memcpy() inlining
-> 6: x86: introduce "hot" and "cold" page clearing functions
-> 7: mm: allow page scrubbing routine(s) to be arch controlled
+> This series is based on a related Mini-OS patch series AND it needs
+> the Mini-OS commit id updated accordingly in Config.mk.
 
-This series now again having all necessary R-b (Jason - thanks!), I'm
-intending to commit it early next week unless I hear substantial arguments
-to the contrary.
+I was about to commit the first two patches here, but then went back to
+check here. Aiui such a patch wasn't sent yet, so I need to hold off ...
 
 Jan
 
