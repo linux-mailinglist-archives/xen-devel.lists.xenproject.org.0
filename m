@@ -2,44 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 724A6B095BE
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 22:31:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1047479.1417968 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B363B095ED
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 22:47:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1047516.1417979 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucVGX-0001d1-Nb; Thu, 17 Jul 2025 20:31:41 +0000
+	id 1ucVVl-0005JN-1f; Thu, 17 Jul 2025 20:47:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1047479.1417968; Thu, 17 Jul 2025 20:31:41 +0000
+Received: by outflank-mailman (output) from mailman id 1047516.1417979; Thu, 17 Jul 2025 20:47:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucVGX-0001ae-KS; Thu, 17 Jul 2025 20:31:41 +0000
-Received: by outflank-mailman (input) for mailman id 1047479;
- Thu, 17 Jul 2025 20:31:39 +0000
+	id 1ucVVk-0005H6-V6; Thu, 17 Jul 2025 20:47:24 +0000
+Received: by outflank-mailman (input) for mailman id 1047516;
+ Thu, 17 Jul 2025 20:47:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=z0s4=Z6=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1ucVGV-0001aY-K3
- for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 20:31:39 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=XlL5=Z6=epam.com=dmytro_prokopchuk1@srs-se1.protection.inumbo.net>)
+ id 1ucVVi-0005Gh-KJ
+ for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 20:47:22 +0000
+Received: from PA4PR04CU001.outbound.protection.outlook.com
+ (mail-francecentralazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c20a::7])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 090709e1-634d-11f0-a319-13f23c93f187;
- Thu, 17 Jul 2025 22:31:37 +0200 (CEST)
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-532-iOzK6xTfNaG0B384RADItg-1; Thu, 17 Jul 2025 16:31:32 -0400
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-3a4e713e05bso681158f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 17 Jul 2025 13:31:32 -0700 (PDT)
-Received: from ?IPV6:2003:d8:2f35:2b00:b1a5:704a:6a0c:9ae?
- (p200300d82f352b00b1a5704a6a0c09ae.dip0.t-ipconnect.de.
- [2003:d8:2f35:2b00:b1a5:704a:6a0c:9ae])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4562e7f4289sm60881935e9.7.2025.07.17.13.31.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Jul 2025 13:31:30 -0700 (PDT)
+ id 3bd41e16-634f-11f0-a319-13f23c93f187;
+ Thu, 17 Jul 2025 22:47:20 +0200 (CEST)
+Received: from GV2PR03MB9572.eurprd03.prod.outlook.com (2603:10a6:150:da::5)
+ by DB8PR03MB6267.eurprd03.prod.outlook.com (2603:10a6:10:132::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.41; Thu, 17 Jul
+ 2025 20:47:17 +0000
+Received: from GV2PR03MB9572.eurprd03.prod.outlook.com
+ ([fe80::edd1:842f:9b14:509e]) by GV2PR03MB9572.eurprd03.prod.outlook.com
+ ([fe80::edd1:842f:9b14:509e%3]) with mapi id 15.20.8901.028; Thu, 17 Jul 2025
+ 20:47:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,292 +47,272 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 090709e1-634d-11f0-a319-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1752784296;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=wdJcKQDQ4sesr9sR1PHs3Eav2q9b1afpxqhEJb8a738=;
-	b=OJlSUqSloT9KYgW/wGNxyAUckGGArC66inzh2kzDzeNDdXKm9Grpz816PoNJYtt/MgLsXp
-	Sbww9BkoNbH2bRk28VSay9oLQbtXWA9KSxYgVxNHlsldeocf5MYM4utZvdjT6Q6O4BIqBj
-	tIWtPewHkpqRgdkdA49+7v6KA/Sp7nk=
-X-MC-Unique: iOzK6xTfNaG0B384RADItg-1
-X-Mimecast-MFC-AGG-ID: iOzK6xTfNaG0B384RADItg_1752784292
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752784291; x=1753389091;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=wdJcKQDQ4sesr9sR1PHs3Eav2q9b1afpxqhEJb8a738=;
-        b=S2p/JkxSTAoRrsLV73CDGmeJ1X3Tn6P8+FC2YAnlQOb7kY8UIRkWf3xM/zFYMPEWDG
-         036v6PcFAsRz93gHZKs27NdzQVfvpM2VGPPi438hmZ+w1rGTzcA3CDwp4lZ4TAwf0F9g
-         7CFWrHBBgIUz411mV23Jlkk0HjFp0wjXFq9FUFzfNLakYhmrf2vVbn4xb0aNNMYuVkvJ
-         nr+UP8qzSLdD6oPA2FeJlZLohM57bbvvodTuCNrDGeZJ+dWihCT7MaMdlGznNxPS3fOw
-         jWHMOSMVm8ItxCM7qWJ4P3RfA3JoHBQtzv+Z6CHcI5Gh6l7gD+rQhbxdiVG2sR+adJeR
-         EHyw==
-X-Forwarded-Encrypted: i=1; AJvYcCWZ8a08QtfdhjTfwiZiODTFNfRHtSNNaMEZV8epoT8h5p7+Uwv01BCYCwMFdFjMJZZjjmuWvquDsP4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzyKm+5pZGyTOQViJsJL2QlWrE971nh9ZjW/g5tBESmnBXfVfZd
-	gc9DjHdwOYKsJgig3BxOxA1ujcwVZDfmyBYeGSyN6sxEc6w5QbNJsRkZLSuVSW2Nu/eZpt9bSii
-	cFqV/fxWRR4xATj/leY42bhNkmOJ/J+E59oJfdfdwnKEWcecf6De5dSUO66bIV+vpAuq/
-X-Gm-Gg: ASbGnctya20vLNTM04v4EEO39DZHaKrOEU1d0NG/wNZnPrJ+HONPzhUTNPmGOlp+lya
-	bO4rmxw/7tHtU5jSkP4sfOfOHatGAX23COn07QmVHyxgz6i74mL8C6wGnKNiWTfMPXYkiCjDVh1
-	mJ9uWXXTIgboXQGnQ08ZOWOf1iGjWk3Nyx9i6j7/m3EhJblkkaJb5pIVI9e1wrF5jrFbZOPThdu
-	zfKTGI8Ijg58KXZ/KxR6brST0f/xyVq9g3SSJ5OVazSRSB+bQumA0too2aP2BpmOcmUNrOshpih
-	aL+NINYzaOoV8enLC3kYSgac5uglDkn6RrcOMYF8c+N3iCvi7zkEnWf9spg6h5bs5qxPV+C2GeB
-	xODZlAF5/yDM4/wIcxe/EIswF2rb0r0L98TMxg0Yf59jpxwr8VVI0N2crq+ioz29G
-X-Received: by 2002:a05:6000:490c:b0:3a4:d02e:84af with SMTP id ffacd0b85a97d-3b60e5531d6mr5324989f8f.58.1752784291431;
-        Thu, 17 Jul 2025 13:31:31 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFIXuB/mCdSLCE80mgA6xcOKmEIZL5NFnU1Qt11L0ORhR2cLptcTnShZQeEWrqbZqx0e0NMtA==
-X-Received: by 2002:a05:6000:490c:b0:3a4:d02e:84af with SMTP id ffacd0b85a97d-3b60e5531d6mr5324966f8f.58.1752784290908;
-        Thu, 17 Jul 2025 13:31:30 -0700 (PDT)
-Message-ID: <7701f2e8-ae17-4367-b260-925d1d3cd4df@redhat.com>
-Date: Thu, 17 Jul 2025 22:31:28 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/9] mm/huge_memory: mark PMD mappings of the huge zero
- folio special
-To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- xen-devel@lists.xenproject.org, linux-fsdevel@vger.kernel.org,
- nvdimm@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
- Juergen Gross <jgross@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Dan Williams <dan.j.williams@intel.com>, Matthew Wilcox
- <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
- <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Hugh Dickins <hughd@google.com>, Oscar Salvador <osalvador@suse.de>,
- Lance Yang <lance.yang@linux.dev>
-References: <20250717115212.1825089-1-david@redhat.com>
- <20250717115212.1825089-6-david@redhat.com>
- <46c9a90c-46b8-4136-9890-b9b2b97ee1bb@lucifer.local>
-From: David Hildenbrand <david@redhat.com>
-Autocrypt: addr=david@redhat.com; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzSREYXZpZCBIaWxk
- ZW5icmFuZCA8ZGF2aWRAcmVkaGF0LmNvbT7CwZgEEwEIAEICGwMGCwkIBwMCBhUIAgkKCwQW
- AgMBAh4BAheAAhkBFiEEG9nKrXNcTDpGDfzKTd4Q9wD/g1oFAmgsLPQFCRvGjuMACgkQTd4Q
- 9wD/g1o0bxAAqYC7gTyGj5rZwvy1VesF6YoQncH0yI79lvXUYOX+Nngko4v4dTlOQvrd/vhb
- 02e9FtpA1CxgwdgIPFKIuXvdSyXAp0xXuIuRPQYbgNriQFkaBlHe9mSf8O09J3SCVa/5ezKM
- OLW/OONSV/Fr2VI1wxAYj3/Rb+U6rpzqIQ3Uh/5Rjmla6pTl7Z9/o1zKlVOX1SxVGSrlXhqt
- kwdbjdj/csSzoAbUF/duDuhyEl11/xStm/lBMzVuf3ZhV5SSgLAflLBo4l6mR5RolpPv5wad
- GpYS/hm7HsmEA0PBAPNb5DvZQ7vNaX23FlgylSXyv72UVsObHsu6pT4sfoxvJ5nJxvzGi69U
- s1uryvlAfS6E+D5ULrV35taTwSpcBAh0/RqRbV0mTc57vvAoXofBDcs3Z30IReFS34QSpjvl
- Hxbe7itHGuuhEVM1qmq2U72ezOQ7MzADbwCtn+yGeISQqeFn9QMAZVAkXsc9Wp0SW/WQKb76
- FkSRalBZcc2vXM0VqhFVzTb6iNqYXqVKyuPKwhBunhTt6XnIfhpRgqveCPNIasSX05VQR6/a
- OBHZX3seTikp7A1z9iZIsdtJxB88dGkpeMj6qJ5RLzUsPUVPodEcz1B5aTEbYK6428H8MeLq
- NFPwmknOlDzQNC6RND8Ez7YEhzqvw7263MojcmmPcLelYbfOwU0EVcufkQEQAOfX3n0g0fZz
- Bgm/S2zF/kxQKCEKP8ID+Vz8sy2GpDvveBq4H2Y34XWsT1zLJdvqPI4af4ZSMxuerWjXbVWb
- T6d4odQIG0fKx4F8NccDqbgHeZRNajXeeJ3R7gAzvWvQNLz4piHrO/B4tf8svmRBL0ZB5P5A
- 2uhdwLU3NZuK22zpNn4is87BPWF8HhY0L5fafgDMOqnf4guJVJPYNPhUFzXUbPqOKOkL8ojk
- CXxkOFHAbjstSK5Ca3fKquY3rdX3DNo+EL7FvAiw1mUtS+5GeYE+RMnDCsVFm/C7kY8c2d0G
- NWkB9pJM5+mnIoFNxy7YBcldYATVeOHoY4LyaUWNnAvFYWp08dHWfZo9WCiJMuTfgtH9tc75
- 7QanMVdPt6fDK8UUXIBLQ2TWr/sQKE9xtFuEmoQGlE1l6bGaDnnMLcYu+Asp3kDT0w4zYGsx
- 5r6XQVRH4+5N6eHZiaeYtFOujp5n+pjBaQK7wUUjDilPQ5QMzIuCL4YjVoylWiBNknvQWBXS
- lQCWmavOT9sttGQXdPCC5ynI+1ymZC1ORZKANLnRAb0NH/UCzcsstw2TAkFnMEbo9Zu9w7Kv
- AxBQXWeXhJI9XQssfrf4Gusdqx8nPEpfOqCtbbwJMATbHyqLt7/oz/5deGuwxgb65pWIzufa
- N7eop7uh+6bezi+rugUI+w6DABEBAAHCwXwEGAEIACYCGwwWIQQb2cqtc1xMOkYN/MpN3hD3
- AP+DWgUCaCwtJQUJG8aPFAAKCRBN3hD3AP+DWlDnD/4k2TW+HyOOOePVm23F5HOhNNd7nNv3
- Vq2cLcW1DteHUdxMO0X+zqrKDHI5hgnE/E2QH9jyV8mB8l/ndElobciaJcbl1cM43vVzPIWn
- 01vW62oxUNtEvzLLxGLPTrnMxWdZgxr7ACCWKUnMGE2E8eca0cT2pnIJoQRz242xqe/nYxBB
- /BAK+dsxHIfcQzl88G83oaO7vb7s/cWMYRKOg+WIgp0MJ8DO2IU5JmUtyJB+V3YzzM4cMic3
- bNn8nHjTWw/9+QQ5vg3TXHZ5XMu9mtfw2La3bHJ6AybL0DvEkdGxk6YHqJVEukciLMWDWqQQ
- RtbBhqcprgUxipNvdn9KwNpGciM+hNtM9kf9gt0fjv79l/FiSw6KbCPX9b636GzgNy0Ev2UV
- m00EtcpRXXMlEpbP4V947ufWVK2Mz7RFUfU4+ETDd1scMQDHzrXItryHLZWhopPI4Z+ps0rB
- CQHfSpl+wG4XbJJu1D8/Ww3FsO42TMFrNr2/cmqwuUZ0a0uxrpkNYrsGjkEu7a+9MheyTzcm
- vyU2knz5/stkTN2LKz5REqOe24oRnypjpAfaoxRYXs+F8wml519InWlwCra49IUSxD1hXPxO
- WBe5lqcozu9LpNDH/brVSzHCSb7vjNGvvSVESDuoiHK8gNlf0v+epy5WYd7CGAgODPvDShGN
- g3eXuA==
-Organization: Red Hat
-In-Reply-To: <46c9a90c-46b8-4136-9890-b9b2b97ee1bb@lucifer.local>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: CAXnZ3QvK2BnTz1E2QhxcwtGJWJRpj_5W-c3oK9ZgdA_1752784292
-X-Mimecast-Originator: redhat.com
+X-Inumbo-ID: 3bd41e16-634f-11f0-a319-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RcETtPTRWW+HFmLqBtTdb4mGw6xrkzYE8qbgKcXtQKOz+zq5YsgB61wxUiyJZ5unNIWSoktpDtO/Xl8WI/gCFSx2XYO79cMxkIFSxJ21clYj7GmpckFYeFn6HPedF0ntQ2RZQ0MoN/L9sWLs5YluyKZ9r3IUlBSGTIyWN8wveWZUXGSaMv1QTeQlwR2eJ66e00iVewCcWwsKf5VkKKR7pMOoEoLb7yANSTrzpu7pUV2NPTBdunewFEo4O02Cv+GX2fCNW9yZ88U3Ynvz4NOEsd6NuPDzCJU/Jei8bu0CKgijgJ2WXRF8zAyQPDjUmU/fjDumgb555Z0Woj4yTqwo7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=idMit2i/9MdbE8mPd5dP6z70T7KoceA7pT6HadAwDIo=;
+ b=vWDFEyGNsFzh+hfgZEUBgcbnhiSXl+8pWy5PNfqdsm5GSoEKGkDNa/lV9C9a5NpDcNLsrWs5a0rvL3ydpNcKyc+6SdHl5WvPwR8TwFrBspVqDVmeyPwciEH8R5WltRG/07ogWeXr1mNsmef5zGAV8lZx9BIr5IbFTlJ7cVi1MNMGuJzrYNHxLc0oop6JIc6LSaNhoVPITTF8X5i1PZrXuGKNjJhYVbkhWykLRHTsEYxOY1cFyVYYExBUXFtpvxEhqzx06CjQekCkXlqk3u691XgChNX3ZIxGFKMN0jT+SPVoczBtsTnaU5YqX4pC5CX77qTiBlGKgBHnFh1VOd22mQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=idMit2i/9MdbE8mPd5dP6z70T7KoceA7pT6HadAwDIo=;
+ b=H7TteHFmTSKj/N85ue0dD5ZDOSlkWKU1CfNMYtImtI0RxGmDaEHjeG+QB6Ufxfh44prqw7pB6e3Bq5KLr799lotcOb17VZkXGO+TlWDD3U8qr1uff/6N+hlMw7gcCm/DjOCcaMLBJLSwh5NoIj/rpRk5c+QBSh7W7ZJPQpumEmTHXCeRdECdGOfZjjXLqt6Qbf+62Slc1r+WrlLuupmFHtToO+e4+z9x5x78GRfV9iC0wLTwS7uohMtxGFVp+9mmti7xJ057IdqJ/7cmOvTZ+InErxOBIDCh2cWQqzxEcsoHYfwFpd0HnW6y0Wx79AXTPwK48GKGwak7Wly97Xq/3g==
+From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>, Jan Beulich
+	<jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"victorm.lira@amd.com" <victorm.lira@amd.com>, Federico Serafini
+	<federico.serafini@bugseng.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel
+	<michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>
+Subject: Re: [PATCH v1] misra: add deviation for rules 21.1 and 21.2
+Thread-Topic: [PATCH v1] misra: add deviation for rules 21.1 and 21.2
+Thread-Index: AQHb91v7R1gSdiVnIUCrYyKDMVwLGw==
+Date: Thu, 17 Jul 2025 20:47:17 +0000
+Message-ID: <f1d1dbe4-5b62-4540-a480-afa6045d9622@epam.com>
+References:
+ <9e1210f2a9c794d68dcc6b897239b228b141296a.1745427770.git.victorm.lira@amd.com>
+In-Reply-To:
+ <9e1210f2a9c794d68dcc6b897239b228b141296a.1745427770.git.victorm.lira@amd.com>
+Accept-Language: en-US, uk-UA, ru-RU
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV2PR03MB9572:EE_|DB8PR03MB6267:EE_
+x-ms-office365-filtering-correlation-id: cd16e385-b5d1-4c68-176b-08ddc5731e54
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|376014|7416014|42112799006|38070700018;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?aVRJVXhTeTlnaERQcmlrZXpLUjdQNEJiYzhDTDdEMlcvTzZqTjA2dXZMdHc2?=
+ =?utf-8?B?Q0tUSTIraWw0L2c3bkhEdFpsQTFwWnU4bXNtQmJBL1EzNXl4Q3BWNmJHRlZS?=
+ =?utf-8?B?MGl1SUQ1S0ZydGE2QU1tTTd4aGZFWTdGY3dGK3dCU1RLT3ppSUhicDdrZFVm?=
+ =?utf-8?B?MkJ1a2hBNzN0SERzbE5sMFRPSnEzNVNOaVR5M0JWVkhFWE5IVnI2SEM0cEx4?=
+ =?utf-8?B?REk3Q280UHYwWHJMOG5ROHZQQzhyK2s0M0NhU0VOZzd2dytUN2daK1JZMk5G?=
+ =?utf-8?B?SE5hd2ptZk5lUHc1ZFE0MXZXemRpeW56ajhTV2lxMHNCOEhqOXRlMzgvZGRr?=
+ =?utf-8?B?enh6UklnYW1ZOGZ0Tzl1cTFHU1lCK0NYQ3ljdGJWbHhkK2hYZlRGWFhKNDht?=
+ =?utf-8?B?THlqZ2dOUWJGMjZBUjh1N3hlTlJxT2lZclBuRm95c1VtWWhWYzBQNThTOXln?=
+ =?utf-8?B?dG8vK0lxOEJhRWJWaW1BVjdLeko2bWovNFBkd1hpQXI2SisvSHRWakxnNG4y?=
+ =?utf-8?B?S2RYcExJcVQ5VWpxcEE4TE1ldjM1NmJTNDhXcHlHSFVPRkFBS25acGZTWEl5?=
+ =?utf-8?B?VEFPNkdLSFJWbzhaY25Vdmt3bktpRWVvR2YxTjZhNEduc1Vzdk1zSDB5VHhi?=
+ =?utf-8?B?dnhpbXIyYzg0V0JHM3Z0RDA5ejA1aXkzM05uTDh6WWpmcEg0eXV1VzkyYzZv?=
+ =?utf-8?B?MlhnK0RYNkFJbXZ5dXFmRktqQ1FjOFlrYVF6TE1OUmpscTVqZE5mcnJyZ1FW?=
+ =?utf-8?B?b2Y0bjZCamhqWThwRzYyV0Z6UFg4Rjl5RStNOXk5UGxtbHlSK3ZBREI2UitD?=
+ =?utf-8?B?MHVjbXArRDNUOTNYeVA3bm83OXpueDRNdEZvVUxpTGpvcmw5UWhNbGJUSTh1?=
+ =?utf-8?B?bkJTdTV5V2N6MmNIYTVmZklldHpCdGRKV0N5bXJXTUVUR1RTSXRGT0lKK3ds?=
+ =?utf-8?B?RTREWFpPTkIxYWsvYSszRTBSV2pxYm5tcU5uVnV2MmhtWGNiNDJCaVgxV01w?=
+ =?utf-8?B?bEdobUFWZ0N3NVgyeml6aFduWG5oZVJYZXE3UTdlT0lIbmd2YUJ1VSt2TkhC?=
+ =?utf-8?B?RGF4d1JYNGNId09CU0RpWXZuRitoU0p0MWdvakxxUk5GUjh5aUp5UE5YaDZP?=
+ =?utf-8?B?MUhhVG13NmM3SnkwWXhBVHdUUFNySUVOZ2NNOWNQYWZiT3AyQU5UQVZ3ZFBF?=
+ =?utf-8?B?aERScVg0WnFMK3NpR1BEZy8waDZuYllBeEY1eDVMY1lHeEpIcmxGejI1Nm1M?=
+ =?utf-8?B?ckUxY2tEdE9PRGFhdFJiMVVyZkJFZHF5bktpbDdzYnNuN3dpTVJZYmF0VHVo?=
+ =?utf-8?B?N1BBRU5NMDQ4TldUa2NSSWx6SVV1OVhwaHNBcWVvaW5IekVXelhMM1RSTVA3?=
+ =?utf-8?B?Tkg5b3RHWmJhRVhFN2xZbGF2VWlvd3BwN2N4N053eENkTHlCVytldjNKak1w?=
+ =?utf-8?B?YXlleFVZNnp0d1ZiSGVVbTc1Q25uR1JhQmZaczM0Y21uUzRUTk1qaVlNOWF1?=
+ =?utf-8?B?Y0ovYVlNRGxzQ0d5N091MjFsQmY1MFl3UnQ3Ym8rMUtYMnVldXFIeHBEVmZM?=
+ =?utf-8?B?RklVSWw3VWM2dHY2a2tBVDJPa2d0Uk1iZTlXZktNQzE5b1pndEI1UnJKOFBx?=
+ =?utf-8?B?MzJNTmt3Wm0rQ1dGUDczQ01KY2ViaTZOYkFWcFg3eUEwTzMyaVRybTdRaWdU?=
+ =?utf-8?B?V1I2a3ZCTmdhbTJPRjZvRVJ4Z1NCSkgvWmx5TGJOcG9UZWlqdmRkbmJkWkNn?=
+ =?utf-8?B?dnVQTXIya1hOcFpLUEJCNkFsRktuTVdnSDkxRkw0QU5hZDJaLzZnMk1ibjBL?=
+ =?utf-8?B?M0hnNVNlbTFndkN4MGQ0V1FPMDFjMkRLWjI4MnlqdXoybHA3RHQ3R1RJdnpl?=
+ =?utf-8?B?U2FWMGR3Q2VJTGFsTS90L2dwRHJHWHdJUXhMYUZJdEFHNjRHMkVJb0trSVln?=
+ =?utf-8?B?VUZwTFVMQnUwdFVaYzRaUyt6SDBvODBSVlZRbjVMTUVFQUNRdnlRKzFpN3Ix?=
+ =?utf-8?B?aU1GTjQ4c2JBPT0=?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB9572.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(42112799006)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?RnNKWEQ3QXU1d0xPOVlXUGRSRndETGVjTlhaTGhNVVdwNGZRbnl4TXVIR3dT?=
+ =?utf-8?B?bUozMHpvQ1NmZXoxSEgweUFvc09yaFlaSElaY3lXc0JpaWRaQzJZZEZ1QkdJ?=
+ =?utf-8?B?U3ByaTJiZ1gzTHJEYnRXZkZRZFFMNWM4ZEhtZFpwWDZkZnFGbzl3bUlKMkYw?=
+ =?utf-8?B?NisrOXRCbnlicHR5TXFTTjdvVHhNdlQycllEbVBMSGtpUnpwM2ZlTTlmbVdZ?=
+ =?utf-8?B?SjQ3RWUwVEpsc0hhZ2RRVXdVa0dTNnlnNzUzM0huOWdvMFNWMXBWWTEzVUtl?=
+ =?utf-8?B?dTg4THdJdzR6dGxMVE5RSWQ4YS9nV29SWHQ1WFNOaHlnNkVvNEpzMzJDSTdk?=
+ =?utf-8?B?cThGazdRWm8rYzdLZFFyWTNlYVdpYkd6MTBLSXJUTzdwUTZyelQ0WTlrVDJw?=
+ =?utf-8?B?QWFLcitjUys0VUxmMU1mLzE4VXhZYzFrUWErMTNCcUE3aDduTzNUS2M4MmU0?=
+ =?utf-8?B?d2preFR0MkJmcjFYNTRvTlczTmlESVdXd1docHRVU0Jkd1NFRXliOFg2Sndx?=
+ =?utf-8?B?M2hrR0N5ZGlrMFc3b0RlaE51ZSszb2htUjFhZUNoM1lvcDA3YmFWMlVnNk5V?=
+ =?utf-8?B?cnZTVGlpZDBXc0RmSVFkVjR4NXovbmNDei9RRUVDemlrdzRFV0dlcnFFdFlE?=
+ =?utf-8?B?cUZiSFk4T29aOFdOL3pnbUg1ZndlZzhMMCthQVdPdFQ4em8xYU9BRkx2dFlL?=
+ =?utf-8?B?NE5BRWlMNjIrdTBkdE9vejdJdWt2TzY1RDAweDEyeEpZeUNFempsRjlCSlJB?=
+ =?utf-8?B?Qm0ybTlSdDFjaVNDRU1GaUxXSDJFbmhzWnVvV2MzSTdjRVVDVlNjU0ZiTVBh?=
+ =?utf-8?B?akxxcEhxcWF4N2cvV3dqYWM0dDQ2d1RrOFhVT0Y2Q2hHTmxGY2NrbU4wdGJT?=
+ =?utf-8?B?a0xOWlhWUU5BbEdGdWpkRENvTkQ1L3ZvY2todUdKQmxZVUYxdmltT2tDWE4v?=
+ =?utf-8?B?NEV6R3NkUTRaaStOV2RWUGJ5aHpmalQra1RCSTFmWkpQU1ZWOTlxR1ZlY0F1?=
+ =?utf-8?B?VlJFMWNoZkxRZ0ZIWXgvM3RXTXZSMmt0MHAwaWFKbmFobG95b21sRWpzMVdy?=
+ =?utf-8?B?UnQwaHp5bHNENmhqSHg3UGRiM1doZTc3RFBqbjVURmJUOWt4aGU2VVV2RWhp?=
+ =?utf-8?B?Z1A2ME1yeWxQWER0cStmRG5GQVdjYW52WjVuNEVUY1VlU2tYWUxwNE5SNW10?=
+ =?utf-8?B?b25xblIzdmRDeXBjQ2pRSXE0VElZcm9jYmpFcWNJQm1FT2V1VlBBTDlFMTFn?=
+ =?utf-8?B?Nm92Z1BPV3FsYzhaODAreDJJRTF6QkZ3MG02Nk9UMFJRWmVtdVJKaHJ1REsw?=
+ =?utf-8?B?QjlMaUhDSWE2TVhWOFJCTVJ4eWVhT3VoNWk4RnhaR01SeDhaWkloNW1kamtD?=
+ =?utf-8?B?MzVrQ0J3UHJOOWF3T1AxREtNeDg3amZuZmhPR2pORi9WQUNSaVlJM3hyc0Y3?=
+ =?utf-8?B?bVNkeVBCdWRDbDZPYUxXMEgrY2hjZmNLYnJJdk9xUnYvM2krWStQUHJLWXV5?=
+ =?utf-8?B?MW1Cd0pkR2pqeFh3R25mUUIzZng2Q0tWWUNqOHpZSEZtR1RRbU5ZZjVHaklY?=
+ =?utf-8?B?UVBORkYrMmlDUnFXUmRJRTQvMzI4R3pOdUM0RmVZNGRva3RQc2hKS2tvbVBv?=
+ =?utf-8?B?bzBiK3AwOGZiZ3JvcmwydmsyNWw1U2JsZ2E1bVVBWU90d2lENE4yZjBsaHNY?=
+ =?utf-8?B?MHdWTmdCTlFPLytSeTNiRCtSNzZORi9CNlBOSXpGWm5jZXFISTF5YVFBMDB1?=
+ =?utf-8?B?N0VRaG9YY216SmI2dnUxNDRyeGZCV0UwNWgzYVUwTm4zQTRwVUdGamt1bE45?=
+ =?utf-8?B?RlJoLzMwdlpsZmlzOCt6M21lWnpWZ3VZU2tZOWVmVU91bjk0SzNyZFI1V0FL?=
+ =?utf-8?B?bkNUdGdHQ2hnTnJHV0pPLzRONXovWEI3dDVJS0g0Tmptakp5MTRxeU1FWjFp?=
+ =?utf-8?B?dm1QUlI2ZmtLM2MrRDFqTm1Xazd5YXNUSnFLYUh3NXJzV016aDUya3NyN2xs?=
+ =?utf-8?B?MExKTXhmQndkZUVLRkNZQm8yeitLbzVHRzdyREd2WUlleWVTbURqUHNPMnJt?=
+ =?utf-8?B?cUVUOTRrNkY2NFdPUEVjOXBVZGNEQkRoM2pGcEJRUlplV1hMODRsRW1PcSts?=
+ =?utf-8?B?WUFsV2RqY0lzNnlWVWt0TGVIUHVtTnovOXc2N0lsVHdrRmdMaXlRekpNRWxu?=
+ =?utf-8?B?NUE9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <AC69903C35BB6743AE6E75F1F62D8876@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB9572.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cd16e385-b5d1-4c68-176b-08ddc5731e54
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jul 2025 20:47:17.6619
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /EDOb30UKxIPetM1MirOj83JmDrcyGal05HxoRzSsmSuvap+jRaqWBMdU0ujHznTpVl/m6+4XATA9IbFLvdfq4Dy5oSF2i2G7d5FshncvHc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR03MB6267
 
-On 17.07.25 20:29, Lorenzo Stoakes wrote:
-> On Thu, Jul 17, 2025 at 01:52:08PM +0200, David Hildenbrand wrote:
->> The huge zero folio is refcounted (+mapcounted -- is that a word?)
->> differently than "normal" folios, similarly (but different) to the ordinary
->> shared zeropage.
-> 
-> Yeah, I sort of wonder if we shouldn't just _not_ do any of that with zero
-> pages?
-
-I wish we could get rid of the weird refcounting of the huge zero folio 
-and get rid of the shrinker. But as long as the shrinker exists, I'm 
-afraid that weird per-process refcounting must stay.
-
-> 
-> But for some reason the huge zero page wants to exist or not exist based on
-> usage for one. Which is stupid to me.
-
-Yes, I will try at some point (once we have the static huge zero folio) 
-to remove the shrinker part and make it always static. Well, at least 
-for reasonable architectures.
-
-> 
->>
->> For this reason, we special-case these pages in
->> vm_normal_page*/vm_normal_folio*, and only allow selected callers to
->> still use them (e.g., GUP can still take a reference on them).
->>
->> vm_normal_page_pmd() already filters out the huge zero folio. However,
->> so far we are not marking it as special like we do with the ordinary
->> shared zeropage. Let's mark it as special, so we can further refactor
->> vm_normal_page_pmd() and vm_normal_page().
->>
->> While at it, update the doc regarding the shared zero folios.
-> 
-> Hmm I wonder how this will interact with the static PMD series at [0]?
-
-No, it shouldn't.
-
-> 
-> I wonder if more use of that might result in some weirdness with refcounting
-> etc.?
-
-I don't think so.
-
-> 
-> Also, that series was (though I reviewed against it) moving stuff that
-> references the huge zero folio out of there, but also generally allows
-> access and mapping of this folio via largest_zero_folio() so not only via
-> insert_pmd().
-> 
-> So we're going to end up with mappings of this that are not marked special
-> that are potentially going to have refcount/mapcount manipulation that
-> contradict what you're doing here perhaps?
-
-I don't think so. It's just like having the existing static (small) 
-shared zeropage where the same rules about refcounting+mapcounting apply.
-
-> 
-> [0]: https://lore.kernel.org/all/20250707142319.319642-1-kernel@pankajraghav.com/
-> 
->>
->> Reviewed-by: Oscar Salvador <osalvador@suse.de>
->> Signed-off-by: David Hildenbrand <david@redhat.com>
-> 
-> I looked thorugh places that use vm_normal_page_pm() (other than decl of
-> function):
-> 
-> fs/proc/task_mmu.c - seems to handle NULL page correctly + still undertsands zero page
-> mm/pagewalk.c - correctly handles NULL page + huge zero page
-> mm/huge_memory.c - can_change_pmd_writable() correctly returns false.
-> 
-> And all seems to work wtih this change.
-> 
-> Overall, other than concerns above + nits below LGTM, we should treat all
-> the zero folios the same in this regard, so:
-> 
-> Reviewed-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-
-Thanks!
-
-> 
->> ---
->>   mm/huge_memory.c |  5 ++++-
->>   mm/memory.c      | 14 +++++++++-----
->>   2 files changed, 13 insertions(+), 6 deletions(-)
->>
->> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
->> index db08c37b87077..3f9a27812a590 100644
->> --- a/mm/huge_memory.c
->> +++ b/mm/huge_memory.c
->> @@ -1320,6 +1320,7 @@ static void set_huge_zero_folio(pgtable_t pgtable, struct mm_struct *mm,
->>   {
->>   	pmd_t entry;
->>   	entry = folio_mk_pmd(zero_folio, vma->vm_page_prot);
->> +	entry = pmd_mkspecial(entry);
->>   	pgtable_trans_huge_deposit(mm, pmd, pgtable);
->>   	set_pmd_at(mm, haddr, pmd, entry);
->>   	mm_inc_nr_ptes(mm);
->> @@ -1429,7 +1430,9 @@ static vm_fault_t insert_pmd(struct vm_area_struct *vma, unsigned long addr,
->>   	if (fop.is_folio) {
->>   		entry = folio_mk_pmd(fop.folio, vma->vm_page_prot);
->>
->> -		if (!is_huge_zero_folio(fop.folio)) {
->> +		if (is_huge_zero_folio(fop.folio)) {
->> +			entry = pmd_mkspecial(entry);
->> +		} else {
->>   			folio_get(fop.folio);
->>   			folio_add_file_rmap_pmd(fop.folio, &fop.folio->page, vma);
->>   			add_mm_counter(mm, mm_counter_file(fop.folio), HPAGE_PMD_NR);
->> diff --git a/mm/memory.c b/mm/memory.c
->> index 92fd18a5d8d1f..173eb6267e0ac 100644
->> --- a/mm/memory.c
->> +++ b/mm/memory.c
->> @@ -537,7 +537,13 @@ static void print_bad_pte(struct vm_area_struct *vma, unsigned long addr,
->>    *
->>    * "Special" mappings do not wish to be associated with a "struct page" (either
->>    * it doesn't exist, or it exists but they don't want to touch it). In this
->> - * case, NULL is returned here. "Normal" mappings do have a struct page.
->> + * case, NULL is returned here. "Normal" mappings do have a struct page and
->> + * are ordinarily refcounted.
->> + *
->> + * Page mappings of the shared zero folios are always considered "special", as
->> + * they are not ordinarily refcounted. However, selected page table walkers
->> + * (such as GUP) can still identify these mappings and work with the
->> + * underlying "struct page".
-> 
-> I feel like we need more detail or something more explicit about what 'not
-> ordinary' refcounting constitutes. This is a bit vague.
-
-Hm, I am not sure this is the correct place to document that. But let me 
-see if I can come up with something reasonable
-
-(like, the refcount and mapcount of these folios is never adjusted when 
-mapping them into page tables)
-
-> 
->>    *
->>    * There are 2 broad cases. Firstly, an architecture may define a pte_special()
->>    * pte bit, in which case this function is trivial. Secondly, an architecture
->> @@ -567,9 +573,8 @@ static void print_bad_pte(struct vm_area_struct *vma, unsigned long addr,
->>    *
->>    * VM_MIXEDMAP mappings can likewise contain memory with or without "struct
->>    * page" backing, however the difference is that _all_ pages with a struct
->> - * page (that is, those where pfn_valid is true) are refcounted and considered
->> - * normal pages by the VM. The only exception are zeropages, which are
->> - * *never* refcounted.
->> + * page (that is, those where pfn_valid is true, except the shared zero
->> + * folios) are refcounted and considered normal pages by the VM.
->>    *
->>    * The disadvantage is that pages are refcounted (which can be slower and
->>    * simply not an option for some PFNMAP users). The advantage is that we
->> @@ -649,7 +654,6 @@ struct page *vm_normal_page_pmd(struct vm_area_struct *vma, unsigned long addr,
-> 
-> You know I"m semi-ashamed to admit I didn't even know this function
-> exists. But yikes that we have a separate function like this just for PMDs.
-
-It's a bit new-ish :)
-
-
--- 
-Cheers,
-
-David / dhildenb
-
+DQoNCk9uIDQvMjMvMjUgMjA6NTQsIHZpY3Rvcm0ubGlyYUBhbWQuY29tIHdyb3RlOg0KPiBGcm9t
+OiBOaWNvbGEgVmV0cmluaSA8bmljb2xhLnZldHJpbmlAYnVnc2VuZy5jb20+DQo+IA0KPiBNSVNS
+QSBDIFJ1bGVzIDIxLjEgKCIjZGVmaW5lIGFuZCAjdW5kZWYgc2hhbGwgbm90IGJlIHVzZWQgb24g
+YQ0KPiByZXNlcnZlZCBpZGVudGlmaWVyIG9yIHJlc2VydmVkIG1hY3JvIG5hbWUiKSBhbmQgUjIx
+LjIgKCJBIHJlc2VydmVkDQo+IGlkZW50aWZpZXIgb3IgcmVzZXJ2ZWQgbWFjcm8gbmFtZSBzaGFs
+bCBub3QgYmUgZGVjbGFyZWQiKSB2aW9sYXRpb25zDQo+IGFyZSBub3QgcHJvYmxlbWF0aWMgZm9y
+IFhlbiwgYXMgaXQgZG9lcyBub3QgdXNlIHRoZSBDIG9yIFBPU0lYDQo+IGxpYnJhcmllcy4NCj4g
+DQo+IFhlbiB1c2VzIC1mbm8tYnVpbHRpbiBhbmQgLW5vc3RkaW5jIHRvIGVuc3VyZSB0aGlzLCBi
+dXQgdGhlcmUgYXJlIHN0aWxsDQo+IF9fYnVpbHRpbl8qIGZ1bmN0aW9ucyBmcm9tIHRoZSBjb21w
+aWxlciB0aGF0IGFyZSBhdmFpbGFibGUgc28NCj4gYSBkZXZpYXRpb24gaXMgZm9ybXVsYXRlZCBm
+b3IgYWxsIGlkZW50aWZpZXJzIG5vdCBzdGFydGluZyB3aXRoDQo+ICJfX2J1aWx0aW5fIi4NCj4g
+DQo+IFRoZSBtaXNzaW5nIHRleHQgb2YgYSBkZXZpYXRpb24gZm9yIFJ1bGUgMjEuMiBpcyBhZGRl
+ZCB0bw0KPiBkb2NzL21pc3JhL2RldmlhdGlvbnMucnN0Lg0KPiANCj4gVG8gYXZvaWQgcmVncmVz
+c2lvbnMsIHRhZyBib3RoIHJ1bGVzIGFzIGNsZWFuIGFuZCBhZGQgdGhlbSB0byB0aGUNCj4gbW9u
+aXRvcmVkIHNldC4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IE5pY29sYSBWZXRyaW5pIDxuaWNvbGEu
+dmV0cmluaUBidWdzZW5nLmNvbT4NCj4gU2lnbmVkLW9mZi1ieTogRmVkZXJpY28gU2VyYWZpbmkg
+PGZlZGVyaWNvLnNlcmFmaW5pQGJ1Z3NlbmcuY29tPg0KPiBTaWduZWQtb2ZmLWJ5OiBWaWN0b3Ig
+TGlyYSA8dmljdG9ybS5saXJhQGFtZC5jb20+DQo+IFJldmlld2VkLWJ5OiBTdGVmYW5vIFN0YWJl
+bGxpbmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+DQo+IC0tLQ0KPiBDYzogQW5kcmV3IENvb3Bl
+ciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT4NCj4gQ2M6IEFudGhvbnkgUEVSQVJEIDxhbnRo
+b255LnBlcmFyZEB2YXRlcy50ZWNoPg0KPiBDYzogTWljaGFsIE9yemVsIDxtaWNoYWwub3J6ZWxA
+YW1kLmNvbT4NCj4gQ2M6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4NCj4gQ2M6IEp1
+bGllbiBHcmFsbCA8anVsaWVuQHhlbi5vcmc+DQo+IENjOiBSb2dlciBQYXUgTW9ubsOpIDxyb2dl
+ci5wYXVAY2l0cml4LmNvbT4NCj4gQ2M6IFN0ZWZhbm8gU3RhYmVsbGluaSA8c3N0YWJlbGxpbmlA
+a2VybmVsLm9yZz4NCj4gQ2M6IE5pY29sYSBWZXRyaW5pIDxuaWNvbGEudmV0cmluaUBidWdzZW5n
+LmNvbT4NCj4gQ2M6IEZlZGVyaWNvIFNlcmFmaW5pIDxmZWRlcmljby5zZXJhZmluaUBidWdzZW5n
+LmNvbT4NCj4gQ2M6IEJlcnRyYW5kIE1hcnF1aXMgPGJlcnRyYW5kLm1hcnF1aXNAYXJtLmNvbT4N
+Cj4gLS0tDQo+ICAgLi4uL2VjbGFpcl9hbmFseXNpcy9FQ0xBSVIvZGV2aWF0aW9ucy5lY2wgICAg
+IHwgIDkgKysrKysrLQ0KPiAgIC4uLi9lY2xhaXJfYW5hbHlzaXMvRUNMQUlSL21vbml0b3JlZC5l
+Y2wgICAgICB8ICAyICsrDQo+ICAgYXV0b21hdGlvbi9lY2xhaXJfYW5hbHlzaXMvRUNMQUlSL3Rh
+Z2dpbmcuZWNsIHwgIDIgKysNCj4gICBkb2NzL21pc3JhL2RldmlhdGlvbnMucnN0ICAgICAgICAg
+ICAgICAgICAgICAgfCAyNiArKysrKysrKysrKysrKysrKystDQo+ICAgNCBmaWxlcyBjaGFuZ2Vk
+LCAzNyBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2F1
+dG9tYXRpb24vZWNsYWlyX2FuYWx5c2lzL0VDTEFJUi9kZXZpYXRpb25zLmVjbCBiL2F1dG9tYXRp
+b24vZWNsYWlyX2FuYWx5c2lzL0VDTEFJUi9kZXZpYXRpb25zLmVjbA0KPiBpbmRleCAyYzhmYjky
+NzEzLi5mZmEyM2I1M2I3IDEwMDY0NA0KPiAtLS0gYS9hdXRvbWF0aW9uL2VjbGFpcl9hbmFseXNp
+cy9FQ0xBSVIvZGV2aWF0aW9ucy5lY2wNCj4gKysrIGIvYXV0b21hdGlvbi9lY2xhaXJfYW5hbHlz
+aXMvRUNMQUlSL2RldmlhdGlvbnMuZWNsDQo+IEBAIC02MzksOCArNjM5LDE1IEBAIGluIHRoZSBl
+eHBhbnNpb24uIg0KPiAgICMgU2VyaWVzIDIxLg0KPiAgICMNCj4gDQo+ICstZG9jX2JlZ2luPSJY
+ZW4gZG9lcyBub3QgdXNlIEMgYW5kIFBPU0lYIGxpYnJhcmllczoNCj4gK2lkZW50aWZpZXJzIHJl
+c2VydmVkIGJ5IHRoZXNlIGxpYnJhcmllcyBjYW4gYmUgdXNlZCBzYWZlbHksIGV4Y2VwdCBmb3Ig
+dGhvc2UNCj4gK2JlZ2lubmluZyB3aXRoICdfX2J1aWx0aW5fJy4iDQo+ICstY29uZmlnPU1DM0Ey
+LlIyMS4xLG1hY3Jvcz17c2FmZSwgIiFeX19idWlsdGluXy4qJCJ9DQo+ICstY29uZmlnPU1DM0Ey
+LlIyMS4yLGRlY2xhcmF0aW9ucz17c2FmZSwgIiFeX19idWlsdGluXy4qJCJ9DQo+ICstZG9jX2Vu
+ZA0KPiArDQo+ICAgLWRvY19iZWdpbj0ib3IsIGFuZCBhbmQgeG9yIGFyZSByZXNlcnZlZCBpZGVu
+dGlmaWVycyBiZWNhdXNlIHRoZXkgY29uc3RpdHV0ZSBhbHRlcm5hdGUNCj4gLXNwZWxsaW5ncyBm
+b3IgdGhlIGNvcnJlc3BvbmRpbmcgb3BlcmF0b3JzICh0aGV5IGFyZSBkZWZpbmVkIGFzIG1hY3Jv
+cyBieSBpc282NDYuaCkuDQo+ICtzcGVsbGluZ3MgZm9yIHRoZSBjb3JyZXNwb25kaW5nIGxvZ2lj
+YWwgb3BlcmF0b3JzIChhcyBkZWZpbmVkIGluIGhlYWRlciAnaXNvNjQ2LmgnKS4NCj4gICBIb3dl
+dmVyLCBYZW4gZG9lc24ndCB1c2Ugc3RhbmRhcmQgbGlicmFyeSBoZWFkZXJzLCBzbyB0aGVyZSBp
+cyBubyByaXNrIG9mIG92ZXJsYXAuIg0KPiAgIC1jb25maWc9TUMzQTIuUjIxLjIscmVwb3J0cys9
+e3NhZmUsICJhbnlfYXJlYShzdG10KHJlZihraW5kKGxhYmVsKSYmXihvcnxhbmR8eG9yfG5vdCkk
+KSkpIn0NCj4gICAtZG9jX2VuZA0KPiBkaWZmIC0tZ2l0IGEvYXV0b21hdGlvbi9lY2xhaXJfYW5h
+bHlzaXMvRUNMQUlSL21vbml0b3JlZC5lY2wgYi9hdXRvbWF0aW9uL2VjbGFpcl9hbmFseXNpcy9F
+Q0xBSVIvbW9uaXRvcmVkLmVjbA0KPiBpbmRleCA4MzUxOTk2ZWM4Li5kYTIyOWEwZDg0IDEwMDY0
+NA0KPiAtLS0gYS9hdXRvbWF0aW9uL2VjbGFpcl9hbmFseXNpcy9FQ0xBSVIvbW9uaXRvcmVkLmVj
+bA0KPiArKysgYi9hdXRvbWF0aW9uL2VjbGFpcl9hbmFseXNpcy9FQ0xBSVIvbW9uaXRvcmVkLmVj
+bA0KPiBAQCAtNzksNiArNzksOCBAQA0KPiAgIC1lbmFibGU9TUMzQTIuUjIwLjEyDQo+ICAgLWVu
+YWJsZT1NQzNBMi5SMjAuMTMNCj4gICAtZW5hYmxlPU1DM0EyLlIyMC4xNA0KPiArLWVuYWJsZT1N
+QzNBMi5SMjEuMQ0KPiArLWVuYWJsZT1NQzNBMi5SMjEuMg0KPiAgIC1lbmFibGU9TUMzQTIuUjIx
+LjMNCj4gICAtZW5hYmxlPU1DM0EyLlIyMS40DQo+ICAgLWVuYWJsZT1NQzNBMi5SMjEuNQ0KPiBk
+aWZmIC0tZ2l0IGEvYXV0b21hdGlvbi9lY2xhaXJfYW5hbHlzaXMvRUNMQUlSL3RhZ2dpbmcuZWNs
+IGIvYXV0b21hdGlvbi9lY2xhaXJfYW5hbHlzaXMvRUNMQUlSL3RhZ2dpbmcuZWNsDQo+IGluZGV4
+IDFkMDc4ZDg5MDUuLjMyOTJiZjc1MWUgMTAwNjQ0DQo+IC0tLSBhL2F1dG9tYXRpb24vZWNsYWly
+X2FuYWx5c2lzL0VDTEFJUi90YWdnaW5nLmVjbA0KPiArKysgYi9hdXRvbWF0aW9uL2VjbGFpcl9h
+bmFseXNpcy9FQ0xBSVIvdGFnZ2luZy5lY2wNCj4gQEAgLTg4LDYgKzg4LDggQEAgTUMzQTIuUjIw
+LjExfHwNCj4gICBNQzNBMi5SMjAuMTJ8fA0KPiAgIE1DM0EyLlIyMC4xM3x8DQo+ICAgTUMzQTIu
+UjIwLjE0fHwNCj4gK01DM0EyLlIyMS4xfHwNCj4gK01DM0EyLlIyMS4yfHwNCj4gICBNQzNBMi5S
+MjEuM3x8DQo+ICAgTUMzQTIuUjIxLjR8fA0KPiAgIE1DM0EyLlIyMS41fHwNCj4gZGlmZiAtLWdp
+dCBhL2RvY3MvbWlzcmEvZGV2aWF0aW9ucy5yc3QgYi9kb2NzL21pc3JhL2RldmlhdGlvbnMucnN0
+DQo+IGluZGV4IGZlMGIxZTEwYTIuLjg4MzI4ZWFhOGEgMTAwNjQ0DQo+IC0tLSBhL2RvY3MvbWlz
+cmEvZGV2aWF0aW9ucy5yc3QNCj4gKysrIGIvZG9jcy9taXNyYS9kZXZpYXRpb25zLnJzdA0KPiBA
+QCAtNTg3LDcgKzU4NywzMSBAQCBEZXZpYXRpb25zIHJlbGF0ZWQgdG8gTUlTUkEgQzoyMDEyIFJ1
+bGVzOg0KPiAgICAgICAgICBjb25zdHJ1Y3QgaXMgZGV2aWF0ZWQgb25seSBpbiBUcmFuc2xhdGlv
+biBVbml0cyB0aGF0IHByZXNlbnQgYSB2aW9sYXRpb24NCj4gICAgICAgICAgb2YgdGhlIFJ1bGUg
+ZHVlIHRvIHVzZXMgb2YgdGhpcyBtYWNyby4NCj4gICAgICAgIC0gVGFnZ2VkIGFzIGBkZWxpYmVy
+YXRlYCBmb3IgRUNMQUlSLg0KPiAtDQo+ICsNCj4gKyAgICogLSBSMjEuMQ0KPiArICAgICAtIFJ1
+bGUgMjEuMSByZXBvcnRzIGlkZW50aWZpZXJzIHJlc2VydmVkIGZvciB0aGUgQyBhbmQgUE9TSVgg
+c3RhbmRhcmQNCj4gKyAgICAgICBsaWJyYXJpZXMuIFhlbiBkb2VzIG5vdCB1c2Ugc3VjaCBsaWJy
+YXJpZXMgYW5kIGFsbCB0cmFuc2xhdGlvbiB1bml0cw0KPiArICAgICAgIGFyZSBjb21waWxlZCB3
+aXRoIG9wdGlvbiAnLW5vc3RkaW5jJywgdGhlcmVmb3JlIHRoZXJlIGlzIG5vIHJlYXNvbiB0bw0K
+PiArICAgICAgIGF2b2lkIHRvIHVzZSBgI2RlZmluZWAgb3IgYCN1bmRlZmAgb24gc3VjaCBpZGVu
+dGlmaWVycyBleGNlcHQgZm9yIHRob3NlDQo+ICsgICAgICAgYmVnaW5uaW5nIHdpdGggYF9fYnVp
+bHRpbl9gIGZvciB3aGljaCBjb21waWxlcnMgbWF5IHBlcmZvcm0gKHdyb25nKQ0KPiArICAgICAg
+IG9wdGltaXphdGlvbnMuDQo+ICsgICAgIC0gVGFnZ2VkIGFzIGBzYWZlYCBmb3IgRUNMQUlSLg0K
+PiArDQo+ICsgICAqIC0gUjIxLjINCj4gKyAgICAgLSBSdWxlIDIxLjIgcmVwb3J0cyBpZGVudGlm
+aWVycyByZXNlcnZlZCBmb3IgdGhlIEMgYW5kIFBPU0lYIHN0YW5kYXJkDQo+ICsgICAgICAgbGli
+cmFyaWVzLiBYZW4gZG9lcyBub3QgdXNlIHN1Y2ggbGlicmFyaWVzIGFuZCBhbGwgdHJhbnNsYXRp
+b24gdW5pdHMNCj4gKyAgICAgICBhcmUgY29tcGlsZWQgd2l0aCBvcHRpb24gJy1ub3N0ZGluYycs
+IHRoZXJlZm9yZSB0aGVyZSBpcyBubyByZWFzb24gdG8NCj4gKyAgICAgICBhdm9pZCBkZWNsYXJp
+bmcgc3VjaCBpZGVudGlmaWVycyBleGNlcHQgZm9yIHRob3NlIGJlZ2lubmluZyB3aXRoDQo+ICsg
+ICAgICAgYF9fYnVpbHRpbl9gIGZvciB3aGljaCBjb21waWxlcnMgbWF5IHBlcmZvcm0gKHdyb25n
+KSBvcHRpbWl6YXRpb25zLg0KPiArICAgICAtIFRhZ2dlZCBhcyBgc2FmZWAgZm9yIEVDTEFJUi4N
+Cj4gKw0KPiArICAgKiAtIFIyMS4yDQo+ICsgICAgIC0gYG9yYCwgYGFuZGAgYW5kIGB4b3JgIGFy
+ZSByZXNlcnZlZCBpZGVudGlmaWVycyBiZWNhdXNlIHRoZXkgY29uc3RpdHV0ZQ0KPiArICAgICAg
+IGFsdGVybmF0ZSBzcGVsbGluZ3MgZm9yIHRoZSBjb3JyZXNwb25kaW5nIGxvZ2ljYWwgb3BlcmF0
+b3JzDQo+ICsgICAgICAgKGFzIGRlZmluZWQgaW4gU3RhbmRhcmQgTGlicmFyeSBoZWFkZXIgYFw8
+aXNvNjQ2LmhcPmApLiBYZW4gZG9lcyBub3QgdXNlDQo+ICsgICAgICAgU3RhbmRhcmQgbGlicmFy
+eSBoZWFkZXJzLCBzbyB0aGVyZSBpcyBubyByaXNrIG9mIG92ZXJsYXAuDQo+ICsgICAgIC0gVGFn
+Z2VkIGFzIGBzYWZlYCBmb3IgRUNMQUlSLg0KPiArDQo+ICAgICAgKiAtIFIyMS45DQo+ICAgICAg
+ICAtIFhlbiBkb2VzIG5vdCB1c2UgdGhlIGBic2VhcmNoYCBhbmQgYHFzb3J0YCBmdW5jdGlvbnMg
+cHJvdmlkZWQgYnkgdGhlIEMNCj4gICAgICAgICAgU3RhbmRhcmQgTGlicmFyeSwgYnV0IHByb3Zp
+ZGVzIGluIHNvdXJjZSBmb3JtIGl0cyBvd24gaW1wbGVtZW50YXRpb24sDQo+IC0tDQo+IDIuNDcu
+MA0KDQpIZWxsbyBBbGwhDQoNCkkgdHJpZWQgdG8gcGxheSB3aXRoIFJ1bGUgMjEuMSBkZXZpYXRp
+b25zLg0KDQpBZnRlciBhcHBseWluZyB0aGUgZm9sbG93aW5nIGNvbmZpZ3VyYXRpb25zOg0KDQot
+Y29uZmlnPU1DM0EyLlIyMS4xLG1hY3Jvcys9e3NhZmUsICJeb2Zmc2V0b2YkIHx8IF4oaXN8dG8p
+W2Etel0rJCB8fCANCm5hbWUoTlVMTCkgfHwgbmFtZShib29sKSB8fCBuYW1lKHRydWUpIHx8IG5h
+bWUoZmFsc2UpIn0NCi1jb25maWc9TUMzQTIuUjIxLjEsbWFjcm9zKz17c2FmZSwgDQoibG9jKGZp
+bGUoXnhlbi9pbmNsdWRlL3hlbi9pbnR0eXBlc1xcLmgkKSkifQ0KLWNvbmZpZz1NQzNBMi5SMjEu
+MSxtYWNyb3MrPXtzYWZlLCAibG9jKGZpbGUoXnhlbi9pbmNsdWRlL3hlbi90eXBlc1xcLmgkKSki
+fQ0KLWNvbmZpZz1NQzNBMi5SMjEuMSxtYWNyb3MrPXtzYWZlLCAiXnN0clthLXpdKyQgfHwgXih2
+KT9zcHJpbnRmJCB8fCANCl52YV9bYS16XSskIn0NCg0KRWNsYWlyIHNob3dlZCA2OTkgcmVtYWlu
+aW5nIHZpb2xhdGlvbnMuDQpBbGwgb2YgdGhlbSB3ZXJlIHJlbGF0ZWQgdG8gbmFtZXMgYmVnaW5u
+aW5nIHdpdGggYW4gdW5kZXJzY29yZSAoXykuDQoNCkl0J3MgcG9zc2libGUgdG8gcmVzb2x2ZSB0
+aGUgcmVzdCBvZiB0aGVtIHdpdGggaGVscCBvZiAoYWxsLCBleGNlcHQgZm9yIA0KdGhvc2UgYmVn
+aW5uaW5nIHdpdGggJ19fYnVpbHRpbl8nIGFuZCAnX194ODZfNjRfXycpOg0KDQotY29uZmlnPU1D
+M0EyLlIyMS4xLG1hY3Jvcys9e3NhZmUsICJeXy4qJCAmJiAhXl9fYnVpbHRpbl8uKiQgJiYgDQoh
+Xl9feDg2XzY0X18kIn0NCg0KUHJvYmFibHksIHRoZSBleGNlcHRpb24gbGlzdCBjYW4gYmUgZXh0
+ZW5kZWQuDQoNCkphbiwNCkkga25vdyB5b3UgZG9uJ3Qgd2FudCB0byBkaXNhbGxvdyAiX2FsbF8i
+IHN1Y2ggcmVzZXJ2ZWQgaWRlbnRpZmllcnMuDQpCdXQgaG93IHRvIGRlYWwgd2l0aCB0aGF0Pw0K
+DQpUcnkgdG8gY292ZXIgYWxsIG1hY3Jvcz8gTGlrZSB0aGlzLCBmb3IgZXhhbXBsZSAoSSBhc3N1
+bWUgdGhhdCB0aGVyZSBhcmUgDQpubyBzdWNoIHJlc2VydmVkIG1hY3Jvcyk6DQotY29uZmlnPU1D
+M0EyLlIyMS4xLG1hY3Jvcys9e3NhZmUsICJeLipYRU4uKiQgfHwgXi4qSFlQRVJWSVNPUi4qJCJ9
+DQoNCg0KTmljb2xhLA0KTG9va3MgbGlrZSBpdCdzIHBvc3NpYmxlIHRvIG1hdGNoIG1hY3JvcyAo
+ZnJvbSBFQ0xBSVIgVXNlcuKAmXMgTWFudWFsKQ0KImd1YXJkKCk6IHRoZSBtYWNybyBpcyB1c2Vk
+IGFzIGEgZ3VhcmQiLg0KSSB0cmllZCB0byB1c2U6DQotY29uZmlnPU1DM0EyLlIyMS4xLG1hY3Jv
+cys9e3NhZmUsICJndWFyZCgpIn0NCmJ1dCBpdCBkaWRuJ3Qgd29yay4NCkRpZCBJIG1pc3Mgc29t
+ZXRoaW5nPw0KDQpUaGFua3MsIERteXRyby4NCg==
 
