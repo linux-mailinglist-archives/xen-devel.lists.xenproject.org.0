@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4EB0B094CF
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 21:19:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1047305.1417753 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E1CCB09515
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 21:39:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1047314.1417762 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucU7e-0002Wn-Lf; Thu, 17 Jul 2025 19:18:26 +0000
+	id 1ucURv-0005u9-Bv; Thu, 17 Jul 2025 19:39:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1047305.1417753; Thu, 17 Jul 2025 19:18:26 +0000
+Received: by outflank-mailman (output) from mailman id 1047314.1417762; Thu, 17 Jul 2025 19:39:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucU7e-0002VM-Ih; Thu, 17 Jul 2025 19:18:26 +0000
-Received: by outflank-mailman (input) for mailman id 1047305;
- Thu, 17 Jul 2025 19:18:25 +0000
+	id 1ucURv-0005rw-92; Thu, 17 Jul 2025 19:39:23 +0000
+Received: by outflank-mailman (input) for mailman id 1047314;
+ Thu, 17 Jul 2025 19:39:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AT3b=Z6=oracle.com=lorenzo.stoakes@srs-se1.protection.inumbo.net>)
- id 1ucU7c-0002VG-Pl
- for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 19:18:25 +0000
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cd6a5da3-6342-11f0-a319-13f23c93f187;
- Thu, 17 Jul 2025 21:18:22 +0200 (CEST)
-Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56HItsGh006181;
- Thu, 17 Jul 2025 19:17:54 GMT
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 47ufnqvm3e-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 17 Jul 2025 19:17:53 +0000 (GMT)
-Received: from pps.filterd
- (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
- with ESMTP id 56HIpUjl039577; Thu, 17 Jul 2025 19:17:52 GMT
-Received: from bn8pr05cu002.outbound.protection.outlook.com
- (mail-eastus2azon11011007.outbound.protection.outlook.com [52.101.57.7])
- by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 47ue5d73d1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 17 Jul 2025 19:17:51 +0000
-Received: from DM4PR10MB8218.namprd10.prod.outlook.com (2603:10b6:8:1cc::16)
- by BLAPR10MB5154.namprd10.prod.outlook.com (2603:10b6:208:328::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.39; Thu, 17 Jul
- 2025 19:17:48 +0000
-Received: from DM4PR10MB8218.namprd10.prod.outlook.com
- ([fe80::2650:55cf:2816:5f2]) by DM4PR10MB8218.namprd10.prod.outlook.com
- ([fe80::2650:55cf:2816:5f2%6]) with mapi id 15.20.8922.037; Thu, 17 Jul 2025
- 19:17:48 +0000
+ <SRS0=ObpW=Z6=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ucURt-0005rg-IB
+ for xen-devel@lists.xenproject.org; Thu, 17 Jul 2025 19:39:21 +0000
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [2a00:1450:4864:20::344])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bb4b6052-6345-11f0-a319-13f23c93f187;
+ Thu, 17 Jul 2025 21:39:20 +0200 (CEST)
+Received: by mail-wm1-x344.google.com with SMTP id
+ 5b1f17b1804b1-455ecacfc32so6114375e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Jul 2025 12:39:20 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4563b5b8475sm897105e9.12.2025.07.17.12.39.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 17 Jul 2025 12:39:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,466 +45,230 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cd6a5da3-6342-11f0-a319-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=corp-2025-04-25; bh=MY4NuNLCzdZSiiawmc
-	a7oQI6sqTq0ssuSMaDFunktKU=; b=Y1x4MR+U3TZK5F/pmLB5LPOeaKUchg10i6
-	FM4GXV5h5kGGnGHNikzNq0zDLpo1xq7LK0SGEH5kXt0s6iCiDgUHL9LdseCoPgP/
-	9tSdJQ2C/Y7XmArbUkZ8dNZxCIYtbe8MYuk6+Tzp4ArsuCZ/vG9ox2XmT1S8fIsN
-	G/XdmJY0pLIFHhC0sNXnZ74CLJqaQucz8SFn6EvbQ19HY9DbsN5+BwaJl1YoD3If
-	iGH96s76kKiyQ2sqGhaUtLgYsFB3QjUNAzxf/Di8zbYo3lEO1fr2qVegWK1toTRT
-	difJ/IdhJVuHtEmcBIWTzOhVRUQFdAgGzqIxj/ep5aT6FRmfjHEw==
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CCTknKUv/U7oi3SF/574Kf8Fg06aHhTvKr0cYruRDVr0g6InkzmlDgOJEYLqYg3i9PNFXVd7GFHhOumJJjnTPfIros9/smmdMARFHGAF7+eMfCF78iGd39XgwTtlOLLZzQO3Duf92SZ7DizRjoJfBMsc7xi4wpQdWZqSI0IFYMDh6zOJjhDYhvSRhnPfKH6y0VgeClCg4mLVXCxO7NrWEAhFDl3SHzVqlIWGFvsdzXGwnffvXGMAtNY6gLmyQ8FhSLdOeY4hGu4Q/yRqIFpyKlMnmhJbEGUeY8lE+i4Und0BRgGRQjjfVck0JeuTijb6+U9ovBdU496LVfYRjXdqAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MY4NuNLCzdZSiiawmca7oQI6sqTq0ssuSMaDFunktKU=;
- b=Ru4uH16A3w8hyJWPQOoRL/d/LAeY9jhaiou1zl9NBMdEOc1cTC29BskZmRlEKj9zs0fk/8lghxjLm4/1AQph5ib5Cm6trppu3HUPHyVYZ+iendZz3C30ZftP4XN+VoZVXxS1un5JAlNXhIuKOVB6TrZB4sNWcXVln6tJDePUOlQTSGDKJIf2N6e2gRdUm4p5vLg9ZEZ8/5E6u1ZGtRZRXKJNI2zDLv+W4geFlnQfM656JVm05JtVd8iaRFrBgy85t5pXpFMvMjhWoJh8nc7ZRHZ+AclrCI4zxUu8tBwNSdXOVWki/K3op1ThIY3FhDKVlc20QQVlsAe8nBXZafF12A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
+X-Inumbo-ID: bb4b6052-6345-11f0-a319-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MY4NuNLCzdZSiiawmca7oQI6sqTq0ssuSMaDFunktKU=;
- b=m5ttrchqrA5+cDa3JQTi0EQ9xaK+Vh4P2PPVjJLQ722AOqykKUQBooSnJxpJPssDAFVrptu0uCg51ELuw8ApdpdMLIpzIpeeiiwCVS5L0exg79o5RREMOvUy0EsKMsBVm/URQ508SEkLrfMm4gJvfs8NiunXJvGGKDhRnxAxZiI=
-Date: Thu, 17 Jul 2025 20:17:41 +0100
-From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-To: David Hildenbrand <david@redhat.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-        xen-devel@lists.xenproject.org, linux-fsdevel@vger.kernel.org,
-        nvdimm@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
-        Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-        Dan Williams <dan.j.williams@intel.com>,
-        Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
-        Alexander Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <brauner@kernel.org>,
-        "Liam R. Howlett" <Liam.Howlett@oracle.com>,
-        Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
-        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
-        Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
-        Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
-        Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
-        Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
-        Hugh Dickins <hughd@google.com>, Oscar Salvador <osalvador@suse.de>,
-        Lance Yang <lance.yang@linux.dev>
-Subject: Re: [PATCH v2 6/9] mm/memory: convert print_bad_pte() to
- print_bad_page_map()
-Message-ID: <73702a7c-d0a9-4028-8c82-226602eb3286@lucifer.local>
-References: <20250717115212.1825089-1-david@redhat.com>
- <20250717115212.1825089-7-david@redhat.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250717115212.1825089-7-david@redhat.com>
-X-ClientProxiedBy: LO4P123CA0214.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a5::21) To DM4PR10MB8218.namprd10.prod.outlook.com
- (2603:10b6:8:1cc::16)
+        d=citrix.com; s=google; t=1752781159; x=1753385959; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=VL3OrOhrEalmKNbsU6brZZoAWUxAdgwWFt0mZAd0p0c=;
+        b=BcAE0cniJ+UdU2J/sIuDWEe1gKuS9CtuJUS0R2kHwg0GXAULE1MSNHRVK/SJUWZXJj
+         sTCzkmN0xBTY4BAutv6x3xdPkxjYJMAkbSh904iNSF+W+c24UpF7A7QxUvF2txXgu2ye
+         uxf79a/AIeBYIivsb1YubmHeZpuPX2xYzYM3M=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1752781159; x=1753385959;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=VL3OrOhrEalmKNbsU6brZZoAWUxAdgwWFt0mZAd0p0c=;
+        b=H8eWZAV9VjrKgGczi306RPRkDb+zNzrITdrpQKhXoxC0PHAH36S4+bU8inlNKxyHAe
+         UbXDDd3RUvUAaGjFxa8HuV08cr43Llir6ztz4hHG1EYxnR5JfRasvcicx6MwN9DFf5FP
+         nnWO+19CXsaGXC/mmEaT6ifUn/qheVMHCV4R43cIC1Bia5KI3lF8C79q9czHwP+aaY+/
+         tMugLekhwTfQdGPOq/TQf+024yvFP4nE8w/Mp8NGkGZulDs7g4cydpIC9Q+AWZ2JuJ7j
+         egVh8LZyR6jSL7CMBrh8Av270KbEWQ5ZoboAfb2Z7ob1q4rUh+c4xU4SDAYZKVj1bXdW
+         STGQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWDH72CVv/0SHFOlMlzLS86dVHIM7FfAmkHw0isEJeqeo/MPZ/ndGdrdlCdtXTI8aoK2xp38VHM7f4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyqHoLskWAufRlfcrYJammRb57Z+yCzpCmR4q0l00FwLqfkr+6B
+	s+2VyzOk88b2UeTgqKNpe43lp0EAaG/8ZAxsW+2lOspRFo6HrVsn8unnwUOJyMOSScc=
+X-Gm-Gg: ASbGnct1TInT102hNlFfCTFzUHkBLT/ecYsUROkBRekQlFc5HEmRirFzxhD0SPtv+BV
+	qke4euzSXN0W9cEjlmUD+zQifaiCUGTEQ9EHi1e44t/p0K5pe1/GmpLmaWHLJ7Y1Ls+tr99aL+4
+	cgrraZbr5QGvfqvutpKhVy+xe0UxIwMTd9oFZb8nL5zXyfmbL9EmzzRk445C+m68AdkKW8rB6IU
+	MSThoWp4W02nQmUNc0I517V+J6qIMkL134OsjZCl8KBH4I49O70yYM/5FNvG1oI4Lb1xRRIAXS9
+	oSiXxyR1NULkDwvT95KL6dnVsOImDqPVsExEv5yodpf7Q3yDZQVyuTDDhCjqE51hbUTyeju53IM
+	P8p1Hyvd4jaDCKpySt9RPR+7MFDLPuAw6ydPk2KJ8opDVumDN9ToRPyftoqipMtxI6UTKA4Rw29
+	3K8a4=
+X-Google-Smtp-Source: AGHT+IH0XlYS8UcE3cHB5AWgdKDxv8IIFLvkTPVm/iN/0Ugv0Mb/hye7K+7pyJVgFbbgDxCWBdnXLw==
+X-Received: by 2002:a05:600c:64ca:b0:456:1d61:b0f2 with SMTP id 5b1f17b1804b1-45630b6d6dcmr73805115e9.30.1752781158857;
+        Thu, 17 Jul 2025 12:39:18 -0700 (PDT)
+Message-ID: <03ecaa72-2370-47f7-b84b-83831d188f4e@citrix.com>
+Date: Thu, 17 Jul 2025 20:39:17 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR10MB8218:EE_|BLAPR10MB5154:EE_
-X-MS-Office365-Filtering-Correlation-Id: 999117c9-2ea9-4b0e-7111-08ddc5669dc6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|7416014|1800799024|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?K34Pk8X3UJ88ofyn++qdYYVSp/P+yZkjpyt/1prIZmcdH8tOqDP65hjpP/Uw?=
- =?us-ascii?Q?GOQb38iVtDfwIOO+MjBdRvPLo17/4GRD1hXiGNlLL9qjURz0Flp3//ijWquK?=
- =?us-ascii?Q?TRGu3zeL8yCZxC+qSxMzRNeIPuyKbmLsnQKe9gnqq8ntyTZmCW3Ggu62RmTB?=
- =?us-ascii?Q?T8Cv2aL1Af32UwkoyH4Dc5fgWi94h+7lXT/tWYXGieUKwvx1Oz2A6fFPjR35?=
- =?us-ascii?Q?B2pjajxAr0jHC/g/vNlgo78VNrW3TRYzT4dnQltGO+on1N30DoLQjleJpMi4?=
- =?us-ascii?Q?SfW1ipZb1HhFNSByolPuCM5eU1lugj1CKgZNXceoIeDqhZVQ7Squf2UIgmRO?=
- =?us-ascii?Q?C4q5Kup/iJLUdXZv6JMdmKgwNfCAi3+kgIoqy7bqYNJOZ/5YSI93Mgj6gSCn?=
- =?us-ascii?Q?+XjnQpA7kBQyjvBUt4GFxI2pBcqDvmRmGcxOU3zTrmTPP7qZu7IqLTJfs3or?=
- =?us-ascii?Q?WtpaWCfUseNFWUEbhPCiw5Qg6bBazVo60zAwK/ChhnQS4vV+W46KGR8o4N3R?=
- =?us-ascii?Q?/nrGQKF2dmxPCD4WBasZGdV17XDBg9RJ9yTaZv7IDE+U4Cd52mcAET0/fAh0?=
- =?us-ascii?Q?M/PvgxeGukynwojrQofyOgjxm4N8CZ/1sU/YhrcOj3BogcDBKzPB9MsXVLa1?=
- =?us-ascii?Q?JGB1p2hSysypVdtFB4fnVFaPXpeJdL6Tp9WDbLX7JZ3itd8SWlhc0k0nYE6r?=
- =?us-ascii?Q?aON8V61eYCyIADGD9FPpVWRTgAmE1vDvIEXVxym2mxbmbNm+GZxNkbYm6ah+?=
- =?us-ascii?Q?THc+RJYPx3obsLsnmd2LiVJv2SXMWmU8Cfwm44QgrhcuuL8Tljhqb1bU+UrU?=
- =?us-ascii?Q?9BGNSs/ZIiYQF2PzsqmjIPEmnq0Q0tlaZDpSiyvvH/Eh1F9jwZWYJy9xASWb?=
- =?us-ascii?Q?mWZUII8/nqLMPdV0krsi9Efjv0GnIM25LCpyd1nN9xi+2+ryZRHIzBB4PKe9?=
- =?us-ascii?Q?qr+0XJ2u3sQWLJoG/wPCbzIXCPV76wDBxhK6TuoMeFYB2jeabMWhq88Dg6qq?=
- =?us-ascii?Q?83NVevev+tR2dq9tb1te8uYG9ZOhsNt4fZQZYyHsBAQ6izP5OZPy0Eytf34A?=
- =?us-ascii?Q?nwuIpHUmVhRFyad8aMUstH8APAVooHr41cZ/Bkgbq5bXtQpHpAb9tcodGXpJ?=
- =?us-ascii?Q?S1mtn+zk9SU7B61Rh3exl7vWtBoXkufMjmc9PvGBPQ3lluyemkvU2Zos+Heg?=
- =?us-ascii?Q?HZN9F3Bb0sAbBAvB2bvm877VkCsc0PpJh+KqHbTPdzsaxX7VgsRj2KyAxIBE?=
- =?us-ascii?Q?QDp9evrfG7nzGQ4vb63x9sgF5l/cDsBEsGr0GfFttYmdUh3DL91Gtmn2ygJ1?=
- =?us-ascii?Q?UjScmb6KYKAHuwbPcKOUHMxHl/gBV9PCxfuWzaVriJUbKKeU2pSZ8ysvYo4T?=
- =?us-ascii?Q?ZULGEmGdJJs4/iV663gpp7P4Fd6D6P8EqcipNtcPIlU8s0fBab8trf7fuzeZ?=
- =?us-ascii?Q?0Ga5Zykem1Y=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR10MB8218.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?S+T8pSTFo7aH9H7JUIR0UOyDGS5AhxZ7D+S0WbBpfjlJkebEzq+xX4VRAJDs?=
- =?us-ascii?Q?h0KtMn8dnD0EVSAE/jg/TImvDX5OPnBrJeWnHDoEUr6SMNsN/m0nQGjRQXaB?=
- =?us-ascii?Q?B+edDMppTbldQE/+rxLInrQMzhkzDTM+Nx04nEiaqtbrZiLWl4nUo4DbM2uA?=
- =?us-ascii?Q?MGOq+RvBvIsiK/JJoOdF6RHJPq8f0v31yuFH8w4wjAfJNKLwNUV8pb5iM+U9?=
- =?us-ascii?Q?OSdUfwGniFPAVv+NQkqlbO7GD+j83r9kq7YDXSOc1xhEzEVmAiDlPSRo9QOc?=
- =?us-ascii?Q?bPZIYFC9t80dGpBwNqZdUYXgInUfXMiTQSe0ajK37cjt9zWpk0IFqZC+ZWa7?=
- =?us-ascii?Q?jjOmkLrLRiiu+hTXJm+jGU3Oc4hjTSNOC+n6bkQOpA9rjTZ18zTcxxbzLVWz?=
- =?us-ascii?Q?HtqFEOUoynIj55rVQXPeS0kIP52hFESuDMnYqSKUQx8GrrYQCXhZJL9w1KO3?=
- =?us-ascii?Q?WeSuEIDzq2sK9WnXjUYFA5MAYQXXq8SoLTqz4AGWQMCQcjGLn5KiS9hN88aP?=
- =?us-ascii?Q?0Wn+MMfGvHLdbQ+ux5D30Z7yiH5twoOJBN/vfkVjxUOgg1QkDRqsm4f4C3vi?=
- =?us-ascii?Q?bTCfYjhXElH3GymWoobM/JoHU2Ki1iXCWjyOti7UTVnKRgwRg+nAyIe2ZbX9?=
- =?us-ascii?Q?jgfznJsIXXmHBbU0VZ12HdPXXjAQgbeNcO9h4ENFjm8C6YHPjXoFYkdhR42B?=
- =?us-ascii?Q?qSKqICR/r4oxXSGCucaZDB1VT/weuQq5XymFKN+I771mqYhh0CbF+roBf18+?=
- =?us-ascii?Q?8Jh966bJjMxznXCW1zMGPYoCAwfO8ZbU5sPaCvnEZ8xsSW3B9dKBcLW4fr61?=
- =?us-ascii?Q?ZQJDi476eRLthNoUCP4nhali+Q6PjlLfiucGyHLXbEr5LlBpDcbcWASEPdCi?=
- =?us-ascii?Q?Rs96dDI6GbdWJKcc74/qzH4YcxqOAFH6nDwnufOoNEUfzdHFnoad4K/v7PAo?=
- =?us-ascii?Q?NfSVOwfYZiSDp3M/PYoaO+vPt+1nfAh1+kmVtgv696ZpVz1LzN4fq8fdCKZ9?=
- =?us-ascii?Q?braCBL1PB+arrfEt4RZ/KE/DP5VmveKy3XqUGsXD1Dnq3ZBKTkSZ5NoJ8+zi?=
- =?us-ascii?Q?AMO+saTJVMd68NpTtsn586U55wY8ZEuKnfbYbyvqsOZ8l5Ut1C6wHspV9Y3r?=
- =?us-ascii?Q?imWuXQ16PdE7ihYtpWF31oS43J50iKcZeOD5DJI1fzJW1bIu45QYU7MHupfj?=
- =?us-ascii?Q?mn0fUDs981Bc5B009w8J2ytKQfZZ/DtqkmZ+sTbTkciJaVKYXRfpUjsfz1WE?=
- =?us-ascii?Q?fhy/NcMgXyDQNwwKXcN+37oWoFi5QH5vY8cz0mI9ZYmiLg6BHGnhTexXYVsh?=
- =?us-ascii?Q?Nz5EcIScipGn2gdhoThHJeaOcvYsszqnwi0wyJmw1yiC4ZgTpm6RP2w5GlfF?=
- =?us-ascii?Q?CR+3Y52ntrptiokIUVmusGpgPoU53DBJdDmdc4rhznzJzWT2EYpq4nDIq/4U?=
- =?us-ascii?Q?faq7r/P+OWmSSZFGgqQAOTrJHtCU0jlCFyXYuBp9pFCO1sX2N3ZFoh7jgeLD?=
- =?us-ascii?Q?7pQOpJLC11QrGIEAwil9NFQ+EL8Pgl4xxsn9TNIm3+hYQ9XzbZTbr3dPF4BU?=
- =?us-ascii?Q?8PZSYR+UqcpKRnp48Eul/rOrxrQIa70AmbwYx9as9KZm/J6LNEeoU2R5PGNp?=
- =?us-ascii?Q?3w=3D=3D?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	sVtpaSmGTs1WXgIcujrBX/GZRTLDHf30wSM/bJnso5OGHYKPPX/AzULgNvgAoUWKZt0zS0V+gq0cQGdrYcwBrqf/d0njLpirJ2VOQy4ygpvYqZWgg3C81DK4RDEeuKUIGk5+naXxvXJaBxUf1e54kv0vzWc62OA5cT0W3aVOuyF5jTs3xiNHKdWY5lI/7T09X1NmNQLS6pERnAZXE+NwuM0e0GKtE1o9nAYRru/NJP+9K9jGxWKhxLhk5ngA0/ze/IH3vCzS+AZsII22vYdBKBdH8EPwzLV8IT8K1kd7Cc4+pPajFr87v3BOMQWntPxqh95ozNY1y1N87wNS9oIORpsaVJi+xF2GOV5k4czvRJF2SBhh+pXQHuewdbNAQU5O3R4wJB37U+Q4fM2A+Mwq1FatW7EB9TrTHuhSeQgRoHylOUWffuDE5e7Cl6PxHB51oEZfTwSGkYEmFZhAYWbgoBfVUXNjAP7zgMh2GfUlGicthURGNjbFWu5cEr7fPMrxB1WgJf6zdTyNErEXj5kXRws5nCUqhjKQZuk8aoK/gDLgA8jsMx4pVB/Dy8Kz7C3UqI8wEygg4fy8RXtX7akVhWUzY5LRSGtiwVS7B+IzZwI=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 999117c9-2ea9-4b0e-7111-08ddc5669dc6
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR10MB8218.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2025 19:17:48.2688
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +/raU9e+wYMYIEnIRo3bHtfU/fN5m1acCJeVA9e/e8XcKes8lmK+kraW58H1/hudasPIAnkYxXjmWx4pUtiQTQEDOPYpizWPcQyfEroLB1g=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR10MB5154
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-07-17_03,2025-07-17_02,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0 mlxscore=0 adultscore=0
- spamscore=0 suspectscore=0 phishscore=0 mlxlogscore=999 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2505160000
- definitions=main-2507170170
-X-Proofpoint-GUID: btb92Bti8ahDHRVsxJ9c4F6VDCvh54E3
-X-Proofpoint-ORIG-GUID: btb92Bti8ahDHRVsxJ9c4F6VDCvh54E3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzE3MDE3MSBTYWx0ZWRfX4JoR5PAgSynn bZdEtTS/MeHt+M0JXXQkDZlNHvo2HGreNZ/QiSHHN4XfEnB497aW5iPYRfaDrsdz4tcPqtwR+as OR7LGpz8VTMMCLnyW2yIYMbWxvnCHKlpCsxNzvrkYjRM+zM8dptR1UJM0+y4sRuneh0WH32K4M5
- qJDmzKRuldinjOMLg+RjynkJ+L6DbNHasYIZrXpioT8yoGhSCnAl6CxggpB7ZDCE2pI8Oi110Ge Gff+15AVhCmRQUxHD4oUXv6eNQWdAixHxydVcpOIk9bSzoiW1lmL/qn9Pc6qkD8rlGExea5sLGG Eyu3lxnd+y5bCuoIInnLpIe/XwgXHmTI1YynVvIDj09m7kEPQ9jC8xYH9KKUwesdbSbpHi3vr/T
- 4UdSwlLmGeQ+vzpS3F4M2pcozQHhD5fXL2PfYVQUlCX6Z1z6XR/kzNfFpuI3CzFKVX5OP/sg
-X-Authority-Analysis: v=2.4 cv=U9ySDfru c=1 sm=1 tr=0 ts=68794c61 b=1 cx=c_pps a=e1sVV491RgrpLwSTMOnk8w==:117 a=e1sVV491RgrpLwSTMOnk8w==:17 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=wKuvFiaSGQ0qltdbU6+NXLB8nM8=:19
- a=Ol13hO9ccFRV9qXi2t6ftBPywas=:19 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10 a=Wb1JkmetP80A:10 a=GoEa3M9JfhUA:10 a=20KFwNOVAAAA:8 a=3Y0cYmz_b2OhmTdAttoA:9 a=CjuIK1q_8ugA:10 cc=ntf awl=host:13600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/6] x86/match-cpu: Support matching on steppings
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250716173132.2213891-1-andrew.cooper3@citrix.com>
+ <20250716173132.2213891-6-andrew.cooper3@citrix.com>
+ <a6abcc07-535f-433b-948a-702dc33093fa@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <a6abcc07-535f-433b-948a-702dc33093fa@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 17, 2025 at 01:52:09PM +0200, David Hildenbrand wrote:
-> print_bad_pte() looks like something that should actually be a WARN
-> or similar, but historically it apparently has proven to be useful to
-> detect corruption of page tables even on production systems -- report
-> the issue and keep the system running to make it easier to actually detect
-> what is going wrong (e.g., multiple such messages might shed a light).
->
-> As we want to unify vm_normal_page_*() handling for PTE/PMD/PUD, we'll have
-> to take care of print_bad_pte() as well.
->
-> Let's prepare for using print_bad_pte() also for non-PTEs by adjusting the
-> implementation and renaming the function -- we'll rename it to what
-> we actually print: bad (page) mappings. Maybe it should be called
-> "print_bad_table_entry()"? We'll just call it "print_bad_page_map()"
-> because the assumption is that we are dealing with some (previously)
-> present page table entry that got corrupted in weird ways.
->
-> Whether it is a PTE or something else will usually become obvious from the
-> page table dump or from the dumped stack. If ever required in the future,
-> we could pass the entry level type similar to "enum rmap_level". For now,
-> let's keep it simple.
->
-> To make the function a bit more readable, factor out the ratelimit check
-> into is_bad_page_map_ratelimited() and place the dumping of page
-> table content into __dump_bad_page_map_pgtable(). We'll now dump
-> information from each level in a single line, and just stop the table
-> walk once we hit something that is not a present page table.
->
-> Use print_bad_page_map() in vm_normal_page_pmd() similar to how we do it
-> for vm_normal_page(), now that we have a function that can handle it.
->
-> The report will now look something like (dumping pgd to pmd values):
->
-> [   77.943408] BUG: Bad page map in process XXX  entry:80000001233f5867
-> [   77.944077] addr:00007fd84bb1c000 vm_flags:08100071 anon_vma: ...
-> [   77.945186] pgd:10a89f067 p4d:10a89f067 pud:10e5a2067 pmd:105327067
->
-> Not using pgdp_get(), because that does not work properly on some arm
-> configs where pgd_t is an array. Note that we are dumping all levels
-> even when levels are folded for simplicity.
+On 17/07/2025 9:11 am, Jan Beulich wrote:
+> On 16.07.2025 19:31, Andrew Cooper wrote:
+>> --- a/xen/arch/x86/cpu/common.c
+>> +++ b/xen/arch/x86/cpu/common.c
+>> @@ -1003,13 +1003,15 @@ const struct x86_cpu_id *x86_match_cpu(const struct x86_cpu_id table[])
+>>  	const struct x86_cpu_id *m;
+>>  	const struct cpuinfo_x86 *c = &boot_cpu_data;
+>>  
+>> -	for (m = table; m->vendor | m->family | m->model | m->feature; m++) {
+>> +	for (m = table; m->vendor | m->family | m->model | m->steppings | m->feature; m++) {
+> Nit: Line length. But - do we need the change at all? It looks entirely
+> implausible to me to use ->steppings with all of vendor, family, and
+> model being *_ANY (if, as per below, they would be 0 in the first place).
 
-Oh god. I reviewed this below. BUT OH GOD. What. Why???
+I do keep on saying that | like this is pure obfuscation.  This is an
+excellent example.
+
+It's looking for the {} entry, by looking for 0's in all of the metadata
+fields.  A better check would be *(uint64_t *)m, or perhaps a unioned
+metadata field, but..
+
+This is also a good demonstration of binary | is a bad thing to use, not
+only for legibility.  Swapping | for || lets the compiler do:
+
+add/remove: 0/0 grow/shrink: 0/1 up/down: 0/-76 (-76)
+Function                                     old     new   delta
+x86_match_cpu                                243     167     -76
+
+and the code generation looks much better too:
+
+https://termbin.com/c4m9
+
+Although I'm a little confused as to why it's still done a split cmpw
+$0x0,(%rax) and cmpq $0xffff,(%rax) for the loop entry condition, when
+cmpq $0 would be the right one.
+
 
 >
-> Signed-off-by: David Hildenbrand <david@redhat.com>
-> ---
->  mm/memory.c | 120 ++++++++++++++++++++++++++++++++++++++++------------
->  1 file changed, 94 insertions(+), 26 deletions(-)
+> Tangential: The ->feature check is slightly odd here. With everything
+> else being a wildcard (assuming these are 0; I can't find any X86_*_ANY
+> in the code base; INTEL_FAM6_ANY expands to X86_MODEL_ANY, but is itself
+> also not used anywhere), one wouldn't be able to use FPU, as that's
+> feature index 0. I notice though that ...
 >
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 173eb6267e0ac..08d16ed7b4cc7 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -473,22 +473,8 @@ static inline void add_mm_rss_vec(struct mm_struct *mm, int *rss)
->  			add_mm_counter(mm, i, rss[i]);
->  }
+>>  		if (c->x86_vendor != m->vendor)
+>>  			continue;
+>>  		if (c->x86 != m->family)
+>>  			continue;
+>>  		if (c->x86_model != m->model)
+>>  			continue;
+> ... X86_*_ANY also aren't catered for here. Hence it remains unclear
+> what value those constants would actually be meant to have.
 >
-> -/*
-> - * This function is called to print an error when a bad pte
-> - * is found. For example, we might have a PFN-mapped pte in
-> - * a region that doesn't allow it.
-> - *
-> - * The calling function must still handle the error.
-> - */
-> -static void print_bad_pte(struct vm_area_struct *vma, unsigned long addr,
-> -			  pte_t pte, struct page *page)
-> +static bool is_bad_page_map_ratelimited(void)
->  {
-> -	pgd_t *pgd = pgd_offset(vma->vm_mm, addr);
-> -	p4d_t *p4d = p4d_offset(pgd, addr);
-> -	pud_t *pud = pud_offset(p4d, addr);
-> -	pmd_t *pmd = pmd_offset(pud, addr);
-> -	struct address_space *mapping;
-> -	pgoff_t index;
->  	static unsigned long resume;
->  	static unsigned long nr_shown;
->  	static unsigned long nr_unshown;
-> @@ -500,7 +486,7 @@ static void print_bad_pte(struct vm_area_struct *vma, unsigned long addr,
->  	if (nr_shown == 60) {
->  		if (time_before(jiffies, resume)) {
->  			nr_unshown++;
-> -			return;
-> +			return true;
->  		}
->  		if (nr_unshown) {
->  			pr_alert("BUG: Bad page map: %lu messages suppressed\n",
-> @@ -511,15 +497,87 @@ static void print_bad_pte(struct vm_area_struct *vma, unsigned long addr,
->  	}
->  	if (nr_shown++ == 0)
->  		resume = jiffies + 60 * HZ;
-> +	return false;
-> +}
-> +
-> +static void __dump_bad_page_map_pgtable(struct mm_struct *mm, unsigned long addr)
-> +{
-> +	unsigned long long pgdv, p4dv, pudv, pmdv;
+> Further tangential: The vendor check could in principle permit for
+> multiple vendors (e.g. AMD any Hygon at the same time), considering that
+> we use bit masks now. That would require the != there to change, though.
 
-> +	p4d_t p4d, *p4dp;
-> +	pud_t pud, *pudp;
-> +	pmd_t pmd, *pmdp;
-> +	pgd_t *pgdp;
-> +
-> +	/*
-> +	 * This looks like a fully lockless walk, however, the caller is
-> +	 * expected to hold the leaf page table lock in addition to other
-> +	 * rmap/mm/vma locks. So this is just a re-walk to dump page table
-> +	 * content while any concurrent modifications should be completely
-> +	 * prevented.
-> +	 */
+In Linux, x86_cpu_id is a module ABI and has wildcards on all fields,
+because "please load me on any AMD Fam10 CPU" is something they want to
+express.
 
-Hmmm :)
+In Xen, we only use it model/stepping specific lookup tables, so we
+don't need wildcards for V/F/M like Linux does.
 
-Why aren't we trying to lock at leaf level?
+We do have a different layout of X86_VENDOR to Intel, and while that
+would allow us to merge an AMD and a Hygon row, I don't think anything
+good could come of trying.
 
-We need to:
+One problem Linux has is that X86_VENDOR_INTEL is 0, so they introduced
+a flags field with a VALID bit that now replaces the line of |'s.  I do
+not see any need for that in Xen.
 
-- Keep VMA stable which prevents unmap page table teardown and khugepaged
-  collapse.
-- (not relevant as we don't traverse PTE table but) RCU lock for PTE
-  entries to avoid MADV_DONTNEED page table withdrawal.
 
-Buuut if we're not locking at leaf level, we leave ourselves open to racing
-faults, zaps, etc. etc.
 
-So perhaps this why you require such strict conditions...
-
-But can you truly be sure of these existing? And we should then assert them
-here no? For rmap though we'd need the folio/vma.
-
-> +	pgdp = pgd_offset(mm, addr);
-> +	pgdv = pgd_val(*pgdp);
-
-Before I went and looked again at the commit msg I said:
-
-	"Shoudln't we strictly speaking use pgdp_get()? I see you use this
-	 helper for other levels."
-
-But obviously yeah. You explained the insane reason why not.
-
-> +
-> +	if (!pgd_present(*pgdp) || pgd_leaf(*pgdp)) {
-> +		pr_alert("pgd:%08llx\n", pgdv);
-> +		return;
-> +	}
-> +
-> +	p4dp = p4d_offset(pgdp, addr);
-> +	p4d = p4dp_get(p4dp);
-> +	p4dv = p4d_val(p4d);
-> +
-> +	if (!p4d_present(p4d) || p4d_leaf(p4d)) {
-> +		pr_alert("pgd:%08llx p4d:%08llx\n", pgdv, p4dv);
-> +		return;
-> +	}
-> +
-> +	pudp = pud_offset(p4dp, addr);
-> +	pud = pudp_get(pudp);
-> +	pudv = pud_val(pud);
-> +
-> +	if (!pud_present(pud) || pud_leaf(pud)) {
-> +		pr_alert("pgd:%08llx p4d:%08llx pud:%08llx\n", pgdv, p4dv, pudv);
-> +		return;
-> +	}
-> +
-> +	pmdp = pmd_offset(pudp, addr);
-> +	pmd = pmdp_get(pmdp);
-> +	pmdv = pmd_val(pmd);
-> +
-> +	/*
-> +	 * Dumping the PTE would be nice, but it's tricky with CONFIG_HIGHPTE,
-> +	 * because the table should already be mapped by the caller and
-> +	 * doing another map would be bad. print_bad_page_map() should
-> +	 * already take care of printing the PTE.
-> +	 */
-
-I hate 32-bit kernels.
-
-> +	pr_alert("pgd:%08llx p4d:%08llx pud:%08llx pmd:%08llx\n", pgdv,
-> +		 p4dv, pudv, pmdv);
-> +}
-> +
-> +/*
-> + * This function is called to print an error when a bad page table entry (e.g.,
-> + * corrupted page table entry) is found. For example, we might have a
-> + * PFN-mapped pte in a region that doesn't allow it.
-> + *
-> + * The calling function must still handle the error.
-> + */
-
-We have extremely strict locking conditions for the page table traversal... but
-no mention of them here?
-
-> +static void print_bad_page_map(struct vm_area_struct *vma,
-> +		unsigned long addr, unsigned long long entry, struct page *page)
-> +{
-> +	struct address_space *mapping;
-> +	pgoff_t index;
-> +
-> +	if (is_bad_page_map_ratelimited())
-> +		return;
 >
->  	mapping = vma->vm_file ? vma->vm_file->f_mapping : NULL;
->  	index = linear_page_index(vma, addr);
->
-> -	pr_alert("BUG: Bad page map in process %s  pte:%08llx pmd:%08llx\n",
-> -		 current->comm,
-> -		 (long long)pte_val(pte), (long long)pmd_val(*pmd));
-> +	pr_alert("BUG: Bad page map in process %s  entry:%08llx", current->comm, entry);
+>> --- a/xen/arch/x86/include/asm/match-cpu.h
+>> +++ b/xen/arch/x86/include/asm/match-cpu.h
+>> @@ -8,28 +8,32 @@
+>>  #include <asm/intel-family.h>
+>>  #include <asm/x86-vendors.h>
+>>  
+>> +#define X86_STEPPINGS_ANY 0
+> Given the (deliberate aiui) plural, maybe better X86_STEPPINGS_ALL?
 
-Sort of wonder if this is even useful if you don't know what the 'entry'
-is? But I guess the dump below will tell you.
+Hmm, yeah, that's not great grammar.  I think I prefer X86_STEPPING_ANY
+to X86_STEPPINGS_ALL.
 
-Though maybe actually useful to see flags etc. in case some horrid
-corruption happened and maybe dump isn't valid? But then the dump assumes
-strict conditions to work so... can that happen?
+> Also perhaps use 0xffff as the value, allowing to drop part of the
+> conditional in x86_match_cpu()?
 
-> +	__dump_bad_page_map_pgtable(vma->vm_mm, addr);
->  	if (page)
-> -		dump_page(page, "bad pte");
-> +		dump_page(page, "bad page map");
->  	pr_alert("addr:%px vm_flags:%08lx anon_vma:%px mapping:%px index:%lx\n",
->  		 (void *)addr, vma->vm_flags, vma->anon_vma, mapping, index);
->  	pr_alert("file:%pD fault:%ps mmap:%ps mmap_prepare: %ps read_folio:%ps\n",
-> @@ -597,7 +655,7 @@ struct page *vm_normal_page(struct vm_area_struct *vma, unsigned long addr,
->  		if (is_zero_pfn(pfn))
->  			return NULL;
->
-> -		print_bad_pte(vma, addr, pte, NULL);
-> +		print_bad_page_map(vma, addr, pte_val(pte), NULL);
->  		return NULL;
->  	}
->
-> @@ -625,7 +683,7 @@ struct page *vm_normal_page(struct vm_area_struct *vma, unsigned long addr,
->
->  check_pfn:
->  	if (unlikely(pfn > highest_memmap_pfn)) {
-> -		print_bad_pte(vma, addr, pte, NULL);
-> +		print_bad_page_map(vma, addr, pte_val(pte), NULL);
+Interestingly, while it simplifies the C, it undoes most of the code
+generation improvements from switching | to ||.
 
-This is unrelated to your series, but I guess this is for cases where
-you're e.g. iomapping or such? So it's not something in the memmap but it's
-a PFN that might reference io memory or such?
+https://termbin.com/h0iu
 
->  		return NULL;
->  	}
->
-> @@ -654,8 +712,15 @@ struct page *vm_normal_page_pmd(struct vm_area_struct *vma, unsigned long addr,
->  {
->  	unsigned long pfn = pmd_pfn(pmd);
->
-> -	if (unlikely(pmd_special(pmd)))
-> +	if (unlikely(pmd_special(pmd))) {
-> +		if (vma->vm_flags & (VM_PFNMAP | VM_MIXEDMAP))
-> +			return NULL;
+By removing the "m->steppings &&", gcc has now hoisted the load of
+c->stepping out of the loop (in fact, the whole 1U << c->stepping
+calculation), but that's now resulted in a spill/restore of %rbx in the
+loop, and also doubled up most of the loop.  I have no idea what it's
+trying to do here...
 
-I guess we'll bring this altogether in a later patch with vm_normal_page()
-as getting a little duplicative :P
+>
+>>  #define X86_FEATURE_ANY X86_FEATURE_LM
+>>  
+>>  struct x86_cpu_id {
+>> -    uint16_t vendor;
+>> -    uint16_t family;
+>> +    uint8_t vendor;
+> Is shrinking this to 8 bits a good idea? We use 5 of them already. (Of
+> course we can re-enlarge later, if and when the need arises.)
 
-Makes me think that VM_SPECIAL is kind of badly named (other than fact
-'special' is nebulous and overloaded in general) in that it contains stuff
-that is -VMA-special but only VM_PFNMAP | VM_MIXEDMAP really indicates
-specialness wrt to underlying folio.
+It's the same size as cpuinfo_x86's field has been for 2 decades.
 
-Then we have VM_IO, which strictly must not have an associated page right?
-Which is the odd one out and I wonder if redundant somehow.
+>
+>> +    uint8_t family;
+> The family formula allows the value to be up to 0x10e. The return type
+> of get_cpu_family() is therefore wrong too, strictly speaking. As is
+> struct cpuinfo_x86's x86 field.
 
-Anyway stuff to think about...
+Again, this is the size of the field in cpuinfo_x86.  I don't think
+0x10e is anything we're going to have to worry about any time soon.
 
-> +		if (is_huge_zero_pfn(pfn))
-> +			return NULL;
-> +
-> +		print_bad_page_map(vma, addr, pmd_val(pmd), NULL);
->  		return NULL;
-> +	}
 >
->  	if (unlikely(vma->vm_flags & (VM_PFNMAP|VM_MIXEDMAP))) {
->  		if (vma->vm_flags & VM_MIXEDMAP) {
-> @@ -674,8 +739,10 @@ struct page *vm_normal_page_pmd(struct vm_area_struct *vma, unsigned long addr,
->
->  	if (is_huge_zero_pfn(pfn))
->  		return NULL;
-> -	if (unlikely(pfn > highest_memmap_pfn))
-> +	if (unlikely(pfn > highest_memmap_pfn)) {
-> +		print_bad_page_map(vma, addr, pmd_val(pmd), NULL);
->  		return NULL;
-> +	}
->
->  	/*
->  	 * NOTE! We still have PageReserved() pages in the page tables.
-> @@ -1509,7 +1576,7 @@ static __always_inline void zap_present_folio_ptes(struct mmu_gather *tlb,
->  		folio_remove_rmap_ptes(folio, page, nr, vma);
->
->  		if (unlikely(folio_mapcount(folio) < 0))
-> -			print_bad_pte(vma, addr, ptent, page);
-> +			print_bad_page_map(vma, addr, pte_val(ptent), page);
->  	}
->  	if (unlikely(__tlb_remove_folio_pages(tlb, page, nr, delay_rmap))) {
->  		*force_flush = true;
-> @@ -4507,7 +4574,8 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
->  		} else if (is_pte_marker_entry(entry)) {
->  			ret = handle_pte_marker(vmf);
->  		} else {
-> -			print_bad_pte(vma, vmf->address, vmf->orig_pte, NULL);
-> +			print_bad_page_map(vma, vmf->address,
-> +					   pte_val(vmf->orig_pte), NULL);
->  			ret = VM_FAULT_SIGBUS;
->  		}
->  		goto out;
-> --
-> 2.50.1
->
+>>      uint16_t model;
+> Whereas the model is strictly limited to 8 bits.
+
+There is space in here, if we need it, but you can't shrink it without
+breaking the check for the NULL entry (going back to the first obfuscation).
+
+~Andrew
 
