@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFD11B0A13B
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 12:55:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1048456.1418683 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3CB9B0A146
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 12:55:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1048466.1418694 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucijn-0007Hs-Mr; Fri, 18 Jul 2025 10:54:47 +0000
+	id 1ucikX-0007lF-24; Fri, 18 Jul 2025 10:55:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1048456.1418683; Fri, 18 Jul 2025 10:54:47 +0000
+Received: by outflank-mailman (output) from mailman id 1048466.1418694; Fri, 18 Jul 2025 10:55:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucijn-0007FK-Jz; Fri, 18 Jul 2025 10:54:47 +0000
-Received: by outflank-mailman (input) for mailman id 1048456;
- Fri, 18 Jul 2025 10:54:46 +0000
+	id 1ucikW-0007jc-So; Fri, 18 Jul 2025 10:55:32 +0000
+Received: by outflank-mailman (input) for mailman id 1048466;
+ Fri, 18 Jul 2025 10:55:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=JDB3=Z7=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1ucijm-0007EW-8u
- for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 10:54:46 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=00bL=Z7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ucikV-0007EW-Gg
+ for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 10:55:31 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9cdb950b-63c5-11f0-a319-13f23c93f187;
- Fri, 18 Jul 2025 12:54:44 +0200 (CEST)
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-137-BIXEjuZkOHeV9vyt9ncM6w-1; Fri, 18 Jul 2025 06:54:42 -0400
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-455eda09c57so12929205e9.2
- for <xen-devel@lists.xenproject.org>; Fri, 18 Jul 2025 03:54:42 -0700 (PDT)
-Received: from ?IPV6:2003:d8:2f43:8900:f364:1333:2a67:d49e?
- (p200300d82f438900f36413332a67d49e.dip0.t-ipconnect.de.
- [2003:d8:2f43:8900:f364:1333:2a67:d49e])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4562e886104sm76981725e9.25.2025.07.18.03.54.38
+ id b8e571dc-63c5-11f0-a319-13f23c93f187;
+ Fri, 18 Jul 2025 12:55:31 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a6e2d85705so962432f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 18 Jul 2025 03:55:31 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3b61ca5c8besm1485206f8f.81.2025.07.18.03.55.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Jul 2025 03:54:39 -0700 (PDT)
+ Fri, 18 Jul 2025 03:55:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,215 +45,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9cdb950b-63c5-11f0-a319-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1752836083;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=9x+6SNZ1rUKJhJRi0vlqrQwvBIRb+ESC1w/j4s3Egps=;
-	b=UsxZeLdO9oSjDAlxPuDdH8yl32QLLuebbx9TRpKTZE0uGxmSG85wDv1ehjQpil4req4kkM
-	+tXPJkCvTFSChy3pV678zS5tGD/K3IEHLPG4AwmKRd5Jp+0VmKlKqp3DIBh12KeP07Nh07
-	xsjCRuTKARwoHI1Vm5alTGctdWQqXi0=
-X-MC-Unique: BIXEjuZkOHeV9vyt9ncM6w-1
-X-Mimecast-MFC-AGG-ID: BIXEjuZkOHeV9vyt9ncM6w_1752836081
+X-Inumbo-ID: b8e571dc-63c5-11f0-a319-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1752836130; x=1753440930; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=nenEj50t2AxHlce25v5gypGHM2miv7+I/R1SXQVAizk=;
+        b=SchNxD6g12i4iXhBTZlRwjSjQN0YRbLQ5VDnFuXUnr/dtfRWXo0bpRMGJ01e1NuWiR
+         12Lm5I3Sntnd2pEZwjnAe8Cksx/7z95dE5pOUrQjhxgiCpRk5njHjZfC69MQVvo4MJ4+
+         Zku+qz+l/sMfByOuEt8P/LGOdTPp5RytNJFbo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752836081; x=1753440881;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=9x+6SNZ1rUKJhJRi0vlqrQwvBIRb+ESC1w/j4s3Egps=;
-        b=HhqZGHxC+0xmmN2Ry3tUdp7JftCrC7B8yZ8wyqYtrC4bha7Bq/8XGWocdD/EzfCXle
-         qB95n4/PkDLjkvMEdYPxkIqH1uBD3lr43NOs66w7u5ssw5HXqBeL599DVqG2O3pt1cZR
-         wjTf2v0ZUIGeeMfpxzKnR4Zxh50VC/49haoBoo0nkPt88KEpUgrUmtJrVhPBBqoheddN
-         hwQMUUUStKEGOCgZD72oThzKSR59sFIsglMqP2dNRpCexHsGbAn4GryakqC7MIyghoZ/
-         JZyZPQ0wM1ZVsAU3GHcvuSWclXXiPnbe0Nkbd0d5FDAaWEvhV3PekDIbzx1Urp3FZkHM
-         ZBUg==
-X-Forwarded-Encrypted: i=1; AJvYcCWlXLySMTAcB1n0zO6RXbSWRz34NycmCnqySUf5PJFekXYN4jbY/BWch83tT3iZrse4irrOlpgWr+w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyYTIpyaAxcTG5Dd2gVkOY7mDyo5O+gGQ5taJ3Jm0FEMIyAs8KQ
-	KxR32KYoZ9dUkbaRbA2KTlys3UEyTC9NvD/4Sq/dFMqIzjx5Ft/lOGvBUeuuA7cSqBmMrXRJXgU
-	5jSuet8dJz/m7LUiSjT57oMR5IujQ5nRlmRJ+Rf0mtci2qJOcrX9dp7Mds/uyMqPHrbQd
-X-Gm-Gg: ASbGncsIs85VjscAJXoV0PcVmTgmqdgh0FXl8BLD6BN4ZVLwDu4NVBXysSOh/Xc0rO6
-	smc8oP9aNnrtrweOXw3ojuyC/hMwKdWZLTMYhv9SeExMk7qn54aymTbHlabZ1M/HuHZlmenAGd8
-	EZ93vD0+TyAlOJwUgzvkaoDtrU4yhbs8/PlhL3zTy+K15PI1ZCxkneGjCw+f3OVEiezqlnTGGWh
-	TJUPQm3k+Vty1FAySk3O62EgghVRm7O4nm548K4bLoCOeFWttt8Wp4YYOdwQozujlHIfLHCYXiV
-	DCoFExYsAFZ2aCNldUkaPvyuty3h3PLRe66vcRZQ8qndQAKpEy0NIhNGI79SMNdDMvXDHkRykco
-	NBxN/zP2fCV1N6W5H2EAXk0JboUjAJmWIBRgDoj2Q7quk2jL/7dZVG4RteOmE+eF/eOw=
-X-Received: by 2002:a05:600c:4e4a:b0:456:1f89:2483 with SMTP id 5b1f17b1804b1-4562e391fa5mr84761175e9.26.1752836081011;
-        Fri, 18 Jul 2025 03:54:41 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHjQqxYszJ86M7j2Ywj9XErK7h/2M4wutBxbbGwenrhGaPC0WvCUT5o+u11Z+VyIFbNK+nV8Q==
-X-Received: by 2002:a05:600c:4e4a:b0:456:1f89:2483 with SMTP id 5b1f17b1804b1-4562e391fa5mr84760905e9.26.1752836080442;
-        Fri, 18 Jul 2025 03:54:40 -0700 (PDT)
-Message-ID: <8292201e-0ca2-4a2a-b2a7-02391cbf7556@redhat.com>
-Date: Fri, 18 Jul 2025 12:54:38 +0200
+        d=1e100.net; s=20230601; t=1752836130; x=1753440930;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=nenEj50t2AxHlce25v5gypGHM2miv7+I/R1SXQVAizk=;
+        b=dSTBkOb8setAhcJwa3TAh3pH/biyKmbRHSRbRZeftyg/90QYtriThyHhS6WWhuj9pc
+         G08yuitimABb7MoZumCkkLUO7/b1ObcUdCpK+DTyD3N3TBg7Eucnh5JmHq8+xYueGiSO
+         05I/GYZKbGObo1GqR/ZHzTz7JlnP0JdjN/ukPrWeWDpGlAu1O9iJsOH3TD/Nkj2b+VYd
+         +kE+DtbubL5VVLm6OEnyQzmVbBGB19W4g4fRuYFbGHfOwO4bRj6EiIzEVxAfRYJMkt5d
+         F8ieXANsLpsUx4Qp8BIP1BD3OxEbuChWTFVoblUPJOn4EKglr1Vgq6dtaIOUyDK8AK77
+         w9wg==
+X-Forwarded-Encrypted: i=1; AJvYcCUXbozSoz3AAK8YkbSwxO7pAGBLOphF8DsIX/RO0fP//V+R/k0RS+8pw7N/rfrIFyWroBlqEfmkvJQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwjSi4hnzu9CIxIqa/3Lvv7vO11n/xJlqHuRwo6fZw2tAVoJX1c
+	n3Sq9imbO2CrUobVC9/6LHAmG8cwiYEIIoY3v4JnlkyChH9pz9lsa9AX07EQKnALcSU=
+X-Gm-Gg: ASbGnct8OmXdyNYUyPvn3DRpyg/HlI/yEGqH6MP7LloqQcGvLEUaT7U/B3bRIoMfSbB
+	C/hmxFgyMjLsCkSW/4sItcjA+KxClEyr7Ob1jtGylcUbNPzlyeDKjgO8m5tLHtwfM8RN4pU1CWT
+	A5cK7CuCDfBvgNR4ktKUabvS4nRls7OTUOS2jj4Im6It4Rjuq3NEnFPozoNilpcyFc2+7ArAArZ
+	zy60X81ghKVlMF78/lExFE9zwSpKkfpxKnoFtJIorPU2YoBcJ81GHOsseAkYmSQFcmMKuqfU1/N
+	cICYwkIZyw7bFfpfpSFjjNNfB5MsnBQ+cjq8Fl286UwjbgkAPCHzXk7Is0yS8iGOjrkoEvKMVWg
+	Fc1cKuGJdhCJwYYSgnDo/7/m2TRayWLS6FwQTDpyrmnNR3TrNWdHcyoI82B/xjYeEo0+l
+X-Google-Smtp-Source: AGHT+IEWifPwkUWsK17ZvWdp2j9X3XTH6GoTJIuSJs1lO0sp6QWT7LitgaeHDXVN/3Tu1a6AwxWNyg==
+X-Received: by 2002:a5d:5d0c:0:b0:3a8:30b8:cb93 with SMTP id ffacd0b85a97d-3b60dd95a75mr8812262f8f.32.1752836130390;
+        Fri, 18 Jul 2025 03:55:30 -0700 (PDT)
+Message-ID: <772fd747-199c-4635-9f35-91468b0d12e9@citrix.com>
+Date: Fri, 18 Jul 2025 11:55:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/9] mm/huge_memory: mark PMD mappings of the huge zero
- folio special
-To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- xen-devel@lists.xenproject.org, linux-fsdevel@vger.kernel.org,
- nvdimm@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
- Juergen Gross <jgross@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Dan Williams <dan.j.williams@intel.com>, Matthew Wilcox
- <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
- <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Hugh Dickins <hughd@google.com>, Oscar Salvador <osalvador@suse.de>,
- Lance Yang <lance.yang@linux.dev>
-References: <20250717115212.1825089-1-david@redhat.com>
- <20250717115212.1825089-6-david@redhat.com>
- <46c9a90c-46b8-4136-9890-b9b2b97ee1bb@lucifer.local>
- <7701f2e8-ae17-4367-b260-925d1d3cd4df@redhat.com>
- <9184274d-2ae8-4949-a864-79693308bf56@lucifer.local>
-From: David Hildenbrand <david@redhat.com>
-Autocrypt: addr=david@redhat.com; keydata=
- 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
- g3eXuA==
-Organization: Red Hat
-In-Reply-To: <9184274d-2ae8-4949-a864-79693308bf56@lucifer.local>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: h-wnRytN8_JnTw2UJ50pKnt9p85w5apNFDMQ1LhPa60_1752836081
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v1.1 6/6] x86/apic: Convert the TSC deadline errata table
+ to X86_MATCH_*()
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250716173132.2213891-7-andrew.cooper3@citrix.com>
+ <20250718100739.2369750-1-andrew.cooper3@citrix.com>
+ <4de09b8d-d71d-439e-be1c-78044a3cad31@suse.com>
+ <9c820057-3e36-45dc-b71a-95c9d2dc4398@citrix.com>
+Content-Language: en-GB
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <9c820057-3e36-45dc-b71a-95c9d2dc4398@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 18.07.25 12:41, Lorenzo Stoakes wrote:
-> On Thu, Jul 17, 2025 at 10:31:28PM +0200, David Hildenbrand wrote:
->> On 17.07.25 20:29, Lorenzo Stoakes wrote:
->>> On Thu, Jul 17, 2025 at 01:52:08PM +0200, David Hildenbrand wrote:
->>>> The huge zero folio is refcounted (+mapcounted -- is that a word?)
->>>> differently than "normal" folios, similarly (but different) to the ordinary
->>>> shared zeropage.
+On 18/07/2025 11:23 am, Andrew Cooper wrote:
+> On 18/07/2025 11:19 am, Jan Beulich wrote:
+>> On 18.07.2025 12:07, Andrew Cooper wrote:
+>>> With the ability to match on steppings, introduce a new X86_MATCH_VFMS()
+>>> helper to match a specific stepping, and use it to rework deadline_match[].
 >>>
->>> Yeah, I sort of wonder if we shouldn't just _not_ do any of that with zero
->>> pages?
->>
->> I wish we could get rid of the weird refcounting of the huge zero folio and
->> get rid of the shrinker. But as long as the shrinker exists, I'm afraid that
->> weird per-process refcounting must stay.
-> 
-> Does this change of yours cause any issue with it? I mean now nothing can grab
-> this page using vm_normal_page_pmd(), so it won't be able to manipulate
-> refcounts.
-
-Please look again at vm_normal_page_pmd(): we have a manual 
-huge_zero_pfn() check in there! There is no change in behavior. :)
-
-It's not obvious from the diff below. But huge zero folio was considered 
-special before this change, just not marked accordingly.
-
->>
+>>> Notably this removes the overloading of driver_data possibly being a function
+>>> pointer, and removes the latent bug where the target functions are missing
+>>> ENDBR instructions owing to the lack of the cf_check attribute.
 >>>
->>>>
->>>> For this reason, we special-case these pages in
->>>> vm_normal_page*/vm_normal_folio*, and only allow selected callers to
->>>> still use them (e.g., GUP can still take a reference on them).
->>>>
->>>> vm_normal_page_pmd() already filters out the huge zero folio. However,
->>>> so far we are not marking it as special like we do with the ordinary
->>>> shared zeropage. Let's mark it as special, so we can further refactor
->>>> vm_normal_page_pmd() and vm_normal_page().
->>>>
->>>> While at it, update the doc regarding the shared zero folios.
+>>> No functional change.
 >>>
->>> Hmm I wonder how this will interact with the static PMD series at [0]?
->>
->> No, it shouldn't.
-> 
-> I'm always nervous about these kinds of things :)
-> 
-> I'm assuming the reference/map counting will still work properly with the static
-> page?
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> Thanks.
 
-Let me stress again: no change in behavior besides setting the special 
-flag in this patch. Return value of vm_normal_page_pmd() is not changed.
+Actually, this isn't as no-functional-change as I thought.
 
->>>
->>> Also, that series was (though I reviewed against it) moving stuff that
->>> references the huge zero folio out of there, but also generally allows
->>> access and mapping of this folio via largest_zero_folio() so not only via
->>> insert_pmd().
->>>
->>> So we're going to end up with mappings of this that are not marked special
->>> that are potentially going to have refcount/mapcount manipulation that
->>> contradict what you're doing here perhaps?
->>
->> I don't think so. It's just like having the existing static (small) shared
->> zeropage where the same rules about refcounting+mapcounting apply.
-> 
-> It feels like all this is a mess... am I missing something that would make it
-> all make sense?
+X86_FEATURE_TSC_DEADLINE has been swapped for X86_FEATURE_ANY in the table.
 
-Let me clarify:
+check_deadline_errata() is called unconditionally, without checking for
+TSC_DEADLINE, yet the rows in the table are the CPUs for which an
+erratum is known, so they all have the feature.
 
-The small zeropage is never refcounted+mapcounted when mapped into page 
-tables.
+It does make a difference if e.g. one were to boot with
+cpuid=no-tsc-deadline.  Previously we'd have exited early, while now
+we'll emit the warning.
 
-The huge zero folio is never refcounted+mapcounted when mapped into page 
-tables EXCEPT it is refcounted in a weird different when first mapped 
-into a process.
+We could switch back to using TSC_DEADLINE (requiring a more complicated
+X86_MATCH_*() wrapper), although a better option would be to predicate
+the call to check_deadline_errata() with a feature check, because it's a
+much more recent addition to AMD CPUs, and there's no point searching
+the errata list on CPUs which lack the feature.
 
-The whole reason is the shrinker. I don't like it, but there was a 
-reason it was added. Maybe that reason no longer exists, but that's 
-nothing that this patch series is concerned with, really. :)
+Thoughts?
 
--- 
-Cheers,
-
-David / dhildenb
-
+~Andrew
 
