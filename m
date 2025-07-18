@@ -2,47 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 454D9B0A4F7
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 15:21:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1048746.1418928 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A425CB0A52B
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 15:28:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1048759.1418938 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucl15-0005vr-O3; Fri, 18 Jul 2025 13:20:47 +0000
+	id 1ucl8Y-0007La-FG; Fri, 18 Jul 2025 13:28:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1048746.1418928; Fri, 18 Jul 2025 13:20:47 +0000
+Received: by outflank-mailman (output) from mailman id 1048759.1418938; Fri, 18 Jul 2025 13:28:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucl15-0005sr-Kb; Fri, 18 Jul 2025 13:20:47 +0000
-Received: by outflank-mailman (input) for mailman id 1048746;
- Fri, 18 Jul 2025 13:20:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ucl8Y-0007Ij-BX; Fri, 18 Jul 2025 13:28:30 +0000
+Received: by outflank-mailman (input) for mailman id 1048759;
+ Fri, 18 Jul 2025 13:28:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=BvrW=Z7=redhat.com=armbru@srs-se1.protection.inumbo.net>)
- id 1ucl14-0005ok-CQ
- for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 13:20:46 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 02b42dac-63da-11f0-a319-13f23c93f187;
- Fri, 18 Jul 2025 15:20:45 +0200 (CEST)
-Received: from mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-271-FUfV3S9VPZOmC6VxTQqPtg-1; Fri,
- 18 Jul 2025 09:20:41 -0400
-Received: from mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.15])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-04.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 7E37719560B0; Fri, 18 Jul 2025 13:20:39 +0000 (UTC)
-Received: from blackfin.pond.sub.org (unknown [10.45.242.6])
- by mx-prod-int-02.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 7F3211956089; Fri, 18 Jul 2025 13:20:38 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id D7E3521E6A27; Fri, 18 Jul 2025 15:20:35 +0200 (CEST)
+ (envelope-from <SRS0=RNMk=Z7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ucl8W-0007Id-W8
+ for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 13:28:29 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 14281c89-63db-11f0-b894-0df219b8e170;
+ Fri, 18 Jul 2025 15:28:23 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-60c51860bf5so3718236a12.1
+ for <xen-devel@lists.xenproject.org>; Fri, 18 Jul 2025 06:28:23 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aec6ca31defsm121273966b.95.2025.07.18.06.28.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 18 Jul 2025 06:28:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,151 +45,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 02b42dac-63da-11f0-a319-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1752844844;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=68W9yzqtFsW0VxKEaV3yswPscmmP+Yic6VNEdXLRrZI=;
-	b=C0yEULgAylexhhx0QjBAshMDVHaHu3GxGo4ZY9Wa5FeIjzbGXohNIwi7ClvRRI5VsUavrw
-	QFnl6xmKTrWJ0QojRehhHyGlc7m/JAIJx/0BPvqAKMc3SaNnMVcxpziF7/0sOmpuRK/E8i
-	PzpWzrde2ZqXn4RROOwZjI4tXdC4um4=
-X-MC-Unique: FUfV3S9VPZOmC6VxTQqPtg-1
-X-Mimecast-MFC-AGG-ID: FUfV3S9VPZOmC6VxTQqPtg_1752844839
-From: Markus Armbruster <armbru@redhat.com>
-To: Daniel P. =?utf-8?Q?Berrang=C3=A9?= <berrange@redhat.com>
-Cc: Adam Williamson <awilliam@redhat.com>,  qemu-devel@nongnu.org,  Paul
- Durrant <paul@xen.org>,  xen-devel@lists.xenproject.org,  Stefano
- Stabellini <sstabellini@kernel.org>,  "Edgar E. Iglesias"
- <edgar.iglesias@gmail.com>,  Anthony PERARD <anthony@xenproject.org>
-Subject: Re: [PATCH] xen/passthrough: add missing error-report include
-In-Reply-To: <aHoJsmB6BT86sdv3@redhat.com> ("Daniel P. =?utf-8?Q?Berrang?=
- =?utf-8?Q?=C3=A9=22's?= message of
-	"Fri, 18 Jul 2025 09:45:38 +0100")
-References: <20250717220207.171040-1-awilliam@redhat.com>
-	<87v7nqgk21.fsf@pond.sub.org> <87ikjqght5.fsf@pond.sub.org>
-	<aHoJsmB6BT86sdv3@redhat.com>
-Date: Fri, 18 Jul 2025 15:20:35 +0200
-Message-ID: <87h5z9eiu4.fsf@pond.sub.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+X-Inumbo-ID: 14281c89-63db-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1752845303; x=1753450103; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=bYC7HA2wDATmo85CNtx+jcKbD9kuYuu66hl5k9zYAdY=;
+        b=gdIFso238ZEc/0Mv5aIIK6WgaL/aiLiQmFQ8sGPGS9UBipQLe3KoNIPMnCdEUbkctD
+         Cp5AzZWnbjLwNvwUYyVDgGLQykxWRVpvqwutY+zKD3G7hxzriU13FgrZJBdozuf8koXQ
+         6z88aTYPs2W2DOb4yQB9Y3DPrQjEDS1uhMDrc4hCeXWLsIVHMd6869QGSktF7m9tYWdv
+         XSBRngpEPCMQMytGKNvTLvwOMgIeDEdYc8JvbnrobDre7aNXtKTmimDB3pPwe5Wj59ja
+         i7Vi1yf9ThRVaGPBIlY3SupQ6/R0+L+EJlay9JpURGy6XtnR/MDHvrA/rITL5L42DMCK
+         e1CA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1752845303; x=1753450103;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bYC7HA2wDATmo85CNtx+jcKbD9kuYuu66hl5k9zYAdY=;
+        b=faXv4lyAX6n2DOWysK6eGsqzWuYnESymlv23YYrjrF2pfFyWBAy/KdrWfp20FMdtRd
+         z13x4jrPNXQ7yIFLjhffl+OBY9VF1TFQsV8D6REIJIaidqmycqmlJq66ZzPWMz0fmOd+
+         ImSZy2ZKci+MFVVjHO54lvdF1eKh0F8aZ7R4sXuUackkABw60IVT9G0Z4pQ6Of2z5UtK
+         V28F/OKXw3ZkFhhX556YT4aCDXWgUQ8kDDegi27B6kyvJXqbwp0b4obfcMo3ETY+b95V
+         e1foCWX7cFc2d8EP3tKP2mMknCHRRuRWRdC1q5uBSacs7ouPL6JT2AZ/9g05npbXE61B
+         nfBw==
+X-Forwarded-Encrypted: i=1; AJvYcCVcSwE2Xez2iM4VCaMl2CmOGzkJex1BFkS5OzaVcizMnYpSCIas0nkZcWandVzeH9pa2uUktec1v0o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw71g7Hxk3Tk7IL2FlGSO2Y33TpRvcUnYUI03YSUOIQlOUJ1dgX
+	ZtU2YYcGmoQadMjpzQTf3ggDBodtJ+fgiwEnHdHZwO5RQEITTCMThl/cCjzfkKs3gg==
+X-Gm-Gg: ASbGncuqFq2BD59/RsE982lyuRiqSD92KuxEGLB3jFG6qDwmEhvHuB7roBeDAoIF1Ug
+	UOCZVT40uxV1JnpZsfi4nO49zFvkuRrRH4v36WNcGewJJ2D2AGCph0qxA381VrWblEtGQ2F9lxp
+	BR7ciBE+XjYQcRMimkpgEPEsqXhhOqy4Ar5+O5tKYhj+JeVDch8669n6CQhmTxKrISmN2akTsU0
+	i2fCkYRSvTOkxy992llykEMmvbaOHcIBqJKl++pD2Vy6DrDinYLRrRCAx92rwjWHLdb59XWoe3C
+	pFzWFfimUYtmBCny1qshoTJ4AsVMNazjwTNXjqsAP7y83jVgjZN8gDs1P6cv5WRB0eQxkdqpwQv
+	kN55uGfX+r6D6XDFjpPN6LzVEP0fKdejIwkkNmpy2xCS4QXOdFe+6rkFfbIbgYrfd3bVx/2Ypgi
+	CaWstHF1A=
+X-Google-Smtp-Source: AGHT+IFc+nPMAINYmj2FNm1MI7Ghp4kdfZ10UAkb6RqDo9J7O/en5n2klfUAnHiyjrwiiBET2hez9Q==
+X-Received: by 2002:a17:906:68d2:b0:ae0:da2f:dcf3 with SMTP id a640c23a62f3a-ae9c9be2d5dmr928860366b.59.1752845303019;
+        Fri, 18 Jul 2025 06:28:23 -0700 (PDT)
+Message-ID: <48e1c298-0afb-40a3-80a0-a5b97465ce4e@suse.com>
+Date: Fri, 18 Jul 2025 15:28:21 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.15
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/6] x86/match-cpu: Support matching on steppings
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250716173132.2213891-1-andrew.cooper3@citrix.com>
+ <20250716173132.2213891-6-andrew.cooper3@citrix.com>
+ <a6abcc07-535f-433b-948a-702dc33093fa@suse.com>
+ <03ecaa72-2370-47f7-b84b-83831d188f4e@citrix.com>
+ <29cb9771-ee2a-4c7d-b661-74b37728bc2f@suse.com>
+ <3cefd149-505f-4e29-8018-492886050c6f@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <3cefd149-505f-4e29-8018-492886050c6f@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Daniel P. Berrang=C3=A9 <berrange@redhat.com> writes:
+On 18.07.2025 12:29, Andrew Cooper wrote:
+> On 18/07/2025 6:53 am, Jan Beulich wrote:
+>> On 17.07.2025 21:39, Andrew Cooper wrote:
+>>> On 17/07/2025 9:11 am, Jan Beulich wrote:
+>>>> On 16.07.2025 19:31, Andrew Cooper wrote:
+>>>>> --- a/xen/arch/x86/cpu/common.c
+>>>>> +++ b/xen/arch/x86/cpu/common.c
+>>>>> @@ -1003,13 +1003,15 @@ const struct x86_cpu_id *x86_match_cpu(const struct x86_cpu_id table[])
+>>>>>  	const struct x86_cpu_id *m;
+>>>>>  	const struct cpuinfo_x86 *c = &boot_cpu_data;
+>>>>>  
+>>>>> -	for (m = table; m->vendor | m->family | m->model | m->feature; m++) {
+>>>>> +	for (m = table; m->vendor | m->family | m->model | m->steppings | m->feature; m++) {
+>>>> Nit: Line length. But - do we need the change at all? It looks entirely
+>>>> implausible to me to use ->steppings with all of vendor, family, and
+>>>> model being *_ANY (if, as per below, they would be 0 in the first place).
+>>> I do keep on saying that | like this is pure obfuscation.  This is an
+>>> excellent example.
+>>>
+>>> It's looking for the {} entry, by looking for 0's in all of the metadata
+>>> fields.  A better check would be *(uint64_t *)m, or perhaps a unioned
+>>> metadata field, but..
+>>>
+>>> This is also a good demonstration of binary | is a bad thing to use, not
+>>> only for legibility.  Swapping | for || lets the compiler do:
+>>>
+>>> add/remove: 0/0 grow/shrink: 0/1 up/down: 0/-76 (-76)
+>>> Function                                     old     new   delta
+>>> x86_match_cpu                                243     167     -76
+>>>
+>>> and the code generation looks much better too:
+>> Feel free to switch to ||. (The use of | producing worse code is clearly
+>> a weakness of the compiler. Especially when used on non-adjacent fields
+>> I expect | to be quite a bit better, first and foremost by ending up
+>> with just a single conditional branch. Sadly I haven't seen compilers
+>> do such a transformation for us.)
+>>
+>> All of your reply doesn't address my remark regarding whether to check
+>> ->steppings here, though. (And no, whether to check it shouldn't be
+>> [solely] justified by the compiler generating better code that way.)
+> 
+> Well, as stated: "It's looking for the {} entry, by looking for 0's in
+> all of the metadata fields."
+> 
+> The intended usage of ->steppings, or ->feature for that matter, is not
+> relevant to the loop termination condition, which is simply "is all the
+> metadata 0".
+> 
+>>>>>      uint16_t model;
+>>>> Whereas the model is strictly limited to 8 bits.
+>>> There is space in here, if we need it, but you can't shrink it without
+>>> breaking the check for the NULL entry (going back to the first obfuscation).
+>> Breaking? Or merely affecting code generation in a negative way?
+> 
+> Shrinking model without adding (and checking) a new field would mean the
+> loop condition no longer covers all metadata.
 
-> On Fri, Jul 18, 2025 at 07:59:50AM +0200, Markus Armbruster wrote:
->> Markus Armbruster <armbru@redhat.com> writes:
->>=20
->> > Adam Williamson <awilliam@redhat.com> writes:
->> >
->> >> In cfcacba an `error_report` was added to this file, but the
->> >> corresponding include of `qemu/error-report.h` was missed. This
->> >> only becomes apparent when building against Xen 4.20+.
->> >>
->> >> Signed-off-by: Adam Williamson <awilliam@redhat.com>
->> >> ---
->> >>  hw/xen/xen_pt.c | 1 +
->> >>  1 file changed, 1 insertion(+)
->> >>
->> >> diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
->> >> index 9d16644d82..006b5b55f2 100644
->> >> --- a/hw/xen/xen_pt.c
->> >> +++ b/hw/xen/xen_pt.c
->> >> @@ -54,6 +54,7 @@
->> >>=20=20
->> >>  #include "qemu/osdep.h"
->> >>  #include "qapi/error.h"
->> >> +#include "qemu/error-report.h"
->> >>  #include <sys/ioctl.h>
->> >>=20=20
->> >>  #include "hw/pci/pci.h"
->> >
->> > Uh, error-report.h is included without this for me.  To see, build with
->> > -H:
->> >
->> > . /work/armbru/qemu/hw/xen/xen_pt.h
->> > .. /work/armbru/qemu/include/hw/xen/xen_native.h
->> > ... /work/armbru/qemu/hw/xen/trace.h
->> > .... ./trace/trace-hw_xen.h
->> > ..... /work/armbru/qemu/include/qemu/error-report.h
->>=20
->> Just remembered: the generated trace header includes error-report.h only
->> when trace's log backend is enabled.
->
-> Hmm, that's rather an unfortunate trap-door :-( Given that 'log' is enabl=
-ed
-> by default when building from git we'll never see missing error-report.h
-> problems in daily work.
+And it doesn't strictly need to. It needs to check enough to not mistake a
+valid entry for a sentinel one.
 
-Correct.
-
-> Looking at the log backend it appears that originally it would
-> unconditionally include the timestamp when calling qemu_log, but
-> then changed that to opt-in with
->
->   commit 418ed14268f797a5142b60cd557cd598eb548c66
->   Author: Stefan Hajnoczi <stefanha@redhat.com>
->   Date:   Mon Jan 25 11:35:07 2021 +0000
->
->     trace: make the 'log' backend timestamp configurable
->
-> requiring -msg timestamp=3Don, which was a pre-existing flag that already
-> did a similar toggle for the 'error_report' function. The goal makes
-> sense, but it introduced the error-report.h trap door
->
-> When I see that I also question why the 'log' backend should be a
-> special case user of qemu_log() ?  Why shouldn't we emit timestamps
-> for all usage of qemu_log() ?
->
-> If we changed the qemu_log impl to honour the timestamp toggle, then
-> all users of qemu_log benefit. We then eliminate error-report.h usage
-> in trace.h headers, and also cut the code size for trace points
-> significantly
->
->
-> static inline void _nocheck__trace_object_dynamic_cast_assert(const char =
-* type, const char * target, const char * file, int line, const char * func)
-> {
->     if (trace_event_get_state(TRACE_OBJECT_DYNAMIC_CAST_ASSERT) && qemu_l=
-oglevel_mask(LOG_TRACE)) {
->         if (message_with_timestamp) {
->             struct timeval _now;
->             gettimeofday(&_now, NULL);
->             qemu_log("%d@%zu.%06zu:object_dynamic_cast_assert " "%s->%s (=
-%s:%d:%s)" "\n",
->                      qemu_get_thread_id(),
->                      (size_t)_now.tv_sec, (size_t)_now.tv_usec
->                      , type, target, file, line, func);
->         } else {
->             qemu_log("object_dynamic_cast_assert " "%s->%s (%s:%d:%s)" "\=
-n", type, target, file, line, func);
->         }
->     }
-> }
->
-> down to
->
->
-> static inline void _nocheck__trace_object_dynamic_cast_assert(const char =
-* type, const char * target, const char * file, int line, const char * func)
-> {
->     if (trace_event_get_state(TRACE_OBJECT_DYNAMIC_CAST_ASSERT) && qemu_l=
-oglevel_mask(LOG_TRACE)) {
->             qemu_log("object_dynamic_cast_assert " "%s->%s (%s:%d:%s)" "\=
-n", type, target, file, line, func);
->     }
-> }
->
-> which feels more in keeping with the kind of level of complexity you shou=
-ld
-> want to be inlined in trace callers.
-
-Oh yes.  We should do this even if we find a reason for keeping
-qemu_log() as it is.  The obvious way would be a new function
-qemu_log_with_timestamp().
-
+Jan
 
