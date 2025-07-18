@@ -2,40 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8874AB09C41
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 09:19:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1048065.1418374 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71D67B09CEB
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 09:45:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1048100.1418401 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucfNK-0000bT-63; Fri, 18 Jul 2025 07:19:22 +0000
+	id 1ucflq-0005KK-C3; Fri, 18 Jul 2025 07:44:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1048065.1418374; Fri, 18 Jul 2025 07:19:22 +0000
+Received: by outflank-mailman (output) from mailman id 1048100.1418401; Fri, 18 Jul 2025 07:44:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucfNK-0000a2-3I; Fri, 18 Jul 2025 07:19:22 +0000
-Received: by outflank-mailman (input) for mailman id 1048065;
- Fri, 18 Jul 2025 07:19:21 +0000
+	id 1ucflq-0005HD-8x; Fri, 18 Jul 2025 07:44:42 +0000
+Received: by outflank-mailman (input) for mailman id 1048100;
+ Fri, 18 Jul 2025 07:44:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=HzjL=Z7=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1ucfNJ-0000Zw-6S
- for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 07:19:21 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ (envelope-from <SRS0=JDB3=Z7=redhat.com=david@srs-se1.protection.inumbo.net>)
+ id 1ucflo-0005Gc-Q7
+ for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 07:44:40 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 85502979-63a7-11f0-a319-13f23c93f187;
- Fri, 18 Jul 2025 09:19:19 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-451d3f72391so16864105e9.3
- for <xen-devel@lists.xenproject.org>; Fri, 18 Jul 2025 00:19:19 -0700 (PDT)
-Received: from ?IPV6:2003:e5:8709:f00:6357:915b:11f9:6d20?
- (p200300e587090f006357915b11f96d20.dip0.t-ipconnect.de.
- [2003:e5:8709:f00:6357:915b:11f9:6d20])
+ id 0e1f4fcf-63ab-11f0-a319-13f23c93f187;
+ Fri, 18 Jul 2025 09:44:38 +0200 (CEST)
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-558-NMLy0bOFPl2MYSMexPiNPg-1; Fri, 18 Jul 2025 03:44:35 -0400
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-3a4f6ba526eso1058887f8f.1
+ for <xen-devel@lists.xenproject.org>; Fri, 18 Jul 2025 00:44:35 -0700 (PDT)
+Received: from ?IPV6:2003:d8:2f43:8900:f364:1333:2a67:d49e?
+ (p200300d82f438900f36413332a67d49e.dip0.t-ipconnect.de.
+ [2003:d8:2f43:8900:f364:1333:2a67:d49e])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4562e8018a4sm70680655e9.9.2025.07.18.00.19.18
+ ffacd0b85a97d-3b61ca4d732sm1048555f8f.61.2025.07.18.00.44.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Jul 2025 00:19:18 -0700 (PDT)
+ Fri, 18 Jul 2025 00:44:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,233 +51,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85502979-63a7-11f0-a319-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752823159; x=1753427959; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=IkVYWp4BBcxWmHyoc2+cEMQtbG6nVF7mKveCM9SBbw8=;
-        b=SlrBVkEwrkEtfj4vmonKqUQluU0xVnSuww+RQNv+P3X7WLJ7UMHm6rLG9VTMaIvzuH
-         xnlO3c++JegAXeFUp+br3dQJO3Eqx49GRZSuSKziyjmIHAJVAhRfLploLRE8UC6Hgrbu
-         uaR6tIovnoNgoK9qZmzrSkiz92Oyf9M9Jfgn0jVaAlMhnd8Gza0PAJ2KpbYmeMBuA2Yj
-         g6unr1jAZH5jRGkYRlr/6aVFEmDjPpwKQ1KRcmMTabfDiBpJbfa0q19Z73Q5qbFUAVVd
-         JwmVTh/DlN2KY9eZ7n8/zY3QvPFinVKRnVX96/qCSoDLIAyU2MuF9RPf4dNHeDkrUUIo
-         STaQ==
+X-Inumbo-ID: 0e1f4fcf-63ab-11f0-a319-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1752824677;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=qGtC2UAOiEHDc/WZSgt5GQzm+DwTH4N8cwGDpL/GTcQ=;
+	b=RaWsIrzToo8lu96C1qh4OphmG0pYaKa5B9eQJPHqDD0ziJ+EgTp61FNf492oIxmM+ElBMT
+	EHWRiRVOe1tS/AL3uXHxCQxuFHaLBO2xjsfuY0wP/zUhrYECliytqJwins+MOfxkUMhnvo
+	5P0f2wpjeVsxkj0Hosy1Sj5bN+K0WaY=
+X-MC-Unique: NMLy0bOFPl2MYSMexPiNPg-1
+X-Mimecast-MFC-AGG-ID: NMLy0bOFPl2MYSMexPiNPg_1752824675
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752823159; x=1753427959;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=IkVYWp4BBcxWmHyoc2+cEMQtbG6nVF7mKveCM9SBbw8=;
-        b=OxQPfxbAPPdhoM2zQWTC3pz3Qn+zfXpHq5X9zGSFM479xq7WjQlPkots5lxOXyEY2K
-         AFe3L9kJsxljkz7AsTOyc1u5QRUNgeNZMZ4dwCPYQxvowN5mAiDy8XICHMTzMmJs3MwZ
-         vXFbQ/3TPTAbrGFPi+jMJ5y68iFZ2fRby7pHEfaJ33WVxSg7UhOR1ZgSS69yils0m6wq
-         6tFFJ5fGaZvTkeHAgNYNOT1e+bXpbklKwH/aO7JvWZNO8FrIVrPj+IGgJUp/n1UNTLhl
-         79KRNWY5a1tnzWxG+9NIWeCDPWjDgO6c2MZr8AsoxPjJWthqNR0VwFM8IZ7V2eTV1Dax
-         JnvA==
-X-Forwarded-Encrypted: i=1; AJvYcCU3R/inRmdluHGW1NYIu7u0BRs08XBRh3jemi8LzglEnvPcEGJtg981c4LN1bIct3SEasCof/3HkD0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyK0GCEnczJzd0GjbM3wOkVMFDB0VqZVGTCYRFN1L/dayRPHizW
-	4h7yEEJtguKdjpRg0a18DL2iBOj5AQgM2qXcChEJtsKwufT50L+5ZAC9PIG7NyawR+w=
-X-Gm-Gg: ASbGncv0h9e4dhDpYLUIlWnt6q+QNEsh6gEVBVre1GE5Lnuef+5CvnfKz33aOT32rGT
-	9Vib1Dl4sG1Lg8EWNoEONClJHRBpLOYpLha/2GbWMYoiuf9SsTqByIhiHmL4bEbavpbUap8FRbK
-	1Cc/l9ADwiuG+BjMqXXd+uqxTqwQcQkm/Eu9mAe4vFqrPlvoujibMPBx1xBeq7aq/t69Ab3XQNb
-	ZQ4mjUBhstJ9e6br1zrDSRfvn8/O/78RhRzdkwUEKOdEaUUyOjdbGnxsSeQAGF+oPFVNFRMuzPY
-	ekwLt6hx2Ximi6H7/hOKEV5buNdgQH99cN8TShcaYW6VwSm20EsR4zRZyWoauHPNH/tK5bXE5Z2
-	MOPKdriw2XtZczI9Za1lUJxhPqTpF4ixlG5nKUb+CQw+e98Wmclqqt6i+YgB8ZYgnW+T1Ti1QXm
-	5e0bD6UFS+JoG4IEsZU2FoXXKxPNy+T4dRoJfvSCHWHD4N
-X-Google-Smtp-Source: AGHT+IFf1NaaVxNM20rAf6mY3dCCqWB+DbMybfAW7ZG3zy7W2daEjP9PnDc6V7BN0i7/PFXwSHPVOQ==
-X-Received: by 2002:a05:600c:a305:b0:453:8bc7:5e53 with SMTP id 5b1f17b1804b1-4562e853505mr80793365e9.0.1752823159010;
-        Fri, 18 Jul 2025 00:19:19 -0700 (PDT)
-Message-ID: <4f54ed1a-e265-43db-b4f2-f3c0d3b3dd00@suse.com>
-Date: Fri, 18 Jul 2025 09:19:17 +0200
+        d=1e100.net; s=20230601; t=1752824674; x=1753429474;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:from:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=qGtC2UAOiEHDc/WZSgt5GQzm+DwTH4N8cwGDpL/GTcQ=;
+        b=aKv6KmLRTXQP9uF7npkHCeKQuvhu3sR+G/G1hCzHlzXW9EgiJRCXiNDEkn7+1HawAD
+         SHSlnV0/Sc/J+XYOIttKJ9Y2PIT+IwAqdEUpvhipnBjxb+NkBitURQYRzuQk8lU8r5NW
+         mbkwkRuj+dxuEe/1jHV6HvWgXpVqtdKWaJcx/Vdx7UamRIEqDdO2Gj42UJPUPWwZfbM2
+         W60MiRH5iL/benE7uz9wjonjJK5Xx3l8IuytahLJB90HUKBXYgZiYL4M/EyyLuKqBxlm
+         uR9zCczG54D66A6bMobnBixwhCe1sgo/iiw8CVmlffGDwvTqiiPMu0FhbvG8F/2FVLB9
+         PmPw==
+X-Forwarded-Encrypted: i=1; AJvYcCXvx2nzHmd5KEPdGeFbOX3Bs89+xtFiAJ1dBK3TaImoEkSEwUrHSfto2xoIuuP5oIxBJyjs3ktA6Sc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzsTSGAboCwED+rgTfoLOhiKxPD3kjO5YuR334SKj6pujxTlJJL
+	bgKc7yUvGtPB20jnsuTcC8SuUk8aGqbv38LQiPclxmqfiUXZToKOxqte3JJwsANKqaNXn5ZTQrJ
+	N0G2VLe4KnU3NoxYeLpj5/MRYJkh4W6v/sOi1rIExW+mJE3FwlGE5+KsxR7wbTKdUaDDJ
+X-Gm-Gg: ASbGncsOSA+uHrcFHVKJLsU6S2cD2mxAl8ViuBJz5N6tXXvH8FLVBPTfba9b2VuUeWC
+	oo+7ALvfT6jJcZN9BWUpS5o5kFEz367zjBKeFTuNqbERO6oRlVIFDZ7UY4DEQCIv1UwVkspsV6S
+	DqZGzJObYJbiKiXBi1QrKI/dbKrW/STAm5Oj53EMdKpoLm4otXC/PU3WL4LXOKmrZNCtVbyk2WB
+	RFGsg79y3I3kv7uJcaC3/7PEwd14wRY1OeiVmxIgjlPGXrBylyGtV02h6VZ0UJdiZTS9REEBluL
+	OXCiOBp5HSB12kmM6Y6kFBq+BcjEQ6wPEJhIv8B6HLjTOv20xDlGGgKBDIxhsKU4hPqWmqhYaBD
+	TMRA4qcxRcWuE8E3EdkEg6RzsYraw2/XtuS6s7PQyxZ8QxI/mTZ9YIejruaBCr20D/hs=
+X-Received: by 2002:a5d:5f08:0:b0:3a4:f8fa:8a3a with SMTP id ffacd0b85a97d-3b60e4c90dcmr5648649f8f.18.1752824674524;
+        Fri, 18 Jul 2025 00:44:34 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF0zLZpC0D/QOmV7CdR1EgXAVgv/zzqS+ak2er/pZh94lqsPj3d+RnROPTkQqniibLJJP6P6w==
+X-Received: by 2002:a5d:5f08:0:b0:3a4:f8fa:8a3a with SMTP id ffacd0b85a97d-3b60e4c90dcmr5648628f8f.18.1752824674000;
+        Fri, 18 Jul 2025 00:44:34 -0700 (PDT)
+Message-ID: <62cc8974-ddad-44a0-9f7c-e8a75a53ff99@redhat.com>
+Date: Fri, 18 Jul 2025 09:44:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/netfront: Fix TX response spurious interrupts
-To: Jakub Kicinski <kuba@kernel.org>,
- Anthoine Bourgeois <anthoine.bourgeois@vates.tech>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [PATCH v2 6/9] mm/memory: convert print_bad_pte() to
+ print_bad_page_map()
+To: Demi Marie Obenour <demiobenour@gmail.com>, linux-kernel@vger.kernel.org
+Cc: linux-mm@kvack.org, xen-devel@lists.xenproject.org,
+ linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev,
+ Andrew Morton <akpm@linux-foundation.org>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Wei Liu <wei.liu@kernel.org>, Paul Durrant <paul@xen.org>,
- xen-devel@lists.xenproject.org, netdev@vger.kernel.org,
- Elliott Mitchell <ehem+xen@m5p.com>
-References: <20250715160902.578844-2-anthoine.bourgeois@vates.tech>
- <20250717072951.3bc2122c@kernel.org>
+ Dan Williams <dan.j.williams@intel.com>, Matthew Wilcox
+ <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
+ <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Hugh Dickins <hughd@google.com>, Oscar Salvador <osalvador@suse.de>,
+ Lance Yang <lance.yang@linux.dev>
+References: <20250717115212.1825089-1-david@redhat.com>
+ <20250717115212.1825089-7-david@redhat.com>
+ <30268c21-a907-43d9-ac12-f6215cd95d03@gmail.com>
+From: David Hildenbrand <david@redhat.com>
+Autocrypt: addr=david@redhat.com; keydata=
+ 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
+ g3eXuA==
+Organization: Red Hat
+In-Reply-To: <30268c21-a907-43d9-ac12-f6215cd95d03@gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: -KChf1pH1QkXpXKFF6tLnzsLtlPKsPMN97fxfZu3ykM_1752824675
+X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20250717072951.3bc2122c@kernel.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------sNCzsxRw3QDQ2jmtij0pKYFY"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------sNCzsxRw3QDQ2jmtij0pKYFY
-Content-Type: multipart/mixed; boundary="------------jursEURXftlZrflz8W5Od1wX";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jakub Kicinski <kuba@kernel.org>,
- Anthoine Bourgeois <anthoine.bourgeois@vates.tech>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Wei Liu <wei.liu@kernel.org>, Paul Durrant <paul@xen.org>,
- xen-devel@lists.xenproject.org, netdev@vger.kernel.org,
- Elliott Mitchell <ehem+xen@m5p.com>
-Message-ID: <4f54ed1a-e265-43db-b4f2-f3c0d3b3dd00@suse.com>
-Subject: Re: [PATCH v2] xen/netfront: Fix TX response spurious interrupts
-References: <20250715160902.578844-2-anthoine.bourgeois@vates.tech>
- <20250717072951.3bc2122c@kernel.org>
-In-Reply-To: <20250717072951.3bc2122c@kernel.org>
-
---------------jursEURXftlZrflz8W5Od1wX
-Content-Type: multipart/mixed; boundary="------------TfPj7xlxFQkdadzaSCJS2aSk"
-
---------------TfPj7xlxFQkdadzaSCJS2aSk
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
 
-T24gMTcuMDcuMjUgMTY6MjksIEpha3ViIEtpY2luc2tpIHdyb3RlOg0KPiBPbiBUdWUsIDE1
-IEp1bCAyMDI1IDE2OjExOjI5ICswMDAwIEFudGhvaW5lIEJvdXJnZW9pcyB3cm90ZToNCj4+
-IEZpeGVzOiBiMjdkNDc5NTBlNDggKCJ4ZW4vbmV0ZnJvbnQ6IGhhcmRlbiBuZXRmcm9udCBh
-Z2FpbnN0IGV2ZW50IGNoYW5uZWwgc3Rvcm1zIikNCj4gDQo+IE5vdCBlbnRpcmVseSBzdXJl
-IHdobyB5b3UgZXhwZWN0IHRvIGFwcGx5IHRoaXMgcGF0Y2gsIGJ1dCBpZiBuZXR3b3JraW5n
-DQo+IHRoZW4gSSB3b3VsZG4ndCBjbGFzc2lmeSB0aGlzIGlzIGEgZml4LiBUaGUgInJlZ3Jl
-c3Npb24iIGhhcHBlbmVkIDQNCj4geWVhcnMgYWdvLiBBbmQgdGhpcyBwYXRjaCBkb2Vzbid0
-IHNlZW0gdG8gYmUgdHVuaW5nIHRoZSBsb2dpYyBhZGRlZCBieQ0KPiB0aGUgY2l0ZWQgY29t
-bWl0LiBJIHRoaW5rIHRoaXMgaXMgYW4gb3B0aW1pemF0aW9uLCAtbmV4dCBtYXRlcmlhbCwg
-YW5kDQo+IHRoZXJlZm9yZSB0aGVyZSBzaG91bGQgYmUgbm8gRml4ZXMgdGFnIGhlcmUuIFlv
-dSBjYW4gcmVmZXIgdG8gdGhlIGNvbW1pdA0KPiB3aXRob3V0IHRoZSB0YWcuDQoNCkkgdGhp
-bmsgaW4gdGhlIGVuZCBpdCBpcyBhIGZpeCBvZiB0aGUgaW5pdGlhbCB4ZW4tbmV0ZnJvbnQu
-YyBjb250cmlidXRpb24NCihjb21taXQgMGQxNjAyMTE5NjViKS4NCg0KSSdtIGZpbmUgdG8g
-Y2hhbmdlIHRoZSBGaXhlczogdGFnIGFuZCBhcHBseSB0aGUgcGF0Y2ggdmlhIHRoZSBYZW4g
-dHJlZS4NCg0KPiANCj4+IEBAIC04NDksOSArODQ3LDYgQEAgc3RhdGljIG5ldGRldl90eF90
-IHhlbm5ldF9zdGFydF94bWl0KHN0cnVjdCBza19idWZmICpza2IsIHN0cnVjdCBuZXRfZGV2
-aWNlICpkZXYNCj4+ICAgCXR4X3N0YXRzLT5wYWNrZXRzKys7DQo+PiAgIAl1NjRfc3RhdHNf
-dXBkYXRlX2VuZCgmdHhfc3RhdHMtPnN5bmNwKTsNCj4+ICAgDQo+PiAtCS8qIE5vdGU6IEl0
-IGlzIG5vdCBzYWZlIHRvIGFjY2VzcyBza2IgYWZ0ZXIgeGVubmV0X3R4X2J1Zl9nYygpISAq
-Lw0KPj4gLQl4ZW5uZXRfdHhfYnVmX2djKHF1ZXVlKTsNCj4+IC0NCj4+ICAgCWlmICghbmV0
-ZnJvbnRfdHhfc2xvdF9hdmFpbGFibGUocXVldWUpKQ0KPj4gICAJCW5ldGlmX3R4X3N0b3Bf
-cXVldWUobmV0ZGV2X2dldF90eF9xdWV1ZShkZXYsIHF1ZXVlLT5pZCkpOw0KPiANCj4gSSB0
-aG91Z2h0IG5vcm1hbGx5IHJlYXBpbmcgY29tcGxldGlvbnMgZnJvbSB0aGUgVHggcGF0aCBp
-cyBkb25lDQo+IHRvIHByZXZlbnQgdGhlIHF1ZXVlIGZyb20gZmlsbGluZyB1cCwgd2hlbiB0
-aGUgZGV2aWNlLWdlbmVyYXRlZA0KPiBjb21wbGV0aW9ucyBhcmUgc2xvdyBvciB0aGUgcXVl
-dWUgaXMgc2hvcnQuIEkgc2F5ICJub3JtYWxseSIgYnV0DQo+IHRoaXMgaXMgcmVsYXRpdmVs
-eSBhIHVuY29tbW9uIHRoaW5nIHRvIGRvIGluIG5ldHdvcmtpbmcuDQo+IE1heWJlIGl0J3Mg
-bXkgbGFjayBvZiBYZW4ga25vd2xlZGdlIGJ1dCBpdCB3b3VsZCBiZSBnb29kIHRvIGFkZCB0
-bw0KPiB0aGUgY29tbWl0IG1lc3NhZ2Ugd2h5IHRoZXNlIGNhbGxzIHdoZXJlIGhlcmUgaW4g
-dGhlIGZpcnN0IHBsYWNlLg0KDQpJIGd1ZXNzIHRoZSByZWFzb24gZm9yIHRoaXMgYWRkaXRp
-b24gaXMgdW5rbm93biAoc2luZ3VsYXIsIGFzIHRoZSBYRFAgcmVsYXRlZA0Kb25lIHdhcyBw
-cm9iYWJseSBqdXN0IGEgY29weS1hbmQtcGFzdGUpLCBhcyBpdCBoYXMgYmVlbiB0aGVyZSBz
-aW5jZSB0aGUgZmlyc3QNCnZlcnNpb24gb2YgdGhlIGRyaXZlci4NCg0KDQpKdWVyZ2VuDQo=
+On 18.07.25 00:06, Demi Marie Obenour wrote:
+> On 7/17/25 07:52, David Hildenbrand wrote:
+>> print_bad_pte() looks like something that should actually be a WARN
+>> or similar, but historically it apparently has proven to be useful to
+>> detect corruption of page tables even on production systems -- report
+>> the issue and keep the system running to make it easier to actually detect
+>> what is going wrong (e.g., multiple such messages might shed a light).
+>>
+>> As we want to unify vm_normal_page_*() handling for PTE/PMD/PUD, we'll have
+>> to take care of print_bad_pte() as well.
+>>
+>> Let's prepare for using print_bad_pte() also for non-PTEs by adjusting the
+>> implementation and renaming the function -- we'll rename it to what
+>> we actually print: bad (page) mappings. Maybe it should be called
+>> "print_bad_table_entry()"? We'll just call it "print_bad_page_map()"
+>> because the assumption is that we are dealing with some (previously)
+>> present page table entry that got corrupted in weird ways.
+>>
+>> Whether it is a PTE or something else will usually become obvious from the
+>> page table dump or from the dumped stack. If ever required in the future,
+>> we could pass the entry level type similar to "enum rmap_level". For now,
+>> let's keep it simple.
+>>
+>> To make the function a bit more readable, factor out the ratelimit check
+>> into is_bad_page_map_ratelimited() and place the dumping of page
+>> table content into __dump_bad_page_map_pgtable(). We'll now dump
+>> information from each level in a single line, and just stop the table
+>> walk once we hit something that is not a present page table.
+>>
+>> Use print_bad_page_map() in vm_normal_page_pmd() similar to how we do it
+>> for vm_normal_page(), now that we have a function that can handle it.
+>>
+>> The report will now look something like (dumping pgd to pmd values):
+>>
+>> [   77.943408] BUG: Bad page map in process XXX  entry:80000001233f5867
+>> [   77.944077] addr:00007fd84bb1c000 vm_flags:08100071 anon_vma: ...
+>> [   77.945186] pgd:10a89f067 p4d:10a89f067 pud:10e5a2067 pmd:105327067
+>>
+>> Not using pgdp_get(), because that does not work properly on some arm
+>> configs where pgd_t is an array. Note that we are dumping all levels
+>> even when levels are folded for simplicity.
+>>
+>> Signed-off-by: David Hildenbrand <david@redhat.com>
+> 
+> Should this still use a WARN?  If the admin sets panic-on-warn they
+> have asked for "crash if anything goes wrong" and so that is what
+> they should get.  Otherwise the system will still stay up.
 
---------------TfPj7xlxFQkdadzaSCJS2aSk
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+I assume you're comment is in context of the other proposal regarding 
+panicking.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+It's a good question whether we should WARN: likely we should convert 
+the "BUG:" ... message into a WARN. On panic-on-warn you'd panic 
+immediately without being able to observe any other such messages (and 
+as discussed in the RFC, apparently that can be valuable for debugging, 
+because a single such report is often insufficient)
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+But as panic-on-warn is "panic on the first sight of a problem", that 
+sounds right.
 
---------------TfPj7xlxFQkdadzaSCJS2aSk--
+That change should not be part of this patch, though.
 
---------------jursEURXftlZrflz8W5Od1wX--
+-- 
+Cheers,
 
---------------sNCzsxRw3QDQ2jmtij0pKYFY
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+David / dhildenb
 
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmh59XUFAwAAAAAACgkQsN6d1ii/Ey92
-HAf9FxknXo8ab3VlYhv5MGc+u+XcIvzXl29ETWThBwy4W0il7jnLJOdjyxJXJ7+4ljqWe61h7C9e
-ErndnSt3qCecLISI2eT8jnnrR6q9gMLtRkMdMsLR/kbhzueSqi+puiFMkPennx4eA0mCLLQL/4ZY
-DzNs5DJ9JL8ruOvzQ90lSfCoi7xZaFEsRCQnpqkoHHLgrKJ7TZNelsOdmzfaPtjYEaySpbqQv6uo
-cprBxLq5+3WBcKtJ5MHukMW3ZxHHvvClWRoWqk/3EeR75oIY8vrt6GP3kpIjdi6SCKqf3gTrebAV
-6fkqRG8sdkceEiTUpWmT2zeaR/xhQs4FOxWe1fYImA==
-=UdGc
------END PGP SIGNATURE-----
-
---------------sNCzsxRw3QDQ2jmtij0pKYFY--
 
