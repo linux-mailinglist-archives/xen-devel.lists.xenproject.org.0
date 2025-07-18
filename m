@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36D1AB0A60F
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 16:20:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1048844.1419061 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4CE8B0A674
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 16:38:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1048868.1419078 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uclwe-0006KN-1i; Fri, 18 Jul 2025 14:20:16 +0000
+	id 1ucmDt-0002Ve-9o; Fri, 18 Jul 2025 14:38:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1048844.1419061; Fri, 18 Jul 2025 14:20:16 +0000
+Received: by outflank-mailman (output) from mailman id 1048868.1419078; Fri, 18 Jul 2025 14:38:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uclwd-0006FZ-Oc; Fri, 18 Jul 2025 14:20:15 +0000
-Received: by outflank-mailman (input) for mailman id 1048844;
- Fri, 18 Jul 2025 14:20:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ucmDt-0002Sh-6e; Fri, 18 Jul 2025 14:38:05 +0000
+Received: by outflank-mailman (input) for mailman id 1048868;
+ Fri, 18 Jul 2025 14:38:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=00bL=Z7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uclwc-0005sk-40
- for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 14:20:14 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 51d8db19-63e2-11f0-a319-13f23c93f187;
- Fri, 18 Jul 2025 16:20:13 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-4563cfac2d2so6110435e9.3
- for <xen-devel@lists.xenproject.org>; Fri, 18 Jul 2025 07:20:13 -0700 (PDT)
-Received: from localhost.localdomain (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b61ca48cb9sm2005490f8f.45.2025.07.18.07.20.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Jul 2025 07:20:12 -0700 (PDT)
+ <SRS0=pPPV=Z7=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1ucmDr-0002Sb-J6
+ for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 14:38:03 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ce326689-63e4-11f0-b894-0df219b8e170;
+ Fri, 18 Jul 2025 16:38:01 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-60780d74c8cso3789161a12.2
+ for <xen-devel@lists.xenproject.org>; Fri, 18 Jul 2025 07:38:01 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aec6ca7d347sm132421866b.128.2025.07.18.07.37.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 18 Jul 2025 07:37:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,229 +45,234 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51d8db19-63e2-11f0-a319-13f23c93f187
+X-Inumbo-ID: ce326689-63e4-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1752848413; x=1753453213; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1752849480; x=1753454280; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YElKLyiSf6iRZVbIUiya2Igy3WhWeDaluxJE0+b/rwI=;
-        b=Bn2hkEIOYaiQrTx6fIhew/SNX0iW1uRoAMJN4ezgFO+N3SKHe/y0RD++vscXi8I6RC
-         9asf/3XwGD2rmxBXbfUr48nv6dEKWSU35xdEwFgssmgDSzsDEiGyeE0JwvL2IxYHQuXz
-         mAFLWD0x3o+cwlAY5PUPwSlI+GbOxspX4MAfU=
+        bh=03Ry6CQUVYCbFEyrR8pT3iqiSroibe+Jq0S1Oyksd+k=;
+        b=At+b/voZuoAoNULXYZISzJzpmY3Dt8jrplhMcSb2cIaYczXQ/OtYPRNVfPWfoZplX/
+         eW1f/bgA1c36WcsKLyKPnUtNbqSZmnBBk7kS0EUjIPm3gIGv8xFUqdLtoVZb0jRX7Wup
+         Jn/Jg2MtyK+mCYbhyW4ESH7MhzxvKOHqolowkou6G5ZdoCcb+D1Stel+tUDl5WCJ1cDq
+         4Sc6J/Z877MK3yPMQQzWOoFaYS1mUzivwI+kBWsYklMB9MhMBOGg2S1MQoq1znK3SF6U
+         7/VRrMBsAO4HfVdBsscXDOs15t7Ioki5101vZNi9eXdMkqdJXIIN6LIt/Nig3ZommAn9
+         sgDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752848413; x=1753453213;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=YElKLyiSf6iRZVbIUiya2Igy3WhWeDaluxJE0+b/rwI=;
-        b=v2c8E6xBYoGxduS8SmrYMGmVKRSdTHdemzFHzGQieqKG9LbwccVzjfxuE+yNgHEqkX
-         Z7mtkpo6qocuaCQl5Zd/PHc92u8MxMD0dnQEJCZ5G/jRxgCnW7J/81YyHc49t7xWv3Z7
-         WT9vhhRiT62EofZpQrwuXcxBaK4KmQPjBGWHV/lX5BwzBeDeXE9ZhTIqdsZ3tIHgnGRl
-         HfsNsOV4eytETqh98vlP27mdHRd7/jjODz90i1AUpImBT8sBuysk/QZKT+/jg/oMT/O7
-         aXOWkMjEpIf8m+ymJ6rDeuYGQ5xAPvVPg5JL3KuqYkoGBLwb5ZsPBwEpXazt/XjKex5n
-         BdUQ==
-X-Gm-Message-State: AOJu0YyvO34OQB46OtUu+1ZaPFbdFCNhflyRLFKGR492ssS/ogvgxrYT
-	stE2EY3oTRG6CCCpJnl3wpnWbRKksNywW4ojZvy5Av31IMSBdyP4L0WVynfjFWNFO3y/tJf6kfM
-	G9WrGg670ww==
-X-Gm-Gg: ASbGncscuw3aJHVqO/43SppF+yaSfBdPvgWp8NxsMBlEF/rHjWi2TXgubwbkDNT0e4t
-	qZHPkqHcntITUHff+7o/+VojanIWJ0CUFy0pGrN3XwvTvJ8h0jCyrOldwI92OD/nw51l1rdcPIx
-	6ZQrWRjGAPuddgXjX1qdid78KzsECEShPOj+sKPDX6LXGvsFBWTUcJFPp1N5WMqzeGq1GUy0VsZ
-	zQxvKKNIgke8asQsZtCURqrIGiPEVjHg2cbXkICtfHjFEgAQrSpb3j365znjoao7xJp2UXPlEZg
-	TLWxr3zcDNRaGJPG9WcLBL7BbMWsSnbiofFwMKWHm1PWIYf1vftkADF4MtzeOgSaXbOR8ozVqaj
-	6MxKY94p4kKs37QbUpVRvHFyG5G+7NziR5gtcOShJhFlJoyBB670aRBuZTwbzHlWtBuTRbgAC4R
-	3t
-X-Google-Smtp-Source: AGHT+IFsqmDtDL0W7m2uoMV6idneKeegAhMuNt11HC4G9I7LiPLy2NFX2KdvjCLKxVxBheSqypPnUA==
-X-Received: by 2002:a05:600c:468b:b0:456:2419:dc05 with SMTP id 5b1f17b1804b1-4562e33db7fmr119715235e9.12.1752848412917;
-        Fri, 18 Jul 2025 07:20:12 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2 3/3] x86/apic: Convert the TSC deadline errata table to X86_MATCH_*()
-Date: Fri, 18 Jul 2025 15:20:06 +0100
-Message-Id: <20250718142006.2471129-4-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250718142006.2471129-1-andrew.cooper3@citrix.com>
-References: <20250718142006.2471129-1-andrew.cooper3@citrix.com>
+        d=1e100.net; s=20230601; t=1752849480; x=1753454280;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=03Ry6CQUVYCbFEyrR8pT3iqiSroibe+Jq0S1Oyksd+k=;
+        b=CI8GM243mZOF8IDZ72nmCl3E+aegRSmKSgC3A/QtyKVn1o78NUldFqPmcDRZ8aiJoK
+         HfTjCzBlo78UWDL7KTd9x2O5mFHAChSytu9lDjvwLTyDKTTKhtZXq8FcCTYiJC51oYzA
+         DvHMYCvSGkcSpAC/6Oo/9DCr0icYIO+/De9/Vq/UkvDeNkt+UPDEEgJh8XIXu1EIhUwT
+         jWVL/KP9ORjkjWfywApLndGU9V/V5UpCVdbsDEoaW+vH3m14UR+obNMrrtBcTzCcEVYb
+         Wm1H648pxkTG79BR3naYWDHXdWdYpZNFQ8kj2ig0X9XxLhS6/sqzMCmwqHy0WyAqw9Jz
+         vkDQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX0XMwY0+Zfiqz+PfoUJELG4Vd14zNUFFwtmYs5dXxAwXB2LV07Nx31+t8BjYPcqOrynkPKoTby+2A=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx8zeDrim146jO5TITodx5Q7VOiGHKzRvJ4Zvtl5aj43ALqS5QI
+	o3cHAOWEHSmtp7+1uQoR7fWrv+NKqmx9Qjq8AHRFE696UX5Rz6GJiglb
+X-Gm-Gg: ASbGncsViad/Lhn6YLRLQyt3oPKtH05J5Vi7SUhoKgfXaJG5c9bBiP2uUvXc3RzmtCC
+	BpkHSOKHGcUX/2w8ZuMrLNJJFlA787z1+QAxXdSef8wGsLWfFh+SGqJHXGui/5Nmb/Td0SsTDN0
+	YjWMhBCHNkehrCdAM2OkcOvL/NUZ32qbKZRJkPZiluZCX2M2eHZejPquQWoEcoMZk5bQRvVGdUL
+	seUTr2nekTw6swtm3rufnaaabcgbhYTVGBh128Yl4mXhuKyDSD8JnEofq0CTX2FiUhMOfGnBMDV
+	Jl5gRWXkeSmfU1C69m4Fzkv0X6EmrIU1y+mDdBk3MIPoeHV0r6l8rO2+tb/l6io9yy7dNwcWHdw
+	mzOVbEn6Oqtzw8zAk/D2O4CLrWJPCWL45ZZiomiLNIzAX2/RV2G+HZKKndXFiMuDD4qDZFN8=
+X-Google-Smtp-Source: AGHT+IHNYZOBDlMJyVcyvTI7pFQ8cMLLFbB0BsNgdR6Dk5Mk17meWBrSn69pJZk3BRjdJkaygRcSEg==
+X-Received: by 2002:a17:907:1c10:b0:ae3:7c8c:351d with SMTP id a640c23a62f3a-ae9ce1acb18mr1168583066b.56.1752849480193;
+        Fri, 18 Jul 2025 07:38:00 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------VDxfmKkTIuFPWJPs4WReV8Em"
+Message-ID: <9dfc64b3-7dda-4620-9da6-388cecc3b9ad@gmail.com>
+Date: Fri, 18 Jul 2025 16:37:59 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 16/17] xen/riscv: implement mfn_valid() and page
+ reference, ownership handling helpers
+To: Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
+ <50159d05e75c14ca62ee6cab5a4d30645981827a.1749555949.git.oleksii.kurochko@gmail.com>
+ <aa769aa7-739c-4e59-8aea-d07398025b2f@suse.com>
+ <831c7c26-51e1-4834-b08e-03607cd438aa@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <831c7c26-51e1-4834-b08e-03607cd438aa@suse.com>
 
-With the ability to match on steppings, introduce a new X86_MATCH_VFMS()
-helper to match a specific stepping, and use it to rework deadline_match[].
+This is a multi-part message in MIME format.
+--------------VDxfmKkTIuFPWJPs4WReV8Em
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Currently, the table is scanned on all systems, even those without the
-TSC_DEADLINE feature.  Introduce another early exit for that case, which
-removes the need to encode every row in the table with TSC_DEADLINE.
 
-Notably this removes the overloading of driver_data possibly being a function
-pointer, and removes the latent bug where the target functions are missing
-ENDBR instructions owing to the lack of the cf_check attribute.
+On 7/2/25 12:28 PM, Jan Beulich wrote:
+> On 02.07.2025 12:09, Jan Beulich wrote:
+>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
+>>> @@ -613,3 +612,91 @@ void __iomem *ioremap(paddr_t pa, size_t len)
+>>>   {
+>>>       return ioremap_attr(pa, len, PAGE_HYPERVISOR_NOCACHE);
+>>>   }
+>>> +
+>>> +int page_is_ram_type(unsigned long mfn, unsigned long mem_type)
+>>> +{
+>>> +    ASSERT_UNREACHABLE();
+>>> +
+>>> +    return 0;
+>>> +}
+>>> +
+>>> +static struct domain *page_get_owner_and_nr_reference(struct page_info *page,
+>>> +                                                      unsigned long nr)
+>>> +{
+>>> +    unsigned long x, y = page->count_info;
+>>> +    struct domain *owner;
+>>> +
+>>> +    /* Restrict nr to avoid "double" overflow */
+>>> +    if ( nr >= PGC_count_mask )
+>>> +    {
+>>> +        ASSERT_UNREACHABLE();
+>>> +        return NULL;
+>>> +    }
+>> I question the validity of this, already in the Arm original: I can't spot
+>> how the caller guarantees to stay below that limit. Without such an
+>> (attempted) guarantee, ASSERT_UNREACHABLE() is wrong to use. All I can see
+>> is process_shm_node() incrementing shmem_extra[].nr_shm_borrowers, without
+>> any limit check.
+>>
+>>> +    do {
+>>> +        x = y;
+>>> +        /*
+>>> +         * Count ==  0: Page is not allocated, so we cannot take a reference.
+>>> +         * Count == -1: Reference count would wrap, which is invalid.
+>>> +         */
+>> May I once again ask that you look carefully at comments (as much as at code)
+>> you copy. Clearly this comment wasn't properly updated when the bumping by 1
+>> was changed to bumping by nr.
+>>
+>>> +        if ( unlikely(((x + nr) & PGC_count_mask) <= nr) )
+>>> +            return NULL;
+>>> +    }
+>>> +    while ( (y = cmpxchg(&page->count_info, x, x + nr)) != x );
+>>> +
+>>> +    owner = page_get_owner(page);
+>>> +    ASSERT(owner);
+>>> +
+>>> +    return owner;
+>>> +}
+> There also looks to be a dead code concern here (towards the "nr" parameters
+> here and elsewhere, when STATIC_SHM=n). Just that apparently we decided to
+> leave out Misra rule 2.2 entirely.
 
-No functional change.
+I think that I didn't get what is an issue when STATIC_SHM=n, functions is still
+going to be called through page_get_owner_and_reference(), at least, in page_alloc.c .
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
+~ Oleksii
 
-v2:
- * Move deadline_match[] into check_deadline_errata() which produces a far
-   more legible diff.
- * Check for TSC_DEADLINE early and skip the search on non-capable CPUs.
+--------------VDxfmKkTIuFPWJPs4WReV8Em
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The bloat-o-meter summary shows that the use of functions really wasn't the
-wisest idea:
-
-  add/remove: 0/3 grow/shrink: 1/2 up/down: 80/-146 (-66)
-  Function                                     old     new   delta
-  deadline_match                               224     304     +80
-  APIC_init_uniprocessor                       334     331      -3
-  skx_deadline_rev                              30       -     -30
-  CSWTCH                                       335     299     -36
-  hsx_deadline_rev                              38       -     -38
-  bdx_deadline_rev                              39       -     -39
----
- xen/arch/x86/apic.c                  | 95 +++++++---------------------
- xen/arch/x86/include/asm/match-cpu.h |  5 ++
- 2 files changed, 29 insertions(+), 71 deletions(-)
-
-diff --git a/xen/arch/x86/apic.c b/xen/arch/x86/apic.c
-index c4272ab4de4f..0fd8bdba7067 100644
---- a/xen/arch/x86/apic.c
-+++ b/xen/arch/x86/apic.c
-@@ -1051,88 +1051,41 @@ static void setup_APIC_timer(void)
-     local_irq_restore(flags);
- }
- 
--#define DEADLINE_MODEL_MATCH(m, fr) \
--    { .vendor = X86_VENDOR_INTEL, .family = 6, .model = (m), \
--      .feature = X86_FEATURE_TSC_DEADLINE, \
--      .driver_data = (void *)(unsigned long)(fr) }
--
--static unsigned int __init hsx_deadline_rev(void)
--{
--    switch ( boot_cpu_data.x86_mask )
--    {
--    case 0x02: return 0x3a; /* EP */
--    case 0x04: return 0x0f; /* EX */
--    }
--
--    return ~0U;
--}
--
--static unsigned int __init bdx_deadline_rev(void)
--{
--    switch ( boot_cpu_data.x86_mask )
--    {
--    case 0x02: return 0x00000011;
--    case 0x03: return 0x0700000e;
--    case 0x04: return 0x0f00000c;
--    case 0x05: return 0x0e000003;
--    }
--
--    return ~0U;
--}
--
--static unsigned int __init skx_deadline_rev(void)
--{
--    switch ( boot_cpu_data.x86_mask )
--    {
--    case 0x00 ... 0x02: return ~0U;
--    case 0x03: return 0x01000136;
--    case 0x04: return 0x02000014;
--    }
--
--    return 0;
--}
--
--static const struct x86_cpu_id __initconstrel deadline_match[] = {
--    DEADLINE_MODEL_MATCH(0x3c, 0x22),             /* Haswell */
--    DEADLINE_MODEL_MATCH(0x3f, hsx_deadline_rev), /* Haswell EP/EX */
--    DEADLINE_MODEL_MATCH(0x45, 0x20),             /* Haswell D */
--    DEADLINE_MODEL_MATCH(0x46, 0x17),             /* Haswell H */
--
--    DEADLINE_MODEL_MATCH(0x3d, 0x25),             /* Broadwell */
--    DEADLINE_MODEL_MATCH(0x47, 0x17),             /* Broadwell H */
--    DEADLINE_MODEL_MATCH(0x4f, 0x0b000020),       /* Broadwell EP/EX */
--    DEADLINE_MODEL_MATCH(0x56, bdx_deadline_rev), /* Broadwell D */
--
--    DEADLINE_MODEL_MATCH(0x4e, 0xb2),             /* Skylake M */
--    DEADLINE_MODEL_MATCH(0x55, skx_deadline_rev), /* Skylake X */
--    DEADLINE_MODEL_MATCH(0x5e, 0xb2),             /* Skylake D */
--
--    DEADLINE_MODEL_MATCH(0x8e, 0x52),             /* Kabylake M */
--    DEADLINE_MODEL_MATCH(0x9e, 0x52),             /* Kabylake D */
--
--    {}
--};
--
- static void __init check_deadline_errata(void)
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 7/2/25 12:28 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:831c7c26-51e1-4834-b08e-03607cd438aa@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 02.07.2025 12:09, Jan Beulich wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On 10.06.2025 15:05, Oleksii Kurochko wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">@@ -613,3 +612,91 @@ void __iomem *ioremap(paddr_t pa, size_t len)
  {
-+    static const struct x86_cpu_id __initconst deadline_match[] = {
-+        X86_MATCH_VFM (INTEL_HASWELL,          0x22),
-+        X86_MATCH_VFMS(INTEL_HASWELL_X,   0x2, 0x3a),
-+        X86_MATCH_VFMS(INTEL_HASWELL_X,   0x4, 0x0f),
-+        X86_MATCH_VFM (INTEL_HASWELL_L,        0x20),
-+        X86_MATCH_VFM (INTEL_HASWELL_G,        0x17),
-+        X86_MATCH_VFM (INTEL_BROADWELL,        0x25),
-+        X86_MATCH_VFM (INTEL_BROADWELL_G,      0x17),
-+        X86_MATCH_VFM (INTEL_BROADWELL_X,      0x0b000020),
-+        X86_MATCH_VFMS(INTEL_BROADWELL_D, 0x2, 0x00000011),
-+        X86_MATCH_VFMS(INTEL_BROADWELL_D, 0x3, 0x0700000e),
-+        X86_MATCH_VFMS(INTEL_BROADWELL_D, 0x4, 0x0f00000c),
-+        X86_MATCH_VFMS(INTEL_BROADWELL_D, 0x5, 0x0e000003),
-+        X86_MATCH_VFM (INTEL_SKYLAKE_L,        0xb2),
-+        X86_MATCH_VFM (INTEL_SKYLAKE,          0xb2),
-+        X86_MATCH_VFMS(INTEL_SKYLAKE_X,   0x3, 0x01000136),
-+        X86_MATCH_VFMS(INTEL_SKYLAKE_X,   0x4, 0x02000014),
-+        X86_MATCH_VFM (INTEL_KABYLAKE_L,       0x52),
-+        X86_MATCH_VFM (INTEL_KABYLAKE,         0x52),
-+        {}
-+    };
+     return ioremap_attr(pa, len, PAGE_HYPERVISOR_NOCACHE);
+ }
 +
-     const struct x86_cpu_id *m;
-     unsigned int rev;
- 
--    if ( cpu_has_hypervisor )
-+    if ( cpu_has_hypervisor || !boot_cpu_has(X86_FEATURE_TSC_DEADLINE) )
-         return;
- 
-     m = x86_match_cpu(deadline_match);
-     if ( !m )
-         return;
- 
--    /*
--     * Function pointers will have the MSB set due to address layout,
--     * immediate revisions will not.
--     */
--    if ( (long)m->driver_data < 0 )
--        rev = ((unsigned int (*)(void))(m->driver_data))();
--    else
--        rev = (unsigned long)m->driver_data;
-+    rev = (unsigned long)m->driver_data;
- 
-     if ( this_cpu(cpu_sig).rev >= rev )
-         return;
-diff --git a/xen/arch/x86/include/asm/match-cpu.h b/xen/arch/x86/include/asm/match-cpu.h
-index e25f414ea1b4..6d535c41c713 100644
---- a/xen/arch/x86/include/asm/match-cpu.h
-+++ b/xen/arch/x86/include/asm/match-cpu.h
-@@ -35,6 +35,11 @@ struct x86_cpu_id {
-                   VFM_MODEL(vfm), X86_STEPPING_ANY,             \
-                   X86_FEATURE_ANY, data)
- 
-+#define X86_MATCH_VFMS(vfm, stepping, data)                     \
-+    X86_MATCH_CPU(VFM_VENDOR(vfm), VFM_FAMILY(vfm),             \
-+                  VFM_MODEL(vfm), 1U << (stepping),             \
-+                  X86_FEATURE_ANY, data)
++int page_is_ram_type(unsigned long mfn, unsigned long mem_type)
++{
++    ASSERT_UNREACHABLE();
 +
- /*
-  * x86_match_cpu() - match the CPU against an array of x86_cpu_ids[]
-  *
--- 
-2.39.5
++    return 0;
++}
++
++static struct domain *page_get_owner_and_nr_reference(struct page_info *page,
++                                                      unsigned long nr)
++{
++    unsigned long x, y = page-&gt;count_info;
++    struct domain *owner;
++
++    /* Restrict nr to avoid "double" overflow */
++    if ( nr &gt;= PGC_count_mask )
++    {
++        ASSERT_UNREACHABLE();
++        return NULL;
++    }
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+I question the validity of this, already in the Arm original: I can't spot
+how the caller guarantees to stay below that limit. Without such an
+(attempted) guarantee, ASSERT_UNREACHABLE() is wrong to use. All I can see
+is process_shm_node() incrementing shmem_extra[].nr_shm_borrowers, without
+any limit check.
 
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">+    do {
++        x = y;
++        /*
++         * Count ==  0: Page is not allocated, so we cannot take a reference.
++         * Count == -1: Reference count would wrap, which is invalid.
++         */
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+May I once again ask that you look carefully at comments (as much as at code)
+you copy. Clearly this comment wasn't properly updated when the bumping by 1
+was changed to bumping by nr.
+
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">+        if ( unlikely(((x + nr) &amp; PGC_count_mask) &lt;= nr) )
++            return NULL;
++    }
++    while ( (y = cmpxchg(&amp;page-&gt;count_info, x, x + nr)) != x );
++
++    owner = page_get_owner(page);
++    ASSERT(owner);
++
++    return owner;
++}
+</pre>
+        </blockquote>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+There also looks to be a dead code concern here (towards the "nr" parameters
+here and elsewhere, when STATIC_SHM=n). Just that apparently we decided to
+leave out Misra rule 2.2 entirely.</pre>
+    </blockquote>
+    <pre>I think that I didn't get what is an issue when STATIC_SHM=n, functions is still
+going to be called through page_get_owner_and_reference(), at least, in page_alloc.c .
+</pre>
+    <pre>
+~ Oleksii
+</pre>
+  </body>
+</html>
+
+--------------VDxfmKkTIuFPWJPs4WReV8Em--
 
