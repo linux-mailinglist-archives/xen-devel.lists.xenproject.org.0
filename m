@@ -2,40 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2005DB0A411
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 14:22:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1048641.1418855 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57E44B0A447
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 14:36:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1048677.1418878 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uck63-0007jg-V4; Fri, 18 Jul 2025 12:21:51 +0000
+	id 1uckJx-0002X9-Hp; Fri, 18 Jul 2025 12:36:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1048641.1418855; Fri, 18 Jul 2025 12:21:51 +0000
+Received: by outflank-mailman (output) from mailman id 1048677.1418878; Fri, 18 Jul 2025 12:36:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uck63-0007d6-Ro; Fri, 18 Jul 2025 12:21:51 +0000
-Received: by outflank-mailman (input) for mailman id 1048641;
- Fri, 18 Jul 2025 12:21:50 +0000
+	id 1uckJx-0002Uw-EQ; Fri, 18 Jul 2025 12:36:13 +0000
+Received: by outflank-mailman (input) for mailman id 1048677;
+ Fri, 18 Jul 2025 12:36:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tfz2=Z7=epam.com=Volodymyr_Babchuk@srs-se1.protection.inumbo.net>)
- id 1uck62-0007Zl-Gn
- for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 12:21:50 +0000
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c201::3])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c72f1b79-63d1-11f0-b894-0df219b8e170;
- Fri, 18 Jul 2025 14:21:49 +0200 (CEST)
-Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
- (2603:10a6:150:16a::21) by PAWPR03MB10182.eurprd03.prod.outlook.com
- (2603:10a6:102:334::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.35; Fri, 18 Jul
- 2025 12:21:44 +0000
-Received: from GV1PR03MB10456.eurprd03.prod.outlook.com
- ([fe80::a41e:5aa8:e298:757e]) by GV1PR03MB10456.eurprd03.prod.outlook.com
- ([fe80::a41e:5aa8:e298:757e%5]) with mapi id 15.20.8922.037; Fri, 18 Jul 2025
- 12:21:44 +0000
+ <SRS0=HfJj=Z7=oracle.com=lorenzo.stoakes@srs-se1.protection.inumbo.net>)
+ id 1uckJv-0002Uq-QW
+ for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 12:36:11 +0000
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c73f9d0b-63d3-11f0-b894-0df219b8e170;
+ Fri, 18 Jul 2025 14:36:09 +0200 (CEST)
+Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56I8fhJt016059;
+ Fri, 18 Jul 2025 12:35:41 GMT
+Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 47uk8g523p-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 18 Jul 2025 12:35:41 +0000 (GMT)
+Received: from pps.filterd
+ (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
+ with ESMTP id 56IAbmFl023944; Fri, 18 Jul 2025 12:35:40 GMT
+Received: from nam12-mw2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2085.outbound.protection.outlook.com [40.107.244.85])
+ by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 47ue5dyj7p-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 18 Jul 2025 12:35:40 +0000
+Received: from DM4PR10MB8218.namprd10.prod.outlook.com (2603:10b6:8:1cc::16)
+ by SJ5PPF04D2D7FA7.namprd10.prod.outlook.com (2603:10b6:a0f:fc02::785) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.25; Fri, 18 Jul
+ 2025 12:35:37 +0000
+Received: from DM4PR10MB8218.namprd10.prod.outlook.com
+ ([fe80::2650:55cf:2816:5f2]) by DM4PR10MB8218.namprd10.prod.outlook.com
+ ([fe80::2650:55cf:2816:5f2%6]) with mapi id 15.20.8922.037; Fri, 18 Jul 2025
+ 12:35:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,231 +63,407 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c72f1b79-63d1-11f0-b894-0df219b8e170
+X-Inumbo-ID: c73f9d0b-63d3-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=corp-2025-04-25; bh=PGPRNwN4pu3PXQ5swL
+	S0gVK8l1QEymD2y97Ry48GJDU=; b=fIxbJj3HkxtGVqK8J0uOiT1ZATdNXPH6XN
+	PXxHKMSfP3bdXDodFPONvVq4tAU1KIkgLrGgiDDfElGy8LvAC+JKeWp/prMQK660
+	r+BEuQFgDHLttz/jhiZQEe6KCU+c9UOX3Dd+CEMh9+k8bPNldWzKiIHdsN1Sn89V
+	E/ngnROiIyKvxWO4yCqL1Njhsy1Kx4Kphbc+fiPrC3m91+6w0+41Cco4mzDI/kew
+	Psr7t0LqbfYFSLg1MVBcd3RWkPWNpVKVlrS+Fjwp5VbQldeGDdL1XNxSmcTbu+zP
+	xeg2okjt6+IEpPxiyKlw+EuS1N0jOIMEk/dgsJUJNQxoTFA5lDJg==
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EcaizMG4KhTmNFgIS7BDh/nvCXNRAoqDbNqF85Yi1xziWZzQU07Rxmht60x5Hi34nBITAZosKw3wbWsk31kiI1moP/YWIPodIMBcKR1SQpMJyu1LzvSPPPOT9GXmX39c5fEKHfbHlUgyrh71UKdZLkrcuKtjrEnKf3nYdtuIE365Ke7Svt2ZTBmbTNVMfBlOZiDwx4zq1SdlKCYAU1OVZwTAGhhtw07+E7FI7jp2d4wuFCNipgQ9Ae4iabVNIYrwokpw/p6eRXK9Qry/8kKt0ObwvCr8hySXGmFSOqNKJm2QlK0eDYWboCDSJnFTcCTC/y73NPK0uBm9lVItopcggA==
+ b=y8d1l6St6MzD8+jGkECAVVihM+oEIma/hZRSPwbQPNtlJ40CmtSSSQEKCEyBAiOlQQxmWVfMOvv2+BGILSFXs6GGdv4S37kv4iMfdJQ/eQUPN6GehAXamVet1TohwOJj4IlpKPcki5mrXI5uQ4G9XzURaOJeILGybF5iqtrC9NTMc/bp+MzNUYBGQkSh2SOywYMuUcywDcMzfa67LTvtjDzF0UYZ+YUop6NLsNZfCmu5K9eH+suwO/0z8BXPO5mrVmQjynt3WzOGqAGJR77tc4d19RTf/o5oSR+T38IQ8TwIQA9JsO55FUmxEQyZfM9KTvAKUzytgPFmza5Wg3gGBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/IIGVo/I46aL3h0NnJg70k5evgO2/fNQmmnj11214gM=;
- b=XZrQCd6ZZEthX4I2GLKbdnFZp5c1nJKGI07mB7q5aQsag6isCQGHXmj6RzywKvhp8ICkeoqpO+NbsCVX8VZqSLPghX2KZCrpO+m46vp9mA53BcclM9FBLzXxwMxxWJt0u3hZityOkcTipyWeoZ0mNnDU1XKLZ9j7FvJ68oB4IvlN9q1zasTEDekpHhp+7ndS/3s+UTvxgPzV/h9EnJwrO/KbgKNiRX619iY2Yff5fk0+NF0FxBYQLxH83jddAmJOpl78j+2QxUBDbWmuwJtPqCVIiyIkh4hBLcaZ8fMRFC1M/b6eGLbDTfNu967gWgCDVswyQsmpaZRx5+hOyOHg+g==
+ bh=PGPRNwN4pu3PXQ5swLS0gVK8l1QEymD2y97Ry48GJDU=;
+ b=D4uxWMFFi5qWFuF1SF2+XvSdfvC5t8xDustCg3enyeI1FmPbY+pD9V53sLGP1vUTaD5hajlMU1okW32MXWDK8sMISDN2QtnfOHZCdeOQAa9C/cZdMjYsqWImTTeaMvFL9MJTnKnRoDUUoTh5mAr9QqnjdWWmjmFRqoug+eSz3mgSa8qEVUEAQMrdR/FGI9czkVXXCfTtrL+iZM6/oh6H4k30iOKygivaolM6hGnYmNotJYYM70fRfKkum8LTE2x/kSANjBLApA7ZwCENp6XGBtAW2XeXZtMIZT2O/LsGlQRC1tijblK726H9gxxe3lGVGyDZlDBAtrqD7xViP8I9eg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/IIGVo/I46aL3h0NnJg70k5evgO2/fNQmmnj11214gM=;
- b=TFMXVX+6e2XAO+MeBb48hu3uzJ4sFNWH3r6U3KjzqIJ2/2LRxZkVvtZqJlvzsb6AgE0XMS0OewkjcCxAPmIsr3hlt2+hHZIprbmKO03Ns3UKGEe97qTbj1E/V9OIm2wSaSHyIFoYcrm+zTQvPdS6m5aF+3ZOpAC17b48rNyezuyIQMF3g81V+L7ruTUMfjt30puVUTMi+7smPXZbRIOs29pUrFJUSXXAoMexXNkIZnCPpC9IkGdhER/KY9Jv7+MQvRk+XTyDNZr+8H/phDvwQipdSx3zcO6+LmtJ9lxW5fSB7A1nZWnjEFlHSIYxRZmp7yg531Wquzi/xzlHNMOv2Q==
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [RFC PATCH v4 2/2] ci: enable fuzzing for arm64
-Thread-Topic: [RFC PATCH v4 2/2] ci: enable fuzzing for arm64
-Thread-Index: AQHb996Fa52N0oLJmk6363S0gI/5Yg==
-Date: Fri, 18 Jul 2025 12:21:42 +0000
-Message-ID: <20250718122115.2448874-3-volodymyr_babchuk@epam.com>
-References: <20250718122115.2448874-1-volodymyr_babchuk@epam.com>
-In-Reply-To: <20250718122115.2448874-1-volodymyr_babchuk@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: git-send-email 2.50.0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV1PR03MB10456:EE_|PAWPR03MB10182:EE_
-x-ms-office365-filtering-correlation-id: 8190e046-c86d-4a6d-8fab-08ddc5f5a87c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|42112799006|1800799024|366016|376014|38070700018;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?/Q/aFfdox8cejfciV6+9hIwrT/zyyJRkmC0tQPb+X0PzzYlszFzIsnHp+I?=
- =?iso-8859-1?Q?+SHA73+pZn3qTWIOl4SM1SomTTGFpiPPHJJVsGVSTJjNIb2McfpHhPG8TY?=
- =?iso-8859-1?Q?BrDeW97VdE85fu/VdvD3WZi7k2WVQcHOSXRfDsD4FraBxiWfAeZ2vCQXaT?=
- =?iso-8859-1?Q?7LL+EDkBQdXifGDWQHvL0nhnU3vkAhtM/n6vZpasL3cI/myTkJaEVU33Hd?=
- =?iso-8859-1?Q?MMo5ReBi0l5F9ckRWohqmrrs8uK3OTzSRTNH6viU6kv9qaFjLcN95UG9H0?=
- =?iso-8859-1?Q?zqwcbLhtgIo3COiuZH4tsJVpf1r4+GJGdzcrl7CSrB+q56rOJKZcuuhSi1?=
- =?iso-8859-1?Q?dqIwbumm3P5YdnC8iN3V5hFHtZwcKuwGsTF9pkJSURKM0yb9s+MoHVgC7z?=
- =?iso-8859-1?Q?qtljmBrhP0J9oiSd1YpGtx7YwSbBmvO4YnHRmufuqXLYptx1qD+VnC2Hm3?=
- =?iso-8859-1?Q?CmzufDAPHrIrSmJqLHEi4BvbKIP0sI08s7Q+WFH1HMrr+VT9VBrGcZulAi?=
- =?iso-8859-1?Q?3ir+OiavnT8B7Kmh7m3hsUDGV51NXmJ6PHxJlTHf7sXz3qG8ARn9dYWk+k?=
- =?iso-8859-1?Q?uWoxtSBceypnnbnuA8If44jRhKIU9viElV0ChQpoNDjpjpN1vNmKOjTCGi?=
- =?iso-8859-1?Q?lv0TYuhAF07SUil9s9IZHf6W+N66Uw3n7q0ZsRJWyK7CiHcWwPLWlZ/2Z2?=
- =?iso-8859-1?Q?QBVejUEcsdg8mwTOJxYVdcIrvu+v0l62Rfiny4pm8yvyplpsHDWv80kvDq?=
- =?iso-8859-1?Q?Gw9iS3IqIhqhzEZz7qaCb0y46uI5a4Iv4A1B82bfTREMHM4pKJG9/BEMeC?=
- =?iso-8859-1?Q?W/0aEjppXNERmN+tUsRnDtmYUt4TpPy737sVjzGPCQ06BeJAvNpmFAQoQT?=
- =?iso-8859-1?Q?8sKMl/n9rX1Ia/VVzVKxuj7OQMSEbY1/CAmRtKwLvEnRMkHmc9dPm/a1ul?=
- =?iso-8859-1?Q?KmGjGZh/fnfbSTYs/MeO9xNocpzbxuwyPLeMCzt8mfDm6zl+jqVQLB20OB?=
- =?iso-8859-1?Q?69xE6ZWSCUYRiVfq4WO6RTS4y86nEnEmnugX6YswDcLfIrklFRwgzSWFuU?=
- =?iso-8859-1?Q?Gjp8RbYCohnNDpS29sKSGlD3mwWd/OgghoSyhcPVd5Qhp1e1wtx6xG0I/U?=
- =?iso-8859-1?Q?wiqK/kTNKSyc89CIjVvYgaGhhJHRTP/6h+Q0RvOPAh5pG+XLhoxIiQyFBO?=
- =?iso-8859-1?Q?I4eQQc59GtD8HCaVoHTG3SKMTx/PKPqOpvv5Zz7IJtvS5hC5ATrpp5S7b9?=
- =?iso-8859-1?Q?aYtrBEUvjmEY006xd7Pt6h7aC/gBCfADhHO8G6GwB+jbYxYZkzdGEY44em?=
- =?iso-8859-1?Q?Wnel0U81EhG6Dd2/lbYbicCY0F6LK0i2aLQrtRgdR0EjNYM6z8zbhzzciu?=
- =?iso-8859-1?Q?j8grckDb/OxUbQVBdBh49dJaf6A2ARXHG7+RCk0jObUg6e7LvRmt9xuDcm?=
- =?iso-8859-1?Q?aqBe0soAvNC4kfHd3qnB0pTgaE4QG5byFTBnGYSbTFHbUiqWEkGWbaAOX6?=
- =?iso-8859-1?Q?Q/6rE0gDcN9XwPwYCAHCNI2vB+XcOn6Sfgnjwz3xN0yQ=3D=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR03MB10456.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(42112799006)(1800799024)(366016)(376014)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?KuJOzDaex+CAKqNFxxZlKR/NLBElEn59L96vVnesVDHSgkK/JJA/PLHPPY?=
- =?iso-8859-1?Q?neLiE8Nh1Q+RZQVKrnxz3Ew3X5JMeZS+pcgCu23aoMLBdWTWwrC//41kCX?=
- =?iso-8859-1?Q?+eEEiNsjXvtEBXg6egP/LW/7Rg3KQZ1L4H6mKfDR9lX9e7EeVy5LaFK3hI?=
- =?iso-8859-1?Q?CF7FNUjbFBaZjb5P4UeCIrwVfS5bvtaHLIGZEkmpKOxI7/Bb8D2yfmGD+E?=
- =?iso-8859-1?Q?qoIsJINTbDvzNUh239fqRqzibOeSl6VrJNwylBdxlBnNZDN5drvoX6Xqld?=
- =?iso-8859-1?Q?v30AJCMg+ahHjz05Kvvu4NjLFuN3Zi2XCJsiot1Y1We4U0sQ7eZHmxioDM?=
- =?iso-8859-1?Q?/4RpGKSxGx4OFoVhaVFyTpQWgRRq+QdwXPa22U6/270ZJG5I+aqtEu8VKF?=
- =?iso-8859-1?Q?Njyxg0R8r8Pt8V/hMBLV25UnYx4vtRfhD3+FMcQnyb0y0mW4xJYm6F5s6U?=
- =?iso-8859-1?Q?Ss/Ji3KSzk7XvP9lTYzPvmbXZ3COp/QgQ1AznO2uQKCspfW38DhshwkKsV?=
- =?iso-8859-1?Q?2i0k83UL8cEZozFMb5s8zPej6mbBEV0xS7dSN20P1Y327a7fmMdSE/k0GJ?=
- =?iso-8859-1?Q?6IfxmdvMaMgTzA/89lz6vkDuTquEtg9QgIE1ifpeQPk22Li4zlQtIkVtuX?=
- =?iso-8859-1?Q?JGORxR3cQCR7CBTwF0KqopbCmE0ub60TGO11Z0crbZyYKMYE0K/lAA1OBz?=
- =?iso-8859-1?Q?48TQWa3pEt41XUpo/JA0XvkByDrKpRnD/SuKR/DLXvw9uhoR1ifn+lDoS4?=
- =?iso-8859-1?Q?GmQ0DCwnImID7MAA+NlMNx9fXuL/Bn1MQ1IIYn5mK1PNbg4b2YBt8f7kiV?=
- =?iso-8859-1?Q?fV/ozyplrMpHI+oQVvhAl/BNr2Lzxhg6sYZVpP5v9CDq+1mYp5asnjlhP1?=
- =?iso-8859-1?Q?69ydfhIsKKslZllQDkLs+nCapAhrNuvh88gZRU7AFgP5hQaaqdi/+jPKpb?=
- =?iso-8859-1?Q?PSJg8UUirDjM51T9+71K9BH6RBZUrj/3HnBedjM6mNnNGN4cmsgj7xwWEp?=
- =?iso-8859-1?Q?6Tv9VaMYdicBc9ZfLkLHleixDxpMZNk3qc+NM7vZEC2NktBPqxj3Xhte0L?=
- =?iso-8859-1?Q?9EEcwsDjkBWZB3jRcvZm1JJjPug5YGfjvh5cHPouJeCNzje6rGIqpwZI0q?=
- =?iso-8859-1?Q?NKfc48qAU6BcnIDP/NwKcbxREDdFIkN004vIiowp6XIv6hSDIzYYhLtlUh?=
- =?iso-8859-1?Q?GvYuJ2SmKh8+iEpcRtAx11RCcwmKngHh3m35VOp0Wt6zvCWIjF/qyFCroO?=
- =?iso-8859-1?Q?WMvkCA+aHQis9bNCCsCdiCaP4UsRR5OWCOL6CAvgmlCpUugYFv61i5h+Hb?=
- =?iso-8859-1?Q?i+DT66Bn1rGIJID0RKW2xqH7pmtgvpMtVM9/0Zfd0m4nDTIDwQTpll2wit?=
- =?iso-8859-1?Q?F57CRZtknW8LXYWTeaB0SB1PdL2PoUl9WK5ZDlhmF7ygOe9kzA6ggwYykQ?=
- =?iso-8859-1?Q?3by2aMWLFGuQHgvs2mEOefgf2PS1H8rFg/Cc44X7N4vSbntIO0EmLCvTme?=
- =?iso-8859-1?Q?O7OdezKhMBch4uS9WAab3Yy7Mv4RYbCMS8U55Bs4mr1O+L9ctLm8VnUHEf?=
- =?iso-8859-1?Q?EHr3G/uo4c/xwtvshAFsuaXdmjRNTvSjT9PGNvxBrerpOxb/4gCvzctmOm?=
- =?iso-8859-1?Q?QyliRFF/i/7dqR/q2RIIZvuM1tCLU9eCYSuewfnfA/c76D+scvTT6gyg?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ bh=PGPRNwN4pu3PXQ5swLS0gVK8l1QEymD2y97Ry48GJDU=;
+ b=fEjEpl/rIHcl1P9ebtVRAyb+fP/Gdbn7Xn4wd+wRNcWmQZ0Mi+o991PLTqwjkMPDuziNS2YpJLumkYmJ240Cn/V23Yjb8Cd2zsoILS8ZRGJKn8/r62wL7FlO4SiwQwkDkRt5LTll6N2TRhns9tmbMloKjsjwvoHOdZhpa7ePFbg=
+Date: Fri, 18 Jul 2025 13:35:34 +0100
+From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+To: David Hildenbrand <david@redhat.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+        xen-devel@lists.xenproject.org, linux-fsdevel@vger.kernel.org,
+        nvdimm@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
+        Juergen Gross <jgross@suse.com>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+        Dan Williams <dan.j.williams@intel.com>,
+        Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+        Alexander Viro <viro@zeniv.linux.org.uk>,
+        Christian Brauner <brauner@kernel.org>,
+        "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+        Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
+        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+        Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+        Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
+        Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+        Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+        Hugh Dickins <hughd@google.com>, Oscar Salvador <osalvador@suse.de>,
+        Lance Yang <lance.yang@linux.dev>
+Subject: Re: [PATCH v2 7/9] mm/memory: factor out common code from
+ vm_normal_page_*()
+Message-ID: <ca28318f-290e-4d03-b2fe-a6ff00b9a9e6@lucifer.local>
+References: <20250717115212.1825089-1-david@redhat.com>
+ <20250717115212.1825089-8-david@redhat.com>
+ <1aef6483-18e6-463b-a197-34dd32dd6fbd@lucifer.local>
+ <d62fd5c9-6ee1-466f-850b-97046b14ebff@redhat.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d62fd5c9-6ee1-466f-850b-97046b14ebff@redhat.com>
+X-ClientProxiedBy: LO4P123CA0252.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a7::23) To DM4PR10MB8218.namprd10.prod.outlook.com
+ (2603:10b6:8:1cc::16)
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR10MB8218:EE_|SJ5PPF04D2D7FA7:EE_
+X-MS-Office365-Filtering-Correlation-Id: a1fc4514-08a1-494b-9d8a-08ddc5f798e7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7416014;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?Goxxv8ECYTlE+30Y/PcTHQ7TxYkv+dRzdgoAIYwCbY+LabZOoUDYkbITp+5p?=
+ =?us-ascii?Q?sznu0ItdoSBp3gZs45fA7tcVhV45ON+dq7W5c4td4zF9EZBIdjT9FNER7f90?=
+ =?us-ascii?Q?UmLM/wn42MRb8Q/9l7jh6wXxP9dijkAeTm5rZzOwqZPxFSSzOHtCbKPyVOFy?=
+ =?us-ascii?Q?qxv/xZbnKBoGn+kHzfSoKxJj5FkH8yTfKjRliqvgg6RbPkLtv9633XbaHv+4?=
+ =?us-ascii?Q?6qUwVyH/9p2nuA61MNDLpHO8KLB2HSEdb+zwnTP81wKJ+92eLxrFTb5TXcdT?=
+ =?us-ascii?Q?wo3LlHD9lE2xhPb+IZsoFLbahRbEszato1EsUDUhjT7wg/FAOEjMy/H0cQZy?=
+ =?us-ascii?Q?CV3OofmcfYjs3boFPTNdDf6t0G30oVACigwEEIIDZ1Kk5PMnm0aJfrGO7s9a?=
+ =?us-ascii?Q?CZgTgXHjoyaEVQt/3bBPdaec/MgwwOI+sd6rcyUOIqZjIX8mww+EW3OCurwR?=
+ =?us-ascii?Q?U6JuJkkd41Xh5qGsuNGhNBT4pNjcE3iio8bCRqz4re8NCawYiOXB1bF0W49G?=
+ =?us-ascii?Q?Vr+ar7eh/jkd4MwYdViVuG/CcGxyMqMVW+UX/Kd1vqaVZXtMVKfsQtRMA3vJ?=
+ =?us-ascii?Q?S9riEj/4dyOv1u0a5oJm1h5yaG6PJddqByZp6/i99Fuhy1zQyr+D4sxWhzve?=
+ =?us-ascii?Q?380XIT/oqMoyXiy7uMkP41UbW0ibhE14QviioJNNE1U3QKEsRBrnpwRYGoQN?=
+ =?us-ascii?Q?2uMlA/rSwhUNkFlntiJj7fDK4x/U97BPVuMwkOuisVsk3SpdyAi8HiUBLXpa?=
+ =?us-ascii?Q?Yu0hTBNaPplocOPAacVbtGNnZWbh+6kaJv5lovy5yISAtSr2wQyitNkreZSi?=
+ =?us-ascii?Q?IZ6iBXHAViRYSVfMnOnZiylSEBGkcXEIf0VdNeP1KAfWlQqgGCOWQqA/X87b?=
+ =?us-ascii?Q?iXLIBk9vg5djrAgE4rHWT+lETICASU4ofnNeFewLwfZkvAyLA9fezfapvHnN?=
+ =?us-ascii?Q?7bgG8Mwwz2M1TcWtugoIno+jM5Wi+INsRlaXlAIEozYTcSCrWLFyX3oE3sw1?=
+ =?us-ascii?Q?Nr3WnnCaxOtqVuDHKzfJ0NnYTMs8zYy6NkrBKEbXvFgm3Goalvh06iuk3BIZ?=
+ =?us-ascii?Q?vZLMaZdCC4BJiXzJmubuk/8I6v9cFovpTHfC2PLIt8ChwjXxBC8BACSTOIpM?=
+ =?us-ascii?Q?HP3VoG4Xhn5xzkMtX0cjJhh0JbitqcTnnc3kXQYGuamb3FkAdp4XjGUSzM/I?=
+ =?us-ascii?Q?2yEeUy4hsBT471X2g13TYn9IeXhUsK9I8tqQzXhbLkIC/HrYZ9ZSJXekiO6z?=
+ =?us-ascii?Q?fITxUKIfzSWWmkQEM+N+K0x/Ij4FRneGF9lw7a3FrcOnGLdK/tyrJvBPn2Bn?=
+ =?us-ascii?Q?ZGBeW0sQWAgwHLPe+9Nl6/pI4WArRLCxO0yd3edE8ymgzx1lBosIGq8fX/JT?=
+ =?us-ascii?Q?sjUClA7Pwm2/J3cWcah0/wjXJJ7CocJpvbgzEfPK9rEaV6htpg=3D=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR10MB8218.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?BHe1Xk+LQF9JBU5o+8kiwbqrZw138YgsdW+3ILo86+7VOF1hzvKT+5hZNGT8?=
+ =?us-ascii?Q?3tOTsCPPcxdwLCTVZQSSaEDgOf1tyCg0oWvgT6+Z0husY/u+GEcN70FpOwGZ?=
+ =?us-ascii?Q?UbhloIaBIVuhIbK1KyC4WdNp33jQWQhMB/NvIYyt5YP4WyDCxjxVD1M3xcJK?=
+ =?us-ascii?Q?cQwMhvDkakUw/nsgCR/Sb0MSsxhpZGlOwK5QZUoPwJjOltta/yAZIWoBnqJt?=
+ =?us-ascii?Q?sYbmhACPLEGIhmdBPjVVDc2+7lPzlMFhZ7DsIKryKy/B8DDJ1Gd2jL4qvqva?=
+ =?us-ascii?Q?T8kUamNXddk22U8lzahCwGNlnfdhh/9tDM84RW9/2CzdruJ3SjOX7dhAfvv8?=
+ =?us-ascii?Q?IOHgFIDTk0CJqzLnsKmQUitlB+8RysaiHnRsXxPY4bGklACQsL8IocYs33ZE?=
+ =?us-ascii?Q?hko3f2d5ry8i7cFrtxZaqqvNBRBiX3xe6ymQ8q5J+O09xyQtB8TRutNGYtDV?=
+ =?us-ascii?Q?F0ei+4JtBkrvkjATZdIpwRc1jvuInBIC1kO0VxOLd8SNkdbTJ9nldVgSCvgj?=
+ =?us-ascii?Q?cYL1MbD7dET1jiPScLfVxERWhEd0nwENxhFcl3FNyxcn0CCV0WgWn+STaXu5?=
+ =?us-ascii?Q?LGX9Ab6lzIQQwHPAjqd6iBwfPW/M9r2i8UvNRS3PdH4rNoY6IO2rh7vQJjtf?=
+ =?us-ascii?Q?Vaa6X02dkmDbyataUyrDKJpK62BiAnCHClnOhgnF7bX+MjyXq4NEzUrNjQ+O?=
+ =?us-ascii?Q?xupru/7ePM27UTz+B7XdeKSvh/3nOfzlnv1kWjkHIESVwyWXAhIZb+r+5Y7M?=
+ =?us-ascii?Q?wqr85xtZrDS2+HxXpLqQzUySA+WPwBhg6OB4xqcxJYSH4apQiXLKRgLVgzop?=
+ =?us-ascii?Q?chG9Z58EWSeO4JMJpN1bETmPCO36RyzWTVTV38AyXtwMVstPxq4CffJOyItA?=
+ =?us-ascii?Q?V86R1eRZnwLsGFPla+dHSn0mIJNAOKAenVddszrTzlB3Q4Ysg4bLdKTUHSJq?=
+ =?us-ascii?Q?sKaymdAkFcm2NDw54Jxs695fAolbAqJ8TrvuoRIIpbeIG8iOjy4f4CFY8yNU?=
+ =?us-ascii?Q?w793Y9Q+RySsr77PldeM49rv3VmXs8YIjNqTbPEkw0p59cOt8YJw2EelVCNi?=
+ =?us-ascii?Q?m9sxRXiuHVOi20lVawM3ghb24THib52E1Gp+1TU1lbwKuX3Cugx8dTrgEGW/?=
+ =?us-ascii?Q?vPwXxINy+DowHOW+syQZrpu0cqR/zMLAdf05wsag5LQHRHj6iyARX0Qxtbq1?=
+ =?us-ascii?Q?ryzcv6d6iniTZDDxsrq9Yq9P2HGeF12FbO5gLWqRw8qtSy+G0f2bk0kbVXIL?=
+ =?us-ascii?Q?xlWn9hU7hwQyYUzy52yzNo9o4S8Op54oEfozNRS4iUPN3hp4w65nZrP4ksbt?=
+ =?us-ascii?Q?0k9Q+NYYF67gbIFyNxaU2G/mlo6+ncReiwQKC1ZWtvDrho1fWrp8MWeo4zh3?=
+ =?us-ascii?Q?F2KBQMMaPSTc+Y6dgHsi9oL+MHC3ih0/Ufz1hLfzZ95vbrNcai39UmrZVilY?=
+ =?us-ascii?Q?VU0y/EPIo0nI6tU0jK76Ffku9IBflsJWeV022wZv/Gat6mR31mcrspFWLHE0?=
+ =?us-ascii?Q?f3pD7MqEe9kZVVmK2ZThiIbQDHUwNmwztEr8VqlnDnYhQlZ0fgb3yJbNMmw5?=
+ =?us-ascii?Q?v9ZxCMrcevS9VbeLPgIFgeCkdgFYtIjMTi7vZdJj7CYKWb32yMue6vCD8ZEo?=
+ =?us-ascii?Q?9A=3D=3D?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	QVI+PstvtL+OLlvttIikm5XcgRJ2Bz7lyYJ3CwGmObvhJIQxnIFb8YIrKFDBXWTediIxEhVj4qP+nHdSWufSSUSdCE4MBER4KC6kRDGJtIdsEzkuaA5CmmyCCvqUxCvRfCSWKAprbhw/yIrp6KFRT1B61gx7/Fy0urMcYlGc2RqiGK4KzdX3243k+Qat631RBsw/7e0GD4qxLnSQ1nN8P/xsWccif4lhkGGa9m4nVM2K4ZqI/tycsOACoFqdICXbPPAZpWWV4Q62M8PaFA55BScXNbCt9P3/xLlXwG8jo1BdpCxBi1Y6KJZTN3LgbI6xWKpBKs8C07TyUzhkNokwI7n0rX+NJtialJR4QNFtsRbneY2EpRiRiuNr+L5pWzXBo0Q42Nt1rfrYCPFzuI4buqVbPJWPIgI04ISy24PYmNGIxBh+Rybj0ZEyudQOXomjxNzzvxozCMi93xbDw9POm2HdkMbsGyzhjpAPOgXs2o1mu4wuQm+UN48jWuNgTFuzfpg+qReIdDAMqV7MzAPSwKdQhwgIGx4K5Zj1mW5sLUmHI/v4pA2wHt/JzfmScY5L9dAVzM82cHeVpeDySzjk4LfsnvUkfBzJnZujOAWe+yo=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a1fc4514-08a1-494b-9d8a-08ddc5f798e7
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR10MB8218.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV1PR03MB10456.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8190e046-c86d-4a6d-8fab-08ddc5f5a87c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jul 2025 12:21:42.8943
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2025 12:35:37.1369
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: J/y75mrAFG0KZ2NHLuPKBc/adiNE/L8YV0Y3nThh1TThrdXWimmFYGoFbbwhHQ/H5xjev12XunppY8mzeodI5ZhrWCfnkzbkkY+ELxLAzEg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR03MB10182
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fTAhcizpKpJQsE/CaGJ/oexvrEphDlymendqMo9Uk1cfGYY+6OBjSEUaB125nLbs2CE1+i+YZ0Vw2lVKH7C6vpU8iLgU14/HGer79mXftEM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF04D2D7FA7
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-07-18_02,2025-07-17_02,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 phishscore=0 spamscore=0
+ mlxlogscore=999 malwarescore=0 mlxscore=0 suspectscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2505160000
+ definitions=main-2507180096
+X-Proofpoint-ORIG-GUID: 1K3701reWHgTFpg5lycL87RUnutklGTX
+X-Authority-Analysis: v=2.4 cv=Of+YDgTY c=1 sm=1 tr=0 ts=687a3f9d b=1 cx=c_pps a=WeWmnZmh0fydH62SvGsd2A==:117 a=WeWmnZmh0fydH62SvGsd2A==:17 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=wKuvFiaSGQ0qltdbU6+NXLB8nM8=:19
+ a=Ol13hO9ccFRV9qXi2t6ftBPywas=:19 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10 a=Wb1JkmetP80A:10 a=GoEa3M9JfhUA:10 a=rNIe8tJn33Rh4yoerTAA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: 1K3701reWHgTFpg5lycL87RUnutklGTX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzE4MDA5NiBTYWx0ZWRfXwYDAPaGwDVFW vMOtC2NZQQSYGHFG/0J2CKnyVcDFurPb3YRfildhDK26+lCL/EaIIChHI3eBlPSg+dTbViBEqKm jgkeYoH5WATqfRYblV0nupGnbn0yp1Ki5XNqNcM4jjDeEt6aW2+meofIeEbV3frws1U9QZwkOos
+ z2Nlz9cxfin8/9o+eYjjE4dJTD7kNYGC9qnpb5fd/AC/l8sE49yK9qX2VVkDzAWxvkpriWYveNf 5SwbP156Bwamyi46zQVuIOsVO3IuBO/3z5+TiHkCUx3SXfFVWQnCj3Y5LN6gLeoeycvw3H6oezF kmUk+CxuMUjqUDswQH5jtWEjfxWcmNzYFK/rog0F0b9Q4CjMtpmiYVZB9n+Pn6iWO2Ax+o1Hvkh
+ 2oa6on6aMLx2+xE4hFpKCr1HpoDRDbQHnq0X3gUShTuFeOcUSzv+nlCZ+W1mNrsanPfLoQ5W
 
-Add new alpine-based build that enables LibAFL-based fuzzer.
+On Thu, Jul 17, 2025 at 10:12:37PM +0200, David Hildenbrand wrote:
+> > >
+> > > -/*
+> > > - * vm_normal_page -- This function gets the "struct page" associated with a pte.
+> > > +/**
+> > > + * vm_normal_page_pfn() - Get the "struct page" associated with a PFN in a
+> > > + *			  non-special page table entry.
+> >
+> > This is a bit nebulous/confusing, I mean you'll get PTE entries with PTE special
+> > bit that'll have a PFN but just no struct page/folio to look at, or should not
+> > be touched.
+> >
+> > So the _pfn() bit doesn't really properly describe what it does.
+> >
+> > I wonder if it'd be better to just separate out the special handler, have
+> > that return a boolean indicating special of either form, and then separate
+> > other shared code separately from that?
+>
+> Let me think about that; I played with various approaches and this was the
+> best I was come up with before running in circles.
 
-Use this new build to run two fuzzing sessions: hypercall fuzzing and
-gicv2 fuzzing. Currently, this is all the fuzzing modes supported by
-xen fuzzer. Every fuzzing session will run approximately 10 minutes.
+Thanks
 
-Fuzzing session will provide fuzzer log and any crash input data as
-artifacts. This crash data can be used later to replay the input to
-reproduce the crash.
+>
+> >
+> > > + * @vma: The VMA mapping the @pfn.
+> > > + * @addr: The address where the @pfn is mapped.
+> > > + * @pfn: The PFN.
+> > > + * @entry: The page table entry value for error reporting purposes.
+> > >    *
+> > >    * "Special" mappings do not wish to be associated with a "struct page" (either
+> > >    * it doesn't exist, or it exists but they don't want to touch it). In this
+> > > @@ -603,10 +608,10 @@ static void print_bad_page_map(struct vm_area_struct *vma,
+> > >    * (such as GUP) can still identify these mappings and work with the
+> > >    * underlying "struct page".
+> > >    *
+> > > - * There are 2 broad cases. Firstly, an architecture may define a pte_special()
+> > > - * pte bit, in which case this function is trivial. Secondly, an architecture
+> > > - * may not have a spare pte bit, which requires a more complicated scheme,
+> > > - * described below.
+> > > + * There are 2 broad cases. Firstly, an architecture may define a "special"
+> > > + * page table entry bit (e.g., pte_special()), in which case this function is
+> > > + * trivial. Secondly, an architecture may not have a spare page table
+> > > + * entry bit, which requires a more complicated scheme, described below.
+> >
+> > Strikes me this bit of the comment should be with vm_normal_page(). As this
+> > implies the 2 broad cases are handled here and this isn't the case.
+>
+> Well, pragmatism. Splitting up the doc doesn't make sense. Having it at
+> vm_normal_page() doesn't make sense.
+>
+> I'm sure the educated reader will be able to make sense of it :P
+>
+> But I'm happy to hear suggestions on how to do it differently :)
 
-Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+Right yeah.
 
----
+I feel like having separate 'special' handling for each case as separate
+functions, each with their own specific explanation would work.
 
-This patch is demonstration on how xen fuzzer can be integrated in
-CI. With this setup, it can serve as smoke test, because 10 minute
-fuzzing session is not enough. While there is no strict rule on now
-long fuzzing session should run, most widely accepted time is 24
-hours. This will require additional rules (weekly tests?) and separate
-runners (probably).
+But I don't want to hold up the series _too_ much on this, generally I just
+find the _pfn thing confusing.
 
-Right now this patch uses docker container build by me that is hosted
-on docker hub. Of course, in the final version, this container should
-hosted together with other Xen CI containers.
+I mean the implementation is a total pain anyway...
 
-Also, that container is built based on xen-fuzzer-rs project that is
-also hosted on Xen-Troops GitHub repo, along with custom XTF
-fork. These components also should be moved to gitlab/xen.
+I feel like we could even have separate special handling functions like
 
-Changes in v4:
+#ifdef CONFIG_ARCH_HAS_PTE_SPECIAL
 
- - Minor change to crash artifacts handling
- - Skip UBSAN options for alpine-3.18-gcc-fuzzing-arm64 build
----
- automation/gitlab-ci/build.yaml |  9 +++++++++
- automation/gitlab-ci/test.yaml  | 33 +++++++++++++++++++++++++++++++++
- 2 files changed, 42 insertions(+)
+/*
+ * < description of pte special special page >
+ *
+ * If returns true, then pagep set to NULL or, if a page can be found, that
+ * page.
+ *
+ */
+static struct bool is_special_page(struct vm_area_struct *vma, unsigned long addr,
+		pte_t pte, struct page **pagep)
+{
+	unsigned long pfn = pte_pfn(pte);
 
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.y=
-aml
-index ab5211f77e..ee79e65eb9 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -414,6 +414,15 @@ alpine-3.18-gcc-debug-arm64:
-       CONFIG_UBSAN=3Dy
-       CONFIG_UBSAN_FATAL=3Dy
-=20
-+alpine-3.18-gcc-fuzzing-arm64:
-+  extends: .gcc-arm64-build-debug
-+  variables:
-+    CONTAINER: alpine:3.18-arm64v8
-+    EXTRA_XEN_CONFIG: |
-+      CONFIG_FUZZING=3Dy
-+      CONFIG_FUZZER_LIBAFL_QEMU=3Dy
-+      CONFIG_FUZZER_PASS_BLOCKING=3Dy
-+
- alpine-3.18-gcc-arm64-randconfig:
-   extends: .gcc-arm64-build
-   variables:
-diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yam=
-l
-index 842cecf713..2b0d418d03 100644
---- a/automation/gitlab-ci/test.yaml
-+++ b/automation/gitlab-ci/test.yaml
-@@ -197,6 +197,29 @@
-   tags:
-     - qubes-hw11
-=20
-+.fuzzer-arm:
-+  stage: test
-+  image: xentroops/xen-fuzzer:v1
-+  variables:
-+    HARNESS: hypercall
-+    FUZZING_TIME: 600
-+  rules:
-+  - if: $SELECTED_JOBS_ONLY && $CI_JOB_NAME =3D~ $SELECTED_JOBS_ONLY
-+  - if: $SELECTED_JOBS_ONLY
-+    when: never
-+  - when: on_success
-+  script:
-+    - cd /root/
-+    - ./xen_fuzzer -t ${FUZZING_TIME} run ${CI_PROJECT_DIR}/binaries/xen t=
-est-mmu64le-arm-${HARNESS}-fuzzer 2>&1 | tee ${CI_PROJECT_DIR}/fuzzer-${HAR=
-NESS}.log
-+  after_script:
-+    - mv /root/crashes ${CI_PROJECT_DIR}
-+  artifacts:
-+    paths:
-+      - fuzzer-${HARNESS}.log
-+      - crashes/
-+  needs:
-+    - alpine-3.18-gcc-fuzzing-arm64
-+
- # Test jobs
- build-each-commit-gcc:
-   extends: .test-jobs-common
-@@ -704,3 +727,13 @@ qemu-smoke-ppc64le-powernv9-gcc:
-     - ./automation/scripts/qemu-smoke-ppc64le.sh powernv9 2>&1 | tee ${LOG=
-FILE}
-   needs:
-     - debian-12-ppc64le-gcc-debug
-+
-+arm-hypercall-fuzzer:
-+  extends: .fuzzer-arm
-+  variables:
-+    HARNESS: hypercall
-+
-+arm-vgic-fuzzer:
-+  extends: .fuzzer-arm
-+  variables:
-+    HARNESS: vgic
---=20
-2.50.0
+	if (likely(!pte_special(pte))) {
+		if (pfn <= highest_memmap_pfn)
+			return false;
+
+		goto bad;
+	}
+
+	if (vma->vm_ops && vma->vm_ops->find_special_page) {
+		*pagep = vma->vm_ops->find_special_page(vma, addr);
+		return true;
+	} else if (vma->vm_flags & (VM_PFNMAP | VM_MIXEDMAP)) {
+		goto special;
+	}
+
+	if (is_zero_pfn(pfn))
+		goto special;
+
+	/* If we reach here something's gone wrong. */
+
+bad:
+	print_bad_pte(vma, addr, pte, NULL);
+special:
+	*pagep = NULL;
+	return true;
+}
+#else
+/*
+ * < description for not-pte special special page >
+ */
+static struct bool is_special_page(struct vm_area_struct *vma, unsigned long addr,
+		pte_t pte, struct page **pagep)
+{
+	unsigned long pfn = pte_pfn(pte);
+
+	if (is_zero_pfn(pfn))
+		goto special;
+
+	if (vma->vm_flags & VM_MIXEDMAP) {
+		if (!pfn_valid(pfn) || is_zero_pfn(pfn))
+			goto special;
+	} else if (vma->vm_flags & VM_PFNMAP) {
+		unsigned long off;
+
+		off = (addr - vma->vm_start) >> PAGE_SHIFT;
+		if (pfn == vma->vm_pgoff + off)
+			goto special;
+		/* Hell's bells we allow CoW !arch_has_pte_special of PFN pages! help! */
+		if (!is_cow_mapping(vma->vm_flags))
+			goto special;
+	}
+
+	if (pfn > highest_memmap_pfn) {
+		print_bad_pte(vma, addr, pte, NULL);
+		goto special;
+	}
+
+	return false;
+special:
+	*pagep = NULL;
+	return true;
+}
+
+#endif
+
+And then obviously invoke as makes sense... This is rough and untested,
+just to give a sense :>)
+
+>
+> >
+> > >    *
+> > >    * A raw VM_PFNMAP mapping (ie. one that is not COWed) is always considered a
+> > >    * special mapping (even if there are underlying and valid "struct pages").
+> > > @@ -639,15 +644,72 @@ static void print_bad_page_map(struct vm_area_struct *vma,
+> > >    * don't have to follow the strict linearity rule of PFNMAP mappings in
+> > >    * order to support COWable mappings.
+> > >    *
+> > > + * This function is not expected to be called for obviously special mappings:
+> > > + * when the page table entry has the "special" bit set.
+> >
+> > Hmm this is is a bit weird though, saying "obviously" special, because you're
+> > handling "special" mappings here, but only for architectures that don't specify
+> > the PTE special bit.
+> >
+> > So it makes it quite nebulous what constitutes 'obviously' here, really you mean
+> > pte_special().
+>
+> Yes, I can clarify that.
+
+Thanks!
+
+>
+> >
+> > > + *
+> > > + * Return: Returns the "struct page" if this is a "normal" mapping. Returns
+> > > + *	   NULL if this is a "special" mapping.
+> > > + */
+> > > +static inline struct page *vm_normal_page_pfn(struct vm_area_struct *vma,
+> > > +		unsigned long addr, unsigned long pfn, unsigned long long entry)
+> > > +{
+> > > +	/*
+> > > +	 * With CONFIG_ARCH_HAS_PTE_SPECIAL, any special page table mappings
+> > > +	 * (incl. shared zero folios) are marked accordingly and are handled
+> > > +	 * by the caller.
+> > > +	 */
+> > > +	if (!IS_ENABLED(CONFIG_ARCH_HAS_PTE_SPECIAL)) {
+> > > +		if (unlikely(vma->vm_flags & (VM_PFNMAP | VM_MIXEDMAP))) {
+> > > +			if (vma->vm_flags & VM_MIXEDMAP) {
+> > > +				/* If it has a "struct page", it's "normal". */
+> > > +				if (!pfn_valid(pfn))
+> > > +					return NULL;
+> > > +			} else {
+> > > +				unsigned long off = (addr - vma->vm_start) >> PAGE_SHIFT;
+> > > +
+> > > +				/* Only CoW'ed anon folios are "normal". */
+> > > +				if (pfn == vma->vm_pgoff + off)
+> > > +					return NULL;
+> > > +				if (!is_cow_mapping(vma->vm_flags))
+> > > +					return NULL;
+> > > +			}
+> > > +		}
+> > > +
+> > > +		if (is_zero_pfn(pfn) || is_huge_zero_pfn(pfn))
+> >
+> > This handles zero/zero huge page handling for non-pte_special() case
+> > only. I wonder if we even need to bother having these marked special
+> > generally since you can just check the PFN every time anyway.
+>
+> Well, that makes (a) pte_special() a bit weird -- not set for some special
+> pages and (b) requires additional runtime checks for the case we all really
+> care about -- pte_special().
+>
+> So I don't think we should change that.
+
+OK, best to be consistent in setting for special pages.
+
+>
+> [...]
+>
+> > >
+> > > +/**
+> > > + * vm_normal_folio() - Get the "struct folio" associated with a PTE
+> > > + * @vma: The VMA mapping the @pte.
+> > > + * @addr: The address where the @pte is mapped.
+> > > + * @pte: The PTE.
+> > > + *
+> > > + * Get the "struct folio" associated with a PTE. See vm_normal_page_pfn()
+> > > + * for details.
+> > > + *
+> > > + * Return: Returns the "struct folio" if this is a "normal" mapping. Returns
+> > > + *	   NULL if this is a "special" mapping.
+> > > + */
+> >
+> > Nice to add a comment, but again feels weird to have the whole explanation in
+> > vm_normal_page_pfn() but then to invoke vm_normal_page()..
+>
+> You want people to do pointer chasing to find what they are looking for? :)
+
+Yes.
+
+Only joking :P
+
+Hopefully the ideas mentioned above clarify things... a bit maybe... :>)
+
+>
+> --
+> Cheers,
+>
+> David / dhildenb
+>
 
