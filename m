@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D30F9B0AB20
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 22:26:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1049201.1419228 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D1E5B0AB31
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 22:49:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1049207.1419239 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucreU-0006M3-BL; Fri, 18 Jul 2025 20:25:54 +0000
+	id 1ucs0c-00010a-3v; Fri, 18 Jul 2025 20:48:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1049201.1419228; Fri, 18 Jul 2025 20:25:54 +0000
+Received: by outflank-mailman (output) from mailman id 1049207.1419239; Fri, 18 Jul 2025 20:48:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucreU-0006JR-88; Fri, 18 Jul 2025 20:25:54 +0000
-Received: by outflank-mailman (input) for mailman id 1049201;
- Fri, 18 Jul 2025 20:25:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=00bL=Z7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ucreS-0006JK-9t
- for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 20:25:52 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 65bec9ac-6415-11f0-a319-13f23c93f187;
- Fri, 18 Jul 2025 22:25:51 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-45617887276so17783205e9.2
- for <xen-devel@lists.xenproject.org>; Fri, 18 Jul 2025 13:25:51 -0700 (PDT)
-Received: from localhost.localdomain (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b61ca48a23sm2750817f8f.54.2025.07.18.13.25.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Jul 2025 13:25:49 -0700 (PDT)
+	id 1ucs0c-0000y9-0W; Fri, 18 Jul 2025 20:48:46 +0000
+Received: by outflank-mailman (input) for mailman id 1049207;
+ Fri, 18 Jul 2025 20:48:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=/TGD=Z7=m5p.com=ehem@srs-se1.protection.inumbo.net>)
+ id 1ucs0b-0000y3-3W
+ for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 20:48:45 +0000
+Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 960ed893-6418-11f0-b894-0df219b8e170;
+ Fri, 18 Jul 2025 22:48:42 +0200 (CEST)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:8ac4:0:0:0:0:f7])
+ by mailhost.m5p.com (8.18.1/8.17.1) with ESMTPS id 56IKmJmc053108
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Fri, 18 Jul 2025 16:48:24 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.18.1/8.15.2/Submit) id 56IKmHNe053107;
+ Fri, 18 Jul 2025 13:48:17 -0700 (PDT) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,121 +43,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 65bec9ac-6415-11f0-a319-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1752870350; x=1753475150; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=LDcRHEFM13Fw0oaNQ6A4KMPhK2yYxdkuZF6CtQ9seEw=;
-        b=gkdCVkJcdtS/MIOjzposxch4c+NT2gfbdeEOMq2TVIXqjr7INdyNNnk5ZV5XM7/ccY
-         1n2Huupumy0WTPJ2J1+a+p01Ir1LPiKvT96jwXA0jptp5uABtu6j8oorEDlXBfkWLd5v
-         j30NevVRPkBK6168HS8bv7p7V5v9/5akx/BI0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752870350; x=1753475150;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=LDcRHEFM13Fw0oaNQ6A4KMPhK2yYxdkuZF6CtQ9seEw=;
-        b=TNZhrmWnF8hZ4v0dAJrHNSVUTDn4X6IsitJQT7X9dy3vE8PzKcxflcagKVciJ11WaL
-         bYiB1WDntL/YAdcMXj7qzNjhOj3WavlwcatiX98VCrVOWLgXfsBHXVe64UPUkOgKXMQF
-         fd8pnYzZKOJwPvoPRzinubQEwDt7hrQWgZe8fyYT7L7H50e2enw+Ddl+nfrO99zqrcgR
-         1y+ouXqP4uBfTrHRTbXaRRrDDmOBd3BCE73WtOlXUG05pq63Hql6OImn5IJr2gb24oem
-         r5jbXmhdVBgISl+B5beRlGpq3CtIzes8NUQP0zpYjn3OJEH/jVCsp8Zrkg18MUgTShU9
-         NBgA==
-X-Gm-Message-State: AOJu0YyTOIV5OdFaHPNyHpQM6DQNdQE7qO2QxlmKk4rnQ6WhRRG9cT64
-	N+adj3KnJWZYxiuN9eY32BnMHfodkiGJPmUY9pHZS0DzKLpZwu0Lw1k2OVPUj1S/HwJuUNNbLPe
-	/pc9lTKD8pg==
-X-Gm-Gg: ASbGncs9ehPMiNwL3BvXADzF5QB/TE1AW9emO2HkqeY4MX5r7+O19pMCSAg+2xIu3eV
-	aoS2s4VxjG6zIRKBve1Y3XwpUllk3fU2PRm5ZcmazpHZZwnVU6iC7auwTl9jIgl61rQYYJthSKr
-	O4yXyna2RIM3SBZXtjTsprSnTipj22+GbShv8QpPqKzfMSSWA0kC2PCDRLyFOLia2T/NQ9zGHuA
-	FQf9lGnoISgN7Xi8eLRzerAktGhXeCv/DjjnZC3Y/furls7Ea+Jei7NkPhpGXIBES/5fJ90tCbG
-	LDMlWjOyMfCqZkf4EnMZ30pA++6g0clGSdtNPfFdnPswphXGmpHHnUUb0R7q3XanqkALGgC4+RG
-	ow97ATblhcyoPMkV3fuWoTiZrBABOQSagGbW1EDPTTrXx6obyFh5iHZ8xshOKtST1X+rMtuYGAh
-	8j
-X-Google-Smtp-Source: AGHT+IGPJTpwszaTsw/W5WzQ5MnFI+VgddkqgSkRwy1IEV3rffNgjyCeWHcHQsP/YrjbbiVzmUgphA==
-X-Received: by 2002:a05:600c:8211:b0:450:d30e:ff96 with SMTP id 5b1f17b1804b1-4563609dcacmr85443035e9.0.1752870350359;
-        Fri, 18 Jul 2025 13:25:50 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] x86/pv: Rework TRY_LOAD_SEG() to use asm goto()
-Date: Fri, 18 Jul 2025 21:25:48 +0100
-Message-Id: <20250718202548.2834921-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+X-Inumbo-ID: 960ed893-6418-11f0-b894-0df219b8e170
+Date: Fri, 18 Jul 2025 13:48:17 -0700
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Anthoine Bourgeois <anthoine.bourgeois@vates.tech>
+Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: Re: [PATCH] xen/netfront: Fix TX response spurious interrupts
+Message-ID: <aHqzEUtvIz1KpRW3@mattapan.m5p.com>
+References: <20250710161029.3773630-1-anthoine.bourgeois@vates.tech>
+ <d2c05c2b-ee50-4121-bedd-17ec6bcfa75f@suse.com>
+ <aHSth3FOCpiRRfwv@mail.vates.tech>
+ <aHWi3ncNrVBO6jrh@mattapan.m5p.com>
+ <aHYPktKlOyFJ49bb@mail.vates.tech>
+ <aHapxmJ6miJnWYit@mattapan.m5p.com>
+ <aHdZInm-EC487zKi@mail.vates.tech>
+ <aHfv6jj4GkW7ZR2S@mattapan.m5p.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aHfv6jj4GkW7ZR2S@mattapan.m5p.com>
+X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
+	autolearn_force=no version=4.0.1
+X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on mattapan.m5p.com
 
-This moves the exception path to being out-of-line within the function, rather
-than in the .fixup section, which improves backtraces.
+On Wed, Jul 16, 2025 at 11:31:06AM -0700, Elliott Mitchell wrote:
+> On Wed, Jul 16, 2025 at 07:47:48AM +0000, Anthoine Bourgeois wrote:
+> > On Tue, Jul 15, 2025 at 12:19:34PM -0700, Elliott Mitchell wrote:
+> > >On Tue, Jul 15, 2025 at 08:21:40AM +0000, Anthoine Bourgeois wrote:
+> > >>
+> > >> Thank you for the test!
+> > >> Could you send me the domU/dom0 kernel version and xen version ?
+> > >
+> > >I tend to follow Debian, so kernel 6.1.140 and 4.17.6.  What may be
+> > >more notable is AMD processor.
+> > >
+> > >When initially reported, it was reported as being more severe on systems
+> > >with AMD processors.  I've been wondering about the reason(s) behind
+> > >that.
+> > 
+> > AMD processors could make a huge difference. On Ryzen, this patch could
+> > almost double the bandwidth and on Epyc close to nothing with low
+> > frequency models, there is another bottleneck here I guess.
+> > On which one do you test?
+> > 
+> > Do you know there is also a workaround on AMD processors about remapping
+> > grant tables as WriteBack?
+> > Upstream patch is 22650d605462 from XenServer.
+> > The test package for XCP-ng with the patch:
+> > https://xcp-ng.org/forum/topic/10943/network-traffic-performance-on-amd-processors
+> > 
+> 
+> Why are you jumping onto mostly unrelated issues when the current bug is
+> unfinished?
+> 
+> Spurious events continue to be observed on the network backend.  Spurious
+> events are also being observed on block and PCI backends.  You identified
+> one cause, but others remain.
+> 
+> (I'm hoping the next one effects all the back/front ends; the PCI backend
+> is a bigger issue for me)
+> 
+> Should add, one VM being observed with these issue(s) is using 6.12.38.
 
-Because the macro is used multiple times, the fault label needs declaring as
-local.
+For reference, the following:
 
-No functional change.
+for d in /sys/devices/{pci,vbd,vif}-*[0-9]-*[0-9]/xenbus
+do      if [ -f "$d/spurious_events" ]
+        then    read s < "$d/spurious_events"
+        else    s=0
+        fi
+        if [ "$s" -gt 0 ]
+        then    printf "problem %s: %d\\n" "$d/spurious_events" "$s"
+        else    printf "clean: %s\\n" "$d/spurious_events"
+        fi
+done
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
+Flags all passthrough and virtual devices.  Even though there is a
+reduction with virtual network devices, that is only a 10% reduction.
+Most of the problem remains even though there is progress.
 
-Slightly RFC.  I haven't checked if Eclair will be happy with __label__ yet.
+I was mentioning an AMD processor since the initial report stated the
+problem was more severe with AMD processor machines.
 
-It is disappointing that, unless we retain the xor/mov for the exception path,
-GCC decides to emit worse code, notably duplicating the mov %ds success path
-in mov %es's error path.
+This is likely a driver design issue.  Most pieces of hardware, telling
+the hardware to process an empty queue is quite cheap.  Perhaps minor
+energy loss, but most hardware isn't (yet) too worried about being
+attacked.
 
-The "+r" constraint was actually wrong before; the asm only produces
-all_segs_okay and does not consume it.  Given leeway, GCC decides to manifest
-$1 in a different register on each error path and OR them together (inverted,
-I'm guessing) to reconstitute all_segs_okay.
+Passthrough and virtual devices are quite unusual in there being a
+concern over attacks.  There could be major design flaws due to the
+front-ends being designed similar to normal drivers.
 
-Still, we've got rid of the manual jmp...
----
- xen/arch/x86/domain.c | 27 ++++++++++++++++-----------
- 1 file changed, 16 insertions(+), 11 deletions(-)
 
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index 56c381618712..d795e5b968e2 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -1738,17 +1738,22 @@ static void load_segments(struct vcpu *n)
-      * @all_segs_okay in function scope, and load NUL into @sel.
-      */
- #define TRY_LOAD_SEG(seg, val)                          \
--    asm_inline volatile (                               \
--        "1: mov %k[_val], %%" #seg "\n\t"               \
--        "2:\n\t"                                        \
--        ".section .fixup, \"ax\"\n\t"                   \
--        "3: xor %k[ok], %k[ok]\n\t"                     \
--        "   mov %k[ok], %%" #seg "\n\t"                 \
--        "   jmp 2b\n\t"                                 \
--        ".previous\n\t"                                 \
--        _ASM_EXTABLE(1b, 3b)                            \
--        : [ok] "+r" (all_segs_okay)                     \
--        : [_val] "rm" (val) )
-+    ({                                                  \
-+        __label__ fault;                                \
-+        asm_inline volatile goto (                      \
-+            "1: mov %k[_val], %%" #seg "\n\t"           \
-+            _ASM_EXTABLE(1b, %l[fault])                 \
-+            :: [_val] "rm" (val)                        \
-+            :: fault );                                 \
-+        if ( 0 )                                        \
-+        {                                               \
-+        fault: __attribute__((cold));                   \
-+            asm_inline volatile (                       \
-+                "xor %k[ok], %k[ok]\n\t"                \
-+                "mov %k[ok], %%" #seg                   \
-+                : [ok] "=r" (all_segs_okay) );          \
-+        }                                               \
-+    })
- 
-     if ( !compat )
-     {
 -- 
-2.39.5
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
 
 
