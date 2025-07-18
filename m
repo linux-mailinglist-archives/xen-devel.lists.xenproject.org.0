@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4A2BB0A1CF
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 13:19:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1048559.1418768 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D20BB0A1D0
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 13:21:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1048565.1418778 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucj7M-0007PM-F8; Fri, 18 Jul 2025 11:19:08 +0000
+	id 1ucj9A-0000eY-R9; Fri, 18 Jul 2025 11:21:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1048559.1418768; Fri, 18 Jul 2025 11:19:08 +0000
+Received: by outflank-mailman (output) from mailman id 1048565.1418778; Fri, 18 Jul 2025 11:21:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucj7M-0007Nu-CW; Fri, 18 Jul 2025 11:19:08 +0000
-Received: by outflank-mailman (input) for mailman id 1048559;
- Fri, 18 Jul 2025 11:19:06 +0000
+	id 1ucj9A-0000bz-Nj; Fri, 18 Jul 2025 11:21:00 +0000
+Received: by outflank-mailman (input) for mailman id 1048565;
+ Fri, 18 Jul 2025 11:20:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pPPV=Z7=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1ucj7K-0007No-PO
- for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 11:19:06 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ <SRS0=34x3=Z7=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
+ id 1ucj99-0000bs-OI
+ for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 11:20:59 +0000
+Received: from AS8PR04CU009.outbound.protection.outlook.com
+ (mail-westeuropeazlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c201::3])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 04143b65-63c9-11f0-a319-13f23c93f187;
- Fri, 18 Jul 2025 13:19:05 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-6088d856c6eso3582179a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 18 Jul 2025 04:19:05 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-612c9040d91sm839017a12.38.2025.07.18.04.19.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Jul 2025 04:19:04 -0700 (PDT)
+ id 474fc067-63c9-11f0-a319-13f23c93f187;
+ Fri, 18 Jul 2025 13:20:58 +0200 (CEST)
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
+ by DBBPR03MB10464.eurprd03.prod.outlook.com (2603:10a6:10:53c::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.35; Fri, 18 Jul
+ 2025 11:20:55 +0000
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593%4]) with mapi id 15.20.8922.037; Fri, 18 Jul 2025
+ 11:20:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,339 +47,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04143b65-63c9-11f0-a319-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1752837545; x=1753442345; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Ty1AVZXClvnmVJyJrTqaQbJNg11JVF6Iu61YXdiGNhY=;
-        b=AlClVUtY2+MrdpdYBIFRnkMq8d0BIMRPrM7zppFZfgWsGoPCgTrxHXziGBhpx1LlyM
-         PKN96n32Ggn4n/AuH5do1goMaycuP8Vw04QrsaV21vpLANyWGhqPltXGf1FLKOn4Phl6
-         Gni7Q7B1sIt7R7kXeXyBUqQXCtBimJ3DuIMRdQdkeUvo2gYKAPD+WKMafZI7mHlZKENI
-         CSBskEg4/4sC01JSagjdcuhYeZSEBPggEJo9wN+N3fTMBvvzYFL5GNXvaaZdB077aq4K
-         EA/ZJXZ4CF4TJZkXNKV9VYlQi92bbMH7L+c0boWQj2mNioeGqU4oRg3ytIuG5HKpXlKY
-         3Mng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752837545; x=1753442345;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Ty1AVZXClvnmVJyJrTqaQbJNg11JVF6Iu61YXdiGNhY=;
-        b=V9CoWQHhEjSlZo8GIDmX7AYcO92zluRiDrAJ2CrGA/Bx4KNE4YIUGbee16Ya2OQ31s
-         NbNj5TCv5HPyP5kJXIxZmMbzwj7yr536wI2qwC0bzklxUG03Ih6XENiKRYkXBPnnSEW3
-         9UoYg6569NuLyewJCU9EeskKcbcCrR+jSyHexuF2ubQ7Q6wZAYyhRlh2pYC+oTpME7qE
-         eQCq9RYJZfAn3gY8ea204/oNWRES38sHv8nEM9u64HvP+oybZioTh++m0d0MfVaHR7Vp
-         8eBHJ1BZQGdXWmVmNB7kGcsT3YYSTLnOIbgkxBhAEC+9FLPmgcvetBf4ALqdhU7FOd7E
-         ThSw==
-X-Forwarded-Encrypted: i=1; AJvYcCWOzIp58VwdPGGxY1GF4qaac7rICj6Ut4J9aCNFzdfc8RcnTeIVbVRXth0JMoFMumSFKrJAibzJoXs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxYofZ+x8PHi1O/Xxwfn1PG+TZdhBsDMm9OwHcrtBLzYzWqSKsH
-	4wlTZqzm5q4zrLOkdBaAgSCwZqE9oa3Iaedza+8crFi7JAjm21caxu1L
-X-Gm-Gg: ASbGncvrgZwZC6t5EHWJ0rL4ZeTqKbJO7pykOX+fAnapRdvcK3DaQI/49YxID7liJCD
-	wn2OCMf8XzjWXfYZCc+iDe7qc3u8nQsXzi/6R27beiCbTsX1NLTgnTjunMEFGib973RhOOWG0E2
-	/Yf7adhmRB/ntAKKqxh5PrNAht/xzfVQPbDyH2iL47b8HruIny8mqaW/Hyv5QP0pPZ79dR7U5HB
-	TLcscyxqqD+NMAJ29g/OYu0Y0JmLmo+bN6j48gvSOfR/dWukb3VztseLaspxmGO3Mt5zjH8N5qv
-	Jk6NbcOz/Yw5iRRx0tX6iVpna06zH7ONUvbNU5U++Ule3RxoJnVyX5ueHpm5yZobu/O4fl+7/zr
-	dzJ7yv+bYV5gHzsJjyd2TJTZtlgDddGZtN8USKm9VZPyOOaUcDAEeggfAh2zhB7jFk7K2VlE=
-X-Google-Smtp-Source: AGHT+IEBAuAvjGKL2zkzyHWZQQW4BrRvrhPchxxHWY70c83u+BksYqQjsMJXD6Mt5ummIVnxruyE9A==
-X-Received: by 2002:a05:6402:234b:b0:606:bea1:1740 with SMTP id 4fb4d7f45d1cf-6128263a83fmr10198763a12.30.1752837544652;
-        Fri, 18 Jul 2025 04:19:04 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------xO4C9i1JuQg0ITCMmcTiNsrc"
-Message-ID: <cf7ffaba-0a75-41e7-adc9-55613bc311d2@gmail.com>
-Date: Fri, 18 Jul 2025 13:19:03 +0200
-MIME-Version: 1.0
+X-Inumbo-ID: 474fc067-63c9-11f0-a319-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fPGsIwHBORyTnRJxhJQD2m2fVwFabL5QTzHV1IpGQkVnNgsXlgBRVbZnx137iII/5W0UjaAyTuRWxIspwTR4u2JYTE2H4Imuxr9VHjh9yjThza5IKwDcuRQOfnHqfnwZGuyHEfPE56lLTYM3nIj577y9OFGCb3RMk2rcTh11OG2au6NghKY0NjuFczcDts5A7Tl1b1rtsSId7DyQWZtZXnwQ2geRD+j1B76gW2LekyQ+l/8GqVG/Emfm5UYJduHBIkWQtx/7HgRrWqV/j/V/DwXfPd7nRgfPheqqSZLnqt5HYVgXZ43y9Deos5jJx+RngDL9VNYZPdpI3zS/pQVxDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZOmNManEAEwYI2YaFHRMLRsY+uOP8zzKlEEdtLQ0WeM=;
+ b=ER3+h4PHIwQ0kMpawDKg0PhBmqSMi4slX79EZdM+BEzuq0sD0IqD8mtZrUEpg3s62HA3xOeSkGq/sadfJ2aXoHhlsuy8r61wuDNM3kuPtw0/i1uPJZ5IzUMIeLuZm14mBeQ3Jq7VmBPfVaKM1qIknalJeREMrWu2Ufq6jC9nd/U+ksd5YkDebUQjoRVviBRkIAAqaY/9uXm5nEN0ZdWCJzmAccz+CcY0UUz7Zmls435GtxP0UWbp+OctFbFMXY+GHJQYXG7efyS9H4KBHqyTo/r+8vzgTxvS30MiBmrrcUEDisPzjM4czsyXeVjB+h5Wt3qsubRAG0/21UITuZmyAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZOmNManEAEwYI2YaFHRMLRsY+uOP8zzKlEEdtLQ0WeM=;
+ b=qrjZZeT0jHsSTgrWTLS6pIni8IRvbZHYLZxHKEtKMmUwTM5I+vk5riZZ8WwQzCU/n4kIf3ZtRm7OpQ0puWF5Vtvab24mXpl9FE3fBvel8RA+h4VHoHHr7atQqRMFbl/2boP0uikmxejgbZRf0nrKMMT9pLuyRMPplEgvlaIOtcSwKxZ6Xh0V5W0De8MnS2GQA4thkD11kEx5H84D2uYWU5JtgF8BqPdTwMPSCHE1yxNgvQzvPWjM7dzKzQt60ZX2qwlk0UQsrQbdxgTWOPclYH5xm1mUZBiKhquTHbJF28J5cFRFHnurJkyhVSfK/TW6Oj1cM+YjYiiAHWBoXsOtyA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+Message-ID: <77f6e0fb-fd3a-4abf-8346-e7281b6bccaf@epam.com>
+Date: Fri, 18 Jul 2025 14:20:53 +0300
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 14/17] xen/riscv: implement p2m_next_level()
+Subject: Re: [PATCH v10 2/3] xen/domain: update create_dom0() messages
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <cc696a9e4e74233c81f0cbcfd303cee91b8271af.1749555949.git.oleksii.kurochko@gmail.com>
- <1496586d-484c-4e99-aea7-974be335150f@suse.com>
- <b0013513-2646-4de4-a172-0d2ea571a3e8@gmail.com>
- <aabb6eeb-fe2a-4b95-b844-560d2c70bcd5@suse.com>
- <d63ab4e1-d98b-4251-a5c7-87bf4688d5bb@gmail.com>
- <b57e5145-8112-4e86-9d0d-fd836039bd26@suse.com>
- <a3beabba-b320-4401-861e-b528309b786d@gmail.com>
- <106fb5b5-937f-480b-82ad-12a0fb972caf@suse.com>
+Cc: xen-devel@lists.xenproject.org
+References: <20250623182721.194238-1-dmukhin@ford.com>
+ <20250623182721.194238-3-dmukhin@ford.com>
+ <c76704bb-f1b6-458d-8a43-475b161470c1@epam.com>
+ <d0647b6b-ae49-4f04-93ca-545799a3c0de@suse.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <106fb5b5-937f-480b-82ad-12a0fb972caf@suse.com>
-
-This is a multi-part message in MIME format.
---------------xO4C9i1JuQg0ITCMmcTiNsrc
+From: Grygorii Strashko <grygorii_strashko@epam.com>
+In-Reply-To: <d0647b6b-ae49-4f04-93ca-545799a3c0de@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0362.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f8::14) To AS2PR03MB8907.eurprd03.prod.outlook.com
+ (2603:10a6:20b:5e4::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|DBBPR03MB10464:EE_
+X-MS-Office365-Filtering-Correlation-Id: b13b461d-6f68-4fdf-81f1-08ddc5ed2978
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?WU9aMmtxQWlBa0FLTVQ0ekQvUXhNV3c3d1BvYXpGeWRuWk9NZnVFSDl5d2RZ?=
+ =?utf-8?B?UXlZQy9NQlYvZGlRRnlHTzg4MnMwcDFFbW1rdE54bGNUUGFlaDhyQkxEaGJz?=
+ =?utf-8?B?d3FuZXgvUFhPcnFYMk8yUUhFWHdQSkdFV3lSeDVoRnIyMGVqTWhWaXVhM1B6?=
+ =?utf-8?B?c1RqKzV4L1BZQkNrZnNFNlRSRHlEamZyejFPSk0vMWY0c1dRUGpMSlpWVGJN?=
+ =?utf-8?B?M2tCYmZsSWNlSWtLdE1STktMOUNCa3o1OTNaclYydEZhWHNqVnRKVEllK2lL?=
+ =?utf-8?B?Q00yL01iVkhXTElDUnBTTEN4UlNMczRlVDNDOEZQNHVKQkZ3Z2pXL25QMnJ3?=
+ =?utf-8?B?NG5SUDErN3hnSE1YbW5XTTlHTlo3eFRCOUVnTlhTOHA3UlhRNXNkUlFhazdW?=
+ =?utf-8?B?c3FNVGVjOWdmYklOOGYzQ20xTHVLdGJtRWR4UGxnWkZkM3laaHdpdWxxSWFP?=
+ =?utf-8?B?RGdqZXpoKzYxbFpOV3RRbzJteGRNQ3NmZ0U2T2hycjJUSVZaQXk4NXF6TGx4?=
+ =?utf-8?B?dFF6SUhyR1Q2bGdpOGQ2eUtTT0ZDVHdzNWVEZEw4RnBKRVFTSGEreStZOW9t?=
+ =?utf-8?B?NS9IbEpVOUdYZ3RVSEJ1YjE5RXR2KzhyQXhSUDA1aGJqVmJnY2QvZ0cyc3h3?=
+ =?utf-8?B?dWRIWWtHNmhtVHBPVi9GVzgzOCtrQWQyVHlRb3hoajV0N0xYejJOQ255WjZr?=
+ =?utf-8?B?ZWxzNnl3SmdpbzBudmswekhDVDdGUkM4L0ljMWljQktiRUpJWFFzZjR6QmJq?=
+ =?utf-8?B?WnZROTNKMG5ENThjNFAvSGFFcUFOeVhNNnAyTG9BdC9XaWdmM3hDL1huTm9v?=
+ =?utf-8?B?TjZ2bWF3RGJWbVVHYjRsT2lWQk81YzB0aUE5cVpSVHFMUTVYcjZQSkZZR0V1?=
+ =?utf-8?B?M0wxeGplUjVvT1pJaEZ6Mk9ha3l4dExwdXVKK09FWjdZNmRRVTFCWGFVZ25r?=
+ =?utf-8?B?dkg1N1VST0FrRzVvUWVKZGtwWWJFanpsYjNUSlhFT2JqOFppZjBtYVNLbjJm?=
+ =?utf-8?B?YTgvcFhYcGhCSUpMYUZTOUJ3SXE3RmtVUkYybkxrY1RWcG1kZ0FYTCtrNFk2?=
+ =?utf-8?B?SXgyZERQYTNZZDgwY21Dem54eFRURWtZUEQ0ZVY1RytJQ1dab21KdnJldytv?=
+ =?utf-8?B?T0lOMTNxRWtWVnU0V0ovd1NoNFNaSG5wTXQwYmxRMWlhRyswMFBlNkExYURZ?=
+ =?utf-8?B?QzdTU3NvY01NMzRya1JUYXBnNFpHOVV5OEROSGpZWkNzVC9mcS90L3l2MXpW?=
+ =?utf-8?B?ano4UkRmWjNFejZWMEhsWUM2RTd6SHZnNmJuTk1NZ1JXNGFUang5a3YvRFdG?=
+ =?utf-8?B?N0N3czlzUGxqb0xoODAzZTg3NUJPaUJJTndNNmJmMHpnLzUzdElFY29PNnky?=
+ =?utf-8?B?eXVRcjQzbDV5Y044a24xWFVhR2FUVWNGQWNna2JBOU1NMXFMR28yNEFUbTdH?=
+ =?utf-8?B?eGpuY3hObnovanVsWHJDdnA2V0duTjhiN3VMUUx6cjJuRi91UXhZZ0h5TEFM?=
+ =?utf-8?B?RnViZHdTek1yV1hpM0ZtUUxuQzk0azhaU3RpRFcyMldQeUVTRlpCcmt3ZE5i?=
+ =?utf-8?B?dmdBZ0JjV0xhaXNUOUsvYmdqQkZORjVwU1R0R284a3d4aDhWL1l0UDgzd0F3?=
+ =?utf-8?B?MHFQeURvS1pOenZVYUMvZmc5a3dBR09MR1d3ekJjTVM5bnZBNGF1Yk5kU1cy?=
+ =?utf-8?B?T2hSQlVzOHdydVc1ckVZaHdNb0xhZzN3WnJzVDdBY3V4azgwOC9HQk9Vbk1H?=
+ =?utf-8?B?NVlPUXpyY0dDbmtNdGJIUzlmV2Q2d1hYUWEweWFDSTJHY3FlekowNFRLOWhJ?=
+ =?utf-8?B?MVFsZ0dPSXYrRGlWRHBxTGdITjdna2Z6UjdlaDZ3NHpsYTZVandKanpGL2ha?=
+ =?utf-8?B?UDJlWklFc3ZuNVphalRWM1dOcERLSDMwSnRieVk1bXNaN2c9PQ==?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OWtka1ZtTzRUcGk0Q0tJaG5kNkFGQ1pDeTFOYmNEV05RZFdFWDQ3VkhCYnI0?=
+ =?utf-8?B?V283dUFWZ0ozcHVNMVRuemxKT0cweFVYSnJ1TjFPOUVZZzlNbElHdlQ2UVVx?=
+ =?utf-8?B?Ry9wd2JIMFB1VlhHNDZTSWN0T3diYVkzSXMwN1VHTmxRREtaVi9LMHBZVlAv?=
+ =?utf-8?B?cXhYVEdBbkVlWnFkcjc4NzhEWWxDZ0lwVnQ3Nm5KeXRhMnpML1VOc3dDb0hr?=
+ =?utf-8?B?VjM3Vkd4UXJEVEhnaTBqZGlyUE03NStvbW5WN2VEajQybFJNTmN4NkNHT1lq?=
+ =?utf-8?B?VlJnclA1OVd0L3kyZ1lPamU2eDNFUk9OTWxJV1JRK3hLRHVoR1NZWmpsZVdx?=
+ =?utf-8?B?bmVaOVVWQlk4SGc5NDhEWkR5VTZQMGg4aGhZSk1yYjM2M0haTVViak56cjFm?=
+ =?utf-8?B?R1A5THBpMnNRRkxvRlJsWFlNM0VDYVZ6VkdEa3NXM1dHazdwU1A5S1pTMkdr?=
+ =?utf-8?B?emhDVXYwUDQ5ZEh5WE14OG93Mk12KzUzaWJyZlJVV3VheDViNXNod3o5L1FZ?=
+ =?utf-8?B?VUw4QkNPZml2TUhIVlNic25INnY3c3Y1N2Vzd2tNR1hOQklabVFnUEZLbjB6?=
+ =?utf-8?B?OFp5S1RvRW9oV3ZFZWkzZU0xd3htUDl4R005cmVnT3AreDZNSDh5cTM1YzJK?=
+ =?utf-8?B?eC9NaFVUY0kvLzJRdzdUNDNTZDhFTmlyZWNZNDMzZTIyNnJHZ3NybTFZY0JG?=
+ =?utf-8?B?VTRDblNtaGprU3c1TjcxRnNDN296VnpNbFZmZHh4Y3BVR0t5Mm4yQjk0cmN4?=
+ =?utf-8?B?SjErT1JKUHMxTHBiUXFNWlpFUk13QmJTL3VhMmlRWVJmbUUyYUFoQ3NnZmx5?=
+ =?utf-8?B?QWZjTXUyR1MyZEcvN3ZTVUF6UitUelZOR04zcDIvc1h3a0hOODd3UkYyUllX?=
+ =?utf-8?B?SDlld0hKb0ZUTDhmUVNycm1hTzVNN3VJbm9xMmVMR1o1SkxIQ1hoNUZyK0NU?=
+ =?utf-8?B?Z2w3aUlOU0lGb244ekdFYlhQdlBRNENKR3ZVSWxyYUsrRkdsdlMxUmFqSjlP?=
+ =?utf-8?B?N3Q1MmhRS2xRcmFFOEVkQ09DL3FydGs0NllmNUdSakUwdlVDU3NOQ2RJUEFq?=
+ =?utf-8?B?K3FjNHEwdk5Cb3haU2dTeDFaY0NKZURxejVGV294MEdzZWxUQ0hWV09vSWt4?=
+ =?utf-8?B?OTRhSDd3N2JUUmlRaFByMnFwNXlPRUV5VnpaY0Vmd3dOWEFPOHpHcUVFMGE3?=
+ =?utf-8?B?b1hMSHU1N0xRMjh0aGpnMkZJZW5KTHBnUUdZVUNnRXBCSE54KzV1ZlpIeVJu?=
+ =?utf-8?B?aVdCUEhJWFV0RHdtdmJ0UzJlK2hla3lIZGRISk1jQkdOZWVJZkxVKy9BV0tm?=
+ =?utf-8?B?bElmUUMwd3lLeUFBWUkrTTJtSEd4MytMbHgvcHlIaHZxNG5yTTZNLzk5S2FQ?=
+ =?utf-8?B?WXZvcW5MVUJLNjA4K1RWQkEzalE2YnV3eVBaQmZqOHhRRm5XbEFiNlBSYUp1?=
+ =?utf-8?B?eStBeU1ERXVMNE5uU1N0MnNKeVZhbkI3QVhoNWhxMDNQczhvM3VrbVpDOTU2?=
+ =?utf-8?B?aTBpbXRoc2JzTmkwejczRGJLaHlBMnFqK2FIOWVWalJEeUZ3aDJGOXdQTm5x?=
+ =?utf-8?B?NFM4SE1vNlY2RlNUcy9aL1ZtdG1kTlp0T1E3VzltYVZuSDllWXIzcCtTVUts?=
+ =?utf-8?B?d3pJYXNJYWNpM0FaY1FjNnNJOVlzVnVuY2VqYUxoWTM1MVVGRXRBRGVrSFNH?=
+ =?utf-8?B?dmlhM09DYnhQZ04wcERzV1ZQWmMxZDMydWxybFRaWjh6Mkd5MFVVUVBoc0ZY?=
+ =?utf-8?B?aE9xRkxhOUp3WWtPemoxLzczb2VHaUhQRHlDVjdDamlxT3NLTEhOSmhLcnpS?=
+ =?utf-8?B?SklWMXpMTy9qOVJIWlhjVTZQUk5HNHNkc3l2eWNScTJSM0lMaFduVWlBK2Nt?=
+ =?utf-8?B?aUNYN3Jvdk9neTgweVFNL3dwcE9QcFpsd0IrY3hLRlRWNnp3eHdPMzVTTGx5?=
+ =?utf-8?B?QjVJMEhrTmRyRUxyWTI0ZUJNTGUwbmpxTjcvVnBiUWVHZkxiTHl4QlowZE5G?=
+ =?utf-8?B?Mm1SWFhGT21LVEpSUkhiRit2OEdiejlCMWwzNTA5M2g2YktsZDhsQTVZRlZX?=
+ =?utf-8?B?OEp5cFVvVzZBOC9MdlM4WXp6WnRPS1JsbXZvbXhYV2tyWG93blAzRkNkS29X?=
+ =?utf-8?B?RVZjYW1QT0NnYlBIQXgwTk9rdnYxdjR6VFR5enlsaEJlL1hJeDkwR2RMcjhH?=
+ =?utf-8?B?TEE9PQ==?=
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b13b461d-6f68-4fdf-81f1-08ddc5ed2978
+X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2025 11:20:55.1870
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GcIkgbKQOP7d9oOP85v8pJk5L4GqEP4fY3lth62tsWpCJbyGn+/yeteHySRNbjH5QdPiqtRbOnGk+RrX3z9+rclYuBosNfopJPwXnMWnomo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR03MB10464
 
 
-On 7/17/25 12:37 PM, Jan Beulich wrote:
-> On 17.07.2025 11:42, Oleksii Kurochko wrote:
->> On 7/16/25 6:12 PM, Jan Beulich wrote:
->>> On 16.07.2025 17:53, Oleksii Kurochko wrote:
->>>> On 7/16/25 1:43 PM, Jan Beulich wrote:
->>>>> On 16.07.2025 13:32, Oleksii Kurochko wrote:
->>>>>> On 7/2/25 10:35 AM, Jan Beulich wrote:
->>>>>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
->>>>>>>> --- a/xen/arch/riscv/p2m.c
->>>>>>>> +++ b/xen/arch/riscv/p2m.c
->>>>>>>> @@ -387,6 +387,17 @@ static inline bool p2me_is_valid(struct p2m_domain *p2m, pte_t pte)
->>>>>>>>          return p2m_type_radix_get(p2m, pte) != p2m_invalid;
->>>>>>>>      }
->>>>>>>>      
->>>>>>>> +/*
->>>>>>>> + * pte_is_* helpers are checking the valid bit set in the
->>>>>>>> + * PTE but we have to check p2m_type instead (look at the comment above
->>>>>>>> + * p2me_is_valid())
->>>>>>>> + * Provide our own overlay to check the valid bit.
->>>>>>>> + */
->>>>>>>> +static inline bool p2me_is_mapping(struct p2m_domain *p2m, pte_t pte)
->>>>>>>> +{
->>>>>>>> +    return p2me_is_valid(p2m, pte) && (pte.pte & PTE_ACCESS_MASK);
->>>>>>>> +}
->>>>>>> Same question as on the earlier patch - does P2M type apply to intermediate
->>>>>>> page tables at all? (Conceptually it shouldn't.)
->>>>>> It doesn't matter whether it is an intermediate page table or a leaf PTE pointing
->>>>>> to a page — PTE should be valid. Considering that in the current implementation
->>>>>> it’s possible for PTE.v = 0 but P2M.v = 1, it is better to check P2M.v instead
->>>>>> of PTE.v.
->>>>> I'm confused by this reply. If you want to name 2nd level page table entries
->>>>> P2M - fine (but unhelpful). But then for any memory access there's only one
->>>>> of the two involved: A PTE (Xen accesses) or a P2M (guest accesses). Hence
->>>>> how can there be "PTE.v = 0 but P2M.v = 1"?
->>>> I think I understand your confusion, let me try to rephrase.
->>>>
->>>> The reason for having both|p2m_is_valid()| and|pte_is_valid()| is that I want to
->>>> have the ability to use the P2M PTE valid bit to track which pages were accessed
->>>> by a vCPU, so that cleaning and invalidating RAM associated with the guest vCPU
->>>> won't be too expensive, for example.
->>> I don't know what you're talking about here.
->> https://gitlab.com/xen-project/xen/-/blob/staging/xen/arch/arm/mmu/p2m.c#L1649
-> How does that Arm function matter here? Aiui you don't need anything like that
-> in RISC-V, as there caches don't need disabling temporarily.
 
-I thought that it could be needed not only in the case when a d-cache is disabled
-temporarily, but it seems like that I was just wrong and all other cases are
-handled by cache coherency protocol.
-
->
->>>> In this case, the P2M PTE valid bit will be set to 0, but the P2M PTE type bits
->>>> will be set to something other than|p2m_invalid| (even for a table entries),
->>>> so when an MMU fault occurs, we can properly resolve it.
->>>>
->>>> So, if the P2M PTE type (what|p2m_is_valid()| checks) is set to|p2m_invalid|, it
->>>> means that the valid bit (what|pte_is_valid()| checks) should be set to 0, so
->>>> the P2M PTE is genuinely invalid.
->>>>
->>>> It could also be the case that the P2M PTE type isn't|p2m_invalid (and P2M PTE valid will be intentionally set to 0 to have
->>>> ability to track which pages were accessed for the reason I wrote above)|, and when MMU fault occurs we could
->>>> properly handle it and set to 1 P2M PTE valid bit to 1...
->>>>
->>>>> An intermediate page table entry is something Xen controls entirely. Hence
->>>>> it has no (guest induced) type.
->>>> ... And actually it is a reason why it is needed to set a type even for an
->>>> intermediate page table entry.
->>>>
->>>> I hope now it is a lit bit clearer what and why was done.
->>> Sadly not. I still don't see what use the P2M type in of an intermediate page
->>> table is going to be. It surely can't reliably describe all of the entries that
->>> page table holds. Intermediate page tables and leaf pages are just too different
->>> to share a concept like this, I think. That said, I'll be happy to be shown code
->>> demonstrating the contrary.
->> Then it is needed to introduce new p2m_type_t - p2m_table and use it.
->> Would it be better?
+On 17.07.25 16:03, Jan Beulich wrote:
+> On 17.07.2025 14:58, Grygorii Strashko wrote:
+>> On 23.06.25 21:28, dmkhn@proton.me wrote:
+>>> --- a/xen/arch/arm/domain_build.c
+>>> +++ b/xen/arch/arm/domain_build.c
+>>> @@ -2080,17 +2080,17 @@ void __init create_dom0(void)
+>>>    
+>>>        dom0 = domain_create(domid, &dom0_cfg, flags);
+>>>        if ( IS_ERR(dom0) )
+>>> -        panic("Error creating domain 0 (rc = %ld)\n", PTR_ERR(dom0));
+>>> +        panic("Error creating d%d (rc = %ld)\n", domid, PTR_ERR(dom0));
 >>
->> I still need some type to have ability to distinguish if p2m is valid or not from
->> p2m management and hardware point of view.
->> If there is no need for such distinguish why all archs introduce p2m_invalid?
->> Isn't enough just to use P2M PTE valid bit?
-> At least on x86 we don't tag intermediate page tables with P2M types. For
-> ordinary leaf entries the situation is different, as there may be varying
-> reasons why a PTE has its valid (on x86: present) bit cleared. Hence the
-> type is relevant there, just to know what to do when a page is accessed
-> through such a not-present PTE.
+>> May be you meant %pd, not d%d?
+> 
+> Certainly not, as the argument is a number (and dom0 isn't a valid pointer).
 
-I think that I got your idea now.
+Right, sorry.
 
-Does it make sense to have such optimization when we have 2Mb memory range and
-it was mapped using 4k pages instead of 1 super-page, could it be useful to
-invalidate just just page table entry of L1 which corresponds to the start of
-this 2mb memory range, instead of invalidating each entry on L0?
-If it could useful then intermediate page tables should be tagged too. Arm has
-such use cases:
-   https://gitlab.com/xen-project/people/olkur/xen/-/blob/staging/xen/arch/arm/mmu/p2m.c#L1286
-
-~ OLeksii
-
---------------xO4C9i1JuQg0ITCMmcTiNsrc
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 7/17/25 12:37 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:106fb5b5-937f-480b-82ad-12a0fb972caf@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 17.07.2025 11:42, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">On 7/16/25 6:12 PM, Jan Beulich wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On 16.07.2025 17:53, Oleksii Kurochko wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">On 7/16/25 1:43 PM, Jan Beulich wrote:
-</pre>
-            <blockquote type="cite">
-              <pre wrap="" class="moz-quote-pre">On 16.07.2025 13:32, Oleksii Kurochko wrote:
-</pre>
-              <blockquote type="cite">
-                <pre wrap="" class="moz-quote-pre">On 7/2/25 10:35 AM, Jan Beulich wrote:
-</pre>
-                <blockquote type="cite">
-                  <pre wrap="" class="moz-quote-pre">On 10.06.2025 15:05, Oleksii Kurochko wrote:
-</pre>
-                  <blockquote type="cite">
-                    <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/p2m.c
-+++ b/xen/arch/riscv/p2m.c
-@@ -387,6 +387,17 @@ static inline bool p2me_is_valid(struct p2m_domain *p2m, pte_t pte)
-        return p2m_type_radix_get(p2m, pte) != p2m_invalid;
-    }
-    
-+/*
-+ * pte_is_* helpers are checking the valid bit set in the
-+ * PTE but we have to check p2m_type instead (look at the comment above
-+ * p2me_is_valid())
-+ * Provide our own overlay to check the valid bit.
-+ */
-+static inline bool p2me_is_mapping(struct p2m_domain *p2m, pte_t pte)
-+{
-+    return p2me_is_valid(p2m, pte) &amp;&amp; (pte.pte &amp; PTE_ACCESS_MASK);
-+}
-</pre>
-                  </blockquote>
-                  <pre wrap="" class="moz-quote-pre">Same question as on the earlier patch - does P2M type apply to intermediate
-page tables at all? (Conceptually it shouldn't.)
-</pre>
-                </blockquote>
-                <pre wrap="" class="moz-quote-pre">It doesn't matter whether it is an intermediate page table or a leaf PTE pointing
-to a page — PTE should be valid. Considering that in the current implementation
-it’s possible for PTE.v = 0 but P2M.v = 1, it is better to check P2M.v instead
-of PTE.v.
-</pre>
-              </blockquote>
-              <pre wrap="" class="moz-quote-pre">I'm confused by this reply. If you want to name 2nd level page table entries
-P2M - fine (but unhelpful). But then for any memory access there's only one
-of the two involved: A PTE (Xen accesses) or a P2M (guest accesses). Hence
-how can there be "PTE.v = 0 but P2M.v = 1"?
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">I think I understand your confusion, let me try to rephrase.
-
-The reason for having both|p2m_is_valid()| and|pte_is_valid()| is that I want to
-have the ability to use the P2M PTE valid bit to track which pages were accessed
-by a vCPU, so that cleaning and invalidating RAM associated with the guest vCPU
-won't be too expensive, for example.
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">I don't know what you're talking about here.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-<a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/xen/-/blob/staging/xen/arch/arm/mmu/p2m.c#L1649">https://gitlab.com/xen-project/xen/-/blob/staging/xen/arch/arm/mmu/p2m.c#L1649</a>
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-How does that Arm function matter here? Aiui you don't need anything like that
-in RISC-V, as there caches don't need disabling temporarily.</pre>
-    </blockquote>
-    <pre>I thought that it could be needed not only in the case when a d-cache is disabled
-temporarily, but it seems like that I was just wrong and all other cases are
-handled by cache coherency protocol.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:106fb5b5-937f-480b-82ad-12a0fb972caf@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">In this case, the P2M PTE valid bit will be set to 0, but the P2M PTE type bits
-will be set to something other than|p2m_invalid| (even for a table entries),
-so when an MMU fault occurs, we can properly resolve it.
-
-So, if the P2M PTE type (what|p2m_is_valid()| checks) is set to|p2m_invalid|, it
-means that the valid bit (what|pte_is_valid()| checks) should be set to 0, so
-the P2M PTE is genuinely invalid.
-
-It could also be the case that the P2M PTE type isn't|p2m_invalid (and P2M PTE valid will be intentionally set to 0 to have
-ability to track which pages were accessed for the reason I wrote above)|, and when MMU fault occurs we could
-properly handle it and set to 1 P2M PTE valid bit to 1...
-
-</pre>
-            <blockquote type="cite">
-              <pre wrap="" class="moz-quote-pre">An intermediate page table entry is something Xen controls entirely. Hence
-it has no (guest induced) type.
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">... And actually it is a reason why it is needed to set a type even for an
-intermediate page table entry.
-
-I hope now it is a lit bit clearer what and why was done.
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">Sadly not. I still don't see what use the P2M type in of an intermediate page
-table is going to be. It surely can't reliably describe all of the entries that
-page table holds. Intermediate page tables and leaf pages are just too different
-to share a concept like this, I think. That said, I'll be happy to be shown code
-demonstrating the contrary.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-Then it is needed to introduce new p2m_type_t - p2m_table and use it.
-Would it be better?
-
-I still need some type to have ability to distinguish if p2m is valid or not from
-p2m management and hardware point of view.
-If there is no need for such distinguish why all archs introduce p2m_invalid?
-Isn't enough just to use P2M PTE valid bit?
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-At least on x86 we don't tag intermediate page tables with P2M types. For
-ordinary leaf entries the situation is different, as there may be varying
-reasons why a PTE has its valid (on x86: present) bit cleared. Hence the
-type is relevant there, just to know what to do when a page is accessed
-through such a not-present PTE.</pre>
-    </blockquote>
-    <pre>I think that I got your idea now.
-
-Does it make sense to have such optimization when we have 2Mb memory range and
-it was mapped using 4k pages instead of 1 super-page, could it be useful to
-invalidate just just page table entry of L1 which corresponds to the start of
-this 2mb memory range, instead of invalidating each entry on L0?
-If it could useful then intermediate page tables should be tagged too. Arm has
-such use cases:
-  <a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/people/olkur/xen/-/blob/staging/xen/arch/arm/mmu/p2m.c#L1286">https://gitlab.com/xen-project/people/olkur/xen/-/blob/staging/xen/arch/arm/mmu/p2m.c#L1286</a>
-
-~ OLeksii</pre>
-  </body>
-</html>
-
---------------xO4C9i1JuQg0ITCMmcTiNsrc--
+-- 
+Best regards,
+-grygorii
 
