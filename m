@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C8CDB0994A
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 03:40:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1047757.1418124 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA2CFB0995F
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 03:48:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1047763.1418133 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uca5F-0001BG-Rc; Fri, 18 Jul 2025 01:40:21 +0000
+	id 1ucaCw-00025n-ER; Fri, 18 Jul 2025 01:48:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1047757.1418124; Fri, 18 Jul 2025 01:40:21 +0000
+Received: by outflank-mailman (output) from mailman id 1047763.1418133; Fri, 18 Jul 2025 01:48:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uca5F-00019S-OM; Fri, 18 Jul 2025 01:40:21 +0000
-Received: by outflank-mailman (input) for mailman id 1047757;
- Fri, 18 Jul 2025 01:40:19 +0000
+	id 1ucaCw-00024N-Bq; Fri, 18 Jul 2025 01:48:18 +0000
+Received: by outflank-mailman (input) for mailman id 1047763;
+ Fri, 18 Jul 2025 01:48:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=uH3I=Z7=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uca5D-000094-Sq
- for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 01:40:19 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ id 1ucaCu-00024H-Dp
+ for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 01:48:16 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2915807b-6378-11f0-a319-13f23c93f187;
- Fri, 18 Jul 2025 03:40:19 +0200 (CEST)
+ id 449adbcd-6379-11f0-a319-13f23c93f187;
+ Fri, 18 Jul 2025 03:48:14 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 34ED1A57A9B;
- Fri, 18 Jul 2025 01:40:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0526EC4CEF4;
- Fri, 18 Jul 2025 01:40:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 940C26020B;
+ Fri, 18 Jul 2025 01:48:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB51FC4CEE3;
+ Fri, 18 Jul 2025 01:48:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,83 +41,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2915807b-6378-11f0-a319-13f23c93f187
+X-Inumbo-ID: 449adbcd-6379-11f0-a319-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1752802817;
-	bh=dvXWYmtzSpSLsZG74K7Bf02uZqpqVXnRuOQ4YaTHVAU=;
+	s=k20201202; t=1752803293;
+	bh=bbiLry4TZxd1vXk0QT8MPsjLnoeE5MQ1sPhMOvf4SQ8=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=TIOCfBQ8C6e2IWcvuIZzaOqGitPeGTRjbTHIKbA5DLitaLMB5GKruLbSfGUBuem2+
-	 QFMIJ1ArhpXy+YTDcXTz0lLNjy6Dq5WiIEBAVzHNeaObjM/hDGKC9g8dlggjlz5Z2u
-	 QcKZ2QYOEHActmhpW6mGrF94XnrWtWcw52A5uCoZlo8mZUSlUs+Xbed0yQWNSvdkSb
-	 sWm8qnmrhpQIuK57dazl2ANNvo3uxp3sYZFl0iQ1KNoQgSs4CQnV7c1GntXCPUjmOn
-	 OxFk5n2i1yxstQo+96FOs5sA7uFwJ1aBV9AQpHfK1mTIGcOgUg+GDsfcBjLUHS63UP
-	 O5jgCifFr84eA==
-Date: Thu, 17 Jul 2025 18:40:16 -0700 (PDT)
+	b=PY+a/X0S4j04ZqIesOJcu5iNLS+yiZt7EGzkLYsrDv+1OtNHpWMhWjCs8X+pAhHL+
+	 6mAU45JiQckBh51D2flWukpUuFGi66ZGldbzmkko3Kw4/i23Qe2QDn0Ly4N883oeqW
+	 na813Ak7Sj69mi4VE1gw3w9u4JFob2Ay6fTRAo7bg8aaRwg3Da1M9AOMy13dhIxi3Z
+	 QzUlVUeKbnOlihJucBHLmWRPSnTRwt351brEp5iVKRZWz7Zrrz8s/JkdgPShhO7zfG
+	 ALeaM+E93vlEA54pUmj6crTOfMd6Ve4lWmMlhxeYhPoVSH/tqygTpjiwWIhuFyDTqL
+	 Cto5nv+2CiPeg==
+Date: Thu, 17 Jul 2025 18:48:12 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Jason Andryuk <jason.andryuk@amd.com>
 cc: xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
     "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: Re: [PATCH v2 05/17] xen/dom0less: Workaround XSM for
- evtchn_alloc_unbound
-In-Reply-To: <20250716211504.291104-6-jason.andryuk@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2507171837120.15546@ubuntu-linux-20-04-desktop>
-References: <20250716211504.291104-1-jason.andryuk@amd.com> <20250716211504.291104-6-jason.andryuk@amd.com>
+Subject: Re: [PATCH v2 06/17] xen/xsm: Expand XSM_XS_PRIV for untargetable
+ domains
+In-Reply-To: <20250716211504.291104-7-jason.andryuk@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2507171847360.15546@ubuntu-linux-20-04-desktop>
+References: <20250716211504.291104-1-jason.andryuk@amd.com> <20250716211504.291104-7-jason.andryuk@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Wed, 16 Jul 2025, Jason Andryuk wrote:
-> When used with an untargetable domain, xsm_evtchn_unbound fails even
-> though the idle domain has is_privileged = true.  Switch current to the
-> domain under construction so that event channel creation is allowed as
-> XSM_TARGET.
+> Untargetable domains are currently hidden from the control domain -
+> e.g. xl list will not show them.  getdomaininfo fails on the
+> !is_hypercall_target() check in XSM_TARGET.  Add control domain to the
+> XSM_XS_PRIV check so it can pass.
 > 
 > Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+
+XSM_XS_PRIV is only used in XEN_DOMCTL_get_domain_state,
+XEN_DOMCTL_getdomaininfo and XEN_SYSCTL_getdomaininfolist, so it makes
+sense to me
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
-> v2:
-> New
+>  xen/include/xsm/dummy.h | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> This was Jan's suggestion when dom0less originally had trouble with
-> evtchn_alloc_unbound() and xsm_set_system_active() was introduced.  As
-> noted, is_privileged is insufficient for operating on an untargetable
-> domain.
-> ---
->  xen/common/device-tree/dom0less-build.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
-> index 22af043aa5..a2789e3bdf 100644
-> --- a/xen/common/device-tree/dom0less-build.c
-> +++ b/xen/common/device-tree/dom0less-build.c
-> @@ -77,11 +77,20 @@ bool __init is_dom0less_mode(void)
->  static int __init alloc_xenstore_evtchn(struct domain *d)
->  {
->      evtchn_alloc_unbound_t alloc;
-> +    struct vcpu *old_current;
->      int rc;
->  
->      alloc.dom = d->domain_id;
->      alloc.remote_dom = xs_domid;
-> +    /*
-> +     * Switch current from the Xen idle vcpu to the domain's vcpu.  This is to
-> +     * pass the xsm_evtchn_unbound() check for an untargetable domain.
-> +     */
-> +    old_current = current;
-> +    set_current(d->vcpu[0]);
->      rc = evtchn_alloc_unbound(&alloc, 0);
-> +    /* Restore Xen idle vcpu. */
-> +    set_current(old_current);
->      if ( rc )
->      {
->          printk("Failed allocating event channel for domain\n");
+> diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
+> index f2205575ed..4d7b1d61eb 100644
+> --- a/xen/include/xsm/dummy.h
+> +++ b/xen/include/xsm/dummy.h
+> @@ -87,7 +87,8 @@ static always_inline int xsm_default_action(
+>          fallthrough;
+>      case XSM_XS_PRIV:
+>          if ( action == XSM_XS_PRIV &&
+> -             evaluate_nospec(is_xenstore_domain(src)) )
+> +             (evaluate_nospec(is_xenstore_domain(src)) ||
+> +              is_control_domain(src)) )
+>              return 0;
+>          fallthrough;
+>      case XSM_DM_PRIV:
 > -- 
 > 2.50.0
 > 
