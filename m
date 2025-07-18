@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DD28B0A079
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 12:20:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1048387.1418610 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92AF5B0A08A
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 12:22:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1048392.1418620 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uciBq-00059E-JD; Fri, 18 Jul 2025 10:19:42 +0000
+	id 1uciEV-0007Bv-UT; Fri, 18 Jul 2025 10:22:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1048387.1418610; Fri, 18 Jul 2025 10:19:42 +0000
+Received: by outflank-mailman (output) from mailman id 1048392.1418620; Fri, 18 Jul 2025 10:22:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uciBq-00057C-FU; Fri, 18 Jul 2025 10:19:42 +0000
-Received: by outflank-mailman (input) for mailman id 1048387;
- Fri, 18 Jul 2025 10:19:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uciEV-0007AT-Rg; Fri, 18 Jul 2025 10:22:27 +0000
+Received: by outflank-mailman (input) for mailman id 1048392;
+ Fri, 18 Jul 2025 10:22:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RNMk=Z7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uciBo-000573-OU
- for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 10:19:40 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b5de94b9-63c0-11f0-b894-0df219b8e170;
- Fri, 18 Jul 2025 12:19:38 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3a503d9ef59so1357164f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 18 Jul 2025 03:19:38 -0700 (PDT)
+ id 1uciEV-0007AN-0S
+ for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 10:22:27 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 19af7699-63c1-11f0-a319-13f23c93f187;
+ Fri, 18 Jul 2025 12:22:26 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-4563cfac19cso4054535e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 18 Jul 2025 03:22:26 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b3f2ff61f6csm819006a12.45.2025.07.18.03.19.34
+ d9443c01a7336-23e3b6d39cfsm10402055ad.175.2025.07.18.03.22.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Jul 2025 03:19:37 -0700 (PDT)
+ Fri, 18 Jul 2025 03:22:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5de94b9-63c0-11f0-b894-0df219b8e170
+X-Inumbo-ID: 19af7699-63c1-11f0-a319-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752833978; x=1753438778; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752834145; x=1753438945; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6MfZ/88y8hcvKOMbvEOi8QnYpjWkCTKTeZXcnNxsXk4=;
-        b=U6q1NcpQtSsbIN3p29Ip0qWioQj5QcPAabW+AuJjXH3SiAA7f/dK4oQsrCBJs2sAna
-         vgDTSLTHokwye70uaAeElTsOWuWusRW8sgouJtwt4gQerlyxVFMQzbJdnbfYE2nIWzlR
-         2TRswdaDlFUoZZLHdNu6UuqUkFglX/SvHae5e8Sa90XL1mIib8iqOW14lWfiRNtIR3NP
-         z6XbzNgQvgfD0TTyStJXTazVJ5jAMKE5fbDOIrqUpPJ2y92xP+aGw9rnnvUiHBRgeM21
-         WAt/ENBTfiTClrUXS7PzuwbjVVi65DaudvEcsE5QuGFQ0GNSlPTIX1yxBRFnggJ8cZBH
-         6Fuw==
+        bh=mnMIaXmnz6jgrJN92ntP221+XOKD1yOfvhQexTq2qJE=;
+        b=ZwngKSVx9duh3E5O0KW6Nt1oJhXMYbcMNeVZXCI025HH8Aeawk2e4Om/tacCwlVSCQ
+         jJBohMCt0PnelYYpKX1o1RzX5NRkJfg/oRIGh/9Jh1oTIvy9RW3Qky/6lLI2h++ri7fa
+         zjjqwPkzoZeg1DKx1JugFSAZm57M7YBl50Jq6q/fFMFXK4pmyjfxh5v3hWWYGVYXMKsB
+         Hu6cG2Dof8+BVUlicbIjWfdRrpcH0R3yQh7iL7WtNLY5xFt+S4CxGzMs6iFlJMT5h9hq
+         F4QKQEeK7eipYVf5NSgk07aPGlxff9Pxfxz9YInj2if9i2oNTPTjFu23uuNvzCeMcpon
+         GNbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752833978; x=1753438778;
+        d=1e100.net; s=20230601; t=1752834145; x=1753438945;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6MfZ/88y8hcvKOMbvEOi8QnYpjWkCTKTeZXcnNxsXk4=;
-        b=gOCjlNTp9TV+MICWE+UHYXawKyuaP5O6y6p0HJuirTm7bloTz8JlPCjdSHOi35zT2V
-         2mGcEUDvzICFSkBY/w7K1O8erf/K6gRuAO3a+OO/zC4Nsrc3P866GPkJImVA8iZZiukP
-         IFp4qPND605Ef5CWVVRWh8CRWKoiKqwLz9kvzsks3l/pZdZLLQcLnlC/oBBbRquKQfhW
-         dBjAFgstDpLmX2QJHN+2N5cE5I2T3A6pGYR81aBr6VtkMf45lzjfdNlkYkJetxY2ylMX
-         eUUjkN9s3gcyfOz2BMXT5sGEkbLCkc7ud6X9CcijIoHDBcYVkVEFbmLBibv3+5+bW+th
-         48tg==
-X-Forwarded-Encrypted: i=1; AJvYcCVIkKvqL3uqi/1x/9WlIyHOYd/xksPJ+dGDhM9qlCf4Q3Sf+udX2URB7EAAhDBEEWxndnuJzyPgAPg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzyxlx1zkd98+p3c4r3LujL8iaQA/oUdirNJsh6gq1mfOfySyB4
-	3+s3pCBjpmQMw4NqV6NXhOvtXaGj/gvcNwLzlrul1WOlRsewx++UJCEhKDvWDo5gOg==
-X-Gm-Gg: ASbGncvSo38nqPsJ7JluJlemg5TK1MfuvBzM2xQRjcsMkinGxs9jlj0rTDndjUOgMI+
-	DCaJZ+nskaq9AnkgeJh4Y0UBEgn7drK2CnjJJQSrgJbADy3MeENokTZt+llzBMKrK5dnReyRK9Q
-	96jn63dtkItn2A96Roi7h0Mye05vED0xJC906TruWnacVO8I5R0kOusv+bL58ylV9RjMZdFWYSH
-	9GHIWqWFFB9y6Zss0n8b9cv7I//EbjXqXdLV/P66o1FCj3cpjOT6CQQwwHBtjIKxVjOKBn/ureo
-	wgwy6XSMlEAKINUYTfNmAGENqwOxpj0fTovS0sBTwz7TaZdtzg8XSTet6IxiF0eY+caPSFGY1Q1
-	+bZdjsm7K0nDSIJZ/jUqjv7ge3SCPaF9OTG3PMg0zJXiVUZWB2forFQmbcEgrrOu81QNBCmX9E5
-	bLgk74pQs=
-X-Google-Smtp-Source: AGHT+IGyyfKj6A+sPhxPehOHZwoZTtyiMXN80ZMAWPoUETxhDBUfX8zL4VHuRgXUZ/SH9D7Epts7Dw==
-X-Received: by 2002:a05:6000:2f83:b0:3a4:f038:af76 with SMTP id ffacd0b85a97d-3b60e53ec78mr7558711f8f.53.1752833977877;
-        Fri, 18 Jul 2025 03:19:37 -0700 (PDT)
-Message-ID: <4de09b8d-d71d-439e-be1c-78044a3cad31@suse.com>
-Date: Fri, 18 Jul 2025 12:19:31 +0200
+        bh=mnMIaXmnz6jgrJN92ntP221+XOKD1yOfvhQexTq2qJE=;
+        b=Bh4qA4fC2+VXRNwUbm8qqLJPVt5TiglQmDAkLReZLxLTYzLzmENS2YS4XiThvhDTfe
+         Jz1cPQQMIwQCb7AmrC9SnYxbI3XUTVBxDEcE1ORKaQUwyosoB8fTzxA93KqlY4dSXoTL
+         Q+umj7BNQt9lTt3l57VK43DZHfUfC/vwPaA+fGfPrtRilBVPIscs8ueXsOc+mYpwnMZY
+         C3NjvFZdfN2SNLiELelernoFeZCnC3sO9485gGKh6cJYhBTFY0/a6tfQHpOgNqNHAOoM
+         USGpquYc5EUXws2yHIetH3aN6WPP+bEnGrOF+dZg+hUEdkuYRUEeTJOdBjOv/z2/cMmF
+         JYVg==
+X-Forwarded-Encrypted: i=1; AJvYcCWaMMzFndXNPzQH92BhKnMitdijXh7jPraxPw4t/3V4CA2ZJi3v0Ng2cXmm9Q70pEt1SrJ2al8I/FE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwpUX3rhea5ujBIrzZ4W3O8cDA4ugP6vFkckVomH6mCwZXE5HOR
+	UJP0ydxkzgwIxRhT0X9aQoSOgXDkQkILXRx5gmabulD5QkBRivQwHNSTfxm9pS43Xw==
+X-Gm-Gg: ASbGncsxXlqtANYpWZg+rrgzENRSCz33dzqfWzGRiR02otq36Oz+rSB4syYptv+lOmw
+	boKm+J77zbQIpTIIoNQAvQDyw6QhobvyCkNYKS5HCfH1/V7jNyrBgvIZ25WH2fQ35q46Masnlo2
+	zVDfQVmOwMUOIKc8YCFvJCGO0Dh22IVnXlKPSc4WdqaJ9TQOzAey8rL0P6P+yD+JMV/IzW9CDJm
+	vEk+XMzQGpVjDD2sQMyD8kslOpqv+h82b8x+S2GNmZ3H2B0NGJdRsszkLs5SCjYtnc83rnigunq
+	Fzkum5aNg1X2TiXPyOJw0ztDow7nyrG8cuKGUhK2j1ogOF4kovRyK6tsmkMW6fBNE6UrJx1R81v
+	TpOkDsEC9R8zJehdFoeAn3FnHxEytrNFWZtds4Guf856y4FhAnGb8zzPLEL8rxkaR/bRyCPRaYy
+	3XpAsvqo0=
+X-Google-Smtp-Source: AGHT+IEZzffEbDAA0SRZLTkW6AztsR6Inl9vypwIqLYNsDVDRrfWo/XmKjyR5bQf7y1wkMTr33W4Mw==
+X-Received: by 2002:a5d:5888:0:b0:3a6:f2a7:d0bb with SMTP id ffacd0b85a97d-3b60dd4aaa8mr10555286f8f.12.1752834145269;
+        Fri, 18 Jul 2025 03:22:25 -0700 (PDT)
+Message-ID: <fd215aae-fd68-4ea6-bc67-33e908ef6c7c@suse.com>
+Date: Fri, 18 Jul 2025 12:22:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1.1 6/6] x86/apic: Convert the TSC deadline errata table
- to X86_MATCH_*()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250716173132.2213891-7-andrew.cooper3@citrix.com>
- <20250718100739.2369750-1-andrew.cooper3@citrix.com>
+Subject: Re: [XEN][PATCH 2/2] xen/arm: irq: drop unreachable pirq callbacks
+To: Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Roger Pau Monne <roger.pau@citrix.com>, Ayan Kumar Halder
+ <ayankuma@amd.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
+ George Dunlap <gwd@xenproject.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250718101149.3107110-1-grygorii_strashko@epam.com>
+ <20250718101149.3107110-2-grygorii_strashko@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,35 +126,63 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250718100739.2369750-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20250718101149.3107110-2-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.07.2025 12:07, Andrew Cooper wrote:
-> With the ability to match on steppings, introduce a new X86_MATCH_VFMS()
-> helper to match a specific stepping, and use it to rework deadline_match[].
+On 18.07.2025 12:11, Grygorii Strashko wrote:
+> From: Grygorii Strashko <grygorii_strashko@epam.com>
 > 
-> Notably this removes the overloading of driver_data possibly being a function
-> pointer, and removes the latent bug where the target functions are missing
-> ENDBR instructions owing to the lack of the cf_check attribute.
+> Hence all common PIRQ code is under CONFIG_HAS_PIRQ idefs corresponding Arm
+> arch callbacks become unreachable, so drop them.
 > 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+> ---
+>  xen/arch/arm/irq.c | 29 -----------------------------
+>  1 file changed, 29 deletions(-)
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-> -static const struct x86_cpu_id __initconstrel deadline_match[] = {
-
-Seeing this transformation ...
-
->  static void __init check_deadline_errata(void)
->  {
-> +    static const struct x86_cpu_id __initconst deadline_match[] = {
-
-... of the section placement, we may want to investigate whether with the
-toolchain baseline bump we can actually do away with __initconstrel, using
-__initconst uniformly everywhere.
+Can this really be a separate change? That is, aren't we going to have transient
+Misra violations (for Arm only) between the two changes?
 
 Jan
+
+> --- a/xen/arch/arm/irq.c
+> +++ b/xen/arch/arm/irq.c
+> @@ -595,35 +595,6 @@ unlock:
+>      return ret;
+>  }
+>  
+> -/*
+> - * pirq event channels. We don't use these on ARM, instead we use the
+> - * features of the GIC to inject virtualised normal interrupts.
+> - */
+> -struct pirq *alloc_pirq_struct(struct domain *d)
+> -{
+> -    return NULL;
+> -}
+> -
+> -/*
+> - * These are all unreachable given an alloc_pirq_struct
+> - * which returns NULL, all callers try to lookup struct pirq first
+> - * which will fail.
+> - */
+> -int pirq_guest_bind(struct vcpu *v, struct pirq *pirq, int will_share)
+> -{
+> -    BUG();
+> -}
+> -
+> -void pirq_guest_unbind(struct domain *d, struct pirq *pirq)
+> -{
+> -    BUG();
+> -}
+> -
+> -void pirq_set_affinity(struct domain *d, int pirq, const cpumask_t *mask)
+> -{
+> -    BUG();
+> -}
+> -
+>  static bool irq_validate_new_type(unsigned int curr, unsigned int new)
+>  {
+>      return (curr == IRQ_TYPE_INVALID || curr == new );
+
 
