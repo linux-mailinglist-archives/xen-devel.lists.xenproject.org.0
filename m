@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D946B09AFC
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 07:40:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1047954.1418273 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF1ECB09B06
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 07:53:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1047971.1418284 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucdpU-0006zz-8u; Fri, 18 Jul 2025 05:40:20 +0000
+	id 1uce1s-0000ke-9m; Fri, 18 Jul 2025 05:53:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1047954.1418273; Fri, 18 Jul 2025 05:40:20 +0000
+Received: by outflank-mailman (output) from mailman id 1047971.1418284; Fri, 18 Jul 2025 05:53:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucdpU-0006yY-66; Fri, 18 Jul 2025 05:40:20 +0000
-Received: by outflank-mailman (input) for mailman id 1047954;
- Fri, 18 Jul 2025 05:40:18 +0000
+	id 1uce1s-0000hw-78; Fri, 18 Jul 2025 05:53:08 +0000
+Received: by outflank-mailman (input) for mailman id 1047971;
+ Fri, 18 Jul 2025 05:53:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RNMk=Z7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ucdpS-0006yQ-0D
- for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 05:40:18 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ id 1uce1r-0000hq-4D
+ for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 05:53:07 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id af032ffc-6399-11f0-a319-13f23c93f187;
- Fri, 18 Jul 2025 07:40:16 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3a54700a463so936317f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 17 Jul 2025 22:40:17 -0700 (PDT)
+ id 791b34d8-639b-11f0-a319-13f23c93f187;
+ Fri, 18 Jul 2025 07:53:05 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3a6e8b1fa37so1196172f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Jul 2025 22:53:05 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b711:f268:e016:4ee6:ecac:2480?
  (p200300cab711f268e0164ee6ecac2480.dip0.t-ipconnect.de.
  [2003:ca:b711:f268:e016:4ee6:ecac:2480])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4562e88476csm69740795e9.21.2025.07.17.22.40.15
+ ffacd0b85a97d-3b61ca4d92csm830589f8f.74.2025.07.17.22.53.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Jul 2025 22:40:15 -0700 (PDT)
+ Thu, 17 Jul 2025 22:53:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,58 +47,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af032ffc-6399-11f0-a319-13f23c93f187
+X-Inumbo-ID: 791b34d8-639b-11f0-a319-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752817216; x=1753422016; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752817985; x=1753422785; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1BfPIvayInZVyki3FWU0uALWUnH8l19E3d/fCFGhjIE=;
-        b=KognoWQ8As81N5DPtBiFJPSgGux3OAX6dEBX7pJUl+JJA96BpQ4R0oHQg1XbzH6xof
-         TpZOnuf8/gmKwAEuAhAR7vY2yViJEsTwKg75WNW2wQ/8LDAwWourUFUeZaZbXDReRO8X
-         SQQmYQHcFnPqsFXs2B85XHb4+fFH3P2sYTAywYaatFR3f7l7mn0z7jAd0u2il1+TwY+F
-         bpXbKpWupe6vy6BtJXX8cEWHK35QdW/lSPKtLei2eLYM3QRFZ8SDEc/DRMTGK+49dbtG
-         nezuS+/VrOYQJF1Y5a/lfYCXXv32wctSQNZYyIYtmM2IB6EjAuU2gGhxZ3pwW2/dXP8o
-         oxcA==
+        bh=0QLg1vWNuYYeC+M39h1tpVaeeQKLY+pfPHlLPsE19oI=;
+        b=YYk1wDZmwsflr9og7Ld0iZ5PoUpqdnEUJwAB6F9g1n8fU6DY6/eX/f2A+CHad3MdJC
+         5m045ox4mlZp7DOy5uSHZA+SWhS4ntXyQvqmxJIvHkX8O7D0xwUqdJyKh2aFgJHqC06V
+         3Fy0wScbZ3xTQwVcPLv4+MIINJooO1tWRDs+aeJbFOEGmAfaXQqyq82b3tSndoPJX5VY
+         8nco2U8tAmsHIFWwkg1cqEDlS072d9LwAoOfBOOtiu9mt37JMmFKEPH5uSY9Mj3Gno6L
+         9NxMfdnQxKkg7ftJCcJXWqDusPIDxH5QzQV5vFkP4g1I+hJJBIk2G2KPBAb3gOe01ySD
+         q9Hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752817216; x=1753422016;
+        d=1e100.net; s=20230601; t=1752817985; x=1753422785;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1BfPIvayInZVyki3FWU0uALWUnH8l19E3d/fCFGhjIE=;
-        b=nQIdMk2WMDRHrpnrfl9+c4e94a/upj7Gglca8VCX+L0zH8BAzQbmLSGDcRaWWkXppl
-         qy0p6bSIgPmzWB90X86zjVRi51VukBvMtS7y2sHTD+67V0LK3kt8CWVKnZaSXLppwdU8
-         uTbugDXS0szbCt1qxlPziAZ/JQiAKsJfABbgNlxRy1ljgYFNGjfcdk+thZ8lavkPuh12
-         g/dgdkcigcPWXRgw34dK3GlC/TVnxkWuuZwG9YFru4mPtoYD9Tc5hu45l6tL4/f7FR7u
-         gkumla6B0NmcLwy1hIGaBCaaZT4vS8+8bvOrG86k8UISis2r0PB9fh1x2D9wfU+gzF2+
-         wxRw==
-X-Forwarded-Encrypted: i=1; AJvYcCXDL+gHA+nYovP0G79WBk8h88m2rNUWfStveCeHIQ0Q4szFOSgQ0ddS4agJKDnCbF+gQuPn+X7VtRY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwGOaqgXWFXRYEVCr7oHs6cQTxMIN9lotVwJse2RsLxeA0D8F5h
-	momXkIUEau6QPXImAGaWCdAdNWPt88NKpaGgCQmFH477QAE3bIi/UhhkyMhMjROR/Q==
-X-Gm-Gg: ASbGncs7B2Nl81sE5wdXO6m6P4aqVBqVoYgYG+wXuE97Ui1ROz+ruXn+WSP5wOr9PJx
-	NVSRTv9gdLS43H0V/FkKIAgfDA2CXd0/vtgYRhEmSJhT7hxvH4SlPnucK/tVvBYKpuZGVyABZW0
-	Ek478NB2wWUQNahhfjpYPNksG5EdeTKkWRYXqlRsv0TXgAJToQL/FzK5b1/JxKQO7VHCD+jt2DF
-	yX8/wgSTTV478Evg0ypW299kRl0QXKKptBFga5C2cAVDFKWGLB2VdzlvaIsO9TVrdQJHudIZJ66
-	TBhJa6dskJcvCP9UxKO4ADfeCir9dtauobf9sq0lLhVGU9KlzA9vGMcLpYHC4HnfZzWbS5IcMHb
-	zTQkEyStW8Sgh8dJdH2yyfWTMxezCb9CWDPr18h8SJXgwAUaDbwzuS1VCqYGiQVPQLrcfUzKWcf
-	dw7pQhjcqEPOBEFwP1OjGbwYFZQauOyR87gAR6STeRoAMXfpy0YfcYK0+yjh0sAcY/GU8=
-X-Google-Smtp-Source: AGHT+IFiNHsIdZxnimvsYFkzMezHK5A+vkCg/9AWKDIb/djSZHu1wFpIPAroAxsGlChKsWH5DzXU6w==
-X-Received: by 2002:adf:a286:0:b0:3a5:8991:64b7 with SMTP id ffacd0b85a97d-3b619cd1403mr1083898f8f.26.1752817216185;
-        Thu, 17 Jul 2025 22:40:16 -0700 (PDT)
-Message-ID: <fc89c993-1e3a-4d5b-8ac7-cfbf6fab4905@suse.com>
-Date: Fri, 18 Jul 2025 07:40:14 +0200
+        bh=0QLg1vWNuYYeC+M39h1tpVaeeQKLY+pfPHlLPsE19oI=;
+        b=KINB4B9fbZ70SpkAcaBgmCnRA3gaxfemguig3W4ZaWCW/7R1Pd0uXnUzgZcCTA6yz1
+         OJg6T6dN93tih9RxnHAaKrVdejAXssLId0pYrcUnr1hZbsyTUn98p4nfZtyx6qPG5kE/
+         N5RJi9mKRAtP2ShfJM41J6hZx29OPh/NTLIY7FR4DGIdzLhryX+Pr4rspl8PEmgbFfzg
+         Pcw0bjEtUZ2OOa8fo6KlSF7gGxNsAhIf6+zssL4sJAX6BVwg0kq+D3bAt9YF7+aAROmy
+         86+rQip7to8NdLg5oeqa+HPJGFV+i82pKysGatJTIG9TJiP1mPeun0UqoL+YGsADunI8
+         yaZw==
+X-Forwarded-Encrypted: i=1; AJvYcCXDw3bUHFg6Ri9sV00ugqF5v5SF/qsA5NfJjU0DN8K/Nu1OEN/gZykiu323sMOIgFP6nqg855U2TsM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx4d+nw9nNlFP60AhOfR4c4BYiVhEr8EdvUa/a0pr3UjCVQHlZv
+	yHgggsjJa3oSkAP+YpsGgibgax4+NThfIA1B58ffUFRuhvgYuVIDY2TMowMd3OesaQ==
+X-Gm-Gg: ASbGnctmzYFbNAdI7iUI6EGsE/JJNF0iKRADX8V1Wmayjn+myVsy8RO9eDwdGNcrdEm
+	g6qNX/HW8NG8/EPqLbips5tn7RSfSjxTsIFqGD0miuknvpEUh3skdU2InhWqKYpSisByNCLM/uZ
+	nsq7z5U4UlfKrWAPIrzcT/dKPAQZzmX+n5vFqQxa97ZEsdioumKXnsNgMippcJqXI74wWGJbbuj
+	pGw6WXypol2OqzcaJXLxoa326Twj64ThwkmUW0NOX8o3Zpzv9JXaOAEeCi/qBY7jF5oDJ0Mjz3m
+	yfoWWxzUDuvdtG43sa1cO621yIkyGmycCI6d042SyhFT4JaNpkfWkNYx9lYFzT/yb0Ggyk1yR8z
+	2hzbYO41mMQ3CkU4e4SWOf8NPv/U9gXzEnCISf35KqTSvUpC4jEqAYvy0I/9cLyqofmLl7Sr0ep
+	55fXPBijlN8eCgxf0pCrstXfFAlAr0hoZjrpRRo3wcpfzITJClyiZoPEk1
+X-Google-Smtp-Source: AGHT+IGOb07u/4x5M5RIlmAFIZ1E2pO54cEXI6L7PHKEIEmwqISJn85jzxfyTY8AS7WG9cIJGj8ubw==
+X-Received: by 2002:a05:6000:41cb:b0:3b6:46d:fb70 with SMTP id ffacd0b85a97d-3b60e4d2a8bmr6745069f8f.25.1752817984674;
+        Thu, 17 Jul 2025 22:53:04 -0700 (PDT)
+Message-ID: <29cb9771-ee2a-4c7d-b661-74b37728bc2f@suse.com>
+Date: Fri, 18 Jul 2025 07:53:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] x86: Convert users of INTEL_FAM6_MODEL() to
- X86_MATCH_VFM()
+Subject: Re: [PATCH 5/6] x86/match-cpu: Support matching on steppings
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250716173132.2213891-1-andrew.cooper3@citrix.com>
- <20250716173132.2213891-5-andrew.cooper3@citrix.com>
- <28c6ab0f-3699-4fbf-9a2e-205c6452ddb2@suse.com>
- <3b95d347-3dee-4424-a502-50a019cd19eb@citrix.com>
+ <20250716173132.2213891-6-andrew.cooper3@citrix.com>
+ <a6abcc07-535f-433b-948a-702dc33093fa@suse.com>
+ <03ecaa72-2370-47f7-b84b-83831d188f4e@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,86 +123,78 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3b95d347-3dee-4424-a502-50a019cd19eb@citrix.com>
+In-Reply-To: <03ecaa72-2370-47f7-b84b-83831d188f4e@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 17.07.2025 19:57, Andrew Cooper wrote:
-> On 17/07/2025 8:44 am, Jan Beulich wrote:
+On 17.07.2025 21:39, Andrew Cooper wrote:
+> On 17/07/2025 9:11 am, Jan Beulich wrote:
 >> On 16.07.2025 19:31, Andrew Cooper wrote:
->>> --- a/xen/arch/x86/acpi/cpu_idle.c
->>> +++ b/xen/arch/x86/acpi/cpu_idle.c
->>> @@ -583,7 +583,6 @@ bool errata_c6_workaround(void)
+>>> --- a/xen/arch/x86/cpu/common.c
+>>> +++ b/xen/arch/x86/cpu/common.c
+>>> @@ -1003,13 +1003,15 @@ const struct x86_cpu_id *x86_match_cpu(const struct x86_cpu_id table[])
+>>>  	const struct x86_cpu_id *m;
+>>>  	const struct cpuinfo_x86 *c = &boot_cpu_data;
 >>>  
->>>      if ( unlikely(fix_needed == -1) )
->>>      {
->>> -#define INTEL_FAM6_MODEL(m) { X86_VENDOR_INTEL, 6, m, X86_FEATURE_ALWAYS }
->>>          /*
->>>           * Errata AAJ72: EOI Transaction May Not be Sent if Software Enters
->>>           * Core C6 During an Interrupt Service Routine"
->>> @@ -594,12 +593,12 @@ bool errata_c6_workaround(void)
->>>           * there is an EOI pending.
->>>           */
->>>          static const struct x86_cpu_id eoi_errata[] = {
->>> -            INTEL_FAM6_MODEL(0x1a),
->>> -            INTEL_FAM6_MODEL(0x1e),
->>> -            INTEL_FAM6_MODEL(0x1f),
->>> -            INTEL_FAM6_MODEL(0x25),
->>> -            INTEL_FAM6_MODEL(0x2c),
->>> -            INTEL_FAM6_MODEL(0x2f),
->>> +            X86_MATCH_VFM(INTEL_NEHALEM_EP,   NULL),
->>> +            X86_MATCH_VFM(INTEL_NEHALEM,      NULL),
->>> +            X86_MATCH_VFM(INTEL_NEHALEM_G,    NULL),
->>> +            X86_MATCH_VFM(INTEL_WESTMERE,     NULL),
->>> +            X86_MATCH_VFM(INTEL_WESTMERE_EP,  NULL),
->>> +            X86_MATCH_VFM(INTEL_WESTMERE_EX,  NULL),
->>>              { }
->>>          };
->> Along the lines of a comment further down, maybe make explicit that Nehalem-EX
->> is intentionally omitted here (assuming that's not in fact an oversight)?
+>>> -	for (m = table; m->vendor | m->family | m->model | m->feature; m++) {
+>>> +	for (m = table; m->vendor | m->family | m->model | m->steppings | m->feature; m++) {
+>> Nit: Line length. But - do we need the change at all? It looks entirely
+>> implausible to me to use ->steppings with all of vendor, family, and
+>> model being *_ANY (if, as per below, they would be 0 in the first place).
 > 
-> It looks to be an oversight.  I've submitted a separate patch, so it can
-> be backported more easily.
+> I do keep on saying that | like this is pure obfuscation.  This is an
+> excellent example.
 > 
-> In practice, it's covered by probe_c3_errata() which blanket disables C3
-> and C6 on Nehalem.
+> It's looking for the {} entry, by looking for 0's in all of the metadata
+> fields.  A better check would be *(uint64_t *)m, or perhaps a unioned
+> metadata field, but..
+> 
+> This is also a good demonstration of binary | is a bad thing to use, not
+> only for legibility.  Swapping | for || lets the compiler do:
+> 
+> add/remove: 0/0 grow/shrink: 0/1 up/down: 0/-76 (-76)
+> Function                                     old     new   delta
+> x86_match_cpu                                243     167     -76
+> 
+> and the code generation looks much better too:
+
+Feel free to switch to ||. (The use of | producing worse code is clearly
+a weakness of the compiler. Especially when used on non-adjacent fields
+I expect | to be quite a bit better, first and foremost by ending up
+with just a single conditional branch. Sadly I haven't seen compilers
+do such a transformation for us.)
+
+All of your reply doesn't address my remark regarding whether to check
+->steppings here, though. (And no, whether to check it shouldn't be
+[solely] justified by the compiler generating better code that way.)
+
+>>>  struct x86_cpu_id {
+>>> -    uint16_t vendor;
+>>> -    uint16_t family;
+>>> +    uint8_t vendor;
+>> Is shrinking this to 8 bits a good idea? We use 5 of them already. (Of
+>> course we can re-enlarge later, if and when the need arises.)
+> 
+> It's the same size as cpuinfo_x86's field has been for 2 decades.
 > 
 >>
->>> --- a/xen/arch/x86/cpu/intel.c
->>> +++ b/xen/arch/x86/cpu/intel.c
->>> @@ -382,16 +382,12 @@ static void cf_check early_init_intel(struct cpuinfo_x86 *c)
->>>   */
->>>  static void probe_c3_errata(const struct cpuinfo_x86 *c)
->>>  {
->>> -#define INTEL_FAM6_MODEL(m) { X86_VENDOR_INTEL, 6, m, X86_FEATURE_ALWAYS }
->>>      static const struct x86_cpu_id models[] = {
->>> -        /* Nehalem */
->>> -        INTEL_FAM6_MODEL(0x1a),
->>> -        INTEL_FAM6_MODEL(0x1e),
->>> -        INTEL_FAM6_MODEL(0x1f),
->>> -        INTEL_FAM6_MODEL(0x2e),
->>> -        /* Westmere (note Westmere-EX is not affected) */
->>> -        INTEL_FAM6_MODEL(0x2c),
->>> -        INTEL_FAM6_MODEL(0x25),
->>> +        X86_MATCH_VFM(INTEL_NEHALEM_EP,   NULL),
->>> +        X86_MATCH_VFM(INTEL_NEHALEM,      NULL),
->>> +        X86_MATCH_VFM(INTEL_NEHALEM_G,    NULL),
->>> +        X86_MATCH_VFM(INTEL_WESTMERE,     NULL),
->>> +        X86_MATCH_VFM(INTEL_WESTMERE_EP,  NULL),
->>>          { }
->>>      };
->> You lost NEHALEM_EX here.
+>>> +    uint8_t family;
+>> The family formula allows the value to be up to 0x10e. The return type
+>> of get_cpu_family() is therefore wrong too, strictly speaking. As is
+>> struct cpuinfo_x86's x86 field.
 > 
-> Oops, too much copy/paste.
-> 
->>  For Westmere-EX I think the comment (part) would
->> better be retained, to clarify that this isn't an oversight.
-> 
-> I can't find anything which looks related for Westmere EX.  I'll retain
-> the comment.
+> Again, this is the size of the field in cpuinfo_x86.  I don't think
+> 0x10e is anything we're going to have to worry about any time soon.
 
-With the adjustments:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Now that Intel has decided to use higher family numbers, hopefully yes.
+
+>>>      uint16_t model;
+>> Whereas the model is strictly limited to 8 bits.
+> 
+> There is space in here, if we need it, but you can't shrink it without
+> breaking the check for the NULL entry (going back to the first obfuscation).
+
+Breaking? Or merely affecting code generation in a negative way?
 
 Jan
 
