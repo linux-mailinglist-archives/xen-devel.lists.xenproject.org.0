@@ -2,38 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECF4AB0A7FF
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 17:55:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1048950.1419173 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE5FCB0A832
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 18:13:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1048994.1419198 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucnQV-0001NQ-M0; Fri, 18 Jul 2025 15:55:11 +0000
+	id 1ucnht-0006gJ-Nn; Fri, 18 Jul 2025 16:13:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1048950.1419173; Fri, 18 Jul 2025 15:55:11 +0000
+Received: by outflank-mailman (output) from mailman id 1048994.1419198; Fri, 18 Jul 2025 16:13:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucnQV-0001I7-FU; Fri, 18 Jul 2025 15:55:11 +0000
-Received: by outflank-mailman (input) for mailman id 1048950;
- Fri, 18 Jul 2025 15:55:09 +0000
+	id 1ucnht-0006dz-KK; Fri, 18 Jul 2025 16:13:09 +0000
+Received: by outflank-mailman (input) for mailman id 1048994;
+ Fri, 18 Jul 2025 16:13:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=00bL=Z7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ucnQT-0000nc-KT
- for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 15:55:09 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ <SRS0=Us2c=Z7=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1ucnhs-0006dt-Nj
+ for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 16:13:08 +0000
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on20610.outbound.protection.outlook.com
+ [2a01:111:f403:2407::610])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 94a451d7-63ef-11f0-a319-13f23c93f187;
- Fri, 18 Jul 2025 17:55:09 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-455b00283a5so13835185e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 18 Jul 2025 08:55:09 -0700 (PDT)
-Received: from localhost.localdomain (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b61ca48719sm2276468f8f.47.2025.07.18.08.55.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Jul 2025 08:55:07 -0700 (PDT)
+ id 15eaa08d-63f2-11f0-a319-13f23c93f187;
+ Fri, 18 Jul 2025 18:13:05 +0200 (CEST)
+Received: from SJ0PR03CA0154.namprd03.prod.outlook.com (2603:10b6:a03:338::9)
+ by SJ1PR12MB6291.namprd12.prod.outlook.com (2603:10b6:a03:456::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.39; Fri, 18 Jul
+ 2025 16:12:59 +0000
+Received: from MWH0EPF000A672F.namprd04.prod.outlook.com
+ (2603:10b6:a03:338:cafe::ba) by SJ0PR03CA0154.outlook.office365.com
+ (2603:10b6:a03:338::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.19 via Frontend Transport; Fri,
+ 18 Jul 2025 16:12:59 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000A672F.mail.protection.outlook.com (10.167.249.21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8943.21 via Frontend Transport; Fri, 18 Jul 2025 16:12:59 +0000
+Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 18 Jul
+ 2025 11:12:56 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,318 +56,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94a451d7-63ef-11f0-a319-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1752854108; x=1753458908; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cUHG8rHge1pLJZYmLKq3jyE9wTiUp6t+m2EPk7D4AkQ=;
-        b=FkVwhAYVl6hZjLyvWPZ1Zm41SMRSx7+vuxwPTCU+TmyR5i9CCHdSsGin+ZghFadaYn
-         9cOstTMqKpJ/plrREx0scnGGDQI43DyrAS1EwQbPslztS19wT0wjOtpcRJYRv6Gg3NxP
-         8avqPIN/KaYoDJt5sY7qkgK7FDXe8AdWHfTs8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752854108; x=1753458908;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=cUHG8rHge1pLJZYmLKq3jyE9wTiUp6t+m2EPk7D4AkQ=;
-        b=p9yP+F30NUe7QzVH7hDbu0eFszSdKHBzclDJLFn9RedzBCVX+ikgBieZNGjw3IBsXn
-         CIhH1kZJY5bHB1/rlDT0+7aRNGt0svxwt2+oz/mjtfzVBptBOMnZn+n6k1ouNt0iFZBM
-         m8intfsJix3A0JQkDXkNynusB4XDdW/QtSZBI9EDsE08g0KEKXSgeAAoocYm3fHYKKGc
-         uf5o622WxVi7pMrITknfTIvWConcRfUaMLgsoFmMMWT3R/vsXLe6a4IE7ifmnVNt9+2w
-         RjRLtS6gAg/znSQp1ihrSi5nD0PAQ7DsRXQyCXl/qldOpA27WCuZWbWWEOoaiCZZfd33
-         Lvng==
-X-Gm-Message-State: AOJu0Yxqb1ue+Nnq/HlBC4zxGE6NIe3puojVBz/hCbiFkfQyw9TSg/4Z
-	Gel8hMpIObpMzZRcsivoX642hDg84zO+HGqj06zGX7xpWRJNxeptPsGBxsEUhEdETafTDoaMwFm
-	2CJAsuVYN1w==
-X-Gm-Gg: ASbGncv66f8oWjSMsnbe1hf/Yg4Gmx/IPozwPVkWaipERagF0xN7cZGGRLtU3jgc/Dx
-	dLDC5ckAzWtBS41StmxY++A1nHJGg7WvmhlGV3crsw8vw7fmv4+0EFXchYguCDxNZZviLRe8IDJ
-	tg1M7y4gP6YPUqcehVlXkPFv6vbY3F4clYtPKe7xckoWmbhzn8sbMw0PzpXRONzDkaRYxB8tBrr
-	d9mBPgTS8JYCNGTy8POltFc49jKMsj2MlEqx0qwTvifaXo5nxiZ6FtTJeEiK7h03HA1OlCblgYx
-	GnixyWrdLI2Sp6GZOnm/sMdnT6KNJ52EIyzKQM/pqJqTjUYlbKHtuQVOJzCuHu/ewj3bJZ5QbCp
-	+T4aV2xu/jpqAdMPZeqDDxt5lJEG6ErMWHYcDp5oJpy5BsSucPuYyu8R5McG1ekOZAXf/Nhy+Pu
-	aX
-X-Google-Smtp-Source: AGHT+IERJHN/pK7JjLfjCpHMfBlOKPWXTM0vWJjoywbQPHxbTHcugti19QVoGwy+1NdntIMKkQ4bVg==
-X-Received: by 2002:a05:600c:4510:b0:453:7713:546a with SMTP id 5b1f17b1804b1-4563d4adbe7mr29363455e9.14.1752854108349;
-        Fri, 18 Jul 2025 08:55:08 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 4/4] x86/intel-family: Resync with Linux
-Date: Fri, 18 Jul 2025 16:55:02 +0100
-Message-Id: <20250718155502.2610047-5-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250718155502.2610047-1-andrew.cooper3@citrix.com>
-References: <20250718155502.2610047-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 15eaa08d-63f2-11f0-a319-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=noEokQ9JVaX2Kb/cYlB9Nh1cHgT8LK6GatPUcBogiCM+Bxh8JquK7NHwF7egVW3f4FA/Gh1AUkTiXnd52kXakOWGWeyRgckqkT9uVTXj9GWF38a+liQe5ijoIfBPVEFD7GWafCi4VDMM4KPyKtuZ3AzI8UapCPMtSA8Js4OHAC1WMCJTPvRzryJ7MWBS2GQxfGkffAV3YDABqPPiseIxQaHQ88KM+DLYO0f5Uwbwa6RtfdV7pevxw6U9mMCqNYwS8hu9Tn5l/xfGqtXEUQ+c21rrGxPnEf/bH34VjUl1+oE2H7RJ+GOAPjDd3l2cYn5C8hPd4gBNkuxvL6nIHDDD8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zrvjKRv4T0g0fU/sGoHvJfgh2za7p88k7obZYahpJt0=;
+ b=XIZ1yySJoAUQtqx4+6VBEs9K9MlZUUg7C3YtjM0vO2ZJztQHUeYhXA5r9gnd1ybI/hc68FVkYGpFS+Swfwx15hmVeq47H87OxIBwWvFXmdwOKg6J7cU2vlWZUHRRwovibZOaop6vKqAAvuXyLywGzgQ+XFPZQezZkbsgpT8o2S4nCgbifS0sqdJTwMzgUA24CVvMlVt51x/wllPcCCjdQGx+zT4BKcD7TUC/MIURT26LIHHxqU32mIYX7d1zAZw282stiRYDqnatU9ngEidC/HHL/nYBei7WKDonanrlQL27zNFX6va6Swe+s/Ai6QQmB0bvCCn9jX0yiZ/x2g3l/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zrvjKRv4T0g0fU/sGoHvJfgh2za7p88k7obZYahpJt0=;
+ b=EmAoYDuLrLfjbzZqvTsXNFVdjqr4YCnEEZV5AGQgbCHz0tG1omslJsVUr7o71vFmpaGaM2EQg8pJHqwa9Q7iN5+vOU/68RlXVvk1r3zS7GOAF5hh57jMJLwUL+tOIFpdvZj2VEQQdGPtAL1sa/ChJcShworxjoYNeS+ykM8ftgc=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Fri, 18 Jul 2025 18:12:54 +0200
+Message-ID: <DBFBAURYB2J6.LTV7SKMB1PQQ@amd.com>
+CC: Jan Beulich <jbeulich@suse.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>
+Subject: Re: [PATCH] x86: Don't allow HVM alongside PV_SHIM_EXCLUSIVE
+From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+	<xen-devel@lists.xenproject.org>
+X-Mailer: aerc 0.20.1
+References: <20250718151214.24835-1-alejandro.garciavallejo@amd.com>
+ <47704e30-0f8f-483e-b22e-5cdb767699d5@citrix.com>
+In-Reply-To: <47704e30-0f8f-483e-b22e-5cdb767699d5@citrix.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A672F:EE_|SJ1PR12MB6291:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9468ef6e-2ba1-433a-718e-08ddc615f70d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?UlBlMzEzUDdsN0lSdy9IZFR5V0FyMVZZSTdWZ3dLS2pObXk2Y1UwcTJjNU9F?=
+ =?utf-8?B?RUxRdE42WnZGVFZ0Q2NSNWExUmJFWHBvTWFhaVE3NEY0Ym9LeHMrOG9vM0pa?=
+ =?utf-8?B?cEFjNUdnbStES1I5OEc0Q2kvckJIZy8zNE5sdzB6bnJjYlZESEFEaE1OQ0NG?=
+ =?utf-8?B?cVkra2cvOHMreTUzVFRRa0d2R3VwZ2l5cHpmaFN1d3JsUCtEOVZ2eHJSV05D?=
+ =?utf-8?B?dDNCZWZlQzBoNGRaejhRcC92dHk2TG9oZXNrTGxid05ZTk5FOU4rU0RibVRO?=
+ =?utf-8?B?UVIxcXZUVW0yV3Z2ak9jOWRTa2JJMkIxdjYwT3pJY0RGdVNvSUUwdUJTQ1VU?=
+ =?utf-8?B?SlJDK2o5azB5SnRDOU9vTzJOTm01QmRWbGpNSkZDbmJWemZjUm4xcjduWUFE?=
+ =?utf-8?B?a1R4cHFOSXhMWHUzNzduaFJ0Vm0wSkZBdnEwZi9zdWhLL2EzdTl2bXQvYmdB?=
+ =?utf-8?B?bVY4dHE4SUhBU01ya05GMEV1Yi9PY2J3OHk0dGtZTDMvelN1WjhpT2JvNU8x?=
+ =?utf-8?B?ZE1tN3pNQlZ4ZDlxYnVjQk40NHBBSmJrMTRJKzhMdlN2NS96d3p6NnB1ZkZM?=
+ =?utf-8?B?eklZRmNkb0JFVXVONldDMXpPZGY2Y1VBeWl4R3hpNEFtVjhhSmxRMHk3UnB4?=
+ =?utf-8?B?R0doOC9UbVJmOEs5TThZV2MzMmR6b3JtcTJHYzZ2dmJVUll5TGkvZnU5UG1z?=
+ =?utf-8?B?RWNDSTlQa2NEOVpQbGRrRnZ6K3ZGT1E5TkhKN3RTT0tjcXVuL3kzTnNnTGRa?=
+ =?utf-8?B?OFFPTzJ5dXZIVEM3d1FsL28rQUdvVzBPSzdOcTU4cUtmVnliZG11RE96MFY3?=
+ =?utf-8?B?UVZKQkJnZ0kyQzlhTTZjVzZiNlFya3BLcHgxSitacGp3MEtmY2hhc3MyZ01Z?=
+ =?utf-8?B?QnlZK281K1BOMXU1b28yVDNGSWZvOW9ZMmJucTB2YnBmUUlpdU9GZURWTnI1?=
+ =?utf-8?B?bDZwM2c5Y04zSzhiTkJZYWdDMHZaQ29uQmdaWU5abjNTT1JnclQ1QmJvN2t3?=
+ =?utf-8?B?Y0VxTjNmTGZ4Z0VwS3RRaDBGT1B4aVdPTVVUbC95cVEvUElNd2ZoRTBEYXJG?=
+ =?utf-8?B?Snl0QkJyd2ltUTdiaXlua2YveUlyVUtqSlVKcmRQMDN6YTlkMVd2YnByZHRM?=
+ =?utf-8?B?RUdVcE51eVh1amJCNXV6VlIwVnVweklMdUs5dS9yWi9GWnc0RXJ4WmdoMVF0?=
+ =?utf-8?B?UmVYUFdTTW9LNUF4Y2xPVHc3SzFUMlZEY3ByUkVVRjh5R29BS0dCbkNydVhJ?=
+ =?utf-8?B?S2U4OEw3NFVkSlFJeThRRjJmM3pEMDVJemhkeVF1N2V6MHBLTTlvUUxmajJ0?=
+ =?utf-8?B?RGovWkxCWlRwOUhEYlZ6aWhoMXlLS2ZhZ2RpMnRPaDgyWndiclJycll3Skgv?=
+ =?utf-8?B?M2xvSUpNQStQSkpHeU5LTFB2Y0ZNQ09kbFB3Q3c3aDhwNHF0Uk42OHRoRUdi?=
+ =?utf-8?B?TzNVMFlBbm5QdU1aOGNSeHZBclVGajM0K1d1SFNmTXlNQ1E5VGNNaUNPTzRW?=
+ =?utf-8?B?aXM5VmpwMms4dXR3Wkh2eWJvaE45ZmFFN3RpYUNKL3ZlZndFaWJLSnlvNTd5?=
+ =?utf-8?B?STBvWGFybmh1eDFWaHBScTVGVEZUcWRVNnhXTDdVclBob0ZZcmFaTng5Z3Uy?=
+ =?utf-8?B?clNwWlM1THJYQ05Jd3ZDTnFDVEF4RWVHL2I2K3hXY1BZZXNhN3NLcldMZHBl?=
+ =?utf-8?B?ZTdIaHhjelVFN0tpRlNaSiswdWE0ZTFrYnNHZTVKai9ZOEFRZkxBb05BYm1B?=
+ =?utf-8?B?bk5oVGI0UnB5NzJGc1ordUxnQUJpdEdpbjJ2dTY3bHNhYWNHQndGaGlxT0xZ?=
+ =?utf-8?B?VkdqbHd2QkUybTdtMlE0bUN0TnVuY0k5Yk5iRi92ZWJCZjAya3E3VUEydHJx?=
+ =?utf-8?B?eUk5T3ovRUFJd2dPdldGcjR1S0dscitBd0RqcHpQU2c2cUtkN1lJUTNScmVW?=
+ =?utf-8?B?dVRFYUs0dGRSaGoxTlpBM2NFcTNRRDF3RnhUQUhJa3dlK0drRU1WUk5RWGVt?=
+ =?utf-8?B?QUc0MGgyeWxQM3VZQWRtTjQ1dFkxbEVRTVN4czhrZWEvTUpPUVVGWTV3L1E0?=
+ =?utf-8?Q?ufheU3?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2025 16:12:59.6590
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9468ef6e-2ba1-433a-718e-08ddc615f70d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000A672F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6291
 
-This snapshot is Linux commit db4001f9cc32 ("x86/cpu/vfm: Delete all
-the *_FAM6_ CPU #defines"), now that Xen has switched off the old constant
-names.
+On Fri Jul 18, 2025 at 5:41 PM CEST, Andrew Cooper wrote:
+> On 18/07/2025 4:12 pm, Alejandro Vallejo wrote:
+>> Otherwise compile-time errors ensue. It's a nonsensical configuration,
+>> but it's supriously triggered in randconfig jobs.
+>>
+>> Fixes: 8b5b49ceb3d9("x86: don't include domctl and alike in shim-excl...=
+")
+>> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+>> ---
+>>  xen/arch/x86/hvm/Kconfig | 1 +
+>>  1 file changed, 1 insertion(+)
+>>
+>> diff --git a/xen/arch/x86/hvm/Kconfig b/xen/arch/x86/hvm/Kconfig
+>> index b903764bda..f57a87bca3 100644
+>> --- a/xen/arch/x86/hvm/Kconfig
+>> +++ b/xen/arch/x86/hvm/Kconfig
+>> @@ -1,6 +1,7 @@
+>>  menuconfig HVM
+>>  	bool "HVM support"
+>>  	default !PV_SHIM
+>> +	depends on !PV_SHIM_EXCLUSIVE
+>>  	select COMPAT
+>>  	select IOREQ_SERVER
+>>  	select MEM_ACCESS_ALWAYS_ON
+>
+> I deeply regret not nacking this originally and blocking the patch you
+> listed as fixed.
+>
+> This depends was explicitly reverted in 568f806cba4c because it breaks a
+> lot of things, notably `make allyesconfig`.
+>
+> We're going to need to find a different way to fix RANDCONFIG.
+>
+> ~Andrew
 
-Leave a comment identifying the exact revision Xen is using.
+It can be done the other way around. PV_SHIM_EXCLUSIVE depending on !CONFIG=
+_HVM,
+but that won't help with allyesconfig.
 
-No functional change.
+PV_SHIM_EXCLUSIVE could be replaced by a PVSHIM_BOOT Kconfig. Combined with
+DOM0LESS_BOOT and DOM0_BOOT this gives the full freedom of booting in shim =
+mode,
+in dom0 mode, or in dom0less/hlaunch mode; and is compatible with allyescon=
+fig.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
+PV_SHIM_EXCLUSIVE would be unsetting DOM0_BOOT and DOM0LESS_BOOT.
 
-INTEL_FAM5_QUARK_X1000 ought to have been deleted in this commit in Linux.  It
-has been removed since.
----
- xen/arch/x86/include/asm/intel-family.h | 90 ++-----------------------
- 1 file changed, 7 insertions(+), 83 deletions(-)
+Not that I want to do it right now. But it sounds like a nicer solution tha=
+n the
+current mess.
 
-diff --git a/xen/arch/x86/include/asm/intel-family.h b/xen/arch/x86/include/asm/intel-family.h
-index 5858e7398570..d8c0bcc406de 100644
---- a/xen/arch/x86/include/asm/intel-family.h
-+++ b/xen/arch/x86/include/asm/intel-family.h
-@@ -1,4 +1,9 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Snapshot from Linux:
-+ *   db4001f9cc32e3ef105a4e4f492d7d813b28292a
-+ *   x86/cpu/vfm: Delete all the *_FAM6_ CPU #defines
-+ */
- #ifndef _ASM_X86_INTEL_FAMILY_H
- #define _ASM_X86_INTEL_FAMILY_H
- 
-@@ -10,7 +15,7 @@
-  * that group keep the CPUID for the variants sorted by model number.
-  *
-  * The defined symbol names have the following form:
-- *	INTEL_FAM6{OPTFAMILY}_{MICROARCH}{OPTDIFF}
-+ *	INTEL_{OPTFAMILY}_{MICROARCH}{OPTDIFF}
-  * where:
-  * OPTFAMILY	Describes the family of CPUs that this belongs to. Default
-  *		is assumed to be "_CORE" (and should be omitted). Other values
-@@ -42,217 +47,136 @@
- 
- #define IFM(_fam, _model)	VFM_MAKE(X86_VENDOR_INTEL, _fam, _model)
- 
--/* Wildcard match for FAM6 so X86_MATCH_INTEL_FAM6_MODEL(ANY) works */
--#define INTEL_FAM6_ANY			X86_MODEL_ANY
--/* Wildcard match for FAM6 so X86_MATCH_VFM(ANY) works */
-+/* Wildcard match so X86_MATCH_VFM(ANY) works */
- #define INTEL_ANY			IFM(X86_FAMILY_ANY, X86_MODEL_ANY)
- 
- #define INTEL_PENTIUM_PRO		IFM(6, 0x01)
- 
--#define INTEL_FAM6_CORE_YONAH		0x0E
- #define INTEL_CORE_YONAH		IFM(6, 0x0E)
- 
--#define INTEL_FAM6_CORE2_MEROM		0x0F
- #define INTEL_CORE2_MEROM		IFM(6, 0x0F)
--#define INTEL_FAM6_CORE2_MEROM_L	0x16
- #define INTEL_CORE2_MEROM_L		IFM(6, 0x16)
--#define INTEL_FAM6_CORE2_PENRYN		0x17
- #define INTEL_CORE2_PENRYN		IFM(6, 0x17)
--#define INTEL_FAM6_CORE2_DUNNINGTON	0x1D
- #define INTEL_CORE2_DUNNINGTON		IFM(6, 0x1D)
- 
--#define INTEL_FAM6_NEHALEM		0x1E
- #define INTEL_NEHALEM			IFM(6, 0x1E)
--#define INTEL_FAM6_NEHALEM_G		0x1F /* Auburndale / Havendale */
- #define INTEL_NEHALEM_G			IFM(6, 0x1F) /* Auburndale / Havendale */
--#define INTEL_FAM6_NEHALEM_EP		0x1A
- #define INTEL_NEHALEM_EP		IFM(6, 0x1A)
--#define INTEL_FAM6_NEHALEM_EX		0x2E
- #define INTEL_NEHALEM_EX		IFM(6, 0x2E)
- 
--#define INTEL_FAM6_WESTMERE		0x25
- #define INTEL_WESTMERE			IFM(6, 0x25)
--#define INTEL_FAM6_WESTMERE_EP		0x2C
- #define INTEL_WESTMERE_EP		IFM(6, 0x2C)
--#define INTEL_FAM6_WESTMERE_EX		0x2F
- #define INTEL_WESTMERE_EX		IFM(6, 0x2F)
- 
--#define INTEL_FAM6_SANDYBRIDGE		0x2A
- #define INTEL_SANDYBRIDGE		IFM(6, 0x2A)
--#define INTEL_FAM6_SANDYBRIDGE_X	0x2D
- #define INTEL_SANDYBRIDGE_X		IFM(6, 0x2D)
--#define INTEL_FAM6_IVYBRIDGE		0x3A
- #define INTEL_IVYBRIDGE			IFM(6, 0x3A)
--#define INTEL_FAM6_IVYBRIDGE_X		0x3E
- #define INTEL_IVYBRIDGE_X		IFM(6, 0x3E)
- 
--#define INTEL_FAM6_HASWELL		0x3C
- #define INTEL_HASWELL			IFM(6, 0x3C)
--#define INTEL_FAM6_HASWELL_X		0x3F
- #define INTEL_HASWELL_X			IFM(6, 0x3F)
--#define INTEL_FAM6_HASWELL_L		0x45
- #define INTEL_HASWELL_L			IFM(6, 0x45)
--#define INTEL_FAM6_HASWELL_G		0x46
- #define INTEL_HASWELL_G			IFM(6, 0x46)
- 
--#define INTEL_FAM6_BROADWELL		0x3D
- #define INTEL_BROADWELL			IFM(6, 0x3D)
--#define INTEL_FAM6_BROADWELL_G		0x47
- #define INTEL_BROADWELL_G		IFM(6, 0x47)
--#define INTEL_FAM6_BROADWELL_X		0x4F
- #define INTEL_BROADWELL_X		IFM(6, 0x4F)
--#define INTEL_FAM6_BROADWELL_D		0x56
- #define INTEL_BROADWELL_D		IFM(6, 0x56)
- 
--#define INTEL_FAM6_SKYLAKE_L		0x4E	/* Sky Lake             */
- #define INTEL_SKYLAKE_L			IFM(6, 0x4E) /* Sky Lake */
--#define INTEL_FAM6_SKYLAKE		0x5E	/* Sky Lake             */
- #define INTEL_SKYLAKE			IFM(6, 0x5E) /* Sky Lake */
--#define INTEL_FAM6_SKYLAKE_X		0x55	/* Sky Lake             */
- #define INTEL_SKYLAKE_X			IFM(6, 0x55) /* Sky Lake */
- /*                 CASCADELAKE_X	0x55	   Sky Lake -- s: 7     */
- /*                 COOPERLAKE_X		0x55	   Sky Lake -- s: 11    */
- 
--#define INTEL_FAM6_KABYLAKE_L		0x8E	/* Sky Lake             */
- #define INTEL_KABYLAKE_L		IFM(6, 0x8E) /* Sky Lake */
- /*                 AMBERLAKE_L		0x8E	   Sky Lake -- s: 9     */
- /*                 COFFEELAKE_L		0x8E	   Sky Lake -- s: 10    */
- /*                 WHISKEYLAKE_L	0x8E       Sky Lake -- s: 11,12 */
- 
--#define INTEL_FAM6_KABYLAKE		0x9E	/* Sky Lake             */
- #define INTEL_KABYLAKE			IFM(6, 0x9E) /* Sky Lake */
- /*                 COFFEELAKE		0x9E	   Sky Lake -- s: 10-13 */
- 
--#define INTEL_FAM6_COMETLAKE		0xA5	/* Sky Lake             */
- #define INTEL_COMETLAKE			IFM(6, 0xA5) /* Sky Lake */
--#define INTEL_FAM6_COMETLAKE_L		0xA6	/* Sky Lake             */
- #define INTEL_COMETLAKE_L		IFM(6, 0xA6) /* Sky Lake */
- 
--#define INTEL_FAM6_CANNONLAKE_L		0x66	/* Palm Cove */
- #define INTEL_CANNONLAKE_L		IFM(6, 0x66) /* Palm Cove */
- 
--#define INTEL_FAM6_ICELAKE_X		0x6A	/* Sunny Cove */
- #define INTEL_ICELAKE_X			IFM(6, 0x6A) /* Sunny Cove */
--#define INTEL_FAM6_ICELAKE_D		0x6C	/* Sunny Cove */
- #define INTEL_ICELAKE_D			IFM(6, 0x6C) /* Sunny Cove */
--#define INTEL_FAM6_ICELAKE		0x7D	/* Sunny Cove */
- #define INTEL_ICELAKE			IFM(6, 0x7D) /* Sunny Cove */
--#define INTEL_FAM6_ICELAKE_L		0x7E	/* Sunny Cove */
- #define INTEL_ICELAKE_L			IFM(6, 0x7E) /* Sunny Cove */
--#define INTEL_FAM6_ICELAKE_NNPI		0x9D	/* Sunny Cove */
- #define INTEL_ICELAKE_NNPI		IFM(6, 0x9D) /* Sunny Cove */
- 
--#define INTEL_FAM6_ROCKETLAKE		0xA7	/* Cypress Cove */
- #define INTEL_ROCKETLAKE		IFM(6, 0xA7) /* Cypress Cove */
- 
--#define INTEL_FAM6_TIGERLAKE_L		0x8C	/* Willow Cove */
- #define INTEL_TIGERLAKE_L		IFM(6, 0x8C) /* Willow Cove */
--#define INTEL_FAM6_TIGERLAKE		0x8D	/* Willow Cove */
- #define INTEL_TIGERLAKE			IFM(6, 0x8D) /* Willow Cove */
- 
--#define INTEL_FAM6_SAPPHIRERAPIDS_X	0x8F	/* Golden Cove */
- #define INTEL_SAPPHIRERAPIDS_X		IFM(6, 0x8F) /* Golden Cove */
- 
--#define INTEL_FAM6_EMERALDRAPIDS_X	0xCF
- #define INTEL_EMERALDRAPIDS_X		IFM(6, 0xCF)
- 
--#define INTEL_FAM6_GRANITERAPIDS_X	0xAD
- #define INTEL_GRANITERAPIDS_X		IFM(6, 0xAD)
--#define INTEL_FAM6_GRANITERAPIDS_D	0xAE
- #define INTEL_GRANITERAPIDS_D		IFM(6, 0xAE)
- 
- /* "Hybrid" Processors (P-Core/E-Core) */
- 
--#define INTEL_FAM6_LAKEFIELD		0x8A	/* Sunny Cove / Tremont */
- #define INTEL_LAKEFIELD			IFM(6, 0x8A) /* Sunny Cove / Tremont */
- 
--#define INTEL_FAM6_ALDERLAKE		0x97	/* Golden Cove / Gracemont */
- #define INTEL_ALDERLAKE			IFM(6, 0x97) /* Golden Cove / Gracemont */
--#define INTEL_FAM6_ALDERLAKE_L		0x9A	/* Golden Cove / Gracemont */
- #define INTEL_ALDERLAKE_L		IFM(6, 0x9A) /* Golden Cove / Gracemont */
- 
--#define INTEL_FAM6_RAPTORLAKE		0xB7	/* Raptor Cove / Enhanced Gracemont */
- #define INTEL_RAPTORLAKE		IFM(6, 0xB7) /* Raptor Cove / Enhanced Gracemont */
--#define INTEL_FAM6_RAPTORLAKE_P		0xBA
- #define INTEL_RAPTORLAKE_P		IFM(6, 0xBA)
--#define INTEL_FAM6_RAPTORLAKE_S		0xBF
- #define INTEL_RAPTORLAKE_S		IFM(6, 0xBF)
- 
--#define INTEL_FAM6_METEORLAKE		0xAC
- #define INTEL_METEORLAKE		IFM(6, 0xAC)
--#define INTEL_FAM6_METEORLAKE_L		0xAA
- #define INTEL_METEORLAKE_L		IFM(6, 0xAA)
- 
--#define INTEL_FAM6_ARROWLAKE_H		0xC5
- #define INTEL_ARROWLAKE_H		IFM(6, 0xC5)
--#define INTEL_FAM6_ARROWLAKE		0xC6
- #define INTEL_ARROWLAKE			IFM(6, 0xC6)
--#define INTEL_FAM6_ARROWLAKE_U		0xB5
- #define INTEL_ARROWLAKE_U		IFM(6, 0xB5)
- 
--#define INTEL_FAM6_LUNARLAKE_M		0xBD
- #define INTEL_LUNARLAKE_M		IFM(6, 0xBD)
- 
- /* "Small Core" Processors (Atom/E-Core) */
- 
--#define INTEL_FAM6_ATOM_BONNELL		0x1C /* Diamondville, Pineview */
- #define INTEL_ATOM_BONNELL		IFM(6, 0x1C) /* Diamondville, Pineview */
--#define INTEL_FAM6_ATOM_BONNELL_MID	0x26 /* Silverthorne, Lincroft */
- #define INTEL_ATOM_BONNELL_MID		IFM(6, 0x26) /* Silverthorne, Lincroft */
- 
--#define INTEL_FAM6_ATOM_SALTWELL	0x36 /* Cedarview */
- #define INTEL_ATOM_SALTWELL		IFM(6, 0x36) /* Cedarview */
--#define INTEL_FAM6_ATOM_SALTWELL_MID	0x27 /* Penwell */
- #define INTEL_ATOM_SALTWELL_MID		IFM(6, 0x27) /* Penwell */
--#define INTEL_FAM6_ATOM_SALTWELL_TABLET	0x35 /* Cloverview */
- #define INTEL_ATOM_SALTWELL_TABLET	IFM(6, 0x35) /* Cloverview */
- 
--#define INTEL_FAM6_ATOM_SILVERMONT	0x37 /* Bay Trail, Valleyview */
- #define INTEL_ATOM_SILVERMONT		IFM(6, 0x37) /* Bay Trail, Valleyview */
--#define INTEL_FAM6_ATOM_SILVERMONT_D	0x4D /* Avaton, Rangely */
- #define INTEL_ATOM_SILVERMONT_D		IFM(6, 0x4D) /* Avaton, Rangely */
--#define INTEL_FAM6_ATOM_SILVERMONT_MID	0x4A /* Merriefield */
- #define INTEL_ATOM_SILVERMONT_MID	IFM(6, 0x4A) /* Merriefield */
- 
--#define INTEL_FAM6_ATOM_AIRMONT		0x4C /* Cherry Trail, Braswell */
- #define INTEL_ATOM_AIRMONT		IFM(6, 0x4C) /* Cherry Trail, Braswell */
--#define INTEL_FAM6_ATOM_AIRMONT_MID	0x5A /* Moorefield */
- #define INTEL_ATOM_AIRMONT_MID		IFM(6, 0x5A) /* Moorefield */
--#define INTEL_FAM6_ATOM_AIRMONT_NP	0x75 /* Lightning Mountain */
- #define INTEL_ATOM_AIRMONT_NP		IFM(6, 0x75) /* Lightning Mountain */
- 
--#define INTEL_FAM6_ATOM_GOLDMONT	0x5C /* Apollo Lake */
- #define INTEL_ATOM_GOLDMONT		IFM(6, 0x5C) /* Apollo Lake */
--#define INTEL_FAM6_ATOM_GOLDMONT_D	0x5F /* Denverton */
- #define INTEL_ATOM_GOLDMONT_D		IFM(6, 0x5F) /* Denverton */
- 
- /* Note: the micro-architecture is "Goldmont Plus" */
--#define INTEL_FAM6_ATOM_GOLDMONT_PLUS	0x7A /* Gemini Lake */
- #define INTEL_ATOM_GOLDMONT_PLUS	IFM(6, 0x7A) /* Gemini Lake */
- 
--#define INTEL_FAM6_ATOM_TREMONT_D	0x86 /* Jacobsville */
- #define INTEL_ATOM_TREMONT_D		IFM(6, 0x86) /* Jacobsville */
--#define INTEL_FAM6_ATOM_TREMONT		0x96 /* Elkhart Lake */
- #define INTEL_ATOM_TREMONT		IFM(6, 0x96) /* Elkhart Lake */
--#define INTEL_FAM6_ATOM_TREMONT_L	0x9C /* Jasper Lake */
- #define INTEL_ATOM_TREMONT_L		IFM(6, 0x9C) /* Jasper Lake */
- 
--#define INTEL_FAM6_ATOM_GRACEMONT	0xBE /* Alderlake N */
- #define INTEL_ATOM_GRACEMONT		IFM(6, 0xBE) /* Alderlake N */
- 
--#define INTEL_FAM6_ATOM_CRESTMONT_X	0xAF /* Sierra Forest */
- #define INTEL_ATOM_CRESTMONT_X		IFM(6, 0xAF) /* Sierra Forest */
--#define INTEL_FAM6_ATOM_CRESTMONT	0xB6 /* Grand Ridge */
- #define INTEL_ATOM_CRESTMONT		IFM(6, 0xB6) /* Grand Ridge */
- 
--#define INTEL_FAM6_ATOM_DARKMONT_X	0xDD /* Clearwater Forest */
- #define INTEL_ATOM_DARKMONT_X		IFM(6, 0xDD) /* Clearwater Forest */
- 
- /* Xeon Phi */
- 
--#define INTEL_FAM6_XEON_PHI_KNL		0x57 /* Knights Landing */
- #define INTEL_XEON_PHI_KNL		IFM(6, 0x57) /* Knights Landing */
--#define INTEL_FAM6_XEON_PHI_KNM		0x85 /* Knights Mill */
- #define INTEL_XEON_PHI_KNM		IFM(6, 0x85) /* Knights Mill */
- 
- /* Family 5 */
--- 
-2.39.5
-
+Cheers,
+Alejandro
 
