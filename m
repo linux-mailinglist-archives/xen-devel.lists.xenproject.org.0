@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1299B0A0AF
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 12:29:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1048405.1418639 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8CA1B0A0DA
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 12:42:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1048428.1418650 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uciL6-0008P7-SI; Fri, 18 Jul 2025 10:29:16 +0000
+	id 1uciXB-0003jw-0N; Fri, 18 Jul 2025 10:41:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1048405.1418639; Fri, 18 Jul 2025 10:29:16 +0000
+Received: by outflank-mailman (output) from mailman id 1048428.1418650; Fri, 18 Jul 2025 10:41:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uciL6-0008NG-PL; Fri, 18 Jul 2025 10:29:16 +0000
-Received: by outflank-mailman (input) for mailman id 1048405;
- Fri, 18 Jul 2025 10:29:16 +0000
+	id 1uciXA-0003hZ-Tc; Fri, 18 Jul 2025 10:41:44 +0000
+Received: by outflank-mailman (input) for mailman id 1048428;
+ Fri, 18 Jul 2025 10:41:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=00bL=Z7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uciL6-0008NA-1h
- for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 10:29:16 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0d5211eb-63c2-11f0-a319-13f23c93f187;
- Fri, 18 Jul 2025 12:29:14 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3a548a73ff2so1768152f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 18 Jul 2025 03:29:14 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4562e802ae4sm74248735e9.13.2025.07.18.03.29.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Jul 2025 03:29:13 -0700 (PDT)
+ <SRS0=HfJj=Z7=oracle.com=lorenzo.stoakes@srs-se1.protection.inumbo.net>)
+ id 1uciX9-0003gE-1c
+ for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 10:41:43 +0000
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c98ca1b2-63c3-11f0-a319-13f23c93f187;
+ Fri, 18 Jul 2025 12:41:41 +0200 (CEST)
+Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 56I8fgPi022854;
+ Fri, 18 Jul 2025 10:41:15 GMT
+Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 47uhx850pg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 18 Jul 2025 10:41:14 +0000 (GMT)
+Received: from pps.filterd
+ (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
+ with ESMTP id 56I90EZP039600; Fri, 18 Jul 2025 10:41:14 GMT
+Received: from nam11-bn8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2047.outbound.protection.outlook.com [40.107.236.47])
+ by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
+ 47ue5dyc7f-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 18 Jul 2025 10:41:14 +0000
+Received: from DM4PR10MB8218.namprd10.prod.outlook.com (2603:10b6:8:1cc::16)
+ by CO1PR10MB4609.namprd10.prod.outlook.com (2603:10b6:303:91::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.39; Fri, 18 Jul
+ 2025 10:41:11 +0000
+Received: from DM4PR10MB8218.namprd10.prod.outlook.com
+ ([fe80::2650:55cf:2816:5f2]) by DM4PR10MB8218.namprd10.prod.outlook.com
+ ([fe80::2650:55cf:2816:5f2%6]) with mapi id 15.20.8922.037; Fri, 18 Jul 2025
+ 10:41:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,158 +63,366 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d5211eb-63c2-11f0-a319-13f23c93f187
+X-Inumbo-ID: c98ca1b2-63c3-11f0-a319-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=corp-2025-04-25; bh=oXhln8PObnl1zreY0S
+	3Dze7FF9fLf3SovbnLjYZAvko=; b=MdO4x5QCE8VLEeqibwwawg0oZHqpK7PaqQ
+	InN4ST8nwY3nHOI3J5Oq6A0Ls8WAFIffBcxRaQIuXVK74m1ic2jnRkvQIYeUtTu9
+	eV2xz6cBnzCFO8D6Jbke8N2BuThrLAdj5ZdWKzoynEJtofn9Fe/WJJMHDPcK7a3R
+	vu1qsbuhFRBmeuAXGiYzcfroPihMzMws+5iBgcnjtmvlliGN2cJw9uZ0CO5zqKwa
+	46O+HRnkkhSkL1Eu1mE+jGpmTKEzyzVrvkDJZ6fSsvpdSEFB55OGOx+hHbN1VTBE
+	RROf+5rJ3qDA5ZhFt01KD48pnmDvtm900av1COJ3OA3Gs45NZeqg==
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LlHm/4RswFZarGgEMySvyvNBlRRcloBg1PcSbAdvPL9Eji9Bmx7+/jdwvJZnyhIZkxOGp+umdCEy7qthWtkUb2/PAi4JZQfT2zXQtPNidO82saSjhiF7nMpuLfYU5PUSDTLn1PKHhmpOpj1Mk0OyknkH4IVmAm78iVE3lx+Upa6mpGSGOnSD/KRAfsm0KeL4BDBMQ0LATkxuuMQbPOmRRURMIqjH6KZVVLV1gu/C8keQBUEK0E83wHT55AhBbBANTxJTzJeczTw1r3BCwDu9R6XJvoH79dtbrDRm2YIyvHjothBQPOdn0pCri+btzCIY/a7MaUoq1HSbh5p3KTf6lw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oXhln8PObnl1zreY0S3Dze7FF9fLf3SovbnLjYZAvko=;
+ b=DRPOyUfqbZkanTQiyGsRCRT3ApOSX4HpNud4uoFjJvQJefhI/UDPcTFa2W9/MucFkvDbnlDVeDjQX9Rg0DvVgmInabFxBRRRZVxUiJ3K/sIrrK5Ggx/t1QutNqGiuLtDJPW2jD+mz975f7NV7RILM5EvKq4PWf7EOrJO0uPJ28imG/0+lbu2+mE9AAJmQtpHqCdTvE41sSAXcjWKmJFRZU89TBWa/aJWA5aP6Xf5oubE7Dx/+xitqALSEQ0oNgvM+ZzHMsE301s+m9bP9d/oDNzlxBX69aU3eGDo52G9khLj0QX4z466Rnl2WUC/UTw0zUhG16Bkgqq2dHBJVYJivQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1752834554; x=1753439354; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YI5K03YvlezWVtPZFrMaI3MhlGJ9u27QOuZkWWBoYew=;
-        b=HA4jyXh5ThL32Us1B+sN7s8vVmDH4M5SfjfyATSaf78We5tg2PEtYEtSvRG21Hs0pg
-         JQHzp3N28JAZVeKgMaNoGG06LIh4MrbADjCXZ97bYGaFkYE468qXMhLEF85qM+9BBllf
-         rxoB+vNaE7LZSRrrj7boCKMFqwuB8ttuzrBCY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752834554; x=1753439354;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YI5K03YvlezWVtPZFrMaI3MhlGJ9u27QOuZkWWBoYew=;
-        b=SayOglavK6JYWquMytkPjtD2vAVx/4ihRYnYI1/HKw1zUV+GnpPnAuWV2qkR3Q7wNW
-         z34dQZgyWB2ZaLqQFTSClvCOebzgpeNzf2evuLZWYfik5a2oFrviK6/DKweS5w9gxjoo
-         5C3DOUTMWwci4oNe0lEi9iFtozX7AidH/Y8HgdL+S4FQR7TIWeJCmknnPmsqShR29bUe
-         JrEWdUb+/fCFCrrcT7zXNPKKeZCK+qJ/72pjrOTOqRGtfplafGuUUwDX6ERNb9yueGSF
-         90YXESytmATzd3R0xe5OwlAcQy8rUKZjZcYmVR4AWGROemEqnWEMbYHnZt1e+QqDkxz6
-         wy9Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUQnVywWIN8orWyxCVpBnY7eP8+zGuvHtVWK4AoVAVdxnHuF/tSoHDx1HjGvR0tYB5XMdYqKKZaxq8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwA0R+8moMlaToyP41SY03spi642jLewxysRZ/1wxA6NFJTDiM2
-	O0osg7KHwafGvlgnVJ7pNwTZoI/Gmt5RG4oJ4c5upRc7X91HtC/ROZbAlpq4tUQ3pCc=
-X-Gm-Gg: ASbGnct/8AWZ2SQ1f154gdN0BZAvKv2P871Rvzi/UP7qcrgPA71xrVQRfECIww9d/YS
-	VHEuIoJCSWgORnAkML80L0xjQ5EMDFSsJimkuje6FbmrVXXLN1mIbxjR8Fe+jomWk4xnTpjEKId
-	ORcZHiiPPyU8RwOw+lBY2WSh9gisRBO11q0Q7qqR1MnuLkrxjeDgg3z9BHoRBnH5irABDEnzwxC
-	dlMwNDItPHISG4tQDi0wSUoj69XLqMC+yV20FFJ8UM4FeRlDYP/gs6seRF6fifWqlqGrGcjfc5Y
-	FzlIKucKLiSJFbXf1nWUivpz4WrAwiSllDh1G+n5OSDwNH1uq9xSqbSO4QferC5HhwUNe2SzUzk
-	Cr7MhoXgSE1q5mkzlvkzbyfrfAjnw1b/61glFxdsujKIFMzaNfi3R7TdvqnmobqlKChE6
-X-Google-Smtp-Source: AGHT+IHolH24e9bsmobfNmm03u3P2RMDppLfRx+YNyVafSC/HMapxzwAosaS1d+DkJ5KuEcaKf77AQ==
-X-Received: by 2002:a05:6000:290d:b0:3a4:d53d:be23 with SMTP id ffacd0b85a97d-3b60dd731cfmr8994207f8f.30.1752834554060;
-        Fri, 18 Jul 2025 03:29:14 -0700 (PDT)
-Message-ID: <3cefd149-505f-4e29-8018-492886050c6f@citrix.com>
-Date: Fri, 18 Jul 2025 11:29:12 +0100
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oXhln8PObnl1zreY0S3Dze7FF9fLf3SovbnLjYZAvko=;
+ b=YgA2jCrQW8Hay77fGZJiiiniIavf6i5UsN8/IrCFgK49o+wRiV9UsCqWOzbdUS3qDxNg5kLtTzVCwPoAGvC9RYMS/HSnXBAQvSKqICF8FYFU7049Qb2KCTMavmRRg3JIcGoc2uHEJbZtNLSDIkKFg4d83Ik3BsVOVG8zjnxfA/Y=
+Date: Fri, 18 Jul 2025 11:41:07 +0100
+From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+To: David Hildenbrand <david@redhat.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+        xen-devel@lists.xenproject.org, linux-fsdevel@vger.kernel.org,
+        nvdimm@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
+        Juergen Gross <jgross@suse.com>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+        Dan Williams <dan.j.williams@intel.com>,
+        Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+        Alexander Viro <viro@zeniv.linux.org.uk>,
+        Christian Brauner <brauner@kernel.org>,
+        "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+        Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
+        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+        Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+        Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
+        Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+        Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+        Hugh Dickins <hughd@google.com>, Oscar Salvador <osalvador@suse.de>,
+        Lance Yang <lance.yang@linux.dev>
+Subject: Re: [PATCH v2 5/9] mm/huge_memory: mark PMD mappings of the huge
+ zero folio special
+Message-ID: <9184274d-2ae8-4949-a864-79693308bf56@lucifer.local>
+References: <20250717115212.1825089-1-david@redhat.com>
+ <20250717115212.1825089-6-david@redhat.com>
+ <46c9a90c-46b8-4136-9890-b9b2b97ee1bb@lucifer.local>
+ <7701f2e8-ae17-4367-b260-925d1d3cd4df@redhat.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7701f2e8-ae17-4367-b260-925d1d3cd4df@redhat.com>
+X-ClientProxiedBy: LO4P123CA0314.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:197::13) To DM4PR10MB8218.namprd10.prod.outlook.com
+ (2603:10b6:8:1cc::16)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] x86/match-cpu: Support matching on steppings
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250716173132.2213891-1-andrew.cooper3@citrix.com>
- <20250716173132.2213891-6-andrew.cooper3@citrix.com>
- <a6abcc07-535f-433b-948a-702dc33093fa@suse.com>
- <03ecaa72-2370-47f7-b84b-83831d188f4e@citrix.com>
- <29cb9771-ee2a-4c7d-b661-74b37728bc2f@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <29cb9771-ee2a-4c7d-b661-74b37728bc2f@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR10MB8218:EE_|CO1PR10MB4609:EE_
+X-MS-Office365-Filtering-Correlation-Id: e2e738a3-3429-45c3-1b09-08ddc5e79bec
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|7416014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?/or4S7xFX5Hwy1+fn5H7MStXBOn4w0Nj1bFGt1GVqG6wxL3VLbaYzZ8oQNwe?=
+ =?us-ascii?Q?cMc3bfgwRu323UNWpN+LZHgSvk5XygUTkb6yXFCsM84tue8Cf+vgDuHDU46Q?=
+ =?us-ascii?Q?iAC3RIGrkGvZPQ2nv8ixIEym5mIgZ62VqwdoXFPlUN2OpD6evyGSG2dVoWPR?=
+ =?us-ascii?Q?EWtoAecOhaqy+hf/A5OOJ9Xe9xGW10iiq5yPBhnjVOFpsnZClF5h7B6C1ORS?=
+ =?us-ascii?Q?GGiMXGQ+w2Q50MeXRXIAr/n2n3i3mXArFRi4kyg5cku+PWNlHmkp5/2BacU1?=
+ =?us-ascii?Q?mXqe0w4FraHtUasqhE1AFRl7cqxJttKuGpO6IX33D7orwinfJwbaIKdqLE1x?=
+ =?us-ascii?Q?2P5r5nUzrROZobmNix48B3LnBAUZ8vrpz4ixwhYQKh9AKxsbNUJHoDnV20pK?=
+ =?us-ascii?Q?U+dgJzxpcC5qYRxz4CRP2u7J5fkTSvodibZUCaqMRrP5OsB/11uG3d3VM9bJ?=
+ =?us-ascii?Q?n2ZRDi+qnMR3KByz1Ipdw+jVmC6809c7FoMuKSBfonCiqfOYDy0H4s0P9FoY?=
+ =?us-ascii?Q?VhinZ6lXsI/uKaCOye4pOBa/y7aMVajWpvYe6qR699d9mFjlcxkpjvwvnR6f?=
+ =?us-ascii?Q?p0yriwCPLRGqWEIn0alfS8vUaIRDDeu2+iI58HFNUJFq678RTV8ORD6gIpvy?=
+ =?us-ascii?Q?NnP2EO9yPAzhSRmuETK+VsS8+WB6I8vHBto6In2LmVkfUcTkJnLAKQHCscTG?=
+ =?us-ascii?Q?hNp+T5E7ZTWifDcn1D06LhBGZuz/1uYMz1z/ZIp5MZRyxOOj4gddlu6iP9tD?=
+ =?us-ascii?Q?u3t3gCr6MqQPUPk7m1oKiVnRv6DtnluPF8Lf98WA9ttaZdoWkfiHlC4x+vvI?=
+ =?us-ascii?Q?JOEp6HwOaVR0YHak+OmL2F7xH7pHEZWpqCKatCZDZgqLJeVTmW333YIFLWX6?=
+ =?us-ascii?Q?+n3rliRS6fdHrNDfu+U2wD3UjnyvhHRNT6hAnZFcwXRahOm7+kND0RyDdTyy?=
+ =?us-ascii?Q?pd0mAaX3YpfgJsb5uREUywtNIzBl+xNVsCD4zxTqoTFg7VvN5kKPoJr8EiMO?=
+ =?us-ascii?Q?yHthVzxcaR1M+OtaOVwDfgxBgI4/C2FJQDRfKhJNZ1oLmS61Wg2ok4arI/Nc?=
+ =?us-ascii?Q?EPGD3o6Y4uov9FdCg8QhpP3P5ZlnmCYeN1V3gXk3z69b9yjhY+JxveaXtb65?=
+ =?us-ascii?Q?vKADXaWql0dGigVN+UcBhYFFXJHih1xVCJTY9t6lY3JVntBo6eqRqqKtq2aC?=
+ =?us-ascii?Q?WYjmhkfzKbmsr/nxqwyX1EBWR4Jmoth5WtMgFV4T9M1eFccf0iJG5WWDbZBY?=
+ =?us-ascii?Q?uNdHYEiGJYjKJZT4XIiIzKUQtUPZgANhcj2Fhs2nIskLp4HLg2kKCK/RhEMC?=
+ =?us-ascii?Q?4jA9EIZLElJVKZqDKP7yVwRteTWiZ0fYLNnguMptsaePNUXckAg75dbsMfzs?=
+ =?us-ascii?Q?wXKH+q7OrAA8c90SgjPY/qMOWp8w1/SnTlFVFH+0vA3HJ09DwvtJNehlyJ5v?=
+ =?us-ascii?Q?fPTbw17oe5w=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR10MB8218.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?vFKxd7cqWP8FwmmhsfvGpge7IC7UH3d/QgIA1NExZcD/ceNi9EcmS0LWCKoN?=
+ =?us-ascii?Q?AU/8NiyofhGzEtVLoZhFiWd8sHG9BOPlIyjnfvavS68A3h5nVpxnSD/JdX3v?=
+ =?us-ascii?Q?YrlwGWdoWkftJuktKZM7n9YLaqp7+3AW7mQ1UKxusmNE8nvcJoGI8Ck79aSO?=
+ =?us-ascii?Q?g4ynEn/3ly5btd6T7wIkEwW/RzbGWDNzZMn+VDTP6U388LNRQJQ5q/v0S+Yd?=
+ =?us-ascii?Q?MUZ8qG/0INxKyKM1TzCiINE7TH92PMnnpqYAvt4u+l0DdDu7uB2800NZ6WNw?=
+ =?us-ascii?Q?nvS2dugbGxYuX6CCA22rznaebjwz9MYybBcNRYuZuj5FOIv38MkpMyZWAIg3?=
+ =?us-ascii?Q?616IQC4tk+ztqw/oYhQrW9h3ceo+3YJZqic6MYV4NKXEZ2zSHWIUiFuBf3LT?=
+ =?us-ascii?Q?IhpQN9jSOHgJP6ml7mBstCAeg3ntarhBzxUDCJn00vmMvXiLhg/TCntakYQH?=
+ =?us-ascii?Q?YLSN+2c8ZD8a+qk16ogQtaktxQKJ91/kwX/VrT8JWbAVDjDIVrJe7lkFGG8s?=
+ =?us-ascii?Q?frPlACTxzBoRwqGheTtNZ1+eyiaYwFl1PQ2XE3m0wIyZARUdLnJJvG30h60R?=
+ =?us-ascii?Q?POasuxLwNS7H0m/OJmfEpBQjxmJ9aJ6Ms3E8Kk3yATPLdC+/JDfWR3q1DDJ7?=
+ =?us-ascii?Q?PBrjLp/VXRFCRWQoGW6NE39Dmoce6rnWtB26dye+b5b/G6YjdqRRr3oEqiqP?=
+ =?us-ascii?Q?DcyKIAe+rwKZr7Fsyyiiw+j2dlwuT2Fb/tVLWhlt9H3lcZAup5Wrdt/9zLB7?=
+ =?us-ascii?Q?mpuIPbVOeCgnYKQqHU8adze+dUs6AQ1WI70xKGK/SS+Nn76Bz8VVmJTOaIvJ?=
+ =?us-ascii?Q?0eOhqzHGnFgvlSLWT752h4fHefW9wBLXBJToW592iOg3EBJPn0NZKhVEwYOm?=
+ =?us-ascii?Q?2TcXoGHrgWXm/ZxlC19WSwXrXGv6xktYpnGZLRDnlsUcP6BYAzYUPs+/UgFS?=
+ =?us-ascii?Q?3KBRxU2BQ8jAtDDAWEA+VzIET1rp9NijOjXRJJifpzPhWvPXMouRGhQqkx72?=
+ =?us-ascii?Q?REjyssCCXK1Hnd2vfdn6Ata5RQwfxjKeTkQX+jFHK6Pi6RS+U1rutoul7vms?=
+ =?us-ascii?Q?lHeTlPYeTZsPMH+iZqTBxWLerHtKFA0TAs3ITgTB+VKHL2Qeng8MdKyGnfMC?=
+ =?us-ascii?Q?6U7nj64q/IDwkp/Zj/ZzQFEwUt8OoaCQM653VPiQKls22Z6ALsZefnz5Bj9n?=
+ =?us-ascii?Q?UFCOM0ZyTnpLsPCi850XafmF0wAhmR3QXQHvz674VOb5IZ77o+0JlFBXi69Y?=
+ =?us-ascii?Q?fC/S+R6m94XM9NvZ+F76iQFeXdh63/Aho0b/+mBVKDQJqgDn4E3x73iJzaYQ?=
+ =?us-ascii?Q?l0lwP4qLkaatMvgdvsZlVhLhH6hyJkcwnfzPy2yUc+CxTeiK0ami4hs/L2BH?=
+ =?us-ascii?Q?xMWwTzdHCUouziCuK7LjXzivJ+cU2WbFV6nrh4uyg8OebZ9Mt75f5e0OA8+c?=
+ =?us-ascii?Q?gRsZ3ZdAelma+u7hzpivhMAtmnXs1n7RkjJxfqVkus8MCCqOtFM6E9QdaA64?=
+ =?us-ascii?Q?Q7Msw1GR5PzRtBXRhTtzC4WcNHfPVcrN3JzxphSlwxGq3CpETiOzbYx2OmXo?=
+ =?us-ascii?Q?oACZKuFJQce+udUonyqhQyfi3tV6DcJ+AFMV4wmjxU6ZL49BT//QjOVg1yhL?=
+ =?us-ascii?Q?Vg=3D=3D?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	Ra7tGYyblGcrr7fvgF/pL49Jll2TRWQt0B5lf20uTKSWpi+xm8eIJHspvmO5BXDGmTYuiWWmZN50UO3/H+VJXohwdFQAuKyabHPp8hH4g4hQFVc1w+0uUIIhzTeEQVgxhkxV5C1bUW83iDnVrrlFF7dOucOiAaZyES4jNXHU/T2fl0i0RpLKRuILF4PTFg+0R2Ny/AaSq68PPha87kdd29EODpSHq2e5oY5w8cLl7AYjv5Li2h3JO0N9IB2rK+hR2BM5ngTQD2ZAFXdQ2wkgl3p3HX6Clh+auJYdHGO0P4G8IqCtmgDKnxU0JvapgBxA5HscXgZywBpKCpoa9tdG0DdwBGDH+fErEAswmIwanXqQrdWLOaAYhP6z/HU+WqTBccogfr4v01gDWR0ez1ftUUdsaPVUvdYOUKWawf3qweQG/MXpzaSmmK37WSTQDbYWTzBtEuThFfJa0alAyorBUxIwNIuO1hVz3yTB5twvRaBQbW4ixC6l4piyeSBLrCthj5KwCkSGcowy8NwZJ+AX+ub4Si8OdAllOrE5w4d4TEpsfJJ7EUQbVDuig1Vlv6qXoF6EbzQGacK8yn9w7N6dz1MoN3SkgJyr+X0w+F31DJs=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2e738a3-3429-45c3-1b09-08ddc5e79bec
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR10MB8218.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2025 10:41:10.1344
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: k7ivQ/eKuMX4gOGvNRgXM5uZEHk/Z1KLmaeGuJzYDdOasR5vDuERVeTp383oJtBxwSrvWbMaU/4N8IewH7QpnERtkP/0GkYRhI3AHNodEyM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR10MB4609
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-07-18_02,2025-07-17_02,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0 mlxscore=0 adultscore=0
+ spamscore=0 suspectscore=0 phishscore=0 mlxlogscore=999 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2505160000
+ definitions=main-2507180083
+X-Authority-Analysis: v=2.4 cv=auKyCTZV c=1 sm=1 tr=0 ts=687a24ca b=1 cx=c_pps a=e1sVV491RgrpLwSTMOnk8w==:117 a=e1sVV491RgrpLwSTMOnk8w==:17 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=wKuvFiaSGQ0qltdbU6+NXLB8nM8=:19
+ a=Ol13hO9ccFRV9qXi2t6ftBPywas=:19 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10 a=Wb1JkmetP80A:10 a=GoEa3M9JfhUA:10 a=VwQbUJbxAAAA:8 a=NB37xtsDAAAA:8 a=20KFwNOVAAAA:8 a=yPCof4ZbAAAA:8 a=jMqo8YrOKwJ3oZfz4ZgA:9 a=CjuIK1q_8ugA:10 a=IlkzfGtsIyjWS4YjqO81:22 cc=ntf
+ awl=host:13600
+X-Proofpoint-ORIG-GUID: uTwbEn2C7EnIwAZc5ZImBZgS8Td-WzQP
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzE4MDA4MyBTYWx0ZWRfXy4VOs2rUxHdH 5m/CV413sp67l8PcqDpt+7b9xNAfLHLIyhCifxFCIl1AHZnjfC1/DHR3OrODdRxumMQ7Bnb4GRL oFXr+Vpaqcw8YgXIYtYg2f2hP/e4Ue7JE/wEo8COcySdVP6X12myjzu1OkvUSs/wKP8ziX0j+mq
+ 1H9teGgJnXBDblkYs/hFaGuoxbjSmOMUoDPqHzz3NS5CkV5BY24xA9XCO59tP0li5cTRwQKtXEW GSDqn7hsj0L+DfW1Q8jwIxBLcw95kWYwhPdaFeZ+dZYM+9LbvSO4Ha8wkYjlF9+ePYtS3e188/M OH6Chpf9+/7vsOd6dcdmHBUo/rRiQhwBqGK6QXDKaLmgItgJ7AtvyWBFuOwQ5DLZU20kPZz6cim
+ HK0upnzh1dIV9xa9Ab0kOvanKkE5VzSes7UapuHHYPCv4Wm6MA0F2uZb9AkE6qVHr+9z0tWy
+X-Proofpoint-GUID: uTwbEn2C7EnIwAZc5ZImBZgS8Td-WzQP
 
-On 18/07/2025 6:53 am, Jan Beulich wrote:
-> On 17.07.2025 21:39, Andrew Cooper wrote:
->> On 17/07/2025 9:11 am, Jan Beulich wrote:
->>> On 16.07.2025 19:31, Andrew Cooper wrote:
->>>> --- a/xen/arch/x86/cpu/common.c
->>>> +++ b/xen/arch/x86/cpu/common.c
->>>> @@ -1003,13 +1003,15 @@ const struct x86_cpu_id *x86_match_cpu(const struct x86_cpu_id table[])
->>>>  	const struct x86_cpu_id *m;
->>>>  	const struct cpuinfo_x86 *c = &boot_cpu_data;
->>>>  
->>>> -	for (m = table; m->vendor | m->family | m->model | m->feature; m++) {
->>>> +	for (m = table; m->vendor | m->family | m->model | m->steppings | m->feature; m++) {
->>> Nit: Line length. But - do we need the change at all? It looks entirely
->>> implausible to me to use ->steppings with all of vendor, family, and
->>> model being *_ANY (if, as per below, they would be 0 in the first place).
->> I do keep on saying that | like this is pure obfuscation.  This is an
->> excellent example.
->>
->> It's looking for the {} entry, by looking for 0's in all of the metadata
->> fields.  A better check would be *(uint64_t *)m, or perhaps a unioned
->> metadata field, but..
->>
->> This is also a good demonstration of binary | is a bad thing to use, not
->> only for legibility.  Swapping | for || lets the compiler do:
->>
->> add/remove: 0/0 grow/shrink: 0/1 up/down: 0/-76 (-76)
->> Function                                     old     new   delta
->> x86_match_cpu                                243     167     -76
->>
->> and the code generation looks much better too:
-> Feel free to switch to ||. (The use of | producing worse code is clearly
-> a weakness of the compiler. Especially when used on non-adjacent fields
-> I expect | to be quite a bit better, first and foremost by ending up
-> with just a single conditional branch. Sadly I haven't seen compilers
-> do such a transformation for us.)
+On Thu, Jul 17, 2025 at 10:31:28PM +0200, David Hildenbrand wrote:
+> On 17.07.25 20:29, Lorenzo Stoakes wrote:
+> > On Thu, Jul 17, 2025 at 01:52:08PM +0200, David Hildenbrand wrote:
+> > > The huge zero folio is refcounted (+mapcounted -- is that a word?)
+> > > differently than "normal" folios, similarly (but different) to the ordinary
+> > > shared zeropage.
+> >
+> > Yeah, I sort of wonder if we shouldn't just _not_ do any of that with zero
+> > pages?
 >
-> All of your reply doesn't address my remark regarding whether to check
-> ->steppings here, though. (And no, whether to check it shouldn't be
-> [solely] justified by the compiler generating better code that way.)
+> I wish we could get rid of the weird refcounting of the huge zero folio and
+> get rid of the shrinker. But as long as the shrinker exists, I'm afraid that
+> weird per-process refcounting must stay.
 
-Well, as stated: "It's looking for the {} entry, by looking for 0's in
-all of the metadata fields."
+Does this change of yours cause any issue with it? I mean now nothing can grab
+this page using vm_normal_page_pmd(), so it won't be able to manipulate
+refcounts.
 
-The intended usage of ->steppings, or ->feature for that matter, is not
-relevant to the loop termination condition, which is simply "is all the
-metadata 0".
+Does this impact the shrink stuff at all? Haven't traced it all through.
 
->>>>      uint16_t model;
->>> Whereas the model is strictly limited to 8 bits.
->> There is space in here, if we need it, but you can't shrink it without
->> breaking the check for the NULL entry (going back to the first obfuscation).
-> Breaking? Or merely affecting code generation in a negative way?
+>
+> >
+> > But for some reason the huge zero page wants to exist or not exist based on
+> > usage for one. Which is stupid to me.
+>
+> Yes, I will try at some point (once we have the static huge zero folio) to
+> remove the shrinker part and make it always static. Well, at least for
+> reasonable architectures.
 
-Shrinking model without adding (and checking) a new field would mean the
-loop condition no longer covers all metadata.
+Yes, this seems the correct way to move forward.
 
-~Andrew
+And we need to get rid of (or neuter) the 'unreasonable' architectures...
+
+>
+> >
+> > >
+> > > For this reason, we special-case these pages in
+> > > vm_normal_page*/vm_normal_folio*, and only allow selected callers to
+> > > still use them (e.g., GUP can still take a reference on them).
+> > >
+> > > vm_normal_page_pmd() already filters out the huge zero folio. However,
+> > > so far we are not marking it as special like we do with the ordinary
+> > > shared zeropage. Let's mark it as special, so we can further refactor
+> > > vm_normal_page_pmd() and vm_normal_page().
+> > >
+> > > While at it, update the doc regarding the shared zero folios.
+> >
+> > Hmm I wonder how this will interact with the static PMD series at [0]?
+>
+> No, it shouldn't.
+
+I'm always nervous about these kinds of things :)
+
+I'm assuming the reference/map counting will still work properly with the static
+page?
+
+I think I raised that in that series :P
+
+>
+> >
+> > I wonder if more use of that might result in some weirdness with refcounting
+> > etc.?
+>
+> I don't think so.
+
+Good :>)
+
+>
+> >
+> > Also, that series was (though I reviewed against it) moving stuff that
+> > references the huge zero folio out of there, but also generally allows
+> > access and mapping of this folio via largest_zero_folio() so not only via
+> > insert_pmd().
+> >
+> > So we're going to end up with mappings of this that are not marked special
+> > that are potentially going to have refcount/mapcount manipulation that
+> > contradict what you're doing here perhaps?
+>
+> I don't think so. It's just like having the existing static (small) shared
+> zeropage where the same rules about refcounting+mapcounting apply.
+
+It feels like all this is a mess... am I missing something that would make it
+all make sense?
+
+It's not sane to disappear zero pages based on not-usage in 2025. Sorry if that
+little RAM hurts you, use a microcontroller... after which it doesn't really
+mean anything to have ref/map counts...
+
+>
+> >
+> > [0]: https://lore.kernel.org/all/20250707142319.319642-1-kernel@pankajraghav.com/
+> >
+> > >
+> > > Reviewed-by: Oscar Salvador <osalvador@suse.de>
+> > > Signed-off-by: David Hildenbrand <david@redhat.com>
+> >
+> > I looked thorugh places that use vm_normal_page_pm() (other than decl of
+> > function):
+> >
+> > fs/proc/task_mmu.c - seems to handle NULL page correctly + still undertsands zero page
+> > mm/pagewalk.c - correctly handles NULL page + huge zero page
+> > mm/huge_memory.c - can_change_pmd_writable() correctly returns false.
+> >
+> > And all seems to work wtih this change.
+> >
+> > Overall, other than concerns above + nits below LGTM, we should treat all
+> > the zero folios the same in this regard, so:
+> >
+> > Reviewed-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+>
+> Thanks!
+
+No problem! Thanks for the cleanups, these are great...
+
+>
+> >
+> > > ---
+> > >   mm/huge_memory.c |  5 ++++-
+> > >   mm/memory.c      | 14 +++++++++-----
+> > >   2 files changed, 13 insertions(+), 6 deletions(-)
+> > >
+> > > diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> > > index db08c37b87077..3f9a27812a590 100644
+> > > --- a/mm/huge_memory.c
+> > > +++ b/mm/huge_memory.c
+> > > @@ -1320,6 +1320,7 @@ static void set_huge_zero_folio(pgtable_t pgtable, struct mm_struct *mm,
+> > >   {
+> > >   	pmd_t entry;
+> > >   	entry = folio_mk_pmd(zero_folio, vma->vm_page_prot);
+> > > +	entry = pmd_mkspecial(entry);
+> > >   	pgtable_trans_huge_deposit(mm, pmd, pgtable);
+> > >   	set_pmd_at(mm, haddr, pmd, entry);
+> > >   	mm_inc_nr_ptes(mm);
+> > > @@ -1429,7 +1430,9 @@ static vm_fault_t insert_pmd(struct vm_area_struct *vma, unsigned long addr,
+> > >   	if (fop.is_folio) {
+> > >   		entry = folio_mk_pmd(fop.folio, vma->vm_page_prot);
+> > >
+> > > -		if (!is_huge_zero_folio(fop.folio)) {
+> > > +		if (is_huge_zero_folio(fop.folio)) {
+> > > +			entry = pmd_mkspecial(entry);
+> > > +		} else {
+> > >   			folio_get(fop.folio);
+> > >   			folio_add_file_rmap_pmd(fop.folio, &fop.folio->page, vma);
+> > >   			add_mm_counter(mm, mm_counter_file(fop.folio), HPAGE_PMD_NR);
+> > > diff --git a/mm/memory.c b/mm/memory.c
+> > > index 92fd18a5d8d1f..173eb6267e0ac 100644
+> > > --- a/mm/memory.c
+> > > +++ b/mm/memory.c
+> > > @@ -537,7 +537,13 @@ static void print_bad_pte(struct vm_area_struct *vma, unsigned long addr,
+> > >    *
+> > >    * "Special" mappings do not wish to be associated with a "struct page" (either
+> > >    * it doesn't exist, or it exists but they don't want to touch it). In this
+> > > - * case, NULL is returned here. "Normal" mappings do have a struct page.
+> > > + * case, NULL is returned here. "Normal" mappings do have a struct page and
+> > > + * are ordinarily refcounted.
+> > > + *
+> > > + * Page mappings of the shared zero folios are always considered "special", as
+> > > + * they are not ordinarily refcounted. However, selected page table walkers
+> > > + * (such as GUP) can still identify these mappings and work with the
+> > > + * underlying "struct page".
+> >
+> > I feel like we need more detail or something more explicit about what 'not
+> > ordinary' refcounting constitutes. This is a bit vague.
+>
+> Hm, I am not sure this is the correct place to document that. But let me see
+> if I can come up with something reasonable
+>
+> (like, the refcount and mapcount of these folios is never adjusted when
+> mapping them into page tables)
+
+I think having _something_ is good even if perhaps not ideally situated... :)
+
+>
+> >
+> > >    *
+> > >    * There are 2 broad cases. Firstly, an architecture may define a pte_special()
+> > >    * pte bit, in which case this function is trivial. Secondly, an architecture
+> > > @@ -567,9 +573,8 @@ static void print_bad_pte(struct vm_area_struct *vma, unsigned long addr,
+> > >    *
+> > >    * VM_MIXEDMAP mappings can likewise contain memory with or without "struct
+> > >    * page" backing, however the difference is that _all_ pages with a struct
+> > > - * page (that is, those where pfn_valid is true) are refcounted and considered
+> > > - * normal pages by the VM. The only exception are zeropages, which are
+> > > - * *never* refcounted.
+> > > + * page (that is, those where pfn_valid is true, except the shared zero
+> > > + * folios) are refcounted and considered normal pages by the VM.
+> > >    *
+> > >    * The disadvantage is that pages are refcounted (which can be slower and
+> > >    * simply not an option for some PFNMAP users). The advantage is that we
+> > > @@ -649,7 +654,6 @@ struct page *vm_normal_page_pmd(struct vm_area_struct *vma, unsigned long addr,
+> >
+> > You know I"m semi-ashamed to admit I didn't even know this function
+> > exists. But yikes that we have a separate function like this just for PMDs.
+>
+> It's a bit new-ish :)
+
+OK I feel less bad about it then... -ish ;)
+
+>
+>
+> --
+> Cheers,
+>
+> David / dhildenb
+>
+
+Cheers, Lorenzo
 
