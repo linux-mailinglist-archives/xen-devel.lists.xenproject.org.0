@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DD6DB0A058
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 12:08:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1048335.1418546 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D4D6B0A059
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 12:08:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1048341.1418555 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uci0I-0000J6-88; Fri, 18 Jul 2025 10:07:46 +0000
+	id 1uci16-0000nM-FW; Fri, 18 Jul 2025 10:08:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1048335.1418546; Fri, 18 Jul 2025 10:07:46 +0000
+Received: by outflank-mailman (output) from mailman id 1048341.1418555; Fri, 18 Jul 2025 10:08:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uci0I-0000HG-4v; Fri, 18 Jul 2025 10:07:46 +0000
-Received: by outflank-mailman (input) for mailman id 1048335;
- Fri, 18 Jul 2025 10:07:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=00bL=Z7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uci0G-0000HA-Ts
- for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 10:07:44 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0b79b175-63bf-11f0-a319-13f23c93f187;
- Fri, 18 Jul 2025 12:07:43 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3a548a73ff2so1754286f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 18 Jul 2025 03:07:43 -0700 (PDT)
-Received: from localhost.localdomain (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4563b740c51sm15510005e9.19.2025.07.18.03.07.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Jul 2025 03:07:41 -0700 (PDT)
+	id 1uci16-0000lp-Cm; Fri, 18 Jul 2025 10:08:36 +0000
+Received: by outflank-mailman (input) for mailman id 1048341;
+ Fri, 18 Jul 2025 10:08:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=RNMk=Z7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uci14-0000lZ-FH
+ for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 10:08:34 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 28bcea8b-63bf-11f0-b894-0df219b8e170;
+ Fri, 18 Jul 2025 12:08:32 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3a548a73ff2so1754819f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 18 Jul 2025 03:08:32 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23e3b5e3d4esm10217945ad.23.2025.07.18.03.08.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 18 Jul 2025 03:08:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,220 +45,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b79b175-63bf-11f0-a319-13f23c93f187
+X-Inumbo-ID: 28bcea8b-63bf-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1752833262; x=1753438062; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Ca4sD/GUNWo8CV4mlthsrUbL++Bxj48v/SmbyqYVvys=;
-        b=smmCQ4742UYXksfrdJeCQl3/w8PBa39XHYUIKIFOspU/rpWiQ+6mjffG/mqpY79liI
-         +McuAlQhtBJFY0sI/Lx4F+KMqLlS3bnn4CA3vjJOdrh8G+d70bU6J7x7QRVRR+qgtzW3
-         MAD1Qh1fbDj0IKHlR9Md4VtLAKvI7GUuwaevw=
+        d=suse.com; s=google; t=1752833312; x=1753438112; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Iz9FX+mzA5KJpBzrN5vhjIN6bixi99nh8Bi4W3LFF+U=;
+        b=b/pvy1y9S2AK8flOXcmFRow9qWVN4czR9YcTb4D8CbDsmfI0rE1hhXl7m7y0htO2pf
+         Aja9u5A5F5L/geyna6embcIYmXazyayIEThkgueZ8dFYP0SayH/cKMyIoeop8n65HD1X
+         k8K9W4MFb1xHBtaXG06H3FniwZjQvrnzuj+YFv7jMrn5ctjLA1djQtPYNdOMHP+cyss4
+         i7X/86o/hs8wa5ocgn4Hb6X86lGy4ufQ3zsa/60TJ3TPWpHMu7zqizpxl9uslnz9DZ9f
+         20EeEvNEhGEQ8WmI47IrSyFL0TnY+MzyCPuWnREkbK91a4BT4AGuyKLaarHp0pXORM9H
+         V1gg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752833262; x=1753438062;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Ca4sD/GUNWo8CV4mlthsrUbL++Bxj48v/SmbyqYVvys=;
-        b=AmOR9jTjg4c7N7lPgGTHdYMk/NOB3xC/BQ3IY1zewkQ3AVLE+aHLqoIZEADdsubPjR
-         zUt8F+9NjwhIMjTnRckADf+9VGBAyK3AAsRyp6qib/XCcQNTFJ+Xz16ncZvBOuPcr5Aw
-         e8aSQXTif7l8E9utHtMNt+FDjf37EZuoYLKKUIRMjx9R612uAzPJ6doziznXvwHGqWP6
-         w8WSE1Ca7LmxFIROQvcmNA9TAEGq42qSI3ZMUVmKZRES1/nblAL37AJuHhSmBbs4iyG/
-         dQ08hd2OQW1xcgGxiIRJo7eQWTExngRqLdVl/m9eBl2cnCv+fn8Br/qkb4zN6sT0dgQu
-         HAJA==
-X-Gm-Message-State: AOJu0Yxj31w7X58I1PYvf3d05rKZWwIsg7iO53z+9fPKt91R67Ru1w7O
-	I7F+Y8qVURh3ZE1zn1zeh+FTZQdDvtod6GSxRKS57fzBMvnBS+cvMEaoy15PfY54ZYYg3N0rN13
-	78zwKkHrTJw==
-X-Gm-Gg: ASbGnctFTiv4sD80n2xrHFUis5P2V1JSg4MQpiNAtSiPmyLpgUv6klsUlFXhlormeGL
-	xf6TuqwWW0oMOIbPblCBBh2LwQo+F2JNJXvEVKeu3M/TTfsMqeVGGM08LDmffBFIaja9IbUVZSU
-	gauojHP2aPxmIcGEJtLHymEerrKZPQKTh3c5oe2NPObhqsuy5h2DqeMAugp8m1mRpTJLE90FjZ6
-	6+jmJYOyD3L2IUd8PB+AXvVQ1eyuzHa6OgT4S53id1cE4vtKdPiPfoDgW0JS6Hp12/rPVuANuam
-	ae70NMKKpHwX7d42zTeIDx1FhogMFfcUiUvcJxnfXcf5/QfBbUT4v4FFFyeDBI7MRuw9KO1UX7F
-	J3KX0KtzNCIqfq1BUPEUfkhHWFyWZZ+jxWiYZetErHGmlNLVlttaHoxSoXxNBrLy6Rc4WgtZJRs
-	LJ
-X-Google-Smtp-Source: AGHT+IH3lWx7KcCZa3azwFNaOvE+7aXL0AQ4em3pQ9AVy7138lUpUClN9e+A0Q5RNy/sf2dRO5Ditg==
-X-Received: by 2002:a05:6000:290d:b0:3a4:d53d:be23 with SMTP id ffacd0b85a97d-3b60dd731cfmr8928419f8f.30.1752833262272;
-        Fri, 18 Jul 2025 03:07:42 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v1.1 6/6] x86/apic: Convert the TSC deadline errata table to X86_MATCH_*()
-Date: Fri, 18 Jul 2025 11:07:39 +0100
-Message-Id: <20250718100739.2369750-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250716173132.2213891-7-andrew.cooper3@citrix.com>
-References: <20250716173132.2213891-7-andrew.cooper3@citrix.com>
+        d=1e100.net; s=20230601; t=1752833312; x=1753438112;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Iz9FX+mzA5KJpBzrN5vhjIN6bixi99nh8Bi4W3LFF+U=;
+        b=X6jUD/FP9QWdk+nItrxaR3bfhkfTIvGawsBtckJVImAfEj9GDP8esshaH+llBcbvOf
+         EmIa5ZONesmd874MLhrBjEReJOUCZLOC7mQ5yYnfdlE9nbC+DRDcvt/sh6Lq6iCLi5Oi
+         dXmHdyYDy6QsbzrL7spXGpqBo6i1peuiuCcMmXoNqb3rqZCHgbKvG4Ne5SjM4eMDL1lu
+         N8yERpnvR383b6ufIEvQJijxy8fG8GooeE0yIz22ISHtQ/NhF2BPCACb7xs9CRjKxgqt
+         JTxAFiMvG7cdhPb70ZG4xZFlUVxiGQXPB+kWSbab25Ugo6LqY0F59SkNmu1iLyG9XGiq
+         Fsdw==
+X-Gm-Message-State: AOJu0Yxd6sghBlUZ1Vx58FORl23lYRUNFcc1kbfFWhhL2mB2nJSeyoye
+	cGO4dy6QiWuAF7yiKHDC8Jj16CwL1n2miPYiXBCLAG0gQ2NApRviCoqlCftj4qvlqJo64uJr6E1
+	WMrU=
+X-Gm-Gg: ASbGncu2Ju/cyhTWpylrXoQEswRZmMXRmQK97MRiWJRlhTfSQppRSaqCfja4jmkfG6n
+	9e2oi82IqMEcHgjXbnFNepGTkzfzdXrUGgAJzIBrSy3qv1b00AcAfm9TWYKYKR22M2sLpMigGPy
+	oR5jkXT/GxLB7iJLw+cTgeGwg8f3+3tTWKvO0K+nNyzIKx1KLI4qa8LvpEQR24q5EwnurXym1KH
+	zTRhhiiX/K6Mj4FYgo1g/a4XyYx9ZTfadp63KdUbuFd3wnYgzCcdP4Q3RrnW8cQeH8s4bPUTeBP
+	Agg31jvniXhUDcDM1vs4qBihkyS5bKXuo+5tSLLjSPcs0+ndI1mL/x+rljnm15E/gU+KYkna+bc
+	TAvpW6fkrLSVBVZzssQvzZQ/crG1/PA6qdF7NDiqBnn1zcLY5lggknt4FHg3v9Ql65rfTc/2j//
+	PYIuUCt1k=
+X-Google-Smtp-Source: AGHT+IFF8MbKcr9E4wTx7ZpSXFoamO2NZZdbnUuU1aw3RRwIT9O7REucy5/eo/vjdOlDT98ZLNSEog==
+X-Received: by 2002:a05:6000:2008:b0:3b6:db:74a7 with SMTP id ffacd0b85a97d-3b60dd4aa9dmr8304406f8f.4.1752833311539;
+        Fri, 18 Jul 2025 03:08:31 -0700 (PDT)
+Message-ID: <9bd632e5-19aa-43d7-b0ed-e051f64e5917@suse.com>
+Date: Fri, 18 Jul 2025 12:08:20 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] misra: add deviation for rules 21.1 and 21.2
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "victorm.lira@amd.com" <victorm.lira@amd.com>,
+ Federico Serafini <federico.serafini@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+References: <9e1210f2a9c794d68dcc6b897239b228b141296a.1745427770.git.victorm.lira@amd.com>
+ <f1d1dbe4-5b62-4540-a480-afa6045d9622@epam.com>
+ <39114395-5aa0-4c4a-a0b9-f151c6976674@suse.com>
+ <078093af-1581-44e8-97f0-82561bfd06a5@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <078093af-1581-44e8-97f0-82561bfd06a5@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-With the ability to match on steppings, introduce a new X86_MATCH_VFMS()
-helper to match a specific stepping, and use it to rework deadline_match[].
+On 18.07.2025 11:17, Dmytro Prokopchuk1 wrote:
+> On 7/18/25 08:31, Jan Beulich wrote:
+>> On 17.07.2025 22:47, Dmytro Prokopchuk1 wrote:
+>>> I tried to play with Rule 21.1 deviations.
+>>>
+>>> After applying the following configurations:
+>>>
+>>> -config=MC3A2.R21.1,macros+={safe, "^offsetof$ || ^(is|to)[a-z]+$ ||
+>>> name(NULL) || name(bool) || name(true) || name(false)"}
+>>> -config=MC3A2.R21.1,macros+={safe,
+>>> "loc(file(^xen/include/xen/inttypes\\.h$))"}
+>>> -config=MC3A2.R21.1,macros+={safe, "loc(file(^xen/include/xen/types\\.h$))"}
+>>> -config=MC3A2.R21.1,macros+={safe, "^str[a-z]+$ || ^(v)?sprintf$ ||
+>>> ^va_[a-z]+$"}
+>>
+>> Can you spell these out in words? I can only vaguely interpret these Eclair
+>> patterns, sorry.
+> Yes, sure.
+> 
+> That means to deviate the following macros:
+> - offsetof
+> - begin with either ‘is’ or ‘to’ followed by a lowercase letters 
+> (islower, isdigit, tolower, toupper, etc.)
+> - NULL
+> - bool
+> - true
+> - false
+> - all PRI/SCN macros for printing/scanning format specifiers from header 
+> file xen/include/xen/inttypes.h
+> - all macros from header file xen/include/xen/types.h (limits: 
+> UINT8_MAX, INT_MAX, LONG_MIN, etc.)
+> - begin with 'str' followed by a lowercase letters (string functions)
+> - sprintf/vsprintf
+> - begin with 'va_' followed by a lowercase letters (va_copy, va_start, 
+> va_end, va_arg)
 
-Notably this removes the overloading of driver_data possibly being a function
-pointer, and removes the latent bug where the target functions are missing
-ENDBR instructions owing to the lack of the cf_check attribute.
+That's all stuff the library defines, when there is an (external) library.
+I Xen we have (or should I say "we are") the library. Why are we not
+permitted to define what a library is expected to define? How would one
+go about dealing with an actual library implementation, when it is not
+allowed to define anything a library is expected to define?
 
-No functional change.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-
-v2:
- * Move deadline_match[] into check_deadline_errata() which produces a far
-   more legible diff.
-
-The bloat-o-meter summary shows that the use of functions really wasn't the
-wisest idea:
-
-  add/remove: 0/3 grow/shrink: 1/2 up/down: 80/-146 (-66)
-  Function                                     old     new   delta
-  deadline_match                               224     304     +80
-  APIC_init_uniprocessor                       334     331      -3
-  skx_deadline_rev                              30       -     -30
-  CSWTCH                                       335     299     -36
-  hsx_deadline_rev                              38       -     -38
-  bdx_deadline_rev                              39       -     -39
----
- xen/arch/x86/apic.c                  | 93 +++++++---------------------
- xen/arch/x86/include/asm/match-cpu.h |  5 ++
- 2 files changed, 28 insertions(+), 70 deletions(-)
-
-diff --git a/xen/arch/x86/apic.c b/xen/arch/x86/apic.c
-index c4272ab4de4f..c4a27fa00230 100644
---- a/xen/arch/x86/apic.c
-+++ b/xen/arch/x86/apic.c
-@@ -1051,70 +1051,30 @@ static void setup_APIC_timer(void)
-     local_irq_restore(flags);
- }
- 
--#define DEADLINE_MODEL_MATCH(m, fr) \
--    { .vendor = X86_VENDOR_INTEL, .family = 6, .model = (m), \
--      .feature = X86_FEATURE_TSC_DEADLINE, \
--      .driver_data = (void *)(unsigned long)(fr) }
--
--static unsigned int __init hsx_deadline_rev(void)
--{
--    switch ( boot_cpu_data.x86_mask )
--    {
--    case 0x02: return 0x3a; /* EP */
--    case 0x04: return 0x0f; /* EX */
--    }
--
--    return ~0U;
--}
--
--static unsigned int __init bdx_deadline_rev(void)
--{
--    switch ( boot_cpu_data.x86_mask )
--    {
--    case 0x02: return 0x00000011;
--    case 0x03: return 0x0700000e;
--    case 0x04: return 0x0f00000c;
--    case 0x05: return 0x0e000003;
--    }
--
--    return ~0U;
--}
--
--static unsigned int __init skx_deadline_rev(void)
--{
--    switch ( boot_cpu_data.x86_mask )
--    {
--    case 0x00 ... 0x02: return ~0U;
--    case 0x03: return 0x01000136;
--    case 0x04: return 0x02000014;
--    }
--
--    return 0;
--}
--
--static const struct x86_cpu_id __initconstrel deadline_match[] = {
--    DEADLINE_MODEL_MATCH(0x3c, 0x22),             /* Haswell */
--    DEADLINE_MODEL_MATCH(0x3f, hsx_deadline_rev), /* Haswell EP/EX */
--    DEADLINE_MODEL_MATCH(0x45, 0x20),             /* Haswell D */
--    DEADLINE_MODEL_MATCH(0x46, 0x17),             /* Haswell H */
--
--    DEADLINE_MODEL_MATCH(0x3d, 0x25),             /* Broadwell */
--    DEADLINE_MODEL_MATCH(0x47, 0x17),             /* Broadwell H */
--    DEADLINE_MODEL_MATCH(0x4f, 0x0b000020),       /* Broadwell EP/EX */
--    DEADLINE_MODEL_MATCH(0x56, bdx_deadline_rev), /* Broadwell D */
--
--    DEADLINE_MODEL_MATCH(0x4e, 0xb2),             /* Skylake M */
--    DEADLINE_MODEL_MATCH(0x55, skx_deadline_rev), /* Skylake X */
--    DEADLINE_MODEL_MATCH(0x5e, 0xb2),             /* Skylake D */
--
--    DEADLINE_MODEL_MATCH(0x8e, 0x52),             /* Kabylake M */
--    DEADLINE_MODEL_MATCH(0x9e, 0x52),             /* Kabylake D */
--
--    {}
--};
--
- static void __init check_deadline_errata(void)
- {
-+    static const struct x86_cpu_id __initconst deadline_match[] = {
-+        X86_MATCH_VFM (INTEL_HASWELL,          0x22),
-+        X86_MATCH_VFMS(INTEL_HASWELL_X,   0x2, 0x3a),
-+        X86_MATCH_VFMS(INTEL_HASWELL_X,   0x4, 0x0f),
-+        X86_MATCH_VFM (INTEL_HASWELL_L,        0x20),
-+        X86_MATCH_VFM (INTEL_HASWELL_G,        0x17),
-+        X86_MATCH_VFM (INTEL_BROADWELL,        0x25),
-+        X86_MATCH_VFM (INTEL_BROADWELL_G,      0x17),
-+        X86_MATCH_VFM (INTEL_BROADWELL_X,      0x0b000020),
-+        X86_MATCH_VFMS(INTEL_BROADWELL_D, 0x2, 0x00000011),
-+        X86_MATCH_VFMS(INTEL_BROADWELL_D, 0x3, 0x0700000e),
-+        X86_MATCH_VFMS(INTEL_BROADWELL_D, 0x4, 0x0f00000c),
-+        X86_MATCH_VFMS(INTEL_BROADWELL_D, 0x5, 0x0e000003),
-+        X86_MATCH_VFM (INTEL_SKYLAKE_L,        0xb2),
-+        X86_MATCH_VFM (INTEL_SKYLAKE,          0xb2),
-+        X86_MATCH_VFMS(INTEL_SKYLAKE_X,   0x3, 0x01000136),
-+        X86_MATCH_VFMS(INTEL_SKYLAKE_X,   0x4, 0x02000014),
-+        X86_MATCH_VFM (INTEL_KABYLAKE_L,       0x52),
-+        X86_MATCH_VFM (INTEL_KABYLAKE,         0x52),
-+        {}
-+    };
-+
-     const struct x86_cpu_id *m;
-     unsigned int rev;
- 
-@@ -1125,14 +1085,7 @@ static void __init check_deadline_errata(void)
-     if ( !m )
-         return;
- 
--    /*
--     * Function pointers will have the MSB set due to address layout,
--     * immediate revisions will not.
--     */
--    if ( (long)m->driver_data < 0 )
--        rev = ((unsigned int (*)(void))(m->driver_data))();
--    else
--        rev = (unsigned long)m->driver_data;
-+    rev = (unsigned long)m->driver_data;
- 
-     if ( this_cpu(cpu_sig).rev >= rev )
-         return;
-diff --git a/xen/arch/x86/include/asm/match-cpu.h b/xen/arch/x86/include/asm/match-cpu.h
-index 3862e766ccfc..b491232c351f 100644
---- a/xen/arch/x86/include/asm/match-cpu.h
-+++ b/xen/arch/x86/include/asm/match-cpu.h
-@@ -35,6 +35,11 @@ struct x86_cpu_id {
-                   VFM_MODEL(vfm), X86_STEPPINGS_ANY,            \
-                   X86_FEATURE_ANY, data)
- 
-+#define X86_MATCH_VFMS(vfm, stepping, data)                     \
-+    X86_MATCH_CPU(VFM_VENDOR(vfm), VFM_FAMILY(vfm),             \
-+                  VFM_MODEL(vfm), 1U << (stepping),             \
-+                  X86_FEATURE_ANY, data)
-+
- /*
-  * x86_match_cpu() - match the CPU against an array of x86_cpu_ids[]
-  *
--- 
-2.39.5
-
+Jan
 
