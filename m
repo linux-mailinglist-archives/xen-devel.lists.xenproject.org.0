@@ -2,44 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEE07B0A195
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 13:06:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1048500.1418723 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 455BEB0A199
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 13:08:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1048511.1418737 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucivI-00030J-JN; Fri, 18 Jul 2025 11:06:40 +0000
+	id 1ucixL-0003ai-1E; Fri, 18 Jul 2025 11:08:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1048500.1418723; Fri, 18 Jul 2025 11:06:40 +0000
+Received: by outflank-mailman (output) from mailman id 1048511.1418737; Fri, 18 Jul 2025 11:08:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucivI-0002xk-GZ; Fri, 18 Jul 2025 11:06:40 +0000
-Received: by outflank-mailman (input) for mailman id 1048500;
- Fri, 18 Jul 2025 11:06:39 +0000
+	id 1ucixK-0003Yd-Ur; Fri, 18 Jul 2025 11:08:46 +0000
+Received: by outflank-mailman (input) for mailman id 1048511;
+ Fri, 18 Jul 2025 11:08:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=JDB3=Z7=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1ucivH-0002xZ-Bz
- for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 11:06:39 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Achr=Z7=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1ucixJ-0003V6-DI
+ for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 11:08:45 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 45984e94-63c7-11f0-b894-0df219b8e170;
- Fri, 18 Jul 2025 13:06:37 +0200 (CEST)
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-375-XVX2pKKmMDy-zFv0tsBI-A-1; Fri, 18 Jul 2025 07:06:34 -0400
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-45611579300so14925295e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 18 Jul 2025 04:06:34 -0700 (PDT)
-Received: from ?IPV6:2003:d8:2f43:8900:f364:1333:2a67:d49e?
- (p200300d82f438900f36413332a67d49e.dip0.t-ipconnect.de.
- [2003:d8:2f43:8900:f364:1333:2a67:d49e])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4563b740c51sm16819475e9.19.2025.07.18.04.06.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Jul 2025 04:06:32 -0700 (PDT)
+ id 9106cc61-63c7-11f0-b894-0df219b8e170;
+ Fri, 18 Jul 2025 13:08:43 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id 5AB544EE3C3D;
+ Fri, 18 Jul 2025 13:08:42 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,164 +40,334 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45984e94-63c7-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1752836796;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=21+i6/3q/KbRZs7c78B9Zaciwq4VXi+y94ZoRHHKkFg=;
-	b=Q6ghCjhzEf3B3ry1MH8Kp6b9+6wxKV8vZbYPgdJVItblodhrs+nhB8dppSHM8k/5Gxq93G
-	LYMYSWRjWjinMelDistziDK4N3BEKNKMFzbqnhnbxHkAyldRNZwsedlpMRJ+bjHidtZ9yR
-	qrGkkWxzlRCAQ7WWFEvGxWr+K4NRbaA=
-X-MC-Unique: XVX2pKKmMDy-zFv0tsBI-A-1
-X-Mimecast-MFC-AGG-ID: XVX2pKKmMDy-zFv0tsBI-A_1752836794
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752836793; x=1753441593;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=21+i6/3q/KbRZs7c78B9Zaciwq4VXi+y94ZoRHHKkFg=;
-        b=dlBKD/MLpKY63PvoH34HYfZunIjN5yYPccnpjmYAsSiHialL6yJABnSKg2Y72Pnzrj
-         wDv4qWXQmpovzLK0R1Ez01L5c81Fk32KCO88rH+/45pj3FqBNihf2Aos/BpP655vzbk4
-         EENQOFva1VltuwKPYbuRadI19ASBl0MgYQdtL/KpJ+BTaaeaOl1bpKEoyrJXUm27k/ah
-         qTK/gouEgAbTf2YlYeagVGOlAeyemt/VF/c/6cRGRIKNlSWGrInBV/FyxEnbPOSOIqjf
-         Yk476weNwNMPtDadBuVR4K8X3Xnm6b3W9nVIA84S7ln+teMFTOoVyv+kNUDo2OE2uNX6
-         l6VA==
-X-Forwarded-Encrypted: i=1; AJvYcCW0nx/JWT+sWHU81cO9RQ9GFHPOJDq9ippmkAvL08TI6Mhr/zFLgcWgF1cyj7w5dsrQtLiIY/IKRs8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyf6yqUqz8t6ff36H4ksfhqFf22sOE99oeRI2YpnRO/aba4xvMl
-	ZrMSf6BAk3IXIEomLSepONyVzhk3Yf9TSA+Xe/UMzuCa65sefU9zAeJUddq025wyesyGW2e2naL
-	IXRStkTPBQnn2z+oQO+HujXJsf22c5Epj5kjosgGytAA1u1SCbvNrHDMA+OfDmDCUs3Ob
-X-Gm-Gg: ASbGncvnGkkyaoZ1ZR5860fw2yvdIw6VSfCL6Bz2yKJx9EHclld+P2FuaDehior6Pju
-	pPDPG2c8RzZf2zFRO1krCqWTSg8qwbfZcyc7fSH9dzPCZzKmOJEGSZ76GY+uQ3wD3E0KP3JAPLs
-	GHbUHw83fOiJnFKP3XDw+TnEWefZa03q/UYK0QVHXAALa/7/Dc8lEPsRlmwB9iqgZ16RVPHFytf
-	FbeMacErVxeBbP/c7g5unN15MFgr1uP6F6ePnzu6/wcW78PA12n4ouuuRLqCsdGJ//nn+bXdCFG
-	ZTCx/nuUIjZ3hEFnjzE/+wJOBRgIb5xt90uafTuKEZXcpmQecBmmW2g1J5jWbLmCqpfjv35myTz
-	5fjrb6XlTIGx4WZS/qi6zmLLv9loy6yk4O8c4e0Gd41PR8PpUiaO9gcgcj7U4jIEwXKA=
-X-Received: by 2002:a05:600c:1d20:b0:454:a37a:db67 with SMTP id 5b1f17b1804b1-4562e36c7a6mr117551385e9.17.1752836793571;
-        Fri, 18 Jul 2025 04:06:33 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHcJiqGxI9oDWWi5nW5+YKTz9nonD/LjKsAIai1+MhX5KKmpqdahPoV4Oxx3e4BuJMcH10ZFA==
-X-Received: by 2002:a05:600c:1d20:b0:454:a37a:db67 with SMTP id 5b1f17b1804b1-4562e36c7a6mr117550875e9.17.1752836793013;
-        Fri, 18 Jul 2025 04:06:33 -0700 (PDT)
-Message-ID: <889dade6-8b3d-4cce-93ec-827886f7cb2c@redhat.com>
-Date: Fri, 18 Jul 2025 13:06:30 +0200
+X-Inumbo-ID: 9106cc61-63c7-11f0-b894-0df219b8e170
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1752836922;
+	b=kRQWgw/bnSkltbyqQuT0cKjTWIEeFGjgq7kP4oeB9po0Fyo0xcpU28juPagBkfE2tr2i
+	 X0EKDwVKlA0TwFSZeXRqXJMLbCEpgh+RsIRCAE5Tu4QBA8ll9LOCsQ7aRF3hFMbZBua/U
+	 mtUvIFbpbpKlu1FFooHEqrFz1ZHlf6knPm8NZYKKtnuxFm95kj5IoyFqvbjBlToOYoMVs
+	 ICc0049AgibQKRaCKLl8RX1+KxbtgRtxYU9RESpSyIY0KBiWKIO9nqFz4ZACf4lG6T+ab
+	 JIjSmSOoxHV5pzT7fPsOWI6oEtOeTctZSEupzqgzlqICtBIYzIeLEPlHVlyKAcjV/mAvH
+	 eEaWsN7YnZGrRvsTR80rbqSDYQpfdDXxXXObc0FKtxAOkFc4Nul/Y74WQ08dm2MTyZSFb
+	 n5u3afiigT3L/CgW9Vv2LMR4LCcquxuZ0fuiaESO/AJAgrIBivXPYCZUXV7QU424G+fMD
+	 VouA5HPsOCSV2B4bKU1jmYEtJt1OQTDRZLeJvhOziJ7BDYLSXPeHQr8XX/7sa+EZbKDOD
+	 aMSdXkJE15GHHU75c7/DsoUU99qCq5FwjUuj9v+3KL9hBEX5OVrbzXXjeDopsjV4Yn496
+	 fqmeZiEP4uICFXI/tRHuw4tiAZ4Ei/RxudBOdpsdSiZDfVoUblCyNw75Dr9RSHE=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1752836922;
+	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=0d1nOfeve6wJcOeXViWzw8ZmgfRHSzOZNEaSx5Q4YTs=;
+	b=M7rJHF7EBoXgHmjSuyrr2HuN787BaNoQleE8D8cw/Kni8CCDJvB9jwwwyFVMbPk2iWEi
+	 1S//8HGroWn5kg+YCUfZBoD3hnPpA7ZhAsqPSxu5mL26BmEN1zUcB4QoiJdprTvz/t6cw
+	 eI6X4RGc3zmQcuK7zzDl8nSJeZSruYc+7zgCwtZKcRF/oR7ega+ZYVc2i4HLXuJDZ9LEW
+	 CCU0XOu4vPYfpZAuLHTUC3gr/eSMtqTJZD8WDZ7Rg+EDQIbACkJO2cTdXphh04yj+QWrY
+	 Ri3pYt5q3In5+fHDF8s06A1R/7lZPQCp5p+z4maXKZ4DR0EbOaDF5Frw4ky8Lk1uVWWRS
+	 crbFtv2LvQKE9nV5j0FIE9auQcn6hyxqjGAHUPjg8Z+SsxjWCWfwlmuJoGHkMzP786pkV
+	 /TuMTKtmk1rCI9McC5fb18QGrrgVDOr3cSGOVYDQQmN+Sqd63xNwzpnHudsZUrjpGW3Yu
+	 BQg1N93Z4VuY/yAbV3xULKSO8MxpfgRruidC7AK+2jw7wGCmc4SPpFcpw75Sv6kZCTatZ
+	 9hprvJEz9YSqKi4xa+YspTXzrkrYhUEg4QkAzzGRAELWcvCKlbEv+1ZT2YjIqNlb7T5y5
+	 K9nbaX4DOaqjKhAiEZVVOHtFucVrXNQ9YKduQsta3HnmBhWnOvFDeOGr9Z2rjSs=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1752836922; bh=BN4SWkZczzxjs/e/rRTv2d5a1HDkkD+q2GUUqGwXjnY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=hKEobAEN4dR+kkmIdKoJa7cj6IdxIKCJ6agNf6z1NKfF9LvyQrajxZPES7OdHPZrD
+	 /HyjL7Am/OpPnmVq6yxoMQ9ezDTcVRa0b0f1w/1Qo+HPXXh24cYKrVv4fRjyt0b1/T
+	 VrEhRbIu3tOmM4RpfPYRbnncKG3Bijq4SSc26GgACc+KEcAmFt+DmRB2MbZ8Z3wX/T
+	 qUd9fihdQQ+osN//0bsPbLrXD8GKspBX9AuLea+PccF2f68ei4J6DB6arHspOSoJwb
+	 pSPRglqDCwhQ7XelKK3wOs+YCuLlgXtn18EfaKdSdbN/zLAh5leFEw4deOc8BmYKCN
+	 d7ty4bYOE2rGg==
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 8/9] mm: introduce and use vm_normal_page_pud()
-To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- xen-devel@lists.xenproject.org, linux-fsdevel@vger.kernel.org,
- nvdimm@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
- Juergen Gross <jgross@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Dan Williams <dan.j.williams@intel.com>, Matthew Wilcox
- <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
- <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Hugh Dickins <hughd@google.com>, Oscar Salvador <osalvador@suse.de>,
- Lance Yang <lance.yang@linux.dev>
-References: <20250717115212.1825089-1-david@redhat.com>
- <20250717115212.1825089-9-david@redhat.com>
- <4750f39e-279b-4806-9eee-73f9fcc58187@lucifer.local>
- <fdc7f162-e027-493c-bfa1-3e3905930c24@redhat.com>
- <15adb09d-4cdb-435d-927d-0c648d8239dc@lucifer.local>
-From: David Hildenbrand <david@redhat.com>
-Autocrypt: addr=david@redhat.com; keydata=
- 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
- g3eXuA==
-Organization: Red Hat
-In-Reply-To: <15adb09d-4cdb-435d-927d-0c648d8239dc@lucifer.local>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: W0Y3oYaO8mdgomzlc20yg05X_DUqOtKabMTItK9F99E_1752836794
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Date: Fri, 18 Jul 2025 13:08:42 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
+ victorm.lira@amd.com, Federico Serafini <federico.serafini@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+ <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Julien
+ Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: Re: [PATCH v1] misra: add deviation for rules 21.1 and 21.2
+In-Reply-To: <ca61bfc1-2b22-4c42-b03d-7e05588aac0c@epam.com>
+References: <9e1210f2a9c794d68dcc6b897239b228b141296a.1745427770.git.victorm.lira@amd.com>
+ <f1d1dbe4-5b62-4540-a480-afa6045d9622@epam.com>
+ <39114395-5aa0-4c4a-a0b9-f151c6976674@suse.com>
+ <078093af-1581-44e8-97f0-82561bfd06a5@epam.com>
+ <ca61bfc1-2b22-4c42-b03d-7e05588aac0c@epam.com>
+Message-ID: <f3e56c3fc9bf8351f253bb988138ed57@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 18.07.25 12:47, Lorenzo Stoakes wrote:
-> On Thu, Jul 17, 2025 at 10:14:33PM +0200, David Hildenbrand wrote:
->> On 17.07.25 22:03, Lorenzo Stoakes wrote:
->>> On Thu, Jul 17, 2025 at 01:52:11PM +0200, David Hildenbrand wrote:
->>>> Let's introduce vm_normal_page_pud(), which ends up being fairly simple
->>>> because of our new common helpers and there not being a PUD-sized zero
->>>> folio.
->>>>
->>>> Use vm_normal_page_pud() in folio_walk_start() to resolve a TODO,
->>>> structuring the code like the other (pmd/pte) cases. Defer
->>>> introducing vm_normal_folio_pud() until really used.
->>>
->>> I mean fine :P but does anybody really use this?
->>
->> This is a unified PFN walker (!hugetlb + hugetlb), so you can easily run
->> into hugetlb PUDs, DAX PUDs and huge pfnmap (vfio) PUDs :)
+On 2025-07-18 11:28, Dmytro Prokopchuk1 wrote:
+> On 7/18/25 12:17, Dmytro Prokopchuk wrote:
+>> 
+>> 
+>> On 7/18/25 08:31, Jan Beulich wrote:
+>>> On 17.07.2025 22:47, Dmytro Prokopchuk1 wrote:
+>>>> 
+>>>> 
+>>>> On 4/23/25 20:54, victorm.lira@amd.com wrote:
+>>>>> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>>>> 
+>>>>> MISRA C Rules 21.1 ("#define and #undef shall not be used on a
+>>>>> reserved identifier or reserved macro name") and R21.2 ("A reserved
+>>>>> identifier or reserved macro name shall not be declared") 
+>>>>> violations
+>>>>> are not problematic for Xen, as it does not use the C or POSIX
+>>>>> libraries.
+>>>>> 
+>>>>> Xen uses -fno-builtin and -nostdinc to ensure this, but there are 
+>>>>> still
+>>>>> __builtin_* functions from the compiler that are available so
+>>>>> a deviation is formulated for all identifiers not starting with
+>>>>> "__builtin_".
+>>>>> 
+>>>>> The missing text of a deviation for Rule 21.2 is added to
+>>>>> docs/misra/deviations.rst.
+>>>>> 
+>>>>> To avoid regressions, tag both rules as clean and add them to the
+>>>>> monitored set.
+>>>>> 
+>>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>>>>> Signed-off-by: Victor Lira <victorm.lira@amd.com>
+>>>>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+>>>>> ---
+>>>>> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>>> Cc: Anthony PERARD <anthony.perard@vates.tech>
+>>>>> Cc: Michal Orzel <michal.orzel@amd.com>
+>>>>> Cc: Jan Beulich <jbeulich@suse.com>
+>>>>> Cc: Julien Grall <julien@xen.org>
+>>>>> Cc: Roger Pau Monné <roger.pau@citrix.com>
+>>>>> Cc: Stefano Stabellini <sstabellini@kernel.org>
+>>>>> Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>>>> Cc: Federico Serafini <federico.serafini@bugseng.com>
+>>>>> Cc: Bertrand Marquis <bertrand.marquis@arm.com>
+>>>>> ---
+>>>>>    .../eclair_analysis/ECLAIR/deviations.ecl     |  9 ++++++-
+>>>>>    .../eclair_analysis/ECLAIR/monitored.ecl      |  2 ++
+>>>>>    automation/eclair_analysis/ECLAIR/tagging.ecl |  2 ++
+>>>>>    docs/misra/deviations.rst                     | 26 
+>>>>> ++++++++++++++
+>>>>> ++++-
+>>>>>    4 files changed, 37 insertions(+), 2 deletions(-)
+>>>>> 
+>>>>> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/
+>>>>> automation/eclair_analysis/ECLAIR/deviations.ecl
+>>>>> index 2c8fb92713..ffa23b53b7 100644
+>>>>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>>>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>>>> @@ -639,8 +639,15 @@ in the expansion."
+>>>>>    # Series 21.
+>>>>>    #
+>>>>> 
+>>>>> +-doc_begin="Xen does not use C and POSIX libraries:
+>>>>> +identifiers reserved by these libraries can be used safely, except
+>>>>> for those
+>>>>> +beginning with '__builtin_'."
+>>>>> +-config=MC3A2.R21.1,macros={safe, "!^__builtin_.*$"}
+>>>>> +-config=MC3A2.R21.2,declarations={safe, "!^__builtin_.*$"}
+>>>>> +-doc_end
+>>>>> +
+>>>>>    -doc_begin="or, and and xor are reserved identifiers because 
+>>>>> they
+>>>>> constitute alternate
+>>>>> -spellings for the corresponding operators (they are defined as
+>>>>> macros by iso646.h).
+>>>>> +spellings for the corresponding logical operators (as defined in
+>>>>> header 'iso646.h').
+>>>>>    However, Xen doesn't use standard library headers, so there is 
+>>>>> no
+>>>>> risk of overlap."
+>>>>>    -config=MC3A2.R21.2,reports+={safe,
+>>>>> "any_area(stmt(ref(kind(label)&&^(or|and|xor|not)$)))"}
+>>>>>    -doc_end
+>>>>> diff --git a/automation/eclair_analysis/ECLAIR/monitored.ecl b/
+>>>>> automation/eclair_analysis/ECLAIR/monitored.ecl
+>>>>> index 8351996ec8..da229a0d84 100644
+>>>>> --- a/automation/eclair_analysis/ECLAIR/monitored.ecl
+>>>>> +++ b/automation/eclair_analysis/ECLAIR/monitored.ecl
+>>>>> @@ -79,6 +79,8 @@
+>>>>>    -enable=MC3A2.R20.12
+>>>>>    -enable=MC3A2.R20.13
+>>>>>    -enable=MC3A2.R20.14
+>>>>> +-enable=MC3A2.R21.1
+>>>>> +-enable=MC3A2.R21.2
+>>>>>    -enable=MC3A2.R21.3
+>>>>>    -enable=MC3A2.R21.4
+>>>>>    -enable=MC3A2.R21.5
+>>>>> diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/
+>>>>> automation/eclair_analysis/ECLAIR/tagging.ecl
+>>>>> index 1d078d8905..3292bf751e 100644
+>>>>> --- a/automation/eclair_analysis/ECLAIR/tagging.ecl
+>>>>> +++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
+>>>>> @@ -88,6 +88,8 @@ MC3A2.R20.11||
+>>>>>    MC3A2.R20.12||
+>>>>>    MC3A2.R20.13||
+>>>>>    MC3A2.R20.14||
+>>>>> +MC3A2.R21.1||
+>>>>> +MC3A2.R21.2||
+>>>>>    MC3A2.R21.3||
+>>>>>    MC3A2.R21.4||
+>>>>>    MC3A2.R21.5||
+>>>>> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+>>>>> index fe0b1e10a2..88328eaa8a 100644
+>>>>> --- a/docs/misra/deviations.rst
+>>>>> +++ b/docs/misra/deviations.rst
+>>>>> @@ -587,7 +587,31 @@ Deviations related to MISRA C:2012 Rules:
+>>>>>           construct is deviated only in Translation Units that
+>>>>> present a violation
+>>>>>           of the Rule due to uses of this macro.
+>>>>>         - Tagged as `deliberate` for ECLAIR.
+>>>>> -
+>>>>> +
+>>>>> +   * - R21.1
+>>>>> +     - Rule 21.1 reports identifiers reserved for the C and POSIX
+>>>>> standard
+>>>>> +       libraries. Xen does not use such libraries and all
+>>>>> translation units
+>>>>> +       are compiled with option '-nostdinc', therefore there is no
+>>>>> reason to
+>>>>> +       avoid to use `#define` or `#undef` on such identifiers
+>>>>> except for those
+>>>>> +       beginning with `__builtin_` for which compilers may perform
+>>>>> (wrong)
+>>>>> +       optimizations.
+>>>>> +     - Tagged as `safe` for ECLAIR.
+>>>>> +
+>>>>> +   * - R21.2
+>>>>> +     - Rule 21.2 reports identifiers reserved for the C and POSIX
+>>>>> standard
+>>>>> +       libraries. Xen does not use such libraries and all
+>>>>> translation units
+>>>>> +       are compiled with option '-nostdinc', therefore there is no
+>>>>> reason to
+>>>>> +       avoid declaring such identifiers except for those beginning
+>>>>> with
+>>>>> +       `__builtin_` for which compilers may perform (wrong)
+>>>>> optimizations.
+>>>>> +     - Tagged as `safe` for ECLAIR.
+>>>>> +
+>>>>> +   * - R21.2
+>>>>> +     - `or`, `and` and `xor` are reserved identifiers because they
+>>>>> constitute
+>>>>> +       alternate spellings for the corresponding logical operators
+>>>>> +       (as defined in Standard Library header `\<iso646.h\>`). Xen
+>>>>> does not use
+>>>>> +       Standard library headers, so there is no risk of overlap.
+>>>>> +     - Tagged as `safe` for ECLAIR.
+>>>>> +
+>>>>>       * - R21.9
+>>>>>         - Xen does not use the `bsearch` and `qsort` functions
+>>>>> provided by the C
+>>>>>           Standard Library, but provides in source form its own
+>>>>> implementation,
+>>>>> --
+>>>>> 2.47.0
+>>>> 
+>>>> Hello All!
+>>>> 
+>>>> I tried to play with Rule 21.1 deviations.
+>>>> 
+>>>> After applying the following configurations:
+>>>> 
+>>>> -config=MC3A2.R21.1,macros+={safe, "^offsetof$ || ^(is|to)[a-z]+$ ||
+>>>> name(NULL) || name(bool) || name(true) || name(false)"}
+>>>> -config=MC3A2.R21.1,macros+={safe,
+>>>> "loc(file(^xen/include/xen/inttypes\\.h$))"}
+>>>> -config=MC3A2.R21.1,macros+={safe, "loc(file(^xen/include/xen/types\
+>>>> \.h$))"}
+>>>> -config=MC3A2.R21.1,macros+={safe, "^str[a-z]+$ || ^(v)?sprintf$ ||
+>>>> ^va_[a-z]+$"}
+>>> 
+>>> Can you spell these out in words? I can only vaguely interpret these
+>>> Eclair
+>>> patterns, sorry.
+>> Yes, sure.
+>> 
+>> That means to deviate the following macros:
+>> - offsetof
+>> - begin with either ‘is’ or ‘to’ followed by a lowercase letters
+>> (islower, isdigit, tolower, toupper, etc.)
+>> - NULL
+>> - bool
+>> - true
+>> - false
+>> - all PRI/SCN macros for printing/scanning format specifiers from 
+>> header
+>> file xen/include/xen/inttypes.h
+>> - all macros from header file xen/include/xen/types.h (limits:
+>> UINT8_MAX, INT_MAX, LONG_MIN, etc.)
+>> - begin with 'str' followed by a lowercase letters (string functions)
+>> - sprintf/vsprintf
+>> - begin with 'va_' followed by a lowercase letters (va_copy, va_start,
+>> va_end, va_arg)
+>> 
+>>> 
+>>>> Eclair showed 699 remaining violations.
+>>>> All of them were related to names beginning with an underscore (_).
+>>>> 
+>>>> It's possible to resolve the rest of them with help of (all, except 
+>>>> for
+>>>> those beginning with '__builtin_' and '__x86_64__'):
+>>>> 
+>>>> -config=MC3A2.R21.1,macros+={safe, "^_.*$ && !^__builtin_.*$ &&
+>>>> !^__x86_64__$"}
+>>>> 
+>>>> Probably, the exception list can be extended.
+>>>> 
+>>>> Jan,
+>>>> I know you don't want to disallow "_all_" such reserved identifiers.
+>>>> But how to deal with that?
+>>> 
+>>> How do I not want this? I've been arguing for years that we should
+>>> respect
+>>> the reserved name spaces. (Did you perhaps mean "... you don't want 
+>>> to
+>>> deviate ..."?) There are exceptions, yes, e.g. ...
+>>> 
+>> Yes, I meant about deviations. Sorry.
+>> 
+>>>> Try to cover all macros? Like this, for example (I assume that there 
+>>>> are
+>>>> no such reserved macros):
+>>>> -config=MC3A2.R21.1,macros+={safe, "^.*XEN.*$ || ^.*HYPERVISOR.*$"}
+>>> 
+>>> ... anything we may have (wrongly) introduced into the public 
+>>> headers. We
+>>> can't very well change naming there.
+>> Looks like the only way is to deviate all macros (that are currently
+>> used in Xen), tag rule as "clean" and prohibit using reserved names in
+>> the future.
+>> 
+>> Any suggestions?
+>> 
+>> Dmytro
 > 
-> Ahhh ok. I hate hugetlb so very very much.
+> BTW, not all violations are in public headers.
+> Probably, they could be fixed in code.
+> But the number of them is huge...
 > 
-> Oscar is doing the Lord's work improving things but the trauma is still
-> there... :P
-> 
-> Also yeah DAX ahem.
-> 
-> I'm not familiar with huge pfnmap PUDs, could you give me a hint on this? :>)
 
-vmf_insert_pfn_pmd(), called from  drivers/vfio/pci/vfio_pci_core.c
+This is precisely the issue I was pointing out when you offered to 
+respin this patch. Yes, Xen could fix those rather than deviate, but the 
+sheer number of violations makes this in my opinion unfeasible.
 
-Essentially, we create huge PUDs when mapping device BARs to user space.
+> Dmytro
+> 
+>> 
+>>> 
+>>> Jan
 
 -- 
-Cheers,
-
-David / dhildenb
-
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
