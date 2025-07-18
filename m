@@ -2,33 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 455BEB0A199
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 13:08:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1048511.1418737 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3454CB0A19B
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Jul 2025 13:10:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1048526.1418748 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucixL-0003ai-1E; Fri, 18 Jul 2025 11:08:47 +0000
+	id 1uciz4-00055o-DU; Fri, 18 Jul 2025 11:10:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1048511.1418737; Fri, 18 Jul 2025 11:08:47 +0000
+Received: by outflank-mailman (output) from mailman id 1048526.1418748; Fri, 18 Jul 2025 11:10:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucixK-0003Yd-Ur; Fri, 18 Jul 2025 11:08:46 +0000
-Received: by outflank-mailman (input) for mailman id 1048511;
- Fri, 18 Jul 2025 11:08:45 +0000
+	id 1uciz4-00053t-8m; Fri, 18 Jul 2025 11:10:34 +0000
+Received: by outflank-mailman (input) for mailman id 1048526;
+ Fri, 18 Jul 2025 11:10:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Achr=Z7=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1ucixJ-0003V6-DI
- for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 11:08:45 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=Us2c=Z7=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1uciz2-00053S-OZ
+ for xen-devel@lists.xenproject.org; Fri, 18 Jul 2025 11:10:32 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20618.outbound.protection.outlook.com
+ [2a01:111:f403:2417::618])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9106cc61-63c7-11f0-b894-0df219b8e170;
- Fri, 18 Jul 2025 13:08:43 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 5AB544EE3C3D;
- Fri, 18 Jul 2025 13:08:42 +0200 (CEST)
+ id cfb224d8-63c7-11f0-b894-0df219b8e170;
+ Fri, 18 Jul 2025 13:10:29 +0200 (CEST)
+Received: from CH0PR04CA0092.namprd04.prod.outlook.com (2603:10b6:610:75::7)
+ by BN5PR12MB9463.namprd12.prod.outlook.com (2603:10b6:408:2a9::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.27; Fri, 18 Jul
+ 2025 11:10:25 +0000
+Received: from DS2PEPF0000343B.namprd02.prod.outlook.com
+ (2603:10b6:610:75:cafe::b9) by CH0PR04CA0092.outlook.office365.com
+ (2603:10b6:610:75::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.23 via Frontend Transport; Fri,
+ 18 Jul 2025 11:10:25 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS2PEPF0000343B.mail.protection.outlook.com (10.167.18.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8943.21 via Frontend Transport; Fri, 18 Jul 2025 11:10:25 +0000
+Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 18 Jul
+ 2025 06:10:21 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,334 +56,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9106cc61-63c7-11f0-b894-0df219b8e170
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1752836922;
-	b=kRQWgw/bnSkltbyqQuT0cKjTWIEeFGjgq7kP4oeB9po0Fyo0xcpU28juPagBkfE2tr2i
-	 X0EKDwVKlA0TwFSZeXRqXJMLbCEpgh+RsIRCAE5Tu4QBA8ll9LOCsQ7aRF3hFMbZBua/U
-	 mtUvIFbpbpKlu1FFooHEqrFz1ZHlf6knPm8NZYKKtnuxFm95kj5IoyFqvbjBlToOYoMVs
-	 ICc0049AgibQKRaCKLl8RX1+KxbtgRtxYU9RESpSyIY0KBiWKIO9nqFz4ZACf4lG6T+ab
-	 JIjSmSOoxHV5pzT7fPsOWI6oEtOeTctZSEupzqgzlqICtBIYzIeLEPlHVlyKAcjV/mAvH
-	 eEaWsN7YnZGrRvsTR80rbqSDYQpfdDXxXXObc0FKtxAOkFc4Nul/Y74WQ08dm2MTyZSFb
-	 n5u3afiigT3L/CgW9Vv2LMR4LCcquxuZ0fuiaESO/AJAgrIBivXPYCZUXV7QU424G+fMD
-	 VouA5HPsOCSV2B4bKU1jmYEtJt1OQTDRZLeJvhOziJ7BDYLSXPeHQr8XX/7sa+EZbKDOD
-	 aMSdXkJE15GHHU75c7/DsoUU99qCq5FwjUuj9v+3KL9hBEX5OVrbzXXjeDopsjV4Yn496
-	 fqmeZiEP4uICFXI/tRHuw4tiAZ4Ei/RxudBOdpsdSiZDfVoUblCyNw75Dr9RSHE=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1752836922;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=0d1nOfeve6wJcOeXViWzw8ZmgfRHSzOZNEaSx5Q4YTs=;
-	b=M7rJHF7EBoXgHmjSuyrr2HuN787BaNoQleE8D8cw/Kni8CCDJvB9jwwwyFVMbPk2iWEi
-	 1S//8HGroWn5kg+YCUfZBoD3hnPpA7ZhAsqPSxu5mL26BmEN1zUcB4QoiJdprTvz/t6cw
-	 eI6X4RGc3zmQcuK7zzDl8nSJeZSruYc+7zgCwtZKcRF/oR7ega+ZYVc2i4HLXuJDZ9LEW
-	 CCU0XOu4vPYfpZAuLHTUC3gr/eSMtqTJZD8WDZ7Rg+EDQIbACkJO2cTdXphh04yj+QWrY
-	 Ri3pYt5q3In5+fHDF8s06A1R/7lZPQCp5p+z4maXKZ4DR0EbOaDF5Frw4ky8Lk1uVWWRS
-	 crbFtv2LvQKE9nV5j0FIE9auQcn6hyxqjGAHUPjg8Z+SsxjWCWfwlmuJoGHkMzP786pkV
-	 /TuMTKtmk1rCI9McC5fb18QGrrgVDOr3cSGOVYDQQmN+Sqd63xNwzpnHudsZUrjpGW3Yu
-	 BQg1N93Z4VuY/yAbV3xULKSO8MxpfgRruidC7AK+2jw7wGCmc4SPpFcpw75Sv6kZCTatZ
-	 9hprvJEz9YSqKi4xa+YspTXzrkrYhUEg4QkAzzGRAELWcvCKlbEv+1ZT2YjIqNlb7T5y5
-	 K9nbaX4DOaqjKhAiEZVVOHtFucVrXNQ9YKduQsta3HnmBhWnOvFDeOGr9Z2rjSs=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1752836922; bh=BN4SWkZczzxjs/e/rRTv2d5a1HDkkD+q2GUUqGwXjnY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=hKEobAEN4dR+kkmIdKoJa7cj6IdxIKCJ6agNf6z1NKfF9LvyQrajxZPES7OdHPZrD
-	 /HyjL7Am/OpPnmVq6yxoMQ9ezDTcVRa0b0f1w/1Qo+HPXXh24cYKrVv4fRjyt0b1/T
-	 VrEhRbIu3tOmM4RpfPYRbnncKG3Bijq4SSc26GgACc+KEcAmFt+DmRB2MbZ8Z3wX/T
-	 qUd9fihdQQ+osN//0bsPbLrXD8GKspBX9AuLea+PccF2f68ei4J6DB6arHspOSoJwb
-	 pSPRglqDCwhQ7XelKK3wOs+YCuLlgXtn18EfaKdSdbN/zLAh5leFEw4deOc8BmYKCN
-	 d7ty4bYOE2rGg==
+X-Inumbo-ID: cfb224d8-63c7-11f0-b894-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UdDWz08//BXrD1v4gGWkX5WYdLZ4Me8pk67IkQ4oXvF4iq8GmQfPBAIJYg4hc1gaYMuV4oTwYAHJrk76sJlnLldZxsEq5ktIy14HkVn/7XxM2gRc8bHZgLz0GZ0Xj9SSCfRA1FI/iD96OsTFF4xP8l3S+sA2PQqUtj/u4EwVAERCkZpZPWTQixuEGN1zRbR94Yb5fhVq8Zudr/66irs5+zECHSiTky3hc+SEIfW1QeZXPsb+WRD23KxMLzSDtxpjDtUr3BWS9AOdLNuIhtog3MJqWaKylIZdwgbpidueHZAg0gmb54D/rj4dQCnSIFNXnzDNkRYC0WIoLeF5zKMEYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eJTBfWEaGiX3y0rhqEGGFJVXoA7WL02sQF8h+W9b5o4=;
+ b=VnI1JT3T/AtlDFq0F/vKbSeV04zikbFZLxh6fkxvCubsD+DF4Hq9nsI3zebTfgDeNDQ6DZNawgZ+vBBz17A5M9Mu8kLmnAPvFVYznK7Mo46OTj27tt906jymKWPXuVEy1kFKXuyNHA1eW8whFpV4RIx+72C1WTaH9Hjdq0iZRxMyzECttN+UXRTUl/wRos3uErCz5tmr2ghkZZ94X3CLsVrhkS6+rrbDDIPRU4vqJmQ4gdjSw/px118A4syMsdwqVyn1cgTBUayUVr57+t4V1paoJiBSazaxLbGcGhm3QnrsyV+hl/y8RukwdTqsy30qi2pAB3ramRq0V7cN8OCQaw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=proton.me smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eJTBfWEaGiX3y0rhqEGGFJVXoA7WL02sQF8h+W9b5o4=;
+ b=meTzUSbcPKFqu2iAPa3CAi6KcMx2y1nUNn979SH5FOhpV1NFiiKaT6d9ZwO5X4tQsoEziO9Eu8fHVxBmbx8NP9b7sVMct5OSrrc0hdTNOJQ52rBD8a/OMigZWgiOnxapfiuc0TDiTETYLlyQpwp2Dl/tTQltpxWsb7p4jb8lHf8=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 MIME-Version: 1.0
-Date: Fri, 18 Jul 2025 13:08:42 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
- victorm.lira@amd.com, Federico Serafini <federico.serafini@bugseng.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
- <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Julien
- Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: [PATCH v1] misra: add deviation for rules 21.1 and 21.2
-In-Reply-To: <ca61bfc1-2b22-4c42-b03d-7e05588aac0c@epam.com>
-References: <9e1210f2a9c794d68dcc6b897239b228b141296a.1745427770.git.victorm.lira@amd.com>
- <f1d1dbe4-5b62-4540-a480-afa6045d9622@epam.com>
- <39114395-5aa0-4c4a-a0b9-f151c6976674@suse.com>
- <078093af-1581-44e8-97f0-82561bfd06a5@epam.com>
- <ca61bfc1-2b22-4c42-b03d-7e05588aac0c@epam.com>
-Message-ID: <f3e56c3fc9bf8351f253bb988138ed57@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Fri, 18 Jul 2025 13:10:20 +0200
+Message-ID: <DBF4V6KQQNHV.UHH9OI7BR3QZ@amd.com>
+Subject: Re: [PATCH v1 01/16] arm/vpl011: rename virtual PL011 Kconfig
+ option
+From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+To: <dmkhn@proton.me>
+CC: "Orzel, Michal" <michal.orzel@amd.com>, <xen-devel@lists.xenproject.org>,
+	<andrew.cooper3@citrix.com>, <anthony.perard@vates.tech>,
+	<jbeulich@suse.com>, <julien@xen.org>, <oleksii.kurochko@gmail.com>,
+	<roger.pau@citrix.com>, <sstabellini@kernel.org>, <dmukhin@ford.com>,
+	Xen-devel <xen-devel-bounces@lists.xenproject.org>
+X-Mailer: aerc 0.20.1
+References: <20250624035443.344099-1-dmukhin@ford.com>
+ <20250624035443.344099-2-dmukhin@ford.com>
+ <da16500d-f589-4396-8ad6-78cdb443da60@amd.com> <aFpSvMzxrNrgQEVB@kraken>
+ <DBEG1ORR4MYS.3JV34VYUK2T6G@amd.com> <aHlV7fSjTS6SMlKh@kraken>
+In-Reply-To: <aHlV7fSjTS6SMlKh@kraken>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343B:EE_|BN5PR12MB9463:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1130ee23-7b02-49c5-5d86-08ddc5ebb22c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|7416014|36860700013|376014|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?ZzlZR2g4ZXRoemxTbzhyZkVqVzBTOFdtQnhISVJDRE04bkgyZVM4cTZlTU5p?=
+ =?utf-8?B?enhDN2VsUmxhMjEvTVJCeFZWYUFzU2NpUTBwZmY2ZUJDVDV4YzkxNHp4REZr?=
+ =?utf-8?B?dXlQSWNPeUQ5dUIyUXhyT2pLblp2b0lEQVdyQ3I4NEdzekRNVWhqSnE5OTJF?=
+ =?utf-8?B?NzBCbE1sVFFMRFkzZFdoMWVHT01sVk05MXEzLzhaTExBbURtT05tNmpjU1BY?=
+ =?utf-8?B?LzcybERibnRLMXk0L1VGeHIyUDBqS0V2YS9tdk1RcWltaDRsR2I4SkM4SDJN?=
+ =?utf-8?B?a21iTW1hMnNqVm9jUmhxbEQ3UVVZdkVkOVNSRUljSVJaTDQ3QVpyMWZ0NEt6?=
+ =?utf-8?B?eC8yOXlrRkJ6RlNPMklJaytjZkxMczN2TG9lZW9PWTJieVd6U1RtR0hmemxO?=
+ =?utf-8?B?ZjVOK3JwRzdtSFgzZU1FL0RvTTF4TkU5REEvcC9SdEFRUHY2cTVGSWtQd0tx?=
+ =?utf-8?B?a1pNbFZNR0tlMlhNWm55bDc5UC9QKzNBcFQ5elZSNkhMaUxKWEE4d3ZFc2k0?=
+ =?utf-8?B?bmp1NHlQN3FoWWFEa3dORWJMbFhkU0s2YzAza3craGVZSHJVTjdpR3dqaG1j?=
+ =?utf-8?B?WENKY0VaVVZLdjZRaTRLT1c3V3VGdmpUQ0QrOUNzRXc2d1ZJYWp4bm53YTBW?=
+ =?utf-8?B?OU8zRzJJbzJSMVJWSzJUbTNwb3VmcG5IREYzM0dsanBzdU1nalVjZ2JnRlVi?=
+ =?utf-8?B?WG9ZdXh6eTZGRDNuckhFeXRaZllIMEkxUXQ1NUFVdlZEOERjbVl6RW43MWdi?=
+ =?utf-8?B?b2xndTdQa1ByK0VpdHVPbUdtRkRZWWFPZU9mcExYUS9pK3RzMDFoeGVic3Jh?=
+ =?utf-8?B?bmJVWFJTQks1QTdZWGtoSTlqa09zVjBoeGJiREdqWHFzaGxPeGR5SExGeU11?=
+ =?utf-8?B?eUJWQ2hIQ1FYOWVtWndIUkRMNVBZN09kWlVsMys1SGFnWEVVbmMzUFBlUDdq?=
+ =?utf-8?B?NlR2NlBhcDBKWHQxZ0tQZ2kyMHU4SGNKVU0vdEd2N0JpWHNDdVVzemtDaGlE?=
+ =?utf-8?B?aXdMNE9mR1hCVGJ2amFYaCtuZkpRVVUyZEd2K1JwVGl2VHkycjk2SkIvV21V?=
+ =?utf-8?B?dTRMa2tXYy9CRk0zN0lxM1YrT281UzFHbFhuZmdXYXM5WnZDNFo4aDZtT3k2?=
+ =?utf-8?B?UHhLZFNPWkUrZTJLNHZKTzlNaHRuN0RVL1hUNEltR1JNTllaQUdpcC9OMzFz?=
+ =?utf-8?B?N2tSVHUzZ0RqekJhUUpPWUtkbEV4ck1YWVgwbHBrT3A3WHluU3U1RUpnM0Z5?=
+ =?utf-8?B?MURCYkdZUVowOXBYWlg4Q1dCNGxDZG1CdDNWVGd5SFh0REx2YmtVbUVDWERK?=
+ =?utf-8?B?d2hLeFI1enBUMHFzaUVqVXhLN0UrZjlza3Y1UGlxZ3Z1U0F0dnpobUd6cStE?=
+ =?utf-8?B?Zm85aGpSZ0NJUnBtTFgxS1ZKeXI3K0Z1YkdxUmpNRFQra2x2ZlZsK3FDUkJt?=
+ =?utf-8?B?dWNwY2NGMEtXWWhKTzNLUE56bnR6azIvMEFVSWhVbUFuN2ZjK3pkYWZpYW51?=
+ =?utf-8?B?YU1XWWl1M2xOaEU3MUlCQjNudklyOU9NT2ZTMVdaOTRmWS9IOWJSaThNN3Z1?=
+ =?utf-8?B?dWVqWWFtYzFodFA5QWVFVVpCWFVJQ2RtOEpqQVlmWFdUVCtPYkltQnUxZG9v?=
+ =?utf-8?B?ODRrbyswVURqdWZPaDQvUzIyejIzUHhHTVpjZktJVHJqWklFTDRBckdoMHdC?=
+ =?utf-8?B?ellxaGhVYnBiakxEeFZXcWhuQ0loWkZscVkzYkVyUG55cDRVZlBJR3psSmFE?=
+ =?utf-8?B?VE41Zm1xemJDUFRSMEJtQitUT1Q3czZVVEYxU015TUV1STV1bW9neEpsdnIx?=
+ =?utf-8?B?UVFuK2NONEhENjRZSVdGUlBLanpsYk54TDFxdXV6L2hBaHlwMWRKa0pWbjIz?=
+ =?utf-8?B?UFNZVXcwZXh2emhQYnpkWC95Z2FiWmJyS2FVN2tHeElZSkF6K1l3eTFVSXEv?=
+ =?utf-8?B?bThXMS9mYXBzMmRSSW9kRTVzcGowMXJxU0tKbkplK1ZmK2c1alFVbSs0eEhx?=
+ =?utf-8?B?OWRtL0RLWHlBNVdHbDEyL0VMaGlqZHVHZEprOG9WZEJIeHF4allzVk1pcmtu?=
+ =?utf-8?B?WmtHTGhld3ZMZUgwOVhNaHk2bElZRnl4bnZWdz09?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(7416014)(36860700013)(376014)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jul 2025 11:10:25.2920
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1130ee23-7b02-49c5-5d86-08ddc5ebb22c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS2PEPF0000343B.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN5PR12MB9463
 
-On 2025-07-18 11:28, Dmytro Prokopchuk1 wrote:
-> On 7/18/25 12:17, Dmytro Prokopchuk wrote:
->> 
->> 
->> On 7/18/25 08:31, Jan Beulich wrote:
->>> On 17.07.2025 22:47, Dmytro Prokopchuk1 wrote:
->>>> 
->>>> 
->>>> On 4/23/25 20:54, victorm.lira@amd.com wrote:
->>>>> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>>>> 
->>>>> MISRA C Rules 21.1 ("#define and #undef shall not be used on a
->>>>> reserved identifier or reserved macro name") and R21.2 ("A reserved
->>>>> identifier or reserved macro name shall not be declared") 
->>>>> violations
->>>>> are not problematic for Xen, as it does not use the C or POSIX
->>>>> libraries.
->>>>> 
->>>>> Xen uses -fno-builtin and -nostdinc to ensure this, but there are 
->>>>> still
->>>>> __builtin_* functions from the compiler that are available so
->>>>> a deviation is formulated for all identifiers not starting with
->>>>> "__builtin_".
->>>>> 
->>>>> The missing text of a deviation for Rule 21.2 is added to
->>>>> docs/misra/deviations.rst.
->>>>> 
->>>>> To avoid regressions, tag both rules as clean and add them to the
->>>>> monitored set.
->>>>> 
->>>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
->>>>> Signed-off-by: Victor Lira <victorm.lira@amd.com>
->>>>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
->>>>> ---
->>>>> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
->>>>> Cc: Anthony PERARD <anthony.perard@vates.tech>
->>>>> Cc: Michal Orzel <michal.orzel@amd.com>
->>>>> Cc: Jan Beulich <jbeulich@suse.com>
->>>>> Cc: Julien Grall <julien@xen.org>
->>>>> Cc: Roger Pau Monné <roger.pau@citrix.com>
->>>>> Cc: Stefano Stabellini <sstabellini@kernel.org>
->>>>> Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>>>> Cc: Federico Serafini <federico.serafini@bugseng.com>
->>>>> Cc: Bertrand Marquis <bertrand.marquis@arm.com>
->>>>> ---
->>>>>    .../eclair_analysis/ECLAIR/deviations.ecl     |  9 ++++++-
->>>>>    .../eclair_analysis/ECLAIR/monitored.ecl      |  2 ++
->>>>>    automation/eclair_analysis/ECLAIR/tagging.ecl |  2 ++
->>>>>    docs/misra/deviations.rst                     | 26 
->>>>> ++++++++++++++
->>>>> ++++-
->>>>>    4 files changed, 37 insertions(+), 2 deletions(-)
->>>>> 
->>>>> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/
->>>>> automation/eclair_analysis/ECLAIR/deviations.ecl
->>>>> index 2c8fb92713..ffa23b53b7 100644
->>>>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
->>>>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
->>>>> @@ -639,8 +639,15 @@ in the expansion."
->>>>>    # Series 21.
->>>>>    #
->>>>> 
->>>>> +-doc_begin="Xen does not use C and POSIX libraries:
->>>>> +identifiers reserved by these libraries can be used safely, except
->>>>> for those
->>>>> +beginning with '__builtin_'."
->>>>> +-config=MC3A2.R21.1,macros={safe, "!^__builtin_.*$"}
->>>>> +-config=MC3A2.R21.2,declarations={safe, "!^__builtin_.*$"}
->>>>> +-doc_end
->>>>> +
->>>>>    -doc_begin="or, and and xor are reserved identifiers because 
->>>>> they
->>>>> constitute alternate
->>>>> -spellings for the corresponding operators (they are defined as
->>>>> macros by iso646.h).
->>>>> +spellings for the corresponding logical operators (as defined in
->>>>> header 'iso646.h').
->>>>>    However, Xen doesn't use standard library headers, so there is 
->>>>> no
->>>>> risk of overlap."
->>>>>    -config=MC3A2.R21.2,reports+={safe,
->>>>> "any_area(stmt(ref(kind(label)&&^(or|and|xor|not)$)))"}
->>>>>    -doc_end
->>>>> diff --git a/automation/eclair_analysis/ECLAIR/monitored.ecl b/
->>>>> automation/eclair_analysis/ECLAIR/monitored.ecl
->>>>> index 8351996ec8..da229a0d84 100644
->>>>> --- a/automation/eclair_analysis/ECLAIR/monitored.ecl
->>>>> +++ b/automation/eclair_analysis/ECLAIR/monitored.ecl
->>>>> @@ -79,6 +79,8 @@
->>>>>    -enable=MC3A2.R20.12
->>>>>    -enable=MC3A2.R20.13
->>>>>    -enable=MC3A2.R20.14
->>>>> +-enable=MC3A2.R21.1
->>>>> +-enable=MC3A2.R21.2
->>>>>    -enable=MC3A2.R21.3
->>>>>    -enable=MC3A2.R21.4
->>>>>    -enable=MC3A2.R21.5
->>>>> diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/
->>>>> automation/eclair_analysis/ECLAIR/tagging.ecl
->>>>> index 1d078d8905..3292bf751e 100644
->>>>> --- a/automation/eclair_analysis/ECLAIR/tagging.ecl
->>>>> +++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
->>>>> @@ -88,6 +88,8 @@ MC3A2.R20.11||
->>>>>    MC3A2.R20.12||
->>>>>    MC3A2.R20.13||
->>>>>    MC3A2.R20.14||
->>>>> +MC3A2.R21.1||
->>>>> +MC3A2.R21.2||
->>>>>    MC3A2.R21.3||
->>>>>    MC3A2.R21.4||
->>>>>    MC3A2.R21.5||
->>>>> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
->>>>> index fe0b1e10a2..88328eaa8a 100644
->>>>> --- a/docs/misra/deviations.rst
->>>>> +++ b/docs/misra/deviations.rst
->>>>> @@ -587,7 +587,31 @@ Deviations related to MISRA C:2012 Rules:
->>>>>           construct is deviated only in Translation Units that
->>>>> present a violation
->>>>>           of the Rule due to uses of this macro.
->>>>>         - Tagged as `deliberate` for ECLAIR.
->>>>> -
->>>>> +
->>>>> +   * - R21.1
->>>>> +     - Rule 21.1 reports identifiers reserved for the C and POSIX
->>>>> standard
->>>>> +       libraries. Xen does not use such libraries and all
->>>>> translation units
->>>>> +       are compiled with option '-nostdinc', therefore there is no
->>>>> reason to
->>>>> +       avoid to use `#define` or `#undef` on such identifiers
->>>>> except for those
->>>>> +       beginning with `__builtin_` for which compilers may perform
->>>>> (wrong)
->>>>> +       optimizations.
->>>>> +     - Tagged as `safe` for ECLAIR.
->>>>> +
->>>>> +   * - R21.2
->>>>> +     - Rule 21.2 reports identifiers reserved for the C and POSIX
->>>>> standard
->>>>> +       libraries. Xen does not use such libraries and all
->>>>> translation units
->>>>> +       are compiled with option '-nostdinc', therefore there is no
->>>>> reason to
->>>>> +       avoid declaring such identifiers except for those beginning
->>>>> with
->>>>> +       `__builtin_` for which compilers may perform (wrong)
->>>>> optimizations.
->>>>> +     - Tagged as `safe` for ECLAIR.
->>>>> +
->>>>> +   * - R21.2
->>>>> +     - `or`, `and` and `xor` are reserved identifiers because they
->>>>> constitute
->>>>> +       alternate spellings for the corresponding logical operators
->>>>> +       (as defined in Standard Library header `\<iso646.h\>`). Xen
->>>>> does not use
->>>>> +       Standard library headers, so there is no risk of overlap.
->>>>> +     - Tagged as `safe` for ECLAIR.
->>>>> +
->>>>>       * - R21.9
->>>>>         - Xen does not use the `bsearch` and `qsort` functions
->>>>> provided by the C
->>>>>           Standard Library, but provides in source form its own
->>>>> implementation,
->>>>> --
->>>>> 2.47.0
->>>> 
->>>> Hello All!
->>>> 
->>>> I tried to play with Rule 21.1 deviations.
->>>> 
->>>> After applying the following configurations:
->>>> 
->>>> -config=MC3A2.R21.1,macros+={safe, "^offsetof$ || ^(is|to)[a-z]+$ ||
->>>> name(NULL) || name(bool) || name(true) || name(false)"}
->>>> -config=MC3A2.R21.1,macros+={safe,
->>>> "loc(file(^xen/include/xen/inttypes\\.h$))"}
->>>> -config=MC3A2.R21.1,macros+={safe, "loc(file(^xen/include/xen/types\
->>>> \.h$))"}
->>>> -config=MC3A2.R21.1,macros+={safe, "^str[a-z]+$ || ^(v)?sprintf$ ||
->>>> ^va_[a-z]+$"}
->>> 
->>> Can you spell these out in words? I can only vaguely interpret these
->>> Eclair
->>> patterns, sorry.
->> Yes, sure.
->> 
->> That means to deviate the following macros:
->> - offsetof
->> - begin with either ‘is’ or ‘to’ followed by a lowercase letters
->> (islower, isdigit, tolower, toupper, etc.)
->> - NULL
->> - bool
->> - true
->> - false
->> - all PRI/SCN macros for printing/scanning format specifiers from 
->> header
->> file xen/include/xen/inttypes.h
->> - all macros from header file xen/include/xen/types.h (limits:
->> UINT8_MAX, INT_MAX, LONG_MIN, etc.)
->> - begin with 'str' followed by a lowercase letters (string functions)
->> - sprintf/vsprintf
->> - begin with 'va_' followed by a lowercase letters (va_copy, va_start,
->> va_end, va_arg)
->> 
->>> 
->>>> Eclair showed 699 remaining violations.
->>>> All of them were related to names beginning with an underscore (_).
->>>> 
->>>> It's possible to resolve the rest of them with help of (all, except 
->>>> for
->>>> those beginning with '__builtin_' and '__x86_64__'):
->>>> 
->>>> -config=MC3A2.R21.1,macros+={safe, "^_.*$ && !^__builtin_.*$ &&
->>>> !^__x86_64__$"}
->>>> 
->>>> Probably, the exception list can be extended.
->>>> 
->>>> Jan,
->>>> I know you don't want to disallow "_all_" such reserved identifiers.
->>>> But how to deal with that?
->>> 
->>> How do I not want this? I've been arguing for years that we should
->>> respect
->>> the reserved name spaces. (Did you perhaps mean "... you don't want 
->>> to
->>> deviate ..."?) There are exceptions, yes, e.g. ...
->>> 
->> Yes, I meant about deviations. Sorry.
->> 
->>>> Try to cover all macros? Like this, for example (I assume that there 
->>>> are
->>>> no such reserved macros):
->>>> -config=MC3A2.R21.1,macros+={safe, "^.*XEN.*$ || ^.*HYPERVISOR.*$"}
->>> 
->>> ... anything we may have (wrongly) introduced into the public 
->>> headers. We
->>> can't very well change naming there.
->> Looks like the only way is to deviate all macros (that are currently
->> used in Xen), tag rule as "clean" and prohibit using reserved names in
->> the future.
->> 
->> Any suggestions?
->> 
->> Dmytro
-> 
-> BTW, not all violations are in public headers.
-> Probably, they could be fixed in code.
-> But the number of them is huge...
-> 
+On Thu Jul 17, 2025 at 9:58 PM CEST, dmkhn wrote:
+> On Thu, Jul 17, 2025 at 05:43:22PM +0200, Alejandro Vallejo wrote:
+>> On Tue Jun 24, 2025 at 9:24 AM CEST, dmkhn wrote:
+>> > On Tue, Jun 24, 2025 at 08:13:08AM +0200, Orzel, Michal wrote:
+>> >>
+>> >>
+>> >> On 24/06/2025 05:55, dmkhn@proton.me wrote:
+>> >> > From: Denis Mukhin <dmukhin@ford.com>
+>> >> >
+>> >> > Rename CONFIG_SBSA_VUART_CONSOLE to CONFIG_HAS_VUART_PL011.
+>> >> Why? We emulate SBSA UART and not PL011. Despite the similarities (th=
+e former is
+>> >> a subset of the latter) they are not the same. I find it confusing an=
+d drivers
+>> >> for PL011 might not work with SBSA UART. Also, in the future we may w=
+ant to
+>> >> emulate full PL011 in which case it will be even more confusing.
+>> >
+>> > That's because the emulator is called vpl011, but yes, it is SBSA UART=
+.
+>> > I will adjust to SBSA, thanks!
+>> >
+>> >>
+>> >> Also, why HAS_?
+>> >
+>> > My understanding is that HAS_ is the desired naming convention through=
+out the
+>> > code (not documented, though), e.g. all Arm UART drivers are gated by =
+HAS_XXX
+>> > (e.g. arch/arm/platforms/Kconfig).
+>>=20
+>> HAS_ is a non-selectable property dependent on the arch. Think HAS_PCI, =
+or
+>> HAS_EHCI, etc. IOW: HAS_X means "you may implement feature X on this arc=
+h",
+>> which is why some options have X and HAS_X variants, where X is selectab=
+le
+>> while HAS_X is not.
+>
+> Thanks; I will fix that.
+>
+> Jan explained the difference here [1] and [2]:
+> [1] https://lore.kernel.org/xen-devel/6d33355c-477f-4ef3-8f17-b7f1dd1164c=
+e@suse.com/
+> [2] https://lore.kernel.org/xen-devel/a63ac9d5-152e-47b0-8169-bf470611c05=
+9@suse.com/
+>
+> It's just there's a lot of drivers (UARTs) which are selectable by the us=
+er via
+> HAS_ symbols (drivers/char/Kconfig)
 
-This is precisely the issue I was pointing out when you offered to 
-respin this patch. Yes, Xen could fix those rather than deviate, but the 
-sheer number of violations makes this in my opinion unfeasible.
+IMO, HAS_IMX_LPUART should be selected by ARM_64, then IMX_LPUART would dep=
+end
+on HAS_IMX_LPUART. I don't know how those (and you're right, there's lots) =
+got
+there. Same with NS16550, etc.
 
-> Dmytro
-> 
->> 
->>> 
->>> Jan
+That allows to decouple the device from the architectures where it might be
+found.
 
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+Cheers,
+Alejandro
 
