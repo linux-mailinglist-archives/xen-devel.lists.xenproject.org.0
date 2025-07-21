@@ -2,38 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D189B0C2CA
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 13:25:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1051389.1419723 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37AF0B0C30C
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 13:33:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1051402.1419734 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udodi-0001MC-1E; Mon, 21 Jul 2025 11:25:02 +0000
+	id 1udols-00037S-Uf; Mon, 21 Jul 2025 11:33:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1051389.1419723; Mon, 21 Jul 2025 11:25:02 +0000
+Received: by outflank-mailman (output) from mailman id 1051402.1419734; Mon, 21 Jul 2025 11:33:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udodh-0001Ke-UK; Mon, 21 Jul 2025 11:25:01 +0000
-Received: by outflank-mailman (input) for mailman id 1051389;
- Mon, 21 Jul 2025 11:25:00 +0000
+	id 1udols-00035G-RT; Mon, 21 Jul 2025 11:33:28 +0000
+Received: by outflank-mailman (input) for mailman id 1051402;
+ Mon, 21 Jul 2025 11:33:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ESUV=2C=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1udodg-0001KY-CP
- for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 11:25:00 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ <SRS0=V1C3=2C=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1udolq-000355-BG
+ for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 11:33:26 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20621.outbound.protection.outlook.com
+ [2a01:111:f403:2009::621])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 554f0854-6625-11f0-b894-0df219b8e170;
- Mon, 21 Jul 2025 13:24:58 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-606b58241c9so6743542a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 21 Jul 2025 04:24:58 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aec6ca7d2dasm661618766b.127.2025.07.21.04.24.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Jul 2025 04:24:56 -0700 (PDT)
+ id 7fa52453-6626-11f0-b894-0df219b8e170;
+ Mon, 21 Jul 2025 13:33:19 +0200 (CEST)
+Received: from CH5P220CA0013.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1ef::27)
+ by IA0PR12MB8325.namprd12.prod.outlook.com (2603:10b6:208:407::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.30; Mon, 21 Jul
+ 2025 11:33:14 +0000
+Received: from CH3PEPF00000011.namprd21.prod.outlook.com
+ (2603:10b6:610:1ef:cafe::3) by CH5P220CA0013.outlook.office365.com
+ (2603:10b6:610:1ef::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.29 via Frontend Transport; Mon,
+ 21 Jul 2025 11:33:14 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH3PEPF00000011.mail.protection.outlook.com (10.167.244.116) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8989.1 via Frontend Transport; Mon, 21 Jul 2025 11:33:14 +0000
+Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 21 Jul
+ 2025 06:33:11 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,828 +56,445 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 554f0854-6625-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1753097097; x=1753701897; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=zNQW9Qf0S0WN2QX/ONmlu6xjNfUUnhiLTphTcAVvHbc=;
-        b=kNWyUtTHIzQrVCT7UGzHCuC73PY5oE/aTTymoDPD5LVWf2rSZmYnJV62KVkdibk+tB
-         xZR5QbuV3TjhbQmb07sQ4hUO/gF0/KnkNsBlZNBgRh1D7ZF9Rx/I+07k+YlOK672XP8F
-         tK2aHmrlKdRVEOPNX57FRWtFmMQA35tcwTRb4cOvdnWs7Euv51o9G8i6kuaZZMVipr9c
-         Rglj3wGZWFCj6yhDlesD2enw+MgN5tTnj6e0f2a4TOHsnbCQnh8IsGPAWfywQ6kFgeNE
-         3cy0ibD5b2wqsXOtLCdWaiabV69VjfpIDVOsxSPONcAAvpleWH+aWUTGAnZcihOL8tJF
-         y66g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753097097; x=1753701897;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=zNQW9Qf0S0WN2QX/ONmlu6xjNfUUnhiLTphTcAVvHbc=;
-        b=iK5xNKoRanCb0LFxajv6+qzSlIdKJqREXRZFeN8aQH6OD27pi9KZ37ogq8mxTQ+lCi
-         sqNjmVkp6ZJk59/1A5Ce/60uePv8+hk2V0bwogXSekc+Ni3IehVBW/6ELm5AfkV/+NoY
-         l4cBnM1MnaKbM+9gEaprrYUf2/Y9ElpEpBjviESn/1MUQwy2UwrFkAxJQOGk8wa3fbI8
-         gg8/I3UUKTyilCA4OeUxDzNgzMtwS0d81y9itTVhn/dNhHhyxeK9RrikVFy0AJjEO275
-         ua2fVuvBxOEBvHMtX2HOka5aQUdBQ1lZX8MgSFHBVHJqt5yeXFPFyOl9aEdzwD27IRcA
-         vv8w==
-X-Forwarded-Encrypted: i=1; AJvYcCWBJ4geGi7qvPt3f96/qlN1mo8SkT5I5WJ4dH2zkUa9HaPDQcoDnLsccGg/sisqTSAagGWf9XQWO3A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxL3665JkpWmjta6F1iBPCQMaCJyKE8uTkiK1ukHfo6sIiA/IHp
-	J2rR/Vad04YWySJQu36mFuM5hpiTNo2wgfQdJl8MF4IjPoKDD8ib/uq3
-X-Gm-Gg: ASbGncu98PX9QtJcRugD6V9J4PXz5eveAXPgH8BMSGXnif84nPC2mwqpNy637w9IQt/
-	m52hYT7T1ZR8mOVpfnwZ/uq9fr1bEvVLCqoPjz6OnAz8Qshbl5budVlquidJH15+gwPW2lIP6Lw
-	BLyeF0EyCMBNt5Cs1cyaZwD9XBNvdT+2dAR+a32w/nI4XyBKe/7U8F5JEdGnAM4lYnMetvc+AA5
-	B+gVj+JStd2xUK477Uxziy0czZso/ERJDpx58/02787GRUn9OS5+V/sMytppSG3jueJq/EDJqVI
-	E7QXQpIsE9GFb40AI1WFoZXft+EYM18tSFxWFTSYzMVV+8AwRi7z8+aK/x+S53BV8B5gHGQnzuo
-	Ru/85HwVZJAS+UakeR3zqO1kG2p2nkLD317fu1y9o4coR9SDfW9RAXOdQQ3QZUnv0XS3VSgPuHt
-	TYi92POA==
-X-Google-Smtp-Source: AGHT+IG99M7CxjJXXWph+p4cQMLsxyQ3gxsaeyDEr4G6isxt59IS7GJbZ69fVDLqo9Usios0T+M+rA==
-X-Received: by 2002:a17:906:63c9:b0:ae0:cadc:e745 with SMTP id a640c23a62f3a-ae9ce0f70admr1507572866b.40.1753097096983;
-        Mon, 21 Jul 2025 04:24:56 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------Cp6RiKO02KwMqvMTI0nRhlOn"
-Message-ID: <8a07f04a-af37-4572-adff-a2784b6d9f21@gmail.com>
-Date: Mon, 21 Jul 2025 13:24:54 +0200
+X-Inumbo-ID: 7fa52453-6626-11f0-b894-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ng78XKHJW0dRys2GF9VhRY1ociLhBtKJ5LocoolNS38Q3nzxOqd8z3V+NccYfdITTeVVnMqK5rTDYBMYUOwm901P+wMO4R3dmcpv3+fbFCMCG4hgv8tWbBbOzPh/4YtIw1aJpFq00oByH/a6dgHPWRyU3NvsnqE5C9U2ClbMrwqucS0IvBPDe3W6ZDVAP98jafGqYTamrkxpS0jgq/jPZgsbBRO9o3zyJyRQOCmQ34pPgFXNMqxwhFk/BiYQxOKuQEWz/Kq9oHGFfmq86X24SYCtFN8t7ZqpZSYRYEtvvcyygBA/r8ZphwDWus4hXT9qGp8NUln8q7oxscHC/Okzug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ndRMV9Bynfx2VKJdqzISeX41C/VJBhFQHVHcSmN7H2g=;
+ b=WTfxtRpqgJZVsHrs5FAJNzwwNrrOpEgBwiWyIBsXfe4Cw7ZJ7jq5WGVpdv55YHRIjRKdbLDmGHuDwjBh72U00tQxhAefg7W8OvdGwDcA4riaZO5pdQKM0TKqf9OMXKuDFXyJM2aJI/xEbDrK7yQ+OUTfpAqK+2+v4j1ORObjXPun+mim1Wm0JQmUqCfg95w6Oa1zYVl0dGzLBlytsVBqd8nQw0qEo0fc7ZFpfIz2zRqXGhxWaEUoy0YJcQ5eFZvljfJXpgpdBiAcmjdM36inzbSSKQ/CAJY20jM3M9MMsO2SrBYCuYAWYmueFgXQOvm8vQj1bRak2AoYG8vJVVMfuQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=proton.me smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ndRMV9Bynfx2VKJdqzISeX41C/VJBhFQHVHcSmN7H2g=;
+ b=4sUnUfgSW7LOTvsJVtQvLRzIrwxzuVYM1Fs4ZIM9chiKAvFktevC04aGNr1aj++h1M1q8QIc6+7s5NiDLGoTDvSDLu76f2Tt47bYYPIoOjFehoCXgZY+VslsIsX5dNergVwcAwOEngIdz48HCqI/tKVCeSOPV1iiqXit7UtdfbY=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 04/11] xen/dt: Move bootfdt functions to xen/bootfdt.h
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, Dario Faggioli <dfaggioli@suse.com>,
- Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>
-References: <20250715161108.141126-1-alejandro.garciavallejo@amd.com>
- <20250715161108.141126-5-alejandro.garciavallejo@amd.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <20250715161108.141126-5-alejandro.garciavallejo@amd.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Mon, 21 Jul 2025 13:33:10 +0200
+Message-ID: <DBHP8AWVAUZ0.J5GLOUXW1C3J@amd.com>
+CC: <dmukhin@ford.com>, <xen-devel@lists.xenproject.org>,
+	<andrew.cooper3@citrix.com>, <anthony.perard@vates.tech>,
+	<jbeulich@suse.com>, <julien@xen.org>, <michal.orzel@amd.com>,
+	<roger.pau@citrix.com>, <sstabellini@kernel.org>, Xen-devel
+	<xen-devel-bounces@lists.xenproject.org>
+Subject: Re: [PATCH v8] xen/console: introduce domain_console struct
+From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+To: <dmkhn@proton.me>
+X-Mailer: aerc 0.20.1
+References: <20250716020447.1029992-1-dmukhin@ford.com>
+ <DBF4R1PG1FZP.13QERUGFTBZY0@amd.com> <aHrckaPuf8S6VK8n@kraken>
+In-Reply-To: <aHrckaPuf8S6VK8n@kraken>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000011:EE_|IA0PR12MB8325:EE_
+X-MS-Office365-Filtering-Correlation-Id: b443dbb1-9480-4342-b65b-08ddc84a6191
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|1800799024|7416014|376014|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?dmR5UVBnM0VrWDZZYS9WaGhNYThpaHhXODBuT2pwRGNXVXpkc3pPOXdMVmNP?=
+ =?utf-8?B?R01OV0JLT0V5UG5tYnlZdktGallacGRjWXRLZjhvOUlkVFlZdE5SaSt5Umpt?=
+ =?utf-8?B?elk2UmtRSGVUdXZKVUFubWd0Y0JVQ090Nm1IRkRldFBrOHVhUVFTYld0TU04?=
+ =?utf-8?B?cTUwN2VsSWwwVndWZTVzWll3SkFhT25GVThEcVU1elcwNjlhZS9pc25odXVN?=
+ =?utf-8?B?b2lDUC9jbjdFZTduYmVCcGJPWkxHTElBaVI5aXBsQmZNbXJxaVIxbFROcVpm?=
+ =?utf-8?B?UzFrZUhwSTEyMjhpZVZhWnhuZGhHZUY1K09Zc0k4eUxhUGJaR2JjZHZOb3d4?=
+ =?utf-8?B?RTV3MnV3RjRnN2Q1Si9oSmZSL0Yxa0dUcUtBbWl5d0FHRG1zZktxcUY3WG9G?=
+ =?utf-8?B?Wi9YaThidzY4OXZvaFA3ajFiUFUxSlNLNUJWakpjQm1BTkNYeXdjTEFyMjNO?=
+ =?utf-8?B?N0Jqa040QkpwcVpNblhDY3hWNDFhSzFUS3htTDQxVkRkZ1BZWWpBL2t5NHN1?=
+ =?utf-8?B?ZHZSZkRKeG1qcG1KVWVIVkdNVUg4dE1IUjNFZTVtQUZMZWhHNnkxemxsUWlv?=
+ =?utf-8?B?WmpCd2lLVjU4Y1NQRnJ5bm1tTGdhakdIN3Q5U1g5Nm1NaklmUTJUaHdFejJH?=
+ =?utf-8?B?bWZsYXp5S3NDYjZjbUZpT092Mk41MWdWMnAwNkRySDZQUzBZQ1QxRUpPKzdH?=
+ =?utf-8?B?djdIcWdvVVI1WUI4Uzc3SFVmK2hseEJsV29xUE5TaXhsQW05SCs1ZVpnZENv?=
+ =?utf-8?B?K3BjWTB1WElnSU5FZXltenRDTkEwN3RYTVFMYU9hT3Q4R2VKUjVKM012V0hV?=
+ =?utf-8?B?YytpYVN2N29UdTk5b0FmWEhKOVV2VDJ3ZitCaDhNZUJmUWo4VlNFTyt1anVa?=
+ =?utf-8?B?MFlCdjFiMEs0U1U5aE95b2Vkcm1rYVJ1cTBQWWRGYmxBZ2twbnpKQ0R2aVph?=
+ =?utf-8?B?SVE0clhja1p2YVJNMUhrakVyV1o5VCs0cFVDdFp0UXBhd0R2SUlNMWUraGJm?=
+ =?utf-8?B?U3piNHA5OWlFUUJLNys3bnBxUmxZZU1zaXk3TE1JRkVMazRKcVFud25MYWhG?=
+ =?utf-8?B?bDdCNVoxZUhzZWg1cUY4NjBrMmN4VnV4L2x3b25kZDFDcHE3U0M1NW41YXFu?=
+ =?utf-8?B?L3RBaUQzemxocmJycnVibUJJWEt4S3krN0lrUlV3ZE0xMHVpUXFxd3FpSFUy?=
+ =?utf-8?B?QngvYU1YYXVMWk1Qd2pGUTA0NW1PVy8vdHZtVC96QVJiQ2JYY0s5Ulo0NnBD?=
+ =?utf-8?B?TTNHVWhKUGFFakpxY1JpK3lBUVUrUmtaY2E1UFJXUFNEV3RiWFE4eFlaNVpE?=
+ =?utf-8?B?VDhQZGRLeUIwaUltYm5qaDQ2Tk1VK25PNEhMM1laQ3RpbjFnWU5rN0I3OFNC?=
+ =?utf-8?B?Vno1NmR2am5JcTdvY3RTK2d4eXAxMWFDcTdEdWNDcTZVdEp5MFV3ZDZHL2dw?=
+ =?utf-8?B?eTU2bjhKeHB0b1ZTYjFKTUs2dnlFU215eENLU3E1YVJRZ1VBZTNzSGMvUmNU?=
+ =?utf-8?B?MEVPQTdLMXZxZGQ4OS9pZkEyK09zcnpXenlCWXIzcEU0eElmckRsT2RiOUk0?=
+ =?utf-8?B?MDNaVndQR2lZUXNvWGFOUnlNb0lPWlFqaTZnVFp6REtJTmJWZlNpUGJzMFNw?=
+ =?utf-8?B?OUxQWUR0c2NPMEtaSG45cW5NdDJtdDV0U0ZVMHlrWmh6Z3IxY0lFQnE1SGl6?=
+ =?utf-8?B?c0xmRXNEZkY2OHRvYnZQTW43clYrZEsyckFqbGZGbTMxcE12dkVMb1Uzekw5?=
+ =?utf-8?B?VWM0YVJvVzdUVXFrMU1FNG1XQUFtRGpyQjI1OW9zNTJ0WkN1bFM5WlFWRFda?=
+ =?utf-8?B?bjhqY29Fa1VabnZMMkJHOVZmSTZpVXpqNnVGWGNDcGwxOFdneUYzMWdncDJy?=
+ =?utf-8?B?NDE0Sm41b2sraHlOMjFITFlJWCtQQXdTalZEUVdjWUljeXlaMnNJSFppUnls?=
+ =?utf-8?B?M0hSV2pmeUxJaC8yUXFmNW12b0xwUVZXYmp2c1RqRVUvcGpIWHp1RStqcXp4?=
+ =?utf-8?B?NjZuUmtjUVVPZU90ejVHTVBiRXk2R1FVa3NVSVJpM2hHL094bSsxNEV1R2JG?=
+ =?utf-8?Q?OnnBE1?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(7416014)(376014)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2025 11:33:14.5986
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b443dbb1-9480-4342-b65b-08ddc84a6191
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF00000011.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8325
 
-This is a multi-part message in MIME format.
---------------Cp6RiKO02KwMqvMTI0nRhlOn
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-
-On 7/15/25 6:10 PM, Alejandro Vallejo wrote:
-> Part of an unpicking process to extract bootfdt contents independent of bootinfo
-> to a separate file for x86 to take.
+On Sat Jul 19, 2025 at 1:45 AM CEST, dmkhn wrote:
+> On Fri, Jul 18, 2025 at 01:04:56PM +0200, Alejandro Vallejo wrote:
+>> Hi,
+>>=20
+>> I like the new encapsulation, but I have a few questions.
+>>=20
+>> On Wed Jul 16, 2025 at 4:04 AM CEST, dmukhin wrote:
+>> > From: Denis Mukhin <dmukhin@ford.com>
+>> >
+>> > Introduce domain_console for grouping data structures used for integra=
+ting
+>> > domain's diagnostic console with Xen's console driver.
+>> >
+>> > Group all pbuf-related data structures under domain_console. Rename th=
+e moved
+>> > fields to plain .buf, .idx and .lock names, since all uses of the fiel=
+ds are
+>> > touched.
+>> >
+>> > Bump the domain console buffer allocation size to 256. No extra symbol=
+ for the
+>> > value since it is used only once during data structure declaration. Al=
+l size
+>> > checks use ARRAY_SIZE().
+>> >
+>> > Allocate domain_console from the heap so that the parent domain struct=
+ size
+>> > stays below PAGE_SIZE boundary to account for more console-related fie=
+lds
+>> > added in the future.
+>> >
+>> > Finally, update the domain_console allocation and initialization code.
+>> >
+>> > No functional change.
+>> >
+>> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+>> > ---
+>> > Changes since v7:
+>> > - use ARRAY_SIZE() for cons->buf checks
+>> > - update the commit message
+>> > ---
+>> >  xen/arch/arm/vpl011.c      |  2 +-
+>> >  xen/arch/x86/hvm/hvm.c     | 18 ++++++++++--------
+>> >  xen/arch/x86/pv/shim.c     |  2 +-
+>> >  xen/common/domain.c        | 19 +++++++++----------
+>> >  xen/drivers/char/console.c | 21 +++++++++++----------
+>> >  xen/include/xen/sched.h    | 22 ++++++++++++----------
+>> >  6 files changed, 44 insertions(+), 40 deletions(-)
+>> >
+>> > diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c
+>> > index 480fc664fc62..d0d17c76b72c 100644
+>> > --- a/xen/arch/arm/vpl011.c
+>> > +++ b/xen/arch/arm/vpl011.c
+>> > @@ -713,7 +713,7 @@ int domain_vpl011_init(struct domain *d, struct vp=
+l011_init_info *info)
+>> >      }
+>> >      else
+>> >      {
+>> > -        d->console.input_allowed =3D true;
+>> > +        d->console->input_allowed =3D true;
+>> >          vpl011->backend_in_domain =3D false;
+>> >
+>> >          vpl011->backend.xen =3D xzalloc(struct vpl011_xen_backend);
+>> > diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+>> > index 56c7de39778b..684d2c0c195c 100644
+>> > --- a/xen/arch/x86/hvm/hvm.c
+>> > +++ b/xen/arch/x86/hvm/hvm.c
+>> > @@ -559,7 +559,8 @@ void hvm_do_resume(struct vcpu *v)
+>> >  static int cf_check hvm_print_line(
+>> >      int dir, unsigned int port, unsigned int bytes, uint32_t *val)
+>> >  {
+>> > -    struct domain *cd =3D current->domain;
+>> > +    const struct domain *d =3D current->domain;
+>> > +    struct domain_console *cons =3D d->console;
+>> >      char c =3D *val;
+>> >
+>> >      ASSERT(bytes =3D=3D 1 && port =3D=3D XEN_HVM_DEBUGCONS_IOPORT);
+>> > @@ -571,16 +572,17 @@ static int cf_check hvm_print_line(
+>> >      if ( !is_console_printable(c) )
+>> >          return X86EMUL_OKAY;
+>> >
+>> > -    spin_lock(&cd->pbuf_lock);
+>> > +    spin_lock(&cons->lock);
+>> > +    ASSERT(cons->idx < ARRAY_SIZE(cons->buf));
+>> >      if ( c !=3D '\n' )
+>> > -        cd->pbuf[cd->pbuf_idx++] =3D c;
+>> > -    if ( (cd->pbuf_idx =3D=3D (DOMAIN_PBUF_SIZE - 1)) || (c =3D=3D '\=
+n') )
+>> > +        cons->buf[cons->idx++] =3D c;
+>> > +    if ( (cons->idx =3D=3D (ARRAY_SIZE(cons->buf) - 1)) || (c =3D=3D =
+'\n') )
+>> >      {
+>> > -        cd->pbuf[cd->pbuf_idx] =3D '\0';
+>> > -        guest_printk(cd, XENLOG_G_DEBUG "%s\n", cd->pbuf);
+>> > -        cd->pbuf_idx =3D 0;
+>> > +        cons->buf[cons->idx] =3D '\0';
+>> > +        guest_printk(d, XENLOG_G_DEBUG "%s\n", cons->buf);
+>> > +        cons->idx =3D 0;
+>> >      }
+>> > -    spin_unlock(&cd->pbuf_lock);
+>> > +    spin_unlock(&cons->lock);
+>> >
+>> >      return X86EMUL_OKAY;
+>> >  }
+>> > diff --git a/xen/arch/x86/pv/shim.c b/xen/arch/x86/pv/shim.c
+>> > index bc2a7dd5fae5..bd29c53a2d34 100644
+>> > --- a/xen/arch/x86/pv/shim.c
+>> > +++ b/xen/arch/x86/pv/shim.c
+>> > @@ -239,7 +239,7 @@ void __init pv_shim_setup_dom(struct domain *d, l4=
+_pgentry_t *l4start,
+>> >       */
+>> >      d->max_pages =3D domain_tot_pages(d);
+>> >
+>> > -    d->console.input_allowed =3D true;
+>> > +    d->console->input_allowed =3D true;
+>> >  }
+>> >
+>> >  static void write_start_info(struct domain *d)
+>> > diff --git a/xen/common/domain.c b/xen/common/domain.c
+>> > index 303c338ef293..caef4cc8d649 100644
+>> > --- a/xen/common/domain.c
+>> > +++ b/xen/common/domain.c
+>> > @@ -669,7 +669,7 @@ static void _domain_destroy(struct domain *d)
+>> >      BUG_ON(!d->is_dying);
+>> >      BUG_ON(atomic_read(&d->refcnt) !=3D DOMAIN_DESTROYED);
+>> >
+>> > -    xfree(d->pbuf);
+>> > +    xvfree(d->console);
+>>=20
+>> XVFREE() to avoid a dangling pointer. But look at the end. I'd just remo=
+ve the
+>> pointer altogether.
+>>=20
+>> >
+>> >      argo_destroy(d);
+>> >
+>> > @@ -835,8 +835,6 @@ struct domain *domain_create(domid_t domid,
+>> >          flags |=3D CDF_hardware;
+>> >          if ( old_hwdom )
+>> >              old_hwdom->cdf &=3D ~CDF_hardware;
+>> > -
+>> > -        d->console.input_allowed =3D true;
+>> >      }
+>> >
+>> >      /* Holding CDF_* internal flags. */
+>> > @@ -866,8 +864,6 @@ struct domain *domain_create(domid_t domid,
+>> >      spin_lock_init(&d->shutdown_lock);
+>> >      d->shutdown_code =3D SHUTDOWN_CODE_INVALID;
+>> >
+>> > -    spin_lock_init(&d->pbuf_lock);
+>> > -
+>> >      rwlock_init(&d->vnuma_rwlock);
+>> >
+>> >  #ifdef CONFIG_HAS_PCI
+>> > @@ -877,6 +873,14 @@ struct domain *domain_create(domid_t domid,
+>> >
+>> >      /* All error paths can depend on the above setup. */
+>> >
+>> > +    err =3D -ENOMEM;
+>> > +    d->console =3D xvzalloc(typeof(*d->console));
+>> > +    if ( !d->console )
+>> > +        goto fail;
+>> > +
+>> > +    spin_lock_init(&d->console->lock);
+>> > +    d->console->input_allowed =3D is_hardware_domain(d);
+>> > +
+>> >      /*
+>> >       * Allocate d->vcpu[] and set ->max_vcpus up early.  Various per-=
+domain
+>> >       * resources want to be sized based on max_vcpus.
+>> > @@ -959,11 +963,6 @@ struct domain *domain_create(domid_t domid,
+>> >      if ( (err =3D argo_init(d)) !=3D 0 )
+>> >          goto fail;
+>> >
+>> > -    err =3D -ENOMEM;
+>> > -    d->pbuf =3D xzalloc_array(char, DOMAIN_PBUF_SIZE);
+>> > -    if ( !d->pbuf )
+>> > -        goto fail;
+>> > -
+>> >      if ( (err =3D sched_init_domain(d, config->cpupool_id)) !=3D 0 )
+>> >          goto fail;
+>> >
+>> > diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+>> > index ba5a809a99fb..b0d50a910e27 100644
+>> > --- a/xen/drivers/char/console.c
+>> > +++ b/xen/drivers/char/console.c
+>> > @@ -521,7 +521,7 @@ struct domain *console_get_domain(void)
+>> >      if ( !d )
+>> >          return NULL;
+>> >
+>> > -    if ( d->console.input_allowed )
+>> > +    if ( d->console->input_allowed )
+>> >          return d;
+>> >
+>> >      rcu_unlock_domain(d);
+>> > @@ -564,7 +564,7 @@ static void console_switch_input(void)
+>> >          {
+>> >              rcu_unlock_domain(d);
+>> >
+>> > -            if ( !d->console.input_allowed )
+>> > +            if ( !d->console->input_allowed )
+>> >                  continue;
+>> >
+>> >              console_rx =3D next_rx;
+>> > @@ -744,6 +744,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_P=
+ARAM(char) buffer,
+>> >          else
+>> >          {
+>> >              char *kin =3D kbuf, *kout =3D kbuf, c;
+>> > +            struct domain_console *cons =3D cd->console;
+>> >
+>> >              /* Strip non-printable characters */
+>> >              do
+>> > @@ -756,22 +757,22 @@ static long guest_console_write(XEN_GUEST_HANDLE=
+_PARAM(char) buffer,
+>> >              } while ( --kcount > 0 );
+>> >
+>> >              *kout =3D '\0';
+>> > -            spin_lock(&cd->pbuf_lock);
+>> > +            spin_lock(&cons->lock);
+>> >              kcount =3D kin - kbuf;
+>> >              if ( c !=3D '\n' &&
+>> > -                 (cd->pbuf_idx + (kout - kbuf) < (DOMAIN_PBUF_SIZE - =
+1)) )
+>> > +                 (cons->idx + (kout - kbuf) < (ARRAY_SIZE(cons->buf) =
+- 1)) )
+>> >              {
+>> >                  /* buffer the output until a newline */
+>> > -                memcpy(cd->pbuf + cd->pbuf_idx, kbuf, kout - kbuf);
+>> > -                cd->pbuf_idx +=3D (kout - kbuf);
+>> > +                memcpy(cons->buf + cons->idx, kbuf, kout - kbuf);
+>> > +                cons->idx +=3D kout - kbuf;
+>> >              }
+>> >              else
+>> >              {
+>> > -                cd->pbuf[cd->pbuf_idx] =3D '\0';
+>> > -                guest_printk(cd, XENLOG_G_DEBUG "%s%s\n", cd->pbuf, k=
+buf);
+>> > -                cd->pbuf_idx =3D 0;
+>> > +                cons->buf[cons->idx] =3D '\0';
+>> > +                guest_printk(cd, XENLOG_G_DEBUG "%s%s\n", cons->buf, =
+kbuf);
+>> > +                cons->idx =3D 0;
+>> >              }
+>> > -            spin_unlock(&cd->pbuf_lock);
+>> > +            spin_unlock(&cons->lock);
+>> >          }
+>> >
+>> >          guest_handle_add_offset(buffer, kcount);
+>> > diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+>> > index fe53d4fab7ba..f7bb44328bbc 100644
+>> > --- a/xen/include/xen/sched.h
+>> > +++ b/xen/include/xen/sched.h
+>> > @@ -371,6 +371,17 @@ struct evtchn_port_ops;
+>> >
+>> >  #define MAX_NR_IOREQ_SERVERS 8
+>> >
+>> > +/* Domain console settings. */
+>> > +struct domain_console {
+>> > +    /* Permission to take ownership of the physical console input. */
+>> > +    bool input_allowed;
+>> > +
+>> > +    /* hvm_print_line() and guest_console_write() logging. */
+>> > +    unsigned int idx;
+>> > +    spinlock_t lock;
+>> > +    char buf[256];
+>>=20
+>> I'd rather see things a bit shuffled. Like:
+>>=20
+>>       /* hvm_print_line() and guest_console_write() logging. */
+>>       spinlock_t lock;
+>>       unsigned int idx;
+>>       char buf[255];
+>>=20
+>>       /* Permission to take ownership of the physical console input. */
+>>       bool input_allowed;
+>>=20
+>> That way the struct is fully packed (note the s/256/255/) and input_allo=
+wed
+>> remains visually away from the other group of fields.
+>> input_allowed remains away from the lock, indicating that input_allowed
+>>=20
+>> Note that the lock is 64bit aligned when CONFIG_DEBUG_LOCK_PROFILE is se=
+t.
+>>=20
+>> Thoughts?
 >
-> Move functions required for early FDT parsing from device_tree.h and arm's
-> setup.h onto bootfdt.h
+> I can do that, no problem!
 >
-> Declaration motion only. Not a functional change.
+>>=20
+>> > +};
+>> > +
+>> >  struct domain
+>> >  {
+>> >      domid_t          domain_id;
+>> > @@ -562,12 +573,6 @@ struct domain
+>> >      /* Control-plane tools handle for this domain. */
+>> >      xen_domain_handle_t handle;
+>> >
+>> > -    /* hvm_print_line() and guest_console_write() logging. */
+>> > -#define DOMAIN_PBUF_SIZE 200
+>> > -    char       *pbuf;
+>> > -    unsigned int pbuf_idx;
+>> > -    spinlock_t  pbuf_lock;
+>> > -
+>> >      /* OProfile support. */
+>> >      struct xenoprof *xenoprof;
+>> >
+>> > @@ -653,10 +658,7 @@ struct domain
+>> >  #endif
+>> >
+>> >      /* Console settings. */
+>> > -    struct {
+>> > -        /* Permission to take ownership of the physical console input=
+. */
+>> > -        bool input_allowed;
+>> > -    } console;
+>> > +    struct domain_console *console;
+>>=20
+>> Why a pointer? domain_console is a fixed-size type, so unless the domain=
+ is
+>> overflowing PAGE_SIZE (which we very definitely don't want either) I'd c=
+onsider
+>> making it a regular member Simplifies memory management too. No alloc/fr=
+ee nor
+>> potential dangling pointers.
 >
-> Signed-off-by: Alejandro Vallejo<alejandro.garciavallejo@amd.com>
-> Reviewed-by: Stefano Stabellini<sstabellini@kernel.org>
-
-LGTM: Reviewed-by: Oleksii Kurochko<oleksii.kurochko@gmail.com> # riscv
-
-~ Oleksii
-
-> ---
-> v7:
->    * v6 was misrebased, and dt_read_number()'s refactor was lost. v7 ensures
->      it's preserved in the code motion
-> ---
->   xen/arch/riscv/cpufeature.c            |   1 +
->   xen/arch/riscv/smpboot.c               |   1 +
->   xen/common/device-tree/bootfdt.c       |  12 ---
->   xen/common/device-tree/device-tree.c   |   1 +
->   xen/common/device-tree/static-evtchn.c |   1 +
->   xen/common/sched/boot-cpupool.c        |   1 +
->   xen/include/xen/bootfdt.h              | 103 +++++++++++++++++++++++++
->   xen/include/xen/device_tree.h          |  78 -------------------
->   8 files changed, 108 insertions(+), 90 deletions(-)
+> domain_console may grow in the future wrt console focus and further vUART
+> management changes, that's why I moved the entire stuct to be heap-alloca=
+ted.
 >
-> diff --git a/xen/arch/riscv/cpufeature.c b/xen/arch/riscv/cpufeature.c
-> index b7d5ec6580..b846a106a3 100644
-> --- a/xen/arch/riscv/cpufeature.c
-> +++ b/xen/arch/riscv/cpufeature.c
-> @@ -8,6 +8,7 @@
->    */
->   
->   #include <xen/bitmap.h>
-> +#include <xen/bootfdt.h>
->   #include <xen/ctype.h>
->   #include <xen/device_tree.h>
->   #include <xen/errno.h>
-> diff --git a/xen/arch/riscv/smpboot.c b/xen/arch/riscv/smpboot.c
-> index 470f6d1311..3b8bf98e20 100644
-> --- a/xen/arch/riscv/smpboot.c
-> +++ b/xen/arch/riscv/smpboot.c
-> @@ -1,3 +1,4 @@
-> +#include <xen/bootfdt.h>
->   #include <xen/cpumask.h>
->   #include <xen/device_tree.h>
->   #include <xen/errno.h>
-> diff --git a/xen/common/device-tree/bootfdt.c b/xen/common/device-tree/bootfdt.c
-> index 08d919aba6..67fe5c3cc3 100644
-> --- a/xen/common/device-tree/bootfdt.c
-> +++ b/xen/common/device-tree/bootfdt.c
-> @@ -215,18 +215,6 @@ u32 __init device_tree_get_u32(const void *fdt, int node,
->       return fdt32_to_cpu(get_unaligned_t(uint32_t, prop->data));
->   }
->   
-> -/**
-> - * device_tree_for_each_node - iterate over all device tree sub-nodes
-> - * @fdt: flat device tree.
-> - * @node: parent node to start the search from
-> - * @func: function to call for each sub-node.
-> - * @data: data to pass to @func.
-> - *
-> - * Any nodes nested at DEVICE_TREE_MAX_DEPTH or deeper are ignored.
-> - *
-> - * Returns 0 if all nodes were iterated over successfully.  If @func
-> - * returns a value different from 0, that value is returned immediately.
-> - */
->   int __init device_tree_for_each_node(const void *fdt, int node,
->                                        device_tree_node_func func,
->                                        void *data)
-> diff --git a/xen/common/device-tree/device-tree.c b/xen/common/device-tree/device-tree.c
-> index 7bede20fa6..4ebdb2e52e 100644
-> --- a/xen/common/device-tree/device-tree.c
-> +++ b/xen/common/device-tree/device-tree.c
-> @@ -8,6 +8,7 @@
->    */
->   
->   #include <xen/bitops.h>
-> +#include <xen/bootfdt.h>
->   #include <xen/types.h>
->   #include <xen/init.h>
->   #include <xen/guest_access.h>
-> diff --git a/xen/common/device-tree/static-evtchn.c b/xen/common/device-tree/static-evtchn.c
-> index 8b82e6b3d8..88342b44a1 100644
-> --- a/xen/common/device-tree/static-evtchn.c
-> +++ b/xen/common/device-tree/static-evtchn.c
-> @@ -1,5 +1,6 @@
->   /* SPDX-License-Identifier: GPL-2.0-only */
->   
-> +#include <xen/bootfdt.h>
->   #include <xen/event.h>
->   #include <xen/static-evtchn.h>
->   
-> diff --git a/xen/common/sched/boot-cpupool.c b/xen/common/sched/boot-cpupool.c
-> index 641f3495cb..03be73efdd 100644
-> --- a/xen/common/sched/boot-cpupool.c
-> +++ b/xen/common/sched/boot-cpupool.c
-> @@ -7,6 +7,7 @@
->    * Copyright (C) 2022 Arm Ltd.
->    */
->   
-> +#include <xen/bootfdt.h>
->   #include <xen/acpi.h>
->   #include <xen/sched.h>
->   
-> diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
-> index ac2a79b59b..a5dfaa5c1d 100644
-> --- a/xen/include/xen/bootfdt.h
-> +++ b/xen/include/xen/bootfdt.h
-> @@ -2,8 +2,11 @@
->   #ifndef XEN_BOOTFDT_H
->   #define XEN_BOOTFDT_H
->   
-> +#include <xen/byteorder.h>
-> +#include <xen/bug.h>
->   #include <xen/types.h>
->   #include <xen/kernel.h>
-> +#include <xen/lib.h>
->   #include <xen/macros.h>
->   #include <xen/xmalloc.h>
->   
-> @@ -16,8 +19,92 @@
->   #define NR_MEM_BANKS 256
->   #define NR_SHMEM_BANKS 32
->   
-> +/* Default #address and #size cells */
-> +#define DT_ROOT_NODE_ADDR_CELLS_DEFAULT 2
-> +#define DT_ROOT_NODE_SIZE_CELLS_DEFAULT 1
-> +
->   #define MAX_MODULES 32 /* Current maximum useful modules */
->   
-> +#define DEVICE_TREE_MAX_DEPTH 16
-> +
-> +/* Helper to read a big number; size is in cells (not bytes) */
-> +static inline u64 dt_read_number(const __be32 *cell, int size)
-> +{
-> +    u64 r = be32_to_cpu(*cell);
-> +
-> +    switch ( size )
-> +    {
-> +    case 1:
-> +        break;
-> +    case 2:
-> +        r = (r << 32) | be32_to_cpu(cell[1]);
-> +        break;
-> +    default:
-> +        /* Nonsensical size. default to 1 */
-> +        printk(XENLOG_ERR "dt_read_number(,%d) bad size\n", size);
-> +        ASSERT_UNREACHABLE();
-> +        break;
-> +    };
-> +
-> +    return r;
-> +}
-> +
-> +/* Wrapper for dt_read_number() to return paddr_t (instead of uint64_t) */
-> +static inline paddr_t dt_read_paddr(const __be32 *cell, int size)
-> +{
-> +    uint64_t dt_r;
-> +    paddr_t r;
-> +
-> +    /*
-> +     * dt_read_number will return uint64_t whereas paddr_t may not be 64-bit.
-> +     * Thus, there is an implicit cast from uint64_t to paddr_t.
-> +     */
-> +    dt_r = dt_read_number(cell, size);
-> +
-> +    if ( dt_r != (paddr_t)dt_r )
-> +    {
-> +        printk("Physical address greater than max width supported\n");
-> +        WARN();
-> +    }
-> +
-> +    /*
-> +     * Xen will truncate the address/size if it is greater than the maximum
-> +     * supported width and it will give an appropriate warning.
-> +     */
-> +    r = dt_r;
-> +
-> +    return r;
-> +}
-> +
-> +static inline u64 dt_next_cell(int s, const __be32 **cellp)
-> +{
-> +    const __be32 *p = *cellp;
-> +
-> +    *cellp = p + s;
-> +    return dt_read_number(p, s);
-> +}
-> +
-> +typedef int (*device_tree_node_func)(const void *fdt,
-> +                                     int node, const char *name, int depth,
-> +                                     u32 address_cells, u32 size_cells,
-> +                                     void *data);
-> +
-> +/**
-> + * device_tree_for_each_node - iterate over all device tree sub-nodes
-> + * @fdt: flat device tree.
-> + * @node: parent node to start the search from
-> + * @func: function to call for each sub-node.
-> + * @data: data to pass to @func.
-> + *
-> + * Any nodes nested at DEVICE_TREE_MAX_DEPTH or deeper are ignored.
-> + *
-> + * Returns 0 if all nodes were iterated over successfully.  If @func
-> + * returns a value different from 0, that value is returned immediately.
-> + */
-> +int device_tree_for_each_node(const void *fdt, int node,
-> +                              device_tree_node_func func,
-> +                              void *data);
-> +
->   typedef enum {
->       BOOTMOD_XEN,
->       BOOTMOD_FDT,
-> @@ -261,4 +348,20 @@ static inline struct membanks *membanks_xzalloc(unsigned int nr,
->       return banks;
->   }
->   
-> +/*
-> + * Interpret the property `prop_name` of `node` as a u32.
-> + *
-> + * Returns the property value on success; otherwise returns `dflt`.
-> + */
-> +u32 device_tree_get_u32(const void *fdt, int node,
-> +                        const char *prop_name, u32 dflt);
-> +
-> +/*
-> + * Interpret the property `prop_name` of `node` as a "reg".
-> + *
-> + * Returns outputs in `start` and `size`.
-> + */
-> +void device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
-> +                         uint32_t size_cells, paddr_t *start, paddr_t *size);
-> +
->   #endif /* XEN_BOOTFDT_H */
-> diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-> index a7cc092d05..8a39a60c54 100644
-> --- a/xen/include/xen/device_tree.h
-> +++ b/xen/include/xen/device_tree.h
-> @@ -22,8 +22,6 @@
->   #include <xen/list.h>
->   #include <xen/rwlock.h>
->   
-> -#define DEVICE_TREE_MAX_DEPTH 16
-> -
->   /*
->    * Struct used for matching a device
->    */
-> @@ -164,17 +162,8 @@ struct dt_raw_irq {
->       u32 specifier[DT_MAX_IRQ_SPEC];
->   };
->   
-> -typedef int (*device_tree_node_func)(const void *fdt,
-> -                                     int node, const char *name, int depth,
-> -                                     u32 address_cells, u32 size_cells,
-> -                                     void *data);
-> -
->   extern const void *device_tree_flattened;
->   
-> -int device_tree_for_each_node(const void *fdt, int node,
-> -                              device_tree_node_func func,
-> -                              void *data);
-> -
->   /**
->    * dt_unflatten_host_device_tree - Unflatten the host device tree
->    *
-> @@ -245,10 +234,6 @@ void intc_dt_preinit(void);
->   #define dt_node_cmp(s1, s2) strcasecmp((s1), (s2))
->   #define dt_compat_cmp(s1, s2) strcasecmp((s1), (s2))
->   
-> -/* Default #address and #size cells */
-> -#define DT_ROOT_NODE_ADDR_CELLS_DEFAULT 2
-> -#define DT_ROOT_NODE_SIZE_CELLS_DEFAULT 1
-> -
->   #define dt_for_each_property_node(dn, pp)                   \
->       for ( pp = (dn)->properties; (pp) != NULL; pp = (pp)->next )
->   
-> @@ -258,55 +243,6 @@ void intc_dt_preinit(void);
->   #define dt_for_each_child_node(dt, dn)                      \
->       for ( dn = (dt)->child; (dn) != NULL; dn = (dn)->sibling )
->   
-> -/* Helper to read a big number; size is in cells (not bytes) */
-> -static inline u64 dt_read_number(const __be32 *cell, int size)
-> -{
-> -    u64 r = be32_to_cpu(*cell);
-> -
-> -    switch ( size )
-> -    {
-> -    case 1:
-> -        break;
-> -    case 2:
-> -        r = (r << 32) | be32_to_cpu(cell[1]);
-> -        break;
-> -    default:
-> -        /* Nonsensical size. default to 1 */
-> -        printk(XENLOG_ERR "dt_read_number(,%d) bad size\n", size);
-> -        ASSERT_UNREACHABLE();
-> -        break;
-> -    };
-> -
-> -    return r;
-> -}
-> -
-> -/* Wrapper for dt_read_number() to return paddr_t (instead of uint64_t) */
-> -static inline paddr_t dt_read_paddr(const __be32 *cell, int size)
-> -{
-> -    uint64_t dt_r;
-> -    paddr_t r;
-> -
-> -    /*
-> -     * dt_read_number will return uint64_t whereas paddr_t may not be 64-bit.
-> -     * Thus, there is an implicit cast from uint64_t to paddr_t.
-> -     */
-> -    dt_r = dt_read_number(cell, size);
-> -
-> -    if ( dt_r != (paddr_t)dt_r )
-> -    {
-> -        printk("Physical address greater than max width supported\n");
-> -        WARN();
-> -    }
-> -
-> -    /*
-> -     * Xen will truncate the address/size if it is greater than the maximum
-> -     * supported width and it will give an appropriate warning.
-> -     */
-> -    r = dt_r;
-> -
-> -    return r;
-> -}
-> -
->   /* Helper to convert a number of cells to bytes */
->   static inline int dt_cells_to_size(int size)
->   {
-> @@ -319,14 +255,6 @@ static inline int dt_size_to_cells(int bytes)
->       return (bytes / sizeof(u32));
->   }
->   
-> -static inline u64 dt_next_cell(int s, const __be32 **cellp)
-> -{
-> -    const __be32 *p = *cellp;
-> -
-> -    *cellp = p + s;
-> -    return dt_read_number(p, s);
-> -}
-> -
->   static inline const char *dt_node_full_name(const struct dt_device_node *np)
->   {
->       return (np && np->full_name) ? np->full_name : "<no-node>";
-> @@ -984,12 +912,6 @@ int dt_map_id(const struct dt_device_node *np, uint32_t id,
->   
->   struct dt_device_node *dt_find_node_by_phandle(dt_phandle handle);
->   
-> -void device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
-> -                         uint32_t size_cells, paddr_t *start, paddr_t *size);
-> -
-> -u32 device_tree_get_u32(const void *fdt, int node,
-> -                        const char *prop_name, u32 dflt);
-> -
->   #ifdef CONFIG_DEVICE_TREE_DEBUG
->   #define dt_dprintk(fmt, args...)  \
->       printk(XENLOG_DEBUG fmt, ## args)
---------------Cp6RiKO02KwMqvMTI0nRhlOn
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+> Let me redo that.
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 7/15/25 6:10 PM, Alejandro Vallejo
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:20250715161108.141126-5-alejandro.garciavallejo@amd.com">
-      <pre wrap="" class="moz-quote-pre">Part of an unpicking process to extract bootfdt contents independent of bootinfo
-to a separate file for x86 to take.
+Actually, don't. Thinking some more about it, this is confidential data we'=
+ll
+want out for ASI, so it's easier to spot if it's still a x*alloc'ed.
 
-Move functions required for early FDT parsing from device_tree.h and arm's
-setup.h onto bootfdt.h
+nvm about it. Sorry for the headache!
 
-Declaration motion only. Not a functional change.
-
-Signed-off-by: Alejandro Vallejo <a class="moz-txt-link-rfc2396E" href="mailto:alejandro.garciavallejo@amd.com">&lt;alejandro.garciavallejo@amd.com&gt;</a>
-Reviewed-by: Stefano Stabellini <a class="moz-txt-link-rfc2396E" href="mailto:sstabellini@kernel.org">&lt;sstabellini@kernel.org&gt;</a></pre>
-    </blockquote>
-    <pre>LGTM: Reviewed-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a> # riscv
-
-~ Oleksii
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:20250715161108.141126-5-alejandro.garciavallejo@amd.com">
-      <pre wrap="" class="moz-quote-pre">
----
-v7:
-  * v6 was misrebased, and dt_read_number()'s refactor was lost. v7 ensures
-    it's preserved in the code motion
----
- xen/arch/riscv/cpufeature.c            |   1 +
- xen/arch/riscv/smpboot.c               |   1 +
- xen/common/device-tree/bootfdt.c       |  12 ---
- xen/common/device-tree/device-tree.c   |   1 +
- xen/common/device-tree/static-evtchn.c |   1 +
- xen/common/sched/boot-cpupool.c        |   1 +
- xen/include/xen/bootfdt.h              | 103 +++++++++++++++++++++++++
- xen/include/xen/device_tree.h          |  78 -------------------
- 8 files changed, 108 insertions(+), 90 deletions(-)
-
-diff --git a/xen/arch/riscv/cpufeature.c b/xen/arch/riscv/cpufeature.c
-index b7d5ec6580..b846a106a3 100644
---- a/xen/arch/riscv/cpufeature.c
-+++ b/xen/arch/riscv/cpufeature.c
-@@ -8,6 +8,7 @@
-  */
- 
- #include &lt;xen/bitmap.h&gt;
-+#include &lt;xen/bootfdt.h&gt;
- #include &lt;xen/ctype.h&gt;
- #include &lt;xen/device_tree.h&gt;
- #include &lt;xen/errno.h&gt;
-diff --git a/xen/arch/riscv/smpboot.c b/xen/arch/riscv/smpboot.c
-index 470f6d1311..3b8bf98e20 100644
---- a/xen/arch/riscv/smpboot.c
-+++ b/xen/arch/riscv/smpboot.c
-@@ -1,3 +1,4 @@
-+#include &lt;xen/bootfdt.h&gt;
- #include &lt;xen/cpumask.h&gt;
- #include &lt;xen/device_tree.h&gt;
- #include &lt;xen/errno.h&gt;
-diff --git a/xen/common/device-tree/bootfdt.c b/xen/common/device-tree/bootfdt.c
-index 08d919aba6..67fe5c3cc3 100644
---- a/xen/common/device-tree/bootfdt.c
-+++ b/xen/common/device-tree/bootfdt.c
-@@ -215,18 +215,6 @@ u32 __init device_tree_get_u32(const void *fdt, int node,
-     return fdt32_to_cpu(get_unaligned_t(uint32_t, prop-&gt;data));
- }
- 
--/**
-- * device_tree_for_each_node - iterate over all device tree sub-nodes
-- * @fdt: flat device tree.
-- * @node: parent node to start the search from
-- * @func: function to call for each sub-node.
-- * @data: data to pass to @func.
-- *
-- * Any nodes nested at DEVICE_TREE_MAX_DEPTH or deeper are ignored.
-- *
-- * Returns 0 if all nodes were iterated over successfully.  If @func
-- * returns a value different from 0, that value is returned immediately.
-- */
- int __init device_tree_for_each_node(const void *fdt, int node,
-                                      device_tree_node_func func,
-                                      void *data)
-diff --git a/xen/common/device-tree/device-tree.c b/xen/common/device-tree/device-tree.c
-index 7bede20fa6..4ebdb2e52e 100644
---- a/xen/common/device-tree/device-tree.c
-+++ b/xen/common/device-tree/device-tree.c
-@@ -8,6 +8,7 @@
-  */
- 
- #include &lt;xen/bitops.h&gt;
-+#include &lt;xen/bootfdt.h&gt;
- #include &lt;xen/types.h&gt;
- #include &lt;xen/init.h&gt;
- #include &lt;xen/guest_access.h&gt;
-diff --git a/xen/common/device-tree/static-evtchn.c b/xen/common/device-tree/static-evtchn.c
-index 8b82e6b3d8..88342b44a1 100644
---- a/xen/common/device-tree/static-evtchn.c
-+++ b/xen/common/device-tree/static-evtchn.c
-@@ -1,5 +1,6 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
- 
-+#include &lt;xen/bootfdt.h&gt;
- #include &lt;xen/event.h&gt;
- #include &lt;xen/static-evtchn.h&gt;
- 
-diff --git a/xen/common/sched/boot-cpupool.c b/xen/common/sched/boot-cpupool.c
-index 641f3495cb..03be73efdd 100644
---- a/xen/common/sched/boot-cpupool.c
-+++ b/xen/common/sched/boot-cpupool.c
-@@ -7,6 +7,7 @@
-  * Copyright (C) 2022 Arm Ltd.
-  */
- 
-+#include &lt;xen/bootfdt.h&gt;
- #include &lt;xen/acpi.h&gt;
- #include &lt;xen/sched.h&gt;
- 
-diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
-index ac2a79b59b..a5dfaa5c1d 100644
---- a/xen/include/xen/bootfdt.h
-+++ b/xen/include/xen/bootfdt.h
-@@ -2,8 +2,11 @@
- #ifndef XEN_BOOTFDT_H
- #define XEN_BOOTFDT_H
- 
-+#include &lt;xen/byteorder.h&gt;
-+#include &lt;xen/bug.h&gt;
- #include &lt;xen/types.h&gt;
- #include &lt;xen/kernel.h&gt;
-+#include &lt;xen/lib.h&gt;
- #include &lt;xen/macros.h&gt;
- #include &lt;xen/xmalloc.h&gt;
- 
-@@ -16,8 +19,92 @@
- #define NR_MEM_BANKS 256
- #define NR_SHMEM_BANKS 32
- 
-+/* Default #address and #size cells */
-+#define DT_ROOT_NODE_ADDR_CELLS_DEFAULT 2
-+#define DT_ROOT_NODE_SIZE_CELLS_DEFAULT 1
-+
- #define MAX_MODULES 32 /* Current maximum useful modules */
- 
-+#define DEVICE_TREE_MAX_DEPTH 16
-+
-+/* Helper to read a big number; size is in cells (not bytes) */
-+static inline u64 dt_read_number(const __be32 *cell, int size)
-+{
-+    u64 r = be32_to_cpu(*cell);
-+
-+    switch ( size )
-+    {
-+    case 1:
-+        break;
-+    case 2:
-+        r = (r &lt;&lt; 32) | be32_to_cpu(cell[1]);
-+        break;
-+    default:
-+        /* Nonsensical size. default to 1 */
-+        printk(XENLOG_ERR "dt_read_number(,%d) bad size\n", size);
-+        ASSERT_UNREACHABLE();
-+        break;
-+    };
-+
-+    return r;
-+}
-+
-+/* Wrapper for dt_read_number() to return paddr_t (instead of uint64_t) */
-+static inline paddr_t dt_read_paddr(const __be32 *cell, int size)
-+{
-+    uint64_t dt_r;
-+    paddr_t r;
-+
-+    /*
-+     * dt_read_number will return uint64_t whereas paddr_t may not be 64-bit.
-+     * Thus, there is an implicit cast from uint64_t to paddr_t.
-+     */
-+    dt_r = dt_read_number(cell, size);
-+
-+    if ( dt_r != (paddr_t)dt_r )
-+    {
-+        printk("Physical address greater than max width supported\n");
-+        WARN();
-+    }
-+
-+    /*
-+     * Xen will truncate the address/size if it is greater than the maximum
-+     * supported width and it will give an appropriate warning.
-+     */
-+    r = dt_r;
-+
-+    return r;
-+}
-+
-+static inline u64 dt_next_cell(int s, const __be32 **cellp)
-+{
-+    const __be32 *p = *cellp;
-+
-+    *cellp = p + s;
-+    return dt_read_number(p, s);
-+}
-+
-+typedef int (*device_tree_node_func)(const void *fdt,
-+                                     int node, const char *name, int depth,
-+                                     u32 address_cells, u32 size_cells,
-+                                     void *data);
-+
-+/**
-+ * device_tree_for_each_node - iterate over all device tree sub-nodes
-+ * @fdt: flat device tree.
-+ * @node: parent node to start the search from
-+ * @func: function to call for each sub-node.
-+ * @data: data to pass to @func.
-+ *
-+ * Any nodes nested at DEVICE_TREE_MAX_DEPTH or deeper are ignored.
-+ *
-+ * Returns 0 if all nodes were iterated over successfully.  If @func
-+ * returns a value different from 0, that value is returned immediately.
-+ */
-+int device_tree_for_each_node(const void *fdt, int node,
-+                              device_tree_node_func func,
-+                              void *data);
-+
- typedef enum {
-     BOOTMOD_XEN,
-     BOOTMOD_FDT,
-@@ -261,4 +348,20 @@ static inline struct membanks *membanks_xzalloc(unsigned int nr,
-     return banks;
- }
- 
-+/*
-+ * Interpret the property `prop_name` of `node` as a u32.
-+ *
-+ * Returns the property value on success; otherwise returns `dflt`.
-+ */
-+u32 device_tree_get_u32(const void *fdt, int node,
-+                        const char *prop_name, u32 dflt);
-+
-+/*
-+ * Interpret the property `prop_name` of `node` as a "reg".
-+ *
-+ * Returns outputs in `start` and `size`.
-+ */
-+void device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
-+                         uint32_t size_cells, paddr_t *start, paddr_t *size);
-+
- #endif /* XEN_BOOTFDT_H */
-diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-index a7cc092d05..8a39a60c54 100644
---- a/xen/include/xen/device_tree.h
-+++ b/xen/include/xen/device_tree.h
-@@ -22,8 +22,6 @@
- #include &lt;xen/list.h&gt;
- #include &lt;xen/rwlock.h&gt;
- 
--#define DEVICE_TREE_MAX_DEPTH 16
--
- /*
-  * Struct used for matching a device
-  */
-@@ -164,17 +162,8 @@ struct dt_raw_irq {
-     u32 specifier[DT_MAX_IRQ_SPEC];
- };
- 
--typedef int (*device_tree_node_func)(const void *fdt,
--                                     int node, const char *name, int depth,
--                                     u32 address_cells, u32 size_cells,
--                                     void *data);
--
- extern const void *device_tree_flattened;
- 
--int device_tree_for_each_node(const void *fdt, int node,
--                              device_tree_node_func func,
--                              void *data);
--
- /**
-  * dt_unflatten_host_device_tree - Unflatten the host device tree
-  *
-@@ -245,10 +234,6 @@ void intc_dt_preinit(void);
- #define dt_node_cmp(s1, s2) strcasecmp((s1), (s2))
- #define dt_compat_cmp(s1, s2) strcasecmp((s1), (s2))
- 
--/* Default #address and #size cells */
--#define DT_ROOT_NODE_ADDR_CELLS_DEFAULT 2
--#define DT_ROOT_NODE_SIZE_CELLS_DEFAULT 1
--
- #define dt_for_each_property_node(dn, pp)                   \
-     for ( pp = (dn)-&gt;properties; (pp) != NULL; pp = (pp)-&gt;next )
- 
-@@ -258,55 +243,6 @@ void intc_dt_preinit(void);
- #define dt_for_each_child_node(dt, dn)                      \
-     for ( dn = (dt)-&gt;child; (dn) != NULL; dn = (dn)-&gt;sibling )
- 
--/* Helper to read a big number; size is in cells (not bytes) */
--static inline u64 dt_read_number(const __be32 *cell, int size)
--{
--    u64 r = be32_to_cpu(*cell);
--
--    switch ( size )
--    {
--    case 1:
--        break;
--    case 2:
--        r = (r &lt;&lt; 32) | be32_to_cpu(cell[1]);
--        break;
--    default:
--        /* Nonsensical size. default to 1 */
--        printk(XENLOG_ERR "dt_read_number(,%d) bad size\n", size);
--        ASSERT_UNREACHABLE();
--        break;
--    };
--
--    return r;
--}
--
--/* Wrapper for dt_read_number() to return paddr_t (instead of uint64_t) */
--static inline paddr_t dt_read_paddr(const __be32 *cell, int size)
--{
--    uint64_t dt_r;
--    paddr_t r;
--
--    /*
--     * dt_read_number will return uint64_t whereas paddr_t may not be 64-bit.
--     * Thus, there is an implicit cast from uint64_t to paddr_t.
--     */
--    dt_r = dt_read_number(cell, size);
--
--    if ( dt_r != (paddr_t)dt_r )
--    {
--        printk("Physical address greater than max width supported\n");
--        WARN();
--    }
--
--    /*
--     * Xen will truncate the address/size if it is greater than the maximum
--     * supported width and it will give an appropriate warning.
--     */
--    r = dt_r;
--
--    return r;
--}
--
- /* Helper to convert a number of cells to bytes */
- static inline int dt_cells_to_size(int size)
- {
-@@ -319,14 +255,6 @@ static inline int dt_size_to_cells(int bytes)
-     return (bytes / sizeof(u32));
- }
- 
--static inline u64 dt_next_cell(int s, const __be32 **cellp)
--{
--    const __be32 *p = *cellp;
--
--    *cellp = p + s;
--    return dt_read_number(p, s);
--}
--
- static inline const char *dt_node_full_name(const struct dt_device_node *np)
- {
-     return (np &amp;&amp; np-&gt;full_name) ? np-&gt;full_name : "&lt;no-node&gt;";
-@@ -984,12 +912,6 @@ int dt_map_id(const struct dt_device_node *np, uint32_t id,
- 
- struct dt_device_node *dt_find_node_by_phandle(dt_phandle handle);
- 
--void device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
--                         uint32_t size_cells, paddr_t *start, paddr_t *size);
--
--u32 device_tree_get_u32(const void *fdt, int node,
--                        const char *prop_name, u32 dflt);
--
- #ifdef CONFIG_DEVICE_TREE_DEBUG
- #define dt_dprintk(fmt, args...)  \
-     printk(XENLOG_DEBUG fmt, ## args)
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------Cp6RiKO02KwMqvMTI0nRhlOn--
+Cheers,
+Alejandro
 
