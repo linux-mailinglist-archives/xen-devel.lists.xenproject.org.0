@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA541B0C854
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 17:59:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1051621.1419985 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 251B9B0C868
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 18:05:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1051632.1419995 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udsue-0006OF-Vk; Mon, 21 Jul 2025 15:58:48 +0000
+	id 1udt0T-0000Hz-N0; Mon, 21 Jul 2025 16:04:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1051621.1419985; Mon, 21 Jul 2025 15:58:48 +0000
+Received: by outflank-mailman (output) from mailman id 1051632.1419995; Mon, 21 Jul 2025 16:04:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udsue-0006MA-Su; Mon, 21 Jul 2025 15:58:48 +0000
-Received: by outflank-mailman (input) for mailman id 1051621;
- Mon, 21 Jul 2025 15:58:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=R5lD=2C=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1udsud-0006M4-RE
- for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 15:58:47 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9566141b-664b-11f0-a31d-13f23c93f187;
- Mon, 21 Jul 2025 17:58:46 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3a54690d369so3751623f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 21 Jul 2025 08:58:46 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31c9f1e61f3sm10064316a91.15.2025.07.21.08.58.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Jul 2025 08:58:45 -0700 (PDT)
+	id 1udt0T-0000Fm-K1; Mon, 21 Jul 2025 16:04:49 +0000
+Received: by outflank-mailman (input) for mailman id 1051632;
+ Mon, 21 Jul 2025 16:04:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YQHN=2C=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1udt0S-0000Fg-Be
+ for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 16:04:48 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6a4e4771-664c-11f0-b894-0df219b8e170;
+ Mon, 21 Jul 2025 18:04:43 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3a531fcaa05so2037585f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Jul 2025 09:04:43 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-3b61ca2c013sm10834880f8f.33.2025.07.21.09.04.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 21 Jul 2025 09:04:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,126 +45,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9566141b-664b-11f0-a31d-13f23c93f187
+X-Inumbo-ID: 6a4e4771-664c-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753113526; x=1753718326; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dwE9rYH9lzYL40seukKguSu3vCglmq8xBOwwoCVW6Ps=;
-        b=NMoYyEFkNwqBDliM+3EptqecT4yDynuvPNX9dIwkMnh+oEe/vxrF3gNyMwU5oDq3yD
-         8kYMa5+Go1EPAqOdgxFI+UHQpfrM0IbmwUWAJdwg3idtJfwAqODwZMxbBKwwDrRRP7KO
-         5feQLPQ2LE7jbz7+PyAOkiN8OtB9JjMD6R3icT9Swnui5xXtxmjf9dZqaTS6vh6v+mFa
-         Vn4ynWqfG4cLVoxsprplXGkPGjUVAiX2ukbAMcKejGg9I7c3B0xf0Bad0fg4ZNbTbLhg
-         RNwml1Uhsjy2qrP7nRcj3POtzJC1iR4L6v9C4SY1ENqMHEKgROh1Wlxx3CRHCmLivcGb
-         3N5Q==
+        d=citrix.com; s=google; t=1753113883; x=1753718683; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=qOhohSuO819EjP2ihaLcJ15Wy8/rmlvKpaHIeiGa9PU=;
+        b=fzjOkdQt7lruP3K642TyW8dz5xt/L+402ph34TilFOM3VAtE7O2jvVfBXMXpBabzLl
+         ZyYjxznZOGsgtNIVJHfeNlu32GCfCY8QLCV6AvnpTGn+jDV/XxB4I0WdshFYdlq9WJ0O
+         WD1ipIXf+py4HJgEeO0EP/D+AdGDVVo1e7CBI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753113526; x=1753718326;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dwE9rYH9lzYL40seukKguSu3vCglmq8xBOwwoCVW6Ps=;
-        b=ByQfZH/f4a3rHi7s2t2OGg9/ikaCjLiDoZJBjYxIOoNlAjMhrn8QaUA3QM6NdpOejr
-         tZkAtf9G3iuaclWbV5+UiBhGVoCXmZDX7IIa0FPhK3yyVNPLLMHjC8qQeOEPpXcMyweW
-         w9wvP9qIvV8YKFQhGiYrwBLL6yzL3ST8o3FqAyvPjsMBm8LgHKHey4zCxNbC10mOVRE6
-         gBruEIsN7eC0Q24hvBc/WG+DSoKrPul5kMw9GQBghisCokTQBm12i/4WKLOJc4ZuqUDp
-         02jCutLmVnt4zmMnfDGtSFJKH6vUjkOdvQ9nXVLMN6EhFZH5g4dA4knCo/X6lbvA8UuO
-         sVkg==
-X-Gm-Message-State: AOJu0YyZ9YQ9o5X1dj/ZD5ligdaC/ExgpKOadSHJAm3szmcJTFNexSeH
-	MBl5tqO2whXTJCG3izf8zTbXYnb73dSK9dI8wFJRvbKrq6vh+PiXiDuZJ96gTJhg5A==
-X-Gm-Gg: ASbGnctrG/OWpzq31CFG3kBW7/m0ut12w7Vk31bElO08CPVMV9ckT6pw558UhkZB+AL
-	JtW5lXbT9rBQviHuclVzS/YeHVKErzdjhb2IyAidxzUZ4iWbAXi8plXwpd3EwVwhV2dMinEvn+V
-	pfU3lJgZKQvK+DddRvYGTi5OSMd7LZ/mNtE9RLPEdfgmwdndPTybTzg7TullKeUizx8EscB4RwJ
-	fLVhpVEj9n7Z1APe59Vz3t6C+/lsjOp9nMR/1g2fpmddhYaGbr+vn8jt0N1ErKxs2selCq7JYHH
-	PZwXxhpc9PW2qMWLWHF7c4eBDvwfD00dDkyHXQfxYGqGm6NqQqkkegsLoHm8caZb/hbFpU6g/ay
-	6GwDF4zFcm4SVeFHhTno34M4EFWSAH8jv4SwdUNYteMPGhROFj7KjJFgfu9m2kIeANGSD+9dp1A
-	r9406nJT4=
-X-Google-Smtp-Source: AGHT+IGWcg3AnkU5rnzOkEsG10ePOk3+tzC+DsD9CBS2fknC9LcHALu6xGpGRiIAyEP46TS3kjMsYg==
-X-Received: by 2002:a05:6000:706:b0:3a6:e2d5:f14c with SMTP id ffacd0b85a97d-3b60e4f2bffmr13831615f8f.30.1753113525819;
-        Mon, 21 Jul 2025 08:58:45 -0700 (PDT)
-Message-ID: <d7194bc5-d39e-492a-98d2-9703b20a8aae@suse.com>
-Date: Mon, 21 Jul 2025 17:58:36 +0200
+        d=1e100.net; s=20230601; t=1753113883; x=1753718683;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=qOhohSuO819EjP2ihaLcJ15Wy8/rmlvKpaHIeiGa9PU=;
+        b=DTZMOE8/WEDExQgHGiXamipyUyzAsJ8ZezkYYUn/Pu9FfetHARYm0DScccSTjZ6WNU
+         Gi11pcoQJ05yWW2ebhGinCcIyUvXYVCBOxCCU8ADgFpykCgm+iKfJd6/6uqWRWdNAVsD
+         YXjQpMm1yy4ykHIqNcQu+KjtJo5kpOw3AnRUkQs1qFywDO3LuMxyzwc3rDgywlNhIxsw
+         Z44X3cGum2TBoGCHQQpz0WWftTZGt92TfVSCw1RjoRJPULfcDvNEZfrrDk9ekO2J7hIG
+         1dMyU8dJ4Pq6o8Qlvik9040x6Knu0dR6BD/vKhCh5T2q9epLNxanOGes5lWz23jneRhf
+         Uc9w==
+X-Gm-Message-State: AOJu0Yw5pTb0Szs+/cr4/yHEwPGFfy3UVAh8iWk4myNV58FodZtxhTKL
+	29TD/gxktXqRIhr2y4A040K+95FoWxBVfDYkqx8zFLlmz77adID9k+wgXjFR0njxpo4=
+X-Gm-Gg: ASbGncvHprtuPwuxMkXUsVJyaNmbGHlSjvuICV9K4wIP/DjsZM1T6yunOt27RFi3c/c
+	oZxlecjqHI2mTjKZpS3c4e5aLW5Kbyy390iGEhp6MMY8ouLWKY8434SkqCTNq0PVUO/6A0crK48
+	BqiK+705O8Qr+uwQZx06WgibkZoLslBzHSz5GA83BfS4lBD/uoLKtanWD0XSSNCIdxw5tSoc4i8
+	ytdcDh0TPyHQvupH99chSLBNkkG9FlWenZ+SAQ3WtnLChP+BhQRiCjkV8sresTYKcuDMDq0T3to
+	UjV5XFGxAxp3CygQlX7MaTvxpx7bdDqC0SA24e5s0UlviiNAyukZXZ1ACs5JvOTRwZBeccCfbD9
+	d8tsl6G1JKd5zGYa9UP3YBqo6eiF9EsXBIkwZZylxiizxMTw5VtrwgeNq8htgtqM6PA==
+X-Google-Smtp-Source: AGHT+IGwB7LdUuSwwdtYqb3bKD/LFFj2E8Qqtp8ffTzTFZyX/KIaw0rX+cL0XrjH3XdMR1QzqrCStA==
+X-Received: by 2002:a05:6000:40ca:b0:3a8:6262:e78 with SMTP id ffacd0b85a97d-3b60e513909mr14735444f8f.37.1753113882849;
+        Mon, 21 Jul 2025 09:04:42 -0700 (PDT)
+Date: Mon, 21 Jul 2025 18:04:41 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: xen-devel@lists.xenproject.org, Huang Rui <ray.huang@amd.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v7 4/8] vpci: Hide extended capability when it fails to
+ initialize
+Message-ID: <aH5lGXW19o4iD0sj@macbook.local>
+References: <20250704070803.314366-1-Jiqian.Chen@amd.com>
+ <20250704070803.314366-5-Jiqian.Chen@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/livepatch: fixup relocations to replaced symbols
-To: Ross Lagerwall <ross.lagerwall@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Roger Pau Monne <roger.pau@citrix.com>
-References: <20250716160007.92461-1-roger.pau@citrix.com>
- <CAG7k0Epu6XomC=b7eG8xgcVvXpmoTOUQdC7yD9LsmEHOKTv-gg@mail.gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAG7k0Epu6XomC=b7eG8xgcVvXpmoTOUQdC7yD9LsmEHOKTv-gg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250704070803.314366-5-Jiqian.Chen@amd.com>
 
-On 21.07.2025 17:51, Ross Lagerwall wrote:
-> On Wed, Jul 16, 2025 at 5:00 PM Roger Pau Monne <roger.pau@citrix.com> wrote:
->>
->> In a livepatch payload relocations will refer to included functions.  If
->> that function happens to be a replacement for an existing Xen function, the
->> relocations on the livepatch payload will use the newly introduced symbol,
->> rather than the old one.  This is usually fine, but if the result of the
->> relocation is stored for later use (for example in the domain struct),
->> usages of this address will lead to a page-fault once the livepatch is
->> reverted.
->>
->> Implement a second pass over relocations once the list of replaced
->> functions has been loaded, and fixup any references to replaced functions
->> to use the old symbol address instead of the new one.  There are some
->> sections that must be special cased to continue using the new symbol
->> address, as those instances must reference the newly added livepatch
->> content (for example the alternative patch sites).
->>
+On Fri, Jul 04, 2025 at 03:07:59PM +0800, Jiqian Chen wrote:
+> When vpci fails to initialize a extended capability of device, it
+> just returns an error and vPCI gets disabled for the whole device.
 > 
-> Would it be possible to fix this at build time instead by generating the
-> payload such that relocations to changed functions always point at the
-> Xen function rather than the included function?
-
-How would you express the difference in the object file? If that's possible
-(without problematic heuristics), ...
-
-> This seems preferable to me rather than making the runtime code more
-> complicated.
-
-... I agree this would be quite a bit better.
-
-Jan
-
-> Of course, neither approach would fix all cases - if the function is
-> completely new calling it would still page-fault after reverting the
-> live patch - so the usual care needs to be taken when creating live
-> patches.
+> So, add function to hide extended capability when initialization
+> fails. And remove the failed extended capability handler from vpci
+> extended capability list.
 > 
-> Ross
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> ---
+> Comment left over for the situation that "capability in 0x100 can't be removed case"
+> from Jan in last version, need Roger's input.
+> 
+> Jan:
+> Can we rely on OSes recognizing ID 0 as "just skip"?
+> Since the size isn't encoded in the header, there might be issues lurking here.
 
+I think it's the best we can aim to do TBH, I don't see any other way
+to workaround this.  Size is indeed not encoded, but the next
+capability pointer doesn't need to know the size of the current
+capability to fetch the next one.
+
+> ---
+> cc: "Roger Pau Monné" <roger.pau@citrix.com>
+> cc: Andrew Cooper <andrew.cooper3@citrix.com>
+> cc: Anthony PERARD <anthony.perard@vates.tech>
+> cc: Michal Orzel <michal.orzel@amd.com>
+> cc: Jan Beulich <jbeulich@suse.com>
+> cc: Julien Grall <julien@xen.org>
+> cc: Stefano Stabellini <sstabellini@kernel.org>
+> ---
+> v6->v7 changes:
+> * Change the pointer parameter of vpci_get_previous_ext_cap_register()
+>   and vpci_ext_capability_hide() to be const.
+> 
+> v5->v6 changes:
+> * Change to use for loop to compact code of vpci_get_previous_ext_cap_register().
+> * Rename parameter rm to r in vpci_ext_capability_hide().
+> * Change comment to describ the case that hide capability of position
+>   0x100U.
+> 
+> v4->v5 changes:
+> * Modify the hex digits of PCI_EXT_CAP_NEXT_MASK and PCI_EXT_CAP_NEXT to be low case.
+> * Rename vpci_ext_capability_mask to vpci_ext_capability_hide.
+> 
+> v3->v4 changes:
+> * Change definition of PCI_EXT_CAP_NEXT to be "#define PCI_EXT_CAP_NEXT(header)
+>   (MASK_EXTR(header, PCI_EXT_CAP_NEXT_MASK) & 0xFFCU)" to avoid redundancy.
+> * Modify the commit message.
+> * Change vpci_ext_capability_mask() to return error instead of using ASSERT.
+> * Set the capability ID part to be zero when we need to hide the capability of position 0x100U.
+> * Add check "if ( !offset )" in vpci_ext_capability_mask().
+> 
+> v2->v3 changes:
+> * Separated from the last version patch "vpci: Hide capability when it fails to initialize".
+> * Whole implementation changed because last version is wrong.
+>   This version gets target handler and previous handler from vpci->handlers, then remove the target.
+> * Note: a case in function vpci_ext_capability_mask() needs to be discussed,
+>   because it may change the offset of next capability when the offset of target
+>   capability is 0x100U(the first extended capability), my implementation is just to
+>   ignore and let hardware to handle the target capability.
+> 
+> v1->v2 changes:
+> * Removed the "priorities" of initializing capabilities since it isn't used anymore.
+> * Added new function vpci_capability_mask() and vpci_ext_capability_mask() to
+>   remove failed capability from list.
+> * Called vpci_make_msix_hole() in the end of init_msix().
+> 
+> Best regards,
+> Jiqian Chen.
+> ---
+>  xen/drivers/vpci/vpci.c    | 88 ++++++++++++++++++++++++++++++++++++++
+>  xen/include/xen/pci_regs.h |  5 ++-
+>  2 files changed, 92 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
+> index a91c3d4a1415..8be4b53533a3 100644
+> --- a/xen/drivers/vpci/vpci.c
+> +++ b/xen/drivers/vpci/vpci.c
+> @@ -165,6 +165,92 @@ static int vpci_capability_hide(const struct pci_dev *pdev, unsigned int cap)
+>      return 0;
+>  }
+>  
+> +static struct vpci_register *vpci_get_previous_ext_cap_register(
+> +    const struct vpci *vpci, unsigned int offset)
+> +{
+> +    unsigned int pos = PCI_CFG_SPACE_SIZE;
+> +    struct vpci_register *r;
+> +
+> +    if ( offset <= PCI_CFG_SPACE_SIZE )
+> +    {
+> +        ASSERT_UNREACHABLE();
+> +        return NULL;
+> +    }
+> +
+> +    for ( r = vpci_get_register(vpci, pos, 4); r;
+> +          r = pos > PCI_CFG_SPACE_SIZE ? vpci_get_register(vpci, pos, 4)
+> +                                       : NULL )
+> +    {
+> +        uint32_t header = (uint32_t)(uintptr_t)r->private;
+> +
+> +        ASSERT(header == (uintptr_t)r->private);
+> +
+> +        pos = PCI_EXT_CAP_NEXT(header);
+> +        if ( pos == offset )
+> +            break;
+> +    }
+> +
+> +    return r;
+> +}
+> +
+> +static int vpci_ext_capability_hide(
+> +    const struct pci_dev *pdev, unsigned int cap)
+> +{
+> +    const unsigned int offset = pci_find_ext_capability(pdev->sbdf, cap);
+> +    struct vpci_register *r, *prev_r;
+> +    struct vpci *vpci = pdev->vpci;
+> +    uint32_t header, pre_header;
+> +
+> +    if ( offset < PCI_CFG_SPACE_SIZE )
+> +    {
+> +        ASSERT_UNREACHABLE();
+> +        return 0;
+> +    }
+> +
+> +    spin_lock(&vpci->lock);
+> +    r = vpci_get_register(vpci, offset, 4);
+> +    if ( !r )
+> +    {
+> +        spin_unlock(&vpci->lock);
+> +        return -ENODEV;
+> +    }
+> +
+> +    header = (uint32_t)(uintptr_t)r->private;
+> +    if ( offset == PCI_CFG_SPACE_SIZE )
+> +    {
+> +        if ( PCI_EXT_CAP_NEXT(header) <= PCI_CFG_SPACE_SIZE )
+> +            r->private = (void *)(uintptr_t)0;
+> +        else
+> +            /*
+> +             * The first extended capability (0x100) can not be removed from
+> +             * the linked list, so instead mask its capability ID to return 0
+> +             * and force OSes to skip it.
+
+s/and force/hopefully forcing/.  I think that's the best Xen can
+possibly do in this situation.  Unless someone has a more reliable
+idea.
+
+With that adjusted:
+
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Thanks.
 
