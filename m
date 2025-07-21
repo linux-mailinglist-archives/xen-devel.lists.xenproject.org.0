@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 122BFB0C401
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 14:23:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1051488.1419823 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC931B0C450
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 14:44:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1051497.1419834 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udpXL-0005pv-Pp; Mon, 21 Jul 2025 12:22:31 +0000
+	id 1udps4-0000ll-Ji; Mon, 21 Jul 2025 12:43:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1051488.1419823; Mon, 21 Jul 2025 12:22:31 +0000
+Received: by outflank-mailman (output) from mailman id 1051497.1419834; Mon, 21 Jul 2025 12:43:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udpXL-0005oK-NA; Mon, 21 Jul 2025 12:22:31 +0000
-Received: by outflank-mailman (input) for mailman id 1051488;
- Mon, 21 Jul 2025 12:22:30 +0000
+	id 1udps4-0000jd-GD; Mon, 21 Jul 2025 12:43:56 +0000
+Received: by outflank-mailman (input) for mailman id 1051497;
+ Mon, 21 Jul 2025 12:43:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cu2o=2C=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1udpXK-0005oE-Dj
- for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 12:22:30 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20624.outbound.protection.outlook.com
- [2a01:111:f403:2417::624])
+ <SRS0=7j1p=2C=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1udps2-0000jX-Jr
+ for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 12:43:54 +0000
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
+ [2607:f8b0:4864:20::232])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5dc488f6-662d-11f0-a31d-13f23c93f187;
- Mon, 21 Jul 2025 14:22:29 +0200 (CEST)
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
- by PH0PR12MB7486.namprd12.prod.outlook.com (2603:10b6:510:1e9::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.30; Mon, 21 Jul
- 2025 12:22:26 +0000
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13%6]) with mapi id 15.20.8922.028; Mon, 21 Jul 2025
- 12:22:25 +0000
+ id 59eb9738-6630-11f0-a31d-13f23c93f187;
+ Mon, 21 Jul 2025 14:43:51 +0200 (CEST)
+Received: by mail-oi1-x232.google.com with SMTP id
+ 5614622812f47-41eaf6805ebso1773702b6e.3
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Jul 2025 05:43:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,147 +40,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5dc488f6-662d-11f0-a31d-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yqulLWs24YzQEb6WDSRd73tlyup85dckVfHj22WbrEW1rI/LnQeVC2ODcr4dw76cShkcqw4gYGORNTh+qVjKgw3pbdb31+czV28SEeTXO4eM0hJh94Di15808mW27J9o85oVmd0LP9y7t4Z5oEDgtRitwT+CfjpZ9R52gUCUaXLDl8dqB8FcNw4VLH4IxT/IcHl+P+OWfwrDG9cyGwuPpOYggETGpRQJoVESQev1WbASwTILVo2mD495K/CaRz0uhVdjiga4hkA0x05KTCSPKaSJFHcXvUX6OrRH2z5dZ7MPak2lyJ2EwweSMgdttUh6UKAXq7cAAlvRpMBP7DSoKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8AcU5/24F/7iIlEt2AlrtFlfg2YxyyS6jB8r4D8Tea0=;
- b=ilE3PwHLtZsdmnLYzWDTFR1kiSDssFC63G6GXYqcp4D9BFvg2nd6YPtdPYUZEZq87XkiAOvEt13Mo6zzWnlsTixvQiVvAmtI9SV8x1QQEU2YefkG0085rBL4KYVPucbz+9obvlCyJakSo8tM1zHZ8/nRcTbreDBLhMmrHx9XPNPZTIfobZHLzMNPEcDgy9ViATQpAIZ9DrXHy9DiVUpvWT+4JKJIE+ZMiFqmkBQ5V13uRmLNN32UAZkXiCKrNVKZTrHRTfsTr86JsNDfbaZ7IEq0KpMLZKieao/ZhqrFq6kCkrkQF0HoSvRhLbmlgsByq8/94ldf2UWoCoCNjQLoOg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8AcU5/24F/7iIlEt2AlrtFlfg2YxyyS6jB8r4D8Tea0=;
- b=KaEhr7psC7uzywJMpRXDJIiVFVPl42K2hYJrQMuAacXMyyaNnJztToR3wvq3KXRb69CgDnGcTyKKvPgPdsprcsG1ziBPa4hE4JKiZqdFqkLu/sZwFQQObdHiY6JJl/MboQBWzqZPucoEG5OC5RCtgEtKuwEFI5jjnlCuP0WWJyU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <83e3cabe-a9bd-4f97-a599-134c3f47f413@amd.com>
-Date: Mon, 21 Jul 2025 14:22:21 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/efi: Remove PrintMessage function
-To: Frediano Ziglio <frediano.ziglio@cloud.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>
-References: <20250718121106.34915-1-frediano.ziglio@cloud.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
-Content-Language: en-US
-In-Reply-To: <20250718121106.34915-1-frediano.ziglio@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0231.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e9::11) To BN9PR12MB5273.namprd12.prod.outlook.com
- (2603:10b6:408:11e::22)
+X-Inumbo-ID: 59eb9738-6630-11f0-a31d-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1753101829; x=1753706629; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6mavMri4ux35uKRjyi22GoDCosdnvugr6dqfVNA9ZXk=;
+        b=TVQDSLThx1Vxa87cmKjrVZYDdOrY5WYrDmXHrL00Vvkq8+ggGfWqCdGsp054tywPa6
+         juvXkdcIDWG7/Zvso/j98QvoIdyG//TgJbexW8c5Ww6j+syBSo0o5VPupbWCGd+5IROB
+         Iu5atOqS2NGWJLBm+8c/DM2JdrARDPTle8tSo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753101829; x=1753706629;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=6mavMri4ux35uKRjyi22GoDCosdnvugr6dqfVNA9ZXk=;
+        b=QLBecF5Y5KuV3e/87s0UyMBYllazfwEwAgrReoZcIoRgLZqXU9GdEU47Snn+CGK+ry
+         jcotr6MiUaujQBoaUEFs5WwMFg4vEccHnIqFunSh0hrAmW+7zYOT9v95Uvcp1/238kwA
+         UkxpiL0CY49V309amNYvvWhUygywmyRCwtGdT8V9WtXBxDtm4ntEShx4fFqqJ3O+rnX7
+         mrgammSlWErPdvwh6edrG87FngIDTdxWlfCnTgyoWCm7G8nTjJ6fCmvTf775/tTC9PAv
+         4vUbBkP93sthi2s4xjxQagIvkGStjynwokpy1wNLJt6sl9mUmQgjOHHk0Qhm/7UMW8L/
+         VCig==
+X-Gm-Message-State: AOJu0YyeaYRMSz09aaEFdyU3uWcGBit1c5XJ2b3ZxvrMwgPFOsSr4AZZ
+	r0G1srYfMgVnF5dl3/GQDfA5fd2S6Wai0pUOw4lMTvy2tqQ+89fFOn18ZqUlyZUfBUmW+RYGcu6
+	Sk1scqexHVdlmKq/WbINPKKZ19GcpODEhk4Ii/RVU4pu6L2fXWJN6er8=
+X-Gm-Gg: ASbGncthDfEIWf08wLkOvlNRgeQBri8vAAHSc1XfIvgl3t6wLKsSyNHqeJcHJEdMiRO
+	n5FVEbYncBHE5URi9PKdCR0gd/mdVGnlxmmfGUjyu8+hD5h3u0GmH10Z/fkD9D2+lE0N0x0Vpxt
+	Bm1T3xSjeD3nWnhHrK2uZ1RGIUthGvjg6BGfbU2p0N9A3crGWUEXMXYmm5bhj8nnE44X054HI+a
+	q9iuW6C
+X-Google-Smtp-Source: AGHT+IH0mYLzJc+MIMYC3nKcYeDHjVHAKYAosu2NJlZNp8X93yZe4IjjzxkYF33cASIw1wSiRJ3jnlmK6a6UspMCo3c=
+X-Received: by 2002:a05:6808:1316:b0:41c:45e4:6c4c with SMTP id
+ 5614622812f47-41cf0da8ec3mr15658587b6e.39.1753101829485; Mon, 21 Jul 2025
+ 05:43:49 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|PH0PR12MB7486:EE_
-X-MS-Office365-Filtering-Correlation-Id: e428ab03-eb28-44a2-edba-08ddc8513fd2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?b3pzT01XWHpYbWN0S3JmaDRVc1RobVVwZHVuUTNqbUJtSlV5aFduV0xzYWY1?=
- =?utf-8?B?ck9lQjRVWGRjdENGTkFQcFdYZFNSUFR4M0N5QW41WHRlcW5HbUtJZEl3S25z?=
- =?utf-8?B?NS9DMFJ3dkxEQnpBTThPTGd0M2tqam5ZQm1XMndCZ0xEUkIwaTJwWnpiV2dp?=
- =?utf-8?B?N1BzREF1TmFveTlJUmxyQXRpc3lXTFVCVDZkOEhLWGFmY1FXOGpGYTRjNnhB?=
- =?utf-8?B?YVhtaTJjTEVZRldXV1J4UG5sYktpM3AvbmhsbllvaFo0cnlTM2YyakQ1NXRx?=
- =?utf-8?B?eURGbzZiS3dXUjBIcWJBRHdESGlqTGFFNzBPQkZhdVhCalQ3c2tJNHhScUlm?=
- =?utf-8?B?ZmFnclFsVEMxeGVvTmpsaXlIMm01UjB5MmJhYTF6U3B2K0FtZ3MySlp3Rzg4?=
- =?utf-8?B?T3ZGd1docXNGL3R3TWRaWEU4UFJOaHFLK2xOL251WUZOakpTcG9RMzJ6ZTlp?=
- =?utf-8?B?K3RHbjVXOWZiTTVKWlpybnVLa3owU2J5NTZLN2lLcTJuM2dQRjI5UVBuMk9U?=
- =?utf-8?B?UjBUYll4NXFhazhibGZYdFVVZVl3aGJzOHBTVEJvcERrcmtmZ0dRT1R6R0x4?=
- =?utf-8?B?M1JkMFhIMkxRcWRaNU5zV1g4MWxjdm5CY3F6bWZCU203K1drUysvVXVFSE5u?=
- =?utf-8?B?SjRGVUs1WkcvTUFkcFlKZS8yZHc3NTBzQ1RVWmJrVmVBa0JFTS9admtmZFp2?=
- =?utf-8?B?T0NpNDgyQkRNWkZKV1A0YmtkTlJMVHVTZVpGZjh0eWJyYTBDM1lmZDRsYmhw?=
- =?utf-8?B?cjRocnhCNkIwNXpYYmxlUC81ZE9CdXRVcVlySjhOMzNqSGY5ekh4QytJTTVm?=
- =?utf-8?B?b2p6WGt2SDNVY2FQYUxPaEt1TE9qaGxqSkNlVkEvc3JrSkx3NW9ORjEwS1M3?=
- =?utf-8?B?Wk84VVhhd1ZkNDhmVndaclV0ZDV4dXFIZW1ZM1JETzNPSWJXSVhsWFV3NVpi?=
- =?utf-8?B?V1VIeTlDNXFTT0tnV0psNyt3enFNSklWRDhmVFZndUp4ZXZMMi9rMS9HSjA4?=
- =?utf-8?B?eTdHZ2luSkZ5Y0h0eUlWZlZuUHNsYzBEOEgzMkYwWkZQaUx0WjJMakNnWGwy?=
- =?utf-8?B?dWZrcGdqM1JsbTd1U3dwdVczQm13cDVZcjJrM2NnMDR2cjNmeHhRbklMcStK?=
- =?utf-8?B?LzVHTjkwMFFIZFdmR0h5cWdwdWhSMjhzQlo5SElJRUJScStCdjNpN1ovaWJV?=
- =?utf-8?B?YStwbjlCSlNrcGZzS2dpeVRDNlV5NE1XVlM5WnhxMTFHTXRBRnUvUVI0c3ZD?=
- =?utf-8?B?NzRSZWpXQlB5UVVyU1pBeExGQ1UxR3VtRGxUa2NKSmR1a0crRE80MnhkR2Ew?=
- =?utf-8?B?ZFVnWDFITHRSdWFYNzgyZEJzeC9YaUhDOGNkZE1LbkphdUdYUG1MZTJtR05j?=
- =?utf-8?B?cjVEdmZuM0hKQjBGWTgwUE9EMFdNZENTd29IS1h1ZmFqcFZjREpJQlQyaXZ5?=
- =?utf-8?B?QUZhOXB1YU5zYTBSM3B6WjlsNllzQkxSRXJwVlhDaExkQndpeUNZajBZQldO?=
- =?utf-8?B?N1pJdXZ5WGV3Q2c3TTVXelBVM2FVbEZrbWIxV0t4eFpST3pnY1BJVjFYTENj?=
- =?utf-8?B?NDVaVWVYdjI2MlFYY3hHTmtoQ3VqRnhXQjN0cFZGTkdZMVI0WmJZS1hoYWdz?=
- =?utf-8?B?eUtzZjJRcmFFZDdoOVZ6U2ZFOTh4RDdkL0w0SVV2ZWVJRXo3L1p0NFF3YjRJ?=
- =?utf-8?B?MlkzK2txQW9YMFRNbm9ROEs1aGZWZlZQdGFpd3l5QzgxRWlXaDJYQlBoYkVt?=
- =?utf-8?B?L3loazJMNzdscXhqbkJKOFgxL1U5T1lpMlM0Mm4yYUZWd01xUVlHbGVVNy8x?=
- =?utf-8?B?UklKcTBPQUg4UDRYSkF4NFR2TDZQbGN6cEhWV3dCbXMwSFU4U0dVTFJ5dXV1?=
- =?utf-8?B?Z2IybjJJRXF2RTFINUwyVjdrdVJGMVZPYmxnd0lQYTNRVHhWV2I5OXlGZXU0?=
- =?utf-8?Q?uf9g3XoCAwM=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WnNZN2hkdDNpM1VqTkhJSU91Q1BCbHUwaVpwVU9HaHh5bEpjRmlTUCtnRVV2?=
- =?utf-8?B?cTJFZlpIN2JWcU9JU1oyaGkxc2syQ3VoYkxERjQxNTl5c01PZ0tpejRCRUhw?=
- =?utf-8?B?TDZpYld5bkpIYnhnUm5GZ0dGRjJsTDRPRzBUV3NOV1FvMTgrNkJ0Y3kvcmZ1?=
- =?utf-8?B?MVpDZHk0bWJuVXVVZFU3QWd0bk9Ua1VQcEJuTTE3U0RhTEw5ejcxZmFMY1hm?=
- =?utf-8?B?YmRrK2plRWl3THp5eldwSjZrQWZnMWNXamYzZlAwOUdQMm9IWDFaUDV0WThl?=
- =?utf-8?B?Vjh0K3BCY2IrMHB1WWJObHM1Z2VFL2hnd3ZPYVBVNEw4dnVSVU8vdzVGaUZj?=
- =?utf-8?B?b2RqaTc2R2c4RW9YT2sra2kwb29WVkFHYUVZQkZqRmZseHZlUFR5ajc3UUVS?=
- =?utf-8?B?Z1FSUG9TZk5qbnJibnc1blJEY1ZjWnk1SzdsL2R4SDRIdjQyVWZjb2llNTB6?=
- =?utf-8?B?Qm9PVkpya0RuZFZmSEhSakEybXNIbFNHWStOY2FpYm8wbFNWcWJ3TUdhOEpi?=
- =?utf-8?B?aHlqemx2UVFtbTNOLytaK1N3ZVlPaElmc0Y0ZURpWTJiRnlyRERYTjkvRkZJ?=
- =?utf-8?B?eEpEVjdzallNeC9sMWFveUVnZEdlK3hTMVhnTTNWZ2RyTXlad0QyejRvZWMv?=
- =?utf-8?B?M3J1MjVMTmM0Mm9Fc1IvVDJZTUNaZUV5eHlVVFpHSEZHekFpN2QzVndQNGFp?=
- =?utf-8?B?ZmgyZHdVS2EzN2xFQ012LzVsSlYxRWwwLzl0SW5SZjYvcmp0RUhHM2RzZFVN?=
- =?utf-8?B?dEMwSzRlc1dxYVZXNzlGSXJwUFZrSVE2aWFOUlRwMGN4YjJFSC9jam9UR1lz?=
- =?utf-8?B?SWRrbGRiZlFOV1NLZ1pLRFR2b3lnTHg5TFVVVHFKRUhjbWhZenhVbi9xL0VE?=
- =?utf-8?B?S0p1SlVleWFSbXdPNnk0S21KNExVdW1KREZ3WkQ1M1krMU51VzFaN2hkWi8r?=
- =?utf-8?B?Qk9MYTVVV09oTlZVVTRWOXlWbUgyOUxDOEF4OGJkanpZdVIwNk1sL0xReHpR?=
- =?utf-8?B?MHJpaEE4emlZV3psblg2N25JS1diaCtjd3oySk9vRSs2WVF5dFkzWVFERGUr?=
- =?utf-8?B?Q1pFUkhDR2JJcE45cnUzQ2FtTzJNUDhxNi9qZDlPRjFBYmdQM2VPZzU4ZTNX?=
- =?utf-8?B?emQ4ZGJlbzBZWmxUT2o4ek1kV1NVYmNWRitic3Y1KzNwVWYyeXVnUWNLR0Ez?=
- =?utf-8?B?bXo3RytEeTlYVjV5MStVZzcrK2tvY2src3VZc1oxS2l5VzlIaXpIdHlqRnJ6?=
- =?utf-8?B?Y2dWbzNaZEs5OGY5RXR4WmxmZm56R2F6ZHdJTkoreTE4YU9IQ016TEM4dUJN?=
- =?utf-8?B?Znk5aEc5WXhOOHFtM3dGTU51VGNmZDIyZUtIc1ZEZkZRbmpHMnhCNkJLdGRT?=
- =?utf-8?B?TkY2bDNRS2hTMkRrV3NqQkJYZDAxeTVJS0xXUVo2WHVmV0Q5UXpndWZ0ZzFD?=
- =?utf-8?B?Tkg0UVh6c1A2Y3RtTmhwdnhCT0Q4Si9zbUlXOGdUb09jU2FXZlBXYkJwVDFP?=
- =?utf-8?B?bWRrckU3OTdzNGk5VUlVZHlscmI4eVRqYkNkTlR0eVM3QUpRaW5mc3FkU1VL?=
- =?utf-8?B?UWVqQXowdnhvOS9aVzZaUEdMUytKOWtjWGJPZlMvYVNOa2ZGeFFxcjdsc0Y1?=
- =?utf-8?B?cFl5Q2czWEVmdXd6L0lFd1BvRG8zMHdmRmkySVVicHNzVlBaaVgvOWJ3czh6?=
- =?utf-8?B?NGlyM3NFeFVRU2QrRHVlQjJ0Q3dlMG1McXFsV2c4N1FweFVNNDNPanplMHdX?=
- =?utf-8?B?SzMrZ2daRnhJa0xMVjFJY0ozcUZ2MCtHMmsxRVpNclZralhldHdZSSsrbTdH?=
- =?utf-8?B?QlFpZFUvcmN2a21QYWFaU0xwU0pobjRGeFZVZWlVckxuT0ZBSTZhMXo2QitB?=
- =?utf-8?B?YVlWS3VzTGM2OC9CeDBLT3VqUEFBQmY4WFlCR2ZkeEJOWllUVlJBTmk3N1BJ?=
- =?utf-8?B?cXF4dzVFdFhmYTdJN213WHoxQ1gyZDlmaGwwYlU0YW9Sb3V5SEE0bVVXMDdT?=
- =?utf-8?B?eFNnNmd2TFJyQlVvZkdvVmUyTXhTZnJZcUFwTEFmWEluSlBhYWRVczdqNWpY?=
- =?utf-8?B?NVFpUlVOdE5FRitoTzN0dXVnK2t0NEZVSGhYNmVRRzVqdFNJSFppd3Z0UDdN?=
- =?utf-8?Q?mEo0=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e428ab03-eb28-44a2-edba-08ddc8513fd2
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2025 12:22:25.8979
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ViZHtmtIItrZtn1jqYJ1+Edyr+W+32PYv+QG71DraTpNw8Lfo5LUZfq2KtncNx6h
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7486
+References: <20250721090713.414324-1-frediano.ziglio@cloud.com>
+ <20250721090713.414324-2-frediano.ziglio@cloud.com> <60505d70-7dae-4260-8a2d-960115e6ba5a@amd.com>
+In-Reply-To: <60505d70-7dae-4260-8a2d-960115e6ba5a@amd.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Mon, 21 Jul 2025 13:43:37 +0100
+X-Gm-Features: Ac12FXwDEvZruuJiZqGRkSGTQE0UetLnBXb8aoNDA4EmFMvgREKb66M9wJCqlrI
+Message-ID: <CACHz=ZiqRUR6=GKoGTWipHH2sdfkcwtiNG3__wGWytQuGAQjgw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] xen/efi: Reuse fdt_setprop_u32 and fdt_setprop_u64
+To: "Orzel, Michal" <michal.orzel@amd.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Jul 21, 2025 at 1:13=E2=80=AFPM Orzel, Michal <michal.orzel@amd.com=
+> wrote:
+>
+>
+>
+> On 21/07/2025 11:07, Frediano Ziglio wrote:
+> > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> > ---
+> >  xen/arch/arm/efi/efi-boot.h | 33 ++++++++++++---------------------
+> >  1 file changed, 12 insertions(+), 21 deletions(-)
+> >
+> > diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
+> > index 3dbeed3f89..a2aede21d5 100644
+> > --- a/xen/arch/arm/efi/efi-boot.h
+> > +++ b/xen/arch/arm/efi/efi-boot.h
+> > @@ -79,8 +79,7 @@ static int __init setup_chosen_node(void *fdt, int *a=
+ddr_cells, int *size_cells)
+> >      prop =3D fdt_get_property(fdt, node, "#address-cells", &len);
+> >      if ( !prop )
+> >      {
+> > -        val =3D cpu_to_fdt32(2);
+> > -        if ( fdt_setprop(fdt, node, "#address-cells", &val, sizeof(val=
+)) )
+> > +        if ( fdt_setprop_u32(fdt, node, "#address-cells", 2) )
+> >              return -1;
+> >          *addr_cells =3D 2;
+> >      }
+> > @@ -90,8 +89,7 @@ static int __init setup_chosen_node(void *fdt, int *a=
+ddr_cells, int *size_cells)
+> >      prop =3D fdt_get_property(fdt, node, "#size-cells", &len);
+> >      if ( !prop )
+> >      {
+> > -        val =3D cpu_to_fdt32(2);
+> > -        if ( fdt_setprop(fdt, node, "#size-cells", &val, sizeof(val)) =
+)
+> > +        if ( fdt_setprop_u32(fdt, node, "#size-cells", 2) )
+> >              return -1;
+> >          *size_cells =3D 2;
+> >      }
+> > @@ -251,8 +249,6 @@ static EFI_STATUS __init fdt_add_uefi_nodes(EFI_SYS=
+TEM_TABLE *sys_table,
+> >  {
+> >      int node;
+> >      int status;
+> > -    u32 fdt_val32;
+> > -    u64 fdt_val64;
+> >      int num_rsv;
+> >
+> >     /*
+> > @@ -275,33 +271,28 @@ static EFI_STATUS __init fdt_add_uefi_nodes(EFI_S=
+YSTEM_TABLE *sys_table,
+> >          }
+> >      }
+> >
+> > -    fdt_val64 =3D cpu_to_fdt64((u64)(uintptr_t)sys_table);
+> > -    status =3D fdt_setprop(fdt, node, "linux,uefi-system-table",
+> > -                         &fdt_val64, sizeof(fdt_val64));
+> > +    status =3D fdt_setprop_u64(fdt, node, "linux,uefi-system-table",
+> > +                             (uintptr_t)sys_table);
+> Don't we need explicit cast here? In other words, why did you drop them?
+>
 
+It's not needed, if the compiler is not truncating it will do the
+conversion correctly, in case of truncation it will trigger a warning
+which we can deal with in the possible future.
 
-On 18/07/2025 14:11, Frediano Ziglio wrote:
-> The function is similar to PrintStr with an implicit newline
-> added to the string.
-> In Xen this is not a common pattern and this is used in EFI
-> ARM code only making it not much coherent with X86 code
-> so use PrintStr directly to make the code more coherent.
-> 
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> Other than that:
+> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+>
+> ~Michal
+>
 
-~Michal
-
+Frediano
 
