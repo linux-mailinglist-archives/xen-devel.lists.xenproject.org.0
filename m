@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27C5EB0CD2C
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 00:09:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1051745.1420161 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29E8DB0CD47
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 00:27:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1051755.1420170 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udyh2-0005kP-0U; Mon, 21 Jul 2025 22:09:08 +0000
+	id 1udyyb-0000Ll-FB; Mon, 21 Jul 2025 22:27:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1051745.1420161; Mon, 21 Jul 2025 22:09:07 +0000
+Received: by outflank-mailman (output) from mailman id 1051755.1420170; Mon, 21 Jul 2025 22:27:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udyh1-0005hw-Si; Mon, 21 Jul 2025 22:09:07 +0000
-Received: by outflank-mailman (input) for mailman id 1051745;
- Mon, 21 Jul 2025 22:09:06 +0000
+	id 1udyyb-0000K2-CT; Mon, 21 Jul 2025 22:27:17 +0000
+Received: by outflank-mailman (input) for mailman id 1051755;
+ Mon, 21 Jul 2025 22:27:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7vdF=2C=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1udygz-0005hq-Ur
- for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 22:09:06 +0000
+ id 1udyyZ-0000Jw-ME
+ for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 22:27:15 +0000
 Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
  [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4ce61334-667f-11f0-b894-0df219b8e170;
- Tue, 22 Jul 2025 00:09:00 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1753135700313708.2649919792249;
- Mon, 21 Jul 2025 15:08:20 -0700 (PDT)
+ id d82ba14a-6681-11f0-b894-0df219b8e170;
+ Tue, 22 Jul 2025 00:27:12 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1753136822246935.1508929017535;
+ Mon, 21 Jul 2025 15:27:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,49 +38,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ce61334-667f-11f0-b894-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; t=1753135703; cv=none; 
+X-Inumbo-ID: d82ba14a-6681-11f0-b894-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; t=1753136824; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=L0bg3Lm4u4bg8WI1EhtmE1ZaTQg1xhh7WWke3jxdfZn+ukX7pHcVPd4/AmG4zyeXW+d0Vz34DjNjXzR0JZhDiiisP4uM20dCsVjrVHEck3gKsSkBQVKnsMoOeoejweRCOr58G14MIKMel9h4S/HmfcKyJT6QCMWiIx9WZDzCstc=
+	b=kEdFm94lX4I81wc9ezJ6XCGW5ogwVnZpd5651tVtvNHCgioc6v70F5eE0iNeMgv3O1J6xCsRhrolkGKpyBIpxF5Woh0zdAs6yLIGyd1fbk42IDAAUhLh7pBtQjiddWzqnqEnyQADEPkfkdR+98qC9TyLhWJC4zgXQ5urQOZnxs4=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1753135703; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=KNFd7r1ySESh2folozlVRYOneFbXQIxO1z2t2POzpUo=; 
-	b=JPv6YsGc+i0QPdnazOm8OvEM8zNtlVyhSanrOCc3FhSgFwQlq2XaPunDt5/x0TNFzwTI8m1EBMwGnauPUPa5btTffkM3PejM/j4e93uxWVO+AQXw2vVS+XmpfGY6CMeTnDTLzZToytXlGNZ+3SQVGbOvnddqS2ToMqleyCl5XRQ=
+	t=1753136824; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=4Pw7ronM7u/8xtzorWB7XKpK+Z027WT3xhkhE38oihk=; 
+	b=Fuu/CxjEYGerixGdsVXChxelQAJuO69Ov7U2oCQ6gSZYJvdOTWVUMGC0CbfsZnXObp1+bF3Gp/41Nd5iJTj1RUUNZ+CPBMV6VFqkw7dEA5VkYfCbRNc60krPJzpm727rU6gCggrl70jI3jStfQ83TtI/IhaKqFOOEiwznHA78CQ=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1753135703;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1753136824;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=KNFd7r1ySESh2folozlVRYOneFbXQIxO1z2t2POzpUo=;
-	b=kcNzraRbuFpEMm2VEreiE1ecIwURayi1t/lYLRQAyIShY4PwMfEdQbHY7M7XWf2x
-	HHfcL6LC4J0t69qQpAviJsnYzA2+PnzKB2av9/FPxYAeQes7qY+XKmkEBNNhD2YzdOq
-	FpA66gkSLU6989AGyhGrkhC/7TBZnyARMDIj9Ci4=
-Message-ID: <08e21539-5acb-4aa7-981c-d893c00dee47@apertussolutions.com>
-Date: Mon, 21 Jul 2025 18:08:17 -0400
+	bh=4Pw7ronM7u/8xtzorWB7XKpK+Z027WT3xhkhE38oihk=;
+	b=aNJrCOP7uZf/iu5xPot1oAqd6YT1Nrip3q3KTZryrd4nBeDFOHNm5MwicuIfGpFn
+	VlxnNzh4KmF00W3rstRNC2E4EpaP5A+/CLw3/+iOGM0liiVcWsarpj8S4hNO1G+ucAu
+	1ZPzs+CLSELFLXiIpOOC+15vTkIRlTJ1Loe47nYs=
+Message-ID: <84d9ca22-a303-4490-ad39-aca66685dbb2@apertussolutions.com>
+Date: Mon, 21 Jul 2025 18:27:00 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 09/11] xen: Split HAS_DEVICE_TREE in two
+Subject: Re: [PATCH v7 01/11] x86: Replace arch-specific boot_module with
+ common one
+Content-Language: en-US
 To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
  xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Dario Faggioli <dfaggioli@suse.com>,
- Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
 References: <20250715161108.141126-1-alejandro.garciavallejo@amd.com>
- <20250715161108.141126-10-alejandro.garciavallejo@amd.com>
-Content-Language: en-US
+ <20250715161108.141126-2-alejandro.garciavallejo@amd.com>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
@@ -113,524 +105,450 @@ Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
  p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
  NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <20250715161108.141126-10-alejandro.garciavallejo@amd.com>
+In-Reply-To: <20250715161108.141126-2-alejandro.garciavallejo@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
 
-On 7/15/25 12:11, Alejandro Vallejo wrote:
-> Moving forward the idea is for there to be:
+On 7/15/25 12:10, Alejandro Vallejo wrote:
+> These types resemble each other very closely in layout and intent,
+> and with "struct boot_module" already in common code it makes perfect
+> sense to merge them. In order to do so, rename identical fields with
+> conflicting names.
 > 
->    1. Basic DT support: used by dom0less/hyperlaunch.
->    2. Full DT support: used for device discovery and HW setup.
-> 
-> Rename HAS_DEVICE_TREE to HAS_DEVICE_TREE_DISCOVERY to describe (2) and
-> create a new DEVICE_TREE_PARSE to describe (1).
-> 
-> Have DEVICE_TREE_PARSE selected by both HAS_DEVICE_TREE_DISCOVERY and
-> DOM0LESS_BOOT.
-> 
-> Add a dependency on STATIC_MEMORY for discovery, as it relies on
-> the memory map itself being described on the DTB.
+> No functional change intended.
 > 
 > Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com> #iommu
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 > ---
->   xen/Kconfig.debug                |  2 +-
->   xen/arch/arm/Kconfig             |  2 +-
->   xen/arch/ppc/Kconfig             |  2 +-
->   xen/arch/riscv/Kconfig           |  2 +-
->   xen/common/Kconfig               | 15 ++++++++++-----
->   xen/common/Makefile              |  4 ++--
->   xen/common/device.c              |  4 ++--
->   xen/common/efi/boot.c            |  2 +-
->   xen/common/sched/Kconfig         |  2 +-
->   xen/drivers/char/ns16550.c       |  6 +++---
->   xen/drivers/passthrough/Makefile |  2 +-
->   xen/drivers/passthrough/iommu.c  |  2 +-
->   xen/include/asm-generic/device.h | 10 +++++-----
->   xen/include/xen/iommu.h          |  8 ++++----
->   xen/include/xsm/dummy.h          |  4 ++--
->   xen/include/xsm/xsm.h            | 12 ++++++------
->   xen/xsm/dummy.c                  |  2 +-
->   xen/xsm/flask/hooks.c            |  6 +++---
->   xen/xsm/xsm_core.c               |  4 ++--
->   xen/xsm/xsm_policy.c             |  4 ++--
->   20 files changed, 50 insertions(+), 45 deletions(-)
+>   xen/arch/x86/cpu/microcode/core.c   |  7 ++--
+>   xen/arch/x86/hvm/dom0_build.c       |  6 ++--
+>   xen/arch/x86/include/asm/bootfdt.h  | 50 ++++++++++++++++++++++++++
+>   xen/arch/x86/include/asm/bootinfo.h | 56 +++--------------------------
+>   xen/arch/x86/pv/dom0_build.c        |  4 +--
+>   xen/arch/x86/setup.c                | 43 +++++++++++-----------
+>   xen/include/xen/bootfdt.h           |  8 +++++
+>   xen/xsm/xsm_policy.c                |  2 +-
+>   8 files changed, 93 insertions(+), 83 deletions(-)
+>   create mode 100644 xen/arch/x86/include/asm/bootfdt.h
 > 
-> diff --git a/xen/Kconfig.debug b/xen/Kconfig.debug
-> index 38a134fa3b..d900d926c5 100644
-> --- a/xen/Kconfig.debug
-> +++ b/xen/Kconfig.debug
-> @@ -92,7 +92,7 @@ config VERBOSE_DEBUG
+> diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
+> index 34a94cd25b..816e9bfe40 100644
+> --- a/xen/arch/x86/cpu/microcode/core.c
+> +++ b/xen/arch/x86/cpu/microcode/core.c
+> @@ -764,8 +764,7 @@ static int __init early_microcode_load(struct boot_info *bi)
+>               struct cpio_data cd;
 >   
->   config DEVICE_TREE_DEBUG
->   	bool "Device tree debug messages"
-> -	depends on HAS_DEVICE_TREE
-> +	depends on DEVICE_TREE_PARSE
->   	help
->   	  Device tree parsing and DOM0 device tree building messages are
->   	  logged in the Xen ring buffer.
-> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-> index 95a2cd3d00..ce15bf22d0 100644
-> --- a/xen/arch/arm/Kconfig
-> +++ b/xen/arch/arm/Kconfig
-> @@ -17,7 +17,7 @@ config ARM
->   	select FUNCTION_ALIGNMENT_4B
->   	select GENERIC_UART_INIT
->   	select HAS_ALTERNATIVE if HAS_VMAP
-> -	select HAS_DEVICE_TREE
-> +	select HAS_DEVICE_TREE_DISCOVERY
->   	select HAS_DOM0LESS
->   	select HAS_GRANT_CACHE_FLUSH if GRANT_TABLE
->   	select HAS_STACK_PROTECTOR
-> diff --git a/xen/arch/ppc/Kconfig b/xen/arch/ppc/Kconfig
-> index 917f5d53a6..5bedf6055e 100644
-> --- a/xen/arch/ppc/Kconfig
-> +++ b/xen/arch/ppc/Kconfig
-> @@ -1,7 +1,7 @@
->   config PPC
->   	def_bool y
->   	select FUNCTION_ALIGNMENT_4B
-> -	select HAS_DEVICE_TREE
-> +	select HAS_DEVICE_TREE_DISCOVERY
->   	select HAS_UBSAN
->   	select HAS_VMAP
+>               /* Search anything unclaimed or likely to be a CPIO archive. */
+> -            if ( bm->type != BOOTMOD_UNKNOWN &&
+> -                 bm->type != BOOTMOD_RAMDISK )
+> +            if ( bm->kind != BOOTMOD_UNKNOWN && bm->kind != BOOTMOD_RAMDISK )
+>                   continue;
 >   
-> diff --git a/xen/arch/riscv/Kconfig b/xen/arch/riscv/Kconfig
-> index 96bef90751..89876b3217 100644
-> --- a/xen/arch/riscv/Kconfig
-> +++ b/xen/arch/riscv/Kconfig
-> @@ -3,7 +3,7 @@ config RISCV
->   	select FUNCTION_ALIGNMENT_16B
->   	select GENERIC_BUG_FRAME
->   	select GENERIC_UART_INIT
-> -	select HAS_DEVICE_TREE
-> +	select HAS_DEVICE_TREE_DISCOVERY
->   	select HAS_PMAP
->   	select HAS_UBSAN
->   	select HAS_VMAP
-> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-> index 65f07289dd..fb3845c197 100644
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -12,9 +12,14 @@ config CORE_PARKING
->   	bool
->   	depends on NR_CPUS > 1
+>               size = bm->size;
+> @@ -815,12 +814,12 @@ static int __init early_microcode_load(struct boot_info *bi)
+>               return -ENODEV;
+>           }
 >   
-> +config DEVICE_TREE_PARSE
-> +	bool
-> +	select LIBFDT
+> -        if ( bi->mods[idx].type != BOOTMOD_UNKNOWN )
+> +        if ( bi->mods[idx].kind != BOOTMOD_UNKNOWN )
+>           {
+>               printk(XENLOG_WARNING "Microcode: Chosen module %d already used\n", idx);
+>               return -ENODEV;
+>           }
+> -        bi->mods[idx].type = BOOTMOD_MICROCODE;
+> +        bi->mods[idx].kind = BOOTMOD_MICROCODE;
+>   
+>           size = bi->mods[idx].size;
+>           data = bootstrap_map_bm(&bi->mods[idx]);
+> diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
+> index a038e58c11..2bb8ef355c 100644
+> --- a/xen/arch/x86/hvm/dom0_build.c
+> +++ b/xen/arch/x86/hvm/dom0_build.c
+> @@ -650,7 +650,7 @@ static int __init pvh_load_kernel(
+>       struct boot_module *image = bd->kernel;
+>       struct boot_module *initrd = bd->module;
+>       void *image_base = bootstrap_map_bm(image);
+> -    void *image_start = image_base + image->headroom;
+> +    void *image_start = image_base + image->arch.headroom;
+>       unsigned long image_len = image->size;
+>       unsigned long initrd_len = initrd ? initrd->size : 0;
+>       size_t cmdline_len = bd->cmdline ? strlen(bd->cmdline) + 1 : 0;
+> @@ -721,9 +721,9 @@ static int __init pvh_load_kernel(
+>       {
+>           size_t initrd_space = elf_round_up(&elf, initrd_len);
+>   
+> -        if ( initrd->cmdline_pa )
+> +        if ( initrd->arch.cmdline_pa )
+>           {
+> -            initrd_cmdline = __va(initrd->cmdline_pa);
+> +            initrd_cmdline = __va(initrd->arch.cmdline_pa);
+>               if ( !*initrd_cmdline )
+>                   initrd_cmdline = NULL;
+>           }
+> diff --git a/xen/arch/x86/include/asm/bootfdt.h b/xen/arch/x86/include/asm/bootfdt.h
+> new file mode 100644
+> index 0000000000..a4c4bf30b9
+> --- /dev/null
+> +++ b/xen/arch/x86/include/asm/bootfdt.h
+> @@ -0,0 +1,50 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#ifndef X86_BOOTFDT_H
+> +#define X86_BOOTFDT_H
 > +
->   config DOM0LESS_BOOT
->   	bool "Dom0less boot support" if EXPERT
-> -	depends on HAS_DOM0LESS && HAS_DEVICE_TREE && DOMAIN_BUILD_HELPERS
-> +	depends on HAS_DOM0LESS && DOMAIN_BUILD_HELPERS
-> +	select DEVICE_TREE_PARSE
->   	default y
->   	help
->   	  Dom0less boot support enables Xen to create and start domU guests during
-> @@ -85,9 +90,9 @@ config HAS_ALTERNATIVE
->   config HAS_COMPAT
->   	bool
+> +#include <xen/types.h>
+> +
+> +struct arch_boot_module
+> +{
+> +    /*
+> +     * Module State Flags:
+> +     *   relocated:   indicates module has been relocated in memory.
+> +     *   released:    indicates module's pages have been freed.
+> +     */
+> +    bool relocated:1;
+> +    bool released:1;
+> +
+> +    /*
+> +     * A boot module may need decompressing by Xen.  Headroom is an estimate of
+> +     * the additional space required to decompress the module.
+> +     *
+> +     * Headroom is accounted for at the start of the module.  Decompressing is
+> +     * done in-place with input=start, output=start-headroom, expecting the
+> +     * pointers to become equal (give or take some rounding) when decompression
+> +     * is complete.
+> +     *
+> +     * Memory layout at boot:
+> +     *
+> +     *               start ----+
+> +     *                         v
+> +     *   |<-----headroom------>|<------size------->|
+> +     *                         +-------------------+
+> +     *                         | Compressed Module |
+> +     *   +---------------------+-------------------+
+> +     *   |           Decompressed Module           |
+> +     *   +-----------------------------------------+
+> +     */
+> +    unsigned long headroom;
+> +    paddr_t cmdline_pa;
+> +};
+> +
+> +#endif /* X86_BOOTFDT_H */
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
+> index 3afc214c17..d33b100e04 100644
+> --- a/xen/arch/x86/include/asm/bootinfo.h
+> +++ b/xen/arch/x86/include/asm/bootinfo.h
+> @@ -8,6 +8,7 @@
+>   #ifndef X86_BOOTINFO_H
+>   #define X86_BOOTINFO_H
 >   
-> -config HAS_DEVICE_TREE
-> +config HAS_DEVICE_TREE_DISCOVERY
->   	bool
-> -	select LIBFDT
-> +	select DEVICE_TREE_PARSE
+> +#include <xen/bootfdt.h>
+>   #include <xen/init.h>
+>   #include <xen/multiboot.h>
+>   #include <xen/types.h>
+> @@ -19,55 +20,6 @@
+>   /* Max number of boot domains that Xen can construct */
+>   #define MAX_NR_BOOTDOMS 1
 >   
->   config HAS_DOM0LESS
->   	bool
-> @@ -154,7 +159,7 @@ config NUMA
->   
->   config STATIC_MEMORY
->   	bool "Static Allocation Support (UNSUPPORTED)" if UNSUPPORTED
-> -	depends on DOM0LESS_BOOT
-> +	depends on DOM0LESS_BOOT && HAS_DEVICE_TREE_DISCOVERY
->   	help
->   	  Static Allocation refers to system or sub-system(domains) for
->   	  which memory areas are pre-defined by configuration using physical
-> @@ -553,7 +558,7 @@ config DOM0_MEM
->   
->   config DTB_FILE
->   	string "Absolute path to device tree blob"
-> -	depends on HAS_DEVICE_TREE
-> +	depends on HAS_DEVICE_TREE_DISCOVERY
->   	help
->   	  When using a bootloader that has no device tree support or when there
->   	  is no bootloader at all, use this option to specify the absolute path
-> diff --git a/xen/common/Makefile b/xen/common/Makefile
-> index 98f0873056..d541fbcf49 100644
-> --- a/xen/common/Makefile
-> +++ b/xen/common/Makefile
-> @@ -6,9 +6,9 @@ obj-$(CONFIG_HYPFS_CONFIG) += config_data.o
->   obj-$(CONFIG_CORE_PARKING) += core_parking.o
->   obj-y += cpu.o
->   obj-$(CONFIG_DEBUG_TRACE) += debugtrace.o
-> -obj-$(CONFIG_HAS_DEVICE_TREE) += device.o
-> +obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += device.o
->   obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) += device.o
-> -obj-$(CONFIG_HAS_DEVICE_TREE) += device-tree/
-> +obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += device-tree/
->   obj-$(CONFIG_IOREQ_SERVER) += dm.o
->   obj-y += domain.o
->   obj-y += event_2l.o
-> diff --git a/xen/common/device.c b/xen/common/device.c
-> index 33e0d58f2f..0c0afad49f 100644
-> --- a/xen/common/device.c
-> +++ b/xen/common/device.c
-> @@ -11,7 +11,7 @@
->   
->   #include <asm/device.h>
->   
-> -#ifdef CONFIG_HAS_DEVICE_TREE
-> +#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->   
->   extern const struct device_desc _sdevice[], _edevice[];
->   
-> @@ -56,7 +56,7 @@ enum device_class device_get_class(const struct dt_device_node *dev)
->       return DEVICE_UNKNOWN;
->   }
->   
-> -#endif
-> +#endif /* CONFIG_HAS_DEVICE_TREE_DISCOVERY */
->   
->   #ifdef CONFIG_ACPI
->   
-> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-> index 9306dc8953..31b4039049 100644
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -623,7 +623,7 @@ static int __init __maybe_unused set_color(uint32_t mask, int bpp,
->      return max(*pos + *sz, bpp);
->   }
->   
-> -#ifndef CONFIG_HAS_DEVICE_TREE
-> +#ifndef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->   static int __init efi_check_dt_boot(const EFI_LOADED_IMAGE *loaded_image)
+> -/* Boot module binary type / purpose */
+> -enum bootmod_type {
+> -    BOOTMOD_UNKNOWN,
+> -    BOOTMOD_XEN,
+> -    BOOTMOD_KERNEL,
+> -    BOOTMOD_RAMDISK,
+> -    BOOTMOD_MICROCODE,
+> -    BOOTMOD_XSM_POLICY,
+> -};
+> -
+> -struct boot_module {
+> -    enum bootmod_type type;
+> -
+> -    /*
+> -     * Module State Flags:
+> -     *   relocated: indicates module has been relocated in memory.
+> -     *   released:  indicates module's pages have been freed.
+> -     */
+> -    bool relocated:1;
+> -    bool released:1;
+> -
+> -    /*
+> -     * A boot module may need decompressing by Xen.  Headroom is an estimate of
+> -     * the additional space required to decompress the module.
+> -     *
+> -     * Headroom is accounted for at the start of the module.  Decompressing is
+> -     * done in-place with input=start, output=start-headroom, expecting the
+> -     * pointers to become equal (give or take some rounding) when decompression
+> -     * is complete.
+> -     *
+> -     * Memory layout at boot:
+> -     *
+> -     *               start ----+
+> -     *                         v
+> -     *   |<-----headroom------>|<------size------->|
+> -     *                         +-------------------+
+> -     *                         | Compressed Module |
+> -     *   +---------------------+-------------------+
+> -     *   |           Decompressed Module           |
+> -     *   +-----------------------------------------+
+> -     */
+> -    unsigned long headroom;
+> -
+> -    paddr_t cmdline_pa;
+> -
+> -    paddr_t start;
+> -    size_t size;
+> -};
+> -
+>   /*
+>    * Xen internal representation of information provided by the
+>    * bootloader/environment, or derived from the information.
+> @@ -94,16 +46,16 @@ struct boot_info {
+>    *      Failure - a value greater than MAX_NR_BOOTMODS
+>    */
+>   static inline unsigned int __init next_boot_module_index(
+> -    const struct boot_info *bi, enum bootmod_type t, unsigned int start)
+> +    const struct boot_info *bi, boot_module_kind k, unsigned int start)
 >   {
->       return 0;
-> diff --git a/xen/common/sched/Kconfig b/xen/common/sched/Kconfig
-> index 18ca1ce7ab..1fb622e6cf 100644
-> --- a/xen/common/sched/Kconfig
-> +++ b/xen/common/sched/Kconfig
-> @@ -67,7 +67,7 @@ endmenu
+>       unsigned int i;
 >   
->   config BOOT_TIME_CPUPOOLS
->   	bool "Create cpupools at boot time"
-> -	depends on HAS_DEVICE_TREE
-> +	depends on HAS_DEVICE_TREE_DISCOVERY
->   	help
->   	  Creates cpupools during boot time and assigns cpus to them. Cpupools
->   	  options can be specified in the device tree.
-> diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-> index 6b4fb4ad31..c1c08b235e 100644
-> --- a/xen/drivers/char/ns16550.c
-> +++ b/xen/drivers/char/ns16550.c
-> @@ -34,7 +34,7 @@
->   #include <xen/8250-uart.h>
->   #include <xen/vmap.h>
->   #include <asm/io.h>
-> -#ifdef CONFIG_HAS_DEVICE_TREE
-> +#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->   #include <asm/device.h>
->   #endif
->   #ifdef CONFIG_X86
-> @@ -1766,7 +1766,7 @@ void __init ns16550_init(int index, struct ns16550_defaults *defaults)
+> -    if ( t == BOOTMOD_XEN )
+> +    if ( k == BOOTMOD_XEN )
+>           return bi->nr_modules;
 >   
->   #endif /* CONFIG_X86 */
+>       for ( i = start; i < bi->nr_modules; i++ )
+>       {
+> -        if ( bi->mods[i].type == t )
+> +        if ( bi->mods[i].kind == k )
+>               return i;
+>       }
 >   
-> -#ifdef CONFIG_HAS_DEVICE_TREE
-> +#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->   static int __init ns16550_uart_dt_init(struct dt_device_node *dev,
->                                          const void *data)
->   {
-> @@ -1845,7 +1845,7 @@ DT_DEVICE_START(ns16550, "NS16550 UART", DEVICE_SERIAL)
->           .init = ns16550_uart_dt_init,
->   DT_DEVICE_END
+> diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
+> index e1b78d47c2..a4b5362357 100644
+> --- a/xen/arch/x86/pv/dom0_build.c
+> +++ b/xen/arch/x86/pv/dom0_build.c
+> @@ -422,7 +422,7 @@ static int __init dom0_construct(const struct boot_domain *bd)
 >   
-> -#endif /* HAS_DEVICE_TREE */
-> +#endif /* HAS_DEVICE_TREE_DISCOVERY */
+>       image_base = bootstrap_map_bm(image);
+>       image_len = image->size;
+> -    image_start = image_base + image->headroom;
+> +    image_start = image_base + image->arch.headroom;
 >   
->   #if defined(CONFIG_ACPI) && defined(CONFIG_ARM)
->   #include <xen/acpi.h>
-> diff --git a/xen/drivers/passthrough/Makefile b/xen/drivers/passthrough/Makefile
-> index a1621540b7..eb4aeafb42 100644
-> --- a/xen/drivers/passthrough/Makefile
-> +++ b/xen/drivers/passthrough/Makefile
-> @@ -5,6 +5,6 @@ obj-$(CONFIG_ARM) += arm/
+>       d->max_pages = ~0U;
 >   
->   obj-y += iommu.o
->   obj-$(CONFIG_HAS_PCI) += pci.o
-> -obj-$(CONFIG_HAS_DEVICE_TREE) += device_tree.o
-> +obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += device_tree.o
->   obj-$(CONFIG_HAS_PCI) += ats.o
->   obj-$(CONFIG_HAS_PCI_MSI) += msi.o
-> diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
-> index 16aad86973..c9425d6971 100644
-> --- a/xen/drivers/passthrough/iommu.c
-> +++ b/xen/drivers/passthrough/iommu.c
-> @@ -638,7 +638,7 @@ int iommu_do_domctl(
->       ret = iommu_do_pci_domctl(domctl, d, u_domctl);
->   #endif
+> @@ -659,7 +659,7 @@ static int __init dom0_construct(const struct boot_domain *bd)
+>                * pages. Tell the boot_module handling that we've freed it, so the
+>                * memory is left alone.
+>                */
+> -            initrd->released = true;
+> +            initrd->arch.released = true;
+>           }
 >   
-> -#ifdef CONFIG_HAS_DEVICE_TREE
-> +#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->       if ( ret == -ENODEV )
->           ret = iommu_do_dt_domctl(domctl, d, u_domctl);
->   #endif
-> diff --git a/xen/include/asm-generic/device.h b/xen/include/asm-generic/device.h
-> index 1acd1ba1d8..3bd97e33c5 100644
-> --- a/xen/include/asm-generic/device.h
-> +++ b/xen/include/asm-generic/device.h
-> @@ -6,7 +6,7 @@
->   
->   enum device_type
->   {
-> -#ifdef CONFIG_HAS_DEVICE_TREE
-> +#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->       DEV_DT,
->   #endif
->       DEV_PCI
-> @@ -26,7 +26,7 @@ enum device_class
->   struct device
->   {
->       enum device_type type;
-> -#ifdef CONFIG_HAS_DEVICE_TREE
-> +#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->       struct dt_device_node *of_node; /* Used by drivers imported from Linux */
->   #endif
->   #ifdef CONFIG_HAS_PASSTHROUGH
-> @@ -37,7 +37,7 @@ struct device
->   
->   typedef struct device device_t;
->   
-> -#ifdef CONFIG_HAS_DEVICE_TREE
-> +#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->   
->   #include <xen/device_tree.h>
->   
-> @@ -87,9 +87,9 @@ struct device_desc {
->       int (*init)(struct dt_device_node *dev, const void *data);
+>           iommu_memory_setup(d, "initrd", mfn_to_page(_mfn(initrd_mfn)),
+> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+> index 24e4f5ac7f..7e70b46332 100644
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -303,7 +303,7 @@ struct boot_info __initdata xen_boot_info = {
+>        *
+>        * The extra entry exists to be able to add the Xen image as a module.
+>        */
+> -    .mods = { [0 ... MAX_NR_BOOTMODS] = { .type = BOOTMOD_UNKNOWN } },
+> +    .mods = { [0 ... MAX_NR_BOOTMODS] = { .kind = BOOTMOD_UNKNOWN } },
 >   };
 >   
-> -#else /* !CONFIG_HAS_DEVICE_TREE */
-> +#else /* !CONFIG_HAS_DEVICE_TREE_DISCOVERY */
->   #define dev_is_dt(dev) ((void)(dev), false)
-> -#endif /* CONFIG_HAS_DEVICE_TREE */
-> +#endif /* CONFIG_HAS_DEVICE_TREE_DISCOVERY */
+>   static struct boot_info *__init multiboot_fill_boot_info(
+> @@ -338,7 +338,7 @@ static struct boot_info *__init multiboot_fill_boot_info(
+>        */
+>       for ( i = 0; i < MAX_NR_BOOTMODS && i < bi->nr_modules; i++ )
+>       {
+> -        bi->mods[i].cmdline_pa = mods[i].string;
+> +        bi->mods[i].arch.cmdline_pa = mods[i].string;
 >   
->   #define dev_is_pci(dev) ((dev)->type == DEV_PCI)
+>           if ( efi_enabled(EFI_LOADER) )
+>           {
+> @@ -361,7 +361,7 @@ static struct boot_info *__init multiboot_fill_boot_info(
+>       }
 >   
-> diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-> index 57f338e2a0..37c4a1dc82 100644
-> --- a/xen/include/xen/iommu.h
-> +++ b/xen/include/xen/iommu.h
-> @@ -232,7 +232,7 @@ struct msi_msg;
->   #define PT_IRQ_TIME_OUT MILLISECS(8)
->   #endif /* HAS_PCI */
+>       /* Variable 'i' should be one entry past the last module. */
+> -    bi->mods[i].type = BOOTMOD_XEN;
+> +    bi->mods[i].kind = BOOTMOD_XEN;
 >   
-> -#ifdef CONFIG_HAS_DEVICE_TREE
-> +#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->   #include <xen/device_tree.h>
+>       return bi;
+>   }
+> @@ -388,11 +388,11 @@ unsigned long __init initial_images_nrpages(nodeid_t node)
 >   
->   #ifdef CONFIG_HAS_PASSTHROUGH
-> @@ -309,7 +309,7 @@ static inline int iommu_add_dt_pci_sideband_ids(struct pci_dev *pdev)
->   
->   #endif /* HAS_PASSTHROUGH */
->   
-> -#endif /* HAS_DEVICE_TREE */
-> +#endif /* HAS_DEVICE_TREE_DISCOVERY */
->   
->   struct page_info;
->   
-> @@ -376,7 +376,7 @@ struct iommu_ops {
->       int (*get_reserved_device_memory)(iommu_grdm_t *func, void *ctxt);
->       void (*dump_page_tables)(struct domain *d);
->   
-> -#ifdef CONFIG_HAS_DEVICE_TREE
-> +#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->       /*
->        * All IOMMU drivers which support generic IOMMU DT bindings should use
->        * this callback. This is a way for the framework to provide the driver
-> @@ -424,7 +424,7 @@ struct domain_iommu {
->       /* iommu_ops */
->       const struct iommu_ops *platform_ops;
->   
-> -#ifdef CONFIG_HAS_DEVICE_TREE
-> +#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->       /* List of DT devices assigned to this domain */
->       struct list_head dt_devices;
->   #endif
-> diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
-> index 9227205fcd..12792c3a43 100644
-> --- a/xen/include/xsm/dummy.h
-> +++ b/xen/include/xsm/dummy.h
-> @@ -423,7 +423,7 @@ static XSM_INLINE int cf_check xsm_deassign_device(
->   
->   #endif /* HAS_PASSTHROUGH && HAS_PCI */
->   
-> -#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE)
-> +#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE_DISCOVERY)
->   static XSM_INLINE int cf_check xsm_assign_dtdevice(
->       XSM_DEFAULT_ARG struct domain *d, const char *dtpath)
+>   void __init release_boot_module(struct boot_module *bm)
 >   {
-> @@ -438,7 +438,7 @@ static XSM_INLINE int cf_check xsm_deassign_dtdevice(
->       return xsm_default_action(action, current->domain, d);
+> -    ASSERT(!bm->released);
+> +    ASSERT(!bm->arch.released);
+>   
+>       init_domheap_pages(bm->start, bm->start + PAGE_ALIGN(bm->size));
+>   
+> -    bm->released = true;
+> +    bm->arch.released = true;
 >   }
 >   
-> -#endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE */
-> +#endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE_DISCOVERY */
+>   void __init free_boot_modules(void)
+> @@ -402,7 +402,7 @@ void __init free_boot_modules(void)
 >   
->   static XSM_INLINE int cf_check xsm_resource_plug_core(XSM_DEFAULT_VOID)
+>       for ( i = 0; i < bi->nr_modules; ++i )
+>       {
+> -        if ( bi->mods[i].released )
+> +        if ( bi->mods[i].arch.released )
+>               continue;
+>   
+>           release_boot_module(&bi->mods[i]);
+> @@ -997,8 +997,8 @@ static size_t __init domain_cmdline_size(const struct boot_info *bi,
 >   {
-> diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
-> index 24acc16125..abeb4b04ad 100644
-> --- a/xen/include/xsm/xsm.h
-> +++ b/xen/include/xsm/xsm.h
-> @@ -125,7 +125,7 @@ struct xsm_ops {
->       int (*deassign_device)(struct domain *d, uint32_t machine_bdf);
+>       size_t s = 0;
+>   
+> -    if ( bd->kernel->cmdline_pa )
+> -        s += strlen(__va(bd->kernel->cmdline_pa));
+> +    if ( bd->kernel->arch.cmdline_pa )
+> +        s += strlen(__va(bd->kernel->arch.cmdline_pa));
+>   
+>       if ( bi->kextra )
+>           s += strlen(bi->kextra);
+> @@ -1065,9 +1065,10 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+>           if ( !(cmdline = xzalloc_array(char, cmdline_size)) )
+>               panic("Error allocating cmdline buffer for %pd\n", d);
+>   
+> -        if ( bd->kernel->cmdline_pa )
+> +        if ( bd->kernel->arch.cmdline_pa )
+>               strlcpy(cmdline,
+> -                    cmdline_cook(__va(bd->kernel->cmdline_pa), bi->loader),
+> +                    cmdline_cook(__va(bd->kernel->arch.cmdline_pa),
+> +                                 bi->loader),
+>                       cmdline_size);
+>   
+>           if ( bi->kextra )
+> @@ -1089,7 +1090,7 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+>               strlcat(cmdline, " acpi=", cmdline_size);
+>               strlcat(cmdline, acpi_param, cmdline_size);
+>           }
+> -        bd->kernel->cmdline_pa = 0;
+> +        bd->kernel->arch.cmdline_pa = 0;
+>           bd->cmdline = cmdline;
+>       }
+>   
+> @@ -1302,7 +1303,7 @@ void asmlinkage __init noreturn __start_xen(void)
+>       }
+>   
+>       /* Dom0 kernel is always first */
+> -    bi->mods[0].type = BOOTMOD_KERNEL;
+> +    bi->mods[0].kind = BOOTMOD_KERNEL;
+>       bi->domains[0].kernel = &bi->mods[0];
+>   
+>       if ( pvh_boot )
+> @@ -1486,7 +1487,7 @@ void asmlinkage __init noreturn __start_xen(void)
+>           xen->size  = __2M_rwdata_end - _stext;
+>       }
+>   
+> -    bi->mods[0].headroom =
+> +    bi->mods[0].arch.headroom =
+>           bzimage_headroom(bootstrap_map_bm(&bi->mods[0]), bi->mods[0].size);
+>       bootstrap_unmap();
+>   
+> @@ -1568,9 +1569,9 @@ void asmlinkage __init noreturn __start_xen(void)
+>           for ( j = bi->nr_modules - 1; j >= 0; j-- )
+>           {
+>               struct boot_module *bm = &bi->mods[j];
+> -            unsigned long size = PAGE_ALIGN(bm->headroom + bm->size);
+> +            unsigned long size = PAGE_ALIGN(bm->arch.headroom + bm->size);
+>   
+> -            if ( bm->relocated )
+> +            if ( bm->arch.relocated )
+>                   continue;
+>   
+>               /* Don't overlap with other modules (or Xen itself). */
+> @@ -1580,12 +1581,12 @@ void asmlinkage __init noreturn __start_xen(void)
+>               if ( highmem_start && end > highmem_start )
+>                   continue;
+>   
+> -            if ( s < end && (bm->headroom || (end - size) > bm->start) )
+> +            if ( s < end && (bm->arch.headroom || (end - size) > bm->start) )
+>               {
+> -                move_memory(end - size + bm->headroom, bm->start, bm->size);
+> +                move_memory(end - size + bm->arch.headroom, bm->start, bm->size);
+>                   bm->start = (end - size);
+> -                bm->size += bm->headroom;
+> -                bm->relocated = true;
+> +                bm->size += bm->arch.headroom;
+> +                bm->arch.relocated = true;
+>               }
+>           }
+>   
+> @@ -1611,7 +1612,7 @@ void asmlinkage __init noreturn __start_xen(void)
 >   #endif
+>       }
 >   
-> -#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE)
-> +#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE_DISCOVERY)
->       int (*assign_dtdevice)(struct domain *d, const char *dtpath);
->       int (*deassign_dtdevice)(struct domain *d, const char *dtpath);
+> -    if ( bi->mods[0].headroom && !bi->mods[0].relocated )
+> +    if ( bi->mods[0].arch.headroom && !bi->mods[0].arch.relocated )
+>           panic("Not enough memory to relocate the dom0 kernel image\n");
+>       for ( i = 0; i < bi->nr_modules; ++i )
+>       {
+> @@ -2169,7 +2170,7 @@ void asmlinkage __init noreturn __start_xen(void)
+>       initrdidx = first_boot_module_index(bi, BOOTMOD_UNKNOWN);
+>       if ( initrdidx < MAX_NR_BOOTMODS )
+>       {
+> -        bi->mods[initrdidx].type = BOOTMOD_RAMDISK;
+> +        bi->mods[initrdidx].kind = BOOTMOD_RAMDISK;
+>           bi->domains[0].module = &bi->mods[initrdidx];
+>           if ( first_boot_module_index(bi, BOOTMOD_UNKNOWN) < MAX_NR_BOOTMODS )
+>               printk(XENLOG_WARNING
+> diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
+> index 7f49d0ccdd..1b19069833 100644
+> --- a/xen/include/xen/bootfdt.h
+> +++ b/xen/include/xen/bootfdt.h
+> @@ -7,6 +7,10 @@
+>   #include <xen/macros.h>
+>   #include <xen/xmalloc.h>
+>   
+> +#if __has_include(<asm/bootfdt.h>)
+> +#include <asm/bootfdt.h>
+> +#endif
+> +
+>   #define MIN_FDT_ALIGN 8
+>   
+>   #define NR_MEM_BANKS 256
+> @@ -110,6 +114,10 @@ struct boot_module {
 >   #endif
-> @@ -535,7 +535,7 @@ static inline int xsm_deassign_device(
->   }
->   #endif /* HAS_PASSTHROUGH && HAS_PCI) */
+>       paddr_t start;
+>       paddr_t size;
+> +
+> +#if __has_include(<asm/bootfdt.h>)
+> +    struct arch_boot_module arch;
+> +#endif
+>   };
 >   
-> -#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE)
-> +#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE_DISCOVERY)
->   static inline int xsm_assign_dtdevice(
->       xsm_default_t def, struct domain *d, const char *dtpath)
->   {
-> @@ -548,7 +548,7 @@ static inline int xsm_deassign_dtdevice(
->       return alternative_call(xsm_ops.deassign_dtdevice, d, dtpath);
->   }
->   
-> -#endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE */
-> +#endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE_DISCOVERY */
->   
->   static inline int xsm_resource_plug_pci(xsm_default_t def, uint32_t machine_bdf)
->   {
-> @@ -789,7 +789,7 @@ int xsm_multiboot_policy_init(
->       struct boot_info *bi, void **policy_buffer, size_t *policy_size);
->   #endif
->   
-> -#ifdef CONFIG_HAS_DEVICE_TREE
-> +#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->   /*
->    * Initialize XSM
->    *
-> @@ -839,7 +839,7 @@ static inline int xsm_multiboot_init(struct boot_info *bi)
->   }
->   #endif
->   
-> -#ifdef CONFIG_HAS_DEVICE_TREE
-> +#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->   static inline int xsm_dt_init(void)
->   {
->       return 0;
-> @@ -849,7 +849,7 @@ static inline bool has_xsm_magic(paddr_t start)
->   {
->       return false;
->   }
-> -#endif /* CONFIG_HAS_DEVICE_TREE */
-> +#endif /* CONFIG_HAS_DEVICE_TREE_DISCOVERY */
->   
->   #endif /* CONFIG_XSM */
->   
-> diff --git a/xen/xsm/dummy.c b/xen/xsm/dummy.c
-> index 93fbfc43cc..7f67683839 100644
-> --- a/xen/xsm/dummy.c
-> +++ b/xen/xsm/dummy.c
-> @@ -81,7 +81,7 @@ static const struct xsm_ops __initconst_cf_clobber dummy_ops = {
->       .deassign_device               = xsm_deassign_device,
->   #endif
->   
-> -#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE)
-> +#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE_DISCOVERY)
->       .assign_dtdevice               = xsm_assign_dtdevice,
->       .deassign_dtdevice             = xsm_deassign_dtdevice,
->   #endif
-> diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
-> index 6a53487ea4..78bad6e56b 100644
-> --- a/xen/xsm/flask/hooks.c
-> +++ b/xen/xsm/flask/hooks.c
-> @@ -1456,7 +1456,7 @@ static int cf_check flask_deassign_device(
->   }
->   #endif /* HAS_PASSTHROUGH && HAS_PCI */
->   
-> -#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE)
-> +#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE_DISCOVERY)
->   static int flask_test_assign_dtdevice(const char *dtpath)
->   {
->       uint32_t rsid;
-> @@ -1517,7 +1517,7 @@ static int cf_check flask_deassign_dtdevice(
->       return avc_current_has_perm(rsid, SECCLASS_RESOURCE, RESOURCE__REMOVE_DEVICE,
->                                   NULL);
->   }
-> -#endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE */
-> +#endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE_DISCOVERY */
->   
->   static int cf_check flask_platform_op(uint32_t op)
->   {
-> @@ -1981,7 +1981,7 @@ static const struct xsm_ops __initconst_cf_clobber flask_ops = {
->       .deassign_device = flask_deassign_device,
->   #endif
->   
-> -#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE)
-> +#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE_DISCOVERY)
->       .assign_dtdevice = flask_assign_dtdevice,
->       .deassign_dtdevice = flask_deassign_dtdevice,
->   #endif
-> diff --git a/xen/xsm/xsm_core.c b/xen/xsm/xsm_core.c
-> index f255fb63bf..b7e864a874 100644
-> --- a/xen/xsm/xsm_core.c
-> +++ b/xen/xsm/xsm_core.c
-> @@ -25,7 +25,7 @@
->   #include <asm/setup.h>
->   #endif
->   
-> -#ifdef CONFIG_HAS_DEVICE_TREE
-> +#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->   #include <asm/setup.h>
->   #endif
->   
-> @@ -166,7 +166,7 @@ int __init xsm_multiboot_init(struct boot_info *bi)
->   }
->   #endif
->   
-> -#ifdef CONFIG_HAS_DEVICE_TREE
-> +#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->   int __init xsm_dt_init(void)
->   {
->       int ret = 0;
+>   /* DT_MAX_NAME is the node name max length according the DT spec */
 > diff --git a/xen/xsm/xsm_policy.c b/xen/xsm/xsm_policy.c
-> index 1b4030edb4..3f04375347 100644
+> index 1f88b4fc5a..1b4030edb4 100644
 > --- a/xen/xsm/xsm_policy.c
 > +++ b/xen/xsm/xsm_policy.c
-> @@ -24,7 +24,7 @@
->   #include <asm/setup.h>
->   #endif
->   #include <xen/bitops.h>
-> -#ifdef CONFIG_HAS_DEVICE_TREE
-> +#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->   # include <asm/setup.h>
->   # include <xen/device_tree.h>
->   #endif
-> @@ -65,7 +65,7 @@ int __init xsm_multiboot_policy_init(
->   }
->   #endif
+> @@ -53,7 +53,7 @@ int __init xsm_multiboot_policy_init(
+>               printk("Policy len %#lx, start at %p.\n",
+>                      _policy_len,_policy_start);
 >   
-> -#ifdef CONFIG_HAS_DEVICE_TREE
-> +#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->   int __init xsm_dt_policy_init(void **policy_buffer, size_t *policy_size)
->   {
->       struct boot_module *mod = boot_module_find_by_kind(BOOTMOD_XSM);
+> -            bm->type = BOOTMOD_XSM_POLICY;
+> +            bm->kind = BOOTMOD_XSM;
 
-Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+I would ask the change be made the other direction, for the three usages 
+in the device-tree code. This isn't just a personal like, naming matters 
+and XSM does not support external modules, which this insinuates. It 
+only supports loadable policy and shorting this name creates ambiguity 
+in something already confusing to many.
+
+v/r,
+dps
+
 
