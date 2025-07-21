@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC000B0BC7C
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 08:26:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1051004.1419313 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 647B4B0BC7F
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 08:28:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1051011.1419323 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udjyF-0001Je-G9; Mon, 21 Jul 2025 06:25:55 +0000
+	id 1udk0g-0001rD-SQ; Mon, 21 Jul 2025 06:28:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1051004.1419313; Mon, 21 Jul 2025 06:25:55 +0000
+Received: by outflank-mailman (output) from mailman id 1051011.1419323; Mon, 21 Jul 2025 06:28:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udjyF-0001Hm-Cy; Mon, 21 Jul 2025 06:25:55 +0000
-Received: by outflank-mailman (input) for mailman id 1051004;
- Mon, 21 Jul 2025 06:25:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1udk0g-0001pO-PV; Mon, 21 Jul 2025 06:28:26 +0000
+Received: by outflank-mailman (input) for mailman id 1051011;
+ Mon, 21 Jul 2025 06:28:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=R5lD=2C=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1udjyD-0001He-NS
- for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 06:25:53 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8c1ae5e6-65fb-11f0-a31d-13f23c93f187;
- Mon, 21 Jul 2025 08:25:51 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-45610582d07so30064275e9.0
- for <xen-devel@lists.xenproject.org>; Sun, 20 Jul 2025 23:25:51 -0700 (PDT)
+ id 1udk0f-0001pG-69
+ for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 06:28:25 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e6c934e2-65fb-11f0-b894-0df219b8e170;
+ Mon, 21 Jul 2025 08:28:23 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3a54700a46eso2148633f8f.1
+ for <xen-devel@lists.xenproject.org>; Sun, 20 Jul 2025 23:28:23 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b711:f280:2981:7570:f40b:efd1?
  (p200300cab711f28029817570f40befd1.dip0.t-ipconnect.de.
  [2003:ca:b711:f280:2981:7570:f40b:efd1])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4563b740c51sm90212795e9.19.2025.07.20.23.25.49
+ ffacd0b85a97d-3b61c9f16d9sm9569890f8f.0.2025.07.20.23.28.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 20 Jul 2025 23:25:50 -0700 (PDT)
+ Sun, 20 Jul 2025 23:28:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,57 +47,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8c1ae5e6-65fb-11f0-a31d-13f23c93f187
+X-Inumbo-ID: e6c934e2-65fb-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753079150; x=1753683950; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753079302; x=1753684102; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VlcHHcNHwC5o994H0e171qBzPjB6hRrL1CvSGwK7iCA=;
-        b=ZW5da364kqiz4dU9DD98HGHILHcO1tw+JhAte18DzB44BATqvdFz4qc9dowbyrX9X/
-         Ko7DWTbMgfi1fWmpXhGuPSbAFjsQbVweFJRmoB6xt60MhcCKXMkupoEOVW7WbSpPBCuF
-         Fq1RfQtrGl/FweII48T4fkT3/dF68aAxOLXwbeF5AZEEBzDezN21z/4KQ+kqDBi3UThG
-         NIDE8plZBvA6n0Nob1rFOVP5OmE8Heo/8zRR3AZHVbMYnHMjJUeKAy4XKKpeyKCsGYGK
-         nQHuqX5o3m6WZ8n44bE8H1aSaB/STaY/lVPzh+D0n9hyLtFZ3XYg3D9icg5s35BcjBmI
-         vDdA==
+        bh=D+DsImP98ZcRha5XYucldwAA7H6nFXHxiKzxxdf+yJM=;
+        b=IMko6vPUDKM2H3QEIxjwn2Vu1qy7kOpPxrt3mwd6QetGsNMi5GnyQkbPG9PCnCtxJo
+         LQdUcvNpaITwmvUfnZrpWLiHZ6OltRcH2np2ZJIn7qe5XN2XmMZjYUZ9iIr5Y59QyFZC
+         7vp0Vjd2TJzng5IIBt1eynJ331zjdJk3JeOKlrPWvWpFkc7gxvtim6X+TijinKt37yqb
+         0mYlBtQaJtIA/ZizimQSGtEy8/i9IVV88v9kVCoPAWJ6IkB/pnJcKCpwbf+mv4kFJnxN
+         OC/zEITrrX7fxavsopfzTi+ncgCCHA9wOAcDRh8qB9V/KccaGhBrY9p6+FpqDRpTAJYq
+         7WbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753079150; x=1753683950;
+        d=1e100.net; s=20230601; t=1753079302; x=1753684102;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VlcHHcNHwC5o994H0e171qBzPjB6hRrL1CvSGwK7iCA=;
-        b=GAj/czaNX3P6+STxisIJ9bzatdh6AjRfZH7KbvyBiez8xsvGuAtVd3YBiew7Zpk95+
-         LW1lcIl80kDKFvj+gdSCxtK5jU9oTF3KvdMAFk6WPP+MH5Mte5Zp9/X4LfAvZF2u2//0
-         VwrqHcTeu046Fd6ALyhBAUuReZNdBwBab4G+C1SqcYfccRt4fFshON5y7ZvjberwvKGz
-         YAKGtF+qv5TzvxkR+37zkxO8p0KoQMhW50MolXfsEX6pxC0deAHYBK8UbzRlt+L8LYww
-         OT9TpLU3+wb1RN1HtixAKTnLS7LK3K9jazQF4D20t4vYAwZL7NGJYWxBIDz2sZoF0pzM
-         Jd5Q==
-X-Gm-Message-State: AOJu0Yw42NVs7zbsvj8ZYCgNQrnxbDbrkHd84U/M1iNB6czCczu5Ah4V
-	H6DB86M0F86EFy/Y/YBONFWNtoMZta5scKMp7ACG17ImzhToaRST8H44LlSfj26TAg==
-X-Gm-Gg: ASbGncuD0w60ZLuF2aIvOzlqOSfDDD1QKKLFbctHKlGDK3HMSA2J3HiqRRKi30hV05C
-	58CwSrAMqQrHvGHt//rHaKGRLD/s6+v9uJ921Gsnv8aVlLYrUDHlooCecuaw4B0gqzy4lmcvGJL
-	Bx2vikZr0sACw9BmSTc4a5oPZZ8Ok1U59qAKP197EzJGAhqtBar4Y+VpMz1SXMRXwBg2NAvoHoI
-	+TlOKzQhHq4VU8v2kLZ5mr+hmnTOVFzACZQtOB3IZauJW4TUyGrJfz2SDWpTAy10vqxSZo+PdpO
-	AfwDKnWTjXyJNEcumruAOkgvYvY/XwKORT1pT7zngEZJ06nyOfAklKRPx173fpw81yDFQ1ZFFsg
-	7hXW9Zf8aKYScJCNXnhKV0GxFeOJPyZ6QlFhnjhJgmwZUmOpnnm4gXprUfNalWTe9pQDtvvVE6B
-	pwXMOWo1rbhA5bKR+PinUNHtWuH8qX6y7Kj4xlQ7u/iaTXjSyqd0QIfBfL
-X-Google-Smtp-Source: AGHT+IGd2IPTXcrGOYsKqiDgvppMOxXsBi6yieduBrkstVeJ4KzVImfVogTBFjBxlThp6DbPpMOdMQ==
-X-Received: by 2002:a05:600c:4507:b0:456:2379:c238 with SMTP id 5b1f17b1804b1-45635982c3bmr159202015e9.17.1753079150572;
-        Sun, 20 Jul 2025 23:25:50 -0700 (PDT)
-Message-ID: <870ebf7f-e953-4c48-b733-a5e7a191cae2@suse.com>
-Date: Mon, 21 Jul 2025 08:25:48 +0200
+        bh=D+DsImP98ZcRha5XYucldwAA7H6nFXHxiKzxxdf+yJM=;
+        b=SQVr6n4dFQmfxAifaAX0ybqbdUWqWKEOb4bnxfRbAaZDaJRft/5Iz5gjr9M6Pir+u7
+         XGATPrvDPVhwV8+ObWYczazBC5i+uqeQaiGV5H+Xqbz0O10dO1jfon4jOiYAiOT83Wyz
+         dm4XKCMWmfthz67lXN9XYOQ7Ttd7aS/Q5ZbkSawuh/TC/E43Df4bp+omrPkYaGxMPkmK
+         ZsqvAcm/7C3EbNfX3lD6rowvAcoyFFBRjbo9yyijefVT88wbW0FlLlR3/bXlVG+GYvQI
+         C9LXKJ6+eB1zvvs3WLEBpbDthzs8BrCH0aAP9zqebUUnH3cz4nSqbK5/Rt7aWz0OJ6Fe
+         xckQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWpfiP3LtJA4BefB5PVA23kV9E6SmEI9k/tbgSPHUVgzmQ3J7hX7WPPjETb/XbGo4edS0h4HzeQBZ8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzlhb5DZrPXGwjaf0ydLOGTvN3g5Yj1Pwb5e1fAYWtFY+WUtAoJ
+	Nr3RkOBHCLxTpHao7sbvYAlU/NgRFDEzt8VbeAn6m7NSf8j5L1CMDzyJHvKcAYD8Eg==
+X-Gm-Gg: ASbGncvmZD4sPd2df30bweoq1c3+oAYld4PWvFks5EHU8/uAtR0BsajjD5An00/L5ct
+	6cKhcwL33Mb5vJC6Amxn4MaoxTGxIeItDYSZjXblrMQAygvEi5J342XArMJjjogP3yZV1ifnVYy
+	h9+ZCgMAFA/MV7EaFZ5FMWDPthQ2WdV6b/r28/GQjiHRBCC69plHeTaX/sRy/B56Pn9N0ihFK8T
+	YNuomdGV/hFSE8rtElx4E2MLO1AMk9f/u42asOXXmb2XynIv2raCpf3Xf5pn9pdSGCsCtTrERI0
+	GGoKYXYxmvE8h3oBV69RyZZUV/iua18oJ3dlx5s0KG1LoRd560EUHbPEIhj/jGeL0pFm16b213B
+	XhMzHGYYwxpCZHgOTfTonLg8fuT7V8Bz4RHb0V83zEBNMzqTCQ9VU6IDbD50GBTv04fYm7fZq//
+	HsfOW11CJ05ipEjQmaETccGa//P1Lsbd76h7zG/WY1+OM7UMHOQ20+ZGLz
+X-Google-Smtp-Source: AGHT+IFGba2nM6wT0ETXf30EnAqSURw7u7mv71vLd9sRYDYQ5vAwuB2Jxxssdr6OVB0TjAzkawd0uQ==
+X-Received: by 2002:a5d:5848:0:b0:3a5:39d8:57e4 with SMTP id ffacd0b85a97d-3b613ea2865mr11266288f8f.41.1753079302592;
+        Sun, 20 Jul 2025 23:28:22 -0700 (PDT)
+Message-ID: <3a3e48ff-886a-46a8-81af-2cc64b6d797a@suse.com>
+Date: Mon, 21 Jul 2025 08:28:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/3] drivers: Make ioapic_sbdf and hpet_sbdf contain
- pci_sbdf_t
-To: dmkhn@proton.me, Andrii Sultanov <sultanovandriy@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <cover.1752736989.git.andriy.sultanov@vates.tech>
- <94d8b7537021337a6b54d8950294702f5bbd2590.1752736989.git.andriy.sultanov@vates.tech>
- <aHrElE4KN7djeXzn@kraken>
+Subject: Re: [PATCH] x86: Don't allow HVM alongside PV_SHIM_EXCLUSIVE
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20250718151214.24835-1-alejandro.garciavallejo@amd.com>
+ <47704e30-0f8f-483e-b22e-5cdb767699d5@citrix.com>
+ <DBFBAURYB2J6.LTV7SKMB1PQQ@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,48 +122,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aHrElE4KN7djeXzn@kraken>
+In-Reply-To: <DBFBAURYB2J6.LTV7SKMB1PQQ@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19.07.2025 00:03, dmkhn@proton.me wrote:
-> On Thu, Jul 17, 2025 at 08:31:27AM +0100, Andrii Sultanov wrote:
->> @@ -756,16 +755,16 @@ static u16 __init parse_ivhd_device_special(
->>          return 0;
->>      }
+On 18.07.2025 18:12, Alejandro Vallejo wrote:
+> On Fri Jul 18, 2025 at 5:41 PM CEST, Andrew Cooper wrote:
+>> On 18/07/2025 4:12 pm, Alejandro Vallejo wrote:
+>>> Otherwise compile-time errors ensue. It's a nonsensical configuration,
+>>> but it's supriously triggered in randconfig jobs.
+>>>
+>>> Fixes: 8b5b49ceb3d9("x86: don't include domctl and alike in shim-excl...")
+>>> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+>>> ---
+>>>  xen/arch/x86/hvm/Kconfig | 1 +
+>>>  1 file changed, 1 insertion(+)
+>>>
+>>> diff --git a/xen/arch/x86/hvm/Kconfig b/xen/arch/x86/hvm/Kconfig
+>>> index b903764bda..f57a87bca3 100644
+>>> --- a/xen/arch/x86/hvm/Kconfig
+>>> +++ b/xen/arch/x86/hvm/Kconfig
+>>> @@ -1,6 +1,7 @@
+>>>  menuconfig HVM
+>>>  	bool "HVM support"
+>>>  	default !PV_SHIM
+>>> +	depends on !PV_SHIM_EXCLUSIVE
+>>>  	select COMPAT
+>>>  	select IOREQ_SERVER
+>>>  	select MEM_ACCESS_ALWAYS_ON
 >>
->> -    bdf = special->used_id;
->> -    if ( bdf >= ivrs_bdf_entries )
->> +    sbdf = PCI_SBDF(seg, special->used_id);
->> +    if ( sbdf.bdf >= ivrs_bdf_entries )
->>      {
->> -        AMD_IOMMU_ERROR("IVHD: invalid Device_Entry Dev_Id %#x\n", bdf);
->> +        AMD_IOMMU_ERROR("IVHD: invalid Device_Entry Dev_Id %#x\n", sbdf.bdf);
-> 
->                                                               ^^
-> Suggest using %pp as a formatter (similar to modification below).
-
-Here using %pp may be okay, albeit I'm not sure even for this one.
-
->> @@ -335,20 +336,19 @@ void cf_check amd_iommu_ioapic_update_ire(
->>      new_rte.raw = rte;
+>> I deeply regret not nacking this originally and blocking the patch you
+>> listed as fixed.
 >>
->>      /* get device id of ioapic devices */
->> -    bdf = ioapic_sbdf[idx].bdf;
->> -    seg = ioapic_sbdf[idx].seg;
->> -    iommu = find_iommu_for_device(PCI_SBDF(seg, bdf));
->> +    sbdf = ioapic_sbdf[idx].sbdf;
->> +    iommu = find_iommu_for_device(sbdf);
->>      if ( !iommu )
->>      {
->>          AMD_IOMMU_WARN("failed to find IOMMU for IO-APIC @ %04x:%04x\n",
+>> This depends was explicitly reverted in 568f806cba4c because it breaks a
+>> lot of things, notably `make allyesconfig`.
+>>
+>> We're going to need to find a different way to fix RANDCONFIG.
+>>
+>> ~Andrew
 > 
->                                                                 ^^
-> Use %pp ?
+> It can be done the other way around. PV_SHIM_EXCLUSIVE depending on !CONFIG_HVM,
+> but that won't help with allyesconfig.
 
-Here I'm pretty firmly against. We're talking of an IO-APIC here, not really
-a PCI device (and that's irrespective of AMD often(?) representing IO-APICs
-also as PCI devices).
+And it wouldn't be right either, in the model we're trying to follow now.
 
 Jan
 
