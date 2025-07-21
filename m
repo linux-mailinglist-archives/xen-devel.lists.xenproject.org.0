@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3A96B0C592
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 15:54:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1051545.1419894 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18A16B0C5CD
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 16:07:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1051568.1419914 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udqxZ-0004GW-Kn; Mon, 21 Jul 2025 13:53:41 +0000
+	id 1udrAS-0006kF-14; Mon, 21 Jul 2025 14:07:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1051545.1419894; Mon, 21 Jul 2025 13:53:41 +0000
+Received: by outflank-mailman (output) from mailman id 1051568.1419914; Mon, 21 Jul 2025 14:07:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udqxZ-0004Ec-H1; Mon, 21 Jul 2025 13:53:41 +0000
-Received: by outflank-mailman (input) for mailman id 1051545;
- Mon, 21 Jul 2025 13:53:39 +0000
+	id 1udrAR-0006hh-Uk; Mon, 21 Jul 2025 14:06:59 +0000
+Received: by outflank-mailman (input) for mailman id 1051568;
+ Mon, 21 Jul 2025 14:06:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YQHN=2C=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1udqxX-0004ER-Fs
- for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 13:53:39 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=R5lD=2C=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1udrAR-0006hb-1O
+ for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 14:06:59 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 19d846e6-663a-11f0-a31d-13f23c93f187;
- Mon, 21 Jul 2025 15:53:37 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-4563cfac19cso33001585e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 21 Jul 2025 06:53:37 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-4563b74f8a9sm103045155e9.26.2025.07.21.06.53.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Jul 2025 06:53:36 -0700 (PDT)
+ id f69dffe1-663b-11f0-a31d-13f23c93f187;
+ Mon, 21 Jul 2025 16:06:57 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-45617887276so29693805e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Jul 2025 07:06:57 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-759cb1575f0sm5767720b3a.75.2025.07.21.07.06.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 21 Jul 2025 07:06:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,370 +45,251 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 19d846e6-663a-11f0-a31d-13f23c93f187
+X-Inumbo-ID: f69dffe1-663b-11f0-a31d-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1753106017; x=1753710817; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=h8w7ZUzksc2+/fYCBIFzirVRcz2VYGHJC3/dP2b4+1w=;
-        b=lPW5CPMJLsoS7wEkC2TZBFdMzQcv65lcUIbqbHOFyauLb9VLQ2JDWotaCfmKoxDKrp
-         XlH+4uh6dE/hkK5fYYNDVb/AUOxtNxOS1WhbrC5Womzk3+Jfh6atepLji6oCcTQCXePU
-         MN1kVNhGnw1Iihr1pqKjmsuw64uzkLXl7y1UU=
+        d=suse.com; s=google; t=1753106817; x=1753711617; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZJ4VQdRBSRIJiZgalJoHkSrIFmkr1Ihf2bK2ibWog80=;
+        b=UyX/KVlJi5NPAwstF8eMUBVpsffgmt52Jk3r68TlnaUh86jMmSGj1uF4UcIL4PkaBr
+         p/Jp/BRRpo9eCTpfxI09wHZTnClCino7O56WCJf6L6w3SUecYQW6IJ9Y2L6Uv3/Fu0lO
+         hoWkS1+7Q5farpZZIYxWJNxB1exBLKt5byyp0MaqfG60P+bhPWMfvhBuX5T7O1E3ugY2
+         mOTJ3/AF8lrmsOuxLg/lwNwxAVjKdVQRelrsO/9ZGfzO1GIgKu1tOkoDjYRccXutOgzn
+         UQUC2Mj+7gup+ZVcrAMMfGZjoCVhoa5jB+pKwT1X/jJsXQajqWXDXRN6AwZ7R2309doU
+         +/Lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753106017; x=1753710817;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1753106817; x=1753711617;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=h8w7ZUzksc2+/fYCBIFzirVRcz2VYGHJC3/dP2b4+1w=;
-        b=WyNN1UjVk0Q0q3JWUiTqC5CJa3gTHfFCj32LVrPQ6eJQZ4UVLUzi/m5I/VIV5Kd0zN
-         zdujfQN1h5iu3K0Udjy7Wb1S3fDmQQa+q9/Mg1nt3MP307P2Xzmv6YXMvENRo55Jmu02
-         +q3G+MHG9b6HPlhFYkk0q8RmZ8avgw6fU3dCyEw3Xzwunj2By0fpEuIHwK5ciVZxBlIA
-         iHLW5+0r/yXg9YouTpJyslPvCG5SYIboLV4zby7JIhaH79L0xYRZW8slm9iE66z6Ruuq
-         N4ogVjCfTThP5MwKiZGXfasHH0gY838/tWJe8YK3EvWSVT2CW9p07A7JSHb2xCdQLIX/
-         yjhA==
-X-Gm-Message-State: AOJu0Yw4YqWFXXddRJMbMXijCN2dqjoMMMVDielcMVxog2MymnQzGrmd
-	FCLerJWelny8nVf4LcrIkUf+K99Wb+f5zSDmkaj01QPwYaMfSLpcQfJl1gd+4ntdgzM=
-X-Gm-Gg: ASbGncskokZGT15AQI6/419x1JKCWgIUz25S+ZONbCWbv/9VXagLBPZqbtlsawjQeQy
-	1eY25Zr5C37cRKposy+KUsT1EhKCfSPrHtUrGNHF9sr+zT8EVy6lboYII5QE836hh70kaOr683t
-	a+NpWUUT4dQrIm8swcZr3Hf170FlL7ikkDvShLw457lrrWfvyQBW7Scn18665/I298PFHL7bynO
-	8SpaM3c9DzeYCcivOKtB0Oco8xB1GT+t9sJTAQvHAZ96xB4b5egYPRVQriqzLQHXWOO++Rm29Fk
-	PzWRM2oixOFzku2vuEz/3OyD3sUjU0wnmd7NxyOo2g+ytUuGx8qz4XYwqWEN5r614/kzk2UMhYh
-	js8wfhK509oX/sS3htaRd4wrMZTEYWQT6LcmKi9UjHW/6SYRD4ot9OPLzcgQESU0KAA==
-X-Google-Smtp-Source: AGHT+IFgcELBpTo0MvkY4ay9xg53Ypkcnmw4i4TPKw3r/zng6j00Mkcs9ppg7BSaP6DbHYPcgZK+0A==
-X-Received: by 2002:a05:600c:310b:b0:453:9b7:c214 with SMTP id 5b1f17b1804b1-4562e29c33emr174989585e9.29.1753106016864;
-        Mon, 21 Jul 2025 06:53:36 -0700 (PDT)
-Date: Mon, 21 Jul 2025 15:53:35 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>, dmukhin@ford.com
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
-	anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
-	michal.orzel@amd.com, sstabellini@kernel.org,
-	Xen-devel <xen-devel-bounces@lists.xenproject.org>
-Subject: Re: [PATCH v8] xen/console: introduce domain_console struct
-Message-ID: <aH5GX8kYIPBvb10c@macbook.local>
-References: <20250716020447.1029992-1-dmukhin@ford.com>
- <DBF4R1PG1FZP.13QERUGFTBZY0@amd.com>
+        bh=ZJ4VQdRBSRIJiZgalJoHkSrIFmkr1Ihf2bK2ibWog80=;
+        b=L1QH3a7Jq1jODCL+ltUQbXgP4dWOjfNUs30LNTfEHXTK+lKzpyabWgFMSRTlNf+mBk
+         92f3AswQiEm2wRA4eDVusJvDq1UHUNnoY0GsAWy/yJ8QtOL8IVIhdIIauSalIKy36i8P
+         0k9ExIiP9MFYLCYeKqxXeFyW4M+bFdaT/RyAFZfRaNg0keq3qpQcIb7HQ4jVfoCypoqP
+         cvRe4Iay26Wv0UBKcq4mST24GWiQOOiuWe2J+gGeY7txArraLO0yhAru350t5YfMj6UA
+         PuJffjSa2Yb+Q28iduoQXM/YbnxDAilsrV/LtSUCA35A6jXM0RAPBu0xFh3CaI9XRThD
+         smAQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVJIbQfnnylQhH4hSpitjy6nPF3e7qfmt7CpPye5TUf9lEjwe4yni+cBtg+Ucf3rNI8YJK8O+orkmE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyJlsSeRYp8CK4w1emWONOMbJDyY/Q2Kth23+AzOply0lw3b53U
+	yfgHT3xdgMWAO59eLlBQUn02wUc5eS4TkKLrbHpAYUKc4+nW4TvUEHlP3yCuLVVizg==
+X-Gm-Gg: ASbGncujazsFZk12k6DBkKvq3CIleZHz+5Njka0QKcMssDWPIS0xYiPj6c71MhZKAKm
+	K5JVvHzpDvTpbjrYxE84jzQFEvSfvm9U4nj7pMqV+ySuQcFM6Brxr1qFYk/WzwsAHXtJMtJJFGy
+	KCjoq1lEPjlXGJNxwPIbehkG0Tp63NPUIF7OFu2zVCtte0TWilXWpcuErZclLsPj694HdSpc4Xz
+	wXJHBkj0JLJeZC0/jQ6UjizpovXdFps6YpdtfMiCOE++7mXkIRn3To+c0x4St8StGZ+dwi1S2Z8
+	4/f6G4QGq18/M+WeI3be0fFLCnzNs7e4kH8bPVdC0pKKGtkryLt+YKZ1uum6rPkfZ798JV/VhFH
+	aMoGNNjSES4bMk/wMBQwTEkQ1Vohz/+dMyhbupTdbyZeKHlCIV6Vw8Pj4uBi0hbYxJ+jOheiwh3
+	xvjvfHsIk=
+X-Google-Smtp-Source: AGHT+IE8q53jTh769mD9Ak3IdOJm7eK6ZmhUNbD6GKmX9/J1KJu5bgl1HpCCx71ALG4mQUSjFGAiqA==
+X-Received: by 2002:a05:6000:2c0a:b0:3b4:9721:2b1b with SMTP id ffacd0b85a97d-3b60e4d1de9mr17261385f8f.9.1753106816827;
+        Mon, 21 Jul 2025 07:06:56 -0700 (PDT)
+Message-ID: <257f7cb0-2459-4dbb-a350-dce72d6b0dfe@suse.com>
+Date: Mon, 21 Jul 2025 16:06:46 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <DBF4R1PG1FZP.13QERUGFTBZY0@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 17/17] xen/riscv: add support of page lookup by GFN
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
+ <6281efb0dc9b0a9ab4dd8cee7952bff2a7745963.1749555949.git.oleksii.kurochko@gmail.com>
+ <c942d1ad-d3b5-42ed-a26d-5859e3efc93d@suse.com>
+ <d4cc7511-da13-4f29-87f7-e799b533a4ac@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <d4cc7511-da13-4f29-87f7-e799b533a4ac@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 18, 2025 at 01:04:56PM +0200, Alejandro Vallejo wrote:
-> Hi,
+On 21.07.2025 11:43, Oleksii Kurochko wrote:
+> On 7/2/25 1:44 PM, Jan Beulich wrote:
+>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
+>>> --- a/xen/arch/riscv/p2m.c
+>>> +++ b/xen/arch/riscv/p2m.c
+>>> @@ -1055,3 +1055,134 @@ int guest_physmap_add_entry(struct domain *d,
+>>>   {
+>>>       return p2m_insert_mapping(d, gfn, (1 << page_order), mfn, t);
+>>>   }
+>>> +
+>>> +/*
+>>> + * Get the details of a given gfn.
+>>> + *
+>>> + * If the entry is present, the associated MFN will be returned and the
+>>> + * access and type filled up. The page_order will correspond to the
+>> You removed p2m_access_t * from the parameters; you need to also update
+>> the comment then accordingly.
+>>
+>>> + * order of the mapping in the page table (i.e it could be a superpage).
+>>> + *
+>>> + * If the entry is not present, INVALID_MFN will be returned and the
+>>> + * page_order will be set according to the order of the invalid range.
+>>> + *
+>>> + * valid will contain the value of bit[0] (e.g valid bit) of the
+>>> + * entry.
+>>> + */
+>>> +static mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
+>>> +                           p2m_type_t *t,
+>>> +                           unsigned int *page_order,
+>>> +                           bool *valid)
+>>> +{
+>>> +    paddr_t addr = gfn_to_gaddr(gfn);
+>>> +    unsigned int level = 0;
+>>> +    pte_t entry, *table;
+>>> +    int rc;
+>>> +    mfn_t mfn = INVALID_MFN;
+>>> +    p2m_type_t _t;
+>> Please no local variables with leading underscores. In x86 we commonly
+>> name such variables p2mt.
+>>
+>>> +    DECLARE_OFFSETS(offsets, addr);
+>> This is the sole use of "addr". Is such a local variable really worth having?
 > 
-> I like the new encapsulation, but I have a few questions.
+> Not really, I'll drop it.
 > 
-> On Wed Jul 16, 2025 at 4:04 AM CEST, dmukhin wrote:
-> > From: Denis Mukhin <dmukhin@ford.com> 
-> >
-> > Introduce domain_console for grouping data structures used for integrating
-> > domain's diagnostic console with Xen's console driver.
-> >
-> > Group all pbuf-related data structures under domain_console. Rename the moved
-> > fields to plain .buf, .idx and .lock names, since all uses of the fields are
-> > touched.
-> >
-> > Bump the domain console buffer allocation size to 256. No extra symbol for the
-> > value since it is used only once during data structure declaration. All size
-> > checks use ARRAY_SIZE().
-> >
-> > Allocate domain_console from the heap so that the parent domain struct size
-> > stays below PAGE_SIZE boundary to account for more console-related fields
-> > added in the future.
-> >
-> > Finally, update the domain_console allocation and initialization code.
-> >
-> > No functional change.
-> >
-> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> > ---
-> > Changes since v7:
-> > - use ARRAY_SIZE() for cons->buf checks
-> > - update the commit message
-> > ---
-> >  xen/arch/arm/vpl011.c      |  2 +-
-> >  xen/arch/x86/hvm/hvm.c     | 18 ++++++++++--------
-> >  xen/arch/x86/pv/shim.c     |  2 +-
-> >  xen/common/domain.c        | 19 +++++++++----------
-> >  xen/drivers/char/console.c | 21 +++++++++++----------
-> >  xen/include/xen/sched.h    | 22 ++++++++++++----------
-> >  6 files changed, 44 insertions(+), 40 deletions(-)
-> >
-> > diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c
-> > index 480fc664fc62..d0d17c76b72c 100644
-> > --- a/xen/arch/arm/vpl011.c
-> > +++ b/xen/arch/arm/vpl011.c
-> > @@ -713,7 +713,7 @@ int domain_vpl011_init(struct domain *d, struct vpl011_init_info *info)
-> >      }
-> >      else
-> >      {
-> > -        d->console.input_allowed = true;
-> > +        d->console->input_allowed = true;
-> >          vpl011->backend_in_domain = false;
-> >  
-> >          vpl011->backend.xen = xzalloc(struct vpl011_xen_backend);
-> > diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-> > index 56c7de39778b..684d2c0c195c 100644
-> > --- a/xen/arch/x86/hvm/hvm.c
-> > +++ b/xen/arch/x86/hvm/hvm.c
-> > @@ -559,7 +559,8 @@ void hvm_do_resume(struct vcpu *v)
-> >  static int cf_check hvm_print_line(
-> >      int dir, unsigned int port, unsigned int bytes, uint32_t *val)
-> >  {
-> > -    struct domain *cd = current->domain;
-> > +    const struct domain *d = current->domain;
-> > +    struct domain_console *cons = d->console;
-> >      char c = *val;
-> >  
-> >      ASSERT(bytes == 1 && port == XEN_HVM_DEBUGCONS_IOPORT);
-> > @@ -571,16 +572,17 @@ static int cf_check hvm_print_line(
-> >      if ( !is_console_printable(c) )
-> >          return X86EMUL_OKAY;
-> >  
-> > -    spin_lock(&cd->pbuf_lock);
-> > +    spin_lock(&cons->lock);
-> > +    ASSERT(cons->idx < ARRAY_SIZE(cons->buf));
-> >      if ( c != '\n' )
-> > -        cd->pbuf[cd->pbuf_idx++] = c;
-> > -    if ( (cd->pbuf_idx == (DOMAIN_PBUF_SIZE - 1)) || (c == '\n') )
-> > +        cons->buf[cons->idx++] = c;
-> > +    if ( (cons->idx == (ARRAY_SIZE(cons->buf) - 1)) || (c == '\n') )
-> >      {
-> > -        cd->pbuf[cd->pbuf_idx] = '\0';
-> > -        guest_printk(cd, XENLOG_G_DEBUG "%s\n", cd->pbuf);
-> > -        cd->pbuf_idx = 0;
-> > +        cons->buf[cons->idx] = '\0';
-> > +        guest_printk(d, XENLOG_G_DEBUG "%s\n", cons->buf);
-> > +        cons->idx = 0;
-> >      }
-> > -    spin_unlock(&cd->pbuf_lock);
-> > +    spin_unlock(&cons->lock);
-> >  
-> >      return X86EMUL_OKAY;
-> >  }
-> > diff --git a/xen/arch/x86/pv/shim.c b/xen/arch/x86/pv/shim.c
-> > index bc2a7dd5fae5..bd29c53a2d34 100644
-> > --- a/xen/arch/x86/pv/shim.c
-> > +++ b/xen/arch/x86/pv/shim.c
-> > @@ -239,7 +239,7 @@ void __init pv_shim_setup_dom(struct domain *d, l4_pgentry_t *l4start,
-> >       */
-> >      d->max_pages = domain_tot_pages(d);
-> >  
-> > -    d->console.input_allowed = true;
-> > +    d->console->input_allowed = true;
-> >  }
-> >  
-> >  static void write_start_info(struct domain *d)
-> > diff --git a/xen/common/domain.c b/xen/common/domain.c
-> > index 303c338ef293..caef4cc8d649 100644
-> > --- a/xen/common/domain.c
-> > +++ b/xen/common/domain.c
-> > @@ -669,7 +669,7 @@ static void _domain_destroy(struct domain *d)
-> >      BUG_ON(!d->is_dying);
-> >      BUG_ON(atomic_read(&d->refcnt) != DOMAIN_DESTROYED);
-> >  
-> > -    xfree(d->pbuf);
-> > +    xvfree(d->console);
+>>> +    ASSERT(p2m_is_locked(p2m));
+>>> +    BUILD_BUG_ON(XEN_PT_LEVEL_MAP_MASK(0) != PAGE_MASK);
+>>> +
+>>> +    /* Allow t to be NULL */
+>>> +    t = t ?: &_t;
+>>> +
+>>> +    *t = p2m_invalid;
+>>> +
+>>> +    if ( valid )
+>>> +        *valid = false;
+>>> +
+>>> +    /* XXX: Check if the mapping is lower than the mapped gfn */
+>>> +
+>>> +    /* This gfn is higher than the highest the p2m map currently holds */
+>>> +    if ( gfn_x(gfn) > gfn_x(p2m->max_mapped_gfn) )
+>>> +    {
+>>> +        for ( level = P2M_ROOT_LEVEL; level ; level-- )
+>> Nit: Stray blank before the 2nd semicolon. (Again at least once below.)
+>>
+>>> +            if ( (gfn_x(gfn) & (XEN_PT_LEVEL_MASK(level) >> PAGE_SHIFT)) >
+>>> +                 gfn_x(p2m->max_mapped_gfn) )
+>>> +                break;
+>>> +
+>>> +        goto out;
+>>> +    }
+>>> +
+>>> +    table = p2m_get_root_pointer(p2m, gfn);
+>>> +
+>>> +    /*
+>>> +     * the table should always be non-NULL because the gfn is below
+>>> +     * p2m->max_mapped_gfn and the root table pages are always present.
+>>> +     */
+>>> +    if ( !table )
+>>> +    {
+>>> +        ASSERT_UNREACHABLE();
+>>> +        level = P2M_ROOT_LEVEL;
+>>> +        goto out;
+>>> +    }
+>>> +
+>>> +    for ( level = P2M_ROOT_LEVEL; level ; level-- )
+>>> +    {
+>>> +        rc = p2m_next_level(p2m, true, level, &table, offsets[level]);
+>>> +        if ( (rc == GUEST_TABLE_MAP_NONE) && (rc != GUEST_TABLE_MAP_NOMEM) )
+>> This condition looks odd. As written the rhs of the && is redundant.
 > 
-> XVFREE() to avoid a dangling pointer. But look at the end. I'd just remove the
-> pointer altogether.
+> And it is wrong. It should:
+>   if ( (rc == P2M_TABLE_MAP_NONE) || (rc == P2M_TABLE_MAP_NOMEM) )
 > 
-> >  
-> >      argo_destroy(d);
-> >  
-> > @@ -835,8 +835,6 @@ struct domain *domain_create(domid_t domid,
-> >          flags |= CDF_hardware;
-> >          if ( old_hwdom )
-> >              old_hwdom->cdf &= ~CDF_hardware;
-> > -
-> > -        d->console.input_allowed = true;
-> >      }
-> >  
-> >      /* Holding CDF_* internal flags. */
-> > @@ -866,8 +864,6 @@ struct domain *domain_create(domid_t domid,
-> >      spin_lock_init(&d->shutdown_lock);
-> >      d->shutdown_code = SHUTDOWN_CODE_INVALID;
-> >  
-> > -    spin_lock_init(&d->pbuf_lock);
-> > -
-> >      rwlock_init(&d->vnuma_rwlock);
-> >  
-> >  #ifdef CONFIG_HAS_PCI
-> > @@ -877,6 +873,14 @@ struct domain *domain_create(domid_t domid,
-> >  
-> >      /* All error paths can depend on the above setup. */
-> >  
-> > +    err = -ENOMEM;
-> > +    d->console = xvzalloc(typeof(*d->console));
-> > +    if ( !d->console )
-> > +        goto fail;
-> > +
-> > +    spin_lock_init(&d->console->lock);
-> > +    d->console->input_allowed = is_hardware_domain(d);
-> > +
-> >      /*
-> >       * Allocate d->vcpu[] and set ->max_vcpus up early.  Various per-domain
-> >       * resources want to be sized based on max_vcpus.
-> > @@ -959,11 +963,6 @@ struct domain *domain_create(domid_t domid,
-> >      if ( (err = argo_init(d)) != 0 )
-> >          goto fail;
-> >  
-> > -    err = -ENOMEM;
-> > -    d->pbuf = xzalloc_array(char, DOMAIN_PBUF_SIZE);
-> > -    if ( !d->pbuf )
-> > -        goto fail;
-> > -
-> >      if ( (err = sched_init_domain(d, config->cpupool_id)) != 0 )
-> >          goto fail;
-> >  
-> > diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> > index ba5a809a99fb..b0d50a910e27 100644
-> > --- a/xen/drivers/char/console.c
-> > +++ b/xen/drivers/char/console.c
-> > @@ -521,7 +521,7 @@ struct domain *console_get_domain(void)
-> >      if ( !d )
-> >          return NULL;
-> >  
-> > -    if ( d->console.input_allowed )
-> > +    if ( d->console->input_allowed )
-> >          return d;
-> >  
-> >      rcu_unlock_domain(d);
-> > @@ -564,7 +564,7 @@ static void console_switch_input(void)
-> >          {
-> >              rcu_unlock_domain(d);
-> >  
-> > -            if ( !d->console.input_allowed )
-> > +            if ( !d->console->input_allowed )
+>>> +            goto out_unmap;
+>>> +        else if ( rc != GUEST_TABLE_NORMAL )
+>> As before, no real need for "else" in such cases.
+>>
+>>> +            break;
+>>> +    }
+>>> +
+>>> +    entry = table[offsets[level]];
+>>> +
+>>> +    if ( p2me_is_valid(p2m, entry) )
+>>> +    {
+>>> +        *t = p2m_type_radix_get(p2m, entry);
+>> If the incoming argument is NULL, the somewhat expensive radix tree lookup
+>> is unnecessary here.
+> 
+> Good point.
+> 
+>>> +        mfn = pte_get_mfn(entry);
+>>> +        /*
+>>> +         * The entry may point to a superpage. Find the MFN associated
+>>> +         * to the GFN.
+>>> +         */
+>>> +        mfn = mfn_add(mfn,
+>>> +                      gfn_x(gfn) & (BIT(XEN_PT_LEVEL_ORDER(level), UL) - 1));
+>>> +
+>>> +        if ( valid )
+>>> +            *valid = pte_is_valid(entry);
+>> Interesting. Why not the P2M counterpart of the function? Yes, the comment
+>> ahead of the function says so, but I don't see why the valid bit suddenly
+>> is relevant here (besides the P2M type).
+> 
+> This valid variable is expected to be used in the caller (something what Arm does here
+> https://gitlab.com/xen-project/xen/-/blob/staging/xen/arch/arm/p2m.c#L375) to check if
+> it is needed to do flush_page_to_ram(), so if the the valid bit in PTE was set to 0
+> then it means nothing should be flushed as entry wasn't used as it marked invalid.
 
-Is there a chance that domain being destroyed can also get here with
-proper timing?  I don't think it's currently possible, as the freeing
-of the buffer is done in the last leg of domain destruction, which is
-not preemptible.
+I hope you see what a mess you get if you have two flavors of "valid" for a
+PTE.
 
-However there might a race in console_switch_input(), as the rcu lock
-is dropped before checking d->console.input_allowed, which could allow
-for the domain to be destroyed in the middle?  I don't think this is
-realistic under a normal scenario, but could be possible if running
-Xen nested or similar, where Xen CPUs can get de-scheduled.
+>>> +    }
+>>> +
+>>> +out_unmap:
+>>> +    unmap_domain_page(table);
+>>> +
+>>> +out:
+>> Nit: Style (bot labels).
+>>
+>>> +    if ( page_order )
+>>> +        *page_order = XEN_PT_LEVEL_ORDER(level);
+>>> +
+>>> +    return mfn;
+>>> +}
+>>> +
+>>> +static mfn_t p2m_lookup(struct domain *d, gfn_t gfn, p2m_type_t *t)
+>> pointer-to-const for the 1st arg? But again more likely struct p2m_domain *
+>> anyway?
+> 
+> |struct p2_domain| would be better, but I’m not really sure that a
+> pointer-to-const can be used here.
 
-> >                  continue;
-> >  
-> >              console_rx = next_rx;
-> > @@ -744,6 +744,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
-> >          else
-> >          {
-> >              char *kin = kbuf, *kout = kbuf, c;
-> > +            struct domain_console *cons = cd->console;
-> >  
-> >              /* Strip non-printable characters */
-> >              do
-> > @@ -756,22 +757,22 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
-> >              } while ( --kcount > 0 );
-> >  
-> >              *kout = '\0';
-> > -            spin_lock(&cd->pbuf_lock);
-> > +            spin_lock(&cons->lock);
-> >              kcount = kin - kbuf;
-> >              if ( c != '\n' &&
-> > -                 (cd->pbuf_idx + (kout - kbuf) < (DOMAIN_PBUF_SIZE - 1)) )
-> > +                 (cons->idx + (kout - kbuf) < (ARRAY_SIZE(cons->buf) - 1)) )
-> >              {
-> >                  /* buffer the output until a newline */
-> > -                memcpy(cd->pbuf + cd->pbuf_idx, kbuf, kout - kbuf);
-> > -                cd->pbuf_idx += (kout - kbuf);
-> > +                memcpy(cons->buf + cons->idx, kbuf, kout - kbuf);
-> > +                cons->idx += kout - kbuf;
-> >              }
-> >              else
-> >              {
-> > -                cd->pbuf[cd->pbuf_idx] = '\0';
-> > -                guest_printk(cd, XENLOG_G_DEBUG "%s%s\n", cd->pbuf, kbuf);
-> > -                cd->pbuf_idx = 0;
-> > +                cons->buf[cons->idx] = '\0';
-> > +                guest_printk(cd, XENLOG_G_DEBUG "%s%s\n", cons->buf, kbuf);
-> > +                cons->idx = 0;
-> >              }
-> > -            spin_unlock(&cd->pbuf_lock);
-> > +            spin_unlock(&cons->lock);
-> >          }
-> >  
-> >          guest_handle_add_offset(buffer, kcount);
-> > diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-> > index fe53d4fab7ba..f7bb44328bbc 100644
-> > --- a/xen/include/xen/sched.h
-> > +++ b/xen/include/xen/sched.h
-> > @@ -371,6 +371,17 @@ struct evtchn_port_ops;
-> >  
-> >  #define MAX_NR_IOREQ_SERVERS 8
-> >  
-> > +/* Domain console settings. */
-> > +struct domain_console {
-> > +    /* Permission to take ownership of the physical console input. */
-> > +    bool input_allowed;
-> > +
-> > +    /* hvm_print_line() and guest_console_write() logging. */
-> > +    unsigned int idx;
-> > +    spinlock_t lock;
-> > +    char buf[256];
-> 
-> I'd rather see things a bit shuffled. Like:
-> 
->       /* hvm_print_line() and guest_console_write() logging. */
->       spinlock_t lock;
->       unsigned int idx;
->       char buf[255];
-> 
->       /* Permission to take ownership of the physical console input. */
->       bool input_allowed;
-> 	
-> That way the struct is fully packed (note the s/256/255/) and input_allowed
-> remains visually away from the other group of fields.
-> input_allowed remains away from the lock, indicating that input_allowed
-> 
-> Note that the lock is 64bit aligned when CONFIG_DEBUG_LOCK_PROFILE is set.
-> 
-> Thoughts?
-> 
-> > +};
-> > +
-> >  struct domain
-> >  {
-> >      domid_t          domain_id;
-> > @@ -562,12 +573,6 @@ struct domain
-> >      /* Control-plane tools handle for this domain. */
-> >      xen_domain_handle_t handle;
-> >  
-> > -    /* hvm_print_line() and guest_console_write() logging. */
-> > -#define DOMAIN_PBUF_SIZE 200
-> > -    char       *pbuf;
-> > -    unsigned int pbuf_idx;
-> > -    spinlock_t  pbuf_lock;
-> > -
-> >      /* OProfile support. */
-> >      struct xenoprof *xenoprof;
-> >  
-> > @@ -653,10 +658,7 @@ struct domain
-> >  #endif
-> >  
-> >      /* Console settings. */
-> > -    struct {
-> > -        /* Permission to take ownership of the physical console input. */
-> > -        bool input_allowed;
-> > -    } console;
-> > +    struct domain_console *console;
-> 
-> Why a pointer? domain_console is a fixed-size type, so unless the domain is
-> overflowing PAGE_SIZE (which we very definitely don't want either) I'd consider
-> making it a regular member Simplifies memory management too. No alloc/free nor
-> potential dangling pointers.
+Note how I also didn't suggest const there.
 
-The buffer can be variable in size in principle, so we should better
-keep that as a separate allocation.  Also note that system domains
-avoid allocating this buffer altogether, which we want to keep doing.
-I don't have a strong opinion whether to allocate all the fields, or
-just the buffer, but at least the buffer needs to be kept as an
-external allocation from struct domain.
+> I expect that, in that case,
+> |p2m_read_lock()| would also need to accept a pointer-to-const, and since it
+> calls|read_lock()| internally, that could be a problem because|read_lock() |accepts a|rwlock_t *l|.
 
-Thanks, Roger.
+Correct.
+
+Jan
 
