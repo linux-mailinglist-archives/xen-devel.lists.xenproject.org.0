@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80EAFB0C8A2
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 18:25:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1051663.1420036 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32015B0C8AE
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 18:26:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1051670.1420046 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udtJz-00053X-UU; Mon, 21 Jul 2025 16:24:59 +0000
+	id 1udtLB-0005Xm-66; Mon, 21 Jul 2025 16:26:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1051663.1420036; Mon, 21 Jul 2025 16:24:59 +0000
+Received: by outflank-mailman (output) from mailman id 1051670.1420046; Mon, 21 Jul 2025 16:26:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udtJz-00050u-Qx; Mon, 21 Jul 2025 16:24:59 +0000
-Received: by outflank-mailman (input) for mailman id 1051663;
- Mon, 21 Jul 2025 16:24:58 +0000
+	id 1udtLB-0005Vu-3a; Mon, 21 Jul 2025 16:26:13 +0000
+Received: by outflank-mailman (input) for mailman id 1051670;
+ Mon, 21 Jul 2025 16:26:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YQHN=2C=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1udtJy-00050o-8R
- for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 16:24:58 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ id 1udtL9-0005Vo-HF
+ for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 16:26:11 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3db691bb-664f-11f0-a31d-13f23c93f187;
- Mon, 21 Jul 2025 18:24:57 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-451d54214adso32717675e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 21 Jul 2025 09:24:57 -0700 (PDT)
+ id 69724184-664f-11f0-a31d-13f23c93f187;
+ Mon, 21 Jul 2025 18:26:10 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-4563cfac2d2so31437595e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Jul 2025 09:26:10 -0700 (PDT)
 Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
  by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-4563b74f8a9sm106717665e9.26.2025.07.21.09.24.56
+ 5b1f17b1804b1-4563b740c51sm104987295e9.19.2025.07.21.09.26.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Jul 2025 09:24:56 -0700 (PDT)
+ Mon, 21 Jul 2025 09:26:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,159 +45,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3db691bb-664f-11f0-a31d-13f23c93f187
+X-Inumbo-ID: 69724184-664f-11f0-a31d-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1753115097; x=1753719897; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1753115170; x=1753719970; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=dPgqbXeYWqGuawUiBKwVrW+cDZCTgT3NJeAi4jxSClY=;
-        b=C1dfMHWemkLewpbkz169B+nDcip1ES5unyZMCI0hyH/lLZGVDiWM8lHq4GF7uNTek2
-         3gHPdUawC0qtzCaFhIq3PK33TEpgf83LJiEQmteRLZS+larcqS8Z8R2tLpAVuEC8Q9OL
-         eywKUGr32uem/p7hN6PhP/Cp3CGlbBG7VEwXs=
+        bh=o7/3BRcJdxZo5nXxehCY657Fp2YgeS3RwMhKl6sHrDE=;
+        b=jjoe5LKf2+aPfQcpXfRwnCCCkVk3qiMCKjSFlHMa9EFEgUiucC9/kKf1VGc+axpKn7
+         ABXLy7shZzRXgYAg17Ddnc0sUetJta8SUeSOU9Fu+/T6Tk2MB20Vn2vUqY/3e337T4NQ
+         YX/uAdLUf34jr7z2L3mTrCssjtcFcZ1TswRvA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753115097; x=1753719897;
+        d=1e100.net; s=20230601; t=1753115170; x=1753719970;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=dPgqbXeYWqGuawUiBKwVrW+cDZCTgT3NJeAi4jxSClY=;
-        b=phHK3ELiUIKrnMzV342cv/5c7zLLZ/2ts0v00i0OAxqGknIP5zL4bear7+nVY3wN9v
-         Vi5VHoVyYco+8shwUGOSxQ31K/ABOcK+bl9CRt94vn3bPhEnBC2XKwiiCKtRdab7moBL
-         4elLgfRhr0oBI0NZN8RTWdaWxmAmY2CaA1jFqKdZdCKizgAnZW+EUi7hAds99dsR+yhC
-         gq/b1x2dxuhfT/qMuPYhEvKItAZc4QK7bcneSWYQr/8YM8aaAfVxFmobWwJXfAuAmWHC
-         lpALvZEDWTSVkcaWGrqB1/BWNvxyhPu0O7UVkkDWEvWV49jOfbzAMGjTP8+fIkkBn3gH
-         U0ew==
-X-Gm-Message-State: AOJu0Yy1paGPiDDGRtL2/1uRqtkPEtJ4ezjutYrspF6n7mPTZJ4rzDAW
-	W9aQ2QLuF0QHZSL2stp7d8pQmg8K8RxTXPH0XxY1tpNkGGB64BebiSeoeayPZ+NDetA9L+d4wic
-	UyyzC
-X-Gm-Gg: ASbGncvaQQvuPTOuhpR9ytCQtVnTnoXmc20GXGXLL/5RC3r6xH2em5vb+7mRrmdgsUT
-	ihGZG0au9Rth0VLk+ER3aiggkAIqe870AwJnpT2ctSpAlScS/Z+W1b2MlSE2MKANFHh5B6Ff7sR
-	8yvmG/ubG6NPg9dE5X2mASOzKZJMfqfDCJH5mciGDdQW9ciqJbkaQiQ83VNJfC7LCtTg6KV+Pe/
-	0gT1RN8gZiXmUuwO+1knpdVx4Mnv/a1BJQyG6+fXwcaiZdGwiXwiTwMtJ1rsxqfLHHYAp3K6iqX
-	vrkoIDcahwauoKkEjzEN7L4eZYXmJqOFPPi29CI29a9XXJMXa7XxjWieu7grrQQ7sATSKsvGX+F
-	nbNw+DkyYDp5Dvz0i1xHWNLP0RRS2FPsWkepUwCTmKXv41z9TmcxAZs6jVzZfdehaeg==
-X-Google-Smtp-Source: AGHT+IFCMu5vGOhPEJg+dE7ZdR9JlCmi7C9KvCgXZpqYh1z4K5ytL3wcGekfpdMuCqGiDTfGKZR8lw==
-X-Received: by 2002:a05:600c:314a:b0:455:ed48:144f with SMTP id 5b1f17b1804b1-456352e9d36mr169539205e9.14.1753115096668;
-        Mon, 21 Jul 2025 09:24:56 -0700 (PDT)
-Date: Mon, 21 Jul 2025 18:24:55 +0200
+        bh=o7/3BRcJdxZo5nXxehCY657Fp2YgeS3RwMhKl6sHrDE=;
+        b=ZtsPV8jUVPqu8xVjZG3AeeLbK2CZezJkFmNV4svfu2aFshxmWbOJcsEvgb/VpDrpGH
+         doq3mtxWnnOehxtv/BhHPiERUMAjpXznSSBqdqJhgPNCuM0XBo7dsF/hWefCLwBe8ZDd
+         Zq+arIAjswiItRf3lTVy74MYoSGcRjy55QPnSg9Uqlifee80Vwe3JZfogL1+l5Wob8LJ
+         W6vhyPzCQBgnGQIbCurn3bAAdq2ei6MEKsehfy9nApKTpMpgia4MPAJwBPRiYsvtknnL
+         MdoC8BHHs37CvhAvlg48HgGlEaKystgC8HNAT/3u3Amf8jbwlLVLan4QIKKHy/C6QjBD
+         7/vw==
+X-Gm-Message-State: AOJu0YzW2U7W/SvAk7k8hC8vieohRamWJvX8yQWZg6zHTxAqK56S7CG5
+	LDiBwe1liQd6PrqPgTEuNOrrdJTtB2H2rqcXaLxLgQZytR/Ha9FB3cvBbpwF5mtzsho=
+X-Gm-Gg: ASbGnctbPa+X4pA2LS9M/Jn5rIGKTY/g609LUBiBBG27Dl6XBRELS8kenibQE4sIZQo
+	7OBj4CTIZsnhzKR/ti3W5Ji94gNqiCx+ZUiTYgqVq3sCPpBFdr0GRd1nQEXR46n4PksYf7ty+Wp
+	IFY1EhvHjx609g1btX2zRxivQm4XRRS+A9QxOKnLKW82sI7LuIA9ovRraKx+N0EcCSnqYSvoQa0
+	/y/K6lpxjBZKxXmiNkLTiILB1h/aE7Chya5yULJzWrdA6dNs0wqgwDX7ovqqcmiMyp+sWiO96EQ
+	RgLzxga/FPeWMqVKYVFLplRMf0MdhFrBYrqrFDACdxSe4jundsmY9WVZaSI2b2uANYG6VBIrCMT
+	KKSdloaYCEgTfmHjpRgfy27uXkuWGTseUkKuJY5ulIdJyDitI3ovnrkTFMP3VII+NOg==
+X-Google-Smtp-Source: AGHT+IEVBC18SAU7XhDK+QLa4rbEnzS9C3yEdv7AbfrLecfzyxb5BPV8LbLXf+AkpNw5zCoMEdRAVQ==
+X-Received: by 2002:a05:600c:c0d2:10b0:456:1d93:4365 with SMTP id 5b1f17b1804b1-4562e32e2dbmr124263735e9.5.1753115170152;
+        Mon, 21 Jul 2025 09:26:10 -0700 (PDT)
+Date: Mon, 21 Jul 2025 18:26:09 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: xen-devel@lists.xenproject.org, Huang Rui <ray.huang@amd.com>
-Subject: Re: [PATCH v7 8/8] vpci/msix: Free MSIX resources when init_msix()
- fails
-Message-ID: <aH5p129QgIPdc0Hx@macbook.local>
-References: <20250704070803.314366-1-Jiqian.Chen@amd.com>
- <20250704070803.314366-9-Jiqian.Chen@amd.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Chen Jiqian <Jiqian.Chen@amd.com>
+Subject: Re: [PATCH] x86: don't have gcc over-align data
+Message-ID: <aH5qIavKdat1ExyY@macbook.local>
+References: <f68299c4-7aba-4bac-a50c-182f3cb5686e@suse.com>
+ <aH5TWXWFJ1IOH220@macbook.local>
+ <92e2cb52-87e7-416f-b9af-8e31b2b3dbe5@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250704070803.314366-9-Jiqian.Chen@amd.com>
+In-Reply-To: <92e2cb52-87e7-416f-b9af-8e31b2b3dbe5@suse.com>
 
-On Fri, Jul 04, 2025 at 03:08:03PM +0800, Jiqian Chen wrote:
-> When init_msix() fails, current logic return fail and free MSIX-related
-> resources in vpci_deassign_device(). But the previous new changes will
-> hide MSIX capability and return success, it can't reach
-> vpci_deassign_device() to remove resources if hiding success, so those
-> resources must be removed in cleanup function of MSIX.
+On Mon, Jul 21, 2025 at 06:05:22PM +0200, Jan Beulich wrote:
+> On 21.07.2025 16:48, Roger Pau Monné wrote:
+> > On Wed, Jun 25, 2025 at 11:04:14AM +0200, Jan Beulich wrote:
+> >> For (aiui) backwards compatibility reasons, gcc defaults to a mode that
+> >> was the exclusive one up to gcc4.8, establishing 32-byte alignment for
+> >> aggregates larger than a certain size. We don't rely on such, and hence
+> >> we can do with the psABI-compliant 16-byte alignment.
+> >>
+> >> Savings in the build I'm looking at:
+> >> - .data.ro_after_init		 344 bytes
+> >> - .rodata + .data.rel.ro	1904 bytes
+> >> - .init.*data.cf_clobber	 232 bytes
+> >> - .init (overall)		 688 bytes
+> >> - .data.read_mostly		 864 bytes
+> >> - .data				 600 bytes
+> >> - .bss				1472 bytes
+> >>
+> >> Overall xen-syms' _end happens to move down there by 2 pages.
+> >>
+> >> Clang doesn't support the option, presumably because they never over-
+> >> aligned data.
+> >>
+> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> >>
+> >> --- a/xen/arch/x86/arch.mk
+> >> +++ b/xen/arch/x86/arch.mk
+> >> @@ -8,6 +8,9 @@ CFLAGS += -DXEN_IMG_OFFSET=$(XEN_IMG_OFF
+> >>  # Prevent floating-point variables from creeping into Xen.
+> >>  CFLAGS += -msoft-float
+> >>  
+> >> +# Don't needlessly over-align larger aggregates.
+> >> +CFLAGS-$(CONFIG_CC_IS_GCC) += -malign-data=abi
+> > 
+> > Instead of using CONFIG_CC_IS_GCC should be just use cc-option-add to
+> > check for the option begin present, regardless of the underlying
+> > compiler?
 > 
-> To do that, implement cleanup function for MSIX.
-> 
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> ---
-> cc: "Roger Pau Monné" <roger.pau@citrix.com>
-> ---
-> v6->v7 changes:
-> * Change the pointer parameter of cleanup_msix() to be const.
-> * When vpci_remove_registers() in cleanup_msix() fails, not to return
->   directly, instead try to free msix and re-add ctrl handler.
-> * Pass pdev->vpci into vpci_add_register() instead of pdev->vpci->msix in
->   init_msix() since we need that every handler realize that msix is NULL
->   when msix is freed but handlers are still in there.
-> 
-> v5->v6 changes:
-> * Change the logic to add dummy handler when !vpci->msix in cleanup_msix().
-> 
-> v4->v5 changes:
-> * Change definition "static void cleanup_msix" to "static int cf_check cleanup_msix"
->   since cleanup hook is changed to be int.
-> * Add a read-only register for MSIX Control Register in the end of cleanup_msix().
-> 
-> v3->v4 changes:
-> * Change function name from fini_msix() to cleanup_msix().
-> * Change to use XFREE to free vpci->msix.
-> * In cleanup function, change the sequence of check and remove action according to
->   init_msix().
-> 
-> v2->v3 changes:
-> * Remove unnecessary clean operations in fini_msix().
-> 
-> v1->v2 changes:
-> new patch.
-> 
-> Best regards,
-> Jiqian Chen.
-> ---
->  xen/drivers/vpci/msix.c | 54 ++++++++++++++++++++++++++++++++++++++---
->  1 file changed, 50 insertions(+), 4 deletions(-)
-> 
-> diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
-> index a1692b9d9f6a..114280337f3f 100644
-> --- a/xen/drivers/vpci/msix.c
-> +++ b/xen/drivers/vpci/msix.c
-> @@ -36,7 +36,11 @@
->  static uint32_t cf_check control_read(
->      const struct pci_dev *pdev, unsigned int reg, void *data)
->  {
-> -    const struct vpci_msix *msix = data;
-> +    const struct vpci *vpci = data;
-> +    const struct vpci_msix *msix = vpci->msix;
-> +
-> +    if ( !msix )
-> +        return pci_conf_read16(pdev->sbdf, reg);
->  
->      return (msix->max_entries - 1) |
->             (msix->enabled ? PCI_MSIX_FLAGS_ENABLE : 0) |
-> @@ -74,12 +78,16 @@ static void update_entry(struct vpci_msix_entry *entry,
->  static void cf_check control_write(
->      const struct pci_dev *pdev, unsigned int reg, uint32_t val, void *data)
->  {
-> -    struct vpci_msix *msix = data;
-> +    struct vpci *vpci = data;
-> +    struct vpci_msix *msix = vpci->msix;
->      bool new_masked = val & PCI_MSIX_FLAGS_MASKALL;
->      bool new_enabled = val & PCI_MSIX_FLAGS_ENABLE;
->      unsigned int i;
->      int rc;
->  
-> +    if ( !msix )
-> +        return;
-> +
->      if ( new_masked == msix->masked && new_enabled == msix->enabled )
->          return;
->  
-> @@ -656,6 +664,44 @@ static int vpci_make_msix_hole(const struct pci_dev *pdev)
->      return 0;
->  }
->  
-> +static int cf_check cleanup_msix(const struct pci_dev *pdev)
-> +{
-> +    int rc;
-> +    struct vpci *vpci = pdev->vpci;
-> +    const unsigned int msix_pos = pdev->msix_pos;
-> +
-> +    if ( !msix_pos )
-> +        return 0;
-> +
-> +    rc = vpci_remove_registers(vpci, msix_control_reg(msix_pos), 2);
-> +    if ( rc )
-> +        printk(XENLOG_WARNING "%pd %pp: fail to remove MSIX handlers rc=%d\n",
-> +               pdev->domain, &pdev->sbdf, rc);
+> We could do so, but why would we want to, when all gcc versions we support
+> know of the option and Clang has never had a need for it? cc-option-add
+> is more overhead, and I think we want to avoid such, even if each individual
+> instance contributes only a tiny bit to overall build time.
 
-The same comment as in the previous patch: vpci_remove_registers()
-returning an error would likely imply memory corruption, and hence
-it's best to just return error and avoid having to modify the
-handlers.
+IIRC we only evaluate those once now, so the overhead would be
+minimal.
+
+Regardless:
+
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
 Thanks, Roger.
 
