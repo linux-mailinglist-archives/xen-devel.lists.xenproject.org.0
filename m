@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D77CB0C54A
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 15:35:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1051520.1419863 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA3C1B0C55F
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 15:40:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1051531.1419874 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udqfH-0000ER-Lb; Mon, 21 Jul 2025 13:34:47 +0000
+	id 1udqk6-0000sV-AK; Mon, 21 Jul 2025 13:39:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1051520.1419863; Mon, 21 Jul 2025 13:34:47 +0000
+Received: by outflank-mailman (output) from mailman id 1051531.1419874; Mon, 21 Jul 2025 13:39:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udqfH-0000Bl-Ic; Mon, 21 Jul 2025 13:34:47 +0000
-Received: by outflank-mailman (input) for mailman id 1051520;
- Mon, 21 Jul 2025 13:34:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1udqk6-0000pd-6x; Mon, 21 Jul 2025 13:39:46 +0000
+Received: by outflank-mailman (input) for mailman id 1051531;
+ Mon, 21 Jul 2025 13:39:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=R5lD=2C=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1udqfG-0000Bf-LP
- for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 13:34:46 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 76e3997d-6637-11f0-a31d-13f23c93f187;
- Mon, 21 Jul 2025 15:34:45 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3a582e09144so2286641f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 21 Jul 2025 06:34:45 -0700 (PDT)
+ id 1udqk5-0000pX-7m
+ for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 13:39:45 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 26a9bfc7-6638-11f0-b894-0df219b8e170;
+ Mon, 21 Jul 2025 15:39:40 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-4563cfac19cso32837535e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Jul 2025 06:39:40 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23e3b6cfdb1sm58140995ad.139.2025.07.21.06.34.37
+ 41be03b00d2f7-b3f2ffbce6esm5300842a12.72.2025.07.21.06.39.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Jul 2025 06:34:44 -0700 (PDT)
+ Mon, 21 Jul 2025 06:39:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76e3997d-6637-11f0-a31d-13f23c93f187
+X-Inumbo-ID: 26a9bfc7-6638-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753104885; x=1753709685; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753105180; x=1753709980; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=M8R1Y8GAl+HE15okMxrJC3r6qUwWEWGJCtBkPfTidZ0=;
-        b=Wi8fBlZPeifvF1QzNHgOQC9nsZfSxl6iNX4JOpvRLbD1FHsC2HVc1UmNXZwH1wBKD3
-         PW8eVqyw9g4QzFz4WwQWYEAOO0bAZ1tii0fyShPh01tShgxXFAv5L2gJXPqgNSNBE6mu
-         bcpibW6q4inEqaAs9cezxCoJ0GLWCmOxkC1ScBc8t8UjUhg+gNKvcp7jiiO5laWSB/5F
-         t7aH/vJsX/PsN3eZ0Q3L0/wBtBcH2oOwGwK6gSlP8Q+3m7gXR3QEru1MT+7Ysy5VW0GV
-         jCKpykkrhwTRd6xFBRoOzMEEqhQUcsrK8KyGCf9dXV9gIL0Y4NU9E2WZ45m+m7Hv+g6e
-         68ow==
+        bh=zvMBi8HMgzxmlWlnUNpYIMOIBXNVFgwLSillMGu0Nn0=;
+        b=Gr2p33AOZ96aLBLO4B8enRBOF7ray88SfIFVEkSdXF/6Gzv+lH7qEacYfJ2/OhTRWh
+         gXvnrmFDM9FWGLAegfu3AY5k70qRd/8CntofR1LUJd4/oce324Ef1u2dfTqoeHcPhBAK
+         oBXPOCSLc+eg+40x/8GyrkECqJwPmdIVTgC+u7R7RowLRnvHuy2gEuwsrLoAgbgKbQa9
+         Dt5FgbI/A2HfzivaOc6THs40w66/jgsNgH8duT/SK2eRUeRwQf/SafPIvx/yMbScQOUV
+         9sJn/gBYu+OlCxGeIxfgPTI5Me7EZTWX0faZUNdR/lZYj5PEDgfMPFv3gRf+ubIxXwnH
+         xOZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753104885; x=1753709685;
+        d=1e100.net; s=20230601; t=1753105180; x=1753709980;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=M8R1Y8GAl+HE15okMxrJC3r6qUwWEWGJCtBkPfTidZ0=;
-        b=fVk+Icj5d5LmJ6/z5TkTkGw4TF9a3/ZSPHkPC55QKJab/W/Fd3c7jTUrz2zy98/FXv
-         P8oQRFNEgC69CBcRGcL4FuG8WeLKAZOw1RIxLQuVTPXflJnqj85Q/A5/ppGBOF2S/yM5
-         Ds96mZ5QTMwez5Gjdcz7YnQ0maR+7mSKjR3Kj2YSVtf9di1HTtpFvGpevA1xsiViTFKh
-         J5FPK8H1hu/KTgCeTVZn/yTBarbv+yk0r+tLW724yH2NyuEexoMke7/ogfyV8p5LAjjh
-         af4X5w7xRYvoVPMQuYDwtKQuApigere59FWr40Z51Q+x70OxGV3WgI+38+ctTFTt0X8y
-         pV1g==
-X-Forwarded-Encrypted: i=1; AJvYcCWNOi9fgskXC7XJ1G5WWBzeA66Rv/VQmL/vywebnk+XP0KwMrZzQ23uSnuGWDm6gaXmZnXg6QA4ol4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzoOR+i4Ire54YQ+Q3YMIWlWyYPj9+dAtQydQgOUqaS0PJf317/
-	7sdKNF7BTVUrzEC7d0lWFBJb5kf+ElNzglEU1843h8dT6bLtN+Gnq0howK5153ZZ4w==
-X-Gm-Gg: ASbGncsvGPFlFtkKBrh6Y2i/VZTB3F913ZCf4xIP/6cTN7E0iAVhujAcZ/Tbi2ae7WI
-	AUcf95vagl2qln6QFKj1xWDsNKkEkxlWqi+HEwZCKb9YCj6iJPaqrvSp3yxMaPmV6bPZtmgjuJ8
-	wXt1TYr3WdTQWJLej/BN8W9D8Sup/3s2InM+vLLnhlRXBbXMiFb6fDqwQopIsDh7ntrg7Eufu2f
-	SoOrcRPH1BsM/G9J75DrOmdkYG4aEtJ/x0nwN/7kXSTBMVuoZaRgX+NeadYB7r5EDEqVw1VxzNy
-	MQ3Rr14zvykNPXKEkhNstLR3zK2s8NP97OPqebvCJu6wW2DTkP37/rjLrjlEKddjvhKikiOkl7x
-	p+B6TuOAIWLpLMUxUS59nfBL9i3hfhOp6KaVFiLjQz8jdcjiXucy7Csknyqq6eR9dpn0n+7Ipdg
-	AaJfldTxI=
-X-Google-Smtp-Source: AGHT+IGNtDTHnaQgUL9F3gwV+xnQpkNStJMIMels8zHtVxQokjjGvQqtkGJQ36pOOM8uhnTKztcs0A==
-X-Received: by 2002:a05:6000:188e:b0:3a4:eed9:755d with SMTP id ffacd0b85a97d-3b60e4d2312mr16936074f8f.3.1753104884628;
-        Mon, 21 Jul 2025 06:34:44 -0700 (PDT)
-Message-ID: <0c1701ff-efe3-434f-97e0-4896707411b7@suse.com>
-Date: Mon, 21 Jul 2025 15:34:34 +0200
+        bh=zvMBi8HMgzxmlWlnUNpYIMOIBXNVFgwLSillMGu0Nn0=;
+        b=mV848TKE//BPA3lgfm5ar+BTrx39iAflaO0RCOBDmgBJWIOqiHzaGBtZPdlUAx7gCZ
+         j7q3JA90gkOk5suEV/lKcSZoUvInsPprvOfOFVLZdQjUWnTue8xAOs5VQ3p5tL2WsFcI
+         7Tyhl9q3Iu86rmx+3HE6KyKNUAAsxzvoBMzPIm/oLZdZNAovJshYhLn9qWNXxvy6HAIv
+         +pIL0NJSqzshjNdHQgUeZxyNeaUIyV/GJfy9p0gTxTbgvXOaammty/dGZuvQ2tjidqAS
+         +KdyzlqK8uheOfZ2d89u8axRGRz4cnBZV8QEPJjjmgI38NWynY95L6+OFmKhKG3EQ/KM
+         ZiUQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWztF/rbBcq5SUXwrmLzeNGG4MY6Sl79TiroPZK/7+D4umtga7AHRM0VMUPeUjbljCPDCAJq3itXu8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwXOwUm6ihvX/4F4DHw1id5bcNwvzn8g2YxPp4VhKJZOgeYNXzX
+	xkqIdcIJvFR/LUE6MQZ76FOC2HSzS6bht3x3FmXwE7PCWMTxXzZKgd09OCqGLjhvvg==
+X-Gm-Gg: ASbGncubYKruqVUSgrS3yAs5I1e4OYeGTDMlHvx7zSrA4cLUBjbNoUs1QTRxKwLUb0x
+	OVfvGgA1kY8OQ2wq3IuaMEVuTgFR17KwpEtzvKqrGiqxlUThoyL4PtRbHEC6kR0fqNUh9ZcG9J/
+	o2T15V8aQwH/bqWyMvu9Jet4KQQRzszMuWn04Rz+8oY+5LfGEwfaWrydQcGHqamQrSRe4+UDPgv
+	Xus94ak1+EeFrehkIxKlHzY4NmHi/ugWAu4i0MUtgFexmtYxXCWGH8RCC7m+lx2V0YrPtP6yR3o
+	HsWjmGl7d/rBWIyyHagTCAa3T15HQokNtGKNpKzPkV+jjqH5BZBGGZr5GmQl+Tf4uerZetMO4f5
+	MyWJyUrx9mWxbbfET4eMkXgr7g6nGS+VrlsfbyJUMvv0W7gKWZiYmy6sJXufz82vo3n5WEmFnCZ
+	wL1Aa2FhA=
+X-Google-Smtp-Source: AGHT+IGq0etJ/me6tfvpKjJKnzXWJD2/rXres01NzehoVvVoERmqBE2l+ibnSlRjKPNqM7ec/+Uhsw==
+X-Received: by 2002:adf:b64b:0:b0:3a5:3062:793a with SMTP id ffacd0b85a97d-3b60dd72f31mr14604051f8f.33.1753105179653;
+        Mon, 21 Jul 2025 06:39:39 -0700 (PDT)
+Message-ID: <b669f089-f0a1-4d46-a508-d8be8ea28975@suse.com>
+Date: Mon, 21 Jul 2025 15:39:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 15/17] xen/riscv: Implement superpage splitting for p2m
- mappings
+Subject: Re: [PATCH v2 16/17] xen/riscv: implement mfn_valid() and page
+ reference, ownership handling helpers
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -97,11 +97,12 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+ xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
 References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <7cdd3272f2eba32dfa00be4fd72da6921eac243d.1749555949.git.oleksii.kurochko@gmail.com>
- <9be8eeb4-281e-4b9b-9ea7-04ff738dc4db@suse.com>
- <e2227002-e38c-41e1-8bea-7585138ec5ba@gmail.com>
+ <50159d05e75c14ca62ee6cab5a4d30645981827a.1749555949.git.oleksii.kurochko@gmail.com>
+ <aa769aa7-739c-4e59-8aea-d07398025b2f@suse.com>
+ <831c7c26-51e1-4834-b08e-03607cd438aa@suse.com>
+ <9dfc64b3-7dda-4620-9da6-388cecc3b9ad@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,115 +128,74 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e2227002-e38c-41e1-8bea-7585138ec5ba@gmail.com>
+In-Reply-To: <9dfc64b3-7dda-4620-9da6-388cecc3b9ad@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17.07.2025 18:37, Oleksii Kurochko wrote:
-> On 7/2/25 11:25 AM, Jan Beulich wrote:
->> On 10.06.2025 15:05, Oleksii Kurochko wrote:
->>> Add support for down large memory mappings ("superpages") in the RISC-V
->>> p2m mapping so that smaller, more precise mappings ("finer-grained entries")
->>> can be inserted into lower levels of the page table hierarchy.
+On 18.07.2025 16:37, Oleksii Kurochko wrote:
+> 
+> On 7/2/25 12:28 PM, Jan Beulich wrote:
+>> On 02.07.2025 12:09, Jan Beulich wrote:
+>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
+>>>> @@ -613,3 +612,91 @@ void __iomem *ioremap(paddr_t pa, size_t len)
+>>>>   {
+>>>>       return ioremap_attr(pa, len, PAGE_HYPERVISOR_NOCACHE);
+>>>>   }
+>>>> +
+>>>> +int page_is_ram_type(unsigned long mfn, unsigned long mem_type)
+>>>> +{
+>>>> +    ASSERT_UNREACHABLE();
+>>>> +
+>>>> +    return 0;
+>>>> +}
+>>>> +
+>>>> +static struct domain *page_get_owner_and_nr_reference(struct page_info *page,
+>>>> +                                                      unsigned long nr)
+>>>> +{
+>>>> +    unsigned long x, y = page->count_info;
+>>>> +    struct domain *owner;
+>>>> +
+>>>> +    /* Restrict nr to avoid "double" overflow */
+>>>> +    if ( nr >= PGC_count_mask )
+>>>> +    {
+>>>> +        ASSERT_UNREACHABLE();
+>>>> +        return NULL;
+>>>> +    }
+>>> I question the validity of this, already in the Arm original: I can't spot
+>>> how the caller guarantees to stay below that limit. Without such an
+>>> (attempted) guarantee, ASSERT_UNREACHABLE() is wrong to use. All I can see
+>>> is process_shm_node() incrementing shmem_extra[].nr_shm_borrowers, without
+>>> any limit check.
 >>>
->>> To implement that the following is done:
->>> - Introduce p2m_split_superpage(): Recursively shatters a superpage into
->>>    smaller page table entries down to the target level, preserving original
->>>    permissions and attributes.
->>> - __p2m_set_entry() updated to invoke superpage splitting when inserting
->>>    entries at lower levels within a superpage-mapped region.
+>>>> +    do {
+>>>> +        x = y;
+>>>> +        /*
+>>>> +         * Count ==  0: Page is not allocated, so we cannot take a reference.
+>>>> +         * Count == -1: Reference count would wrap, which is invalid.
+>>>> +         */
+>>> May I once again ask that you look carefully at comments (as much as at code)
+>>> you copy. Clearly this comment wasn't properly updated when the bumping by 1
+>>> was changed to bumping by nr.
 >>>
->>> This implementation is based on the ARM code, with modifications to the part
->>> that follows the BBM (break-before-make) approach. Unlike ARM, RISC-V does
->>> not require BBM, so there is no need to invalidate the PTE and flush the
->>> TLB before updating it with the newly created, split page table.
->> But some flushing is going to be necessary. As long as you only ever do
->> global flushes, the one after the individual PTE modification (within the
->> split table) will do (if BBM isn't required, see below), but once you move
->> to more fine-grained flushing, that's not going to be enough anymore. Not
->> sure it's a good idea to leave such a pitfall.
+>>>> +        if ( unlikely(((x + nr) & PGC_count_mask) <= nr) )
+>>>> +            return NULL;
+>>>> +    }
+>>>> +    while ( (y = cmpxchg(&page->count_info, x, x + nr)) != x );
+>>>> +
+>>>> +    owner = page_get_owner(page);
+>>>> +    ASSERT(owner);
+>>>> +
+>>>> +    return owner;
+>>>> +}
+>> There also looks to be a dead code concern here (towards the "nr" parameters
+>> here and elsewhere, when STATIC_SHM=n). Just that apparently we decided to
+>> leave out Misra rule 2.2 entirely.
 > 
-> I think that I don't fully understand what is an issue.
+> I think that I didn't get what is an issue when STATIC_SHM=n, functions is still
+> going to be called through page_get_owner_and_reference(), at least, in page_alloc.c .
 
-Whether a flush is necessary after solely breaking up a superpage is arch-
-defined. I don't know how much restrictions the spec on possible hardware
-behavior for RISC-V. However, the eventual change of (at least) one entry
-of fulfill the original request will surely require a flush. What I was
-trying to say is that this required flush would better not also cover for
-the flushes that may or may not be required by the spec. IOW if the spec
-leaves any room for flushes to possibly be needed, those flushes would
-better be explicit.
-
->> As to (no need for) BBM: I couldn't find anything to that effect in the
->> privileged spec. Can you provide some pointer? What I found instead is e.g.
->> this sentence: "To ensure that implicit reads observe writes to the same
->> memory locations, an SFENCE.VMA instruction must be executed after the
->> writes to flush the relevant cached translations." And this: "Accessing the
->> same location using different cacheability attributes may cause loss of
->> coherence." (This may not only occur when the same physical address is
->> mapped twice at different VAs, but also after the shattering of a superpage
->> when the new entry differs in cacheability.)
-> 
-> I also couldn't find that RISC-V spec mandates BBM explicitly as Arm does it.
-> 
-> What I meant that on RISC-V can do:
-> - Write new PTE
-> - Flush TLB
-> 
-> While on Arm it is almost always needed to do:
-> - Write zero to PTE
-> - Flush TLB
-> - Write new PTE
-> 
-> For example, the common CoW code path where you copy from a read only page to
-> a new page, then map that new page as writable just works on RISC-V without
-> extra considerations and on Arm it requires BBM.
-
-CoW is a specific sub-case with increasing privilege.
-
-> It seems to me that BBM is mandated for Arm only because that TLB is shared
-> among cores, so there is no any guarantee that no prior entry for same VA
-> remains in TLB. In case of RISC-V's TLB isn't shared and after a flush it is
-> guaranteed that no prior entry for the same VA remains in the TLB.
-
-Not sure that's the sole reason. But again the question is: Is this written
-down explicitly anywhere? Generally there can be multiple levels of TLBs, and
-while some of them may be per-core, others may be shared.
-
->>> +    /*
->>> +     * Even if we failed, we should install the newly allocated PTE
->>> +     * entry. The caller will be in charge to free the sub-tree.
->>> +     */
->>> +    p2m_write_pte(entry, page_to_p2m_table(p2m, page), p2m->clean_pte);
->> Why would it be wrong to free the page right here, vacating the entry at
->> the same time (or leaving just that to the caller)? (IOW - if this is an
->> implementation decision of yours, I think the word "should" would want
->> dropping.) After all, the caller invoking p2m_free_entry() on the thus
->> split PTE is less efficient (needs to iterate over all entries) than on
->> the original one (where it's just a single superpage).
-> 
-> I think that I didn't get your idea.
-
-Well, first and foremost this was a question to you, as it's not clear to
-me whether "should" is the correct word to use here. It would be
-appropriate if the spec mandated this behavior. It would seem less
-appropriate if this arrangement was an implementation choice of yours.
-And it looks to me as if the latter was the case here.
-
->>> @@ -806,7 +877,36 @@ static int __p2m_set_entry(struct p2m_domain *p2m,
->>>        */
->>>       if ( level > target )
->> This condition is likely too strong, unless you actually mean to also
->> split a superpage if it really wouldn't need splitting (new entry written
->> still fitting with the superpage mapping, i.e. suitable MFN and same
->> attributes).
-> 
-> I am not really sure that I fully understand.
-> My understanding is if level != target then the splitting is needed, I am
-> not really get the part "split a superpage if it really wouldn't need splitting".
-
-Hmm, maybe I was wrong here. The caller determines at what level the
-actual change needs to occur? In which case what you have may be right.
+Yes, but will "nr" ever be anything other than 1 then? IOW omitting the parameter
+would be fine. And that's what "dead code" is about.
 
 Jan
 
