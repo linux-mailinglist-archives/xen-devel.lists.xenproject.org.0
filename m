@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEBF0B0C2C2
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 13:23:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1051382.1419714 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D189B0C2CA
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 13:25:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1051389.1419723 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udoat-0000oj-KM; Mon, 21 Jul 2025 11:22:07 +0000
+	id 1udodi-0001MC-1E; Mon, 21 Jul 2025 11:25:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1051382.1419714; Mon, 21 Jul 2025 11:22:07 +0000
+Received: by outflank-mailman (output) from mailman id 1051389.1419723; Mon, 21 Jul 2025 11:25:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udoat-0000nI-Hg; Mon, 21 Jul 2025 11:22:07 +0000
-Received: by outflank-mailman (input) for mailman id 1051382;
- Mon, 21 Jul 2025 11:22:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Y65U=2C=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1udoas-0000nC-8r
- for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 11:22:06 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ee0f184a-6624-11f0-a31d-13f23c93f187;
- Mon, 21 Jul 2025 13:22:04 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3a536ecbf6fso2438614f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 21 Jul 2025 04:22:04 -0700 (PDT)
-Received: from ?IPV6:2003:e5:8728:2b00:e047:1b8:d101:cf8e?
- (p200300e587282b00e04701b8d101cf8e.dip0.t-ipconnect.de.
- [2003:e5:8728:2b00:e047:1b8:d101:cf8e])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b61ca48991sm10127930f8f.44.2025.07.21.04.22.03
+	id 1udodh-0001Ke-UK; Mon, 21 Jul 2025 11:25:01 +0000
+Received: by outflank-mailman (input) for mailman id 1051389;
+ Mon, 21 Jul 2025 11:25:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ESUV=2C=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1udodg-0001KY-CP
+ for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 11:25:00 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 554f0854-6625-11f0-b894-0df219b8e170;
+ Mon, 21 Jul 2025 13:24:58 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-606b58241c9so6743542a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Jul 2025 04:24:58 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-aec6ca7d2dasm661618766b.127.2025.07.21.04.24.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Jul 2025 04:22:03 -0700 (PDT)
+ Mon, 21 Jul 2025 04:24:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,305 +45,828 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ee0f184a-6624-11f0-a31d-13f23c93f187
+X-Inumbo-ID: 554f0854-6625-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753096924; x=1753701724; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=ECIhpB50oQRvu0+PKD07KhxMxyEkXkbHboJc03y7hC0=;
-        b=aPGaQNC3DUAaZWxq7E7Xk69Z4zOid9ByOuIF+CTknQvCO8SJi2oe+O1lf/82BNVXNZ
-         tIHKVL/oPjJFz42zq+IPnO/Yy+/U8iLRR6DMyiSQq/HRphWsBGcUMAG1sDDGVJscJfCy
-         3I+1POdrRfLj093TdqN4OAt9XMnxttDULlXdvYX/vowXapyqEFRq3X2LaMWz77TPxBG4
-         xgRMjeiW/yjP5PDTSLs/9n5hnSZXzYewV6PRDpR68WVM52DVhqT4IEdAlt1rQteR/EX6
-         cpld/qYz7qg3u2NYzVkSYl7EoNkLtU8MBk43K8VeXltkWSlrujNZL7zl1/JCO5dass6j
-         ny2A==
+        d=gmail.com; s=20230601; t=1753097097; x=1753701897; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=zNQW9Qf0S0WN2QX/ONmlu6xjNfUUnhiLTphTcAVvHbc=;
+        b=kNWyUtTHIzQrVCT7UGzHCuC73PY5oE/aTTymoDPD5LVWf2rSZmYnJV62KVkdibk+tB
+         xZR5QbuV3TjhbQmb07sQ4hUO/gF0/KnkNsBlZNBgRh1D7ZF9Rx/I+07k+YlOK672XP8F
+         tK2aHmrlKdRVEOPNX57FRWtFmMQA35tcwTRb4cOvdnWs7Euv51o9G8i6kuaZZMVipr9c
+         Rglj3wGZWFCj6yhDlesD2enw+MgN5tTnj6e0f2a4TOHsnbCQnh8IsGPAWfywQ6kFgeNE
+         3cy0ibD5b2wqsXOtLCdWaiabV69VjfpIDVOsxSPONcAAvpleWH+aWUTGAnZcihOL8tJF
+         y66g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753096924; x=1753701724;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ECIhpB50oQRvu0+PKD07KhxMxyEkXkbHboJc03y7hC0=;
-        b=SBA72lRKmY2VSNAlzRV/n5aNB+89gw/m9/SHerLS8pyaO0WLw5dhCKI9WNoAT9LfQu
-         gScpTIK33rvb2MM5vilRDfqchMKlN+ZVWr7MzX+bWDLgelfijLTiS3QvHFiEkUtUERYs
-         lUtYYJx/Jgn70IuTRKP877UvO4Wn1AU7va7AK9i+rykNqBbTlK20fVMhXNUpcZcJkOLE
-         HLTS2/92wnXV7xLNzYN5KYNynVoYDkmY7sWnhFI3TDqh9jLZi2CzvTjdPGcB9rTO9/AX
-         F/Fz7yjJPBoT1Xc9gTu6d1U9DlZtTmRtO2gJcuJ/yIoltVOWNIyE0R0Qi+ZPEV/jKVii
-         F/Fg==
-X-Forwarded-Encrypted: i=1; AJvYcCVXkIVpS3xA+Ig7M/oEzy4xGgHdvcI3PSRbRI/2H7Q+vTYKSU4ZmmVkEKzGFjwb8Lpw7JtVUhS8n6w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzQZj5QYqtulb65jqs081j2S/XaVkPArIRkT+2DqRUqEaTmGFiv
-	sPIfcq4CyMkn55PGNxILbgN4xxqGTLzplCBMzhz7ZVEu3gQOMU/CiGy1x+Ha4v1Nh80=
-X-Gm-Gg: ASbGncsYbYdUEUUOQk6o6Qi/uyOUA9TV7BCtZQmFUEyF5zr4TEJstT/maYlJKRqHvJu
-	FtGxCx2iyNt0NR848VEeZA7jwJNYx92rJ/evWtylZ4a4Q91Pj/Of0xDiWajRVpC35gKxfQN5+xV
-	6C+zjl/iUxs7dyTGkxaXuhjBXz2uJi4eUW1RhnnvLOj9LrjURV7lYXnSLoI5Hn5plmODhorEjd5
-	4x2wTaQenIuNjYdVspJbow02ttJV12RTh3AYQbZXjxcWtlA+MIgSlSq8uZ/WFZ5jls3XSD7qOkW
-	5t+nWQZ7jxIdSjXx84YG0Pm5x6sFGuH2XrEPS1FvGc6VZcTaTfAnfzVYAsspFRgKyLA1tYUANTm
-	hchTcTz+IfbjFobd6TpEZDpAzNDas+btG4B6ziO4PEdFYcqbAP/ftH6ZhgYiEkxqk2rdn8Mzu/p
-	kYtVOZ2nabD9FxaJtSFTRrejrL/tDwNrjijHqgUvAqtMWG
-X-Google-Smtp-Source: AGHT+IEIS6NcXC9cinAKVbD9S25GFVMA/Pwc33UsK8WQ3eRqrYOu5KM3z3ny2kN/P8hts+QNGfN4yQ==
-X-Received: by 2002:a05:6000:64a:b0:3b6:1a2c:2543 with SMTP id ffacd0b85a97d-3b61a2c2743mr8504057f8f.6.1753096924127;
-        Mon, 21 Jul 2025 04:22:04 -0700 (PDT)
-Message-ID: <0e0502fb-9579-4929-9780-ea4999d35409@suse.com>
-Date: Mon, 21 Jul 2025 13:22:02 +0200
+        d=1e100.net; s=20230601; t=1753097097; x=1753701897;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=zNQW9Qf0S0WN2QX/ONmlu6xjNfUUnhiLTphTcAVvHbc=;
+        b=iK5xNKoRanCb0LFxajv6+qzSlIdKJqREXRZFeN8aQH6OD27pi9KZ37ogq8mxTQ+lCi
+         sqNjmVkp6ZJk59/1A5Ce/60uePv8+hk2V0bwogXSekc+Ni3IehVBW/6ELm5AfkV/+NoY
+         l4cBnM1MnaKbM+9gEaprrYUf2/Y9ElpEpBjviESn/1MUQwy2UwrFkAxJQOGk8wa3fbI8
+         gg8/I3UUKTyilCA4OeUxDzNgzMtwS0d81y9itTVhn/dNhHhyxeK9RrikVFy0AJjEO275
+         ua2fVuvBxOEBvHMtX2HOka5aQUdBQ1lZX8MgSFHBVHJqt5yeXFPFyOl9aEdzwD27IRcA
+         vv8w==
+X-Forwarded-Encrypted: i=1; AJvYcCWBJ4geGi7qvPt3f96/qlN1mo8SkT5I5WJ4dH2zkUa9HaPDQcoDnLsccGg/sisqTSAagGWf9XQWO3A=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxL3665JkpWmjta6F1iBPCQMaCJyKE8uTkiK1ukHfo6sIiA/IHp
+	J2rR/Vad04YWySJQu36mFuM5hpiTNo2wgfQdJl8MF4IjPoKDD8ib/uq3
+X-Gm-Gg: ASbGncu98PX9QtJcRugD6V9J4PXz5eveAXPgH8BMSGXnif84nPC2mwqpNy637w9IQt/
+	m52hYT7T1ZR8mOVpfnwZ/uq9fr1bEvVLCqoPjz6OnAz8Qshbl5budVlquidJH15+gwPW2lIP6Lw
+	BLyeF0EyCMBNt5Cs1cyaZwD9XBNvdT+2dAR+a32w/nI4XyBKe/7U8F5JEdGnAM4lYnMetvc+AA5
+	B+gVj+JStd2xUK477Uxziy0czZso/ERJDpx58/02787GRUn9OS5+V/sMytppSG3jueJq/EDJqVI
+	E7QXQpIsE9GFb40AI1WFoZXft+EYM18tSFxWFTSYzMVV+8AwRi7z8+aK/x+S53BV8B5gHGQnzuo
+	Ru/85HwVZJAS+UakeR3zqO1kG2p2nkLD317fu1y9o4coR9SDfW9RAXOdQQ3QZUnv0XS3VSgPuHt
+	TYi92POA==
+X-Google-Smtp-Source: AGHT+IG99M7CxjJXXWph+p4cQMLsxyQ3gxsaeyDEr4G6isxt59IS7GJbZ69fVDLqo9Usios0T+M+rA==
+X-Received: by 2002:a17:906:63c9:b0:ae0:cadc:e745 with SMTP id a640c23a62f3a-ae9ce0f70admr1507572866b.40.1753097096983;
+        Mon, 21 Jul 2025 04:24:56 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------Cp6RiKO02KwMqvMTI0nRhlOn"
+Message-ID: <8a07f04a-af37-4572-adff-a2784b6d9f21@gmail.com>
+Date: Mon, 21 Jul 2025 13:24:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] sched/core: For a new metric, add
- vcpu->nonaffine_time
-To: Bernhard Kaindl <bernhard.kaindl@cloud.com>,
+Subject: Re: [PATCH v7 04/11] xen/dt: Move bootfdt functions to xen/bootfdt.h
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
  xen-devel@lists.xenproject.org
-Cc: Dario Faggioli <dfaggioli@suse.com>, George Dunlap <gwd@xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20250721094951.2006-1-bernhard.kaindl@cloud.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>, Dario Faggioli <dfaggioli@suse.com>,
+ Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>
+References: <20250715161108.141126-1-alejandro.garciavallejo@amd.com>
+ <20250715161108.141126-5-alejandro.garciavallejo@amd.com>
 Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20250721094951.2006-1-bernhard.kaindl@cloud.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------mOCfZk0xlr2pWBn2QEtk79C1"
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <20250715161108.141126-5-alejandro.garciavallejo@amd.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------mOCfZk0xlr2pWBn2QEtk79C1
-Content-Type: multipart/mixed; boundary="------------OJOv0RgqZqIYurWFQaWwmth5";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Bernhard Kaindl <bernhard.kaindl@cloud.com>,
- xen-devel@lists.xenproject.org
-Cc: Dario Faggioli <dfaggioli@suse.com>, George Dunlap <gwd@xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-Message-ID: <0e0502fb-9579-4929-9780-ea4999d35409@suse.com>
-Subject: Re: [PATCH 1/2] sched/core: For a new metric, add
- vcpu->nonaffine_time
-References: <20250721094951.2006-1-bernhard.kaindl@cloud.com>
-In-Reply-To: <20250721094951.2006-1-bernhard.kaindl@cloud.com>
-Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJ3BBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AAIQkQoDSui/t3IH4WIQQ+pJkfkcoLMCa4X6CgNK6L+3cgfgn7AJ9DmMd0SMJE
- ePbc7/m22D2v04iu7ACffXTdZQhNl557tJuDXZSBxDmW/tLOwU0EWTecRBAIAIK5OMKMU5R2
- Lk2bbjgX7vyQuCFFyKf9rC/4itNwhYWFSlKzVj3WJBDsoi2KvPm7AI+XB6NIkNAkshL5C0kd
- pcNd5Xo0jRR5/WE/bT7LyrJ0OJWS/qUit5eNNvsO+SxGAk28KRa1ieVLeZi9D03NL0+HIAtZ
- tecfqwgl3Y72UpLUyt+r7LQhcI/XR5IUUaD4C/chB4Vq2QkDKO7Q8+2HJOrFIjiVli4lU+Sf
- OBp64m//Y1xys++Z4ODoKh7tkh5DxiO3QBHG7bHK0CSQsJ6XUvPVYubAuy1XfSDzSeSBl//C
- v78Fclb+gi9GWidSTG/4hsEzd1fY5XwCZG/XJJY9M/sAAwUH/09Ar9W2U1Qm+DwZeP2ii3Ou
- 14Z9VlVVPhcEmR/AFykL9dw/OV2O/7cdi52+l00reUu6Nd4Dl8s4f5n8b1YFzmkVVIyhwjvU
- jxtPyUgDOt6DRa+RaDlXZZmxQyWcMv2anAgYWGVszeB8Myzsw8y7xhBEVV1S+1KloCzw4V8Z
- DSJrcsZlyMDoiTb7FyqxwQnM0f6qHxWbmOOnbzJmBqpNpFuDcz/4xNsymJylm6oXiucHQBAP
- Xb/cE1YNHpuaH4SRhIxwQilCYEznWowQphNAbJtEKOmcocY7EbSt8VjXTzmYENkIfkrHRyXQ
- dUm5AoL51XZljkCqNwrADGkTvkwsWSvCSQQYEQIACQUCWTecRAIbDAAKCRCgNK6L+3cgfuef
- AJ9wlZQNQUp0KwEf8Tl37RmcxCL4bQCcC5alCSMzUBJ5DBIcR4BY+CyQFAs=
-
---------------OJOv0RgqZqIYurWFQaWwmth5
-Content-Type: multipart/mixed; boundary="------------ZB7Ec7awlWAgkkWV41JKljP2"
-
---------------ZB7Ec7awlWAgkkWV41JKljP2
+This is a multi-part message in MIME format.
+--------------Cp6RiKO02KwMqvMTI0nRhlOn
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
 
-T24gMjEuMDcuMjUgMTE6NDksIEJlcm5oYXJkIEthaW5kbCB3cm90ZToNCj4gVG8gbW9uaXRv
-ciB0aGUgZWZmZWN0aXZlbmVzcyBvZiB2Q1BVIHNvZnQtYWZmaW5pdHkgb24gTlVNQSBob3N0
-cywNCj4gd2UnZCBsaWtlIHRvIGNyZWF0ZSBhIHZDUFUgbWV0cmljIHRoYXQgYWNjdW11bGF0
-ZXMgdGhlIGFtb3VudCBvZg0KPiB2Q1BVIHRpbWUgcnVubmluZyBvdXRzaWRlIG9mIHRoZSBz
-b2Z0IGFmZmluaXR5IG1hc2sgb2YgdGhlIHNjaGVkLXVuaXQ6DQo+IA0KPiAtIEFkZCBhIG5l
-dyB0aW1lIGNvdW50ZXIsIG5vbmFmZmluZV90aW1lIHRvIHN0cnVjdCB2Y3B1Lg0KPiANCj4g
-LSBBY2N1bXVsYXRlIHRoZSBub25hZmZpbmVfdGltZSBvbiB2Y3B1X3J1bnN0YXRlX2NoYW5n
-ZSgpOg0KPiAgICBBY2NvdW50IHRoZSB0aW1lIHNwZW50IGluIHRoZSBSVU5TVEFURV9ydW5u
-aW5nIHN0YXRlIG91dHNpZGUNCj4gICAgb2YgdW5pdC0+Y3B1X3NvZnRfYWZmaW5pdHk6IEl0
-IGlzIGFsd2F5cyBpbml0aWFsaXplZCBhbmQgZGVmYXVsdHMNCj4gICAgdG8gY3B1bWFza19h
-bGwgKGJpdHMgZm9yIGFsbCBOUl9DUFVTIHNldCksIHNvIHdlIG9ubHkgYWNjdW11bGF0ZQ0K
-PiAgICBub25hZmZpbmUgdGltZSB3aGVuIHRoZSB2Q1BVIHJ1bnMgb24gYW4gdW5zZXQgQ1BV
-IChub24tYWZmaW5lKS4NCj4gDQo+IEluIHRoZSBuZXh0IHBhdGNoLCB0aGlzIGZpZWxkIGNh
-biBiZSB1c2VkIHRvIHJldHJpZXZlIHRoZSBhY2N1bXVsYXRlZA0KPiBub25hZmZpbmUgcnVu
-bmluZyB0aW1lIGUuZy4gdXNpbmcgdmNwdV9ydW5zdGF0ZV9nZXQoKS4NCg0KUGxlYXNlIGF2
-b2lkIHBocmFzZXMgbGlrZSAiaW4gdGhlIG5leHQgcGF0Y2giIGluIGNvbW1pdCBtZXNzYWdl
-cy4NClRoZXJlIGlzIG5vIGd1YXJhbnRlZSBhIHNlcmllcyB3aWxsIGJlIGNvbW1pdHRlZCBp
-biBvbmUgZ28uDQoNCkknZCBqdXN0IGRyb3AgdGhpcyBsYXN0IHNlbnRlbmNlLg0KDQo+IA0K
-PiBTaWduZWQtb2ZmLWJ5OiBCZXJuaGFyZCBLYWluZGwgPGJlcm5oYXJkLmthaW5kbEBjbG91
-ZC5jb20+DQo+IC0tLQ0KPiAgIHhlbi9jb21tb24vc2NoZWQvY29yZS5jIHwgMjAgKysrKysr
-KysrKysrKysrKysrKysNCj4gICB4ZW4vaW5jbHVkZS94ZW4vc2NoZWQuaCB8IDExICsrKysr
-KysrKysrDQo+ICAgMiBmaWxlcyBjaGFuZ2VkLCAzMSBpbnNlcnRpb25zKCspDQo+IA0KPiBk
-aWZmIC0tZ2l0IGEveGVuL2NvbW1vbi9zY2hlZC9jb3JlLmMgYi94ZW4vY29tbW9uL3NjaGVk
-L2NvcmUuYw0KPiBpbmRleCAxM2ZkZjU3ZTU3Li40ODkyNTViOWM2IDEwMDY0NA0KPiAtLS0g
-YS94ZW4vY29tbW9uL3NjaGVkL2NvcmUuYw0KPiArKysgYi94ZW4vY29tbW9uL3NjaGVkL2Nv
-cmUuYw0KPiBAQCAtMjYwLDYgKzI2MCwyMyBAQCBzdGF0aWMgaW5saW5lIHZvaWQgdmNwdV91
-cmdlbnRfY291bnRfdXBkYXRlKHN0cnVjdCB2Y3B1ICp2KQ0KPiAgICAgICB9DQo+ICAgfQ0K
-PiAgIA0KPiArLyoNCj4gKyAqIEZvciBhY2NvdW50aW5nIG5vbi1hZmZpbmUgcnVubmluZyB0
-aW1lIG9mIGEgdkNQVSwgcmV0dXJuIHRydWUgaWYNCj4gKyAqIHRoZSB2Q1BVIGlzIHJ1bm5p
-bmcgaW4gUlVOU1RBVEVfcnVubmluZyBzdGF0ZSB3aGlsZSBub3Qgb24gYSBDUFUNCj4gKyAq
-IGluIHVuaXQtPmNwdV9zb2Z0X2FmZmluaXR5Lg0KDQoidGhlIHZDUFUgaXMgcnVubmluZyBp
-biBSVU5TVEFURV9ydW5uaW5nIHN0YXRlIiBpcyBhIHdlaXJkIHN0YXRlbWVudC4NCldoZW4g
-cnVubmluZyBpdCB3aWxsIGFsd2F5cyBiZSBpbiB0aGUgUlVOU1RBVEVfcnVubmluZyBzdGF0
-ZS4gSSdkIHdyaXRlDQoidGhlIHZDUFUgaXMgaW4gUlVOU1RBVEVfcnVubmluZyBzdGF0ZSIu
-DQoNCj4gKyAqLw0KPiArc3RhdGljIGlubGluZSBib29sIG5vbmFmZmluZShjb25zdCBzdHJ1
-Y3QgdmNwdSAqdiwNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29uc3Qgc3Ry
-dWN0IHNjaGVkX3VuaXQgKnVuaXQpDQo+ICt7DQo+ICsgICAgLyoNCj4gKyAgICAgKiB1bml0
-LT5jcHVfc29mdF9hZmZpbml0eSBpcyBhbHdheXMgaW5pdGlhbGl6ZWQgYW5kIGRlZmF1bHRz
-IHRvDQo+ICsgICAgICogY3B1bWFza19hbGwgKGJpdHMgZm9yIGFsbCBOUl9DUFVTIHNldCks
-IHNvIHdlIG9ubHkgYWNjdW11bGF0ZQ0KPiArICAgICAqIG5vbmFmZmluZSB0aW1lIHdoZW4g
-dGhlIHZDUFUgcnVucyBvbiBhbiB1bnNldCBDUFUgKG5vbi1hZmZpbmUpLg0KPiArICAgICAq
-Lw0KPiArICAgIHJldHVybiB2LT5ydW5zdGF0ZS5zdGF0ZSA9PSBSVU5TVEFURV9ydW5uaW5n
-ICYmDQo+ICsgICAgICAgICAgICFjcHVtYXNrX3Rlc3RfY3B1KHYtPnByb2Nlc3NvciwgdW5p
-dC0+Y3B1X3NvZnRfYWZmaW5pdHkpOw0KPiArfQ0KPiArDQo+ICAgc3RhdGljIGlubGluZSB2
-b2lkIHZjcHVfcnVuc3RhdGVfY2hhbmdlKA0KPiAgICAgICBzdHJ1Y3QgdmNwdSAqdiwgaW50
-IG5ld19zdGF0ZSwgc190aW1lX3QgbmV3X2VudHJ5X3RpbWUpDQo+ICAgew0KPiBAQCAtMjg1
-LDYgKzMwMiw5IEBAIHN0YXRpYyBpbmxpbmUgdm9pZCB2Y3B1X3J1bnN0YXRlX2NoYW5nZSgN
-Cj4gICAgICAgew0KPiAgICAgICAgICAgdi0+cnVuc3RhdGUudGltZVt2LT5ydW5zdGF0ZS5z
-dGF0ZV0gKz0gZGVsdGE7DQo+ICAgICAgICAgICB2LT5ydW5zdGF0ZS5zdGF0ZV9lbnRyeV90
-aW1lID0gbmV3X2VudHJ5X3RpbWU7DQo+ICsNCj4gKyAgICAgICAgaWYgKCBub25hZmZpbmUo
-diwgdW5pdCkgKSAvKiBXaGVuIHJ1bm5pbmcgbm9uYWZmaW5lLCBhZGQgZGVsdGEgKi8NCj4g
-KyAgICAgICAgICAgIHYtPm5vbmFmZmluZV90aW1lICs9IGRlbHRhOw0KPiAgICAgICB9DQoN
-CklzIHRoaXMgcmVhbGx5IGNvcnJlY3Q/IEltYWdpbmUgYSB2Y3B1IHJ1bm5pbmcgZm9yIHZl
-cnkgbG9uZyB0aW1lIG9uDQphIHBoeXNpY2FsIGNwdSB3aXRob3V0IGxvc2luZyBpdCAoUlVO
-U1RBVEVfcnVubmluZyBmb3IgbWludXRlcywgaG91cnMNCm9yIGV2ZW4gZGF5cykuIE5vdyBz
-b21lb25lIGlzIGNoYW5naW5nIHRoZSBzb2Z0LWFmZmluaXR5IG9mIHRoZSB2Y3B1DQphbmQg
-YXMgYSByZXN1bHQgaXQgd2lsbCBiZSBtb3ZlZCB0byBhbm90aGVyIHBoeXNpY2FsIGNwdS4g
-WW91IHdpbGwgYWRkDQphbGwgdGhlIGxvbmcgdGltZSB0aGUgdmNwdSB3YXMgcnVubmluZyB0
-byB2LT5ub25hZmZpbmVfdGltZSBpbiBzcGl0ZSBvZg0KdGhlIGFmZmluaXR5IGNoYW5nZSBo
-YXZpbmcgaGFwcGVuZWQgb25seSBuYW5vc2Vjb25kcyBiZWZvcmUuDQoNCj4gICAgICAgdi0+
-cnVuc3RhdGUuc3RhdGUgPSBuZXdfc3RhdGU7DQo+IGRpZmYgLS1naXQgYS94ZW4vaW5jbHVk
-ZS94ZW4vc2NoZWQuaCBiL3hlbi9pbmNsdWRlL3hlbi9zY2hlZC5oDQo+IGluZGV4IGZlNTNk
-NGZhYjcuLmFiYTYwYWZkNGYgMTAwNjQ0DQo+IC0tLSBhL3hlbi9pbmNsdWRlL3hlbi9zY2hl
-ZC5oDQo+ICsrKyBiL3hlbi9pbmNsdWRlL3hlbi9zY2hlZC5oDQo+IEBAIC0xOTgsNyArMTk4
-LDE4IEBAIHN0cnVjdCB2Y3B1DQo+ICAgDQo+ICAgICAgIHN0cnVjdCBzY2hlZF91bml0ICpz
-Y2hlZF91bml0Ow0KPiAgIA0KPiArICAgIC8qDQo+ICsgICAgICogVGhlIHN0cnVjdCB2Y3B1
-X3J1bnN0YXRlX2luZm8gY29udGFpbnMgdGhlIHZDUFUgdGltZSBzcGVudA0KPiArICAgICAq
-IGluIGVhY2ggcnVuc3RhdGUgYW5kIHRoZSBlbnRyeSB0aW1lIG9mIHRoZSBjdXJyZW50IHJ1
-bnN0YXRlLg0KPiArICAgICAqDQo+ICsgICAgICogTm90ZTogVGhpcyBmaWVsZCBpcyB1c2Vk
-IGZvciB0aGUgZ3Vlc3QgcnVuc3RhdGUgc2hhcmVkIG1lbW9yeSBhcmVhLg0KPiArICAgICAq
-IFRoZXJlZm9yZSwgaXQgaXMgcGFydCBvZiB0aGUgZnJvemVuIGd1ZXN0IEFQSSBhbmQgY2Fu
-bm90IGJlIGNoYW5nZWQuDQo+ICsgICAgICovDQoNCnMvZnJvemVuL3B1YmxpYy8NCg0KSW4g
-dGhlIGVuZCBJJ20gbm90IHJlYWxseSBzdXJlIHRoaXMgY29tbWVudCBpcyBhZGRpbmcgbXVj
-aCB2YWx1ZS4NCkJ1dCBtYXliZSBJJ20gYmlhc2VkIGFzIEkndmUgd29ya2VkIHdpdGggdGhp
-cyBjb2RlIGEgbG90Lg0KDQo+ICAgICAgIHN0cnVjdCB2Y3B1X3J1bnN0YXRlX2luZm8gcnVu
-c3RhdGU7DQo+ICsNCj4gKyAgICAvKiB2Q1BVIHRpbWUgcnVubmluZyBvdXRzaWRlIHRoZSBz
-Y2hlZHVsaW5nIHVuaXQncyBzb2Z0X2FmZmluaXR5IG1hc2sgKi8NCj4gKyAgICB1aW50NjRf
-dCAgICAgICAgIG5vbmFmZmluZV90aW1lOw0KPiArDQo+ICAgI2lmbmRlZiBDT05GSUdfQ09N
-UEFUDQo+ICAgIyBkZWZpbmUgcnVuc3RhdGVfZ3Vlc3QodikgKCh2KS0+cnVuc3RhdGVfZ3Vl
-c3QpDQo+ICAgICAgIFhFTl9HVUVTVF9IQU5ETEUodmNwdV9ydW5zdGF0ZV9pbmZvX3QpIHJ1
-bnN0YXRlX2d1ZXN0OyAvKiBndWVzdCBhZGRyZXNzICovDQoNCg0KSnVlcmdlbg0KDQo=
---------------ZB7Ec7awlWAgkkWV41JKljP2
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On 7/15/25 6:10 PM, Alejandro Vallejo wrote:
+> Part of an unpicking process to extract bootfdt contents independent of bootinfo
+> to a separate file for x86 to take.
+>
+> Move functions required for early FDT parsing from device_tree.h and arm's
+> setup.h onto bootfdt.h
+>
+> Declaration motion only. Not a functional change.
+>
+> Signed-off-by: Alejandro Vallejo<alejandro.garciavallejo@amd.com>
+> Reviewed-by: Stefano Stabellini<sstabellini@kernel.org>
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
-oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
-kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
-1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
-BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
-N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
-PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
-FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
-UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
-vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
-+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
-qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
-tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
-Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
-CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
-RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
-8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
-BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
-SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
-nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
-AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
-Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
-hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
-w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
-VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
-OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
-/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
-c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
-F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
-k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
-wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
-5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
-TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
-N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
-AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
-0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
-Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
-we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
-v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
-Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
-534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
-b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
-yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
-suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
-jR/i1DG86lem3iBDXzXsZDn8R3/CwO0EGAEIACAWIQSFEmdy6PYElKXQl/ew3p3W
-KL8TLwUCWt3w0AIbAgCBCRCw3p3WKL8TL3YgBBkWCAAdFiEEUy2wekH2OPMeOLge
-gFxhu0/YY74FAlrd8NAACgkQgFxhu0/YY75NiwD/fQf/RXpyv9ZX4n8UJrKDq422
-bcwkujisT6jix2mOOwYBAKiip9+mAD6W5NPXdhk1XraECcIspcf2ff5kCAlG0DIN
-aTUH/RIwNWzXDG58yQoLdD/UPcFgi8GWtNUp0Fhc/GeBxGipXYnvuWxwS+Qs1Qay
-7/Nbal/v4/eZZaWs8wl2VtrHTS96/IF6q2o0qMey0dq2AxnZbQIULiEndgR625EF
-RFg+IbO4ldSkB3trsF2ypYLij4ZObm2casLIP7iB8NKmQ5PndL8Y07TtiQ+Sb/wn
-g4GgV+BJoKdDWLPCAlCMilwbZ88Ijb+HF/aipc9hsqvW/hnXC2GajJSAY3Qs9Mib
-4Hm91jzbAjmp7243pQ4bJMfYHemFFBRaoLC7ayqQjcsttN2ufINlqLFPZPR/i3IX
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+LGTM: Reviewed-by: Oleksii Kurochko<oleksii.kurochko@gmail.com> # riscv
 
---------------ZB7Ec7awlWAgkkWV41JKljP2--
+~ Oleksii
 
---------------OJOv0RgqZqIYurWFQaWwmth5--
+> ---
+> v7:
+>    * v6 was misrebased, and dt_read_number()'s refactor was lost. v7 ensures
+>      it's preserved in the code motion
+> ---
+>   xen/arch/riscv/cpufeature.c            |   1 +
+>   xen/arch/riscv/smpboot.c               |   1 +
+>   xen/common/device-tree/bootfdt.c       |  12 ---
+>   xen/common/device-tree/device-tree.c   |   1 +
+>   xen/common/device-tree/static-evtchn.c |   1 +
+>   xen/common/sched/boot-cpupool.c        |   1 +
+>   xen/include/xen/bootfdt.h              | 103 +++++++++++++++++++++++++
+>   xen/include/xen/device_tree.h          |  78 -------------------
+>   8 files changed, 108 insertions(+), 90 deletions(-)
+>
+> diff --git a/xen/arch/riscv/cpufeature.c b/xen/arch/riscv/cpufeature.c
+> index b7d5ec6580..b846a106a3 100644
+> --- a/xen/arch/riscv/cpufeature.c
+> +++ b/xen/arch/riscv/cpufeature.c
+> @@ -8,6 +8,7 @@
+>    */
+>   
+>   #include <xen/bitmap.h>
+> +#include <xen/bootfdt.h>
+>   #include <xen/ctype.h>
+>   #include <xen/device_tree.h>
+>   #include <xen/errno.h>
+> diff --git a/xen/arch/riscv/smpboot.c b/xen/arch/riscv/smpboot.c
+> index 470f6d1311..3b8bf98e20 100644
+> --- a/xen/arch/riscv/smpboot.c
+> +++ b/xen/arch/riscv/smpboot.c
+> @@ -1,3 +1,4 @@
+> +#include <xen/bootfdt.h>
+>   #include <xen/cpumask.h>
+>   #include <xen/device_tree.h>
+>   #include <xen/errno.h>
+> diff --git a/xen/common/device-tree/bootfdt.c b/xen/common/device-tree/bootfdt.c
+> index 08d919aba6..67fe5c3cc3 100644
+> --- a/xen/common/device-tree/bootfdt.c
+> +++ b/xen/common/device-tree/bootfdt.c
+> @@ -215,18 +215,6 @@ u32 __init device_tree_get_u32(const void *fdt, int node,
+>       return fdt32_to_cpu(get_unaligned_t(uint32_t, prop->data));
+>   }
+>   
+> -/**
+> - * device_tree_for_each_node - iterate over all device tree sub-nodes
+> - * @fdt: flat device tree.
+> - * @node: parent node to start the search from
+> - * @func: function to call for each sub-node.
+> - * @data: data to pass to @func.
+> - *
+> - * Any nodes nested at DEVICE_TREE_MAX_DEPTH or deeper are ignored.
+> - *
+> - * Returns 0 if all nodes were iterated over successfully.  If @func
+> - * returns a value different from 0, that value is returned immediately.
+> - */
+>   int __init device_tree_for_each_node(const void *fdt, int node,
+>                                        device_tree_node_func func,
+>                                        void *data)
+> diff --git a/xen/common/device-tree/device-tree.c b/xen/common/device-tree/device-tree.c
+> index 7bede20fa6..4ebdb2e52e 100644
+> --- a/xen/common/device-tree/device-tree.c
+> +++ b/xen/common/device-tree/device-tree.c
+> @@ -8,6 +8,7 @@
+>    */
+>   
+>   #include <xen/bitops.h>
+> +#include <xen/bootfdt.h>
+>   #include <xen/types.h>
+>   #include <xen/init.h>
+>   #include <xen/guest_access.h>
+> diff --git a/xen/common/device-tree/static-evtchn.c b/xen/common/device-tree/static-evtchn.c
+> index 8b82e6b3d8..88342b44a1 100644
+> --- a/xen/common/device-tree/static-evtchn.c
+> +++ b/xen/common/device-tree/static-evtchn.c
+> @@ -1,5 +1,6 @@
+>   /* SPDX-License-Identifier: GPL-2.0-only */
+>   
+> +#include <xen/bootfdt.h>
+>   #include <xen/event.h>
+>   #include <xen/static-evtchn.h>
+>   
+> diff --git a/xen/common/sched/boot-cpupool.c b/xen/common/sched/boot-cpupool.c
+> index 641f3495cb..03be73efdd 100644
+> --- a/xen/common/sched/boot-cpupool.c
+> +++ b/xen/common/sched/boot-cpupool.c
+> @@ -7,6 +7,7 @@
+>    * Copyright (C) 2022 Arm Ltd.
+>    */
+>   
+> +#include <xen/bootfdt.h>
+>   #include <xen/acpi.h>
+>   #include <xen/sched.h>
+>   
+> diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
+> index ac2a79b59b..a5dfaa5c1d 100644
+> --- a/xen/include/xen/bootfdt.h
+> +++ b/xen/include/xen/bootfdt.h
+> @@ -2,8 +2,11 @@
+>   #ifndef XEN_BOOTFDT_H
+>   #define XEN_BOOTFDT_H
+>   
+> +#include <xen/byteorder.h>
+> +#include <xen/bug.h>
+>   #include <xen/types.h>
+>   #include <xen/kernel.h>
+> +#include <xen/lib.h>
+>   #include <xen/macros.h>
+>   #include <xen/xmalloc.h>
+>   
+> @@ -16,8 +19,92 @@
+>   #define NR_MEM_BANKS 256
+>   #define NR_SHMEM_BANKS 32
+>   
+> +/* Default #address and #size cells */
+> +#define DT_ROOT_NODE_ADDR_CELLS_DEFAULT 2
+> +#define DT_ROOT_NODE_SIZE_CELLS_DEFAULT 1
+> +
+>   #define MAX_MODULES 32 /* Current maximum useful modules */
+>   
+> +#define DEVICE_TREE_MAX_DEPTH 16
+> +
+> +/* Helper to read a big number; size is in cells (not bytes) */
+> +static inline u64 dt_read_number(const __be32 *cell, int size)
+> +{
+> +    u64 r = be32_to_cpu(*cell);
+> +
+> +    switch ( size )
+> +    {
+> +    case 1:
+> +        break;
+> +    case 2:
+> +        r = (r << 32) | be32_to_cpu(cell[1]);
+> +        break;
+> +    default:
+> +        /* Nonsensical size. default to 1 */
+> +        printk(XENLOG_ERR "dt_read_number(,%d) bad size\n", size);
+> +        ASSERT_UNREACHABLE();
+> +        break;
+> +    };
+> +
+> +    return r;
+> +}
+> +
+> +/* Wrapper for dt_read_number() to return paddr_t (instead of uint64_t) */
+> +static inline paddr_t dt_read_paddr(const __be32 *cell, int size)
+> +{
+> +    uint64_t dt_r;
+> +    paddr_t r;
+> +
+> +    /*
+> +     * dt_read_number will return uint64_t whereas paddr_t may not be 64-bit.
+> +     * Thus, there is an implicit cast from uint64_t to paddr_t.
+> +     */
+> +    dt_r = dt_read_number(cell, size);
+> +
+> +    if ( dt_r != (paddr_t)dt_r )
+> +    {
+> +        printk("Physical address greater than max width supported\n");
+> +        WARN();
+> +    }
+> +
+> +    /*
+> +     * Xen will truncate the address/size if it is greater than the maximum
+> +     * supported width and it will give an appropriate warning.
+> +     */
+> +    r = dt_r;
+> +
+> +    return r;
+> +}
+> +
+> +static inline u64 dt_next_cell(int s, const __be32 **cellp)
+> +{
+> +    const __be32 *p = *cellp;
+> +
+> +    *cellp = p + s;
+> +    return dt_read_number(p, s);
+> +}
+> +
+> +typedef int (*device_tree_node_func)(const void *fdt,
+> +                                     int node, const char *name, int depth,
+> +                                     u32 address_cells, u32 size_cells,
+> +                                     void *data);
+> +
+> +/**
+> + * device_tree_for_each_node - iterate over all device tree sub-nodes
+> + * @fdt: flat device tree.
+> + * @node: parent node to start the search from
+> + * @func: function to call for each sub-node.
+> + * @data: data to pass to @func.
+> + *
+> + * Any nodes nested at DEVICE_TREE_MAX_DEPTH or deeper are ignored.
+> + *
+> + * Returns 0 if all nodes were iterated over successfully.  If @func
+> + * returns a value different from 0, that value is returned immediately.
+> + */
+> +int device_tree_for_each_node(const void *fdt, int node,
+> +                              device_tree_node_func func,
+> +                              void *data);
+> +
+>   typedef enum {
+>       BOOTMOD_XEN,
+>       BOOTMOD_FDT,
+> @@ -261,4 +348,20 @@ static inline struct membanks *membanks_xzalloc(unsigned int nr,
+>       return banks;
+>   }
+>   
+> +/*
+> + * Interpret the property `prop_name` of `node` as a u32.
+> + *
+> + * Returns the property value on success; otherwise returns `dflt`.
+> + */
+> +u32 device_tree_get_u32(const void *fdt, int node,
+> +                        const char *prop_name, u32 dflt);
+> +
+> +/*
+> + * Interpret the property `prop_name` of `node` as a "reg".
+> + *
+> + * Returns outputs in `start` and `size`.
+> + */
+> +void device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
+> +                         uint32_t size_cells, paddr_t *start, paddr_t *size);
+> +
+>   #endif /* XEN_BOOTFDT_H */
+> diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
+> index a7cc092d05..8a39a60c54 100644
+> --- a/xen/include/xen/device_tree.h
+> +++ b/xen/include/xen/device_tree.h
+> @@ -22,8 +22,6 @@
+>   #include <xen/list.h>
+>   #include <xen/rwlock.h>
+>   
+> -#define DEVICE_TREE_MAX_DEPTH 16
+> -
+>   /*
+>    * Struct used for matching a device
+>    */
+> @@ -164,17 +162,8 @@ struct dt_raw_irq {
+>       u32 specifier[DT_MAX_IRQ_SPEC];
+>   };
+>   
+> -typedef int (*device_tree_node_func)(const void *fdt,
+> -                                     int node, const char *name, int depth,
+> -                                     u32 address_cells, u32 size_cells,
+> -                                     void *data);
+> -
+>   extern const void *device_tree_flattened;
+>   
+> -int device_tree_for_each_node(const void *fdt, int node,
+> -                              device_tree_node_func func,
+> -                              void *data);
+> -
+>   /**
+>    * dt_unflatten_host_device_tree - Unflatten the host device tree
+>    *
+> @@ -245,10 +234,6 @@ void intc_dt_preinit(void);
+>   #define dt_node_cmp(s1, s2) strcasecmp((s1), (s2))
+>   #define dt_compat_cmp(s1, s2) strcasecmp((s1), (s2))
+>   
+> -/* Default #address and #size cells */
+> -#define DT_ROOT_NODE_ADDR_CELLS_DEFAULT 2
+> -#define DT_ROOT_NODE_SIZE_CELLS_DEFAULT 1
+> -
+>   #define dt_for_each_property_node(dn, pp)                   \
+>       for ( pp = (dn)->properties; (pp) != NULL; pp = (pp)->next )
+>   
+> @@ -258,55 +243,6 @@ void intc_dt_preinit(void);
+>   #define dt_for_each_child_node(dt, dn)                      \
+>       for ( dn = (dt)->child; (dn) != NULL; dn = (dn)->sibling )
+>   
+> -/* Helper to read a big number; size is in cells (not bytes) */
+> -static inline u64 dt_read_number(const __be32 *cell, int size)
+> -{
+> -    u64 r = be32_to_cpu(*cell);
+> -
+> -    switch ( size )
+> -    {
+> -    case 1:
+> -        break;
+> -    case 2:
+> -        r = (r << 32) | be32_to_cpu(cell[1]);
+> -        break;
+> -    default:
+> -        /* Nonsensical size. default to 1 */
+> -        printk(XENLOG_ERR "dt_read_number(,%d) bad size\n", size);
+> -        ASSERT_UNREACHABLE();
+> -        break;
+> -    };
+> -
+> -    return r;
+> -}
+> -
+> -/* Wrapper for dt_read_number() to return paddr_t (instead of uint64_t) */
+> -static inline paddr_t dt_read_paddr(const __be32 *cell, int size)
+> -{
+> -    uint64_t dt_r;
+> -    paddr_t r;
+> -
+> -    /*
+> -     * dt_read_number will return uint64_t whereas paddr_t may not be 64-bit.
+> -     * Thus, there is an implicit cast from uint64_t to paddr_t.
+> -     */
+> -    dt_r = dt_read_number(cell, size);
+> -
+> -    if ( dt_r != (paddr_t)dt_r )
+> -    {
+> -        printk("Physical address greater than max width supported\n");
+> -        WARN();
+> -    }
+> -
+> -    /*
+> -     * Xen will truncate the address/size if it is greater than the maximum
+> -     * supported width and it will give an appropriate warning.
+> -     */
+> -    r = dt_r;
+> -
+> -    return r;
+> -}
+> -
+>   /* Helper to convert a number of cells to bytes */
+>   static inline int dt_cells_to_size(int size)
+>   {
+> @@ -319,14 +255,6 @@ static inline int dt_size_to_cells(int bytes)
+>       return (bytes / sizeof(u32));
+>   }
+>   
+> -static inline u64 dt_next_cell(int s, const __be32 **cellp)
+> -{
+> -    const __be32 *p = *cellp;
+> -
+> -    *cellp = p + s;
+> -    return dt_read_number(p, s);
+> -}
+> -
+>   static inline const char *dt_node_full_name(const struct dt_device_node *np)
+>   {
+>       return (np && np->full_name) ? np->full_name : "<no-node>";
+> @@ -984,12 +912,6 @@ int dt_map_id(const struct dt_device_node *np, uint32_t id,
+>   
+>   struct dt_device_node *dt_find_node_by_phandle(dt_phandle handle);
+>   
+> -void device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
+> -                         uint32_t size_cells, paddr_t *start, paddr_t *size);
+> -
+> -u32 device_tree_get_u32(const void *fdt, int node,
+> -                        const char *prop_name, u32 dflt);
+> -
+>   #ifdef CONFIG_DEVICE_TREE_DEBUG
+>   #define dt_dprintk(fmt, args...)  \
+>       printk(XENLOG_DEBUG fmt, ## args)
+--------------Cp6RiKO02KwMqvMTI0nRhlOn
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---------------mOCfZk0xlr2pWBn2QEtk79C1
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 7/15/25 6:10 PM, Alejandro Vallejo
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20250715161108.141126-5-alejandro.garciavallejo@amd.com">
+      <pre wrap="" class="moz-quote-pre">Part of an unpicking process to extract bootfdt contents independent of bootinfo
+to a separate file for x86 to take.
 
------BEGIN PGP SIGNATURE-----
+Move functions required for early FDT parsing from device_tree.h and arm's
+setup.h onto bootfdt.h
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmh+ItoFAwAAAAAACgkQsN6d1ii/Ey80
-ggf7B5yfFS7s6Vjs9XH9YCRH1S13Uhat1kXgEvOk2Oxnaj6gYdZ0WQAT297A8JuGqt8bvZBntVDF
-mHwAz8Jw5pgiBGDwzlAW9W+woz95Ur5xVmyHZEulo3rZMyo33ZqQICDZbi5QsZXQCua7qUTpoMKF
-FtsZQA6h65/HqmRaddm92weU8VDa+v/K/k+10qhzcp8ZSAWo0xxbc+IzGP+qHzfMjkbAR482ypN5
-WycOxCxMHn4vBIUrdgNAbj5GpFDCHoB5XE3w4EqIqEtA6K0KD1HWKGw218xO6MQpIA5n02wssMHE
-YBbJmVCu4tWJu/2ZqSC116r39qBkkxjxFjyW1AlAPA==
-=a7F3
------END PGP SIGNATURE-----
+Declaration motion only. Not a functional change.
 
---------------mOCfZk0xlr2pWBn2QEtk79C1--
+Signed-off-by: Alejandro Vallejo <a class="moz-txt-link-rfc2396E" href="mailto:alejandro.garciavallejo@amd.com">&lt;alejandro.garciavallejo@amd.com&gt;</a>
+Reviewed-by: Stefano Stabellini <a class="moz-txt-link-rfc2396E" href="mailto:sstabellini@kernel.org">&lt;sstabellini@kernel.org&gt;</a></pre>
+    </blockquote>
+    <pre>LGTM: Reviewed-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a> # riscv
+
+~ Oleksii
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:20250715161108.141126-5-alejandro.garciavallejo@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+---
+v7:
+  * v6 was misrebased, and dt_read_number()'s refactor was lost. v7 ensures
+    it's preserved in the code motion
+---
+ xen/arch/riscv/cpufeature.c            |   1 +
+ xen/arch/riscv/smpboot.c               |   1 +
+ xen/common/device-tree/bootfdt.c       |  12 ---
+ xen/common/device-tree/device-tree.c   |   1 +
+ xen/common/device-tree/static-evtchn.c |   1 +
+ xen/common/sched/boot-cpupool.c        |   1 +
+ xen/include/xen/bootfdt.h              | 103 +++++++++++++++++++++++++
+ xen/include/xen/device_tree.h          |  78 -------------------
+ 8 files changed, 108 insertions(+), 90 deletions(-)
+
+diff --git a/xen/arch/riscv/cpufeature.c b/xen/arch/riscv/cpufeature.c
+index b7d5ec6580..b846a106a3 100644
+--- a/xen/arch/riscv/cpufeature.c
++++ b/xen/arch/riscv/cpufeature.c
+@@ -8,6 +8,7 @@
+  */
+ 
+ #include &lt;xen/bitmap.h&gt;
++#include &lt;xen/bootfdt.h&gt;
+ #include &lt;xen/ctype.h&gt;
+ #include &lt;xen/device_tree.h&gt;
+ #include &lt;xen/errno.h&gt;
+diff --git a/xen/arch/riscv/smpboot.c b/xen/arch/riscv/smpboot.c
+index 470f6d1311..3b8bf98e20 100644
+--- a/xen/arch/riscv/smpboot.c
++++ b/xen/arch/riscv/smpboot.c
+@@ -1,3 +1,4 @@
++#include &lt;xen/bootfdt.h&gt;
+ #include &lt;xen/cpumask.h&gt;
+ #include &lt;xen/device_tree.h&gt;
+ #include &lt;xen/errno.h&gt;
+diff --git a/xen/common/device-tree/bootfdt.c b/xen/common/device-tree/bootfdt.c
+index 08d919aba6..67fe5c3cc3 100644
+--- a/xen/common/device-tree/bootfdt.c
++++ b/xen/common/device-tree/bootfdt.c
+@@ -215,18 +215,6 @@ u32 __init device_tree_get_u32(const void *fdt, int node,
+     return fdt32_to_cpu(get_unaligned_t(uint32_t, prop-&gt;data));
+ }
+ 
+-/**
+- * device_tree_for_each_node - iterate over all device tree sub-nodes
+- * @fdt: flat device tree.
+- * @node: parent node to start the search from
+- * @func: function to call for each sub-node.
+- * @data: data to pass to @func.
+- *
+- * Any nodes nested at DEVICE_TREE_MAX_DEPTH or deeper are ignored.
+- *
+- * Returns 0 if all nodes were iterated over successfully.  If @func
+- * returns a value different from 0, that value is returned immediately.
+- */
+ int __init device_tree_for_each_node(const void *fdt, int node,
+                                      device_tree_node_func func,
+                                      void *data)
+diff --git a/xen/common/device-tree/device-tree.c b/xen/common/device-tree/device-tree.c
+index 7bede20fa6..4ebdb2e52e 100644
+--- a/xen/common/device-tree/device-tree.c
++++ b/xen/common/device-tree/device-tree.c
+@@ -8,6 +8,7 @@
+  */
+ 
+ #include &lt;xen/bitops.h&gt;
++#include &lt;xen/bootfdt.h&gt;
+ #include &lt;xen/types.h&gt;
+ #include &lt;xen/init.h&gt;
+ #include &lt;xen/guest_access.h&gt;
+diff --git a/xen/common/device-tree/static-evtchn.c b/xen/common/device-tree/static-evtchn.c
+index 8b82e6b3d8..88342b44a1 100644
+--- a/xen/common/device-tree/static-evtchn.c
++++ b/xen/common/device-tree/static-evtchn.c
+@@ -1,5 +1,6 @@
+ /* SPDX-License-Identifier: GPL-2.0-only */
+ 
++#include &lt;xen/bootfdt.h&gt;
+ #include &lt;xen/event.h&gt;
+ #include &lt;xen/static-evtchn.h&gt;
+ 
+diff --git a/xen/common/sched/boot-cpupool.c b/xen/common/sched/boot-cpupool.c
+index 641f3495cb..03be73efdd 100644
+--- a/xen/common/sched/boot-cpupool.c
++++ b/xen/common/sched/boot-cpupool.c
+@@ -7,6 +7,7 @@
+  * Copyright (C) 2022 Arm Ltd.
+  */
+ 
++#include &lt;xen/bootfdt.h&gt;
+ #include &lt;xen/acpi.h&gt;
+ #include &lt;xen/sched.h&gt;
+ 
+diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
+index ac2a79b59b..a5dfaa5c1d 100644
+--- a/xen/include/xen/bootfdt.h
++++ b/xen/include/xen/bootfdt.h
+@@ -2,8 +2,11 @@
+ #ifndef XEN_BOOTFDT_H
+ #define XEN_BOOTFDT_H
+ 
++#include &lt;xen/byteorder.h&gt;
++#include &lt;xen/bug.h&gt;
+ #include &lt;xen/types.h&gt;
+ #include &lt;xen/kernel.h&gt;
++#include &lt;xen/lib.h&gt;
+ #include &lt;xen/macros.h&gt;
+ #include &lt;xen/xmalloc.h&gt;
+ 
+@@ -16,8 +19,92 @@
+ #define NR_MEM_BANKS 256
+ #define NR_SHMEM_BANKS 32
+ 
++/* Default #address and #size cells */
++#define DT_ROOT_NODE_ADDR_CELLS_DEFAULT 2
++#define DT_ROOT_NODE_SIZE_CELLS_DEFAULT 1
++
+ #define MAX_MODULES 32 /* Current maximum useful modules */
+ 
++#define DEVICE_TREE_MAX_DEPTH 16
++
++/* Helper to read a big number; size is in cells (not bytes) */
++static inline u64 dt_read_number(const __be32 *cell, int size)
++{
++    u64 r = be32_to_cpu(*cell);
++
++    switch ( size )
++    {
++    case 1:
++        break;
++    case 2:
++        r = (r &lt;&lt; 32) | be32_to_cpu(cell[1]);
++        break;
++    default:
++        /* Nonsensical size. default to 1 */
++        printk(XENLOG_ERR "dt_read_number(,%d) bad size\n", size);
++        ASSERT_UNREACHABLE();
++        break;
++    };
++
++    return r;
++}
++
++/* Wrapper for dt_read_number() to return paddr_t (instead of uint64_t) */
++static inline paddr_t dt_read_paddr(const __be32 *cell, int size)
++{
++    uint64_t dt_r;
++    paddr_t r;
++
++    /*
++     * dt_read_number will return uint64_t whereas paddr_t may not be 64-bit.
++     * Thus, there is an implicit cast from uint64_t to paddr_t.
++     */
++    dt_r = dt_read_number(cell, size);
++
++    if ( dt_r != (paddr_t)dt_r )
++    {
++        printk("Physical address greater than max width supported\n");
++        WARN();
++    }
++
++    /*
++     * Xen will truncate the address/size if it is greater than the maximum
++     * supported width and it will give an appropriate warning.
++     */
++    r = dt_r;
++
++    return r;
++}
++
++static inline u64 dt_next_cell(int s, const __be32 **cellp)
++{
++    const __be32 *p = *cellp;
++
++    *cellp = p + s;
++    return dt_read_number(p, s);
++}
++
++typedef int (*device_tree_node_func)(const void *fdt,
++                                     int node, const char *name, int depth,
++                                     u32 address_cells, u32 size_cells,
++                                     void *data);
++
++/**
++ * device_tree_for_each_node - iterate over all device tree sub-nodes
++ * @fdt: flat device tree.
++ * @node: parent node to start the search from
++ * @func: function to call for each sub-node.
++ * @data: data to pass to @func.
++ *
++ * Any nodes nested at DEVICE_TREE_MAX_DEPTH or deeper are ignored.
++ *
++ * Returns 0 if all nodes were iterated over successfully.  If @func
++ * returns a value different from 0, that value is returned immediately.
++ */
++int device_tree_for_each_node(const void *fdt, int node,
++                              device_tree_node_func func,
++                              void *data);
++
+ typedef enum {
+     BOOTMOD_XEN,
+     BOOTMOD_FDT,
+@@ -261,4 +348,20 @@ static inline struct membanks *membanks_xzalloc(unsigned int nr,
+     return banks;
+ }
+ 
++/*
++ * Interpret the property `prop_name` of `node` as a u32.
++ *
++ * Returns the property value on success; otherwise returns `dflt`.
++ */
++u32 device_tree_get_u32(const void *fdt, int node,
++                        const char *prop_name, u32 dflt);
++
++/*
++ * Interpret the property `prop_name` of `node` as a "reg".
++ *
++ * Returns outputs in `start` and `size`.
++ */
++void device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
++                         uint32_t size_cells, paddr_t *start, paddr_t *size);
++
+ #endif /* XEN_BOOTFDT_H */
+diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
+index a7cc092d05..8a39a60c54 100644
+--- a/xen/include/xen/device_tree.h
++++ b/xen/include/xen/device_tree.h
+@@ -22,8 +22,6 @@
+ #include &lt;xen/list.h&gt;
+ #include &lt;xen/rwlock.h&gt;
+ 
+-#define DEVICE_TREE_MAX_DEPTH 16
+-
+ /*
+  * Struct used for matching a device
+  */
+@@ -164,17 +162,8 @@ struct dt_raw_irq {
+     u32 specifier[DT_MAX_IRQ_SPEC];
+ };
+ 
+-typedef int (*device_tree_node_func)(const void *fdt,
+-                                     int node, const char *name, int depth,
+-                                     u32 address_cells, u32 size_cells,
+-                                     void *data);
+-
+ extern const void *device_tree_flattened;
+ 
+-int device_tree_for_each_node(const void *fdt, int node,
+-                              device_tree_node_func func,
+-                              void *data);
+-
+ /**
+  * dt_unflatten_host_device_tree - Unflatten the host device tree
+  *
+@@ -245,10 +234,6 @@ void intc_dt_preinit(void);
+ #define dt_node_cmp(s1, s2) strcasecmp((s1), (s2))
+ #define dt_compat_cmp(s1, s2) strcasecmp((s1), (s2))
+ 
+-/* Default #address and #size cells */
+-#define DT_ROOT_NODE_ADDR_CELLS_DEFAULT 2
+-#define DT_ROOT_NODE_SIZE_CELLS_DEFAULT 1
+-
+ #define dt_for_each_property_node(dn, pp)                   \
+     for ( pp = (dn)-&gt;properties; (pp) != NULL; pp = (pp)-&gt;next )
+ 
+@@ -258,55 +243,6 @@ void intc_dt_preinit(void);
+ #define dt_for_each_child_node(dt, dn)                      \
+     for ( dn = (dt)-&gt;child; (dn) != NULL; dn = (dn)-&gt;sibling )
+ 
+-/* Helper to read a big number; size is in cells (not bytes) */
+-static inline u64 dt_read_number(const __be32 *cell, int size)
+-{
+-    u64 r = be32_to_cpu(*cell);
+-
+-    switch ( size )
+-    {
+-    case 1:
+-        break;
+-    case 2:
+-        r = (r &lt;&lt; 32) | be32_to_cpu(cell[1]);
+-        break;
+-    default:
+-        /* Nonsensical size. default to 1 */
+-        printk(XENLOG_ERR "dt_read_number(,%d) bad size\n", size);
+-        ASSERT_UNREACHABLE();
+-        break;
+-    };
+-
+-    return r;
+-}
+-
+-/* Wrapper for dt_read_number() to return paddr_t (instead of uint64_t) */
+-static inline paddr_t dt_read_paddr(const __be32 *cell, int size)
+-{
+-    uint64_t dt_r;
+-    paddr_t r;
+-
+-    /*
+-     * dt_read_number will return uint64_t whereas paddr_t may not be 64-bit.
+-     * Thus, there is an implicit cast from uint64_t to paddr_t.
+-     */
+-    dt_r = dt_read_number(cell, size);
+-
+-    if ( dt_r != (paddr_t)dt_r )
+-    {
+-        printk("Physical address greater than max width supported\n");
+-        WARN();
+-    }
+-
+-    /*
+-     * Xen will truncate the address/size if it is greater than the maximum
+-     * supported width and it will give an appropriate warning.
+-     */
+-    r = dt_r;
+-
+-    return r;
+-}
+-
+ /* Helper to convert a number of cells to bytes */
+ static inline int dt_cells_to_size(int size)
+ {
+@@ -319,14 +255,6 @@ static inline int dt_size_to_cells(int bytes)
+     return (bytes / sizeof(u32));
+ }
+ 
+-static inline u64 dt_next_cell(int s, const __be32 **cellp)
+-{
+-    const __be32 *p = *cellp;
+-
+-    *cellp = p + s;
+-    return dt_read_number(p, s);
+-}
+-
+ static inline const char *dt_node_full_name(const struct dt_device_node *np)
+ {
+     return (np &amp;&amp; np-&gt;full_name) ? np-&gt;full_name : "&lt;no-node&gt;";
+@@ -984,12 +912,6 @@ int dt_map_id(const struct dt_device_node *np, uint32_t id,
+ 
+ struct dt_device_node *dt_find_node_by_phandle(dt_phandle handle);
+ 
+-void device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
+-                         uint32_t size_cells, paddr_t *start, paddr_t *size);
+-
+-u32 device_tree_get_u32(const void *fdt, int node,
+-                        const char *prop_name, u32 dflt);
+-
+ #ifdef CONFIG_DEVICE_TREE_DEBUG
+ #define dt_dprintk(fmt, args...)  \
+     printk(XENLOG_DEBUG fmt, ## args)
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------Cp6RiKO02KwMqvMTI0nRhlOn--
 
