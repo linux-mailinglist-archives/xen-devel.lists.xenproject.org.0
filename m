@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EDB1B0C3EE
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 14:15:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1051466.1419794 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8227B0C3F7
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 14:18:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1051475.1419804 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udpQe-0002wG-KV; Mon, 21 Jul 2025 12:15:36 +0000
+	id 1udpTg-0003XO-5Y; Mon, 21 Jul 2025 12:18:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1051466.1419794; Mon, 21 Jul 2025 12:15:36 +0000
+Received: by outflank-mailman (output) from mailman id 1051475.1419804; Mon, 21 Jul 2025 12:18:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udpQe-0002t9-Gu; Mon, 21 Jul 2025 12:15:36 +0000
-Received: by outflank-mailman (input) for mailman id 1051466;
- Mon, 21 Jul 2025 12:15:34 +0000
+	id 1udpTg-0003UU-28; Mon, 21 Jul 2025 12:18:44 +0000
+Received: by outflank-mailman (input) for mailman id 1051475;
+ Mon, 21 Jul 2025 12:18:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cu2o=2C=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1udpQc-0002t3-OE
- for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 12:15:34 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20611.outbound.protection.outlook.com
- [2a01:111:f403:2417::611])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=R5lD=2C=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1udpTe-0003UO-Nj
+ for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 12:18:42 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 660fe5f9-662c-11f0-a31d-13f23c93f187;
- Mon, 21 Jul 2025 14:15:33 +0200 (CEST)
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
- by SA3PR12MB8763.namprd12.prod.outlook.com (2603:10b6:806:312::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.30; Mon, 21 Jul
- 2025 12:15:28 +0000
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13%6]) with mapi id 15.20.8922.028; Mon, 21 Jul 2025
- 12:15:28 +0000
+ id d6987f8e-662c-11f0-a31d-13f23c93f187;
+ Mon, 21 Jul 2025 14:18:41 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a536ecbf6fso2473073f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Jul 2025 05:18:41 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23e3b6155b5sm57006495ad.80.2025.07.21.05.18.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 21 Jul 2025 05:18:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,143 +45,224 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 660fe5f9-662c-11f0-a31d-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PH7C7Ox6Z5whsjgUSM+2UNi6KYNQrLV2PQgb97xruxzFZqqmw0YFDr+dkEvmy1JxBTD/r9eSQQm38CAi0tnYNSHyQeB8FmpxjEL2aqVYueV5yOIWhI2SGCGljVGRIgd4FrWsTTAYZe5wl604V7zJG5WRO/1lfOLTWJ94d73l7wQPtcn9kS5+if8dxi3Z41yrqYn8rCYyncP1rMD5SH5nK7sURv9WzlpdP3zz59RNe0t0qMGBUC2LQ6/0w7TVuW5xBVCI462HDlEDlnDsPGE6FGsSCKGsRdaxrF38Npj4Eistv9kkaRCsjp5huQLXr6remgfBJknHQ62xG7t/9a898w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1jxjSTH+wZRl4K72n38Im6VX/JPY+dcWX2ws3XKWh0Q=;
- b=gCnsGUrkHL7l3Zdf5DW+0F87RIY/ra8OMIs30kgBq/RAC9Kzc97g2Tpa6lI9WUlqD5spD61oT/yaB1052ZkOef7psKB+hUNT0heoLpta9r7/9/Upusih2Ynpw5dtaCjfpCvh/NBs6dvThUTfryCvsw8yrtjNUxk+or+ncohayNQoCBpMIYkUYh5ff9knYp9FbDjLVFXtNgA5yNVT6DBO3TgjzBPM8dT9+cVC0w2xJ+t8Zb2ImjHLZSBEzyiNEcLzVJYaRWzhmshPhYSUm5oO52icETb2GwtDaPIYV6sjM37oe0M46YNKCVS1SPFswuZYsDE9glNBaMnoQ+oVw6iC7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1jxjSTH+wZRl4K72n38Im6VX/JPY+dcWX2ws3XKWh0Q=;
- b=g9I4gFikjymlYJ13B1VygxAzhuv/o+RzVIj116LH6E1zlhJgGd010QjfpBsI4r5rzd2LfAPYW424yVsgT776YX/xXi4kr0KH3APT5rqCNTY8Wley+JqPucwkT5MfCXP1hAlhgqSp6k7VWPOaFRLtjDjDOQPnUpwq+IlnnbEkwBU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <eef51d39-7d4c-4248-923b-d8ffe0f1ee9a@amd.com>
-Date: Mon, 21 Jul 2025 14:15:24 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] xen/efi: Do not pass dummy pointer for empty property
-To: Frediano Ziglio <frediano.ziglio@cloud.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250721090713.414324-1-frediano.ziglio@cloud.com>
- <20250721090713.414324-4-frediano.ziglio@cloud.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
-Content-Language: en-US
-In-Reply-To: <20250721090713.414324-4-frediano.ziglio@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0152.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:98::19) To BN9PR12MB5273.namprd12.prod.outlook.com
- (2603:10b6:408:11e::22)
+X-Inumbo-ID: d6987f8e-662c-11f0-a31d-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1753100321; x=1753705121; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=qFTRcQKOeG9KE4NcRjScrDdovmTk170t5nAuLtUlm5Q=;
+        b=YklYRzPQ0OI6u4kBv7etPBZcIJHrIHbqaGRKZvBz2QziNVshLI4D1H2HaanJC210E7
+         KEk3srvDZqbMJki1/jFZmnwhS4NTsX/aXeMs82hY54dfFcAlsOEipuXMVdsmKaTG5t5p
+         WjmDkb79LT44dQxW+WdjQmv1liJjsVXXnluqUARk0TzgbSl3NsO3ygrexg4v5l1+39Ly
+         XXpQBUFbhKPKP7yl9AgUmPnq6kKNlfy77iedxs3YgXdgaKzRje/CUZx6igkSosd1LRNm
+         Gmmj7qTwah2+eOLcxR6BiHqeveEG/hnrNCaS/foLGscTC5IQ2lHVpuCFtUzZBD+EdcZs
+         2M+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753100321; x=1753705121;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qFTRcQKOeG9KE4NcRjScrDdovmTk170t5nAuLtUlm5Q=;
+        b=hsuV0fG8Xjmd7H12KSDmRgN/HC70vGS5MBtwHRtEZ7N9fT0Opc6GmrWFWRdlimGFSH
+         1/28a70gA5IcSBzHFCI5UqBecZ9E/OKYfsTiua7Z0ytXFrZq/lYtZaax3bugzZAQz2tk
+         6dwITcZvQANojmcuxMKduQMASUyUSf1G499ZLOJwkvhv5+y6thucRp7YimNk9b7zE2Iq
+         nN3GFWceiEt6QQJPbZx77u8ZvGaBgqekAVn7RHzqAUY6eumDEBLeV61kOPtev41b/u3v
+         P3Z7Wdk6k+PcAoyldbvQ2RRYiEdXEoirXEdxbCXBoTqkOWJrAyFB0hOmhLLYF/uj7gir
+         EzRQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUozd8lEk7hNGfrsFqMPVWe7v2LExKPDtdQqp8+CaxE7wj/eV+e/hLi8uvXlCAEisXYjlvabeKifCk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy2FXcwy2Ap9vZzIFzH2RQaMzCuHSQrQM/HOqq3BOm5b4VVtwgS
+	N0NnPkuEVBj5D3mciuHRveCHNrbRBPdYHl9qy28t6YT3/dCKqWC2+WPjD20i+CEXfw==
+X-Gm-Gg: ASbGncsIKXvwByBB/6SWXP1FqtU2z7M6viWxxcXLAKy9gOFKw4ToKVQzEPhQz3VlsrG
+	i8K3eLrdaQ2TAtQphPXjliF3nGl/UF3s1dP5iZL7QVLNogk9SWgil2zMNLQbEr7QEsxgJW++6GV
+	3Df5QYxXiQnPUVm5p8qlSCtgEngRjaqBfQ8Au4C3yIWAcELgo5bRJSNO1477FY3igCOYCkfCtVh
+	adXfzNW0xelpEGnyj+3E7RwwSK4DbJQoBCWvEf3dtuDrMaHmdeEBU+DvNsm1zu6xRxeKBf6kHnK
+	QH9rrU2LlHeLV6ABie0lv14ryJdQa5zhqfYMpmepaB7dPB6JbdGhksBb9i11sCjo/ok9AZJ9CGO
+	vTWnBMtwEWRUrmJnt/yuesQ3j3frrWN8TBRhHCl9gpgUaZYyiywP5fZ12yPOp89VxULvjzFsn4N
+	P9CPrgXxc=
+X-Google-Smtp-Source: AGHT+IEcKvIPpRy/J5F+k1P7Vy1RZsjyXIzMbh3weVxx0BMN4E8DJBmlLe654X3rGvObEEWD5cP7TA==
+X-Received: by 2002:a05:6000:25f6:b0:3a3:63d3:369a with SMTP id ffacd0b85a97d-3b613e77736mr13609826f8f.25.1753100320769;
+        Mon, 21 Jul 2025 05:18:40 -0700 (PDT)
+Message-ID: <9e9c1943-b2af-471f-b8c9-f7179073ef99@suse.com>
+Date: Mon, 21 Jul 2025 14:18:30 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|SA3PR12MB8763:EE_
-X-MS-Office365-Filtering-Correlation-Id: 02a61dd5-15e5-47bf-c1bf-08ddc850478d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?MTc2UzRTYStjMVA0TU52SFRrZGR1MUNSbE95cGtRd2lLYmdlMjBzb2xRV0F5?=
- =?utf-8?B?UCt3MUczSFVSOE1NTlcrRFJRVno4cXhBQ1krd1pqKzBYdlJlV2lrUDgrcFJm?=
- =?utf-8?B?alRhc2pob3d0S1h1RVN1b3JQQkZxWWtlamVEUzFObFdQcGlxd0kvNkpvd1Ay?=
- =?utf-8?B?STdiS2pLNkNHQUxTdTZlRkVNUDN6TGlCTTJZb2t6QnBhRlVEbkNqSHg5TytS?=
- =?utf-8?B?MDZpYkxZejU5N2xhcDNXTFBFS0pzcUtIWWlLeTRJVUYwK3hGN0pEVUxZb3p4?=
- =?utf-8?B?NFNnYVdESllQNjR6dVBPbkV3TmNzNEM0YmdVVHFEdG5mRmhYa3p1ZTgrV1c0?=
- =?utf-8?B?SDB3TXlCN1JvSXhmWFM5UXZJeHQ2TUM4V2ZKeVJNYmgrcEl6Y3VPWDdESzRL?=
- =?utf-8?B?dWpETkJiaFFkVllBZjZsTFhaaDV0S1Ixb3JJZEs4dEhlcVNxcjJlTHFhakdF?=
- =?utf-8?B?c3pkSFI2S1VkRFkvcXAvSlFxUzRMSFV1cHFjK1FvSTF5TzVDMnNxUU1kTnpO?=
- =?utf-8?B?d214NXlPY0FaMkMwOVFRQjRXbEJuTFZFdC9FYmVxUmRyN3JFSnd6blZPTlpm?=
- =?utf-8?B?SHpJSzZKOXZXMmkySXVXVnlXYjFINWlWTWZlbFRhVTBIK1NBU0xvUEpON2l4?=
- =?utf-8?B?eXRBVHhYZVZzbDB1ZnU3TWc0eVFxTW15TkcyQ1g5UU90c0RpcURTaVZOT21N?=
- =?utf-8?B?bG1PTWRNc2k3dUlTWVpTejljdFVYSmtIcFVhNDZNU0MwL2dORlpxcTZZVXkz?=
- =?utf-8?B?QzJjZllmK0tJM25CZU5mVTRrRXJVN0d3ZllYYkdUbWpMK2pYcnU3K0VpcjFp?=
- =?utf-8?B?MmJNL29EZW4rVm16RGdXLzZEc0RtK2x1RTRiU1Y4VVRhRnlhMVdDZzBVNFZK?=
- =?utf-8?B?aE5zdmtkUk1tUUlQQVA1dlk0UEpWeFlTcUI5YUVJUnI3MWQ2V0tidzRwUHJw?=
- =?utf-8?B?MTRZbzlmRjdaL29iYW1ZbUEzeDVLVUNnTXBoUmoxSUlpZm9GZGdtMHV6MEZQ?=
- =?utf-8?B?YnZDQ0hBU2VBMDd1aGVsWDNxeE5keW5qZlRxTTRackdlT2xDRHJISmdXb1FC?=
- =?utf-8?B?dVNucFFGVDdQN2lHWm12Q2l4cHRKRmdoclVzbDRtemJmK09HQ2Y4eGhaZEN0?=
- =?utf-8?B?MnJuTUNtTnlzQXl6clpTTzRTSWdHQm8yS3diZGdFbnNIeklxcUtKbXJZR00y?=
- =?utf-8?B?dE1CNnlpcmF0SUtaOXRENGp1ZjY1M2NTNHd2WkMzQVNVZnB5K1ZSTGhEUTVL?=
- =?utf-8?B?VmRPWmVEOHRnNE0rNGExMjVNZnNQKzVCcm5BZ2xjMXJtNU80WWViQWlLUjBD?=
- =?utf-8?B?c0tYQ2p5ODYrd1dqekVGbmEzc1FGbHQ1T0g0SS81Z09QaU0xVE5hUkk1RllP?=
- =?utf-8?B?VkZBdzRwTG9tWXlURjJuOVZQNWphdFE4QVBrR1NTWXVGNDM3UzhNR09TUG8z?=
- =?utf-8?B?dVNzM0NieVRQbzNadGVpMjZ2bE01L0Nna1dlbFJ5cU8wQ0o3cU95R1hLM1hS?=
- =?utf-8?B?dFIzcWRkTXRrZFB2eHBIY0NpS2xWdENZRzU2Q3FaSURNWkxvdjhjbWJqclFm?=
- =?utf-8?B?TTErVEVzbmlWYWorRWdKM3RpVVZQOWJ1RkVvNVlQQnN4QWtDNndDeVJjcHNQ?=
- =?utf-8?B?WFNiQzdRdkpwUmtTWTdRQnZCYnNreit6T3VYbGN5QlV0QVBydTNXVGRmZElJ?=
- =?utf-8?B?bDhsSHRuZk9kQ0tZMXBheE5YbGRrc2hUSXlIeUVtcTJUN2pKdkpqakdSWEFD?=
- =?utf-8?B?VlZPMVVKZjVWVXNzRmFoWDR5ODF6cUxKb3N1MTJCc2NxUE9LOFdFQVE4cHNP?=
- =?utf-8?B?dE9oc3FiQ0N5TUhlcHpTMllWWCtNV3JLLzR6ZDBsMWc0ZW83NE10MXozV3gr?=
- =?utf-8?B?SVZlV01tQWVtZ21Rdk5jcmRreHBhMjAwQnM1WjhSSHVXV3YwemJVMllJOTFR?=
- =?utf-8?Q?ldct7lIuxdw=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Z0xDb3lTVHI3cjdMdzZXazR4TlVpNlpTOGxMa0lmazVaQW40dmpDVWc5Zy83?=
- =?utf-8?B?TFg5NHJwK1pLZVNvVDRqS2hxR2NJYmNmWCt0VDdNemFJY1grZlIrckFXOHFP?=
- =?utf-8?B?YUt1U1VQanI3OEVyZzZkdUNaekpKNG1SM0x4dmc5OWQxWFVxZDg0Qm5WTHdu?=
- =?utf-8?B?Um1EUjRDdUl1UGY3STVTYW9YdExkS1FBS1JzUjFOSldmaVF2WjBUMC85MHk4?=
- =?utf-8?B?UGlIZEc4VURLenBtbUw3RERjaURpcTY4bWpNK0xVWXRtVWpzRHlTRlVPSkJt?=
- =?utf-8?B?VkJad1ltU2t2YTJGNWFqN0N5V25nUFc4SDVhSGwwZ3FuemxObG9nSEdlMnI5?=
- =?utf-8?B?RWxWaUFjZWdQMXArdjA4Tklxd1M0c2h6RGEyUlg1L3h6S2VHbjFKZFc5VUZp?=
- =?utf-8?B?M2dWRnYwQndjTmZleHJTbC9tbDdraGdTVDRsZzdiemxOZnFFczBvME4vR1pS?=
- =?utf-8?B?TWNpZkx4cFJ2cmpyYTZxT25vT3hpSUNFKzJtekRSVEUzcVQ3aFdIaFZhRzNu?=
- =?utf-8?B?cXRSQUFJVVBrWXR1WURvSUI5ZTZEOWxRSzg0RTlEcmRjUHRIVFZsbGZxK0dO?=
- =?utf-8?B?akEzdnNsSnFOOFFrYWdOTnE5RERVVkE5YUx6Skx5RVN5em9FZWVPL1J2c1Fk?=
- =?utf-8?B?RVZRVG1oY0REK1RaVzFkaDh5WUFSbXFjRTlQMDVKdy8wOU0rYjRIbjRxYzlk?=
- =?utf-8?B?S1N0Q0VaRzRUdlVNN2FyYlR4L3lQTUliamxyU3IzVCtXZ1pmdm9qOWtJVFU4?=
- =?utf-8?B?dWY1YkZ1Wk1vRFZERllhZVduc0o2MGxkRkhqamR2NXIybFBFL1c1MXBVUGtS?=
- =?utf-8?B?V1I4S1hqWFhGWnplZ1JEWjdTVkxYeWdsaml1OElTZ3pMU0l2Wld6WVpnTWNR?=
- =?utf-8?B?Yk9uSEpCZ2tRUVE0TTRHN2pPOGJ1akVzY3RTOEkyYmJXcmdEb0dMQ09nTHFi?=
- =?utf-8?B?Ly9EcFJmNG5pWlJENkREU2JBbU5KL1dSWENjMDFoWWJWeHFDdDFKajNrM3c3?=
- =?utf-8?B?bzdMSWV6M1dMYnR6djBoVG1uL01yUTJrOUM3MUN5UEszQ2o0S3VzclZYVjFC?=
- =?utf-8?B?M25keWtZb2NMNTlsZmMxVzdUazdsZklPaDVqYllNcjZyNWZucHJIcVNzWDdG?=
- =?utf-8?B?ZVVYWnN1c21obklhWEY1QnZacnQvVnhoQ1R1L1d3NC9oeVdvTzNJTndhdlZ6?=
- =?utf-8?B?ejI1YVJvNm01TmJ5cmxpUG5PWmtZU3FSVERPRi85N3VoU29PZmpHd0wrMUFF?=
- =?utf-8?B?ZnlKQTVuTDJDQ0xDbVFIMnNncis2UTlFM2tpL09XVDZNWlk3cDBQTXRyaUJJ?=
- =?utf-8?B?d0RlVGZ0Q1lSQ2RTSHFoNnpVYTdaWDE1Mmx6VzRmcWVVSXpRLzNYcUQyQmli?=
- =?utf-8?B?bFpYb3NwN1E3ZjRPRDRFeXM4THppZU1pWFpEM0FlWnByZHJYN2YrcTZGOHVK?=
- =?utf-8?B?d0owRFF6cDAxaTA1SDNBbXJKVlZhcjNJZm4zVVI4eUt5MTIzQkFBTkR1SER6?=
- =?utf-8?B?NW1JNGpLMjc4UDNqM01XVGNhMHo4TzIwZkQxQUNoc21Felh0WGJOSllDYkcy?=
- =?utf-8?B?R3VtOEE4VDZNMVExY1BiUVVtMDlCNnZadThZbW1SdUt6QitFT2I2dlgrU0Vr?=
- =?utf-8?B?azRubUpCV2JoeW5rQXhzVmQ2dUJwa05malVUUzNxcGFJQ0d0TzZMVFo1bmlO?=
- =?utf-8?B?RHhlQzFtajB1NUNUd2lHQ0x3YitKWkJKWXhqM2tYWHpYazE3alFGejB4TE5Y?=
- =?utf-8?B?QkF1UHAxa1dDMHEyTjNQeHFEZEVIakYyMDRYM1pNRVR0SXlGUGVmVFBneU9o?=
- =?utf-8?B?Y3V2M3Vua01wL3ZWc0RzOFk4Nkk4SS9ZTVFBVW1MeDBvZTlORGptTzkvWldM?=
- =?utf-8?B?N2ZZWVJzZHgrdzZlSjQ1OGdRYm54dkoraFVvcUgra2tXejRrTjFZZE9qZFNU?=
- =?utf-8?B?NUw3c0dEYzR6L3hibXlYSnhOd2prRmNLTkJpaDk1TFoybFl3eFFCL2tvOGVC?=
- =?utf-8?B?QWVlazZJN2Zyd3c2V1VVMGthbU9Ed3hPeU9qd0cwVklQN3lsdFA5d0FPeXZH?=
- =?utf-8?B?eElWc2p6N0tEZmNqVmRPTW4yd1lKa0hjUW5RV3U0SVN0dVR2N0JsN3dGakFu?=
- =?utf-8?Q?LPFs=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 02a61dd5-15e5-47bf-c1bf-08ddc850478d
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2025 12:15:28.2135
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: u8JSpHN7jtCfFGN1xJUflrzc6X6UWQhonS7efcv/zMwXBJzm/QNRzMiURrfdX01b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8763
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 13/17] xen/riscv: Implement p2m_entry_from_mfn() and
+ support PBMT configuration
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
+ <994ab3dd6822c4cd02a6a576041da115abeff6ed.1749555949.git.oleksii.kurochko@gmail.com>
+ <f6e789cd-0ef3-488d-94da-1b7c94946720@suse.com>
+ <640178f8-a189-4f84-abff-0ef87ba566a5@gmail.com>
+ <0265e61a-ad08-4b6b-a87d-dba304f6d27d@suse.com>
+ <e1c469c3-47d5-4a38-8abd-985a26cb8365@gmail.com>
+ <15c9cb8e-8452-4dc3-933a-5713fc86a12a@suse.com>
+ <958ae1b0-d139-41e8-b965-43ce640569c5@gmail.com>
+ <007654f3-e26b-43b1-bc81-40ba25c9d787@suse.com>
+ <ca3467a2-c795-4709-ad92-1744b138a148@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ca3467a2-c795-4709-ad92-1744b138a148@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-
-On 21/07/2025 11:07, Frediano Ziglio wrote:
-> There's no need to pass a buffer, the property is empty.
+On 18.07.2025 11:52, Oleksii Kurochko wrote:
 > 
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> On 7/17/25 12:25 PM, Jan Beulich wrote:
+>> On 17.07.2025 10:56, Oleksii Kurochko wrote:
+>>> On 7/16/25 6:18 PM, Jan Beulich wrote:
+>>>> On 16.07.2025 18:07, Oleksii Kurochko wrote:
+>>>>> On 7/16/25 1:31 PM, Jan Beulich wrote:
+>>>>>> On 15.07.2025 16:47, Oleksii Kurochko wrote:
+>>>>>>> On 7/1/25 5:08 PM, Jan Beulich wrote:
+>>>>>>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
+>>>>>>>>> --- a/xen/arch/riscv/p2m.c
+>>>>>>>>> +++ b/xen/arch/riscv/p2m.c
+>>>>>>>>> @@ -345,6 +345,26 @@ static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
+>>>>>>>>>          return __map_domain_page(p2m->root + root_table_indx);
+>>>>>>>>>      }
+>>>>>>>>>      
+>>>>>>>>> +static int p2m_type_radix_set(struct p2m_domain *p2m, pte_t pte, p2m_type_t t)
+>>>>>>>> See comments on the earlier patch regarding naming.
+>>>>>>>>
+>>>>>>>>> +{
+>>>>>>>>> +    int rc;
+>>>>>>>>> +    gfn_t gfn = mfn_to_gfn(p2m->domain, mfn_from_pte(pte));
+>>>>>>>> How does this work, when you record GFNs only for Xenheap pages?
+>>>>>>> I think I don't understand what is an issue. Could you please provide
+>>>>>>> some extra details?
+>>>>>> Counter question: The mfn_to_gfn() you currently have is only a stub. It only
+>>>>>> works for 1:1 mapped domains. Can you show me the eventual final implementation
+>>>>>> of the function, making it possible to use it here?
+>>>>> At the moment, I planned to support only 1:1 mapped domains, so it is final
+>>>>> implementation.
+>>>> Isn't that on overly severe limitation?
+>>> I wouldn't say that it's a severe limitation, as it's just a matter of how
+>>> |mfn_to_gfn()| is implemented. When non-1:1 mapped domains are supported,
+>>> |mfn_to_gfn()| can be implemented differently, while the code where it’s called
+>>> will likely remain unchanged.
+>>>
+>>> What I meant in my reply is that, for the current state and current limitations,
+>>> this is the final implementation of|mfn_to_gfn()|. But that doesn't mean I don't
+>>> see the value in, or the need for, non-1:1 mapped domains—it's just that this
+>>> limitation simplifies development at the current stage of the RISC-V port.
+>> Simplification is fine in some cases, but not supporting the "normal" way of
+>> domain construction looks like a pretty odd restriction. I'm also curious
+>> how you envision to implement mfn_to_gfn() then, suitable for generic use like
+>> the one here. Imo, current limitation or not, you simply want to avoid use of
+>> that function outside of the special gnttab case.
+>>
+>>>>>>>> In this context (not sure if I asked before): With this use of a radix tree,
+>>>>>>>> how do you intend to bound the amount of memory that a domain can use, by
+>>>>>>>> making Xen insert very many entries?
+>>>>>>> I didn’t think about that. I assumed it would be enough to set the amount of
+>>>>>>> memory a guest domain can use by specifying|xen,domain-p2m-mem-mb| in the DTS,
+>>>>>>> or using some predefined value if|xen,domain-p2m-mem-mb| isn’t explicitly set.
+>>>>>> Which would require these allocations to come from that pool.
+>>>>> Yes, and it is true only for non-hardware domains with the current implementation.
+>>>> ???
+>>> I meant that pool is used now only for non-hardware domains at the moment.
+>> And how does this matter here? The memory required for the radix tree doesn't
+>> come from that pool anyway.
+> 
+> I thought that is possible to do that somehow, but looking at a code of
+> radix-tree.c it seems like the only one way to allocate memroy for the radix
+> tree isradix_tree_node_alloc() -> xzalloc(struct rcu_node).
+> 
+> Then it is needed to introduce radix_tree_node_allocate(domain)
 
-~Michal
+That would be a possibility, but you may have seen that less than half a
+year ago we got rid of something along these lines. So it would require
+some pretty good justification to re-introduce.
 
+> or radix tree
+> can't be used at all for mentioned in the previous replies security reason, no?
+
+(Very) careful use may still be possible. But the downside of using this
+(potentially long lookup times) would always remain.
+
+>>>>>>> Also, it seems this would just lead to the issue you mentioned earlier: when
+>>>>>>> the memory runs out,|domain_crash()| will be called or PTE will be zapped.
+>>>>>> Or one domain exhausting memory would cause another domain to fail. A domain
+>>>>>> impacting just itself may be tolerable. But a domain affecting other domains
+>>>>>> isn't.
+>>>>> But it seems like this issue could happen in any implementation. It won't happen only
+>>>>> if we will have only pre-populated pool for any domain type (hardware, control, guest
+>>>>> domain) without ability to extend them or allocate extra pages from domheap in runtime.
+>>>>> Otherwise, if extra pages allocation is allowed then we can't really do something
+>>>>> with this issue.
+>>>> But that's why I brought this up: You simply have to. Or, as indicated, the
+>>>> moment you mark Xen security-supported on RISC-V, there will be an XSA needed.
+>>> Why it isn't XSA for other architectures? At least, Arm then should have such
+>>> XSA.
+>> Does Arm use a radix tree for storing types? It uses one for mem-access, but
+>> it's not clear to me whether that's actually a supported feature.
+>>
+>>> I don't understand why x86 won't have the same issue. Memory is the limited
+>>> and shared resource, so if one of the domain will use to much memory then it could
+>>> happen that other domains won't have enough memory for its purpose...
+>> The question is whether allocations are bounded. With this use of a radix tree,
+>> you give domains a way to have Xen allocate pretty much arbitrary amounts of
+>> memory to populate that tree. That unbounded-ness is the problem, not memory
+>> allocations in general.
+> 
+> Isn't radix tree key bounded to an amount of GFNs given for a domain? We can't have
+> more keys then a max GFN number for a domain. So a potential amount of necessary memory
+> for radix tree is also bounded to an amount of GFNs.
+
+To some degree yes, hence why I said "pretty much arbitrary amounts".
+But recall that "amount of GFNs" is a fuzzy term; I think you mean to
+use it to describe the amount of memory pages given to the guest. GFNs
+can be used for other purposes, though. Guests could e.g. grant
+themselves access to their own memory, then map those grants at
+otherwise unused GFNs.
+
+> Anyway, IIUC I just can't use radix tree for p2m types at all, right?
+> If yes, does it make sense to borrow 2 bits from struct page_info->type_info as now it
+> is used 9-bits for count of a frame?
+
+struct page_info describes MFNs, when you want to describe GFNs. As you
+mentioned earlier, multiple GFNs can in principle map to the same MFN.
+You would force them to all have the same properties, which would be in
+direct conflict with e.g. the grant P2M types.
+
+Just to mention one possible alternative to using radix trees: You could
+maintain a 2nd set of intermediate "page tables", just that leaf entries
+would hold meta data for the respective GFN. The memory for those "page
+tables" could come from the normal P2M pool (and allocation would thus
+only consume domain-specific resources). Of course in any model like
+this the question of lookup times (as mentioned above) would remain.
+
+Jan
 
