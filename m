@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 647B4B0BC7F
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 08:28:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1051011.1419323 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD8EFB0BCD4
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 08:41:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1051019.1419334 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udk0g-0001rD-SQ; Mon, 21 Jul 2025 06:28:26 +0000
+	id 1udkCx-0004UQ-Ul; Mon, 21 Jul 2025 06:41:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1051011.1419323; Mon, 21 Jul 2025 06:28:26 +0000
+Received: by outflank-mailman (output) from mailman id 1051019.1419334; Mon, 21 Jul 2025 06:41:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udk0g-0001pO-PV; Mon, 21 Jul 2025 06:28:26 +0000
-Received: by outflank-mailman (input) for mailman id 1051011;
- Mon, 21 Jul 2025 06:28:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1udkCx-0004SY-QF; Mon, 21 Jul 2025 06:41:07 +0000
+Received: by outflank-mailman (input) for mailman id 1051019;
+ Mon, 21 Jul 2025 06:41:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=R5lD=2C=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1udk0f-0001pG-69
- for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 06:28:25 +0000
+ id 1udkCv-0004SS-Rh
+ for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 06:41:05 +0000
 Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
  [2a00:1450:4864:20::434])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e6c934e2-65fb-11f0-b894-0df219b8e170;
- Mon, 21 Jul 2025 08:28:23 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ab884fa1-65fd-11f0-a31d-13f23c93f187;
+ Mon, 21 Jul 2025 08:41:03 +0200 (CEST)
 Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3a54700a46eso2148633f8f.1
- for <xen-devel@lists.xenproject.org>; Sun, 20 Jul 2025 23:28:23 -0700 (PDT)
+ ffacd0b85a97d-3a52874d593so3033867f8f.0
+ for <xen-devel@lists.xenproject.org>; Sun, 20 Jul 2025 23:41:03 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b711:f280:2981:7570:f40b:efd1?
  (p200300cab711f28029817570f40befd1.dip0.t-ipconnect.de.
  [2003:ca:b711:f280:2981:7570:f40b:efd1])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b61c9f16d9sm9569890f8f.0.2025.07.20.23.28.22
+ ffacd0b85a97d-3b61ca24219sm9155344f8f.15.2025.07.20.23.41.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 20 Jul 2025 23:28:22 -0700 (PDT)
+ Sun, 20 Jul 2025 23:41:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,56 +47,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e6c934e2-65fb-11f0-b894-0df219b8e170
+X-Inumbo-ID: ab884fa1-65fd-11f0-a31d-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753079302; x=1753684102; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753080062; x=1753684862; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=D+DsImP98ZcRha5XYucldwAA7H6nFXHxiKzxxdf+yJM=;
-        b=IMko6vPUDKM2H3QEIxjwn2Vu1qy7kOpPxrt3mwd6QetGsNMi5GnyQkbPG9PCnCtxJo
-         LQdUcvNpaITwmvUfnZrpWLiHZ6OltRcH2np2ZJIn7qe5XN2XmMZjYUZ9iIr5Y59QyFZC
-         7vp0Vjd2TJzng5IIBt1eynJ331zjdJk3JeOKlrPWvWpFkc7gxvtim6X+TijinKt37yqb
-         0mYlBtQaJtIA/ZizimQSGtEy8/i9IVV88v9kVCoPAWJ6IkB/pnJcKCpwbf+mv4kFJnxN
-         OC/zEITrrX7fxavsopfzTi+ncgCCHA9wOAcDRh8qB9V/KccaGhBrY9p6+FpqDRpTAJYq
-         7WbQ==
+        bh=u0uzwHh3vU9xgCR0a4y3Jdj6LI+4GmBiT/45khk9PLA=;
+        b=Bjbjy88NXC57UYe1rXhCzIUo5oScje7Z0+h+mbQMNfmNIM4xDvNTM9aJ6ylny1rfPY
+         A7sYoPa9usVDDrOrCxmQPfJ04QPiSQwEkijJjaZuIsf83czlO7W+BK3mYMcJP+GVwXeG
+         R8ZOXdDAEZR77i5/5UuMN3CXHd3hLUeoHaYttPg9HfZKvtLYkmaut5A7rtXQ5UhD69+N
+         Iuo1Km0btubNaUbv4ogIjLCJp777RYprUMx/bBNKHjVwKo7aNOatJhF21b3YvWZAi/rY
+         JbxoIdJoWjZs20sQYQK60W4StAnn8EswF4rivG7UoP4VKYQUK/MwkJ1RZgXfOCAHvVoF
+         KD6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753079302; x=1753684102;
+        d=1e100.net; s=20230601; t=1753080062; x=1753684862;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=D+DsImP98ZcRha5XYucldwAA7H6nFXHxiKzxxdf+yJM=;
-        b=SQVr6n4dFQmfxAifaAX0ybqbdUWqWKEOb4bnxfRbAaZDaJRft/5Iz5gjr9M6Pir+u7
-         XGATPrvDPVhwV8+ObWYczazBC5i+uqeQaiGV5H+Xqbz0O10dO1jfon4jOiYAiOT83Wyz
-         dm4XKCMWmfthz67lXN9XYOQ7Ttd7aS/Q5ZbkSawuh/TC/E43Df4bp+omrPkYaGxMPkmK
-         ZsqvAcm/7C3EbNfX3lD6rowvAcoyFFBRjbo9yyijefVT88wbW0FlLlR3/bXlVG+GYvQI
-         C9LXKJ6+eB1zvvs3WLEBpbDthzs8BrCH0aAP9zqebUUnH3cz4nSqbK5/Rt7aWz0OJ6Fe
-         xckQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWpfiP3LtJA4BefB5PVA23kV9E6SmEI9k/tbgSPHUVgzmQ3J7hX7WPPjETb/XbGo4edS0h4HzeQBZ8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzlhb5DZrPXGwjaf0ydLOGTvN3g5Yj1Pwb5e1fAYWtFY+WUtAoJ
-	Nr3RkOBHCLxTpHao7sbvYAlU/NgRFDEzt8VbeAn6m7NSf8j5L1CMDzyJHvKcAYD8Eg==
-X-Gm-Gg: ASbGncvmZD4sPd2df30bweoq1c3+oAYld4PWvFks5EHU8/uAtR0BsajjD5An00/L5ct
-	6cKhcwL33Mb5vJC6Amxn4MaoxTGxIeItDYSZjXblrMQAygvEi5J342XArMJjjogP3yZV1ifnVYy
-	h9+ZCgMAFA/MV7EaFZ5FMWDPthQ2WdV6b/r28/GQjiHRBCC69plHeTaX/sRy/B56Pn9N0ihFK8T
-	YNuomdGV/hFSE8rtElx4E2MLO1AMk9f/u42asOXXmb2XynIv2raCpf3Xf5pn9pdSGCsCtTrERI0
-	GGoKYXYxmvE8h3oBV69RyZZUV/iua18oJ3dlx5s0KG1LoRd560EUHbPEIhj/jGeL0pFm16b213B
-	XhMzHGYYwxpCZHgOTfTonLg8fuT7V8Bz4RHb0V83zEBNMzqTCQ9VU6IDbD50GBTv04fYm7fZq//
-	HsfOW11CJ05ipEjQmaETccGa//P1Lsbd76h7zG/WY1+OM7UMHOQ20+ZGLz
-X-Google-Smtp-Source: AGHT+IFGba2nM6wT0ETXf30EnAqSURw7u7mv71vLd9sRYDYQ5vAwuB2Jxxssdr6OVB0TjAzkawd0uQ==
-X-Received: by 2002:a5d:5848:0:b0:3a5:39d8:57e4 with SMTP id ffacd0b85a97d-3b613ea2865mr11266288f8f.41.1753079302592;
-        Sun, 20 Jul 2025 23:28:22 -0700 (PDT)
-Message-ID: <3a3e48ff-886a-46a8-81af-2cc64b6d797a@suse.com>
-Date: Mon, 21 Jul 2025 08:28:21 +0200
+        bh=u0uzwHh3vU9xgCR0a4y3Jdj6LI+4GmBiT/45khk9PLA=;
+        b=Jq1g8TGrm28N/ClUtu9ytSkGMkaY7noccsKkwLjGnLiBZ6lFjT2pof8oX9T6fNrL6X
+         ah2N0CIQkKe/u6IPIosFEpkrHg5KcpCORzD1Fi3zJclYr4vByKAK3A/Z4CWBQdIQklf+
+         BljGSYNbm6lmcjS+RMt/L2+XqSjRFUFBzgd8bdk0AZEjY6Y2Du6pPcYEcEZd4ksXbakT
+         3ezLOFQnVJS4GJyk4Mq9BUBIjsEE1SfWgoKeYfIhLzjJl/CGtSpJfPLht3C/XSgaRuG6
+         m/XUn2HTKEzEgpanWqbgnFUj6zbFPHByzVrhCAOT+x+b3XTWJC2amZeHxLQFq8uGRXOs
+         3TXw==
+X-Forwarded-Encrypted: i=1; AJvYcCXmToPqY9dlCAqxl2phT4UMhbYvyi/HljiTMI6MrSUx84azVdMhDk5L7AzT185CeimvJ/+b6KLaBVw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxjZ9xOeZ8zsHrGjHn4ze/h4zfPBIiwntsqmI6VEawVVy5SrUkN
+	3P8w8RFLh6+aH4rJgZp6OW32X0nA0KMWu/u587iHjfbRNIrGFoi6PQdbcuIHnla2nA==
+X-Gm-Gg: ASbGnctgy0IC9f31fyWWQ2nj/eKpZ0LBQswuSW3j6JQmxJpWZiNfNdfWFMjkS0RIF/9
+	2d3W5Hn11Wga2IGb0f9SxuzgWzNXyMQ1JGodul6YU50wq3ga5E7RS2i9TE0D5XfQL7DOkCRqT7/
+	HKUUVCcUSoiBcDE7Fely9hHLPjg9eGDUnGECM4SwB22lct4i04Ik46rtneyl0L+LdaEH+GUJg/1
+	QnXXhvx9fN26Fhuwpba0r3gU9l8g4O0lnnDXFGax9K3ipC9HjTOVpHg+T6LpWrALm/N/CgtaSBW
+	QNj/bz54m0WmHb0HzJcZftW7SP1642ggWS2/7ET2yK6a4SVQhy/GFAv4fHxLshFwajQQJXyqh5a
+	XjscokrtxgSInYtOE2N9fegxpauxySBuETqU6S7+ADw1JQyMSPWY5n3ihX+eQvJOpIFBJi8zdAb
+	lv6ih64XxKywCCnnhypsEnXE4rKCb6zMQxK7a52omFv53CYDCwgmAlfC9e3yZLJ5rOMIs=
+X-Google-Smtp-Source: AGHT+IHFwqwL3/AjXa6b7N9kQjYtz1vusj5vcGOuC+cr3cooLpvHsx4bPU/OgnswtK6wV3l4YV5btg==
+X-Received: by 2002:a05:6000:310d:b0:3b6:c6b:e4e6 with SMTP id ffacd0b85a97d-3b60e4be9b2mr15973918f8f.11.1753080062280;
+        Sun, 20 Jul 2025 23:41:02 -0700 (PDT)
+Message-ID: <dd20bc85-e5b3-480a-aaeb-4248a427f6ff@suse.com>
+Date: Mon, 21 Jul 2025 08:41:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: Don't allow HVM alongside PV_SHIM_EXCLUSIVE
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Subject: Re: [PATCH] x86/pv: Rework TRY_LOAD_SEG() to use asm goto()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250718151214.24835-1-alejandro.garciavallejo@amd.com>
- <47704e30-0f8f-483e-b22e-5cdb767699d5@citrix.com>
- <DBFBAURYB2J6.LTV7SKMB1PQQ@amd.com>
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250718202548.2834921-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,49 +120,80 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DBFBAURYB2J6.LTV7SKMB1PQQ@amd.com>
+In-Reply-To: <20250718202548.2834921-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 18.07.2025 18:12, Alejandro Vallejo wrote:
-> On Fri Jul 18, 2025 at 5:41 PM CEST, Andrew Cooper wrote:
->> On 18/07/2025 4:12 pm, Alejandro Vallejo wrote:
->>> Otherwise compile-time errors ensue. It's a nonsensical configuration,
->>> but it's supriously triggered in randconfig jobs.
->>>
->>> Fixes: 8b5b49ceb3d9("x86: don't include domctl and alike in shim-excl...")
->>> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
->>> ---
->>>  xen/arch/x86/hvm/Kconfig | 1 +
->>>  1 file changed, 1 insertion(+)
->>>
->>> diff --git a/xen/arch/x86/hvm/Kconfig b/xen/arch/x86/hvm/Kconfig
->>> index b903764bda..f57a87bca3 100644
->>> --- a/xen/arch/x86/hvm/Kconfig
->>> +++ b/xen/arch/x86/hvm/Kconfig
->>> @@ -1,6 +1,7 @@
->>>  menuconfig HVM
->>>  	bool "HVM support"
->>>  	default !PV_SHIM
->>> +	depends on !PV_SHIM_EXCLUSIVE
->>>  	select COMPAT
->>>  	select IOREQ_SERVER
->>>  	select MEM_ACCESS_ALWAYS_ON
->>
->> I deeply regret not nacking this originally and blocking the patch you
->> listed as fixed.
->>
->> This depends was explicitly reverted in 568f806cba4c because it breaks a
->> lot of things, notably `make allyesconfig`.
->>
->> We're going to need to find a different way to fix RANDCONFIG.
->>
->> ~Andrew
+On 18.07.2025 22:25, Andrew Cooper wrote:
+> This moves the exception path to being out-of-line within the function, rather
+> than in the .fixup section, which improves backtraces.
 > 
-> It can be done the other way around. PV_SHIM_EXCLUSIVE depending on !CONFIG_HVM,
-> but that won't help with allyesconfig.
+> Because the macro is used multiple times, the fault label needs declaring as
+> local.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> Slightly RFC.  I haven't checked if Eclair will be happy with __label__ yet.
 
-And it wouldn't be right either, in the model we're trying to follow now.
+Even if it is, I guess you'd need to update the list of extensions we
+use (docs/misra/C-language-toolchain.rst)?
+
+> It is disappointing that, unless we retain the xor/mov for the exception path,
+> GCC decides to emit worse code, notably duplicating the mov %ds success path
+> in mov %es's error path.
+
+Is it the pair of XOR/MOV, or merely the MOV (in which case it might be
+nice to try omitting at least the XOR)? Yet then the dual purpose of the
+zero is likely getting in the way anyway.
+
+> The "+r" constraint was actually wrong before; the asm only produces
+> all_segs_okay and does not consume it.
+
+Yet it only conditionally set it in the old construct. That still needs
+expressing with "+r", or else the variable's earlier setting could all
+be eliminated. In the new construct using "=r" is okay.
+
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -1738,17 +1738,22 @@ static void load_segments(struct vcpu *n)
+>       * @all_segs_okay in function scope, and load NUL into @sel.
+>       */
+>  #define TRY_LOAD_SEG(seg, val)                          \
+> -    asm_inline volatile (                               \
+> -        "1: mov %k[_val], %%" #seg "\n\t"               \
+> -        "2:\n\t"                                        \
+> -        ".section .fixup, \"ax\"\n\t"                   \
+> -        "3: xor %k[ok], %k[ok]\n\t"                     \
+> -        "   mov %k[ok], %%" #seg "\n\t"                 \
+> -        "   jmp 2b\n\t"                                 \
+> -        ".previous\n\t"                                 \
+> -        _ASM_EXTABLE(1b, 3b)                            \
+> -        : [ok] "+r" (all_segs_okay)                     \
+> -        : [_val] "rm" (val) )
+> +    ({                                                  \
+> +        __label__ fault;                                \
+> +        asm_inline volatile goto (                      \
+> +            "1: mov %k[_val], %%" #seg "\n\t"           \
+> +            _ASM_EXTABLE(1b, %l[fault])                 \
+> +            :: [_val] "rm" (val)                        \
+
+Thoughts on replacing "_val" by "sel" on this occasion?
+
+> +            :: fault );                                 \
+> +        if ( 0 )                                        \
+> +        {                                               \
+> +        fault: __attribute__((cold));                   \
+> +            asm_inline volatile (                       \
+> +                "xor %k[ok], %k[ok]\n\t"                \
+> +                "mov %k[ok], %%" #seg                   \
+> +                : [ok] "=r" (all_segs_okay) );          \
+
+Purely formally I think you need "=&r" here now.
 
 Jan
 
