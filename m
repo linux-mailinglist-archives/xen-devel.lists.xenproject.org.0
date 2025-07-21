@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67670B0C56F
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 15:42:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1051538.1419884 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F20BB0C591
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Jul 2025 15:54:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1051547.1419904 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udqmy-0002a1-NQ; Mon, 21 Jul 2025 13:42:44 +0000
+	id 1udqxa-0004Ug-UE; Mon, 21 Jul 2025 13:53:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1051538.1419884; Mon, 21 Jul 2025 13:42:44 +0000
+Received: by outflank-mailman (output) from mailman id 1051547.1419904; Mon, 21 Jul 2025 13:53:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1udqmy-0002Wx-Jp; Mon, 21 Jul 2025 13:42:44 +0000
-Received: by outflank-mailman (input) for mailman id 1051538;
- Mon, 21 Jul 2025 13:42:43 +0000
+	id 1udqxa-0004SV-R2; Mon, 21 Jul 2025 13:53:42 +0000
+Received: by outflank-mailman (input) for mailman id 1051547;
+ Mon, 21 Jul 2025 13:53:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=R5lD=2C=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1udqmx-0002Wr-Ei
- for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 13:42:43 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1udqxZ-0004HC-UX
+ for xen-devel@lists.xenproject.org; Mon, 21 Jul 2025 13:53:41 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 92b76e30-6638-11f0-b894-0df219b8e170;
- Mon, 21 Jul 2025 15:42:41 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3a6f2c6715fso3528699f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 21 Jul 2025 06:42:41 -0700 (PDT)
+ id 1afd55c9-663a-11f0-b894-0df219b8e170;
+ Mon, 21 Jul 2025 15:53:39 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3a548a73ff2so4105508f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Jul 2025 06:53:39 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-759cb678cdbsm5910329b3a.108.2025.07.21.06.42.33
+ d2e1a72fcca58-759cb778178sm5555914b3a.129.2025.07.21.06.53.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 21 Jul 2025 06:42:40 -0700 (PDT)
+ Mon, 21 Jul 2025 06:53:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92b76e30-6638-11f0-b894-0df219b8e170
+X-Inumbo-ID: 1afd55c9-663a-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753105361; x=1753710161; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753106019; x=1753710819; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EELOZ3g6AGEXrBqOqkGzHTQFf6J/gkEuwO7GD5ZXUV8=;
-        b=Hd1UuO015NfizbKJFfArwWqQlM5zRK2k0X0ITCbiL05EdSYP4ftCxx/+BrPPNuBEyC
-         PdZEPV+kOv7zjjdSzSPGmGdFO8opLY3vnnppiBEz2oq6cCz4YbyAjbCMREDS1yRkQBD9
-         /Hamh+tncoPbjkSXRAVam7X8ow5Q7oG3TeyPhjQxDQkFHOOCk+9WMYeY8GW1X7N6jPQk
-         EWahCFovdUBaDQkOSWaHXf2rRm2UrBeZXp+FeSeFc0KB7XljxBAcXGz/I7GuwXB9dHeZ
-         StNIKBStO/NnsQ+1n/BxaC9Ps1YzsDuv343NEm3yIeocFOJeV/zibASDpt6bPYEqJlFz
-         X2Aw==
+        bh=znFi8pvenUTkwDXZaL/NTqvBHsiMWKght0+jgnoq8UI=;
+        b=Bv2zIvxIaUv+efy9F8U/scLBjc7w7aHK6P3h3HmTiA8EfOZXiYl08uApK69WUqmbLB
+         Qbe5QtNejxfIiryvWBINyP6SaQ3+uJezOvG7aD7hmMAzB++gcZx/i2xS+Z2v0kxCfro9
+         tUa4nNxvdzAa53OWmlWq/F6bmBwQ14d7OvBQT1hsnuKbApAnwnwh5dJ0x/eRmj4/ZYgP
+         GbDicriUbn38KxzjRtoi01O1RqV5YICSrwe+PyVVzLd1Bg4tJBmXOoTuEiEmixe2Nbxp
+         jCtuhYjVOYnvNbpLT+FOV3XjgcXK3UDHPgSSUhwMACXeWplx3NvXRCqbuBtGKZpnIaRa
+         BxfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753105361; x=1753710161;
+        d=1e100.net; s=20230601; t=1753106019; x=1753710819;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EELOZ3g6AGEXrBqOqkGzHTQFf6J/gkEuwO7GD5ZXUV8=;
-        b=HZvRDXgdNhVSbDqIpDcf+cfix3eksH5jaM9m7O7vy2SfArlAHkYiJVuoIfje+ICfx6
-         QL1EHqYSgg7TdkoGcjlQi7+VCzLhXadqgN7jZV/95wSFH7MT2xiHnoOQhk3KH4+ROxJx
-         4RRTs3ek3IWfsktQHv7DNMRCaxapn7BXNaVzi5DI845EXE6JucjMrl5yzMXj3LCxRcf/
-         Nx23QCYSHou46nj6X6Ir3RndFOejcuU340S0BUMSr4uQQftb0Gant14FUZ6dhrlnupCh
-         gD2vfkYumlZYqcW7EypRYvrqVDAv178GY+1PyIrHBQPO+e7yWC9KC8pjMwvfhs3ZBlVU
-         InEg==
-X-Forwarded-Encrypted: i=1; AJvYcCUMlqJgKRALAUzhpFgo6YRItz3f77+F2JJSgstogTmOiZP6tIlM6PKVeVSOBMnJrmwL0XVHr5Z2tfo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxhMIMMKxRmNWOf+MG3E2jGgeLV8jP3uQ0+hnNbuceqDxNzy7Nh
-	M1Efuxz+mmLUhZNF426jp8XWgNTzWSD3uXw+S1bppjwbrRL3Z1DqLhWAp61NdwrM6w==
-X-Gm-Gg: ASbGnctmzpkQINPK60AsbOdm2H+aSM0iIXcskURw8Pxcoffe+1i7fQN4bnntqNF1MQ5
-	hqEX3xgd91C+vW/t3opEZfJj9UX4eJgslfC4xGxPSgvFslEKMlSFuSbsxonwF2ZkAry9T+OaMse
-	rq+hdEVt38ewIw1SALdPshuuxK5RRJA9etQtCASQq/Vfx4OlvPXkCnisyDePW9mUqbHeuESA1ph
-	c3u+IXGp+TX9m8lvEWBS/tMuU7wJ/FtLY+IOp3tkDCWKz5PMTngii0NiqWVz8bWkBpSqTax25Ly
-	dnMkcT/L5jonXYzXNyMubqB9OFLCCcx2Y5lorz/TdFZovVsQHKUEjmAxV2rZz7dsdfoPgSltcZz
-	Z6tJoOCfUK/cyhxe7OFgOGizNctIVz3nZQ+WiVw607eGZr+lkwfIgLT4iFFP31eueAe+N6ibL+9
-	q0iYzDHog=
-X-Google-Smtp-Source: AGHT+IE6HPzq5gF2TDIcNoJKkkkfztFVof6Q0h/9aCyRyy0CgujaocihXRutrk86QdpCVYVvB87hvw==
-X-Received: by 2002:a05:6000:1a85:b0:3a4:ef36:1f4d with SMTP id ffacd0b85a97d-3b60e4f2c6amr15442453f8f.38.1753105360788;
-        Mon, 21 Jul 2025 06:42:40 -0700 (PDT)
-Message-ID: <cd9c57e9-55e8-4663-8e15-b22619a3abf5@suse.com>
-Date: Mon, 21 Jul 2025 15:42:30 +0200
+        bh=znFi8pvenUTkwDXZaL/NTqvBHsiMWKght0+jgnoq8UI=;
+        b=YIXuUAgCHdq9OHK+mFp52abNQPbggozNsCIwTg1ghed8pxPGvwraD9dS/pHc1k2QEq
+         j0Er37+h8N9LYwCo46/AcrUUhDcmGQyUEtq2bZ7yX+vv+GxQYhAunH8azoipcE4Q8ji1
+         9T7pebJLM7AP6y1BZ+wge/I4uMAnXf2CV/6/gUEYWApcLxNjWmLIQDwfhJSE5t3YDnCH
+         WHdTuC0DitW0jc65sk+WukgRMO3P2A4vrEm9r0Xp84mwNv/OzPcT/qTsmy5i8OYEEUi/
+         s3Vn9yIC3CG3qUjkj+z6h896F1NTHDdYA4fSPZ6cQFxdL7Z2l6WIWUNmb6l0R7H/XArv
+         di/w==
+X-Forwarded-Encrypted: i=1; AJvYcCXO/GFyEHIATr3jWGDbtc3l+nR3sPuIwtFuN19zYHVUjRMqFtfaQW+HpKrP/2xWNa9+I15NbNT1iHw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwpDxH9WprXa/SRFGxEj/EAE4OiSrmkRk2nd6XPWkmUOpGKi3pa
+	kIpo2zxb80vGJJLAOM7NG/IGzUUAO0sE76y49+h6drEMXwMir+OX7q/1mhttNIG3sA==
+X-Gm-Gg: ASbGncsCQ83PNHJy9CGySYU1VuBnmNtrRzyp9mRf/cMjzMzDNfOMOtQM/wel4VmvK0V
+	7kzfiyFpZh7eQf82WzNJSyWIyq5AhdjVC9nbUl+JCL8ZI+9BHhwmhMap1hphuBiCsnLV2ltrFkq
+	YNau+Q8MAED+S5JVdvvkwWFG0QY5/cZCMDW2G0zacGlcxEBr1icWL5QOGmHq0BsmrlHfqq5jrOQ
+	PcdEe79/KdFE4KYvW0uc1FiMLNP2nnkfSdK6Y2qJTHmyzpL+Wn3Nll+kDKRDOrnE81AWoJdklFg
+	N5tsmJLlZra49BD8G5T60suiIqVVdAlSHGKvIjaBx+Zise51biev2GHZ3fcDyxlTjoq6FB5YIyW
+	XMyKk+zlf1IYr1K1mRRfd6A8HC6J3q/WJGa7G5kRpTInEpx93AV8+7CAlCHpgNVewLnLWNaF0y1
+	AAgSh9z0U=
+X-Google-Smtp-Source: AGHT+IHZaTRidOhr6CoxxGLtsvbu53RGMTAYidAbtc7Eyozwq3q5xWJwuYSDRr/1+/owdk8VK1+r9w==
+X-Received: by 2002:a5d:5f84:0:b0:3b6:8acb:a9d2 with SMTP id ffacd0b85a97d-3b68acbaa1bmr7613085f8f.7.1753106018932;
+        Mon, 21 Jul 2025 06:53:38 -0700 (PDT)
+Message-ID: <03212046-e60d-4c8d-9d9e-897666e95f91@suse.com>
+Date: Mon, 21 Jul 2025 15:53:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 16/17] xen/riscv: implement mfn_valid() and page
  reference, ownership handling helpers
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
  <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+ xen-devel@lists.xenproject.org
 References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
  <50159d05e75c14ca62ee6cab5a4d30645981827a.1749555949.git.oleksii.kurochko@gmail.com>
  <aa769aa7-739c-4e59-8aea-d07398025b2f@suse.com>
@@ -178,14 +180,12 @@ On 18.07.2025 16:49, Oleksii Kurochko wrote:
 >      In any case on this is only reachable via XEN_SYSCTL_page_offline_op,
 >      which clearly shouldn't be called on ARM just yet.
 
-What commit message are you talking about? Nothing like the above is anywhere
-in this patch.
-
-> There is no callers for page_is_ram_type() for Arm now, and I expect something similar
-> for RISC-V. As we don't even introduce hypercalls for RISC-V, we can just live
-> without it.
-
-If there's no caller, why the stub?
+Assuming this is from an old commit, then I have to question this justification.
+I see nothing preventing XEN_SYSCTL_page_offline_op to be invoked on an Arm
+system. Hence (unless I'm overlooking somthing) ASSERT_UNREACHABLE() is simply
+inappropriate (and wants fixing). Luckily it being sysctl-s only, there's no
+need for an XSA. In no case should known flawed code be copied into another
+port.
 
 Jan
 
