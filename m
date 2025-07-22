@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CA39B0D9F1
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 14:44:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1052607.1421343 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88462B0DA09
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 14:46:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1052614.1421353 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueCLu-000712-9B; Tue, 22 Jul 2025 12:44:14 +0000
+	id 1ueCOC-0007aD-KG; Tue, 22 Jul 2025 12:46:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1052607.1421343; Tue, 22 Jul 2025 12:44:14 +0000
+Received: by outflank-mailman (output) from mailman id 1052614.1421353; Tue, 22 Jul 2025 12:46:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueCLu-0006zS-66; Tue, 22 Jul 2025 12:44:14 +0000
-Received: by outflank-mailman (input) for mailman id 1052607;
- Tue, 22 Jul 2025 12:44:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ueCOC-0007YE-Hc; Tue, 22 Jul 2025 12:46:36 +0000
+Received: by outflank-mailman (input) for mailman id 1052614;
+ Tue, 22 Jul 2025 12:46:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=D6vH=2D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ueCLt-0006zK-0z
- for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 12:44:13 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 914368e4-66f9-11f0-a31d-13f23c93f187;
- Tue, 22 Jul 2025 14:44:12 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3a5257748e1so3124353f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 22 Jul 2025 05:44:12 -0700 (PDT)
+ id 1ueCOB-0007Y8-2d
+ for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 12:46:35 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e3a8bb41-66f9-11f0-b894-0df219b8e170;
+ Tue, 22 Jul 2025 14:46:30 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3b49ffbb31bso3496015f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Jul 2025 05:46:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23e3b6ef157sm75326345ad.190.2025.07.22.05.44.03
+ d9443c01a7336-23e3b6d22e4sm76868685ad.153.2025.07.22.05.46.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Jul 2025 05:44:10 -0700 (PDT)
+ Tue, 22 Jul 2025 05:46:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 914368e4-66f9-11f0-a31d-13f23c93f187
+X-Inumbo-ID: e3a8bb41-66f9-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753188251; x=1753793051; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753188390; x=1753793190; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=L175Cn6Jkx0ge0NANgvJ8/QPc4JND6+FpAfTcat7my4=;
-        b=ATBRDE2f1sIX4ueh9U54t1Yqa7HKsCrOEJmWxcPgeYHEqostjNrQSUW1cJcPz+UPic
-         4/qG08RY1UUcCxktozDpPOiOzUkyAbE1Gpei0CynGNzhcZwP5WRseOBKAhdcZmnAQnRF
-         Fk3sTYgF4SJo/MYmvWyLYFHbw1T746S8iiuv7LKUm7HX8fc6bcGAuTBMhg/alR/rdFGd
-         /Dbg6qgsUz3THdVi7M8ZExAzsQ35UD5QKgpe+nc1mdXUIFanHdC/PoTEL5mYN/wiXdkg
-         yKGWKgzaxnBZT9FP0dMCqH9GO+qaqxMlGi0482M2WZf0K2K74erR0B3PI+yUYlx7+E1r
-         GzYw==
+        bh=g5gTublXcSFwxU3FYmzqOrfUE7GyjZKzfPQRljSNdkg=;
+        b=bOKbRZkqp2g6m/HwWCn/ETpobJFIwxoxGnOiSVS0Tjn1aAtadN6H0iNsGRq+n0aeae
+         w692D3A5VW6Ut3XkIFOpIaZcFdT1wxbgA3hHNIDaXLH7izp5oZEg5nJtcpGvkb0VYXji
+         b/MC3lbYcwbMv80Umk2ash+kvYEEz7gG7z/f/m95nfFH+ufAAfXnZqcGclN2gkIx/f8Z
+         5wRRm6EGG1ygV3mvZy+2Oa0W+yKi1u1cV8RpuQc6y8QxbkcBvj3mV974C54hMkjdpU6i
+         ChxhDFyBbT0N633CvYZpYr9/4nHWZmUJqgwBNJezugFL6PjJ/QH0+BXnJRtzEKM2YG/5
+         nK0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753188251; x=1753793051;
+        d=1e100.net; s=20230601; t=1753188390; x=1753793190;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=L175Cn6Jkx0ge0NANgvJ8/QPc4JND6+FpAfTcat7my4=;
-        b=KJCYum4FPLlORy8CmXMzVRXtEWEhLM0f77aUb3L8WDEvpVBJRtZZ8pWeQ4gaYkqG7C
-         ORWTEvPyigkIzKjpzCRv7qyemoN0CPUvXpSoCHMiOTIdg0V9XZJr/bSnv40fjtMhSQKD
-         zlFpiCcF7WLKfYUk6tA6HU6m21LFrjO0bb09V5jSxIeieQjykfXZdwdSOlvpqyPqXRbn
-         LGVV3Y3hYHU3Ck606o0A5Upv6lis9BdHOj1akPsC9c3CBx0Uy7A+4PXud6gIKnwWD+5R
-         TseP06jWiPiSxDLWvHgGPxDqrxYtqqL28VNva+7176nT2YNFxkkM/fB+f27GPvARr1Xp
-         n6gA==
-X-Forwarded-Encrypted: i=1; AJvYcCXukg82KdvOpLt6Ca3BUEuxhZy+n6edl3QczXK+IwppeesMk0bgmbzrq5Zjdb5Wou0sNXBebJ/F0k8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzKgZoWF3Hb5fH8y/W0qr7lXwl87G2IBEyDcT4DbhUkDrq4U1jr
-	rsqpqfLZwXgj3FrUQ9uNX/YsOhRlrP/BY7pTr4RlNjN/FRT9JwBfkjsRWrgtok6PhQ==
-X-Gm-Gg: ASbGnctMsm5V42aN6OyqEqOuqRwivQY/gmppgAm0YhN6xS5RuvkbMu8/8BLG7vOhXCO
-	akdEMsWvc1YH3sVp3sa66kZFjUdv/GXtVaUoYYVR57PoF1nZy1GYdBbs4WnscHVUHSKGPIRX9bQ
-	ML1xQLbao6JfX83y3fHTokSqpTGs68xV34FpR2mUvPQIjN9UbFrrbwExGxFYTseLvkBabgGhFmQ
-	HkLUAWII9xsJBMvUKhHlbN3Ms0L86fiFbk+NjfD2lZhC0ANdyPGG61HNUKztGBsUsJaBKZ0gUBV
-	6vKmHGhewL4Ba9bQCl6GX/Xe6B8X1zjOSz3x0PYPyFae6V3wduKDP8pT7zza4FzPYF34SAJuLvP
-	Dt2mSPeGwzVO0tcso1jFbQXu9zMxgyKUHnwMJelySviJyij00IwTx/yLMY13XhD1GaY45MMAsuu
-	qhcfJYAjA=
-X-Google-Smtp-Source: AGHT+IF5mivMTF42KgqnMZZtT8U/0a1FprggGeju9lBXMtLt4roOafDHK3QRdtAd6Ybn0eX2bv5KAg==
-X-Received: by 2002:a05:6000:2087:b0:3a4:d994:be7d with SMTP id ffacd0b85a97d-3b60e4eef0bmr20015803f8f.23.1753188251254;
-        Tue, 22 Jul 2025 05:44:11 -0700 (PDT)
-Message-ID: <15a876ae-fdc5-4292-bd3b-1f6f2ae0e448@suse.com>
-Date: Tue, 22 Jul 2025 14:43:59 +0200
+        bh=g5gTublXcSFwxU3FYmzqOrfUE7GyjZKzfPQRljSNdkg=;
+        b=Eywip8X4MoAeScUFW2Pl/0foJpB/nnTsiCjlDA+aeXZQrtYUG7RtjcAw8Ms61ZBLtZ
+         MTmtohmprndQ63Ye1kTYyL02SG/o7zoWMxkBEIcNTYedvzZb8myirzzc0Y7MQ6ZefcxA
+         zTl3KpbtnB0u+qLLlHmXTjj5PGzzGCpSNr9YVKGreye+GYV0NVzsi+zFDJvQXgeLP2/e
+         Eh+YyCsgsPGSjQUMC0TGnKBNi3IhAofZ7oUXlQA7SuYaTK/LKeR9NuD3CwvFogNImkNx
+         dyWfTD0t4lC4dbKL37iJf7PM7w/1oabDa0FOTWtYwVAVyQkRwRV38x8KAu438M1K2bJ4
+         3QGQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXYLCo8rCQMxpRwqT09riKb6fE5JHV3TCtxXm9Half2go9fRKzJn6H1ceousguAxhWN0JGWsjqJPzM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyi8laQM37X0Ke8IvKsu8i8GxQQPz7kFakBXP9pDGCp0qw7XIR0
+	RwcXyt70Gn68dMhu3xV6NoAJlyhYsbul2VJMZZwXBAPVAUDQ01OpyWpLDJ1ughROTQ==
+X-Gm-Gg: ASbGncvbA1W6DU/cKV/f7VGBicI1m94GL/NoTaf27iTIywf+N2WXwpeoIiNUqRb5ec3
+	H8Nh6ZY2J8KUn88WA8AOsuVLbD4k9mPtA3rpykQSczZea7fxtfER3Ak7IloqEKQJZ6j0xaUgPAH
+	MtDkXrJexIgACzGDsI/PZFneAIWFFh1EQ52EJrYpfK+kuVXhng/lnGNOXY6v4yDfy1rKO3DlaqX
+	3osObNyzA5RQcnIispIh6MaxPvG/QoYGX4sHIownelvLe89uz7CAbNuQeSAB+2yVqDND+VAeuvW
+	POksnwr6iw+N9PTXe5GlPPJnpMhVt6Mtw+xu/0Jtt+57yux9TFk+ZQlAGDvJtmsYkzziytA4bI0
+	gjRQJobAubcN2eimqJ6pLmy+UgVJlvupdAQYfDWR4JHBEccQpqiWAn5Gz5F4cHHkcrGcBs8bn1B
+	e91Q10Juk=
+X-Google-Smtp-Source: AGHT+IEVQbXUrDVHcx9QnjR/yxkpsPzp8M2RA5AtbYqbCG4mePxRNBt28CNKD0SRUYPt2TG07MoC3w==
+X-Received: by 2002:a05:6000:2213:b0:3a5:2cf3:d6af with SMTP id ffacd0b85a97d-3b613ea2bb0mr15947605f8f.45.1753188389600;
+        Tue, 22 Jul 2025 05:46:29 -0700 (PDT)
+Message-ID: <1eed9d08-780b-4468-afd6-b9f573fb02f6@suse.com>
+Date: Tue, 22 Jul 2025 14:46:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v5 08/10] lib/arm: Add I/O memory copy helpers
+Subject: Re: [RFC PATCH v5 09/10] xen/arm: scmi: introduce SCI SCMI SMC
+ multi-agent driver
 To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
@@ -100,7 +101,7 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Grygorii Strashko <grygorii_strashko@epam.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <cover.1753184487.git.oleksii_moisieiev@epam.com>
- <6df9b5bbeae12a74397d72d53c530313f0778025.1753184487.git.oleksii_moisieiev@epam.com>
+ <9f4a137980a0ee72f0f03d55176ca178c4b90126.1753184487.git.oleksii_moisieiev@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,122 +127,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6df9b5bbeae12a74397d72d53c530313f0778025.1753184487.git.oleksii_moisieiev@epam.com>
+In-Reply-To: <9f4a137980a0ee72f0f03d55176ca178c4b90126.1753184487.git.oleksii_moisieiev@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 22.07.2025 13:41, Oleksii Moisieiev wrote:
-> This commit introduces two helper functions, `__memcpy_fromio` and
-> `__memcpy_toio`, to provide a robust mechanism for copying data between
-> standard memory and memory-mapped I/O (MMIO) space for the ARM
-> architecture.
-> 
-> These functions are designed to handle memory transfers safely,
-> accounting for potential address alignment issues to ensure correctness
-> and improve performance where possible. The implementation is specific
-> to ARM and uses relaxed I/O accessors.
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -1105,6 +1105,15 @@ which serves as Driver domain. The SCMI will be disabled for Dom0/hwdom and
+>  SCMI nodes removed from Dom0/hwdom device tree.
+>  (for example, thin Dom0 with Driver domain use-case).
+>  
+> +### dom0_scmi_agent_id (ARM)
 
-The implementation could be reused by any arch providing
-{read,write}*_relaxed(), couldn't it?
+New Dom0-specific options would imo better all be sub-options to "dom0=".
 
-> __memcpy_fromio:
-> Copies a block of data from an I/O memory source to a destination in
-> standard ("real") memory. The implementation first handles any unaligned
-> bytes at the beginning of the source buffer individually using byte-wise
-> reads. It then copies the bulk of the data using 32-bit reads for
-> efficiency, and finally processes any remaining bytes at the end of the
-> buffer.
-> 
-> __memcpy_toio:
-> Copies a block of data from standard memory to a destination in I/O
-> memory space. It follows a similar strategy, handling any initial
-> unaligned portion of the destination buffer byte-by-byte before using
-> more efficient 32-bit writes for the main, aligned part of the transfer.
-> Any trailing bytes are also handled individually.
-> xen/include/xen/lib/arm/io.h
-
-Why exactly do the functions need two leading underscores in their names?
-
-> --- a/xen/lib/Makefile
-> +++ b/xen/lib/Makefile
-> @@ -1,4 +1,5 @@
->  obj-$(CONFIG_X86) += x86/
-> +obj-$(CONFIG_ARM) += arm/
-
-Nit: Alphabetically sorted please.
-
-> --- /dev/null
-> +++ b/xen/lib/arm/Makefile
-> @@ -0,0 +1 @@
-> +obj-y += io.o
-> \ No newline at end of file
-
-Please make sure all files properly end in a newline.
-
-> --- /dev/null
-> +++ b/xen/lib/arm/io.c
-> @@ -0,0 +1,80 @@
-> +#include <asm/io.h>
-> +#include <xen/lib/arm/io.h>
-> +
-> +/*
-> + * memcpy_fromio - Copy data from IO memory space to "real" memory space.
-> + * @to: Where to copy to
-> + * @from: Where to copy from
-> + * @count: The size of the area.
-> + */
-> +void __memcpy_fromio(void *to, const volatile void __iomem *from,
-> +                     size_t count)
-> +{
-> +    while ( count && !IS_ALIGNED((unsigned long)from, 4) )
-> +    {
-> +        *(u8 *)to = readb_relaxed(from);
-
-No u<N> anymore in new code please; use uint<N>_t instead.
-
-Further, what tells you that accessing a 16-bit register residing in MMIO
-can legitimately be accessed using two 8-bit accesses?
-
-> +        from++;
-> +        to++;
-> +        count--;
-> +    }
-> +
-> +    while ( count >= 4 )
-> +    {
-> +        *(u32 *)to = readl_relaxed(from);
-> +        from += 4;
-> +        to += 4;
-> +        count -= 4;
-> +    }
-
-Not attempting 64-bit accesses on 64-bit arches will want an explanatory
-comment, I think.
-
-> +    while ( count )
-> +    {
-> +        *(u8 *)to = readb_relaxed(from);
-> +        from++;
-> +        to++;
-> +        count--;
-> +    }
-> +}
-> +
-> +/*
-> + * memcpy_toio - Copy data from "real" memory space to IO memory space.
-> + * @to: Where to copy to
-> + * @from: Where to copy from
-> + * @count: The size of the area.
-> + */
-> +void __memcpy_toio(volatile void __iomem *to, const void *from,
-> +                   size_t count)
-> +{
-> +    while ( count && !IS_ALIGNED((unsigned long)to, 4) )
-> +    {
-> +        writeb_relaxed(*(u8 *)from, to);
-
-Please never cast away const-ness. This is a violation of some Misra rule,
-iirc.
+Also, just to reiterate: Please prefer dashes over underscores.
 
 Jan
 
