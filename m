@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73DACB0D471
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 10:23:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1052166.1420745 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EA0EB0D4B4
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 10:31:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1052173.1420756 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ue8HZ-0005Sm-KZ; Tue, 22 Jul 2025 08:23:29 +0000
+	id 1ue8PT-0007KU-Dq; Tue, 22 Jul 2025 08:31:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1052166.1420745; Tue, 22 Jul 2025 08:23:29 +0000
+Received: by outflank-mailman (output) from mailman id 1052173.1420756; Tue, 22 Jul 2025 08:31:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ue8HZ-0005Q7-Hq; Tue, 22 Jul 2025 08:23:29 +0000
-Received: by outflank-mailman (input) for mailman id 1052166;
- Tue, 22 Jul 2025 08:23:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ue8PT-0007HM-AG; Tue, 22 Jul 2025 08:31:39 +0000
+Received: by outflank-mailman (input) for mailman id 1052173;
+ Tue, 22 Jul 2025 08:31:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=D6vH=2D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ue8HY-0005Q1-TA
- for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 08:23:28 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 23d56526-66d5-11f0-b894-0df219b8e170;
- Tue, 22 Jul 2025 10:23:26 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-451dbe494d6so56898485e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 22 Jul 2025 01:23:26 -0700 (PDT)
+ id 1ue8PR-0007Fc-Rl
+ for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 08:31:37 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 47fe6697-66d6-11f0-a31d-13f23c93f187;
+ Tue, 22 Jul 2025 10:31:36 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3a588da60dfso3096421f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Jul 2025 01:31:36 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-759c84e2727sm6966929b3a.33.2025.07.22.01.23.18
+ d9443c01a7336-23e3b6d23b5sm71550295ad.146.2025.07.22.01.31.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Jul 2025 01:23:25 -0700 (PDT)
+ Tue, 22 Jul 2025 01:31:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23d56526-66d5-11f0-b894-0df219b8e170
+X-Inumbo-ID: 47fe6697-66d6-11f0-a31d-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753172606; x=1753777406; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753173096; x=1753777896; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ndvqElTTc8Aeqp8cn+1Wh+oeTL9PfQZ5UmMTN+1M9nY=;
-        b=KRNv/h4W+cuF76xifrPT+F7AzctJwIs2yDkaoz63gML5MiMkOUQjronOTRnAAKG5uC
-         UyEjcI7h3SMwRAw/+VLMmIbiRQzqIWJOHwBtcP/Kq4KofX2SD6kQ2071db2w9DpFdLlz
-         3LB4c0RrYCpuWm1ooLcXwo5t7lxC9Z9Ai4m54rFzyjmJP7omeSWPQ5frYC6Wo9h1mZSS
-         SaV9+u4N1CmwGq5jDg3x/cUivJeoPxkM6bDjRXIjBk61J+IN6i9nzOsH2HhETkJSMx5J
-         +djI4XBhKb+l24j1asYchPNPIQdKC4uXTGxJq6PjRyQXxGQzuazkRo1zUMK0FE17k+Ns
-         osAw==
+        bh=XyFkrz3mLybfomzZL8D539G5ARSYq/XE/aDkt1zjtKk=;
+        b=AmhqTnfVKnIlBWx7Cvw2tm/8SqsS98DA1MAHHpHTvmhaBMSmXk7JHrN5hOH+D/MTSd
+         Q2fha+CspT6fkTO1B1MBiSpXvRMBevsJ61p3T08JXCg7+cP0ho/rIFM2exPbGZIBdPIL
+         n55CDxA0DW8CPJDJS5lv8AYgoeX2pz41HhnoneeO//eVi5Rs63nKCXN/H5NcaBKxbqKx
+         sKzyVLcDawenV7NL731XN2B0WX3TXLIEvfM0DfaHq/jnA1dHM9/E26tVdvMVjg4XfD43
+         Hj2CiqlUM0UZuHJhiHkk+9uzwuBh4eP26bGsLA2U/++ky/vYeQYGjUAsB4I09W2uBgYj
+         6CQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753172606; x=1753777406;
+        d=1e100.net; s=20230601; t=1753173096; x=1753777896;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ndvqElTTc8Aeqp8cn+1Wh+oeTL9PfQZ5UmMTN+1M9nY=;
-        b=FWjVdmWOUSfEzoAlHy84McgqYNOCdXm9+gUJ/M5fB2jo0JYw95+cYoAWG+LBNo6duS
-         3bT7Q4OcoB03zj6xvoCAJhppIDlWgBncqMGXHujZByAkypuXZs/xycTV6MdQ4OU11cyH
-         KTjE8NmZhHEBjQWjePxPF09nyQJfeWa0vRj2LeeKNkc6PxL/QUSsevwQCZnt97OThBLF
-         ShqEmn9poMpekyyBsNxJ9qVRtpmd5cg3ZuF97vmz58ubtckfiGGy0qIcCDNkZdmMWQ68
-         qArvwAVmgMfUhZkc+WbSATJbJhBag/zciQ/AfoTJurQYlSXDbPHx9wnkNEAxZ8IkQDoa
-         FZKg==
-X-Forwarded-Encrypted: i=1; AJvYcCVi64kMks7OJxbw0SL6iHo5v7S8qujBuxHmSZevihDx0ZW4wo9YZR5DrO7PrQo0YB/WCSWFIhFKG3w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzfwIrGar3mQK4PCk8cvvB+bnnRvgf3xr6sBsE5FwT7PBr/INXB
-	seLhrkQqJA0wK8b/1go2B5eXDj0ZUSZPQFGUkIci/SlNAzKCN76zkaxUsuNDM16t6g==
-X-Gm-Gg: ASbGncvdj9o4MhW/sZ1jvet6g7T0wxPBbvpd0FG2G8n1JU2OevgQqsH9AvOmD3//frb
-	wg2f14AILHfDOgYLimHbaCprY8uJ7nj/zlcMj+wdiwtYEF18oLoK2UkhLArssIXV27GC3NWPzAc
-	vRyqrqkRGAXlh+r6Vtn6pv/pEKkX3QGn+ZNqNCl7VynR+Zpa0SVLPHe6pGFlZg/j9orGvrTyDa5
-	kzN82+Guq+ZX4Tr1knG121mWwA5I2L4vxuflCsItRJjick3DGCG2KnrodJb4OxGNuvPMH/1TSXR
-	9K5jYP9pO+XKXzPS5IsUhw+VPAU2G5QtejohpM+NC3hU38hida2GObHzVnhrsCanVTayPlwKx1P
-	befpFPK28fUmidagCq4rT6ZNDTkDvauAtp2KQDDsauI2X4XHMT0/HUdn1RRDxW1YMDv8ThsM7ER
-	9qeA0Qd/g=
-X-Google-Smtp-Source: AGHT+IEsfKepV0JtZkPJlLxBXMb2hykjDm+ngp9sU/vMxz8j+mdV3aiqBfA/b1qBKLUbOlUCpS/jDw==
-X-Received: by 2002:a05:6000:98b:b0:3a6:d7e9:4309 with SMTP id ffacd0b85a97d-3b60e51c8edmr14437174f8f.29.1753172605820;
-        Tue, 22 Jul 2025 01:23:25 -0700 (PDT)
-Message-ID: <f1605fd9-4e98-4ab3-8fa8-ed52b0f76b56@suse.com>
-Date: Tue, 22 Jul 2025 10:23:14 +0200
+        bh=XyFkrz3mLybfomzZL8D539G5ARSYq/XE/aDkt1zjtKk=;
+        b=G46cE3xkP9LhYUKISNDMchpgL/AxTs2YGwb6+0ivZicVN8peo7p8pZgD6TnKwOhTd8
+         QtYQABo4Os/VWw/2pQ+K0dSgARAP46rJfajOm+tndrzaXp73gPlnUkVGJ33XJK2SQ61/
+         /ohNMMQNMAIHkK1MVY0wswLfWTBJBWTxW1WVwUher7FgAQQh5lNItQG/e9PWrj3/zqz8
+         LW5LhFLcOv9iBp2Z/XAaCHfYTXWwZuBS4r8S2/bSSSwUJnlyFOsDWE4rhVtHsbwaNaOj
+         q9OxYJV9crni4Pf3KRvBS5v7rBdKmZZD1qIpDiBVekp2v0gTdl2XThfcHFj22OSmPBKC
+         dAmg==
+X-Forwarded-Encrypted: i=1; AJvYcCXpTwSgHMHrsAbCYDYdzv4CVPxqWczi/Usi/h3/ZyK0IaLYFP7Y4tbcnNefBYShQLGlqZjKfeb3jfI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxMFZsT97kFODn3xWCCAhsHGNw/J5TOtTLg4jq76j/wAYwkPYIU
+	1T8tCfame5u++EZ95JLxc62RLGiba/A/Rqx8ruMDd9GoYU+1EhOp0qj3AM4EWDPTgQ==
+X-Gm-Gg: ASbGncum+jzJe3HfH5ZXeu1jqCBGUXEr+m925W0lS9VkAj1IMZCOzUoh6U2l57f1h1I
+	iu15OsWnUHU6pOjidQqPdNiWIT8j0eVLeqJzdd1T958C3Odus/qj24qOp8azRu56XmGSx1P4wqW
+	y9QIN6Uh9H+UiKbUIjjdumkQ1WF8j3l0GgVT8V0zeb6uOYove+INh3CRtVvwGiQGOCha+amSSxq
+	wzvICt8zOjshV/SlnWVc3bQCpuwwivo6lDQQcvGCHytyBRigzgG0AJgmcprCYlyGROKoMSc8fig
+	uYe2GJU5IE3X03fB4XpgxUFNnUe+hbC8uw3RNYME06nm2/vaH3rQmHPykQXNIYiEwKYGZM2yDit
+	pSwzf872gh7HtZO1urnfjejoa0H9f4Xb7OsNM73J9FDz1ceYgyYdtxPTQ3D8du261u6gtOd/GID
+	baOiocUA+bz1c44LRV2Q==
+X-Google-Smtp-Source: AGHT+IFxxgfL8RPzZ3+LopJI15YOiqy74+P5wZ9X7qLWJ7dSqT+d0YzkfaoQpmjvbuWauiX528udPw==
+X-Received: by 2002:a05:6000:290f:b0:3a3:6a9a:5ebf with SMTP id ffacd0b85a97d-3b60e4d0841mr19887876f8f.20.1753173096046;
+        Tue, 22 Jul 2025 01:31:36 -0700 (PDT)
+Message-ID: <a97682a9-db5c-42f8-aa05-98ed2ce277e5@suse.com>
+Date: Tue, 22 Jul 2025 10:31:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH v2 1/2] xen/evtchn: enable build optimization for
- evtchn_move_pirqs()/send_guest_pirq()
-To: Grygorii Strashko <grygorii_strashko@epam.com>
+Subject: Re: [PATCH v5 1/3] drivers: Change amd_iommu struct to contain
+ pci_sbdf_t, simplify code
+To: Andrii Sultanov <sultanovandriy@gmail.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Roger Pau Monne <roger.pau@citrix.com>, Ayan Kumar Halder
- <ayankuma@amd.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
- George Dunlap <gwd@xenproject.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250718101149.3107110-1-grygorii_strashko@epam.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1752736989.git.andriy.sultanov@vates.tech>
+ <464e6ef4bf46ea962f1b4438fbb5be4d302a0d3d.1752736989.git.andriy.sultanov@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,49 +121,46 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250718101149.3107110-1-grygorii_strashko@epam.com>
+In-Reply-To: <464e6ef4bf46ea962f1b4438fbb5be4d302a0d3d.1752736989.git.andriy.sultanov@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.07.2025 12:11, Grygorii Strashko wrote:
-> From: Grygorii Strashko <grygorii_strashko@epam.com>
+On 17.07.2025 09:31, Andrii Sultanov wrote:
+> Following on from 250d87dc3ff9 ("x86/msi: Change __msi_set_enable() to
+> take pci_sbdf_t"), make struct amd_iommu contain pci_sbdf_t directly
+> instead of specifying seg+bdf separately and regenerating sbdf_t from them,
+> which simplifies code.
 > 
-> On platforms without PIRQ support evtchn_move_pirqs()/send_guest_pirq()
-> functions are unreachable (Misra rule 2.1).
+> Bloat-o-meter reports:
+> add/remove: 0/0 grow/shrink: 4/13 up/down: 121/-377 (-256)
+> Function                                     old     new   delta
+> _einittext                                 22028   22092     +64
+> amd_iommu_prepare                            853     897     +44
+> __mon_lengths                               2928    2936      +8
+> _invalidate_all_devices                      133     138      +5
+> _hvm_dpci_msi_eoi                            157     155      -2
+> build_info                                   752     744      -8
+> amd_iommu_add_device                         856     844     -12
+> amd_iommu_msi_enable                          33      20     -13
+> update_intremap_entry_from_msi_msg           879     859     -20
+> amd_iommu_msi_msg_update_ire                 472     448     -24
+> send_iommu_command                           251     224     -27
+> amd_iommu_get_supported_ivhd_type             86      54     -32
+> amd_iommu_detect_one_acpi                    918     886     -32
+> iterate_ivrs_mappings                        169     129     -40
+> flush_command_buffer                         460     417     -43
+> set_iommu_interrupt_handler                  421     377     -44
+> enable_iommu                                1745    1665     -80
 > 
-> Move these function under CONFIG_HAS_PIRQ ifdefs to fix Misra rule 2.1
-> violation and resolve call of evtchn_move_pirqs() from common /sched/core.c
-> vcpu_move_irqs() code by moving evtchn_move_pirqs() into x86
-> arch_move_irqs() callback (which is converted to define).
+> Resolves: https://gitlab.com/xen-project/xen/-/issues/198
+> 
+> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Andrii Sultanov <sultanovandriy@gmail.com>
 
-The patch title isn't quite appropriate anymore with this description, I
-think.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
-
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-preferably with ...
-
-> @@ -1707,6 +1709,7 @@ void evtchn_destroy_final(struct domain *d)
->  }
->  
->  
-> +#ifdef CONFIG_HAS_PIRQ
->  void evtchn_move_pirqs(struct vcpu *v)
->  {
->      struct domain *d = v->domain;
-
-... one of the two blank lines also dropped here, just like you do ...
-
-> @@ -1722,7 +1725,7 @@ void evtchn_move_pirqs(struct vcpu *v)
->      }
->      read_unlock(&d->event_lock);
->  }
-> -
-> +#endif /* CONFIG_HAS_PIRQ */
-
-... here. Happy to adjust while committing, but please consider suggesting
-a replacement patch title.
+I'd like to note though that "drivers:" is pretty unspecific a patch subject
+prefix, when only a single component (driver) there is being altered.
 
 Jan
 
