@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB29CB0CE8A
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 02:06:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1051782.1420270 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DD10B0CE93
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 02:06:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1051784.1420280 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ue0WG-0007Z7-Qn; Tue, 22 Jul 2025 00:06:08 +0000
+	id 1ue0WM-0008EA-AU; Tue, 22 Jul 2025 00:06:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1051782.1420270; Tue, 22 Jul 2025 00:06:08 +0000
+Received: by outflank-mailman (output) from mailman id 1051784.1420280; Tue, 22 Jul 2025 00:06:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ue0WG-0007Tw-MW; Tue, 22 Jul 2025 00:06:08 +0000
-Received: by outflank-mailman (input) for mailman id 1051782;
- Tue, 22 Jul 2025 00:06:07 +0000
+	id 1ue0WM-0008Bx-5a; Tue, 22 Jul 2025 00:06:14 +0000
+Received: by outflank-mailman (input) for mailman id 1051784;
+ Tue, 22 Jul 2025 00:06:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sKN0=2D=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1ue0WE-0005aW-Sx
- for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 00:06:06 +0000
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on20605.outbound.protection.outlook.com
- [2a01:111:f403:2409::605])
+ id 1ue0WJ-0005aW-P6
+ for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 00:06:11 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20614.outbound.protection.outlook.com
+ [2a01:111:f403:2009::614])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a92119c3-668f-11f0-a31d-13f23c93f187;
- Tue, 22 Jul 2025 02:06:06 +0200 (CEST)
-Received: from BN8PR15CA0044.namprd15.prod.outlook.com (2603:10b6:408:80::21)
- by DM6PR12MB4483.namprd12.prod.outlook.com (2603:10b6:5:2a2::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.30; Tue, 22 Jul
- 2025 00:05:59 +0000
-Received: from BN2PEPF00004FC0.namprd04.prod.outlook.com
- (2603:10b6:408:80:cafe::52) by BN8PR15CA0044.outlook.office365.com
- (2603:10b6:408:80::21) with Microsoft SMTP Server (version=TLS1_3,
+ id ac0877ed-668f-11f0-a31d-13f23c93f187;
+ Tue, 22 Jul 2025 02:06:10 +0200 (CEST)
+Received: from SA1PR03CA0022.namprd03.prod.outlook.com (2603:10b6:806:2d3::27)
+ by BL1PR12MB5923.namprd12.prod.outlook.com (2603:10b6:208:39a::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.28; Tue, 22 Jul
+ 2025 00:06:05 +0000
+Received: from SA2PEPF00003AE8.namprd02.prod.outlook.com
+ (2603:10b6:806:2d3:cafe::af) by SA1PR03CA0022.outlook.office365.com
+ (2603:10b6:806:2d3::27) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.29 via Frontend Transport; Tue,
- 22 Jul 2025 00:05:59 +0000
+ 22 Jul 2025 00:06:04 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN2PEPF00004FC0.mail.protection.outlook.com (10.167.243.186) with Microsoft
+ SA2PEPF00003AE8.mail.protection.outlook.com (10.167.248.8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8964.20 via Frontend Transport; Tue, 22 Jul 2025 00:05:59 +0000
+ 15.20.8964.20 via Frontend Transport; Tue, 22 Jul 2025 00:06:02 +0000
 Received: from xcbagarciav01.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 21 Jul
- 2025 19:05:57 -0500
+ 2025 19:05:59 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,37 +56,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a92119c3-668f-11f0-a31d-13f23c93f187
+X-Inumbo-ID: ac0877ed-668f-11f0-a31d-13f23c93f187
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Us6m6B/HVR7INDA5fI94XPwfflNRuI/KVkKa4KIBo4JHNDZWSRfM3149IpIBUVDv5EAUSDxxmkNNublVtpO/UXsd3QSAaGx6ROi1OhkU6PGj3g1KsUcvIknjDFFA3ul8mSx+d2LCBbIiTmh98i0hpzMaurqUAkdzi2Fwb2eHBzoSzLMOifqcS6gyn1wWsmP3p442Im6JKhEkItRvKngy93pJ6z0cRl/6EoYHaNZtqU4Yx3fmLFok31Rni3AuVFiPnksGzZB61FpCptZaD2oLEhY5m8xoZSS3EIp2tscUBxyi/1xySHJWaCL5HsBh6q1r4YMTiXhkgwYCTIVZjqJGmQ==
+ b=OZ1TUVhSPmLlgY9pR7Rn+rWV2u9QoEI+oUnMwZBQ2r6MmIeC05J6pdbGeoYbP35NwCdqduRxbsfyVfHqO8TvCJQle8mEqgq6r2CqgBDQFLrknWW9cq5j7WmPWsiHVOT+NXn3LPaZLfZIkGchwTeLkP6Kh3x+5uGreB2xYUV0/SyZWy6uZXmJr9PBaHSk3cYNJN+JCEtZ6Sco1SnexQtuXh0EynCYVRJXiJMOQAjn3bYs5LTdfbkfsnNzlnV0T/jYmatMrMrlN3m/CRup6bfuU6RwdIN6Iw5bWw94Bg6H1gxNGaJsKkc7ZKQYvtpy1zFgwymxHtSEnU4bAqXs94W72w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6fHjMn8lHWgcHqriNe2JjLS4lpBIsgJ/0Gm5CwwS0AA=;
- b=j9wpaBNMRztqjz8AXBOukO76H5QU3D7Z7EdGMVEKJXZu1xMaKxHw2115xBHjkzsntR5MkIox54AWTJ3/M3hwdoMBu6D+2fsKhwyrBc7PLYZbvDjhx0drOKj65AwPvfcrsnkHO9uQXN6gO1/VQ+cGf1FMo+D2TLxFi8zDCtuU/ryU71EjUnLqPvtdl+3+cGMVu+tFcShi+2IeADO5VarvZidiyxaT4mX27pXertRwNeqOZqymCv9wX1GQzqZyfLfSg/OrsLAaThXRhnwIy4em0jbw+M+b+UABxfITLmsORNdgfQu8FF+8jZFgt0FSs15U1UT4EeQU4Hy14CtK87sn1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=qtzFgpnqhRtQj2C70nYm1kK4rqn4LjFeX/2U3o2Gs+Y=;
+ b=G8AwHBXbXze7MyW4dqz81ggn8AD3TNfuvjznkpT5HFpFWhPdCwEMks9N1NNpm50BO6+Th2BIazJwfgOCdHox6hsqbSwkive74Ozcy+d6BpJKBtRaEbWpoeJrK3TIHjlBRRXT+rDnssZ5FBE8zx2SSAYzl6gdmyuHkTPNOInWe0NaBP00cR8EnUrrA+4JKqFXnSJf3fooryyLCfz4L1EqSt4PB45dzMi/iNlVsu+bFK8aYe1XeRRONO1c0IL7bZNxg/AdoPvFSefCfRZj3ZhYsDyJMmPJsu09hzIdgeR3aZrfYbMBkemlHCG4nETBSTB4ymb5ukuhXvXyTxW1lfE8jQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
+ is 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org
+ smtp.mailfrom=amd.com; dmarc=temperror action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6fHjMn8lHWgcHqriNe2JjLS4lpBIsgJ/0Gm5CwwS0AA=;
- b=1WSDHv9c+rcl6Q6vTlAnrItJYleJBLtWJnLJWjEyu5NjmvbeiFemiilPMBUq6znnhd4atxMN1+QwjBwa8wdS+q3psyKCqE78Ll3MVFtSlqCwkiL+T7Yq+goaePaGs/oeG9xejcsN5KjlTaWFYib/cCGGcod0Bz8k/O5vq8zSkqo=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ bh=qtzFgpnqhRtQj2C70nYm1kK4rqn4LjFeX/2U3o2Gs+Y=;
+ b=U5QzdX/gfiAcwhDgLDnIZQ4BGROzlqWgAUqV57VRe2y1Z8PPsFV+PClrXuIOr8LoUdfH9uI6hkbKKlqN7F0/3pi/QmLHdSOdijxA4rdU3FmGVabyBn7omXXbwSs03yWXaNHDd0b2TeNmBM4LBwk4LNfuCeOXSubvnUxq7hXh9G0=
+X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
+ 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=temperror action=none header.from=amd.com;
+Received-SPF: TempError (protection.outlook.com: error in processing during
+ lookup of amd.com: DNS Timeout)
 From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Alejandro Vallejo <alejandro.garciavallejo@amd.com>, "Daniel P. Smith"
-	<dpsmith@apertussolutions.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH v8 08/11] xen/dt: Extract helper to map nodes to module kinds
-Date: Tue, 22 Jul 2025 02:05:20 +0200
-Message-ID: <20250722000525.7247-9-alejandro.garciavallejo@amd.com>
+	<dpsmith@apertussolutions.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel
+	<michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	"Bertrand Marquis" <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Shawn Anastasio
+	<sanastasio@raptorengineering.com>, Alistair Francis
+	<alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, "Connor
+ Davis" <connojdavis@gmail.com>, Oleksii Kurochko
+	<oleksii.kurochko@gmail.com>, =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
+	<marmarek@invisiblethingslab.com>, Dario Faggioli <dfaggioli@suse.com>,
+	Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>
+Subject: [PATCH v8 09/11] xen: Split HAS_DEVICE_TREE in two
+Date: Tue, 22 Jul 2025 02:05:21 +0200
+Message-ID: <20250722000525.7247-10-alejandro.garciavallejo@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250722000525.7247-1-alejandro.garciavallejo@amd.com>
 References: <20250722000525.7247-1-alejandro.garciavallejo@amd.com>
@@ -98,138 +107,567 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC0:EE_|DM6PR12MB4483:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6a175454-2108-4902-7a77-08ddc8b389cc
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE8:EE_|BL1PR12MB5923:EE_
+X-MS-Office365-Filtering-Correlation-Id: 28bfe61d-0867-49d3-cc7d-08ddc8b38c0a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700013|1800799024|376014;
+	BCL:0;ARA:13230040|376014|7416014|1800799024|82310400026|36860700013;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?s/WiHgRR8q8DZAC9I6PtZYlv0ETYP0/EAYaff6yvn8w1J7Q6id7voz+QLCZ8?=
- =?us-ascii?Q?b5C9sSxNsvPGNNQ5Q2DP63gIZ0iDLf8/3hltwEotWbsLF3qjtb7zzwyZ5QcX?=
- =?us-ascii?Q?Xea/ZZM0YiWoGKpRRLssQ8s86X+EDHevL7jOLSEHMdTINtGyi4KcUtDVWU0a?=
- =?us-ascii?Q?bK3ZYsKEdclpyO206GI1hWOmImywtWqARhJIP4m0bB+cu0WRLtED+IUplM8Q?=
- =?us-ascii?Q?hAU7ssSrkS+2B/Pk6QDCs1F4qciiAyajjQsksm8C7zzx8U3NxgXoaAi/Uj0e?=
- =?us-ascii?Q?W9tYJn0dOT7qU69Pk750mb90QWMmJZC/IMjHfwxJt2TBstESGsQNCDoAUhBb?=
- =?us-ascii?Q?Xc/9Kz3ju9kpF15zuy8vDu2kKG5bkfFeds7X7NAASLbXOaqFnph/TJdglLFb?=
- =?us-ascii?Q?lE0qolDfpNy1qL51hr85x1+8bY5cpG60HBTRN+lzORGLEEy2JoWbzq7VdlZt?=
- =?us-ascii?Q?aXe6lvISBb2CC2bc4rhFdVqu1Z+oRs05bgYg88LJdISgkVCkry2E+UMfZpW2?=
- =?us-ascii?Q?ozvOlW1OCkyVlRZstTztz55/qiGofnX9aSgVOkmMNOPXWsNnHZAsjpwNOFVe?=
- =?us-ascii?Q?6nXUjJKrLSn+Qe+TQuVzs7MLF9QZ/BOf5arPpDRYahokiZRvT8OTeDKgJjW/?=
- =?us-ascii?Q?2+iUbeBoFWEawmZHmQD9DmZp8ZmutEQZPBv0F2yxIAxyBO7Iglu1PqN775aU?=
- =?us-ascii?Q?yXt3nfMVopmv34dW0dGoZ+ZrCMRfbvjRRc4agHFC/T8Y7MMVDRJP0fFZwENv?=
- =?us-ascii?Q?sTEbwKaEY1WWZxhtWBUOtLyCgy3Qz4ig70ODAXxjLXxtZ0raBwAJm7RPOz2+?=
- =?us-ascii?Q?tGBjWS8QnD7+/YC/y9HSm+C+S+aCHKZ8rmm5ao6nLKCCNjTlxXVNUXnMwG7D?=
- =?us-ascii?Q?36woONdPYjILFnGsvNTrgyqmou8k9IJ1bkLo3Ie4FznlELlHptFLS/aDLAz1?=
- =?us-ascii?Q?zehj7PwUq4my4IRM8Oy/AjH3O+FiJ8NrxX6jwtu5oo2zqmE80pcJWO8Xjq3+?=
- =?us-ascii?Q?qVIcQHe142qs6vT1y2R7IetIuiFVI4zJpFb0B4dfF0i0b52W5f87G7jrkcZ6?=
- =?us-ascii?Q?sdRbRutswF/g4Kh/Is+2JdiOFY7ua6l+S5/E5ZTPfMd7BB2gE8DOdXD9AvNR?=
- =?us-ascii?Q?Q4e31LktvJlcLZHOoNSiXcbfcTI79Xg47qOdpDUxGGsrtd2JYKgdFH2s7Nd6?=
- =?us-ascii?Q?XpSCoDFNdxVB1G+TfZZke1tsP3R1thKvqN8dxkJ5y0OYISPGhhbLyE/P20JT?=
- =?us-ascii?Q?8+R6kpgbaFhNi3NzA5T2F/zrBw1b2G5/h+YYEHoSyzLIsL1l+08lBVjUApkX?=
- =?us-ascii?Q?q9cNzByny1ImqdHxhvHiSTP+AmdUtz6AfOoak7ng0LJ1uOQ0Li6pKbXSrOY7?=
- =?us-ascii?Q?/Fw3ZXHuDevkUw2IfNUSpQKlUmWgnsFi5yQVK0FrGNwWme+0MkboRZ2Fc9av?=
- =?us-ascii?Q?wS8azwlk34Wm1Rps+ShRfh4YMzLd1kkzytLGS0k9czo4+wuC/ArbqxZSO7MP?=
- =?us-ascii?Q?VyvBy6jjmbX0XqZGts4HRpo8JXY6FDobPfsz?=
+	=?us-ascii?Q?rkgrwyi1gEh3/YytArnSIthyVZEfEDLu1ESvKWuGtFPrP6Q37FbhT/+ovOTL?=
+ =?us-ascii?Q?c75i9+7u3bu90GndKAVXJHMpO6AYQv8vTmnwJ2hRy8Qi01N0NN/0mNckTzZx?=
+ =?us-ascii?Q?NpCsWU3+TsPTEsOsZDXjW1dT2BU7mt82qvdN57llQ9FhQojnyxozz/QtU1Lp?=
+ =?us-ascii?Q?TY5mKQosV3mDc1s2SSLY3eAl6v7lbYasUqHCgJHIK9UsgTMiUTSah8p1GuEv?=
+ =?us-ascii?Q?9MAmV/EkQcv2fRoxtc1VDISIdZ8vMBwqZFHBFp98i84awKToj+VsUuaSFaBc?=
+ =?us-ascii?Q?hCZjhsR8MC+UBFkdRR4wTuKK16vLAByL1N+vzISZ+8eHB6Pd9S6RZ/hCrqJq?=
+ =?us-ascii?Q?DovExCl/JwCjZVGZHCxs7jbg3SjA14DNvbF0ZZQ7J/h2xwBcR25rH3Vn8O4z?=
+ =?us-ascii?Q?KnWjEPMqEl0ncCHJKNzHZIMxddXE7rdXsBWja68dDhk+rqUrDDBisdFNmO+I?=
+ =?us-ascii?Q?O6KqPPzMNRsLiIp0Nw3tTKKtcDgJ0LhL9cfaIhX2lOvCzrFRtH+cOg8F6ttY?=
+ =?us-ascii?Q?tmzeI1gHfh7BK4umvVzqQUSWOg8op8D6sMfeMtS5rn4gDatgCDaMsC9CbxgU?=
+ =?us-ascii?Q?IlCnfFMmZF+WY9RLtwUOxqiIVytzF4J9iMODl5UpqI+c66T2a4MqhlRE2ayi?=
+ =?us-ascii?Q?lpFbR1RT2rdMLCCNSaKyGw4dCoep1yWFW9RPNcyo876CcAOEScZ+iwna48FF?=
+ =?us-ascii?Q?rWBkkSDfTNvRQxS1mbxXjEUboFmaDJ+XsVFyWvTTOvo3mPqQ1YsPnRQrvoRl?=
+ =?us-ascii?Q?T2MWdvbRIgwR0psw/sYtmdoFjZh/ZtYD4mQoooF0v3sz3fxH59fSlWq3Q2wC?=
+ =?us-ascii?Q?qUnirIJphpqscbEHBmCYU8yKFRMH5ygis8V0BtkUZ0JcgWnjcCnSDVLMGeHK?=
+ =?us-ascii?Q?5OBU/MtOdcrWoykT4kK2tzc2Q2tbJ7FlzX8RMRp+lHPUA9cEetdXdASM+Zmk?=
+ =?us-ascii?Q?HQB9Tlzkn0axW8laqI7vLK4Ue9tC4gca2jkBwZJA+JCu8F0tHq4OivVHNJ3+?=
+ =?us-ascii?Q?4szuMI39mcrDuL2Grjvx991nlxpUvNcMxtSShn5aT+UdspJkK6MrxO3D77l+?=
+ =?us-ascii?Q?FNKIn1NkMMIZoJ3P/sExb5DZo/UdkhBTO3eynIbl/n9EVIwimNY8hamMzv/2?=
+ =?us-ascii?Q?87T06p7mWfxViSzxNInGLur1OV8+O/QCZzz9suq4eTTh3Pz4QvT7pGcc3iU8?=
+ =?us-ascii?Q?BDcBQjYcaW+zZzBSc7p5xNjkLorWExSzroNPXitHFoXSd1CMtz4ntCPF/MnR?=
+ =?us-ascii?Q?kGrsRc70M24+UUCdnofrdaoCR74j9fdpPy6Zafwj/MICqpwGmuUQwXml4IQa?=
+ =?us-ascii?Q?0QWh0mwbzpXy3vo+k/YTY0aIHgkSFgZ+dj9hzrBUYs4SuQNzOdSVSifhGuvr?=
+ =?us-ascii?Q?TUksujwQPaMVpOFNMzd1l7FakQ+E4Dl5vzZkGhAYkdJzzyVsYjbGl2XEp3+P?=
+ =?us-ascii?Q?pmGkf1IUxCXYNQ4fsica54CrXXQfUkCdaEkslhn//JCCp3qo1lVd2rJYMQTg?=
+ =?us-ascii?Q?79yZlIaZ7uuPtVWB4N5GosOb89tdWlgMNkJX?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(82310400026)(36860700013);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2025 00:05:59.2619
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2025 00:06:02.9912
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6a175454-2108-4902-7a77-08ddc8b389cc
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28bfe61d-0867-49d3-cc7d-08ddc8b38c0a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF00004FC0.namprd04.prod.outlook.com
+	SA2PEPF00003AE8.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4483
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5923
 
-This will be required later by x86 code in order to do early identification
-of boot modules when booting off a DTB.
+Moving forward the idea is for there to be:
 
-Not a functional change.
+  1. Basic DT support: used by dom0less/hyperlaunch.
+  2. Full DT support: used for device discovery and HW setup.
+
+Rename HAS_DEVICE_TREE to HAS_DEVICE_TREE_DISCOVERY to describe (2) and
+create a new DEVICE_TREE_PARSE to describe (1).
+
+Have DEVICE_TREE_PARSE selected by both HAS_DEVICE_TREE_DISCOVERY and
+DOM0LESS_BOOT.
+
+Add a dependency on STATIC_MEMORY for discovery, as it relies on
+the memory map itself being described on the DTB.
 
 Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Acked-by: Jan Beulich <jbeulich@suse.com> #iommu
+Reviewed-by: Oleksii Kurochko<oleksii.kurochko@gmail.com> # riscv
+Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 ---
- xen/common/device-tree/bootfdt.c      | 18 ++++++++++++++++++
- xen/common/device-tree/bootinfo-fdt.c | 16 +---------------
- xen/include/xen/bootfdt.h             |  7 +++++++
- 3 files changed, 26 insertions(+), 15 deletions(-)
+ xen/Kconfig.debug                |  2 +-
+ xen/arch/arm/Kconfig             |  2 +-
+ xen/arch/ppc/Kconfig             |  2 +-
+ xen/arch/riscv/Kconfig           |  2 +-
+ xen/common/Kconfig               | 15 ++++++++++-----
+ xen/common/Makefile              |  4 ++--
+ xen/common/device.c              |  4 ++--
+ xen/common/efi/boot.c            |  2 +-
+ xen/common/sched/Kconfig         |  2 +-
+ xen/drivers/char/ns16550.c       |  6 +++---
+ xen/drivers/passthrough/Makefile |  2 +-
+ xen/drivers/passthrough/iommu.c  |  2 +-
+ xen/include/asm-generic/device.h | 10 +++++-----
+ xen/include/xen/iommu.h          |  8 ++++----
+ xen/include/xsm/dummy.h          |  4 ++--
+ xen/include/xsm/xsm.h            | 12 ++++++------
+ xen/xsm/dummy.c                  |  2 +-
+ xen/xsm/flask/hooks.c            |  6 +++---
+ xen/xsm/xsm_core.c               |  4 ++--
+ xen/xsm/xsm_policy.c             |  4 ++--
+ 20 files changed, 50 insertions(+), 45 deletions(-)
 
-diff --git a/xen/common/device-tree/bootfdt.c b/xen/common/device-tree/bootfdt.c
-index 84520eed30..7c790b9a4d 100644
---- a/xen/common/device-tree/bootfdt.c
-+++ b/xen/common/device-tree/bootfdt.c
-@@ -5,6 +5,24 @@
- #include <xen/libfdt/libfdt.h>
- #include <xen/unaligned.h>
+diff --git a/xen/Kconfig.debug b/xen/Kconfig.debug
+index 38a134fa3b..d900d926c5 100644
+--- a/xen/Kconfig.debug
++++ b/xen/Kconfig.debug
+@@ -92,7 +92,7 @@ config VERBOSE_DEBUG
  
-+boot_module_kind __init fdt_node_to_kind(const void *fdt, int node)
-+{
-+    if ( fdt_node_check_compatible(fdt, node, "xen,linux-zimage") == 0 ||
-+         fdt_node_check_compatible(fdt, node, "multiboot,kernel") == 0 )
-+        return BOOTMOD_KERNEL;
-+    if ( fdt_node_check_compatible(fdt, node, "xen,linux-initrd") == 0 ||
-+         fdt_node_check_compatible(fdt, node, "multiboot,ramdisk") == 0 )
-+        return BOOTMOD_RAMDISK;
-+    if ( fdt_node_check_compatible(fdt, node, "xen,xsm-policy") == 0 )
-+        return BOOTMOD_XSM_POLICY;
-+    if ( fdt_node_check_compatible(fdt, node, "multiboot,device-tree") == 0 )
-+        return BOOTMOD_GUEST_DTB;
-+    if ( fdt_node_check_compatible(fdt, node, "multiboot,microcode") == 0 )
-+        return BOOTMOD_MICROCODE;
+ config DEVICE_TREE_DEBUG
+ 	bool "Device tree debug messages"
+-	depends on HAS_DEVICE_TREE
++	depends on DEVICE_TREE_PARSE
+ 	help
+ 	  Device tree parsing and DOM0 device tree building messages are
+ 	  logged in the Xen ring buffer.
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index bf6d1cf88e..17df147b25 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -17,7 +17,7 @@ config ARM
+ 	select FUNCTION_ALIGNMENT_4B
+ 	select GENERIC_UART_INIT
+ 	select HAS_ALTERNATIVE if HAS_VMAP
+-	select HAS_DEVICE_TREE
++	select HAS_DEVICE_TREE_DISCOVERY
+ 	select HAS_DOM0LESS
+ 	select HAS_GRANT_CACHE_FLUSH if GRANT_TABLE
+ 	select HAS_STACK_PROTECTOR
+diff --git a/xen/arch/ppc/Kconfig b/xen/arch/ppc/Kconfig
+index 917f5d53a6..5bedf6055e 100644
+--- a/xen/arch/ppc/Kconfig
++++ b/xen/arch/ppc/Kconfig
+@@ -1,7 +1,7 @@
+ config PPC
+ 	def_bool y
+ 	select FUNCTION_ALIGNMENT_4B
+-	select HAS_DEVICE_TREE
++	select HAS_DEVICE_TREE_DISCOVERY
+ 	select HAS_UBSAN
+ 	select HAS_VMAP
+ 
+diff --git a/xen/arch/riscv/Kconfig b/xen/arch/riscv/Kconfig
+index 96bef90751..89876b3217 100644
+--- a/xen/arch/riscv/Kconfig
++++ b/xen/arch/riscv/Kconfig
+@@ -3,7 +3,7 @@ config RISCV
+ 	select FUNCTION_ALIGNMENT_16B
+ 	select GENERIC_BUG_FRAME
+ 	select GENERIC_UART_INIT
+-	select HAS_DEVICE_TREE
++	select HAS_DEVICE_TREE_DISCOVERY
+ 	select HAS_PMAP
+ 	select HAS_UBSAN
+ 	select HAS_VMAP
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 64865112a1..2539a635f1 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -12,9 +12,14 @@ config CORE_PARKING
+ 	bool
+ 	depends on NR_CPUS > 1
+ 
++config DEVICE_TREE_PARSE
++	bool
++	select LIBFDT
 +
-+    return BOOTMOD_UNKNOWN;
-+}
-+
- void __init device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
-                                 uint32_t size_cells, paddr_t *start,
-                                 paddr_t *size)
-diff --git a/xen/common/device-tree/bootinfo-fdt.c b/xen/common/device-tree/bootinfo-fdt.c
-index 5111fc9436..2aa94b91a4 100644
---- a/xen/common/device-tree/bootinfo-fdt.c
-+++ b/xen/common/device-tree/bootinfo-fdt.c
-@@ -237,21 +237,7 @@ static void __init process_multiboot_node(const void *fdt, int node,
+ config DOM0LESS_BOOT
+ 	bool "Dom0less boot support" if EXPERT
+-	depends on HAS_DOM0LESS && HAS_DEVICE_TREE && DOMAIN_BUILD_HELPERS
++	depends on HAS_DOM0LESS && DOMAIN_BUILD_HELPERS
++	select DEVICE_TREE_PARSE
+ 	default y
+ 	help
+ 	  Dom0less boot support enables Xen to create and start domU guests during
+@@ -85,9 +90,9 @@ config HAS_ALTERNATIVE
+ config HAS_COMPAT
+ 	bool
  
-     cell = (const __be32 *)prop->data;
-     device_tree_get_reg(&cell, address_cells, size_cells, &start, &size);
--
--    if ( fdt_node_check_compatible(fdt, node, "xen,linux-zimage") == 0 ||
--         fdt_node_check_compatible(fdt, node, "multiboot,kernel") == 0 )
--        kind = BOOTMOD_KERNEL;
--    else if ( fdt_node_check_compatible(fdt, node, "xen,linux-initrd") == 0 ||
--              fdt_node_check_compatible(fdt, node, "multiboot,ramdisk") == 0 )
--        kind = BOOTMOD_RAMDISK;
--    else if ( fdt_node_check_compatible(fdt, node, "xen,xsm-policy") == 0 )
--        kind = BOOTMOD_XSM_POLICY;
--    else if ( fdt_node_check_compatible(fdt, node, "multiboot,device-tree") == 0 )
--        kind = BOOTMOD_GUEST_DTB;
--    else if ( fdt_node_check_compatible(fdt, node, "multiboot,microcode") == 0 )
--        kind = BOOTMOD_MICROCODE;
--    else
--        kind = BOOTMOD_UNKNOWN;
-+    kind = fdt_node_to_kind(fdt, node);
+-config HAS_DEVICE_TREE
++config HAS_DEVICE_TREE_DISCOVERY
+ 	bool
+-	select LIBFDT
++	select DEVICE_TREE_PARSE
  
-     /**
-      * Guess the kind of these first two unknowns respectively:
-diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
-index 5719bbfb93..6cf05b5cdd 100644
---- a/xen/include/xen/bootfdt.h
-+++ b/xen/include/xen/bootfdt.h
-@@ -157,4 +157,11 @@ u32 device_tree_get_u32(const void *fdt, int node,
- void device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
-                          uint32_t size_cells, paddr_t *start, paddr_t *size);
+ config HAS_DOM0LESS
+ 	bool
+@@ -154,7 +159,7 @@ config NUMA
  
-+/*
-+ * Probe an FDT node thought to be a boot module to identify its kind.
-+ *
-+ * If correctly identified, returns the detected kind, otherwise BOOTMOD_UNKNOWN
-+ */
-+boot_module_kind fdt_node_to_kind(const void *fdt, int node);
-+
- #endif /* XEN_BOOTFDT_H */
+ config STATIC_MEMORY
+ 	bool "Static Allocation Support (UNSUPPORTED)" if UNSUPPORTED
+-	depends on DOM0LESS_BOOT
++	depends on DOM0LESS_BOOT && HAS_DEVICE_TREE_DISCOVERY
+ 	help
+ 	  Static Allocation refers to system or sub-system(domains) for
+ 	  which memory areas are pre-defined by configuration using physical
+@@ -553,7 +558,7 @@ config DOM0_MEM
+ 
+ config DTB_FILE
+ 	string "Absolute path to device tree blob"
+-	depends on HAS_DEVICE_TREE
++	depends on HAS_DEVICE_TREE_DISCOVERY
+ 	help
+ 	  When using a bootloader that has no device tree support or when there
+ 	  is no bootloader at all, use this option to specify the absolute path
+diff --git a/xen/common/Makefile b/xen/common/Makefile
+index 15ab048244..c6e8a36cd8 100644
+--- a/xen/common/Makefile
++++ b/xen/common/Makefile
+@@ -6,9 +6,9 @@ obj-$(CONFIG_HYPFS_CONFIG) += config_data.o
+ obj-$(CONFIG_CORE_PARKING) += core_parking.o
+ obj-y += cpu.o
+ obj-$(CONFIG_DEBUG_TRACE) += debugtrace.o
+-obj-$(CONFIG_HAS_DEVICE_TREE) += device.o
++obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += device.o
+ obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) += device.o
+-obj-$(CONFIG_HAS_DEVICE_TREE) += device-tree/
++obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += device-tree/
+ obj-$(CONFIG_IOREQ_SERVER) += dm.o
+ obj-y += domain.o
+ obj-y += event_2l.o
+diff --git a/xen/common/device.c b/xen/common/device.c
+index 33e0d58f2f..0c0afad49f 100644
+--- a/xen/common/device.c
++++ b/xen/common/device.c
+@@ -11,7 +11,7 @@
+ 
+ #include <asm/device.h>
+ 
+-#ifdef CONFIG_HAS_DEVICE_TREE
++#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
+ 
+ extern const struct device_desc _sdevice[], _edevice[];
+ 
+@@ -56,7 +56,7 @@ enum device_class device_get_class(const struct dt_device_node *dev)
+     return DEVICE_UNKNOWN;
+ }
+ 
+-#endif
++#endif /* CONFIG_HAS_DEVICE_TREE_DISCOVERY */
+ 
+ #ifdef CONFIG_ACPI
+ 
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index 1019de6950..df29444220 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -623,7 +623,7 @@ static int __init __maybe_unused set_color(uint32_t mask, int bpp,
+    return max(*pos + *sz, bpp);
+ }
+ 
+-#ifndef CONFIG_HAS_DEVICE_TREE
++#ifndef CONFIG_HAS_DEVICE_TREE_DISCOVERY
+ static int __init efi_check_dt_boot(const EFI_LOADED_IMAGE *loaded_image)
+ {
+     return 0;
+diff --git a/xen/common/sched/Kconfig b/xen/common/sched/Kconfig
+index 18ca1ce7ab..1fb622e6cf 100644
+--- a/xen/common/sched/Kconfig
++++ b/xen/common/sched/Kconfig
+@@ -67,7 +67,7 @@ endmenu
+ 
+ config BOOT_TIME_CPUPOOLS
+ 	bool "Create cpupools at boot time"
+-	depends on HAS_DEVICE_TREE
++	depends on HAS_DEVICE_TREE_DISCOVERY
+ 	help
+ 	  Creates cpupools during boot time and assigns cpus to them. Cpupools
+ 	  options can be specified in the device tree.
+diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
+index 6b4fb4ad31..c1c08b235e 100644
+--- a/xen/drivers/char/ns16550.c
++++ b/xen/drivers/char/ns16550.c
+@@ -34,7 +34,7 @@
+ #include <xen/8250-uart.h>
+ #include <xen/vmap.h>
+ #include <asm/io.h>
+-#ifdef CONFIG_HAS_DEVICE_TREE
++#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
+ #include <asm/device.h>
+ #endif
+ #ifdef CONFIG_X86
+@@ -1766,7 +1766,7 @@ void __init ns16550_init(int index, struct ns16550_defaults *defaults)
+ 
+ #endif /* CONFIG_X86 */
+ 
+-#ifdef CONFIG_HAS_DEVICE_TREE
++#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
+ static int __init ns16550_uart_dt_init(struct dt_device_node *dev,
+                                        const void *data)
+ {
+@@ -1845,7 +1845,7 @@ DT_DEVICE_START(ns16550, "NS16550 UART", DEVICE_SERIAL)
+         .init = ns16550_uart_dt_init,
+ DT_DEVICE_END
+ 
+-#endif /* HAS_DEVICE_TREE */
++#endif /* HAS_DEVICE_TREE_DISCOVERY */
+ 
+ #if defined(CONFIG_ACPI) && defined(CONFIG_ARM)
+ #include <xen/acpi.h>
+diff --git a/xen/drivers/passthrough/Makefile b/xen/drivers/passthrough/Makefile
+index a1621540b7..eb4aeafb42 100644
+--- a/xen/drivers/passthrough/Makefile
++++ b/xen/drivers/passthrough/Makefile
+@@ -5,6 +5,6 @@ obj-$(CONFIG_ARM) += arm/
+ 
+ obj-y += iommu.o
+ obj-$(CONFIG_HAS_PCI) += pci.o
+-obj-$(CONFIG_HAS_DEVICE_TREE) += device_tree.o
++obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += device_tree.o
+ obj-$(CONFIG_HAS_PCI) += ats.o
+ obj-$(CONFIG_HAS_PCI_MSI) += msi.o
+diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
+index 16aad86973..c9425d6971 100644
+--- a/xen/drivers/passthrough/iommu.c
++++ b/xen/drivers/passthrough/iommu.c
+@@ -638,7 +638,7 @@ int iommu_do_domctl(
+     ret = iommu_do_pci_domctl(domctl, d, u_domctl);
+ #endif
+ 
+-#ifdef CONFIG_HAS_DEVICE_TREE
++#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
+     if ( ret == -ENODEV )
+         ret = iommu_do_dt_domctl(domctl, d, u_domctl);
+ #endif
+diff --git a/xen/include/asm-generic/device.h b/xen/include/asm-generic/device.h
+index 1acd1ba1d8..3bd97e33c5 100644
+--- a/xen/include/asm-generic/device.h
++++ b/xen/include/asm-generic/device.h
+@@ -6,7 +6,7 @@
+ 
+ enum device_type
+ {
+-#ifdef CONFIG_HAS_DEVICE_TREE
++#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
+     DEV_DT,
+ #endif
+     DEV_PCI
+@@ -26,7 +26,7 @@ enum device_class
+ struct device
+ {
+     enum device_type type;
+-#ifdef CONFIG_HAS_DEVICE_TREE
++#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
+     struct dt_device_node *of_node; /* Used by drivers imported from Linux */
+ #endif
+ #ifdef CONFIG_HAS_PASSTHROUGH
+@@ -37,7 +37,7 @@ struct device
+ 
+ typedef struct device device_t;
+ 
+-#ifdef CONFIG_HAS_DEVICE_TREE
++#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
+ 
+ #include <xen/device_tree.h>
+ 
+@@ -87,9 +87,9 @@ struct device_desc {
+     int (*init)(struct dt_device_node *dev, const void *data);
+ };
+ 
+-#else /* !CONFIG_HAS_DEVICE_TREE */
++#else /* !CONFIG_HAS_DEVICE_TREE_DISCOVERY */
+ #define dev_is_dt(dev) ((void)(dev), false)
+-#endif /* CONFIG_HAS_DEVICE_TREE */
++#endif /* CONFIG_HAS_DEVICE_TREE_DISCOVERY */
+ 
+ #define dev_is_pci(dev) ((dev)->type == DEV_PCI)
+ 
+diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
+index 57f338e2a0..37c4a1dc82 100644
+--- a/xen/include/xen/iommu.h
++++ b/xen/include/xen/iommu.h
+@@ -232,7 +232,7 @@ struct msi_msg;
+ #define PT_IRQ_TIME_OUT MILLISECS(8)
+ #endif /* HAS_PCI */
+ 
+-#ifdef CONFIG_HAS_DEVICE_TREE
++#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
+ #include <xen/device_tree.h>
+ 
+ #ifdef CONFIG_HAS_PASSTHROUGH
+@@ -309,7 +309,7 @@ static inline int iommu_add_dt_pci_sideband_ids(struct pci_dev *pdev)
+ 
+ #endif /* HAS_PASSTHROUGH */
+ 
+-#endif /* HAS_DEVICE_TREE */
++#endif /* HAS_DEVICE_TREE_DISCOVERY */
+ 
+ struct page_info;
+ 
+@@ -376,7 +376,7 @@ struct iommu_ops {
+     int (*get_reserved_device_memory)(iommu_grdm_t *func, void *ctxt);
+     void (*dump_page_tables)(struct domain *d);
+ 
+-#ifdef CONFIG_HAS_DEVICE_TREE
++#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
+     /*
+      * All IOMMU drivers which support generic IOMMU DT bindings should use
+      * this callback. This is a way for the framework to provide the driver
+@@ -424,7 +424,7 @@ struct domain_iommu {
+     /* iommu_ops */
+     const struct iommu_ops *platform_ops;
+ 
+-#ifdef CONFIG_HAS_DEVICE_TREE
++#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
+     /* List of DT devices assigned to this domain */
+     struct list_head dt_devices;
+ #endif
+diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
+index 9227205fcd..12792c3a43 100644
+--- a/xen/include/xsm/dummy.h
++++ b/xen/include/xsm/dummy.h
+@@ -423,7 +423,7 @@ static XSM_INLINE int cf_check xsm_deassign_device(
+ 
+ #endif /* HAS_PASSTHROUGH && HAS_PCI */
+ 
+-#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE)
++#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE_DISCOVERY)
+ static XSM_INLINE int cf_check xsm_assign_dtdevice(
+     XSM_DEFAULT_ARG struct domain *d, const char *dtpath)
+ {
+@@ -438,7 +438,7 @@ static XSM_INLINE int cf_check xsm_deassign_dtdevice(
+     return xsm_default_action(action, current->domain, d);
+ }
+ 
+-#endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE */
++#endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE_DISCOVERY */
+ 
+ static XSM_INLINE int cf_check xsm_resource_plug_core(XSM_DEFAULT_VOID)
+ {
+diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
+index 6e1789c314..9a23d2827c 100644
+--- a/xen/include/xsm/xsm.h
++++ b/xen/include/xsm/xsm.h
+@@ -127,7 +127,7 @@ struct xsm_ops {
+     int (*deassign_device)(struct domain *d, uint32_t machine_bdf);
+ #endif
+ 
+-#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE)
++#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE_DISCOVERY)
+     int (*assign_dtdevice)(struct domain *d, const char *dtpath);
+     int (*deassign_dtdevice)(struct domain *d, const char *dtpath);
+ #endif
+@@ -549,7 +549,7 @@ static inline int xsm_deassign_device(
+ }
+ #endif /* HAS_PASSTHROUGH && HAS_PCI) */
+ 
+-#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE)
++#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE_DISCOVERY)
+ static inline int xsm_assign_dtdevice(
+     xsm_default_t def, struct domain *d, const char *dtpath)
+ {
+@@ -562,7 +562,7 @@ static inline int xsm_deassign_dtdevice(
+     return alternative_call(xsm_ops.deassign_dtdevice, d, dtpath);
+ }
+ 
+-#endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE */
++#endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE_DISCOVERY */
+ 
+ static inline int xsm_resource_plug_pci(xsm_default_t def, uint32_t machine_bdf)
+ {
+@@ -807,7 +807,7 @@ int xsm_multiboot_policy_init(
+     struct boot_info *bi, void **policy_buffer, size_t *policy_size);
+ #endif
+ 
+-#ifdef CONFIG_HAS_DEVICE_TREE
++#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
+ /*
+  * Initialize XSM
+  *
+@@ -857,7 +857,7 @@ static inline int xsm_multiboot_init(struct boot_info *bi)
+ }
+ #endif
+ 
+-#ifdef CONFIG_HAS_DEVICE_TREE
++#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
+ static inline int xsm_dt_init(void)
+ {
+     return 0;
+@@ -867,7 +867,7 @@ static inline bool has_xsm_magic(paddr_t start)
+ {
+     return false;
+ }
+-#endif /* CONFIG_HAS_DEVICE_TREE */
++#endif /* CONFIG_HAS_DEVICE_TREE_DISCOVERY */
+ 
+ #endif /* CONFIG_XSM */
+ 
+diff --git a/xen/xsm/dummy.c b/xen/xsm/dummy.c
+index 8d44f5bfb6..8b7e01b506 100644
+--- a/xen/xsm/dummy.c
++++ b/xen/xsm/dummy.c
+@@ -85,7 +85,7 @@ static const struct xsm_ops __initconst_cf_clobber dummy_ops = {
+     .deassign_device               = xsm_deassign_device,
+ #endif
+ 
+-#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE)
++#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE_DISCOVERY)
+     .assign_dtdevice               = xsm_assign_dtdevice,
+     .deassign_dtdevice             = xsm_deassign_dtdevice,
+ #endif
+diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
+index a7cb33a718..b0308e1b26 100644
+--- a/xen/xsm/flask/hooks.c
++++ b/xen/xsm/flask/hooks.c
+@@ -1464,7 +1464,7 @@ static int cf_check flask_deassign_device(
+ }
+ #endif /* HAS_PASSTHROUGH && HAS_PCI */
+ 
+-#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE)
++#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE_DISCOVERY)
+ static int flask_test_assign_dtdevice(const char *dtpath)
+ {
+     uint32_t rsid;
+@@ -1525,7 +1525,7 @@ static int cf_check flask_deassign_dtdevice(
+     return avc_current_has_perm(rsid, SECCLASS_RESOURCE, RESOURCE__REMOVE_DEVICE,
+                                 NULL);
+ }
+-#endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE */
++#endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE_DISCOVERY */
+ 
+ static int cf_check flask_platform_op(uint32_t op)
+ {
+@@ -1995,7 +1995,7 @@ static const struct xsm_ops __initconst_cf_clobber flask_ops = {
+     .deassign_device = flask_deassign_device,
+ #endif
+ 
+-#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE)
++#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE_DISCOVERY)
+     .assign_dtdevice = flask_assign_dtdevice,
+     .deassign_dtdevice = flask_deassign_dtdevice,
+ #endif
+diff --git a/xen/xsm/xsm_core.c b/xen/xsm/xsm_core.c
+index f255fb63bf..b7e864a874 100644
+--- a/xen/xsm/xsm_core.c
++++ b/xen/xsm/xsm_core.c
+@@ -25,7 +25,7 @@
+ #include <asm/setup.h>
+ #endif
+ 
+-#ifdef CONFIG_HAS_DEVICE_TREE
++#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
+ #include <asm/setup.h>
+ #endif
+ 
+@@ -166,7 +166,7 @@ int __init xsm_multiboot_init(struct boot_info *bi)
+ }
+ #endif
+ 
+-#ifdef CONFIG_HAS_DEVICE_TREE
++#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
+ int __init xsm_dt_init(void)
+ {
+     int ret = 0;
+diff --git a/xen/xsm/xsm_policy.c b/xen/xsm/xsm_policy.c
+index 27bfc3b995..cb4f54b542 100644
+--- a/xen/xsm/xsm_policy.c
++++ b/xen/xsm/xsm_policy.c
+@@ -24,7 +24,7 @@
+ #include <asm/setup.h>
+ #endif
+ #include <xen/bitops.h>
+-#ifdef CONFIG_HAS_DEVICE_TREE
++#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
+ # include <asm/setup.h>
+ # include <xen/device_tree.h>
+ #endif
+@@ -65,7 +65,7 @@ int __init xsm_multiboot_policy_init(
+ }
+ #endif
+ 
+-#ifdef CONFIG_HAS_DEVICE_TREE
++#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
+ int __init xsm_dt_policy_init(void **policy_buffer, size_t *policy_size)
+ {
+     struct boot_module *mod = boot_module_find_by_kind(BOOTMOD_XSM_POLICY);
 -- 
 2.43.0
 
