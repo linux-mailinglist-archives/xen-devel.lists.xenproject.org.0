@@ -2,29 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8A7DB0E72C
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 01:24:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1053072.1421824 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31F76B0E72D
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 01:26:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1053079.1421833 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueMLH-0001Iv-2v; Tue, 22 Jul 2025 23:24:15 +0000
+	id 1ueMN4-0001qs-CL; Tue, 22 Jul 2025 23:26:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1053072.1421824; Tue, 22 Jul 2025 23:24:15 +0000
+Received: by outflank-mailman (output) from mailman id 1053079.1421833; Tue, 22 Jul 2025 23:26:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueMLG-0001Gg-Vp; Tue, 22 Jul 2025 23:24:14 +0000
-Received: by outflank-mailman (input) for mailman id 1053072;
- Tue, 22 Jul 2025 23:24:13 +0000
+	id 1ueMN4-0001oV-9Z; Tue, 22 Jul 2025 23:26:06 +0000
+Received: by outflank-mailman (input) for mailman id 1053079;
+ Tue, 22 Jul 2025 23:26:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=an6O=2D=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1ueMLF-0001Ga-P8
- for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 23:24:13 +0000
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch
- [109.224.244.18]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f775167e-6752-11f0-b894-0df219b8e170;
- Wed, 23 Jul 2025 01:24:08 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=X0Ar=2D=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1ueMN2-0001oN-Qk
+ for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 23:26:04 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3b13db09-6753-11f0-b894-0df219b8e170;
+ Wed, 23 Jul 2025 01:26:02 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id B51035C5828;
+ Tue, 22 Jul 2025 23:26:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC5C8C4CEEB;
+ Tue, 22 Jul 2025 23:25:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,80 +41,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f775167e-6752-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=5zgoic46sjanvc7wbyydl3mzhy.protonmail; t=1753226647; x=1753485847;
-	bh=0GY5Tbp7uYgbSr2+en1qBPy8MtwQIMl8vEHvF1rPM5c=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=KxVN39eXxPe20ZxdsS+ZjVamabJwvgwAimwon0OKRrLDBF1/i0D5tWW9j0LmY1rbG
-	 J05crhVHEqvSyJJVYtHORVwZEZ7Z94Q69foCbpxqHG3d7tQL56n4zAQyPwe5NPE1hi
-	 3clCJF/SbcURNIhC8XyNm00tSwDlH6ZURDgP/qjJ9x6kGlGH4Az/nTJEEIq6Bze/K9
-	 znFbdG3Pl/MDaQt9ViaGioN3+07sSREMqKVc1wTVVnDIBFJNcVMeKXgaWyCGA5+EV9
-	 QJK52vzczhO2alZ9EaG8+IHsmIaKG5Imzuhgc8+FfC2RVJYYBGXthbJbD2VRRuKlw8
-	 Snjpk21ImRmSA==
-Date: Tue, 22 Jul 2025 23:24:05 +0000
-To: Jan Beulich <jbeulich@suse.com>
-From: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v10 3/3] xen/domain: use get_initial_domain_id() instead of open-coded 0
-Message-ID: <aIAdkbaKyDPO1WWg@kraken>
-In-Reply-To: <93080cb5-d00d-4c58-9efd-c377343eb165@suse.com>
-References: <20250623182721.194238-1-dmukhin@ford.com> <20250623182721.194238-4-dmukhin@ford.com> <93080cb5-d00d-4c58-9efd-c377343eb165@suse.com>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: f166a3c44454c36e18c30d6e4599686629a8b32e
+X-Inumbo-ID: 3b13db09-6753-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1753226761;
+	bh=97A3QzF1Z0A/oLpJO0Lbp7m6F2bqq2nKY9CgO70Mmfs=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=PtNgX2s2BDh37u2EMpMPYcukflFDPmE0JkZz7+t4WzK8Q3GPo6t99+IsyGEFmBdnH
+	 xE4dfKwc2nw/uq+KSWmHBn/8yDv2hSpe3Wk0MtyKyE6YJclHyeQrWpbAoGYLAARimc
+	 Fz5HQr4IQ3akWDfi7vXhTEn/DX3mYtGRoORZYhAnrECk5mVN88gNe3je/MEpIjQLVs
+	 1iOnyoCIlmSYT6vUU4394NvqMSfsqv8lwykFsdyodLbNJw/ffXlxYNlGmTvgh7HjTQ
+	 wzufQ/b4FLFsO9hBjdp48qvIUlJQSwV7M+3wdPOa4FErXdj654sH0+HlCK7r+AZxxS
+	 l/p7ShNjN/I1g==
+Date: Tue, 22 Jul 2025 16:25:58 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+cc: xen-devel@lists.xenproject.org, 
+    "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Jan Beulich <jbeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH 03/10] dom0less: Move asm-generic/dom0less-build.h ->
+ xen/dom0less-build.h
+In-Reply-To: <20250722115955.57167-4-alejandro.garciavallejo@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2507221625460.7043@ubuntu-linux-20-04-desktop>
+References: <20250722115955.57167-1-alejandro.garciavallejo@amd.com> <20250722115955.57167-4-alejandro.garciavallejo@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 
-On Tue, Jun 24, 2025 at 08:07:55AM +0200, Jan Beulich wrote:
-> On 23.06.2025 20:28, dmkhn@proton.me wrote:
-> > --- a/xen/common/domain.c
-> > +++ b/xen/common/domain.c
-> > @@ -492,7 +492,7 @@ static int late_hwdom_init(struct domain *d)
-> >      struct domain *dom0;
-> >      int rv;
-> >
-> > -    if ( d !=3D hardware_domain || d->domain_id =3D=3D 0 )
-> > +    if ( d !=3D hardware_domain || d->domain_id =3D=3D get_initial_dom=
-ain_id() )
-> >          return 0;
-> >
-> >      rv =3D xsm_init_hardware_domain(XSM_HOOK, d);
-> > @@ -501,7 +501,7 @@ static int late_hwdom_init(struct domain *d)
-> >
-> >      printk("Initialising hardware domain %d\n", hardware_domid);
-> >
-> > -    dom0 =3D rcu_lock_domain_by_id(0);
-> > +    dom0 =3D rcu_lock_domain_by_id(get_initial_domain_id());
-> >      ASSERT(dom0 !=3D NULL);
->=20
-> For both changes above you're introducing a subtle (largely theoretical)
-> behavioral change: In shim mode, this assertion, if we somehow made it
-> here, would suddenly not trigger anymore. Similarly for the earlier
-> change the return path may wrongly be taken then.
+On Tue, 22 Jul 2025, Alejandro Vallejo wrote:
+> It's meant to be usable by anyone with CONFIG_DOM0LESS_BOOT.
+> 
+> While moving, replace an inclusion of public/domctl.h by a forward
+> declaration.
+> 
+> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 
-Thanks.
-
->=20
-> > @@ -2479,7 +2479,7 @@ domid_t domid_alloc(domid_t domid)
-> >          if ( domid =3D=3D DOMID_FIRST_RESERVED )
-> >              domid =3D find_next_zero_bit(domid_bitmap,
-> >                                         DOMID_FIRST_RESERVED,
-> > -                                       1);
-> > +                                       get_initial_domain_id() + 1);
->=20
-> This imo is the worst of the changes. get_initial_domain_id() can return
-> non-zero. In that case we still would (in principle) want to re-start
-> from 1 here.
-
-Thanks.
-
-I will postpone this patch until the split of dom0 into control/hardware
-settles.
-
->=20
-> Jan
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
