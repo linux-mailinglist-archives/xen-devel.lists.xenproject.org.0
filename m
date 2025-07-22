@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09050B0D99F
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 14:29:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1052580.1421305 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7D55B0D9B6
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 14:34:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1052587.1421314 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueC7R-0001gs-C5; Tue, 22 Jul 2025 12:29:17 +0000
+	id 1ueCCH-0003oE-TU; Tue, 22 Jul 2025 12:34:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1052580.1421305; Tue, 22 Jul 2025 12:29:17 +0000
+Received: by outflank-mailman (output) from mailman id 1052587.1421314; Tue, 22 Jul 2025 12:34:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueC7R-0001dk-8k; Tue, 22 Jul 2025 12:29:17 +0000
-Received: by outflank-mailman (input) for mailman id 1052580;
- Tue, 22 Jul 2025 12:29:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ueCCH-0003ml-QO; Tue, 22 Jul 2025 12:34:17 +0000
+Received: by outflank-mailman (input) for mailman id 1052587;
+ Tue, 22 Jul 2025 12:34:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=D6vH=2D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ueC7Q-0001de-Es
- for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 12:29:16 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7a42b90d-66f7-11f0-b894-0df219b8e170;
- Tue, 22 Jul 2025 14:29:14 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3a6cd1a6fecso5056284f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 22 Jul 2025 05:29:14 -0700 (PDT)
+ id 1ueCCG-0003mf-Cn
+ for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 12:34:16 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2dbd8ebb-66f8-11f0-a31d-13f23c93f187;
+ Tue, 22 Jul 2025 14:34:15 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3b611665b96so3060201f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Jul 2025 05:34:15 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b3f2ff5eecfsm5962248a12.47.2025.07.22.05.29.06
+ d9443c01a7336-23e3b6b4a93sm75374185ad.102.2025.07.22.05.34.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Jul 2025 05:29:13 -0700 (PDT)
+ Tue, 22 Jul 2025 05:34:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a42b90d-66f7-11f0-b894-0df219b8e170
+X-Inumbo-ID: 2dbd8ebb-66f8-11f0-a31d-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753187354; x=1753792154; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753187655; x=1753792455; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QoOSBOC2eC9FVqndrptDu4FjxF6qZqiGLt3XMK2WM18=;
-        b=eytn/FzEkZzmgkLM6pBovnrZwkPjOYiQ4n9/f4KfjStd+Fk96Fk8UJeWq5GJIMn82+
-         qeEZp+tbcS68cyqFG4t6U3Qq7UaSQP3J+kD1ALmhurj9VBk/0M4fZHNnyqWEm3vZyMcK
-         RuyQttHZA1KOMQjdEq+Z9AVFmJRK33xx47M4Ku9Jd47pgQQ7ryz0yzocOMGaX5/1qO2B
-         F8zsinVvCRNRkrEERxtoGJEXnpgzTMft0+rLPMt0nmGiOOXItbOj1A1JG+La3PwNSNdS
-         iY2x/j5gAY7DJGbaYJP3sY9fLVOKS173JZNO2/5SpUSGeqS2F2CU1ctXLF8dxFKkM0OP
-         B8MQ==
+        bh=UvVQcx2H7Pcvj2Rcx3WbUhig+IfT1QWyVbFVpiiv3EA=;
+        b=EVds0FEBbN9SP1LUJyZQ6R9bjRl6rkQQwGCfzrNEJ6BQZJhRhjoccNFg5Nry1M0dcB
+         FXKcGcmtXhgin0dhVS/hk/SElszWke8t5sdp3rVLmF3XhjGXJmJK7IPv3NQk/XQcFejy
+         JfBG8E20NbbCMscPvTr2SxCzmfY5CvvaU/AJ+m/gNv5tvQV/t31X4s2Dnkx/5SyBV+DQ
+         6Mr7EW2IgT/i6dfHRj8yMSdUkM8I8qK+szFDIq7UIJb8V4QDxhvMx47BY3OWjA2s+8z9
+         cXvVSTQ3673lhMSbvPNQf5vPeI1PcgF7AoFCAV5fMzu20vMLijPxGAYeeK/ZLSme/D4c
+         fCAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753187354; x=1753792154;
+        d=1e100.net; s=20230601; t=1753187655; x=1753792455;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QoOSBOC2eC9FVqndrptDu4FjxF6qZqiGLt3XMK2WM18=;
-        b=qAW5rCUeNEGqdZaZwYmtWGySduAcRC5o4JD8rUCaUpAqFwguWKxVTeCnftNEFYXs1z
-         smD5G/CHfOd1qctSA0aSArn6ctxvWtZg/w5mwcRSYEZFsUqQR2offoA/o0nUFf/NLO+H
-         IL/E/4Bfhl7fCGmtaEz2JX+NFP3zdZG9tuK5qWt/UmTvPeejNf73QipqAuI5KXuYk5Nu
-         k4glebUJMbm6uSRZAkQvahd8L3ySPZmImMczwIJp0ICqXYDkxWZuWScsQ3Jzfq3MUHp8
-         HJYq/fy9TuHmwY8vs9GlqbDocAtJ4z5VnOzVI9XleIg5GTNnw2oupOAtPk39V1znJ+jH
-         5dJQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXkJ3n+2SI+/BrbDmkt+tdTDiBoYrfIWfWh7RqZVJZ7ee74RUcu408Akse17Xx6JpD9R391DvRkmwA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzCcS3Uf5jwi5DZwn5OJN7MzRqmqBQXU1EFazfTA6TMWu2l15rO
-	hUzNfDRIwjhby78bPjWYJMKpBnN4i6mInMHNAVOBuRpc0su54OfGS2TNAMBnpvB0jQ==
-X-Gm-Gg: ASbGncstfUL7Mkf/aAVNMjo8GkJebcb3Kw97xFmPFw30VK7wbcr0uKCgPODVwmarbgs
-	KvCE1GJBPI10yIhATscOqbtCa8huS6KCPBlpvPoImErJN1TJc6M+3jb0/annVDhW3CbTH8fs1Kf
-	10VOpkQ+n536gJAundlbrF1vCMHRbr65UEvW/esUKzT8OK3lzQ+NFTMngssBUaeI476h+F0sWMR
-	o1DSQvndvr+OnUiF03mKtOl0Q90k7sm+KKvcRqbR9or3hI91mz66o0HsECJ0xZP9k2tffGX6pgh
-	hxbVToNkdXSU0U1dtpzES4eY6fAQDX1t/pqjP4sWMi2wea7tdqZviWsc+JpXGziRc8bVLbinFTD
-	3gj7KF9inmrkEfpf93ovnbAYvx63otIXKucnUcDmjKSiRPcKRizGC1Z+jpGbolYlnQNLKfPHytr
-	QF3egBAcI=
-X-Google-Smtp-Source: AGHT+IFOm0WU9fj85vCzGsK6c5nN7w+ra78niY3GYORv6vvK204tIANBQUmdgKvxRaaZc3CBa7KVLg==
-X-Received: by 2002:a05:6000:1449:b0:3a5:2fae:1348 with SMTP id ffacd0b85a97d-3b60dd886cdmr24344110f8f.51.1753187353709;
-        Tue, 22 Jul 2025 05:29:13 -0700 (PDT)
-Message-ID: <e4d857e1-99a3-4d49-8d5a-2734abc0aaab@suse.com>
-Date: Tue, 22 Jul 2025 14:29:02 +0200
+        bh=UvVQcx2H7Pcvj2Rcx3WbUhig+IfT1QWyVbFVpiiv3EA=;
+        b=fviyugs2ZnObhppibsrykL4ew3+MkMUZ773bR0cjk97zi6PHuOADbUB5XXqdk21SgU
+         or2o6KpUsc3DBuHIZAUU/IudkpOpJmCnXct8cSDQz6PknDXf1Rhm/SlAogTZUOVEMxC9
+         Bnelkwgtu0ccZExldLHfMeYBmQLJnQ+K1qc6+gAXgnFrCf1C5pUP2C9DTkwibmNJlwBq
+         s+GWg8n0b1Td2TvRMwQxBu5njfpC+m/8YDml35719O3H0LZSyFuTAD9aJ1xT5ZyoC2XG
+         SBPeIHkmn0omoa6+ZJSx+kFwIzo7RitJ5vLVYc6MlsneHSDoMy+Lf4T9LKUGMtxigW/V
+         iRQA==
+X-Forwarded-Encrypted: i=1; AJvYcCWIcixGZzkQm5XPJ8CcKZBJaTz/2pkG16DPCqd/Nd3MBc3KSEwFFrOlqPqnuF9/emzDtEVPuAV8mdg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwMuCkJjbOsQP1j8jYeXWypS/7ZAX4no/DwCtpAL3hC0c2CEYaw
+	NzJyaQBxVMx12yU9T5BspTB3Z5GbibwHmGCZKHEbesU8Eg1IAX+VW1Ts0aVWIErxoA==
+X-Gm-Gg: ASbGncuH0qerglSqMLfXzKpY+5j/e7XbwcLZR9vt0ThvQw3KjPb0LsUi3v88xiyDrvg
+	0IkwLBo5WQaDhnpjQEFmFbAm2dGd0rdGwO6Fkr1J0U3Z+EnnFFkiGXXIqkyE19a2FEtX2pANnMh
+	ExTih2/K15Z22UZ2PBz4oF0j+TOwWW5WjeT5x/mZ7cdRHU9o9CRucKSxSvGpwFo3/+fJjz47k4N
+	L9Mx5rXbsBx/vkGW7KNqazSB+lj5WBkTP9lBzbuzBs4I7263GjSkkdxoRF+jnP9WZmSzURVUFSt
+	jh1HJjIt1lfkMtS70RE67vyruYQs4JIrRKqExJCRx+9zMtbmj3V6+qejNSZeRaGg+FKHiIfoA7p
+	Ieo4sGh3mxednGSweM5wjr8djUtpbGEjSCLZQn2mr/QBtoR4bZU8/G+p/lQyylxtEHtDr3aKqnO
+	HYc8TMyjY=
+X-Google-Smtp-Source: AGHT+IEeN2hXpyhm47vOQqZ4L9qBBZFdYeZmlUjtFFLPbi4G+ORtUwnv8H9CaGNNL4jaW4avbpX82A==
+X-Received: by 2002:a05:6000:2484:b0:3a5:276b:1ec0 with SMTP id ffacd0b85a97d-3b60e51cebamr17346043f8f.45.1753187654773;
+        Tue, 22 Jul 2025 05:34:14 -0700 (PDT)
+Message-ID: <3ff863d9-764c-4478-9bb9-b783ff850185@suse.com>
+Date: Tue, 22 Jul 2025 14:34:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v5 05/10] drivers: iommu: change error code when iommu
- is disabled
+Subject: Re: [RFC PATCH v5 06/10] xen/domctl: extend XEN_DOMCTL_assign_device
+ to handle not only iommu
 To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
@@ -101,7 +101,7 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Grygorii Strashko <grygorii_strashko@epam.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <cover.1753184487.git.oleksii_moisieiev@epam.com>
- <bc9cb7eab522e6050996cba7341f36d07aff22c6.1753184487.git.oleksii_moisieiev@epam.com>
+ <aa4bf9a069721ace3b9da7409923455eed2f6896.1753184487.git.oleksii_moisieiev@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,21 +127,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <bc9cb7eab522e6050996cba7341f36d07aff22c6.1753184487.git.oleksii_moisieiev@epam.com>
+In-Reply-To: <aa4bf9a069721ace3b9da7409923455eed2f6896.1753184487.git.oleksii_moisieiev@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 22.07.2025 13:41, Oleksii Moisieiev wrote:
-> Change -ENOPNOTSUPP error code to -ENXIO when iommu is disabled during
-> iommu_do_domctl call. As was discussed in [1]
-> 
-> [0]: https://lore.kernel.org/xen-devel/alpine.DEB.2.22.394.2506171701190.1780597@ubuntu-linux-20-04-desktop/
+> @@ -859,7 +860,25 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+>      case XEN_DOMCTL_test_assign_device:
+>      case XEN_DOMCTL_deassign_device:
+>      case XEN_DOMCTL_get_device_group:
+> +        int ret1;
+> +        
+>          ret = iommu_do_domctl(op, d, u_domctl);
+> +        if ( ret < 0 && ret != -ENXIO )
+> +            return ret;
 
-Hmm, I can't read any justification for the choice of the particular error
-code out of that email. How's ENXIO going to be (and remain) unique? If you
-need a specific indication of the IOMMU being disabled, I think you want to
-have a specific query for that. Assuming XEN_SYSCTL_PHYSCAP_directio isn't
-enough (for whatever reason).
+If this is where you want the ENXIO for that the previous patch switched to,
+then I see no reason for that earlier change at all. Inside the hypervisor
+you can simply figure out what the right thing to do is; you could avoid
+calling iommu_do_domctl() altogether and call ...
+
+> +        /*
+> +         * Add chained handling of assigned DT devices to support
+> +         * access-controller functionality through SCI framework, so
+> +         * DT device assign request can be passed to FW for processing and
+> +         * enabling VM access to requested device.
+> +         * The access-controller DT device processing is chained after IOMMU
+> +         * processing and expected to be executed for any DT device
+> +         * regardless if DT device is protected by IOMMU or not (or IOMMU
+> +         * is disabled).
+> +         */
+> +        ret1 = sci_do_domctl(op, d, u_domctl);
+
+... this one right away, for example. (Which of course doesn't eliminate the
+question towards the overloading done here, which iirc was raised before.)
 
 Jan
 
