@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B894AB0E739
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 01:30:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1053085.1421843 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5623CB0E73B
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 01:33:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1053092.1421854 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueMQw-0003Ed-Pb; Tue, 22 Jul 2025 23:30:06 +0000
+	id 1ueMTb-0004Du-6I; Tue, 22 Jul 2025 23:32:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1053085.1421843; Tue, 22 Jul 2025 23:30:06 +0000
+Received: by outflank-mailman (output) from mailman id 1053092.1421854; Tue, 22 Jul 2025 23:32:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueMQw-0003B1-Mq; Tue, 22 Jul 2025 23:30:06 +0000
-Received: by outflank-mailman (input) for mailman id 1053085;
- Tue, 22 Jul 2025 23:30:05 +0000
+	id 1ueMTb-0004Ap-3H; Tue, 22 Jul 2025 23:32:51 +0000
+Received: by outflank-mailman (input) for mailman id 1053092;
+ Tue, 22 Jul 2025 23:32:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=X0Ar=2D=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1ueMQv-0002tj-1t
- for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 23:30:05 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ id 1ueMTZ-0004Aj-LN
+ for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 23:32:49 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id caa1b7ff-6753-11f0-a31d-13f23c93f187;
- Wed, 23 Jul 2025 01:30:03 +0200 (CEST)
+ id 2d1238f2-6754-11f0-a31d-13f23c93f187;
+ Wed, 23 Jul 2025 01:32:48 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 322D4668B0;
- Tue, 22 Jul 2025 23:30:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F389FC4CEEB;
- Tue, 22 Jul 2025 23:30:00 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 6C71FA564E3;
+ Tue, 22 Jul 2025 23:32:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE7CDC4CEEB;
+ Tue, 22 Jul 2025 23:32:45 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: caa1b7ff-6753-11f0-a31d-13f23c93f187
+X-Inumbo-ID: 2d1238f2-6754-11f0-a31d-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1753227001;
-	bh=7dgNBnhMHcRob017T7suK+xCfns2ClqoxGOCPXPA07Y=;
+	s=k20201202; t=1753227167;
+	bh=Wu+llJYGzKqeeDeiXrtHZde69DmAmUgcHOmvm6R2OsQ=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=YE5OkEOLnrBOw/xIHV/PmqTAk5m8j5ypVfFlHCy8XEHWHX3LvLOUY4Xn4uDZ8ADzW
-	 O0piYWLNgvIxnK59lhr54FYbuNSBO3kYAMt3TPV8Rz6ysTuWE9Okir+hFAlAVwsKcP
-	 D7JLmRWQpfseYamca51K7zWVqzmyCPRGLPNecmgV+TuN9xLAQUZHxwoZpy0tyvHBC4
-	 cRcjp8YLiWfSJPD/GqTJ4P3/IPnCHVmVii6bjctwmnjDEuvdTn65HcrP/W2MO4n8m+
-	 97w+3O9Zc6gmaO2i5O6+rOgdnCX0GnGezHjMti7EPFIrEhXmVs4oPFBJGIo2t0NJCQ
-	 KRlwE1T5Fi83g==
-Date: Tue, 22 Jul 2025 16:29:59 -0700 (PDT)
+	b=JdGW6grAAmSQJykpXZxZo7tzcj2SrFgVH2JEE0N8JA2/8jgnk1D/cJlRxYwoCoyOJ
+	 1CBMgnF2/35jWZuPBkzC3SYfzWozJY4uVLccDL8mtdKDjB5Rc8IZ5tEipvXPSrMA04
+	 UtNg6U4B5gTbbKLglyHn0qLZd00gLw0XZO3iSPvdGiyvxMqYdox9BpAi/6CzrD52C8
+	 UlznC0DM0BBY0y2QKX8M/k8gq7yW/5L+WgNsqwfbpDQNxx4IwJSLGKsnJq5kGvdi0N
+	 agKoWM+ckZEdOrUjqDJMq6MxMd+yszqbPRwzr0WHnCwsl09mlWBc1S526v1otyceGP
+	 /jcULHR+K8eJA==
+Date: Tue, 22 Jul 2025 16:32:44 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
@@ -60,91 +60,26 @@ cc: xen-devel@lists.xenproject.org,
     "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
     Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
     Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [PATCH 06/10] dom0less: Create llc_color_str field in
- boot_domain
-In-Reply-To: <20250722115955.57167-7-alejandro.garciavallejo@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2507221629150.7043@ubuntu-linux-20-04-desktop>
-References: <20250722115955.57167-1-alejandro.garciavallejo@amd.com> <20250722115955.57167-7-alejandro.garciavallejo@amd.com>
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Jan Beulich <jbeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH 08/10] dom0less: Allow arch_parse_dom0less_node() to be
+ fallible
+In-Reply-To: <20250722115955.57167-9-alejandro.garciavallejo@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2507221632370.7043@ubuntu-linux-20-04-desktop>
+References: <20250722115955.57167-1-alejandro.garciavallejo@amd.com> <20250722115955.57167-9-alejandro.garciavallejo@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Tue, 22 Jul 2025, Alejandro Vallejo wrote:
-> Later patches move the bindings to a separate function and expect the
-> outputs to land in fields of a boot_domain. Adjust llc_color_str to
-> live inside boot_domain so it can be parsed later on.
-> 
-> Not a functional change.
+> Let the function return an errno, so fallible bindings are not precluded.
 > 
 > Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-
-> ---
->  xen/common/device-tree/dom0less-build.c | 12 ++++++++----
->  xen/include/xen/bootfdt.h               |  5 +++++
->  2 files changed, 13 insertions(+), 4 deletions(-)
-> 
-> diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
-> index cee666786e..e1d723c796 100644
-> --- a/xen/common/device-tree/dom0less-build.c
-> +++ b/xen/common/device-tree/dom0less-build.c
-> @@ -834,7 +834,6 @@ void __init create_domUs(void)
->      BUG_ON(chosen == NULL);
->      dt_for_each_child_node(chosen, node)
->      {
-> -        const char *llc_colors_str = NULL;
->          struct kernel_info ki = KERNEL_INFO_INIT;
->          struct xen_domctl_createdomain *d_cfg = &ki.bd.create_cfg;
->          unsigned int *flags = &ki.bd.create_flags;
-> @@ -955,9 +954,11 @@ void __init create_domUs(void)
->              d_cfg->max_maptrack_frames = val;
->          }
->  
-> -        dt_property_read_string(node, "llc-colors", &llc_colors_str);
-> -        if ( !llc_coloring_enabled && llc_colors_str )
-> +#ifdef CONFIG_HAS_LLC_COLORING
-> +        dt_property_read_string(node, "llc-colors", &ki.bd.llc_colors_str);
-> +        if ( !llc_coloring_enabled && ki.bd.llc_colors_str )
->              panic("'llc-colors' found, but LLC coloring is disabled\n");
-> +#endif
->  
->          arch_create_domUs(node, d_cfg, *flags);
->  
-> @@ -972,10 +973,13 @@ void __init create_domUs(void)
->              panic("Error creating domain %s (rc = %ld)\n",
->                    dt_node_name(node), PTR_ERR(ki.bd.d));
->  
-> +#ifdef CONFIG_HAS_LLC_COLORING
->          if ( llc_coloring_enabled &&
-> -             (rc = domain_set_llc_colors_from_str(ki.bd.d, llc_colors_str)) )
-> +             (rc = domain_set_llc_colors_from_str(ki.bd.d,
-> +                                                  ki.bd.llc_colors_str)) )
->              panic("Error initializing LLC coloring for domain %s (rc = %d)\n",
->                    dt_node_name(node), rc);
-> +#endif /* CONFIG_HAS_LLC_COLORING */
->  
->          ki.bd.d->is_console = true;
->          dt_device_set_used_by(node, ki.bd.d->domain_id);
-> diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
-> index f107099263..0e82ccea2f 100644
-> --- a/xen/include/xen/bootfdt.h
-> +++ b/xen/include/xen/bootfdt.h
-> @@ -125,6 +125,11 @@ struct boot_domain {
->      /* Input arguments to create_domain() */
->      struct xen_domctl_createdomain create_cfg;
->      unsigned int create_flags;
-> +
-> +#ifdef CONFIG_HAS_LLC_COLORING
-> +    /* LLC color selection string */
-> +    const char *llc_colors_str;
-> +#endif
->  };
->  
->  #define BOOTMOD_MAX_CMDLINE 1024
-> -- 
-> 2.43.0
-> 
 
