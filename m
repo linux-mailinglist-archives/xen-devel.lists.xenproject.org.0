@@ -2,45 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68876B0DCE3
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 16:07:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1052675.1421434 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45056B0DCE1
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 16:07:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1052676.1421443 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueDdo-0005jO-Rp; Tue, 22 Jul 2025 14:06:48 +0000
+	id 1ueDdt-00062Z-4E; Tue, 22 Jul 2025 14:06:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1052675.1421434; Tue, 22 Jul 2025 14:06:48 +0000
+Received: by outflank-mailman (output) from mailman id 1052676.1421443; Tue, 22 Jul 2025 14:06:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueDdo-0005gb-Of; Tue, 22 Jul 2025 14:06:48 +0000
-Received: by outflank-mailman (input) for mailman id 1052675;
- Tue, 22 Jul 2025 14:06:46 +0000
+	id 1ueDds-0005zQ-Vu; Tue, 22 Jul 2025 14:06:52 +0000
+Received: by outflank-mailman (input) for mailman id 1052676;
+ Tue, 22 Jul 2025 14:06:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nbPo=2D=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1ueDdm-0005C5-P9
- for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 14:06:46 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ id 1ueDdq-0005C5-L4
+ for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 14:06:50 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 199eca69-6705-11f0-b894-0df219b8e170;
- Tue, 22 Jul 2025 16:06:45 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ id 1bf6ec80-6705-11f0-b894-0df219b8e170;
+ Tue, 22 Jul 2025 16:06:49 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4565C21229;
- Tue, 22 Jul 2025 14:06:43 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id D91C61F7D7;
+ Tue, 22 Jul 2025 14:06:48 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1B9FF13A32;
- Tue, 22 Jul 2025 14:06:43 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A464213A32;
+ Tue, 22 Jul 2025 14:06:48 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id k20sBfOaf2jDIAAAD6G6ig
- (envelope-from <jgross@suse.com>); Tue, 22 Jul 2025 14:06:43 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id qrjEJviaf2jHIAAAD6G6ig
+ (envelope-from <jgross@suse.com>); Tue, 22 Jul 2025 14:06:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,305 +51,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 199eca69-6705-11f0-b894-0df219b8e170
+X-Inumbo-ID: 1bf6ec80-6705-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1753193203; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1753193208; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5S7Qg1LGvq/pUj1Ya9/F/1uS3SdxtLh457+cNjBlml8=;
-	b=gx6dGARC0d9w92mQ20qLwpsJZInLbE9yuB6akh8MccTr18aQxGdgBwIR5okQCO+LKMssU+
-	FLXzFR29P8sY76fEgCqRbHS6/RAfBIu4S3HCo4QH9H8Udjm04wXbetcR+A5aRwn1i+8b3p
-	z8p+bBbIImkiwmtfcuOqzqpKhJh+Oog=
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=gx6dGARC
+	bh=cHyKMn6rOLYAADn9LvneZqj8E2CBWyfa2mbQTELxNcU=;
+	b=Dmv3VVzeTB3OE3YQHEHPs6sQ7y67dff0D3hErkj3eOH8LJGbyEj03LlmPP4bSLIqmus+S7
+	Bw4f0VMQns6JjfJg7paQ2zHEzyp2PjvKPxHb/aBRvkps7hXQSiWQCOWjOiYCm05Z7xd9+v
+	MzzHDy4wd7dG1+G64HLeTy8gdtb69Mw=
+Authentication-Results: smtp-out2.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1753193203; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1753193208; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5S7Qg1LGvq/pUj1Ya9/F/1uS3SdxtLh457+cNjBlml8=;
-	b=gx6dGARC0d9w92mQ20qLwpsJZInLbE9yuB6akh8MccTr18aQxGdgBwIR5okQCO+LKMssU+
-	FLXzFR29P8sY76fEgCqRbHS6/RAfBIu4S3HCo4QH9H8Udjm04wXbetcR+A5aRwn1i+8b3p
-	z8p+bBbIImkiwmtfcuOqzqpKhJh+Oog=
+	bh=cHyKMn6rOLYAADn9LvneZqj8E2CBWyfa2mbQTELxNcU=;
+	b=Dmv3VVzeTB3OE3YQHEHPs6sQ7y67dff0D3hErkj3eOH8LJGbyEj03LlmPP4bSLIqmus+S7
+	Bw4f0VMQns6JjfJg7paQ2zHEzyp2PjvKPxHb/aBRvkps7hXQSiWQCOWjOiYCm05Z7xd9+v
+	MzzHDy4wd7dG1+G64HLeTy8gdtb69Mw=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH 2/7] tools/xenstored: support specification of migration stream version
-Date: Tue, 22 Jul 2025 16:06:23 +0200
-Message-ID: <20250722140628.28947-3-jgross@suse.com>
+Subject: [PATCH 3/7] tools/xenstored: add missing migration record definitions
+Date: Tue, 22 Jul 2025 16:06:24 +0200
+Message-ID: <20250722140628.28947-4-jgross@suse.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250722140628.28947-1-jgross@suse.com>
 References: <20250722140628.28947-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Spam-Level: 
-X-Spam-Flag: NO
-X-Rspamd-Queue-Id: 4565C21229
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-3.01 / 50.00];
+X-Spamd-Result: default: False [-2.80 / 50.00];
 	BAYES_HAM(-3.00)[100.00%];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
 	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
+	FROM_HAS_DN(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
 	DKIM_SIGNED(0.00)[suse.com:s=susede1];
 	RCPT_COUNT_THREE(0.00)[4];
-	DKIM_TRACE(0.00)[suse.com:+]
-X-Spam-Score: -3.01
+	RCVD_TLS_ALL(0.00)[]
+X-Spam-Flag: NO
+X-Spam-Score: -2.80
 
-In order to prepare xenstored supporting migration stream versions
-other than 1, add a parameter to the live update command allowing to
-specify the version of the migration stream.
+Add all the missing migration record structures and defines to the
+xenstore_state.h header file.
 
-This will allow going back from xenstored using version 2 per default
-to a xenstored only accepting version 1.
-
-For now only version 1 is supported.
+Update the version of the migration stream to "2". In order to allow
+receiving version 1 streams, change the version check of the header
+to reject only streams with a version higher than the current known
+one.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- tools/xenstored/control.c           |  6 ++---
- tools/xenstored/lu.c                | 21 ++++++++++-----
- tools/xenstored/lu.h                |  1 +
- tools/xs-clients/xenstore_control.c | 41 ++++++++++++++++++++++-------
- 4 files changed, 50 insertions(+), 19 deletions(-)
+ tools/xenstored/control.c        |  2 +-
+ tools/xenstored/lu.c             |  2 +-
+ tools/xenstored/xenstore_state.h | 31 ++++++++++++++++++++++++++++++-
+ 3 files changed, 32 insertions(+), 3 deletions(-)
 
 diff --git a/tools/xenstored/control.c b/tools/xenstored/control.c
-index 9561289179..953c01b735 100644
+index 953c01b735..2611a6fade 100644
 --- a/tools/xenstored/control.c
 +++ b/tools/xenstored/control.c
-@@ -289,7 +289,7 @@ static struct cmd_s cmds[] = {
- 	 *    Mini-OS: -b <binary-size>
- 	 *             -d <size> <data-bytes> (multiple of those)
- 	 * 2. New command-line (optional): -c <cmdline>
--	 * 3. Start of update: -s [-F] [-t <timeout>]
-+	 * 3. Start of update: -s [-F] [-t <timeout>] [-v <version>]
- 	 * Any sub-operation needs to respond with the string "OK" in case
- 	 * of success, any other response indicates failure.
- 	 * A started live-update sequence can be aborted via "-a" (not
-@@ -297,8 +297,8 @@ static struct cmd_s cmds[] = {
- 	 * sub-operation).
+@@ -298,7 +298,7 @@ static struct cmd_s cmds[] = {
  	 */
  	{ "live-update", do_control_lu,
--		"[-c <cmdline>] [-F] [-t <timeout>] <file>\n"
--		"    Default timeout is 60 seconds.", 5 },
-+		"[-c <cmdline>] [-F] [-t <timeout>] [-v <version>] <file>\n"
-+		"    Default timeout is 60 seconds, default version is 1.", 7 },
+ 		"[-c <cmdline>] [-F] [-t <timeout>] [-v <version>] <file>\n"
+-		"    Default timeout is 60 seconds, default version is 1.", 7 },
++		"    Default timeout is 60 seconds, default version is 2.", 7 },
  #endif
  	{ "logfile", do_control_logfile, "<file>" },
  	{ "memreport", do_control_memreport, "[<file>]" },
 diff --git a/tools/xenstored/lu.c b/tools/xenstored/lu.c
-index 4fccbbc195..330820a8a2 100644
+index 330820a8a2..2c6adecb56 100644
 --- a/tools/xenstored/lu.c
 +++ b/tools/xenstored/lu.c
-@@ -283,7 +283,7 @@ static const char *lu_dump_state(const void *ctx, struct connection *conn)
- 		return "Dump state open error";
+@@ -136,7 +136,7 @@ void lu_read_state(void)
  
- 	memcpy(pre.ident, XS_STATE_IDENT, sizeof(pre.ident));
--	pre.version = htobe32(XS_STATE_VERSION);
-+	pre.version = htobe32(lu_status->version);
- 	pre.flags = XS_STATE_FLAGS;
- 	if (fwrite(&pre, sizeof(pre), 1, fp) != 1) {
- 		ret = "Dump write error";
-@@ -412,13 +412,16 @@ static bool do_lu_start(struct delayed_request *req)
- }
+ 	pre = state.buf;
+ 	if (memcmp(pre->ident, XS_STATE_IDENT, sizeof(pre->ident)) ||
+-	    pre->version != htobe32(XS_STATE_VERSION) ||
++	    !pre->version || be32toh(pre->version) > XS_STATE_VERSION ||
+ 	    pre->flags != XS_STATE_FLAGS)
+ 		barf("Unknown record identifier");
+ 	for (head = state.buf + sizeof(*pre);
+diff --git a/tools/xenstored/xenstore_state.h b/tools/xenstored/xenstore_state.h
+index bad966caf4..3fd97d60d8 100644
+--- a/tools/xenstored/xenstore_state.h
++++ b/tools/xenstored/xenstore_state.h
+@@ -27,8 +27,10 @@
+ #ifndef htobe32
+ #if __BYTE_ORDER == __LITTLE_ENDIAN
+ #define htobe32(x) __builtin_bswap32(x)
++#define be32toh(x) __builtin_bswap32(x)
+ #else
+ #define htobe32(x) (x)
++#define be32toh(x) (x)
+ #endif
+ #endif
  
- static const char *lu_start(const void *ctx, struct connection *conn,
--			    bool force, unsigned int to)
-+			    bool force, unsigned int to, unsigned int vers)
- {
- 	syslog(LOG_INFO, "live-update: start, force=%d, to=%u\n", force, to);
- 
- 	if (!lu_status || lu_status->conn != conn)
- 		return "Not in live-update session.";
- 
-+	if (!vers || vers > XS_STATE_VERSION)
-+		return "Migration stream version not supported.";
-+
- #ifdef __MINIOS__
- 	if (lu_status->kernel_size != lu_status->kernel_off)
- 		return "Kernel not complete.";
-@@ -426,6 +429,7 @@ static const char *lu_start(const void *ctx, struct connection *conn,
- 
- 	lu_status->force = force;
- 	lu_status->timeout = to;
-+	lu_status->version = vers;
- 	lu_status->started_at = time(NULL);
- 	lu_status->in = conn->in;
- 
-@@ -441,6 +445,7 @@ int do_control_lu(const void *ctx, struct connection *conn, const char **vec,
- 	unsigned int i;
- 	bool force = false;
- 	unsigned int to = 0;
-+	unsigned int vers = XS_STATE_VERSION;
- 
- 	if (num < 1)
- 		return EINVAL;
-@@ -457,15 +462,19 @@ int do_control_lu(const void *ctx, struct connection *conn, const char **vec,
- 			return EINVAL;
- 	} else if (!strcmp(vec[0], "-s")) {
- 		for (i = 1; i < num; i++) {
--			if (!strcmp(vec[i], "-F"))
-+			if (!strcmp(vec[i], "-F")) {
- 				force = true;
--			else if (!strcmp(vec[i], "-t") && i < num - 1) {
-+			} else if (!strcmp(vec[i], "-t") && i < num - 1) {
- 				i++;
- 				to = atoi(vec[i]);
--			} else
-+			} else if (!strcmp(vec[i], "-v") && i < num - 1) {
-+				i++;
-+				vers = atoi(vec[i]);
-+			} else {
- 				return EINVAL;
-+			}
- 		}
--		ret = lu_start(ctx, conn, force, to);
-+		ret = lu_start(ctx, conn, force, to, vers);
- 		if (!ret)
- 			return errno;
- 	} else {
-diff --git a/tools/xenstored/lu.h b/tools/xenstored/lu.h
-index dacc9b6e42..512b8a6db2 100644
---- a/tools/xenstored/lu.h
-+++ b/tools/xenstored/lu.h
-@@ -26,6 +26,7 @@ struct live_update {
- 	/* Start parameters. */
- 	bool force;
- 	unsigned int timeout;
-+	unsigned int version;
- 	time_t started_at;
+@@ -36,7 +38,7 @@ struct xs_state_preamble {
+     char ident[8];
+ #define XS_STATE_IDENT    "xenstore"  /* To be used without the NUL byte. */
+     uint32_t version;                 /* Version in big endian format. */
+-#define XS_STATE_VERSION  0x00000001
++#define XS_STATE_VERSION  0x00000002
+     uint32_t flags;                   /* Endianess. */
+ #if __BYTE_ORDER == __LITTLE_ENDIAN
+ #define XS_STATE_FLAGS    0x00000000  /* Little endian. */
+@@ -59,6 +61,9 @@ struct xs_state_record_header {
+ #define XS_STATE_TYPE_WATCH      0x00000003
+ #define XS_STATE_TYPE_TA         0x00000004
+ #define XS_STATE_TYPE_NODE       0x00000005
++#define XS_STATE_TYPE_GLB_QUOTA  0x00000006
++#define XS_STATE_TYPE_DOMAIN     0x00000007
++#define XS_STATE_TYPE_WATCH_EXT  0x00000008
+     uint32_t length;         /* Length of record in bytes. */
  };
  
-diff --git a/tools/xs-clients/xenstore_control.c b/tools/xs-clients/xenstore_control.c
-index 548363ee70..4b523931ce 100644
---- a/tools/xs-clients/xenstore_control.c
-+++ b/tools/xs-clients/xenstore_control.c
-@@ -26,7 +26,8 @@ static int add_to_buf(char **buf, const char *val, int len)
-     return len + vallen;
- }
+@@ -98,6 +103,15 @@ struct xs_state_watch {
+     uint8_t data[];         /* Path bytes, token bytes, 0-7 pad bytes. */
+ };
  
--static int live_update_start(struct xs_handle *xsh, bool force, unsigned int to)
-+static int live_update_start(struct xs_handle *xsh, bool force, unsigned int to,
-+                             unsigned int vers)
- {
-     int len = 0;
-     char *buf = NULL, *ret;
-@@ -40,6 +41,15 @@ static int live_update_start(struct xs_handle *xsh, bool force, unsigned int to)
-     free(ret);
-     if (force)
-         len = add_to_buf(&buf, "-F", len);
-+    if (vers) {
-+        if (asprintf(&ret, "%u", vers) < 0) {
-+            free(buf);
-+            return 1;
-+        }
-+        len = add_to_buf(&buf, "-v", len);
-+        len = add_to_buf(&buf, ret, len);
-+        free(ret);
-+    }
-     if (len < 0)
-         return 1;
- 
-@@ -197,7 +207,8 @@ static int send_kernel_blob(struct xs_handle *xsh, const char *binary)
-  * 3. start update (includes flags)
-  */
- static int live_update_stubdom(struct xs_handle *xsh, const char *binary,
--                               const char *cmdline, bool force, unsigned int to)
-+                               const char *cmdline, bool force, unsigned int to,
-+                               unsigned int vers)
- {
-     int rc;
- 
-@@ -211,7 +222,7 @@ static int live_update_stubdom(struct xs_handle *xsh, const char *binary,
-             goto abort;
-     }
- 
--    rc = live_update_start(xsh, force, to);
-+    rc = live_update_start(xsh, force, to, vers);
-     if (rc)
-         goto abort;
- 
-@@ -231,7 +242,8 @@ static int live_update_stubdom(struct xs_handle *xsh, const char *binary,
-  * 3. start update (includes flags)
-  */
- static int live_update_daemon(struct xs_handle *xsh, const char *binary,
--                              const char *cmdline, bool force, unsigned int to)
-+                              const char *cmdline, bool force, unsigned int to,
-+                              unsigned int vers)
- {
-     int len = 0, rc;
-     char *buf = NULL, *ret;
-@@ -256,7 +268,7 @@ static int live_update_daemon(struct xs_handle *xsh, const char *binary,
-             goto abort;
-     }
- 
--    rc = live_update_start(xsh, force, to);
-+    rc = live_update_start(xsh, force, to, vers);
-     if (rc)
-         goto abort;
- 
-@@ -270,7 +282,7 @@ static int live_update_daemon(struct xs_handle *xsh, const char *binary,
- static int live_update(struct xs_handle *xsh, int argc, char **argv)
- {
-     int rc = 0;
--    unsigned int i, to = 60;
-+    unsigned int i, to = 60, vers = 0;
-     char *binary = NULL, *cmdline = NULL, *val;
-     bool force = false;
- 
-@@ -291,10 +303,19 @@ static int live_update(struct xs_handle *xsh, int argc, char **argv)
-                 goto out;
-             }
-             to = atoi(argv[i]);
--        } else if (!strcmp(argv[i], "-F"))
-+        } else if (!strcmp(argv[i], "-F")) {
-             force = true;
--        else
-+        } else if (!strcmp(argv[i], "-v")) {
-+            i++;
-+            if (i == argc) {
-+                fprintf(stderr, "Missing version value\n");
-+                rc = 2;
-+                goto out;
-+            }
-+            vers = atoi(argv[i]);
-+        } else {
-             binary = argv[i];
-+        }
-     }
- 
-     if (!binary) {
-@@ -305,9 +326,9 @@ static int live_update(struct xs_handle *xsh, int argc, char **argv)
- 
-     val = xs_read(xsh, XBT_NULL, "/tool/xenstored/domid", &i);
-     if (val)
--        rc = live_update_stubdom(xsh, binary, cmdline, force, to);
-+        rc = live_update_stubdom(xsh, binary, cmdline, force, to, vers);
-     else
--        rc = live_update_daemon(xsh, binary, cmdline, force, to);
-+        rc = live_update_daemon(xsh, binary, cmdline, force, to, vers);
- 
-     free(val);
- 
++struct xs_state_watch_ext {
++    uint32_t conn_id;       /* Connection this watch is associated with. */
++    uint16_t path_length;   /* Number of bytes of path watched (incl. 0). */
++    uint16_t token_length;  /* Number of bytes of watch token (incl. 0). */
++    uint16_t depth;         /* Number of directory levels below watched path */
++                            /* to consider for a match. */
++    uint8_t data[];         /* Path bytes, token bytes, 0-7 pad bytes. */
++};
++
+ /* Transaction: */
+ struct xs_state_transaction {
+     uint32_t conn_id;       /* Connection this TA is associated with. */
+@@ -129,4 +143,19 @@ struct xs_state_node {
+     struct xs_state_node_perm perms[];
+     /* Path and data follows, plus 0-7 pad bytes. */
+ };
++
++/* Global quota data: */
++struct xs_state_glb_quota {
++    uint16_t n_dom_quota;   /* Number of quota values applying to domains. */
++    uint16_t n_glob_quota;  /* Number of quota values applying globally only. */
++    uint32_t quota_val[];   /* Array of quota values (domain ones first). */
++};
++
++/* Domain data: */
++struct xs_state_domain {
++    uint16_t domain_id;     /* Domain-id identifying the domain. */
++    uint16_t n_quota;       /* Number of quota values. */
++    uint32_t features;      /* Server features available to the domain. */
++    uint32_t quota_val[];   /* Array of quota values. */
++};
+ #endif /* XENSTORE_STATE_H */
 -- 
 2.43.0
 
