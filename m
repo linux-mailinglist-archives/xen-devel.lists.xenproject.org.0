@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 209F2B0D8C5
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 14:00:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1052398.1421125 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33DFBB0D8D8
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 14:03:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1052459.1421195 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueBfk-00062l-42; Tue, 22 Jul 2025 12:00:40 +0000
+	id 1ueBiZ-0002Lj-Op; Tue, 22 Jul 2025 12:03:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1052398.1421125; Tue, 22 Jul 2025 12:00:40 +0000
+Received: by outflank-mailman (output) from mailman id 1052459.1421195; Tue, 22 Jul 2025 12:03:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueBfj-0005zh-Ut; Tue, 22 Jul 2025 12:00:39 +0000
-Received: by outflank-mailman (input) for mailman id 1052398;
- Tue, 22 Jul 2025 12:00:39 +0000
+	id 1ueBiZ-0002IZ-LD; Tue, 22 Jul 2025 12:03:35 +0000
+Received: by outflank-mailman (input) for mailman id 1052459;
+ Tue, 22 Jul 2025 12:03:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=D6vH=2D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ueBfi-0003BS-Qo
- for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 12:00:38 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BNGt=2D=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1ueBiX-00024L-Vt
+ for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 12:03:34 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7a38101a-66f3-11f0-b894-0df219b8e170;
- Tue, 22 Jul 2025 14:00:36 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3a54690d369so4465405f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 22 Jul 2025 05:00:36 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31cc0bd12b5sm8232731a91.12.2025.07.22.05.00.28
+ id e3173a71-66f3-11f0-b894-0df219b8e170;
+ Tue, 22 Jul 2025 14:03:32 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-6097d144923so11518317a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Jul 2025 05:03:32 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-612c8f37064sm6832375a12.28.2025.07.22.05.03.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Jul 2025 05:00:35 -0700 (PDT)
+ Tue, 22 Jul 2025 05:03:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,261 +45,257 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a38101a-66f3-11f0-b894-0df219b8e170
+X-Inumbo-ID: e3173a71-66f3-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753185636; x=1753790436; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gVkrOzb/HD4h/IxKauVcjFix/YQNTi0To3MXHQX/IYs=;
-        b=J0We65s2nMEi5KZpnUSujO93avx8bnyvq+YAT8Kv5tyLlvSGsYCcJ7mej9PJHUV33M
-         wsrclFYjAFMaZ79fnm4wpdleOCcM//11f9mCmS3WJZ808LfSpTMGM8woBA/HhTn4f1Rd
-         u9DveYuadcsxeplGNr/YFhaEl0Se1+w5XX9vMh+UhN91aPpG0dk4k6h9tHfBqdScR10X
-         jSz1c7vxY06MAvQNXivIXCVsuOxZLeE6KGDtGU2r4P8FRGNJsytdTXFh/BdEt/AV+4uN
-         Y/M8QeCvswDTdrikrWdLFFk9QTBw7FS6xjcEy9GtzR4Q+SYalg0d0i6CAfh8Y9EjiNWQ
-         oP2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753185636; x=1753790436;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1753185812; x=1753790612; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gVkrOzb/HD4h/IxKauVcjFix/YQNTi0To3MXHQX/IYs=;
-        b=xR0NKT1HTdkCWBqlt8f6S3Psj+8trLpBnV5pHJGUx3u4bl2RsGdA6bjwBDYCRuC8/2
-         UTxbKEyTidGyu/eRUH37SO39tq/Xp2ZQ9or7HYLBOm/lFsQEDZAu5E1CLXtIhFOUy5h9
-         xAhh8n4PcmYzRzBX+sWRzup9ij4xTjuqtr2W3DB6FeHVzSMOMH7XQknnGqsz+HxKL6l1
-         tYc6q2eoWveWSG+vZ36ItHune3hRTTrkSUBIBZ6mwwwM1RKSZdoUwKOQausVxbN4ctuZ
-         HJKWb0GKt45bCwcKATgHNwAi69/FEfM0b/slnt5IbY7+Z67CCSECv77uXe1RaYjb1hpE
-         jVqw==
-X-Forwarded-Encrypted: i=1; AJvYcCWAKDx0wiBmuWt9k4zR/SzeIRDaPDgqQ8Il2tWtXTY3Z73rpqZk0kFgAEagyy1VQRtDh4iXGMFB150=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyXDqo1BaP5ENspO2z8vwisoo0fipi/HhQwY96Pqw1aZXlBsfeb
-	7Vu5TnjrCr9ICS6XXraJ2paCEE3ebMz+so8KxuUGcVolPCu2RnjwJVB+NYw7xiY1FA==
-X-Gm-Gg: ASbGncvjpWdF8VasisupeVDNdzQ41y2uWldEOia1Fmkz4CixR37WGWD2s3lQAF1hwYS
-	3NCe131cOoKfBLSDmlbpTFE0nB+8QX17Iqh2k6wKGTgwHlul+4d/Jk1mAYLdlHNsK0cqXskiz0B
-	jS0HOlpHtL6851IgMmhVAJSMzkwwQekmKk+msDpbLy+EJf27sFGsgS8nS3fUUIEGN4PBR927rqj
-	+PMjr4Owi+VMSSReqrNIa3Rsr3M1qA5QVwKSdh7ktrBO2XvzHKFOcdoa/dhRJDvOeMsEimfO8IJ
-	ApPc6cdrcLEkOKM1V6M1lDiIkEtetbtNthxNiYELuwDJRf09dnxRwaK6IkQXUnRnVfg4droOLqZ
-	2vj1xlHMvN2jSTH73KTjzHodUmTg87TO8tNL+a9G7Eh7pxs5HU/kv+H6cslD6O3FFl3QBqQDq21
-	ILw4KlFso=
-X-Google-Smtp-Source: AGHT+IGDtq52H1sBAnsgwpxcAZ86P3I0uBEjxy8hUL1XOVcE/TFJAmNCPQROPi+lGawtIcndu4f8MA==
-X-Received: by 2002:a05:6000:2c11:b0:3a8:6262:6ef5 with SMTP id ffacd0b85a97d-3b60e4b80a6mr20735696f8f.10.1753185635522;
-        Tue, 22 Jul 2025 05:00:35 -0700 (PDT)
-Message-ID: <25f17da6-1c82-422c-941a-b0eb57786c8f@suse.com>
-Date: Tue, 22 Jul 2025 14:00:24 +0200
+        bh=8SCf6mIWvVeYcXhvaw2+nU/Mjs2fT8Wg1c58D6TrT/A=;
+        b=GuSpxbO1nAAQHTneLb6AgcBIxW4VZOaKFqmBLb5IH+OI3FwpP0lGUXSVGF5E3oL1is
+         WdQTG8LCEQoMU3wBzxwgOAK+qMteKiQ0UZpSkT/a+zyx7LZGJ2kVuD/eV/DuptSYGwcC
+         M/SidPOlHmxmjNvFEBNkw+h818NhpsFNQvgitDLGN/spLdDX3Jx1OYdDvOXb5Nff5Bh6
+         X0OfQUznVX+y4JRb4MPJS/0zmlT/KZY29juLC+00OSAnpwyr7hKw4mCJMfDxpRUv9QbK
+         0FTwScT1gNr33Lg3X9x55+qa46bj2Mf+4p7i3wgvKDWu430ydAvHW2x8d6EOBdnAjVEz
+         xluQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753185812; x=1753790612;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=8SCf6mIWvVeYcXhvaw2+nU/Mjs2fT8Wg1c58D6TrT/A=;
+        b=ehZnY4RpB6sgY+P/EvplUOYdISIvN3O5PoIBMtPyMNXwJz+9SQvnQ4V9ZDr9SWsm1p
+         a5dGsQbJi7JwvRJdc7mt4xBlVIDSo/gMs2oiFAxfskTw0xFJq9NDHilZ3XXXgg8eaM4f
+         gpVFGDKiK+t7Dm47n8iQrgupZtggfk2PXvHEY2J/DDOT2R3QHygkf4ilZItH679F6Lu9
+         FT5PI939Nfs202viZz6nlu3LLdCdECEn47fntdsCrX1Zyiti7dJoXqsSz6DYfy4g++wS
+         E/e2Vcg2r8KUREMBll8nGsfv3urMMlEFn7nSqfMHxbnogbM9Y157qKCSWR292gcKzwcl
+         6jbw==
+X-Forwarded-Encrypted: i=1; AJvYcCXtDl3HGCAon3ogUCfB3wufapDLA6TzAh51y11U/KO1GehcUOYJohT9Fnyp72BWFLt7ervN/tz1AWY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxph/pMQb4mia+CQYYjD1EPLsjDyCj8hofell5PXzAM80uxL8sh
+	60K1hWna0n0jNUqSxs4i0SkgbvIp7IM9t13NU/HHSEMiWQPfI+7rZY+d
+X-Gm-Gg: ASbGncsE8WJ/BSSkvt8tTNV7ktOLO1bN+FfiBX4ggputjM7x6SHtGd968LxuQA+KqH/
+	VLf2QiDrF92pVbad3Ka9ODBuNW00QXXCb37h6ePufQkKF3Z+guSejxN+YSoNsi7/FPXs6FLp85T
+	G5fXP2Q02y4b2EBEBI54VKVmlNeoXSn42x/KXhxvskdO1TksJUzNJULeMOHXzOrmkEbZBKistdF
+	pb0+RKXmTAP4aqM+pUhC3nudOUNDr6R6ELZIx1h+F/xN7A8m2cXFvveVB2PN+TCIKc9rsIt65Nw
+	CyTF4K2gTpzsfjRUsS2hka14xv32TTokIOYzm0ibdfgIbBXNcahzNdjQ+r9Gt8OC4ekEI9nfIqr
+	lo2NRfdtviMBVCDpp20UxR3Xuux2YVTUCxaF+o2WaUY2GRVCJGDVhuEDM94ZTCBgrMFpX+70=
+X-Google-Smtp-Source: AGHT+IE44zUA6aMe9jdQFSbp2HDrKmG1uZprSO+/uIG7maFNE//flgzJ9U+6y8fCVn6JxcmxnWiYZQ==
+X-Received: by 2002:a05:6402:35d4:b0:602:427c:452b with SMTP id 4fb4d7f45d1cf-61346c91e67mr3161670a12.3.1753185811335;
+        Tue, 22 Jul 2025 05:03:31 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------begog9NdKk6YXoEFN9iQ8OZ3"
+Message-ID: <52accd52-a363-4545-8e5c-0a5de3ca8eeb@gmail.com>
+Date: Tue, 22 Jul 2025 14:03:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 13/17] xen/riscv: Implement p2m_entry_from_mfn() and
- support PBMT configuration
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v2 16/17] xen/riscv: implement mfn_valid() and page
+ reference, ownership handling helpers
+To: Jan Beulich <jbeulich@suse.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
  <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+ xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
 References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <994ab3dd6822c4cd02a6a576041da115abeff6ed.1749555949.git.oleksii.kurochko@gmail.com>
- <f6e789cd-0ef3-488d-94da-1b7c94946720@suse.com>
- <640178f8-a189-4f84-abff-0ef87ba566a5@gmail.com>
- <0265e61a-ad08-4b6b-a87d-dba304f6d27d@suse.com>
- <e1c469c3-47d5-4a38-8abd-985a26cb8365@gmail.com>
- <15c9cb8e-8452-4dc3-933a-5713fc86a12a@suse.com>
- <958ae1b0-d139-41e8-b965-43ce640569c5@gmail.com>
- <007654f3-e26b-43b1-bc81-40ba25c9d787@suse.com>
- <ca3467a2-c795-4709-ad92-1744b138a148@gmail.com>
- <9e9c1943-b2af-471f-b8c9-f7179073ef99@suse.com>
- <fb7176a2-740e-4773-b1cb-3cd430d6f838@gmail.com>
- <f110cd42-d34b-44fc-bd76-85cb0bfc2357@gmail.com>
+ <50159d05e75c14ca62ee6cab5a4d30645981827a.1749555949.git.oleksii.kurochko@gmail.com>
+ <aa769aa7-739c-4e59-8aea-d07398025b2f@suse.com>
+ <831c7c26-51e1-4834-b08e-03607cd438aa@suse.com>
+ <9dfc64b3-7dda-4620-9da6-388cecc3b9ad@gmail.com>
+ <b669f089-f0a1-4d46-a508-d8be8ea28975@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f110cd42-d34b-44fc-bd76-85cb0bfc2357@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <b669f089-f0a1-4d46-a508-d8be8ea28975@suse.com>
 
-On 22.07.2025 13:34, Oleksii Kurochko wrote:
-> 
-> On 7/22/25 12:41 PM, Oleksii Kurochko wrote:
->>
->>
->> On 7/21/25 2:18 PM, Jan Beulich wrote:
->>> On 18.07.2025 11:52, Oleksii Kurochko wrote:
->>>> On 7/17/25 12:25 PM, Jan Beulich wrote:
->>>>> On 17.07.2025 10:56, Oleksii Kurochko wrote:
->>>>>> On 7/16/25 6:18 PM, Jan Beulich wrote:
->>>>>>> On 16.07.2025 18:07, Oleksii Kurochko wrote:
->>>>>>>> On 7/16/25 1:31 PM, Jan Beulich wrote:
->>>>>>>>> On 15.07.2025 16:47, Oleksii Kurochko wrote:
->>>>>>>>>> On 7/1/25 5:08 PM, Jan Beulich wrote:
->>>>>>>>>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
->>>>>>>>>>>> --- a/xen/arch/riscv/p2m.c
->>>>>>>>>>>> +++ b/xen/arch/riscv/p2m.c
->>>>>>>>>>>> @@ -345,6 +345,26 @@ static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
->>>>>>>>>>>>           return __map_domain_page(p2m->root + root_table_indx);
->>>>>>>>>>>>       }
->>>>>>>>>>>>       
->>>>>>>>>>>> +static int p2m_type_radix_set(struct p2m_domain *p2m, pte_t pte, p2m_type_t t)
->>>>>>>>>>> See comments on the earlier patch regarding naming.
->>>>>>>>>>>
->>>>>>>>>>>> +{
->>>>>>>>>>>> +    int rc;
->>>>>>>>>>>> +    gfn_t gfn = mfn_to_gfn(p2m->domain, mfn_from_pte(pte));
->>>>>>>>>>> How does this work, when you record GFNs only for Xenheap pages?
->>>>>>>>>> I think I don't understand what is an issue. Could you please provide
->>>>>>>>>> some extra details?
->>>>>>>>> Counter question: The mfn_to_gfn() you currently have is only a stub. It only
->>>>>>>>> works for 1:1 mapped domains. Can you show me the eventual final implementation
->>>>>>>>> of the function, making it possible to use it here?
->>>>>>>> At the moment, I planned to support only 1:1 mapped domains, so it is final
->>>>>>>> implementation.
->>>>>>> Isn't that on overly severe limitation?
->>>>>> I wouldn't say that it's a severe limitation, as it's just a matter of how
->>>>>> |mfn_to_gfn()| is implemented. When non-1:1 mapped domains are supported,
->>>>>> |mfn_to_gfn()| can be implemented differently, while the code where it’s called
->>>>>> will likely remain unchanged.
->>>>>>
->>>>>> What I meant in my reply is that, for the current state and current limitations,
->>>>>> this is the final implementation of|mfn_to_gfn()|. But that doesn't mean I don't
->>>>>> see the value in, or the need for, non-1:1 mapped domains—it's just that this
->>>>>> limitation simplifies development at the current stage of the RISC-V port.
->>>>> Simplification is fine in some cases, but not supporting the "normal" way of
->>>>> domain construction looks like a pretty odd restriction. I'm also curious
->>>>> how you envision to implement mfn_to_gfn() then, suitable for generic use like
->>>>> the one here. Imo, current limitation or not, you simply want to avoid use of
->>>>> that function outside of the special gnttab case.
->>>>>
->>>>>>>>>>> In this context (not sure if I asked before): With this use of a radix tree,
->>>>>>>>>>> how do you intend to bound the amount of memory that a domain can use, by
->>>>>>>>>>> making Xen insert very many entries?
->>>>>>>>>> I didn’t think about that. I assumed it would be enough to set the amount of
->>>>>>>>>> memory a guest domain can use by specifying|xen,domain-p2m-mem-mb| in the DTS,
->>>>>>>>>> or using some predefined value if|xen,domain-p2m-mem-mb| isn’t explicitly set.
->>>>>>>>> Which would require these allocations to come from that pool.
->>>>>>>> Yes, and it is true only for non-hardware domains with the current implementation.
->>>>>>> ???
->>>>>> I meant that pool is used now only for non-hardware domains at the moment.
->>>>> And how does this matter here? The memory required for the radix tree doesn't
->>>>> come from that pool anyway.
->>>> I thought that is possible to do that somehow, but looking at a code of
->>>> radix-tree.c it seems like the only one way to allocate memroy for the radix
->>>> tree isradix_tree_node_alloc() -> xzalloc(struct rcu_node).
+This is a multi-part message in MIME format.
+--------------begog9NdKk6YXoEFN9iQ8OZ3
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+
+On 7/21/25 3:39 PM, Jan Beulich wrote:
+> On 18.07.2025 16:37, Oleksii Kurochko wrote:
+>> On 7/2/25 12:28 PM, Jan Beulich wrote:
+>>> On 02.07.2025 12:09, Jan Beulich wrote:
+>>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
+>>>>> @@ -613,3 +612,91 @@ void __iomem *ioremap(paddr_t pa, size_t len)
+>>>>>    {
+>>>>>        return ioremap_attr(pa, len, PAGE_HYPERVISOR_NOCACHE);
+>>>>>    }
+>>>>> +
+>>>>> +int page_is_ram_type(unsigned long mfn, unsigned long mem_type)
+>>>>> +{
+>>>>> +    ASSERT_UNREACHABLE();
+>>>>> +
+>>>>> +    return 0;
+>>>>> +}
+>>>>> +
+>>>>> +static struct domain *page_get_owner_and_nr_reference(struct page_info *page,
+>>>>> +                                                      unsigned long nr)
+>>>>> +{
+>>>>> +    unsigned long x, y = page->count_info;
+>>>>> +    struct domain *owner;
+>>>>> +
+>>>>> +    /* Restrict nr to avoid "double" overflow */
+>>>>> +    if ( nr >= PGC_count_mask )
+>>>>> +    {
+>>>>> +        ASSERT_UNREACHABLE();
+>>>>> +        return NULL;
+>>>>> +    }
+>>>> I question the validity of this, already in the Arm original: I can't spot
+>>>> how the caller guarantees to stay below that limit. Without such an
+>>>> (attempted) guarantee, ASSERT_UNREACHABLE() is wrong to use. All I can see
+>>>> is process_shm_node() incrementing shmem_extra[].nr_shm_borrowers, without
+>>>> any limit check.
 >>>>
->>>> Then it is needed to introduce radix_tree_node_allocate(domain)
->>> That would be a possibility, but you may have seen that less than half a
->>> year ago we got rid of something along these lines. So it would require
->>> some pretty good justification to re-introduce.
->>>
->>>> or radix tree
->>>> can't be used at all for mentioned in the previous replies security reason, no?
->>> (Very) careful use may still be possible. But the downside of using this
->>> (potentially long lookup times) would always remain.
->> Could you please clarify what do you mean here by "(Very) careful"?
->> I thought about an introduction of an amount of possible keys in radix tree and if this amount
->> is 0 then stop domain. And it is also unclear what should be a value for this amount.
->> Probably, you have better idea.
->>
->> But generally your idea below ...
->>>>>>>>>> Also, it seems this would just lead to the issue you mentioned earlier: when
->>>>>>>>>> the memory runs out,|domain_crash()| will be called or PTE will be zapped.
->>>>>>>>> Or one domain exhausting memory would cause another domain to fail. A domain
->>>>>>>>> impacting just itself may be tolerable. But a domain affecting other domains
->>>>>>>>> isn't.
->>>>>>>> But it seems like this issue could happen in any implementation. It won't happen only
->>>>>>>> if we will have only pre-populated pool for any domain type (hardware, control, guest
->>>>>>>> domain) without ability to extend them or allocate extra pages from domheap in runtime.
->>>>>>>> Otherwise, if extra pages allocation is allowed then we can't really do something
->>>>>>>> with this issue.
->>>>>>> But that's why I brought this up: You simply have to. Or, as indicated, the
->>>>>>> moment you mark Xen security-supported on RISC-V, there will be an XSA needed.
->>>>>> Why it isn't XSA for other architectures? At least, Arm then should have such
->>>>>> XSA.
->>>>> Does Arm use a radix tree for storing types? It uses one for mem-access, but
->>>>> it's not clear to me whether that's actually a supported feature.
->>>>>
->>>>>> I don't understand why x86 won't have the same issue. Memory is the limited
->>>>>> and shared resource, so if one of the domain will use to much memory then it could
->>>>>> happen that other domains won't have enough memory for its purpose...
->>>>> The question is whether allocations are bounded. With this use of a radix tree,
->>>>> you give domains a way to have Xen allocate pretty much arbitrary amounts of
->>>>> memory to populate that tree. That unbounded-ness is the problem, not memory
->>>>> allocations in general.
->>>> Isn't radix tree key bounded to an amount of GFNs given for a domain? We can't have
->>>> more keys then a max GFN number for a domain. So a potential amount of necessary memory
->>>> for radix tree is also bounded to an amount of GFNs.
->>> To some degree yes, hence why I said "pretty much arbitrary amounts".
->>> But recall that "amount of GFNs" is a fuzzy term; I think you mean to
->>> use it to describe the amount of memory pages given to the guest. GFNs
->>> can be used for other purposes, though. Guests could e.g. grant
->>> themselves access to their own memory, then map those grants at
->>> otherwise unused GFNs.
->>>
->>>> Anyway, IIUC I just can't use radix tree for p2m types at all, right?
->>>> If yes, does it make sense to borrow 2 bits from struct page_info->type_info as now it
->>>> is used 9-bits for count of a frame?
->>> struct page_info describes MFNs, when you want to describe GFNs. As you
->>> mentioned earlier, multiple GFNs can in principle map to the same MFN.
->>> You would force them to all have the same properties, which would be in
->>> direct conflict with e.g. the grant P2M types.
->>>
->>> Just to mention one possible alternative to using radix trees: You could
->>> maintain a 2nd set of intermediate "page tables", just that leaf entries
->>> would hold meta data for the respective GFN. The memory for those "page
->>> tables" could come from the normal P2M pool (and allocation would thus
->>> only consume domain-specific resources). Of course in any model like
->>> this the question of lookup times (as mentioned above) would remain.
->> ...looks like an optimal option.
->>
->> The only thing I worry about is that it will require some code duplication
->> (I will think how to re-use the current one code), as for example, when
->> setting/getting metadata, TLB flushing isn’t needed at all as we aren't
->> working with with real P2M page tables.
->> Agree that lookup won't be the best one, but nothing can be done with
->> such models.
-> 
-> Probably, instead of having a second set of intermediate "page tables",
-> we could just allocate two consecutive pages within the real P2M page
-> tables for the intermediate page table. The first page would serve as
-> the actual page table to which the intermediate page table points,
-> and the second page would store metadata for each entry of the page
-> table that the intermediate page table references.
-> 
-> As we are supporting only 1gb, 2mb and 4kb mappings we could do a little
-> optimization and start allocate these consecutive pages only for PT levels
-> which corresponds to 1gb, 2mb, 4kb mappings.
-> 
-> Does it make sense?
+>>>>> +    do {
+>>>>> +        x = y;
+>>>>> +        /*
+>>>>> +         * Count ==  0: Page is not allocated, so we cannot take a reference.
+>>>>> +         * Count == -1: Reference count would wrap, which is invalid.
+>>>>> +         */
+>>>> May I once again ask that you look carefully at comments (as much as at code)
+>>>> you copy. Clearly this comment wasn't properly updated when the bumping by 1
+>>>> was changed to bumping by nr.
+>>>>
+>>>>> +        if ( unlikely(((x + nr) & PGC_count_mask) <= nr) )
+>>>>> +            return NULL;
+>>>>> +    }
+>>>>> +    while ( (y = cmpxchg(&page->count_info, x, x + nr)) != x );
+>>>>> +
+>>>>> +    owner = page_get_owner(page);
+>>>>> +    ASSERT(owner);
+>>>>> +
+>>>>> +    return owner;
+>>>>> +}
+>>> There also looks to be a dead code concern here (towards the "nr" parameters
+>>> here and elsewhere, when STATIC_SHM=n). Just that apparently we decided to
+>>> leave out Misra rule 2.2 entirely.
+>> I think that I didn't get what is an issue when STATIC_SHM=n, functions is still
+>> going to be called through page_get_owner_and_reference(), at least, in page_alloc.c .
+> Yes, but will "nr" ever be anything other than 1 then? IOW omitting the parameter
+> would be fine. And that's what "dead code" is about.
 
-I was indeed entertaining this idea, but I couldn't conclude for myself if
-that would indeed be without any rough edges. Hence I didn't want to
-suggest such. For example, the need to have adjacent pairs of pages could
-result in a higher rate of allocation failures (while populating or
-re-sizing the P2M pool). This would be possible to avoid by still using
-entirely separate pages, and then merely linking them together via some
-unused struct page_info fields (the "normal" linking fields can't be used,
-afaict).
+Got it.
 
-Jan
+So we don't have any SAF-x tag to mark this function as safe. What is the best one
+solution for now if nr argument will be needed in the future for STATIC_SHM=y?
+
+~ Oleksii
+
+--------------begog9NdKk6YXoEFN9iQ8OZ3
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 7/21/25 3:39 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:b669f089-f0a1-4d46-a508-d8be8ea28975@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 18.07.2025 16:37, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+On 7/2/25 12:28 PM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 02.07.2025 12:09, Jan Beulich wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">On 10.06.2025 15:05, Oleksii Kurochko wrote:
+</pre>
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">@@ -613,3 +612,91 @@ void __iomem *ioremap(paddr_t pa, size_t len)
+  {
+      return ioremap_attr(pa, len, PAGE_HYPERVISOR_NOCACHE);
+  }
++
++int page_is_ram_type(unsigned long mfn, unsigned long mem_type)
++{
++    ASSERT_UNREACHABLE();
++
++    return 0;
++}
++
++static struct domain *page_get_owner_and_nr_reference(struct page_info *page,
++                                                      unsigned long nr)
++{
++    unsigned long x, y = page-&gt;count_info;
++    struct domain *owner;
++
++    /* Restrict nr to avoid "double" overflow */
++    if ( nr &gt;= PGC_count_mask )
++    {
++        ASSERT_UNREACHABLE();
++        return NULL;
++    }
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">I question the validity of this, already in the Arm original: I can't spot
+how the caller guarantees to stay below that limit. Without such an
+(attempted) guarantee, ASSERT_UNREACHABLE() is wrong to use. All I can see
+is process_shm_node() incrementing shmem_extra[].nr_shm_borrowers, without
+any limit check.
+
+</pre>
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">+    do {
++        x = y;
++        /*
++         * Count ==  0: Page is not allocated, so we cannot take a reference.
++         * Count == -1: Reference count would wrap, which is invalid.
++         */
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">May I once again ask that you look carefully at comments (as much as at code)
+you copy. Clearly this comment wasn't properly updated when the bumping by 1
+was changed to bumping by nr.
+
+</pre>
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">+        if ( unlikely(((x + nr) &amp; PGC_count_mask) &lt;= nr) )
++            return NULL;
++    }
++    while ( (y = cmpxchg(&amp;page-&gt;count_info, x, x + nr)) != x );
++
++    owner = page_get_owner(page);
++    ASSERT(owner);
++
++    return owner;
++}
+</pre>
+            </blockquote>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">There also looks to be a dead code concern here (towards the "nr" parameters
+here and elsewhere, when STATIC_SHM=n). Just that apparently we decided to
+leave out Misra rule 2.2 entirely.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+I think that I didn't get what is an issue when STATIC_SHM=n, functions is still
+going to be called through page_get_owner_and_reference(), at least, in page_alloc.c .
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Yes, but will "nr" ever be anything other than 1 then? IOW omitting the parameter
+would be fine. And that's what "dead code" is about.</pre>
+    </blockquote>
+    <pre>Got it.
+
+So we don't have any SAF-x tag to mark this function as safe. What is the best one
+solution for now if nr argument will be needed in the future for STATIC_SHM=y?
+
+~ Oleksii</pre>
+  </body>
+</html>
+
+--------------begog9NdKk6YXoEFN9iQ8OZ3--
 
