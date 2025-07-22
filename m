@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71AD1B0D25A
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 09:08:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1051987.1420470 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 566E9B0D264
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 09:16:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1051994.1420479 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ue76y-0008Bp-Nt; Tue, 22 Jul 2025 07:08:28 +0000
+	id 1ue7EH-0001UZ-EP; Tue, 22 Jul 2025 07:16:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1051987.1420470; Tue, 22 Jul 2025 07:08:28 +0000
+Received: by outflank-mailman (output) from mailman id 1051994.1420479; Tue, 22 Jul 2025 07:16:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ue76y-00089j-LJ; Tue, 22 Jul 2025 07:08:28 +0000
-Received: by outflank-mailman (input) for mailman id 1051987;
- Tue, 22 Jul 2025 07:08:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ue7EH-0001Rv-Bt; Tue, 22 Jul 2025 07:16:01 +0000
+Received: by outflank-mailman (input) for mailman id 1051994;
+ Tue, 22 Jul 2025 07:16:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=D6vH=2D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ue76x-00089b-GW
- for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 07:08:27 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a8ee97bd-66ca-11f0-b894-0df219b8e170;
- Tue, 22 Jul 2025 09:08:25 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3a5257748e1so2883400f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 22 Jul 2025 00:08:25 -0700 (PDT)
+ id 1ue7EG-0001Rp-Ft
+ for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 07:16:00 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b76b0183-66cb-11f0-a31d-13f23c93f187;
+ Tue, 22 Jul 2025 09:15:59 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-3a50956e5d3so3874495f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Jul 2025 00:15:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31e41cfa587sm670000a91.45.2025.07.22.00.08.17
+ 41be03b00d2f7-b3f2ff63104sm6357370a12.38.2025.07.22.00.15.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Jul 2025 00:08:24 -0700 (PDT)
+ Tue, 22 Jul 2025 00:15:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8ee97bd-66ca-11f0-b894-0df219b8e170
+X-Inumbo-ID: b76b0183-66cb-11f0-a31d-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753168105; x=1753772905; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753168559; x=1753773359; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=oXp9rQm1y0YekEb7ty/wvgA/L95dQ+GORNmpRyUPO68=;
-        b=K30FfCAUn44ITu8d0ei9RGBfN2JSUk3j9YFEFDAgU91qhQX/sYo1CsEFKqH8ns7s9z
-         3gzWjsneCtMAf9uheBw/LHvwSNd7lE5Oki651HgMUC7TjPyXWnHZxDqHon+TDoEp1DBu
-         /42CVzoomORGun6eijbkkolOWQ6Qs92faLrMifZ2qaF3RTOvj4Z/lLe19m/sFtatVLmg
-         +uYU5qhYSiPc88P85SgAPxPwu2JZQ3SoUYfTM78WupMsDCUfhSD3iVjOsXBWf6rCRN0S
-         C2qPfC8OBT3x7yb4Tc7hVyeBCdTlr2pYdVpUT20Fow98SPbWxSvjcMQ+3P72ZX8klBFZ
-         +tew==
+        bh=T8lNdzEynXUUcOj4vItC/6wTAYbtXu728+Ne1H0ai/s=;
+        b=FWvAGtXMKA2jkHy4EVjHeAmAw3pzdZtxZcmzM1uIt4PRDmOp116QsTwGaI9IHpmKpC
+         jT9ZBUe3wxeKBLqGG9Yw8tyspTn1munBuSk6Iv2vuiSlgGyVqth9PzJnA+QxECNF6nBy
+         2gFunSrpPhGq0uN1VSBXrtDrRqSpabR1/esLDF0Jo+nBopnPJIq9WZwgQpet/3h9KHQk
+         dHwyTwTT6b+WPB+Bgd1BQ/3QcBSiM3V5HDHhHC2tzOeoEfEjQ04FtMsxx1bD6NZ/yuNO
+         k6+DigF1OHQxm4kTF+Xo6rXF5ZNdNRlFaIDpvpJZr/lJrobF6WrmfGbrmDqc6BgO7wF9
+         Dvbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753168105; x=1753772905;
+        d=1e100.net; s=20230601; t=1753168559; x=1753773359;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=oXp9rQm1y0YekEb7ty/wvgA/L95dQ+GORNmpRyUPO68=;
-        b=rOFyrkPvK67UkIfH+0JiQ+ILqBDXnS/2UKxefNkE+QfxbeKepRS2JdoootSyMp3RlZ
-         0CGtI2SryGqBbVxKZ/DWg16d3amMn1rYdbK+5x1808lnE6nEYcFQ7bqFlUCYTbvCfc3g
-         t3Rluy4QnjlqFc8wHt8jgnkv0TzYG8mz7VG12ijYjR+7fsI0wq26NHS4b9HKrJOxkyG1
-         5iokajIuQ0ovXTYnA6NlPvzPfS9M4zsaiQI/Msp4otwuK+lnySWDgtOO+ISOkcXGTp6y
-         RITg3d7N9nM0iwoTJPmGizCWdOOrsAmjqTY5oJCHKcEsJ+KZ911Glk+XL2nDtPUQnRWg
-         GWNw==
-X-Forwarded-Encrypted: i=1; AJvYcCUYGCGcaXaUTuTRjl3Jv4pHF+ZDjAf6NUapeYD7YOe2NK/9JX1UFLIZD7twfaW4XtWuW0uvMYV9RMM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzgb7jiGxrexEdRLu1Ts8CCfoa5S14y/PhWXzg1EZSSWH/f6gPd
-	aRcJ1+8Kz9ZKTgq4TE8vxGjRk6ca/XIRq3aQ6sPYKWseWXLisOZW714e0SrSYa3vAA==
-X-Gm-Gg: ASbGncsYczlNzCeaL7/0sPBJXn0rjuWbatSIneayYC/FeBV1JjbI80er9DqEWnLW4ma
-	OR+5qCG5NXI+fmUcHCe7DEI0q9ms7eglsdc+LjVfC4u21leWjvVunQvWyNvaK+q4taL4ck2XzlG
-	FzwIHXejXaXC+d8md+xE4VBDh9dnM/ZmmhU9X/32QGdsPGIjJEZlgTDxbSPhNHbJ5yFmYdoa9gn
-	OA5yZ0qDXuEgZPFtxtGk4EIs2molL0qlXmyweaEngYsoTnGm3s4xPhnFsBD7MBZh8OrRxW1uJ1N
-	NyOIOaOYMq9vt/bvfGEQy4iTy94EFHIETnj5VllKZ9QlzkQedqFUa35ZlouWspkCsf+dowEUjcb
-	OIQ03NS20F1Uzm1W/14fz1voXf+271zq6aXBl1yBgEdOnacG/3uh2UiCRsIVku00mjwF1zTu80e
-	JQc3393U8=
-X-Google-Smtp-Source: AGHT+IGsDy+ELMInVKre0jFc4d0mMDOzluatU1j2bz5DR7t+2chUkcRvAP7+lqHiGGpHXDEF1xlMCA==
-X-Received: by 2002:a5d:5e8e:0:b0:3a4:ed1e:405b with SMTP id ffacd0b85a97d-3b60e53ef6dmr15383001f8f.46.1753168104699;
-        Tue, 22 Jul 2025 00:08:24 -0700 (PDT)
-Message-ID: <98dceb08-8d6f-4c37-bcac-a9f610860de6@suse.com>
-Date: Tue, 22 Jul 2025 09:08:14 +0200
+        bh=T8lNdzEynXUUcOj4vItC/6wTAYbtXu728+Ne1H0ai/s=;
+        b=J8PCxqWYvLEwSpPO6nZqnRHvdOz2/isOvpYpTgGh3hTWL+OdwAZTGR2UlxEAMtkfKS
+         DG8HejKVOhzbwuoMu9oqIAJr4w+9xmR3Bp1lXBqCS0SGXzIHzNrIkEUkHvpMhln9al6b
+         BKNWd2gmEiZ55JNv25yPDdnQKIMkEMzJRstkdupDo2xJ4RNfCqbf7XHRkcFR6NFpjZQ+
+         X6DLMJ0UA8GTce6Ke6+PdZQbIp/2NswYq0Pmej5rQ2j7oq3ejK512nNN7azdzUcYTCpr
+         p/RwF0X8GNQtEvWNRO8F1oysIk1jIw7C0/NlbwRVtTpZV/oZwXpTu/ch0CgB3vA0cRTN
+         wmqA==
+X-Forwarded-Encrypted: i=1; AJvYcCUq0/hUdJJO5tbpj4liG1jxKE4G2ERFIl8M+elGKRkXmx1D2SyJIZzlS/Ut3xdOdzFqPoQCWmZGxDY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyupNrYdAkgnd3Bs41XXgUMdV47SVXqddfPBwsFsb21dLp55BX1
+	6ROreEwPwZ0tH5dKq0MGMM0lO2sYuYjFIdGvjX5DOsfaWjY6xJoQ/yBcfd/UhkKVeg==
+X-Gm-Gg: ASbGncukd3kbPKgS8MGDRwg8ldf6yjeJjfBm0E4suEJd5ZE8iqidTnBv2q6W9GeH3WC
+	u3wXD6y661qvT9RObWw3izO3lMTEUw8dY7R90NcpD+FVRsHAkLDCM0NvHoqGZbTMXM6OzLRd5Zv
+	ytUAXDS1vMhKzLGL4bc/meRvO5ICZenFC4i45bYewc/SUMYL1AA5BFy4zSrSgbFM1GBbplQlmxD
+	LW+dMGfiZPzIT4zKZmniExRL5fXD6iRlntLJeORzBz0fCDsCAnhcxWNoWPocw5Z2hR/Wm0jtu0N
+	MSamPr9NU11p51zE1W/ZahDNiCzN+BCcYnp+wjogYcYUApwc3PGqbTrm9T8qI9sr703eAq8LyzT
+	L7VSM59TUgzZOyyyrX00IQoLgkbSB8MjIZjI6b+lcSbFgBmNd5VvPSKV2hKySnsec9Sct2uJpsi
+	3yNgTPJPI=
+X-Google-Smtp-Source: AGHT+IFqsdALFLfhvIArvG1BUBosmHrQbQwjRiHnJbP0+Jjym1/kTbTgmPGZzL5Tq0Dv49Wa2kPsxA==
+X-Received: by 2002:a5d:5f56:0:b0:3b7:5b40:703 with SMTP id ffacd0b85a97d-3b75b400d74mr5498730f8f.46.1753168558549;
+        Tue, 22 Jul 2025 00:15:58 -0700 (PDT)
+Message-ID: <0939219f-1c06-4d0d-a427-6b95b5943513@suse.com>
+Date: Tue, 22 Jul 2025 09:15:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 7/7] xen/sysctl: wrap around sysctl hypercall
-To: "Penny, Zheng" <penny.zheng@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [PATCH v1] xen: move getdomaininfo() to domain.c
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
- Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "Stabellini, Stefano" <stefano.stabellini@amd.com>
-References: <20250711043158.2566880-1-Penny.Zheng@amd.com>
- <20250711043158.2566880-8-Penny.Zheng@amd.com>
- <5238ec09-2a00-4f80-aea6-95a3ab617b0d@suse.com>
- <DM4PR12MB8451571C1DEBBA2F5FA66A87E15CA@DM4PR12MB8451.namprd12.prod.outlook.com>
- <a9443bf4-78ec-4731-8e05-dedd65547ed0@suse.com>
- <DM4PR12MB84512B6BEE55EF0CD281568BE15CA@DM4PR12MB8451.namprd12.prod.outlook.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <20250722050410.853783-1-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,91 +125,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB84512B6BEE55EF0CD281568BE15CA@DM4PR12MB8451.namprd12.prod.outlook.com>
+In-Reply-To: <20250722050410.853783-1-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 22.07.2025 08:59, Penny, Zheng wrote:
-> [Public]
+On 22.07.2025 07:04, Penny Zheng wrote:
+> Function getdomaininfo() is not only invoked by domctl-op, but also sysctl-op,
+> so it shall better live in domain.c, rather than domctl.c. Which is also
+> applied for arch_get_domain_info(). Style corrections shall be applied at
+> the same time while moving these functions, such as converting u64 to
+> uint64_t.
 > 
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Tuesday, July 22, 2025 1:33 PM
->> To: Penny, Zheng <penny.zheng@amd.com>
->> Cc: Huang, Ray <Ray.Huang@amd.com>; Stefano Stabellini
->> <sstabellini@kernel.org>; Andrew Cooper <andrew.cooper3@citrix.com>; Roger
->> Pau Monné <roger.pau@citrix.com>; Anthony PERARD
->> <anthony.perard@vates.tech>; Orzel, Michal <Michal.Orzel@amd.com>; Julien
->> Grall <julien@xen.org>; Sergiy Kibrik <Sergiy_Kibrik@epam.com>; xen-
->> devel@lists.xenproject.org; Stabellini, Stefano <stefano.stabellini@amd.com>
->> Subject: Re: [PATCH v8 7/7] xen/sysctl: wrap around sysctl hypercall
->>
->> On 22.07.2025 07:05, Penny, Zheng wrote:
->>> [Public]
->>>
->>>> -----Original Message-----
->>>> From: Jan Beulich <jbeulich@suse.com>
->>>> Sent: Thursday, July 17, 2025 4:55 PM
->>>> To: Penny, Zheng <penny.zheng@amd.com>; Stabellini, Stefano
->>>> <stefano.stabellini@amd.com>
->>>> Cc: Huang, Ray <Ray.Huang@amd.com>; Stefano Stabellini
->>>> <sstabellini@kernel.org>; Andrew Cooper <andrew.cooper3@citrix.com>;
->>>> Roger Pau Monné <roger.pau@citrix.com>; Anthony PERARD
->>>> <anthony.perard@vates.tech>; Orzel, Michal <Michal.Orzel@amd.com>;
->>>> Julien Grall <julien@xen.org>; Sergiy Kibrik
->>>> <Sergiy_Kibrik@epam.com>; xen- devel@lists.xenproject.org
->>>> Subject: Re: [PATCH v8 7/7] xen/sysctl: wrap around sysctl hypercall
->>>>
->>>> On 11.07.2025 06:31, Penny Zheng wrote:
->>>>> --- a/xen/common/Makefile
->>>>> +++ b/xen/common/Makefile
->>>>> @@ -49,6 +49,7 @@ obj-y += spinlock.o
->>>>>  obj-$(CONFIG_STACK_PROTECTOR) += stack-protector.o  obj-y +=
->>>>> stop_machine.o  obj-y += symbols.o
->>>>> +obj-$(CONFIG_SYSCTL) += sysctl.o
->>>>>  obj-y += tasklet.o
->>>>>  obj-y += time.o
->>>>>  obj-y += timer.o
->>>>> @@ -70,7 +71,6 @@ obj-$(CONFIG_COMPAT) += $(addprefix
->>>>> compat/,domain.o memory.o multicall.o xlat.o  ifneq
->>>>> ($(CONFIG_PV_SHIM_EXCLUSIVE),y) obj-y += domctl.o
->>>>>  obj-$(CONFIG_VM_EVENT) += monitor.o -obj-y += sysctl.o  endif
->>>>>
->>>>>  extra-y := symbols-dummy.o
->>>>
->>>> CI demonstrates that this combination of changes is wrong. The job
->>>> that failed
->>>> (debian-12-x86_64-gcc-ibt) is a randconfig one, and ended up picking
->>>> both SYSCTL=y and PV_SHIM_EXCLUSIVE=y. Which results in sysctl.c
->>>> being built, but domctl.c not being built. Which leaves
->>>> getdomaininfo() undefined, causing linking to fail. In case the next
->>>> pipeline also ends up failing, I'll simply revert that change. In
->>>> case it succeeds, not reverting may be an option, as long as a proper fix shows
->> up pretty quickly.
->>>
->>> I've push commit of " xen: move getdomaininfo() to domain.c " to try to fix the
->> error.
->>
->> And you're reasonably certain that's the only issue? I ask because it is the nature of
->> randconfig to pick random combinations of settings; on a later pipeline I had seen a
->> different failure. I didn't look at that in detail (it may have had to do with the domctl
->> lock or something vaguely similar), which perhaps was a mistake.
+> The movement could also fix CI error of a randconfig picking both SYSCTL=y
+> and PV_SHIM_EXCLUSIVE=y results in sysctl.c being built, but domctl.c not
+> being built, which leaves getdomaininfo() undefined, causing linking to fail.
 > 
-> I turned on HVM, HYPERV_GUEST, and VGA when PV_SHIM_EXCLUSIVE is on to track down more linking issues
-> All undefined link failure is due to removing PV_SHIM_EXCLUSIVE dependency for CONFIG_HVM, like monitor_traps, domctl_lock_acquire/domctl_lock_release, etc
-> I suggest to move domctl_lock_acquire/domctl_lock_release out of domctl.c too, and also "obj-$(CONFIG_VM_EVENT) += monitor.o" out of PV_SHIM_EXCLUSIVE guard
+> Fixes: 34317c508294 ("xen/sysctl: wrap around sysctl hypercall")
+> Reported-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 
-I'm not convinced of that approach; I'm curious what others think. One alternative
-would appear to be to have SYSCTL depend on DOMCTL (the latter yet to be introduced).
-As it stands, my vote would go towards reverting the final one or two patches. It's
-not entirely clear to me though why you say ...
+I'm not convinced of this approach. In the longer run this would mean wrapping
+everything you move in "#if defined(CONFIG_SYSCTL) || defined(CONFIG_DOMCTL)",
+which I consider undesirable. Without DOMCTL, the usefulness of
+XEN_SYSCTL_getdomaininfolist is at least questionable. Therefore adding more
+isolated "#ifdef CONFIG_DOMCTL" just there may be an option. Similarly, as
+mentioned on the other thread, having SYSCTL depend on DOMCTL is an approach
+which imo wants at least considering. And there surely are further options.
 
-> And above change, fwit, is to fix commit of " xen/x86: remove "depends on !PV_SHIM_EXCLUSIVE"  "
-
-... this. My understanding is that the issue became manifest with "xen/sysctl: wrap
-around sysctl hypercall", i.e. reverting just that one would suffice at least for
-the getdomaininfo() issue. Yet then "above" is ambiguous here, and hence may mean
-the domctl lock issue. Which then would indeed suggest we need to revert both.
+As indicated elsewhere, my preference goes towards reverting the final one or
+two patches of that series. They can be re-applied once the dependencies were
+properly sorted, which may (as per above) involve properly introducing a
+DOMCTL Kconfig setting first.
 
 Jan
 
