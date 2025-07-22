@@ -2,29 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B00CBB0E708
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 01:19:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1053056.1421803 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17A9EB0E721
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 01:22:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1053066.1421813 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueMGk-0007Xv-9S; Tue, 22 Jul 2025 23:19:34 +0000
+	id 1ueMJK-0000n0-OU; Tue, 22 Jul 2025 23:22:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1053056.1421803; Tue, 22 Jul 2025 23:19:34 +0000
+Received: by outflank-mailman (output) from mailman id 1053066.1421813; Tue, 22 Jul 2025 23:22:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueMGk-0007Vn-6B; Tue, 22 Jul 2025 23:19:34 +0000
-Received: by outflank-mailman (input) for mailman id 1053056;
- Tue, 22 Jul 2025 23:19:32 +0000
+	id 1ueMJK-0000kb-Lx; Tue, 22 Jul 2025 23:22:14 +0000
+Received: by outflank-mailman (input) for mailman id 1053066;
+ Tue, 22 Jul 2025 23:22:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=an6O=2D=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1ueMGi-0007VY-83
- for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 23:19:32 +0000
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=X0Ar=2D=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1ueMJJ-0000kV-3j
+ for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 23:22:13 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 510709cf-6752-11f0-b894-0df219b8e170;
- Wed, 23 Jul 2025 01:19:29 +0200 (CEST)
+ id b060be0a-6752-11f0-b894-0df219b8e170;
+ Wed, 23 Jul 2025 01:22:10 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 9A54C5C6478;
+ Tue, 22 Jul 2025 23:22:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB907C4CEEB;
+ Tue, 22 Jul 2025 23:22:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,122 +41,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 510709cf-6752-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1753226368; x=1753485568;
-	bh=ufIVCBPNXWBUhm+FcVlPTu+UOUC+FgmgimQrSFg1syM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=HZ5Pv0g20x3r4NRwS7telMl58a5ZcLaNX8R/Htz7da1dpLwzJAhj/bKKFbTdm0Zs2
-	 3urD6fNuc4f5xWS4nfex/Da6km4MBaSugRVnmt3JPtHBBNsl5MFKgIsJoS4T4eAElY
-	 MFZY3UI8nUVnsWaWOaIQcyx1L/J+Nu1suawwWaZh8UAyg1/BMxfi6chBPZdyQFTDbY
-	 L5sWHL2b3HbDrHchUc6+bEW7hLRjioIQ2UEFpofXHWQeixzdWzNq2mopofz1mWlS2Q
-	 rfHI7cqEPBQLuy8atAo8zGg+iOro2h7wxs7X5sxFmEGcikSt9LIGec9JGAePz85U7M
-	 4T97rn0S1nwrA==
-Date: Tue, 22 Jul 2025 23:19:24 +0000
+X-Inumbo-ID: b060be0a-6752-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1753226528;
+	bh=ae3Qpt6KfjYlqn53qxmk5eTnLEbRGS2uHsq9eqaw9Ow=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=KomlUaAgyNwBS5kNJVg91r1+82X3gYPdvUyFmBlOdEYSV+beKai+hL6KXLLvFsDEu
+	 dbu6LVyIaaKIk8f38FDSs3HuoE0JtCjuH00Rp/YzJ6uZhYtt/b8rrKX/Q+AWgiSBL6
+	 VQZej5EXAeblrFYo/snxzeT3DaZdgWGOjdUW9rfGJUL/ltEuLSIPBzXrBYegEvoW2b
+	 w37FaIjF4k/K1d8mYasvvswmj5vf3N/R9YpmSL5F0O+luA7Rn8jX10oTHZdjuF3HAi
+	 CIbe3xXDbKXzVR2U/nfHVrJMohRq7TJFtBAK/xeVZ+zUZSRkL5T+WMZAQ8ng81fX5B
+	 m3NY41ZloTZGw==
+Date: Tue, 22 Jul 2025 16:22:05 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-From: dmkhn@proton.me
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, Xen-devel <xen-devel-bounces@lists.xenproject.org>
-Subject: Re: [PATCH v10 2/3] xen/domain: update create_dom0() messages
-Message-ID: <aIAceOe9k/PkHqnW@kraken>
-In-Reply-To: <DBE9HJ5W3RUO.2K451XN5JAWG9@amd.com>
-References: <20250623182721.194238-1-dmukhin@ford.com> <20250623182721.194238-3-dmukhin@ford.com> <DBE9HJ5W3RUO.2K451XN5JAWG9@amd.com>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 62b4ac44ceed078ab3d7d995aeafcd3647aa9726
+cc: Jan Beulich <jbeulich@suse.com>, Alejandro Vallejo <agarciav@amd.com>, 
+    "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Stefano Stabellini <stefano.stabellini@amd.com>, 
+    Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 01/10] static-evtchn: Add missing include
+In-Reply-To: <DBILBC1UJ0QZ.2KU2PDGDO14H9@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2507221621520.7043@ubuntu-linux-20-04-desktop>
+References: <20250722115955.57167-1-alejandro.garciavallejo@amd.com> <20250722115955.57167-2-alejandro.garciavallejo@amd.com> <c72a8ff3-e3e3-437d-b169-031571a18dcc@suse.com> <DBILBC1UJ0QZ.2KU2PDGDO14H9@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 
-On Thu, Jul 17, 2025 at 12:34:56PM +0200, Alejandro Vallejo wrote:
-> On Mon Jun 23, 2025 at 8:28 PM CEST, dmkhn wrote:
-> > From: Denis Mukhin <dmukhin@ford.com>
+On Tue, 22 Jul 2025, Alejandro Vallejo wrote:
+> On Tue Jul 22, 2025 at 2:10 PM CEST, Jan Beulich wrote:
+> > On 22.07.2025 13:59, Alejandro Vallejo wrote:
+> >> From: Alejandro Vallejo <agarciav@amd.com>
+> >> 
+> >> When later on x86 starts using this file in later patches it won't find
+> >> device_tree.h because it's only transitively included by arm.
+> >> 
+> >> Make it explicit.
+> >> 
+> >> Not a functional change.
+> >> 
+> >> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+> >> Acked-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> >> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 > >
-> > Use %pd for domain identification in error/panic messages in create_dom=
-0().
+> > I'm certainly happy to trust you, but on a v1 submission I'm a little
+> > surprised to find two tags present already.
 > >
-> > No functional change.
-> >
-> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
->=20
-> nit below. But with or without that change:
->=20
->   Reviewed-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+> > Jan
+> 
+> They came out of internal review, and I didn't really want to drop them.
 
-Thanks
-
->=20
-> > ---
-> > Changes since v9:
-> > - new patch
-> > ---
-> >  xen/arch/arm/domain_build.c | 8 ++++----
-> >  xen/arch/x86/setup.c        | 4 ++--
-> >  2 files changed, 6 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> > index 9fa5143eb98c..b59b56636920 100644
-> > --- a/xen/arch/arm/domain_build.c
-> > +++ b/xen/arch/arm/domain_build.c
-> > @@ -2080,17 +2080,17 @@ void __init create_dom0(void)
-> >
-> >      dom0 =3D domain_create(domid, &dom0_cfg, flags);
-> >      if ( IS_ERR(dom0) )
-> > -        panic("Error creating domain 0 (rc =3D %ld)\n", PTR_ERR(dom0))=
-;
-> > +        panic("Error creating d%d (rc =3D %ld)\n", domid, PTR_ERR(dom0=
-));
-> >
-> >      if ( llc_coloring_enabled && (rc =3D dom0_set_llc_colors(dom0)) )
-> > -        panic("Error initializing LLC coloring for domain 0 (rc =3D %d=
-)\n", rc);
-> > +        panic("Error initializing LLC coloring for %pd (rc =3D %d)\n",=
- dom0, rc);
-> >
-> >      if ( alloc_dom0_vcpu0(dom0) =3D=3D NULL )
-> > -        panic("Error creating domain 0 vcpu0\n");
-> > +        panic("Error creating %pdv0\n", dom0);
-> >
-> >      rc =3D construct_dom0(dom0);
-> >      if ( rc )
-> > -        panic("Could not set up DOM0 guest OS (rc =3D %d)\n", rc);
-> > +        panic("Could not set up guest OS for %pd (rc =3D %d)\n", dom0,=
- rc);
->=20
-> nit: s/guest OS for %pd/%pd guest OS/
-
-Ack
-
->=20
-> >
-> >      set_xs_domain(dom0);
-> >  }
-> > diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> > index 7adb92d78a18..28bcfd1861d4 100644
-> > --- a/xen/arch/x86/setup.c
-> > +++ b/xen/arch/x86/setup.c
-> > @@ -1080,7 +1080,7 @@ static struct domain *__init create_dom0(struct b=
-oot_info *bi)
-> >
-> >          if ( (strlen(acpi_param) =3D=3D 0) && acpi_disabled )
-> >          {
-> > -            printk("ACPI is disabled, notifying Domain 0 (acpi=3Doff)\=
-n");
-> > +            printk("ACPI is disabled, notifying %pd (acpi=3Doff)\n", d=
-);
-> >              safe_strcpy(acpi_param, "off");
-> >          }
-> >
-> > @@ -1095,7 +1095,7 @@ static struct domain *__init create_dom0(struct b=
-oot_info *bi)
-> >
-> >      bd->d =3D d;
-> >      if ( construct_dom0(bd) !=3D 0 )
-> > -        panic("Could not construct domain 0\n");
-> > +        panic("Could not construct %pd\n", d);
-> >
-> >      bd->cmdline =3D NULL;
-> >      xfree(cmdline);
->=20
+I confirm
 
 
