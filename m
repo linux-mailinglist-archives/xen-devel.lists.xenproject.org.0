@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B74DCB0E0F7
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 17:52:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1052885.1421655 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 388B5B0E107
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 17:57:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1052899.1421687 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueFHe-0008C5-2V; Tue, 22 Jul 2025 15:52:02 +0000
+	id 1ueFM5-0000ab-Sm; Tue, 22 Jul 2025 15:56:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1052885.1421655; Tue, 22 Jul 2025 15:52:02 +0000
+Received: by outflank-mailman (output) from mailman id 1052899.1421687; Tue, 22 Jul 2025 15:56:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueFHd-0008AS-Tt; Tue, 22 Jul 2025 15:52:01 +0000
-Received: by outflank-mailman (input) for mailman id 1052885;
- Tue, 22 Jul 2025 15:52:00 +0000
+	id 1ueFM5-0000XX-Pv; Tue, 22 Jul 2025 15:56:37 +0000
+Received: by outflank-mailman (input) for mailman id 1052899;
+ Tue, 22 Jul 2025 15:56:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=D6vH=2D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ueFHc-0008AM-C4
- for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 15:52:00 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ id 1ueFM3-0000XJ-Vx
+ for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 15:56:35 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ccb4df57-6713-11f0-a31d-13f23c93f187;
- Tue, 22 Jul 2025 17:51:58 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3a522224582so2797745f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 22 Jul 2025 08:51:58 -0700 (PDT)
+ id 71b3b704-6714-11f0-a31d-13f23c93f187;
+ Tue, 22 Jul 2025 17:56:35 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3a6d77b43c9so4348387f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Jul 2025 08:56:35 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31cc3f2e1fesm8446465a91.31.2025.07.22.08.51.53
+ d9443c01a7336-23e3b6ef76bsm78927285ad.210.2025.07.22.08.56.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Jul 2025 08:51:57 -0700 (PDT)
+ Tue, 22 Jul 2025 08:56:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ccb4df57-6713-11f0-a31d-13f23c93f187
+X-Inumbo-ID: 71b3b704-6714-11f0-a31d-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753199518; x=1753804318; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753199795; x=1753804595; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KXKshVbtG6VK1bFKIwwR7I+g25+XvP2uBmnNaQpDoZ0=;
-        b=blayK1Cnyqt8gwaCinHKeQX+Ut6rgf+8w1PrDvz6HsCJhW15cR78N2qkN2D/CWdDZ2
-         gnaTRFRvQTo1lIM7fDpvOOMR2AuP9AmY2M+84JDksnp/BoZAXql+rsL0oFJVq8IyUZ06
-         fdQU3c4l6oPjI8QVpB0J3eCPyXXzRsyi8wZM7CXQVLFyKYbfOywqhqXryU7eoxP/7QBv
-         +xOsBIvKlxI5yKB8auFuds3BU+kqUgS/sJZMfM0t0KLQQlzzbtuaNCYUnzlI4qDU5Hnu
-         NM+/IqA976PziJlwhIa7wagsNTRj6mdpqVu1eiSLsQ1cl++XLgWyifiEUuRR744BMWyo
-         ohNQ==
+        bh=WJBRrqkhzFbdR1jTJWQ1StBVsJTRdxpD5XxRwiIgRRI=;
+        b=MyVfiDQWzZJcJNxBBFwIzjqEkxee2/1UnFHjZrE8ZNcfFTMMb36zs8YenW2mEnGu03
+         52mSD5ROgbToXCpin8itySmcQxvm4x8p3NwzDRx6fjeQ3b0gu3lfQp9I3eqglE0yHQbV
+         B4McxO9svPona+5D9Pd01JPc5mcgXLfYU+Gjv56IWk0Rgt88TQaeGAUXpoPSNIM4d0TS
+         buaKG1NWNnsIUAkJwG80JiTpfBdCAkwf/uHoMhp/qTqISto7YICRQQ7guRVd87K6Nn6s
+         2OOGWwTAXVPVakIny/iLnLA9EcVnzM4entZQsNEMZJ9gEHqnAqtFeIVUBNRz7YeZX+Cb
+         rnEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753199518; x=1753804318;
+        d=1e100.net; s=20230601; t=1753199795; x=1753804595;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KXKshVbtG6VK1bFKIwwR7I+g25+XvP2uBmnNaQpDoZ0=;
-        b=v8vc0ArpOqMTAMYPkmI7kVWXJcMSjV/GUhhHf+GX0KEBXRy1KDu2X4sYpVLxS2Jy+R
-         UUws35S9Ma9udj5O776bB0XrFtoUJMd8qLr9s6OFCo1Jk0B6q0+oM1c+J4hxMj5D0P52
-         sO8bXqRe0+VwmTJSPQqZ8DxtAS+YP84ZCFo5UtRVNZiPhiktazQHpa+AyYdDInvLXtFa
-         9eN3gv232klMS94nMlzRUGj3c4fBswXRdgckSE1/7Gu2nkdnPCJWZAaW5emhJtaIrTuT
-         vvJnkjC8cTB7RnuReFoT497HKHsGX4GalRXhIZrd318F1dy0p4fa5eEMr9gqPLWb8BNT
-         hGJw==
-X-Forwarded-Encrypted: i=1; AJvYcCU+Ylio2Nl7T0TfOK1iwpDAaP7AIB8qZmXhyNEjXYyMcl0rsnKGowthrAT+JGi6QAgkMeRo0+YAH0Q=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxTvbnJii28pxkiOxD65FFBy5/ToD31xPAjtT5dXaR3+dLvmJm5
-	14l3qFsKTL24fj6xiIt9gGkOjfjXNHD+KycfFTWqhqjwrpxO3hSVR+w6pKzD2DrRAw==
-X-Gm-Gg: ASbGnctWTyH8Lob8VwQy4xjy9KL0uBHZbp1IZ+92pbzY5OsHXPv/JrfP5+SZNYySX/A
-	2HQadsgHL7M12JhdIzbPupxv4wTR1Cl5FoWu04DsZexJ/xGyVsZ/0lsRkj76seqAwJK7MxdJ4Z2
-	0IqPylxkAlgqmpaZnFC3bVAr0XPwkTGhYdV5F8IHTmNa+6pnI3rmrvH4K4vPTlzurbOrOFi+AxH
-	Vrjmcaml1h9o6/Argf7lxbLK0lcJofXUzmf9VWByFnvGQmIdIgsGWoY6zUeK1pm93XdU9Fu3HHo
-	kuuNgAr5da2zsv5pP7F0e84DoyHi5hnFvbEktDDdD3Yy2wuI0MOA/TkgDgEOKs8Y6amixrZ6LI0
-	oN3CUR/Sbiwx7BTIvvkF7Ikw5lVfaMqyAP+VyMSlXpB6tIHpfq2a/sEoqWoTwvqLh2FM7vAbvSV
-	uTiz18/Cs=
-X-Google-Smtp-Source: AGHT+IFFv1ffgrjJKNtPJAdyvFl5xCjZQiO4z1cuFHZGt8M3czYzNtf5xANe88rcjLQAIaVaFRCmOw==
-X-Received: by 2002:a05:6000:4606:b0:3a5:3af1:e21b with SMTP id ffacd0b85a97d-3b60dd9988amr18831376f8f.47.1753199517974;
-        Tue, 22 Jul 2025 08:51:57 -0700 (PDT)
-Message-ID: <ba64b28d-1db8-47a2-a26f-9862dd9994cd@suse.com>
-Date: Tue, 22 Jul 2025 17:51:48 +0200
+        bh=WJBRrqkhzFbdR1jTJWQ1StBVsJTRdxpD5XxRwiIgRRI=;
+        b=OGjBbkpD1zM7z9ZttrvtYPWXxuqio+umuARuSJM7LhZH3fRWCHiVWLkTVLi1XWApO2
+         lHdzZ88avJncpq82FYFveVI8ub2KYzDvh4931gyVSTztnC5bJVdT5YFDU9n08e9S+d/m
+         9ExUuauyXA6Ha9RfVR0wStuITWdftWV4XdVk6+aIgNYP+iHW7Nh9iXG5QCJ///JiebpT
+         7WIvEWkiMmIrLLEtllVJrJ6trOdCCVuA670anEjxjAaDvF66AuMi2/T1A/+BcsBOU6gz
+         YebbEMQ63mgN7CmKofeorr761QThtKES7grC8P/mEwPrJ7vm9TrJqp4XjIIZp/PRMo7W
+         Q9ZQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWxKocm7HHfoyH57WsRr6jNLfyzbOUcBh4P3h5qB/WBJbCEP8ElP1RxgvFoBmM2+ZABoF3BeWr8fIU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzRLNwoXGN3JNo4mWO3l6I+2WvvpFmfsAglr8Nx14rI3s/pMy0F
+	BhdKj5DyA7y8ohYMy5cjZhgtUTaprQBDgs9MC5t12sufxWGekPbjlVt3bYGrapehmg==
+X-Gm-Gg: ASbGncsBiYeVBGqs6i9EQTFEi+3NFQUFi8QgVevT7eRrq131/PFc/vvRNyCeDT1SrR6
+	CaHZWUHstYL52uC7YvEaW2mW/MLIPLtauJ1KZV2sjVVL60X0sFo+7cFTNpuAunX0T84YPboooC8
+	LS4UZP2mmWn2jWmFW4ZxC1nctzaNNlh0TFfIZYywNqnOCjhNLBex7rEMRBRdWUMXzOFPrdeBrZx
+	bvH7CTkitRQoRk6U/a2dhFwhtSjTEC93HtKyYyFsAz8P/87MOQnAUlsD/5b8gRA0CMHuY2Z6CA2
+	B1ypPF2/HHRBRfRab+b8eGM2HAmYIq40Sps6EQ4EHDnLPuHCOX5TsmK8453Gj9AzbS5Oyd0J6zx
+	H3Zu0+0SOx0dyO05BYbnPH+aIR7JKJApaXNS2dryFAVN9jd1Ts8rRp/QwWq/XU6xwAMYFkMTkAl
+	WW7hkVryfwAzUhp0YwgQ==
+X-Google-Smtp-Source: AGHT+IEy21kEqQG2VewPcrmhdArWnxRAX74B6LJ/hpF0kD/ClRdKNq/MqslCp6xhSR+2qj85lOt5vg==
+X-Received: by 2002:a05:6000:4606:b0:3a5:1240:6802 with SMTP id ffacd0b85a97d-3b60e53f7f2mr19767181f8f.57.1753199794741;
+        Tue, 22 Jul 2025 08:56:34 -0700 (PDT)
+Message-ID: <33154e3b-75d6-4f82-9e10-ef3e304bfc92@suse.com>
+Date: Tue, 22 Jul 2025 17:56:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 5/9] x86/altp2m: Wrap altp2m-specific code in #ifdef
- CONFIG_ALTP2M
-To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>, xen-devel@lists.xenproject.org
-References: <cover.1752691429.git.w1benny@gmail.com>
- <35028b36429edbff5f6bf1af6a8168ac055089bd.1752691429.git.w1benny@gmail.com>
+Subject: Re: [PATCH] xen/livepatch: fixup relocations to replaced symbols
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20250716160007.92461-1-roger.pau@citrix.com>
+ <4bffb6b1-ebe7-444f-905d-092e69a2d8ef@suse.com>
+ <aH-oIqnKwEv3p6Hl@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,101 +124,50 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <35028b36429edbff5f6bf1af6a8168ac055089bd.1752691429.git.w1benny@gmail.com>
+In-Reply-To: <aH-oIqnKwEv3p6Hl@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 16.07.2025 22:15, Petr Beneš wrote:
-> --- a/xen/arch/x86/hvm/emulate.c
-> +++ b/xen/arch/x86/hvm/emulate.c
-> @@ -2686,8 +2686,8 @@ static int cf_check hvmemul_tlb_op(
->      return rc;
->  }
->  
-> -static int cf_check hvmemul_vmfunc(
-> -    struct x86_emulate_ctxt *ctxt)
-> +#ifdef CONFIG_ALTP2M
-> +static int cf_check hvmemul_vmfunc(struct x86_emulate_ctxt *ctxt)
+On 22.07.2025 17:02, Roger Pau Monné wrote:
+> On Wed, Jul 16, 2025 at 06:31:03PM +0200, Jan Beulich wrote:
+>> On 16.07.2025 18:00, Roger Pau Monne wrote:
+>>> In a livepatch payload relocations will refer to included functions.  If
+>>> that function happens to be a replacement for an existing Xen function, the
+>>> relocations on the livepatch payload will use the newly introduced symbol,
+>>> rather than the old one.  This is usually fine, but if the result of the
+>>> relocation is stored for later use (for example in the domain struct),
+>>> usages of this address will lead to a page-fault once the livepatch is
+>>> reverted.
+>>>
+>>> Implement a second pass over relocations once the list of replaced
+>>> functions has been loaded, and fixup any references to replaced functions
+>>> to use the old symbol address instead of the new one.  There are some
+>>> sections that must be special cased to continue using the new symbol
+>>> address, as those instances must reference the newly added livepatch
+>>> content (for example the alternative patch sites).
+>>
+>> This is what I was fearing, when you first mentioned the problem (and the
+>> plan) to me. What I don't see is why you do your fixing up regardless of
+>> relocation type. Relative relocations within the payload ought to be fine
+>> to not override? At which point some of the special casing may already no
+>> longer be necessary.
+>>
+>> (Later) Except that if code uses PC-relative addressing to determine a
+>> pointer to store into some struct, that'll appear as a relative relocation
+>> type, too. But then you may have a bigger problem: When referencing and
+>> referenced code are in the same section and in the same translation unit,
+>> the assembler could avoid emitting a relocation altogether. You would see
+>> nothing to fix up ...
+> 
+> The only way for the referencing and referenced code to be in the same
+> function would be for the function to reference itself, which should
+> be quite rare?  I don't recall seeing any code in Xen where a function
+> stores a pointer to itself.
+> 
+> Otherwise each function is in a separate section, and hence references
+> to functions should always use a relocation.
 
-Please don't needlessly alter formatting, and ...
-
->  {
->      int rc;
->  
-> @@ -2699,6 +2699,12 @@ static int cf_check hvmemul_vmfunc(
->  
->      return rc;
->  }
-> +#else
-> +static int cf_check hvmemul_vmfunc(struct x86_emulate_ctxt *ctxt)
-> +{
-> +    return X86EMUL_UNHANDLEABLE;
-> +}
-> +#endif
-
-... please don't duplicate function headers when such #ifdef-s can easily
-be put inside the function body. Much like you do ...
-
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -4608,6 +4608,7 @@ static int hvmop_get_param(
->  static int do_altp2m_op(
->      XEN_GUEST_HANDLE_PARAM(void) arg)
->  {
-> +#ifdef CONFIG_ALTP2M
->      struct xen_hvm_altp2m_op a;
->      struct domain *d = NULL;
->      int rc = 0;
-> @@ -4944,6 +4945,9 @@ static int do_altp2m_op(
->      rcu_unlock_domain(d);
->  
->      return rc;
-> +#else /* !CONFIG_ALTP2M */
-> +    return -EOPNOTSUPP;
-> +#endif /* CONFIG_ALTP2M */
->  }
-
-... here.
-
-> @@ -5261,6 +5269,7 @@ void hvm_toggle_singlestep(struct vcpu *v)
->  
->  void hvm_fast_singlestep(struct vcpu *v, uint16_t p2midx)
->  {
-> +#ifdef CONFIG_ALTP2M
->      ASSERT(atomic_read(&v->pause_count));
->  
->      if ( !hvm_is_singlestep_supported() )
-> @@ -5272,6 +5281,7 @@ void hvm_fast_singlestep(struct vcpu *v, uint16_t p2midx)
->      v->arch.hvm.single_step = true;
->      v->arch.hvm.fast_single_step.enabled = true;
->      v->arch.hvm.fast_single_step.p2midx = p2midx;
-> +#endif
->  }
-
-This function would better be unreachable when ALTP2M=n, imo. Putting an #ifdef
-in vm_event_toggle_singlestep() would be the simple solution, but maybe we could
-to better.
-
-> @@ -707,6 +709,7 @@ static inline bool hvm_nested_virt_supported(void)
->      return hvm_funcs.caps.nested_virt;
->  }
->  
-> +#ifdef CONFIG_ALTP2M
->  /* updates the current hardware p2m */
->  static inline void altp2m_vcpu_update_p2m(struct vcpu *v)
->  {
-> @@ -731,6 +734,11 @@ static inline bool altp2m_vcpu_emulate_ve(struct vcpu *v)
->      }
->      return false;
->  }
-> +#else /* !CONFIG_ALTP2M */
-> +void altp2m_vcpu_update_p2m(struct vcpu *v);
-> +void altp2m_vcpu_update_vmfunc_ve(struct vcpu *v);
-> +bool altp2m_vcpu_emulate_ve(struct vcpu *v);
-> +#endif /* CONFIG_ALTP2M */
-
-Why would the altp2m_vcpu_update_{p2m,vmfunc_ve}() declarations be needed? All
-uses are from altp2m.c.
+Oh, right, I forgot about -ffunction-sections being in use.
 
 Jan
 
