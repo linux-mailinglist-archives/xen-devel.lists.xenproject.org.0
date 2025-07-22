@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC4A2B0E129
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 18:03:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1052917.1421698 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63733B0E186
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 18:18:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1052936.1421718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueFSQ-0002xk-M8; Tue, 22 Jul 2025 16:03:10 +0000
+	id 1ueFgv-0005Oq-8o; Tue, 22 Jul 2025 16:18:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1052917.1421698; Tue, 22 Jul 2025 16:03:10 +0000
+Received: by outflank-mailman (output) from mailman id 1052936.1421718; Tue, 22 Jul 2025 16:18:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueFSQ-0002uF-JP; Tue, 22 Jul 2025 16:03:10 +0000
-Received: by outflank-mailman (input) for mailman id 1052917;
- Tue, 22 Jul 2025 16:03:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=D6vH=2D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ueFSP-0002u9-IO
- for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 16:03:09 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5979d638-6715-11f0-b894-0df219b8e170;
- Tue, 22 Jul 2025 18:03:04 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-4563a57f947so122475e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 22 Jul 2025 09:03:04 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-759c89cf951sm7834810b3a.36.2025.07.22.09.02.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Jul 2025 09:03:02 -0700 (PDT)
+	id 1ueFgv-0005Mv-5d; Tue, 22 Jul 2025 16:18:09 +0000
+Received: by outflank-mailman (input) for mailman id 1052936;
+ Tue, 22 Jul 2025 16:18:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kPIU=2D=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1ueFgt-0005Mp-7k
+ for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 16:18:07 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2062e.outbound.protection.outlook.com
+ [2a01:111:f403:200a::62e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 70a2755a-6717-11f0-a31d-13f23c93f187;
+ Tue, 22 Jul 2025 18:18:05 +0200 (CEST)
+Received: from SJ0PR03CA0350.namprd03.prod.outlook.com (2603:10b6:a03:39c::25)
+ by SA1PR12MB8642.namprd12.prod.outlook.com (2603:10b6:806:383::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.39; Tue, 22 Jul
+ 2025 16:17:57 +0000
+Received: from SJ1PEPF00002315.namprd03.prod.outlook.com
+ (2603:10b6:a03:39c:cafe::e6) by SJ0PR03CA0350.outlook.office365.com
+ (2603:10b6:a03:39c::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.29 via Frontend Transport; Tue,
+ 22 Jul 2025 16:17:57 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SJ1PEPF00002315.mail.protection.outlook.com (10.167.242.169) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8964.20 via Frontend Transport; Tue, 22 Jul 2025 16:17:56 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 22 Jul
+ 2025 11:17:55 -0500
+Received: from [172.18.231.84] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Tue, 22 Jul 2025 11:17:55 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,223 +59,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5979d638-6715-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753200184; x=1753804984; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PGxTgi/1QzpoIxo8dlP6eDg2Eo3GGc8W8GR2aGCiuik=;
-        b=JENHO4ndGPb/pb8R/hz4pc7+7RUgXa0l8uc0Al/Han1zBEDpCmQ2vhWEcLjbB+6XY6
-         7khG32qi+PTgBdRSR1hg+0eg0qVj5Z5NQohblUmt1dpq+U/nCBA0x8/5Ri/+Cxu2CgZp
-         t/+RjHHiaW+xIVv6FGEuhcrwchKrJ07GLQB5y2uBJBiuevtoy5k9YnkVD8YJpLRNfRAs
-         FuxbeJqdoBJeV6LKSPJ2TFCHhOl7SIbg2DAvMSv1s5m7sucQUH45Ws1lzjMbfVhNbXdt
-         y2/RgAwWMhuXtiq0SP6nJzTE2nYtAys4MiJYwSDZmHnh3PD1keYZ/1FkmqdI7zRwL8yA
-         9SZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753200184; x=1753804984;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PGxTgi/1QzpoIxo8dlP6eDg2Eo3GGc8W8GR2aGCiuik=;
-        b=qQM4AqucP48opye8vO62yqoIZjRUkgpQOieW3SURAw3794RUUrPYJncvMu89O7W7Sh
-         Gm2mh79CHP2cxgdE94PemUl2un5fc5y04G0PZY6oHsJYZuDt+FeByMABEpqPbA/HQdDn
-         abzXsQ03wuf1bSMN79o1YYo/+1S6/uQ5ltxS+mjrEmT6W3N94tKrzxB491ZkrWShc9+C
-         ZZhYDl8vyLYpoh6ykqgEBTRTuYPp36vrB411QIp8Bf0yRJ5MyweLJgsaI4p2VA898c8c
-         6mri74LtT1FK9ejNHFhxerllJtCZdr8ki2vHiNZoI9EG+p7pA/vqR0PL82EUXAmLykTZ
-         w1Lg==
-X-Forwarded-Encrypted: i=1; AJvYcCUgFdIvCEw7JLKm98CHThlvgqa95LHYtn1RRimr60rVfrZmrcdPzBQgKkRiNidc47Gkt2NpotT+3sk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz26pQGYlKz1sQXEj0mpFZ+FrFvbh+NQBKtx4YaUwuHvaCcombh
-	A8RT5+HlXKoTqnVyD110ZOAwjAEYupkk3mss4KfmwOZdSYgTpdAKCJ7B7RamuWGvmA==
-X-Gm-Gg: ASbGncsBwOmwsaNJ1ykaIEd5w+6dJpb6ZWwUeUvwBHx8n8/qVsZJMqudTLYTDQbXPyx
-	+g4I14JP5Nnw6w/fNmyDTE4DCwhreYXa1+CIG3x9z8tPhU+lQIGv7na7trdEzFeUK3BxUKytbn+
-	I3YxNOdD0jy+koT9fHHqfRIxqrvsdkRQVu2llexui4rZ1vt0x8+dQCcOMdUCo4+RzMObHg6c3aX
-	I47bfSQXzmQDKnrlmTyrftE91qejmsADmo4P3/41Mb7Gsvxc/18fLxctb/XqBJ2LrwZeadH4v2H
-	+zJAkiZsrZWI21E9u8nNrOolLfsyizTYBfyRJcbB2ktcytI5DHuzh+lvUVFQQDOdFJx4ONQr01+
-	vyZkGNapOhMCiq9pjhF9HLqoEAU2BhZqGXxhcLM1bcIlXskYURXOFv1L3NL5Mh3equjfBG9CJKy
-	F+ZRe1Cfk=
-X-Google-Smtp-Source: AGHT+IEeCVoUWLiztJ2AVV7A52B8tJl6lvtkRIUejFzapUtKZOLRfI5vTDEs7wASwJzk2S4s41cNmw==
-X-Received: by 2002:a5d:588e:0:b0:3b6:1cba:a769 with SMTP id ffacd0b85a97d-3b7634e58d1mr3791586f8f.16.1753200183230;
-        Tue, 22 Jul 2025 09:03:03 -0700 (PDT)
-Message-ID: <6f88e20e-98dd-4d58-b459-5a67e2629f4c@suse.com>
-Date: Tue, 22 Jul 2025 18:02:52 +0200
+X-Inumbo-ID: 70a2755a-6717-11f0-a31d-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Yf5vpN0khV9xn0v+eoKyGycTCZiA6UvwteEpt7ek+6LLIsIHT7eaQ/W/kf/zcSDam6gRATOanP3AjS24Kc9jC8LY+9t3yDZUgKbd0JRwpceNrgs6VLv1UWXlJlbfsuqOBSOhiTwH2vi2+UgReNaMahCbeZPQdsU5f6zfncv5RtKuznDVpDB7hQZqISfuQ79AOfVqVCGefg0JxS/7HviS0dV0d/8JYJsj8m1Il7o8ZB3BksJy6+KaOVY5HGkFgyc1O88N3ILhZZDIl1R0srY5k8iqN15t4zV9myZFMEhBoK4NUwXhIq0u01xTbBhTxGQHNuF+WEqN6gNv2Iwy3Tl4+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cO39SUoplI4UOUYwkm2MrkzX7RpyaVpP9Pbw8Pmh1KQ=;
+ b=h4/NF6+tfyPoiHZHqLuwYywo6Z24x/3WciYAJABDjIx4wU+dcc886P07xMiMjMngXYZEmHOg5rIliyEh5/5CuFTpoSjJwbFQtmcUhJYGnAevE2HSCYIKn7Zu0FsJtkcQyFtXAy+mb2BODTl4eJPZEZ5NU9i60+aqyQONHaQzUEA1zQJ89sezV/GfJTOtkLJPQRFx/JcIAekjaCHrxSXfpq8cZJDNT8PziKkbHG007bAhER0+Y3QgQWD1tvZKUH5E0+4AaMSbuC3cyXG113LoqoVqyhpWf45B41VN/UMnbRa2MxnYaLYRc59GFSHiH34tU602k25FgC23RGbjscPuMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cO39SUoplI4UOUYwkm2MrkzX7RpyaVpP9Pbw8Pmh1KQ=;
+ b=1L1THvVxVSzidblSZUL0lisl3mv7DmDgOQm0TAKS8p1gaPGGYJfM7JORgtgULQsj9p6z8NEDRUWAJpl2M2Ep7bMB1HPfHQ7VE11oMyiaC/7N6ZNKcdU3qB6S+BxL4zadTL4ifjoKGnSkTfFkoCEB8Vlx4jAaAWGrzEGaSqfAmEU=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <1d5c10bc-eb69-492c-9f1a-6a273feecdcd@amd.com>
+Date: Tue, 22 Jul 2025 00:50:07 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 15/17] xen/riscv: Implement superpage splitting for p2m
- mappings
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <7cdd3272f2eba32dfa00be4fd72da6921eac243d.1749555949.git.oleksii.kurochko@gmail.com>
- <9be8eeb4-281e-4b9b-9ea7-04ff738dc4db@suse.com>
- <e2227002-e38c-41e1-8bea-7585138ec5ba@gmail.com>
- <0c1701ff-efe3-434f-97e0-4896707411b7@suse.com>
- <640d6862-4ea9-49ca-adb8-0fad5ceb1ff1@gmail.com>
+Subject: Re: [PATCH] device-tree/kernel: Use memcpy in output_length()
+To: Michal Orzel <michal.orzel@amd.com>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>
+References: <20250722074645.19029-1-michal.orzel@amd.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <640d6862-4ea9-49ca-adb8-0fad5ceb1ff1@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <20250722074645.19029-1-michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002315:EE_|SA1PR12MB8642:EE_
+X-MS-Office365-Filtering-Correlation-Id: e8d91d0d-b7fa-48ae-aefd-08ddc93b51b0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?cWlSa1RXWjNWZ1M4bUt2NWl5NEFCc1E4MFFCQU4rWTBoa2Irb1lLV1RkdkNU?=
+ =?utf-8?B?K3YzK3liVnVrWHloTzhRK01XWTlQTmJKdTR0S3E0QnVFSmREbmhmeEhSYWZT?=
+ =?utf-8?B?a1p2ZCtjRFV6VDhPMm1VS1Q4QXk5ZUdsMXhFeXI4SWJ5a3E3MktJVVp1eWV1?=
+ =?utf-8?B?QlczYzNGejU1V0VCWWlwejRsL2lYQ2tCMnZhOWRBekxuRGZqRDUyUXJVMXVn?=
+ =?utf-8?B?Sm8vK3pqM09CcGpkYTU4WTkxUEY0dnRtNmpheURVNEo5YnFMREZEY2twRVNj?=
+ =?utf-8?B?MTlpYlYwZmJERmdHV1U5TjB5cjRrbUpOOGFhOWxVNlhmR0g1S2hsMStXUm12?=
+ =?utf-8?B?eVY3QWd6VkovU1JZNExLak5SRm4yRy9xcmtOY3lBSTh5cGJWVk9rZnNrZ3ZP?=
+ =?utf-8?B?ek02MFJsVGpSTGJ0TkR6Q3J2SnhmYThQT0YyckVuZS9oN3pTNWRjcktyb0oy?=
+ =?utf-8?B?M1FMNmlIRUs3NzYrbnR0WUNLSmRqbUY3ZUlkM3NpWnplbmJuR0c1RTZURFlx?=
+ =?utf-8?B?bEQvTG5jS09ncmpwT1JOcW1kOXBsaTU0RVdGMkxCRHBXQ0xlYS9FcUIzRmRs?=
+ =?utf-8?B?VWZJWVdzRUtuMytQbk9zRUx3blFhL3djM2FRSWZNYm5Wci9Xd1ZRSEhqZFJt?=
+ =?utf-8?B?MDgyMzZkVVUxRkgrWU5xYnY4dXdvOW9HU3JGZVFTdDl4R1kzMEJjOFdSemdm?=
+ =?utf-8?B?T0ozS1RUMkRCaTlPalp2Y2VOaXN1N1pyUEx6VFdKT09jMjBwVkVLV0RJM3RJ?=
+ =?utf-8?B?RVNBQThMeTVDcXd2NGdxZmhyQnNzN3JMQ2tHWmY4ZEc3TTBKejhaK0lRU3Bv?=
+ =?utf-8?B?RWhQWWFibFBhWXdFeFpkd3lxZ0l0NGluZnlkU29NNzlsSVBBWnZoY1Nvb1Y1?=
+ =?utf-8?B?NTdTK2w2UzUxY3ZHc2podFRTeGIrSm9QKzM5L1l2NXR3YmJGSUw0aEtiR1Zp?=
+ =?utf-8?B?anFsNU1lQU9oRFFEbXptUVVVOS92OW1OTE14Y2dCNG1GY1FjM2JkUC90OVlZ?=
+ =?utf-8?B?K2J5RDRMekZ5TktvSVBGWExJQnIxQ1FzRXBMVUV1a2FpNVFJcHE0Z1UrZXh5?=
+ =?utf-8?B?alRTY093UUgwQVJhMjJ3TXpLNEcrb1BkYklRTVRXUTZIZmJDRTJBY05pM3gw?=
+ =?utf-8?B?Mm03ZTl0TysxaDduWkd3bERtUk1UNk1ZVGNRdXl3aDBnMm53Ym1pOTVHdzFz?=
+ =?utf-8?B?ckFCQ1BIdWhaSHpaaFEzSHU2VWZDaHlMYUF4RW5HaXVuZVl3Nkd6Qnh5a1Rs?=
+ =?utf-8?B?eXpQbGJrOWk1ZmJuNTVkWmtXSldnbGp3RW5XaEFSKzFvQlAzdFZUZ29vTXdl?=
+ =?utf-8?B?SlBhdXQ5dEJ0U0tkMjhVNzRra1FIcVhySHlHZW5kOWhPN1lYeFZ6YUpoRDNZ?=
+ =?utf-8?B?Mm8rQ05vQ3NvcG02YTlkbS9QRWYrVU1kcHQvWVIzclFDZ2xwL2x5MjlJSGw2?=
+ =?utf-8?B?NUcrWDRQaFZQK1pnckg5aFlFaUE4Zk1rZU1ldFBQbHpZVUluRnhsa0pPbVc1?=
+ =?utf-8?B?WEFkSHh0ZnhEdGpxNEZNWGhwdk1pem4rWFRpWkd6Y1dZRThRSG9zbXNsVHVW?=
+ =?utf-8?B?MU9oc05May9SL3FSTGVVb1ZlZnU3NzdLaWRxVUNFZlRheExMT1p3NFVSUDJm?=
+ =?utf-8?B?bnpVU21Kbk9PTjZWY0h5NFdycG85YkJOanlmcDJYbnVWaFVodmNjZitGREhw?=
+ =?utf-8?B?RTMyVnpJVnNDUUt1STVSNlRoMlZydkROSlhXU04wTW04dU9PL21VS29UWGts?=
+ =?utf-8?B?eFViZG83endYVWJXTy9NQVpjZGJadmdtQ0hlWGZWK2JLZnZSTjRHRGFQbE1k?=
+ =?utf-8?B?ZnRoWXRhbnRobWkxUC9aNkF5cHBYK0RrdEJDbFdCL3JRbjZqWmJiK2h2cTMx?=
+ =?utf-8?B?cjk4OUZBMWd0U3ppb2dYWW52UXdLWkxxWDZoK2RNL1E2UCt5T0UzdmhVZ1FO?=
+ =?utf-8?B?b3gxT2ZKTktoMktjeE5JamM4OUE2U1doTDRrRUJZMlZHT2NjWmswZER1OXdX?=
+ =?utf-8?B?c29GQ1REZkloOWRLY2k5Q25WbzVKNnZ2ZkhKcUpXVnMrV3JGcUh0VW9odW41?=
+ =?utf-8?B?Wmd0OU9nSEhmS1ByQWhyM2w4U1JIUEgxSTY0UT09?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2025 16:17:56.5920
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8d91d0d-b7fa-48ae-aefd-08ddc93b51b0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00002315.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8642
 
-On 22.07.2025 16:57, Oleksii Kurochko wrote:
+On 2025-07-22 03:46, Michal Orzel wrote:
+> Trying to boot a compressed kernel with UBSAN enabled, results in the
+> following warning:
+> (XEN) UBSAN: Undefined behaviour in common/device-tree/kernel.c:21:12
+> (XEN) load of misaligned address 00000a0040f89867 for type 'uint32_t'
+> (XEN) which requires 4 byte alignment
+> ...
+> (XEN)    [<00000a0000529964>] kernel_decompress+0x2bc/0x5bc
+> (XEN)    [<00000a000052a354>] kernel_probe+0x6f0/0x734
+> (XEN)    [<00000a0000528714>] dom0less-build.c#construct_domU+0x188/0x9d8
 > 
-> On 7/21/25 3:34 PM, Jan Beulich wrote:
->> On 17.07.2025 18:37, Oleksii Kurochko wrote:
->>> On 7/2/25 11:25 AM, Jan Beulich wrote:
->>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
->>>>> Add support for down large memory mappings ("superpages") in the RISC-V
->>>>> p2m mapping so that smaller, more precise mappings ("finer-grained entries")
->>>>> can be inserted into lower levels of the page table hierarchy.
->>>>>
->>>>> To implement that the following is done:
->>>>> - Introduce p2m_split_superpage(): Recursively shatters a superpage into
->>>>>     smaller page table entries down to the target level, preserving original
->>>>>     permissions and attributes.
->>>>> - __p2m_set_entry() updated to invoke superpage splitting when inserting
->>>>>     entries at lower levels within a superpage-mapped region.
->>>>>
->>>>> This implementation is based on the ARM code, with modifications to the part
->>>>> that follows the BBM (break-before-make) approach. Unlike ARM, RISC-V does
->>>>> not require BBM, so there is no need to invalidate the PTE and flush the
->>>>> TLB before updating it with the newly created, split page table.
->>>> But some flushing is going to be necessary. As long as you only ever do
->>>> global flushes, the one after the individual PTE modification (within the
->>>> split table) will do (if BBM isn't required, see below), but once you move
->>>> to more fine-grained flushing, that's not going to be enough anymore. Not
->>>> sure it's a good idea to leave such a pitfall.
->>> I think that I don't fully understand what is an issue.
->> Whether a flush is necessary after solely breaking up a superpage is arch-
->> defined. I don't know how much restrictions the spec on possible hardware
->> behavior for RISC-V. However, the eventual change of (at least) one entry
->> of fulfill the original request will surely require a flush. What I was
->> trying to say is that this required flush would better not also cover for
->> the flushes that may or may not be required by the spec. IOW if the spec
->> leaves any room for flushes to possibly be needed, those flushes would
->> better be explicit.
+> If &image[image_len - 4] is not aligned to 4B boundary it causes
+> unaligned access which is undefined behavior on Arm. Use memcpy instead
+> to be safe.
 > 
-> I think that I still don't understand why what I wrote above will work as long
-> as global flushes is working and will stop to work when more fine-grained flushing
-> is used.
+> Fixes: c1be0b102e0e ("xen/arm: support gzip compressed kernels")
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> ---
+>   xen/common/device-tree/kernel.c | 6 +++++-
+>   1 file changed, 5 insertions(+), 1 deletion(-)
 > 
-> Inside p2m_split_superpage() we don't need any kind of TLB flush operation as
-> it is allocation a new page for a table and works with it, so no one could use
-> this page at the moment and cache it in TLB.
-> 
-> The only question is that if it is needed BBM before staring using splitted entry:
->          ....
->          if ( !p2m_split_superpage(p2m, &split_pte, level, target, offsets) )
->          {
->              /* Free the allocated sub-tree */
->              p2m_free_subtree(p2m, split_pte, level);
-> 
->              rc = -ENOMEM;
->              goto out;
->          }
-> 
-> ------> /* Should be BBM used here ? */
->          p2m_write_pte(entry, split_pte, p2m->clean_pte);
-> 
-> And I can't find anything in the spec what tells me to use BBM here like Arm
-> does:
+> diff --git a/xen/common/device-tree/kernel.c b/xen/common/device-tree/kernel.c
+> index ef393182b691..28096121a52d 100644
+> --- a/xen/common/device-tree/kernel.c
+> +++ b/xen/common/device-tree/kernel.c
+> @@ -18,7 +18,11 @@
+>   
+>   static uint32_t __init output_length(char *image, unsigned long image_len)
+>   {
+> -    return *(uint32_t *)&image[image_len - 4];
 
-But what you need is a statement in the spec that you can get away without. Imo
-at least.
+Maybe just:
+     return get_unaligned_le32(&image[image_len - 4]);
 
->          /*
->           * Follow the break-before-sequence to update the entry.
->           * For more details see (D4.7.1 in ARM DDI 0487A.j).
->           */
->          p2m_remove_pte(entry, p2m->clean_pte);
->          p2m_force_tlb_flush_sync(p2m);
-> 
->          p2m_write_pte(entry, split_pte, p2m->clean_pte);
-> 
-> I agree that even BBM isn't mandated explicitly sometime it could be useful, but
-> here I am not really sure what is the point to do TLB flush before p2m_write_pte()
-> as nothing serious will happen if and old mapping will be used for a some time
-> as we are keeping the same rights for smaller (splited) mapping.
-> The reason why Arm does p2m_remove_pte() & p2m_force_tlb_flush() before updating
-> an entry here as it is doesn't guarantee that everything will be okay and they
-> explicitly tells:
->   This situation can possibly break coherency and ordering guarantees, leading to
->   inconsistent unwanted behavior in our Processing Element (PE).
-> 
-> 
->>>> As to (no need for) BBM: I couldn't find anything to that effect in the
->>>> privileged spec. Can you provide some pointer? What I found instead is e.g.
->>>> this sentence: "To ensure that implicit reads observe writes to the same
->>>> memory locations, an SFENCE.VMA instruction must be executed after the
->>>> writes to flush the relevant cached translations." And this: "Accessing the
->>>> same location using different cacheability attributes may cause loss of
->>>> coherence." (This may not only occur when the same physical address is
->>>> mapped twice at different VAs, but also after the shattering of a superpage
->>>> when the new entry differs in cacheability.)
->>> I also couldn't find that RISC-V spec mandates BBM explicitly as Arm does it.
->>>
->>> What I meant that on RISC-V can do:
->>> - Write new PTE
->>> - Flush TLB
->>>
->>> While on Arm it is almost always needed to do:
->>> - Write zero to PTE
->>> - Flush TLB
->>> - Write new PTE
->>>
->>> For example, the common CoW code path where you copy from a read only page to
->>> a new page, then map that new page as writable just works on RISC-V without
->>> extra considerations and on Arm it requires BBM.
->> CoW is a specific sub-case with increasing privilege.
-> 
-> Could you please explain why it matters increasing of privilege in terms of TLB
-> flushing and PTE clearing before writing a new PTE?
+You'll also need:
+#include <xen/unaligned.h>
 
-Some architectures automatically re-walk page tables when encountering a
-permission violation based on TLB contents. Hence increasing privilege
-can be a special case.
+The gzip size is little endian, 
+https://datatracker.ietf.org/doc/html/rfc1952:
+       Within a computer, a number may occupy multiple bytes.  All
+       multi-byte numbers in the format described here are stored with
+       the least-significant byte first (at the lower memory address).
 
->>> It seems to me that BBM is mandated for Arm only because that TLB is shared
->>> among cores, so there is no any guarantee that no prior entry for same VA
->>> remains in TLB. In case of RISC-V's TLB isn't shared and after a flush it is
->>> guaranteed that no prior entry for the same VA remains in the TLB.
->> Not sure that's the sole reason. But again the question is: Is this written
->> down explicitly anywhere? Generally there can be multiple levels of TLBs, and
->> while some of them may be per-core, others may be shared.
-> 
-> Spec. mentions that:
->    If a hart employs an address-translation cache, that cache must appear to be
->    private to that hart.
+Regards,
+Jason
 
-Hmm, okay, that indeed pretty much excludes shared TLBs.
+> +    uint32_t val;
+> +
+> +    memcpy(&val, &image[image_len - 4], sizeof(val));
+> +
+> +    return val;
+>   }
+>   
+>   int __init kernel_decompress(struct boot_module *mod, uint32_t offset)
 
-Jan
 
