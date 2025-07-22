@@ -2,34 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17A9EB0E721
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 01:22:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1053066.1421813 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8A7DB0E72C
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 01:24:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1053072.1421824 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueMJK-0000n0-OU; Tue, 22 Jul 2025 23:22:14 +0000
+	id 1ueMLH-0001Iv-2v; Tue, 22 Jul 2025 23:24:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1053066.1421813; Tue, 22 Jul 2025 23:22:14 +0000
+Received: by outflank-mailman (output) from mailman id 1053072.1421824; Tue, 22 Jul 2025 23:24:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueMJK-0000kb-Lx; Tue, 22 Jul 2025 23:22:14 +0000
-Received: by outflank-mailman (input) for mailman id 1053066;
- Tue, 22 Jul 2025 23:22:13 +0000
+	id 1ueMLG-0001Gg-Vp; Tue, 22 Jul 2025 23:24:14 +0000
+Received: by outflank-mailman (input) for mailman id 1053072;
+ Tue, 22 Jul 2025 23:24:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=X0Ar=2D=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1ueMJJ-0000kV-3j
- for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 23:22:13 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b060be0a-6752-11f0-b894-0df219b8e170;
- Wed, 23 Jul 2025 01:22:10 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 9A54C5C6478;
- Tue, 22 Jul 2025 23:22:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB907C4CEEB;
- Tue, 22 Jul 2025 23:22:06 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=an6O=2D=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1ueMLF-0001Ga-P8
+ for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 23:24:13 +0000
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch
+ [109.224.244.18]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f775167e-6752-11f0-b894-0df219b8e170;
+ Wed, 23 Jul 2025 01:24:08 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,59 +36,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b060be0a-6752-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1753226528;
-	bh=ae3Qpt6KfjYlqn53qxmk5eTnLEbRGS2uHsq9eqaw9Ow=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=KomlUaAgyNwBS5kNJVg91r1+82X3gYPdvUyFmBlOdEYSV+beKai+hL6KXLLvFsDEu
-	 dbu6LVyIaaKIk8f38FDSs3HuoE0JtCjuH00Rp/YzJ6uZhYtt/b8rrKX/Q+AWgiSBL6
-	 VQZej5EXAeblrFYo/snxzeT3DaZdgWGOjdUW9rfGJUL/ltEuLSIPBzXrBYegEvoW2b
-	 w37FaIjF4k/K1d8mYasvvswmj5vf3N/R9YpmSL5F0O+luA7Rn8jX10oTHZdjuF3HAi
-	 CIbe3xXDbKXzVR2U/nfHVrJMohRq7TJFtBAK/xeVZ+zUZSRkL5T+WMZAQ8ng81fX5B
-	 m3NY41ZloTZGw==
-Date: Tue, 22 Jul 2025 16:22:05 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-cc: Jan Beulich <jbeulich@suse.com>, Alejandro Vallejo <agarciav@amd.com>, 
-    "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Stefano Stabellini <stefano.stabellini@amd.com>, 
-    Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 01/10] static-evtchn: Add missing include
-In-Reply-To: <DBILBC1UJ0QZ.2KU2PDGDO14H9@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2507221621520.7043@ubuntu-linux-20-04-desktop>
-References: <20250722115955.57167-1-alejandro.garciavallejo@amd.com> <20250722115955.57167-2-alejandro.garciavallejo@amd.com> <c72a8ff3-e3e3-437d-b169-031571a18dcc@suse.com> <DBILBC1UJ0QZ.2KU2PDGDO14H9@amd.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: f775167e-6752-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=5zgoic46sjanvc7wbyydl3mzhy.protonmail; t=1753226647; x=1753485847;
+	bh=0GY5Tbp7uYgbSr2+en1qBPy8MtwQIMl8vEHvF1rPM5c=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=KxVN39eXxPe20ZxdsS+ZjVamabJwvgwAimwon0OKRrLDBF1/i0D5tWW9j0LmY1rbG
+	 J05crhVHEqvSyJJVYtHORVwZEZ7Z94Q69foCbpxqHG3d7tQL56n4zAQyPwe5NPE1hi
+	 3clCJF/SbcURNIhC8XyNm00tSwDlH6ZURDgP/qjJ9x6kGlGH4Az/nTJEEIq6Bze/K9
+	 znFbdG3Pl/MDaQt9ViaGioN3+07sSREMqKVc1wTVVnDIBFJNcVMeKXgaWyCGA5+EV9
+	 QJK52vzczhO2alZ9EaG8+IHsmIaKG5Imzuhgc8+FfC2RVJYYBGXthbJbD2VRRuKlw8
+	 Snjpk21ImRmSA==
+Date: Tue, 22 Jul 2025 23:24:05 +0000
+To: Jan Beulich <jbeulich@suse.com>
+From: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v10 3/3] xen/domain: use get_initial_domain_id() instead of open-coded 0
+Message-ID: <aIAdkbaKyDPO1WWg@kraken>
+In-Reply-To: <93080cb5-d00d-4c58-9efd-c377343eb165@suse.com>
+References: <20250623182721.194238-1-dmukhin@ford.com> <20250623182721.194238-4-dmukhin@ford.com> <93080cb5-d00d-4c58-9efd-c377343eb165@suse.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: f166a3c44454c36e18c30d6e4599686629a8b32e
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 22 Jul 2025, Alejandro Vallejo wrote:
-> On Tue Jul 22, 2025 at 2:10 PM CEST, Jan Beulich wrote:
-> > On 22.07.2025 13:59, Alejandro Vallejo wrote:
-> >> From: Alejandro Vallejo <agarciav@amd.com>
-> >> 
-> >> When later on x86 starts using this file in later patches it won't find
-> >> device_tree.h because it's only transitively included by arm.
-> >> 
-> >> Make it explicit.
-> >> 
-> >> Not a functional change.
-> >> 
-> >> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-> >> Acked-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> >> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+On Tue, Jun 24, 2025 at 08:07:55AM +0200, Jan Beulich wrote:
+> On 23.06.2025 20:28, dmkhn@proton.me wrote:
+> > --- a/xen/common/domain.c
+> > +++ b/xen/common/domain.c
+> > @@ -492,7 +492,7 @@ static int late_hwdom_init(struct domain *d)
+> >      struct domain *dom0;
+> >      int rv;
 > >
-> > I'm certainly happy to trust you, but on a v1 submission I'm a little
-> > surprised to find two tags present already.
+> > -    if ( d !=3D hardware_domain || d->domain_id =3D=3D 0 )
+> > +    if ( d !=3D hardware_domain || d->domain_id =3D=3D get_initial_dom=
+ain_id() )
+> >          return 0;
 > >
-> > Jan
-> 
-> They came out of internal review, and I didn't really want to drop them.
+> >      rv =3D xsm_init_hardware_domain(XSM_HOOK, d);
+> > @@ -501,7 +501,7 @@ static int late_hwdom_init(struct domain *d)
+> >
+> >      printk("Initialising hardware domain %d\n", hardware_domid);
+> >
+> > -    dom0 =3D rcu_lock_domain_by_id(0);
+> > +    dom0 =3D rcu_lock_domain_by_id(get_initial_domain_id());
+> >      ASSERT(dom0 !=3D NULL);
+>=20
+> For both changes above you're introducing a subtle (largely theoretical)
+> behavioral change: In shim mode, this assertion, if we somehow made it
+> here, would suddenly not trigger anymore. Similarly for the earlier
+> change the return path may wrongly be taken then.
 
-I confirm
+Thanks.
+
+>=20
+> > @@ -2479,7 +2479,7 @@ domid_t domid_alloc(domid_t domid)
+> >          if ( domid =3D=3D DOMID_FIRST_RESERVED )
+> >              domid =3D find_next_zero_bit(domid_bitmap,
+> >                                         DOMID_FIRST_RESERVED,
+> > -                                       1);
+> > +                                       get_initial_domain_id() + 1);
+>=20
+> This imo is the worst of the changes. get_initial_domain_id() can return
+> non-zero. In that case we still would (in principle) want to re-start
+> from 1 here.
+
+Thanks.
+
+I will postpone this patch until the split of dom0 into control/hardware
+settles.
+
+>=20
+> Jan
 
 
