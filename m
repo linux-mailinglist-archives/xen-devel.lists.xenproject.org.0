@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00F01B0D352
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 09:37:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1052028.1420551 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25A78B0D343
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 09:36:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1052016.1420510 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ue7YV-00073n-HF; Tue, 22 Jul 2025 07:36:55 +0000
+	id 1ue7Xz-0005cX-Ek; Tue, 22 Jul 2025 07:36:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1052028.1420551; Tue, 22 Jul 2025 07:36:55 +0000
+Received: by outflank-mailman (output) from mailman id 1052016.1420510; Tue, 22 Jul 2025 07:36:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ue7YV-00070L-EH; Tue, 22 Jul 2025 07:36:55 +0000
-Received: by outflank-mailman (input) for mailman id 1052028;
- Tue, 22 Jul 2025 07:36:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ue7Xz-0005aB-C4; Tue, 22 Jul 2025 07:36:23 +0000
+Received: by outflank-mailman (input) for mailman id 1052016;
+ Tue, 22 Jul 2025 07:36:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YR2v=2D=uniontech.com=wangyuli@srs-se1.protection.inumbo.net>)
- id 1ue7YU-0005s5-2g
- for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 07:36:54 +0000
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a03e2f8a-66ce-11f0-a31d-13f23c93f187;
- Tue, 22 Jul 2025 09:36:52 +0200 (CEST)
+ id 1ue7Xw-0005a5-Tn
+ for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 07:36:21 +0000
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8a077cb7-66ce-11f0-b894-0df219b8e170;
+ Tue, 22 Jul 2025 09:36:14 +0200 (CEST)
 Received: from avenger-e500 ( [localhost]) by bizesmtp.qq.com (ESMTP) with 
- id ; Tue, 22 Jul 2025 15:34:52 +0800 (CST)
+ id ; Tue, 22 Jul 2025 15:35:00 +0800 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,20 +38,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a03e2f8a-66ce-11f0-a31d-13f23c93f187
+X-Inumbo-ID: 8a077cb7-66ce-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1753169762;
-	bh=WQ3Sf4JHhtwa+UH5bDz8kFE4gvdd2eiJ0Z7vB2dcJ7o=;
+	s=onoh2408; t=1753169768;
+	bh=JwyCRpM1FWaTLNFe5LSvBKJz+ZtIxups+3c5ci7f0O0=;
 	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=CltOyrqts1zb0aah7ceq5QYW1xNlJh93QxsV/iWySLvnnFMliqKZ2B2gorWyore9w
-	 I3Dm9OtPsA2647VmK3rmhzsw6YEob4SZY9zQG6JiItWPdJe5OtPyP2GzoQE5nNPCeL
-	 cENGWPQm4hxS9jQgVCyLlkx00q0cWEEacEigvSLY=
-X-QQ-mid: zesmtpip2t1753169697tffff2e54
-X-QQ-Originating-IP: ESW3/iFALqzPeVYmODy1/u+VMOIzJZ60evAbDZBeNu0=
+	b=MJFkxAG3TnOaoyZ4tzb12gT1fPu5yyG16H1Jl1iJ/oYnB9Kts6izQRSiY9a7OPcm7
+	 WZleUri6Ry182mEzkPtL2iDmtU3MLCXxT/Vu/l1qM1DNsBuz5jKinRM3iFv1jNlTlK
+	 Fc9kOnytqsgB5JVJNE2AOdrQsN15jb66+sxQDTV4=
+X-QQ-mid: zesmtpip2t1753169705t5d8d5b17
+X-QQ-Originating-IP: sO//PwrBzanzWIpX43hUjMW25ZeVM74q8qXSuUHVttA=
 X-QQ-SSF: 0002000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 11624695961033415566
-EX-QQ-RecipientCnt: 64
+X-BIZMAIL-ID: 13053412534972424115
+EX-QQ-RecipientCnt: 65
 From: WangYuli <wangyuli@uniontech.com>
 To: wangyuli@uniontech.com
 Cc: airlied@gmail.com,
@@ -116,10 +116,11 @@ Cc: airlied@gmail.com,
 	x86@kernel.org,
 	xen-devel@lists.xenproject.org,
 	yujiaoliang@vivo.com,
-	zhanjun@uniontech.com
-Subject: [PATCH v3 3/8] drm/xe: Fix typo "notifer"
-Date: Tue, 22 Jul 2025 15:34:26 +0800
-Message-ID: <94190C5F54A19F3E+20250722073431.21983-3-wangyuli@uniontech.com>
+	zhanjun@uniontech.com,
+	Simon Horman <horms@kernel.org>
+Subject: [PATCH v3 4/8] net: mvneta: Fix typo "notifer"
+Date: Tue, 22 Jul 2025 15:34:27 +0800
+Message-ID: <0CB4300CB6F49007+20250722073431.21983-4-wangyuli@uniontech.com>
 X-Mailer: git-send-email 2.50.0
 In-Reply-To: <576F0D85F6853074+20250722072734.19367-1-wangyuli@uniontech.com>
 References: <576F0D85F6853074+20250722072734.19367-1-wangyuli@uniontech.com>
@@ -127,47 +128,48 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:uniontech.com:qybglogicsvrgz:qybglogicsvrgz8a-1
-X-QQ-XMAILINFO: NN5tIm2Cw++mUPQ8bcGmKLa1xMgQYZnczWcMIRHRxzkJYiByPervzJg/
-	nMUSaSdrb05pdhNel+4XNDhgrMObfI/S3OG+9SUAYwzx8E4RbCynSnXkq5mRzr/pSFacKsZ
-	hlOGLNx9OHjvgLyqGOCtokAZeoZQrhGTC16ZbWKFHCw+i/1HcXCOO2C2FNlpU3E0VJ7XNcV
-	Q0CeEotLHEFSSg/eKqN+2D8LrhuhZ5z5WanHV1sVSIWy9U2IZt7LX4Jc9wI6P4s/CPOIp2o
-	Dx9/6SsORILW6EUvQmVUtiKbfn6zIhkpZ1q2tGcOZMMz1OlVh1DbK63QlbONmZE3jdW13xC
-	KpuETBxI1xY56ik1vgFCjrTLRuGFvIS+WYIlRy+v/9aQoBL7sbfV34C3pl6b2lhpJvXY5NV
-	smHsc42utvLjtpL8dJBLyYFIcRG9B0n8XIBj8SSSHvymzQI46Dlspe3w2Ypa2qDckQC2HGV
-	dPPw80HeRywP4VZtNFOMHfgvWC2jT3yIWyhwUyH4KUrxcWCVreb+tTwXrh8hS7VXfKgyQ16
-	gxjogsVWuc2PmLXdc0EX+Dn2hZRv7xlzzlc+KDU46xTEMfkY/zXsfnjg71Hdi3gojs8F/Mr
-	GtLfqTQAk/OMFodRWjFlYW42g2IJDR2viAI72etXwLfe9tvo2u/LcjinIM4sZz+ZUN95U68
-	MwkApt0Wj+JTyQ07HbvV5UIH7VsbMClqUtS35tqCTrKeKiOXb440h3bynhc9eW8bQ8DA5NK
-	X9NvT0whqNa3O2sfoJYHKZWC5Rr5Cy6VInJhEfKInncCMSdYXqCLcLFQPaxiTjATBqUEMaB
-	CqQHzaWTxWV9GkVugdHTZCtCUxd+HIfADQpQsyuXi2nE7fpH2G3n/ytJUpPmzlb4b3082Eu
-	tcDveP2aZTHOG737v52aVMcU/1uayveXeg9704diDrAGBVzBUVh+sLdLfN1VmD5fkB656cr
-	o+wf3dbepDEpequEH1xpVMZca8l+dIwU2l2drNvVMKTqea4CawGOBSpPzL9RgiaBvyo1jOS
-	SqgOXINUn/Fg2oRGC5ticZXrft+vHcnOOJ7swdLwi/KpnN+v01WU/7liMLplpQNQ1W3trCo
-	PFrILXSMnhVuZ3zbamNGsQbZSHAFGBAqc7EhGsg6j10
-X-QQ-XMRINFO: MSVp+SPm3vtS1Vd6Y4Mggwc=
+X-QQ-XMAILINFO: MdoRYM9mYrydwdduVCl4xBUy3jA3n6Z9Bq7VUXD+yo1m6FZzDgOQUGgH
+	CoA6lMwlMWw6vbXCWn8hUpW4lR7C1PL52AMY1IThY19ke4Z+MKYSVo+kZSUCRhQSwHQi+wz
+	zkO4EhQ0byQ9rjBUGOHmHKur2HadKlptdg/aaOeodL1sqdIEviwoxSKmd2sbsDSgBq8YnJ4
+	SVrlV6PHgWDLSF+BkB0LDuO/NOzUbOg1jPv6cCl9ezsxdCiM2ExD9UTKsRtbCunoYQ0QRCq
+	pvxdZ7T44t786Lm6zMHxGvih17rp3do5ZWqhDfodUYnAL8k3g2e/4ykfOAL2sTU47aIvHID
+	PgsF9iUkIBMa9vpUc+gCRtgxa7Gzsk/h5HWbZXs7W8b8j72iEeRSmafoUmMCmfgR2tdEocE
+	DWL9o+lAA12pBHLWezwxsPjV/QbZASe4B+f4GPYhnQXIDlKQUOyjZdAHC8i+Xwqc19/94qH
+	q5mrQXYDUGUzshz8+5TIGvxdLUW6thzjere/i49earpthGCcQM4ePZCIn6HfXsvAxIZNvef
+	MV4PR1x8rXFjBHr5I+h1++B8msILYBYJxApxoXUxZol82JusqnU5ocskCDKEVKsxIlKcDS0
+	x/Y+to5oCsLJPz6C1mZEGItCcci7vp6Vic7vKzCSafN1yubVLh27Avjab4rRHqj96p2fFXf
+	jqICzQHgVYGThNkFMdsZD2M7tPhU2y3itbrsj1aZWahdxxhAu9Q7/V4gq+tcTaE+jZlIxwA
+	ojtocDc7S7NLkvjl5zg+jnXxFJyNOcPTMopFCcTsLmcVOTfy5MDGzb4nIi3izprUpnx7YgQ
+	Wh8We3argmAG22+fuEVJEF9TUJiTYJwXfvSLMJ5Vh5+O9wqkg6dq+MG3HqM3r1JVvZjNyq2
+	Yo9oLbQ+IhHoNjMI/MtB07lYrYdtBlPqnCStBtKe6y7ygKLFoMZTR07R0WItV4lRBdiiTmG
+	H6trlWPRaXmr9I5bLmtAK/GxJ8szYDwVY6eek7hBWVRctiCRNWm/i4kJy1HAsPeD2P4GqI8
+	fmb8kDAyNLLZlgJA3n8m+r9gupXhKvz5EtpkGR92uLyUN1xgzV9QEZ0nfR++IIcFUSwDSEm
+	xYJxYdRnJI/jmr7W4nTl31Eum5vdu8ofQ==
+X-QQ-XMRINFO: OWPUhxQsoeAVDbp3OJHYyFg=
 X-QQ-RECHKSPAM: 0
 
 There is a spelling mistake of 'notifer' in the comment which
 should be 'notifier'.
 
+Reviewed-by: Simon Horman <horms@kernel.org>
 Signed-off-by: WangYuli <wangyuli@uniontech.com>
 ---
- drivers/gpu/drm/xe/xe_vm_types.h | 2 +-
+ drivers/net/ethernet/marvell/mvneta.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_vm_types.h b/drivers/gpu/drm/xe/xe_vm_types.h
-index 1979e9bdbdf3..0ca27579fd1f 100644
---- a/drivers/gpu/drm/xe/xe_vm_types.h
-+++ b/drivers/gpu/drm/xe/xe_vm_types.h
-@@ -259,7 +259,7 @@ struct xe_vm {
- 		 * up for revalidation. Protected from access with the
- 		 * @invalidated_lock. Removing items from the list
- 		 * additionally requires @lock in write mode, and adding
--		 * items to the list requires either the @userptr.notifer_lock in
-+		 * items to the list requires either the @userptr.notifier_lock in
- 		 * write mode, OR @lock in write mode.
+diff --git a/drivers/net/ethernet/marvell/mvneta.c b/drivers/net/ethernet/marvell/mvneta.c
+index 147571fdada3..ee4696600146 100644
+--- a/drivers/net/ethernet/marvell/mvneta.c
++++ b/drivers/net/ethernet/marvell/mvneta.c
+@@ -4610,7 +4610,7 @@ static int mvneta_stop(struct net_device *dev)
+ 		/* Inform that we are stopping so we don't want to setup the
+ 		 * driver for new CPUs in the notifiers. The code of the
+ 		 * notifier for CPU online is protected by the same spinlock,
+-		 * so when we get the lock, the notifer work is done.
++		 * so when we get the lock, the notifier work is done.
  		 */
- 		struct list_head invalidated;
+ 		spin_lock(&pp->lock);
+ 		pp->is_stopped = true;
 -- 
 2.50.0
 
