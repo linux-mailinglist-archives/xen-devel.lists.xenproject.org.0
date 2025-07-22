@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36E43B0E50E
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 22:45:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1053003.1421764 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71831B0E6BC
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 00:52:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1053031.1421774 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueJqU-0005DU-QL; Tue, 22 Jul 2025 20:44:18 +0000
+	id 1ueLpt-0003RH-LB; Tue, 22 Jul 2025 22:51:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1053003.1421764; Tue, 22 Jul 2025 20:44:18 +0000
+Received: by outflank-mailman (output) from mailman id 1053031.1421774; Tue, 22 Jul 2025 22:51:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueJqU-0005AY-NO; Tue, 22 Jul 2025 20:44:18 +0000
-Received: by outflank-mailman (input) for mailman id 1053003;
- Tue, 22 Jul 2025 20:44:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ueLpt-0003Pp-HK; Tue, 22 Jul 2025 22:51:49 +0000
+Received: by outflank-mailman (input) for mailman id 1053031;
+ Tue, 22 Jul 2025 22:51:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=stB6=2D=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1ueJqS-0005AS-Pb
- for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 20:44:17 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20606.outbound.protection.outlook.com
- [2a01:111:f403:2418::606])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9dfd8d15-673c-11f0-b894-0df219b8e170;
- Tue, 22 Jul 2025 22:44:11 +0200 (CEST)
-Received: from BY5PR03CA0009.namprd03.prod.outlook.com (2603:10b6:a03:1e0::19)
- by CH3PR12MB9282.namprd12.prod.outlook.com (2603:10b6:610:1cb::8)
+ id 1ueLps-0003Pj-GC
+ for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 22:51:48 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20613.outbound.protection.outlook.com
+ [2a01:111:f403:2412::613])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6de2834e-674e-11f0-a31d-13f23c93f187;
+ Wed, 23 Jul 2025 00:51:41 +0200 (CEST)
+Received: from CY5PR15CA0059.namprd15.prod.outlook.com (2603:10b6:930:1b::28)
+ by CY8PR12MB7268.namprd12.prod.outlook.com (2603:10b6:930:54::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.25; Tue, 22 Jul
- 2025 20:44:06 +0000
-Received: from SJ1PEPF00001CDD.namprd05.prod.outlook.com
- (2603:10b6:a03:1e0:cafe::f8) by BY5PR03CA0009.outlook.office365.com
- (2603:10b6:a03:1e0::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8964.21 via Frontend Transport; Tue,
- 22 Jul 2025 20:44:04 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.30; Tue, 22 Jul
+ 2025 22:51:36 +0000
+Received: from CY4PEPF0000EDD5.namprd03.prod.outlook.com
+ (2603:10b6:930:1b:cafe::c4) by CY5PR15CA0059.outlook.office365.com
+ (2603:10b6:930:1b::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.29 via Frontend Transport; Tue,
+ 22 Jul 2025 22:51:36 +0000
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SJ1PEPF00001CDD.mail.protection.outlook.com (10.167.242.5) with Microsoft
+ CY4PEPF0000EDD5.mail.protection.outlook.com (10.167.241.201) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8964.20 via Frontend Transport; Tue, 22 Jul 2025 20:44:04 +0000
+ 15.20.8964.20 via Frontend Transport; Tue, 22 Jul 2025 22:51:35 +0000
 Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 22 Jul
- 2025 15:44:02 -0500
+ 2025 17:51:35 -0500
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
  (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 22 Jul
- 2025 15:44:02 -0500
-Received: from [172.29.130.202] (10.180.168.240) by SATLEXMB03.amd.com
+ 2025 17:51:34 -0500
+Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 22 Jul 2025 15:44:01 -0500
+ Transport; Tue, 22 Jul 2025 17:51:33 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,278 +63,209 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9dfd8d15-673c-11f0-b894-0df219b8e170
+X-Inumbo-ID: 6de2834e-674e-11f0-a31d-13f23c93f187
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kzXUW30ps0VZHWuUxhTjlhPyALJZDyWA/xsnjCrLAaS8s6JxAXgkX1QD1L7xwxnQ+QjSKUIR/kQ8+7aGaoX8WFF4rJ9GDWeeSVW7Qbh5iC7xZ2PdxpJvPzfaT1oO5RcRz9CBQNSx8ZrU1QVtt5+MMHCE4zdVWP1iZAvC4GCQXgyxc6Fm0XjX0KDA7gNlOnuUour9KBCvKTAfkSxpjslbMmZXs7sywDM18Bbohlh+tPiSeeghcr+zr8pbm6sE43mnDhvMYZmys9CK4QHxed9Ae/vkTAw8AfSryqrC2YzDAPA/zAypXgRneR/97cofiilIptev6yjHGcEBaPuYOQoYcA==
+ b=kmX8d6rP7UtNOf+N3UaOP5plSbiy3E1t09pBB7JBaUGnaBo70as/EO1s/eqlqNJ7pn6hSZriZAjllaWMBnj+5FCYCMTQOiyAvCrQtH7+ifrqMqb1sa8dvz936ksFcklmlZEGNayNa/c17bam4b2Q+G3Kz4b5sss/3g61DfJm3dDbALCy0DtOQSUxTMSGvS4YPJYn++2X+lwWn1Zb1eVJHX3pYCElhRZlxI1BBqF0OSmPInNYN6FPJaBt2RcjsZ0HiQZ12krPjMPrWXuyqBoM7AtcVzYuCfSqVmFeQbj+l7OR76xPTsLNREmiMbL36wa48/pMfRK767lnGcNRHaC22A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rgHTJtCCQMzuJCTLz8mIGs7MvmEVD7ahzV6q2XSTYRg=;
- b=NAKUHWV1jCtcE1T3FQeC11SYrgT10RjJuL67IsR3/5UnPKQ3CRpzShEvocylHeFrI3U3/XdDoMVRyk0LqRk7p/IBqfZkK7YXcanWiK5tWphMjGKe4UkOfUnihf6yW5WpDoRTYjadBfbc6DV6wru5Xe06rjPVUIHMiXFlIOWYk5JEkrwygS/KwwF5+se/knjxf7Hg/idQ+6jMak6NEQc+fdsmhoEMtlot5yV/3eaKnqbYtWfMBUhgOdnpS60EBrgFDlzx9DwoN/eeDq4+WKl044X0+NNb5KTLZuD3hLnDkrJzyoAO7mcvS9WKJkvsLsxWjOIjvv3Coh0MJrBqc/bWtQ==
+ bh=u81A9bKygqw6pTSdgTx1OPSjUHnl8py2nShDllsbhhw=;
+ b=tRitJibsy8gNJEoDcJJZHAqaaJLUM337n2385r0RXYu8Ccw7lMmC7h/yM9+tVQZxvhgTIogaepe3fkr+8v8qBQ/c05kkCnrtqd+WQqTUCBp8Sa9IfxXIDZfmH2F3XvhQoTO99nkFXKcUOwZD6ygCk+om/SbPpU0nLCHHlqha59KoU7PibMuYBxwVteergkq4UY0aaJRWwgO9DLhRPySst4Z8JJf/yQ+EEt0vV50EfJB3+mDJn6VXWRiJcBfGvUu0DWCkvIIC1UhAltWyEtRp2uTXdWAMXSRD+a/Zq/WDYD1RyZCrBcJ58ABWeTMY8nK/1GH50rL1UAda26zRXnBIYw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=boeing.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rgHTJtCCQMzuJCTLz8mIGs7MvmEVD7ahzV6q2XSTYRg=;
- b=iMV7fwNGdvCE3iNyNP4YD/xTW8ryNRxvluHq2kUDp5Eu+wAPAZF++wnV1x6ipe2d57j9Zg/fK8LF8xLvKR5BMRO/8ZIdOthbsDmULDgSfR2mRAhZANbCS+l67MhIDhl9ADTUTxBv54M7QjQ25AAvdRIfEwShOQ1jf9WIaUKvIYg=
+ bh=u81A9bKygqw6pTSdgTx1OPSjUHnl8py2nShDllsbhhw=;
+ b=aghxiqWmnBVhmHovloXbxXyfELZNdouTXCxq6wII8FFi0DuA2Nzti5dDiJmXKaqY0VznQVRXj/pCeVKCf5lqqDLfQOLQztoDk2gqIlRiq1Qf8xoky+7Pp3bdf1eqHYsoYYY01bKFzUaLI8qoSns4QqakzS6p+P3m8Pc15CbqYds=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <0c262d60-6776-4c60-ae6e-5d168bba9d93@amd.com>
-Date: Tue, 22 Jul 2025 16:44:01 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3] xen/arinc653: fix delay in the start of major
- frame
-To: Anderson Choi <anderson.choi@boeing.com>, <xen-devel@lists.xenproject.org>
-CC: <matthew.l.weber3@boeing.com>, <joshua.c.whitehead@boeing.com>, "Nathan
- Studer" <nathan.studer@dornerworks.com>, Stewart Hildebrand
-	<stewart@stew.dk>, Dario Faggioli <dfaggioli@suse.com>, Juergen Gross
-	<jgross@suse.com>, "George Dunlap" <gwd@xenproject.org>,
-	<xen-devel@dornerworks.com>
-References: <cb18dbefaf574eb4d3647097d06debcab378533a.1752815008.git.anderson.choi@boeing.com>
-Content-Language: en-US
 From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <cb18dbefaf574eb4d3647097d06debcab378533a.1752815008.git.anderson.choi@boeing.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+To: <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <stefano.stabellini@amd.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, "Julien
+ Grall" <julien@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, Bertrand
+ Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Stewart Hildebrand <stewart.hildebrand@amd.com>
+Subject: [PATCH v3 1/2] xen/arm: fix arm_iommu_map_page after f9f6b22abf1d
+Date: Tue, 22 Jul 2025 18:51:24 -0400
+Message-ID: <20250722225127.81390-1-stewart.hildebrand@amd.com>
+X-Mailer: git-send-email 2.50.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 Received-SPF: None (SATLEXMB05.amd.com: stewart.hildebrand@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDD:EE_|CH3PR12MB9282:EE_
-X-MS-Office365-Filtering-Correlation-Id: 808b7bc3-4b23-4ea7-1be3-08ddc9607f37
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD5:EE_|CY8PR12MB7268:EE_
+X-MS-Office365-Filtering-Correlation-Id: 674cde54-75c7-460d-460f-08ddc9724fc1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|7416014|376014|82310400026;
+	BCL:0;ARA:13230040|36860700013|376014|1800799024|82310400026;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?RGVSaVhkSFQwREwzMEJwak1aMFp0Z0RONlA4bFNjUjJqK0JIQ09pdTFqcllj?=
- =?utf-8?B?L0g3amI4dC9CMFlMWCtjNEpuV1lxa3hYeUZUNlZxUHFVNVhveE8zbmRENmti?=
- =?utf-8?B?eExlRS9FaXloU0hML05OZ2VGTmVBM3pvc05BRXN4MEhmeUNQSE1FSS8zc0lh?=
- =?utf-8?B?VURsbE13bldnT1VhRmpwY2d2c29WcUdPTFhtY3BYaWQxZlFlbnhjSXEzU3FJ?=
- =?utf-8?B?WkVTcnlqSnZVdVBBbGFEZ2pHaHk5WmpjTDJ1aDlTRzZsQTlGa3VEWmxWL1Zr?=
- =?utf-8?B?TEFhVzhDcjhTOUt0b0o0Q0Q3OFIvWXFSR29nQXhaZ1V3dGpZTnJTL296NC9t?=
- =?utf-8?B?Q0pwYll3d3Z5RUNORVN6WXZ4QmRqVXJTMXFyOW42bGY1MG1pOFN2dTB1eGhB?=
- =?utf-8?B?bjUzWTlZK2Urd2VKd1VHa3l0RUR5Ulp6b2J3OXJtY1RlYkpwNXJqNmdWTnRn?=
- =?utf-8?B?MFpLd2tJZ0s5SUNsREZMczNJVC9vUXJCekF6SC8xaDltWGZya09ObmRtc0E4?=
- =?utf-8?B?b29DN3NQeXlDblNuOE91RDMwSWJ0SnpIM1FHWEJuOWFuL1lFd3FoZDY4S3d4?=
- =?utf-8?B?UG5ja0xCeVBFcWFaYjBSTG9jdTBTWEw5Y05FemE0TlQ2OGhYK2ZwMm1Gek1q?=
- =?utf-8?B?Z1JnUUdXZFdYR3liaGNtbCtGUDFKYnZxL0Z4L01weVJWa3hpdENSOVlMZXhI?=
- =?utf-8?B?RnFKblYwZ1EzM20rd1E3Rmtmd1RJNnl2cjRTR1E4UWx4YVphYnc5VzVJUEFh?=
- =?utf-8?B?aFhGUFExdDA4VTJvTU5PT3NNbVA5OWpiTE13TGFFMU9hSmdKclkzek8wdFhL?=
- =?utf-8?B?dTg2VkV5NmxzQkVXRXUvalZtUTZadDZWQ0poZ0Iyamx6clVDcWt6WlBHMDNj?=
- =?utf-8?B?dVFyTlRTSEVVUTh0VjhXSkFxa3ZXblNkQjZZaXNxY05BWG5ZNjExbHRGVnNV?=
- =?utf-8?B?TGZCcndFc21vbHNoUk43VUNDR0tWK3Q3eGJJa2QxUVh2c2NCL2M1OXp1RUFF?=
- =?utf-8?B?WXZuRUJ6alpqRjU3SWhrZG9vR3hOczc0U1RhTzZzUmpoVzc1MnJVbmdaWXZ3?=
- =?utf-8?B?YXNQdjEwQlBiQUlnTzNkT0Q5amU1VlExT3Mxa05PQjdVYlhqdlpvc0E4aU9D?=
- =?utf-8?B?WEsxeWQ2WjV1T05JQXlleWpvVXJTL1R0ZzNNaFJtSkJNNGtpdXY1R2EvcmlR?=
- =?utf-8?B?VVB2UStBaXk0UTk3RnNOM0ZpNHQzelpQVmJUbEdMTng0Vkpka0ZsWU9oU1Vw?=
- =?utf-8?B?MTk5WjlLckZxMTdzTi90UGl0MkRjRjhmYXZGbW82VWY1MGZNYytPUjFFeVpa?=
- =?utf-8?B?NFpzRTRWeUxYb1hYSjdMamk3ZFVuQTZ5KzZrL0J3NEZhOGtRVWNaVkt1d0dY?=
- =?utf-8?B?R2EyakRJdkNobS94VXZiZWVFZk95VkJyMG8wNFRVVWgyNHVreGExSmJJbll5?=
- =?utf-8?B?TWl0MzVGZDVlUnZRTjNRaXB6MElUZU94Rkg3ek9KTmxobCtKenU0YXJvV2Js?=
- =?utf-8?B?OHhURWpVVmw1K0ZXaTgrcmxsUnBCNVdCVE9yQVpqeTFCRXhIZUl3UVRHajVv?=
- =?utf-8?B?MzZtUzhaS0g5d3ZKeCt3L0VRSDlSZ1g2aXRWanJDVWlRWjBRMnA0MldDZG9Z?=
- =?utf-8?B?aU0rb0JwanIrdkcxRUFGRHdYUE83ZHMvcWlURnFmTGtnWFZxbnh4R2hRc2k5?=
- =?utf-8?B?dnZIR1hjN3F0M3pJa2hLTjcya1pzYjdpNTVxZzJWcndvTGhOalorZERDZXpm?=
- =?utf-8?B?b2hGbjkvbFl5S0tkRFMvSDUvQVBOZVhQWlFIMHlOeDdFQjluZXIySXVueUpz?=
- =?utf-8?B?eVdRMWtTMExuTFdBL3VBWGJlSERyNGZ3Y0dseXRZVU9XZmZXQzVlbG5hMUJ6?=
- =?utf-8?B?Ulg1K1d2U0hkZmZTdWdSYnpGL1FmSm1wYVJCNS91WVljRUVvcDNDcDNTYW9k?=
- =?utf-8?B?dzY3ZVhqZGtRb1ZtMFdQU3A4SVZjTTk0bS9qbkx2bUpZUDFJOEMrRTVFTHZ4?=
- =?utf-8?B?N0dwMURZVHdHbklJOU5HRVE4eC9uV3g1WEkvOVduUzZoNEFqK3JObzRYRnF3?=
- =?utf-8?Q?XXy2uB?=
+	=?us-ascii?Q?kOZTuQjI4sU8hdhI9VMWs0pPUMooG4uYKSv1Auiih+LZHK1j7sfS7LMqSS4D?=
+ =?us-ascii?Q?pZpiYAYToSyp2Um0PwBcTpaBxPyaAysp4PL+9ctSKo8UjyuRecDpsqpZhgd6?=
+ =?us-ascii?Q?mRXn7/kBzu9N0b1OBk7V43yis6E7c7EO/WV2QYXMbsAg+JvLfCEEFbBk+xy1?=
+ =?us-ascii?Q?VAkoS+x8Zk97tmPJrcyM1wPDcz7GA5B3zWiPhBYT/ni6UWW8litEpctHxCjH?=
+ =?us-ascii?Q?iB7uKzKc3lEFZQ8okwOHsf/OvhvmP1swayk7MdMS+h+xNKQTVWexFYHXxgQJ?=
+ =?us-ascii?Q?cDEHVFrldBNyB5X4ih83vy4/n0e5YaFewXGnGRfPBTVFR1pLTq2HlEJwnK9C?=
+ =?us-ascii?Q?QkC5sOiC4F2JDoLHA8M6OpIfTmQWrS+IO9sB4Qv1Y4e2wS00Ar+VAbM9ywuT?=
+ =?us-ascii?Q?AYZapv/rZcE1tpD4q69SKq3dMdX4U26dsf/Z/l477uPmhwn9vOC6fdIPsf/N?=
+ =?us-ascii?Q?zDVdjDL0V5fdJFnLgQg3/i2OJJloW/D6akiPKfax1A19GJqLYV1qkd86RxwK?=
+ =?us-ascii?Q?04mOP/qDOYJmYkIL3H8bwoglqepzk1PW6du5x+xJJ+e5albF0A69bYmJJlYP?=
+ =?us-ascii?Q?QF9SIOeseutTWEiNyiMwmGSpGaOiK91r2EbHhEc1xofHLsLuNzu/pHQw+DAp?=
+ =?us-ascii?Q?Tg2WtVTHHton7n/tq5KDEUqPO8a1ASe3HsRyT3dLR78HiO3HPIe2buhH29mR?=
+ =?us-ascii?Q?q6GID+W7CpP9/z2gIbnr21nhJAjAgv5t7S7U4BXa/Lb2XphO/q1oze4kl/Tv?=
+ =?us-ascii?Q?AZC1koyoAOqo/KYU76YkI7X96aIbRm2tbEvKy2S8X+eMOXdQHa2E+0Wn9DNq?=
+ =?us-ascii?Q?Y6gWhN16ZY6TMN+5tA4KMGrETyfLmTQLSIWqvIMk0scKQR0fsBczra4dc+KH?=
+ =?us-ascii?Q?wJpBBM4WC+6mLD2UA667g6F/cAxFU4s4kLZcGu0qb7le3gyyD2PkjfyhY2gD?=
+ =?us-ascii?Q?G7XZmIVxADXB3BRfU/0Jl9nA4X7GHo7N+bUa/8Ih4h1dQOwFm5qBGWnr12Il?=
+ =?us-ascii?Q?bWIgxboas8Z1JcBT7TVL9PskFBqPj8+6IKfRAGMoILKnjCKXTNenSeJth4IK?=
+ =?us-ascii?Q?xOaMsFk5+TyrhXG/0XCBfNXmMFBqMeXR+cPJ7LVhlh+AabVpENwtNwfzmQ6V?=
+ =?us-ascii?Q?TAhWlUH3K00bek7/w1MX4cJaTirKIgBKV1RJoikank1hdsys5j6Art9JkkMI?=
+ =?us-ascii?Q?iXRjn4bWBNt71NFiclKo4AFJxBah8DA1eGv2XWiokJ6pUBdYHEFdtLIfiNU3?=
+ =?us-ascii?Q?froxG/QRyAseZCwbyAZo7KYGfaM4UoY94NcrgCT1AJhJ9EOxwytXMay4bru/?=
+ =?us-ascii?Q?s6pBuwfB3qZtFkQmXM20xDVQdtZGTkDD3MRmCsMLiVyfiKCRFZE771P+ZlIM?=
+ =?us-ascii?Q?6+yvuZ2OJqM56dylBTJdlfL+L4xI8y6Fy6qa4ozhZgNs8ey/9FjYRcdmEkC6?=
+ =?us-ascii?Q?0wkQicmWOoOL9eJprheh/styDuKB/xzBbSCApZQKT3Ik+EQJQBLym75TEHcO?=
+ =?us-ascii?Q?E9pBlbfJ+oNOW7jdsdCRFwqwvH8meoBWX5Nm?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(7416014)(376014)(82310400026);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2025 20:44:04.3480
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2025 22:51:35.7117
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 808b7bc3-4b23-4ea7-1be3-08ddc9607f37
+X-MS-Exchange-CrossTenant-Network-Message-Id: 674cde54-75c7-460d-460f-08ddc9724fc1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00001CDD.namprd05.prod.outlook.com
+	CY4PEPF0000EDD5.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9282
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7268
 
-Hi,
+From: Stefano Stabellini <stefano.stabellini@amd.com>
 
-It largely looks OK to me, just a few small comments below.
+Up until f9f6b22abf1d "xen/arm: Map ITS doorbell register to IOMMU page
+tables" the only caller of iommu_map on ARM was grant_table.c which has
+a specific usage model and restrictions as described by the in-code
+comment in arm_iommu_map_page.
 
-On 7/18/25 05:16, Anderson Choi wrote:
-> ARINC653 specificaion requires partition scheduling to be deterministic
+f9f6b22abf1d introduced a second caller to iommu_map on ARM:
+vgic_v3_its_init_virtual. This specific statement in the
+f9f6b22abf1d commit message is partially wrong:
 
-Typo: s/specificaion/specification/
+"Note that the 1:1 check in arm_iommu_map_page remains for now, as
+virtual ITSes are currently only created for hwdom where the doorbell
+mapping is always 1:1."
 
-> and periodic over time.
-> 
-> However, the use of current timestamp (now) as the baseline to calculate
-> next_major_frame and next_switch_time introduces a delay in the start of
-> major frame at every period, which breaks determinism and periodicity in
-> partition scheduling.
-> 
-> For example, we observe 3.5 msec of accumulated delay at the 21st major
-> frame with the following configuration.
-> 
-> Target : qemuarm64
-> xen version : 4.19 (43aeacff86, x86/IRQ: constrain creator-domain-ID assertion)
-> dom1 : 10 msec runtime
-> dom2 : 10 msec runtime
-> 
-> $ a653_sched -p Pool-arinc dom1:10 dom2:10
-> 
-> 0.014553536 ---x d?v? runstate_change d1v0 runnable->running //1st major
-> frame
-> 0.034629712 ---x d?v? runstate_change d1v0 runnable->running //2nd major
-> frame
-> <snip>
-> 0.397747008 |||x d?v? runstate_change d1v0 runnable->running //20th
-> major frame
-> 0.418066096 -||x d?v? runstate_change d1v0 runnable->running //21st
-> major frame
-> 
-> This is due to an inherent delta between the time value the scheduler timer
-> is programmed to be fired with and the time value the schedule function
-> is executed.
-> 
-> Another observation that breaks the deterministic behavior of partition
-> scheduling is a delayed execution of schedule(); It was called 14 msec
-> later than programmed.
-> 
-> 1.530603952 ---x d?v? runstate_change d1v0 runnable->running
-> 1.564956784 --|x d?v? runstate_change d1v0 runnable->running
-> 
-> Enforce the periodic behavior of partition scheduling by using the value
-> next_major_frame as the base to calculate the start of major frame and
-> the next domain switch time.
-> 
-> Per discussion with Nathan Studer, there are odd cases the first minor
-> frame can be also missed. In that sceanario, iterate through the schedule after resyncing
+Leading to crashes any time the hardware domain is not direct-mapped
+(e.g. cache coloring and non-Dom0 hardware domain):
 
-Typo: s/sceanario/scenario/
+(XEN) Xen BUG at drivers/passthrough/arm/iommu_helpers.c:47
+[...]
+(XEN) Xen call trace:
+(XEN)    [<00000a000024c758>] arm_iommu_map_page+0x80/0x90 (PC)
+(XEN)    [<00000a000024c750>] arm_iommu_map_page+0x78/0x90 (LR)
+(XEN)    [<00000a0000250884>] iommu_map+0xcc/0x29c
+(XEN)    [<00000a0000288024>] vgic_v3_its_init_domain+0x18c/0x1e8
+(XEN)    [<00000a0000285228>] vgic-v3.c#vgic_v3_domain_init+0x168/0x21c
+(XEN)    [<00000a0000281dcc>] domain_vgic_init+0x14c/0x210
+(XEN)    [<00000a00002705a4>] arch_domain_create+0x150/0x1f0
+(XEN)    [<00000a00002055e8>] domain_create+0x47c/0x6c0
+(XEN)    [<00000a00002cf090>] create_domUs+0x7f8/0x8cc
+(XEN)    [<00000a00002eb588>] start_xen+0x8f4/0x998
+(XEN)    [<00000a000020018c>] head.o#primary_switched+0x4/0x10
 
-The line is also too long.
+Specifically, non-1:1 hardware domain exists with cache coloring
+enabled. For that, is_domain_direct_mapped(d) is false but
+domain_use_host_layout(d) is true.
 
-> the expected next major frame.
-> 
-> Per suggestion from Stewart Hildebrand, the while loop to calculate the
-> start of next major frame can be eliminated by using a modulo operation.
+Change the is_domain_direct_mapped(d) checks in arm_iommu_map_page and
+arm_iommu_unmap_page into domain_use_host_layout(d) checks.
 
-The while loop was only in earlier revisions of the patch, not in the
-upstream codebase, so it doesn't make sense to mention it in the commit
-message.
+Move the in-code comment specific to the grant table to grant-table.c.
 
-> 
-> Fixes: 22787f2e107c ("ARINC 653 scheduler")
-> 
+Fixes: f9f6b22abf1d ("xen/arm: Map ITS doorbell register to IOMMU page tables")
+Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+---
+v2->v3:
+* split change into 2 patches
+* 12-character commit IDs
+* change both arm_iommu_map_page and arm_iommu_unmap_page
+* s/IPA/GFN/ in comment
+---
+ xen/common/grant_table.c                    | 10 ++++++++--
+ xen/drivers/passthrough/arm/iommu_helpers.c | 16 ++--------------
+ 2 files changed, 10 insertions(+), 16 deletions(-)
 
-Please remove the extraneous newline between the Fixes: tag and
-remaining tags
+diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
+index cf131c43a1f1..33d051dfe9b8 100644
+--- a/xen/common/grant_table.c
++++ b/xen/common/grant_table.c
+@@ -1274,8 +1274,14 @@ map_grant_ref(
+         }
+ 
+         /*
+-         * We're not translated, so we know that dfns and mfns are
+-         * the same things, so the IOMMU entry is always 1-to-1.
++         * Grant mappings can be used for DMA requests. The dev_bus_addr
++         * returned by the hypercall is the MFN (not the GFN). For
++         * device protected by an IOMMU, Xen needs to add a 1:1 mapping
++         * in the domain p2m to allow DMA request to work. This is only
++         * valid when the domain is directed mapped.
++         *
++         * We're not translated, so we know that dfns and mfns are the
++         * same things, so the IOMMU entry is always 1-to-1.
+          */
+         if ( !(op->flags & GNTMAP_readonly) && node.cnt.wr == 1 )
+             kind = IOMMUF_readable | IOMMUF_writable;
+diff --git a/xen/drivers/passthrough/arm/iommu_helpers.c b/xen/drivers/passthrough/arm/iommu_helpers.c
+index 5cb198748193..bdb271584b0d 100644
+--- a/xen/drivers/passthrough/arm/iommu_helpers.c
++++ b/xen/drivers/passthrough/arm/iommu_helpers.c
+@@ -36,15 +36,7 @@ int __must_check arm_iommu_map_page(struct domain *d, dfn_t dfn, mfn_t mfn,
+ {
+     p2m_type_t t;
+ 
+-    /*
+-     * Grant mappings can be used for DMA requests. The dev_bus_addr
+-     * returned by the hypercall is the MFN (not the IPA). For device
+-     * protected by an IOMMU, Xen needs to add a 1:1 mapping in the domain
+-     * p2m to allow DMA request to work.
+-     * This is only valid when the domain is directed mapped. Hence this
+-     * function should only be used by gnttab code with gfn == mfn == dfn.
+-     */
+-    BUG_ON(!is_domain_direct_mapped(d));
++    BUG_ON(!domain_use_host_layout(d));
+     BUG_ON(mfn_x(mfn) != dfn_x(dfn));
+ 
+     /* We only support readable and writable flags */
+@@ -66,11 +58,7 @@ int __must_check arm_iommu_unmap_page(struct domain *d, dfn_t dfn,
+                                       unsigned int order,
+                                       unsigned int *flush_flags)
+ {
+-    /*
+-     * This function should only be used by gnttab code when the domain
+-     * is direct mapped (i.e. gfn == mfn == dfn).
+-     */
+-    if ( !is_domain_direct_mapped(d) )
++    if ( !domain_use_host_layout(d) )
+         return -EINVAL;
+ 
+     return guest_physmap_remove_page(d, _gfn(dfn_x(dfn)), _mfn(dfn_x(dfn)),
 
-> Suggested-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> Suggested-by: Nathan Studer <nathan.studer@dornerworks.com>
-> Signed-off-by: Anderson Choi <anderson.choi@boeing.com>
-> 
-> ---
-> Changes in v3:
-> - Replace the while loop with the modulo operation to calculate the
->   start of next major frame.
-> - Initialize major_frame and runtime of zeroth schedule entry to
->   DEFAULT_TIMESLICE not to use "if" branch in the calculation of next
-> major frame.
-> 
-> Changes in v2:
-> - Changed the logic to resync major frame and to find correct
->   minor frame after a miss suggested by Nathan
-> ---
-> ---
->  xen/common/sched/arinc653.c | 39 ++++++++++++++++++++-----------------
->  1 file changed, 21 insertions(+), 18 deletions(-)
-> 
-> diff --git a/xen/common/sched/arinc653.c b/xen/common/sched/arinc653.c
-> index 930361fa5c..b7f3f41137 100644
-> --- a/xen/common/sched/arinc653.c
-> +++ b/xen/common/sched/arinc653.c
-> @@ -361,6 +361,8 @@ a653sched_init(struct scheduler *ops)
->      ops->sched_data = prv;
->  
->      prv->next_major_frame = 0;
-> +    prv->major_frame = DEFAULT_TIMESLICE;
-> +    prv->schedule[0].runtime = DEFAULT_TIMESLICE;
->      spin_lock_init(&prv->lock);
->      INIT_LIST_HEAD(&prv->unit_list);
->  
-> @@ -526,29 +528,30 @@ a653sched_do_schedule(
->  
->      spin_lock_irqsave(&sched_priv->lock, flags);
->  
-
-Since the num_schedule_entries < 1 case is no longer handled below, we
-depend on major_frame > 0. Please add
-ASSERT(sched_priv->major_frame > 0); here.
-
-> -    if ( sched_priv->num_schedule_entries < 1 )
-> -        sched_priv->next_major_frame = now + DEFAULT_TIMESLICE;
-> -    else if ( now >= sched_priv->next_major_frame )
-> +    /* Switch to next major frame directly eliminating the use of loop */
-
-Similarly to the commit message, there was no loop in the code before,
-it doesn't make sense to mention it in the in-code comment.
-
-> +    if ( now >= sched_priv->next_major_frame )
->      {
-> -        /* time to enter a new major frame
-> -         * the first time this function is called, this will be true */
-> -        /* start with the first domain in the schedule */
-> +        s_time_t major_frame = sched_priv->major_frame;
-> +        s_time_t remainder = (now - sched_priv->next_major_frame) % major_frame;
-> +
-> +        /* major_frame and schedule[0].runtime contain DEFAULT_TIMESLICE
-> +         * if num_schedule_entries is zero.
-> +         */
-
-The start of the multi-line comment should be on its own line. I know
-the comment format was a preexisting issue, but since you are changing
-the lines anyway, please adhere to CODING_STYLE on the changed lines.
-
->          sched_priv->sched_index = 0;
-> -        sched_priv->next_major_frame = now + sched_priv->major_frame;
-> -        sched_priv->next_switch_time = now + sched_priv->schedule[0].runtime;
-> +        sched_priv->next_major_frame = now - remainder + major_frame;
-> +        sched_priv->next_switch_time = now - remainder +
-> +            sched_priv->schedule[0].runtime;
->      }
-> -    else
-> +
-> +    /* Switch minor frame or find correct minor frame after a miss */
-> +    while ( (now >= sched_priv->next_switch_time) &&
-> +        (sched_priv->sched_index < sched_priv->num_schedule_entries) )
->      {
-> -        while ( (now >= sched_priv->next_switch_time) &&
-> -                (sched_priv->sched_index < sched_priv->num_schedule_entries) )
-> -        {
-> -            /* time to switch to the next domain in this major frame */
-> -            sched_priv->sched_index++;
-> -            sched_priv->next_switch_time +=
-> -                sched_priv->schedule[sched_priv->sched_index].runtime;
-> -        }
-> +        sched_priv->sched_index++;
-> +        sched_priv->next_switch_time +=
-> +            sched_priv->schedule[sched_priv->sched_index].runtime;
->      }
-> -
-> +    
-
-Please remove the extraneous white space
-
->      /*
->       * If we exhausted the domains in the schedule and still have time left
->       * in the major frame then switch next at the next major frame.
+base-commit: 2dee23ad966897cb8596e49f37e625bf483d544c
+-- 
+2.50.1
 
 
