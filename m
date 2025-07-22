@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52253B0D940
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 14:18:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1052563.1421283 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA804B0D960
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 14:22:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1052569.1421294 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueBwt-00079T-3G; Tue, 22 Jul 2025 12:18:23 +0000
+	id 1ueC0E-0000EB-He; Tue, 22 Jul 2025 12:21:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1052563.1421283; Tue, 22 Jul 2025 12:18:23 +0000
+Received: by outflank-mailman (output) from mailman id 1052569.1421294; Tue, 22 Jul 2025 12:21:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueBwt-00077l-0h; Tue, 22 Jul 2025 12:18:23 +0000
-Received: by outflank-mailman (input) for mailman id 1052563;
- Tue, 22 Jul 2025 12:18:21 +0000
+	id 1ueC0E-0000Bc-Eq; Tue, 22 Jul 2025 12:21:50 +0000
+Received: by outflank-mailman (input) for mailman id 1052569;
+ Tue, 22 Jul 2025 12:21:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=D6vH=2D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ueBwr-00077f-A2
- for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 12:18:21 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ id 1ueC0C-0000BW-VZ
+ for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 12:21:48 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f472326f-66f5-11f0-a31d-13f23c93f187;
- Tue, 22 Jul 2025 14:18:20 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-455b00339c8so38715195e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 22 Jul 2025 05:18:20 -0700 (PDT)
+ id 7018043f-66f6-11f0-a31d-13f23c93f187;
+ Tue, 22 Jul 2025 14:21:47 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3a6cdc27438so4329547f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Jul 2025 05:21:47 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-759cb1575f0sm7419145b3a.75.2025.07.22.05.18.14
+ d2e1a72fcca58-759cb678d8dsm7449623b3a.110.2025.07.22.05.21.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Jul 2025 05:18:19 -0700 (PDT)
+ Tue, 22 Jul 2025 05:21:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f472326f-66f5-11f0-a31d-13f23c93f187
+X-Inumbo-ID: 7018043f-66f6-11f0-a31d-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753186700; x=1753791500; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753186907; x=1753791707; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=L2bM/RDLNxHgMAVzuIqYFd0r4cnQCI+iiUD0acNonUU=;
-        b=Y6cC5Fhsi3d372S2s893XkRwn3Ob0B1t9I/THk5+WOiWc7y36/I+dAfSIibYbnnfh3
-         n5xcQF7X3FlSEOOI3i5L2EOR6gMQ/ElGyUJ0E8tIa29GLS8Pdi/HpzKifm9P2MLvPTeB
-         xwynnkN/3SyxwKgKZdvpPsqmxj0JgI3lJ1kv+FPlc+Cqj7J50rHOboAvuLY+Aequrezq
-         dkx+OLNnV9vRg4cD5g1P45+LC3+ibWo+UN63jYzI4ohGCxM7nqOB2ST+owEIyLz2RObw
-         EIiYmPs+wiwZ0tqbbBtKmlyrBq0PdSCB7Cex3SvvEQQ4JoIjkaYnVIWYsWxM18wuoc4O
-         BOlA==
+        bh=Xhqsxy3IpWO2yqrgkfOOkrvGk7QNOjjgskjAMaGD5Jw=;
+        b=g14+rxvmQF4vZBIGhgjY2ljosC/rNit+oCuEr7XIpwfkKC850jxmeXuPN32hOkV+UC
+         HfvHG/ocpkJSFQBbev2PB4/eKwDYwjQgs0ga6xpc3LpXs1TQ5xc7up6KtrWSelxqx6WK
+         JzIhUv8grpffT9xFCjvqcq1faqAlVA1RUXtgiZ1kQQh82+KwD0oUFoKW5V3gU7CnfTe5
+         f2R/MHlYPWd28eM9aXyxGPDzbjexvrLE+QRgkOLe0ErEWQai4lyUhfyWbQR7mX+zd1LS
+         M9mXi5ozRbxcppPE6YeS+tqsHModKBG+CsmkcQabjGCihuDLqoFreA/yoERJivc2q/Li
+         p2tQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753186700; x=1753791500;
+        d=1e100.net; s=20230601; t=1753186907; x=1753791707;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=L2bM/RDLNxHgMAVzuIqYFd0r4cnQCI+iiUD0acNonUU=;
-        b=Kii7Qz1kjQNpPn2MGWlz9XbUH0h9TQgmWyouiVtt9iFXGomeEKXnOPC2wG/zPJfIos
-         U+dYc0JZkmNv9+YLXMfS6sobDdTOhE1F1QQ53xhtOpp+T0fG90UToW6KUnjhA3b4yE7w
-         Di5SpZpn7qTRcwjI6k5JG/V8N18gWetuIZiCnnj0elZ3RLlyTE3Ya2YJ5g9aVM88EiIN
-         k7Cw24f/svqLoM+4NJ1qFQVhuW/wJgNeSYB+Bmx0HaJlfx60XZKZPSBnGVAAS+cIQaCO
-         ouPBwGXPCguFavNQ/NQLKTw3fD5Lmco3Bu3xJCzsvdm/t4bwWwvJpCUR0aJylhcYHVj0
-         u48w==
-X-Forwarded-Encrypted: i=1; AJvYcCVrW7RM0yS9Hrwg2ELpzSTEhdTsufNlMjanyIxCzbhhRfIMMfcoBo+rxNTVQL/X63shQctNh+2zDqM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyVCkKLS2vSQBNaoXoJJ1GL7PihihPpnYexR5iukAk5/XyeyYFZ
-	vTL7DiRyynRfi3Cp2YgWTSo12x7pXy94mUAutr9QiTZ5nES6kYiFF8q0oj3DHMX2tg==
-X-Gm-Gg: ASbGncscXwxlIBHkeRhI4PUJX+ME2Gc/KGSDUC5kYQOQl6ni43HcvvbvpR/KkPwJBJd
-	kFD6D8OPGWzruhS6uB4zCmrbYLr337eozhinbXUChJeIWfOMEWv8pEPAxvXk6vkJ5eanxQO7tXZ
-	ne9ziTLspgqiwATkD2UPhAOHsWp9XCECdnDuAwdQbLFW7bidQYEn1S/jHL+ghbuv4WO3EeiYFtP
-	usC/SZscAmJ6t7VPTTxpjZoIGtr2mHbJinFtCCLhyVqze1QwYG0Y/RFdQtsZuU0pYz4lHOAPcVk
-	Uqotk90ecmlY+454I1C/4SnVOI6qf4DVtRpXH66Ywy6l0l8QeBVx5YjpfSt3w6l6UfzCMq0QbEC
-	0euSC4zZ6Cs4Tm8W5Op1KpU2RCX9QolFHvUP/p2/4x+5FRSxRki4jaEmfjCkyhLMoO9+IwLYArP
-	foPqcljlw=
-X-Google-Smtp-Source: AGHT+IHszDdqW5MHQPxRTw9orWSKsu5zPTuZE1nFJyAuCc2YqwZEXUHBF8XQ5hfPTfhw0g3Ejxr+jw==
-X-Received: by 2002:a05:6000:1ac5:b0:3b6:938:86b7 with SMTP id ffacd0b85a97d-3b60e513724mr20973351f8f.35.1753186699672;
-        Tue, 22 Jul 2025 05:18:19 -0700 (PDT)
-Message-ID: <e18e45f6-cffd-4bd9-9091-d2e5e979ffb1@suse.com>
-Date: Tue, 22 Jul 2025 14:18:10 +0200
+        bh=Xhqsxy3IpWO2yqrgkfOOkrvGk7QNOjjgskjAMaGD5Jw=;
+        b=bT1v2s+/un8XfyWPgWj3BKHuyhVgxA4gD4qAYMtWMSK9yWhMZpzN/8UbnK49gQrCMm
+         35ASjTgFNDlmM2PZVUqmCcdD2xmvdYGzK2abOGYVZDhXkgwTACmdrNVHIg7BL6MsA5Vw
+         VM/FG1YSefzjedRGAbShPsiWvpEKlRQvibw1pIFJg/FAFe8smy5F63AMsidkjZX8T32d
+         1Ryke37+Ue7ypuuIH32/AyvX3gBRD5eQ8zAQHlcwibtxh4IGWHvsTniLciu10JfYgI4C
+         I35Ley/ES+fbGB6VxyQiLyxiW82pSdMdplBYZ/MqwyMcUtAMyRS6z6vA5P59t83kKRKT
+         P0mQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVRIk1+C2hPW7DNHsyukqX2sWy1EGNb1sbuR146G34IGWfm+OKIBmEt5NE5T/TaGXCF39198H7JobE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxvU26iOPwLkbke810LeujiybOTpQqDGvxbPKn1fuCvB7tM3nuP
+	fz7rQ93fhoDHndOSXAqp6XS06AbIO/aEWwFkJYvNw4+eXokFPpeA3xWaEaBOUPXPPg==
+X-Gm-Gg: ASbGncsyX1t9upOcgEa/uyIGWeFGk4oP1mgs5Pl7f99icIUriiQluef5gnIHekl/AS9
+	kZ1r0WDOCwI5JVZRaaV0IyXhtuEpC8kpHY7yplLRYmVIsjBBSMJ2mPBfg2eJsSZWAWjOkItXznn
+	pX6+vg+ONhK4QYbP7IpGEiG3PhaQHWdvNyxPnOZXsv3prCYnbkEYm3mP0hq7+jKYJtL96svq9Ek
+	nX2IXCPMy2vtCCO/s83E2z518HqdCYtD+blq9YNV0XTIYrrLgUGi2de+ommYgz7u2jy4lsMhXKo
+	MKTpT+TvjG2JfZyMggMhySf1NQEZvEwrNYJm0ocvdpMELzQs1LZa6Kac80hO6IkT2LYVYmogStw
+	YMGwqhAqBNkuTn+PdX1DeUVwtSTC8tZ2/aA01BCGncrz7Bi7N9KKdAEMTrcDObN/nPQ10yl1Pxk
+	lG6pJTxLk=
+X-Google-Smtp-Source: AGHT+IE9gS4zItusUazwd9cf+Edq0CicAFGdYFoX7q21sWgB/9RaBkoA3Qw4V3IMzcJ73g9OzhoK6A==
+X-Received: by 2002:a05:6000:430f:b0:3a5:2e84:cc7b with SMTP id ffacd0b85a97d-3b60e4c94b7mr18946653f8f.11.1753186907180;
+        Tue, 22 Jul 2025 05:21:47 -0700 (PDT)
+Message-ID: <472d150b-3ba0-4c89-b72c-75eb8783cf52@suse.com>
+Date: Tue, 22 Jul 2025 14:21:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/10] dom0less: Reinitialise all variables on each loop
- iteration
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-References: <20250722115955.57167-1-alejandro.garciavallejo@amd.com>
- <20250722115955.57167-10-alejandro.garciavallejo@amd.com>
+Subject: Re: [RFC PATCH v5 03/10] xen/arm: scmi-smc: passthrough SCMI SMC to
+ domain, single agent
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Juergen Gross
+ <jgross@suse.com>, Julien Grall <julien@xen.org>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <cover.1753184487.git.oleksii_moisieiev@epam.com>
+ <3c8b292b345d81cd20ce260d45d3d7aac6d98702.1753184487.git.oleksii_moisieiev@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,40 +127,21 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250722115955.57167-10-alejandro.garciavallejo@amd.com>
+In-Reply-To: <3c8b292b345d81cd20ce260d45d3d7aac6d98702.1753184487.git.oleksii_moisieiev@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 22.07.2025 13:59, Alejandro Vallejo wrote:
-> Reduce the scope of every variable so they are reinitialised. "iommu",
-> for instance, isn't being cleared, so the wrong flags may make it to
-> domains that should not have them.
-
-Yet "for instance" isn't quite right, is it? "iommu" is the only one where
-the (re)init was misplaced. The other two ...
-
-> --- a/xen/common/device-tree/dom0less-build.c
-> +++ b/xen/common/device-tree/dom0less-build.c
-> @@ -826,14 +826,14 @@ static int __init construct_domU(struct kernel_info *kinfo,
->  void __init create_domUs(void)
->  {
->      struct dt_device_node *node;
-> -    const char *dom0less_iommu;
-> -    bool iommu = false;
-> -    const struct dt_device_node *cpupool_node,
-> -                                *chosen = dt_find_node_by_path("/chosen");
-> +    const struct dt_device_node *chosen = dt_find_node_by_path("/chosen");
+On 22.07.2025 13:41, Oleksii Moisieiev wrote:
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -1096,6 +1096,15 @@ affinities to prefer but be not limited to the specified node(s).
 >  
->      BUG_ON(chosen == NULL);
->      dt_for_each_child_node(chosen, node)
->      {
-> +        const char *dom0less_iommu;
-> +        bool iommu = false;
-> +        const struct dt_device_node *cpupool_node;
+>  Pin dom0 vcpus to their respective pcpus
+>  
+> +### scmi_smc_passthrough (ARM)
 
-... had no initializer, and also don't gain any. So they must both be
-set inside the loop. (Irrespective, the scope reduction is a good thing
-imo.)
+May I ask that new command line options please use dashes in favor of
+underscores?
 
 Jan
 
