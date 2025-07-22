@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45B1BB0D847
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 13:35:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1052267.1420880 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46C2AB0D876
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 13:42:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1052278.1420890 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueBGK-0000oR-My; Tue, 22 Jul 2025 11:34:24 +0000
+	id 1ueBNS-0002To-JH; Tue, 22 Jul 2025 11:41:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1052267.1420880; Tue, 22 Jul 2025 11:34:24 +0000
+Received: by outflank-mailman (output) from mailman id 1052278.1420890; Tue, 22 Jul 2025 11:41:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueBGK-0000lN-KA; Tue, 22 Jul 2025 11:34:24 +0000
-Received: by outflank-mailman (input) for mailman id 1052267;
- Tue, 22 Jul 2025 11:34:23 +0000
+	id 1ueBNS-0002RS-Dn; Tue, 22 Jul 2025 11:41:46 +0000
+Received: by outflank-mailman (input) for mailman id 1052278;
+ Tue, 22 Jul 2025 11:41:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BNGt=2D=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1ueBGJ-0000jk-1W
- for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 11:34:23 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
+ <SRS0=ibko=2D=epam.com=Oleksii_Moisieiev@srs-se1.protection.inumbo.net>)
+ id 1ueBNQ-0002RD-Dg
+ for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 11:41:44 +0000
+Received: from GVXPR05CU001.outbound.protection.outlook.com
+ (mail-swedencentralazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c202::7])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cf0e0bd7-66ef-11f0-a31d-13f23c93f187;
- Tue, 22 Jul 2025 13:34:20 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-60c01b983b6so10854432a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 22 Jul 2025 04:34:20 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-612c8f07fbfsm6830444a12.1.2025.07.22.04.34.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Jul 2025 04:34:19 -0700 (PDT)
+ id d68e3cfb-66f0-11f0-a31d-13f23c93f187;
+ Tue, 22 Jul 2025 13:41:42 +0200 (CEST)
+Received: from PAVPR03MB8946.eurprd03.prod.outlook.com (2603:10a6:102:32e::21)
+ by VI2PR03MB10809.eurprd03.prod.outlook.com (2603:10a6:800:272::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.29; Tue, 22 Jul
+ 2025 11:41:37 +0000
+Received: from PAVPR03MB8946.eurprd03.prod.outlook.com
+ ([fe80::f12d:7394:bbe3:dfc]) by PAVPR03MB8946.eurprd03.prod.outlook.com
+ ([fe80::f12d:7394:bbe3:dfc%6]) with mapi id 15.20.8943.025; Tue, 22 Jul 2025
+ 11:41:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,507 +47,378 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cf0e0bd7-66ef-11f0-a31d-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1753184060; x=1753788860; darn=lists.xenproject.org;
-        h=in-reply-to:content-language:references:cc:to:from:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Nu6azqw54tE8A5P81mCDPol+b3KfnfdtqJHDy9EGHpI=;
-        b=PfKEdrqkXW77x6yIqnr0rjOM0U5IO/XvO/NH6jCDS6Zbp+LQlXBE2ioY4KVOblok5W
-         y02LDtgiDs/108nZisLidG3RVO/e9SjPt3J/O2Z9Gn2RyKacuHw+5qrW4bvFM8S48hms
-         qBOm/EEgnNyoytIyqJ2uBrNkOsGGdYZcOvXAqVs6791gooiNny7quxGEOIYFgcZFyw49
-         1j5ciolAeYEORMNcauDm+Pn7wggzvNCVvUlBJIWwZWwVFJ49qiu/D2wRGY0aW6tsB83R
-         DxItZq1dTyzQIKsuI+K6YCbwDaNYRUg3EiKNCtbmjQuSA6LsvwiPUFO/N20FzZWCa/pR
-         cLyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753184060; x=1753788860;
-        h=in-reply-to:content-language:references:cc:to:from:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Nu6azqw54tE8A5P81mCDPol+b3KfnfdtqJHDy9EGHpI=;
-        b=Zx8L5wc3ax1uQq194queEaVIeAW5Gu5fhRaqfXBract3dGjqEgtK61gscE1lcRiuRF
-         lbfQjglxcDt1k+Jaj2dCIkd3jpzv8yhfM4pnib/3wQN0U8tTjIbwwrC/sVWmnh2igkSR
-         BcLUoFiFJqgqi/bkhuoWxH+8rVEM4h72UcDunFHEAYHVLvwePOYxzsTbBp7pRqDb0mj3
-         MRH/BiQBsQaUF+6NrTDjLWkcfknr+6l7hH1cD/U8bGyMTeDN2QaTeVhy1lhIuZoTt/ay
-         UjYMIkTw3R4T+aIAaOcNW5LHdJb3jCufuFkPhu2NpVKnvJbGKaXnGXtWOK1Pyk49A8B4
-         LFLQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUOc2cDluHiZ+8MQ42CJ37UiniURUwbik/TqBBkQrojqPCAKNmjzAEZHktOasyQFt8bU3DTFdr4P6E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxLK7PLwNvVtvyP5dBY6gLKguTd/EChcORAHkiohSV4CzR8MrgL
-	Lf/6UI0FflH6MaxR014b7Q4HvS0fteP7SVgysU9FrCxf47RLHqFSwT+l
-X-Gm-Gg: ASbGncu3WmF2dgT4zRaR6QdfDjgmiFLLz263uuzl12TYy0sIk8aLsEBd54rKEQO3Jds
-	NPue35vkZvumq/vSmCFGy/kT5hb+UH9ca3JMfrZ8O1MOjpACY1KiwuKdSBRn8lqSau/7R5IOztX
-	MTkXZPedtevsdkFSmM/qMcIdOisRWeCF7t2OC/3vvVFX9OPkxO5plIfTSKnL7+KbPZld9U4qlen
-	bgLH3q1O235C5Bwo1ZVDncQkbB522TMjDpyuvCpDRDV4bkMESf6wSZ7z08dRu+KYxy81vmgjTTg
-	bqlxmKjuCkoBWcbkpaWP6UnhEi9VRMMnrq5P7b6HEIYgCBZMu/38vegSKoJrH9C+lf3dDziTuWF
-	s8F5koD2wKm7CkXKVjb1w+zmT+RHKjn/MCet3PXWQCaaATY+8Bw/bfvChSq3dc34jzr9qmRMR5B
-	zHDcQ2kw==
-X-Google-Smtp-Source: AGHT+IF2tyhruVh+cWT44BzP3wxfdo0sT5FxWF2lb/OadrzrnhjVxlPA8bPCCyVqe6dCqr6HG3D3KQ==
-X-Received: by 2002:a05:6402:2813:b0:60c:5e47:3af5 with SMTP id 4fb4d7f45d1cf-61346c78a05mr2727249a12.4.1753184059628;
-        Tue, 22 Jul 2025 04:34:19 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------VN0k2TZQPg6iFVqaCu4xQGBu"
-Message-ID: <f110cd42-d34b-44fc-bd76-85cb0bfc2357@gmail.com>
-Date: Tue, 22 Jul 2025 13:34:17 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 13/17] xen/riscv: Implement p2m_entry_from_mfn() and
- support PBMT configuration
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <994ab3dd6822c4cd02a6a576041da115abeff6ed.1749555949.git.oleksii.kurochko@gmail.com>
- <f6e789cd-0ef3-488d-94da-1b7c94946720@suse.com>
- <640178f8-a189-4f84-abff-0ef87ba566a5@gmail.com>
- <0265e61a-ad08-4b6b-a87d-dba304f6d27d@suse.com>
- <e1c469c3-47d5-4a38-8abd-985a26cb8365@gmail.com>
- <15c9cb8e-8452-4dc3-933a-5713fc86a12a@suse.com>
- <958ae1b0-d139-41e8-b965-43ce640569c5@gmail.com>
- <007654f3-e26b-43b1-bc81-40ba25c9d787@suse.com>
- <ca3467a2-c795-4709-ad92-1744b138a148@gmail.com>
- <9e9c1943-b2af-471f-b8c9-f7179073ef99@suse.com>
- <fb7176a2-740e-4773-b1cb-3cd430d6f838@gmail.com>
+X-Inumbo-ID: d68e3cfb-66f0-11f0-a31d-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bZ3+LMMJBrju9/W3FL2ms/ws2baTIcCCdZe4BMug1BOr7Eh2Hi2CcgJIimfdYqWnIOxrsIi/E/160c4qf4Kh7uWIPOkUy4ndp0oRZZSwV2gZgSmwcbw1rZgV63H+FSn8tW2ixK3GNMRYziIkcmVCZri5Y6aKZdmI4PU1VYlItp2GpLQvJobHZjTEguyJVgwLF/l9SVfyO1t/hWpOMO4lrde2W5MhVCZ1refW1rhk3Wx7Af7EF1VdMc8AAMKyFp+YmN01Wf8yR5c14qV6RIf1BBsuR9umB3hU0YI6XQ0FLPLSDwUWnQHGj/eovwMNjo9VYIxSHwL+Z9opqErkpeUhFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=y/L2ocVouHgCkKmG9kikSQ4qW/LXXRvS2zSFG7NETu8=;
+ b=FG+6S8FIFFX3c/LtBVUF3Gr+o0nuP1kE0jAJHyY//3Y9lbE/0ozV/FvmcsZqZrm9CUm1BHYlLIkD+pj0mfvjPp/ukVixNA+PDDxFDs8xoSRxuu50nPE474ovEjffyQE0OfdbHs7MfG0DYrCrD3aER22hs8SMuozrfW0aSja4Tq54QiChTf+NUunddH3Gmo1Zk7wOLBXExO8klquU9zZ++L521wyjMr8DX6Cdw3+qQ/OOaX1anZsTfj0qcgGqdIE3QjvBJXFQjcdh/8/zVEz035XaAVSousFlCJVb4ID448VXCCIVZ5dGX2QloXmtazlp8KBg6sysjUGnwYIu2hrlEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=y/L2ocVouHgCkKmG9kikSQ4qW/LXXRvS2zSFG7NETu8=;
+ b=rl1fssRO8neQ99B9V3zL6ksddwVGIx/HNy8jg8JySixTWkpr6UKlLzfM0wbn03maIg/qds/Oe/MPwJQSBxKHmCV9BVoEtLid4FLBqUkFR+5Fs+zErM3nLKd4yAX0LOXgmZvlQzuI0cgwUXGmaVwT1d4BsGp87ql9rHQq0tWKUZ9IIm7jF7eSMhuEOzOcW4OydAfXhIYvah3Fi0R7rn2PqerDvc1m6Sd7zYJhCUJLUHrbPasyNoxQCaNbU4iIlzAbV1GHgM4XcZeqpPOwurm/0Gu1AeLK894PmY9TpM71bVrKYW/96ZnqLBbBPeEvD/cFu2gf8hLRno7iAYa2NOObiA==
+From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Bertrand Marquis <bertrand.marquis@arm.com>, Jan
+ Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>, Julien Grall
+	<julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, Oleksii Moisieiev
+	<Oleksii_Moisieiev@epam.com>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Grygorii Strashko
+	<grygorii_strashko@epam.com>
+Subject: [RFC PATCH v5 00/10] xen/arm: scmi: introduce SCI SCMI SMC
+ multi-agent support
+Thread-Topic: [RFC PATCH v5 00/10] xen/arm: scmi: introduce SCI SCMI SMC
+ multi-agent support
+Thread-Index: AQHb+v2VYJM++98Y2ku7DWB5wHJSnw==
+Date: Tue, 22 Jul 2025 11:41:37 +0000
+Message-ID: <cover.1753184487.git.oleksii_moisieiev@epam.com>
+Accept-Language: en-US
 Content-Language: en-US
-In-Reply-To: <fb7176a2-740e-4773-b1cb-3cd430d6f838@gmail.com>
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PAVPR03MB8946:EE_|VI2PR03MB10809:EE_
+x-ms-office365-filtering-correlation-id: 04089d94-ac99-4afd-4272-08ddc914b7ba
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|1800799024|366016|38070700018;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?MCZ95R/3sEX2NSyBMAxRwEgCbIYe3vrR9PwA6hBRCXbINfLFNxCXGVZjK6?=
+ =?iso-8859-1?Q?zOU4rlXzJa8GAB66gyaS/ocWHu8N5xgpZRVVSs8UA2//V3B8vP3sjMkfHr?=
+ =?iso-8859-1?Q?J+JRGIhn5ufpOR1x1UC3z4Sqs+ksDirXNni8q+YaJ3c6d6i3W7f8kKrqWw?=
+ =?iso-8859-1?Q?bfh2d9PlFqxzTVxkE4yCNgVs6GHC2X7PicezsKs3tIc6n65IBXR0MmPYPP?=
+ =?iso-8859-1?Q?Z+o8Ot0vLuNj9nvjt/XLluy4j5e6GvcukDJnFDPSBYXSFi8IDLywvi3T4y?=
+ =?iso-8859-1?Q?StUGqLtY2uP2m/vmI8+kgugNmoxK2WImTje/SxmFgTId2UnvtoeKUyvZPf?=
+ =?iso-8859-1?Q?P8UsbDtU1tBqyY5sddCTdmHTRL4GFkVO8K2qyOdTjmqn+UP1PmGJBgoYI/?=
+ =?iso-8859-1?Q?bLubNnbzEdFdjF5h7rfYOe3Iaj0wjvQF9OXDXZmYNKwX0REU/rkPtbC+AV?=
+ =?iso-8859-1?Q?pmfP743YepZ2hx7ouoeVVhDKsexa0bXLTEnTf58b0yz+5guqCMI+oK/fSE?=
+ =?iso-8859-1?Q?nUtNuNYpr0CVUjDzBYwrxvlFfunI90QdxKOwkYv477MJSanz9OVCaiFrpr?=
+ =?iso-8859-1?Q?y88AgQLtOU4cMzWPnN9i8DSYzqr8GJUQuJ4amssmF6ckY5rNQy/F3LxAB9?=
+ =?iso-8859-1?Q?gwSGw3Cou7z92AIj+rC46l16kZ1hO52HdDQkWfnoLI21qeAK7NlodnrTB4?=
+ =?iso-8859-1?Q?YZJvPdNmL02G/BUox+FELdTdVCzNFLoolYvB23PsY8ZOMJxo4fdev0U9Vh?=
+ =?iso-8859-1?Q?MI0jV+esZ1PRkiI/6a4dSUaBS4PcEe8V0xByCU5EHD+squtCxPfYb/g8Gt?=
+ =?iso-8859-1?Q?hZb2dzYX5CIhoZ2Ndbpo6adkW6CSZvO6lGesPqjbdm6c+Xjlhhy+DiRSzT?=
+ =?iso-8859-1?Q?7e14EdgEP6nkL6umh7QwLzw8cPpmLeH9vmlupYHTik9Jei5OcHE+SOLgR5?=
+ =?iso-8859-1?Q?ooaTwRPlew4y6c7M3a8lC/JzQNeeGGPqCNzzpi9mjLmWZfo6kqqscFLnm9?=
+ =?iso-8859-1?Q?EH8e/Fw2FyLYjEoPH3CdQIFqSJbe5AELfc5vNaJTexp4THnCpfD+Qznh3v?=
+ =?iso-8859-1?Q?CmmyyADbpM4tpM7hirpWJKon56zrgDzphz9lWFQHrLnrb+GxVEUMmr79v8?=
+ =?iso-8859-1?Q?9wBP/zElCX9JpRt6mX8S9Tkog2ZLUJbi4wXiwzF1Ya1h8OhHW4hIPzDABw?=
+ =?iso-8859-1?Q?J+mIdaFKDp0wURhsE6MYrD0y56PgOdP9DJIqMrgAXQ8iIW7v41QVwdpdCv?=
+ =?iso-8859-1?Q?ka4IdUtO3jonnIWeCO1pwgRri28vKN0cq/a3nyZyXWbNJXJsMfA66lfOTC?=
+ =?iso-8859-1?Q?PQ3IkG5IWOY3oQbHrLzdJ0lfxGtvynMyiXezKzuA/sVV2aahdWUUe10n3k?=
+ =?iso-8859-1?Q?xan59rNnbMXGkgXNbyNJwx1MHlIuGA328pK7d4/RacT0Y4RMUvrJkpnUuv?=
+ =?iso-8859-1?Q?p2m+Bzltv+5fi9Ji9DoHPCS5MUPiOkNoSHPsYFaHOAhBCbkHH1EOop52Sk?=
+ =?iso-8859-1?Q?k=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB8946.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?TTL8Vd+0PstRR1qJ2ePs4bAgQvuZLeURGR5wt6tQ2n/23MjKrRWamcg9AF?=
+ =?iso-8859-1?Q?zEp5hXbY6SUqigh8LlaOOi3JoQAXVVNaeCc/XeRLnntVdRUv76ekTvJt8l?=
+ =?iso-8859-1?Q?0gXlYLZz7tt58/VLdGA2ma+24CG8c0P/ENp+TKin+X1V4eEHvNP95AVoKk?=
+ =?iso-8859-1?Q?H/KQmFquqYKrh+iHFhctFA6SuDQnXZEUG3p4J2qrd7dMP6UCVL9CL1MEML?=
+ =?iso-8859-1?Q?KkLV47zD2Nv/Hqj5NqQhLgjRpp3I04tfohDmmH835nMEpy3U/DiqaODLl7?=
+ =?iso-8859-1?Q?pCwzUr5B8YLgzKtXJLe/JySLAiGX8Jjbxh7Lh/PG2hKfySZnWOkCcgR6LU?=
+ =?iso-8859-1?Q?nAKFx7+6LD4ZZSCo6mKQkIvljodz5QFRiP4abo0tPKCU1xBAzGEM93Mh1J?=
+ =?iso-8859-1?Q?KrEV09mUQ2rDCjvO0QL0hUOjzoxnAtDEIJPg7NC8Vi9zvIgHBk0ztbrP3P?=
+ =?iso-8859-1?Q?/xovxqClEsoPWFjGS5UqsN/XtY/jSIHUQC5co+T5ybHIEGKhxwNdWlQqUC?=
+ =?iso-8859-1?Q?mHgJmG/jSIsFkNuzssaMVZocQb1XmKvwq0LcpR76JNiLoOvfqc7O1NTavz?=
+ =?iso-8859-1?Q?cPJvl10JbMjZvlxYEz3RvRDZ+NisYQbXbH5oYu9WuoF6icHJU+1InrsXn6?=
+ =?iso-8859-1?Q?jLKJEimG8JCVUM6HJRbotJltk9Sa4hhmP8eF4r7D72KWAW5ZZuGXJzityE?=
+ =?iso-8859-1?Q?57vQDb2716qrqnG4t2ctJY4EEP0WRKkOq2lqfZIRyiRIaTa6p9IP4eXIno?=
+ =?iso-8859-1?Q?NHbZCORpu66NvqjLVcG/59NG/CBnsOCsw5bZEnPLTsq+79h20Fpdcjk31o?=
+ =?iso-8859-1?Q?OQi0bfJpZ1fpmyT+yOr+HJbb3+t3JYn+kMZTZGBtToeBa3pas7n82AvHip?=
+ =?iso-8859-1?Q?TzRgFIgs/AIYSWNfcVsNKL5Qj+Tihu0lE1yaFSlf8xX0dmDhomc9YakbXG?=
+ =?iso-8859-1?Q?kVwzF3MalftbrL8viYIFLqCHF5n7ScwCeZQMT++fGVjBj9t85bnTOvcVZt?=
+ =?iso-8859-1?Q?8RIvyaU0fH3g/+EkZFk/mPtMLTB/bcqlWrZvAp1XJFOBeT0NId8GgdiM3B?=
+ =?iso-8859-1?Q?My8Htsemz3HfH8SouHfH0FrvgxjYr5GRVgRMAvEQnF2PwVCcRf2H9AYjSv?=
+ =?iso-8859-1?Q?gosz8MtMmzgbuRSBxj4BWhWtise8GyD+7u+2bfGFFIPFF0EgSi7fh9Wwcb?=
+ =?iso-8859-1?Q?YMC5r7vBtbV4yVk4LZ8qQBecSRLKYKfKyT4pg1TvWhnmzuHRysc8pqMKiX?=
+ =?iso-8859-1?Q?rEpM8IoJiDjs0JN/IsQuEYSwlf4dzZ3rO+NOnK226uPJtzik+GkTiPp1g0?=
+ =?iso-8859-1?Q?4f6ezip867UrHCnLmU/rS3bCdjt7tx0nqjEENgWqLsl/qYFi12Ukq2BLdm?=
+ =?iso-8859-1?Q?QasvSaPC9DpleKVQ/1z1k5s5ClR6u32G/BpIsRd+WEyb6qbVxeAJmCAKOT?=
+ =?iso-8859-1?Q?INGiHn9r5HCF34fYNm0QO+/5PnGFtIS4qwH/xY2Pd4LRDzp+kaW2l4gc4j?=
+ =?iso-8859-1?Q?YV7RKkiC2bOP5vBYMZyRV5L06G3y+BYLkbQplJqtB9Zq0ZaU8tVPm2K9Fn?=
+ =?iso-8859-1?Q?a3QWLk8EBTC1O+wmhdna/tyGGvmjgROJDjFIO/7G/+kM+X17TLtF6xhKEl?=
+ =?iso-8859-1?Q?5HTEWKC+oJraDnoOyRaaH3VHDbvkZ9GCOmZo65WsjJxankVo+RLPxD1g?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB8946.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04089d94-ac99-4afd-4272-08ddc914b7ba
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jul 2025 11:41:37.4901
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: LMiD1rPA8Ps9v9IvDKsQwmolLqupLf1jbkyZkC/bjpu+Gx/qywiembxt3D5y0PesZYJAeb35yUg8+VTnySXunGaYVJPd43O5jMFmNctyqM0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR03MB10809
 
-This is a multi-part message in MIME format.
---------------VN0k2TZQPg6iFVqaCu4xQGBu
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Inroducing V4 RFC patch series  on top of the Xen version 4.20-rc2
+which includes implementation of the SCI SCMI SMC multi-agent support.
 
+Patch 1 "xen/arm: add generic SCI subsystem"
+- rebased and refactored
+- introduced DEVICE_ARM_SCI DT device class and used for SCI drivers probin=
+g
+instead of custom,
+  linker sections based implementation.
+- added SCI API for Dom0 DT handling, instead of manipulating with ARM arch
+dom0 code directly.
+- RFC changes in XEN_DOMCTL_assign_device OP processing
+- Introduce arch_handle_passthrough_prop call to handle arm specific
+nodes
 
-On 7/22/25 12:41 PM, Oleksii Kurochko wrote:
->
->
-> On 7/21/25 2:18 PM, Jan Beulich wrote:
->> On 18.07.2025 11:52, Oleksii Kurochko wrote:
->>> On 7/17/25 12:25 PM, Jan Beulich wrote:
->>>> On 17.07.2025 10:56, Oleksii Kurochko wrote:
->>>>> On 7/16/25 6:18 PM, Jan Beulich wrote:
->>>>>> On 16.07.2025 18:07, Oleksii Kurochko wrote:
->>>>>>> On 7/16/25 1:31 PM, Jan Beulich wrote:
->>>>>>>> On 15.07.2025 16:47, Oleksii Kurochko wrote:
->>>>>>>>> On 7/1/25 5:08 PM, Jan Beulich wrote:
->>>>>>>>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
->>>>>>>>>>> --- a/xen/arch/riscv/p2m.c
->>>>>>>>>>> +++ b/xen/arch/riscv/p2m.c
->>>>>>>>>>> @@ -345,6 +345,26 @@ static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
->>>>>>>>>>>           return __map_domain_page(p2m->root + root_table_indx);
->>>>>>>>>>>       }
->>>>>>>>>>>       
->>>>>>>>>>> +static int p2m_type_radix_set(struct p2m_domain *p2m, pte_t pte, p2m_type_t t)
->>>>>>>>>> See comments on the earlier patch regarding naming.
->>>>>>>>>>
->>>>>>>>>>> +{
->>>>>>>>>>> +    int rc;
->>>>>>>>>>> +    gfn_t gfn = mfn_to_gfn(p2m->domain, mfn_from_pte(pte));
->>>>>>>>>> How does this work, when you record GFNs only for Xenheap pages?
->>>>>>>>> I think I don't understand what is an issue. Could you please provide
->>>>>>>>> some extra details?
->>>>>>>> Counter question: The mfn_to_gfn() you currently have is only a stub. It only
->>>>>>>> works for 1:1 mapped domains. Can you show me the eventual final implementation
->>>>>>>> of the function, making it possible to use it here?
->>>>>>> At the moment, I planned to support only 1:1 mapped domains, so it is final
->>>>>>> implementation.
->>>>>> Isn't that on overly severe limitation?
->>>>> I wouldn't say that it's a severe limitation, as it's just a matter of how
->>>>> |mfn_to_gfn()| is implemented. When non-1:1 mapped domains are supported,
->>>>> |mfn_to_gfn()| can be implemented differently, while the code where it’s called
->>>>> will likely remain unchanged.
->>>>>
->>>>> What I meant in my reply is that, for the current state and current limitations,
->>>>> this is the final implementation of|mfn_to_gfn()|. But that doesn't mean I don't
->>>>> see the value in, or the need for, non-1:1 mapped domains—it's just that this
->>>>> limitation simplifies development at the current stage of the RISC-V port.
->>>> Simplification is fine in some cases, but not supporting the "normal" way of
->>>> domain construction looks like a pretty odd restriction. I'm also curious
->>>> how you envision to implement mfn_to_gfn() then, suitable for generic use like
->>>> the one here. Imo, current limitation or not, you simply want to avoid use of
->>>> that function outside of the special gnttab case.
->>>>
->>>>>>>>>> In this context (not sure if I asked before): With this use of a radix tree,
->>>>>>>>>> how do you intend to bound the amount of memory that a domain can use, by
->>>>>>>>>> making Xen insert very many entries?
->>>>>>>>> I didn’t think about that. I assumed it would be enough to set the amount of
->>>>>>>>> memory a guest domain can use by specifying|xen,domain-p2m-mem-mb| in the DTS,
->>>>>>>>> or using some predefined value if|xen,domain-p2m-mem-mb| isn’t explicitly set.
->>>>>>>> Which would require these allocations to come from that pool.
->>>>>>> Yes, and it is true only for non-hardware domains with the current implementation.
->>>>>> ???
->>>>> I meant that pool is used now only for non-hardware domains at the moment.
->>>> And how does this matter here? The memory required for the radix tree doesn't
->>>> come from that pool anyway.
->>> I thought that is possible to do that somehow, but looking at a code of
->>> radix-tree.c it seems like the only one way to allocate memroy for the radix
->>> tree isradix_tree_node_alloc() -> xzalloc(struct rcu_node).
->>>
->>> Then it is needed to introduce radix_tree_node_allocate(domain)
->> That would be a possibility, but you may have seen that less than half a
->> year ago we got rid of something along these lines. So it would require
->> some pretty good justification to re-introduce.
->>
->>> or radix tree
->>> can't be used at all for mentioned in the previous replies security reason, no?
->> (Very) careful use may still be possible. But the downside of using this
->> (potentially long lookup times) would always remain.
-> Could you please clarify what do you mean here by "(Very) careful"?
-> I thought about an introduction of an amount of possible keys in radix tree and if this amount
-> is 0 then stop domain. And it is also unclear what should be a value for this amount.
-> Probably, you have better idea.
->
-> But generally your idea below ...
->>>>>>>>> Also, it seems this would just lead to the issue you mentioned earlier: when
->>>>>>>>> the memory runs out,|domain_crash()| will be called or PTE will be zapped.
->>>>>>>> Or one domain exhausting memory would cause another domain to fail. A domain
->>>>>>>> impacting just itself may be tolerable. But a domain affecting other domains
->>>>>>>> isn't.
->>>>>>> But it seems like this issue could happen in any implementation. It won't happen only
->>>>>>> if we will have only pre-populated pool for any domain type (hardware, control, guest
->>>>>>> domain) without ability to extend them or allocate extra pages from domheap in runtime.
->>>>>>> Otherwise, if extra pages allocation is allowed then we can't really do something
->>>>>>> with this issue.
->>>>>> But that's why I brought this up: You simply have to. Or, as indicated, the
->>>>>> moment you mark Xen security-supported on RISC-V, there will be an XSA needed.
->>>>> Why it isn't XSA for other architectures? At least, Arm then should have such
->>>>> XSA.
->>>> Does Arm use a radix tree for storing types? It uses one for mem-access, but
->>>> it's not clear to me whether that's actually a supported feature.
->>>>
->>>>> I don't understand why x86 won't have the same issue. Memory is the limited
->>>>> and shared resource, so if one of the domain will use to much memory then it could
->>>>> happen that other domains won't have enough memory for its purpose...
->>>> The question is whether allocations are bounded. With this use of a radix tree,
->>>> you give domains a way to have Xen allocate pretty much arbitrary amounts of
->>>> memory to populate that tree. That unbounded-ness is the problem, not memory
->>>> allocations in general.
->>> Isn't radix tree key bounded to an amount of GFNs given for a domain? We can't have
->>> more keys then a max GFN number for a domain. So a potential amount of necessary memory
->>> for radix tree is also bounded to an amount of GFNs.
->> To some degree yes, hence why I said "pretty much arbitrary amounts".
->> But recall that "amount of GFNs" is a fuzzy term; I think you mean to
->> use it to describe the amount of memory pages given to the guest. GFNs
->> can be used for other purposes, though. Guests could e.g. grant
->> themselves access to their own memory, then map those grants at
->> otherwise unused GFNs.
->>
->>> Anyway, IIUC I just can't use radix tree for p2m types at all, right?
->>> If yes, does it make sense to borrow 2 bits from struct page_info->type_info as now it
->>> is used 9-bits for count of a frame?
->> struct page_info describes MFNs, when you want to describe GFNs. As you
->> mentioned earlier, multiple GFNs can in principle map to the same MFN.
->> You would force them to all have the same properties, which would be in
->> direct conflict with e.g. the grant P2M types.
->>
->> Just to mention one possible alternative to using radix trees: You could
->> maintain a 2nd set of intermediate "page tables", just that leaf entries
->> would hold meta data for the respective GFN. The memory for those "page
->> tables" could come from the normal P2M pool (and allocation would thus
->> only consume domain-specific resources). Of course in any model like
->> this the question of lookup times (as mentioned above) would remain.
-> ...looks like an optimal option.
->
-> The only thing I worry about is that it will require some code duplication
-> (I will think how to re-use the current one code), as for example, when
-> setting/getting metadata, TLB flushing isn’t needed at all as we aren't
-> working with with real P2M page tables.
-> Agree that lookup won't be the best one, but nothing can be done with
-> such models.
+Patch 2 "xen/arm: scmi-smc: update to be used under sci subsystem"
+- update driver introduced by commit 3e322bef8bc0 ("xen/arm: firmware: Add =
+SCMI
+over SMC calls
+handling layer") be used under sci subsystem.
+- no functional changes in general
 
-Probably, instead of having a second set of intermediate "page tables",
-we could just allocate two consecutive pages within the real P2M page
-tables for the intermediate page table. The first page would serve as
-the actual page table to which the intermediate page table points,
-and the second page would store metadata for each entry of the page
-table that the intermediate page table references.
+Patch 3 "xen/arm: scmi-smc: passthrough SCMI SMC to guest domain
+This is new change which allows passthrough SCMI SMC, single agent interfac=
+e to
+guest domain
+cover use case "thin Dom0 with guest domain, which serves as Driver domain"=
+.
+See patch commit message for full description.
 
-As we are supporting only 1gb, 2mb and 4kb mappings we could do a little
-optimization and start allocate these consecutive pages only for PT levels
-which corresponds to 1gb, 2mb, 4kb mappings.
+Patch 4 - docs: arm: add docs for SCMI over SMC calls forwarding
+driver
+- add documentation section for Simple Arm SCMI over SMC/HVC calls
+forwarding driver.
 
-Does it make sense?
+Patch 6 - xen/domctl: extend XEN_DOMCTL_assign_device to handle not
+only iommu
+- add chainged handling of assigned DT devices to support
+access-controller functionality through SCI framework.
+Change was done in two parts:
+ - update iommu_do_dt_domctl() to check for dt_device_is_protected()
+ and not fail if DT device is not protected by IOMMU
+ -add chained call to sci_do_domctl() to do_domctl()
 
-~ Oleksii
+Patch 9 - xen/arm: scmi: introduce SCI SCMI SMC multi-agent driver
+- added "scmi-secondary-agents" and "#scmi-secondary-agent-cells"
+  property to "xen,config" node in "chosen" to inform SCI SCMI
+  multi-agent driver about available agents and their
+  configuration. It defines <agent_id> to <smc-id,scmi_shm> map.
+  This option is Xen specific as Xen is the only one entry in the
+  system which need to know about SCMI multi-agent support and configuratio=
+n.
+- each guest using SCMI should be configured with SCMI agent_id, so SCMI
+  FW can implement Agent-specific permission policy.
+  -- dom0: dom0_scmi_agent_id=3D<agent_id> in Xen command line option
+  -- toolstack: arm_sci =3D "type=3Dscmi_smc_multiagent,agent_id=3D<agent_i=
+d>"
+  -- dom0less: "xen,sci_type", "xen,sci_agent_id" properties in
+"xen,domain" nodes.
+- factored out SCMI generic definitions (re-usable)
+- factored out SCMI shmem code (re-usable)
+- the SCMI passthrough configuration for guest domains is similar to any ot=
+her
+HW passthrough cfg.
 
---------------VN0k2TZQPg6iFVqaCu4xQGBu
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Patch 10 - docs: arm: add SCI SCMI SMC multi-agent driver docs
+- add SCI SCMI SMC multi-agent driver documentation.
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 7/22/25 12:41 PM, Oleksii Kurochko
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:fb7176a2-740e-4773-b1cb-3cd430d6f838@gmail.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <p><br>
-      </p>
-      <div class="moz-cite-prefix">On 7/21/25 2:18 PM, Jan Beulich
-        wrote:<br>
-      </div>
-      <blockquote type="cite"
-        cite="mid:9e9c1943-b2af-471f-b8c9-f7179073ef99@suse.com">
-        <pre wrap="" class="moz-quote-pre">On 18.07.2025 11:52, Oleksii Kurochko wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On 7/17/25 12:25 PM, Jan Beulich wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">On 17.07.2025 10:56, Oleksii Kurochko wrote:
-</pre>
-            <blockquote type="cite">
-              <pre wrap="" class="moz-quote-pre">On 7/16/25 6:18 PM, Jan Beulich wrote:
-</pre>
-              <blockquote type="cite">
-                <pre wrap="" class="moz-quote-pre">On 16.07.2025 18:07, Oleksii Kurochko wrote:
-</pre>
-                <blockquote type="cite">
-                  <pre wrap="" class="moz-quote-pre">On 7/16/25 1:31 PM, Jan Beulich wrote:
-</pre>
-                  <blockquote type="cite">
-                    <pre wrap="" class="moz-quote-pre">On 15.07.2025 16:47, Oleksii Kurochko wrote:
-</pre>
-                    <blockquote type="cite">
-                      <pre wrap="" class="moz-quote-pre">On 7/1/25 5:08 PM, Jan Beulich wrote:
-</pre>
-                      <blockquote type="cite">
-                        <pre wrap="" class="moz-quote-pre">On 10.06.2025 15:05, Oleksii Kurochko wrote:
-</pre>
-                        <blockquote type="cite">
-                          <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/p2m.c
-+++ b/xen/arch/riscv/p2m.c
-@@ -345,6 +345,26 @@ static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
-         return __map_domain_page(p2m-&gt;root + root_table_indx);
-     }
-     
-+static int p2m_type_radix_set(struct p2m_domain *p2m, pte_t pte, p2m_type_t t)
-</pre>
-                        </blockquote>
-                        <pre wrap="" class="moz-quote-pre">See comments on the earlier patch regarding naming.
+Add separate SCMI DT node for Xen management agent under "xen,config"
+node under chosen.
 
-</pre>
-                        <blockquote type="cite">
-                          <pre wrap="" class="moz-quote-pre">+{
-+    int rc;
-+    gfn_t gfn = mfn_to_gfn(p2m-&gt;domain, mfn_from_pte(pte));
-</pre>
-                        </blockquote>
-                        <pre wrap="" class="moz-quote-pre">How does this work, when you record GFNs only for Xenheap pages?
-</pre>
-                      </blockquote>
-                      <pre wrap="" class="moz-quote-pre">I think I don't understand what is an issue. Could you please provide
-some extra details?
-</pre>
-                    </blockquote>
-                    <pre wrap="" class="moz-quote-pre">Counter question: The mfn_to_gfn() you currently have is only a stub. It only
-works for 1:1 mapped domains. Can you show me the eventual final implementation
-of the function, making it possible to use it here?
-</pre>
-                  </blockquote>
-                  <pre wrap="" class="moz-quote-pre">At the moment, I planned to support only 1:1 mapped domains, so it is final
-implementation.
-</pre>
-                </blockquote>
-                <pre wrap="" class="moz-quote-pre">Isn't that on overly severe limitation?
-</pre>
-              </blockquote>
-              <pre wrap="" class="moz-quote-pre">I wouldn't say that it's a severe limitation, as it's just a matter of how
-|mfn_to_gfn()| is implemented. When non-1:1 mapped domains are supported,
-|mfn_to_gfn()| can be implemented differently, while the code where it’s called
-will likely remain unchanged.
+All Xen-specific configuration provided under "/chosen" node. This
+approach allows to isolate modifications to Host DT only under
+"/chosen" node.
 
-What I meant in my reply is that, for the current state and current limitations,
-this is the final implementation of|mfn_to_gfn()|. But that doesn't mean I don't
-see the value in, or the need for, non-1:1 mapped domains—it's just that this
-limitation simplifies development at the current stage of the RISC-V port.
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">Simplification is fine in some cases, but not supporting the "normal" way of
-domain construction looks like a pretty odd restriction. I'm also curious
-how you envision to implement mfn_to_gfn() then, suitable for generic use like
-the one here. Imo, current limitation or not, you simply want to avoid use of
-that function outside of the special gnttab case.
+This approach provides the following device tree (DT)
+parameters (placed under xen,config node):
 
-</pre>
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <blockquote type="cite">
-                    <blockquote type="cite">
-                      <blockquote type="cite">
-                        <pre wrap="" class="moz-quote-pre">In this context (not sure if I asked before): With this use of a radix tree,
-how do you intend to bound the amount of memory that a domain can use, by
-making Xen insert very many entries?
-</pre>
-                      </blockquote>
-                      <pre wrap="" class="moz-quote-pre">I didn’t think about that. I assumed it would be enough to set the amount of
-memory a guest domain can use by specifying|xen,domain-p2m-mem-mb| in the DTS,
-or using some predefined value if|xen,domain-p2m-mem-mb| isn’t explicitly set.
-</pre>
-                    </blockquote>
-                    <pre wrap="" class="moz-quote-pre">Which would require these allocations to come from that pool.
-</pre>
-                  </blockquote>
-                  <pre wrap="" class="moz-quote-pre">Yes, and it is true only for non-hardware domains with the current implementation.
-</pre>
-                </blockquote>
-                <pre wrap="" class="moz-quote-pre">???
-</pre>
-              </blockquote>
-              <pre wrap="" class="moz-quote-pre">I meant that pool is used now only for non-hardware domains at the moment.
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">And how does this matter here? The memory required for the radix tree doesn't
-come from that pool anyway.
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">I thought that is possible to do that somehow, but looking at a code of
-radix-tree.c it seems like the only one way to allocate memroy for the radix
-tree isradix_tree_node_alloc() -&gt; xzalloc(struct rcu_node).
+- "scmi-secondary-agents": A Xen-specific parameter under the
+  "/chosen" node, which describes the SCMI agent configuration for
+  the domains.
+- the SCMI configuration for Xen (privileged agent) and the shared
+  memory configuration for all agents are provided under the "/chosen"
+  node and are used strictly by Xen for its initial configuration.
+- the scmi_shm and SCMI configuration for Dom0 are placed in the
+  "/firmware/scmi" node so that they can be moved to Dom0 without
+  any changes.
 
-Then it is needed to introduce radix_tree_node_allocate(domain)
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">That would be a possibility, but you may have seen that less than half a
-year ago we got rid of something along these lines. So it would require
-some pretty good justification to re-introduce.
+This configuration allows the use of Xen-specific nodes to provide
+information strictly needed by Xen while using the default SCMI
+configuration for Dom0 and other domains. As a result, no additional
+bindings need to be introduced to the device tree.
+This simplifies the Xen SCMI multi-agent configuration and utilizes
+generic device tree bindings for the domains.
 
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">or radix tree
-can't be used at all for mentioned in the previous replies security reason, no?
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">(Very) careful use may still be possible. But the downside of using this
-(potentially long lookup times) would always remain.</pre>
-      </blockquote>
-      <pre>Could you please clarify what do you mean here by "(Very) careful"?
-I thought about an introduction of an amount of possible keys in radix tree and if this amount
-is 0 then stop domain. And it is also unclear what should be a value for this amount.
-Probably, you have better idea.
+NOTE: Haven't added RB tags for patch 1 and 2 because rebase and some
+minor changes were done.
 
-But generally your idea below ...
-</pre>
-      <blockquote type="cite"
-        cite="mid:9e9c1943-b2af-471f-b8c9-f7179073ef99@suse.com">
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <blockquote type="cite">
-                    <blockquote type="cite">
-                      <pre wrap="" class="moz-quote-pre">Also, it seems this would just lead to the issue you mentioned earlier: when
-the memory runs out,|domain_crash()| will be called or PTE will be zapped.
-</pre>
-                    </blockquote>
-                    <pre wrap="" class="moz-quote-pre">Or one domain exhausting memory would cause another domain to fail. A domain
-impacting just itself may be tolerable. But a domain affecting other domains
-isn't.
-</pre>
-                  </blockquote>
-                  <pre wrap="" class="moz-quote-pre">But it seems like this issue could happen in any implementation. It won't happen only
-if we will have only pre-populated pool for any domain type (hardware, control, guest
-domain) without ability to extend them or allocate extra pages from domheap in runtime.
-Otherwise, if extra pages allocation is allowed then we can't really do something
-with this issue.
-</pre>
-                </blockquote>
-                <pre wrap="" class="moz-quote-pre">But that's why I brought this up: You simply have to. Or, as indicated, the
-moment you mark Xen security-supported on RISC-V, there will be an XSA needed.
-</pre>
-              </blockquote>
-              <pre wrap="" class="moz-quote-pre">Why it isn't XSA for other architectures? At least, Arm then should have such
-XSA.
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">Does Arm use a radix tree for storing types? It uses one for mem-access, but
-it's not clear to me whether that's actually a supported feature.
+Code can be found at:
+https://github.com/oleksiimoisieiev/xen/tree/scmi_upstrv5
 
-</pre>
-            <blockquote type="cite">
-              <pre wrap="" class="moz-quote-pre">I don't understand why x86 won't have the same issue. Memory is the limited
-and shared resource, so if one of the domain will use to much memory then it could
-happen that other domains won't have enough memory for its purpose...
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">The question is whether allocations are bounded. With this use of a radix tree,
-you give domains a way to have Xen allocate pretty much arbitrary amounts of
-memory to populate that tree. That unbounded-ness is the problem, not memory
-allocations in general.
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">Isn't radix tree key bounded to an amount of GFNs given for a domain? We can't have
-more keys then a max GFN number for a domain. So a potential amount of necessary memory
-for radix tree is also bounded to an amount of GFNs.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">To some degree yes, hence why I said "pretty much arbitrary amounts".
-But recall that "amount of GFNs" is a fuzzy term; I think you mean to
-use it to describe the amount of memory pages given to the guest. GFNs
-can be used for other purposes, though. Guests could e.g. grant
-themselves access to their own memory, then map those grants at
-otherwise unused GFNs.
+[1] RFC v2:
+http://patchwork.kernel.org/project/xen-devel/cover/cover.1644341635.git.ol=
+eksii_moisieiev@epam.com/
+[2] RFC v3:
+https://patchwork.kernel.org/project/xen-devel/patch/20250311111618.1850927=
+-1-grygorii_strashko@epam.com
+SCMI spec:
+https://developer.arm.com/documentation/den0056/e/?lang=3Den
 
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">Anyway, IIUC I just can't use radix tree for p2m types at all, right?
-If yes, does it make sense to borrow 2 bits from struct page_info-&gt;type_info as now it
-is used 9-bits for count of a frame?
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">struct page_info describes MFNs, when you want to describe GFNs. As you
-mentioned earlier, multiple GFNs can in principle map to the same MFN.
-You would force them to all have the same properties, which would be in
-direct conflict with e.g. the grant P2M types.
+SCMI bindings:
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/Documentation/devicetree/bindings/access-controllers/access-controllers.ya=
+ml
 
-Just to mention one possible alternative to using radix trees: You could
-maintain a 2nd set of intermediate "page tables", just that leaf entries
-would hold meta data for the respective GFN. The memory for those "page
-tables" could come from the normal P2M pool (and allocation would thus
-only consume domain-specific resources). Of course in any model like
-this the question of lookup times (as mentioned above) would remain.</pre>
-      </blockquote>
-      <pre>...looks like an optimal option.
+Reference EL3 FW:
+RPI5: https://github.com/xen-troops/arm-trusted-firmware/commits/rpi5_dev/
+Renesas v4h:
+https://github.com/GrygiriiS/arm-trusted-firmware/commits/rcar_gen4_v2.7_v4=
+x-scmi_upd/
 
-The only thing I worry about is that it will require some code duplication
-(I will think how to re-use the current one code), as for example, when
-setting/getting metadata, TLB flushing isn’t needed at all as we aren't
-working with with real P2M page tables.
-</pre>
-      <pre>Agree that lookup won't be the best one, but nothing can be done with
-such models.</pre>
-    </blockquote>
-    <pre>Probably, instead of having a second set of intermediate "page tables",
-we could just allocate two consecutive pages within the real P2M page
-tables for the intermediate page table. The first page would serve as
-the actual page table to which the intermediate page table points,
-and the second page would store metadata for each entry of the page
-table that the intermediate page table references.
+base-commit: dbe60f244c (Update Xen to 4.21, 2025-02-21)
 
-As we are supporting only 1gb, 2mb and 4kb mappings we could do a little
-optimization and start allocate these consecutive pages only for PT levels
-which corresponds to 1gb, 2mb, 4kb mappings.
+Changes in v5:
+- update Maintainers file. Set role as a Reviewer
+- rebased on the latest master branch
+- Introduce arch_handle_passthrough_prop call to handle arm specific nodes
+- rename dom0_scmi_smc_passthrough to scmi_smc_passthrough
+- rename dom0_scmi_smc_passthrough in documentation
+- set error code to -ENXIO when iommu is disabled
+- return -EINVAL if mediator without assign_dt_device was provided
+- invert return code check for iommu_do_domctl in
+XEN_DOMCTL_assign_device domctl processing to make cleaner code
+- change -ENOTSUPP error code to -ENXIO in sci_do_domctl
+- handle -ENXIO return comde of iommu_do_domctl
+- leave !dt_device_is_protected check in iommu_do_dt_domctl to make
+code work the same way it's done in "handle_device" call while
+creating hwdom(dom0) and "handle_passthrough_prop" call for dom0less
+creation
+- drop return check from sci_assign_dt_device call as not needed
+- do not return EINVAL when addign_dt_device is not set. That is
+because this callback is optional and not implemented in single-agent drive=
+r
+- move memcpy_toio/fromio to the generic place
+- fix device-tree example format in booting.txt, added ";" after "}".
+- update define in scmi-proto.h
+- update define in scmi-shmem.h file
+- scmi_assign_device - do not ignore -EOPNOTSUPP return
+code of the do_smc_xfer
+- remove overwriting agent_channel->agent_id after
+SCMI_BASE_DISCOVER_AGENT call
+- add multi-agent files to the MAINTAINERS
+- add SCMI multi-agent description to the SUPPORT.md
+- handle ARM_SMCCC_INVALID_PARAMETER return code and return -EINVAL
+for smc call
+- updated collect_agents function. Set agent_id parameter as optional
+in scmi-secondary-agents device-tree property
+- introduce "#scmi-secondary-agents-cells" parameter to set if
+agent_id was provided
+- reanme xen,scmi-secondary-agents property to scmi-secondary-agents
+- move memcpu_toio/fromio for the generic place
+- update Xen to get management channel from /chosen/xen,config node
+- get hypervisor channnel from node instead of using hardcoded
+- update handling scmi and shmem nodes for the domain
+- Set multi-agent driver to support only Arm64
+- rework multi-agent driver to leave Host Device-tree unmodified
 
-Does it make sense?
-</pre>
-    <pre>~ Oleksii
-</pre>
-  </body>
-</html>
+Changes in v4:
+- fix SPDX-License
+- rename DEVICE_ARM_SCI DT device class to FIRMWARE_DEVICE
+- move XEN_DOMCTL_assign_device code in separate patch
+- Add documentation for SCI SCMI drivers
+- xl.cfg doc
+- fix comments from Stefano Stabellini
+- fix toolstack code as sugested by Anthony PERARD
+  - use MATCH_OPTION()
+  - move arm_sci struct and cfg params in "arch_arm"
+- add SCMI passthrough for dom0less case
+- toolstack comments from Anthony PERARD
+- added dom0less support
+- added doc for "xen,scmi-secondary-agents"
 
---------------VN0k2TZQPg6iFVqaCu4xQGBu--
+Grygorii Strashko (5):
+  xen/arm: scmi-smc: update to be used under sci subsystem
+  xen/arm: scmi-smc: passthrough SCMI SMC to domain, single agent
+  docs: arm: add docs for SCMI over SMC calls forwarding driver
+  xen/domctl: extend XEN_DOMCTL_assign_device to handle not only iommu
+  docs: arm: add SCI SCMI SMC multi-agent driver docs
+
+Oleksii Moisieiev (5):
+  xen/arm: add generic SCI subsystem
+  drivers: iommu: change error code when iommu is disabled
+  xen: arm: smccc: add INVALID_PARAMETER error code
+  lib/arm: Add I/O memory copy helpers
+  xen/arm: scmi: introduce SCI SCMI SMC multi-agent driver
+
+ MAINTAINERS                                   |  10 +
+ SUPPORT.md                                    |  11 +
+ .../arm/firmware/arm-scmi.rst                 | 516 +++++++++++
+ docs/hypervisor-guide/arm/index.rst           |   9 +
+ docs/hypervisor-guide/index.rst               |   1 +
+ docs/man/xl.cfg.5.pod.in                      |  47 +
+ docs/misc/arm/device-tree/booting.txt         | 103 +++
+ docs/misc/xen-command-line.pandoc             |  18 +
+ tools/include/libxl.h                         |   5 +
+ tools/libs/light/libxl_arm.c                  |  18 +
+ tools/libs/light/libxl_types.idl              |  12 +
+ tools/xl/xl_parse.c                           |  48 ++
+ xen/arch/arm/device.c                         |   5 +
+ xen/arch/arm/dom0less-build.c                 |  51 ++
+ xen/arch/arm/domain.c                         |  12 +-
+ xen/arch/arm/domain_build.c                   |  11 +-
+ xen/arch/arm/firmware/Kconfig                 |  37 +-
+ xen/arch/arm/firmware/Makefile                |   2 +
+ xen/arch/arm/firmware/sci.c                   | 189 +++++
+ xen/arch/arm/firmware/scmi-proto.h            | 164 ++++
+ xen/arch/arm/firmware/scmi-shmem.c            | 112 +++
+ xen/arch/arm/firmware/scmi-shmem.h            |  45 +
+ xen/arch/arm/firmware/scmi-smc-multiagent.c   | 803 ++++++++++++++++++
+ xen/arch/arm/firmware/scmi-smc.c              | 191 ++++-
+ xen/arch/arm/include/asm/domain.h             |   5 +
+ xen/arch/arm/include/asm/firmware/sci.h       | 214 +++++
+ xen/arch/arm/include/asm/firmware/scmi-smc.h  |  41 -
+ xen/arch/arm/include/asm/smccc.h              |   1 +
+ xen/arch/arm/vsmc.c                           |   4 +-
+ xen/common/device-tree/dom0less-build.c       |   4 +
+ xen/common/domctl.c                           |  19 +
+ xen/drivers/passthrough/device_tree.c         |   6 +
+ xen/drivers/passthrough/iommu.c               |   2 +-
+ xen/include/asm-generic/device.h              |   1 +
+ xen/include/asm-generic/dom0less-build.h      |   9 +
+ xen/include/public/arch-arm.h                 |   8 +
+ xen/include/xen/lib/arm/io.h                  |  15 +
+ xen/lib/Makefile                              |   1 +
+ xen/lib/arm/Makefile                          |   1 +
+ xen/lib/arm/io.c                              |  80 ++
+ 40 files changed, 2744 insertions(+), 87 deletions(-)
+ create mode 100644 docs/hypervisor-guide/arm/firmware/arm-scmi.rst
+ create mode 100644 docs/hypervisor-guide/arm/index.rst
+ create mode 100644 xen/arch/arm/firmware/sci.c
+ create mode 100644 xen/arch/arm/firmware/scmi-proto.h
+ create mode 100644 xen/arch/arm/firmware/scmi-shmem.c
+ create mode 100644 xen/arch/arm/firmware/scmi-shmem.h
+ create mode 100644 xen/arch/arm/firmware/scmi-smc-multiagent.c
+ create mode 100644 xen/arch/arm/include/asm/firmware/sci.h
+ delete mode 100644 xen/arch/arm/include/asm/firmware/scmi-smc.h
+ create mode 100644 xen/include/xen/lib/arm/io.h
+ create mode 100644 xen/lib/arm/Makefile
+ create mode 100644 xen/lib/arm/io.c
+
+--=20
+2.34.1
 
