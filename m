@@ -2,49 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B89AB0D117
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 07:05:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1051937.1420404 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34B1FB0D118
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 07:06:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1051944.1420414 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ue5BL-0008Sz-1n; Tue, 22 Jul 2025 05:04:51 +0000
+	id 1ue5Ca-0000XD-9z; Tue, 22 Jul 2025 05:06:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1051937.1420404; Tue, 22 Jul 2025 05:04:51 +0000
+Received: by outflank-mailman (output) from mailman id 1051944.1420414; Tue, 22 Jul 2025 05:06:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ue5BK-0008SB-U8; Tue, 22 Jul 2025 05:04:50 +0000
-Received: by outflank-mailman (input) for mailman id 1051937;
- Tue, 22 Jul 2025 05:04:49 +0000
+	id 1ue5Ca-0000VD-79; Tue, 22 Jul 2025 05:06:08 +0000
+Received: by outflank-mailman (input) for mailman id 1051944;
+ Tue, 22 Jul 2025 05:06:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Uo4O=2D=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1ue5BJ-0008S5-2S
- for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 05:04:49 +0000
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2061c.outbound.protection.outlook.com
- [2a01:111:f403:2407::61c])
+ id 1ue5CY-0000Uc-NM
+ for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 05:06:06 +0000
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2062b.outbound.protection.outlook.com
+ [2a01:111:f403:2408::62b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6216dbbe-66b9-11f0-b894-0df219b8e170;
- Tue, 22 Jul 2025 07:04:45 +0200 (CEST)
-Received: from CY5PR15CA0193.namprd15.prod.outlook.com (2603:10b6:930:82::21)
- by DM6PR12MB4233.namprd12.prod.outlook.com (2603:10b6:5:210::21) with
+ id 9141506d-66b9-11f0-b894-0df219b8e170;
+ Tue, 22 Jul 2025 07:06:05 +0200 (CEST)
+Received: from DM4PR12MB8451.namprd12.prod.outlook.com (2603:10b6:8:182::7) by
+ MW6PR12MB8757.namprd12.prod.outlook.com (2603:10b6:303:239::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.30; Tue, 22 Jul
- 2025 05:04:40 +0000
-Received: from CY4PEPF0000EDD3.namprd03.prod.outlook.com
- (2603:10b6:930:82:cafe::3e) by CY5PR15CA0193.outlook.office365.com
- (2603:10b6:930:82::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.29 via Frontend Transport; Tue,
- 22 Jul 2025 05:04:40 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000EDD3.mail.protection.outlook.com (10.167.241.199) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8964.20 via Frontend Transport; Tue, 22 Jul 2025 05:04:38 +0000
-Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Tue, 22 Jul 2025 00:04:32 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.39; Tue, 22 Jul
+ 2025 05:06:00 +0000
+Received: from DM4PR12MB8451.namprd12.prod.outlook.com
+ ([fe80::b04e:2da5:7189:4c4d]) by DM4PR12MB8451.namprd12.prod.outlook.com
+ ([fe80::b04e:2da5:7189:4c4d%7]) with mapi id 15.20.8943.029; Tue, 22 Jul 2025
+ 05:06:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,350 +47,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6216dbbe-66b9-11f0-b894-0df219b8e170
+X-Inumbo-ID: 9141506d-66b9-11f0-b894-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Xd1ELJBMuzCCD9TaciiQsJ7TYAphWMTcmX27uMhOB2GTSuGV0dlxmRKVcPXCGxLe0FkaGZIDwQ/QTDgDGUkt5jwDQdCqWi7KXWLTC1fz1ujr+9x3YOYoRPNSuz8GH0CP7HFwSv8GJJduOLB5l0uKFH17NNfTPaeW0gMhCH1K5/ejoBFuSGFWmU0NKsAWr7Ur15XtAjb1Uc8MFROMtmv/YatZacQ1j5BoiC2E219le7C5vB5/g3IwwxxzeXGiyqunMq2hqp3xkh8Z5eKU0nY9ULj1FgrjnCkPf1OiWtdFBwvouDonXWDtVZB0+BcWbDT26ats2fhpWbpJS37uhNkTPQ==
+ b=FSk5/nV9Pxydhy86dCvAaaICMlBVZkJg6pE1iUWgy9thfdqRkcyC6KRDzaGnkpufEV6yM8TczHv5NtbRmDGI+1VBqurYTD4y6Ul3tqFDr/mItk6ekCePzX/2TZCSmEO7Fy1OvPsqdgGraoIqhOVhfXCpKcFA8YAGy/P6LlcixgRB+iFWMbiUJvbtye4H7Avmuq6Dq7nbO0KnzZXfedr5lwyFSGS7yt7CN3TZWUbWTcD8QC5ElgzqNchcv27V1woMB0TYiQXmhgy62peFXC9SbKi74qVcjyCXXeNdaq4+/YbuYurx9UxLx2H9JC6KM0Wkg1qOZZ623SGy/SyDXel+2w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hpJdRphsoJmZDkA9Foxsya8yC/yMG5waBZZcd72Zl44=;
- b=gFRyfd/HCGFieJUJIy6h3r+MsnXLjMsBOtg1P5ivNzOwAQAMOtqij0RhAZWZNyS5+XB/d/c8fklkOeQRaxhNiz77uO9yoJxizdWZcdAwMlWpW++1aI0t+DLwyNsf1xx+bGHRbimgBVQ+Pj9KI3wsm7qOjijW/dYoG7C6rfGwEzrHtynKFZA8eTR1/BhmRiXEWw4ZQ4UCXiDm11BSqW2/F0tZXlLRlWo0jUhYhcG9bElhGjwpRHPToBfXigq8Oc5b/WjpZdEMiobSKa87epqLpYXTIcw8pvcMKBVaqXZtMYMLiQx6E3GMZBSYmBlqDW5oYZXc5mqvMT9qWJltWui5jw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
- is 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org
- smtp.mailfrom=amd.com; dmarc=temperror action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ bh=ahH/iREqET1QswsYPyGgWN49lXPhu6Su9kZrW/lQBQY=;
+ b=IZhyPWN9WExjJvizCiZAdOv0b5fCQkiarkCf6of6jarwJJE48n7Dam7IVpC0YiNWdMdoJ9aZw6Eg3u5jHQqmnih3DTlOMh2HiLGdPQMSqzBrKPF62NxbKufTfba/AH8jGN/8BkyC+4uq/jEYhKDSSH50SYUXwRxj8z6N1WVOOvFoHQkaUx/61e+mpP+YzuJYtxyN5aQqwd9GbZ15msHYyxTML8K9DoYZ/CtvhdZR+Orm/FP+m2dEkpx7wnU3V5nJ5I4w3QG4eZ0Wo4avnOtHeqTSql1HXbQJoboo9bwGaOW0m+ygOHacMsu43+puwSg01Fp3YBrcv12gdA6RxQt+kA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hpJdRphsoJmZDkA9Foxsya8yC/yMG5waBZZcd72Zl44=;
- b=Kp4qaDKJW7+Hss5RbZoMa2toQ/uVcEJHD0URig4mY75IjsYOPPluV4xqq0pZMB29wplr0kidc9OlvTrWOxqaYrjQK/bl0OWHJAVKSLm4HVm+PWc23YVxLbmQMtepY+H6zPakmcdKqoDmUW3+L4ldzbo4jtptZcTwpoXziR38fQ0=
-X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
- 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=temperror action=none header.from=amd.com;
-Received-SPF: TempError (protection.outlook.com: error in processing during
- lookup of amd.com: DNS Timeout)
-From: Penny Zheng <Penny.Zheng@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <ray.huang@amd.com>, Penny Zheng <Penny.Zheng@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, "Jan
- Beulich" <jbeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: [PATCH v1] xen: move getdomaininfo() to domain.c
-Date: Tue, 22 Jul 2025 13:04:10 +0800
-Message-ID: <20250722050410.853783-1-Penny.Zheng@amd.com>
-X-Mailer: git-send-email 2.34.1
+ bh=ahH/iREqET1QswsYPyGgWN49lXPhu6Su9kZrW/lQBQY=;
+ b=0UIKH/8F3uYL3ttjSw7Q1HBPncaIKtc67TCgHL/V5O8uxVtUpd6QwjAneMgTndVYlIcIIXaSL5cpYR8tGBELLnFLm7wkjGnQexasM5rreSlDm+D5Ah2DxsWzYzt74si/BfhrH598u4D+41Gsyly6gsUb3IU0FORDRqk4Q0Cecco=
+From: "Penny, Zheng" <penny.zheng@amd.com>
+To: Jan Beulich <jbeulich@suse.com>, "Stabellini, Stefano"
+	<stefano.stabellini@amd.com>
+CC: "Huang, Ray" <Ray.Huang@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, "Orzel, Michal" <Michal.Orzel@amd.com>, Julien
+ Grall <julien@xen.org>, Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: RE: [PATCH v8 7/7] xen/sysctl: wrap around sysctl hypercall
+Thread-Topic: [PATCH v8 7/7] xen/sysctl: wrap around sysctl hypercall
+Thread-Index: AQHb8hzZ4PaGCcXW4ESgBHjQZ1Y4rLQ2DLKAgAebZgA=
+Date: Tue, 22 Jul 2025 05:05:59 +0000
+Message-ID:
+ <DM4PR12MB8451571C1DEBBA2F5FA66A87E15CA@DM4PR12MB8451.namprd12.prod.outlook.com>
+References: <20250711043158.2566880-1-Penny.Zheng@amd.com>
+ <20250711043158.2566880-8-Penny.Zheng@amd.com>
+ <5238ec09-2a00-4f80-aea6-95a3ab617b0d@suse.com>
+In-Reply-To: <5238ec09-2a00-4f80-aea6-95a3ab617b0d@suse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-07-22T05:05:48.0000000Z;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB8451:EE_|MW6PR12MB8757:EE_
+x-ms-office365-filtering-correlation-id: fb55d074-d091-4ca7-0cc9-08ddc8dd72f1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|366016|38070700018;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?cUw0M2hsTDRTSXB2SlZibk9VQVBIZ251MDNSbkUvTE82dkF6SHQ1Y0NLTkJI?=
+ =?utf-8?B?YXN3bTd0RFUwcDlHRTRkelEvRzZJc1E1T0VSOFd6eUs4WENodzRaZ3FYNUo5?=
+ =?utf-8?B?VGRLT1NzRnArN1lhTEhJQldrMUZjYlBUSmlNT1pXT1NLZ2dpa254QkN0b25z?=
+ =?utf-8?B?UWk1VEwzYSszaVlVY01oSXhDNjV1MHlvWlFiU1NaSDFaN09LR05qNHRhNlIy?=
+ =?utf-8?B?YytqSWZJNTlvaWc4TjdwL2JqWlFzTjRTOURVVTNQQjd3NC9qakF5cjdlUi9l?=
+ =?utf-8?B?MGFDMHdDSlRkMEEyWHlheTVBYmZXcS9lOG5KbkpibUFZUXF3VWhzeTcwSmx1?=
+ =?utf-8?B?MVJQa0tuT1dyRVNnSUlYWXJJZVhFMTJyYm50eXZJZjNlVUV2MTArU0dEUkZF?=
+ =?utf-8?B?ZmZsMVd6bW0xdHdDRTRTcFgwaFVXb2lVL1c1RVVHdlN1WS9DeGxRb0Z0SjYx?=
+ =?utf-8?B?MU5wWTIybU9CbVc3dElYL3p5NFRDZk0vWEF6MTJkbGVzTDgrRGhBOUpOSkZn?=
+ =?utf-8?B?YWQyVFBvTkhlYlZNZGhYOTVmRW52VFVRd2ZDSWNPZytzaWRocW1vSlZSZzEz?=
+ =?utf-8?B?WUtoWWFhWkFTVEhENkRTOWxkK0QvMDQzYlAyRWpldjNTVk9VVFExam1YYzBv?=
+ =?utf-8?B?MEY1L1VVSW0rUUZmeEJDS0VUWmttbUg3elBFQnNBN0diclZxVzl1UXpQVnFj?=
+ =?utf-8?B?NU5RL0tqOWx2TU5EQnkzVGJHSUNTTU1RNlRveC9oYVhZVGRCVzFYZXhmaXhH?=
+ =?utf-8?B?bGlYbTZFNWJqRTFFVmlia09uVllVVDFneXBBaWNKY2tmemgrWXBFZ0E4b21G?=
+ =?utf-8?B?czJyRWg5d2RJWjViUXByb3cwUzV5dVl6OU45aUt5VWRGRDA0aS9DWHZ2c2FM?=
+ =?utf-8?B?TEh6MHJ5U3dZb2poejNGWUdhTWZRY2Y1QU9GSkc1MXlpTWQ4bG9BK2xON0t2?=
+ =?utf-8?B?ZitNQUNnRTE2U0xKSjJtbTl6dXZRaStPemxGcjZBMEN2c0U0MGlEZ1FoRmRt?=
+ =?utf-8?B?SUtadW5aTGE4LzdBdDhkbzRIY2RsSUNnaXB4MnQ3ZyszV1l2dktzN0VjdjhU?=
+ =?utf-8?B?Q295cUUzOCtoRXVzdXIzMExHc0VsVEVWNFJVamxJT01mTTdVam9RZEkyeVRj?=
+ =?utf-8?B?NVdYMkN0TXliYWNKYkcvNWFlQmk1bTVyZ0loUVpjakxIb0U4OXFrejZ3Qm1w?=
+ =?utf-8?B?dVhSak1kT3ArUW1vZU55U3pKYjVyYzZvL3A0TUFoUzV5Z2lYV1RlQlpKZzZP?=
+ =?utf-8?B?SFc4d3ptMk1DdkRNdGJSM1RwbngxVCtmTHVPZFVRK3V5RHJ6eGtnSDUyemd3?=
+ =?utf-8?B?c0R6NGgrTDlTZWROT0NQVGhUSXhOS0swbjcxc0pYWmN1R1lGNXdVckZxNXBD?=
+ =?utf-8?B?TEo5M1pKL29XT2trZllaM0JHWkZ5YjYwbWVsRGtacjAvWkpkV2lKaGRQWHJU?=
+ =?utf-8?B?WFV4akFZSDRGQW9aVVlVdWFxNkR3WXl2RXRYakNtaks1WUc0ZjBzYkhTaXV3?=
+ =?utf-8?B?UWdUei9qckZuYzBRTEk0elBXZUZjUFVBYi80a05ld1o1RVdJeWZ2RUd3a3Vn?=
+ =?utf-8?B?d2QrME5EWnFXR3VscHRSa3NTa2pDNVBiWVpoejdVUDVYbFc2VldVK2lOT21w?=
+ =?utf-8?B?LzBvQVBCWVVuazZ3Q3ZjV1I3M0JBZjhjbEx3bGhOYWsyKy8zaW1UVFd2dU43?=
+ =?utf-8?B?TlhYUFozZERWVnlpNFFuMkQ3cnhpWW5GeCtnSVZaeDVReGduelZlbGZMbm9s?=
+ =?utf-8?B?NyswQnlYeDlEZVlCY1lsV2pIWFR4N0tYb2xOZFdGRll1SThCaHRnZEozUkNJ?=
+ =?utf-8?B?Y25YUllHdmh2QVVSMlZGb09WMDBIMEk4d2JJVmZPSmVKaVVYb1IzMjZEaS8y?=
+ =?utf-8?B?eFMwTFlFMzl5YVZHTFhvMnRuaE1kYklTNWpCeE1GMkxrMjdMSGxqUmxWVVNW?=
+ =?utf-8?B?UkVlZWk0UWFVS0duYk9oNFVtR0w2Z0UyVlVGc2VQSHlFdUcxVGtHdkk2eStB?=
+ =?utf-8?Q?4d3p1q2BnZt01ds44uN9OSPNaIft44=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB8451.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?UHU3UGNKWXVpNUQySkNpVEhoTkE3czczdHVHcldrbWJzSEpjQXNSSGhmbk1C?=
+ =?utf-8?B?WUFyVjhqQ2V6bHR4WGhrQXpmUWJ2elhycUp5TW9Pbm5uK01mdkRQS01jdWkv?=
+ =?utf-8?B?SmNYMHQyMXl6R1hub0lCSjF3SGVDMHU4R0pHZU56WVVsR2NXVjlXQjRYZjJB?=
+ =?utf-8?B?ZzIzdElsRUxMZjZsM3VoZCtTaVdPa1FZcXpqcDdOU0Zwdkh3U2xoR1hFTThZ?=
+ =?utf-8?B?MjM5bXNkblFkY2xiRnAzQVNobTk5UjhGcWVFRnFoYUNCVnIxdlpXVkZVNzRl?=
+ =?utf-8?B?bkNRcnYvYmV4UHNqWXZQTWx6RGhIaldhUFJTQzM4WHIwOTJTQnd5c0tYaXZu?=
+ =?utf-8?B?Mng2ZVlzbDd1cFFpaEt1dkxmWEkra3pQTXFxL216aVZoNHlYMVpXMnV5enZl?=
+ =?utf-8?B?OHJIWlNobHQrV2dJQnIya3lYTDk1RENkQjBPbGlPSEJjM1MvM1M2TmZhRFVh?=
+ =?utf-8?B?VU9kM01PR0dHZ1ZBVmM5ZTUzcmtsblppbDlDN2ZncDZzb0ZSR3NFNWFYamRv?=
+ =?utf-8?B?Z3hYc2phdkYwV1hicUxFQ3FXQ1Ira1YvbXZjWXlFV0VXNXVMQTh4am1UUUc1?=
+ =?utf-8?B?TjNCZnBKdWlRa3llZStKdFJtRm56bUdicWFDUkpucGQvbW5HWTRUUU1qRXZa?=
+ =?utf-8?B?Mkc2REMxdlBjRTVnWW1aU0g4UEwwM29VY0pPenlDYW9BNkVwMzkxZEFVdEtH?=
+ =?utf-8?B?Rk0rb01FS2ptOWpiK2srNHlWZjgrUHRySkVHWTlqSWJUQWxlZFp5a0Iyd3Fk?=
+ =?utf-8?B?LzhHcytZL3duaVFOVlVpenlYN0xwbzRBS0svUG83aHJqcEhiZTNuWGllbEQz?=
+ =?utf-8?B?SFhUdjRKSkU1N0RLQzhpc1gveFdFcDQvcUZhTTBldUtHZGxuNTcyb2xCbm5F?=
+ =?utf-8?B?ZUdxbEc1VFQrS0IxcjBRbTBnK05kcXo1VDJNQ0lUYmU5YndMUHVZVloyYlY2?=
+ =?utf-8?B?NDJtWVJuMDZsc3Q4TWhoaEtkU1RKcnVLMHlIRHRRVHJvUms0WDdMTGd6bEdj?=
+ =?utf-8?B?UDhGWEczSWJpN0Q1S1JLdE1icUMzNXFnM0Z0UUpubTZ0NjZBSjVkSzNyTEJB?=
+ =?utf-8?B?TDl4RUNJSTdycjB2SUg1aTkvSStURzh0SjNpWlpCQzhyM0txYjNrS2xyWnBl?=
+ =?utf-8?B?N0ZleWxKUmV3cWh3SmpqZlNmV1RoRjZJelZoblEvZDgzRS94TXRaaHA2ZGVj?=
+ =?utf-8?B?ZVQzeERROWcvUDgyN3JoQUJDSWh3aS9OYzBsdEVNazgzNFQ3bHV6V3k5NG9v?=
+ =?utf-8?B?RnNITEUrN1IwZG95V2ZIb2xlWkJsZEtOaDR6dlhSNHBiZTFzVDc0MjVYUmNJ?=
+ =?utf-8?B?YkJKaTZxTkxweFJmQVZDblJqSTJJeDlwV0ZlOTc5b2gxb3QyMmZKTHp2NkxC?=
+ =?utf-8?B?dXlyQStjTVMyTU9yN1FLeHlsRlpIV0F0M2VBWmJveWNjcTVXQ0toZWQ3cTFC?=
+ =?utf-8?B?Q21VdmdBd1RTMUhaWkl1QXYwcTl0NHBmOHN6WnRvVGJ1Z294N0tzUXU2RVJL?=
+ =?utf-8?B?OTFUVllBdnBwajNMSVZCKzRxaFhrcEVxVkh5dmxwSWIwVy9pZG9HS3h1RGt3?=
+ =?utf-8?B?VmExbXM3Uk5IbnRIS2c4b1dNQVE2YjY3a0k1QnVjZkRmRkFrZkVsaFgvUzhC?=
+ =?utf-8?B?NmNZdkxrS0NyeG1oc1NwN3lOZUlTREtSTUVBWmtDNDRZSWtvY0pONUFPNWhC?=
+ =?utf-8?B?WTQrcDNqMzAxVzA1ZERUMURqT0NSb2hjeEZ0SitqVmM2T2lGeFVYdkFhSy9k?=
+ =?utf-8?B?c0JScHFjNXltbXBCRURUMW43cE1EOFdBbzlvMzg2TFdmWHozazFTOEM5TGxY?=
+ =?utf-8?B?S1NzMzlTcXg4ODYrUEkybUd6WnNqUkFyWHQ2eFBVRDg5TUR1V2J5NUMyN0Rw?=
+ =?utf-8?B?eTNCeS9TVnRPOGtHK0pxY2wwQ1VJclFsdkJDL1hWZlFseXRkRjdZbFU0YUF2?=
+ =?utf-8?B?YkJFYXJCT2Nza05xY0lqUXZCV1dWUlZMemo4ZnJmNzcwUEhKU1paVk44a3Fm?=
+ =?utf-8?B?UEVMQjgzTnRTTTNZQ0dJOGVISnh0N2kxWHg1bmo1RTJUSTNMS3BwN0xYMU9L?=
+ =?utf-8?B?bXg5RGV6Q1dJRGlEUW9JaHJRbWt3Z210K3ZZVkhDNHFjTGM0T3V5L2FiUHlX?=
+ =?utf-8?Q?4mRM=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD3:EE_|DM6PR12MB4233:EE_
-X-MS-Office365-Filtering-Correlation-Id: 39d96869-6f89-454b-2b60-08ddc8dd42ca
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|36860700013|1800799024|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?0Q62UmsvcnOK756jlH+rkz9yncO5Xkx5ajjh/H8Zd9pkq+yYE5+g9vfR5WrS?=
- =?us-ascii?Q?WpeQCGrtftrzqOhZi+GxYpR/E0kuZ3MF+9XjAP3M1qwtV9bDiXdoSlQKmZuo?=
- =?us-ascii?Q?MpY4/X3J1sk6WnY3mF45mLl6LfehWfjqrC8TtuwuyKD0I3w8vRhpQ2MNTQSu?=
- =?us-ascii?Q?HCgxBvc5M2oD3y+WTNs2TJxJ4A0alClBj5fzenLecp+T335nn7Vc6pGmU9rT?=
- =?us-ascii?Q?rkDJsfdiam/FVbynwe+zyD6+ST8QiX9XvCIj7fJK3oNBGzZ89DTyFqp/Ma1x?=
- =?us-ascii?Q?1uKjuKx7348zZVe323mPSTULlFZs9KKONj1JK482YuPSVQ9eKDXTLaScGAcL?=
- =?us-ascii?Q?E/KVqF70YoCTPx4ykHZrRTcoCUE3d2nIQIBxzaAzXKFGIkIzCTAJDt5pnzCU?=
- =?us-ascii?Q?zvJtGoQ/LwWHuJNEDT7Bo57BjD46sSgHXd+esbFI3dmZaoptxzdWbkgC9QGM?=
- =?us-ascii?Q?9Kz7YUk/OBg6hUon8zM6COGumxVO/1npCTE+BAQUDvDqMwiqp/69WHyxnF9d?=
- =?us-ascii?Q?UFcnkDxmYg8xH1DBafLIy5UXTl8yi2xH7kn85svAPz3WOyckLugFqcjFaBHd?=
- =?us-ascii?Q?fQ7lAy68jDaB7bUIYtd68JLDyUUl4o9PQy10CQGr/KKl2l3v+whrIj9vpkD8?=
- =?us-ascii?Q?CrGDOoFav5VW5OQSJxj+FxfOA4+O16rJEO9THiic+5k2N0Ca1dZekC8YaZaA?=
- =?us-ascii?Q?+9pvh1A231NeKHz9GBT/clRsR2ikJQDWNf7toyp2aovuuVTdGrjrU/iVr9bU?=
- =?us-ascii?Q?+saGyxdS35Plip29IJCD8eTK8O19IhLpvOA1n2u4BmaIk8IdKqgo+4d7PAWr?=
- =?us-ascii?Q?tpXKu0l52NA9jhVUST5mS2WOgXiQejAVYc3TFWoSqY++5PlhvrolN0NN8rOr?=
- =?us-ascii?Q?UD7/rOFHlifUNgSRf1nzKZo/ZJry3aDc6qlFLYTQZu8w72gdXorwidSy00MD?=
- =?us-ascii?Q?HrAZIOG/QeRuKN+jTxKd79CrgfCyGRdTwlM8Lj2FKBTzO2HEV0BMzb4tl0ry?=
- =?us-ascii?Q?+rRIwQNrufEeKLB+RUK3NJ4Kxs2YZz4ZSlqtLvs6449T8S0x6uBhI3zI8/iI?=
- =?us-ascii?Q?Sxu0kkXgWP/lqHAnyCLNjaotQ5XEwZXkbdX34GeAGCUtflqlrU8s6qAtLTxe?=
- =?us-ascii?Q?1ydV7evsNWnWOnYNbvdTRG1cKoulZVzJ0WUenzKAf3o8Nd6P/BebAtoHYCir?=
- =?us-ascii?Q?9jwJCwC1kAArNrXtc5fVQeDuOj7PkL7L1lYMgPuUcZzE7D6YFSeV7W+aiuj2?=
- =?us-ascii?Q?lwULNW7/Pzp8qMJ20rFpKqlAV0TqR0kM7Voy9iheJRYoi8q+7nOjFjRiVdHh?=
- =?us-ascii?Q?bOEvynGQ4rD41AdALWjmWvscdpV7jN/YOgPtNtG+sAL0GS+ru27cK3uH18Ds?=
- =?us-ascii?Q?WTS2DezJnvXuMh8M7a6CmdQtz19jigwVU+oxbc0Nw1wxQK0EHsgKwORt7MFk?=
- =?us-ascii?Q?NgSiG4i5TbfL9kpE3Ia/w9urI53/qNHUHDiTgN6jYuYXjcUFlCkTLG7Mfl9J?=
- =?us-ascii?Q?DCddRz5o18Kp02RNyMNDKJlyFnLnerPPr0Pt?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700013)(1800799024)(82310400026);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2025 05:04:38.9478
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8451.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb55d074-d091-4ca7-0cc9-08ddc8dd72f1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jul 2025 05:05:59.7888
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39d96869-6f89-454b-2b60-08ddc8dd42ca
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EDD3.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4233
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: PqvdeyXUF4mbRjvrdjFwq2uvgOLeXUDugUAL89LAZXVFN+6VJJ+bSceRks1I9PD6jF8mwDORRQ6+StMTn5cuIg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8757
 
-Function getdomaininfo() is not only invoked by domctl-op, but also sysctl-op,
-so it shall better live in domain.c, rather than domctl.c. Which is also
-applied for arch_get_domain_info(). Style corrections shall be applied at
-the same time while moving these functions, such as converting u64 to
-uint64_t.
-
-The movement could also fix CI error of a randconfig picking both SYSCTL=y
-and PV_SHIM_EXCLUSIVE=y results in sysctl.c being built, but domctl.c not
-being built, which leaves getdomaininfo() undefined, causing linking to fail.
-
-Fixes: 34317c508294 ("xen/sysctl: wrap around sysctl hypercall")
-Reported-by: Jan Beulich <jbeulich@suse.com>
-Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
----
- xen/arch/arm/domain.c |  9 ++++++
- xen/arch/arm/domctl.c |  9 ------
- xen/arch/x86/domain.c | 10 +++++++
- xen/arch/x86/domctl.c | 10 -------
- xen/common/domain.c   | 64 +++++++++++++++++++++++++++++++++++++++++++
- xen/common/domctl.c   | 64 -------------------------------------------
- 6 files changed, 83 insertions(+), 83 deletions(-)
-
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index 79a144e61b..2c2ef639ee 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -1206,6 +1206,15 @@ void vcpu_kick(struct vcpu *v)
-     }
- }
- 
-+void arch_get_domain_info(const struct domain *d,
-+                          struct xen_domctl_getdomaininfo *info)
-+{
-+    /* All ARM domains use hardware assisted paging. */
-+    info->flags |= XEN_DOMINF_hap;
-+
-+    info->gpaddr_bits = p2m_ipa_bits;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/arm/domctl.c b/xen/arch/arm/domctl.c
-index ad914c915f..e0ea73005a 100644
---- a/xen/arch/arm/domctl.c
-+++ b/xen/arch/arm/domctl.c
-@@ -17,15 +17,6 @@
- #include <xsm/xsm.h>
- #include <public/domctl.h>
- 
--void arch_get_domain_info(const struct domain *d,
--                          struct xen_domctl_getdomaininfo *info)
--{
--    /* All ARM domains use hardware assisted paging. */
--    info->flags |= XEN_DOMINF_hap;
--
--    info->gpaddr_bits = p2m_ipa_bits;
--}
--
- static int handle_vuart_init(struct domain *d, 
-                              struct xen_domctl_vuart_op *vuart_op)
- {
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index 56c3816187..4af9f41cca 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -2639,6 +2639,16 @@ unsigned int domain_max_paddr_bits(const struct domain *d)
-     return bits;
- }
- 
-+void arch_get_domain_info(const struct domain *d,
-+                          struct xen_domctl_getdomaininfo *info)
-+{
-+    if ( paging_mode_hap(d) )
-+        info->flags |= XEN_DOMINF_hap;
-+
-+    info->arch_config.emulation_flags = d->arch.emulation_flags;
-+    info->gpaddr_bits = hap_paddr_bits;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/x86/domctl.c b/xen/arch/x86/domctl.c
-index 3044f706de..35572767ba 100644
---- a/xen/arch/x86/domctl.c
-+++ b/xen/arch/x86/domctl.c
-@@ -138,16 +138,6 @@ static int vcpu_set_vmce(struct vcpu *v,
-     return vmce_restore_vcpu(v, &vmce);
- }
- 
--void arch_get_domain_info(const struct domain *d,
--                          struct xen_domctl_getdomaininfo *info)
--{
--    if ( paging_mode_hap(d) )
--        info->flags |= XEN_DOMINF_hap;
--
--    info->arch_config.emulation_flags = d->arch.emulation_flags;
--    info->gpaddr_bits = hap_paddr_bits;
--}
--
- static int do_vmtrace_op(struct domain *d, struct xen_domctl_vmtrace_op *op,
-                          XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
- {
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 303c338ef2..b74d4c7549 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -2440,6 +2440,70 @@ void thaw_domains(void)
- 
- #endif /* CONFIG_SYSTEM_SUSPEND */
- 
-+void getdomaininfo(struct domain *d, struct xen_domctl_getdomaininfo *info)
-+{
-+    struct vcpu *v;
-+    uint64_t cpu_time = 0;
-+    int flags = XEN_DOMINF_blocked;
-+    struct vcpu_runstate_info runstate;
-+
-+    memset(info, 0, sizeof(*info));
-+
-+    info->domain = d->domain_id;
-+    info->max_vcpu_id = XEN_INVALID_MAX_VCPU_ID;
-+
-+    /*
-+     * - domain is marked as blocked only if all its vcpus are blocked
-+     * - domain is marked as running if any of its vcpus is running
-+     */
-+    for_each_vcpu ( d, v )
-+    {
-+        vcpu_runstate_get(v, &runstate);
-+        cpu_time += runstate.time[RUNSTATE_running];
-+        info->max_vcpu_id = v->vcpu_id;
-+        if ( !(v->pause_flags & VPF_down) )
-+        {
-+            if ( !(v->pause_flags & VPF_blocked) )
-+                flags &= ~XEN_DOMINF_blocked;
-+            if ( v->is_running )
-+                flags |= XEN_DOMINF_running;
-+            info->nr_online_vcpus++;
-+        }
-+    }
-+
-+    info->cpu_time = cpu_time;
-+
-+    info->flags = (info->nr_online_vcpus ? flags : 0) |
-+        ((d->is_dying == DOMDYING_dead) ? XEN_DOMINF_dying     : 0) |
-+        (d->is_shut_down                ? XEN_DOMINF_shutdown  : 0) |
-+        (d->controller_pause_count > 0  ? XEN_DOMINF_paused    : 0) |
-+        (d->debugger_attached           ? XEN_DOMINF_debugged  : 0) |
-+        (is_xenstore_domain(d)          ? XEN_DOMINF_xs_domain : 0) |
-+        (is_hvm_domain(d)               ? XEN_DOMINF_hvm_guest : 0) |
-+        d->shutdown_code << XEN_DOMINF_shutdownshift;
-+
-+    xsm_security_domaininfo(d, info);
-+
-+    info->tot_pages         = domain_tot_pages(d);
-+    info->max_pages         = d->max_pages;
-+    info->outstanding_pages = d->outstanding_pages;
-+#ifdef CONFIG_MEM_SHARING
-+    info->shr_pages         = atomic_read(&d->shr_pages);
-+#endif
-+#ifdef CONFIG_MEM_PAGING
-+    info->paged_pages       = atomic_read(&d->paged_pages);
-+#endif
-+    info->shared_info_frame =
-+        gfn_x(mfn_to_gfn(d, _mfn(virt_to_mfn(d->shared_info))));
-+    BUG_ON(SHARED_M2P(info->shared_info_frame));
-+
-+    info->cpupool = cpupool_get_id(d);
-+
-+    memcpy(info->handle, d->handle, sizeof(xen_domain_handle_t));
-+
-+    arch_get_domain_info(d, info);
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/common/domctl.c b/xen/common/domctl.c
-index f2a7caaf85..99de77380f 100644
---- a/xen/common/domctl.c
-+++ b/xen/common/domctl.c
-@@ -65,70 +65,6 @@ static inline int is_free_domid(domid_t dom)
-     return 0;
- }
- 
--void getdomaininfo(struct domain *d, struct xen_domctl_getdomaininfo *info)
--{
--    struct vcpu *v;
--    u64 cpu_time = 0;
--    int flags = XEN_DOMINF_blocked;
--    struct vcpu_runstate_info runstate;
--
--    memset(info, 0, sizeof(*info));
--
--    info->domain = d->domain_id;
--    info->max_vcpu_id = XEN_INVALID_MAX_VCPU_ID;
--
--    /*
--     * - domain is marked as blocked only if all its vcpus are blocked
--     * - domain is marked as running if any of its vcpus is running
--     */
--    for_each_vcpu ( d, v )
--    {
--        vcpu_runstate_get(v, &runstate);
--        cpu_time += runstate.time[RUNSTATE_running];
--        info->max_vcpu_id = v->vcpu_id;
--        if ( !(v->pause_flags & VPF_down) )
--        {
--            if ( !(v->pause_flags & VPF_blocked) )
--                flags &= ~XEN_DOMINF_blocked;
--            if ( v->is_running )
--                flags |= XEN_DOMINF_running;
--            info->nr_online_vcpus++;
--        }
--    }
--
--    info->cpu_time = cpu_time;
--
--    info->flags = (info->nr_online_vcpus ? flags : 0) |
--        ((d->is_dying == DOMDYING_dead) ? XEN_DOMINF_dying     : 0) |
--        (d->is_shut_down                ? XEN_DOMINF_shutdown  : 0) |
--        (d->controller_pause_count > 0  ? XEN_DOMINF_paused    : 0) |
--        (d->debugger_attached           ? XEN_DOMINF_debugged  : 0) |
--        (is_xenstore_domain(d)          ? XEN_DOMINF_xs_domain : 0) |
--        (is_hvm_domain(d)               ? XEN_DOMINF_hvm_guest : 0) |
--        d->shutdown_code << XEN_DOMINF_shutdownshift;
--
--    xsm_security_domaininfo(d, info);
--
--    info->tot_pages         = domain_tot_pages(d);
--    info->max_pages         = d->max_pages;
--    info->outstanding_pages = d->outstanding_pages;
--#ifdef CONFIG_MEM_SHARING
--    info->shr_pages         = atomic_read(&d->shr_pages);
--#endif
--#ifdef CONFIG_MEM_PAGING
--    info->paged_pages       = atomic_read(&d->paged_pages);
--#endif
--    info->shared_info_frame =
--        gfn_x(mfn_to_gfn(d, _mfn(virt_to_mfn(d->shared_info))));
--    BUG_ON(SHARED_M2P(info->shared_info_frame));
--
--    info->cpupool = cpupool_get_id(d);
--
--    memcpy(info->handle, d->handle, sizeof(xen_domain_handle_t));
--
--    arch_get_domain_info(d, info);
--}
--
- bool domctl_lock_acquire(void)
- {
-     /*
--- 
-2.34.1
-
+W1B1YmxpY10NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBKYW4gQmV1
+bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQo+IFNlbnQ6IFRodXJzZGF5LCBKdWx5IDE3LCAyMDI1
+IDQ6NTUgUE0NCj4gVG86IFBlbm55LCBaaGVuZyA8cGVubnkuemhlbmdAYW1kLmNvbT47IFN0YWJl
+bGxpbmksIFN0ZWZhbm8NCj4gPHN0ZWZhbm8uc3RhYmVsbGluaUBhbWQuY29tPg0KPiBDYzogSHVh
+bmcsIFJheSA8UmF5Lkh1YW5nQGFtZC5jb20+OyBTdGVmYW5vIFN0YWJlbGxpbmkNCj4gPHNzdGFi
+ZWxsaW5pQGtlcm5lbC5vcmc+OyBBbmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXgu
+Y29tPjsgUm9nZXINCj4gUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5jb20+OyBBbnRob255
+IFBFUkFSRA0KPiA8YW50aG9ueS5wZXJhcmRAdmF0ZXMudGVjaD47IE9yemVsLCBNaWNoYWwgPE1p
+Y2hhbC5PcnplbEBhbWQuY29tPjsgSnVsaWVuDQo+IEdyYWxsIDxqdWxpZW5AeGVuLm9yZz47IFNl
+cmdpeSBLaWJyaWsgPFNlcmdpeV9LaWJyaWtAZXBhbS5jb20+OyB4ZW4tDQo+IGRldmVsQGxpc3Rz
+LnhlbnByb2plY3Qub3JnDQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggdjggNy83XSB4ZW4vc3lzY3Rs
+OiB3cmFwIGFyb3VuZCBzeXNjdGwgaHlwZXJjYWxsDQo+DQo+IE9uIDExLjA3LjIwMjUgMDY6MzEs
+IFBlbm55IFpoZW5nIHdyb3RlOg0KPiA+IC0tLSBhL3hlbi9jb21tb24vTWFrZWZpbGUNCj4gPiAr
+KysgYi94ZW4vY29tbW9uL01ha2VmaWxlDQo+ID4gQEAgLTQ5LDYgKzQ5LDcgQEAgb2JqLXkgKz0g
+c3BpbmxvY2subw0KPiA+ICBvYmotJChDT05GSUdfU1RBQ0tfUFJPVEVDVE9SKSArPSBzdGFjay1w
+cm90ZWN0b3IubyAgb2JqLXkgKz0NCj4gPiBzdG9wX21hY2hpbmUubyAgb2JqLXkgKz0gc3ltYm9s
+cy5vDQo+ID4gK29iai0kKENPTkZJR19TWVNDVEwpICs9IHN5c2N0bC5vDQo+ID4gIG9iai15ICs9
+IHRhc2tsZXQubw0KPiA+ICBvYmoteSArPSB0aW1lLm8NCj4gPiAgb2JqLXkgKz0gdGltZXIubw0K
+PiA+IEBAIC03MCw3ICs3MSw2IEBAIG9iai0kKENPTkZJR19DT01QQVQpICs9ICQoYWRkcHJlZml4
+IGNvbXBhdC8sZG9tYWluLm8NCj4gPiBtZW1vcnkubyBtdWx0aWNhbGwubyB4bGF0Lm8gIGlmbmVx
+ICgkKENPTkZJR19QVl9TSElNX0VYQ0xVU0lWRSkseSkNCj4gPiBvYmoteSArPSBkb21jdGwubw0K
+PiA+ICBvYmotJChDT05GSUdfVk1fRVZFTlQpICs9IG1vbml0b3Iubw0KPiA+IC1vYmoteSArPSBz
+eXNjdGwubw0KPiA+ICBlbmRpZg0KPiA+DQo+ID4gIGV4dHJhLXkgOj0gc3ltYm9scy1kdW1teS5v
+DQo+DQo+IENJIGRlbW9uc3RyYXRlcyB0aGF0IHRoaXMgY29tYmluYXRpb24gb2YgY2hhbmdlcyBp
+cyB3cm9uZy4gVGhlIGpvYiB0aGF0IGZhaWxlZA0KPiAoZGViaWFuLTEyLXg4Nl82NC1nY2MtaWJ0
+KSBpcyBhIHJhbmRjb25maWcgb25lLCBhbmQgZW5kZWQgdXAgcGlja2luZyBib3RoDQo+IFNZU0NU
+TD15IGFuZCBQVl9TSElNX0VYQ0xVU0lWRT15LiBXaGljaCByZXN1bHRzIGluIHN5c2N0bC5jIGJl
+aW5nIGJ1aWx0LA0KPiBidXQgZG9tY3RsLmMgbm90IGJlaW5nIGJ1aWx0LiBXaGljaCBsZWF2ZXMg
+Z2V0ZG9tYWluaW5mbygpIHVuZGVmaW5lZCwgY2F1c2luZw0KPiBsaW5raW5nIHRvIGZhaWwuIElu
+IGNhc2UgdGhlIG5leHQgcGlwZWxpbmUgYWxzbyBlbmRzIHVwIGZhaWxpbmcsIEknbGwgc2ltcGx5
+IHJldmVydCB0aGF0DQo+IGNoYW5nZS4gSW4gY2FzZSBpdCBzdWNjZWVkcywgbm90IHJldmVydGlu
+ZyBtYXkgYmUgYW4gb3B0aW9uLCBhcyBsb25nIGFzIGEgcHJvcGVyIGZpeA0KPiBzaG93cyB1cCBw
+cmV0dHkgcXVpY2tseS4NCj4NCg0KSSd2ZSBwdXNoIGNvbW1pdCBvZiAiIHhlbjogbW92ZSBnZXRk
+b21haW5pbmZvKCkgdG8gZG9tYWluLmMgIiB0byB0cnkgdG8gZml4IHRoZSBlcnJvci4NCg0KPiBK
+YW4NCg==
 
