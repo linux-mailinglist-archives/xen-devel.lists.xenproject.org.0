@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD9D5B0D9EA
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 14:42:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1052599.1421333 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CA39B0D9F1
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 14:44:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1052607.1421343 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueCJj-0006RK-Qn; Tue, 22 Jul 2025 12:41:59 +0000
+	id 1ueCLu-000712-9B; Tue, 22 Jul 2025 12:44:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1052599.1421333; Tue, 22 Jul 2025 12:41:59 +0000
+Received: by outflank-mailman (output) from mailman id 1052607.1421343; Tue, 22 Jul 2025 12:44:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueCJj-0006Pm-NP; Tue, 22 Jul 2025 12:41:59 +0000
-Received: by outflank-mailman (input) for mailman id 1052599;
- Tue, 22 Jul 2025 12:41:57 +0000
+	id 1ueCLu-0006zS-66; Tue, 22 Jul 2025 12:44:14 +0000
+Received: by outflank-mailman (input) for mailman id 1052607;
+ Tue, 22 Jul 2025 12:44:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sKN0=2D=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1ueCJh-0006Pg-Pq
- for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 12:41:57 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20627.outbound.protection.outlook.com
- [2a01:111:f403:2415::627])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=D6vH=2D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ueCLt-0006zK-0z
+ for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 12:44:13 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3fbcd96c-66f9-11f0-a31d-13f23c93f187;
- Tue, 22 Jul 2025 14:41:56 +0200 (CEST)
-Received: from BYAPR21CA0004.namprd21.prod.outlook.com (2603:10b6:a03:114::14)
- by DS7PR12MB5790.namprd12.prod.outlook.com (2603:10b6:8:75::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.29; Tue, 22 Jul
- 2025 12:41:50 +0000
-Received: from SJ1PEPF00002323.namprd03.prod.outlook.com
- (2603:10b6:a03:114:cafe::76) by BYAPR21CA0004.outlook.office365.com
- (2603:10b6:a03:114::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.4 via Frontend Transport; Tue,
- 22 Jul 2025 12:41:47 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00002323.mail.protection.outlook.com (10.167.242.85) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8964.20 via Frontend Transport; Tue, 22 Jul 2025 12:41:47 +0000
-Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 22 Jul
- 2025 07:41:45 -0500
+ id 914368e4-66f9-11f0-a31d-13f23c93f187;
+ Tue, 22 Jul 2025 14:44:12 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-3a5257748e1so3124353f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Jul 2025 05:44:12 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23e3b6ef157sm75326345ad.190.2025.07.22.05.44.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 22 Jul 2025 05:44:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,138 +45,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3fbcd96c-66f9-11f0-a31d-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oMljxlQ1roKCuQOrmcjMtz7ftXbRUh18Rs7oYS/HRnO0phaVaErifOS/c47e9CXVJuGho/pON6gBoIUJR4P83GSurPVnDawzqTBqjhJ3uXy7S7UOVEP1UJgktZnwiRo8lBk/goP22kiaE2vV90lsvYFX3F4zZlKgreUAXPiHxBp2rQhukYFFFuq8jUd03wE8x26lJC8tnlDpeyzRhfmEf6XxHMHlk5kZu/I0VUBzQujafcaN+mYRCKa+zjhytdwHOmTMwoJEiukmu/U3JB78u/0IFChUjJzdI2ujWESeFPbU858GT5Qh35NbIpzZjg9++/Gb9Xl/11Frxq0ajB2NDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0tF5B9pkxKd/SgClD2znYOMAnQvtUBzHNwKlsy+Py5E=;
- b=yt6A9I2/PVDvCU66jXitRm3cWD4dJ3/WKnjgyRFxSBsgGsiw2vtJYSz1w5SxfxboIPmK3ssPIxvQwatfDdZBG9ke+PIdxtedIFg3K1q6TCQraHT9XdDieVNzMQz1m8+07LLHmuAdFqoT/4BmIXqmupQZwCC0qgbkWNS8XV0kCFUgS1uCEJQF4mFn1ViddI7g/l7HSxAgG9unI4wmV0aATM3K1NiwPoJutZ625r8WHTnmcI2H50otmVsbdtfgCLSi8cBCoEUVMGh4LeH4KDg2ZQd+OnsQ7MykHLiNpaa3Q/DFM5Iq/4cKjQzFK7JRcFhyIk5rlEdGVZr+obQLzQNFVw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0tF5B9pkxKd/SgClD2znYOMAnQvtUBzHNwKlsy+Py5E=;
- b=waoitqiRsRB5cz8KYA9d0q8slcbr/eCBlPW2sxqbNSyuUfVEKrAGUGTi+a6jy9xgEKRkEB+fu0uf/nTV3Ocl1jbUatXl/IXlNc64qgx83NGUrP8Ac6zasB8+clRL7sBMVxd44DZ0A6GZP5FfWs4l32zNeVwveMA2yo4kD7hXRmM=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+X-Inumbo-ID: 914368e4-66f9-11f0-a31d-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1753188251; x=1753793051; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=L175Cn6Jkx0ge0NANgvJ8/QPc4JND6+FpAfTcat7my4=;
+        b=ATBRDE2f1sIX4ueh9U54t1Yqa7HKsCrOEJmWxcPgeYHEqostjNrQSUW1cJcPz+UPic
+         4/qG08RY1UUcCxktozDpPOiOzUkyAbE1Gpei0CynGNzhcZwP5WRseOBKAhdcZmnAQnRF
+         Fk3sTYgF4SJo/MYmvWyLYFHbw1T746S8iiuv7LKUm7HX8fc6bcGAuTBMhg/alR/rdFGd
+         /Dbg6qgsUz3THdVi7M8ZExAzsQ35UD5QKgpe+nc1mdXUIFanHdC/PoTEL5mYN/wiXdkg
+         yKGWKgzaxnBZT9FP0dMCqH9GO+qaqxMlGi0482M2WZf0K2K74erR0B3PI+yUYlx7+E1r
+         GzYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753188251; x=1753793051;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=L175Cn6Jkx0ge0NANgvJ8/QPc4JND6+FpAfTcat7my4=;
+        b=KJCYum4FPLlORy8CmXMzVRXtEWEhLM0f77aUb3L8WDEvpVBJRtZZ8pWeQ4gaYkqG7C
+         ORWTEvPyigkIzKjpzCRv7qyemoN0CPUvXpSoCHMiOTIdg0V9XZJr/bSnv40fjtMhSQKD
+         zlFpiCcF7WLKfYUk6tA6HU6m21LFrjO0bb09V5jSxIeieQjykfXZdwdSOlvpqyPqXRbn
+         LGVV3Y3hYHU3Ck606o0A5Upv6lis9BdHOj1akPsC9c3CBx0Uy7A+4PXud6gIKnwWD+5R
+         TseP06jWiPiSxDLWvHgGPxDqrxYtqqL28VNva+7176nT2YNFxkkM/fB+f27GPvARr1Xp
+         n6gA==
+X-Forwarded-Encrypted: i=1; AJvYcCXukg82KdvOpLt6Ca3BUEuxhZy+n6edl3QczXK+IwppeesMk0bgmbzrq5Zjdb5Wou0sNXBebJ/F0k8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzKgZoWF3Hb5fH8y/W0qr7lXwl87G2IBEyDcT4DbhUkDrq4U1jr
+	rsqpqfLZwXgj3FrUQ9uNX/YsOhRlrP/BY7pTr4RlNjN/FRT9JwBfkjsRWrgtok6PhQ==
+X-Gm-Gg: ASbGnctMsm5V42aN6OyqEqOuqRwivQY/gmppgAm0YhN6xS5RuvkbMu8/8BLG7vOhXCO
+	akdEMsWvc1YH3sVp3sa66kZFjUdv/GXtVaUoYYVR57PoF1nZy1GYdBbs4WnscHVUHSKGPIRX9bQ
+	ML1xQLbao6JfX83y3fHTokSqpTGs68xV34FpR2mUvPQIjN9UbFrrbwExGxFYTseLvkBabgGhFmQ
+	HkLUAWII9xsJBMvUKhHlbN3Ms0L86fiFbk+NjfD2lZhC0ANdyPGG61HNUKztGBsUsJaBKZ0gUBV
+	6vKmHGhewL4Ba9bQCl6GX/Xe6B8X1zjOSz3x0PYPyFae6V3wduKDP8pT7zza4FzPYF34SAJuLvP
+	Dt2mSPeGwzVO0tcso1jFbQXu9zMxgyKUHnwMJelySviJyij00IwTx/yLMY13XhD1GaY45MMAsuu
+	qhcfJYAjA=
+X-Google-Smtp-Source: AGHT+IF5mivMTF42KgqnMZZtT8U/0a1FprggGeju9lBXMtLt4roOafDHK3QRdtAd6Ybn0eX2bv5KAg==
+X-Received: by 2002:a05:6000:2087:b0:3a4:d994:be7d with SMTP id ffacd0b85a97d-3b60e4eef0bmr20015803f8f.23.1753188251254;
+        Tue, 22 Jul 2025 05:44:11 -0700 (PDT)
+Message-ID: <15a876ae-fdc5-4292-bd3b-1f6f2ae0e448@suse.com>
+Date: Tue, 22 Jul 2025 14:43:59 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Tue, 22 Jul 2025 14:41:43 +0200
-Message-ID: <DBILBC1UJ0QZ.2KU2PDGDO14H9@amd.com>
-CC: Alejandro Vallejo <agarciav@amd.com>, "Daniel P. Smith"
-	<dpsmith@apertussolutions.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
-	<stefano.stabellini@amd.com>, Jason Andryuk <jason.andryuk@amd.com>,
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 01/10] static-evtchn: Add missing include
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: Jan Beulich <jbeulich@suse.com>
-X-Mailer: aerc 0.20.1
-References: <20250722115955.57167-1-alejandro.garciavallejo@amd.com>
- <20250722115955.57167-2-alejandro.garciavallejo@amd.com>
- <c72a8ff3-e3e3-437d-b169-031571a18dcc@suse.com>
-In-Reply-To: <c72a8ff3-e3e3-437d-b169-031571a18dcc@suse.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002323:EE_|DS7PR12MB5790:EE_
-X-MS-Office365-Filtering-Correlation-Id: 12ecb7a9-0184-4757-5a84-08ddc91d1f7a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?ekVhMytDVDV6SThPc3l2aWppaFo3dUo5VU5RZ2R3Z2RtcndSRGhIbXppMjI1?=
- =?utf-8?B?RnVkd0p0cmJ5OVAvVFRKSXZXcWlWdHArUW4zRFEyeWFndkh3bVhxMGRMclBs?=
- =?utf-8?B?YTZCcDczd3NpRUtTa0pZQm52NmgyMXVLeGZHVzVaRVcrR0tiVG9TNVBnYnB2?=
- =?utf-8?B?Y3lJRmtJQlVFWGhNYWhiWTlvejI5Uy8wREhNMUpzMklTcmlFU2FrNzQ2Qi85?=
- =?utf-8?B?N3pvUmZ4K0VtcXV1SkM5Q3BoTXVMYXY5VHpRU2MrSlNlZ2pNRDM2bVh4eTh4?=
- =?utf-8?B?bmNHQXJtU3Z0Z0wyaUtUdG1qTWJMNEg2TkwzR1FBaXRzVU1Ia0xrR1FsZTFZ?=
- =?utf-8?B?OVlRNTRxbk11NXArUS9Wd01HMlIycVZFOW95dXQxdFdrZHplVlhCL3J6MGpW?=
- =?utf-8?B?NTBWNFZYRFNENEJYM01ubVBXNEJKa3FVb3pYV0J5Z3dqVisxTkVjM0c3MlVa?=
- =?utf-8?B?TjVSMDhhbnlDTEVGcXFiZVV3RVloUWdGak5nOUE3ZGowNEtFVlN3ajZCelFh?=
- =?utf-8?B?YW13NWVHRnVpZ2duOTN3S0dUTEFueHo2ZkxmMm96YU10UEVLeFFibndJcnpG?=
- =?utf-8?B?dXlnUnNiTWFacTlFalM4MytvakZJaERkb1p0aDFTcnZLM04wbmw4QTI1ZzlM?=
- =?utf-8?B?L1dDMmZnT25VeEF2bWJmRlB5ZzZWWGlHZHNJZEF0dU9RbzlFaVRGMWhjN3RL?=
- =?utf-8?B?d2hVdTArSWRXaDJzcElvZktPem0rNytXVW0xdStXQkJHL2dwT0RlRUFaU3cz?=
- =?utf-8?B?Z0pGL1EzS3REbzhTVTBkSjU5RXJBajhpanMyODFUS1RoS0JabVZYcXlwMjUy?=
- =?utf-8?B?amt4djJ0eHpDSUdOdVRaQTdMU1hyVmlsTkxLVjRxdUNEQkx0N0F1bW1BYWhU?=
- =?utf-8?B?NjFGazhCZCtGRk51Tndzdm5qUVVIS3RZNFdLdG4yK1diR0V6clNXUlYybEVJ?=
- =?utf-8?B?cHJXSHFLMjRsMDVEZTNTVFpHNkIyeEkzWWlPUmRLYVorRjBhUWpJOWJDbHZi?=
- =?utf-8?B?dm0rdS9iMWR6SVR2UFdXOVdLSmdDWjYwbFUwNFVWOGVhNGxObWZZVnpCZmVV?=
- =?utf-8?B?cWp5U3FUQWVURkJKZE5PekN6eHRMWmZJUXJTUFpUaEp2Y29iQmE5Z25lT0Rh?=
- =?utf-8?B?UENDUEU3NFZwcTNhZnU1b1h0S0dGUnRyeEd0QXdEVHJRTU1tMitVMDlrYjdi?=
- =?utf-8?B?ditycklsSjRESEdnUUdhQmhicWh5akI0VFhXcW95TWpvRVZyNW93MW9aODE5?=
- =?utf-8?B?cUpOaERnWVNQdTIyTDlmTE9mMG9hUnBBbHNvb29PTXZIRmw1RUpJcTVDQmxa?=
- =?utf-8?B?amdCNVVkOXI2T0tmb2lOS3d1WkFpRGswM3BNU0ZCelJ1RXVhZk4yNll4V2dy?=
- =?utf-8?B?QXIya2M0ZkhNRkN2dGxwU0o4a1VZSGhCWU5SeHBMcDdaNFhGeFRNT3N6bnJ0?=
- =?utf-8?B?SFhSNWt6STUvelVsaE1BZ3FZa0I0NVFXbWRlYWlYRXNhT3BkZ0ZHOFhCSUdq?=
- =?utf-8?B?dmZHSU9YaGRQRFF4UDZlK1NZaU9DdGExeGtlQlpFcUZtaGtnQUNsc3VRbjNy?=
- =?utf-8?B?NXhXOTdhZHRTZ0IwM0JOcVBsaEpiNnJVeHhCcnV0WURwUjRwa3dSTWw1cTZ0?=
- =?utf-8?B?V2JmcXRxLzBLeUIwTG5QS1U2Zk5xUGg1WE5PVSsvNXo5c1NveWZOSDBPUXFZ?=
- =?utf-8?B?TktZeVJJRkJpajQzRzlGVjI3NkNxelJxTnVPbWZSZWpiaXpPYTlsN091cktT?=
- =?utf-8?B?ajhKdTQraWw5b2RUdFdJbmkvUjd6ZHhTV2FKRzJUL3o3OTBRV2hFNmYxaU9a?=
- =?utf-8?B?RVZTTGhOV3duNEV6dGFSSnAyQjlKRVZZeUJJQlRPb2Z2NGxvYUkxVVNqRHp3?=
- =?utf-8?B?bUJNR24vM1F6dVBwclZHYmI4NnpOcVRhWTBHUXJmelJGWHcxMm9vYUFjR0Fj?=
- =?utf-8?B?eGZlTXJ0SEF6OHV5ZjVhT0QzY0RZUFFFeUlSYmRJT3dPNG1ZNm1nMWxMaWlu?=
- =?utf-8?B?Smt6dzhhVEpmNGFEU1ZQWGVUTFNvdVlTbGRoa3NNaU1HbEhaeDhESlF3b3Jx?=
- =?utf-8?Q?XzM0tu?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2025 12:41:47.4488
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 12ecb7a9-0184-4757-5a84-08ddc91d1f7a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00002323.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5790
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v5 08/10] lib/arm: Add I/O memory copy helpers
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Juergen Gross
+ <jgross@suse.com>, Julien Grall <julien@xen.org>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <cover.1753184487.git.oleksii_moisieiev@epam.com>
+ <6df9b5bbeae12a74397d72d53c530313f0778025.1753184487.git.oleksii_moisieiev@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <6df9b5bbeae12a74397d72d53c530313f0778025.1753184487.git.oleksii_moisieiev@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue Jul 22, 2025 at 2:10 PM CEST, Jan Beulich wrote:
-> On 22.07.2025 13:59, Alejandro Vallejo wrote:
->> From: Alejandro Vallejo <agarciav@amd.com>
->>=20
->> When later on x86 starts using this file in later patches it won't find
->> device_tree.h because it's only transitively included by arm.
->>=20
->> Make it explicit.
->>=20
->> Not a functional change.
->>=20
->> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
->> Acked-by: Stefano Stabellini <stefano.stabellini@amd.com>
->> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
->
-> I'm certainly happy to trust you, but on a v1 submission I'm a little
-> surprised to find two tags present already.
->
-> Jan
+On 22.07.2025 13:41, Oleksii Moisieiev wrote:
+> This commit introduces two helper functions, `__memcpy_fromio` and
+> `__memcpy_toio`, to provide a robust mechanism for copying data between
+> standard memory and memory-mapped I/O (MMIO) space for the ARM
+> architecture.
+> 
+> These functions are designed to handle memory transfers safely,
+> accounting for potential address alignment issues to ensure correctness
+> and improve performance where possible. The implementation is specific
+> to ARM and uses relaxed I/O accessors.
 
-They came out of internal review, and I didn't really want to drop them.
+The implementation could be reused by any arch providing
+{read,write}*_relaxed(), couldn't it?
 
-Everyone with tags is in CC, as auto-cc "helpfully" does in the absence of
-further arguments (for better or worse), so they can pitch in.
+> __memcpy_fromio:
+> Copies a block of data from an I/O memory source to a destination in
+> standard ("real") memory. The implementation first handles any unaligned
+> bytes at the beginning of the source buffer individually using byte-wise
+> reads. It then copies the bulk of the data using 32-bit reads for
+> efficiency, and finally processes any remaining bytes at the end of the
+> buffer.
+> 
+> __memcpy_toio:
+> Copies a block of data from standard memory to a destination in I/O
+> memory space. It follows a similar strategy, handling any initial
+> unaligned portion of the destination buffer byte-by-byte before using
+> more efficient 32-bit writes for the main, aligned part of the transfer.
+> Any trailing bytes are also handled individually.
+> xen/include/xen/lib/arm/io.h
 
-If this is a problem, I'll make a note to drop internal tags before public
-submissions in the future, and feel very free to ignore these. I do underst=
-and
-it's important to keep proper paper trail, which, by doing this, is lost.
+Why exactly do the functions need two leading underscores in their names?
 
-Cheers,
-Alejandro
+> --- a/xen/lib/Makefile
+> +++ b/xen/lib/Makefile
+> @@ -1,4 +1,5 @@
+>  obj-$(CONFIG_X86) += x86/
+> +obj-$(CONFIG_ARM) += arm/
+
+Nit: Alphabetically sorted please.
+
+> --- /dev/null
+> +++ b/xen/lib/arm/Makefile
+> @@ -0,0 +1 @@
+> +obj-y += io.o
+> \ No newline at end of file
+
+Please make sure all files properly end in a newline.
+
+> --- /dev/null
+> +++ b/xen/lib/arm/io.c
+> @@ -0,0 +1,80 @@
+> +#include <asm/io.h>
+> +#include <xen/lib/arm/io.h>
+> +
+> +/*
+> + * memcpy_fromio - Copy data from IO memory space to "real" memory space.
+> + * @to: Where to copy to
+> + * @from: Where to copy from
+> + * @count: The size of the area.
+> + */
+> +void __memcpy_fromio(void *to, const volatile void __iomem *from,
+> +                     size_t count)
+> +{
+> +    while ( count && !IS_ALIGNED((unsigned long)from, 4) )
+> +    {
+> +        *(u8 *)to = readb_relaxed(from);
+
+No u<N> anymore in new code please; use uint<N>_t instead.
+
+Further, what tells you that accessing a 16-bit register residing in MMIO
+can legitimately be accessed using two 8-bit accesses?
+
+> +        from++;
+> +        to++;
+> +        count--;
+> +    }
+> +
+> +    while ( count >= 4 )
+> +    {
+> +        *(u32 *)to = readl_relaxed(from);
+> +        from += 4;
+> +        to += 4;
+> +        count -= 4;
+> +    }
+
+Not attempting 64-bit accesses on 64-bit arches will want an explanatory
+comment, I think.
+
+> +    while ( count )
+> +    {
+> +        *(u8 *)to = readb_relaxed(from);
+> +        from++;
+> +        to++;
+> +        count--;
+> +    }
+> +}
+> +
+> +/*
+> + * memcpy_toio - Copy data from "real" memory space to IO memory space.
+> + * @to: Where to copy to
+> + * @from: Where to copy from
+> + * @count: The size of the area.
+> + */
+> +void __memcpy_toio(volatile void __iomem *to, const void *from,
+> +                   size_t count)
+> +{
+> +    while ( count && !IS_ALIGNED((unsigned long)to, 4) )
+> +    {
+> +        writeb_relaxed(*(u8 *)from, to);
+
+Please never cast away const-ness. This is a violation of some Misra rule,
+iirc.
+
+Jan
 
