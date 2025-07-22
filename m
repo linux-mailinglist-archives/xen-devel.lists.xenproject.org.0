@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 388B5B0E107
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 17:57:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1052899.1421687 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC4A2B0E129
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 18:03:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1052917.1421698 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueFM5-0000ab-Sm; Tue, 22 Jul 2025 15:56:37 +0000
+	id 1ueFSQ-0002xk-M8; Tue, 22 Jul 2025 16:03:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1052899.1421687; Tue, 22 Jul 2025 15:56:37 +0000
+Received: by outflank-mailman (output) from mailman id 1052917.1421698; Tue, 22 Jul 2025 16:03:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueFM5-0000XX-Pv; Tue, 22 Jul 2025 15:56:37 +0000
-Received: by outflank-mailman (input) for mailman id 1052899;
- Tue, 22 Jul 2025 15:56:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ueFSQ-0002uF-JP; Tue, 22 Jul 2025 16:03:10 +0000
+Received: by outflank-mailman (input) for mailman id 1052917;
+ Tue, 22 Jul 2025 16:03:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=D6vH=2D=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ueFM3-0000XJ-Vx
- for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 15:56:35 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 71b3b704-6714-11f0-a31d-13f23c93f187;
- Tue, 22 Jul 2025 17:56:35 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3a6d77b43c9so4348387f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 22 Jul 2025 08:56:35 -0700 (PDT)
+ id 1ueFSP-0002u9-IO
+ for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 16:03:09 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5979d638-6715-11f0-b894-0df219b8e170;
+ Tue, 22 Jul 2025 18:03:04 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-4563a57f947so122475e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Jul 2025 09:03:04 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23e3b6ef76bsm78927285ad.210.2025.07.22.08.56.28
+ d2e1a72fcca58-759c89cf951sm7834810b3a.36.2025.07.22.09.02.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Jul 2025 08:56:34 -0700 (PDT)
+ Tue, 22 Jul 2025 09:03:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71b3b704-6714-11f0-a31d-13f23c93f187
+X-Inumbo-ID: 5979d638-6715-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753199795; x=1753804595; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753200184; x=1753804984; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=WJBRrqkhzFbdR1jTJWQ1StBVsJTRdxpD5XxRwiIgRRI=;
-        b=MyVfiDQWzZJcJNxBBFwIzjqEkxee2/1UnFHjZrE8ZNcfFTMMb36zs8YenW2mEnGu03
-         52mSD5ROgbToXCpin8itySmcQxvm4x8p3NwzDRx6fjeQ3b0gu3lfQp9I3eqglE0yHQbV
-         B4McxO9svPona+5D9Pd01JPc5mcgXLfYU+Gjv56IWk0Rgt88TQaeGAUXpoPSNIM4d0TS
-         buaKG1NWNnsIUAkJwG80JiTpfBdCAkwf/uHoMhp/qTqISto7YICRQQ7guRVd87K6Nn6s
-         2OOGWwTAXVPVakIny/iLnLA9EcVnzM4entZQsNEMZJ9gEHqnAqtFeIVUBNRz7YeZX+Cb
-         rnEA==
+        bh=PGxTgi/1QzpoIxo8dlP6eDg2Eo3GGc8W8GR2aGCiuik=;
+        b=JENHO4ndGPb/pb8R/hz4pc7+7RUgXa0l8uc0Al/Han1zBEDpCmQ2vhWEcLjbB+6XY6
+         7khG32qi+PTgBdRSR1hg+0eg0qVj5Z5NQohblUmt1dpq+U/nCBA0x8/5Ri/+Cxu2CgZp
+         t/+RjHHiaW+xIVv6FGEuhcrwchKrJ07GLQB5y2uBJBiuevtoy5k9YnkVD8YJpLRNfRAs
+         FuxbeJqdoBJeV6LKSPJ2TFCHhOl7SIbg2DAvMSv1s5m7sucQUH45Ws1lzjMbfVhNbXdt
+         y2/RgAwWMhuXtiq0SP6nJzTE2nYtAys4MiJYwSDZmHnh3PD1keYZ/1FkmqdI7zRwL8yA
+         9SZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753199795; x=1753804595;
+        d=1e100.net; s=20230601; t=1753200184; x=1753804984;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WJBRrqkhzFbdR1jTJWQ1StBVsJTRdxpD5XxRwiIgRRI=;
-        b=OGjBbkpD1zM7z9ZttrvtYPWXxuqio+umuARuSJM7LhZH3fRWCHiVWLkTVLi1XWApO2
-         lHdzZ88avJncpq82FYFveVI8ub2KYzDvh4931gyVSTztnC5bJVdT5YFDU9n08e9S+d/m
-         9ExUuauyXA6Ha9RfVR0wStuITWdftWV4XdVk6+aIgNYP+iHW7Nh9iXG5QCJ///JiebpT
-         7WIvEWkiMmIrLLEtllVJrJ6trOdCCVuA670anEjxjAaDvF66AuMi2/T1A/+BcsBOU6gz
-         YebbEMQ63mgN7CmKofeorr761QThtKES7grC8P/mEwPrJ7vm9TrJqp4XjIIZp/PRMo7W
-         Q9ZQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWxKocm7HHfoyH57WsRr6jNLfyzbOUcBh4P3h5qB/WBJbCEP8ElP1RxgvFoBmM2+ZABoF3BeWr8fIU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzRLNwoXGN3JNo4mWO3l6I+2WvvpFmfsAglr8Nx14rI3s/pMy0F
-	BhdKj5DyA7y8ohYMy5cjZhgtUTaprQBDgs9MC5t12sufxWGekPbjlVt3bYGrapehmg==
-X-Gm-Gg: ASbGncsBiYeVBGqs6i9EQTFEi+3NFQUFi8QgVevT7eRrq131/PFc/vvRNyCeDT1SrR6
-	CaHZWUHstYL52uC7YvEaW2mW/MLIPLtauJ1KZV2sjVVL60X0sFo+7cFTNpuAunX0T84YPboooC8
-	LS4UZP2mmWn2jWmFW4ZxC1nctzaNNlh0TFfIZYywNqnOCjhNLBex7rEMRBRdWUMXzOFPrdeBrZx
-	bvH7CTkitRQoRk6U/a2dhFwhtSjTEC93HtKyYyFsAz8P/87MOQnAUlsD/5b8gRA0CMHuY2Z6CA2
-	B1ypPF2/HHRBRfRab+b8eGM2HAmYIq40Sps6EQ4EHDnLPuHCOX5TsmK8453Gj9AzbS5Oyd0J6zx
-	H3Zu0+0SOx0dyO05BYbnPH+aIR7JKJApaXNS2dryFAVN9jd1Ts8rRp/QwWq/XU6xwAMYFkMTkAl
-	WW7hkVryfwAzUhp0YwgQ==
-X-Google-Smtp-Source: AGHT+IEy21kEqQG2VewPcrmhdArWnxRAX74B6LJ/hpF0kD/ClRdKNq/MqslCp6xhSR+2qj85lOt5vg==
-X-Received: by 2002:a05:6000:4606:b0:3a5:1240:6802 with SMTP id ffacd0b85a97d-3b60e53f7f2mr19767181f8f.57.1753199794741;
-        Tue, 22 Jul 2025 08:56:34 -0700 (PDT)
-Message-ID: <33154e3b-75d6-4f82-9e10-ef3e304bfc92@suse.com>
-Date: Tue, 22 Jul 2025 17:56:24 +0200
+        bh=PGxTgi/1QzpoIxo8dlP6eDg2Eo3GGc8W8GR2aGCiuik=;
+        b=qQM4AqucP48opye8vO62yqoIZjRUkgpQOieW3SURAw3794RUUrPYJncvMu89O7W7Sh
+         Gm2mh79CHP2cxgdE94PemUl2un5fc5y04G0PZY6oHsJYZuDt+FeByMABEpqPbA/HQdDn
+         abzXsQ03wuf1bSMN79o1YYo/+1S6/uQ5ltxS+mjrEmT6W3N94tKrzxB491ZkrWShc9+C
+         ZZhYDl8vyLYpoh6ykqgEBTRTuYPp36vrB411QIp8Bf0yRJ5MyweLJgsaI4p2VA898c8c
+         6mri74LtT1FK9ejNHFhxerllJtCZdr8ki2vHiNZoI9EG+p7pA/vqR0PL82EUXAmLykTZ
+         w1Lg==
+X-Forwarded-Encrypted: i=1; AJvYcCUgFdIvCEw7JLKm98CHThlvgqa95LHYtn1RRimr60rVfrZmrcdPzBQgKkRiNidc47Gkt2NpotT+3sk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz26pQGYlKz1sQXEj0mpFZ+FrFvbh+NQBKtx4YaUwuHvaCcombh
+	A8RT5+HlXKoTqnVyD110ZOAwjAEYupkk3mss4KfmwOZdSYgTpdAKCJ7B7RamuWGvmA==
+X-Gm-Gg: ASbGncsBwOmwsaNJ1ykaIEd5w+6dJpb6ZWwUeUvwBHx8n8/qVsZJMqudTLYTDQbXPyx
+	+g4I14JP5Nnw6w/fNmyDTE4DCwhreYXa1+CIG3x9z8tPhU+lQIGv7na7trdEzFeUK3BxUKytbn+
+	I3YxNOdD0jy+koT9fHHqfRIxqrvsdkRQVu2llexui4rZ1vt0x8+dQCcOMdUCo4+RzMObHg6c3aX
+	I47bfSQXzmQDKnrlmTyrftE91qejmsADmo4P3/41Mb7Gsvxc/18fLxctb/XqBJ2LrwZeadH4v2H
+	+zJAkiZsrZWI21E9u8nNrOolLfsyizTYBfyRJcbB2ktcytI5DHuzh+lvUVFQQDOdFJx4ONQr01+
+	vyZkGNapOhMCiq9pjhF9HLqoEAU2BhZqGXxhcLM1bcIlXskYURXOFv1L3NL5Mh3equjfBG9CJKy
+	F+ZRe1Cfk=
+X-Google-Smtp-Source: AGHT+IEeCVoUWLiztJ2AVV7A52B8tJl6lvtkRIUejFzapUtKZOLRfI5vTDEs7wASwJzk2S4s41cNmw==
+X-Received: by 2002:a5d:588e:0:b0:3b6:1cba:a769 with SMTP id ffacd0b85a97d-3b7634e58d1mr3791586f8f.16.1753200183230;
+        Tue, 22 Jul 2025 09:03:03 -0700 (PDT)
+Message-ID: <6f88e20e-98dd-4d58-b459-5a67e2629f4c@suse.com>
+Date: Tue, 22 Jul 2025 18:02:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/livepatch: fixup relocations to replaced symbols
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250716160007.92461-1-roger.pau@citrix.com>
- <4bffb6b1-ebe7-444f-905d-092e69a2d8ef@suse.com>
- <aH-oIqnKwEv3p6Hl@macbook.local>
+Subject: Re: [PATCH v2 15/17] xen/riscv: Implement superpage splitting for p2m
+ mappings
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
+ <7cdd3272f2eba32dfa00be4fd72da6921eac243d.1749555949.git.oleksii.kurochko@gmail.com>
+ <9be8eeb4-281e-4b9b-9ea7-04ff738dc4db@suse.com>
+ <e2227002-e38c-41e1-8bea-7585138ec5ba@gmail.com>
+ <0c1701ff-efe3-434f-97e0-4896707411b7@suse.com>
+ <640d6862-4ea9-49ca-adb8-0fad5ceb1ff1@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,50 +129,139 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aH-oIqnKwEv3p6Hl@macbook.local>
+In-Reply-To: <640d6862-4ea9-49ca-adb8-0fad5ceb1ff1@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 22.07.2025 17:02, Roger Pau Monné wrote:
-> On Wed, Jul 16, 2025 at 06:31:03PM +0200, Jan Beulich wrote:
->> On 16.07.2025 18:00, Roger Pau Monne wrote:
->>> In a livepatch payload relocations will refer to included functions.  If
->>> that function happens to be a replacement for an existing Xen function, the
->>> relocations on the livepatch payload will use the newly introduced symbol,
->>> rather than the old one.  This is usually fine, but if the result of the
->>> relocation is stored for later use (for example in the domain struct),
->>> usages of this address will lead to a page-fault once the livepatch is
->>> reverted.
+On 22.07.2025 16:57, Oleksii Kurochko wrote:
+> 
+> On 7/21/25 3:34 PM, Jan Beulich wrote:
+>> On 17.07.2025 18:37, Oleksii Kurochko wrote:
+>>> On 7/2/25 11:25 AM, Jan Beulich wrote:
+>>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
+>>>>> Add support for down large memory mappings ("superpages") in the RISC-V
+>>>>> p2m mapping so that smaller, more precise mappings ("finer-grained entries")
+>>>>> can be inserted into lower levels of the page table hierarchy.
+>>>>>
+>>>>> To implement that the following is done:
+>>>>> - Introduce p2m_split_superpage(): Recursively shatters a superpage into
+>>>>>     smaller page table entries down to the target level, preserving original
+>>>>>     permissions and attributes.
+>>>>> - __p2m_set_entry() updated to invoke superpage splitting when inserting
+>>>>>     entries at lower levels within a superpage-mapped region.
+>>>>>
+>>>>> This implementation is based on the ARM code, with modifications to the part
+>>>>> that follows the BBM (break-before-make) approach. Unlike ARM, RISC-V does
+>>>>> not require BBM, so there is no need to invalidate the PTE and flush the
+>>>>> TLB before updating it with the newly created, split page table.
+>>>> But some flushing is going to be necessary. As long as you only ever do
+>>>> global flushes, the one after the individual PTE modification (within the
+>>>> split table) will do (if BBM isn't required, see below), but once you move
+>>>> to more fine-grained flushing, that's not going to be enough anymore. Not
+>>>> sure it's a good idea to leave such a pitfall.
+>>> I think that I don't fully understand what is an issue.
+>> Whether a flush is necessary after solely breaking up a superpage is arch-
+>> defined. I don't know how much restrictions the spec on possible hardware
+>> behavior for RISC-V. However, the eventual change of (at least) one entry
+>> of fulfill the original request will surely require a flush. What I was
+>> trying to say is that this required flush would better not also cover for
+>> the flushes that may or may not be required by the spec. IOW if the spec
+>> leaves any room for flushes to possibly be needed, those flushes would
+>> better be explicit.
+> 
+> I think that I still don't understand why what I wrote above will work as long
+> as global flushes is working and will stop to work when more fine-grained flushing
+> is used.
+> 
+> Inside p2m_split_superpage() we don't need any kind of TLB flush operation as
+> it is allocation a new page for a table and works with it, so no one could use
+> this page at the moment and cache it in TLB.
+> 
+> The only question is that if it is needed BBM before staring using splitted entry:
+>          ....
+>          if ( !p2m_split_superpage(p2m, &split_pte, level, target, offsets) )
+>          {
+>              /* Free the allocated sub-tree */
+>              p2m_free_subtree(p2m, split_pte, level);
+> 
+>              rc = -ENOMEM;
+>              goto out;
+>          }
+> 
+> ------> /* Should be BBM used here ? */
+>          p2m_write_pte(entry, split_pte, p2m->clean_pte);
+> 
+> And I can't find anything in the spec what tells me to use BBM here like Arm
+> does:
+
+But what you need is a statement in the spec that you can get away without. Imo
+at least.
+
+>          /*
+>           * Follow the break-before-sequence to update the entry.
+>           * For more details see (D4.7.1 in ARM DDI 0487A.j).
+>           */
+>          p2m_remove_pte(entry, p2m->clean_pte);
+>          p2m_force_tlb_flush_sync(p2m);
+> 
+>          p2m_write_pte(entry, split_pte, p2m->clean_pte);
+> 
+> I agree that even BBM isn't mandated explicitly sometime it could be useful, but
+> here I am not really sure what is the point to do TLB flush before p2m_write_pte()
+> as nothing serious will happen if and old mapping will be used for a some time
+> as we are keeping the same rights for smaller (splited) mapping.
+> The reason why Arm does p2m_remove_pte() & p2m_force_tlb_flush() before updating
+> an entry here as it is doesn't guarantee that everything will be okay and they
+> explicitly tells:
+>   This situation can possibly break coherency and ordering guarantees, leading to
+>   inconsistent unwanted behavior in our Processing Element (PE).
+> 
+> 
+>>>> As to (no need for) BBM: I couldn't find anything to that effect in the
+>>>> privileged spec. Can you provide some pointer? What I found instead is e.g.
+>>>> this sentence: "To ensure that implicit reads observe writes to the same
+>>>> memory locations, an SFENCE.VMA instruction must be executed after the
+>>>> writes to flush the relevant cached translations." And this: "Accessing the
+>>>> same location using different cacheability attributes may cause loss of
+>>>> coherence." (This may not only occur when the same physical address is
+>>>> mapped twice at different VAs, but also after the shattering of a superpage
+>>>> when the new entry differs in cacheability.)
+>>> I also couldn't find that RISC-V spec mandates BBM explicitly as Arm does it.
 >>>
->>> Implement a second pass over relocations once the list of replaced
->>> functions has been loaded, and fixup any references to replaced functions
->>> to use the old symbol address instead of the new one.  There are some
->>> sections that must be special cased to continue using the new symbol
->>> address, as those instances must reference the newly added livepatch
->>> content (for example the alternative patch sites).
->>
->> This is what I was fearing, when you first mentioned the problem (and the
->> plan) to me. What I don't see is why you do your fixing up regardless of
->> relocation type. Relative relocations within the payload ought to be fine
->> to not override? At which point some of the special casing may already no
->> longer be necessary.
->>
->> (Later) Except that if code uses PC-relative addressing to determine a
->> pointer to store into some struct, that'll appear as a relative relocation
->> type, too. But then you may have a bigger problem: When referencing and
->> referenced code are in the same section and in the same translation unit,
->> the assembler could avoid emitting a relocation altogether. You would see
->> nothing to fix up ...
+>>> What I meant that on RISC-V can do:
+>>> - Write new PTE
+>>> - Flush TLB
+>>>
+>>> While on Arm it is almost always needed to do:
+>>> - Write zero to PTE
+>>> - Flush TLB
+>>> - Write new PTE
+>>>
+>>> For example, the common CoW code path where you copy from a read only page to
+>>> a new page, then map that new page as writable just works on RISC-V without
+>>> extra considerations and on Arm it requires BBM.
+>> CoW is a specific sub-case with increasing privilege.
 > 
-> The only way for the referencing and referenced code to be in the same
-> function would be for the function to reference itself, which should
-> be quite rare?  I don't recall seeing any code in Xen where a function
-> stores a pointer to itself.
-> 
-> Otherwise each function is in a separate section, and hence references
-> to functions should always use a relocation.
+> Could you please explain why it matters increasing of privilege in terms of TLB
+> flushing and PTE clearing before writing a new PTE?
 
-Oh, right, I forgot about -ffunction-sections being in use.
+Some architectures automatically re-walk page tables when encountering a
+permission violation based on TLB contents. Hence increasing privilege
+can be a special case.
+
+>>> It seems to me that BBM is mandated for Arm only because that TLB is shared
+>>> among cores, so there is no any guarantee that no prior entry for same VA
+>>> remains in TLB. In case of RISC-V's TLB isn't shared and after a flush it is
+>>> guaranteed that no prior entry for the same VA remains in the TLB.
+>> Not sure that's the sole reason. But again the question is: Is this written
+>> down explicitly anywhere? Generally there can be multiple levels of TLBs, and
+>> while some of them may be per-core, others may be shared.
+> 
+> Spec. mentions that:
+>    If a hart employs an address-translation cache, that cache must appear to be
+>    private to that hart.
+
+Hmm, okay, that indeed pretty much excludes shared TLBs.
 
 Jan
 
