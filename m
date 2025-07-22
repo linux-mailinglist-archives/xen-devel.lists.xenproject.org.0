@@ -2,44 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36E19B0DCDD
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 16:07:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1052672.1421413 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68876B0DCE3
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Jul 2025 16:07:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1052675.1421434 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueDdh-0005E7-Ba; Tue, 22 Jul 2025 14:06:41 +0000
+	id 1ueDdo-0005jO-Rp; Tue, 22 Jul 2025 14:06:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1052672.1421413; Tue, 22 Jul 2025 14:06:41 +0000
+Received: by outflank-mailman (output) from mailman id 1052675.1421434; Tue, 22 Jul 2025 14:06:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueDdh-0005CB-8y; Tue, 22 Jul 2025 14:06:41 +0000
-Received: by outflank-mailman (input) for mailman id 1052672;
- Tue, 22 Jul 2025 14:06:40 +0000
+	id 1ueDdo-0005gb-Of; Tue, 22 Jul 2025 14:06:48 +0000
+Received: by outflank-mailman (input) for mailman id 1052675;
+ Tue, 22 Jul 2025 14:06:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nbPo=2D=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1ueDdg-0005C5-7c
- for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 14:06:40 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ id 1ueDdm-0005C5-P9
+ for xen-devel@lists.xenproject.org; Tue, 22 Jul 2025 14:06:46 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 155a89e4-6705-11f0-b894-0df219b8e170;
- Tue, 22 Jul 2025 16:06:38 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ id 199eca69-6705-11f0-b894-0df219b8e170;
+ Tue, 22 Jul 2025 16:06:45 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id AB75A1F7D7;
- Tue, 22 Jul 2025 14:06:37 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4565C21229;
+ Tue, 22 Jul 2025 14:06:43 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 82EEB13A32;
- Tue, 22 Jul 2025 14:06:37 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1B9FF13A32;
+ Tue, 22 Jul 2025 14:06:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id mgNsHu2af2i5IAAAD6G6ig
- (envelope-from <jgross@suse.com>); Tue, 22 Jul 2025 14:06:37 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id k20sBfOaf2jDIAAAD6G6ig
+ (envelope-from <jgross@suse.com>); Tue, 22 Jul 2025 14:06:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,195 +52,305 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 155a89e4-6705-11f0-b894-0df219b8e170
+X-Inumbo-ID: 199eca69-6705-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1753193197; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1753193203; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=hwQcdaQXyhmu4Exu8gwLl3uTdn0YZ/pu3cUIggmc++Q=;
-	b=FyCpdLbx9XzAC3pneFkfuxAX4pxfzsrpMBDnjScuz/WoSxdV8dgHaBJf5RDtbFaF6yb7vE
-	m37BjeblLil6eOpEn7eADTMBPOexJXwLeIeYwYyhneJTKVJn4au7ZEI/EZKu9mAxpr7uEc
-	rHx5oj2N1JZG2pEqHK+dE3xQ4W9SWWk=
-Authentication-Results: smtp-out2.suse.de;
-	none
+	bh=5S7Qg1LGvq/pUj1Ya9/F/1uS3SdxtLh457+cNjBlml8=;
+	b=gx6dGARC0d9w92mQ20qLwpsJZInLbE9yuB6akh8MccTr18aQxGdgBwIR5okQCO+LKMssU+
+	FLXzFR29P8sY76fEgCqRbHS6/RAfBIu4S3HCo4QH9H8Udjm04wXbetcR+A5aRwn1i+8b3p
+	z8p+bBbIImkiwmtfcuOqzqpKhJh+Oog=
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=gx6dGARC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1753193197; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1753193203; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=hwQcdaQXyhmu4Exu8gwLl3uTdn0YZ/pu3cUIggmc++Q=;
-	b=FyCpdLbx9XzAC3pneFkfuxAX4pxfzsrpMBDnjScuz/WoSxdV8dgHaBJf5RDtbFaF6yb7vE
-	m37BjeblLil6eOpEn7eADTMBPOexJXwLeIeYwYyhneJTKVJn4au7ZEI/EZKu9mAxpr7uEc
-	rHx5oj2N1JZG2pEqHK+dE3xQ4W9SWWk=
+	bh=5S7Qg1LGvq/pUj1Ya9/F/1uS3SdxtLh457+cNjBlml8=;
+	b=gx6dGARC0d9w92mQ20qLwpsJZInLbE9yuB6akh8MccTr18aQxGdgBwIR5okQCO+LKMssU+
+	FLXzFR29P8sY76fEgCqRbHS6/RAfBIu4S3HCo4QH9H8Udjm04wXbetcR+A5aRwn1i+8b3p
+	z8p+bBbIImkiwmtfcuOqzqpKhJh+Oog=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH 1/7] tools/libs/store: add get- and set-feature related functions
-Date: Tue, 22 Jul 2025 16:06:22 +0200
-Message-ID: <20250722140628.28947-2-jgross@suse.com>
+Subject: [PATCH 2/7] tools/xenstored: support specification of migration stream version
+Date: Tue, 22 Jul 2025 16:06:23 +0200
+Message-ID: <20250722140628.28947-3-jgross@suse.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250722140628.28947-1-jgross@suse.com>
 References: <20250722140628.28947-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Spam-Level: 
-X-Spamd-Result: default: False [-2.80 / 50.00];
+X-Spam-Flag: NO
+X-Rspamd-Queue-Id: 4565C21229
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-3.01 / 50.00];
 	BAYES_HAM(-3.00)[100.00%];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
+	MX_GOOD(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
 	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
 	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
 	DKIM_SIGNED(0.00)[suse.com:s=susede1];
 	RCPT_COUNT_THREE(0.00)[4];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Flag: NO
-X-Spam-Score: -2.80
+	DKIM_TRACE(0.00)[suse.com:+]
+X-Spam-Score: -3.01
 
-Add functions for getting and setting Xenstore features to libxenstore:
+In order to prepare xenstored supporting migration stream versions
+other than 1, add a parameter to the live update command allowing to
+specify the version of the migration stream.
 
-xs_get_features_supported(): return the features supported by the
-running Xenstore implementation as defined in xs_wire.h via the
-XENSTORE_SERVER_FEATURE_* macros.
+This will allow going back from xenstored using version 2 per default
+to a xenstored only accepting version 1.
 
-xs_get_features_domain(): return the features offered for a specific
-domain.
-
-xs_set_features_domain(): set the features available for a specific
-domain.
+For now only version 1 is supported.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- tools/include/xenstore.h         | 13 +++++++++
- tools/libs/store/Makefile        |  2 +-
- tools/libs/store/libxenstore.map |  6 ++++
- tools/libs/store/xs.c            | 49 ++++++++++++++++++++++++++++++++
- 4 files changed, 69 insertions(+), 1 deletion(-)
+ tools/xenstored/control.c           |  6 ++---
+ tools/xenstored/lu.c                | 21 ++++++++++-----
+ tools/xenstored/lu.h                |  1 +
+ tools/xs-clients/xenstore_control.c | 41 ++++++++++++++++++++++-------
+ 4 files changed, 50 insertions(+), 19 deletions(-)
 
-diff --git a/tools/include/xenstore.h b/tools/include/xenstore.h
-index a442252849..423422dc50 100644
---- a/tools/include/xenstore.h
-+++ b/tools/include/xenstore.h
-@@ -264,6 +264,19 @@ bool xs_path_is_subpath(const char *parent, const char *child);
-  */
- bool xs_is_domain_introduced(struct xs_handle *h, unsigned int domid);
+diff --git a/tools/xenstored/control.c b/tools/xenstored/control.c
+index 9561289179..953c01b735 100644
+--- a/tools/xenstored/control.c
++++ b/tools/xenstored/control.c
+@@ -289,7 +289,7 @@ static struct cmd_s cmds[] = {
+ 	 *    Mini-OS: -b <binary-size>
+ 	 *             -d <size> <data-bytes> (multiple of those)
+ 	 * 2. New command-line (optional): -c <cmdline>
+-	 * 3. Start of update: -s [-F] [-t <timeout>]
++	 * 3. Start of update: -s [-F] [-t <timeout>] [-v <version>]
+ 	 * Any sub-operation needs to respond with the string "OK" in case
+ 	 * of success, any other response indicates failure.
+ 	 * A started live-update sequence can be aborted via "-a" (not
+@@ -297,8 +297,8 @@ static struct cmd_s cmds[] = {
+ 	 * sub-operation).
+ 	 */
+ 	{ "live-update", do_control_lu,
+-		"[-c <cmdline>] [-F] [-t <timeout>] <file>\n"
+-		"    Default timeout is 60 seconds.", 5 },
++		"[-c <cmdline>] [-F] [-t <timeout>] [-v <version>] <file>\n"
++		"    Default timeout is 60 seconds, default version is 1.", 7 },
+ #endif
+ 	{ "logfile", do_control_logfile, "<file>" },
+ 	{ "memreport", do_control_memreport, "[<file>]" },
+diff --git a/tools/xenstored/lu.c b/tools/xenstored/lu.c
+index 4fccbbc195..330820a8a2 100644
+--- a/tools/xenstored/lu.c
++++ b/tools/xenstored/lu.c
+@@ -283,7 +283,7 @@ static const char *lu_dump_state(const void *ctx, struct connection *conn)
+ 		return "Dump state open error";
  
-+/* Get the features supported by Xenstore.
-+ * Returned as a bitmap of XENSTORE_SERVER_FEATURE_* values.
-+ */
-+bool xs_get_features_supported(struct xs_handle *h, unsigned int *features);
-+
-+/* Get the features available for a given domain. */
-+bool xs_get_features_domain(struct xs_handle *h, unsigned int domid,
-+			    unsigned int *features);
-+
-+/* Set the features available for a given domain. */
-+bool xs_set_features_domain(struct xs_handle *h, unsigned int domid,
-+			    unsigned int features);
-+
- char *xs_control_command(struct xs_handle *h, const char *cmd,
- 			 void *data, unsigned int len);
- /* Deprecated: use xs_control_command() instead. */
-diff --git a/tools/libs/store/Makefile b/tools/libs/store/Makefile
-index 0649cf8307..fed43b0008 100644
---- a/tools/libs/store/Makefile
-+++ b/tools/libs/store/Makefile
-@@ -2,7 +2,7 @@ XEN_ROOT=$(CURDIR)/../../..
- include $(XEN_ROOT)/tools/Rules.mk
- 
- MAJOR = 4
--MINOR = 0
-+MINOR = 1
- version-script := libxenstore.map
- 
- ifeq ($(CONFIG_Linux),y)
-diff --git a/tools/libs/store/libxenstore.map b/tools/libs/store/libxenstore.map
-index 7e6c7bdd30..cd9df86749 100644
---- a/tools/libs/store/libxenstore.map
-+++ b/tools/libs/store/libxenstore.map
-@@ -39,3 +39,9 @@ VERS_4.0 {
- 		xs_strings_to_perms;
- 	local: *; /* Do not expose anything by default */
- };
-+VERS_4.1 {
-+	global:
-+		xs_get_features_supported;
-+		xs_get_features_domain;
-+		xs_set_features_domain;
-+} VERS_4.0;
-diff --git a/tools/libs/store/xs.c b/tools/libs/store/xs.c
-index cf3266807f..8f4b90a3cf 100644
---- a/tools/libs/store/xs.c
-+++ b/tools/libs/store/xs.c
-@@ -1407,6 +1407,55 @@ out:
- 	return port;
+ 	memcpy(pre.ident, XS_STATE_IDENT, sizeof(pre.ident));
+-	pre.version = htobe32(XS_STATE_VERSION);
++	pre.version = htobe32(lu_status->version);
+ 	pre.flags = XS_STATE_FLAGS;
+ 	if (fwrite(&pre, sizeof(pre), 1, fp) != 1) {
+ 		ret = "Dump write error";
+@@ -412,13 +412,16 @@ static bool do_lu_start(struct delayed_request *req)
  }
  
-+static bool xs_uint(char *reply, unsigned int *uintval)
-+{
-+	if (!reply)
-+		return false;
-+
-+	*uintval = strtoul(reply, NULL, 10);
-+	free(reply);
-+
-+	return true;
-+}
-+
-+bool xs_get_features_supported(struct xs_handle *h, unsigned int *features)
-+{
-+	struct xsd_sockmsg msg = { .type = XS_GET_FEATURE };
-+	struct iovec iov[1];
-+
-+	iov[0].iov_base = &msg;
-+	iov[0].iov_len  = sizeof(msg);
-+
-+	return xs_uint(xs_talkv(h, iov, ARRAY_SIZE(iov), NULL), features);
-+}
-+
-+bool xs_get_features_domain(struct xs_handle *h, unsigned int domid,
-+			    unsigned int *features)
-+{
-+	return xs_uint(single_with_domid(h, XS_GET_FEATURE, domid), features);
-+}
-+
-+bool xs_set_features_domain(struct xs_handle *h, unsigned int domid,
-+			    unsigned int features)
-+{
-+	struct xsd_sockmsg msg = { .type = XS_SET_FEATURE };
-+	char domid_str[MAX_STRLEN(domid)];
-+	char feat_str[MAX_STRLEN(features)];
-+	struct iovec iov[3];
-+
-+	snprintf(domid_str, sizeof(domid_str), "%u", domid);
-+	snprintf(feat_str, sizeof(feat_str), "%u", features);
-+
-+	iov[0].iov_base = &msg;
-+	iov[0].iov_len  = sizeof(msg);
-+	iov[1].iov_base = domid_str;
-+	iov[1].iov_len  = strlen(domid_str) + 1;
-+	iov[2].iov_base = feat_str;
-+	iov[2].iov_len  = strlen(feat_str) + 1;
-+
-+	return xs_bool(xs_talkv(h, iov, ARRAY_SIZE(iov), NULL));
-+}
-+
- char *xs_control_command(struct xs_handle *h, const char *cmd,
- 			 void *data, unsigned int len)
+ static const char *lu_start(const void *ctx, struct connection *conn,
+-			    bool force, unsigned int to)
++			    bool force, unsigned int to, unsigned int vers)
  {
+ 	syslog(LOG_INFO, "live-update: start, force=%d, to=%u\n", force, to);
+ 
+ 	if (!lu_status || lu_status->conn != conn)
+ 		return "Not in live-update session.";
+ 
++	if (!vers || vers > XS_STATE_VERSION)
++		return "Migration stream version not supported.";
++
+ #ifdef __MINIOS__
+ 	if (lu_status->kernel_size != lu_status->kernel_off)
+ 		return "Kernel not complete.";
+@@ -426,6 +429,7 @@ static const char *lu_start(const void *ctx, struct connection *conn,
+ 
+ 	lu_status->force = force;
+ 	lu_status->timeout = to;
++	lu_status->version = vers;
+ 	lu_status->started_at = time(NULL);
+ 	lu_status->in = conn->in;
+ 
+@@ -441,6 +445,7 @@ int do_control_lu(const void *ctx, struct connection *conn, const char **vec,
+ 	unsigned int i;
+ 	bool force = false;
+ 	unsigned int to = 0;
++	unsigned int vers = XS_STATE_VERSION;
+ 
+ 	if (num < 1)
+ 		return EINVAL;
+@@ -457,15 +462,19 @@ int do_control_lu(const void *ctx, struct connection *conn, const char **vec,
+ 			return EINVAL;
+ 	} else if (!strcmp(vec[0], "-s")) {
+ 		for (i = 1; i < num; i++) {
+-			if (!strcmp(vec[i], "-F"))
++			if (!strcmp(vec[i], "-F")) {
+ 				force = true;
+-			else if (!strcmp(vec[i], "-t") && i < num - 1) {
++			} else if (!strcmp(vec[i], "-t") && i < num - 1) {
+ 				i++;
+ 				to = atoi(vec[i]);
+-			} else
++			} else if (!strcmp(vec[i], "-v") && i < num - 1) {
++				i++;
++				vers = atoi(vec[i]);
++			} else {
+ 				return EINVAL;
++			}
+ 		}
+-		ret = lu_start(ctx, conn, force, to);
++		ret = lu_start(ctx, conn, force, to, vers);
+ 		if (!ret)
+ 			return errno;
+ 	} else {
+diff --git a/tools/xenstored/lu.h b/tools/xenstored/lu.h
+index dacc9b6e42..512b8a6db2 100644
+--- a/tools/xenstored/lu.h
++++ b/tools/xenstored/lu.h
+@@ -26,6 +26,7 @@ struct live_update {
+ 	/* Start parameters. */
+ 	bool force;
+ 	unsigned int timeout;
++	unsigned int version;
+ 	time_t started_at;
+ };
+ 
+diff --git a/tools/xs-clients/xenstore_control.c b/tools/xs-clients/xenstore_control.c
+index 548363ee70..4b523931ce 100644
+--- a/tools/xs-clients/xenstore_control.c
++++ b/tools/xs-clients/xenstore_control.c
+@@ -26,7 +26,8 @@ static int add_to_buf(char **buf, const char *val, int len)
+     return len + vallen;
+ }
+ 
+-static int live_update_start(struct xs_handle *xsh, bool force, unsigned int to)
++static int live_update_start(struct xs_handle *xsh, bool force, unsigned int to,
++                             unsigned int vers)
+ {
+     int len = 0;
+     char *buf = NULL, *ret;
+@@ -40,6 +41,15 @@ static int live_update_start(struct xs_handle *xsh, bool force, unsigned int to)
+     free(ret);
+     if (force)
+         len = add_to_buf(&buf, "-F", len);
++    if (vers) {
++        if (asprintf(&ret, "%u", vers) < 0) {
++            free(buf);
++            return 1;
++        }
++        len = add_to_buf(&buf, "-v", len);
++        len = add_to_buf(&buf, ret, len);
++        free(ret);
++    }
+     if (len < 0)
+         return 1;
+ 
+@@ -197,7 +207,8 @@ static int send_kernel_blob(struct xs_handle *xsh, const char *binary)
+  * 3. start update (includes flags)
+  */
+ static int live_update_stubdom(struct xs_handle *xsh, const char *binary,
+-                               const char *cmdline, bool force, unsigned int to)
++                               const char *cmdline, bool force, unsigned int to,
++                               unsigned int vers)
+ {
+     int rc;
+ 
+@@ -211,7 +222,7 @@ static int live_update_stubdom(struct xs_handle *xsh, const char *binary,
+             goto abort;
+     }
+ 
+-    rc = live_update_start(xsh, force, to);
++    rc = live_update_start(xsh, force, to, vers);
+     if (rc)
+         goto abort;
+ 
+@@ -231,7 +242,8 @@ static int live_update_stubdom(struct xs_handle *xsh, const char *binary,
+  * 3. start update (includes flags)
+  */
+ static int live_update_daemon(struct xs_handle *xsh, const char *binary,
+-                              const char *cmdline, bool force, unsigned int to)
++                              const char *cmdline, bool force, unsigned int to,
++                              unsigned int vers)
+ {
+     int len = 0, rc;
+     char *buf = NULL, *ret;
+@@ -256,7 +268,7 @@ static int live_update_daemon(struct xs_handle *xsh, const char *binary,
+             goto abort;
+     }
+ 
+-    rc = live_update_start(xsh, force, to);
++    rc = live_update_start(xsh, force, to, vers);
+     if (rc)
+         goto abort;
+ 
+@@ -270,7 +282,7 @@ static int live_update_daemon(struct xs_handle *xsh, const char *binary,
+ static int live_update(struct xs_handle *xsh, int argc, char **argv)
+ {
+     int rc = 0;
+-    unsigned int i, to = 60;
++    unsigned int i, to = 60, vers = 0;
+     char *binary = NULL, *cmdline = NULL, *val;
+     bool force = false;
+ 
+@@ -291,10 +303,19 @@ static int live_update(struct xs_handle *xsh, int argc, char **argv)
+                 goto out;
+             }
+             to = atoi(argv[i]);
+-        } else if (!strcmp(argv[i], "-F"))
++        } else if (!strcmp(argv[i], "-F")) {
+             force = true;
+-        else
++        } else if (!strcmp(argv[i], "-v")) {
++            i++;
++            if (i == argc) {
++                fprintf(stderr, "Missing version value\n");
++                rc = 2;
++                goto out;
++            }
++            vers = atoi(argv[i]);
++        } else {
+             binary = argv[i];
++        }
+     }
+ 
+     if (!binary) {
+@@ -305,9 +326,9 @@ static int live_update(struct xs_handle *xsh, int argc, char **argv)
+ 
+     val = xs_read(xsh, XBT_NULL, "/tool/xenstored/domid", &i);
+     if (val)
+-        rc = live_update_stubdom(xsh, binary, cmdline, force, to);
++        rc = live_update_stubdom(xsh, binary, cmdline, force, to, vers);
+     else
+-        rc = live_update_daemon(xsh, binary, cmdline, force, to);
++        rc = live_update_daemon(xsh, binary, cmdline, force, to, vers);
+ 
+     free(val);
+ 
 -- 
 2.43.0
 
