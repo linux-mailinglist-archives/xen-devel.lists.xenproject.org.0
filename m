@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B086AB0ED4C
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 10:33:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1053536.1422311 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 313D5B0ED63
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 10:37:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1053562.1422363 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueUuK-0001zD-Os; Wed, 23 Jul 2025 08:33:00 +0000
+	id 1ueUyu-0002xv-N5; Wed, 23 Jul 2025 08:37:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1053536.1422311; Wed, 23 Jul 2025 08:33:00 +0000
+Received: by outflank-mailman (output) from mailman id 1053562.1422363; Wed, 23 Jul 2025 08:37:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueUuK-0001xc-Lt; Wed, 23 Jul 2025 08:33:00 +0000
-Received: by outflank-mailman (input) for mailman id 1053536;
- Wed, 23 Jul 2025 08:32:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ueUyu-0002uo-KN; Wed, 23 Jul 2025 08:37:44 +0000
+Received: by outflank-mailman (input) for mailman id 1053562;
+ Wed, 23 Jul 2025 08:37:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jmaN=2E=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ueUuJ-0001wB-QB
- for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 08:32:59 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a3170ccb-679f-11f0-b895-0df219b8e170;
- Wed, 23 Jul 2025 10:32:58 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3a575a988f9so3835850f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 23 Jul 2025 01:32:58 -0700 (PDT)
+ id 1ueUys-0002ui-HW
+ for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 08:37:42 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4c00930a-67a0-11f0-a31d-13f23c93f187;
+ Wed, 23 Jul 2025 10:37:41 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-45629702e52so29519415e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Jul 2025 01:37:41 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b61ca25643sm15238338f8f.16.2025.07.23.01.32.56
+ 5b1f17b1804b1-458693e2797sm15476405e9.26.2025.07.23.01.37.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Jul 2025 01:32:57 -0700 (PDT)
+ Wed, 23 Jul 2025 01:37:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3170ccb-679f-11f0-b895-0df219b8e170
+X-Inumbo-ID: 4c00930a-67a0-11f0-a31d-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1753259577; x=1753864377; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1753259861; x=1753864661; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PWO0N7EguTS1I4po4l8LFx912xdUF7ZrKbWnHFEcYS8=;
-        b=uap+uAVn8XTdu9kN4wblGpY7A6g9eL/SeYSq8E5hJokvx/lUAIHEyv7lP3f99FheZk
-         vQk6TugQzzH/C0AZUUVYphTSrSHr/TLAqZV410HMh6lwFy6n/ypObUUZe9HXrobUrIu6
-         nmav6r7w96rNYlM5jaHoOHcqV/AxSR02lQpIc=
+        bh=8Oc5kOWFqHtTYM7hjgHEDEH0ih12jQyenk16eXQ1q74=;
+        b=klKVDD5a/GEh/wjABvqKdjAEyDgnpeKkQjgOJGOk1lMarVeveXkfY130X3ZzC+glVO
+         7BlfpZ/I5Hc6tqIE5PjVUMk+qp546ZDjUfpPsZrhdlgOWNNSVzjLtmOkebixKTQ+lBAT
+         vT1F2SPshPqHPF7NyFAwtvI6HP5OsMdCvIJuc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753259577; x=1753864377;
+        d=1e100.net; s=20230601; t=1753259861; x=1753864661;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PWO0N7EguTS1I4po4l8LFx912xdUF7ZrKbWnHFEcYS8=;
-        b=TqCoerxG6XB+bo/noMEPFV+bHtuCQkqfCjokHNEewdnsQBSyeRpN+hrO362IxpS4ih
-         aXXIXBRg+lGQAtx4LoESTI+V3pWnvtvrknavWT+u9zQnAunbpFbO+ZGYUKUkb6frsZLU
-         4uFcvACQrkV9SW37iPnUWLc8/IR4b/Yd5DjMK79YNmpId71udQBx/S5jUwy7WJ/1rcB2
-         WxDE1jPcZtJ9vorbpKFVGjkkv8wud8wAXsmxZwpd63QqbR5/bvpWkUO2Ai+IJX8p9KRS
-         DfqazUWY0WSMmikfBX50JlxQfdNuvT43Fe2IN97mWExtWgi18+v62MeOCUrrdKGJ+lcs
-         T7JQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV7NIhnjreJVgZqGW6biXEOjf4x61UczVNFtZSMTk3IiGYvW41zf2bMVeFNZsEha+TRoBL37zwG7+E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy8nDWaozkEOM4pebZOVZlb3ZTalElwF3a+/ecm4HD0rEt6bJfY
-	86kDKhiMzLkP5icXDwQAJWo1PKCbg6heGlusoMoBTsDjUVfpo1yeUWB63yekxXURDfc=
-X-Gm-Gg: ASbGnctJPzl3sT0FuSinOUGH25X5zgubiSp7N6XIM9JmzbCOYNWdy4ugqREWOXjBRqa
-	8fcBSoniqyzOys3Ojs+C38BCZSmYu5HDQgDdf/v1MoG2ueTXwo34E8InvABvyJPrWcpctCRK9FW
-	8XhQHX1Tu9Fqg/WAobqTqZnjQ0q6Dj95U6+PnaamqPpI1+xveHAxmXRZ28S4+RJdJr4mfTjRSEu
-	GqME9jNzG/ZedspzGid9Eh+FeS1wj3cjGUi2TAUtlcQ9GSxHQie6bmnDpxKR35ntHSjU2TM3VsH
-	z9INDsurtZ2TE03IDIgpFDR4CuyjZ33FmTbuS5nSWcRnxGAAS9VHuoSp4ug+ld+MskrkWwDDQkd
-	84caj6NKNOY3SHapGNrGrzp/1cOAfzRe0lQB3ToqyOQsiJHwXmiCmRbF4hPTQBYzDJitS
-X-Google-Smtp-Source: AGHT+IGx5UjvNu6VZPtjKuxn/4Go7fTgN25tDWjJa5/dlhJlx5HxiRckHz9UTfu43Yf+KDUDP3JNkw==
-X-Received: by 2002:a5d:588d:0:b0:3a5:2cb5:6429 with SMTP id ffacd0b85a97d-3b768f2305bmr1565678f8f.43.1753259577534;
-        Wed, 23 Jul 2025 01:32:57 -0700 (PDT)
-Message-ID: <74514e69-8cd8-4377-b420-ad0ff7e9e023@citrix.com>
-Date: Wed, 23 Jul 2025 09:32:56 +0100
+        bh=8Oc5kOWFqHtTYM7hjgHEDEH0ih12jQyenk16eXQ1q74=;
+        b=qj7puJN+MpoFMwcBVfJdJJKu5Y1qbXhqLM82fgtBN4B2+V5ItY0ATrlGx645TA18I6
+         UrPvmnagq7pm/LRHZI2nQMJWYPjPS4FtkFb6pk30bwEde9lz7aeCEpJqQtfMVZ5D3KIT
+         4WZYEUpjdYRJzQZr6J+qDD1HLrwgh9Y07y2AV2arZtFrCldk3WlDBF7nKSlRKP79EmQg
+         I8T4Fqm058W0vrJO4vwldAxg6QItQZD4mH5JR26iYApPj3gin8MponIAC1py0clSz6xc
+         1a1KRVtV6qD/q1prdGGAFYOlvuG6G+zFXhO4kkHHOxEFyBoq3f51q8a6Yw2sU91ijV+L
+         RvSg==
+X-Forwarded-Encrypted: i=1; AJvYcCXEEafaBwxB9B21KLWxsGNFLNiOrqM+jVSeCj29EHGFkUK2H3bkMSLvJLDZJTXPdOpal2WgXKXW29c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyE8D060i62tM8dc+djqfX1jIkNm5N2SMZEHnj+/PIKv2KAn2U5
+	jYHulV38Vn5+WUoLz8PocB7RU4+iuUr+yKv+7RTJiGjglTzHp62AOdXtIYCmt0F/fvE=
+X-Gm-Gg: ASbGncuuMq24w9MnNRb1vgaGp+SiMOMc1WHfvtDEJ6ipfHK0C/D1LQtaJzbxChaA+4M
+	GDW0g8UCokMJ9XhkaxKViERVfyD2pFMzRK9ynk+9e9orUZTIb3tfrTwmeso3ve+vVJFN2pi6qz7
+	MoNQLj1Tk/+TcGnNz9/2/dl+oi0MvrDtx2nvyyFeFIWj2qHaEutipZ1P0O+rjXDMoo9zaKiDh+A
+	3PL37ooJ/+W/ERhyE0mxN+QUQSQfoRwYavAZHj3KL2gN75jeR3/cg7BzLll/D/s7XVbEO/7m3z1
+	ZBC1VeNgT9rgZ+vqfP8Qd+3yZEsJwXCxC6fJM9VKDvSXoag2vkHF1f77Yu6s5rClaYSgO1qoBwQ
+	1ke1W+Qt8vBlMZ4Oo6tjrJD5klsTYE1894TfvJe9HQO5BfZ7yG7YoLErhWMAhWo1U960M
+X-Google-Smtp-Source: AGHT+IFD+VOcd0mF7Ig0Ufwj/OOUus1YShzjLc6WazlSMBQhC8KBS+MojaS9ugrWdbItkcLh/R9BKg==
+X-Received: by 2002:a05:600c:630f:b0:456:1d06:f38b with SMTP id 5b1f17b1804b1-4586a7f22cfmr10664505e9.8.1753259861113;
+        Wed, 23 Jul 2025 01:37:41 -0700 (PDT)
+Message-ID: <5e5f020e-d630-44bf-a406-9db5b31c544b@citrix.com>
+Date: Wed, 23 Jul 2025 09:37:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH 4/8] xen/arm: split is_32bit/64bit_domain() between
- arm64/arm32
+Subject: Re: [XEN][PATCH 6/8] xen/arm64: constify is_32/64bit_domain() macro
+ for CONFIG_ARM64_AARCH32=n
 To: Grygorii Strashko <grygorii_strashko@epam.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
@@ -95,7 +95,7 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
  Roger Pau Monne <roger.pau@citrix.com>
 References: <20250723075835.3993182-1-grygorii_strashko@epam.com>
- <20250723075835.3993182-5-grygorii_strashko@epam.com>
+ <20250723075835.3993182-7-grygorii_strashko@epam.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -141,27 +141,43 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250723075835.3993182-5-grygorii_strashko@epam.com>
+In-Reply-To: <20250723075835.3993182-7-grygorii_strashko@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 23/07/2025 8:58 am, Grygorii Strashko wrote:
-> diff --git a/xen/arch/arm/include/asm/arm32/domain.h b/xen/arch/arm/include/asm/arm32/domain.h
-> index 4d1251e9c128..c0a7fc35f38b 100644
-> --- a/xen/arch/arm/include/asm/arm32/domain.h
-> +++ b/xen/arch/arm/include/asm/arm32/domain.h
-> @@ -3,6 +3,11 @@
->  #ifndef ARM_ARM32_DOMAIN_H
->  #define ARM_ARM32_DOMAIN_H
+> diff --git a/xen/arch/arm/include/asm/arm64/domain.h b/xen/arch/arm/include/asm/arm64/domain.h
+> index 18402ae3ca0d..a014ab9967ac 100644
+> --- a/xen/arch/arm/include/asm/arm64/domain.h
+> +++ b/xen/arch/arm/include/asm/arm64/domain.h
+> @@ -12,14 +12,22 @@ struct kernel_info;
+>   *
+>   * @d: pointer to the domain structure
+>   */
+> +#if defined(CONFIG_ARM64_AARCH32)
+>  #define is_32bit_domain(d) ((d)->arch.type == DOMAIN_32BIT)
+> +#else
+> +#define is_32bit_domain(d) (false)
+> +#endif /* CONFIG_ARM64_AARCH32 */
+
+There's no need to make two separate definitions.  Use IS_ENABLED(). 
+(This also fixes the evaluation of d problem you've introduced.)
+
+IS_ENABLED(CONFIG_ARM64_AARCH32) && (d)->arch.type == DOMAIN_32BIT
+
 >  
-> +/* Arm32 always runs guests in AArch32 mode */
-> +
-> +#define is_32bit_domain(d) (1)
-> +#define is_64bit_domain(d) (0)
+>  /*
+>   * Returns true if guest execution state is AArch64
+>   *
+>   * @d: pointer to the domain structure
+>   */
+> +#if defined(CONFIG_ARM64_AARCH32)
+>  #define is_64bit_domain(d) ((d)->arch.type == DOMAIN_64BIT)
+> +#else
+> +#define is_64bit_domain(d) (true)
+> +#endif /* CONFIG_ARM64_AARCH32 */
 
-I know you're just moving code, but this was buggy before.
-
-These need to be ((void)(d), 1/0) so d gets evaluated consistently.
+!IS_ENABLED(CONFIG_ARM64_AARCH32) || (d)->arch.type == DOMAIN_64BIT
 
 ~Andrew
 
