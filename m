@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44851B0F5B3
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 16:46:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1054285.1423025 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D4B7B0F5BD
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 16:47:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1054296.1423046 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueaih-0005b2-Hr; Wed, 23 Jul 2025 14:45:23 +0000
+	id 1ueakU-0006YY-58; Wed, 23 Jul 2025 14:47:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1054285.1423025; Wed, 23 Jul 2025 14:45:23 +0000
+Received: by outflank-mailman (output) from mailman id 1054296.1423046; Wed, 23 Jul 2025 14:47:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueaih-0005Yn-F5; Wed, 23 Jul 2025 14:45:23 +0000
-Received: by outflank-mailman (input) for mailman id 1054285;
- Wed, 23 Jul 2025 14:45:21 +0000
+	id 1ueakU-0006Wt-1n; Wed, 23 Jul 2025 14:47:14 +0000
+Received: by outflank-mailman (input) for mailman id 1054296;
+ Wed, 23 Jul 2025 14:47:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kfeK=2E=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1ueaif-0005Yc-8f
- for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 14:45:21 +0000
+ id 1ueakS-0006Wn-Pr
+ for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 14:47:12 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a6b3914e-67d3-11f0-a31d-13f23c93f187;
- Wed, 23 Jul 2025 16:45:19 +0200 (CEST)
-Received: from nico.tail79467d.ts.net
- (host-79-60-221-62.business.telecomitalia.it [79.60.221.62])
+ id ea62eb97-67d3-11f0-a31d-13f23c93f187;
+ Wed, 23 Jul 2025 16:47:11 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
  (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPSA id B71964EE3C3B;
- Wed, 23 Jul 2025 16:45:16 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPA id 818244EE3C3B;
+ Wed, 23 Jul 2025 16:47:11 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,84 +40,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6b3914e-67d3-11f0-a31d-13f23c93f187
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=79.60.221.62
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1753281917;
-	b=HNy/XOWSu3g0RxS27xomgJ8S0s6gYtnS5hsl9ugpamOywLE0VAuz1VX77zAzl/0gKVqN
-	 aFoIEDttDiKj9twekgaOKEWw5ZRon7rmSUZhTawbCXJtcEujnshcbLNELImdtYKd5B1QD
-	 eAZn+M32RrMzohnzfEq1tG3yX32Su2FXq0Ouco13T3l7D9Al+zeXf7AFf8THSDo7FiFGE
-	 FGmUBQLKj1ZpSuPsCSXFrVLBLIJHludccHxn01jA7Xw75Qf9JxSJmUREes/uRredKRYO1
-	 /AY+77hkq7iKmxusmvRyzCyJt4WUx/AncFCsVubzU7dwUXJcigM8PDDMnhLnsv7DrU+XL
-	 nQ6thAalLrzHGJPXz+pQpzZdy2/tOwisl2UHJaDhyGZf84Z8b6+Vmxf54DD4oNeIaW1Xw
-	 42PfscWvIPzwrmCpbYu+4ArFgmSUXu//CLUbvHW1yVwWfCnZ/n5gCuuoD+VYVqrEoDZiq
-	 UIsMxxx1pNmYiUR5OXDBTWF6Lm89mrANAPTBFzqzEw5wvNAgdzm5zdx81ENs0KCD2w6n8
-	 hkNGZs6DvvwT8c4x5+xgNRH62gqAmu+LfttxJe5U3xncjnMe4vkC0YPoCnkcGgLU9qDl2
-	 AP1IZncyY9WmbAF5cGk7IrnHh+gMG6Gg2w9CB7dMsiitlP4awwHahrgWvRN+hNU=
+X-Inumbo-ID: ea62eb97-67d3-11f0-a31d-13f23c93f187
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1753282031;
+	b=AfoLF7BervQQF4PKYClX4CUiCobStSCzAGVsEL+7smpSWKZDDJv1zpKNjbZGyiphInHi
+	 HylISGlk8vYS6BGmcB8OEKSVWLCW8K4KyccGywbvhdctIRCtocyd90mb+hyn+armCYgmg
+	 GdIcvrtfq60O9X5CwC2A8c0Q2Bd+RcySx2HCy/sivIqy+3nveq6t4/96Lb1YnAdaF3oFe
+	 1UquGbrgPrq4ubOZ2L6i4tKLu5FNwqWvMQ1WUG45/hV2husMko3hQ/zJFMyiobmrlvO71
+	 7Pi824Vb6CUV+IaQHnln5ncVrlVB1GsJOYAElOYQX78hokYFUNl2+AAp2XcsBKekIsKzv
+	 TiP1YQa9yLvNWYD1agJHxZMqEnLTkzREuJZyI+LbBHdilTED7kIWL7Uc8JAUx/XKdPfvE
+	 iPR0AVJQI4Dt2PU89UVePtZ350lbGnB5XbWGOg5APKgLKclBxe0XIYi6pjl6p4BchSE9L
+	 yrBYOkuLUBj172/FpI/gaunPusfMJb6uFKyfhaHjZG/gJlk887QUtI2ZoeVOtfVbpjtY6
+	 Q0nFb5OsvOthyn3f0Kz2wVelnvQU1SDaeY9RgsCJ0X5V+klzL1AXMPJckHJm8HpIe6wGe
+	 FJXUadck9LUDTlByRpDyxh8Z7b1FXblxsdZRLIhP/B2VxVBaHIWwzjZAj6VxOqk=
 ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1753281917;
-	h=DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Hj9SkBRM6qxGwniV9yn1/QKHd/6MxHEHdXZkVFwn50c=;
-	b=Nzhv7/P4bPt9eOfBw/LxdGknG9qNMcJeMxxBLKCTSAyDbHdZL6b9mdgYpA9GOFp7beiD
-	 5HlHAp7HPxWxzNtFV6L3xQuBAvwNknI3TVrJUlauYmj1534pB6tyxvilTbGb6qC7CcCr0
-	 i+/4M1dxSi0fF80GMkD6rk3z+oA4m7lqPW5IKhrrUIbLYWEWmHSxqe4lSWIkc1nNHfqAP
-	 U/8MoAaX0MzeVr8BSqu2jL0sbYNwD7vMZKtM2sdR0vYkvUIVxtUQujKbfRYqP9zEuAyLh
-	 aG3uKYtWbwEaBO1MufMkzz9Qh5GbErfpkgCmRd0+37LUmxTfwztfpO5bP5ZGCqmP3Z1vP
-	 JVmxOduQy/cJKXyHdneySvANaKcLYRZmU8VmK5GSNinKo9OyPpluWxQLzSmydKa1al3Hg
-	 9qYk14/sY4BC0x1Us+MZtHfU03MLfpIhYKLmh9fIBNYE4hrrVHpE0FNpmkhWWDd3I4uWt
-	 5Obp6eFEMKhOilms4rurPxT2usCuFZGjgPo57PwkDvlJplIqkb3w6D6KzSwyu0VTrAwyr
-	 jUMgipO7cGzX75YdsqRYW/K04QO4hah7WfizSdbzTlL2D7xVxfOQWX2EteObp8R150sUg
-	 zLZQPp7Wru1tNIt9uwGdq5wFijQ8zS9jsFfUkHUYTrdnrd5OT3/XcjAHMKHIJSQ=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=79.60.221.62
+	c=relaxed/relaxed; t=1753282031;
+	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=HVCDQEWGqF8la3C3xBM1trIpYtBVkznL9Tczio+hfiI=;
+	b=5unZWav+Z4n7fy3f+sDierpKm3ASA70J7QCEwyvKAlDAueUc2nr6DyjLaZNjB6GcTdPO
+	 kGtWh+2UzpAtcqDnoE5eio7F5k73l1oAIfeII0HTEPR/72ie0I/lJv80gMoEKDdVzZgbB
+	 7Zmnfpys7OfBE/jeNjleYP3tqIFTonmhH3cXavSZRUWEPzp8OVVoj8Pr86nbaRTc5jVdI
+	 gDs8l5e505hO85gNPZ0nBeEQFroa8pdzuGx+bbccnzh07fZCJ9+1HPHBF6N9IKhNlyKsb
+	 7Yer1FAgUNVl+9nKPHdntIUjNZwjHOO1snku+ZiiJTd2XhIVBpVAcG2HIWH62dO7Lil65
+	 x9EGazGd2/UGDohYDgETgvQ0W3bRqTHXvqDKpf8FhTTOS8/WU9VCtxT4Xhf/llKl0OHyJ
+	 WN6Qvtk3ThFOD3FFOEpQ6g5D+5iDvbrFy6BKuPLWesIFTB0XNnANBd90DK6HmbB5zjPt6
+	 7Vms+0GxfRbhnngJKq7OoDqeTzWrlRIk6oWrMux1mxzzPLznHfjHKN/xm0oUy49f9vBt/
+	 VRDUIW2IZKrsIrX2PMscR/k0tWALqGGLpg65kiDFvPyD8pLvgdb70Z6446merUgQM4YOL
+	 GfGn+w6pt0uY7Mq3yjHBDn8dG8M7jlihFjjVID65Q5QSgL4Z5hx5RxRxHKnpd+Q=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1753281917; bh=2OgX/iClwGnVDfJNs8RLc7aUT9LtrmMBOd43+2pHP9A=;
-	h=From:To:Cc:Subject:Date:From;
-	b=TVpT/hKTg0LjVLHxDN2YddSoXRhMUoMLOJ5EY4/Dmxq0/SZw5IXM+WVH2xGh2+I1+
-	 uJO84gTK6AOM3paMNi6Q+w4O9R6cUM8fb8sjvCnb44nMYXXVEPsx6HvLNTN96CZt1H
-	 ve4rOvoNdnfjpeBA8KzNRgkVhIxRe2l2b+fDXx4XNmdzFjlG4Ou4NxX1iffBvSA18c
-	 5BY3mKA6y92v1+7OgpeQdS49HHuICuwveNMxa9S/JJmmFGDMlQLvjyhyqvGMu3MotZ
-	 E/nJlwBsr9QENL+UsOpCtVj7V3znI3aigrdqjV7nbC9g3VEmB5kGcqOoFlNCVMJCED
-	 ImesCz26b4Siw==
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: xen-deve@lists.xenproject.org,
-	xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Nicola Vetrini <nicola.vetrini@bugseng.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [XEN PATCH] x86/page: fix regressions of MISRA C Rule 8.2
-Date: Wed, 23 Jul 2025 16:45:13 +0200
-Message-ID: <9ad46ae1a1f07bdacbcd6a6befd249be95c9d5cb.1753281819.git.nicola.vetrini@bugseng.com>
-X-Mailer: git-send-email 2.43.0
+	t=1753282031; bh=7uSSJAKnz6np+EYwINHFq0z/KMa0uSmLT9PrDrjgeOE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=WjgEeki0VSCv0540Oz6JX+yz4TRTBIMtIxOwH3dIWS7OWTUMYElfiK/NdbOE+hEqH
+	 wdSh6dc38+9JbejMiv5FLcZNSqozt4X9z4n0DiVIDpxVinBPJkZAYg1ZASGQ8f3GNR
+	 4iDyAwIH/YjnhFv87E1+ryO4NHKllSOoojcpCTdKVzTbp70RgEuVCtgGwzXlB8fCp1
+	 12E7r47AHCe/5hdVRq5RTrGLpK6TSwTg+r9OMzAwbcjoico0PCqhMxAjWDTszHQn6s
+	 +ncHdj7Yw2VE0Nl12wlUBZi62cjPn/41nE9PD/FsKGQNL6ElnPnirljvU0ehAQx3Vg
+	 m/1Vqpr4T//UQ==
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Wed, 23 Jul 2025 16:47:11 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+Subject: Re: [PATCH] x86: correct scrub_page_{hot,cold}() prototypes
+In-Reply-To: <161f9018-7746-4f74-82cb-d3921a9be4e2@suse.com>
+References: <161f9018-7746-4f74-82cb-d3921a9be4e2@suse.com>
+Message-ID: <f0538799c8e18950b80efa939b43c8dc@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-The rule states: "Function types shall be in prototype form
-with named parameters". Add missing parameter names.
+On 2025-07-23 16:37, Jan Beulich wrote:
+> ... to be in line with Misra rule 8.2 requirements.
+> 
+> Fixes: 6ff0cfbfd4f7 ("mm: allow page scrubbing routine(s) to be arch 
+> controlled")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Fixes: 6ff0cfbfd4f7 ("mm: allow page scrubbing routine(s) to be arch controlled")
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
----
- xen/arch/x86/include/asm/page.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-diff --git a/xen/arch/x86/include/asm/page.h b/xen/arch/x86/include/asm/page.h
-index d8e23e614c88..b53cd19f31a4 100644
---- a/xen/arch/x86/include/asm/page.h
-+++ b/xen/arch/x86/include/asm/page.h
-@@ -227,8 +227,8 @@ void copy_page_sse2(void *to, const void *from);
- #define copy_page(_t, _f)   copy_page_sse2(_t, _f)
- 
- #ifdef CONFIG_DEBUG
--void scrub_page_hot(void *);
--void scrub_page_cold(void *);
-+void scrub_page_hot(void *pg);
-+void scrub_page_cold(void *pg);
- #endif
- 
- /* Convert between Xen-heap virtual addresses and machine addresses. */
+> ---
+> The offending patch had been pending for far longer than we care about
+> Misra, and hence at the time of writing I didn't pay attention. And 
+> then
+> I never looked again. I'm sorry.
+> 
+
+Ah, sorry, I didn't notice your patch, I just sent basically an 
+identical one, feel free to disregard it.
+
+> --- a/xen/arch/x86/include/asm/page.h
+> +++ b/xen/arch/x86/include/asm/page.h
+> @@ -227,8 +227,8 @@ void copy_page_sse2(void *to, const void
+>  #define copy_page(_t, _f)   copy_page_sse2(_t, _f)
+> 
+>  #ifdef CONFIG_DEBUG
+> -void scrub_page_hot(void *);
+> -void scrub_page_cold(void *);
+> +void scrub_page_hot(void *ptr);
+> +void scrub_page_cold(void *ptr);
+>  #endif
+> 
+>  /* Convert between Xen-heap virtual addresses and machine addresses. 
+> */
+
 -- 
-2.43.0
-
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
