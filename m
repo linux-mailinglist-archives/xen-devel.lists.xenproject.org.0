@@ -2,56 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DC98B0FD26
+	by mail.lfdr.de (Postfix) with ESMTPS id 79201B0FD25
 	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 00:55:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1054876.1423512 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1054877.1423522 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueiM6-0007PS-RT; Wed, 23 Jul 2025 22:54:34 +0000
+	id 1ueiMB-0007dC-3h; Wed, 23 Jul 2025 22:54:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1054876.1423512; Wed, 23 Jul 2025 22:54:34 +0000
+Received: by outflank-mailman (output) from mailman id 1054877.1423522; Wed, 23 Jul 2025 22:54:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueiM6-0007Mz-Ol; Wed, 23 Jul 2025 22:54:34 +0000
-Received: by outflank-mailman (input) for mailman id 1054876;
- Wed, 23 Jul 2025 22:54:33 +0000
+	id 1ueiMB-0007bW-0m; Wed, 23 Jul 2025 22:54:39 +0000
+Received: by outflank-mailman (input) for mailman id 1054877;
+ Wed, 23 Jul 2025 22:54:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3I4v=2E=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1ueiM5-0007Mt-Lu
- for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 22:54:33 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20625.outbound.protection.outlook.com
- [2a01:111:f403:2416::625])
+ id 1ueiM9-0007Mt-LP
+ for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 22:54:37 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20625.outbound.protection.outlook.com
+ [2a01:111:f403:200a::625])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fd92b020-6817-11f0-b895-0df219b8e170;
- Thu, 24 Jul 2025 00:54:31 +0200 (CEST)
-Received: from SJ0PR03CA0338.namprd03.prod.outlook.com (2603:10b6:a03:39c::13)
- by BY5PR12MB4321.namprd12.prod.outlook.com (2603:10b6:a03:204::15)
+ id 0094a836-6818-11f0-b895-0df219b8e170;
+ Thu, 24 Jul 2025 00:54:36 +0200 (CEST)
+Received: from BL1P223CA0041.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:5b6::12)
+ by SN7PR12MB8025.namprd12.prod.outlook.com (2603:10b6:806:340::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.30; Wed, 23 Jul
- 2025 22:54:25 +0000
-Received: from SJ1PEPF00001CE8.namprd03.prod.outlook.com
- (2603:10b6:a03:39c:cafe::a4) by SJ0PR03CA0338.outlook.office365.com
- (2603:10b6:a03:39c::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.35; Wed, 23 Jul
+ 2025 22:54:31 +0000
+Received: from BL02EPF00021F6F.namprd02.prod.outlook.com
+ (2603:10b6:208:5b6:cafe::68) by BL1P223CA0041.outlook.office365.com
+ (2603:10b6:208:5b6::12) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8964.21 via Frontend Transport; Wed,
- 23 Jul 2025 22:54:25 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00001CE8.mail.protection.outlook.com (10.167.242.24) with Microsoft
+ 23 Jul 2025 22:54:31 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL02EPF00021F6F.mail.protection.outlook.com (10.167.249.11) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8964.20 via Frontend Transport; Wed, 23 Jul 2025 22:54:25 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.8964.20 via Frontend Transport; Wed, 23 Jul 2025 22:54:31 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 23 Jul
- 2025 17:54:24 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 23 Jul
- 2025 17:54:24 -0500
+ 2025 17:54:30 -0500
 Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 23 Jul 2025 17:54:23 -0500
+ Transport; Wed, 23 Jul 2025 17:54:30 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,169 +59,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd92b020-6817-11f0-b895-0df219b8e170
+X-Inumbo-ID: 0094a836-6818-11f0-b895-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y5y+5cfUtD1WOn3iXid4o3PUwcYrsFkuVShxU27ZilMDdL7Cir/pcEBoQdQSgNSZpi6mM3GfG869ZE9FUOBYIkTsSFdpMBW5Qu6U1CK7CbtkR7ZvPGZZuogUd/SRcsgK8rsbYhBKb6zdl4uxXjxcJuqlC3y/Fo8DY9nyHgiYAgmFXQxTSJQN/TYUIflXP5LRGEuULrD2b/ayZwmKz7VYWhTQcpTAwHWa0qOOvDBr4b+AWZHeNVR4zM03G8z3knE6ttiFFW99gPTOOPuEqBVqQZ68BO/CD/8UptJgaw2epG60NlSubOvEyvFNjBM1XvHuDyrYJPlLfhavAETubz5/sw==
+ b=bOZ2Smh8zSzVUzps4P8+5Z/6zZmffWqYvextwjsTtul/YVoSmNYZuqtZDq+I9XUy23UTVL8fC1WZBGSX7Yo4h7SHcTWodYOQNTqqOxHj8Xy8KPH4H2LtjAW8fGzoHtIGX5av0PmKwaptAVluupUMcLJfv+GcrMQrPLvOQI4HVi2htsEtKdl4OKueqtVZg3FcaFBVSfirWyi4fkP9tKyUiASCmbq+OuiSHgU0CNW8frZigiutUh2i4uF7A35b5Q8fNAAyaivJKUIpRafsUrtt3owheaswoHtN351ABUqBIn7kOjWJ7mQliKOrOk00t/PixF3Ps9Ok6yim5CsdzJo+6w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=45a4lKuTQNa8xwPgdGxyysbeTJzn7m+wR6tKw5T42gU=;
- b=qOW1JmcDEsYjc/55spoUZZ+ajheJv0RsFGsm52Iixg4CN/vi/RbjArOsk63iQfWz8x8ddz/q6W910vw+duWFirfjcLxVwErbX4++XTrKRGIbjoIAurnubcksaDSttGduSp5ijOupqjP8x8qCIziqrCJc+juTsjX1os+RmsgV4+mD3Fd44dCqxKqqml3YFP2v+N2u5saNCATrESxm0RW0K5YqYZT0GhBhthc1VWKkatjsV/6AtnurF4k4EJKXnE7l2x84bEX+hyar2ANRPg39HasdVnJAXKbl3mSf7S3N+u0ysKg9p9k14ouHCyocnHVkiaQboT+JJ3iiIKig6hV6Mw==
+ bh=W9kVo6Nr8Q1c3+SpiVu3s5bLNVXzy+8rSmwpY5RA3Y0=;
+ b=MEuz7gkcfGuL+86RRiLXSu5Veff/ZI+rlVWPVFQCATu7lKvmG0Ef0lvT8ty6oje06eWEK/cue5OJmBL7d5N3KJtDVIqL6dlg3AETqzWY76LjDPQTilKVTpVR6iGqrrDPhxzG22f+x+Zt5WXCGxHGrS9IZqrKdN6GMHlkCBRHVykRSsPzUadFt0+3jZuDVT013+ELfroPHRjCwbF79AzNNc3x4I9IIyK1GDFeHzywHgrn4awHw3lQ09L+8Bbk6CaIbFbcH6VDkpzmGlQwHBY7pqmis5e6cGeljBuJxUtHTNZp+mLF4fRvWGjiUYvAFm803AxjwDi6XJ6e6Gopt06uTA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=45a4lKuTQNa8xwPgdGxyysbeTJzn7m+wR6tKw5T42gU=;
- b=Qs6RciEYvUey+Y5E6RoNEz1ygB2BOa+GhEfzu4qfL+1OU8HlPDuayalBEDnKn8KoOp0NDzoM8eJ6M3NYv7+ymGeZONdLfQ51cl5hl8zGC4lpxloCq0qjAC/zPd0aohewFGndqZBdwMPA15+7XOYC47e8aY5ixE868bN2dASc62o=
+ bh=W9kVo6Nr8Q1c3+SpiVu3s5bLNVXzy+8rSmwpY5RA3Y0=;
+ b=SM3F+X8yoFdlq+ABG+eT54WRY9NrbzZhmIbvaH3XXX3NUEWPDh11QlfVSZ5FMBGTWgn61Wjwqfn4m1S6ggT6YIIRgt0xIivjn4IjhkWRQqNd+i8wtZd3LHYdPKQxNdR/zSBEOklLuNYmkq5TUpXZvcLK/jh2wl/11ZeVztCpUeA=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Stewart Hildebrand <stewart.hildebrand@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Bertrand Marquis
 	<bertrand.marquis@arm.com>, Rahul Singh <rahul.singh@arm.com>, "Stefano
  Stabellini" <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, "Michal
  Orzel" <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH 1/2] xen/arm: smmuv3: fix UB during deassign
-Date: Wed, 23 Jul 2025 18:54:19 -0400
-Message-ID: <20250723225422.116387-1-stewart.hildebrand@amd.com>
+Subject: [PATCH 2/2] xen/arm: smmuv3: fix xl pci-assignable-remove
+Date: Wed, 23 Jul 2025 18:54:20 -0400
+Message-ID: <20250723225422.116387-2-stewart.hildebrand@amd.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20250723225422.116387-1-stewart.hildebrand@amd.com>
+References: <20250723225422.116387-1-stewart.hildebrand@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: stewart.hildebrand@amd.com does not
+Received-SPF: None (SATLEXMB03.amd.com: stewart.hildebrand@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE8:EE_|BY5PR12MB4321:EE_
-X-MS-Office365-Filtering-Correlation-Id: a405bf2c-d634-417a-acc5-08ddca3bdf37
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6F:EE_|SN7PR12MB8025:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1f058ac8-2247-4c55-5e28-08ddca3be2bc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|36860700013|376014;
+	BCL:0;ARA:13230040|1800799024|376014|36860700013|82310400026;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?EtIK7IanL9UpbU4sJKDqIa0HLzveZjWC6lIcXRto9q/cEsi3vGBL7Bi2dU+g?=
- =?us-ascii?Q?OabuRmuW6hKXonZQ+zaD7/Q+IjImhkCrL1u4Rp5pjfiwgVOcrXNkEG/fevhv?=
- =?us-ascii?Q?S/AvO1Nz5K3HPhA4/zo0BxKju6UVLGjujFQFn2xw/xdqzNnjIRk2bFO+nQOo?=
- =?us-ascii?Q?ZajQDC8NtZB0EYxoVSTt82CdVNnArpylQ7QuWXCsah5oCcISRFyDrQqCcFM4?=
- =?us-ascii?Q?Yxg3KYJsPtZVG9M680KloBWQ3mFxPH3Ph7wOmEYBiZeUChceOM+u17x7AKd5?=
- =?us-ascii?Q?a5uoMK1OiKETxAtWw25vCCvS0LRE7QQMozkWe/ZxvEP2pV1ExmAy4YbqxvLz?=
- =?us-ascii?Q?MIS/H1mY7MQRKgPbR98WCV1f0HBDQAlcIUM6P7ZpbyUBbw1to/tgc0TULQAR?=
- =?us-ascii?Q?woOpjkAVdKysasnh2x5kI6MWtGIc6Mz9hV3QP7KkvoXLIIXeHgnMCj/jrCbI?=
- =?us-ascii?Q?dFbKF2KajvHOhdFitQyCYqemB4u7rt/Me7owoYSqH4XrwO0955iu59ptMT5n?=
- =?us-ascii?Q?HjOYT5eswZzDHMonqKB20KTeRqapVk4A8N+tKqf67oLEt5T7wd8vX7V5cVYS?=
- =?us-ascii?Q?QvHMByRD7btQB6wVlL7tPc/rB29O1jQLBDyhkKxEDSEsCdlsS1Xg/lDA+cgh?=
- =?us-ascii?Q?jB2Gf/Cq8oZXFiLlk91LHwQ2Obr9H/YS+vPTBt68K4cGd52S3bGd94IEUE3+?=
- =?us-ascii?Q?07ICJsa9EQVjRyj7RMLap91Io7Ebbydd7v9Fbl0ENvuif111tBBRlPFYpKtS?=
- =?us-ascii?Q?tb3TAxzhO8ES+tSK4nknKlZbgXXRf+mdCrAha7Va1mowOJyGeWEYTkE6RMyp?=
- =?us-ascii?Q?Rw4AGnQwKgeq82HqWqs9034qO2i75U5CvKNGkJMmUe1Sc+VbzZtoSVJnniIN?=
- =?us-ascii?Q?V4uH0ZY/4DpU2v3OtPmGXgLj99spq040Su9xBFxdTYLqv/o4ra+M9kjdBT8/?=
- =?us-ascii?Q?6+soMvCs9n1BlwmX+/2UI7gTCaoA+bmv0hOI/Ff0WB0AjOwP6/KEVi4zREv2?=
- =?us-ascii?Q?OXZmg8byjj1VlYHHeyK2GrSpqXtrjWH5J/M68e1bW3GK0xs6V+uZtiVvjX3h?=
- =?us-ascii?Q?QXyZpcBbF3Ct73tt1rOxR8VPeSv4FDt1vcNzikX6Ftr3yuyZAI/083SdnF4M?=
- =?us-ascii?Q?tM98y4PJsn2Bs9u/vcZtMCsYzIYkbjo/RDjALqFyc9I2tnDiY9e4UyErzjCB?=
- =?us-ascii?Q?hPAHXp8F/QBvdJIlH6KPC0y1CgJjY5piN60yuZVFtlSTtuDeNiBOwkgd0qH0?=
- =?us-ascii?Q?D3PDYKL7Db9WogCFvSO/+j5nLX3p7WmXEzD27WcpaYTKaJtvugt8gZpqNS6J?=
- =?us-ascii?Q?jckgF2+cBRMszjZ2m5yss6W+0j7xPAk41Nuz4IAS5KpXjBFBqh4ma8Kp9IEU?=
- =?us-ascii?Q?C5zDOv0Ie4SWH3NbBW3/Bx37VkqWbfSYb2eEGFx7XxSQutd7EJ5l0VhDwzAM?=
- =?us-ascii?Q?pQp4Nw04zARPyQ32QeVMC811nVJzJ8oONZfmPr0Icg9+lkFsBklZ2vazVUSd?=
- =?us-ascii?Q?plUna/OmQKC/EP4s9u39TcOoFREIMEZDmJTQ?=
+	=?us-ascii?Q?vFbprmpNgx0z0/I32AQ7Gw/C+HYGbCiVeMUXa7HFn36/HyfJdzkPHApjQP3y?=
+ =?us-ascii?Q?s3ld6EidXwjQ413Q4vrOarKdk7MakLbBQXQsD/Xx3vvsK7Fjqd1V1k25RECz?=
+ =?us-ascii?Q?RULVm+yCmXHx1LnEDOg0PniGrmmUU1sVAKa9Bfcn2tIR1XyXhD6k/Lmdz7UG?=
+ =?us-ascii?Q?mGINhVNsbUUa25+0t2SwHGfB5e59X/uQ1tBuIWfsfkdef9NySI0jtb2r/GFG?=
+ =?us-ascii?Q?Nfks7u7rNuJVW+LAuwi4xiBYzxqFlSEs66Ks/VXbfUAfXHNzCSNXzNpghXUn?=
+ =?us-ascii?Q?RnWJUoSgADw8pWzbOU/XZCDfuUV8aI1U/MEOasBcJBvwvkiIu7ARjhodyh2t?=
+ =?us-ascii?Q?UUOXWgo1UcwQhBOMm9uAnmNCdxBWD+pzLlwxvSMvKUuVKEFVF6E40RQHo1yX?=
+ =?us-ascii?Q?ThKi4daJtgOfRXM9iQkJgzVasC5jdnrlXO67/vuWx9Uh+IuvBVHj3T2JYd8d?=
+ =?us-ascii?Q?yxcG3c+KaM48E5HRvdYw2u3VgQ5bUhQaRsRZZkapIrFp2Z9a1kygbuvP3I0X?=
+ =?us-ascii?Q?VhP+nJAEMTDd8HAylSioS1Cg0iv4TKAa6ayRLR8gbCjPqPgNTfp4TRCKIMvw?=
+ =?us-ascii?Q?xKWkPtgywduKbvjJ7gfgDJk4T2Ua0okFg3tD0jmPZe8ig//8KnpDYQhOD1s2?=
+ =?us-ascii?Q?5j1WbpJWcYz37jt+EdNsxt1taJDAOFlQ+Ty8ocx8tACPFDSzzUVdbKXhKiGl?=
+ =?us-ascii?Q?T6N+zrT5xBY+VWu97PPnIjkWAzaVqog+o7Pq/Exq/40ysDhy23TF2RO6RDf+?=
+ =?us-ascii?Q?PqHIycVf/N+hb9vH6f8ZtsmlNDA9DPSye0AzUL5xrONRfrHBnVqV9SLlE4Xj?=
+ =?us-ascii?Q?V8abdgftryz+kGpFepWtkGFnbqlie1p2jyCxOKRsJAk1hHriposhUtTs5H/B?=
+ =?us-ascii?Q?YAdf85GsVb8o3YzTbcHGkV+DlAmgx7pPktDCet6xAfw5aiSRbF9fNFm+c360?=
+ =?us-ascii?Q?B7OxrrWYNoZKm2sjWgZpwEZnnS9bBL8l8zPa/EvaOYLKLbt2js/k+yig9kn4?=
+ =?us-ascii?Q?/so4X1jRNP/a8zwLJu4MCRis2AnESVWWE1uNCO5HfG0mUKRGyx5TjJUHKbO5?=
+ =?us-ascii?Q?Akpu0q/TtR/C8bZFKtpHvSmZz2JdXRH0Drmp6s3z6IO2EPk0BUy6vjFnCPqB?=
+ =?us-ascii?Q?H5eUpQKeOwdIVzYsbNnsYcQL6Lhkq0kDhrQpEyhnzLdX3thoWd1BgkrgGztC?=
+ =?us-ascii?Q?8i+i39d02V/8UWJmfo2R9Hr0i/pglSFv41BhOs4C54YlGXkCLbJGzR1U2X8p?=
+ =?us-ascii?Q?wpMCQfKpJyhL7BlHv6gmvNvUoSLaBiTDD+OcR1DiwqJrgYD79xr980i5JSu4?=
+ =?us-ascii?Q?O88eOBPkmWtqI34Ue1qRleDCTeN7b6wPtcaVQDv/k9k39LHPL8FEJvqV9H7e?=
+ =?us-ascii?Q?MXudGRXWartoPu8q7ZtuTD7wVrWFv8/QA1KrnUHtVRA4UXsNb5+iaBiyv/yU?=
+ =?us-ascii?Q?/UG4omCsTuRkWKQB+xF7H2pdOVjvI5xTc8btDdu11Rf1lh2h4nAHDMUtdrhQ?=
+ =?us-ascii?Q?NqK9MH2rMaVHmXZeyNb36TK+2xnlKOGYJMMa?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2025 22:54:25.1982
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2025 22:54:31.1919
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a405bf2c-d634-417a-acc5-08ddca3bdf37
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1f058ac8-2247-4c55-5e28-08ddca3be2bc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00001CE8.namprd03.prod.outlook.com
+	BL02EPF00021F6F.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4321
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8025
 
-In arm_smmu_deassign_dev(), the return value from to_smmu_domain() is
-NULL-checked. However, the implementation of to_smmu_domain() is a
-container_of lookup, so the return value is unlikely to ever be NULL. In
-case of a NULL argument to to_smmu_domain(), we will attempt to
-dereference the non-NULL return value and encounter undefined behavior
-and a crash:
+When attempting to xl pci-assignable-remove a PCI device, we encounter:
 
 $ xl pci-assignable-remove 00:01.0
-(XEN) ================================================================================
-(XEN) UBSAN: Undefined behaviour in drivers/passthrough/arm/smmu-v3.c:221:9
-(XEN) applying non-zero offset ffffffffffffffc0 to null pointer
-(XEN) Xen WARN at common/ubsan/ubsan.c:174
-(XEN) ----[ Xen-4.21-unstable  arm64  debug=y ubsan=y  Tainted:   C    ]----
-...
-(XEN) Xen call trace:
-(XEN)    [<00000a0000350b2c>] ubsan.c#ubsan_epilogue+0x14/0xf0 (PC)
-(XEN)    [<00000a00003523e0>] __ubsan_handle_pointer_overflow+0x94/0x13c (LR)
-(XEN)    [<00000a00003523e0>] __ubsan_handle_pointer_overflow+0x94/0x13c
-(XEN)    [<00000a0000392f9c>] smmu-v3.c#to_smmu_domain+0x3c/0x40
-(XEN)    [<00000a000039e428>] smmu-v3.c#arm_smmu_deassign_dev+0x54/0x43c
-(XEN)    [<00000a00003a0300>] smmu-v3.c#arm_smmu_reassign_dev+0x74/0xc8
-(XEN)    [<00000a00003a7040>] pci.c#deassign_device+0x5fc/0xe0c
-(XEN)    [<00000a00003ade7c>] iommu_do_pci_domctl+0x7b4/0x90c
-(XEN)    [<00000a00003a34c0>] iommu_do_domctl+0x58/0xf4
-(XEN)    [<00000a00002ca66c>] do_domctl+0x2690/0x2a04
-(XEN)    [<00000a0000454d88>] traps.c#do_trap_hypercall+0xcf4/0x15b0
-(XEN)    [<00000a0000458588>] do_trap_guest_sync+0xa88/0xdd8
-(XEN)    [<00000a00003f8480>] entry.o#guest_sync_slowpath+0xa8/0xd8
-(XEN)
-(XEN) ================================================================================
-(XEN) Data Abort Trap. Syndrome=0x4
-(XEN) Walking Hypervisor VA 0xfffffffffffffff8 on CPU1 via TTBR 0x00000000406d0000
-(XEN) 0TH[0x1ff] = 0x0
-(XEN) CPU1: Unexpected Trap: Data Abort
-(XEN) ----[ Xen-4.21-unstable  arm64  debug=y ubsan=y  Tainted:   C    ]----
-...
-(XEN) Xen call trace:
-(XEN)    [<00000a000039e494>] smmu-v3.c#arm_smmu_deassign_dev+0xc0/0x43c (PC)
-(XEN)    [<00000a000039e428>] smmu-v3.c#arm_smmu_deassign_dev+0x54/0x43c (LR)
-(XEN)    [<00000a00003a0300>] smmu-v3.c#arm_smmu_reassign_dev+0x74/0xc8
-(XEN)    [<00000a00003a7040>] pci.c#deassign_device+0x5fc/0xe0c
-(XEN)    [<00000a00003ade7c>] iommu_do_pci_domctl+0x7b4/0x90c
-(XEN)    [<00000a00003a34c0>] iommu_do_domctl+0x58/0xf4
-(XEN)    [<00000a00002ca66c>] do_domctl+0x2690/0x2a04
-(XEN)    [<00000a0000454d88>] traps.c#do_trap_hypercall+0xcf4/0x15b0
-(XEN)    [<00000a0000458588>] do_trap_guest_sync+0xa88/0xdd8
-(XEN)    [<00000a00003f8480>] entry.o#guest_sync_slowpath+0xa8/0xd8
+(XEN) SMMUv3: <no-node>:  not attached to domain 32753
+(XEN) d[IO]: deassign (0000:00:01.0) failed (-3)
+libxl: error: libxl_pci.c:910:libxl__device_pci_assignable_remove: failed to de-quarantine 0000:00:01.0
 
-Fix by changing to_smmu_domain() to return NULL in case of a NULL
-argument.
+When a PCI device is being deassigned from domIO,
+arm_smmu_deassign_dev() should return before checking the smmu domain.
 
-Fixes: 452ddbe3592b ("xen/arm: smmuv3: Add support for SMMUv3 driver")
+Fixes: 63919fc4d1ca ("xen/arm: smmuv3: Add PCI devices support for SMMUv3")
 Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 ---
-I'm unsure if that's the right Fixes: tag since I'm not sure if it can
-be triggered prior to 63919fc4d1ca ("xen/arm: smmuv3: Add PCI devices
-support for SMMUv3").
----
- xen/drivers/passthrough/arm/smmu-v3.c | 3 +++
- 1 file changed, 3 insertions(+)
+ xen/drivers/passthrough/arm/smmu-v3.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
-index 58f3331520df..db08d3c04269 100644
+index db08d3c04269..9312bb3c72d8 100644
 --- a/xen/drivers/passthrough/arm/smmu-v3.c
 +++ b/xen/drivers/passthrough/arm/smmu-v3.c
-@@ -218,6 +218,9 @@ static struct arm_smmu_option_prop arm_smmu_options[] = {
+@@ -2747,11 +2747,6 @@ static int arm_smmu_deassign_dev(struct domain *d, uint8_t devfn, struct device
+ 	struct arm_smmu_domain *smmu_domain = to_smmu_domain(io_domain);
+ 	struct arm_smmu_master *master = dev_iommu_priv_get(dev);
  
- static struct arm_smmu_domain *to_smmu_domain(struct iommu_domain *dom)
- {
-+	if ( !dom )
-+		return NULL;
+-	if (!smmu_domain || smmu_domain->d != d) {
+-		dev_err(dev, " not attached to domain %d\n", d->domain_id);
+-		return -ESRCH;
+-	}
+-
+ #ifdef CONFIG_HAS_PCI
+ 	if ( dev_is_pci(dev) )
+ 	{
+@@ -2767,6 +2762,11 @@ static int arm_smmu_deassign_dev(struct domain *d, uint8_t devfn, struct device
+ 	}
+ #endif
+ 
++	if (!smmu_domain || smmu_domain->d != d) {
++		dev_err(dev, " not attached to domain %d\n", d->domain_id);
++		return -ESRCH;
++	}
 +
- 	return container_of(dom, struct arm_smmu_domain, domain);
- }
+ 	spin_lock(&xen_domain->lock);
  
-
-base-commit: 5c798ac8854af3528a78ca5a622c9ea68399809b
+ 	arm_smmu_detach_dev(master);
 -- 
 2.50.1
 
