@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 304FCB0F0F1
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 13:13:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1053791.1422578 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C5FFB0F105
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 13:16:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1053797.1422587 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueXPA-0006l0-FZ; Wed, 23 Jul 2025 11:13:00 +0000
+	id 1ueXS8-0007KK-Rm; Wed, 23 Jul 2025 11:16:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1053791.1422578; Wed, 23 Jul 2025 11:13:00 +0000
+Received: by outflank-mailman (output) from mailman id 1053797.1422587; Wed, 23 Jul 2025 11:16:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueXPA-0006jK-BP; Wed, 23 Jul 2025 11:13:00 +0000
-Received: by outflank-mailman (input) for mailman id 1053791;
- Wed, 23 Jul 2025 11:12:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ueXS8-0007HO-Oy; Wed, 23 Jul 2025 11:16:04 +0000
+Received: by outflank-mailman (input) for mailman id 1053797;
+ Wed, 23 Jul 2025 11:16:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jmaN=2E=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ueXP8-0006jE-NX
- for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 11:12:58 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fa34fdfb-67b5-11f0-b895-0df219b8e170;
- Wed, 23 Jul 2025 13:12:53 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3a6cd1a6fecso5811752f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 23 Jul 2025 04:12:53 -0700 (PDT)
+ id 1ueXS7-0007HI-8h
+ for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 11:16:03 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6ad0d10b-67b6-11f0-a31d-13f23c93f187;
+ Wed, 23 Jul 2025 13:16:02 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-4560cdf235cso32963245e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Jul 2025 04:16:02 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b61ca253e1sm16186778f8f.5.2025.07.23.04.12.51
+ 5b1f17b1804b1-45868ef36c8sm20173045e9.0.2025.07.23.04.16.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Jul 2025 04:12:52 -0700 (PDT)
+ Wed, 23 Jul 2025 04:16:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fa34fdfb-67b5-11f0-b895-0df219b8e170
+X-Inumbo-ID: 6ad0d10b-67b6-11f0-a31d-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1753269173; x=1753873973; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1753269362; x=1753874162; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/IEEOBjpOLRVnMDe6HIToRKxqa/KTw8V9M+vHl4FwJc=;
-        b=uLOQYAD21te+HHyCxpwjWbAp9EKZbQIiviRBxnd8ds1gHSxeo/hDycauyJInJeJcLW
-         ARhVOKCl+xpEl0r2zHD1ZKSP3o7yu2e77lG0/wuuc+9nHoeX8kZe17NDrluLza4+YMr9
-         +YMunQiWUSAjGBAfBXVizpNmH3V/vvnNgvChI=
+        bh=Aptf2PsX+S0qeDQ1Lg+JqNFTk/HBYAs4q4JxasMD8c0=;
+        b=kRbpAm1Ek5OMJ9I8TnaBmle4UHFf2rghVQGCiHxSJGLcj0zWgp68iZM0PJxqpzBl4k
+         bz1a5npUJdFKovlqwmwJpZPvZJE1kbBbJsUJ36XhQYulzFsGuC7RJ9Mjy8g3KztYBhn8
+         STp3y/MLYzLrLQ2fvSWyC0KkzXLAyVBGHkaSQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753269173; x=1753873973;
+        d=1e100.net; s=20230601; t=1753269362; x=1753874162;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/IEEOBjpOLRVnMDe6HIToRKxqa/KTw8V9M+vHl4FwJc=;
-        b=d9pZ/SEuMV5obWxSrNDf+nnKxcCc0wlnLVaCBa9IRi/hbz5+NBzveUBMjZjUMRrCnR
-         ICFFWEYJbVfBHqwuzhN2PR/vmRIzH4s8Ye3P1bPQjZJc67C+feOuvd5vGV98LF/fia3k
-         o0XdF9N/7U6aMyZ8Sh7VkeYOjQGw6OcA2H282iDzyy65a5Kfj58wUUG4q7U7Uqowl+CE
-         iEbVgLJ8/H3j9hU/sPrxySh80gvHht0pgcYMZZErMHUk8F7qvyrcx0OyF7Wx4fCRng93
-         XlaEGXU0PPcwrBoH/2q56xzjD0UtGtNVGLgCyiQPRYInUbiqcBKHbLw62MgWNbwp3xlH
-         PyLQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX5ot71uuN0rqZQUbJE1WS2+qFWNTQQd3rtT9gZa8lR0APX5qxCTWX6CAObhJTkArENxZMzsbTfTRw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxc/DCJdOeHondbESaSSRt3Bn2U1ZR/QJ4zUwX/NuCaqIfT9i7c
-	quqrTTdjrB2ebYo2spie97yqNUvIoFVQBeslife2dh0pTBejd9g5U1vZ+TouV/bphwY=
-X-Gm-Gg: ASbGncslTBVBL9hynNt6N0Y+eFKAs40Trfv+yU/5wFC1xdMhhyhu9arPZIiQX62XZOO
-	kgQImfGnPlD84jpS3UebxxgYFlPZ0ufdaRb8xoNxLqIm4aUkVieezR/CC8ajAJtZVrO4+7EzchU
-	wIbMWsEVi6IigjPWCcwRbtz0Zo5c0weRPWPuHfPmL6abgjSf/wpN2TNwhhU82rriXYIIqsZ4/Ys
-	f5O8L7aK8T4NvUZVI3cLwmDCj1qoVsbgFoa0AXDC+wKB3rr+SiyHClKkjVFq1tsGHHB56UGgsdn
-	NhEnAqkG/CS044UprjX17A9H8Ykzq6MHyVG2WLqpSUFHp21TsPlgIveZ92IoPR3WxACwRcl7AyQ
-	TnMxCmp/ZatjmEZZ9/WHZ2m1afRRzuUY8RYShHnhsSvb0SFmUPOl4lqqhOeuCns6jxo5D
-X-Google-Smtp-Source: AGHT+IEci+oWzjH7CyYO9aJfWlFjjFkJFvBF1ue2Ai98mKUWzhDASjL/rUOMlavxeYSI9B2UgMjvwQ==
-X-Received: by 2002:a05:6000:4027:b0:3b6:11c:78df with SMTP id ffacd0b85a97d-3b768f060c7mr2004574f8f.41.1753269172679;
-        Wed, 23 Jul 2025 04:12:52 -0700 (PDT)
-Message-ID: <9fda6eb2-82c1-48e1-9a10-804089a2475f@citrix.com>
-Date: Wed, 23 Jul 2025 12:12:51 +0100
+        bh=Aptf2PsX+S0qeDQ1Lg+JqNFTk/HBYAs4q4JxasMD8c0=;
+        b=SFbLtByg1txqjKpG/GV8lO/mox5HvYte1nqWvygpDEj0NhlJBzPpv+eJ17TcEU2P2j
+         8YeneKT4C5/8lUSML6jpJ+ZI/YCJJ2g989eudQzJFhZRmx4sbsZ7eH6PsIRQFT1GSqcN
+         soN333kmyrd14tWxe/gf1zARd1ZD2IH2rEQtrmDltbgpgdYD2GYHQi6qTB+zqg8G5Y7D
+         fbIxHnyysNVYyX98m+yiez9jwWGE4gOahfzeqtGAe4ojyKmoNEtVpTcBuPDAG8L3mbY0
+         rKJKXD4byqVqkqru9J0lHQ8ts/XUeEE13qfU0j99YRkeMkmEO+MJHnU0We0kXYDHal81
+         I/kA==
+X-Forwarded-Encrypted: i=1; AJvYcCUR1V+CN39dp5eLn4EQse+bMS6jZ1lokWV0bL+kZJcwNCxQ6bN/4ufAm7HYmKnTI2zUEo6wSDdYnm4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxRoAPH2W5uSTWAuC11avRGFp1d52/wXaTLMUTvSYOLTLyTnKK8
+	AJD0k9exnagMYdgf7EarOydhP/DNkRw7oglN+eD67z/BKhSjpT73j2W/JUPRmFeNh5Q=
+X-Gm-Gg: ASbGncvNndQQTTyNWab0ZsO5Pj+NRxiq8JWcOGRQsWLZ2xpRg74vNpc7ppQSvBphdET
+	kuG4ut7hQNT74DW4HYC6Ep5lPvuo5rbz5bK//6V0dLW5sKL3TeKDWPjtctrD9EQHSGQIl4QAekg
+	TH9qBSy6vePsdU/JgnAdguuBYX5cFsKCz9osj7UWazStpl9um/QOGW4V/ovyCCipK6kJpt9b+4p
+	+3FzJPHa4iC7OFQb5SsYo+H2uQL3gYrRhR+RFN8093Nl/404ecmFk8PgoaO5diEYTJkmaqlxpGW
+	OpgdQ1fCEr1M36g8UdxgAIiajIFRGMQCLAqZ8zy9kktSVDtmb6RgzxSUxeZQB2IbXX3vwAIyDpx
+	CHcnxBgljl4H/8nSZg4r034bB1A64te80LjvmLwtYK6RmJolf4MNZX8arTgmF2jAjFyfZk6in54
+	ZjTr0=
+X-Google-Smtp-Source: AGHT+IEaCtT0LqP9ci/1T1X/cJh6BRhOp2CehhrlNL150DwXjpfHipTsftVI6A7kk8MpQCKbRMmnQA==
+X-Received: by 2002:a05:600c:529b:b0:456:12ad:ec30 with SMTP id 5b1f17b1804b1-45868c91934mr18376665e9.13.1753269361774;
+        Wed, 23 Jul 2025 04:16:01 -0700 (PDT)
+Message-ID: <01989510-d034-4a36-bced-fda8b8dbb537@citrix.com>
+Date: Wed, 23 Jul 2025 12:16:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH 2/8] xen/arm: move vcpu_switch_to_aarch64_mode() in
- arch_vcpu_create()
-To: Grygorii Strashko <grygorii_strashko@epam.com>,
- Julien Grall <julien@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
- Roger Pau Monne <roger.pau@citrix.com>
-References: <20250723075835.3993182-1-grygorii_strashko@epam.com>
- <20250723075835.3993182-3-grygorii_strashko@epam.com>
- <99c88af9-7f89-4d7c-9827-1ba85c803195@xen.org>
- <fdf7d2b9-aca9-4392-8e4d-a7fc8ce036f2@epam.com>
+Subject: Re: [PATCH v2] x86/hvm: Replace do_sched_op calls with their
+ underlying logic
+To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
+ Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
+ George Dunlap <gwd@xenproject.org>
+References: <584b490f7f26a746fd2c74be977a4769f73880bb.1753261165.git.teddy.astie@vates.tech>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -144,87 +140,30 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <fdf7d2b9-aca9-4392-8e4d-a7fc8ce036f2@epam.com>
+In-Reply-To: <584b490f7f26a746fd2c74be977a4769f73880bb.1753261165.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 23/07/2025 11:19 am, Grygorii Strashko wrote:
+On 23/07/2025 10:05 am, Teddy Astie wrote:
+> do_sched_op(SCHEDOP_yield) just calls vcpu_yield(). Remove the indirection
+> through the hypercall handler and use the function directly.
 >
+> Perform the same for SCHEDOP_block.
 >
-> On 23.07.25 12:16, Julien Grall wrote:
->> Hi,
->>
->> On 23/07/2025 08:58, Grygorii Strashko wrote:
->>> From: Grygorii Strashko <grygorii_strashko@epam.com>
->>>
->>> Move vcpu_switch_to_aarch64_mode() in arch_vcpu_create() callback
->>> instead
->>> of calling it manually from few different places after vcpu_create().
->>>
->>> Before doing above ensure vcpu0 is created after kernel_probe() is
->>> done and
->>> domain's guest execution mode (32-bit/64-bit) is set for dom0 and
->>> dom0less
->>> domains.
->>
->> The commit message doesn't mention anything about domains created by
->> the toolstack. In this case, from my understanding, the switch to
->> 64-bit domain happens *after* the vCPUs are created.
->>
->> At the moment, I think this is probably ok to call...
->>
->>>
->>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
->>> ---
->>>   xen/arch/arm/domain.c                    |  3 +++
->>>   xen/arch/arm/domain_build.c              | 13 +++++--------
->>>   xen/common/device-tree/dom0less-build.c  |  6 +++---
->>>   xen/include/asm-generic/dom0less-build.h |  2 +-
->>>   4 files changed, 12 insertions(+), 12 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
->>> index 79a144e61be9..bbd4a764c696 100644
->>> --- a/xen/arch/arm/domain.c
->>> +++ b/xen/arch/arm/domain.c
->>> @@ -586,6 +586,9 @@ int arch_vcpu_create(struct vcpu *v)
->>>       if ( get_ssbd_state() == ARM_SSBD_RUNTIME )
->>>           v->arch.cpu_info->flags |= CPUINFO_WORKAROUND_2_FLAG;
->>> +    if ( is_64bit_domain(v->domain) )
->>> +        vcpu_switch_to_aarch64_mode(v);
->>
->> ... this function here because I *think* it would be NOP. But this
->> feels really fragile.
+> Not a functional change.
 >
-> The toolstack configures domain and vcpus through
-> XEN_DOMCTL_set_address_size on Arm64:
-> - toolstack creates domain and parses kernel binary: domain created
-> with DOMAIN_32BIT mode by default
-> - toolstack creates vcpus (still 32 bit mode):
-> libxl__build_pre()->xc_domain_max_vcpus()
-> - toolstack switches domain mode depending on kernel binary type:
-> libxl__build_dom()->xc_dom_boot_mem_init(),
->   which triggers XEN_DOMCTL_set_address_size hypercall.
->   Xen: arm64: switches domain mode and re-configures vcpus:
-> subarch_do_domctl()->set_address_size()
->
-> So, this patch does not affect toolstack path, only optimizes Xen
-> boots a bit.
->
-> Also, during Xen boot or by toolstack - the domain is always created
-> before it's type is even known, which, in turn,
-> is based on guest binary which is parsed later during domain
-> configuration stage.
+> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+> ---
+> v2:
+>  - For SCHEDOP_block case: export and use vcpu_block_enable_events instead
 
-This is an error which has existed in Xen since the outset.  ARM
-inherited it from x86 PV (albeit the opposite way around).
+You need to adjust the commit message for this change, now that you're
+exporting vcpu_block_enable_events().
 
-It is literally backwards to create a VM in one mode, do some setup,
-then decide "no actually I want it in the other mode".
+With that adjusted, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-For both x86 PV, and ARM it seems, parsing the kernel first and choosing
-the right mode(s) at create time would be a substantial improvement.
-
-As a note, x86 HVM has no concept of 64bit existing without 32bit.
+If there are no other changes needed, you can propose some updated
+wording here and it can be adjusted on commit.
 
 ~Andrew
 
