@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3217B0F652
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 17:00:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1054329.1423095 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C26B8B0F670
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 17:04:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1054341.1423111 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueawm-0002VP-8p; Wed, 23 Jul 2025 14:59:56 +0000
+	id 1ueb1H-0004Q0-TR; Wed, 23 Jul 2025 15:04:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1054329.1423095; Wed, 23 Jul 2025 14:59:56 +0000
+Received: by outflank-mailman (output) from mailman id 1054341.1423111; Wed, 23 Jul 2025 15:04:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueawm-0002Sv-5z; Wed, 23 Jul 2025 14:59:56 +0000
-Received: by outflank-mailman (input) for mailman id 1054329;
- Wed, 23 Jul 2025 14:59:55 +0000
+	id 1ueb1H-0004Nr-P3; Wed, 23 Jul 2025 15:04:35 +0000
+Received: by outflank-mailman (input) for mailman id 1054341;
+ Wed, 23 Jul 2025 15:04:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=KFh9=2E=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ueawl-0002ST-8O
- for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 14:59:55 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
+ id 1ueb1G-0004Nl-4G
+ for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 15:04:34 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b04e9736-67d5-11f0-b895-0df219b8e170;
- Wed, 23 Jul 2025 16:59:53 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3a57c8e247cso6366866f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 23 Jul 2025 07:59:53 -0700 (PDT)
+ id 56988c0a-67d6-11f0-b895-0df219b8e170;
+ Wed, 23 Jul 2025 17:04:32 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-5561c20e2d5so8745540e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Jul 2025 08:04:32 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23e3b5e2ccbsm99432305ad.4.2025.07.23.07.59.45
+ 98e67ed59e1d1-31e519e17besm1854911a91.15.2025.07.23.08.04.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Jul 2025 07:59:52 -0700 (PDT)
+ Wed, 23 Jul 2025 08:04:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b04e9736-67d5-11f0-b895-0df219b8e170
+X-Inumbo-ID: 56988c0a-67d6-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753282793; x=1753887593; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753283072; x=1753887872; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZgkAJMnqpz3pWyS1Ni3K7/Li6JLd2JBA9UOsfmpI600=;
-        b=U7+cnJ/RRdxrayUrC3M0Un8ZXZAtSctaXpMs+7nKhcBuvKMKhGE4dAwCTBcIBdQxzf
-         dVbpNFwVo5L+DhXsOPl0eMK34jCUdOFECiV32/i82AI3Bu2YiOXmRAkmiU2NB7Ciuta+
-         VVJnGyPRIJ1IPmE6kBF7hAhXdzMt4eDTZZkiCDZ1oD2VRxtBezvkBYcilcINDrnvI3FY
-         LZZv4jTGIh89GIrU3pNqqczMLqo/J2XiORf9/fyf/JNqz+UiCzeB9WKv53AppOrbWIGB
-         UZbGCSwFE4m2DfSfEJ+0y7TTq4dPiCavaJWOSOpoWnfn88rylBLVWGyfa3czaDf4l3aL
-         gnPA==
+        bh=8NMokbaBp0UVNkQY8i1OyGtRiOGryfOCXgyyJBAULIQ=;
+        b=Fd7sBN4ILczbFKErd588q3BMhoHsNHIbbBPff+OyD4G2KBuyYyHlcb158Zv/600xU8
+         VTAKoWoDbTQNMUfYAyRm3JMu8gVDyYT76MFbEBE0+kvFdUqHJgzm5Qcu68CJBpWeVOV/
+         waEIQ4qYWQ/X03gvRoNjGMa5WLVTVWW2nbb6rNG24GFwlaIYTM8/zP5hNH+nzbMAJUnt
+         F50THS7ZDC/xao7w+MNg7GQ6ez48ZAyB8c00A5qekoqivttrw9pBffW9ggvjOsjtholN
+         pIFTVbk1vxmGJsuM5mOFWmmeGY6BGKqRnbskvKfw6M86Zvm8SBuzMIp4h49jZ7dl44rQ
+         0C3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753282793; x=1753887593;
+        d=1e100.net; s=20230601; t=1753283072; x=1753887872;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZgkAJMnqpz3pWyS1Ni3K7/Li6JLd2JBA9UOsfmpI600=;
-        b=eHWx8IbsySCRNLZsDipo7IwNEZGLU94C11BotQ/8JJH6aiUn/lZdFSOyhp0Lel7hmC
-         MBkTX9XPvbPShMyh8HSFiFKnIdp43HxyKhXKNgUa68Sk1XHTrITkTmwwSwyKwrT+Ymj2
-         HJa/Q9bG59UCjs8l9HAbwr8XmogHsFesFrzD9ybnI1xEEcJbJR9gcU8/+EAxyHHdZ7mi
-         rL3d81+WDa5xpQfI6AITjJ8wnZ/PrrVg5EHfCwz4qOB+X5tsskbp+UYBw3SMThd/g+mJ
-         k9RqfkNEI4dm4hNKTVupDJOf9Fbqv0kZ0qC6wyQRIcbkf4vZXa83E83jjZb+IDlehlCv
-         ad4A==
-X-Forwarded-Encrypted: i=1; AJvYcCVq5R5nrphUX6dwC5ELvC4yOgKjmvPIOK78ViMdRsfFkzmdHD+Fi5ux0BTiKagINr8RQTWu26qnPcs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwvpjqpcrwYgCPu/0AitX8HD29ov243nZhlvAnDbsQW9653OtmQ
-	QWC9OGQgPZSHkFaWEwJwsNNaf2fvjJNh/oPSR8ozNF+Qjtz4g2w8mVdcGKI+YPs9yw==
-X-Gm-Gg: ASbGncue0PWgZUaX146R+Jr5wJHPNsHvEIPjjLRIjsv2fzGknefbgMQ14U7n+KvnLLF
-	LRbdPH2vwPb+S2463J0cE1lGubghZJv01n410CPuR+nU0MaYeMUdt+jFE1L2NQ/5qCGEYXINEvj
-	7t+Mauvqf8wD5ceRUQdYTpx5MRZMOIWXhKwI43UMjG1Q/3jlE3wh16MbLXowk2ouqaRcMPHMCbK
-	fRn3OaYbDIHk8Avttd/GLkm3kKHzsmNv6kjg8MPbmRzhMMK0jRCw2qauwdNunXFBEShMKgYqypl
-	ShhIvMEV1ekiDcO+YxkihbeQDk/3+Vhq7EK9GEFzFy+5kPMNjPxVeeHIXEju1CDNSHweYWQVgyK
-	Ek3mXAV+Qw2qfqChLZlhx6cFJ3vZ/gezwtwjpQ+wCBo1ecUgUzcyLSz5No/+n3dKmrQvWNkNPjJ
-	xsop6JCnYg9Yqmu+vCgA==
-X-Google-Smtp-Source: AGHT+IETgya5to+M7FDsbMgYNE60d3sdiiyy0IsrwbgEZV38K5MF7OJUO0i8d1zs02KQmrZrUR8TTg==
-X-Received: by 2002:a05:6000:4382:b0:3a4:f038:af76 with SMTP id ffacd0b85a97d-3b768f2fb23mr2934734f8f.53.1753282792688;
-        Wed, 23 Jul 2025 07:59:52 -0700 (PDT)
-Message-ID: <c281035f-f347-4af9-a24e-6d0db6cb3ba0@suse.com>
-Date: Wed, 23 Jul 2025 16:59:41 +0200
+        bh=8NMokbaBp0UVNkQY8i1OyGtRiOGryfOCXgyyJBAULIQ=;
+        b=kueMqOwdELo+gQ66yVW0imxvgxiDuLkQsd3nkB5WM5Zvc10A3v7ErClWAQvPGIhW+7
+         Q+2tp+8xAHaXfWZqYnwOpYNcaivLxuTvOp5D2nRjN7lC3jGr+h9K72DY+G2by0gHjIxp
+         j1s4taxcZTkGkfTpgOFOvqQpV/FruSMiDia149Tgwjnadhvmr/5m/TDkn8RJ1UYzrQWR
+         O8Wxgazgn5oXHqNNNy5HfUmseALBdllq2YnXBLk2xN0lXwI9L3LAEjz0wIdWsLTQvwer
+         0DnMZcCIWMKcAY4+4iGY8z0d1x4Wu5pNuRGHyzJqApBxOqtwfARNKcL+B7AfBk6LjUDa
+         WGcg==
+X-Forwarded-Encrypted: i=1; AJvYcCX9AHvwI+skCaUUJ4mxpEUSFlG4InFCmp0V7vrHVBZ4j6c1Sl1Z8VNoWQjKoiLNE/3isWZ0MSS1Mt4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw/XEqNsj8/TR2Y+dgkh4/0WO2dlM4gvq/Hv68i3Fv+IWiz4glS
+	hXpbgNKJDToHpYq419gJc2u303fx61fKWIWQqGUabnwKw/czRFXwqGBMCLKOHgcK3A==
+X-Gm-Gg: ASbGnctlY2pvuzvoPZ/NIBZCSKoO4NNGExSrZttmkXIDZvUxNPDU57zsORvpLCg4+3E
+	neJb06dZATOEkMPNo+MxV9e/wYirNigAcN9N+6sQs1Wqj9n7yZagDbYnqSmX87hnYDbzJmA6VDS
+	70JeIPFNbJUtvl7SM4tpKxYRP9c0x7+ubFoXjfXB5F4b54whw2mssoETWOf2ap/0HoW4px1RKK4
+	BlYi5SNYAFpUYPtWT0oxGL7PXd2qePGZpHFOkDsWCB2yDQfIhzx/0m6XvnOki2KYF6UFJn9vdL0
+	e6CPr1uS4Aa50RsUDHAIboxn5IWiSKD2lVes+pz26YVBzfceH+dAgQuW+iPt5XMr0jUx68dMJ2/
+	OwTwqdNHZAkJ4r+Jw+e3u3IA7Yu5TVBUAaQ8NgF4wzkj7O4oC7YdMFFWqfBfauNNbRFCfalxL3p
+	sulXOY340=
+X-Google-Smtp-Source: AGHT+IF7A2OrNYCXwoaByiQEe86BViFm8sWZEz5bpMLA1N2+lkDVLPWQcoGUQGIWRzRppX8+hkmL6g==
+X-Received: by 2002:a05:6512:159b:b0:553:3314:adcf with SMTP id 2adb3069b0e04-55a51340ca8mr1073337e87.5.1753283070842;
+        Wed, 23 Jul 2025 08:04:30 -0700 (PDT)
+Message-ID: <9814144b-5eb4-421a-93f3-2a15232a7dd3@suse.com>
+Date: Wed, 23 Jul 2025 17:04:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8] xen/arm: pci: introduce PCI_PASSTHROUGH Kconfig option
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: Rahul Singh <rahul.singh@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH] xen/arm, xen/common: Add Kconfig option to control Dom0
+ boot
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <stefano.stabellini@amd.com>,
- xen-devel@lists.xenproject.org
-References: <20250613154847.317979-1-stewart.hildebrand@amd.com>
- <1ab5d13e-f482-42e4-aae2-7276c6ea4654@suse.com>
- <3518a202-c664-4564-b59c-194f954b232e@amd.com>
+ Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ "amd-xen-safety@groups.io" <amd-xen-safety@groups.io>
+References: <9c1169345d916cb542bf3f28ddf854f6308a402a.1753279365.git.oleksii_moisieiev@epam.com>
+ <60627444-420d-42a1-b7b6-d74dec2479e0@suse.com>
+ <f8d6e3b2-aca2-4a0e-8913-0f52f2016846@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,35 +128,45 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3518a202-c664-4564-b59c-194f954b232e@amd.com>
+In-Reply-To: <f8d6e3b2-aca2-4a0e-8913-0f52f2016846@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23.07.2025 16:26, Stewart Hildebrand wrote:
-> On 7/23/25 06:18, Jan Beulich wrote:
->> On 13.06.2025 17:17, Stewart Hildebrand wrote:
+On 23.07.2025 16:33, Oleksii Moisieiev wrote:
+> Hi Jan,
+> 
+> On 23/07/2025 17:27, Jan Beulich wrote:
+>> On 23.07.2025 16:05, Oleksii Moisieiev wrote:
 >>> --- a/xen/arch/arm/Kconfig
 >>> +++ b/xen/arch/arm/Kconfig
->>> @@ -8,6 +8,8 @@ config ARM_64
->>>  	depends on !ARM_32
->>>  	select 64BIT
->>>  	select HAS_FAST_MULTIPLY
->>> +	select HAS_VPCI_GUEST_SUPPORT if PCI_PASSTHROUGH
->>> +	select HAS_PASSTHROUGH if PCI_PASSTHROUGH
+>>> @@ -19,6 +19,7 @@ config ARM
+>>>   	select HAS_ALTERNATIVE if HAS_VMAP
+>>>   	select HAS_DEVICE_TREE
+>>>   	select HAS_DOM0LESS
+>>> +	select HAS_DOM0
+>> This wants to move one line up, for the set to remain sorted. But see below.
 >>
->> As I just learned, this change (or maybe it was the "select HAS_PCI"
->> further down) has exposed the quarantining Kconfig option prompt, which
->> (aiui) is entirely meaningless on Arm. IOW I think further adjustments
->> are necessary.
-> 
-> Not entirely meaningless - the choice between "none" and "basic" still
-> seems relevant. Just "scratch page" quarantining hasn't been implemented
-> in any of the Arm iommu drivers.
+>>> --- a/xen/common/Kconfig
+>>> +++ b/xen/common/Kconfig
+>>> @@ -21,6 +21,14 @@ config DOM0LESS_BOOT
+>>>   	  Xen boot without the need of a control domain (Dom0), which could be
+>>>   	  present anyway.
+>>>   
+>>> +config DOM0_BOOT
+>>> +	bool "Dom0 boot support" if EXPERT
+>>> +	depends on HAS_DOM0 && HAS_DEVICE_TREE && DOMAIN_BUILD_HELPERS
+>>> +	default y
+>>> +	help
+>>> +	  Dom0 boot support enables Xen to boot to the control domain (Dom0) and
+>>> +	  manage domU guests using the Xen toolstack with provided configurations.
+>> What about non-Arm? x86 has a Dom0 too, but doesn't select HAS_DOM0. It
+>> actually requires a Dom0 for now, so to me HAS_DOM0 is a misnomer. Maybe
+>> HAS_OPTIONAL_DOM0?
+> Right now DOM0_BOOT is the only option for x86 so I've made the changes 
+> only for arm.
 
-Is there support for "basic"? For x86, most of the involved code lives
-in the vendor-specific drivers, and I can't find anything related in
-Arm's. Note in particular the hook iommu_quarantine_dev_init() calls,
-which isn't provided by any of the Arm drivers afaict.
+But this aspect of x86 isn't reflected in the option properties above. Imo
+at this point x86 should have this option set to Y unconditionally.
 
 Jan
 
