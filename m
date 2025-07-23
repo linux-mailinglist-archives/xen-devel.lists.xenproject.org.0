@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B66A1B0EA60
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 08:12:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1053249.1421974 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A647B0EA91
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 08:26:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1053255.1421984 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueShj-0007Ds-S1; Wed, 23 Jul 2025 06:11:51 +0000
+	id 1ueSv8-0000TL-Sn; Wed, 23 Jul 2025 06:25:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1053249.1421974; Wed, 23 Jul 2025 06:11:51 +0000
+Received: by outflank-mailman (output) from mailman id 1053255.1421984; Wed, 23 Jul 2025 06:25:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueShj-0007Bl-Od; Wed, 23 Jul 2025 06:11:51 +0000
-Received: by outflank-mailman (input) for mailman id 1053249;
- Wed, 23 Jul 2025 06:11:51 +0000
+	id 1ueSv8-0000Qu-PT; Wed, 23 Jul 2025 06:25:42 +0000
+Received: by outflank-mailman (input) for mailman id 1053255;
+ Wed, 23 Jul 2025 06:25:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=KFh9=2E=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ueShj-0007Bf-7I
- for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 06:11:51 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1ueSv7-0000Qn-9y
+ for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 06:25:41 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e96022c5-678b-11f0-b895-0df219b8e170;
- Wed, 23 Jul 2025 08:11:46 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3a51481a598so3320973f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 22 Jul 2025 23:11:46 -0700 (PDT)
+ id d9dcfe60-678d-11f0-b895-0df219b8e170;
+ Wed, 23 Jul 2025 08:25:39 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3a50fc7ac4dso2916632f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Jul 2025 23:25:39 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b3f2ff89341sm8053632a12.52.2025.07.22.23.11.38
+ d9443c01a7336-23e3b6ef9aesm88647375ad.211.2025.07.22.23.25.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 22 Jul 2025 23:11:45 -0700 (PDT)
+ Tue, 22 Jul 2025 23:25:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e96022c5-678b-11f0-b895-0df219b8e170
+X-Inumbo-ID: d9dcfe60-678d-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753251106; x=1753855906; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753251939; x=1753856739; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iuZoJYNEzyWfHBs4wAhBuGarmpDLWjEeFp5Fab4C3PA=;
-        b=KHL+SOIte3sbWUteDppsMMAOvUbfJXrs4lzukElDycDU7Fo523rapL4lYVjpau84r4
-         2tX20iP3Um1HldEFzqdaNtjb4GZg+VvmuzicWVj/7LkpFWoCrdUXYfRsagBRcpKLlDu3
-         TB+plO2JQZouo4ppXsn0nymSmFNoVi1CZPuJ9RBvKkv7LxbQRntwqjxMAfVDenhZn42M
-         SOin8pymGI0myxeAyStNc/BF8X7z+DrOZhJZ7qKMNW58v05A3rPYW/M5/ZC+n9QHpIr8
-         TKmJRGeWX1f2GmiEyx5CWtc8UV218gSVTHAitKyQwba2u+gO52I5+2gkEQxjjMQ4rH6v
-         YXgg==
+        bh=5V5HeZOqWHD6vRIJFSQOx8easJOmVNjONggvqaScJO0=;
+        b=GtWTctQDwE5DKGBr8kSBSQnRhfgjJPLsjXKOv8rzwwz6ww4ieArvM36kO5COQIYSzH
+         /Bi3tfP5Xx3/VlNxpQH4GDzFVPuHqSyyBu79meLZMKOz/r72Xn7TCS/stXgwBBhp3LOo
+         uh9XhFe5yePokDTwrxI4V4eihmFzqclIQgVDd8a57APyHgv0MTklQzzaJ5iBYHGoM4v7
+         tom7/u2L45iYUmXLcHUN9+iVRbXY5Vjhz807KpveN328capbX4IYjPkNcshaEdm4HVza
+         w8vmm7jjcLb6awHFJ1TATpSDj4D7pnJs/zVgtm93YStaP2c7CaQutW2MHk17budl4HJY
+         BIsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753251106; x=1753855906;
+        d=1e100.net; s=20230601; t=1753251939; x=1753856739;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iuZoJYNEzyWfHBs4wAhBuGarmpDLWjEeFp5Fab4C3PA=;
-        b=J9uGkipR8wul2w1gdEdfodfmPwg/mZvM5N8FA5ACd63uH5WaVon2dFDf+J3UWYJK09
-         ksxaq5uusY7n7Epl2wcxkcEqTxQtIUjkdZQMT6GmaZfK79Wbp/pTi9rdwt1n70cNctcG
-         gj/8XW1l1o9G0t/n7MEBHhMYJfuW5zTTpO5rQ6MddWfVXOPw1jrqcXSOOUKSAW4xr6GX
-         hd4B6UtK3jd5cpz5FNzAWIArinXt3xpoNLeffxz99Lsw3LNsJvrHYLb92TAIAJkIMuiT
-         1L/qi9evrd1nMFEbhJwu06BI9W4nQhlGXw0rV/vJ3hoZaht1rnq9NHlY9HHLOf/zcP9S
-         7E2g==
-X-Forwarded-Encrypted: i=1; AJvYcCVaG1r4OlFmYglJy4UYQZC648yR/E4jvF7qmZacBilMcEgpZ2vI7xc8iequTdteGE47sHmetQkeoxc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YweGTpDxdYT4bHFAuqXjLnOi6GdgRQhISlVYAJNipTVdNTxkyy6
-	whcEisKBpHYEv6Y7vDEyAAQ2U9zjRyRyppIQJ9FdNkssjOtMV8gypPer3SnoYWGsNg==
-X-Gm-Gg: ASbGncvSa4MeI+nTxta9dqI+Zfx2DFXw8kvHXxz78XpmBvb+mwXAS86wZx3k0BgDSps
-	R2VTc/oFq5W1G/P/1W+AgGN/FU/le2AEDC/xHyo4sYnonszPrw8TjHFjrQhJcLZpsI7STKk5sxg
-	ooyBG0K26j/jMA4Uqujt9W6/9E5zFFsZIBvz0cR4uqNoVjNM99aE+wQJ3eEHSlA0Lk8PX6tPz8v
-	XfUQbVQLehf5FrSoLyw8LTC/4uBaFNqICXHs0npfiE59KCRqc29KB3Eud1p6Agry5uHSQnSr2AG
-	ixi/erpiVYI5Cl78KueZ71lziN10fLNeueR5AnTIWy6HATqWDonXgwpn+Qie19brMuMdAGsJrv4
-	6CiSHblpGAiIlfYZVZmW46A41XAPlsY5ZSepzaJbysFCFZcDJhQisyOBAz0hCX1UqjjAWbS4iXD
-	XHjwWDgPk=
-X-Google-Smtp-Source: AGHT+IHYLYdafNBfDvS1QDCBe41MTEAJy1sDPvGB8RFyaCsrsEiEpzw6yNijFyAuRjOMuDib/NwunA==
-X-Received: by 2002:a05:6000:420e:b0:3b6:d6c:a740 with SMTP id ffacd0b85a97d-3b768f12c2fmr1340989f8f.54.1753251105671;
-        Tue, 22 Jul 2025 23:11:45 -0700 (PDT)
-Message-ID: <d6b192be-6362-46c2-a7f8-4d461b313e7b@suse.com>
-Date: Wed, 23 Jul 2025 08:11:34 +0200
+        bh=5V5HeZOqWHD6vRIJFSQOx8easJOmVNjONggvqaScJO0=;
+        b=Fko678SckHIl4hCgP6XtzWdhia7rNxt5GDg6iEUWLLVgaUE/i2UZCe+7HIujnnUgeE
+         044Rn3Blq2cElx5sFq4E/VeLoh3tyRlVuvPIqX6woTr9+s36IPCicwRAszZa3XaJMhJX
+         4sPYEos26s9W9OIojI2cmunFBdgRwGTYrwp6iSqRnK95dScaJwzd3VCrEju1dDoXY246
+         QBIeR1KRPj4xauGZ08L/rZsaj/TtNCdXDq9x8ZNvvHvmvB3P1aKZ5rkPxZxeOKf65l5i
+         rB/s/yvWLC/875Z3ZcU0/OZBg8SNjh2ZxULguz++8hm5WTRwI5p6Eft0QvZVdNkg3lZx
+         cqTQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXO0JuGag6YpDYB9+UfTgVfUSrlxyct8ANGMUQt3z1OOLK8FwCSmrQsHp+3PiPN9gfN2DZ+ZnJdvXs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxn1PaDNgv+irzR46uBLSeRnypqImoLS76gtSpYBnZQ6ROQZRO9
+	ML4wsu3/ye5fyQIPUvjtLLQLJz2nmbb2wEcB3TtPSOTfDnWzUybbyXkWxuHLWafNOQ==
+X-Gm-Gg: ASbGncvdDBHsmd3BFd+hwKzo69BZclAmb3dbKE2/b5ldBcRqYxNfNiJbF74RYInSZUn
+	BuoQ+iP2a6GnUPyhxBi3Ip/kc5RfBdilP1OAIYLNOxEUBwkpzm7eU70/csuQfrr6wCjf4FGzFGD
+	aCj22Ldju6R/JAIyeW/h1MVUJgV0vnjAvUnrbNEOhaupEfRwoytdy4r1Cp/UGfwGzkLYu9HQPOi
+	Zu/9JZ+lZKqp/8hO3F+njIFt/6X72jiKdDkLLFzQMzQ59Nnb8CwGzt7/lF3SInCnauLF7AZ1gbu
+	GW0CVawlX5nYRTcZ4VqEpC7Epl6CqMuX0qPVZlKVj1gYQ15BC2mE5V8bsHOh8Qkq0jDAV1/MI+p
+	Y00NSHzxRyhllOv/RW0sY8BtfdSZ/BO2nC1+MiEuX7+Xq2cBeKXqNrINjVEWM6HDV2rZJT+xWQE
+	TsCxO0HdY=
+X-Google-Smtp-Source: AGHT+IG5zAgAZRfVqMJoLee+UhoNyrsek2uUbnbHjJxoFmuoTzZXtTJPMgTE3Z+zYS5FCw7Gpa4fsg==
+X-Received: by 2002:a5d:5d07:0:b0:3b5:dc04:3f59 with SMTP id ffacd0b85a97d-3b768f162b3mr1122752f8f.37.1753251938600;
+        Tue, 22 Jul 2025 23:25:38 -0700 (PDT)
+Message-ID: <bb99eba3-b4ca-4819-8ef7-d3804c2add60@suse.com>
+Date: Wed, 23 Jul 2025 08:25:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] xen/arm: fix arm_iommu_map_page after f9f6b22abf1d
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v3 1/2] xen: Add capabilities to get_domain_state
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20250722225127.81390-1-stewart.hildebrand@amd.com>
+ Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
+ <jgross@suse.com>, xen-devel@lists.xenproject.org
+References: <20250722001958.174294-1-jason.andryuk@amd.com>
+ <20250722001958.174294-2-jason.andryuk@amd.com>
+ <8e31d4dc-9f20-4af2-a814-d59a40e69fc2@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,35 +124,70 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250722225127.81390-1-stewart.hildebrand@amd.com>
+In-Reply-To: <8e31d4dc-9f20-4af2-a814-d59a40e69fc2@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23.07.2025 00:51, Stewart Hildebrand wrote:
-> --- a/xen/common/grant_table.c
-> +++ b/xen/common/grant_table.c
-> @@ -1274,8 +1274,14 @@ map_grant_ref(
->          }
->  
->          /*
-> -         * We're not translated, so we know that dfns and mfns are
-> -         * the same things, so the IOMMU entry is always 1-to-1.
-> +         * Grant mappings can be used for DMA requests. The dev_bus_addr
-> +         * returned by the hypercall is the MFN (not the GFN). For
-> +         * device protected by an IOMMU, Xen needs to add a 1:1 mapping
-> +         * in the domain p2m to allow DMA request to work. This is only
-> +         * valid when the domain is directed mapped.
+On 22.07.2025 14:09, Jason Andryuk wrote:
+> On 2025-07-21 20:19, Jason Andryuk wrote:
+>> Expose a domain's capabilities - control, hardware or xenstore - through
+>> stable get domain state hypercall.
+>>
+>> The xenstore domain can use this information to assign appropriate
+>> permissions on connections.
+>>
+>> Repurpose the 16bit pad field for this purpose.
+>>
+>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+>> Reviewed-by: Juergen Gross <jgross@suse.com>
+>> ---
+>> v2:
+>> Init info->caps = 0
+>> Remove stale comment on caps field
+>> Add Juergen's R-b
+>> ---
+>>   xen/common/domain.c         | 10 +++++++++-
+>>   xen/include/public/domctl.h |  7 +++++--
+>>   2 files changed, 14 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/xen/common/domain.c b/xen/common/domain.c
+>> index c347de4335..bb33b1f1c7 100644
+>> --- a/xen/common/domain.c
+>> +++ b/xen/common/domain.c
+> 
+>> diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+>> index f1f6f96bc2..136820ea5b 100644
+>> --- a/xen/include/public/domctl.h
+>> +++ b/xen/include/public/domctl.h
+>> @@ -1269,8 +1269,11 @@ struct xen_domctl_get_domain_state {
+>>   #define XEN_DOMCTL_GETDOMSTATE_STATE_SHUTDOWN  0x0002  /* Shutdown finished. */
+>>   #define XEN_DOMCTL_GETDOMSTATE_STATE_DYING     0x0004  /* Domain dying. */
+>>   #define XEN_DOMCTL_GETDOMSTATE_STATE_DEAD      0x0008  /* Domain dead. */
+>> -    uint16_t pad0;           /* Must be 0 on input, returned as 0. */
+>> -    uint32_t pad1;           /* Must be 0 on input, returned as 0. */
+>> +    uint16_t caps;
+>> +#define XEN_DOMCTL_GETDOMSTATE_CAP_CONTROL     0x0001  /* Control domain. */
+>> +#define XEN_DOMCTL_GETDOMSTATE_CAP_HARDWARE    0x0002  /* Hardware domain. */
+>> +#define XEN_DOMCTL_GETDOMSTATE_CAP_XENSTORE    0x0004  /* Xenstore domain. */
+>> +    uint32_t pad0;           /* Must be 0 on input, returned as 0. */
+> 
+> I have wondered if we should use some of this padding to start returning 
+> the valid capability bits.  When the hypercall (and library) will be 
+> ready in case the number increases.
 
-While true for Arm, the concept of "direct mapped" doesn't really exist on
-x86 (and only the PV case could make it here, which is sufficiently
-different anyway). If you really think the comment here needs adjustment,
-please make sure it remains correct for all architectures.
+How would a caller use that information? The hypervisor wouldn't return
+"invalid" bits set. (If any such plausible use could be envisioned, it
+being a stable sub-op, providing such information would certainly make
+sense.)
+
+> The other alternative would be to return the bits in some other call, in 
+> which case this one would not need to change.  And returning the 
+> unchanging valids bits on each call seems unnecessary.
+
+Indeed. Yet the same interface could still be used (then perhaps also
+to indicate the valid XEN_DOMCTL_GETDOMSTATE_STATE_* bits): Have the
+caller pass in another special DOMID_* (DOMID_INVALID already has a
+meaning, though).
 
 Jan
-
-> +         * We're not translated, so we know that dfns and mfns are the
-> +         * same things, so the IOMMU entry is always 1-to-1.
->           */
->          if ( !(op->flags & GNTMAP_readonly) && node.cnt.wr == 1 )
->              kind = IOMMUF_readable | IOMMUF_writable;
 
