@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78477B0F842
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 18:38:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1054532.1423318 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55EA2B0F844
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 18:38:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1054533.1423328 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uecTx-0001oq-Gx; Wed, 23 Jul 2025 16:38:17 +0000
+	id 1uecTy-00025F-R8; Wed, 23 Jul 2025 16:38:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1054532.1423318; Wed, 23 Jul 2025 16:38:17 +0000
+Received: by outflank-mailman (output) from mailman id 1054533.1423328; Wed, 23 Jul 2025 16:38:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uecTx-0001nD-D1; Wed, 23 Jul 2025 16:38:17 +0000
-Received: by outflank-mailman (input) for mailman id 1054532;
- Wed, 23 Jul 2025 16:38:16 +0000
+	id 1uecTy-00022J-My; Wed, 23 Jul 2025 16:38:18 +0000
+Received: by outflank-mailman (input) for mailman id 1054533;
+ Wed, 23 Jul 2025 16:38:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3I4v=2E=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1uecTw-0001Gm-8w
- for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 16:38:16 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20606.outbound.protection.outlook.com
- [2a01:111:f403:2412::606])
+ id 1uecTx-0001Gm-NY
+ for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 16:38:17 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20619.outbound.protection.outlook.com
+ [2a01:111:f403:2418::619])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6ccd8ed2-67e3-11f0-b895-0df219b8e170;
- Wed, 23 Jul 2025 18:38:14 +0200 (CEST)
-Received: from CH2PR07CA0062.namprd07.prod.outlook.com (2603:10b6:610:5b::36)
- by LV5PR12MB9779.namprd12.prod.outlook.com (2603:10b6:408:301::14)
- with Microsoft SMTP Server (version=TLS1_2,
+ id 6e297883-67e3-11f0-b895-0df219b8e170;
+ Wed, 23 Jul 2025 18:38:16 +0200 (CEST)
+Received: from BYAPR06CA0019.namprd06.prod.outlook.com (2603:10b6:a03:d4::32)
+ by SA5PPFB9BA66B77.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8df) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.30; Wed, 23 Jul
- 2025 16:38:10 +0000
-Received: from CH1PEPF0000A34A.namprd04.prod.outlook.com
- (2603:10b6:610:5b:cafe::60) by CH2PR07CA0062.outlook.office365.com
- (2603:10b6:610:5b::36) with Microsoft SMTP Server (version=TLS1_3,
+ 2025 16:38:11 +0000
+Received: from SJ1PEPF00001CE9.namprd03.prod.outlook.com
+ (2603:10b6:a03:d4:cafe::71) by BYAPR06CA0019.outlook.office365.com
+ (2603:10b6:a03:d4::32) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.29 via Frontend Transport; Wed,
  23 Jul 2025 16:38:10 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH1PEPF0000A34A.mail.protection.outlook.com (10.167.244.5) with Microsoft
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SJ1PEPF00001CE9.mail.protection.outlook.com (10.167.242.25) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
  15.20.8964.20 via Frontend Transport; Wed, 23 Jul 2025 16:38:10 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 23 Jul
- 2025 11:38:03 -0500
+ 2025 11:38:09 -0500
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
  (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 23 Jul
- 2025 11:38:03 -0500
+ 2025 11:38:08 -0500
 Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 23 Jul 2025 11:38:02 -0500
+ Transport; Wed, 23 Jul 2025 11:38:08 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,35 +63,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ccd8ed2-67e3-11f0-b895-0df219b8e170
+X-Inumbo-ID: 6e297883-67e3-11f0-b895-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rfP1tYK0MX1VPMxn1SQXhhkKqLDzqXQ4pVhQxdXPKR5PiATHm1kM4I87XY7xo2MGq4vZ6W+nOfhEpQdOLqBD3xC49gpvi4gYnn8HStnxSoV4dMK6YwSKEfKE7zmLExtYcGADonipiRfU7gW8nZRrZ9b1UWolGCVfs4vY4mrmqPxHFY7rastS5Nzq91/MLNctYuLQZZEafc8N8+FxocG2aGqo9bcsRJzrJAtfmL76blkAyPHBlWN3rWavlnm4vmDsissVK3ar9CGde+jW0ri/aOCsMD7Fo+hTbgKj6RFtQ8pUkES0Bzz9V90TxCpOum7vGndxfXPhPIsSpvpUkk6R+Q==
+ b=xQRh/Ggi0ZbcQ/LI4OvuZ4KVOY9qXxMWrMUzousJTfiMmKdkW8wo5NxoJeYOnn/nM+MOlvbQlujJUk7WVtKGwB64isSFsWXNbd6yZEkLPiFnYLrCMKTRW80UazecOGHWWRKOwH+CGEblOjTYNIvUFMrY0OU47f8czxQcK8t6K/DJi9j6WFAE9kdqVuglvlsthksJKXFwNMao86VegbL4gtMWKkwmPpNhqgW3IBc7f/iaZLtNQwLJTw/j8pcP67mBSj60PoBgo2EsLyY4TsH0htN7bu5BLzkgYsHH7zM+dcf/1iMV7tqacUKGO0nU/kkvTyp3M0gLNVso0OlV4Ehkow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xe9gMIo3gkDd6ETT+xugRqmmoUz50b4pUIRZemnzS2M=;
- b=kK+llIiAC3VuD3kIDPqcczuB06twz0/CE1NqsJs60nP19D5o3jzc0HbDaCQ8ebzNrtoC2z10jTOHSz7N8T+iaxcz0617oj5Gbrbb+wHOakxAVc5qDoT1yawm5f991+CNgZ4i0oDXgugm50Ai7yWee3rRR+Exylcix0BpU8ScbL1FmhlK67BOOgC8n0v43l9rcSYQfze68Gr+atZa0F5zqZJv5HSl6IeVf2ulNUIO2xuMiEcxv8jRDsLcLiSUMcj32PA5a2022RwhWqxASiDkOX+mSVBg5kUh1D8hhz2xeaqJZ+F92OWEp9q0oGlVxTqCPVoiCmqpxOfgX5iweIj85w==
+ bh=RE1UVrfIVK3mwTDtCLjyTbQcbJMEk64J6J5dQb7S5G4=;
+ b=mozcb7Pt4H82UCbI8lo1guS+RDNX+yoh3d8f44bSqTI8uhsBtHG+4CQ3SE8oARqd8NgbzOVztmO/MMh6MAf7yGOgd4FWoyVdOX1uyBMf1Pu/cwNoh3FBRQwW8o1M+UVndYAkv5PdEu6eErrLjKC+08sB3AejPB30aInTy8EcpqS34qD81E9FhaZT3wBGfN5a1JGWka6BCudFaGyZ9+DSsH0NoWG40utlir8PuDB/97qCDSXwSiY/d7wiW2mVnxk+81DInwtL92RaZu88neNOw0SUy363ChXLsCVx6yAZdH5JJaq32GMVYNBqHo16/t2gV4VsQ1G01fnZ2HysyqECqw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xe9gMIo3gkDd6ETT+xugRqmmoUz50b4pUIRZemnzS2M=;
- b=JrES/bGtuZk/gJ6Cw0SExjlK0FzJZUdcFIUrlkcArEM0w3dEki3hDm9GKiAC3DVTkEIQlh8I+IGJHnmKOUjR9g1/PxBe2RLzOPKM7aa9y0sUjeLlDiSnvxnwbjbOfWBVh38GZwBdh1CBII2NZLxlII0ugdwcZXmjCIesDtXqqsk=
+ bh=RE1UVrfIVK3mwTDtCLjyTbQcbJMEk64J6J5dQb7S5G4=;
+ b=2SSGRduyWKbaqcQp08V6mOVaOGcmbwvaqirJIrPeKPbAb9bScFoD/nS9M3dT8tJpUPVn1MnaqRPgmBYbVg7x3059cZ8kYC3Ppm2b4d+7HgB+zuiaQvrhp7+J07eCJ8/iPBQbduH1XXCmcrN5hF26YJBjTf/bH+4AVNu5CxiTtws=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Stewart Hildebrand <stewart.hildebrand@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Stewart Hildebrand <stewart.hildebrand@amd.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2 2/3] vpci: allow BAR map/unmap without affecting memory decoding bit
-Date: Wed, 23 Jul 2025 12:37:42 -0400
-Message-ID: <20250723163744.13095-3-stewart.hildebrand@amd.com>
+Subject: [PATCH v2 3/3] vpci: allow 32-bit BAR writes with memory decoding enabled
+Date: Wed, 23 Jul 2025 12:37:43 -0400
+Message-ID: <20250723163744.13095-4-stewart.hildebrand@amd.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250723163744.13095-1-stewart.hildebrand@amd.com>
 References: <20250723163744.13095-1-stewart.hildebrand@amd.com>
@@ -100,160 +100,149 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000A34A:EE_|LV5PR12MB9779:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68ea07c1-2f8c-4d74-94ce-08ddca074f61
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE9:EE_|SA5PPFB9BA66B77:EE_
+X-MS-Office365-Filtering-Correlation-Id: 401569ca-07cc-4c9b-a9b8-08ddca074f65
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700013;
+	BCL:0;ARA:13230040|376014|36860700013|1800799024|82310400026;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?HHjnhPINSrHtZcNn0lmpaoi4yutsNw6Nn9n+DES6DfhFlyCyBTAtxELZ0ui9?=
- =?us-ascii?Q?DUVRYlb1P9O7aSwJlBo8Qh0qGRyl6a4G9KYNNHKCoxHIXT/EIqfQ0JVpXpTD?=
- =?us-ascii?Q?OYllD4pwmTt88I3q6NIbbOyQ9ixbRe0qTXU9cSPGu9mp9V7uGX0SvFnwGczz?=
- =?us-ascii?Q?dUcdApfz8kRkqYbJTPl1JVOFbUUBaYbMuj8K2UIL9a1/OB+ESYVHZ6fyG0Sv?=
- =?us-ascii?Q?7HtfZZZshojkHDDD/f28I/R3qc+6LeK5InRnkGQ2qmg259Sj02Qlw5BdXejv?=
- =?us-ascii?Q?M7WhQoP4jqKauPUN7dd2xuAq+yUTIDMBbeSHrkudl+WFEJFVKl8Nk6yNYKYM?=
- =?us-ascii?Q?pfOzt0hZA+rwBK9+SNMLBaGNQ7c0TJdSMVKbxI1z43l9KW1t1pob0iGLeT0N?=
- =?us-ascii?Q?JDa1B5XIHDnBynbl5C2+uSvUTmuhO9bRB3BN29t+7rG65JjzZeCUITwSGA6T?=
- =?us-ascii?Q?KbhIvQW14XigGWt4d1DRC5bQTcaAJvr1IJYx99qtewEPmNinkLmFU6aN1Jpx?=
- =?us-ascii?Q?bVlOFhVyB6CSyjXR1RirWv3RJ8bYehBTOjpGbnkmWUb91jqAALX2pIslfUik?=
- =?us-ascii?Q?/2vIlWSM/cxkx/ybabD6NXwI8sBUo4fGpsdFp2C3M13kLcszb/16TGhl7frE?=
- =?us-ascii?Q?iZFB78T7pUIyDaBIEIw6wEGLRbss+p/SGIm9fFYQNXtdPIGWboNHX0dp/LYO?=
- =?us-ascii?Q?oMJ7LyFRWjGOAstKzYus66TvVRkjatudjHJmd0elWsrWbYF+4SrW2Ie3sbdo?=
- =?us-ascii?Q?XTqhk2qPUc00qeDpHK0Xkzvo2DM91v2Jvjv4/EmDlgOoxNbZELKS9PqN9e2X?=
- =?us-ascii?Q?F5EAr+b95PKZyaTdO8GroZV2BY4xehc4O7KWJgNoBugGe4QECyI1RUDIRSFZ?=
- =?us-ascii?Q?4y0MPncMQOGC3aK6zkGkyyszHSccU0Nrc9uOG1Uw6IWW1YNZHYuJhS9PsRN1?=
- =?us-ascii?Q?q+SbXe6zjaKdTVfiTfPhDQLpT2DvDeBcnX9kfQxLUYLOnLV3xW51IznM85+o?=
- =?us-ascii?Q?LhtqykPxXeiJsixPhfaqlTx+4apUi8MA7fh78+Qsv+3bLQX6X8CIPCtKJhfq?=
- =?us-ascii?Q?vY2q3i+JNOc0z0+Rp4cJUWIo5yZgJYDD2RGL0xJxC9eYaG5KrOyQ/nGynSxb?=
- =?us-ascii?Q?8YOobUt4x/EQz362gvW4EjlpS6WKGMJHYHgDyC6GJZhbaur7v9EvZ3iVKclG?=
- =?us-ascii?Q?nZtwmVHT4DAjNWleePvR3x8vM0L+2Dzem8tC3J9FH9TPL9F9W96SXOU/jQ2D?=
- =?us-ascii?Q?CBfpH2vskAiror45MdHSMQT4rdUnog9oYEF4JiHNusm0q7rvMPI4y9R26V5m?=
- =?us-ascii?Q?rChmM53iinzMqNewa7f+tRRJUGPY80W5VkCmaoHPvk01Ue7jWXepzSN8FB9l?=
- =?us-ascii?Q?slDra/i+fAAjaI92/BqXOceO8S8vXzSpXuOiZXJtiT5mqR8YHsOb5F6ePnOq?=
- =?us-ascii?Q?fY7myzUq+3QHnSK9QbonKeD6eZ6Tw7gS/uTQS9uZ/gJR4tJQ3+nrRUITvllv?=
- =?us-ascii?Q?msc20dVRv/5qK9ewKg8J8Gwb3Sxr8eU5o9oF?=
+	=?us-ascii?Q?uwmrscUOWFdhjFMHKY4nJTtdvdF/i4qS7hnbomfaowfXLrKqzRd0Hvh57coH?=
+ =?us-ascii?Q?xJOJe617ckVKlqFDPty7ZEosmgigznKN9gsQn00xYNXlrDSXJHX7X0DuwuW/?=
+ =?us-ascii?Q?1edia7NJBScoyLuWIsbDbneczyvh5dBUnGgpw6POwjDrTCNUOgrWU4h6dEq8?=
+ =?us-ascii?Q?KS2hxmeL8j8rOhKRnpNGRK+LU32jLylgKL1YaV4jxXC90oCKbX6IChEDvD7y?=
+ =?us-ascii?Q?fIIvWfQuTMtSoF5WdnVMWhLSL0RHaIvZVTjR4vlH2UCoO/t2r21Rxnqm2WlY?=
+ =?us-ascii?Q?8OkX2Anyq5jdp7qPfzZAQKm2ouRuTC1V8nB/DF09WUnFgGjkJBy2aDg0AooT?=
+ =?us-ascii?Q?54sINxRpNZmZI9v9iI/LMGjxg2PoNxp5aDEOA4xBmeeM79WjDdzidID97Hp9?=
+ =?us-ascii?Q?S8GQLi5elDvU/RIi50tqcolLuxPmBVrHaBEr2XztXx0bevEh9zWevbYU086g?=
+ =?us-ascii?Q?n3Z5vgNpXG/6XIUvEGT5zcBrpkWN48YO6jFVnHNpNewhemPh6a9nBZ/bYr0h?=
+ =?us-ascii?Q?de90PRbllJlR4vBUC/SEXnrGJ5ZQbuNYasd3q6GTyQT8PzXSa8uUFrAHUupD?=
+ =?us-ascii?Q?oHFQUQg1Dv9/hHZJ7UPo238FobrDft/IMZa/EbpKnYvAG/LoDxSoLuXwXLjk?=
+ =?us-ascii?Q?ag0R0aYnwME4drt3ncYAJUCp7ToiZWItgq6m1iDTfeZgCKPIHrrxER7O+aw3?=
+ =?us-ascii?Q?uvRHKt342jl3xOuOTVTUWl1owkmKrWxsU8oDs6HddRHmukdB9C97GsM+iLrO?=
+ =?us-ascii?Q?F0+4XXjPmN09OHqHvAfTicc44c/EMbFKa2D+fsEf8+hQmjkyC1hN0PmHzFiz?=
+ =?us-ascii?Q?7q3ea6POkloUM3QVrPySC05tzltpU6VrsNrov5vGE2txfUdadDOoqnSSU0T4?=
+ =?us-ascii?Q?LjubQ9W5czl6pJ6V9tLRozKqSOCI5IfsFOPBnM7YwpO8d1/T6W5DWc1ExCiu?=
+ =?us-ascii?Q?47bHRE8dK/ly8s7J0+LLXAdnd5Rwb3PIb44whuISts8aBHQEUKj0zUKnoCF1?=
+ =?us-ascii?Q?vEi5EOkMcxY+PGDWT0k931FZnM+KIxsX37pZm19MJfF953Tq5FEOzVgnx+MR?=
+ =?us-ascii?Q?ft2GG4aMjzSaLUgTTNgBbKqDh6zS1ft6+OPa6U/lHwKxp9LVgER9H9w2NAWc?=
+ =?us-ascii?Q?K3DVT6v3+6ic0m1me9uZmkSOOQRGqmUvmpdOrdjS0us/FUI/CH/Pb12qCl1i?=
+ =?us-ascii?Q?rADfReB2GVNb0GRqoFJkLc+NTEl7l6JSNdTZ2l5+0gPhi/Cn+F3X4qr4hdLJ?=
+ =?us-ascii?Q?Qa3sriXOcjL5HNAehv7Qum4YMEhd1XqHREoxmisHU2w20OEwxtpG37prsVAK?=
+ =?us-ascii?Q?23g93wboI64nbKCzqfmWxZjDK6ghCHc9KeJOvPkH6Uqge5MMWupZLLQcQ1rb?=
+ =?us-ascii?Q?RhDxyqirCl5QQ3f0DP/FXTwA2UuBARGZjX7xWSf7XdC3KrkLv1Mx8TEje89H?=
+ =?us-ascii?Q?qCbUtq6RD0cAg7M7IVuqNxfGgNEEChbLqIvG66UATkEyYXeBd2EHiprkzROK?=
+ =?us-ascii?Q?wZHxnlJwyZq8vms3oED15s606KElNz7xQ750rFmW5ri4BYAHxSh8ohmTIA?=
+ =?us-ascii?Q?=3D=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2025 16:38:10.1301
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2025 16:38:10.0774
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68ea07c1-2f8c-4d74-94ce-08ddca074f61
+X-MS-Exchange-CrossTenant-Network-Message-Id: 401569ca-07cc-4c9b-a9b8-08ddca074f65
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000A34A.namprd04.prod.outlook.com
+	SJ1PEPF00001CE9.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9779
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFB9BA66B77
 
-Introduce enum vpci_map_op and allow invoking modify_bars() without
-changing the memory decoding bit.
+Currently, Xen vPCI refuses BAR writes if the BAR is mapped in p2m. If
+firmware initializes a 32-bit BAR to a bad address, Linux may try to
+write a new address to the 32-bit BAR without disabling memory decoding.
+Since Xen refuses such writes, the BAR (and thus PCI device) will be
+non-functional.
 
+Allow the hardware domain to issue 32-bit BAR writes with memory
+decoding enabled. This increases the compatibility of PVH dom0 with more
+hardware.
+
+Note that Linux aims at disabling memory decoding before writing 64-bit
+BARs. Continue to refuse 64-bit BAR writes in Xen while those BARs are
+mapped for now to avoid mapping half-updated BARs in p2m.
+
+Take the opportunity to remove a stray newline in bar_write().
+
+Resolves: https://gitlab.com/xen-project/xen/-/issues/197
 Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 ---
 v1->v2:
-* new patch
+* rework on top of queued BAR map/unmap operation machinery
+
+RFC->v1:
+* keep memory decoding enabled in hardware
+* allow write while memory decoding is enabled for 32-bit BARs only
+* rework BAR mapping machinery to support unmap-then-map operation
 ---
- xen/drivers/vpci/header.c | 22 +++++++++++++++-------
- xen/include/xen/vpci.h    |  4 ++++
- 2 files changed, 19 insertions(+), 7 deletions(-)
+ xen/drivers/vpci/header.c | 36 ++++++++++++++++++++++++------------
+ 1 file changed, 24 insertions(+), 12 deletions(-)
 
 diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-index df065a5f5faf..1c66796b625b 100644
+index 1c66796b625b..06c1dbfd5de0 100644
 --- a/xen/drivers/vpci/header.c
 +++ b/xen/drivers/vpci/header.c
-@@ -189,7 +189,7 @@ static bool vpci_process_map_task(struct vpci_map_task *task)
-         struct vpci_bar_map *bar = &task->bars[i];
-         struct map_data data = {
-             .d = task->domain,
--            .map = task->cmd & PCI_COMMAND_MEMORY,
-+            .map = task->map_op == VPCI_MAP,
-             .bar = bar,
-         };
-         int rc;
-@@ -298,7 +298,9 @@ static int __init apply_map(struct vpci_map_task *task)
- }
+@@ -404,9 +404,7 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd,
  
- static struct vpci_map_task *alloc_map_task(const struct pci_dev *pdev,
--                                            uint16_t cmd, bool rom_only)
-+                                            uint16_t cmd,
-+                                            enum vpci_map_op map_op,
-+                                            bool rom_only)
- {
-     struct vpci_map_task *task = xzalloc(struct vpci_map_task);
-     unsigned int i;
-@@ -333,6 +335,7 @@ static struct vpci_map_task *alloc_map_task(const struct pci_dev *pdev,
-     task->pdev = pdev;
-     task->domain = pdev->domain;
-     task->cmd = cmd;
-+    task->map_op = map_op;
-     task->rom_only = rom_only;
+         if ( !MAPPABLE_BAR(bar) ||
+              (rom_only ? bar->type != VPCI_BAR_ROM
+-                       : (bar->type == VPCI_BAR_ROM && !header->rom_enabled)) ||
+-             /* Skip BARs already in the requested state. */
+-             bar->enabled == !!(cmd & PCI_COMMAND_MEMORY) )
++                       : (bar->type == VPCI_BAR_ROM && !header->rom_enabled)) )
+             continue;
  
-     return task;
-@@ -359,13 +362,14 @@ static void defer_map(struct vpci_map_task *task)
-     raise_softirq(SCHEDULE_SOFTIRQ);
- }
+         if ( !pci_check_bar(pdev, _mfn(start), _mfn(end)) )
+@@ -650,19 +648,29 @@ static void cf_check bar_write(
+         val &= PCI_BASE_ADDRESS_MEM_MASK;
  
--static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
-+static int modify_bars(const struct pci_dev *pdev, uint16_t cmd,
-+                       enum vpci_map_op map_op, bool rom_only)
- {
-     struct vpci_header *header = &pdev->vpci->header;
-     struct pci_dev *tmp;
-     const struct domain *d;
-     const struct vpci_msix *msix = pdev->vpci->msix;
--    struct vpci_map_task *task = alloc_map_task(pdev, cmd, rom_only);
-+    struct vpci_map_task *task = alloc_map_task(pdev, cmd, map_op, rom_only);
-     unsigned int i, j;
-     int rc;
- 
-@@ -614,7 +618,8 @@ static void cf_check cmd_write(
-          * memory decoding bit has not been changed, so leave everything as-is,
-          * hoping the guest will realize and try again.
-          */
--        modify_bars(pdev, cmd, false);
-+        modify_bars(pdev, cmd, cmd & PCI_COMMAND_MEMORY ? VPCI_MAP : VPCI_UNMAP,
-+                    false);
-     else
-         pci_conf_write16(pdev->sbdf, reg, cmd);
- }
-@@ -782,7 +787,8 @@ static void cf_check rom_write(
-      * Pass PCI_COMMAND_MEMORY or 0 to signal a map/unmap request, note that
-      * this fabricated command is never going to be written to the register.
+     /*
+-     * Xen only cares whether the BAR is mapped into the p2m, so allow BAR
+-     * writes as long as the BAR is not mapped into the p2m.
++     * Allow 64-bit BAR writes only when the BAR is not mapped in p2m. Always
++     * allow 32-bit BAR writes.
       */
--    else if ( modify_bars(pdev, new_enabled ? PCI_COMMAND_MEMORY : 0, true) )
-+    else if ( modify_bars(pdev, new_enabled ? PCI_COMMAND_MEMORY : 0,
-+                          new_enabled ? VPCI_MAP : VPCI_UNMAP, true) )
-         /*
-          * No memory has been added or removed from the p2m (because the actual
-          * p2m changes are deferred in defer_map) and the ROM enable bit has
-@@ -1067,7 +1073,9 @@ static int cf_check init_header(struct pci_dev *pdev)
-             goto fail;
+     if ( bar->enabled )
+     {
+-        /* If the value written is the current one avoid printing a warning. */
+-        if ( val != (uint32_t)(bar->addr >> (hi ? 32 : 0)) )
+-            gprintk(XENLOG_WARNING,
+-                    "%pp: ignored BAR %zu write while mapped\n",
+-                    &pdev->sbdf, bar - pdev->vpci->header.bars + hi);
+-        return;
+-    }
++        if ( bar->type == VPCI_BAR_MEM32 )
++        {
++            if ( val == bar->addr )
++                return;
+ 
++            modify_bars(pdev, pci_conf_read16(pdev->sbdf, PCI_COMMAND),
++                        VPCI_UNMAP, false);
++        }
++        else
++        {
++            /* If the value written is the same avoid printing a warning. */
++            if ( val != (uint32_t)(bar->addr >> (hi ? 32 : 0)) )
++                gprintk(XENLOG_WARNING,
++                        "%pp: ignored BAR %zu write while mapped\n",
++                        &pdev->sbdf, bar - pdev->vpci->header.bars + hi);
++            return;
++        }
++    }
+ 
+     /*
+      * Update the cached address, so that when memory decoding is enabled
+@@ -682,6 +690,10 @@ static void cf_check bar_write(
      }
  
--    return (cmd & PCI_COMMAND_MEMORY) ? modify_bars(pdev, cmd, false) : 0;
-+    return (cmd & PCI_COMMAND_MEMORY)
-+           ? modify_bars(pdev, cmd, VPCI_MAP, false)
-+           : 0;
+     pci_conf_write32(pdev->sbdf, reg, val);
++
++    if ( bar->enabled )
++        modify_bars(pdev, pci_conf_read16(pdev->sbdf, PCI_COMMAND), VPCI_MAP,
++                    false);
+ }
  
-  fail:
-     pci_conf_write16(pdev->sbdf, PCI_COMMAND, cmd);
-diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-index c2e75076691f..fb6cad62d418 100644
---- a/xen/include/xen/vpci.h
-+++ b/xen/include/xen/vpci.h
-@@ -205,6 +205,10 @@ struct vpci_map_task {
-         struct rangeset *mem;
-     } bars[PCI_HEADER_NORMAL_NR_BARS + 1];
-     uint16_t cmd;
-+    enum vpci_map_op {
-+        VPCI_MAP,
-+        VPCI_UNMAP,
-+    } map_op;
-     bool rom_only : 1;
- };
- 
+ static void cf_check guest_mem_bar_write(const struct pci_dev *pdev,
 -- 
 2.50.1
 
