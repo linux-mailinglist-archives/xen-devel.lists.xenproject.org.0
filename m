@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5625B0ED07
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 10:20:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1053517.1422297 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B086AB0ED4C
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 10:33:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1053536.1422311 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueUhh-000732-Hf; Wed, 23 Jul 2025 08:19:57 +0000
+	id 1ueUuK-0001zD-Os; Wed, 23 Jul 2025 08:33:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1053517.1422297; Wed, 23 Jul 2025 08:19:57 +0000
+Received: by outflank-mailman (output) from mailman id 1053536.1422311; Wed, 23 Jul 2025 08:33:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueUhh-0006zx-En; Wed, 23 Jul 2025 08:19:57 +0000
-Received: by outflank-mailman (input) for mailman id 1053517;
- Wed, 23 Jul 2025 08:19:56 +0000
+	id 1ueUuK-0001xc-Lt; Wed, 23 Jul 2025 08:33:00 +0000
+Received: by outflank-mailman (input) for mailman id 1053536;
+ Wed, 23 Jul 2025 08:32:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hT0Q=2E=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1ueUhg-0006zr-QO
- for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 08:19:56 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ <SRS0=jmaN=2E=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ueUuJ-0001wB-QB
+ for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 08:32:59 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ce2e3990-679d-11f0-b895-0df219b8e170;
- Wed, 23 Jul 2025 10:19:51 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-451d7b50815so48321285e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 23 Jul 2025 01:19:51 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-45869199423sm15278305e9.12.2025.07.23.01.19.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Jul 2025 01:19:50 -0700 (PDT)
+ id a3170ccb-679f-11f0-b895-0df219b8e170;
+ Wed, 23 Jul 2025 10:32:58 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3a575a988f9so3835850f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Jul 2025 01:32:58 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3b61ca25643sm15238338f8f.16.2025.07.23.01.32.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 23 Jul 2025 01:32:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,278 +45,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce2e3990-679d-11f0-b895-0df219b8e170
+X-Inumbo-ID: a3170ccb-679f-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1753258791; x=1753863591; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=FIlcAzh6F4X/2ya9DZTIHROErEO0nw/dhmKdmJ4gSQU=;
-        b=Tnvt6IEJglHCdJxk+jTd34HydBkzS+/HmeTfK1IqN6XaDVYudF+q8TEn4cRdOXBAIS
-         YMEnS+HltA68Gor031eymemdw1jEpejN/8jDl25+yhlE4aAM9cf6h6qmN4VLEkx1jtTE
-         LGWhuhf8hbHZE5eE2D9Nii7/tX76EnbXMPh8c=
+        d=citrix.com; s=google; t=1753259577; x=1753864377; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=PWO0N7EguTS1I4po4l8LFx912xdUF7ZrKbWnHFEcYS8=;
+        b=uap+uAVn8XTdu9kN4wblGpY7A6g9eL/SeYSq8E5hJokvx/lUAIHEyv7lP3f99FheZk
+         vQk6TugQzzH/C0AZUUVYphTSrSHr/TLAqZV410HMh6lwFy6n/ypObUUZe9HXrobUrIu6
+         nmav6r7w96rNYlM5jaHoOHcqV/AxSR02lQpIc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753258791; x=1753863591;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FIlcAzh6F4X/2ya9DZTIHROErEO0nw/dhmKdmJ4gSQU=;
-        b=BF2NXgFtqKwXpLdEjJIae1SL3WN8yuR9+E71F1BgRWTWheCzKD4hHG8E4KVfaQxF5y
-         TsYfwU3ViY529hsO63h2/Kj5rwR1Ix5KMfysFdNOfjdATL+n3ltxBKk6Hh+veT16kKPq
-         Ftt4meyTK4vHIhUZbjNlA69zgQHg/35z/nwgBSLwiyRaCpi2R6+urxYtq3vIgUgqHdj/
-         cTMBYGhqzaJs6BeAMn+lfoAGrGWJcrBPyTyJcfxPK8kbJn32zD5JThBZ53N62wdn9oLc
-         WGHJSP4FVKHssFafk7FJkHb8PfvVBe9WpYgNNEbcxFbdMd3VTLjZnVD69F3zYpJHaa9a
-         5qcg==
-X-Gm-Message-State: AOJu0YwnjnhcMeQdnI+HN8lWd8UHwxknwRZnc979fEAAKP7tHQrCigsS
-	9xoYq+YR0ADblow4yKIRVE5eohn19lTlMAvw/UCZRdhzFXqeFuejlcq4pcc1G7UkE0g=
-X-Gm-Gg: ASbGncv/j9jr7k5x/APC8EYxuCeJvicUfl0xZCzNxp8B3gPn01XDdIIclkxODCEFpJH
-	YJF/F6nKBqrQC9p5HYm4auXf5KAt0I5jG/1M0xpEsYLdcB1DqU4UGZK9rJ6TtZvGKd828FwzLQB
-	A8s4s+syQCP0uhm8eVQ+gmF92PTkvBZhhfCwAioN7oNhpvvGZsFWqbQzUwcp9H0MXibvS7sUzOU
-	a5J0fM3O30Io1x512zAZNtE7E62INP1++8wJHTHiWh+wfZV3J6mIIGzNBIk4eqd8cvZGF/aBtp4
-	mXlYZGUDhzWZsIeB3SzLOCKBgsNjIwefWrmWY8T4oytXg6pgs/XHcYijEOt26y7fT+QnTKeiKXu
-	bZffztOdjh2VfYOh9HR1qjJqCBCaO7Mi7TdYfNBGW7QYJTlGWd216zT+7G+DL67omLw==
-X-Google-Smtp-Source: AGHT+IHQu237kD6+yr1jDFy84yn0+S5KSsAIA1avLAHsXtP4BnwawwXkI+MGdqusQizRrbwGdXn0Ww==
-X-Received: by 2002:a05:600c:3483:b0:456:1e5a:8879 with SMTP id 5b1f17b1804b1-45868c9454fmr16624655e9.9.1753258790834;
-        Wed, 23 Jul 2025 01:19:50 -0700 (PDT)
-Date: Wed, 23 Jul 2025 10:19:49 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"Huang, Ray" <Ray.Huang@amd.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	"Orzel, Michal" <Michal.Orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v7 2/8] vpci: Refactor REGISTER_VPCI_INIT
-Message-ID: <aICbJXzv9yeFX1sb@macbook.local>
-References: <20250704070803.314366-1-Jiqian.Chen@amd.com>
- <20250704070803.314366-3-Jiqian.Chen@amd.com>
- <aH5Qk0xRHh5NhErA@macbook.local>
- <BL1PR12MB58498137FD456F49C5CFF446E75FA@BL1PR12MB5849.namprd12.prod.outlook.com>
+        d=1e100.net; s=20230601; t=1753259577; x=1753864377;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PWO0N7EguTS1I4po4l8LFx912xdUF7ZrKbWnHFEcYS8=;
+        b=TqCoerxG6XB+bo/noMEPFV+bHtuCQkqfCjokHNEewdnsQBSyeRpN+hrO362IxpS4ih
+         aXXIXBRg+lGQAtx4LoESTI+V3pWnvtvrknavWT+u9zQnAunbpFbO+ZGYUKUkb6frsZLU
+         4uFcvACQrkV9SW37iPnUWLc8/IR4b/Yd5DjMK79YNmpId71udQBx/S5jUwy7WJ/1rcB2
+         WxDE1jPcZtJ9vorbpKFVGjkkv8wud8wAXsmxZwpd63QqbR5/bvpWkUO2Ai+IJX8p9KRS
+         DfqazUWY0WSMmikfBX50JlxQfdNuvT43Fe2IN97mWExtWgi18+v62MeOCUrrdKGJ+lcs
+         T7JQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV7NIhnjreJVgZqGW6biXEOjf4x61UczVNFtZSMTk3IiGYvW41zf2bMVeFNZsEha+TRoBL37zwG7+E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy8nDWaozkEOM4pebZOVZlb3ZTalElwF3a+/ecm4HD0rEt6bJfY
+	86kDKhiMzLkP5icXDwQAJWo1PKCbg6heGlusoMoBTsDjUVfpo1yeUWB63yekxXURDfc=
+X-Gm-Gg: ASbGnctJPzl3sT0FuSinOUGH25X5zgubiSp7N6XIM9JmzbCOYNWdy4ugqREWOXjBRqa
+	8fcBSoniqyzOys3Ojs+C38BCZSmYu5HDQgDdf/v1MoG2ueTXwo34E8InvABvyJPrWcpctCRK9FW
+	8XhQHX1Tu9Fqg/WAobqTqZnjQ0q6Dj95U6+PnaamqPpI1+xveHAxmXRZ28S4+RJdJr4mfTjRSEu
+	GqME9jNzG/ZedspzGid9Eh+FeS1wj3cjGUi2TAUtlcQ9GSxHQie6bmnDpxKR35ntHSjU2TM3VsH
+	z9INDsurtZ2TE03IDIgpFDR4CuyjZ33FmTbuS5nSWcRnxGAAS9VHuoSp4ug+ld+MskrkWwDDQkd
+	84caj6NKNOY3SHapGNrGrzp/1cOAfzRe0lQB3ToqyOQsiJHwXmiCmRbF4hPTQBYzDJitS
+X-Google-Smtp-Source: AGHT+IGx5UjvNu6VZPtjKuxn/4Go7fTgN25tDWjJa5/dlhJlx5HxiRckHz9UTfu43Yf+KDUDP3JNkw==
+X-Received: by 2002:a5d:588d:0:b0:3a5:2cb5:6429 with SMTP id ffacd0b85a97d-3b768f2305bmr1565678f8f.43.1753259577534;
+        Wed, 23 Jul 2025 01:32:57 -0700 (PDT)
+Message-ID: <74514e69-8cd8-4377-b420-ad0ff7e9e023@citrix.com>
+Date: Wed, 23 Jul 2025 09:32:56 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <BL1PR12MB58498137FD456F49C5CFF446E75FA@BL1PR12MB5849.namprd12.prod.outlook.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN][PATCH 4/8] xen/arm: split is_32bit/64bit_domain() between
+ arm64/arm32
+To: Grygorii Strashko <grygorii_strashko@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
+ Roger Pau Monne <roger.pau@citrix.com>
+References: <20250723075835.3993182-1-grygorii_strashko@epam.com>
+ <20250723075835.3993182-5-grygorii_strashko@epam.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250723075835.3993182-5-grygorii_strashko@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jul 23, 2025 at 07:20:27AM +0000, Chen, Jiqian wrote:
-> On 2025/7/21 22:37, Roger Pau Monné wrote:
-> > On Fri, Jul 04, 2025 at 03:07:57PM +0800, Jiqian Chen wrote:
-> >> Refactor REGISTER_VPCI_INIT to contain more capability specific
-> >> information, this will benefit further follow-on changes to hide
-> >> capability when initialization fails.
-> >>
-> >> What's more, change the definition of init_header() since it is
-> >> not a capability and it is needed for all devices' PCI config space.
-> >>
-> >> After refactor, the "priority" of initializing capabilities isn't
-> >> needed anymore, so delete its related codes.
-> >>
-> >> Note:
-> >> Call vpci_make_msix_hole() in the end of init_msix() since the change
-> >> of sequence of init_header() and init_msix(). And delete the call of
-> >> vpci_make_msix_hole() in modify_decoding() since it is not needed.
-> >>
-> >> The cleanup hook is also added in this change, even if it's still
-> >> unused. Further changes will make use of it.
-> >>
-> >> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> >> ---
-> >> There is a byte alignment problem in the array __start_vpci_array, which can be solved after
-> >> "[PATCH] x86: don't have gcc over-align data" is merged.
-> >> ---
-> >> cc: "Roger Pau Monné" <roger.pau@citrix.com>
-> >> cc: Andrew Cooper <andrew.cooper3@citrix.com>
-> >> cc: Anthony PERARD <anthony.perard@vates.tech>
-> >> cc: Michal Orzel <michal.orzel@amd.com>
-> >> cc: Jan Beulich <jbeulich@suse.com>
-> >> cc: Julien Grall <julien@xen.org>
-> >> cc: Stefano Stabellini <sstabellini@kernel.org>
-> >> ---
-> >> v6->v7 changes:
-> >> * Change the pointer parameter of cleanup hook of vpci_capability_t to be const.
-> >>   If change parameter of init hook to be const will affect init_msix, and it assigns pdev
-> >>   to struct vpci_msix, so keep no const to expanding the impact.
-> >> * Delete the vpci_make_msix_hole() call in modify_decoding().
-> >> * Change __start_vpci_array from vpci_capability_t* array to vpci_capability_t array.
-> >> * Change the name "finit##_t" to be "name##_entry" and add a "name" parameter to macro
-> >>   REGISTER_VPCI_CAPABILITY.
-> >>
-> >> v5->v6 changes:
-> >> * Rename REGISTER_PCI_CAPABILITY to REGISTER_VPCI_CAPABILITY.
-> >> * Move vpci_capability_t entry from ".data.vpci" to ".data.rel.ro.vpci" and
-> >>   move the instances of VPCI_ARRAY in the linker scripts before *(.data.rel.ro).
-> >> * Change _start/end_vpci_array[] to be const pointer array.
-> >>
-> >> v4->v5 changes:
-> >> * Rename REGISTER_VPCI_CAP to REGISTER_PCI_CAPABILITY, rename REGISTER_VPCI_LEGACY_CAP to
-> >>   REGISTER_VPCI_CAP, rename REGISTER_VPCI_EXTENDED_CAP to REGISTER_VPCI_EXTCAP.
-> >> * Change cleanup hook of vpci_capability_t from void to int.
-> >>
-> >> v3->v4 changes
-> >> * Delete the useless trailing dot of section ".data.vpci".
-> >> * Add description about priority since this patch removes the initializing priority of
-> >>   capabilities and priority is not needed anymore.
-> >> * Change the hook name from fini to cleanup.
-> >> * Change the name x and y to be finit and fclean.
-> >> * Remove the unnecessary check "!capability->init"
-> >>
-> >> v2->v3 changes:
-> >> * This is separated from patch "vpci: Hide capability when it fails to initialize" of v2.
-> >> * Delete __maybe_unused attribute of "out" in function vpci_assign_devic().
-> >> * Rename REGISTER_VPCI_EXTEND_CAP to REGISTER_VPCI_EXTENDED_CAP.
-> >>
-> >> v1->v2 changes:
-> >> * Removed the "priorities" of initializing capabilities since it isn't used anymore.
-> >> * Added new function vpci_capability_mask() and vpci_ext_capability_mask() to remove
-> >>   failed capability from list.
-> >> * Called vpci_make_msix_hole() in the end of init_msix().
-> >>
-> >> Best regards,
-> >> Jiqian Chen.
-> >> ---
-> >>  xen/arch/arm/xen.lds.S    |  3 +--
-> >>  xen/arch/ppc/xen.lds.S    |  3 +--
-> >>  xen/arch/riscv/xen.lds.S  |  3 +--
-> >>  xen/arch/x86/xen.lds.S    |  2 +-
-> >>  xen/drivers/vpci/header.c | 16 +-------------
-> >>  xen/drivers/vpci/msi.c    |  2 +-
-> >>  xen/drivers/vpci/msix.c   | 11 +++++++---
-> >>  xen/drivers/vpci/rebar.c  |  2 +-
-> >>  xen/drivers/vpci/vpci.c   | 44 ++++++++++++++++++++++++++++++---------
-> >>  xen/include/xen/vpci.h    | 32 ++++++++++++++++++----------
-> >>  xen/include/xen/xen.lds.h |  2 +-
-> >>  11 files changed, 71 insertions(+), 49 deletions(-)
-> >>
-> >> diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S
-> >> index 5bfbe1e92c1e..9f30c3a13ed1 100644
-> >> --- a/xen/arch/arm/xen.lds.S
-> >> +++ b/xen/arch/arm/xen.lds.S
-> >> @@ -57,6 +57,7 @@ SECTIONS
-> >>  
-> >>         *(.rodata)
-> >>         *(.rodata.*)
-> >> +       VPCI_ARRAY
-> >>         *(.data.rel.ro)
-> >>         *(.data.rel.ro.*)
-> >>  
-> >> @@ -64,8 +65,6 @@ SECTIONS
-> >>         __proc_info_start = .;
-> >>         *(.proc.info)
-> >>         __proc_info_end = .;
-> >> -
-> >> -       VPCI_ARRAY
-> >>    } :text
-> >>  
-> >>  #if defined(BUILD_ID)
-> >> diff --git a/xen/arch/ppc/xen.lds.S b/xen/arch/ppc/xen.lds.S
-> >> index 1366e2819eed..1de0b77fc6b9 100644
-> >> --- a/xen/arch/ppc/xen.lds.S
-> >> +++ b/xen/arch/ppc/xen.lds.S
-> >> @@ -51,11 +51,10 @@ SECTIONS
-> >>  
-> >>          *(.rodata)
-> >>          *(.rodata.*)
-> >> +        VPCI_ARRAY
-> >>          *(.data.rel.ro)
-> >>          *(.data.rel.ro.*)
-> >>  
-> >> -        VPCI_ARRAY
-> >> -
-> >>          . = ALIGN(POINTER_ALIGN);
-> >>      } :text
-> >>  
-> >> diff --git a/xen/arch/riscv/xen.lds.S b/xen/arch/riscv/xen.lds.S
-> >> index 8c3c06de01f6..edcadff90bfe 100644
-> >> --- a/xen/arch/riscv/xen.lds.S
-> >> +++ b/xen/arch/riscv/xen.lds.S
-> >> @@ -46,11 +46,10 @@ SECTIONS
-> >>  
-> >>          *(.rodata)
-> >>          *(.rodata.*)
-> >> +        VPCI_ARRAY
-> >>          *(.data.rel.ro)
-> >>          *(.data.rel.ro.*)
-> >>  
-> >> -        VPCI_ARRAY
-> >> -
-> >>          . = ALIGN(POINTER_ALIGN);
-> >>      } :text
-> >>  
-> >> diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
-> >> index 636c7768aa3c..8e9cac75b09e 100644
-> >> --- a/xen/arch/x86/xen.lds.S
-> >> +++ b/xen/arch/x86/xen.lds.S
-> >> @@ -135,6 +135,7 @@ SECTIONS
-> >>  
-> >>         *(.rodata)
-> >>         *(.rodata.*)
-> >> +       VPCI_ARRAY
-> >>         *(.data.rel.ro)
-> >>         *(.data.rel.ro.*)
-> >>  
-> >> @@ -148,7 +149,6 @@ SECTIONS
-> >>         *(.note.gnu.build-id)
-> >>         __note_gnu_build_id_end = .;
-> >>  #endif
-> >> -       VPCI_ARRAY
-> >>    } PHDR(text)
-> >>  
-> >>  #if defined(CONFIG_PVH_GUEST) && !defined(EFI)
-> >> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-> >> index 8ee8052cd4a3..069253b5f721 100644
-> >> --- a/xen/drivers/vpci/header.c
-> >> +++ b/xen/drivers/vpci/header.c
-> >> @@ -122,19 +122,6 @@ static void modify_decoding(const struct pci_dev *pdev, uint16_t cmd,
-> >>      bool map = cmd & PCI_COMMAND_MEMORY;
-> >>      unsigned int i;
-> >>  
-> >> -    /*
-> >> -     * Make sure there are no mappings in the MSIX MMIO areas, so that accesses
-> >> -     * can be trapped (and emulated) by Xen when the memory decoding bit is
-> >> -     * enabled.
-> >> -     *
-> >> -     * FIXME: punching holes after the p2m has been set up might be racy for
-> >> -     * DomU usage, needs to be revisited.
-> >> -     */
-> >> -#ifdef CONFIG_HAS_PCI_MSI
-> >> -    if ( map && !rom_only && vpci_make_msix_hole(pdev) )
-> >> -        return;
-> >> -#endif
-> > 
-> > I think you need to keep this.  What about BARs being repositioned by
-> > dom0 over reserved region(s), and thus needing the MSI-X hole to be
-> > craved out there?  It's not a common use-case, but we should support
-> > dom0 moving BARs around.
-> > 
-> > I think you need both the added chunk in init_msix(), plus the code
-> > above to not regress the current functionality.
-> OK, will do.
-> As Jan required me to add some comment to describe the chunk in init_msix() if not to delete here.
-> Do you think below is appropriate?
-> 
->     /*
->      * To make sure there's a hole for the MSIX table/PBA in the p2m since
->      * init_msix is called after init_header. Here and the calling in another
->      * place are not redundant, another is to support dom0 moving BARs.
->      */
->     spin_lock(&pdev->vpci->lock);
->     rc = vpci_make_msix_hole(pdev);
->     spin_unlock(&pdev->vpci->lock);
+On 23/07/2025 8:58 am, Grygorii Strashko wrote:
+> diff --git a/xen/arch/arm/include/asm/arm32/domain.h b/xen/arch/arm/include/asm/arm32/domain.h
+> index 4d1251e9c128..c0a7fc35f38b 100644
+> --- a/xen/arch/arm/include/asm/arm32/domain.h
+> +++ b/xen/arch/arm/include/asm/arm32/domain.h
+> @@ -3,6 +3,11 @@
+>  #ifndef ARM_ARM32_DOMAIN_H
+>  #define ARM_ARM32_DOMAIN_H
+>  
+> +/* Arm32 always runs guests in AArch32 mode */
+> +
+> +#define is_32bit_domain(d) (1)
+> +#define is_64bit_domain(d) (0)
 
-I would use:
+I know you're just moving code, but this was buggy before.
 
-/*
- * vPCI header initialization will have mapped the whole BAR into the
- * p2m, as MSI-X capability was not yet initialized.  Crave a hole for
- * the MSI-X table here, so that Xen can trap accesses.
- */
+These need to be ((void)(d), 1/0) so d gets evaluated consistently.
 
-I think referencing "another is to support dom0..." is not helpful,
-and likely to get out of sync if we ever change that code.  If
-anything, the comment in modify_decoding() needs updating, but not via
-a cross reference from a different context.
-
-Thanks, Roger.
+~Andrew
 
