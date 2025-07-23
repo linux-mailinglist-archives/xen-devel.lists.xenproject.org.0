@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D360B0F4DC
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 16:05:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1054173.1422912 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60128B0F4FE
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 16:13:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1054210.1422926 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uea5s-0002Xh-3A; Wed, 23 Jul 2025 14:05:16 +0000
+	id 1ueaDc-0004WP-VA; Wed, 23 Jul 2025 14:13:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1054173.1422912; Wed, 23 Jul 2025 14:05:16 +0000
+Received: by outflank-mailman (output) from mailman id 1054210.1422926; Wed, 23 Jul 2025 14:13:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uea5r-0002VT-WA; Wed, 23 Jul 2025 14:05:16 +0000
-Received: by outflank-mailman (input) for mailman id 1054173;
- Wed, 23 Jul 2025 14:05:15 +0000
+	id 1ueaDc-0004Uy-S4; Wed, 23 Jul 2025 14:13:16 +0000
+Received: by outflank-mailman (input) for mailman id 1054210;
+ Wed, 23 Jul 2025 14:13:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CE//=2E=epam.com=Oleksii_Moisieiev@srs-se1.protection.inumbo.net>)
- id 1uea5q-0002VN-VB
- for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 14:05:15 +0000
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c201::3])
+ <SRS0=jmaN=2E=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ueaDb-0004Us-J6
+ for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 14:13:15 +0000
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [2a00:1450:4864:20::342])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0d930695-67ce-11f0-a31d-13f23c93f187;
- Wed, 23 Jul 2025 16:05:13 +0200 (CEST)
-Received: from PAVPR03MB8946.eurprd03.prod.outlook.com (2603:10a6:102:32e::21)
- by AS1PR03MB8173.eurprd03.prod.outlook.com (2603:10a6:20b:4c7::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.21; Wed, 23 Jul
- 2025 14:05:10 +0000
-Received: from PAVPR03MB8946.eurprd03.prod.outlook.com
- ([fe80::f12d:7394:bbe3:dfc]) by PAVPR03MB8946.eurprd03.prod.outlook.com
- ([fe80::f12d:7394:bbe3:dfc%6]) with mapi id 15.20.8943.025; Wed, 23 Jul 2025
- 14:05:10 +0000
+ id 2ae0df1f-67cf-11f0-a31d-13f23c93f187;
+ Wed, 23 Jul 2025 16:13:12 +0200 (CEST)
+Received: by mail-wm1-x342.google.com with SMTP id
+ 5b1f17b1804b1-45555e3317aso39241155e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Jul 2025 07:13:12 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45869183cb2sm24397415e9.1.2025.07.23.07.13.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 23 Jul 2025 07:13:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,319 +45,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d930695-67ce-11f0-a31d-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YIlrDd4XSJP41Nkw2/KY/LiCQM8VDp8wHEVXeFb5WuP14eKdPqk4hV1k/Y8YYbOsPPQ6ZSGU0SIgd5ldmay3+MPoR6TOnT6Qk4tjVFfeKtbgUqUWVvp+QEBurvLuVhLfSAEXoD1zYhqYMI3r/R0y6inK8+WkeUKrQNApbbmwct1fJj/ZPAa+sdpuNbvmfeWvRjGAF46FLUEnuGO63osq3/+l4j1vGT3taZOoXg3rkCs/fe1XCsYqHq55oy4S0br9a+jpQc//0PEdS7E3jAGA4qTRqtnyKqXljCfGb1rJnHxdvU+zkC3eX5AlxQzcW3wO79ehH7CM9Vfk7xE5cQe7cQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f25BCZqkQ9KD/wLSPZn0jCltSm3NlTccOVs+VBiyTvE=;
- b=tsrMZ2mxd6d8GrDevB5Q3kW0df7k19fdR/O9AQpeaU5z1IC+8cQt1cJu0ZztYDKm6W226BBGAtOGdJIbIEpI6ffOtv8+sewqVj9Mw1IpzV/VDbi7aBbTeu5t1RgwWzo5+YnyqgAUNVt/3OSnDm3Tr+al/WTNf0n45mFGx5QeBa8WrE4gnMNGSxvmkgDkHL+dQZ7qJS32guyK7F/UwWt3mcXtXnn1tWVxlDb2iLRHwWbSSb6VSSKeJzkJkBL+RI66u3MkwambQ1LpLoOd9INMbw6OQTPcilo388MVhvemClsgH4twNlNAnmEPQWaYjmJ5za0dZ5hvYon6hAdxbTkgUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f25BCZqkQ9KD/wLSPZn0jCltSm3NlTccOVs+VBiyTvE=;
- b=QqmWjUb489yhe4LUV7sc9y8aRta1dajNVOjqo8owLhDpxE4kAjwJLgeJVTrEEuqbmCCzpAVvfJ4qgIlLulJxCi5Zm1vAf7VC8knFT0CA8ZZpvB6rWjL04hi3L/9QzDsYJCrJFUzaClUHqXh7zSCeaT4NMpYDYduPHiQvAV57dEueKCJ+07QF6vcBsSeQYBgsmNR39nLYk/4Uy6UyRTxj+MnXvQ2pICmck0rMNZO+7wTRZLgBrsg8+4g20QnFUJNTQ5qWsb6D/napC0AWBwfSP9Srui9b0wo+ckkyLeptFgzSAjaIWqZkLzocvwyngUKKIhA6JbFBtjJ6LKb+GKpSyQ==
-From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-To: "amd-xen-safety@groups.io" <amd-xen-safety@groups.io>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Bertrand Marquis <bertrand.marquis@arm.com>, Jan
- Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Michal Orzel
-	<michal.orzel@amd.com>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Oleksandr
- Tyshchenko <Oleksandr_Tyshchenko@epam.com>, Oleksii Moisieiev
-	<Oleksii_Moisieiev@epam.com>
-Subject: [PATCH] xen/arm, xen/common: Add Kconfig option to control Dom0 boot
-Thread-Topic: [PATCH] xen/arm, xen/common: Add Kconfig option to control Dom0
- boot
-Thread-Index: AQHb+9rNCD0pdC1VhE+OyU7cYZL/lw==
-Date: Wed, 23 Jul 2025 14:05:10 +0000
-Message-ID:
- <9c1169345d916cb542bf3f28ddf854f6308a402a.1753279365.git.oleksii_moisieiev@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAVPR03MB8946:EE_|AS1PR03MB8173:EE_
-x-ms-office365-filtering-correlation-id: 86b47b7d-d03e-41c3-4eb0-08ddc9f1efb4
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|1800799024|376014|366016|38070700018;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?UP3j2TLAAQwQmc3Y6jXCp7DeyAPT4T+xOigi/I+hkmnM1vsTTFC+VQExi4?=
- =?iso-8859-1?Q?tyvB1AXUUlPEEgKH65aHVQe7BY/FR4JcLuTws/jb274INGIGjr9Ldj11MY?=
- =?iso-8859-1?Q?hBsIZrHo0WGnqXCvrgGcK0Hl0bs6X0q1ZjaaJ99x7Mw10aCwF+vXrxSSxm?=
- =?iso-8859-1?Q?6QpCHkEeDOsRfK3EYLsHEjG2NVG04uDjBlV9Jh/tag3JUL+XMxhISzvsAH?=
- =?iso-8859-1?Q?aYZDH1OkE7bg1onnPxrGqkY61NhyeAEeSIHPnp8+3kj9brVIAQH/mQ2ELN?=
- =?iso-8859-1?Q?K/OcB8rc4u/8EHrS9dS3jWIqhrNP0YsIsk5W2Qelh9P3ICaUjlDXI90+n+?=
- =?iso-8859-1?Q?EqDJvl/uEOxc78mjwaB9b83wyEuqeIS+ga3RE1MoA/3umggV/hPy4fZ94a?=
- =?iso-8859-1?Q?UQiWJnsGSCv8QKD+mdKZxXzL1MkGNSnO+cG+hOUYAhlv5ky80GBkz6K1zZ?=
- =?iso-8859-1?Q?y8tPCufH/TeuOnk+Aphk++0FHrqsD/ccjk2IXmKz556qZFYWEI+jWPIu8h?=
- =?iso-8859-1?Q?Tz5qL4vuHppvaGzQKSuW1hyuYR0I8NTR2SEsymGVQoHYAOjkrSus9+CLkL?=
- =?iso-8859-1?Q?b3Y0LR13UNVfRmoKc5fZbAcb9LIXVhZzD4qBcxYbfaWwZkRg5qsV/iITj8?=
- =?iso-8859-1?Q?xQirHy1LBc0mtHM0be/+vUIni+tl2YZQn4QQePCpngVy9sctCSwqTJzIlC?=
- =?iso-8859-1?Q?sB5Ih4fb2XsAMXA7H24FGV5PCYlGsQC435WPIcKLbRWcv6e6vA9Kj3s1kj?=
- =?iso-8859-1?Q?tKKIzLzWXfbIpNEF0i44pQjl7tvWK6WSk6jHgHLK/2QR45hdi0DX2ddgdc?=
- =?iso-8859-1?Q?EG0RBFuRRIShdz3LzQ3DchER80pL+OGwP4jkPpP0PKiUCmarVBJihIxx5o?=
- =?iso-8859-1?Q?I5d6R8dyEuagnO1CZLV39eqNL2VVJK0L7Jga1pA+gUJ13HJ1XoxQRiWji0?=
- =?iso-8859-1?Q?bMBXFw40r6/17zdHbZ4FXqeEvMiPz1LQAIwjD+8DoLiLy6k5EdwdfMx+XP?=
- =?iso-8859-1?Q?5KMoeuIUT+JYNbp+rGxUwos/CQJp3LBo0/Ir+zGfFApdKLH8hRDkmpWcB5?=
- =?iso-8859-1?Q?/V5UElgFTz3CXdPFr/40JmjQzR/dwgH+WSZhf62te6duuzj6Ej0g6P0YUZ?=
- =?iso-8859-1?Q?LlGlsDUiemtH9H8RzwBCVNlItPTttLQm09+QKzHceXWVWBI7BbjGBOSYw9?=
- =?iso-8859-1?Q?Y6aTj5Mg/lQNF+bhjeboW20sCzD8zvOvoLZN1/vbveO6L/WKXeiDYuabNJ?=
- =?iso-8859-1?Q?4IKpJi1newG1ODdycFiErShpvJ+ZTzBav8/eRlIcUXmnnoa5dcJcXoYVF9?=
- =?iso-8859-1?Q?wYqrwqiZAGFL3SxgnmfzmI/mVEZv0u7Cr6tsuHZ+dhdhJhXG7hGMbZTK8E?=
- =?iso-8859-1?Q?cqw0h5PgSZgXEx4dOyFZ1aQUQA51L3hzj09GldOqbtOkUrF9CALM0TV2bM?=
- =?iso-8859-1?Q?2OlvfmUKT+HTpXhDIgaSoeKGZY93R+PgBanPaHDc+EFVLkoFzOsZGPo/n9?=
- =?iso-8859-1?Q?JQQ5I8jHagonYFqIc5dYi1CWrBFukfqxxtt7N/UwrXfQ=3D=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB8946.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?Dofx72Bh+3PCiTevFpd+/un3pqzpEVzEwpa4LdlENycK324kXS3WtxrH96?=
- =?iso-8859-1?Q?o9fYB/gAj1/LJBYUA1XsiJmIzmMPhaeGpPWsMUcYEr7yoHhPGDocxGxW1k?=
- =?iso-8859-1?Q?bEPSW3YqaAQ73oMuDCZBHTSiT1sMUqjcDO3liL+e/dcl2+Ef8hBDuyRw/I?=
- =?iso-8859-1?Q?Rnap1ox99tCRT5J2W7AHE06c7xLCRP9flsOeBVDeieNR8ItMedwExegRo8?=
- =?iso-8859-1?Q?xAprRldN8PfTjhoNxe0lUtRfSmdIzxtaIWEdQdBxX95vJtA2o3Q6UplfIl?=
- =?iso-8859-1?Q?BGTrWnABUj3NnGiqXddDjDt5Ze5SN9ebsfduJlCkztYvwoOdZ3tK1hxXd/?=
- =?iso-8859-1?Q?ZD/rhInD0rt0rGlG4leGgUhIWuf8tCQmU+Rdcm0JVNeeY+0y90ClbGoqRq?=
- =?iso-8859-1?Q?PKBcJ8Lqrc2MkhJqW5dWrs84KcCujYUKI1QRpKStpHT+gt3YF2n7ziArzG?=
- =?iso-8859-1?Q?fRjEyAwPmxqGLIqKWYl6R0Oy0hgHXA/veqD5oDHH6u3KY9NxNExSWpXIkW?=
- =?iso-8859-1?Q?UsgSZfi5xh3qaQU4uKWXvbAuqqNfzYlU/mQ3ZmksWtRlN3U59nOXkKF4AJ?=
- =?iso-8859-1?Q?nbBiviZvKky2iCYw3VIs6/TV99juIsqTz1flmd3HZ0HUAUJJAQOwr2TURH?=
- =?iso-8859-1?Q?RIfJYe7ffpZ4p8+Pg4NzhxwTOtY7kKst4BxKgdaX8ytuoOQDnE14U3TCqf?=
- =?iso-8859-1?Q?6U3btsmeDF1JtNSHtVBeXXp5owmCNUMHpvh0Ur+u9EClkyit8OtQmHYrDl?=
- =?iso-8859-1?Q?WmxudT9opbQqPkKnp89D23hKXF6uFAFsNAbOIbOT2ulcbf/cP9a0rxeGQ0?=
- =?iso-8859-1?Q?blGsTGhRKrDm7Ax5EW4ilrCX96Sly1dX3bAbqel03rFo0BjMt5YxNGgDNV?=
- =?iso-8859-1?Q?fR8iVDY2XAB2EekDczKAM5vr6k6vaXuScfTLJyLjETldNI3iXpASzF4P8u?=
- =?iso-8859-1?Q?QX0eYigMkZuLnZhmNSBHgKG0N2rGD+LKqm9x6dc07WqeeNYv3ihKUfKf6D?=
- =?iso-8859-1?Q?N/kL+/25vp9w8VrH+s4SJAsDod79cYiLyU+s6iD8/GqpRFKVnfN9/GG5u+?=
- =?iso-8859-1?Q?REVIobbwy+tz8uPDdnprqHhvhNFhEIb5se0rEcwkRtCWEzgF5uk7lNrC5/?=
- =?iso-8859-1?Q?WJ7cjv0lwd7ETmrthQvcM4xdNzM8s+G2GmiQBb2ZGgbTCuJgBSUDGz19Ic?=
- =?iso-8859-1?Q?pKPbmy7woysNJLpxG0HHYI7txaEtnohJdzZNix6XpOHFM5pSv/0XoaSYTG?=
- =?iso-8859-1?Q?BW07x5HNoAVcnO/D5R3FnLynJJSj6W9f8/gbU+sWt0d49O3zs81Fwfb84J?=
- =?iso-8859-1?Q?oNmSTUz30xiT3WX3Kcf9B+c4SycrOdc7zDyT3fXV3s9wenRi7mThHdyENe?=
- =?iso-8859-1?Q?gHd+aUO/RlMGVSjs+JZVNGcKL2JLHfg/4Ok8JL+KzcncCfuva1Pn9TrG9P?=
- =?iso-8859-1?Q?EWC+o9hzdfOEsPt3KYv5ZURhhequumnqL4vkygrZK8uSmep40tzxbMsPwc?=
- =?iso-8859-1?Q?xjPv5Cah19DGEVnlRs8+BSHWBB1yNwK5zSvMHn8K1fRmYOKplCUcfHz4w5?=
- =?iso-8859-1?Q?FdpVISW7N8+h1ea9yQAZe7o3OqMIVgF0U28VZE2cS9bIGSscM2ZnZgitBs?=
- =?iso-8859-1?Q?C5pKCuZrySrXx+xXm2u/Qa2SiqXAkY53pP2hLon29j9AMCEGjqfraDMw?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 2ae0df1f-67cf-11f0-a31d-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1753279992; x=1753884792; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=0dyGbOhTx567kWL2TEIgs7Hc+6K2dcVRKZsWyo7MYC0=;
+        b=tbfw0tUwMTOhIa0aoNdhOhHU5T3scuwTFma1cAhqtDrVWylOgEFLhNrBIBdI+Zi82/
+         71zExnYikifiSFVDAmM2SXq8XpWkIgq/NK8BUTOYDNicw/4E5lXUBLgq+nE22wuWDFec
+         5hKgmSb/gE1zYPaw5u5GZKrJYEopxBPWK/coU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753279992; x=1753884792;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0dyGbOhTx567kWL2TEIgs7Hc+6K2dcVRKZsWyo7MYC0=;
+        b=HeRDvvX1xmJz4VA4HLZYZ0jkmPib7ojqfsjsCmRjsBAsHN9lJYBaMuoXJKIarZ3h9L
+         zsFC3nAyuv+ypLeV11TJddumVnn8uuzw7cT+nGftVHl+k9EeuEFhyqp145xNoraro9MZ
+         mtBlGf3k6CuOLIN6WyBSnPUNvw4xxmYj1DszYsI9Tz6cDXqZP8tVb6lRGL9ObZ3Kd+nh
+         XM0AlbSBpj6sgjQn4a2TV9ayr+91T9RrvPO02gR+k9BVGV0pFl4RG0HqQ/i5v2BynkFK
+         LmTKvtpqaQ+BnyM26QfhzXdaoQlJBA6+9Rl0FNNrz1HVbDpCrX99eBrfEzDZy3TH4WCR
+         /+eQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW9sTkWZY98hIKJ9mKzMNU3WuxGN2SHch7i50RT7XQoDzIphdR5/yaMEvPzqrppYaiID9nFOU2XObQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw82Y3tQ6YS7H+bIWLzdBPB6yKmiEDejIck+9bTJKZ9HBqOJ7Tr
+	h0sN3IIteWINq7zgfVolNfR7wNnYvUHUgtz5gcPseO8YQ8WWACmUN86G13zS5ca0dRk=
+X-Gm-Gg: ASbGnctCgFWdNE0OPQnIgFGBTtv2E9DREmepkCUN0K54RHzIFFK7bZybe9QnF9WqMaQ
+	J5SB/9DFhcW5bIh2X9MIP0q/DILYiTCFYvGCaHE8bh0b6ujjqMbLmt/51p8kfZ6BvhlfhlUjeeh
+	kvArzwvtcl+LFZgn2PPwsRQuR9mKpAC2gk8wxVbRXB4yRtEvhVhlDOnNP7fKXvH9KUkEyOdIDNL
+	C7wiwqQyXANEfyhYcrrt2tFzaV0s4qJ110HJvchTf1lroVI9EiLNFHjaWv79LGqNDpCUqQnVzKF
+	Z9tRb3huL/0MdxMtpQY4qHQMjqcUiAKiIVMMCKykW/7MtY8rBpp3AgMoYH2CRGC+gHv01ztDkiE
+	VgXZtMk64JVWBeBDO7lCSM9/+Hvdb6kWuuW1Vek0Jx32Rmg4Ak5/B8Re4b1CQNqlTebLY
+X-Google-Smtp-Source: AGHT+IGGFkMvis9leManIK78o9pgWF6xLk07lXrCXcKJOYUBLdz/ptSNpQEdU/QeS1QmIR7MlCUwqw==
+X-Received: by 2002:a05:600c:4f07:b0:456:26ac:517a with SMTP id 5b1f17b1804b1-45868d2dfa6mr23949735e9.24.1753279991724;
+        Wed, 23 Jul 2025 07:13:11 -0700 (PDT)
+Message-ID: <fb0cc1f6-bbc0-4413-998a-6fa55192f73a@citrix.com>
+Date: Wed, 23 Jul 2025 15:13:09 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB8946.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 86b47b7d-d03e-41c3-4eb0-08ddc9f1efb4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jul 2025 14:05:10.1840
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: oznU9kls5/UM0xWIbg9SrRXEGiz5hIUVxcenV2Gm3pFgNFe1qtT4kZToDmbPws9l/iehGPlV7r2EICqvOvSPm19KbhOFeuek2dJfzf/T3+Y=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR03MB8173
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/x86: fix xen.efi boot crash from some bootloaders
+To: Yann Sionneau <yann.sionneau@vates.tech>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20250723135620.1327914-1-yann.sionneau@vates.tech>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250723135620.1327914-1-yann.sionneau@vates.tech>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This commit introduces a new Kconfig option, `CONFIG_DOM0_BOOT`, to
-allow for building Xen without support for booting a regular domain (Dom0).
-This functionality is primarily intended for the ARM architecture.
+On 23/07/2025 2:56 pm, Yann Sionneau wrote:
+> xen.efi PE does not boot when loaded from shim or some patched
+> downstream grub2.
+>
+> What happens is the bootloader would honour the MEM_DISCARDABLE
+> flag of the .reloc section meaning it would not load its content
+> into memory.
+>
+> But Xen is parsing the .reloc section content twice at boot:
+> * https://elixir.bootlin.com/xen/v4.20.1/source/xen/common/efi/boot.c#L1362
+> * https://elixir.bootlin.com/xen/v4.20.1/source/xen/arch/x86/efi/efi-boot.h#L237
+>
+> Therefore it would crash with the following message:
+> "Unsupported relocation type" as reported there:
+>
+> * https://github.com/QubesOS/qubes-issues/issues/8206#issuecomment-2619048838
+> * https://lore.kernel.org/xen-devel/7e039262-1f54-46e1-8f70-ac3f03607d5a@suse.com/T/#me122b9e6c27cd98db917da2c9f67e74a2c6ad7a5
+>
+> This commit adds a small C host tool named keeprelocs
+> that is called after xen.efi is produced by the build system
+> in order to remove this bit from its .reloc section header.
+>
+> Signed-off-by: Yann Sionneau <yann.sionneau@vates.tech>
+> ---
+>  xen/Makefile           |   5 +-
+>  xen/arch/x86/Makefile  |   1 +
+>  xen/tools/Makefile     |   3 ++
+>  xen/tools/keeprelocs.c | 119 +++++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 127 insertions(+), 1 deletion(-)
+>  create mode 100644 xen/tools/keeprelocs.c
 
-A new Kconfig symbol, `HAS_DOM0`, has been added and is selected by
-default for ARM architecture. This symbol signifies that an
-architecture has the capability to support a Dom0.
+I'm sick and tired of the hoops we have to jump through for broken
+tooling.  This is now rewriting the PE+ metadata because apparently the
+linker can't do it correctly.
 
-The `DOM0_BOOT` option depends on `HAS_DOM0` and defaults to 'y'. For
-expert users, this option can be disabled (`CONFIG_EXPERT=3Dy` and no
-`CONFIG_DOM0_BOOT` in the config), which will compile out the Dom0
-creation code on ARM. This is useful for embedded or dom0less-only
-scenarios to reduce binary size and complexity.
+Either fix the linker (or the way we drive it/etc), or we're doing away
+with PE+ emulation entirely and writing the MZ/PE headers by hand like
+literally every other kernel does.
 
-The ARM boot path has been updated to panic if it detects a non-dom0less
-configuration while `CONFIG_DOM0_BOOT` is disabled, preventing an invalid
-boot.
+This is a level of technical debt I consider unreasonable to take.
 
-Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+Also, note that your analysis points at a common code file, yet this is
+an x86-specific bodge.
 
----
-
-
-CONFIG_DOM0_BOOT Kconfig option was introduced to make the Dom0
-regular (legacy) domain an optional feature that can be compiled out
-from the Xen hypervisor build.
-
-The primary motivation for this change is to enhance modularity and
-produce a cleaner, more specialized hypervisor binary when a control
-domain is not needed. In many embedded or dedicated systems, Xen is
-used in a "dom0less" configuration where guests are pre-configured and
-launched directly by the hypervisor. In these scenarios, the entire
-subsystem for booting and managing Dom0 is unnecessary.
-
-This approach aligns with software quality standards like MISRA C,
-which advocate for the removal of unreachable or unnecessary code to
-improve safety and maintainability. Specifically, this change helps adhere =
-to:
-
-MISRA C:2012, Rule 2.2: "There shall be no dead code"
-
-In a build configured for a dom0less environment, the code responsible
-for creating Dom0 would be considered "dead code" as it would never be
-executed. By using the preprocessor to remove it before compilation,
-we ensure that the final executable is free from this unreachable
-code. This simplifies static analysis, reduces the attack surface,
-and makes the codebase easier to verify, which is critical for
-systems requiring high levels of safety and security.
-
----
- xen/arch/arm/Kconfig        |  1 +
- xen/arch/arm/domain_build.c |  8 ++++++++
- xen/arch/arm/setup.c        | 14 ++++++++++----
- xen/common/Kconfig          | 11 +++++++++++
- 4 files changed, 30 insertions(+), 4 deletions(-)
-
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index bf6d1cf88e..29399183e8 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -19,6 +19,7 @@ config ARM
- 	select HAS_ALTERNATIVE if HAS_VMAP
- 	select HAS_DEVICE_TREE
- 	select HAS_DOM0LESS
-+	select HAS_DOM0
- 	select HAS_GRANT_CACHE_FLUSH if GRANT_TABLE
- 	select HAS_STACK_PROTECTOR
- 	select HAS_UBSAN
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index ed668bd61c..9b8993df80 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -40,8 +40,10 @@
- #include <asm/grant_table.h>
- #include <xen/serial.h>
-=20
-+#ifdef CONFIG_DOM0_BOOT
- static unsigned int __initdata opt_dom0_max_vcpus;
- integer_param("dom0_max_vcpus", opt_dom0_max_vcpus);
-+#endif
-=20
- /*
-  * If true, the extended regions support is enabled for dom0 and
-@@ -102,6 +104,7 @@ int __init parse_arch_dom0_param(const char *s, const c=
-har *e)
-  */
- #define DOM0_FDT_EXTRA_SIZE (128 + sizeof(struct fdt_reserve_entry))
-=20
-+#ifdef CONFIG_DOM0_BOOT
- unsigned int __init dom0_max_vcpus(void)
- {
-     if ( opt_dom0_max_vcpus =3D=3D 0 )
-@@ -114,6 +117,7 @@ unsigned int __init dom0_max_vcpus(void)
-=20
-     return opt_dom0_max_vcpus;
- }
-+#endif
-=20
- /*
-  * Insert the given pages into a memory bank, banks are ordered by address=
-.
-@@ -1953,6 +1957,7 @@ int __init construct_domain(struct domain *d, struct =
-kernel_info *kinfo)
-     return 0;
- }
-=20
-+#ifdef CONFIG_DOM0_BOOT
- static int __init construct_dom0(struct domain *d)
- {
-     struct kernel_info kinfo =3D KERNEL_INFO_INIT;
-@@ -1984,6 +1989,7 @@ static int __init construct_dom0(struct domain *d)
-=20
-     return construct_hwdom(&kinfo, NULL);
- }
-+#endif
-=20
- int __init construct_hwdom(struct kernel_info *kinfo,
-                            const struct dt_device_node *node)
-@@ -2037,6 +2043,7 @@ int __init construct_hwdom(struct kernel_info *kinfo,
-     return construct_domain(d, kinfo);
- }
-=20
-+#ifdef CONFIG_DOM0_BOOT
- void __init create_dom0(void)
- {
-     struct domain *dom0;
-@@ -2089,6 +2096,7 @@ void __init create_dom0(void)
-=20
-     set_xs_domain(dom0);
- }
-+#endif /* CONFIG_DOM0_BOOT */
-=20
- /*
-  * Local variables:
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 12b76a0a98..c1463d647a 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -480,12 +480,18 @@ void asmlinkage __init start_xen(unsigned long fdt_pa=
-ddr)
-     enable_errata_workarounds();
-     enable_cpu_features();
-=20
--    /* Create initial domain 0. */
--    if ( !is_dom0less_mode() )
-+    if ( IS_ENABLED(CONFIG_DOM0_BOOT) && !is_dom0less_mode() )
-+    {
-+        /* Create initial domain 0. */
-         create_dom0();
-+    }
-     else
--        printk(XENLOG_INFO "Xen dom0less mode detected\n");
--
-+    {
-+        if ( is_dom0less_mode())
-+            printk(XENLOG_INFO "Xen dom0less mode detected\n");
-+        else
-+            panic("Xen dom0less mode not detected, aborting boot\n");
-+    }
-     if ( acpi_disabled )
-     {
-         create_domUs();
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 64865112a1..75039138b0 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -21,6 +21,14 @@ config DOM0LESS_BOOT
- 	  Xen boot without the need of a control domain (Dom0), which could be
- 	  present anyway.
-=20
-+config DOM0_BOOT
-+	bool "Dom0 boot support" if EXPERT
-+	depends on HAS_DOM0 && HAS_DEVICE_TREE && DOMAIN_BUILD_HELPERS
-+	default y
-+	help
-+	  Dom0 boot support enables Xen to boot to the control domain (Dom0) and
-+	  manage domU guests using the Xen toolstack with provided configurations=
-.
-+
- config DOMAIN_BUILD_HELPERS
- 	bool
-=20
-@@ -92,6 +100,9 @@ config HAS_DEVICE_TREE
- config HAS_DOM0LESS
- 	bool
-=20
-+config HAS_DOM0
-+	bool
-+
- config HAS_DIT # Data Independent Timing
- 	bool
-=20
---=20
-2.34.1
+~Andrew
 
