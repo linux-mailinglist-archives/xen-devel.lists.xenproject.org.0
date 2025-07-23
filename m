@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1960B0F217
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 14:21:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1053919.1422698 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38E18B0F264
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 14:36:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1053926.1422709 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueYSr-0005UX-5y; Wed, 23 Jul 2025 12:20:53 +0000
+	id 1ueYhQ-0007zy-Bt; Wed, 23 Jul 2025 12:35:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1053919.1422698; Wed, 23 Jul 2025 12:20:53 +0000
+Received: by outflank-mailman (output) from mailman id 1053926.1422709; Wed, 23 Jul 2025 12:35:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueYSr-0005Sz-39; Wed, 23 Jul 2025 12:20:53 +0000
-Received: by outflank-mailman (input) for mailman id 1053919;
- Wed, 23 Jul 2025 12:20:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=KFh9=2E=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ueYSp-0005St-4c
- for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 12:20:51 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 781d50c9-67bf-11f0-a31d-13f23c93f187;
- Wed, 23 Jul 2025 14:20:50 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3a522224582so3277029f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 23 Jul 2025 05:20:50 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31e519ce390sm1592459a91.4.2025.07.23.05.20.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Jul 2025 05:20:49 -0700 (PDT)
+	id 1ueYhQ-0007xa-7l; Wed, 23 Jul 2025 12:35:56 +0000
+Received: by outflank-mailman (input) for mailman id 1053926;
+ Wed, 23 Jul 2025 12:35:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=7JV9=2E=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1ueYhO-0007xC-CF
+ for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 12:35:54 +0000
+Received: from fout-b4-smtp.messagingengine.com
+ (fout-b4-smtp.messagingengine.com [202.12.124.147])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 908fee8e-67c1-11f0-b895-0df219b8e170;
+ Wed, 23 Jul 2025 14:35:50 +0200 (CEST)
+Received: from phl-compute-06.internal (phl-compute-06.phl.internal
+ [10.202.2.46])
+ by mailfout.stl.internal (Postfix) with ESMTP id 4DE5C1D00CFA;
+ Wed, 23 Jul 2025 08:35:49 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Wed, 23 Jul 2025 08:35:49 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 23 Jul 2025 08:35:48 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,189 +45,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 781d50c9-67bf-11f0-a31d-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753273249; x=1753878049; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=CNXEeGmhVHqaqiKvR38NuAL13BAB2MsF+k5sBNedfJI=;
-        b=RTPHrvI7YTh7c0+Co4jh3k+4IHXl+twL4X8STdgtvRrE/HoUPmKZSYXK2ThW13Kqtg
-         x5WterZmIpQotnVhQj1U/+gRc4z1F8QGJJhl2DA5h5XyQhZmItbwI3+30EA1E0wLJ8U5
-         iiVYxyAMUNgqhMFrCgNVAWq6WnVtQ3Hc8jq/OH0iezD3miFcSpuhELQh4k2tmmxZzHwa
-         sEnXzzOwXRnwq85bwkWN3/B6uyX0UBxvfj+YONX0v1I8Q/4vQZrkGcFcDjsYONgHEroM
-         DrdaDi1osewEVjFS1AnBJIVQWZKLUEYn+D0JYTalXe+pxBTTbFccdZ6S1NT/SeYG6M1s
-         nNUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753273249; x=1753878049;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=CNXEeGmhVHqaqiKvR38NuAL13BAB2MsF+k5sBNedfJI=;
-        b=MSkvu3ddNMSPp83resQDRxfIRfrpbYGdDIstdWsFEOu31eCnlMV+cvzNMhKRfLKb55
-         DDrPU6vQ++MPDAHjJeDDmQBJHHKrKbuOhbg3e4llHtARbouF9y2waSSTldUtkVP0qi9G
-         tI4w4Wd+kihrLbWe/OpTw/sg3jGBcr4C2rPwfwd5psYJ7UfkdMoT/TauoufnWZ5p+U44
-         SVU4gS4b77jqRxtlp2V0wDaSykFDYr7+kP6xjxMJ9dQ0q/s/W+KsSpnGp7XSNUl9EBsL
-         5TLM3/tohsOZl27TF3fOFpJ3lnhYkWyBN161xgOx3nclj106BEEpIGgC9oTbJt9/iDcC
-         Jhnw==
-X-Gm-Message-State: AOJu0YzSqcFTGB8yJPos8DxReiJQmhhko3PCUKPgnk5PBhxQhNrwSq1F
-	K8ABFCo7IaH9gCYu+ZcuI06HaymXE4f0S6njsXz8pmngUEImteZV0M1hjBqwEp1cqa8wnYGUN5H
-	xqB8=
-X-Gm-Gg: ASbGnctAbFGBw4xePI0Zku/+oH1wrFxa+OehRmAc6AZDuifginaKn04T9z6j/Pvi9CQ
-	TQtiTrZEPhc917+OenwR0QS0wGvJfVlP3Tovi6ycmacFOSjct6jIMTljyx7M1628c848/P2ETcI
-	NLN7+8pe4HVYhkXaYlCS3c/laIkR8IFgU67VfERpoWssj2iW4huvWGUG9cd288E14GYRy26Bkjj
-	rnoxX2bMBgMd+9gLip9vTv3An3CVWbx0otLBjatRu/0zjgZJD5WBBQHf9JT5QfC/q16ZnspwKB9
-	ywVSEQp4DGb9vbSfP7vZZ/LshdsMlPDo4AsxQKRNM64TyKLQdUcFOnoa90ZfgTdoHcl+kumM0Dd
-	DEhAQBi+pNSjIJIYauGsKLEYYLQPVsKTIQ5DW89CeS/GcBSCXLvd0ycmsC/MYHt5ZB+SpZslJjB
-	jjRUKB6zc=
-X-Google-Smtp-Source: AGHT+IFn3fkk5IXzp0SmTpL2o7GiOE1yeoKF/lHDmoDXSxjvJ/+6Vwlnbzsm8QWEHApyfDC9dXoXQA==
-X-Received: by 2002:a05:6000:2209:b0:3a5:2182:bd17 with SMTP id ffacd0b85a97d-3b768caa43emr2394377f8f.19.1753273249512;
-        Wed, 23 Jul 2025 05:20:49 -0700 (PDT)
-Message-ID: <1e0a8808-4594-4574-819b-1a75d104294d@suse.com>
-Date: Wed, 23 Jul 2025 14:20:42 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+X-Inumbo-ID: 908fee8e-67c1-11f0-b895-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm2; t=1753274149; x=1753360549; bh=GY
+	PVx9ACXh8fSPw/Pufk/D0HIRhgwMGmOnm81/iYiYo=; b=JSfwYpNllURvDKJaIT
+	h/6AuHgsB9Q6TtOs7DKIggjLvsVzLIzWhgB4+Eigigb/CNmAHkUtU1R6JPWFjcQA
+	V0mAsfm7BPCzXSfggEZza+FnQ+Lhb1GNHUwhg51SdPin8c3ad4LRy8eDLFJ3IDT/
+	auLskNuMdyBywu5OQ0VX8IP4UPTWpGnsei40YHaBJVqVNPUuoLVJkjwBU7QQSPgp
+	SPjo320ENZDEwMKSUaNj6oubKh90d8xE27joytE3ajjzuV62jBgX1izMr7RhKTUJ
+	b9c2f8ps8jjDoa8XKiHpoLohYQm8IV97JawzNjEwKmovn4cADawYv9tcGs0V3zCs
+	5qMg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1753274149; x=
+	1753360549; bh=GYPVx9ACXh8fSPw/Pufk/D0HIRhgwMGmOnm81/iYiYo=; b=M
+	3KMyDnUN+YMihAmD38Pfs7xJ/sjHgh1QtB1WOV4ymBYcCJnf3REAFNLlR1uv35+T
+	iRS9C4t/FaFdcoGNPDR4WRQymInTeggn/7tk280YPV3/HrAMSjsXndp/EqaCYKFr
+	gobYVt7XvP578hQSz7QYcZYrA8z+H+egwwk8sPlAgz7VaiBcWBB8IPs92wx3qjjf
+	ew9A5FLlczdN43OaftIIwDGEer7IB+CxAUMze/AgKKpFueeR/j4CWNNSa/trTZ3n
+	WTr0pfiosUIQsguWJEpJ3QysvrGipUxnVXxA3l0+M3QJPQ2/ZPUxVPru2t0wnLgO
+	60XOsXKGALtosqg83C61A==
+X-ME-Sender: <xms:JNeAaIjXa28ja2cmHLBAq-hxvRUApO_SVN5zBh3ZRVd_AVRmuBsTeQ>
+    <xme:JNeAaET9bCoKbsLzPpdaMfL2zQRywEkTOst5oiO2fJb0KOnMdIIB_s1HWcn64Q3l7
+    OcT1oHNgvfBkw>
+X-ME-Received: <xmr:JNeAaJhxbVfz65iQIXllEydiJ5P_IPxMQ0TOCvOHf6bo4a27Ll5GcFK3fWMGYin2gRijGMfnFz22uVYuQbW-Iqkv5GipP_1apNc>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgdejjeejlecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
+    hrpeffhffvvefukfggtggusehgtderredttdejnecuhfhrohhmpeforghrvghkucforghr
+    tgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhishhisg
+    hlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpedvhfduiefhueeh
+    ieehieelgffggeegfeetudelteelffduueehjeeuhfeftedtheenucffohhmrghinhepkh
+    gvrhhnvghlrdhorhhgpdhgihhthhhusgdrtghomhdpihhnthgvlhdrtghomhenucevlhhu
+    shhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkh
+    esihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeef
+    pdhmohguvgepshhmthhpohhuthdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsth
+    hsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopegrnhgurhgvfidrtghoohhp
+    vghrfeestghithhrihigrdgtohhmpdhrtghpthhtohepshhsthgrsggvlhhlihhniheskh
+    gvrhhnvghlrdhorhhg
+X-ME-Proxy: <xmx:JNeAaE5pKYBfw1GqbrfhNZt2xUAfzx2JOtog-DUtISuRXXZMedpvEA>
+    <xmx:JNeAaGBrt4iz6ZglmQoMZDHAtd6UBLP0U4Ej1KtYzay9Ko4E4NLoTw>
+    <xmx:JNeAaLYB5Koa5mpQ6hgKF11TBAZts4CW7NDnbcUeSw4yV7tH9MoU0A>
+    <xmx:JNeAaBb_lGfKXj9x-Zs_2oA3w9ExWpIsFhnEmbcFeimDEBl-xKtBLA>
+    <xmx:JdeAaOIRLknVV4A-bryDG4irm2lnD3tdrCWFheqQ6AvbIzCbxVbqh6mp>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 23 Jul 2025 14:35:46 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/MCE: adjust S3 resume handling
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: PCI passthrough of XHCI on Framework AMD crashes the host
+Message-ID: <aIDXIqA4L7wcJH2T@mail-itl>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="KcDnGiRsNgHLYSUW"
+Content-Disposition: inline
 
-The BSP resume path calls mcheck_init() with the address of
-boot_cpu_data, thus rendering comparisons against that pointer
-ineffective. The additional "bsp" boolean needs to be used (and
-propagated as necessary) instead.
 
-While touching intel_init_thermal(), constify its 1st parameter, which
-in turn requires touching intel_thermal_supported() as well.
+--KcDnGiRsNgHLYSUW
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Jul 2025 14:35:46 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: PCI passthrough of XHCI on Framework AMD crashes the host
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-While I'm pretty sure about the change for the first of the printk()s in
-intel_init_thermal(), the 2nd one there is less clear. IOW there could
-be an argument for keeping the conditional as is there.
+Hi,
 
---- a/xen/arch/x86/cpu/mcheck/mce_amd.c
-+++ b/xen/arch/x86/cpu/mcheck/mce_amd.c
-@@ -318,7 +318,7 @@ amd_mcheck_init(const struct cpuinfo_x86
-         mcequirk_amd_apply(quirkflag);
- 
-     if ( cpu_has(c, X86_FEATURE_AMD_PPIN) &&
--         (c == &boot_cpu_data || ppin_msr) )
-+         (bsp || ppin_msr) )
-     {
-         uint64_t val;
- 
-@@ -333,7 +333,7 @@ amd_mcheck_init(const struct cpuinfo_x86
- 
-         if ( !(val & PPIN_ENABLE) )
-             ppin_msr = 0;
--        else if ( c == &boot_cpu_data )
-+        else if ( bsp )
-             ppin_msr = MSR_AMD_PPIN;
-     }
- 
---- a/xen/arch/x86/cpu/mcheck/mce_intel.c
-+++ b/xen/arch/x86/cpu/mcheck/mce_intel.c
-@@ -85,7 +85,7 @@ static void cf_check intel_thermal_inter
- }
- 
- /* Thermal monitoring depends on APIC, ACPI and clock modulation */
--static bool intel_thermal_supported(struct cpuinfo_x86 *c)
-+static bool intel_thermal_supported(const struct cpuinfo_x86 *c)
- {
-     if ( !cpu_has_apic )
-         return false;
-@@ -108,7 +108,7 @@ static void __init mcheck_intel_therm_in
- }
- 
- /* P4/Xeon Thermal regulation detect and init */
--static void intel_init_thermal(struct cpuinfo_x86 *c)
-+static void intel_init_thermal(const struct cpuinfo_x86 *c, bool bsp)
- {
-     uint64_t msr_content;
-     uint32_t val;
-@@ -141,7 +141,7 @@ static void intel_init_thermal(struct cp
-     if ( (msr_content & (1ULL<<3))
-          && (val & APIC_DM_MASK) == APIC_DM_SMI )
-     {
--        if ( c == &boot_cpu_data )
-+        if ( bsp )
-             printk(KERN_DEBUG "Thermal monitoring handled by SMI\n");
-         return; /* -EBUSY */
-     }
-@@ -152,7 +152,7 @@ static void intel_init_thermal(struct cp
-     /* check whether a vector already exists, temporarily masked? */
-     if ( val & APIC_VECTOR_MASK )
-     {
--        if ( c == &boot_cpu_data )
-+        if ( bsp )
-             printk(KERN_DEBUG "Thermal LVT vector (%#x) already installed\n",
-                    val & APIC_VECTOR_MASK);
-         return; /* -EBUSY */
-@@ -850,7 +850,7 @@ static void intel_init_mce(bool bsp)
-     mce_uhandler_num = ARRAY_SIZE(intel_mce_uhandlers);
- }
- 
--static void intel_init_ppin(const struct cpuinfo_x86 *c)
-+static void intel_init_ppin(const struct cpuinfo_x86 *c, bool bsp)
- {
-     /*
-      * Even if testing the presence of the MSR would be enough, we don't
-@@ -878,7 +878,7 @@ static void intel_init_ppin(const struct
-     case 0x6c: /* Icelake D */
-     case 0x8f: /* Sapphire Rapids X */
- 
--        if ( (c != &boot_cpu_data && !ppin_msr) ||
-+        if ( (!bsp && !ppin_msr) ||
-              rdmsr_safe(MSR_PPIN_CTL, val) )
-             return;
- 
-@@ -891,7 +891,7 @@ static void intel_init_ppin(const struct
- 
-         if ( !(val & PPIN_ENABLE) )
-             ppin_msr = 0;
--        else if ( c == &boot_cpu_data )
-+        else if ( bsp )
-             ppin_msr = MSR_PPIN;
- 
-         break;
-@@ -992,9 +992,9 @@ enum mcheck_type intel_mcheck_init(struc
- 
-     intel_init_cmci(c);
- 
--    intel_init_thermal(c);
-+    intel_init_thermal(c, bsp);
- 
--    intel_init_ppin(c);
-+    intel_init_ppin(c, bsp);
- 
-     return mcheck_intel;
- }
+There is yet another issue affecting Framework AMD... When I start a
+domU with XHCI controller attached (PCI passthrough), the whole host
+resets if there was an USB device plugged into it. I don't get any panic
+message (neither on XHCI console - which is connected to a different
+XHCI controller, nor on VGA), and the reboot reason register shows
+0x08000800 ("an uncorrected error caused a data fabric sync flood
+event") according to [1].
+
+This is Framework AMD with AMD Ryzen 5 7640U.
+
+The crash itself happens quite early on domU startup - specifically when
+SeaBIOS tries to initialize XHCI. I tracked it down to the second
+readl() in xhci_controller_setup() [2]. Interestingly, it's specifically
+the second readl(), regardless of which of those comes first. I tried
+swapping their order, or even repeating read from the same register -
+always the second call triggers the crash. The first one succeeds and
+returns some value (for example 0x1200020 for HCCPARAMS).
+
+If I start the domU when no USB devices are connected, it doesn't crash.
+
+If I manually unbind the device from the dom0 driver (echo 0000:c3:00.4 >
+/sys/bus/pci/drivers/xhci_hcd/unbind), it doesn't crash. Note I have
+seize=3D1 in domU config, so the `xl pci-assignable-add` calls is implicit.
+
+If the system doesn't crash (either by not having any USB devices
+connected initially, or by the manual unbind), the USB controller in
+domU works fine. I can later connect devices and they appear inside
+domU.
+
+This system has a couple of XHCI controllers, and the same behavior is
+observed on at least two of them.
+
+The controller works just fine when used in dom0.
+
+If I passthrough another PCI device instead (tried wifi card and audio
+card), it doesn't crash.
+
+The value read from from HCCPARAMS (BAR + 0x10) differs between good and ba=
+d case:
+- 0x01200020 when it crashes
+- 0x0110ffc5 when it works
+
+It's weird to have this much differences here, given most bits in this
+register is about device capabilities[3], not its runtime state...
+
+In this system my main debugging tool is the XHCI console. But I tried
+also without enabling XHCI console, and it still crashes, so it looks
+like it isn't caused by the XHCI console.
+
+I tried also disabling XHCI initialization in SeaBIOS, and then it
+proceeds to booting domU's kernel. But as soon as Linux gets into
+initializing that USB controller, it crashes the same way. So, it isn't
+just SeaBIOS doing something weird (or at least not just that).
+
+With PVH dom0, the behavior is a bit different:
+1. Initially, the controller works fine in dom0.
+2. When starting domU, instead of clean unbind this happens:
+
+    [   11.248760] xhci_hcd 0000:c3:00.4: Controller not ready at resume -19
+    [   11.248765] xhci_hcd 0000:c3:00.4: PCI post-resume error -19!
+    [   11.248767] xhci_hcd 0000:c3:00.4: HC died; cleaning up
+    [   11.249010] xhci_hcd 0000:c3:00.4: remove, state 4
+    [   11.249013] usb usb8: USB disconnect, device number 1
+    [   11.249437] xhci_hcd 0000:c3:00.4: USB bus 8 deregistered
+    [   11.249832] xhci_hcd 0000:c3:00.4: remove, state 4
+    [   11.249835] usb usb7: USB disconnect, device number 1
+    [   11.250074] xhci_hcd 0000:c3:00.4: Host halt failed, -19
+    [   11.250076] xhci_hcd 0000:c3:00.4: Host not accessible, reset failed.
+    [   11.250389] xhci_hcd 0000:c3:00.4: USB bus 7 deregistered
+    [   11.251011] pciback 0000:c3:00.4: xen_pciback: seizing device
+    [   11.335120] pciback 0000:c3:00.4: xen_pciback: vpci: assign to virtu=
+al slot 0
+    [   11.335544] pciback 0000:c3:00.4: registering for 1
+
+3. Reading from BAR in domU (in SeaBIOS, and later Linux) returns
+0xffffffff.
+4. Does not crash the host.
+
+Any ideas?
+
+I don't have any other system with Zen4 to try on. The hw11 gitlab
+runner is Ryzen 7 7735HS, and it doesn't have this issue. It's also
+possible this is something related to Framework's firmware, but give all
+the observations above, I find it less likely.
+
+[1] https://docs.kernel.org/arch/x86/amd-debugging.html#random-reboot-issues
+[2] https://github.com/coreboot/seabios/blob/master/src/hw/usb-xhci.c#L553
+[3] https://www.intel.com/content/dam/www/public/us/en/documents/technical-=
+specifications/extensible-host-controler-interface-usb-xhci.pdf (page 385)
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--KcDnGiRsNgHLYSUW
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmiA1yIACgkQ24/THMrX
+1yxI6Qf/XGXDLbGRssdpZW1Nw23b6CLpW9aVxh/rhZ0xpZgigs1yWcEL7FldV0fM
+kVt1LwrfRUHn3iEku8SISmCYIMXTo409wJfazj4PtZh628P8HQeN7ceOIEXQCq6+
+QqWWs/P9lRzTqhkuBIvmA2qPhMb8SCQjM3uCnnsgX5tV2cl+UIEB3Jp1FOMKW0Vt
+kYCcDC9nAfO04IQzQzUGdadbjiJG8w/CglLU/wqqtZDfE7mbrV8wskym/MPI0OTn
+Sd38c5rZNVx230RbldKOkXbJgnZCVLsp7kRM8hdvwb8G1EkE2pXzF1BMXjb/AWl6
+zcUHQSpTIY1EoopZegSKriA+IQVK1w==
+=3f8l
+-----END PGP SIGNATURE-----
+
+--KcDnGiRsNgHLYSUW--
 
