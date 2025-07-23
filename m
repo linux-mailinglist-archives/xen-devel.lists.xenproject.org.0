@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED206B0F5E3
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 16:50:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1054310.1423066 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1147B0F60A
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 16:52:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1054315.1423077 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueanV-0000Ew-QL; Wed, 23 Jul 2025 14:50:21 +0000
+	id 1ueapo-0001KI-6l; Wed, 23 Jul 2025 14:52:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1054310.1423066; Wed, 23 Jul 2025 14:50:21 +0000
+Received: by outflank-mailman (output) from mailman id 1054315.1423077; Wed, 23 Jul 2025 14:52:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueanV-0000Cv-NJ; Wed, 23 Jul 2025 14:50:21 +0000
-Received: by outflank-mailman (input) for mailman id 1054310;
- Wed, 23 Jul 2025 14:50:20 +0000
+	id 1ueapo-0001HB-3r; Wed, 23 Jul 2025 14:52:44 +0000
+Received: by outflank-mailman (input) for mailman id 1054315;
+ Wed, 23 Jul 2025 14:52:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=KFh9=2E=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ueanU-0000Cp-Sd
- for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 14:50:20 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ id 1ueapm-0001H5-VH
+ for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 14:52:42 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 59fb3295-67d4-11f0-b895-0df219b8e170;
- Wed, 23 Jul 2025 16:50:19 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-45634205adaso34294685e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 23 Jul 2025 07:50:19 -0700 (PDT)
+ id aeb34bb0-67d4-11f0-b895-0df219b8e170;
+ Wed, 23 Jul 2025 16:52:41 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3a4ef2c2ef3so5114102f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Jul 2025 07:52:41 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23e3b6d2fa7sm98145285ad.162.2025.07.23.07.50.14
+ 98e67ed59e1d1-31e519e16c2sm1849054a91.11.2025.07.23.07.52.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Jul 2025 07:50:17 -0700 (PDT)
+ Wed, 23 Jul 2025 07:52:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59fb3295-67d4-11f0-b895-0df219b8e170
+X-Inumbo-ID: aeb34bb0-67d4-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753282218; x=1753887018; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753282360; x=1753887160; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QjmBSsNlVuybkjWjv0z/QvoMXLyQqFNFTKwU/W+4ysA=;
-        b=SjjrT22aPIDyOUYI+Sa5tyzovSvWRUlPnMKgjNnU1z++AlRUrNkuOR5YGg64HBJ2+g
-         P7/+9RoEj2eXlaWhbiguj0e7+YPxfjRW+JjDrtRljOpVR3poZcTf/DHkgf/8PXZy2sIp
-         5rgSW7lZ7ggzXd1//NAZ6uVLZAJDB4Jm8TLFEQ2lTf6muMQdolWwR5odwbbG9lZSEtql
-         YWXY05LQCO1lN3+vxhaaId3RgazbnogiVfj49O5P3kiHOum5E8mcPmbT+8/xyOetm8Xc
-         zpelXUrZJQPiKR2lZuKR0jggOCLTWuu7/lzqzPIPNrUeNuZQUjc5dM1lOAne6GeIhVet
-         emaQ==
+        bh=SjhofkNe5aXCdXo/iFQ72PeLEtL9GrsxkMceFYmIxnY=;
+        b=Sg76MJu6lfIeIV2XUQ/aMxyP8n7L9UgJWWkLBn324tkDwJReEm3JpyTPkWN1qSXEtE
+         2HgjLSG7zKZozWC005MfnROyd+rqKfmHBnPkJqgFFJbkxOYwfritGL3vZp9zSz15E+Tg
+         kfbnoOBy6tByz1sQDnu+KLK08/6ch+h0DoZtZshuw/ePXuGlVvO42YQeWi/sNSu8vlOI
+         ZzYVW1lKDgHRSZGlM8OLzszf70BME06aUjNIoILQtm7Rok9601mRhAlcc1jPrpcoQbyq
+         at8TNc+q4E7wLlYIOk2lYbp+uHxaLX9ZA2MmKOTVAgN5WZqsc8JMoX6NfHWWT9QMhzFu
+         z22A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753282218; x=1753887018;
+        d=1e100.net; s=20230601; t=1753282360; x=1753887160;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QjmBSsNlVuybkjWjv0z/QvoMXLyQqFNFTKwU/W+4ysA=;
-        b=g0EAuafNIeHqYYQ8ZYFthMR/5L2E5iuV4zlbJNxugNVYnPpp0Lokmc1Immbzplhotz
-         CXB8/q7Fcm+KCYgd2mUlajeYX5sO8dYiXRdrkg3tZyu7K4ajO+hm37gD0v8ewnBWYzPQ
-         OeCGMfYc7BS9RESrC2Dz9uBN9WHeKbsM66ASNcyYPUMmXnbYzPu0Uw373mXnCccmidzX
-         r2qHHyyPDRF1mzL07qFj/u1uMb4dLuE8ibz2MRNLibTxf9i9uwrlPLqppQUw732Zbbfm
-         akRXmvD1hB/W+7ZEeMARkaO2okXgQ+SwtNVRRuHMx+Fykmpa4J2n8u64v8XnjPynN/V4
-         2/OA==
-X-Forwarded-Encrypted: i=1; AJvYcCUHKwIioXKdthVX//zMdqgu8rCbhHZJPrM0Bak42d5XxGs1qhVGy+3OK8CAPboQBmVH48txTvGk1Mo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxTFWcA3c7sWxF/AD4LFUroJgtYpTykj4kIFMIVpzJWPZut4YDr
-	JadjBg4zDeRVjpvjpCcef5pIyheF//OsqVXVWNc9uaizW2xczOvX3AFUAljflcNJvw==
-X-Gm-Gg: ASbGnct5OFLnjnhp4fT4lHbHQHykI0EY9B5laDBQiezMcWaFj6Dq786l/MN5SfJvBbD
-	OPO0d6wedZTKGmmATg15kW2XuZgnVqIxpFMf5qNYiDSEpgs50eP1E4sCMVvtgxcPofdJ9S3Aeng
-	DN9haI3X7UFeV6tvkHG7X8TrRlHmPwcqVdvPCD2DT5LwliPq5e60VZvELjk2QNayJPWVrR4zcZo
-	atMsiUKHdEJDVbs60rcVlFMnTdAX3hGgsoquBhx55v6qZ1XLZEBxUPWu48E4wd9j0+C6r9HjmKd
-	25jx6lovJDEsgsRYVivFgYXzRTtMKWYP+zCNyF64zhiIYMk5LEkGomLb9PPO4LQj8pLIWVJHkF5
-	j8+aWG+ThQK5w5GywZe3p2r1aqls1n82r0t8HPQP5QGPI6TibH0Q4FsM0YzqMyeTPjNkjuXkF9w
-	jAJBU9XUq3MsLd80aEwA==
-X-Google-Smtp-Source: AGHT+IE5UkW9ZCABBttf+ulV+9BmY5QuqqRk3NwcujzJN8E36qnmRSwKOO2pMfDpkWXKppsMixchbw==
-X-Received: by 2002:a05:6000:2003:b0:3a5:300d:ead0 with SMTP id ffacd0b85a97d-3b768f26808mr2601220f8f.43.1753282218380;
-        Wed, 23 Jul 2025 07:50:18 -0700 (PDT)
-Message-ID: <6bb0e3d5-7e00-4b5d-a12b-2f449862b6f6@suse.com>
-Date: Wed, 23 Jul 2025 16:50:10 +0200
+        bh=SjhofkNe5aXCdXo/iFQ72PeLEtL9GrsxkMceFYmIxnY=;
+        b=sOje5osVMDCAvlxfNGLurP1z9tEDk9zpdbby4asywajVtNJ1PoJw65Fc076vdaSTGE
+         R2L2vpdeDM28snL+Be5yw+fRhqQb35+plC3by02/xFtZkyyZgdMCP0UrS15RJiD0emQE
+         o8AvQ9Sb/wAm9iv9Jb3ByOEuDD4tyQagfeEaD6q0usWjm4x1Pr7PBDnZwYwXMWDqBll1
+         sc//M83+eGLaUH2kvMsrYepCg4tFGZusjhbL+S08407bvtOO8LTeWf6KNLpleQm9IUmK
+         T7kF58eXqbIWWWhJ0V9GFR6uHM8NxDj/JIBQvVWYZMA0JjbS6+lF0bKFRAvUswWN25Dw
+         KU3w==
+X-Gm-Message-State: AOJu0YwudvtZcbNFHRw18OgRUuUEzbQE/OWaHuJVQyWi13lhY5l8h/AG
+	Qv8DZW+YMyh5c/vCMCS+eNgNdTBDJgsDoD3amwYdEC5BgN+LWTc6ZO0dJYhfGPsekw==
+X-Gm-Gg: ASbGncvMdQd7Q1x4fGkX0e5nB28++r69cUG6wJwa65D7i1il1NnRbLDegmAQ7oL03O2
+	jtphgyyyDuGL8/sGgnOMmKR39ibcoKCSmH/6/StzEGuC/0MSTCDq+VKBBeW5PjVSURrfxY3pIY/
+	ZB/egMh5Bm+kM9fEWJJRwXVjG1OZVcJeLUI/nDSS6A8PvYpoztps3fxsh1TT66ndzaggrIbxqK9
+	X7MjCjGwXuYgUiEBPuwCiUhAjqwrnA0fV8bXlhlXFxmlZbwQPCFeGn+Q420/XVAiPMHL9bvI+Mz
+	pOlYwkVH71E6Okv/WfE9eJ3l+o6PX2m8kh/3lObQJ6Qid1zAJMRLbJPMF2fdBOINtFCOxHcXboA
+	FMRPCrGUClRFssiLOuES3nOV01MeBQigjm5/98WRm9GweG38PPuVCQsViQtj3NHDUpqiqsA4TcD
+	SwuqknsRkwqmbnlBOcMg==
+X-Google-Smtp-Source: AGHT+IHTCqBVw9JVSmqG4qJrg4OopKXPfCD/SkhOP10gc4T4Rstd5PK3oPClaE9tFtGZtwEkf5O9WQ==
+X-Received: by 2002:a05:6000:24c5:b0:3a5:27ba:47c7 with SMTP id ffacd0b85a97d-3b768f00df9mr3346793f8f.48.1753282360537;
+        Wed, 23 Jul 2025 07:52:40 -0700 (PDT)
+Message-ID: <cc8416df-f37a-4178-a4d4-2a8be0019ca4@suse.com>
+Date: Wed, 23 Jul 2025 16:52:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] x86/page: fix regressions of MISRA C Rule 8.2
+Subject: Re: [PATCH] x86: correct scrub_page_{hot,cold}() prototypes
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <9ad46ae1a1f07bdacbcd6a6befd249be95c9d5cb.1753281819.git.nicola.vetrini@bugseng.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <161f9018-7746-4f74-82cb-d3921a9be4e2@suse.com>
+ <f0538799c8e18950b80efa939b43c8dc@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,21 +119,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9ad46ae1a1f07bdacbcd6a6befd249be95c9d5cb.1753281819.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <f0538799c8e18950b80efa939b43c8dc@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23.07.2025 16:45, Nicola Vetrini wrote:
-> The rule states: "Function types shall be in prototype form
-> with named parameters". Add missing parameter names.
+On 23.07.2025 16:47, Nicola Vetrini wrote:
+> On 2025-07-23 16:37, Jan Beulich wrote:
+>> ... to be in line with Misra rule 8.2 requirements.
+>>
+>> Fixes: 6ff0cfbfd4f7 ("mm: allow page scrubbing routine(s) to be arch 
+>> controlled")
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> Fixes: 6ff0cfbfd4f7 ("mm: allow page scrubbing routine(s) to be arch controlled")
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-Can as well take your patch (see [1]), as then I can put it in right away:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Thanks.
+
+>> ---
+>> The offending patch had been pending for far longer than we care about
+>> Misra, and hence at the time of writing I didn't pay attention. And 
+>> then
+>> I never looked again. I'm sorry.
+> 
+> Ah, sorry, I didn't notice your patch, I just sent basically an 
+> identical one, feel free to disregard it.
+
+I've seen it, but indeed I prefer to put in mine. "pg" is what we more
+commonly use for struct page_info * type variables / parameters.
 
 Jan
-
-[1] https://lists.xen.org/archives/html/xen-devel/2025-07/msg01682.html
 
