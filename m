@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8533AB0EEBA
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 11:46:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1053692.1422477 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E601B0EF59
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 12:08:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1053701.1422487 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueW3Y-0007DQ-6h; Wed, 23 Jul 2025 09:46:36 +0000
+	id 1ueWOR-0001sO-Tn; Wed, 23 Jul 2025 10:08:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1053692.1422477; Wed, 23 Jul 2025 09:46:36 +0000
+Received: by outflank-mailman (output) from mailman id 1053701.1422487; Wed, 23 Jul 2025 10:08:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueW3Y-0007B1-2u; Wed, 23 Jul 2025 09:46:36 +0000
-Received: by outflank-mailman (input) for mailman id 1053692;
- Wed, 23 Jul 2025 09:46:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ueWOR-0001qq-RC; Wed, 23 Jul 2025 10:08:11 +0000
+Received: by outflank-mailman (input) for mailman id 1053701;
+ Wed, 23 Jul 2025 10:08:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=KFh9=2E=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ueW3W-0007Av-9s
- for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 09:46:34 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e9eed304-67a9-11f0-b895-0df219b8e170;
- Wed, 23 Jul 2025 11:46:32 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3a6e8b1fa37so4589854f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 23 Jul 2025 02:46:32 -0700 (PDT)
+ id 1ueWOP-0001qk-MH
+ for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 10:08:09 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ecaa9dab-67ac-11f0-a31d-13f23c93f187;
+ Wed, 23 Jul 2025 12:08:05 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a6cd1a6fecso5761942f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Jul 2025 03:08:05 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-759cb678d9bsm9345016b3a.109.2025.07.23.02.46.24
+ d2e1a72fcca58-759c84e246asm9401958b3a.16.2025.07.23.03.07.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Jul 2025 02:46:30 -0700 (PDT)
+ Wed, 23 Jul 2025 03:08:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,76 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e9eed304-67a9-11f0-b895-0df219b8e170
+X-Inumbo-ID: ecaa9dab-67ac-11f0-a31d-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753263991; x=1753868791; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753265285; x=1753870085; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=k3A0AjmxYXIjBGKy8aNgwDhvP10o58Zr6bG6J8cKwEs=;
-        b=I6I+f+oLG8+FmbYgMKXybbI40MM8pyELOJ88zzI41hwpUQNzDTR62DtgJUZ1dAT0F8
-         ZNW6rcCERIbjYj2UyUxtkLr2IPycZ6tZ/WQVj++sEIfQu8BEnhSCEhnNW/4KQFCdCJSZ
-         +Nd1c8z8Fafahye810TH7vJq2mAZLG7eKKyuslxrpZBBOww+3iezbhoQqOfPWteeABAf
-         T9Yugma6qyclgfcvjs2cPBwHbEEG1d2IvdbBigb0DlNsEdbYy+TFedhdzF/hxwQkUiH6
-         S2mcMeLlZWiG6JoAW3NJEHcTO/AygRX4LPb0b6ljG3cqTiTU0kkCBDkYFtlm+PB1DBQw
-         BIPA==
+        bh=J18F+FpHFBE5ODakRpeCdf2EfBHXqdvEF/79WN8knjs=;
+        b=b3UfM0Rh/3XKcUbyuHIB6+WyDJWFWYTtIQ3W18Pe+R+qz8k9SEuiDT/wwMNuQM4+l+
+         yw6+S6qe3LdrmVXFYbM2uwtNihBcpJrHeMrR3xIwQxkYb3LBi5WpxmEWhlsxqsEHh7DS
+         7pYzYrXoj6twmycPeCBUZ9dxetZs4jrMLilffHG4UYD5VVtPzDh62WDiRZRBtMS/6p5g
+         Kp64rDwzj2hqwXvWvfziBFnVzXxuWSq4zU7XPRjSnYWbDjC4Q8UmcY749vre+lRBkxGd
+         lprIqSx5U1pHuHyZ35qNgNx4SwTLDATIRwIuBCLqgp06t5eF6Hl4COzKvVf169eOvPZo
+         0G9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753263991; x=1753868791;
+        d=1e100.net; s=20230601; t=1753265285; x=1753870085;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=k3A0AjmxYXIjBGKy8aNgwDhvP10o58Zr6bG6J8cKwEs=;
-        b=L4c5u1Ig82CK7gm16zmsX/y0vhyWPCMCNae4MN43o/4gDBWu91ld/okWH5eKJG8iyG
-         pfZou7oWi4KmLBvb+du8fc5lvnsyswlXgpRGDV5ngWvNmWf60ASCr1tua8NA4/+Ifw7X
-         OQCi7j/plB0Ck1oV4DkZ4T8Hmj9uZHwZZnhKzdxNpfcusEFlKfXtxwPtgMhjjk/JXLsd
-         2XnvTHwO/jQzn6LlZfDAKIbi0bRrYHx4hN1rdCzdIhnAoxN9byIkWs8MmhnuUm0F+SSz
-         H4zy4q1NQs196UVAujdmgQBTIDtr6jGARblftMjdvHihNJjFpqeAP6malpfan+N0CqSK
-         1J3g==
-X-Forwarded-Encrypted: i=1; AJvYcCVbpEpM1JVU/lf5pIyHx5z8FsKZW64r7OtRWwlPrIShMSQGvXVA0qUa2z2neLXFeY2MjP6E5Uq87hE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxQcg2QXqT8BzD5XnclpsK1SmSmI24qWuL6Zl21BmUzJ2Kfevqr
-	obsVR7ue+b6UpMNLG5cvPzQCU+8LZ1eugdMR/4QKaJZpgEj7OKKV14OvRqdVIySqyg==
-X-Gm-Gg: ASbGncvHCoU0D/k4ZRHLswq5GgwTrWRosEYvKQYrOWpBHZxtYOx8fG4iazid2jdC+UA
-	89mnbL3tUSFugrskKchNTZ/SEqSfKSoL5W6bAi0P65PZ8kkWlJkC5ZFfv4BHKIolsUswmcRubJN
-	ClXOMF39iio/gmDQGLuzhVjJtQKCCq01u6tbjvpF+nCVlqivSY5hXRxLqcxf1XQoqP6XnLBeOVE
-	9QhMZ3EqGOZdvQgjdi0XKtJW5E8EXX+IThf0ceZWZ9gYhAr7cUEa/eGvYbluGq+/bO58xkcHpXF
-	scbz1fesTO6D82k50oROHD8xy1usmeeB2T/NCL5UASTb99GDvr/3S0oE8ZppLhLgum1CDZJ3RhC
-	bKPDmTpo5tZ/aMjAE9fYYN6yfC2mf4VueUuO28CR1nYL5x9kHhDzkMJw0YIQ6qeJWhLyBHUHOWX
-	0WRzRjXNc=
-X-Google-Smtp-Source: AGHT+IFaucs64rz6CHPfBnnfikzxHECmDgosOFT/cm4yIlDlzSR3bkSiPWABr4Eflc7kYs0TvXwhkQ==
-X-Received: by 2002:a5d:64e1:0:b0:3a4:bfda:1e9 with SMTP id ffacd0b85a97d-3b768f079a1mr1957943f8f.46.1753263991272;
-        Wed, 23 Jul 2025 02:46:31 -0700 (PDT)
-Message-ID: <170d6cc9-542e-4129-b3bb-bf9ea0844bc4@suse.com>
-Date: Wed, 23 Jul 2025 11:46:20 +0200
+        bh=J18F+FpHFBE5ODakRpeCdf2EfBHXqdvEF/79WN8knjs=;
+        b=O8RyhgCOxhAW2vEsZzP9zGe/NVVuXS1ZtPElG2R7huZcHw5B77RYOlfif+DS5V8hoF
+         v3bvc63IWEv9Ov/6O+nCEOikhJaPS/UMEEGHuNZUU92uQ7l4+cLuG6PcxslaEbqu6HX+
+         LVHwJPJNFCnLL1X3BYRsY79fomVGAR74VCreHtDeKLoe1atMao4JAHMMvXWJDS+Ug5JY
+         8q//dTL91Iavc6PppIvLcfP3Fu7wnB1OyEB7dEGWXeBLwBhUlU1pvk/O/+e2KuXRi3KE
+         BJl1xRwJ4CO8Hbi24LHUEe44lZ8PRYZ6MLmJkt9AYYSPjnaoPnngpHHVKBSZRKoe5n5m
+         N8CA==
+X-Forwarded-Encrypted: i=1; AJvYcCW4z0oIVyLCIIWEpdO97YlIMMBx50CJFCADkHrA0+kdDmriqCUM6MArSVo46pHEl3jE/ZmFZb5zIAE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxh5oyA1hI9bhYFR66F9/MuRrdX7Vi6QTSfWXWjErusib1PepUO
+	U3c5ReyaW7JUv4SuVh5Zj/azSpeyYqtocL9s7urfXMFvxckcFXl6/81dj2iO1V0GIw==
+X-Gm-Gg: ASbGnct5rZfHpdw/K8MZJrK/aqM1vbmFmlRP72Zyilkvboe/ivnC3hqZuUQ4z5GJtnZ
+	J+a3vnWNd0ks+Rkpp0Qg7tFkPlu6LdZi6psbOr7+dzp1vylvchDQJaP0f/f2YGMNsnWx34qYF5n
+	H3+5uXWIQ2FjXzE6qmSFQWAyqEmTK5fnH0WBgHteeU9GG2u71HbzglIyIihqmppU6RfwmfJTt0q
+	FYBzIsPVK+tXbGBj3VGVtiKVmQsI/VQSawBdHATUyDEMKoNk65FaOxJxV8igBpbWkDvoGB6Bpcy
+	B6GyvZVn3qdek5Zv+G2eQp9Y7Bm3eXxiWx4lsqztonfNkXmbTpv6h4fvKnrEmNaXB38hHmrr58F
+	RNFvDfzsio+60opN9LU52UQLD+vKJ5fCEbgWwYsaThYv5Jhvta9wmxM+H53Rtty/E3mAAbaZJPl
+	iZ2xGQIkA5uwInZpDO2A==
+X-Google-Smtp-Source: AGHT+IGjpfksVnVJEWbZIeUwF3ALSqRgEz8U0CYlq/PRl13zVt/AEmiH1CIAw2sq4mSd6oIIoUL/gA==
+X-Received: by 2002:a5d:64e2:0:b0:3b7:5b40:703 with SMTP id ffacd0b85a97d-3b768f06ab7mr1672319f8f.46.1753265284561;
+        Wed, 23 Jul 2025 03:08:04 -0700 (PDT)
+Message-ID: <562ab480-ec95-49b8-9473-31e0805735f6@suse.com>
+Date: Wed, 23 Jul 2025 12:07:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 13/17] xen/riscv: Implement p2m_entry_from_mfn() and
- support PBMT configuration
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v1] xen/domctl: make domctl_lock generic
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <994ab3dd6822c4cd02a6a576041da115abeff6ed.1749555949.git.oleksii.kurochko@gmail.com>
- <f6e789cd-0ef3-488d-94da-1b7c94946720@suse.com>
- <640178f8-a189-4f84-abff-0ef87ba566a5@gmail.com>
- <0265e61a-ad08-4b6b-a87d-dba304f6d27d@suse.com>
- <e1c469c3-47d5-4a38-8abd-985a26cb8365@gmail.com>
- <15c9cb8e-8452-4dc3-933a-5713fc86a12a@suse.com>
- <958ae1b0-d139-41e8-b965-43ce640569c5@gmail.com>
- <007654f3-e26b-43b1-bc81-40ba25c9d787@suse.com>
- <ca3467a2-c795-4709-ad92-1744b138a148@gmail.com>
- <9e9c1943-b2af-471f-b8c9-f7179073ef99@suse.com>
- <fb7176a2-740e-4773-b1cb-3cd430d6f838@gmail.com>
- <f110cd42-d34b-44fc-bd76-85cb0bfc2357@gmail.com>
- <25f17da6-1c82-422c-941a-b0eb57786c8f@suse.com>
- <342e8524-268c-46ae-817c-5af71254b624@gmail.com>
- <7ba83171-a377-4c3d-a33b-7edb57621bb7@suse.com>
- <dabc1c47-f392-4fc1-9f84-36c880c6dd63@gmail.com>
+References: <20250723065325.1452007-1-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -140,193 +121,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <dabc1c47-f392-4fc1-9f84-36c880c6dd63@gmail.com>
+In-Reply-To: <20250723065325.1452007-1-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 22.07.2025 18:07, Oleksii Kurochko wrote:
-> 
-> On 7/22/25 4:35 PM, Jan Beulich wrote:
->> On 22.07.2025 16:25, Oleksii Kurochko wrote:
->>> On 7/22/25 2:00 PM, Jan Beulich wrote:
->>>> On 22.07.2025 13:34, Oleksii Kurochko wrote:
->>>>> On 7/22/25 12:41 PM, Oleksii Kurochko wrote:
->>>>>> On 7/21/25 2:18 PM, Jan Beulich wrote:
->>>>>>> On 18.07.2025 11:52, Oleksii Kurochko wrote:
->>>>>>>> On 7/17/25 12:25 PM, Jan Beulich wrote:
->>>>>>>>> On 17.07.2025 10:56, Oleksii Kurochko wrote:
->>>>>>>>>> On 7/16/25 6:18 PM, Jan Beulich wrote:
->>>>>>>>>>> On 16.07.2025 18:07, Oleksii Kurochko wrote:
->>>>>>>>>>>> On 7/16/25 1:31 PM, Jan Beulich wrote:
->>>>>>>>>>>>> On 15.07.2025 16:47, Oleksii Kurochko wrote:
->>>>>>>>>>>>>> On 7/1/25 5:08 PM, Jan Beulich wrote:
->>>>>>>>>>>>>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
->>>>>>>>>>>>>>>> --- a/xen/arch/riscv/p2m.c
->>>>>>>>>>>>>>>> +++ b/xen/arch/riscv/p2m.c
->>>>>>>>>>>>>>>> @@ -345,6 +345,26 @@ static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
->>>>>>>>>>>>>>>>             return __map_domain_page(p2m->root + root_table_indx);
->>>>>>>>>>>>>>>>         }
->>>>>>>>>>>>>>>>         
->>>>>>>>>>>>>>>> +static int p2m_type_radix_set(struct p2m_domain *p2m, pte_t pte, p2m_type_t t)
->>>>>>>>>>>>>>> See comments on the earlier patch regarding naming.
->>>>>>>>>>>>>>>
->>>>>>>>>>>>>>>> +{
->>>>>>>>>>>>>>>> +    int rc;
->>>>>>>>>>>>>>>> +    gfn_t gfn = mfn_to_gfn(p2m->domain, mfn_from_pte(pte));
->>>>>>>>>>>>>>> How does this work, when you record GFNs only for Xenheap pages?
->>>>>>>>>>>>>> I think I don't understand what is an issue. Could you please provide
->>>>>>>>>>>>>> some extra details?
->>>>>>>>>>>>> Counter question: The mfn_to_gfn() you currently have is only a stub. It only
->>>>>>>>>>>>> works for 1:1 mapped domains. Can you show me the eventual final implementation
->>>>>>>>>>>>> of the function, making it possible to use it here?
->>>>>>>>>>>> At the moment, I planned to support only 1:1 mapped domains, so it is final
->>>>>>>>>>>> implementation.
->>>>>>>>>>> Isn't that on overly severe limitation?
->>>>>>>>>> I wouldn't say that it's a severe limitation, as it's just a matter of how
->>>>>>>>>> |mfn_to_gfn()| is implemented. When non-1:1 mapped domains are supported,
->>>>>>>>>> |mfn_to_gfn()| can be implemented differently, while the code where it’s called
->>>>>>>>>> will likely remain unchanged.
->>>>>>>>>>
->>>>>>>>>> What I meant in my reply is that, for the current state and current limitations,
->>>>>>>>>> this is the final implementation of|mfn_to_gfn()|. But that doesn't mean I don't
->>>>>>>>>> see the value in, or the need for, non-1:1 mapped domains—it's just that this
->>>>>>>>>> limitation simplifies development at the current stage of the RISC-V port.
->>>>>>>>> Simplification is fine in some cases, but not supporting the "normal" way of
->>>>>>>>> domain construction looks like a pretty odd restriction. I'm also curious
->>>>>>>>> how you envision to implement mfn_to_gfn() then, suitable for generic use like
->>>>>>>>> the one here. Imo, current limitation or not, you simply want to avoid use of
->>>>>>>>> that function outside of the special gnttab case.
->>>>>>>>>
->>>>>>>>>>>>>>> In this context (not sure if I asked before): With this use of a radix tree,
->>>>>>>>>>>>>>> how do you intend to bound the amount of memory that a domain can use, by
->>>>>>>>>>>>>>> making Xen insert very many entries?
->>>>>>>>>>>>>> I didn’t think about that. I assumed it would be enough to set the amount of
->>>>>>>>>>>>>> memory a guest domain can use by specifying|xen,domain-p2m-mem-mb| in the DTS,
->>>>>>>>>>>>>> or using some predefined value if|xen,domain-p2m-mem-mb| isn’t explicitly set.
->>>>>>>>>>>>> Which would require these allocations to come from that pool.
->>>>>>>>>>>> Yes, and it is true only for non-hardware domains with the current implementation.
->>>>>>>>>>> ???
->>>>>>>>>> I meant that pool is used now only for non-hardware domains at the moment.
->>>>>>>>> And how does this matter here? The memory required for the radix tree doesn't
->>>>>>>>> come from that pool anyway.
->>>>>>>> I thought that is possible to do that somehow, but looking at a code of
->>>>>>>> radix-tree.c it seems like the only one way to allocate memroy for the radix
->>>>>>>> tree isradix_tree_node_alloc() -> xzalloc(struct rcu_node).
->>>>>>>>
->>>>>>>> Then it is needed to introduce radix_tree_node_allocate(domain)
->>>>>>> That would be a possibility, but you may have seen that less than half a
->>>>>>> year ago we got rid of something along these lines. So it would require
->>>>>>> some pretty good justification to re-introduce.
->>>>>>>
->>>>>>>> or radix tree
->>>>>>>> can't be used at all for mentioned in the previous replies security reason, no?
->>>>>>> (Very) careful use may still be possible. But the downside of using this
->>>>>>> (potentially long lookup times) would always remain.
->>>>>> Could you please clarify what do you mean here by "(Very) careful"?
->>>>>> I thought about an introduction of an amount of possible keys in radix tree and if this amount
->>>>>> is 0 then stop domain. And it is also unclear what should be a value for this amount.
->>>>>> Probably, you have better idea.
->>>>>>
->>>>>> But generally your idea below ...
->>>>>>>>>>>>>> Also, it seems this would just lead to the issue you mentioned earlier: when
->>>>>>>>>>>>>> the memory runs out,|domain_crash()| will be called or PTE will be zapped.
->>>>>>>>>>>>> Or one domain exhausting memory would cause another domain to fail. A domain
->>>>>>>>>>>>> impacting just itself may be tolerable. But a domain affecting other domains
->>>>>>>>>>>>> isn't.
->>>>>>>>>>>> But it seems like this issue could happen in any implementation. It won't happen only
->>>>>>>>>>>> if we will have only pre-populated pool for any domain type (hardware, control, guest
->>>>>>>>>>>> domain) without ability to extend them or allocate extra pages from domheap in runtime.
->>>>>>>>>>>> Otherwise, if extra pages allocation is allowed then we can't really do something
->>>>>>>>>>>> with this issue.
->>>>>>>>>>> But that's why I brought this up: You simply have to. Or, as indicated, the
->>>>>>>>>>> moment you mark Xen security-supported on RISC-V, there will be an XSA needed.
->>>>>>>>>> Why it isn't XSA for other architectures? At least, Arm then should have such
->>>>>>>>>> XSA.
->>>>>>>>> Does Arm use a radix tree for storing types? It uses one for mem-access, but
->>>>>>>>> it's not clear to me whether that's actually a supported feature.
->>>>>>>>>
->>>>>>>>>> I don't understand why x86 won't have the same issue. Memory is the limited
->>>>>>>>>> and shared resource, so if one of the domain will use to much memory then it could
->>>>>>>>>> happen that other domains won't have enough memory for its purpose...
->>>>>>>>> The question is whether allocations are bounded. With this use of a radix tree,
->>>>>>>>> you give domains a way to have Xen allocate pretty much arbitrary amounts of
->>>>>>>>> memory to populate that tree. That unbounded-ness is the problem, not memory
->>>>>>>>> allocations in general.
->>>>>>>> Isn't radix tree key bounded to an amount of GFNs given for a domain? We can't have
->>>>>>>> more keys then a max GFN number for a domain. So a potential amount of necessary memory
->>>>>>>> for radix tree is also bounded to an amount of GFNs.
->>>>>>> To some degree yes, hence why I said "pretty much arbitrary amounts".
->>>>>>> But recall that "amount of GFNs" is a fuzzy term; I think you mean to
->>>>>>> use it to describe the amount of memory pages given to the guest. GFNs
->>>>>>> can be used for other purposes, though. Guests could e.g. grant
->>>>>>> themselves access to their own memory, then map those grants at
->>>>>>> otherwise unused GFNs.
->>>>>>>
->>>>>>>> Anyway, IIUC I just can't use radix tree for p2m types at all, right?
->>>>>>>> If yes, does it make sense to borrow 2 bits from struct page_info->type_info as now it
->>>>>>>> is used 9-bits for count of a frame?
->>>>>>> struct page_info describes MFNs, when you want to describe GFNs. As you
->>>>>>> mentioned earlier, multiple GFNs can in principle map to the same MFN.
->>>>>>> You would force them to all have the same properties, which would be in
->>>>>>> direct conflict with e.g. the grant P2M types.
->>>>>>>
->>>>>>> Just to mention one possible alternative to using radix trees: You could
->>>>>>> maintain a 2nd set of intermediate "page tables", just that leaf entries
->>>>>>> would hold meta data for the respective GFN. The memory for those "page
->>>>>>> tables" could come from the normal P2M pool (and allocation would thus
->>>>>>> only consume domain-specific resources). Of course in any model like
->>>>>>> this the question of lookup times (as mentioned above) would remain.
->>>>>> ...looks like an optimal option.
->>>>>>
->>>>>> The only thing I worry about is that it will require some code duplication
->>>>>> (I will think how to re-use the current one code), as for example, when
->>>>>> setting/getting metadata, TLB flushing isn’t needed at all as we aren't
->>>>>> working with with real P2M page tables.
->>>>>> Agree that lookup won't be the best one, but nothing can be done with
->>>>>> such models.
->>>>> Probably, instead of having a second set of intermediate "page tables",
->>>>> we could just allocate two consecutive pages within the real P2M page
->>>>> tables for the intermediate page table. The first page would serve as
->>>>> the actual page table to which the intermediate page table points,
->>>>> and the second page would store metadata for each entry of the page
->>>>> table that the intermediate page table references.
->>>>>
->>>>> As we are supporting only 1gb, 2mb and 4kb mappings we could do a little
->>>>> optimization and start allocate these consecutive pages only for PT levels
->>>>> which corresponds to 1gb, 2mb, 4kb mappings.
->>>>>
->>>>> Does it make sense?
->>>> I was indeed entertaining this idea, but I couldn't conclude for myself if
->>>> that would indeed be without any rough edges. Hence I didn't want to
->>>> suggest such. For example, the need to have adjacent pairs of pages could
->>>> result in a higher rate of allocation failures (while populating or
->>>> re-sizing the P2M pool). This would be possible to avoid by still using
->>>> entirely separate pages, and then merely linking them together via some
->>>> unused struct page_info fields (the "normal" linking fields can't be used,
->>>> afaict).
->>> I think that all the fields are used, so it will be needed to introduce new
->>> "struct page_list_entry metadata_list;".
->> All the fields are used _somewhere_, sure. But once you have allocated a
->> page (and that page isn't assigned to a domain), you control what the
->> fields are used for.
-> 
-> I thought that the whole idea is to use domain's pages from P2M pool freelist,
-> pages for which is allocated by alloc_domheap_page(d, MEMF_no_owner), so an
-> allocated page is assigned to a domain.
+On 23.07.2025 08:53, Penny Zheng wrote:
+> Not only domctl-op could do foreign updates to guest state, some hypercall,
+> like HVMOP_set_param, could also do, and they all need domctl_lock for
+> syncronization.
 
-You did check what effect MEMF_no_owner has, didn't you? Such pages are _not_
-assigned to the domain.
+What's "all" here? HVMOP_set_param is the sole such case, and hence - aiui -
+it uses the domctl lock only to lock out actual domctl-s. Of which there are
+not going to be any with DOMCTL=n, ...
 
-> I assume that I have in this case to take some pages for an intermediate page
-> table from freelist P2M pool, set an owner domain to NULL (pg->inuse.domain = NULL).
-> 
-> Then in this case it isn't clear why pg->list can't be re-used to link several pages
-> for intermediate page table purposes + metadata? Is it because pg->list can be not
-> empty? In this case it isn't clear if I could use a page, which has threaded pages.
+> Later, we will introduce CONFIG_DOMCTL to wrap domctl.c. In order to
+> continue using domctl_lock when CONFIG_DOMCTL not defined, we'd like to move
+> domctl_lock_acquire/release() out of domctl.c, and into more common space,
+> domain.c
 
-Actually looks like I was mis-remembering. Pages removed from freelist indeed
-aren't put on any other list, so the linking fields are available for use. I
-guess I had x86 shadow code in mind, where the linking fields are further used.
+... as you indicate is where we're going to move to as a possibility. Hence
+the domctl lock is meaningless without DOMCTL=y. At which point moving it out
+of domctl.c is the wrong course of action. With DOMCTL=n, we'll rather need
+stub domctl_lock_{acquire,release}(), which then likely would do nothing (or
+alternatively "#ifdef CONFIG_DOMCTL" could be put around the two uses in
+hvm_set_param()).
+
+> The movement could also fix CI error of a randconfig picking both
+> PV_SHIM_EXCLUSIVE=y and HVM=y results in hvm.c being built, but
+> domctl.c not being built, which leaves domctl_lock_acquire/release()
+> undefined, causing linking to fail.
+
+If the work towards DOMCTL as a Kconfig control can't be progressed pretty
+quickly (and I don't expect that to be much faster than the SYSCTL work),
+then I expect our prime option (apart from reverting the earlier change) is
+to accept a bunch of dead code in the shim binary again, by moving domctl.o
+out of the PV_SHIM_EXCLUSIVE common/Makefile section as well (plus whatever
+other adjustments are necessary to undo that earlier dead code elimination).
 
 Jan
 
