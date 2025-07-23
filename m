@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D0BFB0F71A
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 17:33:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1054411.1423180 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2350B0F73D
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 17:39:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1054416.1423190 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uebSn-0004rN-9L; Wed, 23 Jul 2025 15:33:01 +0000
+	id 1uebYf-0005RI-Tc; Wed, 23 Jul 2025 15:39:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1054411.1423180; Wed, 23 Jul 2025 15:33:01 +0000
+Received: by outflank-mailman (output) from mailman id 1054416.1423190; Wed, 23 Jul 2025 15:39:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uebSn-0004pw-6Z; Wed, 23 Jul 2025 15:33:01 +0000
-Received: by outflank-mailman (input) for mailman id 1054411;
- Wed, 23 Jul 2025 15:32:59 +0000
+	id 1uebYf-0005PU-QZ; Wed, 23 Jul 2025 15:39:05 +0000
+Received: by outflank-mailman (input) for mailman id 1054416;
+ Wed, 23 Jul 2025 15:39:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=KFh9=2E=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uebSl-0004pq-3U
- for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 15:32:59 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=HXHD=2E=bounce.vates.tech=bounce-md_30504962.68810215.v1-e2b45533f78242479b09fa5e1b3a22f8@srs-se1.protection.inumbo.net>)
+ id 1uebYf-0005PO-1b
+ for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 15:39:05 +0000
+Received: from mail132-21.atl131.mandrillapp.com
+ (mail132-21.atl131.mandrillapp.com [198.2.132.21])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4eaf50b3-67da-11f0-b895-0df219b8e170;
- Wed, 23 Jul 2025 17:32:57 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-45618ddd62fso71050395e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 23 Jul 2025 08:32:57 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b3f3c999588sm7336322a12.66.2025.07.23.08.32.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Jul 2025 08:32:55 -0700 (PDT)
+ id 2832da27-67db-11f0-b895-0df219b8e170;
+ Wed, 23 Jul 2025 17:39:02 +0200 (CEST)
+Received: from pmta09.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail132-21.atl131.mandrillapp.com (Mailchimp) with ESMTP id
+ 4bnJFx0JRWz1bb6vv
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Jul 2025 15:39:01 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ e2b45533f78242479b09fa5e1b3a22f8; Wed, 23 Jul 2025 15:39:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,107 +43,332 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4eaf50b3-67da-11f0-b895-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753284776; x=1753889576; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UbS5003VCPKV1HA3/2Cps8wYVts6Ne5uI7BNFJA96h8=;
-        b=K/ZgNrGM8XhgfSfEj++C9JGAuDGQFYpMR8ZmwLP0LMcie/Cl8EH7YO1Few1XsCy1lH
-         uE3PvFkd4SV9jaw4fMHosKU55v4D5DCgRgxSFO4CzHxS7fbSdt4pTfsXQpOnhZI4UllJ
-         oKrOUiWuSypWgZpOF/VicTWiKTz+PB2XqCk+PUwKsgMfkvUMgvhnSjl28sbquUUBFYGF
-         rwhWIOrJYXDPkgOqGSzGgL2wJ77mAenrSEpCieQSVScMlNPjHCQ7HL3z5KG6dcSlH6kJ
-         G40IB47KQtlUa2n2vulYwqE7AjpDqwgIwmGDj1AxfLQnsa41uu3jrH9FV3XVxyXiUBGA
-         5csw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753284776; x=1753889576;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=UbS5003VCPKV1HA3/2Cps8wYVts6Ne5uI7BNFJA96h8=;
-        b=ALtCRe4sCIcXJDn+sCYbjfe+saVmj5ZIZudEFVeUEgl42TmV5bd2ZJHGb8eLwdHJV7
-         S35C7ADlSX3bGlFsdlfzdJDyRUeH3tJK8oAUfYZWODm3PGwCi0qOV0Wy/PuIa9ckA2Yh
-         Nshq30Fxo4058eogEFcOs6m+sxF7bdaUsJeA7NzbqTRGGcbkCID/bF8Uc2gcilbGO58f
-         wbFzLIlLaiWd8tdZn1Z4wwP659pUg48nVyE9jXBtqVzwYtZInouwBL8d+Rn+uDRSVMII
-         /gAU36Jaf+qP31yJEKNMq1XUcIgjbfyHsMo7gB3EBIqs7eaPeu7z9nxOTCf2Gh58r5s0
-         nmzw==
-X-Forwarded-Encrypted: i=1; AJvYcCWuReifzW2x+8LvNbRRDNOpEZb40aa+c5TeHGi2I1A4QyH2I0MxSnQLgEQ/oXYXYvc0/b1MKUTESOg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzZBGH5NP0f+Sne4z14QyINwz97/w3QdceaAcZKdkm89fo5Ezun
-	CsauOzU7fa1oex2LkjIdYY3U/PnqvMVsVtr5TfCUHSXz5S/Da7hL82gnu3+3+TO+Sg==
-X-Gm-Gg: ASbGnctiqf7vbfKFCCA+cHBbjSQPWzhdPx4Sha0Gr75QCfqQkgKFkF1XhJsQm4lB542
-	pbmlJgKHJX3keG9yLrAHzxyn/e934Q7DIL6Ua36Qlhq1dyRjKz7uCIK24BzBJXhWEg6Wa4Wgz8j
-	VpSONvXTj0CaJeDN38OUQMgDC3j66KoK+CxCdCYY/+booeZsDa2v3kY7YbNZnMdn2bSJ2d6VfC6
-	aP1yJwULw3t6xFEZ7tmKZCWbu0NSEk/ZLP8+FhV6tzof5hjn4ST9tOjHkft3OcECxz4tU50Iu/n
-	vNxBaVRv/D1jOzC4zXfp1WB/lcjScuP+MLXkJaV02RIK1jxuiPPpqO3xI+yD4zgnYthvujfoL9R
-	NOgfbV8npZ3nC7kIgBQxl4pyQFHRN9ngB89HtWaWshn885gEcr90bpzXTLf4KH3T0GrZiMsse67
-	zd+yAlgss=
-X-Google-Smtp-Source: AGHT+IGIwMZglcpa2c5FcRo3jdsLEyZbJPBjZVf+oHXMFnAE6Zt1D+8gJEgw68MX2HebVBLPFg1A+A==
-X-Received: by 2002:a5d:64c5:0:b0:3a5:2cb5:63fd with SMTP id ffacd0b85a97d-3b768ee093dmr2998819f8f.10.1753284776239;
-        Wed, 23 Jul 2025 08:32:56 -0700 (PDT)
-Message-ID: <ed42e8fa-ef5c-4280-ae88-4e7b817e3d6f@suse.com>
-Date: Wed, 23 Jul 2025 17:32:47 +0200
+X-Inumbo-ID: 2832da27-67db-11f0-b895-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1753285141; x=1753555141;
+	bh=FyoKt7mvhN7hMisKk2HZQEqjLustgfuLGxOxFY85UX4=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=hogF5Xra+CPnmRI7Sr7lipVavnRNFEKM2CWjaVCWpxwG4PpRJTWBf4TM0HqEA8J0Q
+	 OY6Dvjl2VEBPSwa4o1BIsN1kzW4/5qc5U6XPzRjqgOkjnREtE2rhgM/WKcTuA2P/Cn
+	 H6rJ8fMWKe5dxjf5kLITjIxbjfXqSOWJ4g6HoxaAPyj4Pnu7NK530J8/qPwKYZhM1l
+	 MgdzU5aLezkxtwzY34jUNHxyNsvwg48nEwDl0FwGS+/WoijCAkrmtZgCr4EkRhHPvh
+	 FGK47P0EpyIBH14T7+f9mIODCY1meV5VWiNJvORyAntM+rMQ2UcfiheLwC8jFdv4hE
+	 MLmVS083dRmhg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1753285141; x=1753545641; i=yann.sionneau@vates.tech;
+	bh=FyoKt7mvhN7hMisKk2HZQEqjLustgfuLGxOxFY85UX4=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=nPUB7WcqQXTBgOg1tsr6PcP5/e0YIWuvY538JU/L19sMX1xlVKvTeeOgMEqgIf6BI
+	 oqdNbAaqru/9PDWxl3Zv2qfRpPxoXwKncIPrFLn+3nQYpZ1c7by2fUos4ZAO3JxJVW
+	 +NVle/2UWLSUyCKpvQmlQL++aVzSPeo2TeNVOT2XgjaxFxxRvrxEQsTLRG/LjBuGi2
+	 pDqmFX4PFuC+Wo7Cq33/QgvTuddE3Fw/3TjRg3q/Un2mfPwuvdR/F68/6md4m2+XNN
+	 SlZd8/0B/hEbjvmO50xOTEvK+xT8ri3XinMj34fCi+iZiljIV4XuRD9yxWXwppyRwg
+	 AXlovJqxHE2Cw==
+From: "Yann Sionneau" <yann.sionneau@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH]=20xen/x86:=20fix=20xen.efi=20boot=20crash=20from=20some=20bootloaders?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1753285139598
+Message-Id: <16d9bf13-d76b-40a9-8f39-d2476ecdf49e@vates.tech>
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250723135620.1327914-1-yann.sionneau@vates.tech> <8071bf13-0661-4809-b5f9-ff101d9828b5@suse.com>
+In-Reply-To: <8071bf13-0661-4809-b5f9-ff101d9828b5@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.e2b45533f78242479b09fa5e1b3a22f8?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250723:md
+Date: Wed, 23 Jul 2025 15:39:01 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/hvmloader: adjust strtoll() to parse hex numbers
- without 0x prefix
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <20250723151949.89400-1-roger.pau@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250723151949.89400-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On 23.07.2025 17:19, Roger Pau Monne wrote:
-> The current strtoll() implementation in hvmloader requires hex number to be
-> prefixed with 0x, otherwise strtoll() won't parse them correctly even when
-> calling the function with base == 16.
+On 7/23/25 16:18, Jan Beulich wrote:
+> On 23.07.2025 15:56, Yann Sionneau wrote:
+>> xen.efi PE does not boot when loaded from shim or some patched
+>> downstream grub2.
+>>
+>> What happens is the bootloader would honour the MEM_DISCARDABLE
+>> flag of the .reloc section meaning it would not load its content
+>> into memory.
+>>
+>> But Xen is parsing the .reloc section content twice at boot:
+>> * https://elixir.bootlin.com/xen/v4.20.1/source/xen/common/efi/boot.c#L1362
+>> * https://elixir.bootlin.com/xen/v4.20.1/source/xen/arch/x86/efi/efi-boot.h#L237
+>>
+>> Therefore it would crash with the following message:
+>> "Unsupported relocation type" as reported there:
+>>
+>> * https://github.com/QubesOS/qubes-issues/issues/8206#issuecomment-2619048838
+>> * https://lore.kernel.org/xen-devel/7e039262-1f54-46e1-8f70-ac3f03607d5a@suse.com/T/#me122b9e6c27cd98db917da2c9f67e74a2c6ad7a5
+>>
+>> This commit adds a small C host tool named keeprelocs
+>> that is called after xen.efi is produced by the build system
+>> in order to remove this bit from its .reloc section header.
 > 
-> Fix this by not unconditionally setting the base to 10 when the string is
-> not 0 prefixed, this also allows parsing octal numbers not 0 prefixed.
-> While there also handle '0X' as a valid hex number prefix, together with
-> '0x'.
+> As indicated on Matrix, giving this tool such a specific name doesn't
+> lend it to use for further editing later on.
+
+What would you like to call it?
+
 > 
-> No functional change intended to the existing call sites.
+> Also such an entirely new tool imo wants to use Xen style, not Linux(?)
+> one. Unless of course it is taken from somewhere, but nothing is being
+> said along these line.
+
+Ah, sorry I didn't know about the coding style, I'll reformat it then.
+Is there a correct .clang-format file somewhere or a checkpatch.pl 
+equivalent?
+
 > 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>> --- a/xen/Makefile
+>> +++ b/xen/Makefile
+>> @@ -299,10 +299,13 @@ export XEN_HAS_CHECKPOLICY := $(call success,$(CHECKPOLICY) -h 2>&1 | grep -q xe
+>>   # ===========================================================================
+>>   # Rules shared between *config targets and build targets
+>>   
+>> -PHONY += tools_fixdep
+>> +PHONY += tools_fixdep tools_keeprelocs
+>>   tools_fixdep:
+>>   	$(Q)$(MAKE) $(build)=tools tools/fixdep
+>>   
+>> +tools_keeprelocs:
+>> +	$(Q)$(MAKE) $(build)=tools tools/keeprelocs
+> 
+> Hmm, recursing twice into the tools/ subdir isn't quite nice. But
+> perhaps tolerable for the moment.
+> 
+>> --- a/xen/arch/x86/Makefile
+>> +++ b/xen/arch/x86/Makefile
+>> @@ -236,6 +236,7 @@ endif
+>>   	$(NM) -pa --format=sysv $@ \
+>>   		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
+>>   		> $@.map
+>> +	$(objtree)/tools/keeprelocs -q -i $@
+> 
+> Consider the build being interrupted precisely before this command is
+> executed, and the target file not being removed. A subsequent build would
+> find it up-to-date, when the earlier build didn't really finish.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Indeed you're right! Thanks!
+Note that currently it's already problematic: if you interrupt the build 
+and relaunch it, you could end up never generating the xen.efi.map nor 
+the xen.efi.elf nor run the check-endbr.sh script.
+But yeah, let's do better for my patch, as it impacts the final binary 
+generation.
 
-> ---
-> Noticed this oddity while looking at something else - I don't really have a
-> use case for such parsing, but I think it would be better to get this fixed
-> in case it's needed in the future.
+> 
+>> --- a/xen/tools/Makefile
+>> +++ b/xen/tools/Makefile
+>> @@ -1,2 +1,5 @@
+>>   hostprogs-always-y += symbols
+>>   hostprogs-always-y += fixdep
+>> +hostprogs-always-$(XEN_BUILD_PE) += keeprelocs
+>> +# next line is to allow including include/efi/pe.h
+>> +HOSTCFLAGS_keeprelocs.o := -I ../include
+>> \ No newline at end of file
+> 
+> Please don't omit newlines at the ends of files.
 
-I agree. Without it actually mattering right now, I don't think I'll
-pick it up for backporting, though.
+Ok
+> 
+>> --- /dev/null
+>> +++ b/xen/tools/keeprelocs.c
+>> @@ -0,0 +1,119 @@
+>> +#include <stdio.h>
+>> +#include <fcntl.h>
+>> +#include <errno.h>
+>> +#include <string.h>
+>> +#include <sys/mman.h>
+>> +#include <sys/stat.h>
+>> +#include <stdint.h>
+>> +#include <stdlib.h>
+>> +#include <unistd.h>
+>> +#include <efi/pe.h>
+>> +
+>> +#undef DEBUG
+>> +
+>> +static void print_usage(const char *name) {
+>> +	printf("%s: [-q] [-h] -i xen.efi\n", name);
+>> +}
+>> +
+>> +int main(int argc, char **argv)
+>> +{
+>> +	char *filename = NULL;
+>> +	int fd;
+>> +	char *mem;
+>> +	struct stat st;
+>> +	off_t len;
+>> +	int ret;
+>> +	struct mz_hdr *mz;
+>> +	struct pe_hdr *pe;
+>> +	int opt;
+>> +	const char *prog_name = argv[0];
+>> +	int quiet = 0;
+> 
+> bool?
 
-Jan
+Ok
+I can use bool from stdbool.h
+> 
+>> +	while ((opt = getopt(argc, argv, ":i:qh")) != -1)
+>> +	{
+>> +		switch (opt) {
+>> +		case 'i':
+>> +			filename = optarg;
+>> +			break;
+> 
+> Is there a particular reason why -i needs to be used to specify the file name?
+> Can't the file name be the first (and only) non-option argument, as is commonly
+> done elsewhere?
+Ok, let's do that
+> 
+>> +		case 'q':
+>> +			quiet = 1;
+>> +			break;
+>> +		case 'h':
+>> +			print_usage(prog_name);
+>> +			return 0;
+>> +			break;
+> 
+> "break" after "return"?
+This needs to go.
+> 
+>> +		case '?':
+> 
+> Why is this not the same as 'h'?
+One returns 0 because help is asked for so it's not an error.
+The other one is when using non-existing argument which is an error.
+> 
+>> +		default:
+>> +			print_usage(prog_name);
+>> +			return -1;
+>> +		}
+>> +	}
+>> +
+>> +
+>> +	if (!filename) {
+>> +		printf("Error: you must provide a `-i xen.efi` argument\n");
+>> +		return -1;
+>> +	}
+>> +
+>> +	fd = open(filename, O_RDWR);
+>> +	if (fd < 0) {
+>> +		printf("Could not open file %s: %s\n", filename, strerror(errno));
+>> +		return -1;
+>> +	}
+>> +
+>> +	ret = fstat(fd, &st);
+>> +	if (ret < 0) {
+>> +		perror("Error while getting PE file length");
+>> +		return -1;
+>> +	}
+>> +
+>> +	len = st.st_size;
+>> +	mem = mmap(NULL, len, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+>> +
+>> +	if (mem == MAP_FAILED) {
+>> +		perror("Failed to mmap PE file");
+>> +		return -1;
+>> +	}
+>> +
+>> +	mz = (struct mz_hdr *)mem;
+> 
+> If mem was void * you wouldn't need a cast here.
+Ok
+> 
+>> +	if (mz->magic != MZ_MAGIC) { // "MZ"
+>> +		printf("file has incorrect MZ header 0x%02x instead of 0x5a4d\n", mz->magic);
+>> +		return -1;
+>> +	}
+>> +
+>> +	pe = (struct pe_hdr *)(mem + mz->peaddr);
+> 
+> Nor here.
+Ok
+> 
+>> +	if (strncmp((char *)&pe->magic, "PE\0\0", 4)) {
+> 
+> I don't think strncmp() can be used here, as it'll stop at the first '\0'.
+Ah yes, you're right.
+> 
+>> +		printf("file has incorrect PE header magic %08x instead of 0x00004550\n", pe->magic);
+> 
+> 0x%08x
+Ok
+> 
+>> +		return -1;
+>> +	}
+>> +
+>> +	if (pe->opt_hdr_size == 0) {
+>> +		printf("file has empty OptionalHeader\n");
+>> +		return -1;
+>> +	}
+> 
+> Code further down doesn't really require this check, as it looks. IOW
+> either this check wants dropping, or it wants to be more strict than
+> just checking for zero.
+
+Based on 
+https://learn.microsoft.com/en-us/windows/win32/debug/pe-format#coff-file-header-object-and-image
+My understanding is that SizeOfOptionalHeader member can be 0, for 
+object files.
+But we don't want an object file here, we want an image file.
+However, the optional header is required for image files (thus the != 0 
+check):
+
+"Every image file has an optional header that provides information to 
+the loader."
+
+But, we really don't know its size, moreover it's even different for 
+PE32 vs PE32+.
+
+> 
+>> +	struct section_header *section = (struct section_header *)((uint8_t *)pe + sizeof(*pe) + pe->opt_hdr_size);
+> 
+> "(uint8_t *)pe + sizeof(*pe)" can be easier had as "(uint8_t *)(pe + 1)".
+> But that won't be sufficient to get the line under 80 chars.
+Yes I can indeed use pointer arithmetics like pe + 1 to go past the size 
+of the pe struct, I just thought it was more readable/obvious in the pe 
++ sizeof(*pe) form.
+> 
+>> +	for (unsigned int section_id = 0; section_id < pe->sections; section_id++, section++)
+>> +	{
+>> +#ifdef DEBUG
+>> +		printf("section %s\n", section->Name);
+>> +#endif
+> 
+> This probably is just a leftover?
+It can be removed yes
+> 
+>> +		if (strncmp(section->name, ".reloc", strlen(".reloc")))
+> 
+> strncmp(..., strlen(...)) is slightly odd. In the specific case, strcmp()
+> will do I think. Otherwise use memcmp()?
+I was trying to protect against section->name maybe not being \0 
+terminated (in a broken PE file for instance).
+I can switch to using
+memcmp(section->name, ".reloc", strlen(".reloc")+1)
+
+> 
+> Jan
+
+Thanks for the review :)
+
+
+Regards,
+-- 
+
+
+Yann Sionneau | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
 
