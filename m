@@ -2,52 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4605BB0E78D
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 02:20:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1053161.1421933 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3C9DB0E77A
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Jul 2025 02:12:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1053137.1421904 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueNDJ-00075F-5c; Wed, 23 Jul 2025 00:20:05 +0000
+	id 1ueN5Q-0004gL-Ub; Wed, 23 Jul 2025 00:11:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1053161.1421933; Wed, 23 Jul 2025 00:20:05 +0000
+Received: by outflank-mailman (output) from mailman id 1053137.1421904; Wed, 23 Jul 2025 00:11:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueNDJ-000726-2c; Wed, 23 Jul 2025 00:20:05 +0000
-Received: by outflank-mailman (input) for mailman id 1053161;
- Wed, 23 Jul 2025 00:20:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YbeQ=2E=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1ueNDH-0006nl-UU
- for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 00:20:03 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20615.outbound.protection.outlook.com
- [2a01:111:f403:2009::615])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c62e5c8c-675a-11f0-a31d-13f23c93f187;
- Wed, 23 Jul 2025 02:20:02 +0200 (CEST)
-Received: from MW4PR04CA0178.namprd04.prod.outlook.com (2603:10b6:303:85::33)
- by DM4PR12MB7717.namprd12.prod.outlook.com (2603:10b6:8:103::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.30; Wed, 23 Jul
- 2025 00:19:58 +0000
-Received: from CO1PEPF000044F8.namprd21.prod.outlook.com
- (2603:10b6:303:85:cafe::e) by MW4PR04CA0178.outlook.office365.com
- (2603:10b6:303:85::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.30 via Frontend Transport; Wed,
- 23 Jul 2025 00:19:57 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1PEPF000044F8.mail.protection.outlook.com (10.167.241.198) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8989.1 via Frontend Transport; Wed, 23 Jul 2025 00:19:56 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 22 Jul
- 2025 19:19:55 -0500
-Received: from [172.18.231.84] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 22 Jul 2025 19:19:55 -0500
+	id 1ueN5Q-0004dO-RC; Wed, 23 Jul 2025 00:11:56 +0000
+Received: by outflank-mailman (input) for mailman id 1053137;
+ Wed, 23 Jul 2025 00:11:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=FKYz=2E=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1ueN5N-0004dF-Lv
+ for xen-devel@lists.xenproject.org; Wed, 23 Jul 2025 00:11:54 +0000
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch
+ [79.135.106.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a0d0d97e-6759-11f0-b894-0df219b8e170;
+ Wed, 23 Jul 2025 02:11:50 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,161 +36,329 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c62e5c8c-675a-11f0-a31d-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y1P1kztIE8RBZYGJnavNgwqgg/PFOKKrQWFCyy3IscK3dU0ZB/fDj866voUdZvOHolXRcAyu3Z08FvIAMaQZRoN1FZslzmbgLX167ic3OfjUaGox3KQ8i8a2Ql8Ewx1b1XsBFa8JFYG1t1t/gJhGY+XAsymU2jwhL2lP+A4L+76rSiu7dZrUo24ZSOdEJqpvtyG77vIKdGPrvHOuo9AiXSMVcTnsrx+/kMF1sjIfL/gM09Njz+PPgsIITUNqyKIf9f3ylagSV4FKuTzhkHuCk1OC7YvQMhLHJ+xrqOyW3PfPuP5ZvfspKMCdIOUr26K4uiwcMfZ8pbB/0nTFadG74g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rYOOPYe75bzyjMben7td9EgcJZLTONVUqCdKjO62jUI=;
- b=d7WSsF0sRBUxtc/feSvxg0+znLkisYZVzpH/aCOGZfG+wNk88/5DfALCkxNJHNV7LsgwTCPl13UsYKr1CKdZja/yADhsfbucvtGISATDYQ1eKKA9RazRUfRzJRTqLxFbUfH+nI3J9DvdJPzgn5u+ztp6sEYrSVMBRHZv9Ol2at6TQRRkXDY/U5+uMLYpUdlx2mmpQgzJZ1KI5QdUj7jbmCnx+oEN0LYGEElHQEMVDwYoJFpchvAww3/II51adPCSJhRlBU18UIASwiV9NiEGOd3/zvVmrAwrr2ikTfqq+Ep17r0CUlLSrZu9xjyXeyrf20pJL3PepcxNR9mZkjd5Nw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rYOOPYe75bzyjMben7td9EgcJZLTONVUqCdKjO62jUI=;
- b=i9jZbJb1Cw8nLUX8grzq6YdAVEmbOdiSAoWizoP0RKmFMBjSJGwD56G/LLSjtvKd+HdR0pBRq3H4gGNUYXb1WAh5v+xz8KLVIPfj5qUB6wMeddt9VQLIPsygMb8iDtrM5wQUchqPzYNpXqkrgVpEJkEkN32dqd8EsERjigVhgBk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <8e31d4dc-9f20-4af2-a814-d59a40e69fc2@amd.com>
-Date: Tue, 22 Jul 2025 08:09:42 -0400
+X-Inumbo-ID: a0d0d97e-6759-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1753229508; x=1753488708;
+	bh=fNHoDBAmvU79AHAZMwn/e0JiaMLeQRzPYLSf6wZ5+Ns=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=Hen3L7WsrTaTtIj1KBHdhVG2MTTWveBzJ+lbuMt1UpUm1n03EXx3jrdse8c6Lr4pp
+	 P64iQcs2U5d9JDuehZ1V0cjSY96v4KbLc5ScowR3p8TazceT6kvO1UDPUu5StB7gsE
+	 ChUYv2/slA9hfCkLktt+g3ximi4dtk05EXqlKjHqZkbwPtvwlVD/X1onA+uuDw2ceo
+	 cwvk38dkGEpynwcQZu+HfFpcOgRhmohRqHeCoOFr8LRIhjMhclwc5DyUvRnAsezKD0
+	 Vjq5TvIJTM7mIUJZiP3dx8YPJNVfHIjg4dhN0GG84yg5hnF9PpqYm4/xaC1GRlfYFe
+	 QhWB7jlVJPNLg==
+Date: Wed, 23 Jul 2025 00:11:41 +0000
+To: xen-devel@lists.xenproject.org
+From: dmkhn@proton.me
+Cc: alejandro.garciavallejo@amd.com, andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, oleksii.kurochko@gmail.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
+Subject: [PATCH v9] xen/console: introduce domain_console struct
+Message-ID: <20250723001116.186009-1-dmukhin@ford.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 394fc6da0ed7a3181d76932eb81c5dc6b3e8b049
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] xen: Add capabilities to get_domain_state
-To: <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Juergen Gross <jgross@suse.com>
-References: <20250722001958.174294-1-jason.andryuk@amd.com>
- <20250722001958.174294-2-jason.andryuk@amd.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20250722001958.174294-2-jason.andryuk@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F8:EE_|DM4PR12MB7717:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0dd593be-efbb-442a-e619-08ddc97ea775
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?U3NFL3VqSWd6RStmUVhNRTNiZURSNmQ4ZC9KSXVGblZKQ1pUU0FReE9IRWF4?=
- =?utf-8?B?UDFTaXF1QTFMVHdQSE5ubXdNTlI4cXI0V2FOdk1TMWJKcWZKVzdiYml3aENz?=
- =?utf-8?B?dW4vMGEvaEVIQXZRR0NEZHA5KzhYR2RYYmw2cUxtbFMrT3NWMy9ISTBmbXNo?=
- =?utf-8?B?Y01ldGgzeGYvelVESng0cjBwdnJta0dKaXdnK0ZUcktZRmdPN1EvTUliMWdR?=
- =?utf-8?B?UzBmVG1SZGNIb0s0dkZhUmphRnZVY0p4MXRBZ0J5K25aRDBSR3V6V0NwOUho?=
- =?utf-8?B?aGNnZmVlUlIzeHFTYTJOamd5Qnhza3haT1ZXc0JDdnoxcEJjYy9sLzNLaS9n?=
- =?utf-8?B?MTF3ZHNabXlQMHFKb285SUFndUV2cGwvNjVEZ1JyblEvaFVwSU5LYzdzMDV5?=
- =?utf-8?B?djdvZHJWSFRRNGowY0p2STZlbGNhYzBjb2RWTysyeGJDL2hNR2FYN3ZVa3VJ?=
- =?utf-8?B?RW1nSXRiMTlyRU14Z1FKM0VOb3dIb3hMRXVRa2ppL2dlR2JXMXZEMVhTWkpa?=
- =?utf-8?B?SDAwZFZheDVXeW1sa2t6aXBOMzFMYnVVZjZFc2gwTC9NeFk5bWpDM1BLTDdu?=
- =?utf-8?B?SE40aUpTUm1aM0h4KytjZFVzNzJXYXZFWm1wYk5JbElxT1FKMWxMeCtJaVpX?=
- =?utf-8?B?VDRVZmhkU3VBY3Y5YXZjZmxzbWtqUHVseDk0M0M2N1k5V3dSK3o4ZzRqc3Nn?=
- =?utf-8?B?TWgyQnRaaitGR3dzSTNGeUhITHpGSGsxNlM1NUFiclJQbWt4WjhUU1lkODN6?=
- =?utf-8?B?L2FGRElTQldqUDlHeEZsSzVnQm5ZYXRIOW1mM2NMdktYU01hYVFtc1dhdXF6?=
- =?utf-8?B?TGtZVzhMeFVWdVN3UHlMWGRDc3dLb01uWktUZDloSVB6cTF5cXlKU081VlJx?=
- =?utf-8?B?U3I0aEk2bTJQVENwZ0lGb3ZxY3FJcXhQK1R6M0p6RXlMSDd6dmZzSzlRNklB?=
- =?utf-8?B?N1R2THpUck4rc0xLS2d1dlN6S0FiQWNFdjUyK05DY1B2V3k3UXA2MEVRcXVo?=
- =?utf-8?B?NVhjalhZa3JKQVpTWitpejZBcVc1Rk1qbU50VGZYN0tOb0pYa0NxUzB4YTF5?=
- =?utf-8?B?UlZHV0pWRDF2dFdNYTMyZzF5ZGRKY3dKQ2Rvc2ppMnVPSmpHUVFCTmNLdFpm?=
- =?utf-8?B?QUNEdUdMYnQ2Ukd2c3ZhZDM1eEI4bEk5WjhzM0tRMDM4ZHZxUzQvaEZGdng2?=
- =?utf-8?B?bUVNNUswWURPZGV5WEZ2VnRqNXp0UU9tOFRqOFFJVVMvV0Z1Nk14SVVEWU1m?=
- =?utf-8?B?cUQzeWtjMUY4QlBCdXNxVkY1VVVPcTRWUlYvTWNuSXA3TzVSeVBKK3lBRFdD?=
- =?utf-8?B?a2xVVWNxc2k5TmpIUkJRV1Q4OFYwYnJoemFKemF0czFrb0YycWRRTDI2cDI4?=
- =?utf-8?B?cnNNZkdUaU5Ycm1sTEw3WGttcTlyS0lYWjI2bGJJZjhqT1VqSVAxQmRBM3M0?=
- =?utf-8?B?R0lZMGZobWgzV2hDK2hxUlFQV2ovMFhYYkFJTkFSZmJRK3RzdklPNDVOMlpP?=
- =?utf-8?B?VkhGUTZUTC83UkNJRVYzbjRNYTZuOXE5M245aHpwejZseUk3bHZxZHBEZVJF?=
- =?utf-8?B?K3lSM0phdThCNDFTTkFNV2NHQlZZMFdZUVRjRmRicGRieHQ2ekpZMUNLNW1t?=
- =?utf-8?B?ODlaYTJFa2NmSzJEMnVJN2RoRUpNTVZRcDFSM1ZKTTdPN0hLVjl1Y3YySXkr?=
- =?utf-8?B?KzRhdGZZQXh0Q24vSmJkZzg3Nzl0OUFseUN3UWpHWDdNY2VESWY4WUg0Q0lF?=
- =?utf-8?B?eHcveEh5bnFjejV3c3RmS3l0eHp6MmNEb1p2QXcxbXk1VmdQR0YvdmttUDNR?=
- =?utf-8?B?b1pHTHVyUEVOMTQxZnoyNlZqSlROd3NTeGR2YW9uMFRKd1o5YS9DNjlhZ2Z0?=
- =?utf-8?B?RkVVQmpFb0RRbE5LMVNSM1FvL0VRTmI1KzdTMjZpaHo4MkhjT2hYak9tWmxy?=
- =?utf-8?B?TnI3cS9BMmlTaGRuQk1nYWFhN0RhSTlRcStpOWV2UjhCYUEvcUNRSVhhQW9k?=
- =?utf-8?B?Qy9va3R6OVNFcXZoRGtpQjJXWlVwZk9yQzJnYVZzMjhETk5aV0MxVFlQbkVL?=
- =?utf-8?Q?dadNSQ?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2025 00:19:56.7716
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0dd593be-efbb-442a-e619-08ddc97ea775
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000044F8.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7717
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 2025-07-21 20:19, Jason Andryuk wrote:
-> Expose a domain's capabilities - control, hardware or xenstore - through
-> stable get domain state hypercall.
-> 
-> The xenstore domain can use this information to assign appropriate
-> permissions on connections.
-> 
-> Repurpose the 16bit pad field for this purpose.
-> 
-> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> Reviewed-by: Juergen Gross <jgross@suse.com>
-> ---
-> v2:
-> Init info->caps = 0
-> Remove stale comment on caps field
-> Add Juergen's R-b
-> ---
->   xen/common/domain.c         | 10 +++++++++-
->   xen/include/public/domctl.h |  7 +++++--
->   2 files changed, 14 insertions(+), 3 deletions(-)
-> 
-> diff --git a/xen/common/domain.c b/xen/common/domain.c
-> index c347de4335..bb33b1f1c7 100644
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
+From: Denis Mukhin <dmukhin@ford.com>=20
 
-> diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-> index f1f6f96bc2..136820ea5b 100644
-> --- a/xen/include/public/domctl.h
-> +++ b/xen/include/public/domctl.h
-> @@ -1269,8 +1269,11 @@ struct xen_domctl_get_domain_state {
->   #define XEN_DOMCTL_GETDOMSTATE_STATE_SHUTDOWN  0x0002  /* Shutdown finished. */
->   #define XEN_DOMCTL_GETDOMSTATE_STATE_DYING     0x0004  /* Domain dying. */
->   #define XEN_DOMCTL_GETDOMSTATE_STATE_DEAD      0x0008  /* Domain dead. */
-> -    uint16_t pad0;           /* Must be 0 on input, returned as 0. */
-> -    uint32_t pad1;           /* Must be 0 on input, returned as 0. */
-> +    uint16_t caps;
-> +#define XEN_DOMCTL_GETDOMSTATE_CAP_CONTROL     0x0001  /* Control domain. */
-> +#define XEN_DOMCTL_GETDOMSTATE_CAP_HARDWARE    0x0002  /* Hardware domain. */
-> +#define XEN_DOMCTL_GETDOMSTATE_CAP_XENSTORE    0x0004  /* Xenstore domain. */
-> +    uint32_t pad0;           /* Must be 0 on input, returned as 0. */
+Introduce domain_console for grouping data structures used for integrating
+domain's diagnostic console with Xen's console driver.
 
-I have wondered if we should use some of this padding to start returning 
-the valid capability bits.  When the hypercall (and library) will be 
-ready in case the number increases.
+Group all pbuf-related data structures under domain_console. Rename the mov=
+ed
+fields to plain .buf, .idx and .lock names, since all uses of the fields ar=
+e
+touched.
 
-The other alternative would be to return the bits in some other call, in 
-which case this one would not need to change.  And returning the 
-unchanging valids bits on each call seems unnecessary.
+Bump the domain console buffer allocation size to 256. No extra symbol for =
+the
+value since it is used only once during data structure declaration. All siz=
+e
+checks use ARRAY_SIZE().
 
-Regards,
-Jason
+Allocate domain_console from the heap so that the parent domain struct size
+stays below PAGE_SIZE boundary to account for more console-related fields
+added in the future. Ensure accesses to domain_console pointer are valid in
+console_switch_input() and hvm_print_line().
 
->       uint64_t unique_id;      /* Unique domain identifier. */
->   };
->   
+Finally, update the domain_console allocation and initialization code.
+
+No functional change.
+
+Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+---
+Changes since v8:
+- ensure accesses to domain_console pointer are valid in
+  console_switch_input() and hvm_print_line()
+- updated comment for domain_console field
+
+Link to v8: https://lore.kernel.org/xen-devel/20250716020447.1029992-1-dmuk=
+hin@ford.com/
+---
+ xen/arch/arm/vpl011.c      |  2 +-
+ xen/arch/x86/hvm/hvm.c     | 22 ++++++++++++++--------
+ xen/arch/x86/pv/shim.c     |  2 +-
+ xen/common/domain.c        | 19 +++++++++----------
+ xen/drivers/char/console.c | 28 ++++++++++++++++------------
+ xen/include/xen/sched.h    | 24 +++++++++++++-----------
+ 6 files changed, 54 insertions(+), 43 deletions(-)
+
+diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c
+index 480fc664fc62..d0d17c76b72c 100644
+--- a/xen/arch/arm/vpl011.c
++++ b/xen/arch/arm/vpl011.c
+@@ -713,7 +713,7 @@ int domain_vpl011_init(struct domain *d, struct vpl011_=
+init_info *info)
+     }
+     else
+     {
+-        d->console.input_allowed =3D true;
++        d->console->input_allowed =3D true;
+         vpl011->backend_in_domain =3D false;
+=20
+         vpl011->backend.xen =3D xzalloc(struct vpl011_xen_backend);
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+index 56c7de39778b..394b07303a60 100644
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -559,7 +559,8 @@ void hvm_do_resume(struct vcpu *v)
+ static int cf_check hvm_print_line(
+     int dir, unsigned int port, unsigned int bytes, uint32_t *val)
+ {
+-    struct domain *cd =3D current->domain;
++    struct domain *d =3D current->domain;
++    struct domain_console *cons =3D d->console;
+     char c =3D *val;
+=20
+     ASSERT(bytes =3D=3D 1 && port =3D=3D XEN_HVM_DEBUGCONS_IOPORT);
+@@ -571,16 +572,21 @@ static int cf_check hvm_print_line(
+     if ( !is_console_printable(c) )
+         return X86EMUL_OKAY;
+=20
+-    spin_lock(&cd->pbuf_lock);
++    rcu_lock_domain(d);
++
++    spin_lock(&cons->lock);
++    ASSERT(cons->idx < ARRAY_SIZE(cons->buf));
+     if ( c !=3D '\n' )
+-        cd->pbuf[cd->pbuf_idx++] =3D c;
+-    if ( (cd->pbuf_idx =3D=3D (DOMAIN_PBUF_SIZE - 1)) || (c =3D=3D '\n') )
++        cons->buf[cons->idx++] =3D c;
++    if ( (cons->idx =3D=3D (ARRAY_SIZE(cons->buf) - 1)) || (c =3D=3D '\n')=
+ )
+     {
+-        cd->pbuf[cd->pbuf_idx] =3D '\0';
+-        guest_printk(cd, XENLOG_G_DEBUG "%s\n", cd->pbuf);
+-        cd->pbuf_idx =3D 0;
++        cons->buf[cons->idx] =3D '\0';
++        guest_printk(d, XENLOG_G_DEBUG "%s\n", cons->buf);
++        cons->idx =3D 0;
+     }
+-    spin_unlock(&cd->pbuf_lock);
++    spin_unlock(&cons->lock);
++
++    rcu_unlock_domain(d);
+=20
+     return X86EMUL_OKAY;
+ }
+diff --git a/xen/arch/x86/pv/shim.c b/xen/arch/x86/pv/shim.c
+index bc2a7dd5fae5..bd29c53a2d34 100644
+--- a/xen/arch/x86/pv/shim.c
++++ b/xen/arch/x86/pv/shim.c
+@@ -239,7 +239,7 @@ void __init pv_shim_setup_dom(struct domain *d, l4_pgen=
+try_t *l4start,
+      */
+     d->max_pages =3D domain_tot_pages(d);
+=20
+-    d->console.input_allowed =3D true;
++    d->console->input_allowed =3D true;
+ }
+=20
+ static void write_start_info(struct domain *d)
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 303c338ef293..caef4cc8d649 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -669,7 +669,7 @@ static void _domain_destroy(struct domain *d)
+     BUG_ON(!d->is_dying);
+     BUG_ON(atomic_read(&d->refcnt) !=3D DOMAIN_DESTROYED);
+=20
+-    xfree(d->pbuf);
++    xvfree(d->console);
+=20
+     argo_destroy(d);
+=20
+@@ -835,8 +835,6 @@ struct domain *domain_create(domid_t domid,
+         flags |=3D CDF_hardware;
+         if ( old_hwdom )
+             old_hwdom->cdf &=3D ~CDF_hardware;
+-
+-        d->console.input_allowed =3D true;
+     }
+=20
+     /* Holding CDF_* internal flags. */
+@@ -866,8 +864,6 @@ struct domain *domain_create(domid_t domid,
+     spin_lock_init(&d->shutdown_lock);
+     d->shutdown_code =3D SHUTDOWN_CODE_INVALID;
+=20
+-    spin_lock_init(&d->pbuf_lock);
+-
+     rwlock_init(&d->vnuma_rwlock);
+=20
+ #ifdef CONFIG_HAS_PCI
+@@ -877,6 +873,14 @@ struct domain *domain_create(domid_t domid,
+=20
+     /* All error paths can depend on the above setup. */
+=20
++    err =3D -ENOMEM;
++    d->console =3D xvzalloc(typeof(*d->console));
++    if ( !d->console )
++        goto fail;
++
++    spin_lock_init(&d->console->lock);
++    d->console->input_allowed =3D is_hardware_domain(d);
++
+     /*
+      * Allocate d->vcpu[] and set ->max_vcpus up early.  Various per-domai=
+n
+      * resources want to be sized based on max_vcpus.
+@@ -959,11 +963,6 @@ struct domain *domain_create(domid_t domid,
+     if ( (err =3D argo_init(d)) !=3D 0 )
+         goto fail;
+=20
+-    err =3D -ENOMEM;
+-    d->pbuf =3D xzalloc_array(char, DOMAIN_PBUF_SIZE);
+-    if ( !d->pbuf )
+-        goto fail;
+-
+     if ( (err =3D sched_init_domain(d, config->cpupool_id)) !=3D 0 )
+         goto fail;
+=20
+diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+index c5afac9f7259..7ed0523b7200 100644
+--- a/xen/drivers/char/console.c
++++ b/xen/drivers/char/console.c
+@@ -523,7 +523,7 @@ struct domain *console_get_domain(void)
+     if ( !d )
+         return NULL;
+=20
+-    if ( d->console.input_allowed )
++    if ( d->console->input_allowed )
+         return d;
+=20
+     rcu_unlock_domain(d);
+@@ -564,10 +564,13 @@ static void console_switch_input(void)
+         d =3D rcu_lock_domain_by_id(domid);
+         if ( d )
+         {
+-            rcu_unlock_domain(d);
+-
+-            if ( !d->console.input_allowed )
++            if ( !d->console->input_allowed )
++            {
++                rcu_unlock_domain(d);
+                 continue;
++            }
++
++            rcu_unlock_domain(d);
+=20
+             console_rx =3D next_rx;
+             printk("*** Serial input to DOM%u", domid);
+@@ -746,6 +749,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(=
+char) buffer,
+         else
+         {
+             char *kin =3D kbuf, *kout =3D kbuf, c;
++            struct domain_console *cons =3D cd->console;
+=20
+             /* Strip non-printable characters */
+             do
+@@ -758,22 +762,22 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARA=
+M(char) buffer,
+             } while ( --kcount > 0 );
+=20
+             *kout =3D '\0';
+-            spin_lock(&cd->pbuf_lock);
++            spin_lock(&cons->lock);
+             kcount =3D kin - kbuf;
+             if ( c !=3D '\n' &&
+-                 (cd->pbuf_idx + (kout - kbuf) < (DOMAIN_PBUF_SIZE - 1)) )
++                 (cons->idx + (kout - kbuf) < (ARRAY_SIZE(cons->buf) - 1))=
+ )
+             {
+                 /* buffer the output until a newline */
+-                memcpy(cd->pbuf + cd->pbuf_idx, kbuf, kout - kbuf);
+-                cd->pbuf_idx +=3D (kout - kbuf);
++                memcpy(cons->buf + cons->idx, kbuf, kout - kbuf);
++                cons->idx +=3D kout - kbuf;
+             }
+             else
+             {
+-                cd->pbuf[cd->pbuf_idx] =3D '\0';
+-                guest_printk(cd, XENLOG_G_DEBUG "%s%s\n", cd->pbuf, kbuf);
+-                cd->pbuf_idx =3D 0;
++                cons->buf[cons->idx] =3D '\0';
++                guest_printk(cd, XENLOG_G_DEBUG "%s%s\n", cons->buf, kbuf)=
+;
++                cons->idx =3D 0;
+             }
+-            spin_unlock(&cd->pbuf_lock);
++            spin_unlock(&cons->lock);
+         }
+=20
+         guest_handle_add_offset(buffer, kcount);
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+index fe53d4fab7ba..c828d5626dea 100644
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -371,6 +371,17 @@ struct evtchn_port_ops;
+=20
+ #define MAX_NR_IOREQ_SERVERS 8
+=20
++/* Domain console settings. */
++struct domain_console {
++    /* Permission to take ownership of the physical console input. */
++    bool input_allowed;
++
++    /* hvm_print_line() and guest_console_write() logging. */
++    unsigned int idx;
++    spinlock_t lock;
++    char buf[256];
++};
++
+ struct domain
+ {
+     domid_t          domain_id;
+@@ -562,12 +573,6 @@ struct domain
+     /* Control-plane tools handle for this domain. */
+     xen_domain_handle_t handle;
+=20
+-    /* hvm_print_line() and guest_console_write() logging. */
+-#define DOMAIN_PBUF_SIZE 200
+-    char       *pbuf;
+-    unsigned int pbuf_idx;
+-    spinlock_t  pbuf_lock;
+-
+     /* OProfile support. */
+     struct xenoprof *xenoprof;
+=20
+@@ -652,11 +657,8 @@ struct domain
+     const unsigned int *llc_colors;
+ #endif
+=20
+-    /* Console settings. */
+-    struct {
+-        /* Permission to take ownership of the physical console input. */
+-        bool input_allowed;
+-    } console;
++    /* Pointer to console settings; NULL for system Xen domains. */
++    struct domain_console *console;
+ } __aligned(PAGE_SIZE);
+=20
+ static inline struct page_list_head *page_to_list(
+--=20
+2.34.1
+
 
 
