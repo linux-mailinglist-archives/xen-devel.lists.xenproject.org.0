@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42B9CB101DC
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 09:32:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1055330.1423745 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 644D9B10214
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 09:41:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1055361.1423776 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueqQt-0007g8-SA; Thu, 24 Jul 2025 07:32:03 +0000
+	id 1ueqZS-000295-43; Thu, 24 Jul 2025 07:40:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1055330.1423745; Thu, 24 Jul 2025 07:32:03 +0000
+Received: by outflank-mailman (output) from mailman id 1055361.1423776; Thu, 24 Jul 2025 07:40:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueqQt-0007eF-P1; Thu, 24 Jul 2025 07:32:03 +0000
-Received: by outflank-mailman (input) for mailman id 1055330;
- Thu, 24 Jul 2025 07:32:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ueqZS-00026v-0C; Thu, 24 Jul 2025 07:40:54 +0000
+Received: by outflank-mailman (input) for mailman id 1055361;
+ Thu, 24 Jul 2025 07:40:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=P0IF=2F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ueqQt-0007e9-17
- for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 07:32:03 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4a074e3d-6860-11f0-a31e-13f23c93f187;
- Thu, 24 Jul 2025 09:32:01 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3a503d9ef59so401175f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 00:32:01 -0700 (PDT)
+ id 1ueqTN-00089O-NA
+ for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 07:34:37 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a606a4ec-6860-11f0-b895-0df219b8e170;
+ Thu, 24 Jul 2025 09:34:36 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-3a54690d369so583527f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 00:34:36 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45870532b5asm8974835e9.5.2025.07.24.00.32.00
+ ffacd0b85a97d-3b76fc72548sm1287081f8f.30.2025.07.24.00.34.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Jul 2025 00:32:00 -0700 (PDT)
+ Thu, 24 Jul 2025 00:34:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a074e3d-6860-11f0-a31e-13f23c93f187
+X-Inumbo-ID: a606a4ec-6860-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753342321; x=1753947121; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jQz8OwBR3OesvDMCiMkmmXehvfMiPg8AOZRNf0baFPk=;
-        b=FaEL6fl90Z+sPuTlDis0BqqY1CubAJdWzOnTK2nfdYcL3/Wam2IdIKVaWUQl4uJe9u
-         3amkAE0zyItBg2HVuf5yJ6DYAEP+Nexh/Py/cde4QFfcZLobOlVALK+2j/xLM2n8lztp
-         J3mWKR6mioSz1Y4k3yI2XaI9kHhbxqzAZIk3aHahAxmtR3fa0ElIH6DhKSXrRikYykDz
-         3LRQ2+jSEbvxs18zi+czEBH/T0PxFvrbC1QOaSPFeMsitnAGGy/tm6Xv7eL33TCRQX0D
-         bhHIXmiz7CJ2ZIXGP34roSVNXc8GhjkzUMNRHV6EeCGgVAX1j1GWZumFW7eOQfODC954
-         /XMQ==
+        d=suse.com; s=google; t=1753342475; x=1753947275; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=+hhouXegb79y02BK6iYK3wBNjYMyKvjwu4+H6U621d8=;
+        b=EH64/OMSmvtzfZ0EgbMLmQvmOEqBi3jvO3+Zo9CPnSIGWPrBBoUfcuUiqgj4h6PUeK
+         +bun69KbMx3wPKO9KMArQc7IavaSDPY0iP+8XRyQ7CR9G8AysYA2ZaIvBPX8rWksHjI1
+         Z6YxpmHlOM8QaO41mkptt0TmezBslaoi8v1Zpm/AXzR/moA09UJtDd/C7fAEeC8Cqai2
+         gWBUf9diJgx3PUbbsFrXWsH6DH46xvTrPq0gTXO0bkqjQvpEN+2eVmK7867ZdsUHMlTl
+         ZlquJwUxZxT1fEk92CCmjfw30e+jxbkYoUXEcUBjPURmjUf1zA1WX2XwZBVj9eU0+qEC
+         Zyfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753342321; x=1753947121;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jQz8OwBR3OesvDMCiMkmmXehvfMiPg8AOZRNf0baFPk=;
-        b=Y3tjZgkMb2BECvwMY1GFHxZMSO0ycYKfpZCrte7SomPZcP97ANJEuiAL8TvWzUWzYq
-         tvkIwNeNs+Sz01bT/GlUuOUOCSLkA5nACoJ1Iktu0IeFc5Q0ZdL4LD8qbtT8vnX658Ex
-         Foe8CEyp6FPNoBMRPM7fr8+ZeXh1XZ7wwKeuMnG/pKmvQq0lzmCYEL3bNflLdB8DL+7n
-         MKOulHv1AofFIipi0a7nse2/tSoN8J/2r8tRCyrEFI+GGMqLlvGCe5BQncPcC9v1DyLX
-         FhPmLYbbkGBOZ2pKrdyfzKVBxyBuimamc+YCiPEYHURQ+8u9aur/9ntJ1pu+g491IYq2
-         92Vg==
-X-Forwarded-Encrypted: i=1; AJvYcCUV+o+3PJ4tm52MiGP3w9wyzELYwluEKQ0m+9LG3O4oN/rX3VYVZ0p0Rf9fEHj0oDWlCcmtxdb6nMA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyLMladlHhIvOD0i7J6VssYOt2V0FcZQpHBW3syQitfd6XCQ23j
-	eOg82Qv7S3ByFFzrZUUnBLzwOj622d/hIaFJh68J4hcDQR8s266n939o2g7cLzBzhg==
-X-Gm-Gg: ASbGnctYw/cANX7zd0WZ5hw4JOZ/SBTuI9QmBNYI+n8NavsAgkvyZcFxZwoCt5WAvEA
-	iZnZdpJA9lm4tFlzGKSQ+juSaURr+V5WR4wKUEBuwCGY+sX8tDXMJuLZSjCllGmwdJLULGJFBlL
-	HCNSsMTYXLNaDizXz0/M4ovXHAh88FejW02VOCJs2Bhz0reYs2SQp/o7+/8Q+tOgzCYyEPBkpQM
-	E3Njw2Rv0uHBPPRBxB4NOV30ZDAj9boprm8k1KQcCeWDEfDnjbIAdX8vHWBUGLoG6KihK0yx5el
-	WsXeJii57rC4woAv5vtWgVJ46SPM3JOCjhissBlk9l35MQKLcAQdEm+/Lx9crdLFrsvyyNEIHVE
-	uPzVg77MlAspIAr2jOMaWbfLp4/4Uoez92eafkLqG0/3v7OKytWDNSEbJW5mBBvSKflzkm5YAJ/
-	t6l2aOfoY=
-X-Google-Smtp-Source: AGHT+IExhBGwpZ026ZujCQssWoPaKsNBORzFnXSeFyTYdRF5DcYIog8Ykns1hF1a7hIX+C70mGlFGw==
-X-Received: by 2002:a05:6000:22c3:b0:3a5:2fb2:35ac with SMTP id ffacd0b85a97d-3b768ef96b0mr4690969f8f.24.1753342321116;
-        Thu, 24 Jul 2025 00:32:01 -0700 (PDT)
-Message-ID: <89b615e1-3ed4-4cc9-9222-4149b5a27e2e@suse.com>
-Date: Thu, 24 Jul 2025 09:31:59 +0200
+        d=1e100.net; s=20230601; t=1753342475; x=1753947275;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=+hhouXegb79y02BK6iYK3wBNjYMyKvjwu4+H6U621d8=;
+        b=KGMnlKdA5L7nGsXqSoH/298iuIohd2bKEZwPGpcHNsBGXiPNqTJYyvfY+Cf46hbM1j
+         Kx3bQtaPIytrZWX9vn1mEcAVnQXUUXDPjrbMpMMtEiAb/isdPsLPn+yOTWivWjzzdjCe
+         /L2xhmL2+Xj7h8L8s4EuEER7HJODeeKFfb87mbjoQHpzBXXfbvzg6IMDME4u59lCt1h5
+         hRJ7cmTsTW3xyzJbLOwAwD1DBqqmJ8wDxRHTejcVkHPVHhYuKc91JF3lrHzt6zfsdM7K
+         FtsXmVLvaicuYnctCESyjr7VvpGHWXDQ+HdG7fGhfQRE7tiOQJlF89nfnMeCZ7e5bYfr
+         ZlXQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW/mLucCg+B/pbr+QsgAdgsz7RlQjUCtCOUcl3Tqjy1pVNwEqzVBJKWmTZQxSyCWY6UfhBd4nP1w50=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxlRvk2R6o5lWERm2YJixQpT5skOtYUQySu2MDysy5coNiGzw56
+	DvDH5BE/6FzLKY7BvNfzIuUncEatMmfTWW/5+FE2exQsY4kViRNAX58xQAziRn4dNQ==
+X-Gm-Gg: ASbGncsiebvXM5hR/G8OfPdfgbOuAL6B8tero7FfTHwJFEZISDL37jNJErNloxAblrc
+	sz4UjWv4+2pl8At0c1z9wc/kLpmytMEZYGCN9mgcVJRQeQ4TvH/jdY5KoCq8tF0ZciNB2LntFaD
+	t9hjrqoeCBmGQzRanvusm86EyD6TTHDjvrjcPquWK22m0poq5s369gjD2AImZw4a3RO/ks4oKgP
+	d4T7683w16QPJV/vc0PoOlNtNpmQaCFP7omC66Xxotqx2KDNhn+Fhj4V3yjA1algy7GsDoUFJK8
+	ly10fcv/8VgS9x+VIGUIoPONUctPqvTZMx/cFgU0jXuiNwAPxMr0MTVwZNHCEsTwn2EnAaXP5Z0
+	hqnVjhfk7/E9aDm+/8/dJWGE78F/C/C8aEFj/q9/DG/5FBv1Z53BO5mJ3yFRM1sgz+tKDWpyttn
+	8LJuQ6bzFV9bQW3GZnkg==
+X-Google-Smtp-Source: AGHT+IGKBUTlAlhjuuneaTMzD4fbzuKYEOMOI21wlxf9KDxYagH/Tnh9q7hv9+X+cBD2hVaYdn61ow==
+X-Received: by 2002:a05:6000:24c9:b0:3a3:7baf:f06a with SMTP id ffacd0b85a97d-3b768ef3615mr4441346f8f.37.1753342475524;
+        Thu, 24 Jul 2025 00:34:35 -0700 (PDT)
+Message-ID: <a5887585-0011-458d-beab-4a8592351935@suse.com>
+Date: Thu, 24 Jul 2025 09:34:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] xen: move getdomaininfo() to domain.c
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Penny Zheng <Penny.Zheng@amd.com>, ray.huang@amd.com,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-References: <20250722050410.853783-1-Penny.Zheng@amd.com>
- <0939219f-1c06-4d0d-a427-6b95b5943513@suse.com>
- <alpine.DEB.2.22.394.2507221738090.7043@ubuntu-linux-20-04-desktop>
- <f75df6d6-ede6-41a6-9412-1a9b073902b5@suse.com>
- <alpine.DEB.2.22.394.2507231327280.7043@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v9] xen/console: introduce domain_console struct
+To: dmkhn@proton.me
+References: <20250723001116.186009-1-dmukhin@ford.com>
+ <b819d729-8533-46a5-b2a2-480a70cda556@suse.com> <aIEowjUsuWfwqSzX@kraken>
+ <aIGXrDdDHsOvH5rf@kraken>
 Content-Language: en-US
+Cc: alejandro.garciavallejo@amd.com, andrew.cooper3@citrix.com,
+ anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com,
+ oleksii.kurochko@gmail.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -129,62 +122,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2507231327280.7043@ubuntu-linux-20-04-desktop>
+In-Reply-To: <aIGXrDdDHsOvH5rf@kraken>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23.07.2025 22:30, Stefano Stabellini wrote:
-> On Wed, 23 Jul 2025, Jan Beulich wrote:
->> On 23.07.2025 02:46, Stefano Stabellini wrote:
->>> On Tue, 22 Jul 2025, Jan Beulich wrote:
->>>> On 22.07.2025 07:04, Penny Zheng wrote:
->>>>> Function getdomaininfo() is not only invoked by domctl-op, but also sysctl-op,
->>>>> so it shall better live in domain.c, rather than domctl.c. Which is also
->>>>> applied for arch_get_domain_info(). Style corrections shall be applied at
->>>>> the same time while moving these functions, such as converting u64 to
->>>>> uint64_t.
->>>>>
->>>>> The movement could also fix CI error of a randconfig picking both SYSCTL=y
->>>>> and PV_SHIM_EXCLUSIVE=y results in sysctl.c being built, but domctl.c not
->>>>> being built, which leaves getdomaininfo() undefined, causing linking to fail.
->>>>>
->>>>> Fixes: 34317c508294 ("xen/sysctl: wrap around sysctl hypercall")
->>>>> Reported-by: Jan Beulich <jbeulich@suse.com>
->>>>> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
->>>>
->>>> I'm not convinced of this approach. In the longer run this would mean wrapping
->>>> everything you move in "#if defined(CONFIG_SYSCTL) || defined(CONFIG_DOMCTL)",
->>>> which I consider undesirable. Without DOMCTL, the usefulness of
->>>> XEN_SYSCTL_getdomaininfolist is at least questionable. Therefore adding more
->>>> isolated "#ifdef CONFIG_DOMCTL" just there may be an option. Similarly, as
->>>> mentioned on the other thread, having SYSCTL depend on DOMCTL is an approach
->>>> which imo wants at least considering. And there surely are further options.
->>>>
->>>> As indicated elsewhere, my preference goes towards reverting the final one or
->>>> two patches of that series. They can be re-applied once the dependencies were
->>>> properly sorted, which may (as per above) involve properly introducing a
->>>> DOMCTL Kconfig setting first.
+On 24.07.2025 04:17, dmkhn@proton.me wrote:
+> On Wed, Jul 23, 2025 at 06:24:07PM +0000, dmkhn@proton.me wrote:
+>> On Wed, Jul 23, 2025 at 05:10:04PM +0200, Jan Beulich wrote:
+>>> On 23.07.2025 02:11, dmkhn@proton.me wrote:
+>>>> @@ -559,7 +559,8 @@ void hvm_do_resume(struct vcpu *v)
+>>>>  static int cf_check hvm_print_line(
+>>>>      int dir, unsigned int port, unsigned int bytes, uint32_t *val)
+>>>>  {
+>>>> -    struct domain *cd = current->domain;
+>>>> +    struct domain *d = current->domain;
 >>>
->>> I don't think this is a good idea.
+>>> Why the renaming? (Iff any renaming was needed here, then please to currd.)
 >>
->> And implicitly you say that what I put under question in the first paragraph
->> is a good way forward?
+>> It was requested earlier:
+>>   https://lore.kernel.org/all/1ac74dd3-e0c5-43e5-9eed-c1a2cc17d068@suse.com/
+>>
 > 
-> I think it is OK.
+> What would be the preferred way to address this?
 > 
-> I also think "having SYSCTL depend on DOMCTL" is certainly worth
-> thinking about. In terms of privilege and potential for interference
-> with other domains sysctl and domctl don't seem different so it is
-> unlikely one would want to disable one but not the other.
+> Add `const` to domain pointer?
+> `s/cd/currd/`? 
+> `s/cd/d/` like in previous review?
+> Do not touch `cd`?
 > 
-> Another idea is to have a single kconfig for both SYSCTL and DOMCTL: we
-> don't necessarily need to offer individual kconfig for every feature.
-> From a safety point of view, we want to disable them both.
+> It make sense to adjust the code now by at least adding `const`.
 
-Then again (and going against the thought of making SYSCTL depend on DOMCTL)
-there may be a desire to query / alter certain properties of the system as
-a whole, without also having that need for individual domains. But yes,
-covering both with a single control also is an option to consider.
+Yet only if the line needs touching anyway for the purpose of the patch.
+Which, as it looks, isn't necessary.
 
 Jan
 
