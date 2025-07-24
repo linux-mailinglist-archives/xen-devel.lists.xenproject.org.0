@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B45E0B0FE9B
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 04:01:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1055016.1423595 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E84BB0FEB7
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 04:17:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1055039.1423606 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uelFe-00086Y-Nb; Thu, 24 Jul 2025 02:00:06 +0000
+	id 1uelWU-0001q9-3m; Thu, 24 Jul 2025 02:17:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1055016.1423595; Thu, 24 Jul 2025 02:00:06 +0000
+Received: by outflank-mailman (output) from mailman id 1055039.1423606; Thu, 24 Jul 2025 02:17:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uelFe-00085c-Ki; Thu, 24 Jul 2025 02:00:06 +0000
-Received: by outflank-mailman (input) for mailman id 1055016;
- Thu, 24 Jul 2025 02:00:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uelWU-0001nn-0h; Thu, 24 Jul 2025 02:17:30 +0000
+Received: by outflank-mailman (input) for mailman id 1055039;
+ Thu, 24 Jul 2025 02:17:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=BvLp=2F=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uelFc-0007hv-66
- for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 02:00:05 +0000
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e88ad3b5-6831-11f0-b895-0df219b8e170;
- Thu, 24 Jul 2025 04:00:01 +0200 (CEST)
+ id 1uelWS-0001nh-IA
+ for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 02:17:28 +0000
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 56c533af-6834-11f0-a31e-13f23c93f187;
+ Thu, 24 Jul 2025 04:17:25 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,156 +36,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e88ad3b5-6831-11f0-b895-0df219b8e170
+X-Inumbo-ID: 56c533af-6834-11f0-a31e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=uskvpgmv2neczgowdbmxhfyjmm.protonmail; t=1753322399; x=1753581599;
-	bh=h7IuTrUPE3KH89ZFuQiAs3/l3TPpMtIpRRTTwvGC+tY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	s=protonmail; t=1753323444; x=1753582644;
+	bh=bND8N3wDIqeXPtH1fS8hmggOkFpGaKFL5hqkQ/a5XgM=;
+	h=Date:To:From:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=PSIYpGG7iwChTKrtulidBGcawhehQghWf3rMkDvgpOvtsR/uFVS1EgPmsBqmqwxGX
-	 O+o/qkGKy6E3dOmGuukljssdQpZpYa2XfaZ9nZrhjItdVUQgIqXdzjg1sGkTTtl73u
-	 NS63+AIHEttyqt7BvZ8A6Oud3YnU6e1U5JYZhIErrk4pwxGxOFFfIpEwO00e+fSHk7
-	 6xtivn4LtPoG0177wrBSXLLQ8NCkgRqlrP+SmEb+AomVa7t3hz1KbGa4fmB3EQIhoX
-	 4X/UtELHEhH4+6x2JA+so9H2cw1Q9JK//V6U5FzmWGNSaQrPrqBoFdlUDzTrd0FIZc
-	 Y3AY5v7cuiJig==
-Date: Thu, 24 Jul 2025 01:59:56 +0000
-To: Jan Beulich <jbeulich@suse.com>
+	b=WXXIUhKKL/Up2QyFWZ/G+OmsufU8EN0fmJoumr2BfCGHJMmqFXH1L0k5L82XvEG3d
+	 cvjVpevJnV4Fne/F65dljXRgry+3mHP6uTUafOVRIC/6c3eWxjwWb/J9Cm5Kgb/HGu
+	 ePvF4/8ukm3J17UvHxdQpp5lXVAiRv7YwkcAu04jwo8AlRvM2Pa+drB+7osuyC2NE+
+	 ENS5wNeGVnP78+drkntxwgOmpa98/Ahi8y7b6wMz3rnJ+gq8wHFVVAKhWBc8GkFijc
+	 XPeIhfKJCN9+DONnW6ObMthJNA0QNPaR4iiOS+C1RGDFfDqAfx4tEIwFAY0Xv49uAf
+	 BVSpuTdxXZSdg==
+Date: Thu, 24 Jul 2025 02:17:20 +0000
+To: Jan Beulich <jbeulich@suse.com>, alejandro.garciavallejo@amd.com, andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, oleksii.kurochko@gmail.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
 From: dmkhn@proton.me
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Marek Marczykowski <marmarek@invisiblethingslab.com>, Daniel Smith <dpsmith@apertussolutions.com>
-Subject: Re: [PATCH v3] EFI/runtime: switch to xv[mz]alloc_array()
-Message-ID: <aIGTmFl6WB7e+fqx@kraken>
-In-Reply-To: <41b7e14c-59ef-40f5-8c43-69bdc5fb4531@suse.com>
-References: <41b7e14c-59ef-40f5-8c43-69bdc5fb4531@suse.com>
+Subject: Re: [PATCH v9] xen/console: introduce domain_console struct
+Message-ID: <aIGXrDdDHsOvH5rf@kraken>
+In-Reply-To: <aIEowjUsuWfwqSzX@kraken>
+References: <20250723001116.186009-1-dmukhin@ford.com> <b819d729-8533-46a5-b2a2-480a70cda556@suse.com> <aIEowjUsuWfwqSzX@kraken>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: ec41dd8ef92e27773e63c63d2febbb91b3924448
+X-Pm-Message-ID: 6b27a5bf65a41d9db3d5c7f918147345d4284f96
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jul 23, 2025 at 03:39:11PM +0200, Jan Beulich wrote:
-> Use the more "modern" form, thus doing away with effectively open-coding
-> xmalloc_array() at the same time. While there is a difference in
-> generated code, as xmalloc_bytes() forces SMP_CACHE_BYTES alignment, if
-> code really cared about such higher than default alignment, it should
-> request so explicitly.
+On Wed, Jul 23, 2025 at 06:24:07PM +0000, dmkhn@proton.me wrote:
+> On Wed, Jul 23, 2025 at 05:10:04PM +0200, Jan Beulich wrote:
+> > On 23.07.2025 02:11, dmkhn@proton.me wrote:
+> > > @@ -559,7 +559,8 @@ void hvm_do_resume(struct vcpu *v)
+> > >  static int cf_check hvm_print_line(
+> > >      int dir, unsigned int port, unsigned int bytes, uint32_t *val)
+> > >  {
+> > > -    struct domain *cd =3D current->domain;
+> > > +    struct domain *d =3D current->domain;
+> >=20
+> > Why the renaming? (Iff any renaming was needed here, then please to cur=
+rd.)
 >=20
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> It was requested earlier:
+>   https://lore.kernel.org/all/1ac74dd3-e0c5-43e5-9eed-c1a2cc17d068@suse.c=
+om/
+>=20
 
-Reviewed-by: Denis Mukhin <dmukhin@ford.com>=20
+What would be the preferred way to address this?
 
-> ---
-> v3: Use xv[mz]alloc_array().
+Add `const` to domain pointer?
+`s/cd/currd/`?=20
+`s/cd/d/` like in previous review?
+Do not touch `cd`?
+
+It make sense to adjust the code now by at least adding `const`.
+
+> >=20
+> > > +    struct domain_console *cons =3D d->console;
+> > >      char c =3D *val;
+> > >
+> > >      ASSERT(bytes =3D=3D 1 && port =3D=3D XEN_HVM_DEBUGCONS_IOPORT);
+> > > @@ -571,16 +572,21 @@ static int cf_check hvm_print_line(
+> > >      if ( !is_console_printable(c) )
+> > >          return X86EMUL_OKAY;
+> > >
+> > > -    spin_lock(&cd->pbuf_lock);
+> > > +    rcu_lock_domain(d);
+> >=20
+> > Given this is current->domain, it can't go away, and hence I don't thin=
+k this
+> > is needed here.
 >=20
-> --- a/xen/common/efi/runtime.c
-> +++ b/xen/common/efi/runtime.c
-> @@ -6,6 +6,7 @@
->  #include <xen/irq.h>
->  #include <xen/sections.h>
->  #include <xen/time.h>
-> +#include <xen/xvmalloc.h>
+> Ack
 >=20
->  DEFINE_XEN_GUEST_HANDLE(CHAR16);
->=20
-> @@ -500,23 +501,23 @@ int efi_runtime_call(struct xenpf_efi_ru
->          len =3D gwstrlen(guest_handle_cast(op->u.get_variable.name, CHAR=
-16));
->          if ( len < 0 )
->              return len;
-> -        name =3D xmalloc_array(CHAR16, ++len);
-> +        name =3D xvmalloc_array(CHAR16, ++len);
->          if ( !name )
->             return -ENOMEM;
->          if ( __copy_from_guest(name, op->u.get_variable.name, len) ||
->               wmemchr(name, 0, len) !=3D name + len - 1 )
->          {
-> -            xfree(name);
-> +            xvfree(name);
->              return -EIO;
->          }
->=20
->          size =3D op->u.get_variable.size;
->          if ( size )
->          {
-> -            data =3D xmalloc_bytes(size);
-> +            data =3D xvmalloc_array(unsigned char, size);
->              if ( !data )
->              {
-> -                xfree(name);
-> +                xvfree(name);
->                  return -ENOMEM;
->              }
->          }
-> @@ -539,8 +540,8 @@ int efi_runtime_call(struct xenpf_efi_ru
->          else
->              rc =3D -EOPNOTSUPP;
->=20
-> -        xfree(data);
-> -        xfree(name);
-> +        xvfree(data);
-> +        xvfree(name);
->      }
->      break;
->=20
-> @@ -553,17 +554,17 @@ int efi_runtime_call(struct xenpf_efi_ru
->          len =3D gwstrlen(guest_handle_cast(op->u.set_variable.name, CHAR=
-16));
->          if ( len < 0 )
->              return len;
-> -        name =3D xmalloc_array(CHAR16, ++len);
-> +        name =3D xvmalloc_array(CHAR16, ++len);
->          if ( !name )
->             return -ENOMEM;
->          if ( __copy_from_guest(name, op->u.set_variable.name, len) ||
->               wmemchr(name, 0, len) !=3D name + len - 1 )
->          {
-> -            xfree(name);
-> +            xvfree(name);
->              return -EIO;
->          }
->=20
-> -        data =3D xmalloc_bytes(op->u.set_variable.size);
-> +        data =3D xvmalloc_array(unsigned char, op->u.set_variable.size);
->          if ( !data )
->              rc =3D -ENOMEM;
->          else if ( copy_from_guest(data, op->u.set_variable.data,
-> @@ -581,8 +582,8 @@ int efi_runtime_call(struct xenpf_efi_ru
->              efi_rs_leave(&state);
->          }
->=20
-> -        xfree(data);
-> -        xfree(name);
-> +        xvfree(data);
-> +        xvfree(name);
->      }
->      break;
->=20
-> @@ -598,13 +599,13 @@ int efi_runtime_call(struct xenpf_efi_ru
->              return -EINVAL;
->=20
->          size =3D op->u.get_next_variable_name.size;
-> -        name.raw =3D xzalloc_bytes(size);
-> +        name.raw =3D xvzalloc_array(unsigned char, size);
->          if ( !name.raw )
->              return -ENOMEM;
->          if ( copy_from_guest(name.raw, op->u.get_next_variable_name.name=
-,
->                               size) )
->          {
-> -            xfree(name.raw);
-> +            xvfree(name.raw);
->              return -EFAULT;
->          }
->=20
-> @@ -629,7 +630,7 @@ int efi_runtime_call(struct xenpf_efi_ru
->          else
->              rc =3D -EOPNOTSUPP;
->=20
-> -        xfree(name.raw);
-> +        xvfree(name.raw);
->      }
->      break;
->=20
->=20
+> >=20
+> > Jan
+> >=20
 
 
