@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E33BB1027E
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 09:58:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1055399.1423826 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DE6EB102DE
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 10:08:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1055419.1423837 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueqqN-0006Me-Fm; Thu, 24 Jul 2025 07:58:23 +0000
+	id 1ueqzI-0000bM-D5; Thu, 24 Jul 2025 08:07:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1055399.1423826; Thu, 24 Jul 2025 07:58:23 +0000
+Received: by outflank-mailman (output) from mailman id 1055419.1423837; Thu, 24 Jul 2025 08:07:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueqqN-0006LC-Bw; Thu, 24 Jul 2025 07:58:23 +0000
-Received: by outflank-mailman (input) for mailman id 1055399;
- Thu, 24 Jul 2025 07:58:21 +0000
+	id 1ueqzI-0000YE-AU; Thu, 24 Jul 2025 08:07:36 +0000
+Received: by outflank-mailman (input) for mailman id 1055419;
+ Thu, 24 Jul 2025 08:07:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=P0IF=2F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ueqqL-0006Kq-NG
- for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 07:58:21 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ id 1ueqzG-0000Y7-IR
+ for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 08:07:34 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f6ad731c-6863-11f0-b895-0df219b8e170;
- Thu, 24 Jul 2025 09:58:20 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-45610582d07so4337935e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 00:58:19 -0700 (PDT)
+ id 3b3b2f42-6865-11f0-b895-0df219b8e170;
+ Thu, 24 Jul 2025 10:07:24 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-3a6cd1a6fecso616658f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 01:07:24 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4587054f686sm9721775e9.14.2025.07.24.00.58.18
+ 5b1f17b1804b1-4587054c599sm9923765e9.11.2025.07.24.01.07.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Jul 2025 00:58:18 -0700 (PDT)
+ Thu, 24 Jul 2025 01:07:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,67 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f6ad731c-6863-11f0-b895-0df219b8e170
+X-Inumbo-ID: 3b3b2f42-6865-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753343899; x=1753948699; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753344444; x=1753949244; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EIYypEu29ojAWmvu3Q8/gou0F4ucpqvLVaw/qdq0xYQ=;
-        b=EUwIb9LJ5aalbOmzgFlXGA4JcQFqA2iytk1EKkIy6MRa8l7VKQorxWlqbnXJd3b5Cs
-         M0sbguEykxUX9Zy5+QIImJD0VXJ9WTGJ6N0cW3J3j+Ax9uT+1W1cG0g+dn630Cv/SXyh
-         9wjfeKXEKG/nWOBClfxpdK4gUh7ipY3YgrMJOHU0RkWsLsIRXO1bTCiqpjK8sXl6R7zM
-         pzXhOTKL5iY7qwwFo4Uy8aVDtIdP0OvY+mcC797Ekn91aJi5v5K0zGd+FQyGSlkzmkTM
-         01Iajvaq1p0prHAGwckHLokZZkcw0SRJiQyRLWoO9c9Qqsaubi/pw1OncASuqvO1KBNs
-         IG2w==
+        bh=o5EHt1fyhpT+4nnVIbBU0j8PdZPyNsYv1ZSwQsaetkc=;
+        b=WKEvv0XFQFYLzvczbXTsZu+abWG6Kr3fyIrK3SZR7M+wvqpJqFi4AAgrLa7Dt4uHD0
+         hDKa+CjiGiShAfy8TzFhSJ1uPhyWmIny+UpokY4BJ/xLzTN8XyaHzurqSzHO4LSuydQR
+         0SslenoX8X5fbj7Gh9xsiinQXB2sAYhKOfhA0gdDC01dTybbWnZC0AlRy3XWmQgssNwK
+         SLda40ibEEDHk0X9zzmtFOcIABMvmGroUKO8t1uFhQUezCqwErTbE62CHwTaNzDkikEQ
+         QpkQalcQbidS06xp4SOx5LilGLCDM/Qzo3qyucrJqm0OacY+Oh5cBDS3kPWDBfsxHJCM
+         XgRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753343899; x=1753948699;
+        d=1e100.net; s=20230601; t=1753344444; x=1753949244;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EIYypEu29ojAWmvu3Q8/gou0F4ucpqvLVaw/qdq0xYQ=;
-        b=VOdo6hqlQKEbBb4Ug8yT4JSu1OaGL/jlozUSmy/gtNYDoNnSFkgqz2XcBtOUv+O0N5
-         n+s/jBzmBMdoriEZJIYDKadmEO6BkqgrQyNLLvotUXYhRCVRKsBd107ROKN9Fkekw6BB
-         QeHmsq2l9yaga6iejQDeQdqMcj+cXmqv2CsVaC8cF7diABZatXaIh/wyOHIZ7Vwzfakv
-         9TPc5rnPdmbA8e3Cagp6SBZq7CfOB2hLzRcRuRhSPOgje+oFUksoBu3t3mXda6hmrCDz
-         hLpjfTqPK29T7Q7OtPrVRh+1RNQlSXfFnTDXzZl+1rG19TXchndGBKDmgMjs+FzDHuH7
-         d/8g==
-X-Forwarded-Encrypted: i=1; AJvYcCUWmSbiWg/0OwR6CwYoTjesBOlTcttU7mWcgFOqa5fbWGclp+3eGm+qwrdh4xf8OyPevTrAztgq0g8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxouPAeF7Oo0upL5m36nWWrTLHfFVgDvrq8OaPsgJ5jIJDdAgT4
-	BZ/8Sp7yAewZ2LIOzovVRw+ypZYB/b5Fzguwx/gzJXqTznflYc5nYvGDH4+g/5HAGA==
-X-Gm-Gg: ASbGncu4axsjyyg3c5+Qr4O1/gVidmgkil/aLkzBSstBU4lzQSALXjjzPTLz697hwu1
-	jA8AVYsf4evkN3owTX2t448/yqw1SknQj3IUCFTYX4BvBANWtpau/XFFevDRidZH6G12nQRxAgA
-	ZFwFHdDUdM7/WqEgulX2T+KZnXz7ovaoaoVNVLJBdWQrWbe6FZVR/ZnFAXmrJsCc28DKtEsMJ3B
-	kbD12sjURGiCkoPfFq+SJIJtV0uGRVigTqnClXBasz2TDFw2+ApuixUlHPTqIXlEJNecWBHZ93y
-	616JF/uLhGEoTe6gjUYK3yII1c8AZ2b1+0gC/Ftm+gn8j/1yNzYVm0dZ6ztTqLZQEu2wi+vfNVt
-	yNHOQm0K63Iua6tOdsQwJ/qQjsJyeIziH4PearEJEGmI4XLOXQ5VK3s8ab+/gloOHT3a5Jb64el
-	jkLCGGS/4/EX2yo14siw==
-X-Google-Smtp-Source: AGHT+IG9oGULCqILqvLI9UEJEE3mY6wmP8g1BKShOVqCJS8dEgfxyNA2Zvcg2oHZGK5h8rB/wNL4QA==
-X-Received: by 2002:a05:600c:524a:b0:456:2285:ce7d with SMTP id 5b1f17b1804b1-45868d1bd2cmr50140655e9.18.1753343899223;
-        Thu, 24 Jul 2025 00:58:19 -0700 (PDT)
-Message-ID: <4e4df10d-0325-4c4f-a7ea-a5b672889bd8@suse.com>
-Date: Thu, 24 Jul 2025 09:58:17 +0200
+        bh=o5EHt1fyhpT+4nnVIbBU0j8PdZPyNsYv1ZSwQsaetkc=;
+        b=rlwYWPdeNmM8/jadw72/+N1BCp3/JLFVEOfE46zOw9T4HiD+WlrwED1L3/MV8re7FL
+         rfa3sZzLHfxECCs9thZ30TD0Ntx7EmYS7++9bt3nFhA2t4ezDHHvgaDoEw1iV/Giz/rM
+         o0bO+axJB4cfInJrG+Vm2QYx1OHTbGbhORoK9vquDfwUgCoSjeMJhIketBJ/WBfMPBNh
+         TD/F+/TtX9TOJq4b091hLKNaPlVJvoMkFPtS4OGlvheq0ievKyOitLHAvT/efMKoZ8FH
+         Z0BFVOWP9ZJZMRv6glMhdpOBdFQtBqhruCoU7e8Dba6THhtCR62XH6r4eB5WlQoWV+fL
+         EBtg==
+X-Forwarded-Encrypted: i=1; AJvYcCUc3W7k2bQ7ocQhCMwgvPYEls2oGv6etm+ci58XfDpxtAfMSGYJLrCqUmH5BX6sUmrTcLnUmpdiwOw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx+t0HOJPBY9rL8JBGEw7ZRavOrZPq712Gb4O7wQyztgB+0h+0r
+	O75cbXu9l7MpieLEqYFpd+mqL2FZhIWBUZ0u6ndGMTzEdbe2pqrbDCbs4u5QLfJqqw==
+X-Gm-Gg: ASbGncv8pndEr88CCS9dcTrk3fz4MnXxdf8av9VEhEMLclZP2A1YDGFLb2mIioBmRpO
+	YJyWRfEUrBip9gF3f+VTfINHnfJ6ESj4IAtPvh/IDe7FDzKFxcUSwRhb0kvwoHHWelO2vSO7hU3
+	dpm771NKuv/K018T/gw1nl5/nibVq79Tp6tEOejIjpGzs5uhzjQnqT2fXJxouuhV6ovjjIFbXBg
+	6nBkSETOhtazVTFRya2wfN+l79jzDoloMOWYEynV2SI9TBF446UoVKkW+pqmJjqAfYnqGfEzkCz
+	2wjCi9m5MAQZ6tCxO5TXVQN8uJkY0AEGNdpcrZy78IfG0DxqLTGavgXlwo4iOB+8NTV9+teJ75W
+	bm5NhqPSwoJASzd5DeKur4nX99mXvvPeM8u1ZamaIR+XIJdk9RbDGZmDZ7pcqzpS6vC6ZWcbG/b
+	E74sR1bH+GVORMIkvscw==
+X-Google-Smtp-Source: AGHT+IHNFi/+hHhaP4gayp2qS1hyORSDSZiL3p+VaW6zGcQYuho8zOQ9B5ca2rACa8aHKhOiRvovuQ==
+X-Received: by 2002:a05:6000:4382:b0:3b7:5985:51f with SMTP id ffacd0b85a97d-3b768f060d3mr4979254f8f.44.1753344443734;
+        Thu, 24 Jul 2025 01:07:23 -0700 (PDT)
+Message-ID: <4004ecba-71c8-4b82-bd65-e1967da94352@suse.com>
+Date: Thu, 24 Jul 2025 10:07:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 15/17] xen/riscv: Implement superpage splitting for p2m
- mappings
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v4 1/2] xen/arm: fix arm_iommu_map_page after f9f6b22abf1d
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <7cdd3272f2eba32dfa00be4fd72da6921eac243d.1749555949.git.oleksii.kurochko@gmail.com>
- <9be8eeb4-281e-4b9b-9ea7-04ff738dc4db@suse.com>
- <e2227002-e38c-41e1-8bea-7585138ec5ba@gmail.com>
- <0c1701ff-efe3-434f-97e0-4896707411b7@suse.com>
- <640d6862-4ea9-49ca-adb8-0fad5ceb1ff1@gmail.com>
- <6f88e20e-98dd-4d58-b459-5a67e2629f4c@suse.com>
- <d24d32b2-a4a4-4284-8b94-297d8dd08a76@gmail.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20250723181330.14305-1-stewart.hildebrand@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,95 +125,85 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d24d32b2-a4a4-4284-8b94-297d8dd08a76@gmail.com>
+In-Reply-To: <20250723181330.14305-1-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 23.07.2025 21:51, Oleksii Kurochko wrote:
+On 23.07.2025 20:13, Stewart Hildebrand wrote:
+> From: Stefano Stabellini <stefano.stabellini@amd.com>
 > 
-> On 7/22/25 6:02 PM, Jan Beulich wrote:
->> On 22.07.2025 16:57, Oleksii Kurochko wrote:
->>> On 7/21/25 3:34 PM, Jan Beulich wrote:
->>>> On 17.07.2025 18:37, Oleksii Kurochko wrote:
->>>>> On 7/2/25 11:25 AM, Jan Beulich wrote:
->>>>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
->>>>>>> Add support for down large memory mappings ("superpages") in the RISC-V
->>>>>>> p2m mapping so that smaller, more precise mappings ("finer-grained entries")
->>>>>>> can be inserted into lower levels of the page table hierarchy.
->>>>>>>
->>>>>>> To implement that the following is done:
->>>>>>> - Introduce p2m_split_superpage(): Recursively shatters a superpage into
->>>>>>>      smaller page table entries down to the target level, preserving original
->>>>>>>      permissions and attributes.
->>>>>>> - __p2m_set_entry() updated to invoke superpage splitting when inserting
->>>>>>>      entries at lower levels within a superpage-mapped region.
->>>>>>>
->>>>>>> This implementation is based on the ARM code, with modifications to the part
->>>>>>> that follows the BBM (break-before-make) approach. Unlike ARM, RISC-V does
->>>>>>> not require BBM, so there is no need to invalidate the PTE and flush the
->>>>>>> TLB before updating it with the newly created, split page table.
->>>>>> But some flushing is going to be necessary. As long as you only ever do
->>>>>> global flushes, the one after the individual PTE modification (within the
->>>>>> split table) will do (if BBM isn't required, see below), but once you move
->>>>>> to more fine-grained flushing, that's not going to be enough anymore. Not
->>>>>> sure it's a good idea to leave such a pitfall.
->>>>> I think that I don't fully understand what is an issue.
->>>> Whether a flush is necessary after solely breaking up a superpage is arch-
->>>> defined. I don't know how much restrictions the spec on possible hardware
->>>> behavior for RISC-V. However, the eventual change of (at least) one entry
->>>> of fulfill the original request will surely require a flush. What I was
->>>> trying to say is that this required flush would better not also cover for
->>>> the flushes that may or may not be required by the spec. IOW if the spec
->>>> leaves any room for flushes to possibly be needed, those flushes would
->>>> better be explicit.
->>> I think that I still don't understand why what I wrote above will work as long
->>> as global flushes is working and will stop to work when more fine-grained flushing
->>> is used.
->>>
->>> Inside p2m_split_superpage() we don't need any kind of TLB flush operation as
->>> it is allocation a new page for a table and works with it, so no one could use
->>> this page at the moment and cache it in TLB.
->>>
->>> The only question is that if it is needed BBM before staring using splitted entry:
->>>           ....
->>>           if ( !p2m_split_superpage(p2m, &split_pte, level, target, offsets) )
->>>           {
->>>               /* Free the allocated sub-tree */
->>>               p2m_free_subtree(p2m, split_pte, level);
->>>
->>>               rc = -ENOMEM;
->>>               goto out;
->>>           }
->>>
->>> ------> /* Should be BBM used here ? */
->>>           p2m_write_pte(entry, split_pte, p2m->clean_pte);
->>>
->>> And I can't find anything in the spec what tells me to use BBM here like Arm
->>> does:
->> But what you need is a statement in the spec that you can get away without. Imo
->> at least.
+> Up until f9f6b22abf1d "xen/arm: Map ITS doorbell register to IOMMU page
+> tables" the only caller of iommu_map on ARM was grant_table.c which has
+> a specific usage model and restrictions as described by the in-code
+> comment in arm_iommu_map_page.
 > 
-> In the spec. it is mentioned that:
->    It is permitted for multiple address-translation cache entries to co-exist for the same
->    address. This represents the fact that in a conventional TLB hierarchy, it is possible for
->    multiple entries to match a single address if, for example, a page is upgraded to a
->    superpage without first clearing the original non-leaf PTE’s valid bit and executing an
->    SFENCE.VMA with rs1=x0, or if multiple TLBs exist in parallel at a given level of the
->    hierarchy. In this case, just as if an SFENCE.VMA is not executed between a write to the
->    memory-management tables and subsequent implicit read of the same address: it is
->    unpredictable whether the old non-leaf PTE or the new leaf PTE is used, but the behavior is
->    otherwise well defined.
-> The phrase*"but the behavior is otherwise well defined"* emphasizes that even if the TLB sees
-> two versions (the old and the new), the architecture guarantees stability, and the behavior
-> remains safe — though unpredictable in terms of which translation will be used.
-> And I think that this unpredictability is okay, at least, in the case if superpage splitting
-> and therefore TLB flushing can be deferred since the old pages (which are used for old mapping)
-> still exist and the permissions of the new entries match those of the original ones.
-> Also, it seems like there clearing PTE before TLB flushing isn't need too.
+> f9f6b22abf1d introduced a second caller to iommu_map on ARM:
+> vgic_v3_its_init_virtual. This specific statement in the
+> f9f6b22abf1d commit message is partially wrong:
 > 
-> Does it make sense?
+> "Note that the 1:1 check in arm_iommu_map_page remains for now, as
+> virtual ITSes are currently only created for hwdom where the doorbell
+> mapping is always 1:1."
+> 
+> Leading to crashes any time the hardware domain is not direct-mapped
+> (e.g. cache coloring and non-Dom0 hardware domain):
+> 
+> (XEN) Xen BUG at drivers/passthrough/arm/iommu_helpers.c:47
+> [...]
+> (XEN) Xen call trace:
+> (XEN)    [<00000a000024c758>] arm_iommu_map_page+0x80/0x90 (PC)
+> (XEN)    [<00000a000024c750>] arm_iommu_map_page+0x78/0x90 (LR)
+> (XEN)    [<00000a0000250884>] iommu_map+0xcc/0x29c
+> (XEN)    [<00000a0000288024>] vgic_v3_its_init_domain+0x18c/0x1e8
+> (XEN)    [<00000a0000285228>] vgic-v3.c#vgic_v3_domain_init+0x168/0x21c
+> (XEN)    [<00000a0000281dcc>] domain_vgic_init+0x14c/0x210
+> (XEN)    [<00000a00002705a4>] arch_domain_create+0x150/0x1f0
+> (XEN)    [<00000a00002055e8>] domain_create+0x47c/0x6c0
+> (XEN)    [<00000a00002cf090>] create_domUs+0x7f8/0x8cc
+> (XEN)    [<00000a00002eb588>] start_xen+0x8f4/0x998
+> (XEN)    [<00000a000020018c>] head.o#primary_switched+0x4/0x10
+> 
+> Specifically, non-1:1 hardware domain exists with cache coloring
+> enabled. For that, is_domain_direct_mapped(d) is false but
+> domain_use_host_layout(d) is true.
+> 
+> Change the is_domain_direct_mapped(d) checks in arm_iommu_map_page and
+> arm_iommu_unmap_page into domain_use_host_layout(d) checks.
+> 
+> Move the in-code comment specific to the grant table to grant-table.c
+> and adjust to be architecture-neutral.
+> 
+> Fixes: f9f6b22abf1d ("xen/arm: Map ITS doorbell register to IOMMU page tables")
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> ---
+> v3->v4:
+> * adjust comment to be architecture-neutral
 
-Yes, I think this indeed is sufficient as a spec requirement.
+Hmm, it's now arch-neutral, but still not quite correct.
+
+> --- a/xen/common/grant_table.c
+> +++ b/xen/common/grant_table.c
+> @@ -1274,6 +1274,11 @@ map_grant_ref(
+>          }
+>  
+>          /*
+> +         * Grant mappings can be used for DMA requests. The dev_bus_addr
+> +         * returned by the hypercall is the MFN (not the GFN). For device
+> +         * protected by an IOMMU, Xen needs to add a 1:1 mapping in the domain
+> +         * p2m to allow DMA request to work.
+> +         *
+>           * We're not translated, so we know that dfns and mfns are
+>           * the same things, so the IOMMU entry is always 1-to-1.
+>           */
+
+The original comment, for a reason, talks about DFN, not GFN. The relationship
+to P2M (where GFNs might indeed matter) also isn't quite clear to me:
+iommu_legacy_map() alters IOMMU mappings. Which may or may not be shared with
+CPU ones.
+
+Fundamental question: What exactly is insufficient in the comment that's there
+already?
 
 Jan
 
