@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60FB3B109CB
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 14:00:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1055858.1424162 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DAF0B109F3
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 14:14:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1055879.1424172 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueucH-0007pg-Ma; Thu, 24 Jul 2025 12:00:05 +0000
+	id 1ueup6-00026u-Pa; Thu, 24 Jul 2025 12:13:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1055858.1424162; Thu, 24 Jul 2025 12:00:05 +0000
+Received: by outflank-mailman (output) from mailman id 1055879.1424172; Thu, 24 Jul 2025 12:13:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueucH-0007n6-J5; Thu, 24 Jul 2025 12:00:05 +0000
-Received: by outflank-mailman (input) for mailman id 1055858;
- Thu, 24 Jul 2025 12:00:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ueup6-00024v-Mc; Thu, 24 Jul 2025 12:13:20 +0000
+Received: by outflank-mailman (input) for mailman id 1055879;
+ Thu, 24 Jul 2025 12:13:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=P0IF=2F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ueucG-0007W2-7u
- for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 12:00:04 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b9cc6202-6885-11f0-a31e-13f23c93f187;
- Thu, 24 Jul 2025 14:00:00 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3a4fb9c2436so471060f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 05:00:00 -0700 (PDT)
+ id 1ueup5-00024p-VA
+ for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 12:13:19 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 94f287dc-6887-11f0-b895-0df219b8e170;
+ Thu, 24 Jul 2025 14:13:17 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3a507e88b0aso574173f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 05:13:17 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-458704aaf20sm18995615e9.0.2025.07.24.04.59.59
+ ffacd0b85a97d-3b76fc605afsm1979979f8f.9.2025.07.24.05.13.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Jul 2025 04:59:59 -0700 (PDT)
+ Thu, 24 Jul 2025 05:13:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9cc6202-6885-11f0-a31e-13f23c93f187
+X-Inumbo-ID: 94f287dc-6887-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753358400; x=1753963200; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753359197; x=1753963997; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CLcvusgpwJ3QnDbbnXsJQ3i/fwQRfb4k4yTPRjriUaY=;
-        b=TQNsloQ/z+wo3tttnjQIKty2bNYVrDwMjA08w1D96LdWk5nMQk5ehZHtvUKORHmE3q
-         6XDffEDZBP357wL4ihCs/23BBem8g6TbeAAnexNQt6Am1H4j+tehl25EGc8nbo8NGYJ5
-         77U2fmorczbnciMEDrLOXw18nDnaWcLC7EqvIlEN0TGUEEiU/q/02/1p98r9v6qb+Tyr
-         PTT6DmiB0/XBGdHMqDNT9RQKHSJEsAU1QayRbq5b6yPgQBiFhX138LZFgo0WTLCJVuEs
-         T8pB9UpH32IUFCxLbo0/isC1SfHZyPDEa70+aTdcluBL9DlP3GgFb3m9oqejOjnTu/n3
-         3YQA==
+        bh=vsXrr7ERgztg7lc98ZtoSZSenfHYb46t1QSq5c6URk0=;
+        b=YH+/UCKFbe0YpxVfRiQRLkI6GGU4n5glCqPBFfhTMsm7xb+xr+6XV4ajOd7i0h8A+u
+         n4QSIGEROuVCsyqVt9n+17LVOUQDe2UHnSc6pdc0/gr6RmvEq+WjJvRxXoVfBRGw2KKS
+         4GVsa3aqCdmwZOumSvaqdLgWY8OU6zdb3SvrNmUc3i76aOfilxdEmjDCeQied31mlore
+         YD12UwL+iOnK0hB60InyOXx3cXn41TrX22bLFlgh4xg1eZmFRI1nBS7iboB8E/PoCOrY
+         Hm2s5SD3AVuIisJVMoc4ueHiT3SwjAhZCUeoUnO8HgdmIqgwBYK+68wYIsz0VwQIW5De
+         hsFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753358400; x=1753963200;
+        d=1e100.net; s=20230601; t=1753359197; x=1753963997;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CLcvusgpwJ3QnDbbnXsJQ3i/fwQRfb4k4yTPRjriUaY=;
-        b=oMNXzoZo0dlKTXcAAi9Ncbk6Tx+K+Ps+KGW9rqtutNMHpCk+vYew1Suka8AXuk/iso
-         ZI+K04U7KhDNGa3p00CO7pQKJrcj1NdtptmLwAU/NTneCQIL91S17opN6kxTx1D2nQxg
-         rb1nI6BCt2MWAOhKeuNoj5V9R9DHPGQNa0Kxjecm5LSHgOg+nMx36RDwmPAyzw7U6oxn
-         ynESx9y0pVIA+X4c0Pl6Oe9EAXHDYmUYn0LT+EIU2AoQvKDRKz5m2cT7O86+7Ao6ZVd6
-         KginZ0Jrn/EN76rcpQl6EKdDOxtYqPqlUUhJbbpCWBBKt0jJek4B5XLh+i4gFr556ohV
-         sh5w==
-X-Forwarded-Encrypted: i=1; AJvYcCXzuV4dzXuRdVCDFTpYybl/Aa6U56zSeHYiK97eUi0Vgx0HYqY+/jBDB4xabOjuPZTuHUTJynTCgkw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw0QFOlELEdKEbgTJ9R+mZVXgi5k+T0a8yh3RRM74qjVmZWWkuH
-	HZ0PZh4H2wgbf5o4vSjc59JgHHmMIvTxMca7oz8ksT9eABoA6Q/e3fTsmRfMlcpUJQ==
-X-Gm-Gg: ASbGncvdphCDrErt4HOj9eUTp2+89EkJYOIN9+dCvzb4Uttk7by5/XggxJXHaPsV5n/
-	Rs/nNx40teyZ3a3gNbd4g5JRJRFY647RQquzRWEIB8Tyk3JjYxt+63UTn1UnyEeh5EAVjKYvrDd
-	P7f+bTB4/us6kXF9FLd1N3SeEAwQD5GNe8FkVWONHOp/9tqIxwAKNc7JqWnWP49/FSSoCoh9aQb
-	zOly6KTj/QBPAB7Y/aJXqpxVHyGfuxwhUemxJLONPsG3tmX9N/fASN0t2Fd9FzNHNGJ1/xWB3/Q
-	ksJ3qtSjoSggyVDOdoX40CKn/H68ulic4OOJOXbmWa+Qb1jwY2QSuHFKACYhA0ImftFP5rGxooq
-	3Al+aRVXiJtCjyBW/XVNo9g3EkM3ILrU1lg1PfidleElaDSs18X22ULutqvMW5RAc0iQn5lFcSr
-	yHADNjQHM=
-X-Google-Smtp-Source: AGHT+IEmafDPdZsvm9CMnB3HTvF52f7Cn400+EAv/7a6bxZz0L3+nGN/q3g53vbmtjCg2SOPee33Bw==
-X-Received: by 2002:a05:6000:4023:b0:3b3:e3f6:4a9b with SMTP id ffacd0b85a97d-3b768f2304amr5468659f8f.41.1753358399961;
-        Thu, 24 Jul 2025 04:59:59 -0700 (PDT)
-Message-ID: <e196d908-b0c5-4fe7-9ef2-ff9392835554@suse.com>
-Date: Thu, 24 Jul 2025 13:59:57 +0200
+        bh=vsXrr7ERgztg7lc98ZtoSZSenfHYb46t1QSq5c6URk0=;
+        b=T11oN0frrwgxuvmB7WIfWnPFGr+SFNByp9I651qhp5gFV7tD8G/Ugg0aqUCDmeWjFa
+         zOkFiPPx4z3pdbF5USQAj6Z8t3Xkxrg+xSnT21/E9A1zft7mHYm7mbE2A6t8XWVSCbEm
+         pHgwLcNvwXvDzP9ZKwUf4l1yE+SWAu7no0jaJAmMwbuERTAh8Hte0h5cMdIkyFVcLCob
+         VC/4VjJg0bB7MPqjyz7zPXNitRP2eUyP534ixmAWRVamo5PRJCvkRciquo0u11dcBZaH
+         RXyabZum/TJsR+7uf0b3XvEsVC7BcHE9f7gHMxp7X8QaETxJx3BuH32apPN79GAj5Mpv
+         y+Tg==
+X-Forwarded-Encrypted: i=1; AJvYcCVeUlTtnQdVDQe/9ChT6q2CAFJz6jRr6+qkLvlaDAnsrVIylvLk1HXlUWcM/x2/rxtQ+SJpXA6LgqA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxqkPckMSwnGWYD3Ocx+iXaaUGR6gfM8Q/Zk7TpL0DfMk5w/k91
+	nHHOoiEnolt0pLQSXwIxaEVOUOiKErXnkK57Bt+Tj+iAP/fJcqCaS1mKks4IgdQYxA==
+X-Gm-Gg: ASbGncvQFq474QDbjETaI8HzFWzxstBcr4bJBTrbGtPt/7eIVOgJ2tk6dnU+oZLvlfJ
+	whievOixzhDnR0PnRp4ZF76UtQb/AP/Cp+RttcRN2IdojBCLGGo7rkCG4PIeZCk3D/zX3RRs8h0
+	G8YpfFEjPQvhfcfGb6wcEYdt0QI2pQ6utsqAryPGAqP/WPy8IChYnf2MMa1rfa3Po1h1u81dUvB
+	DycUM7M3U36KCgmNkUhVYgVq4B6u9U52jDJtFHLMaP6yH1ngJ1W2tGSj8m+bv2sJPnO3oCsjApt
+	SVAovJAEytRw/MTJctJVCh0gSSxoIY4HRWWqPi/yz6wVojWc5r56miI+2b4JYkrZ2BwdO+s7pmI
+	YJekpSWvDWbUlPZC+rBs3W+OuStPRM//GkGUckLkTTJysxUnkbAcOgRYVbSGx8Xq14LG4BX3d7n
+	IzB74b6ls=
+X-Google-Smtp-Source: AGHT+IEVW7AO/TiUyq2b/ysDkbpU+kWoA76pZTaIhVcBl0qHXYSFEvs1N+IUnpGPq60+AqfJmqcIDg==
+X-Received: by 2002:a05:6000:1a85:b0:3a4:dfa9:ce28 with SMTP id ffacd0b85a97d-3b768c9e9c8mr6130237f8f.5.1753359197197;
+        Thu, 24 Jul 2025 05:13:17 -0700 (PDT)
+Message-ID: <fcae8366-8f32-4fd1-a2be-e6505a6e9420@suse.com>
+Date: Thu, 24 Jul 2025 14:13:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/4] xen/arm: Implement PSCI SYSTEM_SUSPEND call for
- guests
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Mykola Kvach <mykola_kvach@epam.com>,
+Subject: Re: [PATCH v4] xen/char: implement suspend/resume calls for SCIF
+ driver
+To: Mykola Kvach <xakep.amatop@gmail.com>
+Cc: Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Mykola Kvach <xakep.amatop@gmail.com>
-References: <cover.1753349108.git.mykola_kvach@epam.com>
- <180825d963133be069385472f569ecb1870989fb.1753349109.git.mykola_kvach@epam.com>
- <21a902ca-47ae-4243-a6f1-ee401c8bf4b4@suse.com>
- <e1f3b49e-da03-48a4-8fa1-be2e87542852@citrix.com>
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Mykola Kvach <mykola_kvach@epam.com>, xen-devel@lists.xenproject.org
+References: <5449d6fc4a6e47af173d9e2b285f1e3398de98a3.1750749332.git.mykola_kvach@epam.com>
+ <2b345a72-5ab7-443f-bff4-2b4ee9952825@suse.com>
+ <CAGeoDV98LJup77GQ4YrbeqSBeoojaNe+46NX37dHoiFDDHUGtw@mail.gmail.com>
+ <ea37a8cb-7d65-4c74-8c28-39579b5121cb@suse.com>
+ <CAGeoDV9zYwGg0pSrMZVK8AdGpX1m8kjExc2twx93yR+SbnrkcA@mail.gmail.com>
+ <CAGeoDV9+Tdk9S63hegQt=CpLD9Ka16qqGs9fApbG9-Q=jBW8PQ@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,72 +128,52 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e1f3b49e-da03-48a4-8fa1-be2e87542852@citrix.com>
+In-Reply-To: <CAGeoDV9+Tdk9S63hegQt=CpLD9Ka16qqGs9fApbG9-Q=jBW8PQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 24.07.2025 12:40, Andrew Cooper wrote:
-> On 24/07/2025 11:08 am, Jan Beulich wrote:
->> On 24.07.2025 11:40, Mykola Kvach wrote:
->>> --- a/xen/common/domain.c
->>> +++ b/xen/common/domain.c
->>> @@ -1326,16 +1326,10 @@ int domain_shutdown(struct domain *d, u8 reason)
->>>      return 0;
->>>  }
->>>  
->>> -void domain_resume(struct domain *d)
->>> +void domain_resume_nopause(struct domain *d)
->> This function not being static on (at least) non-Arm is, I think, in
->> conflict with some Misra rule.
->>
->>>  {
->>>      struct vcpu *v;
->>>  
->>> -    /*
->>> -     * Some code paths assume that shutdown status does not get reset under
->>> -     * their feet (e.g., some assertions make this assumption).
->>> -     */
->>> -    domain_pause(d);
->>> -
->>>      spin_lock(&d->shutdown_lock);
->>>  
->>>      d->is_shutting_down = d->is_shut_down = 0;
->>> @@ -1349,10 +1343,32 @@ void domain_resume(struct domain *d)
->>>      }
->>>  
->>>      spin_unlock(&d->shutdown_lock);
->>> +}
->>>  
->>> +void domain_resume(struct domain *d)
->>> +{
->>> +    /*
->>> +     * Some code paths assume that shutdown status does not get reset under
->>> +     * their feet (e.g., some assertions make this assumption).
->>> +     */
->>> +    domain_pause(d);
->>> +    domain_resume_nopause(d);
->>>      domain_unpause(d);
->>>  }
->>>  
->>> +bool vcpu_is_suspended(struct vcpu *v)
->> pointer-to-const please (and apparently also in do_psci_1_0_system_suspend()).
+On 24.07.2025 13:41, Mykola Kvach wrote:
+> Hi all,
 > 
-> No.  This is not a predicate.  It takes a mutable pointer.
+> On Tue, Jun 24, 2025 at 12:32 PM Mykola Kvach <xakep.amatop@gmail.com> wrote:
+>>
+>> On Tue, Jun 24, 2025 at 11:32 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>>
+>>> On 24.06.2025 10:29, Mykola Kvach wrote:
+>>>> On Tue, Jun 24, 2025 at 10:53 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>>>> On 24.06.2025 09:18, Mykola Kvach wrote:
+>>>>>> @@ -281,6 +313,10 @@ static struct uart_driver __read_mostly scif_uart_driver = {
+>>>>>>      .start_tx     = scif_uart_start_tx,
+>>>>>>      .stop_tx      = scif_uart_stop_tx,
+>>>>>>      .vuart_info   = scif_vuart_info,
+>>>>>> +#ifdef CONFIG_SYSTEM_SUSPEND
+>>>>>> +    .suspend      = scif_uart_suspend,
+>>>>>> +    .resume       = scif_uart_resume,
+>>>>>> +#endif
+>>>>>>  };
+>>>>>
+>>>>> As this being put inside #ifdef was to be expected, imo a prereq change is to
+>>>>> also make the struct fields conditional in xen/console.h. I think I did even
+>>>>> comment to this effect back at the time.
+>>>>
+>>>> Would you prefer that I include this change in the current patch
+>>>> series, or is it acceptable to address it in a separate patch?
+>>>
+>>> Either way is fine with me. I expect the header fine change to be able to go
+>>> in right away (once submitted), whereas the patch here may take some time for
+>>> people to review.
+>>
+>> Got it, I'll submit a separate patch to make the struct fields and
+>> related code wrapped within SYSTEM_SUSPEND.
+> 
+> Jan’s proposal to conditionally include the 'suspend' and 'resume' fields
+> in 'struct uart_driver' under CONFIG_SYSTEM_SUSPEND has already been
+> merged -- thanks!
+> 
+> Could you please take another look at this patch when time permits?
 
-Predicate or not doesn't matter. (And it really is a predicate, as the "is" in
-the name says, at least to me.)
-
-> (And yes I am irritated that you continue to provide wrong feedback to
-> contributors.  I'm in the middle of stripping another bogus const of
-> yours from a different area that's hiding a MISRA violation.)
-
-Well, all I know is that we disagree in where we think const is applicable. But
-that disagreement was never resolved, and you can't expect me to silently jump
-on your train of thinking.
-
-> Also why is this email not on the list?
-
-That I don't know. For sure it wasn't intentional for the list to be dropped.
+That's an Arm driver, so I don't expect the request was meant to go to me
+(as To: having just me was suggesting)?
 
 Jan
 
