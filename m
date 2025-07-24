@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF146B101C3
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 09:30:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1055315.1423725 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7607DB101C4
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 09:30:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1055318.1423735 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueqOH-0005WV-5a; Thu, 24 Jul 2025 07:29:21 +0000
+	id 1ueqP7-0006vL-Ee; Thu, 24 Jul 2025 07:30:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1055315.1423725; Thu, 24 Jul 2025 07:29:21 +0000
+Received: by outflank-mailman (output) from mailman id 1055318.1423735; Thu, 24 Jul 2025 07:30:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueqOH-0005TQ-2i; Thu, 24 Jul 2025 07:29:21 +0000
-Received: by outflank-mailman (input) for mailman id 1055315;
- Thu, 24 Jul 2025 07:29:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=P0IF=2F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ueqOF-0005TK-DQ
- for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 07:29:19 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e75f10fa-685f-11f0-a31e-13f23c93f187;
- Thu, 24 Jul 2025 09:29:16 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3a6cdc27438so565025f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 00:29:16 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b76fc604bcsm1266832f8f.17.2025.07.24.00.29.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Jul 2025 00:29:15 -0700 (PDT)
+	id 1ueqP7-0006t4-Bb; Thu, 24 Jul 2025 07:30:13 +0000
+Received: by outflank-mailman (input) for mailman id 1055318;
+ Thu, 24 Jul 2025 07:30:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=P3HE=2F=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1ueqP4-0006rd-Fo
+ for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 07:30:11 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 064b19ac-6860-11f0-b895-0df219b8e170;
+ Thu, 24 Jul 2025 09:30:08 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id 36F574EE3C07;
+ Thu, 24 Jul 2025 09:30:07 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,103 +40,208 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e75f10fa-685f-11f0-a31e-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753342155; x=1753946955; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=FTUx+HgdsXEHddqbLJFja4Wg2rJbm/VzE1AZq4t/+1Q=;
-        b=SkJk3ZCdyHFkIogbAUucxI5u2xbFlM/I1unmLHhDcWRHrXjrNlGrb3+3gqxM7aUDNX
-         KxuJO6fNhQrvB5BLi1pVbKjyV5Wc0Bqc8UZSc/BKivpNUYQqNnh8k304fVO+JDL0/8ub
-         nv6JZIY3h0jB5MyvjpAP83MHnib3sqdMfVydhlGMs+bWlcyjzjhfg+I+VRUh6NCgc4iL
-         gf5a7YBxd5oTMIyd4xwBgOt+uBlRmYRyqKVWk7pVD9iy9MQRqwr91NA5aqlQJKfmm34b
-         a40bwbjJoxk3h6s3khcWg6iT/qPr18scayRcyCfhXo1ZMN0xrbzzPYxjEPAllBvLCZPj
-         zIWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753342155; x=1753946955;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=FTUx+HgdsXEHddqbLJFja4Wg2rJbm/VzE1AZq4t/+1Q=;
-        b=F8T/FMwtKE/ZENksfneAa2+yBs4CgFbIxLp1ov3XrObaJeLUgG+OhHbgKw8Lb9Kf5J
-         9QXrxG16t7Kmv/+W8sD3ZDhKR2Ut5wJ3Mtk0MFxVTubqAt48oRXbFc4ejIf/lFv8bgGX
-         xuvs2A/f+zB3+LGbNn7Wc50A19pu74sJOZV7Cz9SDa71Dm3Ir3PsC5Mh/QYPJE+ZZzp+
-         iHk5pf75BxGBVa18j9g0d8eDgF8LcJoebzJDrIXXtWZUhCPiHa4eXR36ohSc0BCeo6aG
-         mPJLRCywzdeLy+4XpjxxGuTkZezc2bDA7MZUQ9mhYvkerVErjlKSXkoHltsSlSaTmMjU
-         vHkQ==
-X-Forwarded-Encrypted: i=1; AJvYcCULC/C/ypgsWzDdS+Svrs19le/02+O2HY4lkbj/VfrAOFb6cV4+U8MmGYdA1SDOf94UWhCEsBMggvk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzAPnA+/wKYH/hXALFINrRd21S/CSAc17uia0So2R4G/q9yZdDM
-	bxm4+Rh9cjpcwQn60j4G63yi+Nkr9ypXPOsEHSxVWQriuCMfdGQPUuOXPetZ63bXWQ==
-X-Gm-Gg: ASbGncuNYT5q+wzzZek6NFdp61IIEbN0EIgERMiHpKTPG/k7lxPK0VHTo1r9aJUo9xV
-	43QCBKpstCHLLQlaVAhgkzV5QYzJH3C0OSHqVC4ZYWyiChVXe7DcmRBVzgWGdNrQSWV3vHYftyw
-	6Gl0tWHkOYWmLrSW0CSVf+/jqxoz1PfXXcgstXTdc1cvb1Vg4ihEFRch0dF1f9Wzi5oMzP/VwKb
-	g7xlo7MN57i/fazgNNrcYJS4pzKiY3np3HR05rTgd0nDB9RGs5sXzu31J+hVku4x1tdBE1mw/Gu
-	45mK9k+bt33tCxgG6gHWxdOuKE6vAeBaF39qQLvhyCqT2g2zkaU+MRVlT4ENtPN1Hvew2d4m3Ep
-	6TXtviLMaStY79+/N/my6yif1SAsRfLT45cS6BicadQvjI9u5/HkhZYSc+QRVXF2kUlxi0qQEvO
-	w6yRYNCtU=
-X-Google-Smtp-Source: AGHT+IH1dCg/Vopa+r8ETWLC9NkVHXoxO4CLn1fO9o8AVkCKuf1qH/S/uF6LR0EbPhmFMKiZK8AYeA==
-X-Received: by 2002:a05:6000:2283:b0:3a5:2e84:cc7b with SMTP id ffacd0b85a97d-3b768ee046emr5047321f8f.11.1753342155290;
-        Thu, 24 Jul 2025 00:29:15 -0700 (PDT)
-Message-ID: <6fdd359e-4950-46de-98a7-7ff402a56239@suse.com>
-Date: Thu, 24 Jul 2025 09:29:13 +0200
+X-Inumbo-ID: 064b19ac-6860-11f0-b895-0df219b8e170
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1753342207;
+	b=4ODzr59seAvjmvQO15/cqvlVY2CScOWyAy32+sCMxdtlobcPIuAuVjVIyxtgvW7qmBrM
+	 cS8VUZuJB4l4FXQF1JRzS3hfOc4wjNEmdTt+905SS4hAoLhVM1vQLId+sOXWdxOH845YJ
+	 KEqX+NtIgvoDSPA0HTigWi12Bsgsam3vkRDY2++h4QEY4R7YzwIxNSPKSjPEjNRJRf3YD
+	 /IUiw6Mg3LxBrWFShTOfLXYuWuwGAdgGn7WapWpVwjbTO0ATK8G5I9fifmD10hzqINafP
+	 NErx9rBAa1C6XcTSAzmjlpcYl5d86NBDzwgLNeGKdpip29ogMZtLtP5+slWPOrgrlnUfL
+	 4htRcY6uqvCyp0y/OQZoG6T6n7gYAoCSbC0KMdmsjDNto6FvGI0HDsF8nM2uUaA1hZMmS
+	 eQdwAE662ZJzlklZGTxydW0EOpypujWR56sQ1/Acorn4BHLNaafuY4FIlTDfD9bpSkn4V
+	 2kM3yKL1O16msZt87Uj2SaP30dtrR29e9QzhDRvGFdNgVkw6lr3x0MIg8RPjWGVL86ENE
+	 ET/qWVWQYS4nwkRkM6C4RfvrLbu3AN75Je8eSgyKcOh+h6wSUPfvtl4xxxQHAJNTOA+pW
+	 4juSmOKX22A08TqeFihsgdpcJUn3Ker9RnTCdXjnCMiPEmzrrWgOkECsthgzKoc=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1753342207;
+	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=IaNw4G2pnOmdRpNiCicgUBey/lfUFaufRqjkrS5rtLU=;
+	b=wYjSGrjBrEpWbG2huGTnt3f2uY9/8gKH2EJIxClgyRpYJ7y8r7JCm0EF8JVHYUMJd5Dj
+	 3vGtEJcEbCPXk7Vmrgzf472zOZZ0NV8QIzJ0ps6A0s+JivDvaMp5OvAs4QzjfkcKXi8Ee
+	 3qORQ0YfU6/gSPN2ePBtRZKRnPCbaH50B3c9jdaiKALLRzRpv3ZtEAMmp9CORXlD4V2Xm
+	 FrrsFB1oI4FK1C6vOEpB8Be0L4xOV/UdOiG+071dTw3nTtpxhaMx/JW9NbC9qNfgdMVet
+	 7PAGNffQFwp4g+exdeg4RiUwI2had2cXwN+Hw0G+7q9OugOaiM78rtx9VHJWG5yDUYoIe
+	 1D6VYknIwinhb6bzTS8ZsTeOsg1kAPNWh8fnV1C0xPRUNQTG+mnk46p7gfyorpDGjjsv9
+	 pmJiQhYyGptIT2eDt49i5BoYYRXNfixtxnaursGOwApC5V/Iq7XhDOi+6+n8rVpJ25ONc
+	 5ZlEcieP8Zsyz7UY6EfZ51UV29a3pkHlPP+yvzAGUpCxED4FmrGn6fJdj+T0RK80n/ZCz
+	 OrB57iyhBIfPLQ67hdoqxDez0BbrJIhQg2Gw33w1c9uUCsKWA9A9Bf8+qDJzdITiq9b4+
+	 RuT/x9DEXSXwON5bQU1QpIWR3viWaLkBn+eGkK0P5MX6xArtdaKPT7X9cMQXOQU=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1753342207; bh=dyFDrs22zP9fULKzYjrQhIQZOVENGWtRbkoDRSTPJJ4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=DkdbNqSdifz0vKBpSj0XbVZ1YyMhd5O09GMdG/5COeJmAAofgypGRWvEI5WffCsVn
+	 kgXV0Z6Cf2rcFYxP9iQybs2dsyYRsPHQrEkOBp0cHq/ffbSxvrvvUrjzZTbcWayNMp
+	 lhn2pmsoRPVsB+ItJbyR6kmh9XsRRIKY/WGTPmFRd3f1pr59+CC3O0rFg8/FfQ57/J
+	 76KG/OD68SjJDj1EljJCikuaOEV02oweL6TiKkXsKd27MVCODOL/XyIPevb7s0OaVF
+	 KBuIE/JUY8sQxn7GQUvA/5aD5WWQvFC9pFCQthaddJuFHHleIDCOgr4FHWVMiee6Np
+	 IaaEwZTn/QpsA==
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9] xen/console: introduce domain_console struct
-To: dmkhn@proton.me
-Cc: alejandro.garciavallejo@amd.com, andrew.cooper3@citrix.com,
- anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com,
- oleksii.kurochko@gmail.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250723001116.186009-1-dmukhin@ford.com>
- <b819d729-8533-46a5-b2a2-480a70cda556@suse.com> <aIEowjUsuWfwqSzX@kraken>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aIEowjUsuWfwqSzX@kraken>
-Content-Type: text/plain; charset=UTF-8
+Date: Thu, 24 Jul 2025 09:30:07 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
+ Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Dario Faggioli <dfaggioli@suse.com>,
+ Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>
+Subject: Re: [PATCH] misra: address MISRA C Rule 18.3 compliance
+In-Reply-To: <c9fb095c43edfedfd6174284bac404ec9ae5523d.1753263957.git.dmytro_prokopchuk1@epam.com>
+References: <c9fb095c43edfedfd6174284bac404ec9ae5523d.1753263957.git.dmytro_prokopchuk1@epam.com>
+Message-ID: <2d72df9f8dcc9c21023e5166cb82fbac@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 23.07.2025 20:24, dmkhn@proton.me wrote:
-> On Wed, Jul 23, 2025 at 05:10:04PM +0200, Jan Beulich wrote:
->> On 23.07.2025 02:11, dmkhn@proton.me wrote:
->>> @@ -559,7 +559,8 @@ void hvm_do_resume(struct vcpu *v)
->>>  static int cf_check hvm_print_line(
->>>      int dir, unsigned int port, unsigned int bytes, uint32_t *val)
->>>  {
->>> -    struct domain *cd = current->domain;
->>> +    struct domain *d = current->domain;
->>
->> Why the renaming? (Iff any renaming was needed here, then please to currd.)
+On 2025-07-23 12:12, Dmytro Prokopchuk1 wrote:
+> Rule 18.3: "The relational operators >, >=, < and <=
+> shall not be applied to objects of pointer type
+> except where they point into the same object".
 > 
-> It was requested earlier:
->   https://lore.kernel.org/all/1ac74dd3-e0c5-43e5-9eed-c1a2cc17d068@suse.com/
+> Update relational comparison to cast `text_start`
+> (void pointer) to `unsigned long`. This ensures the
+> comparison occurs between two values of the same integral type.
+> 
+> Update relational comparison between `lock1` and `lock2` to cast
+> pointers to `uintptr_t`. This ensures MISRA C compliance and avoids
+> undefined behavior when comparing pointer values directly.
+> 
+> Update for-loop condition to cast pointers `p` and `params->checksum`
+> to `uintptr_t` for the relational `<` operator. This resolves a MISRA C 
+> 18.3
+> violation by ensuring that relational operations are not performed 
+> directly
+> on pointers of different objects (which is undefined behavior).
+> 
+> Add Rule 18.3 deviations.
+> 
+> Add Rule 18.3 to the monitored set.
+> 
+> No functional changes to program behavior.
+> 
+> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+> ---
+> This patch eliminates MISRA C Rule 18.3 violations for both ARM and 
+> X86.
+> 
+> Test CI: 
+> https://gitlab.com/xen-project/people/dimaprkp4k/xen/-/pipelines/1943306650
+> ---
+>  automation/eclair_analysis/ECLAIR/deviations.ecl | 8 ++++++++
+>  automation/eclair_analysis/ECLAIR/monitored.ecl  | 1 +
+>  xen/arch/x86/efi/efi-boot.h                      | 3 ++-
+>  xen/common/sched/core.c                          | 2 +-
+>  xen/common/virtual_region.c                      | 4 ++--
+>  5 files changed, 14 insertions(+), 4 deletions(-)
+> 
+> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl 
+> b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> index 483507e7b9..d89834a49b 100644
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -568,6 +568,14 @@ C99 Undefined Behaviour 45: Pointers that do not 
+> point into, or just beyond, the
+>  -config=MC3A2.R18.2,reports+={safe, 
+> "any_area(any_loc(any_exp(macro(^page_to_mfn$))))"}
+>  -doc_end
+> 
+> +-doc_begin="Consider relational pointer comparisons in kernel-related 
+> sections as safe and compliant."
 
-But there the decl was moved, which isn't the case anymore. And yes, I should
-have asked for it becoming "currd" there, not "d".
+This would need some evidence that they don't compare pointers to 
+different arrays, wouldn't it?
 
-Jan
+> +-config=MC3R1.R18.3,reports+={safe, 
+> "any_area(any_loc(any_exp(macro(name(is_kernel||is_kernel_text||is_kernel_rodata||is_kernel_inittext)))))"}
+> +-doc_end
+> +
+> +-doc_begin="Allow deviations for pointer comparisons in BUG_ON and 
+> ASSERT macros, treating them as safe for debugging and validation."
+> +-config=MC3R1.R18.3,reports+={safe, 
+> "any_area(any_loc(any_exp(macro(name(BUG_ON||ASSERT)))))"}
+> +-doc_end
+> +
+
+same here: no matter that they are used for debugging, if you mark 
+something as "safe", then the argument needs to be there (in the .rst 
+file, but still).
+
+>  -doc_begin="Flexible array members are deliberately used and XEN 
+> developers are aware of the dangers related to them:
+>  unexpected result when the structure is given as argument to a 
+> sizeof() operator and the truncation in assignment between structures."
+>  -config=MC3A2.R18.7,reports+={deliberate, "any()"}
+> diff --git a/automation/eclair_analysis/ECLAIR/monitored.ecl 
+> b/automation/eclair_analysis/ECLAIR/monitored.ecl
+> index 00bff9edbe..b8fb297e73 100644
+> --- a/automation/eclair_analysis/ECLAIR/monitored.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/monitored.ecl
+> @@ -68,6 +68,7 @@
+>  -enable=MC3A2.R17.6
+>  -enable=MC3A2.R18.1
+>  -enable=MC3A2.R18.2
+> +-enable=MC3A2.R18.3
+>  -enable=MC3A2.R18.6
+>  -enable=MC3A2.R18.8
+>  -enable=MC3A2.R19.1
+> diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
+> index 0194720003..170c569eb4 100644
+> --- a/xen/arch/x86/efi/efi-boot.h
+> +++ b/xen/arch/x86/efi/efi-boot.h
+> @@ -461,7 +461,8 @@ static void __init efi_arch_edd(void)
+>                  params->device_path_info_length =
+>                      sizeof(struct edd_device_params) -
+>                      offsetof(struct edd_device_params, key);
+> -                for ( p = (const u8 *)&params->key; p < 
+> &params->checksum; ++p )
+> +                for ( p = (const u8 *)&params->key;
+> +                      (uintptr_t)p < (uintptr_t)&params->checksum; ++p 
+> )
+>                      params->checksum -= *p;
+>                  break;
+>              case MEDIA_DEVICE_PATH:
+> diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+> index ea95dea65a..c3c101c142 100644
+> --- a/xen/common/sched/core.c
+> +++ b/xen/common/sched/core.c
+> @@ -360,7 +360,7 @@ static always_inline void sched_spin_lock_double(
+>      {
+>          *flags = _spin_lock_irqsave(lock1);
+>      }
+> -    else if ( lock1 < lock2 )
+> +    else if ( (uintptr_t)lock1 < (uintptr_t)lock2 )
+>      {
+>          *flags = _spin_lock_irqsave(lock1);
+>          _spin_lock(lock2);
+> diff --git a/xen/common/virtual_region.c b/xen/common/virtual_region.c
+> index 1dc2e9f592..515751b6c3 100644
+> --- a/xen/common/virtual_region.c
+> +++ b/xen/common/virtual_region.c
+> @@ -83,8 +83,8 @@ const struct virtual_region 
+> *find_text_region(unsigned long addr)
+>      rcu_read_lock(&rcu_virtual_region_lock);
+>      list_for_each_entry_rcu ( iter, &virtual_region_list, list )
+>      {
+> -        if ( (void *)addr >= iter->text_start &&
+> -             (void *)addr <  iter->text_end )
+> +        if ( addr >= (unsigned long)iter->text_start &&
+> +             addr <  (unsigned long)iter->text_end )
+>          {
+>              region = iter;
+>              break;
+
+-- 
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
