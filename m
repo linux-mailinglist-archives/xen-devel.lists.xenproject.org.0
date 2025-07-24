@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75F40B10229
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 09:47:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1055380.1423805 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37473B1025D
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 09:53:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1055387.1423816 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueqfy-0003mO-6C; Thu, 24 Jul 2025 07:47:38 +0000
+	id 1ueqlL-0005jg-Q0; Thu, 24 Jul 2025 07:53:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1055380.1423805; Thu, 24 Jul 2025 07:47:38 +0000
+Received: by outflank-mailman (output) from mailman id 1055387.1423816; Thu, 24 Jul 2025 07:53:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueqfy-0003kP-3c; Thu, 24 Jul 2025 07:47:38 +0000
-Received: by outflank-mailman (input) for mailman id 1055380;
- Thu, 24 Jul 2025 07:47:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=P0IF=2F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ueqfw-0003kH-RY
- for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 07:47:36 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 715589e1-6862-11f0-b895-0df219b8e170;
- Thu, 24 Jul 2025 09:47:26 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-4561ca74829so7317535e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 00:47:26 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-458705378f4sm10090295e9.2.2025.07.24.00.47.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Jul 2025 00:47:25 -0700 (PDT)
+	id 1ueqlL-0005gw-MO; Thu, 24 Jul 2025 07:53:11 +0000
+Received: by outflank-mailman (input) for mailman id 1055387;
+ Thu, 24 Jul 2025 07:53:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=t79f=2F=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1ueqlJ-0005gq-SL
+ for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 07:53:09 +0000
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [2a00:1450:4864:20::22d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3d305521-6863-11f0-a31e-13f23c93f187;
+ Thu, 24 Jul 2025 09:53:08 +0200 (CEST)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-32b8134ef6aso6693541fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 00:53:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,119 +40,219 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 715589e1-6862-11f0-b895-0df219b8e170
+X-Inumbo-ID: 3d305521-6863-11f0-a31e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753343246; x=1753948046; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9pNFc+iqFp92PzHJvPpRZLWn5vrA8c4dyXuM8BxvkcU=;
-        b=WG3S25sSvEkQpVFkZ0bmYcwUF9IJoflvFB2ma6W58uO3kJzq2fohXH8+cdHwfN9kmC
-         okZFHIxEvwBxpVLDGoOwPMNLjE1etumeEX51QCrZajvE4ghRIbBJGzMnRH9lDWlGCgiR
-         Vo6UORMATQr+wzuxJn+N5V4em1lol245i0TRNqCQBH/ZDviJ3l+q9eytXooOtVTsWvPo
-         FsgD8ZTFpwuJbvcx3IT6OrudPe8rB+nIVQ511bz/vI3xLTg0QhP30bdJLJS6KLP6Amxl
-         iYBhvi9sFKeeRd40/IlH8Qido2q+TdvSzEdPKU/bE5egHEfEpcp4/OnF9wCpFKArScbe
-         sRjw==
+        d=gmail.com; s=20230601; t=1753343588; x=1753948388; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RjJ/BBLaNbgtE/VnYMafFs3yIkYjuLzyovCGGTCqb5A=;
+        b=N92VeoJbWtpuGjfJvg4pF/HeH2QyNv/TliEQ78zTTUrEHi7fo+wZyMLbXz+f80sTbE
+         votoGeHn6rwmxb8hwm6wMrXqh6lLc9n9s7tmFGhpWQU+UQvlU+nltufOX3NgkqvBJMt0
+         TyljtkU9lsRBwFwtiG3/sjr9W2uldsA5z5ylkTGyjm9PotYTW+B6ZwM4v4hxfNVzCdmz
+         Aq5338tMnmO1lakkobSoMUnz/uoY4FsXM3ls2oCK1Zs2KM+jTP47j0enJHhOOH9YRTQr
+         FeGG+2mOElfojTbkIvcSBEQJuHQ3pPZN0buYXv9IOJG+KmmSSOHf0d4kzl64o5IPSi5+
+         D5HA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753343246; x=1753948046;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=9pNFc+iqFp92PzHJvPpRZLWn5vrA8c4dyXuM8BxvkcU=;
-        b=NS4teDCK3T5IuhyTH3RyNatiKovejDkAzYJyElBdYg1YPG6cszr5I45z+5TvnTcCs0
-         Rv3yanYQ2ZdysKQjeOepbHOrWDPaIqbhB+x7JkN3tMiQksLxpq2yghIBCm3w+xD4uqnO
-         89qJn9D/kcMWUAXRARJ1+rS4RiL3jNRDFrTRVEfRJWDbegHwhzB5rYM8DgW5xqmAMu3T
-         4MPVwm+bkX/n0rqbu9eVTw12MIUUd9/2Ahma9F5xP0yL0ktvfpGCvrILillcdxozqCE7
-         uMXrT+LZbvVKFHstsYDlgPtdSxGEWXePYdLqkcY6BSiD6NqXLVyZid+l6Z6MJABMkIHY
-         EczQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUuPsW/X1HMnRYd1oVH2EqbIZwHLx2Ld+Bzr9eTavBb9eeaG9zUboidF4a9FJ5mYyRHH2pqwkjX9U4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwUZt4b61dErk6eBZ0nOqFOEZQQJ6Fk4FEpqyXxjRb6YWOI6jZF
-	3ZLSktC7o0N1w60i/UbkH/dNOccCoDrVr8BYLXGCIM++RHt+RI3Cj+Ov1wkHUjoZGQ==
-X-Gm-Gg: ASbGncuSfNKCOgoCNYx8bp+PmO25Ip92L5fQlZpW38eB+EHaG2My5uUZEh0R3nOFw+i
-	fo9IRWTSeQSeRJaH6GAMCeOPz2Glct4uTiQRxikuWa9g4Pl481//PabqEhPPlMlb/WqXX5euXTx
-	F1/fT4HR3dSTgvYz/yAxj+ummcmKrF9LMkaGLCFerHKncDTE6wkSHDk9w3ceWtaYhKMG2HC72pF
-	/u0nKZb1Brj/6i5MYgc9JNYRlYjErz1N6EVhU5eDaoWWtXHz/j+Qmc+Mh75PnGYtxUD+vPNMm87
-	BwOEXBl3uH6sQXPGOed3rS0pHeHXFYbh9eweetJXB3BkjQqZmaskNFGjRB7AsIOWBrolaWHGCdQ
-	SbiGJqEMBD6eY6Yg3eDlpZCjMlXxw+dsy8h+FPynO8yzOotSJQ1nbRgrwV89x7thU3iokSnkW6e
-	PGWbZv2Gs=
-X-Google-Smtp-Source: AGHT+IH7FFLQwdPOwvsXVcp6HG+g7u/Fov7U/T0fnHVPRow/UnjkXaMtZ0YBABfmKVnTuEqKBA0Jlg==
-X-Received: by 2002:a05:600c:1c20:b0:43c:fcbc:9680 with SMTP id 5b1f17b1804b1-4586f216f43mr10608215e9.25.1753343246117;
-        Thu, 24 Jul 2025 00:47:26 -0700 (PDT)
-Message-ID: <ffebedf9-c987-4f99-8ab1-de84df67d8bc@suse.com>
-Date: Thu, 24 Jul 2025 09:47:24 +0200
+        d=1e100.net; s=20230601; t=1753343588; x=1753948388;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=RjJ/BBLaNbgtE/VnYMafFs3yIkYjuLzyovCGGTCqb5A=;
+        b=VWFvUDNpyfmewH66rf9dVDnNHgXiiUU16uC7lRWIcpc2nncyppGbG3BOfxfFZekwsZ
+         ZXjGQcwWhjl40YGi2wtuetUF5IuzefkSzynguyKW979AaogGiQI0XPPX9Fob71Ho28my
+         LGwkMz/iYPzUN4ofuW2kescr+4pjel2h1I4ZUFpe1AUcb7Qyw4Ya9q06Xd5Wo1+u58dW
+         Z5DEn+v1SY73sqqvdX8OQSuVMP62J5GjvCktDuzB1Ns7bBK5KccTA5edST1RLD+mifuW
+         kwCAGyO6tROy6uanWg+5kGJpsd1/Ojq70KhOeJFtCW7hcIawcto1RSdfh8sWPvj480Lb
+         ogZA==
+X-Forwarded-Encrypted: i=1; AJvYcCVMlDS0TeAGtHVFCMIgmod7gcqvtkvQMUetJmJueNy5CmA4U3Q8VTAx+1n8RMlfJIGDdvkCRn1Op7U=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxgeNgYIKb2M1jSR1Xh1iIJuYGyaYHe+6AHAetjhQBcBTWBW03k
+	/46+d8ODXMOKoXRgXrSNQX0HMeo4Eqh0HpWDyX4Qcnb4QZzS/rlc4iHEPb4tqUMAAWQUyl5VRml
+	BmrCYfjWV5dAJvN4kUuHuI8sqwg3Dyv4=
+X-Gm-Gg: ASbGncsYkUCIG09CMoOhdG9z7ResYY9+cq+sMi5cyQ1kk/fM3fJsHUZ757paRz4774h
+	6EFLUd1zd1PMsRymHmDr1xqqNiTmcv2P4cjPQnMMzJWGRohdvE2HvwldvfT+Htrq2s95C166uT3
+	G6T/2jwtvacBJO6zTa3CAMOtBeM6+tV3zCAyJ5GXuUZkyCVed4qn23oHt9ohv+lWCLt4PUC3MBg
+	NeL5g==
+X-Google-Smtp-Source: AGHT+IGTiovLr5kpHE6XgRtUve7hSxOfqX1D3jDcYxV4uMy3wQ6FU4QiAkYV3LewEUg0dSN+3ktkTso9n6CiUwJD0rc=
+X-Received: by 2002:a05:651c:622:b0:32a:69c7:7b0b with SMTP id
+ 38308e7fff4ca-330dfca70f8mr12022891fa.12.1753343587663; Thu, 24 Jul 2025
+ 00:53:07 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] vpci: allow queueing of mapping operations
-To: dmkhn@proton.me
-References: <20250723163744.13095-1-stewart.hildebrand@amd.com>
- <20250723163744.13095-2-stewart.hildebrand@amd.com> <aIGh2i5+Z2CW0mPr@kraken>
- <aIGrin7bHQr5KvtJ@kraken>
-Content-Language: en-US
-Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aIGrin7bHQr5KvtJ@kraken>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <cover.1751020456.git.mykola_kvach@epam.com> <072270e0940b6bcc2743d56a336363f4719ba60a.1751020456.git.mykola_kvach@epam.com>
+ <066c6e93-a478-4c8f-b161-d109bd0e6bb4@xen.org> <9669f64d-06a0-4c56-b7d3-8b0abe7a1d4b@suse.com>
+In-Reply-To: <9669f64d-06a0-4c56-b7d3-8b0abe7a1d4b@suse.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Thu, 24 Jul 2025 10:52:55 +0300
+X-Gm-Features: Ac12FXyUDA-iE4zUGcXgXt1yCKRaMoKDkUIuEaHiWZFMBjeVzI-m3MJj5-F6Fdc
+Message-ID: <CAGeoDV-_rfhVNWqvAymV=HxurjaLLqukQuNTfvVdVeFTZgc-cw@mail.gmail.com>
+Subject: Re: [PATCH v5 1/4] xen/arm: Implement PSCI SYSTEM_SUSPEND call for guests
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org, 
+	Mykola Kvach <mykola_kvach@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 24.07.2025 05:42, dmkhn@proton.me wrote:
-> On Thu, Jul 24, 2025 at 03:00:46AM +0000, dmkhn@proton.me wrote:
->> On Wed, Jul 23, 2025 at 12:37:41PM -0400, Stewart Hildebrand wrote:
->>> Introduce vPCI BAR mapping task queue. Decouple map operation state from
->>> general vPCI state: in particular, move the per-BAR rangeset out of
->>> struct vpci and into the map task struct.
->>>
->>> This is preparatory work for further changes that need to perform
->>> multiple unmap/map operations before returning to guest.
->>>
->>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
->>> ---
->>> v1->v2:
->>> * new patch
->>>
->>> Related: 622bdd962822 ("vpci/header: handle p2m range sets per BAR")
->>> ---
->>>  xen/common/domain.c       |   4 +
->>>  xen/drivers/vpci/header.c | 197 +++++++++++++++++++++++---------------
->>>  xen/drivers/vpci/vpci.c   |   3 -
->>>  xen/include/xen/vpci.h    |  16 +++-
->>>  4 files changed, 139 insertions(+), 81 deletions(-)
+Hi J=C3=BCrgen,
 
-Why did I (and many others) end up on the To: list of this reply? (Breaks my
-rules of sorting incoming mail into appropriate folders, for context.) Also,
-please trim reply context suitably. Without you doing so, every single reader
-will need to scroll through the entirety of a long mail just to find (in this
-case) a single line of reply (somewhere in the middle). Of course you
-shouldn't be too agressive with trimming, to retain proper context for your
-reply.
+On Mon, Jul 21, 2025 at 11:08=E2=80=AFAM J=C3=BCrgen Gro=C3=9F <jgross@suse=
+.com> wrote:
+>
+> On 28.06.25 20:17, Julien Grall wrote:
+> > Hi Mykola,
+> >
+> > On 27/06/2025 11:51, Mykola Kvach wrote:
+> >> diff --git a/xen/arch/arm/include/asm/perfc_defn.h b/xen/arch/arm/incl=
+ude/asm/
+> >> perfc_defn.h
+> >> index effd25b69e..8dfcac7e3b 100644
+> >> --- a/xen/arch/arm/include/asm/perfc_defn.h
+> >> +++ b/xen/arch/arm/include/asm/perfc_defn.h
+> >> @@ -33,6 +33,7 @@ PERFCOUNTER(vpsci_system_reset,        "vpsci: syste=
+m_reset")
+> >>   PERFCOUNTER(vpsci_cpu_suspend,         "vpsci: cpu_suspend")
+> >>   PERFCOUNTER(vpsci_cpu_affinity_info,   "vpsci: cpu_affinity_info")
+> >>   PERFCOUNTER(vpsci_features,            "vpsci: features")
+> >> +PERFCOUNTER(vpsci_system_suspend,      "vpsci: system_suspend")
+> >>   PERFCOUNTER(vcpu_kick,                 "vcpu: notify other vcpu")
+> >> diff --git a/xen/arch/arm/include/asm/psci.h b/xen/arch/arm/include/as=
+m/psci.h
+> >> index 4780972621..48a93e6b79 100644
+> >> --- a/xen/arch/arm/include/asm/psci.h
+> >> +++ b/xen/arch/arm/include/asm/psci.h
+> >> @@ -47,10 +47,12 @@ void call_psci_system_reset(void);
+> >>   #define PSCI_0_2_FN32_SYSTEM_OFF          PSCI_0_2_FN32(8)
+> >>   #define PSCI_0_2_FN32_SYSTEM_RESET        PSCI_0_2_FN32(9)
+> >>   #define PSCI_1_0_FN32_PSCI_FEATURES       PSCI_0_2_FN32(10)
+> >> +#define PSCI_1_0_FN32_SYSTEM_SUSPEND      PSCI_0_2_FN32(14)
+> >>   #define PSCI_0_2_FN64_CPU_SUSPEND         PSCI_0_2_FN64(1)
+> >>   #define PSCI_0_2_FN64_CPU_ON              PSCI_0_2_FN64(3)
+> >>   #define PSCI_0_2_FN64_AFFINITY_INFO       PSCI_0_2_FN64(4)
+> >> +#define PSCI_1_0_FN64_SYSTEM_SUSPEND      PSCI_0_2_FN64(14)
+> >>   /* PSCI v0.2 affinity level state returned by AFFINITY_INFO */
+> >>   #define PSCI_0_2_AFFINITY_LEVEL_ON      0
+> >> diff --git a/xen/arch/arm/include/asm/vpsci.h b/xen/arch/arm/include/a=
+sm/vpsci.h
+> >> index 0cca5e6830..69d40f9d7f 100644
+> >> --- a/xen/arch/arm/include/asm/vpsci.h
+> >> +++ b/xen/arch/arm/include/asm/vpsci.h
+> >> @@ -23,7 +23,7 @@
+> >>   #include <asm/psci.h>
+> >>   /* Number of function implemented by virtual PSCI (only 0.2 or later=
+) */
+> >> -#define VPSCI_NR_FUNCS  12
+> >> +#define VPSCI_NR_FUNCS  14
+> >>   /* Functions handle PSCI calls from the guests */
+> >>   bool do_vpsci_0_1_call(struct cpu_user_regs *regs, uint32_t fid);
+> >> diff --git a/xen/arch/arm/mmu/p2m.c b/xen/arch/arm/mmu/p2m.c
+> >> index 67296dabb5..f9c09a49e2 100644
+> >> --- a/xen/arch/arm/mmu/p2m.c
+> >> +++ b/xen/arch/arm/mmu/p2m.c
+> >> @@ -6,6 +6,8 @@
+> >>   #include <xen/sched.h>
+> >>   #include <xen/softirq.h>
+> >> +#include <public/sched.h>
+> >> +
+> >>   #include <asm/alternative.h>
+> >>   #include <asm/event.h>
+> >>   #include <asm/flushtlb.h>
+> >> @@ -198,7 +200,9 @@ void dump_p2m_lookup(struct domain *d, paddr_t add=
+r)
+> >>    */
+> >>   void p2m_save_state(struct vcpu *p)
+> >>   {
+> >> -    p->arch.sctlr =3D READ_SYSREG(SCTLR_EL1);
+> >> +    if ( !(p->domain->is_shutting_down &&
+> >> +           p->domain->shutdown_code =3D=3D SHUTDOWN_suspend) )
+> >
+> > This is definitely not obvious why you need to change p2m_save_state().=
+ AFAIU,
+> > you are doing this because when suspending the system, you will overwri=
+te p-
+> >  >arch.sctlr. However, this is super fragile. For instance, you still s=
+eem to
+> > overwrite TTBR{0,1} and TTBCR.
+> >
+> > TTBR{0,1} are technically unknown at boot. So it is fine to ignore them=
+.  But
+> > for TTBCR, I am not 100% whether this is supposed to be unknown.
+> >
+> > Anyway, adding more "if (...)" is not the right solution because in the=
+ future
+> > we may decide to reset more registers.
+> >
+> > It would be better if we stash the value sand then update the registers=
+. Another
+> > possibility would be to entirely skip the save path for CPUs that are t=
+urned off
+> > (after all this is a bit useless work...).
+> >
+> >> +static int do_common_cpu_on(register_t target_cpu, register_t entry_p=
+oint,
+> >> +                            register_t context_id)
+> >> +{
+> >> +    int rc;
+> >> +    struct vcpu *v;
+> >> +    struct domain *d =3D current->domain;
+> >> +    register_t vcpuid;
+> >> +
+> >> +    vcpuid =3D vaffinity_to_vcpuid(target_cpu);
+> >> +
+> >> +    if ( (v =3D domain_vcpu(d, vcpuid)) =3D=3D NULL )
+> >> +        return PSCI_INVALID_PARAMETERS;
+> >> +
+> >> +    if ( !test_bit(_VPF_down, &v->pause_flags) )
+> >> +        return PSCI_ALREADY_ON;
+> >> +
+> >> +    rc =3D do_setup_vcpu_ctx(v, entry_point, context_id);
+> >> +    if ( rc =3D=3D PSCI_SUCCESS )
+> >> +        vcpu_wake(v);
+> >> +
+> >> +    return rc;
+> >> +}
+> >> +
+> >>   static int32_t do_psci_cpu_on(uint32_t vcpuid, register_t entry_poin=
+t)
+> >>   {
+> >>       int32_t ret;
+> >> @@ -197,6 +208,52 @@ static void do_psci_0_2_system_reset(void)
+> >>       domain_shutdown(d,SHUTDOWN_reboot);
+> >>   }
+> >> +static void do_resume_on_error(struct domain *d)
+> >
+> > This looks like an open-coding version of domain_resume() without the
+> > domain_{,un}pause(). What worries me is there is a comment on top of
+> > domain_pause() explaining why it is called. I understand, we can't call
+> > domain_pause() here (it doesn't work on the current domain). However, i=
+t feels
+> > to me there is an explanation necessary why this is fine to diverge.
+> >
+> > I am not a scheduler expert, so I am CCing Juergen in the hope he could=
+ provide
+> > some inputs.
+>
+> I don't think the reason for domain_[un]pause() is directly scheduling
+> related.
+>
+> It seems to be x86 specific for shadow page table handling.
+>
+> In any case I'd suggest to split domain_resume() into 2 functions, one
+> of them (e.g. domain_resume_nopause()) replacing do_resume_on_error()
+> and domain_resume() just pausing the domain, calling the new function,
+> and then unpausing the domain again.
 
-Jan
+Got it =E2=80=94 thank you for the review!
+
+>
+> Another option might be to move the suspend action into a tasklet, enabli=
+ng
+> to call domain_resume() directly if needed. I didn't check whether other
+> constraints even allow this idea, though.
+>
+>
+> Juergen
+
+Best regards,
+Mykola
 
