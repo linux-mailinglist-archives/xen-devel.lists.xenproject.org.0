@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86821B10C33
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 15:54:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1056098.1424239 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 355E4B10C58
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 15:58:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1056107.1424250 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uewP1-00027F-RN; Thu, 24 Jul 2025 13:54:31 +0000
+	id 1uewSR-0002hX-D8; Thu, 24 Jul 2025 13:58:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1056098.1424239; Thu, 24 Jul 2025 13:54:31 +0000
+Received: by outflank-mailman (output) from mailman id 1056107.1424250; Thu, 24 Jul 2025 13:58:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uewP1-000256-Oh; Thu, 24 Jul 2025 13:54:31 +0000
-Received: by outflank-mailman (input) for mailman id 1056098;
- Thu, 24 Jul 2025 13:54:30 +0000
+	id 1uewSR-0002ex-AF; Thu, 24 Jul 2025 13:58:03 +0000
+Received: by outflank-mailman (input) for mailman id 1056107;
+ Thu, 24 Jul 2025 13:58:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bzRN=2F=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1uewP0-00024y-8R
- for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 13:54:30 +0000
-Received: from GVXPR05CU001.outbound.protection.outlook.com
- (mail-swedencentralazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c202::7])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=P0IF=2F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uewSP-0002ep-Q5
+ for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 13:58:01 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b7ac9785-6895-11f0-a31e-13f23c93f187;
- Thu, 24 Jul 2025 15:54:29 +0200 (CEST)
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
- by PA1PR03MB10602.eurprd03.prod.outlook.com (2603:10a6:102:482::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.30; Thu, 24 Jul
- 2025 13:54:27 +0000
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593%4]) with mapi id 15.20.8922.037; Thu, 24 Jul 2025
- 13:54:26 +0000
+ id 35ad1ca9-6896-11f0-a31e-13f23c93f187;
+ Thu, 24 Jul 2025 15:58:00 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-4563cfac19cso11064535e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 06:58:00 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3b76fc605afsm2232962f8f.9.2025.07.24.06.57.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 24 Jul 2025 06:57:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,263 +45,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b7ac9785-6895-11f0-a31e-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y1e6y+zsSHVqFBVsDGbk88sSIzf+wZFNdGpTfyzbK5MQv3/rTTMiWnehPB/+P7QZXSKCzqP22eOisIaZHIxWKQhRVtcSsxQ+TFXwvEyHIlI7BGXSC5LrfkKUo0bgXRUFTV0Tk4Imu0qP6eOGrAVsMNFw8uDfclIBS6qwUniosnI1gzo/P7+YL8fw7znsH2uHQBTt8pFY4fa4nBzdeseP3RhbxbrD0ieqbDxzP0SqI/dBRUwnrutPxoDm+11qfmZft5wGZVWxQ5MqF7zXejgYczeSQmGaaf6L7C6/Xqq3BelkfDTkA9jBAOw6ZC7vcP3cqIBdPTmIrCi79X/WUOyqqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hR+YD69o2p6Gx+zoy1dZDtoyc9SchK1dKTpVtGAeE70=;
- b=uQN9a3+smBuBFtZXYGalMGoFPvNuzeNq8BZOgplx/+QI6VrTXddmf+4IGYiefNIrmz5r5MT15WyvHHp0CTvOaIp7kmIV5tE+yzkIFoZWbGUz2AIy3k+i3hbWhggAiEAZ0/LLXDCkdyc66wb8rmC/KfZN2LIW2A5isYh2VV5vhoGndNx5bw/h8UINHQSJLl5fzRsCBqw4u8XhVbAEeEb08ByAck5DHsdaw5ccVa+eFbyfu64QnVJhrD5ztQ/JhhRrcXSUaN/UNg7XNxnq+G9JZK94mzo10s2mB6XALrkMWXzVBijvdeU4nb/Ays6lNIRf1RlxEYFjTZgbFrV0koApKw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hR+YD69o2p6Gx+zoy1dZDtoyc9SchK1dKTpVtGAeE70=;
- b=Xy73FFVWdlwvmyZa+WVTuHzdyLjXv76gndgA1dw5YL7bTE9QWUBw1UwOb8rkCMSV9DifooicOpnLlXfnf3+6FoK1T/7vEmsFsslllZ6hJrTRSM7+DW7vku1buX61+m9LZB6anPk5OrzAVAj2qGN5fWn+mWUfaHx4u2e0IPXN3vxvoBJhMrCEbWgwlx7EhiTKOSXLcafTqZA7j5El202BHa3VTybEdmK9H3yhhP6zQKQ1G8a/MM4t2ejn9C8yZGPYY7qQMXh11j0WcQbjYKRJYmgF//JKNd/+NlVHWmlON14/WgW3gePw6oMOXHz+Mx7ZbOTPWgSLtQW7ZTeT9tCN4Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <3c2d53cc-e3c5-4a62-a82a-a19e0fdc7905@epam.com>
-Date: Thu, 24 Jul 2025 16:54:24 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH 2/8] xen/arm: move vcpu_switch_to_aarch64_mode() in
- arch_vcpu_create()
-To: Julien Grall <julien@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
- Roger Pau Monne <roger.pau@citrix.com>
-References: <20250723075835.3993182-1-grygorii_strashko@epam.com>
- <20250723075835.3993182-3-grygorii_strashko@epam.com>
- <99c88af9-7f89-4d7c-9827-1ba85c803195@xen.org>
- <fdf7d2b9-aca9-4392-8e4d-a7fc8ce036f2@epam.com>
- <3f74f62f-7017-48f2-ba7c-6af358fb0a50@xen.org>
-Content-Language: en-US
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-In-Reply-To: <3f74f62f-7017-48f2-ba7c-6af358fb0a50@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0001.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a::11) To AS2PR03MB8907.eurprd03.prod.outlook.com
- (2603:10a6:20b:5e4::22)
+X-Inumbo-ID: 35ad1ca9-6896-11f0-a31e-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1753365480; x=1753970280; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=jcsjBHxnlPW4ONNOz4H/1Kjlt+v3kDlR7qC1iKO2CCo=;
+        b=AQAv/zJRNlmHsndeQyE0H0oXRlwTYquW7jqVnmmDa8QiJ3qF0OzD3E5gf9hMjlXg36
+         lrYZ0bqNKMDXL1Ezz5sQZ4fWVhMjcsJD8n5yDd+Z2cBLqzELZ91zflrmCI0MO9ius+Xe
+         saUwLM/+44LS3poPA2EKB2FLddzrDZj4JuZvQkGvw6xzCzxjNawmaEtDqi6QJzlWSqvc
+         XStZ5JY6g4lK4atX8oO/p6238qpAnZ2MxsAUuJY5/z6pLG4S4ST2diG6zm1iO7H5qa7f
+         LrP5z8J/bnc2ApeEVyOc/8eQcfWxYn+cKf8Wn4CpCntTh61GuCgb4S/YrIqL6d/OMzzF
+         caYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753365480; x=1753970280;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jcsjBHxnlPW4ONNOz4H/1Kjlt+v3kDlR7qC1iKO2CCo=;
+        b=ZSEmpLh6HTPXKkkYt7VpUQqlIYRvgtQM3jDpfmivvUNI3xYdIRZH85smPx8z8Jjp5C
+         7Tpawb5Q2UI4vgsnYiB9zv0DDMZuDzhGBW0jNWuhD4cTNJZ4eCzDNklf1ylRuhzz7n7a
+         OtqovwN1Ii6uAzKr1pOxS9DAGpkdbh7uBrqKGefx8wM8/zlrWl8jUhfPMe7B3Rj5A+gH
+         V1hDTgx+QAXWzTBcw/1ws2+Na4O1XYtYuioAqVPJGTQn14fetYILIILW2W1Vips/frX2
+         ikk9zZXwWtfRTeJhpX2B7NUgY3hMeB/64pRRH7RWCkYUpNc9y8jy1uCbEhHcsRcJqRqG
+         k4LA==
+X-Forwarded-Encrypted: i=1; AJvYcCXlOOA4RPA0OiP8zHMxt5y6LrZOC5HfJRXR/W8Jr5gw9RzG/7+zG7Jm8hAKG2f9n1/UFOLmE8e4QGY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxrEbgIddjCa0fvBeRjwWZyOZEOXSZRnll2nujaxaSJ3N1OT/7K
+	xxN1gfXA8Y0C0fm/2TtKOvK4quWBidUA8Td1fmoRN4lgTGriI6JyKFcedMFkcM8bmg==
+X-Gm-Gg: ASbGnctjCVIwgvmjyGhC86hPoBZyaaVslQvrnz8plU7YoVaTNmt6iHbi49GT+pvroeU
+	uRHFu8Amef81Bdg0p3uWB/9fCuu+E+bHDZQAC5olXQUGMt/zMvHbLLpReULqqJAp3MRm7oialp3
+	ASXD3bopTER4hgSR9HD+xVDy8Pv/JdF2/Ae18m9AM0EZ0Rj/0qL2Gn6Rgn0Sb5AL4jBBMG602Qy
+	FD+b7XjDVVwVS23q7Fn+mTOXIkyjVZ0QfH9j+0Q5F/W94j7EdgROtMRuimOPN0l1vLubF9H5JXg
+	Z5kuTgh7UX4bAbnuine/0cLheCb3h5vEHrI/IwK9PboYoAXwW2KlXhDIvzc5fZSWp0Zd1WZyY77
+	BeJF/5cIfZmM3SUe+XVAfGp0cC1KalrY480ziKYPLeGNG2QOORU51Ow2xkC+G0Rem+xd+d7VZWB
+	xfoOZ9vKM=
+X-Google-Smtp-Source: AGHT+IHfSk2S1G0oalUhluI+Kmjfs/07b2jmRRbrfFIDYR1T0ukmFR0dolY6UKgWxHidmP+N8y1qyA==
+X-Received: by 2002:a05:600c:1c22:b0:456:1dd2:4e47 with SMTP id 5b1f17b1804b1-45868ca176bmr70540165e9.15.1753365479677;
+        Thu, 24 Jul 2025 06:57:59 -0700 (PDT)
+Message-ID: <c48475a9-b527-447b-9c8c-508e5c107e03@suse.com>
+Date: Thu, 24 Jul 2025 15:57:57 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|PA1PR03MB10602:EE_
-X-MS-Office365-Filtering-Correlation-Id: 55648d51-ff1e-492a-684f-08ddcab99a86
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?RStPaE5OSDF2c0NyNXJ6VzZZVnloV2k5ejhSRDNGNjlaeGlwVDRUYUVDVGlG?=
- =?utf-8?B?aCsyQnJXWW9HcXFLSWZQSnVkOUxnZDdZTlBzRGJFRjY4aEJqZk9jVHhpck5I?=
- =?utf-8?B?djBDOWN5SEhkRnN6d0R2Mk5YeUlzS2VoMVduMlpWNlN6MlRIN0p5NncvczVn?=
- =?utf-8?B?V2lnVDhFQkhqcm9VSTNpWndpbmV2VlJnaTBrYmVDek1URnZ5cTJ6SUJEZTlI?=
- =?utf-8?B?eG9ybitsTWdXS0E0WExLd0h5S205Q0VBYi92SHZUNmNZdFBINmJPOXJqSDV1?=
- =?utf-8?B?WUFNdjVOVi9mcFVpOFhHeHY4dThzTlg4WmhOblVJT0NHejQ4ZW8zR2JFRGJF?=
- =?utf-8?B?STI4YVpNcVVIRGlTeDFiaGlUNnZXeXZnWlJ0VkFOcmhLT3ZsaE1PZWF2NE1N?=
- =?utf-8?B?NGt4bG43dEFKcjRZc0sxT2RNTWxOSnJVWExLRlI3d2UraDZUaFlCR0crRndH?=
- =?utf-8?B?amdmZlg1Y3h1dE5zbTUzekU4aWxndTFCWHZVdHc2UXRRK0tWeVBhaS81dWtN?=
- =?utf-8?B?T0lndEVFQmwrWVNCV3BJMDB3M21oVkxiWDVYb3NBeUd2UHd1a1RiaElyY3NS?=
- =?utf-8?B?M0JxQ1ZhWTRyUFRlQWJpUU5wUmY5RWdsa1JyMXcvVVdqTEw5eWRLdFJEQzUx?=
- =?utf-8?B?bXVpL2x4WVNWejh6QndwSmo1Z1hmZ0VoT21JekpBTE42MzRCUUh4enN4QXZG?=
- =?utf-8?B?N1g5cnBGdG1WM0hVQnVTcFQ4dThtb1Rqb0JKa3hCbkVyc1A5RlRBTzJQaWJR?=
- =?utf-8?B?U2JmZURjd3lIcWZTNExzbGdnenBsRFJiZWNUQ1pVbDVwUTNySWlyQXhiK3Fz?=
- =?utf-8?B?SzVxbnpqb0hmMlYycFVUa2M4N3l4Q05ZWHQzTXZmMFhXM1BWQUVkTkFNMW1u?=
- =?utf-8?B?YzNuOEFiVHJSRmFKZmRoM1hZM3F3bVkybzZxK0sybFlRczY4Y25nWHpIOFFO?=
- =?utf-8?B?czBHYU9FT09lcVVBWjdPeG4xNnFnc2J1bVg2WDRSUDdqbHF4NEhlQmJrU0FZ?=
- =?utf-8?B?VlVCcC9tcmlzUGVqMVR3bkRtUDV4U1d4U3orODNYOFBjbnkzSUR6WmdSdW1Z?=
- =?utf-8?B?OTBSQmxDU3ZwdTFKekRkZmJxMDZUV2pHL3FZUDJTZTlVTDUxTVV3MlBQb1F4?=
- =?utf-8?B?cVF0eXRJQjZQajV2ZnA5eWpMY29Helc3bjJUYkF4MHgvNDE3YU5GOVNzNEJr?=
- =?utf-8?B?SHc2MGZiK2FPdWdORHVkV0gwVVNkMzY5d2VoYzRyVFltaGhUNDdMTEpNRWIv?=
- =?utf-8?B?bXpuUnVaNlFpUGl2UGpWcHNRWU9nYU13cUxORTVnOUxrOG5PWjRPRU45S2dj?=
- =?utf-8?B?MXpmNmJHVGZ0TU1tbUFxUTZIWFZESVNxdGhwaFZTdVRMWGVFc1JXcUVwWDk5?=
- =?utf-8?B?NDRFVmxvWEVvWm0wMXcvSG9zRldUSzhTanJHb0FMUzgrOHNHVFF5K0lsTE1B?=
- =?utf-8?B?VDV0VnVqOGFxeUFXWEROaTBnMmpEclpCdWMzT0NVamdvczd5K2M1ZFY3bTlB?=
- =?utf-8?B?ejYrcXBvblgxSFAyTXp0VEtuNWRCbDQwU3kvVHVuR2psVkt5MEJGOExBWWw0?=
- =?utf-8?B?MThla0psYWh5MXR2UlFXZ1p0K1F4bTZlMXFFd1ZPU25Rd0R0enVmNzd4dVIr?=
- =?utf-8?B?TGNWbnlGOUpBVTlUbU5OM0lBeGpnZmFTOThUSjJaVGVNYkticjdQWDMyRzZ3?=
- =?utf-8?B?blJPVEF4UGpkbFVwcHNqUkpEQVQ4ZzQwdnhydDFrd3RJNCs2cjFsQ3k5cEhK?=
- =?utf-8?B?aDdKZk1jNWhxKzNYVU9RcVAxS2FuNkRCUmpockZyREd0UDlBUkhLZ0Rkcndl?=
- =?utf-8?B?TTY0Y251M0NGcFpOMkFNZXZvMCtFR2x4WnBmbXllNXpqcVhrZjJBQmdBWW44?=
- =?utf-8?B?b2VhTUxNVmppQ3VodVRrQzhETC8zQ0Q5N0ZEcXZCSTVqcE01RFFUNGpqbFhi?=
- =?utf-8?Q?7I22DzSf3P4=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bnZXd1RoQkNiaW15UVRKUzdoSm1sdW5NcmtMSVFXVWJ1NWxFemkybUNLRW1D?=
- =?utf-8?B?SURXcE1BVXRRdHExdVp6MVFEbUxZbzhIM3NqMS9KWDNnRW93NlNZWjNMeFh1?=
- =?utf-8?B?cWVjTGMvVnJMTnd5MXNubzhWcFB0OFpoTEg4SkJjTEFZbTdpWCtUbTRYa0pa?=
- =?utf-8?B?S3NGWUpxUHd1TUNlTlVicE9zQXh4dzZQcXRNemVSYThKdnAwUjZER0hnK3Nj?=
- =?utf-8?B?Q3l5WG5paFJ0a1ErTFBNd3d2N1JzWE9VQmZFRW01cGYzQUdsdjVmYm9QcGlY?=
- =?utf-8?B?ZEF4WXNzSnZvWnZSKytLMDh5blhDZy9zNWRRMlBMeGp3MXRONUttSUdEU3Jz?=
- =?utf-8?B?SnJwdHNnVXU4SUxIejNzUm5OakhVM3FkcGtESmkyd1htZ3JvVzYyVUZGV3dx?=
- =?utf-8?B?dkwrZ1ZQMzZmOHNEdmNYNUtDSERLK1hmMUFYZGtobzJqb0lyZm9pVklIckdK?=
- =?utf-8?B?eWs1b1R5bXJyTU1WM3lBMGZnY3VPY1lKQWY3VytuSWFoaHdXWktrcGxUTG1p?=
- =?utf-8?B?RE1BS1ZEQmpGVUhnUUtDOVllVmhUZ1dZcWJXTHptRzRZWW40L0JXYnFNdFZJ?=
- =?utf-8?B?OUIwSGNHU05xV0t1ME9wRHBXSXA2SHB3WS9vckhJOUpPcDFOM3VRN25oUytu?=
- =?utf-8?B?azZ1S05lVkw5WUpSSCtiVktIWHV4dFh6Qis4ZTdrRW9VVVR1Snl5bHJ3cEhE?=
- =?utf-8?B?MXpJeEVHVkhoUnBUZXJnZ0lNa01VeGQ1aHNpcHRBY1krV0JRRWdjSnYveGli?=
- =?utf-8?B?cEJ0TGhieEM4ZXprTjdNbCtMOTV6NWdzb25mMmEwN2IwV01FVWFYM1FpWnQw?=
- =?utf-8?B?NHQvQWgyZnNqQVNkVHZFcmVPT0RVVTh6NmpwN1Z5bE1wTXV2QzJiK2JncDJm?=
- =?utf-8?B?aGMwM2JjOFR1UmZ3bVVDVE1wVXdjT3dIVjk3MkwxTVBkSVFVR3dDZG4xWE9x?=
- =?utf-8?B?QngzdDMyelJKY0ZIZk5SNHJQSi9oR1IwcEJhSnh1a3FKWkhWL1BJOVVYZXlh?=
- =?utf-8?B?V2VoWnQ2T2RRaFpKaEFQZGVkQ0llUHoxTHRGVE5kTGNDTFFNMlp3NkxzaGlU?=
- =?utf-8?B?V0g2cGVwVCtqTnZleVVrem02Qy82SVJibnVtWjNwNTJDcWgxelI0YU9waXZV?=
- =?utf-8?B?b1NHSXhEcFErTENVWlRWWjVZaytFTnBhNkV2UFIrM2l5YTVNcEtkQW40czFm?=
- =?utf-8?B?aXZSSE4yb2F5Vnk5dzNVUjBhdjhwMUNYYzFISmE1b3BwRU9mcTkwWk8ybzR4?=
- =?utf-8?B?N0NkNUV4dFhGSDdJaXNaSEIvYXp6SjIvSWNLNkhWNkNJaHNiODBTcXphNXR4?=
- =?utf-8?B?ZmtuN0JobWpMR21EMEUyb01PbnFoalg5eGVtK3lvUHc3ejA5bEZrelhYSE5T?=
- =?utf-8?B?cW91b3M0QW9ESXJDV2dmMjZKR1NHMmYvcTlLNVRGRkJhWGh1L2J5ZnJ1RUkw?=
- =?utf-8?B?RmtjdnJTMURPRGN4WmZKS0hscEdLVll0ZVl4Tm02U1IvOFpQTzlXcVdJYU0r?=
- =?utf-8?B?a2JqTjFWazBTVXFNTDhEWkJTOHR1Z21iSjZtSExhdWZWRHZnaENQYU91OTMy?=
- =?utf-8?B?RjdGczhUMkhyNEFPQk55Z0oxZkNDcDArZ0Uzck1JajcvN1ZCUFVmYlFaTTgw?=
- =?utf-8?B?NFh0Ty85ZWxkdHpXby9ndWRQNWNYUGY4NlBmVkZwbTRsUDlTaFF0aFJ0bGNX?=
- =?utf-8?B?YTVjZ0dqdkg1R0NkNmtsbWFYYkVFd0dYUGpqUlM4anNIMmtKRG04QmNBQWg5?=
- =?utf-8?B?SWlwSkMzc1F1SllGWUlHc3lSMFRHWWUzRGJkdDRuWjFDK045YmFEMzhtanpF?=
- =?utf-8?B?SExzTlN0K0ZCc1YzL1JBRmpoQUhIbDVPcHhiUmpta1FzMkR3MEFIbVduZ0hR?=
- =?utf-8?B?N0JGY21UR2ZwYVNOVFliSzZ5YnNYY2c3K0h3bngyV3pXRDdVS01wUGR0WDMw?=
- =?utf-8?B?MTFNRDlXZEdKZTBodkxPMlQzWGNjaUh5VVNCRG5LYWRVQk14U2pEWXFpaFJq?=
- =?utf-8?B?cE1td1NvS2VYdFg3M0JabldBVkVNektaM2Y4OWhaQVV5VkQrT2F6L0hwemZH?=
- =?utf-8?B?SEFWL2piNDVweHdyeXNQS0M0K01HeFYvK3pWQXFZUjE4Rldmc2VYTTM2UU9L?=
- =?utf-8?B?NG10S3JmOEgrdk9MaTYxNVl1V2xSV1p3R2tZZHlreXdqZmRYVnZBK3N5WENv?=
- =?utf-8?B?M0E9PQ==?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 55648d51-ff1e-492a-684f-08ddcab99a86
-X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2025 13:54:26.8689
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jzCAz4S8laH7yrgWlxNTfCV3ThiCDT2JzFG5vM1fIQosapIR/wYjNq4Ldt+iFq7dcaYzI0uSv4W3sflGY9WndR9ez7enQmWsUocU2lUiz7c=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR03MB10602
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 17/19] xen/cpufreq: introduce helper
+ cpufreq_in_cppc_passive_mode()
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, xen-devel@lists.xenproject.org
+References: <20250711035106.2540522-1-Penny.Zheng@amd.com>
+ <20250711035106.2540522-18-Penny.Zheng@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250711035106.2540522-18-Penny.Zheng@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Julien, Andrew Cooper <andrew.cooper3@citrix.com>
+On 11.07.2025 05:51, Penny Zheng wrote:
+> --- a/xen/drivers/acpi/pm-op.c
+> +++ b/xen/drivers/acpi/pm-op.c
+> @@ -152,7 +152,15 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
+>      else
+>          strlcpy(op->u.get_para.scaling_driver, "Unknown", CPUFREQ_NAME_LEN);
+>  
+> -    ret = get_cpufreq_cppc(op->cpuid, &op->u.get_para.u.cppc_para);
+> +    /*
+> +     * When cpufreq driver in cppc passive mode, it has both cppc and governor
+> +     * info. Users could only rely on "get-cpufreq-cppc" to acquire CPPC info.
+> +     * And it returns governor info in "get-cpufreq-para"
+> +     */
 
-Thanks for your comment.
+Which of the two they need to invoke to obtain a complete picture? Both?
+I'm confused by you bypassing get_cpufreq_cppc() (i.e. get_hwp_para())
+for yet another reason, when - aiui - some information there is relevant
+in both active and passive modes.
 
-On 23.07.25 14:09, Julien Grall wrote:
-> Hi,
-> 
-> On 23/07/2025 11:19, Grygorii Strashko wrote:
->> On 23.07.25 12:16, Julien Grall wrote:
->>> On 23/07/2025 08:58, Grygorii Strashko wrote:
->>>> From: Grygorii Strashko <grygorii_strashko@epam.com>
->>>>
->>>> Move vcpu_switch_to_aarch64_mode() in arch_vcpu_create() callback instead
->>>> of calling it manually from few different places after vcpu_create().
->>>>
->>>> Before doing above ensure vcpu0 is created after kernel_probe() is done and
->>>> domain's guest execution mode (32-bit/64-bit) is set for dom0 and dom0less
->>>> domains.
->>>
->>> The commit message doesn't mention anything about domains created by the toolstack. In this case, from my understanding, the switch to 64- bit domain happens *after* the vCPUs are created.
->>>
->>> At the moment, I think this is probably ok to call...
->>>
->>>>
->>>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
->>>> ---
->>>>   xen/arch/arm/domain.c                    |  3 +++
->>>>   xen/arch/arm/domain_build.c              | 13 +++++--------
->>>>   xen/common/device-tree/dom0less-build.c  |  6 +++---
->>>>   xen/include/asm-generic/dom0less-build.h |  2 +-
->>>>   4 files changed, 12 insertions(+), 12 deletions(-)
->>>>
->>>> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
->>>> index 79a144e61be9..bbd4a764c696 100644
->>>> --- a/xen/arch/arm/domain.c
->>>> +++ b/xen/arch/arm/domain.c
->>>> @@ -586,6 +586,9 @@ int arch_vcpu_create(struct vcpu *v)
->>>>       if ( get_ssbd_state() == ARM_SSBD_RUNTIME )
->>>>           v->arch.cpu_info->flags |= CPUINFO_WORKAROUND_2_FLAG;
->>>> +    if ( is_64bit_domain(v->domain) )
->>>> +        vcpu_switch_to_aarch64_mode(v);
->>>
->>> ... this function here because I *think* it would be NOP. But this feels really fragile.
->>
->> The toolstack configures domain and vcpus through XEN_DOMCTL_set_address_size on Arm64:
->> - toolstack creates domain and parses kernel binary: domain created with DOMAIN_32BIT mode by default
->> - toolstack creates vcpus (still 32 bit mode): libxl__build_pre()-  >xc_domain_max_vcpus()
->> - toolstack switches domain mode depending on kernel binary type: libxl__build_dom()->xc_dom_boot_mem_init(),
->>    which triggers XEN_DOMCTL_set_address_size hypercall.
->>    Xen: arm64: switches domain mode and re-configures vcpus: subarch_do_domctl()->set_address_size()
->>
->> So, this patch does not affect toolstack path, only optimizes Xen boots a bit. 
-> 
-> Thanks for providing more detaisl. I am not sure what you mean by optimize. It reduces the number of places where vcpu_switch_to_aarch64_mode() is called, but there should be no difference in term of boot time.
-> 
->>
->> Also, during Xen boot or by toolstack - the domain is always created before it's type is even known, which, in turn,
->> is based on guest binary which is parsed later during domain configuration stage.
-> 
-> What you are describing is the current situation. But this doesn't tell me *why* we can't provide the type when the domain is created.
-> 
->>
->> I can add note in commit message "This patch doesn't affect on the toolstack Arm64 domain creation path as toolstack always
->> re-configures domain mode and vcpus through XEN_DOMCTL_set_address_size hypercall during domain configuration stage"
-> 
-> Well, as I wrote before, I find this code extremely fragile. And you so far, you don't seem to have address this concern in your reply. In fact...
-> 
->>
->>>
->>> If the desire is to make 32-bit domain optional on Arm64. Then I think it would be better to pass the domain type when the domain
->>> is created (IOW add an extra flags to XEN_DOMCTL_createdomain). This will require more work, but it will be a lot more robust.
-> 
-> ... I proposed what I think is a better alternative. Did you consider it?
+> +    if ( cpufreq_in_cppc_passive_mode(op->cpuid) )
+> +        ret = -ENODEV;
+> +    else
+> +        ret = get_cpufreq_cppc(op->cpuid, &op->u.get_para.u.cppc_para);
 
+Any reason the extra check isn't put in get_cpufreq_cppc(), alongside the
+hwp_active() one?
 
-Yes, sorry for delay. I've been considering it and tried to study and estimate it, at least preliminary.
-  ...It's definitely more work.
+> --- a/xen/drivers/cpufreq/cpufreq.c
+> +++ b/xen/drivers/cpufreq/cpufreq.c
+> @@ -962,3 +962,9 @@ int __init cpufreq_register_driver(const struct cpufreq_driver *driver_data)
+>  
+>      return 0;
+>  }
+> +
+> +bool cpufreq_in_cppc_passive_mode(unsigned int cpuid)
+> +{
+> +    return processor_pminfo[cpuid]->init & XEN_CPPC_INIT &&
 
-I'd be appreciated if you could clarify some points, please:
+Nit: Please use parentheses when using & and && together.
 
-- Am understood correctly that proposal is to add "XEN_DOMCTL_CDF_is_32bit" flag which will be passed in struct xen_domctl_createdomain->flags?
-   (or "XEN_DOMCTL_CDF_is_32bit_mode")
+Also, isn't this function going to become unreachable when PM_OP=n, thus
+violating Misra rule 2.1?
 
-   [Arm] The Arm64 specific enum domain_type and (d)->arch.type can be dropped (use XEN_DOMCTL_CDF_is_32bit instead)
-   [x86] the d->arch.pv.is_32bit can be dropped (use XEN_DOMCTL_CDF_is_32bit instead)
-
-- is corresponding XEN_DOMINF_is_32bit needed?
-
-- Assumption XEN_DOMCTL_set_address_size will become obsolete finally. Right?
-
-After studying the topic, I have below thought regarding the requested change.
-(I might be missing/misunderstanding smth, so will be appreciated for any advice or guidance to the right direction.
-  Also I'm not very familiar with x86, sorry.)
-
-The goal:
-- domain mode (32bit/64bit) should be determined by probing guest binary before creating domain;
-- domain mode (32bit/64bit) should be set during domain creation (XEN_DOMCTL_createdomain) using new flag XEN_DOMCTL_CDF_is_32bit.
-
-Possible steps:
-1) Introduce XEN_DOMCTL_CDF_is_32bit flag;
-2) Arm: re-work regular dom0 creation code;
-    challenges: cross references kernel_info vs domain.
-3) Arm: re-work dom0les boot mode;
-4) x86_pv: re-work regular PV dom0 creation code;
-5) x86_hvm: ???;
-6) toolstack: re-work domain creation, so guest binary probed and domain mode determined before creating domain;
-    challenges: running "bootloader" to get guest binaries seems the most difficult part.
-7) de-scope XEN_DOMCTL_set_address_size;
-
-The toolstack behavior is left unchanged until step 6.
-
-Hence the amount of work is significant It's preferred to be done in independent phases (series) to
-easy review and testing process.
-
-I'd try to come up with patches for items 1-3 as the first phase.
-
-Thank you.
-
--- 
-Best regards,
--grygorii
+Jan
 
