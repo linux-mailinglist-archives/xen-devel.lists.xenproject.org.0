@@ -2,29 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18D95B0FF36
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 05:42:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1055102.1423626 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2403AB10033
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 07:51:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1055180.1423636 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uemqb-0005RM-73; Thu, 24 Jul 2025 03:42:21 +0000
+	id 1ueoqj-00058M-3T; Thu, 24 Jul 2025 05:50:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1055102.1423626; Thu, 24 Jul 2025 03:42:21 +0000
+Received: by outflank-mailman (output) from mailman id 1055180.1423636; Thu, 24 Jul 2025 05:50:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uemqb-0005Pi-3g; Thu, 24 Jul 2025 03:42:21 +0000
-Received: by outflank-mailman (input) for mailman id 1055102;
- Thu, 24 Jul 2025 03:42:20 +0000
+	id 1ueoqi-00055t-W3; Thu, 24 Jul 2025 05:50:36 +0000
+Received: by outflank-mailman (input) for mailman id 1055180;
+ Thu, 24 Jul 2025 05:50:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=BvLp=2F=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uemqY-0005Pc-Vj
- for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 03:42:20 +0000
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=42zg=2F=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
+ id 1ueoqh-00055h-Ix
+ for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 05:50:35 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20613.outbound.protection.outlook.com
+ [2a01:111:f403:2418::613])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 316690c2-6840-11f0-a31e-13f23c93f187;
- Thu, 24 Jul 2025 05:42:16 +0200 (CEST)
+ id 1c611ffe-6852-11f0-a31e-13f23c93f187;
+ Thu, 24 Jul 2025 07:50:33 +0200 (CEST)
+Received: from SJ0PR03CA0136.namprd03.prod.outlook.com (2603:10b6:a03:33c::21)
+ by DS2PR12MB9686.namprd12.prod.outlook.com (2603:10b6:8:27a::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.22; Thu, 24 Jul
+ 2025 05:50:27 +0000
+Received: from SJ5PEPF000001CC.namprd05.prod.outlook.com
+ (2603:10b6:a03:33c:cafe::60) by SJ0PR03CA0136.outlook.office365.com
+ (2603:10b6:a03:33c::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8964.22 via Frontend Transport; Thu,
+ 24 Jul 2025 05:50:27 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001CC.mail.protection.outlook.com (10.167.242.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8964.20 via Frontend Transport; Thu, 24 Jul 2025 05:50:26 +0000
+Received: from cjq-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 24 Jul
+ 2025 00:50:23 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,637 +56,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 316690c2-6840-11f0-a31e-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1753328535; x=1753587735;
-	bh=aJzyziMoUn/Bd4P4ZWmdfanI/N9blCkqUKN3GE8K3X8=;
-	h=Date:To:From:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=UmZlBlB7frYN2uTYRicD8bBUH7Ja9cT4qUwWHizg5580y/fkt0Ehft46UfLg9bdzS
-	 YdQLeu/9u3Q/prNDT2L0kvlf2FqWucpEKJ8fkV7SHBH1ckdEiTFhVdLQ/YHUmF3Yb3
-	 fMe0PTOBKSbBqhI/rlk/8seoJ/3Zu1Bo4X5M6BiEEcG8UUGxugAt2bV9p+JxsxeJ1n
-	 YVMXwLIXS5fpMdWoAtd8ZcFllqJD+jNHwMToKTb0ot1zCorMQqVOLnDWU8IzaAvSc/
-	 TRLgCNli19JVgxtQBANh3uc39Y6EQZosuGQbJ3vq2+fYgCBghsYm1uKtPjxQHvRAm/
-	 fzbtaR1SvlFZA==
-Date: Thu, 24 Jul 2025 03:42:09 +0000
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>, xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-From: dmkhn@proton.me
-Subject: Re: [PATCH v2 1/3] vpci: allow queueing of mapping operations
-Message-ID: <aIGrin7bHQr5KvtJ@kraken>
-In-Reply-To: <aIGh2i5+Z2CW0mPr@kraken>
-References: <20250723163744.13095-1-stewart.hildebrand@amd.com> <20250723163744.13095-2-stewart.hildebrand@amd.com> <aIGh2i5+Z2CW0mPr@kraken>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 632999d53ec864d47e51e60cbb53f92732bad773
+X-Inumbo-ID: 1c611ffe-6852-11f0-a31e-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Q9hMT/l2/9HG78aZcB3k/s74mHbxDBJp82vqHmAS72E4vtVcdrk3vFci/vPuCfeL3LoPDz35pA+PCHZyXnO/FiT7vBuuhBHxkg8ofnEVWt0GR8AsRyFzR0YCxKSnvb55jwHljpaOOYt01P68WymiRkqurKjMf56JGdFX5mj5T9xDM9vJWGPeWjFh6Cs0d/B+jSDIixLnRF57k7p62Nku4VSfh6ZyTCMk/hG0e2hT6R8UYYDrTnk7ZnH4kLX0Y4U6VDOb7IAASSQSu0mv4nmv3TODVyHFyP5Tw2Jqj0dgGBzeVhQePQ08gM8dFdBoju1rw/ubZd105XbZleVM9iG2ZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t9C+vmwoeN6O9X+KzUKmP19ymQ8rhcDXnFZ3YbKmkgI=;
+ b=S7wkZV3y36T2r3BVCThzJmnNdqovpGgZpXYr5vYv1C9dxi/fo1XmNAA+cB6RSFiX3kLuFjIKFPcd2kNbcVmMskVhPpqe8hN0UlfsgHsp8tfSu0pdO5L93bnavRsLc8Zi4XNt7ZNPu/AnLnSdnMUsj9IXe69dpEEH2oHwFHAoFIZCFHz4ZMAf2rNyt2vJO7XVY3l/pKzd5nL8VOg+jZ4X5ZAhsOHGI09djNxRamO7fimJdOXuhl3KCtm3zX47tI7AA0l8HcRhc3F5ou/qGp/Z+oq9il+EIWWf7rSf8MG1dJRd7xP3dqnc+MWMS0gOAOA3mPUlTf4OrEz1FifmBL8ujg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t9C+vmwoeN6O9X+KzUKmP19ymQ8rhcDXnFZ3YbKmkgI=;
+ b=Gt7nC0JQkVLh+uyEjE9qZkZyFXgASo2oqpoTpklvU7nkW65ZUy9dWkHzPyS8tAWzI4f40h+T8YYeH4oiRR6c8haCdiTO0MWOb206Mp7g0GzvQFj3nxJy3vfaJ3oSJyNicp0LtNxvWt7ItACgosl7nRhSZD6SdC2W33QI7zKlrAU=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Jiqian Chen <Jiqian.Chen@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Huang Rui <ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>
+Subject: [PATCH v8 0/8] Support hiding capability when its initialization fails
+Date: Thu, 24 Jul 2025 13:49:58 +0800
+Message-ID: <20250724055006.29843-1-Jiqian.Chen@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CC:EE_|DS2PR12MB9686:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6e574e1c-d6ed-4eed-ddf6-08ddca75fd44
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700013|82310400026|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?TGNxVkFHSmwzbTZiMjlCZ2ltT1JEeEh3bTdrcEJldEdhSVhTcHRraGdPWGV3?=
+ =?utf-8?B?eFdrd24vOWJSTDZkczNTUUI4VGc3SFRiRWlLZ3hweTQ1RS8yb0N4cUtlTUpp?=
+ =?utf-8?B?UHE3QXE1Uk05Y2lrNTVmM2JYWnNrQmlsOXNhTVhCS09LS1VVQTcyTkkwdGU3?=
+ =?utf-8?B?MS81bnUwdmt2dnVmQmZtdVBBYmJXYnY1MVRCK2tuZnVnbWhXREJFYTRSaUJ0?=
+ =?utf-8?B?RUVINUFUYTU4NUtMTDBJUGUxT2w2WXVrYVlHRER3a21PTTJaSVZTQi9XeUNv?=
+ =?utf-8?B?bmJEMDVRVXR6QnU5dnlBaG04SmhmNmdhdENZZG5UZVNLaGVieGdEY003cWtY?=
+ =?utf-8?B?cFVWZ0tRZUdhVHd1ekpEdDUrUEFxQnEyNWNIUk9icUNHVFBsRHZYQUZiak1z?=
+ =?utf-8?B?MVBZVWxNaEV2KzFzeGJVZE9LTE5LcVozOEF6bk9SaEYzNEVLWDFwNUZEYjJz?=
+ =?utf-8?B?N0FlR3FUSFR6bXNKMzk3Yy9GVDhtUWxRS3BmclFsQTVjbFF4TnVuQVJtRVMz?=
+ =?utf-8?B?M0hPMUFnbXFkOVo3OE5RQkxtZDV0OEx1L05ERVk1SERXd2dvUWxxb0NqcTZV?=
+ =?utf-8?B?dm9oUjBDem9TL3FrbkxtK2h3b0FaaVpLQkhVL3RjSDl0MnhEMUhMYjRKZ0tj?=
+ =?utf-8?B?dlNkT2s0SDlNRDViZHdTck1PYThZMDNzYVlSK3VjQmxlUlZrSEdwT24xTzE0?=
+ =?utf-8?B?dlNYYTNuU3h3c25DUktSTU9zc0tjOC81NE9icWFMZkxtMW0wdUtvMDQ3KzRI?=
+ =?utf-8?B?SVRkTG02WHFpTVV6QVlucEVNNkhyZlUwV245M3pZTDNDTWxtZjAzam4ybnFz?=
+ =?utf-8?B?Y09YQ1NQWjgwQ05SR0JoMDQ2ek42b1dhblFSS3BoR1A0VTE0Q3RTVWVleTV4?=
+ =?utf-8?B?aTZkVW5adDk0L2VHeXNDbDlVMTZiYzdERUpoMzNNRVQ4ZWhpZzU4T3kxdjN4?=
+ =?utf-8?B?RDUwVkFJTUpObXJrMHZjdHlNY0U4TXRQdDFJOXJ3UG9kQkJjaEM3ZVNndXpY?=
+ =?utf-8?B?NGFZVnBuMWNhMVZENXVQQUlia3g5SGllSmoxMkQ0aG5tTmNhQm9lUzhvODVQ?=
+ =?utf-8?B?eDlqKzlpWWt6eCtlUUFnaUFRQlhFOTJ4eW45aU1jRUhJWkZoTXNaSnlHTi9X?=
+ =?utf-8?B?aHA5SFVmSlpZbmd0WDhBSmZNMkQyYmJTU3FZd0p1MFZIOHh2ZzBUT0JFNi9w?=
+ =?utf-8?B?MjBNR2NNWGMwdERpV0V3d2ptaTJXaENUR1VUcUlSeGV2UTZVTVg2RTNORE4y?=
+ =?utf-8?B?NERjVkR2ZTJaOWIrMi9HOHB2RFNKaTVjcks0ZVJTQzVZK0dpSzBjVnpLQW1N?=
+ =?utf-8?B?WHpsM2oyaTl2ajNJdytoVDBTR3lCQ3lYb1BJbk1LU01JelpmZ3Z5em9MS0ZY?=
+ =?utf-8?B?Nk1NSWhLMzhwcWlYVWswSWp2d2RIajFwdGtQdnRvcElKc2pOMXo3K1B5clRY?=
+ =?utf-8?B?Wk9yeUQrQXEzNnhybzgrZzhYaW40UVc5cExITXNsMXdaamVlR0hubjd2N2V4?=
+ =?utf-8?B?RVc3bUVPM214NGRWdHVJbnVjcnVPOFNtK29QZVcxRmlDVnF3dUFGMHIwTVBr?=
+ =?utf-8?B?SjFBRE9HWEd2TmdiYTl4TCtFeHRLRlkrcWpGYTd4V1dnNEhodG9yeHNUNTFP?=
+ =?utf-8?B?TUZlcExKbEdBalRkZDhzR0lyZ3NDbUwvYVRvMUFJaURmdWJDZHh6em10K1VC?=
+ =?utf-8?B?VURRN2hTcm9iazdZUHRFZ05FU2pGUi9ZbFBNRTRPemk2TjlIYkpLM1dUOTRp?=
+ =?utf-8?B?UzB5YlA5TXFhUGZtd0F6QStJalIvc1ovTG00RUg2aWZKL1RSc0NndGpPOFl0?=
+ =?utf-8?B?cUNUNERuMXgrM3BES09RWUJlbkM2c291bndVajVGZmJwdXBKYUFyaEdEcHpR?=
+ =?utf-8?B?QnRaWVlJdnNXTHR1eWMrV0ZLRmNDSGc5WHBvTlN3T3FoS1FZMTBhK2ZIMStP?=
+ =?utf-8?B?UU9wL1JvcHdCZjJnTFBqbW80TCtjbVBlN2dJYTNJZzlGa3FLRy9ZR2hvSFN6?=
+ =?utf-8?B?VUtKZ1VMdFp3Zlo1cXJyUUJUV0xlTFE0d3B0YnB6WWovRENMRitHNFlDOWN1?=
+ =?utf-8?Q?+txPkx?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2025 05:50:26.4211
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6e574e1c-d6ed-4eed-ddf6-08ddca75fd44
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001CC.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9686
 
-On Thu, Jul 24, 2025 at 03:00:46AM +0000, dmkhn@proton.me wrote:
-> On Wed, Jul 23, 2025 at 12:37:41PM -0400, Stewart Hildebrand wrote:
-> > Introduce vPCI BAR mapping task queue. Decouple map operation state fro=
-m
-> > general vPCI state: in particular, move the per-BAR rangeset out of
-> > struct vpci and into the map task struct.
-> >
-> > This is preparatory work for further changes that need to perform
-> > multiple unmap/map operations before returning to guest.
-> >
-> > Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> > ---
-> > v1->v2:
-> > * new patch
-> >
-> > Related: 622bdd962822 ("vpci/header: handle p2m range sets per BAR")
-> > ---
-> >  xen/common/domain.c       |   4 +
-> >  xen/drivers/vpci/header.c | 197 +++++++++++++++++++++++---------------
-> >  xen/drivers/vpci/vpci.c   |   3 -
-> >  xen/include/xen/vpci.h    |  16 +++-
-> >  4 files changed, 139 insertions(+), 81 deletions(-)
-> >
-> > diff --git a/xen/common/domain.c b/xen/common/domain.c
-> > index 303c338ef293..214795e2d2fe 100644
-> > --- a/xen/common/domain.c
-> > +++ b/xen/common/domain.c
-> > @@ -459,6 +459,10 @@ struct vcpu *vcpu_create(struct domain *d, unsigne=
-d int vcpu_id)
-> >          d->vcpu[prev_id]->next_in_list =3D v;
-> >      }
-> >
-> > +#ifdef CONFIG_HAS_VPCI
-> > +    INIT_LIST_HEAD(&v->vpci.task_queue);
-> > +#endif
-> > +
-> >      /* Must be called after making new vcpu visible to for_each_vcpu()=
-. */
-> >      vcpu_check_shutdown(v);
-> >
-> > diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-> > index bb76e707992c..df065a5f5faf 100644
-> > --- a/xen/drivers/vpci/header.c
-> > +++ b/xen/drivers/vpci/header.c
-> > @@ -34,7 +34,7 @@
-> >
-> >  struct map_data {
-> >      struct domain *d;
-> > -    const struct vpci_bar *bar;
-> > +    const struct vpci_bar_map *bar;
->=20
-> Perhaps s/vpci_bar_map/vpci_bar_mmio/g to highlight the BAR type?
->=20
-> >      bool map;
-> >  };
-> >
-> > @@ -173,31 +173,23 @@ static void modify_decoding(const struct pci_dev =
-*pdev, uint16_t cmd,
-> >          ASSERT_UNREACHABLE();
-> >  }
-> >
-> > -bool vpci_process_pending(struct vcpu *v)
-> > +static bool vpci_process_map_task(struct vpci_map_task *task)
-> >  {
-> > -    const struct pci_dev *pdev =3D v->vpci.pdev;
-> > -    struct vpci_header *header =3D NULL;
-> > +    const struct pci_dev *pdev =3D task->pdev;
-> >      unsigned int i;
-> >
-> >      if ( !pdev )
-> >          return false;
-> >
-> > -    read_lock(&v->domain->pci_lock);
-> > -
-> > -    if ( !pdev->vpci || (v->domain !=3D pdev->domain) )
-> > -    {
-> > -        v->vpci.pdev =3D NULL;
-> > -        read_unlock(&v->domain->pci_lock);
-> > +    if ( !pdev->vpci || (task->domain !=3D pdev->domain) )
-> >          return false;
-> > -    }
-> >
-> > -    header =3D &pdev->vpci->header;
-> > -    for ( i =3D 0; i < ARRAY_SIZE(header->bars); i++ )
-> > +    for ( i =3D 0; i < ARRAY_SIZE(task->bars); i++ )
-> >      {
-> > -        struct vpci_bar *bar =3D &header->bars[i];
-> > +        struct vpci_bar_map *bar =3D &task->bars[i];
-> >          struct map_data data =3D {
-> > -            .d =3D v->domain,
-> > -            .map =3D v->vpci.cmd & PCI_COMMAND_MEMORY,
-> > +            .d =3D task->domain,
-> > +            .map =3D task->cmd & PCI_COMMAND_MEMORY,
-> >              .bar =3D bar,
-> >          };
-> >          int rc;
-> > @@ -208,57 +200,79 @@ bool vpci_process_pending(struct vcpu *v)
-> >          rc =3D rangeset_consume_ranges(bar->mem, map_range, &data);
-> >
-> >          if ( rc =3D=3D -ERESTART )
-> > -        {
-> > -            read_unlock(&v->domain->pci_lock);
-> >              return true;
-> > -        }
-> >
-> >          if ( rc )
-> >          {
-> >              spin_lock(&pdev->vpci->lock);
-> >              /* Disable memory decoding unconditionally on failure. */
-> > -            modify_decoding(pdev, v->vpci.cmd & ~PCI_COMMAND_MEMORY,
-> > +            modify_decoding(pdev, task->cmd & ~PCI_COMMAND_MEMORY,
-> >                              false);
-> >              spin_unlock(&pdev->vpci->lock);
-> >
-> > -            /* Clean all the rangesets */
-> > -            for ( i =3D 0; i < ARRAY_SIZE(header->bars); i++ )
-> > -                if ( !rangeset_is_empty(header->bars[i].mem) )
-> > -                     rangeset_purge(header->bars[i].mem);
-> > -
-> > -            v->vpci.pdev =3D NULL;
-> > -
-> > -            read_unlock(&v->domain->pci_lock);
-> > -
-> > -            if ( !is_hardware_domain(v->domain) )
-> > -                domain_crash(v->domain);
-> > +            if ( !is_hardware_domain(task->domain) )
-> > +                domain_crash(task->domain);
-> >
-> >              return false;
-> >          }
-> >      }
-> > -    v->vpci.pdev =3D NULL;
-> >
-> >      spin_lock(&pdev->vpci->lock);
-> > -    modify_decoding(pdev, v->vpci.cmd, v->vpci.rom_only);
-> > +    modify_decoding(pdev, task->cmd, task->rom_only);
-> >      spin_unlock(&pdev->vpci->lock);
-> >
-> > -    read_unlock(&v->domain->pci_lock);
-> > +    return false;
-> > +}
-> > +
-> > +static void destroy_map_task(struct vpci_map_task *task)
-> > +{
-> > +    unsigned int i;
-> >
-> > +    if ( !task )
->=20
-> Looks like task is never NULL in the code, suggest ASSERT().
->=20
-> > +        return;
-> > +
-> > +    for ( i =3D 0; i < ARRAY_SIZE(task->bars); i++ )
-> > +        rangeset_destroy(task->bars[i].mem);
-> > +
-> > +    xfree(task);
-> > +}
-> > +
-> > +bool vpci_process_pending(struct vcpu *v)
-> > +{
-> > +    struct vpci_map_task *task;
-> > +    read_lock(&v->domain->pci_lock);
-> > +
-> > +    while ( (task =3D list_first_entry_or_null(&v->vpci.task_queue,
-> > +                                             struct vpci_map_task,
-> > +                                             next)) !=3D NULL )
-> > +    {
-> > +        if ( vpci_process_map_task(task) )
-> > +        {
-> > +            read_unlock(&v->domain->pci_lock);
->=20
-> I would add local variable and use it here for shorter code:
->=20
->     int rc;
->=20
->     read_lock(&v->domain->pci_lock);
->=20
->     while (...)
->     {
->         rc =3D vpci_process_map_task(task);
->         if ( rc )
->             break;
->=20
->         ...
->     }
->=20
->     read_unlock(&v->domain->pci_lock);
->=20
->     return rc;
->=20
->=20
->=20
-> > +            return true;
-> > +        }
-> > +
-> > +        list_del(&task->next);
-> > +        destroy_map_task(task);
-> > +    }
-> > +
-> > +    read_unlock(&v->domain->pci_lock);
-> >      return false;
-> >  }
-> >
-> > -static int __init apply_map(struct domain *d, const struct pci_dev *pd=
-ev,
-> > -                            uint16_t cmd)
-> > +static int __init apply_map(struct vpci_map_task *task)
-> >  {
-> > -    struct vpci_header *header =3D &pdev->vpci->header;
-> > +    struct domain *d =3D task->domain;
-> > +    const struct pci_dev *pdev =3D task->pdev;
-> > +    uint16_t cmd =3D task->cmd;
-> >      int rc =3D 0;
-> >      unsigned int i;
-> >
-> >      ASSERT(rw_is_write_locked(&d->pci_lock));
-> >
-> > -    for ( i =3D 0; i < ARRAY_SIZE(header->bars); i++ )
-> > +    for ( i =3D 0; i < ARRAY_SIZE(task->bars); i++ )
-> >      {
-> > -        struct vpci_bar *bar =3D &header->bars[i];
-> > +        struct vpci_bar_map *bar =3D &task->bars[i];
-> >          struct map_data data =3D { .d =3D d, .map =3D true, .bar =3D b=
-ar };
-> >
-> >          if ( rangeset_is_empty(bar->mem) )
-> > @@ -283,7 +297,48 @@ static int __init apply_map(struct domain *d, cons=
-t struct pci_dev *pdev,
-> >      return rc;
-> >  }
-> >
-> > -static void defer_map(const struct pci_dev *pdev, uint16_t cmd, bool r=
-om_only)
-> > +static struct vpci_map_task *alloc_map_task(const struct pci_dev *pdev=
-,
-> > +                                            uint16_t cmd, bool rom_onl=
-y)
-> > +{
-> > +    struct vpci_map_task *task =3D xzalloc(struct vpci_map_task);
-> > +    unsigned int i;
-> > +
->=20
-> I would move allocation outside of initializer and use preferred xvzalloc=
-()
-> variant:
->=20
->        task =3D xvzalloc(struct vpci_map_task);
-> > +    if ( !task )
-> > +        return NULL;
-> > +
-> > +    BUILD_BUG_ON(ARRAY_SIZE(task->bars) !=3D ARRAY_SIZE(pdev->vpci->he=
-ader.bars));
-> > +
-> > +    for ( i =3D 0; i < ARRAY_SIZE(task->bars); i++ )
-> > +    {
-> > +        if ( pdev->vpci->header.bars[i].type >=3D VPCI_BAR_MEM32 )
->=20
-> I would reduce one level of indentation by
->=20
->            if ( pdev->vpci->header.bars[i].type < VPCI_BAR_MEM32 )
->                 continue;
->=20
->=20
-> > +        {
-> > +            char str[32];
-> > +
-> > +            snprintf(str, sizeof(str), "%pp:BAR%u", &pdev->sbdf, i);
-> > +
-> > +            task->bars[i].mem =3D rangeset_new(pdev->domain, str,
-> > +                                             RANGESETF_no_print);
-> > +
-> > +            if ( !task->bars[i].mem )
-> > +            {
-> > +                destroy_map_task(task);
->=20
-> What if allocation fails in the middle of the loop, e.g. i =3D=3D 5?
-> I think previously allocated rangesets in this loop should be freed.
+Hi,
 
-Oh, I see that is done in destroy_map_task(); please disregard.
+This series is to
+emulate extended capability list for dom0, including patch #1.
+hide legacy and extended capability when its initialization fails, including patch #2, #3, #4.
+remove all related registers and other resources when initializing capability fails, including patch #5, #6, #7, #8.
 
->=20
-> > +                return NULL;
-> > +            }
-> > +
-> > +            task->bars[i].addr =3D pdev->vpci->header.bars[i].addr;
-> > +            task->bars[i].guest_addr =3D pdev->vpci->header.bars[i].gu=
-est_addr;
-> > +        }
-> > +    }
-> > +
-> > +    task->pdev =3D pdev;
-> > +    task->domain =3D pdev->domain;
-> > +    task->cmd =3D cmd;
-> > +    task->rom_only =3D rom_only;
-> > +
-> > +    return task;
-> > +}
-> > +
-> > +static void defer_map(struct vpci_map_task *task)
-> >  {
-> >      struct vcpu *curr =3D current;
-> >
-> > @@ -293,9 +348,9 @@ static void defer_map(const struct pci_dev *pdev, u=
-int16_t cmd, bool rom_only)
-> >       * is mapped. This can lead to parallel mapping operations being
-> >       * started for the same device if the domain is not well-behaved.
-> >       */
-> > -    curr->vpci.pdev =3D pdev;
-> > -    curr->vpci.cmd =3D cmd;
-> > -    curr->vpci.rom_only =3D rom_only;
-> > +
-> > +    list_add_tail(&task->next, &curr->vpci.task_queue);
-> > +
-> >      /*
-> >       * Raise a scheduler softirq in order to prevent the guest from re=
-suming
-> >       * execution with pending mapping operations, to trigger the invoc=
-ation
-> > @@ -310,11 +365,15 @@ static int modify_bars(const struct pci_dev *pdev=
-, uint16_t cmd, bool rom_only)
-> >      struct pci_dev *tmp;
-> >      const struct domain *d;
-> >      const struct vpci_msix *msix =3D pdev->vpci->msix;
-> > +    struct vpci_map_task *task =3D alloc_map_task(pdev, cmd, rom_only)=
-;
->=20
-> Same comment re: having allocation on a separate line.
->=20
-> >      unsigned int i, j;
-> >      int rc;
-> >
-> >      ASSERT(rw_is_write_locked(&pdev->domain->pci_lock));
-> >
-> > +    if ( !task )
-> > +        return -ENOMEM;
-> > +
-> >      /*
-> >       * Create a rangeset per BAR that represents the current device me=
-mory
-> >       * region and compare it against all the currently active BAR memo=
-ry
-> > @@ -330,12 +389,13 @@ static int modify_bars(const struct pci_dev *pdev=
-, uint16_t cmd, bool rom_only)
-> >      for ( i =3D 0; i < ARRAY_SIZE(header->bars); i++ )
-> >      {
-> >          struct vpci_bar *bar =3D &header->bars[i];
-> > +        struct rangeset *mem =3D task->bars[i].mem;
-> >          unsigned long start =3D PFN_DOWN(bar->addr);
-> >          unsigned long end =3D PFN_DOWN(bar->addr + bar->size - 1);
-> >          unsigned long start_guest =3D PFN_DOWN(bar->guest_addr);
-> >          unsigned long end_guest =3D PFN_DOWN(bar->guest_addr + bar->si=
-ze - 1);
-> >
-> > -        if ( !bar->mem )
-> > +        if ( !mem )
-> >              continue;
-> >
-> >          if ( !MAPPABLE_BAR(bar) ||
-> > @@ -353,7 +413,7 @@ static int modify_bars(const struct pci_dev *pdev, =
-uint16_t cmd, bool rom_only)
-> >              continue;
-> >          }
-> >
-> > -        ASSERT(rangeset_is_empty(bar->mem));
-> > +        ASSERT(rangeset_is_empty(mem));
-> >
-> >          /*
-> >           * Make sure that the guest set address has the same page offs=
-et
-> > @@ -365,21 +425,23 @@ static int modify_bars(const struct pci_dev *pdev=
-, uint16_t cmd, bool rom_only)
-> >              gprintk(XENLOG_G_WARNING,
-> >                      "%pp: can't map BAR%u - offset mismatch: %#lx vs %=
-#lx\n",
-> >                      &pdev->sbdf, i, bar->guest_addr, bar->addr);
-> > +            destroy_map_task(task);
->=20
-> I think using goto would be justified for doing cleanup in one place.
->=20
-> >              return -EINVAL;
-> >          }
-> >
-> > -        rc =3D rangeset_add_range(bar->mem, start_guest, end_guest);
-> > +        rc =3D rangeset_add_range(mem, start_guest, end_guest);
-> >          if ( rc )
-> >          {
-> >              printk(XENLOG_G_WARNING "Failed to add [%lx, %lx]: %d\n",
-> >                     start_guest, end_guest, rc);
-> > +            destroy_map_task(task);
-> >              return rc;
-> >          }
-> >
-> >          /* Check for overlap with the already setup BAR ranges. */
-> >          for ( j =3D 0; j < i; j++ )
-> >          {
-> > -            struct vpci_bar *prev_bar =3D &header->bars[j];
-> > +            struct vpci_bar_map *prev_bar =3D &task->bars[j];
-> >
-> >              if ( rangeset_is_empty(prev_bar->mem) )
-> >                  continue;
-> > @@ -390,16 +452,18 @@ static int modify_bars(const struct pci_dev *pdev=
-, uint16_t cmd, bool rom_only)
-> >                  gprintk(XENLOG_WARNING,
-> >                         "%pp: failed to remove overlapping range [%lx, =
-%lx]: %d\n",
-> >                          &pdev->sbdf, start_guest, end_guest, rc);
-> > +                destroy_map_task(task);
-> >                  return rc;
-> >              }
-> >          }
-> >
-> > -        rc =3D pci_sanitize_bar_memory(bar->mem);
-> > +        rc =3D pci_sanitize_bar_memory(mem);
-> >          if ( rc )
-> >          {
-> >              gprintk(XENLOG_WARNING,
-> >                      "%pp: failed to sanitize BAR#%u memory: %d\n",
-> >                      &pdev->sbdf, i, rc);
-> > +            destroy_map_task(task);
-> >              return rc;
-> >          }
-> >      }
-> > @@ -413,7 +477,7 @@ static int modify_bars(const struct pci_dev *pdev, =
-uint16_t cmd, bool rom_only)
-> >
-> >          for ( j =3D 0; j < ARRAY_SIZE(header->bars); j++ )
-> >          {
-> > -            const struct vpci_bar *bar =3D &header->bars[j];
-> > +            const struct vpci_bar_map *bar =3D &task->bars[j];
-> >
-> >              if ( rangeset_is_empty(bar->mem) )
-> >                  continue;
-> > @@ -424,6 +488,7 @@ static int modify_bars(const struct pci_dev *pdev, =
-uint16_t cmd, bool rom_only)
-> >                  gprintk(XENLOG_WARNING,
-> >                         "%pp: failed to remove MSIX table [%lx, %lx]: %=
-d\n",
-> >                          &pdev->sbdf, start, end, rc);
-> > +                destroy_map_task(task);
-> >                  return rc;
-> >              }
-> >          }
-> > @@ -468,8 +533,9 @@ static int modify_bars(const struct pci_dev *pdev, =
-uint16_t cmd, bool rom_only)
-> >                  for ( j =3D 0; j < ARRAY_SIZE(header->bars); j++)
-> >                  {
-> >                      const struct vpci_bar *bar =3D &header->bars[j];
-> > +                    struct rangeset *mem =3D task->bars[j].mem;
-> >
-> > -                    if ( !rangeset_overlaps_range(bar->mem, start, end=
-) ||
-> > +                    if ( !rangeset_overlaps_range(mem, start, end) ||
-> >                           /*
-> >                            * If only the ROM enable bit is toggled chec=
-k against
-> >                            * other BARs in the same device for overlaps=
-, but not
-> > @@ -480,12 +546,13 @@ static int modify_bars(const struct pci_dev *pdev=
-, uint16_t cmd, bool rom_only)
-> >                            bar->type =3D=3D VPCI_BAR_ROM) )
-> >                          continue;
-> >
-> > -                    rc =3D rangeset_remove_range(bar->mem, start, end)=
-;
-> > +                    rc =3D rangeset_remove_range(mem, start, end);
-> >                      if ( rc )
-> >                      {
-> >                          gprintk(XENLOG_WARNING,
-> >                                  "%pp: failed to remove [%lx, %lx]: %d\=
-n",
-> >                                  &pdev->sbdf, start, end, rc);
-> > +                        destroy_map_task(task);
-> >                          return rc;
-> >                      }
-> >                  }
-> > @@ -509,10 +576,12 @@ static int modify_bars(const struct pci_dev *pdev=
-, uint16_t cmd, bool rom_only)
-> >           * will always be to establish mappings and process all the BA=
-Rs.
-> >           */
-> >          ASSERT((cmd & PCI_COMMAND_MEMORY) && !rom_only);
-> > -        return apply_map(pdev->domain, pdev, cmd);
-> > +        rc =3D apply_map(task);
-> > +        destroy_map_task(task);
-> > +        return rc;
-> >      }
-> >
-> > -    defer_map(pdev, cmd, rom_only);
-> > +    defer_map(task);
-> >
-> >      return 0;
-> >  }
-> > @@ -731,18 +800,6 @@ static void cf_check rom_write(
-> >      }
-> >  }
-> >
-> > -static int bar_add_rangeset(const struct pci_dev *pdev, struct vpci_ba=
-r *bar,
-> > -                            unsigned int i)
-> > -{
-> > -    char str[32];
-> > -
-> > -    snprintf(str, sizeof(str), "%pp:BAR%u", &pdev->sbdf, i);
-> > -
-> > -    bar->mem =3D rangeset_new(pdev->domain, str, RANGESETF_no_print);
-> > -
-> > -    return !bar->mem ? -ENOMEM : 0;
-> > -}
-> > -
-> >  static int vpci_init_capability_list(struct pci_dev *pdev)
-> >  {
-> >      int rc;
-> > @@ -947,10 +1004,6 @@ static int cf_check init_header(struct pci_dev *p=
-dev)
-> >          else
-> >              bars[i].type =3D VPCI_BAR_MEM32;
-> >
-> > -        rc =3D bar_add_rangeset(pdev, &bars[i], i);
-> > -        if ( rc )
-> > -            goto fail;
-> > -
-> >          rc =3D pci_size_mem_bar(pdev->sbdf, reg, &addr, &size,
-> >                                (i =3D=3D num_bars - 1) ? PCI_BAR_LAST :=
- 0);
-> >          if ( rc < 0 )
-> > @@ -1003,12 +1056,6 @@ static int cf_check init_header(struct pci_dev *=
-pdev)
-> >                                 4, rom);
-> >          if ( rc )
-> >              rom->type =3D VPCI_BAR_EMPTY;
-> > -        else
-> > -        {
-> > -            rc =3D bar_add_rangeset(pdev, rom, num_bars);
-> > -            if ( rc )
-> > -                goto fail;
-> > -        }
-> >      }
-> >      else if ( !is_hwdom )
-> >      {
-> > diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-> > index 09988f04c27c..7177cfce355d 100644
-> > --- a/xen/drivers/vpci/vpci.c
-> > +++ b/xen/drivers/vpci/vpci.c
-> > @@ -117,9 +117,6 @@ void vpci_deassign_device(struct pci_dev *pdev)
-> >                  iounmap(pdev->vpci->msix->table[i]);
-> >      }
-> >
-> > -    for ( i =3D 0; i < ARRAY_SIZE(pdev->vpci->header.bars); i++ )
-> > -        rangeset_destroy(pdev->vpci->header.bars[i].mem);
-> > -
-> >      xfree(pdev->vpci->msix);
-> >      xfree(pdev->vpci->msi);
-> >      xfree(pdev->vpci);
-> > diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-> > index 6a481a4e89d3..c2e75076691f 100644
-> > --- a/xen/include/xen/vpci.h
-> > +++ b/xen/include/xen/vpci.h
-> > @@ -103,7 +103,6 @@ struct vpci {
-> >              uint64_t guest_addr;
-> >              uint64_t size;
-> >              uint64_t resizable_sizes;
-> > -            struct rangeset *mem;
-> >              enum {
-> >                  VPCI_BAR_EMPTY,
-> >                  VPCI_BAR_IO,
-> > @@ -194,14 +193,25 @@ struct vpci {
-> >  #endif
-> >  };
-> >
-> > -struct vpci_vcpu {
-> > +#ifdef __XEN__
-> > +struct vpci_map_task {
-> >      /* Per-vcpu structure to store state while {un}mapping of PCI BARs=
-. */
-> > +    struct list_head next;
-> >      const struct pci_dev *pdev;
-> > +    struct domain *domain;
-> > +    struct vpci_bar_map {
-> > +        uint64_t addr;
-> > +        uint64_t guest_addr;
->=20
-> Perhaps use hpa/gpa notation for naming address fields?
->=20
-> > +        struct rangeset *mem;
-> > +    } bars[PCI_HEADER_NORMAL_NR_BARS + 1];
->=20
-> I would add a brief comment for `+ 1`
->=20
-> >      uint16_t cmd;
-> >      bool rom_only : 1;
-> >  };
-> >
-> > -#ifdef __XEN__
-> > +struct vpci_vcpu {
-> > +    struct list_head task_queue;
-> > +};
-> > +
-> >  void vpci_dump_msi(void);
-> >
-> >  /* Make sure there's a hole in the p2m for the MSIX mmio areas. */
-> > --
-> > 2.50.1
-> >
-> >
->=20
->=20
+Best regards,
+Jiqian Chen.
+---
+cc: Andrew Cooper <andrew.cooper3@citrix.com>
+cc: Anthony PERARD <anthony.perard@vates.tech>
+cc: Michal Orzel <michal.orzel@amd.com>
+cc: Jan Beulich <jbeulich@suse.com>
+cc: Julien Grall <julien@xen.org>
+cc: "Roger Pau Monné" <roger.pau@citrix.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>
+---
+Jiqian Chen (8):
+  vpci/header: Emulate extended capability list for dom0
+  vpci: Refactor REGISTER_VPCI_INIT
+  vpci: Hide legacy capability when it fails to initialize
+  vpci: Hide extended capability when it fails to initialize
+  vpci: Refactor vpci_remove_register to remove matched registers
+  vpci/rebar: Free Rebar resources when init_rebar() fails
+  vpci/msi: Free MSI resources when init_msi() fails
+  vpci/msix: Free MSIX resources when init_msix() fails
+
+ tools/tests/vpci/main.c    |   4 +-
+ xen/arch/arm/xen.lds.S     |   3 +-
+ xen/arch/ppc/xen.lds.S     |   3 +-
+ xen/arch/riscv/xen.lds.S   |   3 +-
+ xen/arch/x86/xen.lds.S     |   2 +-
+ xen/drivers/vpci/header.c  |  47 +++++--
+ xen/drivers/vpci/msi.c     |  46 ++++++-
+ xen/drivers/vpci/msix.c    |  55 +++++++-
+ xen/drivers/vpci/rebar.c   |  41 ++++--
+ xen/drivers/vpci/vpci.c    | 275 +++++++++++++++++++++++++++++++++----
+ xen/include/xen/pci_regs.h |   5 +-
+ xen/include/xen/vpci.h     |  33 +++--
+ xen/include/xen/xen.lds.h  |   2 +-
+ 13 files changed, 448 insertions(+), 71 deletions(-)
+
+-- 
+2.34.1
 
 
