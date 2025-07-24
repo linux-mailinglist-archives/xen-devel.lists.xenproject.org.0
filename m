@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83DEFB10AEA
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 15:07:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1055994.1424220 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D17CEB10B79
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 15:32:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1056035.1424230 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uevfR-0002ic-8q; Thu, 24 Jul 2025 13:07:25 +0000
+	id 1uew30-0007FB-44; Thu, 24 Jul 2025 13:31:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1055994.1424220; Thu, 24 Jul 2025 13:07:25 +0000
+Received: by outflank-mailman (output) from mailman id 1056035.1424230; Thu, 24 Jul 2025 13:31:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uevfR-0002ff-5X; Thu, 24 Jul 2025 13:07:25 +0000
-Received: by outflank-mailman (input) for mailman id 1055994;
- Thu, 24 Jul 2025 13:07:23 +0000
+	id 1uew30-0007Ce-16; Thu, 24 Jul 2025 13:31:46 +0000
+Received: by outflank-mailman (input) for mailman id 1056035;
+ Thu, 24 Jul 2025 13:31:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=P0IF=2F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uevfP-0002fZ-TP
- for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 13:07:23 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1uew2z-0007CY-7b
+ for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 13:31:45 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 22f8cae4-688f-11f0-a31e-13f23c93f187;
- Thu, 24 Jul 2025 15:07:22 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-455fdfb5d04so5406665e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 06:07:22 -0700 (PDT)
+ id 89d48558-6892-11f0-a31e-13f23c93f187;
+ Thu, 24 Jul 2025 15:31:43 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3a6cd1a6fecso878337f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 06:31:43 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4587054e37dsm19509105e9.14.2025.07.24.06.07.21
+ ffacd0b85a97d-3b76fcad22asm2234248f8f.53.2025.07.24.06.31.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Jul 2025 06:07:21 -0700 (PDT)
+ Thu, 24 Jul 2025 06:31:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22f8cae4-688f-11f0-a31e-13f23c93f187
+X-Inumbo-ID: 89d48558-6892-11f0-a31e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753362442; x=1753967242; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VsQKaSWRCn+6F4GOurcyG7O2FAQ62rGUNrvSAj3Bhk8=;
-        b=MjgCaTaGtG/PTJ/0rrvQcw2YbUL/xfxej2bn3rGXKrjZwN48woy4Atjdd/YzrWNAEV
-         IK2K3zebCmKEEkY6/FmHTXFDnx6wCTTVk9GfCgqBytaKW1oZ/YTjnOorQo3FcBXMpkXv
-         OdztrRQ/s5wxPln70EFhzbFFSo+YXlS9moY32AQTjc8euWd3YU/Djkh+Ktmua3iR72uM
-         Axd7380JROdMxxGqRRcO+3a+3rPJ1fydKR9TuMrSxOmufHpGJquNehGPY1qYOOEYw2GF
-         ZzZKAewIe6wv/mxxrH6yUWSHN8gvkSXTwBt2BWWTeaqkbsAdDf6U65UW84F2c934ZStR
-         5+3A==
+        d=suse.com; s=google; t=1753363903; x=1753968703; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=N7fLIqo+ZXGkU0LB6fsNTeD/y3gnmPV3nnHS+h5QkA8=;
+        b=YAm9B3R7BVpYv7pTOboJGhRB3YhsfoeP6/8g6XLDKI0lf3CkzBLq6f2B6G+txvBED/
+         gsOkIgQncyTrixjFRwsVE6/e3wARyn/7NxzjdQMflek3dP/EfBhRMk8VnHwULh+RPAoJ
+         VKA1Gl1ZuMxBo2h5szZhvw/acpDLWk07INrM5YS10s39bV4bk5tyuLsn+AoC3wfLkSr/
+         Ulow5Yd0tqx7Ik+LjEkmDbpEi+zpSwJJkCciNC0ZHPB8w6fdptFyOINBE46vnhq4K2L9
+         dxoJQOuRMif2lZ8wg1w+HRUaEjApOfuJZqDDH6O204uNJ4w0JoXJIFciqUjfZ4DTg3LY
+         ZtTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753362442; x=1753967242;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=VsQKaSWRCn+6F4GOurcyG7O2FAQ62rGUNrvSAj3Bhk8=;
-        b=sODzJyf4B58MwlsMsBfa0yUCSLVrbqdgt9eFI22mreqQsU+neLWgAtJQcFKSRrEeAu
-         6YiItvH2b+OBQxspoQRTLTzMAKWoQL/10Qz/w6qzeknRavrktsa6Ld39qrassHsuQ2N6
-         8pAaRePOI+sQYHMbD1blieftnrS2Viy5p/h+JRfcS+JIUYeeYvoVkXjuE/b8gXz1qkF9
-         yyBZe95/zZ+UZNaz5aGZGkzJm8U7v4eiz4KIXNFE63P53Q1xF4XSWQZdLApyq8ME7ekj
-         7fJcmY1Wl52t0vtdY2k/LFseNfEFhSsY/8AZzno861wxDM0PiBSfltUxvMHuGYqSQs7g
-         R+8A==
-X-Gm-Message-State: AOJu0YxTS6/xwAHtTVXZIMm9sdxC0Fv0hJG83rqYhHBh5EF3oSX/lxl/
-	Fadh9PymCBj7hVwd4jMGGL630ImLCZokjnsASSloDgp8Z1KN4dVDO/n3todylTlrzjH8M7syNJG
-	u9lo=
-X-Gm-Gg: ASbGncvaUJJvYJ+JZHFROfzVRL41GMU3hAnhqGU3l6pGJJsE2jo6xU5eMA5/7m4dq/r
-	U1Q/f98MyWE0B9vPxsAy5MWtDR0i7kSbUv/FzIZrTf0xt/Tt/eIWFH02sitF+TdWmT8gFPniLaN
-	F41W0A5sexcXFRLmzlnMeaoTTdqsGmbIdzM0ERlW5GRJx7U7iNiADARH1Fho0zxQK3SKKbAg5wY
-	9dlsu5w5xWexS8+t8i/2Hax85d35t6MPe1pI7p6gln882BzSxbIDNYiiS2szKxkTK1X4EHCJNDG
-	QlIVaS6WpRv4vs1mc91CEOAymKX/e8xRee4qTEq222McZVsHNOlGKrqnApQcqY8uYmuDCcuPaAb
-	9BvNzuykjRSGAWFqlG1rGhJfg935E3JCDfxFuSFAQyg1ZCyRkSSDc4P/pfWM4p/guOQnHyWletX
-	x6L6spPc8=
-X-Google-Smtp-Source: AGHT+IGwIcd68jHx5rczieAq5UEumIEh1/Hw8OhBoxU1K0ve0kWL84x6kuVUs1tgQgvrBqWHgNTA0Q==
-X-Received: by 2002:a05:6000:240e:b0:3a5:85cb:e9f3 with SMTP id ffacd0b85a97d-3b768eb0580mr5764291f8f.12.1753362441720;
-        Thu, 24 Jul 2025 06:07:21 -0700 (PDT)
-Message-ID: <72da6f86-edfe-406b-bb0c-6825a48ec3e8@suse.com>
-Date: Thu, 24 Jul 2025 15:07:19 +0200
+        d=1e100.net; s=20230601; t=1753363903; x=1753968703;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=N7fLIqo+ZXGkU0LB6fsNTeD/y3gnmPV3nnHS+h5QkA8=;
+        b=AP5BTRC9PhSnkiU0MbGwIc0uWFR6fFeR73zhemF2LSF1Q5ffIXgpkJB+dkrg+LVamv
+         I09Hd3TPok5Fh1udnD4M9mjDupf3sdPBRoARlYuklNOOnyCqZ8bVEL6HEIZavwNlMOsb
+         1V0TVLA+ZPA/r32zc/KOQqEPVy3kYxil5+/EIo35E5F11Re5b6mHhYEZN/umvv8wJxJD
+         dzG8gY+zNfco4Db92qfIe4DxNIymAAvbQcAmXLEzCb/O1OwGjTvEcgxCfvreeHImPLOw
+         8hMHrZyrfDlSOuECaKvHYSInS1DKF3ERsC6SEPyJ8BEYWCPbNG+jgqja609tXQAFnL2M
+         SkyQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW8sTtoPJz5VbVCXpRIwJ85Sa4oKLdIPejsk/3fnEne7YVh1fDTaCSYzPvmuhGXzPlYHQs96GNtXuY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz3Ee2DAqxUlj1wp6Id+HjeAdXY97nACskuaGWQ2wp6qWzwxRTI
+	M7bVECP1lax49cde6sK/7pKSqvzozcIxAEz+CjbqC5LUYXsSckSSjeXTxh9jxF8KnA==
+X-Gm-Gg: ASbGnctoym9+IQGi0baMmFDrcWi2wFXdelAYA0h4F42XnBAv0wUhLE/t1sVcrlMz2Ve
+	uIYAY1pbL+qukGvs6QpJl38FmOuVJT2ZghA/RVQulJMt2kCgcov9yzS4VIDDPWXfXwTSfu4W8eu
+	RuHlS+FdEQFPWMQooH4NpKh5Vh5IgGh+ogmZSp30y7hoLIT0Nwt4qGh4Xfwk1ON3k3wAW48+4LD
+	XhOL5INtucbAynpotDqD1gr/gfEJaoCorOevJdnfGaJPH4wHj8HYJEijKSX8WJBFZgQcL1jd1Za
+	sM8y7I8fEivk+SBycZJ+8xhAdjUuuSbF9SQY3HsuV0KYqUzuekV25F7JcrXwx6Myc4an/rDVdzB
+	gSb6K1YKAVYqky5LPsnxG4EPvP36B6dj3CYf3NDTTco5/PxDYkYHdDhMogWBC4wsNq5wgcsHjbL
+	jsfAFeTG4=
+X-Google-Smtp-Source: AGHT+IGInqJJRAmBGGJW4RgOqh4mvrQ7AV7BxHHdSoBMLP3qs20S2C1tPA1/b8BdTjLXJ+hysYJ0Vg==
+X-Received: by 2002:a05:6000:4210:b0:3a4:f787:9b58 with SMTP id ffacd0b85a97d-3b768f1601fmr4578968f8f.58.1753363903037;
+        Thu, 24 Jul 2025 06:31:43 -0700 (PDT)
+Message-ID: <87d9d5a1-39aa-46ca-9f2a-9169a2ef7a6c@suse.com>
+Date: Thu, 24 Jul 2025 15:31:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/AMD: disable RDSEED on Fam17 model 47 stepping 0
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <3dd4cddd-2dd7-4337-be89-b775a4b04824@suse.com>
+Subject: Re: [PATCH v6 16/19] xen/cpufreq: introduce GET_CPUFREQ_CPPC sub-op
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ Jason Andryuk <jason.andryuk@amd.com>
+References: <20250711035106.2540522-1-Penny.Zheng@amd.com>
+ <20250711035106.2540522-17-Penny.Zheng@amd.com>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -118,41 +123,162 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3dd4cddd-2dd7-4337-be89-b775a4b04824@suse.com>
+In-Reply-To: <20250711035106.2540522-17-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.07.2025 14:56, Jan Beulich wrote:
-> This particular variant has an error that causes RDSEED to always return
-> 0xffffffff, while RDRAND works correctly.
+On 11.07.2025 05:51, Penny Zheng wrote:
+> In amd-cppc passive mode, it's Xen governor which is responsible for
+> performance tuning, so governor and CPPC could co-exist. That is, both
+> governor-info and CPPC-info need to be printed together via xenpm tool.
 > 
-> Inspired by Linux commit 5b937a1ed64ebeba8876e398110a5790ad77407c
-> ("x86/rdrand: Disable RDSEED on AMD Cyan Skillfish").
+> If we tried to still put it in "struct xen_get_cpufreq_para" (e.g. just move
+> out of union), "struct xen_get_cpufreq_para" will enlarge too much to further
+> make xen_sysctl.u exceed 128 bytes.
+> So we introduce a new sub-op GET_CPUFREQ_CPPC to specifically print
+> CPPC-related para.
 > 
-> Like for RDRAND, permit a command line override to be used to keep
-> RDSEED enabled.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 > ---
-> Considering how it is described, I didn't think probing RDSEED (like we
-> do for RDRAND) would be necessary.
+> v4 -> v5:
+> - new commit
+> ---
+> v5 -> v6:
+> - remove the changes for get-cpufreq-para
+> ---
+>  tools/include/xenctrl.h     |  2 ++
+>  tools/libs/ctrl/xc_pm.c     | 27 +++++++++++++++++++++
+>  tools/misc/xenpm.c          | 47 +++++++++++++++++++++++++++++++++++++
+>  xen/drivers/acpi/pm-op.c    |  4 ++++
+>  xen/include/public/sysctl.h |  2 ++
+>  5 files changed, 82 insertions(+)
 > 
-> Am I going too far in also updating cpuidmask_defaults here, or is us
-> not doing so for the RDRAND disabling actually an oversight?
-> 
-> Using warning_add() may not be quite appropriate, as we don't really
-> mean the admin to possibly override this with "cpuid=rdseed" (that's
-> only a last resort, in case the issue is yet more limited in scope). But
-> mere printk() would feel like hiding the information in the middle of
-> lots of other output.
+> diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
+> index 965d3b585a..699243c4df 100644
+> --- a/tools/include/xenctrl.h
+> +++ b/tools/include/xenctrl.h
+> @@ -1953,6 +1953,8 @@ int xc_set_cpufreq_para(xc_interface *xch, int cpuid,
+>                          int ctrl_type, int ctrl_value);
+>  int xc_set_cpufreq_cppc(xc_interface *xch, int cpuid,
+>                          xc_set_cppc_para_t *set_cppc);
+> +int xc_get_cppc_para(xc_interface *xch, unsigned int cpuid,
+> +                     xc_cppc_para_t *cppc_para);
+>  int xc_get_cpufreq_avgfreq(xc_interface *xch, int cpuid, int *avg_freq);
+>  
+>  int xc_set_sched_opt_smt(xc_interface *xch, uint32_t value);
+> diff --git a/tools/libs/ctrl/xc_pm.c b/tools/libs/ctrl/xc_pm.c
+> index 6fda973f1f..3f72152617 100644
+> --- a/tools/libs/ctrl/xc_pm.c
+> +++ b/tools/libs/ctrl/xc_pm.c
+> @@ -366,6 +366,33 @@ int xc_set_cpufreq_cppc(xc_interface *xch, int cpuid,
+>      return ret;
+>  }
+>  
+> +int xc_get_cppc_para(xc_interface *xch, unsigned int cpuid,
+> +                     xc_cppc_para_t *cppc_para)
+> +{
+> +    int ret;
+> +    struct xen_sysctl sysctl = {};
+> +    struct xen_get_cppc_para *sys_cppc_para = &sysctl.u.pm_op.u.get_cppc;
+> +
+> +    if ( !xch  || !cppc_para )
+> +    {
+> +        errno = EINVAL;
+> +        return -1;
+> +    }
+> +
+> +    sysctl.cmd = XEN_SYSCTL_pm_op;
+> +    sysctl.u.pm_op.cmd = GET_CPUFREQ_CPPC;
+> +    sysctl.u.pm_op.cpuid = cpuid;
+> +
+> +    ret = xc_sysctl(xch, &sysctl);
+> +    if ( ret )
+> +        return ret;
+> +
+> +    BUILD_BUG_ON(sizeof(*cppc_para) != sizeof(*sys_cppc_para));
+> +    memcpy(cppc_para, sys_cppc_para, sizeof(*sys_cppc_para));
+> +
+> +    return ret;
+> +}
+> +
+>  int xc_get_cpufreq_avgfreq(xc_interface *xch, int cpuid, int *avg_freq)
+>  {
+>      int ret = 0;
+> diff --git a/tools/misc/xenpm.c b/tools/misc/xenpm.c
+> index 120e9eae22..bdc09f468a 100644
+> --- a/tools/misc/xenpm.c
+> +++ b/tools/misc/xenpm.c
+> @@ -69,6 +69,7 @@ void show_help(void)
+>              " set-max-cstate        <num>|'unlimited' [<num2>|'unlimited']\n"
+>              "                                     set the C-State limitation (<num> >= 0) and\n"
+>              "                                     optionally the C-sub-state limitation (<num2> >= 0)\n"
+> +            " get-cpufreq-cppc      [cpuid]       list cpu cppc parameter of CPU <cpuid> or all\n"
+>              " set-cpufreq-cppc      [cpuid] [balance|performance|powersave] <param:val>*\n"
+>              "                                     set Hardware P-State (HWP) parameters\n"
+>              "                                     on CPU <cpuid> or all if omitted.\n"
+> @@ -996,6 +997,51 @@ void cpufreq_para_func(int argc, char *argv[])
+>          show_cpufreq_para_by_cpuid(xc_handle, cpuid);
+>  }
+>  
+> +/* show cpu cppc parameters information on CPU cpuid */
+> +static int show_cppc_para_by_cpuid(xc_interface *xc_handle, unsigned int cpuid)
+> +{
+> +    int ret;
+> +    xc_cppc_para_t cppc_para;
+> +
+> +    ret = xc_get_cppc_para(xc_handle, cpuid, &cppc_para);
+> +    if ( !ret )
+> +    {
+> +        printf("cpu id               : %d\n", cpuid);
+> +        print_cppc_para(cpuid, &cppc_para);
+> +        printf("\n");
+> +    }
+> +    else if ( errno == ENODEV )
+> +    {
+> +        ret = -ENODEV;
+> +        fprintf(stderr, "CPPC is not available!\n");
+> +    }
+> +    else
+> +        fprintf(stderr, "[CPU%u] failed to get cppc parameter\n", cpuid);
+> +
+> +    return ret;
+> +}
+> +
+> +static void cppc_para_func(int argc, char *argv[])
+> +{
+> +    int cpuid = -1;
+> +
+> +    if ( argc > 0 )
+> +        parse_cpuid(argv[0], &cpuid);
+> +
+> +    if ( cpuid < 0 )
+> +    {
+> +        unsigned int i;
+> +
+> +        /* show cpu cppc information on all cpus */
+> +        for ( i = 0; i < max_cpu_nr; i++ )
+> +            /* Bail out only on unsupported platform */
+> +            if ( show_cppc_para_by_cpuid(xc_handle, i) == -ENODEV )
+> +                break;
+> +    }
+> +    else
+> +        show_cppc_para_by_cpuid(xc_handle, cpuid);
+> +}
+> +
+>  void scaling_max_freq_func(int argc, char *argv[])
+>  {
+>      int cpuid = -1, freq = -1;
+> @@ -1576,6 +1622,7 @@ struct {
+>      { "get-cpufreq-average", cpufreq_func },
+>      { "start", start_gather_func },
+>      { "get-cpufreq-para", cpufreq_para_func },
+> +    { "get-cpufreq-cppc", cppc_para_func },
 
-And, other than presumably intended judging from the RDRAND logic, passing
-"cpuid=no-rdseed" doesn't prevent the warning. That's - aiui - because the
-clearing of forced-cleared features happens only afterwards. Apparently we
-would need yet another predicate is_cleared_cpu_cap(). Or have
-is_forced_cpu_cap() check both forced_caps[] and cleared_caps[]. (As per
-present uses doing the latter would be okay, but I'm not sure whether
-checking both in the same predicate would be a good idea going forward.)
+Didn't Jason also suggest that we would better not introduce a new command, but
+rather make get-cpufreq-para invoke GET_CPUFREQ_CPPC as needed? Considering that
+as per patch 15 the same information is already printed, I think I'm a little
+lost with the need for this separate operation (and command), and then also with
+the need for patch 15.
 
 Jan
 
