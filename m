@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBAFFB10782
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 12:13:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1055610.1424005 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BFDCB10883
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 13:05:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1055719.1424032 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueswW-0001mE-2q; Thu, 24 Jul 2025 10:12:52 +0000
+	id 1uetl0-0000wV-0a; Thu, 24 Jul 2025 11:05:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1055610.1424005; Thu, 24 Jul 2025 10:12:52 +0000
+Received: by outflank-mailman (output) from mailman id 1055719.1424032; Thu, 24 Jul 2025 11:05:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueswW-0001k3-0A; Thu, 24 Jul 2025 10:12:52 +0000
-Received: by outflank-mailman (input) for mailman id 1055610;
- Thu, 24 Jul 2025 10:12:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=P0IF=2F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ueswU-0001jx-W1
- for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 10:12:50 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c02d9bd9-6876-11f0-b895-0df219b8e170;
- Thu, 24 Jul 2025 12:12:49 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-45610582d07so5331505e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 03:12:48 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4587054c562sm14081985e9.10.2025.07.24.03.12.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Jul 2025 03:12:47 -0700 (PDT)
+	id 1uetkz-0000v7-TU; Thu, 24 Jul 2025 11:05:01 +0000
+Received: by outflank-mailman (input) for mailman id 1055719;
+ Thu, 24 Jul 2025 11:05:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=98ak=2F=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uetkx-0000v1-UM
+ for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 11:04:59 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 09f7104d-687e-11f0-a31e-13f23c93f187;
+ Thu, 24 Jul 2025 13:04:59 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-45622a1829eso2724335e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 04:04:59 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-3b76fc6d2e8sm1811011f8f.20.2025.07.24.04.04.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Jul 2025 04:04:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,106 +45,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c02d9bd9-6876-11f0-b895-0df219b8e170
+X-Inumbo-ID: 09f7104d-687e-11f0-a31e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753351968; x=1753956768; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jtfZIxcM2VH99UeoB+dwCArTgHzcHkxy99sVYpN/9+0=;
-        b=Wde4QkkiXxQuijx/zQYQnCXTUa4Z0BGMK+K8D8D7B5OXau7zmxdMmim+sXvXp09F7y
-         OvIAlzEHnqCLwSlrXUxEWAE11pAuAnJ5anwl0YQ7HDEgMIWyXlwVhkS6YnuNGZd+ALmt
-         CBxeFlZEraeKVtTTiUFstZcpVB31EX1L2kFWvUm+IUrc9HkHLUX1r2t2a81II3pzEJ+e
-         HppYJzj4gv9aYmWwCN8HPusU1xYYkMpr+nR1tsAEbq9LNjdbwj5AZ28nwzhHoFbyD3A4
-         iNPn/etpRxj8qxCrDz1LvVZ8K31De6wJEtltdtgnD/Xo2mAaccWMOS26q9bybAQBPSfo
-         PmSA==
+        d=citrix.com; s=google; t=1753355098; x=1753959898; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=b5j4tu0rZfHpp4CiqxyWru5pRU2/BPrCqYPZCtzm1+s=;
+        b=rkmhudc/sqn4tMKx8XcQNmPzh0oSguWp7nsNTHtNLW4BFserPJriCEhsN+IPXiZ7yO
+         LxW9oUJku5WusM31walQ5diy7tXfNs9Sc9NDaIKEzAb99o9iRlUyoOplBUnm12vKgZl/
+         eIQog9+0gEa/6oRlFCEq9lJuFBCPf3B/KaMMM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753351968; x=1753956768;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jtfZIxcM2VH99UeoB+dwCArTgHzcHkxy99sVYpN/9+0=;
-        b=NuUQgcKJYYiKBATsZeaaSpVxOtPvIiBMGpaG7r/TPdktNONnXXJWFmr4PhsJ7B4GoE
-         kXYjKyKsieI3llAAEBoBzp5aUIKmzSA7Oxx7+n/HD87PhAUOwVFC5ni5UVo1PzkPhN8W
-         x1s358xsAfGMvIkd8oAtnjlIZTRVZ4BuUllMces+t0TcXXoP7XO16YLDE7bcGgEEt9Oc
-         tVRa50EK9HZdVn1QP7+BD0ijKgYmh1OPHmjCRS9f+/My0oMTbdi0WyTsVB2AJyp6W0K4
-         ZwhvU8dykr6UF+9PrW4n0Kt4URFnV5o+PsRiNCG7Pr+g18G+qrrGBLI275az9uep9oZ6
-         Sj2g==
-X-Forwarded-Encrypted: i=1; AJvYcCV/QnxhINLpwuKxq9ejr2uA+OU+GvptEHD3DWxI+EkDHdSpn/otTIyUrdaBWSzj0kAxP1scvYUfeYY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxYPT/n5tRYGEvKC1ohaY11CW4sahD2ARmg/iz2fR7RXHvbLN64
-	cXJx/hMN3I0o3IbIGQrA/av7oKJsXY6+cIO1vsWSR8Xth/jletAKCIqIAIvMLbuJBA==
-X-Gm-Gg: ASbGncsuX8fH5IRMSHj9W2UelLdfaiVUHz5+7PqYjVqj2bcMUj2J+8wZKrJub8hZmad
-	UtFQTYtzU/JI0zji9DCNVpDwJb2Q2nXt1e9oXA/YtdK0g+laa4P8F1raZcImqdHOWRfERxa30yN
-	4tCFBM+nFHbXJLJr31VAwyhx6KWLFYbTMJUdn6aX42gDpR3tzCE2+SrSy84SFx++WjA9n1qQ2cQ
-	iHFS8EgbZDVNoPvA7RLEpLnd8PM3M2lyjtylGr4KTILt3oPWOGfjZfn2YnQY/zdMiWywQz9y9Ae
-	FcII3U9co20ZtL52+vtVtODLnajCKcWrfHcN3yks9x0KMLmMmLC4nn2FwcY5FafGMdBqGGkPopa
-	ywhzT4y3vglesNux/adlMz6MvkKTatX+SPkkFPjFZfcNgwBfterKPl3KE6fDUIXtdWJERtuZ2/Z
-	MbBlpIao+0y+k9xYgH+Q==
-X-Google-Smtp-Source: AGHT+IHYNSEsmbREL6e5R7SoVIBmjnDcVvnCXw/WZJwwvjYMjWJjKJesm81UpvtYjPE7Jg53AmUmGA==
-X-Received: by 2002:a05:600c:6096:b0:456:1d4e:c161 with SMTP id 5b1f17b1804b1-4586af2be11mr54339445e9.2.1753351968233;
-        Thu, 24 Jul 2025 03:12:48 -0700 (PDT)
-Message-ID: <ad8a760c-18e9-44f5-9c80-b764fa009666@suse.com>
-Date: Thu, 24 Jul 2025 12:12:46 +0200
+        d=1e100.net; s=20230601; t=1753355098; x=1753959898;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=b5j4tu0rZfHpp4CiqxyWru5pRU2/BPrCqYPZCtzm1+s=;
+        b=Terx9xLrsUGEIUFEjeF1obkoemC0Ht/Hm+GRUcWABj8DOWyeT5k0t1kBbvHFzmtvm1
+         akyGxVw81Kj8YX33wf7yhV2nQWk786mzEsV+C/oHnEuGVwUYphGjy3+hnMYmaxItBI9M
+         HvASIznTKTJ/2QfIsa6w1FQMfP+7uI5f/zLNKDAV0KPSkdnG1l3wCzIbdOasVMvT5Wgt
+         tbJv8qJczjGiAp4qYVPg+LdYNmmIbumCTAeH/naVNPDFW0eTOS/Mtszrtk1iHBbl92DU
+         FBFL9Er8Qo8PaP/jbu8oS9S3Bztb+XoeZT60BvrJjPQYBP6a/lAsOCcgjtew8pDbfkVG
+         8MzA==
+X-Gm-Message-State: AOJu0YyBDgTjwR8I8dD7p8JKc74A0qjMtq81Yg7b0oq24RJetpekfXKX
+	rAJIScC0nC9kgWHxeFofYcqz2T4xEdpGX2o/smFu9pzF4LdguDO622ItRQ3TBQyMIGyU2RlZ+cL
+	jWTmt
+X-Gm-Gg: ASbGnct1VbGvjs469O8MUAs/SH3376MCig88U4lMFHeHfwj/yLr91a3PTE5tDTwqwZx
+	6m/AuLej3uK2l3IKpK4b88k5Am/1olC4DQEFIjPOAVwq1EzF+YAoeUGDIgJDSqLuI4Xl8oZu7xp
+	HnbA76c4aQYz1vNkFp7Crt0/KBfQuC8Y3H+uYkVPwjG0Lr1dtvoa5PxJlR4e5cxsivKSKm8WI15
+	lGPKcBfQF/k1kZq5sxxMcQnG3mOs+K/jghNoSHzh405njaGPC/HUqIcMi2VsyIFbmkWt/gXPsJV
+	0bm78ijqDWvf/5jLvbBLBgqq8k7RPI7CFl7OdkY46BV+fcFQrmJEqgGgNl4tq9jw73od7XRLLrb
+	QOVK36G5568lSKqCa/0upP7LjPRcO1bjKz0R+QtB7gf+Zfy8JEWRKo1DcdS15rTkOjhn3MIvqtV
+	1z
+X-Google-Smtp-Source: AGHT+IHbdZW6UQ38D9aSTwYc1aftm39FwhbWXccn3dxhxdPFaOZy9A+y5SwuE6szGKPUaWDPl1qFAg==
+X-Received: by 2002:a05:600c:4e4a:b0:456:18cf:66b5 with SMTP id 5b1f17b1804b1-45868d4c3edmr49118655e9.22.1753355098169;
+        Thu, 24 Jul 2025 04:04:58 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Jan Beulich <jbeulich@suse.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Community Manager <community.manager@xenproject.org>
+Subject: [PATCH v3 0/8] pdx: introduce a new compression algorithm
+Date: Thu, 24 Jul 2025 13:04:08 +0200
+Message-ID: <20250724110416.2081-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] char/ns16550: avoid additions to NULL pointer
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250724094843.968-1-roger.pau@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250724094843.968-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 24.07.2025 11:48, Roger Pau Monne wrote:
-> --- a/xen/drivers/char/ns16550.c
-> +++ b/xen/drivers/char/ns16550.c
-> @@ -121,11 +121,14 @@ static void cf_check ns16550_delayed_resume(void *data);
->  
->  static u8 ns_read_reg(const struct ns16550 *uart, unsigned int reg)
->  {
-> -    void __iomem *addr = uart->remapped_io_base + (reg << uart->reg_shift);
-> +    void __iomem *addr;
+Hello,
 
-While making the change, would you mind adding const volatile here and ...
+This series implements a new PDX compression algorithm to cope with the
+spare memory maps found on the Intel Sapphire/Granite Rapids.
 
-> @@ -139,11 +142,14 @@ static u8 ns_read_reg(const struct ns16550 *uart, unsigned int reg)
->  
->  static void ns_write_reg(const struct ns16550 *uart, unsigned int reg, u8 c)
->  {
-> -    void __iomem *addr = uart->remapped_io_base + (reg << uart->reg_shift);
-> +    void __iomem *addr;
+Patches 1 to 6 prepare the existing code to make it easier to introduce
+a new PDX compression, including generalizing the initialization and
+setup functions and adding a unit test for PDX compression.
 
-... just volatile here? Preferably with that:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Patch 7 introduce the new compression.  The new compression is only
+enabled by default on x86, other architectures are left with their
+previous defaults.
 
-Jan
+Finally patch 8 optimizes one x86 loop that was iterating over pfn
+ranges to instead use pdx values.
+
+Thanks, Roger.
+
+Roger Pau Monne (8):
+  kconfig: turn PDX compression into a choice
+  pdx: provide a unified set of unit functions
+  pdx: introduce command line compression toggle
+  pdx: allow per-arch optimization of PDX conversion helpers
+  test/pdx: add PDX compression unit tests
+  pdx: move some helpers in preparation for new compression
+  pdx: introduce a new compression algorithm based on region offsets
+  x86/mm: adjust loop in arch_init_memory() to iterate over the PDX
+    space
+
+ CHANGELOG.md                           |   3 +
+ docs/misc/xen-command-line.pandoc      |   9 +
+ tools/tests/Makefile                   |   1 +
+ tools/tests/pdx/.gitignore             |   3 +
+ tools/tests/pdx/Makefile               |  50 +++
+ tools/tests/pdx/harness.h              | 103 ++++++
+ tools/tests/pdx/test-pdx.c             | 271 ++++++++++++++++
+ xen/arch/arm/include/asm/Makefile      |   1 +
+ xen/arch/arm/setup.c                   |  36 +--
+ xen/arch/ppc/include/asm/Makefile      |   1 +
+ xen/arch/riscv/include/asm/Makefile    |   1 +
+ xen/arch/x86/include/asm/cpufeatures.h |   1 +
+ xen/arch/x86/include/asm/pdx.h         |  75 +++++
+ xen/arch/x86/mm.c                      |  11 +-
+ xen/arch/x86/srat.c                    |  30 +-
+ xen/common/Kconfig                     |  37 ++-
+ xen/common/pdx.c                       | 429 +++++++++++++++++++++++--
+ xen/include/asm-generic/pdx.h          |  24 ++
+ xen/include/xen/pdx.h                  | 202 ++++++++----
+ 19 files changed, 1157 insertions(+), 131 deletions(-)
+ create mode 100644 tools/tests/pdx/.gitignore
+ create mode 100644 tools/tests/pdx/Makefile
+ create mode 100644 tools/tests/pdx/harness.h
+ create mode 100644 tools/tests/pdx/test-pdx.c
+ create mode 100644 xen/arch/x86/include/asm/pdx.h
+ create mode 100644 xen/include/asm-generic/pdx.h
+
+-- 
+2.49.0
+
 
