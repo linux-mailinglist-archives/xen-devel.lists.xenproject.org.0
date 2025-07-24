@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8045AB10D64
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 16:24:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1056176.1424357 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3940CB10D83
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 16:28:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1056184.1424367 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uews5-0003v2-GJ; Thu, 24 Jul 2025 14:24:33 +0000
+	id 1uewvX-0004VZ-26; Thu, 24 Jul 2025 14:28:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1056176.1424357; Thu, 24 Jul 2025 14:24:33 +0000
+Received: by outflank-mailman (output) from mailman id 1056184.1424367; Thu, 24 Jul 2025 14:28:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uews5-0003sI-Dh; Thu, 24 Jul 2025 14:24:33 +0000
-Received: by outflank-mailman (input) for mailman id 1056176;
- Thu, 24 Jul 2025 14:24:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uewvW-0004TI-VP; Thu, 24 Jul 2025 14:28:06 +0000
+Received: by outflank-mailman (input) for mailman id 1056184;
+ Thu, 24 Jul 2025 14:28:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bzRN=2F=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1uews3-0003sA-B4
- for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 14:24:31 +0000
-Received: from MRWPR03CU001.outbound.protection.outlook.com
- (mail-francesouthazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c207::3])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e8a2c7f7-6899-11f0-b895-0df219b8e170;
- Thu, 24 Jul 2025 16:24:29 +0200 (CEST)
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
- by DB4PR03MB9556.eurprd03.prod.outlook.com (2603:10a6:10:3f3::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.21; Thu, 24 Jul
- 2025 14:24:25 +0000
-Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
- ([fe80::804:c187:252a:9593%4]) with mapi id 15.20.8922.037; Thu, 24 Jul 2025
- 14:24:25 +0000
+ <SRS0=98ak=2F=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uewvV-0004TC-IP
+ for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 14:28:05 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6908d85c-689a-11f0-a31e-13f23c93f187;
+ Thu, 24 Jul 2025 16:28:04 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-3b611665b96so643236f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 07:28:04 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-3b76fcbb21asm2362455f8f.70.2025.07.24.07.28.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Jul 2025 07:28:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,193 +45,280 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8a2c7f7-6899-11f0-b895-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ftz6Fs/Y0Yd1pHEP+siLZm3P+ilKR1ZU0QbMV46UvAxbjRcl2Fk2VHVmoTEx+X048Y2ONb/x5oEuaHsdruYwu8AQO+ET/tJk92YioZxMYw7tJ+f5R9uaszfQyO0+H9rNvTXLwhN6uhFSLK1dNPH+0DGWMiPPYMMJ6gzyHuJV6GfK3raYpStoVMuFvQK3q+9LYHxMCGLsApq5UlXznDlrEuOcDfLmt91xQWeb1LObTbQZpuLFIQBDYr3ewtALQ56Oo2EtK5ul0nmV6KT5ZORdCeg2wmMwoCCro9JGIa/1Bv7SFJyUu8ge1dxdFIf5i2LzfJX3J16BrTEoSMWJ+8Vwag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9yiMFdacHB2lEvmYfc5OoAUQ+fCy1KI3Glu18CPpXD4=;
- b=PsKkd7VILYHd6Z9qdapGH3JbtRggKPBxloOyMBV9wnih0WvYxNoo4kEz9jAUEs0g8I4cXQ0Dz6bBm2ClyUiaplITeVjlN8H6oa0fg9uaR2hMH6zmEo/EahtA9tYN8FcpoZiKuS7pH3Csfc9uxfC9FZH+VXUfb5MhyIxWJVoJK5aPaeirMrOGGb4WL/3jLI+6G29moY4rL8racGiNCCtm8RBaLRRlNyZ/z18pur2V2RMvNbPCBEnbk426hJRh+ASphgFciJFarhlB23zMGefbpNNrB15v/bI2kN+qp4x55m2VyRmzcjKwGK9aLnK5R993TL/d0gvGokPyYJos5kj8Uw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9yiMFdacHB2lEvmYfc5OoAUQ+fCy1KI3Glu18CPpXD4=;
- b=IydYamuwFG/SsL/6IrtJesHIqDK9SeGaRCKFxaJQHBkPxc+sKgGlETsKM3aI94FkWS+WxoVwoi/oG9WTyPGNvu7DEGiP2U+gc8KW3dGnSJU4AJaUBWtOcJ4FL1OaXPD0MjaW7qNzo6vDoSs7+oJkZfkI7038rwd8Ee/htHgR0SUuvUe44vKZR6Pu7ABf1U21wt4Qgf4r5XjoBlsT9B9NgDe7YL69nAShOIhpuwpNzhSTAA/Fp+bk0qKkObVbA6T3a0Rfctn9o/mBo9gVLrfqVA5VucMUNwajG/d5RnUejmy1wBNfh9A9USrl5irs2X0rkE1uybY9sYfKiVYuom7QTA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <2539ad65-895c-4252-bd98-e7542e2d9945@epam.com>
-Date: Thu, 24 Jul 2025 17:24:22 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH 0/8] xen/arm64: make aarch32 support optional
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-To: Julien Grall <julien@xen.org>, "Orzel, Michal" <michal.orzel@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
- Roger Pau Monne <roger.pau@citrix.com>
-References: <20250723075835.3993182-1-grygorii_strashko@epam.com>
- <b968715b-20e5-4a63-8ad3-d4250e796c5d@xen.org>
- <e35822cc-d8a0-49c1-a4b1-2765e0e6cb6c@amd.com>
- <add27fd8-aaa2-453a-b502-fd505ec77f94@epam.com>
- <71fa14e0-83d7-48ec-8bd9-258ec8f6cedf@xen.org>
- <10bc21a4-77ac-4c5b-8c2c-0022936b19df@epam.com>
-Content-Language: en-US
-In-Reply-To: <10bc21a4-77ac-4c5b-8c2c-0022936b19df@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0111.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9c::15) To AS2PR03MB8907.eurprd03.prod.outlook.com
- (2603:10a6:20b:5e4::22)
+X-Inumbo-ID: 6908d85c-689a-11f0-a31e-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1753367284; x=1753972084; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=x/dFmbi8j8O8EykBti2gjgxJkMegmYTneyar5+dgYTU=;
+        b=EYqqHBmfkzRlCMX1yvMj3IL2UdlCWYcPm6tpjHozvRzeGyhMRbnbiMhvUl2GVVyJaB
+         cOOapFXqi0mY/EUeQMrGvRSU3pnGmBkR+zzc8af4s/M9kSlCwRLu1Plf+iHxLHi+LI3k
+         0D4os592Nkx3bPuI3xHh0MuAXv6MTzXHpEwhg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753367284; x=1753972084;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=x/dFmbi8j8O8EykBti2gjgxJkMegmYTneyar5+dgYTU=;
+        b=kxxm4vXMmNRqGKVssgylbUm4uUPbZvNQAsJLH3wEC+oZZ3rhxRtnADbzTrq6NQsWha
+         sZp3esM7hwFcxVknpvImblL3khRTwSQmQKvrMpMKR4mbZACO5JbwoxDfnYvKSD/ZQ+3O
+         1AiR+IXaDgong1jWn78tJEukoQsdGMMICpmMowKLushOD4HUXUHJVmxWc3xAU76xD/vW
+         KKo09zthF5dxUhkvQ0UZeVMYz/NfwTPYECqfVDu4P9fk2n9NX4DuE98Jxl/NRtXuqISE
+         53QKA90CdMg/4ta7hrp7HHGO8NLFW2RVKVZrkbnKtuhFOkbPUdH05Vkpe39Z+iHxwgU8
+         Ahvg==
+X-Gm-Message-State: AOJu0YzkuLyFy6wVCiRxlGHxrt27gLIupVxl2uvg1AEgFskvhr/Z1UpG
+	ZUg4C7wQOChZNdmFF3rMdk7gDzwlu7BY+n5/3pkF4rBOSgzEAG0XptC6n6HufgI4v1A=
+X-Gm-Gg: ASbGncsbciMTyvLzw5Zx1HY6lC9RdLEPByXwCfOHIzkV6Gt3uSKPCeAQebURP8LgYo5
+	49+semyH5dQTsIb0nq8rH/MdnW7QXlkIU5mn0l/pWgfmqc1n87XOlo7dY5qoIAdIU+mvLGR2ovD
+	w1Xl4bRX9cdstqLhc+4wdB06IXxtuV6SlxNb+WEAUoJrH+x7tYV/DbRmVC+Ous5lT7pwqJxaGsw
+	3T/Jno4N67dnYmgm4zfPKkKXzo8hMpIisY05yPDqe7e9ek4OyJuEIgfISlrwH5zW7gLfCaGTIEs
+	ZCPk2A/gyybFlrbZ6Jjtg7yYTBYFLrzjGM9Bt44nZz4M9d95fawdZzt+W5Wbx0ZxFcNsIK9yfcI
+	iwNubE+fzn0vsdGNQnAmQLBO0gRCZtR/pZPesBL/jNmuchP0e0x66byNlWo3QGYDwSQ==
+X-Google-Smtp-Source: AGHT+IF5apC0cQJSfL4fILsMzPAFp0QrSgMNBZUZtyV2LleHpSqerODqEzVnNqduyJVK5LXIxMtFzg==
+X-Received: by 2002:a5d:5f42:0:b0:3a5:3b93:be4b with SMTP id ffacd0b85a97d-3b768eb2a59mr5903262f8f.25.1753367283768;
+        Thu, 24 Jul 2025 07:28:03 -0700 (PDT)
+Date: Thu, 24 Jul 2025 16:28:02 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: xen-devel@lists.xenproject.org, Huang Rui <ray.huang@amd.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v8 2/8] vpci: Refactor REGISTER_VPCI_INIT
+Message-ID: <aIJC8qqJM_P-hEAb@macbook.local>
+References: <20250724055006.29843-1-Jiqian.Chen@amd.com>
+ <20250724055006.29843-3-Jiqian.Chen@amd.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|DB4PR03MB9556:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9727d467-a9c9-4cef-1100-08ddcabdca5a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?ZTNVLzU2b3hTdUdsLzBPUlIrL2lUR3dUeThLZFhRMmU4eWJvSERoUmtmaGRw?=
- =?utf-8?B?eHdRNklwRHF6RU81aVh1UVByUzR1NlhIMEczVDczRHZxeFYweS9JMG9kSml2?=
- =?utf-8?B?TEd6akFSenR5cWVsMTAreStvWmZOQVd4bW9jeGpQUW1ldldWZXAxcEIvUGJH?=
- =?utf-8?B?d2lQUHpnem1mY2MrT0tUdkt1c1JRcEF6bFlYSlJXWnFKVWtoeDlSdkc0bzN2?=
- =?utf-8?B?YythTDFBamxnNWNtMitlRExiMEpQUjJyeCs4SjBERndWemdwQ2lCTTJHVlFG?=
- =?utf-8?B?dUI1Sm0zbEd3MzY2SDdHWVpPZmh4bzZ6SC9QK21uRlBCU21FLzUyUXQ4MEVj?=
- =?utf-8?B?NDhIaTBVMFZhdGJ4d0R4eEd1MmE4WjFCb1BhdDNxOVFUZGtyMlVGNGEwTUpx?=
- =?utf-8?B?WncvUWZNUzZRM1gzWnYxMWNXbmczVEdTMXdVZTJwckdoYjdjMHRCN002ZGF5?=
- =?utf-8?B?dUJFTUU2NkxncGs4eUNiYXEwYUJIaHVJZkZ0cTZmYmloeVQ0ZzIxQnJJcEdn?=
- =?utf-8?B?enBjc01SYmUzZXc4RGRJS1d0bkQvb2ovNmVJaERLdWxlK0llODJNaWVSaXIy?=
- =?utf-8?B?L1FqOVNBWkprV2FQZmZGMkJBT21xVDhWV1Y0M0I4TTRPR0VtRDM2ZjdLdjJB?=
- =?utf-8?B?d3dqNy8zc0RBM0xWbFlXV2hscDBQR1BraUtNSWltTWl3WFM0dHFYSGdPUTJU?=
- =?utf-8?B?Rm1ULzRuclR4bTFlNThRZW5SV0xXWEN4S09UOHgyeDhldVZIQW9kMmlzQXN3?=
- =?utf-8?B?cFNjUlVVeUcwT0RLM0x5VUxuRjNRbUxVL00wd0VuQVEySHpEMWhxV2tacFQx?=
- =?utf-8?B?Q0lza2hzSVI0MzlmNENtbko3aHE4YVVUVUp4MmVFU3c0a1piMk5nNkFhK1hY?=
- =?utf-8?B?WHVpenZQK1I3Wm9WUzVWSExjbnJCU1g4SmlqUHlSTGRqemdtUlVhbythQ3J4?=
- =?utf-8?B?OVhOd1lKRmpsejV2b3BSc256NXBOT0tKYm5XYlNGenlpRXJ2b1JzZEdCQm9E?=
- =?utf-8?B?SURwc0Ruak1kQVBSSlZzbzdTZDUvN2VvTmJkbEwzek9XbHVNZUFST0NPZ3JJ?=
- =?utf-8?B?KzlxT004SEV5Q203MHdzSnVZS3VLYnRoOHh4VWNsWkZaTCtXQXU5WjZoOVZx?=
- =?utf-8?B?WklHaUNqNWpML1gvcU9HbVM1cFRSWkY0dHk3SHVrcmpWeVVKcW8yaDVRSVN6?=
- =?utf-8?B?b2diK3gzalMvUGhYUi9UZGo2Skc5cjdpR1VGUFJtQXlBdVdhVjJ0cllEMCsy?=
- =?utf-8?B?cjd1bUdJY1Y1UTlRODVCS0oxVCtOTW90eVdkWWhWenhwYTczU0xnbkJyYlBC?=
- =?utf-8?B?WFBZTmJlTFVXUFRrTnA0bWdCbEYwalBSdUtVSmdPMGVIdTV0NE05S3Y0NEg5?=
- =?utf-8?B?YVF3Tzh6N2Iwb0pmeEFZWGo3Um56czZyNFByUXdqNHBPK1d0SEhHTGhHT3Ro?=
- =?utf-8?B?c3I4elV2Z1VNOXJrRzNqSWZZeFJyY3dFcm9XdFdNUXVWN0hXZk1pdzd2aVNS?=
- =?utf-8?B?Z1NOc29ZMk10VHJvTmo1UmMwOWJNNHQ4ck5SUEtRaXE3ZUhPQTM5VnVDcHRh?=
- =?utf-8?B?WmtmWDdjWWhiUzZvcjRqaXFQbjhiaVlaU1RpeU9PcEgyaHBzSzZGTDg1TmdH?=
- =?utf-8?B?SDQ4WHBvL1BEQXBuTHpXNVRzNnBOcG9GR3lLT3JkUS9QRUdYM0dESy8rQ1gy?=
- =?utf-8?B?ZUxMMFQ5eHhLNURLaVltWTJnRnpPZDd3MWl2YTZXdEdHeEZGWkE3RjF1OXlt?=
- =?utf-8?B?NWppM1JtWk0wcnFHWmpyWHBEQmdBN0RwODRtK3QzNDdmN2lwSFFlRTJkYWow?=
- =?utf-8?B?aVREMzNYS0JrQTl2aHF6N1ZJY094ODdqQ1RmMDBhbmNrRFhxZGVJZWZRSHlL?=
- =?utf-8?B?M2lpRkk3WDMxOC9ReFMzaHhEUlVBV1RBR1ZEMms5aW9yOTh5aFk0V3Axbkhw?=
- =?utf-8?Q?89VTflIro7Q=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?L1VXc0ltZnh2V01IL3habHdyOVV2YnVVQWVRVEZjcFhGL0Vicnl2dUZZbzlx?=
- =?utf-8?B?Y05ZWmpyUXA5SFVYTTc2V3VWZ0dtMFpoMmRWcE5aS0F5R2w4TjZxNFNNWWR4?=
- =?utf-8?B?dm1SdG5UQkFVbWZMb2ZQRW1OL2ZxbSttc2l1cFBaNVh6S2lXQ3NCUWdGRHVz?=
- =?utf-8?B?Q3NwWWFyUFJMZHlBZnBNYXlXZWpuSkU4Vy9raFJQUUpIa2Y3QS9vUUpYUmdq?=
- =?utf-8?B?QVFQU04yZ25xQXh3RVp5T3ZYN1JCL2l4eDd0Y0tla015eXcrRnlRY1NIenBQ?=
- =?utf-8?B?N0NIVFRKRUs5NVh3aDNDL1U5NWtoZjVTdDNwY2g5NXV6Z2g0bHdOZ1hna1kw?=
- =?utf-8?B?WmE2azBubTdROVh2ZkxiM09OWk54L0V4ZEdrbmlIRTRpUVNmTGN3Q3JOb2hy?=
- =?utf-8?B?TXhiSzhiSy8xV2ZCVFdPSnBtdVZCRWZGNmFqZmh0WDZuZW5LMStoRkhIdzNv?=
- =?utf-8?B?WEgrSmxlMTJBeDZ5N1BCSGVSdm1sSzVVOElTOE80N3BESFFTUXdGdGNzRWlB?=
- =?utf-8?B?NzZ5VEdHeUZta2F3aUFocTZJZkNlTElBSlo5RDhHNmFvbFVZa1NqWnU1QXpz?=
- =?utf-8?B?cjRTUGpsQXdNeGQ5Y0U1MjBvUjZMZzdBS3NWVkhtY0UwbUg0SElzNWpibktH?=
- =?utf-8?B?Y3hFNndvTWFBaUZUTFBPekhReDNVcC8vaHdwOG85by9UV1FFZlpCWGQweUor?=
- =?utf-8?B?TU1BYzdycThzeTNGZWZxdDRWVnI1OEZ0VUZPSWQ0M2V3Yzl4MUFGcXdjYjgx?=
- =?utf-8?B?a3pVQVhrNUV6RTlpNGRJaGxmWUVEVngwNWErd3Y5ck1kZlBQL21aZFNkeHox?=
- =?utf-8?B?dERzSVR2YkZ0SzlZV0FRNDhTaUFYdDI3R253OUNqSEdsbnNCUDNtcTVSNVdo?=
- =?utf-8?B?bGRGdGpOVnhnY3JZdklXTldpRVRnVk43eCtiNFZxVHVFazNYYStMcE50MXBL?=
- =?utf-8?B?M0tSdTRZNmNmdzlBOGU3bUV3SENIWWk4b0dEUHlTbmt4TnZrYm1CY3lDV2ZK?=
- =?utf-8?B?K3MwQmJ4bmVaRXZ3dGgvTmdPSGJHSTFxeE1aREF4cGRKV0gwTzc1dzA3aVpK?=
- =?utf-8?B?eUEzL1VMTXBoQ0FYenQ4Ylc4dDRtc1dGQ1BwMThOZmNIakhUZkVHbUkvRnUv?=
- =?utf-8?B?NjkvOUEyQklmeHFNNzUwSys4WC9QbjkvcGVna0NyRXl6c1J5ZnpKcU40Y3c5?=
- =?utf-8?B?S0EwU2xnMk9POC9yMGpDZUVJN25Qek5BbVVDMkRvdHViMUJ4dnZLV3d3dXJp?=
- =?utf-8?B?RlJGNUVuWlIyT0Y1b3N3b3hnNHVDY2xBc0Y4NGFUN0d2U3EzUUpXQW16eFpr?=
- =?utf-8?B?R2QyY1k1ckpJVzBSOGxnOUZvOFVBUVdSV3A2bDFyemdGTmwyaEVJclI0WGZE?=
- =?utf-8?B?ZytQaWJqZkJjTCtyMVV5UXVuRUduVU1WNmFKeU0vVU9vQjJkRnU2NkVkb3Bw?=
- =?utf-8?B?UkxTcDJUUXZINTVOd0ppeGxzOW1uZHBYUWRzczZJcGp0Y2tXdndRZzlDMDR5?=
- =?utf-8?B?QVZSY2YvY1h5VEFUUmplenpWc1VlMVdmT2NYTVhWbVJNUnNyZ1M5TWNiVUgz?=
- =?utf-8?B?bnB4KzFuUzd1UitLSWJMNnFjNzhPYVhzbUM4azBScER5U3YrRHdGL1lpUzBa?=
- =?utf-8?B?My84OEpVa2wwOE9LODhlL2U0Tk5YSE9ZTkh6RmkzUVNnNGNTcGZWNU5FbjA0?=
- =?utf-8?B?bjdhUjZXeFBTdnhNdEdBaExINTU2MzdyRjFXMDJKVStuM2xCOFRLYlV0Tktn?=
- =?utf-8?B?TXdkY3Y5QWVCTmRDWTRBR3NoRTRuZ1o0YTZncFFSK2FsOXdKTWZwT1J6SUNJ?=
- =?utf-8?B?aDNCQlVuZHNoL2RQZGc0K3YxaERFNmdydnBCZUtCYktpZkc3ZlExTmlmYWY1?=
- =?utf-8?B?c3c5dmlJL3VMSHNQYjQ5RndkcUF6QnREL1dCVHp6RytUSlJXVUtxVzQrUjgw?=
- =?utf-8?B?WXlzNkx6SUxYckpvd1ZZWnVBL3d5TkE1b0RzYTEwZWNmLzI4TFRQMlF2MC9n?=
- =?utf-8?B?TWNHTTZnRFNHSmdwckFmRVFCRU9sS1paTFFrWUtWUUd5blZ2UXpxVlBkRmhE?=
- =?utf-8?B?UzdWNHZVSU5tMFZCUWhRNXNRbFFCMXlKaDV5UXlTTklOejY3MllacHdjbVhv?=
- =?utf-8?B?eVRkbWRzSEVjcDhtRG5GcGZSS2pOMTJKNjZSeVJodG5hT2Q5TWdXcjZSYk95?=
- =?utf-8?B?cmc9PQ==?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9727d467-a9c9-4cef-1100-08ddcabdca5a
-X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2025 14:24:25.0244
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7LFvJoDkvu9BBsRA5el18My8zWhBzxaIbtX3cc4N14jgInRG9N2k74RYKDa7TcVvfNKT1/7QxiwkJ79KeAHckFBnPKKRJ9iRrUo1bjtBCDs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR03MB9556
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250724055006.29843-3-Jiqian.Chen@amd.com>
 
-Hi All,
+On Thu, Jul 24, 2025 at 01:50:00PM +0800, Jiqian Chen wrote:
+> Refactor REGISTER_VPCI_INIT to contain more capability specific
+> information, this will benefit further follow-on changes to hide
+> capability when initialization fails.
+> 
+> What's more, change the definition of init_header() since it is
+> not a capability and it is needed for all devices' PCI config space.
+> 
+> After refactor, the "priority" of initializing capabilities isn't
+> needed anymore, so delete its related codes.
+> 
+> Note:
+> Call vpci_make_msix_hole() in the end of init_msix() since the change
+> of sequence of init_header() and init_msix().
+> 
+> The cleanup hook is also added in this change, even if it's still
+> unused. Further changes will make use of it.
+> 
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> ---
+> cc: "Roger Pau Monné" <roger.pau@citrix.com>
+> cc: Andrew Cooper <andrew.cooper3@citrix.com>
+> cc: Anthony PERARD <anthony.perard@vates.tech>
+> cc: Michal Orzel <michal.orzel@amd.com>
+> cc: Jan Beulich <jbeulich@suse.com>
+> cc: Julien Grall <julien@xen.org>
+> cc: Stefano Stabellini <sstabellini@kernel.org>
+> ---
+> v7->v8 changes:
+> * Recover vpci_make_msix_hole() call in modify_decoding(), which was  deleted by wrong.
+> * Add some comment to describe why need to add vpci_make_msix_hole() in init_msix().
+> 
+> v6->v7 changes:
+> * Change the pointer parameter of cleanup hook of vpci_capability_t to be const.
+>   If change parameter of init hook to be const will affect init_msix, and it assigns pdev
+>   to struct vpci_msix, so keep no const to expanding the impact.
+> * Delete the vpci_make_msix_hole() call in modify_decoding().
+> * Change __start_vpci_array from vpci_capability_t* array to vpci_capability_t array.
+> * Change the name "finit##_t" to be "name##_entry" and add a "name" parameter to macro
+>   REGISTER_VPCI_CAPABILITY.
+> 
+> v5->v6 changes:
+> * Rename REGISTER_PCI_CAPABILITY to REGISTER_VPCI_CAPABILITY.
+> * Move vpci_capability_t entry from ".data.vpci" to ".data.rel.ro.vpci" and
+>   move the instances of VPCI_ARRAY in the linker scripts before *(.data.rel.ro).
+> * Change _start/end_vpci_array[] to be const pointer array.
+> 
+> v4->v5 changes:
+> * Rename REGISTER_VPCI_CAP to REGISTER_PCI_CAPABILITY, rename REGISTER_VPCI_LEGACY_CAP to
+>   REGISTER_VPCI_CAP, rename REGISTER_VPCI_EXTENDED_CAP to REGISTER_VPCI_EXTCAP.
+> * Change cleanup hook of vpci_capability_t from void to int.
+> 
+> v3->v4 changes
+> * Delete the useless trailing dot of section ".data.vpci".
+> * Add description about priority since this patch removes the initializing priority of
+>   capabilities and priority is not needed anymore.
+> * Change the hook name from fini to cleanup.
+> * Change the name x and y to be finit and fclean.
+> * Remove the unnecessary check "!capability->init"
+> 
+> v2->v3 changes:
+> * This is separated from patch "vpci: Hide capability when it fails to initialize" of v2.
+> * Delete __maybe_unused attribute of "out" in function vpci_assign_devic().
+> * Rename REGISTER_VPCI_EXTEND_CAP to REGISTER_VPCI_EXTENDED_CAP.
+> 
+> v1->v2 changes:
+> * Removed the "priorities" of initializing capabilities since it isn't used anymore.
+> * Added new function vpci_capability_mask() and vpci_ext_capability_mask() to remove
+>   failed capability from list.
+> * Called vpci_make_msix_hole() in the end of init_msix().
+> 
+> Best regards,
+> Jiqian Chen.
+> ---
+>  xen/arch/arm/xen.lds.S    |  3 +--
+>  xen/arch/ppc/xen.lds.S    |  3 +--
+>  xen/arch/riscv/xen.lds.S  |  3 +--
+>  xen/arch/x86/xen.lds.S    |  2 +-
+>  xen/drivers/vpci/header.c |  3 +--
+>  xen/drivers/vpci/msi.c    |  2 +-
+>  xen/drivers/vpci/msix.c   | 13 ++++++++++--
+>  xen/drivers/vpci/rebar.c  |  2 +-
+>  xen/drivers/vpci/vpci.c   | 44 ++++++++++++++++++++++++++++++---------
+>  xen/include/xen/vpci.h    | 29 +++++++++++++++++++-------
+>  xen/include/xen/xen.lds.h |  2 +-
+>  11 files changed, 74 insertions(+), 32 deletions(-)
+> 
+> diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S
+> index 5bfbe1e92c1e..9f30c3a13ed1 100644
+> --- a/xen/arch/arm/xen.lds.S
+> +++ b/xen/arch/arm/xen.lds.S
+> @@ -57,6 +57,7 @@ SECTIONS
+>  
+>         *(.rodata)
+>         *(.rodata.*)
+> +       VPCI_ARRAY
+>         *(.data.rel.ro)
+>         *(.data.rel.ro.*)
+>  
+> @@ -64,8 +65,6 @@ SECTIONS
+>         __proc_info_start = .;
+>         *(.proc.info)
+>         __proc_info_end = .;
+> -
+> -       VPCI_ARRAY
+>    } :text
+>  
+>  #if defined(BUILD_ID)
+> diff --git a/xen/arch/ppc/xen.lds.S b/xen/arch/ppc/xen.lds.S
+> index 1366e2819eed..1de0b77fc6b9 100644
+> --- a/xen/arch/ppc/xen.lds.S
+> +++ b/xen/arch/ppc/xen.lds.S
+> @@ -51,11 +51,10 @@ SECTIONS
+>  
+>          *(.rodata)
+>          *(.rodata.*)
+> +        VPCI_ARRAY
+>          *(.data.rel.ro)
+>          *(.data.rel.ro.*)
+>  
+> -        VPCI_ARRAY
+> -
+>          . = ALIGN(POINTER_ALIGN);
+>      } :text
+>  
+> diff --git a/xen/arch/riscv/xen.lds.S b/xen/arch/riscv/xen.lds.S
+> index 8c3c06de01f6..edcadff90bfe 100644
+> --- a/xen/arch/riscv/xen.lds.S
+> +++ b/xen/arch/riscv/xen.lds.S
+> @@ -46,11 +46,10 @@ SECTIONS
+>  
+>          *(.rodata)
+>          *(.rodata.*)
+> +        VPCI_ARRAY
+>          *(.data.rel.ro)
+>          *(.data.rel.ro.*)
+>  
+> -        VPCI_ARRAY
+> -
+>          . = ALIGN(POINTER_ALIGN);
+>      } :text
+>  
+> diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
+> index 636c7768aa3c..8e9cac75b09e 100644
+> --- a/xen/arch/x86/xen.lds.S
+> +++ b/xen/arch/x86/xen.lds.S
+> @@ -135,6 +135,7 @@ SECTIONS
+>  
+>         *(.rodata)
+>         *(.rodata.*)
+> +       VPCI_ARRAY
+>         *(.data.rel.ro)
+>         *(.data.rel.ro.*)
+>  
+> @@ -148,7 +149,6 @@ SECTIONS
+>         *(.note.gnu.build-id)
+>         __note_gnu_build_id_end = .;
+>  #endif
+> -       VPCI_ARRAY
+>    } PHDR(text)
+>  
+>  #if defined(CONFIG_PVH_GUEST) && !defined(EFI)
+> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+> index f537f3f25d2a..469f4977441a 100644
+> --- a/xen/drivers/vpci/header.c
+> +++ b/xen/drivers/vpci/header.c
+> @@ -858,7 +858,7 @@ static int vpci_init_ext_capability_list(const struct pci_dev *pdev)
+>      return 0;
+>  }
+>  
+> -static int cf_check init_header(struct pci_dev *pdev)
+> +int vpci_init_header(struct pci_dev *pdev)
+>  {
+>      uint16_t cmd;
+>      uint64_t addr, size;
+> @@ -1054,7 +1054,6 @@ static int cf_check init_header(struct pci_dev *pdev)
+>      pci_conf_write16(pdev->sbdf, PCI_COMMAND, cmd);
+>      return rc;
+>  }
+> -REGISTER_VPCI_INIT(init_header, VPCI_PRIORITY_MIDDLE);
+>  
+>  /*
+>   * Local variables:
+> diff --git a/xen/drivers/vpci/msi.c b/xen/drivers/vpci/msi.c
+> index 66e5a8a116be..c3eba4e14870 100644
+> --- a/xen/drivers/vpci/msi.c
+> +++ b/xen/drivers/vpci/msi.c
+> @@ -270,7 +270,7 @@ static int cf_check init_msi(struct pci_dev *pdev)
+>  
+>      return 0;
+>  }
+> -REGISTER_VPCI_INIT(init_msi, VPCI_PRIORITY_LOW);
+> +REGISTER_VPCI_CAP(MSI, init_msi, NULL);
+>  
+>  void vpci_dump_msi(void)
+>  {
+> diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
+> index 74211301ba10..eb3e7dcd1068 100644
+> --- a/xen/drivers/vpci/msix.c
+> +++ b/xen/drivers/vpci/msix.c
+> @@ -703,9 +703,18 @@ static int cf_check init_msix(struct pci_dev *pdev)
+>      pdev->vpci->msix = msix;
+>      list_add(&msix->next, &d->arch.hvm.msix_tables);
+>  
+> -    return 0;
+> +    /*
+> +     * vPCI header initialization will have mapped the whole BAR into the
+> +     * p2m, as MSI-X capability was not yet initialized.  Crave a hole for
+> +     * the MSI-X table here, so that Xen can trap accesses.
+> +     */
+> +    spin_lock(&pdev->vpci->lock);
+> +    rc = vpci_make_msix_hole(pdev);
+> +    spin_unlock(&pdev->vpci->lock);
 
-On 23.07.25 15:12, Grygorii Strashko wrote:
-> 
-> 
-> On 23.07.25 15:02, Julien Grall wrote:
->> Hi,
->>
->> On 23/07/2025 12:48, Grygorii Strashko wrote:
->>>
->>>
->>> On 23.07.25 13:54, Orzel, Michal wrote:
->>>>
->>>>
->>>> On 23/07/2025 10:06, Julien Grall wrote:
->>>>>
->>>>>
->>>>> On 23/07/2025 08:58, Grygorii Strashko wrote:
->>>>>> From: Grygorii Strashko <grygorii_strashko@epam.com>
->>>>>>
->>>>>> Hi,
->>>>>
->>>>> Hi Grygorii,
->>>>>
->>>>>> Now Arm64 AArch32 guest support is always enabled and built-in while not
->>>>>> all Arm64 platforms supports AArch32 or this support might not be needed.
->>>>>
->>>>> I am not entirely sure I like the proliferation of using CONFIG_* for
->>>>> every single feature. This makes the testing a bit more complicated.
->>>>>
->>>>> Can you clarify what the goal with this patch?
->>>> AArch32 is used quite rarely in embedded systems. Also, in Armv9A it might only
->>>> be implemented at EL0 if at all. When focusing on safety certification, AArch32
->>>> related code in Xen leaves a gap in terms of coverage that cannot really be
->>>> justified in words. This leaves us with two options: either support it (lots of
->>>> additional testing, requirements and documents would be needed) or compile it out.
->>>
->>> FYI. bloat-o-meter report for this series with CONFIG_ARM64_AARCH32=n, CONFIG_EXPERT=y
->>
->> Thanks for sharing the bloat-o-meter. But I don't think the result below warrant a new config.
->   The reason provided by Michal is a better reason as the impact on safety certification is more significant.
-> 
-> It just an additional info to illustrate achieved build-time optimization results
-> which reduces coverage gaps.
-> 
+I should have asked in the last version, but why do you take the vPCI
+lock here?
 
-Would it be reasonable to send patches which split arm64/arm32 code separately (Patches 1,3,4,7)?
-(with comments applied).
+The path that ASSERTs the lock is held should never be taken when
+called from init_msix().  Is there some path I'm missing in
+vpci_make_msix_hole() that requires the vCPI lock to be held?
 
--- 
-Best regards,
--grygorii
+The rest LGTM.
+
+Thanks, Roger.
 
