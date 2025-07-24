@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEF7BB10723
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 11:58:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1055604.1423995 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBAFFB10782
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 12:13:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1055610.1424005 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uesiI-0006n4-Tk; Thu, 24 Jul 2025 09:58:10 +0000
+	id 1ueswW-0001mE-2q; Thu, 24 Jul 2025 10:12:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1055604.1423995; Thu, 24 Jul 2025 09:58:10 +0000
+Received: by outflank-mailman (output) from mailman id 1055610.1424005; Thu, 24 Jul 2025 10:12:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uesiI-0006k2-Qv; Thu, 24 Jul 2025 09:58:10 +0000
-Received: by outflank-mailman (input) for mailman id 1055604;
- Thu, 24 Jul 2025 09:58:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ueswW-0001k3-0A; Thu, 24 Jul 2025 10:12:52 +0000
+Received: by outflank-mailman (input) for mailman id 1055610;
+ Thu, 24 Jul 2025 10:12:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=P0IF=2F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uesiG-0006jw-KK
- for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 09:58:08 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b2cf4fce-6874-11f0-a31e-13f23c93f187;
- Thu, 24 Jul 2025 11:58:07 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-451d3f72391so7617685e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 02:58:07 -0700 (PDT)
+ id 1ueswU-0001jx-W1
+ for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 10:12:50 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c02d9bd9-6876-11f0-b895-0df219b8e170;
+ Thu, 24 Jul 2025 12:12:49 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-45610582d07so5331505e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 03:12:48 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-458705c4dbdsm14367455e9.25.2025.07.24.02.58.06
+ 5b1f17b1804b1-4587054c562sm14081985e9.10.2025.07.24.03.12.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Jul 2025 02:58:06 -0700 (PDT)
+ Thu, 24 Jul 2025 03:12:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2cf4fce-6874-11f0-a31e-13f23c93f187
+X-Inumbo-ID: c02d9bd9-6876-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753351087; x=1753955887; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753351968; x=1753956768; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iLIAb+V5GsNEss/nRkDduP1VFRy54qCYc3jHxk6NmUw=;
-        b=ZauD+kKNiyIQm+0DBggXCx6NGHmexvbk0062Czwu49Ux1J0jdCQvmHr22Kz/Xl6DY6
-         lxP64azqnRRTk8YtaUz42PyTUSMONGBuVhLDGnl32lfua0ZHrNCUB0fx/el7duGR74Zr
-         bb6y+1ztewRWlIjoqQZ4iKwQy8SYH4gJcWjCy8sJw5AAYG7edMXs2YO+E1nIDBnNt83u
-         r47mpJgkzf/HUsTAM/3rtRiLOPMwDEGVOqzOb4QKbEVD+EojYHSIhveMj2d5IMF0YmCW
-         py3LGBPmr04ifg3gs10l5LF0UPHZik2NEDbk3lddecVmaoroJ+fIGWWysKZIUDXQN5R7
-         RweQ==
+        bh=jtfZIxcM2VH99UeoB+dwCArTgHzcHkxy99sVYpN/9+0=;
+        b=Wde4QkkiXxQuijx/zQYQnCXTUa4Z0BGMK+K8D8D7B5OXau7zmxdMmim+sXvXp09F7y
+         OvIAlzEHnqCLwSlrXUxEWAE11pAuAnJ5anwl0YQ7HDEgMIWyXlwVhkS6YnuNGZd+ALmt
+         CBxeFlZEraeKVtTTiUFstZcpVB31EX1L2kFWvUm+IUrc9HkHLUX1r2t2a81II3pzEJ+e
+         HppYJzj4gv9aYmWwCN8HPusU1xYYkMpr+nR1tsAEbq9LNjdbwj5AZ28nwzhHoFbyD3A4
+         iNPn/etpRxj8qxCrDz1LvVZ8K31De6wJEtltdtgnD/Xo2mAaccWMOS26q9bybAQBPSfo
+         PmSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753351087; x=1753955887;
+        d=1e100.net; s=20230601; t=1753351968; x=1753956768;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iLIAb+V5GsNEss/nRkDduP1VFRy54qCYc3jHxk6NmUw=;
-        b=cXLzrJPwof6cWrsxOKSIvfORM7YTOkDw/G121Oy97XvXuUH0Q+aFP++2o7prLyZMHE
-         q7t0BwiYobtxi/NFpajIGdiWlRrHMcRkk1klDjq60keJtyI5lghhwVCwUnuhdOcqNnji
-         atDm3fISf70NDfMPqLoB3lxs0xROI5ZQr0t2VQf2uEXeWv4oF9Ng3RCksMFe13GBWPAS
-         Cuk7tALBYMwCnp6P8nQoKYKym9QOhszVC6SwJeD+Sl4eBz5875+7Z+nIERnxodo3puFy
-         9WObJVW5TDMswibIdBh9W8kgBdulM+CBIxak09EsetJYBWbqyGOQ29h963K2eXbEuXGP
-         dw4A==
-X-Forwarded-Encrypted: i=1; AJvYcCW2bmXTT/XbMzpLQmvY9slimbUlSTsl6j9BmAIuH5ewlGom4NVHlK3JY7Y+XbJWxA4rvbpkJUDy9r8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx1XvJFyYRKbRqqHPg9G23xoIdjHlrNqwl8XR0/F96AZiEdIInN
-	Rfg1Nn8nSLGrp2/qX5HfX/l4tN031cUWEnAjPSAQR+e04o/DzV+S6P2rbMuA09Yf2w==
-X-Gm-Gg: ASbGncs3wzpSkyn1T4sp6rclvLg4oD+a7Uo4ty9ZktaD9AmbbHB4Tr6d9iHZ+CoE8fE
-	Iq+98b8tQeSwbrT6dKQSmduadEUkFM7EZZv7Wzp1u+71xO44QfrbHB3iO5VdeVvlhT3ccO6FLOc
-	kDLyHSebue5w7tzU/6HAAfb7mXNjsKWpLLIr+19dK4x8KG345OIQT50e1g47m9MdQgjdYxK0W8M
-	LYa0TvaN+KpP5EfoeT3PH4khi1FBqfFMYNjiqy9tkSfTbV+utphKGWpb5FQIfGsytjMQGKuTHiq
-	SJ5YLFOU+0Do8rd8BscfpEYB1Jl+/SoAvX0jZ0tg+HjMCHTrGirPD80ybe0m49VPb3CCv9qhIAm
-	WqTJdFRwkbfZrCeWoZEm8+BDiYCYL+2GhkDqNb5Ft5seBfpfwMZVfWt2sb9gUvJrOxp1V9Qc78K
-	Eq9Ac4VVmbbEsXas2uUA==
-X-Google-Smtp-Source: AGHT+IGhNNoeduUMgOla38InYQa7yhjjLcrG9d6Wzv61z+Bcnk6kEWUgM+suEFW37HboR9L4MHEtUg==
-X-Received: by 2002:a05:600c:1c8f:b0:456:1156:e5f5 with SMTP id 5b1f17b1804b1-4586f3f840dmr14849785e9.31.1753351087013;
-        Thu, 24 Jul 2025 02:58:07 -0700 (PDT)
-Message-ID: <cfeceb0f-4531-46fe-b10e-0b644026b26f@suse.com>
-Date: Thu, 24 Jul 2025 11:58:05 +0200
+        bh=jtfZIxcM2VH99UeoB+dwCArTgHzcHkxy99sVYpN/9+0=;
+        b=NuUQgcKJYYiKBATsZeaaSpVxOtPvIiBMGpaG7r/TPdktNONnXXJWFmr4PhsJ7B4GoE
+         kXYjKyKsieI3llAAEBoBzp5aUIKmzSA7Oxx7+n/HD87PhAUOwVFC5ni5UVo1PzkPhN8W
+         x1s358xsAfGMvIkd8oAtnjlIZTRVZ4BuUllMces+t0TcXXoP7XO16YLDE7bcGgEEt9Oc
+         tVRa50EK9HZdVn1QP7+BD0ijKgYmh1OPHmjCRS9f+/My0oMTbdi0WyTsVB2AJyp6W0K4
+         ZwhvU8dykr6UF+9PrW4n0Kt4URFnV5o+PsRiNCG7Pr+g18G+qrrGBLI275az9uep9oZ6
+         Sj2g==
+X-Forwarded-Encrypted: i=1; AJvYcCV/QnxhINLpwuKxq9ejr2uA+OU+GvptEHD3DWxI+EkDHdSpn/otTIyUrdaBWSzj0kAxP1scvYUfeYY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxYPT/n5tRYGEvKC1ohaY11CW4sahD2ARmg/iz2fR7RXHvbLN64
+	cXJx/hMN3I0o3IbIGQrA/av7oKJsXY6+cIO1vsWSR8Xth/jletAKCIqIAIvMLbuJBA==
+X-Gm-Gg: ASbGncsuX8fH5IRMSHj9W2UelLdfaiVUHz5+7PqYjVqj2bcMUj2J+8wZKrJub8hZmad
+	UtFQTYtzU/JI0zji9DCNVpDwJb2Q2nXt1e9oXA/YtdK0g+laa4P8F1raZcImqdHOWRfERxa30yN
+	4tCFBM+nFHbXJLJr31VAwyhx6KWLFYbTMJUdn6aX42gDpR3tzCE2+SrSy84SFx++WjA9n1qQ2cQ
+	iHFS8EgbZDVNoPvA7RLEpLnd8PM3M2lyjtylGr4KTILt3oPWOGfjZfn2YnQY/zdMiWywQz9y9Ae
+	FcII3U9co20ZtL52+vtVtODLnajCKcWrfHcN3yks9x0KMLmMmLC4nn2FwcY5FafGMdBqGGkPopa
+	ywhzT4y3vglesNux/adlMz6MvkKTatX+SPkkFPjFZfcNgwBfterKPl3KE6fDUIXtdWJERtuZ2/Z
+	MbBlpIao+0y+k9xYgH+Q==
+X-Google-Smtp-Source: AGHT+IHYNSEsmbREL6e5R7SoVIBmjnDcVvnCXw/WZJwwvjYMjWJjKJesm81UpvtYjPE7Jg53AmUmGA==
+X-Received: by 2002:a05:600c:6096:b0:456:1d4e:c161 with SMTP id 5b1f17b1804b1-4586af2be11mr54339445e9.2.1753351968233;
+        Thu, 24 Jul 2025 03:12:48 -0700 (PDT)
+Message-ID: <ad8a760c-18e9-44f5-9c80-b764fa009666@suse.com>
+Date: Thu, 24 Jul 2025 12:12:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v14 2/2] xen/arm: enable dom0 to use PCI devices with
- pci-passthrough=no
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH] char/ns16550: avoid additions to NULL pointer
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1753348261.git.mykyta_poturai@epam.com>
- <cac6ce4379335b9a671eaddb934226363b3087f7.1753348261.git.mykyta_poturai@epam.com>
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250724094843.968-1-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,54 +120,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cac6ce4379335b9a671eaddb934226363b3087f7.1753348261.git.mykyta_poturai@epam.com>
+In-Reply-To: <20250724094843.968-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.07.2025 11:44, Mykyta Poturai wrote:
-> From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> 
-> Enable the use of IOMMU + PCI in dom0 without having to specify
-> "pci-passthrough=yes". Due to possible platform specific dependencies
-> of the PCI host, we rely on dom0 to initialize it and perform
-> a PCI PHYSDEVOP calls to add each device to SMMU.
-> 
-> Because pci_passthrough is not always enabled on all architectures, add
-> a new function arch_pci_device_physdevop that checks if we need to enable
-> a subset of the PCI subsystem related to managing IOMMU configuration
-> for PCI devices.
-> 
-> Enable pci_init() for initializing Xen's internal PCI subsystem, and
-> allow PCI PHYSDEV ops when pci-passthrough is disabled.
-> 
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-Acked-by: Jan Beulich <jbeulich@suse.com>
-
-Nevertheless I'd like to point out that ...
-
-> --- a/xen/arch/x86/include/asm/pci.h
-> +++ b/xen/arch/x86/include/asm/pci.h
-> @@ -57,6 +57,16 @@ static always_inline bool is_pci_passthrough_enabled(void)
->      return true;
->  }
+On 24.07.2025 11:48, Roger Pau Monne wrote:
+> --- a/xen/drivers/char/ns16550.c
+> +++ b/xen/drivers/char/ns16550.c
+> @@ -121,11 +121,14 @@ static void cf_check ns16550_delayed_resume(void *data);
 >  
-> +/*
-> + * Since PCI passthrough is always enabled on x86, physdevop handling doesn't
-> + * need special arch-specific behavior. Current call sites work with either
-> + * return value, but true is more consistent with passthrough being enabled.
-> + */
-> +static inline bool arch_pci_device_physdevop(void)
-> +{
-> +    return true;
-> +}
+>  static u8 ns_read_reg(const struct ns16550 *uart, unsigned int reg)
+>  {
+> -    void __iomem *addr = uart->remapped_io_base + (reg << uart->reg_shift);
+> +    void __iomem *addr;
 
-... the comment still isn't quite right. PCI-passthrough isn't always enabled
-on x86. Both AMD_IOMMU and INTEL_IOMMU Kconfig options can be used to turn
-respective support off. Things then work as if no IOMMU was found, which
-means largely "no pass-through".
+While making the change, would you mind adding const volatile here and ...
+
+> @@ -139,11 +142,14 @@ static u8 ns_read_reg(const struct ns16550 *uart, unsigned int reg)
+>  
+>  static void ns_write_reg(const struct ns16550 *uart, unsigned int reg, u8 c)
+>  {
+> -    void __iomem *addr = uart->remapped_io_base + (reg << uart->reg_shift);
+> +    void __iomem *addr;
+
+... just volatile here? Preferably with that:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
