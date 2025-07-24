@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0A0DB10F4B
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 18:00:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1056316.1424538 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A84CB10F4E
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 18:00:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1056319.1424547 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueyLd-0001x2-8N; Thu, 24 Jul 2025 15:59:09 +0000
+	id 1ueyMP-0002PR-Gu; Thu, 24 Jul 2025 15:59:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1056316.1424538; Thu, 24 Jul 2025 15:59:09 +0000
+Received: by outflank-mailman (output) from mailman id 1056319.1424547; Thu, 24 Jul 2025 15:59:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueyLd-0001ue-5A; Thu, 24 Jul 2025 15:59:09 +0000
-Received: by outflank-mailman (input) for mailman id 1056316;
- Thu, 24 Jul 2025 15:59:07 +0000
+	id 1ueyMP-0002MK-Dg; Thu, 24 Jul 2025 15:59:57 +0000
+Received: by outflank-mailman (input) for mailman id 1056319;
+ Thu, 24 Jul 2025 15:59:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=98ak=2F=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1ueyLb-0001uY-GR
- for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 15:59:07 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ <SRS0=v1w5=2F=cloud.com=aidan.allen1@srs-se1.protection.inumbo.net>)
+ id 1ueyMN-0002Lx-Oa
+ for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 15:59:55 +0000
+Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
+ [2607:f8b0:4864:20::1136])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 208b8f9e-68a7-11f0-a31e-13f23c93f187;
- Thu, 24 Jul 2025 17:59:06 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3a6e2d85705so610252f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 08:59:06 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3b76fcc3c4csm2611370f8f.76.2025.07.24.08.59.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Jul 2025 08:59:05 -0700 (PDT)
+ id 3d12a308-68a7-11f0-a31e-13f23c93f187;
+ Thu, 24 Jul 2025 17:59:55 +0200 (CEST)
+Received: by mail-yw1-x1136.google.com with SMTP id
+ 00721157ae682-7183fd8c4c7so13679187b3.3
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 08:59:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,187 +40,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 208b8f9e-68a7-11f0-a31e-13f23c93f187
+X-Inumbo-ID: 3d12a308-68a7-11f0-a31e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1753372746; x=1753977546; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=83HsHQ6jd5WYNl8xdxdltHo8LVSJjKorasE8qLNMk9U=;
-        b=WAAkTElRYZwNT5wG2LoPyL7Zry3lbBjXyu4XupWKZV4lIICPGz/p/BbKbsaFtlw+D5
-         ygKU07vYqcWxbIRt8ICfb6WwIUG0XKRRbLuL7ZQZvZHd/qqTmyduzH5Mz44Lwn7fginW
-         G1BTXf+8KIy1BxWBMhNYLQuV5BLeH2buqeG44=
+        d=cloud.com; s=cloud; t=1753372793; x=1753977593; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nJ3QeMp2De97qVCnB6GryfgAIigcXoSp5PJMFjc70io=;
+        b=SMb6I1d08XLDylm0FD5kVr6GTG+Uyc6AV84l7XKtozcrRFHxDC2m2V2oR69wvZbXs9
+         qgo5muUv/F+GXf+vWbQ6GX9JGigKRMTOKCdP+mMtjhR3gok7MLt5RlZ2z8wfvaqoFZQe
+         p+IUG5WYhUnNzhuuoQsDR3UWwPsT8q138xHlY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753372746; x=1753977546;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=83HsHQ6jd5WYNl8xdxdltHo8LVSJjKorasE8qLNMk9U=;
-        b=da5W9fHDlCnB1fbmUcuB6rBI+hRXwH/XO2qllI6zrWV0PL3j2kmyebbBRc4LXLV1Ya
-         jvwASB20LBWYtx5L620rBFwQztNB9e5ZBb/Mk2lqXSzj6jdamQIq9uUrz2p/dTS6TkZe
-         hfGpXBvpXLRhvRMDDXBSmsQj8Ot9b0JCdnXBH/LweClCmA5EEMA+HSKHrkCMcF5HCU+f
-         P3nTM6NxFwWWUPmj+MctnOQ3B+I8RFnCQxz1IVqLHigasbdmYx1Aeq6vZ3zG1Zrvnsi4
-         hfJkoVlNboF9/oCciln5KM2ykvKypg6t2oiwEnTigkBwvtxn1/Rx2gKXbEmNET9frgnJ
-         Idsg==
-X-Gm-Message-State: AOJu0YxtL0q+fvXWY/Aeo00Jn+Ika9WaaLX7RRlGpvgWDFBBww7WwhMz
-	8qh+YPwyGAIFo5e4L6XUWSe6bn3pwLEe3aIwQd8bx9mT52qNzSeeJ6Q0xMmCelmcv20=
-X-Gm-Gg: ASbGnctKf9use7nK18cu9+V4nxrLcZ65POBFcjDFS3ySZNeJHq7zpRo8uqJToyQGQmx
-	sT8zaz6cvJ90CyqAj0MbSO41/X5eFJ+HVONB4NQgvcXeKsWRBn5OufkVYCEiEuzUNi+PxgZ7ZnP
-	Vsaxt03HFHH5e+Am5IJ6CFpV0r05BC9Rq0HUhfeHO+rCmsrXAFeRGnZx3PsDEl8yzVtuI6htDsa
-	ThsyfzHGDFRhdjsNxi9Wtofp95yFr8Z7/CwIRu/qP7ELx3noB8QerAcw7Tj+1I3jVPT4stWvFFn
-	c3G9ypqBWGnzlRpC9ZQquCfsmpcPjhnje/8RHk1uCzMi0715y+y4U0FpBlr1cgLMDRKKwvRiCHd
-	Z31N2ZhexZBN8zY/zzXRnmx3xW8ECEtOnlp/N4/DrduOwQ1Qnyv7+CrNQ8wnKLC9u+Q==
-X-Google-Smtp-Source: AGHT+IGUihfMb5Oi0Tgu8uH6/x7IbzUrE5jEJi5/ZyksdK1gJ4WRz5NAdCiwyNwxt5lGKSnySy3vGg==
-X-Received: by 2002:a05:6000:240c:b0:3a5:3af1:e21b with SMTP id ffacd0b85a97d-3b768f07c99mr6197501f8f.47.1753372745647;
-        Thu, 24 Jul 2025 08:59:05 -0700 (PDT)
-Date: Thu, 24 Jul 2025 17:59:04 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: xen-devel@lists.xenproject.org, Huang Rui <ray.huang@amd.com>
-Subject: Re: [PATCH v8 8/8] vpci/msix: Free MSIX resources when init_msix()
- fails
-Message-ID: <aIJYSGSGQ76MgKF2@macbook.local>
-References: <20250724055006.29843-1-Jiqian.Chen@amd.com>
- <20250724055006.29843-9-Jiqian.Chen@amd.com>
+        d=1e100.net; s=20230601; t=1753372793; x=1753977593;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=nJ3QeMp2De97qVCnB6GryfgAIigcXoSp5PJMFjc70io=;
+        b=gm+MxUjwtcYR6HrcW87uc+B5XnL4u0sjZh3cBkZkA9RNjVlR8mhSHvRkg++LjsOyj1
+         soKDlNTi50mBYYw/7LRROewG7cLqObaoxfKYiL/LAyq2SgBbaZm+4NmOpQfFS15XLfSO
+         DhszhZi6QcAlqJi3SvNoK8w3iZip8E87uBJYZi3lMs7F4mRpehxMa8cRcpnrdMU5gjYd
+         ZaENIMhcQtBO7IgeMYyOtuhtDVqSBhys+CwR4HBSZdccMOMIMSiv0E3AIEevZTtsHsr+
+         VnQxwU8Ubq82Y2dSdbhdXdfNTm0IXTu4jTwgot0Km7tdJHyndSL1S5dq0NkfNx25LjLI
+         tdlQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWIa+ap5eUn/NiHsBcf+gTwd7KgcKfccasC+63OVK3CI++vUA6Ltoir/MCgA6rwhgfC5kiSiHTjjpA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw458FpxcqTw/jlSXBYqERohC7/ukPVEuOffZkKv9Nz7+6msQd3
+	W/q7XP689MuPeEkQX9yWxeP0WNXiWwQ7lgsifNfpw/7mmTPxf0XU+rqWQzjMFss9gj6XXEJC4Z+
+	ZQe8YePIQIw2eVxL1JFK3MDjQ7zJHxfw0eq2ZQLiu6w==
+X-Gm-Gg: ASbGnctwFHido0S7iHxtm34BkIpaF4vBH5f/bOQjO/xyUu4AXirV1OD8UBkmZI6sv5n
+	XwK0UxTtx/q7KHnzI2pCGfLu5pnAPqGAxeHO7+hBGscfxCRJ6qZ4LBKEB9Smz0wvd86N4Gj3XEr
+	O8JEhV7S3dP6dNYNiYCY9G8hJHNtyy/lzqHi0ZAM+EJzSK9ZzuVLQzCyXG2QzrsMQPBbcDyDS0j
+	e9I4sec
+X-Google-Smtp-Source: AGHT+IHvNfhpUyp5Xi/s5ryQ//Aw7W9wKJ3zky1xPAIEyPl+3lqYRgaMaTQMVhmp+PG9ztZ1DCfN3G0kOZDr16z+rg8=
+X-Received: by 2002:a05:690c:9a0c:b0:70e:2ba2:659d with SMTP id
+ 00721157ae682-719b420cf85mr90054777b3.23.1753372793308; Thu, 24 Jul 2025
+ 08:59:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250724055006.29843-9-Jiqian.Chen@amd.com>
+References: <CANgacT8YrH66iUEPr60AVytXYMivPzxC0SO4_RPohjk1Vo2w8Q@mail.gmail.com>
+ <a0892208-84c5-4cd6-b246-869e38ecf73c@suse.com>
+In-Reply-To: <a0892208-84c5-4cd6-b246-869e38ecf73c@suse.com>
+From: Aidan Allen <aidan.allen1@cloud.com>
+Date: Thu, 24 Jul 2025 16:59:42 +0100
+X-Gm-Features: Ac12FXyt2Y47HJ752tUF1U9T56RUcemk9EdlOnm4y1k_EPgW3IazHO_dcW3VM54
+Message-ID: <CANgacT_idZJtjxo2v5RFBf3rBL6fmz1drtWt9o5y8yGJNc15ZQ@mail.gmail.com>
+Subject: Re: [PATCH] x86/domain: Dump domain paging pool sizes with the rest
+ of the pageframe info
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Bernhard Kaindl <Bernhard.Kaindl@cloud.com>, 
+	Xen-devel <xen-devel@lists.xenproject.org>, Roger Pau Monne <roger.pau@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 24, 2025 at 01:50:06PM +0800, Jiqian Chen wrote:
-> When init_msix() fails, current logic return fail and free MSIX-related
-> resources in vpci_deassign_device(). But the previous new changes will
-> hide MSIX capability and return success, it can't reach
-> vpci_deassign_device() to remove resources if hiding success, so those
-> resources must be removed in cleanup function of MSIX.
+On Thu, Jul 24, 2025 at 12:52=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wr=
+ote:
+>
+> On 24.07.2025 13:40, Aidan Allen wrote:
+> > --- a/xen/arch/x86/domain.c
+> > +++ b/xen/arch/x86/domain.c
+> > @@ -253,6 +253,10 @@ void dump_pageframe_info(struct domain *d)
+> >                 page->count_info, page->u.inuse.type_info);
+> >      }
+> >
+> > +    printk("    Domain paging pool: total: %d, free: %d, p2m: %d\n",
+> > +           d->arch.paging.total_pages, d->arch.paging.free_pages,
+> > +           d->arch.paging.p2m_pages);
+>
+> Should this perhaps be gated, to avoid printing all zeroes for domains no=
+t
+> using an paging mode? Whether to use paging_mode_enabled() to do so I'm n=
+ot
+> sure, as a domain with no paging mode enabled could still have a paging
+> pool configured.
+>
 
-The text here is a bit convoluted IMO.  It would be clearer as:
+Hi Jan,
+I can gate this on total_pages > 0 if that would address your concern
+with paging_mode_enabled().
 
-When MSI-X initialization fails vPCI will hide the capability, but
-remove of handlers and data won't be performed until the device is
-deassigned.  Introduce a MSI-X cleanup hook that will be called when
-initialization fails to cleanup MSI-X related hooks and free it's
-associated data.
+However, regarding the gating itself, I don't believe that the line
+saved by not printing this
+is worth the potential confusion of somebody looking for this
+information and not finding
+it, I would prefer to leave it printing all zeroes.
 
-As all supported capabilities have been switched to use the cleanup
-hooks call those from vpci_deassign_device() instead of open-code the
-capability specific cleanup in there.
-
-(see below for the reasoning behind the last paragrpah).
-
-> To do that, implement cleanup function for MSIX.
-> 
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> ---
-> cc: "Roger Pau Monné" <roger.pau@citrix.com>
-> ---
-> v7->v8 changes:
-> * Given the code in vpci_remove_registers() an error in the removal of
->   registers would likely imply memory corruption, at which point it's
->   best to fully disable the device. So, Rollback the last two modifications of v7.
-> 
-> v6->v7 changes:
-> * Change the pointer parameter of cleanup_msix() to be const.
-> * When vpci_remove_registers() in cleanup_msix() fails, not to return
->   directly, instead try to free msix and re-add ctrl handler.
-> * Pass pdev->vpci into vpci_add_register() instead of pdev->vpci->msix in
->   init_msix() since we need that every handler realize that msix is NULL
->   when msix is freed but handlers are still in there.
-> 
-> v5->v6 changes:
-> * Change the logic to add dummy handler when !vpci->msix in cleanup_msix().
-> 
-> v4->v5 changes:
-> * Change definition "static void cleanup_msix" to "static int cf_check cleanup_msix"
->   since cleanup hook is changed to be int.
-> * Add a read-only register for MSIX Control Register in the end of cleanup_msix().
-> 
-> v3->v4 changes:
-> * Change function name from fini_msix() to cleanup_msix().
-> * Change to use XFREE to free vpci->msix.
-> * In cleanup function, change the sequence of check and remove action according to
->   init_msix().
-> 
-> v2->v3 changes:
-> * Remove unnecessary clean operations in fini_msix().
-> 
-> v1->v2 changes:
-> new patch.
-> 
-> Best regards,
-> Jiqian Chen.
-> ---
->  xen/drivers/vpci/msix.c | 44 ++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 43 insertions(+), 1 deletion(-)
-> 
-> diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
-> index eb3e7dcd1068..8ab159969da6 100644
-> --- a/xen/drivers/vpci/msix.c
-> +++ b/xen/drivers/vpci/msix.c
-> @@ -655,6 +655,48 @@ int vpci_make_msix_hole(const struct pci_dev *pdev)
->      return 0;
->  }
->  
-> +static int cf_check cleanup_msix(const struct pci_dev *pdev)
-> +{
-> +    int rc;
-> +    struct vpci *vpci = pdev->vpci;
-> +    const unsigned int msix_pos = pdev->msix_pos;
-> +
-> +    if ( !msix_pos )
-> +        return 0;
-> +
-> +    rc = vpci_remove_registers(vpci, msix_control_reg(msix_pos), 2);
-> +    if ( rc )
-> +    {
-> +        printk(XENLOG_ERR "%pd %pp: fail to remove MSIX handlers rc=%d\n",
-> +               pdev->domain, &pdev->sbdf, rc);
-> +        ASSERT_UNREACHABLE();
-> +        return rc;
-> +    }
-> +
-> +    if ( vpci->msix )
-> +    {
-> +        for ( unsigned int i = 0; i < ARRAY_SIZE(vpci->msix->table); i++ )
-> +            if ( vpci->msix->table[i] )
-> +                iounmap(vpci->msix->table[i]);
-> +
-> +        list_del(&vpci->msix->next);
-> +        XFREE(vpci->msix);
-> +    }
-> +
-> +    /*
-> +     * The driver may not traverse the capability list and think device
-> +     * supports MSIX by default. So here let the control register of MSIX
-> +     * be Read-Only is to ensure MSIX disabled.
-> +     */
-> +    rc = vpci_add_register(vpci, vpci_hw_read16, NULL,
-> +                           msix_control_reg(msix_pos), 2, NULL);
-> +    if ( rc )
-> +        printk(XENLOG_ERR "%pd %pp: fail to add MSIX ctrl handler rc=%d\n",
-> +               pdev->domain, &pdev->sbdf, rc);
-> +
-> +    return rc;
-> +}
-> +
->  static int cf_check init_msix(struct pci_dev *pdev)
->  {
->      struct domain *d = pdev->domain;
-> @@ -714,7 +756,7 @@ static int cf_check init_msix(struct pci_dev *pdev)
->  
->      return rc;
->  }
-> -REGISTER_VPCI_CAP(MSIX, init_msix, NULL);
-> +REGISTER_VPCI_CAP(MSIX, init_msix, cleanup_msix);
-
-Don't you need to also call the cleanup hooks in
-vpci_deassign_device() and remove the open-coded cleaning of MSI-X
-done there?
-
-Otherwise the code here is duplicated with the code in
-vpci_deassign_device() for MSI-X cleanup (apart from it being a bit of
-a layering violation to open-code the MSI-X cleanup in there).
-
-Thanks, Roger.
+Best, Aidan.
 
