@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4DD3B10227
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 09:46:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1055375.1423795 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75F40B10229
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 09:47:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1055380.1423805 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueqeY-0003Hc-T6; Thu, 24 Jul 2025 07:46:10 +0000
+	id 1ueqfy-0003mO-6C; Thu, 24 Jul 2025 07:47:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1055375.1423795; Thu, 24 Jul 2025 07:46:10 +0000
+Received: by outflank-mailman (output) from mailman id 1055380.1423805; Thu, 24 Jul 2025 07:47:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueqeY-0003FZ-QN; Thu, 24 Jul 2025 07:46:10 +0000
-Received: by outflank-mailman (input) for mailman id 1055375;
- Thu, 24 Jul 2025 07:46:09 +0000
+	id 1ueqfy-0003kP-3c; Thu, 24 Jul 2025 07:47:38 +0000
+Received: by outflank-mailman (input) for mailman id 1055380;
+ Thu, 24 Jul 2025 07:47:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=P3HE=2F=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1ueqeX-0003FT-It
- for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 07:46:09 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=P0IF=2F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ueqfw-0003kH-RY
+ for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 07:47:36 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4210165f-6862-11f0-b895-0df219b8e170;
- Thu, 24 Jul 2025 09:46:07 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 4DCE64EE3C07;
- Thu, 24 Jul 2025 09:46:06 +0200 (CEST)
+ id 715589e1-6862-11f0-b895-0df219b8e170;
+ Thu, 24 Jul 2025 09:47:26 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4561ca74829so7317535e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 00:47:26 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-458705378f4sm10090295e9.2.2025.07.24.00.47.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 24 Jul 2025 00:47:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,153 +45,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4210165f-6862-11f0-b895-0df219b8e170
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1753343166;
-	b=yDcxSn+0yFjHxkiFwXUxlEL5jA8XhGX3++QhowQzA0ix/YTxkeoV1qzJlgkeyw1EhmfA
-	 +LogUYK2dHxLoQtb3Nt8E8DCT6z5UFuVwzg1cfmGsR0SMtYuE3h9zBWsf+YdBMoMpiZ5Q
-	 CRz0e2xRBBC6D0xnQ5gPBNJev+97U0HX+2A/aEteEql2nzVOhRQhkkNGgYoaTvojptPU+
-	 b4PFdhdoJXJ2lB+BreZ6m2QpYxx2oztUDEoyQYzwihhojHxydBWQiEyZCOyluF9UIJaBy
-	 q3yu0rRbdRyOo4/ctE2lJ5YltKcdI6LRSqmB+gPMuMg1740vQcOrxzMdDzRYOg2RMa2lm
-	 VcM7xgLlCYopQ9mADDlSyn3WG8WpgrYnD/8cM5CgzFTUIJ2n/Te1YEt06pmRrTUzuSU/3
-	 fi/eng4JTjrBR9HwgVhuY/AAW94kLfQ3PQ5US/ZUr1fiO3Mk7rQuf4LQUi7iaxniE0AxQ
-	 2HfVanpS/AZucER+9flAr5MjYBusJ2iJBdZpHkWLlIPZsQ+0yKpkLG/J12dLaOffUj2Gs
-	 U3tZFWuneRN0/ZklnqvtQlg/EjqePN+L79FV8+7x81HOZM7cvBOfRHOCgsLuptYtx6hgm
-	 QCxpU8c2TPRF90dTv3HqeGaayrZ3T0lHK0o8t1B8oQeXvEOt/FH4gFOYYITup7U=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1753343166;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=YPvqOtuhBLnUPVueWvPwhRNMt3LlhcbxpiQajzJX72I=;
-	b=lKHqljpqRPjqUUQxep+QPWhgSc/7jnNfzNOweHHn31n8TWLpDqH/2hGb/ht8WXelVY+S
-	 VEXvS0QaWkmfSUP+s8Pcvf+e61eFNdngszuu6Jpe8nEsdJV1Egn8lHbPuTd6YDZMs02YY
-	 b1v8QhIteZZ86GrNJliywNhJG31Qenv/dE9to2deTOF8qX4F3cxPHR6ezOtrH/aL753+S
-	 H5pMjgq5StFq40Fr5IQ4KDBuknleEiTX3MAnx3j8qKwKY/c9Lb3EDah1AgqIWb1mtbU2s
-	 NFBewOltgw+ApS8pFeZNX8NjM8BAfMIBL6UWC8o4+2Cbvb9lE5yj0MdRmQ/+RQjMLOSxI
-	 jZOF5MI7zyqeSEfOEGUFeac6WIFw1ew5R8qSx89LcKhKGiZFvTqv0R8RqMCSpXUCxrRi/
-	 jCYun4+tgrbhfNwegMBag59vsNo3+/aQXyS897rJ/xCMtWWkgRSHAFftevACWYJJdQLZg
-	 ET3Kx1XhMNMpsq5bWfYkbYj2UDom4kGOuIagEXjOJohw3xKrsqFjAKArp9JJyJpIEcvlp
-	 NGZBvbcXvWttWi/Pb2f3kp/FLw3wfkm5Evmf3exgrhHuZ1tIaTaCnYlm2rZoEt8NR3Xme
-	 e4deMAkP5UBGfSRVrmnbvjEERapvhFV1uhjfGc+nGqzqReOM1tFRJ29qyAo38Z4=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1753343166; bh=Wjv/AxhkxC3VrQYJ4KyfhoZHfbe9UX+PpaWUvtTRFps=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=lOh6MP8KHgW36p4uo62aVp57IK9MBc9+YTn0bL9K0lZ+ZChEAT/kAODUAPGiW3Ws1
-	 MNZheBvIhjuhFT7L/37Je9Y2EyahoL0XBDKg8RffBOLjahM/BfoErqO/LYQ3okEhxe
-	 dMNXqRtuf6sqB6cv2gMf8Sg9x8w6PbJPFWgt1Tw1i7K/K9ffkWr3MCmvIf/NOY+AZv
-	 u+3JaQpiB7GYVJqD1q0Lkxfmko02qiEiQrMPJwe9nh/986BxE+hPHKWHYvKVycyYu6
-	 So9JplFGp+m+07etfq71Z4/baumq8FI/6oKkDpBC5HUIb2K01U8e6jQVtx+NYqprxv
-	 0fLuLvLkNo3yw==
+X-Inumbo-ID: 715589e1-6862-11f0-b895-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1753343246; x=1753948046; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=9pNFc+iqFp92PzHJvPpRZLWn5vrA8c4dyXuM8BxvkcU=;
+        b=WG3S25sSvEkQpVFkZ0bmYcwUF9IJoflvFB2ma6W58uO3kJzq2fohXH8+cdHwfN9kmC
+         okZFHIxEvwBxpVLDGoOwPMNLjE1etumeEX51QCrZajvE4ghRIbBJGzMnRH9lDWlGCgiR
+         Vo6UORMATQr+wzuxJn+N5V4em1lol245i0TRNqCQBH/ZDviJ3l+q9eytXooOtVTsWvPo
+         FsgD8ZTFpwuJbvcx3IT6OrudPe8rB+nIVQ511bz/vI3xLTg0QhP30bdJLJS6KLP6Amxl
+         iYBhvi9sFKeeRd40/IlH8Qido2q+TdvSzEdPKU/bE5egHEfEpcp4/OnF9wCpFKArScbe
+         sRjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753343246; x=1753948046;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=9pNFc+iqFp92PzHJvPpRZLWn5vrA8c4dyXuM8BxvkcU=;
+        b=NS4teDCK3T5IuhyTH3RyNatiKovejDkAzYJyElBdYg1YPG6cszr5I45z+5TvnTcCs0
+         Rv3yanYQ2ZdysKQjeOepbHOrWDPaIqbhB+x7JkN3tMiQksLxpq2yghIBCm3w+xD4uqnO
+         89qJn9D/kcMWUAXRARJ1+rS4RiL3jNRDFrTRVEfRJWDbegHwhzB5rYM8DgW5xqmAMu3T
+         4MPVwm+bkX/n0rqbu9eVTw12MIUUd9/2Ahma9F5xP0yL0ktvfpGCvrILillcdxozqCE7
+         uMXrT+LZbvVKFHstsYDlgPtdSxGEWXePYdLqkcY6BSiD6NqXLVyZid+l6Z6MJABMkIHY
+         EczQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUuPsW/X1HMnRYd1oVH2EqbIZwHLx2Ld+Bzr9eTavBb9eeaG9zUboidF4a9FJ5mYyRHH2pqwkjX9U4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwUZt4b61dErk6eBZ0nOqFOEZQQJ6Fk4FEpqyXxjRb6YWOI6jZF
+	3ZLSktC7o0N1w60i/UbkH/dNOccCoDrVr8BYLXGCIM++RHt+RI3Cj+Ov1wkHUjoZGQ==
+X-Gm-Gg: ASbGncuSfNKCOgoCNYx8bp+PmO25Ip92L5fQlZpW38eB+EHaG2My5uUZEh0R3nOFw+i
+	fo9IRWTSeQSeRJaH6GAMCeOPz2Glct4uTiQRxikuWa9g4Pl481//PabqEhPPlMlb/WqXX5euXTx
+	F1/fT4HR3dSTgvYz/yAxj+ummcmKrF9LMkaGLCFerHKncDTE6wkSHDk9w3ceWtaYhKMG2HC72pF
+	/u0nKZb1Brj/6i5MYgc9JNYRlYjErz1N6EVhU5eDaoWWtXHz/j+Qmc+Mh75PnGYtxUD+vPNMm87
+	BwOEXBl3uH6sQXPGOed3rS0pHeHXFYbh9eweetJXB3BkjQqZmaskNFGjRB7AsIOWBrolaWHGCdQ
+	SbiGJqEMBD6eY6Yg3eDlpZCjMlXxw+dsy8h+FPynO8yzOotSJQ1nbRgrwV89x7thU3iokSnkW6e
+	PGWbZv2Gs=
+X-Google-Smtp-Source: AGHT+IH7FFLQwdPOwvsXVcp6HG+g7u/Fov7U/T0fnHVPRow/UnjkXaMtZ0YBABfmKVnTuEqKBA0Jlg==
+X-Received: by 2002:a05:600c:1c20:b0:43c:fcbc:9680 with SMTP id 5b1f17b1804b1-4586f216f43mr10608215e9.25.1753343246117;
+        Thu, 24 Jul 2025 00:47:26 -0700 (PDT)
+Message-ID: <ffebedf9-c987-4f99-8ab1-de84df67d8bc@suse.com>
+Date: Thu, 24 Jul 2025 09:47:24 +0200
 MIME-Version: 1.0
-Date: Thu, 24 Jul 2025 09:46:06 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
- Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-Subject: Re: [PATCH] misra: add deviations of MISRA C Rule 5.5
-In-Reply-To: <7e1c381d6fab6d38bb2a5484d5fac5e863ba135f.1752689112.git.dmytro_prokopchuk1@epam.com>
-References: <7e1c381d6fab6d38bb2a5484d5fac5e863ba135f.1752689112.git.dmytro_prokopchuk1@epam.com>
-Message-ID: <ff5f0d0989ced1b55b5af06e8bbd36cc@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] vpci: allow queueing of mapping operations
+To: dmkhn@proton.me
+References: <20250723163744.13095-1-stewart.hildebrand@amd.com>
+ <20250723163744.13095-2-stewart.hildebrand@amd.com> <aIGh2i5+Z2CW0mPr@kraken>
+ <aIGrin7bHQr5KvtJ@kraken>
+Content-Language: en-US
+Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <aIGrin7bHQr5KvtJ@kraken>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 2025-07-16 20:08, Dmytro Prokopchuk1 wrote:
-> MISRA C Rule 5.5 states that: "Identifiers shall
-> be distinct from macro names".
-> 
-> Update ECLAIR configuration to deviate:
-> - clashes in 'xen/include/xen/bitops.h';
-> - clashes in 'xen/include/xen/irq.h';
-> - clashes in 'xen/common/grant_table.c'.
-> 
-> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
-> ---
-> This patch makes MISRA Rule 5.5 "clean" for ARM only.
-> 
-> Was agreed to narrow deviation:
-> https://patchew.org/Xen/cover.1752096263.git.dmytro._5Fprokopchuk1@epam.com/e47d08e4465f913f03348830954e800f420c652d.1752096263.git.dmytro._5Fprokopchuk1@epam.com/
-> 
-> CI:
-> https://eclair-analysis-logs.xenproject.org/fs/var/local/eclair/xen-project.ecdf/xen-project/people/dimaprkp4k/xen/ECLAIR_normal/rule_5.5_deviation_final/ARM64/10706457595/PROJECT.ecd;/by_service.html#service&kind
-> ---
->  automation/eclair_analysis/ECLAIR/deviations.ecl | 7 +++++++
->  docs/misra/deviations.rst                        | 7 +++++++
->  2 files changed, 14 insertions(+)
-> 
-> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl 
-> b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> index 8504e850c1..3895148460 100644
-> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> @@ -117,6 +117,13 @@ it defines would (in the common case) be already 
-> defined. Peer reviewed by the c
->  -config=MC3A2.R5.5,reports+={deliberate, 
-> "any_area(decl(kind(function))||any_loc(macro(name(memcpy||memset||memmove))))&&any_area(any_loc(file(^xen/common/libelf/libelf-private\\.h$)))"}
->  -doc_end
-> 
-> +-doc_begin="Clashes between function names and macros are deliberate 
-> and needed to have a function-like macro that acts as a wrapper for the 
-> function to be called.
-> +Before calling the function, the macro adds additional checks or 
-> adjusts the number of parameters depending on the configuration."
-> +-config=MC3A2.R5.5,reports+={deliberate, 
-> "any_area(all_loc(file(^xen/include/xen/bitops\\.h$)) && 
-> macro(name(__test_and_set_bit||__test_and_clear_bit||__test_and_change_bit||test_bit)))"}
+On 24.07.2025 05:42, dmkhn@proton.me wrote:
+> On Thu, Jul 24, 2025 at 03:00:46AM +0000, dmkhn@proton.me wrote:
+>> On Wed, Jul 23, 2025 at 12:37:41PM -0400, Stewart Hildebrand wrote:
+>>> Introduce vPCI BAR mapping task queue. Decouple map operation state from
+>>> general vPCI state: in particular, move the per-BAR rangeset out of
+>>> struct vpci and into the map task struct.
+>>>
+>>> This is preparatory work for further changes that need to perform
+>>> multiple unmap/map operations before returning to guest.
+>>>
+>>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+>>> ---
+>>> v1->v2:
+>>> * new patch
+>>>
+>>> Related: 622bdd962822 ("vpci/header: handle p2m range sets per BAR")
+>>> ---
+>>>  xen/common/domain.c       |   4 +
+>>>  xen/drivers/vpci/header.c | 197 +++++++++++++++++++++++---------------
+>>>  xen/drivers/vpci/vpci.c   |   3 -
+>>>  xen/include/xen/vpci.h    |  16 +++-
+>>>  4 files changed, 139 insertions(+), 81 deletions(-)
 
-                                                                          
-                         ^^^^ No blanks here, just like below.
+Why did I (and many others) end up on the To: list of this reply? (Breaks my
+rules of sorting incoming mail into appropriate folders, for context.) Also,
+please trim reply context suitably. Without you doing so, every single reader
+will need to scroll through the entirety of a long mail just to find (in this
+case) a single line of reply (somewhere in the middle). Of course you
+shouldn't be too agressive with trimming, to retain proper context for your
+reply.
 
-> +-config=MC3A2.R5.5,reports+={deliberate, 
-> "any_area(all_loc(file(^xen/common/grant_table\\.c$))&&macro(name(update_gnttab_par||parse_gnttab_limit)))"}
-> +-config=MC3A2.R5.5,reports+={deliberate, 
-> "any_area(all_loc(file(^xen/include/xen/irq\\.h$))&&macro(name(pirq_cleanup_check)))"}
-> +-doc_end
-> +
->  -doc_begin="The type \"ret_t\" is deliberately defined multiple times,
->  depending on the guest."
->  
-> -config=MC3A2.R5.6,reports+={deliberate,"any_area(any_loc(text(^.*ret_t.*$)))"}
-> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-> index 620e97f0bd..84bc933cbf 100644
-> --- a/docs/misra/deviations.rst
-> +++ b/docs/misra/deviations.rst
-> @@ -142,6 +142,13 @@ Deviations related to MISRA C:2012 Rules:
->         memmove.
->       - Tagged as `deliberate` for ECLAIR.
-> 
-> +   * - R5.5
-> +     - Clashes between function names and macros are deliberate and 
-> needed
-> +       to have a function-like macro that acts as a wrapper for the 
-> function to be
-> +       called. Before calling the function, the macro adds additional 
-> checks or
-> +       adjusts the number of parameters depending on the 
-> configuration.
-> +     - Tagged as `deliberate` for ECLAIR.
-> +
-
-At least this wants to delimit to which macros you actually allow to 
-overlap with functions, as this seems to imply that the deviation is 
-general, which is not
-
->     * - R5.6
->       - The type ret_t is deliberately defined multiple times depending 
-> on the
->         type of guest to service.
-
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+Jan
 
