@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A84CB10F4E
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 18:00:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1056319.1424547 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B146B10F97
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 18:23:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1056342.1424564 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueyMP-0002PR-Gu; Thu, 24 Jul 2025 15:59:57 +0000
+	id 1ueyiw-0007o4-Fo; Thu, 24 Jul 2025 16:23:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1056319.1424547; Thu, 24 Jul 2025 15:59:57 +0000
+Received: by outflank-mailman (output) from mailman id 1056342.1424564; Thu, 24 Jul 2025 16:23:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ueyMP-0002MK-Dg; Thu, 24 Jul 2025 15:59:57 +0000
-Received: by outflank-mailman (input) for mailman id 1056319;
- Thu, 24 Jul 2025 15:59:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ueyiw-0007hN-CJ; Thu, 24 Jul 2025 16:23:14 +0000
+Received: by outflank-mailman (input) for mailman id 1056342;
+ Thu, 24 Jul 2025 16:23:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=v1w5=2F=cloud.com=aidan.allen1@srs-se1.protection.inumbo.net>)
- id 1ueyMN-0002Lx-Oa
- for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 15:59:55 +0000
-Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
- [2607:f8b0:4864:20::1136])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3d12a308-68a7-11f0-a31e-13f23c93f187;
- Thu, 24 Jul 2025 17:59:55 +0200 (CEST)
-Received: by mail-yw1-x1136.google.com with SMTP id
- 00721157ae682-7183fd8c4c7so13679187b3.3
- for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 08:59:54 -0700 (PDT)
+ <SRS0=uSid=2F=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ueyiv-0007fj-Eb
+ for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 16:23:13 +0000
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [2a00:1450:4864:20::444])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7ddbf1ca-68aa-11f0-b895-0df219b8e170;
+ Thu, 24 Jul 2025 18:23:11 +0200 (CEST)
+Received: by mail-wr1-x444.google.com with SMTP id
+ ffacd0b85a97d-3a536ecbf6fso760686f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 09:23:11 -0700 (PDT)
+Received: from localhost.localdomain (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3b76fcc2bc8sm2615965f8f.72.2025.07.24.09.23.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Jul 2025 09:23:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,87 +45,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d12a308-68a7-11f0-a31e-13f23c93f187
+X-Inumbo-ID: 7ddbf1ca-68aa-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1753372793; x=1753977593; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nJ3QeMp2De97qVCnB6GryfgAIigcXoSp5PJMFjc70io=;
-        b=SMb6I1d08XLDylm0FD5kVr6GTG+Uyc6AV84l7XKtozcrRFHxDC2m2V2oR69wvZbXs9
-         qgo5muUv/F+GXf+vWbQ6GX9JGigKRMTOKCdP+mMtjhR3gok7MLt5RlZ2z8wfvaqoFZQe
-         p+IUG5WYhUnNzhuuoQsDR3UWwPsT8q138xHlY=
+        d=citrix.com; s=google; t=1753374191; x=1753978991; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=yhiejiw6P1oU1fHogYZkr3yX44GjB6ihpwxAsvxnYWM=;
+        b=o6qvoVqchc3GTVzlwevWg2cw95QZtJqyZDzhDWUbJ83uHtcMffMO1pTp6TGtnVS+mE
+         uZ4lZIEWajdTqwuADeyucGJF8TBIgaoPD0f05wq9/I7aaMXPP1ibU0ZIjc5mpzDhJSbm
+         AqRN2B1RpgrDAphBt8oiiw4AH+8MWPXBwtK9M=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753372793; x=1753977593;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=nJ3QeMp2De97qVCnB6GryfgAIigcXoSp5PJMFjc70io=;
-        b=gm+MxUjwtcYR6HrcW87uc+B5XnL4u0sjZh3cBkZkA9RNjVlR8mhSHvRkg++LjsOyj1
-         soKDlNTi50mBYYw/7LRROewG7cLqObaoxfKYiL/LAyq2SgBbaZm+4NmOpQfFS15XLfSO
-         DhszhZi6QcAlqJi3SvNoK8w3iZip8E87uBJYZi3lMs7F4mRpehxMa8cRcpnrdMU5gjYd
-         ZaENIMhcQtBO7IgeMYyOtuhtDVqSBhys+CwR4HBSZdccMOMIMSiv0E3AIEevZTtsHsr+
-         VnQxwU8Ubq82Y2dSdbhdXdfNTm0IXTu4jTwgot0Km7tdJHyndSL1S5dq0NkfNx25LjLI
-         tdlQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWIa+ap5eUn/NiHsBcf+gTwd7KgcKfccasC+63OVK3CI++vUA6Ltoir/MCgA6rwhgfC5kiSiHTjjpA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw458FpxcqTw/jlSXBYqERohC7/ukPVEuOffZkKv9Nz7+6msQd3
-	W/q7XP689MuPeEkQX9yWxeP0WNXiWwQ7lgsifNfpw/7mmTPxf0XU+rqWQzjMFss9gj6XXEJC4Z+
-	ZQe8YePIQIw2eVxL1JFK3MDjQ7zJHxfw0eq2ZQLiu6w==
-X-Gm-Gg: ASbGnctwFHido0S7iHxtm34BkIpaF4vBH5f/bOQjO/xyUu4AXirV1OD8UBkmZI6sv5n
-	XwK0UxTtx/q7KHnzI2pCGfLu5pnAPqGAxeHO7+hBGscfxCRJ6qZ4LBKEB9Smz0wvd86N4Gj3XEr
-	O8JEhV7S3dP6dNYNiYCY9G8hJHNtyy/lzqHi0ZAM+EJzSK9ZzuVLQzCyXG2QzrsMQPBbcDyDS0j
-	e9I4sec
-X-Google-Smtp-Source: AGHT+IHvNfhpUyp5Xi/s5ryQ//Aw7W9wKJ3zky1xPAIEyPl+3lqYRgaMaTQMVhmp+PG9ztZ1DCfN3G0kOZDr16z+rg8=
-X-Received: by 2002:a05:690c:9a0c:b0:70e:2ba2:659d with SMTP id
- 00721157ae682-719b420cf85mr90054777b3.23.1753372793308; Thu, 24 Jul 2025
- 08:59:53 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1753374191; x=1753978991;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=yhiejiw6P1oU1fHogYZkr3yX44GjB6ihpwxAsvxnYWM=;
+        b=go+yfH0+yjtzr7dYnUJeN35WfXkjhUSFhV2grfItUOAWbngHfT6OWRcZmu0YBIrWvb
+         O0tqTC78IA0nBgX8mzu7gMLiySSRPImZwi3bMXHphe5YQSltNJLr0tfwRIUOqbdIDqBA
+         NyGVrgY06BLgIXRiA1Ck/iNjKGrfovjHZLP3Bf6sNHmNXkz+6adVKZTFBV7BPA7GWwZw
+         T8rNU9HCWuV0+VAQ4PJCBa+ubOTvti8RsiQBqGIL5+A0cQU2Hzv79GFm6gssP2e/br2J
+         bpFxJJ/l6cPlYlbZRyFg5uJA6/eLICcH3DYvqNCGQ4+hRx9AKw3YI1M4yjHvgPWZNG9l
+         kEXw==
+X-Gm-Message-State: AOJu0YzR/ZhOujo+8V/sD5Jr98yScH8i/a8D3yJCJNdj+uRpoKZUUaUB
+	0g9rfIXAtJL0CWjKWSX2GY6deY+B8recepDl5kePORcSuItTly+UW2SVjm9VUHcWsw7QUALgcgv
+	0T0VewFkqkaWL
+X-Gm-Gg: ASbGncs7vruJAw4inNXvyE37KKtnWTkOw5VG8PY0UfmA7tXu6WmSlXN9EIBzmhnbCSS
+	b+B0aXt+4ChVs2wAbKZQwQEpAJWbnszrdCubCnN0mneRf94UjQ6rsGRcmm149OlGcPqhJ/dCDfq
+	V7yzl835H/q/koU2os0e4d00qBd13N3M2pkDFPNcIGjbu6rMjymYCZERbviyC1ZMsCyB2qLxc1Z
+	CdyrT7FwUWoFOwQWfJpawlouiqixL5jgC/22S/Kd34/CABPo2WxZxjp0dulCYmF/sM/FeRh/cIR
+	IM8UauJGzYru/Culr36FwwDENqE7sn9rwIv2msb3ezcu21BY4Lx6yr5EXPWUs5npb6II7yCQ3Ag
+	U7YQHVb1QoE6m5F89TTyXIgqhLQgUVW9KwS6f8AcAr/7p2waBke4ySa9L0zAXr0PvvRgtmEaV8g
+	nq
+X-Google-Smtp-Source: AGHT+IHTrhyrwbpK3Vog45AdiN2IWMed048TAlF/LSyXZN4WkfAf1USF85Okp/bxhwwkWDh9H1LSfQ==
+X-Received: by 2002:a5d:5846:0:b0:3a4:ea40:4d3f with SMTP id ffacd0b85a97d-3b768f27a57mr6533475f8f.53.1753374190612;
+        Thu, 24 Jul 2025 09:23:10 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Carlo Nonato <carlo.nonato@minervasys.tech>,
+	Marco Solieri <marco.solieri@minervasys.tech>
+Subject: [PATCH 0/4] xen/cache-col: Multiple fixes
+Date: Thu, 24 Jul 2025 17:23:02 +0100
+Message-Id: <20250724162306.2978741-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-References: <CANgacT8YrH66iUEPr60AVytXYMivPzxC0SO4_RPohjk1Vo2w8Q@mail.gmail.com>
- <a0892208-84c5-4cd6-b246-869e38ecf73c@suse.com>
-In-Reply-To: <a0892208-84c5-4cd6-b246-869e38ecf73c@suse.com>
-From: Aidan Allen <aidan.allen1@cloud.com>
-Date: Thu, 24 Jul 2025 16:59:42 +0100
-X-Gm-Features: Ac12FXyt2Y47HJ752tUF1U9T56RUcemk9EdlOnm4y1k_EPgW3IazHO_dcW3VM54
-Message-ID: <CANgacT_idZJtjxo2v5RFBf3rBL6fmz1drtWt9o5y8yGJNc15ZQ@mail.gmail.com>
-Subject: Re: [PATCH] x86/domain: Dump domain paging pool sizes with the rest
- of the pageframe info
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Bernhard Kaindl <Bernhard.Kaindl@cloud.com>, 
-	Xen-devel <xen-devel@lists.xenproject.org>, Roger Pau Monne <roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 24, 2025 at 12:52=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wr=
-ote:
->
-> On 24.07.2025 13:40, Aidan Allen wrote:
-> > --- a/xen/arch/x86/domain.c
-> > +++ b/xen/arch/x86/domain.c
-> > @@ -253,6 +253,10 @@ void dump_pageframe_info(struct domain *d)
-> >                 page->count_info, page->u.inuse.type_info);
-> >      }
-> >
-> > +    printk("    Domain paging pool: total: %d, free: %d, p2m: %d\n",
-> > +           d->arch.paging.total_pages, d->arch.paging.free_pages,
-> > +           d->arch.paging.p2m_pages);
->
-> Should this perhaps be gated, to avoid printing all zeroes for domains no=
-t
-> using an paging mode? Whether to use paging_mode_enabled() to do so I'm n=
-ot
-> sure, as a domain with no paging mode enabled could still have a paging
-> pool configured.
->
+Found because XEN_DOMCTL_set_llc_colors failed in XenServer's HostUEFI Secure
+Boot environment (which has additional checks on hypercalls).  Everything else
+came from trying to fix that.
 
-Hi Jan,
-I can gate this on total_pages > 0 if that would address your concern
-with paging_mode_enabled().
+https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1946483850
 
-However, regarding the gating itself, I don't believe that the line
-saved by not printing this
-is worth the potential confusion of somebody looking for this
-information and not finding
-it, I would prefer to leave it printing all zeroes.
+Andrew Cooper (4):
+  xen/cache-col: Remove bogus cast in domain_llc_coloring_free()
+  xen/cache-col: Fix freeing of colouring information
+  xen/cache-col: Fix initialisation of domain colouring information
+  tools/libxl: Remove unconditional XEN_DOMCTL_set_llc_colors hypercall
 
-Best, Aidan.
+ tools/libs/light/libxl_create.c | 24 +++++++++++---------
+ xen/common/domain.c             | 11 +++++++--
+ xen/common/llc-coloring.c       | 40 ++++++++++++++-------------------
+ xen/include/xen/llc-coloring.h  |  2 ++
+ xen/include/xen/sched.h         |  2 +-
+ 5 files changed, 42 insertions(+), 37 deletions(-)
+
+
+base-commit: 5c798ac8854af3528a78ca5a622c9ea68399809b
+-- 
+2.39.5
+
 
