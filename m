@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF902B102EF
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 10:09:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1055425.1423845 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FAECB1033E
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Jul 2025 10:18:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1055432.1423856 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uer1Q-00018o-PP; Thu, 24 Jul 2025 08:09:48 +0000
+	id 1uerA1-00039s-JN; Thu, 24 Jul 2025 08:18:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1055425.1423845; Thu, 24 Jul 2025 08:09:48 +0000
+Received: by outflank-mailman (output) from mailman id 1055432.1423856; Thu, 24 Jul 2025 08:18:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uer1Q-000169-Mm; Thu, 24 Jul 2025 08:09:48 +0000
-Received: by outflank-mailman (input) for mailman id 1055425;
- Thu, 24 Jul 2025 08:09:47 +0000
+	id 1uerA1-00037l-GT; Thu, 24 Jul 2025 08:18:41 +0000
+Received: by outflank-mailman (input) for mailman id 1055432;
+ Thu, 24 Jul 2025 08:18:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=P0IF=2F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uer1P-00015q-6d
- for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 08:09:47 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ id 1uerA0-00037Z-JD
+ for xen-devel@lists.xenproject.org; Thu, 24 Jul 2025 08:18:40 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8fbdfd4f-6865-11f0-a31e-13f23c93f187;
- Thu, 24 Jul 2025 10:09:46 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3a51481a598so337556f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 01:09:46 -0700 (PDT)
+ id cde71bda-6866-11f0-a31e-13f23c93f187;
+ Thu, 24 Jul 2025 10:18:40 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-4560d176f97so7196055e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 01:18:40 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-458705ce685sm10018005e9.30.2025.07.24.01.09.45
+ ffacd0b85a97d-3b76fc6e694sm1405020f8f.26.2025.07.24.01.18.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Jul 2025 01:09:45 -0700 (PDT)
+ Thu, 24 Jul 2025 01:18:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8fbdfd4f-6865-11f0-a31e-13f23c93f187
+X-Inumbo-ID: cde71bda-6866-11f0-a31e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753344586; x=1753949386; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9orYFZsS+q9WuDNFON2tB9u6s8ShG3drJ49J5kQ6WEU=;
-        b=ZjLDupAqWVLieECPgnz4TaI3vUO6F9XfgL62vXq1b1q1X/wxHjr1Wb36WIY5/MWWLQ
-         ikb8qI7n6mOkBxYL9kF2LeYhGmb/9Pe53lfSiZjs2W4qI4KYlZ6var4PaSHXm2MNpwzK
-         z0qtGCRACzX1WRnF+3qRNdZD2xRLFedLRv7bf9l6IvQ3ep/qFkMh6ePV7nWvw2UPHEbv
-         JZLPgozYXEfecJwTWJwnwGnAEn7sbfi71EgjDMOuBP4ATaa6dQ5IgxfFP/GeRIfTTtsu
-         NnF1wWCzOlVVlVuuixPDFcPI6nNB7dFZF5NEsjTbmUT+u/kUdXIkf6wa0HmeZCtDk2kc
-         Zp8A==
+        d=suse.com; s=google; t=1753345119; x=1753949919; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=VDYBidlo9z9SuCfARfAozkzp336V9FGAk4OecVdaPOc=;
+        b=T8Qz3Buwrajgigte4Ph18cXXu40Ty872o+D9RVrwYcuiYkqdgyxvTmJm02ueGN02wW
+         Bo9q3TTHyFPZbCCTItwLmZUUf7ifuHU2XxWTFkGes6o0lcYyDltI4vEDgSl7l3NXWfdI
+         5K8s/Fn0ePu1RuKFqgMfvVxHtMf+9U/McIISNY/gp+4umQCS3YaRLpC3uy/wdadmJcKm
+         amNkPqLrR3a+vOUsIK4lY5p647KSHJmf/OFaALN3VQXV/YbZWBxmInxdXTt04e1wyxmn
+         WgJOdzkCyXOvcscaqWKVg4FSYvMsr5vNR07MXvvt7U31fEYcVhVUfYNTOrOUeX5WMwkf
+         zo0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753344586; x=1753949386;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9orYFZsS+q9WuDNFON2tB9u6s8ShG3drJ49J5kQ6WEU=;
-        b=itRFOy+l9BUd5msY0mw8rH3tkQpsU5Udun1j7LqGnYWbog3m4c+Cobk3eOHtzyqUiy
-         ehq4mPFiLreSuicG8rdvhuj0NYpM9FG3LfBPoNn18LvvKbHqgF1OfcgMKR9LH5AFd0TF
-         7zB3z2tNiSyc75EXhnWenY/iRflWwySK6QBTUQPGwN7JDGDVFUXR7/7WhYcm8DZGOkzN
-         6K/WxBwJnpP/yF8w3TrtoMI36xpNSjmc8APvY32HV9+1K3Tl523Ddn22X9lCSHQgo+7N
-         9zwnWeeeK2OtZAyL1yDBeD5R1MHX1UzwO2j91sZs0wkauUAR8En6YGyhVTy/nrPJ+ItA
-         46dw==
-X-Forwarded-Encrypted: i=1; AJvYcCWQKw71rO/2pYgkz64VCNwp/2wevHkIE0djott9ypzW9hG9keJnRoi22ZO8q/bxkGx/f0ZBsfiscUo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzvi/YW7foGK79hzQzUWBPgHO/LlwD34LLxF799NcpcrWVYAW78
-	xWgqr0k2UMDCgEZoYUehD0TaIuGRxca/nBTRQLFaIiem1e8quMPrhq8isJTxS4vb72WPGFl6AHD
-	1b7w=
-X-Gm-Gg: ASbGncvv7x/ExZKxFGd2EBDTObunyA0wyeNj4FrVbY7gxowVbfNO51kGQ8SsAjIzN3F
-	gDJflw8aHpj6RSfL6Jf7tpGG23UDlyJXH2IXjoiOJz2KoW/2E8eOLGt47Vd1BiWngdKgTFC3eKn
-	5i7zYszydB1zKVcUDEoo8MbW+fOSBk4ZGgItveiMF7qdp6R54iF91c5stUxxc6n68cZR+DJNf/u
-	Y+rwYbZ7v7fv0uR0Mldt+yCz7kZWf5pNqAo+yGHGk5HO7PKxwJu7+/EtPRQzsYqxKreQJsHNoi+
-	m6VoDatBCG6lr+UMiJk474vH888wRpruBMHKVpJZGTGW1nv4YMODo06CR0rHeBB1ineunXR3LUV
-	hFoSQnneyLic60SHJyDssJXAR13gkMpThc9F0PgzWJWt7DC2gAIOALNTQWXU1VRkHsoQiwCE6TF
-	mooEQgTIQ=
-X-Google-Smtp-Source: AGHT+IEDCMN0N5CxkRQtdhr/SS4xxMSuVIP9UWdqdBTRmcRlkyLkd8auBv1ddhR059yoY96mrlNFlQ==
-X-Received: by 2002:a5d:64e9:0:b0:3a4:eec5:441c with SMTP id ffacd0b85a97d-3b768f02709mr4802804f8f.47.1753344585611;
-        Thu, 24 Jul 2025 01:09:45 -0700 (PDT)
-Message-ID: <c6fa0cc7-4cc3-476e-9030-381c45bbfb64@suse.com>
-Date: Thu, 24 Jul 2025 10:09:43 +0200
+        d=1e100.net; s=20230601; t=1753345119; x=1753949919;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=VDYBidlo9z9SuCfARfAozkzp336V9FGAk4OecVdaPOc=;
+        b=NRk1b+ZelH5uCls7tgSGhkIAnHhqfCFtlq9Uddd6b7kKbmoXjEMWSCW11NTEe/AhVF
+         eHIxwAEd8xNGeeZqHj3KasdIXFidgwOl/Mfnh/N8vmFkMi2FzeICfGoeXGmyYDJtclAz
+         Irt7+cNFl+vqBJyLtmm7vcsyhSPJN2DCanNCP3qKZoIr0bNta3kQhZBPqlGk/9HCrRjg
+         JvECQojJC3bMOYW+yO1SJYgenUAvGFQOibt6YLn0F0VqAiIqzkUXdR4br0z8gPb0pjgp
+         dC4WdTbikWAAwh1V6MeGV80Vdz2MeFV7Jn6Ms1elDlkiSGbCng0r5mtxj7s9phcui9dB
+         Kc+Q==
+X-Gm-Message-State: AOJu0YyT77Yx33M2Y4qb9KPD+SFj5ieuWbZLnxJK8coo1Qn8TSJAa0V5
+	AEN0GT9mbczx/tKQNDOsCqIFU2BKKNvbmXZQQ/ikFbQs/+W6XLrE/wq2mHe3kMkTY08DBvrmvsQ
+	pO4c=
+X-Gm-Gg: ASbGncsPROEvuRGAj9hSGzI43o6OGr5MTBTYcZnWDK7lVxcE6jRbZFERiXc8YgbNRlV
+	AIGSPBlpObwtuM6WfOstPeqhMvGSF7apikBML+lUUpM7wegZySWpCZgr8yT+Jo5vJbx7LAXrMB6
+	SIU2W/UIILBipXNJLUo71RZQzxZB0gKH8VDmj+7iQrG8uClu8f6aLo73aBORQn9ZftQRneFPmj7
+	uB/8HUs8NZZQ9t++wtmLj9ZeLmRLqgdTV5CMyfL8JgID6DsNLjBai308uuYRUsRqYHZA3zIUqn/
+	fS/4QVBBkESFL6uKfeOc3qN0uV2H7OrAaOL935vs+rCQMHNSB5eRMn+YvqPb+oEX8MJyQwb7nsK
+	Z14B1GjkIb17TudhDmmjEHo8bkbCftE0mB+O/bEVJzRYX/P6U+fI5rzdKux/14q+/lqkj2hWpvJ
+	nW/tQj0BSd3HG/MOSOVg==
+X-Google-Smtp-Source: AGHT+IGtCrB85k3uapWNe5YEjxX4JXh7wePELfS7hfg20dVWFEV+E/jrDIgCNe3pohf1yW+jD2qVYA==
+X-Received: by 2002:a05:600c:3b2a:b0:456:10a8:ff7 with SMTP id 5b1f17b1804b1-45868d29cc5mr47749965e9.28.1753345119369;
+        Thu, 24 Jul 2025 01:18:39 -0700 (PDT)
+Message-ID: <5dce6693-0a04-4cac-8a68-929f9ae2c124@suse.com>
+Date: Thu, 24 Jul 2025 10:18:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/8] vpci/header: Emulate extended capability list for
- dom0
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250724055006.29843-1-Jiqian.Chen@amd.com>
- <20250724055006.29843-2-Jiqian.Chen@amd.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] video/lfb: switch to xv[mz]alloc*()
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -121,20 +119,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250724055006.29843-2-Jiqian.Chen@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.07.2025 07:49, Jiqian Chen wrote:
-> Add a new function to emulate extended capability list for dom0,
-> and call it in init_header(). So that it will be easy to hide an
-> extended capability whose initialization fails.
-> 
-> As for the extended capability list of domU, just move the logic
-> into above function and keep hiding it for domU.
-> 
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+Use the more "modern" form, thus doing away with effectively open-coding
+xmalloc_array() at the same time. While there is a difference in
+generated code, as xmalloc_bytes() forces SMP_CACHE_BYTES alignment, if
+code really cared about such higher than default alignment, it should
+request so explicitly.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Also clear the pointers when freeing them.
 
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+v3: Use xv[mz]alloc_array().
+
+--- a/xen/drivers/video/lfb.c
++++ b/xen/drivers/video/lfb.c
+@@ -7,6 +7,8 @@
+ #include <xen/kernel.h>
+ #include <xen/lib.h>
+ #include <xen/errno.h>
++#include <xen/xvmalloc.h>
++
+ #include "lfb.h"
+ #include "font.h"
+ 
+@@ -147,9 +149,10 @@ int __init lfb_init(struct lfb_prop *lfb
+ {
+     lfb.lfbp = *lfbp;
+ 
+-    lfb.lbuf = xmalloc_bytes(lfb.lfbp.bytes_per_line);
+-    lfb.text_buf = xzalloc_bytes(lfb.lfbp.text_columns * lfb.lfbp.text_rows);
+-    lfb.line_len = xzalloc_array(unsigned int, lfb.lfbp.text_columns);
++    lfb.lbuf = xvmalloc_array(unsigned char, lfb.lfbp.bytes_per_line);
++    lfb.text_buf = xvzalloc_array(unsigned char,
++                                  lfb.lfbp.text_columns * lfb.lfbp.text_rows);
++    lfb.line_len = xvzalloc_array(unsigned int, lfb.lfbp.text_columns);
+ 
+     if ( !lfb.lbuf || !lfb.text_buf || !lfb.line_len )
+         goto fail;
+@@ -165,8 +168,8 @@ fail:
+ 
+ void lfb_free(void)
+ {
+-    xfree(lfb.lbuf);
+-    xfree(lfb.text_buf);
+-    xfree(lfb.line_len);
++    XVFREE(lfb.lbuf);
++    XVFREE(lfb.text_buf);
++    XVFREE(lfb.line_len);
+     lfb.lfbp.lfb = ZERO_BLOCK_PTR;
+ }
 
