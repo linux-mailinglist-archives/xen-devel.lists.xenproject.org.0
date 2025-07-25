@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBFB9B1230A
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 19:34:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1058300.1425931 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1C05B12310
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 19:39:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1058310.1425942 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufMJN-0006rf-4f; Fri, 25 Jul 2025 17:34:25 +0000
+	id 1ufMNt-0007Um-PC; Fri, 25 Jul 2025 17:39:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1058300.1425931; Fri, 25 Jul 2025 17:34:25 +0000
+Received: by outflank-mailman (output) from mailman id 1058310.1425942; Fri, 25 Jul 2025 17:39:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufMJN-0006pJ-1B; Fri, 25 Jul 2025 17:34:25 +0000
-Received: by outflank-mailman (input) for mailman id 1058300;
- Fri, 25 Jul 2025 17:34:22 +0000
+	id 1ufMNt-0007Ru-LL; Fri, 25 Jul 2025 17:39:05 +0000
+Received: by outflank-mailman (input) for mailman id 1058310;
+ Fri, 25 Jul 2025 17:39:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kfLl=2G=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1ufMJK-0006nY-SO
- for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 17:34:22 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ <SRS0=l1AR=2G=bounce.vates.tech=bounce-md_30504962.6883c134.v1-bd896dd9970f4bbbb2e8d23c3f5953e2@srs-se1.protection.inumbo.net>)
+ id 1ufMNs-0007Rm-Ir
+ for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 17:39:04 +0000
+Received: from mail180-9.suw31.mandrillapp.com
+ (mail180-9.suw31.mandrillapp.com [198.2.180.9])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 98c64496-697d-11f0-b895-0df219b8e170;
- Fri, 25 Jul 2025 19:34:20 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3a4ef2c2ef3so2001291f8f.2
- for <xen-devel@lists.xenproject.org>; Fri, 25 Jul 2025 10:34:20 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3b778f036c8sm447304f8f.49.2025.07.25.10.34.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Jul 2025 10:34:19 -0700 (PDT)
+ id 404435ab-697e-11f0-b895-0df219b8e170;
+ Fri, 25 Jul 2025 19:39:02 +0200 (CEST)
+Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail180-9.suw31.mandrillapp.com (Mailchimp) with ESMTP id 4bpZqS4wSYzK5vr6m
+ for <xen-devel@lists.xenproject.org>; Fri, 25 Jul 2025 17:39:00 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ bd896dd9970f4bbbb2e8d23c3f5953e2; Fri, 25 Jul 2025 17:39:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,166 +42,437 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98c64496-697d-11f0-b895-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1753464860; x=1754069660; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=dokkoXBEKyUDeD/ScNzfSMoSMKnknG1JnB1ur0echJE=;
-        b=oE1iDhlL47rOWezRSAplsQymYHchoAOiHPc4CufF4EWvXzcoZexHVATjobmr/BKqjm
-         zMP3hhPuhmlwIo58ACtrk+iAEMn4oV8XEi+RqjibGADdsat9kAAl0DqFW3T+rcq29IEn
-         C0q1dQeZjqRxtFSDUNKKn5kC4faTJa6tVNbsw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753464860; x=1754069660;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=dokkoXBEKyUDeD/ScNzfSMoSMKnknG1JnB1ur0echJE=;
-        b=lTSOKjh6oNSwHKDQO7wQqFXWLVkDb0xgl8A54uOSf4BMq4uv3u0xQchRmoQSzMF5nP
-         yIb22Ja1V8ce2TYa1ng5BOhVrshltjPUd0UWVOhdIPT33JEJpkBsdFh0adQXQNzDwn23
-         F3i+KDyaOR5JFMWUGVffEwIj5ER2FSpSEmUadZQ/nFrRiAkSXz7sHf+MpUI5iVEhyfm/
-         CqG6q7sanBNeHMLkmj1rHSAFbAYY07F4QSAjcVbz3FAoVO5bVzBQ3IqqY6DNWIsPETWn
-         h4/1s2i9YXuF6yjf716TsclblGEBHhBkUZbHVl4S0tupuotNe0JR7R7amlbCIpGvK+pt
-         LrCQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWojaW0UUgyWmFJaxo9wVvSydsDsL+vsy9X9M7Hx66wRd/D3ZJvdkN9VbNupOxLQnvsOKycMsqrKYE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw1eIb3c6uL54ZIJsaEioSmlJUeXgJQuTJj0r3Qg3SS66nZgy2d
-	5sd8K91z7quHhe954e0Yt7yekUJHY1t/1AqRSb7kT87a4isLk9L26GntdbyEmaFX2Hs=
-X-Gm-Gg: ASbGncs+wjcjNiDZgpRn3HFVnmrvt8GYoV7e2xvU3TJ3ktN0cLDS/qtdKdWEH9qlpl8
-	yjKc4W+taw+xZ9Ea3cN/dk1cRbbnATuf4nPQgWNKrd4FIhtguqrqxieQ1rkzev9zquGlqmVVNVt
-	TPGcOcqAnBhpBrndO536+G9BVxv1NfVW/ywXLiDr2j4SUXE9Sxql7TqdLzPn6o1ZDmESelNO4t3
-	oBDXxyfebVrRX2BXbiyH9EgQTQn/Wj56qlm0wZX2YShmRuFllKkJBjy8f6TfiQNbR3kdkqA0uDB
-	uzA+Fj8HQFao51cm9FNcwh4tjXz4nnQeMFo/PY6ymJpTeiMG5ZDqIB8SjwJjztE7VZT8zFLOjET
-	OIRac7dtVXQI/HdCMH5E6pCVDfqt6MMFbrx4nfRc9boI0TwYvkeGja7wbdz128wn5NyAIvLx0SF
-	5B
-X-Google-Smtp-Source: AGHT+IGz30qH5xAgVw30OBj/grgnweDPj1XVdtOzgkVAEWL72vnGml1gjDphjb192JyRgCdZYWnokg==
-X-Received: by 2002:a5d:5f93:0:b0:3b5:f0aa:b1e5 with SMTP id ffacd0b85a97d-3b77672df06mr2016273f8f.19.1753464859784;
-        Fri, 25 Jul 2025 10:34:19 -0700 (PDT)
-Date: Fri, 25 Jul 2025 19:34:18 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 7/8] x86/public: Split the struct cpu_user_regs type
-Message-ID: <aIPAGmasLVitVXxB@macbook.local>
-References: <20250311211043.3629696-1-andrew.cooper3@citrix.com>
- <20250311211043.3629696-8-andrew.cooper3@citrix.com>
- <8edba542-9844-409e-bbf0-5ff1c9287a10@suse.com>
- <eaaf2aef-129a-45ce-b5e7-ae884c2385f3@citrix.com>
- <fdbb0485-ec42-41c2-8fa5-d0560e0a10a4@suse.com>
+X-Inumbo-ID: 404435ab-697e-11f0-b895-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1753465140; x=1753735140;
+	bh=GT3QJrpakU+VtqlNttQz4ZILcHz+gnBrU7ZyIXVbxjk=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=jjhnTN+HrxAsu7a9dPsQTyYwTnpY6zwmHWr12BqraAnU65qn0F9as4qD9hk5iWstm
+	 UFOKEZAfGwVHDJgv3JOTp0VMbeWxng+JEchUpw9ky/7kF0KivNEu25px4T6A3N5+3Y
+	 qpszhgu4VSoGcRuMEGuvp9XQsRXSBb3dfJgdF9cquz3YIWA2kt+GbVJ0IpWL2SJhvh
+	 Li/RyJwGg+Sf6UVxHLTh6eajrhvxyjJQF5RqQUkWx6W2BCpSmeyFx0cNcGm66n5nx2
+	 ziamVMo0qJXNMWHYfR5KG1qi0QQH8xRKww3ujprl54FwXb1RNfPBBpULoFgy0s3Uxk
+	 faAeS6AXcDJuA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1753465140; x=1753725640; i=teddy.astie@vates.tech;
+	bh=GT3QJrpakU+VtqlNttQz4ZILcHz+gnBrU7ZyIXVbxjk=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=jYWAmYDu3japXefSg1trNTEZLzMNa7OeloR09F/2xAnvxM8mgamBYoJkLTrF/volc
+	 BjwDXoyv+Toq5GBWL87AluwJtCy4Im7c3Sav25dRE8/2IGmel3rSS45EYU4/8oq5ps
+	 SLJFsbDZ+zzN07Zg1tJYpANzuBwOvxmT1Nl5/7Tyj44Qv3Hjtd21trhpn/d9sa4Ct3
+	 n5AmCq5nEjDYZB3zIABTOx9GMo1DJj/C8g3vgG05XwtdXdAwFyoeFnvi7UgrNiDyxe
+	 dEQYYcKUwCJpsv3hCk7Ack48TDkaAZT9EJJdrsU9gTzFX4IdX/rgG/OJNuMQwbkhp0
+	 rBVdS7HDQQmwg==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v1=204/6]=20vpci:=20add=20SR-IOV=20support=20for=20PVH=20Dom0?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1753465138685
+Message-Id: <2e0f2a59-f0ff-45d1-8b0a-17e93c9ebc5d@vates.tech>
+To: "Mykyta Poturai" <Mykyta_Poturai@epam.com>, xen-devel@lists.xenproject.org
+Cc: "Stewart Hildebrand" <stewart.hildebrand@amd.com>, "Oleksii Kurochko" <oleksii.kurochko@gmail.com>, "Community Manager" <community.manager@xenproject.org>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>
+References: <cover.1753450965.git.mykyta_poturai@epam.com> <c5cd0e9cd75cacee2127c45635c999bd296853a7.1753450965.git.mykyta_poturai@epam.com>
+In-Reply-To: <c5cd0e9cd75cacee2127c45635c999bd296853a7.1753450965.git.mykyta_poturai@epam.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.bd896dd9970f4bbbb2e8d23c3f5953e2?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250725:md
+Date: Fri, 25 Jul 2025 17:39:00 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <fdbb0485-ec42-41c2-8fa5-d0560e0a10a4@suse.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Mar 24, 2025 at 10:47:29AM +0100, Jan Beulich wrote:
-> On 21.03.2025 16:11, Andrew Cooper wrote:
-> > On 17/03/2025 12:15 pm, Jan Beulich wrote:
-> >> On 11.03.2025 22:10, Andrew Cooper wrote:
-> >>> In order to support FRED, we're going to have to remove the {ds..gs} fields
-> >>> from struct cpu_user_regs, meaning that it is going to have to become a
-> >>> different type to the structure embedded in vcpu_guest_context_u.
-> >>>
-> >>> struct cpu_user_regs is a name used in common Xen code (i.e. needs to stay
-> >>> using this name), so renaming the public struct to be guest_user_regs in Xen's
-> >>> view only.
-> >>>
-> >>> Introduce a brand hew cpu-user-regs.h, currently containing a duplicate
-> >>> structure.  This removes the need for current.h to include public/xen.h, and
-> >>> highlights a case where the emulator was picking up cpu_user_regs
-> >>> transitively.
-> >>>
-> >>> No functional change.
-> >>>
-> >>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> >> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> > 
-> > Thanks.
-> > 
-> >>> cpu_user_regs_t and the guest handle don't seem to be used anywhere.  I'm
-> >>> tempted to exclude them from Xen builds.
-> >> I concur. We can always re-expose them should they be needed somewhere.
-> > 
-> > It's actually a little ugly to do.
-> > 
-> > #ifdef __XEN__
-> > #undef cpu_user_regs
-> > #else
-> > typedef struct cpu_user_regs cpu_user_regs_t;
-> > DEFINE_XEN_GUEST_HANDLE(cpu_user_regs_t);
-> > #endif
-> > 
-> > and I don't particularly like it, given the complexity of #ifdef-ary
-> > around it.  Thoughts?
+Le 25/07/2025 =C3=A0 16:26, Mykyta Poturai a =C3=A9crit=C2=A0:
+> From: Stewart Hildebrand <stewart.hildebrand@amd.com>
 > 
-> It's not really pretty, but I'd be okay with this.
+> This code is expected to only be used by privileged domains,
+> unprivileged domains should not get access to the SR-IOV capability.
 > 
-> >>> --- /dev/null
-> >>> +++ b/xen/arch/x86/include/asm/cpu-user-regs.h
-> >>> @@ -0,0 +1,69 @@
-> >>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> >>> +#ifndef X86_CPU_USER_REGS_H
-> >>> +#define X86_CPU_USER_REGS_H
-> >>> +
-> >>> +#define DECL_REG_LOHI(which) union { \
-> >>> +    uint64_t r ## which ## x; \
-> >>> +    uint32_t e ## which ## x; \
-> >>> +    uint16_t which ## x; \
-> >>> +    struct { \
-> >>> +        uint8_t which ## l; \
-> >>> +        uint8_t which ## h; \
-> >>> +    }; \
-> >>> +}
-> >>> +#define DECL_REG_LO8(name) union { \
-> >>> +    uint64_t r ## name; \
-> >>> +    uint32_t e ## name; \
-> >>> +    uint16_t name; \
-> >>> +    uint8_t name ## l; \
-> >>> +}
-> >>> +#define DECL_REG_LO16(name) union { \
-> >>> +    uint64_t r ## name; \
-> >>> +    uint32_t e ## name; \
-> >>> +    uint16_t name; \
-> >>> +}
-> >>> +#define DECL_REG_HI(num) union { \
-> >>> +    uint64_t r ## num; \
-> >>> +    uint32_t r ## num ## d; \
-> >>> +    uint16_t r ## num ## w; \
-> >>> +    uint8_t r ## num ## b; \
-> >>> +}
-> >> Can we try to avoid repeating these here? The #undef-s in the public header are
-> >> to keep external consumers' namespaces reasonably tidy. In Xen, since we don't
-> >> otherwise use identifiers of these names, can't we simply #ifdef-out those
-> >> #undef-s, and then not re-introduce the same (less the two underscores) here?
-> >> Granted we then need to include the public header here, but I think that's a
-> >> fair price to pay to avoid the redundancy.
-> > 
-> > Breaking the connection between asm/current.h and public/xen.h is very
-> > important IMO.  Right now, the public interface/types/defines are in
-> > every TU, and they absolutely shouldn't be.
+> Implement RW handlers for PCI_SRIOV_CTRL register to dynamically
+> map/unmap VF BARS. Recalculate BAR sizes before mapping VFs to account
+> for possible changes in the system page size register.
 > 
-> Hmm, that's a good point. Nevertheless I wonder if we still couldn't avoid the
-> unhelpful redundancy. E.g. by introducing a separate, small public header with
-> just these. Which we'd then pull in here as well.
+> Relies on dom0 to enable SR-IOV and PHYSDEVOP to inform Xen about
+> addition/removal of VFs.
 > 
-> > Sadly, the compiler isn't happy when including public/xen.h after
-> > asm/current.h, hence the dropping of the underscores.
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> ---
+>   CHANGELOG.md              |   3 +-
+>   SUPPORT.md                |   2 -
+>   xen/drivers/vpci/Makefile |   2 +-
+>   xen/drivers/vpci/header.c |   3 +
+>   xen/drivers/vpci/sriov.c  | 235 ++++++++++++++++++++++++++++++++++++++
+>   xen/drivers/vpci/vpci.c   |   1 +
+>   xen/include/xen/vpci.h    |   7 +-
+>   7 files changed, 247 insertions(+), 6 deletions(-)
+>   create mode 100644 xen/drivers/vpci/sriov.c
 > 
-> Even if the ones here are #undef-ed after use?
-> 
-> > I did have half a mind to expand them fully.  I find them unintuitive,
-> > but I also didn't think I'd successfully argue that change in.
-> 
-> Roger - do you have an opinion here? I like these wrappers, yet then I also
-> understand this is code that's pretty unlikely to ever change again. Hence
-> fully expanding them is an option.
+> diff --git a/CHANGELOG.md b/CHANGELOG.md
+> index 5f31ca08fe..7b0e8beb76 100644
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -23,8 +23,7 @@ The format is based on [Keep a Changelog](https://keepa=
+changelog.com/en/1.0.0/)
+>    - On x86:
+>      - Option to attempt to fixup p2m page-faults on PVH dom0.
+>      - Resizable BARs is supported for PVH dom0.
+> -   - Support PCI passthrough for HVM domUs when dom0 is PVH (note SR-IOV
+> -     capability usage is not yet supported on PVH dom0).
+> +   - Support PCI passthrough for HVM domUs when dom0 is PVH.
+>      - Smoke tests for the FreeBSD Xen builds in Cirrus CI.
+>   
+>    - On Arm:
+> diff --git a/SUPPORT.md b/SUPPORT.md
+> index 6a82a92189..830b598714 100644
+> --- a/SUPPORT.md
+> +++ b/SUPPORT.md
+> @@ -170,8 +170,6 @@ unexpected behavior or issues on some hardware.
+>   
+>   At least the following features are missing on a PVH dom0:
+>   
+> -  * PCI SR-IOV.
+> -
+>     * Native NMI forwarding (nmi=3Ddom0 command line option).
+>   
+>     * MCE handling.
 
-Hm, I don't have a strong opinion TBH, as I haven't done much work
-that required touching those.  I think the proposal is fine, we can
-always fully expand later if needed.
+I would prefer changelog/support changes to be a separate patch or 
+alternatively at the last patch as I don't think SR-IOV is fully working 
+without the 2 remaining ones.
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+> diff --git a/xen/drivers/vpci/Makefile b/xen/drivers/vpci/Makefile
+> index a7c8a30a89..fe1e57b64d 100644
+> --- a/xen/drivers/vpci/Makefile
+> +++ b/xen/drivers/vpci/Makefile
+> @@ -1,2 +1,2 @@
+> -obj-y +=3D vpci.o header.o rebar.o
+> +obj-y +=3D vpci.o header.o rebar.o sriov.o
+>   obj-$(CONFIG_HAS_PCI_MSI) +=3D msi.o msix.o
+> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+> index f947f652cd..0a840c6dcc 100644
+> --- a/xen/drivers/vpci/header.c
+> +++ b/xen/drivers/vpci/header.c
+> @@ -839,6 +839,9 @@ static int cf_check init_header(struct pci_dev *pdev)
+>   
+>       ASSERT(rw_is_write_locked(&pdev->domain->pci_lock));
+>   
+> +    if ( pdev->info.is_virtfn )
+> +        return 0;
+> +
+>       switch ( pci_conf_read8(pdev->sbdf, PCI_HEADER_TYPE) & 0x7f )
+>       {
+>       case PCI_HEADER_TYPE_NORMAL:
+> diff --git a/xen/drivers/vpci/sriov.c b/xen/drivers/vpci/sriov.c
+> new file mode 100644
+> index 0000000000..640430e3e9
+> --- /dev/null
+> +++ b/xen/drivers/vpci/sriov.c
+> @@ -0,0 +1,235 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Handlers for accesses to the SR-IOV capability structure.
+> + *
+> + * Copyright (C) 2018 Citrix Systems R&D
+> + */
+> +
+> +#include <xen/sched.h>
+> +#include <xen/vpci.h>
+> +
+> +static int vf_init_bars(const struct pci_dev *vf_pdev)
+> +{
+> +    unsigned int i, sriov_pos;
+> +    int vf_idx, rc;
+> +    const struct pci_dev *pf_pdev =3D vf_pdev->pf_pdev;
+> +    uint16_t offset, stride;
+> +    struct vpci_bar *bars =3D vf_pdev->vpci->header.bars;
+> +    struct vpci_bar *physfn_vf_bars =3D pf_pdev->vpci->sriov->vf_bars;
+> +
+> +    sriov_pos =3D pci_find_ext_capability(pf_pdev->sbdf, PCI_EXT_CAP_ID_=
+SRIOV);
+> +    offset =3D pci_conf_read16(pf_pdev->sbdf, sriov_pos + PCI_SRIOV_VF_O=
+FFSET);
+> +    stride =3D pci_conf_read16(pf_pdev->sbdf, sriov_pos + PCI_SRIOV_VF_S=
+TRIDE);
+> +
+> +    vf_idx =3D vf_pdev->sbdf.sbdf;
+> +    vf_idx -=3D pf_pdev->sbdf.sbdf + offset;
 
-Thanks, Roger.
+We can probably rewrite it as
+
+vf_idx =3D vf_pdev->sbdf.sbdf - (pf_pdev->sbdf.sbdf + offset);
+
+especially with sbdf being potentially not representable as a int (even 
+though very unlikely).
+
+> +    if ( vf_idx < 0 )
+> +        return -EINVAL;
+> +    if ( stride )
+> +    {
+> +        if ( vf_idx % stride )
+> +            return -EINVAL;
+> +        vf_idx /=3D stride;
+> +    }
+> +
+> +    /*
+> +     * Set up BARs for this VF out of PF's VF BARs taking into account
+> +     * the index of the VF.
+> +     */
+> +    for ( i =3D 0; i < PCI_SRIOV_NUM_BARS; i++ )
+> +    {
+> +        bars[i].addr =3D physfn_vf_bars[i].addr + vf_idx * physfn_vf_bar=
+s[i].size;
+> +        bars[i].guest_addr =3D bars[i].addr;
+> +        bars[i].size =3D physfn_vf_bars[i].size;
+> +        bars[i].type =3D physfn_vf_bars[i].type;
+> +        bars[i].prefetchable =3D physfn_vf_bars[i].prefetchable;
+> +        rc =3D vpci_bar_add_rangeset(vf_pdev, &bars[i], i);
+> +        if ( rc )
+> +            return rc;
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+> +static int map_vf(const struct pci_dev *vf_pdev, uint16_t cmd)
+> +{
+> +    int rc;
+> +
+> +    ASSERT(rw_is_write_locked(&vf_pdev->domain->pci_lock));
+> +
+> +    rc =3D vf_init_bars(vf_pdev);
+> +    if ( rc )
+> +        return rc;
+> +
+> +    return vpci_modify_bars(vf_pdev, cmd, false);
+> +}
+> +
+> +static int size_vf_bars(struct pci_dev *pf_pdev, unsigned int sriov_pos)
+> +{
+> +    /*
+> +     * NB: a non-const pci_dev of the PF is needed in order to update
+> +     * vf_rlen.
+> +     */
+> +    struct vpci_bar *bars;
+> +    unsigned int i;
+> +    int rc =3D 0;
+> +
+> +    ASSERT(rw_is_write_locked(&pf_pdev->domain->pci_lock));
+> +    ASSERT(!pf_pdev->info.is_virtfn);
+> +
+> +    if ( !pf_pdev->vpci->sriov )
+> +        return -EINVAL;
+> +
+> +    /* Read BARs for VFs out of PF's SR-IOV extended capability. */
+> +    bars =3D pf_pdev->vpci->sriov->vf_bars;
+> +    /* Set the BARs addresses and size. */
+> +    for ( i =3D 0; i < PCI_SRIOV_NUM_BARS; i +=3D rc )
+> +    {
+> +        unsigned int idx =3D sriov_pos + PCI_SRIOV_BAR + i * 4;
+> +        uint32_t bar;
+> +        uint64_t addr, size;
+> +
+> +        bar =3D pci_conf_read32(pf_pdev->sbdf, idx);
+> +
+> +        rc =3D pci_size_mem_bar(pf_pdev->sbdf, idx, &addr, &size,
+> +                              PCI_BAR_VF |
+> +                              ((i =3D=3D PCI_SRIOV_NUM_BARS - 1) ? PCI_B=
+AR_LAST
+> +                                                             : 0));
+> +
+> +        /*
+> +         * Update vf_rlen on the PF. According to the spec the size of
+> +         * the BARs can change if the system page size register is
+> +         * modified, so always update rlen when enabling VFs.
+> +         */
+> +        pf_pdev->physfn.vf_rlen[i] =3D size;
+> +
+> +        if ( !size )
+> +        {
+> +            bars[i].type =3D VPCI_BAR_EMPTY;
+> +            continue;
+> +        }
+> +
+> +        bars[i].addr =3D addr;
+> +        bars[i].guest_addr =3D addr;
+> +        bars[i].size =3D size;
+> +        bars[i].prefetchable =3D bar & PCI_BASE_ADDRESS_MEM_PREFETCH;
+> +
+> +        switch ( rc )
+> +        {
+> +        case 1:
+> +            bars[i].type =3D VPCI_BAR_MEM32;
+> +            break;
+> +
+> +        case 2:
+> +            bars[i].type =3D VPCI_BAR_MEM64_LO;
+> +            bars[i + 1].type =3D VPCI_BAR_MEM64_HI;
+> +            break;
+> +
+> +        default:
+> +            ASSERT_UNREACHABLE();
+> +        }
+> +    }
+> +
+> +    rc =3D rc > 0 ? 0 : rc;
+> +
+> +    return rc;
+> +}
+> +
+> +static void cf_check control_write(const struct pci_dev *pdev, unsigned =
+int reg,
+> +                                   uint32_t val, void *data)
+> +{
+> +    unsigned int sriov_pos =3D reg - PCI_SRIOV_CTRL;
+> +    uint16_t control =3D pci_conf_read16(pdev->sbdf, reg);
+> +    bool mem_enabled =3D control & PCI_SRIOV_CTRL_MSE;
+> +    bool new_mem_enabled =3D val & PCI_SRIOV_CTRL_MSE;
+> +
+> +    ASSERT(!pdev->info.is_virtfn);
+> +
+> +    if ( new_mem_enabled !=3D mem_enabled )
+> +    {
+> +        struct pci_dev *vf_pdev;
+> +        if ( new_mem_enabled )
+> +        {
+> +            /* FIXME casting away const-ness to modify vf_rlen */
+> +            size_vf_bars((struct pci_dev *)pdev, sriov_pos);
+> +
+> +            list_for_each_entry(vf_pdev, &pdev->vf_list, vf_list)
+> +                map_vf(vf_pdev, PCI_COMMAND_MEMORY);
+> +        }
+> +        else
+> +        {
+> +            list_for_each_entry(vf_pdev, &pdev->vf_list, vf_list)
+> +                map_vf(vf_pdev, 0);
+> +        }
+> +    }
+> +
+> +    pci_conf_write16(pdev->sbdf, reg, val);
+> +}
+> +
+> +static int vf_init_header(struct pci_dev *vf_pdev)
+> +{
+> +    const struct pci_dev *pf_pdev;
+> +    unsigned int sriov_pos;
+> +    int rc =3D 0;
+> +    uint16_t ctrl;
+> +
+> +    ASSERT(rw_is_write_locked(&vf_pdev->domain->pci_lock));
+> +
+> +    if ( !vf_pdev->info.is_virtfn )
+> +        return 0;
+> +
+> +    pf_pdev =3D vf_pdev->pf_pdev;
+> +    ASSERT(pf_pdev);
+> +
+> +    sriov_pos =3D pci_find_ext_capability(pf_pdev->sbdf, PCI_EXT_CAP_ID_=
+SRIOV);
+> +    ctrl =3D pci_conf_read16(pf_pdev->sbdf, sriov_pos + PCI_SRIOV_CTRL);
+> +
+> +    if ( (pf_pdev->domain =3D=3D vf_pdev->domain) && (ctrl & PCI_SRIOV_C=
+TRL_MSE) )
+> +    {
+> +        rc =3D map_vf(vf_pdev, PCI_COMMAND_MEMORY);
+> +        if ( rc )
+> +            return rc;
+> +    }
+> +
+> +    return rc;
+> +}
+> +
+> +static int init_sriov(struct pci_dev *pdev)
+> +{
+> +    unsigned int pos;
+> +
+> +    if ( pdev->info.is_virtfn )
+> +        return vf_init_header(pdev);
+> +
+> +    pos =3D pci_find_ext_capability(pdev->sbdf, PCI_EXT_CAP_ID_SRIOV);
+> +
+> +    if ( !pos )
+> +        return 0;
+> +
+> +    if ( !is_hardware_domain(pdev->domain) )
+> +    {
+> +        printk(XENLOG_ERR
+> +               "%pp: SR-IOV configuration unsupported for unpriv %pd\n",
+> +               &pdev->sbdf, pdev->domain);
+> +        return 0;
+> +    }
+
+Should it instead rely on xsm to know if it the operation is allowed or 
+not for this domain ?
+
+> +
+> +    pdev->vpci->sriov =3D xzalloc(struct vpci_sriov);
+> +    if ( !pdev->vpci->sriov )
+> +        return -ENOMEM;
+> +
+> +    return vpci_add_register(pdev->vpci, vpci_hw_read16, control_write,
+> +                             pos + PCI_SRIOV_CTRL, 2, NULL);
+> +}
+> +
+> +REGISTER_VPCI_INIT(init_sriov, VPCI_PRIORITY_LOW);
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
+> index 09988f04c2..7af6651831 100644
+> --- a/xen/drivers/vpci/vpci.c
+> +++ b/xen/drivers/vpci/vpci.c
+> @@ -120,6 +120,7 @@ void vpci_deassign_device(struct pci_dev *pdev)
+>       for ( i =3D 0; i < ARRAY_SIZE(pdev->vpci->header.bars); i++ )
+>           rangeset_destroy(pdev->vpci->header.bars[i].mem);
+>   
+> +    xfree(pdev->vpci->sriov);
+>       xfree(pdev->vpci->msix);
+>       xfree(pdev->vpci->msi);
+>       xfree(pdev->vpci);
+> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
+> index 06f7039f20..9e8dcab17e 100644
+> --- a/xen/include/xen/vpci.h
+> +++ b/xen/include/xen/vpci.h
+> @@ -138,7 +138,6 @@ struct vpci {
+>            * upon to know whether BARs are mapped into the guest p2m.
+>            */
+>           bool bars_mapped      : 1;
+> -        /* FIXME: currently there's no support for SR-IOV. */
+>       } header;
+>   
+>       /* MSI data. */
+> @@ -192,6 +191,12 @@ struct vpci {
+>               struct vpci_arch_msix_entry arch;
+>           } entries[];
+>       } *msix;
+> +
+> +    struct vpci_sriov {
+> +        /* PF only */
+> +        struct vpci_bar vf_bars[PCI_SRIOV_NUM_BARS];
+> +    } *sriov;
+> +
+>   #ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
+>       /* Guest SBDF of the device. */
+>   #define INVALID_GUEST_SBDF ((pci_sbdf_t){ .sbdf =3D ~0U })
+
+
+
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
 
