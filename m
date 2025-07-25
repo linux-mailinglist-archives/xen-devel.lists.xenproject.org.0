@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4F86B12537
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 22:18:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1058466.1426023 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C70E2B12543
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 22:25:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1058474.1426034 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufOrk-0001Or-BH; Fri, 25 Jul 2025 20:18:04 +0000
+	id 1ufOyw-0003JR-1U; Fri, 25 Jul 2025 20:25:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1058466.1426023; Fri, 25 Jul 2025 20:18:04 +0000
+Received: by outflank-mailman (output) from mailman id 1058474.1426034; Fri, 25 Jul 2025 20:25:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufOrk-0001NN-8S; Fri, 25 Jul 2025 20:18:04 +0000
-Received: by outflank-mailman (input) for mailman id 1058466;
- Fri, 25 Jul 2025 20:18:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ufOyv-0003HN-V5; Fri, 25 Jul 2025 20:25:29 +0000
+Received: by outflank-mailman (input) for mailman id 1058474;
+ Fri, 25 Jul 2025 20:25:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PByu=2G=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1ufOrj-0000pI-1b
- for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 20:18:03 +0000
-Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch
- [79.135.106.29]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 77241677-6994-11f0-a31e-13f23c93f187;
- Fri, 25 Jul 2025 22:18:02 +0200 (CEST)
+ id 1ufOyv-0003HH-3G
+ for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 20:25:29 +0000
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch
+ [109.224.244.16]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7b3b4c65-6995-11f0-b895-0df219b8e170;
+ Fri, 25 Jul 2025 22:25:18 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,94 +36,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77241677-6994-11f0-a31e-13f23c93f187
+X-Inumbo-ID: 7b3b4c65-6995-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1753474680; x=1753733880;
-	bh=glmWK8nkS3nU1seYQ7+FnFgeG+uFVBCKka9zpwHJftM=;
+	s=protonmail; t=1753475117; x=1753734317;
+	bh=3h+U2v9pXCWbMlFI6/Gro1AgPy7z+cSiltEdtaLqAP0=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=dnYteF2zBFFNvnPapKCduIAlBM15cyZmqTjK/JAYbNAZCvMiMgznO9sIQur6gEJ6R
-	 FOYn7fyn4zzRMyS6rCW0kTVktMOYIQhAbH+sAm/JA28aH2TOqHnPhrI5rY5KThhHce
-	 fpqR6YKqiCce10MPqhbYl4B18K/DRGAHlmpt7XnBAP+bTzzy/pjwBWlovBQ4mpcclA
-	 +K8F3gekGSDsuINtbK/gi7j/wdrvvsIWMqi9arJQKXz54t8yRNQ5B9s/K8qD7i4/w6
-	 BJukOwPQpW/JXsXpcf2p0NR2QPhQp7SMhYf/09ADU09kGhyxZlxJphR3IBD266GB6G
-	 7hJ1MkISWI63w==
-Date: Fri, 25 Jul 2025 20:17:55 +0000
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+	b=DstpRAOpw/MMqqgGdv8kSdpxSTuJ/S7UwjK3RlL1IdAoI3B5cQ7bqi5YUGIW61Y0L
+	 Eg4hLpL9v0sVjn81vfTCleCsOGyFMNmxd2ytn9v4TqW4No78DkuiASx+igFVK5Cwsk
+	 1nUnmA5qrQmh/avrpr4md9G7nMkrYC7s2uU3NwlIPzRxNvITfb+n9ywYIw4RY5RgnE
+	 69ObEGYTwVtTuyN65J0zwcXyy2JuHi3mZRG3hD4I7uMMDUT3JOO6WMlDNG3Tz6RGsz
+	 kOJQCjZRlFd+h7HctssHecDUVYGhi8b1lR6D5WaSEnFRpRDkfYSY+sggERU9MavY8a
+	 FwmFsUFNyN51A==
+Date: Fri, 25 Jul 2025 20:25:12 +0000
+To: Jan Beulich <jbeulich@suse.com>
 From: dmkhn@proton.me
-Cc: xen-devel@lists.xenproject.org, Bertrand Marquis <bertrand.marquis@arm.com>, Rahul Singh <rahul.singh@arm.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v2 2/2] xen/arm: smmuv3: fix xl pci-assignable-remove
-Message-ID: <aIPmbqTKFyl9p5HI@kraken>
-In-Reply-To: <20250725174553.15322-2-stewart.hildebrand@amd.com>
-References: <20250725174553.15322-1-stewart.hildebrand@amd.com> <20250725174553.15322-2-stewart.hildebrand@amd.com>
+Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>, xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 1/3] vpci: allow queueing of mapping operations
+Message-ID: <aIPoIwHgjTDfF6c5@kraken>
+In-Reply-To: <ffebedf9-c987-4f99-8ab1-de84df67d8bc@suse.com>
+References: <20250723163744.13095-1-stewart.hildebrand@amd.com> <20250723163744.13095-2-stewart.hildebrand@amd.com> <aIGh2i5+Z2CW0mPr@kraken> <aIGrin7bHQr5KvtJ@kraken> <ffebedf9-c987-4f99-8ab1-de84df67d8bc@suse.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 85955f89c0d4b6e6a520f06e53cbf08b64ddb013
+X-Pm-Message-ID: 1f2d2b7ab52bc0fe514eb85549abf6d1cb57e7e7
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jul 25, 2025 at 01:45:51PM -0400, Stewart Hildebrand wrote:
-> When attempting to xl pci-assignable-remove a PCI device, we encounter:
+On Thu, Jul 24, 2025 at 09:47:24AM +0200, Jan Beulich wrote:
+> On 24.07.2025 05:42, dmkhn@proton.me wrote:
+> > On Thu, Jul 24, 2025 at 03:00:46AM +0000, dmkhn@proton.me wrote:
+> >> On Wed, Jul 23, 2025 at 12:37:41PM -0400, Stewart Hildebrand wrote:
+> >>> Introduce vPCI BAR mapping task queue. Decouple map operation state f=
+rom
+> >>> general vPCI state: in particular, move the per-BAR rangeset out of
+> >>> struct vpci and into the map task struct.
+> >>>
+> >>> This is preparatory work for further changes that need to perform
+> >>> multiple unmap/map operations before returning to guest.
+> >>>
+> >>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> >>> ---
+> >>> v1->v2:
+> >>> * new patch
+> >>>
+> >>> Related: 622bdd962822 ("vpci/header: handle p2m range sets per BAR")
+> >>> ---
+> >>>  xen/common/domain.c       |   4 +
+> >>>  xen/drivers/vpci/header.c | 197 +++++++++++++++++++++++-------------=
+--
+> >>>  xen/drivers/vpci/vpci.c   |   3 -
+> >>>  xen/include/xen/vpci.h    |  16 +++-
+> >>>  4 files changed, 139 insertions(+), 81 deletions(-)
 >=20
-> $ xl pci-assignable-remove 00:01.0
-> (XEN) SMMUv3: <no-node>:  not attached to domain 32753
-> (XEN) d[IO]: deassign (0000:00:01.0) failed (-3)
-> libxl: error: libxl_pci.c:910:libxl__device_pci_assignable_remove: failed=
- to de-quarantine 0000:00:01.0
->=20
-> When a PCI device is being deassigned from domIO,
-> arm_smmu_deassign_dev() should return before checking the smmu domain.
->=20
-> Fixes: 63919fc4d1ca ("xen/arm: smmuv3: Add PCI devices support for SMMUv3=
-")
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> Acked-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> Why did I (and many others) end up on the To: list of this reply? (Breaks=
+ my
 
-Reviewed-by: Denis Mukhin <dmukhin@ford.com>=20
+Apologies for that, I might missed something when sending the email out.
 
-> ---
-> v1->v2:
-> * use %pd in print format
-> * add Bertrand's A-b
-> ---
->  xen/drivers/passthrough/arm/smmu-v3.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
+> rules of sorting incoming mail into appropriate folders, for context.) Al=
+so,
+> please trim reply context suitably. Without you doing so, every single re=
+ader
+> will need to scroll through the entirety of a long mail just to find (in =
+this
+> case) a single line of reply (somewhere in the middle). Of course you
+> shouldn't be too agressive with trimming, to retain proper context for yo=
+ur
+> reply.
+
+Ack.
+
 >=20
-> diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthro=
-ugh/arm/smmu-v3.c
-> index db08d3c04269..5e9e3e048e34 100644
-> --- a/xen/drivers/passthrough/arm/smmu-v3.c
-> +++ b/xen/drivers/passthrough/arm/smmu-v3.c
-> @@ -2747,11 +2747,6 @@ static int arm_smmu_deassign_dev(struct domain *d,=
- uint8_t devfn, struct device
->  =09struct arm_smmu_domain *smmu_domain =3D to_smmu_domain(io_domain);
->  =09struct arm_smmu_master *master =3D dev_iommu_priv_get(dev);
->=20
-> -=09if (!smmu_domain || smmu_domain->d !=3D d) {
-> -=09=09dev_err(dev, " not attached to domain %d\n", d->domain_id);
-> -=09=09return -ESRCH;
-> -=09}
-> -
->  #ifdef CONFIG_HAS_PCI
->  =09if ( dev_is_pci(dev) )
->  =09{
-> @@ -2767,6 +2762,11 @@ static int arm_smmu_deassign_dev(struct domain *d,=
- uint8_t devfn, struct device
->  =09}
->  #endif
->=20
-> +=09if (!smmu_domain || smmu_domain->d !=3D d) {
-> +=09=09dev_err(dev, " not attached to %pd\n", d);
-> +=09=09return -ESRCH;
-> +=09}
-> +
->  =09spin_lock(&xen_domain->lock);
->=20
->  =09arm_smmu_detach_dev(master);
-> --
-> 2.50.1
->=20
->=20
+> Jan
 
 
