@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E38C8B11857
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 08:16:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1057169.1425125 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94A34B1185B
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 08:16:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1057176.1425144 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufBj0-0000gt-AJ; Fri, 25 Jul 2025 06:16:10 +0000
+	id 1ufBj7-0001Tq-3v; Fri, 25 Jul 2025 06:16:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1057169.1425125; Fri, 25 Jul 2025 06:16:10 +0000
+Received: by outflank-mailman (output) from mailman id 1057176.1425144; Fri, 25 Jul 2025 06:16:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufBj0-0000cu-41; Fri, 25 Jul 2025 06:16:10 +0000
-Received: by outflank-mailman (input) for mailman id 1057169;
- Fri, 25 Jul 2025 06:16:08 +0000
+	id 1ufBj6-0001QD-UE; Fri, 25 Jul 2025 06:16:16 +0000
+Received: by outflank-mailman (input) for mailman id 1057176;
+ Fri, 25 Jul 2025 06:16:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+Yx3=2G=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1ufBiy-0007jJ-0q
- for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 06:16:08 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2061a.outbound.protection.outlook.com
- [2a01:111:f403:2413::61a])
+ id 1ufBj5-0007jJ-Hc
+ for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 06:16:15 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20618.outbound.protection.outlook.com
+ [2a01:111:f403:2415::618])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d8a426ee-691e-11f0-b895-0df219b8e170;
- Fri, 25 Jul 2025 08:16:06 +0200 (CEST)
-Received: from MW3PR05CA0020.namprd05.prod.outlook.com (2603:10b6:303:2b::25)
- by DM6PR12MB4385.namprd12.prod.outlook.com (2603:10b6:5:2a6::14) with
- Microsoft SMTP Server (version=TLS1_2,
+ id dcf7bc5b-691e-11f0-b895-0df219b8e170;
+ Fri, 25 Jul 2025 08:16:13 +0200 (CEST)
+Received: from SJ0PR13CA0109.namprd13.prod.outlook.com (2603:10b6:a03:2c5::24)
+ by LV8PR12MB9206.namprd12.prod.outlook.com (2603:10b6:408:186::21)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.22; Fri, 25 Jul
- 2025 06:16:02 +0000
-Received: from BY1PEPF0001AE18.namprd04.prod.outlook.com
- (2603:10b6:303:2b:cafe::51) by MW3PR05CA0020.outlook.office365.com
- (2603:10b6:303:2b::25) with Microsoft SMTP Server (version=TLS1_3,
+ 2025 06:16:07 +0000
+Received: from BY1PEPF0001AE1B.namprd04.prod.outlook.com
+ (2603:10b6:a03:2c5:cafe::ce) by SJ0PR13CA0109.outlook.office365.com
+ (2603:10b6:a03:2c5::24) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.7 via Frontend Transport; Fri,
- 25 Jul 2025 06:16:02 +0000
+ 25 Jul 2025 06:16:06 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BY1PEPF0001AE18.mail.protection.outlook.com (10.167.242.100) with Microsoft
+ BY1PEPF0001AE1B.mail.protection.outlook.com (10.167.242.103) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8964.20 via Frontend Transport; Fri, 25 Jul 2025 06:16:02 +0000
+ 15.20.8964.20 via Frontend Transport; Fri, 25 Jul 2025 06:16:06 +0000
 Received: from cjq-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 25 Jul
- 2025 01:15:59 -0500
+ 2025 01:16:02 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8a426ee-691e-11f0-b895-0df219b8e170
+X-Inumbo-ID: dcf7bc5b-691e-11f0-b895-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JkW1rwJhfynHEUlF1QleInnT+lfAKsP9jcCHYoMY72hFfpTM3k4NIAuYRSkR2wEv1/cqFUP3Q6wbrZhRo5x0es/TxEebw294HjnFhm5Dc92MX7P9ZF/UnVjOI/GcbWdfD3pUnC5c4DtWtlBHO0mvlsiLRRgSU9e6xx4fOgE/SphxTT8kgoog6FeyS0K4cd9j2zdEXs/m4KdhhDDC2P4qGARFFtqwKQQ6CKWZFUFu9f6LZEAP6h/sPWWuuUx70adhIFTunioLKJH2p7OpID/eOwaBuhJj717fRn/8xXN+ACgmqbYhCnAM6+s3rRBBAvDij7Zix/a9m2ziFTE25S0t8A==
+ b=NI6BUn2anC7iRl2CI7ISaSYHhDkrSKgmLmYyAAe2TPXW27FvVut3NkYotl+NjZnTbSia1fYFZ8qHwp+RztVufiZ0VTLkBkn2LB/bKsRhWFKbq+QPEKDv23osPq1glK0eYf6+tDWBLWbaaQ6e407zPWjdMZlKe+zkyJi/KVf0NZd24N9V/NJ5kqPmJsiixaebIXlyGEsqP77FbAC1Nmry7IYc61LUQG15CRjSl+JJtXCd4BLssvlyqYZDfg0x73QigEDWfMKP/vr9TLWbpF4hgyfj1/atCXuNPyN7U51GGQiyEp/saWKx0lQxb0REvEFu5ICv6KnmyZ4VT8PouAoiTw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KEinsSMwxWCPj+3nce9Z/57gNqQWJIZ0utVIOsKX6CY=;
- b=oFMdHLxqAHpRF5UYjp2HJZQhghBXXscYhRQNZRWy6JKRVvURI78NC+UiYPAsS73xNax3A2q9OdI6t4AN6wCqhg/u0NFyvna+dNNVWYZQirkh871OpdCMYYpw0GDWy5G6U0RzMLwCDth2jWxxUGlBI3IQ8EQmhjZf5+xbpMm8TeWiY1GChmaIhBtChj3RxNaIA/imNJtT67sf3MP4u+NxhIlrktsrmUyF7tiS/h492ecomD9eh2efJ0S7QRVoVDW0xhWIu4mwM+vwQklNEWiKdcM3rJjJUUXMSBTCjDAp1kq8x4NesZQqTeHBnlfWUeu3tKFhWV6dTBoLKG2AT46i7w==
+ bh=hQfkmLAlNfoJrk50r8mpXwdwQ271RHY6FOQJ2Macq+Q=;
+ b=KeFmt7VoLDEn0bYbz4oD4xi58gM+3aVX2PEGJdkKErXdsjnyT8fZNwyHSjwqfket2Yo3jT8IfNAFByVP/OougqG+nPSByTaP7YqfLN+9D5hm6EiK6xjNdvdcwcnkHDxY+dQ+ymx/Ty8RCHM42+udpJ0q8UWyLB+5K+MPD1cY1P1x8T2fY21u8HxNnivcvIYi2I4OSaAZ1P+J9ejmuQdxhhUUSZuX27wLkjh+1FU6946TuXhq/qUSV1YYV/iF5YGnboNx6X4m4757ddLv4xTF4mbY22X/4Y/1pbiaXLLRmhCdmbEd+unELZWeuB/JMFtpEc2VIpdcgrBTcjZob9E1Cg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KEinsSMwxWCPj+3nce9Z/57gNqQWJIZ0utVIOsKX6CY=;
- b=Sd5iF0CJ57IFfCwxtwfp0G7512Q3nZe9HdGWfq7L3Bo+p5godejUL9cLxrC/n55VexLqt7omi/sUYiJScNf1LZg98j5w3BgBbTV1trimUDtPH2SO4H6rhOeCKP6U7RQfE0EXRYqmGe1cQ/9q+83dj7+vpGyut8dHKJVMc6WEt54=
+ bh=hQfkmLAlNfoJrk50r8mpXwdwQ271RHY6FOQJ2Macq+Q=;
+ b=zYp8cwKs16NZC/G2z2xnTPSClyJiXy++NBoNLPUXn1/pEZbYjLz+iZQJnMsIv9UR5dfmdtlx5m6T41c5C3F5NHp+Sy/BNHg7Hoc/UalB/uE4OZEJi3TDQtCDpP6m0+faHSHn41jtSP6ox63/UJP7nQe7w8QGGcCWjeK33NDeqKQ=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,13 +80,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Jiqian Chen <Jiqian.Chen@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Huang Rui <ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>, "Daniel
- P. Smith" <dpsmith@apertussolutions.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
-	<marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH 05/11] xen/platform_op: Wrap around XENPF_efi_runtime_call
-Date: Fri, 25 Jul 2025 14:15:24 +0800
-Message-ID: <20250725061530.309953-6-Jiqian.Chen@amd.com>
+CC: Huang Rui <ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
+ Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, "Lukasz
+ Hawrylko" <lukasz@hawrylko.pl>, "Daniel P. Smith"
+	<dpsmith@apertussolutions.com>, =?UTF-8?q?Mateusz=20M=C3=B3wka?=
+	<mateusz.mowka@intel.com>, Dario Faggioli <dfaggioli@suse.com>, Juergen Gross
+	<jgross@suse.com>, George Dunlap <gwd@xenproject.org>
+Subject: [PATCH 06/11] xen/platform_op: Wrap around XENPF_enter_acpi_sleep
+Date: Fri, 25 Jul 2025 14:15:25 +0800
+Message-ID: <20250725061530.309953-7-Jiqian.Chen@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250725061530.309953-1-Jiqian.Chen@amd.com>
 References: <20250725061530.309953-1-Jiqian.Chen@amd.com>
@@ -98,142 +103,366 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE18:EE_|DM6PR12MB4385:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5992d1fe-c9d9-425f-123b-08ddcb42bb18
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE1B:EE_|LV8PR12MB9206:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1d83fa56-0dc8-4cec-9c3f-08ddcb42bd78
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700013|1800799024|376014;
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|7416014|36860700013;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?QVJLNk1GOGlQWUc5VUVOUEEvaFlkempmWTlheXlFWmdzS1F6N2twS1hyWUEy?=
- =?utf-8?B?ekNrTDJlMWNhZENuVXRaMmtIYUVRd2g3YzZEeVZlN2NnN1pGTWRmQ0RmUDlo?=
- =?utf-8?B?bUpQV1d1ekh5VW9WZFpHc0dJTFJLWjBnK1BGQ1c4WGVUcEVoTldTbFdtYW5n?=
- =?utf-8?B?bHZRdEpxWXRaSGlIanNpZzYvMXV3aDB5dmlhNDRWM29yc00yNU1sbHRIajI1?=
- =?utf-8?B?cDdrdlZkdTlFeGRLQW1iZlZpOElDZTNqUnBDZjlZQ05TSXpLdUlXcUlDWDZF?=
- =?utf-8?B?WHhnc25iZVJ6Q095V2xXbHI1WDlrTm9FcE5uTDEwOUJsbWdXZFJpMnB5cEwy?=
- =?utf-8?B?cUJwWVFrR3cvTXNubFpBaDNxM0FpRWRtODJOQmdick45Q0tDVG1ObkwrRStm?=
- =?utf-8?B?ZnhRcVF5Y3gyK3Jld1JhSEpNV0t0RHVYdGNObFRmanpacFhFbU5seDl1Z3lX?=
- =?utf-8?B?Rmt0YjFqSjFoTGJQaWdyanovNHd3dE1OaGxiRnlIZWcvY2ZMR0gveUtZeVhw?=
- =?utf-8?B?V1hOUHpUdFAxRldFbWxvTXNBUjkrbmN4alBoSmZPUEVBS2hJTGpuYnUyUXU1?=
- =?utf-8?B?cGZFVDZyQy8vY2tlSWcvSThHYzFWNXhBK0Y1c3BTeVNlNHgvZ0RQTWpMakl3?=
- =?utf-8?B?TGxRKzdzL1ZRdUVRVUZPSUs1TzZaTnNlaUc3R3lUdzhkWjJCb29mS0hyRnRh?=
- =?utf-8?B?cmRwWnNmaWlUaUpuWnhYTzhVRzhuekFnVkV3ZC9tWmg4d3ZrSU5QSDN3N1hs?=
- =?utf-8?B?QTByR1NQNTEremczQStNSE14aXl5ZGtpU0xyMWRWN1lPbVpyQUZNc1J5SW0v?=
- =?utf-8?B?TFkwQTNWYnBseHVTNmxvU05vcHQ1aWpJcGhhcXFkWDEzVlMwekRxajhaVUFW?=
- =?utf-8?B?K0hLcE1LSTZrTWYwM3ZVMU5FMm5ZNFhKMDcwdW1uc3R5YTFDa1dmVkpMVy8w?=
- =?utf-8?B?WGJLTHd6TS9YZkRDWDhMQW12RzBwaElRMFNPdldJajF6c0tRTll2aFp3KzVV?=
- =?utf-8?B?cVY5M2RsY3l0TUQ4T25YWTZZNFJCOW4xMWdxbjZ5VjBsZnNaanQ1NFhqRzZy?=
- =?utf-8?B?Z25lS0V1K2VtOUFidXR5Ynd5TXlmZmh4ZTVQZVVRMWF3dGpVaU9WeFdkMmVH?=
- =?utf-8?B?cVZlWWs3TWJPNURqQm9OMFZoaUxteWM4a3ZnQmZKZE0rWitheXF4Zm5UcmRQ?=
- =?utf-8?B?NDNyUW1NUEJwZGZqM2daczVnd04rU1NGMkhsTFMralljb1YxNjhEV0U1a3Nr?=
- =?utf-8?B?RThNMDFBMlc5V1pHRU9NeVQwVGNNNEsxSVRWeHNHZC9LQS9WUGp5cmkxZnNI?=
- =?utf-8?B?TENzZEE3cm8wMElhMk05NDhSWlZXU1ZObk9sc3UvSi9rS2FLNEhaNDRVQlMx?=
- =?utf-8?B?ZzNxdUZHUkJJRTFmLzV5UjVMYUpmelVFZkVvZVRQK3hiZnJYMW1xTDB4Y0Fz?=
- =?utf-8?B?TTVJc1ZoemxuNENuOEFwMlI4RjRPclVpamFlR09mVjdpSysyWGhuT1d5YmRU?=
- =?utf-8?B?ejFMVTRiQ0llY1dTaVdrUmtzNEs4ekQ1c0k5RlpheWZ2ejFyR1YwVUZpS0dH?=
- =?utf-8?B?bW8zaVV6UjY0aTlDajgyL2kxMEI4S2tST0VMRHNqRStlMVZZdFRYZE5sYW1U?=
- =?utf-8?B?Q1NKRVpjWVQ4UHZ5YWRxR2VhWVJmOEl3ZlNnUXNGbjB3TFZkYUlhSlI5RTJE?=
- =?utf-8?B?Q01KY3lwdVZGM3NhZFFseUlkdHZEN0lQQ0NYNnhnS0g5VGRpQjNwVTFPUHp4?=
- =?utf-8?B?VW5tMWFQOWNZaWVRMEpMc0s2TDVxS1BuNHhrOXpwU2QyZFBuV0Z6Q1I4QnFj?=
- =?utf-8?B?bWJUdHNmN0RqeDM1dUpQTGNwbnY5c0UrODBJa2wxY2VqRWFmQlVDWi92ZXUv?=
- =?utf-8?B?dmQ4UDRmQTJwdHFVaG16aTd2amQ0MGtEanljVndSVW5SdE1yUlU3Wlk1UWxj?=
- =?utf-8?B?YXdCK0gyRnVKTUduZFQwSlQ1dGVqdEQ5eHUzMVFhTnFJWG5oYXJNUHZTNXFL?=
- =?utf-8?B?NXQxbDNYeEo5ZVVaY3lwbS9odkh6VmpaUXMxQThpWHdnT2YxcTJSRmoxamti?=
- =?utf-8?Q?UdWzRr?=
+	=?utf-8?B?b1VEem51MXdDamRzeC82Q1o2M0piaVVTeVM3TWJxcEgwNllydDNYTVRrem03?=
+ =?utf-8?B?Z3NkeEhnbmQxd1laTytTb09XdDlBN1Vnd2ZsUCtHdk9lb0lZYkg0UVFSTjd0?=
+ =?utf-8?B?ZGVJQzRmMkx0TGxpOEhtSHVhOHpKOW1udFo2eFV1NWxMR1hVOXNnYWNCVWxq?=
+ =?utf-8?B?MndReXZadXp1dGErVEFEbHRodXdxL2prNTdONEUvMTVvZnF2UXovRGhwa3Jx?=
+ =?utf-8?B?UkFObTgySWxld0N3R0xLWE0rekdFNS9HZlp5QVhFamg3YTBKMDkzWXVOYW5W?=
+ =?utf-8?B?dHFjb2ZQN29jb1c3YXh3aFZJbVF5bGZQeW5yaVQ3VXBVSGVuUE9pQ01vL3FJ?=
+ =?utf-8?B?RzRyWENvRkJLNks4a3dpbTVsRE1UZ0N0b1hkVEJRa2VFeGhZdExXTy9tRzdW?=
+ =?utf-8?B?blBlRzBXMWZRWTB2Mm1FMCszcmJjV3huRk9BWXAzN3pOZm54azI4NTdyb1dT?=
+ =?utf-8?B?dTB2blJvV0tmeWM3V2Ivc01UaTBFUjlQN1hoUUFXMWg1OHIrUGRjSFlDN0sv?=
+ =?utf-8?B?TExUTUIrRUZxcVZtZ3p6c2VOMnVYMHNQNEJ6ZVU3TFZmTWh5aGdWT1k0Ykoy?=
+ =?utf-8?B?a0VjR0w0Z2JteWJMWmNFUDlUQkpHSXNPT2hZb1JmeWcvemRVSzg3aDEvSk9D?=
+ =?utf-8?B?Y01DMzlRVE4xK3BkNkZra1QxTUtBTzczS0kwV1VjT1hvS2E1T3Foa25PTEhz?=
+ =?utf-8?B?YU1DSVVkV0V4Sml1T0xtMEd5M2t3SlU2Z0dTZWZCZFUzTnJ2Z0dqTFlxbDFo?=
+ =?utf-8?B?b00vaGlCTFdEMit2c1MyQW9iMlRtd1hud0czNE5Bem5VakFiV2NRcXNFQ3N1?=
+ =?utf-8?B?TFlOUVZUbzlhdnlNU1V4SXJtUWdsZjBoY1FmLzgzb0loandwSjRad1pWdVFI?=
+ =?utf-8?B?ZTVVVHg5cm9UMFRuU2ZQOWdUMXd5Tjl1TFdmS0kyVzdiNHJuQU82SzNsNXBu?=
+ =?utf-8?B?WGRsWHZlVW5XQ2ovWjZCNTEyYndqcVNVdzVZa3FIbnEybjEzcFcxMk8zeXdH?=
+ =?utf-8?B?azhyMjh0T2dURGpiY0VKU1M2Wk03ZXlWSmpBOCtLRTZyMEh0K0FGWm5ObWZ3?=
+ =?utf-8?B?S3BpdXhnRnFFc244cTVQVjk5NHlSb0xyN2dWQlVhMlY4VU9wQi9EK3dlREdE?=
+ =?utf-8?B?L2xYSXZ4L1NOMFRUV20wRXdwTzlTMStIa1FiU0N5ZXVjcDRoVCttNWtvaTFX?=
+ =?utf-8?B?aWg0OCs0WVd2ZUJ5ZHo3TzVVS0NORExabEtiN0NhdGpUbFkyeDFpaEdoZzBo?=
+ =?utf-8?B?RURGTFppQ28zUDdzOWpySjh4MXVQVFh6RUY4UkVtR0tkOGtCakRsWllCemhY?=
+ =?utf-8?B?Z2M4OHdieVBzc1VlamM2UlVmcit2ejM0YmtiQXVtUW80M3lTdU9TWE03UUY5?=
+ =?utf-8?B?QWZHV3kzamQvZGFrUlNyV3VUYWlpNUxISDhPT1IrNXhMOUt1bWMvZXhuRWRR?=
+ =?utf-8?B?R0pLdXJEWlczZE5LL1hYMkM0azUzYjBVeEcrZW03RnNrODh4ZVdUZjZuazVB?=
+ =?utf-8?B?UlJaQjdIa1cyemJmeG0wdkdoUUFMNU1QT2txbEZJd2VUUFZFZjFHS0tWanl6?=
+ =?utf-8?B?TDJHdWt5RkdtYWplWkJtM2tKOEZRcEJhMS9ZQjMrdEpWY3NzRlIvQTNWNlBB?=
+ =?utf-8?B?eStLRnkzalRvQVFHd3IzNzc1UGIyMi82RC9CVmVUQ0gyaUJMUGEwUkd6YThu?=
+ =?utf-8?B?cGptb3I5Y1ZCbVRpQUVKZjI0SWtQWWQ0YW1EaUNYalBzbmJWTFZZeWNuM0Rq?=
+ =?utf-8?B?NktwWnZxZlVaejd0YmprVjAxQitTUHAvTUw0NlloS21Pblh0bE9zYWlVMEpC?=
+ =?utf-8?B?MGNWMDlONEZpMVV0ZFQ0aUlUZUxwOFhJKzRYelBVYUZHYmpjUm5vOTF0WXY5?=
+ =?utf-8?B?bjhScGVmeEhJczQ5dHhNQnMzU0tHOGJ0ZjdGQlgrYk8xRlZtbTZHRVhuNndp?=
+ =?utf-8?B?aTJuZHVXckpMNEJNN2ZJUXI4NWVkRFpxZDcyLzlHcUVEV0N6T0tDRTVzbjBB?=
+ =?utf-8?B?eTBQR0NOaHNJcVFSRFZkQXlrWThUeEthS0FKL29ud2h0azhRK2U3Zmk3OXN2?=
+ =?utf-8?Q?n4wkBU?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(7416014)(36860700013);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2025 06:16:02.2312
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2025 06:16:06.2219
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5992d1fe-c9d9-425f-123b-08ddcb42bb18
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d83fa56-0dc8-4cec-9c3f-08ddcb42bd78
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF0001AE18.namprd04.prod.outlook.com
+	BY1PEPF0001AE1B.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4385
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9206
 
-efi_runtime_call() is only used for XENPF_efi_runtime_call, wrap
-it and its compat function and its calling functions:
-efi_compat_runtime_call()
-gwstrlen()
-cast_time()
-cast_guid()
+Wrap call stack functions of XENPF_enter_acpi_sleep:
+acpi_enter_sleep
+	enter_state_helper
+		enter_state
+			freeze_domains
+			scheduler_disable
+				schedule_dummy
+			disable_nonboot_cpus
+			acpi_sleep_prepare
+			device_power_down
+				console_suspend
+					console_steal
+					suspend_steal_fn
+					serial_suspend
+				i8259A_suspend
+					save_ELCR
+				ioapic_suspend
+				iommu_suspend
+				lapic_suspend
+			device_power_up
+				lapic_resume
+					resume_x2apic
+				iommu_resume
+				ioapic_resume
+				i8259A_resume
+				console_resume
+					serial_resume
+					console_giveback
+			tboot_s3_resume
+			tboot_s3_error
+			acpi_sleep_post
+			enable_nonboot_cpus
+			thaw_domains
 
 Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
 ---
-cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-cc: "Marek Marczykowski-Górecki" <marmarek@invisiblethingslab.com>
 cc: Jan Beulich <jbeulich@suse.com>
+cc: Andrew Cooper <andrew.cooper3@citrix.com>
+cc: "Roger Pau Monné" <roger.pau@citrix.com>
+cc: Anthony PERARD <anthony.perard@vates.tech>
+cc: Michal Orzel <michal.orzel@amd.com>
+cc: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>
+cc: Lukasz Hawrylko <lukasz@hawrylko.pl>
+cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+cc: "Mateusz Mówka" <mateusz.mowka@intel.com>
+cc: Dario Faggioli <dfaggioli@suse.com>
+cc: Juergen Gross <jgross@suse.com>
+cc: George Dunlap <gwd@xenproject.org>
 ---
- xen/common/efi/common-stub.c | 4 ++--
- xen/common/efi/compat.c      | 2 +-
- xen/common/efi/runtime.c     | 2 ++
- 3 files changed, 5 insertions(+), 3 deletions(-)
+ xen/arch/x86/acpi/power.c       | 4 ++++
+ xen/arch/x86/apic.c             | 4 ++++
+ xen/arch/x86/i8259.c            | 2 ++
+ xen/arch/x86/io_apic.c          | 2 ++
+ xen/arch/x86/tboot.c            | 2 ++
+ xen/common/cpu.c                | 2 ++
+ xen/common/domain.c             | 4 ++--
+ xen/common/sched/core.c         | 2 ++
+ xen/drivers/char/console.c      | 6 ++++--
+ xen/drivers/passthrough/iommu.c | 2 ++
+ 10 files changed, 26 insertions(+), 4 deletions(-)
 
-diff --git a/xen/common/efi/common-stub.c b/xen/common/efi/common-stub.c
-index 05a84c60fb70..f3fb9b77d426 100644
---- a/xen/common/efi/common-stub.c
-+++ b/xen/common/efi/common-stub.c
-@@ -26,21 +26,21 @@ int efi_get_info(uint32_t idx, union xenpf_efi_info *info)
- {
-     return -ENOSYS;
+diff --git a/xen/arch/x86/acpi/power.c b/xen/arch/x86/acpi/power.c
+index 2ac162c997fe..a0c76a146793 100644
+--- a/xen/arch/x86/acpi/power.c
++++ b/xen/arch/x86/acpi/power.c
+@@ -66,7 +66,9 @@ static int __init cf_check parse_acpi_sleep(const char *s)
  }
--#endif /* CONFIG_PLATFORM_OP */
- 
- int efi_runtime_call(struct xenpf_efi_runtime_call *op)
- {
-     return -ENOSYS;
- }
-+#endif /* CONFIG_PLATFORM_OP */
- 
- #ifdef CONFIG_COMPAT
- 
- #ifdef CONFIG_PLATFORM_OP
- int efi_compat_get_info(uint32_t idx, union compat_pf_efi_info *)
-     __attribute__((__alias__("efi_get_info")));
--#endif /* CONFIG_PLATFORM_OP */
- 
- int efi_compat_runtime_call(struct compat_pf_efi_runtime_call *)
-     __attribute__((__alias__("efi_runtime_call")));
-+#endif /* CONFIG_PLATFORM_OP */
- 
- #endif
-diff --git a/xen/common/efi/compat.c b/xen/common/efi/compat.c
-index 4f5f59fcac2e..f350958c96b3 100644
---- a/xen/common/efi/compat.c
-+++ b/xen/common/efi/compat.c
-@@ -4,10 +4,10 @@
- #ifdef CONFIG_PLATFORM_OP
- #define efi_get_info efi_compat_get_info
- #define xenpf_efi_info compat_pf_efi_info
--#endif
- 
- #define efi_runtime_call efi_compat_runtime_call
- #define xenpf_efi_runtime_call compat_pf_efi_runtime_call
-+#endif
- 
- #define xenpf_efi_guid compat_pf_efi_guid
- #define xenpf_efi_time compat_pf_efi_time
-diff --git a/xen/common/efi/runtime.c b/xen/common/efi/runtime.c
-index ab63785397e2..b1f1d677d2cb 100644
---- a/xen/common/efi/runtime.c
-+++ b/xen/common/efi/runtime.c
-@@ -329,6 +329,7 @@ int efi_get_info(uint32_t idx, union xenpf_efi_info *info)
- }
- #endif /* CONFIG_PLATFORM_OP */
+ custom_param("acpi_sleep", parse_acpi_sleep);
  
 +#ifdef CONFIG_PLATFORM_OP
- static long gwstrlen(XEN_GUEST_HANDLE_PARAM(CHAR16) str)
- {
-     unsigned long len;
-@@ -715,4 +716,5 @@ int efi_runtime_call(struct xenpf_efi_runtime_call *op)
+ static DEFINE_SPINLOCK(pm_lock);
++#endif
  
-     return rc;
+ struct acpi_sleep_info acpi_sinfo;
+ 
+@@ -84,6 +86,7 @@ enum dev_power_saved
+     SAVED_ALL,
+ };
+ 
++#ifdef CONFIG_PLATFORM_OP
+ static int device_power_down(void)
+ {
+     if ( console_suspend() )
+@@ -376,6 +379,7 @@ int acpi_enter_sleep(const struct xenpf_enter_acpi_sleep *sleep)
+ 
+     return continue_hypercall_on_cpu(0, enter_state_helper, &acpi_sinfo);
  }
 +#endif /* CONFIG_PLATFORM_OP */
- #endif
+ 
+ static int acpi_get_wake_status(void)
+ {
+diff --git a/xen/arch/x86/apic.c b/xen/arch/x86/apic.c
+index 0fd8bdba7067..1ee9ee120cb2 100644
+--- a/xen/arch/x86/apic.c
++++ b/xen/arch/x86/apic.c
+@@ -479,12 +479,14 @@ static void __enable_x2apic(void)
+     }
+ }
+ 
++#ifdef CONFIG_PLATFORM_OP
+ static void resume_x2apic(void)
+ {
+     if ( iommu_x2apic_enabled )
+         iommu_enable_x2apic();
+     __enable_x2apic();
+ }
++#endif /* CONFIG_PLATFORM_OP */
+ 
+ void setup_local_APIC(bool bsp)
+ {
+@@ -635,6 +637,7 @@ void setup_local_APIC(bool bsp)
+     apic_pm_activate();
+ }
+ 
++#ifdef CONFIG_PLATFORM_OP
+ int lapic_suspend(void)
+ {
+     unsigned long flags;
+@@ -727,6 +730,7 @@ int lapic_resume(void)
+     local_irq_restore(flags);
+     return 0;
+ }
++#endif /* CONFIG_PLATFORM_OP */
+ 
+ 
+ /*
+diff --git a/xen/arch/x86/i8259.c b/xen/arch/x86/i8259.c
+index 5c7e21a7515c..8a7c89f3827e 100644
+--- a/xen/arch/x86/i8259.c
++++ b/xen/arch/x86/i8259.c
+@@ -255,6 +255,7 @@ static bool _mask_and_ack_8259A_irq(unsigned int irq)
+     return is_real_irq;
+ }
+ 
++#ifdef CONFIG_PLATFORM_OP
+ static char irq_trigger[2];
+ /**
+  * ELCR registers (0x4d0, 0x4d1) control edge/level of IRQ
+@@ -284,6 +285,7 @@ int i8259A_suspend(void)
+     save_ELCR(irq_trigger);
+     return 0;
+ }
++#endif
+ 
+ void init_8259A(int auto_eoi)
+ {
+diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
+index 1816e1c0b9f4..117ceeec633a 100644
+--- a/xen/arch/x86/io_apic.c
++++ b/xen/arch/x86/io_apic.c
+@@ -2174,6 +2174,7 @@ void __init setup_IO_APIC(void)
+     register_keyhandler('z', _print_IO_APIC_keyhandler, "dump IOAPIC info", 1);
+ }
+ 
++#ifdef CONFIG_PLATFORM_OP
+ void ioapic_suspend(void)
+ {
+     struct IO_APIC_route_entry *entry = ioapic_pm_state;
+@@ -2211,6 +2212,7 @@ void ioapic_resume(void)
+     }
+     spin_unlock_irqrestore(&ioapic_lock, flags);
+ }
++#endif /* CONFIG_PLATFORM_OP */
+ 
+ /* --------------------------------------------------------------------------
+                           ACPI-based IOAPIC Configuration
+diff --git a/xen/arch/x86/tboot.c b/xen/arch/x86/tboot.c
+index d5db60d335e3..ee142759acda 100644
+--- a/xen/arch/x86/tboot.c
++++ b/xen/arch/x86/tboot.c
+@@ -471,6 +471,7 @@ int __init cf_check tboot_parse_dmar_table(acpi_table_handler dmar_handler)
+ 
+ static vmac_t orig_mac, resume_mac;
+ 
++#ifdef CONFIG_PLATFORM_OP
+ int tboot_s3_resume(void)
+ {
+     if ( !tboot_in_measured_env() )
+@@ -512,6 +513,7 @@ void tboot_s3_error(int error)
+     printk("MAC for %s after S3 is: 0x%08"PRIx64"\n", what, resume_mac);
+     panic("Memory integrity was lost on resume (%d)\n", error);
+ }
++#endif /* CONFIG_PLATFORM_OP */
+ 
+ int tboot_wake_ap(int apicid, unsigned long sipi_vec)
+ {
+diff --git a/xen/common/cpu.c b/xen/common/cpu.c
+index f09af0444b6a..32e803d65da3 100644
+--- a/xen/common/cpu.c
++++ b/xen/common/cpu.c
+@@ -190,6 +190,7 @@ void notify_cpu_starting(unsigned int cpu)
+     cpu_notifier_call_chain(cpu, CPU_STARTING, NULL, true);
+ }
+ 
++#ifdef CONFIG_PLATFORM_OP
+ static cpumask_t frozen_cpus;
+ 
+ int disable_nonboot_cpus(void)
+@@ -247,3 +248,4 @@ void enable_nonboot_cpus(void)
+ 
+     cpumask_clear(&frozen_cpus);
+ }
++#endif /* CONFIG_PLATFORM_OP */
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 303c338ef293..5eeb3efdfad0 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -2411,7 +2411,7 @@ domid_t get_initial_domain_id(void)
+     return 0;
+ }
+ 
+-#ifdef CONFIG_SYSTEM_SUSPEND
++#if defined(CONFIG_SYSTEM_SUSPEND) && defined(CONFIG_PLATFORM_OP)
+ 
+ void freeze_domains(void)
+ {
+@@ -2438,7 +2438,7 @@ void thaw_domains(void)
+     rcu_read_unlock(&domlist_read_lock);
+ }
+ 
+-#endif /* CONFIG_SYSTEM_SUSPEND */
++#endif /* CONFIG_SYSTEM_SUSPEND and CONFIG_PLATFORM_OP*/
+ 
+ /*
+  * Local variables:
+diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+index ea95dea65a58..2ab86e6227df 100644
+--- a/xen/common/sched/core.c
++++ b/xen/common/sched/core.c
+@@ -2967,6 +2967,7 @@ const cpumask_t *sched_get_opt_cpumask(enum sched_gran opt, unsigned int cpu)
+     return mask;
+ }
+ 
++#ifdef CONFIG_PLATFORM_OP
+ static void cf_check schedule_dummy(void)
+ {
+     sched_tasklet_check_cpu(smp_processor_id());
+@@ -2978,6 +2979,7 @@ void scheduler_disable(void)
+     open_softirq(SCHEDULE_SOFTIRQ, schedule_dummy);
+     open_softirq(SCHED_SLAVE_SOFTIRQ, schedule_dummy);
+ }
++#endif /* CONFIG_PLATFORM_OP */
+ 
+ void scheduler_enable(void)
+ {
+diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+index c5afac9f7259..83da6f095aff 100644
+--- a/xen/drivers/char/console.c
++++ b/xen/drivers/char/console.c
+@@ -428,6 +428,7 @@ static unsigned int serial_rx_cons, serial_rx_prod;
+ 
+ static void (*serial_steal_fn)(const char *str, size_t nr) = early_puts;
+ 
++#ifdef CONFIG_PLATFORM_OP
+ int console_steal(int handle, void (*fn)(const char *str, size_t nr))
+ {
+     if ( (handle == -1) || (handle != sercon_handle) )
+@@ -445,6 +446,7 @@ void console_giveback(int id)
+     if ( id == 1 )
+         serial_steal_fn = NULL;
+ }
++#endif /* CONFIG_PLATFORM_OP */
+ 
+ void console_serial_puts(const char *s, size_t nr)
+ {
+@@ -1367,7 +1369,7 @@ void panic(const char *fmt, ...)
+         machine_restart(5000);
+ }
+ 
+-#ifdef CONFIG_SYSTEM_SUSPEND
++#if defined(CONFIG_SYSTEM_SUSPEND) && defined(CONFIG_PLATFORM_OP)
+ 
+ /*
+  * **************************************************************
+@@ -1392,7 +1394,7 @@ int console_resume(void)
+     return 0;
+ }
+ 
+-#endif /* CONFIG_SYSTEM_SUSPEND */
++#endif /* CONFIG_SYSTEM_SUSPEND and CONFIG_PLATFORM_OP*/
+ 
+ /*
+  * Local variables:
+diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
+index c9425d6971cb..0a0080452721 100644
+--- a/xen/drivers/passthrough/iommu.c
++++ b/xen/drivers/passthrough/iommu.c
+@@ -611,6 +611,7 @@ int __init iommu_setup(void)
+     return rc;
+ }
+ 
++#ifdef CONFIG_PLATFORM_OP
+ int iommu_suspend(void)
+ {
+     if ( iommu_enabled )
+@@ -624,6 +625,7 @@ void iommu_resume(void)
+     if ( iommu_enabled )
+         iommu_vcall(iommu_get_ops(), resume);
+ }
++#endif /* CONFIG_PLATFORM_OP */
+ 
+ int iommu_do_domctl(
+     struct xen_domctl *domctl, struct domain *d,
 -- 
 2.34.1
 
