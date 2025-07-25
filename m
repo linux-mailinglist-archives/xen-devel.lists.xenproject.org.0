@@ -2,45 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4958B12718
-	for <lists+xen-devel@lfdr.de>; Sat, 26 Jul 2025 01:09:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1058669.1426160 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53DB2B12724
+	for <lists+xen-devel@lfdr.de>; Sat, 26 Jul 2025 01:13:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1058679.1426170 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufRXU-0005QI-3L; Fri, 25 Jul 2025 23:09:20 +0000
+	id 1ufRbT-0007LB-KR; Fri, 25 Jul 2025 23:13:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1058669.1426160; Fri, 25 Jul 2025 23:09:20 +0000
+Received: by outflank-mailman (output) from mailman id 1058679.1426170; Fri, 25 Jul 2025 23:13:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufRXT-0005No-W2; Fri, 25 Jul 2025 23:09:19 +0000
-Received: by outflank-mailman (input) for mailman id 1058669;
- Fri, 25 Jul 2025 23:09:19 +0000
+	id 1ufRbT-0007J7-Hp; Fri, 25 Jul 2025 23:13:27 +0000
+Received: by outflank-mailman (input) for mailman id 1058679;
+ Fri, 25 Jul 2025 23:13:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=9num=2G=suse.com=dfaggioli@srs-se1.protection.inumbo.net>)
- id 1ufRXT-0005Ni-1z
- for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 23:09:19 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ id 1ufRbS-0007J1-Ga
+ for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 23:13:26 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [2a07:de40:b251:101:10:150:64:2])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 61523883-69ac-11f0-b895-0df219b8e170;
- Sat, 26 Jul 2025 01:09:13 +0200 (CEST)
+ id f57fd2a7-69ac-11f0-b895-0df219b8e170;
+ Sat, 26 Jul 2025 01:13:22 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 27DA62199C;
- Fri, 25 Jul 2025 23:09:13 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id EEFF81F387;
+ Fri, 25 Jul 2025 23:13:20 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A092B134E8;
- Fri, 25 Jul 2025 23:09:12 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6D103134E8;
+ Fri, 25 Jul 2025 23:13:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 5+6YJJgOhGhtYgAAD6G6ig
- (envelope-from <dfaggioli@suse.com>); Fri, 25 Jul 2025 23:09:12 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id nKywF5APhGiOYwAAD6G6ig
+ (envelope-from <dfaggioli@suse.com>); Fri, 25 Jul 2025 23:13:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,38 +53,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 61523883-69ac-11f0-b895-0df219b8e170
+X-Inumbo-ID: f57fd2a7-69ac-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1753484953; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1753485202; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=XyAfgEkc6W409reGBQCm1ZHcuYP7SaJ9Lwqkv7K+QrI=;
-	b=eAsQc6xDVNsoD3p6p21RCGcHd3qvXT3JHSxsq9Ybnl02zYO3z9X9b3mbuNZJJk4uStGQtA
-	PIiWYPzUZFwk1XeGWU0ZODY6I0Lgz3VXhbXFMWSQOQ03NtlvClPRJSWaZajrJCuF+lYwr1
-	xH2rfJ6hJlthy1hPcWzjwNzeoWFC8mQ=
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=eAsQc6xD
+	bh=UvTLmFDvDaUTGxgTzsIiQDpQiZfMIZ3SOWko/ZZgZzU=;
+	b=CNmr/I5CSGkxZXU0QH28v0gFgaks+wX/28ukl3Os1ITwiWFdq2ZH2Apr7iiJqLWsee0u6R
+	Vmva7qXSOi5gGIaoWHBElsgU3RpqRfjnwWRcAMB0uesxwBz19HcA0L1AE8qDdnqnBNWWmj
+	HIsPjwFH8qd5RHyhB36LoJoAiQjgAtE=
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=guuwdqqN
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1753484953; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1753485201; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=XyAfgEkc6W409reGBQCm1ZHcuYP7SaJ9Lwqkv7K+QrI=;
-	b=eAsQc6xDVNsoD3p6p21RCGcHd3qvXT3JHSxsq9Ybnl02zYO3z9X9b3mbuNZJJk4uStGQtA
-	PIiWYPzUZFwk1XeGWU0ZODY6I0Lgz3VXhbXFMWSQOQ03NtlvClPRJSWaZajrJCuF+lYwr1
-	xH2rfJ6hJlthy1hPcWzjwNzeoWFC8mQ=
-Message-ID: <3b39d7f21779965949c7151ee2cff4a54dd8dcc2.camel@suse.com>
-Subject: Re: [XEN PATCH] xen/arinc653: fix delay in the start of major frame
+	bh=UvTLmFDvDaUTGxgTzsIiQDpQiZfMIZ3SOWko/ZZgZzU=;
+	b=guuwdqqNkR7kf1TB1CLiapEqjXo2U3TZiHwuJOKx8WKrOqT6oIcUkYtpXl06GERjbFC3Rp
+	7pDiswFGYaxo2Oy3Uhd9x7s10zM9Q+kS8sn0NXL1zBVzxX/NXfvNbb/sp1GE4GtOJ2Rj5S
+	BoBiTSCHdWezQ40DiPF/DUyR7RexIzw=
+Message-ID: <c6ef1aa7fbb4a9e92896f4454682ba0d7bf9cfb3.camel@suse.com>
+Subject: Re: [XEN PATCH v4] xen/arinc653: fix delay in the start of major
+ frame
 From: Dario Faggioli <dfaggioli@suse.com>
-To: Anderson Choi <anderson.choi@boeing.com>,
- xen-devel@lists.xenproject.org, 	xen-devel@dornerworks.com
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>, Anderson Choi
+	 <anderson.choi@boeing.com>, xen-devel@lists.xenproject.org
 Cc: matthew.l.weber3@boeing.com, joshua.c.whitehead@boeing.com, Nathan
  Studer	 <nathan.studer@dornerworks.com>, Stewart Hildebrand
  <stewart@stew.dk>,  Juergen Gross <jgross@suse.com>, George Dunlap
- <gwd@xenproject.org>
-Date: Sat, 26 Jul 2025 01:09:03 +0200
-In-Reply-To: <26f4fb409f03cb221a98692c4f291756d9cc26ae.1751948342.git.anderson.choi@boeing.com>
+ <gwd@xenproject.org>, xen-devel@dornerworks.com
+Date: Sat, 26 Jul 2025 01:13:11 +0200
+In-Reply-To: <69b04328-59a1-4186-837e-19d608054aa7@amd.com>
 References: 
-	<26f4fb409f03cb221a98692c4f291756d9cc26ae.1751948342.git.anderson.choi@boeing.com>
+	<88a17c994f85270982e03912c9c9db916ca69d4e.1753395268.git.anderson.choi@boeing.com>
+	 <69b04328-59a1-4186-837e-19d608054aa7@amd.com>
 Autocrypt: addr=dfaggioli@suse.com; prefer-encrypt=mutual;
  keydata=mQINBFcqIZ4BEADwW0E1y+J8FG0kGAA0y5UqenJaGp9B6gpm6aAAVkKYBDreeasOb/LQ7
  OqYHbJpkEjDsEwS9K1/iCTtjSO02Klk0vW4T1rlRbjgtyCevHUwINQhYnwREWOkogeTAcrT+2tq/x
@@ -153,9 +156,14 @@ Autocrypt: addr=dfaggioli@suse.com; prefer-encrypt=mutual;
  fkAJ0OEQQ==
 Organization: SUSE Software Solutions Italy S.r.l.
 Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-Nh//RHQAnQN6gD+Iym22"
+	protocol="application/pgp-signature"; boundary="=-yf1v96o4HtqvhSCGRUys"
 User-Agent: Evolution 3.56.2 (by Flathub.org) 
 MIME-Version: 1.0
+X-Spam-Level: 
+X-Spam-Flag: NO
+X-Rspamd-Queue-Id: EEFF81F387
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spamd-Result: default: False [-6.61 / 50.00];
 	BAYES_HAM(-3.00)[99.99%];
 	SIGNED_PGP(-2.00)[];
@@ -178,59 +186,32 @@ X-Spamd-Result: default: False [-6.61 / 50.00];
 	RCVD_COUNT_TWO(0.00)[2];
 	FROM_EQ_ENVFROM(0.00)[];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
 	DKIM_TRACE(0.00)[suse.com:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:url,suse.com:mid,suse.com:dkim,suse.com:email]
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 27DA62199C
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:url,suse.com:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
 X-Spam-Score: -6.61
 
 
---=-Nh//RHQAnQN6gD+Iym22
+--=-yf1v96o4HtqvhSCGRUys
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2025-07-09 at 09:08 +0900, Anderson Choi wrote:
-> ARINC653 specificaion requires partition scheduling to be
-> deterministic
-> and periodic over time.
+On Thu, 2025-07-24 at 21:28 -0400, Stewart Hildebrand wrote:
+> On 7/24/25 18:33, Anderson Choi wrote:
+> >=20
+> > Fixes: 22787f2e107c ("ARINC 653 scheduler")
+> > Suggested-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> > Suggested-by: Nathan Studer <nathan.studer@dornerworks.com>
+> > Signed-off-by: Anderson Choi <anderson.choi@boeing.com>
 >=20
-> However, the use of current timestamp (now) as the baseline to
-> calculate
-> next_major_frame and next_switch_time introduces a delay in the start
-> of
-> major frame at every period, which breaks determinism and periodicity
-> in
-> partition scheduling.
+> Reviewed-by: Stewart Hildebrand <stewart@stew.dk>
 >
-> [...]
->=20
-> Enforce the periodic behavior of partition scheduling by using the
-> value
-> next_major_frame as the base to calculate the start of major frame
-> and
-> the next domain switch time. In addition, push next_switch_time until
-> it's behind the current time to ensure positive runtime for the newly
-> selected domain to run.
->=20
-This looks fine and correct to me, and it does indeed make perfect
-sense according to my knowledge of periodic real-time scheduling.
+Ok, cool, there were versions of these series that my filters did miss,
+and that's why I replied to v1. :-/
 
-I think the patch can have my:
-Acked-by: Dario Faggioli <dfaggioli@suse.com>
-
-With the only caveat that I don't have any specific knowledge or
-experience with the details of the ARINC653 algorithms, and hence I
-cannot tell for sure whether or not the new behavior is also more
-adherent to the standard (although, I suspect it does) or not.
-
-If we want/need this kind of guarantee too, I hope that Stewart and/or
-Nathan can help...
+Well, scratch that email, and sorry for the noise.
 
 Regards,
 --=20
@@ -241,26 +222,26 @@ SUSE Labs, SUSE https://www.suse.com/
 -------------------------------------------------------------------
 <<This happens because _I_ choose it to happen!>> (Raistlin Majere)
 
---=-Nh//RHQAnQN6gD+Iym22
+--=-yf1v96o4HtqvhSCGRUys
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmiEDo8ACgkQFkJ4iaW4
-c+49/RAAtlhJGCWbHk6xlSQD9yuRDS+tJNQxeuin+4DB+3ktW+pH1mrU9I9Er5Ir
-Er9s52o34b0Uj0X2oyEhN1HJzkBinyUAAgMtz/hBpW6EjMb8V2WLH6ArpVu3p0YN
-yv0OmI2SRPVyMQXs4mndMCnRpPV9d1pbPUcNjJViKSEkAQrW1kcQdiRVEtTTEBAH
-dTQ9ASIT7Z2xuDPTy9i7M0TdjUrTdlY+A6EX0N6wvqzrE3WMKdFjlvFxLypZxGp0
-yn4iB72WfAd/xEPp3i7eExj50B2xIVRO958skf9ptjJchbSr6M3s0YXn5hdyHbCA
-EaNh5RR9RNRLVUJ+URRd0Pday7igLmFbYqy0C9lZtS55NfolduV3bEi63/jqRAXg
-X4IcY4esEykJUd2BTF5Z9klQOFPO2yw1ndQg6AUnOZ+StV78qjTqTFXNX/2CSvpP
-E2L1SykcJ1EU9dAUC5h/0D0Nbni5FGKTxaaESWwEtoRWQQxguDKVihXCvK0AtJ+7
-0OtX8eapuaJzqo+Azo1b4acac53JN8HNSb1J/gDLCcRWmAQPDGJ6qJvK+BYZciFy
-tEKa2+YSLgOjc6GHA6F1aObQVSP+SAFUm/tIk28aQuQI+lqedYCjOQPiXsXhIRmH
-B6gd3hS1GYz0jtjnfH2uG1x10UZL6md5Ov/IBvQ1Ca5QKgb2iGY=
-=1L2s
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmiED4cACgkQFkJ4iaW4
+c+6GoA/9G1hcCiKF1ftvnAyyTEph3/r4ELi+XyWf5g49x13JfWdOx/lN1LWDM17+
+pdjdP41DmgkgeoFrt3XGcpQRLdWeBza9de9gjLRCSVg4OtmiXQz0aZjs+BG12b77
+dU+tlrcylLpERN4VkhF3m0rZfEpucfIqfN+tmQva3sqX+uIchq5JX1KnJejxTn/n
+UdF/a3cemXebXgWctGbblpXxwi7Jwxm0eQ5y5qrEbCFJs0V/vVJctZyxC7vXIBvf
+lP+lIHrcLpz754mqifWGOPYP3aZVwoVX46+kA4NyX5yofgPBh2xsVjnaHpMu+3Xe
+mJ6dRfHtvcNZpn2YXGdmQYGWej9nurbH40TavaE0/5LycEqDk+ETanKykQYhJSSe
+GmMK7u0yoHnsky3gVHgZB7z+NYjYbHC3inmk9OKu1z+r4ZeYdayKv1jbrWOfOKZB
+OE8l1yryrLQmL3pHmoB8HzmY3pYdErox1PjCb+JTfDysooWEknYHAX12nIdrv4bd
+kzDSFY+bcCuqBjfUJKbzEzbH20CWxSYgX8gKb9YwH5VoUw2TMKRb6Nn60hqiVwJi
+h/IrMPNp5RWrbr9HmSsnlfGo3fDsbQjIVJ3c8gSZA15rmugbjY5K/emRcyaqnfpv
+WKaCDu4buJmwsUCkJUaA5piyIF/FyWfC6fGuGP38snvDnIsdPNM=
+=4/WV
 -----END PGP SIGNATURE-----
 
---=-Nh//RHQAnQN6gD+Iym22--
+--=-yf1v96o4HtqvhSCGRUys--
 
