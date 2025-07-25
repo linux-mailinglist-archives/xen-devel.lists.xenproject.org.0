@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35AAFB11589
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 03:07:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1056770.1424778 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DA8BB115C2
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 03:22:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1056791.1424787 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uf6tQ-0004R2-B9; Fri, 25 Jul 2025 01:06:36 +0000
+	id 1uf77q-0007lN-GQ; Fri, 25 Jul 2025 01:21:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1056770.1424778; Fri, 25 Jul 2025 01:06:36 +0000
+Received: by outflank-mailman (output) from mailman id 1056791.1424787; Fri, 25 Jul 2025 01:21:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uf6tQ-0004Ov-7W; Fri, 25 Jul 2025 01:06:36 +0000
-Received: by outflank-mailman (input) for mailman id 1056770;
- Fri, 25 Jul 2025 01:06:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uf77q-0007jC-De; Fri, 25 Jul 2025 01:21:30 +0000
+Received: by outflank-mailman (input) for mailman id 1056791;
+ Fri, 25 Jul 2025 01:21:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=swpo=2G=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uf6tP-0004Op-Gj
- for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 01:06:35 +0000
+ id 1uf77p-0007j5-5j
+ for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 01:21:29 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9a4e78be-68f3-11f0-b895-0df219b8e170;
- Fri, 25 Jul 2025 03:06:33 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id af4fbc10-68f5-11f0-a31e-13f23c93f187;
+ Fri, 25 Jul 2025 03:21:27 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 0B8A15C68B3;
- Fri, 25 Jul 2025 01:06:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83719C4CEED;
- Fri, 25 Jul 2025 01:06:29 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 189605C67F5;
+ Fri, 25 Jul 2025 01:21:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FCA7C4CEED;
+ Fri, 25 Jul 2025 01:21:24 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,110 +41,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a4e78be-68f3-11f0-b895-0df219b8e170
+X-Inumbo-ID: af4fbc10-68f5-11f0-a31e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1753405590;
-	bh=LvpBOaC3zwRIZAbm0ha0Em6XE/UNSpmEP7Qapt/R04M=;
+	s=k20201202; t=1753406485;
+	bh=UtSYEnIleD+9Ur6V+wQToeEvBppMAGYpMZ1mRhhnvrc=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=ZarPRKt4Ay2473ZzvfdZxHYFMXvobkXh2B7lk07Crwedie0d33ac4HcCodE7ns1G+
-	 bUPHA1tQ4XrUBPDdnhjfEaBwL71KaspCwRHeeAIVQYxR9NWXSuKD7NBXRF8WO3gqB7
-	 GqtQuIJDLHlspv2a3lRSr8Ke3zkplMiM6xlpzbQ3AYYHy8NMfT1LD9c3tQlUlvII5G
-	 toEsxNYsvr63OIeBrCsyezWG0q2WyBjESc7nw9hBDj9N9ohg1C4hdY5PEfqirFPczG
-	 LvrY43Kn8N8flmVe/rCNZoL7AhrW4fcjatrBhaklS9/buK926Gnsh/zzei7YxZGtS4
-	 Z+dldBwrEowkA==
-Date: Thu, 24 Jul 2025 18:06:28 -0700 (PDT)
+	b=hNzp0pXi8DOXKo5NvKkmq9PwhdqFEAsWhYzz6EFCxAhZZQKrH6LOnjUqjp7MBGeDx
+	 bCG4NXqfXo62eKjM68pfZ37VDJX7I9lN7l0n4JXlS5AbVfKq3aXCcVjA0T0DPIRYU7
+	 IVggqbR+893v9tJOtK0136qEQ9WIDqu6TgW1oi1dMNGwLZKgC3osqvhloa6Jp5YSz2
+	 0aHYy5HLQ8uWS5oSt+NFfNEDhyOD6tjjFQRGSj7QPNUeVm5re2SisR0eDlimdAk9x+
+	 PPix/Hp5octeA3BT8nCmqnSbJvwTkM/8/1qzCNS0Vs0AFW7ZJIicR+A7kDxG22FE9W
+	 I19QQwHKaqaxA==
+Date: Thu, 24 Jul 2025 18:21:22 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Penny Zheng <Penny.Zheng@amd.com>, ray.huang@amd.com, 
+    Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
     Michal Orzel <michal.orzel@amd.com>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
     "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-    =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-    Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH] xen: add missing noreturn attribute
-In-Reply-To: <7b2884c6f89a0af671daa26798154b5ac0042a80.1753397522.git.dmytro_prokopchuk1@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2507241806210.2549622@ubuntu-linux-20-04-desktop>
-References: <7b2884c6f89a0af671daa26798154b5ac0042a80.1753397522.git.dmytro_prokopchuk1@epam.com>
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1] xen: move getdomaininfo() to domain.c
+In-Reply-To: <89b615e1-3ed4-4cc9-9222-4149b5a27e2e@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2507241820560.2549622@ubuntu-linux-20-04-desktop>
+References: <20250722050410.853783-1-Penny.Zheng@amd.com> <0939219f-1c06-4d0d-a427-6b95b5943513@suse.com> <alpine.DEB.2.22.394.2507221738090.7043@ubuntu-linux-20-04-desktop> <f75df6d6-ede6-41a6-9412-1a9b073902b5@suse.com> <alpine.DEB.2.22.394.2507231327280.7043@ubuntu-linux-20-04-desktop>
+ <89b615e1-3ed4-4cc9-9222-4149b5a27e2e@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Thu, 24 Jul 2025, Dmytro Prokopchuk1 wrote:
-> These functions never return to their caller,
-> causing a violation of MISRA C Rule 2.1:
-> "A project shall not contain unreachable code".
-> Add the `noreturn' attribute to fix this.
+On Thu, 24 Jul 2025, Jan Beulich wrote:
+> On 23.07.2025 22:30, Stefano Stabellini wrote:
+> > On Wed, 23 Jul 2025, Jan Beulich wrote:
+> >> On 23.07.2025 02:46, Stefano Stabellini wrote:
+> >>> On Tue, 22 Jul 2025, Jan Beulich wrote:
+> >>>> On 22.07.2025 07:04, Penny Zheng wrote:
+> >>>>> Function getdomaininfo() is not only invoked by domctl-op, but also sysctl-op,
+> >>>>> so it shall better live in domain.c, rather than domctl.c. Which is also
+> >>>>> applied for arch_get_domain_info(). Style corrections shall be applied at
+> >>>>> the same time while moving these functions, such as converting u64 to
+> >>>>> uint64_t.
+> >>>>>
+> >>>>> The movement could also fix CI error of a randconfig picking both SYSCTL=y
+> >>>>> and PV_SHIM_EXCLUSIVE=y results in sysctl.c being built, but domctl.c not
+> >>>>> being built, which leaves getdomaininfo() undefined, causing linking to fail.
+> >>>>>
+> >>>>> Fixes: 34317c508294 ("xen/sysctl: wrap around sysctl hypercall")
+> >>>>> Reported-by: Jan Beulich <jbeulich@suse.com>
+> >>>>> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> >>>>
+> >>>> I'm not convinced of this approach. In the longer run this would mean wrapping
+> >>>> everything you move in "#if defined(CONFIG_SYSCTL) || defined(CONFIG_DOMCTL)",
+> >>>> which I consider undesirable. Without DOMCTL, the usefulness of
+> >>>> XEN_SYSCTL_getdomaininfolist is at least questionable. Therefore adding more
+> >>>> isolated "#ifdef CONFIG_DOMCTL" just there may be an option. Similarly, as
+> >>>> mentioned on the other thread, having SYSCTL depend on DOMCTL is an approach
+> >>>> which imo wants at least considering. And there surely are further options.
+> >>>>
+> >>>> As indicated elsewhere, my preference goes towards reverting the final one or
+> >>>> two patches of that series. They can be re-applied once the dependencies were
+> >>>> properly sorted, which may (as per above) involve properly introducing a
+> >>>> DOMCTL Kconfig setting first.
+> >>>
+> >>> I don't think this is a good idea.
+> >>
+> >> And implicitly you say that what I put under question in the first paragraph
+> >> is a good way forward?
+> > 
+> > I think it is OK.
+> > 
+> > I also think "having SYSCTL depend on DOMCTL" is certainly worth
+> > thinking about. In terms of privilege and potential for interference
+> > with other domains sysctl and domctl don't seem different so it is
+> > unlikely one would want to disable one but not the other.
+> > 
+> > Another idea is to have a single kconfig for both SYSCTL and DOMCTL: we
+> > don't necessarily need to offer individual kconfig for every feature.
+> > From a safety point of view, we want to disable them both.
 > 
-> No functional changes.
-> 
-> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+> Then again (and going against the thought of making SYSCTL depend on DOMCTL)
+> there may be a desire to query / alter certain properties of the system as
+> a whole, without also having that need for individual domains. But yes,
+> covering both with a single control also is an option to consider.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> ---
->  xen/arch/arm/domain.c  | 2 +-
->  xen/arch/arm/setup.c   | 2 +-
->  xen/arch/arm/smpboot.c | 2 +-
->  xen/common/efi/boot.c  | 2 +-
->  4 files changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-> index 79a144e61b..310c578909 100644
-> --- a/xen/arch/arm/domain.c
-> +++ b/xen/arch/arm/domain.c
-> @@ -298,7 +298,7 @@ static void schedule_tail(struct vcpu *prev)
->  extern void noreturn return_to_new_vcpu32(void);
->  extern void noreturn return_to_new_vcpu64(void);
->  
-> -static void continue_new_vcpu(struct vcpu *prev)
-> +static void noreturn continue_new_vcpu(struct vcpu *prev)
->  {
->      current->arch.actlr = READ_SYSREG(ACTLR_EL1);
->      processor_vcpu_initialise(current);
-> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-> index 27bd3f5a6e..bb35afe56c 100644
-> --- a/xen/arch/arm/setup.c
-> +++ b/xen/arch/arm/setup.c
-> @@ -306,7 +306,7 @@ void __init init_pdx(void)
->  size_t __read_mostly dcache_line_bytes;
->  
->  /* C entry point for boot CPU */
-> -void asmlinkage __init start_xen(unsigned long fdt_paddr)
-> +void asmlinkage __init noreturn start_xen(unsigned long fdt_paddr)
->  {
->      size_t fdt_size;
->      const char *cmdline;
-> diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
-> index 73de7503e9..7f3cfa812e 100644
-> --- a/xen/arch/arm/smpboot.c
-> +++ b/xen/arch/arm/smpboot.c
-> @@ -315,7 +315,7 @@ smp_prepare_cpus(void)
->  }
->  
->  /* Boot the current CPU */
-> -void asmlinkage start_secondary(void)
-> +void asmlinkage noreturn start_secondary(void)
->  {
->      unsigned int cpuid = init_data.cpuid;
->  
-> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-> index df29444220..4b60bd719e 100644
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -285,7 +285,7 @@ static bool __init match_guid(const EFI_GUID *guid1, const EFI_GUID *guid2)
->  }
->  
->  /* generic routine for printing error messages */
-> -static void __init PrintErrMesg(const CHAR16 *mesg, EFI_STATUS ErrCode)
-> +static void __init noreturn PrintErrMesg(const CHAR16 *mesg, EFI_STATUS ErrCode)
->  {
->      StdOut = StdErr;
->      PrintErr(mesg);
-> -- 
-> 2.43.0
-> 
+If making SYSCTL depend on DOMCTL and/or a single kconfig for both
+SYSCTL and DOMCTL are both way forward, then we can take this patch as
+is?
 
