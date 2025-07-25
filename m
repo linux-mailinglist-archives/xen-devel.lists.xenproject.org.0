@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FDF9B12012
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 16:24:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1057929.1425617 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCCD6B1200E
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 16:24:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1057931.1425638 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufJLi-000707-Eb; Fri, 25 Jul 2025 14:24:38 +0000
+	id 1ufJLm-0007UZ-2w; Fri, 25 Jul 2025 14:24:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1057929.1425617; Fri, 25 Jul 2025 14:24:38 +0000
+Received: by outflank-mailman (output) from mailman id 1057931.1425638; Fri, 25 Jul 2025 14:24:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufJLi-0006xq-BU; Fri, 25 Jul 2025 14:24:38 +0000
-Received: by outflank-mailman (input) for mailman id 1057929;
- Fri, 25 Jul 2025 14:24:37 +0000
+	id 1ufJLl-0007RN-VA; Fri, 25 Jul 2025 14:24:41 +0000
+Received: by outflank-mailman (input) for mailman id 1057931;
+ Fri, 25 Jul 2025 14:24:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nGu/=2G=epam.com=Mykyta_Poturai@srs-se1.protection.inumbo.net>)
- id 1ufJLh-0006kC-HF
- for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 14:24:37 +0000
+ id 1ufJLk-0006kC-Ct
+ for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 14:24:40 +0000
 Received: from DB3PR0202CU003.outbound.protection.outlook.com
  (mail-northeuropeazlp170100001.outbound.protection.outlook.com
  [2a01:111:f403:c200::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1728b892-6963-11f0-b895-0df219b8e170;
- Fri, 25 Jul 2025 16:24:36 +0200 (CEST)
+ id 18e5f7e2-6963-11f0-b895-0df219b8e170;
+ Fri, 25 Jul 2025 16:24:39 +0200 (CEST)
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
  (2603:10a6:102:30d::12) by PA4PR03MB7421.eurprd03.prod.outlook.com
  (2603:10a6:102:103::24) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.22; Fri, 25 Jul
- 2025 14:24:32 +0000
+ 2025 14:24:33 +0000
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
  ([fe80::b8c6:f37a:987a:beb]) by PAVPR03MB10102.eurprd03.prod.outlook.com
  ([fe80::b8c6:f37a:987a:beb%4]) with mapi id 15.20.8964.021; Fri, 25 Jul 2025
- 14:24:32 +0000
+ 14:24:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,32 +47,31 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1728b892-6963-11f0-b895-0df219b8e170
+X-Inumbo-ID: 18e5f7e2-6963-11f0-b895-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RuvOUqIvEKZDDr5LvK1iNP1+zvODKUkPvmyvxCOqmTLDvrtAa/HAJXwYGJwXGATWqFAmaJwzzWW1ztEyAkQRowe62TDkXwiQXb857tL/tCWXPcb9jBd8wUMvUDn15m/vf8u8o8+raDlWDXJrj00VEwje/+4Zvwo9T6dntG1cNIs0XPH7vWGY/H2PHLTAz6CweFtPtW77qhE+XXKS1n8KROej08hdnH7MGlQJhGc4sKgcq6HwO2hbbmacer8LsIfrJm1dCdLOHzkSsUSeVJ5P3bKKCYbZi50Z6pXpC7Y2q/D2Ul7M0eIyTzz1AaoVGjrUROl4BtBHG0eYr6WhoculRA==
+ b=fV5uiZJrruc6giti5NfN7aXPY6nxEqyjSj8ksgLya6Ysz2bjGcvaio9tegSFYk5KGUr/lwRitSGVHQIchSyfM5/EIvwdTpXwqw3Srs0EbIVOj3+PsTfsG6aPkLAIq+0exWSNWcSzRwGAJ5mKEHRQQOAtfQZT68wFDYOj/+GOb9ExnTOMTCUhhd+X6i38EeFszYbRUUnk7PTfFwkeNQF3sLFUA5xwxqHpj4afi7fn2e8khABduM+zJq76ZszI2O/vZVKonMongRhRZZUDAvgnvmpaQKzV73XPjdIZkRzMJ6R/hpp1kiyPXjM+P77/lRlgm5HgYyEaQrxnQjOjFH0ogg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=inGNoog43S7nN5ydBltQmDOakREqZ24RMy5InFBpc04=;
- b=mLb6UuUoz43wvJg2YdCnl96holXntJruIEipSDxX37I/O/17LDFnu0bHqbkp6nk1fSDW6TvGd5tPgR6gl+XEI6cFAVCUWqekX1AOvAbYxSgZVLS8inw67JBPTeRyI4iyr/ZIRTtdnIyoHowOq6dDp9BTix7uYos+3cqvJigiHB8oeN1QkEIjxrikukcffgmy66IH/CTt/AikGtH0ui6SEujUHc93GrjULfn+ZIgXeoHHneTOogOihewE6zoJBBkKXS/NcSHqZP+1xNPGg9rypOUTiREa9XLdegebb4repuwhOkDAaonmxJcLZLcicbNpySHGPrdbPnZJ15TsyFbnkQ==
+ bh=JIQLJudvS0iGvsbes6lTN6/xCz1ojow732/uGj/xOVU=;
+ b=ayF9ssHGfInNsv87QIXi25L442KRK2PBT+Q4Bo4A8xhe3pKgAUlpFW6QdOlOUvsvtGyNuUR/+98w338qplQu38ksDWzcW210bcgfPotVBMM+ui+jBvgI7rG+1T/dFYY66FYb+iPJheJMJ8B7PqCZY/0M6Ae8qCgVC/k+ZrcjgIqyG5mmmIMdruOap0WCMAqRInO1/JqdPaMIj3PJQolWBEKTQlQuFWu1s+cYqoNm+74mMzinvD8+8pmw/mY/xOn06fFJkjJ0B+UV4sCnTX6qDVEUdwC+tjrslP/JW+5YjaVICsQHyEKPAp+ZJvBcQ1w3SPIi2fFuC4Er/O48sJcjRA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=inGNoog43S7nN5ydBltQmDOakREqZ24RMy5InFBpc04=;
- b=KpApqqAll5BDHgPhnn+icVCCvilCf/7NiCqftttXMh0JkuUJUnE2JjnPfV72OVcrocR9YBcpuqH9GNFkSFyBNE4yHRTY963AmINV6FZstXF0WOc+ms8v+mdlySue/a1NPPu4roV5AfPJYYjfCebPBJyyQ0rbpb+bhW/tfFsZSGutZiXIwxtxm6gIVPhZP1JlqPTmrrYdUb6AudjLLoAFffzMmSNDVOjCIOmPGdamv4hoILusUefvSggW5LfgubeXpVxpX6yhqoH0XIHRs6oqmpf58TiUEB6MaUw0OtS5cec8JSqUBAjHd90NUsFx3AYvqkZQeWDAh4OjQGQcQDDrWQ==
+ bh=JIQLJudvS0iGvsbes6lTN6/xCz1ojow732/uGj/xOVU=;
+ b=qX/6IQSwasNpctMwrlE1sURjb3+iTEi1dW9Y9YtWmdg9WaPJCnBm4nvLzmbdt/wkxXoD1ZZj7e67bEXyu4hYQGGXTBkdplTTnge7/zI4S8X2wDjWgTPuRU1cziKb7e3edDwd7sKmR5MEVEZYvFOcuASkAYEle5K96zKeGODakEqNzK/PbCCDXtoz8AbldrpYVlWavHWKA/PGh8FcjdeO5x1YmSPsFLcPtfQSt9i4BzfPBybbyIIEdTRIUvV94FR/WslJj4sSCc/j83OxJ/2OTROigpHsIqT+Pvr4iJX4AGwy4pI6DR/S+75KtnGsbp86IP6PQuQoGIXGggxGxskyQA==
 From: Mykyta Poturai <Mykyta_Poturai@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Stewart Hildebrand <stewart.hildebrand@amd.com>,
-	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Mykyta Poturai
-	<Mykyta_Poturai@epam.com>
-Subject: [PATCH v1 1/6] vpci: rename and export vpci_modify_bars
-Thread-Topic: [PATCH v1 1/6] vpci: rename and export vpci_modify_bars
-Thread-Index: AQHb/W/WGeBnINj/SU6xDj4XmbeIxg==
+CC: Mykyta Poturai <Mykyta_Poturai@epam.com>,
+	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>
+Subject: [PATCH v1 3/6] vpci: rename and export vpci_bar_add_rangeset
+Thread-Topic: [PATCH v1 3/6] vpci: rename and export vpci_bar_add_rangeset
+Thread-Index: AQHb/W/XjlJXEWa6DE2pU6XZEEu7zw==
 Date: Fri, 25 Jul 2025 14:24:32 +0000
 Message-ID:
- <d966c812dfa498db3a906c7ccbe0333d1833807e.1753450965.git.mykyta_poturai@epam.com>
+ <2c7999d1186738a9f57364f127b9fbbbd440ca78.1753450965.git.mykyta_poturai@epam.com>
 References: <cover.1753450965.git.mykyta_poturai@epam.com>
 In-Reply-To: <cover.1753450965.git.mykyta_poturai@epam.com>
 Accept-Language: en-US
@@ -83,70 +82,69 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|PA4PR03MB7421:EE_
-x-ms-office365-filtering-correlation-id: aa7f666f-e342-4d99-2308-08ddcb86f976
-x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
+x-ms-office365-filtering-correlation-id: bfd750f6-17d4-45ba-7e72-08ddcb86f9c1
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|366016|38070700018;
 x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?7zn7h5w3W762Ucg21SRCL/pNoicHt5W3kCMekeClFuSv3eH0tGr+SmbeBr?=
- =?iso-8859-1?Q?kduBbhSGX969gQ54V4zn0ZprwtG5wXJ66fZgCY7m3arrFFdtSN2fDVB+M/?=
- =?iso-8859-1?Q?7/TQBcGQyEuYTqc+B72KJxd65KueNEVNJTaYdpheKD2pWGHKadrXg3O+Sc?=
- =?iso-8859-1?Q?Lu9fgPO1g0sqv8iWhBR5tlyhKf2z2adNVW55AE1L+4OLK8Sn8cURQwBXp6?=
- =?iso-8859-1?Q?daDGqf4rhndQBLmShaYrm015Nm/vQnC9mVvSXVFE0ERknTqxAXLbjBGOSW?=
- =?iso-8859-1?Q?zkaI0I6+jBTWnu3irJaPQWVpRetvauYnXAvfb4sVHKXBRn7V6FqCM88B44?=
- =?iso-8859-1?Q?F3ZBCIz6haM0peszZydTF1O+7SUKThmhLcWhcLH3e8uhj8Gh2ycgLTl7q9?=
- =?iso-8859-1?Q?VzoyBvfcE9aBdSFOZKq+8PlHeh62qrWJLAPWgP+aqjbevpKisaTjSCNylW?=
- =?iso-8859-1?Q?Ck8asVEDnpK7T8HlWjJv0BrYD9pb95hW90Lan+GOe419+gt+MONTPcQdeo?=
- =?iso-8859-1?Q?n/gRZqvKxjZi0zMryHGqMerKqo9b6iElNNb8qmG8worvJSjSwbSPMksvWI?=
- =?iso-8859-1?Q?JanGwW7RX/twVAW+GwGjpjso/ceAYlj34jh4AujyC8hFzawB3RE8GKxa3D?=
- =?iso-8859-1?Q?DmRKn37D5M81Ki03wHsz5inLfZ+fVOmxgdBGj4F6ZbWDK+ZnANRuRTrHdT?=
- =?iso-8859-1?Q?Y1/204zYvrNb+QCUbqqRa9lZ9jtx5CN0ahPHggO3ltBa5lBcRYTUjcIXhM?=
- =?iso-8859-1?Q?08x2eT9fEyP/UYAK4bMdxwB0JNFhpA6YDRx+mEbKyRxEgJzoOZ+ZqSixf4?=
- =?iso-8859-1?Q?6hna4WqJ59Ojit0G8b43VckU7a3JX3aZkf56k8EI39HopJarqa8ijRxI71?=
- =?iso-8859-1?Q?JREcOBi45x+vYhyEp72s0qXWqp4jpRkgVUKXJyXNPm78S19jvfNIZJ7QeQ?=
- =?iso-8859-1?Q?m3i1IsvWa3JtozR+hKKCNBS7A2/4NOy0fll3/R5WiGms2PpXIB5RjjCSTg?=
- =?iso-8859-1?Q?mLveEmgzK8PmPYZLGQ3rkA+vSQV0JqAzas8r8NK3UTlu7HpCftWVIHPenJ?=
- =?iso-8859-1?Q?KnhWVpuNV/1E8u8AbFF+/FcXwI7LaKAbcmQ89vcL1LdcRhUMh1GsFqVSex?=
- =?iso-8859-1?Q?6BuxheMHpeqGw1fQ4nElJsicEeUhfg3PV3bREqT3QSdvQsCdLlXHGudA9i?=
- =?iso-8859-1?Q?MZJJfIMIXscg2nQGWgQFL4OPuyM7VX12LWMvcQyzuFELCEkKW3OOp9V26Q?=
- =?iso-8859-1?Q?Cu7RdTB11sajqD2UQHqmpM2wevGnqxwah3W6ibTaKP2UYzZtp0tg3kpy5o?=
- =?iso-8859-1?Q?ZWvvLWHjCyuz650DOFRQANFO7Lj+vFbkEmsfB13fElAjx7VrWKl1xD4Pok?=
- =?iso-8859-1?Q?F0441bWcPPlMSFGLn3p1qM3DkwpgaLxwpERMgFwvRJfuhp3Vw0RTqaRXRd?=
- =?iso-8859-1?Q?HG2Mv1MckhzFmYB1kWnHSwtLChY63bJuVXVzC9JW8Wn2NMD6wIM66yvwGz?=
- =?iso-8859-1?Q?ZNLlIy60hwJDOo+IbRoGAssOHbOXh+wfVOdIHTqrNdRA=3D=3D?=
+ =?iso-8859-1?Q?G3dohrMkJLSDNNj50NbRpEaN1FAVSPWXmaWG+icUh+FuDmYiYqqEFgyq1r?=
+ =?iso-8859-1?Q?FN14JopF5tuBwOrNTnqP+d1hwL3PLXhrSK4Ln5BFjvVTcEiQGtHckY8EO1?=
+ =?iso-8859-1?Q?HHeMt5XYTG3y/ycu2orjylXS9PkGUi2JOJdldsMm1kNdtEffVqSyCd0eGn?=
+ =?iso-8859-1?Q?ob4zlRI0jG5kvnM84BlUml4HYRG2jfygjJiE1og7LOevFkrWu9pOun33La?=
+ =?iso-8859-1?Q?GHclJgsV0VHavoi/1V8wafd2Rtg5BxhuI9NTN4w9Q2hDUs0/9fYL/mm/yx?=
+ =?iso-8859-1?Q?mpsyzhi61Vu01cMsSH5SRDiZKOQRzXbhg6wgxEoRtynHx0mFV8eje5lSeW?=
+ =?iso-8859-1?Q?gJ5tFX2EoXtVulvtnYrcwjInaIKuCeSGP0otz8dD6Ch8A+2aaMfvlVdTkn?=
+ =?iso-8859-1?Q?JQSSAYdM8fL0cHHCTl8Dr0nCxXSR8/rk6qZ0Q2TVsMZ5v/O4Rr47WZ346O?=
+ =?iso-8859-1?Q?b9uXR38MAQqTXWAPnEKrz8pl3qYJ/qzL77HpY22W6LUosE67ITdhL3Wr4i?=
+ =?iso-8859-1?Q?epY45QmeePOd8PtVjmo1uvC+Ri/EC0ultPhIeYScwdGx3rd8FDxErrtJoa?=
+ =?iso-8859-1?Q?GioZ8Rf34b9Q4GZIGcB12xj8vCu2fHCkRQEgpO9podkgL5apR3FS2Kk9Rr?=
+ =?iso-8859-1?Q?yOX/77kcVI5y0a/j7snQ1h8XQ0rF6ieU26RLTQNEZMStGxApb8epQ/3Wbw?=
+ =?iso-8859-1?Q?pdlEP/KxWntvBtosae162YWHEMh+DbTxqKyQe0XamNTK4pn5HqlUqU70t7?=
+ =?iso-8859-1?Q?SFGOIOcooLpXDSnNEw0WLkjzhfn7SpcSJx0JjNpuWyyz6BytIgjtZd/GCf?=
+ =?iso-8859-1?Q?XLuI7/yjZQt1NEjDA5VqZSCu6O49zLsgSU8rrWvCs871gGvHVT78O/IP4Y?=
+ =?iso-8859-1?Q?jN0SRgRBjdiY8tnFhYB0Tl+7Dn6hMuGfinQir3k76OmpQC/zfNTtpRpTkG?=
+ =?iso-8859-1?Q?mTXuGW6bJEi8BPDkoRUBwYAHiRH6a2TODDWq6IoN9j1LeLCfMu6cB4jp/N?=
+ =?iso-8859-1?Q?DBhKE2lUMmHRB4fzFKlKIClSyWFKQO4+QgMP4EqBFddLvavrnt3XkKmngi?=
+ =?iso-8859-1?Q?V7S6+5cqgQgtSGZLxTHdulnK3gp1fwWugRxLtK0AOLRU0huxV+mlLMGB5U?=
+ =?iso-8859-1?Q?xgv93aXvT8xogHYL8WdqKjvKM9g59dHyKgKMp7kZCrQ2sFa7fCEzH/0wd6?=
+ =?iso-8859-1?Q?NbPJpcaxRQCrWfE8+NDEO/AzXpIhEtUTIvOKAML8ljGyW8qOgcM5qN/Mhx?=
+ =?iso-8859-1?Q?J3XdY0r2ZXfBhr680c4ICcVqeNxrgozcTqOOD0sxNsVQOBhgxdmDB4LTh5?=
+ =?iso-8859-1?Q?IWo2LBQH6NP0s2iFcLn1sDWHRPvvwQKUSR5IJtqXT36w6A+Wl2GH0SmR7l?=
+ =?iso-8859-1?Q?3f1PDei4c30859Gg9pjbWd0AU+wCikLDud2Cl0gWOkGgHxKXR3U7dyPCgE?=
+ =?iso-8859-1?Q?9lgW7GWXlmLme4ZQxiXHXMUSfo7IvXdMigx34SnHNBzaanuj2sDUu44iIH?=
+ =?iso-8859-1?Q?9LTJ4gDO7jNe8AiVke8Tns/Asp80dE36GB7YunstlF/Q=3D=3D?=
 x-forefront-antispam-report:
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?3rYborc3aVqiZ7bACcPDgNqM7p26dFTECIiFy4clpwpGcrmyEN4EM1MR5c?=
- =?iso-8859-1?Q?NZiwC4gNWcKpDAId1DhW+A3NObQmGj/lRvp5ZP7GYVnn/C3D5mWTxO7wms?=
- =?iso-8859-1?Q?fiH2rD5mQzzdTPRinHi71Wl4PT4xfdnVDRBnZme1B3nsccHTWAhcIXonYe?=
- =?iso-8859-1?Q?SZUjQtpboi2XvVkrkkfxA5yLHXm/oFXrwmDVn7dtzNOlkdeQjzl/22/Ovc?=
- =?iso-8859-1?Q?2lTfYDSSht8lQShRCWDJvEIKCNC9LkbhWPBpIwMwpXw/bxNjeVIryOdd/O?=
- =?iso-8859-1?Q?NdSLVjOZXkx98ySpRJHdQeLbex/uNodMNg0gFY+m4dG+K+TWOLm9AftJxI?=
- =?iso-8859-1?Q?Ivm6fnZ1ZID0/TlnJSDWtZOIzodaRIxYTIvemvjwdcl/+e0G4EH/1wWDl6?=
- =?iso-8859-1?Q?pKhdGxYzzHiBzV/JAl9yWMBupteWtZnOSnVuJMVhag4f8MTWhHrwJU/CdB?=
- =?iso-8859-1?Q?RBe4xN4+gzkWmJaMvQGqH8YEZUcOFiY2IGoKJTbH51PV6pha4Z1L/cJdYd?=
- =?iso-8859-1?Q?RBnyA0JnqKWdtYV3xVhYNhxM0SZh+vucioiVa2YDMTk2wI/v+lZtZOwJTs?=
- =?iso-8859-1?Q?mPVsGdNzG7nm8XqsFwpuiRsgZrYwV6ymH30nCK6LNrBPadko/gQPiAUivG?=
- =?iso-8859-1?Q?Oyw3KJrOprGEcwnmbd7i0DdwAr9TBecYegseTzLvQ2GOeVfYDBSrE4hmcd?=
- =?iso-8859-1?Q?SQzlgVaAloANRxkJHzKbMshnpmUGMqqHoIhOKC0pca2yHXcLvQynVRFn/r?=
- =?iso-8859-1?Q?BabHJK3Z5/I9f23y7N39+cUMD2uSeI80062H6thg3QZ2cJZ7cSXv82iVtH?=
- =?iso-8859-1?Q?ng8ZaxLfxDV6tu8CmwvwizpUGKX/I5q7cuqKPOfMAtCLRwROanJAO0nGHt?=
- =?iso-8859-1?Q?SqgNaxq4mMXnQmSaU8xKPjRAdvPySGFY/UuSGGjBkTRjAby+/pjNW7gNpy?=
- =?iso-8859-1?Q?P3cYSoLMnxAnPGrRVwx5+RYaq9K56fepE5m1GOQEvW/d1mine9lK9TXrPa?=
- =?iso-8859-1?Q?1N/zhYBLu2K8n1BPj9l8rTOr3dpNo4JMuHrDSaS5n+W3ic2HB1IhqTJH7Q?=
- =?iso-8859-1?Q?RLNUqkYc/VJlBYMPPyJZmoXyRYJj48wDIagTgtPW4SEUm6MjMj4XY0CjvV?=
- =?iso-8859-1?Q?l1L8zgcIJNOZEsU67riekGfEVSsyZB8IYEDZ7ZqbbGUwK9pF6/fx4p7dkO?=
- =?iso-8859-1?Q?m432qI4oPKJM0wCo/i3lshU+s6IYXP3MmNOQxrB67xxiVx6TxW1n46b8D9?=
- =?iso-8859-1?Q?84SUFQWOM67BVBGo7b4HW+WzQD+uzIJDMx0I2Ls1t/SVwGcaFYENyMlhXU?=
- =?iso-8859-1?Q?3gCmRURttZ+JVRVPRBgIdOQkQG8Fn2/tabWIRlWvM/qqlrcNtNlxuR+1z4?=
- =?iso-8859-1?Q?eg5RIyJUKu5otg7u5LQI+L+wtTaVRVo876nmJLEVj2CeT29B+/t25VCNnL?=
- =?iso-8859-1?Q?CGvtHt4ar4G56TrA4RT0fcdrL+P5PwpaixBbgOtGIV9w07jOXgKhy8u23z?=
- =?iso-8859-1?Q?y0LeJ1bT0s5UgSgZtsr1aVxeHjdYnGde0mQ8sfR2GSPcxME2W4JQzHGoiN?=
- =?iso-8859-1?Q?XOTgCwGk0l2myylOmRP9W3vEbbaQexv/6h8JwttwYWaEf/E+X6own7Tlbc?=
- =?iso-8859-1?Q?msYUl5jQWnsJm0aQ/lVFrOl62p2i7u9oZO5dglWwMu9NO16SupnRQJIw?=
+ =?iso-8859-1?Q?J2wj+zwHbeodHXD24MQTcR56Yh+uVji2qJP46zJbWEInMHaAT73pX145W9?=
+ =?iso-8859-1?Q?sYrJwNh1xlXpF4GGt1jwbM2ktISgyByLH+toxztL68pnvGbkRhCzYBbyYD?=
+ =?iso-8859-1?Q?PRtOofztiX60ID/FU1I6Ps68+AUynfEwiu/l98bL0gLVbaSDrrqCf5l1sb?=
+ =?iso-8859-1?Q?7c5zJ59vQnruRafJSvziEQLqvoUZ8JLDfpanaikEpC6J7TplcChq9M86qV?=
+ =?iso-8859-1?Q?tjAhAftcN+6c4ss9c/g83JY0i9hcveb6zWg43dqj9WlzMM3eqUC6nYLdJq?=
+ =?iso-8859-1?Q?q2MvY8KobwdGb7IMaxnajeT2TwPKmkmTZ/mdsNdOzqKYbE45CScmD3L+w9?=
+ =?iso-8859-1?Q?/lOGXHnGIbRR4kacfs7SWEMr047ss4livgrw+UoyOmMoDiAVDuSwEaDiRB?=
+ =?iso-8859-1?Q?9DtxwQsSDGj8BhXyBEmVM7t8XwdPNLPsIvwZv7yUWIGX7Og97quGIeZPIU?=
+ =?iso-8859-1?Q?FJaavsM/0fBZhAZxOj+78KAeAGjDTcurrl5j+IY6JeUweai7J2ktFqOXEn?=
+ =?iso-8859-1?Q?NF6BwJrX/GtSGq0ijjOIbb+xgS84fqIDme6K/QHGoYwYcCt1zHWW87wyCS?=
+ =?iso-8859-1?Q?16qxMp4Sc+CLXkLDL7K/6z2NZQBpZINLxMUvmpKJW7MaUnjeFrV/+7W1xk?=
+ =?iso-8859-1?Q?DcgpRR8PM2Ri1MRgSiSCwIKaK/8t+FzKt5iUdz6wpT1dQUa8FXfAZR52/w?=
+ =?iso-8859-1?Q?fjMUB6UdlREGSsbXXYkGungbia0PWzPMivzz1ms+2qNqO02WHkyVR45U9x?=
+ =?iso-8859-1?Q?JO2UrwSWFk9kj0YHVcQHfbU6lGfcMUer9VvvZ9JCQZT5BjulcZ+ICPAoz2?=
+ =?iso-8859-1?Q?Yr2er96HFngn3eUGWE1b9iMP0cB9Td5344TVydENCY/T/Cpft/NuZlpGqY?=
+ =?iso-8859-1?Q?TGMcvVG/kpg4pZooh/BlKtySZtnPZ18U116UKeNZkDoK3rB0baW5xvqU29?=
+ =?iso-8859-1?Q?y+S3IG7QBEgFr9NoiNLQy3YMNGClLqgujpk/n3HCIu/GuQ6WBIyXDi3I3+?=
+ =?iso-8859-1?Q?uGvamWGzU0q2Q0sdUt+jcAtrwGpl1924RzYvO8hD4/ESOm6qhOx1bvZ7Mj?=
+ =?iso-8859-1?Q?9ANwYVSOevqaa7sL7Cd/xlu00oeMdSCWs/p7gPi5kx1Uwt98Zx7IxURalF?=
+ =?iso-8859-1?Q?1AB15yr0U72f4LMAkhql/DTY4WQFejXFP49TCwoPh9zdpDl53g3g9V1dwa?=
+ =?iso-8859-1?Q?tUWy+y0wIj8SG0qhslcrHzIC5SW1p1DAfe6jW4h484QI3MRdvGtMqVUSNK?=
+ =?iso-8859-1?Q?kpRqogekabb9KZ8zs1j6wjen0r4k2kT1+vzSMYwScZanAf7jL+xIzZ1LPp?=
+ =?iso-8859-1?Q?nENIeaVxu2CBc2QJftaS4ISrhMjV0ts/bTTH2D+UPv08cdelJdBvHK4CZq?=
+ =?iso-8859-1?Q?EjbEeie2JEiZF5WqD7r80SuM3yfLMp7NjVFaH6utZAfza8O4aPTig5WBD2?=
+ =?iso-8859-1?Q?upSwMCpMVxE7ImBTR/DJxvAqdxii2KmoUFUUu/vrO9qmoe5wg+ELtXJ7Dc?=
+ =?iso-8859-1?Q?gzstkZsatZP9HWdKbNFRTpictNdRC0GJ7nSmW8OZ8n8ltwo0cbjSelqbMp?=
+ =?iso-8859-1?Q?ISDkbzi22mgq/Oi4f6xX0722wogYlp+POXwZCwvD9WtqWwNE6bzpxjnTck?=
+ =?iso-8859-1?Q?8y399D0DmWd1iKE/ZbetQi216Rp6bkdji3FQBTc1FZTlHFck3oOg8hzg?=
  =?iso-8859-1?Q?=3D=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
@@ -154,118 +152,74 @@ MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa7f666f-e342-4d99-2308-08ddcb86f976
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Jul 2025 14:24:32.2316
+X-MS-Exchange-CrossTenant-Network-Message-Id: bfd750f6-17d4-45ba-7e72-08ddcb86f9c1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Jul 2025 14:24:32.8687
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: XqamBGH7LweSF58ATgKihTsG6ALno7/a+UmQG+bdB5Se6kab0th71/CUtFnnMyUizNbHMSP4WN2D0/P92sSyeQ==
+X-MS-Exchange-CrossTenant-userprincipalname: CkeH0G1s4FTUAANrJrIn97uChNQiXMaTWFGjmdr1qOtz4G0B2cyFLA7AfC78dRLKh66j9D0Mgz+uT5L9MyPxiA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR03MB7421
-
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
 
 Export functions required for SR-IOV support.
 
-Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 ---
- xen/drivers/vpci/header.c | 16 +++++++++-------
- xen/include/xen/vpci.h    |  3 +++
- 2 files changed, 12 insertions(+), 7 deletions(-)
+ xen/drivers/vpci/header.c | 8 ++++----
+ xen/include/xen/vpci.h    | 2 ++
+ 2 files changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-index bb76e70799..c4d8c45640 100644
+index f33fb27bde..f947f652cd 100644
 --- a/xen/drivers/vpci/header.c
 +++ b/xen/drivers/vpci/header.c
-@@ -304,7 +304,7 @@ static void defer_map(const struct pci_dev *pdev, uint1=
-6_t cmd, bool rom_only)
-     raise_softirq(SCHEDULE_SOFTIRQ);
- }
-=20
--static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_=
-only)
-+int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_on=
-ly)
- {
-     struct vpci_header *header =3D &pdev->vpci->header;
-     struct pci_dev *tmp;
-@@ -545,7 +545,7 @@ static void cf_check cmd_write(
-          * memory decoding bit has not been changed, so leave everything a=
-s-is,
-          * hoping the guest will realize and try again.
-          */
--        modify_bars(pdev, cmd, false);
-+        vpci_modify_bars(pdev, cmd, false);
-     else
-         pci_conf_write16(pdev->sbdf, reg, cmd);
- }
-@@ -713,13 +713,15 @@ static void cf_check rom_write(
-      * Pass PCI_COMMAND_MEMORY or 0 to signal a map/unmap request, note th=
-at
-      * this fabricated command is never going to be written to the registe=
-r.
-      */
--    else if ( modify_bars(pdev, new_enabled ? PCI_COMMAND_MEMORY : 0, true=
-) )
-+    else if ( vpci_modify_bars(pdev,
-+                               new_enabled ? PCI_COMMAND_MEMORY : 0,
-+                               true) )
-         /*
-          * No memory has been added or removed from the p2m (because the a=
-ctual
-          * p2m changes are deferred in defer_map) and the ROM enable bit h=
-as
-          * not been changed, so leave everything as-is, hoping the guest w=
-ill
-          * realize and try again. It's important to not update rom->addr i=
-n the
--         * unmap case if modify_bars has failed, or future attempts would
-+         * unmap case if vpci_modify_bars has failed, or future attempts w=
-ould
-          * attempt to unmap the wrong address.
-          */
-         return;
-@@ -894,8 +896,8 @@ static int cf_check init_header(struct pci_dev *pdev)
-     /*
-      * For DomUs, clear PCI_COMMAND_{MASTER,MEMORY,IO} and other
-      * DomU-controllable bits in PCI_COMMAND. Devices assigned to DomUs wi=
-ll
--     * start with memory decoding disabled, and modify_bars() will not be =
-called
--     * at the end of this function.
-+     * start with memory decoding disabled, and vpci_modify_bars() will no=
-t be
-+     * called at the end of this function.
-      */
-     if ( !is_hwdom )
-         cmd &=3D ~(PCI_COMMAND_VGA_PALETTE | PCI_COMMAND_INVALIDATE |
-@@ -1020,7 +1022,7 @@ static int cf_check init_header(struct pci_dev *pdev)
-             goto fail;
+@@ -733,8 +733,8 @@ static void cf_check rom_write(
      }
+ }
 =20
--    return (cmd & PCI_COMMAND_MEMORY) ? modify_bars(pdev, cmd, false) : 0;
-+    return (cmd & PCI_COMMAND_MEMORY) ? vpci_modify_bars(pdev, cmd, false)=
- : 0;
+-static int bar_add_rangeset(const struct pci_dev *pdev, struct vpci_bar *b=
+ar,
+-                            unsigned int i)
++int vpci_bar_add_rangeset(const struct pci_dev *pdev, struct vpci_bar *bar=
+,
++                          unsigned int i)
+ {
+     char str[32];
 =20
-  fail:
-     pci_conf_write16(pdev->sbdf, PCI_COMMAND, cmd);
+@@ -950,7 +950,7 @@ static int cf_check init_header(struct pci_dev *pdev)
+         else
+             bars[i].type =3D VPCI_BAR_MEM32;
+=20
+-        rc =3D bar_add_rangeset(pdev, &bars[i], i);
++        rc =3D vpci_bar_add_rangeset(pdev, &bars[i], i);
+         if ( rc )
+             goto fail;
+=20
+@@ -1009,7 +1009,7 @@ static int cf_check init_header(struct pci_dev *pdev)
+             rom->type =3D VPCI_BAR_EMPTY;
+         else
+         {
+-            rc =3D bar_add_rangeset(pdev, rom, num_bars);
++            rc =3D vpci_bar_add_rangeset(pdev, rom, num_bars);
+             if ( rc )
+                 goto fail;
+         }
 diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-index 6a481a4e89..5ef35b23c7 100644
+index 0f0f321023..06f7039f20 100644
 --- a/xen/include/xen/vpci.h
 +++ b/xen/include/xen/vpci.h
-@@ -286,6 +286,9 @@ bool vpci_ecam_write(pci_sbdf_t sbdf, unsigned int reg,=
- unsigned int len,
- bool vpci_ecam_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int len,
-                     unsigned long *data);
+@@ -294,6 +294,8 @@ bool vpci_ecam_read(pci_sbdf_t sbdf, unsigned int reg, =
+unsigned int len,
 =20
-+/* Map/unmap the BARs of a vPCI device. */
-+int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_on=
+ /* Map/unmap the BARs of a vPCI device. */
+ int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_on=
 ly);
-+
++int vpci_bar_add_rangeset(const struct pci_dev *pdev, struct vpci_bar *bar=
+,
++                            unsigned int i);
+=20
  #endif /* __XEN__ */
 =20
- #else /* !CONFIG_HAS_VPCI */
 --=20
 2.34.1
 
