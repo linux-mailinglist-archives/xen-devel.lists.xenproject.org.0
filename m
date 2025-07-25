@@ -2,40 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 514ECB11837
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 08:12:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1057140.1425044 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17A35B11840
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 08:14:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1057153.1425064 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufBfT-00064W-UU; Fri, 25 Jul 2025 06:12:31 +0000
+	id 1ufBhR-00078v-GV; Fri, 25 Jul 2025 06:14:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1057140.1425044; Fri, 25 Jul 2025 06:12:31 +0000
+Received: by outflank-mailman (output) from mailman id 1057153.1425064; Fri, 25 Jul 2025 06:14:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufBfT-00062U-R2; Fri, 25 Jul 2025 06:12:31 +0000
-Received: by outflank-mailman (input) for mailman id 1057140;
- Fri, 25 Jul 2025 06:12:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=L813=2G=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ufBfS-00062O-P0
- for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 06:12:30 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 57e3bab6-691e-11f0-a31e-13f23c93f187;
- Fri, 25 Jul 2025 08:12:29 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-451d6ade159so12087675e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 23:12:29 -0700 (PDT)
-Received: from ?IPV6:2003:ca:b711:f2ab:e91f:46e4:60d0:c444?
- (p200300cab711f2abe91f46e460d0c444.dip0.t-ipconnect.de.
- [2003:ca:b711:f2ab:e91f:46e4:60d0:c444])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4587054c819sm40838915e9.13.2025.07.24.23.12.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Jul 2025 23:12:28 -0700 (PDT)
+	id 1ufBhR-00077A-Br; Fri, 25 Jul 2025 06:14:33 +0000
+Received: by outflank-mailman (input) for mailman id 1057153;
+ Fri, 25 Jul 2025 06:14:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fuZF=2G=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1ufBhP-00076x-B7
+ for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 06:14:31 +0000
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazlp170120005.outbound.protection.outlook.com
+ [2a01:111:f403:c200::5])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9f3eac61-691e-11f0-b895-0df219b8e170;
+ Fri, 25 Jul 2025 08:14:29 +0200 (CEST)
+Received: from AM0PR03CA0038.eurprd03.prod.outlook.com (2603:10a6:208::15) by
+ GVXPR08MB10810.eurprd08.prod.outlook.com (2603:10a6:150:150::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8943.30; Fri, 25 Jul
+ 2025 06:14:23 +0000
+Received: from AMS0EPF0000019F.eurprd05.prod.outlook.com
+ (2603:10a6:208:0:cafe::98) by AM0PR03CA0038.outlook.office365.com
+ (2603:10a6:208::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8964.22 via Frontend Transport; Fri,
+ 25 Jul 2025 06:14:23 +0000
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ AMS0EPF0000019F.mail.protection.outlook.com (10.167.16.251) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.8964.20
+ via Frontend Transport; Fri, 25 Jul 2025 06:14:23 +0000
+Received: from DB9PR08MB6588.eurprd08.prod.outlook.com (2603:10a6:10:25a::24)
+ by AM8PR08MB5746.eurprd08.prod.outlook.com (2603:10a6:20b:1d8::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.21; Fri, 25 Jul
+ 2025 06:13:51 +0000
+Received: from DB9PR08MB6588.eurprd08.prod.outlook.com
+ ([fe80::a8fc:ea0d:baf1:23a]) by DB9PR08MB6588.eurprd08.prod.outlook.com
+ ([fe80::a8fc:ea0d:baf1:23a%2]) with mapi id 15.20.8964.021; Fri, 25 Jul 2025
+ 06:13:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,110 +61,230 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 57e3bab6-691e-11f0-a31e-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753423949; x=1754028749; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YdUvyZbWoHk53KagpjyeWDvuZ4f1ut44ttOivQqNMp8=;
-        b=A5KZvTIfqsbiU4xWW20IDeKDfduLjMbFMOF97JNVxIyEAeSKaEDnJsz9EbzfXFx8xl
-         ssU8gfwKS3nIyqMM9mu8L8ON2l49i6+ipX0DFcdHvprr7o0AR7gnWVLopZt6Rm/0W8wO
-         KdT1YAIx/M15CbDlVPO27bm1I+TSvCxwyBhFmL8MMxN7anfrI6HKx/ebHcsRW4KqiQV+
-         HYABfAdcaiZG8nTr3cUu/VOpeRiDOv/F3OXJIwpwi3HZqzltQhhKktWfqJUW7Ffg2eR/
-         yVa6PZ9WhOe4plH1iy3mPHK8pvZmm6pzO87R2ex7cV97tR6g3J1bfs4By9U/02t5UnJY
-         VFUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753423949; x=1754028749;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YdUvyZbWoHk53KagpjyeWDvuZ4f1ut44ttOivQqNMp8=;
-        b=FRQ0iPFONKpuFDxDxV4YuoXs9VnBGbalHiZzxeWlz+h9KgBy52znAXEOsD+8bs1dk0
-         BtGWK85kN4blIlJ6gFRvtHcWci8OnpKokaY1stSWmWA7kwezpIf3ujLbMr7mwNRkf36f
-         CT3VvOQ+RG6JXCI7w/ZXCzylVj3NOxC26pY2BU+KypMasOtlifG5MKWJLwClUOz5urj5
-         CL2xZ5wYUJTU7fwTAsnYQzBDWnHFBPPPhVWOzk8nWoZcEyKVzsH2n7jZDq0dBRvIpFFS
-         uX7mYJhw7jfk/iqh50x7rtORlmshgySxVq6fJNwR8XkGDbelPYcmIdiZ7gzHocQnRs0s
-         MF6g==
-X-Forwarded-Encrypted: i=1; AJvYcCUKvKlgluJ+xUI/btockmtMlEbXJtBKQWkQOaMsoh8lOmDToTDMDtjnU4i2dYBRs85Ia/AJDxupwNg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyl+XhzXYqw9mwIix7SSGc1LoiFWkbvZ+ey+MGvIKGnjy77OY/2
-	hf7s1KbW93RA9RgTiswVMmIEctAE1K4iiYud4+puxSYiVf7oM7nQOZlbajuk8SMWGw==
-X-Gm-Gg: ASbGncumAJ2ZIhPNZMKLthFpdYkNEOlbLCC85/zS9kYd+z3xPj/lXvWLgHICqUTO05L
-	fl3eajprM3BBUyA7sfubhFsbY2gX1UzuJ14XpO57AnBxCjP2wrintPD+hDXWC/gGW/3Yw1nKmyQ
-	32xoVCMCE5XxkviZ6kCqKffaiD9WN2jouivFcpr4sOiCQBq8zEmco2jt/unnodcoHgMIRAJ2CzS
-	AMo50iBMPGktQTxmLz4+72CfEpWJf8mW6mIEivzipd+JlUnSMACWncePB/72ncAhKdI/f1qFJbN
-	+o7c7KKUsPldSfsT26L+0hUDvwQirmup0FSr8+6IhLytFf8PIP1Z/JzuL729dK6kapb8y6QGuRv
-	8amKMDf7CJ6GV62LM72WvjAZ/hLOwvXG3yAJKteV1qLRLv2CdHDllXSb2NFEmpCnIYZwrSPfdwY
-	srKaiC0biVtq0fK/6fPg236j1QzOuHT1nM43j+Dynp7vuWcSRIrikK77qr
-X-Google-Smtp-Source: AGHT+IF/qEFjGwWdzY0KSe9OwklLVMabPwskznLl1oy5IjkM82NajikxZol9sX5emgg/1mpwbeJzYw==
-X-Received: by 2002:a05:600c:3514:b0:456:27a4:50ad with SMTP id 5b1f17b1804b1-4587667a7b4mr3086095e9.33.1753423948751;
-        Thu, 24 Jul 2025 23:12:28 -0700 (PDT)
-Message-ID: <692bd177-7748-42af-8ce9-438a2264d41e@suse.com>
-Date: Fri, 25 Jul 2025 08:12:26 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] xen/cache-col: Fix freeing of colouring information
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Carlo Nonato <carlo.nonato@minervasys.tech>,
- Marco Solieri <marco.solieri@minervasys.tech>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250724162306.2978741-1-andrew.cooper3@citrix.com>
- <20250724162306.2978741-3-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 9f3eac61-691e-11f0-b895-0df219b8e170
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=w7oFyYBf6Z6IwkEZwKldTLTEVX9rGctlljP7vhE/i0sAFKdYwUIVnyNsPUyPiZWZfV6J9x88qv1/xSfba+vWMJvnUzSEHK4iOAAZYM/iPz24zlNBj65GJJ1HlN1UpTlAgP4M80Cfs/Kw64jZSW1HN0o4Fq5cO+DBY1pGbRBgFaUd+JD5LSL6Rcsmg7kPT7lc8pCVYOKh+gr9grvMZPgWQ/iRWItqi8wqHqDBXhjM6/mjSS+O2uXkxj4/ifu4EYxwnOl5AOwaqGbJSsTNxcIPnwKGpencI9bz/ePm4eEfYeEj8dmsRtXFv/5qBQ6CUko/Zr7metefnX2Aaw6Zk0an1g==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8BfLve+NA+DkN0U2pbbY41CdmbMK9qY+0/NG2CdNRS4=;
+ b=Uoin+8l0lVjCByjjs7M9diYMTzD+sFemLtsTFDRO2saZ+rNiVs/UyF0VbCvJWOx3RUBO0/wtJCHC40T27DcCeWMM97JLgl6J+a+cbSrbtGq/dATAkdTyGWDAaTsS+y3kjJ8t0OoY6idsB4bipBLqfu3LHBWppxDAxHCnRLpoih0mIVtedPN6YWULKrdNzMfCUCc4n41ApNRhPaS3HHa+VaRaVjLBBSmqNYFx7Y71KnTxPOMtsrvZ9BQeOI+9wk9+kYHTAmpLFQV8eYWQzW6ZB/hrzCGQT8x76L+KIz+nfKco+0y9fq/9vOyyxWJyMzaGDIRxOjVO4qLq7fiiqZSK2w==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=proton.me smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8BfLve+NA+DkN0U2pbbY41CdmbMK9qY+0/NG2CdNRS4=;
+ b=OvBg1zjTyoRct1rZx8Jk+011lolvthsZzr21E0ccidHlTSOC+Om+JvySgALDN2teau8VCxQ3GiIzZNXkGIAHsJo0W8fe97UO0TibTCDH0ezl6G8ZchcHjaN/odzGNEsRjJnRA5NvtQH21Iy4fW8yLHzXN8ONzG0y9ON7NWtfGiY=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Kn0iQk9aZcMYrQIPdNyd0tbxDz6Co4weWTrreGRKsNms8C6tXAzA771DTkZLhwh7dHaQAKay7kEpdhLcJbrNfcEUzG1UKQqJ/jbii9UwHI8KezHBCnn4aZ1H8QIkfc0Ut7T35oafOPtHlcyXo/OiTPc40OeQXFjbyddb64Jpfxn9VLLwjOZ8VjSJN768JSqKKpyiXjvMELv1oDIe3j03tRdtCSDUsiOCjvIE2/VrOB9ntvCSRLHnAEG/lqkOT48E+yj9g0cCfpzySVHvvolS5jWnmxcAXxhDLfh6EG1TPYgw7UsgYhF1zeS0kcY/lGEtKiDEcs3TEV9HSAJwpUYFhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8BfLve+NA+DkN0U2pbbY41CdmbMK9qY+0/NG2CdNRS4=;
+ b=SOLcCmsCFIPhMYk3VbKjlr7umVsiJlKtclwjbkm9ckD7CPkpWN/7NZkwTS4evMulszfOlkIKqQmcOc9GeS5Z8qPUpqZUY/zwMgjNivtdlXPs94JLZWMPR8yMkcebZ3vFkE8GM19dRf8Nggdkr6/Opn20EPj1Ebbhcf0VCQKY4+QJR8+c8mgSzjvaHMYD3la64excQPdVlxPTI/606iAAhubcvA7gPyBCxo8eqnPPGQh9uLnQ9r5efeijrTI5VBKwPVGcq7klv0wGn/fYXa5Ab1PcQkSI35bOJFhuznlWiXwImj53p6Zsrcwvzj1uyye8NnzCNn6O9sggidmNaZDvrA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8BfLve+NA+DkN0U2pbbY41CdmbMK9qY+0/NG2CdNRS4=;
+ b=OvBg1zjTyoRct1rZx8Jk+011lolvthsZzr21E0ccidHlTSOC+Om+JvySgALDN2teau8VCxQ3GiIzZNXkGIAHsJo0W8fe97UO0TibTCDH0ezl6G8ZchcHjaN/odzGNEsRjJnRA5NvtQH21Iy4fW8yLHzXN8ONzG0y9ON7NWtfGiY=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: "dmkhn@proton.me" <dmkhn@proton.me>
+CC: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Rahul
+ Singh <Rahul.Singh@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH 2/2] xen/arm: smmuv3: fix xl pci-assignable-remove
+Thread-Topic: [PATCH 2/2] xen/arm: smmuv3: fix xl pci-assignable-remove
+Thread-Index: AQHb/CTEwM+ofGaU5U6Z0S9DvRagM7RAdHSAgAHpygA=
+Date: Fri, 25 Jul 2025 06:13:51 +0000
+Message-ID: <49B99D6B-7323-47F8-BDF7-DD25B073E2EB@arm.com>
+References: <20250723225422.116387-1-stewart.hildebrand@amd.com>
+ <20250723225422.116387-2-stewart.hildebrand@amd.com>
+ <aIGFsy88qvMj4bTB@kraken>
+In-Reply-To: <aIGFsy88qvMj4bTB@kraken>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250724162306.2978741-3-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3826.600.51.1.1)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	DB9PR08MB6588:EE_|AM8PR08MB5746:EE_|AMS0EPF0000019F:EE_|GVXPR08MB10810:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b837533-19dd-48ce-5c2a-08ddcb42803a
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|1800799024|366016|10070799003|376014|7053199007|38070700018;
+X-Microsoft-Antispam-Message-Info-Original:
+ =?us-ascii?Q?OP7mdPZFy2P7/YzWP4js/83i6td7tDgSU063eBBOtSklbQJmzkv1+JbBsd9C?=
+ =?us-ascii?Q?3Fx4aDkYLdVkOpWW7cBOb+bRLS58ZiXqZRtqlATqNuDkMETwIfsHEqcjtPU8?=
+ =?us-ascii?Q?33crvHaO1WEOQKHHrKJkINJczL0BnU0AVuOU6HFVjDgwbXJU5nY2Ac/tLW4q?=
+ =?us-ascii?Q?QeTbY5NEojILG7wBeBaWMJ3vNKfJmMa7RDDXTGpqhrsSukWHEeSDZ8pGFoCr?=
+ =?us-ascii?Q?xiTZjL6ygpvUPaZ504GESyJ+RZKoIPXW+WKanZszzy6+LsS3bh/vfo806inX?=
+ =?us-ascii?Q?UGss2Yy2F0ri1Cr9yz0enRmJE0MgPsNBuitiPW1W1jj20ufUyqhfF06/muyK?=
+ =?us-ascii?Q?pQhvUVcNSeEQckWLKJCh4fX4zqYABp6s5YCjydPHhgCkTXS0p3jnUPnPZc1+?=
+ =?us-ascii?Q?m9OWX35mHcLb9OJWLbp7qoHIVriK/zE50vk8X7NHZbfbtYZikhyf7EJSYdJ+?=
+ =?us-ascii?Q?9p0MdSkdEIXeJZXVnQ1WbvJYI+zkakE5e6uTpQe7PQrHwvFCzZfcg3AKsQTH?=
+ =?us-ascii?Q?QNHIcPKh8uGASRKHn/5od9CFYmw0EAe27dNYKDTwdF7Is8d3t35LREiJbe6v?=
+ =?us-ascii?Q?PIhHOQpU9hjSekaxxnhkd0LAyiyirlP9qBLP/J0t6EckHOgVGsj3+Mmtnx36?=
+ =?us-ascii?Q?J+CPGU8KCPMRRpBfW3EnYl4nAcWwf+0nTeSDPZmyGqzuOp5ZGsrP/g7Ez1v2?=
+ =?us-ascii?Q?ptTGoFn9agMSTHcvlfcWE03VPT2tm+sL9WMb9r3/QQQ/nle2V8H+Kybo2oBm?=
+ =?us-ascii?Q?m38wbA0Y1VHmtat7bhgjUEasnaw07glDX3MbA5KiUPFYd1ApSHwLEsmw3NrH?=
+ =?us-ascii?Q?d9sg0mgopwoRXgO1VtFuzffvC6+ojMRzpJss6ScWVgVsG0I061oxBHz31YzP?=
+ =?us-ascii?Q?6xPEjpqLz3wafB50CvBzwEEoP3Z5g72uFoUvmmCgiu2a2vTXwjiMoggvMAR7?=
+ =?us-ascii?Q?jfxx5CGTPpD/W76aPmhWCYMPar5KUmH5tqqyOu3meP8f0tRTgxfrBVOIKPBi?=
+ =?us-ascii?Q?H1kc76pjKnDxtBRkG7twxSmAsstQj6Z8de+zDRU8D0am5l1x1nmlFLN98zic?=
+ =?us-ascii?Q?hVMiHqjQ2w7ZbwWhTaGI4FgRsB15cIXn569Cuzmr6+t/CttS+NIooBZ8wCwh?=
+ =?us-ascii?Q?GKhNrh/jl9XPzevm/x6teiyIU3nE+94fpOJK7BrkQ6ZB9EN+NL0SyforvSy6?=
+ =?us-ascii?Q?r6NA4DH23264RibVSB++yRI+5rF7RLiPEEqbleV8WvZRGDAXbIaCyyvXEElD?=
+ =?us-ascii?Q?nGPXF+o9/sYg855tLjpJeWEW1AbnN/osULaw3DN00EKV6qS5KE7jbPeSbS+T?=
+ =?us-ascii?Q?yDjs+eTUxdtzuD8nFv+0DDFBOH4U+qPyDAadJrkg9ENiIoECoAOOA6/ZRoKt?=
+ =?us-ascii?Q?sPAjLSc8ogfZ06OHqsNByGIFrJ4hJHusfov06/0kijayAgwYLpw3W2d1+xxw?=
+ =?us-ascii?Q?3Il3KP7YkVp6HJ6Ubht2Y+moii2IVH9wM828bdtEnpwYBAMpqysnzQ=3D=3D?=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6588.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(10070799003)(376014)(7053199007)(38070700018);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <CDD3769838008F4884C84667630D32C6@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB5746
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AMS0EPF0000019F.eurprd05.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	b7760e4b-1d3b-4e53-5362-08ddcb426cdc
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|35042699022|376014|36860700013|14060799003|82310400026|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?cb/+toyw0Ylegebz4OeUMmEEzDr/mVj+W4XqLCYEileKPmIfbWbsj3IxkqMT?=
+ =?us-ascii?Q?eVqNqYq+syuFHuYAFMEfTW5q0IUX5myYANbhL5sjvb9KwFDePCIxecaUxwyJ?=
+ =?us-ascii?Q?9fByO9VzI2BW9DZ7BCEQM7OK6KzuYVxiSk+geU6XqqYitrEo8mNQuGUBMCcj?=
+ =?us-ascii?Q?w5ic4n4okkZkVHqxfOhfsktbESF32jk60jtVNtXDj8gJlegluhBoWrhJdMF2?=
+ =?us-ascii?Q?XB6dq3Bs9mJtxmDI6bs1KWZK3TsjO+gjA0w2FZ1m/H1N24RvJpRMJIJwF8yE?=
+ =?us-ascii?Q?KM4M/Zsgh3JUuHQ/BEkCOQUPXPIad4y88aY16VYcbJLEy8PPvgzYyUZJD8h2?=
+ =?us-ascii?Q?uYEgSpllYNS/08OFcNOh5sVzQYtikIyB3YC4xIzr/dZTnZ6WBETDTwK7t4CM?=
+ =?us-ascii?Q?WJubaorcK+YhUk6F5wkcoEZB/7ni8Z3hrbwCqfKbCVdb8nRK2ddoTpYps/OI?=
+ =?us-ascii?Q?E4X854FuQBE33bt12gD7HY9i7SFDdcoHRuxhl6Wb/0LzHTgKxNmC0wG7zFkp?=
+ =?us-ascii?Q?mrRJKMdbs7hFfCWglgmPerAqguQyuwOlCY03JeVhojemZ+2t7zR0rZ+1CBue?=
+ =?us-ascii?Q?lNG8Coi17YgsWotXJ/AqZ052Ghot2Xz6enBvDkk4UCiYqmKidER+c9CaqeP1?=
+ =?us-ascii?Q?4kqcbbV2ExhUYYfDNErFrUSvUw3lSfpD1kmjuv+L3vxnxLzB0FzUavZTdAE6?=
+ =?us-ascii?Q?A/1M23J2785t/lXYxstOyVDB25TBt2PDXE9WpyTWvDzBKQesOH8BssVohqup?=
+ =?us-ascii?Q?RvI7ZXhws+zxEmFKw3BzHcAOIIccYZkhse8vJsBJ71/ybpXJQdjBYQT7BtZI?=
+ =?us-ascii?Q?qBdpK0sEWLyJiyx1K5kJyYDCs2aoHdpm0QtiNQE2U4I+VQOCPllZF4UMTqo+?=
+ =?us-ascii?Q?8FbtNRSrwdu0S5dwzb0uqR5+vweAlgVIoB7AjLb8FYSndSh5dN+CFBmpucjD?=
+ =?us-ascii?Q?TOOU63fdEGa3bWxTGugER1cGQONYzrOHsfqPKn+t7lXc+7ufwxC8DzFO/0qO?=
+ =?us-ascii?Q?b1h9Y86IEE2BUBeqFTgv0sZkFlhzO3m0ZQyBMJ27wDiJbJWApQmxbkTUcoqN?=
+ =?us-ascii?Q?CJIFnIDamXdNkAZRVSsT/72TfWyCbkn1WVzZgI8r+UZcqirRcoPQ7I4dORQ7?=
+ =?us-ascii?Q?y2BqYsVPr3kfTPI813ms5C3Dbf2iNXnVrOAyCyxqLDXe7eL3J3foGLCsEa6E?=
+ =?us-ascii?Q?OU6OeGBbKgmX2zEgIiwHof5Wii53Thd2f3FIM0hnp2fbtW/Ma+Hr6Mh/tfrM?=
+ =?us-ascii?Q?Seg8W298qXVOl4IprfqbQAFFlw2SC3LQaKT+PDvlkVl0JAGJMJsQ1A9cx99z?=
+ =?us-ascii?Q?jf3JMueFKjE0PeJH1KXWPy29gB/UPk9ed5fAf4Kp0J3hLD5ywukuo68kYAAF?=
+ =?us-ascii?Q?TzJR2/uFVTyxQ9oxlbfIziWQ15gOWOr7mf5s/y23pFFNFXbr16GUAyf7sc6m?=
+ =?us-ascii?Q?RjF5ZhRiGbFIolkzI2CS3B+uj8Rd8QJuuBhbW9qog9jgI3+uaf0K4n845iV6?=
+ =?us-ascii?Q?cGvqGL/RQB4lPSC8pIJbXU6IxfI0OG9Oe2Bk?=
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(35042699022)(376014)(36860700013)(14060799003)(82310400026)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2025 06:14:23.5073
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b837533-19dd-48ce-5c2a-08ddcb42803a
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AMS0EPF0000019F.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR08MB10810
 
-On 24.07.2025 18:23, Andrew Cooper wrote:
-> domain_destroy() is the wrong position to be freeing colouring information.
-> 
-> The comment in context identifies how domain_destroy() can be called multiple
-> times on the same domain, leading to a double free of d->llc_colors as it's
-> the wrong side of the atomic_cmpxchg() to be made safe.
-> 
-> Furthermore, by freeing d->llc_colors but leaving d->num_llc_colors nonzero,
-> alloc_color_heap_page() can in principle use after free.
-> 
-> Make domain_llc_coloring_free() idempotent, zeroing d->num_llc_colors and
-> NULL-ing d->llc_colors after freeing, and call it from domain_teardown().
 
-And this pulling earlier is safe because e.g. free_color_heap_page() ->
-page_to_llc_color() -> mfn_to_color() don't use the domain's colors array.
-That's not a given (and could be different if e.g. per-domain stats were
-maintained), so may want mentioning.
 
-> Fixes: 6985aa5e0c3c ("xen: extend domctl interface for cache coloring")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> On 24 Jul 2025, at 03:00, dmkhn@proton.me wrote:
+>=20
+> On Wed, Jul 23, 2025 at 06:54:20PM -0400, Stewart Hildebrand wrote:
+>> When attempting to xl pci-assignable-remove a PCI device, we encounter:
+>>=20
+>> $ xl pci-assignable-remove 00:01.0
+>> (XEN) SMMUv3: <no-node>:  not attached to domain 32753
+>> (XEN) d[IO]: deassign (0000:00:01.0) failed (-3)
+>> libxl: error: libxl_pci.c:910:libxl__device_pci_assignable_remove: faile=
+d to de-quarantine 0000:00:01.0
+>>=20
+>> When a PCI device is being deassigned from domIO,
+>> arm_smmu_deassign_dev() should return before checking the smmu domain.
+>>=20
+>> Fixes: 63919fc4d1ca ("xen/arm: smmuv3: Add PCI devices support for SMMUv=
+3")
+>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+>> ---
+>> xen/drivers/passthrough/arm/smmu-v3.c | 10 +++++-----
+>> 1 file changed, 5 insertions(+), 5 deletions(-)
+>>=20
+>> diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthr=
+ough/arm/smmu-v3.c
+>> index db08d3c04269..9312bb3c72d8 100644
+>> --- a/xen/drivers/passthrough/arm/smmu-v3.c
+>> +++ b/xen/drivers/passthrough/arm/smmu-v3.c
+>> @@ -2747,11 +2747,6 @@ static int arm_smmu_deassign_dev(struct domain *d=
+, uint8_t devfn, struct device
+>> struct arm_smmu_domain *smmu_domain =3D to_smmu_domain(io_domain);
+>> struct arm_smmu_master *master =3D dev_iommu_priv_get(dev);
+>>=20
+>> - if (!smmu_domain || smmu_domain->d !=3D d) {
+>> - dev_err(dev, " not attached to domain %d\n", d->domain_id);
+>> - return -ESRCH;
+>> - }
+>> -
+>> #ifdef CONFIG_HAS_PCI
+>> if ( dev_is_pci(dev) )
+>> {
+>> @@ -2767,6 +2762,11 @@ static int arm_smmu_deassign_dev(struct domain *d=
+, uint8_t devfn, struct device
+>> }
+>> #endif
+>>=20
+>> + if (!smmu_domain || smmu_domain->d !=3D d) {
+>> + dev_err(dev, " not attached to domain %d\n", d->domain_id);
+>=20
+> Use %pd?
+>=20
+>        dev_err(dev, " not attached to %pd\n", d);
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Agree.
+
+With this fixed:
+Acked-by: Bertrand Marquis <bertrand.marquis@arm.com>
+
+Cheers
+Bertrand
+
+>=20
+>> + return -ESRCH;
+>> + }
+>> +
+>> spin_lock(&xen_domain->lock);
+>>=20
+>> arm_smmu_detach_dev(master);
+>> --
+>> 2.50.1
+>>=20
+>>=20
+>=20
 
 
