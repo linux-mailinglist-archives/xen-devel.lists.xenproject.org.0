@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CE33B1209A
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 17:07:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1058070.1425848 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DAEDB1209C
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 17:07:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1058066.1425821 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufK1A-0005ot-Kw; Fri, 25 Jul 2025 15:07:28 +0000
+	id 1ufK16-0004ou-Lt; Fri, 25 Jul 2025 15:07:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1058070.1425848; Fri, 25 Jul 2025 15:07:28 +0000
+Received: by outflank-mailman (output) from mailman id 1058066.1425821; Fri, 25 Jul 2025 15:07:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufK1A-0005jV-AV; Fri, 25 Jul 2025 15:07:28 +0000
-Received: by outflank-mailman (input) for mailman id 1058070;
- Fri, 25 Jul 2025 15:07:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ufK16-0004aa-B1; Fri, 25 Jul 2025 15:07:24 +0000
+Received: by outflank-mailman (input) for mailman id 1058066;
+ Fri, 25 Jul 2025 15:07:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=DJoT=2G=cloud.com=edwin.torok@srs-se1.protection.inumbo.net>)
- id 1ufK17-0002MQ-VN
- for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 15:07:25 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 113f549f-6969-11f0-b895-0df219b8e170;
- Fri, 25 Jul 2025 17:07:23 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-608acb0a27fso3685337a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 25 Jul 2025 08:07:23 -0700 (PDT)
+ id 1ufK14-0002MW-1A
+ for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 15:07:22 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 105dff62-6969-11f0-a31e-13f23c93f187;
+ Fri, 25 Jul 2025 17:07:21 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-60c6fea6742so4469227a12.1
+ for <xen-devel@lists.xenproject.org>; Fri, 25 Jul 2025 08:07:21 -0700 (PDT)
 Received: from localhost.localdomain ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-614cd0f730fsm2194208a12.22.2025.07.25.08.07.19
+ 4fb4d7f45d1cf-614cd0f730fsm2194208a12.22.2025.07.25.08.07.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Jul 2025 08:07:19 -0700 (PDT)
+ Fri, 25 Jul 2025 08:07:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 113f549f-6969-11f0-b895-0df219b8e170
+X-Inumbo-ID: 105dff62-6969-11f0-a31e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1753456042; x=1754060842; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1753456041; x=1754060841; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Eees8l7HYHFwD1RvaaoHSAMU8I8IDqz7LF2ScnBEH/o=;
-        b=LOsMqoHEo2gUxzqYyrvXw8T2oCMa/M/qoSV4kKoqOrBVP+FQmOukKTopbLKxzW5qK/
-         Sgim8nbQRX5OiC2OKk6XeSITaPSshMuTR04qtPH+uEemlwKylTmELPCUePiIQfwohcy6
-         7YLre7DPspp2JiXwfTIxi/FX0mGttwkQuR2zY=
+        bh=rjLnX+fH5gil9prH4kBa9sfut1mpPWzceTrfUuPtI2E=;
+        b=J3L8E7Nwe/vDv1Eno8H4HIQjFqjvkzyKcPF1/dX0RrROey6Sn2qV7d5+1fY8kf157Y
+         ic6sI9GkduWC7z/zlWpePH40LwTTCDEzRZ0mIoAaQWvT9ZoBoxgZSy7FaZ+N4pzPtRfm
+         sysa0wB0R0t1AULntltU8bbAjcHpx2mMAjKBc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753456042; x=1754060842;
+        d=1e100.net; s=20230601; t=1753456041; x=1754060841;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Eees8l7HYHFwD1RvaaoHSAMU8I8IDqz7LF2ScnBEH/o=;
-        b=gNjozB/SZ5jBycCkcYcbXEt8Y2MSFKWT8R8cXZA8AkB8u3NRV9/P+y17H37l3wh7WA
-         UB2SsEQBPJdgr0V/OD6ZAulC6fGSRQ1603uc7q36QQITWrJDws5BAaPGHvWk//Pq5qBF
-         YrQYN044/c+rmzzmdS0nnltneOV0/1Fd3bNP6YAsjS/1th9k0S9nMH6UBlWs9WXjmtzO
-         5Jd0aVVnTjtvUf8Huxn3mge2rZtdQM86LHbwiwCFMXVBwaIYuTMfu1OvAxs8FM0LtNbJ
-         fNUVDjVnSolXorSzYhzLKK7A4Cq1pB+J4BF6Wv/BgbBl/fHXNd8zVA6xudwu3XjkvtuP
-         oX1Q==
-X-Gm-Message-State: AOJu0YyKdBuaaajabfh92i7T/E7bXcYhxMUB32yrXjT0Y9InBTxfv2E/
-	iNUiUtDTMyMNPXIRl7ZHq9nSUdZCDg/t9LxwSfUwW9Mc1bi3R1/jIMdqDKcBg1y5CX6/6MznMP9
-	YFvxvq4E=
-X-Gm-Gg: ASbGncsDcDkRNi9IEQ17lCobAMPGM45bg7Z5Nr0PHkUtEW4OZaAvwnBXz/m0feHxeNV
-	/ruCmEAljKHXjsHOEx48ISi9fEtWHWMShlCR8Xd8CrQQ4o/UnItyOV+C7Qq6J40Hk83yjt//wIA
-	iquqMgHEVde4ziEFrGM4xj59dgopp3WIEk9cTgtxe7fsSrnlpwTOofnrT8ZZ/gM6a73yfiPVMgP
-	qtESVoeFrc3Je83G2qJAhystc9NTHf2HSumj/h5iH6hSUxX8WXFSrTjXReT4elSaOYHbeAYuVHk
-	b5cBlJ276pg/uy2+6SBm+rg+9hitWGv+s9ZO9Hf+ZMplwUqMysdQeMOh/jNw010dkQxTP77CcDf
-	GcahWA9r6doTm8IckFRLhB6t0HeQJXz5zsEel
-X-Google-Smtp-Source: AGHT+IGS405VXxW1EPdupffOjwjXEufOUvMG1R4Zwk95ZKFsAjWD0uSJlXHO9E6I0o/Tw2TQqyFbMA==
-X-Received: by 2002:a05:6402:354e:b0:606:fef3:7c3e with SMTP id 4fb4d7f45d1cf-614f1b98612mr2222567a12.3.1753456040127;
+        bh=rjLnX+fH5gil9prH4kBa9sfut1mpPWzceTrfUuPtI2E=;
+        b=Bubk1PrPRmAvTDquI967Ff1Sy40HQszmgchqsxeZ6Nbyx/7pYOD/ZFhIpi5n21Saiq
+         Lywzz7yF4AYFDPd619T6RZ2bptD8/r9896QcQOCLWmBvXXBjoSco4L//THTGyH16luqt
+         PhlYgbe7FiIaS+d6DgIwsbHnbsoc5GKXrYgH8SZOE8iaQ+ROODN1qjiNjeswzmKPlgBG
+         xmv3rSmdhM9rp8h6TbHQUUodAdp25GoJmyvtIw5NPlGkYA53mbd+ZtWYxE3jx2fM4f82
+         fTRRvIKp5GJrYUBNhUtZ1Vxku12NBKUgIgcrwiAMDlh++eiIGYNS+1MI+jFliEjo2ArW
+         guFw==
+X-Gm-Message-State: AOJu0YwVg3zgPo8sEL2ntw8vBJkpWZ5ykKhRXzM0nto3BICzMaHEB9t9
+	7XIeW5pd0vfytvD1UFFo7/cl+DrsSl2y7p6FeT4plSTgltbExC8I/5VE4KDcudsmleSlvK0YHvX
+	yDydqjB4=
+X-Gm-Gg: ASbGnct2/WGq1ZcqaJdf6bPJrWlN4rPpglI2NkBdkd42bRPU3LSBgDZR/E+2FKHs7Lx
+	MzaSnFVrK1kjBQb4r2U3mRTfMdVoa3Ms3g0BDvQOO8C2kLET5StSU5TJxYTa9Yl+h88tdcHL/4a
+	SciGO9dSJIP83xeKbiO8BFuMXxj3faN+E6HqC+8SmrukLioQizjPhGxAjdaDJiZHzGq0hbw4h/r
+	cCSoiN+LbDbyY0UZCwK4UHr1mAGidYhVWKwNJqnY39JAu8jYAE0d0adzMXbNHOfSfMBBq0+NwVO
+	raYYMg1okk8hMLPWRAf/xoYpiYnckEmBvkqPVbIqL4p+geC63/8ulli8yuYaenedvB9+4TX+Bw8
+	tDN6nH879Xoflzaeq7mXEXlgOmWte4U+R6nFc
+X-Google-Smtp-Source: AGHT+IF5gs9N23kxw49YxqZRd7WNq3oUh6TRbwBrMbt0qYB0CkPBnAUsIdeLbuSHuKOiQO7z9FxKvg==
+X-Received: by 2002:a05:6402:1d4b:b0:612:d3cf:d1e4 with SMTP id 4fb4d7f45d1cf-614f1d042a5mr2350340a12.8.1753456040862;
         Fri, 25 Jul 2025 08:07:20 -0700 (PDT)
 From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>
-Subject: [RFC LINUX PATCH v1 1/3] perf kvm: introduce a hypervisor_callchain callback
-Date: Fri, 25 Jul 2025 16:06:47 +0100
-Message-ID: <20250725150719.472782-1-edwin.torok@cloud.com>
+Subject: [RFC LINUX PATCH v1 2/3] xen/{interface,xenpmu}.h: update with VPMU 0.2 from Xen
+Date: Fri, 25 Jul 2025 16:06:48 +0100
+Message-ID: <20250725150719.472782-2-edwin.torok@cloud.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <cover.1753372928.git.edwin.torok@cloud.com>
 References: <cover.1753372928.git.edwin.torok@cloud.com>
@@ -92,145 +92,224 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-`perf kvm` currently assumes that it can construct a stacktrace by
-looking up stack pointer addresses in the current kernel's address
-space.
-That only works if the hypervisor is the same as the kernel (i.e. KVM),
-but doesn't work if the hypervisor is separate from the kernel (Xen,
-with Linux as Dom0).
-
-Introduce a callback to enable Xen to retrieve the stacktrace from Xen
-instead when a sample is inside the hypervisor (domid == DOMID_XEN
-instead of DOMID_SELF).
-
-The callback can replace the registers with the guest kernel's registers
-upon return when domid == DOMID_SELF, so that we can continue with the
-kernel stacktrace.
-
-Both KVM and Xen define this as NULL, a followup commit will implement
-the callback for Xen (KVM doesn't need a callback implementation).
-
-No functional change.
-
 Signed-off-by: Edwin Török <edwin.torok@cloud.com>
 ---
- arch/x86/xen/pmu.c         |  2 ++
- include/linux/perf_event.h | 12 ++++++++++++
- kernel/events/core.c       |  5 +++++
- virt/kvm/kvm_main.c        |  1 +
- 4 files changed, 20 insertions(+)
+ arch/x86/include/asm/xen/interface.h | 100 +++++++++++++++++++++++++++
+ include/xen/interface/xenpmu.h       |  56 +++++++++++++--
+ 2 files changed, 152 insertions(+), 4 deletions(-)
 
-diff --git a/arch/x86/xen/pmu.c b/arch/x86/xen/pmu.c
-index 246d67dab510..b92dc739fdfb 100644
---- a/arch/x86/xen/pmu.c
-+++ b/arch/x86/xen/pmu.c
-@@ -466,6 +466,7 @@ static unsigned long xen_get_guest_ip(void)
- static struct perf_guest_info_callbacks xen_guest_cbs = {
- 	.state                  = xen_guest_state,
- 	.get_ip			= xen_get_guest_ip,
-+	.hypervisor_callchain   = NULL
- };
+diff --git a/arch/x86/include/asm/xen/interface.h b/arch/x86/include/asm/xen/interface.h
+index baca0b00ef76..f3667831573f 100644
+--- a/arch/x86/include/asm/xen/interface.h
++++ b/arch/x86/include/asm/xen/interface.h
+@@ -320,6 +320,25 @@ struct xen_pmu_regs {
+ #define PMU_SAMPLE_REAL	   (1<<2) /* Sample is from realmode */
+ #define PMU_SAMPLE_PV	   (1<<3) /* Sample from a PV guest */
  
- /* Convert registers from Xen's format to Linux' */
-@@ -489,6 +490,7 @@ static void xen_convert_regs(const struct xen_pmu_regs *xen_regs,
- 	}
- }
- 
++/*
++ * Architecture-specific information describing state of the guest at
++ * the time of PMU interrupt.
++ * Even if the interrupt arrived while inside Xen, this will always contain
++ * the guest's state.
++ */
++struct xen_pmu_arch_guest {
++	union {
++		/*
++		 * Processor's registers at the time of interrupt.
++		 * WO for hypervisor, RO for guests.
++		 */
++		struct xen_pmu_regs regs;
++		/* Padding for adding new registers to xen_pmu_regs in the future */
++#define XENPMU_REGS_PAD_SZ 64
++		uint8_t pad[XENPMU_REGS_PAD_SZ];
++	} r;
++};
 +
- irqreturn_t xen_pmu_irq_handler(int irq, void *dev_id)
- {
- 	int err, ret = IRQ_NONE;
-diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
-index 90c782749b05..d82aeaddadb8 100644
---- a/include/linux/perf_event.h
-+++ b/include/linux/perf_event.h
-@@ -29,10 +29,14 @@
- #define PERF_GUEST_ACTIVE	0x01
- #define PERF_GUEST_USER	0x02
+ /*
+  * Architecture-specific information describing state of the processor at
+  * the time of PMU interrupt.
+@@ -376,6 +395,87 @@ struct xen_pmu_arch {
+ 	} c;
+ };
  
-+struct perf_callchain_entry_ctx;
++/* Memory layout:
++ *                ╭─────────────────────╮
++ *                │ struct xen_pmu_data │
++ * ╒══════════════╧═════════════════════╧═══════════════════════╕ ◁│
++ * │ vcpu_id                                                    │  │
++ * ├────────────────────────────────────────────────────────────┤  │
++ * │ pcpu_id                                                    │  │
++ * ├────────────────────────────────────────────────────────────┤  │
++ * │ domain_id                                                  │  │
++ * ├────────────────────────────────────────────────────────────┤  │
++ * │██pad███████████████████████████████████████████████████████│  │
++ * ╞════╤═╤═══╤══════════════════╤══════════════════════════════╡  │
++ * │ pmu│ │ r │ regs             │██pad█████████████████████████│  │
++ * ├────╯ ├───╯ (xen or guest)   │██████████████████████████████│  │
++ * │      ╞══════════════════════╧══════════════════════════════╡  │
++ * │      │ pmu_flags                                           │  │
++ * │      ╞═══╤════════════════════╤════════════════════════════╡  │
++ * │      │ l │ lapic_lvtpc        │████████████████████████████│  │
++ * │      ├───╯ ███████████████████│██pad███████████████████████│  │
++ * │      │     ███████████████████│████████████████████████████│  │
++ * │      ╞═══╤═╤═══════╤═════╤════╪════╤═══════╤═══════════════╡  │
++ * │      │ c │ │       │ amd │    │    │ intel │         │█████│  │
++ * │      ├───┘ │       ╰─────╯    │    ╰───────╯         │█████│  │
++ * │      │     │ counter          │ fixed_counters       │█████│  │
++ * │      │     ├──────────────────┼──────────────────────┤█████│  │
++ * │      │     │ ctrls            │ arch_counters        │█████│  │
++ * │      │     ╞═════╤════════╤═══├──────────────────────┤█████│  │
++ * │      │     │     │ regs[] │  ┆│ global_ctrl          │█████│  │
++ * │      │     │     └────────╯  ┆├──────────────────────┤█████│  │
++ * │      │     │struct           ┆│ global_ovf_ctrl      │█████│  │
++ * │      │     │xen_pmu_cntr_pair┆├──────────────────────┤█████│  │
++ * │      │     │[counters]       ┆│ global_status        │█████│  │
++ * │      │     │                 ┆├──────────────────────┤█████│  │
++ * │      │     │                 ┆│ fixed_ctrl           │█████│  │
++ * │      │     │                 ┆├──────────────────────┤█████│  │
++ * │      │     │                 ┆│ ds_area              │█████│  │
++ * │      │     │                 ┆├──────────────────────┤█████│  │
++ * │      │     │                 ┆│ pebs_enable          │█pad█│  │
++ * │      │     │                 ┆├──────────────────────┤█████│  │
++ * │      │     │                 ▽│ debugctl             │█████│  │
++ * │      │     │██████████████████╞═══════╤════════╤═════╡█████│  │
++ * │      │     │██████████████████│       │ regs[] │ ┆[0]│█████│  │
++ * │      │     │██████████████████│       └────────╯ ┆   │█████│  │
++ * │      │     │██████████████████│ uint64_t         ┆   │█████│  │
++ * │      │     │██████████████████│ [fixed_counters] ┆   │█████│  │
++ * │      │     │██████████████████│                  ┆   │█████│  │
++ * │      │     │██████████████████│                  ┆   │█████│  │
++ * │      │     │██████████████████│ ─────────────────┆   │█████│  │
++ * │      │     │██████████████████│  struct          ┆   │█████│  │
++ * │      │     │██████████████████│ xen_pmu_cntr_pair┆   │█████│  │
++ * │      │     ╘══════════════════╡ [arch_counters]  ┆   ╞═════╡  │
++ * │      │                        │                  ┆   │     │  │
++ * │      │                        │                  ▽   │     │  │
++ * │      │                        ╘══════════════════════╛     │  │
++ * │      ╘═════════════════════════════════════════════════════╡  │
++ * ╞════════════════════════════════════════════════════════════╡  │
++ * │████████████████████████████████████████████████████████████│  │
++ * ┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆  ┆
++ * ┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆┆  ┆
++ * │████████████████████████████████████████████████████████████│  │
++ * │████████████████████████████████████████████████████████████│  │
++ * │██████████╭──────────────────────────────╮██████████████████│  │
++ * │██████████│ struct xen_pmu_hv_stacktrace │██████████████████│  │
++ * ╞══════════╧══════════════════════════════╧══════════════════╡  │
++ * │                              △ [stacktrace_nr-1]           │  │
++ * │                              ┆                             │  │
++ * │ stacktrace[stacktrace_nr]    ┆ [0]                         │  │
++ * ├────────────────────────────────────────────────────────────┤  │
++ * │ stacktrace_nr                                              │  │
++ * ├────────────────────────────────────────────────────────────┤  │
++ * │ guest_domain_id                                            │  │
++ * ├────────────────────────────────────────────────────────────┤  │
++ * │██pad███████████████████████████████████████████████████████│  │
++ * ╞═══════╤═╤═══╤══════════════════╤═══════════════════════════╡  │
++ * │ guest │ │ r │ regs             │██pad██████████████████████│  │
++ * ├───────╯ ├───╯ (xen or guest)   │███████████████████████████│  │
++ * │         ╞══════════════════════╧═══════════════════════════╡  │
++ * │         │██pad2████████████████████████████████████████████│  │ PAGE_SIZE
++ * ╘═════════╧══════════════════════════════════════════════════╛ ◁╯
++ */
 +
- struct perf_guest_info_callbacks {
- 	unsigned int			(*state)(void);
- 	unsigned long			(*get_ip)(void);
- 	unsigned int			(*handle_intel_pt_intr)(void);
-+	void				(*hypervisor_callchain)(struct perf_callchain_entry_ctx *pc,
-+								struct pt_regs *regs);
+ #endif	/* !__ASSEMBLY__ */
+ 
+ /*
+diff --git a/include/xen/interface/xenpmu.h b/include/xen/interface/xenpmu.h
+index e2ee73d91bd6..c4dfa8e349f7 100644
+--- a/include/xen/interface/xenpmu.h
++++ b/include/xen/interface/xenpmu.h
+@@ -5,7 +5,7 @@
+ #include "xen.h"
+ 
+ #define XENPMU_VER_MAJ    0
+-#define XENPMU_VER_MIN    1
++#define XENPMU_VER_MIN    2
+ 
+ /*
+  * ` enum neg_errnoval
+@@ -22,8 +22,7 @@
+ #define XENPMU_init            4
+ #define XENPMU_finish          5
+ #define XENPMU_lvtpc_set       6
+-#define XENPMU_flush           7
+-
++#define XENPMU_flush           7 /* Write cached MSR values to HW     */
+ /* ` } */
+ 
+ /* Parameters structure for HYPERVISOR_xenpmu_op call */
+@@ -56,8 +55,20 @@ struct xen_pmu_params {
+ /*
+  * PMU features:
+  * - XENPMU_FEATURE_INTEL_BTS: Intel BTS support (ignored on AMD)
++ * - XENPMU_FEATURE_IPC_ONLY:   Restrict PMCs to the most minimum set possible.
++ *                              Instructions, cycles, and ref cycles. Can be
++ *                              used to calculate instructions-per-cycle (IPC)
++ *                              (ignored on AMD).
++ * - XENPMU_FEATURE_ARCH_ONLY:  Restrict PMCs to the Intel Pre-Defined
++ *                              Architectural Performance Events exposed by
++ *                              cpuid and listed in the Intel developer's manual
++ *                              (ignored on AMD).
++ * - XENPMU_FEATURE_HV_STACKTRACE: Hypervisor stacktraces (when compiled with frame pointers)
+  */
+-#define XENPMU_FEATURE_INTEL_BTS  1
++#define XENPMU_FEATURE_INTEL_BTS  (1<<0)
++#define XENPMU_FEATURE_IPC_ONLY   (1<<1)
++#define XENPMU_FEATURE_ARCH_ONLY  (1<<2)
++#define XENPMU_FEATURE_HV_STACKTRACE (1<<3)
+ 
+ /*
+  * Shared PMU data between hypervisor and PV(H) domains.
+@@ -67,6 +78,9 @@ struct xen_pmu_params {
+  * Architecture-independent fields of xen_pmu_data are WO for the hypervisor
+  * and RO for the guest but some fields in xen_pmu_arch can be writable
+  * by both the hypervisor and the guest (see arch-$arch/pmu.h).
++ *
++ * PAGE_SIZE bytes of memory are allocated.
++ * This struct cannot be larger than PAGE_SIZE.
+  */
+ struct xen_pmu_data {
+ 	/* Interrupted VCPU */
+@@ -92,4 +106,38 @@ struct xen_pmu_data {
+ 	struct xen_pmu_arch pmu;
  };
  
- #ifdef CONFIG_HAVE_HW_BREAKPOINT
-@@ -1514,6 +1518,7 @@ extern struct perf_guest_info_callbacks __rcu *perf_guest_cbs;
- DECLARE_STATIC_CALL(__perf_guest_state, *perf_guest_cbs->state);
- DECLARE_STATIC_CALL(__perf_guest_get_ip, *perf_guest_cbs->get_ip);
- DECLARE_STATIC_CALL(__perf_guest_handle_intel_pt_intr, *perf_guest_cbs->handle_intel_pt_intr);
-+DECLARE_STATIC_CALL(__perf_hypervisor_callchain, *perf_guest_cbs->hypervisor_callchain);
- 
- static inline unsigned int perf_guest_state(void)
- {
-@@ -1527,12 +1532,19 @@ static inline unsigned int perf_guest_handle_intel_pt_intr(void)
- {
- 	return static_call(__perf_guest_handle_intel_pt_intr)();
- }
-+static inline void
-+perf_hypervisor_callchain(struct perf_callchain_entry_ctx *entry,
-+			  struct pt_regs *regs)
-+{
-+	static_call(__perf_hypervisor_callchain)(entry, regs);
-+}
- extern void perf_register_guest_info_callbacks(struct perf_guest_info_callbacks *cbs);
- extern void perf_unregister_guest_info_callbacks(struct perf_guest_info_callbacks *cbs);
- #else
- static inline unsigned int perf_guest_state(void)		 { return 0; }
- static inline unsigned long perf_guest_get_ip(void)		 { return 0; }
- static inline unsigned int perf_guest_handle_intel_pt_intr(void) { return 0; }
-+static inline void perf_hypervisor_callchain(struct perf_callchain_entry_ctx *) { return; }
- #endif /* CONFIG_GUEST_PERF_EVENTS */
- 
- extern void perf_event_exec(void);
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 3a33d9c1b1b2..a8535294018b 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -6917,6 +6917,7 @@ struct perf_guest_info_callbacks __rcu *perf_guest_cbs;
- DEFINE_STATIC_CALL_RET0(__perf_guest_state, *perf_guest_cbs->state);
- DEFINE_STATIC_CALL_RET0(__perf_guest_get_ip, *perf_guest_cbs->get_ip);
- DEFINE_STATIC_CALL_RET0(__perf_guest_handle_intel_pt_intr, *perf_guest_cbs->handle_intel_pt_intr);
-+DEFINE_STATIC_CALL_NULL(__perf_hypervisor_callchain, *perf_guest_cbs->hypervisor_callchain);
- 
- void perf_register_guest_info_callbacks(struct perf_guest_info_callbacks *cbs)
- {
-@@ -6931,6 +6932,9 @@ void perf_register_guest_info_callbacks(struct perf_guest_info_callbacks *cbs)
- 	if (cbs->handle_intel_pt_intr)
- 		static_call_update(__perf_guest_handle_intel_pt_intr,
- 				   cbs->handle_intel_pt_intr);
-+	if (cbs->hypervisor_callchain)
-+		static_call_update(__perf_hypervisor_callchain,
-+				   cbs->hypervisor_callchain);
- }
- EXPORT_SYMBOL_GPL(perf_register_guest_info_callbacks);
- 
-@@ -6944,6 +6948,7 @@ void perf_unregister_guest_info_callbacks(struct perf_guest_info_callbacks *cbs)
- 	static_call_update(__perf_guest_get_ip, (void *)&__static_call_return0);
- 	static_call_update(__perf_guest_handle_intel_pt_intr,
- 			   (void *)&__static_call_return0);
-+	static_call_update(__perf_hypervisor_callchain, (void *)&__static_call_return0);
- 	synchronize_rcu();
- }
- EXPORT_SYMBOL_GPL(perf_unregister_guest_info_callbacks);
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 44c228bcd699..20a03dd9cc42 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -6038,6 +6038,7 @@ static struct perf_guest_info_callbacks kvm_guest_cbs = {
- 	.state			= kvm_guest_state,
- 	.get_ip			= kvm_guest_get_ip,
- 	.handle_intel_pt_intr	= NULL,
-+	.hypervisor_callchain   = NULL
- };
- 
- void kvm_register_perf_callbacks(unsigned int (*pt_intr_handler)(void))
-
-base-commit: dbcb8d8e4163e46066f43e2bd9a6779e594ec900
++/* stacktrace entry populated from the end,
++ * so stacktrace_nr == 1, means that stacktrace[PMU_MAX_STACKTRCE-1] is valid.
++ * This is done, so that PMU_MAX_STACKTRACE can be changed in the future, without breaking the ABI.
++ * The struct itself (and thus the stacktrace_nr field) will always be placed at the end of a page.
++ *
++ * See arch-x86/pmu.h for an example memory layout on x86.
++ *
++ */
++#define PMU_MAX_STACKTRACE 127
++
++/* WO for hypervisor, RO for guest */
++struct xen_pmu_hv_stacktrace {
++	uint64_t stacktrace[PMU_MAX_STACKTRACE];
++	uint64_t stacktrace_nr;
++
++	/* Like xen_pmu_data.domain_id, but instead of DOMID_XEN always contains the
++	 * domain that was interrupted (DOMID_SELF if it matches the sampling
++	 * domain).
++	 */
++	domid_t guest_domain_id;
++	uint8_t pad[6];
++
++	/* When xen_pmu_data.domain_id == DOMID_XEN, this will contain
++	 * the registers of the guest that was interrupted.
++	 * This is useful for Dom0 kernel stacktraces, even if the interrupt
++	 * arrives while in Xen.
++	 */
++	struct xen_pmu_arch_guest guest;
++#define XEN_PMU_STACKTRACE_PAD 56
++	uint8_t pad2[XEN_PMU_STACKTRACE_PAD];
++};
++
++#define MAX_XEN_PMU_DATA_SIZE (PAGE_SIZE - sizeof(struct xen_pmu_hv_stacktrace))
++
+ #endif /* __XEN_PUBLIC_XENPMU_H__ */
 -- 
 2.47.1
 
