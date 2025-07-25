@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF3BDB12098
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 17:07:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1058064.1425802 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CE33B1209A
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 17:07:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1058070.1425848 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufK14-0004QC-QI; Fri, 25 Jul 2025 15:07:22 +0000
+	id 1ufK1A-0005ot-Kw; Fri, 25 Jul 2025 15:07:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1058064.1425802; Fri, 25 Jul 2025 15:07:22 +0000
+Received: by outflank-mailman (output) from mailman id 1058070.1425848; Fri, 25 Jul 2025 15:07:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufK14-0004J2-KI; Fri, 25 Jul 2025 15:07:22 +0000
-Received: by outflank-mailman (input) for mailman id 1058064;
- Fri, 25 Jul 2025 15:07:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ufK1A-0005jV-AV; Fri, 25 Jul 2025 15:07:28 +0000
+Received: by outflank-mailman (input) for mailman id 1058070;
+ Fri, 25 Jul 2025 15:07:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=DJoT=2G=cloud.com=edwin.torok@srs-se1.protection.inumbo.net>)
- id 1ufK12-0002MW-IN
- for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 15:07:20 +0000
+ id 1ufK17-0002MQ-VN
+ for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 15:07:25 +0000
 Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
  [2a00:1450:4864:20::533])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0f76e888-6969-11f0-a31e-13f23c93f187;
- Fri, 25 Jul 2025 17:07:20 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 113f549f-6969-11f0-b895-0df219b8e170;
+ Fri, 25 Jul 2025 17:07:23 +0200 (CEST)
 Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-60bfcada295so3616927a12.1
- for <xen-devel@lists.xenproject.org>; Fri, 25 Jul 2025 08:07:20 -0700 (PDT)
+ 4fb4d7f45d1cf-608acb0a27fso3685337a12.0
+ for <xen-devel@lists.xenproject.org>; Fri, 25 Jul 2025 08:07:23 -0700 (PDT)
 Received: from localhost.localdomain ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-614cd0f730fsm2194208a12.22.2025.07.25.08.07.18
+ 4fb4d7f45d1cf-614cd0f730fsm2194208a12.22.2025.07.25.08.07.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Fri, 25 Jul 2025 08:07:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -45,55 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f76e888-6969-11f0-a31e-13f23c93f187
+X-Inumbo-ID: 113f549f-6969-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1753456040; x=1754060840; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1753456042; x=1754060842; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vInKQUDym/V0LtSN5zjRIc7mW05wzM+9RxF82LfYmjw=;
-        b=BMJsbxxQFYlyCl0IirpPW2WAPBsOeOWK24MLsJZCrRRsVD0ulQyf780JQGykKwUw97
-         a48aaOz+qd8i+THY3+P84GXV/CAPUiyhPo4y/s5VnJXg544CL3NBeq2eU3tmzxAGEzgn
-         OeJmhv43ZqBG7LgOH202S1zwwHoNgD3A+PD1k=
+        bh=Eees8l7HYHFwD1RvaaoHSAMU8I8IDqz7LF2ScnBEH/o=;
+        b=LOsMqoHEo2gUxzqYyrvXw8T2oCMa/M/qoSV4kKoqOrBVP+FQmOukKTopbLKxzW5qK/
+         Sgim8nbQRX5OiC2OKk6XeSITaPSshMuTR04qtPH+uEemlwKylTmELPCUePiIQfwohcy6
+         7YLre7DPspp2JiXwfTIxi/FX0mGttwkQuR2zY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753456040; x=1754060840;
+        d=1e100.net; s=20230601; t=1753456042; x=1754060842;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=vInKQUDym/V0LtSN5zjRIc7mW05wzM+9RxF82LfYmjw=;
-        b=gZICQEXOUPx8Eb53kyX5OPW8bEGiobw6iMT81LQ0K8MXb/0/+YsykaUqlSn10myb/t
-         jwZeTDdYXAaKEm3v/4IkEmf+QNBqj9B8PG+4JXG0wr1YUipHkX6tzaOWYnK+C3ZetKmw
-         jn48GgU+ctDStB+wlOQ1Pij9wkQjhT7ShonD897HbUuEf10lZq73L7YPi0/YAu9bxMzi
-         nFJpO7X+iE7N+Oc68dwx/h9GbTIb5RmKG2gvx/5q7YflbtAHbi1Q4leqAjSUVCQu6jIp
-         XL9WlD5eDLMUMyj8YSuTcWevbbTcHVVkTpd/kuRvy8hqTo5fS6SD9kpn7KwC1u0B+f4d
-         87Ew==
-X-Gm-Message-State: AOJu0YzSoqScmWd9R/0vZiSh0asjmH1IAuYO+xb/MqwjCgjeri3+ACvd
-	qR0lHrd2huGPxf+noDYaVrXMzcowvHtlIx/x5SHLAanwM8j2/xYut9b6GZiJVcq0MVJH0cVaILE
-	RyyMOfkI=
-X-Gm-Gg: ASbGnctjmApeSIcFEJ0YX8F8o6nzchePtzBAKOZyVeDNfIpnrJLqMoF2H5c+GIUqRb/
-	nd2hBOhc+wI0YRrN9m5v/iJDDS8t49IQ+1ze2uO+ACDzrWcrRS8IqBvpI9HSJ+m90WiId0OXgyk
-	ISOUcsarTSckeZPzIy/jj5R1dn3fQz1T08lK6zmnrBIqir524vWOW1WW16pfpOxCNBBlUTxAi3/
-	mmSvvlhWrt4COiD3YrIGkNNOyYQ9Fys11Zgw74VJzCnLQ1tQTcK2DpAY3Y8EGkGvcokxcV9w8wS
-	MFAo/HeBqItCooZBbh0JujRlnSbtqKULFU9KLmz8IZhXtiQtceWVAxvqNoJko8/4EKlbRKJEByJ
-	hA2NimH8vGW3HxnsQnOvkEo7yYZIle5jAgMoY
-X-Google-Smtp-Source: AGHT+IFVNKsEQIGegS9fag3H4TJHSLllipGdqgNb69TweprTYiCTydPYPubRbaeQMd1VQlHtchNYRg==
-X-Received: by 2002:a50:baaa:0:b0:608:493a:cccf with SMTP id 4fb4d7f45d1cf-614f1dfa8d5mr1774213a12.30.1753456039518;
-        Fri, 25 Jul 2025 08:07:19 -0700 (PDT)
+        bh=Eees8l7HYHFwD1RvaaoHSAMU8I8IDqz7LF2ScnBEH/o=;
+        b=gNjozB/SZ5jBycCkcYcbXEt8Y2MSFKWT8R8cXZA8AkB8u3NRV9/P+y17H37l3wh7WA
+         UB2SsEQBPJdgr0V/OD6ZAulC6fGSRQ1603uc7q36QQITWrJDws5BAaPGHvWk//Pq5qBF
+         YrQYN044/c+rmzzmdS0nnltneOV0/1Fd3bNP6YAsjS/1th9k0S9nMH6UBlWs9WXjmtzO
+         5Jd0aVVnTjtvUf8Huxn3mge2rZtdQM86LHbwiwCFMXVBwaIYuTMfu1OvAxs8FM0LtNbJ
+         fNUVDjVnSolXorSzYhzLKK7A4Cq1pB+J4BF6Wv/BgbBl/fHXNd8zVA6xudwu3XjkvtuP
+         oX1Q==
+X-Gm-Message-State: AOJu0YyKdBuaaajabfh92i7T/E7bXcYhxMUB32yrXjT0Y9InBTxfv2E/
+	iNUiUtDTMyMNPXIRl7ZHq9nSUdZCDg/t9LxwSfUwW9Mc1bi3R1/jIMdqDKcBg1y5CX6/6MznMP9
+	YFvxvq4E=
+X-Gm-Gg: ASbGncsDcDkRNi9IEQ17lCobAMPGM45bg7Z5Nr0PHkUtEW4OZaAvwnBXz/m0feHxeNV
+	/ruCmEAljKHXjsHOEx48ISi9fEtWHWMShlCR8Xd8CrQQ4o/UnItyOV+C7Qq6J40Hk83yjt//wIA
+	iquqMgHEVde4ziEFrGM4xj59dgopp3WIEk9cTgtxe7fsSrnlpwTOofnrT8ZZ/gM6a73yfiPVMgP
+	qtESVoeFrc3Je83G2qJAhystc9NTHf2HSumj/h5iH6hSUxX8WXFSrTjXReT4elSaOYHbeAYuVHk
+	b5cBlJ276pg/uy2+6SBm+rg+9hitWGv+s9ZO9Hf+ZMplwUqMysdQeMOh/jNw010dkQxTP77CcDf
+	GcahWA9r6doTm8IckFRLhB6t0HeQJXz5zsEel
+X-Google-Smtp-Source: AGHT+IGS405VXxW1EPdupffOjwjXEufOUvMG1R4Zwk95ZKFsAjWD0uSJlXHO9E6I0o/Tw2TQqyFbMA==
+X-Received: by 2002:a05:6402:354e:b0:606:fef3:7c3e with SMTP id 4fb4d7f45d1cf-614f1b98612mr2222567a12.3.1753456040127;
+        Fri, 25 Jul 2025 08:07:20 -0700 (PDT)
 From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>
 To: xen-devel@lists.xenproject.org
-Cc: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	andriy.sultanov@vates.tech,
-	boris.ostrovsky@oracle.com
-Subject: [RFC PATCH v1 10/10] xen/tools/pyperf.py: example script to parse perf output
-Date: Fri, 25 Jul 2025 16:06:46 +0100
-Message-ID: <570fac654441fd0700a2a322d71c68f2e7b4e27d.1753372928.git.edwin.torok@cloud.com>
+Cc: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>
+Subject: [RFC LINUX PATCH v1 1/3] perf kvm: introduce a hypervisor_callchain callback
+Date: Fri, 25 Jul 2025 16:06:47 +0100
+Message-ID: <20250725150719.472782-1-edwin.torok@cloud.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <cover.1753372928.git.edwin.torok@cloud.com>
 References: <cover.1753372928.git.edwin.torok@cloud.com>
@@ -101,180 +92,145 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Looks up symbols by parsing the output of 'perf script -i
-perf.data.kvm'.
+`perf kvm` currently assumes that it can construct a stacktrace by
+looking up stack pointer addresses in the current kernel's address
+space.
+That only works if the hypervisor is the same as the kernel (i.e. KVM),
+but doesn't work if the hypervisor is separate from the kernel (Xen,
+with Linux as Dom0).
 
-Note that addr2line is very slow, and invoking it for each symbol would
-results in the script taking several minutes to process a trace that
-only lasts a few seconds.
-Processing only unique addresses, and processing multiple addresses in
-one go reduces this to acceptable running times.
+Introduce a callback to enable Xen to retrieve the stacktrace from Xen
+instead when a sample is inside the hypervisor (domid == DOMID_XEN
+instead of DOMID_SELF).
 
-Based on an earlier script by Andriy Sultanov for parsing 'perf kvm report
---stdio' output.
+The callback can replace the registers with the guest kernel's registers
+upon return when domid == DOMID_SELF, so that we can continue with the
+kernel stacktrace.
 
-This doesn't have to be added to the tree, eventually perf itself should
-be capable of performing this lookup, but meanwhile it is useful to have
-some way for automatically converting stacktraces.
+Both KVM and Xen define this as NULL, a followup commit will implement
+the callback for Xen (KVM doesn't need a callback implementation).
+
+No functional change.
 
 Signed-off-by: Edwin Török <edwin.torok@cloud.com>
 ---
- xen/tools/pyperf.py | 146 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 146 insertions(+)
- create mode 100644 xen/tools/pyperf.py
+ arch/x86/xen/pmu.c         |  2 ++
+ include/linux/perf_event.h | 12 ++++++++++++
+ kernel/events/core.c       |  5 +++++
+ virt/kvm/kvm_main.c        |  1 +
+ 4 files changed, 20 insertions(+)
 
-diff --git a/xen/tools/pyperf.py b/xen/tools/pyperf.py
-new file mode 100644
-index 0000000000..881e6e1e0b
---- /dev/null
-+++ b/xen/tools/pyperf.py
-@@ -0,0 +1,146 @@
-+#!/usr/bin/env python3
-+## run after 'perf kvm --host --guest record -a -F 99 -- xe vm-list'
-+# wraps the call to 'perf script' to get xen symbols instead of just addresses, like:
-+#
-+# perf  236848 [000] 67971.504330:          1 cycles:P:
-+#        ffff82d04029fc73 [unknown] ([unknown])
-+#        ffff82d04029ebc2 [unknown] ([unknown])
-+#        ffff82d04029ef1f [unknown] ([unknown])
-+#        ffff82d0403081df [unknown] ([unknown])
-+#        ffff82d0402012d3 [unknown] ([unknown])
-+#            7f2ea410469d __GI___ioctl+0x3d (/usr/lib64/libc.so.6)
-+#            55f9b3a8df5c perf_evsel__run_ioctl+0x6c (/usr/bin/perf)
-+#            55f9b397b152 __evlist__enable.constprop.0+0x112 (/usr/bin/perf)
-+#            55f9b38c2643 __cmd_record.constprop.0+0x2833 (/usr/bin/perf)
-+#            55f9b38c3e1c cmd_record+0xeec (/usr/bin/perf)
-+#            55f9b38e3ed0 cmd_kvm+0x7d0 (/usr/bin/perf)
-+#            55f9b3961ff1 run_builtin+0x71 (/usr/bin/perf)
-+#            55f9b38adbeb main+0x68b (/usr/bin/perf)
-+#            7f2ea403314a __libc_start_call_main+0x7a (/usr/lib64/libc.so.6)
-+#            7f2ea403320b __libc_start_main@@GLIBC_2.34+0x8b (/usr/lib64/libc.so.6)
-+#            55f9b38ade55 _start+0x25 (/usr/bin/perf)
-+# 
-+# Or with perf script -F+srcline:
-+# perf  236848 [000] 67971.504330:          1 cycles:P:
-+#        ffff82d04029fc73 [unknown] ([unknown])
-+#        ffff82d04029ebc2 [unknown] ([unknown])
-+#        ffff82d04029ef1f [unknown] ([unknown])
-+#        ffff82d0403081df [unknown] ([unknown])
-+#        ffff82d0402012d3 [unknown] ([unknown])
-+#            7f2ea410469d __GI___ioctl+0x3d (/usr/lib64/libc.so.6)
-+#  libc.so.6[d569d]
-+#            55f9b3a8df5c perf_evsel__run_ioctl+0x6c (/usr/bin/perf)
-+#  evsel.c:435
-+#            55f9b397b152 __evlist__enable.constprop.0+0x112 (/usr/bin/perf)
-+# evlist.c:573
-+#            55f9b38c2643 __cmd_record.constprop.0+0x2833 (/usr/bin/perf)
-+#  builtin-record.c:2524
-+#            55f9b38c3e1c cmd_record+0xeec (/usr/bin/perf)
-+#  builtin-record.c:4215
-+#            55f9b38e3ed0 cmd_kvm+0x7d0 (/usr/bin/perf)
-+#  builtin-kvm.c:2081
-+#            55f9b3961ff1 run_builtin+0x71 (/usr/bin/perf)
-+#  perf.c:322
-+#            55f9b38adbeb main+0x68b (/usr/bin/perf)
-+#  perf.c:375
-+#            7f2ea403314a __libc_start_call_main+0x7a (/usr/lib64/libc.so.6)
-+#  libc.so.6[414a]
-+#            7f2ea403320b __libc_start_main@@GLIBC_2.34+0x8b (/usr/lib64/libc.so.6)
-+#  libc.so.6[420b]
-+#            55f9b38ade55 _start+0x25 (/usr/bin/perf)
-+#  ??:0
-+# 
-+# TODO: BUG when we have only 1 unknown and not from hypervisor we print 2 bogus values
-+# and claim it was hypervisor
-+# This is useful for FlameGraphs
+diff --git a/arch/x86/xen/pmu.c b/arch/x86/xen/pmu.c
+index 246d67dab510..b92dc739fdfb 100644
+--- a/arch/x86/xen/pmu.c
++++ b/arch/x86/xen/pmu.c
+@@ -466,6 +466,7 @@ static unsigned long xen_get_guest_ip(void)
+ static struct perf_guest_info_callbacks xen_guest_cbs = {
+ 	.state                  = xen_guest_state,
+ 	.get_ip			= xen_get_guest_ip,
++	.hypervisor_callchain   = NULL
+ };
+ 
+ /* Convert registers from Xen's format to Linux' */
+@@ -489,6 +490,7 @@ static void xen_convert_regs(const struct xen_pmu_regs *xen_regs,
+ 	}
+ }
+ 
 +
-+from collections import defaultdict
-+from typing import Optional
-+import subprocess
-+import tempfile
+ irqreturn_t xen_pmu_irq_handler(int irq, void *dev_id)
+ {
+ 	int err, ret = IRQ_NONE;
+diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
+index 90c782749b05..d82aeaddadb8 100644
+--- a/include/linux/perf_event.h
++++ b/include/linux/perf_event.h
+@@ -29,10 +29,14 @@
+ #define PERF_GUEST_ACTIVE	0x01
+ #define PERF_GUEST_USER	0x02
+ 
++struct perf_callchain_entry_ctx;
 +
-+with open('/sys/hypervisor/version/major', 'r') as f:
-+    major = f.read().rstrip()
-+with open('/sys/hypervisor/version/minor', 'r') as f:
-+    minor = f.read().rstrip()
-+with open('/sys/hypervisor/version/extra', 'r') as f:
-+    extra = f.read().rstrip()
-+
-+xen_version = f'{major}.{minor}{extra}'
-+xen_symbols = f'/boot/xen-syms-{xen_version}'
-+# TODO: srcline transform as we do for ours
-+report: bytes = subprocess.check_output(['perf', 'script', '-i', 'perf.data.kvm'])
-+
-+# invoking addr2line for each symbol is very slow
-+# (takes several minutes to process a trace that way)
-+# Instead collect all addresses, and invoke addr2line once
-+# (this way we can also query it only for unique addresses)
-+maybe_in_hypervisor = False
-+
-+addresses = set()
-+lines = []
-+
-+for rawline in report.splitlines():
-+    line = rawline.decode()
-+    columns = line.split()
-+    if line and line[0] != ' ':
-+        # beginning of new stacktrace, could start in hypervisor
-+        maybe_in_hypervisor = True
-+    if len(columns) == 3 and maybe_in_hypervisor and columns[1] == '[unknown]' and columns[2] == '([unknown])':
-+        addr = columns[0]
-+        addresses.add(addr)
-+        lines.append((line, columns))
-+    else:
-+        maybe_in_hypervisor = False
-+        lines.append((line, []))
-+
-+addr2loc: defaultdict[str, list[str]] = defaultdict(list)
-+with tempfile.NamedTemporaryFile() as tmp:
-+    # TODO: add back -i, but sharing needs to be fixed
-+    tmp.write(f"-asfe {xen_symbols}\n".encode("utf-8"))
-+    for addr in addresses:
-+        tmp.write((addr + "\n").encode("utf-8"))
-+    tmp.flush()
-+    cmd = ['addr2line', '@' + tmp.name]
-+    symbols = subprocess.check_output(cmd).decode().splitlines()
-+    # output format:
-+    #  address
-+    #  function_name
-+    #  source_file:line_number
-+    #  inlined by function_name
-+    #  inlined by source_file:line_number
-+    # we keep each of these separate, but change the order,
-+    # so that it works for a flamegraph (from callees to callers)
-+    #  source_file:line_number
-+    #  function_name
-+    #  inlined by source_file:line_number
-+    #  inlined by function_name
-+
-+    # sometimes we get extra info in parenthesis, drop it:
-+    # /builddir/build/BUILD/xen-4.21.0/xen/build-xen-debug/../arch/x86/pv/emul-priv-op.c:1349 (discriminator 8)
-+    addr = ""
-+    prev: Optional[str] = None
-+    for symline in symbols:
-+        if symline.startswith("0x"):
-+            addr = symline[2:]
-+            addr2loc[addr] = []
-+            prev = None
-+        else:
-+            if prev:
-+                for line in [symline, prev]:
-+                    addr2loc[addr].append("%024s %s_[h] ([%s])" %
-+                                          (addr, line.split()[0], xen_symbols))
-+            prev = symline
-+
-+    for (line, columns) in lines:
-+        if len(columns) == 3:
-+            addr = columns[0]
-+            loc = addr2loc.get(addr)
-+            if loc:
-+                # TODO: stacktrace needs to be shared when inlined functions have common parent
-+                for out in loc:
-+                    print(out)
-+            else:
-+                print(line)
-+        else:
-+            print(line)
+ struct perf_guest_info_callbacks {
+ 	unsigned int			(*state)(void);
+ 	unsigned long			(*get_ip)(void);
+ 	unsigned int			(*handle_intel_pt_intr)(void);
++	void				(*hypervisor_callchain)(struct perf_callchain_entry_ctx *pc,
++								struct pt_regs *regs);
+ };
+ 
+ #ifdef CONFIG_HAVE_HW_BREAKPOINT
+@@ -1514,6 +1518,7 @@ extern struct perf_guest_info_callbacks __rcu *perf_guest_cbs;
+ DECLARE_STATIC_CALL(__perf_guest_state, *perf_guest_cbs->state);
+ DECLARE_STATIC_CALL(__perf_guest_get_ip, *perf_guest_cbs->get_ip);
+ DECLARE_STATIC_CALL(__perf_guest_handle_intel_pt_intr, *perf_guest_cbs->handle_intel_pt_intr);
++DECLARE_STATIC_CALL(__perf_hypervisor_callchain, *perf_guest_cbs->hypervisor_callchain);
+ 
+ static inline unsigned int perf_guest_state(void)
+ {
+@@ -1527,12 +1532,19 @@ static inline unsigned int perf_guest_handle_intel_pt_intr(void)
+ {
+ 	return static_call(__perf_guest_handle_intel_pt_intr)();
+ }
++static inline void
++perf_hypervisor_callchain(struct perf_callchain_entry_ctx *entry,
++			  struct pt_regs *regs)
++{
++	static_call(__perf_hypervisor_callchain)(entry, regs);
++}
+ extern void perf_register_guest_info_callbacks(struct perf_guest_info_callbacks *cbs);
+ extern void perf_unregister_guest_info_callbacks(struct perf_guest_info_callbacks *cbs);
+ #else
+ static inline unsigned int perf_guest_state(void)		 { return 0; }
+ static inline unsigned long perf_guest_get_ip(void)		 { return 0; }
+ static inline unsigned int perf_guest_handle_intel_pt_intr(void) { return 0; }
++static inline void perf_hypervisor_callchain(struct perf_callchain_entry_ctx *) { return; }
+ #endif /* CONFIG_GUEST_PERF_EVENTS */
+ 
+ extern void perf_event_exec(void);
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 3a33d9c1b1b2..a8535294018b 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -6917,6 +6917,7 @@ struct perf_guest_info_callbacks __rcu *perf_guest_cbs;
+ DEFINE_STATIC_CALL_RET0(__perf_guest_state, *perf_guest_cbs->state);
+ DEFINE_STATIC_CALL_RET0(__perf_guest_get_ip, *perf_guest_cbs->get_ip);
+ DEFINE_STATIC_CALL_RET0(__perf_guest_handle_intel_pt_intr, *perf_guest_cbs->handle_intel_pt_intr);
++DEFINE_STATIC_CALL_NULL(__perf_hypervisor_callchain, *perf_guest_cbs->hypervisor_callchain);
+ 
+ void perf_register_guest_info_callbacks(struct perf_guest_info_callbacks *cbs)
+ {
+@@ -6931,6 +6932,9 @@ void perf_register_guest_info_callbacks(struct perf_guest_info_callbacks *cbs)
+ 	if (cbs->handle_intel_pt_intr)
+ 		static_call_update(__perf_guest_handle_intel_pt_intr,
+ 				   cbs->handle_intel_pt_intr);
++	if (cbs->hypervisor_callchain)
++		static_call_update(__perf_hypervisor_callchain,
++				   cbs->hypervisor_callchain);
+ }
+ EXPORT_SYMBOL_GPL(perf_register_guest_info_callbacks);
+ 
+@@ -6944,6 +6948,7 @@ void perf_unregister_guest_info_callbacks(struct perf_guest_info_callbacks *cbs)
+ 	static_call_update(__perf_guest_get_ip, (void *)&__static_call_return0);
+ 	static_call_update(__perf_guest_handle_intel_pt_intr,
+ 			   (void *)&__static_call_return0);
++	static_call_update(__perf_hypervisor_callchain, (void *)&__static_call_return0);
+ 	synchronize_rcu();
+ }
+ EXPORT_SYMBOL_GPL(perf_unregister_guest_info_callbacks);
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 44c228bcd699..20a03dd9cc42 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -6038,6 +6038,7 @@ static struct perf_guest_info_callbacks kvm_guest_cbs = {
+ 	.state			= kvm_guest_state,
+ 	.get_ip			= kvm_guest_get_ip,
+ 	.handle_intel_pt_intr	= NULL,
++	.hypervisor_callchain   = NULL
+ };
+ 
+ void kvm_register_perf_callbacks(unsigned int (*pt_intr_handler)(void))
+
+base-commit: dbcb8d8e4163e46066f43e2bd9a6779e594ec900
 -- 
 2.47.1
 
