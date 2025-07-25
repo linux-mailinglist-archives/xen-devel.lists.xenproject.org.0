@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCF40B12095
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 17:07:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1058056.1425724 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFEA3B12094
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 17:07:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1058057.1425731 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufK0y-0002Ut-DP; Fri, 25 Jul 2025 15:07:16 +0000
+	id 1ufK0y-0002ch-PC; Fri, 25 Jul 2025 15:07:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1058056.1425724; Fri, 25 Jul 2025 15:07:16 +0000
+Received: by outflank-mailman (output) from mailman id 1058057.1425731; Fri, 25 Jul 2025 15:07:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufK0y-0002OZ-Ac; Fri, 25 Jul 2025 15:07:16 +0000
-Received: by outflank-mailman (input) for mailman id 1058056;
- Fri, 25 Jul 2025 15:07:14 +0000
+	id 1ufK0y-0002VC-LH; Fri, 25 Jul 2025 15:07:16 +0000
+Received: by outflank-mailman (input) for mailman id 1058057;
+ Fri, 25 Jul 2025 15:07:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=DJoT=2G=cloud.com=edwin.torok@srs-se1.protection.inumbo.net>)
- id 1ufK0w-0002MQ-GV
- for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 15:07:14 +0000
+ id 1ufK0x-0002MQ-GZ
+ for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 15:07:15 +0000
 Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
  [2a00:1450:4864:20::532])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0b3b2364-6969-11f0-b895-0df219b8e170;
+ id 0ba6d494-6969-11f0-b895-0df219b8e170;
  Fri, 25 Jul 2025 17:07:13 +0200 (CEST)
 Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-612b67dcb89so3504813a12.1
+ 4fb4d7f45d1cf-60c5b8ee2d9so4565899a12.2
  for <xen-devel@lists.xenproject.org>; Fri, 25 Jul 2025 08:07:13 -0700 (PDT)
 Received: from localhost.localdomain ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-614cd0f730fsm2194208a12.22.2025.07.25.08.07.11
+ 4fb4d7f45d1cf-614cd0f730fsm2194208a12.22.2025.07.25.08.07.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Fri, 25 Jul 2025 08:07:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -45,55 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b3b2364-6969-11f0-b895-0df219b8e170
+X-Inumbo-ID: 0ba6d494-6969-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1753456032; x=1754060832; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1753456033; x=1754060833; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1gldfYEC90AFOymeYiJGOOlK0XDlSS3TK6PUeJ5xsBI=;
-        b=cBHv1C3FDjwscy8jGz/R5WDHwVMSSs0oHTJhNMocrIkehQXHZSZ9iHEQFJu/Ys4M5w
-         73v0o42BBjNC5gO4OSY913E8QSC9Bi4T+l+EW8lSNzAhZMVCGAdlQNra+5E1IX7ysW3j
-         9eyak0V7jDYGBY8q4TZeh5yVHrnIQAe7MXXjQ=
+        bh=WjJUuOkVkjeeAsMY8i9Mv8bOHKA0v2O1WG6n4OAsjLs=;
+        b=V7R/CHIEcs+Qh4oC+N3xAobvNmlCX8H3WOOMPQcUkYJAAS2Ep68MKbefaRZJru0rk2
+         YLBsfNZONcRP9sn5mckq129mcyUpzzQpcLZ52mWUrt8o6x1+mDenJiq8e0xNMZsrVn9B
+         1C/kv6V+rwu09tjEOSpdaM/0XTMNeOzWANCCU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753456032; x=1754060832;
+        d=1e100.net; s=20230601; t=1753456033; x=1754060833;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=1gldfYEC90AFOymeYiJGOOlK0XDlSS3TK6PUeJ5xsBI=;
-        b=HCCtoRFP925ZL8sNMefn9O8EoS+8HAUslVK+7kLfqGNYxYEXzJJ9D2M9gQJW4cIw/z
-         J0UT7J0US0nzdrQ3fGfgz8rWF9BgPfFVG9VUw+D7lx20pxRHAwCHQalnyxDSMLLvWP6I
-         v9HzYx95V5s3zRJiMHJKbCupUpBynCS0++goWsKEVJi5A3MfYOFeVTEG4JLKlK1QCaAT
-         42OfV+pbBxi29L7FWCxd2Uj7PpHG615PIyurPQW/paHWDG1Xqzs4z8UpyCZ26GJz1v4X
-         /+zuw/0S/wvhqSxc/lX+ePgjgWzmjg3A2hKK9Dw6PKzfCTScRueG9HdqGMhvJkQFsdy3
-         1qHw==
-X-Gm-Message-State: AOJu0Yyvl6xTvQNjtimb78BSVB5ABgh6LxhILMGz6YZxregRhkgCp9M2
-	ruUnNRIBBuDDF1MNFWn9rqivm9unOb6uHKlkZQ1pnOFew25X1rF0hZsP283OM2MDtIHk2ua6LQq
-	UPJ+OwX4=
-X-Gm-Gg: ASbGncvS2dffXDc9aekUFp32uXNUQGIxZx3N1HhaoSORdTStRj7atWJGTxZsSHi9pZ7
-	DK8shiTfsfki7LDZolUUaSEJ7jsYiLGUwjCyU1TLA5aXM4vUOsSzvSn7OkTRqvs8wGwktYmTAa1
-	3Ho4D4Wrlo9NHPwQMDfE6vxGUjkP0fkEr8cQptmh70tFWEdJaBvUsB/8m387WNwueF0qVeOTF4e
-	8f23YXreSAwin6mILbmyY/agCWdu62DnQOIpujKvLl+/mrrZHu75aKLVJSYh8EcWNMMo4vjfESN
-	EvkqbykneZItNKmee61yFcI9U2Z6GaYrNkWhObIBJILtOwVtyXIs04cW3t72pQp35Aw1RFuS410
-	H4fO9c4+LRmDUbQo6DNuHaIgWy2rUuAPOaMt3ZrFjRKClx90=
-X-Google-Smtp-Source: AGHT+IFAm1oNjhbrdoGhR81wq/e3CncUbkScUIHos9elHA3eI3eDgJstaeMlhqb8CDcy8aQ3pUiwAA==
-X-Received: by 2002:a05:6402:270b:b0:612:d3ce:26be with SMTP id 4fb4d7f45d1cf-614f1dccaa6mr2276305a12.16.1753456032472;
-        Fri, 25 Jul 2025 08:07:12 -0700 (PDT)
+        bh=WjJUuOkVkjeeAsMY8i9Mv8bOHKA0v2O1WG6n4OAsjLs=;
+        b=sOFIBt4u6gZd4YQj4JbD+BqjBtf56ruA7b5FnlcOVkHaqcTo0KSxdA92E6CJTXeGwU
+         NHcPNb+Q1Cxdbmth/PrVfVqQJNhQeiN/B+2YqAQ6FGBPmUolivAZDZIQpnz/Vs4NjKU8
+         Cjk/r4teU24bJa3BBW746yzO2oCPHuSExyYhi7TOVXsXx4kbKyR9j/PgpK4aEzc32e3G
+         tyCZBpEWDmWv5hKJ/JkmsUQj7DkuimJ6rsJx0WKSE2Erp3W6nETZvupbgnDD1IS3coUg
+         dEEvpK0zf+vWr/d8sZHRXh4DdlfQAnYWnAtVDrLZ1jgzicayTOFBD7cIFfbqgR2ZYbb9
+         rafQ==
+X-Gm-Message-State: AOJu0YxSUGCnuKQJdB8ujRSyRg8RPO+6KUbzTqCimhG8dkPGFFBvmMlh
+	NsxqV3iS3hBh6mHbp6S9/wJ1H62aXuRpJ61mIxdM4X+BVwikPkcmUyViEYoNB51GJjgu1h1VnrI
+	GuKR/oIU=
+X-Gm-Gg: ASbGnct1GBID54CDFwspivGH3/n+ocAC0XsGoeBb9d1mVou1nl8c7vdix9VVh5wRgV8
+	SbgYcsmjnZMelJVWoX8hD8V4pikjgnmbihqGeWpRyykJUl7DLf4YUXMHRy0bjzkaGVi2Q10SyRd
+	5Bqj+N2V8Z1MYUnXGfJFvj09IgPHZhLfwToBYlbint3yMx1ONrOcAPUroMt9dK3C8NdMcIdDeei
+	PfuXsD6iM3gDHvxfXw4MBrTlFssRiL3vLXzSJrlaxgolhP1vQTelX1dnTPFlv/wukW/hxZbFObv
+	62Sy4wiSaJlaC5A0rnPxTBtG+qLHu5juJ1Y87UDn3dUEhadamPaHBbfCsW2zBl/KveFAzOT6vY5
+	NeOIONYGa22I7OV6wGgJf9K3/pqYVz+IotYpr
+X-Google-Smtp-Source: AGHT+IE1RlHK5S4tEzuYbFc3r98R2pHtlcQZi02L4eIuKkTVKrqlsurFhfmiXkDse6o9kTwjD6XcgQ==
+X-Received: by 2002:a05:6402:1ed6:b0:60c:461e:7199 with SMTP id 4fb4d7f45d1cf-614f1bb98f0mr2068972a12.9.1753456033074;
+        Fri, 25 Jul 2025 08:07:13 -0700 (PDT)
 From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
 	andriy.sultanov@vates.tech,
 	boris.ostrovsky@oracle.com
-Subject: [RFC PATCH v1 01/10] pmu.h: add a BUILD_BUG_ON to ensure it fits within one page
-Date: Fri, 25 Jul 2025 16:06:37 +0100
-Message-ID: <80e7ae8bc1546b004e2b3dcc3f3e57563ff741d2.1753372928.git.edwin.torok@cloud.com>
+Subject: [RFC PATCH v1 02/10] arch-x86/pmu.h: document current memory layout for VPMU
+Date: Fri, 25 Jul 2025 16:06:38 +0100
+Message-ID: <5602e488bfa9b06e46e2a374d40ff4a617feb512.1753372928.git.edwin.torok@cloud.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <cover.1753372928.git.edwin.torok@cloud.com>
 References: <cover.1753372928.git.edwin.torok@cloud.com>
@@ -101,43 +97,94 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Linux already has a similar BUILD_BUG_ON.
-Currently this struct is ~224 bytes on x86-64.
+There are nested structs, unions, padding and flexible array members.
+The interpretation of the flexible array members is all done with
+pointer arithmetic, it is useful to visualize the actual memory layout.
+
+The ascii-art drawing is compatible with ascii-art-to-unicode (aa2u) fro
+m hackage.
 
 No functional change.
 
 Signed-off-by: Edwin Török <edwin.torok@cloud.com>
 ---
- xen/arch/x86/cpu/vpmu.c  | 1 +
- xen/include/public/pmu.h | 3 +++
- 2 files changed, 4 insertions(+)
+ xen/include/public/arch-x86/pmu.h | 63 +++++++++++++++++++++++++++++++
+ 1 file changed, 63 insertions(+)
 
-diff --git a/xen/arch/x86/cpu/vpmu.c b/xen/arch/x86/cpu/vpmu.c
-index c28192ea26..7be79c2d00 100644
---- a/xen/arch/x86/cpu/vpmu.c
-+++ b/xen/arch/x86/cpu/vpmu.c
-@@ -401,6 +401,7 @@ static int vpmu_arch_initialise(struct vcpu *v)
-     uint8_t vendor = current_cpu_data.x86_vendor;
-     int ret;
+diff --git a/xen/include/public/arch-x86/pmu.h b/xen/include/public/arch-x86/pmu.h
+index d0a99268af..8be71a88ee 100644
+--- a/xen/include/public/arch-x86/pmu.h
++++ b/xen/include/public/arch-x86/pmu.h
+@@ -129,6 +129,69 @@ struct xen_pmu_arch {
+ typedef struct xen_pmu_arch xen_pmu_arch_t;
+ DEFINE_XEN_GUEST_HANDLE(xen_pmu_arch_t);
  
-+    BUILD_BUG_ON(sizeof(struct xen_pmu_data) > PAGE_SIZE);
-     BUILD_BUG_ON(sizeof(struct xen_pmu_intel_ctxt) > XENPMU_CTXT_PAD_SZ);
-     BUILD_BUG_ON(sizeof(struct xen_pmu_amd_ctxt) > XENPMU_CTXT_PAD_SZ);
-     BUILD_BUG_ON(sizeof(struct xen_pmu_regs) > XENPMU_REGS_PAD_SZ);
-diff --git a/xen/include/public/pmu.h b/xen/include/public/pmu.h
-index af8b7babdd..15decc024d 100644
---- a/xen/include/public/pmu.h
-+++ b/xen/include/public/pmu.h
-@@ -93,6 +93,9 @@ DEFINE_XEN_GUEST_HANDLE(xen_pmu_params_t);
-  * Architecture-independent fields of xen_pmu_data are WO for the hypervisor
-  * and RO for the guest but some fields in xen_pmu_arch can be writable
-  * by both the hypervisor and the guest (see arch-$arch/pmu.h).
-+ *
-+ * PAGE_SIZE bytes of memory are allocated.
-+ * This struct cannot be larger than PAGE_SIZE.
-  */
- struct xen_pmu_data {
-     /* Interrupted VCPU */
++/* Memory layout:
++*                .---------------------.
++*                | struct xen_pmu_data |
++* +==============+=====================+=======================+ <.
++* | vcpu_id                                                    |  |
++* +------------------------------------------------------------+  |
++* | pcpu_id                                                    |  |
++* +------------------------------------------------------------+  |
++* | domain_id                                                  |  |
++* +------------------------------------------------------------+  |
++* |##pad#######################################################|  |
++* +====+=+===+==================+==============================+  |
++* | pmu| | r | regs             |##pad#########################|  |
++* +----. +---. (xen or guest)   |##############################|  |
++* |      +======================+==============================+  |
++* |      | pmu_flags                                           |  |
++* |      +===+====================+============================+  |
++* |      | l | lapic_lvtpc        |############################|  |
++* |      +---. ###################|##pad#######################|  |
++* |      |     ###################|############################|  |
++* |      +===+=+=======+=====+====+====+=======+========+======+  |
++* |      | c | |       | amd |    |    | intel |         |#####|  |
++* |      +---+ |       .-----.    |    .-------.         |#####|  |
++* |      |     | counter          | fixed_counters       |#####|  | 
++* |      |     +------------------+----------------------+#####|  |
++* |      |     | ctrls            | arch_counters        |#####|  |
++* |      |     +=====+========+===+----------------------+#####|  |
++* |      |     |     | regs[] |  :| global_ctrl          |#####|  |
++* |      |     |     +--------.  :+----------------------+#####|  |
++* |      |     |struct           :| global_ovf_ctrl      |#####|  |
++* |      |     |xen_pmu_cntr_pair:+----------------------+#####|  |
++* |      |     |[counters]       :| global_status        |#####|  |
++* |      |     |                 :+----------------------+#####|  |
++* |      |     |                 :| fixed_ctrl           |#####|  |
++* |      |     |                 :+----------------------+#####|  |
++* |      |     |                 :| ds_area              |#####|  |
++* |      |     |                 :+----------------------+#####|  |
++* |      |     |                 :| pebs_enable          |#pad#|  |
++* |      |     |                 :+----------------------+#####|  |
++* |      |     |                 v| debugctl             |#####|  |
++* |      |     |##################+=======+========+=====+#####|  |
++* |      |     |##################|       | regs[] | :[0]|#####|  |
++* |      |     |##################|       +--------. :   |#####|  |
++* |      |     |##################| uint64_t         :   |#####|  |
++* |      |     |##################| [fixed_counters] :   |#####|  |
++* |      |     |##################|                  :   |#####|  |
++* |      |     |##################|                  :   |#####|  |
++* |      |     |##################| -----------------:   |#####|  |
++* |      |     |##################|  struct          :   |#####|  |
++* |      |     |##################| xen_pmu_cntr_pair:   |#####|  |
++* |      |     +==================+ [arch_counters]  :   +=====+  | 
++* |      |                        |                  :   |     |  |
++* |      |                        |                  v   |     |  |
++* |      |                        +======================+     |  |
++* |      +=====================================================+  |
++* +==========================+=================================+  |
++* |############################################################|  |
++* ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::  :
++* ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::  :
++* |############################################################|  | PAGE_SIZE
++* +=========+==================================================+ <.
++*/
++
+ #endif /* __XEN_PUBLIC_ARCH_X86_PMU_H__ */
+ /*
+  * Local variables:
 -- 
 2.47.1
 
