@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CDC8B11894
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 08:35:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1057322.1425244 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D20F5B11897
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 08:41:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1057331.1425254 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufC1F-0003mv-9n; Fri, 25 Jul 2025 06:35:01 +0000
+	id 1ufC7N-0005kM-1C; Fri, 25 Jul 2025 06:41:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1057322.1425244; Fri, 25 Jul 2025 06:35:01 +0000
+Received: by outflank-mailman (output) from mailman id 1057331.1425254; Fri, 25 Jul 2025 06:41:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufC1F-0003lY-66; Fri, 25 Jul 2025 06:35:01 +0000
-Received: by outflank-mailman (input) for mailman id 1057322;
- Fri, 25 Jul 2025 06:34:59 +0000
+	id 1ufC7M-0005gr-TH; Fri, 25 Jul 2025 06:41:20 +0000
+Received: by outflank-mailman (input) for mailman id 1057331;
+ Fri, 25 Jul 2025 06:41:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Ugva=2G=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1ufC1D-0003lE-Hf
- for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 06:34:59 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ id 1ufC7L-0005gl-22
+ for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 06:41:19 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7ac0e593-6921-11f0-a31e-13f23c93f187;
- Fri, 25 Jul 2025 08:34:56 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-ae3703c2a8bso353678466b.0
- for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 23:34:56 -0700 (PDT)
+ id 59523288-6922-11f0-a31e-13f23c93f187;
+ Fri, 25 Jul 2025 08:41:09 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-ae3b336e936so345508366b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Jul 2025 23:41:10 -0700 (PDT)
 Received: from ?IPV6:2003:e5:8728:2b00:e047:1b8:d101:cf8e?
  (p200300e587282b00e04701b8d101cf8e.dip0.t-ipconnect.de.
  [2003:e5:8728:2b00:e047:1b8:d101:cf8e])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af47cd656e8sm223332066b.55.2025.07.24.23.34.55
+ a640c23a62f3a-af47f44df92sm222698266b.69.2025.07.24.23.41.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 24 Jul 2025 23:34:55 -0700 (PDT)
+ Thu, 24 Jul 2025 23:41:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,54 +47,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ac0e593-6921-11f0-a31e-13f23c93f187
+X-Inumbo-ID: 59523288-6922-11f0-a31e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753425296; x=1754030096; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753425669; x=1754030469; darn=lists.xenproject.org;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=E8Bit7dRcXUTB4SnIlZVcf0UR0AeKLQaXnj0KWBWBeI=;
-        b=CofLFE1ipvWTk06b9qADCDPUDgz6GG7EOV1YurZUSEWLYz54fHa7jfP58C/cEtQy2n
-         1zVM9HZFSiQG754l5BM8IahCjCwrA+oj7Oje5U8ynwF4pCaoBIduLsREjqvKxj+9XDXd
-         3YDST5G1RZOBN9qhKdd5B13/n00e0DLDU4/pqvywKQLN7W9buciDmAD0e1EoOSqArT3l
-         PW5CR8W/oYHq6KwGhi1u9Mxv8cgW4jmAxQ4jyjlPlpKmPp/Sb6gHNw1jntl1kjwtYUf4
-         ykNx1jgcYUWEpR8r5Zg68AhXKiCclJ/FWJEqoIcpfr1eEHFYISubLSxugOC1rIpSYFUf
-         40lg==
+        bh=bgR4qePvu+Ik+Z/q5Zn+qA7MlIhKK0yl2jjxbjI3Tl8=;
+        b=VUtJfFSwYOA8KxcMEWvWQ6IhpA/PwAP0GWPwdjhg2Pa55NN5h21HpA8pv09VrJbY2r
+         /pGvY9CNgOP6vuqjG+g8+xw2JTFuOFJQCrErECjn8JbiegU1pp/3hIhOpXJYuXhroLSe
+         xcCpUkUGkv3GUrzqZP+j4RDb26fVAKH0/RVZIQL6gBfv95CVOsaXCZN0bDhw/JGxM0uW
+         F0Qnc7uFYdAAFTBtK+K93PttvuYC2GRmmdHsoVYNki6OrwUbPUlIcsSphYlQl8Wxb55Y
+         WwBnN9Zo3MNg7EMLMmGRiSzdmoPLEUQbklZTfzOu8VLTBhLN320Dt2/5CDnwmjzArh/h
+         ZWkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753425296; x=1754030096;
+        d=1e100.net; s=20230601; t=1753425669; x=1754030469;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=E8Bit7dRcXUTB4SnIlZVcf0UR0AeKLQaXnj0KWBWBeI=;
-        b=nnUs3BgYN9BeidsA7KZDNH5ULL0UIqbuHVMhf9CNVue+XvVNj7Sq8tzVShIsqMgrV2
-         69iYkacbE77srFvpS9XGdqk0yJ6jZJ1nOnI10Ov1YqRZL9+U3tEimxZHyOqNtI9UXka1
-         Z8QQi17VE4RRSSS1VxOcNu/6k0TzkLUnDoMT7gkyt9vhWU4FVHAUGX5ym5fU/ruoooHL
-         fr1ewfHI4r2dkP9SvUlMLotIl9Gns8GQu9OyzPhJwWDVcHAKH/KBxatwjpWvfbdX/NTs
-         xhYgWUUcJmcRFV6H2nChlv63HuO03dg4RvTMApHE1JrKfCDprTyQRc8G5tWT8556nVny
-         Ue3Q==
-X-Forwarded-Encrypted: i=1; AJvYcCV7NEkXrTPQ+/V9l5LmMM+igN7O7Oe0PfFFJbI9S8Gh9sJXrPveeO+//792GwiMp/6BpQgEBSgSCgc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwzcZdDqsS0wIE4KM69Hy30ToZOI7U0O5RTU05Yxk2UaLLsLyGz
-	lEbfXUpkXdCfkB1l+ra+BGWuCFlWMRMCHOQNp2k1h/r9ttixhTmOmGgMi1ZXYRSTfAk=
-X-Gm-Gg: ASbGncuzta0ugk6agsj9dvt+pEPze+hy+Par6XJIIZval3oYk/f7Dp8nm882iqUJslr
-	1b8feSN+wDs2u1Qw05jXROL7r/6c12Qq/jkUEpZFFdlobX+mjxaqGlCd8vGQ8AK+d+vfC4WoH0j
-	Y9tEIdQAGiz0nYb+VADKBUuoN1jidEMUCJE4/39IjD/pXlHKzlbzVWNANAmzXjbLlhH5vZ9k6uW
-	HW92u9+2Fjy/m7CiJXb27lsYOPgGuvUZqqRgz/zgWVFAdnNdB1wlbH0ON2GAuAKMdHF2o2ySjyS
-	q7AUmkipKgHIFArZzOIpjBG5ffa0x1i8aoYamXjj1lg2XOTK7NFwTEH8pBr+t0W7WSkpmAA5iHU
-	P40YwurBOO4VKW3JbLFlGsmwOskRtJSiMJOJBwXa4x2Sx+8DGGZ0iXb937nu2NgqIZjGqeQOlzS
-	1VAHrK6d7GaYO4npCs0FqcVX3F58Bb6sapAFPHQF7zIlmk
-X-Google-Smtp-Source: AGHT+IEOE+yzAozjqvjXHRkE37kX2KovAGCGw5ML86JJCZWeBEF+61MLaPH/M2gMTzjfqnLYYAhcmw==
-X-Received: by 2002:a17:907:971c:b0:ae3:d026:36cd with SMTP id a640c23a62f3a-af619412180mr91223666b.42.1753425295852;
-        Thu, 24 Jul 2025 23:34:55 -0700 (PDT)
-Message-ID: <09428b2a-1193-4d30-b0ba-44b6c126b8ee@suse.com>
-Date: Fri, 25 Jul 2025 08:34:54 +0200
+        bh=bgR4qePvu+Ik+Z/q5Zn+qA7MlIhKK0yl2jjxbjI3Tl8=;
+        b=u4NxUbr8Ss3GtZ6BGAIt7PQvtUW3oxODHhzSvdo+wzXXBNqHnbVhOnQVhw9UhpgTOP
+         y1UKIjmftk58ax6tS8vIqChDrdQSTO1sN4m9kl+hSYfUKtNpKrru8EqxHaGvObZ7IEoQ
+         HiO4enXVGb/Aj21gU3K6pvaJs1XgL40YJZZPFwGWeijTRoUOrtVnG/T+2c97FibkdkIk
+         BUPUCWx0VhDyLEyGqEdQQzof80jXiTSYgyGCZVcX/smdRj5RnOTS/Xr1CQRbGCj97A4a
+         Nz/X6N4OcYtDyFtzJIASyg+IU24eVmwJgMWzseMfZmrp0JUt0rAonM+2KEujxo8SgLIs
+         P/8A==
+X-Forwarded-Encrypted: i=1; AJvYcCVYO3SA2hK4DFnwbjx3yggn2nc27NxDZui15YMUqDKR4bMGlWn8y2/FWWgSzFPEnkjk20iaOvhFqXs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzhBD4GXkOjFGpXKXb/yDYStoYuv3IHTd4+cqLQ4Ie7+JpNTxIz
+	AV0dZIosdANdMQgugJpiO30Vc6yA/4+jfBwUoWwM9wGkwU3KopPgi6RSVPjkJFdZhyU=
+X-Gm-Gg: ASbGnctJxbv2InN+9cmJbH9enWPMQWtc/JSq7sNKGhj+jf9I/9DHMT6vywphLSNI8fJ
+	yBU4RZefD1kzMC5drSMiPHEBSy6zm7IAW9GFkcl/9B9qiKB/Z+NBMVKQpjIXVaNnCFVwjVdzO91
+	QRtagyY+BxpKS3x/Hx13DDl5/WRoUGG6+S1CViwNpiHB0FalBiBDe8Yer98F/9LGuvDyvtjjMBp
+	BNanq55nCQ0tKtM08ucwAEmW3/wwwHuNgKde7lZliv2b7heRFtFuJPrV8AFleGXpXDMbkSYTkh/
+	AqLOXMbzPRjw5nCO7SZDzn1tJbqM3/Nkl3s//pvurZBWZY2Oki03xskyyh38jqWJuh+Cms7LwbD
+	ll6e/TzJ2+XQkI4D0fLf3ferKOr0kDtqqtH1h+2/eQAT5Q5F2ZLp28AhGim6BP+sTs5FvbH0IIa
+	MBEoe+he5tDZx4wt1VH0E3mPoXzIVL3sKC+ICUhkNpdpjP
+X-Google-Smtp-Source: AGHT+IGzNd9WMbQ0F6T0XxB5qYq6z14vXOsFbc/AXjupXTEcVsqxgdUGnEz3uLkSJy/n/eSF4ESQ8w==
+X-Received: by 2002:a17:906:9f90:b0:ade:4339:9367 with SMTP id a640c23a62f3a-af61ce92d56mr106557866b.26.1753425669296;
+        Thu, 24 Jul 2025 23:41:09 -0700 (PDT)
+Message-ID: <0f63f37d-112e-4267-b4a2-8ae740b2b3b2@suse.com>
+Date: Fri, 25 Jul 2025 08:41:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 05/12] tools/xenstored: Read event channel from
- xenstored page
+Subject: Re: [PATCH v4 06/12] tools/xenstored: Add get_domain_evtchn() to find
+ evtchn
 To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
 Cc: Julien Grall <julien@xen.org>, Anthony PERARD <anthony.perard@vates.tech>
 References: <20250725022812.466897-1-jason.andryuk@amd.com>
- <20250725022812.466897-6-jason.andryuk@amd.com>
+ <20250725022812.466897-7-jason.andryuk@amd.com>
 Content-Language: en-US
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 Autocrypt: addr=jgross@suse.com; keydata=
@@ -120,41 +120,86 @@ Autocrypt: addr=jgross@suse.com; keydata=
  HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
  QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
  ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20250725022812.466897-6-jason.andryuk@amd.com>
+In-Reply-To: <20250725022812.466897-7-jason.andryuk@amd.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------eYEUFcYNOuci541uDLfF87Bh"
+ boundary="------------JwIzMYqmOEPzz0UiDFGijaYE"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------eYEUFcYNOuci541uDLfF87Bh
-Content-Type: multipart/mixed; boundary="------------zMvOJytrOdDXxy0Bb05h0Ljt";
+--------------JwIzMYqmOEPzz0UiDFGijaYE
+Content-Type: multipart/mixed; boundary="------------TqyfSRzHG5rsaHVut32YevaJ";
  protected-headers="v1"
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
 Cc: Julien Grall <julien@xen.org>, Anthony PERARD <anthony.perard@vates.tech>
-Message-ID: <09428b2a-1193-4d30-b0ba-44b6c126b8ee@suse.com>
-Subject: Re: [PATCH v4 05/12] tools/xenstored: Read event channel from
- xenstored page
+Message-ID: <0f63f37d-112e-4267-b4a2-8ae740b2b3b2@suse.com>
+Subject: Re: [PATCH v4 06/12] tools/xenstored: Add get_domain_evtchn() to find
+ evtchn
 References: <20250725022812.466897-1-jason.andryuk@amd.com>
- <20250725022812.466897-6-jason.andryuk@amd.com>
-In-Reply-To: <20250725022812.466897-6-jason.andryuk@amd.com>
+ <20250725022812.466897-7-jason.andryuk@amd.com>
+In-Reply-To: <20250725022812.466897-7-jason.andryuk@amd.com>
 
---------------zMvOJytrOdDXxy0Bb05h0Ljt
-Content-Type: multipart/mixed; boundary="------------yHROkdYIwyZ5wSjlbqGHySl7"
+--------------TqyfSRzHG5rsaHVut32YevaJ
+Content-Type: multipart/mixed; boundary="------------ndzn830U80zwYvHgT666vo4j"
 
---------------yHROkdYIwyZ5wSjlbqGHySl7
+--------------ndzn830U80zwYvHgT666vo4j
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMjUuMDcuMjUgMDQ6MjgsIEphc29uIEFuZHJ5dWsgd3JvdGU6DQo+IE1ha2UgaW50cm9k
-dWNlX2RvbWFpbigpIHVzZSBhbiBldmVudCBjaGFubmVsIGZyb20gdGhlIHRoZSB4ZW5zdG9y
-ZSBwYWdlLg0KPiBJdCBpcyBvbmx5IHVzZWQgaWYgbm9uLXplcm8uICBPdGhlcndpc2UgdGhl
-IHBhc3NlZCBpbiBldmVudCBjaGFubmVsIHBvcnQNCj4gaXMgdXNlZC4NCj4gDQo+IFRoZSBp
-cyB1c2VmdWwgZm9yIGEgeGVuc3RvcmVkIHN0dWJkb20gdG8gY29uZmlndXJlIGRvbWFpbnMg
-YXV0b25vbW91c2x5Lg0KPiANCj4gU2lnbmVkLW9mZi1ieTogSmFzb24gQW5kcnl1ayA8amFz
-b24uYW5kcnl1a0BhbWQuY29tPg0KDQpSZXZpZXdlZC1ieTogSnVlcmdlbiBHcm9zcyA8amdy
-b3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJnZW4NCg==
---------------yHROkdYIwyZ5wSjlbqGHySl7
+T24gMjUuMDcuMjUgMDQ6MjgsIEphc29uIEFuZHJ5dWsgd3JvdGU6DQo+IEFkZCBhIGhlbHBl
+ciB0byBsb29rdXAgdGhlIGV2ZW50IGNoYW5uZWwgZm9yIGEgZG9taWQuICBUaGlzIGhpZGVz
+IHNvbWUNCj4gb2YgdGhlIGRpZmZlcmVuY2VzIGJldHdlZW4gZG9tMCBhbmQgc3R1YmRvbSB4
+ZW5zdG9yZWQuDQo+IA0KPiBJdCBoaWdobGlnaHRzIHRoZSBkaWZmZXJlbnQgbWVhbmluZ3Mg
+YmV0d2VlbiBnZXRfeGVuYnVzX2V2dGNobigpIGluIGENCj4gc3R1YmRvbSwgd2hlcmUgaXQg
+bG9va3MgdXAgZG9tMCdzIGV2ZW50IGNoYW5uZWwsIGFuZCBkb20wLCB3aGVyZSBpdA0KPiBs
+b29rcyB1cCB0aGUgbG9jYWwgZXZlbnQgY2hhbm5lbC4NCj4gDQo+IFRoZSBkZWZhdWx0IHJl
+dHVybiAwIHdpbGwgYmUgZmluZSBhcyBhbnkgb3RoZXIgYXV0by1pbnRyb2R1Y2VkIGRvbWFp
+bg0KPiB3aWxsIG5lZWRzIHRoZSBldmVudCBjaGFubmVsIHBvcHVsYXRlZCBpbiB0aGUgZ3Jh
+bnQuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBKYXNvbiBBbmRyeXVrIDxqYXNvbi5hbmRyeXVr
+QGFtZC5jb20+DQo+IC0tLQ0KPiAgIHRvb2xzL3hlbnN0b3JlZC9kb21haW4uYyB8IDM4ICsr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tDQo+ICAgMSBmaWxlIGNoYW5n
+ZWQsIDM2IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0
+IGEvdG9vbHMveGVuc3RvcmVkL2RvbWFpbi5jIGIvdG9vbHMveGVuc3RvcmVkL2RvbWFpbi5j
+DQo+IGluZGV4IDEyNDFmOGM3M2UuLjFjNTIyNTRiYTggMTAwNjQ0DQo+IC0tLSBhL3Rvb2xz
+L3hlbnN0b3JlZC9kb21haW4uYw0KPiArKysgYi90b29scy94ZW5zdG9yZWQvZG9tYWluLmMN
+Cj4gQEAgLTEyNTEsMTIgKzEyNTEsNDEgQEAgY29uc3QgY2hhciAqZ2V0X2ltcGxpY2l0X3Bh
+dGgoY29uc3Qgc3RydWN0IGNvbm5lY3Rpb24gKmNvbm4pDQo+ICAgCXJldHVybiBjb25uLT5k
+b21haW4tPnBhdGg7DQo+ICAgfQ0KPiAgIA0KPiArLyoNCj4gKyAqIGRvbTAgeGVuc3RvcmVk
+IChwb3NpeC5jKSB1c2VzIGdldF94ZW5idXNfZXZ0Y2huKCkgdG8gbG9va3VwIHdpdGgNCj4g
+KyAqIFhFTlNUT1JFRF9QT1JUX0RFVi4NCj4gKyAqDQo+ICsgKiBtaW5pb3Mgc3R1YmRvbSB1
+c2VzIGdldF94ZW5idXNfZXZ0Y2huKCkgdG8gbG9vayB1cCBkb20wJ3MgZXZlbnQgY2hhbm5l
+bA0KPiArICogZnJvbSB0aGUgY29tbWFuZCBsaW5lICgtLWV2ZW50KS4gIFRoZSBzdHViZG9t
+J3Mgb3duIGV2ZW50IGNoYW5uZWwgaXMNCj4gKyAqIHJldHVybmVkIGRpcmVjdGx5Lg0KPiAr
+ICoNCj4gKyAqIEFueSBvdGhlciBleGlzdGluZyBkb21haW5zIGZyb20gZG9tMGxlc3MvSHlw
+ZXJsYXVuY2ggd2lsbCBoYXZlDQo+ICsgKiB0aGUgZXZlbnQgY2hhbm5lbCBpbiB0aGUgeGVu
+c3RvcmUgcGFnZSwgc28gbG9va3VwIGhlcmUgaXNuJ3QgbmVjZXNzYXJ5Lg0KPiArICogLS1l
+dmVudCB3b3VsZCBub3QgYmUgc2V0LCBzbyBpdCB3b3VsZCBkZWZhdWx0IHRvIDAuDQo+ICsg
+Ki8NCj4gK2V2dGNobl9wb3J0X3QgZ2V0X2RvbWFpbl9ldnRjaG4oZG9taWRfdCBkb21pZCkN
+Cj4gK3sNCj4gKyNpZmRlZiBfX01JTklPU19fDQo+ICsJaWYgKGRvbWlkID09IHN0dWJfZG9t
+aWQpIHsNCj4gKwkJcmV0dXJuIHhlbmJ1c19ldnRjaG47DQo+ICsJfSBlbHNlIGlmIChkb21p
+ZCA9PSBwcml2X2RvbWlkKSB7DQo+ICsJCXJldHVybiBnZXRfeGVuYnVzX2V2dGNobigpOw0K
+PiArCX0NCj4gKyNlbHNlDQo+ICsJaWYgKGRvbWlkID09IHhlbmJ1c19tYXN0ZXJfZG9taWQo
+KSkgew0KPiArCQlyZXR1cm4gZ2V0X3hlbmJ1c19ldnRjaG4oKTsNCj4gKwl9DQo+ICsjZW5k
+aWYNCj4gKw0KPiArCXJldHVybiAwOw0KPiArfQ0KPiArDQoNCkknZCBwcmVmZXIgdG8gaGF2
+ZSAyIGdldF9kb21haW5fZXZ0Y2huKCkgdmFyaWFudHMsIG9uZSBpbiBwb3NpeC5jIGFuZA0K
+b25lIGluIG1pbmlvcy5jLiBUaGlzIHdheSB5b3UgY2FuIGF2b2lkIHRoZSAjaWZkZWYuDQoN
+Cj4gICB2b2lkIGRvbTBfaW5pdCh2b2lkKQ0KPiAgIHsNCj4gICAJZXZ0Y2huX3BvcnRfdCBw
+b3J0Ow0KPiAgIAlzdHJ1Y3QgZG9tYWluICpkb20wOw0KPiAgIA0KPiAtCXBvcnQgPSBnZXRf
+eGVuYnVzX2V2dGNobigpOw0KPiArCXBvcnQgPSBnZXRfZG9tYWluX2V2dGNobih4ZW5idXNf
+bWFzdGVyX2RvbWlkKCkpOw0KPiAgIAlpZiAocG9ydCA9PSAtMSkNCj4gICAJCWJhcmZfcGVy
+cm9yKCJGYWlsZWQgdG8gaW5pdGlhbGl6ZSBkb20wIHBvcnQiKTsNCj4gICANCj4gQEAgLTEy
+NzEsMTEgKzEzMDAsMTYgQEAgdm9pZCBzdHViZG9tX2luaXQodm9pZCkNCj4gICB7DQo+ICAg
+I2lmZGVmIF9fTUlOSU9TX18NCj4gICAJc3RydWN0IGRvbWFpbiAqc3R1YmRvbTsNCj4gKwll
+dnRjaG5fcG9ydF90IHBvcnQ7DQo+ICAgDQo+ICAgCWlmIChzdHViX2RvbWlkIDwgMCkNCj4g
+ICAJCXJldHVybjsNCj4gICANCj4gLQlzdHViZG9tID0gaW50cm9kdWNlX2RvbWFpbihOVUxM
+LCBzdHViX2RvbWlkLCB4ZW5idXNfZXZ0Y2huLCBmYWxzZSk7DQo+ICsJcG9ydCA9IGdldF9k
+b21haW5fZXZ0Y2huKHN0dWJfZG9taWQpOw0KPiArCWlmIChwb3J0ID09IC0xKQ0KPiArCQli
+YXJmX3BlcnJvcigiRmFpbGVkIHRvIGluaXRpYWxpemUgZG9tMCBwb3J0Iik7DQoNCnMvZG9t
+MC9zdHViZG9tLw0KDQo+ICsNCj4gKwlzdHViZG9tID0gaW50cm9kdWNlX2RvbWFpbihOVUxM
+LCBzdHViX2RvbWlkLCBwb3J0LCBmYWxzZSk7DQo+ICAgCWlmICghc3R1YmRvbSkNCj4gICAJ
+CWJhcmZfcGVycm9yKCJGYWlsZWQgdG8gaW5pdGlhbGl6ZSBzdHViZG9tIik7DQo+ICAgDQoN
+Ckp1ZXJnZW4NCg==
+--------------ndzn830U80zwYvHgT666vo4j
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -221,25 +266,25 @@ kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
 =3DeeAB
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------yHROkdYIwyZ5wSjlbqGHySl7--
+--------------ndzn830U80zwYvHgT666vo4j--
 
---------------zMvOJytrOdDXxy0Bb05h0Ljt--
+--------------TqyfSRzHG5rsaHVut32YevaJ--
 
---------------eYEUFcYNOuci541uDLfF87Bh
+--------------JwIzMYqmOEPzz0UiDFGijaYE
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmiDJY8FAwAAAAAACgkQsN6d1ii/Ey+K
-Egf/eC0CJchGUonWR529lieyyB62jQHdydeq6IMg5h64Yq0B6W44Cv9hn51UOOYseCby0pfGjKwD
-dCJFBpJU1vlJAuCWE1xZKmy0q+z38RxB9Irt/Oxf3fSO4liSFRsK1HC+EiYz6k4pfatSfhJ9Q3RZ
-kmqg7l1/n7A7n6P0+hBGo6HPD0E9EU4e2yTblrNFuYLRKoX7AlwPD2ac9Btm4VJIjZ5YzOviiV4+
-hJJVzlbQb5tPNXEI9cLzwDjS6aLZPgVQ9O/BHCf9VTql8mdXt+S6O5KM3guyoxlJUjTyclgnPYN2
-x295+Ro5s0fdBppKdhLL/uFD4VJgqimUTz9odij+mQ==
-=uY42
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmiDJwQFAwAAAAAACgkQsN6d1ii/Ey/+
+Rgf/YnGkYCcwESqM8GOZpc7P2xR8NzuytzAt2dp/X2MwYD7ZW1h/m7Ca9s2nBJRFJFM9+aKZJEVw
+AinhJcM0FDNirOGeBRWGQ8EPz6VzV5GvORdRMvdhI/PZ0YnRZ+0zqACgxLHAgGtOwTgwynV/rjcd
+fLUVvrlmi4O43UfxwH6nTggI3SSuxktvUxzpjqRacbgszTxn2wESb0AvDotD6hG+8Lvo008ll1+k
+tPc02hiaYLV2WiVO8wTSaO/0plyHqPC0yE1iPHCvlxDSr5T0Vrq/CqkGFhic3Ry70lsVRAvMunJ7
+uQAfTzEIlE+ocAG9YL/PQWLxHG6A6+5twrUwpWEvoA==
+=AVhe
 -----END PGP SIGNATURE-----
 
---------------eYEUFcYNOuci541uDLfF87Bh--
+--------------JwIzMYqmOEPzz0UiDFGijaYE--
 
