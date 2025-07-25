@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA5DEB11869
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 08:21:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1057238.1425203 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77280B1186A
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Jul 2025 08:21:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1057229.1425185 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufBnh-0006wC-FA; Fri, 25 Jul 2025 06:21:01 +0000
+	id 1ufBnc-0006Gf-Pw; Fri, 25 Jul 2025 06:20:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1057238.1425203; Fri, 25 Jul 2025 06:21:01 +0000
+Received: by outflank-mailman (output) from mailman id 1057229.1425185; Fri, 25 Jul 2025 06:20:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufBnh-0006sZ-B5; Fri, 25 Jul 2025 06:21:01 +0000
-Received: by outflank-mailman (input) for mailman id 1057238;
- Fri, 25 Jul 2025 06:21:00 +0000
+	id 1ufBnc-0006DL-Ky; Fri, 25 Jul 2025 06:20:56 +0000
+Received: by outflank-mailman (input) for mailman id 1057229;
+ Fri, 25 Jul 2025 06:20:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+Yx3=2G=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1ufBjD-0007jJ-SF
- for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 06:16:23 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20631.outbound.protection.outlook.com
- [2a01:111:f403:2412::631])
+ id 1ufBjF-0007jJ-SH
+ for xen-devel@lists.xenproject.org; Fri, 25 Jul 2025 06:16:25 +0000
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on20626.outbound.protection.outlook.com
+ [2a01:111:f403:2405::626])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e157f41b-691e-11f0-b895-0df219b8e170;
- Fri, 25 Jul 2025 08:16:21 +0200 (CEST)
-Received: from MW4PR04CA0070.namprd04.prod.outlook.com (2603:10b6:303:6b::15)
- by SJ0PR12MB6685.namprd12.prod.outlook.com (2603:10b6:a03:478::17)
+ id e34304a8-691e-11f0-b895-0df219b8e170;
+ Fri, 25 Jul 2025 08:16:24 +0200 (CEST)
+Received: from SJ0PR05CA0114.namprd05.prod.outlook.com (2603:10b6:a03:334::29)
+ by PH7PR12MB7869.namprd12.prod.outlook.com (2603:10b6:510:27e::7)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.22; Fri, 25 Jul
- 2025 06:16:16 +0000
-Received: from BY1PEPF0001AE17.namprd04.prod.outlook.com
- (2603:10b6:303:6b:cafe::60) by MW4PR04CA0070.outlook.office365.com
- (2603:10b6:303:6b::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8964.23 via Frontend Transport; Fri,
- 25 Jul 2025 06:16:16 +0000
+ 2025 06:16:20 +0000
+Received: from BY1PEPF0001AE16.namprd04.prod.outlook.com
+ (2603:10b6:a03:334:cafe::fe) by SJ0PR05CA0114.outlook.office365.com
+ (2603:10b6:a03:334::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.6 via Frontend Transport; Fri,
+ 25 Jul 2025 06:16:19 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BY1PEPF0001AE17.mail.protection.outlook.com (10.167.242.107) with Microsoft
+ BY1PEPF0001AE16.mail.protection.outlook.com (10.167.242.104) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8964.20 via Frontend Transport; Fri, 25 Jul 2025 06:16:16 +0000
+ 15.20.8964.20 via Frontend Transport; Fri, 25 Jul 2025 06:16:19 +0000
 Received: from cjq-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 25 Jul
- 2025 01:16:12 -0500
+ 2025 01:16:15 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e157f41b-691e-11f0-b895-0df219b8e170
+X-Inumbo-ID: e34304a8-691e-11f0-b895-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j/inWyrvDTqw2wjQrY+011EKmj9W/4nIDuv9CBRO4E2/+hp5ZDuIHAlctwVvktLOXZY9hM1FXKcORkKCnI0hFH2nnoNMiK9Mg9TW3XxlmvG+dsQY7InZ5z0fN8W6pcBtdbincczLUIRRIxGWFLXfQENBea2s/w2WzVR2oZdgKxcA2TCwDe6ZDJFt7ddbQdsF4JfRi9IgrpgL2nfAg9Ij3/NrXmwyDOlW6xF0zr0CpswGiJBf1R8uSthPSaf1bqAZIM/NpaGbIh16efeC0wlIowR1m8yMKl81zitn/2si8kNZr7cUPkLDV4SiTTO/YHLyF2A5zG5/vimEsUrwWvvQQw==
+ b=HTaBr2iEGvBvnO7LHeBNkUSb7X8MAUcHiWgxPhb+as+HfxN2YOUCqs9M+pKdw2DvGShwlRa8IdCMWpsyFna46p9N5dHesFPWOxPcnL5dqWjtlhWUiA3gEXb/M6tljJOmJTXoDCsI1K0se9c5/BodIkeiebri31rNV0rCxPISFfAu3uC+OK7LogIrjWdCI1vaYSaipQEKAAJt5Ne7g1FtWBNiHlnLDJysFJ+WuJsO16is74Wl+qZpmXqWnYQHKDXuZdgbwpmPt0wlNa9t5to2cMoDrgxQ+FEwbe50RBMQx1FkpQYv1AgkryZWG2zeUpHJq6Le+OGf75EMmotq9JPGpA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7TL2qoxruEqT6O3jCVVSBwjF4BhlpagaCPV+ejCwsrk=;
- b=NXatpqlkyAPwvNnM1DVUDsIxJYETvpuzE3Ne4xEcIOwcHzlthrt+tGQhrLru4BmgRgCCknXew7RyRMxle/e0DVFmQWT7xFFwVkn5/HzkP331DZj4QhPZs9S6eRsP+dOsxC2UBZr2BwSt2OI5GLm/yeMXoL8VUrRYV7y2nedeUrxbbTcOeLgh7m+0HIpPfPi0vQDvjVWGcFDagAXE9goU3WKz26vU54SPGal22xDXblhNsgY5BsK0sogjc+eZiprzW1tvcYjluVzw2qz6/y06TBJRXF4CRtTT0fqmUe1I2gpfsKsOJ4yQjrCJI2AIDVZrnjgbjLUoVkbB4KqcQAbVlw==
+ bh=eNTTQW7KbLsmij49sd7KJEzywhJ6hR4QqGOe3FB6ihI=;
+ b=KJLSloQctqDNQRZFdKJbet9+ro9+MAkOlgIXR+KzHy5huwMnpotfelv7ydVjnIGfKaHyZoS27FVhMonqHrtinalOsZ+mfm6t+6dRh3FIEODzPC5nkHpbtAqwpUN09AMfBhGUhXqQ24sJv88163wWA6tVJrRuhAYbnbsbHXfT1uZsvzN9L6/NSBPINFRalpTt+7VI7JDptyl6bo0Om2mqlUxIAECLNt1MvCVH47N/QujvQI+2cgGn+GZdP8hSYzi/y9J6GDAYoep4L/MZVd66eIyvuqRWoDrHwrXedJ8CQQcbXd/OpUYTCbFdhzocDvlmiBqhr5E4B6GVs/srSk6zKA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7TL2qoxruEqT6O3jCVVSBwjF4BhlpagaCPV+ejCwsrk=;
- b=rx0G3uQF3r5bzcHe/8Ya2kKHhpUPd7nUlkTjiWjdBXIqZyFZ6OBRE3lwxmMTmE3m+dFvOEXtgahrKsjhiXGuRcHRQIlGkrmw6gFLV9AyKFStgEMhx/p7eIbHEKE2gZDYdTRIMK+jMB1QqTBjsftt5M4jgV3IddLJbuFbK+CfXsE=
+ bh=eNTTQW7KbLsmij49sd7KJEzywhJ6hR4QqGOe3FB6ihI=;
+ b=yiKAs4Y+P7e4faV4JDhUOh6cnnfN0Jgx6b6tfg4RQkVL5PbPk5UOjx94245zm+uS/vJ5cJv3Wf1/vbQyxIc+08CqMgH1j6XGmADEi8Gu3mN7OBv0ZFWI1JiWgynMmJ4lKVP7KRbJIWTbQb21VIQBhcD9PDKkaORb0blIZg2vQSc=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,15 +80,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Jiqian Chen <Jiqian.Chen@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Huang Rui <ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>
-Subject: [PATCH 10/11] xen/platform_op: Wrap around XENPF_core_parking
-Date: Fri, 25 Jul 2025 14:15:29 +0800
-Message-ID: <20250725061530.309953-11-Jiqian.Chen@amd.com>
+CC: Huang Rui <ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+	"Bertrand Marquis" <bertrand.marquis@arm.com>, Michal Orzel
+	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, "Jan Beulich" <jbeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH 11/11] xen/platform_op: Wrap around platform_op hypercall
+Date: Fri, 25 Jul 2025 14:15:30 +0800
+Message-ID: <20250725061530.309953-12-Jiqian.Chen@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250725061530.309953-1-Jiqian.Chen@amd.com>
 References: <20250725061530.309953-1-Jiqian.Chen@amd.com>
@@ -100,111 +101,169 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE17:EE_|SJ0PR12MB6685:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2414e34f-cb77-4f51-62c4-08ddcb42c37c
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE16:EE_|PH7PR12MB7869:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0dc77e30-8e3b-4ca4-0496-08ddcb42c598
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700013|1800799024|376014;
+	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700013;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?OFJ1M2YwM0JWc1VWREVxRE51cWdMUnF1Y3hwbk5RM3c5UE01YWU0ckdEN1ph?=
- =?utf-8?B?ZllDcmZNUHFBS1RGZDd2bDg2M1Baa3RGeTZibkRSVjNnV2V6aGJBY2R1b3Nw?=
- =?utf-8?B?SkxUSGVZa3BKeXBKUDd5aXpxTnMySDNaNHBlRWxVQ0lzSFUwbm54bGlod3c5?=
- =?utf-8?B?bWs4V2F1Vit2RWJRZjBONGMzS0pZNDREV0k5WTlhQlgrUHpGTFhqNzYyT2Vm?=
- =?utf-8?B?cGQyVXBsTGhDakFvcVlhRVhKazEvZlJtbHh6TGd3UG9TcThMU1RCVTFjNytL?=
- =?utf-8?B?RmhXZGFlZFd2ZVZZNmFUeXYyaGxHUS9FRGNRVTVrazZSLzBJRDNleDltSGg5?=
- =?utf-8?B?eUpjQWk1Tjc0MnVsRGl5c2FyWCttZGdsdHhQNmtSclpZQUN5ZHAxbnRUeTRv?=
- =?utf-8?B?NUxKZ3kydkEzVEc0bDhadEtHcXlpbGRKMmVVR1RzZEJSRE1KdnlyLzZ3b2xv?=
- =?utf-8?B?SE5QSzdDL2tuYWFxWURXdmJUK1RvNWpFU2NWbkVScEVQTW5PZlJBYjJ1akFT?=
- =?utf-8?B?dkRNTVNOUkVKbUN0UkxJTThnMWNYOFI1UEMvYTlmc1RkTndvZjZ5dWdxMlU3?=
- =?utf-8?B?a2owdDRZUmg3RmZRazhhK2t1RnloTHNTRCtlaXZIL1dGbnRab1ZIc0FDa0ZX?=
- =?utf-8?B?K2poL0l5bFZLbFlNOFh1RlRPVGM0cDVQK3VqdC9yZWV0SkZHc2pLZ0pjMk9B?=
- =?utf-8?B?QUdiZTZQcWwyVFAyT3RuaXBuQk42VWphZGhTNlJJZ2R3Zm93T1dyUGJaM3FY?=
- =?utf-8?B?Q2lDRDUrcWw1T3pXcG4rdlphWXk3UnRwcVp0WC9ObzdhOVBRK3JndG82Ti9q?=
- =?utf-8?B?RVpFSEhnS1Y4MjFOSFl1MVNpSW92SDk4NmhHcG1zamluYlZ6Z3psOStqUGhQ?=
- =?utf-8?B?WXlkcGNwOStJSXRLcy9hcGJKenFtNTF2ajd5ZHdnVE1pRTlTNjFTcTFVOW9V?=
- =?utf-8?B?aVhuaDhKZTJWMTRpL3hmUHNSWXM2ckpyVnozRE0ydGlWQWpNcjhxbXhmMlRx?=
- =?utf-8?B?VUlzQzZTeFdKaFNoRVZuNElpSzU4VmF6TnlpSldNUEhKTE1FR1I1Ym93MW1O?=
- =?utf-8?B?dUJ4b1Y4TURkV1R6MmJaRExTbE1taDNCQzZ2WFRoSkVkUlk2NUNub2dIdVNa?=
- =?utf-8?B?NmpHblBLOWtyNk4rRFJ0V2l1YWFYRDAvS0dTdllJOGRYWnJBRGkwU01MbUxi?=
- =?utf-8?B?ZGRDVis3ZmFyTHJVNm9hZWJUd3IvUTRrK0xveUN5cjBaU0dqVVltT0JhL0FE?=
- =?utf-8?B?cTFyOEFvSmlDT3VmZnRlV2Z1aXRSTENIemJsTkEwb0Y0QWh6clVxRVBhV1g0?=
- =?utf-8?B?ZmswSTdhNXRuV0t0NzF2aHdWckdBTnhXWVI5UDZpc0xrMjQ0aXF2OWtmZU0z?=
- =?utf-8?B?QjhIQXkzQ3lzZXdjUitDMTZ4TktzODhGSm81bkxDZ0pTVmU4ZStXOHlCV25z?=
- =?utf-8?B?cnowZjJXeTZGbi85YVFkaDZRUG8va0NZeTRRMnJkbWJ1MTlabHB0Smo0RW1q?=
- =?utf-8?B?Y3RubDJva3N2cWE5NDEwM2NrV0ZUbVdFSEUrLzVCMTM3WmtuSGtiNklLb3J4?=
- =?utf-8?B?VHBMZ0kzdDI2WFEvK29keUdISGgzc0QwNkM0bk9sbER1cGxaY3ZPUWtURm1N?=
- =?utf-8?B?THQ0R1BHWVdBYTNtSkxxdVQ4V0hidWtSMWN5MURVc2djZmpUQ0Q5bTlzQzdq?=
- =?utf-8?B?cUw3dEJDL1R2eVpESWhtRFVGRU5KMlB0REdaZ0VpcHZVanJwVy9JbTZYd0hP?=
- =?utf-8?B?QkhLRHNzclp1UTNjS1RhaFJKMWNXeUs5d25lSzVhRVd2ZUZWZklEaXhyWmJD?=
- =?utf-8?B?QTFKNmF2YXNraFZlTlFCZ0dMSUNvdkZ1S0hMN3h2dlA0aEVGMjUvRG9EdktP?=
- =?utf-8?B?TXp5V3pJdlNJYmg5RWNtUGQ2cjlKSjZTb1VLQ25OMHRENmpIRTk0Y21qSjR2?=
- =?utf-8?B?QjdMa2xBc0RWUFZGRzQwaTl4c3VPenFjZlhGWld6RC9ycUVpSURpSGlwYW92?=
- =?utf-8?B?cSt2T0hOU2x2NEtZelhHV0tYYzAwcHRMeUR4RWdTV1lyWk1vTk92bmpOWllv?=
- =?utf-8?Q?5hiUUj?=
+	=?utf-8?B?MXRvamFVWUVxbldqUS9RdXgydDI5aGxTY0c4NHFVY1RPOGp3NWpSVklvOUhu?=
+ =?utf-8?B?NGw1d2JXOUVSWGkwcnhDYlpHRStpdjFhQWtFeEh0SjhYNVprWDJhR21id2xS?=
+ =?utf-8?B?NUpVYjQ0dXFiME1CdGVodWtHYnJYTnRraW5FU2RoYW5jRHpBTWpYZUdyRzlT?=
+ =?utf-8?B?WmlwOUVQOFozdjZ3cFRlUkU3dVdJL3hic3FPQ25sWVhOMjZBeVZydzhnazVr?=
+ =?utf-8?B?cHYrZitJenRpdGxNMGozUHRrZythbE1Bdys2Zy8raHplQ255bkNFT3JGVWFl?=
+ =?utf-8?B?VjRUZzY1OGZqVUpxcTFsd0MzWWt5N2lMVSsvOWdqNTgrenc0UVFFSFI5R1ZI?=
+ =?utf-8?B?MFdmYXBGRHM4Z2JWMHdwa3lVOVdFckdkYWk3UC94eGtwRGxUTFdCejMyT2lK?=
+ =?utf-8?B?bkNWV2VGNE9hWitURFdtRzl2NVNrWklYWUJOdWZFZTJBTWcydzdTb2JXVkha?=
+ =?utf-8?B?Z1JMVE9ocXk5M0hTSS9oOG5tSU5IMVlqK214Wlduc2wyVTFSQW5WZHlUVVgy?=
+ =?utf-8?B?c0xMQ01jN0dQL1Y3MkpPVTVPd1RCeFI3TW5JSlk0U09vdEdiNk9BdXhCWmts?=
+ =?utf-8?B?K2dFTEYxbGtQNkFSNVJKZnA0Y2RndzdVT3hiRzVqdStTZmpJVlVSbGRselhr?=
+ =?utf-8?B?d3NVcnNsQnErMkxOazIrWVhCbEY4SllVMFF4WER3bkM3aHJoaHNZa3RjYzg0?=
+ =?utf-8?B?MmppUEpkZDROcWVkL3ZxZlEwUHJxbThoZWVINjBVZHNqTy9xTDhnUFRVYWVh?=
+ =?utf-8?B?YWtXcFM2d0xZOXd6Um9kRUZRajVaY1BtUitWbXVQdkhtakVJWHdqM0lTVUIy?=
+ =?utf-8?B?bnZqaGp1WHFUU1hMZFM3SHIxNFNxN2NyYWRySGhqa3FxVmk1KzZzM0xGWVNW?=
+ =?utf-8?B?TzU2MDVML2hxeVVXZFBNOGFJeWxBeUduSFp1bkc1MFF1eUx5M2JwWTlYTHRF?=
+ =?utf-8?B?VWpJWHdzT1ByWVdZSlgwOWRjaEpSV3phSG5nRk0yRWlieEFOZEowRUxqK254?=
+ =?utf-8?B?ZTlTQTdtcko5RjVOakJ6dlozMVJXSFpnM054dEREWHJRZ0p0NVBqVERkb21H?=
+ =?utf-8?B?YU5mVDFjdVFLam1kMk9TajQyYzRhSHNLSFlBYjNzZCtjbTVxUFkzMlJhUFI3?=
+ =?utf-8?B?MXFnZElpTkZJTll3Tml3TE1zUTBSMnhxK3NQWjdBWTJJd0tHQUpZbVA3L1lC?=
+ =?utf-8?B?WjRsT25MUEM1cCtlMHhENXpyZjlHNWo0ajZJUnc5Tmg4QnlCcHlyeHFhNDRi?=
+ =?utf-8?B?Z3JiZ0N1UEdMOWpKWXl1ajlRSVlpdEtoek9TM2xNYjVjY2Q5cGowOVV3T1hx?=
+ =?utf-8?B?VjMzRU5hVUFvOERwSzgxODV6OTZEVGp2dmFEMVY4VFQydzZNMDBIVFRLY21z?=
+ =?utf-8?B?NlBKSjdhNW8rNFQyOUFuRzlkQjNDZi9nZktTb0RxL1RPc01ZUXBQR2FKaDc2?=
+ =?utf-8?B?dDUxMm9Fc0VNZVA3QTJwWXM2S2ZPZnhCVXExYUREYTdWOUs2eHQybnBWL0hX?=
+ =?utf-8?B?MmF0Z0VwQjI4QVZNSmtzemZKbFd1V3haVkgzLzN0OFdocDN3WTV6TjJGa3lq?=
+ =?utf-8?B?SjNnWDNmZTJxQ0hpVU4yTnZqK21VWFkwQjBHdFJzTFIwYkNXK3dmRU81bk9o?=
+ =?utf-8?B?M0ZXMkRZOFVpZ3puSzFtdHJtS3hkajAwSko3RU1wOVNvZERZV054Z0RCbWpt?=
+ =?utf-8?B?bHlEZkRLS2ZsUXVuU29lTWVJNXBsK3k2WkNqajV1MzlQQVdzZWlUbEhESHUx?=
+ =?utf-8?B?Q2MxZUY5SlJvRlVPRmJOWjhUYmlZS1lZYVBnMGUxNitZYUJKQUZMNnN5Z3E1?=
+ =?utf-8?B?cGVLampkNUNYZm9qWDQwRm1Sc1FYRmRQQTZ1OG5kOHdPdzQ4b1pPc05RQk00?=
+ =?utf-8?B?d3dOdStPZWlNMm9sN1hZK3RzbElCQkFkSDBmUjM5cVdSL09DaWZ0eGhxM2ZC?=
+ =?utf-8?B?TUJNU1kvZ29hZm1pL3N6YXhUd0ZGSFRsZXZQTjZaMHYya0FIQ0ltQjcyNi9E?=
+ =?utf-8?B?ZGo3bXdFREdtM2g0UFpNUUtIZkRwNjdQaUJTZXp3VTB4Z0dlZEpTK2xJS0g3?=
+ =?utf-8?Q?HNHmho?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2025 06:16:16.3124
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2025 06:16:19.8494
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2414e34f-cb77-4f51-62c4-08ddcb42c37c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0dc77e30-8e3b-4ca4-0496-08ddcb42c598
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF0001AE17.namprd04.prod.outlook.com
+	BY1PEPF0001AE16.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6685
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7869
 
-core_parking_helper() and get_cur_idle_nums() are only used for
-XENPF_core_parking, so wrap them.
+Wrap platform_op hypercall definition and platform_hypercall.o of arm and
+x86 with CONFIG_PLATFORM_OP, and since PV_SHIM_EXCLUSIVE needs sorting in
+the future, move them out of PV_SHIM_EXCLUSIVE condition at the same time.
+
+And need to make PLATFORM_OP with help info. It shall at least provide
+"# CONFIG_PLATFORM_OP is not set" in preset configs for PV shim on x86.
+With that, all dependent option get covered and could be deleted.
 
 Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
 ---
+cc: Stefano Stabellini <sstabellini@kernel.org>
+cc: Julien Grall <julien@xen.org>
+cc: Bertrand Marquis <bertrand.marquis@arm.com>
+cc: Michal Orzel <michal.orzel@amd.com>
+cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 cc: Andrew Cooper <andrew.cooper3@citrix.com>
 cc: Anthony PERARD <anthony.perard@vates.tech>
-cc: Michal Orzel <michal.orzel@amd.com>
 cc: Jan Beulich <jbeulich@suse.com>
-cc: Julien Grall <julien@xen.org>
 cc: "Roger Pau Monné" <roger.pau@citrix.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>
 ---
- xen/common/core_parking.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ xen/arch/arm/Makefile                 | 2 +-
+ xen/arch/x86/Makefile                 | 2 ++
+ xen/arch/x86/configs/pvshim_defconfig | 1 +
+ xen/common/Kconfig                    | 3 +++
+ xen/include/hypercall-defs.c          | 6 ++++--
+ 5 files changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/xen/common/core_parking.c b/xen/common/core_parking.c
-index 7d6a18cdcf4c..2b763f83da93 100644
---- a/xen/common/core_parking.c
-+++ b/xen/common/core_parking.c
-@@ -170,6 +170,7 @@ static unsigned int cf_check core_parking_power(unsigned int event)
-     return cpu;
- }
+diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+index f833cdf2078b..4f9290fe6345 100644
+--- a/xen/arch/arm/Makefile
++++ b/xen/arch/arm/Makefile
+@@ -42,7 +42,7 @@ obj-$(CONFIG_VM_EVENT) += mem_access.o
+ obj-y += mm.o
+ obj-$(CONFIG_VM_EVENT) += monitor.o
+ obj-y += p2m.o
+-obj-y += platform.o
++obj-$(CONFIG_PLATFORM_OP) += platform.o
+ obj-y += platform_hypercall.o
+ obj-y += physdev.o
+ obj-y += processor.o
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index 5aab30a0c4a4..e180ab1a0409 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -80,6 +80,8 @@ obj-y += xstate.o
  
+ ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
+ obj-y += domctl.o
++endif
++ifeq ($(CONFIG_PLATFORM_OP),y)
+ obj-y += platform_hypercall.o
+ obj-$(CONFIG_COMPAT) += x86_64/platform_hypercall.o
+ endif
+diff --git a/xen/arch/x86/configs/pvshim_defconfig b/xen/arch/x86/configs/pvshim_defconfig
+index c58c29adb0bf..e9ede13250d8 100644
+--- a/xen/arch/x86/configs/pvshim_defconfig
++++ b/xen/arch/x86/configs/pvshim_defconfig
+@@ -25,3 +25,4 @@ CONFIG_EXPERT=y
+ # CONFIG_DEBUG is not set
+ # CONFIG_GDBSX is not set
+ # CONFIG_SYSCTL is not set
++# CONFIG_PLATFORM_OP is not set
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 1a8f5ec93364..13b544cbb1d5 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -630,6 +630,9 @@ config SYSCTL
+ config PLATFORM_OP
+ 	bool "Enable Platform Operation hypercall"
+ 	default y
++	help
++	  This option shall only be disabled on some dom0less systems, or
++	  PV shim on x86, to reduce Xen footprint.
+ 
+ endmenu
+ 
+diff --git a/xen/include/hypercall-defs.c b/xen/include/hypercall-defs.c
+index c1081d87a252..96ad6efacd5a 100644
+--- a/xen/include/hypercall-defs.c
++++ b/xen/include/hypercall-defs.c
+@@ -150,7 +150,7 @@ update_va_mapping(unsigned int va, uint32_t lo, uint32_t hi, unsigned int flags)
+ physdev_op_compat(physdev_op_compat_t *uop)
+ update_va_mapping_otherdomain(unsigned int va, uint32_t lo, uint32_t hi, unsigned int flags, domid_t domid)
+ #endif
+-#ifndef CONFIG_PV_SHIM_EXCLUSIVE
 +#ifdef CONFIG_PLATFORM_OP
- long cf_check core_parking_helper(void *data)
- {
-     uint32_t idle_nums = (unsigned long)data;
-@@ -213,6 +214,7 @@ long cf_check core_parking_helper(void *data)
- 
-     return ret;
- }
-+#endif /* CONFIG_PLATFORM_OP */
- 
- bool core_parking_remove(unsigned int cpu)
- {
-@@ -237,10 +239,12 @@ bool core_parking_remove(unsigned int cpu)
-     return found;
- }
- 
+ platform_op(compat_platform_op_t *u_xenpf_op)
+ #endif
+ #ifdef CONFIG_KEXEC
+@@ -200,6 +200,8 @@ sysctl(xen_sysctl_t *u_sysctl)
+ #ifndef CONFIG_PV_SHIM_EXCLUSIVE
+ domctl(xen_domctl_t *u_domctl)
+ paging_domctl_cont(xen_domctl_t *u_domctl)
++#endif
 +#ifdef CONFIG_PLATFORM_OP
- uint32_t get_cur_idle_nums(void)
- {
-     return cur_idle_nums;
- }
-+#endif /* CONFIG_PLATFORM_OP */
- 
- static const struct cp_policy __initconst_cf_clobber power_first = {
-     .name = "power",
+ platform_op(xen_platform_op_t *u_xenpf_op)
+ #endif
+ #ifdef CONFIG_HVM
+@@ -236,7 +238,7 @@ stack_switch                       do:2     do:2     -        -        -
+ set_callbacks                      compat   do       -        -        -
+ fpu_taskswitch                     do       do       -        -        -
+ sched_op_compat                    do       do       -        -        dep
+-#ifndef CONFIG_PV_SHIM_EXCLUSIVE
++#ifdef CONFIG_PLATFORM_OP
+ platform_op                        compat   do       compat   do       do
+ #endif
+ set_debugreg                       do       do       -        -        -
 -- 
 2.34.1
 
