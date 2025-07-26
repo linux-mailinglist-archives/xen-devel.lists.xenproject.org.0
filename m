@@ -2,33 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E680B12A78
-	for <lists+xen-devel@lfdr.de>; Sat, 26 Jul 2025 14:27:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1059280.1426380 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7A46B12C7C
+	for <lists+xen-devel@lfdr.de>; Sat, 26 Jul 2025 22:57:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1059599.1426389 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufdz2-0005NJ-7s; Sat, 26 Jul 2025 12:26:36 +0000
+	id 1uflwc-0001bh-ET; Sat, 26 Jul 2025 20:56:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1059280.1426380; Sat, 26 Jul 2025 12:26:36 +0000
+Received: by outflank-mailman (output) from mailman id 1059599.1426389; Sat, 26 Jul 2025 20:56:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ufdz2-0005Kx-4q; Sat, 26 Jul 2025 12:26:36 +0000
-Received: by outflank-mailman (input) for mailman id 1059280;
- Sat, 26 Jul 2025 12:26:34 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1uflwc-0001Zf-Bp; Sat, 26 Jul 2025 20:56:38 +0000
+Received: by outflank-mailman (input) for mailman id 1059599;
+ Sat, 26 Jul 2025 20:56:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ufdz0-0005Kr-Nw
- for xen-devel@lists.xenproject.org; Sat, 26 Jul 2025 12:26:34 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1ufdz0-002IjE-0i;
- Sat, 26 Jul 2025 12:26:34 +0000
-Received: from 54-240-197-232.amazon.com ([54.240.197.232]
- helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
- by xenbits.xenproject.org with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1ufdyz-00CgtV-2h;
- Sat, 26 Jul 2025 12:26:34 +0000
+ (envelope-from <SRS0=+vUE=2H=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1uflwZ-0001ZZ-Mg
+ for xen-devel@lists.xenproject.org; Sat, 26 Jul 2025 20:56:36 +0000
+Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch
+ [79.135.106.31]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 01308b47-6a63-11f0-b895-0df219b8e170;
+ Sat, 26 Jul 2025 22:56:30 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,104 +36,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:
-	Subject:Cc:To:From; bh=QW/0in0rumyjgLuN3TDJ8pQ2bHfalq3y0x45zgyP5OM=; b=EPkLJd
-	/q73HoXAtmKrJlmyd6ZOOoDGH6WFXMF7bnID4Yj4flfBLxB3Ildmawyi2z2FwGguNLVKqhaw9qYtr
-	ZX7td/Uey5pDkwRKgSa3p81Y5wld0Kk9zhzdhPWuXDPozn7MbcwfPo+keI+bB6OlbHxaaN/htU883
-	uJ3zYYOWDi0=;
-From: Julien Grall <julien@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: julien@xen.org,
-	Julien Grall <jgrall@amazon.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH] P2M: Don't try to free the existing PTE if we can't allocate a new table
-Date: Sat, 26 Jul 2025 13:26:07 +0100
-Message-ID: <20250726122607.75950-1-julien@xen.org>
-X-Mailer: git-send-email 2.47.3
+X-Inumbo-ID: 01308b47-6a63-11f0-b895-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1753563388; x=1753822588;
+	bh=7leM1+6Up69PzZurIBAtjIl8O0/TSlNZXhWZcqOyIaM=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=awjpVqkV9YNMTAVtrDu0Ir/GFKUKdtbOa88LlP9JRR50nO4sFPUgKx6MiamTemHp+
+	 6qxM+Iigho2uMzha16fJqX84PBI2onZHkN/oac00UWYtoY/VaeZ9O0aHdL2SBlP5hs
+	 +I93hXEFvDPQghmhnuseGx+RT3D7KlWvasmoTHtExIeLfwpkWcgLn2d+yy8BgpvgmC
+	 +92urlxmi9dlKdF74GEoyvjlSYyoafiFa0NPT9moy+YNRYtB+n7KMwgo0L0d8A+j2s
+	 WLTnHYt24FHW1dIaA9T46OgDdINnB5NyxKRofJlRKNgkUMU0GkSrD+0y9x+AN10d8Z
+	 FS7RoTuwzAItg==
+Date: Sat, 26 Jul 2025 20:56:23 +0000
+To: Julien Grall <julien@xen.org>
+From: dmkhn@proton.me
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
+Subject: Re: [PATCH v1] xen/console: remove __printk_ratelimit()
+Message-ID: <aIVA8nkV7XKWxyb5@kraken>
+In-Reply-To: <290ae958-4fba-42d8-a64b-d44845b85491@xen.org>
+References: <20250725212235.753363-1-dmukhin@ford.com> <290ae958-4fba-42d8-a64b-d44845b85491@xen.org>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 5cbc814a6a824045b9d4877b796aed5a861358aa
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Julien Grall <jgrall@amazon.com>
+On Sat, Jul 26, 2025 at 10:20:58AM +0100, Julien Grall wrote:
 
-When we can't split a superpage (on Arm p2m_split_superpage() returns false,
-on x86 ept_split_superpage() returns 0), the caller is expected to clean
-any PTE that may have been allocated. However, when we can't allocate
-the page-tables 'entry' (arm) / 'ept_entry' still points to a live PTE.
-So we will end up to free a PTE that is still used.
+Hi Julien,
 
-In practice for:
-  * x86: We don't do any refcounting for 2MB/1GB mappings. So this is
-    harmless
-  * arm: We do refcounting for 2MB mapping (not for 1GB ones). This is
-    only used for static memory.
+Thanks for your feedback!
 
-So there is a security issue on Arm but this doesn't meet the criteria
-for an XSA (static memory is not security supported).
+I imagined that kind of a change may raise a question about importance of
+doing it.
 
-Solve the issue by clearing the PTE if we can't allocate the table.
+> Hi Denis,
+>=20
+> On 25/07/2025 22:24, dmkhn@proton.me wrote:
+> > From: Denis Mukhin <dmukhin@ford.com>
+> >
+> > __printk_ratelimit() is never used outside of the console driver.
+> > Remove it from the lib.h and merge with the public printk_ratelimit().
+>=20
+> Is this solving any sort of violation? Asking because even if the
+> function is only used by one caller, I could see a benefit to be able to
+> use different value for the ratelimit. So I leaning towards keep the
+> code as-is.
 
-Reported-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Signed-off-by: Julien Grall <jgrall@amazon.com>
+The change is not solving any sort of violation, but simplifies a code path
+slightly since fine-grain rate-limit controls are not exported/used anywher=
+e
+outside of the console driver. At this time, the purpose is a tiny cleanup.
 
-----
+TL;DR
 
-I decided to not split the patch in two as the issue for x86 and
-arm is the same. But I am happy to split if this is preferred.
----
- xen/arch/arm/mmu/p2m.c    | 8 ++++++++
- xen/arch/x86/mm/p2m-ept.c | 9 +++++++++
- 2 files changed, 17 insertions(+)
+I stepped over that code during addressing feedback for another change for
+domain prefixes, where I'm experimenting with re-using printk-facilities fr=
+om
+guest_console_write(). This code showed up wrt rate-limiting for dom0's
+messages. Just in case, experimental branch is here:
+   https://gitlab.com/xen-project/people/dmukhin/xen/-/tree/console-fixes
 
-diff --git a/xen/arch/arm/mmu/p2m.c b/xen/arch/arm/mmu/p2m.c
-index 51abf3504fcf..9a1fb44a0204 100644
---- a/xen/arch/arm/mmu/p2m.c
-+++ b/xen/arch/arm/mmu/p2m.c
-@@ -888,7 +888,15 @@ static bool p2m_split_superpage(struct p2m_domain *p2m, lpae_t *entry,
- 
-     page = p2m_alloc_page(p2m->domain);
-     if ( !page )
-+    {
-+        /*
-+         * The caller is in charge to free the sub-tree. So tell the
-+         * As we didn't manage to allocate anything, just tell the
-+         * caller there is nothing to free by invalidating the PTE.
-+         */
-+        memset(entry, 0, sizeof(*entry));
-         return false;
-+    }
- 
-     page_list_add(page, &p2m->pages);
-     table = __map_domain_page(page);
-diff --git a/xen/arch/x86/mm/p2m-ept.c b/xen/arch/x86/mm/p2m-ept.c
-index 62fc8e50689f..1efac27835d2 100644
---- a/xen/arch/x86/mm/p2m-ept.c
-+++ b/xen/arch/x86/mm/p2m-ept.c
-@@ -261,7 +261,16 @@ static bool ept_split_super_page(
- 
-     table = ept_set_middle_entry(p2m, &new_ept);
-     if ( !table )
-+    {
-+        /*
-+         * The caller is in charge to free the sub-tree. So tell the
-+         * As we didn't manage to allocate anything, just tell the
-+         * caller there is nothing to free by invalidating the PTE.
-+         */
-+        memset(ept_entry, 0, sizeof(*ept_entry));
-+
-         return 0;
-+    }
- 
-     trunk = 1UL << ((level - 1) * EPT_TABLE_ORDER);
- 
--- 
-2.47.3
+I cannot anticipate not exposing rate-limiting timing controls in embedded
+certifiable setup, perhaps there will be a legit use case in production
+deployment.
+
+But currently rate-limiting configuration happens at boot time only. The fa=
+ct
+that rate-limiting has not been touched since its introduction in 2006
+    26cf03554a75 ("[XEN] Implement rate-limited logging.")
+made me think that there's no intent to plumb any rate-limiting controls at
+the run-time e.g. via keyhandler or a even hypercall.
+
+Which resulted in this submission.
+
+>=20
+> Cheers,
+>=20
+> --
+> Julien Grall
+>=20
+
+Thanks,
+Denis
 
 
