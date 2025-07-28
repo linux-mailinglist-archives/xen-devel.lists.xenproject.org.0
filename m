@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCE7CB139EC
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 13:34:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1061364.1426923 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89C85B139FB
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 13:38:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1061372.1426933 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugM7F-0000bK-Em; Mon, 28 Jul 2025 11:34:01 +0000
+	id 1ugMB1-0001Bi-PH; Mon, 28 Jul 2025 11:37:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1061364.1426923; Mon, 28 Jul 2025 11:34:01 +0000
+Received: by outflank-mailman (output) from mailman id 1061372.1426933; Mon, 28 Jul 2025 11:37:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugM7F-0000ZP-Bj; Mon, 28 Jul 2025 11:34:01 +0000
-Received: by outflank-mailman (input) for mailman id 1061364;
- Mon, 28 Jul 2025 11:33:59 +0000
+	id 1ugMB1-0001A2-MB; Mon, 28 Jul 2025 11:37:55 +0000
+Received: by outflank-mailman (input) for mailman id 1061372;
+ Mon, 28 Jul 2025 11:37:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=44Jj=2J=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1ugM7D-0008T8-AW
- for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 11:33:59 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ <SRS0=WhXX=2J=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1ugMAz-00019w-P3
+ for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 11:37:53 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c05fe3ea-6ba6-11f0-a31e-13f23c93f187;
- Mon, 28 Jul 2025 13:33:58 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-4560d176f97so46432285e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 04:33:58 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3b7868629a4sm4199271f8f.79.2025.07.28.04.33.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Jul 2025 04:33:57 -0700 (PDT)
+ id 4bd1ea3e-6ba7-11f0-a31e-13f23c93f187;
+ Mon, 28 Jul 2025 13:37:52 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-6088d856c6eso8313124a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 04:37:52 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6151f13c87esm2134980a12.35.2025.07.28.04.37.50
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 28 Jul 2025 04:37:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,472 +46,286 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c05fe3ea-6ba6-11f0-a31e-13f23c93f187
+X-Inumbo-ID: 4bd1ea3e-6ba7-11f0-a31e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1753702438; x=1754307238; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=WYX6q/XZ3bUhwv35RpRgRGVWzNkKM01c2zweAmA66Wg=;
-        b=dgR5V4E3GjXv1aIAVk0EpXduscjpz8HW534dUPClvF67rMdygsimRspUGe/IZm9ON8
-         uPMOKcs6n0LpQ/knXxT+dUCfLoCoQ/c4pyWJ0VEXMwPjNC4Rg0aS49A79xm0kXhWbXSu
-         Pxss9NTC6hYR8uDqk9kUf7qigEs80Al/xpS70=
+        d=gmail.com; s=20230601; t=1753702672; x=1754307472; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:to:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=b9rDCfdCnwhGu+LprCXt5KZN3hnsyDloxmBYyp9+KV0=;
+        b=TZ2yHuGxYHqDCFJVMSZmb5pOlqpqVnw1xf00fP0BBOX9rPZHwj8b59vtTw0UCW/mtW
+         JydnS+wpRqta0BtmqHn/tDrzcXIgg2czu10rXUvbk3nRKD5BO27jHuiShnRq3TcCQ374
+         b25rIp3QT7qqj3h4rrtjHMJJj/whF8VVuzQT0zyxiwuc6DLNxxE9m4cxrr0faqDU01Na
+         +aNjz+/kF8tCTE8S7j4XjkKaLPxbanjz4E14dnYU6AX0NIzyBM1YS7mNA6c1Qt3xGyix
+         ZI8Zg9vT2bo74KnPTngvtcxqE/gUq0llDzzf+lephqwzBBefDrzv0kDMx+6Tz8I9hSaB
+         MJqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753702438; x=1754307238;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WYX6q/XZ3bUhwv35RpRgRGVWzNkKM01c2zweAmA66Wg=;
-        b=rOV+2GUjlPnPZB94E5gUOkA+w1f2IOOoYRV5mF7dayJfTWJ2U/rOTdP/i2oV2Hy+x0
-         ULIi2jk8dX55r9fauajkpfnsI/rOupp7ywvZwcUuC7FIYv3rDPsdX9LKnlKWo9DWy1gV
-         ZN7O85TdvqctFzgYvr2XQPYDG1r/uXabiFPfch8Xo1NspbzbhMzFuLs4ZCEv+GiCin31
-         pS4D1w9wYSbePPhaa9Gf5NH2udDUAJMOWBuYgM9i8NW3nTga1RTG9RxOZKHBpq/W7Snl
-         LlgAb7IogbOtfNpz32p7PXksay5uFVyQmac8gE6/wEVc1ZEzKyf5aeofIaEoMm0pKvKQ
-         Vv2w==
-X-Gm-Message-State: AOJu0Yxsoh2VOaS3IE7Lmt1DOI/NeYz+4rzbjS6X3OZkRW0C6uEnMrxn
-	QcIedACBcVh6lQIYYeJfgHy+wDHgE0rBjUaY4Deb1ELzbK5VFiY3i13POterykMlYWM=
-X-Gm-Gg: ASbGncsAOBZo5LEYarPjYqJ/swe4kx3oqKY4b6iQTnFJCaG2Fjwtgfl2GK7Iejp+7Po
-	sKHquWuXYiB3ffQtj4XqijyfXS95F7qJF/nqw8Z+jw/Baa0DGQTm3y9/xfcBNyR01d2cbkhrgk+
-	pPY6VluygqZXK11EEsCqlb4hIlLuZ/itSM8zx8vQgswrU2oLi7fHR/tWKP6cWdgb8XWDGzsOXiN
-	jIj3fg90lfT32ZjIkTnPEvjR0UZ4omqwUx9GpnQ9tNSYgtto5JV9C6IQ6YTdlmJSxXgEuhRaZQ8
-	a9+9BNxuxec92i5jrXGod+/KhTNxmrzSMZ9H7og9c6NqWp7KugDzC5WOQfjU0JPd08RYRj5wz66
-	W/iwZGpy+rEvxmUPjD3J5ON70rQFa5TaH6cqHaadvOBISnRa/bRmz3aQPcGO3zivSDw==
-X-Google-Smtp-Source: AGHT+IE+BKIn6ZT28m+q0SUD1YY3m2GPwv1Y0QK5q2vjkiQfsSJyaWini5k/Bfw5qEmZ/9bEBBOdgA==
-X-Received: by 2002:a05:600c:4f4b:b0:453:81a:2f3f with SMTP id 5b1f17b1804b1-4588004c1b9mr62816755e9.30.1753702437708;
-        Mon, 28 Jul 2025 04:33:57 -0700 (PDT)
-Date: Mon, 28 Jul 2025 13:33:56 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Stewart Hildebrand <stewart.hildebrand@amd.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Community Manager <community.manager@xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v1 4/6] vpci: add SR-IOV support for PVH Dom0
-Message-ID: <aIdgJPTf17M0g-8m@macbook.local>
-References: <cover.1753450965.git.mykyta_poturai@epam.com>
- <c5cd0e9cd75cacee2127c45635c999bd296853a7.1753450965.git.mykyta_poturai@epam.com>
+        d=1e100.net; s=20230601; t=1753702672; x=1754307472;
+        h=in-reply-to:from:content-language:references:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=b9rDCfdCnwhGu+LprCXt5KZN3hnsyDloxmBYyp9+KV0=;
+        b=WQ+KGlEjjosDksDz2iXosCl8bP5xNhWibxjNowVeVUVH1CJ+Gg5EYYzJUk+YPTz8Sy
+         T53cwKgRKDe2X2pVhepxKvCKuKLV55VLT1s4nKus51N6o0OCKx7jdZi47gTslHEaNc01
+         rgE5fueeeW/RQIfAnTq81YNOWlJATP9H3IeRWP77VPxWLnJEFsaZxlG5K3ksmoMiV/gO
+         Gqq9A9b7rVtI6lcJYlUF1wI4HRRUkkkO+2X7zXuxd/bH8FrY+HC4n/Ird4UiNAjMCyj9
+         dPhha2AE1db6XrC1g86xnt/7cRakEGRgKSvu3n3s62KJ2F6RUwgQ5gefhSFIBog+2bdY
+         MdNg==
+X-Gm-Message-State: AOJu0Yx8GDV07tkCiA8sh/jJubRT8NlfpaIpWnLsL1z3+f3n+E8AOItv
+	tveWORxVioqTeIuH3MyG0uwwE1BWuoPKTuokSR2WLiHBsAk5cfFQltIpj1E4Vg==
+X-Gm-Gg: ASbGncsyg140a2m891nHnsAK92IEmU+pMi0YrPYArw32uxResYCh5vEW6Qb/ubVrX50
+	xntM/jTpc5bv3FWnZKG86wWszuTX7pnCHn1AZm7UHs2USNkRf0s0W8i0VRCre17xejMFQYSKtpd
+	U2pa3zL/nmj2kwJRMqhS+tc/4U+GU0+LL4dJfW87yyCViPRjjk/Fd+zvPq5/nP1isFLzfOcJd9B
+	m3dA3yszLbvIKncLqFlcVS3IiqyZdoXatZ7NTAkIFRyXP7IM/KQokkp2Xn94PeBMuMknB7sMx6r
+	sIn77R/o4Lu0Yn1/KQpXBuD1oyss11niLsePTfP8ZdXgfm/363LJlV7cXn+GDN0rWnQdwFngtat
+	/HP9TVdXua36/fL/jkh+SmNAWS+EubANJywauQtcPrbMfyUxOURuQ1EatrEYeCcok6tEqOsc=
+X-Google-Smtp-Source: AGHT+IHjDje7KcgVAKY/uqGSsB6Jtzhvfo6EommKyqp4cFzvU2RlM6emcGbKOq7oRoGu3NO0BY5KzA==
+X-Received: by 2002:a05:6402:1e89:b0:615:281b:897a with SMTP id 4fb4d7f45d1cf-615281b8cdfmr4129341a12.29.1753702671407;
+        Mon, 28 Jul 2025 04:37:51 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------Ole0XlyjuZlZxZZrFuQpV1IK"
+Message-ID: <e9ac761d-dc12-43b5-8d67-984f3938817d@gmail.com>
+Date: Mon, 28 Jul 2025 13:37:50 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <c5cd0e9cd75cacee2127c45635c999bd296853a7.1753450965.git.mykyta_poturai@epam.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 13/17] xen/riscv: Implement p2m_entry_from_mfn() and
+ support PBMT configuration
+To: xen-devel@lists.xenproject.org
+References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
+ <f6e789cd-0ef3-488d-94da-1b7c94946720@suse.com>
+ <640178f8-a189-4f84-abff-0ef87ba566a5@gmail.com>
+ <0265e61a-ad08-4b6b-a87d-dba304f6d27d@suse.com>
+ <e1c469c3-47d5-4a38-8abd-985a26cb8365@gmail.com>
+ <15c9cb8e-8452-4dc3-933a-5713fc86a12a@suse.com>
+ <958ae1b0-d139-41e8-b965-43ce640569c5@gmail.com>
+ <007654f3-e26b-43b1-bc81-40ba25c9d787@suse.com>
+ <ca3467a2-c795-4709-ad92-1744b138a148@gmail.com>
+ <9e9c1943-b2af-471f-b8c9-f7179073ef99@suse.com>
+ <fb7176a2-740e-4773-b1cb-3cd430d6f838@gmail.com>
+ <f110cd42-d34b-44fc-bd76-85cb0bfc2357@gmail.com>
+ <25f17da6-1c82-422c-941a-b0eb57786c8f@suse.com>
+ <342e8524-268c-46ae-817c-5af71254b624@gmail.com>
+ <7ba83171-a377-4c3d-a33b-7edb57621bb7@suse.com>
+ <dabc1c47-f392-4fc1-9f84-36c880c6dd63@gmail.com>
+ <170d6cc9-542e-4129-b3bb-bf9ea0844bc4@suse.com>
+ <78488064-694a-4020-8c08-7b12184b8669@gmail.com>
+ <7d789e2d-19c1-443e-a319-ad230f5f9ebd@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <7d789e2d-19c1-443e-a319-ad230f5f9ebd@suse.com>
 
-On Fri, Jul 25, 2025 at 02:24:33PM +0000, Mykyta Poturai wrote:
-> From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> 
-> This code is expected to only be used by privileged domains,
-> unprivileged domains should not get access to the SR-IOV capability.
-> 
-> Implement RW handlers for PCI_SRIOV_CTRL register to dynamically
-> map/unmap VF BARS. Recalculate BAR sizes before mapping VFs to account
-> for possible changes in the system page size register.
-> 
-> Relies on dom0 to enable SR-IOV and PHYSDEVOP to inform Xen about
-> addition/removal of VFs.
+This is a multi-part message in MIME format.
+--------------Ole0XlyjuZlZxZZrFuQpV1IK
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Why I'm not opposed to allowing registration of devices using
-PHYSDEVOP, can't Xen detect the addition of the VFs and add them
-itself?
 
-When I worked on this long time ago, the version of the series that I
-posted had registration of the VFs done by Xen also:
+On 7/28/25 11:09 AM, Jan Beulich wrote:
+> On 28.07.2025 10:52, Oleksii Kurochko wrote:
+>> On 7/23/25 11:46 AM, Jan Beulich wrote:
+>>>> I assume that I have in this case to take some pages for an intermediate page
+>>>> table from freelist P2M pool, set an owner domain to NULL (pg->inuse.domain = NULL).
+>>>>
+>>>> Then in this case it isn't clear why pg->list can't be re-used to link several pages
+>>>> for intermediate page table purposes + metadata? Is it because pg->list can be not
+>>>> empty? In this case it isn't clear if I could use a page, which has threaded pages.
+>>> Actually looks like I was mis-remembering. Pages removed from freelist indeed
+>>> aren't put on any other list, so the linking fields are available for use. I
+>>> guess I had x86 shadow code in mind, where the linking fields are further used.
+>> Perhaps, I misunderstood you about "linking fields", but it seems like I can't reuse
+>> struct page_info->list as it is used by page_list_add() which is called by p2m_alloc_page()
+>> to allocate page(s) for an intermediate page table:
+>>      static inline void
+>>      page_list_add(struct page_info *page, struct page_list_head *head)
+>>      {
+>>           list_add(&page->list, head);
+>>      }
+>>
+>>       struct page_info * paging_alloc_page(struct domain *d)
+>>       {
+>>           struct page_info *pg;
+>>
+>>           spin_lock(&d->arch.paging.lock);
+>>           pg = page_list_remove_head(&d->arch.paging.freelist);
+>>           spin_unlock(&d->arch.paging.lock);
+>>
+>>           INIT_LIST_HEAD(&pg->list);
+>>
+>>           return pg;
+>>       }
+>>
+>>       static struct page_info *p2m_alloc_page(struct domain *d)
+>>       {
+>>           struct page_info *pg = paging_alloc_page(d);
+>>
+>>           if ( pg )
+>>               page_list_add(pg, &p2m_get_hostp2m(d)->pages);
+>>
+>>           return pg;
+>>       }
+>>
+>> So I have to reuse another field from struct page_info. It seems like it won't be an
+>> issue if to add a new struct page_list_entry metadata_list to 'union v':
+>>       union {
+>>           /* Page is in use */
+>>           struct {
+>>               /* Owner of this page (NULL if page is anonymous). */
+>>               struct domain *domain;
+>>           } inuse;
+>>
+>>           /* Page is on a free list. */
+>>           struct {
+>>               /* Order-size of the free chunk this page is the head of. */
+>>               unsigned int order;
+>>           } free;
+>> +
+>> +       struct page_list_entry metadata_list;
+>>       } v;
+>>
+>> Am I missing something?
+> Well, you're doubling the size of that union then, aren't you? As was mentioned
+> quite some time ago, struct page_info needs quite a bit of care when you mean
+> to add new fields there. Question is whether for the purpose here you actually
+> need a doubly-linked list. A single pointer would be fine to put there.
 
-https://lore.kernel.org/xen-devel/20180717094830.54806-12-roger.pau@citrix.com/
+Agree, a single pointer will be more then enough.
 
-> 
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
-> ---
->  CHANGELOG.md              |   3 +-
->  SUPPORT.md                |   2 -
->  xen/drivers/vpci/Makefile |   2 +-
->  xen/drivers/vpci/header.c |   3 +
->  xen/drivers/vpci/sriov.c  | 235 ++++++++++++++++++++++++++++++++++++++
->  xen/drivers/vpci/vpci.c   |   1 +
->  xen/include/xen/vpci.h    |   7 +-
->  7 files changed, 247 insertions(+), 6 deletions(-)
->  create mode 100644 xen/drivers/vpci/sriov.c
-> 
-> diff --git a/CHANGELOG.md b/CHANGELOG.md
-> index 5f31ca08fe..7b0e8beb76 100644
-> --- a/CHANGELOG.md
-> +++ b/CHANGELOG.md
-> @@ -23,8 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->   - On x86:
->     - Option to attempt to fixup p2m page-faults on PVH dom0.
->     - Resizable BARs is supported for PVH dom0.
-> -   - Support PCI passthrough for HVM domUs when dom0 is PVH (note SR-IOV
-> -     capability usage is not yet supported on PVH dom0).
-> +   - Support PCI passthrough for HVM domUs when dom0 is PVH.
+I'm thinking if it is possible to do something with the case if someone will try
+to use:
+   #define page_get_owner(p)    (p)->v.inuse.domain
+for a page which was allocated for metadata storage. Shouldn't I have a separate
+list for such pages and a macro which will check if a page is in this list?
+Similar a list which we have for p2m pages in struct p2m_domain:
+     ...
+     /* Pages used to construct the p2m */
+     struct page_list_head pages;
+     ...
 
-Don't you need to move this out of the x86 specific section?
+Of course, such pages are allocated by alloc_domheap_page(d, MEMF_no_owner),
+so there is no owner. But if someone will accidentally use this macro for such
+pages then it will be an issue as ->domain likely won't be a NULL anymore.
 
-According to the cover letter you are testing on an ARM board, so this
-probably needs to be put in a non-arch part of CHANGELOG?
+~ Oleksii
 
->     - Smoke tests for the FreeBSD Xen builds in Cirrus CI.
->  
->   - On Arm:
-> diff --git a/SUPPORT.md b/SUPPORT.md
-> index 6a82a92189..830b598714 100644
-> --- a/SUPPORT.md
-> +++ b/SUPPORT.md
-> @@ -170,8 +170,6 @@ unexpected behavior or issues on some hardware.
->  
->  At least the following features are missing on a PVH dom0:
->  
-> -  * PCI SR-IOV.
-> -
->    * Native NMI forwarding (nmi=dom0 command line option).
->  
->    * MCE handling.
-> diff --git a/xen/drivers/vpci/Makefile b/xen/drivers/vpci/Makefile
-> index a7c8a30a89..fe1e57b64d 100644
-> --- a/xen/drivers/vpci/Makefile
-> +++ b/xen/drivers/vpci/Makefile
-> @@ -1,2 +1,2 @@
-> -obj-y += vpci.o header.o rebar.o
-> +obj-y += vpci.o header.o rebar.o sriov.o
->  obj-$(CONFIG_HAS_PCI_MSI) += msi.o msix.o
-> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-> index f947f652cd..0a840c6dcc 100644
-> --- a/xen/drivers/vpci/header.c
-> +++ b/xen/drivers/vpci/header.c
-> @@ -839,6 +839,9 @@ static int cf_check init_header(struct pci_dev *pdev)
->  
->      ASSERT(rw_is_write_locked(&pdev->domain->pci_lock));
->  
-> +    if ( pdev->info.is_virtfn )
-> +        return 0;
-> +
->      switch ( pci_conf_read8(pdev->sbdf, PCI_HEADER_TYPE) & 0x7f )
->      {
->      case PCI_HEADER_TYPE_NORMAL:
-> diff --git a/xen/drivers/vpci/sriov.c b/xen/drivers/vpci/sriov.c
-> new file mode 100644
-> index 0000000000..640430e3e9
-> --- /dev/null
-> +++ b/xen/drivers/vpci/sriov.c
-> @@ -0,0 +1,235 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Handlers for accesses to the SR-IOV capability structure.
-> + *
-> + * Copyright (C) 2018 Citrix Systems R&D
 
-If there's a Citrix copyright header here, shouldn't there be a
-matching Signed-off-by from someone at Citrix (I think that's likely
-me)?
+--------------Ole0XlyjuZlZxZZrFuQpV1IK
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Otherwise if there's no content authored by a Citrix employee the
-copyright notice must be removed.  We need to be careful with
-copyright and attribution.
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 7/28/25 11:09 AM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:7d789e2d-19c1-443e-a319-ad230f5f9ebd@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 28.07.2025 10:52, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On 7/23/25 11:46 AM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">I assume that I have in this case to take some pages for an intermediate page
+table from freelist P2M pool, set an owner domain to NULL (pg-&gt;inuse.domain = NULL).
 
-And in any case the date should be updated.
+Then in this case it isn't clear why pg-&gt;list can't be re-used to link several pages
+for intermediate page table purposes + metadata? Is it because pg-&gt;list can be not
+empty? In this case it isn't clear if I could use a page, which has threaded pages.
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Actually looks like I was mis-remembering. Pages removed from freelist indeed
+aren't put on any other list, so the linking fields are available for use. I
+guess I had x86 shadow code in mind, where the linking fields are further used.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+Perhaps, I misunderstood you about "linking fields", but it seems like I can't reuse
+struct page_info-&gt;list as it is used by page_list_add() which is called by p2m_alloc_page()
+to allocate page(s) for an intermediate page table:
+    static inline void
+    page_list_add(struct page_info *page, struct page_list_head *head)
+    {
+         list_add(&amp;page-&gt;list, head);
+    }
 
-> + */
-> +
-> +#include <xen/sched.h>
-> +#include <xen/vpci.h>
-> +
-> +static int vf_init_bars(const struct pci_dev *vf_pdev)
-> +{
-> +    unsigned int i, sriov_pos;
-> +    int vf_idx, rc;
-> +    const struct pci_dev *pf_pdev = vf_pdev->pf_pdev;
-> +    uint16_t offset, stride;
-> +    struct vpci_bar *bars = vf_pdev->vpci->header.bars;
-> +    struct vpci_bar *physfn_vf_bars = pf_pdev->vpci->sriov->vf_bars;
-> +
-> +    sriov_pos = pci_find_ext_capability(pf_pdev->sbdf, PCI_EXT_CAP_ID_SRIOV);
-> +    offset = pci_conf_read16(pf_pdev->sbdf, sriov_pos + PCI_SRIOV_VF_OFFSET);
-> +    stride = pci_conf_read16(pf_pdev->sbdf, sriov_pos + PCI_SRIOV_VF_STRIDE);
+     struct page_info * paging_alloc_page(struct domain *d)
+     {
+         struct page_info *pg;
 
-You can possibly initialize the fields as definition time?
+         spin_lock(&amp;d-&gt;arch.paging.lock);
+         pg = page_list_remove_head(&amp;d-&gt;arch.paging.freelist);
+         spin_unlock(&amp;d-&gt;arch.paging.lock);
 
-> +
-> +    vf_idx = vf_pdev->sbdf.sbdf;
-> +    vf_idx -= pf_pdev->sbdf.sbdf + offset;
-> +    if ( vf_idx < 0 )
-> +        return -EINVAL;
-> +    if ( stride )
-> +    {
-> +        if ( vf_idx % stride )
-> +            return -EINVAL;
-> +        vf_idx /= stride;
-> +    }
-> +
-> +    /*
-> +     * Set up BARs for this VF out of PF's VF BARs taking into account
-> +     * the index of the VF.
-> +     */
-> +    for ( i = 0; i < PCI_SRIOV_NUM_BARS; i++ )
-> +    {
-> +        bars[i].addr = physfn_vf_bars[i].addr + vf_idx * physfn_vf_bars[i].size;
-> +        bars[i].guest_addr = bars[i].addr;
-> +        bars[i].size = physfn_vf_bars[i].size;
-> +        bars[i].type = physfn_vf_bars[i].type;
-> +        bars[i].prefetchable = physfn_vf_bars[i].prefetchable;
-> +        rc = vpci_bar_add_rangeset(vf_pdev, &bars[i], i);
-> +        if ( rc )
-> +            return rc;
-> +    }
-> +
-> +    return 0;
-> +}
-> +
-> +static int map_vf(const struct pci_dev *vf_pdev, uint16_t cmd)
-> +{
-> +    int rc;
-> +
-> +    ASSERT(rw_is_write_locked(&vf_pdev->domain->pci_lock));
-> +
-> +    rc = vf_init_bars(vf_pdev);
-> +    if ( rc )
-> +        return rc;
-> +
-> +    return vpci_modify_bars(vf_pdev, cmd, false);
-> +}
-> +
-> +static int size_vf_bars(struct pci_dev *pf_pdev, unsigned int sriov_pos)
-> +{
-> +    /*
-> +     * NB: a non-const pci_dev of the PF is needed in order to update
-> +     * vf_rlen.
-> +     */
-> +    struct vpci_bar *bars;
-> +    unsigned int i;
-> +    int rc = 0;
-> +
-> +    ASSERT(rw_is_write_locked(&pf_pdev->domain->pci_lock));
-> +    ASSERT(!pf_pdev->info.is_virtfn);
-> +
-> +    if ( !pf_pdev->vpci->sriov )
+         INIT_LIST_HEAD(&amp;pg-&gt;list);
 
-Is this possible?  If the struct is not allocated the hook shouldn't
-be registered either.  Maybe it wants to be an ASSERT instead?
+         return pg;
+     }
 
-> +        return -EINVAL;
-> +
-> +    /* Read BARs for VFs out of PF's SR-IOV extended capability. */
-> +    bars = pf_pdev->vpci->sriov->vf_bars;
-> +    /* Set the BARs addresses and size. */
-> +    for ( i = 0; i < PCI_SRIOV_NUM_BARS; i += rc )
-> +    {
-> +        unsigned int idx = sriov_pos + PCI_SRIOV_BAR + i * 4;
-> +        uint32_t bar;
-> +        uint64_t addr, size;
-> +
-> +        bar = pci_conf_read32(pf_pdev->sbdf, idx);
-> +
-> +        rc = pci_size_mem_bar(pf_pdev->sbdf, idx, &addr, &size,
-> +                              PCI_BAR_VF |
-> +                              ((i == PCI_SRIOV_NUM_BARS - 1) ? PCI_BAR_LAST
-> +                                                             : 0));
-> +
-> +        /*
-> +         * Update vf_rlen on the PF. According to the spec the size of
-> +         * the BARs can change if the system page size register is
-> +         * modified, so always update rlen when enabling VFs.
-> +         */
-> +        pf_pdev->physfn.vf_rlen[i] = size;
-> +
-> +        if ( !size )
-> +        {
-> +            bars[i].type = VPCI_BAR_EMPTY;
-> +            continue;
-> +        }
-> +
-> +        bars[i].addr = addr;
-> +        bars[i].guest_addr = addr;
-> +        bars[i].size = size;
-> +        bars[i].prefetchable = bar & PCI_BASE_ADDRESS_MEM_PREFETCH;
-> +
-> +        switch ( rc )
-> +        {
-> +        case 1:
-> +            bars[i].type = VPCI_BAR_MEM32;
-> +            break;
-> +
-> +        case 2:
-> +            bars[i].type = VPCI_BAR_MEM64_LO;
-> +            bars[i + 1].type = VPCI_BAR_MEM64_HI;
-> +            break;
-> +
-> +        default:
-> +            ASSERT_UNREACHABLE();
-> +        }
-> +    }
-> +
-> +    rc = rc > 0 ? 0 : rc;
-> +
-> +    return rc;
-> +}
-> +
-> +static void cf_check control_write(const struct pci_dev *pdev, unsigned int reg,
-> +                                   uint32_t val, void *data)
-> +{
-> +    unsigned int sriov_pos = reg - PCI_SRIOV_CTRL;
-> +    uint16_t control = pci_conf_read16(pdev->sbdf, reg);
-> +    bool mem_enabled = control & PCI_SRIOV_CTRL_MSE;
-> +    bool new_mem_enabled = val & PCI_SRIOV_CTRL_MSE;
-> +
-> +    ASSERT(!pdev->info.is_virtfn);
-> +
-> +    if ( new_mem_enabled != mem_enabled )
-> +    {
-> +        struct pci_dev *vf_pdev;
-> +        if ( new_mem_enabled )
-> +        {
-> +            /* FIXME casting away const-ness to modify vf_rlen */
-> +            size_vf_bars((struct pci_dev *)pdev, sriov_pos);
-> +
-> +            list_for_each_entry(vf_pdev, &pdev->vf_list, vf_list)
-> +                map_vf(vf_pdev, PCI_COMMAND_MEMORY);
+     static struct page_info *p2m_alloc_page(struct domain *d)
+     {
+         struct page_info *pg = paging_alloc_page(d);
 
-It's my understating this requires that devices are registerted with
-Xen using the PHYSDEVOP prior to dom0 attempting to enable VF MSE.  If
-that's the case it should be clearly stated, as it's a relevant
-ordering constrain.
+         if ( pg )
+             page_list_add(pg, &amp;p2m_get_hostp2m(d)-&gt;pages);
 
-I also don't think this will work as expected, as each successive call
-to map_vf() (which calls vpci_modify_bars()) will lead to overwriting
-the previously queued map/unmap operation, and only the BARs from the
-last VF on the list will actually be mapped?
+         return pg;
+     }
 
-If this is to strictly deal with the PF VF BAR{0-5} registers you
-could map the whole register in one go, instead of dealing with each
-VF BARs separately.  That would also lead to possibly bigger pages
-being used in the p2m, as the whole VF BARs will be mapped in one go,
-instead of splitting them into multiple isolated mapping operations.
+So I have to reuse another field from struct page_info. It seems like it won't be an
+issue if to add a new struct page_list_entry metadata_list to 'union v':
+     union {
+         /* Page is in use */
+         struct {
+             /* Owner of this page (NULL if page is anonymous). */
+             struct domain *domain;
+         } inuse;
 
-> +        }
-> +        else
-> +        {
-> +            list_for_each_entry(vf_pdev, &pdev->vf_list, vf_list)
-> +                map_vf(vf_pdev, 0);
-> +        }
-> +    }
+         /* Page is on a free list. */
+         struct {
+             /* Order-size of the free chunk this page is the head of. */
+             unsigned int order;
+         } free;
++
++       struct page_list_entry metadata_list;
+     } v;
 
-Don't you need to track the VF enable bit here, so that VFs are
-registered as pci_devs with Xen once VF enable is set?
+Am I missing something?
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Well, you're doubling the size of that union then, aren't you? As was mentioned
+quite some time ago, struct page_info needs quite a bit of care when you mean
+to add new fields there. Question is whether for the purpose here you actually
+need a doubly-linked list. A single pointer would be fine to put there.</pre>
+    </blockquote>
+    <pre>Agree, a single pointer will be more then enough.</pre>
+    <pre>I'm thinking if it is possible to do something with the case if someone will try
+to use:
+  #define page_get_owner(p)    (p)-&gt;v.inuse.domain
+for a page which was allocated for metadata storage. Shouldn't I have a separate
+list for such pages and a macro which will check if a page is in this list?
+Similar a list which we have for p2m pages in struct p2m_domain:
+    ...
+    /* Pages used to construct the p2m */
+    struct page_list_head pages;
+    ...
 
-Also the size of the BARs as result of a change to the System Page
-Size register can only happen when VF enable is not set, and hence the
-sizing of BARs could be limited to the setting of VF enable, instead
-of VF MSE?
+Of course, such pages are allocated by alloc_domheap_page(d, MEMF_no_owner),
+so there is no owner. But if someone will accidentally use this macro for such
+pages then it will be an issue as -&gt;domain likely won't be a NULL anymore.
 
-> +
-> +    pci_conf_write16(pdev->sbdf, reg, val);
-> +}
-> +
-> +static int vf_init_header(struct pci_dev *vf_pdev)
-> +{
-> +    const struct pci_dev *pf_pdev;
-> +    unsigned int sriov_pos;
-> +    int rc = 0;
-> +    uint16_t ctrl;
-> +
-> +    ASSERT(rw_is_write_locked(&vf_pdev->domain->pci_lock));
-> +
-> +    if ( !vf_pdev->info.is_virtfn )
-> +        return 0;
-> +
-> +    pf_pdev = vf_pdev->pf_pdev;
-> +    ASSERT(pf_pdev);
-> +
-> +    sriov_pos = pci_find_ext_capability(pf_pdev->sbdf, PCI_EXT_CAP_ID_SRIOV);
-> +    ctrl = pci_conf_read16(pf_pdev->sbdf, sriov_pos + PCI_SRIOV_CTRL);
-> +
-> +    if ( (pf_pdev->domain == vf_pdev->domain) && (ctrl & PCI_SRIOV_CTRL_MSE) )
-> +    {
-> +        rc = map_vf(vf_pdev, PCI_COMMAND_MEMORY);
-> +        if ( rc )
-> +            return rc;
-> +    }
-> +
-> +    return rc;
-> +}
-> +
-> +static int init_sriov(struct pci_dev *pdev)
+~ Oleksii
 
-This seems to be missing a cf_check attribute?
 
-> +{
-> +    unsigned int pos;
-> +
-> +    if ( pdev->info.is_virtfn )
-> +        return vf_init_header(pdev);
-> +
-> +    pos = pci_find_ext_capability(pdev->sbdf, PCI_EXT_CAP_ID_SRIOV);
-> +
-> +    if ( !pos )
-> +        return 0;
-> +
-> +    if ( !is_hardware_domain(pdev->domain) )
-> +    {
-> +        printk(XENLOG_ERR
-> +               "%pp: SR-IOV configuration unsupported for unpriv %pd\n",
-> +               &pdev->sbdf, pdev->domain);
-> +        return 0;
-> +    }
-> +
-> +    pdev->vpci->sriov = xzalloc(struct vpci_sriov);
-> +    if ( !pdev->vpci->sriov )
-> +        return -ENOMEM;
-> +
-> +    return vpci_add_register(pdev->vpci, vpci_hw_read16, control_write,
-> +                             pos + PCI_SRIOV_CTRL, 2, NULL);
-> +}
-> +
-> +REGISTER_VPCI_INIT(init_sriov, VPCI_PRIORITY_LOW);
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * tab-width: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-> index 09988f04c2..7af6651831 100644
-> --- a/xen/drivers/vpci/vpci.c
-> +++ b/xen/drivers/vpci/vpci.c
-> @@ -120,6 +120,7 @@ void vpci_deassign_device(struct pci_dev *pdev)
->      for ( i = 0; i < ARRAY_SIZE(pdev->vpci->header.bars); i++ )
->          rangeset_destroy(pdev->vpci->header.bars[i].mem);
->  
-> +    xfree(pdev->vpci->sriov);
->      xfree(pdev->vpci->msix);
->      xfree(pdev->vpci->msi);
->      xfree(pdev->vpci);
-> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-> index 06f7039f20..9e8dcab17e 100644
-> --- a/xen/include/xen/vpci.h
-> +++ b/xen/include/xen/vpci.h
-> @@ -138,7 +138,6 @@ struct vpci {
->           * upon to know whether BARs are mapped into the guest p2m.
->           */
->          bool bars_mapped      : 1;
-> -        /* FIXME: currently there's no support for SR-IOV. */
->      } header;
->  
->      /* MSI data. */
-> @@ -192,6 +191,12 @@ struct vpci {
->              struct vpci_arch_msix_entry arch;
->          } entries[];
->      } *msix;
-> +
-> +    struct vpci_sriov {
-> +        /* PF only */
-> +        struct vpci_bar vf_bars[PCI_SRIOV_NUM_BARS];
+</pre>
+  </body>
+</html>
 
-Can't you re-use the existing vpci_bar array in vpci_header structure?
-
-Thanks, Roger.
+--------------Ole0XlyjuZlZxZZrFuQpV1IK--
 
