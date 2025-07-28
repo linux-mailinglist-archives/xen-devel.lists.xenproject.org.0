@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1068FB14206
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 20:35:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1061852.1427452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EA99B14205
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 20:35:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1061853.1427462 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugSgV-0001tJ-Kt; Mon, 28 Jul 2025 18:34:51 +0000
+	id 1ugSgb-0002AP-U4; Mon, 28 Jul 2025 18:34:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1061852.1427452; Mon, 28 Jul 2025 18:34:51 +0000
+Received: by outflank-mailman (output) from mailman id 1061853.1427462; Mon, 28 Jul 2025 18:34:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugSgV-0001qZ-GV; Mon, 28 Jul 2025 18:34:51 +0000
-Received: by outflank-mailman (input) for mailman id 1061852;
- Mon, 28 Jul 2025 18:34:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ugSgb-00028H-QT; Mon, 28 Jul 2025 18:34:57 +0000
+Received: by outflank-mailman (input) for mailman id 1061853;
+ Mon, 28 Jul 2025 18:34:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=BLX+=2J=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1ugSgU-0001cP-Dz
- for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 18:34:50 +0000
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch
- [109.224.244.16]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8a8b6464-6be1-11f0-b895-0df219b8e170;
- Mon, 28 Jul 2025 20:34:48 +0200 (CEST)
+ id 1ugSga-00027E-D3
+ for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 18:34:56 +0000
+Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch
+ [79.135.106.30]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8e6b1c19-6be1-11f0-a31e-13f23c93f187;
+ Mon, 28 Jul 2025 20:34:55 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,365 +36,372 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a8b6464-6be1-11f0-b895-0df219b8e170
+X-Inumbo-ID: 8e6b1c19-6be1-11f0-a31e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1753727687; x=1753986887;
-	bh=5/fATqD8Koyp7BvXnMJUpFUtZ0tCkLPqX6MEFhwjQkA=;
+	s=bxkwdy6lvjbhtiukrww63ixtzu.protonmail; t=1753727693; x=1753986893;
+	bh=Kkee9yPi/A5pFcbgNosE6/d978QjMzrrxAMWcphEntw=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=hzdz+WG7seKe8/Ij9Xa15fQqw6/i6gqQoc6JOzpn37LJXdT1O0uey3P0ugJLDGoRi
-	 xy/9r4811d0Y6VaXwNetlL5DFc6mZsTogf3+MJgclWOxwcnrsym2UVFy1efWJ9ndFv
-	 ErMfiXYZsNA2nkE+yQR0r4Zx3vFEeOUT1YzEgCW5RcdpKTVs8r+LFfW2scIZP+TiKD
-	 AAJN1XEAqiQmu5huPn7rOoDsdvdCXhHPAmppeJvzzCs6cEFFa5GcXEcs4+9xaNufQf
-	 jJla/uyAt8IhXdJgvMis1oY+L1p5jpwsvBHobMTPFzAt2OMna7eFiJjYjZG+d3fF2z
-	 1RX+LgSSf0Z3A==
-Date: Mon, 28 Jul 2025 18:34:42 +0000
+	b=PFv7yLtaYQSDka8bWJsYsXZH0JxxRCUSJpTqPNr2OM/Dmu9M3XIc+wIZMbUCqCx2R
+	 sAHVhRVG0tP4YPs2l3PFGzqxaWcWdHWRO5DP/IYNAJnJPe3NACuNm3uiLiPzO2zm2O
+	 Yj+s/uqVlEgP7isq+Azt12txc88d7puvbvCb/4/bpqUgRb4cYY+HZyYylXuHZVZ3g2
+	 VHhVOrGIiKpkrkVO6DhCpXIM6sWZPukLo99GDSJvduAneLkUcwWxTx9cx/+gjnZYGu
+	 beD/dMAUIT3JB+tBoUhGD69+lWh5v8KOo4efRu5eTlKt6gdK9L0fpZzUUViw6pCDD9
+	 n1KHIzdqK7GRw==
+Date: Mon, 28 Jul 2025 18:34:49 +0000
 To: xen-devel@lists.xenproject.org
 From: dmkhn@proton.me
 Cc: alejandro.garciavallejo@amd.com, andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH v11 1/3] xen/domain: unify domain ID allocation
-Message-ID: <20250728183427.1013975-2-dmukhin@ford.com>
+Subject: [PATCH v11 2/3] tools/tests: introduce unit tests for domain ID allocator
+Message-ID: <20250728183427.1013975-3-dmukhin@ford.com>
 In-Reply-To: <20250728183427.1013975-1-dmukhin@ford.com>
 References: <20250728183427.1013975-1-dmukhin@ford.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 52f895d429f4ebb4181e46b20223efc2d1be5e92
+X-Pm-Message-ID: 7037d3d047e58841d0bd8456a50b6c5ad283c157
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 From: Denis Mukhin <dmukhin@ford.com>=20
 
-Currently, there are two different domain ID allocation implementations:
-
-  1) Sequential IDs allocation in dom0less Arm code based on max_init_domid=
-;
-
-  2) Sequential IDs allocation in XEN_DOMCTL_createdomain; does not use
-     max_init_domid (both Arm and x86).
-
-The domain ID allocation covers dom0 or late hwdom, predefined domains,
-post-boot domains, excluding Xen system domains (domid >=3D
-DOMID_FIRST_RESERVED).
-
-It makes sense to have a common helper code for such task across architectu=
-res
-(Arm and x86) and between dom0less / toolstack domU allocation.
-
-Note, fixing dependency on max_init_domid is out of scope of this patch.
-
-Wrap the domain ID allocation as an arch-independent function domid_alloc()=
- in
-new common/domid.c based on the bitmap.
-
-Allocation algorithm:
-- If an explicit domain ID is provided, verify its availability and use it =
-if
-  ID is not used;
-- If DOMID_INVALID is provided, search the range [1..DOMID_FIRST_RESERVED-1=
-],
-  starting from the last used ID. IDs are not wrapped around in dom0less ca=
-se.
-  Implementation guarantees that two consecutive calls will never return th=
-e
-  same ID. ID#0 is reserved for the first boot domain (currently, dom0) and
-  excluded from the allocation range.
-
-Remove is_free_domid() helper as it is not needed now.
-
-No functional change intended.
+Introduce some basic infrastructure for doing domain ID allocation unit tes=
+ts,
+and add a few tests that ensure correctness of the domain ID allocator in
+dom0less and non-dom0less scenarios.
 
 Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 ---
 Changes since v10:
-- fixup #ifdefs in domid_alloc()
-- corrected use of domid_free() in domain_destroy()
-- rebased
-- moved domid_{alloc,free}() to common/domid.c so the functional test could=
- be
-  added later
+- new patch
 ---
- xen/arch/arm/domain_build.c             |  7 +-
- xen/arch/x86/setup.c                    |  7 +-
- xen/common/Makefile                     |  1 +
- xen/common/device-tree/dom0less-build.c | 15 ++--
- xen/common/domain.c                     |  2 +
- xen/common/domctl.c                     | 42 ++---------
- xen/common/domid.c                      | 93 +++++++++++++++++++++++++
- xen/include/xen/domain.h                |  3 +
- 8 files changed, 122 insertions(+), 48 deletions(-)
- create mode 100644 xen/common/domid.c
+ tools/tests/Makefile                   |   2 +-
+ tools/tests/domid/.gitignore           |   2 +
+ tools/tests/domid/Makefile             |  69 ++++++++++++++
+ tools/tests/domid/include/xen/domain.h | 124 +++++++++++++++++++++++++
+ tools/tests/domid/test-domid.c         |  88 ++++++++++++++++++
+ 5 files changed, 284 insertions(+), 1 deletion(-)
+ create mode 100644 tools/tests/domid/.gitignore
+ create mode 100644 tools/tests/domid/Makefile
+ create mode 100644 tools/tests/domid/include/xen/domain.h
+ create mode 100644 tools/tests/domid/test-domid.c
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 463ae4474d30..789f2b9d3ce7 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -2050,6 +2050,7 @@ void __init create_dom0(void)
-         .grant_opts =3D XEN_DOMCTL_GRANT_version(opt_gnttab_max_version),
-     };
-     unsigned int flags =3D CDF_privileged | CDF_hardware;
-+    domid_t domid;
-     int rc;
+diff --git a/tools/tests/Makefile b/tools/tests/Makefile
+index 36928676a666..ff1666425436 100644
+--- a/tools/tests/Makefile
++++ b/tools/tests/Makefile
+@@ -1,7 +1,7 @@
+ XEN_ROOT =3D $(CURDIR)/../..
+ include $(XEN_ROOT)/tools/Rules.mk
 =20
-     /* The vGIC for DOM0 is exactly emulating the hardware GIC */
-@@ -2074,7 +2075,11 @@ void __init create_dom0(void)
-     if ( !llc_coloring_enabled )
-         flags |=3D CDF_directmap;
-=20
--    dom0 =3D domain_create(0, &dom0_cfg, flags);
-+    domid =3D domid_alloc(0);
-+    if ( domid =3D=3D DOMID_INVALID )
-+        panic("Error allocating domain ID 0\n");
-+
-+    dom0 =3D domain_create(domid, &dom0_cfg, flags);
-     if ( IS_ERR(dom0) )
-         panic("Error creating domain 0 (rc =3D %ld)\n", PTR_ERR(dom0));
-=20
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 1543dd251cc6..2ff7c28c277b 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -1047,8 +1047,11 @@ static struct domain *__init create_dom0(struct boot=
-_info *bi)
-     if ( iommu_enabled )
-         dom0_cfg.flags |=3D XEN_DOMCTL_CDF_iommu;
-=20
--    /* Create initial domain.  Not d0 for pvshim. */
--    bd->domid =3D get_initial_domain_id();
-+    /* Allocate initial domain ID.  Not d0 for pvshim. */
-+    bd->domid =3D domid_alloc(get_initial_domain_id());
-+    if ( bd->domid =3D=3D DOMID_INVALID )
-+        panic("Error allocating domain ID %d\n", get_initial_domain_id());
-+
-     d =3D domain_create(bd->domid, &dom0_cfg,
-                       pv_shim ? 0 : CDF_privileged | CDF_hardware);
-     if ( IS_ERR(d) )
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index c316957fcb36..0c7d0f5d46e1 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -11,6 +11,7 @@ obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) +=3D devic=
-e.o
- obj-$(CONFIG_DEVICE_TREE_PARSE) +=3D device-tree/
- obj-$(CONFIG_IOREQ_SERVER) +=3D dm.o
- obj-y +=3D domain.o
-+obj-y +=3D domid.o
- obj-y +=3D event_2l.o
- obj-y +=3D event_channel.o
- obj-$(CONFIG_EVTCHN_FIFO) +=3D event_fifo.o
-diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tr=
-ee/dom0less-build.c
-index 6bb038111de9..1f9461d0e738 100644
---- a/xen/common/device-tree/dom0less-build.c
-+++ b/xen/common/device-tree/dom0less-build.c
-@@ -833,21 +833,20 @@ void __init create_domUs(void)
-     {
-         struct kernel_info ki =3D KERNEL_INFO_INIT;
-         int rc =3D parse_dom0less_node(node, &ki.bd);
-+        domid_t domid;
-=20
-         if ( rc =3D=3D -ENOENT )
-             continue;
-         if ( rc )
-             panic("Malformed DTB: Invalid domain %s\n", dt_node_name(node)=
-);
-=20
--        if ( (max_init_domid + 1) >=3D DOMID_FIRST_RESERVED )
--            panic("No more domain IDs available\n");
-+        domid =3D domid_alloc(DOMID_INVALID);
-+        if ( domid =3D=3D DOMID_INVALID )
-+            panic("Error allocating ID for domain %s\n", dt_node_name(node=
-));
-+        if ( max_init_domid < domid )
-+            max_init_domid =3D domid;
-=20
--        /*
--         * The variable max_init_domid is initialized with zero, so here i=
-t's
--         * very important to use the pre-increment operator to call
--         * domain_create() with a domid > 0. (domid =3D=3D 0 is reserved f=
-or Dom0)
--         */
--        ki.bd.d =3D domain_create(++max_init_domid,
-+        ki.bd.d =3D domain_create(domid,
-                                 &ki.bd.create_cfg, ki.bd.create_flags);
-         if ( IS_ERR(ki.bd.d) )
-             panic("Error creating domain %s (rc =3D %ld)\n",
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 3c65cca5b0ff..23dbc1f46c78 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -1466,6 +1466,8 @@ void domain_destroy(struct domain *d)
-     /* Remove from the domlist/hash. */
-     domlist_remove(d);
-=20
-+    domid_free(d->domain_id);
-+
-     /* Schedule RCU asynchronous completion of domain destroy. */
-     call_rcu(&d->rcu, complete_domain_destroy);
- }
-diff --git a/xen/common/domctl.c b/xen/common/domctl.c
-index f2a7caaf853c..5509998aa139 100644
---- a/xen/common/domctl.c
-+++ b/xen/common/domctl.c
-@@ -51,20 +51,6 @@ static int xenctl_bitmap_to_nodemask(nodemask_t *nodemas=
-k,
-                                    MAX_NUMNODES);
- }
-=20
--static inline int is_free_domid(domid_t dom)
--{
--    struct domain *d;
--
--    if ( dom >=3D DOMID_FIRST_RESERVED )
--        return 0;
--
--    if ( (d =3D rcu_lock_domain_by_id(dom)) =3D=3D NULL )
--        return 1;
--
--    rcu_unlock_domain(d);
--    return 0;
--}
--
- void getdomaininfo(struct domain *d, struct xen_domctl_getdomaininfo *info=
-)
- {
-     struct vcpu *v;
-@@ -423,36 +409,18 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u=
-_domctl)
-=20
-     case XEN_DOMCTL_createdomain:
-     {
--        domid_t        dom;
--        static domid_t rover =3D 0;
-+        domid_t domid =3D domid_alloc(op->domain);
-=20
--        dom =3D op->domain;
--        if ( (dom > 0) && (dom < DOMID_FIRST_RESERVED) )
-+        if ( domid =3D=3D DOMID_INVALID )
-         {
-             ret =3D -EEXIST;
--            if ( !is_free_domid(dom) )
--                break;
--        }
--        else
--        {
--            for ( dom =3D rover + 1; dom !=3D rover; dom++ )
--            {
--                if ( dom =3D=3D DOMID_FIRST_RESERVED )
--                    dom =3D 1;
--                if ( is_free_domid(dom) )
--                    break;
--            }
--
--            ret =3D -ENOMEM;
--            if ( dom =3D=3D rover )
--                break;
--
--            rover =3D dom;
-+            break;
-         }
-=20
--        d =3D domain_create(dom, &op->u.createdomain, false);
-+        d =3D domain_create(domid, &op->u.createdomain, false);
-         if ( IS_ERR(d) )
-         {
-+            domid_free(domid);
-             ret =3D PTR_ERR(d);
-             d =3D NULL;
-             break;
-diff --git a/xen/common/domid.c b/xen/common/domid.c
+-SUBDIRS-y :=3D
++SUBDIRS-y :=3D domid
+ SUBDIRS-y +=3D resource
+ SUBDIRS-$(CONFIG_X86) +=3D cpu-policy
+ SUBDIRS-$(CONFIG_X86) +=3D tsx
+diff --git a/tools/tests/domid/.gitignore b/tools/tests/domid/.gitignore
 new file mode 100644
-index 000000000000..e553ab6e5468
+index 000000000000..91ac43232518
 --- /dev/null
-+++ b/xen/common/domid.c
-@@ -0,0 +1,93 @@
++++ b/tools/tests/domid/.gitignore
+@@ -0,0 +1,2 @@
++*.o
++test-domid-*
+diff --git a/tools/tests/domid/Makefile b/tools/tests/domid/Makefile
+new file mode 100644
+index 000000000000..e0b6a0e0a49c
+--- /dev/null
++++ b/tools/tests/domid/Makefile
+@@ -0,0 +1,69 @@
++# SPDX-License-Identifier: GPL-2.0-only
++#
++# Unit tests for domain ID allocator.
++#
++# There are two flavors of the test:
++# - default; domain ID can be reused.
++# - dom0less: each domain ID can be allocated only once.
++#
++# Copyright 2025 Ford Motor Company
++
++XEN_ROOT=3D$(CURDIR)/../../..
++include $(XEN_ROOT)/tools/Rules.mk
++
++TESTS :=3D test-domid-default test-domid-CONFIG_DOM0LESS_BOOT
++
++vpath domid.c $(XEN_ROOT)/xen/common/
++
++.PHONY: all
++all: $(TESTS)
++
++.PHONY: run
++run: $(TESTS)
++=09$(foreach t,$(TESTS),./$(t);)
++
++.PHONY: clean
++clean:
++=09$(RM) -- *.o $(TESTS) $(DEPS_RM)
++
++.PHONY: distclean
++distclean: clean
++=09$(RM) -- *~
++
++.PHONY: install
++install: all
++=09$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC)/tests
++=09$(INSTALL_PROG) test-domid-* $(DESTDIR)$(LIBEXEC)/tests
++
++.PHONY: uninstall
++uninstall:
++=09$(RM) -- $(DESTDIR)$(LIBEXEC)/tests/test-domid-*
++
++CFLAGS +=3D -D__XEN_TOOLS__
++CFLAGS +=3D $(APPEND_CFLAGS)
++CFLAGS +=3D $(CFLAGS_xeninclude)
++CFLAGS +=3D -I./include/
++
++LDFLAGS +=3D $(APPEND_LDFLAGS)
++
++# default (no dom0less) scenario
++domid-default.o: domid.c
++=09$(CC) $(CFLAGS) -c $^ -o $@ $(LDFLAGS)
++
++test-domid-default.o: test-domid.c
++=09$(CC) $(CFLAGS) -c $^ -o $@ $(LDFLAGS)
++
++test-domid-default: domid-default.o test-domid-default.o
++=09$(CC) $^ -o $@ $(LDFLAGS)
++
++# dom0less scenario
++domid-CONFIG_DOM0LESS_BOOT.o: domid.c
++=09$(CC) $(CFLAGS) -DCONFIG_DOM0LESS_BOOT -c $^ -o $@ $(LDFLAGS)
++
++test-domid-CONFIG_DOM0LESS_BOOT.o: test-domid.c
++=09$(CC) $(CFLAGS) -DCONFIG_DOM0LESS_BOOT -c $^ -o $@ $(LDFLAGS)
++
++test-domid-CONFIG_DOM0LESS_BOOT: domid-CONFIG_DOM0LESS_BOOT.o test-domid-C=
+ONFIG_DOM0LESS_BOOT.o
++=09$(CC) -DCONFIG_DOM0LESS_BOOT $^ -o $@ $(LDFLAGS)
++
++-include $(DEPS_INCLUDE)
+diff --git a/tools/tests/domid/include/xen/domain.h b/tools/tests/domid/inc=
+lude/xen/domain.h
+new file mode 100644
+index 000000000000..465568c0dd02
+--- /dev/null
++++ b/tools/tests/domid/include/xen/domain.h
+@@ -0,0 +1,124 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
-+ * Domain ID allocator.
-+ * Covers dom0 or late hwdom, predefined domains, post-boot domains; exclu=
-des
-+ * Xen system domains (ID >=3D DOMID_FIRST_RESERVED).
++ * Unit test harness for domain ID allocator.
 + *
 + * Copyright 2025 Ford Motor Company
 + */
 +
-+#include <xen/domain.h>
++#ifndef _TEST_HARNESS_
++#define _TEST_HARNESS_
 +
-+static DEFINE_SPINLOCK(domid_lock);
-+static DECLARE_BITMAP(domid_bitmap, DOMID_FIRST_RESERVED);
++#include <assert.h>
++#include <errno.h>
++#include <stdbool.h>
++#include <stddef.h>
++#include <stdint.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
 +
-+/*
-+ * Allocate domain ID.
-+ *
-+ * @param[in] domid Exact domain ID within [0..DOMID_FIRST_RESERVED-1] ran=
-ge or
-+ *                  DOMID_INVALID for exhaustive search within
-+ *                  [1..DOMID_FIRST_RESERVED-1].
-+ * @return Valid domain ID in case of successful allocation,
-+ *         DOMID_INVALID - otherwise.
-+ */
-+domid_t cf_check domid_alloc(domid_t domid)
++#include <xen-tools/common-macros.h>
++
++#define BUG_ON(x)               assert(!(x))
++#define ASSERT(x)               assert(x)
++
++#define __xen_mk_uint(x)        x ## U
++#define xen_mk_uint(x)          __xen_mk_uint(x)
++
++#define DOMID_FIRST_RESERVED    xen_mk_uint(10)
++#define DOMID_INVALID           xen_mk_uint(11)
++
++#define DEFINE_SPINLOCK(x)      unsigned long *(x)
++#define spin_lock(x)            ((*(x))++)
++#define spin_unlock(x)          ((*(x))--)
++
++#define BITS_PER_LONG           sizeof(unsigned long)
++#define BITS_PER_WORD           (8U * BITS_PER_LONG)
++#define BITS_TO_LONGS(bits) \
++    (((bits) + BITS_PER_LONG - 1) / BITS_PER_LONG)
++#define DECLARE_BITMAP(name, bits) \
++    unsigned long name[BITS_TO_LONGS(bits)]
++
++static inline int __test_and_set_bit(unsigned int nr, unsigned long *addr)
 +{
-+    static domid_t domid_last;
++    unsigned long mask =3D 1UL << (nr % BITS_PER_WORD);
++    unsigned long *p =3D addr + (nr / BITS_PER_WORD);
++    int old =3D (*p & mask) !=3D 0;
 +
-+    spin_lock(&domid_lock);
++    *p |=3D mask;
 +
-+    /* Exact match. */
-+    if ( domid < DOMID_FIRST_RESERVED )
-+    {
-+        if ( __test_and_set_bit(domid, domid_bitmap) )
-+            domid =3D DOMID_INVALID;
-+    }
-+    /*
-+     * Exhaustive search.
-+     *
-+     * Domain ID#0 is reserved for the first boot domain (e.g. control dom=
-ain)
-+     * and excluded from allocation.
-+     *
-+     * In dom0less build, domains are not dynamically destroyed, so there'=
-s no
-+     * need to do a wraparound of the IDs.
-+     */
-+#ifdef CONFIG_DOM0LESS_BOOT
-+    else if ( domid_last + 1 >=3D DOMID_FIRST_RESERVED )
-+        domid =3D DOMID_INVALID;
-+#endif
-+    else
-+    {
-+        domid =3D find_next_zero_bit(domid_bitmap,
-+                                   DOMID_FIRST_RESERVED,
-+                                   domid_last + 1);
-+#ifndef CONFIG_DOM0LESS_BOOT
-+        ASSERT(domid <=3D DOMID_FIRST_RESERVED);
-+        if ( domid =3D=3D DOMID_FIRST_RESERVED )
-+            domid =3D find_next_zero_bit(domid_bitmap,
-+                                       DOMID_FIRST_RESERVED,
-+                                       1);
-+#endif
-+
-+        if ( domid < DOMID_FIRST_RESERVED )
-+        {
-+            __set_bit(domid, domid_bitmap);
-+            domid_last =3D domid;
-+        }
-+        else
-+            domid =3D DOMID_INVALID;
-+    }
-+
-+    spin_unlock(&domid_lock);
-+
-+    return domid;
++    return old;
 +}
 +
-+void cf_check domid_free(domid_t domid)
++static inline void __set_bit(unsigned int nr, volatile unsigned long *addr=
+)
 +{
-+    ASSERT(domid <=3D DOMID_FIRST_RESERVED);
++    unsigned long mask =3D 1UL << (nr % BITS_PER_WORD);
++    unsigned long *p =3D (unsigned long *)addr + (nr / BITS_PER_WORD);
 +
-+    spin_lock(&domid_lock);
-+    __clear_bit(domid, domid_bitmap);
-+    spin_unlock(&domid_lock);
++    *p |=3D mask;
++}
++
++static inline void __clear_bit(unsigned int nr, volatile unsigned long *ad=
+dr)
++{
++    unsigned long mask =3D 1UL << (nr % BITS_PER_WORD);
++    unsigned long *p =3D (unsigned long *)addr + (nr / BITS_PER_WORD);
++
++    *p &=3D ~mask;
++}
++
++static inline unsigned long find_next_zero_bit(const unsigned long *addr,
++                                               unsigned long size,
++                                               unsigned long offset)
++{
++    unsigned long idx =3D offset / BITS_PER_WORD;
++    unsigned long bit =3D offset % BITS_PER_WORD;
++
++    if (offset >=3D size)
++        return size;
++
++    while (offset < size)
++    {
++        unsigned long val =3D addr[idx] | (~0UL >> (BITS_PER_WORD - bit));
++
++        if (~val)
++        {
++            unsigned long pos =3D __builtin_ffsl(~val);
++
++            if (pos > 0)
++            {
++                unsigned long rc =3D idx * BITS_PER_WORD + (pos - 1);
++
++                if (rc < size)
++                    return rc;
++            }
++        }
++
++        offset =3D (idx + 1) * BITS_PER_WORD;
++        idx++;
++        bit =3D 0;
++    }
++
++    return size;
++}
++
++#define printk printf
++
++#define cf_check
++
++typedef bool spinlock_t;
++typedef uint16_t domid_t;
++
++/* See include/xen/domain.h */
++extern domid_t domid_alloc(domid_t domid);
++extern void domid_free(domid_t domid);
++
++#endif /* _TEST_HARNESS_ */
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+diff --git a/tools/tests/domid/test-domid.c b/tools/tests/domid/test-domid.=
+c
+new file mode 100644
+index 000000000000..f077d77be0df
+--- /dev/null
++++ b/tools/tests/domid/test-domid.c
+@@ -0,0 +1,88 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Unit tests for domain ID allocator.
++ *
++ * Copyright 2025 Ford Motor Company
++ */
++
++/* Local test include replicating hypervisor includes. */
++#include <xen/domain.h>
++
++int main(int argc, char **argv)
++{
++    domid_t expected, allocated;
++
++    printk("%s DOMID_FIRST_RESERVED=3D%u DOMID_INVALID=3D%u\n",
++            argv[0], DOMID_FIRST_RESERVED, DOMID_INVALID);
++
++    /* Test ID#0 cannot be allocated twice. */
++    allocated =3D domid_alloc(0);
++    printk("expected %u allocated %u\n", 0, allocated);
++    ASSERT(allocated =3D=3D 0);
++    allocated =3D domid_alloc(0);
++    printk("expected %u allocated %u\n", DOMID_INVALID, allocated);
++    ASSERT(allocated =3D=3D DOMID_INVALID);
++
++    /* Ensure ID is not allocated. */
++    domid_free(0);
++
++    /*
++     * Test that that two consecutive calls of domid_alloc(DOMID_INVALID)
++     * will never return the same ID.
++     * NB: ID#0 is reserved and shall not be allocated by
++     * domid_alloc(DOMID_INVALID).
++     */
++    for ( expected =3D 0; expected < DOMID_FIRST_RESERVED - 1; expected++ =
+)
++    {
++        allocated =3D domid_alloc(DOMID_INVALID);
++        printk("expected %u allocated %u\n", expected + 1, allocated);
++        ASSERT(allocated =3D=3D expected + 1);
++    }
++    for ( expected =3D 0; expected < DOMID_FIRST_RESERVED; expected++ )
++    {
++        allocated =3D domid_alloc(DOMID_INVALID);
++        printk("expected %u allocated %u\n", DOMID_INVALID, allocated);
++        ASSERT(allocated =3D=3D DOMID_INVALID);
++    }
++
++    /* Re-allocate first ID from [1..DOMID_FIRST_RESERVED - 1]. */
++#ifdef CONFIG_DOM0LESS_BOOT
++    /* Each ID is allowed to be allocated only once. */
++    expected =3D DOMID_INVALID;
++#else
++    expected =3D 1;
++#endif
++    domid_free(1);
++    allocated =3D domid_alloc(DOMID_INVALID);
++    printk("expected %u allocated %u\n", expected, allocated);
++    ASSERT(allocated =3D=3D expected);
++
++    /* Re-allocate last ID from [1..DOMID_FIRST_RESERVED - 1]. */
++#ifdef CONFIG_DOM0LESS_BOOT
++    /* Each ID is allowed to be allocated only once. */
++    expected =3D DOMID_INVALID;
++#else
++    expected =3D DOMID_FIRST_RESERVED - 1;
++#endif
++    domid_free(DOMID_FIRST_RESERVED - 1);
++    allocated =3D domid_alloc(DOMID_INVALID);
++    printk("expected %u allocated %u\n", expected, allocated);
++    ASSERT(allocated =3D=3D expected);
++
++    /* Allocate an invalid ID. */
++    expected =3D DOMID_INVALID;
++    allocated =3D domid_alloc(DOMID_FIRST_RESERVED);
++    printk("expected %u allocated %u\n", expected, allocated);
++    ASSERT(allocated =3D=3D expected);
++
++    return 0;
 +}
 +
 +/*
@@ -402,24 +409,9 @@ s no
 + * mode: C
 + * c-file-style: "BSD"
 + * c-basic-offset: 4
-+ * tab-width: 4
 + * indent-tabs-mode: nil
 + * End:
 + */
-diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
-index e10baf2615fd..31946bb1b653 100644
---- a/xen/include/xen/domain.h
-+++ b/xen/include/xen/domain.h
-@@ -38,6 +38,9 @@ void arch_get_domain_info(const struct domain *d,
-=20
- domid_t get_initial_domain_id(void);
-=20
-+domid_t cf_check domid_alloc(domid_t domid);
-+void cf_check domid_free(domid_t domid);
-+
- /* CDF_* constant. Internal flags for domain creation. */
- /* Is this a privileged domain? */
- #define CDF_privileged           (1U << 0)
 --=20
 2.34.1
 
