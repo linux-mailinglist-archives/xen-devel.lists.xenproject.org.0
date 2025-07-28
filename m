@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 984C3B1376C
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 11:24:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1061138.1426639 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45365B13776
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 11:25:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1061147.1426650 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugK5i-0002Uw-NV; Mon, 28 Jul 2025 09:24:18 +0000
+	id 1ugK78-00034S-3K; Mon, 28 Jul 2025 09:25:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1061138.1426639; Mon, 28 Jul 2025 09:24:18 +0000
+Received: by outflank-mailman (output) from mailman id 1061147.1426650; Mon, 28 Jul 2025 09:25:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugK5i-0002Sb-Jr; Mon, 28 Jul 2025 09:24:18 +0000
-Received: by outflank-mailman (input) for mailman id 1061138;
- Mon, 28 Jul 2025 09:24:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ScRH=2J=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ugK5h-0002SV-6z
- for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 09:24:17 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a1156d01-6b94-11f0-b895-0df219b8e170;
- Mon, 28 Jul 2025 11:24:15 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3b7823559a5so714366f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 02:24:15 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-76408c0287fsm5092710b3a.47.2025.07.28.02.24.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Jul 2025 02:24:13 -0700 (PDT)
+	id 1ugK78-00032u-0H; Mon, 28 Jul 2025 09:25:46 +0000
+Received: by outflank-mailman (input) for mailman id 1061147;
+ Mon, 28 Jul 2025 09:25:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+J0z=2J=cloud.com=edwin.torok@srs-se1.protection.inumbo.net>)
+ id 1ugK76-00032m-JN
+ for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 09:25:44 +0000
+Received: from mail-vk1-xa30.google.com (mail-vk1-xa30.google.com
+ [2607:f8b0:4864:20::a30])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d44e5c32-6b94-11f0-a31e-13f23c93f187;
+ Mon, 28 Jul 2025 11:25:41 +0200 (CEST)
+Received: by mail-vk1-xa30.google.com with SMTP id
+ 71dfb90a1353d-53164bd0df3so1183003e0c.0
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 02:25:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,96 +40,226 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a1156d01-6b94-11f0-b895-0df219b8e170
+X-Inumbo-ID: d44e5c32-6b94-11f0-a31e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753694654; x=1754299454; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+XcuUkC6fLdRIxdKiS22GeR2kKO1UcZSOM9P94/9aqg=;
-        b=NbWZ4lPV7WLnt4ktHiSFeLg2Xl5OGUBbtGXpYncytUAbzKK1I38YXyw9hnVjM9taNU
-         i6rUui+4uMPqKkQsyEx5wf6QrpIEwQWurxwvStk8RiM0p2MlFf4x+btzoNS5Su+e1L8a
-         2lRh8kI4NGap44qgOx3TYbVmrSfZGEmMfJ3BBumxiMf5KEZMO2uAcBWHa80VgNZ1JguB
-         o3T7J/NJ7h19ypxbRa2J/iOx9pto3NdYLneWooh9KPcEXFMrhrFfwyIUSHxWTUoqy72M
-         I2bMGS68AKpqGJM6MKvNRXifJjDZ+oyjrOLTHcz5qQL+mCv9HCFMHDPlmtnGlS8FxPoG
-         Q1KQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753694654; x=1754299454;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1753694740; x=1754299540; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+XcuUkC6fLdRIxdKiS22GeR2kKO1UcZSOM9P94/9aqg=;
-        b=Tz3P/JAAGwS/3vS/Vkx2vk9amjA2bquKSA1zy+MEvseUlysttirOhbHwxaRme9nre7
-         etOk5EMYJdY1nekdxxs3MrGpUj1H3Fq7NegtxsrkFYicWD6XFHflAvfjaUu00NhexV+Z
-         0KvkLRqvqou2BZratp2lNvSiB11gDQHQn96+r7/+cGunMUbrOHPpOgI0wTavIqzwODUB
-         2pYLmy2jM/nh8f5St2pJQZi/efgAPdgQccXR8oGgsVaElUA5LvtRS8HOwpwW80XAWe7z
-         t6EjLzhyA3/7DYEkLmabh41O9NIT+PgPcxWCpp/bBMdwr8sGXFGCg5Lm40vxVB5Cxajn
-         RLdA==
-X-Forwarded-Encrypted: i=1; AJvYcCXkByis0/pHqCQEsHMWJsdF/kFKZ4JRIGA+0GqHVCArQdY8Fz4CQZIcCUWI5cfhISo11EmCBREyCt0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwOY9ah8CMQPpsm12P8Dvap9Cdw6MHrBQlKv858yLVng+/Eyl69
-	lJxZ5qXs+xhqjd284XyqdcGoOznA5ayELg/tP7O7/dbwB/rM3F29HO7wSmZPLniKPA==
-X-Gm-Gg: ASbGncvGi/+0S0Z+VeO5P021PJQHGlZL8+IWlBsT4d71/WG0z848WbwdPYHxxqm6O7L
-	F/g8ceohzm6Lo5UmuhT0+8074Cq5XD3S+KO+FnSQKzH7pJehKV5f33Pnamw2y3brGxuacAm6iRr
-	ptmZwyx5oUqF1ny3otxV1vPdACoMRPbo0HfSQyTLgUt68e2IJBtT2uZm8zuXl8ubZeQKtsIy3+j
-	YnttylSuhUsfMFCGGljLj2MtMRcJaeNH31vKujBfhm72u+TveDdb/j0icR9cG6GRNIvu46sKYw+
-	tGe3/9Wh34JOzmr0TDGtjcRYHK8CORrJCmt/R6YfcpfulHDgPJip0stI+YHhhVuLOLmJVfxfQ9O
-	nm0s6EPgGUVPNV0p9pMm9lXFgqdVuVfcbisPNQMNL+6OsfP6tLOzsO7M6s5+/s146Dt5nJWBRXF
-	k79NtvtfI=
-X-Google-Smtp-Source: AGHT+IHtLzVhOAML4IQrUOSuQFb35uOadsZA1BSLjkwPOoebOBKHfIDQrJddqddBbSkwIo+T5XKS3A==
-X-Received: by 2002:a05:6000:2209:b0:3b7:7462:dcc2 with SMTP id ffacd0b85a97d-3b77672b798mr7067715f8f.15.1753694654458;
-        Mon, 28 Jul 2025 02:24:14 -0700 (PDT)
-Message-ID: <8ea71400-ee3b-4279-afb1-dabade5479cd@suse.com>
-Date: Mon, 28 Jul 2025 11:24:05 +0200
+        bh=SCiWTLEi09+5TgijsNKH+w3lUbqoP4wo6weULehU/Ag=;
+        b=Mbvbn94B2o8CdtTXlGVaumCpaMc2AH5ThCegpuqYokKg6uPxAhpCfwTcmhCFiNoFWw
+         6fQyNBHJ24hJd3y7jzhbgdwlzwdFHgQqb+rQueslO9adgRKyE+0aP5XKfaxwgO1R8Sxp
+         xALlrcjRZjoqKcG7H3nC5wexhIVnhhX2KMy4M=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753694740; x=1754299540;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=SCiWTLEi09+5TgijsNKH+w3lUbqoP4wo6weULehU/Ag=;
+        b=VnaMTOg3AinikM6QSNND826PLk/exjMXJT68jYuOmUI+KgWxWZAeq5ycH7AgmFFzbK
+         dYwr0T8RGl6g4qwyAkHUoRS6C1/wLzBoZKO+eQiVSjO1wFyUlGdjsqFtoUOwrRBlm6WP
+         MzMKAW8VyFMgnl+hPkd+JQC99LwoEMs+4UIk3fAfaRp3KcvQapLa6R26A8Qo75CS8nTj
+         udbAD0co6DtHl/4ZnNoeVUTHC/VifkBBcTpg8ah7ye7n+Cs+hAAH8S3PPnlqIsMgAsci
+         RZif8iBAvVKvVoPSDF9Sbp/kP3qYAe4p44dhhi/RUZBMdb2pOvmxC/XXHUCD2pDKgm7l
+         cTfA==
+X-Gm-Message-State: AOJu0YxB5NnV8o9QBLeJ/F8OuP4y9+RHgHdHgR/dW6A1ZuABGdbZbyVX
+	a9dAu/eZRgUbPc1pxNSeAdq9SLABELGhAolQjKD0Md9i6VcIc39lgwiepr0lXVOo7pwcO1RT6ZK
+	XZuikYGZFJGDHS2AJR1B8j1S++z5MHLv5VS4mRB7StA==
+X-Gm-Gg: ASbGncv3snwhMzZXMmAJhtpGeDMcRUEEIA3VZEa1D+E6v77qx7oUrq8bS5YUCSZe8R9
+	9uQ5YfaU3OyaA+vP1VZd6UjXeY1WdohbSSEruh7mRSme3d3rzMNjQ2SCgmRY7pR8RrIdSHxVP28
+	wIK5Zrlz7vchz/8W29TSYGmKIlknCDrQFWoszi8i0YqGdrtgen/WV8j0cz90Brkdr7GnunZ6Dzh
+	ouO7SNYkg==
+X-Google-Smtp-Source: AGHT+IFzQexOXYGyfBXfNGk86YB4I773HZC997T7elrRfuV7oLeTz42rQbHZh25AYcUhttDUK44I4YpXLD99/8Sjsnc=
+X-Received: by 2002:a05:6122:a13:b0:534:7f57:8e25 with SMTP id
+ 71dfb90a1353d-538db48ba3cmr3471262e0c.1.1753694740128; Mon, 28 Jul 2025
+ 02:25:40 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iommu: restrict stratch page quarantining to specific
- iommu drivers
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250725161304.6723-1-stewart.hildebrand@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250725161304.6723-1-stewart.hildebrand@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <cover.1753372928.git.edwin.torok@cloud.com> <62bb83b9-d1d1-446a-88a8-20d11c5a0b4c@gmail.com>
+In-Reply-To: <62bb83b9-d1d1-446a-88a8-20d11c5a0b4c@gmail.com>
+From: Edwin Torok <edwin.torok@cloud.com>
+Date: Mon, 28 Jul 2025 10:25:29 +0100
+X-Gm-Features: Ac12FXw_eWtAVjpzkARI_4yPUPI6BOTJeYNLzslfefC2D9t_-cSlYb-QM1ovPRM
+Message-ID: <CAEfZLv=ueok--vEfNaA64hSLX6EU_MCsvmwh_uqvKO-c7hUcYQ@mail.gmail.com>
+Subject: Re: [RFC PATCH v1 00/10] Xen flamegraph (hypervisor stacktrace
+ profile) support
+To: Demi Marie Obenour <demiobenour@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	andriy.sultanov@vates.tech, boris.ostrovsky@oracle.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 25.07.2025 18:13, Stewart Hildebrand wrote:
-> Scratch page quarantining is tied to specific IOMMU implementations, not
-> architectures, so tie it to AMD_IOMMU and INTEL_IOMMU instead of X86.
-> 
-> Fixes: dd7e55a8848c ("iommu: restrict scratch page quarantining to x86")
+On Fri, Jul 25, 2025 at 11:26=E2=80=AFPM Demi Marie Obenour
+<demiobenour@gmail.com> wrote:
+>
+> On 7/25/25 11:06, Edwin T=C3=B6r=C3=B6k wrote:
+> > Caveats:
+> >  * x86-only for now
+> >  * only tested on AMD EPYC 8124P
+> >  * Xen PMU support was broken to begin with on Xeon Silver 4514Y, so I
+> >  wasn't able to test there ('perf top' fails to parse samples). I'll
+> >  try to figure out what is wrong there separately
+> >  * for now I edit the release config in xen.spec to enable frame
+> >  pointers. Eventually it might be useful to have a 3rd build variant:
+> >  release-fp. Or teach Xen to produce/parse ORC or SFrame formats withou=
+t
+> >  requiring frame pointers.
+>
+> That would definitely be nice.
+>
+> >  * perf produces raw hex addresses, and a python script is used to
+> >  post-process it and obtain symbols. Eventually perf should be updated
+> >  to do this processing itself (there was an old patch for Linux 3.12 by=
+ Borislav Petkov)
+> >  * I've only tested capturing Dom0 stack traces. Linux doesn't support
+> >   guest stacktraces yet (it can only lookup the guest RIP)
+>
+> What would be needed to fix this?  Capturing guest stacktraces from the h=
+ost
+> or Xen seems like a really bad idea, but it might make sense to interrupt=
+ the
+> guest and allow it to provide a (strictly validated) stack trace for use =
+by
+> the host.  This would need to be done asynchronously, as Linux is moving
+> towards generating stack traces outside of the NMI handler.
 
-One of {Requested,Suggested,Reported}-by: Roger Pau Monné <roger.pau@citrix.com>
+The way perf captures stacktraces for userspace is that it either
+walks its stack by following framepointers
+and copying memory from userspace, or it can take a copy of the entire
+userspace stack (up to a limit of ~64KiB),
+and let perf userspace construct a stacktrace from that (for --callgraph=3D=
+dwarf).
+I'd expect that copying from userspace is a lot faster than copying
+from a guest, because for a guest you'd also need to map
+the page first, which would be an additional cost (and you'd have to
+be careful not to infinitely recurse if you get another interrupt
+while mapping), unless you keep the entire guest address space mapped,
+or have a cache of mapped stack pages.
 
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+You can let a guest profile itself though, in which case it can
+process its own stacktrace, but exposing Xen's stacktrace to untrusted
+guests is probably not a good idea.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+You could try to also do what I've done with Xen here: have the guest
+provide the stacktrace to the hypervisor, which provides it to Dom0.
+But then you'd need to run some code inside the guest, and that may
+not be possible if you are currently handling something on behalf of
+the guest in Xen.
 
+I'd first wait to see whether KVM implements this, and then implement
+something similar for Xen. AFAICT KVM doesn't support this either.
+
+>
+> >  * the Linux patch will need to be forwarded ported to master before su=
+bmission
+> >  * All the caveats for using regular VPMU apply, except for the lack of
+> >   stacktraces, that is fixed here!
+
+> What would be needed to fix these limitations?
+
+See below for my answers to each one, although others on this mailing
+list might be able to provide a more correct answer.
+
+> >     * Dom0 must run hard pinned on all host CPUs
+
+Not sure. I think Dom0 needs to be able to run some code whenever the
+NMI arrives, and that needs to run on the CPU it arrived on, unless
+you define a way for one CPU to also receive and process interrupts
+for CPUs that Dom0 doesn't run on.
+The pinning requirement could be lifted if everything is correctly
+context switched
+
+> >     * Watchdog must be disabled
+
+IIUC the Xen watchdog and the profiling interrupt both use NMIs, so
+you can only have one of them active.
+In fact even with bare metal Linux the NMI watchdog sometimes needs to
+be disabled for certain perf counters to work, although basic timer
+based profiling and most counters work with NMI enabled. If needed
+'perf' prints a message to disable the Linux NMI watchdog, but if you
+follow those instructions literally the host will panic and reboot 20s
+later because the soft lockup detector won't work anymore (so that too
+would need to be disabled).
+
+> >     * not security supported
+
+See https://xenbits.xen.org/xsa/advisory-163.html
+
+Also even if you ignore security support, using vPMU on production
+systems currently is probably not a good idea, there are probably lots
+of pre-existing bugs to fix, and the bugs might be micro-architecture
+specific.
+E.g. with vPMU enabled running 'perf stat -ddd' in Dom0 caused one of
+my (older) hosts to completely freeze (all vCPUs except one stuck in a
+spinlock, and the last one not running anywhere), whereas it ran
+perfectly fine on other (newer) hosts. I haven't debugged yet what is
+causing it (could also be a bug in Linux, or the Linux Xen PMU driver
+and not Xen).
+
+There is a way to restrict what performance counters are exposed to
+guests, and e.g. I think EC2 used to expose some of these to guests.
+Initially temperatures/turbo boost could be measured from guests, but
+that got disabled following an XSA:
+https://www.brendangregg.com/blog/2014-09-15/the-msrs-of-ec2.html.
+Later a restricted set of PMCs got exposed (vpmu=3Dipc, or vpmu=3Darch),
+which then got enabled for EC2 guests (don't know whether they still
+expose these): https://www.brendangregg.com/blog/2017-05-04/the-pmcs-of-ec2=
+.html
+
+If that is enabled, the stacktrace is already suitably restricted to
+Dom0-only, so should be safe to use, i.e. even if you can't use
+`vpmu=3Don`, you might be able to use `vpmu=3Dipc`.
+Currently neither of these is security supported though.
+
+> >     * x86 only
+
+This one should be fixable, all it needs is a way to do a stacktrace,
+which should already be present in the arch-specific traps.c (although
+AFAICT only X86 and ARM implement stack traces currently), although
+that of course assumes that other arches would have a PMU
+implementation to begin with.
+AFAICT xenpmu_op is only implemented on x86:
+```
+#ifdef CONFIG_X86
+xenpmu_op(unsigned int op, xen_pmu_params_t *arg)
+#endif
+```
+
+> >     * secureboot needs to be disabled
+>
+
+This is because to enable vpmu you need to modify the Xen cmdline, and
+that is restricted under secure boot.
+If you enable vpmu at build time then it might work, but see above
+about no security support.
+
+>  With them it isn't really
+> possible to do profiling on production systems, only on dedicated develop=
+ment
+> boxes.
+
+I'd like to be able to do profiling on production too. But I'm taking
+it one step at a time, at least now I'll have a way to do profiling on
+development/test boxes.
+
+For production use a different approach might be needed, e.g. LBR, or
+a dedicated way to get just a hypervisor stacktrace on a timer,
+without involving the (v)PMU at all.
+That would require some new integration with `perf` too.
+
+> That works great if you have a dev box and can create a realistic
+> workload with non-sensitive data, but less great if you have a problem th=
+at
+> you can't reproduce on a non-production system.  It's also not usable
+> for real-time monitoring of production environments.
+
+Best regards,
+--Edwin
+
+> --
+> Sincerely,
+> Demi Marie Obenour (she/her/hers)
 
