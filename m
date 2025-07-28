@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 972C5B1378E
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 11:33:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1061154.1426660 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44486B1379D
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 11:37:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1061160.1426670 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugKE7-0004rx-PM; Mon, 28 Jul 2025 09:32:59 +0000
+	id 1ugKIB-0005S1-8a; Mon, 28 Jul 2025 09:37:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1061154.1426660; Mon, 28 Jul 2025 09:32:59 +0000
+Received: by outflank-mailman (output) from mailman id 1061160.1426670; Mon, 28 Jul 2025 09:37:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugKE7-0004qW-Mb; Mon, 28 Jul 2025 09:32:59 +0000
-Received: by outflank-mailman (input) for mailman id 1061154;
- Mon, 28 Jul 2025 09:32:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ugKIB-0005PF-5v; Mon, 28 Jul 2025 09:37:11 +0000
+Received: by outflank-mailman (input) for mailman id 1061160;
+ Mon, 28 Jul 2025 09:37:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ScRH=2J=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ugKE6-0004qQ-RX
- for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 09:32:58 +0000
+ id 1ugKIA-0005Ot-2e
+ for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 09:37:10 +0000
 Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
  [2a00:1450:4864:20::431])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d63eb9e4-6b95-11f0-b895-0df219b8e170;
- Mon, 28 Jul 2025 11:32:53 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6e26a5ad-6b96-11f0-a31e-13f23c93f187;
+ Mon, 28 Jul 2025 11:37:08 +0200 (CEST)
 Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3a528243636so2512094f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 02:32:53 -0700 (PDT)
+ ffacd0b85a97d-3b78310b296so747461f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 02:37:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b3f7f58bec0sm4524388a12.17.2025.07.28.02.32.47
+ 98e67ed59e1d1-31efc2f579asm1540202a91.30.2025.07.28.02.37.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Jul 2025 02:32:52 -0700 (PDT)
+ Mon, 28 Jul 2025 02:37:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d63eb9e4-6b95-11f0-b895-0df219b8e170
+X-Inumbo-ID: 6e26a5ad-6b96-11f0-a31e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753695173; x=1754299973; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753695428; x=1754300228; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ofzygOGkicFFf1sYTsDF9u2nyqP2V0CJo5N9Yj7z7yk=;
-        b=MW8zW8sAISdHeiMNMu20uh3MP4ziGpQaZDBfqPmb1AgQJbklmxVTg9EgaE7F7OCaST
-         JaRQBiCtbQX9mWkqeWouh9Zem5nDwEckuwKDEMixLxAjUUSdIkDowA/71Rjmn+N/jDDH
-         ZL43GEJg3AUHbEqAThXjuZRuchv7hx0TpHHNFYKUB1At1mBWjqXRoojTmad1eLHz9sQn
-         QISep8HNf3I8wrayAaKjYOJf5gZha2DboSY+zA38ap9aJ9ROZdFg1phJsYHgwrGGH7DV
-         lp2qQ93p/0Q96mezB3enJcZdIHaM3MQb3BiqLgCdpGIg/pwXmliL7yH6O2JvbdBPo3/N
-         a0ZA==
+        bh=1w4QXslunNl9xe829TKIcKVe/jvv4JohU2HgZliVUio=;
+        b=MjlZGmv7Hhgy970H488UxCwiaATkkCzt/4u7ojusRuVABXr8KzKydUKWDfk2hPEz9c
+         5qTTjXRwGAQofZSVYTxVOLDRT05sGh6OAnEAckHcf1iYjUDtT/s5nvGcDg7ImjwNO0vo
+         OHQwF1Zenm87ZSVXbBmxbcFxXpGvHE/YNSc06JoZq9tZ0kaddhIThCEr8n8qWJk92wjt
+         XEmsHwU9uxjcTKkbyNXNq7bnrfdSxU+Aj7/oBf3+ZZljqMcSrDsfw1x/soRJ5AT2/yy2
+         mChaR6QZS6yKn5Nuln9+s2jyY1mhvVx9etAIbkHfmtUVFKsTv8jQh9EZwV7aamiRNmWc
+         lvKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753695173; x=1754299973;
+        d=1e100.net; s=20230601; t=1753695428; x=1754300228;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ofzygOGkicFFf1sYTsDF9u2nyqP2V0CJo5N9Yj7z7yk=;
-        b=Wj7V350KfavRLz8L47CEjrYHMva2RjacPAVk50Wo4ZHDu1xyHPIMhdBsnWVdwKjV32
-         xbq84ny39RnK4+gqeGfCroDm0/AIJtOm9BJ8LVNqdo8TCdhjCup7MZkJG3wgnv10l23u
-         C8eo8s9a6WDKQcMyNWUCGexii6eYrlv1AqNSFUQjUHdBTq6Q30SysKPhx1y7HPFx2Zsh
-         iws8GH5OrnSNMAltwKLoqjUvD0iamqk7xIsQnqaULyKDbG5smj1XrRuRf7rtfxVL1BRP
-         ra3hDHLo5ssbUC2gg/ibqd/QTP1qr+NHooF0ZEZmkj/9zobMiiR1qBqWQc47OcZgQmSs
-         z42w==
-X-Forwarded-Encrypted: i=1; AJvYcCWX3guDI3BDOTWAdsvUSTx87xawgE2VV2sF6JbLvWKhqoa5SRW+MGnOc2U8Xyg0wIzRSB9njAa1qug=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwaDqk/s5iXhByghtUhgp1p8xVUtisfA9MRMibQJrLt8+CdXWui
-	KI7f8hcuwjZGNhVD5BkObbXodLTmyVGznF14ZKva4XGnDQPJPn+Lcw7MU3ZPqjnm1w==
-X-Gm-Gg: ASbGncsUb5qrKqgToeAAP7tKV2WyOXW82HNS+CAq/z7TKbib4NUbrATFvqnD/32LOTP
-	nb7hvs+oR6XpHjuZXCYfCr1f0VHIKNdTYdJRiWd06U1RcGaqw15J2UjfOTOrd2FCd8iOzD2ILx/
-	d3M2J2+NzhY7m1DUOZz0bOAJIVxrOQuV5WtaFU0Ddyo1jHY3/Ox+J4n/CSfpSJFoFnpNXksZ3KL
-	6IOVzXiwtKOqk1pscGCwopVt5kCAqweRVNZm68/zUVFowNGGDRga2J4k2xoAUX09CBekhpuXCxy
-	4LVoRQlDguHcb45MVTrhP2le+wgLCC/kU2WN7yNRazBar71Dd82uun3HKVYpAtZ78R/jWB1BfaH
-	tKlCEONz56jWUzn933KFOZ0QaLo6GSY5znHKm2bgfybjYYG2jPaFcwweAcJlDq+TkcTD/Ep9DN/
-	gc2z2JtYg=
-X-Google-Smtp-Source: AGHT+IENwU+UBwWghtyCsqQzdfrzF4qs4/y4iURHdWJQzp7w9eFv02eVOQNMCZOA70zdjFCsk6GDZw==
-X-Received: by 2002:a5d:588b:0:b0:3b7:8914:cd94 with SMTP id ffacd0b85a97d-3b78914db69mr1364526f8f.41.1753695173187;
-        Mon, 28 Jul 2025 02:32:53 -0700 (PDT)
-Message-ID: <aade04e0-737f-481c-9ed1-1275969c2ef7@suse.com>
-Date: Mon, 28 Jul 2025 11:32:43 +0200
+        bh=1w4QXslunNl9xe829TKIcKVe/jvv4JohU2HgZliVUio=;
+        b=fdYCDB/ar353K1LMyqvx0qX8/WNglUaHmpdvfrXBjNfAzSjfDijof7dqcnDsnmFDc5
+         rC+yGyiM5j3irRC6A9SbGIpXWZEW2xKcf1LuK4Faq0MRKiH8hO6gtxdoEV7gB1gSxo9s
+         +3V5kNz1WYTyyF5X0BTGG8ONAmS/+b3erlQsCXXTvIiJifa37doZdzbPJYHsVW7XpACy
+         kPYyG43K991LConEQ2AnT1zBuzWkK0YiUGuOYYOq+n1BEuoTjVu5/XcwJ7p7vfvpyKzu
+         Sg49OnHr98H8tVx6ESwn4XuEKL40b+WJFjCVG/8bpapEMfxYSgtNzMj+SA1e9nVnkIOY
+         hNlg==
+X-Forwarded-Encrypted: i=1; AJvYcCUw0wlP/KgfRYPRsOLYWT8Hj9K1scqjfyD15dVoso/CqoitXkrUZletQap5B1GcZBZnH+5ckMMt1w8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxfGJFC9yUWr0rQhYEW5fDJTsdwWD8VeT0YDmHzVvDYiAdtuM7S
+	6bHsT0sKICQvFTP6Pc2Z2qmh8C99/MXCgzrf0swBHc2k8Od2iWEg2HSDoNStJCLKgA==
+X-Gm-Gg: ASbGnct0xFHrogaE6IFdfG25A66Fqy4T7MTLANdJh6imNoTi8iqEuvTjO5vqvS/hSp8
+	b6jnSWR246qHF8Qe96vtVpKXCbFd5YRgEg/DXIHKYAsZ2kdmuOiLnBqwP7LUDIR9OlXn5D8m6Xw
+	jzYc/8zKJj1BAPGoIVt7Lb3QW1pJY36t/Wjtel6tcTI/XXIAmqCszWKpd1FbgcE+BezKrk9/9oS
+	LivN/K6kIAasZMSKA75vH93YzbWzuQq3YPzyMAN7vAzS1QVcTnFWgbePwMo4IyUYqOaXXqsnghl
+	icRIVKz5jl+Zo2ce75R3GPWvCzJNjnccE9pF+uhF1ZqZabWfeo2zX6AdvB2tq6sFvc6q62QkpWy
+	OGewdZbd4SjA090KJM7cYip4JcWiu3ttkuyX2NHTTp/snpBVDZNTDK8cTF8up653beihC2zHp4M
+	xnLL06BB4=
+X-Google-Smtp-Source: AGHT+IH4bTu6FfwrJujL7/ADRicRT1DSWE+5bIQn/JZN4uBujuOoBuXy4Ahi7N6thqPifoe4QiJsdQ==
+X-Received: by 2002:a05:6000:1a85:b0:3a3:7ba5:9618 with SMTP id ffacd0b85a97d-3b77675bb6fmr6729636f8f.29.1753695427992;
+        Mon, 28 Jul 2025 02:37:07 -0700 (PDT)
+Message-ID: <a6f8f7e9-157a-4c99-a15a-cae4b2043ef2@suse.com>
+Date: Mon, 28 Jul 2025 11:36:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] xen/console: remove __printk_ratelimit()
-To: Julien Grall <julien@xen.org>
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com, dmkhn@proton.me, xen-devel@lists.xenproject.org
-References: <20250725212235.753363-1-dmukhin@ford.com>
- <290ae958-4fba-42d8-a64b-d44845b85491@xen.org>
+Subject: Re: [PATCH v2] misra: add deviations of MISRA C Rule 5.5
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <7f5223bf37ed42c90e4bd426659eaa87c2c6879f.1753455885.git.dmytro_prokopchuk1@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,26 +124,50 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <290ae958-4fba-42d8-a64b-d44845b85491@xen.org>
+In-Reply-To: <7f5223bf37ed42c90e4bd426659eaa87c2c6879f.1753455885.git.dmytro_prokopchuk1@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.07.2025 11:20, Julien Grall wrote:
-> On 25/07/2025 22:24, dmkhn@proton.me wrote:
->> From: Denis Mukhin <dmukhin@ford.com>
->>
->> __printk_ratelimit() is never used outside of the console driver.
->> Remove it from the lib.h and merge with the public printk_ratelimit().
-> 
-> Is this solving any sort of violation? Asking because even if the 
-> function is only used by one caller, I could see a benefit to be able to 
-> use different value for the ratelimit. So I leaning towards keep the 
-> code as-is.
+On 25.07.2025 18:24, Dmytro Prokopchuk1 wrote:
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -142,6 +142,31 @@ Deviations related to MISRA C:2012 Rules:
+>         memmove.
+>       - Tagged as `deliberate` for ECLAIR.
+>  
+> +   * - R5.5
+> +     - Clashes between bitops functions and macros names are deliberate and are
+> +       needed for input validation and error handling, ensures that the size of
+> +       the object being pointed to by 'addr' meets the minimum requirements for
+> +       the bit operation, preventing unsafe operations on improperly sized data
+> +       types that could lead to undefined behavior or memory corruption.
+> +       The macros encapsulate this conditional logic into a single, reusable form;
+> +       which simplifies the code, avoids redundant function call.
+> +     - Specified macros should be ignored.
 
-+1
+At the risk of going too far with nitpicking: Who are "specified macros" here? The
+text doesn't mention any names. In fact, the way it's written it could be taken to
+mean all macros there, including any that are yet to be added. I don't think such
+is appropriate for a deviation.
 
-In fact I'm surprised (or maybe not) that we still don't make better use
-the rate limiting functionality.
+> +   * - R5.5
+> +     - Clashes between 'pirq_cleanup_check' function and macro names are deliberate.
+> +       The purpose is to ensure that the specific cleanup action ('pirq_cleanup_check')
+> +       is performed conditionally when the parameter 'event channel number' equals
+> +       zero, otherwise it does nothing.
+> +       This approach simplifies the code, avoids redundant function call.
+> +     - Specified macro should be ignored.
+
+Here it's clear which macro is meant, but ...
+
+> +   * - R5.5
+> +     - Clashes between grant table functions and macros names are deliberate.
+> +       These macros address differences in argument count during compile-time,
+> +       effectively discarding unused parameters to avoid warnings or errors
+> +       related to unused arguments.
+> +     - Specified macro should be ignored.
+
+... here it again isn't.
 
 Jan
 
