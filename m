@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 174CFB13B39
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 15:15:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1061490.1427087 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CDECB13B6A
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 15:24:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1061502.1427097 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugNhc-0003SA-A9; Mon, 28 Jul 2025 13:15:40 +0000
+	id 1ugNpQ-0005BT-4a; Mon, 28 Jul 2025 13:23:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1061490.1427087; Mon, 28 Jul 2025 13:15:40 +0000
+Received: by outflank-mailman (output) from mailman id 1061502.1427097; Mon, 28 Jul 2025 13:23:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugNhc-0003QQ-6x; Mon, 28 Jul 2025 13:15:40 +0000
-Received: by outflank-mailman (input) for mailman id 1061490;
- Mon, 28 Jul 2025 13:15:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ugNpQ-00059C-1x; Mon, 28 Jul 2025 13:23:44 +0000
+Received: by outflank-mailman (input) for mailman id 1061502;
+ Mon, 28 Jul 2025 13:23:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ScRH=2J=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ugNha-0003QI-H2
- for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 13:15:38 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f2ce0640-6bb4-11f0-b895-0df219b8e170;
- Mon, 28 Jul 2025 15:15:36 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-4563cfac19cso47223605e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 06:15:36 -0700 (PDT)
+ id 1ugNpP-000596-Ao
+ for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 13:23:43 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 147f25bb-6bb6-11f0-a31e-13f23c93f187;
+ Mon, 28 Jul 2025 15:23:42 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3b7825e2775so2148843f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 06:23:42 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7640adfbf7asm5579273b3a.75.2025.07.28.06.15.28
+ 41be03b00d2f7-b3f7f67c2d7sm4955144a12.43.2025.07.28.06.23.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Jul 2025 06:15:34 -0700 (PDT)
+ Mon, 28 Jul 2025 06:23:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f2ce0640-6bb4-11f0-b895-0df219b8e170
+X-Inumbo-ID: 147f25bb-6bb6-11f0-a31e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753708535; x=1754313335; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753709021; x=1754313821; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=r8DDnESho8M1ycUF/V8fmV4PwWoruHDJb20HDfgIAF8=;
-        b=f5NCjh6hcg4zFOewxy5iFayKgflR2rhioDeTfVZA1UOZePK7pi+O49NGhXykVBfG2t
-         ePgetyGUTsD7sn7ppGdVpLsHRjyI+DxDQxR6nnPEsLUeHY8DhAjEtHe4JM4EbSaraNuT
-         p1tHkCKxzJ4lWEzSKxKff0Hue2oP8O+r5JXxtPwSCXKaMXamCMyznSWXUFKVI03xA/L+
-         PqWpAl3Q/OB4X4wsmMy+N1S1COqNzzhbw/5tGBm75fg5H6/5Z0G3kLHnG4vMda185jZ1
-         AZQierPnAd6uSCFzU6+1DSXxtgEn/nyAVJV2D5a93gqMxV3xsW1Ne8Y9R1Wr9zN7YCQA
-         nPsg==
+        bh=y3ZqL6KwEPTNujPVHj55JbEayN+jX1lpoxnnyt0mcTE=;
+        b=FHOSbR7dw2uSzhA8SR4Qsiq2Hi+pYQv665uaDr+JqmFdLMucwuHCrhOc9zPEmxQ5Wb
+         iYiGqEijt/q7L1je8sjwVncPXouzbu/xrEoZpLT11WvCJUje5VatBZKraASUNng8PJVB
+         YchFc8UhtkxGeJ6+Ug14yJDGWLljMf7BpswsmtAAQYOsX4T6btQGmPUoMjUkUZoeoGH7
+         9Y5IVnA0Fbs1mTx2BOJHyFQ47G1t2NgJW+MWrYEFViuvebWKdIwaUWMkMhAPKTEBLFm6
+         5iC+yx+3M3mYlhBGOUPXUmb7L8lZfCPG6EDa1lRS1AhwzkqtVtdh+1rk9dIkVAxSDjWk
+         tr8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753708535; x=1754313335;
+        d=1e100.net; s=20230601; t=1753709021; x=1754313821;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=r8DDnESho8M1ycUF/V8fmV4PwWoruHDJb20HDfgIAF8=;
-        b=qepDOs0DqkCd80zAgqpUeHe2lf4t5H+U+BzTuK8O1uC+lc8nMtfs/MUB7Q8OsKhg7V
-         w310Qy5aeH92yQC8ZZKTbJr3zvqKtKPR7jOhAJ3ydk9wGEA7RGtTXT1FcL2GetLKGT2b
-         RpAk0+gAVTrobwskjc7av4lq1ygft9VH8YSfjomq6vZ7NCYiOKya1VHE4q/IZZhE4PuO
-         lm+iBVamTZkseghP2c9gQ3eS7jW00ph9XKNao7vB0Qgid43g5z8JCz9ZSoYLPtiLyuWW
-         WjIPARiKp/5PCiAy0c+oz0BNIXxuadqwLFhcoVM5vLsF2iMT+56eUzY9YmrD19UPbpvo
-         5f/g==
-X-Forwarded-Encrypted: i=1; AJvYcCUQr2AmFdSgeAsbSkXU3JLkaU4wTJy2f2cGZMJpDdEIcui44OGGaHwAsFgRBkDsucMbc7hJUna0yM4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwkvlnoRoAHQolhLVyIEBf0Q9g106tSgpJuIiI3/gbsTdqlA+Wa
-	NRcxhllkWL4EFkyGnOw1QM6WToSk0G/5nVf95/VK5tmTVrCpvRZ1f7ZJQbHQal2swQ==
-X-Gm-Gg: ASbGncs9HAJgvsMHQtHmzs03/gSAyLtFmoZJO7uz5arYoSMV4jexPPnM8SVcuG7TWsY
-	uUO2iUziAqxVCW6NYrXNnRI+pqjCC5dL7594uF8LQG3t/occkCCGk1b+ffQugUreeXr541Z/JRE
-	1TwCndfNPr4mpESq4vLyoFXaNS7etZCxHB615kSdAIszEYGyMhWs62NTWUfpGkkejoWpVJbw0lM
-	oeRrIGqMajNcDG3u7XEnrDLk4F0UxrWAYPXbh0ek0gfJBnSkySdKa6kq5M8AFH+zcePCUgYDD/x
-	SrjtTeyswLY9vvOmVZ56cFrF3kXZ30cS55hyhrX6oxGH0ur8A+H7xErLOYmzf2b9yV5qgeNyrbn
-	Pk4VLpXDW1um91LbqDdR6ca6lOT9KylAbon3LY4uWpzJ2EH93GlvyIjvf0lE8ptU9fktSvHRDCp
-	g4SXulxZGkXk7qZ/uBAg==
-X-Google-Smtp-Source: AGHT+IFMdoV5hov1I1PvPMbvhYKBY0+NBbOl1v3GZ0H9t0rilDVsajXxjxVm5sFCC1EEImwPixQFhA==
-X-Received: by 2002:a05:6000:2dc4:b0:3b7:61e5:a8a5 with SMTP id ffacd0b85a97d-3b77667879amr8297278f8f.47.1753708535363;
-        Mon, 28 Jul 2025 06:15:35 -0700 (PDT)
-Message-ID: <091fc447-93cd-4f48-8f5f-e2b7996aa8bf@suse.com>
-Date: Mon, 28 Jul 2025 15:15:25 +0200
+        bh=y3ZqL6KwEPTNujPVHj55JbEayN+jX1lpoxnnyt0mcTE=;
+        b=iRkYS1i39jRBLZEGnjpAOTePMK3VmXgpKUOXWi0vFeZIrTmHDgJqy2M/kznNs2scEr
+         HrKfdGyhklzvGQlO5c2K5jMLtZ2Yz8QXUJvtJxasylDchfiBYmxnfrBwbEhxi/xGKN8V
+         Phy/6iE0K/+yVLddiNY4dvkxbr36Ir6OqR8bhdRjVW0hxpfFEkjXrOY+ryCLcLLRJeTX
+         kwaFXOOoEuGk4YvhHcku15X+wNZ0exFH7i/Gg2L2LHpk4ux+mDgfXJgVxFRTkbzjLuYc
+         omI0GtBFd8CGanhTWkfkiwNRt4kz7lCklq31T4eBHCbXCOuSnqQQvSDO1ptUIAdKxDEc
+         juYA==
+X-Forwarded-Encrypted: i=1; AJvYcCUomLdEX+4FdJ3qU4s9q08ty6HFJ2x9EfaGEd2rRvLPwzC9TZkF+OEovpUGE8Fi6ElUToYdUXWs/Yg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yysa84NT1/GmuW+meh2yDCyxg+OIKolCBLRT5O8plqrk/JzFYNt
+	cTZnq+AcFfU3s5213gYvpqk4ZLAOPwCmLpZHVuDMyfgR98TAsBs3yG1YFUWvihPv9w==
+X-Gm-Gg: ASbGncvtp3jA9OyyeeeLFU6xz1gmbl21DRw1Ao3ILLY4lXxyT60DFBMfUQSvDpGBCvG
+	oHIdvUya9KlP06CIyhlTpb2FnUCTli9jkfPD8SeDPaI70TW8q2DrtkKs6c0rRSG77aJflMqhF/i
+	7jX+iQwCJIzlgwWx847GHL9LtLAPBIhd3GVUERR9XlzuBqPoFQ1Jp2kLftr8Mfnf7vJT7CK/TkE
+	uSlN6Wfqevt9XaDgd5OxF6S/h7FNW8nEZvpqfSb+voEBYKh0igZiAH7CMJqM6tfIvcCGpIlAFKA
+	n9WOn/8hIVadO8ANXoQhEqPellXUlgLDU3b3kfYBTWLYPFYNBvlAGI5RwVbX7zN8g4vABI8gG8F
+	EYRdYndp3eH7IkTsxQv9eno/q46HVUwJ3s59zb+wRIbAmeF1I3g6U+JdPVcVjz9GZANr+0y3mL5
+	HynF2WRbE30tT1CwS4lQ==
+X-Google-Smtp-Source: AGHT+IHhJQjuGdL3GXQlS5Tu9h/oD82eebizfFXVWSCKWJWNm2bm4RmYoSaHuAytef3kqjG4ahOzzA==
+X-Received: by 2002:a05:6000:2505:b0:3b7:888d:8d9a with SMTP id ffacd0b85a97d-3b7888d90d8mr2361151f8f.29.1753709021454;
+        Mon, 28 Jul 2025 06:23:41 -0700 (PDT)
+Message-ID: <c412c163-e076-4513-8eca-6607534a8b1e@suse.com>
+Date: Mon, 28 Jul 2025 15:23:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] misra: add deviations of MISRA C Rule 5.5
+Subject: Re: [PATCH] misra: deviate explicit cast for Rule 11.1
 To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <7f5223bf37ed42c90e4bd426659eaa87c2c6879f.1753455885.git.dmytro_prokopchuk1@epam.com>
- <a6f8f7e9-157a-4c99-a15a-cae4b2043ef2@suse.com>
- <4db06b93173be64963d8fca547f1f0e6@bugseng.com>
- <5b4106be-bca9-4c82-bd55-41ada84c3b1f@citrix.com>
- <f9a7884b-d58e-4ae7-b5ca-ce751ca70245@epam.com>
+ "consulting@bugseng.com" <consulting@bugseng.com>
+References: <181a03d5c7625d42c06cf9fa0cf48a9bc6825361.1753647875.git.dmytro_prokopchuk1@epam.com>
+ <093601d7-691a-48ee-a0f4-2e86a0f2015e@suse.com>
+ <c112f144-6f75-4f19-ac14-57d538ccc7ab@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,83 +127,85 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f9a7884b-d58e-4ae7-b5ca-ce751ca70245@epam.com>
+In-Reply-To: <c112f144-6f75-4f19-ac14-57d538ccc7ab@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 28.07.2025 14:28, Dmytro Prokopchuk1 wrote:
+On 28.07.2025 15:09, Dmytro Prokopchuk1 wrote:
 > 
 > 
-> On 7/28/25 13:59, Andrew Cooper wrote:
->> On 28/07/2025 11:38 am, Nicola Vetrini wrote:
->>> On 2025-07-28 11:36, Jan Beulich wrote:
->>>> On 25.07.2025 18:24, Dmytro Prokopchuk1 wrote:
->>>>> --- a/docs/misra/deviations.rst
->>>>> +++ b/docs/misra/deviations.rst
->>>>> @@ -142,6 +142,31 @@ Deviations related to MISRA C:2012 Rules:
->>>>>          memmove.
->>>>>        - Tagged as `deliberate` for ECLAIR.
->>>>>
->>>>> +   * - R5.5
->>>>> +     - Clashes between bitops functions and macros names are
->>>>> deliberate and are
->>>>> +       needed for input validation and error handling, ensures that
->>>>> the size of
->>>>> +       the object being pointed to by 'addr' meets the minimum
->>>>> requirements for
->>>>> +       the bit operation, preventing unsafe operations on
->>>>> improperly sized data
->>>>> +       types that could lead to undefined behavior or memory
->>>>> corruption.
->>>>> +       The macros encapsulate this conditional logic into a single,
->>>>> reusable form;
->>>>> +       which simplifies the code, avoids redundant function call.
->>>>> +     - Specified macros should be ignored.
->>>>
->>>> At the risk of going too far with nitpicking: Who are "specified
->>>> macros" here? The
->>>> text doesn't mention any names. In fact, the way it's written it
->>>> could be taken to
->>>> mean all macros there, including any that are yet to be added. I
->>>> don't think such
->>>> is appropriate for a deviation.
->>>>
+> On 7/28/25 12:56, Jan Beulich wrote:
+>> On 27.07.2025 22:27, Dmytro Prokopchuk1 wrote:
+>>> Explicitly cast 'halt_this_cpu' when passing it
+>>> to 'smp_call_function' to match the required
+>>> function pointer type '(void (*)(void *info))'.
 >>>
->>> I agree with Jan here. Either you make a single deviation record
->>> encompassing all deviated macros or you have one per deviation (e.g.,
->>> one for irq.h, one for grant_table.h and one for bitops.h) listing the
->>> macros that are considered. For bitops it might be a concern the
->>> actual functions going out of sync, but in that case you could just
->>> spell out the deviation and say "all pairs functions/macros in file
->>> <file> that are defined using the same identifier" or something similar.
+>>> Document and justify a MISRA C R11.1 deviation
+>>> (explicit cast).
+>>>
+>>> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
 >>
->> Honestly, while these examples might be deliberate, they're also bad code.
+>> All you talk about is the rule that you violate by adding a cast. But what is
+>> the problem you're actually trying to resolve by adding a cast?
 >>
->> I do not intent to let the bitops aliases survive the cleanup/fixes I
->> have planned, but I also don't have any idea when I'll get to that work.
+>>> --- a/xen/arch/arm/shutdown.c
+>>> +++ b/xen/arch/arm/shutdown.c
+>>> @@ -25,7 +25,8 @@ void machine_halt(void)
+>>>       watchdog_disable();
+>>>       console_start_sync();
+>>>       local_irq_enable();
+>>> -    smp_call_function(halt_this_cpu, NULL, 0);
+>>> +    /* SAF-15-safe */
+>>> +    smp_call_function((void (*)(void *))halt_this_cpu, NULL, 0);
 >>
->> What we really want to express is "these are begrudgingly accepted in
->> the short term.  don't copy this pattern, and if you can fix it, please do".
+>> Now this is the kind of cast that is very dangerous. The function's signature
+>> changing will go entirely unnoticed (by the compiler) with such a cast in place.
 >>
->> ~Andrew
+>> If Misra / Eclair are unhappy about such an extra (benign here) attribute, I'd
+>> be interested to know what their suggestion is to deal with the situation
+>> without making the code worse (as in: more risky). I first thought about having
+>> a new helper function that then simply chains to halt_this_cpu(), yet that
+>> would result in a function which can't return, but has no noreturn attribute.
+>>
+>> Jan
 > 
-> Hi Andrew!
+> Yes, Misra doesn't like cast.
 > 
-> Perhaps I can try to fix these names clashes.
+> Initially Misra reported about non-compliant implicit cast due to 
+> 'noreturn' attribute:
+> smp_call_function(halt_this_cpu, NULL, 0);
 > 
-> For clarity.
-> I would like to rename macros names with capital letters.
-> Like this:
-> -#define __test_and_change_bit(nr, addr) ({              \
-> +#define TEST_AND_CHANGE_BIT(nr, addr) ({              \
->       if ( bitop_bad_size(addr) ) __bitop_bad_size();     \
->       __test_and_change_bit(nr, addr);                    \
->   })
+> I thought that in this case explicit cast is better, telling compiler 
+> exact type.
+> But, Misra reported about non-compliant c-style (explicit) cast.
+> So, I decided to deviate explicit cast.
 > 
-> Are you OK with such approach?
+> I tried to write wrapper function to resolve this.
+> Example:
+> static void halt_this_cpu_2(void *arg)
+> {
+>      halt_this_cpu(arg);
+> }
+> void machine_halt(void)
+> {
+>      ...
+>      smp_call_function(halt_this_cpu_2, NULL, 0);
+>      ...
+> 
+> Unfortunately new R2.1 violation was observed.
+> "function definition `halt_this_cpu_2(void*)' (unit 
+> `xen/arch/arm/shutdown.c' with target `xen/arch/arm/shutdown.o') will 
+> never return"
+> 
+> Maybe it's better to have such violation....instead of R11.1 
+> "non-compliant cast"
+> 
+> 
+> I can remove cast and re-write deviation justification.
+> Are you OK with that, Jan?
 
-And then change all use sites of the macro to those upper-case forms? When
-everyone's used to using the lower-case ones?
+I expect so, as a temporary measure. In the longer run I would hope Eclair
+can be adjusted to accept such cases without complaint.
 
 Jan
 
