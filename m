@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34A6BB138E7
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 12:25:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1061236.1426759 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4572EB138E6
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 12:25:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1061235.1426750 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugL36-0008LS-Hc; Mon, 28 Jul 2025 10:25:40 +0000
+	id 1ugL34-00085u-AJ; Mon, 28 Jul 2025 10:25:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1061236.1426759; Mon, 28 Jul 2025 10:25:40 +0000
+Received: by outflank-mailman (output) from mailman id 1061235.1426750; Mon, 28 Jul 2025 10:25:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugL36-0008Ib-EN; Mon, 28 Jul 2025 10:25:40 +0000
-Received: by outflank-mailman (input) for mailman id 1061236;
- Mon, 28 Jul 2025 10:25:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ScRH=2J=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ugL35-0007b5-42
- for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 10:25:39 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 345c6a83-6b9d-11f0-a31e-13f23c93f187;
- Mon, 28 Jul 2025 12:25:38 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3b78a034f17so648137f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 03:25:38 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23fbe330fdfsm50632965ad.64.2025.07.28.03.25.31
+	id 1ugL34-00083x-6j; Mon, 28 Jul 2025 10:25:38 +0000
+Received: by outflank-mailman (input) for mailman id 1061235;
+ Mon, 28 Jul 2025 10:25:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YAI4=2J=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ugL32-00080f-TH
+ for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 10:25:36 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 32866f52-6b9d-11f0-b895-0df219b8e170;
+ Mon, 28 Jul 2025 12:25:35 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-4563cfac19cso45485565e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 03:25:35 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4586ec529e9sm120676625e9.1.2025.07.28.03.25.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Jul 2025 03:25:37 -0700 (PDT)
+ Mon, 28 Jul 2025 03:25:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,145 +45,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 345c6a83-6b9d-11f0-a31e-13f23c93f187
+X-Inumbo-ID: 32866f52-6b9d-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753698338; x=1754303138; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1753698334; x=1754303134; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+z7bs2oyVRI6CtKSJhOix7Y/tKDBQNuf67Osk+NWOxw=;
-        b=RQm3beFNYcmtEFwqgCNl+g6WHZBUHs2+u9ppeKtw7rixunsDBWGYZ1vZTqzS7mYLcO
-         2KJE6EHOrjXXjy+sYvpUK0eOzyckq/RuZ+TAmhuSRbz/ap/cPy6ltVFLIUpL1m4N2ppb
-         QvnTxap5Rf0N24Z0m0JJ9sZ4Xoyv1uoIvsiY/opdPvJ1zg+8u5wLnbM0UopTsbRuVb+Q
-         awtmDzsCAVPJXvLroXAjiooHQc9Jl2A60EGO418fedj99N0gWGfaOerh86vVfrH/blRJ
-         7W9h1rCCtl6fRXGBgj646YTnC1IA9KsgfYqHm/OAaQkil6zwzPh4fI94lX69n3/Hq+sx
-         wnpQ==
+        bh=2vLUaULpNtvcxk+BfV0PVqqQpqQlNugNjWvx2by9rAE=;
+        b=bUndlItrMFI5FLn7lDlbutOu4iORKEw/lxLq8OglP0a2an5+N2UlhXb0Ol1xKdiGWZ
+         PwYu7TsHG8Mn7+Bo05p+2dILgUgu2GNx9g+1K1+R3mfeX/CHEAl0qwPjS5p7lGQDQSEk
+         dgeKTS5UYcBetxZOjcOTmIJN0q+YLLbvlY0Sc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753698338; x=1754303138;
+        d=1e100.net; s=20230601; t=1753698334; x=1754303134;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+z7bs2oyVRI6CtKSJhOix7Y/tKDBQNuf67Osk+NWOxw=;
-        b=eBp92+G3tXPLmRDAvEPTKiUbgW0i8H7MX16tMzVuBIW/5nMb6k3C5Y+xpZ+kv8VoQ9
-         ancKaNLo3g5ikI1Asrh5iWtcVBnHYMNcwAo4SQIO3jYt1sBEv1sPM+7nD3CiXf41w7rs
-         NubGj80Pp9b4eVxdSQxU7g5Zoz8KBjB02Ox1EWlNbiu/uWnPMRQE58n5l2O3HfNpePYp
-         1Eh8B7xkxncLPqise745XCfFJ1E1ma5wIav1mrpdI3cm87pVEWkAelLCJ5GVef9YRL9/
-         F+lTSicvtuc8Upu7HglIp1RkB6tytwkpQFfDt9BKrkl+wVqbmDPn8WwFSwjWQ4rpiYJu
-         fbdA==
-X-Gm-Message-State: AOJu0YwvMcN8hniQO5LJ2R0NZeA3iHgk1t4opCGOBiItvRpn+9PQF3Oq
-	BECg7mxHkifNu+YSz7aJWVXwzUVy2Gn7hjtVkfvu2GTgjtRqzLfiK9dWQhgwhfnjbw==
-X-Gm-Gg: ASbGncuk1kPnlxaOW32dxrcu56jFR8NctND2m+sR1CjvtohMBKJuPanvaz3Xq9Nx8VJ
-	fqkUUkCS2lCMML4DhTcgdWg1/skz0ofc3DHPvbTb4U0ekeQc7AfFahnloUXoL1dfple5BE06Jpl
-	e+mtkHeoYdN8t05FLlNfu6K8TrBFCpCXGqut7XKQ7cvufpZ9JHrNHULeXPtEYEC62G/b6YIBaTm
-	MFGKJJ5QJlPbiPoUgVnN4LwWpTtkjVSIblhk/zUcqkgtSic6drhK60o2xWdHp3Q+rCVhAdxducM
-	cL70QbhbajaWWR/CZXDti+ouR9Z6fjaw1ztmcsF/PBsAKxmlD0Pb06xnSoxSYI3xG/42V3miA7/
-	ndN/vN5E3y6X7JCTQ542D9g99ENwh/bdt0GMwosZu8lwMw2/CM79tDolryG46iD7vL4DfT47zOg
-	O+LfceaFc=
-X-Google-Smtp-Source: AGHT+IESGz5yFD9fREbeuqVoD1jnMK7wOOHUnGqa/teM0wE/DWa3EzJW4fVMhhaeavN8fMxNPK2y/A==
-X-Received: by 2002:a05:6000:430c:b0:3a4:fcc3:4a14 with SMTP id ffacd0b85a97d-3b776666498mr7617821f8f.34.1753698337470;
-        Mon, 28 Jul 2025 03:25:37 -0700 (PDT)
-Message-ID: <d8fab342-2687-41aa-9e30-98ba2c62e8e0@suse.com>
-Date: Mon, 28 Jul 2025 12:25:27 +0200
+        bh=2vLUaULpNtvcxk+BfV0PVqqQpqQlNugNjWvx2by9rAE=;
+        b=KWAHq+bDNXrl4OOpWecTtIJJszinQm+Cd6cL8z7SAWpl78Lm0ytr8NMp1v4RdkXYmY
+         Rj0e2noLOSqwXwPZdRUUZhjX5tgFM4kJrO/1ANEOg4Wb4e+bjzpj30gW5ZP+mRZKL+vA
+         WCwjVnfsBT1YUFs/exUwh0Rqisl36uaUVzxj05iLYP4LzNY809g7ormC2k1dubOdFgU0
+         ELjFRaHL1iYYYMRcFd0Pq73fZIjZVft/NdXdpTgCx4v02zZo6tTP+r/ZvBYTdcS1a9qo
+         GxPUpHP1LvopydLVvh9CPXecqsyOLNyEnoxmFEF54DT05J7EfmqESvRzSlIEFsVo1wfe
+         HPGg==
+X-Forwarded-Encrypted: i=1; AJvYcCV1CT6qumpDD9uF4unlBwXWtiaN5Jq6eSttzPhfcL0zJR5CokAiRf8whvhLxazu8VCmqMKPbN8Lgvw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyhlawn9YR9Y/YzCGXoZ7ta7OMvsZ6Mi9+wYvB33TiJ0yMiwUH+
+	sArvoAjnHPAb5rr+qgSp444L1Ya9Wh9B6xtzktGpwPi4Uxb+peiD6nHXJE588hXqZqI=
+X-Gm-Gg: ASbGncu+vYGblRrmATMj8NGnPdWT755jzw+KSeCxVIqK8haYSXgusLmbM/NnL48SrA0
+	ImL/s5fMVxbKzsTxh101h5bd935+9V6S1SXTuTF0rdgI+yl3dNiL4LHQHfYmqUUyJUC+TMxaJby
+	0Jj/7M95kkNkIxA3X+eMX1612snoI4SoMiPOZo43aXPQevZBiabBP7YbyY8+C3K+coo1/pOGauO
+	B/lahEO5i71Y/uuJvkAzkBnxqHrT5+hzQDc+I4vYfESmH/NF2Mp/jmnpUaALeq5K5BRUWO0lKZ7
+	Sipk1dom4q+aKNh1dQfHpTZL5Gpix/FYTvxhWZ/lt7e0IRvKggYj8qgxXO+y4Gz9NvA52vWNRJN
+	GcZURMNyXKykIGWWS+5dBwuk/119hRLcj0sTs0C7LcxY2UzNAmM17ylWTPiVUc/IQG/RB
+X-Google-Smtp-Source: AGHT+IGH7YSxJbopV4iJYdOU0PBY4JcORzJQ7HQrlQ0yF7B9a6jIgXkwvwnvuNCm+ThuHBANSzO04g==
+X-Received: by 2002:a05:600c:45d1:b0:43d:745a:5a50 with SMTP id 5b1f17b1804b1-458765475b1mr89972995e9.19.1753698334464;
+        Mon, 28 Jul 2025 03:25:34 -0700 (PDT)
+Message-ID: <2874ee13-a978-4331-9c7e-70d4fcd11727@citrix.com>
+Date: Mon, 28 Jul 2025 11:25:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v1 01/10] pmu.h: add a BUILD_BUG_ON to ensure it fits
- within one page
-To: Edwin Torok <edwin.torok@cloud.com>
-Cc: xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, andriy.sultanov@vates.tech,
- boris.ostrovsky@oracle.com, Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [RFC PATCH v1 04/10] vpmu.c: factor out register conversion
+To: =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@cloud.com>,
+ xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, andriy.sultanov@vates.tech,
+ boris.ostrovsky@oracle.com
 References: <cover.1753372928.git.edwin.torok@cloud.com>
- <80e7ae8bc1546b004e2b3dcc3f3e57563ff741d2.1753372928.git.edwin.torok@cloud.com>
- <0cd10fcf-d017-4a85-b248-e29e77903349@citrix.com>
- <CAEfZLvk6nr6h3D9bX+r210A3hmrybmrzUXPbE2ApXbY4H_nbCg@mail.gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAEfZLvk6nr6h3D9bX+r210A3hmrybmrzUXPbE2ApXbY4H_nbCg@mail.gmail.com>
+ <ce2375387dcc5e00c3d55e903d9a2180eadb8685.1753372928.git.edwin.torok@cloud.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <ce2375387dcc5e00c3d55e903d9a2180eadb8685.1753372928.git.edwin.torok@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 28.07.2025 12:22, Edwin Torok wrote:
-> On Mon, Jul 28, 2025 at 11:21 AM Andrew Cooper
-> <andrew.cooper3@citrix.com> wrote:
->>
->> On 25/07/2025 4:06 pm, Edwin Török wrote:
->>> Linux already has a similar BUILD_BUG_ON.
->>> Currently this struct is ~224 bytes on x86-64.
->>>
->>> No functional change.
->>>
->>> Signed-off-by: Edwin Török <edwin.torok@cloud.com>
->>> ---
->>>  xen/arch/x86/cpu/vpmu.c  | 1 +
->>>  xen/include/public/pmu.h | 3 +++
->>>  2 files changed, 4 insertions(+)
->>>
->>> diff --git a/xen/arch/x86/cpu/vpmu.c b/xen/arch/x86/cpu/vpmu.c
->>> index c28192ea26..7be79c2d00 100644
->>> --- a/xen/arch/x86/cpu/vpmu.c
->>> +++ b/xen/arch/x86/cpu/vpmu.c
->>> @@ -401,6 +401,7 @@ static int vpmu_arch_initialise(struct vcpu *v)
->>>      uint8_t vendor = current_cpu_data.x86_vendor;
->>>      int ret;
->>>
->>> +    BUILD_BUG_ON(sizeof(struct xen_pmu_data) > PAGE_SIZE);
->>>      BUILD_BUG_ON(sizeof(struct xen_pmu_intel_ctxt) > XENPMU_CTXT_PAD_SZ);
->>>      BUILD_BUG_ON(sizeof(struct xen_pmu_amd_ctxt) > XENPMU_CTXT_PAD_SZ);
->>>      BUILD_BUG_ON(sizeof(struct xen_pmu_regs) > XENPMU_REGS_PAD_SZ);
->>
->> This is fine (even if it ought to be elsewhere, but don't worry about that).
->>
->>> diff --git a/xen/include/public/pmu.h b/xen/include/public/pmu.h
->>> index af8b7babdd..15decc024d 100644
->>> --- a/xen/include/public/pmu.h
->>> +++ b/xen/include/public/pmu.h
->>> @@ -93,6 +93,9 @@ DEFINE_XEN_GUEST_HANDLE(xen_pmu_params_t);
->>>   * Architecture-independent fields of xen_pmu_data are WO for the hypervisor
->>>   * and RO for the guest but some fields in xen_pmu_arch can be writable
->>>   * by both the hypervisor and the guest (see arch-$arch/pmu.h).
->>> + *
->>> + * PAGE_SIZE bytes of memory are allocated.
->>> + * This struct cannot be larger than PAGE_SIZE.
->>
->> This isn't.  Xen's PAGE_SIZE is not necessarily the same as PAGE_SIZE in
->> the guest consuming this header.
->>
->> This highlights one of the problems that Xen's ABI entrenches.  Being
->> x86-only, it's 4k in practice, but there's no easy solution.
->>
->> I'd just skip this comment.  Anything else is going to get tied up in
->> unrelated bigger problems.
-> 
-> Thanks, I'll drop this comment in the next version of the series.
+On 25/07/2025 4:06 pm, Edwin Török wrote:
+> diff --git a/xen/arch/x86/cpu/vpmu.c b/xen/arch/x86/cpu/vpmu.c
+> index 7be79c2d00..713311a1ac 100644
+> --- a/xen/arch/x86/cpu/vpmu.c
+> +++ b/xen/arch/x86/cpu/vpmu.c
+> @@ -160,6 +160,31 @@ static inline struct vcpu *choose_hwdom_vcpu(void)
+>      return hardware_domain->vcpu[idx];
+>  }
+>  
+> +static inline void vpmu_convert_regs(struct xen_pmu_regs *r, uint64_t *flags,
+> +                                     struct vcpu *sampled,
+> +                                     const struct cpu_user_regs *cur_regs) {
+> +  r->ip = cur_regs->rip;
+> +  r->sp = cur_regs->rsp;
+> +  r->flags = cur_regs->rflags;
+> +
+> +  if (!is_hvm_vcpu(sampled)) {
+> +    r->ss = cur_regs->ss;
+> +    r->cs = cur_regs->cs;
+> +    if (!(sampled->arch.flags & TF_kernel_mode))
+> +      *flags |= PMU_SAMPLE_USER;
+> +  } else {
+> +    struct segment_register seg;
+> +
+> +    hvm_get_segment_register(sampled, x86_seg_cs, &seg);
+> +    r->cs = seg.sel;
+> +    hvm_get_segment_register(sampled, x86_seg_ss, &seg);
+> +    r->ss = seg.sel;
+> +    r->cpl = seg.dpl;
+> +    if (!(sampled->arch.hvm.guest_cr[0] & X86_CR0_PE))
+> +      *flags |= PMU_SAMPLE_REAL;
+> +  }
+> +}
+> +
 
-As said, I'm happy to ack the change with the comment adjustment dropped.
-That is, I could easily carry out what you say above while committing.
+This is fine in principle, except that you're changing the style away
+from Xen style.
 
-Jan
+I can fix it on commit, but it's going to collide massively later in the
+series.
+
+~Andrew
 
