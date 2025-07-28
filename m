@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 143BEB13913
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 12:38:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1061262.1426779 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64C52B13922
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 12:40:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1061269.1426790 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugLFO-0002pX-Ri; Mon, 28 Jul 2025 10:38:22 +0000
+	id 1ugLH8-0004Js-6p; Mon, 28 Jul 2025 10:40:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1061262.1426779; Mon, 28 Jul 2025 10:38:22 +0000
+Received: by outflank-mailman (output) from mailman id 1061269.1426790; Mon, 28 Jul 2025 10:40:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugLFO-0002nb-P3; Mon, 28 Jul 2025 10:38:22 +0000
-Received: by outflank-mailman (input) for mailman id 1061262;
- Mon, 28 Jul 2025 10:38:21 +0000
+	id 1ugLH8-0004HC-3c; Mon, 28 Jul 2025 10:40:10 +0000
+Received: by outflank-mailman (input) for mailman id 1061269;
+ Mon, 28 Jul 2025 10:40:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=s93S=2J=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1ugLFM-0002nV-TC
- for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 10:38:21 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=WRgz=2J=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1ugLH6-0004Cx-Ih
+ for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 10:40:08 +0000
+Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
+ [2607:f8b0:4864:20::235])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f999e8bc-6b9e-11f0-b895-0df219b8e170;
- Mon, 28 Jul 2025 12:38:18 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 520264EE0749;
- Mon, 28 Jul 2025 12:38:17 +0200 (CEST)
+ id 399fc014-6b9f-11f0-b895-0df219b8e170;
+ Mon, 28 Jul 2025 12:40:06 +0200 (CEST)
+Received: by mail-oi1-x235.google.com with SMTP id
+ 5614622812f47-41baecbdd33so2358731b6e.1
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 03:40:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,138 +40,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f999e8bc-6b9e-11f0-b895-0df219b8e170
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1753699097;
-	b=3oAG/jCaCAHnYZallGSz73OxDsA5Vm5rEEfekLssxRpHhW6IHEJTZvHyDajgzQfR6jPt
-	 ox5bJefQ7teIgEpS1YcaKvnTc9XT5i5yUIpInzgFAQB2pGY/PVleqvH5L/c+SMn0MS9dR
-	 gVdD08YJ3RyWwDvY+laczAU3Nl3zM2T5jBTzpIJYGrVxuGbMvTErfqflTNlF421jX4zyN
-	 bGYo1qft1/JOt0gaqXbXmCIh4XOOhXINV86A11rKPLA/ZTQ0KBfIN/uMNGFLVHBIO8n5/
-	 TwsRPrMapUgYzAQTv8MStqkI7Go7cpimmePAnXIMah2FxkvrYjkSjcDpzkInyH9QHCgId
-	 TCwyPKePYJ9IeOtATX+oLz0EqWDNoNdvSZBWL7tsChSAvzCqzFHtBLwkgd6E8uY3FAoza
-	 6M1lf7BYUzWIuzcPNQBvRZJ/8wP1YthJLmKa2Kh9ZHh15zbEf1zqi1tndGnJi9WcqeDW4
-	 uocBZwEVW5aaeywQta7UGYu84kq+2dnXivMROSoMZV8C809VmfYir1RsfkVsWGowk5Uxy
-	 fEGKhloMNr/XR2akBGuMRVmbeL75DEiDCvxSDz3Waw87ZTZ+00Sld+obZ21XgOHurOsVq
-	 3jbv/gJM/kYqQQ7XIdSlZjjK03yERMv3l27v6mGv7qIVL6bz4hD6wN7IyRsHMuA=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1753699097;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=rErPABlR5sENyHp6yRUbAxEHAFAOK0uy8qiVrTwmf3Q=;
-	b=jQeZ5sf6xJpKumM+SUZxRN5rm9GlOrIErtPVSThbz2T9Vx8ycfufSCQirRR4ghaUhSul
-	 qbl+Q+72spiQbjhVmPEZsBO7Eh0P0bePFXQr+j/amC+PGr97Uhggtky5iQeci2GO0D64n
-	 MiVGWd7xjIQFOmx6LdbDjEGVFWyktPan2uoxOdiln9sMkOerzePCqLMU4K0KyjyINOOd9
-	 POPR5thothufxodwtEJzJbkNEIzeYSXR6bm6HzYSSA4K0WlDFPXUMHPPLHQxAXpStFJa/
-	 kEcG33k0rApTkHvL6TrMFG1gmc1j5ekA1BokOTGXUp9CJiK2r8UECm5Qxj6EJiXUEVrrv
-	 BF9890IABvrxM0YTtRDwKhbkp0pCTGxSXTPA6Y70bh6x+0qALpAKmejvu86Xj7V8hUpko
-	 jcs2K9mZBIeSgnF5fTLz8qLioxwkdlNz3+lWkCSodMXnVCB0xwphvD8/p/BNnKJblQVII
-	 rGs4R6rpYuCdWlAnDigQa8Q7KSAGjOQfXbrBh0Ot6aPztYK81AzhkuOl4Il6I4fzeLun7
-	 RIiE3lJbyDutP53RFPbjodvkNkqyHQC1kHhyuZDZ5UaC/3KoSuJkr+jGCmFcGLCUgkFJ9
-	 R2bRZnVPx3ulNOCG0DZxjGsKGXtAOIy9XrY9SinSpYbZTYag4bYjyUuwqXmRCMc=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1753699097; bh=lUnZVloCqxfCFWmapZEu4eLbBfiaEzulSnCAk+h+tHk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=qR6V2T1UvxOVbydA0RdbFHx9dqq/gwxfTsZVf+H8Le7RtZO0M4Rq5iYKdGZaswD1n
-	 SQZjZge83J5lZgqrotjjhfv95b++ekIwZ0masrE6NQfRPdq0bXAL61PAsEdMHvmL4w
-	 WV210SaRme2cATICkMZtjxBSTolEu62HQ+UQJgedqsjynmpERqdGiocTdjt3yWdTOO
-	 Og2PAqj/Cqe98Uksb69iMkdGAH/UFyseRTu2yB2lMB/TUp8jYW9Byc3x9LwiukZS22
-	 uh+GPLIQF07QPwST409EzuLnhFlrS1TrjHViJznuq4vcMP+8QOKJ3XPy+l9+IGlfRo
-	 N4uE0zpJcwrfg==
+X-Inumbo-ID: 399fc014-6b9f-11f0-b895-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1753699205; x=1754304005; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uPcs8pJgXC/EMxr/bA3TtJfSx63P2rJA0+faK79qbsI=;
+        b=ELUWJCAUQ/nqQ8pHDonZbrEcRZ0SIYc47rUFF6kyMDpRgXMGtFeujFvyJpWWid5hao
+         QJDiV6NBq7uScz0yHmxdDHrd4Z6j7JT7KuYL7tFe+ee5DGlR2Ujy/Rk8cal2iusaJv/v
+         2zBg1wOr7SwzglQfOH5E4SupU5+akpJMntGOQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753699205; x=1754304005;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=uPcs8pJgXC/EMxr/bA3TtJfSx63P2rJA0+faK79qbsI=;
+        b=X43IiLYmxC2Ydb3posNp+WmvB3Vwag9zug76hmJ9hLzLwqVc4YW3Gh4IlrEpzcfP3H
+         N1Pj3Ax8Tlz+W8ST3WNGBNadpMy7wEkFufDB4+NBR5Gd8bQa9Z3ADEQqhPslUiREwCb0
+         T3UsfWIbskt4vABTS9mfXzLBq+6rQumRjiOeq4ne8o1GZh1qPG+e6j7qm5wvBsMpMS5C
+         57Oy+kt596Wb/EFJKfvpwCjlP+I+v0z97TzrNFT77ZdpQ9rzPb5D9YLYfYLgXIrBXrvx
+         fIJABlLdAScYMIdLn0ql+bunnbBT6R2G0V34bPqKrCziei+9QH/8N8xwUFj+leolhgqF
+         lbKg==
+X-Gm-Message-State: AOJu0YwLGhTStKuOQ8/kxkp1DxNF5OZqErU6dBgfCEVRXbvui+T2Todn
+	wjKSRc+orcNkyTIpNnSoqaHQN8ZDfwa2k8Mrdm7DMcRIOH1lek+cPJgXq3Ib0ikO0P3OavczNra
+	7Qs0hEBgXdN5VVjZ2fcifFxTjixVOsmDeUOLfY7iR4r0i+DpZuKaf/Bs=
+X-Gm-Gg: ASbGncsGfDGUnD+VxAioWrMCi0lWuz/nEVESyainBAcF+FiKdEJVAgREGixkLR/WNxa
+	su54MSVdbcHWouHTGdCYtCUCIk9nCCoQGTbJOVIx0bOviWTJkLvNHCVJomUPqzp1ry4OItonCRx
+	INd6bhy4y/0TkUF+Y/G6S0GnWhjEXW0ezKUeyH1wJw0r57k4LwkC5St1lAvXpSdRWs94vRXVpS6
+	jaKeQ==
+X-Google-Smtp-Source: AGHT+IF6xcWsbk7zhgGhw+MJwndsTqcGsqy/b7W5Z9a9G6M1UQ5QzdPmQGW1mJzjtsV48KrLflSw911UkWmvHQEBq0g=
+X-Received: by 2002:a05:6808:14d5:b0:420:c2cc:ab97 with SMTP id
+ 5614622812f47-42bba0ed57emr7479137b6e.19.1753699205109; Mon, 28 Jul 2025
+ 03:40:05 -0700 (PDT)
 MIME-Version: 1.0
-Date: Mon, 28 Jul 2025 12:38:17 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Doug Goldstein <cardoe@cardoe.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Andrew Cooper <andrew.cooper3@citrix.com>, Anthony
- PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org, Jbeulich
- <jbeulich@suse.com>
-Subject: Re: [PATCH v2] misra: add deviations of MISRA C Rule 5.5
-In-Reply-To: <a6f8f7e9-157a-4c99-a15a-cae4b2043ef2@suse.com>
-References: <7f5223bf37ed42c90e4bd426659eaa87c2c6879f.1753455885.git.dmytro_prokopchuk1@epam.com>
- <a6f8f7e9-157a-4c99-a15a-cae4b2043ef2@suse.com>
-Message-ID: <4db06b93173be64963d8fca547f1f0e6@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20250708135701.119601-1-frediano.ziglio@cloud.com>
+In-Reply-To: <20250708135701.119601-1-frediano.ziglio@cloud.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Mon, 28 Jul 2025 11:39:54 +0100
+X-Gm-Features: Ac12FXzS_xZXZiI6TsN_V1VbMFRjwFQrQvMuWIjFxvhloTVtIBnMNYCSGNuAQIs
+Message-ID: <CACHz=Zj1n1=azmve2QZT4W7O_dcZqZY0M1GBnkTKfDzZrsGqhg@mail.gmail.com>
+Subject: Re: [PATCH v2] xen/efi: Fix crash with initial empty EFI options
+To: xen-devel@lists.xenproject.org
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	Jan Beulich <jbeulich@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2025-07-28 11:36, Jan Beulich wrote:
-> On 25.07.2025 18:24, Dmytro Prokopchuk1 wrote:
->> --- a/docs/misra/deviations.rst
->> +++ b/docs/misra/deviations.rst
->> @@ -142,6 +142,31 @@ Deviations related to MISRA C:2012 Rules:
->>         memmove.
->>       - Tagged as `deliberate` for ECLAIR.
->> 
->> +   * - R5.5
->> +     - Clashes between bitops functions and macros names are 
->> deliberate and are
->> +       needed for input validation and error handling, ensures that 
->> the size of
->> +       the object being pointed to by 'addr' meets the minimum 
->> requirements for
->> +       the bit operation, preventing unsafe operations on improperly 
->> sized data
->> +       types that could lead to undefined behavior or memory 
->> corruption.
->> +       The macros encapsulate this conditional logic into a single, 
->> reusable form;
->> +       which simplifies the code, avoids redundant function call.
->> +     - Specified macros should be ignored.
-> 
-> At the risk of going too far with nitpicking: Who are "specified 
-> macros" here? The
-> text doesn't mention any names. In fact, the way it's written it could 
-> be taken to
-> mean all macros there, including any that are yet to be added. I don't 
-> think such
-> is appropriate for a deviation.
-> 
+ping
 
-I agree with Jan here. Either you make a single deviation record 
-encompassing all deviated macros or you have one per deviation (e.g., 
-one for irq.h, one for grant_table.h and one for bitops.h) listing the 
-macros that are considered. For bitops it might be a concern the actual 
-functions going out of sync, but in that case you could just spell out 
-the deviation and say "all pairs functions/macros in file <file> that 
-are defined using the same identifier" or something similar.
-
->> +   * - R5.5
->> +     - Clashes between 'pirq_cleanup_check' function and macro names 
->> are deliberate.
->> +       The purpose is to ensure that the specific cleanup action 
->> ('pirq_cleanup_check')
->> +       is performed conditionally when the parameter 'event channel 
->> number' equals
->> +       zero, otherwise it does nothing.
->> +       This approach simplifies the code, avoids redundant function 
->> call.
->> +     - Specified macro should be ignored.
-> 
-> Here it's clear which macro is meant, but ...
-> 
->> +   * - R5.5
->> +     - Clashes between grant table functions and macros names are 
->> deliberate.
->> +       These macros address differences in argument count during 
->> compile-time,
->> +       effectively discarding unused parameters to avoid warnings or 
->> errors
->> +       related to unused arguments.
->> +     - Specified macro should be ignored.
-> 
-> ... here it again isn't.
-> 
-> Jan
-
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+On Tue, Jul 8, 2025 at 2:57=E2=80=AFPM Frediano Ziglio
+<frediano.ziglio@cloud.com> wrote:
+>
+> EFI code path split options from EFI LoadOptions fields in 2
+> pieces, first EFI options, second Xen options.
+> "get_argv" function is called first to get the number of arguments
+> in the LoadOptions, second, after allocating enough space, to
+> fill some "argc"/"argv" variable. However the first parsing could
+> be different from second as second is able to detect "--" argument
+> separator. So it was possible that "argc" was bigger that the "argv"
+> array leading to potential buffer overflows, in particular
+> a string like "-- a b c" would lead to buffer overflow in "argv"
+> resulting in crashes.
+> Using EFI shell is possible to pass any kind of string in
+> LoadOptions.
+>
+> Fixes: bf6501a62e80 ("x86-64: EFI boot code")
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> ---
+> Changes since v1:
+> - use argc to make code more clear;
+> - fix commit reference;
+> - improve commit message.
+> ---
+>  xen/common/efi/boot.c | 13 +++++++------
+>  1 file changed, 7 insertions(+), 6 deletions(-)
+>
+> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+> index 9306dc8953..385292ad4e 100644
+> --- a/xen/common/efi/boot.c
+> +++ b/xen/common/efi/boot.c
+> @@ -350,10 +350,11 @@ static unsigned int __init get_argv(unsigned int ar=
+gc, CHAR16 **argv,
+>
+>      if ( argc )
+>      {
+> +        argc =3D 0;
+>          cmdline =3D data + *offset;
+>          /* EFI_LOAD_OPTION does not supply an image name as first compon=
+ent. */
+>          if ( *offset )
+> -            *argv++ =3D NULL;
+> +            argv[argc++] =3D NULL;
+>      }
+>      else if ( size > sizeof(*cmdline) && !(size % sizeof(*cmdline)) &&
+>                (wmemchr(data, 0, size / sizeof(*cmdline)) =3D=3D
+> @@ -414,14 +415,14 @@ static unsigned int __init get_argv(unsigned int ar=
+gc, CHAR16 **argv,
+>                  ++argc;
+>              else if ( prev && wstrcmp(prev, L"--") =3D=3D 0 )
+>              {
+> -                --argv;
+> +                --argc;
+>                  if ( options )
+>                      *options =3D cmdline;
+>                  break;
+>              }
+>              else
+>              {
+> -                *argv++ =3D prev =3D ptr;
+> +                argv[argc++] =3D prev =3D ptr;
+>                  *ptr =3D *cmdline;
+>                  *++ptr =3D 0;
+>              }
+> @@ -429,7 +430,7 @@ static unsigned int __init get_argv(unsigned int argc=
+, CHAR16 **argv,
+>          prev_sep =3D cur_sep;
+>      }
+>      if ( argv )
+> -        *argv =3D NULL;
+> +        argv[argc] =3D NULL;
+>      return argc;
+>  }
+>
+> @@ -1348,8 +1349,8 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE Im=
+ageHandle,
+>                                    (argc + 1) * sizeof(*argv) +
+>                                        loaded_image->LoadOptionsSize,
+>                                    (void **)&argv) =3D=3D EFI_SUCCESS )
+> -            get_argv(argc, argv, loaded_image->LoadOptions,
+> -                     loaded_image->LoadOptionsSize, &offset, &options);
+> +            argc =3D get_argv(argc, argv, loaded_image->LoadOptions,
+> +                            loaded_image->LoadOptionsSize, &offset, &opt=
+ions);
+>          else
+>              argc =3D 0;
+>          for ( i =3D 1; i < argc; ++i )
+> --
+> 2.43.0
+>
 
