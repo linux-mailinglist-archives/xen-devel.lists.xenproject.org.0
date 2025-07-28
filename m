@@ -2,45 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 360A8B134A3
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 08:06:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1061023.1426560 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D0F4B134D3
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 08:17:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1061037.1426569 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugH08-0000DU-UD; Mon, 28 Jul 2025 06:06:20 +0000
+	id 1ugHAh-0001uL-V7; Mon, 28 Jul 2025 06:17:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1061023.1426560; Mon, 28 Jul 2025 06:06:20 +0000
+Received: by outflank-mailman (output) from mailman id 1061037.1426569; Mon, 28 Jul 2025 06:17:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugH08-0000AS-R8; Mon, 28 Jul 2025 06:06:20 +0000
-Received: by outflank-mailman (input) for mailman id 1061023;
- Mon, 28 Jul 2025 06:06:20 +0000
+	id 1ugHAh-0001su-SF; Mon, 28 Jul 2025 06:17:15 +0000
+Received: by outflank-mailman (input) for mailman id 1061037;
+ Mon, 28 Jul 2025 06:17:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ERLN=2J=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1ugH07-0000AM-RL
- for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 06:06:20 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [2a07:de40:b251:101:10:150:64:2])
+ (envelope-from <SRS0=ENqu=2J=alex0.net=me@srs-se1.protection.inumbo.net>)
+ id 1ugHAg-0001so-7h
+ for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 06:17:14 +0000
+Received: from outbound.qs.icloud.com
+ (p-east3-cluster2-host10-snip4-10.eps.apple.com [57.103.87.231])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f97e9af0-6b78-11f0-b895-0df219b8e170;
- Mon, 28 Jul 2025 08:06:17 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 96ED41F7FD;
- Mon, 28 Jul 2025 06:06:15 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6E0251368A;
- Mon, 28 Jul 2025 06:06:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Y31tGVcTh2iYcAAAD6G6ig
- (envelope-from <jgross@suse.com>); Mon, 28 Jul 2025 06:06:15 +0000
+ id 7f5f4b65-6b7a-11f0-b895-0df219b8e170;
+ Mon, 28 Jul 2025 08:17:12 +0200 (CEST)
+Received: from outbound.qs.icloud.com (unknown [127.0.0.2])
+ by p00-icloudmta-asmtp-us-east-2d-60-percent-9 (Postfix) with ESMTPS id
+ C32B6180014F
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 06:17:09 +0000 (UTC)
+Received: from smtpclient.apple (qs-asmtp-me-k8s.p00.prod.me.com
+ [17.57.155.37])
+ by p00-icloudmta-asmtp-us-east-2d-60-percent-9 (Postfix) with ESMTPSA id
+ 9DB4A180013E
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 06:17:08 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,107 +46,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f97e9af0-6b78-11f0-b895-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1753682776; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=3n8KTJ9XQxHiiQiPEZNY8Dlf+2L80OyLJ/0a+7zM3BM=;
-	b=jx5NMleALgYxKjWMjCvWq1BNj7/qQ10JXpksYyiZ7Tl0A/1kqtGXvt1OEIPwCAQ5fm2agJ
-	KLpwgxV8s896L7rsMocR9bl5XYXeoMYZwfbAZyhDe/8Vk0TnVPQGjtRoOrkX4i8mrMOeyP
-	7z2SekU2GIuO8L04TG7iXQNvADapHXs=
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1753682775; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=3n8KTJ9XQxHiiQiPEZNY8Dlf+2L80OyLJ/0a+7zM3BM=;
-	b=szmbmlG2MUPu/Jag4zu2tgYUm+uPmEGYHFBfkakCspELZQFmIQqspbxRHsvFqJkmrYjuPL
-	oiVQRhs59yFMpkJRA4olyonL8NZm3U9Y+kHWktz2KMw0tL7+Gwfoi4TjW3Q+/1RAbx6VGb
-	UcRRacw/OPqi4Xu2DFrL4af+m7OfVCc=
-From: Juergen Gross <jgross@suse.com>
-To: torvalds@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	sstabellini@kernel.org
-Subject: [GIT PULL] xen: branch for v6.17-rc1
-Date: Mon, 28 Jul 2025 08:06:14 +0200
-Message-ID: <20250728060614.4875-1-jgross@suse.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_NONE(0.00)[];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spam-Score: -2.80
+X-Inumbo-ID: 7f5f4b65-6b7a-11f0-b895-0df219b8e170
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alex0.net; s=sig1; bh=EBr2/MNv+1p2yTo/xIEHFFdBfS88z3rf+JJ8TwkwooM=; h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:To:x-icloud-hme; b=ATTuQYQSCFoXwoAaPjhf2oF86GjxEeJn0tJd3tMi7tzZVLqugDSyclTjpF7TqQCKMmI8G351cKZruQfejF+aTTq26JJBRH6+9pLusfp/Qur1Gla6QxRb3WmK1JNgwn98x9MuV767nLelflAQCaY7hmJnhbUuqEesddE9QyqfT/M2FfBX4w/2DFHzOS3ohlEQrpAyaa+OGqCdw9ITgyePBU12XbCQRrM9o2gb1c/LEsMgVMQWRy0YdDNyl3mmnjAn6xrDmMSGTRooBKRnV2sMwwa+eTv+QMBs2YtR/iUuVZNRFcb34REtzKn/bAowEyPYMmSMuIx33buhKtViAjSUyA==
+X-Client-IP: 185.24.123.146
+From: me@alex0.net
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_EDB941DF-6818-4381-B4EF-C0E649DAE668"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.600.51.1.1\))
+Subject: ACPI C3 issues on Meteor Lake with HVMs
+Message-Id: <A5CBEBE2-8EBB-4844-BEE5-BACA780EB534@alex0.net>
+Date: Mon, 28 Jul 2025 07:16:57 +0100
+To: xen-devel@lists.xenproject.org
+X-Mailer: Apple Mail (2.3826.600.51.1.1)
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzI4MDA0NiBTYWx0ZWRfX9i9N/lVk39nW
+ OSx1NQvQ8NDlMHOan9ylkde1JBSJBOow+YhksNWEKTWFgcwGFyCxwzNhp+4+3kIFBLkO17IA8Po
+ t+UH/UArKa5Z/rNjUVfROw21wRG706aUsNDVp+BFbdPqx3+cUqVW+hM4wYwcWWjPvyylBZZpz12
+ lXDW07rR6+GycgMUYkgsPVGLBak5m+2WL3ibV0lcfwbxrHUzZ08s/1DKYLQS34O+dgT9qvtNsTg
+ o80O83a78S5ND8X7yRmqXKwREw1VBTRyBvLY4EguC3+NsK5UVG3dyxBbMB2vlivAbEBbil7qc=
+X-Proofpoint-GUID: x70JbrSuTJgqytpr16QZ5ODR6HqI52LU
+X-Proofpoint-ORIG-GUID: x70JbrSuTJgqytpr16QZ5ODR6HqI52LU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-07-28_02,2025-07-24_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1030
+ mlxscore=0 phishscore=0 bulkscore=0 mlxlogscore=999 suspectscore=0
+ malwarescore=0 spamscore=0 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.22.0-2506270000 definitions=main-2507280046
 
-Linus,
 
-Please git pull the following tag:
+--Apple-Mail=_EDB941DF-6818-4381-B4EF-C0E649DAE668
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
 
- git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.17-rc1-tag
+Hi,
 
-xen: branch for v6.17-rc1
+Hoping someone smarter than I can help out here =F0=9F=99=82 I have a =
+Meteor Lake machine which has the new P/E core architecture. I am trying =
+to optimise a mobile platform for on-battery runtime and from the =
+documentation I have read this requires CPUs to be in ACPI state C3 =
+(which corresponds to platform state C10). Though I=E2=80=99ve enabled =
+cpuidle (with the corresponding GRUB parameter) the issue I=E2=80=99m =
+having is Xen will never enter C3 on any cores once there are a certain =
+number of HVMs running (on my platform it is around 3-4), no matter =
+which cores they are pinned to. For example, even if I pin the HVMs (and =
+their corresponding device model stubdoms) to the E-cores, the P-cores =
+will refuse to enter C3 and display 99.81% residency for C2. This =
+happens regardless of the number of vCPUs allocated to the HVMs (I =
+tested it with just one allocated) nor the workload (it is very light, =
+with barely any CPU time shown).
 
-It contains the following patches:
+If I fully pause or shut down the HVMs however, C3 jumps up to a much =
+more reasonable residency. I am using sched-credit2 as the scheduler =
+with default weight and cap values.
 
-- A fix for a UAF in the xen gntdev-dmabuf driver
-- A fix in the xen netfront driver avoiding spurious interrupts
-- A fix in the gntdev driver avoiding a large stack allocation
-- A cleanup removing some dead code
-- A build warning fix
-- A cleanup of the sysfs code in the xen-pciback driver
+Would appreciate any input.
 
-Thanks.
+Best,
+Alex
 
-Juergen
 
- drivers/net/xen-netfront.c         |  5 ---
- drivers/xen/gntdev-common.h        |  4 +++
- drivers/xen/gntdev-dmabuf.c        | 28 ++++++---------
- drivers/xen/gntdev.c               | 71 +++++++++++++++++++++++++++-----------
- drivers/xen/manage.c               |  6 ----
- drivers/xen/time.c                 |  8 -----
- drivers/xen/xen-pciback/pci_stub.c | 12 +++----
- drivers/xen/xenbus/xenbus_client.c |  2 ++
- drivers/xen/xenbus/xenbus_xs.c     | 17 ---------
- include/xen/xen-ops.h              |  2 --
- include/xen/xenbus.h               |  2 --
- 11 files changed, 72 insertions(+), 85 deletions(-)
+--Apple-Mail=_EDB941DF-6818-4381-B4EF-C0E649DAE668
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
 
-Al Viro (1):
-      xen: fix UAF in dmabuf_exp_from_pages()
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; =
+charset=3Dutf-8"></head><body style=3D"overflow-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: =
+after-white-space;">Hi,<div><br></div><div>Hoping someone smarter than I =
+can help out here =F0=9F=99=82 I have a Meteor Lake machine which has =
+the new P/E core architecture. I am trying to optimise a mobile platform =
+for on-battery runtime and from the documentation I have read this =
+requires CPUs to be in ACPI state C3 (which corresponds to platform =
+state C10). Though I=E2=80=99ve enabled cpuidle (with the corresponding =
+GRUB parameter) the issue I=E2=80=99m having is Xen will never enter C3 =
+on any cores once there are a certain number of HVMs running (on my =
+platform it is around 3-4), no matter which cores they are pinned to. =
+For example, even if I pin the HVMs (and their corresponding device =
+model stubdoms) to the E-cores, the P-cores will refuse to enter C3 and =
+display 99.81% residency for C2. This happens regardless of the number =
+of vCPUs allocated to the HVMs (I tested it with just one allocated) nor =
+the workload (it is very light, with barely any CPU time =
+shown).</div><div><br></div><div><span style=3D"caret-color: rgb(0, 0, =
+0); color: rgb(0, 0, 0);">If I fully pause or shut down the HVMs =
+however, C3 jumps up to a much more reasonable residency. I am using =
+sched-credit2 as the scheduler with default weight and cap =
+values.</span></div><div><span style=3D"caret-color: rgb(0, 0, 0); =
+color: rgb(0, 0, 0);"><br></span></div><div><span style=3D"caret-color: =
+rgb(0, 0, 0); color: rgb(0, 0, 0);">Would appreciate any =
+input.</span></div><div><br></div><div><font color=3D"#000000"><span =
+style=3D"caret-color: rgb(0, 0, 0);">Best,</span></font></div><div><font =
+color=3D"#000000"><span style=3D"caret-color: rgb(0, 0, =
+0);">Alex</span></font></div><div><font color=3D"#000000"><span =
+style=3D"caret-color: rgb(0, 0, =
+0);"><br></span></font></div></body></html>=
 
-Anthoine Bourgeois (1):
-      xen/netfront: Fix TX response spurious interrupts
-
-Dr. David Alan Gilbert (1):
-      xen: Remove some deadcode (x)
-
-Juergen Gross (1):
-      xen/gntdev: remove struct gntdev_copy_batch from stack
-
-Peng Jiang (1):
-      xen/xenbus: fix W=1 build warning in xenbus_va_dev_error function
-
-Ryan Chung (1):
-      xen-pciback: Replace scnprintf() with sysfs_emit_at()
+--Apple-Mail=_EDB941DF-6818-4381-B4EF-C0E649DAE668--
 
