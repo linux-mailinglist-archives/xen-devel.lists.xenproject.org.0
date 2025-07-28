@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7826DB139D7
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 13:26:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1061341.1426894 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE238B139DA
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 13:28:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1061348.1426904 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugLyv-00066W-5l; Mon, 28 Jul 2025 11:25:25 +0000
+	id 1ugM1O-0006bg-Hc; Mon, 28 Jul 2025 11:27:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1061341.1426894; Mon, 28 Jul 2025 11:25:25 +0000
+Received: by outflank-mailman (output) from mailman id 1061348.1426904; Mon, 28 Jul 2025 11:27:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugLyv-00064Z-2P; Mon, 28 Jul 2025 11:25:25 +0000
-Received: by outflank-mailman (input) for mailman id 1061341;
- Mon, 28 Jul 2025 11:25:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ugM1O-0006am-Dt; Mon, 28 Jul 2025 11:27:58 +0000
+Received: by outflank-mailman (input) for mailman id 1061348;
+ Mon, 28 Jul 2025 11:27:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ScRH=2J=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ugLyt-00064T-VC
- for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 11:25:23 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8c493a7f-6ba5-11f0-b895-0df219b8e170;
- Mon, 28 Jul 2025 13:25:21 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3b7886bee77so918442f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 04:25:21 -0700 (PDT)
+ id 1ugM1M-0006ad-S0
+ for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 11:27:56 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e8001438-6ba5-11f0-a31e-13f23c93f187;
+ Mon, 28 Jul 2025 13:27:55 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-3b7825e2775so2009937f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 04:27:55 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-76408cf75dfsm4954374b3a.50.2025.07.28.04.25.17
+ d9443c01a7336-23ffdea35d1sm31625035ad.28.2025.07.28.04.27.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Jul 2025 04:25:20 -0700 (PDT)
+ Mon, 28 Jul 2025 04:27:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8c493a7f-6ba5-11f0-b895-0df219b8e170
+X-Inumbo-ID: e8001438-6ba5-11f0-a31e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753701921; x=1754306721; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753702075; x=1754306875; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=3Iq1fRZ0po/R3onCIRKQ1fPWiawPfIQLk+2wIsbgGwA=;
-        b=ULUuSCtYFBSmIrSXSjzkEXpmI6kTbkf3lYDlkTSJEc9A8QXWk2/Lh8A8jDa8GihMLC
-         ozU87ep1fR7aqnPYY0OyzCIS0z/APxY/02Dg5Tr0a4eTGcMBSd5foyqrXdr594AbkHIo
-         lAvCehtchNxqJ4OmKNGpQ6Rz5h0Lvy9nJWZV6FKgnhfbc4AF925xLpJ6Y1P+O5YdxKrW
-         9hd4dRiKv9zl4/cFfQH/KssiVYVZJHfDndr5Ne3r9yj08t4AMBTbuVnOgL4JymttLFF8
-         DL/vEk1wBqHlscH/iUjdgefGnJxKO6wDAgUVPJRxozLQFUJ47kb4lXxSLrGi8+KkNV94
-         RVIQ==
+        bh=4yZixrOsQ1geRi9hdx6coZywwcx8ktrpvj8GwJmt9rw=;
+        b=VLszZAG5SoLQsk0F0cuN89RzU8QKOW2cwfdZ4PrH7s/chEm/1vPYiNFl9ntbgdjmBL
+         i5qmO8If3EZ3hk2BD3FJkBdRQXD9vOjrad+f8yhjWHk1V+5WlNM5xAGoOR61cHJjuINp
+         ysN/6Tyox/zh0NhzY+Cz77niuB7GZefZoO0cxhdQx6omovzhUTAUxjTnHYTuygP+yptK
+         3+UARHk6leaH67PA8UwdjZCoeJGGy5evzCaJ+T6zhLf9/NB86VNDxmeJzB+mEL7OsgKJ
+         0G4YjS7mhas89/Pu69UiFUTrP+zvmPRrXp6U8lqx72TFiNpdPgKQhnJppNhuKuKTcrwu
+         0ySQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753701921; x=1754306721;
+        d=1e100.net; s=20230601; t=1753702075; x=1754306875;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3Iq1fRZ0po/R3onCIRKQ1fPWiawPfIQLk+2wIsbgGwA=;
-        b=EdOgMOjGvNEUA9MFk3ZSUOGB9ON0rOty7KofcAZdHVcYs9czRbV0O9DQh+AJ5VTJoh
-         kBPZs1Ts0SPovDbfhhTV6dbhXAbVP0cn0/wR2kVKsUmI0HJk7SITAB7+orPFo67bXmpM
-         c+rEq0XdbuPiX054uCORcbYsaLCRHPS9B4khAAeXSiqMz2NJNvtRkI8KnR9yYuMT4eUk
-         vf0uCbNgJWt7Do2npZ0KvopvEpzisG6lA6gUyvqzbqHk87YKlEcdoxlvFGuPadWnorUz
-         OiIkEXn5bmKnf55owsA9MFKImqGGoDNMRaUuq9eGHVwya05Igi6uPoVlABW30EHwdZyd
-         0uRQ==
-X-Gm-Message-State: AOJu0Yws+cX9GIxxYyGRmAWfopQxT1JVe4goRvs3N5FrHAii+HsqdxAq
-	j0DtEQXvYwAKHWz0p4zbGvdt/qqdopWUtt74g4H4d6lSJh8ab37Qf1G15bllTpin8xEdqZ1C7Rl
-	BuMM=
-X-Gm-Gg: ASbGncvphEH5/svG5T+mPRYfEzYFKbYsJV+JTo+mdkHZuajfFFLFHpdWbVWPYzOrhcD
-	R/lJ+lrOsE3hIotShMjUUg24hdglRGxRr5ppMz+6fdu+5XF29MC9O/MasJ/fgHnt3Nu5uXZJSw+
-	PT5GeNwYw0DZgiBVFbPKIiXCeh7nR4zNUXIOGmtddumJ/WRaSh7O/SxM/WE//6WaYkyCg39Jau6
-	hZyMyGLnXhe2kSDSqTkQmq8Fw2faOfMM48MUFjdkgHKXwQXfXQWKQbpO0gnhesVoWzslhziQekT
-	Xj6ZYI0hHSWqJrQ3/pEPtnjMF0Yn5xRW7VnejmWhUeI0IvujlnTP56L/+rEQeMdEfkyumZ+/JD1
-	ke40go+R9E40833HrTqSHjd5mlHcNwZumqLsygmaYqxvGJ9bqK+QZVlEuNH1lVwabeIP1NiublD
-	+0C4Q6Vv8=
-X-Google-Smtp-Source: AGHT+IEbsD2psx066NVDTxJf9tu2uSHVSdaAoi/prgKduwi3ATueNpvKsFet7m8DDMCX5v3HsdEnlQ==
-X-Received: by 2002:a5d:5d0e:0:b0:3b7:8473:31c3 with SMTP id ffacd0b85a97d-3b784733291mr3481929f8f.9.1753701920921;
-        Mon, 28 Jul 2025 04:25:20 -0700 (PDT)
-Message-ID: <f5a056ab-006b-4bb0-ae17-528a879f661f@suse.com>
-Date: Mon, 28 Jul 2025 13:25:14 +0200
+        bh=4yZixrOsQ1geRi9hdx6coZywwcx8ktrpvj8GwJmt9rw=;
+        b=pzIMFHzia/FEnqX4nZds6e8EPdwNB3CgJf4h8VJX+1JpjOkjUPov2W/HuCjMbI3XI+
+         D0KMtpwR8NTkPy+P3rEJBq7np/O9daUgMll6Kb+K3MvUd5f1UWgKR60RxsZhxcAuIeaA
+         lkY9oNzTn9RkWwkHbDtMSqvoMfb0qBPwwJTO590Tg6vEyz7R7JFVFTZeUsVj7TfyJ4s4
+         uj8MA+bIWCCcf/fAqfH8q94hbqzTQfnldBs8on/r2KvOAYRKLL8sb3+FuR2g1AgBFEGk
+         Mel4iYM3RvpQLlwYi8Z173b8Jax1/UJRkZY6lXj5gOcDce1dIXpeEo+U6djBUquYEVYK
+         KTXQ==
+X-Gm-Message-State: AOJu0YwlfxBzmudLkBVl1Kj/iSWeWh/uvHV8RYeRl9Hkv/5Qy+7FTEbC
+	NG+xtoGk0ge1WM7LaG6sXbs7HZmTqmhjnNhSVHKV1PqKWurAjis/xzL8XskY9pjY0m4DJOTF7bH
+	ilI0=
+X-Gm-Gg: ASbGncs2lm0W96h2MStn/Cyj1gMuJvdWjgstJ3HfJ4zGi+LD4KW3j8q5dONfuD7+9QQ
+	IHkH89rWkLrqA5Aee9O0wF7WfEgaH27b/neE27EuNHyGgXl8I6n2GtSz6TpDeSOt0y7x4UkDoca
+	siopEMuEKhFIdf7fDOtxnnMLWaHiqC5GPrCoFwyYInak2BK2uE4CLG8V0KU7p9U284qFNHZwLRa
+	KGmDo6z/Xuw7tyubEE8DpGIOfwp3+4KOdXiGtoL9RuuIRmNTlHv17sAyhybaVVXYGoRooaZUfGK
+	15V7HTTVUVPVto3B9hSHDnntkQUP/GniV/LFxqTDjMBN9SaUUHjWXU///uxXuQXr1jXcwxqkQQ7
+	g2zmA/g4Lfch3HrI82xD0/EW9hYV3sE1JEV9sA/4o6CfkDEJTqyr94wKaRIlKu0wIDUy7gD0xG9
+	m9C0qWx58=
+X-Google-Smtp-Source: AGHT+IEd30cD7CCXBqUxYOPtde4kVBUfBPITnKXOnTrlvfzPkyLfkcSSjPQujIiQGYXcZ/qjxFnfSA==
+X-Received: by 2002:a05:6000:26c1:b0:3b5:e714:9770 with SMTP id ffacd0b85a97d-3b776733877mr8587399f8f.14.1753702074919;
+        Mon, 28 Jul 2025 04:27:54 -0700 (PDT)
+Message-ID: <c9e21aa4-5267-4fa7-b304-1d8c1ff32472@suse.com>
+Date: Mon, 28 Jul 2025 13:27:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -92,7 +92,7 @@ To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v3] x86/HVM: fully switch emulate.c to use xvmalloc_array()
+Subject: [PATCH v3] x86/oprofile: switch to xv[mz]alloc_array()
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -119,78 +119,103 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Use the more "modern" forms consistently, thus doing away with
-effectively open-coding xmalloc_array() at the same time. While there
-is a difference in generated code, as xmalloc_bytes() forces
-SMP_CACHE_BYTES alignment, if code really cared about such higher than
-default alignment, it should request so explicitly.
+Use the more "modern" forms, thus doing away with effectively open-
+coding xmalloc_array() at the same time. While there is a difference in
+generated code, as xmalloc_bytes() forces SMP_CACHE_BYTES alignment, if
+code really cared about such higher than default alignment, it should
+request so explicitly.
+
+While at it also use XVFREE() instead of open-coding it, or instead of
+leaving a dangling pointer, and change loop induction variable types.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v3: Use xvmalloc_array().
+v3: Use xvmalloc*(), extending to op_model_ppro.c as well.
 
---- a/xen/arch/x86/hvm/emulate.c
-+++ b/xen/arch/x86/hvm/emulate.c
-@@ -17,6 +17,7 @@
- #include <xen/paging.h>
- #include <xen/trace.h>
- #include <xen/vm_event.h>
+--- a/xen/arch/x86/oprofile/nmi_int.c
++++ b/xen/arch/x86/oprofile/nmi_int.c
+@@ -19,7 +19,10 @@
+ #include <xen/string.h>
+ #include <xen/delay.h>
+ #include <xen/xenoprof.h>
 +#include <xen/xvmalloc.h>
++
+ #include <public/xenoprof.h>
++
+ #include <asm/msr.h>
+ #include <asm/apic.h>
+ #include <asm/regs.h>
+@@ -142,30 +145,29 @@ static void cf_check nmi_save_registers(
  
- #include <asm/altp2m.h>
- #include <asm/event.h>
-@@ -2050,7 +2051,7 @@ static int cf_check hvmemul_rep_movs(
-         dgpa -= bytes - bytes_per_rep;
+ static void free_msrs(void)
+ {
+-	int i;
++	unsigned int i;
++
+ 	for (i = 0; i < nr_cpu_ids; ++i) {
+-		xfree(cpu_msrs[i].counters);
+-		cpu_msrs[i].counters = NULL;
+-		xfree(cpu_msrs[i].controls);
+-		cpu_msrs[i].controls = NULL;
++		XVFREE(cpu_msrs[i].counters);
++		XVFREE(cpu_msrs[i].controls);
+ 	}
+ }
  
-     /* Allocate temporary buffer. Fall back to slow emulation if this fails. */
--    buf = xmalloc_bytes(bytes);
-+    buf = xvmalloc_array(char, bytes);
-     if ( buf == NULL )
-         return X86EMUL_UNHANDLEABLE;
  
-@@ -2060,7 +2061,7 @@ static int cf_check hvmemul_rep_movs(
+ static int allocate_msrs(void)
+ {
++	unsigned int i;
+ 	int success = 1;
+-	size_t controls_size = sizeof(struct op_msr) * model->num_controls;
+-	size_t counters_size = sizeof(struct op_msr) * model->num_counters;
  
-         if ( rc != X86EMUL_OKAY)
-         {
--            xfree(buf);
-+            xvfree(buf);
-             return rc;
-         }
+-	int i;
+ 	for_each_online_cpu (i) {
+-		cpu_msrs[i].counters = xmalloc_bytes(counters_size);
++		cpu_msrs[i].counters = xvmalloc_array(struct op_msr,
++						      model->num_counters);
+ 		if (!cpu_msrs[i].counters) {
+ 			success = 0;
+ 			break;
+ 		}
+-		cpu_msrs[i].controls = xmalloc_bytes(controls_size);
++		cpu_msrs[i].controls = xvmalloc_array(struct op_msr,
++						      model->num_controls);
+ 		if (!cpu_msrs[i].controls) {
+ 			success = 0;
+ 			break;
+--- a/xen/arch/x86/oprofile/op_model_ppro.c
++++ b/xen/arch/x86/oprofile/op_model_ppro.c
+@@ -10,9 +10,11 @@
+  * @author Graydon Hoare
+  */
  
-@@ -2082,7 +2083,7 @@ static int cf_check hvmemul_rep_movs(
-     if ( rc == HVMTRANS_okay )
-         rc = hvm_copy_to_guest_phys(dgpa, buf, bytes, curr);
++#include <xen/sched.h>
+ #include <xen/types.h>
+ #include <xen/xenoprof.h>
+-#include <xen/sched.h>
++#include <xen/xvmalloc.h>
++
+ #include <asm/msr.h>
+ #include <asm/io.h>
+ #include <asm/apic.h>
+@@ -231,7 +233,7 @@ static int cf_check ppro_allocate_msr(st
+ 	struct vpmu_struct *vpmu = vcpu_vpmu(v);
+ 	struct arch_msr_pair *msr_content;
  
--    xfree(buf);
-+    xvfree(buf);
+-	msr_content = xzalloc_array(struct arch_msr_pair, num_counters);
++	msr_content = xvzalloc_array(struct arch_msr_pair, num_counters);
+ 	if ( !msr_content )
+ 		goto out;
+ 	vpmu->context = (void *)msr_content;
+@@ -251,7 +253,7 @@ static void cf_check ppro_free_msr(struc
  
-     switch ( rc )
-     {
-@@ -2162,7 +2163,7 @@ static int cf_check hvmemul_rep_stos(
-         for ( ; ; )
-         {
-             bytes = *reps * bytes_per_rep;
--            buf = xmalloc_bytes(bytes);
-+            buf = xvmalloc_array(char, bytes);
-             if ( buf || *reps <= 1 )
-                 break;
-             *reps >>= 1;
-@@ -2191,7 +2192,7 @@ static int cf_check hvmemul_rep_stos(
+ 	if ( !vpmu_is_set(vpmu, VPMU_PASSIVE_DOMAIN_ALLOCATED) )
+ 		return;
+-	xfree(vpmu->context);
++	XVFREE(vpmu->context);
+ 	vpmu_reset(vpmu, VPMU_PASSIVE_DOMAIN_ALLOCATED);
+ }
  
-             default:
-                 ASSERT_UNREACHABLE();
--                xfree(buf);
-+                xvfree(buf);
-                 return X86EMUL_UNHANDLEABLE;
-             }
- 
-@@ -2202,7 +2203,7 @@ static int cf_check hvmemul_rep_stos(
-         rc = hvm_copy_to_guest_phys(gpa, buf, bytes, curr);
- 
-         if ( buf != p_data )
--            xfree(buf);
-+            xvfree(buf);
- 
-         switch ( rc )
-         {
 
