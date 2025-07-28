@@ -2,49 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB4BAB133ED
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 07:04:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1060941.1426534 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A664FB13450
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 07:51:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1061011.1426549 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugG2b-0005qm-Hh; Mon, 28 Jul 2025 05:04:49 +0000
+	id 1ugGkd-0006jo-Om; Mon, 28 Jul 2025 05:50:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1060941.1426534; Mon, 28 Jul 2025 05:04:49 +0000
+Received: by outflank-mailman (output) from mailman id 1061011.1426549; Mon, 28 Jul 2025 05:50:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugG2b-0005lw-AP; Mon, 28 Jul 2025 05:04:49 +0000
-Received: by outflank-mailman (input) for mailman id 1060941;
- Mon, 28 Jul 2025 05:04:47 +0000
+	id 1ugGkd-0006iM-Lw; Mon, 28 Jul 2025 05:50:19 +0000
+Received: by outflank-mailman (input) for mailman id 1061011;
+ Mon, 28 Jul 2025 05:50:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6gHj=2J=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1ugG2Z-0003wp-Ih
- for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 05:04:47 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20623.outbound.protection.outlook.com
- [2a01:111:f403:2414::623])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ERLN=2J=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1ugGkc-0006iG-5Q
+ for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 05:50:18 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 61aab587-6b70-11f0-a31e-13f23c93f187;
- Mon, 28 Jul 2025 07:04:46 +0200 (CEST)
-Received: from MW4P223CA0014.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::19)
- by SA1PR12MB6947.namprd12.prod.outlook.com (2603:10b6:806:24e::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.39; Mon, 28 Jul
- 2025 05:04:41 +0000
-Received: from CO1PEPF000044F2.namprd05.prod.outlook.com
- (2603:10b6:303:80:cafe::58) by MW4P223CA0014.outlook.office365.com
- (2603:10b6:303:80::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8964.26 via Frontend Transport; Mon,
- 28 Jul 2025 05:04:41 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000044F2.mail.protection.outlook.com (10.167.241.72) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8989.10 via Frontend Transport; Mon, 28 Jul 2025 05:04:40 +0000
-Received: from cjq-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 28 Jul
- 2025 00:04:38 -0500
+ id bcd5501d-6b76-11f0-a31e-13f23c93f187;
+ Mon, 28 Jul 2025 07:50:16 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-61553a028dfso202426a12.0
+ for <xen-devel@lists.xenproject.org>; Sun, 27 Jul 2025 22:50:16 -0700 (PDT)
+Received: from ?IPV6:2003:e5:872d:3c00:27e3:fc0:fb5:67a3?
+ (p200300e5872d3c0027e30fc00fb567a3.dip0.t-ipconnect.de.
+ [2003:e5:872d:3c00:27e3:fc0:fb5:67a3])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-61547365e1esm525434a12.68.2025.07.27.22.50.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 27 Jul 2025 22:50:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,276 +47,204 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 61aab587-6b70-11f0-a31e-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bQlYxc/MUXVnM9hyekTDL/nRjwdN8+biFQS+h2kE9yjpCRgwroEdi9xUlP8KjDHmovdj20z0JMgHDpUeaUBrHwnGuKSrPi6YmdbmrzqtYMIcDq0iEOJHFcPZaTXXrZon+aPYn0a3UlwhQSmi6Sj4e1vnx6XRT9ZSeEm2qBXnnqcieZFhATthpga0UiBQLrowLT9sp0pbY9vjxP5VjBg7qanPkwCfKOpSP97hUJuTyBVdht+N7ncqGMN0cdxxNYNMmR02Yu+d+APRB+1yj3GbYZTTcXU6UM3Ib4dsdF1oHUMLzdw9IHQkq1YLO46+pWREQzIKE9DXIyd5eze0FEAtzA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FzrG6xJejzDk2WVDHKawcisKyh3uGIcbNCFr48TUTow=;
- b=Y+dZ3ZuyR9rmWLnAtmfpblviWMdwWUbZMfq3E/1DUj6zaPxSOJxY5Y1nGimYDQ33OITyEjXJIpDV8aPBHaNz9zyNHw/eRcBVlaIiAmL4M/UN8Td85ejL1rIE1kbkC3thtWIuVRLsJQZ/LdGGRvk8wsl9BAi3ZE/W/ACbqGsdhrqCp40itmLskZSUk+/N07GJWC7/Gl5R/JDQ4I9sXlQUTJgVtcFPfDry0mHxML0MV5kT4hbnSFckdSOen8Xdif7UwUUlkyLB4MwlzUGNMK0PN7yb5eIrcowa5Zhc7ituhQ6Kt0/PyRAtpvWTe3U6KYMPeLb0HfIbVI+hbt1RVahs/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FzrG6xJejzDk2WVDHKawcisKyh3uGIcbNCFr48TUTow=;
- b=lqEDCLlAyFk8c5tTfbNRBNQF+cY4y9WFEz5jhykV8Zc1LBj+LTLjZH+fM5VZDJyM9uE1TAdI8xhmnCwP7JiYfkO99cr2QanbbSWWJqm6BbVHRYL3E9DGsbHpyxjrSnwNHdtzAu3xi6qJP9waWgVUye6qqGQiYpLtu7bkTYGLaIM=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Jiqian Chen <Jiqian.Chen@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Huang Rui <ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v9 8/8] vpci/msix: Free MSIX resources when init_msix() fails
-Date: Mon, 28 Jul 2025 13:04:01 +0800
-Message-ID: <20250728050401.329510-9-Jiqian.Chen@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250728050401.329510-1-Jiqian.Chen@amd.com>
-References: <20250728050401.329510-1-Jiqian.Chen@amd.com>
+X-Inumbo-ID: bcd5501d-6b76-11f0-a31e-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1753681816; x=1754286616; darn=lists.xenproject.org;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=Yy3nZuGq8qR1AB6FgEUmLolMIC6+w8f1sZf8QwzfrJs=;
+        b=De2CGwGgJhEcO/YEx/ADVZEMpo/kpIqHakxG6JDWceqP21Ry8RANXyBMyZQulYsN7J
+         SRIGjUK0RQeu9m2hPKbPHuX+KvyRuKUJN9cs0EktDmFR7VQ5NKQ0GTUuO30WPueC6ibn
+         qEiJFYCfsWasNlj3rdYBiQ2TvWfLRR1f4rsWG5mzsMsNbxRQ4e6W/J8rlZ0znWrNNPMl
+         KjudWMs6YMh5HIsKRMGrBJFjhpEOtQsBSbXZibz1sO1R4bL7L/OMbLMDaMSz7+sS+z37
+         vVBMRIShORjMVvOgRtHw7wrK4vizIP0GtnmUNtJDQaUBwJfF1H5UoM9WQ+U/kIGKGY5r
+         S2TA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753681816; x=1754286616;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Yy3nZuGq8qR1AB6FgEUmLolMIC6+w8f1sZf8QwzfrJs=;
+        b=ltNPfXqDfjAMDq2jcGAhVvLWOeuObzJ/g+31ghj6uz9fvGhVL4KK0xLHGpaQ5hK748
+         TcyWnOEjszejKAoWRWHDktbcfTu6GVF6cw4NhL78WQx/9O469xRy2Yq5uiF0Y+s+18FJ
+         oEeMOuWYoMturHpW2JJO9o1DZtwqyNkrSkXV9doJUEH/ox5ozwoHXiGZ9nuQE/KPDekB
+         wNQHtG7IWjVHlY2nHSOgS6ohkSp56QAlFk5Q7fWmY5PVix0KmxlsolxYV/dSKK2Dmpgk
+         HCu1hHO1fIgbfb8BsNts4eY1FgKAmCy5erh+zWnIQyD+udsbz2knA+8kleUjGTjo9QbJ
+         TUSA==
+X-Forwarded-Encrypted: i=1; AJvYcCULFILIqr5waJ6/n3aOKmlUsFwPrC8A7pgk4CrkeSc0559OOLBcqGe6V3DfMNhKazGZwL7c0IAxpuM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzryBTfY8nXo2qlCR/E7zjX9WzqkoXN6W7XEchuInTo9uABbgll
+	dHK0KyRrQ30i1IAlsr20wi9GATPO/ahhTSlRtRT8uGqsCEoX6PKBPKOvJ7oLe79Gipw=
+X-Gm-Gg: ASbGncs6jaUAj7REu8NRZNNqyRyldCJxk8aAXJgI8pIUkTecIGmsT1//wPfob+0YIq+
+	GgTXmJ6+MFb4ZC33Ynhe3YnKb93Gfk8gx3W9ssO8hur2NQpI0b4dD6cWqVyD1zajwKbRBO3Pbl/
+	Sb/Q4fLUe+86AUfwzCE0tGKnwubs5eBUA8xjwyJp2904kCR9jBSQSVW7yMBTCFM+8D4JUd+OPSl
+	9T0m6xLsDw+olmQ9BwhcX9MII7Oy3bP8tdJNMQsOh90lWV1ZEzcjASUhtsETwD09L39yfQNygGH
+	4GHz23CdXsDu9BWPHT7qz3EieYLnHXvTSzsNhTHqyGiaNMq1HBvj+i6+Akn8OAJGvWAm2mFQG3B
+	rlh7YxG3HG4MwmRBAeDTXknzVhghqkpF+Qs/gQkUsad4eD5XEEwR/3xs6rWWsP1q6E8vg6rKXxm
+	LIachSoRtb8CBN6lUcOasLS0HiUouXVfTiEX9mm5cDiA==
+X-Google-Smtp-Source: AGHT+IFUWqf3830quVxUL8hVIjSZXSHywxeif2zmueMG2O1SuGM8/vNVbHfFW/xLAoz54tobBp4iQQ==
+X-Received: by 2002:a05:6402:848:b0:612:b67d:c2ae with SMTP id 4fb4d7f45d1cf-614f1d5ec0amr10129675a12.16.1753681816068;
+        Sun, 27 Jul 2025 22:50:16 -0700 (PDT)
+Message-ID: <d9d19009-0597-4c5c-8214-ce6593f5330a@suse.com>
+Date: Mon, 28 Jul 2025 07:50:15 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F2:EE_|SA1PR12MB6947:EE_
-X-MS-Office365-Filtering-Correlation-Id: 152b6474-2782-4ef6-7d82-08ddcd944277
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?VFJReGNpV3l4UlZBOGZDV3RiRkhyb0NOTDR0U1dTOXlncEhuZFZSbkpIQXhX?=
- =?utf-8?B?WTJ2a1pMbHVMUFlRcCszZG9WTWxLUXcwVmlGeGVwTURSVXNDK2xWQjFibm1t?=
- =?utf-8?B?RXNIN0VXdlJGOWswdWwyV0tNODREVml2NjJqRE5tVERJcDV0bVlWeXdqZjVk?=
- =?utf-8?B?ZW9zWGUvWXQ2d1VBNis2NlpBV3ljTzJWODVZMFNhYUtiVWxvKzFLbTFRT3Qw?=
- =?utf-8?B?bmFXdnJIREZVWDV3SXpOVm9XZXlvaEd3NXhyU3c1bHI3K1RBa21QQzNsNXVr?=
- =?utf-8?B?aFVXOHA1OTRxeUpnZjJjd0IyNW5KL3ZtWUYrV3lDQjdZa215eTZYQTVwTXJl?=
- =?utf-8?B?ZmhRZVlINW5VN29aYjVKWUd6NEYxa1YzYkwyU0pCWG1zTmwzbnJMQ1lDMnlt?=
- =?utf-8?B?ZzhFcG5GaDlRZHdLU2VSZlJoZXM0anZ0d3M3dXVQZHpUWHR3cDN3dUx2ejhU?=
- =?utf-8?B?bzlYUWUzb2FxZWZ1My9Ic3RzM2MwV254WG1qakNHWlBuZ05PUVFPdjIrTmJj?=
- =?utf-8?B?Q3Z2NFFwUGswRHpwYm56MTVqNUl5VEcxR0JMRDk5MnVoOEVOU1ZpWnRJVUZh?=
- =?utf-8?B?NXFyNW8rYzVyS2lFN2xITlpWanFiK01aKzNkRWN2eHdKc0NMTHFuRjgvS251?=
- =?utf-8?B?VS9mTDJpYmUvZmkxVGNEMEoxWkJNWDhKQVNrVEpKWSs2RE1nWVlKUExFSjcz?=
- =?utf-8?B?RE90NUE3UHdlNUlwb2RRRFQxZ2ROQytUSUpmTy81YURLU3FNcG1ZRnNLTHpX?=
- =?utf-8?B?VGRtUlVQazN5TmVBZGZpNktOZk1yU0FzK2Y2d0VVaEh5RWpMYkdmUVY1OTFo?=
- =?utf-8?B?M0NGNytQZm85UVpRVlFMTVNzaDN5aHNKU29oSm9CZGV2eHFuTGhQTU9wRE0w?=
- =?utf-8?B?MFFWN2VDTUEyc3JhRUhSTC9NYmdUTGVuVTBFQnFDcGMvM3JQeDVSdzAvZDQv?=
- =?utf-8?B?bkx3M3o0MkgvVWhYTDlqQnZ4V1QwSDJvK2NoWmFGOEE3aEJTRGFIVnR5ek1h?=
- =?utf-8?B?dm41K0JuY2dPM09kL28wdk12OUdMNW82OTFTNnBVR3RHQWhCSStMSExUNDl5?=
- =?utf-8?B?RTlpNzJqVW5odVhEaDF5anJuN0NxS2puNnJtR3NDblg3aDY1VkZTYzkra3R1?=
- =?utf-8?B?VVFPNnFFUjcvT2R6QlovWjg1NkllTytVSWFlVkE1NWN3WXgrdnFsWjRCTStw?=
- =?utf-8?B?clNMeGJDd0wzUFhBcXdGYXNiekN0eGhSaldNTmJVYldNT3ZKaUNIY3JLN1ZO?=
- =?utf-8?B?Unp0bWlWcjhGbFk2TDc1bklMeThhVkdIKzFRU3Z1SXpKR2F1YS95S1JJYnc0?=
- =?utf-8?B?RDdwN1N5eXZVUWpwN2ZLU251YkVGN3V2eEFuaVVRUVhEem9id3p4VUNEVlZ5?=
- =?utf-8?B?cGhBdVUzSU9JclgrY01TQVkxZkRhUGo5THNNN0V4NHQ5b1ZET1pVQnRWQk9q?=
- =?utf-8?B?aDFRNU5MNHdranF6QUgzcjBFR0xWMmtEQTI5UGlML1I0Tis2cUJNNEpZa3Jr?=
- =?utf-8?B?NmtaNDJ0ei9xZFhEU2NMNE56bGNvUnd2R3NhN3d2OHllc05hNEx5VjRkTE0z?=
- =?utf-8?B?bktPUm9LU1ZlaGtBWG1SMDNST0tMVFlJN25DTEFGUlFjUnIvN1hCUFpmOHVi?=
- =?utf-8?B?aXE4WlNlaHA2Q3M1SVJQcjZid3hNQmtoMS90Y1dyMExTcnNEYmdaeDdRTlRu?=
- =?utf-8?B?SUZ3S1p3N1dHaHQwMDcxSnJXNlBPRGNaQmQvUUhWNG1jZk9MU3ZZQnNZUGgw?=
- =?utf-8?B?b09FS055V1M4VG11SFYwbVdhdUxOT3JYZytxOFJraVBmUTJvbGlIS3M0cEwr?=
- =?utf-8?B?cVo5SldLMVRSQ3p3cVJZNGxDa1I0NDluNVdwa1QrMGFFL0RVZjNJRVZhaHdi?=
- =?utf-8?B?UWdMWStLTWVaUzBUNnZKd0QrVmtFV2hSaGNjNThWZm90dXBHZFJaQnFUblhV?=
- =?utf-8?B?VWlzYmVCbGpJbXlHd0xkRnNWaVNyS2VNcm96b0lFaGJTR1dvRzgrTEo1SmdB?=
- =?utf-8?B?cm81NUJYbmNqeGRiemVMYk9MSGJvMFh2V0N4NVphK3J5UDdtRUs3eEl4SWJS?=
- =?utf-8?Q?YIH9bq?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2025 05:04:40.9116
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 152b6474-2782-4ef6-7d82-08ddcd944277
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000044F2.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6947
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen: Rename xenmem_reservation_increase to
+ xenmem_populate_physmap
+To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+References: <d3bdb968d720db655314fd7d7c7c4bc181395cee.1753438001.git.teddy.astie@vates.tech>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <d3bdb968d720db655314fd7d7c7c4bc181395cee.1753438001.git.teddy.astie@vates.tech>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------C3qkq0I3uXSbOgUuHBpQzxCY"
 
-When MSI-X initialization fails vPCI will hide the capability, but
-remove of handlers and data won't be performed until the device is
-deassigned.  Introduce a MSI-X cleanup hook that will be called when
-initialization fails to cleanup MSI-X related hooks and free it's
-associated data.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------C3qkq0I3uXSbOgUuHBpQzxCY
+Content-Type: multipart/mixed; boundary="------------l22mQKsefhb5kG10sdtMw4yQ";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Message-ID: <d9d19009-0597-4c5c-8214-ce6593f5330a@suse.com>
+Subject: Re: [PATCH] xen: Rename xenmem_reservation_increase to
+ xenmem_populate_physmap
+References: <d3bdb968d720db655314fd7d7c7c4bc181395cee.1753438001.git.teddy.astie@vates.tech>
+In-Reply-To: <d3bdb968d720db655314fd7d7c7c4bc181395cee.1753438001.git.teddy.astie@vates.tech>
 
-As all supported capabilities have been switched to use the cleanup
-hooks call those from vpci_deassign_device() instead of open-code the
-capability specific cleanup in there.
+--------------l22mQKsefhb5kG10sdtMw4yQ
+Content-Type: multipart/mixed; boundary="------------Sj06gw5JNU09uN5grsdBQchS"
 
-Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
----
-cc: "Roger Pau Monné" <roger.pau@citrix.com>
----
-v8->v9 changes:
-* Modify commit message.
-* Call cleanup_msix() in vpci_deassign_device() to remove the open-code to cleanup msix datas.
-* In cleanup_msix(), move "list_del(&vpci->msix->next);" above for loop of iounmap msix tables.
+--------------Sj06gw5JNU09uN5grsdBQchS
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-v7->v8 changes:
-* Given the code in vpci_remove_registers() an error in the removal of
-  registers would likely imply memory corruption, at which point it's
-  best to fully disable the device. So, Rollback the last two modifications of v7.
+T24gMjUuMDcuMjUgMTI6MTIsIFRlZGR5IEFzdGllIHdyb3RlOg0KPiB4ZW5tZW1fcmVzZXJ2
+YXRpb25faW5jcmVhc2UgY3VycmVudGx5IGNhbGxzIFhFTk1FTV9wb3B1bGF0ZV9waHlzbWFw
+Lg0KPiBSZW5hbWUgdGhlIGZ1bmN0aW9uIHRvIGF2b2lkIGNvbmZ1c2lvbiB3aXRoIFhFTk1F
+TV9pbmNyZWFzZV9yZXNlcnZhdGlvbi4NCg0KSG1tLCBJJ20gbm90IGNvbnZpbmNlZCB0aGlz
+IGlzIGEgZ29vZCBtb3ZlLg0KDQp4ZW5tZW1fcmVzZXJ2YXRpb25faW5jcmVhc2UoKSBoYXMg
+dGhlIGNvdW50ZXJwYXJ0IHhlbm1lbV9yZXNlcnZhdGlvbl9kZWNyZWFzZSgpLA0Kd2hpY2gg
+c2hvdWxkbid0IGNoYW5nZSBpdHMgbmFtZS4NCg0KU28gZm9yIHRoZSBjYWxsZXIgdGhlIG5h
+bWluZyBpcyBjb25zaXN0ZW50LiBJdCBpcyBqdXN0IHRoZSBpbXBsZW1lbnRhdGlvbiB3aGlj
+aA0KaXMgdXNpbmcgYSBkaWZmZXJlbnQgaHlwZXJjYWxsLiBJTU8gc3VjaCBhIGRldGFpbCBz
+aG91bGQgbm90IGJlIHByb3BhZ2F0ZWQgdG8NCmhpZ2hlciBsb2dpY2FsIGxldmVscy4NCg0K
+DQpKdWVyZ2VuDQo=
+--------------Sj06gw5JNU09uN5grsdBQchS
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-v6->v7 changes:
-* Change the pointer parameter of cleanup_msix() to be const.
-* When vpci_remove_registers() in cleanup_msix() fails, not to return
-  directly, instead try to free msix and re-add ctrl handler.
-* Pass pdev->vpci into vpci_add_register() instead of pdev->vpci->msix in
-  init_msix() since we need that every handler realize that msix is NULL
-  when msix is freed but handlers are still in there.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-v5->v6 changes:
-* Change the logic to add dummy handler when !vpci->msix in cleanup_msix().
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
 
-v4->v5 changes:
-* Change definition "static void cleanup_msix" to "static int cf_check cleanup_msix"
-  since cleanup hook is changed to be int.
-* Add a read-only register for MSIX Control Register in the end of cleanup_msix().
+--------------Sj06gw5JNU09uN5grsdBQchS--
 
-v3->v4 changes:
-* Change function name from fini_msix() to cleanup_msix().
-* Change to use XFREE to free vpci->msix.
-* In cleanup function, change the sequence of check and remove action according to
-  init_msix().
+--------------l22mQKsefhb5kG10sdtMw4yQ--
 
-v2->v3 changes:
-* Remove unnecessary clean operations in fini_msix().
+--------------C3qkq0I3uXSbOgUuHBpQzxCY
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-v1->v2 changes:
-new patch.
+-----BEGIN PGP SIGNATURE-----
 
-Best regards,
-Jiqian Chen.
----
- xen/drivers/vpci/msix.c | 44 ++++++++++++++++++++++++++++++++++++++++-
- xen/drivers/vpci/vpci.c | 16 +++++++--------
- xen/include/xen/vpci.h  |  2 ++
- 3 files changed, 53 insertions(+), 9 deletions(-)
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmiHD5cFAwAAAAAACgkQsN6d1ii/Ey/d
+Xgf/QrubaF3UJhhQMTrGqMVAGJbhVQqbu3BQbSEnJqJvAll0EOv39rtgWW0Ro6FJLhwqIPjmaA3N
+GxdlVe5kyhpcunu76Hp34BgIT0Ecth5O4obDhhZnIMvqny7sRnlFJXcmp/7pRANIgxOwS2HNtIvZ
+y55HFBAPXzrps8fwO0/4Kc29FGsAKLzKp6N+sDxskcTRTRy1JK5LB5xJfcjfOe+z9kCCSSmuZTle
+6FhjPYU6PAjLp43JL83xaI2TNug9mcIJZRe7dkeqK0rxwHz51x0DzInJxrp90hgxBltO+WbaPslS
+bX+4MyXsQvovgwYIfQNu1LlWF5rsgVphFMPUEW4uqg==
+=2cmz
+-----END PGP SIGNATURE-----
 
-diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
-index 54a5070733aa..8ee315eb928c 100644
---- a/xen/drivers/vpci/msix.c
-+++ b/xen/drivers/vpci/msix.c
-@@ -655,6 +655,48 @@ int vpci_make_msix_hole(const struct pci_dev *pdev)
-     return 0;
- }
- 
-+int cleanup_msix(const struct pci_dev *pdev)
-+{
-+    int rc;
-+    struct vpci *vpci = pdev->vpci;
-+    const unsigned int msix_pos = pdev->msix_pos;
-+
-+    if ( !msix_pos )
-+        return 0;
-+
-+    rc = vpci_remove_registers(vpci, msix_control_reg(msix_pos), 2);
-+    if ( rc )
-+    {
-+        printk(XENLOG_ERR "%pd %pp: fail to remove MSIX handlers rc=%d\n",
-+               pdev->domain, &pdev->sbdf, rc);
-+        ASSERT_UNREACHABLE();
-+        return rc;
-+    }
-+
-+    if ( vpci->msix )
-+    {
-+        list_del(&vpci->msix->next);
-+        for ( unsigned int i = 0; i < ARRAY_SIZE(vpci->msix->table); i++ )
-+            if ( vpci->msix->table[i] )
-+                iounmap(vpci->msix->table[i]);
-+
-+        XFREE(vpci->msix);
-+    }
-+
-+    /*
-+     * The driver may not traverse the capability list and think device
-+     * supports MSIX by default. So here let the control register of MSIX
-+     * be Read-Only is to ensure MSIX disabled.
-+     */
-+    rc = vpci_add_register(vpci, vpci_hw_read16, NULL,
-+                           msix_control_reg(msix_pos), 2, NULL);
-+    if ( rc )
-+        printk(XENLOG_ERR "%pd %pp: fail to add MSIX ctrl handler rc=%d\n",
-+               pdev->domain, &pdev->sbdf, rc);
-+
-+    return rc;
-+}
-+
- static int cf_check init_msix(struct pci_dev *pdev)
- {
-     struct domain *d = pdev->domain;
-@@ -710,7 +752,7 @@ static int cf_check init_msix(struct pci_dev *pdev)
-      */
-     return vpci_make_msix_hole(pdev);
- }
--REGISTER_VPCI_CAP(MSIX, init_msix, NULL);
-+REGISTER_VPCI_CAP(MSIX, init_msix, cleanup_msix);
- 
- /*
-  * Local variables:
-diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-index 4b8e6b28bd07..258356019535 100644
---- a/xen/drivers/vpci/vpci.c
-+++ b/xen/drivers/vpci/vpci.c
-@@ -321,6 +321,14 @@ void vpci_deassign_device(struct pci_dev *pdev)
-                     &pdev->domain->vpci_dev_assigned_map);
- #endif
- 
-+    if ( pdev->vpci->msix )
-+    {
-+        int rc = cleanup_msix(pdev);
-+        if ( rc )
-+            printk(XENLOG_ERR "%pd %pp: fail to cleanup MSIX datas rc=%d\n",
-+                   pdev->domain, &pdev->sbdf, rc);
-+    }
-+
-     spin_lock(&pdev->vpci->lock);
-     while ( !list_empty(&pdev->vpci->handlers) )
-     {
-@@ -332,18 +340,10 @@ void vpci_deassign_device(struct pci_dev *pdev)
-         xfree(r);
-     }
-     spin_unlock(&pdev->vpci->lock);
--    if ( pdev->vpci->msix )
--    {
--        list_del(&pdev->vpci->msix->next);
--        for ( i = 0; i < ARRAY_SIZE(pdev->vpci->msix->table); i++ )
--            if ( pdev->vpci->msix->table[i] )
--                iounmap(pdev->vpci->msix->table[i]);
--    }
- 
-     for ( i = 0; i < ARRAY_SIZE(pdev->vpci->header.bars); i++ )
-         rangeset_destroy(pdev->vpci->header.bars[i].mem);
- 
--    xfree(pdev->vpci->msix);
-     xfree(pdev->vpci->msi);
-     xfree(pdev->vpci);
-     pdev->vpci = NULL;
-diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-index 514a0ce39133..6f9c7b6fb38f 100644
---- a/xen/include/xen/vpci.h
-+++ b/xen/include/xen/vpci.h
-@@ -220,6 +220,8 @@ void vpci_dump_msi(void);
- /* Make sure there's a hole in the p2m for the MSIX mmio areas. */
- int vpci_make_msix_hole(const struct pci_dev *pdev);
- 
-+int __must_check cleanup_msix(const struct pci_dev *pdev);
-+
- /* Arch-specific vPCI MSI helpers. */
- void vpci_msi_arch_mask(struct vpci_msi *msi, const struct pci_dev *pdev,
-                         unsigned int entry, bool mask);
--- 
-2.34.1
-
+--------------C3qkq0I3uXSbOgUuHBpQzxCY--
 
