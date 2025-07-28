@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64C52B13922
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 12:40:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1061269.1426790 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 407F0B1392E
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 12:46:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1061276.1426800 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugLH8-0004Js-6p; Mon, 28 Jul 2025 10:40:10 +0000
+	id 1ugLMe-0005Ot-Pw; Mon, 28 Jul 2025 10:45:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1061269.1426790; Mon, 28 Jul 2025 10:40:10 +0000
+Received: by outflank-mailman (output) from mailman id 1061276.1426800; Mon, 28 Jul 2025 10:45:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugLH8-0004HC-3c; Mon, 28 Jul 2025 10:40:10 +0000
-Received: by outflank-mailman (input) for mailman id 1061269;
- Mon, 28 Jul 2025 10:40:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ugLMe-0005MB-M6; Mon, 28 Jul 2025 10:45:52 +0000
+Received: by outflank-mailman (input) for mailman id 1061276;
+ Mon, 28 Jul 2025 10:45:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WRgz=2J=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1ugLH6-0004Cx-Ih
- for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 10:40:08 +0000
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
- [2607:f8b0:4864:20::235])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 399fc014-6b9f-11f0-b895-0df219b8e170;
- Mon, 28 Jul 2025 12:40:06 +0200 (CEST)
-Received: by mail-oi1-x235.google.com with SMTP id
- 5614622812f47-41baecbdd33so2358731b6e.1
- for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 03:40:06 -0700 (PDT)
+ <SRS0=YAI4=2J=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ugLMc-0005M5-Qj
+ for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 10:45:50 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 06676b68-6ba0-11f0-a31e-13f23c93f187;
+ Mon, 28 Jul 2025 12:45:49 +0200 (CEST)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-45610582d07so27222365e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 03:45:49 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4587abc13b3sm97785875e9.6.2025.07.28.03.45.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 28 Jul 2025 03:45:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,144 +45,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 399fc014-6b9f-11f0-b895-0df219b8e170
+X-Inumbo-ID: 06676b68-6ba0-11f0-a31e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1753699205; x=1754304005; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=uPcs8pJgXC/EMxr/bA3TtJfSx63P2rJA0+faK79qbsI=;
-        b=ELUWJCAUQ/nqQ8pHDonZbrEcRZ0SIYc47rUFF6kyMDpRgXMGtFeujFvyJpWWid5hao
-         QJDiV6NBq7uScz0yHmxdDHrd4Z6j7JT7KuYL7tFe+ee5DGlR2Ujy/Rk8cal2iusaJv/v
-         2zBg1wOr7SwzglQfOH5E4SupU5+akpJMntGOQ=
+        d=citrix.com; s=google; t=1753699549; x=1754304349; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=c2DchZiNSLQ1StxfmdwWvlijI4t8cVjnInUAYodZV18=;
+        b=rMGU+dqe2GK8N0D0n7IpqH8jsVmkI2Rb3uLA4mq/vx3kwb4QTJ/0pXyxXH46CZVvdc
+         +EDf2cTXn0Pgifl0FXqDvSH7ImNULDr0EbPyw5zSvUeghMgdq/3kdSyENrKXkpv0csSb
+         hWsQPub/pDShTDiLXKuuNJ1ueSAHF3QlQtJjY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753699205; x=1754304005;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=uPcs8pJgXC/EMxr/bA3TtJfSx63P2rJA0+faK79qbsI=;
-        b=X43IiLYmxC2Ydb3posNp+WmvB3Vwag9zug76hmJ9hLzLwqVc4YW3Gh4IlrEpzcfP3H
-         N1Pj3Ax8Tlz+W8ST3WNGBNadpMy7wEkFufDB4+NBR5Gd8bQa9Z3ADEQqhPslUiREwCb0
-         T3UsfWIbskt4vABTS9mfXzLBq+6rQumRjiOeq4ne8o1GZh1qPG+e6j7qm5wvBsMpMS5C
-         57Oy+kt596Wb/EFJKfvpwCjlP+I+v0z97TzrNFT77ZdpQ9rzPb5D9YLYfYLgXIrBXrvx
-         fIJABlLdAScYMIdLn0ql+bunnbBT6R2G0V34bPqKrCziei+9QH/8N8xwUFj+leolhgqF
-         lbKg==
-X-Gm-Message-State: AOJu0YwLGhTStKuOQ8/kxkp1DxNF5OZqErU6dBgfCEVRXbvui+T2Todn
-	wjKSRc+orcNkyTIpNnSoqaHQN8ZDfwa2k8Mrdm7DMcRIOH1lek+cPJgXq3Ib0ikO0P3OavczNra
-	7Qs0hEBgXdN5VVjZ2fcifFxTjixVOsmDeUOLfY7iR4r0i+DpZuKaf/Bs=
-X-Gm-Gg: ASbGncsGfDGUnD+VxAioWrMCi0lWuz/nEVESyainBAcF+FiKdEJVAgREGixkLR/WNxa
-	su54MSVdbcHWouHTGdCYtCUCIk9nCCoQGTbJOVIx0bOviWTJkLvNHCVJomUPqzp1ry4OItonCRx
-	INd6bhy4y/0TkUF+Y/G6S0GnWhjEXW0ezKUeyH1wJw0r57k4LwkC5St1lAvXpSdRWs94vRXVpS6
-	jaKeQ==
-X-Google-Smtp-Source: AGHT+IF6xcWsbk7zhgGhw+MJwndsTqcGsqy/b7W5Z9a9G6M1UQ5QzdPmQGW1mJzjtsV48KrLflSw911UkWmvHQEBq0g=
-X-Received: by 2002:a05:6808:14d5:b0:420:c2cc:ab97 with SMTP id
- 5614622812f47-42bba0ed57emr7479137b6e.19.1753699205109; Mon, 28 Jul 2025
- 03:40:05 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1753699549; x=1754304349;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=c2DchZiNSLQ1StxfmdwWvlijI4t8cVjnInUAYodZV18=;
+        b=wMxd+0LnnKY6Cz4kMTqhDGdXekZyD4CZhklgDxyvYLZx5A6dl8kBrayA19A+GT0OX6
+         nN7MHTDheGY2JLhv3RFRj04gXzgj6weG4Kij/MJYeZfpkN9zC7Fvs75wRfFd6rz7gcFR
+         zyFBZwEuRoxUiJHVxT6+9jGxkIrELZyuq6gdITbcz1o780GdadBgYsEFQkttglC043Vn
+         8yPtpmMNnDc6mlL9qw3f2FbsBr1B6kh4fCjaujLnom0abX/RTWMUmidvUvPZypTlTGXH
+         r71z3dRD964k/ddnRcjf/z1nJbc90L/j8/0VlL3ikoLgEHfxQL/UJB13a59Pm6YS5/P9
+         Mdag==
+X-Forwarded-Encrypted: i=1; AJvYcCWyFBMVEdGtS0+zKi3UH6iZhSpEUkH9D/+FKG5htLs44qy+tXMfI4/0SNEXdg0aAFzCTSNjy+pnOEM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx2httDa4/QeEx57j7sHU8IGc+8lubLVatkDA8PPHMLFdjPDeSg
+	zNzYIC7OXSlmUXpfcgXRr2No0/VqWvw727ZYkvl2AwkEm6OM8rJRID2CZkck0ss5IhA=
+X-Gm-Gg: ASbGnctKfmkJwzd2XRzEvs7FjSkmhQbMBh+X2JXvyvkwwTq/iX/BLHbM9MgD1urrNHT
+	LuAOQc+QLRmXi6vifmIAwp1BThMKL5pdeiGcQqF3SkK3LNrrZ1iIjIWJRZlqOZDWlCH2TpRx6Q/
+	30qTr7083I0eoU0IS9RlhtP/lw2zK4w+L9ivvGorSWwoX1o/XtBLKDm3LWsSy2aipxpvwTwmK3l
+	ZNUkyDRJz+4gbPsFpPgXCPPAiZOoIRwpuptcuatT4oPaVXsO0p7o9LaHjGHRwsHmklhLh+fa5At
+	IF5z94/4F7c27f6BOxoCXj2ln/lp2MxJk72cdf0Aloizoz9UC0XuZQKMIklmurXmxFfBV6+XPW6
+	+LmyyB1D6ZvvoBhQBlklNfwE3Xn0LagGhfOiYD85IqTnkaX9670BpW25ovP1Q8MfQjyWN
+X-Google-Smtp-Source: AGHT+IH/KC2VrhWW3smwvzdCXmtYkqdvtOpW+Nxhz963aNRGS8ShUpdIX0JmJmnDrY0ZxG5pZ4Cnzg==
+X-Received: by 2002:a05:600c:19d1:b0:456:eab:6344 with SMTP id 5b1f17b1804b1-4587631448fmr109305525e9.15.1753699548880;
+        Mon, 28 Jul 2025 03:45:48 -0700 (PDT)
+Message-ID: <b4e3c287-7847-4cdc-8fbb-bb788a6de8b5@citrix.com>
+Date: Mon, 28 Jul 2025 11:45:47 +0100
 MIME-Version: 1.0
-References: <20250708135701.119601-1-frediano.ziglio@cloud.com>
-In-Reply-To: <20250708135701.119601-1-frediano.ziglio@cloud.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Mon, 28 Jul 2025 11:39:54 +0100
-X-Gm-Features: Ac12FXzS_xZXZiI6TsN_V1VbMFRjwFQrQvMuWIjFxvhloTVtIBnMNYCSGNuAQIs
-Message-ID: <CACHz=Zj1n1=azmve2QZT4W7O_dcZqZY0M1GBnkTKfDzZrsGqhg@mail.gmail.com>
-Subject: Re: [PATCH v2] xen/efi: Fix crash with initial empty EFI options
-To: xen-devel@lists.xenproject.org
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-	Jan Beulich <jbeulich@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] tools/xl: don't crash on NULL command line
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>
+References: <20250728102422.2245808-1-marmarek@invisiblethingslab.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250728102422.2245808-1-marmarek@invisiblethingslab.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-ping
+On 28/07/2025 11:24 am, Marek Marczykowski-Górecki wrote:
+> When running xl in a domU, it doesn't have access to the Xen command
+> line. Before the non-truncating xc_xenver_cmdline(), it was always set
+> with strdup, possibly of an empty string. Now it's NULL. Treat it the
+> same as empty cmdline, as it was before. Autoballoon isn't relevant for
+> xl devd in a domU anyway.
+>
+> Fixes: 75f91607621c ("tools: Introduce a non-truncating xc_xenver_cmdline()")
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> ---
+> So, apparently the "No API/ABI change" was a lie... it changed "empty
+> string" to NULL in libxl_version_info->commandline. Quick search didn't
+> spot any other (in-tree) place that could trip on NULL there. IMO NULL
+> value in this case makes more sense. Buf maybe for the API stability
+> reasons the old behavior should be restored?
 
-On Tue, Jul 8, 2025 at 2:57=E2=80=AFPM Frediano Ziglio
-<frediano.ziglio@cloud.com> wrote:
->
-> EFI code path split options from EFI LoadOptions fields in 2
-> pieces, first EFI options, second Xen options.
-> "get_argv" function is called first to get the number of arguments
-> in the LoadOptions, second, after allocating enough space, to
-> fill some "argc"/"argv" variable. However the first parsing could
-> be different from second as second is able to detect "--" argument
-> separator. So it was possible that "argc" was bigger that the "argv"
-> array leading to potential buffer overflows, in particular
-> a string like "-- a b c" would lead to buffer overflow in "argv"
-> resulting in crashes.
-> Using EFI shell is possible to pass any kind of string in
-> LoadOptions.
->
-> Fixes: bf6501a62e80 ("x86-64: EFI boot code")
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> ---
-> Changes since v1:
-> - use argc to make code more clear;
-> - fix commit reference;
-> - improve commit message.
-> ---
->  xen/common/efi/boot.c | 13 +++++++------
->  1 file changed, 7 insertions(+), 6 deletions(-)
->
-> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-> index 9306dc8953..385292ad4e 100644
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -350,10 +350,11 @@ static unsigned int __init get_argv(unsigned int ar=
-gc, CHAR16 **argv,
->
->      if ( argc )
->      {
-> +        argc =3D 0;
->          cmdline =3D data + *offset;
->          /* EFI_LOAD_OPTION does not supply an image name as first compon=
-ent. */
->          if ( *offset )
-> -            *argv++ =3D NULL;
-> +            argv[argc++] =3D NULL;
->      }
->      else if ( size > sizeof(*cmdline) && !(size % sizeof(*cmdline)) &&
->                (wmemchr(data, 0, size / sizeof(*cmdline)) =3D=3D
-> @@ -414,14 +415,14 @@ static unsigned int __init get_argv(unsigned int ar=
-gc, CHAR16 **argv,
->                  ++argc;
->              else if ( prev && wstrcmp(prev, L"--") =3D=3D 0 )
->              {
-> -                --argv;
-> +                --argc;
->                  if ( options )
->                      *options =3D cmdline;
->                  break;
->              }
->              else
->              {
-> -                *argv++ =3D prev =3D ptr;
-> +                argv[argc++] =3D prev =3D ptr;
->                  *ptr =3D *cmdline;
->                  *++ptr =3D 0;
->              }
-> @@ -429,7 +430,7 @@ static unsigned int __init get_argv(unsigned int argc=
-, CHAR16 **argv,
->          prev_sep =3D cur_sep;
->      }
->      if ( argv )
-> -        *argv =3D NULL;
-> +        argv[argc] =3D NULL;
->      return argc;
->  }
->
-> @@ -1348,8 +1349,8 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE Im=
-ageHandle,
->                                    (argc + 1) * sizeof(*argv) +
->                                        loaded_image->LoadOptionsSize,
->                                    (void **)&argv) =3D=3D EFI_SUCCESS )
-> -            get_argv(argc, argv, loaded_image->LoadOptions,
-> -                     loaded_image->LoadOptionsSize, &offset, &options);
-> +            argc =3D get_argv(argc, argv, loaded_image->LoadOptions,
-> +                            loaded_image->LoadOptionsSize, &offset, &opt=
-ions);
->          else
->              argc =3D 0;
->          for ( i =3D 1; i < argc; ++i )
-> --
-> 2.43.0
->
+Hmm, I didn't intend to change things, but I also didn't anticipate
+libxl__strdup()'s behaviour, or for something to depend on that.
+
+While this does turn out to be a marginal API change, I think your
+solution is the right one.  I do not think it's reasonable for there to
+be one magic pointer that has differing NULL-ness to the others, and
+NULL for "no information" is the better interface.
+
+That said, is the other use fully safe?  I can't see anything that
+requires sprintf()'s %s to detect a NULL pointer and not crash.
+
+> PS I'm working on a CI test for this case (and driver domains in
+> general). I have it working with Alpine already, but it wouldn't detect
+> this issue, as musl's regexec() doesn't crash on NULL... So, I'll add a
+> test on Debian too.
+
+Excellent.
+
+~Andrew
 
