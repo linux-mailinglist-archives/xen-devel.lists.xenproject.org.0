@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2101CB1442C
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 00:03:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1061972.1427582 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1CCDB1443C
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 00:15:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1061979.1427592 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugVwJ-0000N7-O3; Mon, 28 Jul 2025 22:03:23 +0000
+	id 1ugW7i-00021p-Jb; Mon, 28 Jul 2025 22:15:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1061972.1427582; Mon, 28 Jul 2025 22:03:23 +0000
+Received: by outflank-mailman (output) from mailman id 1061979.1427592; Mon, 28 Jul 2025 22:15:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugVwJ-0000L0-LA; Mon, 28 Jul 2025 22:03:23 +0000
-Received: by outflank-mailman (input) for mailman id 1061972;
- Mon, 28 Jul 2025 22:03:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LT6m=2J=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1ugVwI-0000Ku-8P
- for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 22:03:22 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aa80e92c-6bfe-11f0-a31e-13f23c93f187;
- Tue, 29 Jul 2025 00:03:17 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3b78bca0890so648490f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 15:03:17 -0700 (PDT)
-Received: from [192.168.69.209] (88-187-86-199.subs.proxad.net.
- [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4587ac76b92sm109791715e9.32.2025.07.28.15.03.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Jul 2025 15:03:16 -0700 (PDT)
+	id 1ugW7i-0001zW-FF; Mon, 28 Jul 2025 22:15:10 +0000
+Received: by outflank-mailman (input) for mailman id 1061979;
+ Mon, 28 Jul 2025 22:15:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=l9gA=2J=epam.com=dmytro_prokopchuk1@srs-se1.protection.inumbo.net>)
+ id 1ugW7h-0001zQ-3U
+ for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 22:15:09 +0000
+Received: from GVXPR05CU001.outbound.protection.outlook.com
+ (mail-swedencentralazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c202::7])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 51274088-6c00-11f0-b895-0df219b8e170;
+ Tue, 29 Jul 2025 00:15:06 +0200 (CEST)
+Received: from GV2PR03MB9572.eurprd03.prod.outlook.com (2603:10a6:150:da::5)
+ by PA6PR03MB10244.eurprd03.prod.outlook.com (2603:10a6:102:3d2::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.26; Mon, 28 Jul
+ 2025 22:15:03 +0000
+Received: from GV2PR03MB9572.eurprd03.prod.outlook.com
+ ([fe80::edd1:842f:9b14:509e]) by GV2PR03MB9572.eurprd03.prod.outlook.com
+ ([fe80::edd1:842f:9b14:509e%3]) with mapi id 15.20.8964.025; Mon, 28 Jul 2025
+ 22:15:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,69 +47,209 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aa80e92c-6bfe-11f0-a31e-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1753740197; x=1754344997; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=RNIcMWrT77lRSI5yJdux4FBr4DfzeqIMHH1qpDmp+PU=;
-        b=ec8ZVsdYoX0/nX+r6TFyND/kXiGGvBbFtiMS/2NSIssxQg4r7K4QAWm7xgtcrbmWBF
-         3A752yCnaSl9Z0qIog7Fe5733cT1uYiJg/acnsB7xV3paBcacRc5sMPtfx1TgVwrfBh7
-         bstBIEQ2P1/VdeixmISS1q3XeITrjMdYtjwcEtVJ2YjGJKj3OD0LbvEeUuqKhJqG0MN/
-         +XJH7wSV0yRYTJrdeT4mhfDXQ11sx4hNeunS4Gmwtb8LpnsW7eZhNN+ykBmtSNoIhRiS
-         u+F7+Y2fopTczY00cWvmpeZT1/f9i7nzVYwYBeaaTEWNcat4U2hNuqeupIaz3DJWfdp8
-         Zsig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753740197; x=1754344997;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=RNIcMWrT77lRSI5yJdux4FBr4DfzeqIMHH1qpDmp+PU=;
-        b=jNQoYSWir38GZlPLIqgBOBn9vTcI+0Irygj1dkGXhLfuUgNPJN3zK9iHdcm2jBwgnD
-         ElphPBobdBB95KdvUNbDn8PA4TlPVdSZR/8bpkPxX9v6jREUNgboj9HcHTZAkpS7TibC
-         +xjmmX8yNW7E62vb11ykzg5cWk2Yn+IfhBtgtHo4DcOnbt+tW4hJIQz9LuyV3nmfp5ci
-         53oc1E9I/X4I/C2JmemO2Qz5yr9W73ij8WS5BrOph0ARNxMu3jYfhlatVl460mKxJnsT
-         kMs9+9zXY7CSNkIWfUSE9Kn/ywfmilxb9WVwh8OSFiG1nS+remjx1V0SQGrzZ3HbJgLv
-         wPBA==
-X-Forwarded-Encrypted: i=1; AJvYcCUMe+S5ayIlRgTuhRd3P0SpesdwdbRxW+qpBCQ/TVqd0BcpFt6yQIsR5nV+iCsoUXiT55JEPq1KKTk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyDChjiu5NPt8VunuJY4T9q/IHE0geX7e8PVB+Fltz/hnyFaDDP
-	1m/p0tvcX1eD9cpKc63eAy86luTOT6PlyDjEJ/bwxnvTMzhuVI0cuqtMwvnxU/3VNvw=
-X-Gm-Gg: ASbGncu88tUE8urd4oDy7uVsXZ5kUMzx7oAWoTBlwdSUqJtUYcxjbrtorDIWyd8dfLm
-	BBjPUKEQCQg6cLVBjp7Ka5KgIGkh6R3KoQ9ZRnBO1CCryM+TJt+gqyYaqKj0G9wg3AN/EpLK7Xc
-	SBLeDxFiXDyqnj8v7IGezJ89vv2HpqQL7aTAcQDHUEUkXXZXCqwZGS1ij5jmSUJEOnP+6i77I9t
-	EB2vM8lvl8YaKvaP84Y/WtY56VMdPDnGaDz4masuW2QeUNeUe4KqmZqkp70zBFhZYhKrbZJ1Znf
-	sFzU9lYusjnaNeiSjDtkGBXPN8zNjX0S1cjWApckMMnfEt2RGGWfifbTZKugXBISMOQYhD79Vf8
-	ytSuF7IWPGieQ3/w6Q4TxGOo2Hm/CUaU+1ZBtGx0+TQi1lgbUpDNMVzHnrLgTTjgccg==
-X-Google-Smtp-Source: AGHT+IFXbprBq/nqvVOgW0TQZTcZxJT6uBqAu5FR/QXzaf3Ftm6UCd9ha+8+mUgcBdzxbAhoHz4Dow==
-X-Received: by 2002:a05:600c:1da8:b0:450:d386:1afb with SMTP id 5b1f17b1804b1-4587d83d6a0mr86970465e9.9.1753740196915;
-        Mon, 28 Jul 2025 15:03:16 -0700 (PDT)
-Message-ID: <09452c14-9ca6-4e7e-9a57-a71e6c24c84b@linaro.org>
-Date: Tue, 29 Jul 2025 00:03:15 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/passthrough: add missing error-report include
-To: Adam Williamson <awilliam@redhat.com>, qemu-devel@nongnu.org
-Cc: Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
- Anthony PERARD <anthony@xenproject.org>
-References: <20250717220207.171040-1-awilliam@redhat.com>
+X-Inumbo-ID: 51274088-6c00-11f0-b895-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IyVU9jnQonxcSjMA2jsMS79MuwX45+qk0kcVDEe4qSy2PbFGmqJkg60OMFo4g7KLaULGpqwCbeRPnt4SbLul7K+s9LBlMlksOVCgl8Eys4SPL+KkZ8rMUW/ECeTHRfGHtX7BaHhpxNvVFhpCjMnz2dryo6HfAx0X5VT5jvjGmXDDrr+HsTa7IeWxTpl/XfSaYhjCtwIGXaTjOrFwuyM9r3V8By5ka0ZqZaW6TKKRZ4OR0x5rOdTcQpzpv3l+TyDT2b4h95HYSGj8OzeqkGyPjwRuKKqXDXcl5S0VKRC10Q2l1cbC+UVHNty0n3s6XW1aN48bbHTtAn5396SWmmkWog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dPdE5XEh1lmOM8CGOCe1XMb/1rdRrKm63xpOavuKZUA=;
+ b=t8PleQNQ63TM+hQZz5LPrAY9/7ECHByqm6P9sl+vzc7CRjGtUAJ8y2aYMrWyqg4741MOJKAihmaNsbC7nerBxJDTXhpu+J8xkTQ3x5OH3/nMhjBhWq5IhaXTVbokrA9RmSRSL6sQdh6zwX/Fm6DnZMzx227jNVEvefsbprh2DstyU0KOCIVZUZtvamB2Yf6yG3NfuOXGBMVQvckAENSQzOFlXyufjJb4Lkl+qNG1JY11/mA9tt+MNy9n1nXeO+WswfRGSEzorrkMefqCvb7bxLuLa9DIieTgkFNYocnwef6ezU5KI71bmubIxkRPtPz3AiAIrKaS/dozz1UwK7DWaw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dPdE5XEh1lmOM8CGOCe1XMb/1rdRrKm63xpOavuKZUA=;
+ b=M+2xzEFUQFeeniR0ML13+MNVYGj+tSNxSSmOjXhutxRN9tSW+VqvQ5RPxUnyyxnz8GW0Bisln+vA/QYyGXMkmr0cfnAAFIulQvwjEXW9Ni2yEIKchrdWzxRbvLRmimnxGdmL/NoVR6jKYlAgYO1TBwpDXtPsES/hKuV0MiEVACRZPhDpbbG++Ipr0qmAhccMApWWObn99cJkwFIVUkgQCcqg7LoK8le/B68gF4wNdg5uDU8IZzA1CMzLbB6eANzypKX+s4L/ecXb+BKVWM5/MwObOO2zTm/4w8nJAl0DOQJg3Vyc2gVrj4Epq5/txtLrSq8yPk2HV/Ilpph5z6QXHg==
+From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>, Nicola Vetrini
+	<nicola.vetrini@bugseng.com>, Doug Goldstein <cardoe@cardoe.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
+ Grall <julien@xen.org>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>
+Subject: [PATCH] misra/eclair: set 'noreturn' attribute as safe during cast
+Thread-Topic: [PATCH] misra/eclair: set 'noreturn' attribute as safe during
+ cast
+Thread-Index: AQHcAA0QZaFBUUSap0maTjLkZJJTcQ==
+Date: Mon, 28 Jul 2025 22:15:02 +0000
+Message-ID:
+ <8989bf6d8d245537628912a00f5ba4731b292fb1.1753738107.git.dmytro_prokopchuk1@epam.com>
+Accept-Language: en-US, uk-UA, ru-RU
 Content-Language: en-US
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <20250717220207.171040-1-awilliam@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV2PR03MB9572:EE_|PA6PR03MB10244:EE_
+x-ms-office365-filtering-correlation-id: 39520472-f566-43e7-83ef-08ddce2432fc
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|42112799006|1800799024|7416014|376014|366016|38070700018;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?K+ulHRQ+0GXvexrIGuaulVXv/ZnfSZhCtIYpd57TqEvY+SpXElB9YbAs7W?=
+ =?iso-8859-1?Q?6pRhNtI+WgONdTHxQy1Kh2NR+WOJdoBBv66v/w+/hR7/wIZULiWGL1lG+o?=
+ =?iso-8859-1?Q?SUo2SmtO/IGTpTzg9HGVEBSebh0YzKdwT1kvI9PR37MHagVbyZTYhxjrJT?=
+ =?iso-8859-1?Q?cA4O6g3EdkQYa4C4bo9r5DM+u9zCtxBYgc+v+MF+gCV5qR7On+xpwOpOEx?=
+ =?iso-8859-1?Q?mQg2m7tCOg3C5a11e7a1ciahsxXWL7Bc/DKfoW9aMlXZlmCkQSpCLsV3PE?=
+ =?iso-8859-1?Q?G94LYzwYFVTu42D6yt/BolbfVr/kGPJ3AszUjMQbdIsG2z8zAhlpBgjfPC?=
+ =?iso-8859-1?Q?1a6D8Io/+0+AIAiwxr40aybqgWCM9f2yaZ44R5zrqTG/NCLwG2mOwE2ehO?=
+ =?iso-8859-1?Q?ZMYQvTwovjrDd3AxS1rBN1JS5PiGGyg7DK7ZHrjgGgi6wx8uXJCL/6vedN?=
+ =?iso-8859-1?Q?gOv7f67lVi7tZaFanI2kUEJtK3FxgcOHakJEFacxPplmpb300FhIjCmwpP?=
+ =?iso-8859-1?Q?oYK7O1mDOC279IbxmBUBy726I0tf+W9qmo/EirCxFjvYRmk1HFb2idKmx7?=
+ =?iso-8859-1?Q?Kn14rWcI+wVnfdNKtcClCqAlHDXbgh3UMaaAHohw0m8PWBDFT8CI0vJPX/?=
+ =?iso-8859-1?Q?BO3PEVBj9Hwe9PkOFxu4Z8u05+3dh45uKB1AR98Nfmq24GuwH0CZaHZUH6?=
+ =?iso-8859-1?Q?WE+0c3q6xL92amNZMnxnTsN6PUc00+slmpfb2lpOWngpuangGqhjNI2+O1?=
+ =?iso-8859-1?Q?CXrxkWk00ed4lcWTG23x+sI+xdJZX/opRr7fsQ9JWKUf3dK/aWwe+EXib6?=
+ =?iso-8859-1?Q?4z10BvE9F/Jtaicv8pkSi01ZgAQaRR19AHHL649lrcVVMZPvXR9sloC62X?=
+ =?iso-8859-1?Q?097ie8Uao29xjJS2B4ID+H2VgTOEYwbX8papNxyrimw9khS4X7WYIS50WX?=
+ =?iso-8859-1?Q?o0ekCFfqQyzJryCuR4ZuRoaXkYKHsi1on1S+fNZubjt+8Iam9As0EmyOLG?=
+ =?iso-8859-1?Q?MaEVR2tzA/Cj/agaGSWAxGD72gxODFgkk/hg/C3q8qRk48sJMbufzlx9HM?=
+ =?iso-8859-1?Q?D95UWEdv2o3BR9/ay8ZcMyRmy+t95zJ9ylE4zw0ytjDBcyDXJfDV4tYw1B?=
+ =?iso-8859-1?Q?EtGANtCGiCXgSzoDweelfKMPt2/47jUXcLaZ8I9+WIISvsq53VJHH1PQ9f?=
+ =?iso-8859-1?Q?zy/pg1JYrjgl0txUdD8JuPKe9hhQ6Va6eZu5fItTRWimGWGtpnYEpi8nR1?=
+ =?iso-8859-1?Q?3/1jLzr87Kj9X286JqAysrElES33fcryYeD61yh3U3yjxChD/3HOAJvIXH?=
+ =?iso-8859-1?Q?0oPqgDcy7UUGbchVvKX6gCwuKDKJ+IH/kAVVFgsGdmXgLcFjj3iExRJKvW?=
+ =?iso-8859-1?Q?HOIciH44vMyX8A0zSR9luNqJjaE8F01oyUJRiMtEQT+zI9lZ4UdGsPANsl?=
+ =?iso-8859-1?Q?qWINuVSKgyKXzX8x4eZZNXnOKNbuUxyCR+1F9upQQtSByg5dY+iaxt+0XW?=
+ =?iso-8859-1?Q?Q=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB9572.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(42112799006)(1800799024)(7416014)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?yxZTYLRloccFrY6jWxD9VFfHhahMhDZejt3eswvznJs8eS7sgdNOvQUWHG?=
+ =?iso-8859-1?Q?QPHRxWYRSR4Nc3uQh3yHjl/CFSnpqrvYYeLhLLD/B2CBwfSwt8+Cbd8xK2?=
+ =?iso-8859-1?Q?YdgjRHtBd6Qxdm9w73CEN/fgkqY0H6Dv1iDdbx+hyF1ynRDwlvy2FFzYK9?=
+ =?iso-8859-1?Q?dWUtpyYt0IULGdvkO7+deVaFCVlvmvLlZ544ICgknfaKOsVYu7gaLFnn7e?=
+ =?iso-8859-1?Q?zF5f78vN9ZXoWQSISSR57ZRgRd143KI1RFgqh3lpTaPrecFlAbJsIfqQSC?=
+ =?iso-8859-1?Q?bigtYnNy25V9PNZ8oQzJtY+Sbc5WxSHbBFulf99qL+al6EmTxr8H1xwXgp?=
+ =?iso-8859-1?Q?QDGyi3V0NxDINySXyAoQeev9JdXISkh3zoz+sNqFUHZuxrUCtcMWp0jdWN?=
+ =?iso-8859-1?Q?BIpLrkRm7oQFHMXnpOhK4V2heRn08EjxReGq/9LrH2/6KpBk5Ngn5JrsTv?=
+ =?iso-8859-1?Q?NY03wk4EDqdURVSvyCeUcvv59nlw3euB1cd9LNS/mjBgj9s1aBoWLPo71e?=
+ =?iso-8859-1?Q?RkBZ/Lra/b22r/mL499JBOxh0CivZH8vFxr/aOD4NdZBeI6Aw8mDLdYFQY?=
+ =?iso-8859-1?Q?K1Abbqhwhoa6U1uxy2InCw5b/G/eirn8MLt5wtMSOsIXqzU3wBh7hGiAU2?=
+ =?iso-8859-1?Q?iS+uVCinYEVmKMrS19gXpTGpIDnguS4Cv2ZqujeINbPYZXf/+fgvh1Z48K?=
+ =?iso-8859-1?Q?JlVed1QVn5vndDqrJJALopfvht5Z9umoH2FmARAxMU/FGq0iRIWK6d9oO7?=
+ =?iso-8859-1?Q?1ezbBHCPuN/Jcq6Kqcq+TIyDIELerHNW6iCGoiQnuVUkCgFGSSZf08dy4C?=
+ =?iso-8859-1?Q?xapcZPyUlcA5Oak09mxugd8maLtVfCkkcGT++R9TK4tGOtalcz9J3XvOQw?=
+ =?iso-8859-1?Q?47vdqcByCVMAM6AxwrQmFlZP8z6w5jAbzqB4PyLATb5RzwUzJ5X1M/NfH2?=
+ =?iso-8859-1?Q?42UQ8oh0PhaHQ9boggk9cZ0WrLqsGLXBosEFRMyMq8OYnqQaKHMGLl6xbE?=
+ =?iso-8859-1?Q?56qyK1mGIOI/03taE8erRzF2N8ypc0C1CwIookaWQYPeSJGskT1vobf9wg?=
+ =?iso-8859-1?Q?D1uojDiUyQeHrU39K5SxYjzerm2mShzkzAX7mAES+aXnsSk2GRgda6fWIq?=
+ =?iso-8859-1?Q?LcLvdhlkHmLIBHYdKS/sVrcYi8vFtSU+zTgxuCl6Zhrx5V5SddGQNmEAk/?=
+ =?iso-8859-1?Q?tOtaQcsmgeUi5iBNDvbXILFE/idtyRXpjSWRy7R1vjsDLNhNjbRGYFiIK9?=
+ =?iso-8859-1?Q?IDZfaLLQwbge5MgmPMSOJQKqxyGkuv3oxH+489kmVHTf1Vi9GwhzvEJFN3?=
+ =?iso-8859-1?Q?SvCFdCI2BqnZVIudh8BTmfNAFBH0WUqoT9FtqtVv0/pYKhnjP/ekvKEGU3?=
+ =?iso-8859-1?Q?ri7JPJ33l+ud57liFRgi5LpBHEAsZMsNgZPwjOMHjixr7uUPVDqDFrsNMk?=
+ =?iso-8859-1?Q?neoU/Hrde03pWVp1IcJ/f+W07cgl1A+53QHp9fMIrO62YXIBxWmhZ9CGod?=
+ =?iso-8859-1?Q?rOxRHagYp2Vsw68pF5HIRm415ZELpNZ8PFFzF3qELUWyQXkqdYf/kUMyQg?=
+ =?iso-8859-1?Q?Q/yiDnsQCMOFMdHsLLx1raQg4z519q7Xj4Vpl86StxXCmoJxly/N/4nvzI?=
+ =?iso-8859-1?Q?aQTw44l6mYtrkHFmaA2JDXiZueDARUjbeGKD3NuG+gFCbeltu/jDhN9g?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB9572.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39520472-f566-43e7-83ef-08ddce2432fc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Jul 2025 22:15:02.5643
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /N6+4nRd8GrwI8ykER/k8BneBx/kvA1LIUWsiPrc2KYMuWst1at/AKZAXM6JkntTGGyVxWV+uMcHn+2hbYU8PzK/Bawo7YajDKEI4YLJcsA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR03MB10244
 
-On 18/7/25 00:02, Adam Williamson wrote:
-> In cfcacba an `error_report` was added to this file, but the
-> corresponding include of `qemu/error-report.h` was missed. This
-> only becomes apparent when building against Xen 4.20+.
-> 
-> Signed-off-by: Adam Williamson <awilliam@redhat.com>
-> ---
->   hw/xen/xen_pt.c | 1 +
->   1 file changed, 1 insertion(+)
+ECLAIR reports a non-compliant cast due to the presence
+of the 'noreturn' attribute in the callee function.
+The issue occurs when casting a function pointer with
+the 'noreturn' attribute (void noreturn (*)(void *))
+to a general function pointer type (void (*)(void *)).
 
-Patch queued, thanks!
+Configure ECLAIR to treat 'noreturn' attributes as safe
+in this conversion.
+
+Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+---
+Previous discussion thread:
+https://patchew.org/Xen/181a03d5c7625d42c06cf9fa0cf48a9bc6825361.1753647875=
+.git.dmytro._5Fprokopchuk1@epam.com/
+
+Test CI pipeline:
+https://gitlab.com/xen-project/people/dimaprkp4k/xen/-/pipelines/1953370442
+---
+ automation/eclair_analysis/ECLAIR/deviations.ecl | 7 +++++++
+ docs/misra/deviations.rst                        | 6 ++++++
+ docs/misra/rules.rst                             | 3 ++-
+ 3 files changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/=
+eclair_analysis/ECLAIR/deviations.ecl
+index 483507e7b9..0e04681c4c 100644
+--- a/automation/eclair_analysis/ECLAIR/deviations.ecl
++++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+@@ -367,6 +367,13 @@ constant expressions are required.\""
+ }
+ -doc_end
+=20
++-doc_begin=3D"The conversion from 'void noreturn (*)(void *)' to 'void (*)=
+(void *)' is safe
++because the semantics of the 'noreturn' attribute do not alter the calling=
+ convention or behavior of the resulting code."
++-config=3DMC3A2.R11.1,casts+=3D{safe,
++  "kind(bitcast)&&to(type(pointer(inner(return(builtin(void))&&all_param(1=
+, pointer(builtin(void)))))))&&from(expr(skip(!syntactic(),
++   ref(property(noreturn)))))"}=20
++-doc_end
++
+ -doc_begin=3D"The conversion from a pointer to an incomplete type to unsig=
+ned long does not lose any information, provided that the target type has e=
+nough bits to store it."
+ -config=3DMC3A2.R11.2,casts+=3D{safe,
+   "from(type(any()))
+diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+index e78179fcb8..4e430bb17e 100644
+--- a/docs/misra/deviations.rst
++++ b/docs/misra/deviations.rst
+@@ -342,6 +342,12 @@ Deviations related to MISRA C:2012 Rules:
+        semantics that do not lead to unexpected behaviour.
+      - Tagged as `safe` for ECLAIR.
+=20
++   * - R11.1
++     - The conversion from 'void noreturn (*)(void *)' to 'void (*)(void *=
+)'
++       is safe because the semantics of the 'noreturn' attribute do not al=
+ter
++       the calling convention or behavior of the resulting code.
++     - Tagged as `safe` for ECLAIR.
++
+    * - R11.2
+      - The conversion from a pointer to an incomplete type to unsigned lon=
+g
+        does not lose any information, provided that the target type has en=
+ough
+diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
+index 3e014a6298..82a26162a9 100644
+--- a/docs/misra/rules.rst
++++ b/docs/misra/rules.rst
+@@ -404,7 +404,8 @@ maintainers if you want to suggest a change.
+        function and any other type
+      - All conversions to integer types are permitted if the destination
+        type has enough bits to hold the entire value. Conversions to
+-       bool and void* are permitted.
++       bool and void* are permitted. Conversions from 'void noreturn (*)(v=
+oid *)'
++       to 'void (*)(void *)' are permitted.
+=20
+    * - `Rule 11.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-S=
+uite/-/blob/master/R_11_02.c>`_
+      - Required
+--=20
+2.43.0
 
