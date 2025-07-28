@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0612B14156
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 19:44:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1061802.1427382 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D442B14185
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 19:56:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1061809.1427391 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugRtH-0000xP-MF; Mon, 28 Jul 2025 17:43:59 +0000
+	id 1ugS4t-0002dz-MQ; Mon, 28 Jul 2025 17:55:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1061802.1427382; Mon, 28 Jul 2025 17:43:59 +0000
+Received: by outflank-mailman (output) from mailman id 1061809.1427391; Mon, 28 Jul 2025 17:55:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugRtH-0000vx-JX; Mon, 28 Jul 2025 17:43:59 +0000
-Received: by outflank-mailman (input) for mailman id 1061802;
- Mon, 28 Jul 2025 17:43:58 +0000
+	id 1ugS4t-0002bn-JC; Mon, 28 Jul 2025 17:55:59 +0000
+Received: by outflank-mailman (input) for mailman id 1061809;
+ Mon, 28 Jul 2025 17:55:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=s93S=2J=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1ugRtG-0000vr-El
- for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 17:43:58 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=YAI4=2J=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ugS4r-0002bc-Sa
+ for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 17:55:57 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6cda4c1b-6bda-11f0-a31e-13f23c93f187;
- Mon, 28 Jul 2025 19:43:57 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id DCED54EE3BFE;
- Mon, 28 Jul 2025 19:43:50 +0200 (CEST)
+ id 1c89bc4e-6bdc-11f0-a31e-13f23c93f187;
+ Mon, 28 Jul 2025 19:55:56 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3b786421e36so1185462f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 10:55:56 -0700 (PDT)
+Received: from localhost.localdomain (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-458705bcb96sm169306385e9.21.2025.07.28.10.55.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Jul 2025 10:55:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,146 +45,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6cda4c1b-6bda-11f0-a31e-13f23c93f187
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1753724631;
-	b=aFemo4I8T/y33RxSgGCGXhxMed5JDCyast8hBF6VSMZtoINqWAjiFv+FmTK3fIWYYh/J
-	 xCsbE10X/Dr6ZSKdqdh5pm7VO8qXRCdFNgfGaTQbKvoZUkCI81Y5mGCcbhEXt4Ik/N/Rz
-	 w0KZNg+hvpP/+IGto16kvOkxIXjqC1IPyZJ3YW6lB3FaljfLWlbAb4GZm+y35YwHG2E3y
-	 tUV3Ym/3TV7orpufR+OMqkWAQLX4RT4AsEOtJQzb7kkmEsOLKcYPWTGxtGw+f5CybPFzS
-	 fwjCXJP1C76pD8ZWvjkmELmoARs1mnpIkfXYrw7z5CkGrYbbIUinCkXE36/G8njgJS9jk
-	 ZqKrvTDD0bap6gnhCjf0+j4rTslI09uLQlzsNBtGOtAFC4KJIYMAd52/P17KEYB5jtyUy
-	 eC6e68vAWVF35PHKb3gWoT74WQA2LDH/DQP1AcI3R2e+Fx8PPBY353ppOc7IQZR7AOPCM
-	 6LtYief90svPu21gJoJ2qa16zSXTJZE6A/iZxcfnDr3Dpq6N3fSLPtK9GeFqmQaTJhtMV
-	 9Z5+81CENEc4NbfiD2sUof6snMkikaKjzY7PU/uWwN33E1uYgo1FsmuL+j7xUMiOAk973
-	 nryAIkKs/tohc1UbkZbiaaPMy3G+c+AkJp78Mh+iVwi6vVl2KMfLI80pyMvquBg=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1753724631;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=7BPNj/8AaJau18LtVlMhCLst9WTNlnZPcyFNXMfgwC0=;
-	b=3XhAwbm8yEX+1iYOKvPwMNSo3TNp0bsKSIGyrjpaKIXvR9TA74yttrlSqTUdU/d3+Zj/
-	 CyY/R6OMsIZvRKgjyWAHFOXxCiUGXqMe49XUI4m/bQ2ygG82ezzoTefP7RyatIPVA3/Hh
-	 klWRtsbkQ6JOdvp4KUAosXnprOewAFAFWOPxqkvyplUJsuV6Br+zNsG09HYTW4chwvoNA
-	 x39kE9nT7F8eU2Fq6OC9hYM0ROQFkQYQdbi8f4XrcEMoY50PO+YCWf7allVYcOdkOrmpN
-	 p3TOWyr1BPloZCYcHlwyNj4Br5hvdPOhBz+iiUKrUAEbv+OXm0q25ugHLp6fm8OhmkVz+
-	 JtRlLA/TFsJL/WmBFAEgLLVDG+Vpn0KFreg5e3PY6YMrK8lexoE3P0NBYqia8JFq7EOQp
-	 9DZr7TP2NxAd+NJBtUSSxXsviK3QgZq1UNqq85kVDTSvPg5LjK0odoxXIyyp5CHLOuVO+
-	 0mQgsH/0bE5ZVuKM45FBST8HDng9PHIEXpAXnE+k4AVf7jeMcAdUwHuHBN1XB7QVycxzu
-	 jCfqLm9vApvdeHwSnopTbGWw6QlJ75QocSvJiPG7epmm1MHkdANMw3lTEc25h3GvTKguT
-	 WacyNBDmw/pb7GaeV/ux2ix3RbtUoC7rv3dAJ4jnvCsZllvI17g7HbfVumvCHro=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1753724631; bh=9PqloJ+0n3WzHkXncwBWw1mcZoAvq3wKEr8YBuvhNW8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=J3/aV1UWf2DPeg/14XtYWj0U28/tPs+UQpJYpWLjQiNioprLbgVeEtyH2YyIzIH1n
-	 MUqcMs0p14epMrNZK4zbBWXqIGs66z8mTTguF2tNfwJz0MNYzRJnoYGzF4FWOokcHa
-	 oqvVI2xxSPulkZNKbvXQMSk2puTD1U9oiGZU3iWmlAzItV4+GHYbT+IAzvwXw83MRs
-	 6s76WOY4zppirgA+Tzr5hJ1POLTJBA/9an1m1oxFz53YgFulv9Zd776aV0HwY0Lxco
-	 E+eQlEqaN1BEpnOsR+Wi1SS7EOL5ewu2tqTmyYDIA+LTlwFsy6682ZyyxoQPxLFu7Y
-	 tLeQ6fJUq1BrQ==
+X-Inumbo-ID: 1c89bc4e-6bdc-11f0-a31e-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1753725356; x=1754330156; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=67/qEWjQufU5KgRZYeEsZL/UIgHDmoY6gXurd4PjnVc=;
+        b=Q1vjPTEkOjcpy9yI/U3zJb3eZRrj0h8gG84hbdbWRAECO7vAOS295lHMSGdPnADi4K
+         Ibg2rO6Dqa4b+Jy7x5GRXPDfUNy3xwlxySoFcF/50VhnLltSoZbfNCAQ42EcJBPOOLZa
+         pY718kZeSS8awMn8yzcF2VhTzFTcNJ48r6VRY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753725356; x=1754330156;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=67/qEWjQufU5KgRZYeEsZL/UIgHDmoY6gXurd4PjnVc=;
+        b=hJRBrRR8qmi+gBVPTii+lDkcGGv3g+9C6mrenWBdccN7LpQSUDo5FIhXICK9Scm/Ck
+         y5EejoNpWuM9BjO4FQjNdsDIpWGBy5KFvtM5k3afcotkv3QwUww8yeOD91Y/tnhbdWiT
+         I8iTCwpcZzXtX+mRPsAQE2Jgy3tjuLN5zZ78JEJZo8q8hyMC+lNLHbo0op5cxJYA0lv3
+         Z2xhyhM2AiUFsINF+jHmqikf0CUIS+JQV3C8OctWoPDDGM8ESxrieOVpIi53DLS+hQuB
+         NQgrXbABWZ2fxiQ6x4Zy/sxcLFFYPjUBVt+PiPSGG7AmBGSr3Ly66SM2hK2wrikdgIe4
+         6t0g==
+X-Gm-Message-State: AOJu0YxujRaYvuswCJHVWxQRQtzSg471FlP/fO0v5zLzDIARMIWGHsqj
+	k/NTY3Dmgt/8PwGjlU0q14VN+9u6IfqZ27QWcSTuc85KE8a/beM2wO7pXdRaQvJjN0A8T2ncb+8
+	cZxgw3Tw=
+X-Gm-Gg: ASbGnctqhwmhXB+g9Qnf5B0xP3rWiZNqxC/HhhYBN/5DYGTRfgJrwEmipBsxxK8bQys
+	FD1ItRbIPtviv2Gs2KxlnzWPGqZJ5dat/caemSkqo0KlZv1jefQKHG4+KkBFEHTRyn5dqZ+QMYT
+	Y0mz0bImCJTMW1I3H+alTUUy0oxwc+0q9akkBA/JxHY6iejp64PEPDGXPxLYa5tVgiQJCtvzrA/
+	KXTxamz9/Ea+IWrK5q5sf4SMU1W8n9SPTtCF7NK22xtcO+CvLBoQLzyVO7Ob7eTdyd93dg6rqU6
+	hW4xkbE46NWOObUPwZRtvOjGmI6zxuoIwwUsRhCYj6ZqP7CIbN34dJyNYpoUdxbHmWAYcQ4R9ak
+	cYZMhkbPdWs7kQqh1N7zayUHYmTztYXmnRoqYg/xxJnGcMAom57h38m7SCV9PZmSRyel+MYJWNi
+	rf
+X-Google-Smtp-Source: AGHT+IHxK4zD7L5I5q7BjeeVhq2n0KXpuro0DJT8yw1J9Xzxq7nAw10kU6iGi7chRO4R+R1WPM9ZiQ==
+X-Received: by 2002:a05:6000:2382:b0:3b7:8d80:e382 with SMTP id ffacd0b85a97d-3b78d80ea5bmr639389f8f.4.1753725355679;
+        Mon, 28 Jul 2025 10:55:55 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	"Daniel P . Smith" <dpsmith@apertussolutions.com>
+Subject: [PATCH 0/3] tools/flask: Whitespace changes
+Date: Mon, 28 Jul 2025 18:55:45 +0100
+Message-Id: <20250728175548.3199177-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Date: Mon, 28 Jul 2025 19:43:50 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Dmytro Prokopchuk1
- <dmytro_prokopchuk1@epam.com>, consulting@bugseng.com, Anthony PERARD
- <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Julien
- Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] misra: deviate explicit cast for Rule 11.1
-In-Reply-To: <43bea8dd-fbd3-4a64-ad9c-aac5813c15a9@citrix.com>
-References: <181a03d5c7625d42c06cf9fa0cf48a9bc6825361.1753647875.git.dmytro_prokopchuk1@epam.com>
- <093601d7-691a-48ee-a0f4-2e86a0f2015e@suse.com>
- <43bea8dd-fbd3-4a64-ad9c-aac5813c15a9@citrix.com>
-Message-ID: <f1fa4da171fd7b6dbfed06cff3d4771b@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 2025-07-28 12:49, Andrew Cooper wrote:
-> On 28/07/2025 10:56 am, Jan Beulich wrote:
->> On 27.07.2025 22:27, Dmytro Prokopchuk1 wrote:
->>> Explicitly cast 'halt_this_cpu' when passing it
->>> to 'smp_call_function' to match the required
->>> function pointer type '(void (*)(void *info))'.
->>> 
->>> Document and justify a MISRA C R11.1 deviation
->>> (explicit cast).
->>> 
->>> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
->> All you talk about is the rule that you violate by adding a cast. But 
->> what is
->> the problem you're actually trying to resolve by adding a cast?
->> 
->>> --- a/xen/arch/arm/shutdown.c
->>> +++ b/xen/arch/arm/shutdown.c
->>> @@ -25,7 +25,8 @@ void machine_halt(void)
->>>      watchdog_disable();
->>>      console_start_sync();
->>>      local_irq_enable();
->>> -    smp_call_function(halt_this_cpu, NULL, 0);
->>> +    /* SAF-15-safe */
->>> +    smp_call_function((void (*)(void *))halt_this_cpu, NULL, 0);
->> Now this is the kind of cast that is very dangerous. The function's 
->> signature
->> changing will go entirely unnoticed (by the compiler) with such a cast 
->> in place.
-> 
-> I agree.  This code is *far* safer in practice without the cast, than
-> with it.
-> 
->> If Misra / Eclair are unhappy about such an extra (benign here) 
->> attribute, I'd
->> be interested to know what their suggestion is to deal with the 
->> situation
->> without making the code worse (as in: more risky). I first thought 
->> about having
->> a new helper function that then simply chains to halt_this_cpu(), yet 
->> that
->> would result in a function which can't return, but has no noreturn 
->> attribute.
-> 
-> I guess that Eclair cannot know what an arbitrary attribute does and
-> whether it impacts the ABI, but it would be lovely if Eclair could be
-> told "noreturn is a safe attribute to differ on"?
-> 
+Patch 3 intends to make it easier to maintain local changes to the flask
+policy in a patchqueue.  The prior patches are trivial cleanup.
 
-I'm convinced it can do that. Perhaps something like
+No functional change.  Only whitespace changes.
 
--config=MC3A2.R11.1,casts+={safe, 
-"kind(bitcast)&&to(type(pointer(inner(return(builtin(void))&&all_param(1, 
-pointer(builtin(void)))))))&&from(expr(skip(!syntactic(), 
-ref(property(noreturn)))))"}
+Andrew Cooper (3):
+  tools/flask: Strip trailing whitespace
+  tools/flask: Use tabs uniformly
+  tools/flask: Reformat allow declarations
 
-which is a mess but decodes to that, more or less.
+ tools/flask/policy/modules/dom0.te            | 122 +++++++--
+ tools/flask/policy/modules/modules.conf       |   2 +-
+ tools/flask/policy/modules/vm_role.cons       |   4 +-
+ tools/flask/policy/modules/xen.if             | 253 ++++++++++++++----
+ tools/flask/policy/modules/xen.te             |  25 +-
+ tools/flask/policy/modules/xenstore.te        |   6 +-
+ tools/flask/policy/policy/mls                 |   2 +-
+ .../policy/policy/support/misc_macros.spt     |   2 +-
+ 8 files changed, 338 insertions(+), 78 deletions(-)
 
-I haven't tested it yet, though, but on a toy example [1] it works.
 
-[1]
-void __attribute__((noreturn)) f(void *p) {
-   __builtin_abort();
-}
-
-void g(int x, void (*fp)(void *p)) {
-   if (x < 3) {
-     f((void*)x);
-   }
-}
-
-int main(int argc, char **argv) {
-   g(argc, f);
-   return 0;
-}
-
+base-commit: a845b50c12f3ec3a14255f5eb3062d0c9801a356
 -- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+2.39.5
+
 
