@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6B29B142AE
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 22:09:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1061921.1427523 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94E79B142B8
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 22:12:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1061927.1427532 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugU9s-00007r-LZ; Mon, 28 Jul 2025 20:09:16 +0000
+	id 1ugUCc-0001gl-1Y; Mon, 28 Jul 2025 20:12:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1061921.1427523; Mon, 28 Jul 2025 20:09:16 +0000
+Received: by outflank-mailman (output) from mailman id 1061927.1427532; Mon, 28 Jul 2025 20:12:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugU9s-00005S-HV; Mon, 28 Jul 2025 20:09:16 +0000
-Received: by outflank-mailman (input) for mailman id 1061921;
- Mon, 28 Jul 2025 20:09:15 +0000
+	id 1ugUCb-0001e8-Uc; Mon, 28 Jul 2025 20:12:05 +0000
+Received: by outflank-mailman (input) for mailman id 1061927;
+ Mon, 28 Jul 2025 20:12:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YAI4=2J=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ugU9r-00005M-AH
- for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 20:09:15 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ id 1ugUCa-0001e2-Fu
+ for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 20:12:04 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bb63b88a-6bee-11f0-a31e-13f23c93f187;
- Mon, 28 Jul 2025 22:09:14 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-455fdfb5d04so26614835e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 13:09:14 -0700 (PDT)
+ id 2086c9c6-6bef-11f0-a31e-13f23c93f187;
+ Mon, 28 Jul 2025 22:12:03 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-45610582d07so31503285e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 13:12:03 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4587ac76b92sm107007325e9.32.2025.07.28.13.09.12
+ 5b1f17b1804b1-4587abc13b3sm114309965e9.6.2025.07.28.13.12.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Jul 2025 13:09:12 -0700 (PDT)
+ Mon, 28 Jul 2025 13:12:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb63b88a-6bee-11f0-a31e-13f23c93f187
+X-Inumbo-ID: 2086c9c6-6bef-11f0-a31e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1753733353; x=1754338153; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VeNuiEy+K33IcUNoktOlxil/mwvReawH5d74Z7gZpnk=;
-        b=mKrWmF2vU2z15Rb8kbOBAEmiJrVE2S+8pSO1rg1WYGJ6oMCwggDK6e5+Oyj1MuQL5d
-         O++IVMeTE3ik7tL4BV6r54Nnt/IhG/6FTe+BuacGH5lsx2EUSuzsdPLckTs1pI+2KcpI
-         8fl5c0NKFo3bLqja4YUI5exASyfwgQXHUte10=
+        d=citrix.com; s=google; t=1753733523; x=1754338323; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=G/o7SB7Eeo8wWsOroQAsJptUfW8VvC55WnR1nJlUiiA=;
+        b=VlXM6StmZQcL9Dig59OBvbCkZHmD9A4E3ItplKfEQrEr8Wf9Uj/qRGsFMP/OMdWip3
+         f3WeKvvbzNA78RDoW6ZfAd2KpTWP5tzNeYeN6HnUv8ozuw7IxJUUFuLvYn5rmC9kcsMw
+         OWxqGLmQIdIgJYAEcpDpBh2D2HDxs4QsgzlKI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753733353; x=1754338153;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VeNuiEy+K33IcUNoktOlxil/mwvReawH5d74Z7gZpnk=;
-        b=bFkYz1q++Dpf9cBt7vkPcBz/t59/qdx+sRbRNlSYfdisehbTGNnU09NQjL9L9AIX5l
-         oIPlJIIt6is06LR7doirVEv3ZGOpI/j93kS4MyKZjf8Q7lelQ0dW6r37t3SNlskyWL51
-         xhsHW/RrEBKe7CGDwHWHV254E0AhxD2rlptjnejdronYCRFnTV4AxvPzzL1OmeeAgXP2
-         ajzHBMP7kWVEQxWM7SmNV8iqfY2/lK2947mcauc/ArEfKLzJhA0Dvd+ekZ6dK14D47Y8
-         JlSd340anMiIcAx3v6wD0oml+k3+IABMAn+E9OuL2G3LS0Q/+6/Is+TwCKjE0JVv6o7i
-         gAPw==
-X-Forwarded-Encrypted: i=1; AJvYcCXPOfP56JwW+No71m1pONG9zWLeEvSMGSMjBISAdmc8kPIGG9ghxOoiJT43UcrbOXIkeR1bhbM4BtU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw5qQxstv01x6utSmfw2NEkl6HeUA+PL3Fe7GNAQlvzwg1/vyzk
-	O63bZfzf4iARiHIkkj1rMzzNZjB9NYJ0RwWqWXHcwPZfOwWx50xCGX8upijbPOptXpA=
-X-Gm-Gg: ASbGncuCMoS99tpqo20Gao/775MC7KlS+CdQw9kcBerYR8m+1C+ok5ZQlXb79Y72cMW
-	xX0+WsUQqG+EU6LeN4Y/TQCNY6+9UZoIMP/27Rnv2YGvfO2HVaJDyDQbO67xxWPilAMuxo88E88
-	BeaaicpccuKeUQs8PSopklnp/X0cyOXS9KXOUApZkGKUp5q1ZWRnGC3k5KgTCs5QdcqVqHtzKBL
-	/QiUC/CL2RPz3YP5qfGmZ6b0RQi03NJ196dzDityvlv79xQHst9/7KHwp5D1K8JXVlG2rtprrVe
-	Mq9tfmmsjUthcAB3sfJ42+9H87CHbrW6NDhNwBjSMj32Fxqf3yOrckcFEunLj7oNFhS1vaDxx8q
-	sAgeGG5oHKZaryCdsllIC8ffjfRnhKx8QusTtkLlaJ9NISwic+ed1sU2kyi+3Q5MUu09mlCI6Xn
-	qQclE=
-X-Google-Smtp-Source: AGHT+IFZmf4AW15ezazHeTZPO/2SGbK3TjceblUOZs6iX6LqtDPylCZCBcZyG2Jiy2bpaciWaXIleg==
-X-Received: by 2002:a05:600c:4749:b0:456:496:2100 with SMTP id 5b1f17b1804b1-45876554d95mr97733505e9.31.1753733353398;
-        Mon, 28 Jul 2025 13:09:13 -0700 (PDT)
-Message-ID: <08ca27cf-435b-4807-8cbc-0b866709b9df@citrix.com>
-Date: Mon, 28 Jul 2025 21:09:12 +0100
+        d=1e100.net; s=20230601; t=1753733523; x=1754338323;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=G/o7SB7Eeo8wWsOroQAsJptUfW8VvC55WnR1nJlUiiA=;
+        b=jS20dvxFAuA29cGpsUp0X1ANgGSQIWP5e6Enx2S1RlM+V4p2hCx4fecex14fEOvK8V
+         aJaBsvo9lSw2TsyTv+TSSZp2+Fb2Jc6iy3BLYPxNECzfkJIMFUU9wvGmbLrcJ1XXZNVe
+         2No7uExlYAlEenZlZbg135qd3yL5LFImrsQr8xxPLQfvCeumjIsWbxaPcdNdfjNYEO3l
+         RR1ilgma47aM1bHoHBWkuKziijOCWDeWlnxvJpVbZ2lDvgnZBvGMiIuLiAVjQbXugKjc
+         XBXh5zo9/QiE+6L+j+FwoksCi/LWOTHLg/bSBZVRml6RBGsB+SC2EmPHHlPB6Cwe5CMl
+         VWEg==
+X-Forwarded-Encrypted: i=1; AJvYcCWbW3M0bgbK7M2M8uYrM+q/2E4tIFPo9hraO3d/7R9vR0q1tESbymhvZS+rgNBTxaMq4dg6WtHZODk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywbjkf5iA/UrIaRUdMswdl7OIyy9MKhp/7s/MG5qk0OUe8w+5jr
+	Kn5S1IEmzl7uiKBFut7cdUvy2A3bQDblPi7B9eiGTv4gBzkwRQjU6g9ouYNqGIn0KDo=
+X-Gm-Gg: ASbGncvT24Q9Bp0UI9kNeAZU54/9wMYJ8upPL40FFmpt3XgY4PeJSx/7urbDBU1s5iw
+	zzdmCBvo2okZ/ufKr2jU33M+qPuxfBQTi3ewrvb/yJqz9oW+Y68qxVpAZ+4+eKvrAToDRL45j8S
+	KgIN+PKad0UM6Mz4JKwl35ULoUZjt4CoZxsbvSVIMqtYnIXPEpVcuiAelWNb7QYic7xKRiFS7kl
+	ZBBvQ3axtUkQ1lrXtA2Dh2eB1MPVol7N285besc0rWjAu5ckWgaMfnNJFjN2fqSj97VqLPyDva6
+	3MkmpjC17BKcp0uANis0mmCitNikDev7JqhenrAtBOXzXnrWnFLydtT6rZgJG/FQT3hSRhH2MLP
+	vyMYMRQqsh5ugDBa0WRlyu8DUSETrwBOpcuTmywWnMvJqk2IHTFuPgOKwW9htUU5lL8gW
+X-Google-Smtp-Source: AGHT+IH1+kHc2rG7XUFZ65eyr2d8rUHq8s1MhOcePuRLJjS+pnJWv3JnHINCFxvj4eMoBO2Ru0bFKw==
+X-Received: by 2002:a05:600c:1992:b0:441:d4e8:76c6 with SMTP id 5b1f17b1804b1-45876554b45mr127542235e9.30.1753733523059;
+        Mon, 28 Jul 2025 13:12:03 -0700 (PDT)
+Message-ID: <65d17206-b6bc-4dc8-92f4-ccdf10315329@citrix.com>
+Date: Mon, 28 Jul 2025 21:12:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] xen: fix memory leak on error in vcpu_create
+From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
  xen-devel@lists.xenproject.org
 Cc: Anthony PERARD <anthony.perard@vates.tech>,
@@ -93,8 +93,8 @@ Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
 References: <20250728195245.90356-1-stewart.hildebrand@amd.com>
+ <08ca27cf-435b-4807-8cbc-0b866709b9df@citrix.com>
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -138,29 +138,32 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250728195245.90356-1-stewart.hildebrand@amd.com>
+In-Reply-To: <08ca27cf-435b-4807-8cbc-0b866709b9df@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 28/07/2025 8:52 pm, Stewart Hildebrand wrote:
-> In vcpu_create after scheduler data is allocated, if
-> vmtrace_alloc_buffer fails, it will jump to the wrong cleanup label
-> resulting in a memory leak. Correct the label.
+On 28/07/2025 9:09 pm, Andrew Cooper wrote:
+> On 28/07/2025 8:52 pm, Stewart Hildebrand wrote:
+>> In vcpu_create after scheduler data is allocated, if
+>> vmtrace_alloc_buffer fails, it will jump to the wrong cleanup label
+>> resulting in a memory leak. Correct the label.
+>>
+>> Fixes: 217dd79ee292 ("xen/domain: Add vmtrace_size domain creation parameter")
+>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> Urgh, sorry for breaking this.  Ultimately it comes from having two
+> different error handling schemes.
 >
-> Fixes: 217dd79ee292 ("xen/domain: Add vmtrace_size domain creation parameter")
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> This patch is probably ok to start with (and to backport), but a better
+> fix would be to handle sched and wq in vcpu_teardown().  That way we get
+> a single failure path that does the correct thing irrespective.
+>
+> An unrelated observation, but there's a waitqueue vcpu allocated in the
+> common path, but I was under the impression that only x86 had any need
+> for wqv (and I still need to get around to fixing introspection so we
+> can drop wait.c entirely).
 
-Urgh, sorry for breaking this.  Ultimately it comes from having two
-different error handling schemes.
-
-This patch is probably ok to start with (and to backport), but a better
-fix would be to handle sched and wq in vcpu_teardown().  That way we get
-a single failure path that does the correct thing irrespective.
-
-An unrelated observation, but there's a waitqueue vcpu allocated in the
-common path, but I was under the impression that only x86 had any need
-for wqv (and I still need to get around to fixing introspection so we
-can drop wait.c entirely).
+P.S. we allocate full wqv for idle CPUs, and they definitely do not need
+it on any architecture.  Looks like there's some low hanging fruit here too.
 
 ~Andrew
 
