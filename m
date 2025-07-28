@@ -2,33 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA39FB14275
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 21:17:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1061903.1427502 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42194B142A4
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Jul 2025 21:53:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1061914.1427511 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugTLS-0001Ze-Nd; Mon, 28 Jul 2025 19:17:10 +0000
+	id 1ugTu6-0006lf-9g; Mon, 28 Jul 2025 19:52:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1061903.1427502; Mon, 28 Jul 2025 19:17:10 +0000
+Received: by outflank-mailman (output) from mailman id 1061914.1427511; Mon, 28 Jul 2025 19:52:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugTLS-0001Xp-Kc; Mon, 28 Jul 2025 19:17:10 +0000
-Received: by outflank-mailman (input) for mailman id 1061903;
- Mon, 28 Jul 2025 19:17:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ugTu6-0006kD-6Y; Mon, 28 Jul 2025 19:52:58 +0000
+Received: by outflank-mailman (input) for mailman id 1061914;
+ Mon, 28 Jul 2025 19:52:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=s93S=2J=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1ugTLQ-0001Xj-8p
- for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 19:17:08 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 725ef470-6be7-11f0-b895-0df219b8e170;
- Mon, 28 Jul 2025 21:17:05 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 7AE6B4EE3BFE;
- Mon, 28 Jul 2025 21:17:03 +0200 (CEST)
+ <SRS0=uPvZ=2J=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1ugTu3-0006k7-SL
+ for xen-devel@lists.xenproject.org; Mon, 28 Jul 2025 19:52:55 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20624.outbound.protection.outlook.com
+ [2a01:111:f403:2414::624])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 728eb242-6bec-11f0-a31e-13f23c93f187;
+ Mon, 28 Jul 2025 21:52:53 +0200 (CEST)
+Received: from SJ0PR05CA0163.namprd05.prod.outlook.com (2603:10b6:a03:339::18)
+ by MN0PR12MB6246.namprd12.prod.outlook.com (2603:10b6:208:3c2::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.26; Mon, 28 Jul
+ 2025 19:52:50 +0000
+Received: from CO1PEPF000044FA.namprd21.prod.outlook.com
+ (2603:10b6:a03:339:cafe::1f) by SJ0PR05CA0163.outlook.office365.com
+ (2603:10b6:a03:339::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.11 via Frontend Transport; Mon,
+ 28 Jul 2025 19:52:49 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1PEPF000044FA.mail.protection.outlook.com (10.167.241.200) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9009.0 via Frontend Transport; Mon, 28 Jul 2025 19:52:48 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 28 Jul
+ 2025 14:52:47 -0500
+Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Mon, 28 Jul 2025 14:52:46 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,173 +59,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 725ef470-6be7-11f0-b895-0df219b8e170
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1753730223;
-	b=UNlA7xqCRK0ZhrAkv9jZEllWy49++lX6wKn0Lp2QFA+05HOjvksFXnTXLaoBZzZIdOar
-	 L2B6TcmiG+cPT6FTGZWu1EJ7D5zaFthRuBuOYeEfkT0aO04aFf5xr0LBGXdxtAwdvl3LB
-	 QDgUFI1jQ+CH5dyUhHlFXsO1tTzHmdgBxDuqQukkeqBlwb3cpUn/hsGKSspLo1tgi27gC
-	 X8z2dfgf9chmzPzMwmB2yQ2bAFs96OKjkzuIGgWEwGE4M8g9AjKcoEKUhOXs26fMUguqN
-	 dZ4y2G5NkbPdUp5HvO6fBbVOu9zMo7AMZHIKTjhB0YQlWy9W7NAHke92iaDzME2H9+iPK
-	 ZJIHsy80Fk9YALhNDRgBH/LPHZWCjWCozTTrPIxrhVPLxIQbfNEwAV5WXdR2j4g7MlXiw
-	 ZASLmA+IZffzyjeOQx4dvwIYfS4cRLmimLIqH2wSyutKZzjm/5WEkchSDYdF3YWPxd3DU
-	 U9bhYXpdS/Kxu2q9VLaORy1gihtupC5TKpFouGfHSd0zf+2CQzIme7CAvc8mWvvvhmUYh
-	 tiOlNGbikVNso+l3P6Bv/r6bjDed+8/qcuIWb5u+eeTFQSPb5k5ksvyK2j/gqE+o2ZUO3
-	 DBFESoDlFMsLVdOY3wiBpaPO9vSR2E+G+IK8eUiPnF6c1fpCukRQ3au7DTUBYqc=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1753730223;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Ft3jutpObgrGvToJX4AsCETiWBHjNg9rGG95Yvcz4rQ=;
-	b=AEl+GVPFT7nq39oaPr0E6dhb1uWvkFKJI01cagcqLvO58tLHG0EjqHXJbv+IrhknbrfA
-	 NzMcLn8SMavV2j3Jc9Bhhl7zsiyNjt6oTLVLC8C9Mtfsoj568wBfEdwSKKNw16+jbGz9q
-	 2Oo8D8jCtzs2KE2HmRPcqfwfXxYErB6U5msh5I5cij/QlGGDBwrnBrNduzV/A2v+tarx5
-	 Fq7fowGlOxoqti4T8JKioaHvr+yOWZ6E+57FUKG3P9JDzvhlYWWFyUJi4DMO4H9s4BU1s
-	 EM4NkHkU6sWV5yWhuLsx6k09ohmuA9itTBTq4H9HP9uVfP8xpixpIdvXwfOD2rvj5QF7/
-	 aQzII5n3E2l0l/gv9p7qbdXVCfl0hHlsT/DBezYoC88QjkJt7JIeSFBuio5J9RCgOFHNy
-	 GQ94vMQQUszAAAEtWRy9dmOI76uGdl2tgtC5DaEvpwfO2zUiThWiDe+LnOh1gPbL5Pf0c
-	 iQgybj91Iautdg+CdJn6pr5s6VO0RRMSEHelviN+0LxSUZ5O7VVlW0Cxk4p0c5FwjRZTy
-	 Xb7HxlLWzeMZAardPIp7DpaeOejtOqyR8fCF1ynuccKs8fMEQZWR5oPSmcWjrS8+o9iiW
-	 MP/UEcpmVLjDSnvYT01NrOaBovYNW/Fe1SUa2qqe3UrKLkjBAdpmQaN+jHD+p5o=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1753730223; bh=2kuGjppsE2GZMrCENTZ+gUPPSkG4atua1FCWdV4fUY8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=iQk557BKrAYPFGLvrIcoGyckjj05NyIHFf8AK7kizq2ANJGaKHr5WqoaUPFH5Wzik
-	 74hYVtmzAbwzP4lVyb1rMKwzecgvhkcRAUlnTNEerBQZO3/X7JdlEWYOz0uxIPh8G7
-	 AHbAq35ChriuKwTWrE0miHd4oWlr/7r+GeJbbZTJ3BUg4kywQqA/8p2mPwAs4nmYT9
-	 x8Fx7CvW3bsat8lro43umQVhJ8pWgatQ+XyEoNNky+AQf00lzqryaOe5Rp3bbE0OPM
-	 FRIK9n1LKn7La1ZP05umu4iSi+4qWMJnsSz0aXU4NMGIdBkRitJWEmu3TULN/7SUw6
-	 sqd1Nx2fK3HrQ==
+X-Inumbo-ID: 728eb242-6bec-11f0-a31e-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YhBIpfklX6Kyi452qvZFUDiPHVFkiOHWbT3U4/PYVWCe2oLMDsGBI2+HqHGV3zCAV+LA+dPAwY39QyAbNti6q55kwwBtwVwwaGYn9dUGkIa6G3vJnD7hCTZLZkkoTxh5rGt31Xt30JEnaGmfkhPQu40sDpnnhTHu7VRJQATHKdyVFI6k031Ev3OIXf4hioXHz0+4AHst1SsUZXRofZySxrF5r9E3JOrP2ERqm2VTS8UOlKYjmTHb1YTsieaJjBNwgMexVHBigXIiMyJUcsRU/HRZYcZhudMQShrLQtLHJABf1MbAKvWYNtC0PJdfwGNJfFBHdG+p0AKsWXdzjdPR0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yBzOoW8r1k77r3Pka0LshNPmTSwghiAK8xr8qcTkfBc=;
+ b=yK7YM8SqMuUxZibifGhVkK3DgIOE5pYTgO1WpRYHFzukmd686Ra9DnfQkrwsiXLahIZbkKOiELI9ACfZK7LzIyNf1ON0xZH37Co4c7sABhQIJnnMlG1XrV/+GZe5JZ3wzsRXnVMv70u/fP4tlKcOx9TvtVnXhFLBhkNlCL7wakiQg3EdKwpQ5SF53Rd3Mkho4ApOzA5a0xzIAy4ImZKTcdKlKGVOXzXBWj4HK5jb6oCTYwtHVxsGkfFolGjVJKhGxYF2O7rjhzNBka70ePilaOVqlMoNkBI+HlQKzQLA9YxaQ2tn7cK/3/7Q2tW31hCDqQU7uXcVGIodkm0KzXhAEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yBzOoW8r1k77r3Pka0LshNPmTSwghiAK8xr8qcTkfBc=;
+ b=E0nLRQnY+YcSOyRnWWE6UR5rxpu4QcpT8Og5iEKIpKGrFKj8UyiqGzANVmTwnc5yBFMgzeQahYvssylo15GMkZYgKoSO1FWhxsgBUyXtf8gRwuMruwJ4MVlxnEEfRGglUmofp5AZC9xBXaaHAlqz0CG2uu5zha574LPfRGBli/w=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, "Julien
+ Grall" <julien@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] xen: fix memory leak on error in vcpu_create
+Date: Mon, 28 Jul 2025 15:52:44 -0400
+Message-ID: <20250728195245.90356-1-stewart.hildebrand@amd.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Date: Mon, 28 Jul 2025 21:17:03 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Jan Beulich <jbeulich@suse.com>, consulting@bugseng.com, Anthony PERARD
- <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Julien
- Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH] misra: deviate explicit cast for Rule 11.1
-In-Reply-To: <efcda932-633b-4140-b869-e22d552b3aea@epam.com>
-References: <181a03d5c7625d42c06cf9fa0cf48a9bc6825361.1753647875.git.dmytro_prokopchuk1@epam.com>
- <093601d7-691a-48ee-a0f4-2e86a0f2015e@suse.com>
- <43bea8dd-fbd3-4a64-ad9c-aac5813c15a9@citrix.com>
- <f1fa4da171fd7b6dbfed06cff3d4771b@bugseng.com>
- <a5781ddf-d353-470b-a072-1e0b4e6931dd@epam.com>
- <efcda932-633b-4140-b869-e22d552b3aea@epam.com>
-Message-ID: <aa6c034443b495fdf13eaf88487a94b1@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: stewart.hildebrand@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044FA:EE_|MN0PR12MB6246:EE_
+X-MS-Office365-Filtering-Correlation-Id: aa1177ba-56b9-4e88-ab4a-08ddce10547e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700013|82310400026|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?JU9+45Gy9srNrUR2Xy9RQYwGWefSJgtE0fovTb0d9eBta6QvkLdL55CGORBf?=
+ =?us-ascii?Q?GvDiP76ojXtSCf+B9laEPnpkqBOT5LR+DaouXuVhoKQGJ+uzzKVj7IaSRBbB?=
+ =?us-ascii?Q?y4kcaa3O1/mK2bPmr6UN/OygqXbDsfs2rIIN4iBHQobMQtdlQCTue0SlTAOC?=
+ =?us-ascii?Q?nqgfLHLk8MKV6omICZc75wx+6vcgd6fHADDeudT1HLpuI2wAHl3kqLXUOi/4?=
+ =?us-ascii?Q?Xx5UhUyt3iJGKghbvElD6tmBD7XrplacDxy/wo6cwK2154f276IrYXXfAL3j?=
+ =?us-ascii?Q?2dcbPpO4KfayBdV5EDvlS/wvIjazGxgnmNdBdEWq5zcBnPrjSBG98uTebXJ/?=
+ =?us-ascii?Q?feXvpjv60caDmMH06L8X4zABOFYkFTHuDISyJvx3n5m0rpc3SML8/VTPBouU?=
+ =?us-ascii?Q?CfMc40aTaIpxNJLubMSjl8KvVGzjXWQqIlWJDvTUQttm6ICuVCTrExz0DvLW?=
+ =?us-ascii?Q?aVcWkoHj7cqVi8P486RZLd6HI4c/Lvlo7Lxs5fTtUEmQYnIFHAmUbi5d60YL?=
+ =?us-ascii?Q?YJ0o1aCK/4UPgn/94ASsB3m5SGUq1AqHMjSBiyPRy+7Nb8U/1lZ7fXKVxPia?=
+ =?us-ascii?Q?Nv5tdlloQqZ0x1PdHx/A6yAf25Q3m3q0ApH1PBWHN+eDQeCKicLFPNenq6UA?=
+ =?us-ascii?Q?wTCv1Iz3bWJkPDRsfPDyFZkU5gn1jlw7ckXlguuamoWOupPSv2da7je77Vz3?=
+ =?us-ascii?Q?naWF8vNLIxDCOm1Oo8MAgaHl9Q0mSfWj8SxJAKnLMl6e3ByyC7euUFgyKwpK?=
+ =?us-ascii?Q?QtIxY/ryZyGAdUPSnkAK7Pu/bR9LewGvh167O9pxvo1B6yL9reh7qPLvRZNn?=
+ =?us-ascii?Q?7RDqyta2LxL1Qm3GdCJVQXAXWaRxI2lB6MTnSk9tFyOab8MzFHr3q9fILxl4?=
+ =?us-ascii?Q?w2Mtl/Z/SdQ6FG1aGGbvRlYvyHdpxon68lMiacai4JyNfyhbUBp4fZtND/28?=
+ =?us-ascii?Q?x56DNXqv02wBCf7s/XxpSK/6efXWaNhw6fFz59TMWhohfSImziQOqQJeo78L?=
+ =?us-ascii?Q?1bJZfAkLVo3HYASwXVh78yezwdJvKjGsxHPaPvRXlBHn1SBZCvSjYOG18agu?=
+ =?us-ascii?Q?HHUp4EBQJcGbdUXpHLyhxpKgLuLWzidgoxgZ1Y8jLixGSJYgVnRb1Ry9FrC1?=
+ =?us-ascii?Q?nsgdWylb3bQcWTpffKl5O8tlLXWFvCijra2LvHbrOg1o9r1+cOk+043ghB5F?=
+ =?us-ascii?Q?77LgwK4CCjgp05MaT6BO4gEEQl18KENer8BlGnbIMyFJX9v9djuHlWO20wY8?=
+ =?us-ascii?Q?WqfRw6aQmhdENJg4oTca6946sKc1GpIdlFn1wnkBMGzEthpN3K92qWT6LeCz?=
+ =?us-ascii?Q?xlwZ6SOmmCeRsgXxhJ9USsjA2GeeNxZ4r/TN9225K/+sJKRq4Jep402fGee9?=
+ =?us-ascii?Q?eLjFIwefJOXSbSNHhn3ZFwbIt1Dp+bDZihKVkn2FSlFKdxv5Oe/ngv13Gxv3?=
+ =?us-ascii?Q?/MOJKjrIDmuY3fk6ZRbZASZjvD9NLhYf0cHkbmF0bkn/oieyzz+dtRc3fP4n?=
+ =?us-ascii?Q?3xtuui7ySlHStiSqQ17ldy/En+jdZLlaISug?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2025 19:52:48.7514
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa1177ba-56b9-4e88-ab4a-08ddce10547e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF000044FA.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6246
 
-On 2025-07-28 20:58, Dmytro Prokopchuk1 wrote:
-> On 7/28/25 21:03, Dmytro Prokopchuk wrote:
->> 
->> 
->> On 7/28/25 20:43, Nicola Vetrini wrote:
->>> On 2025-07-28 12:49, Andrew Cooper wrote:
->>>> On 28/07/2025 10:56 am, Jan Beulich wrote:
->>>>> On 27.07.2025 22:27, Dmytro Prokopchuk1 wrote:
->>>>>> Explicitly cast 'halt_this_cpu' when passing it
->>>>>> to 'smp_call_function' to match the required
->>>>>> function pointer type '(void (*)(void *info))'.
->>>>>> 
->>>>>> Document and justify a MISRA C R11.1 deviation
->>>>>> (explicit cast).
->>>>>> 
->>>>>> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
->>>>> All you talk about is the rule that you violate by adding a cast.
->>>>> But what is
->>>>> the problem you're actually trying to resolve by adding a cast?
->>>>> 
->>>>>> --- a/xen/arch/arm/shutdown.c
->>>>>> +++ b/xen/arch/arm/shutdown.c
->>>>>> @@ -25,7 +25,8 @@ void machine_halt(void)
->>>>>>      watchdog_disable();
->>>>>>      console_start_sync();
->>>>>>      local_irq_enable();
->>>>>> -    smp_call_function(halt_this_cpu, NULL, 0);
->>>>>> +    /* SAF-15-safe */
->>>>>> +    smp_call_function((void (*)(void *))halt_this_cpu, NULL, 0);
->>>>> Now this is the kind of cast that is very dangerous. The function's
->>>>> signature
->>>>> changing will go entirely unnoticed (by the compiler) with such a
->>>>> cast in place.
->>>> 
->>>> I agree.  This code is *far* safer in practice without the cast, 
->>>> than
->>>> with it.
->>>> 
->>>>> If Misra / Eclair are unhappy about such an extra (benign here)
->>>>> attribute, I'd
->>>>> be interested to know what their suggestion is to deal with the
->>>>> situation
->>>>> without making the code worse (as in: more risky). I first thought
->>>>> about having
->>>>> a new helper function that then simply chains to halt_this_cpu(),
->>>>> yet that
->>>>> would result in a function which can't return, but has no noreturn
->>>>> attribute.
->>>> 
->>>> I guess that Eclair cannot know what an arbitrary attribute does and
->>>> whether it impacts the ABI, but it would be lovely if Eclair could 
->>>> be
->>>> told "noreturn is a safe attribute to differ on"?
->>>> 
->>> 
->>> I'm convinced it can do that. Perhaps something like
->>> 
->>> -config=MC3A2.R11.1,casts+={safe,
->>> "kind(bitcast)&&to(type(pointer(inner(return(builtin(void))&&all_param(1, 
->>> pointer(builtin(void)))))))&&from(expr(skip(!syntactic(), 
->>> ref(property(noreturn)))))"}
->>> 
->>> which is a mess but decodes to that, more or less.
->>> 
->>> I haven't tested it yet, though, but on a toy example [1] it works.
->>> 
->>> [1]
->>> void __attribute__((noreturn)) f(void *p) {
->>>    __builtin_abort();
->>> }
->>> 
->>> void g(int x, void (*fp)(void *p)) {
->>>    if (x < 3) {
->>>      f((void*)x);
->>>    }
->>> }
->>> 
->>> int main(int argc, char **argv) {
->>>    g(argc, f);
->>>    return 0;
->>> }
->>> 
->> Thanks, Nicola.
->> I will check this.
->> 
->> Dmytro.
-> It works.
-> The violation "non-compliant cast: implicit cast from `void(*)(void*)'
-> to `void(*)(void*)'" is gone.
-> 
+In vcpu_create after scheduler data is allocated, if
+vmtrace_alloc_buffer fails, it will jump to the wrong cleanup label
+resulting in a memory leak. Correct the label.
 
-Great. Now what would be really useful is a way to abstract this more 
-nicely (I was able to write this only by looking at the AST). However 
-noreturn is probably about the only attribute that has a repercussion on 
-the decl and is safe to cast away, unless I'm mistaken.
+Fixes: 217dd79ee292 ("xen/domain: Add vmtrace_size domain creation parameter")
+Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+---
+ xen/common/domain.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks,
-  Nicola
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 3c65cca5b0ff..b1e2709d3d82 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -451,7 +451,7 @@ struct vcpu *vcpu_create(struct domain *d, unsigned int vcpu_id)
+         goto fail_wq;
+ 
+     if ( vmtrace_alloc_buffer(v) != 0 )
+-        goto fail_wq;
++        goto fail_sched;
+ 
+     if ( arch_vcpu_create(v) != 0 )
+         goto fail_sched;
 
+base-commit: a845b50c12f3ec3a14255f5eb3062d0c9801a356
 -- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+2.50.1
+
 
