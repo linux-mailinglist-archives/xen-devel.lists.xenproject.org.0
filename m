@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F902B14D31
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 13:50:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1062558.1428278 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 687E5B14D43
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 13:58:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1062570.1428288 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugiqV-00015f-Vz; Tue, 29 Jul 2025 11:50:15 +0000
+	id 1ugiyH-0002I5-Sz; Tue, 29 Jul 2025 11:58:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1062558.1428278; Tue, 29 Jul 2025 11:50:15 +0000
+Received: by outflank-mailman (output) from mailman id 1062570.1428288; Tue, 29 Jul 2025 11:58:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugiqV-00012g-T7; Tue, 29 Jul 2025 11:50:15 +0000
-Received: by outflank-mailman (input) for mailman id 1062558;
- Tue, 29 Jul 2025 11:50:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oL40=2K=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1ugiqU-0000J6-AM
- for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 11:50:14 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2e5bfbfa-6c72-11f0-a31e-13f23c93f187;
- Tue, 29 Jul 2025 13:50:12 +0200 (CEST)
-Received: from mail.zoho.com by mx.zohomail.com
- with SMTP id 1753789801162931.3000812041274;
- Tue, 29 Jul 2025 04:50:01 -0700 (PDT)
+	id 1ugiyH-0002F5-QG; Tue, 29 Jul 2025 11:58:17 +0000
+Received: by outflank-mailman (input) for mailman id 1062570;
+ Tue, 29 Jul 2025 11:58:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xsxe=2K=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1ugiyG-0002Ez-PY
+ for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 11:58:16 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 49c9907a-6c73-11f0-b895-0df219b8e170;
+ Tue, 29 Jul 2025 13:58:06 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-4561ed868b5so35817145e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Jul 2025 04:58:06 -0700 (PDT)
+Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3b789a31c4asm5676065f8f.17.2025.07.29.04.58.04
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Tue, 29 Jul 2025 04:58:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,125 +45,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2e5bfbfa-6c72-11f0-a31e-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; t=1753789808; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Mf+9yjxIxx0iDhtiJSNcBsx6qFLc0C39gj/Ev0kYOCr5gVMXBjgPsGfi+8YF1HYYDE2cv5Pj3Vj0u9gLAoGSS1qJHfEVMQMqfHlgNlY/kfRgEMzK6OmqrDBPIe6Vi+YSVQ2KtPmMYLFmyEl3Y84Y3lvXw4Z19k1VMsGH9SdyCwE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1753789808; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=+otM7J7Q6D11QZQDrexjucgvnI6wC6/XFPkg5ip/o4A=; 
-	b=RcxJgZ7csI06rou7BlKgaq6gXiw8cgy7mGp8Ur7431BZnQr4F9M7Q+ZFauKrtfiDI73Fz8SjLgF8gQHxaQTSV8xwqzQzhyksG+xYcq79jFgoHySovEB29cOnc9AdDwdtNTHJx9oPOmANYM8rbf29FhQhk2HnRJjv5uHuFUURxG0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1753789808;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:References:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=+otM7J7Q6D11QZQDrexjucgvnI6wC6/XFPkg5ip/o4A=;
-	b=HUtJnDK921nvNCbUrrqCwTQdNuyW833MAJUuF8RFybRdAQDc+xGsv8xIgeVL85gP
-	T5lTLlCA7OKToqgzY0+IbY3WuJYqMMB/gFtiArBUAeXlhgVv0JjRNhVWrPj4ArbIrOJ
-	jikyaQqNc4kZiiWdc/ephk65nAav1pr4gg7D5U34=
-Date: Tue, 29 Jul 2025 07:50:01 -0400
-From: Daniel Smith <dpsmith@apertussolutions.com>
-To: "Xen-devel" <xen-devel@lists.xenproject.org>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>
-Message-ID: <1985604a2af.cf55e6cc33532.4694018676843781612@apertussolutions.com>
-In-Reply-To: <20250728175548.3199177-3-andrew.cooper3@citrix.com>
-References: <20250728175548.3199177-1-andrew.cooper3@citrix.com> <20250728175548.3199177-3-andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 2/3] tools/flask: Use tabs uniformly
+X-Inumbo-ID: 49c9907a-6c73-11f0-b895-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1753790286; x=1754395086; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hZLCuI32mRLDzwfhzdD0trdugKB1fD2xZRFNlNXmbIw=;
+        b=VeqPWnI2CeBQRJdRpBXXZDA4bBtYist3iu0Kzeife8eorTmiWSXr48gVLZYiJjKJs9
+         98brj4x5DOpOVytThxW1HbSJyEXzYveGJVjsTLipcvmdwJ7LMJIjunKD6KvuQEbhMa41
+         c3EyFvb08neEjri0D8Ie0xehHUIwCPnI/W2ORbEIYzMbzdU6NM4NCoX3VmvGgDSpzBki
+         t7RxE9kzxf6Nr9Hmf2FRwsL0lj7z1ngDOCZJgfy88Mr4TLOB/yBUY8taK8EFyZDg3Y6e
+         EJIckEh57vToZjrVZe8kuyH3XMTjq3dgSAsza35ldVxapkj11MHa7fEVISu3ww2tWTXS
+         eMYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753790286; x=1754395086;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=hZLCuI32mRLDzwfhzdD0trdugKB1fD2xZRFNlNXmbIw=;
+        b=TqMV1l2f8S1WdvD8BK/Zx3HYZerv7KZa9ypEmCvjwvpN8Yrlq67ThvlGnLJUqQzZ22
+         Av5PltYO7XkmnSRtr+k6vknxiZy/TaPFnMCO20Ek8kU5lIy0pOKBnAdS76jZPGnjZ70N
+         O3Drtn+vyXHw8z+plMIxWnciYFSVbzaDcAoZoXntDjXcT7JQtbjxDsGeCfYtsBX0LObZ
+         weypYXlraB+g1oIUR1PPBFl2nC/LCojeFjxmGxds5wdZIx7HxK5+GcvtPy2g1cShFURB
+         llcsEkhKuS2fvGKP8JH5u6i6x2noNVyXkPfhqoaje22MPD8qkIDOjBZTYGSHvonXmr7k
+         sZBg==
+X-Forwarded-Encrypted: i=1; AJvYcCWYFK0o7DEfcUBj2kBUlHXF5RC3OZFPdK0i94ytGHPL/ZrNOvIraFn/CTG1S96Llal5wsVLQwP8BNU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyIFBH4Ff7LQ3K0ax7/ht78ZDAzsIjmbKueBO05f+/mLGQzAnke
+	JSKEFKhgatWJ41+MMBV6Kt4ubfvqSyVYk/FrUp0fL/P2FrVVxGCuClWM3fE7XkrWdok=
+X-Gm-Gg: ASbGncsVrREJd27L68tHnrvXbQzDrEKKcM9sxD3C0ASAxoHVt9Lh0gq4o3f9rG1gN5b
+	Ei7fODRk8N9NqXeHcxdnRKGitqSXaPO0yf+YHnq1zxIiL94dGdka+KdnxIBcZUT7/fF6K8MKxqA
+	ioaJXxRCwtIbyiiLxbcuslaVUk6ZWJU5qeHHTpfYd5hlM1LJk21Di/CyeACU21t92opZR1vvgMv
+	bIuQUCawbdmia0xFKPM3CZBZLM+AZT0uYmgAjXBii9OWXUAVMs6isMst1yaqAAd/W25vJnEscMC
+	WWcui+1k7WhRG4zZRwQSWfGMCM6CNVxGk3XgJwBuEjzx+0mg2lYVYM3pwduSVh9MrG1pc/c+4wT
+	f2Z6wvxcBkUhpoIMFGywtar1+Vrji5f2X35a5MKlqNAhEY6GHFmHXhtpFbxEAXEsIPijQHx9V
+X-Google-Smtp-Source: AGHT+IFm9e3gIXrKykE7g+jz/UvSig1IqrhOgcqxaEPGlK2m9NH3XLC6gGAvWtwPWiefgqfVJO61Aw==
+X-Received: by 2002:a05:600c:1e22:b0:456:2ac6:cca4 with SMTP id 5b1f17b1804b1-45876311cd0mr112740315e9.13.1753790285847;
+        Tue, 29 Jul 2025 04:58:05 -0700 (PDT)
+From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+To: qemu-devel@nongnu.org
+Cc: Adam Williamson <awilliam@redhat.com>,
+	Markus Armbruster <armbru@redhat.com>,
+	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Paul Durrant <paul@xen.org>,
+	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+	xen-devel@lists.xenproject.org
+Subject: [PULL 6/9] hw/xen/passthrough: add missing error-report include
+Date: Tue, 29 Jul 2025 13:57:31 +0200
+Message-ID: <20250729115735.33619-7-philmd@linaro.org>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250729115735.33619-1-philmd@linaro.org>
+References: <20250729115735.33619-1-philmd@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
----- On Mon, 28 Jul 2025 13:55:47 -0400 Andrew Cooper <andrew.cooper3@citrix.com> wrote ---
+From: Adam Williamson <awilliam@redhat.com>
 
- > Most indentation is with tabs, but a few spaces have slipped in.  Switch them 
- > back to tabs. 
- >  
- > No functional change. 
- >  
- > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com> 
- > --- 
- > CC: Daniel P. Smith <dpsmith@apertussolutions.com> 
- > --- 
- >  tools/flask/policy/modules/xen.if | 28 ++++++++++++++-------------- 
- >  1 file changed, 14 insertions(+), 14 deletions(-) 
- >  
- > diff --git a/tools/flask/policy/modules/xen.if b/tools/flask/policy/modules/xen.if 
- > index cff51febbfdf..cfa11b27b786 100644 
- > --- a/tools/flask/policy/modules/xen.if 
- > +++ b/tools/flask/policy/modules/xen.if 
- > @@ -95,7 +95,7 @@ define(`manage_domain', ` 
- >              getaddrsize pause unpause trigger shutdown destroy 
- >              setaffinity setdomainmaxmem getscheduler resume 
- >              setpodtarget getpodtarget getpagingmempool setpagingmempool }; 
- > -    allow $1 $2:domain2 { set_vnumainfo dt_overlay get_domain_state }; 
- > +    allow $1 $2:domain2 { set_vnumainfo dt_overlay get_domain_state }; 
- >  ') 
- >  
- >  # migrate_domain_out(priv, target) 
- > @@ -182,9 +182,9 @@ define(`make_device_model', ` 
- >  #   Allow a device to be used by a domain 
- >  #   only if an IOMMU provides isolation. 
- >  define(`use_device_iommu', ` 
- > -    allow $1 $1_self:mmu exchange; 
- > -    allow $1 $2:resource use_iommu; 
- > -    allow $1 domio_t:mmu { map_read map_write }; 
- > +    allow $1 $1_self:mmu exchange; 
- > +    allow $1 $2:resource use_iommu; 
- > +    allow $1 domio_t:mmu { map_read map_write }; 
- >  ') 
- >  
- >  # use_device_iommu_nointremap(domain, device) 
- > @@ -193,30 +193,30 @@ define(`use_device_iommu', ` 
- >  #   interrupt remapping. 
- >  #   Allows acceptance of (typically older) less isolating hardware. 
- >  define(`use_device_iommu_nointremap', ` 
- > -    allow $1 $1_self:mmu exchange; 
- > -    allow $1 $2:resource { use_iommu use_iommu_nointremap }; 
- > -    allow $1 domio_t:mmu { map_read map_write }; 
- > +    allow $1 $1_self:mmu exchange; 
- > +    allow $1 $2:resource { use_iommu use_iommu_nointremap }; 
- > +    allow $1 domio_t:mmu { map_read map_write }; 
- >  ') 
- >  
- >  # use_device_noiommu(domain, device) 
- >  #   Allow a device to be used by a domain 
- >  #   even without an IOMMU available. 
- >  define(`use_device_noiommu', ` 
- > -    allow $1 $1_self:mmu exchange; 
- > -    allow $1 $2:resource { use_iommu use_iommu_nointremap use_noiommu }; 
- > -    allow $1 domio_t:mmu { map_read map_write }; 
- > +    allow $1 $1_self:mmu exchange; 
- > +    allow $1 $2:resource { use_iommu use_iommu_nointremap use_noiommu }; 
- > +    allow $1 domio_t:mmu { map_read map_write }; 
- >  ') 
- >  
- >  # admin_device(domain, device) 
- >  #   Allow a device to be used and delegated by a domain 
- >  define(`admin_device', ` 
- > -    allow $1 $2:resource { setup stat_device add_device add_irq add_iomem add_ioport remove_device remove_irq remove_iomem remove_ioport plug unplug }; 
- > -    allow $1 $2:hvm bind_irq; 
- > -    use_device_noiommu($1, $2) 
- > +    allow $1 $2:resource { setup stat_device add_device add_irq add_iomem add_ioport remove_device remove_irq remove_iomem remove_ioport plug unplug }; 
- > +    allow $1 $2:hvm bind_irq; 
- > +    use_device_noiommu($1, $2) 
- >  ') 
- >  
- >  # delegate_devices(priv-domain, target-domain) 
- >  #   Allow devices to be delegated 
- >  define(`delegate_devices', ` 
- > -    allow $1 $2:resource { add remove }; 
- > +    allow $1 $2:resource { add remove }; 
- >  ') 
- > -- 
- > 2.39.5 
- >  
- > 
+In commit cfcacbab38e ("xen/passthrough: use gsi to map pirq when
+dom0 is PVH") an `error_report` was added to this file, but the
+corresponding include of `qemu/error-report.h` was missed. This
+only becomes apparent when building against Xen 4.20+ with trace
+backend log disabled.
 
-Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+Fixes: cfcacbab38e4 (xen/passthrough: use gsi to map pirq when dom0 is PVH)
+Signed-off-by: Adam Williamson <awilliam@redhat.com>
+Reviewed-by: Markus Armbruster <armbru@redhat.com>
+Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+Message-ID: <20250717220207.171040-1-awilliam@redhat.com>
+[PMD: Improved commit description, added Fixes: tag]
+Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+---
+ hw/xen/xen_pt.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
+index 9d16644d82e..006b5b55f24 100644
+--- a/hw/xen/xen_pt.c
++++ b/hw/xen/xen_pt.c
+@@ -54,6 +54,7 @@
+ 
+ #include "qemu/osdep.h"
+ #include "qapi/error.h"
++#include "qemu/error-report.h"
+ #include <sys/ioctl.h>
+ 
+ #include "hw/pci/pci.h"
+-- 
+2.49.0
+
 
