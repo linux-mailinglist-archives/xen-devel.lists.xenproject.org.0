@@ -2,33 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11D1BB14CBB
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 13:08:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1062471.1428187 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89C8FB14CCE
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 13:12:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1062519.1428228 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugiBS-0006DX-9O; Tue, 29 Jul 2025 11:07:50 +0000
+	id 1ugiG8-0001JY-KK; Tue, 29 Jul 2025 11:12:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1062471.1428187; Tue, 29 Jul 2025 11:07:50 +0000
+Received: by outflank-mailman (output) from mailman id 1062519.1428228; Tue, 29 Jul 2025 11:12:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugiBS-0006C2-6m; Tue, 29 Jul 2025 11:07:50 +0000
-Received: by outflank-mailman (input) for mailman id 1062471;
- Tue, 29 Jul 2025 11:07:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MDjb=2K=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1ugiBR-0006Bw-Ds
- for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 11:07:49 +0000
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [2607:f8b0:4864:20::32c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4243ae80-6c6c-11f0-a31e-13f23c93f187;
- Tue, 29 Jul 2025 13:07:48 +0200 (CEST)
-Received: by mail-ot1-x32c.google.com with SMTP id
- 46e09a7af769-73e810dc4cdso1910390a34.0
- for <xen-devel@lists.xenproject.org>; Tue, 29 Jul 2025 04:07:48 -0700 (PDT)
+	id 1ugiG8-0001Gz-HP; Tue, 29 Jul 2025 11:12:40 +0000
+Received: by outflank-mailman (input) for mailman id 1062519;
+ Tue, 29 Jul 2025 11:12:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=NrXi=2K=redhat.com=armbru@srs-se1.protection.inumbo.net>)
+ id 1ugiG7-0000M4-38
+ for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 11:12:39 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id eecd6811-6c6c-11f0-b895-0df219b8e170;
+ Tue, 29 Jul 2025 13:12:37 +0200 (CEST)
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-674-GzHVl2qGNsKllHguYOxZow-1; Tue,
+ 29 Jul 2025 07:12:32 -0400
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 99F66180036F; Tue, 29 Jul 2025 11:12:30 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.45.242.14])
+ by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 992E119560A2; Tue, 29 Jul 2025 11:12:29 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id DE77B21E6A27; Tue, 29 Jul 2025 13:12:26 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,105 +54,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4243ae80-6c6c-11f0-a31e-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1753787267; x=1754392067; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SPqN4pfLReGwZCCxTr9R/9szw3Jf8dLAeoG2Ulc2pug=;
-        b=EazsYGh4o+GfUuQqkF6fnt225BH0BrsHX13RJjOtvPD6fsvjyZKx2wJzlpXCF7Djib
-         mYmFuQ2S5xp3qUOCsOjk16EcutluFhSEfpoGuwbqZ6x3Al79g7F8sWPD0ePuserjacBd
-         puYJa1t0n2QpDs4bjnwZRDJladzKHWApjlt94=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753787267; x=1754392067;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=SPqN4pfLReGwZCCxTr9R/9szw3Jf8dLAeoG2Ulc2pug=;
-        b=iqPtUSByyjxfyD7pQ6fLb5rJS0HkAkRDoy50o5Phwr0PeRI4HMYM/xv9xBFco6Zkm2
-         cunogcS/pNoBIxorGEh9qYg2tyu5Ae4qCnF4NsZybeN1XW6kk8NZHjOFI9flO7cPeASk
-         1jTZ5Mhb92bbyGLqUtbsht18UEkIi0ysRepE9Nu8zkiIcsVnooCsAJLyz59RHD4YQdX/
-         1IyW/iX2gvkawjmJOreX+hSpvEzl2hA34CoxfXpNsfthbATBu/Zxqm1NYg2R3du9mY28
-         rGAa+mnUbW6X6s/d7oX04NS+xgarcwzauYlG+ba8E6h5Ikww94/Zw4Jzl8Pf+AbrKyf1
-         isgw==
-X-Gm-Message-State: AOJu0Yxs+xv8d7Dy1spJd8LALyFHH3491M5wRM3pbP0RlzFiDlvJMCHH
-	Pq/hYzVZq4uLRVkx97igKG1wxQx0wVh0gY8+/rH687B7bNTn96oFeD60SmsXaDM9j1D9xxoAc3V
-	0Eyof/2Gyh1qomipdtCr7U+J7OioHtlbHqvyj9ZK0pw==
-X-Gm-Gg: ASbGncvdDGyga8MnT1QcInuP21Js3PsuAXgdeyCbQj1TjlMaEj9zGQ1rVQB+kKthX5K
-	ZZ0HB2QGLSzPPkoHve8ZpML+snFcfoU/zdFIgSQNKPfSwSs/PyW0gHFPp640f6UnacAWmrQHNr/
-	OXmKkHubhoiGnE/tsUWHCQ8Cq0IQC8T/oKfbtFP8ATJL/gcgSqz6ZPPmHdqExZAJPreLDA5a1pB
-	twu9S8=
-X-Google-Smtp-Source: AGHT+IHFJdqCJo15+kxvULmvjHDju2sug+cDUSxagGwtrN6r4aZuGnt3Lsg0xbvGvNBoPYzMJ5QJ0PRfX1U8NNa5CCk=
-X-Received: by 2002:a05:6808:6f8e:b0:40b:121b:65b4 with SMTP id
- 5614622812f47-42bb991634dmr9993580b6e.21.1753787266524; Tue, 29 Jul 2025
- 04:07:46 -0700 (PDT)
+X-Inumbo-ID: eecd6811-6c6c-11f0-b895-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1753787556;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=dt6qkMkh+MC47d4SdeRqjp6FPKdZAsysmAqVxMrrdaE=;
+	b=BGPO25lSKl6R1sUkBqBQP8g5174QqsPPkaqvqEFg+P2LiOJe2AJsTGFPOhMIwOoew4Gp71
+	J1uSHju3EctW/J458Vo79qf3yqjPNwtJBW3Gyoqbc8F8lio97z5vDI/B857os1TD8y8ihI
+	QkeQnAF+MsKU1cJH4S6i4KIilg/I95A=
+X-MC-Unique: GzHVl2qGNsKllHguYOxZow-1
+X-Mimecast-MFC-AGG-ID: GzHVl2qGNsKllHguYOxZow_1753787551
+From: Markus Armbruster <armbru@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: sstabellini@kernel.org,
+	anthony@xenproject.org,
+	paul@xen.org,
+	edgar.iglesias@gmail.com,
+	xen-devel@lists.xenproject.org,
+	qemu-trivial@nongnu.org
+Subject: [PATCH] hw/display/xenfb: Replace unreachable code by abort()
+Date: Tue, 29 Jul 2025 13:12:26 +0200
+Message-ID: <20250729111226.3627499-1-armbru@redhat.com>
 MIME-Version: 1.0
-References: <20250728125036.41305-1-frediano.ziglio@cloud.com>
- <aIeWTNM21dme8Dgn@macbook.local> <3d56dc63-34e9-4dd2-8d9a-418a791610ca@suse.com>
-In-Reply-To: <3d56dc63-34e9-4dd2-8d9a-418a791610ca@suse.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Tue, 29 Jul 2025 12:07:35 +0100
-X-Gm-Features: Ac12FXwTdBMm8H3biCj7_mtFkavCbsSZ2nK2ivFfmKGoH6dk2lqiymrIgI4cXtk
-Message-ID: <CACHz=ZjybTSobCq2rC3N6urp3DMf_Bmt8ZhaubefDAwVg=dLZg@mail.gmail.com>
-Subject: Re: [PATCH] xen/rangeset: fix typo in comment
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On Tue, Jul 29, 2025 at 10:34=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wr=
-ote:
->
-> On 28.07.2025 17:25, Roger Pau Monn=C3=A9 wrote:
-> > On Mon, Jul 28, 2025 at 01:50:33PM +0100, Frediano Ziglio wrote:
-> >> Fixes: fc41b5c1fdbe ("Extend the range abstraction"...)
-> >> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-> >
-> > Acked-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
->
-> Just to mention: I committed this as is with Roger's ack, but I don't thi=
-nk
-> a Fixes: tag is really appropriate here (I'm certainly not intending to
-> pick this up for backporting). Even further I question a patch changing t=
-he
-> spelling of a single word in a comment: It not only took you time to make
-> and send the patch, it also took people time to look at it, Roger to send
-> an ack, me to commit it, and now CI will put extra effort into testing it
-> in isolation via the build-each-commit job. That's way too much resource =
-use
-> imo to justify the extremely minor effect. Such spelling mistakes are imo
-> best corrected when touching adjacent code anyway.
->
-> Jan
+xenfb_mouse_event() has a switch statement whose controlling
+expression move->axis is an enum InputAxis.  The enum values are
+INPUT_AXIS_X and INPUT_AXIS_Y, encoded as 0 and 1.  The switch has a
+case for both axes.  In addition, it has an unreachable default label.
+This convinces Coverity that move->axis can be greater than 1.  It
+duly reports a buffer overrun when it is used to subscript an array
+with two elements.
 
-Hi,
-  I didn't know there was an automatism with the "Fixes:" tag.
+Replace the unreachable code by abort().
 
-I found the comment about the effort a bit harsh. In many different
-open source projects this would be against the code of conduct.
-Usually an open source project should promote contributions. This
-seems not the case in Xen. A different phrasing would have been
-better.
+Resolves: Coverity CID 1613906
+Signed-off-by: Markus Armbruster <armbru@redhat.com>
+---
+ hw/display/xenfb.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Other projects have separate handling for trivial patches. For
-instance Qemu has some "TRIVIAL" marking, this will help batching
-small changes like this; also the trivial changes have different
-reviewers.
-If the issue is CI resources we can talk about. For instance multiple
-runners can be added, I have a runner too that helps when I compile my
-branches. Suggesting other users to do that could relieve main
-runners. Another option would be having the possibility to avoid
-having to compile commits like this. Disabling the need to have every
-commit compiled could be an option.
+diff --git a/hw/display/xenfb.c b/hw/display/xenfb.c
+index 22822fecea..5e6c691779 100644
+--- a/hw/display/xenfb.c
++++ b/hw/display/xenfb.c
+@@ -283,8 +283,7 @@ static void xenfb_mouse_event(DeviceState *dev, QemuConsole *src,
+                 scale = surface_height(surface) - 1;
+                 break;
+             default:
+-                scale = 0x8000;
+-                break;
++                abort();
+             }
+             xenfb->axis[move->axis] = move->value * scale / 0x7fff;
+         }
+-- 
+2.49.0
 
-About the commits separation I prefer (and I'm not the only one) to
-separate hunks and changes by purpose. Fixing typos is a different
-purpose than other changes.
-
-Regards,
-  Frediano
 
