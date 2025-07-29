@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51327B1551C
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 00:10:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1063196.1428997 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D8DBB15530
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 00:18:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1063210.1429006 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugsWT-0002Kv-6I; Tue, 29 Jul 2025 22:10:13 +0000
+	id 1ugseE-0003V4-Sy; Tue, 29 Jul 2025 22:18:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1063196.1428997; Tue, 29 Jul 2025 22:10:13 +0000
+Received: by outflank-mailman (output) from mailman id 1063210.1429006; Tue, 29 Jul 2025 22:18:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugsWT-0002Hm-3C; Tue, 29 Jul 2025 22:10:13 +0000
-Received: by outflank-mailman (input) for mailman id 1063196;
- Tue, 29 Jul 2025 22:10:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ugseE-0003TJ-Pv; Tue, 29 Jul 2025 22:18:14 +0000
+Received: by outflank-mailman (input) for mailman id 1063210;
+ Tue, 29 Jul 2025 22:18:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9TdY=2K=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1ugsWQ-0000tb-Q0
- for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 22:10:11 +0000
-Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch
- [79.135.106.29]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ca0d014e-6cc8-11f0-b895-0df219b8e170;
- Wed, 30 Jul 2025 00:10:09 +0200 (CEST)
+ id 1ugseC-0003TB-JV
+ for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 22:18:12 +0000
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e9c914d4-6cc9-11f0-a320-13f23c93f187;
+ Wed, 30 Jul 2025 00:18:11 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,97 +36,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca0d014e-6cc8-11f0-b895-0df219b8e170
+X-Inumbo-ID: e9c914d4-6cc9-11f0-a320-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1753827007; x=1754086207;
-	bh=KpeawhcIzhNTOwabM6HfpqyvSLAj9mVYFxmAEkEl7TM=;
+	s=protonmail; t=1753827490; x=1754086690;
+	bh=ku2hGNPZSfOr3lejpzD+mQo8UaeQO5xgSoz7UJMTTsk=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=dPKqRcdTo9eMdhS9pT6sBbEgTprYE1YYk58bx1jtqfQAhXe+FnCUYSt3OSdbDxZMP
-	 ZFbilvRFD1z5K0nVKAwKcgfiwaEoiifhYEvp86P1Yf995ljiR2Gpn+T3F6Ccmavtny
-	 3xo0xzhFDBflLeKQAq+hPZ7wGDNWx/3GX4wuJtuZR55ypV/9Swj9ltMtDjeztR+rc8
-	 lesPmhYMwHJSM3v1i0xlrypv7MpYP5yeUbvhPjtlmOmhe6FbTqn1nG3wg3svId4PSk
-	 ssJYkakgrbjnHu2bQ+CeFhC1cJ2YTesxziBi3AkKfmX0O193eniPJvI2tK5ezgq+03
-	 x6Et6OTTooQYw==
-Date: Tue, 29 Jul 2025 22:10:02 +0000
+	b=FklBy/JFHNINHMHuNnz+0JxkuMRosM8GmiUUzMyFa0VQ2wi8qkXg1rff+P8NjMO0W
+	 exro6l/1oKvsw2Kc682wJVk5WZWSQe5d34sw0yUZbBhJIzHAmD/p2w7HlbY0uWn8Ep
+	 O5lwsjnwk9NWM/H9ZKTf+kxPbZTRSTIKwCqFhoIwfEhaK1Dny+6ML95d4gzTo8XYC3
+	 feydnOC7EHwa0ydAHrpsRASjGPrmIUlcNVUNbEoiV5nMZ4gwPBImGYnS6gAEBjCyV+
+	 7hI/I8+dk9sWXM2MtFd0HLlFBc1uGApXKPreIbxgcJkQ4odsHwEpJQdYhnyCbdp3if
+	 V5C0Wi407Mf/w==
+Date: Tue, 29 Jul 2025 22:18:07 +0000
 To: Jan Beulich <jbeulich@suse.com>
 From: dmkhn@proton.me
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>, Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-Subject: Re: [PATCH v2] xen/arm, xen/common: Add Kconfig option to control Dom0 boot
-Message-ID: <aIlGtLz4ZxNwE/gO@kraken>
-In-Reply-To: <182d2b92-ba93-4916-a277-d7996b784fa2@suse.com>
-References: <90e79e175b5f703f33944415df3c7a73d6abc385.1753722403.git.oleksii_moisieiev@epam.com> <aIfrhfoaEBx2tyM3@kraken> <182d2b92-ba93-4916-a277-d7996b784fa2@suse.com>
+Cc: Julien Grall <julien@xen.org>, andrew.cooper3@citrix.com, anthony.perard@vates.tech, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1] xen/console: remove __printk_ratelimit()
+Message-ID: <aIlIm7F5L3WQLoWd@kraken>
+In-Reply-To: <aade04e0-737f-481c-9ed1-1275969c2ef7@suse.com>
+References: <20250725212235.753363-1-dmukhin@ford.com> <290ae958-4fba-42d8-a64b-d44845b85491@xen.org> <aade04e0-737f-481c-9ed1-1275969c2ef7@suse.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 563b818cef7941a368460e08b2c073c503190411
+X-Pm-Message-ID: 7c5ca26b9df21a2b9b50be12773dbc82df7183e8
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 29, 2025 at 10:20:54AM +0200, Jan Beulich wrote:
-> On 28.07.2025 23:28, dmkhn@proton.me wrote:
-> > On Mon, Jul 28, 2025 at 05:07:30PM +0000, Oleksii Moisieiev wrote:
-> >> This commit introduces a new Kconfig option, `CONFIG_DOM0_BOOT`, to
-> >> allow for building Xen without support for booting a regular domain (D=
-om0).
-> >> This functionality is primarily intended for the ARM architecture.
+On Mon, Jul 28, 2025 at 11:32:43AM +0200, Jan Beulich wrote:
+> On 26.07.2025 11:20, Julien Grall wrote:
+> > On 25/07/2025 22:24, dmkhn@proton.me wrote:
+> >> From: Denis Mukhin <dmukhin@ford.com>
 > >>
-> >> A new Kconfig symbol, `HAS_DOM0`, has been added and is selected by
-> >> default for ARM and X86 architecture. This symbol signifies that an
-> >> architecture has the capability to support a Dom0.
-> >>
-> >> The `DOM0_BOOT` option depends on `HAS_DOM0` and defaults to 'y'. For
-> >> expert users, this option can be disabled (`CONFIG_EXPERT=3Dy` and no
-> >> `CONFIG_DOM0_BOOT` in the config), which will compile out the Dom0
-> >> creation code on ARM. This is useful for embedded or dom0less-only
-> >> scenarios to reduce binary size and complexity.
-> >>
-> >> The ARM boot path has been updated to panic if it detects a non-dom0le=
-ss
-> >> configuration while `CONFIG_DOM0_BOOT` is disabled, preventing an inva=
-lid
-> >> boot.
-> >>
-> >> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
-> >>
-> >> ---
-> >>
-> >> ---
-> >>  xen/arch/arm/Kconfig        |  1 +
-> >>  xen/arch/arm/domain_build.c |  8 ++++++++
-> >>  xen/arch/arm/setup.c        | 14 ++++++++++----
-> >>  xen/arch/x86/Kconfig        |  1 +
-> >>  xen/common/Kconfig          | 11 +++++++++++
-> >>  5 files changed, 31 insertions(+), 4 deletions(-)
+> >> __printk_ratelimit() is never used outside of the console driver.
+> >> Remove it from the lib.h and merge with the public printk_ratelimit().
 > >
-> > I think there should be changes in
-> >   include/xen/domain.h
-> > and
-> >   arch/arm/include/asm/setup.h
-> > to compile out declarations of dom0_max_vcpus() and create_dom0() under=
- new
-> > CONFIG_DOM0_BOOT.
+> > Is this solving any sort of violation? Asking because even if the
+> > function is only used by one caller, I could see a benefit to be able t=
+o
+> > use different value for the ratelimit. So I leaning towards keep the
+> > code as-is.
 >=20
-> Adding #ifdef-ary just to hide declarations is often merely adding clutte=
-r,
-> without providing a clear benefit. I didn't check in this case, but I thi=
-nk
-> when making such a request you want to clarify what the gains would be of
-> adding more #ifdef.
+> +1
+>=20
+> In fact I'm surprised (or maybe not) that we still don't make better use
+> the rate limiting functionality.
 
-re: clutter: fully agree.
+Out of curiosity, do you have any ideas re: make better use of the rate
+limiting functionality?
 
-I was thinking about this following code where ifdef-ery may be needed:
-
-+    if ( IS_ENABLED(CONFIG_DOM0_BOOT) && !is_dom0less_mode() )
-+    {
-+        /* Create initial domain 0. */
-         create_dom0();
-+    }
-
-But looks like compiler is correctly throwing away create_dom0() call.
+Build-time parameterization?
 
 >=20
 > Jan
+>=20
 
 
