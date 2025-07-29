@@ -2,34 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA0FFB15519
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 00:09:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1063189.1428985 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51327B1551C
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 00:10:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1063196.1428997 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugsVk-0000w9-Ts; Tue, 29 Jul 2025 22:09:28 +0000
+	id 1ugsWT-0002Kv-6I; Tue, 29 Jul 2025 22:10:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1063189.1428985; Tue, 29 Jul 2025 22:09:28 +0000
+Received: by outflank-mailman (output) from mailman id 1063196.1428997; Tue, 29 Jul 2025 22:10:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugsVk-0000th-Qt; Tue, 29 Jul 2025 22:09:28 +0000
-Received: by outflank-mailman (input) for mailman id 1063189;
- Tue, 29 Jul 2025 22:09:27 +0000
+	id 1ugsWT-0002Hm-3C; Tue, 29 Jul 2025 22:10:13 +0000
+Received: by outflank-mailman (input) for mailman id 1063196;
+ Tue, 29 Jul 2025 22:10:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fqJK=2K=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1ugsVj-0000tb-Ef
- for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 22:09:27 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id afe37a15-6cc8-11f0-b895-0df219b8e170;
- Wed, 30 Jul 2025 00:09:25 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 684B5A54CFC;
- Tue, 29 Jul 2025 22:09:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47498C4CEEF;
- Tue, 29 Jul 2025 22:09:08 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=9TdY=2K=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1ugsWQ-0000tb-Q0
+ for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 22:10:11 +0000
+Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch
+ [79.135.106.29]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ca0d014e-6cc8-11f0-b895-0df219b8e170;
+ Wed, 30 Jul 2025 00:10:09 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,149 +36,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: afe37a15-6cc8-11f0-b895-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1753826964;
-	bh=RAX0ptam6yjbCQMvq2VhzLR8Acf4ahNsVHNzqOc05C4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=pN/4QWLAZXD8sO5tkedALTwtpkrmyP4db2GwSVzkscNwU92xn9J3FBOtYQ5ZXDrnO
-	 qD0bjYKsMU8zpVk3MGjxmSiAxqX6VWD/5SBepBR4vO0Fir3NNPcZYOpNiwGDd/bw72
-	 ruocBegbQxhbGzdNCX1MR5tH0uU9p3xzY+6M/rWJqk/cjUDYEKiyliIcBtjl7TKVoE
-	 0MMx76clW7N1B9r9LQkh3VRMxilQI62cd8YJqSbAkM/DfX6JzfD2yrKBtsp2/wndjg
-	 sM1kNpdPPypT8sH4cixGj2hLx4sQUKp7CJlGO9AkgsYZIbxkU67HYzqpc0bjmJNQP+
-	 Fm3D3dLxAUbsQ==
-Date: Tue, 29 Jul 2025 15:09:02 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-cc: Jan Beulich <jbeulich@suse.com>, 
-    Nicola Vetrini <nicola.vetrini@bugseng.com>, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-    =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-    Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>, 
-    George Dunlap <gwd@xenproject.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] misra: address MISRA C Rule 18.3 compliance
-In-Reply-To: <36042f23-7795-4717-be4a-cd22e52b3145@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2507291507580.468590@ubuntu-linux-20-04-desktop>
-References: <c9fb095c43edfedfd6174284bac404ec9ae5523d.1753263957.git.dmytro_prokopchuk1@epam.com> <6c7341a2-fd49-40de-8ad3-e7980d4e9e42@suse.com> <36042f23-7795-4717-be4a-cd22e52b3145@epam.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: ca0d014e-6cc8-11f0-b895-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1753827007; x=1754086207;
+	bh=KpeawhcIzhNTOwabM6HfpqyvSLAj9mVYFxmAEkEl7TM=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=dPKqRcdTo9eMdhS9pT6sBbEgTprYE1YYk58bx1jtqfQAhXe+FnCUYSt3OSdbDxZMP
+	 ZFbilvRFD1z5K0nVKAwKcgfiwaEoiifhYEvp86P1Yf995ljiR2Gpn+T3F6Ccmavtny
+	 3xo0xzhFDBflLeKQAq+hPZ7wGDNWx/3GX4wuJtuZR55ypV/9Swj9ltMtDjeztR+rc8
+	 lesPmhYMwHJSM3v1i0xlrypv7MpYP5yeUbvhPjtlmOmhe6FbTqn1nG3wg3svId4PSk
+	 ssJYkakgrbjnHu2bQ+CeFhC1cJ2YTesxziBi3AkKfmX0O193eniPJvI2tK5ezgq+03
+	 x6Et6OTTooQYw==
+Date: Tue, 29 Jul 2025 22:10:02 +0000
+To: Jan Beulich <jbeulich@suse.com>
+From: dmkhn@proton.me
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>, Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+Subject: Re: [PATCH v2] xen/arm, xen/common: Add Kconfig option to control Dom0 boot
+Message-ID: <aIlGtLz4ZxNwE/gO@kraken>
+In-Reply-To: <182d2b92-ba93-4916-a277-d7996b784fa2@suse.com>
+References: <90e79e175b5f703f33944415df3c7a73d6abc385.1753722403.git.oleksii_moisieiev@epam.com> <aIfrhfoaEBx2tyM3@kraken> <182d2b92-ba93-4916-a277-d7996b784fa2@suse.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 563b818cef7941a368460e08b2c073c503190411
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 25 Jul 2025, Dmytro Prokopchuk1 wrote:
-> On 7/23/25 16:58, Jan Beulich wrote:
-> > On 23.07.2025 12:12, Dmytro Prokopchuk1 wrote:
-> >> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> >> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> >> @@ -568,6 +568,14 @@ C99 Undefined Behaviour 45: Pointers that do not point into, or just beyond, the
-> >>   -config=MC3A2.R18.2,reports+={safe, "any_area(any_loc(any_exp(macro(^page_to_mfn$))))"}
-> >>   -doc_end
-> >>   
-> >> +-doc_begin="Consider relational pointer comparisons in kernel-related sections as safe and compliant."
-> >> +-config=MC3R1.R18.3,reports+={safe, "any_area(any_loc(any_exp(macro(name(is_kernel||is_kernel_text||is_kernel_rodata||is_kernel_inittext)))))"}
-> >> +-doc_end
-> >> +
-> >> +-doc_begin="Allow deviations for pointer comparisons in BUG_ON and ASSERT macros, treating them as safe for debugging and validation."
-> >> +-config=MC3R1.R18.3,reports+={safe, "any_area(any_loc(any_exp(macro(name(BUG_ON||ASSERT)))))"}
-> >> +-doc_end
-> > 
-> > Nit: Drop "deviations for" from the verbal description?
-> Ok.
-> 
-> > 
-> >> --- a/xen/arch/x86/efi/efi-boot.h
-> >> +++ b/xen/arch/x86/efi/efi-boot.h
-> >> @@ -461,7 +461,8 @@ static void __init efi_arch_edd(void)
-> >>                   params->device_path_info_length =
-> >>                       sizeof(struct edd_device_params) -
-> >>                       offsetof(struct edd_device_params, key);
-> >> -                for ( p = (const u8 *)&params->key; p < &params->checksum; ++p )
-> >> +                for ( p = (const u8 *)&params->key;
-> >> +                      (uintptr_t)p < (uintptr_t)&params->checksum; ++p )
-> > 
-> > There mere addition of such casts makes code more fragile imo. What about the
-> > alternative of using != instead of < here? I certainly prefer < in such situations,
-> > but functionally != ought to be equivalent (and less constrained by C and Misra).
-> > 
-> > As mentioned several times when discussing these rules, it's also not easy to see
-> > how "pointers of different objects" could be involved here: It's all within
-> > *params, isn't it?
-> Hard to say something. Let's hold this so far.
-> 
-> > 
-> > Finally, when touching such code it would be nice if u<N> was converted to
-> > uint<N>_t.
-> > 
-> >> --- a/xen/common/sched/core.c
-> >> +++ b/xen/common/sched/core.c
-> >> @@ -360,7 +360,7 @@ static always_inline void sched_spin_lock_double(
-> >>       {
-> >>           *flags = _spin_lock_irqsave(lock1);
-> >>       }
-> >> -    else if ( lock1 < lock2 )
-> >> +    else if ( (uintptr_t)lock1 < (uintptr_t)lock2 )
-> > 
-> > Similarly, no matter what C or Misra may have to say here, imo such casts are
-> > simply dangerous. Especially when open-coded.
-> Well, this function 'sched_spin_lock_double' has the following description:
-> "If locks are different, take the one with the lower address first."
-> 
-> I think it's save to compare the integer representations of 'lock1' and 
-> 'lock2' addresses explicitly (casting the pointers values to an integer 
-> type). We need to find the 'lower address'.
-> Any risks here?
-> 
-> Dmytro
-> > 
-> >> --- a/xen/common/virtual_region.c
-> >> +++ b/xen/common/virtual_region.c
-> >> @@ -83,8 +83,8 @@ const struct virtual_region *find_text_region(unsigned long addr)
-> >>       rcu_read_lock(&rcu_virtual_region_lock);
-> >>       list_for_each_entry_rcu ( iter, &virtual_region_list, list )
-> >>       {
-> >> -        if ( (void *)addr >= iter->text_start &&
-> >> -             (void *)addr <  iter->text_end )
-> >> +        if ( addr >= (unsigned long)iter->text_start &&
-> >> +             addr <  (unsigned long)iter->text_end )
-> > 
-> > Considering further casts to unsigned long of the same struct fields, was it
-> > considered to alter the type of the struct fields instead?
-> There are present casts of struct fields 'text_start' and 'text_end' in 
-> the file 'xen/common/virtual_region.c'.
-> 
->          modify_xen_mappings_lite((unsigned long)region->text_start,
->                                   (unsigned long)region->text_end,
->                                   PAGE_HYPERVISOR_RWX);
-> 
-> Changing fields type to 'unsigned long' will give the opportunity to 
-> remove casts from source code (mentioned before),
-> and remove '(void*)' casts from here:
-> 
->          if ( (void *)addr >= iter->text_start &&
->               (void *)addr <  iter->text_end )
-> 
-> Unfortunately there are places where these fields are initialized, so 
-> cast to the 'unsigned long' should be there.
-> Example:
->      .text_start = _sinittext,
->      .text_end = _einittext,
-> and
->      .text_start = _sinittext,
->      .text_end = _einittext,
-> 
-> where
->      extern char _sinittext[], _einittext[];
->      extern char _stext[], _etext[];
-> 
+On Tue, Jul 29, 2025 at 10:20:54AM +0200, Jan Beulich wrote:
+> On 28.07.2025 23:28, dmkhn@proton.me wrote:
+> > On Mon, Jul 28, 2025 at 05:07:30PM +0000, Oleksii Moisieiev wrote:
+> >> This commit introduces a new Kconfig option, `CONFIG_DOM0_BOOT`, to
+> >> allow for building Xen without support for booting a regular domain (D=
+om0).
+> >> This functionality is primarily intended for the ARM architecture.
+> >>
+> >> A new Kconfig symbol, `HAS_DOM0`, has been added and is selected by
+> >> default for ARM and X86 architecture. This symbol signifies that an
+> >> architecture has the capability to support a Dom0.
+> >>
+> >> The `DOM0_BOOT` option depends on `HAS_DOM0` and defaults to 'y'. For
+> >> expert users, this option can be disabled (`CONFIG_EXPERT=3Dy` and no
+> >> `CONFIG_DOM0_BOOT` in the config), which will compile out the Dom0
+> >> creation code on ARM. This is useful for embedded or dom0less-only
+> >> scenarios to reduce binary size and complexity.
+> >>
+> >> The ARM boot path has been updated to panic if it detects a non-dom0le=
+ss
+> >> configuration while `CONFIG_DOM0_BOOT` is disabled, preventing an inva=
+lid
+> >> boot.
+> >>
+> >> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+> >>
+> >> ---
+> >>
+> >> ---
+> >>  xen/arch/arm/Kconfig        |  1 +
+> >>  xen/arch/arm/domain_build.c |  8 ++++++++
+> >>  xen/arch/arm/setup.c        | 14 ++++++++++----
+> >>  xen/arch/x86/Kconfig        |  1 +
+> >>  xen/common/Kconfig          | 11 +++++++++++
+> >>  5 files changed, 31 insertions(+), 4 deletions(-)
+> >
+> > I think there should be changes in
+> >   include/xen/domain.h
+> > and
+> >   arch/arm/include/asm/setup.h
+> > to compile out declarations of dom0_max_vcpus() and create_dom0() under=
+ new
+> > CONFIG_DOM0_BOOT.
+>=20
+> Adding #ifdef-ary just to hide declarations is often merely adding clutte=
+r,
+> without providing a clear benefit. I didn't check in this case, but I thi=
+nk
+> when making such a request you want to clarify what the gains would be of
+> adding more #ifdef.
 
-Everything related to stext/etext, sinittext/einittext, etc should be
-deviated as those are not even pointers: they are linker symbols. Also,
-they do refer to the same "object": the Xen text.
+re: clutter: fully agree.
+
+I was thinking about this following code where ifdef-ery may be needed:
+
++    if ( IS_ENABLED(CONFIG_DOM0_BOOT) && !is_dom0less_mode() )
++    {
++        /* Create initial domain 0. */
+         create_dom0();
++    }
+
+But looks like compiler is correctly throwing away create_dom0() call.
+
+>=20
+> Jan
+
 
