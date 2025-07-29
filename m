@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31ACEB14E4A
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 15:20:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1062684.1428417 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A8B9B14E57
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 15:27:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1062694.1428427 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugkG7-0004A5-Jb; Tue, 29 Jul 2025 13:20:47 +0000
+	id 1ugkMC-0004uh-Bi; Tue, 29 Jul 2025 13:27:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1062684.1428417; Tue, 29 Jul 2025 13:20:47 +0000
+Received: by outflank-mailman (output) from mailman id 1062694.1428427; Tue, 29 Jul 2025 13:27:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugkG7-00047H-Gi; Tue, 29 Jul 2025 13:20:47 +0000
-Received: by outflank-mailman (input) for mailman id 1062684;
- Tue, 29 Jul 2025 13:20:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ugkMC-0004sc-8l; Tue, 29 Jul 2025 13:27:04 +0000
+Received: by outflank-mailman (input) for mailman id 1062694;
+ Tue, 29 Jul 2025 13:27:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fFWP=2K=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ugkG5-000476-MO
- for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 13:20:45 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d17ddb48-6c7e-11f0-b895-0df219b8e170;
- Tue, 29 Jul 2025 15:20:38 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3b78127c5d1so1841808f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 29 Jul 2025 06:20:38 -0700 (PDT)
+ id 1ugkMA-0004sW-V7
+ for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 13:27:02 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b5ac2023-6c7f-11f0-a31e-13f23c93f187;
+ Tue, 29 Jul 2025 15:27:01 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3b7834f2e72so1789352f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Jul 2025 06:27:01 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31e8872568esm8014317a91.34.2025.07.29.06.20.29
+ 98e67ed59e1d1-31e66376377sm12137471a91.28.2025.07.29.06.26.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Jul 2025 06:20:37 -0700 (PDT)
+ Tue, 29 Jul 2025 06:27:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d17ddb48-6c7e-11f0-b895-0df219b8e170
+X-Inumbo-ID: b5ac2023-6c7f-11f0-a31e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753795238; x=1754400038; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753795621; x=1754400421; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=n2lB8ry6OUYD/+ITb5OQ9s6PVlxPyubkKnOvWuHuxIo=;
-        b=NCt5ls8yfK4VetDOT2nGe+Rbcd3QAweN4vVvCLWck9VtULY5cTxJOG42R/CO7DxOCA
-         Pi1WV9WQq0vafkGO9DGqdAYJJE8+eyq8cwExWAhiYRt/IZS47tj8Xr1du1IXogG0zTzE
-         WGZOhLrGp2wLe9njcwDGVT9MBAHTpdRCVh2gr9gcOLnSqL3ke7pnrEbwT+PtXBGVq5mo
-         bWWzBiEMP4dTLmqkcFrXikWVO7SJwogwuW7Ha14kdUPeM51dUlqL3QixeuZtlxTteNaP
-         XJFEAhOMeSaCrQvnNtYiL+ClEx6aaBLk6ASZQMg8uUPyIE/rkdmTUCnAOogbqLAqWpl4
-         Uo7g==
+        bh=tXftFdjSsjBD7pcyPGz8CSem6U/EuzbpjMNAVajVeHk=;
+        b=QlKVh22klkuqnb+wlXhXjXOt6vgToQQ3DpZjefokcmB4Nl6Df+Vo/xH0+2MVIZyAZD
+         5flbbz/0TQReIggifbWw+YqVIN8EUefB2xhrmyrOtcmVXA4eQ6eI9kowF38XNTDXzrF1
+         FuPe6mvkXnKDNmvwDoY8timlDFjwRSEef5n56x2r6t8RfOs+eV8vy4+tg7YL8faLDSPg
+         YZIdtFLHTYAIqLFQ5cuaWIAkm6ScJ7fMS1NUVHLjHyRLB+txomkid3PDxiw1Sf9FW2p6
+         sptkw59WzLSHOD4FSa7gRgpX8LYYBMttixlm9tcQfdUSCdvKQdF7wyiyQ6Ms2cEP6lE2
+         xPUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753795238; x=1754400038;
+        d=1e100.net; s=20230601; t=1753795621; x=1754400421;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=n2lB8ry6OUYD/+ITb5OQ9s6PVlxPyubkKnOvWuHuxIo=;
-        b=S0Zko5yP5G+OBKoaUVlPykqaEHZMvjjcoS38jOZAk2zicVp8YJYsnVJ2+2IgrzxEUk
-         aL7/FNoZEn5MK0BVDU6uNOHjA+qe84/yjkxJLzjVVch0EZ7LlBoHtUNoaZGUPiwh9KXb
-         r9MwOM0WUPK/BrkvcdOQf8EgC5ArGKcRGT7H4WWgXTokPhY1VzE707lmCpvpZsrl1upJ
-         jkSQr5vFpcEikFtYwGfr3s0g7phkejUT2eS3l7/WycYwOJKsmX1+a9URPBp1pdYhqLQ1
-         umTm8IAY+Gdx1A/aRE4ApFI5GBSQByhb6nejb3wVZvuzAjpfVdZsh5vaPTx9Xx07vElN
-         YMDw==
-X-Forwarded-Encrypted: i=1; AJvYcCU/nNPQ+4kdOPtMyW8/mwKgIUvFOvhoi5meiRXVHSDBcdgZVrCkIoBjUmumrCe1QdlIFGrLS1QfJOM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz3lGMzfbrxyQCJfQ/cbcMqT9/oAP5B7T6YhlNNd+SOG7ShabY4
-	U6vJPH3aJxDBvE1DFELN87LOmjH/I8zeK/DByKIg2BikQbxYak7jaEg1uayOpTXM7A==
-X-Gm-Gg: ASbGncvSqpma8oWwybJn792GT7M6kmWEZu9cXHmpJghAq8klwrWHYV9TSdUKOgzLvTD
-	eb97hrRQoasti9YsBNsjWCzY3tbcsE07kKzPUmmkhmRWsX0K+1u3G9WxJLzo1ywv5+IkP7+nEQS
-	vI/KD5t2MHZYqpDCeIUvgIfFxCbhkLqcZdzNBYXq36JcGoLBD4mXx7wX0rtkHU24XdPXSSDbTpU
-	qICB+LuyFqdpJNk8SXWUvabLaaEpoGNBBA18gFam43NMpTNCVNf0mBuwebcJSV4StulHu4yH7wD
-	zVdaYq7U2GtQEPiq8ih9ugB/6wF7nvkwU9i69I2uHG8eF7vhC9otN6Y9nxJMqPw8ch/WoeANMLY
-	sAmWoRG2ebeRCMui1/fATsK4WkME260Qvvc2J+0C3n99tZh5wqc97ymvsVe0gVGgecRNpBTlmbI
-	pHWwoQqD4=
-X-Google-Smtp-Source: AGHT+IHm1sMIdk0TDh4ZLRVY5ZA61ivXnDnDQaBS3lNtjzKvsqzxWzjflfb168p+RI1YXmAdLqYGmw==
-X-Received: by 2002:a05:6000:2407:b0:3b7:6d94:a032 with SMTP id ffacd0b85a97d-3b7765e6ba2mr10401888f8f.3.1753795237804;
-        Tue, 29 Jul 2025 06:20:37 -0700 (PDT)
-Message-ID: <b80aed6c-7229-4697-9736-3528474ac738@suse.com>
-Date: Tue, 29 Jul 2025 15:20:25 +0200
+        bh=tXftFdjSsjBD7pcyPGz8CSem6U/EuzbpjMNAVajVeHk=;
+        b=fnWPoBLDE7rJWj7JfIOWwqKCx2y4lC9CjikCi3qY+GMuogbRPaAYLSitEeXDqGVfqp
+         gv5E41yhUC7mhZmrptMxNW0ToLkoNVoFJdSnsbEA5ouFehgpPwNKjlhYqY3oJZhUn+ov
+         oVjG0R+NwStor8n7qVYU/rDEWPVlQe8onGpNYDeai2HaAMepN/n0wEb9p+0Hni8ye8kW
+         Qv5lAg+pSB7Pma8Mv+EQJYPEAQ1tsjk64Z65nGQ8dCA+ovtKlJ4zCgffwxRHz10oD1Xj
+         nucGCV5ny2BBIycvt3r/hnCiDLYvxze1f60LuTcSmMwHZBxOSONeEyi2yamikVkh8P54
+         15tw==
+X-Forwarded-Encrypted: i=1; AJvYcCUqJHd1LdIhrae3Ui2aWr2pTm/td+Y4jmLNbHHOv3koTXqXKDpThwuTG1CvVLDD68QI2GXsFssdH2U=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyTcd/gBL2WfR38lNPHTCP4snRAy/6c0cDvaCouPtpGKrhaAKUV
+	QwCY9wKN8igHXD2vgl88ta6Pm5w9q57WOq3l+EY7DD5V9Z8ZICQGt6YeKqADDBYq9Q==
+X-Gm-Gg: ASbGncttAURrwdQQtEHvyl91L1KBWhqv5eOx7sduGi7FZ3DaFxsZNGmb2aZcyibtpP/
+	tkvFcvii0fynuWy5muLFJP+uTuJ3uUmzodl5nT0nbNn7n85W0zYMswPmu0tqO7jnK26I6gfXRJ7
+	AxzBveD6m1/nD4/2aipWHdpKNC4n0Ae1XbIic11mJS3gLeW9XzFHkhamKYpxLEHpSvRU/+KOqUH
+	dOgTh5ey40pq9aKa7tY3wSVqozr1MeBtOMxnPtbHRLwUcgj/Sp2t5tporpe2O+fh+OnebQps+WT
+	02KUvWgWBy4VIyTqHQKQhBUEITlZksnnDFLK7O2/rdSTGV8e5DKYg1+D+CiU6zMlvxoa0cbyCTq
+	pKC8C1+hrXrhkXIoDEaOanAgT/zPPO3OmUYhza7RmJwxxBr+/SA7fD6GpR32MiBjqLnceiwmodw
+	eJ5tN6b9wFHo0u4SyzZg==
+X-Google-Smtp-Source: AGHT+IFMBnZWuZ1ps9AA4ht5CZYW4HWuHkgLuDCZnBVyff3+lC4qJY3KSauhMh31QWFdmix+kTerUA==
+X-Received: by 2002:a05:6000:250f:b0:3b7:9339:794f with SMTP id ffacd0b85a97d-3b793397ff1mr1500390f8f.48.1753795620827;
+        Tue, 29 Jul 2025 06:27:00 -0700 (PDT)
+Message-ID: <056fd41d-47c9-4570-9cd9-fc121c9d44b7@suse.com>
+Date: Tue, 29 Jul 2025 15:26:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/8] pdx: allow per-arch optimization of PDX conversion
- helpers
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+Subject: Re: [PATCH v2] misra: allow 'noreturn' as safe for function pointer
+ conversions
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
-References: <20250724110416.2081-1-roger.pau@citrix.com>
- <20250724110416.2081-5-roger.pau@citrix.com>
+References: <3b821bc506b04bf7ff8bf5a3712449d45429dc90.1753791398.git.dmytro_prokopchuk1@epam.com>
+ <2ef0d0a9-065c-4288-badd-21de4cfc5d14@suse.com>
+ <029ca331fd380a855aff95ae9cae799e@bugseng.com>
+ <f94586c9-fdf8-4d04-8490-1a9b1a57bcc2@suse.com>
+ <df2d021f8b50989cf77ec226a6a5a9b4@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,62 +129,63 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250724110416.2081-5-roger.pau@citrix.com>
+In-Reply-To: <df2d021f8b50989cf77ec226a6a5a9b4@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 24.07.2025 13:04, Roger Pau Monne wrote:
-> There are four performance critical PDX conversion helpers that do the PFN
-> to/from PDX and the physical addresses to/from directmap offsets
-> translations.
+On 29.07.2025 15:16, Nicola Vetrini wrote:
+> On 2025-07-29 15:09, Jan Beulich wrote:
+>> On 29.07.2025 15:02, Nicola Vetrini wrote:
+>>> On 2025-07-29 14:39, Jan Beulich wrote:
+>>>> On 29.07.2025 14:21, Dmytro Prokopchuk1 wrote:
+>>>>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>>>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>>>> @@ -367,6 +367,13 @@ constant expressions are required.\""
+>>>>>  }
+>>>>>  -doc_end
+>>>>>
+>>>>> +-doc_begin="The conversion from 'void noreturn (*)(void *)' to 
+>>>>> 'void
+>>>>> (*)(void *)' is safe
+>>>>> +because the semantics of the 'noreturn' attribute do not alter the
+>>>>> calling convention or behavior of the resulting code."
+>>>>> +-config=MC3A2.R11.1,casts+={safe,
+>>>>> +
+>>>>> "kind(bitcast)&&to(type(pointer(inner(return(builtin(void))&&all_param(1,
+>>>>> pointer(builtin(void)))))))&&from(expr(skip(!syntactic(),
+>>>>> +   ref(property(noreturn)))))"}
+>>>>> +-doc_end
+>>>>
+>>>> As I understand it, this is about any function, not just void (void 
+>>>> *)
+>>>> ones.
+>>>> Hence throughout anything textual in this patch, may I ask that this 
+>>>> be
+>>>> made
+>>>> explicit by inserting e.g. "e.g." everywhere?
+>>>
+>>> Technically yes, in practice other implicit function pointer 
+>>> conversions
+>>> would be caught by -Wincompatible-pointer-types and similar flags so
+>>> they don't even come into play. However I agree that adding that is
+>>> clearer.
+>>
+>> Perhaps a misunderstanding: With "any" I meant any which has a noreturn
+>> attribute, when converted to one with otherwise the same signature. But
+>> irrespective of the particular return type or parameter types (i.e.
+>> specifically not just void (void *) ones).
 > 
-> In the absence of an active PDX compression, those functions would still do
-> the calculations needed, just to return the same input value as no
-> translation is in place and hence PFN and PDX spaces are identity mapped.
-> 
-> To reduce the overhead of having to do the pointless calculations allow
-> architectures to implement the translation helpers in a per-arch header.
-> Rename the existing conversion functions to add a trailing _xlate suffix,
-> so that the per-arch headers can define the non suffixed versions.
-> 
-> Currently only x86 implements meaningful custom handlers to short circuit
-> the translation when not active, using asm goto.  Other architectures use a
-> generic header that maps the non-xlate to the xlate variants to keep the
-> previous behavior.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Ah, sorry, I misunderstood. We check the destination type of the 
+> conversion with 
+> "to(type(pointer(inner(return(builtin(void))&&all_param(1, 
+> pointer(builtin(void)))))))". In principle it could be avoided but I 
+> think that at the moment it's ok as it is, then if it needs to be 
+> extended when more cases emerge I can do that.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-> --- /dev/null
-> +++ b/xen/arch/x86/include/asm/pdx.h
-> @@ -0,0 +1,75 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#ifndef X86_PDX_H
-> +#define X86_PDX_H
-> +
-> +#ifndef CONFIG_PDX_NONE
-> +
-> +#include <asm/alternative.h>
-> +
-> +/*
-> + * Introduce a macro to avoid repeating the same asm goto block in each helper.
-> + * Note the macro is strictly tied to the code in the helpers.
-> + */
-> +#define PDX_ASM_GOTO(label)                         \
-> +    asm_inline goto (                               \
-> +        ALTERNATIVE(                                \
-> +            "",                                     \
-> +            "jmp %l0",                              \
-> +            ALT_NOT(X86_FEATURE_PDX_COMPRESSION))   \
-> +        : : : : label )
-
-Considering the uses of the macro, it seems likely that in some of the cases the
-label will be within reach of a short JMP (opcode 0xEB), while the assembler will
-be unable to encode it like that (for living in a separate section, far off from
-the place the code will be copied to). That's likely okay for now, but we may
-want to eliminate this minor ineffeciency later on.
+Oh, then my comment to Dmytro (still in context above) was wrong. But
+why would we limit things as much? For noreturn functions a return type
+of other than void is surely not to be expected, so that part is fine.
+Yet any kinds of parameters would want to be permitted.
 
 Jan
 
