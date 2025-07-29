@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E6E6B15507
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 00:01:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1063173.1428976 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA0FFB15519
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 00:09:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1063189.1428985 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugsNu-0008NJ-2z; Tue, 29 Jul 2025 22:01:22 +0000
+	id 1ugsVk-0000w9-Ts; Tue, 29 Jul 2025 22:09:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1063173.1428976; Tue, 29 Jul 2025 22:01:22 +0000
+Received: by outflank-mailman (output) from mailman id 1063189.1428985; Tue, 29 Jul 2025 22:09:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugsNu-0008LS-0F; Tue, 29 Jul 2025 22:01:22 +0000
-Received: by outflank-mailman (input) for mailman id 1063173;
- Tue, 29 Jul 2025 22:01:21 +0000
+	id 1ugsVk-0000th-Qt; Tue, 29 Jul 2025 22:09:28 +0000
+Received: by outflank-mailman (input) for mailman id 1063189;
+ Tue, 29 Jul 2025 22:09:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fqJK=2K=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1ugsNt-0008K0-4r
- for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 22:01:21 +0000
+ id 1ugsVj-0000tb-Ef
+ for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 22:09:27 +0000
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8dd0e00a-6cc7-11f0-b895-0df219b8e170;
- Wed, 30 Jul 2025 00:01:18 +0200 (CEST)
+ id afe37a15-6cc8-11f0-b895-0df219b8e170;
+ Wed, 30 Jul 2025 00:09:25 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 8CFCCA54783;
- Tue, 29 Jul 2025 22:01:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FF3BC4CEEF;
- Tue, 29 Jul 2025 22:00:51 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 684B5A54CFC;
+ Tue, 29 Jul 2025 22:09:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47498C4CEEF;
+ Tue, 29 Jul 2025 22:09:08 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,148 +41,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8dd0e00a-6cc7-11f0-b895-0df219b8e170
+X-Inumbo-ID: afe37a15-6cc8-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1753826477;
-	bh=YzY0pZQ5CNB3mUOmFJs4Gb9SLHFXYoOWQkxK9A7ImZk=;
+	s=k20201202; t=1753826964;
+	bh=RAX0ptam6yjbCQMvq2VhzLR8Acf4ahNsVHNzqOc05C4=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=QhHK+C9n9fBYPc7VHil0fdJxFuz1gBRlH9N12GdX1fI6s1JtADDOJ+RmV7McvS9Se
-	 WU+NtFYFEfAl0TN7ikLXV9tSzKH9q28c0CuGIKJwafXV75HLm/1Oz02ZsE8DHLMQcT
-	 0fhbpqWzucmrcfgyQYqaI6g4zFJQtfSP8WHwqVK1DtMp3HsB726i1PoS4rc5uLPJNw
-	 6aQLGdZULd9A6JEovBkNkH3LIRjLKGOxXj2lMlbGgteDSMQS0nrC0/BvaNgh8lhXSR
-	 RWelkFNmRXmswp9csecsEGv+WcKhS3oKp12S7OSStKNehFM9uKU+f2OhjReCysY5bt
-	 c9a0cT+Z1DxNw==
-Date: Tue, 29 Jul 2025 15:00:45 -0700 (PDT)
+	b=pN/4QWLAZXD8sO5tkedALTwtpkrmyP4db2GwSVzkscNwU92xn9J3FBOtYQ5ZXDrnO
+	 qD0bjYKsMU8zpVk3MGjxmSiAxqX6VWD/5SBepBR4vO0Fir3NNPcZYOpNiwGDd/bw72
+	 ruocBegbQxhbGzdNCX1MR5tH0uU9p3xzY+6M/rWJqk/cjUDYEKiyliIcBtjl7TKVoE
+	 0MMx76clW7N1B9r9LQkh3VRMxilQI62cd8YJqSbAkM/DfX6JzfD2yrKBtsp2/wndjg
+	 sM1kNpdPPypT8sH4cixGj2hLx4sQUKp7CJlGO9AkgsYZIbxkU67HYzqpc0bjmJNQP+
+	 Fm3D3dLxAUbsQ==
+Date: Tue, 29 Jul 2025 15:09:02 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+cc: Jan Beulich <jbeulich@suse.com>, 
+    Nicola Vetrini <nicola.vetrini@bugseng.com>, 
+    Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
     Anthony PERARD <anthony.perard@vates.tech>, 
-    Jan Beulich <jbeulich@suse.com>, 
+    Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
     =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Alistair Francis <alistair.francis@wdc.com>, 
-    Bob Eshleman <bobbyeshleman@gmail.com>, 
-    Connor Davis <connojdavis@gmail.com>, 
-    Oleksii Kurochko <oleksii.kurochko@gmail.com>, Paul Durrant <paul@xen.org>, 
-    Tim Deegan <tim@xen.org>, Tamas K Lengyel <tamas@tklengyel.com>, 
-    Alexandru Isaila <aisaila@bitdefender.com>, 
-    Petre Pircalabu <ppircalabu@bitdefender.com>, 
     "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
     =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
     Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>, 
-    George Dunlap <gwd@xenproject.org>, Meng Xu <mengxu@cis.upenn.edu>
-Subject: Re: [RFC PATCH 3/3] misra: address rule 5.5 bitops
-In-Reply-To: <c641e58c-96e8-4fce-8bd9-5d00bf93157a@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2507291500260.468590@ubuntu-linux-20-04-desktop>
-References: <cover.1753822074.git.dmytro_prokopchuk1@epam.com> <a9e8d00533d6707a7649a487dc8696c2302634f6.1753822074.git.dmytro_prokopchuk1@epam.com> <c641e58c-96e8-4fce-8bd9-5d00bf93157a@citrix.com>
+    George Dunlap <gwd@xenproject.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] misra: address MISRA C Rule 18.3 compliance
+In-Reply-To: <36042f23-7795-4717-be4a-cd22e52b3145@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2507291507580.468590@ubuntu-linux-20-04-desktop>
+References: <c9fb095c43edfedfd6174284bac404ec9ae5523d.1753263957.git.dmytro_prokopchuk1@epam.com> <6c7341a2-fd49-40de-8ad3-e7980d4e9e42@suse.com> <36042f23-7795-4717-be4a-cd22e52b3145@epam.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1017223861-1753826476=:468590"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1017223861-1753826476=:468590
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Tue, 29 Jul 2025, Andrew Cooper wrote:
-> On 29/07/2025 10:24 pm, Dmytro Prokopchuk1 wrote:
-> > Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
-> > ---
-> >  xen/arch/arm/dm.c                          |  2 +-
-> >  xen/arch/arm/domctl.c                      |  2 +-
-> >  xen/arch/arm/gic-vgic.c                    | 26 +++++++++++-----------
-> >  xen/arch/arm/gic.c                         |  8 +++----
-> >  xen/arch/arm/include/asm/cpufeature.h      |  2 +-
-> >  xen/arch/arm/include/asm/gic.h             |  2 +-
-> >  xen/arch/arm/include/asm/guest_atomics.h   |  4 ++--
-> >  xen/arch/arm/irq.c                         | 16 ++++++-------
-> >  xen/arch/arm/tee/ffa_partinfo.c            |  2 +-
-> >  xen/arch/arm/tee/ffa_private.h             |  2 +-
-> >  xen/arch/arm/traps.c                       |  2 +-
-> >  xen/arch/arm/vgic-v3-its.c                 |  6 ++---
-> >  xen/arch/arm/vgic.c                        | 10 ++++-----
-> >  xen/arch/arm/vgic/vgic-mmio.c              |  2 +-
-> >  xen/arch/arm/vgic/vgic.c                   |  2 +-
-> >  xen/arch/arm/vpsci.c                       |  4 ++--
-> >  xen/arch/riscv/cpufeature.c                |  2 +-
-> >  xen/arch/riscv/include/asm/guest_atomics.h |  2 +-
-> >  xen/arch/x86/cpu-policy.c                  | 14 ++++++------
-> >  xen/arch/x86/cpu/amd.c                     |  2 +-
-> >  xen/arch/x86/cpu/common.c                  | 14 ++++++------
-> >  xen/arch/x86/cpu/mcheck/x86_mca.h          |  2 +-
-> >  xen/arch/x86/domain.c                      |  2 +-
-> >  xen/arch/x86/e820.c                        |  4 ++--
-> >  xen/arch/x86/guest/xen/xen.c               |  2 +-
-> >  xen/arch/x86/hvm/emulate.c                 |  2 +-
-> >  xen/arch/x86/hvm/hpet.c                    |  6 ++---
-> >  xen/arch/x86/hvm/irq.c                     | 12 +++++-----
-> >  xen/arch/x86/hvm/svm/nestedsvm.c           | 10 ++++-----
-> >  xen/arch/x86/hvm/svm/svm.c                 |  2 +-
-> >  xen/arch/x86/hvm/viridian/time.c           |  4 ++--
-> >  xen/arch/x86/hvm/vlapic.c                  |  2 +-
-> >  xen/arch/x86/hvm/vmx/vmcs.c                |  8 +++----
-> >  xen/arch/x86/hvm/vmx/vmx.c                 |  4 ++--
-> >  xen/arch/x86/include/asm/guest_atomics.h   |  2 +-
-> >  xen/arch/x86/include/asm/hvm/vlapic.h      |  2 +-
-> >  xen/arch/x86/include/asm/hvm/vmx/vmx.h     |  2 +-
-> >  xen/arch/x86/include/asm/mpspec.h          |  2 +-
-> >  xen/arch/x86/irq.c                         | 26 +++++++++++-----------
-> >  xen/arch/x86/mm.c                          |  8 +++----
-> >  xen/arch/x86/mm/hap/hap.c                  |  2 +-
-> >  xen/arch/x86/mm/paging.c                   |  4 ++--
-> >  xen/arch/x86/mm/shadow/common.c            |  2 +-
-> >  xen/arch/x86/mm/shadow/hvm.c               |  4 ++--
-> >  xen/arch/x86/monitor.c                     |  4 ++--
-> >  xen/arch/x86/msi.c                         |  2 +-
-> >  xen/arch/x86/psr.c                         |  2 +-
-> >  xen/arch/x86/pv/dom0_build.c               |  4 ++--
-> >  xen/arch/x86/pv/emul-priv-op.c             |  2 +-
-> >  xen/arch/x86/pv/shim.c                     |  2 +-
-> >  xen/arch/x86/traps.c                       |  2 +-
-> >  xen/arch/x86/x86_64/mm.c                   |  2 +-
-> >  xen/arch/x86/x86_64/mmconfig_64.c          |  2 +-
-> >  xen/arch/x86/xstate.c                      |  4 ++--
-> >  xen/common/domain.c                        |  4 ++--
-> >  xen/common/efi/runtime.c                   |  2 +-
-> >  xen/common/event_2l.c                      |  2 +-
-> >  xen/common/kexec.c                         | 16 ++++++-------
-> >  xen/common/keyhandler.c                    |  2 +-
-> >  xen/common/multicall.c                     |  2 +-
-> >  xen/common/numa.c                          |  4 ++--
-> >  xen/common/page_alloc.c                    |  4 ++--
-> >  xen/common/pdx.c                           |  2 +-
-> >  xen/common/sched/core.c                    | 12 +++++-----
-> >  xen/common/sched/credit.c                  | 12 +++++-----
-> >  xen/common/sched/credit2.c                 |  6 ++---
-> >  xen/common/sched/rt.c                      |  4 ++--
-> >  xen/common/vmap.c                          | 12 +++++-----
-> >  xen/drivers/passthrough/iommu.c            |  2 +-
-> >  xen/drivers/passthrough/vtd/dmar.c         |  4 ++--
-> >  xen/drivers/passthrough/vtd/iommu.c        |  4 ++--
-> >  xen/drivers/passthrough/x86/hvm.c          |  2 +-
-> >  xen/drivers/passthrough/x86/iommu.c        |  2 +-
-> >  xen/drivers/vpci/vpci.c                    |  4 ++--
-> >  xen/include/xen/bitops.h                   |  8 +++----
-> >  xen/include/xen/cpumask.h                  |  6 ++---
-> >  xen/include/xen/nodemask.h                 |  2 +-
-> >  xen/include/xen/sched.h                    |  4 ++--
-> >  78 files changed, 194 insertions(+), 194 deletions(-)
+On Fri, 25 Jul 2025, Dmytro Prokopchuk1 wrote:
+> On 7/23/25 16:58, Jan Beulich wrote:
+> > On 23.07.2025 12:12, Dmytro Prokopchuk1 wrote:
+> >> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> >> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> >> @@ -568,6 +568,14 @@ C99 Undefined Behaviour 45: Pointers that do not point into, or just beyond, the
+> >>   -config=MC3A2.R18.2,reports+={safe, "any_area(any_loc(any_exp(macro(^page_to_mfn$))))"}
+> >>   -doc_end
+> >>   
+> >> +-doc_begin="Consider relational pointer comparisons in kernel-related sections as safe and compliant."
+> >> +-config=MC3R1.R18.3,reports+={safe, "any_area(any_loc(any_exp(macro(name(is_kernel||is_kernel_text||is_kernel_rodata||is_kernel_inittext)))))"}
+> >> +-doc_end
+> >> +
+> >> +-doc_begin="Allow deviations for pointer comparisons in BUG_ON and ASSERT macros, treating them as safe for debugging and validation."
+> >> +-config=MC3R1.R18.3,reports+={safe, "any_area(any_loc(any_exp(macro(name(BUG_ON||ASSERT)))))"}
+> >> +-doc_end
+> > 
+> > Nit: Drop "deviations for" from the verbal description?
+> Ok.
 > 
-> I'm sorry, but as Jan indicated, this is a non-starter.  Not least
-> because it's an API we've inherited from Linux, and want to keep for
-> familiarity.
+> > 
+> >> --- a/xen/arch/x86/efi/efi-boot.h
+> >> +++ b/xen/arch/x86/efi/efi-boot.h
+> >> @@ -461,7 +461,8 @@ static void __init efi_arch_edd(void)
+> >>                   params->device_path_info_length =
+> >>                       sizeof(struct edd_device_params) -
+> >>                       offsetof(struct edd_device_params, key);
+> >> -                for ( p = (const u8 *)&params->key; p < &params->checksum; ++p )
+> >> +                for ( p = (const u8 *)&params->key;
+> >> +                      (uintptr_t)p < (uintptr_t)&params->checksum; ++p )
+> > 
+> > There mere addition of such casts makes code more fragile imo. What about the
+> > alternative of using != instead of < here? I certainly prefer < in such situations,
+> > but functionally != ought to be equivalent (and less constrained by C and Misra).
+> > 
+> > As mentioned several times when discussing these rules, it's also not easy to see
+> > how "pointers of different objects" could be involved here: It's all within
+> > *params, isn't it?
+> Hard to say something. Let's hold this so far.
 > 
-> Do whatever is necessary in the Eclair config to placate the check, and
-> at some point in the future I'll make the problem go away and delete the
-> deviation.
- 
-I think at least bitops should be deviated.
---8323329-1017223861-1753826476=:468590--
+> > 
+> > Finally, when touching such code it would be nice if u<N> was converted to
+> > uint<N>_t.
+> > 
+> >> --- a/xen/common/sched/core.c
+> >> +++ b/xen/common/sched/core.c
+> >> @@ -360,7 +360,7 @@ static always_inline void sched_spin_lock_double(
+> >>       {
+> >>           *flags = _spin_lock_irqsave(lock1);
+> >>       }
+> >> -    else if ( lock1 < lock2 )
+> >> +    else if ( (uintptr_t)lock1 < (uintptr_t)lock2 )
+> > 
+> > Similarly, no matter what C or Misra may have to say here, imo such casts are
+> > simply dangerous. Especially when open-coded.
+> Well, this function 'sched_spin_lock_double' has the following description:
+> "If locks are different, take the one with the lower address first."
+> 
+> I think it's save to compare the integer representations of 'lock1' and 
+> 'lock2' addresses explicitly (casting the pointers values to an integer 
+> type). We need to find the 'lower address'.
+> Any risks here?
+> 
+> Dmytro
+> > 
+> >> --- a/xen/common/virtual_region.c
+> >> +++ b/xen/common/virtual_region.c
+> >> @@ -83,8 +83,8 @@ const struct virtual_region *find_text_region(unsigned long addr)
+> >>       rcu_read_lock(&rcu_virtual_region_lock);
+> >>       list_for_each_entry_rcu ( iter, &virtual_region_list, list )
+> >>       {
+> >> -        if ( (void *)addr >= iter->text_start &&
+> >> -             (void *)addr <  iter->text_end )
+> >> +        if ( addr >= (unsigned long)iter->text_start &&
+> >> +             addr <  (unsigned long)iter->text_end )
+> > 
+> > Considering further casts to unsigned long of the same struct fields, was it
+> > considered to alter the type of the struct fields instead?
+> There are present casts of struct fields 'text_start' and 'text_end' in 
+> the file 'xen/common/virtual_region.c'.
+> 
+>          modify_xen_mappings_lite((unsigned long)region->text_start,
+>                                   (unsigned long)region->text_end,
+>                                   PAGE_HYPERVISOR_RWX);
+> 
+> Changing fields type to 'unsigned long' will give the opportunity to 
+> remove casts from source code (mentioned before),
+> and remove '(void*)' casts from here:
+> 
+>          if ( (void *)addr >= iter->text_start &&
+>               (void *)addr <  iter->text_end )
+> 
+> Unfortunately there are places where these fields are initialized, so 
+> cast to the 'unsigned long' should be there.
+> Example:
+>      .text_start = _sinittext,
+>      .text_end = _einittext,
+> and
+>      .text_start = _sinittext,
+>      .text_end = _einittext,
+> 
+> where
+>      extern char _sinittext[], _einittext[];
+>      extern char _stext[], _etext[];
+> 
+
+Everything related to stext/etext, sinittext/einittext, etc should be
+deviated as those are not even pointers: they are linker symbols. Also,
+they do refer to the same "object": the Xen text.
 
