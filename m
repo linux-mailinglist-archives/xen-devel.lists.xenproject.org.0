@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5357B14DE0
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 14:48:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1062632.1428348 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35A3DB14DFC
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 15:00:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1062639.1428358 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugjkE-000449-Px; Tue, 29 Jul 2025 12:47:50 +0000
+	id 1ugjvs-0005sH-QA; Tue, 29 Jul 2025 12:59:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1062632.1428348; Tue, 29 Jul 2025 12:47:50 +0000
+Received: by outflank-mailman (output) from mailman id 1062639.1428358; Tue, 29 Jul 2025 12:59:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugjkE-000414-Mj; Tue, 29 Jul 2025 12:47:50 +0000
-Received: by outflank-mailman (input) for mailman id 1062632;
- Tue, 29 Jul 2025 12:47:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Y9DQ=2K=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1ugjkD-00040y-7U
- for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 12:47:49 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 34cdd1b0-6c7a-11f0-b895-0df219b8e170;
- Tue, 29 Jul 2025 14:47:37 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3b78bca0890so1055207f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 29 Jul 2025 05:47:37 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-4588e5b7717sm24583825e9.5.2025.07.29.05.47.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Jul 2025 05:47:36 -0700 (PDT)
+	id 1ugjvs-0005qp-NG; Tue, 29 Jul 2025 12:59:52 +0000
+Received: by outflank-mailman (input) for mailman id 1062639;
+ Tue, 29 Jul 2025 12:59:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xsxe=2K=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1ugjvq-0005qj-NV
+ for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 12:59:50 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e8b3e311-6c7b-11f0-a31e-13f23c93f187;
+ Tue, 29 Jul 2025 14:59:49 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-3b7823559a5so1512541f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Jul 2025 05:59:49 -0700 (PDT)
+Received: from [192.168.69.209] (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3b78d45d152sm3585536f8f.3.2025.07.29.05.59.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 29 Jul 2025 05:59:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,79 +45,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34cdd1b0-6c7a-11f0-b895-0df219b8e170
+X-Inumbo-ID: e8b3e311-6c7b-11f0-a31e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1753793257; x=1754398057; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=+9dXsSA/SZrMcv1eFYI8BMcOmjl9bd9OUFLVbPOah5o=;
-        b=GPP3bHEJgu1skTBlYCewwZHA+SY85hHrwVhVWHydbYtDZPpWx+ZitealhcqiWy4lxa
-         /ivFIrvg01oc1XFbAIwX5KXi7/4AtTS9vDUSI1Rt+MvMr04DcCVQXHIR4cDaRBk6JJwV
-         LFz0w9Ggw9fkioZmC25CEJxrqXn9lq7GKwTOw=
+        d=linaro.org; s=google; t=1753793988; x=1754398788; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=8cArS9/nRylKOD3Huk40tSuXpNtAKJs4oRFsn3gdCtU=;
+        b=ehjbJpc3HkSEp7L8cC5vOnbj11aaSttHXk4QMBHh8MYW1HgkQ6+hPBJAPYqnu2G7bb
+         og8EkxzuYdP1GbnRCfhTmONPFIcy97jJFuvA3zhujM9WlPdfoehXMiXKryT2xgvkRz0p
+         6d+5yXnu9YGAMzyvGr2z65yMhUv26qYEDN3F43Hr+y7cnIDlKnWscRU/kAjhcTD50aRz
+         Qm290i8hpqCfEcdTnKQ4n+Kb9YbaWYhWZV2f4XLSeCOG545bdtGs3GvS3v4y7yaZPna3
+         cnASLGoqsgjSk6ORX4xjfMQ43VXEIkzdsHhVNzdYYR0pc++cpagL895mDHDoz5qlJc9k
+         vp8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753793257; x=1754398057;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1753793988; x=1754398788;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=+9dXsSA/SZrMcv1eFYI8BMcOmjl9bd9OUFLVbPOah5o=;
-        b=AejUbK7hkr93sJNnbI1Hq4kezX0gH+UGGoVL8q0cAjdw6KEiw/oQAA8CzMZqKn+ZR+
-         EJNQJV+WXSqmWq5WTWNu8jb762/Gact2jobM6G63Gxo0I8m6vQ8Gn4riGCKOkyIxcqzc
-         lRrpMdsnKS00KCvPkxk/FGBPjtRTN1dZdbq87yyXyw1BRWTPX+kBNrQ+CZKu2WkJJy60
-         dpL5XlFarGGPxnHRDBuSeDwEfCDzIv9OKcVA2fRuc0Sd3VAkmp8cHAm3HGBpk5+LgILk
-         e7CHuTDyvr3XlxgCyQjvf3Iu8ZmQolyeDIlSPmBtRe3HbpHzu+psaAX4j1+rF+cmQcCA
-         UBFg==
-X-Gm-Message-State: AOJu0YwAgvLz8uWgVBduOYBW1oFMDVVk04BYlz3ouUqAKlylCiMklZyy
-	FSFPDKQmqYk9M8NcgOKNQgOKhXkN4WaK+dsQUXFlJrb8zlZqZW4zTJjxvqsy7hA5BYg=
-X-Gm-Gg: ASbGnctEF4NHimyQ4mVWjcJ1wKPcM2eySQECdUYhYkWRKCnz5GSUw56hv7HXxQOgW7S
-	QklRNXdeutXdfTWjQ+deTLUpPcyF03Id4u2I9//t3iIBU1IBHQahMybjDyKXv4ZyuAI6ykyFQ8I
-	z5LioaammSS2yxEzPlSOLTi6NIwIsw6j1jlEOVlKzxlTDr7kclMsCdGHCTWc74B2KxNwW6vYOKO
-	5Ty5StUilBlvTW00sgCommwVAWXWPfTBut7D9CxKrHoGuWIRwXoOEZHJTsD98Iso0C0QnqGUQ7i
-	Vz73ZgY+nTwo1RF0IXTecGMuL2MGrvQAshQzs8Qmceda6M7byl+z61pU4mar3Kj/wSBk8QUzg8A
-	3VjWREmVK4UOKmes5LJ6CGz3cFe6Z8yPVrEoz1veM27M21HUV2ee5rzDqkKoffEm0iQ==
-X-Google-Smtp-Source: AGHT+IEbOjLedozMGDNSlqqs5BsSXcNowCnzJmo/ndGGD54HUX4NTTgAhB8bYgMxkNBtmQYn33u8fw==
-X-Received: by 2002:a05:6000:18aa:b0:3b7:9233:ebb with SMTP id ffacd0b85a97d-3b79233114cmr1250272f8f.6.1753793256946;
-        Tue, 29 Jul 2025 05:47:36 -0700 (PDT)
-Date: Tue, 29 Jul 2025 14:47:35 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: xen-devel@lists.xenproject.org, Huang Rui <ray.huang@amd.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v9 2/8] vpci: Refactor REGISTER_VPCI_INIT
-Message-ID: <aIjC5ybQLz2HJATc@macbook.local>
-References: <20250728050401.329510-1-Jiqian.Chen@amd.com>
- <20250728050401.329510-3-Jiqian.Chen@amd.com>
+        bh=8cArS9/nRylKOD3Huk40tSuXpNtAKJs4oRFsn3gdCtU=;
+        b=VWrz6bU9ndbkGjrvuPNtjNLCn/ghflFxIN7eUAF0wGA5fZkkX1z4D2p3UDw6rqJxiC
+         C6GMmxv0B5ED07tIMc4broZtwfEfk3Opy8/+HF4JlTkc0nl2OHcw5tkyjEwUwoXhB9m7
+         QI2hFVn3RvUO60Znzk6gWxHMlybT258jfofyO4eJrvN2aEw1tdqkaavchNTfw2kPKWav
+         pDJF0SiPBCdtfnWO/6m2+soFpX9inBpds7m+/2YoTOXm7fS0HyrzQHrk54X1cY8a3hq6
+         BfXrWlDvf2PLtnYIBOFYcWYC1msAaFh1wFFN7GRS19GWpDEMCjmoD6/T5uwRpCB021HN
+         o3IQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXiytBX9YC8amTUbzOtyRehvM7pEknIKxP1RR6ubYTULeYIyppZLFYH+QkhaAcpQ0cj/bVersDFALE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzLriYKrM9F/DvhWW2xhGhRSxKSvd/bS6KI+HazwRTIV/y1CBJl
+	cdGHfR6VvnniakaaU9JPz8YIe6jGW8UMwAmD7PLQ0QXcfvOtumkwDiv/74T2nm8t8Hw=
+X-Gm-Gg: ASbGncvt87rrsqSOUN4IArgD+zp0X8YbFYSBHhVP0TXwXPRFq03ohUcrVjlXNgZi3do
+	NdBX75MLc3vIumJrkSfOgpxgfDzFzIrGsS/tA1Cx8W8sZZubCvL1asY5LYhIoPR7pfEOcvjTJbU
+	3wTFzCAEoY3Oa6CnXFD3zE8yZwgCtlu7PJXrsLAtW/lOqqw8900pBqaG+RwVnk/0uj2nVatQ6Rz
+	64N7mn86O2WcK+pgIih09ySc0QLK0pZTMkvKosif6WbSS2tlAytCtO50axNvY/QQ34S1bcHk1T/
+	mlH3wAsUC+MT1O3uphxvNataVLN8TgbiVmvXNoPaMPn2hpvw5o+Aj+HCw+jYVumgftJ8TqwcGCg
+	9o19Ph4FUkaeFgv+zXux7XL+sxOkhmBdpZI+u0i57IrMPxgBwAPVC6cN+iRXL+aWLKg27MC6zeK
+	sz
+X-Google-Smtp-Source: AGHT+IEB10v4PlEVCKKxdtNYOiBMcTLcOBbKf1RgZTNhwbScPufdOsX77u3Fjs46TLXC/DBoqvBPLA==
+X-Received: by 2002:a5d:64e8:0:b0:3b7:899c:e88b with SMTP id ffacd0b85a97d-3b7899cea54mr5166832f8f.11.1753793988424;
+        Tue, 29 Jul 2025 05:59:48 -0700 (PDT)
+Message-ID: <15536eea-5a66-4dff-b4bd-8a43fbfa9365@linaro.org>
+Date: Tue, 29 Jul 2025 14:59:46 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] hw/display/xenfb: Replace unreachable code by abort()
+To: Markus Armbruster <armbru@redhat.com>
+Cc: qemu-devel@nongnu.org, sstabellini@kernel.org, anthony@xenproject.org,
+ paul@xen.org, edgar.iglesias@gmail.com, xen-devel@lists.xenproject.org,
+ qemu-trivial@nongnu.org
+References: <20250729111226.3627499-1-armbru@redhat.com>
+ <14fff91b-7434-4d90-adb1-ebbe3f51d605@linaro.org>
+ <87v7nbdwfx.fsf@pond.sub.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <87v7nbdwfx.fsf@pond.sub.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250728050401.329510-3-Jiqian.Chen@amd.com>
 
-On Mon, Jul 28, 2025 at 01:03:55PM +0800, Jiqian Chen wrote:
-> Refactor REGISTER_VPCI_INIT to contain more capability specific
-> information, this will benefit further follow-on changes to hide
-> capability when initialization fails.
+On 29/7/25 14:16, Markus Armbruster wrote:
+> Philippe Mathieu-Daudé <philmd@linaro.org> writes:
 > 
-> What's more, change the definition of init_header() since it is
-> not a capability and it is needed for all devices' PCI config space.
+>> On 29/7/25 13:12, Markus Armbruster wrote:
+>>> xenfb_mouse_event() has a switch statement whose controlling
+>>> expression move->axis is an enum InputAxis.  The enum values are
+>>> INPUT_AXIS_X and INPUT_AXIS_Y, encoded as 0 and 1.  The switch has a
+>>> case for both axes.  In addition, it has an unreachable default label.
+>>> This convinces Coverity that move->axis can be greater than 1.  It
+>>> duly reports a buffer overrun when it is used to subscript an array
+>>> with two elements.
+>>> Replace the unreachable code by abort().
+>>> Resolves: Coverity CID 1613906
+>>> Signed-off-by: Markus Armbruster <armbru@redhat.com>
+>>> ---
+>>>    hw/display/xenfb.c | 3 +--
+>>>    1 file changed, 1 insertion(+), 2 deletions(-)
+>>> diff --git a/hw/display/xenfb.c b/hw/display/xenfb.c
+>>> index 22822fecea..5e6c691779 100644
+>>> --- a/hw/display/xenfb.c
+>>> +++ b/hw/display/xenfb.c
+>>> @@ -283,8 +283,7 @@ static void xenfb_mouse_event(DeviceState *dev, QemuConsole *src,
+>>>                    scale = surface_height(surface) - 1;
+>>>                    break;
+>>>                default:
+>>> -                scale = 0x8000;
+>>> -                break;
+>>> +                abort();
+>>
+>> We prefer GLib g_assert_not_reached() over abort() because it displays
+>> the file, line number & function before aborting.
 > 
-> After refactor, the "priority" of initializing capabilities isn't
-> needed anymore, so delete its related codes.
+> The purpose of this line is to tell the compiler we can't get there,
+> with the least amount of ceremony.
 > 
-> Note:
-> Call vpci_make_msix_hole() in the end of init_msix() since the change
-> of sequence of init_header() and init_msix().
-> 
-> The cleanup hook is also added in this change, even if it's still
-> unused. Further changes will make use of it.
-> 
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> We have ~600 calls of abort().
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+And ~1600 of g_assert_not_reached() =)
 
-Thanks, Roger.
+$ git grep -w 'abort();' | wc -l
+      556
+$ git grep -w 'g_assert_not_reached();' | wc -l
+     1551
+
+> Whoever merges this: feel free to replace by g_assert_not_reached().
+> 
+>>>                }
+>>>                xenfb->axis[move->axis] = move->value * scale / 0x7fff;
+>>>            }
+> 
+
 
