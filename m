@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90AE9B14868
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 08:46:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1062080.1427693 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 255B9B148BE
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 08:55:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1062087.1427702 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uge5b-0004Oa-5t; Tue, 29 Jul 2025 06:45:31 +0000
+	id 1ugeFK-0005zD-03; Tue, 29 Jul 2025 06:55:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1062080.1427693; Tue, 29 Jul 2025 06:45:31 +0000
+Received: by outflank-mailman (output) from mailman id 1062087.1427702; Tue, 29 Jul 2025 06:55:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uge5b-0004LT-1e; Tue, 29 Jul 2025 06:45:31 +0000
-Received: by outflank-mailman (input) for mailman id 1062080;
- Tue, 29 Jul 2025 06:45:29 +0000
+	id 1ugeFJ-0005xm-TT; Tue, 29 Jul 2025 06:55:33 +0000
+Received: by outflank-mailman (input) for mailman id 1062087;
+ Tue, 29 Jul 2025 06:55:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fFWP=2K=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uge5Z-0004LN-Es
- for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 06:45:29 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/H3U=2K=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ugeFJ-0005xg-03
+ for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 06:55:33 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9c4b12fc-6c47-11f0-b895-0df219b8e170;
- Tue, 29 Jul 2025 08:45:27 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3b780bdda21so2840728f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 23:45:27 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-76702db3843sm4962211b3a.23.2025.07.28.23.45.21
+ id 02551555-6c49-11f0-b895-0df219b8e170;
+ Tue, 29 Jul 2025 08:55:27 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3a4ef2c2ef3so4326753f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Jul 2025 23:55:27 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4588e5b7692sm11622695e9.2.2025.07.28.23.55.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Jul 2025 23:45:25 -0700 (PDT)
+ Mon, 28 Jul 2025 23:55:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,174 +45,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c4b12fc-6c47-11f0-b895-0df219b8e170
+X-Inumbo-ID: 02551555-6c49-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753771526; x=1754376326; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1753772127; x=1754376927; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XeqjBVzOfYz82zfqZM7GzmzxLRA6HtcM449jUSJ+hdY=;
-        b=IW1xQILcF/GUXFZh8nsbYgYOpgpLFW4cxW63lBzGZVp1EApCv1r+mrL55JXilfYQGz
-         b3LgRbPlwPF1B8t9i/1uoCY2IK8n0J6tbs1CucfViZVp/SQNiPR3cbF36F9D7FdS+mWV
-         pMN21ta+VkqZ1rbWUguHch/DOqmlNqJWnOyUgq2A9fTG+3nnBct7C84dAxpL++J5Rae8
-         Q5ZGB1H6XwuoczaT7ghaYG74bOXmgRpAbLHnDYZykKyIvHNoNX84rKCcIGNWBGFfjr+9
-         XOfP5R+zZu7+QWWGF6b3KCu36el+KFTnB0kCry1Rm8SMZR6Wuy7XLUFeqPXh7/u3sco8
-         RTqg==
+        bh=aQD7OEvC7NdvOZahtnieIQJG0v/62k1GeUJOZ3P3eQY=;
+        b=AvjTD+siytuhbATS8LTL2l8Taf8QnhMjKPxdZh7jlSz0qdx7siLOxmiBIK5WTz5BzZ
+         Um1JJNZLs9IMOj6xrk4OIN30zBiq05kWvNvzFngA5JY78pNJz0hwWXlhLiqbUvXtJETu
+         2yiE3ROpL9glhrQtsNd6hZ4TA+4chqnq8Di74=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753771526; x=1754376326;
+        d=1e100.net; s=20230601; t=1753772127; x=1754376927;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XeqjBVzOfYz82zfqZM7GzmzxLRA6HtcM449jUSJ+hdY=;
-        b=jzqvnMCwPr4n1/pHY+sXRKOjFgYpuGaz2or71et5tJNEQN4VzWRztfytRgJtA+3pMY
-         ye0mMktIVmHMfGTJJnvKrYOP00yCcf2nyMoK+RgQggbpMpMaE/RLAsOjxqMZ8oaxE75p
-         EAgLpg4rJhuSNu3zkMCfsPZsKI+ajtWgp28cikB6+hzL61h+ULKKYMtUYn5R5WYzAWeU
-         e4/4rPWaVnN9vINxTvOw9bN51RoVdYTC3yk0OjHak6l87278EMqi1xUI2DZEgMp+YqQs
-         2Gqpdm4gY2ByPGsLixSMgA5nrBYGzC2FQWuDNWNiXDT+9/60sS5OEw+AwbYiOvxPGw6w
-         jdtg==
-X-Gm-Message-State: AOJu0YyjyAMdyot+0jCmEUavmvtyW3lojDLvePWuwVugI/8i/08itrLG
-	6ypLYrGCyuIX0dxn9QtKAtCtVaBcp0rB7DAfrG/3s1J/0PBQZsd7ZnkFxYIpn1pEUw==
-X-Gm-Gg: ASbGncs2TiU2VIxkfIQ8YWZ447uc7mgfBMhQdDfNXLcgfK2GRCihF3EOzRh0fn1GfWb
-	2sPY4PbtwyVlRCtFBgAWEllude3Ige92jJeBHwblsJ55t2urtSo4ghfSEPYII5tKRTzrzC9RgF+
-	fFP79+/JqQcoqN85CzxLXN8t+wLYAEicxjKRz1gJ7Qwy+mNPR2ODcAD7L1/CYGrMaWWUeBtc4j6
-	5yA+OQgUHYO0p/sF2c4vtOcF4C0AeXheUt9i1llIDlbMXedfxq1LNGXU2BjB/RKgnKWhySnlEbU
-	THrVLzqAPXTEV7qdTjUHtzRJ/TBLJ2SIdD3tBFVqF7+bKP1jmFbSV6MWc0UfpM1A2OGIy/KEM2V
-	OT05565tjLRASx51CGdmv5ajuoJH8jkjuE1XPCQlci5cFNd8hLza2pBrGkGHGQN2dioXYTA9wZQ
-	o4n43nUh8=
-X-Google-Smtp-Source: AGHT+IHceBHMrl5pKs1jopgapT67NcdwWnnwr23AgDv7TBldsJZCf7V/a9BeCwBlWbj0xhyij+6o1w==
-X-Received: by 2002:a05:6000:2008:b0:3a6:d5fd:4687 with SMTP id ffacd0b85a97d-3b77672cc25mr10450546f8f.18.1753771526373;
-        Mon, 28 Jul 2025 23:45:26 -0700 (PDT)
-Message-ID: <8f9e19b4-e29c-476d-b820-8bc9d590de0c@suse.com>
-Date: Tue, 29 Jul 2025 08:45:17 +0200
+        bh=aQD7OEvC7NdvOZahtnieIQJG0v/62k1GeUJOZ3P3eQY=;
+        b=vYvwvp066A8hd1k3hAgeUZ6a6VNlzg1KkgehECWTYqEIj2LUODulwcnkRFMlFSuwEI
+         y2Or0iWcCR4sGXYBVcxjF+q231QzEmrsoL956CpDbYLhA1FVUz9Dlq02k9m7qCEgRoll
+         T6BQFf+b3nFKeqXSDB9Q59fSkjbD1eN35PLYgwVEXWhf85f6ePPovF8YATdB/qDq0uYX
+         VviGhPStOM3k9FWxwpAGs6R2Mwk7v97k+sAfyZOHBYOT4Wl+tmrj5ktJn9ndgKA1Zh23
+         ifzmiFeSG3w8hxwYk9Cq7I69uzY8a9HRn8qDaBd5qH6CprgaaPz2c6zWhOgS5CZG0Mbb
+         XCMQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXCs/5cIS4BQgnLSiNK2DhpAI9+nV1KjbQKHxy6rpFJJIjQ1xbuGmo5QSaH+zmaPH+n8SBUZBs/dO8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwJnGqxMsc2JfaCTqd/SDob/TGLp3D2iI6xdf45nVCw/w91gpHc
+	vHF3BUvDEoES/ldOoSShOeD7yUBH4OTl45kumBlIM7cs8JuVkjoQ6zs6I46ueR4Val/rgUirwOb
+	Axoquamw=
+X-Gm-Gg: ASbGncs2lp97CUZ0w8tE2Pdh5i34ggEYhCjbs4D0AYOu2xQMxN4xBieFtsuh5s7kXTJ
+	VEIkAn5Wn2GDn3ZwQh40K7d18Z4AM3txaJmx/nH00R9cGUtGVrHiLTpfezn4K6QuyFG3xhfO73H
+	PL0Ft5m1w0k6ZeKzlKg6g5pChl6Qu/GW1LI3O/mR/3eokzw6edPDU7JSXGvSP10zjEF1sHY3XYE
+	+GOOFOQoU1XpeJrpo9uUQDbNTV9W9SzDTEHDWiLcPMd9wQCXYcK4sXPvDYxeTE4KFI2/cowTNbl
+	iYbrttHTuuOIqAjch5WWVz0PS215MmMflsnm5oJTXpXCgeZA8Z75q0uwHxpRconocR7N4ETRacy
+	acSQKyVJ56bJFkUo9t4ahD+cZqFooLqaZm0DPFV/R77s2d4r/dHDW7vhjBhLGdwbhM0uw
+X-Google-Smtp-Source: AGHT+IH3ANFHnY6RQCd1xPNC2SJRzuCDT+x8xSzZYlT6QgYPLS4v98r5OFp/FnXAJbbnn/V4wg+qUw==
+X-Received: by 2002:a05:6000:26ce:b0:3b7:7c18:c72d with SMTP id ffacd0b85a97d-3b77c18c88bmr6536585f8f.4.1753772127115;
+        Mon, 28 Jul 2025 23:55:27 -0700 (PDT)
+Message-ID: <feb8a172-e304-4f35-ad6f-cd8ca3b8dac5@citrix.com>
+Date: Tue, 29 Jul 2025 07:55:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v1 03/10] arch-x86/pmu.h: convert ascii art drawing to
- Unicode
-To: Edwin Torok <edwin.torok@cloud.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, andriy.sultanov@vates.tech,
- boris.ostrovsky@oracle.com
-References: <cover.1753372928.git.edwin.torok@cloud.com>
- <99651231c4b535cdba21c852f3ec7c28c00a8088.1753372928.git.edwin.torok@cloud.com>
- <e309b129-32d9-467a-8577-c25771721e47@suse.com>
- <CAEfZLvkpj6_BhkCL0YfyTb89k=Vkb=qk7wRA3+mMhqKSQmYpBg@mail.gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAEfZLvkpj6_BhkCL0YfyTb89k=Vkb=qk7wRA3+mMhqKSQmYpBg@mail.gmail.com>
+Subject: Re: [PATCH] tools/xl: don't crash on NULL command line
+To: Jason Andryuk <jason.andryuk@amd.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>
+References: <20250728102422.2245808-1-marmarek@invisiblethingslab.com>
+ <b4e3c287-7847-4cdc-8fbb-bb788a6de8b5@citrix.com>
+ <55d8f784-4ad5-4a20-bfb4-ad6219415288@amd.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
+ XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+In-Reply-To: <55d8f784-4ad5-4a20-bfb4-ad6219415288@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 28.07.2025 18:07, Edwin Torok wrote:
-> On Mon, Jul 28, 2025 at 11:23 AM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 25.07.2025 17:06, Edwin Török wrote:
->>> Use `aa2u` (ascii-art-to-unicode from Hackage) to convert to
->>> Unicode box drawing characters.
+On 29/07/2025 1:29 am, Jason Andryuk wrote:
+> On 2025-07-28 06:45, Andrew Cooper wrote:
+>> On 28/07/2025 11:24 am, Marek Marczykowski-Górecki wrote:
+>>> When running xl in a domU, it doesn't have access to the Xen command
+>>> line. Before the non-truncating xc_xenver_cmdline(), it was always set
+>>> with strdup, possibly of an empty string. Now it's NULL. Treat it the
+>>> same as empty cmdline, as it was before. Autoballoon isn't relevant for
+>>> xl devd in a domU anyway.
 >>>
->>> The full list of supported drawing characters can be seen in the
->>> examples at:
->>> https://github.com/fmthoma/ascii-art-to-unicode/blob/master/src/Text/AsciiArt.hs
->>>
->>> For future maintenance: conversion can be done incrementally
->>> (mixing ascii art with already converted Unicode,
->>>  and running the conversion tool again), or by hand.
->>>
->>> No functional change.
->>>
->>> Signed-off-by: Edwin Török <edwin.torok@cloud.com>
+>>> Fixes: 75f91607621c ("tools: Introduce a non-truncating
+>>> xc_xenver_cmdline()")
+>>> Signed-off-by: Marek Marczykowski-Górecki
+>>> <marmarek@invisiblethingslab.com>
 >>> ---
->>>  xen/include/public/arch-x86/pmu.h | 120 +++++++++++++++---------------
->>>  1 file changed, 60 insertions(+), 60 deletions(-)
+>>> So, apparently the "No API/ABI change" was a lie... it changed "empty
+>>> string" to NULL in libxl_version_info->commandline. Quick search didn't
+>>> spot any other (in-tree) place that could trip on NULL there. IMO NULL
+>>> value in this case makes more sense. Buf maybe for the API stability
+>>> reasons the old behavior should be restored?
 >>
->> I'm already unconvinced of the earlier patch: The whole construct isn't self-
->> explanatory, and it lacks a legend. There's also the question of legibility.
->> The change here has the main problem of making readability dependent upon the
->> capabilities of the editor / viewer / etc one is using. For example, the '┆'
->> character as well as the arrow ones I can't get Win10's console subsystem to
->> display properly.
->>
-> 
-> The original ASCII diagram could also be moved to another file that
-> contains only documentation and is not used during compilation.
-> There is https://ivanceras.github.io/svgbob-editor/ which can then
-> create an SVG out of it if needed.
-> The SVG (or its ASCII source) wouldn't be restricted to 80 chars, and
-> could contain more details.
-> 
-> Although if it is a separate file it is more likely to go stale when
-> the .h is updated.
-> 
-> Here is a solution that works with ASCII instead then (the diagram
-> itself is not very readable in pure ASCII).
-> I think my main goal was to understand what the flexible array member
-> would contain, and that could actually be explained in a sort of
-> pseudo-C.
-> Something like:
-> 
-> ```
-> struct ... {
->  uint32_t fixed_counters;
->  uint32_t arch_counters;
-> ....
->   union {
->       uint64_t regs[];
->       struct {
->            uint64_t fixed[fixed_counters];
->            struct xen_pmu_cntr_pair arch[arch_counters];
->       }
->   }
-> }
-> ```
-> 
-> This isn't (yet?) valid C, although it follows the trend the C
-> standard is evolving to, e.g. you can already refer to array
-> dimensions in function arguments, where the array dimension is another
-> function argument, in fact the manpages already started to get updated
-> to follow this new style, and newer versions of GCC support it, e.g.
-> memcpy: https://man7.org/linux/man-pages/man3/memcpy.3.html
-> I don't know whether future C  standards would ever add support for
-> flexible array members where the size depends on another struct field,
-> but it should be fine as a comment, and perhaps easier to maintain
-> than a diagram. If it ever becomes valid C it can be promoted from a
-> comment to actual code.
+>> Hmm, I didn't intend to change things, but I also didn't anticipate
+>> libxl__strdup()'s behaviour, or for something to depend on that.
+>
+> I think it isn't strdup()'s behaviour, but rather the old code:
+>
+> -    xc_version(ctx->xch, XENVER_commandline, &u.xen_commandline);
+> -    info->commandline = libxl__strdup(NOGC, u.xen_commandline);
+> +    info->commandline = xc_xenver_commandline(ctx->xch);
+>
+> No error checking on xc_version(), so strdup() is duplicating whatever
+> (stale?) data may be in the union.
 
-Somewhat related (but afaict not really usable here, leaving aside that
-this is a public header and hence needs to remain free of extension uses)
-is gcc's relatively new counted_by attribute.
+Even better...
 
-> It'd retain the main benefit: being able to see the memory layout,
-> without having to read through the source code and all the
-> sizeof/offset pointer calculation to figure out what is actually
-> stored in regs[] and how big it could be.
-> 
-> What do you think?
+xc_version(XENVER_commandline) for better or worse couldn't fail in Xen
+for anything other than -EFAULT (writing a 1k block of memory), but a
+systematic failing with the old ABIs was that nothing caused Xen to
+explicitly NUL-terminate the string.
 
-Why not.
+Notice how XENVER_commandline operates on ARRAY_SIZE(saved_cmdline) and
+not strlen().
 
-Jan
+I'll give you 0 guesses what happens when the bootloader passed a
+cmdline of >1k, and also 0 guesses for how we stumbled onto this mess.
+
+~Andrew
 
