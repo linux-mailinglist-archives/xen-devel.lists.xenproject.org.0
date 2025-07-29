@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6F43B14F23
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 16:17:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1062768.1428498 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0064FB14F36
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 16:28:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1062778.1428508 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugl89-0006k6-75; Tue, 29 Jul 2025 14:16:37 +0000
+	id 1uglIO-00007p-4y; Tue, 29 Jul 2025 14:27:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1062768.1428498; Tue, 29 Jul 2025 14:16:37 +0000
+Received: by outflank-mailman (output) from mailman id 1062778.1428508; Tue, 29 Jul 2025 14:27:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugl89-0006hn-3z; Tue, 29 Jul 2025 14:16:37 +0000
-Received: by outflank-mailman (input) for mailman id 1062768;
- Tue, 29 Jul 2025 14:16:35 +0000
+	id 1uglIO-00006L-1f; Tue, 29 Jul 2025 14:27:12 +0000
+Received: by outflank-mailman (input) for mailman id 1062778;
+ Tue, 29 Jul 2025 14:27:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fFWP=2K=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ugl87-0006hh-KJ
- for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 14:16:35 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1uglIM-00006B-FC
+ for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 14:27:10 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9c9259a4-6c86-11f0-a31f-13f23c93f187;
- Tue, 29 Jul 2025 16:16:25 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3b788feab29so1703302f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 29 Jul 2025 07:16:25 -0700 (PDT)
+ id 1bec16a3-6c88-11f0-a31f-13f23c93f187;
+ Tue, 29 Jul 2025 16:27:09 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3b786421e36so1757772f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Jul 2025 07:27:09 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b3f7f6c8940sm7086905a12.59.2025.07.29.07.16.19
+ 41be03b00d2f7-b3f7f6b63c4sm7093491a12.56.2025.07.29.07.27.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Jul 2025 07:16:24 -0700 (PDT)
+ Tue, 29 Jul 2025 07:27:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c9259a4-6c86-11f0-a31f-13f23c93f187
+X-Inumbo-ID: 1bec16a3-6c88-11f0-a31f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753798585; x=1754403385; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Rg+ArqbA0/8Mg521AIaVwU05GgIfKPGj13QiGSTYp/U=;
-        b=fQJJPVUiL37eQMaOk0ac7cNaU/SgEaYRh65R1hIj4HUoMlxLroQyANJ3RnvxHD1Kti
-         i7sdeswZMk+vPSviUjrGjt4GUs88Qu0lUaNOyvWEZy/dIz8QEaYXAlCV92RrAq8SOC9a
-         JD09vta5P7MBenQ2huHzCd0YTnCuuLokU25GnJ2swj12obfHgzV5WxCFRrk76dGLYx0F
-         zTCrZARfuxD+4USfKFzJjT+eO8/vYHW71eGTD4KcVbJ87kH/eivRH5L+pUDgNI+J9SpJ
-         iorllhbYXhzHrP5JfVsvhZgIMc2DUt2dNfbpoczfpBBAA4xKtWiKH8EQITc9CdOawRUs
-         ipLg==
+        d=suse.com; s=google; t=1753799228; x=1754404028; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=BVfDdgM2IcEt9IGmhVSkrtLnYQ4r5H5DQM4ntH4ZNls=;
+        b=aSagPPKMvX3DvQf1miLzv8WxlPNqtj9WdH5mljgXoNaiEGvftlksDwNU8NdN+weIck
+         jxOHEnljT9lylY1esC3fGM+6Tl0ZJhQ1Zp1v/klP+8gGBzjUU/EZYqa1uEnRffrPPuiW
+         oT9S2GyH9KDJXqvk/mz34sr+MhTtDhE/deUfHaga/uA5NZLa0Kmkz0QgtkGKlQnsvOjX
+         9F9U/O/hp8dRSVa7ZrhXUV/ROF/qIEze6ryMwH00jAP8W4oiOcVqTX4iD2nvH5i8KGh6
+         OZ5S4f6VD48AZxOmMpBb2hl6zMgUP6O7VqaDKO225fSXQuMQO+wkarpqm0HKy5VuLjbi
+         G/Wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753798585; x=1754403385;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Rg+ArqbA0/8Mg521AIaVwU05GgIfKPGj13QiGSTYp/U=;
-        b=EzlffWxf/05wv+klf0LnEUFe3WT1kUyXwNUKwoorCgZw6JOQgmOUVQmX2BsNLO6C8b
-         MHfvgO0lDmXxQPvBW6fmGTylU4m8345gRSpo9HZ70u6C8xuetc2u3GfXRemB26Q0jFLh
-         k4+gGXq8cYmOnWkqJVLYuO3f7CNBsQH1Kz5tDvUL9HNgXRk7OoDIP/iMvYFtG8iF0hX4
-         k/n1QXgFvOsKlNGu77ufg/jhuM3mFyff0zDCTFLRipGTs5QdX5Xrjdc4y0Hg/AqPlMfo
-         qs/vIyPpXe9SEaWDLd5+aw5RSLs2I0L2lMFL4rN7eNRi2sEnNNfRAGHjWW7V2Ldf3Jp4
-         jV7w==
-X-Forwarded-Encrypted: i=1; AJvYcCXhnoat0MnInIdiBC/Qe5Dp7dc1N5lfIOgyt90AriKXfMasItbXDBMSZHHTq+8m3bLy3Oc4kV4lSCk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzokMKqS1TpjjXQC5lu/YLj7RPml+p97+VjmAu0sPT/Uwv7p/u6
-	WWr2Gnz7TaA4kKxjZffaPx3xEZD7Hc+YwCwPwghIOwNO2iVdpDM7Z549R/jPEQcANQ==
-X-Gm-Gg: ASbGncs0GaOCwu4fc+U+HpogACEBwCHgcHcZ+3uN5JBiM/Ae0o62TLBRJBNek6ha4UZ
-	oBMBgwIVokN/oujSleqs13GDCFWR3/j3yuGxAEodRz+oOyFzPW9uG7cISPi4kCNbo0K1/1Ep3Bu
-	nk5vWZH1vxwx81KuMLwpaFwGcJSNJEl0rFD7KtC+txN/mU/D1+NeJVQ+FqsiFvPR2cEk+Tmg1dz
-	3pIh5EYRr7XHl3f1A/ou+FrOTBZXCk4OhQa4uF3mLoBdj7uhH0EASLK7KKCpGon6wsmmdWz68tN
-	N919qC8zefUo/K+iO22gfhONg0JOyKIPL4MnP1TbVHFThYf50DOoLftzU/DJ0uYQ3eoCkPyiyAb
-	6Q2miZt6ep32rtKJTDbnvIKRYy5oPt8Zwg021QmKD140E44KPtBuTQFFz2dPgszMTzuAZ/fzWbN
-	XOE6ekavU=
-X-Google-Smtp-Source: AGHT+IFpKDoEo83lRurGNHgW5F7aQNiBmSsv7I8czf9WumFxLOx8CozrjgUeld1GSDtX4ivQ0Bkh4Q==
-X-Received: by 2002:a05:6000:144d:b0:3b7:58be:b0d with SMTP id ffacd0b85a97d-3b776664993mr13057879f8f.39.1753798585034;
-        Tue, 29 Jul 2025 07:16:25 -0700 (PDT)
-Message-ID: <87c1a72d-62cf-475a-8320-70e1954cd0f5@suse.com>
-Date: Tue, 29 Jul 2025 16:16:15 +0200
+        d=1e100.net; s=20230601; t=1753799228; x=1754404028;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=BVfDdgM2IcEt9IGmhVSkrtLnYQ4r5H5DQM4ntH4ZNls=;
+        b=RU8lpnmPjSYfPat0Cod6fKYqWzZY7ECad4CI7KBwgyKpr12+UTgVNjqrK2I95TzFKY
+         Jdyq7Ry+pFhHPcI8e5uyEjam3t64oy8oUokX7TgEXZ4yHnSp6i0qBPpSd2Mue7S90jM6
+         2TboV1yc2mu6EKQkP+ONOPBCHPAY0Gl4DgNHejBV4ekozOyS+/gseMieDDf556z2XL1g
+         tEuZsJFBPvGCdz9NH7o+ARCXzBvGoMyIqliCjzVA/lXh7qcrt8g2hV9RTzR3Kk5J9sN1
+         v6GdVR+UcPhBQuqZvGOkGk+b962dD3pdZKvWSwNQOBhUmg22QGd4Lipcbi1qmZ5MqNxp
+         h47Q==
+X-Gm-Message-State: AOJu0YwXjmHzEpr3eQ1qLGWQCRX/nWPtY6dv1rfifiufQwKczn7eoO40
+	j7H6+z560uEGxokOQ93YQeqyDaZtx6Ub+bgQMuzBDQNARGnmTx+tURCyiz6E5lCjQS4CuOxpPub
+	Lxpw=
+X-Gm-Gg: ASbGncsdgkG7xOZtaQKcItpC+dXADurmgf2SUge2EV0gic3Xd2+QdSBEYYFE5P9zs15
+	BL4u5dprAdFNZ+JG/UShV3ntgueMOiVrTLG9kZO8C/LakgEYmg/9bPYJ72OUvyJr5z6oq6Jvw8q
+	ISlhL5TAIDmJwU8+0URiszTYDjRnMthZsUs1AmIdJ7DcdhCrWFt2vh54wa2OMwgG5qPoFjGBSjy
+	q7L67qO1okd711MesFOAKCK2gqoxtAswosnprq7sWK2k6jZ3olLf0+UgcBVyPik32mtBy3JJTaj
+	/QFYpQnqYPE7a9KoS7PdllZPTPsULYavdm2qdaeDBAJm+K9cKPctgvcv7FLNvoYwFPb1PevkyzD
+	yDRJNxpWIckGEvWkXR9cBDf1ayD7ypJ9Ya57htVG+rz9Lu5UD8WSeiRb5RyKO99rrtwQm2PPM3w
+	UiKhK+I/z5OG3uu5XNdQ==
+X-Google-Smtp-Source: AGHT+IFW/O/JUulGE46l+yUDxzgySCuirCxGGpiURLew6sjSrnR3ZKWYOGK+NRoHQvnm6daUePeCxw==
+X-Received: by 2002:a5d:5f44:0:b0:3b5:e792:18ce with SMTP id ffacd0b85a97d-3b7767326ebmr9625544f8f.22.1753799228365;
+        Tue, 29 Jul 2025 07:27:08 -0700 (PDT)
+Message-ID: <fe3b486e-5122-4196-810b-38b3a58233bb@suse.com>
+Date: Tue, 29 Jul 2025 16:26:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/8] pdx: introduce a new compression algorithm based
- on region offsets
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Community Manager <community.manager@xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250724110416.2081-1-roger.pau@citrix.com>
- <20250724110416.2081-8-roger.pau@citrix.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] lib: drop size parameter from sort()'s swap callback
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -124,240 +120,83 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250724110416.2081-8-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.07.2025 13:04, Roger Pau Monne wrote:
-> --- a/xen/common/pdx.c
-> +++ b/xen/common/pdx.c
-> @@ -24,6 +24,7 @@
->  #include <xen/param.h>
->  #include <xen/pfn.h>
->  #include <xen/sections.h>
-> +#include <xen/sort.h>
->  
->  /**
->   * Maximum (non-inclusive) usable pdx. Must be
-> @@ -40,6 +41,12 @@ bool __mfn_valid(unsigned long mfn)
->  
->  #ifdef CONFIG_PDX_MASK_COMPRESSION
->      invalid |= mfn & pfn_hole_mask;
-> +#elif defined(CONFIG_PDX_OFFSET_COMPRESSION)
-> +{
-> +    unsigned long base = pfn_bases[PFN_TBL_IDX(mfn)];
-> +
-> +    invalid |= mfn < base || mfn >= base + pdx_region_size;
+This was needed only for generic_swap(), which disappeared in
+8cb0341a61fa ("xen/sort: Switch to an extern inline implementation").
 
-Leveraging wrapping, this could be simplified to
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-    invalid |= mfn - base >= pdx_region_size;
-
-I think. Considering it's a frequently used path, doing so may be worthwhile.
-
-> @@ -75,6 +82,13 @@ void set_pdx_range(unsigned long smfn, unsigned long emfn)
->  # error "Missing architecture maximum number of RAM ranges"
->  #endif
->  
-> +/* Some functions should be init when not using PDX mask compression. */
-> +#ifndef CONFIG_PDX_MASK_COMPRESSION
-> +# define __init_or_pdx_mask __init
-> +#else
-> +# define __init_or_pdx_mask
-> +#endif
-
-Considering this is local to the CU, "pdx" in the name isn't very meaningful.
-Instead it being a compression type may be, so how about __init_or_mask_compr
-or some such? (If we gain further compression types, this may be getting
-unwieldy anyway.)
-
-> +static void __init cf_check swp_node(void *a, void *b, size_t size)
-> +{
-> +    SWAP(a, b);
-
-This doesn't look right - you swap a and b, not what they point to.
-
-> +static bool __init pfn_offset_sanitize_ranges(void)
-> +{
-> +    unsigned int i = 0;
-> +
-> +    if ( nr_ranges == 1 )
-> +    {
-> +        ASSERT(PFN_TBL_IDX(ranges[0].base) ==
-> +               PFN_TBL_IDX(ranges[0].base + ranges[0].size - 1));
-
-I think this points out a naming issue in patch 2: "base" and "size" look
-as if these were address / byte count, when they're PFN / page count.
-Which caught my eye because of the values being passed to something that
-actually wants a PFN (and hence looked wrong at the first glance).
-
-> +        return true;
-> +    }
-> +
-> +    while ( i + 1 < nr_ranges )
-> +    {
-> +        /*
-> +         * Ensure ranges [start, end] use the same offset table index.  Should
-> +         * be guaranteed by the logic that calculates the pfn shift.
-> +         */
-> +        if ( PFN_TBL_IDX(ranges[i].base) !=
-> +             PFN_TBL_IDX(ranges[i].base + ranges[i].size - 1) ||
-> +             PFN_TBL_IDX(ranges[i + 1].base) !=
-> +             PFN_TBL_IDX(ranges[i + 1].base + ranges[i + 1].size - 1) )
-
-It feels a little odd to re-do the 2nd half of the checking here on the next
-iteration, when the table wouldn't have changed when ...
-
-> +        {
-> +            ASSERT_UNREACHABLE();
-> +            return false;
-> +        }
-> +
-> +        if ( PFN_TBL_IDX(ranges[i].base) != PFN_TBL_IDX(ranges[i + 1].base) )
-> +        {
-> +            i++;
-> +            continue;
-
-... taking this path. Could I talk you into moving the latter half ...
-
-> +        }
-
-... here? If that's needed at all, as ...
-
-> +        /* Merge ranges with the same table index. */
-> +        ranges[i].size = ranges[i + 1].base + ranges[i + 1].size -
-> +                         ranges[i].base;
-
-... the new range should also fulfill the requirement. Just that the last
-such range then wouldn't be checked, unless ...
-
-> +        memmove(&ranges[i + 1], &ranges[i + 2],
-> +                (nr_ranges - (i + 2)) * sizeof(ranges[0]));
-> +        nr_ranges--;
-> +    }
-
-... that checking was put past the loop. Which then would allow to remove
-the special casing of nr_ranges == 1 at the top of the function: You'd
-uniformly check the ranges[nr_ranges - 1] here.	
-
-> +    return true;
-> +}
-> +
-> +bool __init pfn_pdx_compression_setup(paddr_t base)
-> +{
-> +    unsigned long mask = PFN_DOWN(pdx_init_mask(base)), idx_mask = 0;
-> +    unsigned long size = 0;
-> +    unsigned int i;
-> +
-> +    if ( !nr_ranges )
-> +    {
-> +        printk(XENLOG_DEBUG "PFN compression disabled%s\n",
-> +               pdx_compress ? ": no ranges provided" : "");
-> +        return false;
-> +    }
-> +
-> +    if ( nr_ranges > ARRAY_SIZE(ranges) )
-> +    {
-> +        printk(XENLOG_WARNING
-> +               "Too many PFN ranges (%u > %zu), not attempting PFN compression\n",
-> +               nr_ranges, ARRAY_SIZE(ranges));
-> +        return false;
-> +    }
-> +
-> +    /* Sort ranges by start address. */
-> +    sort(ranges, nr_ranges, sizeof(*ranges), cmp_node, swp_node);
-> +
-> +    for ( i = 0; i < nr_ranges; i++ )
-> +    {
-> +        unsigned long start = ranges[i].base;
-> +
-> +        /*
-> +         * Align range base to MAX_ORDER.  This is required so the PDX offset
-> +         * for the bits below MAX_ORDER matches the MFN offset, and pages
-> +         * greater than the minimal order can be used to populate the
-> +         * directmap.
-> +         */
-> +        ranges[i].base = ranges[i].base & ~((1UL << MAX_ORDER) - 1);
-
-Nit: Use "start" here?
-
-> +        ranges[i].size = start + ranges[i].size - ranges[i].base;
-> +
-> +        /*
-> +         * Only merge overlapped regions now, leave adjacent regions separated.
-> +         * They would be merged later if both use the same index into the
-> +         * lookup table.
-> +         */
-> +        if ( !i || ranges[i].base >= (ranges[i - 1].base + ranges[i - 1].size) )
-> +        {
-> +            /*
-> +             * We might parse the region at position 0 more than once, as for
-> +             * index 0 we don't attempt to merge to keep this simple.
-> +             */
-> +            mask |= pdx_region_mask(ranges[i].base, ranges[i].size);
-> +            continue;
-
-In how far is it relevant here that slot 0 may be looked at more than once?
-
-> +        }
-> +
-> +        ranges[i - 1].size = ranges[i].base + ranges[i].size -
-> +                             ranges[i - 1].base;
-> +
-> +        if ( i + 1 < nr_ranges )
-> +            memmove(&ranges[i], &ranges[i + 1],
-> +                    (nr_ranges - (i + 1)) * sizeof(ranges[0]));
-> +        else /* last range */
-> +            mask |= pdx_region_mask(ranges[i].base, ranges[i].size);
-> +        nr_ranges--;
-> +        i--;
-> +    }
-> +
-> +    /*
-> +     * Populate a mask with the non-equal bits of the different ranges, do this
-> +     * to calculate the maximum PFN shift to use as the lookup table index.
-> +     */
-> +    for ( i = 0; i < nr_ranges; i++ )
-> +        for ( unsigned int j = 0; j < nr_ranges; j++ )
-> +            idx_mask |= (ranges[i].base & ~mask) ^ (ranges[j].base & ~mask);
-> +
-> +    if ( !idx_mask )
-> +        /* Single region case. */
-> +        pfn_index_shift = flsl(mask);
-> +    else if ( flsl(idx_mask) - ffsl(idx_mask) < CONFIG_PDX_OFFSET_TBL_ORDER )
-> +        /* The changed mask fits in the table index width. */
-> +        pfn_index_shift = ffsl(idx_mask) - 1;
-> +    else
-> +        /* Changed mask is wider than array size, use most significant bits. */
-> +        pfn_index_shift = flsl(idx_mask) - CONFIG_PDX_OFFSET_TBL_ORDER;
-
-Perhaps emit a log message here to indicate that bigger PDX_OFFSET_TBL_ORDER
-may yield better results?
-
-> +    /*
-> +     * Ensure correctness of the calculated values, plus merge ranges if they
-> +     * use the same lookup table index.
-> +     */
-> +    if ( !pfn_offset_sanitize_ranges() )
-> +    {
-> +        printk(XENLOG_DEBUG "PFN compression is invalid, disabling\n");
-> +        pfn_pdx_compression_reset();
-> +        return false;
-> +    }
-> +
-> +    /*
-> +     * Find the maximum PFN range size after having merged ranges with same
-> +     * index.  The rounded up region size will be the base for the PDX region
-> +     * size and shift.
-> +     */
-> +    for ( i = 0; i < nr_ranges; i++ )
-> +        size = max(size, ranges[i].size);
-> +
-> +    /* pdx_init_mask() already takes MAX_ORDER into account. */
-> +    mask = PFN_DOWN(pdx_init_mask(size << PAGE_SHIFT));
-
-We're in arch-neutral code here, so I think you need to cast size to paddr_t
-before shifting.
-
-Jan
+--- a/xen/arch/arm/io.c
++++ b/xen/arch/arm/io.c
+@@ -100,7 +100,7 @@ static int cmp_mmio_handler(const void *
+     return 0;
+ }
+ 
+-static void swap_mmio_handler(void *_a, void *_b, size_t size)
++static void swap_mmio_handler(void *_a, void *_b)
+ {
+     struct mmio_handler *a = _a, *b = _b;
+ 
+--- a/xen/arch/x86/extable.c
++++ b/xen/arch/x86/extable.c
+@@ -39,7 +39,7 @@ static int init_or_livepatch cf_check cm
+ 	return 0;
+ }
+ 
+-static void init_or_livepatch cf_check swap_ex(void *a, void *b, size_t size)
++static void init_or_livepatch cf_check swap_ex(void *a, void *b)
+ {
+ 	struct exception_table_entry *l = a, *r = b, tmp;
+ 	long delta = b - a;
+--- a/xen/common/device-tree/bootinfo-fdt.c
++++ b/xen/common/device-tree/bootinfo-fdt.c
+@@ -449,7 +449,7 @@ static int __init cmp_memory_node(const
+     return 0;
+ }
+ 
+-static void __init swap_memory_node(void *_a, void *_b, size_t size)
++static void __init swap_memory_node(void *_a, void *_b)
+ {
+     struct membank *a = _a, *b = _b;
+ 
+--- a/xen/include/xen/sort.h
++++ b/xen/include/xen/sort.h
+@@ -24,7 +24,7 @@ extern gnu_inline
+ #endif
+ void sort(void *base, size_t num, size_t size,
+           int (*cmp)(const void *a, const void *b),
+-          void (*swap)(void *a, void *b, size_t size))
++          void (*swap)(void *a, void *b))
+ {
+     /* pre-scale counters for performance */
+     size_t i = (num / 2) * size, n = num * size, c, r;
+@@ -39,7 +39,7 @@ void sort(void *base, size_t num, size_t
+                 c += size;
+             if ( cmp(base + r, base + c) >= 0 )
+                 break;
+-            swap(base + r, base + c, size);
++            swap(base + r, base + c);
+         }
+     }
+ 
+@@ -47,7 +47,7 @@ void sort(void *base, size_t num, size_t
+     for ( i = n; i > 0; )
+     {
+         i -= size;
+-        swap(base, base + i, size);
++        swap(base, base + i);
+         for ( r = 0; r * 2 + size < i; r = c )
+         {
+             c = r * 2 + size;
+@@ -55,7 +55,7 @@ void sort(void *base, size_t num, size_t
+                 c += size;
+             if ( cmp(base + r, base + c) >= 0 )
+                 break;
+-            swap(base + r, base + c, size);
++            swap(base + r, base + c);
+         }
+     }
+ }
 
