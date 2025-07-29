@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3282EB15363
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 21:22:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1062980.1428732 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1032DB15367
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 21:25:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1062986.1428742 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugptW-0003Dg-29; Tue, 29 Jul 2025 19:21:50 +0000
+	id 1ugpwe-0003ml-G4; Tue, 29 Jul 2025 19:25:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1062980.1428732; Tue, 29 Jul 2025 19:21:50 +0000
+Received: by outflank-mailman (output) from mailman id 1062986.1428742; Tue, 29 Jul 2025 19:25:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugptV-0003Bo-VO; Tue, 29 Jul 2025 19:21:49 +0000
-Received: by outflank-mailman (input) for mailman id 1062980;
- Tue, 29 Jul 2025 19:21:48 +0000
+	id 1ugpwe-0003jg-Cb; Tue, 29 Jul 2025 19:25:04 +0000
+Received: by outflank-mailman (input) for mailman id 1062986;
+ Tue, 29 Jul 2025 19:25:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/H3U=2K=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ugptU-0003Bi-Bn
- for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 19:21:48 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ id 1ugpwd-0003ja-7f
+ for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 19:25:03 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 44b376ea-6cb1-11f0-a320-13f23c93f187;
- Tue, 29 Jul 2025 21:21:46 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-451d3f72391so55145075e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 29 Jul 2025 12:21:46 -0700 (PDT)
+ id b949ebac-6cb1-11f0-a320-13f23c93f187;
+ Tue, 29 Jul 2025 21:25:02 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3b786421e36so69093f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Jul 2025 12:25:02 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4589314959bsm3529015e9.1.2025.07.29.12.21.45
+ 5b1f17b1804b1-4588e5cc9a6sm41358615e9.17.2025.07.29.12.25.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Jul 2025 12:21:45 -0700 (PDT)
+ Tue, 29 Jul 2025 12:25:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 44b376ea-6cb1-11f0-a320-13f23c93f187
+X-Inumbo-ID: b949ebac-6cb1-11f0-a320-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1753816906; x=1754421706; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rjPnBX0mqKv4Rtt9IzA538Q0YtDQQ9x3ilX/H+q88rg=;
-        b=KZYnj58Sz0wYNwUgEOTqewsKZbCo8t5lUh/7yG99+ijdhL4UVR43ZnaYCCBu4NJ2SV
-         duHWQ3OEEYJRgO8UwWLuRschk0zhN2ofaip85yHu6WezNXgkgfI0S8NSs1kqhDbDKwVC
-         cxoxCRPVCDkuTXkjOq2Q/ez8+X8jlgTP5f8vY=
+        d=citrix.com; s=google; t=1753817102; x=1754421902; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=uIQY/b8N1qu+5uIiYCHQRex4PzEx+Ds0o0oZQ03ofNk=;
+        b=EMSzb9u98Kkn4RkKgOenR7wKbKV9VWiFyV0OLaNIqOyzGTrWJ6AwNM46+2xWGGq67K
+         6bvuP9bPo/557pekv8j83xEnAQaLmqnw+FfUW7Z6lQUxwVRVfDQkKs5KEWAK8Dj3/rSn
+         cenXv7cG01qnkKHgz+xfbgLyFDbFVZ/iCJW24=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753816906; x=1754421706;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rjPnBX0mqKv4Rtt9IzA538Q0YtDQQ9x3ilX/H+q88rg=;
-        b=QwGKrajXr6Qm5nsZPbhrNOGNdQLL3CgDDm53KLyeIUmBmL1APCs2hFyXjzUh9dcY3+
-         bGoQPmHVLcYRbVHGa935QgqIwZ63gHTwzexeJlWnRTYPn7++eyhBg8KpfeYqgadwemNl
-         iulRbrNgpPVCQiNMc4csn9SZYbohW//TbK94bjHgqLEeBfo9vsZZ0PEVdlLYOZfbwz+H
-         kaDxPz737+/ZZ/cx/CH61Vw//B2aycLR3VFn7iTX847dGZJG+QFwvqVN/j7K8qYrFhKK
-         PAAxjbHOFopSSa+1IINoCY3xpvZlpNlM13oIbnzBcZQuHJaUPGUwk7fox5wZldXPPE1d
-         6F1A==
-X-Forwarded-Encrypted: i=1; AJvYcCWmLGFZhRd4GCoJk/PhIWmz17xYQZ8ej0obvKr0JbFmRQg79p27To4ccfVkyv+XH3AnSbuG0X0eRwc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxnLJhAcSqtn8K4i8YB3KeyBPu0jcIUMWaBu4bfr7ODO4G3DBqF
-	0izSiNpNcco+sIr0dDPIgIonTWu9RCae4Z30FWwk8FiUYQnqdewFfxxRddkYGz+YkMI=
-X-Gm-Gg: ASbGnctGU/JQtPTZe9OQmSTStoZUDq0p257r+ZJbAI7+Z88GWPccTuyprR2m1EzgruT
-	NwRcZqq6oHtrpsY021fjw0Ztx/PU5ZDRQLOFuR3cc/VNaxbUk5MnOk4VhoZAljvKLLq4QFtezEO
-	8Qilfy+bolbuzfgK9ZkLXAcKGzOcAhP0/pUxpyYR9o/Jp+Osy+dg1r4ILnB/4jwzZNwlmXHsorw
-	3hcjOxKwlSTmC5fQ5X62oZ0649b7tEt0OQjTJtGoZxxqQqpf2f4zFQCoFVbZ/5i8Kuolw3EH/nA
-	orNEKf1ZWtNE2GIuCtxLca0SOvEXIItsiiNKZeojtt5fg5nDZPE8OqkESOcq8SYRRmHHBSAWSSW
-	wciZq71BuftHJGOM46OqCsSMkXQCmV4mzzpAWZ0uUzS+etS+3cttvWioaDNGIsFSMeQwn
-X-Google-Smtp-Source: AGHT+IG5BHy82sXBqdIQPecrs6mmdL039mrCuU/Zvzc4cOm9Iaaov36KJ/0c2RjzhFnylBGp5pVTog==
-X-Received: by 2002:a05:6000:2403:b0:3b7:8ae9:f032 with SMTP id ffacd0b85a97d-3b7950286bcmr584508f8f.30.1753816906091;
-        Tue, 29 Jul 2025 12:21:46 -0700 (PDT)
-Message-ID: <dfd09f68-1d2a-42b7-ba8f-c1f54c6861ce@citrix.com>
-Date: Tue, 29 Jul 2025 20:21:44 +0100
+        d=1e100.net; s=20230601; t=1753817102; x=1754421902;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=uIQY/b8N1qu+5uIiYCHQRex4PzEx+Ds0o0oZQ03ofNk=;
+        b=NeVdXrqgsGa5+3lcXlXLPfyRFYjyB1+yn81rGj4dgnLJcXDRSJQDnc7ofybvVYRh/q
+         gLs+wlvhIOXxPZDvpEo8bYeNHQ/Sb7prnjI+3D7BFPr/LH5kfLS9FI4zUxGVS8//m0DQ
+         julMgnSQp4RG/jm2tAns/WXX7qdPQ2C6fZkquABEcDxM3bkHmYQMV7ykxl+dpiDHWRNj
+         Idv2vHeLd5FyOu6ptt2yyQ+b1Q7vj5eUBzIUpja6H5jvGeVyMHSIjUwvEXAC7MziO7YN
+         h+bzRDP1tF3Toi/zkin3PiBD4s3JLha/PSUPH+sreniEK34fYSnv0eSNS80BVC9CKaSV
+         EGjw==
+X-Forwarded-Encrypted: i=1; AJvYcCVsreYBkrb7Nj3h5tZQfH5+FDTve1th+jLvcWP5kZfNjdLT6ffYQYK17ZdyjoMjJRJa+/YH1Y6zZd0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwqjFuEaWjQPXG7NLCq3ftIU4SPOlXSTeCZyms3MY5Lh9E6GwoK
+	/B4foE3U4NJrsVRlJe/8TzPiPU/G87t+LMxUNMC1fFFh4zMAYsaRmoIibTjDn7MZU5g=
+X-Gm-Gg: ASbGncswBVQiFCl25b4/zr1U4fvq99QTIMD0QUDCTUx+PMLsso3p0+Vvzfy0+BORyMT
+	W7S+YiSjzvi3yf1q3RsvUj44Sp9VrfwjGFwB5ZkejubETGs9J24GcAV8l6oBCdub0To4DxbhMb2
+	21pruARsEkW4OLWIBlxkPNX71jTGl05a+LCwMadPei/r9o5kwcZo0azyzzgAXl6ZVgksI0pFID6
+	63ayeXeZ8coMQPcC0BR5zIpbKVhvzRIgz8Q+15ODqOJMk4uRv1YzF+739ddssmMojIqxUYXsx7h
+	KEcn1i85ZGwwD11BplN7YKbQR9yzLmVWtU6Dh+lM2vtn7XobskD+n6k47v/87RzG1uXs2aMvfUc
+	aveY02Eql5Mqd93cuyYQyq9gfX2tZ6cVOdsPKMQx5R2lLVNcEw0EQVEV8jAJqDR5HOS6f
+X-Google-Smtp-Source: AGHT+IGB8LA6caz2dvolnrZ8ei4vjksWx/w/3w8kS93ulIL2C3qOczs7IkiTO00GRM5IGdN+VLP3dQ==
+X-Received: by 2002:a05:6000:24c7:b0:3b7:9214:6d73 with SMTP id ffacd0b85a97d-3b794fed23dmr645907f8f.20.1753817101653;
+        Tue, 29 Jul 2025 12:25:01 -0700 (PDT)
+Message-ID: <d2eb4a63-1bec-497d-911f-cf458533cd6f@citrix.com>
+Date: Tue, 29 Jul 2025 20:25:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 1/9] xenstored: use fread() instead of mmap() for
  reading live update state
+From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
 Cc: Julien Grall <julien@xen.org>, Anthony PERARD
  <anthony.perard@vates.tech>, Jason Andryuk <jason.andryuk@amd.com>
 References: <20250729110146.10580-1-jgross@suse.com>
  <20250729110146.10580-2-jgross@suse.com>
+ <dfd09f68-1d2a-42b7-ba8f-c1f54c6861ce@citrix.com>
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -136,28 +137,31 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250729110146.10580-2-jgross@suse.com>
+In-Reply-To: <dfd09f68-1d2a-42b7-ba8f-c1f54c6861ce@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29/07/2025 12:01 pm, Juergen Gross wrote:
-> diff --git a/tools/xenstored/lu.c b/tools/xenstored/lu.c
-> index 77e0d377c5..f2c8b92d07 100644
-> --- a/tools/xenstored/lu.c
-> +++ b/tools/xenstored/lu.c
-> @@ -27,9 +27,11 @@ struct live_update *lu_status;
->  
->  struct lu_dump_state {
->  	void *buf;
-> +	unsigned int buf_size;
->  	unsigned int size;
-> -	int fd;
-> +	unsigned int offset;
->  	char *filename;
-> +	FILE *fp;
+On 29/07/2025 8:21 pm, Andrew Cooper wrote:
+> On 29/07/2025 12:01 pm, Juergen Gross wrote:
+>> diff --git a/tools/xenstored/lu.c b/tools/xenstored/lu.c
+>> index 77e0d377c5..f2c8b92d07 100644
+>> --- a/tools/xenstored/lu.c
+>> +++ b/tools/xenstored/lu.c
+>> @@ -27,9 +27,11 @@ struct live_update *lu_status;
+>>  
+>>  struct lu_dump_state {
+>>  	void *buf;
+>> +	unsigned int buf_size;
+>>  	unsigned int size;
+>> -	int fd;
+>> +	unsigned int offset;
+>>  	char *filename;
+>> +	FILE *fp;
+> I know there's already one unsigned int size here, but life is too short
+> to not use size_t from the get-go.
 
-I know there's already one unsigned int size here, but life is too short
-to not use size_t from the get-go.
+That said, offset really needs to be an offs64_t if you want 32bit
+guests to 9P safely on a modern filesystem.
 
 ~Andrew
 
