@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2C91B154A8
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 23:29:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1063101.1428896 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF62EB154B8
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 23:36:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1063141.1428936 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugrtC-0007BQ-1T; Tue, 29 Jul 2025 21:29:38 +0000
+	id 1ugrzO-00028s-Eo; Tue, 29 Jul 2025 21:36:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1063101.1428896; Tue, 29 Jul 2025 21:29:38 +0000
+Received: by outflank-mailman (output) from mailman id 1063141.1428936; Tue, 29 Jul 2025 21:36:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugrtB-00078R-UY; Tue, 29 Jul 2025 21:29:37 +0000
-Received: by outflank-mailman (input) for mailman id 1063101;
- Tue, 29 Jul 2025 21:29:37 +0000
+	id 1ugrzO-000266-Bs; Tue, 29 Jul 2025 21:36:02 +0000
+Received: by outflank-mailman (input) for mailman id 1063141;
+ Tue, 29 Jul 2025 21:36:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oL40=2K=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1ugrtB-00078L-1l
- for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 21:29:37 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1ddb47bf-6cc3-11f0-b895-0df219b8e170;
- Tue, 29 Jul 2025 23:29:33 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1753824564656381.7596782574932;
- Tue, 29 Jul 2025 14:29:24 -0700 (PDT)
+ <SRS0=/H3U=2K=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ugrzN-000260-43
+ for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 21:36:01 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0440fdbd-6cc4-11f0-b895-0df219b8e170;
+ Tue, 29 Jul 2025 23:35:59 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-455b00283a5so35278665e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Jul 2025 14:35:59 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45895386627sm1840165e9.19.2025.07.29.14.35.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 29 Jul 2025 14:35:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,167 +45,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ddb47bf-6cc3-11f0-b895-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; t=1753824566; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=WCes3E3mkJMBXfiQzyGz523CI03GdrzR+cUYjhdxF0I/fBCTNgbReNGtUHTaDmB1Fh/ogOPAGwYP6padn8nuwOvYqL4YvCvdY8TKetwcNM5hcJvcrcAKc6/S57UEHHlyPEwZIsaYIagdQYhR65X6rDp7CCLs6MdyDvVcWiNysaM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1753824566; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=4QZwNADOMklL2wUhJ9LYV6xeMr84fPOM5SE4RnWyz88=; 
-	b=keEce4qQMVoZfPOyZSBE7Nm9gHgzSlLLFCrC+mF+zYKflTN1L9BaALcEg4ctnvpth7Lfi6a6gwpagcGG6s5CLyHt7FH4Ktvh+vONLRWRof056CZ0lCgInzu/6ribo95cCfeKwjonaemR16H1GtJpy2G0+HIf0yzgDJCEYvSYdQs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1753824566;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=4QZwNADOMklL2wUhJ9LYV6xeMr84fPOM5SE4RnWyz88=;
-	b=u//TOkB9hNElvTMwk8U8iMAiByViqGuL0XisSjbuN+fTZUSy31g/KdJX6B2S2cvH
-	Jmkwyrc1/gDExDPkoNhkbgs24GmjpLC2CA9FDmrfMjjbVUTUANyKysOdgMM0Z+T9sHa
-	fnb6nEuNpLdDDK//wyJZ4dX8XeRaeidO9ScquL08=
-Message-ID: <ba1de9a2-09b1-4332-b27d-0e485d0c8ce5@apertussolutions.com>
-Date: Tue, 29 Jul 2025 17:29:22 -0400
+X-Inumbo-ID: 0440fdbd-6cc4-11f0-b895-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1753824958; x=1754429758; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=FqMas0Gvnh8p10bi7MVm3QJ4+XwMIQIpTsd/cCOqDw8=;
+        b=m85MN4XfSds/2WBNKknbzrk9X9TvPK0KATQRY7jsHg1BWHWtNHXMBsAeGnKl/QT4gU
+         zmGZkaCI3hRJ50aCczAEYxQiBIJAVluQXJfwgkfGXYsuLPyRINhX7HplAJk9Jpe7S16j
+         +Tq957s6yrSwkqhuMY0uLh6yKUCvmGx7hn4Qk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753824958; x=1754429758;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FqMas0Gvnh8p10bi7MVm3QJ4+XwMIQIpTsd/cCOqDw8=;
+        b=YqIHvYLahCmhlLmkJ+5yXpGhpPnCZ1JiedV8ATrGaiVzXSeQfM5AnPN1SzEXT2PcDz
+         UMTLwgpvSpNFAc7UxHziN+rxFpdqndNIJ8QTdcqn4Txdzu+XBHDwggW7htYgcPkaBTyQ
+         ZcGT1RCuxfH/BsXV9/aQtZUsD95O86PXH2OhCdNYeLLjQQhrnBgY96EO+OVpikxJShBO
+         zxktDfNFYLld/5as1xTagdAiA0SpYI8/MP2lP2iC0me02L+C55aCOx9B1+E+IQD+Q/10
+         nFVDcpO4XK+6wAQc/5aM684DBa4L9igdfb2lUbC7HItSpp/SEJ5mD7Y+uz8ggyRHLTCH
+         fnEw==
+X-Forwarded-Encrypted: i=1; AJvYcCXaMAKITQa5c7dRGWXSZxh3pIVX1tYdw3w+MnaaQnecak3AlGBIcRdWxFvAmsQHq65xFivKKlP0A2g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyrLidcVisIev9GtizoSKG0MrX9ZbNfmWPBnIBbbaa19ejyORVn
+	5ou1C1VJh+o7w9UHahKjrT5lIGaG5j/pSk1+Wk8ds8qg5LeRsNWK6Su2S2s8xn7wxN0=
+X-Gm-Gg: ASbGncsiXFP5Xi4yV7gq8rI6v2nz6pArPZdVRlkP5N9oyBugDm1/+HFtEQo8hlp5bKy
+	eAD3EKeIVDVkcLVBY/En5PJzQSDkyponh6ix1inD3Vsu0xoC9DWOOyUEm6yei30FJrd37iEY8aH
+	eC0PKvwB5O4+g3yq/MO0U4gpFu6v24jM6jGVKVCYCEKRx4+8OgODxnWUtWPyYJqs076rnp37kyM
+	SngB1t4d9dwWjqLau709JkFGDbrBoBcAGI3rU+diFkjvfbCf7WrjvmfLi9zjdSjcKsG7KrsKl5L
+	FkwYHT3X0rffvQAtwq3g6Ygtsz+gQcqUyRGWWvfuso7ef6Be+VxqpgSwNhnwwuwXIE800323faA
+	QhhSj9KIP/ALzCA8S90332J6D0jxXpUE8OhlfwWqZ+kAHEUf7p+X5u/FdHn5aR0g9pFQ5
+X-Google-Smtp-Source: AGHT+IHYtUMvy5LiSzUBaSoeCtXh1GeNJHnICTGCrC6xD/bMr3pviaYBAqaNQ9TMres1fRPVcg24Vw==
+X-Received: by 2002:a05:600c:83cc:b0:450:d37d:7c with SMTP id 5b1f17b1804b1-45894ca4e1cmr2122375e9.21.1753824958432;
+        Tue, 29 Jul 2025 14:35:58 -0700 (PDT)
+Message-ID: <d96a1ee4-d1da-40b4-8d21-8ce38957f082@citrix.com>
+Date: Tue, 29 Jul 2025 22:35:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: Conditionalise init_dom0_cpu_policy()
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20250717175825.463446-1-alejandro.garciavallejo@amd.com>
- <aICM2hqQoloEahgD@macbook.local> <DBL1SWOYP5OP.35VTULK0U7RBL@amd.com>
- <aINi024baOV5LQgn@macbook.local>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- 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
-In-Reply-To: <aINi024baOV5LQgn@macbook.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [RFC PATCH 1/3] misra: address 5.5 pirq_cleanup_check
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <cover.1753822074.git.dmytro_prokopchuk1@epam.com>
+ <94a49589ab85c8988979f8cfd29c9124d1dedf42.1753822074.git.dmytro_prokopchuk1@epam.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <94a49589ab85c8988979f8cfd29c9124d1dedf42.1753822074.git.dmytro_prokopchuk1@epam.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 
-On 7/25/25 06:56, Roger Pau Monné wrote:
-> On Fri, Jul 25, 2025 at 12:02:18PM +0200, Alejandro Vallejo wrote:
->> On Wed Jul 23, 2025 at 9:18 AM CEST, Roger Pau Monné wrote:
->>> On Thu, Jul 17, 2025 at 07:58:24PM +0200, Alejandro Vallejo wrote:
->>>> Later patches will keep refactoring create_dom0()
->>>> until it can create arbitrary domains. This is one
->>>> small step in that direction.
->>>>
->>>> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
->>>> ---
->>>>   xen/arch/x86/setup.c | 3 ++-
->>>>   1 file changed, 2 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
->>>> index c6890669b9..6943ffba79 100644
->>>> --- a/xen/arch/x86/setup.c
->>>> +++ b/xen/arch/x86/setup.c
->>>> @@ -1054,7 +1054,8 @@ static struct domain *__init create_dom0(struct boot_info *bi)
->>>>       if ( IS_ERR(d) )
->>>>           panic("Error creating d%u: %ld\n", bd->domid, PTR_ERR(d));
->>>>   
->>>> -    init_dom0_cpuid_policy(d);
->>>> +    if ( pv_shim || d->cdf & (CDF_privileged | CDF_hardware) )
->>>
->>> You possibly want this to be:
->>>
->>> (d->cdf & (CDF_privileged | CDF_hardware)) == (CDF_privileged | CDF_hardware)
->>>
->>> To ensure the contents of dom0_cpuid_cmdline is only applied to dom0,
->>> and not to the hardware or control domains.  I assume it should be
->>> possible to pass a different set of cpuid options for the hardware vs
->>> the control domains.
->>>
->>> Thanks, Roger.
->>
->> Why only a hwdom+ctldom, surely a single hwdom should get it too.
-> 
-> hm, not really I think: a late hardware domain would get any custom
-> cpuid options from the toolstack that created it, or in the
-> hyperlaunch case from the provided configuration, but not from the
-> dom0-cpuid command line option I would expect.  Otherwise you have two
-> different sources of cpuid options, the inheritance from dom0-cpuid,
-> plus whatever is provided from the hardware domain configuration.
+On 29/07/2025 10:24 pm, Dmytro Prokopchuk1 wrote:
+> diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
+> index c8c1bfa615..2efb5f5c78 100644
+> --- a/xen/common/event_channel.c
+> +++ b/xen/common/event_channel.c
+> @@ -672,7 +672,7 @@ static int evtchn_bind_pirq(evtchn_bind_pirq_t *bind)
+>      if ( rc != 0 )
+>      {
+>          info->evtchn = 0;
+> -        pirq_cleanup_check(info, d);
+> +        PIRQ_CLEANUP_CHECK(info, d);
 
-Yes, this has been a sticking point for me and never got any good 
-answers thus far. Should the dom0 related xen command line options only 
-apply when not booting via hyperlaunch. If the answer is no, then you're 
-in this area with some dom0 options that really are applicable to hwdom 
-vs ctldom and vice-a-versa. Some could even be suggested to apply to 
-both. And then, I don't believe there really is a consensus one which 
-options apply to which domains. Over the years working on this, I have 
-been an advocate that commandline adjustments allow for quicker 
-troubleshooting by the user/administrator. In the last version of the 
-multidomain construction RFC, I am growing more and more to advocate for 
-my initial proposition, that dom0 options only apply when not using 
-hyperlaunch.
+Well, this is awkward.  This is dead code, but only when you realise ...
 
->> I can see
->> the argument for a ctldom not getting it. For our use case having dom0
->> disaggregated is of the essence, so what happens with a hwdom that is not a
->> ctldom is fairly important.
->>
->> That said, I'm thinking moving in a different direction and have a generic
->> init_cpuid_policy() that internally checks for hw or control, or leave the
->> default policy or something else.
-> 
-> Right, so instead of introducing init_{hwdom,ctrldom}_cpuid_policy()
-> equivalents you would rather generalize init_dom0_cpuid_policy() so
-> it's used by all domains.
-> 
->> This would remove the conditional and allow much finer selection. e.g: a domain
->> brought up through a "nomigrate" DTB node (TBD: nonexisting binding atm) would
->> get itsc reported, just as dom0 does today.
-> 
-> We might want to enforce such no migration attribute at the hypervisor
-> level (by adding a new domain field to signal it possibly?), as this
-> is all toolstack knowledge ATM.
-> 
-> On a related tangent: domains brought up using hyperlaunch will have a
-> config file, capable of expressing options like cpuid features I
-> expect, at which point ITSC could be set in the config file and Xen
-> won't need to do any guessing?
+> diff --git a/xen/include/xen/irq.h b/xen/include/xen/irq.h
+> index 95034c0d6b..958d0b1aca 100644
+> --- a/xen/include/xen/irq.h
+> +++ b/xen/include/xen/irq.h
+> @@ -185,7 +185,7 @@ extern struct pirq *pirq_get_info(struct domain *d, int pirq);
+>  
+>  void pirq_cleanup_check(struct pirq *pirq, struct domain *d);
+>  
+> -#define pirq_cleanup_check(pirq, d) \
+> +#define PIRQ_CLEANUP_CHECK(pirq, d) \
+>      (!(pirq)->evtchn ? pirq_cleanup_check(pirq, d) : (void)0)
+>  
 
-The goal has never been to support all the configuration options that a 
-full toolstack can adjust for the VM. I have always felt it should be a 
-light-weight toolstack to allow essential configuration. I still 
-advocate for the boot domain that would have capabilities like parsing 
-the AML, walking PCI device tree, etc. It would then handle any more 
-complicated initialization/configuration of the VMs before exiting and 
-allowing all the domains to start
+... what this is really doing.
 
-v/r,
-dps
+Looking at this overall diff, it really is outrageous that we're hiding
+a conditional call like this.
 
+We should just remove the macro, and expand
+
+    if ( !pirq->evtchn )
+        pirq_cleanup_check(pirq, d);
+
+in most of the callsites.  The overall diff will be smaller (no need to
+change the comments), and the end result is proper regular normal C.
+
+I can draft a patch to that effect.
+
+~Andrew
 
