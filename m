@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC772B14D8F
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 14:21:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1062607.1428317 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF35FB14DC5
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 14:39:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1062614.1428328 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugjKR-00087Q-5g; Tue, 29 Jul 2025 12:21:11 +0000
+	id 1ugjbe-0001dq-Ju; Tue, 29 Jul 2025 12:38:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1062607.1428317; Tue, 29 Jul 2025 12:21:11 +0000
+Received: by outflank-mailman (output) from mailman id 1062614.1428328; Tue, 29 Jul 2025 12:38:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugjKR-000851-2q; Tue, 29 Jul 2025 12:21:11 +0000
-Received: by outflank-mailman (input) for mailman id 1062607;
- Tue, 29 Jul 2025 12:21:09 +0000
+	id 1ugjbe-0001bA-Gc; Tue, 29 Jul 2025 12:38:58 +0000
+Received: by outflank-mailman (input) for mailman id 1062614;
+ Tue, 29 Jul 2025 12:38:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9NAX=2K=epam.com=dmytro_prokopchuk1@srs-se1.protection.inumbo.net>)
- id 1ugjKP-00084v-Ms
- for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 12:21:09 +0000
-Received: from MRWPR03CU001.outbound.protection.outlook.com
- (mail-francesouthazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c207::3])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 80c542e5-6c76-11f0-b895-0df219b8e170;
- Tue, 29 Jul 2025 14:21:07 +0200 (CEST)
-Received: from GV2PR03MB9572.eurprd03.prod.outlook.com (2603:10a6:150:da::5)
- by AS2PR03MB8817.eurprd03.prod.outlook.com (2603:10a6:20b:550::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.11; Tue, 29 Jul
- 2025 12:21:04 +0000
-Received: from GV2PR03MB9572.eurprd03.prod.outlook.com
- ([fe80::edd1:842f:9b14:509e]) by GV2PR03MB9572.eurprd03.prod.outlook.com
- ([fe80::edd1:842f:9b14:509e%3]) with mapi id 15.20.8964.025; Tue, 29 Jul 2025
- 12:21:03 +0000
+ <SRS0=oL40=2K=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1ugjbd-0001b4-1k
+ for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 12:38:57 +0000
+Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
+ [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fbd83f69-6c78-11f0-b895-0df219b8e170;
+ Tue, 29 Jul 2025 14:38:54 +0200 (CEST)
+Received: from mail.zoho.com by mx.zohomail.com
+ with SMTP id 1753792722718910.8697294354804;
+ Tue, 29 Jul 2025 05:38:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,221 +39,634 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80c542e5-6c76-11f0-b895-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nL6nSszCw0dslVMnHvHqld1rdDvuJ/88bWfAw9rJnfVllzl3eJ2BVQkW9LEMXJnrNwtWvQckNm5LB2tQsq6i29u1esU2QraweSxM2fCRyj8yT3g5U8C4K2VGAddopC2BWOOzaMfzZd6dEE14LO9XWx+PtfLJxEQVJ8lANqW5mLljtsbIHAICq3vST2rMCgRz+HljMS9YfvYRJPlKGz5+0ZCkuDm2S9UG0+sO9okjJPPv/DXdujqFxwlYoOHD8vmFoQ8u7iu5wjSkl5T1cFNmXtFry95UV2g1IfwDpWhr3/z9A6ifFpUVNZ6e0suf955jgTMX4/7oL4MQo3xEiRzB8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/pUNvfnMp/OQCQaO4DM8Ap9CmmcCyeMMKJJpKmT2bbw=;
- b=ZoL95ef6P6Nz6kVaWEF4Qd69wqypO07a7jgBIhcgnBzAdZokPlqPqiU7jMmLzcd5XYCSTlPWGXQo5joFqJvMzCNHfQVNiN41IXyVISsbs3cV+oWgz5iZzbs2+RC221OoPv/UGHDP3MGLBmJ7vPv1Z4hyFPmGBW/8VS8xCZwLVZFiFq2H3gw7SLpPL5la6DKuGtV4TXxZ/8pJ55MfKZgQ/rRBE/5Ap8cvMrL9CWSaSK4CQnlN6liPjlTUKGvFEgiYWQJljdjWRObqWOX0bWtbaZaUv20WO9VaToV45KBmsVyziFX25LykhlZ/l/MZh+qBbjUFpXVO+k2GGaIxFw8mcQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/pUNvfnMp/OQCQaO4DM8Ap9CmmcCyeMMKJJpKmT2bbw=;
- b=MmzgperfuOzm22zkhnYyWpkJfFJ4oSvxm6BdWrrLVni1A11ZJQ3FOA3Q9Ejdxce5PIWEY9jWfBVQ3ADDa2dvNryI30IAiHOt8duAfxR84qnKAfTtbu+ARK2+f991L+xbWvR9KcdAI8sGRMNcQZxvh5QbKQ2RU2oB08lsWoMtSwlJqvC4uscr5/0TPcdbpwYj2aW15hWzQO1/7oqxASOCkY70Vx0qJbPgv7VywTrK/ujFkF4zmyGXdBKFNDi7JqWCalFAbuIshiS8dlINCFvQpkbHE+8eaEaeUfNjDuMRjpsptN6Mo1mPoPQiCo4p4WusQHuMFXwjbS3cMcT5oNRfjg==
-From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>, Nicola Vetrini
-	<nicola.vetrini@bugseng.com>, Doug Goldstein <cardoe@cardoe.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
- Grall <julien@xen.org>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
-	<roger.pau@citrix.com>
-Subject: [PATCH v2] misra: allow 'noreturn' as safe for function pointer
- conversions
-Thread-Topic: [PATCH v2] misra: allow 'noreturn' as safe for function pointer
- conversions
-Thread-Index: AQHcAINAh5kgMNbMpUuhxpfVzSXJUg==
-Date: Tue, 29 Jul 2025 12:21:03 +0000
-Message-ID:
- <3b821bc506b04bf7ff8bf5a3712449d45429dc90.1753791398.git.dmytro_prokopchuk1@epam.com>
-Accept-Language: en-US, uk-UA, ru-RU
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR03MB9572:EE_|AS2PR03MB8817:EE_
-x-ms-office365-filtering-correlation-id: 78c793cd-90f5-4ae5-e968-08ddce9a62db
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|42112799006|376014|7416014|1800799024|366016|38070700018;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?bAggKg7+0RlxdRMLCypsJSk2JQoJNpBnbWkNEayWwonXPraUhyK6IJQ1ZR?=
- =?iso-8859-1?Q?Nbk98IjJmMvZDOZ7jYs5V49u8eewmai0WhoFa81cAT3vFLUQv/tGnmzmSQ?=
- =?iso-8859-1?Q?dKEA1Ia3iDwBW+L9HtAOqOXc+EZpOEAcW6UM6zgLVOxvw/+/ap/IyIcm64?=
- =?iso-8859-1?Q?Cqawdik3SKtz1Ar7AOC4Sza2K8fzS6Own/p081ITdThls0PV6FRqn4xbKh?=
- =?iso-8859-1?Q?y+wwV4Io4Snahj2NNE9fuZ3/skvmc15z+AnJcpQQf7ux59i4CjMqrhiRXs?=
- =?iso-8859-1?Q?UT8+l9MpQbZ8rK8Bc3l8c20xgdiBA0/aTj60vFWPBlbrW27fTNyHLrjFZL?=
- =?iso-8859-1?Q?s+Xw82j/oJQc3qNx0jqAa1eCL1BdZ25+yn8ieL+I8LIKqrIHKkL+UG2P9S?=
- =?iso-8859-1?Q?2hEiKzUzRd4LbYS+DimKBzTrvtiDCxbk7l08DIOnAEincXRof4o5U8L2Kk?=
- =?iso-8859-1?Q?f5nxJkAfWKBk3+4Xp0D0pWne5/XLWfyPchBPD34mTy0gapvUR6tdzZM8Mi?=
- =?iso-8859-1?Q?99N7plHgdEnCPGZQwdaNetnOHZwK8u+EazBWdcTipVV65Br/875JOEC6Y2?=
- =?iso-8859-1?Q?T9BjwewnSWeBnULUWffTovVg8BPq6IkAdEKiqjQ1SyvQYcwIN7wDLBLphK?=
- =?iso-8859-1?Q?aBbcHvAc1sY5wgHVEzUoWwUxnRJvWYSm9nHQh2+0CVkjMHQlBitNAKibv/?=
- =?iso-8859-1?Q?H9nuHwOBd/UGZF1JPfrPvyKod/YTuvv6Gxur3LGMhyr4fhqLbO5c1ZC1P6?=
- =?iso-8859-1?Q?cAnqlZPiHkoF7veG2jm/AAmzn21yyE75gX8dWtOZcogpivPWSIEbne/lnU?=
- =?iso-8859-1?Q?iiSU+7NgOY0cKkULwL6nDQFQGrwjYlubpQ23Q4A1y5UobDYpIytRsFKeX8?=
- =?iso-8859-1?Q?5jx+smG0iBn02jhhjePVNAmpVpFsxO7XgLT/R4S6yInH4Ar099VcDRs3fj?=
- =?iso-8859-1?Q?uFQeHJ6yBCed4M/WqV7f8t8oPRYL43wIk0uOkF2yMFmEnkvu6NtnZbhmrI?=
- =?iso-8859-1?Q?H/45QN3m+rQlXpEHVVnPGQCx2YAlcl/DNTlImHbfRU4jG488JNZuB8PP40?=
- =?iso-8859-1?Q?esipm+ayswYsF7ag3UBUTnLZTblgnUrm/WJ+b6nmnzUeR/Zk7ukpIsSCa5?=
- =?iso-8859-1?Q?21z06i2Q3kv2ocKoItECB3IA6V2GDJ0JBWSbZmo+pYtXvGTIHxtJoLqi0e?=
- =?iso-8859-1?Q?mZpst4hKzQcY/HPD4ogqxkk40WWXz+8Kp58KbLYvA4H5OjXHmYjtuYCNfT?=
- =?iso-8859-1?Q?9PKX+EprOO6QZ1WnY17gZEaBLehg4uXHgHVMheCZ2BvldeQdBseiTAkgBD?=
- =?iso-8859-1?Q?+94tl3DPZPDdc97bAbm5pSYyaMwOLAJRG4ItyZncZfS+pnxcTK73B/X8zH?=
- =?iso-8859-1?Q?Fjy/wVg+1397+1h3Ai8X8izoUVgtTCP9bFTbD7HnSeKvBLYxPrjC55rlIP?=
- =?iso-8859-1?Q?BOkDIV29sKASu4s92F1M8U1ZFTcR21s6Z0LUgIn2qCrGGmPrgCwv9RSjwZ?=
- =?iso-8859-1?Q?k=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB9572.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(42112799006)(376014)(7416014)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?qRCAVdAEXrCC4IAxQdifNZYa4GPP6Vxx7a4Oh1ZQ7D56DdKhRGwytmmf71?=
- =?iso-8859-1?Q?iD/C8r2oCpNk1k+1kkZJ5H1I988At1PoijXiScR+qxozocv/8u4W0Ovsvz?=
- =?iso-8859-1?Q?+4QO61T5iXwa2EHUjPGnZy+GUcyd0CDcLJ11y+1heuN9YhIwhbYZCKRyMV?=
- =?iso-8859-1?Q?ciEipieaxcn8Am8begkpPnN2UpOSr+l2MOZovqy3lT0DoBWAyDJHNvqM7C?=
- =?iso-8859-1?Q?wxi7IeoIE54vQ9LyjKQHaZtnbY6s+QZhTFOEBtF0jHoMqmmKmkxRcypR9z?=
- =?iso-8859-1?Q?22FbkeRIL7/i92SLGpPOVjios1RvGuNpZCovFP7tlZLxfYO2xtTLautsZm?=
- =?iso-8859-1?Q?gUYeJMfsnKVnVG81n6zAdYSd/lMBgoUO7zf7W3IWsGQr2uKLIl6wFlu/tT?=
- =?iso-8859-1?Q?4b0gTjlq3tjZlHguYhUYefiS9qkC+2dEnyB3rwf5C7rYivxdhVeKCNT/84?=
- =?iso-8859-1?Q?z28EfcvxPwFlYZ69FTYxhDOxB6HaRB8QvmqiJTlj5XV8AjIQOik2hijGuK?=
- =?iso-8859-1?Q?xpq9IfgcguHPnSuPcpFURa7KDfYdrvfMwqK9CjDCWldOj/nHj3rCn1yoK0?=
- =?iso-8859-1?Q?0N36O3uZvBe9Jg4kQUdaHTzQet1nTTXWZmydWlhL0V0ZSvcz1ahibHpgg4?=
- =?iso-8859-1?Q?SQAGTVziciltHHRlGMPlByHneeICjbCTGPDAlKG2PFhfE/ebzl3R0eUraA?=
- =?iso-8859-1?Q?rVRSUCU7YKnQzaRvyf9D5rigJCWRIISnM0eTTadbcYni8qVTXb0QPh4MUE?=
- =?iso-8859-1?Q?uSa7B6YmzZdbgpgNgvp7QhLTuGlMiVuC6fGldnDmMlif0La751lsj97qSi?=
- =?iso-8859-1?Q?M1FsF9gdzTOHmurqZnP6ufZEqa/dyYu6BD65l9q2D8vI4FfWWx8PEhlnC5?=
- =?iso-8859-1?Q?Qdh1k1iFtBLDQz+8oPgmGH45Zl3c1N9AmjHGAHuizAk2Fil3KSps7h1Z0i?=
- =?iso-8859-1?Q?CuQ8U4u8Za236jES2CRcEPr0OQn7eidJjaVMM/pTY7HE7DF4fgLI66DNWN?=
- =?iso-8859-1?Q?ZnMEQq2TPDpatag8Qv6MIj96MbjeA6TdidNBPnb9fyL/fC6jLtTg524SiB?=
- =?iso-8859-1?Q?P0Y0yWJII+TztNdjZeZIXWnCe7KcdqMuQNpEUQF2Unel5unPOhjgskw/Si?=
- =?iso-8859-1?Q?5PzKtP9cAjvw9yveoMBeTJsfZxHVk5BKAyDigm4iAkNHyIc0c1pqWxgmdT?=
- =?iso-8859-1?Q?3ty68/5WC5y2bmBPxWhQnz83rLu0lO95GRgHupggo/daVTqFjzJAxgi/za?=
- =?iso-8859-1?Q?zue6XgY4Awu31GIbLUFOr578O2DPGIMwff/JQoasy/RLDnJw/ILlcp4ySm?=
- =?iso-8859-1?Q?vGLulsufNG/1DgKso4p2kB/aKShnzlhlA8yR5pjuYziFWRbwloHEWXdrCQ?=
- =?iso-8859-1?Q?mOiKzf6rtvNJpb+D9QRDcNdG5GraMZTvsaOewT93wd/2nIrMv1DHcYJJYe?=
- =?iso-8859-1?Q?UbkjVjyFuVt2dJuhR3W4IlmpAljhFhmmOi+St2usSX5j5uwJkF6klAjGGn?=
- =?iso-8859-1?Q?e7UicNFyErz6xDeU/rsks0pN/PpiLtD3Qd1//AyDTYbE5YxK0FbOXIjPOn?=
- =?iso-8859-1?Q?m5NkIEuHBn3iHkGegsUMt54DOMXWEWYK9paA+NqQXDNPmKVNaQJwi77u2I?=
- =?iso-8859-1?Q?lkiy273KbcM5g8yEX7VxryPNyw2EnEflQ+mar/qPTCch422TEoWqS9RQ?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: fbd83f69-6c78-11f0-b895-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; t=1753792730; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=jUvn/4I/UKj+65kgGq1WGB531RY2jZ/KSfWnGLXDZfMmqavynPVEokCg8eMZJEa6z6goIhOBW7ZfzMMSQXgOSeq/qwIdGR2wqHNEFyfWsTws1Q5CuFwJSO7ADrGSWVHR/Qats/QGE6UNx3uQqKT1ec7CmA4UwzryXXpBeWioAtA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1753792730; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=NS0pDxgnTSZZgCV0PwFs1M3UFUq/7qlHpCNJ9dM8JHM=; 
+	b=Vhhvei2GJQdRlKoLEDNHrCs309qy9Zj6582Z8gPibR/ZN7bCwqIIMOsym95t7eQqLMK6J5MAwYAQotkq6ejMBjhRtUbp02DNK+yiDv5g8Bl9jxs4uJ3w9jfnd3qmvoRqR5ijDPsvH6Y1DvxTLv+1SNKoW8UlgNddsdDkPl3rM74=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1753792730;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:References:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=NS0pDxgnTSZZgCV0PwFs1M3UFUq/7qlHpCNJ9dM8JHM=;
+	b=QHWiQ73NBk3KuqCPqHw5BZ0KLtEb3BcAtBFTBOpB2MXvm9MVdW4HWT4q3Ft5xcjm
+	TLX/C44J3ySEDAYODCA0QGEcQC0Uon70FAxuZql2+nsEWjfF+0reFFEdM/uHUVCnOiP
+	I+nY41MyJKN/01rYKeSeZHas0KBjPVykle+l0tZY=
+Date: Tue, 29 Jul 2025 08:38:42 -0400
+From: Daniel Smith <dpsmith@apertussolutions.com>
+To: "Andrew Cooper" <andrew.cooper3@citrix.com>
+Cc: "Xen-devel" <xen-devel@lists.xenproject.org>
+Message-ID: <19856313650.d0b02fed38477.5092861349645761382@apertussolutions.com>
+In-Reply-To: <20250728175548.3199177-4-andrew.cooper3@citrix.com>
+References: <20250728175548.3199177-1-andrew.cooper3@citrix.com> <20250728175548.3199177-4-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 3/3] tools/flask: Reformat allow declarations
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB9572.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 78c793cd-90f5-4ae5-e968-08ddce9a62db
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jul 2025 12:21:03.4922
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JozZa3N7nBslJUZCSi2xvQ0DwodlC3I4NYHGvwp6teaDA8C2i1veWcumtr3/t8l3S2yjBU4f0sZicoWqB8p5klfyLcnhp7xneUruzUMVfvM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR03MB8817
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Importance: Medium
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
 
-The conversion from a function pointer with the 'noreturn' attribute
-('void noreturn (*)(void *)') to a function pointer type ('void (*)(void *)=
-'
-causes type incompatibility according to MISRA C Rule 11.1, which forbids
-conversions between incompatible function pointer types.
+---- On Mon, 28 Jul 2025 13:55:48 -0400 Andrew Cooper <andrew.cooper3@citrix.com> wrote ---
 
-The violation occurs at the call site:
-    smp_call_function(halt_this_cpu, NULL, 0);
-where 'halt_this_cpu' with type 'void noreturn (*)(void *)' is passed to
-'smp_call_function' expecting a function pointer of type 'void (*)(void *)'=
-.
+ > Having multiple values wrapped onto as few lines as practical is good for 
+ > space efficiency, but causes complex collisions for hypercall backports and 
+ > local policy changes.  Reformat to use one value per line. 
+ >  
+ > No functional change, only whitespace changes. 
+ >  
+ > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com> 
+ > --- 
+ > CC: Daniel P. Smith <dpsmith@apertussolutions.com> 
+ > --- 
+ >  tools/flask/policy/modules/dom0.te     | 122 ++++++++++--- 
+ >  tools/flask/policy/modules/xen.if      | 241 +++++++++++++++++++++---- 
+ >  tools/flask/policy/modules/xen.te      |  25 ++- 
+ >  tools/flask/policy/modules/xenstore.te |   6 +- 
+ >  4 files changed, 327 insertions(+), 67 deletions(-) 
+ >  
+ > diff --git a/tools/flask/policy/modules/dom0.te b/tools/flask/policy/modules/dom0.te 
+ > index ccadbd6469db..ad2b4f9ea75f 100644 
+ > --- a/tools/flask/policy/modules/dom0.te 
+ > +++ b/tools/flask/policy/modules/dom0.te 
+ > @@ -7,23 +7,61 @@ 
+ >  # 
+ >  ################################################################################ 
+ >  allow dom0_t xen_t:xen { 
+ > -    settime tbufcontrol readconsole clearconsole perfcontrol mtrr_add 
+ > -    mtrr_del mtrr_read microcode physinfo quirk writeconsole readapic 
+ > -    writeapic privprofile nonprivprofile kexec firmware sleep frequency 
+ > -    getidle debug getcpuinfo heap pm_op mca_op lockprof cpupool_op 
+ > -    getscheduler setscheduler hypfs_op 
+ > +    settime 
+ > +    tbufcontrol 
+ > +    readconsole 
+ > +    clearconsole 
+ > +    perfcontrol 
+ > +    mtrr_add 
+ > +    mtrr_del 
+ > +    mtrr_read 
+ > +    microcode 
+ > +    physinfo 
+ > +    quirk 
+ > +    writeconsole 
+ > +    readapic 
+ > +    writeapic 
+ > +    privprofile 
+ > +    nonprivprofile 
+ > +    kexec 
+ > +    firmware 
+ > +    sleep 
+ > +    frequency 
+ > +    getidle 
+ > +    debug 
+ > +    getcpuinfo 
+ > +    heap 
+ > +    pm_op 
+ > +    mca_op 
+ > +    lockprof 
+ > +    cpupool_op 
+ > +    getscheduler 
+ > +    setscheduler 
+ > +    hypfs_op 
+ >  }; 
+ >  allow dom0_t xen_t:xen2 { 
+ > -    resource_op psr_cmt_op psr_alloc pmu_ctrl get_symbol 
+ > -    get_cpu_levelling_caps get_cpu_featureset livepatch_op 
+ > -    coverage_op get_dom0_console 
+ > +    resource_op 
+ > +    psr_cmt_op 
+ > +    psr_alloc 
+ > +    pmu_ctrl 
+ > +    get_symbol 
+ > +    get_cpu_levelling_caps 
+ > +    get_cpu_featureset 
+ > +    livepatch_op 
+ > +    coverage_op 
+ > +    get_dom0_console 
+ >  }; 
+ >  
+ >  # Allow dom0 to use all XENVER_ subops that have checks. 
+ >  # Note that dom0 is part of domain_type so this has duplicates. 
+ >  allow dom0_t xen_t:version { 
+ > -    xen_extraversion xen_compile_info xen_capabilities 
+ > -    xen_changeset xen_pagesize xen_guest_handle xen_commandline 
+ > +    xen_extraversion 
+ > +    xen_compile_info 
+ > +    xen_capabilities 
+ > +    xen_changeset 
+ > +    xen_pagesize 
+ > +    xen_guest_handle 
+ > +    xen_commandline 
+ >      xen_build_id 
+ >  }; 
+ >  
+ > @@ -32,41 +70,83 @@ allow dom0_t xen_t:mmu memorymap; 
+ >  # Allow dom0 to use these domctls on itself. For domctls acting on other 
+ >  # domains, see the definitions of create_domain and manage_domain. 
+ >  allow dom0_t dom0_t:domain { 
+ > -    setvcpucontext max_vcpus setaffinity getaffinity getscheduler 
+ > -    getdomaininfo getvcpuinfo getvcpucontext setdomainmaxmem setdomainhandle 
+ > -    setdebugging hypercall settime setaddrsize getaddrsize trigger 
+ > -    getpodtarget setpodtarget getpagingmempool setpagingmempool set_misc_info 
+ > +    setvcpucontext 
+ > +    max_vcpus 
+ > +    setaffinity 
+ > +    getaffinity 
+ > +    getscheduler 
+ > +    getdomaininfo 
+ > +    getvcpuinfo 
+ > +    getvcpucontext 
+ > +    setdomainmaxmem 
+ > +    setdomainhandle 
+ > +    setdebugging 
+ > +    hypercall 
+ > +    settime 
+ > +    setaddrsize 
+ > +    getaddrsize 
+ > +    trigger 
+ > +    getpodtarget 
+ > +    setpodtarget 
+ > +    getpagingmempool 
+ > +    setpagingmempool 
+ > +    set_misc_info 
+ >      set_virq_handler 
+ >  }; 
+ >  allow dom0_t dom0_t:domain2 { 
+ > -    set_cpu_policy gettsc settsc setscheduler set_vnumainfo 
+ > -    get_vnumainfo psr_cmt_op psr_alloc get_cpu_policy dt_overlay 
+ > +    set_cpu_policy 
+ > +    gettsc 
+ > +    settsc 
+ > +    setscheduler 
+ > +    set_vnumainfo 
+ > +    get_vnumainfo 
+ > +    psr_cmt_op 
+ > +    psr_alloc 
+ > +    get_cpu_policy 
+ > +    dt_overlay 
+ >      get_domain_state 
+ >  }; 
+ > -allow dom0_t dom0_t:resource { add remove }; 
+ > +allow dom0_t dom0_t:resource { 
+ > +    add 
+ > +    remove 
+ > +}; 
+ >  
+ >  # These permissions allow using the FLASK security server to compute access 
+ >  # checks locally, which could be used by a domain or service (such as xenstore) 
+ >  # that does not have its own security server to make access decisions based on 
+ >  # Xen's security policy. 
+ >  allow dom0_t security_t:security { 
+ > -    compute_av compute_create compute_member compute_relabel 
+ > +    compute_av 
+ > +    compute_create 
+ > +    compute_member 
+ > +    compute_relabel 
+ >  }; 
+ >  
+ >  # Allow string/SID conversions (for "xl list -Z" and similar) 
+ >  allow dom0_t security_t:security check_context; 
+ >  
+ >  # Allow flask-label-pci to add and change labels 
+ > -allow dom0_t security_t:security { add_ocontext del_ocontext }; 
+ > +allow dom0_t security_t:security { 
+ > +    add_ocontext 
+ > +    del_ocontext 
+ > +}; 
+ >  
+ >  # Allow performance parameters of the security server to be tweaked 
+ >  allow dom0_t security_t:security setsecparam; 
+ >  
+ >  # Allow changing the security policy 
+ > -allow dom0_t security_t:security { load_policy setenforce setbool }; 
+ > +allow dom0_t security_t:security { 
+ > +    load_policy 
+ > +    setenforce 
+ > +    setbool 
+ > +}; 
+ >  
+ >  # Audit policy change events even when they are allowed 
+ > -auditallow dom0_t security_t:security { load_policy setenforce setbool }; 
+ > +auditallow dom0_t security_t:security { 
+ > +    load_policy 
+ > +    setenforce 
+ > +    setbool 
+ > +}; 
+ >  
+ >  # Allow dom0 to report platform configuration changes back to the hypervisor 
+ >  allow dom0_t xen_t:resource setup; 
+ > diff --git a/tools/flask/policy/modules/xen.if b/tools/flask/policy/modules/xen.if 
+ > index cfa11b27b786..ef7d8f438c65 100644 
+ > --- a/tools/flask/policy/modules/xen.if 
+ > +++ b/tools/flask/policy/modules/xen.if 
+ > @@ -6,9 +6,25 @@ 
+ >  # 
+ >  ################################################################################ 
+ >  define(`declare_domain_common', ` 
+ > -    allow $1 $2:grant { query setup }; 
+ > -    allow $1 $2:mmu { adjust physmap map_read map_write stat pinpage updatemp mmuext_op }; 
+ > -    allow $1 $2:hvm { getparam setparam altp2mhvm_op }; 
+ > +    allow $1 $2:grant { 
+ > +        query 
+ > +        setup 
+ > +    }; 
+ > +    allow $1 $2:mmu { 
+ > +        adjust 
+ > +        physmap 
+ > +        map_read 
+ > +        map_write 
+ > +        stat 
+ > +        pinpage 
+ > +        updatemp 
+ > +        mmuext_op 
+ > +    }; 
+ > +    allow $1 $2:hvm { 
+ > +        getparam 
+ > +        setparam 
+ > +        altp2mhvm_op 
+ > +    }; 
+ >      allow $1 $2:domain2 get_vnumainfo; 
+ >  ') 
+ >  
+ > @@ -46,22 +62,65 @@ define(`declare_build_label', ` 
+ >  ') 
+ >  
+ >  define(`create_domain_common', ` 
+ > -    allow $1 $2:domain { create max_vcpus setdomainmaxmem setaddrsize 
+ > -            getdomaininfo hypercall setvcpucontext getscheduler 
+ > -            getvcpuinfo getaddrsize getaffinity setaffinity 
+ > -            settime setdomainhandle getvcpucontext set_misc_info 
+ > -            getpagingmempool setpagingmempool }; 
+ > -    allow $1 $2:domain2 { set_cpu_policy settsc setscheduler setclaim 
+ > -            set_vnumainfo get_vnumainfo cacheflush 
+ > -            psr_cmt_op psr_alloc soft_reset 
+ > -            resource_map get_cpu_policy vuart_op set_llc_colors 
+ > -            get_domain_state }; 
+ > +    allow $1 $2:domain { 
+ > +        create 
+ > +        max_vcpus 
+ > +        setdomainmaxmem 
+ > +        setaddrsize 
+ > +        getdomaininfo 
+ > +        hypercall 
+ > +        setvcpucontext 
+ > +        getscheduler 
+ > +        getvcpuinfo 
+ > +        getaddrsize 
+ > +        getaffinity 
+ > +        setaffinity 
+ > +        settime 
+ > +        setdomainhandle 
+ > +        getvcpucontext 
+ > +        set_misc_info 
+ > +        getpagingmempool 
+ > +        setpagingmempool 
+ > +    }; 
+ > +    allow $1 $2:domain2 { 
+ > +        set_cpu_policy 
+ > +        settsc 
+ > +        setscheduler 
+ > +        setclaim 
+ > +        set_vnumainfo 
+ > +        get_vnumainfo 
+ > +        cacheflush 
+ > +        psr_cmt_op 
+ > +        psr_alloc 
+ > +        soft_reset 
+ > +        resource_map 
+ > +        get_cpu_policy 
+ > +        vuart_op 
+ > +        set_llc_colors 
+ > +        get_domain_state 
+ > +    }; 
+ >      allow $1 $2:security check_context; 
+ >      allow $1 $2:shadow enable; 
+ > -    allow $1 $2:mmu { map_read map_write adjust memorymap physmap pinpage mmuext_op updatemp }; 
+ > +    allow $1 $2:mmu { 
+ > +        map_read 
+ > +        map_write 
+ > +        adjust 
+ > +        memorymap 
+ > +        physmap 
+ > +        pinpage 
+ > +        mmuext_op 
+ > +        updatemp 
+ > +    }; 
+ >      allow $1 $2:grant setup; 
+ > -    allow $1 $2:hvm { getparam hvmctl sethvmc 
+ > -            setparam altp2mhvm altp2mhvm_op dm }; 
+ > +    allow $1 $2:hvm { 
+ > +        getparam 
+ > +        hvmctl 
+ > +        sethvmc 
+ > +        setparam 
+ > +        altp2mhvm 
+ > +        altp2mhvm_op 
+ > +        dm 
+ > +    }; 
+ >  ') 
+ >  
+ >  # xen_build_domain(target) 
+ > @@ -91,11 +150,30 @@ define(`create_domain_build_label', ` 
+ >  # manage_domain(priv, target) 
+ >  #   Allow managing a running domain 
+ >  define(`manage_domain', ` 
+ > -    allow $1 $2:domain { getdomaininfo getvcpuinfo getaffinity 
+ > -            getaddrsize pause unpause trigger shutdown destroy 
+ > -            setaffinity setdomainmaxmem getscheduler resume 
+ > -            setpodtarget getpodtarget getpagingmempool setpagingmempool }; 
+ > -    allow $1 $2:domain2 { set_vnumainfo dt_overlay get_domain_state }; 
+ > +    allow $1 $2:domain { 
+ > +        getdomaininfo 
+ > +        getvcpuinfo 
+ > +        getaffinity 
+ > +        getaddrsize 
+ > +        pause 
+ > +        unpause 
+ > +        trigger 
+ > +        shutdown 
+ > +        destroy 
+ > +        setaffinity 
+ > +        setdomainmaxmem 
+ > +        getscheduler 
+ > +        resume 
+ > +        setpodtarget 
+ > +        getpodtarget 
+ > +        getpagingmempool 
+ > +        setpagingmempool 
+ > +    }; 
+ > +    allow $1 $2:domain2 { 
+ > +        set_vnumainfo 
+ > +        dt_overlay 
+ > +        get_domain_state 
+ > +    }; 
+ >  ') 
+ >  
+ >  # migrate_domain_out(priv, target) 
+ > @@ -103,11 +181,27 @@ define(`manage_domain', ` 
+ >  #   (inbound migration is the same as domain creation) 
+ >  define(`migrate_domain_out', ` 
+ >      allow $1 domxen_t:mmu map_read; 
+ > -    allow $1 $2:hvm { gethvmc getparam }; 
+ > -    allow $1 $2:mmu { stat pageinfo map_read }; 
+ > -    allow $1 $2:domain { getaddrsize getvcpucontext pause destroy }; 
+ > +    allow $1 $2:hvm { 
+ > +        gethvmc 
+ > +        getparam 
+ > +    }; 
+ > +    allow $1 $2:mmu { 
+ > +        stat 
+ > +        pageinfo 
+ > +        map_read 
+ > +    }; 
+ > +    allow $1 $2:domain { 
+ > +        getaddrsize 
+ > +        getvcpucontext 
+ > +        pause 
+ > +        destroy 
+ > +    }; 
+ >      allow $1 $2:domain2 gettsc; 
+ > -    allow $1 $2:shadow { enable disable logdirty }; 
+ > +    allow $1 $2:shadow { 
+ > +        enable 
+ > +        disable 
+ > +        logdirty 
+ > +    }; 
+ >  ') 
+ >  
+ >  ################################################################################ 
+ > @@ -120,8 +214,14 @@ define(`migrate_domain_out', ` 
+ >  #   This allows an event channel to be created from domains with labels 
+ >  #   <source> to <dest> and will label it <chan-label> 
+ >  define(`create_channel', ` 
+ > -    allow $1 $3:event { create send status }; 
+ > -    allow $3 $2:event { bind }; 
+ > +    allow $1 $3:event { 
+ > +        create 
+ > +        send 
+ > +        status 
+ > +    }; 
+ > +    allow $3 $2:event { 
+ > +        bind 
+ > +    }; 
+ >  ') 
+ >  
+ >  # domain_event_comms(dom1, dom2) 
+ > @@ -135,8 +235,18 @@ define(`domain_event_comms', ` 
+ >  #   Allow two domain types to communicate using grants and event channels 
+ >  define(`domain_comms', ` 
+ >      domain_event_comms($1, $2) 
+ > -    allow $1 $2:grant { map_read map_write copy unmap }; 
+ > -    allow $2 $1:grant { map_read map_write copy unmap }; 
+ > +    allow $1 $2:grant { 
+ > +        map_read 
+ > +        map_write 
+ > +        copy 
+ > +        unmap 
+ > +    }; 
+ > +    allow $2 $1:grant { 
+ > +        map_read 
+ > +        map_write 
+ > +        copy 
+ > +        unmap 
+ > +    }; 
+ >  ') 
+ >  
+ >  # domain_self_comms(domain) 
+ > @@ -144,7 +254,12 @@ define(`domain_comms', ` 
+ >  #   and event channels 
+ >  define(`domain_self_comms', ` 
+ >      create_channel($1, $1_self, $1_channel) 
+ > -    allow $1 $1_self:grant { map_read map_write copy unmap }; 
+ > +    allow $1 $1_self:grant { 
+ > +        map_read 
+ > +        map_write 
+ > +        copy 
+ > +        unmap 
+ > +    }; 
+ >  ') 
+ >  
+ >  # device_model(dm_dom, hvm_dom) 
+ > @@ -159,9 +274,23 @@ define(`device_model', ` 
+ >      create_channel($2, $1, $2_channel) 
+ >      allow $1 $2_channel:event create; 
+ >  
+ > -    allow $1 $2_target:domain { getdomaininfo shutdown }; 
+ > -    allow $1 $2_target:mmu { map_read map_write adjust physmap target_hack }; 
+ > -    allow $1 $2_target:hvm { getparam setparam hvmctl dm }; 
+ > +    allow $1 $2_target:domain { 
+ > +        getdomaininfo 
+ > +        shutdown 
+ > +    }; 
+ > +    allow $1 $2_target:mmu { 
+ > +        map_read 
+ > +        map_write 
+ > +        adjust 
+ > +        physmap 
+ > +        target_hack 
+ > +    }; 
+ > +    allow $1 $2_target:hvm { 
+ > +        getparam 
+ > +        setparam 
+ > +        hvmctl 
+ > +        dm 
+ > +    }; 
+ >      allow $1 $2_target:domain2 resource_map; 
+ >  ') 
+ >  
+ > @@ -184,7 +313,10 @@ define(`make_device_model', ` 
+ >  define(`use_device_iommu', ` 
+ >      allow $1 $1_self:mmu exchange; 
+ >      allow $1 $2:resource use_iommu; 
+ > -    allow $1 domio_t:mmu { map_read map_write }; 
+ > +    allow $1 domio_t:mmu { 
+ > +        map_read 
+ > +        map_write 
+ > +    }; 
+ >  ') 
+ >  
+ >  # use_device_iommu_nointremap(domain, device) 
+ > @@ -194,8 +326,14 @@ define(`use_device_iommu', ` 
+ >  #   Allows acceptance of (typically older) less isolating hardware. 
+ >  define(`use_device_iommu_nointremap', ` 
+ >      allow $1 $1_self:mmu exchange; 
+ > -    allow $1 $2:resource { use_iommu use_iommu_nointremap }; 
+ > -    allow $1 domio_t:mmu { map_read map_write }; 
+ > +    allow $1 $2:resource { 
+ > +        use_iommu 
+ > +        use_iommu_nointremap 
+ > +    }; 
+ > +    allow $1 domio_t:mmu { 
+ > +        map_read 
+ > +        map_write 
+ > +    }; 
+ >  ') 
+ >  
+ >  # use_device_noiommu(domain, device) 
+ > @@ -203,14 +341,34 @@ define(`use_device_iommu_nointremap', ` 
+ >  #   even without an IOMMU available. 
+ >  define(`use_device_noiommu', ` 
+ >      allow $1 $1_self:mmu exchange; 
+ > -    allow $1 $2:resource { use_iommu use_iommu_nointremap use_noiommu }; 
+ > -    allow $1 domio_t:mmu { map_read map_write }; 
+ > +    allow $1 $2:resource { 
+ > +        use_iommu 
+ > +        use_iommu_nointremap 
+ > +        use_noiommu 
+ > +    }; 
+ > +    allow $1 domio_t:mmu { 
+ > +        map_read 
+ > +        map_write 
+ > +    }; 
+ >  ') 
+ >  
+ >  # admin_device(domain, device) 
+ >  #   Allow a device to be used and delegated by a domain 
+ >  define(`admin_device', ` 
+ > -    allow $1 $2:resource { setup stat_device add_device add_irq add_iomem add_ioport remove_device remove_irq remove_iomem remove_ioport plug unplug }; 
+ > +    allow $1 $2:resource { 
+ > +        setup 
+ > +        stat_device 
+ > +        add_device 
+ > +        add_irq 
+ > +        add_iomem 
+ > +        add_ioport 
+ > +        remove_device 
+ > +        remove_irq 
+ > +        remove_iomem 
+ > +        remove_ioport 
+ > +        plug 
+ > +        unplug 
+ > +    }; 
+ >      allow $1 $2:hvm bind_irq; 
+ >      use_device_noiommu($1, $2) 
+ >  ') 
+ > @@ -218,5 +376,8 @@ define(`admin_device', ` 
+ >  # delegate_devices(priv-domain, target-domain) 
+ >  #   Allow devices to be delegated 
+ >  define(`delegate_devices', ` 
+ > -    allow $1 $2:resource { add remove }; 
+ > +    allow $1 $2:resource { 
+ > +        add 
+ > +        remove 
+ > +    }; 
+ >  ') 
+ > diff --git a/tools/flask/policy/modules/xen.te b/tools/flask/policy/modules/xen.te 
+ > index de98206fdd89..1427f81b0d7b 100644 
+ > --- a/tools/flask/policy/modules/xen.te 
+ > +++ b/tools/flask/policy/modules/xen.te 
+ > @@ -52,7 +52,11 @@ type device_t, resource_type; 
+ >  
+ >  # Domain destruction can result in some access checks for actions performed by 
+ >  # the hypervisor.  These should always be allowed. 
+ > -allow xen_t resource_type : resource { remove_irq remove_ioport remove_iomem }; 
+ > +allow xen_t resource_type : resource { 
+ > +    remove_irq 
+ > +    remove_ioport 
+ > +    remove_iomem 
+ > +}; 
+ >  
+ >  ################################################################################ 
+ >  # 
+ > @@ -65,15 +69,26 @@ allow xen_t resource_type : resource { remove_irq remove_ioport remove_iomem }; 
+ >  ################################################################################ 
+ >  
+ >  # Domains must be declared using domain_type 
+ > -neverallow * ~domain_type:domain { create transition }; 
+ > +neverallow * ~domain_type:domain { 
+ > +    create 
+ > +    transition 
+ > +}; 
+ >  
+ >  # Resources must be declared using resource_type 
+ > -neverallow * ~resource_type:resource { use use_iommu use_iommu_nointremap 
+ > -                                       use_noiommu }; 
+ > +neverallow * ~resource_type:resource { 
+ > +    use 
+ > +    use_iommu 
+ > +    use_iommu_nointremap 
+ > +    use_noiommu 
+ > +}; 
+ >  
+ >  # Events must use event_type (see create_channel for a template) 
+ >  neverallow ~event_type *:event bind; 
+ > -neverallow * ~event_type:event { create send status }; 
+ > +neverallow * ~event_type:event { 
+ > +    create 
+ > +    send 
+ > +    status 
+ > +}; 
+ >  
+ >  ################################################################################ 
+ >  # 
+ > diff --git a/tools/flask/policy/modules/xenstore.te b/tools/flask/policy/modules/xenstore.te 
+ > index 49de53ebe2a5..776c2748698e 100644 
+ > --- a/tools/flask/policy/modules/xenstore.te 
+ > +++ b/tools/flask/policy/modules/xenstore.te 
+ > @@ -19,7 +19,11 @@ allow xenstore_t domain_type:domain2 get_domain_state; 
+ >  # rule between xenstore_t and every domain type that talks to xenstore 
+ >  create_channel(xenstore_t, domain_type, xenstore_t_channel) 
+ >  allow event_type xenstore_t: event bind; 
+ > -allow xenstore_t domain_type:grant { map_read map_write unmap }; 
+ > +allow xenstore_t domain_type:grant { 
+ > +    map_read 
+ > +    map_write 
+ > +    unmap 
+ > +}; 
+ >  
+ >  # Xenstore is a utility domain, so it should use the system role 
+ >  role system_r types xenstore_t; 
+ > -- 
+ > 2.39.5 
+ >  
+ > 
 
-The 'noreturn' attribute does not change the function calling convention
-or parameter handling at runtime, making the conversion safe.
-
-Configure ECLAIR to treat implicit conversions that lose the 'noreturn'
-attribute on a function 'void (*)(void*)' as safe. This is because the
-deviation actually just deviates 'void noreturn (*)(void*)' -> 'void (*)(vo=
-id*)'.
-
-Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
----
-Changes in v2:
-- Updated subject line;
-- Updated commit message based on reviewers feedback.
-
-Link to v1: https://patchew.org/Xen/8989bf6d8d245537628912a00f5ba4731b292fb=
-1.1753738107.git.dmytro._5Fprokopchuk1@epam.com/
----
- automation/eclair_analysis/ECLAIR/deviations.ecl | 7 +++++++
- docs/misra/deviations.rst                        | 6 ++++++
- docs/misra/rules.rst                             | 3 ++-
- 3 files changed, 15 insertions(+), 1 deletion(-)
-
-diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/=
-eclair_analysis/ECLAIR/deviations.ecl
-index 483507e7b9..0e04681c4c 100644
---- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-+++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-@@ -367,6 +367,13 @@ constant expressions are required.\""
- }
- -doc_end
-=20
-+-doc_begin=3D"The conversion from 'void noreturn (*)(void *)' to 'void (*)=
-(void *)' is safe
-+because the semantics of the 'noreturn' attribute do not alter the calling=
- convention or behavior of the resulting code."
-+-config=3DMC3A2.R11.1,casts+=3D{safe,
-+  "kind(bitcast)&&to(type(pointer(inner(return(builtin(void))&&all_param(1=
-, pointer(builtin(void)))))))&&from(expr(skip(!syntactic(),
-+   ref(property(noreturn)))))"}=20
-+-doc_end
-+
- -doc_begin=3D"The conversion from a pointer to an incomplete type to unsig=
-ned long does not lose any information, provided that the target type has e=
-nough bits to store it."
- -config=3DMC3A2.R11.2,casts+=3D{safe,
-   "from(type(any()))
-diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-index e78179fcb8..4e430bb17e 100644
---- a/docs/misra/deviations.rst
-+++ b/docs/misra/deviations.rst
-@@ -342,6 +342,12 @@ Deviations related to MISRA C:2012 Rules:
-        semantics that do not lead to unexpected behaviour.
-      - Tagged as `safe` for ECLAIR.
-=20
-+   * - R11.1
-+     - The conversion from 'void noreturn (*)(void *)' to 'void (*)(void *=
-)'
-+       is safe because the semantics of the 'noreturn' attribute do not al=
-ter
-+       the calling convention or behavior of the resulting code.
-+     - Tagged as `safe` for ECLAIR.
-+
-    * - R11.2
-      - The conversion from a pointer to an incomplete type to unsigned lon=
-g
-        does not lose any information, provided that the target type has en=
-ough
-diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-index 3e014a6298..82a26162a9 100644
---- a/docs/misra/rules.rst
-+++ b/docs/misra/rules.rst
-@@ -404,7 +404,8 @@ maintainers if you want to suggest a change.
-        function and any other type
-      - All conversions to integer types are permitted if the destination
-        type has enough bits to hold the entire value. Conversions to
--       bool and void* are permitted.
-+       bool and void* are permitted. Conversions from 'void noreturn (*)(v=
-oid *)'
-+       to 'void (*)(void *)' are permitted.
-=20
-    * - `Rule 11.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-S=
-uite/-/blob/master/R_11_02.c>`_
-      - Required
---=20
-2.43.0
+Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
