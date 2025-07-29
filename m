@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9E31B15494
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 23:12:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1063061.1428835 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F8B7B154A0
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 23:24:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1063072.1428865 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugrbw-0002eK-4r; Tue, 29 Jul 2025 21:11:48 +0000
+	id 1ugro3-0004rT-Ls; Tue, 29 Jul 2025 21:24:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1063061.1428835; Tue, 29 Jul 2025 21:11:48 +0000
+Received: by outflank-mailman (output) from mailman id 1063072.1428865; Tue, 29 Jul 2025 21:24:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugrbw-0002ct-28; Tue, 29 Jul 2025 21:11:48 +0000
-Received: by outflank-mailman (input) for mailman id 1063061;
- Tue, 29 Jul 2025 21:11:46 +0000
+	id 1ugro3-0004ov-IU; Tue, 29 Jul 2025 21:24:19 +0000
+Received: by outflank-mailman (input) for mailman id 1063072;
+ Tue, 29 Jul 2025 21:24:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/H3U=2K=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ugrbu-0002cl-Sm
- for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 21:11:46 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ <SRS0=9NAX=2K=epam.com=dmytro_prokopchuk1@srs-se1.protection.inumbo.net>)
+ id 1ugro1-0004NS-Ot
+ for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 21:24:17 +0000
+Received: from DU2PR03CU002.outbound.protection.outlook.com
+ (mail-northeuropeazlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c200::3])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a216d2a2-6cc0-11f0-a320-13f23c93f187;
- Tue, 29 Jul 2025 23:11:45 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3b78294a233so2489977f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 29 Jul 2025 14:11:45 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-458953865dfsm1354505e9.18.2025.07.29.14.11.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Jul 2025 14:11:44 -0700 (PDT)
+ id 61730776-6cc2-11f0-a320-13f23c93f187;
+ Tue, 29 Jul 2025 23:24:16 +0200 (CEST)
+Received: from GV2PR03MB9572.eurprd03.prod.outlook.com (2603:10a6:150:da::5)
+ by GVXPR03MB8452.eurprd03.prod.outlook.com (2603:10a6:150:2::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.26; Tue, 29 Jul
+ 2025 21:24:07 +0000
+Received: from GV2PR03MB9572.eurprd03.prod.outlook.com
+ ([fe80::edd1:842f:9b14:509e]) by GV2PR03MB9572.eurprd03.prod.outlook.com
+ ([fe80::edd1:842f:9b14:509e%3]) with mapi id 15.20.8964.025; Tue, 29 Jul 2025
+ 21:24:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,127 +47,264 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a216d2a2-6cc0-11f0-a320-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1753823505; x=1754428305; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=hduzfZFjgMcEiUfZhhvrrxKo+Bv/lCTc5ngDyiNVc84=;
-        b=kLPqtr9ddxofurL2x31AGXbab3gMw4TaSxE5YeFFXTp+pTIoGauXVmhyIxsZrvdOU2
-         jvY/wKrVsc/dOTgoYYMx/zDQKaqY+HaTnql4yvKCP6IDfL6BfWVxF/AVr5n3YqRlmBPi
-         1QH5m98JVp6rMYugK/QTFat/3smSXliAgsmAI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753823505; x=1754428305;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hduzfZFjgMcEiUfZhhvrrxKo+Bv/lCTc5ngDyiNVc84=;
-        b=Q11+UWrgYe1xD0f+CNZK3WLftSg9b0Vmju5iH29FHkdzEUF+BXeV0MN8UQRNN30Jg8
-         wcjhRFpzOigNrzbdk+FCQcDHaaa7xco8RFrn+Qbm6GW70cA9QTJl6FsQ6YPe3cU+6iZ5
-         ss3mDfD9Z2SY47QPeR/mTAY7DBHqgr1QyQkQuOqM+9pxVsvn43eQMvRIK4hBTeibuSAC
-         6nrYsr5kw3vWOLy7W8/+Hm8Tzc5JPc6tryhw13F80+lfAKy0j4lro1l3oTCU3htQuu/v
-         dERuuy6uz2jUgMGkaL+M5J+sIBtB6LMNz76xXvYJs2BvAXr/61c4GzyiWElP7AYIc00B
-         zfRA==
-X-Forwarded-Encrypted: i=1; AJvYcCWMWJdQjFLlAQKWiT0xycMs6OlBEZh27aRmvl85gJhAnIatcQivVdOob5uNVzPwm4MpXgocFBdJLMU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YydoAB6h/sYcwIzBaWVAV5Vbb+7pw+D8Dszbfve2iOhhh41dIBx
-	FJcJDthatNpk7FUpgkx+L+uaHeKt1r3dfOPT95TZ1GWMgmZNk4L9pKABcftsRaHM8tc=
-X-Gm-Gg: ASbGnctQ45MThuxtkrvJOafIr0Th4WPOF7tLI+3K96b6MroPvi1WH1B6ZvYv9Nh9aTo
-	tkR1rCRsWuQJ3CtOhAZDEzG0XlF+lHE6iEObRtCozf8LeW3tffcnwSDIrEu/KHDh2DFzOwsOBFq
-	dOJdAQlNQBf9Eu98O9Pk2o7hVRqczZCz+ojl3RqBj/KpfKVAIPJN3cP/5jhnupGIz2m2+7WYcnM
-	6vF+OV7fB5nvVbtEWaCdWkFEXDRzsUrzflGpXS6mHH96gIkH9u15ufZ8+3ZupGaPArscI73V7ZR
-	Q9fTi1kL4G65h8bek9FAnKMNgQMmVkKy/xQ3wUufKMM+zz7/hubcvYUw0sj8fNW7EYFs6G0DgAc
-	g7v0PGR05Tclfy8mn+E7TuK2bUSLQNiu5dL3Nh3q6Wk91XU+GAW47HPFTAKAaQ/8byc0R
-X-Google-Smtp-Source: AGHT+IFzT03cOpDSV2CZytiMQvasQT9XtqRRzbB2VEbk0DZ7I2twDBAy93P7h2r8havF7/fUnSc4RQ==
-X-Received: by 2002:a05:6000:2289:b0:3b7:7680:35d3 with SMTP id ffacd0b85a97d-3b7950286fbmr729565f8f.37.1753823505216;
-        Tue, 29 Jul 2025 14:11:45 -0700 (PDT)
-Message-ID: <b8a2d3e4-6259-46ff-9404-a915dec79a2f@citrix.com>
-Date: Tue, 29 Jul 2025 22:11:44 +0100
+X-Inumbo-ID: 61730776-6cc2-11f0-a320-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mC5Tf+8Kdo9HVsh18czCqUwiJwaa4JgHrBNI/Uu1i2kqDb0hEK7G9xShu4ZUcz0mela6bwd18+hR3E/97O/MlvzCZGhnw1Y1eKeihcLunzAKujG5WqW0gi4O5/S1YxTJtYiOlr6AsEFDU9OcyOspk6bBzY7cDvKdxPJ/Exf/TLbANtWjBudnHz2TFgDWvzSjIEwIZSDX/mXV6H3ucf5Fvjkd5vqO2Oqw7Url+lbNi7d6NEijBYLV5hs0K5zxGSjYLVcOD1tsIG87C8odn4ndRwEaZdBKQ5aBe30RRYTx2PctG2ty0KkbcGTBhjimVIP0pVHZGKK3kdXumlXPo11sfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gqyzBP/7ECWWa5W+f4BT9E5/XazcdjOpv0nn2vXlBZc=;
+ b=t1UfO/6foL5H1RDsjAn0yCVvftQlJMN2X1J5agfO0Oooo064xla1HuBKa+hq0JvFN8CXZcsFp7iZ/XgHdI1fbvPTZ9wfZDMIvRMpkd8FCW8nQYnMzMkw7e3X+Rs/nrm++C5VAnbUIVqMnTqZ8MxsI1xZtogVVjquoPUY5ikBnSlsLLq/XOADqQiLrEq0xPII4FZ93PnUTMMAiOrL1uGpj8QlIK7SZ4ofr+aIcc2aynxjGOR0oBx5B9bg4HVHQVmZJ4lpokiVfzURuDNYOPFLpiUhey+Qm5Rcf9OQQaZ9xU5HyxBiAt1/+QomtXOM490lpPQh7lIzaHQPZiGGawauJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gqyzBP/7ECWWa5W+f4BT9E5/XazcdjOpv0nn2vXlBZc=;
+ b=CRGtY7HNCfqz5eCLPdhrwYGU4UQJlxj0byBzS2U+BetBBsxr4VO+frIqILSgCCTIy7iHLthjc27iANVz0zUS+Qn3K1xNpwxMf89z7YOx2p8Or/Gf96MHgR4dHdJkFHCmGbRXR0z02Gcl9TWgkCPGuMeu3XrcaKVlJQf+VGwPpUc7l7WIOdt1Y8yFLbbfLIhh0nPrwALsvhOtY7oAOlnmI2X4xOLk+6kilYcllj6SPeCmFqYyvGZlyanK840NJ4D/5m8EZvK3FHT7unRZVwtkv2bXmmrA1H4ibIdjWI+ze8Xx0XCN6iyGO5ubqApG8Z15+RBY/6J9annHXHD8dH5iHQ==
+From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Julien
+ Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Bertrand
+ Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>, Paul Durrant <paul@xen.org>,
+	Tim Deegan <tim@xen.org>, Tamas K Lengyel <tamas@tklengyel.com>, Alexandru
+ Isaila <aisaila@bitdefender.com>, Petre Pircalabu
+	<ppircalabu@bitdefender.com>, "Daniel P. Smith"
+	<dpsmith@apertussolutions.com>, =?iso-8859-1?Q?Marek_Marczykowski-G=F3recki?=
+	<marmarek@invisiblethingslab.com>, Dario Faggioli <dfaggioli@suse.com>,
+	Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>, Meng Xu
+	<mengxu@cis.upenn.edu>
+Subject: [RFC PATCH 0/3] misra: address MISRA C Rule 5.5 violations
+Thread-Topic: [RFC PATCH 0/3] misra: address MISRA C Rule 5.5 violations
+Thread-Index: AQHcAM8d7HI4srHd2k6ANCGVzZWM6w==
+Date: Tue, 29 Jul 2025 21:24:06 +0000
+Message-ID: <cover.1753822074.git.dmytro_prokopchuk1@epam.com>
+Accept-Language: en-US, uk-UA, ru-RU
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV2PR03MB9572:EE_|GVXPR03MB8452:EE_
+x-ms-office365-filtering-correlation-id: cc825e5a-f094-4944-e6a0-08ddcee63fbc
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|7416014|376014|42112799006|38070700018;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?B+WGqfrkQI0w7Ba6Ku3Gw0hwHb8h1Rki0CPiGaKHHNuM44wXo2aqgJ3mMZ?=
+ =?iso-8859-1?Q?AciJ3bmm+fG1cyvYvUP5OXFK1HmpdKf0ps2YFIQQ3dBjyU0WyOF/9Xgidx?=
+ =?iso-8859-1?Q?xmwtknUvgc6H1/C5QaS5eNRi9we/u4XoSdiNd3qgrmYkBxGqObXotoEyPj?=
+ =?iso-8859-1?Q?PLsQo0tEiBdaSTbUWB5/hTkoexV9Vl86ascrEPsOFu7WWWgzbW/938l1HX?=
+ =?iso-8859-1?Q?MmyN5l6MtjO9SmLXE5vmtA+NAQguXbNoFGk86SB4+eLBX0P7760pbaJJX4?=
+ =?iso-8859-1?Q?5EvP4X6H+WtV6U4cfQ+YU2++kveReGkO4ulC1q321UhGeVrUbzfcCOJSTn?=
+ =?iso-8859-1?Q?TZbMNta4m2gRzYAI/jyFMx2zM35ZAkbqXFkP+L2Pq+7svxa/IgQikcR0mo?=
+ =?iso-8859-1?Q?qAa9v3ycy8mKFPkqJO6cLRQvufdrpDdGkVowHHD8qfLxpRPzqh+ygg9WZ5?=
+ =?iso-8859-1?Q?i500nKR7xQP1UPKiwvjyIZkfcmK0T9MKF1zGfN+F6LzDrnqEfThq6F9P95?=
+ =?iso-8859-1?Q?99hK31Vl+uUZObqOeU5QcuEsmgy0PLxHOCa/6CzwMplozCwUjFd8uKS8uL?=
+ =?iso-8859-1?Q?6PCcGNKj6F0bQR3ccRnt32/H9j82+vWT934WC90P5/vVMZ60nbCKRwMFtV?=
+ =?iso-8859-1?Q?SdC3D/qHAHL53/08T5A1Ooa7m7VqZ54qV4aezDX1ef1W4UUnrNxSiyJQRU?=
+ =?iso-8859-1?Q?QgtMhcYUp5IC6QhUI4foXbJi3eJO+I17QleX2cuwTJ33khc1pbkdn8ccRt?=
+ =?iso-8859-1?Q?T6yjXvblQJtpmxZpR+vtQM4VnKO7dU/QuZYy8H73uqyke9NlruVTDazrxc?=
+ =?iso-8859-1?Q?qPjkNEwJI5F1oX9JU4Q+TVregKdtA52mriYnbV6DVjvY/s9Uv524yKfn0n?=
+ =?iso-8859-1?Q?z93GaZ8n+RUKkNW8PLDhntXmStT6ulBkdl1iOCulDqMMqa1uZylvKLSrak?=
+ =?iso-8859-1?Q?1d5qr6hX/BCXQJc2ZvCxhZk8dmhOPtLzbJ4VDc0oXxb/ngmKC3FQ7Q3mEa?=
+ =?iso-8859-1?Q?gN5NLGiYaIz+B3zA8CyDThn49HzkfQcsCXjSU3awhXx0X4To5A/xXXPDbB?=
+ =?iso-8859-1?Q?I4rmm/nARll4fNKHExU/IZ3tQQ7T+h8e5W6hM1OJ7tDevd2gIw0DGihPDj?=
+ =?iso-8859-1?Q?VlAYB5/dqvuOufLXL+jQcZ+55oP5tWvavMWDv/4+xfrwE/dJQahCZCfOMi?=
+ =?iso-8859-1?Q?QsFE6MjnTgVL9PJB9G61V0wfLZJ0cOjbakIMnfD7Wp+W8WxPpR8d/mikYT?=
+ =?iso-8859-1?Q?qu9yDlC4QuZxpaX7PbxizetXlOAD6/v03oJRr4l8ZI9mXhF/k1H2N/ZKZ7?=
+ =?iso-8859-1?Q?dJDVh01aJ9BpdQoquB/nZ2vyG4hN22AjykssYvL0FTwg4ImB/FnZ7rJXg6?=
+ =?iso-8859-1?Q?ILV5w0JR1rGHtwOGEHvI9LqyaywjFkiIWtfZLsboPb45Ayu0LVEOAqf+1v?=
+ =?iso-8859-1?Q?bqtIlmh1FjHKEmzoFdJFNzMLLjS17KaidSCh0HE2zMRuUJK6i5iMm3t9Yb?=
+ =?iso-8859-1?Q?4fUFFkkE5fbJSNzwZ/9zUY0Drn89Fp3T1Id61MijE9xw=3D=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB9572.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(42112799006)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?OyTbASzZFTG53x5WUE9cshUsjoCY+kD0gUuv/j4Fn+o/D5E2tY6JQhZGat?=
+ =?iso-8859-1?Q?TjAZovUXU/it7JTpw+mJHEpLXah2Sfcs3vASgCBrOJoO2O+RflP+Ye7NjT?=
+ =?iso-8859-1?Q?/yIvt+0ZhY/XC4pufxt+7xb0tdMeBoEg1Anx2j8u9HpEDYr99QLcsjKjFU?=
+ =?iso-8859-1?Q?zsm77UF+dxFNdb/rvPixPYDs+uLQacC94sypJds3qFR2im1AkMni7p6MsI?=
+ =?iso-8859-1?Q?IDfxPf+vgPEvaiO+CU0A1nm+bwZ5ZqCtLUWOOrg09tv7Mh4L3tZV98WeEQ?=
+ =?iso-8859-1?Q?w6rlCbU+M5kEDtZfkI01epDc4xIBby4d7RnJJEN2023NDKNF+rdOH9+iFx?=
+ =?iso-8859-1?Q?QzaUoqn6mYguJYip9L0qe0mqhX9uMhWfO5BByfyzT3KfyvYVaX/otl/v/x?=
+ =?iso-8859-1?Q?nic2TSk/b/waqghOyM6Grw5vmD8wToYz6tvsCuc+WNFyCvOiHwLAb7ozDG?=
+ =?iso-8859-1?Q?zKCBkfasaIa58AmLDokCMO+YMQKK4xxuuzavD1cGqhBYmtphuX/FbfOe/H?=
+ =?iso-8859-1?Q?BebS4ri/d3xwaX339M5bXfzxTInUk9s7AKIcWZUx++J+Rblh2V7HrKSJX7?=
+ =?iso-8859-1?Q?2FXs55E59qeVDPXa6zBV1f/Pp4ernvn0XZWjTZvx6Gd6Tej32yGwIP8G73?=
+ =?iso-8859-1?Q?4t5BGTr7DCuGFaFndSuNySFFe/0fHa9iLUyJXTKjhAhpmai6xuDpJ91DVn?=
+ =?iso-8859-1?Q?EuCGu0iZeQOrxyzdvZRg15LswpSX9P3CYLBGzmBA+MAuDVhsVe6qSOW9iN?=
+ =?iso-8859-1?Q?q9tQtWoKrleAPKBYubCudARDy1KPimTyE/cTVXA4XHsRFxUpNtkha3kkwa?=
+ =?iso-8859-1?Q?j3+6wgy//d7okEWVk/3zXf4+WWvFgh3SYHGOpz0zShuImrByvN8iXSp4T5?=
+ =?iso-8859-1?Q?MOLvv1vHSkhNKfvZTVUySwY+/a++1SgcC5Kdtgn+YsF0oaOUMS46ePCeNj?=
+ =?iso-8859-1?Q?EV4q0vjrDCVZQuq4MepPF6Vgp2mDt+C+BOzEbzP2ZbJVaBvTQfuCQ3B1Qe?=
+ =?iso-8859-1?Q?nV9r4ySA+zA5IyQbARGpZokWCy38DDEzmLPwAwMQd97wEPmc1pvY1j+eU/?=
+ =?iso-8859-1?Q?Yj9l68W4pq7+eR4mrw1Y3ZId6Vm8yH70LKesjP3DsCmyJJfvPMxYqt8b9o?=
+ =?iso-8859-1?Q?IKlixhJQAGpD6NPvfqC2iDbyi3/0mRA4MBSjM6TwuP69Ibq+LMx84DEXDM?=
+ =?iso-8859-1?Q?zSYAH/RSAb+QnTDvHkKsVRsIlj7rzaVwlbXCSaKqHjxiV0AQgRG7/GDdPp?=
+ =?iso-8859-1?Q?+AdRZKecSKpYlT7t5TALhYjimJi6LyDh7EnOsFFHx2MnIh1FLm8eiOcYRf?=
+ =?iso-8859-1?Q?0+rfcB18ZRhCoX9EGlmD5Kfb++xXBcP+yL2Ke1G1KzTUb/4o7bSEy3WRo9?=
+ =?iso-8859-1?Q?gbw2iuDGI6dkXQFYajO/HNgqjQjqVgHmWbTtJpzCmPn7wlkBoadhQLsTfv?=
+ =?iso-8859-1?Q?qqiB0HoGcMKWoalcQa798PTq+lDQRpOV/u6yV54KTJFbmRnYRTABT+KhdA?=
+ =?iso-8859-1?Q?+kNLauVjAlIuVD++WKyhcCWby0PEgtC1sJTOnfZKneiBk9MWR/J/TRhUHk?=
+ =?iso-8859-1?Q?eBiV4THprUNl/j7Ga1VpJrOHImvVz39au4Jz0Q4EnWIq3HUV5w6hAaZy9o?=
+ =?iso-8859-1?Q?e3LqiXVHQQzlP/GZGdZpoMp1KVSb+2mLGoqplTOZOydDHRZDL4GiTAfw?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: fix memory leak on error in vcpu_create
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Jan Beulich <jbeulich@suse.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250728195245.90356-1-stewart.hildebrand@amd.com>
- <08ca27cf-435b-4807-8cbc-0b866709b9df@citrix.com>
- <0fce6207-15b9-491a-97ab-3ad4b36ddaac@suse.com>
- <31db960a-e22b-4054-9ba3-97830859c054@amd.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <31db960a-e22b-4054-9ba3-97830859c054@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB9572.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc825e5a-f094-4944-e6a0-08ddcee63fbc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jul 2025 21:24:06.3109
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ZqMadlCfWQyRRPotQknw4t+zJUS79vk157V9V3gQN1/CapdFKGI23xyy/JrIDgOVymhaBX1rE+F7xS+YUjFNnIJmlgwBtkbuS6K2hGAOnZo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR03MB8452
 
-On 29/07/2025 10:08 pm, Stewart Hildebrand wrote:
-> On 7/29/25 04:32, Jan Beulich wrote:
->> On 28.07.2025 22:09, Andrew Cooper wrote:
->>> On 28/07/2025 8:52 pm, Stewart Hildebrand wrote:
->>>> In vcpu_create after scheduler data is allocated, if
->>>> vmtrace_alloc_buffer fails, it will jump to the wrong cleanup label
->>>> resulting in a memory leak. Correct the label.
->>>>
->>>> Fixes: 217dd79ee292 ("xen/domain: Add vmtrace_size domain creation parameter")
->>>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
->>> Urgh, sorry for breaking this.  Ultimately it comes from having two
->>> different error handling schemes.
->>>
->>> This patch is probably ok to start with (and to backport), but a better
->>> fix would be to handle sched and wq in vcpu_teardown().  That way we get
->>> a single failure path that does the correct thing irrespective.
->> I agree, and that variant would apparently be as easily backportable.
->> Stewart, are you up for going that route?
-> Yep, I'll give it a try
+Hello all!
 
-Just as a heads up before you start, the key is to ensure that anything
-called in *_teardown() is idempotent.
+The only purpose of this RFC is to receive comments from you on how to deal
+with MISRA C Rule 5.5 violations in XEN.
+The Rule states that: "Identifiers shall be distinct from macro names".
+There are ~580 violations in ARM and ~3200 in x86 architectures.
 
-~Andrew
+The following macros violate this Rule:
+__test_and_set_bit
+__test_and_clear_bit
+__test_and_change_bit
+test_bit
+set_bit
+clear_bit
+change_bit
+test_and_set_bit
+test_and_clear_bit
+test_and_change_bit
+get_fpu
+do_multicall
+virt_to_maddr
+
+I would like to address these violations in XEN codebase.
+Specifically to rename macros names with capital letters.
+Like this:
+-#define __test_and_change_bit(nr, addr) ({              \
++#define __TEST_AND_CHANGE_BIT(nr, addr) ({              \
+      if ( bitop_bad_size(addr) ) __bitop_bad_size();     \
+      __test_and_change_bit(nr, addr);                    \
+  })
+
+As a result -> MISRA C compliance, clear and readable code.=20
+
+
+PLEASE, NOTE!
+I don't ask you to review this patch series.
+Actually it isn't full and was created just to receive understanding how
+changes would look like.
+Yes, these changes are huge, that's why I created this RFC.
+
+Please let me know your opinion.
+
+Thank you in advance.
+
+Dmytro Prokopchuk (3):
+  misra: address 5.5 pirq_cleanup_check
+  misra: address rule 5.5 gnttab
+  misra: address rule 5.5 bitops
+
+ xen/arch/arm/dm.c                          |  2 +-
+ xen/arch/arm/domctl.c                      |  2 +-
+ xen/arch/arm/gic-vgic.c                    | 26 ++++++++---------
+ xen/arch/arm/gic.c                         |  8 ++---
+ xen/arch/arm/include/asm/cpufeature.h      |  2 +-
+ xen/arch/arm/include/asm/gic.h             |  2 +-
+ xen/arch/arm/include/asm/guest_atomics.h   |  4 +--
+ xen/arch/arm/irq.c                         | 16 +++++-----
+ xen/arch/arm/tee/ffa_partinfo.c            |  2 +-
+ xen/arch/arm/tee/ffa_private.h             |  2 +-
+ xen/arch/arm/traps.c                       |  2 +-
+ xen/arch/arm/vgic-v3-its.c                 |  6 ++--
+ xen/arch/arm/vgic.c                        | 10 +++----
+ xen/arch/arm/vgic/vgic-mmio.c              |  2 +-
+ xen/arch/arm/vgic/vgic.c                   |  2 +-
+ xen/arch/arm/vpsci.c                       |  4 +--
+ xen/arch/riscv/cpufeature.c                |  2 +-
+ xen/arch/riscv/include/asm/guest_atomics.h |  2 +-
+ xen/arch/x86/cpu-policy.c                  | 14 ++++-----
+ xen/arch/x86/cpu/amd.c                     |  2 +-
+ xen/arch/x86/cpu/common.c                  | 14 ++++-----
+ xen/arch/x86/cpu/mcheck/x86_mca.h          |  2 +-
+ xen/arch/x86/domain.c                      |  2 +-
+ xen/arch/x86/e820.c                        |  4 +--
+ xen/arch/x86/guest/xen/xen.c               |  2 +-
+ xen/arch/x86/hvm/emulate.c                 |  2 +-
+ xen/arch/x86/hvm/hpet.c                    |  6 ++--
+ xen/arch/x86/hvm/irq.c                     | 12 ++++----
+ xen/arch/x86/hvm/svm/nestedsvm.c           | 10 +++----
+ xen/arch/x86/hvm/svm/svm.c                 |  2 +-
+ xen/arch/x86/hvm/viridian/time.c           |  4 +--
+ xen/arch/x86/hvm/vlapic.c                  |  2 +-
+ xen/arch/x86/hvm/vmx/vmcs.c                |  8 ++---
+ xen/arch/x86/hvm/vmx/vmx.c                 |  4 +--
+ xen/arch/x86/include/asm/guest_atomics.h   |  2 +-
+ xen/arch/x86/include/asm/hvm/vlapic.h      |  2 +-
+ xen/arch/x86/include/asm/hvm/vmx/vmx.h     |  2 +-
+ xen/arch/x86/include/asm/mpspec.h          |  2 +-
+ xen/arch/x86/irq.c                         | 34 +++++++++++-----------
+ xen/arch/x86/mm.c                          |  8 ++---
+ xen/arch/x86/mm/hap/hap.c                  |  2 +-
+ xen/arch/x86/mm/paging.c                   |  4 +--
+ xen/arch/x86/mm/shadow/common.c            |  2 +-
+ xen/arch/x86/mm/shadow/hvm.c               |  4 +--
+ xen/arch/x86/monitor.c                     |  4 +--
+ xen/arch/x86/msi.c                         |  2 +-
+ xen/arch/x86/psr.c                         |  2 +-
+ xen/arch/x86/pv/dom0_build.c               |  4 +--
+ xen/arch/x86/pv/emul-priv-op.c             |  2 +-
+ xen/arch/x86/pv/shim.c                     |  2 +-
+ xen/arch/x86/traps.c                       |  2 +-
+ xen/arch/x86/x86_64/mm.c                   |  2 +-
+ xen/arch/x86/x86_64/mmconfig_64.c          |  2 +-
+ xen/arch/x86/xstate.c                      |  4 +--
+ xen/common/domain.c                        |  4 +--
+ xen/common/efi/runtime.c                   |  2 +-
+ xen/common/event_2l.c                      |  2 +-
+ xen/common/event_channel.c                 |  6 ++--
+ xen/common/grant_table.c                   | 10 +++----
+ xen/common/kexec.c                         | 16 +++++-----
+ xen/common/keyhandler.c                    |  2 +-
+ xen/common/multicall.c                     |  2 +-
+ xen/common/numa.c                          |  4 +--
+ xen/common/page_alloc.c                    |  4 +--
+ xen/common/pdx.c                           |  2 +-
+ xen/common/sched/core.c                    | 12 ++++----
+ xen/common/sched/credit.c                  | 12 ++++----
+ xen/common/sched/credit2.c                 |  6 ++--
+ xen/common/sched/rt.c                      |  4 +--
+ xen/common/vmap.c                          | 12 ++++----
+ xen/drivers/passthrough/iommu.c            |  2 +-
+ xen/drivers/passthrough/vtd/dmar.c         |  4 +--
+ xen/drivers/passthrough/vtd/iommu.c        |  4 +--
+ xen/drivers/passthrough/x86/hvm.c          | 10 +++----
+ xen/drivers/passthrough/x86/iommu.c        |  2 +-
+ xen/drivers/vpci/vpci.c                    |  4 +--
+ xen/include/xen/bitops.h                   |  8 ++---
+ xen/include/xen/cpumask.h                  |  6 ++--
+ xen/include/xen/irq.h                      |  2 +-
+ xen/include/xen/nodemask.h                 |  2 +-
+ xen/include/xen/sched.h                    |  4 +--
+ 81 files changed, 211 insertions(+), 211 deletions(-)
+
+--=20
+2.43.0
 
