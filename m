@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8CB4B14D04
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 13:26:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1062532.1428238 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57373B14D2C
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 13:50:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1062553.1428268 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugiTK-00042g-Nb; Tue, 29 Jul 2025 11:26:18 +0000
+	id 1ugiq0-00087k-Nk; Tue, 29 Jul 2025 11:49:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1062532.1428238; Tue, 29 Jul 2025 11:26:18 +0000
+Received: by outflank-mailman (output) from mailman id 1062553.1428268; Tue, 29 Jul 2025 11:49:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugiTK-00040b-Kp; Tue, 29 Jul 2025 11:26:18 +0000
-Received: by outflank-mailman (input) for mailman id 1062532;
- Tue, 29 Jul 2025 11:26:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xsxe=2K=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1ugiTJ-00040V-ES
- for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 11:26:17 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d00cae95-6c6e-11f0-a31e-13f23c93f187;
- Tue, 29 Jul 2025 13:26:04 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-454f428038eso47399075e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 29 Jul 2025 04:26:04 -0700 (PDT)
-Received: from [192.168.69.209] (88-187-86-199.subs.proxad.net.
- [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b78d45d010sm3310098f8f.8.2025.07.29.04.26.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Jul 2025 04:26:03 -0700 (PDT)
+	id 1ugiq0-00085E-Kf; Tue, 29 Jul 2025 11:49:44 +0000
+Received: by outflank-mailman (input) for mailman id 1062553;
+ Tue, 29 Jul 2025 11:49:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=oL40=2K=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1ugipy-000858-NI
+ for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 11:49:42 +0000
+Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
+ [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1a77c138-6c72-11f0-b895-0df219b8e170;
+ Tue, 29 Jul 2025 13:49:39 +0200 (CEST)
+Received: from mail.zoho.com by mx.zohomail.com
+ with SMTP id 1753789767340736.1698463000428;
+ Tue, 29 Jul 2025 04:49:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,93 +39,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d00cae95-6c6e-11f0-a31e-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1753788364; x=1754393164; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Bamcpu4ZxaiiMEq1WdGInn9RkfGT1cDZci0aMm9WFWU=;
-        b=fg7djMTQV9pO73s2ZR0sIIXtw4B4hyroKtEK2rQCRCo6fmCUK/l4KPVzMSUSjgjwXk
-         Tv3VxEd8kNGrqWJBQlco63iOA3nFNqGB0TmmycNAo3LBLPncBIK+Gb6HnuYyYPHIge1n
-         TMrTI8B0DmNBj18d4EDCIMbx9gXEp7YLuJ5pltWnV6ZFqfUKCnXCGf864Yql5MU4N/x/
-         AHZ98v8fEc0epPEWyj4cHz8DqF5nqo3fDaIHGhSF6GKJSg1QahbvcrE2tDXuYxCgetO5
-         rNs83zS/Hy7q9Mgnfpt9XhzD4RnoumYTm7E1mSpCj1MlFMSPy/6KVQQInXioLQ/YibLD
-         l8Cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753788364; x=1754393164;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Bamcpu4ZxaiiMEq1WdGInn9RkfGT1cDZci0aMm9WFWU=;
-        b=PAL+WM5fPzeaf1v5PnmGerWLC1vSrlBG7q3/wxdDykMQtNH2tdfDna8Ap5MPCi98pi
-         0NKlRw98T3URIO/y7fH3KDNL8Mmo+GbX9tNY+cyeHfkO+D7phEZ9Ef1tm4xi6mUI6en+
-         CR4SzZwPSlITgyaY5wBtQzd5lKsTpu8eXPXJz840XhhVhOmrbSLv84mUh/K815ovrA+V
-         Z+PlmWPgfK4k0GermTeEpky7pRH/VwIEroguys9YbLRMXQR1YXcmuvTVgNBz1wdYAAAM
-         uAbehLRncWFjLVBsVTxtZ60/2Sy0eL0iUnMBWiI4hM4+f0j2wUtWm1rEFCXAgiF2MHKB
-         ncxw==
-X-Forwarded-Encrypted: i=1; AJvYcCUXRzK44qOTBE2RVf5yw8mey0woq/DYiew6zT0MRxPakKEPSpZEincg5OanNCoAp1FTlZBaOy7pK8Y=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwE0mbfmDjhiJCI+kDfpxAkT8011EM+sETsmlscOIYnGeunIEeK
-	YUShEj+flgb58YozKUh10P6HLoPuQNdPLiPUXWXyJQZ4wn4IwxI0UbLhgXDMw5XgXSE=
-X-Gm-Gg: ASbGncvtd92tAMruLuMVrMU4o2tIkYi1g2eF9KLSlXgmADt+briUuOJSKQ94yHK8bO4
-	VOItdOkz7lu3Z3KPwhysK7omTeFeQNHJxQB6lPTDUrXWQeqYjOXkzcI/k9+Dnuds2IyPTO3MiGC
-	EpgihmKHyXqM/AEj6tX/DYDJ4B5BhL4vijAN4350NY1x5SFvvFwXDSg6vZVfeXRJQarTNNtqkY5
-	J80EoaeBLXY8RkguPAdrskvZEkLKV6TFTqQ+jIZyk49cODVFQRJkJr3xVUg/K+PiwHG+sgYZoIS
-	BLQojGjxouG0ocLr64iaYLJSLs521xTeq7GmgBFKpN40Yr615/zKuPpEe65zG0LS2QSqPcD0FfQ
-	v83TIdognYGhlhi+bNZtB2c/pDWldJcc2Yw8FkZajYxU1GbEsgoCkO+nEv1mymMf34w==
-X-Google-Smtp-Source: AGHT+IFsGQgT3nWmOCzVxTZbl/bJv6N+J6axhFXup1a5if02Esb7AvBb5wMQiuZlrbRSMG067C0NVA==
-X-Received: by 2002:a05:6000:258a:b0:3a3:6e85:a529 with SMTP id ffacd0b85a97d-3b77679866emr11233434f8f.51.1753788363594;
-        Tue, 29 Jul 2025 04:26:03 -0700 (PDT)
-Message-ID: <14fff91b-7434-4d90-adb1-ebbe3f51d605@linaro.org>
-Date: Tue, 29 Jul 2025 13:26:02 +0200
+X-Inumbo-ID: 1a77c138-6c72-11f0-b895-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; t=1753789775; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=kWdy7iARI8IaVrrQVxPpTGBdYmDA3m8jKt6oI8Uybp++UvnSHB2SdwrPDcFOmCW61SMb5qn/P2zEAWw/0PazA7QlVpqMA58tTJsMUTK8MyjHDDdIlvISxjNgT5nGwcOdMTf9QN9Z6PJb1Y3qAd8YUzOkh88dDM3jDZAzmP2S/9A=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1753789775; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=RhBaSr9Wg6eoEIHwbBwvDAgUVK9Mri66ax95Sq9VOZ0=; 
+	b=A2goidLBesXIjSgIoR3SEyAQsjXAC3zcDSV2/gHwVa1Abc+2mr67Do4wo28chL1ZbjUICyMGNSjlwqc/1nF3TP+uvToLwdjcGp1DamRECDcBKsFWjmD3xtI/K3ns7nXfee0wLbwcTD20B/oixVwAMGIjOSpPDmvSBvvQPu3IXPc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1753789775;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:References:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=RhBaSr9Wg6eoEIHwbBwvDAgUVK9Mri66ax95Sq9VOZ0=;
+	b=ofcKKBoS3Wcuw2BKhGt6ztBqPL6UyTpf3OVxGY2vuz+A3+FDgquc105NNT+UiFiP
+	TMGgm/jvHesZs7LYwfiSwKUas51TKaVP4pFhv+Ia9ydAI0Z4+ZXA1pvo6IS+zf6ojix
+	ArHZcS6rc81lIIHc0D7xRSTJNAugOy72/sp3LC0w=
+Date: Tue, 29 Jul 2025 07:49:27 -0400
+From: Daniel Smith <dpsmith@apertussolutions.com>
+To: "Xen-devel" <xen-devel@lists.xenproject.org>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>
+Message-ID: <19856041e0d.eb7d35a733490.6468480893266904954@apertussolutions.com>
+In-Reply-To: <20250728175548.3199177-2-andrew.cooper3@citrix.com>
+References: <20250728175548.3199177-1-andrew.cooper3@citrix.com> <20250728175548.3199177-2-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 1/3] tools/flask: Strip trailing whitespace
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hw/display/xenfb: Replace unreachable code by abort()
-To: Markus Armbruster <armbru@redhat.com>, qemu-devel@nongnu.org
-Cc: sstabellini@kernel.org, anthony@xenproject.org, paul@xen.org,
- edgar.iglesias@gmail.com, xen-devel@lists.xenproject.org,
- qemu-trivial@nongnu.org
-References: <20250729111226.3627499-1-armbru@redhat.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-In-Reply-To: <20250729111226.3627499-1-armbru@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+Importance: Medium
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
 
-On 29/7/25 13:12, Markus Armbruster wrote:
-> xenfb_mouse_event() has a switch statement whose controlling
-> expression move->axis is an enum InputAxis.  The enum values are
-> INPUT_AXIS_X and INPUT_AXIS_Y, encoded as 0 and 1.  The switch has a
-> case for both axes.  In addition, it has an unreachable default label.
-> This convinces Coverity that move->axis can be greater than 1.  It
-> duly reports a buffer overrun when it is used to subscript an array
-> with two elements.
-> 
-> Replace the unreachable code by abort().
-> 
-> Resolves: Coverity CID 1613906
-> Signed-off-by: Markus Armbruster <armbru@redhat.com>
-> ---
->   hw/display/xenfb.c | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/hw/display/xenfb.c b/hw/display/xenfb.c
-> index 22822fecea..5e6c691779 100644
-> --- a/hw/display/xenfb.c
-> +++ b/hw/display/xenfb.c
-> @@ -283,8 +283,7 @@ static void xenfb_mouse_event(DeviceState *dev, QemuConsole *src,
->                   scale = surface_height(surface) - 1;
->                   break;
->               default:
-> -                scale = 0x8000;
-> -                break;
-> +                abort();
+---- On Mon, 28 Jul 2025 13:55:46 -0400 Andrew Cooper <andrew.cooper3@citrix.com> wrote ---
 
-We prefer GLib g_assert_not_reached() over abort() because it displays
-the file, line number & function before aborting.
+ > No functional change. 
+ >  
+ > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com> 
+ > --- 
+ > CC: Daniel P. Smith <dpsmith@apertussolutions.com> 
+ > --- 
+ >  tools/flask/policy/modules/modules.conf           | 2 +- 
+ >  tools/flask/policy/modules/vm_role.cons           | 4 ++-- 
+ >  tools/flask/policy/policy/mls                     | 2 +- 
+ >  tools/flask/policy/policy/support/misc_macros.spt | 2 +- 
+ >  4 files changed, 5 insertions(+), 5 deletions(-) 
+ >  
+ > diff --git a/tools/flask/policy/modules/modules.conf b/tools/flask/policy/modules/modules.conf 
+ > index 6dba0a3d9172..1b6975551ab4 100644 
+ > --- a/tools/flask/policy/modules/modules.conf 
+ > +++ b/tools/flask/policy/modules/modules.conf 
+ > @@ -42,7 +42,7 @@ xenstore = on 
+ >  all_system_role = on 
+ >  
+ >  # Example users, roles, and constraints for user-based separation. 
+ > -# 
+ > +# 
+ >  # The three users defined here can set up grant/event channel communication 
+ >  # (vchan, device frontend/backend) between their own VMs, but cannot set up a 
+ >  # channel to a VM under a different user. 
+ > diff --git a/tools/flask/policy/modules/vm_role.cons b/tools/flask/policy/modules/vm_role.cons 
+ > index 3847ec1afa4e..ac38217f4641 100644 
+ > --- a/tools/flask/policy/modules/vm_role.cons 
+ > +++ b/tools/flask/policy/modules/vm_role.cons 
+ > @@ -3,7 +3,7 @@ 
+ >  # 
+ >  # constrain class_set perm_set expression ; 
+ >  # 
+ > -# expression : ( expression ) 
+ > +# expression : ( expression ) 
+ >  #         | not expression 
+ >  #         | expression and expression 
+ >  #         | expression or expression 
+ > @@ -17,7 +17,7 @@ 
+ >  #         | t1 op names 
+ >  #         | t2 op names 
+ >  # 
+ > -# op : == | != 
+ > +# op : == | != 
+ >  # role_op : == | != | eq | dom | domby | incomp 
+ >  # 
+ >  # names : name | { name_list } 
+ > diff --git a/tools/flask/policy/policy/mls b/tools/flask/policy/policy/mls 
+ > index 9290a76ae9bc..c4b74c10cda7 100644 
+ > --- a/tools/flask/policy/policy/mls 
+ > +++ b/tools/flask/policy/policy/mls 
+ > @@ -1,6 +1,6 @@ 
+ >  ifdef(`enable_mls',` 
+ >  # 
+ > -# Define sensitivities 
+ > +# Define sensitivities 
+ >  # 
+ >  # Domination of sensitivities is in increasin 
+ >  # numerical order, with s0 being the lowest 
+ > diff --git a/tools/flask/policy/policy/support/misc_macros.spt b/tools/flask/policy/policy/support/misc_macros.spt 
+ > index 3116db92fbed..4c3be036c6e9 100644 
+ > --- a/tools/flask/policy/policy/support/misc_macros.spt 
+ > +++ b/tools/flask/policy/policy/support/misc_macros.spt 
+ > @@ -21,7 +21,7 @@ define(`ifndef',`ifdef(`$1',`$3',`$2')') 
+ >  # 
+ >  # __endline__ 
+ >  # 
+ > -# dummy macro to insert a newline.  used for 
+ > +# dummy macro to insert a newline.  used for 
+ >  # errprint, so the close parentheses can be 
+ >  # indented correctly. 
+ >  # 
+ > -- 
+ > 2.39.5 
+ >  
+ > 
 
->               }
->               xenfb->axis[move->axis] = move->value * scale / 0x7fff;
->           }
-
+Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
