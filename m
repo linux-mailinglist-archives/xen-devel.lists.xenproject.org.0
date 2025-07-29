@@ -2,40 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A64F1B14BE2
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 12:05:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1062376.1428035 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1969B14C3D
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 12:34:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1062388.1428044 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ughCO-00072S-Co; Tue, 29 Jul 2025 10:04:44 +0000
+	id 1ughfJ-00031i-Ku; Tue, 29 Jul 2025 10:34:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1062376.1428035; Tue, 29 Jul 2025 10:04:44 +0000
+Received: by outflank-mailman (output) from mailman id 1062388.1428044; Tue, 29 Jul 2025 10:34:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ughCO-0006zL-9i; Tue, 29 Jul 2025 10:04:44 +0000
-Received: by outflank-mailman (input) for mailman id 1062376;
- Tue, 29 Jul 2025 10:04:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ughfJ-0002z0-Hx; Tue, 29 Jul 2025 10:34:37 +0000
+Received: by outflank-mailman (input) for mailman id 1062388;
+ Tue, 29 Jul 2025 10:34:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9NAX=2K=epam.com=dmytro_prokopchuk1@srs-se1.protection.inumbo.net>)
- id 1ughCM-0006zF-E4
- for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 10:04:42 +0000
-Received: from MRWPR03CU001.outbound.protection.outlook.com
- (mail-francesouthazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c207::3])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 717788cc-6c63-11f0-a31e-13f23c93f187;
- Tue, 29 Jul 2025 12:04:41 +0200 (CEST)
-Received: from GV2PR03MB9572.eurprd03.prod.outlook.com (2603:10a6:150:da::5)
- by AS8PR03MB9022.eurprd03.prod.outlook.com (2603:10a6:20b:5b8::14) with
+ <SRS0=AO6o=2K=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1ughfI-0002yu-4w
+ for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 10:34:36 +0000
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on20608.outbound.protection.outlook.com
+ [2a01:111:f403:2409::608])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9d0e049a-6c67-11f0-b895-0df219b8e170;
+ Tue, 29 Jul 2025 12:34:33 +0200 (CEST)
+Received: from DM5PR07CA0110.namprd07.prod.outlook.com (2603:10b6:4:ae::39) by
+ IA1PR12MB8493.namprd12.prod.outlook.com (2603:10b6:208:447::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.11; Tue, 29 Jul
- 2025 10:04:33 +0000
-Received: from GV2PR03MB9572.eurprd03.prod.outlook.com
- ([fe80::edd1:842f:9b14:509e]) by GV2PR03MB9572.eurprd03.prod.outlook.com
- ([fe80::edd1:842f:9b14:509e%3]) with mapi id 15.20.8964.025; Tue, 29 Jul 2025
- 10:04:32 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.26; Tue, 29 Jul
+ 2025 10:34:29 +0000
+Received: from DS3PEPF0000C37F.namprd04.prod.outlook.com
+ (2603:10b6:4:ae:cafe::98) by DM5PR07CA0110.outlook.office365.com
+ (2603:10b6:4:ae::39) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.11 via Frontend Transport; Tue,
+ 29 Jul 2025 10:34:29 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS3PEPF0000C37F.mail.protection.outlook.com (10.167.23.9) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8989.10 via Frontend Transport; Tue, 29 Jul 2025 10:34:28 +0000
+Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 29 Jul
+ 2025 05:34:26 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,179 +56,513 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 717788cc-6c63-11f0-a31e-13f23c93f187
+X-Inumbo-ID: 9d0e049a-6c67-11f0-b895-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xRZyaBWhOdqIedjVmYZwafiWnT4pyXDz11AjQhqqYdij8l1PXfjcw6TqJdElsrhvQKHwmsPYb2CZe0HXeRw8MD/kYpTlvvxqSJlzG6PlJLt4JYUgOSzDWmJnV7SXo6CP+V97viy08nFIGF31ZkT1kFN3s9+sn+1YMGDiymrWLD5PzgFtfHbiROxR+/Yx4weYleudWshDBDznK6kPS1VTqpKuYEj34M9HlqgRw4tUfA7/OKNO87pseOif3JM6GOlp3SrjyrgJ9LC6X8uOCydzPdr2rFVk71Dcuf9y4f7DS8+S9sz+UX9jyZkAJ3GVIx8eoUVuJfc5HaJftO2dTl0AvQ==
+ b=J+TSGQIq63moil6uKPDnqNGpSkmg6lZE6jPXsTJ7tncjV7cnk72FzJajW+uFsIfG6dkRI+cUhwrJ1iSeyL6/aNSHq0nledcWhLpAdJHMqsogqSGa2c3A8m4r/yBHiUrgktodDKx4VA9z2TXam1Yy4iNT0tpVIlGtD5MMq3UhsEo98FzrZgOdDM5VzA7+i2leoc8IIxfYAYVL7S2QpNPK0nHmk8xeQdCM0GTFK3WfU+8kS3QxPO4FMtHZY/uiBMCPhPfVGE43TWy14RxxjoWmXj1j6IhiwrNbi59n/p3UIH5kojrj/LvzZZ2/i9moHwwcKhgzeWAzwHyW0yqnzArIKA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=od6xRjsF/LomqPTdEfum60583eacjXwDjf3+yCCltA0=;
- b=kmtmOokm5RkbsqZy6HxYi7ntOApdHh1nqQdj6Q6CbisiXSDFHfbO+me7ipzgZ+m5meQL06h9mDfUg/tI4ORwg4o/hTsioWx44HFqx1J1cZyfHxngCHVoQu8V3lOWjT6bL5cxx0mhEGy/71Lz26aenuA3R3+MzLtnQKrnnScBenAXUvI3RI9piCuMKDLozBhF69GLW9eALwSz9woqENVQ8BZWyKeesyNUMYPCsdxuIGeDSYBX0lcUT3ag5YWgNBos203SGGc0WDY7apsISS741JyCQkf+pudFplhd1payp6uoWJSHFVjn0/NhNB6GHd3zY+qde/VnyAsOWeigpScsZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ bh=R7PYC2I/JKqLlS0lzBIbfXmyD0ixg+6A7wY/nEYXk+k=;
+ b=GsH3wRIZuJ7vR7D5zdzXIUu6Atbj4418aqnZoeH4+mM4s2V3A0FMjk9PiqAO6MfJ417aqKNL7c8FYXE1xhE+BJvreeJtRzq3A6OA3wpNSnD3Ab+a3XGyID25lnl57WSujFkvugdymxrVfI+Gz1V+ogPsXUuBHfv+xdLiBgmVkPnpnEW6MXTNF9mNJtLCxgZFd2lBf7a39KKeVkV/kaV9oS2xYnLdLqWz0aGGzXse4Kv7pApAcbnQzWJNMz97gziTjk2wKksBWJCUKRz6Chv5PLfpeQj2yCdUCUEp9I45VGmrQMMrcTvssEA8gfPeDxmmLPWY6SU/hZ/DYcYoQAtQ5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=proton.me smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=od6xRjsF/LomqPTdEfum60583eacjXwDjf3+yCCltA0=;
- b=udUFsAyd0MJ2zbxI5SOjZLW6Ecmqso8di91Zg76qmXHTMBz7OBPleVP8UBmIeuLbNc/tNGmuHI5TTQW8BA1Oy6nZ559AEJmt2beVXfcoAvTT59vCAOsBvCVSb2E233lS/0pL0XPOVJLWLAYl016pg8k7bz07SlMp+5vNyyCY/sNq6pCVbcH1Arsn1cuH+navWQM2NO+4LL0cr7yagZxTUM8kCBR8TgIjaaJ2UQBBHni19qcZSHjlLwx6/6OWrz/4TikHA7Mb/lEFIWsuEO9It8v/vobeRENFJ/Ur7umB33oRKe6irqSDfaW5Og3AbNV31/eurlzBRLP+aRzGB91k+w==
-From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Nicola Vetrini <nicola.vetrini@bugseng.com>, Doug Goldstein
-	<cardoe@cardoe.com>, Stefano Stabellini <sstabellini@kernel.org>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Julien
- Grall <julien@xen.org>, =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
-	<roger.pau@citrix.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] misra/eclair: set 'noreturn' attribute as safe during
- cast
-Thread-Topic: [PATCH] misra/eclair: set 'noreturn' attribute as safe during
- cast
-Thread-Index: AQHcAA0QZaFBUUSap0maTjLkZJJTcbRIvq4AgAAhkoA=
-Date: Tue, 29 Jul 2025 10:04:31 +0000
-Message-ID: <ef43422f-902c-43d6-8b67-10385427e2fe@epam.com>
-References:
- <8989bf6d8d245537628912a00f5ba4731b292fb1.1753738107.git.dmytro_prokopchuk1@epam.com>
- <2f2a1992-0d88-4429-bed1-af5e60e05664@suse.com>
-In-Reply-To: <2f2a1992-0d88-4429-bed1-af5e60e05664@suse.com>
-Accept-Language: en-US, uk-UA, ru-RU
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR03MB9572:EE_|AS8PR03MB9022:EE_
-x-ms-office365-filtering-correlation-id: 7903865b-26ac-41b0-44eb-08ddce87505f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|42112799006|7416014|376014|1800799024|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?eFRZT2tNZzdNSnl2Y1ZIVXNLeGQvdjV0c21Jd1QrQkVoNlJYWlJRR0F6Smdp?=
- =?utf-8?B?NkxacWc2UlRLSml6a2NtTnJtNUVzY0VsS1k3NHhUZjQrTG5GYXByak5PaHl0?=
- =?utf-8?B?QXI4dFpaSlJXS1p6T0NJZGp6dk5aRUV0SEZ0Y2hDaXdTZEpJMW5wb3NrQ0xa?=
- =?utf-8?B?YWVGV3ZWMWRKK0hRb2VCaDBNV2Fha3Q2VlppL3kxc3lnSDNjUktXc3JGTUk5?=
- =?utf-8?B?N3BPbXZyWll4Ymswem40U3pZd3Bhd1RiNmRkOEU0eXhGNUdiQzN0c0FDZmNC?=
- =?utf-8?B?Wm1BR01vK2FOYW00eFVzWkNNc1ljMU11R3hNa3hkZGZZc253WVNnTnFBYWFJ?=
- =?utf-8?B?Wm5ROVJkRlBLWjFBSU9SeklTUHl5YlBmZ0dhaHVaNjZzWjdpTlo5UlR3R0Qr?=
- =?utf-8?B?VEYyc0I4cDRkT3lQelprN1ltUUVkeFhMVFdaem9US1dreUVrcGl1MGt2cHJY?=
- =?utf-8?B?cWlYTW53MzZyMXRUTUxOQWt4MDVVeWlNUFhtOC9oM1FKUGh3Q29HSUhpWG9C?=
- =?utf-8?B?bW10MmpURFVNdXhxK2xMb05YRzhucFgyaWJlNXVvVnd0OVJIaVBGMzZNMGcy?=
- =?utf-8?B?ODlab1JxeE1saE9uQ2V1SzJQSW10Tks3VzhSeGlyYXU5U3pid1Nkakk3aFZX?=
- =?utf-8?B?NU5xeVQvY1pCeUEzVGlYQ1dMWVZaK2NnRnF0NUYrMzBMaWZKMDVLRU9MU2w1?=
- =?utf-8?B?Yk9aSHg0NDE1TjAwQkNidS92a3dTOW1uOWFLOGNGWmFhUGE2Y1U0dld5RFhp?=
- =?utf-8?B?K2FRNk1VajY1Y1NoSks5c3h5S3RwYlFVN29BcXNqQ09FUjZjRm9CdHc2ck1y?=
- =?utf-8?B?TmRVZWNmR3FFM3VKTmt6T0RpWFNaazJLcjVXYzFVcXRyMzArSVZTSE1TbDNp?=
- =?utf-8?B?RjlONkFtbks0bGU4WjRrWUpkRi92d3JqU0tVWWdWZmtIbUhtSFh2K2htUmtm?=
- =?utf-8?B?QkxBMHg1djV2WlZ5L1RPMUdQVmFaemhwUzlETTVTdWY3N3RNcHNMOWIxUHpv?=
- =?utf-8?B?dC9GYk9CTDVQRVMxQU1VT1BNZjY5Rml6dk8wNE9ZVXpGYXkrdVBSWHRMNk1E?=
- =?utf-8?B?dHlDazE4OHQ5bzFBWU5CRGtJTWRjM1MwbTZrTit5NENueDN3dkR5akh4bSs3?=
- =?utf-8?B?ZUZsZmxWZnBHa2l5azRDS0xrMU1YSUFFSW1CZGhyYnBvMzhQcGFvRVloSDl6?=
- =?utf-8?B?WUFzYWtUWFN1N0FEdXYzT3laS1ljZjZ3MmdDblBUNGVKdG9YMWtKc1VISGJl?=
- =?utf-8?B?RTk3MGlkRXBTc0U2Z1RLRE15bi9ZSHpOV3R3Q2NnekcxR083VUhzbmM4eGo3?=
- =?utf-8?B?UC9pbXlYWkkvM2VLVzVPVGRpUVBXOW93REtVQmtkU3VjZTdqMm0xUzlnMG5o?=
- =?utf-8?B?cm1JWWxyU3BWK3RxVnF3OUU1MlhBZElvMUtyM0lpRk50VEdkVkQ5dnlDcUN6?=
- =?utf-8?B?dTFWWUk0WDFyYVVMSXBZYmJwNzZ4NXV6emE2Qlh0ekR1dGxzUFlMS0xaQmxG?=
- =?utf-8?B?RllySXFpOVFhbDd5WnBiSVFFREw0S0ZPR1c0c0R3eCtoUElRTlFmZVpQN21i?=
- =?utf-8?B?NE1Vd1pnZndPVUZPdmVVaElDVFNKMzRSbElZNVF5UWhmMy9lQVVMR01Yb2Jm?=
- =?utf-8?B?N3BnYkJkWGN4WStzWXJrSHFXaDlFdWcvU1hoZ0o1MzFyTDYvVUo2MG5RMnJi?=
- =?utf-8?B?ZHdFbFhmK2FGMGdTMFN4SGh3UXdQNmxNeElsR1haeFBMb0dDbzNxYTJpK1pM?=
- =?utf-8?B?S1dtckpkSS9EdVJHWjN4YUNFNjVvU3B1MmUybmJXajZvRGlFVVVnZzI1bTZG?=
- =?utf-8?B?azlteUp2NzJ4MjUyN05Fc0NHYnIxUzQ4MG9ENGhIazZhVlJoaGRyRHVCWVFj?=
- =?utf-8?B?bGVKSlJNVmVaOTBLTTdMbEU1V2JaQkcyVTFKQjRJLzFJUkQrNGdrQ3F5dVRi?=
- =?utf-8?Q?hb8pJbzFu7I=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB9572.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(42112799006)(7416014)(376014)(1800799024)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?bnR5ZTZiQUQ0aVRqdEhaTlcwZ1NSWmFNa1Jqa1pBYU5RL1VZOGxLNysyMVB3?=
- =?utf-8?B?eDhBRkU3ekgySXhKakYzbXhpVzU1Nk5EV3prMC9sYmdHOEM0aEgvRXg5ZjlX?=
- =?utf-8?B?SHhEVVlGS2hDei9vcjdWWFRjR0xvTXQ1OVhCYjlwRnU2bS9jL2RrQjhERUVD?=
- =?utf-8?B?WWptaVdrSVlhNjk3ayt4a3MrQlRpV2ZIVnlJaXNvckVKN3loSUk1ZFV6SWEv?=
- =?utf-8?B?WHBhY2VsYnJ3UnhMRlcveWQ0ZkpST1Vmb0hBSmh0SjhjajBKZ2ZJNnlIWmVG?=
- =?utf-8?B?aDdvL3l1MmVNeUUrZ0d5N0ZJaEw2QkdkTllVUCs0bGE4Rk1CVXM5SWpTRzNN?=
- =?utf-8?B?QVhWaXlXUVpEUUV0VkJKNVk4MkdoZlVVOENyWGdCa0dGVk9YdXlPSTdHZXhl?=
- =?utf-8?B?clNFRVlJTWxzMmw5RlpqT01HWG9UaEFHVk1KbHFSSVpqZXRNMUx4Q2d6VFND?=
- =?utf-8?B?Y0g0YXpYcmZvd0ZKamVQY3FVMmhOM3U1c3NORStZUnpSMnFDVklHaHE0UWlU?=
- =?utf-8?B?THBPZE5tREpBSGJSZmp5UTByWVdnS2E0N21WRm9QTzZyQkdOY3lndnZPRGxs?=
- =?utf-8?B?UkxjSnlHQ0Z3NWU5SmptdjQzQVdRZHRqRzdTMUdpTjZFOVpBWktEaFh1dnRy?=
- =?utf-8?B?S01aYW9qWG5abjJQU0dhemtMOTN5S25lRkxwS2Z6akdoelVBN2VyVlkzUzVw?=
- =?utf-8?B?Y2thWTNaYkFVNmQ1WFQ5OEZDVGVyeTZWdGFYTjhiZ01FUmZ3TktYTWdZWmhC?=
- =?utf-8?B?VTErdUJvbnVMYkVpOEQ2WThLWUtpbGsxVjRlYjFhNkFKamQ0T2MrVTVDS2Ni?=
- =?utf-8?B?czdGVWRpNThaNXlWZGttUHRwekVBODAySm4zSXAyc29CYlFKeUlpSXJSSGlZ?=
- =?utf-8?B?Nm1SMDFFZElFek5YTGcxTHJuSjl0ZjJYeEoyWFk3VTVRdDRKZ1BQL29qWXFs?=
- =?utf-8?B?TWRjMm5SdmhYTkxrK1pCeHc4VG1iVGZiYVFSbmtNaXNOYnNzWXVqSXVYdlU2?=
- =?utf-8?B?Q1NSN2U4UzhRRXpNTzZnYlE0UHB1RWhxYmxmaW55YkM5WWFmOSttTlZzSllt?=
- =?utf-8?B?dm5CUU4yODBuMlphRFY0SmtOTlZJcVJ5UzI4SVdaVXlQYTZEVVR1d2dBQmNP?=
- =?utf-8?B?YlJYS0dGTGRJazRQeXRDdXczYXVWTzJNbVdGZ0czZ2VhQ3g0RVluZ3N4QkNm?=
- =?utf-8?B?a1QraVNaOTFLVExJdUlocjlTTzJId3JKMnZta0xpTVJORTd6ZFJSaWh1QVBN?=
- =?utf-8?B?WDZUUlFWSjgvN0ZiS3NLMXNyODRCMTd1KzVGamx4ZElUaVNaOTUrMVZVU0lO?=
- =?utf-8?B?Z0l2VE85eVhkZ05KcE9JZUVTN1R1TVY5OVF4RS8rUVdjb00zenBGaGJndExI?=
- =?utf-8?B?bkcrWXIwYUlwb0xaTnVWUkNNSzZwZ1g3NkRLRjJUTnJsV2pwU0NKTlRueDhV?=
- =?utf-8?B?UFUzMW5ZTkZXMjJHWGpTeHlmanFxOWFtR0lpaU5PZ05weGQvWlFZMTZuand1?=
- =?utf-8?B?WUF0Qi9hd3lxejYwSUM0SUpYOW1mMjZkN2pmQzdOSkxnMW56RFJib041KzQ3?=
- =?utf-8?B?QWNZQmFlUFI0V2F5eGZIOHB6Q1I2Y3FFUWVjZDh1Yi9XNzJwSjNaR2NzbzlU?=
- =?utf-8?B?TElVODcyV1pOYXkzOXhDODdLZGNQNXRHZmgxc1lPQmdoalZYbGV3Y1Y5eEd4?=
- =?utf-8?B?TlM2UkU5UCtBdTRycTlhQjhDVmtYaUlvZ1JTaWcyaENJQ1NCKzd6dDJYU3NF?=
- =?utf-8?B?S0pCaXdZWGpLaTZ0dkRTUm9pUCt3eGlnSHFEdDE0ZDNSQXM2MGZwODNrek16?=
- =?utf-8?B?U28yUnIvTGJXbWd1MTV2aWNnS3pNaExnVDRENUNXM0lFUE8yUHlneGZ2aFFp?=
- =?utf-8?B?TDBjWjZQamtuU0g4MnU3RmtqRjFlampnNEFtYVJLQ0hsZ2JEdTQweTVQdEVY?=
- =?utf-8?B?bWVtL0taNzJla291UEwxc2w5SGRMeVk3R3J1eDJCRXpYbXJPYzJzMCtIZkd4?=
- =?utf-8?B?dlp4MkdmTVFGRW53ZFV5aHp2MXNHakpZNHp1ejRFR1pSUlp2a2N4N2hzRFR3?=
- =?utf-8?B?QWFkeTRVbnJZR1RkT1V4bG1tNk9BR0t6c0FvcUhXVCtNbklZVzUrQm9UNEt0?=
- =?utf-8?B?aHkrSXlkazZPUFhNRytPMjNHeXhOeWdTcnhhL1NseU1nK2JGejh6R3lLOGdo?=
- =?utf-8?B?Z0E9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <E4E06A2EDC9C3B42936D281590CD0BCB@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ bh=R7PYC2I/JKqLlS0lzBIbfXmyD0ixg+6A7wY/nEYXk+k=;
+ b=fVWdtu8ishNNmaa61TxqflEpm2R4a102LFCwc8mtFZKobfO7hIbD9JKtnBwPYVLw24OPFZpRODgTT95XaddbxChGeoPTcFC6QD95KnGNCvsjcpZMPc5CHOp8iGhvw3UBm1QFUiBB2lNshtegsQ+WX8xB+pSv2Sl+TqdjwnBgRI4=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB9572.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7903865b-26ac-41b0-44eb-08ddce87505f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jul 2025 10:04:32.0458
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Tue, 29 Jul 2025 12:34:25 +0200
+Message-ID: <DBOGZOES2A5Q.20Y3MK677M83D@amd.com>
+Subject: Re: [PATCH v11 1/3] xen/domain: unify domain ID allocation
+From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+To: <dmkhn@proton.me>, <xen-devel@lists.xenproject.org>
+CC: <andrew.cooper3@citrix.com>, <anthony.perard@vates.tech>,
+	<jbeulich@suse.com>, <julien@xen.org>, <michal.orzel@amd.com>,
+	<roger.pau@citrix.com>, <sstabellini@kernel.org>, <dmukhin@ford.com>
+X-Mailer: aerc 0.20.1
+References: <20250728183427.1013975-1-dmukhin@ford.com>
+ <20250728183427.1013975-2-dmukhin@ford.com>
+In-Reply-To: <20250728183427.1013975-2-dmukhin@ford.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C37F:EE_|IA1PR12MB8493:EE_
+X-MS-Office365-Filtering-Correlation-Id: b21c5486-bc51-4a74-80c4-08ddce8b7f70
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?ZlpiZnZoVzdtVTh0Y3NqWncvUXA1NTQvVmdKdmx6N2MyK0YraDBaSDVTZmlv?=
+ =?utf-8?B?TG1HZHhHdDhRaDZyUzVoTFFPa242SE51QXl4ZTFyWmkycVNEa0JHcmtGbVds?=
+ =?utf-8?B?T3orUFVOTmFzV0dXVzg0anVyR0FGZXNJck9IK0RON3lieEtlOGNPT0RvTlBB?=
+ =?utf-8?B?cXJUK0pRWDhkT202ZVRjYUlWQzg4ei9nSmJ6YTRWRUhJZWNuUGtVa0dGSW5E?=
+ =?utf-8?B?VTZDeXJyWWxMTHJYZlRCZWlXc1V4dTd2RDQvR2JWUVlmUkMxdkZteThTOUZo?=
+ =?utf-8?B?WU5qQkpkYm9reVVtUWF0RjJHaVU4R2kyZHgwUFUyak9KV0YxV0tQK3dDV21N?=
+ =?utf-8?B?ZUZJRFk2ODhuZmlWSzZ5akc0clMwdWlncXZjOVdPcjlIbCsrTjJVc1VEOWVP?=
+ =?utf-8?B?Zy9CM1dlR3hCamtmY2RVc2xaaTRKTUk3RkI1MFdTTCtwVTFxQklrdmIvODIw?=
+ =?utf-8?B?ZzVZUEw3bEg5REtFTE1QcjJ2dDc4cWxjNHJoQjEranlKTmFIb1RFUGRsdUYz?=
+ =?utf-8?B?VzdqcExYNnRxMWZsMERYQnJjZXZkZCtpTU5uZGJkdWNKazRZVDlBQk54bFZa?=
+ =?utf-8?B?N3YvVXl0S3VRWllxSCtBb2VzL25JYlZNNjJ1QUNmRzZCZFRrTVlzNCs2TUl3?=
+ =?utf-8?B?UzczdVJQUEkxdE1ubERPOWtGbnZlbXNVVVplbjNUYm83NWtrSHpWa214WGRK?=
+ =?utf-8?B?YXZTQXdjTEFHOStqODN5aWZEZ2svSFM3ZXg5K0NzZ0owVUxja0d1elZCekFh?=
+ =?utf-8?B?S0diVDlqUDA5eEZaczJhdTNqSWljU0xMMEMwOXN3R2l4RW1oTFlzanMxVzk4?=
+ =?utf-8?B?dDl5OXhiL1FLRHRZRkh5VlczWkhHUm9iQ3NJWWFmdjZweXFvZUhTSlJ3WHVv?=
+ =?utf-8?B?Nm9ET3JiYTZFanFJMzM2RE1Lc1VoV2VDOG1STUl4TjViTDJBVGNhdmRuc0Vn?=
+ =?utf-8?B?djhBWTFBOEFzVVdlTjNCTEFZajZaS2kybDA2UDRRUGdjUkNRRVhDZktMdURR?=
+ =?utf-8?B?a3VSYTZGTHZUWHVneWFGeGt4OUxUK280Zll4cTB5ZVJrYS90OC8xUitKU2dl?=
+ =?utf-8?B?Y09raWlOdkRVNUxETXl6TzNTOVRiOU5JOHpJMUdUWmFwOS81NlBlVUZDcVVQ?=
+ =?utf-8?B?a0swZE5YTW5JS1RpSVZ0R1N6RjFJei9wb2pYVFE3bGF2SjJRUVN0WXp0TjFX?=
+ =?utf-8?B?Nkw5eVd3QS9wQVl2SFR3VnNsMDFqdnBFUU94c0hHbVNQYUxhV216eENSQVJj?=
+ =?utf-8?B?djRDd2VNM0R6OUVscUZRQjhtSjlhMzYyTTZsN3pwU0lNVHJhMlMyL1BSRGQ0?=
+ =?utf-8?B?S1JMUVdNRSswMjNwc3dCRnRYeXM5NmFTZDRyU1pUSStVMksxREhqY0VzZzNh?=
+ =?utf-8?B?aW9CNk93dDhkR1V3c20yQmlhR1JKaktZeFZEamNDYWVLbGJrM2tydExmTzNx?=
+ =?utf-8?B?RlQ5cDZrZTVtNnlYKzNSalU5eEYzZkpNc25Bb2Q4YTlZbXVlU1Q2ZFc4SjY5?=
+ =?utf-8?B?RDFvb3pvNXZUMmhSK0I4SHBQVlRrcXVuL3MxMnZwcVk5SCtWeHdGMmVkRUd5?=
+ =?utf-8?B?OWJaMEpLQkMxMjlpR3pCeW45ZllBMDdHc0xwYlJ0Mzh0d1RQcndGRnJEQ0hv?=
+ =?utf-8?B?SldIYWkrb0lpN2FsdDJUc21Pa0xzR3gvWFAySlJobUlPYXMvQ3dubzZTY1Jn?=
+ =?utf-8?B?dkJIbnRMQm1rZFQrWitKSHMzZ2I2ckc0aENQNFIvWWdxc3UwZVlBT3k4S0gy?=
+ =?utf-8?B?RWI1WVBOQ2ZsMkV0eDVabXZOZW1nSVc5V2NGbXpHVXpEcDZYRDJVVXNFaUFp?=
+ =?utf-8?B?WG85NWJmbVNPZlhsNXJZWlRqd2RLVkVaM1RsT01kSk5pMjV6MytIeXgyMy9a?=
+ =?utf-8?B?dU5nMW4vMG56WGVrNXJQeldiQ1UrM3NFSHk5czVQcFBYc1FtNzRVbGRHU3JM?=
+ =?utf-8?B?OFkxNmNxMjZhWlllcE9LQnQ1WGliZVVtZ2ZqTUkvenFEQkZDME5VL1JuV3U1?=
+ =?utf-8?B?bmFvZlJSVHdTN1pCclR2KzNGQXM3NzhXTGp3dEhGVitjTjd0Y2JscFIvNngz?=
+ =?utf-8?Q?nIahf+?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2025 10:34:28.9538
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: RBCJ+8pusL9YpH29OB8o8e68SPxWiC2UFapNQ0v6K5dnSdCcKoUW0Tlsp4HejESTzg8n+Xn1rmQCaRiKeVvQsln3YS95TdcUbzyDvdxqrP0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB9022
+X-MS-Exchange-CrossTenant-Network-Message-Id: b21c5486-bc51-4a74-80c4-08ddce8b7f70
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS3PEPF0000C37F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8493
 
-DQoNCk9uIDcvMjkvMjUgMTE6MDQsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAyOS4wNy4yMDI1
-IDAwOjE1LCBEbXl0cm8gUHJva29wY2h1azEgd3JvdGU6DQo+PiBFQ0xBSVIgcmVwb3J0cyBhIG5v
-bi1jb21wbGlhbnQgY2FzdCBkdWUgdG8gdGhlIHByZXNlbmNlDQo+PiBvZiB0aGUgJ25vcmV0dXJu
-JyBhdHRyaWJ1dGUgaW4gdGhlIGNhbGxlZSBmdW5jdGlvbi4NCj4NCj4gV2hpY2ggY2FsbGVlIGZ1
-bmN0aW9uPyBXaGljaCBjYXN0PyBQbGVhc2UgYmUgY29uY3JldGUuIFlvdSBkb24ndCBuZWVkDQo+
-IHRvIGVudW1lcmF0ZSBhbGwgY2FzZSwgYnV0IG9uZSBzcGVjaWZpYyBleGFtcGxlIHdhbnRzIHBv
-aW50aW5nIGF0Lg0KPg0KPj4gVGhlIGlzc3VlIG9jY3VycyB3aGVuIGNhc3RpbmcgYSBmdW5jdGlv
-biBwb2ludGVyIHdpdGgNCj4+IHRoZSAnbm9yZXR1cm4nIGF0dHJpYnV0ZSAodm9pZCBub3JldHVy
-biAoKikodm9pZCAqKSkNCj4+IHRvIGEgZ2VuZXJhbCBmdW5jdGlvbiBwb2ludGVyIHR5cGUgKHZv
-aWQgKCopKHZvaWQgKikpLg0KPg0KPiBBbmQgYWdhaW4gLSB3aHkgImNhc3RpbmciPyBBcyBwZXIg
-Li4uDQo+DQo+PiBDb25maWd1cmUgRUNMQUlSIHRvIHRyZWF0ICdub3JldHVybicgYXR0cmlidXRl
-cyBhcyBzYWZlDQo+PiBpbiB0aGlzIGNvbnZlcnNpb24uDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTog
-RG15dHJvIFByb2tvcGNodWsgPGRteXRyb19wcm9rb3BjaHVrMUBlcGFtLmNvbT4NCj4+IC0tLQ0K
-Pj4gUHJldmlvdXMgZGlzY3Vzc2lvbiB0aHJlYWQ6DQo+PiBodHRwczovL3BhdGNoZXcub3JnL1hl
-bi8xODFhMDNkNWM3NjI1ZDQyYzA2Y2Y5ZmEwY2Y0OGE5YmM2ODI1MzYxLjE3NTM2NDc4NzUuZ2l0
-LmRteXRyby5fNUZwcm9rb3BjaHVrMUBlcGFtLmNvbS8NCj4NCj4gLi4uIHRoZXJlIHdhcyBubyBj
-YXN0IGludm9sdmVkLCBpaXJjLiBXZSBzcGVjaWZpY2FsbHkgcmVqZWN0ZWQgeW91cg0KPiBhdHRl
-bXB0IHRvIGFkZCBhIGNhc3QgdGhlcmUuIEl0J3MgYSBjb252ZXJzaW9uIHRoZSBjb21waWxlciBk
-b2VzLCBhaXVpLg0KPg0KPiBKYW4NClllcywgeW91IGFyZSByaWdodC4NCldvcmQgImNhc3QiIGlz
-IG5vdCBhcHByb3ByaWF0ZSB0aGVyZS4NCg0KQmVsb3cgaXMgdXBkYXRlZCB0ZXh0Og0KDQogICAg
-IG1pc3JhOiBhbGxvdyAnbm9yZXR1cm4nIGFzIHNhZmUgZm9yIGZ1bmN0aW9uIHBvaW50ZXIgY29u
-dmVyc2lvbnMNCg0KICAgICBUaGUgY29udmVyc2lvbiBmcm9tIGEgZnVuY3Rpb24gcG9pbnRlciB3
-aXRoIHRoZQ0KICAgICAnbm9yZXR1cm4nIGF0dHJpYnV0ZSAoJ3ZvaWQgbm9yZXR1cm4gKCopKHZv
-aWQgKiknKQ0KICAgICB0byBhIGZ1bmN0aW9uIHBvaW50ZXIgdHlwZSAoJ3ZvaWQgKCopKHZvaWQg
-KiknDQogICAgIGNhdXNlcyB0eXBlIGluY29tcGF0aWJpbGl0eSBhY2NvcmRpbmcgdG8NCiAgICAg
-TUlTUkEgQyBSdWxlIDExLjEsIHdoaWNoIGZvcmJpZHMgY29udmVyc2lvbnMNCiAgICAgYmV0d2Vl
-biBpbmNvbXBhdGlibGUgZnVuY3Rpb24gcG9pbnRlciB0eXBlcy4NCg0KICAgICBUaGUgdmlvbGF0
-aW9uIG9jY3VycyBhdCB0aGUgY2FsbCBzaXRlDQogICAgICAgICBzbXBfY2FsbF9mdW5jdGlvbiho
-YWx0X3RoaXNfY3B1LCBOVUxMLCAwKTsNCiAgICAgd2hlcmUgJ2hhbHRfdGhpc19jcHUnIHdpdGgg
-dHlwZSAndm9pZCBub3JldHVybiAoKikodm9pZCAqKScNCiAgICAgaXMgcGFzc2VkIHRvICdzbXBf
-Y2FsbF9mdW5jdGlvbicgZXhwZWN0aW5nIGEgZnVuY3Rpb24NCiAgICAgcG9pbnRlciBvZiB0eXBl
-ICd2b2lkICgqKSh2b2lkICopJy4NCg0KICAgICBUaGUgJ25vcmV0dXJuJyBhdHRyaWJ1dGUgZG9l
-cyBub3QgY2hhbmdlIHRoZSBmdW5jdGlvbg0KICAgICBjYWxsaW5nIGNvbnZlbnRpb24gb3IgcGFy
-YW1ldGVyIGhhbmRsaW5nIGF0IHJ1bnRpbWUsDQogICAgIG1ha2luZyB0aGUgY29udmVyc2lvbiBz
-YWZlLg0KICAgICBDb25maWd1cmUgRUNMQUlSIHRvIHRyZWF0ICdub3JldHVybicgYXR0cmlidXRl
-cyBhcyBzYWZlLg0KDQpEbXl0cm8uDQo=
+On Mon Jul 28, 2025 at 8:34 PM CEST, dmkhn wrote:
+> From: Denis Mukhin <dmukhin@ford.com>=20
+>
+> Currently, there are two different domain ID allocation implementations:
+>
+>   1) Sequential IDs allocation in dom0less Arm code based on max_init_dom=
+id;
+>
+>   2) Sequential IDs allocation in XEN_DOMCTL_createdomain; does not use
+>      max_init_domid (both Arm and x86).
+>
+> The domain ID allocation covers dom0 or late hwdom, predefined domains,
+> post-boot domains, excluding Xen system domains (domid >=3D
+> DOMID_FIRST_RESERVED).
+>
+> It makes sense to have a common helper code for such task across architec=
+tures
+> (Arm and x86) and between dom0less / toolstack domU allocation.
+>
+> Note, fixing dependency on max_init_domid is out of scope of this patch.
+
+I can see why. The console switch code is a bit annoying. It's unfortunate =
+it
+relies on that global for the early wraparound.
+
+>
+> Wrap the domain ID allocation as an arch-independent function domid_alloc=
+() in
+> new common/domid.c based on the bitmap.
+>
+> Allocation algorithm:
+> - If an explicit domain ID is provided, verify its availability and use i=
+t if
+>   ID is not used;
+> - If DOMID_INVALID is provided, search the range [1..DOMID_FIRST_RESERVED=
+-1],
+>   starting from the last used ID. IDs are not wrapped around in dom0less =
+case.
+>   Implementation guarantees that two consecutive calls will never return =
+the
+>   same ID. ID#0 is reserved for the first boot domain (currently, dom0) a=
+nd
+>   excluded from the allocation range.
+>
+> Remove is_free_domid() helper as it is not needed now.
+>
+> No functional change intended.
+>
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+> Changes since v10:
+> - fixup #ifdefs in domid_alloc()
+> - corrected use of domid_free() in domain_destroy()
+> - rebased
+> - moved domid_{alloc,free}() to common/domid.c so the functional test cou=
+ld be
+>   added later
+> ---
+>  xen/arch/arm/domain_build.c             |  7 +-
+>  xen/arch/x86/setup.c                    |  7 +-
+>  xen/common/Makefile                     |  1 +
+>  xen/common/device-tree/dom0less-build.c | 15 ++--
+>  xen/common/domain.c                     |  2 +
+>  xen/common/domctl.c                     | 42 ++---------
+>  xen/common/domid.c                      | 93 +++++++++++++++++++++++++
+>  xen/include/xen/domain.h                |  3 +
+>  8 files changed, 122 insertions(+), 48 deletions(-)
+>  create mode 100644 xen/common/domid.c
+>
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 463ae4474d30..789f2b9d3ce7 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -2050,6 +2050,7 @@ void __init create_dom0(void)
+>          .grant_opts =3D XEN_DOMCTL_GRANT_version(opt_gnttab_max_version)=
+,
+>      };
+>      unsigned int flags =3D CDF_privileged | CDF_hardware;
+> +    domid_t domid;
+>      int rc;
+> =20
+>      /* The vGIC for DOM0 is exactly emulating the hardware GIC */
+> @@ -2074,7 +2075,11 @@ void __init create_dom0(void)
+>      if ( !llc_coloring_enabled )
+>          flags |=3D CDF_directmap;
+> =20
+> -    dom0 =3D domain_create(0, &dom0_cfg, flags);
+> +    domid =3D domid_alloc(0);
+> +    if ( domid =3D=3D DOMID_INVALID )
+> +        panic("Error allocating domain ID 0\n");
+> +
+> +    dom0 =3D domain_create(domid, &dom0_cfg, flags);
+>      if ( IS_ERR(dom0) )
+>          panic("Error creating domain 0 (rc =3D %ld)\n", PTR_ERR(dom0));
+> =20
+> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+> index 1543dd251cc6..2ff7c28c277b 100644
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -1047,8 +1047,11 @@ static struct domain *__init create_dom0(struct bo=
+ot_info *bi)
+>      if ( iommu_enabled )
+>          dom0_cfg.flags |=3D XEN_DOMCTL_CDF_iommu;
+> =20
+> -    /* Create initial domain.  Not d0 for pvshim. */
+> -    bd->domid =3D get_initial_domain_id();
+> +    /* Allocate initial domain ID.  Not d0 for pvshim. */
+> +    bd->domid =3D domid_alloc(get_initial_domain_id());
+> +    if ( bd->domid =3D=3D DOMID_INVALID )
+> +        panic("Error allocating domain ID %d\n", get_initial_domain_id()=
+);
+> +
+>      d =3D domain_create(bd->domid, &dom0_cfg,
+>                        pv_shim ? 0 : CDF_privileged | CDF_hardware);
+>      if ( IS_ERR(d) )
+> diff --git a/xen/common/Makefile b/xen/common/Makefile
+> index c316957fcb36..0c7d0f5d46e1 100644
+> --- a/xen/common/Makefile
+> +++ b/xen/common/Makefile
+> @@ -11,6 +11,7 @@ obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) +=3D dev=
+ice.o
+>  obj-$(CONFIG_DEVICE_TREE_PARSE) +=3D device-tree/
+>  obj-$(CONFIG_IOREQ_SERVER) +=3D dm.o
+>  obj-y +=3D domain.o
+> +obj-y +=3D domid.o
+>  obj-y +=3D event_2l.o
+>  obj-y +=3D event_channel.o
+>  obj-$(CONFIG_EVTCHN_FIFO) +=3D event_fifo.o
+> diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-=
+tree/dom0less-build.c
+> index 6bb038111de9..1f9461d0e738 100644
+> --- a/xen/common/device-tree/dom0less-build.c
+> +++ b/xen/common/device-tree/dom0less-build.c
+> @@ -833,21 +833,20 @@ void __init create_domUs(void)
+>      {
+>          struct kernel_info ki =3D KERNEL_INFO_INIT;
+>          int rc =3D parse_dom0less_node(node, &ki.bd);
+> +        domid_t domid;
+> =20
+>          if ( rc =3D=3D -ENOENT )
+>              continue;
+>          if ( rc )
+>              panic("Malformed DTB: Invalid domain %s\n", dt_node_name(nod=
+e));
+> =20
+> -        if ( (max_init_domid + 1) >=3D DOMID_FIRST_RESERVED )
+> -            panic("No more domain IDs available\n");
+> +        domid =3D domid_alloc(DOMID_INVALID);
+> +        if ( domid =3D=3D DOMID_INVALID )
+> +            panic("Error allocating ID for domain %s\n", dt_node_name(no=
+de));
+> +        if ( max_init_domid < domid )
+> +            max_init_domid =3D domid;
+
+nit: This is open-coding max_init_domid =3D max(max_init_domid, domid);
+
+> =20
+> -        /*
+> -         * The variable max_init_domid is initialized with zero, so here=
+ it's
+> -         * very important to use the pre-increment operator to call
+> -         * domain_create() with a domid > 0. (domid =3D=3D 0 is reserved=
+ for Dom0)
+> -         */
+> -        ki.bd.d =3D domain_create(++max_init_domid,
+> +        ki.bd.d =3D domain_create(domid,
+>                                  &ki.bd.create_cfg, ki.bd.create_flags);
+
+nit: With this change, the wrapped line can be unfolded into a single one.=
+=20
+
+>          if ( IS_ERR(ki.bd.d) )
+>              panic("Error creating domain %s (rc =3D %ld)\n",
+> diff --git a/xen/common/domain.c b/xen/common/domain.c
+> index 3c65cca5b0ff..23dbc1f46c78 100644
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -1466,6 +1466,8 @@ void domain_destroy(struct domain *d)
+>      /* Remove from the domlist/hash. */
+>      domlist_remove(d);
+> =20
+> +    domid_free(d->domain_id);
+> +
+>      /* Schedule RCU asynchronous completion of domain destroy. */
+>      call_rcu(&d->rcu, complete_domain_destroy);
+>  }
+> diff --git a/xen/common/domctl.c b/xen/common/domctl.c
+> index f2a7caaf853c..5509998aa139 100644
+> --- a/xen/common/domctl.c
+> +++ b/xen/common/domctl.c
+> @@ -51,20 +51,6 @@ static int xenctl_bitmap_to_nodemask(nodemask_t *nodem=
+ask,
+>                                     MAX_NUMNODES);
+>  }
+q =20
+> -static inline int is_free_domid(domid_t dom)
+> -{
+> -    struct domain *d;
+> -
+> -    if ( dom >=3D DOMID_FIRST_RESERVED )
+> -        return 0;
+> -
+> -    if ( (d =3D rcu_lock_domain_by_id(dom)) =3D=3D NULL )
+> -        return 1;
+> -
+> -    rcu_unlock_domain(d);
+> -    return 0;
+> -}
+> -
+>  void getdomaininfo(struct domain *d, struct xen_domctl_getdomaininfo *in=
+fo)
+>  {
+>      struct vcpu *v;
+> @@ -423,36 +409,18 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t)=
+ u_domctl)
+> =20
+>      case XEN_DOMCTL_createdomain:
+>      {
+> -        domid_t        dom;
+> -        static domid_t rover =3D 0;
+> +        domid_t domid =3D domid_alloc(op->domain);
+> =20
+> -        dom =3D op->domain;
+> -        if ( (dom > 0) && (dom < DOMID_FIRST_RESERVED) )
+> +        if ( domid =3D=3D DOMID_INVALID )
+>          {
+>              ret =3D -EEXIST;
+> -            if ( !is_free_domid(dom) )
+> -                break;
+> -        }
+> -        else
+> -        {
+> -            for ( dom =3D rover + 1; dom !=3D rover; dom++ )
+> -            {
+> -                if ( dom =3D=3D DOMID_FIRST_RESERVED )
+> -                    dom =3D 1;
+> -                if ( is_free_domid(dom) )
+> -                    break;
+> -            }
+> -
+> -            ret =3D -ENOMEM;
+> -            if ( dom =3D=3D rover )
+> -                break;
+> -
+> -            rover =3D dom;
+> +            break;
+>          }
+> =20
+> -        d =3D domain_create(dom, &op->u.createdomain, false);
+> +        d =3D domain_create(domid, &op->u.createdomain, false);
+>          if ( IS_ERR(d) )
+>          {
+> +            domid_free(domid);
+>              ret =3D PTR_ERR(d);
+>              d =3D NULL;
+>              break;
+> diff --git a/xen/common/domid.c b/xen/common/domid.c
+> new file mode 100644
+> index 000000000000..e553ab6e5468
+> --- /dev/null
+> +++ b/xen/common/domid.c
+> @@ -0,0 +1,93 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Domain ID allocator.
+> + * Covers dom0 or late hwdom, predefined domains, post-boot domains; exc=
+ludes
+> + * Xen system domains (ID >=3D DOMID_FIRST_RESERVED).
+> + *
+> + * Copyright 2025 Ford Motor Company
+> + */
+> +
+> +#include <xen/domain.h>
+> +
+> +static DEFINE_SPINLOCK(domid_lock);
+> +static DECLARE_BITMAP(domid_bitmap, DOMID_FIRST_RESERVED);
+> +
+> +/*
+q + * Allocate domain ID.
+> + *
+> + * @param[in] domid Exact domain ID within [0..DOMID_FIRST_RESERVED-1] r=
+ange or
+
+nit: [in] is inconsequential, not being a pointer.
+
+> + *                  DOMID_INVALID for exhaustive search within
+> + *                  [1..DOMID_FIRST_RESERVED-1].
+> + * @return Valid domain ID in case of successful allocation,
+> + *         DOMID_INVALID - otherwise.
+> + */
+> +domid_t cf_check domid_alloc(domid_t domid)
+
+Why cf_check? That's only needed when using indirection (i.e) function poin=
+ters
+so the call works with IBT. I don't think that's needed here?
+
+> +{
+> +    static domid_t domid_last;
+> +
+> +    spin_lock(&domid_lock);
+> +
+> +    /* Exact match. */
+> +    if ( domid < DOMID_FIRST_RESERVED )
+> +    {
+> +        if ( __test_and_set_bit(domid, domid_bitmap) )
+> +            domid =3D DOMID_INVALID;
+> +    }
+> +    /*
+> +     * Exhaustive search.
+> +     *
+> +     * Domain ID#0 is reserved for the first boot domain (e.g. control d=
+omain)
+> +     * and excluded from allocation.
+> +     *
+> +     * In dom0less build, domains are not dynamically destroyed, so ther=
+e's no
+> +     * need to do a wraparound of the IDs.
+> +     */
+> +#ifdef CONFIG_DOM0LESS_BOOT
+> +    else if ( domid_last + 1 >=3D DOMID_FIRST_RESERVED )
+> +        domid =3D DOMID_INVALID;
+> +#endif
+
+This hunk with the guards breaks dom0less-capable Xen booting a non-dom0les=
+s
+system (which effectively means any defconfig arm build). dom0 boots must w=
+rap
+around, irrespective of whether that same build could boot from a DTB.
+
+The point of not wrapping around is merely a conservative check to ensure
+dom0less-build can find a free domid by bump-allocating. This is already th=
+e
+case with your code, so there's no need to special-case dom0less.
+
+Just remove it.
+
+> +    else
+> +    {
+> +        domid =3D find_next_zero_bit(domid_bitmap,
+> +                                   DOMID_FIRST_RESERVED,
+> +                                   domid_last + 1);
+> +#ifndef CONFIG_DOM0LESS_BOOT
+> +        ASSERT(domid <=3D DOMID_FIRST_RESERVED);
+> +        if ( domid =3D=3D DOMID_FIRST_RESERVED )
+> +            domid =3D find_next_zero_bit(domid_bitmap,
+> +                                       DOMID_FIRST_RESERVED,
+> +                                       1);
+> +#endif
+
+Like before, this must be without the ifdef guards. Otherwise it breaks
+non-dom0less runs on dom0less-enabled builds.
+
+> +
+> +        if ( domid < DOMID_FIRST_RESERVED )
+> +        {
+> +            __set_bit(domid, domid_bitmap);
+> +            domid_last =3D domid;
+> +        }
+> +        else
+> +            domid =3D DOMID_INVALID;
+> +    }
+> +
+> +    spin_unlock(&domid_lock);
+> +
+> +    return domid;
+> +}
+> +
+> +void cf_check domid_free(domid_t domid)
+> +{
+> +    ASSERT(domid <=3D DOMID_FIRST_RESERVED);
+> +
+> +    spin_lock(&domid_lock);
+
+Might be worth asserting the bit is set. That way we'll catch XSAs in CI if
+we try to incorrectly move the current calls to domid_free().
+
+> +    __clear_bit(domid, domid_bitmap);
+> +    spin_unlock(&domid_lock);
+> +}
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
+> index e10baf2615fd..31946bb1b653 100644
+> --- a/xen/include/xen/domain.h
+> +++ b/xen/include/xen/domain.h
+> @@ -38,6 +38,9 @@ void arch_get_domain_info(const struct domain *d,
+> =20
+>  domid_t get_initial_domain_id(void);
+> =20
+> +domid_t cf_check domid_alloc(domid_t domid);
+> +void cf_check domid_free(domid_t domid);
+
+Neither of them should need the cf_check. Also, could you perhaps move the
+explanation of how the allocation scheme works from the commit message into
+the domid_alloc() prototype? That way callers can reason about the API with=
+out
+git-blaming to find out.
+
+> +
+>  /* CDF_* constant. Internal flags for domain creation. */
+>  /* Is this a privileged domain? */
+>  #define CDF_privileged           (1U << 0)
+
 
