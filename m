@@ -2,52 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15C6CB1455A
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 02:30:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1061997.1427602 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 553E7B145FF
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 03:57:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1062008.1427613 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugYDr-0000ZN-IP; Tue, 29 Jul 2025 00:29:39 +0000
+	id 1ugZaM-0001iY-HQ; Tue, 29 Jul 2025 01:56:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1061997.1427602; Tue, 29 Jul 2025 00:29:39 +0000
+Received: by outflank-mailman (output) from mailman id 1062008.1427613; Tue, 29 Jul 2025 01:56:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugYDr-0000Wc-FA; Tue, 29 Jul 2025 00:29:39 +0000
-Received: by outflank-mailman (input) for mailman id 1061997;
- Tue, 29 Jul 2025 00:29:38 +0000
+	id 1ugZaM-0001gD-Dy; Tue, 29 Jul 2025 01:56:58 +0000
+Received: by outflank-mailman (input) for mailman id 1062008;
+ Tue, 29 Jul 2025 01:56:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zENc=2K=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1ugYDp-0000WW-Md
- for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 00:29:37 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20624.outbound.protection.outlook.com
- [2a01:111:f403:2416::624])
+ <SRS0=s63h=2K=huawei.com=ruanjinjie@srs-se1.protection.inumbo.net>)
+ id 1ugZaK-0001g7-Ud
+ for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 01:56:56 +0000
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 18f91de4-6c13-11f0-b895-0df219b8e170;
- Tue, 29 Jul 2025 02:29:34 +0200 (CEST)
-Received: from BYAPR05CA0037.namprd05.prod.outlook.com (2603:10b6:a03:74::14)
- by MN6PR12MB8492.namprd12.prod.outlook.com (2603:10b6:208:472::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.26; Tue, 29 Jul
- 2025 00:29:26 +0000
-Received: from CO1PEPF000044F5.namprd05.prod.outlook.com
- (2603:10b6:a03:74:cafe::e1) by BYAPR05CA0037.outlook.office365.com
- (2603:10b6:a03:74::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.11 via Frontend Transport; Tue,
- 29 Jul 2025 00:29:26 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000044F5.mail.protection.outlook.com (10.167.241.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8989.10 via Frontend Transport; Tue, 29 Jul 2025 00:29:26 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 28 Jul
- 2025 19:29:25 -0500
-Received: from [172.21.111.141] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 28 Jul 2025 19:29:24 -0500
+ id 4ab68b3d-6c1f-11f0-b895-0df219b8e170;
+ Tue, 29 Jul 2025 03:56:52 +0200 (CEST)
+Received: from mail.maildlp.com (unknown [172.19.88.194])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4brdcq1ppRz14M80;
+ Tue, 29 Jul 2025 09:51:55 +0800 (CST)
+Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
+ by mail.maildlp.com (Postfix) with ESMTPS id BB760140276;
+ Tue, 29 Jul 2025 09:56:47 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by dggpemf500011.china.huawei.com
+ (7.185.36.131) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Tue, 29 Jul
+ 2025 09:56:46 +0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,139 +46,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18f91de4-6c13-11f0-b895-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FFsqX+wyiiE8UYLsndV0dzBFReyOAd9H83u2wH6Gu+QE8tx6OULYCujcjt0sGIrKGK6bot259Id3+qNsLAurtUOSdDMoFElFmqjIjMBwqO4MIEMDD38cFv4riO3JSrKMXf8Mo0YyKN9xNoADkc40dbit6enFUJEqNhtRse9+LlNtM09WRsAGt6xgVSwF+k1UrzYCsep8Ie1Vqt74T83BZsQliDuMdwYam2cINQISnKJUW1qvP9RaBIXKj0fWX1kkKeRvE3lEDwrVvxEk5dOqc5AcfT1TmxFw7vVRRsW9kUZcr0SRRXgYRsPevgvpBD8Jw+Kbmrs+eg4dzXD8kC/asg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kmdBH9afn7zJDj1WMqCUFB9PfGkWN6VL+CLvyskocpk=;
- b=vFdh7msP3q+Bl06dfxRTPQEKYh/cOZBj3lDla9ck9LFpP5a8cakL+ehjCZgbJEbugUAtnvt3CaAXnWTCiVfCcP3tGkpvMGJq4+3oYAHTWkscAzdeLd0n5Qf0Byd9WjDkpZghT0b5dyERlf51BvJy3fTrs0G3tF6J/Pn9fkQ2dWZQTK31MW4WaTvR+VewPp9OIfoixePD2eTv+gJ132Hvy/J3vtLgxBhmv/D+eJ1Ssp9ru6nHMjm8p0KG99coS5Jqv0Q5NiXJpLYfGoo4qX9JK6oYWN6EXXxNbGmj3yt001OTpuJ2KzKmYtYeZjLlsa0dbs53CCyaw1xt8xaJY85vUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kmdBH9afn7zJDj1WMqCUFB9PfGkWN6VL+CLvyskocpk=;
- b=eRsQD/Jlyoj52RDaEE2234qY53Xq1Y7gqsgd6nv9lh9DZCvuILWk13l0A8jntxvIJ4PAMn7qmS8oIkQHjOLGW7ZFStChmLR/G7xD6+ZCCKq+QWWHoZ0MnxUViW4RTapa6rIZRyK5FPd+CPo86L8zlWqTJeX1uyVBN6pFVLKWM3c=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <55d8f784-4ad5-4a20-bfb4-ad6219415288@amd.com>
-Date: Mon, 28 Jul 2025 20:29:19 -0400
+X-Inumbo-ID: 4ab68b3d-6c1f-11f0-b895-0df219b8e170
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <catalin.marinas@arm.com>, <will@kernel.org>, <oleg@redhat.com>,
+	<sstabellini@kernel.org>, <mark.rutland@arm.com>, <puranjay@kernel.org>,
+	<broonie@kernel.org>, <mbenes@suse.cz>, <ryan.roberts@arm.com>,
+	<akpm@linux-foundation.org>, <chenl311@chinatelecom.cn>,
+	<ada.coupriediaz@arm.com>, <anshuman.khandual@arm.com>,
+	<kristina.martsenko@arm.com>, <liaochang1@huawei.com>, <ardb@kernel.org>,
+	<leitao@debian.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <xen-devel@lists.xenproject.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH -next v7 0/7] arm64: entry: Convert to generic irq entry
+Date: Tue, 29 Jul 2025 09:54:49 +0800
+Message-ID: <20250729015456.3411143-1-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/xl: don't crash on NULL command line
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
-	<marmarek@invisiblethingslab.com>, <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@vates.tech>
-References: <20250728102422.2245808-1-marmarek@invisiblethingslab.com>
- <b4e3c287-7847-4cdc-8fbb-bb788a6de8b5@citrix.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <b4e3c287-7847-4cdc-8fbb-bb788a6de8b5@citrix.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F5:EE_|MN6PR12MB8492:EE_
-X-MS-Office365-Filtering-Correlation-Id: 98be0097-c4c9-446d-7ee6-08ddce36f945
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?S3VhQXoxK200KzZHTUFQdXcrc2dwdlltN1pCenFOcVhFWStWUGUwRW0yQmxt?=
- =?utf-8?B?NjByenVlMlJxa3NITHJEc1JkV1F6aTUyNEx1NWlOcXhkUi9pdmxYRlRGajJa?=
- =?utf-8?B?R1hqUjhWdTA4alBGWjd5bC9OamE5R04vTkNpd0gvSE1pTm9DN1RCaEpSMkE0?=
- =?utf-8?B?L3pCNTBBUEpCRWFwNVdNaC9aQ1NBTVVQKytES1RkT3NjVDlDSGxPYlpuNW9I?=
- =?utf-8?B?akg0ODYyRDVsajVpeFhBWFZ0TXZGNnNPTU5ncU9mdDN5T1p6Zys2OGRQN0Nq?=
- =?utf-8?B?OFFmVnhwOTNYZkRBemwwMVJBYlVwK0h1cVFOcVVraGJJSXhtRlNFcTdaQ3Fk?=
- =?utf-8?B?VFhXYWM5YTFka1ovTVVOV2JJQytucUVLUVk5amNRWlR5SzZZVDYzUjlFZlVY?=
- =?utf-8?B?YnRBZE9hYzhDT1p0M016UE43SDZFM21BMkhRWDZCVWUvR2VvREJEODE1OGhq?=
- =?utf-8?B?US9wVGZZSG1yVDVMT1dtNGtHUVBsSHNwZWVRSUVyWTFxUHlCb2ZQV3pWbzQy?=
- =?utf-8?B?WjhOWnZKb1hHY2hKS3dmVmxoMXhySjloS2s2bVNDNnJoM0JoOUFodXJld3J4?=
- =?utf-8?B?OHBYWUNEdHY2bFZ1SENvUWcrU2tZWVhQTGZuNGpVMnZ5VkJsR1VweW55d2R0?=
- =?utf-8?B?RFQxZkxUeXpJSnBKYnJxdlI2SlBsdzg0Tm5ZLzB3eWJueTZCSTd0cmVEdFc5?=
- =?utf-8?B?L0lNV1ZWQ0hXR252U2lNZENrSWtvVCt4WlBNTlVSdUxwUENvNXNaL0lBWFdZ?=
- =?utf-8?B?S3JVM0R5ZWJ2a0Q2U3hUZUcwR1RobWdNc0tZbFFzZFQvMXlOL0lTU2dPZlVP?=
- =?utf-8?B?YWdjdnUzZHNmc29NcS9BNUV6Y1pBM0ROc3hsUFlCWEF2NS9JOFJLNGMvMWtX?=
- =?utf-8?B?c3hTTjdHRE02L2Z5MktLYms1aUdzdldOWldmalRiRGZVZ2VFKzMwNEw0aGtR?=
- =?utf-8?B?eUhHQmFjbTZ2TnFleVFFZmhWdU5HOHdSSnNPL0ZCaCttQ3p6dEJzeExtUjlx?=
- =?utf-8?B?engxTHpuUW55aHN2QU9FYVZlcUt5aGVFbTBxam1ROEg3M0pqMnJEaU0zTlJ1?=
- =?utf-8?B?VUE4WXNoWFltRVNhWGJPRlJkZ3o1dXd0ZkZhVjVpdzFGMEQyTXVNYWcvUEJK?=
- =?utf-8?B?UmdXaFZLODRmYWVHRGJrRkxyK2VGcnJldnpiTytvNkxnbGs4cVFSSUpUN3NM?=
- =?utf-8?B?YnBoUHFoZ1ZOMm0rUXRBRVFFaHp3WlRySUJtN2pVZEQ4bEF0cUNndTd6dWdq?=
- =?utf-8?B?M1ZPL3RFNWNlUDhSSFkzcWhMQklBT3ozbG84eGdEOGVIV0FMZGVHOG5iN3oz?=
- =?utf-8?B?eThYTlR1WXVjNWt5Tk85ZnczUzBxTjNhT0xpWlprWmRXKy9jZG1GMVlTNCtF?=
- =?utf-8?B?b2Fzc2ZqaGJrajJQUlFUVFMxcm1tTXllK0xBeGZ5Wm9uV3hXcndKcmxXeG54?=
- =?utf-8?B?dUxXTTlIVjdmYUNwUlJiaVFJc3RJc0dmRCtjZVRPb2dlb29ZOUZxdS9idGhX?=
- =?utf-8?B?UHlZei92MjdRNGd5SzFIaUl2NVFKR053MmNJNFNCZkwrcThJVXo1QU9XWU9a?=
- =?utf-8?B?aldLdisvbk9PSy90OHhsOVVwMXZOOHM5dHFuT2ZPWVJGSU44V2VjS0pkUGZu?=
- =?utf-8?B?MWZKelhKT2JRbFJsbFk4aHJXakFYTzNUdXpnK0hiczIwczRDQTZlT0tGaE83?=
- =?utf-8?B?UHJ5Qlp2Uy8zZEdnSkJJaVpWS0Uwd3RQUndyMXdicFZWK1RSYUtJdjdvWHFh?=
- =?utf-8?B?cHZUT2M5TnY2NUloSndTLzNEdU5IL0pjM1JaVWRyLzY4K2xlSzBIekRUcFZV?=
- =?utf-8?B?aklIS2NlWGxqNTVOQWZWeVR5RnAvZkJnaXQ5dU5lR245N3RiM1FKd1VIMlRj?=
- =?utf-8?B?SFhVZE5pcjNJYTF2YjZuYzluVDRCTmN5NFY5OHQyMHFheEJlMkxPY3pyZ0ZJ?=
- =?utf-8?B?bm5ZUUI5WTZGaTI2QjVKSjdtSzdJN09JUWlpU2lrWUlnZUFrTjVtWVZsMGpY?=
- =?utf-8?B?VVVoUnNzODRZMDlmZ0N2RjVJTmFaeS95bXQ1RHlkUi9PK1ZLNE9OR2FzQTg1?=
- =?utf-8?Q?/kjDVn?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2025 00:29:26.0769
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98be0097-c4c9-446d-7ee6-08ddce36f945
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000044F5.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8492
+Content-Type: text/plain
+X-Originating-IP: [10.90.53.73]
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ dggpemf500011.china.huawei.com (7.185.36.131)
 
-On 2025-07-28 06:45, Andrew Cooper wrote:
-> On 28/07/2025 11:24 am, Marek Marczykowski-Górecki wrote:
->> When running xl in a domU, it doesn't have access to the Xen command
->> line. Before the non-truncating xc_xenver_cmdline(), it was always set
->> with strdup, possibly of an empty string. Now it's NULL. Treat it the
->> same as empty cmdline, as it was before. Autoballoon isn't relevant for
->> xl devd in a domU anyway.
->>
->> Fixes: 75f91607621c ("tools: Introduce a non-truncating xc_xenver_cmdline()")
->> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
->> ---
->> So, apparently the "No API/ABI change" was a lie... it changed "empty
->> string" to NULL in libxl_version_info->commandline. Quick search didn't
->> spot any other (in-tree) place that could trip on NULL there. IMO NULL
->> value in this case makes more sense. Buf maybe for the API stability
->> reasons the old behavior should be restored?
-> 
-> Hmm, I didn't intend to change things, but I also didn't anticipate
-> libxl__strdup()'s behaviour, or for something to depend on that.
+Currently, x86, Riscv, Loongarch use the generic entry. Also convert
+arm64 to use the generic entry infrastructure from kernel/entry/*.
+The generic entry makes maintainers' work easier and codes more elegant,
+which will make PREEMPT_DYNAMIC and PREEMPT_LAZY use the generic entry
+common code and remove a lot of duplicate code.
 
-I think it isn't strdup()'s behaviour, but rather the old code:
+Since commit a70e9f647f50 ("entry: Split generic entry into generic
+exception and syscall entry") split the generic entry into generic irq
+entry and generic syscall entry, it is time to convert arm64 to use
+the generic irq entry. And ARM64 will be completely converted to generic
+entry in the upcoming patch series.
 
--    xc_version(ctx->xch, XENVER_commandline, &u.xen_commandline);
--    info->commandline = libxl__strdup(NOGC, u.xen_commandline);
-+    info->commandline = xc_xenver_commandline(ctx->xch);
+The main convert steps are as follows:
+- Split generic entry into generic irq entry and generic syscall to
+  make the single patch more concentrated in switching to one thing.
+- Make arm64 easier to use irqentry_enter/exit().
+- Make arm64 closer to the PREEMPT_DYNAMIC code of generic entry.
+- Switch to generic irq entry.
 
-No error checking on xc_version(), so strdup() is duplicating whatever 
-(stale?) data may be in the union.
+It was tested ok with following test cases on QEMU virt platform:
+ - Perf tests.
+ - Different `dynamic preempt` mode switch.
+ - Pseudo NMI tests.
+ - Stress-ng CPU stress test.
+ - MTE test case in Documentation/arch/arm64/memory-tagging-extension.rst
+   and all test cases in tools/testing/selftests/arm64/mte/*.
 
-Regards,
-Jason
+The test QEMU configuration is as follows:
 
-> While this does turn out to be a marginal API change, I think your
-> solution is the right one.  I do not think it's reasonable for there to
-> be one magic pointer that has differing NULL-ness to the others, and
-> NULL for "no information" is the better interface.
->
+	qemu-system-aarch64 \
+		-M virt,gic-version=3,virtualization=on,mte=on \
+		-cpu max,pauth-impdef=on \
+		-kernel Image \
+		-smp 8,sockets=1,cores=4,threads=2 \
+		-m 512m \
+		-nographic \
+		-no-reboot \
+		-device virtio-rng-pci \
+		-append "root=/dev/vda rw console=ttyAMA0 kgdboc=ttyAMA0,115200 \
+			earlycon preempt=voluntary irqchip.gicv3_pseudo_nmi=1" \
+		-drive if=none,file=images/rootfs.ext4,format=raw,id=hd0 \
+		-device virtio-blk-device,drive=hd0 \
+
+Changes in v7:
+- Rebased on v6.16-rc7 and remove the merged first patch.
+- Update the commit message.
+
+Changes in v6:
+- Rebased on 6.14 rc2 next.
+- Put the syscall bits aside and split it out.
+- Have the split patch before the arm64 changes.
+- Merge some tightly coupled patches.
+- Adjust the order of some patches to make them more reasonable.
+- Define regs_irqs_disabled() by inline function.
+- Define interrupts_enabled() in terms of regs_irqs_disabled().
+- Delete the fast_interrupts_enabled() macro.
+- irqentry_state_t -> arm64_irqentry_state_t.
+- Remove arch_exit_to_user_mode_prepare() and pull local_daif_mask() later
+  in the arm64 exit sequence
+- Update the commit message.
+
+Changes in v5:
+- Not change arm32 and keep inerrupts_enabled() macro for gicv3 driver.
+- Move irqentry_state definition into arch/arm64/kernel/entry-common.c.
+- Avoid removing the __enter_from_*() and __exit_to_*() wrappers.
+- Update "irqentry_state_t ret/irq_state" to "state"
+  to keep it consistently.
+- Use generic irq entry header for PREEMPT_DYNAMIC after split
+  the generic entry.
+- Also refactor the ARM64 syscall code.
+- Introduce arch_ptrace_report_syscall_entry/exit(), instead of
+  arch_pre/post_report_syscall_entry/exit() to simplify code.
+- Make the syscall patches clear separation.
+- Update the commit message.
+
+Changes in v4:
+- Rework/cleanup split into a few patches as Mark suggested.
+- Replace interrupts_enabled() macro with regs_irqs_disabled(), instead
+  of left it here.
+- Remove rcu and lockdep state in pt_regs by using temporary
+  irqentry_state_t as Mark suggested.
+- Remove some unnecessary intermediate functions to make it clear.
+- Rework preempt irq and PREEMPT_DYNAMIC code
+  to make the switch more clear.
+- arch_prepare_*_entry/exit() -> arch_pre_*_entry/exit().
+- Expand the arch functions comment.
+- Make arch functions closer to its caller.
+- Declare saved_reg in for block.
+- Remove arch_exit_to_kernel_mode_prepare(), arch_enter_from_kernel_mode().
+- Adjust "Add few arch functions to use generic entry" patch to be
+  the penultimate.
+- Update the commit message.
+- Add suggested-by.
+
+Changes in v3:
+- Test the MTE test cases.
+- Handle forget_syscall() in arch_post_report_syscall_entry()
+- Make the arch funcs not use __weak as Thomas suggested, so move
+  the arch funcs to entry-common.h, and make arch_forget_syscall() folded
+  in arch_post_report_syscall_entry() as suggested.
+- Move report_single_step() to thread_info.h for arm64
+- Change __always_inline() to inline, add inline for the other arch funcs.
+- Remove unused signal.h for entry-common.h.
+- Add Suggested-by.
+- Update the commit message.
+
+Changes in v2:
+- Add tested-by.
+- Fix a bug that not call arch_post_report_syscall_entry() in
+  syscall_trace_enter() if ptrace_report_syscall_entry() return not zero.
+- Refactor report_syscall().
+- Add comment for arch_prepare_report_syscall_exit().
+- Adjust entry-common.h header file inclusion to alphabetical order.
+- Update the commit message.
+
+Jinjie Ruan (7):
+  arm64: ptrace: Replace interrupts_enabled() with regs_irqs_disabled()
+  arm64: entry: Refactor the entry and exit for exceptions from EL1
+  arm64: entry: Rework arm64_preempt_schedule_irq()
+  arm64: entry: Use preempt_count() and need_resched() helper
+  arm64: entry: Refactor preempt_schedule_irq() check code
+  arm64: entry: Move arm64_preempt_schedule_irq() into
+    __exit_to_kernel_mode()
+  arm64: entry: Switch to generic IRQ entry
+
+ arch/arm64/Kconfig                    |   1 +
+ arch/arm64/include/asm/daifflags.h    |   2 +-
+ arch/arm64/include/asm/entry-common.h |  56 ++++
+ arch/arm64/include/asm/preempt.h      |   2 -
+ arch/arm64/include/asm/ptrace.h       |  13 +-
+ arch/arm64/include/asm/xen/events.h   |   2 +-
+ arch/arm64/kernel/acpi.c              |   2 +-
+ arch/arm64/kernel/debug-monitors.c    |   2 +-
+ arch/arm64/kernel/entry-common.c      | 411 +++++++++-----------------
+ arch/arm64/kernel/sdei.c              |   2 +-
+ arch/arm64/kernel/signal.c            |   3 +-
+ kernel/entry/common.c                 |  16 +-
+ 12 files changed, 217 insertions(+), 295 deletions(-)
+ create mode 100644 arch/arm64/include/asm/entry-common.h
+
+-- 
+2.34.1
+
 
