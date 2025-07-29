@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A644B14999
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 09:56:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1062130.1427752 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8FACB149B6
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Jul 2025 10:04:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1062139.1427763 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugfCP-0007BV-4R; Tue, 29 Jul 2025 07:56:37 +0000
+	id 1ugfK9-0001BH-20; Tue, 29 Jul 2025 08:04:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1062130.1427752; Tue, 29 Jul 2025 07:56:37 +0000
+Received: by outflank-mailman (output) from mailman id 1062139.1427763; Tue, 29 Jul 2025 08:04:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugfCP-00079K-1U; Tue, 29 Jul 2025 07:56:37 +0000
-Received: by outflank-mailman (input) for mailman id 1062130;
- Tue, 29 Jul 2025 07:56:36 +0000
+	id 1ugfK8-00018V-Th; Tue, 29 Jul 2025 08:04:36 +0000
+Received: by outflank-mailman (input) for mailman id 1062139;
+ Tue, 29 Jul 2025 08:04:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fFWP=2K=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ugfCN-00079E-V3
- for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 07:56:35 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ id 1ugfK7-00018P-Fy
+ for xen-devel@lists.xenproject.org; Tue, 29 Jul 2025 08:04:35 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8b878219-6c51-11f0-b895-0df219b8e170;
- Tue, 29 Jul 2025 09:56:33 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3b7823559a5so1322789f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 29 Jul 2025 00:56:33 -0700 (PDT)
+ id a9578395-6c52-11f0-b895-0df219b8e170;
+ Tue, 29 Jul 2025 10:04:33 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-451d41e1ad1so31908405e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Jul 2025 01:04:33 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b3f7f6b0361sm6474782a12.48.2025.07.29.00.56.27
+ d9443c01a7336-240358f4ab6sm35311285ad.49.2025.07.29.01.04.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Jul 2025 00:56:32 -0700 (PDT)
+ Tue, 29 Jul 2025 01:04:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b878219-6c51-11f0-b895-0df219b8e170
+X-Inumbo-ID: a9578395-6c52-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753775793; x=1754380593; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753776273; x=1754381073; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YVHdCvZl739hDzqWWyjzYW3u2zM14ngGrUnu30bWlgQ=;
-        b=QOVk/HrUnB5JonwQGKWmaFGtEnAHHScqZeJsIM+37mmmncKiVxbfeEe8rzFyMD+yUN
-         3PQlgugFYhuAIx53d9XPFhA82VQBvVNxZcAbYA9q1a/VHO1Ph8nupdIOYNaNx/12xW9w
-         cmkjLA7+AijhZZnmpKqXYnW1wYWMpjgNXqRoVzVDoVRM9kYaM7I/IbJEnsSSj1usqKSe
-         161Nwz1pCwk8yipMDaHJ4DLipSQWgSQVVeAc4lDY0gbaL49XBXB5fClZgirS9dgFY/19
-         8kqKtV6/G6Su29X4YewiRABWrDnKKdizBR64/0gFvUV+yAAmGHqwr9l4EkIfqKIi38GZ
-         prnw==
+        bh=cnWKycos7Jt6mgsZMWlW66OPLc5G675UrJA0ODOoOR4=;
+        b=QqPsTXUYDWHhNgFD3k8KWFC2sUijS+V/BgeIRTdYlJofshjhjzFu2KOzCld2m7R65O
+         DFWWvysPeNPlQYqhTBWSzTkds1Y9odKvtrBiU1YGuAE3KyqBOaXJCbIzzpHuU/0yVUcI
+         6AE1dzfrlnZ/OLzCsiWr+2qNZqHmDOH3Kz/5lSZH5hV6f9j34jvXQXKpl298zt+1VXUJ
+         fbUD2T+AGFcnGs/WJSQ/RaR1vB0K/J59sDeQJJkxNxoEW7oSFeWpf2PmksP5GUu0LnLs
+         fImvCUvnXwYqmN6UPJ6VuOTkjbKLfnmuuXXY9EiIu6YEGthksDGTSgEIqS9pHMG6ImxM
+         IDzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753775793; x=1754380593;
+        d=1e100.net; s=20230601; t=1753776273; x=1754381073;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YVHdCvZl739hDzqWWyjzYW3u2zM14ngGrUnu30bWlgQ=;
-        b=YKv/3+HR6qc/WZGeFqjvHJvWrxLAEHX01H+5dH/UzjpAq+jhls6zQ9+fdrLWcHqFwA
-         wSoySKGfL6m2w1cdpsZhOCzstAMI8pamP3s3kMZC731ruksKc2il/WPUCah2Qa+XvVBd
-         MhDkp7QgJisizo7baAUlu3+dtmhER10RIm+WiSkmwmLvX1S10Y0iAqw0tQwnQXJ4YBJ1
-         lsIizSUAPZvEv6VGH30tb4K03jCk6DMo+iYGMQ0sSJoL/COkpnKxrEo2sTbDCLXdP+aD
-         NcWr6L2dED7EbFmsxmHG3Hp7OxZXwzdWGANcLZJurRrDMgqOQ4+F97uLzddmaok8sZJB
-         aX9w==
-X-Forwarded-Encrypted: i=1; AJvYcCUoB3BxrtrKu6bbepOQu0fAdWBMbH1bbjlAa4wL/Xm5qHcShtwyqQPeFkvziBktJ5EMf4tWYDyiSGg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxi7mPd771A/IhMCvjKhpgDO8zAUlrHkX3d/bDn+8bTeoNW8bvG
-	BIHDgm0XH94VKBVQPvN2Li1uRlGCOFMuGROIf6tEKqCSwsfiP6Z53MJ2yN9bYC6Jrw==
-X-Gm-Gg: ASbGnctP9oQapyYMzenoCT9ZtTyyc7K1yTPGOe7JlHxYXZgbCZ0e8z0cwg+CwlHmy64
-	/JoC6GlzXd5/X2NWes3qWkdqB0WtbHMXJ7iiyZ+Lft4bL/PHsp0Zl6ysmLraOeZps00gbcKCvgJ
-	gSqDjOTxHtK6Otic3pL8MuZTtrQotMzEWDBwqpVDAnAVhnZmBYBK6/qc+ZTkjjASgpT3VkvWVKa
-	7we4NS5Y9hRbMEGrvOB3ACNrPi8oRkNxe76iQNRn96H7Fi9fQDktUd3kM683vP9cLjthNpt3Pga
-	Tmn77fE5G8njF32LD/qy8aPuQAVDjW/Hc5Qi8ImvbTEGmgnLKll2Ntti0acY9/8CoJx5Lkq89kD
-	gmF23TohYekQfPbRdlKvGctmxN8ukhJdbeJmK0PEXoSHJvfvbsrxnAOUzDf9ubaUg5vkV0eY+Xa
-	96xZpgQ9Hp3pYVszrXNQ==
-X-Google-Smtp-Source: AGHT+IG7yF3DfEeue5MS4ukJyZM414N9DltZa9qPd41f+yPfhYYvsTJZsuIWzFSrBd8piHZCErsFYg==
-X-Received: by 2002:a05:6000:40db:b0:3b7:8146:4640 with SMTP id ffacd0b85a97d-3b781464affmr7091748f8f.56.1753775793263;
-        Tue, 29 Jul 2025 00:56:33 -0700 (PDT)
-Message-ID: <721201b5-323d-49ec-986c-f793627929dd@suse.com>
-Date: Tue, 29 Jul 2025 09:56:23 +0200
+        bh=cnWKycos7Jt6mgsZMWlW66OPLc5G675UrJA0ODOoOR4=;
+        b=qkNAz4mm2BhK8/W37FvJeKw9Cbg4q5wOzYnVgwqYt65dRkokO9Gz33CQKLMw5HH98L
+         Yjq/mcLKm9zTnMrM/849zkxg0jgzDTSzCB8OaOuBlU1M9Rj9tGqHuMPhnHtQMfnojSAP
+         e0eMsMGVQU6kPZxMA/hNT6v5/mYjv/mUgXeNstzRfRSU9dI96zidENT6TlVIvTgsrGcN
+         +Ai8AM+QUhh/U9PmNdZHhuv9rmZVsixZwwFUOYxkJ/KjfVd/Fo0nWKKBU5NbmZ7xYSmg
+         weQKj4Py2AkjLQnIxTlYCg510iTpxXbeU1s24aKwMJC9zuBm9nEkxWSkutakQFq9TKun
+         ma5w==
+X-Forwarded-Encrypted: i=1; AJvYcCVqInF1Qz90Llhl/5L8YSkHSeVdzmq/KYGeGSx2TC+0byPMeFBSfFx9nku9LnGQaHLTGEqM01k0MKU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxGfCJW92A+Ca6tyb39s6bLHW7P/BcGI0LyNikSPik/jtSks+lV
+	BgwngXFF7XNn8nD8HEPoyPD4cV/OYzkntea84h0yxs78g1w9kucLPtyC0HnhKvlo2w==
+X-Gm-Gg: ASbGncuBJf+eVO21nzMal8YE5QHzn7xLSujOxCIGHypPdnazLYlN/+Dat24LzUyYjPO
+	RuMetoPZ+DLDa63iEUGvKhliz2xsA+v7EgGoNwRWMyMgrALW4jCMg0lg/mu5S9Ueb+VpgL25AGg
+	MxcOfsLTiTIkZMi0rKgjKDPduAE9VNhsapD+mN22Pl0YF5O4fIw9ib0BDvnevq56KM9Atvwh3ro
+	w0xpqDTo31TuZJcyuq8C1Um9zTjIIk6vXthAEtCLJQZm9+1LZSz4m4Ij9MYWqstV3dLQECew1Yj
+	74j+ykILBON5mbwaQKnJPzMht0/h1bGe3FeVzR0o2mtbClf+mKvwU1iTZsodcM5UMruZ1MiXzYY
+	ez3MpN0euTKV8THu+2C2E146OcNZ5EC7+GI3L4m9Ro0cd/VeSimjdIsV8rhp6zRELZsg8rpTV7o
+	m3kIAOfBE=
+X-Google-Smtp-Source: AGHT+IE1PzmccDjUHw/cCfTitLQUWN7ySt6IIS2R08CJIE8KvQHU33IreLUEiERDgYqPaCuhxHXhbQ==
+X-Received: by 2002:a05:6000:2212:b0:3b7:932e:8c55 with SMTP id ffacd0b85a97d-3b7932e8db6mr352869f8f.44.1753776272705;
+        Tue, 29 Jul 2025 01:04:32 -0700 (PDT)
+Message-ID: <2f2a1992-0d88-4429-bed1-af5e60e05664@suse.com>
+Date: Tue, 29 Jul 2025 10:04:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/domctl: add domain_lock in XEN_DOMCTL_setvcpucontext
-To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: Mykola Kvach <mykola_kvach@epam.com>,
+Subject: Re: [PATCH] misra/eclair: set 'noreturn' attribute as safe during
+ cast
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <034559c3324e137285065b12642cbf58b7ab5f58.1753727619.git.mykola_kvach@epam.com>
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <8989bf6d8d245537628912a00f5ba4731b292fb1.1753738107.git.dmytro_prokopchuk1@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,53 +125,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <034559c3324e137285065b12642cbf58b7ab5f58.1753727619.git.mykola_kvach@epam.com>
+In-Reply-To: <8989bf6d8d245537628912a00f5ba4731b292fb1.1753738107.git.dmytro_prokopchuk1@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.07.2025 20:40, Mykola Kvach wrote:
-> From: Mykola Kvach <mykola_kvach@epam.com>
-> 
-> Add domain_{lock,unlock} in the XEN_DOMCTL_setvcpucontext operation
-> for protecting arch_set_info_guest.
-> 
-> This aligns with the locking pattern used by other operations that
-> modify vCPU state.
-> 
-> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+On 29.07.2025 00:15, Dmytro Prokopchuk1 wrote:
+> ECLAIR reports a non-compliant cast due to the presence
+> of the 'noreturn' attribute in the callee function.
 
-I think this requires more of a description / justification. May I in
-particular turn your attention to this comment that we have in x86'es
-handling of HVM_PARAM_IDENT_PT (disregard the 1st sentence for the
-purpose here):
+Which callee function? Which cast? Please be concrete. You don't need
+to enumerate all case, but one specific example wants pointing at.
 
-        /*
-         * Update GUEST_CR3 in each VMCS to point at identity map.
-         * All foreign updates to guest state must synchronise on
-         * the domctl_lock.
-         */
-        rc = -ERESTART;
-        if ( !domctl_lock_acquire(d) )
-            break;
+> The issue occurs when casting a function pointer with
+> the 'noreturn' attribute (void noreturn (*)(void *))
+> to a general function pointer type (void (*)(void *)).
 
-IOW in particular I'd expect you to explain why holding the domctl
-lock isn't sufficient here, and hence what (theoretical?) race it is
-you're concerned about. That may in turn clarify whether a Fixes: tag
-would actually be appropriate here.
+And again - why "casting"? As per ...
+
+> Configure ECLAIR to treat 'noreturn' attributes as safe
+> in this conversion.
+> 
+> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+> ---
+> Previous discussion thread:
+> https://patchew.org/Xen/181a03d5c7625d42c06cf9fa0cf48a9bc6825361.1753647875.git.dmytro._5Fprokopchuk1@epam.com/
+
+... there was no cast involved, iirc. We specifically rejected your
+attempt to add a cast there. It's a conversion the compiler does, aiui.
 
 Jan
-
-> --- a/xen/common/domctl.c
-> +++ b/xen/common/domctl.c
-> @@ -392,7 +392,9 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
->          if ( ret == 0 )
->          {
->              domain_pause(d);
-> +            domain_lock(d);
->              ret = arch_set_info_guest(v, c);
-> +            domain_unlock(d);
->              domain_unpause(d);
->  
->              if ( ret == -ERESTART )
-
 
