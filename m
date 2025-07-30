@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09BD4B162DE
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 16:32:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1064075.1429812 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8CD7B162F5
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 16:38:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1064082.1429821 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh7qh-0007R8-Lh; Wed, 30 Jul 2025 14:32:07 +0000
+	id 1uh7wf-00082d-9X; Wed, 30 Jul 2025 14:38:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1064075.1429812; Wed, 30 Jul 2025 14:32:07 +0000
+Received: by outflank-mailman (output) from mailman id 1064082.1429821; Wed, 30 Jul 2025 14:38:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh7qh-0007Ov-Im; Wed, 30 Jul 2025 14:32:07 +0000
-Received: by outflank-mailman (input) for mailman id 1064075;
- Wed, 30 Jul 2025 14:32:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2yBn=2L=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1uh7qg-0007Op-5N
- for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 14:32:06 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f6e849d8-6d51-11f0-a320-13f23c93f187;
- Wed, 30 Jul 2025 16:32:05 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 9275C4EE3C22;
- Wed, 30 Jul 2025 16:32:03 +0200 (CEST)
+	id 1uh7wf-00080Q-6H; Wed, 30 Jul 2025 14:38:17 +0000
+Received: by outflank-mailman (input) for mailman id 1064082;
+ Wed, 30 Jul 2025 14:38:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=zSpT=2L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uh7we-00080J-3f
+ for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 14:38:16 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d20d80d8-6d52-11f0-b895-0df219b8e170;
+ Wed, 30 Jul 2025 16:38:14 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3b783ea502eso846493f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 07:38:12 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-31f63da565bsm2252851a91.4.2025.07.30.07.38.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 30 Jul 2025 07:38:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,108 +45,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f6e849d8-6d51-11f0-a320-13f23c93f187
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1753885923;
-	b=zdv5kuXoVZqPDM9C2AGS0WHbg4i8TYKWeJPVxN6BUGSE4EOzR82ljgWn3D5CPwAtKlpd
-	 FcEN63G0T7oC1sEZRFHJ1HvI52Y9M0mYdj/WzsuTPEv/Dixl8dLgalQZgd+5K0wh4brMp
-	 Bnfeo28Tv6xfJ6lwvrhgnJA4epcMrlB4O9JGOk49oP/94j+l+/oqRIc+ljbzg1MeCKC7w
-	 KA6N5C0r/2V+oM5BBemkqpoYhl71G4xCTLHVLFFBJhQSvEg08TDkxj5iHMeotuMFuCsZG
-	 kUnkkxT/am3vXeK0jJeZRsdZFEaEVn2Dee0nrzcmJ/8twgh2YFLeMYf7fMIGJCMPqxHy4
-	 AdPqCw7/D0af3yiATek4ud+Su6tXq71T4vMv2yLH0n5d+FWcnlowJDkguP+/bXOlm/GVR
-	 kovmL5V9qX1lEEG26rwMnlJqXqGKwOGfqCmrcIzxmxCs9B0BslUI7BnHOy20w4RAExy6U
-	 IXejV8yd4r/UxX7YCaYt/5vLt4i07KueP6JB0fBllsghSetIcJn2rgVAUmMlx4hrCRwe5
-	 mG560603LkkCqtZdPql26ls29ZN5kUXTO9Ils7f4b+p/4Z4gzrEpNI3V6v1t1NhnJI1Xc
-	 Ksts+X45x9H/iR2aqhFlEYJDrPEZd2rL6G+FBv6N8L7UA9e7sB5p9bluuJPYoME=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1753885923;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=JGK+l6xNtCHiM7X+6nM8oDz/jcHuDDBSul6H9Pk32t0=;
-	b=Ev71c6r+OT9B81zftsQkGBh6uqVU9muVNyzvZmeOKSY3KO78RVXhZlfSAYdBW8FmcsCz
-	 phwyTr2IiD6wSdXZbcLeCDrLFT0XnSg3dn0kHIsQ7Xz/X84rV5qhOKDwZ+914Svq0offO
-	 IM0eh5R0nCoZdg+XFq/wtNE7L/lCucC4VLDFIYArQHHTK31O930ERC0/xLH51l4ePB4zo
-	 jyMrtvbrmwFB2vzVnfElphT28rSv8IdwV36PEQlCmuTpaK2aon44G5Lvml0iqtz0EiUG7
-	 Hp4ZejuP8ZoHohDxTFWLtB9WIFWelp40LPd2FkERqJbXxXzjH5cenXttudiXq4aApM6hS
-	 JLr0u0umSdssD/GM0NzQtNktvOJYCAfCca/mYZwmWpB27z6haNAJYAoQESoCQKjrBmDus
-	 KvlX+Gpx9akeiWwLGx2VBBvqyUvnt3AC/XI5X4joMaLCKT7L8Z0tBz16in7/upahOb7G7
-	 Ig7fejJzkR3XPpi2BRz+sV/aeDALYMULRmA4NxiqF+fUgTwcEhKGA8UQEq982644TKUBV
-	 dA2GKksvA3bJe2dFUDdxCjlFHyBhRcufT5rLlo3HWP1KOtowq7fR5aAYU/Yc/efqnkMSX
-	 nrsn3s6UwSoho8tOG8529aaP9Bj7x2fyYJgBb5pBskuBbJFddfT39c45CgN9AZ0=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1753885923; bh=BOArpbZLK1Kzk/y9qJ7+NNLc2KuDDS8tA1s2N/ZiNUY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=e3U6JGeN9pfpc6MT4XeGco/CgXMXozCC6GhIAIFUndyeqy/11RolfpW02XnWy/Tdj
-	 +4vg5xk3o+/K1/kofAhlRjU1zCKx/0ixq2oFHqOK5kVjaUCDBHPMZY2gQtgc29vWe7
-	 /wKoQSgJ1Pv0/Pwf+ym3zXt+MlTutVNBjWx52mgbTogS+zStE2Ob105WurQPYMLTX1
-	 wX5z2hWOA/zt5a7XNJffQHkh8OYBQ6Hn1bpvBR5JUyu2TLrIkUvfz5uydNDmTqPZ+k
-	 w7lNbhfhUZpf8LnxdNbkGwMpR+qC1firq0KRDHUq0Ms2fzcccRHpUfHDZMhWFxaxLr
-	 ZKHny+c7oUiIg==
+X-Inumbo-ID: d20d80d8-6d52-11f0-b895-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1753886292; x=1754491092; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Z1g1wYLJ0cQlh9tazbbUxsdBWDeGfp2/NDZbLH1NSlc=;
+        b=V87wF9xyWF3xy3Z/evM2F5GvyvYXGuT5x6R1uDGLiPzNWIQnjbOaY0zjbiVcEJR+eX
+         TgOUUXXaMlfWG1ZtS975BdBs9YvBERbcY9WI+Yf5O4qQZCMXMWUFZceL6JY0Jxau3kGp
+         LDazMdmbWcQ/7rDd4/GDWPXHiDYq+4sL1C8C/atc1NzV2lu1Glkwvl43TSrecGev5b6l
+         1VZ7wAs4uUVHtjIFpQSZeFfnwV/59euu+ww4ioKAJ2cblg4Z03jZ6yTYPxL8GaFMYifa
+         NaWK8rkPL9dv+FuoPLLLNxd8IT+dZm/pEKLTc2RB5chnZ9W9l5CQnPWD2SDMvo4Kt+Qx
+         J6pQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753886292; x=1754491092;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Z1g1wYLJ0cQlh9tazbbUxsdBWDeGfp2/NDZbLH1NSlc=;
+        b=OrXo17XC3zd54lUYLfQ0PBy8S07kdbWYugzu6npAN4ukPN3/K4GZb6Sody9pFod6fI
+         7sLVMgKVkkBlNTIetdLdNjenyxq90NycfQCdhHDIAXzRk67Tzr+jk103w9KGOKU5NaHv
+         8OSmjzlEl7cCydZJir/QRX1GcseRMKoWVvHJs+uMAhS9FZTVnI/c7j3JE7Hlz+2sKZfv
+         nWOFUPcdUY4iV2OWJ0TggIEiud5SskZ/Lcs21ISXTlocIo0pJCtrx3JZt3jwvLQfDWrY
+         LZbojxp+Tt+NZbOFNoTlRvN1yFMJqyz4emiJQffQgS9RBcgzMCSceW8m9j0LipNxbgv+
+         0qsg==
+X-Forwarded-Encrypted: i=1; AJvYcCWRUpjttV56dTrPLGpfEvkYKpiTK00q3Ot4vYa7Ez6T6hJbnTXGu6rkLAQ0y8NHJiTvNkENc4AhYEk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy1zgI4pGKtYKhybvtdTQDT2YuB69lbW+R5iQ3FEwW7q/o2enah
+	gHi4Xd/wajy/2YAYToCkDfqhhCn34PvS+eSr3mZjmJXFZU8Ns49Sy3FCHz+1XTlYrg9CO+GB2c0
+	KSmE=
+X-Gm-Gg: ASbGnctoVTthZJ4BN8jQFmFJNpJWLOFQ+A3E82k0zpI28QECDdzoUTOIDlRFBTP/FTp
+	T7njPInp1+0fHhS2zUuPXaASPHosJcf6pBGZJ6IDNAXt+KTGA/DtBlwOq4KMXEN/w+VQJN2cN2e
+	uOSsZ9mJIcWeQHCHn6pEK5yxsKGk0lZBvpHf1paNNdzxa7ajP3QdlsLy7D3fbqvPmZvl0K+kOYh
+	rCmbNKUFwSwIWz+GC9CmS2HUxjoachFry2udu5EUSa2OWxpYZjP5f/3p6gEVU5tILuINXCgUcIP
+	cWR1i40mw9Xgfdf7HBf3gOlG9hgx5d/lp/tSwqw/R0CJqQmMQhar+Mj3wH5sgWkB5ezuycGs127
+	4+APvS2W15krSCs7jIUF6uXKfHcKFuAfv9JPdH0tx+SYcREfDgBPuQHrBb8TD+jWQLcrzjBqh/w
+	8naEa4z1g=
+X-Google-Smtp-Source: AGHT+IHi1sXwZ3+YFKYAJOCOI2kCaRT2QqJLiyuHic+thrfgcYGNXUAoFcgy+dGvJ4IBuJ1pC2A0qQ==
+X-Received: by 2002:adf:f009:0:b0:3b7:8f49:94e4 with SMTP id ffacd0b85a97d-3b78f499706mr4329082f8f.7.1753886292248;
+        Wed, 30 Jul 2025 07:38:12 -0700 (PDT)
+Message-ID: <91a50d1d-44fd-436c-a5a6-7641a7f5cd1a@suse.com>
+Date: Wed, 30 Jul 2025 16:38:03 +0200
 MIME-Version: 1.0
-Date: Wed, 30 Jul 2025 16:32:03 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>,
- xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Anthony PERARD
- <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan
- Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH] automation/eclair: deviate intentionally unreachable code
-In-Reply-To: <16cbf1bc-1dee-4505-bb5a-e09ea76bc8ba@citrix.com>
-References: <e699179c079df36f6cb4fdc7865a73cb9fe79f8c.1753881652.git.dmytro_prokopchuk1@epam.com>
- <16cbf1bc-1dee-4505-bb5a-e09ea76bc8ba@citrix.com>
-Message-ID: <4c99957f65f8190a17b115724d7ca3b3@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/9] xenstored: use fread() instead of mmap() for
+ reading live update state
+To: Juergen Gross <jgross@suse.com>
+Cc: Julien Grall <julien@xen.org>, Anthony PERARD
+ <anthony.perard@vates.tech>, Jason Andryuk <jason.andryuk@amd.com>,
+ xen-devel@lists.xenproject.org
+References: <20250730122305.4050-1-jgross@suse.com>
+ <20250730122305.4050-2-jgross@suse.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250730122305.4050-2-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 2025-07-30 16:15, Andrew Cooper wrote:
-> On 30/07/2025 3:06 pm, Dmytro Prokopchuk1 wrote:
->> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
->> index e78179fcb8..fba75be2ee 100644
->> --- a/docs/misra/deviations.rst
->> +++ b/docs/misra/deviations.rst
->> @@ -86,6 +86,14 @@ Deviations related to MISRA C:2012 Rules:
->>         generate definitions for asm modules.
->>       - Tagged as `deliberate` for ECLAIR.
->> 
->> +   * - R2.1
->> +     - Calls to the `__builtin_unreachable` function inside the 
->> expansion of
->> +       the `ASSERT_UNREACHABLE()` macro may cause a function to be 
->> marked as
->> +       non-returning. Since this only happens in debug 
->> configurations,
->> +       the `noreturn` property for `__builtin_unreachable` is 
->> overridden in
->> +       these contexts, resulting in the absence of reports that do 
->> not have
->> +       an impact on safety, despite being true positives.
->> +
+On 30.07.2025 14:22, Juergen Gross wrote:
+> Mini-OS doesn't support using mmap() for accessing a file. In order
+> to support reading the live update state from a 9pfs based file, use
+> fread() instead of mmap().
 > 
-> I'm not sure how best to phrase this, but it's probably worth saying
-> that Xen expects developers to write code which would fail safe in a
-> release build when the assertion was removed.
+> While adding the offset member to lu_state, change the type of "size"
+> to size_t in order to avoid problems with state exceeding 4GB.
 > 
-> I.e. it's more than just "there may be code there".  It's expected that
-> there is.
-> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+> ---
+> V2:
+> - move to start of series
+> V3:
+> - change offset to off64_t and size to size_t (Andrew Cooper)
 
-Yes, I had some trouble finding the proper wording here, so feel free to 
-improve it. It's just to highlight that the code would be truly 
-unreachable in debug builds, so an assessor expecting violations there 
-won't find them because of this configuration.
+Wasn't that meant to also cover ...
 
-> ~Andrew
+> --- a/tools/xenstored/lu.c
+> +++ b/tools/xenstored/lu.c
+> @@ -27,9 +27,11 @@ struct live_update *lu_status;
+>  
+>  struct lu_dump_state {
+>  	void *buf;
+> -	unsigned int size;
+> -	int fd;
+> +	unsigned int buf_size;
 
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+... this field?
+
+Jan
+
+> +	size_t size;
+> +	size_t offset;
+>  	char *filename;
+> +	FILE *fp;
+>  };
 
