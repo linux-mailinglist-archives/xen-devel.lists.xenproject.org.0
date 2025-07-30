@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9263B15E5D
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 12:39:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1063728.1429466 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0569B15E5C
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 12:39:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1063729.1429476 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh4DA-0008OK-JF; Wed, 30 Jul 2025 10:39:04 +0000
+	id 1uh4DC-0000Dh-0C; Wed, 30 Jul 2025 10:39:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1063728.1429466; Wed, 30 Jul 2025 10:39:04 +0000
+Received: by outflank-mailman (output) from mailman id 1063729.1429476; Wed, 30 Jul 2025 10:39:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh4DA-0008Me-EJ; Wed, 30 Jul 2025 10:39:04 +0000
-Received: by outflank-mailman (input) for mailman id 1063728;
+	id 1uh4DB-0000AY-SQ; Wed, 30 Jul 2025 10:39:05 +0000
+Received: by outflank-mailman (input) for mailman id 1063729;
  Wed, 30 Jul 2025 10:39:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=06yH=2L=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
- id 1uh4D9-0007vS-6U
+ id 1uh4D9-0007vC-QE
  for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 10:39:03 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 67ea21d0-6d31-11f0-b895-0df219b8e170;
- Wed, 30 Jul 2025 12:39:01 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-af240271376so73440766b.2
- for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 03:39:01 -0700 (PDT)
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 687a66f9-6d31-11f0-a320-13f23c93f187;
+ Wed, 30 Jul 2025 12:39:02 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-af240271376so73441066b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 03:39:02 -0700 (PDT)
 Received: from lab.home
  (dynamic-2a00-1028-83a4-4bca-c0bb-96ff-feed-9d50.ipv6.o2.cz.
  [2a00:1028:83a4:4bca:c0bb:96ff:feed:9d50])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af8f1b17364sm183230166b.66.2025.07.30.03.38.59
+ a640c23a62f3a-af8f1b17364sm183230166b.66.2025.07.30.03.39.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Jul 2025 03:38:59 -0700 (PDT)
+ Wed, 30 Jul 2025 03:39:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,56 +47,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67ea21d0-6d31-11f0-b895-0df219b8e170
+X-Inumbo-ID: 687a66f9-6d31-11f0-a320-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1753871940; x=1754476740; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1753871942; x=1754476742; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ioDaCChKtLWr9K4px+ID0VBnInJgvmwLcCt2K4+hRi0=;
-        b=elRYXYLU88/YJgZdoRtStbTVjB56EnYrAPdkCf5hlDlYCIP5H9aVwssDC9GKBDZ8aV
-         MuWOgWVSdVlcCL8P21Cs9H+0FFQV74TfiDcTkKaM4f3W7JpkErCN238eM1+ytPXaGI8n
-         ZCWk8Zunau7UlvMp2aW1S78EC0iICdS9zWZcM4nSx6oexLWoiu9cMIFTcKL2v+NGHx6I
-         YMOfcLyQHHdFNDsYkzNWk9D/5c4D4Rivy9wXTFWo60RRt/1sR2qvG56EAxqNxuefJx2g
-         rHJlV2CwhLGwFoDKVv+y51pi5MRL2ncK9gzOZSrk5pYw622ZVNQuw3QMxtFDWUMqnXs2
-         xE0w==
+        bh=wsgRhZe0m3cfqTt4t1L2u+vUAFJZc+UMkUbqgwGoE0Q=;
+        b=k5YYT1A3GFx6Vd44cS7Jkh9TzpNORafeiLtO4kHrpsgK4XjOjlXdPZimFTLWd8mXtS
+         83gNUfNbYmDX50RHbVRiiHaNu9YH0ZI5TmAUenuf2PjCDBteLo95xmGJYdbkbMvbADBn
+         SrhB1v0ouZBxFlQ7ZOOpnZkividgKTFkHihBO8wHXIXef2rdc2iDgZH8tEZYk/+iaq0k
+         AvfRN8ODEf9ahmBopXABXuThvvKHjDwl/rHiFiKIwzGKdyNxOYSOx6KCiTNeR709Vl/S
+         uAULlMWBVvTsLDfS3ukCbMljFw2E0gO0FllO36prlhOfF0HrLrcKvhH5ePdk0hFXRrxg
+         Xxjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753871940; x=1754476740;
+        d=1e100.net; s=20230601; t=1753871942; x=1754476742;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=ioDaCChKtLWr9K4px+ID0VBnInJgvmwLcCt2K4+hRi0=;
-        b=BlIxALSPM9eyyRayjCLHGY+0uh42/eDGaRHG4aukQxGD5MC4Kn/05SQlZIj+W/IKZ+
-         EIeY+Inafyx0sjzEnFR+ivwsUwakcFwGXQdI+LdAtTSlkzRVllxoDrp1Mqd6hU4EwKFE
-         0fpaecOxS9x9FAkqvT5Ajdr5VWIT5eMaH7EnqdKYzY2YFqBy2jOwArNCaYpG3wJSxnwB
-         xgWKJHKel92v1yOdfdeYSIDo0mDFDakKXdhKBq1zbB09v1kE4dK7mHeZJ+Kz+bqLyEla
-         462/UCVz8b6ahj/Be8oInIs4WRtCokKm2SX7jUtLCtpeo9r78uHQUXl9PNvbpAHYs04h
-         FFVQ==
-X-Gm-Message-State: AOJu0YwbRwBEHMXKOido5Zc04ghXUziVx+iU/1yzBdioPcjzvZRDP15k
-	glKGMSmkoiUkUv4kiPXdih/sdcDlzE7wFT87yDfdvZszjwmhmrigZPmEclnunyzYdrE=
-X-Gm-Gg: ASbGncsU3+4D0aaARNqpLx3mqhmC89mj6gHhg16y4exhEzM8BNvCpXX58Geq/ti0j9E
-	4xzH508U1uwGQ1TAttzjVVTFOPanPc3Dt3GdBMnbGcaVnR3xbFccfuXokNpMGvneV6DOK2phjHx
-	7EEA6BHx6fw/O28TbyXvshkUOk9xb8JPdHctcCgsz8iFgCNjAua/U1p2BO7e2MQXGgIsSV7mrSG
-	/wA9zPsN0MhupQMoWp0865ohBNluGWduCO5FpYuIPt0InL8XR6XhLg9d06PLI//JY2wPQoDcZEz
-	4oWOtb2QFNS/QEgYts7Kqnc8ljDJnIqZQkM+cNbjGFq1htOBd/qzSD4HmVrVg16gHuOPQ7i4oQE
-	04WRJrDEzVKALV+x3GkKG+SWnySAaYdcNGU69cwKgJBf3nO4R57ZHHJqjZlV9HB4YEyHyixS1hw
-	YU4JARWJbtLeRlPa1VRtSs8g==
-X-Google-Smtp-Source: AGHT+IEGDIV/rkWTD8Zow9nCzJ3dWaUDUWUqe8p6oEND37DTWRVBBE5t3LHKQDaD05w8ueXvC6VJ/A==
-X-Received: by 2002:a17:907:9691:b0:af6:32b3:2674 with SMTP id a640c23a62f3a-af8fd2f97aamr140400966b.0.1753871940140;
-        Wed, 30 Jul 2025 03:39:00 -0700 (PDT)
+        bh=wsgRhZe0m3cfqTt4t1L2u+vUAFJZc+UMkUbqgwGoE0Q=;
+        b=fVGNpZiC57jGH7ZSDVUW/guW91dOgVhbzYoTHruBPZiAYML5TvUaSaGGnxCVrtpYIh
+         EhxPDPeHxSQEgUboWGWcP6zZktB2LaHUwhohSgo0Na+8emHDrwMonm7WkxR/vAB2oroA
+         nQyrUtt1WvY6jXD2zLlw+qxqSc1MbLKwCHd+9o2xmirLWKReFGk2q6yBncUbhSFw1urO
+         uv74nljkNlO7nGx2OmhQ69NrQDNTKt4Q3/4SUQqQVuEkinpXZziLVuHSrrrqloJZlmV2
+         k8CPV+Xt51xLegTVJpaqgCvSGA8qkS2cqCDI5kfNbbdqjGtTf6lf604Y5mzlJ1P+AoY4
+         J8bQ==
+X-Gm-Message-State: AOJu0YxJw0uYay6CZBxu2KDhF2hi0ZnprMam56W80qfRnooiehgwwd/J
+	7g4SPUPkFkggCyJokFbznj/d0s1FIUznLGprvfo39Ql9BJOfq72FchFFtju5NDc9na4=
+X-Gm-Gg: ASbGncsYgfeGmIy9r2A101ipBiqUgt2bLuJOZ7FAy8ao6DHIxUyJMjyFLSTK6vCK5Hw
+	YqB4crquaH9hygMlpSICf4QUoFZOWNyljEEr89UN4qf1vIMhJWOhuXa01wrK9sJeW7kj4Ms9RYm
+	oDYY/PpsOb3oh8OKH3AzlthG0c5gKc0rKUIN1+HuLMXZm96So68sWeo1li5vaMxAcm1GV6mIVjQ
+	Z7+bUlt4eCg6b7MEoW8md6hyBW4b5IvdLAxlBlj/Eu4xyHaxgJ39pdM5KWozvgdWFxm+zapdhVb
+	bEBfEGWiTEZ8W2QjTTF1xq4lVcDTTUas3a8WQrCbFTbzAW33I+nTIgVz7dgNbWRxHXZ63cofh6E
+	3LXLxq2sZQ3LsYunG4OFzDJ0Kn3qzuE3MTPhzstPTU/YriOgujX4xI+BtoczpDeg3hwmp+XV38S
+	nGXiqHcN+0S9YTO+atrvLSBA==
+X-Google-Smtp-Source: AGHT+IGM0vAoMOhI6Af0zqc0of5fi1WstWt38Ih/n/oVeZHcMS+r9FroanUBhVUNHhjsttIzhBaqXg==
+X-Received: by 2002:a17:907:d7c9:b0:ae0:ba0e:ae59 with SMTP id a640c23a62f3a-af8fd7642c0mr159234766b.7.1753871941369;
+        Wed, 30 Jul 2025 03:39:01 -0700 (PDT)
 From: "=?UTF-8?q?Petr=20Bene=C5=A1?=" <w1benny@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Petr=20Bene=C5=A1?= <petr.benes@gendigital.com>
 To: xen-devel@lists.xenproject.org
 Cc: =?UTF-8?q?Petr=20Bene=C5=A1?= <w1benny@gmail.com>,
-	Jan Beulich <jbeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Jan Beulich <jbeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Tamas K Lengyel <tamas@tklengyel.com>,
 	Alexandru Isaila <aisaila@bitdefender.com>,
 	Petre Pircalabu <ppircalabu@bitdefender.com>
-Subject: [PATCH v11 2/6] x86/altp2m: Wrap altp2m-specific code in #ifdef CONFIG_ALTP2M
-Date: Wed, 30 Jul 2025 10:38:46 +0000
-Message-Id: <c1a105db2bd22d89443e9b16cccb086b4b8674ef.1753871755.git.w1benny@gmail.com>
+Subject: [PATCH v11 3/6] xen: Make the maximum number of altp2m views configurable for x86
+Date: Wed, 30 Jul 2025 10:38:47 +0000
+Message-Id: <2cf413a9faaa9cd80e9a61b7bfb9ec0257e3c4c7.1753871755.git.w1benny@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1753871755.git.w1benny@gmail.com>
 References: <cover.1753871755.git.w1benny@gmail.com>
@@ -106,504 +112,758 @@ Content-Transfer-Encoding: 8bit
 
 From: Petr Beneš <w1benny@gmail.com>
 
-This change consistently guards all altp2m-related functionality
-behind #ifdef CONFIG_ALTP2M, so that code and data structures related
-to alternate p2m views are only included when the feature is enabled.
+This commit introduces the ability to configure the maximum number of altp2m
+views for the domain during its creation. Previously, the limits were hardcoded
+to a maximum of 10. This change allows for greater flexibility in environments
+that require more or fewer altp2m views.
 
-Apart from that:
-- hvmemul_vmfunc() returns X86EMUL_UNHANDLEABLE when altp2m is disabled.
-- do_altp2m_op() returns EOPNOTSUPP when altp2m is disabled.
-- struct hvm_vcpu, arch_domain, and hvm_function_table only define altp2m
-  fields when the feature is enabled.
-- Moved several declarations under #ifdef CONFIG_ALTP2M in p2m.h to avoid
-  polluting builds that don't require the feature.
+The maximum configurable limit for nr_altp2m on x86 is now set to
+MAX_NR_ALTP2M (which currently holds the MAX_EPTP value - 512). This cap is
+linked to the architectural limit of the EPTP-switching VMFUNC, which supports
+up to 512 entries. Despite there being no inherent need for limiting nr_altp2m
+in scenarios not utilizing VMFUNC, decoupling these components would necessitate
+substantial code changes.
+
+xen_domctl_createdomain::altp2m is extended for a new field `nr`, that will
+configure this limit for a domain. Additionally, previous altp2m.opts value
+has been reduced from uint32_t to uint16_t so that both of these fields occupy
+as little space as possible.
+
+Accesses to the altp2m_p2m array are modified to respect the new nr_altp2m
+value. Accesses to the altp2m_(visible_)eptp arrays are unmodified, since
+these arrays always have fixed size of MAX_EPTP.
+
+Additional sanitization is introduced in the x86/arch_sanitise_domain_config
+to fix the altp2m.nr value to 10 if it is previously set to 0. This behavior
+is only temporary and immediately removed in the upcoming commit (which will
+disallow creating a domain with enabled altp2m with zero nr_altp2m).
+
+The reason for this temporary workaround is to retain the legacy behavior
+until the feature is fully activated in libxl.
+
+Also, arm/arch_sanitise_domain_config is extended to not allow requesting
+non-zero altp2ms.
 
 Signed-off-by: Petr Beneš <w1benny@gmail.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
- xen/arch/x86/hvm/emulate.c          |  4 ++++
- xen/arch/x86/hvm/hvm.c              | 10 ++++++++++
- xen/arch/x86/hvm/vmx/vmx.c          |  8 ++++++++
- xen/arch/x86/include/asm/domain.h   |  2 ++
- xen/arch/x86/include/asm/hvm/hvm.h  |  6 ++++++
- xen/arch/x86/include/asm/hvm/vcpu.h |  4 ++++
- xen/arch/x86/include/asm/p2m.h      | 12 ++++++++++++
- xen/arch/x86/mm/hap/hap.c           |  6 ++++++
- xen/arch/x86/mm/mem_access.c        |  8 ++++++++
- xen/arch/x86/mm/p2m-ept.c           |  4 ++++
- xen/arch/x86/mm/p2m.c               |  9 +++++++++
- xen/arch/x86/vm_event.c             |  2 +-
- 12 files changed, 74 insertions(+), 1 deletion(-)
+ xen/arch/arm/domain.c             |  2 +-
+ xen/arch/x86/domain.c             | 40 ++++++++++++++---
+ xen/arch/x86/hvm/hvm.c            |  8 +++-
+ xen/arch/x86/hvm/vmx/vmx.c        |  2 +-
+ xen/arch/x86/include/asm/altp2m.h | 28 ++++++++++--
+ xen/arch/x86/include/asm/domain.h |  9 ++--
+ xen/arch/x86/include/asm/p2m.h    |  4 +-
+ xen/arch/x86/mm/altp2m.c          | 72 ++++++++++++++++---------------
+ xen/arch/x86/mm/hap/hap.c         |  6 +--
+ xen/arch/x86/mm/mem_access.c      | 20 +++------
+ xen/arch/x86/mm/mem_sharing.c     |  4 +-
+ xen/arch/x86/mm/p2m-ept.c         |  7 +--
+ xen/arch/x86/mm/p2m-pt.c          |  2 +
+ xen/arch/x86/mm/p2m.c             |  8 ++--
+ xen/common/domain.c               |  6 +++
+ xen/include/public/domctl.h       |  5 ++-
+ xen/include/xen/sched.h           |  4 ++
+ 17 files changed, 149 insertions(+), 78 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/emulate.c b/xen/arch/x86/hvm/emulate.c
-index f1412d8c49..2af4f30359 100644
---- a/xen/arch/x86/hvm/emulate.c
-+++ b/xen/arch/x86/hvm/emulate.c
-@@ -2704,6 +2704,7 @@ static int cf_check hvmemul_tlb_op(
- static int cf_check hvmemul_vmfunc(
-     struct x86_emulate_ctxt *ctxt)
- {
-+#ifdef CONFIG_ALTP2M
-     int rc;
+diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+index 310c578909..863ae18157 100644
+--- a/xen/arch/arm/domain.c
++++ b/xen/arch/arm/domain.c
+@@ -693,7 +693,7 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+         return -EINVAL;
+     }
  
-     if ( !hvm_funcs.altp2m_vcpu_emulate_vmfunc )
-@@ -2713,6 +2714,9 @@ static int cf_check hvmemul_vmfunc(
-         x86_emul_hw_exception(X86_EXC_UD, X86_EVENT_NO_EC, ctxt);
+-    if ( config->altp2m.opts )
++    if ( config->altp2m.opts || config->altp2m.nr )
+     {
+         dprintk(XENLOG_INFO, "Altp2m not supported\n");
+         return -EINVAL;
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index 56c3816187..155ea1f79f 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -716,16 +716,42 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+         return -EINVAL;
+     }
  
-     return rc;
-+#else
-+    return X86EMUL_UNHANDLEABLE;
-+#endif
- }
+-    if ( altp2m_mode && nested_virt )
++    if ( altp2m_mode )
+     {
+-        dprintk(XENLOG_INFO,
+-                "Nested virt and altp2m are not supported together\n");
+-        return -EINVAL;
+-    }
++        if ( !hvm_altp2m_supported() )
++        {
++            dprintk(XENLOG_INFO, "altp2m is not supported\n");
++            return -EINVAL;
++        }
++
++        if ( !hap )
++        {
++            dprintk(XENLOG_INFO, "altp2m is only supported with HAP\n");
++            return -EINVAL;
++        }
++
++        if ( nested_virt )
++        {
++            dprintk(XENLOG_INFO,
++                    "Nested virt and altp2m are not supported together\n");
++            return -EINVAL;
++        }
++
++        if ( !config->altp2m.nr )
++        {
++            /* Fix the value to the legacy default */
++            config->altp2m.nr = 10;
++        }
  
- static const struct x86_emulate_ops hvm_emulate_ops = {
+-    if ( altp2m_mode && !hap )
++        if ( config->altp2m.nr > MAX_NR_ALTP2M )
++        {
++            dprintk(XENLOG_INFO, "altp2m.nr must be <= %lu\n", MAX_NR_ALTP2M);
++            return -EINVAL;
++        }
++    }
++    else if ( config->altp2m.nr )
+     {
+-        dprintk(XENLOG_INFO, "altp2m is only supported with HAP\n");
++        dprintk(XENLOG_INFO, "altp2m.nr must be zero when altp2m is off\n");
+         return -EINVAL;
+     }
+ 
 diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 56c7de3977..1881c8ac52 100644
+index 1881c8ac52..b4ccb7e7fb 100644
 --- a/xen/arch/x86/hvm/hvm.c
 +++ b/xen/arch/x86/hvm/hvm.c
-@@ -4608,6 +4608,7 @@ static int hvmop_get_param(
- static int do_altp2m_op(
-     XEN_GUEST_HANDLE_PARAM(void) arg)
- {
-+#ifdef CONFIG_ALTP2M
-     struct xen_hvm_altp2m_op a;
-     struct domain *d = NULL;
-     int rc = 0;
-@@ -4944,6 +4945,9 @@ static int do_altp2m_op(
-     rcu_unlock_domain(d);
+@@ -4675,6 +4675,12 @@ static int do_altp2m_op(
+         goto out;
+     }
  
-     return rc;
-+#else /* !CONFIG_ALTP2M */
-+    return -EOPNOTSUPP;
-+#endif /* CONFIG_ALTP2M */
- }
- 
- DEFINE_XEN_GUEST_HANDLE(compat_hvm_altp2m_op_t);
-@@ -5235,8 +5239,12 @@ int hvm_debug_op(struct vcpu *v, int32_t op)
- 
-     case XEN_DOMCTL_DEBUG_OP_SINGLE_STEP_OFF:
-         v->arch.hvm.single_step = false;
++    if ( d->nr_altp2m == 0 )
++    {
++        rc = -EOPNOTSUPP;
++        goto out;
++    }
 +
-+#ifdef CONFIG_ALTP2M
-         v->arch.hvm.fast_single_step.enabled = false;
-         v->arch.hvm.fast_single_step.p2midx = 0;
-+#endif
-+
-         break;
+     if ( (rc = xsm_hvm_altp2mhvm_op(XSM_OTHER, d, mode, a.cmd)) )
+         goto out;
  
-     default: /* Excluded above */
-@@ -5259,6 +5267,7 @@ void hvm_toggle_singlestep(struct vcpu *v)
-     v->arch.hvm.single_step = !v->arch.hvm.single_step;
- }
+@@ -5275,7 +5281,7 @@ void hvm_fast_singlestep(struct vcpu *v, uint16_t p2midx)
+     if ( !hvm_is_singlestep_supported() )
+         return;
  
-+#ifdef CONFIG_ALTP2M
- void hvm_fast_singlestep(struct vcpu *v, uint16_t p2midx)
- {
-     ASSERT(atomic_read(&v->pause_count));
-@@ -5273,6 +5282,7 @@ void hvm_fast_singlestep(struct vcpu *v, uint16_t p2midx)
-     v->arch.hvm.fast_single_step.enabled = true;
-     v->arch.hvm.fast_single_step.p2midx = p2midx;
- }
-+#endif
+-    if ( p2midx >= MAX_ALTP2M )
++    if ( p2midx >= v->domain->nr_altp2m )
+         return;
  
- /*
-  * Segment caches in VMCB/VMCS are inconsistent about which bits are checked,
+     v->arch.hvm.single_step = true;
 diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index ce538668c7..64f0dbbd4a 100644
+index 64f0dbbd4a..f7a2eecca4 100644
 --- a/xen/arch/x86/hvm/vmx/vmx.c
 +++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -2416,6 +2416,8 @@ static void cf_check vmx_enable_msr_interception(struct domain *d, uint32_t msr)
-         vmx_set_msr_intercept(v, msr, VMX_MSR_W);
- }
- 
-+#ifdef CONFIG_ALTP2M
-+
- static void cf_check vmx_vcpu_update_eptp(struct vcpu *v)
- {
-     struct domain *d = v->domain;
-@@ -2535,6 +2537,8 @@ static bool cf_check vmx_vcpu_emulate_ve(struct vcpu *v)
-     return rc;
- }
- 
-+#endif /* CONFIG_ALTP2M */
-+
- static bool cf_check vmx_get_pending_event(
-     struct vcpu *v, struct x86_event *info)
- {
-@@ -2863,10 +2867,12 @@ static struct hvm_function_table __initdata_cf_clobber vmx_function_table = {
-     .update_vlapic_mode = vmx_vlapic_msr_changed,
-     .nhvm_hap_walk_L1_p2m = nvmx_hap_walk_L1_p2m,
-     .enable_msr_interception = vmx_enable_msr_interception,
-+#ifdef CONFIG_ALTP2M
-     .altp2m_vcpu_update_p2m = vmx_vcpu_update_eptp,
-     .altp2m_vcpu_update_vmfunc_ve = vmx_vcpu_update_vmfunc_ve,
-     .altp2m_vcpu_emulate_ve = vmx_vcpu_emulate_ve,
-     .altp2m_vcpu_emulate_vmfunc = vmx_vcpu_emulate_vmfunc,
-+#endif
-     .vmtrace_control = vmtrace_control,
-     .vmtrace_output_position = vmtrace_output_position,
-     .vmtrace_set_option = vmtrace_set_option,
-@@ -4963,6 +4969,7 @@ bool asmlinkage vmx_vmenter_helper(const struct cpu_user_regs *regs)
-             single = ept;
-         }
- 
-+#ifdef CONFIG_ALTP2M
-         if ( altp2m_active(currd) )
+@@ -4974,7 +4974,7 @@ bool asmlinkage vmx_vmenter_helper(const struct cpu_user_regs *regs)
          {
              unsigned int i;
-@@ -4981,6 +4988,7 @@ bool asmlinkage vmx_vmenter_helper(const struct cpu_user_regs *regs)
-                 }
-             }
-         }
-+#endif
  
-         if ( inv )
-             __invept(inv == 1 ? INVEPT_SINGLE_CONTEXT : INVEPT_ALL_CONTEXT,
+-            for ( i = 0; i < MAX_ALTP2M; ++i )
++            for ( i = 0; i < currd->nr_altp2m; ++i )
+             {
+                 if ( currd->arch.altp2m_eptp[i] == mfn_x(INVALID_MFN) )
+                     continue;
+diff --git a/xen/arch/x86/include/asm/altp2m.h b/xen/arch/x86/include/asm/altp2m.h
+index c57a8c5588..8ecd74f363 100644
+--- a/xen/arch/x86/include/asm/altp2m.h
++++ b/xen/arch/x86/include/asm/altp2m.h
+@@ -13,12 +13,32 @@
+ #include <xen/sched.h>         /* for struct vcpu, struct domain */
+ #include <asm/hvm/vcpu.h>      /* for vcpu_altp2m */
+ 
++static inline bool altp2m_is_eptp_valid(const struct domain *d,
++                                        unsigned int idx)
++{
++    /* There must be enough EPTP entries to cover all altp2m indices */
++    BUILD_BUG_ON(MAX_EPTP < MAX_NR_ALTP2M);
++
++    /* Domain should not have more altp2m entries than MAX_NR_ALTP2M */
++    ASSERT(d->nr_altp2m <= MAX_NR_ALTP2M);
++
++    /* EPTP index is used as altp2m index */
++    return idx < d->nr_altp2m &&
++        d->arch.altp2m_eptp[array_index_nospec(idx, MAX_EPTP)] !=
++        mfn_x(INVALID_MFN);
++}
++
+ /* Alternate p2m HVM on/off per domain */
+ static inline bool altp2m_active(const struct domain *d)
+ {
+     return d->arch.altp2m_active;
+ }
+ 
++static inline uint16_t altp2m_vcpu_idx(const struct vcpu *v)
++{
++    return vcpu_altp2m(v).p2midx;
++}
++
+ /* Alternate p2m VCPU */
+ void altp2m_vcpu_initialise(struct vcpu *v);
+ void altp2m_vcpu_destroy(struct vcpu *v);
+@@ -26,11 +46,13 @@ void altp2m_vcpu_destroy(struct vcpu *v);
+ int altp2m_vcpu_enable_ve(struct vcpu *v, gfn_t gfn);
+ void altp2m_vcpu_disable_ve(struct vcpu *v);
+ 
+-static inline uint16_t altp2m_vcpu_idx(const struct vcpu *v)
++#else
++
++static inline bool altp2m_is_eptp_valid(const struct domain *d,
++                                        unsigned int idx)
+ {
+-    return vcpu_altp2m(v).p2midx;
++    return false;
+ }
+-#else
+ 
+ static inline bool altp2m_active(const struct domain *d)
+ {
 diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
-index 8c0dea12a5..8749c5eba0 100644
+index 8749c5eba0..02a00e1c07 100644
 --- a/xen/arch/x86/include/asm/domain.h
 +++ b/xen/arch/x86/include/asm/domain.h
-@@ -351,12 +351,14 @@ struct arch_domain
-     struct p2m_domain *nested_p2m[MAX_NESTEDP2M];
-     mm_lock_t nested_p2m_lock;
+@@ -258,11 +258,12 @@ struct paging_vcpu {
+     struct shadow_vcpu shadow;
+ };
  
-+#ifdef CONFIG_ALTP2M
+-#define MAX_NESTEDP2M 10
++#define MAX_EPTP        (PAGE_SIZE / sizeof(uint64_t))
++#define MAX_NR_ALTP2M   MAX_EPTP
++#define MAX_NESTEDP2M   10
+ 
+-#define MAX_ALTP2M      10 /* arbitrary */
+ #define INVALID_ALTP2M  0xffff
+-#define MAX_EPTP        (PAGE_SIZE / sizeof(uint64_t))
++
+ struct p2m_domain;
+ struct time_scale {
+     int shift;
+@@ -354,7 +355,7 @@ struct arch_domain
+ #ifdef CONFIG_ALTP2M
      /* altp2m: allow multiple copies of host p2m */
      bool altp2m_active;
-     struct p2m_domain *altp2m_p2m[MAX_ALTP2M];
+-    struct p2m_domain *altp2m_p2m[MAX_ALTP2M];
++    struct p2m_domain **altp2m_p2m;
      mm_lock_t altp2m_list_lock;
      uint64_t *altp2m_eptp;
      uint64_t *altp2m_visible_eptp;
-+#endif
- #endif
- 
-     /* NB. protected by d->event_lock and by irq_desc[irq].lock */
-diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
-index bf8bc2e100..e94cfbfb58 100644
---- a/xen/arch/x86/include/asm/hvm/hvm.h
-+++ b/xen/arch/x86/include/asm/hvm/hvm.h
-@@ -225,11 +225,13 @@ struct hvm_function_table {
- 
-     void (*enable_msr_interception)(struct domain *d, uint32_t msr);
- 
-+#ifdef CONFIG_ALTP2M
-     /* Alternate p2m */
-     void (*altp2m_vcpu_update_p2m)(struct vcpu *v);
-     void (*altp2m_vcpu_update_vmfunc_ve)(struct vcpu *v);
-     bool (*altp2m_vcpu_emulate_ve)(struct vcpu *v);
-     int (*altp2m_vcpu_emulate_vmfunc)(const struct cpu_user_regs *regs);
-+#endif
- 
-     /* vmtrace */
-     int (*vmtrace_control)(struct vcpu *v, bool enable, bool reset);
-@@ -707,6 +709,7 @@ static inline bool hvm_nested_virt_supported(void)
-     return hvm_funcs.caps.nested_virt;
- }
- 
-+#ifdef CONFIG_ALTP2M
- /* updates the current hardware p2m */
- static inline void altp2m_vcpu_update_p2m(struct vcpu *v)
- {
-@@ -731,6 +734,9 @@ static inline bool altp2m_vcpu_emulate_ve(struct vcpu *v)
-     }
-     return false;
- }
-+#else /* !CONFIG_ALTP2M */
-+bool altp2m_vcpu_emulate_ve(struct vcpu *v);
-+#endif /* CONFIG_ALTP2M */
- 
- static inline int hvm_vmtrace_control(struct vcpu *v, bool enable, bool reset)
- {
-diff --git a/xen/arch/x86/include/asm/hvm/vcpu.h b/xen/arch/x86/include/asm/hvm/vcpu.h
-index 196fed6d5d..924af890c5 100644
---- a/xen/arch/x86/include/asm/hvm/vcpu.h
-+++ b/xen/arch/x86/include/asm/hvm/vcpu.h
-@@ -133,10 +133,12 @@ struct hvm_vcpu {
-     bool                flag_dr_dirty;
-     bool                debug_state_latch;
-     bool                single_step;
-+#ifdef CONFIG_ALTP2M
-     struct {
-         bool     enabled;
-         uint16_t p2midx;
-     } fast_single_step;
-+#endif
- 
-     /* (MFN) hypervisor page table */
-     pagetable_t         monitor_table;
-@@ -154,7 +156,9 @@ struct hvm_vcpu {
- 
-     struct nestedvcpu   nvcpu;
- 
-+#ifdef CONFIG_ALTP2M
-     struct altp2mvcpu   avcpu;
-+#endif
- 
-     struct mtrr_state   mtrr;
-     u64                 pat_cr;
 diff --git a/xen/arch/x86/include/asm/p2m.h b/xen/arch/x86/include/asm/p2m.h
-index c53f4e487d..6ead4891a4 100644
+index 6ead4891a4..f7e557db01 100644
 --- a/xen/arch/x86/include/asm/p2m.h
 +++ b/xen/arch/x86/include/asm/p2m.h
-@@ -889,6 +889,8 @@ void shadow_p2m_init(struct p2m_domain *p2m);
- void cf_check nestedp2m_write_p2m_entry_post(
-     struct p2m_domain *p2m, unsigned int oflags);
+@@ -903,7 +903,7 @@ static inline struct p2m_domain *p2m_get_altp2m(struct vcpu *v)
+     if ( index == INVALID_ALTP2M )
+         return NULL;
  
-+#ifdef CONFIG_ALTP2M
-+
- /*
-  * Alternate p2m: shadow p2m tables used for alternate memory views
-  */
-@@ -965,6 +967,16 @@ int p2m_set_altp2m_view_visibility(struct domain *d, unsigned int altp2m_idx,
+-    BUG_ON(index >= MAX_ALTP2M);
++    BUG_ON(index >= v->domain->nr_altp2m);
  
- #else /* !CONFIG_HVM */
- struct p2m_domain *p2m_get_altp2m(struct vcpu *v);
-+bool p2m_set_altp2m(struct vcpu *v, unsigned int idx);
-+bool p2m_altp2m_get_or_propagate(struct p2m_domain *ap2m, unsigned long gfn_l,
-+                                 mfn_t *mfn, p2m_type_t *p2mt,
-+                                 p2m_access_t *p2ma, unsigned int *page_order);
-+int p2m_altp2m_propagate_change(struct domain *d, gfn_t gfn,
-+                                mfn_t mfn, unsigned int page_order,
-+                                p2m_type_t p2mt, p2m_access_t p2ma);
-+
-+#endif /* CONFIG_ALTP2M */
-+
- #endif /* CONFIG_HVM */
- 
- /* p2m access to IOMMU flags */
-diff --git a/xen/arch/x86/mm/hap/hap.c b/xen/arch/x86/mm/hap/hap.c
-index ec5043a8aa..384c24028f 100644
---- a/xen/arch/x86/mm/hap/hap.c
-+++ b/xen/arch/x86/mm/hap/hap.c
-@@ -494,6 +494,7 @@ int hap_enable(struct domain *d, u32 mode)
-            goto out;
-     }
- 
-+#ifdef CONFIG_ALTP2M
-     if ( hvm_altp2m_supported() )
-     {
-         /* Init alternate p2m data */
-@@ -524,6 +525,7 @@ int hap_enable(struct domain *d, u32 mode)
- 
-         d->arch.altp2m_active = false;
-     }
-+#endif /* CONFIG_ALTP2M */
- 
-     /* Now let other users see the new mode */
-     d->arch.paging.mode = mode | PG_HAP_enable;
-@@ -537,9 +539,11 @@ void hap_final_teardown(struct domain *d)
+     return v->domain->arch.altp2m_p2m[index];
+ }
+@@ -913,7 +913,7 @@ static inline bool p2m_set_altp2m(struct vcpu *v, unsigned int idx)
  {
+     struct p2m_domain *orig;
+ 
+-    BUG_ON(idx >= MAX_ALTP2M);
++    BUG_ON(idx >= v->domain->nr_altp2m);
+ 
+     if ( idx == vcpu_altp2m(v).p2midx )
+         return false;
+diff --git a/xen/arch/x86/mm/altp2m.c b/xen/arch/x86/mm/altp2m.c
+index 6fe1e9ed6b..0261360aae 100644
+--- a/xen/arch/x86/mm/altp2m.c
++++ b/xen/arch/x86/mm/altp2m.c
+@@ -9,12 +9,16 @@
+ #include <asm/altp2m.h>
+ #include <public/hvm/hvm_op.h>
+ #include <xen/event.h>
++#include <xen/xvmalloc.h>
+ #include "mm-locks.h"
+ #include "p2m.h"
+ 
+ void
+ altp2m_vcpu_initialise(struct vcpu *v)
+ {
++    if ( !v->domain->nr_altp2m )
++        return;
++
+     if ( v != current )
+         vcpu_pause(v);
+ 
+@@ -32,6 +36,9 @@ altp2m_vcpu_destroy(struct vcpu *v)
+ {
+     struct p2m_domain *p2m;
+ 
++    if ( !v->domain->nr_altp2m )
++        return;
++
+     if ( v != current )
+         vcpu_pause(v);
+ 
+@@ -122,7 +129,12 @@ int p2m_init_altp2m(struct domain *d)
+     struct p2m_domain *hostp2m = p2m_get_hostp2m(d);
+ 
+     mm_lock_init(&d->arch.altp2m_list_lock);
+-    for ( i = 0; i < MAX_ALTP2M; i++ )
++    d->arch.altp2m_p2m = xvzalloc_array(struct p2m_domain *, d->nr_altp2m);
++
++    if ( !d->arch.altp2m_p2m )
++        return -ENOMEM;
++
++    for ( i = 0; i < d->nr_altp2m; i++ )
+     {
+         d->arch.altp2m_p2m[i] = p2m = p2m_init_one(d);
+         if ( p2m == NULL )
+@@ -143,7 +155,7 @@ void p2m_teardown_altp2m(struct domain *d)
      unsigned int i;
+     struct p2m_domain *p2m;
  
-+#ifdef CONFIG_ALTP2M
-     if ( hvm_altp2m_supported() )
-         for ( i = 0; i < MAX_ALTP2M; i++ )
-             p2m_teardown(d->arch.altp2m_p2m[i], true, NULL);
-+#endif
- 
-     /* Destroy nestedp2m's first */
-     for (i = 0; i < MAX_NESTEDP2M; i++) {
-@@ -578,6 +582,7 @@ void hap_teardown(struct domain *d, bool *preempted)
-     for_each_vcpu ( d, v )
-         hap_vcpu_teardown(v);
- 
-+#ifdef CONFIG_ALTP2M
-     /* Leave the root pt in case we get further attempts to modify the p2m. */
-     if ( hvm_altp2m_supported() )
+-    for ( i = 0; i < MAX_ALTP2M; i++ )
++    for ( i = 0; i < d->nr_altp2m; i++ )
      {
-@@ -597,6 +602,7 @@ void hap_teardown(struct domain *d, bool *preempted)
-                 return;
-         }
+         if ( !d->arch.altp2m_p2m[i] )
+             continue;
+@@ -151,6 +163,8 @@ void p2m_teardown_altp2m(struct domain *d)
+         d->arch.altp2m_p2m[i] = NULL;
+         p2m_free_one(p2m);
      }
-+#endif
++
++    XVFREE(d->arch.altp2m_p2m);
+ }
  
-     /* Destroy nestedp2m's after altp2m. */
-     for ( i = 0; i < MAX_NESTEDP2M; i++ )
-diff --git a/xen/arch/x86/mm/mem_access.c b/xen/arch/x86/mm/mem_access.c
-index 21b5b7ecda..0779c41161 100644
---- a/xen/arch/x86/mm/mem_access.c
-+++ b/xen/arch/x86/mm/mem_access.c
-@@ -347,6 +347,7 @@ long p2m_set_mem_access(struct domain *d, gfn_t gfn, uint32_t nr,
-     unsigned long gfn_l;
-     long rc = 0;
+ int altp2m_get_effective_entry(struct p2m_domain *ap2m, gfn_t gfn, mfn_t *mfn,
+@@ -200,7 +214,7 @@ bool p2m_switch_vcpu_altp2m_by_id(struct vcpu *v, unsigned int idx)
+     struct domain *d = v->domain;
+     bool rc = false;
  
-+#ifdef CONFIG_ALTP2M
-     /* altp2m view 0 is treated as the hostp2m */
-     if ( altp2m_idx )
-     {
-@@ -357,6 +358,7 @@ long p2m_set_mem_access(struct domain *d, gfn_t gfn, uint32_t nr,
+-    if ( idx >= MAX_ALTP2M )
++    if ( idx >= d->nr_altp2m )
+         return rc;
  
-         ap2m = array_access_nospec(d->arch.altp2m_p2m, altp2m_idx);
-     }
-+#endif
+     altp2m_list_lock(d);
+@@ -306,8 +320,8 @@ static void p2m_reset_altp2m(struct domain *d, unsigned int idx,
+ {
+     struct p2m_domain *p2m;
  
-     if ( !xenmem_access_to_p2m_access(p2m, access, &a) )
-         return -EINVAL;
-@@ -403,6 +405,7 @@ long p2m_set_mem_access_multi(struct domain *d,
-     struct p2m_domain *p2m = p2m_get_hostp2m(d), *ap2m = NULL;
-     long rc = 0;
- 
-+#ifdef CONFIG_ALTP2M
-     /* altp2m view 0 is treated as the hostp2m */
-     if ( altp2m_idx )
-     {
-@@ -413,6 +416,7 @@ long p2m_set_mem_access_multi(struct domain *d,
- 
-         ap2m = array_access_nospec(d->arch.altp2m_p2m, altp2m_idx);
-     }
-+#endif
+-    ASSERT(idx < MAX_ALTP2M);
+-    p2m = array_access_nospec(d->arch.altp2m_p2m, idx);
++    ASSERT(idx < d->nr_altp2m);
++    p2m = d->arch.altp2m_p2m[array_index_nospec(idx, d->nr_altp2m)];
  
      p2m_lock(p2m);
-     if ( ap2m )
-@@ -462,6 +466,7 @@ int p2m_get_mem_access(struct domain *d, gfn_t gfn, xenmem_access_t *access,
- {
-     struct p2m_domain *p2m = p2m_get_hostp2m(d);
  
-+#ifdef CONFIG_ALTP2M
-     if ( !altp2m_active(d) )
+@@ -332,7 +346,7 @@ void p2m_flush_altp2m(struct domain *d)
+ 
+     altp2m_list_lock(d);
+ 
+-    for ( i = 0; i < MAX_ALTP2M; i++ )
++    for ( i = 0; i < d->nr_altp2m; i++ )
      {
-         if ( altp2m_idx )
-@@ -476,6 +481,7 @@ int p2m_get_mem_access(struct domain *d, gfn_t gfn, xenmem_access_t *access,
+         p2m_reset_altp2m(d, i, ALTP2M_DEACTIVATE);
+         d->arch.altp2m_eptp[i] = mfn_x(INVALID_MFN);
+@@ -348,9 +362,9 @@ static int p2m_activate_altp2m(struct domain *d, unsigned int idx,
+     struct p2m_domain *hostp2m, *p2m;
+     int rc;
  
-         p2m = array_access_nospec(d->arch.altp2m_p2m, altp2m_idx);
+-    ASSERT(idx < MAX_ALTP2M);
++    ASSERT(idx < d->nr_altp2m);
+ 
+-    p2m = array_access_nospec(d->arch.altp2m_p2m, idx);
++    p2m = d->arch.altp2m_p2m[array_index_nospec(idx, d->nr_altp2m)];
+     hostp2m = p2m_get_hostp2m(d);
+ 
+     p2m_lock(p2m);
+@@ -388,7 +402,7 @@ int p2m_init_altp2m_by_id(struct domain *d, unsigned int idx)
+     int rc = -EINVAL;
+     struct p2m_domain *hostp2m = p2m_get_hostp2m(d);
+ 
+-    if ( idx >= min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP) )
++    if ( idx >= d->nr_altp2m )
+         return rc;
+ 
+     altp2m_list_lock(d);
+@@ -415,7 +429,7 @@ int p2m_init_next_altp2m(struct domain *d, uint16_t *idx,
+ 
+     altp2m_list_lock(d);
+ 
+-    for ( i = 0; i < MAX_ALTP2M; i++ )
++    for ( i = 0; i < d->nr_altp2m; i++ )
+     {
+         if ( d->arch.altp2m_eptp[i] != mfn_x(INVALID_MFN) )
+             continue;
+@@ -437,7 +451,7 @@ int p2m_destroy_altp2m_by_id(struct domain *d, unsigned int idx)
+     struct p2m_domain *p2m;
+     int rc = -EBUSY;
+ 
+-    if ( !idx || idx >= min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP) )
++    if ( !idx || idx >= d->nr_altp2m )
+         return rc;
+ 
+     rc = domain_pause_except_self(d);
+@@ -450,7 +464,7 @@ int p2m_destroy_altp2m_by_id(struct domain *d, unsigned int idx)
+     if ( d->arch.altp2m_eptp[array_index_nospec(idx, MAX_EPTP)] !=
+          mfn_x(INVALID_MFN) )
+     {
+-        p2m = array_access_nospec(d->arch.altp2m_p2m, idx);
++        p2m = d->arch.altp2m_p2m[array_index_nospec(idx, d->nr_altp2m)];
+ 
+         if ( !_atomic_read(p2m->active_vcpus) )
+         {
+@@ -475,7 +489,7 @@ int p2m_switch_domain_altp2m_by_id(struct domain *d, unsigned int idx)
+     struct vcpu *v;
+     int rc = -EINVAL;
+ 
+-    if ( idx >= MAX_ALTP2M )
++    if ( idx >= d->nr_altp2m )
+         return rc;
+ 
+     rc = domain_pause_except_self(d);
+@@ -510,13 +524,11 @@ int p2m_change_altp2m_gfn(struct domain *d, unsigned int idx,
+     mfn_t mfn;
+     int rc = -EINVAL;
+ 
+-    if ( idx >=  min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP) ||
+-         d->arch.altp2m_eptp[array_index_nospec(idx, MAX_EPTP)] ==
+-         mfn_x(INVALID_MFN) )
++    if ( !altp2m_is_eptp_valid(d, idx) )
+         return rc;
+ 
+     hp2m = p2m_get_hostp2m(d);
+-    ap2m = array_access_nospec(d->arch.altp2m_p2m, idx);
++    ap2m = d->arch.altp2m_p2m[array_index_nospec(idx, d->nr_altp2m)];
+ 
+     p2m_lock(hp2m);
+     p2m_lock(ap2m);
+@@ -572,7 +584,7 @@ int p2m_altp2m_propagate_change(struct domain *d, gfn_t gfn,
+ 
+     altp2m_list_lock(d);
+ 
+-    for ( i = 0; i < MAX_ALTP2M; i++ )
++    for ( i = 0; i < d->nr_altp2m; i++ )
+     {
+         p2m_type_t t;
+         p2m_access_t a;
+@@ -595,7 +607,7 @@ int p2m_altp2m_propagate_change(struct domain *d, gfn_t gfn,
+             else
+             {
+                 /* At least 2 altp2m's impacted, so reset everything */
+-                for ( i = 0; i < MAX_ALTP2M; i++ )
++                for ( i = 0; i < d->nr_altp2m; i++ )
+                 {
+                     if ( i == last_reset_idx ||
+                          d->arch.altp2m_eptp[i] == mfn_x(INVALID_MFN) )
+@@ -659,12 +671,11 @@ int p2m_set_suppress_ve_multi(struct domain *d,
+ 
+     if ( sve->view > 0 )
+     {
+-        if ( sve->view >= min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP) ||
+-             d->arch.altp2m_eptp[array_index_nospec(sve->view, MAX_EPTP)] ==
+-             mfn_x(INVALID_MFN) )
++        if ( !altp2m_is_eptp_valid(d, sve->view) )
+             return -EINVAL;
+ 
+-        p2m = ap2m = array_access_nospec(d->arch.altp2m_p2m, sve->view);
++        p2m = ap2m =
++            d->arch.altp2m_p2m[array_index_nospec(sve->view, d->nr_altp2m)];
      }
-+#endif
  
-     return _p2m_get_mem_access(p2m, gfn, access);
- }
-@@ -486,6 +492,7 @@ void arch_p2m_set_access_required(struct domain *d, bool access_required)
+     p2m_lock(host_p2m);
+@@ -727,12 +738,11 @@ int p2m_get_suppress_ve(struct domain *d, gfn_t gfn, bool *suppress_ve,
  
-     p2m_get_hostp2m(d)->access_required = access_required;
+     if ( altp2m_idx > 0 )
+     {
+-        if ( altp2m_idx >= min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP) ||
+-             d->arch.altp2m_eptp[array_index_nospec(altp2m_idx, MAX_EPTP)] ==
+-             mfn_x(INVALID_MFN) )
++        if ( !altp2m_is_eptp_valid(d, altp2m_idx) )
+             return -EINVAL;
  
-+#ifdef CONFIG_ALTP2M
+-        p2m = ap2m = array_access_nospec(d->arch.altp2m_p2m, altp2m_idx);
++        p2m = ap2m =
++            d->arch.altp2m_p2m[array_index_nospec(altp2m_idx, d->nr_altp2m)];
+     }
+     else
+         p2m = host_p2m;
+@@ -761,13 +771,7 @@ int p2m_set_altp2m_view_visibility(struct domain *d, unsigned int altp2m_idx,
+ 
+     altp2m_list_lock(d);
+ 
+-    /*
+-     * Eptp index is correlated with altp2m index and should not exceed
+-     * min(MAX_ALTP2M, MAX_EPTP).
+-     */
+-    if ( altp2m_idx >= min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP) ||
+-         d->arch.altp2m_eptp[array_index_nospec(altp2m_idx, MAX_EPTP)] ==
+-         mfn_x(INVALID_MFN) )
++    if ( !altp2m_is_eptp_valid(d, altp2m_idx) )
+         rc = -EINVAL;
+     else if ( visible )
+         d->arch.altp2m_visible_eptp[array_index_nospec(altp2m_idx, MAX_EPTP)] =
+diff --git a/xen/arch/x86/mm/hap/hap.c b/xen/arch/x86/mm/hap/hap.c
+index 384c24028f..4aec98109d 100644
+--- a/xen/arch/x86/mm/hap/hap.c
++++ b/xen/arch/x86/mm/hap/hap.c
+@@ -516,7 +516,7 @@ int hap_enable(struct domain *d, u32 mode)
+             d->arch.altp2m_visible_eptp[i] = mfn_x(INVALID_MFN);
+         }
+ 
+-        for ( i = 0; i < MAX_ALTP2M; i++ )
++        for ( i = 0; i < d->nr_altp2m; i++ )
+         {
+             rv = p2m_alloc_table(d->arch.altp2m_p2m[i]);
+             if ( rv != 0 )
+@@ -541,7 +541,7 @@ void hap_final_teardown(struct domain *d)
+ 
+ #ifdef CONFIG_ALTP2M
+     if ( hvm_altp2m_supported() )
+-        for ( i = 0; i < MAX_ALTP2M; i++ )
++        for ( i = 0; i < d->nr_altp2m; i++ )
+             p2m_teardown(d->arch.altp2m_p2m[i], true, NULL);
+ #endif
+ 
+@@ -595,7 +595,7 @@ void hap_teardown(struct domain *d, bool *preempted)
+         FREE_XENHEAP_PAGE(d->arch.altp2m_eptp);
+         FREE_XENHEAP_PAGE(d->arch.altp2m_visible_eptp);
+ 
+-        for ( i = 0; i < MAX_ALTP2M; i++ )
++        for ( i = 0; i < d->nr_altp2m; i++ )
+         {
+             p2m_teardown(d->arch.altp2m_p2m[i], false, preempted);
+             if ( preempted && *preempted )
+diff --git a/xen/arch/x86/mm/mem_access.c b/xen/arch/x86/mm/mem_access.c
+index 0779c41161..e6b609064c 100644
+--- a/xen/arch/x86/mm/mem_access.c
++++ b/xen/arch/x86/mm/mem_access.c
+@@ -351,12 +351,10 @@ long p2m_set_mem_access(struct domain *d, gfn_t gfn, uint32_t nr,
+     /* altp2m view 0 is treated as the hostp2m */
+     if ( altp2m_idx )
+     {
+-        if ( altp2m_idx >= min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP) ||
+-             d->arch.altp2m_eptp[array_index_nospec(altp2m_idx, MAX_EPTP)] ==
+-             mfn_x(INVALID_MFN) )
++        if ( !altp2m_is_eptp_valid(d, altp2m_idx) )
+             return -EINVAL;
+ 
+-        ap2m = array_access_nospec(d->arch.altp2m_p2m, altp2m_idx);
++        ap2m = d->arch.altp2m_p2m[array_index_nospec(altp2m_idx, d->nr_altp2m)];
+     }
+ #endif
+ 
+@@ -409,12 +407,10 @@ long p2m_set_mem_access_multi(struct domain *d,
+     /* altp2m view 0 is treated as the hostp2m */
+     if ( altp2m_idx )
+     {
+-        if ( altp2m_idx >= min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP) ||
+-             d->arch.altp2m_eptp[array_index_nospec(altp2m_idx, MAX_EPTP)] ==
+-             mfn_x(INVALID_MFN) )
++        if ( !altp2m_is_eptp_valid(d, altp2m_idx) )
+             return -EINVAL;
+ 
+-        ap2m = array_access_nospec(d->arch.altp2m_p2m, altp2m_idx);
++        ap2m = d->arch.altp2m_p2m[array_index_nospec(altp2m_idx, d->nr_altp2m)];
+     }
+ #endif
+ 
+@@ -474,12 +470,10 @@ int p2m_get_mem_access(struct domain *d, gfn_t gfn, xenmem_access_t *access,
+     }
+     else if ( altp2m_idx ) /* altp2m view 0 is treated as the hostp2m */
+     {
+-        if ( altp2m_idx >= min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP) ||
+-             d->arch.altp2m_eptp[array_index_nospec(altp2m_idx, MAX_EPTP)] ==
+-             mfn_x(INVALID_MFN) )
++        if ( !altp2m_is_eptp_valid(d, altp2m_idx) )
+             return -EINVAL;
+ 
+-        p2m = array_access_nospec(d->arch.altp2m_p2m, altp2m_idx);
++        p2m = d->arch.altp2m_p2m[array_index_nospec(altp2m_idx, d->nr_altp2m)];
+     }
+ #endif
+ 
+@@ -496,7 +490,7 @@ void arch_p2m_set_access_required(struct domain *d, bool access_required)
      if ( altp2m_active(d) )
      {
          unsigned int i;
-@@ -497,6 +504,7 @@ void arch_p2m_set_access_required(struct domain *d, bool access_required)
-                 p2m->access_required = access_required;
-         }
-     }
-+#endif
- }
+-        for ( i = 0; i < MAX_ALTP2M; i++ )
++        for ( i = 0; i < d->nr_altp2m; i++ )
+         {
+             struct p2m_domain *p2m = d->arch.altp2m_p2m[i];
  
- bool p2m_mem_access_sanity_check(const struct domain *d)
-diff --git a/xen/arch/x86/mm/p2m-ept.c b/xen/arch/x86/mm/p2m-ept.c
-index 62fc8e5068..ae262bfcc2 100644
---- a/xen/arch/x86/mm/p2m-ept.c
-+++ b/xen/arch/x86/mm/p2m-ept.c
-@@ -1297,6 +1297,7 @@ static void ept_set_ad_sync(struct domain *d, bool value)
- 
-     hostp2m->ept.ad = value;
- 
-+#ifdef CONFIG_ALTP2M
-     if ( unlikely(altp2m_active(d)) )
-     {
-         unsigned int i;
-@@ -1315,6 +1316,7 @@ static void ept_set_ad_sync(struct domain *d, bool value)
-             p2m_unlock(p2m);
-         }
-     }
-+#endif
- }
- 
- static void ept_enable_pml(struct p2m_domain *p2m)
-@@ -1571,6 +1573,7 @@ void __init setup_ept_dump(void)
-     register_keyhandler('D', ept_dump_p2m_table, "dump VT-x EPT tables", 0);
- }
- 
-+#ifdef CONFIG_ALTP2M
- void p2m_init_altp2m_ept(struct domain *d, unsigned int i)
- {
-     struct p2m_domain *p2m = array_access_nospec(d->arch.altp2m_p2m, i);
-@@ -1610,6 +1613,7 @@ unsigned int p2m_find_altp2m_by_eptp(struct domain *d, uint64_t eptp)
-     altp2m_list_unlock(d);
-     return i;
- }
-+#endif /* CONFIG_ALTP2M */
- 
- /*
-  * Local variables:
-diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
-index b9a7c2dc53..5a3fda903e 100644
---- a/xen/arch/x86/mm/p2m.c
-+++ b/xen/arch/x86/mm/p2m.c
-@@ -101,6 +101,7 @@ void p2m_change_entry_type_global(struct domain *d,
- 
-     change_entry_type_global(hostp2m, ot, nt);
- 
-+#ifdef CONFIG_ALTP2M
-     if ( unlikely(altp2m_active(d)) )
-     {
-         unsigned int i;
-@@ -117,6 +118,7 @@ void p2m_change_entry_type_global(struct domain *d,
-             }
-         }
-     }
-+#endif
- 
-     p2m_unlock(hostp2m);
- }
-@@ -145,6 +147,7 @@ bool p2m_memory_type_changed(struct domain *d)
- 
-     _memory_type_changed(hostp2m);
- 
-+#ifdef CONFIG_ALTP2M
-     if ( unlikely(altp2m_active(d)) )
-     {
-         unsigned int i;
-@@ -161,6 +164,7 @@ bool p2m_memory_type_changed(struct domain *d)
-             }
-         }
-     }
-+#endif
- 
-     p2m_unlock(hostp2m);
- 
-@@ -930,6 +934,7 @@ void p2m_change_type_range(struct domain *d,
- 
-     change_type_range(hostp2m, start, end, ot, nt);
- 
-+#ifdef CONFIG_ALTP2M
-     if ( unlikely(altp2m_active(d)) )
-     {
-         unsigned int i;
-@@ -946,6 +951,8 @@ void p2m_change_type_range(struct domain *d,
-             }
-         }
-     }
-+#endif
-+
-     hostp2m->defer_nested_flush = false;
-     if ( nestedhvm_enabled(d) )
-         p2m_flush_nestedp2m(d);
-@@ -1003,6 +1010,7 @@ int p2m_finish_type_change(struct domain *d,
-     if ( rc < 0 )
+diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
+index da28266ef0..4787b27964 100644
+--- a/xen/arch/x86/mm/mem_sharing.c
++++ b/xen/arch/x86/mm/mem_sharing.c
+@@ -901,6 +901,7 @@ static int nominate_page(struct domain *d, gfn_t gfn,
+     if ( !page || is_special_page(page) )
          goto out;
  
 +#ifdef CONFIG_ALTP2M
-     if ( unlikely(altp2m_active(d)) )
+     /* Check if there are mem_access/remapped altp2m entries for this page */
+     if ( altp2m_active(d) )
+     {
+@@ -912,7 +913,7 @@ static int nominate_page(struct domain *d, gfn_t gfn,
+ 
+         altp2m_list_lock(d);
+ 
+-        for ( i = 0; i < MAX_ALTP2M; i++ )
++        for ( i = 0; i < d->nr_altp2m; i++ )
+         {
+             ap2m = d->arch.altp2m_p2m[i];
+             if ( !ap2m )
+@@ -929,6 +930,7 @@ static int nominate_page(struct domain *d, gfn_t gfn,
+ 
+         altp2m_list_unlock(d);
+     }
++#endif /* CONFIG_ALTP2M */
+ 
+     /* Try to convert the mfn to the sharable type */
+     ret = page_make_sharable(d, page, expected_refcnt, validate_only);
+diff --git a/xen/arch/x86/mm/p2m-ept.c b/xen/arch/x86/mm/p2m-ept.c
+index ae262bfcc2..b854a08b4c 100644
+--- a/xen/arch/x86/mm/p2m-ept.c
++++ b/xen/arch/x86/mm/p2m-ept.c
+@@ -1302,7 +1302,7 @@ static void ept_set_ad_sync(struct domain *d, bool value)
      {
          unsigned int i;
-@@ -1022,6 +1030,7 @@ int p2m_finish_type_change(struct domain *d,
-             }
-         }
-     }
+ 
+-        for ( i = 0; i < MAX_ALTP2M; i++ )
++        for ( i = 0; i < d->nr_altp2m; i++ )
+         {
+             struct p2m_domain *p2m;
+ 
+@@ -1576,7 +1576,8 @@ void __init setup_ept_dump(void)
+ #ifdef CONFIG_ALTP2M
+ void p2m_init_altp2m_ept(struct domain *d, unsigned int i)
+ {
+-    struct p2m_domain *p2m = array_access_nospec(d->arch.altp2m_p2m, i);
++    struct p2m_domain *p2m =
++        d->arch.altp2m_p2m[array_index_nospec(i, d->nr_altp2m)];
+     struct p2m_domain *hostp2m = p2m_get_hostp2m(d);
+     struct ept_data *ept;
+ 
+@@ -1595,7 +1596,7 @@ unsigned int p2m_find_altp2m_by_eptp(struct domain *d, uint64_t eptp)
+ 
+     altp2m_list_lock(d);
+ 
+-    for ( i = 0; i < MAX_ALTP2M; i++ )
++    for ( i = 0; i < d->nr_altp2m; i++ )
+     {
+         if ( d->arch.altp2m_eptp[i] == mfn_x(INVALID_MFN) )
+             continue;
+diff --git a/xen/arch/x86/mm/p2m-pt.c b/xen/arch/x86/mm/p2m-pt.c
+index 666abd46be..5a6ce2f8bc 100644
+--- a/xen/arch/x86/mm/p2m-pt.c
++++ b/xen/arch/x86/mm/p2m-pt.c
+@@ -519,12 +519,14 @@ int p2m_pt_handle_deferred_changes(uint64_t gpa)
+     struct p2m_domain *p2m = p2m_get_hostp2m(current->domain);
+     int rc;
+ 
++#ifdef CONFIG_ALTP2M
+     /*
+      * Should altp2m ever be enabled for NPT / shadow use, this code
+      * should be updated to make use of the active altp2m, like
+      * ept_handle_misconfig().
+      */
+     ASSERT(!altp2m_active(current->domain));
 +#endif
  
-  out:
-     p2m_unlock(hostp2m);
-diff --git a/xen/arch/x86/vm_event.c b/xen/arch/x86/vm_event.c
-index 0d15d363c3..fc349270b9 100644
---- a/xen/arch/x86/vm_event.c
-+++ b/xen/arch/x86/vm_event.c
-@@ -72,7 +72,7 @@ void vm_event_toggle_singlestep(struct domain *d, struct vcpu *v,
+     p2m_lock(p2m);
+     rc = do_recalc(p2m, PFN_DOWN(gpa));
+diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
+index 5a3fda903e..e802f2e4e6 100644
+--- a/xen/arch/x86/mm/p2m.c
++++ b/xen/arch/x86/mm/p2m.c
+@@ -106,7 +106,7 @@ void p2m_change_entry_type_global(struct domain *d,
+     {
+         unsigned int i;
  
-     if ( rsp->flags & VM_EVENT_FLAG_TOGGLE_SINGLESTEP )
-         hvm_toggle_singlestep(v);
--    else
-+    else if ( IS_ENABLED(CONFIG_ALTP2M) )
-         hvm_fast_singlestep(v, rsp->u.fast_singlestep.p2midx);
- }
+-        for ( i = 0; i < MAX_ALTP2M; i++ )
++        for ( i = 0; i < d->nr_altp2m; i++ )
+         {
+             if ( d->arch.altp2m_eptp[i] != mfn_x(INVALID_MFN) )
+             {
+@@ -152,7 +152,7 @@ bool p2m_memory_type_changed(struct domain *d)
+     {
+         unsigned int i;
  
+-        for ( i = 0; i < MAX_ALTP2M; i++ )
++        for ( i = 0; i < d->nr_altp2m; i++ )
+         {
+             if ( d->arch.altp2m_eptp[i] != mfn_x(INVALID_MFN) )
+             {
+@@ -939,7 +939,7 @@ void p2m_change_type_range(struct domain *d,
+     {
+         unsigned int i;
+ 
+-        for ( i = 0; i < MAX_ALTP2M; i++ )
++        for ( i = 0; i < d->nr_altp2m; i++ )
+         {
+             if ( d->arch.altp2m_eptp[i] != mfn_x(INVALID_MFN) )
+             {
+@@ -1015,7 +1015,7 @@ int p2m_finish_type_change(struct domain *d,
+     {
+         unsigned int i;
+ 
+-        for ( i = 0; i < MAX_ALTP2M; i++ )
++        for ( i = 0; i < d->nr_altp2m; i++ )
+         {
+             if ( d->arch.altp2m_eptp[i] != mfn_x(INVALID_MFN) )
+             {
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 5241a1629e..104e917f07 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -822,6 +822,12 @@ struct domain *domain_create(domid_t domid,
+     if ( config )
+     {
+         d->options = config->flags;
++#ifdef CONFIG_ALTP2M
++        d->nr_altp2m = config->altp2m.nr;
++#else
++        ASSERT(!config->altp2m.nr);
++#endif
++
+         d->vmtrace_size = config->vmtrace_size;
+     }
+ 
+diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+index 0c75d9d27f..8f6708c0a7 100644
+--- a/xen/include/public/domctl.h
++++ b/xen/include/public/domctl.h
+@@ -116,7 +116,10 @@ struct xen_domctl_createdomain {
+ /* Altp2m mode signaling uses bits [0, 1]. */
+ #define XEN_DOMCTL_ALTP2M_mode_mask  (0x3U)
+ #define XEN_DOMCTL_ALTP2M_mode(m)    ((m) & XEN_DOMCTL_ALTP2M_mode_mask)
+-        uint32_t opts;
++        uint16_t opts;
++
++        /* Number of altp2ms to permit. */
++        uint16_t nr;
+     } altp2m;
+ 
+     /* Per-vCPU buffer size in bytes.  0 to disable. */
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+index df23411869..a59965b606 100644
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -619,6 +619,10 @@ struct domain
+         unsigned int guest_request_sync          : 1;
+     } monitor;
+ 
++#ifdef CONFIG_ALTP2M
++    unsigned int nr_altp2m;    /* Number of altp2m tables. */
++#endif
++
+     unsigned int vmtrace_size; /* Buffer size in bytes, or 0 to disable. */
+ 
+ #ifdef CONFIG_ARGO
 -- 
 2.34.1
 
