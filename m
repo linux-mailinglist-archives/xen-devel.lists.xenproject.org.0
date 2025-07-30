@@ -2,38 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E292B15FB2
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 13:48:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1063837.1429557 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50116B16040
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 14:23:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1063873.1429593 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh5Hv-0007GA-1W; Wed, 30 Jul 2025 11:48:03 +0000
+	id 1uh5pw-0004Zo-Vi; Wed, 30 Jul 2025 12:23:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1063837.1429557; Wed, 30 Jul 2025 11:48:03 +0000
+Received: by outflank-mailman (output) from mailman id 1063873.1429593; Wed, 30 Jul 2025 12:23:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh5Hu-0007DS-Tu; Wed, 30 Jul 2025 11:48:02 +0000
-Received: by outflank-mailman (input) for mailman id 1063837;
- Wed, 30 Jul 2025 11:48:00 +0000
+	id 1uh5pw-0004XB-Sh; Wed, 30 Jul 2025 12:23:12 +0000
+Received: by outflank-mailman (input) for mailman id 1063873;
+ Wed, 30 Jul 2025 12:23:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BoeR=2L=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uh5Hs-0007DL-Pf
- for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 11:48:00 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=txka=2L=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1uh5pv-0004Wg-2T
+ for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 12:23:11 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [2a07:de40:b251:101:10:150:64:2])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0aa8ef6f-6d3b-11f0-a320-13f23c93f187;
- Wed, 30 Jul 2025 13:48:00 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-45600581226so64793675e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 04:48:00 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-458953cfcadsm25001485e9.18.2025.07.30.04.47.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Jul 2025 04:47:58 -0700 (PDT)
+ id f4118d99-6d3f-11f0-a320-13f23c93f187;
+ Wed, 30 Jul 2025 14:23:09 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3022C1F809;
+ Wed, 30 Jul 2025 12:23:08 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BCE921388B;
+ Wed, 30 Jul 2025 12:23:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 2DMlLKsOimiBJAAAD6G6ig
+ (envelope-from <jgross@suse.com>); Wed, 30 Jul 2025 12:23:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,108 +53,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0aa8ef6f-6d3b-11f0-a320-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1753876079; x=1754480879; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=M4kvPPxGcKMJa3uhl0gurPJxwA7z3AqL83+xSNF7uDQ=;
-        b=GrDL0wB9tyZj+IGUW8ksLLIOHgKRA++6yhzSmbR8pJNp6gMXJevEY8CJSO0tTCYlG0
-         e8YFfvq/rRoxxYJLNDSQtkddSC+NubqZvuj/nAUklNgbAyqTUmw11ovYkTePOEGWQ3Ck
-         wl6GJyYGGnGp4ySdrYAzWsvQ5AHrGvxArYG/s=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753876079; x=1754480879;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=M4kvPPxGcKMJa3uhl0gurPJxwA7z3AqL83+xSNF7uDQ=;
-        b=SmrN+5XosK/5u/MS2pIhBHdw8HO8QvkxPW0ecD2+Ee6auoryIX2PmgtMF6yTqhxg1m
-         4vA69AmUh5fcHDXI1ph6YBU82Rfbpf7Dg/3UiAouDe0MfCxkPAOPHEZjrRcPo0EMuUMc
-         sWW9yX9EimTKDknkh79+vr9UtqsrBAzwoguEs7ArTgOa44tS/SlRNRZPOlwIx3e2Bc+y
-         UElZuLY1d4dH7bGmgDfICb0uL1H0ctJWjwcPIPfJhAEQ72/CcnmRQV4L/oWReABy5Y0v
-         gygca0RsqfHv/BloK6EthtoS5K1ljYCgDwu9Vttgf6vZonElqBaoy4YjFQ1egd+BWRE0
-         x8zw==
-X-Forwarded-Encrypted: i=1; AJvYcCWjO+apNjeQgBrKBCjMb8dDK0TBvIhLW7RJsj5yJoU/yJBhHjU0xr8TztnfJvUIsml4Q29W3VAcQIc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxBB2kCAiDpMJ2Rim+DOxHD/j5OXH04F4dkALojKZ+r7QRrJO47
-	AFccicmut+No2kb8tBn5aVXsvTgqfodYbBuNXdHN5duDgDa5hC0qADRgJa77w9A29dw=
-X-Gm-Gg: ASbGncvY8yA2tvg3H4doXO+5Q8wWHWMJ+fP2xQ3VVL3hwkgxO89juKtb8fxvDs9x/Mo
-	eLKUKuJTqUGxddZkpwJycO6CiEUmFZ5WAZu8Y83lZovmoCWMLQjViaDvONB2KvAw047HhhNTqZh
-	RrdKRbaJTVcTyt3vC8R6UsobCTcvBBo2zedj5O4JnKzBqsR00tVDI4LiFgGC7FflA4aiZw8w/Ho
-	P23tBx0o89B97lOK4ojJWZbqXNKxnU1WedICalUbZk3+c+//cVaZvdT+bIozgjkkwLVL5LPpgNt
-	oWdfaOrsttLKp67sRo1lEmKDwL+q2N7cneWdd1egdgrB+Mw1iKFSgN5aiAky2xlAlHSi6lVHRRI
-	Vuw4+rWTh2wsiAClC9Y3q5WtfPJWVAHvlOEh5QfcqN7pYOx0s0N44E5sFq4WcTHcutuq3
-X-Google-Smtp-Source: AGHT+IFLahv78jzphyVjuIUt/9P0HU+jTsJxcGuFX1vY8L1+b07C/N9PFVIwtXjyE8LI5dUMmAH2Rw==
-X-Received: by 2002:a05:600c:8419:b0:456:58e:318e with SMTP id 5b1f17b1804b1-45892be133fmr31279695e9.30.1753876079313;
-        Wed, 30 Jul 2025 04:47:59 -0700 (PDT)
-Message-ID: <4612a731-6d2b-4760-8229-eb93e7d20214@citrix.com>
-Date: Wed, 30 Jul 2025 12:47:58 +0100
+X-Inumbo-ID: f4118d99-6d3f-11f0-a320-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1753878188; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=RvzpvscIfRPKd3JiWmPzwVWKEvqs5MYVlope2mMG6j0=;
+	b=YXRYHwC3P+BZUNFtbCK7G3wnPHpnCx47CT1okInYIozum7w6TP+csPAMGLPChbYew7mNNG
+	WxN4QKiq74K9vt5d0A5PnUGaL8vOEpSeddpDPcpXt9n0wsBJURiHtD0Tioe4qr3y/kXkK7
+	MFFSgDN2DO4WLQZUw/3gSP/5pax32FU=
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=YXRYHwC3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1753878188; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=RvzpvscIfRPKd3JiWmPzwVWKEvqs5MYVlope2mMG6j0=;
+	b=YXRYHwC3P+BZUNFtbCK7G3wnPHpnCx47CT1okInYIozum7w6TP+csPAMGLPChbYew7mNNG
+	WxN4QKiq74K9vt5d0A5PnUGaL8vOEpSeddpDPcpXt9n0wsBJURiHtD0Tioe4qr3y/kXkK7
+	MFFSgDN2DO4WLQZUw/3gSP/5pax32FU=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Community Manager <community.manager@xenproject.org>
+Subject: [PATCH v3 0/9] Enable Xenstore-stubdom Live Update
+Date: Wed, 30 Jul 2025 14:22:56 +0200
+Message-ID: <20250730122305.4050-1-jgross@suse.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] CI: list failed tests at the end of tools job
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20250730114624.2260010-1-marmarek@invisiblethingslab.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20250730114624.2260010-1-marmarek@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Spam-Flag: NO
+X-Rspamd-Queue-Id: 3022C1F809
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-1.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,changelog.md:url,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[suse.com,xen.org,vates.tech,citrix.com,amd.com,kernel.org,gmail.com,xenproject.org];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	TAGGED_RCPT(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.com:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Spam-Score: -1.51
 
-On 30/07/2025 12:46 pm, Marek Marczykowski-Górecki wrote:
-> Currently, if any unit test fails, the final line says only result of
-> the last test - one need to scroll through the whole log to find which
-> test failed (or whether was it some infra issue).
-> Do the simple thing for now and repeate the failed tests list and the
-> end.
->
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+With this series applied I was able to perform Live Update of Xenstore
+running in a PVH stubdom.
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+One relevant change in this series is how the Xenstore state is being
+read after activating the new binary. Instead of using mmap() the
+state records are read one by one via fread(). This might have a
+small performance impact for the daemon live update case, but it
+should be neglectable.
+
+Changes in V2:
+- rebase
+- former patches 1 and 2 have been committed already
+- former patch 5 moved to start of the series (has all needed Acks)
+- new patches 8 and 9
+
+Changes in V3:
+- minor changes in patches 1 and 5
+
+Juergen Gross (9):
+  xenstored: use fread() instead of mmap() for reading live update state
+  libevtchn: add O_CLOEXEC support for Mini-OS
+  libxengnttab: set the cloexec flag on Mini-OS
+  xenstored: don't use xenevtchn_fdopen() in stubdom
+  tools/libxenevtchn: add xenevtchn_bind() under Mini-OS
+  xenstored: rebind event channels after live update in stubdom
+  tools/xenstored: make stubdom_init() live update aware
+  SUPPORT.md: add xenstorepvh-stubdom live update
+  CHANGELOG.md: add xenstorepvh-stubdom live update
+
+ CHANGELOG.md               |  1 +
+ SUPPORT.md                 |  2 +-
+ tools/include/xenevtchn.h  | 13 +++++
+ tools/libs/evtchn/minios.c | 23 +++++++--
+ tools/libs/gnttab/minios.c |  1 +
+ tools/xenstored/core.c     |  5 +-
+ tools/xenstored/core.h     |  8 +++-
+ tools/xenstored/domain.c   | 25 ++++++----
+ tools/xenstored/domain.h   |  2 +-
+ tools/xenstored/lu.c       | 97 +++++++++++++++++++++++---------------
+ tools/xenstored/minios.c   | 22 +++++++--
+ tools/xenstored/posix.c    | 10 ++++
+ 12 files changed, 150 insertions(+), 59 deletions(-)
+
+-- 
+2.43.0
+
 
