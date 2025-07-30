@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34A81B16241
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 16:07:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1064037.1429782 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E895EB16273
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 16:15:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1064057.1429791 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh7SE-0001x2-7y; Wed, 30 Jul 2025 14:06:50 +0000
+	id 1uh7aK-0003np-Vk; Wed, 30 Jul 2025 14:15:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1064037.1429782; Wed, 30 Jul 2025 14:06:50 +0000
+Received: by outflank-mailman (output) from mailman id 1064057.1429791; Wed, 30 Jul 2025 14:15:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh7SE-0001v0-4r; Wed, 30 Jul 2025 14:06:50 +0000
-Received: by outflank-mailman (input) for mailman id 1064037;
- Wed, 30 Jul 2025 14:06:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uh7aK-0003lf-So; Wed, 30 Jul 2025 14:15:12 +0000
+Received: by outflank-mailman (input) for mailman id 1064057;
+ Wed, 30 Jul 2025 14:15:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6hfZ=2L=epam.com=dmytro_prokopchuk1@srs-se1.protection.inumbo.net>)
- id 1uh7SC-0001uu-OE
- for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 14:06:48 +0000
-Received: from MRWPR03CU001.outbound.protection.outlook.com
- (mail-francesouthazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c207::3])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6bbd7c80-6d4e-11f0-b895-0df219b8e170;
- Wed, 30 Jul 2025 16:06:43 +0200 (CEST)
-Received: from GV2PR03MB9572.eurprd03.prod.outlook.com (2603:10a6:150:da::5)
- by PA3PR03MB10987.eurprd03.prod.outlook.com (2603:10a6:102:4b0::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.26; Wed, 30 Jul
- 2025 14:06:41 +0000
-Received: from GV2PR03MB9572.eurprd03.prod.outlook.com
- ([fe80::edd1:842f:9b14:509e]) by GV2PR03MB9572.eurprd03.prod.outlook.com
- ([fe80::edd1:842f:9b14:509e%3]) with mapi id 15.20.8964.025; Wed, 30 Jul 2025
- 14:06:40 +0000
+ <SRS0=BoeR=2L=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uh7aJ-0003lY-RD
+ for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 14:15:11 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9a5350a4-6d4f-11f0-a320-13f23c93f187;
+ Wed, 30 Jul 2025 16:15:10 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3b78d729bb8so1883610f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 07:15:10 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-458953b330fsm28168445e9.31.2025.07.30.07.15.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 30 Jul 2025 07:15:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,231 +45,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6bbd7c80-6d4e-11f0-b895-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YRVcji8JoBtY6Ns6aBLWwHuUZ4an7cOfZDvKQAxurGKGgAJ7U+IiFQa9iMY+9ForcAASHYEKp+f50Wkwn0dUxYLpR6AbnTjBErsAXm2U2mc/L50pa9JSGpYvFoGPi+8dkfU3lsFdzk4ohH0K5HO/yATqR7wXdh8SFphi3FuseQj+2tsdikttGvIAWQ+T6mJc+7poapIWsXNmVhwVzn+FY7kHqWreJmrfelSF3Qyry3K5yFUaJXk0kac+lTehWzKhyUkDQ5bkJOjARypCMP+3Smyazl+go+Gj+lKxZPwt8RBt2GXEA6LG19xQooukl/9f8vkNlx2TfSyMSFvv5A6BaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S9pVFRN3tJeSeQJLTWqF2f9Yu8yMxBsg6un1UDXG5dw=;
- b=x6PgT0ix5gsE8NwMYuUK1CvzA67aZmZV3My9Kei0aUCXY7yKy5p24Kof7mfS0Xiv06tyJxoS5lN9kafowsBzwJUDAMN3+wMwKmkvbiiTFgCIQ0WziMufZWt7P7rStTZWtQ+t9lXFlcRl03UgPAkj1NmcGqoAVFxtywiiikitKd11lZIftFtVWaaq/3Bz4ug9f1UfN8n2gJFmph5dSSFtR5ZKvM32hmJJWbrZmqe10rpBLcOrgSAf9O0pOWZXkgP8ZhWErfmVsqBG6CQystzD2OSaEfauUKp5rso+b8dtm3hlnwcA2H5XpWfgcsWhyhR0//qFuz2Ts5ecGdbMYjLI/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S9pVFRN3tJeSeQJLTWqF2f9Yu8yMxBsg6un1UDXG5dw=;
- b=DLS8pXp4dCHyYApwlf6UbMn+VWDX8SOiTX6BmS5z9esXKWOak/JqmSnvvohbRGWmx8CFnQLFgo6W+nUR5C0nLnYmOj6cSYz9VdnxQQghPfWQ47KFrYOiyhln1vtxSCe1ZeyFJljM0oDD4BvW4vfoAg1oAtrkKJ0MdHQWXjETUtu4cSMDnVH47N3ksn4Ik/4vyDodwRet9dOJG9xTLq9WV6Ugtb4S/5rur7zbU3x64WFzo/U9suPoQGXRcqxZj2tvWM0T9it2cvHc12Vh8vUM/OdqC04Mzp7mNzCogYPosAfzFz7smfskWjpKwK7VLYeHMwm94Ocv6wE6c/c/P9nW3Q==
-From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Nicola Vetrini <nicola.vetrini@bugseng.com>, Doug Goldstein
-	<cardoe@cardoe.com>, Stefano Stabellini <sstabellini@kernel.org>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Dmytro Prokopchuk1
-	<dmytro_prokopchuk1@epam.com>
-Subject: [PATCH] automation/eclair: deviate intentionally unreachable code
-Thread-Topic: [PATCH] automation/eclair: deviate intentionally unreachable
- code
-Thread-Index: AQHcAVss8EFecYrbzEuwp3GEEH5uyQ==
-Date: Wed, 30 Jul 2025 14:06:40 +0000
-Message-ID:
- <e699179c079df36f6cb4fdc7865a73cb9fe79f8c.1753881652.git.dmytro_prokopchuk1@epam.com>
-Accept-Language: en-US, uk-UA, ru-RU
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR03MB9572:EE_|PA3PR03MB10987:EE_
-x-ms-office365-filtering-correlation-id: b0f0d2da-818a-40dc-5084-08ddcf724ea9
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|366016|42112799006|1800799024|13003099007|38070700018;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?PenkVm/EVBjq1LQEUALLYbhtjZ0y3jxFdVQ5jMb+3fgrVGFbpMZjRAtHrP?=
- =?iso-8859-1?Q?ELOoptNK14DBwwxEaocMwpDbDlMqrlFf/al8mxAj4Bk9PR/hkb3WeMwxCR?=
- =?iso-8859-1?Q?h3w0iyiJZ0NmeQnUN1eRmFyFUYh5zUi1Fbj6k2KW9cHAnvqxgWIWazg0oj?=
- =?iso-8859-1?Q?AHs8a+Vwc7muKK6oKWodpERULsyrySyZr4AoaJzoQ5vG71uL353f2L+XkE?=
- =?iso-8859-1?Q?iClyR8T3pGiGMEjGULBRAk8vVEe1wf0Vouwene7C+fR2446Yse+6Ue9az6?=
- =?iso-8859-1?Q?t5iRjKL7i3m71qcZC4zyGLIkyZ4/8So6Gedrt/6oMZQijzr+llNPLZXXAM?=
- =?iso-8859-1?Q?Q8Aq33w7GaPKiocSwyVOQ4gqegVq9mVuZCYcvZwgciTL0QmNi1ZHda77M+?=
- =?iso-8859-1?Q?cCdM6yuZb2m+L4jdli1bMoFAEjVhczNjFbOVb3LphbrgiFtHkpbOeqwpSe?=
- =?iso-8859-1?Q?9fQFAY+sTQ+s4P5fwYS5HaeXbRyHrEFf5c76vZT7kn+cS8nDVSVpg37/lK?=
- =?iso-8859-1?Q?XvNQ9o2x+5+NcoDsjodHXeYaFF7M6YR3faGYm5sMnWaS4oDZO9z+2qf42p?=
- =?iso-8859-1?Q?7rhKMoSbcMO2mEt4slzbKCgjbA9jivqAQxaiMFEhjJg6yWRnBFjTDKHtnp?=
- =?iso-8859-1?Q?/N/yq1CbQEN51JNZJl/Q1WizWCdgWzZh1ZmdHKQfQ6eSYIdD7zDg7yJGEc?=
- =?iso-8859-1?Q?sWETJd5sAa0S76io8OM3fELoZr4E9iGa1yH1R17Ql+wCDH/xcHWFhinaNf?=
- =?iso-8859-1?Q?VsVjtAmZSEQIz1SWye2i0NOvHzp96xyaEOtG/+EijR2ljldkb4gbAQgytN?=
- =?iso-8859-1?Q?kJuNkcTmCjhrms1gKAhw3gzZISgWTKU59HRltZPcIKIzup4quMFHYoRVMH?=
- =?iso-8859-1?Q?Raac5b8wPDRKI91Ebb7sn8dfTySmYTAMmQSJYMAq38PZyZKORUAk5KOMhc?=
- =?iso-8859-1?Q?MWb9F2DTXzYXXy5hqfJKPT2x6AoZIxceSsn3HFwX8fwrpSAEC2IPMcnsx5?=
- =?iso-8859-1?Q?IId4Grj12mAO80qBZ5DAxb4IDJ2P9j8Rt8jSpZnP7tQoFjGc/lrnkuXW08?=
- =?iso-8859-1?Q?C2eUf+6AbI0amyG6zzNt2/Q8nP+RPdaNXmZ+yyMiKqdu/96OKMrHyxL7g4?=
- =?iso-8859-1?Q?I3cK7DKn+iSnWiEqlg1LJJ3KyBDvv4BLf2hAZf9eajCsDt/eABvUjchros?=
- =?iso-8859-1?Q?EPqXIGDxMuas8Dk5QTqSDiqpY1p84CB+nMRFnCugNZ7B0gwkskD9iWtq0x?=
- =?iso-8859-1?Q?s5ouKP3l94LFWkj50BWFFf/nIyrxaDQ2S2vxHYk8dbOA+ciQK6cAGrXUCW?=
- =?iso-8859-1?Q?Jgv1sTl9WdBfouEM18KKZL16RY/b1sGPFX0B8t/MkEz0qWlOY0kBUyqogH?=
- =?iso-8859-1?Q?dT5sQ9Y9eKM7q9JwTmBfvkzrG41atPZnLvj3AUJuThNIgcG4qIx37i2Vl1?=
- =?iso-8859-1?Q?EiEX0zzWvSmR5HZZrl+s7So9Ig/jTo41tlVDcQL4yzAn9W7VqIfdtpRQiC?=
- =?iso-8859-1?Q?QKBzrjhcJLolr4H4PkIUwizQW4BjzLPoxCK+BlGbSVLlP2lvyIyp6+QfZx?=
- =?iso-8859-1?Q?lLAu4UM=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB9572.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(42112799006)(1800799024)(13003099007)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?3wFsccirm67kV2XO+AfWgRxs/+rHxYXjsinrxzEeyE6WGPVlTaRa9mXrwz?=
- =?iso-8859-1?Q?E5jJSImuW5BA2Jaf0RYIuBNYvcYY1sek3BWTkJoH0MfU8ENlbBSMUSANSz?=
- =?iso-8859-1?Q?oSd2uikuxyHrkqBa5IpMf4lnBSQBMu7HxnwQD/S8s3g+jUbeJ9fO8tyfM5?=
- =?iso-8859-1?Q?UWDTYD/5geKnB0wgnCMuMpnPSqCtC9hwuacqlTlKFR4QB2I5nN4jb7WJ1Y?=
- =?iso-8859-1?Q?taPx7ErlFEGPffJxKo26qhmTWzkbcNIhC+uUqHtgzxUcNUVM7EKMkqMjF1?=
- =?iso-8859-1?Q?8wCpw3C+UESyfwb9BgmolTELX6rhkaxgSKaYj/Py1+qvNR4mJ7mN2gNeJ7?=
- =?iso-8859-1?Q?rMmG/zp+g/sAKLSjLq1TZ8BFWCz91Gj+/K1zaGDCVL0ZqtT953aawxOVea?=
- =?iso-8859-1?Q?DWDPTwKQmg+vHcsHFAz2gVwRimrUBgQyGTjFI1C4gD0C8Xi7e4jaF00JoD?=
- =?iso-8859-1?Q?mARk3yIMyivF8TYqeAq/IFNJeCPVU1th8TRJPFmi4/OdNwV2bFBeH1lg4r?=
- =?iso-8859-1?Q?/r3ltSkayEl+YjewxWXSCok+rcckMrfKJZMG5ZcfjPZs85A0xZ0L6r/c+j?=
- =?iso-8859-1?Q?7A33GdETXPHf6yFdA+Uo3I7arejUBA/eKB4qAeo4Lr9s3zE+myoCGlf51I?=
- =?iso-8859-1?Q?FL9ON32QgGWXHPr5LeDRzxx8dCLgutkmgMH1l7f2mMBFeJtTejwcsFjsdt?=
- =?iso-8859-1?Q?XRGl6pH+uSHKbTG3RpxNXs7J2aABFJPAflmWx2tAtZAn+dDOHGIzcuyaTw?=
- =?iso-8859-1?Q?1MYwKUP4uyQsv5LKVfmPSTYrsxpdSvSiAoPqcAawe4zqjeJXnyU6NnmeIO?=
- =?iso-8859-1?Q?kGWFUoPlB9xLFvh/tzZViVMebg3Kn9yI6E0kxCVa17MVWOQE87CLfnqQcK?=
- =?iso-8859-1?Q?cXKoPBr2H9EiDcsDN3ULpIJkfVfFYqLDoebnb+o9ON8sYF7PNN5VUw1mMh?=
- =?iso-8859-1?Q?FWo2uZ8m7xHkkJRBUt4iMHNVKF6ZrEYdibWp44rNf3HES06/wUMeG/6LH2?=
- =?iso-8859-1?Q?VmMIb62Nhj4vNMx0N4UxlgsIyezpBJZpgrERRY80sWH9PMPHkzlmbH1OJ9?=
- =?iso-8859-1?Q?uE/UWWNVDrcbslILFbbPrv6ghZHLuNblpQprCW8oZoJWtk4zC9/qkw0PzQ?=
- =?iso-8859-1?Q?6RusQiA3aGGrkhkA7EX1u9Cg2otPe0RrEZxWxLxqfDEvUclmuqFtHsTIPF?=
- =?iso-8859-1?Q?4DuvKag4q85Kr1KiFgOQITv0zLXnlvIYnNKMpBbdW8SeDdbkuPojUBvZ2A?=
- =?iso-8859-1?Q?BHCCfiYgSBSR7jqBSfBtB3Zdg2k/tyv9+mmyXNORhrM7swHT88SoM66HXb?=
- =?iso-8859-1?Q?3Cjj91rDIdb6dR1IbIsCMwiksGH3EqWEmbylsxg1B/P9RT2Pn00XsDGxTx?=
- =?iso-8859-1?Q?OmJ91+/HmP8brZGqoPPtlpxovaAkTeHvvhyc1RanrrxdpD6OCwOhyTagvb?=
- =?iso-8859-1?Q?80ycmPyHlGHIKt7GZsMxrcl2ZKiNeYycdVmQVw4fDICGXgV9lygKzV/3B1?=
- =?iso-8859-1?Q?do2zvDFZGQre5jqPdv50gVmS7tk+UAleVsE+VlC6a+QhGe2QtgE6uLw3TW?=
- =?iso-8859-1?Q?dopO7iQSCMIt553YIBVDMf0002gczVf3csA6nzyYPlFZVje/tJ+Ntaeo60?=
- =?iso-8859-1?Q?2Du6cHKGwFghTT4HNqlNHwxk5m+Dke7kxK1+0/EqEhJ3RAoK2X+wm8bg?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 9a5350a4-6d4f-11f0-a320-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1753884910; x=1754489710; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=UHEL2ull2Faqzb35tdN9lrzB1t4PehV/9aArfwf/Ml4=;
+        b=KwvkWuTgWoz5w76hjLB2todY9nlyoV+1a3haM/1sGqwJ1MQlZojUWepE58ERorOSPN
+         5783ceaqrtnZme4UNaPpM4DsZJFoDXZdskH/QBjj9Pob4R2bQSQRamGtYE9yu5Lw9x1E
+         UaII22d0vqVohr977lVn55jtr2tcZj2+B2ZP4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753884910; x=1754489710;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=UHEL2ull2Faqzb35tdN9lrzB1t4PehV/9aArfwf/Ml4=;
+        b=eIaS7WHP7YtgIfnWI/1oeA18hRFkdShimSX1O/xqByNRBEKKJRRpOxk5m/Xn0MWG9o
+         9bBnAVMc0XyiPKG4SF45m9cPd4GtW2GkYNpjUE6QY7QPqw6Fig5G9BJNewnc1Ro/KPNc
+         o0qAomA2lhPdHrWYOx5BqYjNJQHx4rBfbycMA0KFWsJhZfxYqkg5SBOEg0p71R2Kto4c
+         2LQoFPrGMoFCwpODh4lA0khO9A4RWvWWcSHH9eAb3a4w6sOGWXsoEafB2LTeI+SIbVTu
+         w1lQY5pgcgKboPQW+qoG5wVLk/65EXfIciyVdYUP4DdjARP2IRHNqgG/BshAV0bzggKS
+         eq5w==
+X-Forwarded-Encrypted: i=1; AJvYcCW/eRll78H5+f97B0q6H4SAAixVdkQZqmoLkl/VavLv7Qo86Yq/liqPLm+Frt+l4uxwPuXbeCl3+/4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy9Og5D2c0ftLmJ1KvGTwaRRmtDHPsEe/mMUF1HWOj54QTVviVx
+	vfjoh83zne76HRijvwv55CguzL5kRJC0uY5UNfJQFlwgAt92O3K2qA1qBYXlo7mtTTg=
+X-Gm-Gg: ASbGnctkQpabTf0Vdn/jNQDKB7f3DPqwoh79qMuMW9oqhSOhClcqDzCaYRFGDqSA/Y5
+	mShduz6SzD8ChvFe1PSU5jIq0XMraP7zjNlBL4D/iyCnNhLpaJpRY2Iicyik8d1ZFhy8ec4Hbqw
+	OEvMJ6DUwDv9Ev/TlwNFOt0GgZXn0l1OmiFFE3Xxy+WiJgTnZAdtDQ9sFDdYEmmSzs87eph4nW1
+	I5K4QCZHtvt24jE+0YL4U3vSV92WDuuCg69FkJzSMZ4qliDb30UmWji1tUxEWSp8Yh4IZe4dKu/
+	Xo/dseab8h1I0DRNB7XX/2xw4jyWC5WGUJIyhrYKMY4rMyf33CadNyfBAg1qUZTiGgJ7q5vpheF
+	9jp1BLYiZbocNsSU91OAhiFWIaGCDJ5MtHgDic3DJ/BK5ufMdunqgwDD86nJoTnXtmrtk
+X-Google-Smtp-Source: AGHT+IHC0FRaAAi5zhIdS/HUfmd/PDJ1sxRaxbqIM9vxtP9e+7BqxLTWRFw6KuV2Xr+hobKxdj7EDQ==
+X-Received: by 2002:a05:6000:2482:b0:3a4:fea6:d49f with SMTP id ffacd0b85a97d-3b795013d4cmr2735355f8f.49.1753884910158;
+        Wed, 30 Jul 2025 07:15:10 -0700 (PDT)
+Message-ID: <16cbf1bc-1dee-4505-bb5a-e09ea76bc8ba@citrix.com>
+Date: Wed, 30 Jul 2025 15:15:05 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB9572.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b0f0d2da-818a-40dc-5084-08ddcf724ea9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jul 2025 14:06:40.9058
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9qPiJhkgprIyx0P+cG3XXn9+bpFjArHoFcllhxGuweZUvwTAAn/nbKXZ8Z0IJYWaXR1b1h+HIEGa1vSF2DwRLqOhSsfnnQYtgEkJwHrming=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA3PR03MB10987
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] automation/eclair: deviate intentionally unreachable code
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <e699179c079df36f6cb4fdc7865a73cb9fe79f8c.1753881652.git.dmytro_prokopchuk1@epam.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <e699179c079df36f6cb4fdc7865a73cb9fe79f8c.1753881652.git.dmytro_prokopchuk1@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+On 30/07/2025 3:06 pm, Dmytro Prokopchuk1 wrote:
+> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+> index e78179fcb8..fba75be2ee 100644
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -86,6 +86,14 @@ Deviations related to MISRA C:2012 Rules:
+>         generate definitions for asm modules.
+>       - Tagged as `deliberate` for ECLAIR.
+>  
+> +   * - R2.1
+> +     - Calls to the `__builtin_unreachable` function inside the expansion of
+> +       the `ASSERT_UNREACHABLE()` macro may cause a function to be marked as
+> +       non-returning. Since this only happens in debug configurations,
+> +       the `noreturn` property for `__builtin_unreachable` is overridden in
+> +       these contexts, resulting in the absence of reports that do not have
+> +       an impact on safety, despite being true positives.
+> +
 
-MISRA C Rule 2.1 states: "A project shall not contain unreachable code".
-Functions that are non-returning and are not explicitly annotated with
-the `noreturn' attribute are considered a violation of this rule.
+I'm not sure how best to phrase this, but it's probably worth saying
+that Xen expects developers to write code which would fail safe in a
+release build when the assertion was removed.
 
-In certain cases, some functions might be non-returning in debug build
-configuration (when `NDEBUG' is not defined), due to calls to
-`__builtin_unreachable' in the expansion of the macro `ASSERT_UNREACHABLE()=
-'.
+I.e. it's more than just "there may be code there".  It's expected that
+there is.
 
-Conversely, in non-debug (release) builds (when `NDEBUG' is defined),
-the macro `ASSERT_UNREACHABLE()' expands to an empty construct
-(`do { } while (0)'), which does not affect the execution flow.
-This allows such functions to return normally in release builds,
-avoiding unreachable code.
-
-To account for that in debug build, the `noreturn` property of
-`__builtin_unreachable` is overridden in the ECLAIR configuration
-to deviate these violations.
-
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
----
-Test CI pipeline:
-https://gitlab.com/xen-project/people/dimaprkp4k/xen/-/pipelines/1957211653
----
- automation/eclair_analysis/ECLAIR/deviations.ecl | 5 +++++
- docs/misra/deviations.rst                        | 8 ++++++++
- docs/misra/rules.rst                             | 9 +++++++++
- 3 files changed, 22 insertions(+)
-
-diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/=
-eclair_analysis/ECLAIR/deviations.ecl
-index 483507e7b9..8a05e17dac 100644
---- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-+++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-@@ -36,6 +36,11 @@ not executable, and therefore it is safe for them to be =
-unreachable."
- -config=3DMC3A2.R2.1,reports+=3D{deliberate, "any_area(any_loc(file(C_runt=
-ime_failures)))"}
- -doc_end
-=20
-+-doc_begin=3D"Calls to function `__builtin_unreachable' in the expansion o=
-f macro
-+`ASSERT_UNREACHABLE()' are not considered to have the `noreturn' property.=
-"
-+-call_properties+=3D{"name(__builtin_unreachable)&&stmt(begin(any_exp(macr=
-o(name(ASSERT_UNREACHABLE)))))", {"noreturn(false)"}}
-+-doc_end
-+
- -doc_begin=3D"Proving compliance with respect to Rule 2.2 is generally imp=
-ossible:
- see https://arxiv.org/abs/2212.13933 for details. Moreover, peer review gi=
-ves us
- confidence that no evidence of errors in the program's logic has been miss=
-ed due
-diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-index e78179fcb8..fba75be2ee 100644
---- a/docs/misra/deviations.rst
-+++ b/docs/misra/deviations.rst
-@@ -86,6 +86,14 @@ Deviations related to MISRA C:2012 Rules:
-        generate definitions for asm modules.
-      - Tagged as `deliberate` for ECLAIR.
-=20
-+   * - R2.1
-+     - Calls to the `__builtin_unreachable` function inside the expansion =
-of
-+       the `ASSERT_UNREACHABLE()` macro may cause a function to be marked =
-as
-+       non-returning. Since this only happens in debug configurations,
-+       the `noreturn` property for `__builtin_unreachable` is overridden i=
-n
-+       these contexts, resulting in the absence of reports that do not hav=
-e
-+       an impact on safety, despite being true positives.
-+
-    * - R2.2
-      - Proving compliance with respect to Rule 2.2 is generally impossible=
-:
-        see `<https://arxiv.org/abs/2212.13933>`_ for details. Moreover, pe=
-er
-diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-index 3e014a6298..74badcb616 100644
---- a/docs/misra/rules.rst
-+++ b/docs/misra/rules.rst
-@@ -124,6 +124,15 @@ maintainers if you want to suggest a change.
-            they are used to generate definitions for asm modules
-          - Declarations without initializer are safe, as they are not
-            executed
-+         - Functions that are noreturn due to calls to `ASSERT_UNREACHABLE=
-`
-+           macro in debug build configurations are not reported as violati=
-ons::
-+
-+              static inline bool
-+              arch_vcpu_ioreq_completion(enum vio_completion completion)
-+              {
-+                  ASSERT_UNREACHABLE();
-+                  return false;
-+              }
-=20
-    * - `Rule 2.6 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Su=
-ite/-/blob/master/R_02_06.c>`_
-      - Advisory
---=20
-2.43.0
+~Andrew
 
