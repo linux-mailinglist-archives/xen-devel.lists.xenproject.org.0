@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE845B165AB
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 19:41:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1064318.1430032 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 000B9B165FF
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 20:07:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1064356.1430042 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhAnj-0007pi-1Z; Wed, 30 Jul 2025 17:41:15 +0000
+	id 1uhBCM-0003ed-2i; Wed, 30 Jul 2025 18:06:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1064318.1430032; Wed, 30 Jul 2025 17:41:15 +0000
+Received: by outflank-mailman (output) from mailman id 1064356.1430042; Wed, 30 Jul 2025 18:06:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhAni-0007mC-Sp; Wed, 30 Jul 2025 17:41:14 +0000
-Received: by outflank-mailman (input) for mailman id 1064318;
- Wed, 30 Jul 2025 17:41:14 +0000
+	id 1uhBCL-0003bW-Vu; Wed, 30 Jul 2025 18:06:41 +0000
+Received: by outflank-mailman (input) for mailman id 1064356;
+ Wed, 30 Jul 2025 18:06:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/Z10=2L=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uhAni-0006wr-2t
- for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 17:41:14 +0000
-Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch
- [79.135.106.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 626abef9-6d6c-11f0-b895-0df219b8e170;
- Wed, 30 Jul 2025 19:41:12 +0200 (CEST)
+ id 1uhBCI-0003bO-Qd
+ for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 18:06:40 +0000
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch
+ [109.224.244.16]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ed2d6705-6d6f-11f0-b895-0df219b8e170;
+ Wed, 30 Jul 2025 20:06:33 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,100 +36,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 626abef9-6d6c-11f0-b895-0df219b8e170
+X-Inumbo-ID: ed2d6705-6d6f-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1753897271; x=1754156471;
-	bh=cOJp9/TT9teYJtKcMJEIwPElIEvwJ0QU1V6DnZCzFaY=;
+	s=protonmail; t=1753898791; x=1754157991;
+	bh=nLpl8+wc7lqPmtuInjNAQ5G6FZtR5UHYVEqgW/hRV9U=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=d51yxQ0Ll3qkFVm/TQABF+9jry1j4NWN6pKbOFf6gKMH1ABQyWvHW82Y5boQ3IV4N
-	 OGPR4+Lrgm8At3k6ENC+1nmbXEpHq0uZrVgefdyWRQUk/Ga3MI/K4zDSMxVBHDDbmv
-	 Styc6yJ2JVzm7iKTk8eh7ObzmTjS2YJKfgwsMiUTvvNIHg/ZK2+ARTld0Yp8Nlz//a
-	 gK9AbSaJYj+5Vn5lHHOp5XehOLxk0XSN/a6xcWQbSu03La7l1HtSRjrBHovTrx+lVn
-	 gae8t1mvRWVNsFBhSF35Tx7Q5F14XrHXgqRBKLLdR1qLIpR7VBVjbC7n0Aprrk0Go3
-	 iLjo/5WdrAS4w==
-Date: Wed, 30 Jul 2025 17:41:05 +0000
-To: xen-devel@lists.xenproject.org
+	b=N8gSVI2HNt5XPOH73oEn5QeJ2ktj3HIGEOh8lNOHAzy2BhYbEoMU6k5jiEN17wq5N
+	 hujpTX8xB7nPQeS1tid/CY1Ry93cwuB8EGvSi39LJn8/wvJbbtgdX9qiLweGY5iJXW
+	 J//99IHNm4RGrIje+JuYQ0soQQ9BU587McVEYRE6l53KFADfkf0I60jgk3fh3kofZb
+	 fi6FwO+6YxWUWCA72VYw8/1ycirfbOtnWBHbVHs/qkWeiIyX3IW+Ob73lXc4i5e5Au
+	 tWxhSrvPBkWedhFYJkPBGaUXSoWvJQmeT7i+HQj/oBx65nLxWgaNF5u5U6Sy90OWGI
+	 CmnB6WHb7X6tw==
+Date: Wed, 30 Jul 2025 18:06:27 +0000
+To: Jan Beulich <jbeulich@suse.com>
 From: dmkhn@proton.me
-Cc: alejandro.garciavallejo@amd.com, andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH v13 3/3] xen/domain: update create_dom0() messages
-Message-ID: <20250730174042.1632011-4-dmukhin@ford.com>
-In-Reply-To: <20250730174042.1632011-1-dmukhin@ford.com>
-References: <20250730174042.1632011-1-dmukhin@ford.com>
+Cc: Julien Grall <julien@xen.org>, andrew.cooper3@citrix.com, anthony.perard@vates.tech, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1] xen/console: remove __printk_ratelimit()
+Message-ID: <aIpfH5Cy10o8VMCu@kraken>
+In-Reply-To: <4292abbe-28b1-4545-87af-b37dd4ace53e@suse.com>
+References: <20250725212235.753363-1-dmukhin@ford.com> <290ae958-4fba-42d8-a64b-d44845b85491@xen.org> <aade04e0-737f-481c-9ed1-1275969c2ef7@suse.com> <aIlIm7F5L3WQLoWd@kraken> <4292abbe-28b1-4545-87af-b37dd4ace53e@suse.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 8694e1a1eccb0df379012085a56cc309dee21075
+X-Pm-Message-ID: c07fdf8b757209a92172ee7411723c4348ded95e
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-From: Denis Mukhin <dmukhin@ford.com>=20
+On Wed, Jul 30, 2025 at 07:35:04AM +0200, Jan Beulich wrote:
+> On 30.07.2025 00:18, dmkhn@proton.me wrote:
+> > On Mon, Jul 28, 2025 at 11:32:43AM +0200, Jan Beulich wrote:
+> >> On 26.07.2025 11:20, Julien Grall wrote:
+> >>> On 25/07/2025 22:24, dmkhn@proton.me wrote:
+> >>>> From: Denis Mukhin <dmukhin@ford.com>
+> >>>>
+> >>>> __printk_ratelimit() is never used outside of the console driver.
+> >>>> Remove it from the lib.h and merge with the public printk_ratelimit(=
+).
+> >>>
+> >>> Is this solving any sort of violation? Asking because even if the
+> >>> function is only used by one caller, I could see a benefit to be able=
+ to
+> >>> use different value for the ratelimit. So I leaning towards keep the
+> >>> code as-is.
+> >>
+> >> +1
+> >>
+> >> In fact I'm surprised (or maybe not) that we still don't make better u=
+se
+> >> the rate limiting functionality.
+> >
+> > Out of curiosity, do you have any ideas re: make better use of the rate
+> > limiting functionality?
+>=20
+> No concrete ones; thinking about this has been way too long ago.
+>=20
+> > Build-time parameterization?
+>=20
+> That and/or command line controls.
 
-Use %pd for domain identification in error/panic messages in create_dom0().
+Got it.
 
-No functional change.
+Can you please explain why exporting __printk_ratelimit() is still required
+for implementation of build/command line settings in console.c?
 
-Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-Reviewed-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
----
-Changes since v12:
-- n/a
----
- xen/arch/arm/domain_build.c | 6 +++---
- xen/arch/x86/setup.c        | 4 ++--
- 2 files changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 789f2b9d3ce7..02a15d160962 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -2084,14 +2084,14 @@ void __init create_dom0(void)
-         panic("Error creating domain 0 (rc =3D %ld)\n", PTR_ERR(dom0));
-=20
-     if ( llc_coloring_enabled && (rc =3D dom0_set_llc_colors(dom0)) )
--        panic("Error initializing LLC coloring for domain 0 (rc =3D %d)\n"=
-, rc);
-+        panic("Error initializing LLC coloring for %pd (rc =3D %d)\n", dom=
-0, rc);
-=20
-     if ( vcpu_create(dom0, 0) =3D=3D NULL )
--        panic("Error creating domain 0 vcpu0\n");
-+        panic("Error creating %pdv0\n", dom0);
-=20
-     rc =3D construct_dom0(dom0);
-     if ( rc )
--        panic("Could not set up DOM0 guest OS (rc =3D %d)\n", rc);
-+        panic("Could not set up %pd guest OS (rc =3D %d)\n", dom0, rc);
-=20
-     set_xs_domain(dom0);
- }
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 2ff7c28c277b..a740c6f60c63 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -1084,7 +1084,7 @@ static struct domain *__init create_dom0(struct boot_=
-info *bi)
-=20
-         if ( (strlen(acpi_param) =3D=3D 0) && acpi_disabled )
-         {
--            printk("ACPI is disabled, notifying Domain 0 (acpi=3Doff)\n");
-+            printk("ACPI is disabled, notifying %pd (acpi=3Doff)\n", d);
-             safe_strcpy(acpi_param, "off");
-         }
-=20
-@@ -1099,7 +1099,7 @@ static struct domain *__init create_dom0(struct boot_=
-info *bi)
-=20
-     bd->d =3D d;
-     if ( construct_dom0(bd) !=3D 0 )
--        panic("Could not construct domain 0\n");
-+        panic("Could not construct %pd\n", d);
-=20
-     bd->cmdline =3D NULL;
-     xfree(cmdline);
---=20
-2.34.1
-
+>=20
+> Jan
 
 
