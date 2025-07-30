@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4558AB15A08
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 09:56:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1063485.1429195 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3914BB15A18
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 09:58:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1063492.1429205 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh1f3-0007JO-Nz; Wed, 30 Jul 2025 07:55:41 +0000
+	id 1uh1hp-0007px-3X; Wed, 30 Jul 2025 07:58:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1063485.1429195; Wed, 30 Jul 2025 07:55:41 +0000
+Received: by outflank-mailman (output) from mailman id 1063492.1429205; Wed, 30 Jul 2025 07:58:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh1f3-0007HX-Kg; Wed, 30 Jul 2025 07:55:41 +0000
-Received: by outflank-mailman (input) for mailman id 1063485;
- Wed, 30 Jul 2025 07:55:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uh1hp-0007nw-0z; Wed, 30 Jul 2025 07:58:33 +0000
+Received: by outflank-mailman (input) for mailman id 1063492;
+ Wed, 30 Jul 2025 07:58:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zSpT=2L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uh1f2-0007H6-GZ
- for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 07:55:40 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 94fd051a-6d1a-11f0-b895-0df219b8e170;
- Wed, 30 Jul 2025 09:55:38 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3b7862bd22bso367948f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 00:55:38 -0700 (PDT)
+ id 1uh1hn-0007nq-DL
+ for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 07:58:31 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fb454c7e-6d1a-11f0-a320-13f23c93f187;
+ Wed, 30 Jul 2025 09:58:30 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3b77b8750acso423161f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 00:58:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2403e020d7asm55600805ad.16.2025.07.30.00.55.34
+ d9443c01a7336-23fd3fdf1f2sm88699135ad.123.2025.07.30.00.58.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Jul 2025 00:55:37 -0700 (PDT)
+ Wed, 30 Jul 2025 00:58:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94fd051a-6d1a-11f0-b895-0df219b8e170
+X-Inumbo-ID: fb454c7e-6d1a-11f0-a320-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753862138; x=1754466938; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753862309; x=1754467109; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=OcNK7jcKP1X01BDvnhvABVPxz500c5O0e8/a6QUVBW8=;
-        b=VrmHooiquHMd7a3Yznb4mKe2KuFDUr3WpAhgoiuujWkD5Gso9d/dIgZENJlACkYHmd
-         UecOpEMyU00lqfJzlGXmV7A8MNjMcKg6How6fhmGDiYVR8GQEJAhfh2i0e8Yne56F2U0
-         QO8qAIIpmr/PyDyrqi8/TuxzqVAzbYY2wNv5AwIduK8dpfGaMAHpCW7wPDOCs/SSjza9
-         oB61tjTYtMl4kRDue/F0dOm1k1/ZB1sRnOIj6ENM1w1E5FapgxJBxePjN2+JGhpMcu5o
-         3Z6iZQkeM9phmqDG86vJ7DLOhb9K2uQDnSrQU67HM9odZAxvQkXW+QhmAViEXjCj6/kI
-         GE8w==
+        bh=GDZlrZ49Erd24XO/87MxTC6XiS4DrH2mPRhSF4E06e0=;
+        b=NrD8HwQ8vZU5Oik6BctolRj0oG/2lmGPV62/yc8CCFzzb3K265A8/JzRNYEctxJGEK
+         o6PAVmhGhKCSoXiCS6DlwR5tHIrRX/c2/l4IduoPugBId2nDeCWr29ju3HGA7+2hJ/rW
+         s+tq7Fmk47WX0a2x4+xassxCLS0vfLkBs4iax38xL3Vf4Y/reWuT9NvITNZm1QAMhcGW
+         Vhd4Y+y9g2byOoK+gSdV/IcEpke0JB/cpgUNhmeRGuSph9b88gC5CL9x6BJ6QiwIh/uX
+         oNWS8r64vVy9rHljdV25Hgmc5jkupb2sKlp3l/5f4EzBttozU/ixcuqX/jlrGIDrKbju
+         EWfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753862138; x=1754466938;
+        d=1e100.net; s=20230601; t=1753862309; x=1754467109;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OcNK7jcKP1X01BDvnhvABVPxz500c5O0e8/a6QUVBW8=;
-        b=DiYoggErk2H3MkEg12RkVxJCeAQVuv7ozCtV+srlMmxlTAgnbwq6xq0cXcv05pjo2I
-         tO9Bw/TnVhvq0i9HoirXm4v2yMWUP5cb7mJB/qMVpBBKMYB6SnL2Y4+SwsobBppN58q+
-         Bd0AVAuVNkst3eh8SpEf1Q5b/bL+45O7iPqoR9LqUdfWqxUab3xyWQzx6II5hiE400B8
-         p67btYnu90NSuYec+W+K7WRl1K4QAEDDu42s3r6Q8uYWyajMwJNf2eQaoL//HrOPAfLE
-         S713u6Nv9XM14+2P8eX3YMekMhH9UszFYh4mqrK2u5UJfe8L0NQk2QMA3dKtZo9e6yEB
-         tOsg==
-X-Forwarded-Encrypted: i=1; AJvYcCW+ilBZUBDqyoZzUE77HIOjnro1Vj8SK6zT+dz+/gM+qFBUyCRyCJ20pfNohwJT3ZuSKaa28xfQe9c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzq4Oj1SVE8qmfxAWM9R1Prb8LvaBuqEWee4elvxSXZv3Lubt50
-	oWNqa1WfoQ6qvZvoPUnlmAbjmDnVj9mN/zJ/GNlbLUaqcQ+eRHqwvrgmBaWMtyUETgmjEPQfloB
-	Ns9g=
-X-Gm-Gg: ASbGncvCRpg5/J5ggJBlILKHTz5spAdOtgcESqw/cl9D67a1vhFKp3fhV1aJJeh1fiq
-	TRzHstpZm2hbN6yGCBK5xDIKkky+H65FrhHioDqAxzoNYObw0OG5/krRTo7L3HjNjTWA/6kwDTK
-	iEghgYh9v/fFYKCchuLDOk3yNEvYqbocV3SHF9LG6BG8aNZMm4Q2T7UnW+FlSFfVXN3NczbN+iN
-	h7ndq4zW0UvHwiNQfTRMbdsbHHE6IOiTZzsqrUmvMQNUCoyyT34u/fYPMVt3tTD/aNDS+dfwG4e
-	mlJjFo9H6miGj2OhXSeywj7R7Bttrq7ZZBZiRs78I0AERP0mcbBjS59pu5v/mIS8nLrxAQDDWeE
-	J0NdkMH290DdAFXdffZ8Qdw9kg4CRgEwk1Jb7ijkppRsIP0R1hRJDfoHvRKOcpEj9baz1rM4qj8
-	OkreEOP6w3gzLQ3/4Jcg==
-X-Google-Smtp-Source: AGHT+IHUcRdIuaVsdOnt7HbMnwyAKaUyZp10HnfHBTItMSoZ/0KKJFIeX8wfpOq1LVX3tL0bQrAWWg==
-X-Received: by 2002:a5d:640e:0:b0:3b7:8aa2:9fcb with SMTP id ffacd0b85a97d-3b78e6105c7mr3824225f8f.14.1753862137945;
-        Wed, 30 Jul 2025 00:55:37 -0700 (PDT)
-Message-ID: <b7f14924-f86e-48c5-a3b2-25825bc19e11@suse.com>
-Date: Wed, 30 Jul 2025 09:55:30 +0200
+        bh=GDZlrZ49Erd24XO/87MxTC6XiS4DrH2mPRhSF4E06e0=;
+        b=WcjiqRwcjkZxddz4snDCjxJt8VvzHgp3MxUCg/RNS49UJJMep0eNM9aqsjuUf9lEIg
+         bN2qiZnZAkjLpI0zdansHa6kp0vH1Fw+8A7smOkOQXxnEjWUdnT+hb1rwuShFpPToEvg
+         PnsBP/aJotDPkiqp2oC3YMI9U03rk5kxxsofXQE8Tco1SYZmqVmMuW0vRrZOAjWZRu2y
+         9nRqDgD1YbbttJavmjTUcFSvhl95wI/BO5GT70j1qU3fa++2qwQ7jjdesEUKIg/QhaLv
+         frk3VooRBX6dnKHsQmAQa/BWPM+XItFuKcip9QkuASnCgHvcCokizjZw2j9lQqRMEmoY
+         Sn4g==
+X-Forwarded-Encrypted: i=1; AJvYcCVquP0Y9QMigibShaiqRa3nLw8RUsfOVf448wqtjEKSX0GVD0u6OZstphLovk0SjtaiMZYIwkPIV+c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzZfYgMoOLnmjMBxL81pNu+If6A9P4uYVLRAqtiyH4Ssg2/Zp1H
+	1mnSAbDEnlyW3F9Ywq6pXA5TtJFY3FDHxpvfhtSavIQ9QHmCqCetUnBe0cOMZs4+mg==
+X-Gm-Gg: ASbGncuz9Do8X6OgwQdWJFFOrkq4lqkWT8wTZpN+92CMvQbcaPtfrUhnBFc6Mbh3XkP
+	K5wxXjLCOVGCY6dUc3JJdz6CybMtXja+0KhxOIhBoFFxXDTXpcj+c47Kw0hGg/I9+EaLp0nyzzN
+	bzyZ8zVbqC6svXtc4Whn0nRAhfL86zgSBaSKcESRyiMkUJg09aUnyFJLohzdkFx6AZKNaMyk3Fk
+	CTSf9Fe7G/6QBeMDS7D/ZAzm8679Cm0/W/9iEsDDTqKbU3ISBWcNbsMi0WoA3LQRCDTTADFWCtS
+	sfKmGJfkx4R3Qz+XJ6l2GPLTlvUEwgvnfujurQIiSigGiwShCFw7E4dB6ESybiFsl36QfnswakT
+	KFgAV2e7OPbIIDtbCiAA6jYexoRLDob6ibem8AUCNF3Pcrkax9VgRg5UDiAoJZbJ9fcYXHGL8xo
+	+BSl30Yj0=
+X-Google-Smtp-Source: AGHT+IFEtSTVPoEHxfvQRv8KRRth8sT/8CcTTx6XNRbk3J/sijCpOGPU7SuuqOPIl2048xiyKtcTZA==
+X-Received: by 2002:a05:6000:25ca:b0:3a5:8991:64b7 with SMTP id ffacd0b85a97d-3b78e726421mr4910168f8f.26.1753862309584;
+        Wed, 30 Jul 2025 00:58:29 -0700 (PDT)
+Message-ID: <30b88a32-dfb5-4f44-a6a3-8b997c2e070b@suse.com>
+Date: Wed, 30 Jul 2025 09:58:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] tools: add sizeof_field and offsetofend macros
-To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <cover.1753823663.git.w1benny@gmail.com>
- <556d53ef59bf771a727bd49116e91bb515ed7ec6.1753823663.git.w1benny@gmail.com>
+Subject: Re: [PATCH] ns16550: remove trailing whitespaces
+To: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20250730031148.1613104-1-dmukhin@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,24 +119,17 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <556d53ef59bf771a727bd49116e91bb515ed7ec6.1753823663.git.w1benny@gmail.com>
+In-Reply-To: <20250730031148.1613104-1-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 29.07.2025 23:25, Petr Beneš wrote:
-> --- a/tools/include/xen-tools/common-macros.h
-> +++ b/tools/include/xen-tools/common-macros.h
-> @@ -83,6 +83,11 @@
->  #define __packed __attribute__((__packed__))
->  #endif
->  
-> +#define sizeof_field(type, member) sizeof(((type *)NULL)->member)
-> +
-> +#define offsetofend(type, member) \
-> +    (offsetof(type, member) + sizeof_field(type, member))
+On 30.07.2025 05:12, dmkhn@proton.me wrote:
+> From: Denis Mukhin <dmukhin@ford.com> 
+> 
+> Remove trailing whitespaces in NS16550-compatible UART driver.
+> 
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 
-I'm not a maintainer of this code, but offsetof_end() or even offset_of_end()
-would look like a better name to me.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
 
