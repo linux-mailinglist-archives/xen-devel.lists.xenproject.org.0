@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59F1CB16352
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 17:07:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1064121.1429862 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81EE6B16382
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 17:20:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1064130.1429872 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh8OU-0005dL-4W; Wed, 30 Jul 2025 15:07:02 +0000
+	id 1uh8b4-0007Tc-7t; Wed, 30 Jul 2025 15:20:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1064121.1429862; Wed, 30 Jul 2025 15:07:02 +0000
+Received: by outflank-mailman (output) from mailman id 1064130.1429872; Wed, 30 Jul 2025 15:20:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh8OU-0005ak-0t; Wed, 30 Jul 2025 15:07:02 +0000
-Received: by outflank-mailman (input) for mailman id 1064121;
- Wed, 30 Jul 2025 15:07:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uh8b4-0007PI-47; Wed, 30 Jul 2025 15:20:02 +0000
+Received: by outflank-mailman (input) for mailman id 1064130;
+ Wed, 30 Jul 2025 15:20:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zSpT=2L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uh8OT-0005ae-Gn
- for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 15:07:01 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d7c20890-6d56-11f0-a320-13f23c93f187;
- Wed, 30 Jul 2025 17:07:00 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3b78127c5d1so2696872f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 08:07:00 -0700 (PDT)
+ id 1uh8b2-0007P6-R6
+ for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 15:20:00 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a7b1fdc9-6d58-11f0-b895-0df219b8e170;
+ Wed, 30 Jul 2025 17:19:58 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3b7910123a0so1986333f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 08:19:58 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-24011bd1d5esm79048565ad.91.2025.07.30.08.06.52
+ d2e1a72fcca58-76a167c678esm4180914b3a.5.2025.07.30.08.19.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Jul 2025 08:06:59 -0700 (PDT)
+ Wed, 30 Jul 2025 08:19:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d7c20890-6d56-11f0-a320-13f23c93f187
+X-Inumbo-ID: a7b1fdc9-6d58-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753888020; x=1754492820; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753888798; x=1754493598; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=djm1FzR+7nq49ntkNZWosF1T8zqfRbqvANeJLehYyMM=;
-        b=faq8AG6Mr2oBzfryKkqpNiioVYFM/VNaEeYIgA5DXWXN8eWGJrI9qqCEBE4jZd8L74
-         my7Dd3khE3qUZdyXecS4Bg8DkGkFfglNhVcbQIx3mbYQuJxH0yN+c7N7o0n0lAdUYyxb
-         wKLsFVBKhE3RWulZR1jxr7d9ZLeKdFicvkFPHZ49Co9j+GeAkuNvKPfU/05BVqLiNdEy
-         PjXzvScfnBF/7bM4RDLPkVIkox9PMQzcj6q4zOZTzung5nPGdpV3tc7hOO3iun/kpPh6
-         TYgL7GIaVFFRPg9lH5P7TZSVbxv0lyOFPOS26/kOMs58igUuqqBdQ0zgoLqBC324nj48
-         eRXA==
+        bh=UivvbNn5sedDEexyfvr+ZQ4Db1aCreNb3Y2VkRUUWBg=;
+        b=EcRtra3R3llw3mXSX2GpRWKCULrs5FqiVwam557ej3vdBzStNZAAQ2jOg+gV3jVqyj
+         gwdRcMpY7TukckxOqk/JX5MYg76g1S4mCJXClnRdw8J6Y4t2bWx4Htf1ZSokBDhnD+VP
+         hMws/ToO1J8ayG/KdbplizIOZoIrxZPr9jIVpuZhFsz/+vsi45OZiF8GYMlSLVZ6aqPF
+         BPuAuuvGoAvLrJuV9Gq/idnnCn+iq1zQiS8zAYzyz3cWsd/V4lzbL9L4pVQV+nAFGCw6
+         mbY7cPiT3pei6sbwwmSn/IABM5LX6s5BmPnqkjIokvvPOeApTJwHl0KvCyVCq271J/mu
+         6yMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753888020; x=1754492820;
+        d=1e100.net; s=20230601; t=1753888798; x=1754493598;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=djm1FzR+7nq49ntkNZWosF1T8zqfRbqvANeJLehYyMM=;
-        b=R4yBWI0DyYeYl1D43sont9mMeCnFcT+2cTHKwGkIQG8trYP/iqe6to50gEM78Zq1B1
-         jkgkxmq6ik/EOy7M4mKxpGpc2EpZ0+JJvnKpBiG2RNHxsejgKexsaeEffgajtSZ4YMjm
-         SShRpgKWY6pBhk0AFtg/NMorihmGCjQGb+NH5UZIumVfOrZJOjQ8Z1zP4qOWDuTkTx6G
-         W15x0qfHF+936Sqo9kWImfCYpoHHuLY1uaZQ5yTSu3g+ZoEXgCM5k3ZAv82samXcCxMm
-         xylwe/bgDrGCNyB4V0x6fJPdYdqp+7NeWcvdKtnWAgZHQHITSv202maBptCT88M2qRzN
-         YzJw==
-X-Forwarded-Encrypted: i=1; AJvYcCVyclV94zK37+Aax1NkBS1yPanCM7B9rKCK+QeTI9b3Sw8jHbtEVNxukihkyPs5CGWvq/LTQeyeT3A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy+GE/TZr2ZCBQwL1FgzDPVLFgucuE6G1J8mGVt4Ku2FExybGkp
-	opzHeWoSw7gaNS46vZVs7/BV12n2nw8YK9nhAE5gJwFF5Was4Lomqm7jFyZ45DM2lg==
-X-Gm-Gg: ASbGnctqSxR7iNKj1Xp8SYHXdQ8l3wF+bacwPfXocBJreFP7DKvpQfSsrvMf8KO9/rR
-	SGlskvRaCtKS/ipyCPazKBs9IlTKTvRAvS2L+NcZIajnAyXzc22mvHzc6aDkcv12Ruf+NuYuPR9
-	+mkzyw7eOSWIyKWds4VW0IX6sv4Vz1Xh5lkddG3LqwqBWVvsN1WcDDQCVwmW2qP7vnaHjERJpIF
-	2PD1bnwskFO0huLX94K+G9lRqp/qUmzbXOdaIy2BVzxiOQ5E26VUyEBptTrMmJjkACklaFhnXUK
-	iKbucm+50iMLJtv+i95EmPe5pnnxA9PI4zm+JmboYs8tpEkBBBr//UEldiCRQG4X0+Mz5U/SpCQ
-	XHjhAhgT1IoqjMyEDFf3esGW/u17x49F80AVa5B6yY9vko/Aqqaf/mk7XrMm/0874cpZAxxigSB
-	aDnwBla7EDKu3Z//h5tw==
-X-Google-Smtp-Source: AGHT+IEciqStmrCgXuEp72wT+tnKxOuUJjgXujE2RE90M/zsHkAUuTCk3JY2xHeoVOIaoPlC2zzk5A==
-X-Received: by 2002:a05:6000:2586:b0:3b7:907d:41c with SMTP id ffacd0b85a97d-3b794ff155amr3059528f8f.35.1753888019792;
-        Wed, 30 Jul 2025 08:06:59 -0700 (PDT)
-Message-ID: <222ea3ed-8ce3-4622-90d4-763bc0fd1217@suse.com>
-Date: Wed, 30 Jul 2025 17:06:47 +0200
+        bh=UivvbNn5sedDEexyfvr+ZQ4Db1aCreNb3Y2VkRUUWBg=;
+        b=HRW3ia7QNIhYq/bnRb9izx9bgMjLCTNt85DJ4nTyQF3hv/xqBiheD942caWSFfzkib
+         Z3FZKKfhlVpSsSB87Nd7gBYaJ93XfyjHC0N4jb7wrx9uMkJocfGJAa1luOAOjC1snurV
+         AmjTdxFPLG2+Y7z1aFuHKqj/F5UxqAEqbTUGVvjBqEqNSJiVLo44PX6c/1tLOPqMpuho
+         vMQUI+Niw3OYXqsv7BKcVYsKDth+iZXMnD6L80sOtTAezBsDPT3MUmJXrT4mP1Ez7QG+
+         h47+ph0M/TC7/RI8ujX8bKJI2x0180ugft1dSEVKmMm4SlHkwdDSOoruC3mxJ7NAVcvB
+         3oWA==
+X-Forwarded-Encrypted: i=1; AJvYcCXCjQP2sj3qgRlrx8CQr9HjX2WMg78TN6LBpYvetv+NXiZMb+2P1SWefzO4x+Hc+IXkhr2JZsfW92Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxvIeuvyD8+HcFV2/YUPcEouYTooseKtyhiz880aISIeYcs2NLO
+	5Tsr2NvEbm6mM4Q/6tgsFdeQGDpoz6FPqMCYq6UGXSO2UnWJj/DOTRSlALYYPZm1YA==
+X-Gm-Gg: ASbGncsKUwSQNdka/8DZlTnyo8zTCysEd3nt0VV2uMMzFgKrEzK89GujvSgqc2hWDPg
+	S/Mfg9atzyAiU7+WtmhXnDLv1cE135WKjusnzZMWvGtBBZBH5j3zBYPSxf6IsyQgYd9k3cMS7hQ
+	6nAAIVFPPO0qCwAFb1sq+8L2pvFDOrbgXNsSWvEZcDShQMi3DLnslpxwqFzgRkMaJr3DdrDVF0F
+	/BqrGj3BCe/LfDrlM2hufpWpJNTYAZ9M0MG8BFACYkuJ7S91yWv8KoSeOGhzFHbEzgiPX3xTQsP
+	qG6SRQ/70f01U31sh7TN7QJDgIMBlpDcqfUryPiwXyfWEKUB7AuIlk6kvdxLIpxoYylzwdenMx5
+	sKi6E0ioKiebBogy+tPkojk+4vbA/hCQtaUNo+GgD8K56SXM61vkt7QjA/6y4S8p6UzZd6qwCjp
+	6ZTrRelV4=
+X-Google-Smtp-Source: AGHT+IGENp2P4WiiFC1YOFaJ1LhFNgPa18TPCi3qMmlicfNjs4eJR3TwZq1YUyUIsHqXW0Ox8hsdNA==
+X-Received: by 2002:a05:6000:2386:b0:3b7:8af8:b90f with SMTP id ffacd0b85a97d-3b79502a250mr3060713f8f.40.1753888798037;
+        Wed, 30 Jul 2025 08:19:58 -0700 (PDT)
+Message-ID: <c8e89f88-3626-45eb-b34b-2ab4f2e8eccc@suse.com>
+Date: Wed, 30 Jul 2025 17:19:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 04/17] xen: Introduce
- XEN_DOMCTL_CDF_not_hypercall_target
+Subject: Re: [PATCH v2 06/17] xen/xsm: Expand XSM_XS_PRIV for untargetable
+ domains
 To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Christian Lindig <christian.lindig@citrix.com>, David Scott
- <dave@recoil.org>, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  xen-devel@lists.xenproject.org
 References: <20250716211504.291104-1-jason.andryuk@amd.com>
- <20250716211504.291104-5-jason.andryuk@amd.com>
+ <20250716211504.291104-7-jason.andryuk@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,45 +120,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250716211504.291104-5-jason.andryuk@amd.com>
+In-Reply-To: <20250716211504.291104-7-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 16.07.2025 23:14, Jason Andryuk wrote:
-> Add a new create domain flag  to indicate if a domain can be the target
-> of hypercalls.  By default all domains can be targetted - subject to any
-> other permission checks.
+> Untargetable domains are currently hidden from the control domain -
+> e.g. xl list will not show them.  getdomaininfo fails on the
+> !is_hypercall_target() check in XSM_TARGET.  Add control domain to the
+> XSM_XS_PRIV check so it can pass.
 
-I think terminology needs clarifying here: What exactly does "targeted"
-mean? Is that e.g. also intended to cover
-XENMEM_{current,maximum}_reservation, which "target" a particular domain,
-when at the same time they don't interfere with the targeted domain in
-any way?
+This feels like a pretty gross abuse of XS_PRIV. It once again supports
+my take that the level of granularity you want will require Flask. Or of
+course you could also come up with a new access control mechanism, much
+lighter-weight than Flask, but still not dummy nor SILO.
+
+As per my reply to an earlier patch - whether it is okay to prevent e.g.
+"xl list" to see all domains is questionable as well. I'm not seeing
+"interference" there.
 
 > --- a/xen/include/xsm/dummy.h
 > +++ b/xen/include/xsm/dummy.h
-> @@ -91,12 +91,16 @@ static always_inline int xsm_default_action(
->              return 0;
+> @@ -87,7 +87,8 @@ static always_inline int xsm_default_action(
 >          fallthrough;
->      case XSM_DM_PRIV:
-> +        if ( target && !is_hypercall_target(target) )
-> +            return -EPERM;
->          if ( is_dm_domain(src) )
->              return 0;
->          if ( target && evaluate_nospec(src->target == target) )
->              return 0;
->          fallthrough;
->      case XSM_PRIV:
-> +        if ( target && !is_hypercall_target(target) )
-> +            return -EPERM;
+>      case XSM_XS_PRIV:
+>          if ( action == XSM_XS_PRIV &&
+> -             evaluate_nospec(is_xenstore_domain(src)) )
+> +             (evaluate_nospec(is_xenstore_domain(src)) ||
+> +              is_control_domain(src)) )
 
-Hmm, for TARGET, XS_PRIV, and DM_PRIV we're now doing the same check
-twice.
+Like in patch 2 (in is_priv_domain()), I think this wants collapsing the
+two evaluate_nospec() into a single one.
 
 Jan
-
->          if ( is_control_domain(src) )
->              return 0;
->          return -EPERM;
-
 
