@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 487C7B1648B
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 18:22:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1064225.1429944 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51F80B164E4
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 18:40:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1064233.1429954 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh9Yi-0002qm-V6; Wed, 30 Jul 2025 16:21:40 +0000
+	id 1uh9qg-0005Wl-Au; Wed, 30 Jul 2025 16:40:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1064225.1429944; Wed, 30 Jul 2025 16:21:40 +0000
+Received: by outflank-mailman (output) from mailman id 1064233.1429954; Wed, 30 Jul 2025 16:40:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh9Yi-0002oL-SO; Wed, 30 Jul 2025 16:21:40 +0000
-Received: by outflank-mailman (input) for mailman id 1064225;
- Wed, 30 Jul 2025 16:21:39 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <anthony@xenproject.org>) id 1uh9Yh-0002oF-48
- for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 16:21:39 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1uh9Yf-009EQo-2T;
- Wed, 30 Jul 2025 16:21:37 +0000
-Received: from [2a01:cb15:80df:da00:4c1a:a750:6210:2b8] (helo=l14)
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1uh9Yf-00H4k7-0x;
- Wed, 30 Jul 2025 16:21:37 +0000
+	id 1uh9qg-0005VK-85; Wed, 30 Jul 2025 16:40:14 +0000
+Received: by outflank-mailman (input) for mailman id 1064233;
+ Wed, 30 Jul 2025 16:40:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=tw9b=2L=bounce.vates.tech=bounce-md_30504962.688a4ae4.v1-55b65d1247c042dd9ec8fd02e67fba9f@srs-se1.protection.inumbo.net>)
+ id 1uh9qe-0005VE-4U
+ for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 16:40:12 +0000
+Received: from mail180-9.suw31.mandrillapp.com
+ (mail180-9.suw31.mandrillapp.com [198.2.180.9])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d8c022a5-6d63-11f0-b895-0df219b8e170;
+ Wed, 30 Jul 2025 18:40:06 +0200 (CEST)
+Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail180-9.suw31.mandrillapp.com (Mailchimp) with ESMTP id 4bsdH86JgkzK5vhdN
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 16:40:04 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 55b65d1247c042dd9ec8fd02e67fba9f; Wed, 30 Jul 2025 16:40:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,67 +42,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date;
-	bh=dglFxj8kzyyTt6XhTrXLxjOjX4km1s2fqcL0nSkyIvE=; b=MNcRB0pTjkxU0gfMd68LQ0IPOj
-	4XmZ4NalgZDEjzOQBlplvjx6hQihSAelNpwZxgIqEYygulwLYi6AZktPp3URmRKK4fN49hZex2gVQ
-	FVrVk+tRir7ggxUNgz9O+zajRVq48g59jhq+LhhstfXsRBwGYb7ZC5k85lfUpVgKYgP8=;
-Date: Wed, 30 Jul 2025 18:21:35 +0200
-From: Anthony PERARD <anthony@xenproject.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Nick Rosbrook <enr0n@ubuntu.com>,
-	George Dunlap <gwd@xenproject.org>,
-	Jason Andryuk <jason.andryuk@amd.com>
-Subject: Re: [PATCH v2 7/7] tools: allow to limit xenstore features via guest
- config
-Message-ID: <aIpGjxj2vyMwUTBi@l14>
-References: <20250725131928.19286-1-jgross@suse.com>
- <20250725131928.19286-8-jgross@suse.com>
+X-Inumbo-ID: d8c022a5-6d63-11f0-b895-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1753893604; x=1754163604;
+	bh=AWuI6pPKvW1SrCk13N7ROhHK7lS8SGB4zDfXjt1i0+Q=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=LA7Ukm92qMrO9LOownDKSqo5iGh9J4IFa1Mv0VRAc5NcvRd5YLbu4VWo0cKddRmrc
+	 zpgY9AhqH9zKv7wf/WChOVxz48SlPpdsOuT0JYZm5DNcT4e6fCdS0nPBsIwbgxFFSm
+	 JfZtTZI0+/XrkYkgva7FdMK3YAiP9qtUGD6L/aVa5gc6gZQCSnD2PUIBZey/w5H90I
+	 cqtVPUYhQI3TZCAZxM7aFrctjvE5SgCmOS1hAP8cXrBkGlMy/oEdtAJ8qBa/AxCFBS
+	 1HU024Awh8EQJatGr+zjnHR//33hw1iyH9pJ0iyZWg3EQb0EY0mWlPyFeouCJTord2
+	 oZPEDk0QdNHNA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1753893604; x=1754154104; i=teddy.astie@vates.tech;
+	bh=AWuI6pPKvW1SrCk13N7ROhHK7lS8SGB4zDfXjt1i0+Q=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=YXvmJvmdiAiRQsvWBi+7an/j8y2nVnFdcIkPz15zNzm0HGgCINBfa4cwuOvuQfJ12
+	 0DXTX7ivYvhYoqwZAC/UabFr4m32An2P+sDGTn6EbYJiIE3tUpJrcX/P7D/z2oWbea
+	 DaxPxjX8iyE6hqndD5oXoQXTDzMdDfW1Prcmv/C/QsZykhEJTxpkG1vuVhALnHK5/u
+	 4qLWVL49CjYhhUHKkUx0i+bMCzhZYKup0z2Oknxdc8G40nrN1s7V31OiS6a/SVtovd
+	 HOwhmMgdwz36nc8gvs/EaLQIvXeSG7yijfkyJZLnscyhKQRtnzHmJuhS8ZZbSvxkV4
+	 6RKHPXta03JLQ==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?[PATCH]=20x86/vmx:=20Avoid=20pausing=20on=20HVM=5FPARAM=5FIDENT=5FPT=20in=20additional=20cases?=
+X-Mailer: git-send-email 2.50.1
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1753893603726
+To: xen-devel@lists.xenproject.org
+Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
+Message-Id: <698e46b8f986e649c661f4382c929abcc2827ec3.1753893493.git.teddy.astie@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.55b65d1247c042dd9ec8fd02e67fba9f?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250730:md
+Date: Wed, 30 Jul 2025 16:40:04 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250725131928.19286-8-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jul 25, 2025 at 03:19:28PM +0200, Juergen Gross wrote:
-> diff --git a/tools/libs/light/libxl_dom.c b/tools/libs/light/libxl_dom.c
-> index a61085ca3b..2a7923533f 100644
-> --- a/tools/libs/light/libxl_dom.c
-> +++ b/tools/libs/light/libxl_dom.c
-> @@ -494,6 +494,18 @@ retry_transaction:
->      if (!xs_transaction_end(ctx->xsh, t, 0))
->          if (errno == EAGAIN)
->              goto retry_transaction;
-> +
-> +    if (info->xenstore_feature_mask != ~0U) {
-> +        unsigned int features;
-> +
-> +        if (xs_get_features_supported(ctx->xsh, &features) &&
-> +            !xs_set_features_domain(ctx->xsh, domid,
-> +                                    features & info->xenstore_feature_mask)) {
-> +            LOG(ERROR, "Failed to set Xenstore features");
+When settings HVM_PARAM_IDENT_PT, skip domain pausing when :
+- there is no vcpu
+- unrestricted guest capability is used
 
-Surly xs_{get,set}* set errno on failure, and we know the domid, can you
-use LOGED for the error message?
+Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+---
+ xen/arch/x86/hvm/hvm.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-> +            return ERROR_FAIL;
-
-Unfortunately, this function does an allocation that isn't collected in
-GC, `vm_path` is leaked. Could you replace that by `rc=ERROR_FAIL; goto
-out;`, then place out: at the right place and return `rc` at the end of
-the function?
-
-> +        }
-> +    }
-> +
->      xs_introduce_domain(ctx->xsh, domid, state->store_mfn, state->store_port);
->      free(vm_path);
->      return 0;
-
-Thanks,
-
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+index e2720daf1e..39ff1bdbe1 100644
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -4286,11 +4286,13 @@ static int hvm_set_param(struct domain *d, uint32_t index, uint64_t value)
+             rc = -EINVAL;
+         break;
+     case HVM_PARAM_IDENT_PT:
++        v = domain_vcpu(d, 0);
++
+         /*
+          * Only actually required for VT-x lacking unrestricted_guest
+          * capabilities.  Short circuit the pause if possible.
+          */
+-        if ( !paging_mode_hap(d) || !cpu_has_vmx )
++        if ( !paging_mode_hap(d) || !cpu_has_vmx || !v || vmx_unrestricted_guest(v) )
+         {
+             d->arch.hvm.params[index] = value;
+             break;
 -- 
-Anthony PERARD
+2.50.1
+
+
+
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
