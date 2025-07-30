@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93BC5B15874
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 07:33:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1063392.1429125 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C87AB15876
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 07:35:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1063404.1429135 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugzR6-0004G6-EU; Wed, 30 Jul 2025 05:33:08 +0000
+	id 1ugzT6-0004uT-U1; Wed, 30 Jul 2025 05:35:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1063392.1429125; Wed, 30 Jul 2025 05:33:08 +0000
+Received: by outflank-mailman (output) from mailman id 1063404.1429135; Wed, 30 Jul 2025 05:35:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugzR6-0004Dp-BN; Wed, 30 Jul 2025 05:33:08 +0000
-Received: by outflank-mailman (input) for mailman id 1063392;
- Wed, 30 Jul 2025 05:33:07 +0000
+	id 1ugzT6-0004s0-RF; Wed, 30 Jul 2025 05:35:12 +0000
+Received: by outflank-mailman (input) for mailman id 1063404;
+ Wed, 30 Jul 2025 05:35:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zSpT=2L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ugzR4-0004Dj-Ve
- for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 05:33:06 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1ugzT4-0004ru-Nn
+ for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 05:35:10 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ab4ec75c-6d06-11f0-a320-13f23c93f187;
- Wed, 30 Jul 2025 07:33:06 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3b78d13bf10so1480620f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 29 Jul 2025 22:33:06 -0700 (PDT)
+ id f34a90b9-6d06-11f0-a320-13f23c93f187;
+ Wed, 30 Jul 2025 07:35:06 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-3b77673fd78so3138813f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Jul 2025 22:35:06 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b711:f23f:1903:a31c:2815:3201?
  (p200300cab711f23f1903a31c28153201.dip0.t-ipconnect.de.
  [2003:ca:b711:f23f:1903:a31c:2815:3201])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4589539e491sm11783705e9.26.2025.07.29.22.33.04
+ ffacd0b85a97d-3b7816e3641sm12667012f8f.73.2025.07.29.22.35.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Jul 2025 22:33:05 -0700 (PDT)
+ Tue, 29 Jul 2025 22:35:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,70 +47,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab4ec75c-6d06-11f0-a320-13f23c93f187
+X-Inumbo-ID: f34a90b9-6d06-11f0-a320-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753853585; x=1754458385; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753853706; x=1754458506; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YaW5dxGDsSlpJqXv1Z6V56X7J9dKwv4y6wWMcg7L0xU=;
-        b=ftIfCYuMkvGRfZ/T/BFJChRDzfo9YhBCd4VjhGKXMmbMEJ2WCx5j4h7QlOS4lMsZfJ
-         i6XPnuBGXiO0ik31XLLGv8JuhjfdQg31RRBwOzPG8V/+DHYmD82kor3JtSsOqCo+nmkk
-         U1HI+s0c+QchBC+OwXMrW39R69muA1lhF1epyt5zlVHVSIcfZtW5Pvk+KEBYGEg43cai
-         IjaVl5mqNUTMxL478vHbRgPoArhpVYOqf1bfpeoTPEyTYLNTThVXqdwulyKndbHV+Y9E
-         uh7cngk/WU/XWZ4zaWgREqKkB5jWPm1Zu61raVzJGxo722k+Bbx90QrM7E2Wb+7ijNGt
-         UGVQ==
+        bh=QUdFUj2xGUMJ2ZFGzoDNN+03oHfzarWrfegth6mgTAU=;
+        b=GyRp5sIPiQ+PdNg4zR6HmwxLwfDukBsmr7MsWc7F2l57qjxyz2R6jCrxf//Xg5B6kt
+         7lGH6ubDlQLuJsElr6A3b+4rurj99lL78lh0mJtPkPfb7raJc0N8pF2ZnLAiXwVruiIx
+         edHdZIjUeUtc2SKCBckRS+Q342h48UjyylBHQUPbVcaw02PybavG9L4WT3h6DfyYVxSn
+         DD18c4Pjy170STjEM5LBHttlNOFIkf+3gk84HEsqSNBy0Qaxcb/0jWjSdde+MNPREW6a
+         y92gc7F765OYssWm7JaBfvzc+5WoSHfGD3oVfwNpchdx+F0C6KuelMWUFkDJvdlEW01y
+         y1HQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753853585; x=1754458385;
+        d=1e100.net; s=20230601; t=1753853706; x=1754458506;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YaW5dxGDsSlpJqXv1Z6V56X7J9dKwv4y6wWMcg7L0xU=;
-        b=vNcC/S3oGLF87WUWRJT0oiaXoSLHXlZRYz/skIWTbKq+vftJ4f+Zi3R6ae227nYfKN
-         JvYEwjH7NFB9ysUGDT3MsmC4zrnhIM2kGmx2/6pselNcyScg04DbSW0h4nqtlw98O+Ki
-         1ZVaqiTK5EQga8MlZDA153iYcNw6/JlO7jLBefAmvrx7cMoaI2BI+Ht08MJest3ElTZn
-         Nk3LoaVh4lXzzVHWMHSI3TpMvDAH362HGPAI4N45Q2ZB22d2c9TU+1L5VlcpczXGAS4v
-         ueEG1PX6Bz8PvdKp+urU6G5y/04E5HW/IKZv3bmOBu5U1vKOXDulUx7+caGNeHwqCFa2
-         +uSA==
-X-Forwarded-Encrypted: i=1; AJvYcCW9WpFi7k5P4M+ljV2lOT/mS46/ca6VLZrCEje4RYGzv3p851TNWBX3GVk3+fqz0d1a7hpV6hXw+yQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzq3U5LY3CfUCqV5lxOGyfGQSlcG4GYgVS8aNmJFwqmJBaX4+wO
-	kEj5/wJH36RuTQL9QGSPaAkJZjm/HjmQ8VZ1WB9+YKno7+tVO9Bk2n8YORotEUOXYQ==
-X-Gm-Gg: ASbGncsxv9hS2O/9tAARUnidcgarsgRoRfeBX2Rgf7ZKMeX8d6vCW3o9KIvqqOJBRcd
-	SEdT/oQ7wgJbsKupi9b97kjP3qntgFa2DtzOcy0pGDbSt2XTrPffWPOV7f4FCLqnM4T0JOWJzbo
-	ubCVGX1vHkcNjjI1gGyIaf2OAqXL6PWaYuUrCB3bO7b7C1+8WVK0T3XEyKmTOFXLf8f5Wwa0lN4
-	Q7ELzcyOwO0arR8WMr4iHueLd0ynP4xHd1kN0i7DiPhIHBSbPMYIFmtqk7uRrMfAZrK0aoS4ySb
-	2/uoSfKTueJT1Tt6jm86zGWE6CE95Hs1OzimODLj+2xYkXX7rzGE0AiUchD1gx7IaVWyG9zipqw
-	U0p1DNCQSGc01Dwtmcka3CKZU6LkOxwPviAcNuEJUjTL70o+VZVbGzF2yUiTd/9cVGNhE323mSZ
-	ggDfDpMHLrouNvqx346k7eQHC8o9N5RNHF1MNzSb7JrxkzPxDJrSRVqOsn
-X-Google-Smtp-Source: AGHT+IEUBSHPcTLy+jsK8m139xGS/ho2Q0RUoBMPaG5UBYQTLdGTQZM6qIW/EOGOTnjAbfRAnGrcyw==
-X-Received: by 2002:a05:6000:400c:b0:3a5:2f23:3789 with SMTP id ffacd0b85a97d-3b794fed896mr1369411f8f.15.1753853585420;
-        Tue, 29 Jul 2025 22:33:05 -0700 (PDT)
-Message-ID: <c2cf4ecc-9a06-4ccc-86ad-3accd8a5d7a2@suse.com>
-Date: Wed, 30 Jul 2025 07:33:03 +0200
+        bh=QUdFUj2xGUMJ2ZFGzoDNN+03oHfzarWrfegth6mgTAU=;
+        b=CJ/8CCoJWrThyoKITI4mXj3QTnmD20l8688lyc20UQVCmZv0AQiNNuRS8kc+Ux1Kvy
+         LA823r74Vex7laYrlBDY2TRTTzDx3wRuaIJF4Sq5RjHf4F63zv48+qO5SHusQZF7YROT
+         SOQPF0G0Kc2zRHAf3F5qWRiGYFWUWXNOINqVWfl3KNc/wgHeWoRXoJNKrZ99pj/eWFZG
+         UOAoVLgZiim6uHOMi7RpqB/CA+RJrsVGfgeNff8wE1dIATrVzXazcl2Jgj4kLXSpGawc
+         aY8FrghBYXmnSPT9SgEy3rHRnvW4lYkZ106KWUwmQ9fh+BgITjIeL+3RCOIJkMcnaH3f
+         ahzQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWDgD9VINUOTcw8QZDzVPmCMIvZLBYU6MDurblQS1K1zGbdMaVQRMqPTkPnqgYDpPfYcKHhXa2hEx8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzcYSHORMmBaBYX9KZLBg36XVVHdmUGtrkDIPUeXjaVOMnXfjFx
+	dO3431E6oSbbn+L7jGsDlQG3eFBnuzATqj4gQW5Ao1Yal5WICZ5qmoeFYQrwCqxmYQ==
+X-Gm-Gg: ASbGncvysTYYYhK5w5uS5ibGhXzVxbTfdg22ZpEIIDJpGhD/LR/mlSXBQvhX0KmoRBS
+	SGpMzMqUJcFx+m1AYG295DKjQDHQRtzdPBW/HIUQTXEl25jftiTeidAmVWXluL9+0AkLiRv+k8R
+	P48xk2Ijr2zlzq8K0MZxPR1yxjao1BKe1rhbvhn4tQUyqx6JTK+3Q8+9BEafNM22+2F8DZ/ANQu
+	LMj6dBYyc6eKHAKTAF4/2g/97ahVXn7Co5q2C+cWEDCcdkFpY3BkhGmOcUPAVj3TKreLbFtyn+O
+	57g2c3FkKP/unPTvlRJ/uynB/M98+oOiTRK3RJFp+Enqar95HjW9MsKSVfFFkM1GdRAwvsx4zlO
+	HTETzfoNB8w23LuP7Je2OKQSV417e+cQNcvUoidI8jqbGKwIc9uOaqh2Ypty8mMQQuJcTooRsWP
+	epGxaovdvesKSw/TjsFFqtVQjd7k8xYvYCchZ5RUp60P6V8MEev9CKy8DJ
+X-Google-Smtp-Source: AGHT+IF1qJ8HvSW/NtAAAq1sWp/btRPAFxmyYu1RNaU/KlHGy/bfHsE7wtn2Qz/J2iEMU/hjIKZmIQ==
+X-Received: by 2002:adf:a357:0:b0:3b7:96e8:7596 with SMTP id ffacd0b85a97d-3b796e8772emr190942f8f.57.1753853706243;
+        Tue, 29 Jul 2025 22:35:06 -0700 (PDT)
+Message-ID: <4292abbe-28b1-4545-87af-b37dd4ace53e@suse.com>
+Date: Wed, 30 Jul 2025 07:35:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 4/9] x86/altp2m: Remove p2m_altp2m_check stubs from
- unsupported architectures
-To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Cc: Tamas K Lengyel <tamas@tklengyel.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1752691429.git.w1benny@gmail.com>
- <3c46e6bd09b2481360fbdf812926d199c5416198.1752691429.git.w1benny@gmail.com>
- <888b0ca0-4fe0-4457-a614-fb853dec7a98@suse.com>
- <CAKBKdXig2ogkT4993He8scocdx3jz4yVG97ESYQnqXGmTuNrcQ@mail.gmail.com>
+Subject: Re: [PATCH v1] xen/console: remove __printk_ratelimit()
+To: dmkhn@proton.me
+Cc: Julien Grall <julien@xen.org>, andrew.cooper3@citrix.com,
+ anthony.perard@vates.tech, michal.orzel@amd.com, roger.pau@citrix.com,
+ sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20250725212235.753363-1-dmukhin@ford.com>
+ <290ae958-4fba-42d8-a64b-d44845b85491@xen.org>
+ <aade04e0-737f-481c-9ed1-1275969c2ef7@suse.com> <aIlIm7F5L3WQLoWd@kraken>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -136,19 +123,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAKBKdXig2ogkT4993He8scocdx3jz4yVG97ESYQnqXGmTuNrcQ@mail.gmail.com>
+In-Reply-To: <aIlIm7F5L3WQLoWd@kraken>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 29.07.2025 22:39, Petr Beneš wrote:
-> On Tue, Jul 22, 2025 at 4:56 PM Jan Beulich <jbeulich@suse.com> wrote:
->> Hmm, using IS_ENABLED() would certainly be preferred.
+On 30.07.2025 00:18, dmkhn@proton.me wrote:
+> On Mon, Jul 28, 2025 at 11:32:43AM +0200, Jan Beulich wrote:
+>> On 26.07.2025 11:20, Julien Grall wrote:
+>>> On 25/07/2025 22:24, dmkhn@proton.me wrote:
+>>>> From: Denis Mukhin <dmukhin@ford.com>
+>>>>
+>>>> __printk_ratelimit() is never used outside of the console driver.
+>>>> Remove it from the lib.h and merge with the public printk_ratelimit().
+>>>
+>>> Is this solving any sort of violation? Asking because even if the
+>>> function is only used by one caller, I could see a benefit to be able to
+>>> use different value for the ratelimit. So I leaning towards keep the
+>>> code as-is.
+>>
+>> +1
+>>
+>> In fact I'm surprised (or maybe not) that we still don't make better use
+>> the rate limiting functionality.
 > 
-> Why? Very similar usage is a few lines above, with #ifdef
-> CONFIG_MEM_PAGING and CONFIG_MEM_SHARING.
+> Out of curiosity, do you have any ideas re: make better use of the rate
+> limiting functionality?
 
-Our preference towards IS_ENABLED() (where possible) likely post-dates
-the addition of those #ifdef-s.
+No concrete ones; thinking about this has been way too long ago.
+
+> Build-time parameterization?
+
+That and/or command line controls.
 
 Jan
 
