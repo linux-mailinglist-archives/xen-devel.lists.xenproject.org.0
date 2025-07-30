@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68026B15873
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 07:32:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1063386.1429116 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93BC5B15874
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 07:33:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1063392.1429125 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugzPQ-0003mB-6R; Wed, 30 Jul 2025 05:31:24 +0000
+	id 1ugzR6-0004G6-EU; Wed, 30 Jul 2025 05:33:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1063386.1429116; Wed, 30 Jul 2025 05:31:24 +0000
+Received: by outflank-mailman (output) from mailman id 1063392.1429125; Wed, 30 Jul 2025 05:33:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ugzPQ-0003j7-1J; Wed, 30 Jul 2025 05:31:24 +0000
-Received: by outflank-mailman (input) for mailman id 1063386;
- Wed, 30 Jul 2025 05:31:22 +0000
+	id 1ugzR6-0004Dp-BN; Wed, 30 Jul 2025 05:33:08 +0000
+Received: by outflank-mailman (input) for mailman id 1063392;
+ Wed, 30 Jul 2025 05:33:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zSpT=2L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ugzPO-0003iZ-Gj
- for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 05:31:22 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ id 1ugzR4-0004Dj-Ve
+ for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 05:33:06 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6cae2b93-6d06-11f0-a320-13f23c93f187;
- Wed, 30 Jul 2025 07:31:21 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-45610582d07so40457055e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 29 Jul 2025 22:31:21 -0700 (PDT)
+ id ab4ec75c-6d06-11f0-a320-13f23c93f187;
+ Wed, 30 Jul 2025 07:33:06 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3b78d13bf10so1480620f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Jul 2025 22:33:06 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b711:f23f:1903:a31c:2815:3201?
  (p200300cab711f23f1903a31c28153201.dip0.t-ipconnect.de.
  [2003:ca:b711:f23f:1903:a31c:2815:3201])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b793519f3asm3483187f8f.36.2025.07.29.22.31.18
+ 5b1f17b1804b1-4589539e491sm11783705e9.26.2025.07.29.22.33.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 29 Jul 2025 22:31:19 -0700 (PDT)
+ Tue, 29 Jul 2025 22:33:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,58 +47,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6cae2b93-6d06-11f0-a320-13f23c93f187
+X-Inumbo-ID: ab4ec75c-6d06-11f0-a320-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753853480; x=1754458280; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753853585; x=1754458385; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3/dG4Ldq2quASGr23nYWEZYrmbQ7Y9Rl/BX1kT6A51M=;
-        b=QWPBprmD9D+PQENaAb8kXTv+feeCaibkC4Zmuag67X9vaVcMVj0QI41QiBFLiIGY0G
-         WGCAjtIPdmq74a1pobiDRJH8cV9kKItXKDw8nhTW53AkZy5D2+PXu3MyebPq6M+JGN+k
-         CAVMWrQKTIbU+zpISr6D2oJKLAODe0NFuEvRJ3GAQjHmPUUqP+E3K4LhQ15IUG/EYq+9
-         QGuH9GZLL164P7n4sZvyybf0DGmn0NmJH58bLDt5nVmpU1T/EYDH/1fiGfA1LAygtgLX
-         uywpqqEUfriibRY7+TN2zeFhahqTzHVuWTrwpWBZmYm5QjbXJmtHpYifxK8qMQ5hNOje
-         jGVw==
+        bh=YaW5dxGDsSlpJqXv1Z6V56X7J9dKwv4y6wWMcg7L0xU=;
+        b=ftIfCYuMkvGRfZ/T/BFJChRDzfo9YhBCd4VjhGKXMmbMEJ2WCx5j4h7QlOS4lMsZfJ
+         i6XPnuBGXiO0ik31XLLGv8JuhjfdQg31RRBwOzPG8V/+DHYmD82kor3JtSsOqCo+nmkk
+         U1HI+s0c+QchBC+OwXMrW39R69muA1lhF1epyt5zlVHVSIcfZtW5Pvk+KEBYGEg43cai
+         IjaVl5mqNUTMxL478vHbRgPoArhpVYOqf1bfpeoTPEyTYLNTThVXqdwulyKndbHV+Y9E
+         uh7cngk/WU/XWZ4zaWgREqKkB5jWPm1Zu61raVzJGxo722k+Bbx90QrM7E2Wb+7ijNGt
+         UGVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753853480; x=1754458280;
+        d=1e100.net; s=20230601; t=1753853585; x=1754458385;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3/dG4Ldq2quASGr23nYWEZYrmbQ7Y9Rl/BX1kT6A51M=;
-        b=YS3iziBv0QCAzh7DPLkaCFmoyNcrG9PcAZe+CuU4ZcwBwDG4kjA5DhBmIkI24z76Nu
-         cchRJa7KI3rfGu/3HaLBwK1eES7enEkARrnzR14bH5O6L2Q9e992lSyuSGOy4wTH8xL3
-         QmCK9+8CgGFETokc8OE67Rqb9+CHb3NMXYT0vgtqdVGECB5sbKF0xwktA2GsCPJY2rjL
-         CRY53cGQfJipZuxmsHPA+7mbj4+xpEgtEe4pJqIhaGwyR4LeUwDvF+ab3xHOBIAb9T91
-         +BejmqtFDJLv3lsuzYxk5gV2p0Zz4yhCUxVuZSI9LSK2dZR7cok5Xp45Ss/F+ajG2EG9
-         YVxg==
-X-Forwarded-Encrypted: i=1; AJvYcCXixaXXTlxyEFAIyKtZHWmPcv0MP8+Ys1ajR/uU4IO/XwlbLgMco2N5D/OKY0csrDSeoD1BsNjGtsA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzrrJuV0OLgWyhS6xFrII9lldFEW+CY9/NQIp413FCvqndQZbl2
-	tb1fNHGzXsKuZsPJ/OCPqEk0kTRLBNENUFtHF+t1GfcrfUKXTN/DA+bseq7CtYXsxrJzoSanBSM
-	uCEI=
-X-Gm-Gg: ASbGncuEaNVeGsPAwcgvxv22qR8K2qW1TKYEKTXlbfKtWdl2ziQanehq2rSVj+KdN9o
-	FSH4/3BDqbdPgZ+UfqaDZuez0VGFRUoxo5EgfFDWJWElqx6CFkXSJk523GZDsG1HYbO0IWDXJnG
-	35UxMFrFrePvfD3tOKuJ3NCc79qsUXLhSAspkWV/OsJV3YRoGwNvqjlsghbKoYNQicKMRuxNk4z
-	W1Old4Y8tDNnlYxuKRyLnAp8Hn9+rkkPnAOV9+7MieeBZQSr9tbg0ZlJsK8l+PDt0B2g6eydAwt
-	fYEXFVSWZm5p6Tp59fDxI8QbFtVJyiE8e2pwsSLeOd4KO7J2VpiOx28qPDo/MLGgpZ0wi6jShB0
-	exy1pMgsZnVQsABY+4lvwfIgAKK7P8dPF/0fy5+Qt0W3dck39D2hcKiaEr2LFKrkp/THY0ddfaQ
-	j0NKAuXcvcAHuBmKpPCBv9jD9v8Zbof7ckBw+GHpwNXwa+CqxKMCbTmaL0
-X-Google-Smtp-Source: AGHT+IGSn1c61vz4E8Lp67N9P3VM1JyODp1qkVUWFM5p4kUlCwp7L1hcuP7W+VbbaBDlZ/OI+FsaJA==
-X-Received: by 2002:a05:600c:4685:b0:456:11db:2f0f with SMTP id 5b1f17b1804b1-45892bc6698mr18716645e9.16.1753853480383;
-        Tue, 29 Jul 2025 22:31:20 -0700 (PDT)
-Message-ID: <a6b87a23-f69c-4e23-957d-9de6fd6818b3@suse.com>
-Date: Wed, 30 Jul 2025 07:31:17 +0200
+        bh=YaW5dxGDsSlpJqXv1Z6V56X7J9dKwv4y6wWMcg7L0xU=;
+        b=vNcC/S3oGLF87WUWRJT0oiaXoSLHXlZRYz/skIWTbKq+vftJ4f+Zi3R6ae227nYfKN
+         JvYEwjH7NFB9ysUGDT3MsmC4zrnhIM2kGmx2/6pselNcyScg04DbSW0h4nqtlw98O+Ki
+         1ZVaqiTK5EQga8MlZDA153iYcNw6/JlO7jLBefAmvrx7cMoaI2BI+Ht08MJest3ElTZn
+         Nk3LoaVh4lXzzVHWMHSI3TpMvDAH362HGPAI4N45Q2ZB22d2c9TU+1L5VlcpczXGAS4v
+         ueEG1PX6Bz8PvdKp+urU6G5y/04E5HW/IKZv3bmOBu5U1vKOXDulUx7+caGNeHwqCFa2
+         +uSA==
+X-Forwarded-Encrypted: i=1; AJvYcCW9WpFi7k5P4M+ljV2lOT/mS46/ca6VLZrCEje4RYGzv3p851TNWBX3GVk3+fqz0d1a7hpV6hXw+yQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzq3U5LY3CfUCqV5lxOGyfGQSlcG4GYgVS8aNmJFwqmJBaX4+wO
+	kEj5/wJH36RuTQL9QGSPaAkJZjm/HjmQ8VZ1WB9+YKno7+tVO9Bk2n8YORotEUOXYQ==
+X-Gm-Gg: ASbGncsxv9hS2O/9tAARUnidcgarsgRoRfeBX2Rgf7ZKMeX8d6vCW3o9KIvqqOJBRcd
+	SEdT/oQ7wgJbsKupi9b97kjP3qntgFa2DtzOcy0pGDbSt2XTrPffWPOV7f4FCLqnM4T0JOWJzbo
+	ubCVGX1vHkcNjjI1gGyIaf2OAqXL6PWaYuUrCB3bO7b7C1+8WVK0T3XEyKmTOFXLf8f5Wwa0lN4
+	Q7ELzcyOwO0arR8WMr4iHueLd0ynP4xHd1kN0i7DiPhIHBSbPMYIFmtqk7uRrMfAZrK0aoS4ySb
+	2/uoSfKTueJT1Tt6jm86zGWE6CE95Hs1OzimODLj+2xYkXX7rzGE0AiUchD1gx7IaVWyG9zipqw
+	U0p1DNCQSGc01Dwtmcka3CKZU6LkOxwPviAcNuEJUjTL70o+VZVbGzF2yUiTd/9cVGNhE323mSZ
+	ggDfDpMHLrouNvqx346k7eQHC8o9N5RNHF1MNzSb7JrxkzPxDJrSRVqOsn
+X-Google-Smtp-Source: AGHT+IEUBSHPcTLy+jsK8m139xGS/ho2Q0RUoBMPaG5UBYQTLdGTQZM6qIW/EOGOTnjAbfRAnGrcyw==
+X-Received: by 2002:a05:6000:400c:b0:3a5:2f23:3789 with SMTP id ffacd0b85a97d-3b794fed896mr1369411f8f.15.1753853585420;
+        Tue, 29 Jul 2025 22:33:05 -0700 (PDT)
+Message-ID: <c2cf4ecc-9a06-4ccc-86ad-3accd8a5d7a2@suse.com>
+Date: Wed, 30 Jul 2025 07:33:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 8/8] x86/mm: adjust loop in arch_init_memory() to
- iterate over the PDX space
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250724110416.2081-1-roger.pau@citrix.com>
- <20250724110416.2081-9-roger.pau@citrix.com>
- <690b5769-3602-4514-bd26-8119697b32f6@suse.com>
- <aIj8uzIa-wcpmvOH@macbook.local>
+Subject: Re: [PATCH v10 4/9] x86/altp2m: Remove p2m_altp2m_check stubs from
+ unsupported architectures
+To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
+Cc: Tamas K Lengyel <tamas@tklengyel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1752691429.git.w1benny@gmail.com>
+ <3c46e6bd09b2481360fbdf812926d199c5416198.1752691429.git.w1benny@gmail.com>
+ <888b0ca0-4fe0-4457-a614-fb853dec7a98@suse.com>
+ <CAKBKdXig2ogkT4993He8scocdx3jz4yVG97ESYQnqXGmTuNrcQ@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,72 +136,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aIj8uzIa-wcpmvOH@macbook.local>
+In-Reply-To: <CAKBKdXig2ogkT4993He8scocdx3jz4yVG97ESYQnqXGmTuNrcQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 29.07.2025 18:54, Roger Pau Monné wrote:
-> On Tue, Jul 29, 2025 at 04:33:53PM +0200, Jan Beulich wrote:
->> On 24.07.2025 13:04, Roger Pau Monne wrote:
->>> There's a loop in arch_init_memory() that iterates over holes and non-RAM
->>> regions to possibly mark any page_info structures matching those addresses
->>> as IO.  The looping there is done over the PFN space.
->>>
->>> PFNs not covered by the PDX space will always fail the mfn_valid() check,
->>> hence re-write the loop to iterate over the PDX space and avoid checking
->>> any holes that are not covered by the PDX translation.
->>>
->>> On a system with a ~6TiB hole this change together with using PDX
->>> compression reduces boot time in approximately 20 seconds.  Xen boot time
->>> without the change is ~50s, with the change it's ~30s.
->>
->> That's nice, and I agree what we currently do isn't very efficient, but ...
->>
->>> --- a/xen/arch/x86/mm.c
->>> +++ b/xen/arch/x86/mm.c
->>> @@ -275,7 +275,7 @@ static void __init assign_io_page(struct page_info *page)
->>>  
->>>  void __init arch_init_memory(void)
->>>  {
->>> -    unsigned long i, pfn, rstart_pfn, rend_pfn, iostart_pfn, ioend_pfn;
->>> +    unsigned long i, pfn, rstart_pfn, rend_pfn, iostart_pfn, ioend_pfn, pdx;
->>>  
->>>      /*
->>>       * Basic guest-accessible flags:
->>> @@ -328,9 +328,14 @@ void __init arch_init_memory(void)
->>>              destroy_xen_mappings((unsigned long)mfn_to_virt(iostart_pfn),
->>>                                   (unsigned long)mfn_to_virt(ioend_pfn));
->>>  
->>> -        /* Mark as I/O up to next RAM region. */
->>> -        for ( ; pfn < rstart_pfn; pfn++ )
->>> +        /*
->>> +         * Mark as I/O up to next RAM region.  Iterate over the PDX space to
->>> +         * skip holes which would always fail the mfn_valid() check.
->>> +         */
->>> +        for ( pdx = pfn_to_pdx(pfn); pdx < pfn_to_pdx(rstart_pfn); pdx++ )
->>
->> ... pfn_to_pdx() isn't well-defined for a non-RAM PFN, or more precisely for any
->> PFN that fails the mfn_valid() check. That is, I think, particularly noticeable
->> with the new offset compression you introduce.
+On 29.07.2025 22:39, Petr Beneš wrote:
+> On Tue, Jul 22, 2025 at 4:56 PM Jan Beulich <jbeulich@suse.com> wrote:
+>> Hmm, using IS_ENABLED() would certainly be preferred.
 > 
-> rstart_pfn will always point to the start of the next RAM region (or
-> the end of the current region if it's the last one).  So for that case
-> pfn_to_pdx() is always provided a RAM PFN as input parameter.
-> 
-> However for the pfn parameter, we would need to do pfn_to_pdx(pfn -
-> 1), as that's the last address in the previous RAM range.  The loop
-> would then possibly be:
-> 
-> for ( pdx = pfn_to_pdx((pfn ?: 1) - 1) + 1; pdx < pfn_to_pdx(rstart_pfn); pdx++ )
-> {
->     ...
-> 
-> This also assumes that PFN 0 will always have a valid PDX translation,
-> regardless of whether it's RAM or not (which is the case given the PDX
-> code currently used).
+> Why? Very similar usage is a few lines above, with #ifdef
+> CONFIG_MEM_PAGING and CONFIG_MEM_SHARING.
 
-Looks good to me. The caveat may then want mentioning in the comment as
-well.
+Our preference towards IS_ENABLED() (where possible) likely post-dates
+the addition of those #ifdef-s.
 
 Jan
 
