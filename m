@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6FE9B15B5B
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 11:19:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1063598.1429305 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C60EDB15B89
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 11:29:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1063605.1429315 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh2xq-0006Oq-8e; Wed, 30 Jul 2025 09:19:10 +0000
+	id 1uh37N-00087V-4H; Wed, 30 Jul 2025 09:29:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1063598.1429305; Wed, 30 Jul 2025 09:19:10 +0000
+Received: by outflank-mailman (output) from mailman id 1063605.1429315; Wed, 30 Jul 2025 09:29:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh2xq-0006Mu-5s; Wed, 30 Jul 2025 09:19:10 +0000
-Received: by outflank-mailman (input) for mailman id 1063598;
- Wed, 30 Jul 2025 09:19:08 +0000
+	id 1uh37N-000853-1I; Wed, 30 Jul 2025 09:29:01 +0000
+Received: by outflank-mailman (input) for mailman id 1063605;
+ Wed, 30 Jul 2025 09:29:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zSpT=2L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uh2xo-0006Mo-KJ
- for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 09:19:08 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1uh37M-00084x-1U
+ for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 09:29:00 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3e722b6d-6d26-11f0-a320-13f23c93f187;
- Wed, 30 Jul 2025 11:19:07 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3b791736d12so1221305f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 02:19:07 -0700 (PDT)
+ id 9f1e0a80-6d27-11f0-a320-13f23c93f187;
+ Wed, 30 Jul 2025 11:28:59 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-3b78d13bf10so1666185f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 02:28:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7640b2de3dbsm10119446b3a.113.2025.07.30.02.18.56
+ 41be03b00d2f7-b3f7f58eed6sm8878068a12.25.2025.07.30.02.28.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Jul 2025 02:19:06 -0700 (PDT)
+ Wed, 30 Jul 2025 02:28:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,68 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e722b6d-6d26-11f0-a320-13f23c93f187
+X-Inumbo-ID: 9f1e0a80-6d27-11f0-a320-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753867147; x=1754471947; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753867738; x=1754472538; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/gA97v5OEVcdsL4PTuJiCw+/PWGqk30SFnLSRdRlCHM=;
-        b=FvqxUKzdGpriE/LCmghShNqW9uqWoSuoSWFAhYr62Pj2oA8aci7x/HBKgMnRB8Coav
-         SgBSkP0etooYE/aIAj7pWzN5LfCBxksKu2z6dj2yaJBt8+u2UoOPl9DOBOVq+H7yDgfT
-         xw9rgJ8BAjrInhyuj2hw1IRa9ZdscaPSzDgFLGXgidLa2kp9VDBUq/PQxesH3om7dzKx
-         5wE0fhPvPSZsaUFGIhvsxi35GYKvPlKxCP0O3gmgDt6WY3nTghdjxiryaYNlSqVlNh4R
-         Kq7BZXCl7X6njar6UQlJO1GhVr3EwTXt2L7WMZxSaRJCi85WVrLEfQcrShxFG2dsrCSa
-         YLxg==
+        bh=rD0lkwnlOr+XJUKGYszyUGN45gQ606euA4RDakTzyXI=;
+        b=BNFXPg7t6vSKVVInl9Xq6QlRv7QtD0lSO2Gy65kMp6MAwE9++6QFytfzX1kqvOAI6/
+         wSowgZ6NRMQsw9wTqbz/qN3hyJPR94R0IF3DmD/yjEHB5RHAwRFxJ6XEeDY9/K9ZLJkb
+         qfV0yDgHVqLYCYuqJLaBgqxDcYL3gkii95G+oQ5ssouHgDBVBSiWwRD4Dr+8odZMx7mM
+         mTKiQYY22w/6yLeekA1cyavQXL35WFePTv/uujKdpx2s22XvS8izfb5zLgiylg3ILq7G
+         V64rWSTbhCb6s1RrdRCd5oupTbBnv5QubOrW77paWll+vBorSQoJ7sLt5ugb4jmZU+Me
+         fYxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753867147; x=1754471947;
+        d=1e100.net; s=20230601; t=1753867738; x=1754472538;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/gA97v5OEVcdsL4PTuJiCw+/PWGqk30SFnLSRdRlCHM=;
-        b=QUFzQCJojMLwweJSkQszacsgl1JWKGCAzLeCWws39XAXP3Us3S0RgLvZTqz+Tu7CTk
-         noi09MzaUnmLN/JoPvZXBU/MyosN+/WrUd2ENcd6KGRpJplNKI4Wd/HXycQBIxS60psB
-         5Zcym6H5bgTEzyaA3FE8C4IR4/PHwmWFkpsUx8aRDvclgbi8S6CRwcF9UVYGjmX/bluM
-         C6emaly47xvl/rWWFond4K4aqcF5DCEhKv8gqXk1/RUo0mAj5ovhQCXEqFUGtWGpQdP/
-         5Az1b9YejQ2MyjL597y5XIB+bdur2EaNcEoQrpUTkRtDkCtVEID7N2C1HP8bOwUSnGR+
-         rBpA==
-X-Forwarded-Encrypted: i=1; AJvYcCVHw908v1dkEIYpWBXo0ix79Sd/9/gGHtu5/f6whrOLSVlOjfQEuVvCnVO4ShxGOEVKUPYZs1eK2UE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxqckUQ7EWfdn/pMAZ1DjUhaM7alM2xyCEXeZ1ixsENCPBG5qWg
-	5CY+yqX9KHwjk23nYN0TSslrs3DA/qIePUlVxhGsKimDhPH538mA8b/GK5hKgMD4Wg==
-X-Gm-Gg: ASbGnctqv/MKH5Gp66PKf7QyB34nayl+XeIZ+a6mwZBMYIb/UhnnGwivpo9RwhGTr+o
-	7XNu/nFFQwnkPxZFHemI9VeS9MQyKKDSe/y58EWchfP4lyLyfZpQX6QRLV/52j4Gx3OknZewano
-	Y2+kpn6FtCfxNXYDtqKmeETzAaZRayt13nSv77XtaZ4rUfIsPiyV0+my4+CgiaFneMBXF5mNLLb
-	qJtLlp7Nr2uVwThYt6ETkWSg7YnhociGBnitL1rq1+S0yQWLrl/fehriB5Xn+Z1c6Z/RPJkQRbl
-	Cfc/ZNcrj3UMQSv55iu1GQX8cHfZOhNovOfx5x1pDn+udQ18CnEu+Puaccon5awArFY7vaLcwZi
-	E7Id2+/wTByGZ3UjYkFx0GzggJezzZDSw5A1X8dEVzYrM48yVGPy8fAaz38lSZz3++J/0xFi0Bi
-	4G82WhTYxZbONuD4stPQ==
-X-Google-Smtp-Source: AGHT+IFi/TUqSTFeAsQnQi4hmtCBERjXimEiPpptzZsK9YCg/v+Sovu7HQplSRtpgOJ4ZpbTVoKjKw==
-X-Received: by 2002:a05:6000:4305:b0:3a4:f70d:a65e with SMTP id ffacd0b85a97d-3b794ffe750mr1735055f8f.37.1753867146682;
-        Wed, 30 Jul 2025 02:19:06 -0700 (PDT)
-Message-ID: <06e28dbf-dd86-476a-8b0d-39f3e8fb898e@suse.com>
-Date: Wed, 30 Jul 2025 11:18:52 +0200
+        bh=rD0lkwnlOr+XJUKGYszyUGN45gQ606euA4RDakTzyXI=;
+        b=YKmXRvv1Qb1job1wNts9U/i5RDGUwOD5j4k0gCqLaoj9v60tSiYI2mkA6KtlXvDLcG
+         PqHxN/lma2Rm2lfyiu6wR11LgIBhuiwbZn2pA85Om4L8AbIaAbNMmp0SuF9oUNP9xqmF
+         RBYzz0JBMFdhBKiZ0HuTuDF1gz6itcd+oC6s0iQuiq+JyOFMiRMbyWQh6Ao/Vz3aZJyv
+         MxklLXN8iFmb6K6AKchUthAD5C4HxkCc1qC/PSnppkR3Wz9NC1tDRUsTZRucJe6oUL19
+         UckZPdKh5uzPmxtaE1Fl4F0V+gqQJFxMghzNN+vA8T9CyCRkfm10i5iWaBxRBOmC4btI
+         rD6g==
+X-Forwarded-Encrypted: i=1; AJvYcCW+8WAsixV/Iuxi3WabrJcgxWnXAB2AvDePJcxjKvxQPg0B3uGcSI6ozrrWtuCN9vrtTeK8j9dWUEo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwJvE4XNUDRQNj0hb5Vxu/3AbR8Z2u09XtdQA6SOH6IAayCwJJJ
+	aeYuquj9aM3z04W2e1QdHPnnA58KMHJYgs9f7TBJJVFzuCLh2Uv8MTZNy351nOHDOQ==
+X-Gm-Gg: ASbGncvomMtE4X5asy611wEtJYqID9BZfz71bU/Bv2laRSZ/oJ9bEinp2v55rHBQBAY
+	pZ5rgKAyIYaO5+NPS1HxccQ9ubaKG/LZHx1igkkDp/L6W2jOn7CEEiaMZPr2FBbOqmlPIiVPOZQ
+	FOKeROVgMG4Dh6P+UhWPLXySL7whVP0TPFMDZ6aKsKuKj7CifiJyhaMQCLO9s8+qcCV7U+E1DC/
+	Xa2a1fl/vXvHzgLz1zjv5T+sQFdRoMKmFhAbkGpaDF7+QIemFPiPQAbfYcQM9StWeT+hiNzlWVg
+	Pwbxm5jTJNkP4a4uNPlZcXdqPQ2JW0GYvi0JspoHr1VnsgaHm+WpsnVcZ15KZw3WkSC+paEejOu
+	KY4rqSan6oHXK9el9GHBn2FJQI2uVCHnW0/cZ3XISC8h7bVlVMCOoBoB/9J9Mle4HghyD6EvKkQ
+	rKaPfMpYwEB5a9bQq6wg==
+X-Google-Smtp-Source: AGHT+IFxG/UTZF6sUktMfdwL6iWtMPAUONSf1XkzJI8xRnJb2lPGge6AqYDqtdEnjBakaNRu851apw==
+X-Received: by 2002:a05:6000:400c:b0:3a5:2f23:3789 with SMTP id ffacd0b85a97d-3b794fed896mr1958075f8f.15.1753867738410;
+        Wed, 30 Jul 2025 02:28:58 -0700 (PDT)
+Message-ID: <348b7780-d1ad-4765-9eb6-5ad66e5ce2e6@suse.com>
+Date: Wed, 30 Jul 2025 11:28:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/11] Introduce CONFIG_PLATFORM_OP to disable platform_op
- hypercalls
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Lukasz Hawrylko <lukasz@hawrylko.pl>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Mateusz_M=C3=B3wka?= <mateusz.mowka@intel.com>,
- Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
- George Dunlap <gwd@xenproject.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
+Subject: Re: [PATCH v2 01/17] xen/xsm: Add XSM_HW_PRIV
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  xen-devel@lists.xenproject.org
-References: <20250725061530.309953-1-Jiqian.Chen@amd.com>
+References: <20250716211504.291104-1-jason.andryuk@amd.com>
+ <20250716211504.291104-2-jason.andryuk@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -132,41 +126,52 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250725061530.309953-1-Jiqian.Chen@amd.com>
+In-Reply-To: <20250716211504.291104-2-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 25.07.2025 08:15, Jiqian Chen wrote:
-> Hi all,
-> This is a continuation of the disabling some hypercalls handling code series.
-> https://lore.kernel.org/xen-devel/20250704092952.822578-1-Penny.Zheng@amd.com/
+On 16.07.2025 23:14, Jason Andryuk wrote:
+> Xen includes disctinct concepts of a control domain (privileged) and a
+> hardware domain, but there is only a single XSM_PRIV check.  For dom0
+> this is not an issue as they are one and the same.
 > 
-> It can be beneficial for some dom0less systems to further reduce Xen footprint
-> via disabling some hypercalls handling code, which may not to be used &
-> required in such systems. Each hypercall has a separate option to keep
-> configuration flexible.
+> With hyperlaunch and its build capabilities, a non-privileged hwdom and a
+> privileged control domain should be possible.  Today the hwdom fails the
+> XSM_PRIV checks for hardware-related hooks which it should be allowed
+> access to.
 > 
-> Options to disable hypercalls:
-> - sysctl
-> - domctl
-> - hvm
+> Introduce XSM_HW_PRIV, and use it to mark many of the physdev_op and
+> platform_op.  The hwdom is allowed access for XSM_HW_PRIV.
+> 
+> Make XSM_HW_PRIV a new privilege level that is exclusive to the hardware
+> domain
+> 
+> A traditional dom0 will be both privileged and hardware domain, so it
+> continues to have all accesses.
+> 
+> Why not XSM:Flask?  XSM:Flask is fine grain, and this aims to allow
+> coarse grain.  domUs are still domUs.  If capabilities are meant to be a
+> first class citizen, they should be usable by the default XSM policy.
 
-Is this hvmop? If so, how can it reasonably be disabled when the majority of
-guests are HVM ones these days? Some of the operations can be invoked by
-guests on themselves, iirc.
+Despite this added paragraph, my prior concern remains of this adding
+finer granularity than what may be desirable in a coarse-grained world.
 
-> - physdev
-> - platform_op
+> @@ -275,7 +279,7 @@ static XSM_INLINE int cf_check xsm_console_io(
+>      if ( cmd == CONSOLEIO_write )
+>          return xsm_default_action(XSM_HOOK, d, NULL);
+>  #endif
+> -    return xsm_default_action(XSM_PRIV, d, NULL);
+> +    return xsm_default_action(XSM_HW_PRIV, d, NULL);
+>  }
 
-For everything else, it's not clear whether it was conveyed to you that there
-is a more general argument against this fine-grained splitting at the Kconfig
-level. Already with domctl you've learned the hard way that it's intertwined
-with e.g. sysctl. The basic direction to move into appears to be to allow to
-exclude such special "management" operations via on single control.
+This change I'm uncertain about: Why would the control domain not be
+permitted to interact with the console? It may, in the end, be more
+important for it to have access than for hwdom.
 
-In the light of this it's not quite clear how useful it would be to actually
-review this series. In any event, before anything further can go in, issues
-with what has already gone in will need sorting, imo.
+And yes, there is the ->is_console check earlier on. But for the
+consideration here its presence ought to not matter. Or else the
+change itself is meaningless (e.g. if we assumed that both would have
+the flag set).
 
 Jan
 
