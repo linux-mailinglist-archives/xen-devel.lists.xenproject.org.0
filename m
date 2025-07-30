@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9236B15DF8
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 12:18:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1063695.1429416 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 234FAB15DFB
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 12:19:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1063702.1429426 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh3sv-0003YG-VH; Wed, 30 Jul 2025 10:18:09 +0000
+	id 1uh3u9-00045Z-8z; Wed, 30 Jul 2025 10:19:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1063695.1429416; Wed, 30 Jul 2025 10:18:09 +0000
+Received: by outflank-mailman (output) from mailman id 1063702.1429426; Wed, 30 Jul 2025 10:19:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh3sv-0003WP-Re; Wed, 30 Jul 2025 10:18:09 +0000
-Received: by outflank-mailman (input) for mailman id 1063695;
- Wed, 30 Jul 2025 10:18:08 +0000
+	id 1uh3u9-00042V-54; Wed, 30 Jul 2025 10:19:25 +0000
+Received: by outflank-mailman (input) for mailman id 1063702;
+ Wed, 30 Jul 2025 10:19:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=zSpT=2L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uh3su-0003WJ-EL
- for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 10:18:08 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BoeR=2L=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uh3u7-00040o-9c
+ for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 10:19:23 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7b97b17a-6d2e-11f0-b895-0df219b8e170;
- Wed, 30 Jul 2025 12:18:06 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3b78a034f17so2378009f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 03:18:05 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b4220e6a680sm801741a12.58.2025.07.30.03.18.02
+ id a88e2489-6d2e-11f0-b895-0df219b8e170;
+ Wed, 30 Jul 2025 12:19:21 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-45617887276so37716305e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 03:19:21 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3b78d45d010sm6618197f8f.8.2025.07.30.03.19.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Jul 2025 03:18:04 -0700 (PDT)
+ Wed, 30 Jul 2025 03:19:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,134 +45,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b97b17a-6d2e-11f0-b895-0df219b8e170
+X-Inumbo-ID: a88e2489-6d2e-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753870685; x=1754475485; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1753870761; x=1754475561; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=aV9eUiyqp0IxXqFaIR75B2STF17yFSV8Hi/kdxA/HF0=;
-        b=WDv7+5CVVvm+BwnU9jGs0rXrqZthWinyYahlt2XcVuwM6K5jBzpQ+TsgUhP6Zf7aH6
-         JSe9L6VqlfrttLha6ccg3fwFws4KOsFIOCMGZh0uwfmGjR1FaHcJIpGAagirJy9DlG2p
-         jh41+hKbrLO31hzJifTO3iPtNrzO9ckmK26ptqp8Mel9FylvQF84hnc29ZrWLqHuvvY+
-         /qQHkIYT2gQelhM6/NBQO7UnXYY/hUvwKnVi/uRlWA2I/iTpaDCZtAefe2sQmfwb3T0R
-         ai/grt5j3njpf0ozSshP6PKG9XJafGmAtznGzw4xkTWL/YGjO7VcYA2jSmhgPda9F/6p
-         9rtQ==
+        bh=mJQvGtNqvCp4/zxx5QWKgLBZz/T0kSLyCmMkSS1lmjY=;
+        b=LqVx/LiArTR/n36I1F7UN6iwc8jFilMk+eOEKi72ao1RMOx9pIUFg3DlKBTj7yRrXf
+         gDyxtqtLGxTT4ZN8TLIrIyNDSntBD5t2j4e6M1Wc37yEtlTbD4GpBHyGY36Ov72q33yn
+         kSKR+8o8EDB8cGVvguJzYVCR8Z2CukE+9mQfI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753870685; x=1754475485;
+        d=1e100.net; s=20230601; t=1753870761; x=1754475561;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=aV9eUiyqp0IxXqFaIR75B2STF17yFSV8Hi/kdxA/HF0=;
-        b=iU8XH+SWOybwfAOypcp4oqmYZrTqUezl98zeKbqHxEM+MHxvwyOJNgqXFRFgs6vwer
-         wJDbIBmBL+BZnL3oLz2/9hLL3DMsscVNMOzE+rgoj00zeyxmDACfJl4bkvI9Zj0/g/Au
-         xagFTFlxAnuVZYw76N83Ve5rrTeRU4ClypiDzSwhT/GHUnevWFbaovfKSsMOyjMlihFB
-         Dr/8uWCGsqfsuE2A4TyJWtLSXuUcfa+GM1VbjNUSdCmnpEsJogtFZooobgqk9LpMC+Dc
-         +BIGBu2upkZ6wFeZAAIHIpD2A39n5A6JD7r3L+ODXVJN/u6iEgsQ77EVIAxfYSkTd+97
-         jf3A==
-X-Forwarded-Encrypted: i=1; AJvYcCWeCMPxOf0CFnC5rxbSmA80l00v517FSH7QmCBWqM+TZ+lMXUMzMt+yIySW6o2wCneBF0QfqPTHxqU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy3BQU85oTjvl13aHNri+UgFzHHuJVEIs9lcf1VIO/GrKRCek4i
-	haU3sDOzTxPtmO6KCYLZR3k19QDqOqvrFb+veZpu51OZjeoKJf7ym5E7FJKqA4m+vA==
-X-Gm-Gg: ASbGncsa2BxEZkyis+MEtMzjsOieKyTOnP9ZbbFGhluuutZfDRvoECVKx4bch7lAAcV
-	jLsqPgsjR+sl+c5mrat1/oNnn2NUCqCd8rM+K/dXbzUg/gR7iqrP+WsYYD7DtexwFbqmjL0adJz
-	nBAVtQ01hk+Dxf8vM3bCBLz73ZOPzeVZWjIboQaOIW6UF5bIliio/+neWBqUTWWt3Ikgy4gXoyi
-	BX2Rwyf1pRjcKwNL7623vkoXDwBFk6pCk/JQPs3SS1lULusEoUF3HiQVrYdNbVYUPl+1xOjiqng
-	qaAHYrutCpVv3CPkYU0AQp19TuL6cUjPWMDf9p4BLiLGM6IzrPtjSqeJAofwax7Ru7WKpMZVRWn
-	L1pJcxHJEoA5l4lv5WIi0+yNHFbC958FYblHCvUqtIAfvpLgrYIDvRTLRucenZF3rAW8D/7AnGm
-	7D6RaFYgo=
-X-Google-Smtp-Source: AGHT+IE5+stoPetRskx+N7QhdjBECrCrvlKDu96+ccNWT6uHExW3LXGqv6/AduXohS+EzRTTeMXPqg==
-X-Received: by 2002:a05:6000:2083:b0:3a6:f2d7:e22b with SMTP id ffacd0b85a97d-3b794fd73a6mr2248420f8f.18.1753870685267;
-        Wed, 30 Jul 2025 03:18:05 -0700 (PDT)
-Message-ID: <90d5df6c-b431-4256-b39b-4567ab5bf8c9@suse.com>
-Date: Wed, 30 Jul 2025 12:17:57 +0200
+        bh=mJQvGtNqvCp4/zxx5QWKgLBZz/T0kSLyCmMkSS1lmjY=;
+        b=qkHCOkEDQ6B2KCIw9eG2MraoZoo6qvsX6tnaVFEpsO3+YuzmNQnInowc0wNSaa6zZx
+         9ykQn9UMB6dPzfw1vISABekNMRbBhyuTrvFjWajg/02vV4zfEmSFxyWTjFCrpBE4dqlV
+         LPY8e+ZqE083GeB3fsn3Z5X1ZYyUezAEUNJ+bZjUldcgAQKR3UcgT3KJaUXXVcwC3xJY
+         WFEMFI2XZA6FSkJx+FZiCaML6TCznUXPSsU8PiBNPN+DcqSRJrH4QRpju4YjHt46zF3K
+         IQ+cbIIWpCvgVAY4f5je6+Q78qGzDObEy5SmJVGQcHJ4XPcWuEMeNnMbH5pinL/UezIY
+         W83g==
+X-Forwarded-Encrypted: i=1; AJvYcCViTh8+24/L5Mfq2IR715Xy+XyGz6EbXLFbrcPL5dtsQXx6rxyvpVAhQrwsTU8CJAHaCcz1pT46+6A=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzZOspidTZUHKDPyyzu4vdus1xVFBNS6/49jW9nebOM/eI3o3pm
+	RIx+66zF2qnRMcODS2tKmNDZLR8O3j6brI1edfW3TY6BN9n4zsHkMbguEvCxUqRmWiY=
+X-Gm-Gg: ASbGncvOgG2kld5xfDspqBjC/YXzQnjAz/nc5DuOHtLXcl9KnImExGL43Ov+l6zFm7b
+	s/zp1zjJZb2DWaRYeadnSLnJTk7FDrAP42zvEU7+G7Vr9b7e6dfLtOdwqwgYBSIBAdg+leil8wT
+	BwAYj7RY+EoyZKvit3Ttd9TI6Z0v+Qn9hII0CGtHcuRK+/YQO4EpwugJ4G6t3NtKUTu2UFBam8w
+	KfdFUaTOXpJKmoznFJrFEwRnsJUy80xrI/kGvvwrWb6tE88kiGbj8+dHLoSFkjnOogUQPh0/2W2
+	v3EXTFUi2UMVwHAGSYqRLCJQD6QdZGduc0CywIZWxVJWgPPS10wQoQajBvN/3Kk89wCP0mOHyH6
+	2gG9fPQvUz7viFo36JiyvOPLabZN9dAeyQaI/Ym93Rd3e6f1sYF3jhaJi7KtfSLUzVqnWmhTTap
+	A/EZo=
+X-Google-Smtp-Source: AGHT+IHGkZFL8nk0OgtKLco42GgL61KZJS39iQIUv0oBivAnjO5soeODE8hVO26w1lNLJ7QND9EHXQ==
+X-Received: by 2002:a05:600c:1d2a:b0:456:1a87:a6cb with SMTP id 5b1f17b1804b1-4589be7b8ecmr6063835e9.19.1753870760755;
+        Wed, 30 Jul 2025 03:19:20 -0700 (PDT)
+Message-ID: <535c83e3-0626-4447-a20c-20e4c8e2a213@citrix.com>
+Date: Wed, 30 Jul 2025 11:19:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/17] xsm/silo: Support hardware & xenstore domains
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-References: <20250716211504.291104-1-jason.andryuk@amd.com>
- <20250716211504.291104-3-jason.andryuk@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250716211504.291104-3-jason.andryuk@amd.com>
+Subject: Re: [PATCH v9 4/8] vpci: Hide extended capability when it fails to
+ initialize
+To: Jan Beulich <jbeulich@suse.com>, Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: Huang Rui <ray.huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ "consulting@bugseng.com" <consulting@bugseng.com>
+References: <20250728050401.329510-1-Jiqian.Chen@amd.com>
+ <20250728050401.329510-5-Jiqian.Chen@amd.com>
+ <8051d388-48f9-4878-8924-8e645f313238@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <8051d388-48f9-4878-8924-8e645f313238@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 16.07.2025 23:14, Jason Andryuk wrote:
-> In a disaggregated environment, dom0 is split into Control, Hardware,
-> and Xenstore domains, along with domUs.
+On 30/07/2025 10:50 am, Jan Beulich wrote:
+> On 28.07.2025 07:03, Jiqian Chen wrote:
+>> +static int vpci_ext_capability_hide(
+>> +    const struct pci_dev *pdev, unsigned int cap)
+>> +{
+>> +    const unsigned int offset = pci_find_ext_capability(pdev->sbdf, cap);
+>> +    struct vpci_register *r, *prev_r;
+>> +    struct vpci *vpci = pdev->vpci;
+>> +    uint32_t header, pre_header;
+>> +
+>> +    if ( offset < PCI_CFG_SPACE_SIZE )
+>> +    {
+>> +        ASSERT_UNREACHABLE();
+>> +        return 0;
+>> +    }
+>> +
+>> +    spin_lock(&vpci->lock);
+>> +    r = vpci_get_register(vpci, offset, 4);
+>> +    if ( !r )
+>> +    {
+>> +        spin_unlock(&vpci->lock);
+>> +        return -ENODEV;
+>> +    }
+>> +
+>> +    header = (uint32_t)(uintptr_t)r->private;
+>> +    if ( offset == PCI_CFG_SPACE_SIZE )
+>> +    {
+>> +        if ( PCI_EXT_CAP_NEXT(header) <= PCI_CFG_SPACE_SIZE )
+>> +            r->private = (void *)(uintptr_t)0;
+> Eclair regards this a Misra rule 11.9 violation. Elsewhere we use (void *)0,
+> which I then would conclude is "fine". But I can't say why that is. Cc-ing
+> Bugseng for a possible explanation.
 
-Here we are with terminology again. In a truly disaggregated env, yet
-more (service) domains would come into play. What you mean here is
-only coarse disaggregation, as you're trying to get away without using
-Flask.
+Eclair is complaining that this isn't written r->private = NULL.
 
->  The is_control_domain() check
-> is not sufficient to handle all these cases.  Add is_priv_domain() to
-> support allowing for the various domains.
-> 
-> The purpose of SILO mode is to prevent domUs from interacting with each
-> other.  But dom0 was allowed to communicate with domUs to provide
-> services.
-> 
-> To provide xenstore connections, the Xenstore domain must be allowed to
-> connect via grants and event channels.  Xenstore domain must also be
-> allowed to connect to Control and Hardware to provide xenstore to them.
-> 
-> Hardware domain will provide PV devices to domains, so it must be
-> allowed to connect to domains.
-> 
-> That leaves Control.  Xenstore and Hardware would already allow access
-> to Control, so it can obtain services that way.  Control should be
-> "privileged", which would mean it can make the connections.  But with
-> Xenstore and Hardware providing their services to domUs, there may not
-> be a reason to allow Control to use grants or event channels with domUs.
+Given that private is a pointer, I don't understand why NULL isn't used
+either.
 
-"may not be" is too weak for my taste to forbid such.
-
-> This silo check is for grants, event channels and argo.  The dummy
-> policy handles other calls, so Hardware is prevented from foreign
-> mapping Control's memory with that.
-
-By "foreign mapping" you only mean what would result in p2m_foreign
-entries? But grant mapping is okay?
-
-> @@ -29,8 +40,8 @@ static bool silo_mode_dom_check(const struct domain *ldom,
->  {
->      const struct domain *currd = current->domain;
->  
-> -    return (is_control_domain(currd) || is_control_domain(ldom) ||
-> -            is_control_domain(rdom) || ldom == rdom);
-> +    return (is_priv_domain(currd) || is_priv_domain(ldom) ||
-> +            is_priv_domain(rdom) || ldom == rdom);
->  }
-
-IOW we're turning by 180°? Interesting ...
-
-Jan
+~Andrew
 
