@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3914BB15A18
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 09:58:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1063492.1429205 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EE10B15A38
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 10:13:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1063508.1429216 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh1hp-0007px-3X; Wed, 30 Jul 2025 07:58:33 +0000
+	id 1uh1vw-0002pJ-ER; Wed, 30 Jul 2025 08:13:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1063492.1429205; Wed, 30 Jul 2025 07:58:33 +0000
+Received: by outflank-mailman (output) from mailman id 1063508.1429216; Wed, 30 Jul 2025 08:13:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh1hp-0007nw-0z; Wed, 30 Jul 2025 07:58:33 +0000
-Received: by outflank-mailman (input) for mailman id 1063492;
- Wed, 30 Jul 2025 07:58:31 +0000
+	id 1uh1vw-0002mq-Ab; Wed, 30 Jul 2025 08:13:08 +0000
+Received: by outflank-mailman (input) for mailman id 1063508;
+ Wed, 30 Jul 2025 08:13:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zSpT=2L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uh1hn-0007nq-DL
- for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 07:58:31 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ id 1uh1vu-0002mk-LH
+ for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 08:13:06 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fb454c7e-6d1a-11f0-a320-13f23c93f187;
- Wed, 30 Jul 2025 09:58:30 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3b77b8750acso423161f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 00:58:30 -0700 (PDT)
+ id 04b81508-6d1d-11f0-a320-13f23c93f187;
+ Wed, 30 Jul 2025 10:13:05 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3b786421e36so353133f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 01:13:05 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23fd3fdf1f2sm88699135ad.123.2025.07.30.00.58.23
+ d9443c01a7336-23fbe513163sm96377365ad.133.2025.07.30.01.12.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Jul 2025 00:58:29 -0700 (PDT)
+ Wed, 30 Jul 2025 01:13:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb454c7e-6d1a-11f0-a320-13f23c93f187
+X-Inumbo-ID: 04b81508-6d1d-11f0-a320-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753862309; x=1754467109; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753863184; x=1754467984; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=GDZlrZ49Erd24XO/87MxTC6XiS4DrH2mPRhSF4E06e0=;
-        b=NrD8HwQ8vZU5Oik6BctolRj0oG/2lmGPV62/yc8CCFzzb3K265A8/JzRNYEctxJGEK
-         o6PAVmhGhKCSoXiCS6DlwR5tHIrRX/c2/l4IduoPugBId2nDeCWr29ju3HGA7+2hJ/rW
-         s+tq7Fmk47WX0a2x4+xassxCLS0vfLkBs4iax38xL3Vf4Y/reWuT9NvITNZm1QAMhcGW
-         Vhd4Y+y9g2byOoK+gSdV/IcEpke0JB/cpgUNhmeRGuSph9b88gC5CL9x6BJ6QiwIh/uX
-         oNWS8r64vVy9rHljdV25Hgmc5jkupb2sKlp3l/5f4EzBttozU/ixcuqX/jlrGIDrKbju
-         EWfA==
+        bh=ENrZ5r9vZ1rvZ+7tiGHqtGi7bCeXcP4Hr83ywPNXiJo=;
+        b=PQF2uhSVAft6HEWXkZyEB9+eJ8S6nh0TI8d+1fr4lmu+oZbwZB4kX/kekjRz5xEeJ6
+         kNgyKMdWQIsC7qfCNPljwWJIIIrKjriwg+pbJTNRFN9K1L5bg9g8iWGZ22x6JrBZ703n
+         0U8zOszNFpYi7orfsznFj9uiQDLU2xBtwTqTUPAhu/3pluJlDFAkYe4OipFfZ9plBU4q
+         2q0eWK2QIym5BAj0YtNjv33UqkCgHX0N28HiuRG4n7eIEnFa/3H4405tPWd/d//ijeWS
+         1Rsh0J9uGXcAfFyV4VSN2SiXvuzMlJNrUUIEZLMmGqB+PEPFVdLbg54ki/TtVl89XzlG
+         evgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753862309; x=1754467109;
+        d=1e100.net; s=20230601; t=1753863184; x=1754467984;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GDZlrZ49Erd24XO/87MxTC6XiS4DrH2mPRhSF4E06e0=;
-        b=WcjiqRwcjkZxddz4snDCjxJt8VvzHgp3MxUCg/RNS49UJJMep0eNM9aqsjuUf9lEIg
-         bN2qiZnZAkjLpI0zdansHa6kp0vH1Fw+8A7smOkOQXxnEjWUdnT+hb1rwuShFpPToEvg
-         PnsBP/aJotDPkiqp2oC3YMI9U03rk5kxxsofXQE8Tco1SYZmqVmMuW0vRrZOAjWZRu2y
-         9nRqDgD1YbbttJavmjTUcFSvhl95wI/BO5GT70j1qU3fa++2qwQ7jjdesEUKIg/QhaLv
-         frk3VooRBX6dnKHsQmAQa/BWPM+XItFuKcip9QkuASnCgHvcCokizjZw2j9lQqRMEmoY
-         Sn4g==
-X-Forwarded-Encrypted: i=1; AJvYcCVquP0Y9QMigibShaiqRa3nLw8RUsfOVf448wqtjEKSX0GVD0u6OZstphLovk0SjtaiMZYIwkPIV+c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzZfYgMoOLnmjMBxL81pNu+If6A9P4uYVLRAqtiyH4Ssg2/Zp1H
-	1mnSAbDEnlyW3F9Ywq6pXA5TtJFY3FDHxpvfhtSavIQ9QHmCqCetUnBe0cOMZs4+mg==
-X-Gm-Gg: ASbGncuz9Do8X6OgwQdWJFFOrkq4lqkWT8wTZpN+92CMvQbcaPtfrUhnBFc6Mbh3XkP
-	K5wxXjLCOVGCY6dUc3JJdz6CybMtXja+0KhxOIhBoFFxXDTXpcj+c47Kw0hGg/I9+EaLp0nyzzN
-	bzyZ8zVbqC6svXtc4Whn0nRAhfL86zgSBaSKcESRyiMkUJg09aUnyFJLohzdkFx6AZKNaMyk3Fk
-	CTSf9Fe7G/6QBeMDS7D/ZAzm8679Cm0/W/9iEsDDTqKbU3ISBWcNbsMi0WoA3LQRCDTTADFWCtS
-	sfKmGJfkx4R3Qz+XJ6l2GPLTlvUEwgvnfujurQIiSigGiwShCFw7E4dB6ESybiFsl36QfnswakT
-	KFgAV2e7OPbIIDtbCiAA6jYexoRLDob6ibem8AUCNF3Pcrkax9VgRg5UDiAoJZbJ9fcYXHGL8xo
-	+BSl30Yj0=
-X-Google-Smtp-Source: AGHT+IFEtSTVPoEHxfvQRv8KRRth8sT/8CcTTx6XNRbk3J/sijCpOGPU7SuuqOPIl2048xiyKtcTZA==
-X-Received: by 2002:a05:6000:25ca:b0:3a5:8991:64b7 with SMTP id ffacd0b85a97d-3b78e726421mr4910168f8f.26.1753862309584;
-        Wed, 30 Jul 2025 00:58:29 -0700 (PDT)
-Message-ID: <30b88a32-dfb5-4f44-a6a3-8b997c2e070b@suse.com>
-Date: Wed, 30 Jul 2025 09:58:19 +0200
+        bh=ENrZ5r9vZ1rvZ+7tiGHqtGi7bCeXcP4Hr83ywPNXiJo=;
+        b=vqkzdlbeHH0Np44N9or4dyl93871LshSaq0wO3kW32ta6903c2XwmUka6LqGV1vO8q
+         W8RPEoQj49y1seL/ngxp03fOOMBaBS7dYvXZG2NLE+nzSRzqqjhddeyh/IQ5NoEieW47
+         D5Qw5bgmBhLBuIal7XWvMm9AAWIgssRAlAfIwG/+myn8KHZHHcfKqU3JtrXxHgastSdq
+         9+LRhw2kUHS6v/zNEzoMj1g5aj4WPxB+NLIQfBLaTbnQCCdloqkn0EYMwCgiVK+c0+Y5
+         oR35ryMewfDu1ewhOmAo7oJV1vSMrJcHeK/hEEhZhYxmHAK+65DPfk6uqea620sVEBcB
+         TDIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUhZox5RxVvRTflflplVjIOGPxLQQifI/70HobhslAb8nZq4I5PXtn4f3s1naPN4vbi56sEn1+ZLUw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy1tkryUc5PKi2c4rNDgqMP7vm1iXPeMxyPCTtzVGHt7UXMLLT5
+	8uq2a8JhfG9PcTBMvYOxYePggVtljBs19wjpKC1C6IenejA+7PiBnmbp+Uq4vY4QfA==
+X-Gm-Gg: ASbGncsxS7G/DfI9/lzWpWOvbHZIbJrbsJ8lZE6/NNHjNCwbwByR1qzJDBfhhFQLDUb
+	7m6BlDchB3u9OJngK30i+6bprvNryx7SQL7xieCYVxmB5jjL9SC/U+bnbFlw8mpW0fua6C7aXTU
+	5wO66XjW9Isq3nqgs2SOXXTvfbcVYVnumDOzquLBMVJYucD6Ro51x+1Ku/+CLT6XEF3V9u1FKIm
+	eJJvH12989cSWezSe9Y4F860ewgJ+TJDlrGK32hw/5L++4kxGMBxO7jhsKm1EZ5+4/lRlnthYjf
+	HiN2YFJW3HbchCqNPiFMDjmKQEeeFjL7AfJRAUhDAgzCdJiScQZXSN6SGi3LUae6P45oZPyDW4b
+	jSOc09GYqyrDatUGIhXPasEU2SypLuS4jfpSxVak/FiU5IW+0DEAXVq0E0Q7JilsaZGrxJ1VkE1
+	DMLqNG9EI=
+X-Google-Smtp-Source: AGHT+IEbLPVagT8DBgRdmMEzq0r1bc4AMBY3jOex8QRXycn0w1dSx0fbeXk6pq5J6uFjHxWORV0oSA==
+X-Received: by 2002:a05:6000:22c5:b0:3b5:def6:4f7 with SMTP id ffacd0b85a97d-3b79501e523mr1732939f8f.30.1753863184326;
+        Wed, 30 Jul 2025 01:13:04 -0700 (PDT)
+Message-ID: <5a4dc92b-139d-4fa5-9baf-2ebc41bba758@suse.com>
+Date: Wed, 30 Jul 2025 10:12:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ns16550: remove trailing whitespaces
+Subject: Re: [PATCH] ns16550: ensure polling timer is disarmed
 To: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
  michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
  dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250730031148.1613104-1-dmukhin@ford.com>
+References: <20250730031249.1613142-1-dmukhin@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,17 +119,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250730031148.1613104-1-dmukhin@ford.com>
+In-Reply-To: <20250730031249.1613142-1-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30.07.2025 05:12, dmkhn@proton.me wrote:
+On 30.07.2025 05:13, dmkhn@proton.me wrote:
 > From: Denis Mukhin <dmukhin@ford.com> 
 > 
-> Remove trailing whitespaces in NS16550-compatible UART driver.
+> As it stands, polling timer is kept in the list of timers even after the
+> interrupts have been enabled / polling disabled on ns16550-compatible UART.
+> 
+> Ensure polling timer is removed from the timer list once UART interrupts are
+> enabled.
 > 
 > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Wasn't it Andrew(?) who suggested something along these lines? That would
+want reflecting by a tag then.
 
+Also, what's the real problem you want to solve here? The timer function
+would be run one more time after ->intr_works is set, and then the timer
+will be permanently inactive (up to a possible S3 resume). Is it being on
+an inactive list an actual problem? (IOW I'd like to understand if the
+change is merely cosmetic, or if there is some actual benefit.)
+
+Jan
 
