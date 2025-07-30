@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F0E2B15E5A
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 12:39:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1063732.1429506 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88DE6B15E68
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 12:42:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1063780.1429515 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh4DF-00010I-9t; Wed, 30 Jul 2025 10:39:09 +0000
+	id 1uh4Ga-0004hp-M6; Wed, 30 Jul 2025 10:42:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1063732.1429506; Wed, 30 Jul 2025 10:39:09 +0000
+Received: by outflank-mailman (output) from mailman id 1063780.1429515; Wed, 30 Jul 2025 10:42:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh4DF-0000wg-5K; Wed, 30 Jul 2025 10:39:09 +0000
-Received: by outflank-mailman (input) for mailman id 1063732;
- Wed, 30 Jul 2025 10:39:07 +0000
+	id 1uh4Ga-0004fl-Ip; Wed, 30 Jul 2025 10:42:36 +0000
+Received: by outflank-mailman (input) for mailman id 1063780;
+ Wed, 30 Jul 2025 10:42:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=06yH=2L=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
- id 1uh4DD-0007vS-39
- for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 10:39:07 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=2yBn=2L=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1uh4GZ-0004ff-2M
+ for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 10:42:35 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6a0ab624-6d31-11f0-b895-0df219b8e170;
- Wed, 30 Jul 2025 12:39:05 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-615877015daso146585a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 03:39:05 -0700 (PDT)
-Received: from lab.home
- (dynamic-2a00-1028-83a4-4bca-c0bb-96ff-feed-9d50.ipv6.o2.cz.
- [2a00:1028:83a4:4bca:c0bb:96ff:feed:9d50])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af8f1b17364sm183230166b.66.2025.07.30.03.39.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Jul 2025 03:39:03 -0700 (PDT)
+ id e5f4a1ff-6d31-11f0-b895-0df219b8e170;
+ Wed, 30 Jul 2025 12:42:33 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id A0DB84EE3C22;
+ Wed, 30 Jul 2025 12:42:31 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,146 +40,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a0ab624-6d31-11f0-b895-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1753871944; x=1754476744; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=m6MHrYUDy32kDYPpsu7hQKmN53Ci3Cb0G+3ghuqtWGg=;
-        b=dznoFTT96gFE6oEuro4w9mWy5e/y3Tc/FFfpP3nC3KKtID+igrbPcotij/Ws8P5BwG
-         gTuUJQEpsrVCL3wt1CDVEs/LKWxDxAYu+/4JaQtMVyyKY3qYM7aQn4WyuTFlfxqNF488
-         wQEUm81IjBmE4Fge4ntU02Q+1pzrXe/oUum6QS40+j4UlpN+i6I0drpQ0YAq/WPPQoD2
-         ZZFMPWpakIuRQR2/F+9fBUM2jJxUew8/oDgYzU18y2uOj8Gl60+yjpaT4xSzfT7rY1r9
-         pcA06PPLPLPKo1Pm9N4CrfZTJMFKPPXOklSAhiAV/T2OGiDlq3WJ6FfBk7oV5FXvojAR
-         nybQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753871944; x=1754476744;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=m6MHrYUDy32kDYPpsu7hQKmN53Ci3Cb0G+3ghuqtWGg=;
-        b=iw94h7WbXuTpdMb+E9FAAQKD/3t9aufeD/52W3H99oIq0MpohSkOGqN/epJbBNj8Lo
-         rFgBW/Wmopbqffw8A/ywizNbAgfCdWq2SmU973li6NymPVETuS3Z+umrwqOTkNoN3JbR
-         2r8pFHswmqlvv617GMtNDmxlIMuqQ5sM/6EDjpYgCii3W1paKEnWEZxEJ9lErEXONXho
-         /HKF/7mvO7sfUpuo19/+zhjWd0y7aydyGEyFfVNVpzqGGT78B0zNrBdCqyVCx1YVHms6
-         UzsXS72UR+jZ+qu4u1YITa9vl5p8RvLX+jss6MLhgMkIeg/iRl8i8LlKWQz550zMp9w9
-         VlfA==
-X-Gm-Message-State: AOJu0YxLMP2XsrAMyBsqtPSSG6A1nL4Cp+7okC0vxyVFvmdvU0Y9vKt3
-	irZFllMq585ze6lKCYJjBNQNIE1VTlM2z2BvawPILai7+zihCXu6FW6In9li0zBYkSw=
-X-Gm-Gg: ASbGncuvrR+UirOqvIYR8zNhIDljLU3taXQhT6HwdNODiH5mhei06QyTfg42OG9Jr0i
-	VCN01plTBJFx9BmAiVOMFfJ6Gkqpw0DiAf3cyk4qc0OB6b5MNwJA5oP88Dqrtg2h6cvlZhF/y2r
-	8Lh9mhAQ9awuti35E6TMWvb1+jCIBSJeii0d8X6XgauLsSF2YbY58xHqcyS3G7r5t3pl9h9sw2D
-	e17WNM7h3lqVjnTtQZcxYmwInjsqIo/1YDiLUDxC8hFTut2Bfpsxt/zQ1Bk+DWx10dSTkDc1Icz
-	gF2B9g67qNCVlpNuQEzKoXNclkNy23XHaOnpNEj8ZubO3r4riTtjGQbUrhlpzla7GEHIqu+FWkh
-	Crm+Pp1F/5OJUQ+tM5ENJQ0I3I4qd1g0IzjfQ0H1oBX4liRWPJZU2rCBIH6DFzStHDlKoa0vxkH
-	ZHiCyifZQwyI4wF3/qHeH7ug==
-X-Google-Smtp-Source: AGHT+IGVcZV8dA9V5fnuk47cxhs62A8AFweUYqCbRblaIhawsrNcQuuuwv/fAna5qUgKC1GOynrtaA==
-X-Received: by 2002:a17:907:7ba2:b0:ae3:63fd:c3b4 with SMTP id a640c23a62f3a-af8fd73bb97mr123224966b.5.1753871944015;
-        Wed, 30 Jul 2025 03:39:04 -0700 (PDT)
-From: "=?UTF-8?q?Petr=20Bene=C5=A1?=" <w1benny@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Petr=20Bene=C5=A1?= <petr.benes@gendigital.com>
-To: xen-devel@lists.xenproject.org
-Cc: =?UTF-8?q?Petr=20Bene=C5=A1?= <w1benny@gmail.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Christian Lindig <christian.lindig@cloud.com>
-Subject: [PATCH v11 6/6] tools/ocaml: Add altp2m_count parameter
-Date: Wed, 30 Jul 2025 10:38:50 +0000
-Message-Id: <39d3e8bca948b485040a7189135c388a5b70f9fa.1753871755.git.w1benny@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1753871755.git.w1benny@gmail.com>
-References: <cover.1753871755.git.w1benny@gmail.com>
+X-Inumbo-ID: e5f4a1ff-6d31-11f0-b895-0df219b8e170
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1753872151;
+	b=nyiWynhwMx4nOzo7g7hlaA46cXuLHx5tEogdw8VgH/Y/XzJg0XAYIYSyPqqoeKDkHFjf
+	 wDwr38lcTZEibMzyHbNMhg7vImYv0gFRVTnce82IDBbyPMcIh83XoJG4pKbcpgUHdQ/DK
+	 nZlAPCmfvscuL1sXRj7+tjDhwq/GHphpOO6jQ5axenPqgisvas2aCZawGXJNHgTHaelGo
+	 GnwRcqddutcLIU5PlohOTQ2Hkagf3AZ76UkLRRk8FRBoU/QbqeoNH/aWxY4AIVaPI8znY
+	 HISluuzSzPc4rf1eSxcy0hixmewp1N0ccN8bgoByJuFbobyterjwJZ/e2jznD74vM/BUY
+	 LB4RvpyX651LttjclDDEmrOd8dtufiXbhcZ9VRZQtB8phvtH2Y2yE00upHcFpy5uCXJX5
+	 IGQs6jWwes5NjUvOfbdeE1p000ZBZoaZRsGH9YVBBE3RbLrWDEs2KChoKoPa2B3ySGBJ9
+	 IeiIt1xc+See9ubZ67N/a6qOKDyrWDRZ48p7ois02xHyJ6tcRDMY22+3FHyF1g2LqGksD
+	 OuuSppe/SHOQahMvLvcZG5IaP9Ynb4+Nzt1WkzhZ3WvE9Y2flw2ogUzgUF1CZZxXsKERr
+	 254JC5yV4ghqWqR3sL2dp2YgTCeWa9Lh1422CN/sBot1dvIrf819W2Wmlig2Wls=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1753872151;
+	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=M+RwKOzQq/GPkLpgZxRZ7iKwsMNzgNdonb6fP3gVAVE=;
+	b=4ZBOfTxb2+cQxtdcCgO1Eva36B/XKkgqcncZRjhyMNeMmg73/V3d+Fd0EObU4h1+2OLK
+	 f7Yryg8A88rKW9KXOi5Ypr7h/w0kvy4+Tq9hAIZSdyOy4zHLmCeo6F6ZVu1ko47QeUfyy
+	 nWc6t7KenV0dLdwQIXfw9q9S5wTs6r8CTjGwT6nUcihcJsEZP8wCdw+V+qyfbZ6wP5Qgn
+	 CJL9aMVWJZNtoRrjddyJjHOK6inqqluVnWstyEv3FKE9GuyJ+l+JmiGBmQkP2urMGc4AH
+	 1zXRrU24BcmTMd71jgmSVYD/aO8fPn9ksXeIJB2phMqK4H+/1h0mgkyiemOqtgOsv+x7d
+	 OOA3J4h4tiqOPf1/CVHNLunC6Jq2s/4Ok55Uy8TReFBfziCSQ3uhkMX2dibnbSw19zuer
+	 TFaV8AsLodO5H4Gb3ZfhBdWgXAtn0ahmNZ8zAkqBqKRic7nxCpfC2Xt/C12RTL+Pq9KR0
+	 e6FqXj3kY5eOCPEMTILgUAotBiQz2h+PrPR5dspgtaegjuE3q2xYOW+HQftCrjQLAD1kL
+	 8N7Yw+JyGoMQ1KKpHVn7zdIutWvtu6NOOGLArT2o2zFxrhL/v9ZfgpoRTNaZo20EavKBm
+	 lojQfajKtm3lo/fSGggOFVfVEYVrztUgpCxcfGvyhVkr7/Qa9HV6HUZiRYrHDgw=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1753872151; bh=q0ylRSnJcfp/9c6s7b9g4szPX9SsI4Ng3V13hVZUd7o=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=nhpUeUWSNsMO4NuqXlhzNC26jWDBpwdH2S+VMqGCKmrdr2DAcLOCcJumy/NMygEpb
+	 03a/3LtDXc7waLwXVVPwwKXRf90BSUMhhab87K6kP2T/riF65+cfN8Wa6Yhir9KVC0
+	 np2dJho4xBS2NJXysoDZe0z/HFH+SMkSLFVwQOYSjeedVZzb2ZkdTZjoBunB8LHV2h
+	 hwc3Y4K5z4hKQ3OnwBpME2+vplbF5iFDqmrV+VO8iMXUUb07Yto7Nw1Yf3ReFVFS8p
+	 nV7ou6b1i2w+xQhmghQyxCIF3rvtv7TtHuN+HRVX76OfYgED1Aq4UDwr51QKsn/z6E
+	 9Zlg9F1EGD5sg==
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Wed, 30 Jul 2025 12:42:31 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Jiqian Chen <Jiqian.Chen@amd.com>, Huang Rui <ray.huang@amd.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ consulting@bugseng.com
+Subject: Re: [PATCH v9 4/8] vpci: Hide extended capability when it fails to
+ initialize
+In-Reply-To: <8051d388-48f9-4878-8924-8e645f313238@suse.com>
+References: <20250728050401.329510-1-Jiqian.Chen@amd.com>
+ <20250728050401.329510-5-Jiqian.Chen@amd.com>
+ <8051d388-48f9-4878-8924-8e645f313238@suse.com>
+Message-ID: <562265e2a66b4eae06c4703a836e7d21@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Petr Beneš <w1benny@gmail.com>
+On 2025-07-30 11:50, Jan Beulich wrote:
+> On 28.07.2025 07:03, Jiqian Chen wrote:
+>> +static int vpci_ext_capability_hide(
+>> +    const struct pci_dev *pdev, unsigned int cap)
+>> +{
+>> +    const unsigned int offset = pci_find_ext_capability(pdev->sbdf, 
+>> cap);
+>> +    struct vpci_register *r, *prev_r;
+>> +    struct vpci *vpci = pdev->vpci;
+>> +    uint32_t header, pre_header;
+>> +
+>> +    if ( offset < PCI_CFG_SPACE_SIZE )
+>> +    {
+>> +        ASSERT_UNREACHABLE();
+>> +        return 0;
+>> +    }
+>> +
+>> +    spin_lock(&vpci->lock);
+>> +    r = vpci_get_register(vpci, offset, 4);
+>> +    if ( !r )
+>> +    {
+>> +        spin_unlock(&vpci->lock);
+>> +        return -ENODEV;
+>> +    }
+>> +
+>> +    header = (uint32_t)(uintptr_t)r->private;
+>> +    if ( offset == PCI_CFG_SPACE_SIZE )
+>> +    {
+>> +        if ( PCI_EXT_CAP_NEXT(header) <= PCI_CFG_SPACE_SIZE )
+>> +            r->private = (void *)(uintptr_t)0;
+> 
+> Eclair regards this a Misra rule 11.9 violation. Elsewhere we use (void 
+> *)0,
+> which I then would conclude is "fine". But I can't say why that is. 
+> Cc-ing
+> Bugseng for a possible explanation.
+> 
 
-Allow developers using the OCaml bindings to set the altp2m_count parameter.
+Hi Jan,
 
-Signed-off-by: Petr Beneš <w1benny@gmail.com>
-Acked-by: Christian Lindig <christian.lindig@cloud.com>
----
- tools/ocaml/libs/xc/xenctrl.ml      |  1 +
- tools/ocaml/libs/xc/xenctrl.mli     |  1 +
- tools/ocaml/libs/xc/xenctrl_stubs.c | 19 +++++++++++++++----
- 3 files changed, 17 insertions(+), 4 deletions(-)
+I only see
 
-diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.ml
-index 7e1aabad6c..97108b9d86 100644
---- a/tools/ocaml/libs/xc/xenctrl.ml
-+++ b/tools/ocaml/libs/xc/xenctrl.ml
-@@ -87,6 +87,7 @@ type domctl_create_config =
-     max_maptrack_frames: int;
-     max_grant_version: int;
-     altp2m_opts: int32;
-+    altp2m_count: int32;
-     vmtrace_buf_kb: int32;
-     cpupool_id: int32;
-     arch: arch_domainconfig;
-diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.mli
-index f44dba61ae..9fccb2c2c2 100644
---- a/tools/ocaml/libs/xc/xenctrl.mli
-+++ b/tools/ocaml/libs/xc/xenctrl.mli
-@@ -79,6 +79,7 @@ type domctl_create_config = {
-   max_maptrack_frames: int;
-   max_grant_version: int;
-   altp2m_opts: int32;
-+  altp2m_count: int32;
-   vmtrace_buf_kb: int32;
-   cpupool_id: int32;
-   arch: arch_domainconfig;
-diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c b/tools/ocaml/libs/xc/xenctrl_stubs.c
-index b51fd66788..ac2a7537d6 100644
---- a/tools/ocaml/libs/xc/xenctrl_stubs.c
-+++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
-@@ -205,13 +205,22 @@ CAMLprim value stub_xc_domain_create(value xch_val, value wanted_domid, value co
- #define VAL_MAX_MAPTRACK_FRAMES Field(config, 7)
- #define VAL_MAX_GRANT_VERSION   Field(config, 8)
- #define VAL_ALTP2M_OPTS         Field(config, 9)
--#define VAL_VMTRACE_BUF_KB      Field(config, 10)
--#define VAL_CPUPOOL_ID          Field(config, 11)
--#define VAL_ARCH                Field(config, 12)
-+#define VAL_ALTP2M_COUNT        Field(config, 10)
-+#define VAL_VMTRACE_BUF_KB      Field(config, 11)
-+#define VAL_CPUPOOL_ID          Field(config, 12)
-+#define VAL_ARCH                Field(config, 13)
- 
- 	uint32_t domid = Int_val(wanted_domid);
-+	uint32_t altp2m_opts = Int32_val(VAL_ALTP2M_OPTS);
-+	uint32_t altp2m_nr = Int32_val(VAL_ALTP2M_COUNT);
- 	uint64_t vmtrace_size = Int32_val(VAL_VMTRACE_BUF_KB);
- 
-+	if ( altp2m_opts != (uint16_t)altp2m_opts )
-+		caml_invalid_argument("altp2m_opts");
-+
-+	if ( altp2m_nr != (uint16_t)altp2m_nr )
-+		caml_invalid_argument("altp2m_count");
-+
- 	vmtrace_size = ROUNDUP(vmtrace_size << 10, XC_PAGE_SHIFT);
- 	if ( vmtrace_size != (uint32_t)vmtrace_size )
- 		caml_invalid_argument("vmtrace_buf_kb");
-@@ -226,7 +235,8 @@ CAMLprim value stub_xc_domain_create(value xch_val, value wanted_domid, value co
- 		.grant_opts =
- 		    XEN_DOMCTL_GRANT_version(Int_val(VAL_MAX_GRANT_VERSION)),
- 		.altp2m = {
--			.opts = Int32_val(VAL_ALTP2M_OPTS),
-+			.opts = altp2m_opts,
-+			.nr = altp2m_nr,
- 		},
- 		.vmtrace_size = vmtrace_size,
- 		.cpupool_id = Int32_val(VAL_CPUPOOL_ID),
-@@ -286,6 +296,7 @@ CAMLprim value stub_xc_domain_create(value xch_val, value wanted_domid, value co
- #undef VAL_ARCH
- #undef VAL_CPUPOOL_ID
- #undef VAL_VMTRACE_BUF_KB
-+#undef VAL_ALTP2M_COUNT
- #undef VAL_ALTP2M_OPTS
- #undef VAL_MAX_GRANT_VERSION
- #undef VAL_MAX_MAPTRACK_FRAMES
+0|$ git grep "(void\*)0"
+xen/include/xen/types.h:#define NULL ((void*)0)
+
+which is fine for R11.9 of course. As Andrew noted, I don't see the need 
+for the use of uintptr_t either.
+
 -- 
-2.34.1
-
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
