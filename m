@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D73CAB15DB9
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 11:59:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1063670.1429406 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9236B15DF8
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 12:18:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1063695.1429416 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh3aL-0008II-FE; Wed, 30 Jul 2025 09:58:57 +0000
+	id 1uh3sv-0003YG-VH; Wed, 30 Jul 2025 10:18:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1063670.1429406; Wed, 30 Jul 2025 09:58:57 +0000
+Received: by outflank-mailman (output) from mailman id 1063695.1429416; Wed, 30 Jul 2025 10:18:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh3aL-0008FU-Bt; Wed, 30 Jul 2025 09:58:57 +0000
-Received: by outflank-mailman (input) for mailman id 1063670;
- Wed, 30 Jul 2025 09:58:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uh3sv-0003WP-Re; Wed, 30 Jul 2025 10:18:09 +0000
+Received: by outflank-mailman (input) for mailman id 1063695;
+ Wed, 30 Jul 2025 10:18:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zSpT=2L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uh3aK-0008FJ-Gl
- for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 09:58:56 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cdcd86c0-6d2b-11f0-a320-13f23c93f187;
- Wed, 30 Jul 2025 11:58:55 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3b7834f2e72so2280048f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 02:58:55 -0700 (PDT)
+ id 1uh3su-0003WJ-EL
+ for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 10:18:08 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7b97b17a-6d2e-11f0-b895-0df219b8e170;
+ Wed, 30 Jul 2025 12:18:06 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3b78a034f17so2378009f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 03:18:05 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23fd872460fsm90568595ad.61.2025.07.30.02.58.50
+ 41be03b00d2f7-b4220e6a680sm801741a12.58.2025.07.30.03.18.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Jul 2025 02:58:54 -0700 (PDT)
+ Wed, 30 Jul 2025 03:18:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cdcd86c0-6d2b-11f0-a320-13f23c93f187
+X-Inumbo-ID: 7b97b17a-6d2e-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753869535; x=1754474335; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753870685; x=1754475485; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=OxhycTRlibZKFZJVoPz7m5fj3oXCKVmTLZ3tqEPM6Kk=;
-        b=asatKr6nxxOagAD/+Y9alf001Q5dH0nw+46IR3Kl4VHtUAcFdsJFvWxI4kzP1AM4oX
-         MU0GQCJNZUSB9LRtcPosaJNrlrMzm2NM4mOs3iFFmVChrqsQNajI1yTVrVP2Iq655z82
-         itYEYRTYlxVXDLkDBqGjlF25LuUF5YDHECEwyX7f/ixEjOrtHDOhSyraQODDh73fogQs
-         XxAv3IkhpK+30bvJ86XrKVKoJTMylVypSZI9e5ylvgYIoqwMhGHd/PjN0YCoQUA2f/wS
-         RWCtfDe9ZLaCiiIxFCz8r5rzrKGzdaZeRgO1JNLVpuWpSkxoRlv7sC4W+qdq9PS1YS7m
-         toUQ==
+        bh=aV9eUiyqp0IxXqFaIR75B2STF17yFSV8Hi/kdxA/HF0=;
+        b=WDv7+5CVVvm+BwnU9jGs0rXrqZthWinyYahlt2XcVuwM6K5jBzpQ+TsgUhP6Zf7aH6
+         JSe9L6VqlfrttLha6ccg3fwFws4KOsFIOCMGZh0uwfmGjR1FaHcJIpGAagirJy9DlG2p
+         jh41+hKbrLO31hzJifTO3iPtNrzO9ckmK26ptqp8Mel9FylvQF84hnc29ZrWLqHuvvY+
+         /qQHkIYT2gQelhM6/NBQO7UnXYY/hUvwKnVi/uRlWA2I/iTpaDCZtAefe2sQmfwb3T0R
+         ai/grt5j3njpf0ozSshP6PKG9XJafGmAtznGzw4xkTWL/YGjO7VcYA2jSmhgPda9F/6p
+         9rtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753869535; x=1754474335;
+        d=1e100.net; s=20230601; t=1753870685; x=1754475485;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OxhycTRlibZKFZJVoPz7m5fj3oXCKVmTLZ3tqEPM6Kk=;
-        b=jqkwMDpG9Ecv4fbrfLC6zcoFLPGzQrTZCJ95cGFHHp4iNIm2C5ABIdXKJnbW4VpoYh
-         GlbKMiF2wB+jXNUtB0O7M3+eKIK38vzB0O9gzKktfTcBeI2wbZ37DRpjBuDsu0ahPkBs
-         MS6cKommZBOR+6nwCnhD6AuQfJBUKWyqCGgxzGbVjhu0U2rofSz//FqOBJpUzz3nxxum
-         sNB0iWWAgJ6V1/u2UY9XgZgsEpDTlhJtKjSAvzFzGUcTbhFloEaQ2fkDC4exRzvvT4BL
-         FauOWtSfBBC9O99nkHH+ivUwbo+mIINH3nAFN5ppv00vcAJ+yUaPb89QQ0MoPfjSwVKA
-         /PKw==
-X-Gm-Message-State: AOJu0Yzi7NhL9kuPHzSe4FibrXI3ET6emZrwIVW2BrX8Dnn/7/iYF6hH
-	DRjZ5ZH3+8RYsyNUAP1Zj0+XqfnFAOfRLaKQr3hMPV7wImfWZNod+4ii9vCYPwDOvw==
-X-Gm-Gg: ASbGncvnrMTuLsBy28ynYE+WErzEu3XhGld9fYEdhF0pgc1ruE2ZCf5G/DJKeNJcRlC
-	gigr3nHQMwzp1bsTqVKxGIM0i9LAEosqTITQfmsl0hUq1XUr1cnAM+ns2Rxn/yuWAzbC6YJaeZ6
-	WgGUaC/u71Hv/GnUWpDm+D8lwMxbKJ1r2s3tPOTR/JXaba+qolyukRu10cwF4CjVVhTspYNKLmi
-	g7b4ww3t/wd7UikHXIe+mn5mHQBfB+o1By8+8w7BUWHi8oj7vRFuIUUmLyBIK3wk63uiS2gcCl1
-	5RLB0f5mJWiTvx0Mh2p5Kw0xURmI+Favdqcsag1LPd3G8HG3UHj5GdNZ0MTLOzh0uJt0aUvL5+v
-	o9j6K1AnOimxAizJ6LDp/VpC7qkNrkioMKGqO9w6efUs/vNtD41uL2ZhNdiS1imTlPkiqkOGtb3
-	HVSWos0nY=
-X-Google-Smtp-Source: AGHT+IE7X8+cHISVrCGxPdSriA9cUioTEp9S4YD9iYopEcmMc/vqPZgd+4HyyHKY1GKuConH6NBUhg==
-X-Received: by 2002:a05:6000:144a:b0:3b7:871b:8cba with SMTP id ffacd0b85a97d-3b795005b77mr2192643f8f.55.1753869534809;
-        Wed, 30 Jul 2025 02:58:54 -0700 (PDT)
-Message-ID: <1eacbe00-b285-4071-8b16-d970c91af8e1@suse.com>
-Date: Wed, 30 Jul 2025 11:58:46 +0200
+        bh=aV9eUiyqp0IxXqFaIR75B2STF17yFSV8Hi/kdxA/HF0=;
+        b=iU8XH+SWOybwfAOypcp4oqmYZrTqUezl98zeKbqHxEM+MHxvwyOJNgqXFRFgs6vwer
+         wJDbIBmBL+BZnL3oLz2/9hLL3DMsscVNMOzE+rgoj00zeyxmDACfJl4bkvI9Zj0/g/Au
+         xagFTFlxAnuVZYw76N83Ve5rrTeRU4ClypiDzSwhT/GHUnevWFbaovfKSsMOyjMlihFB
+         Dr/8uWCGsqfsuE2A4TyJWtLSXuUcfa+GM1VbjNUSdCmnpEsJogtFZooobgqk9LpMC+Dc
+         +BIGBu2upkZ6wFeZAAIHIpD2A39n5A6JD7r3L+ODXVJN/u6iEgsQ77EVIAxfYSkTd+97
+         jf3A==
+X-Forwarded-Encrypted: i=1; AJvYcCWeCMPxOf0CFnC5rxbSmA80l00v517FSH7QmCBWqM+TZ+lMXUMzMt+yIySW6o2wCneBF0QfqPTHxqU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy3BQU85oTjvl13aHNri+UgFzHHuJVEIs9lcf1VIO/GrKRCek4i
+	haU3sDOzTxPtmO6KCYLZR3k19QDqOqvrFb+veZpu51OZjeoKJf7ym5E7FJKqA4m+vA==
+X-Gm-Gg: ASbGncsa2BxEZkyis+MEtMzjsOieKyTOnP9ZbbFGhluuutZfDRvoECVKx4bch7lAAcV
+	jLsqPgsjR+sl+c5mrat1/oNnn2NUCqCd8rM+K/dXbzUg/gR7iqrP+WsYYD7DtexwFbqmjL0adJz
+	nBAVtQ01hk+Dxf8vM3bCBLz73ZOPzeVZWjIboQaOIW6UF5bIliio/+neWBqUTWWt3Ikgy4gXoyi
+	BX2Rwyf1pRjcKwNL7623vkoXDwBFk6pCk/JQPs3SS1lULusEoUF3HiQVrYdNbVYUPl+1xOjiqng
+	qaAHYrutCpVv3CPkYU0AQp19TuL6cUjPWMDf9p4BLiLGM6IzrPtjSqeJAofwax7Ru7WKpMZVRWn
+	L1pJcxHJEoA5l4lv5WIi0+yNHFbC958FYblHCvUqtIAfvpLgrYIDvRTLRucenZF3rAW8D/7AnGm
+	7D6RaFYgo=
+X-Google-Smtp-Source: AGHT+IE5+stoPetRskx+N7QhdjBECrCrvlKDu96+ccNWT6uHExW3LXGqv6/AduXohS+EzRTTeMXPqg==
+X-Received: by 2002:a05:6000:2083:b0:3a6:f2d7:e22b with SMTP id ffacd0b85a97d-3b794fd73a6mr2248420f8f.18.1753870685267;
+        Wed, 30 Jul 2025 03:18:05 -0700 (PDT)
+Message-ID: <90d5df6c-b431-4256-b39b-4567ab5bf8c9@suse.com>
+Date: Wed, 30 Jul 2025 12:17:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: Conditionalise init_dom0_cpu_policy()
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>
-References: <20250717175825.463446-1-alejandro.garciavallejo@amd.com>
- <aICM2hqQoloEahgD@macbook.local> <DBL1SWOYP5OP.35VTULK0U7RBL@amd.com>
- <aINi024baOV5LQgn@macbook.local>
- <ba1de9a2-09b1-4332-b27d-0e485d0c8ce5@apertussolutions.com>
- <0006e9f6-49af-4aef-b680-2042fb0d5213@suse.com>
- <DBPAN1UFFCVS.3BUNHPA38O4NU@amd.com>
+Subject: Re: [PATCH v2 02/17] xsm/silo: Support hardware & xenstore domains
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <20250716211504.291104-1-jason.andryuk@amd.com>
+ <20250716211504.291104-3-jason.andryuk@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,117 +119,60 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DBPAN1UFFCVS.3BUNHPA38O4NU@amd.com>
+In-Reply-To: <20250716211504.291104-3-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 30.07.2025 11:48, Alejandro Vallejo wrote:
-> On Wed Jul 30, 2025 at 9:48 AM CEST, Jan Beulich wrote:
->> On 29.07.2025 23:29, Daniel P. Smith wrote:
->>> On 7/25/25 06:56, Roger Pau Monné wrote:
->>>> On Fri, Jul 25, 2025 at 12:02:18PM +0200, Alejandro Vallejo wrote:
->>>>> On Wed Jul 23, 2025 at 9:18 AM CEST, Roger Pau Monné wrote:
->>>>>> On Thu, Jul 17, 2025 at 07:58:24PM +0200, Alejandro Vallejo wrote:
->>>>>>> Later patches will keep refactoring create_dom0()
->>>>>>> until it can create arbitrary domains. This is one
->>>>>>> small step in that direction.
->>>>>>>
->>>>>>> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
->>>>>>> ---
->>>>>>>   xen/arch/x86/setup.c | 3 ++-
->>>>>>>   1 file changed, 2 insertions(+), 1 deletion(-)
->>>>>>>
->>>>>>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
->>>>>>> index c6890669b9..6943ffba79 100644
->>>>>>> --- a/xen/arch/x86/setup.c
->>>>>>> +++ b/xen/arch/x86/setup.c
->>>>>>> @@ -1054,7 +1054,8 @@ static struct domain *__init create_dom0(struct boot_info *bi)
->>>>>>>       if ( IS_ERR(d) )
->>>>>>>           panic("Error creating d%u: %ld\n", bd->domid, PTR_ERR(d));
->>>>>>>   
->>>>>>> -    init_dom0_cpuid_policy(d);
->>>>>>> +    if ( pv_shim || d->cdf & (CDF_privileged | CDF_hardware) )
->>>>>>
->>>>>> You possibly want this to be:
->>>>>>
->>>>>> (d->cdf & (CDF_privileged | CDF_hardware)) == (CDF_privileged | CDF_hardware)
->>>>>>
->>>>>> To ensure the contents of dom0_cpuid_cmdline is only applied to dom0,
->>>>>> and not to the hardware or control domains.  I assume it should be
->>>>>> possible to pass a different set of cpuid options for the hardware vs
->>>>>> the control domains.
->>>>>>
->>>>>> Thanks, Roger.
->>>>>
->>>>> Why only a hwdom+ctldom, surely a single hwdom should get it too.
->>>>
->>>> hm, not really I think: a late hardware domain would get any custom
->>>> cpuid options from the toolstack that created it, or in the
->>>> hyperlaunch case from the provided configuration, but not from the
->>>> dom0-cpuid command line option I would expect.  Otherwise you have two
->>>> different sources of cpuid options, the inheritance from dom0-cpuid,
->>>> plus whatever is provided from the hardware domain configuration.
->>>
->>> Yes, this has been a sticking point for me and never got any good 
->>> answers thus far. Should the dom0 related xen command line options only 
->>> apply when not booting via hyperlaunch. If the answer is no, then you're 
->>> in this area with some dom0 options that really are applicable to hwdom 
->>> vs ctldom and vice-a-versa. Some could even be suggested to apply to 
->>> both. And then, I don't believe there really is a consensus one which 
->>> options apply to which domains. Over the years working on this, I have 
->>> been an advocate that commandline adjustments allow for quicker 
->>> troubleshooting by the user/administrator.
-> 
->>> In the last version of the multidomain construction RFC, I am growing more
->>> and more to advocate for my initial proposition, that dom0 options only
->>> apply when not using  hyperlaunch.
-> 
-> I agree. It simplifies everything a ton, and it's far less confusing to know
-> ultimate settings, which in a predefined initial system definition is important.
-> 
->>
->> With the hyperlaunch plans, is there something that's still properly
->> "Dom0", perhaps under certain conditions? That (and only that) is
->> where I would see respective command line options to apply. IOW no
->> more than one specific domain (i.e. in particular not to both hwdom
->> and ctldom, when they're separate). In cases when respective options
->> are entirely ignored, I think some kind of warning would want issuing.
-> 
-> The problem is that lines are blurred. A ctldtdom + hwdom + xsdom with domid0
-> is clearly a dom0. Is it still a dom0 when there's no xenstore? What about when
-> it's not privileged? What about a ctldom + hwdom + xsdom with domid3? What about
-> dom0_mem options when some domains have already been constructed and available
-> memory is less than total host memory?
+On 16.07.2025 23:14, Jason Andryuk wrote:
+> In a disaggregated environment, dom0 is split into Control, Hardware,
+> and Xenstore domains, along with domUs.
 
-Well, this is what needs determining before we actually move in any (unclear)
-direction. And we need to keep in mind that people used to infer certain
-things from domain ID being 0. 
+Here we are with terminology again. In a truly disaggregated env, yet
+more (service) domains would come into play. What you mean here is
+only coarse disaggregation, as you're trying to get away without using
+Flask.
 
-> Also if a domain is or isn't dom0 depending on whether a certain other domain
-> exists makes things confusing. You have a DTB+commandline and get a behaviour,
-> then add a domain and you get another behaviour on the first one, even when you
-> didn't touch its configuration.
+>  The is_control_domain() check
+> is not sufficient to handle all these cases.  Add is_priv_domain() to
+> support allowing for the various domains.
 > 
-> My general view after a while experimenting with the full series is to _not_ use
-> the dom0 command line, as Daniel mentions. The simplifying effect of not looking
-> at (e.g) dom0_mem is staggering.
+> The purpose of SILO mode is to prevent domUs from interacting with each
+> other.  But dom0 was allowed to communicate with domUs to provide
+> services.
+> 
+> To provide xenstore connections, the Xenstore domain must be allowed to
+> connect via grants and event channels.  Xenstore domain must also be
+> allowed to connect to Control and Hardware to provide xenstore to them.
+> 
+> Hardware domain will provide PV devices to domains, so it must be
+> allowed to connect to domains.
+> 
+> That leaves Control.  Xenstore and Hardware would already allow access
+> to Control, so it can obtain services that way.  Control should be
+> "privileged", which would mean it can make the connections.  But with
+> Xenstore and Hardware providing their services to domUs, there may not
+> be a reason to allow Control to use grants or event channels with domUs.
 
-Which likely would imply not to create any domain with ID 0.
+"may not be" is too weak for my taste to forbid such.
+
+> This silo check is for grants, event channels and argo.  The dummy
+> policy handles other calls, so Hardware is prevented from foreign
+> mapping Control's memory with that.
+
+By "foreign mapping" you only mean what would result in p2m_foreign
+entries? But grant mapping is okay?
+
+> @@ -29,8 +40,8 @@ static bool silo_mode_dom_check(const struct domain *ldom,
+>  {
+>      const struct domain *currd = current->domain;
+>  
+> -    return (is_control_domain(currd) || is_control_domain(ldom) ||
+> -            is_control_domain(rdom) || ldom == rdom);
+> +    return (is_priv_domain(currd) || is_priv_domain(ldom) ||
+> +            is_priv_domain(rdom) || ldom == rdom);
+>  }
+
+IOW we're turning by 180°? Interesting ...
 
 Jan
-
-> There's exceptions. nmi=dom0 should be renamed to nmi=hwdom (if anything,
-> because that's exactly what it does even with late hwdom), but anything with
-> dom0_X ought to be ignored. Which implies first and foremost moving its uses
-> outside domain construction and general use.
-> 
-> All dom0_ options ought to be parsed and used from __init functions before
-> construct_dom0(), and construct_dom0 ought to depend strictly on information
-> in boot_domain + domain.
-> 
-> Only then we'll have sanity.
-> 
-> Cheers
-> Alejandro
-
 
