@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C60EDB15B89
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 11:29:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1063605.1429315 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32B69B15B8A
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 11:29:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1063606.1429326 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh37N-00087V-4H; Wed, 30 Jul 2025 09:29:01 +0000
+	id 1uh37d-0008Sb-CJ; Wed, 30 Jul 2025 09:29:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1063605.1429315; Wed, 30 Jul 2025 09:29:01 +0000
+Received: by outflank-mailman (output) from mailman id 1063606.1429326; Wed, 30 Jul 2025 09:29:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh37N-000853-1I; Wed, 30 Jul 2025 09:29:01 +0000
-Received: by outflank-mailman (input) for mailman id 1063605;
- Wed, 30 Jul 2025 09:29:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=zSpT=2L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uh37M-00084x-1U
- for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 09:29:00 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9f1e0a80-6d27-11f0-a320-13f23c93f187;
- Wed, 30 Jul 2025 11:28:59 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3b78d13bf10so1666185f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 02:28:59 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b3f7f58eed6sm8878068a12.25.2025.07.30.02.28.51
+	id 1uh37d-0008Pn-8x; Wed, 30 Jul 2025 09:29:17 +0000
+Received: by outflank-mailman (input) for mailman id 1063606;
+ Wed, 30 Jul 2025 09:29:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BoeR=2L=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uh37b-0008Nq-Lc
+ for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 09:29:15 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a42f3cd5-6d27-11f0-b895-0df219b8e170;
+ Wed, 30 Jul 2025 11:29:07 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3b78294a233so2863118f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 02:29:07 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3b778ebaca7sm15483144f8f.30.2025.07.30.02.29.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Jul 2025 02:28:57 -0700 (PDT)
+ Wed, 30 Jul 2025 02:29:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,133 +45,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9f1e0a80-6d27-11f0-a320-13f23c93f187
+X-Inumbo-ID: a42f3cd5-6d27-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753867738; x=1754472538; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1753867747; x=1754472547; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rD0lkwnlOr+XJUKGYszyUGN45gQ606euA4RDakTzyXI=;
-        b=BNFXPg7t6vSKVVInl9Xq6QlRv7QtD0lSO2Gy65kMp6MAwE9++6QFytfzX1kqvOAI6/
-         wSowgZ6NRMQsw9wTqbz/qN3hyJPR94R0IF3DmD/yjEHB5RHAwRFxJ6XEeDY9/K9ZLJkb
-         qfV0yDgHVqLYCYuqJLaBgqxDcYL3gkii95G+oQ5ssouHgDBVBSiWwRD4Dr+8odZMx7mM
-         mTKiQYY22w/6yLeekA1cyavQXL35WFePTv/uujKdpx2s22XvS8izfb5zLgiylg3ILq7G
-         V64rWSTbhCb6s1RrdRCd5oupTbBnv5QubOrW77paWll+vBorSQoJ7sLt5ugb4jmZU+Me
-         fYxg==
+        bh=7U0NyE+k3OZWe7rDxbYPWtugfq7sj3e9FN1bmIg50oc=;
+        b=m42lBua1dXGNn2983bPWbefgt1z5G2wH20j8lDre1C2YaVGUPbz3VDGu6RSDjB3EdQ
+         FUueeRJm2cC0255lWucZsmW6iozNmXJldnTv+d27inRO4rfHCjpXBT614unJljvO8RW5
+         5BWwr+oBA6pNflRr7JN1Bes2cvW7Lh5GEvQ6k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753867738; x=1754472538;
+        d=1e100.net; s=20230601; t=1753867747; x=1754472547;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rD0lkwnlOr+XJUKGYszyUGN45gQ606euA4RDakTzyXI=;
-        b=YKmXRvv1Qb1job1wNts9U/i5RDGUwOD5j4k0gCqLaoj9v60tSiYI2mkA6KtlXvDLcG
-         PqHxN/lma2Rm2lfyiu6wR11LgIBhuiwbZn2pA85Om4L8AbIaAbNMmp0SuF9oUNP9xqmF
-         RBYzz0JBMFdhBKiZ0HuTuDF1gz6itcd+oC6s0iQuiq+JyOFMiRMbyWQh6Ao/Vz3aZJyv
-         MxklLXN8iFmb6K6AKchUthAD5C4HxkCc1qC/PSnppkR3Wz9NC1tDRUsTZRucJe6oUL19
-         UckZPdKh5uzPmxtaE1Fl4F0V+gqQJFxMghzNN+vA8T9CyCRkfm10i5iWaBxRBOmC4btI
-         rD6g==
-X-Forwarded-Encrypted: i=1; AJvYcCW+8WAsixV/Iuxi3WabrJcgxWnXAB2AvDePJcxjKvxQPg0B3uGcSI6ozrrWtuCN9vrtTeK8j9dWUEo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwJvE4XNUDRQNj0hb5Vxu/3AbR8Z2u09XtdQA6SOH6IAayCwJJJ
-	aeYuquj9aM3z04W2e1QdHPnnA58KMHJYgs9f7TBJJVFzuCLh2Uv8MTZNy351nOHDOQ==
-X-Gm-Gg: ASbGncvomMtE4X5asy611wEtJYqID9BZfz71bU/Bv2laRSZ/oJ9bEinp2v55rHBQBAY
-	pZ5rgKAyIYaO5+NPS1HxccQ9ubaKG/LZHx1igkkDp/L6W2jOn7CEEiaMZPr2FBbOqmlPIiVPOZQ
-	FOKeROVgMG4Dh6P+UhWPLXySL7whVP0TPFMDZ6aKsKuKj7CifiJyhaMQCLO9s8+qcCV7U+E1DC/
-	Xa2a1fl/vXvHzgLz1zjv5T+sQFdRoMKmFhAbkGpaDF7+QIemFPiPQAbfYcQM9StWeT+hiNzlWVg
-	Pwbxm5jTJNkP4a4uNPlZcXdqPQ2JW0GYvi0JspoHr1VnsgaHm+WpsnVcZ15KZw3WkSC+paEejOu
-	KY4rqSan6oHXK9el9GHBn2FJQI2uVCHnW0/cZ3XISC8h7bVlVMCOoBoB/9J9Mle4HghyD6EvKkQ
-	rKaPfMpYwEB5a9bQq6wg==
-X-Google-Smtp-Source: AGHT+IFxG/UTZF6sUktMfdwL6iWtMPAUONSf1XkzJI8xRnJb2lPGge6AqYDqtdEnjBakaNRu851apw==
-X-Received: by 2002:a05:6000:400c:b0:3a5:2f23:3789 with SMTP id ffacd0b85a97d-3b794fed896mr1958075f8f.15.1753867738410;
-        Wed, 30 Jul 2025 02:28:58 -0700 (PDT)
-Message-ID: <348b7780-d1ad-4765-9eb6-5ad66e5ce2e6@suse.com>
-Date: Wed, 30 Jul 2025 11:28:47 +0200
+        bh=7U0NyE+k3OZWe7rDxbYPWtugfq7sj3e9FN1bmIg50oc=;
+        b=b4dtNCTovqs8SEOj4zSVMg0oEbZOp1fRkTcxyNXxmvVfHqPiyGNFi6QdScD0Ri7mks
+         QvxrlpDq0Z7IXoQlriRrAGzwvp3xzKlsMdzK4lYW8px/e4tEIZpOgIV0nY5cjkFV94bA
+         uyh5Xn9vfFCEvEt5834yoEvYr4gj/GXN/XWXgzI001QcD1x89GeHADjkm/knzyicWXEB
+         x09XcwgVumhDYke5QfT37Pg0PYfh2jPCs5T+DPa+dMUH6B6FtH4CV/BUtc/4KlZWotLl
+         CMNXEl83rL1hw4ppulrfwX9BbufqtRB9Smw8/O9xrgxQyJS6snoKC9eCIK7xWnwFao79
+         /hHA==
+X-Forwarded-Encrypted: i=1; AJvYcCUT3xaXPKtZU8acN2Ybra99nYLjO4KxrQumgP6pIc2CQ2mu8coIcrBH3KdfDgIfzw7qtBpj56cxMqY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy7LSPgEieJ4b+zzRlFerY19kF3MdAZESivpKwbmv8qt7qSAD9F
+	cxCBlyCUnPBmVbYxVD+0/CnYjrcDLwFWlt9P4svQGOV+cVfGzrQ1vjdQRIm5lBWymFw=
+X-Gm-Gg: ASbGnct1y6bGFNxeHve3pN3YBTYu0GNoHzu308mh/8vvS2e/OBQVM2bwSrfG+gNUNXi
+	Kip08LPug/IPe0VD5Hemg9o2mFW2UL/1dJxGg+u/Fh6Lx2+szUSSvzDW+IbA8eIXjglrEXpAtDf
+	yw/7NOFlLuNBm1JoiY0JltSiVt8CVMEcjxPWEED4G8c0+GgF8k/oxVZxIvMucYJaQoZZjIVPix1
+	uDryrZ4Wit7La94jEadg8GnXXK9uCcnGe6NtC0jozFHb1QDwDu4XM89hrWshXcGKM8NHNuVqU7B
+	2vq2ndq786NpA2GjVvlZUZXk11ZYohKIk4iUSiYVVJyEFY3J4F2M0XKE76pVHYkbg+YK1fix8I6
+	J6q4smvDz4RshxwSsjcqnWe5yLWR246r20k2dR3dthI72/chFF2miFqA4QgY2J40R76sI
+X-Google-Smtp-Source: AGHT+IEmXgv0xMpwSwBukvkMYNiF5Eg/3WkkNZxVjX+maFE3K9k4vlz6m61HwF5O7HhrFKnwqrgsCw==
+X-Received: by 2002:a05:6000:2890:b0:3a4:e7d3:bd9c with SMTP id ffacd0b85a97d-3b794fedc05mr2023406f8f.17.1753867746991;
+        Wed, 30 Jul 2025 02:29:06 -0700 (PDT)
+Message-ID: <1586378c-1b48-4174-b9b2-3c3736c88921@citrix.com>
+Date: Wed, 30 Jul 2025 10:29:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/17] xen/xsm: Add XSM_HW_PRIV
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-References: <20250716211504.291104-1-jason.andryuk@amd.com>
- <20250716211504.291104-2-jason.andryuk@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250716211504.291104-2-jason.andryuk@amd.com>
+Subject: Re: [PATCH] lib: drop size parameter from sort()'s swap callback
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <fe3b486e-5122-4196-810b-38b3a58233bb@suse.com>
+ <94ca0714-ee52-4d6c-ba4d-717594e83179@citrix.com>
+ <d59dc52b-257c-4b41-a6e8-4f56955d6ed2@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <d59dc52b-257c-4b41-a6e8-4f56955d6ed2@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 16.07.2025 23:14, Jason Andryuk wrote:
-> Xen includes disctinct concepts of a control domain (privileged) and a
-> hardware domain, but there is only a single XSM_PRIV check.  For dom0
-> this is not an issue as they are one and the same.
-> 
-> With hyperlaunch and its build capabilities, a non-privileged hwdom and a
-> privileged control domain should be possible.  Today the hwdom fails the
-> XSM_PRIV checks for hardware-related hooks which it should be allowed
-> access to.
-> 
-> Introduce XSM_HW_PRIV, and use it to mark many of the physdev_op and
-> platform_op.  The hwdom is allowed access for XSM_HW_PRIV.
-> 
-> Make XSM_HW_PRIV a new privilege level that is exclusive to the hardware
-> domain
-> 
-> A traditional dom0 will be both privileged and hardware domain, so it
-> continues to have all accesses.
-> 
-> Why not XSM:Flask?  XSM:Flask is fine grain, and this aims to allow
-> coarse grain.  domUs are still domUs.  If capabilities are meant to be a
-> first class citizen, they should be usable by the default XSM policy.
+On 29/07/2025 3:44 pm, Jan Beulich wrote:
+> On 29.07.2025 16:29, Andrew Cooper wrote:
+>> On 29/07/2025 3:26 pm, Jan Beulich wrote:
+>>> This was needed only for generic_swap(), which disappeared in
+>>> 8cb0341a61fa ("xen/sort: Switch to an extern inline implementation").
+>>>
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> Oh, nice.
+>>
+>> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Thanks.
+>
+>> I'd expect there to be no change in generated code here, as everything
+>> gets inlined.
+> Not really, no. With the change in place, both gcc7 and gcc14 consider the
+> inlining of swap_ex() (in x86'es extable.c) as less beneficial, and hence
+> (like cmp_ex()) an out-of-line function appears, while overall code size
+> reduces. I expect that's because inlining decisions are taken based on
+> some intermediate internal representation rather than based on the code
+> that would ultimately be generated. And that intermediate internal
+> representation now changes, resulting in less of a win by doing the
+> inlining.
 
-Despite this added paragraph, my prior concern remains of this adding
-finer granularity than what may be desirable in a coarse-grained world.
+Hmm.  We might consider __always_inline, although it seems like gcc12
+does decide to inline them with this patch as-is.
 
-> @@ -275,7 +279,7 @@ static XSM_INLINE int cf_check xsm_console_io(
->      if ( cmd == CONSOLEIO_write )
->          return xsm_default_action(XSM_HOOK, d, NULL);
->  #endif
-> -    return xsm_default_action(XSM_PRIV, d, NULL);
-> +    return xsm_default_action(XSM_HW_PRIV, d, NULL);
->  }
+Either way, that's something for later.
 
-This change I'm uncertain about: Why would the control domain not be
-permitted to interact with the console? It may, in the end, be more
-important for it to have access than for hwdom.
-
-And yes, there is the ->is_console check earlier on. But for the
-consideration here its presence ought to not matter. Or else the
-change itself is meaningless (e.g. if we assumed that both would have
-the flag set).
-
-Jan
+~Andrew
 
