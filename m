@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5642B15D1E
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 11:50:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1063638.1429356 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 274FEB15DA0
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 11:57:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1063644.1429365 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh3Rw-0005Jc-Ej; Wed, 30 Jul 2025 09:50:16 +0000
+	id 1uh3YT-00068j-3D; Wed, 30 Jul 2025 09:57:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1063638.1429356; Wed, 30 Jul 2025 09:50:16 +0000
+Received: by outflank-mailman (output) from mailman id 1063644.1429365; Wed, 30 Jul 2025 09:57:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh3Rw-0005HB-Bj; Wed, 30 Jul 2025 09:50:16 +0000
-Received: by outflank-mailman (input) for mailman id 1063638;
- Wed, 30 Jul 2025 09:50:14 +0000
+	id 1uh3YT-000671-0X; Wed, 30 Jul 2025 09:57:01 +0000
+Received: by outflank-mailman (input) for mailman id 1063644;
+ Wed, 30 Jul 2025 09:57:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=zSpT=2L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uh3Ru-0004GR-C4
- for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 09:50:14 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ (envelope-from <SRS0=06yH=2L=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
+ id 1uh3YS-00066r-6C
+ for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 09:57:00 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 96842af4-6d2a-11f0-a320-13f23c93f187;
- Wed, 30 Jul 2025 11:50:13 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3b794a013bcso1340012f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 02:50:13 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31f63e3bfa3sm1529980a91.37.2025.07.30.02.50.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Jul 2025 02:50:12 -0700 (PDT)
+ id 87ecf4e9-6d2b-11f0-a320-13f23c93f187;
+ Wed, 30 Jul 2025 11:56:58 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-6155fbff3caso364588a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 02:56:58 -0700 (PDT)
+Received: from lab.home
+ (dynamic-2a00-1028-83a4-4bca-c0bb-96ff-feed-9d50.ipv6.o2.cz.
+ [2a00:1028:83a4:4bca:c0bb:96ff:feed:9d50])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-af635a60e68sm722900966b.94.2025.07.30.02.56.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Jul 2025 02:56:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,121 +47,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 96842af4-6d2a-11f0-a320-13f23c93f187
+X-Inumbo-ID: 87ecf4e9-6d2b-11f0-a320-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753869013; x=1754473813; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fwoQ2TwyjLtj0hLzWSHmlSFAufd6WtmY/FQGMWkLSLQ=;
-        b=EIpqAlyrIBBU1HdTrs9EGLX2wz5E2cy9e+msOK8Ila5+5GJXMSDqST9BU/8jiXadlb
-         wOBXuACulOXOYV3Iq4oZPFl/HFuL77kOu2SdRIoRl7bIatPAVLwkRHOL5DzA3JrngXQp
-         Sr58rIwmt+bCtLeckSBOyuSVBuVZ3jtIhTc18icPPuGmmkZfNnZ1lx2+W7KeP+mgwWx1
-         wHuunpJL97tW7O3Lmdk5F/lMizoYCSRRkxVtm4ZAgkg0VDLL1RMVinZFt7QWDwxgNkDK
-         0nvUsYdb/rMbf4UzumCW7dy0mUkt2jJfr9FQb/We+u2AkH9QDcmxV1sQGXFVrhUBdRIt
-         gCzw==
+        d=gmail.com; s=20230601; t=1753869417; x=1754474217; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=n8yrUkDUbmvWw6QpOZUYaMzX5890jD05I/QnEOpFTEQ=;
+        b=MOOg3Tw8pJ8J26bmaEumAiaIuDPKvZfx2qPvxL3WCwoFiMawVqkl09Dp9gSe52jkRJ
+         teIRF6I/bGHxbT701u4RUnxcfIbCtVpiaq0hzRnKRBARP/huX6XlaOBj84rlH9sdm3nT
+         KWeAVdXi5xiF40zn9WO8Mm23nB5KJb3Moc0JuDafqiGdaINRB5oeqJoNEP642TODyhXe
+         DoieeEo384P4U/Kd40u+QVABo98oCd5wobRSVz7FOO5qAmvRBCeNVm3+DFlpIbOWGkk7
+         yn2OQXJFhtPbtOnLGA42muQsLCEskNeB8f8ObhUDTT4A7wmjUI+4fSyJYV2HYtwY5Qfh
+         3mgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753869013; x=1754473813;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fwoQ2TwyjLtj0hLzWSHmlSFAufd6WtmY/FQGMWkLSLQ=;
-        b=J0DDnP0wgkhF0rmPTL4rqt/kyFehvCOz8k3cuK2DJhBxgq4vF5c880t//lE5elZxYj
-         W3+bB3emR6cwzuIGqMD9J2oWzG8B39+tUGGaRjt/V3j2f+uhcj/HO0cXlheT+55m7EAh
-         3YEDc8vT90DYrBmCMZFdIQV+3oZPtVlmdaq2IbSV/BreteUqTpCoGxTl2FOf5uGCsC1a
-         qkNVGUITBF4+PZ2tPjvaS58OmQSyeBNHHBbjAMFvMxyx4oD7VEgnQK7mS1eQbVDqCXE9
-         /YiRIX5Z0i9ZIkAtcb0k7QpUU8Y3rboh6CJcpPvNGivz6aQQuf8nnVyAaTCaogm8jZlY
-         XExw==
-X-Forwarded-Encrypted: i=1; AJvYcCU0ZpToP/xVMMq09/lkXyvgv4wvRspSBFrR39QhMGl7EIcV2m4URhHYjeH3DQVP/1eFQUhqlFgtmn0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxAAZEm7Otk8WhgVAjlZxCbdhzdQaKuJQ/YIUKTM7KX2CzxINhk
-	hDTKsMc0DARGJCNsgS7ZOICtink790NNX9zYPl4juVii1fCVSUas7lI5qfAFMX0KFA==
-X-Gm-Gg: ASbGnctGXiJc/0UWZi2X0VZcxVeHXuqoXp2IIQlxIbv6DhGi81RZfqlsAQk4cbITA/y
-	FEX5y9kH55wj/NiS0B4ckfbs68yUo+9CWrqBvHJN95hG/VF6ywgjue0n1ZiA9rUJeWuAO3YzZYL
-	M6vOLTSEuIIfMRsm710mR722h8vITkWPzoPNloCnxxHFTAjFUIkT4hl7Oj8NtFnF0N5QrrmGcka
-	t3Ekz2WKeFNYTqVHciUf1PX8Qhfi7iyv42XeS9ybw4PsCCaDFa7ROY+irKUkRnLPIvWw25y7oqr
-	fKjzR6tn22vuB9Mfv/mvM2du1fwR6YVwsieWHOUecMtK9yM8SGSa2VpOG8FeTp4ifmTs9Wg7f45
-	9tACz4t2mFpOpaGuuvfqwkxmYAjSJt6AibvE1plBuHyTn0/3qQh5x6DHHv4S8eWiTh3n9SmQz56
-	jOKHseferwVz05gJH6xA==
-X-Google-Smtp-Source: AGHT+IHkcvTToEA1xez030+IRXSd23bRE2RbAuTgyfXBkfj2LZWJ6W+4CIUdWCr/XeiV9fjfMbnbiw==
-X-Received: by 2002:a05:6000:2908:b0:3b7:83c0:a9e0 with SMTP id ffacd0b85a97d-3b794fde526mr1690937f8f.25.1753869012639;
-        Wed, 30 Jul 2025 02:50:12 -0700 (PDT)
-Message-ID: <8051d388-48f9-4878-8924-8e645f313238@suse.com>
-Date: Wed, 30 Jul 2025 11:50:01 +0200
+        d=1e100.net; s=20230601; t=1753869417; x=1754474217;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=n8yrUkDUbmvWw6QpOZUYaMzX5890jD05I/QnEOpFTEQ=;
+        b=RxLJrkX4B7asyBC7C1tz/RE6n727T8TvdnwS55LXRDMNvwMkEmZMbdnQLcPlLOhRUC
+         dt5Wtqkt+mQI4Xcg+KeK8Tw++mzqbCPI/ITRbqZEDhbJWnJGx0An3jlCvKqXpI1rDK6j
+         jxnw+aVyIZ62UgGHJh8Xix1LPvVgBJSY5vLV2BpGVbgX1CPBOAz6F3Uq6lDkRNgeMtsf
+         B111SGeO0oZm/MrLI+RMaypLdD6de/BLV3X91DtyFVgs4LpbwJt4/ytTR0WOUiSLY1Ng
+         uwE2vCzo2lKlaUs27WHN27PKfql3O/Kon5z4GZ2L7CNBHIbJh9B26Bfrb6Fn5qSKDrUR
+         4r9g==
+X-Gm-Message-State: AOJu0YxDr/MIvvi8F7vv+K+wTTq8Ci9UEayyorEhOllbjDzjYi4TWuHp
+	CNedEqpAPXqEHEiX2P86rPjvFtU3yn+jX+xHXEHOtqEZlUXvBLQWddGwz3p/x0G5IGc=
+X-Gm-Gg: ASbGncvXRBaLv6iZ+8iohGGHVWyR+NncYalgEYWSc+IBNK+lXC0pQML4C5gNep7exPe
+	NzCKIS5kQmbxlyAhchZem7qfMvZAecVpUeXCYasnZkwHwe5W2tVs85dON9U5sG3wki6VrPD9nn2
+	qvmey/VEJ6uoX4orlK5iUjGXEfIdVjOJvWGaY4GxJ0RV8Jw7gVqei34VEB8PlfSiLPf2TMIcihw
+	G5D3HLlCPMinJWZIwYt8tB4rB1yQ5tdrJ+5oieMBnibdd8cUbsoAnCliH9pJS10nx3C9+xWjBsq
+	My4yEQxXLZXPcq68P4Cwh9uNNM1TdW6ion5bp7sASyQ8aeYKZonAURq/WGaSdPGUeUSEInrlJ5C
+	Ta2PaFz8fT15y69cFJTGazTQAz2JfNSGvPrkl5SwyP2ou9Ex0Jh8X4w6vDVpBSIzXRtViXOwFrV
+	/wZooO95q2r8t8bb5HRKhCXg==
+X-Google-Smtp-Source: AGHT+IE4uoSE5LHw6IlbZF/JbcJjB2CfrMmbgBxywSYGu89UidpuotfblUPk2OYo1VUAfpdco8xWmA==
+X-Received: by 2002:a17:907:7ea8:b0:ae3:5d47:634 with SMTP id a640c23a62f3a-af8fd987440mr140261766b.9.1753869417106;
+        Wed, 30 Jul 2025 02:56:57 -0700 (PDT)
+From: "=?UTF-8?q?Petr=20Bene=C5=A1?=" <w1benny@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Petr=20Bene=C5=A1?= <petr.benes@gendigital.com>
+To: xen-devel@lists.xenproject.org
+Cc: =?UTF-8?q?Petr=20Bene=C5=A1?= <w1benny@gmail.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v4 0/3] hvmloader: add new SMBIOS tables (7,8,9,26,27,28)
+Date: Wed, 30 Jul 2025 09:56:50 +0000
+Message-Id: <cover.1753869323.git.w1benny@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 4/8] vpci: Hide extended capability when it fails to
- initialize
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- "consulting@bugseng.com" <consulting@bugseng.com>
-References: <20250728050401.329510-1-Jiqian.Chen@amd.com>
- <20250728050401.329510-5-Jiqian.Chen@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250728050401.329510-5-Jiqian.Chen@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 28.07.2025 07:03, Jiqian Chen wrote:
-> +static int vpci_ext_capability_hide(
-> +    const struct pci_dev *pdev, unsigned int cap)
-> +{
-> +    const unsigned int offset = pci_find_ext_capability(pdev->sbdf, cap);
-> +    struct vpci_register *r, *prev_r;
-> +    struct vpci *vpci = pdev->vpci;
-> +    uint32_t header, pre_header;
-> +
-> +    if ( offset < PCI_CFG_SPACE_SIZE )
-> +    {
-> +        ASSERT_UNREACHABLE();
-> +        return 0;
-> +    }
-> +
-> +    spin_lock(&vpci->lock);
-> +    r = vpci_get_register(vpci, offset, 4);
-> +    if ( !r )
-> +    {
-> +        spin_unlock(&vpci->lock);
-> +        return -ENODEV;
-> +    }
-> +
-> +    header = (uint32_t)(uintptr_t)r->private;
-> +    if ( offset == PCI_CFG_SPACE_SIZE )
-> +    {
-> +        if ( PCI_EXT_CAP_NEXT(header) <= PCI_CFG_SPACE_SIZE )
-> +            r->private = (void *)(uintptr_t)0;
+From: Petr Beneš <w1benny@gmail.com>
 
-Eclair regards this a Misra rule 11.9 violation. Elsewhere we use (void *)0,
-which I then would conclude is "fine". But I can't say why that is. Cc-ing
-Bugseng for a possible explanation.
+Changes since v3:
+- Renamed offsetofend macro to offsetof_end.
 
-Jan
+Changes since v2:
+- Added sizeof_field and offsetofend macros to common-macros.h.
+- Used offsetofend macro everywhere to make semantically sense.
+- Added BUILD_BUG_ON to ensure offsets are correct based on the SMBIOS
+  specification (with explanation in the comments).
+- Fixed commit message of the second patch to mention the new smbios_pt_copy
+  function.
+- Fixed nits (empty lines, misplaced *).
+- Retained the original comment "Only present when passed in" + added it to
+  the new tables where applicable.
+- Replaced hardcoded offset for chassis_handle in smbios_type_2_init.
+
+Changes since v1:
+- Swapped the order of S-o-b in the last commit message.
+
+Resubmitting patch from Anton Belousov and addressing review comments
+from Jan: https://old-list-archives.xen.org/archives/html/xen-devel/2022-01/msg00725.html
+
+Original message:
+> SMBIOS tables like 7,8,9,26,27,28 are neccessary to prevent sandbox detection
+> by malware using WMI-queries. New tables can be mapped to memory from binary
+> file specified in "smbios_firmware" parameter of domain configuration.
+> If particular table is absent in binary file, then it will not be mapped to
+> memory. This method works for Windows domains as tables 7,8,9,26,27,28 are not
+> critical for OS boot and runtime. Also if "smbios_firmware" parameter is not
+> provided, these tables will be skipped in write_smbios_tables function.
+
+Further explanation:
+Some malware samples are known to check presence of various hardware components
+(like CPU fan, CPU temperature sensor, etc.) by WMI queries. If these components
+are not present, then malware can assume that it is running in a sandbox and
+will not execute its payload.
+
+This patch will allow security researchers to create a custom SMBIOS
+firmware binary file that contains these tables.
+
+Petr Beneš (3):
+  tools: add sizeof_field and offsetof_end macros
+  hvmloader: fix SMBIOS table length checks
+  hvmloader: add new SMBIOS tables (7, 8, 9, 26, 27, 28)
+
+ tools/firmware/hvmloader/smbios.c       | 290 ++++++++++++++++++------
+ tools/firmware/hvmloader/smbios_types.h | 109 +++++++--
+ tools/include/xen-tools/common-macros.h |   5 +
+ 3 files changed, 317 insertions(+), 87 deletions(-)
+
+-- 
+2.34.1
+
 
