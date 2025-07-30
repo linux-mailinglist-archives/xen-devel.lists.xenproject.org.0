@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68DBFB159F8
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 09:49:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1063478.1429186 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4558AB15A08
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 09:56:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1063485.1429195 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh1YL-0005f8-2n; Wed, 30 Jul 2025 07:48:45 +0000
+	id 1uh1f3-0007JO-Nz; Wed, 30 Jul 2025 07:55:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1063478.1429186; Wed, 30 Jul 2025 07:48:45 +0000
+Received: by outflank-mailman (output) from mailman id 1063485.1429195; Wed, 30 Jul 2025 07:55:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh1YK-0005dh-W5; Wed, 30 Jul 2025 07:48:44 +0000
-Received: by outflank-mailman (input) for mailman id 1063478;
- Wed, 30 Jul 2025 07:48:43 +0000
+	id 1uh1f3-0007HX-Kg; Wed, 30 Jul 2025 07:55:41 +0000
+Received: by outflank-mailman (input) for mailman id 1063485;
+ Wed, 30 Jul 2025 07:55:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zSpT=2L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uh1YJ-0005db-EH
- for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 07:48:43 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ id 1uh1f2-0007H6-GZ
+ for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 07:55:40 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9c496301-6d19-11f0-b895-0df219b8e170;
- Wed, 30 Jul 2025 09:48:41 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3b78315ff04so2653948f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 00:48:41 -0700 (PDT)
+ id 94fd051a-6d1a-11f0-b895-0df219b8e170;
+ Wed, 30 Jul 2025 09:55:38 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3b7862bd22bso367948f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 00:55:38 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b3f7f567d1fsm8647296a12.14.2025.07.30.00.48.36
+ d9443c01a7336-2403e020d7asm55600805ad.16.2025.07.30.00.55.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Jul 2025 00:48:40 -0700 (PDT)
+ Wed, 30 Jul 2025 00:55:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c496301-6d19-11f0-b895-0df219b8e170
+X-Inumbo-ID: 94fd051a-6d1a-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753861721; x=1754466521; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753862138; x=1754466938; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VXBpnwkNwfVdk9hL7gDoV1K1Jyzjeuez8pOrTfUtbxM=;
-        b=KPF1S7C30W3T7KKy3qmSrPq16L3NVFfEmpH9fw1aF1Gdv1LcY+6RRBxh2/vKcP86lV
-         XFiqQBbZgt/05iLd7wHr4SpYky34mzjHH6ADSHc5+rTxA4ERtxy5kmAfjkVlHhPZTS7D
-         GyBRygwMGjvTvOCnIiJSuUYDYNhlUn4XpCC5gc+gaYK8XIwBAglP1NWFxnQ4U5HX3JCl
-         IR04CmWlj5B2mKd+PxMbVALiSinQRypkoYonvIvk/nfsrJ1LGs5Nr2k2pqlv0o9bAHMe
-         d79Cdhy+3ZXho56iJ/7Xjb7j2bE7Kke1N9G2GtCBlewVxDLOXc47ZbdMO5H5fDRPkTa2
-         jXWw==
+        bh=OcNK7jcKP1X01BDvnhvABVPxz500c5O0e8/a6QUVBW8=;
+        b=VrmHooiquHMd7a3Yznb4mKe2KuFDUr3WpAhgoiuujWkD5Gso9d/dIgZENJlACkYHmd
+         UecOpEMyU00lqfJzlGXmV7A8MNjMcKg6How6fhmGDiYVR8GQEJAhfh2i0e8Yne56F2U0
+         QO8qAIIpmr/PyDyrqi8/TuxzqVAzbYY2wNv5AwIduK8dpfGaMAHpCW7wPDOCs/SSjza9
+         oB61tjTYtMl4kRDue/F0dOm1k1/ZB1sRnOIj6ENM1w1E5FapgxJBxePjN2+JGhpMcu5o
+         3Z6iZQkeM9phmqDG86vJ7DLOhb9K2uQDnSrQU67HM9odZAxvQkXW+QhmAViEXjCj6/kI
+         GE8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753861721; x=1754466521;
+        d=1e100.net; s=20230601; t=1753862138; x=1754466938;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VXBpnwkNwfVdk9hL7gDoV1K1Jyzjeuez8pOrTfUtbxM=;
-        b=KHXg7paOxRYhSVWKW3rheYYEMNRHruYs9FJ7XqviJptkP2mB1rVwWmwR7rMEY6L86D
-         q8I1L1yqFmpAr07YaNYpKOZY2W19mGqy1/RhH6IAa+2gswZQujWlbqbx1SRliD8kU0kZ
-         DI08/URgRmUcUsGwIXN+n/GvC6ipWi8GnlWnVprq5mLkkAioe8mIE5k7MAsHzfTfVd9I
-         eSgy3D61KfvQcumHiczca385VzLCnf+mQt2UIHYT5XscFWRjXOZjtuT7v2lmhC2aBz7Z
-         XN3Xn6Li/pLQ/rXqKhb964U99/BBbxLxUW1krpm8L7Gl9b4T9cnNrQaXAxcC7i7ce9xw
-         Wv+w==
-X-Gm-Message-State: AOJu0YwQoP83FghcgDG0Jo5h1KsLD9cJ6H5h9Il6Bj+Q0TXMYNK+Sjte
-	z8MSbahLXcwih0M5pZRBWPBCYxwzjXVTmgxj2gSzgwDkTsk7QUSJ0RnXV4+BwuI08w==
-X-Gm-Gg: ASbGncuM/4LdX/909vL+tkW/dwNh78/j5pUErORwBpSsYiHBaVr5UPlsFt4aGXA9WOX
-	QJUifSwItuogyUhyLsmvxSJNxWMyliSSpmCucsAfd99M8ihs9zQ4pAFGnkj2guqqsGGoNCwuLP4
-	LD6y8Fl//8tELlrz4GQJLkXzu9qmP8JVtKi7J1mcoevNibF3EjfDqUofliEUqEkq7BfALgpHr4+
-	JNH/yxl7rNcMZCMym4KFxpwiUHCzIWSpBnz6hmNxus50ToGW/rjn/505FYW1jGr2ge0VPV04Mro
-	1BfJnmowEdD0qDLA+x01KQ4rlDRzQDarTGOZMTCnJwEz/Nk2W/7d1t/7+BDZfank8WdDiTUgBAc
-	s9uDQdHPA1Jl1S6HV7+JzoTHZd8eKMxWFMax81FyJv7/HtoKNXe63NPJrEOtZSStZJEyxgf072Z
-	qQUB//56w=
-X-Google-Smtp-Source: AGHT+IHIY0l8AnpyOsKH+v8kty+DpKTqDNtxXsZhwI6cjIM/3vzt8fQuYsAgA4VKbEOKBejQ2cpOZQ==
-X-Received: by 2002:a05:6000:144a:b0:3a0:9dfc:da4 with SMTP id ffacd0b85a97d-3b795033b1fmr1643806f8f.42.1753861720693;
-        Wed, 30 Jul 2025 00:48:40 -0700 (PDT)
-Message-ID: <0006e9f6-49af-4aef-b680-2042fb0d5213@suse.com>
-Date: Wed, 30 Jul 2025 09:48:32 +0200
+        bh=OcNK7jcKP1X01BDvnhvABVPxz500c5O0e8/a6QUVBW8=;
+        b=DiYoggErk2H3MkEg12RkVxJCeAQVuv7ozCtV+srlMmxlTAgnbwq6xq0cXcv05pjo2I
+         tO9Bw/TnVhvq0i9HoirXm4v2yMWUP5cb7mJB/qMVpBBKMYB6SnL2Y4+SwsobBppN58q+
+         Bd0AVAuVNkst3eh8SpEf1Q5b/bL+45O7iPqoR9LqUdfWqxUab3xyWQzx6II5hiE400B8
+         p67btYnu90NSuYec+W+K7WRl1K4QAEDDu42s3r6Q8uYWyajMwJNf2eQaoL//HrOPAfLE
+         S713u6Nv9XM14+2P8eX3YMekMhH9UszFYh4mqrK2u5UJfe8L0NQk2QMA3dKtZo9e6yEB
+         tOsg==
+X-Forwarded-Encrypted: i=1; AJvYcCW+ilBZUBDqyoZzUE77HIOjnro1Vj8SK6zT+dz+/gM+qFBUyCRyCJ20pfNohwJT3ZuSKaa28xfQe9c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzq4Oj1SVE8qmfxAWM9R1Prb8LvaBuqEWee4elvxSXZv3Lubt50
+	oWNqa1WfoQ6qvZvoPUnlmAbjmDnVj9mN/zJ/GNlbLUaqcQ+eRHqwvrgmBaWMtyUETgmjEPQfloB
+	Ns9g=
+X-Gm-Gg: ASbGncvCRpg5/J5ggJBlILKHTz5spAdOtgcESqw/cl9D67a1vhFKp3fhV1aJJeh1fiq
+	TRzHstpZm2hbN6yGCBK5xDIKkky+H65FrhHioDqAxzoNYObw0OG5/krRTo7L3HjNjTWA/6kwDTK
+	iEghgYh9v/fFYKCchuLDOk3yNEvYqbocV3SHF9LG6BG8aNZMm4Q2T7UnW+FlSFfVXN3NczbN+iN
+	h7ndq4zW0UvHwiNQfTRMbdsbHHE6IOiTZzsqrUmvMQNUCoyyT34u/fYPMVt3tTD/aNDS+dfwG4e
+	mlJjFo9H6miGj2OhXSeywj7R7Bttrq7ZZBZiRs78I0AERP0mcbBjS59pu5v/mIS8nLrxAQDDWeE
+	J0NdkMH290DdAFXdffZ8Qdw9kg4CRgEwk1Jb7ijkppRsIP0R1hRJDfoHvRKOcpEj9baz1rM4qj8
+	OkreEOP6w3gzLQ3/4Jcg==
+X-Google-Smtp-Source: AGHT+IHUcRdIuaVsdOnt7HbMnwyAKaUyZp10HnfHBTItMSoZ/0KKJFIeX8wfpOq1LVX3tL0bQrAWWg==
+X-Received: by 2002:a5d:640e:0:b0:3b7:8aa2:9fcb with SMTP id ffacd0b85a97d-3b78e6105c7mr3824225f8f.14.1753862137945;
+        Wed, 30 Jul 2025 00:55:37 -0700 (PDT)
+Message-ID: <b7f14924-f86e-48c5-a3b2-25825bc19e11@suse.com>
+Date: Wed, 30 Jul 2025 09:55:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: Conditionalise init_dom0_cpu_policy()
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-References: <20250717175825.463446-1-alejandro.garciavallejo@amd.com>
- <aICM2hqQoloEahgD@macbook.local> <DBL1SWOYP5OP.35VTULK0U7RBL@amd.com>
- <aINi024baOV5LQgn@macbook.local>
- <ba1de9a2-09b1-4332-b27d-0e485d0c8ce5@apertussolutions.com>
+Subject: Re: [PATCH v3 1/3] tools: add sizeof_field and offsetofend macros
+To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <cover.1753823663.git.w1benny@gmail.com>
+ <556d53ef59bf771a727bd49116e91bb515ed7ec6.1753823663.git.w1benny@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,74 +119,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ba1de9a2-09b1-4332-b27d-0e485d0c8ce5@apertussolutions.com>
+In-Reply-To: <556d53ef59bf771a727bd49116e91bb515ed7ec6.1753823663.git.w1benny@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 29.07.2025 23:29, Daniel P. Smith wrote:
-> On 7/25/25 06:56, Roger Pau Monné wrote:
->> On Fri, Jul 25, 2025 at 12:02:18PM +0200, Alejandro Vallejo wrote:
->>> On Wed Jul 23, 2025 at 9:18 AM CEST, Roger Pau Monné wrote:
->>>> On Thu, Jul 17, 2025 at 07:58:24PM +0200, Alejandro Vallejo wrote:
->>>>> Later patches will keep refactoring create_dom0()
->>>>> until it can create arbitrary domains. This is one
->>>>> small step in that direction.
->>>>>
->>>>> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
->>>>> ---
->>>>>   xen/arch/x86/setup.c | 3 ++-
->>>>>   1 file changed, 2 insertions(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
->>>>> index c6890669b9..6943ffba79 100644
->>>>> --- a/xen/arch/x86/setup.c
->>>>> +++ b/xen/arch/x86/setup.c
->>>>> @@ -1054,7 +1054,8 @@ static struct domain *__init create_dom0(struct boot_info *bi)
->>>>>       if ( IS_ERR(d) )
->>>>>           panic("Error creating d%u: %ld\n", bd->domid, PTR_ERR(d));
->>>>>   
->>>>> -    init_dom0_cpuid_policy(d);
->>>>> +    if ( pv_shim || d->cdf & (CDF_privileged | CDF_hardware) )
->>>>
->>>> You possibly want this to be:
->>>>
->>>> (d->cdf & (CDF_privileged | CDF_hardware)) == (CDF_privileged | CDF_hardware)
->>>>
->>>> To ensure the contents of dom0_cpuid_cmdline is only applied to dom0,
->>>> and not to the hardware or control domains.  I assume it should be
->>>> possible to pass a different set of cpuid options for the hardware vs
->>>> the control domains.
->>>>
->>>> Thanks, Roger.
->>>
->>> Why only a hwdom+ctldom, surely a single hwdom should get it too.
->>
->> hm, not really I think: a late hardware domain would get any custom
->> cpuid options from the toolstack that created it, or in the
->> hyperlaunch case from the provided configuration, but not from the
->> dom0-cpuid command line option I would expect.  Otherwise you have two
->> different sources of cpuid options, the inheritance from dom0-cpuid,
->> plus whatever is provided from the hardware domain configuration.
-> 
-> Yes, this has been a sticking point for me and never got any good 
-> answers thus far. Should the dom0 related xen command line options only 
-> apply when not booting via hyperlaunch. If the answer is no, then you're 
-> in this area with some dom0 options that really are applicable to hwdom 
-> vs ctldom and vice-a-versa. Some could even be suggested to apply to 
-> both. And then, I don't believe there really is a consensus one which 
-> options apply to which domains. Over the years working on this, I have 
-> been an advocate that commandline adjustments allow for quicker 
-> troubleshooting by the user/administrator. In the last version of the 
-> multidomain construction RFC, I am growing more and more to advocate for 
-> my initial proposition, that dom0 options only apply when not using 
-> hyperlaunch.
+On 29.07.2025 23:25, Petr Beneš wrote:
+> --- a/tools/include/xen-tools/common-macros.h
+> +++ b/tools/include/xen-tools/common-macros.h
+> @@ -83,6 +83,11 @@
+>  #define __packed __attribute__((__packed__))
+>  #endif
+>  
+> +#define sizeof_field(type, member) sizeof(((type *)NULL)->member)
+> +
+> +#define offsetofend(type, member) \
+> +    (offsetof(type, member) + sizeof_field(type, member))
 
-With the hyperlaunch plans, is there something that's still properly
-"Dom0", perhaps under certain conditions? That (and only that) is
-where I would see respective command line options to apply. IOW no
-more than one specific domain (i.e. in particular not to both hwdom
-and ctldom, when they're separate). In cases when respective options
-are entirely ignored, I think some kind of warning would want issuing.
+I'm not a maintainer of this code, but offsetof_end() or even offset_of_end()
+would look like a better name to me.
 
 Jan
 
