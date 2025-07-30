@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8CD7B162F5
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 16:38:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1064082.1429821 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6994FB16334
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Jul 2025 16:53:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1064089.1429833 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh7wf-00082d-9X; Wed, 30 Jul 2025 14:38:17 +0000
+	id 1uh8AI-0002eP-Gg; Wed, 30 Jul 2025 14:52:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1064082.1429821; Wed, 30 Jul 2025 14:38:17 +0000
+Received: by outflank-mailman (output) from mailman id 1064089.1429833; Wed, 30 Jul 2025 14:52:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uh7wf-00080Q-6H; Wed, 30 Jul 2025 14:38:17 +0000
-Received: by outflank-mailman (input) for mailman id 1064082;
- Wed, 30 Jul 2025 14:38:16 +0000
+	id 1uh8AI-0002bI-Bq; Wed, 30 Jul 2025 14:52:22 +0000
+Received: by outflank-mailman (input) for mailman id 1064089;
+ Wed, 30 Jul 2025 14:52:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zSpT=2L=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uh7we-00080J-3f
- for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 14:38:16 +0000
+ id 1uh8AH-0002bC-3A
+ for xen-devel@lists.xenproject.org; Wed, 30 Jul 2025 14:52:21 +0000
 Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
  [2a00:1450:4864:20::42b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d20d80d8-6d52-11f0-b895-0df219b8e170;
- Wed, 30 Jul 2025 16:38:14 +0200 (CEST)
+ id c88795a0-6d54-11f0-b895-0df219b8e170;
+ Wed, 30 Jul 2025 16:52:15 +0200 (CEST)
 Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3b783ea502eso846493f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 07:38:12 -0700 (PDT)
+ ffacd0b85a97d-3b7886bee77so3058354f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 07:52:15 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31f63da565bsm2252851a91.4.2025.07.30.07.38.08
+ d9443c01a7336-2402ec8a087sm71033125ad.84.2025.07.30.07.52.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Jul 2025 07:38:11 -0700 (PDT)
+ Wed, 30 Jul 2025 07:52:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d20d80d8-6d52-11f0-b895-0df219b8e170
+X-Inumbo-ID: c88795a0-6d54-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753886292; x=1754491092; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753887135; x=1754491935; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Z1g1wYLJ0cQlh9tazbbUxsdBWDeGfp2/NDZbLH1NSlc=;
-        b=V87wF9xyWF3xy3Z/evM2F5GvyvYXGuT5x6R1uDGLiPzNWIQnjbOaY0zjbiVcEJR+eX
-         TgOUUXXaMlfWG1ZtS975BdBs9YvBERbcY9WI+Yf5O4qQZCMXMWUFZceL6JY0Jxau3kGp
-         LDazMdmbWcQ/7rDd4/GDWPXHiDYq+4sL1C8C/atc1NzV2lu1Glkwvl43TSrecGev5b6l
-         1VZ7wAs4uUVHtjIFpQSZeFfnwV/59euu+ww4ioKAJ2cblg4Z03jZ6yTYPxL8GaFMYifa
-         NaWK8rkPL9dv+FuoPLLLNxd8IT+dZm/pEKLTc2RB5chnZ9W9l5CQnPWD2SDMvo4Kt+Qx
-         J6pQ==
+        bh=T/lkNIQmW011CFSz5dGz8p6P0ergSp/cswCXu6WG97s=;
+        b=DL/JG1XivrXiccxeelfO+nVttVdh3eSJcul35r4CR1VnWke+uPdFoCWVnDwD07umwJ
+         S8qoF4I1qdUj+x1kQOnMJgmCvE4Yx8gzGu1obWR1RuAzLTj0zsPPu7SgT0D/gffA1eFA
+         ChisYvVvjuu3dSF7W6hdS/pplGiHtFTUlU99vjTLtLOBQRkrIaMIftnTQoFJw5HPLDcN
+         IYOKG3XYOgoRf+ciB6fmA26p3SS8ki3KX5EeZHGONwDHXAtx0fPUq9Puu+0IlFHtIR/Z
+         1JXOOUPAT3X+5JY0CbvN1spo9Fj6li1IcxAmktBbDs2yQpdtWenJl7qZYILlZilbnzgt
+         eD0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753886292; x=1754491092;
+        d=1e100.net; s=20230601; t=1753887135; x=1754491935;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Z1g1wYLJ0cQlh9tazbbUxsdBWDeGfp2/NDZbLH1NSlc=;
-        b=OrXo17XC3zd54lUYLfQ0PBy8S07kdbWYugzu6npAN4ukPN3/K4GZb6Sody9pFod6fI
-         7sLVMgKVkkBlNTIetdLdNjenyxq90NycfQCdhHDIAXzRk67Tzr+jk103w9KGOKU5NaHv
-         8OSmjzlEl7cCydZJir/QRX1GcseRMKoWVvHJs+uMAhS9FZTVnI/c7j3JE7Hlz+2sKZfv
-         nWOFUPcdUY4iV2OWJ0TggIEiud5SskZ/Lcs21ISXTlocIo0pJCtrx3JZt3jwvLQfDWrY
-         LZbojxp+Tt+NZbOFNoTlRvN1yFMJqyz4emiJQffQgS9RBcgzMCSceW8m9j0LipNxbgv+
-         0qsg==
-X-Forwarded-Encrypted: i=1; AJvYcCWRUpjttV56dTrPLGpfEvkYKpiTK00q3Ot4vYa7Ez6T6hJbnTXGu6rkLAQ0y8NHJiTvNkENc4AhYEk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy1zgI4pGKtYKhybvtdTQDT2YuB69lbW+R5iQ3FEwW7q/o2enah
-	gHi4Xd/wajy/2YAYToCkDfqhhCn34PvS+eSr3mZjmJXFZU8Ns49Sy3FCHz+1XTlYrg9CO+GB2c0
-	KSmE=
-X-Gm-Gg: ASbGnctoVTthZJ4BN8jQFmFJNpJWLOFQ+A3E82k0zpI28QECDdzoUTOIDlRFBTP/FTp
-	T7njPInp1+0fHhS2zUuPXaASPHosJcf6pBGZJ6IDNAXt+KTGA/DtBlwOq4KMXEN/w+VQJN2cN2e
-	uOSsZ9mJIcWeQHCHn6pEK5yxsKGk0lZBvpHf1paNNdzxa7ajP3QdlsLy7D3fbqvPmZvl0K+kOYh
-	rCmbNKUFwSwIWz+GC9CmS2HUxjoachFry2udu5EUSa2OWxpYZjP5f/3p6gEVU5tILuINXCgUcIP
-	cWR1i40mw9Xgfdf7HBf3gOlG9hgx5d/lp/tSwqw/R0CJqQmMQhar+Mj3wH5sgWkB5ezuycGs127
-	4+APvS2W15krSCs7jIUF6uXKfHcKFuAfv9JPdH0tx+SYcREfDgBPuQHrBb8TD+jWQLcrzjBqh/w
-	8naEa4z1g=
-X-Google-Smtp-Source: AGHT+IHi1sXwZ3+YFKYAJOCOI2kCaRT2QqJLiyuHic+thrfgcYGNXUAoFcgy+dGvJ4IBuJ1pC2A0qQ==
-X-Received: by 2002:adf:f009:0:b0:3b7:8f49:94e4 with SMTP id ffacd0b85a97d-3b78f499706mr4329082f8f.7.1753886292248;
-        Wed, 30 Jul 2025 07:38:12 -0700 (PDT)
-Message-ID: <91a50d1d-44fd-436c-a5a6-7641a7f5cd1a@suse.com>
-Date: Wed, 30 Jul 2025 16:38:03 +0200
+        bh=T/lkNIQmW011CFSz5dGz8p6P0ergSp/cswCXu6WG97s=;
+        b=kvB0JOm66IoL/1/ciu0Cp78l/mK0DM7MXV3n4D22RdcUGiWlLXoJGrlleSIrv+L1jy
+         WLxE5R8K5EIDTLMDwVls6djrH+Tj+TMQCFly6LFRZ2s+II2VCVSSN6m9b5Vv+FS0DnKX
+         fLOJUZyL9uyWI3KQ7AgN9XS5S6Jzt7Exs9M35OEZtvMGqOL/Njja1EgUdfSVRn8m1Zfv
+         7pIiFVExqunjH8S4+9AdAPUg9X+A+tF3LW1iy8jDlmMpFzDAGF0Yvglevjqv/zhUo940
+         XxVtfd3JHTz2Hw8EUWLqxckINncjGTVo9MJqSscI1iBCwHGxEFJ0v8PGwTvdtWYLJ7q3
+         sowg==
+X-Forwarded-Encrypted: i=1; AJvYcCXHUQGsVp1hxHCxdh0L3Gr5DqgMQYlzUY+kIha5nVmbOA+WDoquV2c7C4SD5J3/Hv/XJYeulhmzfU4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzusDG+rPl+zoeH8O833UHvHVz36PT3Qpz25vbEsrMVfd9jOVhF
+	tqN3BQCrfVuihDBGRX/e3Alf3eC8wnmhqbuqbjaCkQgXGPSzkpq+i6L0QZFz0K2oyg==
+X-Gm-Gg: ASbGncsoeDoqAiwJN6gerhlnlOyWrOZHw5//DLuDlbWnlxD7/zo6b7bswh4cd8UaqXN
+	YQ+ATMPrQJa7fRp3AdDJNbwg2ai9wyYpN2ND4vaa0sZMYINr8CdLyDU+pc/lo6IJBpqxzBO7bS7
+	EMaXRiHSos2pILD6RXsNljo2MDUPfssv2DDn6NTXhLFpzSgKfY9Nf0p8bEGbbm9+jeHeIQSr0lm
+	n3Ju7c0tfUSYEK4LMw73XTRoyb6OVwrrrCxQa/odjg5Ao1y/MZbavJ3S8n6XBBJ7hQFPnl9sbMp
+	ndAcwn69RNO8OxeknLxKG/yRWA5tUFoHkn8UDYWMDVbrasMI5Rt1UwxhZ6rPLJcC8lhtOH0xDgv
+	rHfWLyn8tE2mJm6skJsQECjZcgZGqxpHKU/PNAoTx0JnwtHxV559BWgeGCmSUGsigfIEjnuQqmB
+	TQYt2QJsg=
+X-Google-Smtp-Source: AGHT+IGdwS1LQOqaiSM1nwkK7rIWsRYGHpmzTB3oRFk2HVAJWURrhRzP2XVh3UOaWaDJf5uMQFpqlw==
+X-Received: by 2002:a05:6000:4312:b0:3b6:936:976c with SMTP id ffacd0b85a97d-3b794fecc6cmr2810130f8f.17.1753887135188;
+        Wed, 30 Jul 2025 07:52:15 -0700 (PDT)
+Message-ID: <2c43aad7-f8a2-4798-867a-d367db1c2bb2@suse.com>
+Date: Wed, 30 Jul 2025 16:52:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/9] xenstored: use fread() instead of mmap() for
- reading live update state
-To: Juergen Gross <jgross@suse.com>
-Cc: Julien Grall <julien@xen.org>, Anthony PERARD
- <anthony.perard@vates.tech>, Jason Andryuk <jason.andryuk@amd.com>,
- xen-devel@lists.xenproject.org
-References: <20250730122305.4050-1-jgross@suse.com>
- <20250730122305.4050-2-jgross@suse.com>
+Subject: Re: [PATCH] automation/eclair: deviate intentionally unreachable code
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <e699179c079df36f6cb4fdc7865a73cb9fe79f8c.1753881652.git.dmytro_prokopchuk1@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,45 +124,66 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250730122305.4050-2-jgross@suse.com>
+In-Reply-To: <e699179c079df36f6cb4fdc7865a73cb9fe79f8c.1753881652.git.dmytro_prokopchuk1@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30.07.2025 14:22, Juergen Gross wrote:
-> Mini-OS doesn't support using mmap() for accessing a file. In order
-> to support reading the live update state from a 9pfs based file, use
-> fread() instead of mmap().
+On 30.07.2025 16:06, Dmytro Prokopchuk1 wrote:
+> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 > 
-> While adding the offset member to lu_state, change the type of "size"
-> to size_t in order to avoid problems with state exceeding 4GB.
+> MISRA C Rule 2.1 states: "A project shall not contain unreachable code".
+> Functions that are non-returning and are not explicitly annotated with
+> the `noreturn' attribute are considered a violation of this rule.
 > 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-> ---
-> V2:
-> - move to start of series
-> V3:
-> - change offset to off64_t and size to size_t (Andrew Cooper)
+> In certain cases, some functions might be non-returning in debug build
+> configuration (when `NDEBUG' is not defined), due to calls to
+> `__builtin_unreachable' in the expansion of the macro `ASSERT_UNREACHABLE()'.
+> 
+> Conversely, in non-debug (release) builds (when `NDEBUG' is defined),
+> the macro `ASSERT_UNREACHABLE()' expands to an empty construct
+> (`do { } while (0)'), which does not affect the execution flow.
+> This allows such functions to return normally in release builds,
+> avoiding unreachable code.
 
-Wasn't that meant to also cover ...
+While this way of putting it is technically correct as long as all we have
+is
 
-> --- a/tools/xenstored/lu.c
-> +++ b/tools/xenstored/lu.c
-> @@ -27,9 +27,11 @@ struct live_update *lu_status;
->  
->  struct lu_dump_state {
->  	void *buf;
-> -	unsigned int size;
-> -	int fd;
-> +	unsigned int buf_size;
+#ifndef CONFIG_DEBUG
+#define NDEBUG
+#endif
 
-... this field?
+in xen/config.h, but I think it would be better if "debug builds"
+(controlled by CONFIG_DEBUG) were properly separated from assertions
+being active (NDEBUG). For quite some time there has been the plan to
+decouple the two.
+
+Similarly, throughout: You write ASSERT_UNREACHABLE() (i.e. including
+the parentheses), yet oddly you then don't similarly include them when
+referring to __builtin_unreachable().
+
+> --- a/docs/misra/rules.rst
+> +++ b/docs/misra/rules.rst
+> @@ -124,6 +124,15 @@ maintainers if you want to suggest a change.
+>             they are used to generate definitions for asm modules
+>           - Declarations without initializer are safe, as they are not
+>             executed
+> +         - Functions that are noreturn due to calls to `ASSERT_UNREACHABLE`
+> +           macro in debug build configurations are not reported as violations::
+
+I find "reported" odd to appear in this file. My take is that here we
+describe our intentions, not what some tool may be doing. I'd suggest
+"deemed" as replacement.
 
 Jan
 
-> +	size_t size;
-> +	size_t offset;
->  	char *filename;
-> +	FILE *fp;
->  };
+> +              static inline bool
+> +              arch_vcpu_ioreq_completion(enum vio_completion completion)
+> +              {
+> +                  ASSERT_UNREACHABLE();
+> +                  return false;
+> +              }
+>  
+>     * - `Rule 2.6 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_02_06.c>`_
+>       - Advisory
+
 
