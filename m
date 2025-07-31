@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6051B17032
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 13:13:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1065457.1430828 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D08DB17037
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 13:13:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1065462.1430837 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhRDQ-00045s-Hm; Thu, 31 Jul 2025 11:12:52 +0000
+	id 1uhRE5-0004XB-Qs; Thu, 31 Jul 2025 11:13:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1065457.1430828; Thu, 31 Jul 2025 11:12:52 +0000
+Received: by outflank-mailman (output) from mailman id 1065462.1430837; Thu, 31 Jul 2025 11:13:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhRDQ-00042l-EI; Thu, 31 Jul 2025 11:12:52 +0000
-Received: by outflank-mailman (input) for mailman id 1065457;
- Thu, 31 Jul 2025 11:12:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uhRE5-0004V6-MQ; Thu, 31 Jul 2025 11:13:33 +0000
+Received: by outflank-mailman (input) for mailman id 1065462;
+ Thu, 31 Jul 2025 11:13:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lm68=2M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uhRDP-00042f-So
- for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 11:12:51 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4b7bc945-6dff-11f0-b895-0df219b8e170;
- Thu, 31 Jul 2025 13:12:50 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3a588da60dfso145808f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 04:12:50 -0700 (PDT)
+ id 1uhRE4-0004Hv-Il
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 11:13:32 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 64561aa8-6dff-11f0-a320-13f23c93f187;
+ Thu, 31 Jul 2025 13:13:31 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-3b7746135acso187626f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 04:13:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-241e8975c89sm15257985ad.96.2025.07.31.04.12.43
+ 98e67ed59e1d1-3209a84d115sm1708304a91.36.2025.07.31.04.13.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Jul 2025 04:12:48 -0700 (PDT)
+ Thu, 31 Jul 2025 04:13:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4b7bc945-6dff-11f0-b895-0df219b8e170
+X-Inumbo-ID: 64561aa8-6dff-11f0-a320-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753960369; x=1754565169; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753960411; x=1754565211; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xU97/oSml6hJUupS4ZJrSlZ8p/67ZsEfsC0n8G2wK48=;
-        b=gw1l1ja60x74Q7R+rOYLU3q16Rkepb9SHsBxpcxXfhFKzGVURwKqHgs0RLLQk6k0BK
-         pqHoN38TZi6l2QWoW/03bHJMSJwNzl7JMbZUmxwqMS2WyxGT3lbngojWFt7UclOpvjHp
-         IQPQ2zz7WueVTgJ7xTyTOcnHk1jjnbcE+JdRp3O0AFKx18Te8u0ijIA11RkfIvkhpl1X
-         yueJpARIm8LYnXcLCDKbGLanT47n+P7coNzSDF/zCcHexcYH2GSlIj8CAHG/k4ANGRIr
-         U6hsg3OzOuks8BHQqtsHOevGZdWWlKywN2xyF+KV51x79c0Rrg2KpdCnj6ztuMKxI8Lw
-         h2ag==
+        bh=5F2gDJ16A2szIkXOtTrX3+Y9lf29WIqo2T09W31WiYk=;
+        b=EKaJ/NZgul4wahXNOvBhVq5CifGI4EGdtnb9yzeTbqPdg+b9A8mwqFJmF7YtRkb/AX
+         SPSE2G7jbMpR6c4YfpD0fLjtGTP7Rakzlne8s1vQvZW4v6qbWAkntNJVALHF+b8eW2kM
+         iAwuI7AFWSR2OmzYiZiJhofw7whwyWactIoIdGW9KXV3X0R9suGyi5/JJ90nKdqlGiXG
+         M6XLe1LWVeMTAT7n+rlbKwqNCnhsNe2cRAg62WLl887pNKe1ZaolM22e0U53rEbnl/D0
+         PDczGj1ncwHskCBxfq0Kx7m2lA7qPlPfx4sbp0MSJ4zudpox9nGGdtiWGlJD6a4wLXO9
+         qIWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753960369; x=1754565169;
+        d=1e100.net; s=20230601; t=1753960411; x=1754565211;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xU97/oSml6hJUupS4ZJrSlZ8p/67ZsEfsC0n8G2wK48=;
-        b=T5EK6GojpAjDJ9gHkK4C6A4ytxc5VH4bX6e4rzSpzm3kgrML+d+wW+Ee11GOk7jlTw
-         ee4OExs4bNBtrRie9P1DcBeWGOSAHJ+Qf8f10bPzrxFoK98H8fQyTA/6lMTPac48CGgV
-         0YFbAdhmon88hjI0JWyDeTAYI+9K8ecy11sgJAJkdVQXLqtHFzQIut94hTryhcrzsPVE
-         zlstIX1f5RBzn+aOuKi6M5LxbXlPhJQ2ah3lO/HwBqnzsT+1qoBww2gITB2+1vF+vDRU
-         pdaPHpDwnGJqi48MjFjCAfOFAkvTeOmtt16QlFhoumr0Q1aoY8wg6LXMf2g9RJfo9S/d
-         HT6A==
-X-Forwarded-Encrypted: i=1; AJvYcCUN/4Wq8PcF7hLn4jHWgY8gPEiA5nvyV8ZySbmfEx99hRBlwIYChsJd1YCpC6+5Ofi+UvLPsrFJjL0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxrsLm6U77rLksb2WJLLyKV+sfiDFUzmX2exfvrHsZ3UTAg5EDi
-	X/ZnPk87Uv7iePG3zNPouuyAme05WFeZ845ud2eiBcHlbOIMofcfG5Gdl+9rHv+JIA==
-X-Gm-Gg: ASbGncs7blMSLnv4G73liwB3kYbPrIimcu4Febjl2EjYRiykAMyWhu7ArhoCoP493l2
-	8vHvxV481HbceomNPatAypHuPt01acd1JQosy9FADHb4Rtd6Em0pz/GnPWc/py2IdryKNVqYG+4
-	FpgKbckRL2G3Qh0q0KAQbvH8TV6CuwFxz18OY9UDwHOzDQFUcXyewUDzeupV93MDQG1DkKUFgAC
-	Wfu26hzrYdo/GECjp9haH13+XOSuG2MNZmf9Fy7oG7YXYD7tyZWkK+5vEqyShjlTtDoSBPkDmNL
-	FV0R23A39ND+ymgqOYWhr74XxcCmTEbihbmdNY4Fha9cmVzU9rsKK5UwTBGGrbJVllUiFbL5TUP
-	j1bmLAeK+ug9uQcfqoFk3HsXWMxzJftX0EDqH9wMZOaL/oaWQW943gLn3sPGrSXWgGM+GYYPlxP
-	pVYlly+E4=
-X-Google-Smtp-Source: AGHT+IEtu3UWFh7NBV07ecUBzGRCVGW8/lUrW0Kb59A0JpviBrJEEF2WAUEQMqiomNu6rllF2aRRbg==
-X-Received: by 2002:a05:6000:2f84:b0:3b7:88e5:ce57 with SMTP id ffacd0b85a97d-3b794ff1544mr5188788f8f.27.1753960369458;
-        Thu, 31 Jul 2025 04:12:49 -0700 (PDT)
-Message-ID: <08c4f197-6651-4fe4-9b25-844b38a664b0@suse.com>
-Date: Thu, 31 Jul 2025 13:12:39 +0200
+        bh=5F2gDJ16A2szIkXOtTrX3+Y9lf29WIqo2T09W31WiYk=;
+        b=t5EMGoLxxHRHjX4nK1JNt9N4PH3OsVy/Yr4esjEFdnQbk8OdnxQgVfNQE+166ix9CM
+         G3ZOSN1LZP4ASi2dh0NZJkidcVK7Wg8CuY8/PBLnCU0lDwqTsEGPrHh3o3FR4GsDKium
+         yxsBXGT6EPTLhR0Ce1mWV1WSL1/MwYbI2cGo/HV860av3n/9jD5lYzbR31dWm0MjQ6aa
+         MSMxUwPFIQ4Ir/F3nEh3A4NbglPVexhHWOhhTsQEwjXjJQ/cl3DXh5vxdHFzrmzhngcn
+         cU+xE3zJ9LzLpuI8UAAgGY+TkNxu5oOL/o9I0L+GI6B2vqysco2FO/q5woTI/YDRbdg9
+         6kyQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXENXTcnnSBzqZlBS7lsOhiEZARnfxKDR9j2Ibb3ZYqsVm1GdPswnbX1pWSM9CXlGuUyuwRdAy829U=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwgZL8vk0qapBClGjCzxeZK3eGNofwI/nvASn2HCwk8c9Bjshyi
+	SXaAXueyPs6M1h5TDxeRwTDAvrZhtGqYYs0q89GMsokud8OU/veee1YeJcdyPyJ5Iw==
+X-Gm-Gg: ASbGncslnYWy1Infjo0iZh4JC1wuIQpyq77C+ZSH3yIQCZR1xF1bJ0lbVjnQx8qWgOU
+	9fseH7+qHnfMuu42j/r7qCr87vSzdKZrQH7lNaVVE3o+OQJEr2DvBzC7ComErY0daYTUuaTAJqA
+	FAPNL8tz3O1UrZTBuaKAaBkgBEWJSgJFJTNPjErfDiwKD5hoP3jXTWaCnr312bcsXUsJGsBqOTV
+	o3I798Y0IH3emZGRKpyRCTSUtzqJipHbR4Cn/fwnxU7zFrKy8lknPlSXB10fWZtIX5VmZKSk4cG
+	JDNu51XEdNlqQbisdPtbmI9IdMyndpPxf6/mBkQmSFVS1xyOWDnVR94m432vPXvJRXVrKXeuKGE
+	zVtBf4FnW9e/AirBYU/Yf2ZhTcKQm55+q+WGguLcN9ujtsJlM/JWEhA8BEbXEtFsK14mXyMyfSY
+	k2NTXN3Eo=
+X-Google-Smtp-Source: AGHT+IHznc18z90YEQx5aIcf2nrc8edFM9aVmZ1U/SdNRUv0uoIGHeLAE4UswGhdl0wwKkbFZUW9lA==
+X-Received: by 2002:a05:6000:401e:b0:3b8:12a6:36b8 with SMTP id ffacd0b85a97d-3b812a637f1mr1119998f8f.46.1753960411270;
+        Thu, 31 Jul 2025 04:13:31 -0700 (PDT)
+Message-ID: <a5515c08-76af-4c83-9c02-7654c944b25e@suse.com>
+Date: Thu, 31 Jul 2025 13:13:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] xen/version: Fold print_build_id() into
- print_version()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH 2/2] common: Make livepatch dependent on HAS_VMAP
+To: "Orzel, Michal" <michal.orzel@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250731110231.3551636-1-andrew.cooper3@citrix.com>
- <20250731110231.3551636-2-andrew.cooper3@citrix.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250731080522.810468-1-michal.orzel@amd.com>
+ <20250731080522.810468-3-michal.orzel@amd.com>
+ <8d2d444c-29cb-45da-9bf0-03dac4d01cb8@suse.com>
+ <b5801413-f077-445f-a665-e9e8e4858dd1@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,25 +123,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250731110231.3551636-2-andrew.cooper3@citrix.com>
+In-Reply-To: <b5801413-f077-445f-a665-e9e8e4858dd1@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 31.07.2025 13:02, Andrew Cooper wrote:
-> Both callsites call them as a pair, and the buildid really is as much a part
-> of the version as the changeset.
+On 31.07.2025 13:10, Orzel, Michal wrote:
+> On 31/07/2025 10:22, Jan Beulich wrote:
+>> On 31.07.2025 10:05, Michal Orzel wrote:
+>>> It should not be possible to select and build livepatch if HAS_VMAP is
+>>> not selected. This is the case on MPU systems.
+>>>
+>>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>>
+>> I agree this is necessary for now, so
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>> But in principle live-patching ought to be possible without MMU as well,
+>> just that the code will need suitably enabling? If so, it would be nice
+>> if the description could somehow express this.
+> Yes, I agree that it can be enabled in the future with some additional changes.
+> I can tweak commit msg when committing:
+> "While technically possible to support live-patching on MPU systems, today the
+> code depends on vmap. However, this relationship is not reflected in Kconfig
+> and allows to enable live-patching on MPU, where HAS_VMAP is not selected."
 
-I wouldn't view it as strongly, but then I also don't mind making the
-connection, so ...
-
-> This involves rearranging console_init_preirq() to ensure xen_build_init() is
-> ahead of print_version().
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Fine with me, thanks.
 
 Jan
 
