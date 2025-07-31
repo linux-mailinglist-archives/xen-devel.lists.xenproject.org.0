@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9D19B1768F
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 21:22:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1066288.1431538 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 158D5B17692
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 21:22:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1066295.1431550 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhYr6-0000nq-EK; Thu, 31 Jul 2025 19:22:20 +0000
+	id 1uhYrE-0001Qd-MP; Thu, 31 Jul 2025 19:22:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1066288.1431538; Thu, 31 Jul 2025 19:22:20 +0000
+Received: by outflank-mailman (output) from mailman id 1066295.1431550; Thu, 31 Jul 2025 19:22:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhYr6-0000kP-A0; Thu, 31 Jul 2025 19:22:20 +0000
-Received: by outflank-mailman (input) for mailman id 1066288;
- Thu, 31 Jul 2025 19:22:19 +0000
+	id 1uhYrE-0001N9-Ir; Thu, 31 Jul 2025 19:22:28 +0000
+Received: by outflank-mailman (input) for mailman id 1066295;
+ Thu, 31 Jul 2025 19:22:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hI6J=2M=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uhYr5-0008Dk-2S
- for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 19:22:19 +0000
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch
- [109.224.244.18]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ac4c0a31-6e43-11f0-a320-13f23c93f187;
- Thu, 31 Jul 2025 21:22:18 +0200 (CEST)
+ id 1uhYrD-0008Dk-95
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 19:22:27 +0000
+Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch
+ [79.135.106.29]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b04410b2-6e43-11f0-a320-13f23c93f187;
+ Thu, 31 Jul 2025 21:22:24 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,383 +36,221 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac4c0a31-6e43-11f0-a320-13f23c93f187
+X-Inumbo-ID: b04410b2-6e43-11f0-a320-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=mf5fmfeiw5ha5k2lpkowwvxjba.protonmail; t=1753989737; x=1754248937;
-	bh=rd0G6a/A4rABeVEFW8qJpuxTuABcWJivkWerOleXwlU=;
+	s=protonmail; t=1753989742; x=1754248942;
+	bh=nET/YekCrtFOd8J/QpR/PNJPwpw8NCRxr8ywYoWVD1Y=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=MNyGnYhYaaH8+FLwfbSbiLB/PZXSeQnvA1lQG0zmsdSdmRbUGZTU0ZpE11upnYzUu
-	 wE7UtWK8bVJCBgmrRx2yOt+G/5axI8e/6HNzWYbEk0Kq8pGMaDdOTEjupCES4DkBVp
-	 iUk6/GIpH69J/THOfXDvidHVCZ13IcK8BMlr9OWaEDt5TrWSoPEG66aDcRzKSCHhjN
-	 Mu19j4IE2T52DRdCiBnJh7mZZZO+dE8RGW0lzB5hvTgmv5TMgbA3RxoCTyYcH7Ln+J
-	 f9P24wy4tH8nGD39vO6KBRQDFxPVRhpKTyhNFSDCDZ9TxQRfMcge4L+Q14hmtXXVH8
-	 RuDTvseE7J0ew==
-Date: Thu, 31 Jul 2025 19:22:12 +0000
+	b=VGQ3iJx3Zjr2NeQvV77myvgYjJM9x/Yuglg25Sl2hF4TklryFqimHY7sSf//N8FUE
+	 8vO8CV9GYo3jEV37c1QUJl8aN5cASWyR2FZCPuYVKDh2lIibCFTn7NbCLFy3xROEir
+	 W/AoSz2gx4Rm81FYBzO8+ubRXqbRdXMWNNiB9LtrAQN+Lrb/yDCaOhfRIF8wyLLz3q
+	 lrF3YxwRYGKg3MgRUxhy8+oJRzAeeL9Bd5RtTrzWhav4Aq8e1c2RehLnmJSyVZX2RN
+	 +ooWDGqhXyONGbwBttyJer2pMtwJVdMt2vZY455ZTy3TBnl3UPGtecBTBh6s9+aAA7
+	 Bj1XemJyFS2UQ==
+Date: Thu, 31 Jul 2025 19:22:18 +0000
 To: xen-devel@lists.xenproject.org
 From: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH v4 6/8] tools/xl: enable NS16550-compatible UART emulator for HVM (x86)
-Message-ID: <20250731192130.3948419-7-dmukhin@ford.com>
+Subject: [PATCH v4 7/8] tools/xl: enable NS16550-compatible UART emulator for PVH (x86)
+Message-ID: <20250731192130.3948419-8-dmukhin@ford.com>
 In-Reply-To: <20250731192130.3948419-1-dmukhin@ford.com>
 References: <20250731192130.3948419-1-dmukhin@ford.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: f3da0372c12c9890250b561537f7a33a735fa7be
+X-Pm-Message-ID: 460044f3d5917e7bc8bf33fcc9f6551956090e67
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 From: Denis Mukhin <dmukhin@ford.com>=20
 
-Enable UART emulator to be individually configured per HVM-domain.
+Enable virtual NS16550 for PVH domains in xl.
+
+{map,unmap}_domain_emuirq_pirq() infrastructure is modified by adding new
+type of interrupt resources 'IRQ_EMU' which means 'emulated device IRQ'
+(similarly to IRQ_MSI_EMU).
+
+This is necessary to for IOAPIC emulation code to skip IRQ->PIRQ mapping
+(vioapic_hwdom_map_gsi()) when guest OS unmasks vIOAPIC pin corresponding t=
+o
+virtual device's IRQ.
+
+Also, hvm_gsi_eoi() is modified to trigger assertion in hvm_gsi_deassert()
+path for ISA IRQs.
 
 Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 ---
 Changes since v3:
 - new patch
 ---
- docs/man/xl.cfg.5.pod.in             |  9 ++++--
- tools/golang/xenlight/helpers.gen.go |  4 +--
- tools/golang/xenlight/types.gen.go   |  3 +-
- tools/libs/light/libxl_arm.c         | 26 ++++++++++++-----
- tools/libs/light/libxl_create.c      |  2 +-
- tools/libs/light/libxl_types.idl     |  3 +-
- tools/libs/light/libxl_x86.c         | 42 ++++++++++++++++++++++++++++
- tools/ocaml/libs/xc/xenctrl.ml       |  1 +
- tools/ocaml/libs/xc/xenctrl.mli      |  1 +
- tools/xl/xl_parse.c                  |  2 +-
- xen/arch/x86/domain.c                |  5 ++--
- 11 files changed, 80 insertions(+), 18 deletions(-)
+ tools/libs/light/libxl_x86.c          |  2 +-
+ xen/arch/x86/domain.c                 |  2 ++
+ xen/arch/x86/hvm/vioapic.c            | 10 ++++++++++
+ xen/arch/x86/include/asm/irq.h        |  1 +
+ xen/common/emul/vuart/vuart-ns16550.c | 27 +++++++++++++++++++++++++--
+ xen/drivers/passthrough/x86/hvm.c     |  9 ++++-----
+ 6 files changed, 43 insertions(+), 8 deletions(-)
 
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index 5362fb0e9a6f..e1d012274eaf 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -3032,14 +3032,17 @@ the domain was created.
- This requires hardware compatibility with the requested version, either
- natively or via hardware backwards compatibility support.
-=20
--=3Ditem B<vuart=3D"uart">
-+=3Ditem B<vuart=3D[ "sbsa_uart", "ns16550" ]>
-=20
- To enable vuart console, user must specify the following option in the
--VM config file:
-+VM config file, e.g:
-=20
-+```
- vuart =3D "sbsa_uart"
-+```
-=20
--Currently, only the "sbsa_uart" model is supported for ARM.
-+Currently, "sbsa_uart" (ARM) and "ns16550" (x86) are the only supported
-+UART models.
-=20
- =3Dback
-=20
-diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/h=
-elpers.gen.go
-index b43aad7d0064..e56af8a8a8c5 100644
---- a/tools/golang/xenlight/helpers.gen.go
-+++ b/tools/golang/xenlight/helpers.gen.go
-@@ -1160,7 +1160,6 @@ x.TypeUnion =3D &typePvh
- default:
- return fmt.Errorf("invalid union key '%v'", x.Type)}
- x.ArchArm.GicVersion =3D GicVersion(xc.arch_arm.gic_version)
--x.ArchArm.Vuart =3D VuartType(xc.arch_arm.vuart)
- x.ArchArm.SveVl =3D SveType(xc.arch_arm.sve_vl)
- x.ArchArm.NrSpis =3D uint32(xc.arch_arm.nr_spis)
- if err :=3D x.ArchX86.MsrRelaxed.fromC(&xc.arch_x86.msr_relaxed);err !=3D =
-nil {
-@@ -1169,6 +1168,7 @@ return fmt.Errorf("converting field ArchX86.MsrRelaxe=
-d: %v", err)
- x.Altp2M =3D Altp2MMode(xc.altp2m)
- x.Altp2MCount =3D uint32(xc.altp2m_count)
- x.VmtraceBufKb =3D int(xc.vmtrace_buf_kb)
-+x.Vuart =3D VuartType(xc.vuart)
- if err :=3D x.Vpmu.fromC(&xc.vpmu);err !=3D nil {
- return fmt.Errorf("converting field Vpmu: %v", err)
- }
-@@ -1695,7 +1695,6 @@ break
- default:
- return fmt.Errorf("invalid union key '%v'", x.Type)}
- xc.arch_arm.gic_version =3D C.libxl_gic_version(x.ArchArm.GicVersion)
--xc.arch_arm.vuart =3D C.libxl_vuart_type(x.ArchArm.Vuart)
- xc.arch_arm.sve_vl =3D C.libxl_sve_type(x.ArchArm.SveVl)
- xc.arch_arm.nr_spis =3D C.uint32_t(x.ArchArm.NrSpis)
- if err :=3D x.ArchX86.MsrRelaxed.toC(&xc.arch_x86.msr_relaxed); err !=3D n=
-il {
-@@ -1704,6 +1703,7 @@ return fmt.Errorf("converting field ArchX86.MsrRelaxe=
-d: %v", err)
- xc.altp2m =3D C.libxl_altp2m_mode(x.Altp2M)
- xc.altp2m_count =3D C.uint32_t(x.Altp2MCount)
- xc.vmtrace_buf_kb =3D C.int(x.VmtraceBufKb)
-+xc.vuart =3D C.libxl_vuart_type(x.Vuart)
- if err :=3D x.Vpmu.toC(&xc.vpmu); err !=3D nil {
- return fmt.Errorf("converting field Vpmu: %v", err)
- }
-diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/typ=
-es.gen.go
-index 4777f528b52c..2f4153d2510b 100644
---- a/tools/golang/xenlight/types.gen.go
-+++ b/tools/golang/xenlight/types.gen.go
-@@ -253,6 +253,7 @@ type VuartType int
- const(
- VuartTypeUnknown VuartType =3D 0
- VuartTypeSbsaUart VuartType =3D 1
-+VuartTypeNs16550 VuartType =3D 2
- )
-=20
- type VkbBackend int
-@@ -596,7 +597,6 @@ Type DomainType
- TypeUnion DomainBuildInfoTypeUnion
- ArchArm struct {
- GicVersion GicVersion
--Vuart VuartType
- SveVl SveType
- NrSpis uint32
- }
-@@ -608,6 +608,7 @@ Altp2MCount uint32
- VmtraceBufKb int
- Vpmu Defbool
- TrapUnmappedAccesses Defbool
-+Vuart VuartType
- }
-=20
- type DomainBuildInfoTypeUnion interface {
-diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index 4a19a8d22bdf..f4721b24763c 100644
---- a/tools/libs/light/libxl_arm.c
-+++ b/tools/libs/light/libxl_arm.c
-@@ -92,14 +92,26 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
-     uint32_t virtio_mmio_irq =3D GUEST_VIRTIO_MMIO_SPI_FIRST;
-     int rc;
-=20
--    /*
--     * If pl011 vuart is enabled then increment the nr_spis to allow alloc=
-ation
--     * of SPI VIRQ for pl011.
--     */
--    if (d_config->b_info.arch_arm.vuart =3D=3D LIBXL_VUART_TYPE_SBSA_UART)=
- {
-+    switch ( d_config->b_info.vuart )
-+    {
-+    case LIBXL_VUART_TYPE_SBSA_UART:
-+        /*
-+         * If pl011 vuart is enabled then increment the nr_spis to allow
-+         * allocation of SPI VIRQ for pl011.
-+         */
-         nr_spis +=3D (GUEST_VPL011_SPI - 32) + 1;
-         vuart_irq =3D GUEST_VPL011_SPI;
-         vuart_enabled =3D true;
-+        break;
-+
-+    case LIBXL_VUART_TYPE_NS16550:
-+        LOG(ERROR, "unsupported UART emulator %d\n", d_config->b_info.vuar=
-t);
-+        abort();
-+        break;
-+
-+    case LIBXL_VUART_TYPE_UNKNOWN:
-+    default:
-+        break;
-     }
-=20
-     for (i =3D 0; i < d_config->num_disks; i++) {
-@@ -1372,7 +1384,7 @@ next_resize:
-         FDT( make_timer_node(gc, fdt, ainfo, state->clock_frequency) );
-         FDT( make_hypervisor_node(gc, fdt, vers) );
-=20
--        if (info->arch_arm.vuart =3D=3D LIBXL_VUART_TYPE_SBSA_UART)
-+        if (info->vuart =3D=3D LIBXL_VUART_TYPE_SBSA_UART)
-             FDT( make_vpl011_uart_node(gc, fdt, ainfo, dom) );
-=20
-         if (info->tee =3D=3D LIBXL_TEE_TYPE_OPTEE)
-@@ -1725,7 +1737,7 @@ int libxl__arch_build_dom_finish(libxl__gc *gc,
- {
-     int rc =3D 0, ret;
-=20
--    if (info->arch_arm.vuart !=3D LIBXL_VUART_TYPE_SBSA_UART) {
-+    if (info->vuart !=3D LIBXL_VUART_TYPE_SBSA_UART) {
-         rc =3D 0;
-         goto out;
-     }
-diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_creat=
-e.c
-index 4042ae1a8957..cfd7e827867a 100644
---- a/tools/libs/light/libxl_create.c
-+++ b/tools/libs/light/libxl_create.c
-@@ -1815,7 +1815,7 @@ static void domcreate_launch_dm(libxl__egc *egc, libx=
-l__multidev *multidev,
-                               &d_config->vfbs[i]);
-         }
-=20
--        if (d_config->b_info.arch_arm.vuart =3D=3D LIBXL_VUART_TYPE_SBSA_U=
-ART) {
-+        if (d_config->b_info.vuart =3D=3D LIBXL_VUART_TYPE_SBSA_UART) {
-             init_console_info(gc, &vuart, 0);
-             vuart.backend_domid =3D state->console_domid;
-             libxl__device_vuart_add(gc, domid, &vuart, state);
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_type=
-s.idl
-index fe251649f346..fd60c2b26764 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -276,6 +276,7 @@ libxl_checkpointed_stream =3D Enumeration("checkpointed=
-_stream", [
- libxl_vuart_type =3D Enumeration("vuart_type", [
-     (0, "unknown"),
-     (1, "sbsa_uart"),
-+    (2, "ns16550"),
-     ])
-=20
- libxl_vkb_backend =3D Enumeration("vkb_backend", [
-@@ -722,7 +723,6 @@ libxl_domain_build_info =3D Struct("domain_build_info",=
-[
-=20
-=20
-     ("arch_arm", Struct(None, [("gic_version", libxl_gic_version),
--                               ("vuart", libxl_vuart_type),
-                                ("sve_vl", libxl_sve_type),
-                                ("nr_spis", uint32, {'init_val': 'LIBXL_NR_=
-SPIS_DEFAULT'}),
-                               ])),
-@@ -739,6 +739,7 @@ libxl_domain_build_info =3D Struct("domain_build_info",=
-[
-=20
-     ("vpmu", libxl_defbool),
-     ("trap_unmapped_accesses", libxl_defbool),
-+    ("vuart", libxl_vuart_type),
-=20
-     ], dir=3DDIR_IN,
-        copy_deprecated_fn=3D"libxl__domain_build_info_copy_deprecated",
 diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.c
-index 60d4e8661c93..0f039ca65a88 100644
+index 0f039ca65a88..a40647c06cb9 100644
 --- a/tools/libs/light/libxl_x86.c
 +++ b/tools/libs/light/libxl_x86.c
-@@ -2,6 +2,45 @@
- #include "libxl_arch.h"
- #include <xen/arch-x86/cpuid.h>
-=20
-+static void libxl__arch_domain_vuart_assert(
-+    libxl__gc *gc,
-+    libxl_domain_config *d_config,
-+    struct xen_domctl_createdomain *config)
-+{
-+    LOG(ERROR, "unsupported UART emulator %d\n", d_config->b_info.vuart);
-+    abort();
-+}
-+
-+static void libxl__arch_domain_vuart_unsupported(
-+    libxl__gc *gc,
-+    libxl_domain_config *d_config,
-+    struct xen_domctl_createdomain *config)
-+{
-+    if ( d_config->b_info.vuart !=3D LIBXL_VUART_TYPE_UNKNOWN )
-+        libxl__arch_domain_vuart_assert(gc, d_config, config);
-+}
-+
-+static void libxl__arch_domain_vuart_enable(
-+    libxl__gc *gc,
-+    libxl_domain_config *d_config,
-+    struct xen_domctl_createdomain *config)
-+{
-+    switch ( d_config->b_info.vuart )
-+    {
-+    case LIBXL_VUART_TYPE_SBSA_UART:
-+        libxl__arch_domain_vuart_assert(gc, d_config, config);
-+        break;
-+
-+    case LIBXL_VUART_TYPE_NS16550:
-+        config->arch.emulation_flags |=3D XEN_X86_EMU_NS16550;
-+        break;
-+
-+    case LIBXL_VUART_TYPE_UNKNOWN:
-+    default:
-+        break;
-+    }
-+}
-+
- int libxl__arch_domain_prepare_config(libxl__gc *gc,
-                                       libxl_domain_config *d_config,
-                                       struct xen_domctl_createdomain *conf=
-ig)
-@@ -9,14 +48,17 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
-     switch(d_config->c_info.type) {
-     case LIBXL_DOMAIN_TYPE_HVM:
-         config->arch.emulation_flags =3D (XEN_X86_EMU_ALL & ~XEN_X86_EMU_V=
-PCI);
-+        libxl__arch_domain_vuart_enable(gc, d_config, config);
-         if (!libxl_defbool_val(d_config->b_info.u.hvm.pirq))
-             config->arch.emulation_flags &=3D ~XEN_X86_EMU_USE_PIRQ;
+@@ -54,7 +54,7 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
          break;
      case LIBXL_DOMAIN_TYPE_PVH:
          config->arch.emulation_flags =3D XEN_X86_EMU_LAPIC;
-+        libxl__arch_domain_vuart_unsupported(gc, d_config, config);
+-        libxl__arch_domain_vuart_unsupported(gc, d_config, config);
++        libxl__arch_domain_vuart_enable(gc, d_config, config);
          break;
      case LIBXL_DOMAIN_TYPE_PV:
          config->arch.emulation_flags =3D 0;
-+        libxl__arch_domain_vuart_unsupported(gc, d_config, config);
-         break;
-     default:
-         abort();
-diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.m=
-l
-index 7e1aabad6cba..4539e78bb283 100644
---- a/tools/ocaml/libs/xc/xenctrl.ml
-+++ b/tools/ocaml/libs/xc/xenctrl.ml
-@@ -47,6 +47,7 @@ type x86_arch_emulation_flags =3D
-   | X86_EMU_PIT
-   | X86_EMU_USE_PIRQ
-   | X86_EMU_VPCI
-+  | X86_EMU_NS16550
-=20
- type x86_arch_misc_flags =3D
-   | X86_MSR_RELAXED
-diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.=
-mli
-index f44dba61aeab..66a98180d99b 100644
---- a/tools/ocaml/libs/xc/xenctrl.mli
-+++ b/tools/ocaml/libs/xc/xenctrl.mli
-@@ -41,6 +41,7 @@ type x86_arch_emulation_flags =3D
-   | X86_EMU_PIT
-   | X86_EMU_USE_PIRQ
-   | X86_EMU_VPCI
-+  | X86_EMU_NS16550
-=20
- type x86_arch_misc_flags =3D
-   | X86_MSR_RELAXED
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index 28cdbf07c213..b0d266b5bf63 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -1498,7 +1498,7 @@ void parse_config_data(const char *config_source,
-         b_info->max_vcpus =3D l;
-=20
-     if (!xlu_cfg_get_string(config, "vuart", &buf, 0)) {
--        if (libxl_vuart_type_from_string(buf, &b_info->arch_arm.vuart)) {
-+        if (libxl_vuart_type_from_string(buf, &b_info->vuart)) {
-             fprintf(stderr, "ERROR: invalid value \"%s\" for \"vuart\"\n",
-                     buf);
-             exit(1);
 diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index 7fd4f7a831dc..6a010a509a60 100644
+index 6a010a509a60..39b0c0b199b9 100644
 --- a/xen/arch/x86/domain.c
 +++ b/xen/arch/x86/domain.c
-@@ -780,9 +780,10 @@ static bool emulation_flags_ok(const struct domain *d,=
- uint32_t emflags)
-         /* HVM domU */
+@@ -769,12 +769,14 @@ static bool emulation_flags_ok(const struct domain *d=
+, uint32_t emflags)
+         {
+             .caps   =3D CAP_HVM | CAP_HWDOM,
+             .min    =3D X86_EMU_LAPIC | X86_EMU_IOAPIC | X86_EMU_VPCI,
++            .opt    =3D X86_EMU_NS16550,
+         },
+=20
+         /* PVH domU */
          {
              .caps   =3D CAP_HVM | CAP_DOMU,
--            .min    =3D X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ),
-+            .min    =3D X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ |
-+                                      X86_EMU_NS16550),
-             /* HVM PIRQ feature is user-selectable. */
--            .opt    =3D X86_EMU_USE_PIRQ,
-+            .opt    =3D X86_EMU_USE_PIRQ | X86_EMU_NS16550,
+             .min    =3D X86_EMU_LAPIC,
++            .opt    =3D X86_EMU_NS16550,
          },
- #endif /* #ifdef CONFIG_HVM */
-     };
+=20
+         /* HVM domU */
+diff --git a/xen/arch/x86/hvm/vioapic.c b/xen/arch/x86/hvm/vioapic.c
+index 7c725f9e471f..86fe3aa4a201 100644
+--- a/xen/arch/x86/hvm/vioapic.c
++++ b/xen/arch/x86/hvm/vioapic.c
+@@ -177,6 +177,16 @@ static int vioapic_hwdom_map_gsi(unsigned int gsi, uns=
+igned int trig,
+=20
+     ASSERT(is_hardware_domain(currd));
+=20
++    /*
++     * Interrupt is claimed by one of the platform virtual devices (e.g.
++     * NS16550); do nothing.
++     */
++    read_lock(&currd->event_lock);
++    ret =3D domain_pirq_to_emuirq(currd, gsi);
++    read_unlock(&currd->event_lock);
++    if ( ret !=3D IRQ_UNBOUND )
++        return 0;
++
+     /* Interrupt has been unmasked, bind it now. */
+     ret =3D mp_register_gsi(gsi, trig, pol);
+     if ( ret =3D=3D -EEXIST )
+diff --git a/xen/arch/x86/include/asm/irq.h b/xen/arch/x86/include/asm/irq.=
+h
+index 8c81f66434a8..731d2bbbb1b4 100644
+--- a/xen/arch/x86/include/asm/irq.h
++++ b/xen/arch/x86/include/asm/irq.h
+@@ -221,6 +221,7 @@ void cleanup_domain_irq_mapping(struct domain *d);
+ #define IRQ_UNBOUND (-1)
+ #define IRQ_PT      (-2)
+ #define IRQ_MSI_EMU (-3)
++#define IRQ_EMU     (-4)
+=20
+ bool cpu_has_pending_apic_eoi(void);
+=20
+diff --git a/xen/common/emul/vuart/vuart-ns16550.c b/xen/common/emul/vuart/=
+vuart-ns16550.c
+index 48bbf58264fe..9ec9aed2c594 100644
+--- a/xen/common/emul/vuart/vuart-ns16550.c
++++ b/xen/common/emul/vuart/vuart-ns16550.c
+@@ -355,7 +355,9 @@ static void ns16550_irq_assert(const struct vuart_ns165=
+50 *vdev)
+     struct domain *d =3D vdev->owner;
+     int vector;
+=20
+-    if ( has_vpic(d) ) /* HVM */
++    if ( has_vioapic(d) && !has_vpic(d) ) /* PVH */
++        vector =3D hvm_ioapic_assert(d, vdev->irq, false);
++    else if ( has_vpic(d) ) /* HVM */
+         vector =3D hvm_isa_irq_assert(d, vdev->irq, vioapic_get_vector);
+     else
+         ASSERT_UNREACHABLE();
+@@ -367,7 +369,9 @@ static void ns16550_irq_deassert(const struct vuart_ns1=
+6550 *vdev)
+ {
+     struct domain *d =3D vdev->owner;
+=20
+-    if ( has_vpic(d) ) /* HVM */
++    if ( has_vioapic(d) && !has_vpic(d) ) /* PVH */
++        hvm_ioapic_deassert(d, vdev->irq);
++    else if ( has_vpic(d) ) /* HVM */
+         hvm_isa_irq_deassert(d, vdev->irq);
+     else
+         ASSERT_UNREACHABLE();
+@@ -889,6 +893,17 @@ static int cf_check ns16550_init(struct domain *d,
+                 return rc;
+             }
+=20
++            /* Claim virtual IRQ */
++            write_lock(&d->event_lock);
++            rc =3D map_domain_emuirq_pirq(d, r->addr, IRQ_EMU);
++            write_unlock(&d->event_lock);
++            if ( rc )
++            {
++                pr_err("%s: virtual IRQ#%"PRIu64": cannot claim: %d\n",
++                        desc->name, r->addr, rc);
++                return rc;
++            }
++
+             vdev->irq =3D r->addr;
+         }
+         else
+@@ -919,12 +934,20 @@ static int cf_check ns16550_init(struct domain *d,
+ static void cf_check ns16550_deinit(struct domain *d)
+ {
+     struct vuart_ns16550 *vdev =3D d->arch.hvm.vuart;
++    int rc;
+=20
+     if ( !vdev )
+         return;
+=20
+     spin_lock(&vdev->lock);
+=20
++    rc =3D unmap_domain_pirq_emuirq(vdev->owner, vdev->irq);
++    if ( rc )
++    {
++        pr_err("%s: virtual IRQ#%d: cannot unclaim: %d\n",
++                vdev->name, vdev->irq, rc);
++    }
++
+     ns16550_fifo_tx_flush(vdev);
+=20
+     spin_unlock(&vdev->lock);
+diff --git a/xen/drivers/passthrough/x86/hvm.c b/xen/drivers/passthrough/x8=
+6/hvm.c
+index a2ca7e0e570c..22905cd86f95 100644
+--- a/xen/drivers/passthrough/x86/hvm.c
++++ b/xen/drivers/passthrough/x86/hvm.c
+@@ -924,12 +924,11 @@ static void hvm_gsi_eoi(struct domain *d, unsigned in=
+t gsi)
+ {
+     struct pirq *pirq =3D pirq_info(d, gsi);
+=20
+-    /* Check if GSI is actually mapped. */
+-    if ( !pirq_dpci(pirq) )
+-        return;
+-
+     hvm_gsi_deassert(d, gsi);
+-    hvm_pirq_eoi(pirq);
++
++    /* Check if GSI is actually mapped. */
++    if ( pirq_dpci(pirq) )
++        hvm_pirq_eoi(pirq);
+ }
+=20
+ static int cf_check _hvm_dpci_isairq_eoi(
 --=20
 2.34.1
 
