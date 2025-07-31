@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1C80B17799
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 23:03:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1066436.1431669 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8840B177A4
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 23:03:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1066445.1431678 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhaQP-0005Lv-U2; Thu, 31 Jul 2025 21:02:53 +0000
+	id 1uhaR4-0005ta-5R; Thu, 31 Jul 2025 21:03:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1066436.1431669; Thu, 31 Jul 2025 21:02:53 +0000
+Received: by outflank-mailman (output) from mailman id 1066445.1431678; Thu, 31 Jul 2025 21:03:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhaQP-0005JV-R2; Thu, 31 Jul 2025 21:02:53 +0000
-Received: by outflank-mailman (input) for mailman id 1066436;
- Thu, 31 Jul 2025 21:02:52 +0000
+	id 1uhaR4-0005s3-2o; Thu, 31 Jul 2025 21:03:34 +0000
+Received: by outflank-mailman (input) for mailman id 1066445;
+ Thu, 31 Jul 2025 21:03:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hI6J=2M=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uhaQO-0005H7-Hz
- for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 21:02:52 +0000
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch
- [109.224.244.16]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b6e94179-6e51-11f0-a320-13f23c93f187;
- Thu, 31 Jul 2025 23:02:49 +0200 (CEST)
+ id 1uhaR3-0005rp-0c
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 21:03:33 +0000
+Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch
+ [79.135.106.30]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d0bf6282-6e51-11f0-a320-13f23c93f187;
+ Thu, 31 Jul 2025 23:03:32 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,72 +36,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6e94179-6e51-11f0-a320-13f23c93f187
+X-Inumbo-ID: d0bf6282-6e51-11f0-a320-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1753995768; x=1754254968;
-	bh=Pyt+yjTjZvwmVwUcfrsF7Lr2ji6VhDTaT8smtailbYc=;
+	s=protonmail; t=1753995810; x=1754255010;
+	bh=bBWu5RC/ZcaHHxnMvO0YJUhDcmAHh+EYqtQNOSQy9uE=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=GZPpUgnsRMEUL21bO+0HywzhDnFqVAax45s/Y9GIyO80x3C+N7QFMNZ2jCn24Z3Vc
-	 To5DzRRHIxadcD+yfIgA4VQS3ujaTrioQeLlWTFeib1nb+lUScF4RgvatFeYBT/aNQ
-	 y3N3QF4USK5Xi4tRJbKsEPNo0FRIlBhtsmZqGCj8F+DUvhK2g70X2/XB4znthf7ERh
-	 JbTF4KZytBHQOvSgrpjwwlPV6D7CCXIPRyaMxBg1OlcUPQqUL3wMKmP1RqD/cGyLU1
-	 WBg/NUYZ03uyqVsKYhcmvnwSMnTeNfE1KCl5XtCT+HYRnwLXXVEF5mCX74rZktBcns
-	 oDEib0jbTrycA==
-Date: Thu, 31 Jul 2025 21:02:44 +0000
+	b=IegN2l1KwrQ5ozf7beUDNV+3y8J3fKGGAMXLwGwkwgWXWruRvNaevgFLmNxjIs99I
+	 EW0qBEnI/6B6e6TuhdK07ziCJ5pOGx2qrf/qfsrSAFCDL/qxPS3BywfM4xF9dEiSmj
+	 MdYTIu3EW/BbRXkngw6m9T/SW1mv0cS2A20NAZzSnCXRuFO/ooGPTxj4sgdwkeY0YJ
+	 Era2iIamuuKNEHUd9lK0FQ2MF6A4f3XzfBvy8JzWdbevWtF1l4lmwq6Nh4SwagW115
+	 uNYCDI1BJgKWU+Yla5Pd6d8cj/iHFAnWu5e02fHtvh5B/2eIBI50xhnhm6RMMzQBkL
+	 u1wZZs4QDNyUQ==
+Date: Thu, 31 Jul 2025 21:03:27 +0000
 To: "Orzel, Michal" <michal.orzel@amd.com>
 From: dmkhn@proton.me
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, oleksii.kurochko@gmail.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: Re: [PATCH v1 02/16] arm/vpl011: move DT node parsing to PL011 emulator code
-Message-ID: <aIvZ8P+Jwe/tzOY9@kraken>
-In-Reply-To: <c88b9817-3976-4fb2-9f7b-d69092ce181d@amd.com>
-References: <20250624035443.344099-1-dmukhin@ford.com> <20250624035443.344099-3-dmukhin@ford.com> <c0b76bb4-9330-4f54-8314-fa2c2efa8ee8@amd.com> <aFsfCuh9Xrkgxmml@kraken> <c88b9817-3976-4fb2-9f7b-d69092ce181d@amd.com>
+Cc: Jan Beulich <jbeulich@suse.com>, andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, oleksii.kurochko@gmail.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 04/16] arm/vpl011: use raw spin_lock_{irqrestore,irqsave}
+Message-ID: <aIvaGtNBQ7F85g8g@kraken>
+In-Reply-To: <096ba4c4-16eb-43cd-ae4a-6ef654f08ccf@amd.com>
+References: <20250624035443.344099-1-dmukhin@ford.com> <20250624035443.344099-5-dmukhin@ford.com> <08cb7878-fad7-47f4-9c91-5f866c54b1df@suse.com> <0cfc9465-90d5-46db-88a7-ed47d0809b60@amd.com> <aFscml2vxO1sLzoR@kraken> <096ba4c4-16eb-43cd-ae4a-6ef654f08ccf@amd.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: e1a258683af1e2e39463a236631c69a5ecd74d4e
+X-Pm-Message-ID: c9959dc44e45d73a023d7428a5116e1962254086
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jun 25, 2025 at 08:57:27AM +0200, Orzel, Michal wrote:
+On Wed, Jun 25, 2025 at 08:52:39AM +0200, Orzel, Michal wrote:
 >=20
 >=20
-> On 24/06/2025 23:56, dmkhn@proton.me wrote:
-> > On Tue, Jun 24, 2025 at 09:49:39AM +0200, Orzel, Michal wrote:
+> On 24/06/2025 23:46, dmkhn@proton.me wrote:
+> > On Tue, Jun 24, 2025 at 09:50:54AM +0200, Orzel, Michal wrote:
 > >>
 > >>
-> >> On 24/06/2025 05:55, dmkhn@proton.me wrote:
-> >>> From: Denis Mukhin <dmukhin@ford.com>
+> >> On 24/06/2025 07:46, Jan Beulich wrote:
+> >>> On 24.06.2025 05:55, dmkhn@proton.me wrote:
+> >>>> From: Denis Mukhin <dmukhin@ford.com>
+> >>>>
+> >>>> Replace VPL011_{LOCK,UNLOCK} macros with raw spinlock calls to impro=
+ve
+> >>>> readability.
 > >>>
-> >>> Move vpl011 DT node parsing from common Arm code to PL011 emulator co=
-de.
-> >> It's not parsing, it's DT node generation.
+> >>> I'm not an Arm maintainer, so I have limited say here, but: How is th=
+is
+> >>> improving readability? It better utilizes available local variables, =
+yes,
+> >>> so this may be a little bit of an optimization, but otherwise to me t=
+his
+> >>> looks to rather hamper readability.
+> >> I agree with Jan here. I don't think it improves readability, therefor=
+e I don't
+> >> think such change is needed.
 > >
-> > Oh, that's right, overlooked.
-> > Thanks, will update.
+> > I think exdanding macros helps to understand the code since is explicit=
+ly
+> > shows what kind of locking *really* used, so this aspect is actually ge=
+tting
+> > more readable; yes, that's a bit of more text.
 > >
-> >>
-> >> We usually keep all the DT node generation functions in one place. I'm=
- not sure
-> >> if we want to move them to respective drivers (i.e. vpl011 to vpl011.c=
-, gicv3 to
-> >> gicv3.c, etc.). Not sure what other maintainers think.
-> >>
-> >>>
-> >>> While doing it pick the generic name vuart_add_fwnode() for DT parser=
- function
-> >> What 'fw' stands for? Firmware? This function creates DT node for domU=
-, so it
-> >> should better be sth like vuart_add_dt_node().
-> >
-> > 'fw' stands for 'firmware'.
-> >
-> > It should be some generic name because the function will be used on x86=
- to
-> > generate to generate the guest ACPI tables.
-> I see but maybe vuart_add_node() would be a better choice here.
+> > But, MMIO-based flavor does not define such helpers for example, so now=
+ vUARTs
+> > follow similar coding pattern which is easy to read/follow.
+> I understand your point of view. It's more like a matter of taste here, s=
+o I
+> won't oppose to it. Others may chime in.
 
-Ack.
+Thank you.
 
 >=20
 > ~Michal
