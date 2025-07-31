@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62BE7B16D36
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 10:09:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1064992.1430333 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A9EDB16D44
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 10:13:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1065005.1430344 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhOM5-0006SS-Jo; Thu, 31 Jul 2025 08:09:37 +0000
+	id 1uhOPx-0008GI-4G; Thu, 31 Jul 2025 08:13:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1064992.1430333; Thu, 31 Jul 2025 08:09:37 +0000
+Received: by outflank-mailman (output) from mailman id 1065005.1430344; Thu, 31 Jul 2025 08:13:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhOM5-0006R1-Gr; Thu, 31 Jul 2025 08:09:37 +0000
-Received: by outflank-mailman (input) for mailman id 1064992;
- Thu, 31 Jul 2025 08:09:36 +0000
+	id 1uhOPx-0008DB-1A; Thu, 31 Jul 2025 08:13:37 +0000
+Received: by outflank-mailman (input) for mailman id 1065005;
+ Thu, 31 Jul 2025 08:13:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lm68=2M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uhOM4-0006Qv-9q
- for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 08:09:36 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
+ id 1uhOPv-0008D5-D6
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 08:13:35 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b2218052-6de5-11f0-a320-13f23c93f187;
- Thu, 31 Jul 2025 10:09:35 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3b7892609a5so367057f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 01:09:35 -0700 (PDT)
+ id 40ad31b0-6de6-11f0-a320-13f23c93f187;
+ Thu, 31 Jul 2025 10:13:34 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3b78a034f17so521864f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 01:13:34 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-76bcce6f60dsm954875b3a.15.2025.07.31.01.09.26
+ d9443c01a7336-241e8976a06sm11219495ad.81.2025.07.31.01.13.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Jul 2025 01:09:34 -0700 (PDT)
+ Thu, 31 Jul 2025 01:13:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2218052-6de5-11f0-a320-13f23c93f187
+X-Inumbo-ID: 40ad31b0-6de6-11f0-a320-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753949375; x=1754554175; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753949614; x=1754554414; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=taDWfMmKUzVUiHCdSYb0C3EwRgKnUo63VwryN5vdyzk=;
-        b=JyNPIH5prNy9YpVsNjrWm1cDKC8vESKaRO+YOuvVlP1BogclJzTpG57R+WgYH3/Ndy
-         Rn9B90XC1VX/JKXuw7jwA1MXUFJwW/91iaMAFXiJLaOCdocdjuI1uZMA4LVHIHgh3+OF
-         Zc6J+BpMCgW5d7vbfdFqg5dO5UHrI+CZZWAdrVezEFrc9/Vg71JjlRaVK1xVtwanvQro
-         EzyYOUJ9kV7j/p/rF37KMoQYeFw+wkNIuqdJRaylhO8ZQRHv6k4Ku9PLJFWQbzM8nRc8
-         QZcqPpvyCy4hY/ornT9d/vMDV3eObOXv6T+jBPIWql8RD30zckyqOnMSJVMWScX+YWjF
-         f4vQ==
+        bh=oPqkq7dhWhYpM3wWJ1B4j0IizVrA1foHRWdm8grjYz8=;
+        b=PJ4CRdVWFGmVVhgH/OAvcCJq7KJJnPvhLqNVL9/3TdYAfi0uBvDJ7+SOlXC1S9qoAf
+         SJLNeQoMwLlIcOCh9V5oi/kuy0DqIj58iSLMrbfwOFrFHKZFHW3flNvIrwEx0nudxJx9
+         VgV/yL85V6JQ/tGdXQUt5ta9Utdmc3YbDl1V0nh+0ith92SjzB/1dJejYaJSdymm+oFV
+         +QeLzP6382ICGEvXFjuvVGy1H6XbUfGjmkkiBGWzzUmwa4ROuIxd0I7mCH7lv8TeYJV0
+         PYXUF8jwbsHBupRVmhypjVkjTC4y6ZVdbEFUKyZDcxp2zHXX4QVotXCtNhFFJJkHDd5P
+         GPaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753949375; x=1754554175;
+        d=1e100.net; s=20230601; t=1753949614; x=1754554414;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=taDWfMmKUzVUiHCdSYb0C3EwRgKnUo63VwryN5vdyzk=;
-        b=VeHAgL9gVrbw25GdhD1bVqkwXihaki32d7NbF78Pr/LqyJB2oH7RLxpGGiwfQg6vtM
-         n/UmlrF3sxu6ePNl+PPIlEXjeM2SU1hCLFioi9L6i2Rtao2DF7i82L313ca2vAMIhnzZ
-         mHGq8P6RwKOycUmbc4zHRw7CYx940qeZ0KUeRY8h2dh7L5eHGZE3k949G3j6BopsO+qx
-         TtwRglp14TefYclgU2zOC8s7iJaikt06N+eDFdfwyZLxodjN2am7meXi7go0VvnREzzg
-         +jhDHprsHNgCjBMT9+H04waammfXbA69S8ceM++nlet9tcL04NRzFONeiMYH3gJgaI/N
-         3OdA==
-X-Forwarded-Encrypted: i=1; AJvYcCXzTBXEnhVDc2djNzIEAqYkmIkeM2/welgP4MWAGETznv1AJo48tH7/dypkvEF3XSnKS6fdbssLpE0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxVHQojerSjNSewKtpIuoKO+8k+zUhHNW3JXnX95mE+A2p4lXNk
-	7gi5EfFV4C3nxTQwEtxemBkloPfMWgJQYn4Qh7lMZPfiIRl14481nlAh05L0cMuXlw==
-X-Gm-Gg: ASbGncsff3BekeU8KACOPy375MQ8+c2pGjSbaPxEk6gRDH5Yraxg/1Kk7/Q3C0cZuXx
-	6fKWTwrGyU8Mre1u4tOs9Xkrtl3svE1BJ9QV+VVZI4Cx8jfVKIC14dA6VHMxC3GixNUtDTAibFD
-	v6s0nYnKHBRHUb2n6P/vxx7a9g75uqSXmRyi6Mi0LOyASjM2Wr4gF1HWDjIfoiqoIshoQh+XZVP
-	vE6F/vbNdDPSSCWc/GWi7tQvRdzD/HLCulDe9aQ8XTyljSxWLD5ew08mxB6ZIwNFWCRvoYld4tN
-	UwAIki59DFh7cy7xKFFPWOovcxo/dX+jHFYG8GU47EcZPCSZ0DqKNWxr1XIv8Yw8BUDZCmURL/Z
-	1Y5JlAkb3fgRRWEckFkRwdSAT2/koq/lgjd9SMJzuaUkBphzP6bsnPBzpcU3890X1g242IdSplY
-	/JNB6Tdcg=
-X-Google-Smtp-Source: AGHT+IENVx/sN/J7os1tx6S/oJ+lBF8Km7ZfP4tQmO/ZVTVNbB74kgHzRrlXPmOn9GrMwKiHZ1ebIw==
-X-Received: by 2002:a05:6000:310c:b0:3b7:8851:659 with SMTP id ffacd0b85a97d-3b794fed307mr4573937f8f.19.1753949374616;
-        Thu, 31 Jul 2025 01:09:34 -0700 (PDT)
-Message-ID: <3c7c0eda-bfb1-4bb2-9921-3d1c9d31aef8@suse.com>
-Date: Thu, 31 Jul 2025 10:09:22 +0200
+        bh=oPqkq7dhWhYpM3wWJ1B4j0IizVrA1foHRWdm8grjYz8=;
+        b=sCqJ1QUht5GwuS1ChglsMIZxqzpZ10tcFK4gVqUn5XI8H2/Jq0sFzCM65GGk8flTZB
+         LIH6RxMsZ4ZmFNq0Ay7MLUMJ9ePPu+tlgvwgDKMDjseGMqL9jbtfT7z9JmLtoExabti9
+         AeZPWXlKrKmW/yAgtNPS2zEtsoKM/4lM+uP23wb7JGZvvPtGPUbjs3WnIgUgs7mGOGf9
+         ZhT9rYuGII0RAMMOnO3LApe7rOl6UrMsv1kIHyXEbYSc5kpa6/RFtEOSbLRNsZm2Zt+J
+         6FvvpgDN2kguWVD6zVDWIQUTdZIubW2KpZtOdJSfx+jhHJ0PhQ1j3gsNGNi3f1umhbJh
+         fcuQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUBaGugEE5/HC0gGhsjzOhkX23rQr75v3kRbtUGy8Au6S4VEi1mvdgEkd0NNiW2J63VQHTfxwUnRlw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwOFmB3gcGs00Fh4iKyOYLW+tkErZAeWJxZwW7yxSmGXlGIce/r
+	8MsSyd/vVIzr2S6N3ryROfme4BYPDXfpK0u4mJ9EtIVHckcyOP+KnwfjeeeBrrHKHw==
+X-Gm-Gg: ASbGncto5ws2p3arxUeYHhaJbxBpaRG5GJKqnGxxeDdfA3gBg5uxL+9piAcoSp4v14T
+	tK5rN/Jqg1n3t3d9y13Tl1HwcJIIeTyJuQan+GxVDX3LOE+n9v8X77d+O0VSQ1Y6P8EUQsFuObP
+	weV9o68nXQfQjTbf6yYoZD4Og0pGrbQJSeR1bMqD1Sc/YONI37XKWPe7bGj3uOEFpWo9ERBqzcD
+	D+IETmbanu4qd2FTikyY/5Dlwv1RfrCBkr9bW/pPk60feu2E/XcWBXChTZu4QGAHnpWCPpbaDGw
+	q76zk/mqdFSBrp8uYARagueZ5bZE6iutzn7KiTbKWDlybula1DsakCCWUeAt3NKi/qp0mgmv0Qz
+	u1wslhJ2pCTUA70ctTiS2apfEaz0khb3yzSGCSh4xTBUxlA//+P9krPw/LrzS7rIAByNWq9hyq0
+	XRo4ypj1Y=
+X-Google-Smtp-Source: AGHT+IE1o5DILGphlYvTqfiew9T09vTFyEkQCi4nbxG5a1s76ZTIfeImRhPrzboPApdtYArdiBMc5w==
+X-Received: by 2002:a05:6000:4305:b0:3a4:f70d:a65e with SMTP id ffacd0b85a97d-3b794ffe750mr4478552f8f.37.1753949613793;
+        Thu, 31 Jul 2025 01:13:33 -0700 (PDT)
+Message-ID: <06d79f28-9710-4def-9a87-1dc478f7902d@suse.com>
+Date: Thu, 31 Jul 2025 10:13:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 04/17] xen: Introduce
- XEN_DOMCTL_CDF_not_hypercall_target
-To: Jason Andryuk <jason.andryuk@amd.com>
+Subject: Re: [PATCH 1/2] xen/arm: Fix HAS_PASSTHROUGH selection
+To: Michal Orzel <michal.orzel@amd.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Christian Lindig <christian.lindig@citrix.com>, David Scott
- <dave@recoil.org>, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  xen-devel@lists.xenproject.org
-References: <20250716211504.291104-1-jason.andryuk@amd.com>
- <20250716211504.291104-5-jason.andryuk@amd.com>
- <222ea3ed-8ce3-4622-90d4-763bc0fd1217@suse.com>
- <bade3386-4296-4e4d-8eb2-840f2ac07b93@amd.com>
+References: <20250731080522.810468-1-michal.orzel@amd.com>
+ <20250731080522.810468-2-michal.orzel@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,55 +121,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <bade3386-4296-4e4d-8eb2-840f2ac07b93@amd.com>
+In-Reply-To: <20250731080522.810468-2-michal.orzel@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30.07.2025 23:30, Jason Andryuk wrote:
-> On 2025-07-30 11:06, Jan Beulich wrote:
->> On 16.07.2025 23:14, Jason Andryuk wrote:
->>> Add a new create domain flag  to indicate if a domain can be the target
->>> of hypercalls.  By default all domains can be targetted - subject to any
->>> other permission checks.
->>
->> I think terminology needs clarifying here: What exactly does "targeted"
->> mean? Is that e.g. also intended to cover
->> XENMEM_{current,maximum}_reservation, which "target" a particular domain,
->> when at the same time they don't interfere with the targeted domain in
->> any way?
+On 31.07.2025 10:05, Michal Orzel wrote:
+> HAS_PASSTHROUGH should only be selected on MMU systems. It's been like
+> that until commit 163c6b589879 added possibility to select HAS_PASSTHROUGH
+> if PCI_PASSTHROUGH is enabled on Arm64. This is incorrect as it may result
+> in enabling passthrough/ build on MPU systems. PCI_PASSTHROUGH should
+> depend on HAS_PASSTHROUGH instead.
 > 
-> Avoiding interference is the primary goal.  Those hypercalls definitely 
-> need to be blocked.  xsm_default_action() has limited information 
-> available, so we can't differentiate particular hypercalls.  Blocking 
-> extra non-interfering hypercalls is not a problem for us.
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 
-Except that later patches then "punch holes" into the fence pulled up here.
-And over time we may learn that more holes are needed, or at least wanted.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
->>> --- a/xen/include/xsm/dummy.h
->>> +++ b/xen/include/xsm/dummy.h
->>> @@ -91,12 +91,16 @@ static always_inline int xsm_default_action(
->>>               return 0;
->>>           fallthrough;
->>>       case XSM_DM_PRIV:
->>> +        if ( target && !is_hypercall_target(target) )
->>> +            return -EPERM;
->>>           if ( is_dm_domain(src) )
->>>               return 0;
->>>           if ( target && evaluate_nospec(src->target == target) )
->>>               return 0;
->>>           fallthrough;
->>>       case XSM_PRIV:
->>> +        if ( target && !is_hypercall_target(target) )
->>> +            return -EPERM;
->>
->> Hmm, for TARGET, XS_PRIV, and DM_PRIV we're now doing the same check
->> twice.
-> 
-> The different cases need to be covered somehow.  I didn't see a good way 
-> to avoid the duplication.
-
-Maybe this is the point where the fall-through wants (needs?) doing away with.
+May want a Fixes: tag, based on the description?
 
 Jan
 
