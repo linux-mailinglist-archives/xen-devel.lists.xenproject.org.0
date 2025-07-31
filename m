@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40E66B173FD
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 17:33:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1065788.1431106 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC5E6B173FF
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 17:35:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1065797.1431114 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhVGz-0002Xc-RJ; Thu, 31 Jul 2025 15:32:49 +0000
+	id 1uhVJl-00039C-9P; Thu, 31 Jul 2025 15:35:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1065788.1431106; Thu, 31 Jul 2025 15:32:49 +0000
+Received: by outflank-mailman (output) from mailman id 1065797.1431114; Thu, 31 Jul 2025 15:35:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhVGz-0002US-Mw; Thu, 31 Jul 2025 15:32:49 +0000
-Received: by outflank-mailman (input) for mailman id 1065788;
- Thu, 31 Jul 2025 15:32:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uhVJl-000378-6m; Thu, 31 Jul 2025 15:35:41 +0000
+Received: by outflank-mailman (input) for mailman id 1065797;
+ Thu, 31 Jul 2025 15:35:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lm68=2M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uhVGy-0002UH-6s
- for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 15:32:48 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9b13ffb3-6e23-11f0-b895-0df219b8e170;
- Thu, 31 Jul 2025 17:32:46 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3b7920354f9so988736f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 08:32:45 -0700 (PDT)
+ id 1uhVJk-000372-NJ
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 15:35:40 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 02f17349-6e24-11f0-a320-13f23c93f187;
+ Thu, 31 Jul 2025 17:35:39 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3b78a034f17so929256f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 08:35:39 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-76bccfecf3fsm1901165b3a.131.2025.07.31.08.32.34
+ d9443c01a7336-241e8ac8de2sm20848945ad.185.2025.07.31.08.35.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Jul 2025 08:32:41 -0700 (PDT)
+ Thu, 31 Jul 2025 08:35:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b13ffb3-6e23-11f0-b895-0df219b8e170
+X-Inumbo-ID: 02f17349-6e24-11f0-a320-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753975965; x=1754580765; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753976139; x=1754580939; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EULQZW2oaYrPpzCu+4wjaBxJ5/9WAaKQLdAXtUlhiUA=;
-        b=I1cOKRIScxg/Ubtei5HueTXYiRHPiINpUqQxhuKefUqSlUkjDSOQH2gZWPyFaAqYMo
-         EcX0fGGCILFV1wLV+zpNPxZxCwmXiJwxN/vEpUZau73yBnqzvIwTrRgAIxcsYZH71bKa
-         EhQYEv05QHFfv7UQgCFCi8q8Un6m5Y84YixjiAdxgJjVIPYHbinXiaaqmoCU+29xVSE3
-         jJKV1Hn2V2ImHvAqjG+CPOC07vupK7SSy4VS9uuLF+WDY1qHQnNHyXCBVvbINBrPVqf9
-         nQ/V0NoY6huXv29xdbE20NTMtLV6dOihc8eORZ4d3FjoRSjPZACOk/wAGTzRTkQjXa9H
-         0FtA==
+        bh=gnOmLhGjXjDHdg6NJj20A3wDt5nwEhbcZ918iQHtIEQ=;
+        b=I5qEXQAstWbsssgl+kqvDlvqJVaNaExhO9zkQtPfp1sjkkr49kWfMmCQ2l25PEXbzP
+         OzsF/Urw0cwkCJ+zRJkMXZZUGCBk4tDY1iW3gstJu1zP/jWxwU6aDF9Hhqf/N2H9Ngaj
+         v0CJBPEmKmzwPu3KfAsCkZjZIZrUASzBPOTukAcZ7DdBp8MBjnALJWTW1c62E3zCdAKa
+         1oQ0Gqi1NTKpSQ3bDowcn9LOTqrhyI2NajGnk8xD9xTi7HIE21LnQIszwsAWRK7asnm4
+         eWIaJkZXW9ThSnfW1N/r7b+/JpaJnpw/2wIo6yEAMBCV6MmVVIsHcsM30WG2cu5W7wuL
+         1Caw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753975965; x=1754580765;
+        d=1e100.net; s=20230601; t=1753976139; x=1754580939;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EULQZW2oaYrPpzCu+4wjaBxJ5/9WAaKQLdAXtUlhiUA=;
-        b=jB8wzuN0/W6gcMh9D7x7VvMd8/V+bLaf78edG89QbUSEkksoMmIZHw7rQLMkikM6xC
-         HP1a99rSKHZAQ6mcUkZckdgaoo2E6C3aQNIAonhvqe40Rk7DqrcyAuRYfjqcZwaQ2cfv
-         +i03l2cWyzmSeqgu3is8/WoTDyfwsUNkcJHgRs/sCvvk85TS++gYpopLuN829v8aLKjy
-         aJQdyBzw9I7PrsnSUFLmwJpJsl2BCO6doT3+/hk8g7cKi7+ULFgOEuxmm3PzMGch3Zgr
-         GAAUB48gSd3Lm9K3HyRAUqL79O90/a0w/Q92I1gKKAhKtyqIw4oHvlRFk+gVjrhTeYuR
-         87iw==
-X-Forwarded-Encrypted: i=1; AJvYcCX56xUFn/+AjI/HeHMHFbKdah/iNBV+NahbgIiWf2SySChFZ3FjAF2F5BArvOK5ppKrh93ye7v2KqE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwDXjyn20wDJiCgOa7y9mE9GsQeFO4MmTiqTVgVJNw8Y40fy4dk
-	nc80GCgd9Gd4DLwCqdzLyie5X0kOhLGjtixI7CFlCcor6LX17AaI46ebCxhSd/zdag==
-X-Gm-Gg: ASbGncvSUCKxnlXTUsPi1MOPDHUMUycU9RdCsJHk2aPoMfnteflnyIEgwl6S2isQLSm
-	mJYrC08SrLfAHZBx3OmP5gVDYp2XIf7gqpTQdhxaqy12q1S1pUGo4VwscT/Ve4clSG392cvdVgY
-	7ZkGBBVlevZNvXa9yU/AzRoQ5vGpM+hfnB8AztHzcrYNmaiGV9U/j7+l/hth4Y1CBCveLAUqIOt
-	NFDVXc4bqU6aYJ+TAwryG86mgv86iYAghEoNMELQnFGdlOwsCij+I+nwpepPqW5OqO+GdyP5GKA
-	KYhXDWdtmLEz8LyRWaFwaOcwH30dDEagnR2Oez3ERok2IJ7qSsRef6O8XXFLhM9g+IdgETQNuKM
-	f+dzhRbpedJa96YrMAqurdG/8TqhlWohIbB1oXJrOgKtnDNRvwBIr9SQsx2fNeIwLCMTupXlCi3
-	hw4nRkQLE=
-X-Google-Smtp-Source: AGHT+IGcp1/3OV2d34nWxTkL14slyflsGE9kCdQQn4DTxH2CKy5Mk9/GTUsayH7hKoicsTIrtPmWRQ==
-X-Received: by 2002:adf:f749:0:b0:3b7:8146:463c with SMTP id ffacd0b85a97d-3b79503d1c2mr5190031f8f.59.1753975964751;
-        Thu, 31 Jul 2025 08:32:44 -0700 (PDT)
-Message-ID: <34320c56-8c79-45d4-910c-2faa5ed4ac0b@suse.com>
-Date: Thu, 31 Jul 2025 17:32:29 +0200
+        bh=gnOmLhGjXjDHdg6NJj20A3wDt5nwEhbcZ918iQHtIEQ=;
+        b=QnLNn/yvgvu1zYH5E4PMrWDoM9i2wraxiNopjC+d4jOr7ypY7BoMmt1jtIpXPlkGyO
+         ZDTZYgAKefSZDsu9f5Ui3sVk5XAylHNIsLdzMl3OyiRWLVH+W9VFcHhYb0oFHNlU6SxQ
+         7F5kS2F/stCjj6uztkmTu08CFLAW2ucZZQJJVVRnvPbt5ymREmDwkEE3ymIHG64tTdYY
+         o4GoR6oh02oCssAsAkMF+H4PwwLxX8v/FkInBqUIRfQq0NKRcxFaEwIcbyAxieZANAiA
+         DGkmLKfX89RJC9YR3EasB/NwYKoUeSLH3E0+PYkNk7vdV5XSs3qfOyp+gvvjbvG5vcd1
+         ECew==
+X-Forwarded-Encrypted: i=1; AJvYcCUsEs6pZyFZ86rvZ+CFxsBgvJvlhhVdGiAuiI1bWxmr1AJKEcu0LTAZfo/JSYcmRsWdKYaAqxo1Phg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyVIoQ875anoaszaMYn6HssQlXGtdxcuYJmxfvvRW91qt80KMLN
+	MnvoadCKKIo75H1RDmAD8nOoU+IGCQRhR3eqLr6K/55JutSJPjcIE4kur22RfT9IUg==
+X-Gm-Gg: ASbGncs4K570W28J2Lcz6skj6lFG5zJxom5MIjzyJdResM6utEt4jAGOx/Xop187vcZ
+	oBE9TA60KdwrAcHxfVChdb9tY7gqJdsLuIs4iY7zR058EkRLvlKdAd2IQk/+W2J3C29x8uD2gnp
+	/6KqV4H9k20wiIx2WTLfcWDSDjJK0kCa5VMAKgsfoURwYa5RIi3ubtpH2QoBqUBnHR11k2waWod
+	0f1c5eFmHZ0aO2YPiIB57lEk03/1fpECR3DTqBhwIVz4p0sa+ZKcV0KtLrrX7hHBtTcCXAfyUl6
+	SLOjCM7qmJL/AdD6Fz9bYS/UPNRfbX6HIsC9kyy1oML/F8Px83DWWiuoPQuHNCWwE53We0tXgSD
+	X97mGIQpIIOb9kRViQeemSUnnbKTPrpC46nTo00qKw7HJE1a99s/3plXPuA06wCgB1vcnLwYhag
+	JlnnOYxGmimK67KOzynQ==
+X-Google-Smtp-Source: AGHT+IG1981hPPVH3+t0CAhvnVrM9TMRxAnNefZZnwZ8uxjKEWepbZD4b5YUfRJOlzehwxWuLBJ8vg==
+X-Received: by 2002:a05:6000:2c01:b0:3b7:899c:e887 with SMTP id ffacd0b85a97d-3b794fdef74mr6145578f8f.24.1753976138992;
+        Thu, 31 Jul 2025 08:35:38 -0700 (PDT)
+Message-ID: <1b8a754f-608f-4439-9dca-1e18e12af1b4@suse.com>
+Date: Thu, 31 Jul 2025 17:35:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] misra: fix violations in macros GVA_INFO, TRACE_TIME
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
- George Dunlap <gwd@xenproject.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <73cfc8a2d4d66042b49f44c69e672ce8ad0556ce.1753971749.git.dmytro_prokopchuk1@epam.com>
+Subject: Re: [RFC PATCH v1 06/10] arch-x86/pmu.h: convert ascii art diagram to
+ Unicode
+To: =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, andriy.sultanov@vates.tech,
+ boris.ostrovsky@oracle.com, xen-devel@lists.xenproject.org
+References: <cover.1753372928.git.edwin.torok@cloud.com>
+ <8d7f3eb14bee79c63af02b228fa02761ae2db6c5.1753372928.git.edwin.torok@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,54 +124,46 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <73cfc8a2d4d66042b49f44c69e672ce8ad0556ce.1753971749.git.dmytro_prokopchuk1@epam.com>
+In-Reply-To: <8d7f3eb14bee79c63af02b228fa02761ae2db6c5.1753372928.git.edwin.torok@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 31.07.2025 17:16, Dmytro Prokopchuk1 wrote:
-> --- a/xen/arch/arm/guestcopy.c
-> +++ b/xen/arch/arm/guestcopy.c
-> @@ -109,27 +109,31 @@ static unsigned long copy_guest(void *buf, uint64_t addr, unsigned int len,
+On 25.07.2025 17:06, Edwin Török wrote:
+> Using `aa2u` tool.
+> 
+> Signed-off-by: Edwin Török <edwin.torok@cloud.com>
+
+How come the use of that tool made ...
+
+> --- a/xen/include/public/arch-x86/pmu.h
+> +++ b/xen/include/public/arch-x86/pmu.h
+> @@ -75,8 +75,10 @@ DEFINE_XEN_GUEST_HANDLE(xen_pmu_regs_t);
+>  #define PMU_SAMPLE_PV      (1<<3) /* Sample from a PV guest */
 >  
->  unsigned long raw_copy_to_guest(void *to, const void *from, unsigned int len)
->  {
-> +    struct vcpu *current_vcpu = current;
+>  /*
+> - * Architecture-specific information describing the state of the guest at
+> - * the time of a PMU interrupt.
+> + * Architecture-specific information describing state of the guest at
+> + * the time of PMU interrupt.
+> + * Even if the interrupt arrived while inside Xen, this will always contain
+> + * the guest's state.
+>   */
+>  struct xen_pmu_arch_guest {
 
-The commonly used name for this kind of variable is curr. Also wherever
-you introduce one anew, it would preferably be pointer-to-const when
-possible. (This isn't a request to rename or re-type existing variables
-right here.)
+... this comment change, or yet more interesting, ...
 
-> @@ -1899,6 +1899,7 @@ typedef long ret_t;
->  ret_t do_sched_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->  {
->      ret_t ret = 0;
-> +    struct vcpu *v = current;
+> --- a/xen/include/public/pmu.h
+> +++ b/xen/include/public/pmu.h
+> @@ -148,7 +148,7 @@ struct xen_pmu_hv_stacktrace {
+>      * arrives while in Xen.
+>      * */
+>      struct xen_pmu_arch_guest guest;
+> -#define XEN_PMU_STACKTRACE_PAD 48
+> +#define XEN_PMU_STACKTRACE_PAD 56
+>      uint8_t pad2[XEN_PMU_STACKTRACE_PAD];
+>  };
 
-I wonder if this wasn't better introduced in the two scopes that actually
-need it.
-
-> @@ -1922,8 +1923,8 @@ ret_t do_sched_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->          if ( copy_from_guest(&sched_shutdown, arg, 1) )
->              break;
->  
-> -        TRACE_TIME(TRC_SCHED_SHUTDOWN, current->domain->domain_id,
-> -                   current->vcpu_id, sched_shutdown.reason);
-> +        TRACE_TIME(TRC_SCHED_SHUTDOWN, v->domain->domain_id,
-> +                   v->vcpu_id, sched_shutdown.reason);
->          ret = domain_shutdown(current->domain, (u8)sched_shutdown.reason);
->  
->          break;
-> @@ -1938,7 +1939,7 @@ ret_t do_sched_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->          if ( copy_from_guest(&sched_shutdown, arg, 1) )
->              break;
->  
-> -        TRACE_TIME(TRC_SCHED_SHUTDOWN_CODE, d->domain_id, current->vcpu_id,
-> +        TRACE_TIME(TRC_SCHED_SHUTDOWN_CODE, d->domain_id, v->vcpu_id,
->                     sched_shutdown.reason);
-
-A few lines up from here there's another use of current that you then
-would also want to replace by curr.
+... this value in the public interface?
 
 Jan
 
