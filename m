@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACE63B17469
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 17:58:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1065864.1431185 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0637B17483
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 18:01:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1065923.1431309 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhVfn-00011C-BJ; Thu, 31 Jul 2025 15:58:27 +0000
+	id 1uhViA-0000Op-IG; Thu, 31 Jul 2025 16:00:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1065864.1431185; Thu, 31 Jul 2025 15:58:27 +0000
+Received: by outflank-mailman (output) from mailman id 1065923.1431309; Thu, 31 Jul 2025 16:00:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhVfn-0000zQ-8K; Thu, 31 Jul 2025 15:58:27 +0000
-Received: by outflank-mailman (input) for mailman id 1065864;
- Thu, 31 Jul 2025 15:58:26 +0000
+	id 1uhViA-0000ME-DN; Thu, 31 Jul 2025 16:00:54 +0000
+Received: by outflank-mailman (input) for mailman id 1065923;
+ Thu, 31 Jul 2025 16:00:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lm68=2M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uhVfl-0000zK-W4
- for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 15:58:25 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0Jdx=2M=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uhVgF-0000zK-Pz
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 15:58:55 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3095bcfe-6e27-11f0-a320-13f23c93f187;
- Thu, 31 Jul 2025 17:58:24 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-455ecacfc32so4420575e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 08:58:24 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-241e89771e2sm21696185ad.88.2025.07.31.08.58.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Jul 2025 08:58:23 -0700 (PDT)
+ id 40911406-6e27-11f0-a320-13f23c93f187;
+ Thu, 31 Jul 2025 17:58:51 +0200 (CEST)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-55b8a7a505cso806966e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 08:58:51 -0700 (PDT)
+Received: from fedora (user-109-243-64-38.play-internet.pl. [109.243.64.38])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-55b88c9931bsm278746e87.101.2025.07.31.08.58.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 31 Jul 2025 08:58:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,140 +45,239 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3095bcfe-6e27-11f0-a320-13f23c93f187
+X-Inumbo-ID: 40911406-6e27-11f0-a320-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753977504; x=1754582304; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ifs8/uczK+VegxbFE6xIJnCm6EiSSgUzb5R6OOcsqQ0=;
-        b=bdaKA041LQkgUIXCtGLD8hnTUVZdBobMsln5lHAhiZS+zZi12jSS6pkfDVVBefXW/Z
-         wGYA3KguyS08nz4okOJunlR/4DJmGz84agcjCZRmXf8a21RS4zudi/SdKzAsXZ7RHbYg
-         O178UOxvs8K+zxV7CsQ9fnP6KE8DOGzFUIAw8icNKh+2YHEchZ1sC6wmTmqRFqJDZcOv
-         f7Tshi0u0v3iJD6YmkOJSQd3MkfHxl74Cd0x67vTA+SWhneuRY4LyFngpfaSkHyTIVXq
-         HC0frKrOn+hrkODcxylNQUoV5sezJ3G4FaNiPk9NrfPkKE6yZUMf+MHGUr5/CnTzXE0c
-         SbNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753977504; x=1754582304;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1753977531; x=1754582331; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Ifs8/uczK+VegxbFE6xIJnCm6EiSSgUzb5R6OOcsqQ0=;
-        b=BjVVs8PW+9SWjKhLPQTBf0uEHX5nHqpzkE1GGqY+MgLmUSq1YrwwwlgWRlbzayvddu
-         xO21reIbWRakg4LzQ+7xyEuSpdttAi3OuoQmzdj6MkjC7OT4foC8A5N6eSQ1WzNKm5hl
-         trTXvRPo0EfHGMMh8Hd4COxJ4py70BkO71yO69ry3ygkCZsY02zil/59101RvgdcVuXD
-         eMJW5hOgmYJEbG7mxDM/fLCzGgWPsoP9w7gSZOMFN1wECWQCCkAg4zI4AvQxKVMaqrZw
-         /R+ZMtqz9srTzPzFqfU0/P4xtUn8iAxsFcpu4arwzQCzjyhiCVSKb7FdWxBlx+3sYeR4
-         pyEQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW6B8BuzkT0ivgr4KCzp6qYMAnaPO142EvRFLJFFsrlDj5xfhmYaye7fVEvhyD80ZlruJUhA52sHQQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz/6cEHCpMxYltvfLaOMEPM7FsfY5XOdnqIGKjrEIt4G1DHtIax
-	RVlOkuEKApAJ56ltunLDLs85Z8DB3nIX8GagmFlmg/t2uMgyF7xzhZrUxKY9g3iK6Q==
-X-Gm-Gg: ASbGnctghXC/+AH2fbqA/mnQfXIRiCxK3YTXF+iSnzTPJT30w1YaRS/m/qxTE6CjVA5
-	ybxE33zdxyr/Nq7t1SM08iaOGxTkOjGVfQa8R9rIFCaWKRwndWliChqluASKQCD8hOag8MC8HUw
-	r4L2F2daUluHvDlkhdmiJYq+y2FT5e0uroG4yZg/nNg0npNSjaue8YCYmMdBZB4BGp7n8Um9MwW
-	tVbZ+KtukPlssftmDVR/Zc/MFmj3ZeMNsuRSle6JQ7fqGHGdl7NkQPt3To0w5joc5EMLMM4E+F0
-	yTzsWiNNUcBtwIxsnqxougFWe9bC3F2U8xhtjqKDy3GUFGm2MrdqnPA3Fj0Cfyf9MY0/F57GCLY
-	kgMVF7FkcKXQE+xLZZ9gejrmf3vc4n9+CMAbKGOl6mMSW5KWjVciFJ20xiBBbE1oJHWZD5uWHk6
-	eR8RrTG0Q=
-X-Google-Smtp-Source: AGHT+IGWHL/t/zgFHuwTLbuXtmGy4plZdq6Ni3Ce2UKKLrbtx7L4KMD/3gtPsWhPRCyanPmkvECygg==
-X-Received: by 2002:a05:6000:178d:b0:3a5:8cdd:c174 with SMTP id ffacd0b85a97d-3b794ff797fmr5705864f8f.26.1753977503988;
-        Thu, 31 Jul 2025 08:58:23 -0700 (PDT)
-Message-ID: <898e1c2a-7684-489b-84cd-254b2ee53e5d@suse.com>
-Date: Thu, 31 Jul 2025 17:58:12 +0200
+        bh=VGuaeyIsrA+iYqDJovnTvqJCdpSjIdCxUfSdeY8yfW4=;
+        b=JPQ/BupyJjw/cBjREdS4LQ0+sWRUly5ld7QzK5DueG17Au+WxEInCdYBt2qyiPM8RF
+         nUs5DQVNyGPACBvBVRuDGKSE4fJXjjcr00MZD3BnSOiTLTbVz0l5FXCSuclilGGDtuON
+         Kzk1MzXF/cRXEVKA4Rf+4b586ZcXboA6veW5A6j8hSUqahwDKKeJUC9kGxet6k5BJD+a
+         0QFW+sdsSv8uaIL/PPk73SDsUsio/HkCjX4M1vBVtosZR4MftZqimuo9azdYAnKOAkG1
+         h0WvLo/Icd/IQWfEeHP1qwsmhWSHxluSFTrQEu6jA1Hk9gheB0w+euB+tFnOe6CjIH35
+         TJFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753977531; x=1754582331;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=VGuaeyIsrA+iYqDJovnTvqJCdpSjIdCxUfSdeY8yfW4=;
+        b=sUEBfGh5zM+//eeyWIOGwMJxQd2o7eMau+xri1mFZEpYNJjhPGW9deSIHMmcJNrRJU
+         DwMwjMHUvCWs1dQ0gO18HTGHHpuJrtFnnK97sFGxQEhKzpNBiS0aNYs1FIacxJsIk80Y
+         eNNYJiNfw5uJ9OVo2FH/bXNCYD+VLEQrbPNnmgrn+SSN36RP8WmyBaXxZuA0qap4fRvZ
+         4eqwVG0R+wqyvHo3MW02qsEnjGxNzLUYjtSX62puIRg34qnep8RHNSivtKYmQqiYuWys
+         HMm+9J3HZzWnrXYYZw46W3awNlRbKaYro8SVObfEFVPjRIMqTfrE4lZKGkovBQc429pR
+         5Q1g==
+X-Gm-Message-State: AOJu0YzYXzke1uY8ANeF7pG6g9eLuCxMTcGwMkWYf2DTnrepDyHFqUH6
+	qXZvZVzSBZ0dDa8rXTx9QvRMk2ArIGBvzpohBQmzUsBpDSXY/A8RXBGfjUhZMw==
+X-Gm-Gg: ASbGncsovFPLl1MVHMoNvJyhEJoTlet8+cD95NhEijO191GECO8nYIlt6G+7MhkGdk0
+	rRfqdXcqz8XMgXBBf3TpnAMxx27FQtS1rtHMD4WE0vWabaigPA76H7fndV2HhMkMEBZr8oEJ9ic
+	qsxZ+E8FuDuf8IDijPh0wXjurrlrWexqOTJL2ZOOxK8ZrBgKJoHjR+87YBk/R1fD1CJWghVCigW
+	HwyqA86XRY6zeSmymwZPnHLCnLKIyP4AGoOH6GMHSlSu2KWIIE5gHZL6AslnJggWuGcfsiywJ1q
+	9oGL0HsiFntfdlx3fDEfleoPJof4MNLiZwfX0+yUgiz+RWHeSVocZrMqHC652Vm/aVn94oZfgM1
+	wyfpZGxLsUTr8rH6L3c+KRDIfGQSQnT8vmx5OM/v3WJYn5apMlofxhSqgKQ2OVA==
+X-Google-Smtp-Source: AGHT+IEsoeeagjmyHtu3wRT1JJsdymImNNNZGlYuJEOxoAoCVJ5nrkWRU3SLoRJ4U+L/sovz48KQDg==
+X-Received: by 2002:a05:6512:401f:b0:553:37a7:b217 with SMTP id 2adb3069b0e04-55b7c05ab12mr3091160e87.35.1753977530514;
+        Thu, 31 Jul 2025 08:58:50 -0700 (PDT)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v3 14/20] xen/riscv: Implement p2m_pte_from_mfn() and support PBMT configuration
+Date: Thu, 31 Jul 2025 17:58:13 +0200
+Message-ID: <1370613cd6f52e90591b15ad52c95d7c81908cf6.1753973161.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <cover.1753973161.git.oleksii.kurochko@gmail.com>
+References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] misra: fix violations in macros GVA_INFO, TRACE_TIME
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
- George Dunlap <gwd@xenproject.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <73cfc8a2d4d66042b49f44c69e672ce8ad0556ce.1753971749.git.dmytro_prokopchuk1@epam.com>
- <470a04e6-f8c1-4937-8478-0f80107d562d@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <470a04e6-f8c1-4937-8478-0f80107d562d@citrix.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 31.07.2025 17:37, Andrew Cooper wrote:
-> On 31/07/2025 4:16 pm, Dmytro Prokopchuk1 wrote:
->> MISRA Rule 13.1: Initializer lists shall not contain persistent side
->> effects.
->>
->> The violations occur because both the `GVA_INFO` and `TRACE_TIME` macro
->> expansions include expressions with persistent side effects introduced
->> via inline assembly.
->>
->> In the case of `GVA_INFO`, the issue stems from the initializer list
->> containing a direct call to `current`, which evaluates to
->> `this_cpu(curr_vcpu)` and involves persistent side effects via the
->> `asm` statement. To resolve this, the side-effect-producing expression
->> is computed in a separate statement prior to the macro initialization:
->>
->>     struct vcpu *current_vcpu = current;
->>
->> The computed value is passed into the `GVA_INFO(current_vcpu)` macro,
->> ensuring that the initializer is clean and free of such side effects.
->>
->> Similarly, the `TRACE_TIME` macro violates this rule when accessing
->> expressions like `current->vcpu_id` and `current->domain->domain_id`,
->> which also depend on `current` and inline assembly. To fix this, the
->> value of `current` is assigned to a temporary variable:
->>
->>     struct vcpu *v = current;
->>
->> This temporary variable is then used to access `domain_id` and `vcpu_id`.
->> This ensures that the arguments passed to the `TRACE_TIME` macro are
->> simple expressions free of persistent side effects.
->>
->> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
-> 
-> The macro `current` specifically does not (and must not) have side
-> effects.  It is expected to behave like a plain `struct vcpu *current;`
-> variable, and what Eclair is noticing is the thread-local machinery
-> under this_cpu() (or in x86's case, get_current()).
-> 
-> In ARM's case, it's literally reading the hardware thread pointer
-> register.  Can anything be done to tell Eclair that `this_cpu()`
-> specifically does not have side effects?
-> 
-> The only reason that GVA_INFO() and TRACE_TIME() are picked out is
-> because they both contain embedded structure initialisation, and this is
-> is actually an example where trying to comply with MISRA interferes with
-> what is otherwise a standard pattern in Xen.
+This patch adds the initial logic for constructing PTEs from MFNs in the RISC-V
+p2m subsystem. It includes:
+- Implementation of p2m_pte_from_mfn(): Generates a valid PTE using the
+  given MFN, p2m_type_t, including permission encoding and PBMT attribute
+  setup.
+- New helper p2m_set_permission(): Encodes access rights (r, w, x) into the
+  PTE based on both p2m type and access permissions.
+- p2m_set_type(): Stores the p2m type in PTE's bits. The storage of types,
+  which don't fit PTE bits, will be implemented separately later.
 
-Irrespective of what you say, some of the changes here were eliminating
-multiple adjacent uses of current, which - iirc - often the compiler
-can't fold via CSE.
+PBMT type encoding support:
+- Introduces an enum pbmt_type_t to represent the PBMT field values.
+- Maps types like p2m_mmio_direct_dev to p2m_mmio_direct_io, others default
+  to pbmt_pma.
 
-Jan
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+---
+Changes in V3:
+ - s/p2m_entry_from_mfn/p2m_pte_from_mfn.
+ - s/pbmt_type_t/pbmt_type.
+ - s/pbmt_max/pbmt_count.
+ - s/p2m_type_radix_set/p2m_set_type.
+ - Rework p2m_set_type() to handle only types which are fited into PTEs bits.
+   Other types will be covered separately.
+   Update arguments of p2m_set_type(): there is no any reason for p2m anymore.
+ - p2m_set_permissions() updates:
+   - Update the code in p2m_set_permission() for cases p2m_raw_rw and
+     p2m_mmio_direct_io to set proper type permissions.
+   - Add cases for p2m_grant_map_rw and p2m_grant_map_ro.
+   - Use ASSERT_UNEACHABLE() instead of BUG() in switch cases of
+     p2m_set_permissions.
+   - Add blank lines non-fall-through case blocks in switch cases.
+ - Set MFN before permissions are set in p2m_pte_from_mfn().
+ - Update prototype of p2m_entry_from_mfn().
+---
+Changes in V2:
+ - New patch. It was a part of a big patch "xen/riscv: implement p2m mapping
+   functionality" which was splitted to smaller.
+---
+ xen/arch/riscv/include/asm/page.h |  8 +++
+ xen/arch/riscv/p2m.c              | 81 +++++++++++++++++++++++++++++--
+ 2 files changed, 85 insertions(+), 4 deletions(-)
+
+diff --git a/xen/arch/riscv/include/asm/page.h b/xen/arch/riscv/include/asm/page.h
+index cb303af0c0..4fa0556073 100644
+--- a/xen/arch/riscv/include/asm/page.h
++++ b/xen/arch/riscv/include/asm/page.h
+@@ -74,6 +74,14 @@
+ #define PTE_SMALL       BIT(10, UL)
+ #define PTE_POPULATE    BIT(11, UL)
+ 
++enum pbmt_type {
++    pbmt_pma,
++    pbmt_nc,
++    pbmt_io,
++    pbmt_rsvd,
++    pbmt_count,
++};
++
+ #define PTE_ACCESS_MASK (PTE_READABLE | PTE_WRITABLE | PTE_EXECUTABLE)
+ 
+ #define PTE_PBMT_MASK   (PTE_PBMT_NOCACHE | PTE_PBMT_IO)
+diff --git a/xen/arch/riscv/p2m.c b/xen/arch/riscv/p2m.c
+index 2467e459cc..efc7320619 100644
+--- a/xen/arch/riscv/p2m.c
++++ b/xen/arch/riscv/p2m.c
+@@ -1,3 +1,4 @@
++#include <xen/bug.h>
+ #include <xen/domain_page.h>
+ #include <xen/mm.h>
+ #include <xen/rwlock.h>
+@@ -197,6 +198,18 @@ static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
+     return __map_domain_page(p2m->root + root_table_indx);
+ }
+ 
++static int p2m_set_type(pte_t *pte, p2m_type_t t)
++{
++    int rc = 0;
++
++    if ( t > p2m_ext_storage )
++        panic("unimplemeted\n");
++    else
++        pte->pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
++
++    return rc;
++}
++
+ static p2m_type_t p2m_get_type(const pte_t pte)
+ {
+     p2m_type_t type = MASK_EXTR(pte.pte, P2M_TYPE_PTE_BITS_MASK);
+@@ -222,11 +235,71 @@ static inline void p2m_clean_pte(pte_t *p, bool clean_pte)
+     p2m_write_pte(p, pte, clean_pte);
+ }
+ 
+-static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t)
++static void p2m_set_permission(pte_t *e, p2m_type_t t)
+ {
+-    panic("%s: hasn't been implemented yet\n", __func__);
++    e->pte &= ~PTE_ACCESS_MASK;
++
++    switch ( t )
++    {
++    case p2m_grant_map_rw:
++    case p2m_ram_rw:
++        e->pte |= PTE_READABLE | PTE_WRITABLE;
++        break;
++
++    case p2m_ext_storage:
++    case p2m_mmio_direct_io:
++        e->pte |= PTE_ACCESS_MASK;
++        break;
++
++    case p2m_invalid:
++        e->pte &= ~(PTE_ACCESS_MASK | PTE_VALID);
++        break;
++
++    case p2m_grant_map_ro:
++        e->pte |= PTE_READABLE;
++        break;
++
++    default:
++        ASSERT_UNREACHABLE();
++        break;
++    }
++}
++
++static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t, bool is_table)
++{
++    pte_t e = (pte_t) { PTE_VALID };
++
++    switch ( t )
++    {
++    case p2m_mmio_direct_io:
++        e.pte |= PTE_PBMT_IO;
++        break;
++
++    default:
++        break;
++    }
++
++    pte_set_mfn(&e, mfn);
++
++    ASSERT(!(mfn_to_maddr(mfn) & ~PADDR_MASK));
++
++    if ( !is_table )
++    {
++        p2m_set_permission(&e, t);
++
++        if ( t < p2m_ext_storage )
++            p2m_set_type(&e, t);
++        else
++            panic("unimplemeted\n");
++    }
++    else
++        /*
++         * According to the spec and table "Encoding of PTE R/W/X fields":
++         *   X=W=R=0 -> Pointer to next level of page table.
++         */
++        e.pte &= ~PTE_ACCESS_MASK;
+ 
+-    return (pte_t) { .pte = 0 };
++    return e;
+ }
+ 
+ #define P2M_TABLE_MAP_NONE 0
+@@ -469,7 +542,7 @@ static int p2m_set_entry(struct p2m_domain *p2m,
+         p2m_clean_pte(entry, p2m->clean_pte);
+     else
+     {
+-        pte_t pte = p2m_pte_from_mfn(mfn, t);
++        pte_t pte = p2m_pte_from_mfn(mfn, t, false);
+ 
+         p2m_write_pte(entry, pte, p2m->clean_pte);
+ 
+-- 
+2.50.1
+
 
