@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C45BB1748C
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 18:03:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1065993.1431395 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D4C6B17486
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 18:01:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1065957.1431335 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhVk6-0005G1-Qq; Thu, 31 Jul 2025 16:02:54 +0000
+	id 1uhViu-0002Ae-5f; Thu, 31 Jul 2025 16:01:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1065993.1431395; Thu, 31 Jul 2025 16:02:54 +0000
+Received: by outflank-mailman (output) from mailman id 1065957.1431335; Thu, 31 Jul 2025 16:01:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhVk6-0005Cm-NA; Thu, 31 Jul 2025 16:02:54 +0000
-Received: by outflank-mailman (input) for mailman id 1065993;
- Thu, 31 Jul 2025 16:02:53 +0000
+	id 1uhViu-00028g-0O; Thu, 31 Jul 2025 16:01:40 +0000
+Received: by outflank-mailman (input) for mailman id 1065957;
+ Thu, 31 Jul 2025 16:01:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0Jdx=2M=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uhVg6-0001FB-CR
- for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 15:58:46 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
+ id 1uhVg7-0001FB-CN
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 15:58:47 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3bee2649-6e27-11f0-b895-0df219b8e170;
- Thu, 31 Jul 2025 17:58:43 +0200 (CEST)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-55b85413019so600238e87.0
- for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 08:58:43 -0700 (PDT)
+ id 3cf6b234-6e27-11f0-b895-0df219b8e170;
+ Thu, 31 Jul 2025 17:58:45 +0200 (CEST)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-55b797ad392so1255264e87.3
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 08:58:45 -0700 (PDT)
 Received: from fedora (user-109-243-64-38.play-internet.pl. [109.243.64.38])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55b88c9931bsm278746e87.101.2025.07.31.08.58.41
+ 2adb3069b0e04-55b88c9931bsm278746e87.101.2025.07.31.08.58.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 31 Jul 2025 08:58:42 -0700 (PDT)
+ Thu, 31 Jul 2025 08:58:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,107 +45,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3bee2649-6e27-11f0-b895-0df219b8e170
+X-Inumbo-ID: 3cf6b234-6e27-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1753977523; x=1754582323; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1753977525; x=1754582325; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=pEOkzQdBxpbC9Okf9MXfHH5aCeAaO0EgwJT3GQlkxY4=;
-        b=YMKEAMhjuWtxzRUxAneynLhqIVice5DnDqxQLQ9PET6hiML/XzAmi46VWrMsVCvru8
-         UiNes28DBwPfJUU5HdW1EEC+JUvsuG1PzqCesS/dGJcGNSqYXp/XOcLks3pEYDR/mJRb
-         uoEK3AznXY3hQ1kiwPtzDP+lcWDQxlSdw4EJV1qnPZeAQz93nNPdmiHfuMhBCGMIIl8B
-         EEGiMvSEtU5GjB/BEdKpYsWUR7Q0OP86HZOXzwWRCGwSoXl5zYqHUEaxa5SwGsvlEdKC
-         1yFRj7wyUxWvdYZN8malKe4pFL9aIxCnorZpYGM2C57KEwsutSiVgkpLecW9vvKnTZug
-         R7XQ==
+        bh=+nbgAo/EOUFfdJLvmZKiVtMFCYW00seKKM+9UoUaOzw=;
+        b=LLsrJZtqlmLun+dyhAOWMHM3D44R6aJGCC0ZaoZzBgk9Wy2mYpQYvRvCj1vD2GS9Uo
+         GUSlSEskoKh+3KnbLb8P1TZkFfCppGzPwTsjg0xiTMiwCzsj9iRcO8maWg/kMsQquncg
+         ZKavP0s6E1uUiBUUgGe+p9iIv7MevgxZev4yKMY4NeBhp7xQo8EZ8m/axAaaW8EfG0bb
+         c3xJxSof8vKsi03AjoeRzxBVhf+7HeMGOJRXbI6pE3vWuDpqQvootwTFvC7EGLlRGs0G
+         kOx4WiCkq9XG/LTPbL6Ih/wy5jpa7jjeVKzgojUsXDiB2T9IT0V3pLinO4Wfpk2YTRyl
+         EFmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753977523; x=1754582323;
+        d=1e100.net; s=20230601; t=1753977525; x=1754582325;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=pEOkzQdBxpbC9Okf9MXfHH5aCeAaO0EgwJT3GQlkxY4=;
-        b=kHT5W+crpdEDTf1O4S3YmiDOpsJd3eZbJ2QWXkKl3liyNannwqQ0dwOF5m2A+NVp9A
-         inzS9uUKcsInAJSUxAN4KTXwuuxckwrvu7WWwxMNmx6KpkTGFMSDnbjBSA1JliAJevTA
-         JoRngTx/q3teaOQxuw5nV6DlZw4onRqjoPLw1TQDO/76i9cecqU4Umfngk6od9OmkPWI
-         cElrmMlzTs73kCuli6VuLK1WyweLCMpGOP664IZbqsDI92u3e/PjagV7Gw3kowiLSFiw
-         l5KKXo4P3jAPNfa/1Q1LhrikAO/EBkR11jWm8iccnwl0M3gKtAIvim6CJBc5tdwKrfz3
-         5lBQ==
-X-Gm-Message-State: AOJu0YyzEHnU7RKaO97nR2fx/9Olt12mnPETE6gXOhljUPjirZUYRFN6
-	zwObndqd2yKW4KeYompu/HNptSm3+wzPy9kNXy8WQ1l1f45zy8jkoUIfF2v8dg==
-X-Gm-Gg: ASbGnctyniT0zI4z1ObHCFuhwviRRowzsN/iqQ7cb2X0O7XZffAct8N38KB0ET62T40
-	0aXfkGb0EAWdSw/0PiAt3nSmOejAO0PqHKtGVt+oSeuHy5hb3FjbH2KOQvjnY/jUlS/YJ/6wtY7
-	2Fknv59k1MlHQZtNAx3p5N2BV0KBfBP4wP/99oDJw521IFGcgWWaFttHWMCm0mnMAnnOsbk+Tbu
-	49QYXSem1z/wMwWpviyq8+PJFJri9C0L4bGzS8l2Z8gZXZiYLcZGrLjT53IcJr/+enUp5tqdIkZ
-	+JpCDNdYICtjqz3U15ZuRC2/g1v3g5coUjwfPjLLdkdkZJ3+MIf7F2+JLEcPdjpo9P07YlDGM8t
-	SQYs1RTReZ3Wwxsua0qqWx4JHrIgQy57k2KStwCfAHzuzbbidjtU0h7xmTWWCpw==
-X-Google-Smtp-Source: AGHT+IFLTOuKuRf2T7tNGueoS/xGQR2k3DSUUMxZkxu+W21mtiv+Yw78Y6yFbwkuLfLx9uu1tuhAbA==
-X-Received: by 2002:a05:6512:3ba7:b0:554:f72c:819d with SMTP id 2adb3069b0e04-55b7c08ec37mr2819368e87.43.1753977522774;
-        Thu, 31 Jul 2025 08:58:42 -0700 (PDT)
+        bh=+nbgAo/EOUFfdJLvmZKiVtMFCYW00seKKM+9UoUaOzw=;
+        b=vhQxT+EcC9F+CrODX81SbDC8XxycJXi/i9AjwUcQ4qDaFytV3XWHRyKHexI5ry6zPA
+         UpV2Cc8SioO3wyirJQKtK9bNtCse4GqBjcTGgIHVv6bwYI68QroqIaEomOkq+yrxRalS
+         0Nf45XzGldDJGn3jFLlnNRSCUkcoCz7AxgTWdOZCV3nsZQzU//NGblfsqXG+AApfZroi
+         dJm6Bu0a9AKl0+P/J2Y8qIDnPtSlojCPinqI2zc6VT2NztXNJDNLy5bcRdgxORuEPnUA
+         34ZFQcZu78mOZQYIX5BlAODZHo6JUytGL+nra+gMZ8PqUlKzaRmYk3FZiFqwIE8VKQJa
+         UhMg==
+X-Gm-Message-State: AOJu0YzShPvdWvyIjy0yQwAxu9a7yuk22G+phmNabWDjakKib3ky2faX
+	2n71IOm9UltSeJj2mXG8fWTWzPkYvzFdoIMCxxt17V7izn2htEnNT1UNULdGEA==
+X-Gm-Gg: ASbGncuUZng4+RWGpBhfVj7kA+Hvz7YVSV9nYGUmRS/vigMxqsC1t7tp3WrXUywMAFg
+	ayr2YwhNJCdkLGaQ+lbEeguCOROBitMPtOYWDyyFA5Asu6jUvRco58/K5hSrKOQV8Bi/xeoRfbQ
+	pTJVd8cgeGgVmYCr2U41uWZs3VWzicgLhJoJxoThAbyC4KzzFVg6jPdRKap8Cq3k0KUbOuxNK26
+	hNXgxb4785te/6hhuev//rZPzs9I7ueuK2IYQcTXyTAh0b3gaUTSrzHP4c6SaT+IFt4dj3W1ruv
+	gfejD+8TDaug3ExBEI394snbgmFltib9ooLLSluftELajZ6zcqjR3znh9c7jndkLUznkhHBMD4z
+	vnn6ZdNo8mMDYcsvp1uYbLcC1y4v6JcX1Xi59s+XdqL9FSTkO2yAKegH3MO6ghw==
+X-Google-Smtp-Source: AGHT+IEfPnxxstawg0t0+hxbihwE+m/Yi+Rgy3vIvrVw8z8BawDEexyvy7KHMbrundlf7tSR0wwAxQ==
+X-Received: by 2002:a05:6512:3ba8:b0:55b:8205:b1f2 with SMTP id 2adb3069b0e04-55b8205b426mr2435374e87.47.1753977524538;
+        Thu, 31 Jul 2025 08:58:44 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v3 09/20] xen/dom0less: abstract Arm-specific p2m type name for device MMIO mappings
-Date: Thu, 31 Jul 2025 17:58:08 +0200
-Message-ID: <b9f7a13262cb3b482fb3d5cbbee6c72781fbfdc2.1753973161.git.oleksii.kurochko@gmail.com>
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v3 10/20] xen/riscv: introduce page_{get,set}_xenheap_gfn()
+Date: Thu, 31 Jul 2025 17:58:09 +0200
+Message-ID: <5aa3beb7fc0b7fc7f4d6d07ae25f37d44fc38858.1753973161.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <cover.1753973161.git.oleksii.kurochko@gmail.com>
 References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Rename `p2m_mmio_direct_dev` to a more architecture-neutral alias
-`p2m_mmio_direct` to avoid leaking Arm-specific naming into common Xen code,
-such as dom0less passthrough property handling.
+Introduce page_set_xenheap_gfn() to encode the GFN associated with a Xen heap
+page directly into the type_info field of struct page_info.
 
-This helps reduce platform-specific terminology in shared logic and
-improves clarity for future non-Arm ports (e.g. RISC-V or PowerPC).
+Introduce page_get_xenheap_gfn() to retrieve the GFN from a Xen heap page.
 
-No functional changes — the definition is preserved via a macro alias
-for Arm.
+Reserve the upper 10 bits of type_info for the usage counter and frame type;
+use the remaining lower bits to store the grant table frame GFN.
+This is sufficient for all supported RISC-V MMU modes: Sv32 uses 22-bit GFNs,
+while Sv39, Sv47, and Sv57 use up to 44-bit GFNs.
 
-Suggested-by: Jan Beulich <jbeulich@suse.com>
+Define PGT_gfn_mask and PGT_gfn_width to ensure a consistent bit layout
+across all RISC-V MMU modes, avoiding the need for mode-specific ifdefs.
+
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in v3:
- - New patch
+ - Update the comment above defintions of PGT_gfn_width, PGT_gfn_mask.
+ - Add page_get_xenheap_gfn().
+ - Make commit message clearer.
 ---
- xen/arch/arm/include/asm/p2m.h          | 2 ++
- xen/common/device-tree/dom0less-build.c | 2 +-
- 2 files changed, 3 insertions(+), 1 deletion(-)
+Changes in v2:
+ - This changes were part of "xen/riscv: implement p2m mapping functionality".
+   No additional changes were done.
+---
+ xen/arch/riscv/include/asm/mm.h | 43 ++++++++++++++++++++++++++++++---
+ 1 file changed, 40 insertions(+), 3 deletions(-)
 
-diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
-index 2d53bf9b61..bade1eb71b 100644
---- a/xen/arch/arm/include/asm/p2m.h
-+++ b/xen/arch/arm/include/asm/p2m.h
-@@ -137,6 +137,8 @@ typedef enum {
-     p2m_max_real_type,  /* Types after this won't be store in the p2m */
- } p2m_type_t;
+diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm/mm.h
+index dd8cdc9782..7950d132c1 100644
+--- a/xen/arch/riscv/include/asm/mm.h
++++ b/xen/arch/riscv/include/asm/mm.h
+@@ -12,6 +12,7 @@
+ #include <xen/sections.h>
+ #include <xen/types.h>
  
-+#define p2m_mmio_direct p2m_mmio_direct_dev
++#include <asm/cmpxchg.h>
+ #include <asm/page.h>
+ #include <asm/page-bits.h>
+ 
+@@ -247,9 +248,17 @@ static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
+ #define PGT_writable_page PG_mask(1, 1)  /* has writable mappings?         */
+ #define PGT_type_mask     PG_mask(1, 1)  /* Bits 31 or 63.                 */
+ 
+-/* Count of uses of this frame as its current type. */
+-#define PGT_count_width   PG_shift(2)
+-#define PGT_count_mask    ((1UL << PGT_count_width) - 1)
++ /* 9-bit count of uses of this frame as its current type. */
++#define PGT_count_mask    PG_mask(0x3FF, 10)
 +
- /* We use bitmaps and mask to handle groups of types */
- #define p2m_to_mask(_t) (1UL << (_t))
++/*
++ * Stored in bits [22:0] (Sv32) or [44:0] (Sv39,48,57) GFN if page is
++ * xenheap page.
++ */
++#define PGT_gfn_width     PG_shift(10)
++#define PGT_gfn_mask      (BIT(PGT_gfn_width, UL) - 1)
++
++#define PGT_INVALID_XENHEAP_GFN   _gfn(PGT_gfn_mask)
  
-diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
-index 6bb038111d..5b97bf0343 100644
---- a/xen/common/device-tree/dom0less-build.c
-+++ b/xen/common/device-tree/dom0less-build.c
-@@ -185,7 +185,7 @@ static int __init handle_passthrough_prop(struct kernel_info *kinfo,
-                                gaddr_to_gfn(gstart),
-                                PFN_DOWN(size),
-                                maddr_to_mfn(mstart),
--                               p2m_mmio_direct_dev);
-+                               p2m_mmio_direct);
-         if ( res < 0 )
-         {
-             printk(XENLOG_ERR
+ /*
+  * Page needs to be scrubbed. Since this bit can only be set on a page that is
+@@ -301,6 +310,34 @@ static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
+ 
+ #define PFN_ORDER(pg) ((pg)->v.free.order)
+ 
++/*
++ * All accesses to the GFN portion of type_info field should always be
++ * protected by the P2M lock. In case when it is not feasible to satisfy
++ * that requirement (risk of deadlock, lock inversion, etc) it is important
++ * to make sure that all non-protected updates to this field are atomic.
++ */
++static inline gfn_t page_get_xenheap_gfn(const struct page_info *p)
++{
++    gfn_t gfn = _gfn(ACCESS_ONCE(p->u.inuse.type_info) & PGT_gfn_mask);
++
++    ASSERT(is_xen_heap_page(p));
++
++    return gfn_eq(gfn, PGT_INVALID_XENHEAP_GFN) ? INVALID_GFN : gfn;
++}
++
++static inline void page_set_xenheap_gfn(struct page_info *p, gfn_t gfn)
++{
++    gfn_t gfn_ = gfn_eq(gfn, INVALID_GFN) ? PGT_INVALID_XENHEAP_GFN : gfn;
++    unsigned long x, nx, y = p->u.inuse.type_info;
++
++    ASSERT(is_xen_heap_page(p));
++
++    do {
++        x = y;
++        nx = (x & ~PGT_gfn_mask) | gfn_x(gfn_);
++    } while ( (y = cmpxchg(&p->u.inuse.type_info, x, nx)) != x );
++}
++
+ extern unsigned char cpu0_boot_stack[];
+ 
+ void setup_initial_pagetables(void);
 -- 
 2.50.1
 
