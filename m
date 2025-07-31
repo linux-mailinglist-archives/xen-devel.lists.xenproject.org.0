@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CE09B16EC7
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 11:37:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1065224.1430614 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35C26B16EC5
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 11:37:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1065226.1430624 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhPj4-0006rE-SX; Thu, 31 Jul 2025 09:37:26 +0000
+	id 1uhPjD-00077e-8F; Thu, 31 Jul 2025 09:37:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1065224.1430614; Thu, 31 Jul 2025 09:37:26 +0000
+Received: by outflank-mailman (output) from mailman id 1065226.1430624; Thu, 31 Jul 2025 09:37:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhPj4-0006om-PI; Thu, 31 Jul 2025 09:37:26 +0000
-Received: by outflank-mailman (input) for mailman id 1065224;
- Thu, 31 Jul 2025 09:37:24 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1uhPjD-00074y-5B; Thu, 31 Jul 2025 09:37:35 +0000
+Received: by outflank-mailman (input) for mailman id 1065226;
+ Thu, 31 Jul 2025 09:37:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <anthony@xenproject.org>)
- id 1uhPj2-0006oc-RR; Thu, 31 Jul 2025 09:37:24 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1uhPj0-00AmtL-1b;
- Thu, 31 Jul 2025 09:37:22 +0000
-Received: from [2a01:cb15:80df:da00:94d0:641e:16e6:ca4b] (helo=l14)
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1uhPj0-000IaV-0i;
- Thu, 31 Jul 2025 09:37:22 +0000
+ (envelope-from <SRS0=X87O=2M=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
+ id 1uhPjB-00073o-T6
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 09:37:33 +0000
+Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
+ [2001:4860:4864:20::30])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f8e5e48f-6df1-11f0-a320-13f23c93f187;
+ Thu, 31 Jul 2025 11:37:28 +0200 (CEST)
+Received: by mail-oa1-x30.google.com with SMTP id
+ 586e51a60fabf-2cc9045bae9so153842fac.3
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 02:37:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,67 +40,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date;
-	bh=CJLnyVueJajoFXaFlJV3VdqVl/Xnt5TjDYNalBRdhRM=; b=5pK7+5FnBQnCiTsX2PGdAenFSp
-	JNehyNSvWz9iobKApz20341nWRNnNYbm/NldKwsDB0Q6cJohx7pIaX6OEZVwpLlEO1WPa6lvgEUm1
-	UkVFBlMQT3TUX3Z8yOH8KqJjbzYZzt8DcuF2xydwtlmhjTs4H8LrB8p+11+rjhnA38CI=;
-Date: Thu, 31 Jul 2025 11:37:11 +0200
-From: Anthony PERARD <anthony@xenproject.org>
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
-	Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Xen-devel <xen-devel-bounces@lists.xenproject.org>
-Subject: Re: [PATCH] xenalyze: correct symbol name length fscanf() specifier
-Message-ID: <aIs5R_ttIOGTApqj@l14>
-References: <72218fb5-92f2-481d-9754-e6069f945c8e@suse.com>
- <DBNUR2PNKJKP.677MC6QFT97J@amd.com>
+X-Inumbo-ID: f8e5e48f-6df1-11f0-a320-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1753954647; x=1754559447; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=OEupqqGQM3LR/msg/AHrwRZOGIZNDBISJ0ZlPcTixgU=;
+        b=GFrgpSfAMy4DPmfdAFVSnK/m2LhGQlZ9PI6d5frPJZ+ue89XQRReU7PtL26UFxWSx6
+         gRLxWoqStwnUMwYxS0m6TG/ndowyDNF02rQS0qHjf74tfxhZByqKANDbm62PtEcwf15g
+         1ow/Bl+dAqoIYyrCDQPtfr7ghrJatxJ4MN1hNh24rijjtMmpMapUOkK+dBWTOhRaLvg6
+         OMLFtxaJ3wxC6nd/67XdrOIJAp+OHIMUDOt10sqAsmrixF8wbvUpn1UCL88uDczJqctI
+         7/A5bt1zgP6wMKt6F9vCXBTzM/p2XDVhDrYkrHuElqBMrtCoi5NiGFTfJ1H6M4Y+i7sq
+         idpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753954647; x=1754559447;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=OEupqqGQM3LR/msg/AHrwRZOGIZNDBISJ0ZlPcTixgU=;
+        b=QE/8+4R8NYpbDO3zwlBvOAzvqt3qd3J6cXWSEcUZaPEHph/ivNedHUoMew6CxbE/Y9
+         82+Rn4RrxBebAftnHwYy8PuSHDZUeM1+sH3hQiaQwFQef306iYQMqCngHV6UfLqrRfPx
+         SxgmPrzXFzP+lWiNY94MELzImhgmXiCHME77Z3mSzQsmNTXaqCcDJxPsUViy5Ym7aBB3
+         ak1e5suv+Pmm6CcKYmfVM0J6GedZTITdLAVMUI+G4RPl3yYjHWkqkfH9+0udh61Vpd8x
+         RR+3bdQwJGCxWhicTED05XyrwIVn4G4UfMaAeHSwVURWoHhhves6VDsfFF8RKa/iLJC1
+         f95g==
+X-Forwarded-Encrypted: i=1; AJvYcCUo57WbbJh4+wUCBFi8fK4rCorlqLIi6zJB+/5KuLDvjwRdGqm85BzpILETdZefEiOteMthPFrv6WU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YygGSZT9CLmFvGIFjE3SUQtOW4lkjukLw1/ZEt+KDR8Yxaw8XxS
+	17M0xjUMAgudJvNRo1dUroQ8WHDi348QhSQh1swU3N40Jajcl+emwUmTIx1dDQy/q4+3BlIRrmZ
+	TiH8yiHfM35lIX+TlSMteH9aKon87l+o=
+X-Gm-Gg: ASbGnct40oC0o5fC1+QDx4FVgoUlLeEjzCwM6EgDDgfm8kBVpdpMAoQZUQwXdT1FapI
+	HVvocxwzIpiNM2Zi5+EhL7DGbeb1j/RaYN6SN8dlInTAWZlWT2wbAwPi6bzhuGL7mF1HGz5pT59
+	aOjWzLxbi064LA51rLQIKJm0GOiORFsToa55w29syFtNxRn+hULT6Kkx8NuVqQVVKvuY9/VHITn
+	ZbTmRblOIeXVDptIPZdbAaPqlc+DEjRLx3peusRwhjJj9tUZS5W
+X-Google-Smtp-Source: AGHT+IHcPUQZwpiLov7YcauIlQLz8HLPVlJj4ImjL8mROFb5obB+bEgyGgW2uERks2UDGY3FJsZoTLJ+1jq6gXrcR1o=
+X-Received: by 2002:a05:6808:2512:b0:421:4d86:660 with SMTP id
+ 5614622812f47-4319b821120mr1419925b6e.5.1753954647422; Thu, 31 Jul 2025
+ 02:37:27 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DBNUR2PNKJKP.677MC6QFT97J@amd.com>
+References: <cover.1753953832.git.w1benny@gmail.com> <379b70bc-2e1c-44fb-84ec-d7fd42fda147@suse.com>
+In-Reply-To: <379b70bc-2e1c-44fb-84ec-d7fd42fda147@suse.com>
+From: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
+Date: Thu, 31 Jul 2025 11:37:17 +0200
+X-Gm-Features: Ac12FXz7d5thVdvEBX2Wsa5N8mrzttRpP5fXs_xdPpVBdqRf1nL05Qk_-bnOnYg
+Message-ID: <CAKBKdXjWaKzMj1HtTvos8jcW9jPLn7tH61+hgpDgzMScGdmGdA@mail.gmail.com>
+Subject: Re: [PATCH v12 0/6] x86: Make MAX_ALTP2M configurable
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Anthony PERARD <anthony.perard@vates.tech>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Shawn Anastasio <sanastasio@raptorengineering.com>, 
+	Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, 
+	Connor Davis <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
+	Tamas K Lengyel <tamas@tklengyel.com>, Alexandru Isaila <aisaila@bitdefender.com>, 
+	Petre Pircalabu <ppircalabu@bitdefender.com>, Juergen Gross <jgross@suse.com>, 
+	Christian Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jul 28, 2025 at 07:08:46PM +0200, Alejandro Vallejo wrote:
-> On Mon Jul 28, 2025 at 5:52 PM CEST, Jan Beulich wrote:
-> > SYMBOL_NAME_SIZE is 124, not 128. Use the symbolic name there as well,
-> > to avoid any disconnect.
-> >
-> > While there correct indentation on the following line as well.
-> >
-> > Coverity ID: 1659391
-> > Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> > ---
-> > There's no useful Fixes: tag; the code was imported from HG this way
-> > about 10 years ago.
-> >
-> > --- a/tools/xentrace/xenalyze.c
-> > +++ b/tools/xentrace/xenalyze.c
-> > @@ -321,11 +321,10 @@ void parse_symbol_file(char *fn) {
-> >              (*p)->next=NULL;
-> >          }
-> >  
-> > -        /* FIXME -- use SYMBOL_NAME_SIZE */
-> >          /* FIXME -- use regexp.  This won't work for symbols with spaces (yes they exist) */
-> >          (*p)->symbols[(*p)->count].addr = 0xDEADBEEF;
-> > -        if ( fscanf(symbol_file, "%llx %128s",
-> > -               &(*p)->symbols[(*p)->count].addr,
-> > +        if ( fscanf(symbol_file, "%llx %" STR(SYMBOL_NAME_SIZE) "s",
-> 
-> nit: A comment at the #define stating it's used this way would prevent future
-> "oops" situations when/if someone tries to do (e.g) "#define SYMBOL_NAME_SIZE (1
-> << 4)"
-> 
-> Though arguably that would cause a compile-time error anyway (except perhaps
-> an octal literal?), so meh. With or without the adjustment:
-> 
->   Reviewed-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+On Thu, Jul 31, 2025 at 11:31=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wr=
+ote:
+> As it is still lacking ack-s, as I think I had indicated.
 
-Acked-by: Anthony PERARD <anthony.perard@vates.tech>
+Sorry if it sounded like complaining - it absolutely wasn't meant that
+way. I was merely explaining why I did it, since I wasn't sure what's
+the "right protocol" - i.e. whether I should let the commit be
+unchanged and let you do it, or - considering I'm resubmitting anyway
+- whether I should make the change (despite me agreeing to let you do
+it).
 
-Thanks,
-
--- 
-Anthony PERARD
+P.
 
