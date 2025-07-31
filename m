@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 983A0B1745F
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 17:56:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1065852.1431174 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA83EB1746D
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 17:58:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1065866.1431201 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhVdk-0000Kr-08; Thu, 31 Jul 2025 15:56:20 +0000
+	id 1uhVfv-0001N0-4u; Thu, 31 Jul 2025 15:58:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1065852.1431174; Thu, 31 Jul 2025 15:56:19 +0000
+Received: by outflank-mailman (output) from mailman id 1065866.1431201; Thu, 31 Jul 2025 15:58:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhVdj-0000JD-TJ; Thu, 31 Jul 2025 15:56:19 +0000
-Received: by outflank-mailman (input) for mailman id 1065852;
- Thu, 31 Jul 2025 15:56:19 +0000
+	id 1uhVfu-0001I2-TD; Thu, 31 Jul 2025 15:58:34 +0000
+Received: by outflank-mailman (input) for mailman id 1065866;
+ Thu, 31 Jul 2025 15:58:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=g10J=2M=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1uhVdj-0008NN-9u
- for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 15:56:19 +0000
-Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
- [2001:4860:4864:20::2d])
+ <SRS0=0Jdx=2M=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uhVft-0001FB-00
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 15:58:33 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e47f2079-6e26-11f0-b895-0df219b8e170;
- Thu, 31 Jul 2025 17:56:17 +0200 (CEST)
-Received: by mail-oa1-x2d.google.com with SMTP id
- 586e51a60fabf-2ebb468cbb4so863523fac.2
- for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 08:56:17 -0700 (PDT)
+ id 34589bde-6e27-11f0-b895-0df219b8e170;
+ Thu, 31 Jul 2025 17:58:31 +0200 (CEST)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-55516abe02cso1241424e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 08:58:31 -0700 (PDT)
+Received: from fedora (user-109-243-64-38.play-internet.pl. [109.243.64.38])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-55b88c9931bsm278746e87.101.2025.07.31.08.58.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 31 Jul 2025 08:58:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,150 +45,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e47f2079-6e26-11f0-b895-0df219b8e170
+X-Inumbo-ID: 34589bde-6e27-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1753977376; x=1754582176; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jbAkfH/Kh66/pWxcM/rrnxgFmDIShR9m+ETVOh2JEFQ=;
-        b=WROZ3axMZFVuJC7pgSHHmjJ1mCUgi+vrA9KmVXJFvR+hCidBXvOf+XfwqIclGVZEvB
-         ti0FPhpDIu2JKvN3nFEl7gYEcCIItAb1Yb7qGtXbFCzHNDc0mWRCpaQmnjUcFKlAlaBh
-         geP1K/Qi7P8YHoX6ehOBq3ik6b3O+UNnI6tj4=
+        d=gmail.com; s=20230601; t=1753977510; x=1754582310; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=7TAiMjtL3G6nfcsV7yyHthW3eByGMXA96M40EAt7DjU=;
+        b=nkxffNKeui2iGTmfNyllosdf8VeRmgQ8uqUwmqkE106QMsLFMYC0bkQfICvXJwYKwE
+         CK7mSDiC68IOhDQ5U+vlKv3GXGXxa7WrXMJ1jexioTdgbQmD/xUECXqg0Uaqv1L87wDq
+         FfgpFS+A2PZK9JYY+zptTPLnoMFRrQIlVyPN83xohz6OPW3kLAOURXRJWSgAp4yl6QTL
+         p+EUifJgcOJ/QIaQsHfhgywqPEBuVf0DvtHqz7JgGHh/o+LAAlRKrq1VYb5/Xgi//e8M
+         8zHHI6SFC6E14InOoGXSOGrMrUWEoL8IAR7inOTi23ZEBWmJg3t4vFE8Hx63SzZi6ssl
+         BpWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753977376; x=1754582176;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=jbAkfH/Kh66/pWxcM/rrnxgFmDIShR9m+ETVOh2JEFQ=;
-        b=giT/3nuR4xiT3EhSgvhTwOEAbFcXyeIHaVV53Uxah+bqTbqDQouRhna6RYc4H895Ie
-         nKQEDjOUaRENZR6I+340RDiT4kRblYnEZf77Q7JJZpnSnkZFbq/r5o/nFnmH5HglsHNC
-         lhxYxKf69uk0f+QdBkZ3cSzGlVrSvTupiD7AG4/ewocC13UQRjekDutXTroxgWhccMbF
-         0IgmF71hBXQbHzCvPC2rRL5hdqB7afhLSZyoxW6bM1Gk7KTjEZjxPTqxvT9tkYVMSbGm
-         zQlpsC3gPhPDw047T3Fiv58RzxNfAakJzl1xMMQt19ZkHEGPiZ7iBaM4MC/MC0EAw4w5
-         Vtsw==
-X-Gm-Message-State: AOJu0YxO42d+xCYYCqutLm96kccv59ytU/KZmAHOSnZq6k4YXrnYTfEc
-	q6qkz3CGcm6HpqVSWwW5z6EcZtH0PxoaDD5L+D3aa2CFFHSJ3SApEVxZzUHg7rPi/07kk0nCpsk
-	Q66I56gcbL6hAL03qsAS6cvOwQTAAttsDrP3Wi17e
-X-Gm-Gg: ASbGnct13z8T5ibTMughxM6Myjne89i6wNmEHOue4nEgT5gzd/Gb4QMw6sRR+3p6c8U
-	r6A5JQWqav2ORa4/eo8yaIMmXozOyuKZXteY9iv5sQIpa7CT3Y0PAsdtyRyjuvoBpz1Xz7i07bc
-	oUkJDVF/bj+J3AxxVNhIix5DsIXXvlC0YG475DNJTrrkiwjeMdoJuWcsvhk/h3gv/KejsTXzVrj
-	9t/ig==
-X-Google-Smtp-Source: AGHT+IGOW08oKnv7Unvzuf0eK9lJgHhODeKiFGBKTnamzAEtDhvoJ9nt0xUGn4DSj+d4zoXbzXt5l7YKk86l25quhQk=
-X-Received: by 2002:a05:6870:a908:b0:306:e3a8:a97b with SMTP id
- 586e51a60fabf-30785c8f016mr4592505fac.21.1753977376331; Thu, 31 Jul 2025
- 08:56:16 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1753977510; x=1754582310;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=7TAiMjtL3G6nfcsV7yyHthW3eByGMXA96M40EAt7DjU=;
+        b=bSdpVUMABwUT69iTFkN06LS5I95FpK8ClgnAwiW5RTgNxh1Vp8MQ+nqPRdFGbH4ZWc
+         PkvJbqkhV5CrAz5aERvPGYxaDCNj+rsIACQZ00DldC4GT74y5lo2Z2GagEdS3ugjgycU
+         xHa2mOBvugnaEAHAi7eSrnDVh+MEL3cy2jhXBMEoyLzosF/r8EqCzjuxEd9H/Vo2enwh
+         JpsQ97HywSqIJXJCXMrn3mJc26Y3WBNg4d2K334pooKuzmkaW7YvILyuYiXp9WPfgZh/
+         7BFbn29c7LtFy4wNAXLNoPCE8UEoXHG0i3WcLqfrTrSoP08mv8elw9oiZY5P29ZrSbKR
+         ZovQ==
+X-Gm-Message-State: AOJu0YylMfGoXitQK6dKPhfTZHvQteCcbLpSPGYIG/suJXPU64o8WyDI
+	8bTuXgoMQRhbWaDYplLZS3+4LRHt2KzOKAhL4bviBssBUrzfi7OvGuAc27hn0g==
+X-Gm-Gg: ASbGnctKEhTeYqur6++ukEhNj20L5ZKseX/P0wztRdhv1TpZvEEdsmKXWOi15w2Bt3E
+	f6FQe4ET683+gTu5JTkHGhy8i3BMaHDv8dA3ILFdGwERzIJtGORaJNcAHWTCU3l+GqI5YiRtCUb
+	BlZ7/63NcRG6uS+4djUpzuAKAYZFZqSnF2KXEGJNUwan9tKkUNBp+ZjTiuuo3CdKaGSlmyzwX56
+	czAweaFIGvhd+pSiq0lwP1Rw8PX4lc3+P5h4kObJf16mKRpNs7jkJnp7iy6yqnjGYgRBlw108Sa
+	CX9PbPb1jKWrQOxhYXisG4H/KMVBuMP0RsS7C2RtoNXJsFwz26h6BmHBMxDLU2pmczwVCeCAo19
+	hZTCl9pGE/rwVWkPg3XuweQjLgg8u3TQq3nGJ1jMHgEs46pK3XJ3NalXHpxJ2cg==
+X-Google-Smtp-Source: AGHT+IHBHM0LLm/yvw7+ReYt6vvrzjx+bDed083If97oiTI5HZNmZYT3lNdun4Vtkp/NFwyndD0phQ==
+X-Received: by 2002:a05:6512:6d5:b0:55b:8308:f949 with SMTP id 2adb3069b0e04-55b88c80c3bmr811512e87.15.1753977509898;
+        Thu, 31 Jul 2025 08:58:29 -0700 (PDT)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v3 00/20] xen/riscv: introduce p2m functionality
+Date: Thu, 31 Jul 2025 17:57:59 +0200
+Message-ID: <cover.1753973161.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-References: <20250731110231.3551636-1-andrew.cooper3@citrix.com> <20250731110231.3551636-3-andrew.cooper3@citrix.com>
-In-Reply-To: <20250731110231.3551636-3-andrew.cooper3@citrix.com>
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-Date: Thu, 31 Jul 2025 16:56:04 +0100
-X-Gm-Features: Ac12FXx9bQ3p0q2dkJUATy_Dm9N25VnepvLjjWa79CBl5eij8eiKo-1SySfmpGg
-Message-ID: <CAG7k0Eob8eaGt=qA2hCEWHi5FbavJOe70odo5n+xDdeO6TyeQQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] xen/version: Remove xen_build_id() and export the
- variable instead
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 31, 2025 at 12:02=E2=80=AFPM Andrew Cooper
-<andrew.cooper3@citrix.com> wrote:
->
-> The API is unergonomic to use, and leads to poor code generation because =
-of
-> unnecessary forcing of data to the stack.
->
-> Rename build_id_p to xen_build_id, and build_id_len to xen_build_id_len, =
-make
-> them __ro_after_init, and export the variables directly.
->
-> No functional change.
->
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Anthony PERARD <anthony.perard@vates.tech>
-> CC: Michal Orzel <michal.orzel@amd.com>
-> CC: Jan Beulich <jbeulich@suse.com>
-> CC: Julien Grall <julien@xen.org>
-> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Ross Lagerwall <ross.lagerwall@citrix.com>
->
-> Both the code diffstat, and the binary on x86 speaks for themselves:
->
->   add/remove: 1/2 grow/shrink: 0/6 up/down: 4/-348 (-344)
->   Function                                     old     new   delta
->   xen_build_id_len                               -       4      +4
->   build_id_len                                   4       -      -4
->   build_id_p                                     8       -      -8
->   xen_build_id                                  42       8     -34
->   livepatch_printall                           470     432     -38
->   build_id_dep                                 152     113     -39
->   livepatch_op                                7930    7866     -64
->   do_xen_version                              2436    2363     -73
->   livepatch_op.cold                           1420    1332     -88
-> ---
->  xen/common/kernel.c       | 14 ++++----------
->  xen/common/livepatch.c    | 23 ++++++++++-------------
->  xen/common/version.c      | 25 +++++++------------------
->  xen/include/xen/version.h |  4 +++-
->  4 files changed, 24 insertions(+), 42 deletions(-)
->
-> diff --git a/xen/common/kernel.c b/xen/common/kernel.c
-> index 5be668ba855a..e6979352e100 100644
-> --- a/xen/common/kernel.c
-> +++ b/xen/common/kernel.c
-> @@ -510,21 +510,15 @@ static long xenver_varbuf_op(int cmd, XEN_GUEST_HAN=
-DLE_PARAM(void) arg)
->      struct xen_varbuf user_str;
->      const char *str =3D NULL;
->      size_t sz;
-> -    int rc;
->
->      switch ( cmd )
->      {
->      case XENVER_build_id:
-> -    {
-> -        unsigned int local_sz;
-> -
-> -        rc =3D xen_build_id((const void **)&str, &local_sz);
-> -        if ( rc )
-> -            return rc;
-> -
-> -        sz =3D local_sz;
-> +        str =3D xen_build_id;
-> +        sz  =3D xen_build_id_len;
-> +        if ( !sz )
-> +            return -ENODATA;
->          goto have_len;
-> -    }
->
->      case XENVER_extraversion2:
->          str =3D xen_extra_version();
-> diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
-> index 9a0df5363b59..9285f88644f4 100644
-> --- a/xen/common/livepatch.c
-> +++ b/xen/common/livepatch.c
-> @@ -475,8 +475,8 @@ static int parse_buildid(const struct livepatch_elf_s=
-ec *sec,
->
->  static int check_xen_buildid(const struct livepatch_elf *elf)
->  {
-> -    const void *id;
-> -    unsigned int len;
-> +    const void *id =3D xen_build_id;
-> +    unsigned int len =3D xen_build_id_len;
+In this patch series are introduced necessary functions to build and manage
+RISC-V guest page tables and MMIO/RAM mappings.
 
-Is it worth making this const? Or you could just remove these variables
-entirely and use xen_build_id / xen_build_id_len directly in the rest of
-the function.
+---
+Changes in V3:
+ - Introduce metadata table to store P2M types.
+ - Use x86's way to allocate VMID.
+ - Abstract Arm-specific p2m type name for device MMIO mappings.
+ - All other updates please look at specific patch.
+---
+Changes in V2:
+ - Merged to staging:
+   - [PATCH v1 1/6] xen/riscv: add inclusion of xen/bitops.h to asm/cmpxchg.h
+ - New patches:
+   - xen/riscv: implement sbi_remote_hfence_gvma{_vmid}().
+ - Split patch "xen/riscv: implement p2m mapping functionality" into smaller
+   one patches:
+   - xen/riscv: introduce page_set_xenheap_gfn()
+   - xen/riscv: implement guest_physmap_add_entry() for mapping GFNs to MFNs
+   - xen/riscv: implement p2m_set_entry() and __p2m_set_entry()
+   - xen/riscv: Implement p2m_free_entry() and related helpers
+   - xen/riscv: Implement superpage splitting for p2m mappings
+   - xen/riscv: implement p2m_next_level()
+   - xen/riscv: Implement p2m_entry_from_mfn() and support PBMT configuration
+ - Move root p2m table allocation to separate patch:
+   xen/riscv: add root page table allocation
+ - Drop dependency of this patch series from the patch witn an introduction of
+   SvPBMT as it was merged.
+ - Patch "[PATCH v1 4/6] xen/riscv: define pt_t and pt_walk_t structures" was
+   renamed to xen/riscv: introduce pte_{set,get}_mfn() as after dropping of
+   bitfields for PTE structure, this patch introduce only pte_{set,get}_mfn().
+ - Rename "xen/riscv: define pt_t and pt_walk_t structures" to
+   "xen/riscv: introduce pte_{set,get}_mfn()" as pt_t and pt_walk_t were
+   dropped.
+ - Introduce guest domain's VMID allocation and manegement.
+ - Add patches necessary to implement p2m lookup:
+   - xen/riscv: implement mfn_valid() and page reference, ownership handling helpers
+   - xen/riscv: add support of page lookup by GFN
+ - Re-sort patch series.
+ - All other changes are patch-specific. Please check them.
+---
 
-In any case,
+Oleksii Kurochko (20):
+  xen/riscv: implement sbi_remote_hfence_gvma()
+  xen/riscv: introduce sbi_remote_hfence_gvma_vmid()
+  xen/riscv: introduce VMID allocation and manegement
+  xen/riscv: introduce things necessary for p2m initialization
+  xen/riscv: construct the P2M pages pool for guests
+  xen/riscv: add root page table allocation
+  xen/riscv: introduce pte_{set,get}_mfn()
+  xen/riscv: add new p2m types and helper macros for type classification
+  xen/dom0less: abstract Arm-specific p2m type name for device MMIO
+    mappings
+  xen/riscv: introduce page_{get,set}_xenheap_gfn()
+  xen/riscv: implement function to map memory in guest p2m
+  xen/riscv: implement p2m_set_range()
+  xen/riscv: Implement p2m_free_subtree() and related helpers
+  xen/riscv: Implement p2m_pte_from_mfn() and support PBMT configuration
+  xen/riscv: implement p2m_next_level()
+  xen/riscv: Implement superpage splitting for p2m mappings
+  xen/riscv: implement put_page()
+  xen/riscv: implement mfn_valid() and page reference, ownership
+    handling helpers
+  xen/riscv: add support of page lookup by GFN
+  xen/riscv: introduce metadata table to store P2M type
 
-Reviewed-by: Ross Lagerwall <Ross.lagerwall@citrix.com>
+ xen/arch/arm/include/asm/p2m.h              |    2 +
+ xen/arch/riscv/Makefile                     |    3 +
+ xen/arch/riscv/include/asm/Makefile         |    1 -
+ xen/arch/riscv/include/asm/domain.h         |   23 +
+ xen/arch/riscv/include/asm/flushtlb.h       |    5 +
+ xen/arch/riscv/include/asm/mm.h             |   72 +-
+ xen/arch/riscv/include/asm/p2m.h            |  145 ++-
+ xen/arch/riscv/include/asm/page.h           |   38 +
+ xen/arch/riscv/include/asm/paging.h         |   19 +
+ xen/arch/riscv/include/asm/riscv_encoding.h |    6 +
+ xen/arch/riscv/include/asm/sbi.h            |   32 +
+ xen/arch/riscv/include/asm/vmid.h           |    8 +
+ xen/arch/riscv/mm.c                         |   73 +-
+ xen/arch/riscv/p2m.c                        | 1107 +++++++++++++++++++
+ xen/arch/riscv/paging.c                     |  112 ++
+ xen/arch/riscv/sbi.c                        |   14 +
+ xen/arch/riscv/setup.c                      |    3 +
+ xen/arch/riscv/vmid.c                       |  165 +++
+ xen/common/device-tree/dom0less-build.c     |    2 +-
+ 19 files changed, 1809 insertions(+), 21 deletions(-)
+ create mode 100644 xen/arch/riscv/include/asm/paging.h
+ create mode 100644 xen/arch/riscv/include/asm/vmid.h
+ create mode 100644 xen/arch/riscv/p2m.c
+ create mode 100644 xen/arch/riscv/paging.c
+ create mode 100644 xen/arch/riscv/vmid.c
+
+-- 
+2.50.1
+
 
