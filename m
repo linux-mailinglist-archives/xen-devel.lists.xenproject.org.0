@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CEC5B16CBD
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 09:28:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1064924.1430230 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2985B16CD1
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 09:40:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1064937.1430241 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhNho-0005Hc-RT; Thu, 31 Jul 2025 07:28:00 +0000
+	id 1uhNt9-00078s-Qn; Thu, 31 Jul 2025 07:39:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1064924.1430230; Thu, 31 Jul 2025 07:28:00 +0000
+Received: by outflank-mailman (output) from mailman id 1064937.1430241; Thu, 31 Jul 2025 07:39:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhNho-0005FJ-Ot; Thu, 31 Jul 2025 07:28:00 +0000
-Received: by outflank-mailman (input) for mailman id 1064924;
- Thu, 31 Jul 2025 07:27:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lm68=2M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uhNhm-0005FD-Uh
- for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 07:27:58 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e17ce827-6ddf-11f0-a320-13f23c93f187;
- Thu, 31 Jul 2025 09:27:57 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3b7892609a5so335909f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 00:27:57 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-241e8aab53dsm9914745ad.170.2025.07.31.00.27.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Jul 2025 00:27:56 -0700 (PDT)
+	id 1uhNt9-00076u-NF; Thu, 31 Jul 2025 07:39:43 +0000
+Received: by outflank-mailman (input) for mailman id 1064937;
+ Thu, 31 Jul 2025 07:39:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xYFp=2M=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1uhNt7-00076l-4x
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 07:39:41 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 817d878a-6de1-11f0-b895-0df219b8e170;
+ Thu, 31 Jul 2025 09:39:36 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id 6622A4EE3C02;
+ Thu, 31 Jul 2025 09:39:34 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,126 +40,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e17ce827-6ddf-11f0-a320-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753946877; x=1754551677; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YAAJiC4XMpLQ7cLjtxCB9tnxZzTfqg0eRyw8mHtqRlI=;
-        b=XtTvD8v5+Da7xj5zB4ymGsTzEEUwi4SPG8gG1Fe9nZBsLPER/FGQaUkwbmOAiHU2w1
-         lr9umvRLQTrhhWXr55TaAD7V5w7gkxJHqWC54wXg8Ci399z9MEQdA6ddEO4AyDwJS2vP
-         tDi/ZqGjaIA7LeXplhcWcuIyxTb++1a2IMkqnVU3lmNBBwAD/ykBZNti4qMQpF41KQkb
-         HVr4uZpe059jLLA0UtsEieXsA/2It/5HOVZN5O2L9Rwmw1VyGEQroTPkJQ5Qm1Y0U6Qy
-         d7UY3RkLQrrH19uM7XlxMP529qjJN9qVjGdhwCQ7Pi3ZvE+/8nUFckYXhJpFAyXYbDOi
-         6vQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753946877; x=1754551677;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YAAJiC4XMpLQ7cLjtxCB9tnxZzTfqg0eRyw8mHtqRlI=;
-        b=gO4wtAQHVd8gtsfc7dhiCkFvheCRiCorEMnX3XqAsHm6JGXiAB1gosQpPipHPLsUQd
-         GUHN5CDtYJHhK1pdrDMigZxfT+ncso1eoA+vuy3ICrRmiCh0XlNGPdGI+E1CtlT8GpS6
-         DNBvgDcm77m7BaQCoCMfz11f9qtRUoCkq779GiWHc+cqXrVzoiWPRSjkorQKaea0K1Wc
-         aCDoxOMxwbdI2jNvQkj7EVIZuCqfBRSJTkzaChIp0meO9FVzkfClt5s1nDAH0v64uByq
-         /Qa6+TqAJ0C+ahLUFDXuL7TB7/OFWDawyHaQlFtxIszzGDbyNhwaiY8iYwLI+eN8yk4R
-         Y98g==
-X-Forwarded-Encrypted: i=1; AJvYcCXv6mp4wFUceo0+8U30qHeAvIMS5JkxzaRRA2/zvakanQMlqiVIDD8Z8i18rwNMimfj7l8ZDB8+ZX4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyeJkvHKhkxfmnMcjA+mJuBkVqhZB7s8hzOwyTMR1jbN2Ysdp4u
-	KyGG+LWst/vGkterIbc4hXkUs5TEDSPqsm24qCg+l+dkAGGYV27jQ9mabI+fftM4PA==
-X-Gm-Gg: ASbGnctCj/R/91PGCMpwGiVlA+JWB7L0PaJKs5s1/axgAw9nBL8kCL9lUAXyI1XqHZm
-	4uxmLYy5qvjdz9uBWtj27pkUIWxZkXSGleh7B7PmEi6gxs1piq/6Z6dxevbOlQeufTTin2X+KJJ
-	DNDnepBixGOpZeET6TPF7rxZIY51Cmj1HhzNzVKomdf3cjdWVqHxzArS4pJxEcsmox55t6IinTq
-	cPVAljdrcFCoN0TdAZeZZXBGvaDuXMEOCevVKAg90iIeIH/+y5J1CYqWFYX03ZvqW0kM1myyjSm
-	TB0uSkvRkR5f4tX5puE4Bw5EbiOpduywZjmyWIlzH+Ic/6LGSXeGgAdz08nNMEgeZqVNcZEUhlb
-	CuBI8XeeKn+ifSBETtBUO2Uken4bXDNCggC9FYdiIxe3Y3YHmjDoN7frzSq3xpxVVW/jlqhlA2t
-	0fsT7mlOw=
-X-Google-Smtp-Source: AGHT+IEF9npKppu+iKxLOn9a5dRwknxLJ5jfS8QEbpdwaYyM4SquBotY7bsicvqEjFpmIzeO86BNNA==
-X-Received: by 2002:a05:6000:26ca:b0:3a4:d9fa:f1ed with SMTP id ffacd0b85a97d-3b794fecd1bmr4872151f8f.13.1753946877160;
-        Thu, 31 Jul 2025 00:27:57 -0700 (PDT)
-Message-ID: <db6886fb-7ab8-4c17-9ed7-b53357b21175@suse.com>
-Date: Thu, 31 Jul 2025 09:27:49 +0200
+X-Inumbo-ID: 817d878a-6de1-11f0-b895-0df219b8e170
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1753947574;
+	b=GA1+COm9/OgmcVjF1ur6k/iLXsS1eWBoS3UffoEniungSamJZ2N76oeo4x6K4IA8VpcN
+	 G8sDaCCUXjYDsrPQnAXrNLM+kupsPtWhvHXU+ZmQEtuWSRVeb/j5qvRnk0/+CteWHvS/t
+	 +pf7FK/cajZ2/On+SD8P4X+9G9R3MfuOPLf9TwFDsI4Ng9iPq+pZkFp+EVShr1GNhNJzS
+	 XVh5u7kB4lpcwgt/OVyyCWPF52h4eztIsPsRrWKQBj0RVobJL9zXD1z9L4IyF7Sn1SfPC
+	 e0Sgc/ZMbvQ9lLOv+HbbEjepSOfVIY11ThGXVviuvO+CwD3zhqiPlFziJGcr8zEJcOQM8
+	 MNnMToQGHr2OpIuaRxc30k4thks8MBnVT96bf3i4kAZyXK3TpEA7jG3oQuCMWelvev0Bf
+	 Y+39jVXDuipMh+iFkdqBsm8wBo/UtnHYOphaX6BiU7U9N3KmLHWWQ/IgRbTKkT0YGyg9E
+	 lOvcQ/TLqOGgDyUV6Aal79/uPYiC4yMp3AXV6mriIW+rlB+d+0xJFO27to/a5OJ9VWBlg
+	 Vz0FjijdHbbytJHpSFaGA8iTqzCB9DhXmCZ+eYh/zbrVD2oyn7rG9bZSYAQdHpMrHqkx6
+	 VKEok14+3BqArBB35dN+8KgSf/t861GO1zSxlew7FJSlJA+4UrU7cphcG6tkQdU=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1753947574;
+	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=vIPr3qMiey4PqbLh1d3XXQP2tuTtegO/vWfI/tNTi8g=;
+	b=svdkDXwwstratBoLljX42F46Cn9aAQkH6D/FwiJBR3QTfobe4Xneq2eFVAFOBMRBYWbe
+	 CuNzvQ+g4/I8djj+2T7ivY8a7t5Ueqt90usAVDzgWMZgt2c6cKltW6unCX5S9ZrkpK75w
+	 Db3wzrcPhwt7WEEnWG0Pz3Zx5aHXoY7rfhtQ0+TZM2Vw1YJapyz33NhjHbU1ifCYtTYn0
+	 DvHOLMx5/jHUzwHXZje6bT4pSTNF3SKdxINiUlEiOUwpJxdXVoJz3r9QVjMR2PyGT9XCw
+	 rHBL29Rs5ebbOODbJQPoFTriqo7AJ5fpjGwldRP2QispT2b5f9PY6hzkuGuGX9kpQFWsK
+	 GzPuVMYeqENSOqUBGkpoTERctg3IS5v6h/yMk7VjOfo08ulRz47QUVn0TorDOLkxqqF64
+	 WlIJGBfkqQUqM6eu71kMsVGpI6bkYVCBQPzvAQcNyUednWKpRXYgEg19pUq0qWfUQROJI
+	 8uUBEdZJlX2pvsCdkYU+HiN5jlPyURD0bKCF348IeROgaRQq2pBFe1c51qrLzKDqkY9MK
+	 +fTguQ6Iiyf4H9DRyvpBXOKsXAhPtShgQt/KGDlCKt5y0b5LTpdMFVFvJZBpxDiSn9M3q
+	 Y9fSLyTGoaEVbNFwL049vn6VAbQnMjK2+ApKarj1XOwFhaaifTyIu3KnIE7qT2o=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1753947574; bh=oVsqTYiXPa4ewJzzr13nyGlPNIW7Hvaij+6+g+uCCq0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=nrVq7Ja3SeLUV/rq/4LW1rP9ZXFWWjcgbLR/Lg5gu8nfXAQLt1rT9bK32+/mfF7Lv
+	 qBr/11YeWVAVJ0uBWtOEjWe871B4aqjGOKDZbKuyuNotY11f744opHfDjU6hO7Us6V
+	 jQTlJzVDJUjJTR45xUbAcQ2TYvinIbYfeQyKHeM9cM+T3zSRUpSEWFcOwwdaqaz85k
+	 thP7cd6vOxHp3DN+GAQksn6EO8H9m2dL46ovVqgrzeKjxQW+qCpZBxllc/Hn3uI62A
+	 DalE5ko4sONaAl58jse19wdXeLqPNYi8yjw6JyxOsJm8oYEnIkyrNHUj4IQxx0mzUu
+	 pIqNanMf5oubw==
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/vmx: Avoid pausing on HVM_PARAM_IDENT_PT in
- additional cases
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-References: <698e46b8f986e649c661f4382c929abcc2827ec3.1753893493.git.teddy.astie@vates.tech>
- <4db51672-4abd-45bc-b6fa-20495e4c0314@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4db51672-4abd-45bc-b6fa-20495e4c0314@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Thu, 31 Jul 2025 09:39:34 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>, Doug Goldstein
+ <cardoe@cardoe.com>, Stefano Stabellini <sstabellini@kernel.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+ <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Julien
+ Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3] misra: add deviations of MISRA C Rule 5.5
+In-Reply-To: <2be39e0f-25c6-4fe0-8b80-71c020dd3b0e@suse.com>
+References: <e681e0c083d945f48e6d0add1aee32af16be224e.1753911247.git.dmytro_prokopchuk1@epam.com>
+ <2be39e0f-25c6-4fe0-8b80-71c020dd3b0e@suse.com>
+Message-ID: <06961e6bd6b5bed128050b8fae50982e@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 30.07.2025 18:48, Andrew Cooper wrote:
-> On 30/07/2025 5:40 pm, Teddy Astie wrote:
->> When settings HVM_PARAM_IDENT_PT, skip domain pausing when :
->> - there is no vcpu
->> - unrestricted guest capability is used
->>
->> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
->> ---
->>  xen/arch/x86/hvm/hvm.c | 4 +++-
->>  1 file changed, 3 insertions(+), 1 deletion(-)
->>
->> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
->> index e2720daf1e..39ff1bdbe1 100644
->> --- a/xen/arch/x86/hvm/hvm.c
->> +++ b/xen/arch/x86/hvm/hvm.c
->> @@ -4286,11 +4286,13 @@ static int hvm_set_param(struct domain *d, uint32_t index, uint64_t value)
->>              rc = -EINVAL;
->>          break;
->>      case HVM_PARAM_IDENT_PT:
->> +        v = domain_vcpu(d, 0);
->> +
->>          /*
->>           * Only actually required for VT-x lacking unrestricted_guest
->>           * capabilities.  Short circuit the pause if possible.
->>           */
->> -        if ( !paging_mode_hap(d) || !cpu_has_vmx )
->> +        if ( !paging_mode_hap(d) || !cpu_has_vmx || !v || vmx_unrestricted_guest(v) )
->>          {
->>              d->arch.hvm.params[index] = value;
->>              break;
+On 2025-07-31 09:15, Jan Beulich wrote:
+> On 30.07.2025 23:39, Dmytro Prokopchuk1 wrote:
+>> MISRA C Rule 5.5 states that: "Identifiers shall
+>> be distinct from macro names".
+>> 
+>> Update ECLAIR configuration to deviate clashes:
+>> specify the macros that should be ignored.
+>> Update deviations.rst and rules.rst accordingly.
+>> 
+>> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
 > 
-> You cannot safely skip these.  Otherwise you break a sequence of
-> migrates which passes through a machine that needs the IDENT_PT.
+> Nit (along the lines of my comments on the other patch): Make better 
+> use of line
+> capacity here.
 > 
-> Although that said, it looks like it will break when passing through a
-> machine running Shadow too, even though that in principle ought to work.
+>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+>> @@ -117,6 +117,16 @@ it defines would (in the common case) be already 
+>> defined. Peer reviewed by the c
+>>  -config=MC3A2.R5.5,reports+={deliberate, 
+>> "any_area(decl(kind(function))||any_loc(macro(name(memcpy||memset||memmove))))&&any_area(any_loc(file(^xen/common/libelf/libelf-private\\.h$)))"}
+>>  -doc_end
+>> 
+>> +-doc_begin="Clashes between bitops function and macro names are 
+>> deliberate.
+>> +These macros are needed for input validation and error handling."
+>> +-config=MC3A2.R5.5,ignored_macros+="name(__test_and_set_bit||__test_and_clear_bit||__test_and_change_bit||test_bit||set_bit||clear_bit||change_bit||test_and_set_bit||test_and_clear_bit||test_and_change_bit)"
+>> +-doc_end
+> 
+> I have no idea whether regular expressions could be used here. If so, 
+> shortening
+> this at least some may be desirable.
+> 
 
-Where's this concern coming from? We don't lose the param in that case.
-The next time the VM is moved, the param will still be there, and the
-same code will be gone through on that new host. Depending on that host's
-capabilities we then may take the full (pausing) path there.
+It's possible, without using name(_):  e.g., 
+ignored_macros+="^(__)?test_and_(set|clear|change)?_bit$
 
-Jan
+>> +-doc_begin="Clashes between grant table functions and macros names 
+>> are deliberate.
+>> +These macros address differences in argument count during 
+>> compile-time, effectively discarding unused parameters to avoid 
+>> warnings or errors related to them."
+>> +-config=MC3A2.R5.5,ignored_macros+="name(update_gnttab_par||parse_gnttab_limit)"
+>> +-doc_end
+> 
+> No restriction to common/grant_table.c?
+> 
+>> --- a/docs/misra/deviations.rst
+>> +++ b/docs/misra/deviations.rst
+>> @@ -142,6 +142,28 @@ Deviations related to MISRA C:2012 Rules:
+>>         memmove.
+>>       - Tagged as `deliberate` for ECLAIR.
+>> 
+>> +   * - R5.5
+>> +     - Clashes between bitops ('__test_and_set_bit', 
+>> '__test_and_clear_bit',
+>> +       '__test_and_change_bit', 'test_bit', 'set_bit', 'clear_bit', 
+>> 'change_bit',
+>> +       'test_and_set_bit', 'test_and_clear_bit', 
+>> 'test_and_change_bit')
+>> +       functions and macros names are deliberate and are needed for 
+>> input
+> 
+> Nit: "macro names"
+> 
+>> +       validation and error handling, ensures that the size of the 
+>> object being
+> 
+> s/ensures/to ensure/ ?
+> 
+>> +       pointed to by 'addr' meets the minimum requirements for the 
+>> bit operation,
+> 
+> 'addr' is pretty meaningless here.
+> 
+>> +       preventing unsafe operations on improperly sized data types 
+>> that could
+>> +       lead to undefined behavior or memory corruption.
+>> +       The macros encapsulate this conditional logic into a single, 
+>> reusable form;
+>> +       which simplifies the code, avoids redundant function call.
+> 
+> What's "redundant" referring to here?
+> 
+>> +       Also this bitops API was inherited from Linux and should be 
+>> kept for familiarity.
+> 
+> At least this line is clearly beyond 80 chars.
+> 
+> Jan
+
+-- 
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
