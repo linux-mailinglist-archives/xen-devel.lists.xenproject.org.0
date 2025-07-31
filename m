@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5698AB16C67
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 09:08:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1064900.1430201 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AD27B16C81
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 09:16:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1064910.1430210 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhNOR-00017B-Qi; Thu, 31 Jul 2025 07:07:59 +0000
+	id 1uhNWD-0002vg-LD; Thu, 31 Jul 2025 07:16:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1064900.1430201; Thu, 31 Jul 2025 07:07:59 +0000
+Received: by outflank-mailman (output) from mailman id 1064910.1430210; Thu, 31 Jul 2025 07:16:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhNOR-00014q-MV; Thu, 31 Jul 2025 07:07:59 +0000
-Received: by outflank-mailman (input) for mailman id 1064900;
- Thu, 31 Jul 2025 07:07:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uhNWD-0002u2-IO; Thu, 31 Jul 2025 07:16:01 +0000
+Received: by outflank-mailman (input) for mailman id 1064910;
+ Thu, 31 Jul 2025 07:16:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lm68=2M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uhNOP-00014k-VD
- for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 07:07:57 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 14801a61-6ddd-11f0-b895-0df219b8e170;
- Thu, 31 Jul 2025 09:07:55 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3b7961cf660so431719f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 00:07:54 -0700 (PDT)
+ id 1uhNWC-0002tw-Lk
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 07:16:00 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 357a6d39-6dde-11f0-a320-13f23c93f187;
+ Thu, 31 Jul 2025 09:15:59 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3b7823559a5so321692f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 00:15:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-241e899b4adsm9419765ad.132.2025.07.31.00.07.47
+ d9443c01a7336-241e8976c40sm9854385ad.84.2025.07.31.00.15.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Jul 2025 00:07:53 -0700 (PDT)
+ Thu, 31 Jul 2025 00:15:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 14801a61-6ddd-11f0-b895-0df219b8e170
+X-Inumbo-ID: 357a6d39-6dde-11f0-a320-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753945674; x=1754550474; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753946159; x=1754550959; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VZNAkw1VZgKMkAH1h1X4xE+cGQRnhvXPcGQ4bZdquhQ=;
-        b=akmNex84yQS1HvD07pPd8Lm7+a+W3tQsn6c98iX2+VmkU9u5ipHEAU+8/jtV+jomvA
-         u+a1DDWZ9ot7MXddFGhE6VR7egRMNFKMoDv1bKKrf85R6etvBpG/9uyXezLeRazEKgMJ
-         i5DHoRuZUVTPvexrCWcZpOE/Dk/cKSSlXj303CWr+xEpDR9KR/wxOgbrYhvEtbfo9eGY
-         TAVaRX7mUH6MwPjFsIQHJ0hH8Nnb6L2ggyThhoTVzH5eK3YHX032RlWydl0xwmW3vknA
-         g0ZwebpNdyh/n8PccwqyuqKS1VeQ5gDB+FaPxFCL+qk/sA2komWMJwErDWyxLEUIeCI1
-         EeZQ==
+        bh=K4fL8gv+3uIwYJVDBV2x3qltl4Kds33aotaZv2bivb0=;
+        b=gMfVSqWunC4j91KIL9drPpU/Gpd6d2PwadiBGd1hyjGpJLDxlMxyEyifEnvdNKAslf
+         ceMY+3IOydxsVJ6Pbv/z1oMJJVVlAC4G68Ug+2OqQeM3BxyYRGhwAUiB+fnd8zj9oIgE
+         EvGdIYf0YtAbejkdXw3DlGHjQ/n5yy/bphMuwfqHvgvKFIqnpkW0ZB8KRoZq0xRtVTDi
+         Ya2YNZKL/X4bLkcX+wHQ0DoiTOESC3Ii6yZ8lcNOjfNC5pIfJXT0rNSaGHKdoSxe9Vq9
+         OCq4jJEMxUg49pXfmqhOEA6MmiIPfIHZnGC8zP540O6cczrnNmOzHmaygQjBtecfXalz
+         eHOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753945674; x=1754550474;
+        d=1e100.net; s=20230601; t=1753946159; x=1754550959;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VZNAkw1VZgKMkAH1h1X4xE+cGQRnhvXPcGQ4bZdquhQ=;
-        b=e5khlU2jLFWT+AO7av1Zzhlzsr2B+qZfpCBAD9S7o4kbK/2qpFJ3mKHcHVaccze/XB
-         NcuhskvulIKRTqvcj9mv2xYYHxJYjOBaEdPaa9IUUXKKAy17S5oFCmE1Uljta6Avah5n
-         Ss3cigj73hLbN8wB8fuYWNm9s1xNYkraOrLB6Ov7RY+4q7ZKN65mmeLDJSIJoYbqEvwZ
-         DL6tT6pZMj6atUfuclii2u7vYss+ftdfIAVCgArPPfprng1R7sFw+dce+tFRVN56JHPW
-         WnCC19q9CNnoQ7Tb50u6a0jok7JxwtbAZw0f1rSzE9/Up+h/wrXvzbwCcnZJWydXFKE5
-         AAWA==
-X-Forwarded-Encrypted: i=1; AJvYcCW7C7dOFHEM1F9SzidofTNiolbQ746UF1r3+giAkwuuB+YzFr8K/drJyR1MQvv+J4ksFSBRQcixjbg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxMYsbluYsaRYsnKY4A32U7yYu8vIODtQfCI0AfR0Ca4iPRHsLL
-	U6OrVqfVTBx2c7diBdti+rxlDaVP2FOCkenj1HhLM2gMmm9gW9s4D1NJBPmws9ocnQ==
-X-Gm-Gg: ASbGncvKxzSF604xzaXwG1EFXtCkejgsHcyI7S6QspZGUukFVesB4/Q+3gjDGd4D51k
-	bCXHZSwe7hWzrhPo23Pw4ciRW4TR/B7L5GylaMeTGZ67ZMmcJctEyG0VQ12IY6QrPFU3KJ1OQ55
-	t7/Mf1hbK/Ibbsuy6HIrO1Q2r7zX8HDZskdtglzSj6pbtXuCNTxpZ6YZIuJl/GJkDNtpelKL6TK
-	9j2j+iwx+CV44lKLE4nJEjFeo9pw3fV3OkGTJJJsjGl7IXoqf0O/QE/M63pz85EYQNiWshnXNgi
-	XRs3ul55G80W4FMJyuygoaO+/e9yeen1eW9A4+RKzYmGhOrEfkuHzgVvC9a13qEej5FcJ4CGnMK
-	1Jr9BxPOimYeE+XYWwdk0tHzEYn4T4PO8pRFWilbr84i/subL+LxI7e6CYDUPFkt+14YcRtQdxC
-	GHMJ15atA=
-X-Google-Smtp-Source: AGHT+IEqMn8BRtTA/rtSDGr7Xw0oOmej1OlVTOMf944VH0BTlaXEd5cCclmqMLIjwoaF5ZLAnB+YsQ==
-X-Received: by 2002:a05:6000:2288:b0:3b7:9dc1:74a5 with SMTP id ffacd0b85a97d-3b79dc176aamr748639f8f.52.1753945674201;
-        Thu, 31 Jul 2025 00:07:54 -0700 (PDT)
-Message-ID: <2da75706-9d76-4d89-9282-977bfd5d2a9c@suse.com>
-Date: Thu, 31 Jul 2025 09:07:43 +0200
+        bh=K4fL8gv+3uIwYJVDBV2x3qltl4Kds33aotaZv2bivb0=;
+        b=NLPJeslsOKOdQSQYTZAjLrpvlgnneDJAAvU73lV9f4zN/3eASbCL9lzzZkVraf6gL/
+         NmsbVkZmz7vXShsD05cdB5hSfMQ00I35ly89AqR/7PlmylGcfBvkIA3CEcU8LUKno1ji
+         ulqET0YyPcbm5/9kXdEicf99rK+6eBRMTw5F1NG8KGToT2d8N/pHPWeKlwcuomFXd0Rh
+         Ilgap6fxk8kBgzvjCU20vMz6g8xLVfAMVPFiaby7Ty1ehqZDedCWPg/DGTHDLppPpEvA
+         aCeEqJzPxZtuMKsHFF7p1SSAvseplSuc31YEb6FEh3j2sjxYzeJs00Td0uq+jVWUlong
+         Zslg==
+X-Forwarded-Encrypted: i=1; AJvYcCWGh6/xg26R/VHeJkUGUxug+lWTsOJ5hLosF/Zhaoy3DutqSN4lcW3PWG7y55UMJlMCei+9VuqmdhI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzHofW2E+4HKyUp8tSaQiJdcSACb/dzYIa947M6TMWKizY7bffn
+	uWsGU9xNZ0YK1B7sHC0aHVr/+nCrhTQCRaXcUgriLUzmJmCI+J8LclhrdOirq1Kutg==
+X-Gm-Gg: ASbGncvsZqYgDsGhSzEFji1dEXIzTlUwz0lAy5I2PoBa2BarG/ZcguIq/fur+bXTbfZ
+	LfVz8v3rs8s79zimeVIV23eWzEPJmz8B8JF8mbyDND9X9I15GkjBPMMR0THG4aYkXC7W6r011yT
+	kywKzxLyKDecQsHEwuZX273Q40DtCaZR1TIo6BaUpwvjWCbhRf828AU8FBDF4aINzeFDIx9azqa
+	JPRsbML9Wgi6UK/VBvnXAbN8DL6yI2a+cjDbh/KtxxuOYDKm2FjMW4hXrJauz3q9JLGtFkQrim6
+	bsHBwjNNx4tGEPwtbQfQVlcu3PeBTbDXcTjr+izzOVMG8KYnlLTqizj75vVoi8tnULWjpacB9Xt
+	qB6bRe7dPTtQJRSbGTU8CH59wP9XhAe9aYcA8ZyvcTUxSpfpAghWP7lrNMeageJ4RhW1QkHe4UP
+	uCgJdQusI=
+X-Google-Smtp-Source: AGHT+IEtfbgD7NCzp7Z86GMFmi33yGmywFiCnLcZrx0ylht4SLJweTs1EsGhkeBpiPV8HXX+um8NRw==
+X-Received: by 2002:a05:6000:26ca:b0:3a4:d9fa:f1ed with SMTP id ffacd0b85a97d-3b794fecd1bmr4840086f8f.13.1753946159051;
+        Thu, 31 Jul 2025 00:15:59 -0700 (PDT)
+Message-ID: <2be39e0f-25c6-4fe0-8b80-71c020dd3b0e@suse.com>
+Date: Thu, 31 Jul 2025 09:15:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] automation/eclair: deviate intentionally unreachable
- code
+Subject: Re: [PATCH v3] misra: add deviations of MISRA C Rule 5.5
 To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
 Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
  Doug Goldstein <cardoe@cardoe.com>,
@@ -99,7 +98,7 @@ Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <6e47d071ffdb236642c1e9a70118a86d41487aa0.1753909082.git.dmytro_prokopchuk1@epam.com>
+References: <e681e0c083d945f48e6d0add1aee32af16be224e.1753911247.git.dmytro_prokopchuk1@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,78 +124,76 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6e47d071ffdb236642c1e9a70118a86d41487aa0.1753909082.git.dmytro_prokopchuk1@epam.com>
+In-Reply-To: <e681e0c083d945f48e6d0add1aee32af16be224e.1753911247.git.dmytro_prokopchuk1@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30.07.2025 23:01, Dmytro Prokopchuk1 wrote:
-> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+On 30.07.2025 23:39, Dmytro Prokopchuk1 wrote:
+> MISRA C Rule 5.5 states that: "Identifiers shall
+> be distinct from macro names".
 > 
-> MISRA C Rule 2.1 states: "A project shall not contain unreachable code".
-> Functions that are non-returning and are not explicitly annotated with
-> the `noreturn' attribute are considered a violation of this rule.
+> Update ECLAIR configuration to deviate clashes:
+> specify the macros that should be ignored.
+> Update deviations.rst and rules.rst accordingly.
 > 
-> In certain cases, some functions might be non-returning in specific build
-> configurations (when assertions are enabled, i.e., when `NDEBUG' is not defined).
-> This is due to calls to `__builtin_unreachable()' in the expansion of the
-> macro `ASSERT_UNREACHABLE()'.
-> 
-> Conversely, in builds where `NDEBUG' is defined (assertions are disabled),
-> the macro `ASSERT_UNREACHABLE()' expands to an empty construct
-> (`do { } while (0)'), which does not affect the execution flow.
-> This allows such functions to return normally in such builds,
-> avoiding unreachable code.
-> 
-> To account for that in specific builds, the `noreturn` property of
-> `__builtin_unreachable()` is overridden in the ECLAIR configuration
-> to deviate these violations.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 > Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
 
-Wording-wise I'm okay now (one further nit below), but I don't feel
-capable of ack-ing. I'd like to remind you though that commit messages
-want to be limited to 75(?) chars per line, so "git log" output wouldn't
-go beyond 80 chars.
+Nit (along the lines of my comments on the other patch): Make better use of line
+capacity here.
+
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -117,6 +117,16 @@ it defines would (in the common case) be already defined. Peer reviewed by the c
+>  -config=MC3A2.R5.5,reports+={deliberate, "any_area(decl(kind(function))||any_loc(macro(name(memcpy||memset||memmove))))&&any_area(any_loc(file(^xen/common/libelf/libelf-private\\.h$)))"}
+>  -doc_end
+>  
+> +-doc_begin="Clashes between bitops function and macro names are deliberate.
+> +These macros are needed for input validation and error handling."
+> +-config=MC3A2.R5.5,ignored_macros+="name(__test_and_set_bit||__test_and_clear_bit||__test_and_change_bit||test_bit||set_bit||clear_bit||change_bit||test_and_set_bit||test_and_clear_bit||test_and_change_bit)"
+> +-doc_end
+
+I have no idea whether regular expressions could be used here. If so, shortening
+this at least some may be desirable.
+
+> +-doc_begin="Clashes between grant table functions and macros names are deliberate.
+> +These macros address differences in argument count during compile-time, effectively discarding unused parameters to avoid warnings or errors related to them."
+> +-config=MC3A2.R5.5,ignored_macros+="name(update_gnttab_par||parse_gnttab_limit)"
+> +-doc_end
+
+No restriction to common/grant_table.c?
 
 > --- a/docs/misra/deviations.rst
 > +++ b/docs/misra/deviations.rst
-> @@ -86,6 +86,18 @@ Deviations related to MISRA C:2012 Rules:
->         generate definitions for asm modules.
+> @@ -142,6 +142,28 @@ Deviations related to MISRA C:2012 Rules:
+>         memmove.
 >       - Tagged as `deliberate` for ECLAIR.
 >  
-> +   * - R2.1
-> +     - Calls to the `__builtin_unreachable()` function inside the expansion of
-> +       the `ASSERT_UNREACHABLE()` macro may cause a function to be marked as
-> +       non-returning. This behavior occurs only in configurations where
-> +       assertions are enabled. To address this, the `noreturn` property
-> +       for `__builtin_unreachable()` is overridden in these contexts,
-> +       resulting in the absence of reports that do not have an impact on
-> +       safety, despite being true positives.
-> +       Xen expects developers to ensure code remains safe and reliable in
-> +       builds, even when debug-only assertions like `ASSERT_UNREACHABLE()
-> +       are removed.
+> +   * - R5.5
+> +     - Clashes between bitops ('__test_and_set_bit', '__test_and_clear_bit',
+> +       '__test_and_change_bit', 'test_bit', 'set_bit', 'clear_bit', 'change_bit',
+> +       'test_and_set_bit', 'test_and_clear_bit', 'test_and_change_bit')
+> +       functions and macros names are deliberate and are needed for input
 
-Formatting nit: I think it would be nice if lines were wrapped consistently,
-such that available space is actually properly used. (Right here this means
-the "for" on the 5th line could move up, which likely would call for further
-re-wrapping of subsequent text. The "are" on the last line apparently also
-would still fit on the earlier line.)
+Nit: "macro names"
 
-> --- a/docs/misra/rules.rst
-> +++ b/docs/misra/rules.rst
-> @@ -124,6 +124,15 @@ maintainers if you want to suggest a change.
->             they are used to generate definitions for asm modules
->           - Declarations without initializer are safe, as they are not
->             executed
-> +         - Functions that are noreturn due to calls to `ASSERT_UNREACHABLE()`
-> +           macro in debug build configurations are not deemed as violations::
+> +       validation and error handling, ensures that the size of the object being
 
-I'm not a native speaker, but "deemed as" feels wrong to me; I would expect
-the "as" wants simply dropping (or replacing by "to be").
+s/ensures/to ensure/ ?
 
-Adjustments could likely be done while committing, assuming the necessary
-ack appears.
+> +       pointed to by 'addr' meets the minimum requirements for the bit operation,
+
+'addr' is pretty meaningless here.
+
+> +       preventing unsafe operations on improperly sized data types that could
+> +       lead to undefined behavior or memory corruption.
+> +       The macros encapsulate this conditional logic into a single, reusable form;
+> +       which simplifies the code, avoids redundant function call.
+
+What's "redundant" referring to here?
+
+> +       Also this bitops API was inherited from Linux and should be kept for familiarity.
+
+At least this line is clearly beyond 80 chars.
 
 Jan
 
