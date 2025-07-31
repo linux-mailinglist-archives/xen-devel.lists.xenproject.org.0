@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DE1CB176C7
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 21:50:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1066364.1431579 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3112B176CF
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 21:52:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1066371.1431589 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhZHw-0007T7-8X; Thu, 31 Jul 2025 19:50:04 +0000
+	id 1uhZK6-0000Um-L8; Thu, 31 Jul 2025 19:52:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1066364.1431579; Thu, 31 Jul 2025 19:50:04 +0000
+Received: by outflank-mailman (output) from mailman id 1066371.1431589; Thu, 31 Jul 2025 19:52:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhZHw-0007P8-5T; Thu, 31 Jul 2025 19:50:04 +0000
-Received: by outflank-mailman (input) for mailman id 1066364;
- Thu, 31 Jul 2025 19:50:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uhZK6-0000TI-HA; Thu, 31 Jul 2025 19:52:18 +0000
+Received: by outflank-mailman (input) for mailman id 1066371;
+ Thu, 31 Jul 2025 19:52:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=XXc8=2M=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1uhZHv-0007By-5y
- for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 19:50:03 +0000
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c20f::7])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 872ba516-6e47-11f0-a320-13f23c93f187;
- Thu, 31 Jul 2025 21:49:54 +0200 (CEST)
+ id 1uhZK5-0000TA-HL
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 19:52:17 +0000
+Received: from DU2PR03CU002.outbound.protection.outlook.com
+ (mail-northeuropeazlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c200::3])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d97085e2-6e47-11f0-b895-0df219b8e170;
+ Thu, 31 Jul 2025 21:52:12 +0200 (CEST)
 Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
  by AS8PR03MB6776.eurprd03.prod.outlook.com (2603:10a6:20b:29c::7)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.14; Thu, 31 Jul
- 2025 19:49:51 +0000
+ 2025 19:52:10 +0000
 Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
  ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
  ([fe80::804:c187:252a:9593%4]) with mapi id 15.20.8989.010; Thu, 31 Jul 2025
- 19:49:51 +0000
+ 19:52:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,209 +47,295 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 872ba516-6e47-11f0-a320-13f23c93f187
+X-Inumbo-ID: d97085e2-6e47-11f0-b895-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ivT/R/ySzG0cegYgFf07emTDWaxi+mJVKMqkkkxmBwdPDhSpcW/359VfTEni3oS25glSyI7MiKez/WYdDY6aRDA1Lt0UaY3s7OFIreU3Grc+gASIuR6pCJfvTL3zcNcwIdjJER2X3ox6Nln8pBopcLYLx+7LW5UUL0+KwFAYU9iXWzRYkAI1QZr89AaBCFzmshBdPuJFdMuu6PNzc+ZDO++aP8VSNwYXd+DK7Z2z/yjRh2Q0Lipq7mEyhhAUsWCbCCgXj3LwVJ0XkQSgr+bXj8SBfQdDZDArBrIAWyHRe2ATsdtGT4lr8VM/pewwyWMCK3wnf7SFl26PSzF/7KXvPA==
+ b=EC1RYnydb6Mje+ep6K5ZUcVLEbsAWihoNFdFwxtDu9k82vED5HaDLDD/ViMwwwVjZTYt/ej2w/6oJjxq5f2nxQEfM7eUm7Fwt9tE+jvI7YxxIDK1tyRyHLUfLAUQo1U7e6My1K3QdezHhe7KSY1heW4ddJpgLxAFNQesEpRgQxkt3bi4F28jJkItiVIzuH/ZrSO+0bkPeT/VTh1gtez8vgWeS6bTXD5sTeu+MBf7wmYnMIVXuYWW+NX1Y0w5pQWla6oPFekK7NRlroVp5r3lv5u1H+SAoVvvfelPtkWuGvGcWdZml0C1RMXVy+2fqy6NfzHbAmrGOOUTC+CwbwOLDg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E+BXB9JHtS3exQvWJhL4OM5/vBuEunZW7VhovC5VFu8=;
- b=lU5kgAbX98ZBwQrf/2lSOgWuHpEnI0sr9EdaXJOcSkJP+xUQZDNecqs/GU1kL4EMPb1yHP04WBzDwOxpkQHgMUmZQpa3XcCk8t9MuEsoxuAZ4UX/BghsQxYHAU7MBlI1zGvujNN2OGFzjSAqwEN2AKSnODHu+TBESfgGxm2TwjJRKbdWt9Lbzeb49UzIYotHQucFIlrH2zvDeKVgcgLSE3w5V8Loo7HqTNvK/8hp8RG7/zYtvaaVDfLkKcqI3MUXHskVDWP3eunEHx3bFbIKvQ6EVrhbPMySUVMS5eHNUEaVKWsRbbbjPzb9L4cRo6rMZDbBdN5tLtq9QDZwRtTWmw==
+ bh=HZywfHKwMepOtgzFJOgaRP47cve9mxhDlyoE9TGfDjs=;
+ b=kdDdohWvJnOeHTKGNp4cGECICHLQjB7koJnmVvl9ccDeULH1RO7RzenW4Fw7Vq54HK3gRCAuD99TbdVJrzKkwNmF/o0DilYJx6EDv0nQHav0rq+bobmaW+1qikFyiDWOQzoCdvjiO+diwjhvZhFNAY1ZoUw248FIU2JT6q1GJaLS1ebB2nyGdeGRD2HS0T0erHtyfY8zBsN3QyqivMUuko8tVrGw6JdA2yL1YP42YqdRCc9MyTMDdekCuW/xLJSUWSYxILkTt/J4opcAmh4eEmny3zrGeNiYphpa4EpOSn7NCo1Gu+IrK06oy6WBNBMIn4e8wB0QRvZda++Ja8bmsw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E+BXB9JHtS3exQvWJhL4OM5/vBuEunZW7VhovC5VFu8=;
- b=C182wZSUQl+bWkkdjOExT1nGTBdz1IIzLppQtC0Ygj06PeeN96A7atSaHDtdqQsFpQoskD/45hR2QlzdmDID/pSE617cklG3Fl0v4+8LzBQyjpc13W88+UTM5GET/Xg7uVvSrcGI+Yht38x4+WTZh9/OHja4Wj9Tybn3eU4RqLwuWKcGBG/3tKvNz372PtmWy7670d0qTA2za35oaHKX9IOZsL5cxQbdqd4/LFtJ4Cgx3BG13kO4vrFtJauGZRCrd9PZd1coJFru5vbKpnUtxjfdS/hyjl98E4moRKufjRBEKx2+EwZV0VORuUMn0L4D5XRz3TlimdUelEc/UOf3RA==
+ bh=HZywfHKwMepOtgzFJOgaRP47cve9mxhDlyoE9TGfDjs=;
+ b=mqFfyC8HVSRD/ydPhVm2+KzK/PV/g1C69jq44MQob1LECRA50x9zMDYltR3kvACRKxzrpj04NJeNqkWnuXM0C2DJNADU/ReZDmDUumkaH/hwHBCN722Hrmuxep48NRNACM8j/aVG/fq5TGc5twhvYANTJSjG+M4g5lWR/civJ+Fv9e7BkXoCX+spAF4Do7mgCoF30GkvdQ0cyYzNxK9MkVOUU7ef8DvCmn3wk3r3CBlvi7I+qXP74QR9z2f9EDOeZqBUxt7cBLNG6zaahRkzkDL6xi5EenSVP1NhjzDGJlkZQpqSqt+iGpUazQ/kBOkFWxLBYDlZAZ11FYzAWC/D8Q==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <54c8bf09-918b-4c57-a00f-92a773ae5099@epam.com>
-Date: Thu, 31 Jul 2025 22:49:49 +0300
+Message-ID: <6f209ee9-cf3c-473f-92d5-0c1f0fbc2e49@epam.com>
+Date: Thu, 31 Jul 2025 22:52:08 +0300
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN][PATCH 2/7] xen/domctl: introduce XEN_DOMCTL_CDF_is_32bits
-To: Julien Grall <julien@xen.org>, Teddy Astie <teddy.astie@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20250731094234.996684-1-grygorii_strashko@epam.com>
- <20250731094234.996684-3-grygorii_strashko@epam.com>
- <3288f8dc-55a2-4c58-b77c-3e24ffe0c657@vates.tech>
- <53c59368-1338-4406-847c-c71ced042293@xen.org>
+Subject: Re: [PATCH v4 3/8] x86/domain: allocate d->{iomem,irq}_caps before
+ arch-specific initialization
+To: xen-devel@lists.xenproject.org
+References: <20250731192130.3948419-1-dmukhin@ford.com>
+ <20250731192130.3948419-4-dmukhin@ford.com>
 Content-Language: en-US
 From: Grygorii Strashko <grygorii_strashko@epam.com>
-In-Reply-To: <53c59368-1338-4406-847c-c71ced042293@xen.org>
+In-Reply-To: <20250731192130.3948419-4-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: WA0P291CA0002.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:1::29) To AS2PR03MB8907.eurprd03.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: WA0P291CA0024.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d0:1::26) To AS2PR03MB8907.eurprd03.prod.outlook.com
  (2603:10a6:20b:5e4::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: AS2PR03MB8907:EE_|AS8PR03MB6776:EE_
-X-MS-Office365-Filtering-Correlation-Id: 78407af4-126b-4cdd-547f-08ddd06b69be
+X-MS-Office365-Filtering-Correlation-Id: ee2732d8-f5d2-41f5-00c0-08ddd06bbc71
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|7416014|376014;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?WEZKRGovSGU1MnllWjdYVWovNHRySUxyOTdvdngvSHJDQTBIeHRSTlBHNyt0?=
- =?utf-8?B?QXhPelR1dzlWajhvaG5sRmhDOHY4cnRyWFBCSHFFLzJhcHRxRnRsZk9GWXd5?=
- =?utf-8?B?dHpJTEFRUkJSbFgxNmRMQ1JjU24vZ0ErbzBQNnlxRmtZRXltUWJPeTUvMldr?=
- =?utf-8?B?VXFJSUVOOTZVYTB3NlJzZ2RoaXcySkNNbUVaZEk3N3FON2lJUTZOejJqK2Q3?=
- =?utf-8?B?czgrZnhMZGxQaGU3N21Udy9KdjdtME50QWFUSjVOQk9TYk9XQ3gyMGxNbXV2?=
- =?utf-8?B?SHBVNUFocWpGNEVudm10djJuVG05aitMbGlKcVVacWE1NWltRkxaZHRqNDFU?=
- =?utf-8?B?SFdHcHFEc010M0tNdTdKTUtZQU96QjhRVHJ0aW9vWHJCcWJwT0hpd0hxMHJC?=
- =?utf-8?B?Ymd1NEFEM2hDQTh5MWtYcFU3Z2EzOXFocU9DZnZwak8rYy8xTW4yTVl4ckNv?=
- =?utf-8?B?WlJ3QS9xWFplNTFjSEdyaTl5SFF2NWlUL05KOTU2QmdRNnZ3NnNHQ0dlNGYz?=
- =?utf-8?B?ak9OZm9vbGMvQUJUL2ZYWnMxVzdmYnE4bk9SK01BUlgwVXdNeW53MHlDWUVN?=
- =?utf-8?B?TGR2Vm8vd0gweHV6QmtjYkEyQ1lYblNhZ1YweC9kaTFCeGpKUzBDelRZMExV?=
- =?utf-8?B?bG5lcHN6L3VuMHBac3RCU3RBZlpTL1QwaFdFbmNSWE9ocWRoYkh2VjhicWNW?=
- =?utf-8?B?RG1VYlVneklRZFZrdEtZcVZXaVhRNUlhb2hiaGl5azU1MmhuQzB2TkFxd0Qw?=
- =?utf-8?B?RXZCby9WeGpwQXYwZDlsSlNMeXJuRkh1M2lDKzRWbVFJMWh3U2pPZ25WRGFj?=
- =?utf-8?B?SjFZbG9OalJmbjdWTDI0ejBzK041SWcrcC81emxsRmR3N3FvRGtHUlIzR2JR?=
- =?utf-8?B?eG9TZnMybmZGakc5a1NVT0U5cHY2OFRwQ29GZmh1WXY4NHZOdUNxaGNadmtK?=
- =?utf-8?B?YllxRU1sMjNOREt6VWl5Y3lQYnlQNzFrMlJ0cm0xOXludnNOSUtaeXI5d0Zj?=
- =?utf-8?B?cTRnbTQzUnBQdW0rS0hFZTg5WlBCS1AxcU9yUmFpWUFSQkFIdTdZZDU5ZWkw?=
- =?utf-8?B?SVNTdzVNdGVhUzYzRDhwVXlLNTY3L2UyU0ZrQ2wyMFMyRVA1eVdBQjhxWENu?=
- =?utf-8?B?NmRlWEFUcGNtcXE3bmNhVjloV2NXOTRqc0hVcXBySVRJaGRqYnpVUWV1cXZi?=
- =?utf-8?B?YWZYRmYycHlpUVJxKzZtNFc4QkJqb2xSMVRxZWkzUERxMndJdE9JQlVWdUVR?=
- =?utf-8?B?Mm5iOGR6N2p0UGRPWlFmNjJDRmY2cTNRWGlTcXhEWFZWN1RpQ2ZXQytBNW8z?=
- =?utf-8?B?eG11ZklaeGhYRGJRdzBsSUVRc29RdnM5M0xPZlBuL1dqNnFYTE52OGF5M1Z3?=
- =?utf-8?B?TENnM1Z6SW1QUGNCV2NuOFZOTGRoaWxuaFVCdjVxL1p0dVVENXpTQWFIZXdH?=
- =?utf-8?B?OGlBVEllY05PWmpUaHhMWXFMcGlFNnNVMGJGZlZlZ21SOW55NUtWZXIrRFhm?=
- =?utf-8?B?NWgwakVCNjBENWdQSEhzRjE5dlhsTCtETC9JVzNDQjFjRFdnWC84ZllIZnA5?=
- =?utf-8?B?RmFNTjBmMnlGc25Ca1poWlo3ZXRhU2Zlbld1TkJ6L2Nhd3RmVnpQUHpDRXI4?=
- =?utf-8?B?WXBMQ294YzZvdFU0bkxReXUyMjBrZDF1UkttVHNtcDdkMzhaNHZuNWg1U0ZS?=
- =?utf-8?B?b2xMOXpFZXl1aytCZG1nMUw3MXF4aVc2dDZBeG1DRTRnQ09NTzF4aVVBRlAv?=
- =?utf-8?B?SS8zNUJOSjFHVEJtSE5PODFBMlYvL0cycXRId3FuSTlKWWJqZTJoOFVUNnlR?=
- =?utf-8?Q?0LpjgR9oS2qMHk0jy/QKfPaOtz9ZIZbNa4Ldk=3D?=
+	=?utf-8?B?aDRBWk1CT2o1QlZMcmJqM25UbThVNnE4U09DU0NCRDhTVU8wVWZYa3pmc2xB?=
+ =?utf-8?B?QjdXMncvMFdaOC9PcVcyK3VWVkxYVjFGOERtWC9MTTQvaDVyRUJOQm45SFZD?=
+ =?utf-8?B?MWJEVnlzTTQ2M1g2eHkzWnE2U2UxZlBYUDA1aW5CQzRJcWhqdDIyNXJQa1pi?=
+ =?utf-8?B?Q3Z1YmQwSGhaV1oydVRxelZnS0J2ZjZJOVhOQzNocUZZRExPcVZvWXVUbHJI?=
+ =?utf-8?B?bE8vOVkzOEQ5czdFOFJ1QU1NUFlUNkt3ZU9NWEVTYkVoT3hIaFVGU0d6b3p3?=
+ =?utf-8?B?Qjg5eko0MUhWekNVTnl6dTQ2VnkzdG5XNlQwZzJoMVJHT3p2NEcxR1RYbWJZ?=
+ =?utf-8?B?djI4RUpiV2cwWEJxWGRtOTg4WHNpOUJQWXBQbmhYUWdIOEdHZHphK3o2QXMr?=
+ =?utf-8?B?aWhML3V5MFBCZnpqOU81Y3BBUzkyMlZvR3NNNFRkcXluaHlPTUREcTBxRm03?=
+ =?utf-8?B?VE1ZWlhqREdaYnMrNzA5MUJKajFqNCtpY2RYYytwbEdpUEx1a2s0U3UrNmtz?=
+ =?utf-8?B?eDZjU21aRmROemh6VWpJSm9xdzNLR1pZTythN3RWUllaQmJTZitiNFZjK0hO?=
+ =?utf-8?B?Sy9pa20zZ0o1NGRJSjJ4dG43emlPSXNzbS9xeXNtM0d4UjBqcWl0dGtsU1ZR?=
+ =?utf-8?B?SzRmYUZ2MmRjcFJGc3BvaFkxVVZSa1psMUhLejZsbnBpMVRiM2JYU2xLdTJq?=
+ =?utf-8?B?NGJZT2ZCRVFFQk9UV1NDb3J4VjM5dGl6MWNGNllGalVZaTRNNzBZTHU1T0d6?=
+ =?utf-8?B?SWZjSHU0WnF3QzByVTdsR3NmYUVabXVFNUJkYUVza3M4Qk04b2tMMmxIT0Qv?=
+ =?utf-8?B?azZNREtTQ1JvR0tEME9pMUpyMXMzdC9jdDRza3dsNUk4RnFLUUNGYjhVUTRP?=
+ =?utf-8?B?TjY4NHZOdnlwWE5pOEJqUklkZ3k5ZWY4NDJFZFNjS01JL3Y5NUdLZDArU2g1?=
+ =?utf-8?B?Z1NRdWlncWhFT3NndDBNN3pIZ2tuM0ZETmtjWXI5K1BwT01Senhvb1BkbGRK?=
+ =?utf-8?B?NFlZQmxaOFA3bGw1RTZFcDNFM0luVlFCZDd3dTVGNFZpTFc2Q052WUQrYWtT?=
+ =?utf-8?B?MHBxNmdGenROUGtzcDBXdm5sNmU4N0FIblRQZXFSZUw2WDJEbnJPZ2phUitE?=
+ =?utf-8?B?eFhsaTJhMmRBTk40N1hNc3RpMWtaNDhZSlorWWVnT0ZiaGpOTUN5emtvWlZ1?=
+ =?utf-8?B?aTRuZU5RSWFNMXVJV05Bbjd2L2lQMGUxTXFlOVB4b0JTcmdtN3FjSTI5b1JX?=
+ =?utf-8?B?U3VIMXpKeVB2Y2MwMTdkajBRYnZyV2M4SlJYeUx2c3BuY1FxVllUZTlTd1Nm?=
+ =?utf-8?B?OUp3M0pTZFRieUExWEpZTTBJcUx6NVhFUjIySEQ0T21DK3FadXVSWTlXL0dB?=
+ =?utf-8?B?QWU2ZXdRc0w1QjBaWmxZY1d5TFBoZU5oZ3JGQ1dBNGdSUXkwcCsxYmRYTFl4?=
+ =?utf-8?B?WGdFMjM3QWpZaGRocm9yN2YwK2VScUc1Q2YwNEJEbjZpWEVvV1VTZE9TOEFi?=
+ =?utf-8?B?bHVEbUIxWFRkbFNhV3RXNHNxRkFROXp4dGtwOEhlRUUyckFKbk96M2xLa1lv?=
+ =?utf-8?B?NUtJc1YveVRWTjU1Zk1JTTc3L2VVWGtua2E5dHlIWUFOTHE0TUt1dGdlWmNU?=
+ =?utf-8?B?YWxKZTYxOTNISWlJeTZqZTN3ZU9GNHlOVFMzb1lFRnhlcGJ5dFM2Q0JGa21W?=
+ =?utf-8?B?TDRRY3YrT3BOWjNDRWtzQnRuQndsUFR0QTJzL1VUZ3dKVHg2dlc2K1gzWVN1?=
+ =?utf-8?B?OHQwSWpOcjBsRXJ4dU5VaFJxcHh6UklrZUhla2VHdVFFSVE4WXRPNTBJSVMx?=
+ =?utf-8?B?V0QwOENaNGVaWWN3WEttdFdabmxMeVloRWczaEtnbFZYSTdhYzFzaGlHT1gr?=
+ =?utf-8?B?WnFnMkhiK0o1RVIyMmIwWGZ1MEhGazdJL09yamE0YVlDYXRmQU5odUo4Uy9m?=
+ =?utf-8?Q?wM8REe+165I=3D?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NXhwbDFYY0IzcU1WVndKRkRvRmVHcGFVSkJGOGlWTjZOLzRhTXRNMWl4aDVy?=
- =?utf-8?B?T0VuaWNWakJTM3lsRTB2cHU1Vmc1eGdQYmJMNlVoSHVZVnppazgwekNmaEc4?=
- =?utf-8?B?UkMxeUFuWTZjOGsvMHBEYUJnbW5DVzZDZm11THN6WUJyY3JVRnhFa2JWYlNu?=
- =?utf-8?B?WmpwZGY5VE9idnVlbFY1NFFobzRLa0dQcWgycWVwMy8yMG8wSVBDR0pDQytZ?=
- =?utf-8?B?aVA5ajFwVDRnOE1oWFNNRGV0SURxRkpuSmlRSzdPYnJSTDBPSG5rZUp0a2Jm?=
- =?utf-8?B?MDJlelRUdkNkVG9yT04xWTlPd29KMG8yTGxoTmRIRDgxb3BtMllpQXJmUVc3?=
- =?utf-8?B?YXJISktSbVVjYStldTlMRzRiaDlpbHM2dGxheXJnQ3BzcGZsYm9OUUwzYW9L?=
- =?utf-8?B?K3ArUHZET0pVQ25ETGVyNVhZejNtMnlLVFJiOFdHUGZXWEp2QjlVa0lObnp6?=
- =?utf-8?B?a0x1cE5mRCtNK0tGM1BQRUJ4cW5GOUFoTVFzL2VnTEZic0M4ZGhxT2JKNlp0?=
- =?utf-8?B?ZXpiQ01ndk00cUhLNFd1eUlCNFNlNUI5aGROQTVPVXo1bzdMUURISVRJOFJT?=
- =?utf-8?B?cStKaFZYZ1RkcUxxUXBJZmdtOWs3OWhLSXR6dTRvU0x6dXhBM3pYZ2FGQXpC?=
- =?utf-8?B?NGc4K0JXY3BxalNmeUNZd1VOT3ZicnBKMzJOWlFaMnpvT0NLNDVtYzJ4Nmwy?=
- =?utf-8?B?aTliSkJFTzl5ZkIrNGNSZjkrd1lNK2p6WTNhZ0Ewanl4aGprUXpxc09UL3o0?=
- =?utf-8?B?SkpGN21MWjZEeDlaWHc4TnZ0NmNFTUpMSHNMTUhjSFgzWHlRamo5U004US9V?=
- =?utf-8?B?a3Z2ZGROaEhadElsUkp6T3NxZ3NVV0VUdkgrMmlibVNYcWI4ZU0yV3lwYTBk?=
- =?utf-8?B?QXFXQlBBM3htYi8yV2diZmVXTStjTjExYVQ5NHdSeWNjb2hSc2pyWU42WHRO?=
- =?utf-8?B?Y2ZFUTZFN0FIMllKNEJZbi84bDZjODNYUjc0N3Jsd1BMZE9oV3NFNjJTN2Jl?=
- =?utf-8?B?dElKbTJCS0xkMUt5SXZ5K0tzbjBLK0FlSzVYandtdUd5bUFjOUttUXJvZjFC?=
- =?utf-8?B?L3pFeURDRFhiN1ZoQmh5ZGE2Y09vRzVsODJKVjd1R1laZy9nd0tyeXVHdmZI?=
- =?utf-8?B?RWx3K1l2dzd4bjliYjdsQXpjZTZXUXdyVU1FYmc2Z2hFMXVnSlhGNUVyTkxS?=
- =?utf-8?B?UUpBZWY1alNMbUpoR21JcTlvOVZvTmFELzhVWTBySkRiVEtoWnBCdlhvM1NE?=
- =?utf-8?B?Qlh3cDY4TC9uWVE5MmUrTm16V0VERVlBQVJsVTE3cjcvMjM0aHhTNG0wdXNk?=
- =?utf-8?B?enhSTnBQWUtkOVRXRTJPcDRJSUowaEtGQUNoUnJYaFo1aUdqLzFyMGYzdDQ2?=
- =?utf-8?B?bTRXSEE4Y3B0ZUpieStNa1BIU1JDMzhQU3NOWnl4Wjd2eEhKVWxwNjRnRVhN?=
- =?utf-8?B?WTNiejhuc09IcTZ1Z0NzUm1BV0JUbWxDNDhPTndEaWZTbkNINDNaN2RzVEpj?=
- =?utf-8?B?OEpuNnNBWEFEb2lXRC9xa0dNQWFIMzdFOXRyZ2FhY3BuSDFidXZEZWsrMlNF?=
- =?utf-8?B?R0o0OFlOT1NIVW5sWmUybzEyNzJSZVpwbXVqVCtYQUtKWERXM3g5RTRiUlRj?=
- =?utf-8?B?RC94eUttQjNEL2lUdVYxVW5NVTM0U0hSZXduV3drQUhEcEtING1Xb1BKaEsx?=
- =?utf-8?B?YUdzc1NYRXkxR2FzSVo4UHJZMEcvRTk3cVJ4RkxCWE4zMXZwTjd1Uy96TXNR?=
- =?utf-8?B?UnhsY1RHU3NaVFFxMmZBdlM4THljS2VBRUhvOEcyK2hkaXR6N0tKZTNqUmZQ?=
- =?utf-8?B?NVN1dzBiaEE1K29xaXV6em90TWYwYjR2SU55cm1sVUdGQWt3SVRLVXg2MGJD?=
- =?utf-8?B?djhqeWMwSmR2RDZuK3k2WmhWbUZvand4L1ZIWTNzcjFYQzdwaFNhUzlkalNI?=
- =?utf-8?B?ZHl5T3ZEZVJVeUF3bzlHaW5hM1VMWk1VQnJvYTB5djFYcm5FdWVibzNMN28y?=
- =?utf-8?B?WCtxRFZ6eFczcWQ4QkcyblhVSE9VWGVIYk16eGFtUXh4cTl6M29vOTZmSnp0?=
- =?utf-8?B?QUEzRXY0dittdjhNM09weFRBTkdjQ0NXN3RyNVRhYnVYRkxoVjBNRnhERUo5?=
- =?utf-8?B?SFZ3elVta0lvV0lKNTJZRU9WVzJxcjNGWFRsT1VHeG5ZZWhETkd6OS8rN3la?=
- =?utf-8?B?WHc9PQ==?=
+	=?utf-8?B?VnRBRTd0SGRVaHlPeFN3bnhLSFRJQVZsZVNvcDFES1k4VDRYSDJ4SUNhSnhr?=
+ =?utf-8?B?eVZSMFNGOEV2K1pIdUZtbHlPdmtjQjd2WldlQW56RlFuTEFacUpycDVmWHZT?=
+ =?utf-8?B?MjZlQS9DRXBpNURDTWNHS05vSmFhL1B6bzRSYXRDNW1IMytFRWVTWFZOUEpZ?=
+ =?utf-8?B?UFYwZGJaRzJ0N2Q0SktHY21jWHgydnY2NjZGcy9hQWZ4KzJTNTZuWFAzcnA0?=
+ =?utf-8?B?STJZM1lKOFQ5R05tbWpidWxjalp0L2g5aUJBdkJWRUxOR2V1MWliMnYwaWRu?=
+ =?utf-8?B?R1pZOHhrR0tRa2RJeDF1czI1NTZzWjN3bUNzYU5nUm9LanV5V1NxeXhtR2Ra?=
+ =?utf-8?B?dVpra1dFYlA5T01oSEFXdTJWL1h4NWNhN2l6RjVMRlBwVmpNN0tzdjJ4Skow?=
+ =?utf-8?B?RDRjNUVKbXp2ekpkUHJWR1hxeVhZRCtXWFVsK3poVkZOdWVwOWc5aHZLN2wx?=
+ =?utf-8?B?K3ZKY2dKWVYvN0tXZnM4VC9BRXpJMUp0RVRrZGpnWHA5UHFlTkNMVlpGUlNT?=
+ =?utf-8?B?SGxtejdwZUs1cWdUWXc3dDZRKzVPUk1BVEozanNubXhlMUtHellxT250VHFM?=
+ =?utf-8?B?ZTczV0JOV3MwUUdGQ2VJaHNQUmFPRVVBQm9MTmJHdFN1MUU5c0NJejdGYThM?=
+ =?utf-8?B?Zy9BYTVtTFlZQ1ZwZ1pwL3IrT2lHcTVBbE1sVk9NWlhOV2I0ZjFpNmN0TkM3?=
+ =?utf-8?B?UFdEZWF0bWNvYWJSelUyb3kvLzJDblBtQisvMkozZ29SdmdmYW11MWhzTitt?=
+ =?utf-8?B?aDBqdVcvSXlINGhCU0FkeklqRjJlL2h6TWI2U2Z0RjVZL1F1TnNlbHEydXBL?=
+ =?utf-8?B?SDFYMDFON1JaeUIwRzNNcFhKVzl3UDRSS2wwZ3dUbjByRVI0cC9NdGhVV1pC?=
+ =?utf-8?B?ZWxRVXhmaW9UeGxYeDFHbFhZYXdidEsrdHhJSTU0S0wyaU5ncG1YRUlCcStR?=
+ =?utf-8?B?eURtYkllY1JUNVo2MlRaZDZWc01LakkxYjF6UEpqZ0FjOWtLcVArRTV3aWg4?=
+ =?utf-8?B?YXZsTXNQNC9xTXZsQTlXNmQwZG41NXkxRlk0ZFJmMlRVSXVCd01tQk40TGJy?=
+ =?utf-8?B?WTFzK0JPWHVSOGN4dTNZRkVrTEZOVnlFUFpQN2xseWVGUlN0SEl1MjRvYU1j?=
+ =?utf-8?B?WEZmRzA2WVdGUmtUYjhQSDNmT0Y3bnM5a2JuMGRwWW1MMUpqSkVydWx2T3NV?=
+ =?utf-8?B?QnFxNTFpazZaVmxnc0xxeE5aWVdvQmpUT0V2UHNMT29BcXcyNXA1VGZqZDEx?=
+ =?utf-8?B?Q21BdnpqeVhlM3JMSE9URlBYemtlRTMvLzkwTDZOdUU4RmdCQVNTS1VBdWs2?=
+ =?utf-8?B?eTFuSkZ2WXVUWXYyT1VsbXhEcG9Qa3VhM2c5MkZnTEdaa0FJT0tMd0VIMSs1?=
+ =?utf-8?B?cmtKR2xOb0xEM3RMYzNZem8wdW13b3I0L0xXalBQTkVSQlFaN1h6bTZFZEg4?=
+ =?utf-8?B?dEtDZDdiNFVoL0lyR095Y1haTXBjRzZoWHhOaDhDV0t1QUpEUkcxRndlMmxw?=
+ =?utf-8?B?dVhlNWlmeXNqc2RWNW5aUzhaY1VyaDNLOVNEQjdFL05YY1VpQm1WbjBjejNW?=
+ =?utf-8?B?azl3bWZIaWNXc00wSXBGWlpOS1pQanVmWXNjYUNFSFpSM2NlVzBab0hlZy9z?=
+ =?utf-8?B?ZldNblIrRjM4SUxhdzgySzVKdCtPbHQ2aHZyZzBhbkJYWEMrblJWaVJhemND?=
+ =?utf-8?B?Z3BjNjFBK0NObCtpOVNOUURRa3dmcHRIakN5aWQrTzNtSnV0Y3hJRWYzK0hv?=
+ =?utf-8?B?dWpWZFVSb1Z3VVUzTTREa2pER3Vub0hjWnRKSEpEUjlFSXROTGpielRjelNZ?=
+ =?utf-8?B?RFBuSS9YblZSQlo5SVZsZmU3ZjNzTDNtTHZrRGpsaGhtNHFOUlhrYVBLOExW?=
+ =?utf-8?B?cWx3b0hyNEdLbUNtU2JKZ2RRNU01b0RaRm9TcCs5Q1cvM2M2RHBCT2NvR2U5?=
+ =?utf-8?B?SExBRmFaMENLQUFkSHptdkRvc05meVVkSy9xTTZKN0ZLU2dEcU1LMUN6V0pK?=
+ =?utf-8?B?SHQ3K3RtVExiWWRnWXFrdTdrZThteDNuVGlVWWphZUd6UGhHQUdPY0R6U2hQ?=
+ =?utf-8?B?SWQ0djlYcGp2UkpzR3YzekZjZis0UHVIR2FQSXFlaW1LREFnSlB2UjllSmRN?=
+ =?utf-8?B?MU52YjVNR2RjNEtRQjNTaW1rU2xWai94eGJqQ0E1Nld1bW5TNzRScXo1Z0tM?=
+ =?utf-8?B?OWc9PQ==?=
 X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 78407af4-126b-4cdd-547f-08ddd06b69be
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee2732d8-f5d2-41f5-00c0-08ddd06bbc71
 X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2025 19:49:51.1886
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2025 19:52:09.9040
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SbfV0kndg7SDBlQ9AzE4oMgO4qXhuv7dTmkrcUPB5SN53Ra/ZdqbY5IdkxEPBs4yncIOhBk18CpZDVNnDLFEhhNgvJuqdVJ6jflTagEZI/I=
+X-MS-Exchange-CrossTenant-UserPrincipalName: wfyevtFuCd1jDUNdMBPjZq+kt6ZH1BKEbxqch4feQdofoSkWgNqbeM5cWRCFDAJJwL/QDD05xKuukmYVjEcKXyDevyhkh3ZFbvfhHypFTjA=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB6776
 
+Hi Denis,
 
-
-On 31.07.25 18:19, Julien Grall wrote:
-> Hi Teddy,
+On 31.07.25 22:21, dmkhn@proton.me wrote:
+> From: Denis Mukhin <dmukhin@ford.com>
 > 
-> On 31/07/2025 15:02, Teddy Astie wrote:
->> Hello,
->>
->> Le 31/07/2025 à 11:44, Grygorii Strashko a écrit :
->>> Hence, this patch introduces extra "XEN_DOMCTL_CDF_is_32bits" flag which is
->>> intended to be used by 64bit Arches for proper configuration of domain type
->>> when domain is created.
->>>
->>> Now it adds initial support for this flag for Arm64 arch only. The default
->>> Arm64 domain type is changed to 64bit:
->>> - the Arm Xen boot code is handling this case properly already;
->>> - for toolstack case the XEN_DOMCTL_set_address_size hypercall handling
->>> updated to forcibly configure domain type regardless of current domain type
->>> configuration. Hence toolstack configures vcpus and memory after
->>> configuring domain type it allows to start with domain default AArch64 type
->>> and then switch to requested domain type and ensures all required domain
->>> settings applied.
->>>
->>> For Arm32 this flag is ignored.
->>>
->>> Note. For Arm64, Once toolstack is updated to probe guest binary before
->>> creating domain the XEN_DOMCTL_set_address_size will become obsolete.
->>>
->>> [1] https://lists.xen.org/archives/html/xen-devel/2025-07/msg01647.html
->>> [2] https://lists.xen.org/archives/html/xen-devel/2025-07/msg01648.html
->>>
->>> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
->>> ---
->>
->> I would prefer it be better presented as a platform-specific enum.
->> Something like
->>
->> ```
->> enum xen_arch_subarch {
+> Move IRQ/IOMEM rangesets allocation before arch_domain_create().
 > 
-> We need to be cautious when using enum in the public interface because, if I am not mistaken, the size of the enum if not stable.
+> That guarantees that arch-specific code could access those rangesets to
+> register traps for emulation.
 > 
->>     XEN_ARM_SUBARCH_NATIVE = 0,
+> It is necessary for those emulators registering trap handlers and ensuring
+> that emulated IRQs are not shared with the physical IRQs.
 > 
-> "native" is a bit ambiguous when a platform is able to support 32-bit and 64-bit. Does this refer to the bitness of the hypervisor (EL2)? Firmware (EL3)?
+> Move dom0_setup_permissions() call right after I/O rangesets are allocated.
 > 
-> That said, I am not entirely sure I see the value of native because EL1 (the kernel exception level) has to be known at boot. So it is better to explicitly mention whether the kernel is 32-bit or 64-bit.
+> Move pvh_setup_mmcfg() inside dom0_setup_permissions() close to the place
+> where MMCFG ranges are initialized.
 > 
->>     XEN_ARM_SUBARCH_ARMV7 = 1,
+> Not a functional change.
 > 
-> This name would not be correct. You can have a 32-bit Armv8 guest. A better name is SUBARCH_AARCH32.
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+> Chanhes since v3:
+> - new patch
+> ---
+>   xen/arch/x86/dom0_build.c     | 26 +++++++++++++++++++++++
+>   xen/arch/x86/hvm/dom0_build.c | 39 -----------------------------------
+>   xen/arch/x86/hvm/hvm.c        | 16 ++++++++++++++
+>   xen/common/domain.c           | 12 +++++------
+>   4 files changed, 48 insertions(+), 45 deletions(-)
 > 
->>     XEN_ARM_SUBARCH_AARCH64 = 2,
+> diff --git a/xen/arch/x86/dom0_build.c b/xen/arch/x86/dom0_build.c
+> index 0b467fd4a4fc..e965f506a3c8 100644
+> --- a/xen/arch/x86/dom0_build.c
+> +++ b/xen/arch/x86/dom0_build.c
+> @@ -471,6 +471,24 @@ static void __init process_dom0_ioports_disable(struct domain *dom0)
+>       }
+>   }
+>   
+> +static void __hwdom_init setup_mmcfg(struct domain *d)
+> +{
+> +    unsigned int i;
+> +    int rc;
+> +
+> +    for ( i = 0; i < pci_mmcfg_config_num; i++ )
+> +    {
+> +        rc = register_vpci_mmcfg_handler(d, pci_mmcfg_config[i].address,
+> +                                         pci_mmcfg_config[i].start_bus_number,
+> +                                         pci_mmcfg_config[i].end_bus_number,
+> +                                         pci_mmcfg_config[i].pci_segment);
+> +        if ( rc )
+> +            printk("Unable to setup MMCFG handler at %#lx for segment %u\n",
+> +                   pci_mmcfg_config[i].address,
+> +                   pci_mmcfg_config[i].pci_segment);
+> +    }
+> +}
+> +
+>   int __init dom0_setup_permissions(struct domain *d)
 
-I've been thinking how about using ELF "e_machine" to identify guest?
+It could be i'm missing smth, but ^ function is __init while ...
 
-It defines all arch ids already (no need to invent anything custom),
-plus supports EM_NONE which can be treated as default value or indicate that
-guest type is not set - arch specific handling.
+>   {
+>       unsigned long mfn;
+> @@ -480,6 +498,14 @@ int __init dom0_setup_permissions(struct domain *d)
+>       if ( pv_shim )
+>           return 0;
+>   
+> +    /*
+> +     * MMCFG initialization must be performed before setting domain
+> +     * permissions, as the MCFG areas must not be part of the domain IOMEM
+> +     * accessible regions.
+> +     */
+> +    if ( is_hvm_domain(d) )
+> +        setup_mmcfg(d);
+> +
+>       /* The hardware domain is initially permitted full I/O capabilities. */
+>       rc = ioports_permit_access(d, 0, 0xFFFF);
+>       rc |= iomem_permit_access(d, 0UL,
+> diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
+> index 5551f9044836..6f47c9eeeaa6 100644
+> --- a/xen/arch/x86/hvm/dom0_build.c
+> +++ b/xen/arch/x86/hvm/dom0_build.c
+> @@ -1310,24 +1310,6 @@ static int __init pvh_setup_acpi(struct domain *d, paddr_t start_info)
+>       return 0;
+>   }
+>   
+> -static void __hwdom_init pvh_setup_mmcfg(struct domain *d)
+> -{
+> -    unsigned int i;
+> -    int rc;
+> -
+> -    for ( i = 0; i < pci_mmcfg_config_num; i++ )
+> -    {
+> -        rc = register_vpci_mmcfg_handler(d, pci_mmcfg_config[i].address,
+> -                                         pci_mmcfg_config[i].start_bus_number,
+> -                                         pci_mmcfg_config[i].end_bus_number,
+> -                                         pci_mmcfg_config[i].pci_segment);
+> -        if ( rc )
+> -            printk("Unable to setup MMCFG handler at %#lx for segment %u\n",
+> -                   pci_mmcfg_config[i].address,
+> -                   pci_mmcfg_config[i].pci_segment);
+> -    }
+> -}
+> -
+>   int __init dom0_construct_pvh(const struct boot_domain *bd)
+>   {
+>       paddr_t entry, start_info;
+> @@ -1339,27 +1321,6 @@ int __init dom0_construct_pvh(const struct boot_domain *bd)
+>       if ( bd->kernel == NULL )
+>           panic("Missing kernel boot module for %pd construction\n", d);
+>   
+> -    if ( is_hardware_domain(d) )
+> -    {
+> -        /*
+> -         * MMCFG initialization must be performed before setting domain
+> -         * permissions, as the MCFG areas must not be part of the domain IOMEM
+> -         * accessible regions.
+> -         */
+> -        pvh_setup_mmcfg(d);
+> -
+> -        /*
+> -         * Setup permissions early so that calls to add MMIO regions to the
+> -         * p2m as part of vPCI setup don't fail due to permission checks.
+> -         */
+> -        rc = dom0_setup_permissions(d);
+> -        if ( rc )
+> -        {
+> -            printk("%pd unable to setup permissions: %d\n", d, rc);
+> -            return rc;
+> -        }
+> -    }
+> -
+>       /*
+>        * Craft dom0 physical memory map and set the paging allocation. This must
+>        * be done before the iommu initializion, since iommu initialization code
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index cb8ecd050d41..b7edb1d6555d 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -35,6 +35,7 @@
+>   #include <asm/hap.h>
+>   #include <asm/current.h>
+>   #include <asm/debugreg.h>
+> +#include <asm/dom0_build.h>
+>   #include <asm/e820.h>
+>   #include <asm/regs.h>
+>   #include <asm/cpufeature.h>
+> @@ -651,6 +652,17 @@ int hvm_domain_initialise(struct domain *d,
+>               goto fail1;
+>           }
+>           memset(d->arch.hvm.io_bitmap, ~0, HVM_IOBITMAP_SIZE);
+> +
+> +        /*
+> +         * Setup permissions early so that calls to add MMIO regions to the
+> +         * p2m as part of vPCI setup don't fail due to permission checks.
+> +         */
+> +        rc = dom0_setup_permissions(d);
 
+... here hvm_domain_initialise() is not __init?
 
-config/domain structs:
-    uint16_t e_machine;
-
-Arch code can define and check number of supported ids, for example:
-  arm: EM_NONE, EM_ARM (32bit), EM_AARCH64 (64bit)
-  x86: EM_NONE [, EM_386 (32bit), EM_X86_64 (64bit) ]
-
-
+[...]
+  
 
 -- 
 Best regards,
