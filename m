@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FABFB17696
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 21:22:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1066297.1431558 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C18CB176B5
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 21:37:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1066355.1431568 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhYrG-0001gP-UI; Thu, 31 Jul 2025 19:22:30 +0000
+	id 1uhZ5j-0004zq-44; Thu, 31 Jul 2025 19:37:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1066297.1431558; Thu, 31 Jul 2025 19:22:30 +0000
+Received: by outflank-mailman (output) from mailman id 1066355.1431568; Thu, 31 Jul 2025 19:37:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhYrG-0001f6-PZ; Thu, 31 Jul 2025 19:22:30 +0000
-Received: by outflank-mailman (input) for mailman id 1066297;
- Thu, 31 Jul 2025 19:22:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hI6J=2M=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uhYrF-0008Dk-9Q
- for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 19:22:29 +0000
-Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch
- [79.135.106.31]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b23e1803-6e43-11f0-a320-13f23c93f187;
- Thu, 31 Jul 2025 21:22:28 +0200 (CEST)
+	id 1uhZ5j-0004xe-07; Thu, 31 Jul 2025 19:37:27 +0000
+Received: by outflank-mailman (input) for mailman id 1066355;
+ Thu, 31 Jul 2025 19:37:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8WGx=2M=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uhZ5g-0004xY-OC
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 19:37:24 +0000
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [2a00:1450:4864:20::343])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c5928b17-6e45-11f0-b895-0df219b8e170;
+ Thu, 31 Jul 2025 21:37:19 +0200 (CEST)
+Received: by mail-wm1-x343.google.com with SMTP id
+ 5b1f17b1804b1-4589b3e3820so13418035e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 12:37:19 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-458953f8e0dsm74969265e9.31.2025.07.31.12.37.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 31 Jul 2025 12:37:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,99 +45,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b23e1803-6e43-11f0-a320-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1753989747; x=1754248947;
-	bh=kIimpYN6GgNiR0+OrJRCVWGYJhmcbYVm8uNo1d7eSBU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=L+9BeSYYkQyLyZVDoA8jtSHA4G6WqnHu8neouNdzg73fU6VrDtUgSMZRPCIQvpuBj
-	 jOl8kaAEgVATET2n06IbB/K1MnMnG/VQFGx4yeadOiiu9EX3D3nwIc7YG/tN8gb/d6
-	 M3wT6gphiBlsMEj3CKFIwF/7MhoVYpLH6yh+GkKcAY80nTokM3f+W/XK6AYSwmhibY
-	 LK1g4G568ANbJlLvTjI0yptpbmRNOYHUl2YGdVTbGvLxUHTcjpMcNEb2isMdp0j71t
-	 6XHUVNXx8wuC+Vkp2V5OhXM2bcdVYKvfzYOPBRF30mriZrrGLoGtMcawLPQrQnKUyN
-	 u7qZUm1zUlttw==
-Date: Thu, 31 Jul 2025 19:22:24 +0000
-To: xen-devel@lists.xenproject.org
-From: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH v4 8/8] emul/vuart: introduce console forwarding enforcement via vUART
-Message-ID: <20250731192130.3948419-9-dmukhin@ford.com>
-In-Reply-To: <20250731192130.3948419-1-dmukhin@ford.com>
-References: <20250731192130.3948419-1-dmukhin@ford.com>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 9d93de58570b7d4420779220df8efff263239aaa
+X-Inumbo-ID: c5928b17-6e45-11f0-b895-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1753990639; x=1754595439; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=y2vEeS2lPC1ShbJEaLgCMuRHrSgQfyWvHG3SGN6hnMQ=;
+        b=UoMwirXpWbwHTXbIiEkbVAUp+Tdm02am9VOzqR1Qj7FaqHzKBzbiHkGu1WX4AsHLzL
+         jYyITsU3yQfa4MsXJs1kUYy/Ic0eX5vFzwlphok4ILwzo3m7/9U6hhNgcmH/hibD/2Bn
+         20QGIsi4UMM1x5GsE8ISxKELPDIudd6r84O6w=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753990639; x=1754595439;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=y2vEeS2lPC1ShbJEaLgCMuRHrSgQfyWvHG3SGN6hnMQ=;
+        b=RxOvSESs8aRWoJx08SjKiilfy25ed4FzfHYWq9duQV2lljM7A1EU5g+2sWWMS/9g8x
+         FHxK62F0Pf5N9Qc1YAZLdZ92PFFhnm7B/MuPVXxjP+z6XXFUPXEICqLmIAfpYt6wrrYY
+         aAgE0TUAZJBIn/SfGxCa2CTan4WG++dpGu9zu+I7IiQm8GrEV7vkfgUIohxOCK0QI3Pv
+         AybZoWsy2/dzbizQ0nr29kDf8N+Kqgo7mlnK3+fITfalL8a/eZ6BnhacANQm2w/6I79Y
+         52TQ+DqVfou+vdS78F/E4AuYoaotK8l85Ns6PNhwaRAPhbv1QDGlPStrT5FBe5R0nhku
+         X7Xw==
+X-Forwarded-Encrypted: i=1; AJvYcCXWr5vZqncN7lI9HOG0f8vXa5GCwSQw2aayR3NDaKzBncj9hfJWexsI61qO3TpEkuFuG3YONWBV304=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyIwyV2Mry+5micRyo/gYbk6wbdJdSStry+AHuWHMxb3OfMYzIF
+	qkn5uZJ2el78aX6PnlMJhxGmpyQznq6hoEGnFAD5vcT22wDDDEM7CwQzu/BNzCugC1RwzCT3npZ
+	OKw+mVg7WQw==
+X-Gm-Gg: ASbGncu438pIg0wR8RRYyzdaRGRBzYrQVhecYsw2ygT4XuX4V9S1wAd6QSibo8Tz4jp
+	qWo+SMh0HXsd9qzIUY2T3UuYK/8yI+7rlDFGTHRM1Re1p3L30Vc+Neji66rulXj6Panzt7gOCZ1
+	frzb9NdEzh/klOLTpc7bTwDSwdIPsT59xKvPCYlerHPzxaouP1kF44VFhl0CJxHgNVVRJKskwYn
+	T2NX9Ehrn5Kx3m/FWoL9+aWeNq4wVFfAvgwTn5KZYya67QWy2ZfcgKwu8vlGwln67of7cokohTi
+	RhynZTyeJ/IETbpeh4B169/WSzw4w66Zyndvqks7Gs8JQ53ixtO4Qn5wTFAmFqMYoNBfj6UEL78
+	61sq3cS3SpgcBhm2Dj+eB8VzKEPphTWzXZegFgG/CbA0/gnorJ1rnkA3u6LPSyos7jKcE
+X-Google-Smtp-Source: AGHT+IGxb5v57EH5OHZlsOPFymlfBNP7lv0/mdFsbwOcWm0BXR6LY1SBG72IzGawEusrWaafV/R8ng==
+X-Received: by 2002:a05:600c:518d:b0:442:f97f:8174 with SMTP id 5b1f17b1804b1-45892bc6f5bmr85247125e9.18.1753990639018;
+        Thu, 31 Jul 2025 12:37:19 -0700 (PDT)
+Message-ID: <0edde693-c2bd-44c1-8228-7bebf033221a@citrix.com>
+Date: Thu, 31 Jul 2025 20:37:17 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: Last posting date for Xen 4.21 is Fri Aug 08, 2025
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: "committers@xenproject.org" <committers@xenproject.org>,
+ Community Manager <community.manager@xenproject.org>
+References: <7372cb8d-82d8-43f4-9a34-4b60526cae76@gmail.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <7372cb8d-82d8-43f4-9a34-4b60526cae76@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Denis Mukhin <dmukhin@ford.com>=20
+On 31/07/2025 5:05 pm, Oleksii Kurochko wrote:
+> Hi all,
+>
+> The last posting date for Xen 4.21 is Fri Aug 08, 2025. If you want your
+> features to be included for the release, please make sure they are posted
+> for the first time before Fri Aug 08, 2025.
+>
+> Full schedule can be found here:
+>   https://wiki.xenproject.org/wiki/Xen_Project_X.YY_Release_Notes
+>
+> Best regards,
+>  Oleksii
 
-It may be useful to enforce console forwarding over the virtual UART. E.g.
-hardware domain uses PV console by default, but it may be necessary to have
-console forwarded to the hardware domain via emulated UART.
+Just so you're aware, I'm still intending to get FRED into an
+experimental form for 4.21.  Several large prep series have been posted
+already and mostly committed, but they don't say FRED obviously in their
+subject.
 
-Add CONFIG_VUART_CONSOLE_FOCUS to enforce such behavior.
+I've agreed a vague plan with the other x86 maintainers, given the
+vendor timelines on hardware being released.
 
-Signed-off-by: Denis Mukhin <dmukhin@ford.com>
----
-Changes since v3:
-- new patch
----
- xen/arch/x86/domain.c         | 6 ++++++
- xen/common/emul/vuart/Kconfig | 5 +++++
- xen/drivers/char/console.c    | 2 +-
- 3 files changed, 12 insertions(+), 1 deletion(-)
+I will do my best to get the main series posted next week.
 
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index 39b0c0b199b9..40ff92ad6c61 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -848,6 +848,12 @@ int arch_domain_create(struct domain *d,
-     if ( is_hardware_domain(d) && is_pv_domain(d) )
-         emflags |=3D XEN_X86_EMU_PIT;
-=20
-+    if ( IS_ENABLED(CONFIG_VUART_CONSOLE_FOCUS) &&
-+         IS_ENABLED(CONFIG_VUART_NS16550) &&
-+         is_hardware_domain(d) &&
-+         is_hvm_domain(d) )
-+        emflags |=3D XEN_X86_EMU_NS16550;
-+
-     if ( emflags & ~XEN_X86_EMU_ALL )
-     {
-         printk(XENLOG_G_ERR
-diff --git a/xen/common/emul/vuart/Kconfig b/xen/common/emul/vuart/Kconfig
-index ebefd90d913e..1069ca95f2db 100644
---- a/xen/common/emul/vuart/Kconfig
-+++ b/xen/common/emul/vuart/Kconfig
-@@ -51,4 +51,9 @@ config VUART_NS16550_DEBUG
- =09help
- =09  Enable development debugging.
-=20
-+config VUART_CONSOLE_FOCUS
-+=09bool "Console input forwarding via UART emulator"
-+=09help
-+=09  Enable physical console input forwarding to guest OS via emulated UAR=
-T.
-+
- endmenu
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index 93254979817b..d142f5511d61 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -597,7 +597,7 @@ static void __serial_rx(char c)
-     if ( !d )
-         return;
-=20
--    if ( is_hardware_domain(d) )
-+    if ( !IS_ENABLED(CONFIG_VUART_CONSOLE_FOCUS) && is_hardware_domain(d) =
-)
-     {
-         /*
-          * Deliver input to the hardware domain buffer, unless it is
---=20
-2.34.1
-
-
+~Andrew
 
