@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03ECBB16EDD
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 11:43:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1065260.1430724 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D61FB16EDC
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 11:43:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1065258.1430702 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhPoK-0003mI-99; Thu, 31 Jul 2025 09:42:52 +0000
+	id 1uhPoI-00038t-8f; Thu, 31 Jul 2025 09:42:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1065260.1430724; Thu, 31 Jul 2025 09:42:52 +0000
+Received: by outflank-mailman (output) from mailman id 1065258.1430702; Thu, 31 Jul 2025 09:42:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhPoK-0003hC-4A; Thu, 31 Jul 2025 09:42:52 +0000
-Received: by outflank-mailman (input) for mailman id 1065260;
- Thu, 31 Jul 2025 09:42:49 +0000
+	id 1uhPoH-000352-Vs; Thu, 31 Jul 2025 09:42:49 +0000
+Received: by outflank-mailman (input) for mailman id 1065258;
+ Thu, 31 Jul 2025 09:42:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=XXc8=2M=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1uhPoH-00025Y-GT
- for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 09:42:49 +0000
+ id 1uhPoF-00025Y-G9
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 09:42:47 +0000
 Received: from AM0PR02CU008.outbound.protection.outlook.com
  (mail-westeuropeazlp170130006.outbound.protection.outlook.com
  [2a01:111:f403:c201::6])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b61d32f0-6df2-11f0-a320-13f23c93f187;
- Thu, 31 Jul 2025 11:42:45 +0200 (CEST)
+ id b58ef6ee-6df2-11f0-a320-13f23c93f187;
+ Thu, 31 Jul 2025 11:42:44 +0200 (CEST)
 Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
  by DU5PR03MB10524.eurprd03.prod.outlook.com (2603:10a6:10:526::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.25; Thu, 31 Jul
- 2025 09:42:39 +0000
+ 2025 09:42:38 +0000
 Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
  ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
  ([fe80::804:c187:252a:9593%4]) with mapi id 15.20.8989.010; Thu, 31 Jul 2025
@@ -47,33 +47,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b61d32f0-6df2-11f0-a320-13f23c93f187
+X-Inumbo-ID: b58ef6ee-6df2-11f0-a320-13f23c93f187
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XvBJOjSNbjO0EPL9hfsevys4RdvUToNuchyr0FUTBHOiJNiOcPQAV4q8QzUS/dgsLYpilzyhFR2o1cUzRLxkbT6W34lPtL0bz8DX7NnMXNTZioyce6TH/LP+yTXXqhTuQmjLH7lg4BKE8w/GNAD3ZEuRHGbumW1j0LOW4SJ/gAvFnicUbO4KpCbykSFgkzI42VpegAqcJyazbfVPPxptqv0V2TTYtZUZRFABx+6dfITFKd+pCHpmW8YmtmTWEODuCbwhkrEAJVseg+5oA5J0HsM+m9OA+hXMYplVCldEsLf7hV9EFJHyqTFpAZymfAM8Aqf0ud8FOw6loVJWGgJ5Sg==
+ b=eX97JB7x2kc7swtysrcKEvAoGyUzZyuqpUXXfLY85Lrvvy8e1n1bYWbdkzcCtYUMn4xPk24mvhpbsk22+o4tmshX65LtLKjwAK2+RZ8m8MtSaOCTaR6rYdZ2SVj9Rdi7pTwvKuUjY8O+uy8IH7qcd83ZwGM/ZFA2YJo000zDZhcOIQ5Q4gA3Xf4IGZD9yvsZs5PvdNG5hticHcjJcsj42okx7eGx+EdH1OcHt+JoAbOtsp0PbrGkKAcCnzEI8UNKQ1tCoOxsEkbw1XHQA6SKY5Gn1FjlNa/tOIAS7DGKRRfeDt3Pdv/FaGloW9wutsT2oW56zzct3Y72UiHas1E2Bg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eYphxlgYyJZNd4HnTGaAyXBnIwLP2gSD7KdAq5AemK4=;
- b=ZWP4/2um/C8yAanoUAG0pw2AVmQnKCWxbt8hQSGrzM5nkaurBc/cujd4w14LLWBQxADIDxIt/9VN/HCXheut6i6PKXHceAfkhrSs/yIqIcHDazY2SBJyP+Dd8b36H7XXf5/j0FOQ4Zr3f9qiCjIRa4z4yIlHo1ssOcItjaOYdbiizuoWzhXkgXLyTUOU2IAXxDBifeDopTEgVn8f5eSisEShKpa/KVlRe0F35VUiv+FTMdT4eROyoKui3VULmDG3+991tlK5gSm4LXnpaHxkx3HcgfgVcexYtJlUbmyKIOXXdLsxFoWQ7YBkAwWpviZcTsMMB4Lo1SsyFksfFwk5NA==
+ bh=xMyvzieVy3LxVHtn0A41REm0YkIEMjK6AViKmopWyfk=;
+ b=kzuxUh4OIJDy/WdLbgQYA3KQBE9goJ8oYQKKwzEmmE/ie4ZZ/NqUGW8RxBHeT4vmne9h5u3gAnNYCgVWY2NLFhFmv/ONNZLYBNsfhBwyIg3cFzow83d39psCKXkK8D9k5Zfi38oK/aPDTAon7nX7ZW2veeXTLDFORFzBlcl6cbn3C4UDAvy31Yg6zes9RlTKaqBkrUeXGuB2c8UkTDw1aPNrdhVWF7LSivgvGFkfnVMp0buPysxGYQ/NzOeCghqithPYjbcTmXtYnXvPgXy2z+qS8OfIaux5nJ9ZQDK7fF7mmn/XJ54mtgVzx1sNd4dLiVpdsgZ1kXyDc0ASq9CUKw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eYphxlgYyJZNd4HnTGaAyXBnIwLP2gSD7KdAq5AemK4=;
- b=kNZPI0+A7EjtsST9EKkQamSW9SfPw3zNPcY3XjS49hcS2I9TdMPR8tjfjbFHzXso9sZh2uoT64jhM83Kpodnp1bSvYr9NDXBqaLZG43wOa7tLB/capAdvJdZ/OiCSCbEvLjqd3G5STsWfdmnaTcALg4/t5ps/z17F64PSY2XLd+BCIa5YwPHXzX0Yn4+u1upi2xeLri2piJLE0jDitMUzWcAyR69JNmwpKy8m29GBOwFtQWHR+NbAoMEkRPFRtkqp8cwLbPhecrSK6NFK7x15wa61/8qzEVc41mGI7nCiY3OObJ4A7gaP3yjquWsqaWib2I5WNjou55obxNeG0JXRQ==
+ bh=xMyvzieVy3LxVHtn0A41REm0YkIEMjK6AViKmopWyfk=;
+ b=nkWv4mGiCsvuBvbzzWKjujJmgpgMsclG78B53LlI0F0a1gu4BHJIVm8kXrh+x1F2YvRIst7eNWYQkJqM7FbmZBdROnFsPDvoN/xuqMtC36iOAMAu8wggDAEXlBDvRjoIOFlBK8GXkTSa0L5wN+z7qVyTlWKTw9X0HgSAvB1RyB15+x2TCvAoUyBDYgkLgV8jplBRCwOvGFCJC2W1SY3PLUKmvwr32fOUnmlvzwE9gkUX3sqQj09KLO1p/xEvhkUWi2TDRLtGN/hwqp7a7BDsKbApCd0YOgOOxZRchp+1rHbeG4U7pa8cBEdWWmEkemeOhDPS3xIQo/wXtCeOc+zzDQ==
 From: Grygorii Strashko <grygorii_strashko@epam.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
 	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Alejandro Vallejo <alejandro.garciavallejo@amd.com>, Grygorii Strashko
 	<grygorii_strashko@epam.com>, Stefano Stabellini <sstabellini@kernel.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
-	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [XEN][PATCH 4/7] xen/arm: probe kernel before creating dom0
-Thread-Topic: [XEN][PATCH 4/7] xen/arm: probe kernel before creating dom0
-Thread-Index: AQHcAf9zegx3HkZnjkmMHE3OE+o+Sw==
+	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
+	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>
+Subject: [XEN][PATCH 3/7] xen/fdt: kernel:  add generic is_32bit_type flag to
+ struct kernel_info
+Thread-Topic: [XEN][PATCH 3/7] xen/fdt: kernel:  add generic is_32bit_type
+ flag to struct kernel_info
+Thread-Index: AQHcAf9zjEq3QlL2dESFJfQ6uKbzSw==
 Date: Thu, 31 Jul 2025 09:42:38 +0000
-Message-ID: <20250731094234.996684-5-grygorii_strashko@epam.com>
+Message-ID: <20250731094234.996684-4-grygorii_strashko@epam.com>
 References: <20250731094234.996684-1-grygorii_strashko@epam.com>
 In-Reply-To: <20250731094234.996684-1-grygorii_strashko@epam.com>
 Accept-Language: en-US
@@ -84,69 +88,70 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: AS2PR03MB8907:EE_|DU5PR03MB10524:EE_
-x-ms-office365-filtering-correlation-id: 1407d10c-e464-41d1-dad1-08ddd0169683
+x-ms-office365-filtering-correlation-id: 199f3495-ca8e-4a65-fa86-08ddd0169652
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|1800799024|38070700018;
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|7416014|1800799024|38070700018;
 x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?+XlnNJte8IjcLKqIVm49h0RJgNLIFwjryxfpWpc93aAuqpgDTIqjD2AEjN?=
- =?iso-8859-1?Q?xmeUcFf6Ha4zv6PHiP+Q/0fdCZyfPvoIcENK/rXiBl5f5v8Xx06vAl3m53?=
- =?iso-8859-1?Q?uphB468ITy8zPfAC37AdvughulyGiIdnXbPluZtAr7EXlF/1S/TBvwq2Q0?=
- =?iso-8859-1?Q?UN3G+Qgbpds/NGaezUwY6lCPFiDYvmBNDr73+T3DlFkEcF3lnuCiLz5LB4?=
- =?iso-8859-1?Q?wNUuUdaUgjzVdcxI2R1h07hygmvdPMWz2itO5WRBbMZ74IvoWB/OVGXvwQ?=
- =?iso-8859-1?Q?RpajzmBf7PKIPhZKDo84YRV+hGGnibyMru+7ngjDMmU+EXkxUM/eUKgQXf?=
- =?iso-8859-1?Q?ST7YtYDKiXCNAgF+haQy7fUB9CQnLgQS+QxxYL062BPlmA5mGltL2Z6hKG?=
- =?iso-8859-1?Q?uPbt0XtOGq7kshF1r8Z9eEDCAeJrM2cFmnM/O/V3UvYtr7QOmqtNBtroGK?=
- =?iso-8859-1?Q?yx6Id7JW8fNlAEGDyLWIIVt3elhckYzy3Blqzyp+2cXAgH+55wrEel/YHG?=
- =?iso-8859-1?Q?d4ugpZgcjeHLQABxVYn3qVE4w2PU1FRtV84YFJf4blNWQgLUnIPI+aUf37?=
- =?iso-8859-1?Q?u8c+/s57cB8jwscxcjGHTuOGFKGdi2ejPGSd3qb1R60ZnLBd7cP0ZxtQR9?=
- =?iso-8859-1?Q?h8zl0mowLq7Af8gKzsLGbEoVPEU0VbGF1MtuOlNQd18yFXVUpmycnlIfak?=
- =?iso-8859-1?Q?NWHvwoCcjERQNDn0ZgaKqTIm9EoGcyDVQyu8JnA73UYcQxcslBco2oHsu6?=
- =?iso-8859-1?Q?Bi/CDnBS0Q4lsvqeqcO7ji3kE/9ppEGHR38vWVgouVMXfWN9LKPdEqFvdj?=
- =?iso-8859-1?Q?f8ditKn747HP1yWoJ7jjQGZ35croieHmM04BFW2HmJOedAKQMhl9XAr6Jj?=
- =?iso-8859-1?Q?4ejsismPmyVbKtJqEED32ttFUtZpvcH9DwFdhXjqCe9yuPognYinkMZIwv?=
- =?iso-8859-1?Q?4tC4ViQXPzlbVSbl2BpaJro5GaLXUxSn6i+9G7wP9vt/G7fescFecwk7xb?=
- =?iso-8859-1?Q?tx0y5AvopKsnBsAah7fToSH+JHhd8pBDAFWxGam4CHObz1vxQ4UZs7OhOD?=
- =?iso-8859-1?Q?zXbaomvY9ag98Y+v0M6K+cw44HpIQ+EqRVZu8vX2Xn+Et3jL5oIwQeKP1B?=
- =?iso-8859-1?Q?Ah5adYRPXHRcsKxc/PvG0tFuo9JKAgMkW70+z3JlcgF2dFzIHbozpoN1h2?=
- =?iso-8859-1?Q?rdIoN01sVh5QWXuRtAlHkN0gLdGGrnBNVFsOpHiRwC022cZ8jWheVx6+YC?=
- =?iso-8859-1?Q?CbU/h7oxvm94fnWmvugljbGFRjTDMeOO+FnLOGNaMFAXfTlOIg6FiGD7na?=
- =?iso-8859-1?Q?erFCqwV44Q0Nl1iZBEomCJrXTE22Do028T6tXZfo9E3onQdSY628rc4cnE?=
- =?iso-8859-1?Q?+/rfN4zCNkJ21TD3H3gjA3pBnDIxM7z07O7xPLg0W/aSDff0SBuQE4C1G/?=
- =?iso-8859-1?Q?2cazsXXPCiDVwe51Nlzkaa47r+z583EcV48lj+bmnzXFwcMPRl3cOgkNvB?=
- =?iso-8859-1?Q?g=3D?=
+ =?iso-8859-1?Q?6A3tiqrixvJChy1bmfECmo8QsR4tKY/y/R4Bv1dl1yJWX47k0m46RHZ56q?=
+ =?iso-8859-1?Q?vntjsqafqTpMWf4yYrihH5+IiDVBiypOn8IFiEcIlFsom6s+Da+d533A2z?=
+ =?iso-8859-1?Q?E9sYbHeSv76Fc8LtD06qJUBg2ysv7TdDOCHOaPg57VbxiRrhPh0OpVrBNg?=
+ =?iso-8859-1?Q?Up57a0A5BQ9dkDOGrgYmFahH8yas2Yz0TyG/0ymVQQWtkc5WhRBuYyU1ZK?=
+ =?iso-8859-1?Q?OkUJkqtXOBbY8q6rUF6Bzeaels8uSic5GOS0M9srr6mnB3RoUWnQedbRBz?=
+ =?iso-8859-1?Q?foMV3ghrI5KE5mJBjCwN99Qvbv5uQFJmCfvpZAyYY+kNoZhWHlhygQphtA?=
+ =?iso-8859-1?Q?QoHytkbsMIeR6RJGyCYF3zuIE8tSvBp2B+muUX9UTJ4qKrVVj09RKr9YZM?=
+ =?iso-8859-1?Q?XkOxaUlYhj6u21e4t89Wy1mtLcdGuwBxopkfpeYFxK0vDRDLFmqkepHUfq?=
+ =?iso-8859-1?Q?O8ddScN6xEP4TxmOTsKqeZZSOOFAXjv+8bHNmehP7rj6O6FBRvJYuBq18w?=
+ =?iso-8859-1?Q?bOneAiim3EYUBIl926AIp/gioPV96uFA3PVxOOKwEhH1eYagMjOPGlARzH?=
+ =?iso-8859-1?Q?OEMC1wej9vRyCStOGZZYL17da5bIm3EEaSQ7L0ICv9xuyTURLBaw4IeLcH?=
+ =?iso-8859-1?Q?BL6Ldyt27myuMDWulW4rP2NUBOPi5j5v+XzE8nledRrX2a7luGpRhZHrxI?=
+ =?iso-8859-1?Q?yWlVnCn9tJE74ulPr70GTb2n7/FgInRNouhEdP7PKs0Q5kR5InfPaxarrn?=
+ =?iso-8859-1?Q?1avsN6a8WE0W8fjNQ4cY7y2qW6GhEHQp5Zdo/OhrA9Yc8/ebFS5ip7h+rb?=
+ =?iso-8859-1?Q?X0XBdDR8XxLVJTafXfeb1ZQj5vDd5rK7Ax1af6CzSm89X6mdRBW0NEo8Fl?=
+ =?iso-8859-1?Q?kFMFgczM86JOA1k6oMmKymzMzH7X0L2hQYMTJ8nsTnRN1lGAoJZwMhappj?=
+ =?iso-8859-1?Q?HJOQpyN+peGrmZEPgIKi8+dhPgAxW06E+qizN4Zn1lXNdoCfSAeFBOKcDF?=
+ =?iso-8859-1?Q?1RB907UA0y2UK0mlPO3hL719ndFqtciTfqQgWb8Two/awflCLXg8D7ynQ/?=
+ =?iso-8859-1?Q?YV3bNTSrluol4G/zfzKUw+hPWmOJRMwJRr1tzWwfawEABrXc+myOVJivrF?=
+ =?iso-8859-1?Q?meIVXp17L1d6qQujRX/+IlO1Q4jXypcPUKKcPLBxSO4gJoOrWUmiD53x38?=
+ =?iso-8859-1?Q?+HGlkHBw16bz307b+pO//BFhtAZPN3F5nLMmQS3DepWm3JB3oqrQ1BjASf?=
+ =?iso-8859-1?Q?laH9046fZRCrqb/WNYrNFMjyrECGrR4BCMbM/t/WCUv6i5wI9BGukhsrGt?=
+ =?iso-8859-1?Q?0dbTHs7Xdc0L1wKC7AYwywL4eTd67gZ37P758r558OMKx6SgNtM9VrFfb2?=
+ =?iso-8859-1?Q?0gWd3ENik9RdMaDEADGug2IiIsSdiW3S1VStxz58nmhXwcOTzCeDuMwKUs?=
+ =?iso-8859-1?Q?Q53nsxfuKSEAopk2CZ9iWAJKjiQzKPjiM4IidEr21mSINhyeyzXK+gX2+z?=
+ =?iso-8859-1?Q?XEFIbp9hBcHaq29/4YhCdXQwSs//brZxrsUuTEtpaYLw=3D=3D?=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700018);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(38070700018);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?zfcKplksSvsAnA2hSoHPYutZ2XbGXHiNhBI7C6VY2A8yih+6khD7J2KYuR?=
- =?iso-8859-1?Q?l0WkMh2wf4wTc/C18BwAG8mbMW0mm31FgZAJIToGCYwBGmAa3fj8Aug8YL?=
- =?iso-8859-1?Q?mzPB10S1OkrC3FP/X4IBs6M7jsZFm/OkS7YIteVUt8QndaCgT1KHUqDEa6?=
- =?iso-8859-1?Q?6BFP30ezoqDEQtftQfV6pHVzGZ0gUiMbrZRrpjAgcO7c7LjWxKnRKHv3KB?=
- =?iso-8859-1?Q?LYli/XZRFPdXnUxviZ/XH8CNjgdV1P3c/bnyqdMeWnQrNiCkQNOgIHObtT?=
- =?iso-8859-1?Q?wVi7W6PTOLLa9yY2LzRAw4No9iWDXMLj2j1UKo3rDsbWuPquTbl9Xb8qTi?=
- =?iso-8859-1?Q?vMDHHAeZNhb4RB3Uy1WYFVK5QDWyChICCk5ji+AA10097cIgouu6PaBLcE?=
- =?iso-8859-1?Q?m5Z/6yM07ON2FweOYPuObTRyduKzTEmGeqk8srva0/r7OYx4kCn4pQpsay?=
- =?iso-8859-1?Q?Y6aGpp9PzCFlyPC9DjQFTofCy2XaIxXFCnkwg1/92AkuHHT09LIYzbSltv?=
- =?iso-8859-1?Q?oG2FIQ0VDru5RSK8WuI7mXgvwnxnf5Ux40DT1uKg3RJR0vNePQbXMJy13O?=
- =?iso-8859-1?Q?QSF7HtUEbOFhURlgvsdxThD4GA/cW7ZG/DBTWReuvUlAybsQGu19NRjMmC?=
- =?iso-8859-1?Q?K4Zd4PlUA/YLNtnVmnEc9vIJGrRgmen+v/7JQsq+/hNFvEhTDrr9YTq6eK?=
- =?iso-8859-1?Q?MHGfz1yxEYySH9juwD5hsjgJkHlx7iOzT69vuQ2VuTD8eBkkM+XI26eysd?=
- =?iso-8859-1?Q?y57NSHiyT8BJuhO9ab6UzVISMV9FZMPw7M8XmNfB0VwT42TWvgQNloixKa?=
- =?iso-8859-1?Q?PgKvMyiwyJGENIXPoaqHNAt+dA64e/AczE5pgVqBag7VIaA+++eHwe+u5y?=
- =?iso-8859-1?Q?PhFwPqOHEFL9++EN6fH90hh4IGmYRHaEV5qxigEwLiWAjsZYc5tjmkJ8I7?=
- =?iso-8859-1?Q?U+NM5NTZf06OsOzuOr4ayK8TPAUBZept8mTfwZS6N4MCfOugS9OXus/8e+?=
- =?iso-8859-1?Q?Eje+YqWtNF1PstiOX9oNBgRjvArTPjx4EkIODMa5Ql8DZe9sNxrLQJwj2v?=
- =?iso-8859-1?Q?4I6ZJkIScIuC88aELFE/BrPKNjh+Y4k9gh+9sikNtOEzcCz/jm6dwuirNG?=
- =?iso-8859-1?Q?+jKgQV3bZ2jeCyAQ5Bfhphuj5QBWQsESZqFUSByoP5qg8P8Isqh0pVODaz?=
- =?iso-8859-1?Q?Cz/0qvp4wFXgcpQNrBQ6NJs97EAoTlwFd6Nxi6e8Od8c9oS+xYW7ESAnmf?=
- =?iso-8859-1?Q?bTV3EdoGR8lYn/S+dQ1T97eGvZ1C9DD5tMPiqpetAeS4fBQK67rHXhhjXp?=
- =?iso-8859-1?Q?iQgGbdOiWFdsSkJMx8oPvTcxAmLX6JT0VPJZ1j6ez+qMKAJqAiv7Oy6+/d?=
- =?iso-8859-1?Q?PHZxuJIeoxm33udT6kQQeH6mMANNQe4F9Wc0Xl/No9K290EtaMg4iVkoqZ?=
- =?iso-8859-1?Q?iCo7Tjqdc73F6xTES2/8a3a2SlX9Ed1GYqd7fQun47Jk+tf5xy2/uvWg/v?=
- =?iso-8859-1?Q?/YRTpSHlwzz+PHBvCTazGE3+SEj0GMWvbh3/yeevFVXlGRITTzBn+nREKE?=
- =?iso-8859-1?Q?LpaRoLrvnyneGyTZJlx5W6HCiQcnnVG90QdN/DTFMxqXvfwlx5Zmyjas3M?=
- =?iso-8859-1?Q?XTFHmRQFl1hynk5+fEI8FuaWale9Jo91LwfGYd4aYf2G5tew4P4cb6ig?=
+ =?iso-8859-1?Q?esWFoEqUN2c69z1uT+lsLqZ5VDwCV/P0h3aPyHcrQRy63Pr2h5vnDGnM13?=
+ =?iso-8859-1?Q?9AX9OtnhTlnWLPvEw+lQJYRAf7Y8Qfo/BQTqqGzOIdHPQVdQznwPdjBq9w?=
+ =?iso-8859-1?Q?kbp0mlFMhE2FIdHRY1xJmoMJi44IZULIEzfZGjvY7IFFeLy6GOvL9UOhts?=
+ =?iso-8859-1?Q?oKFaR+eh8p+CoYgaG/YhmcRg3dkioLelRRraAJ/eSTXdKi0+J8R8lkcryd?=
+ =?iso-8859-1?Q?HPOxyNEvyyux9mMkPA83nhhh7qRve4x8Z4sHy1gq/je4A1hhHN4jWrgNVj?=
+ =?iso-8859-1?Q?bPheILvon3jm/mbeU1c15n6OmWEcTRN9eALoZGvj0URtwE6gla12b70V5C?=
+ =?iso-8859-1?Q?THwDxGuQ3RraZ51dhFlzT0q+EsmuWN3O88LK+TZ4rGYlnEDMBPUTgef3O9?=
+ =?iso-8859-1?Q?sZ/hfsKb/w6UVXqhXoraTqnBs6larcWuMFpAH76kb/eSF6gbMp10q8toC4?=
+ =?iso-8859-1?Q?qRjLxqvLTHCPlsdHp818X/rIT7ME8ko+1wmeNoXxv0Stpl3uUkMHN53hpG?=
+ =?iso-8859-1?Q?526cYZ2ymt7/wg4VbRQz0bYGyMpWrGUfqSfJBEb7CQY0kNf5QR+dE2FE2f?=
+ =?iso-8859-1?Q?EnZ5gNziaHU0JveOwyauyq7iAD8Y8PhVbWZ+oFI4VU41fKsAUzde2Iold4?=
+ =?iso-8859-1?Q?v1fxhshCW4clVtzBYxm9B8aQ57S1NIX2fuepQMQn3Jn4OyHePQjrWieAkU?=
+ =?iso-8859-1?Q?iZmys+UzAmSWHzGcjV8rIBoHseqP2/oos4eU4BBuIMXH2b3zgp4d8J24Ms?=
+ =?iso-8859-1?Q?KPzLL+uFoO42qCRrME9JWTyH86kyehr83votDZhFyEedgFbcLz1PaVv4RC?=
+ =?iso-8859-1?Q?UAQ4s65ItzML4LrTZlgJMtb0yBwco0cfaKyz2cNsDqm2/eKYdaZuXqHvRT?=
+ =?iso-8859-1?Q?j0fO4rzgeuoPeLXzknVeLFdJXB/w2BeeDSDaLOn3X8GIdbtV67gHr1ayL6?=
+ =?iso-8859-1?Q?q+sMnlrPJwic6oRJgdixEFpBFnKAt1KBq3OdWj/yP6xwWLvJ552lPgr6K/?=
+ =?iso-8859-1?Q?1uNUxxb8AFxdqGlEhNFmyFztcWv5ETrdlKs/6Lm97+3wFoxtlq9+RVqm1S?=
+ =?iso-8859-1?Q?Z0Pjg+WlxC4Vyj4FWlXxcFJ7gNSHZFqEANB9GxDx0ZDY5PPgs0H8UQgCSq?=
+ =?iso-8859-1?Q?mn0zsZ1r7+y1ZwqLw2UFIfEak0iAjmOz7E4MmOf2X0OcGHbO/hPBRS2EP1?=
+ =?iso-8859-1?Q?Xr/v0oHjuBCOWmjNQz6b3KX8N0J+kfE0kxyeEgVZHV6Fl0uoTZXhnLYk9R?=
+ =?iso-8859-1?Q?4bLFgjlQ4V8WCeJr2bS8fRWsoI1avAd8anshW/fukbUMmQLGR48AvuDXnv?=
+ =?iso-8859-1?Q?a7Ht1VViZtgm3J5jhOq5XOPWMfeOBjtHOTU49Sb/JIic2U+WBeqfepLpp5?=
+ =?iso-8859-1?Q?JayVFJD2DiHodvkYrH2vdcct46la7DSltP+DC3gVjLhwi+AfTlHVKq2BTj?=
+ =?iso-8859-1?Q?S9tCMRsh5ac+Xx/ty1z5ijnNzffQEGOtNrY5uAFBzVe5DDQQGCzRyV6/4x?=
+ =?iso-8859-1?Q?gg1Xv/gTZiImYS56tCF2DINOn6IOHzJO85VI6ZSUriFGtl/WOv0WsGBRP3?=
+ =?iso-8859-1?Q?Omzvn3nSjyw40EAR77oPgyT3Q2NF+x6Oa+vF0TCc0Ky2YtI9cvbiiW6kzJ?=
+ =?iso-8859-1?Q?Xy6SIaMGy5LxVnOuaQ9t9+q/8Jhfm547qR3/mHRmZxWT8gnKgAmZKhsQ?=
  =?iso-8859-1?Q?=3D=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
@@ -154,150 +159,157 @@ MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1407d10c-e464-41d1-dad1-08ddd0169683
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Jul 2025 09:42:38.4076
+X-MS-Exchange-CrossTenant-Network-Message-Id: 199f3495-ca8e-4a65-fa86-08ddd0169652
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Jul 2025 09:42:38.0547
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ZO8Ak+NCZVVYTIrnJVbdBabPUO/DT6+AwpOyXx8ADHEyVbE3ByV0z3F8iW+Is+E3wTymg+PDgUvWz8Qw6E9T5zK9qS7nmqTT+jatPwA59GM=
+X-MS-Exchange-CrossTenant-userprincipalname: Sjq6MC9RpFtHhLifjlyaQaYaNGVt4u4lefELsRRiODJlR4eyJ+uIBcKK583Oo1M5cFd83SLiD0cQWlt9OYmmk9WW0AcEwYxIk3Wffp8tV/8=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU5PR03MB10524
 
 From: Grygorii Strashko <grygorii_strashko@epam.com>
 
-As was indicated in [1][2], performing guest kernel probe after creating
-domain is not robust.
-
-Hence, rework Arm dom0 creation sequence to probe guest kernel first,
-before creating domain, so guest type (32/64bit) can be properly identified
-and dom0 type configured correctly from very beginning.
-
-To move kernel_probe() before dom0 domain_create() the domain references
-need to be removed from kernel_probe():
-- remove ASSERT(is_hardware_domain(info->bd.d))
-- remove printing domain id ("%pd") from "Loading kernel from boot module..=
-"
-  log msg.
-
-[1] https://lists.xen.org/archives/html/xen-devel/2025-07/msg01647.html
-[2] https://lists.xen.org/archives/html/xen-devel/2025-07/msg01648.html
+It is possible to have 32/64bit guests not only on Arm64 arch, so
+add generic is_32bit_type flag to the struct kernel_info instead of Arm64
+specific enum domain_type type.
 
 Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
 ---
- xen/arch/arm/domain_build.c     | 32 +++++++++++++++++++-------------
- xen/common/device-tree/kernel.c |  6 ++----
- 2 files changed, 21 insertions(+), 17 deletions(-)
+ xen/arch/arm/dom0less-build.c     |  2 +-
+ xen/arch/arm/domain_build.c       |  6 +++---
+ xen/arch/arm/include/asm/kernel.h |  7 +------
+ xen/arch/arm/kernel.c             | 10 +++++-----
+ xen/include/xen/fdt-kernel.h      |  3 +++
+ 5 files changed, 13 insertions(+), 15 deletions(-)
 
+diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
+index c8d07213e247..3ac2da0b3576 100644
+--- a/xen/arch/arm/dom0less-build.c
++++ b/xen/arch/arm/dom0less-build.c
+@@ -241,7 +241,7 @@ int __init make_arch_nodes(struct kernel_info *kinfo)
+ void __init set_domain_type(struct domain *d, struct kernel_info *kinfo)
+ {
+     /* type must be set before allocate memory */
+-    d->arch.type =3D kinfo->arch.type;
++    d->arch.type =3D kinfo->is_32bit_type ? DOMAIN_32BIT : DOMAIN_64BIT;
+ }
+ #else
+ void __init set_domain_type(struct domain *d, struct kernel_info *kinfo)
 diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index fc9bcc6fbbd5..59966f1bcd49 100644
+index 463ae4474d30..fc9bcc6fbbd5 100644
 --- a/xen/arch/arm/domain_build.c
 +++ b/xen/arch/arm/domain_build.c
-@@ -1954,16 +1954,13 @@ int __init construct_domain(struct domain *d, struc=
+@@ -1874,13 +1874,13 @@ int __init construct_domain(struct domain *d, struc=
 t kernel_info *kinfo)
-     return 0;
- }
 =20
--static int __init construct_dom0(struct domain *d)
-+static int __init construct_dom0(struct kernel_info *kinfo)
- {
--    struct kernel_info kinfo =3D KERNEL_INFO_INIT;
--    int rc;
-+    struct domain *d =3D kinfo->bd.d;
-=20
-     /* Sanity! */
-     BUG_ON(d->domain_id !=3D 0);
-=20
--    printk("*** LOADING DOMAIN 0 ***\n");
--
-     /* The ordering of operands is to work around a clang5 issue. */
-     if ( CONFIG_DOM0_MEM[0] && !dom0_mem_set )
-         parse_dom0_mem(CONFIG_DOM0_MEM);
-@@ -1976,14 +1973,9 @@ static int __init construct_dom0(struct domain *d)
-=20
-     d->max_pages =3D dom0_mem >> PAGE_SHIFT;
-=20
--    kinfo.unassigned_mem =3D dom0_mem;
--    kinfo.bd.d =3D d;
-+    kinfo->unassigned_mem =3D dom0_mem;
-=20
--    rc =3D kernel_probe(&kinfo, NULL);
--    if ( rc < 0 )
--        return rc;
--
--    return construct_hwdom(&kinfo, NULL);
-+    return construct_hwdom(kinfo, NULL);
- }
-=20
- int __init construct_hwdom(struct kernel_info *kinfo,
-@@ -2040,6 +2032,7 @@ int __init construct_hwdom(struct kernel_info *kinfo,
-=20
- void __init create_dom0(void)
- {
-+    struct kernel_info kinfo =3D KERNEL_INFO_INIT;
-     struct domain *dom0;
-     struct xen_domctl_createdomain dom0_cfg =3D {
-         .flags =3D XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap |
-@@ -2052,6 +2045,17 @@ void __init create_dom0(void)
-     unsigned int flags =3D CDF_privileged | CDF_hardware;
-     int rc;
-=20
-+    printk("*** LOADING DOMAIN 0 ***\n");
-+
-+    rc =3D kernel_probe(&kinfo, NULL);
-+    if ( rc < 0 )
-+        panic("Error probing  domain 0 guest kernel (rc =3D %d)\n", rc);
-+
-+#ifdef CONFIG_ARM_64
-+    if ( kinfo.is_32bit_type )
-+        dom0_cfg.flags |=3D XEN_DOMCTL_CDF_is_32bits;
-+#endif
-+
-     /* The vGIC for DOM0 is exactly emulating the hardware GIC */
-     dom0_cfg.arch.gic_version =3D XEN_DOMCTL_CONFIG_GIC_NATIVE;
-     dom0_cfg.arch.nr_spis =3D VGIC_DEF_NR_SPIS;
-@@ -2078,13 +2082,15 @@ void __init create_dom0(void)
-     if ( IS_ERR(dom0) )
-         panic("Error creating domain 0 (rc =3D %ld)\n", PTR_ERR(dom0));
-=20
-+    kinfo.bd.d =3D dom0;
-+
-     if ( llc_coloring_enabled && (rc =3D dom0_set_llc_colors(dom0)) )
-         panic("Error initializing LLC coloring for domain 0 (rc =3D %d)\n"=
-, rc);
-=20
-     if ( vcpu_create(dom0, 0) =3D=3D NULL )
-         panic("Error creating domain 0 vcpu0\n");
-=20
--    rc =3D construct_dom0(dom0);
-+    rc =3D construct_dom0(&kinfo);
-     if ( rc )
-         panic("Could not set up DOM0 guest OS (rc =3D %d)\n", rc);
-=20
-diff --git a/xen/common/device-tree/kernel.c b/xen/common/device-tree/kerne=
-l.c
-index 28096121a52d..f67229f66d30 100644
---- a/xen/common/device-tree/kernel.c
-+++ b/xen/common/device-tree/kernel.c
-@@ -140,8 +140,6 @@ int __init kernel_probe(struct kernel_info *info,
-     /* domain is NULL only for the hardware domain */
-     if ( domain =3D=3D NULL )
+ #ifdef CONFIG_ARM_64
+     /* if aarch32 mode is not supported at EL1 do not allow 32-bit domain =
+*/
+-    if ( !(cpu_has_el1_32) && kinfo->arch.type =3D=3D DOMAIN_32BIT )
++    if ( !(cpu_has_el1_32) && kinfo->is_32bit_type )
      {
--        ASSERT(is_hardware_domain(info->bd.d));
--
-         mod =3D boot_module_find_by_kind(BOOTMOD_KERNEL);
-=20
-         info->bd.kernel =3D mod;
-@@ -204,8 +202,8 @@ int __init kernel_probe(struct kernel_info *info,
-         return -ENOENT;
+         printk("Platform does not support 32-bit domain\n");
+         return -EINVAL;
      }
 =20
--    printk("Loading %pd kernel from boot module @ %"PRIpaddr"\n",
--           info->bd.d, info->bd.kernel->start);
-+    printk("Loading kernel from boot module @ %"PRIpaddr"\n",
-+           info->bd.kernel->start);
-     if ( info->bd.initrd )
-         printk("Loading ramdisk from boot module @ %"PRIpaddr"\n",
-                info->bd.initrd->start);
+-    if ( is_sve_domain(d) && (kinfo->arch.type =3D=3D DOMAIN_32BIT) )
++    if ( is_sve_domain(d) && kinfo->is_32bit_type )
+     {
+         printk("SVE is not available for 32-bit domain\n");
+         return -EINVAL;
+@@ -1996,7 +1996,7 @@ int __init construct_hwdom(struct kernel_info *kinfo,
+=20
+ #ifdef CONFIG_ARM_64
+     /* type must be set before allocate_memory */
+-    d->arch.type =3D kinfo->arch.type;
++    d->arch.type =3D kinfo->is_32bit_type ? DOMAIN_32BIT : DOMAIN_64BIT;
+ #endif
+     find_gnttab_region(d, kinfo);
+     if ( is_domain_direct_mapped(d) )
+diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/k=
+ernel.h
+index 7c3b7fde5b64..150cd9e30944 100644
+--- a/xen/arch/arm/include/asm/kernel.h
++++ b/xen/arch/arm/include/asm/kernel.h
+@@ -8,12 +8,7 @@
+=20
+ #include <asm/domain.h>
+=20
+-struct arch_kernel_info
+-{
+-#ifdef CONFIG_ARM_64
+-    enum domain_type type;
+-#endif
+-
++struct arch_kernel_info {
+     /* Enable pl011 emulation */
+     bool vpl011;
+ };
+diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
+index 48f4b56d0ccc..607758bedb22 100644
+--- a/xen/arch/arm/kernel.c
++++ b/xen/arch/arm/kernel.c
+@@ -103,7 +103,7 @@ static paddr_t __init kernel_zimage_place(struct kernel=
+_info *info)
+     paddr_t load_addr;
+=20
+ #ifdef CONFIG_ARM_64
+-    if ( (info->arch.type =3D=3D DOMAIN_64BIT) && (info->zimage.start =3D=
+=3D 0) )
++    if ( (!info->is_32bit_type) && (info->zimage.start =3D=3D 0) )
+         return mem->bank[0].start + info->zimage.text_offset;
+ #endif
+=20
+@@ -274,10 +274,10 @@ int __init kernel_uimage_probe(struct kernel_info *in=
+fo,
+     switch ( uimage.arch )
+     {
+     case IH_ARCH_ARM:
+-        info->arch.type =3D DOMAIN_32BIT;
++        info->is_32bit_type =3D true;
+         break;
+     case IH_ARCH_ARM64:
+-        info->arch.type =3D DOMAIN_64BIT;
++        info->is_32bit_type =3D false;
+         break;
+     default:
+         printk(XENLOG_ERR "Unsupported uImage arch type %d\n", uimage.arch=
+);
+@@ -347,7 +347,7 @@ static int __init kernel_zimage64_probe(struct kernel_i=
+nfo *info,
+=20
+     info->load =3D kernel_zimage_load;
+=20
+-    info->arch.type =3D DOMAIN_64BIT;
++    info->is_32bit_type =3D false;
+=20
+     return 0;
+ }
+@@ -399,7 +399,7 @@ static int __init kernel_zimage32_probe(struct kernel_i=
+nfo *info,
+     info->load =3D kernel_zimage_load;
+=20
+ #ifdef CONFIG_ARM_64
+-    info->arch.type =3D DOMAIN_32BIT;
++    info->is_32bit_type =3D true;
+ #endif
+=20
+     return 0;
+diff --git a/xen/include/xen/fdt-kernel.h b/xen/include/xen/fdt-kernel.h
+index 33a60597bb4d..c862ff6c17ca 100644
+--- a/xen/include/xen/fdt-kernel.h
++++ b/xen/include/xen/fdt-kernel.h
+@@ -41,6 +41,9 @@ struct kernel_info {
+     /* Enable/Disable PV drivers interfaces */
+     uint16_t dom0less_feature;
+=20
++    /* Is 32bits guest detected? */
++    bool is_32bit_type;
++
+     /* Interrupt controller phandle */
+     uint32_t phandle_intc;
+=20
 --=20
 2.34.1
 
