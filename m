@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31EDEB17478
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 17:58:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1065878.1431278 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C45BB1748C
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 18:03:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1065993.1431395 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhVg6-0003c0-Sc; Thu, 31 Jul 2025 15:58:46 +0000
+	id 1uhVk6-0005G1-Qq; Thu, 31 Jul 2025 16:02:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1065878.1431278; Thu, 31 Jul 2025 15:58:46 +0000
+Received: by outflank-mailman (output) from mailman id 1065993.1431395; Thu, 31 Jul 2025 16:02:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhVg6-0003TA-IW; Thu, 31 Jul 2025 15:58:46 +0000
-Received: by outflank-mailman (input) for mailman id 1065878;
- Thu, 31 Jul 2025 15:58:44 +0000
+	id 1uhVk6-0005Cm-NA; Thu, 31 Jul 2025 16:02:54 +0000
+Received: by outflank-mailman (input) for mailman id 1065993;
+ Thu, 31 Jul 2025 16:02:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0Jdx=2M=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uhVg4-0001FB-C2
- for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 15:58:44 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
+ id 1uhVg6-0001FB-CR
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 15:58:46 +0000
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [2a00:1450:4864:20::12d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3b333a37-6e27-11f0-b895-0df219b8e170;
- Thu, 31 Jul 2025 17:58:42 +0200 (CEST)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-55b859545c3so1221538e87.0
- for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 08:58:42 -0700 (PDT)
+ id 3bee2649-6e27-11f0-b895-0df219b8e170;
+ Thu, 31 Jul 2025 17:58:43 +0200 (CEST)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-55b85413019so600238e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 08:58:43 -0700 (PDT)
 Received: from fedora (user-109-243-64-38.play-internet.pl. [109.243.64.38])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55b88c9931bsm278746e87.101.2025.07.31.08.58.40
+ 2adb3069b0e04-55b88c9931bsm278746e87.101.2025.07.31.08.58.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 31 Jul 2025 08:58:41 -0700 (PDT)
+ Thu, 31 Jul 2025 08:58:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +45,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b333a37-6e27-11f0-b895-0df219b8e170
+X-Inumbo-ID: 3bee2649-6e27-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1753977522; x=1754582322; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1753977523; x=1754582323; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AvVQ0FbSOnQU5awNmCzNnO6W0RjQ/JOFOltcFhlpheU=;
-        b=a8DFdFzCG9ILeRY0e/54ye3QQQi7FefMM+fb3O/4ITx37S+nRLubkYHplsXsPH+5Wt
-         Aalz0uLotDPLcwLvqe+EI8LbJWLbBNEXFTeMKTF8gVceyElFK2Yth705jE9M3p2/sdbP
-         zn9J4BXKcK8ZkmfIbaQtFyke13s4gyCs+QcZplA8As6JzXnOXkRsLR94JSH0g5XYZX3g
-         DuN54eG1V5n5f0GJLw6c+XFChAHf09rQYBBQ5kzgalFfFE+qApipgeBpOY68Q28rrFlf
-         zUmlLREyIYAET1q/wNyxwolnAm2vvPVR9pjuHws1n8+yJYjx1UigycNmecqHi0iSAHki
-         ufXw==
+        bh=pEOkzQdBxpbC9Okf9MXfHH5aCeAaO0EgwJT3GQlkxY4=;
+        b=YMKEAMhjuWtxzRUxAneynLhqIVice5DnDqxQLQ9PET6hiML/XzAmi46VWrMsVCvru8
+         UiNes28DBwPfJUU5HdW1EEC+JUvsuG1PzqCesS/dGJcGNSqYXp/XOcLks3pEYDR/mJRb
+         uoEK3AznXY3hQ1kiwPtzDP+lcWDQxlSdw4EJV1qnPZeAQz93nNPdmiHfuMhBCGMIIl8B
+         EEGiMvSEtU5GjB/BEdKpYsWUR7Q0OP86HZOXzwWRCGwSoXl5zYqHUEaxa5SwGsvlEdKC
+         1yFRj7wyUxWvdYZN8malKe4pFL9aIxCnorZpYGM2C57KEwsutSiVgkpLecW9vvKnTZug
+         R7XQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753977522; x=1754582322;
+        d=1e100.net; s=20230601; t=1753977523; x=1754582323;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=AvVQ0FbSOnQU5awNmCzNnO6W0RjQ/JOFOltcFhlpheU=;
-        b=DXeYsLflDLTK6z57pDE/TDFT80KqopjjV2fCKMlZcm3QGbgW8VNZ6hRcpAYAdMA+uQ
-         xhznWFBLtU2mIaOc8TGA4kvErHVUcw3sac4x884jKrzl1IBNHyz7mPrqXcviQzBhQ612
-         9pVNKegGqqh1qU0HAHhcT4UCnz8LmbaToPjzzCLjMW6ee9+pe9sU0ENwUDplB8TXrE22
-         JVychysI5b3imzesqlyC0/+o6KJ6XKCO36qC7W2+tGrEeSg9uSjLBI80UfPl871qUHyO
-         uOPcBIdnMGeGgh+BlYbQgEN2/o1iAPtj1S1vyQ+1J9M/7ObwXq1WuWKiRTR4X8DZsDpC
-         VRxg==
-X-Gm-Message-State: AOJu0YzhGbiO8r0i5SXZ4UXYd/1bdT3ePOidUR8VL5OcRZYwAHI4W2LI
-	p6RxcbCSHUQi5bSzsq/eXentVruo/IihsAVCoPfArrpcV18Aq1XWAXjJ+97Fcw==
-X-Gm-Gg: ASbGnctOZ2mAWsW8b2E4brTV0baTpiD57U36qAbwIBVxUceVSKnMwXGhCCxa0saVBuD
-	cTND6GOZlo7CZVM4qZ2A79m8N4NqMGbZl8qLo2qpISl3Z+eOJ9Gl/hDCrF9aUFgD5wtCQH8TpAG
-	bRGrgByrUxUJiQNH9v8RNuwR0m4ixMg5tWg7gUdkikuCvo6NbR8qAGY63yYNq5szSVpoCDLpgLh
-	1/yNrtYyCptfME6M8nsZVmZ3al+uAAiICo25FV7cGc67gKkIqqH3jsZNFaVH8IsYgzKyujQArz5
-	RIFj7JEOnWrHvDSg6Q/ICM4Mcv76YBBtwMyLo9DBVurw/QwIp/qfMulQo4Eu4X4fP5q7af2S/VY
-	+qw+21BcfGMwHfLMZLa4y7E/4ob3XKAysIHF8zlPLq2u6QTfHOHzgl9gQJYBTJw==
-X-Google-Smtp-Source: AGHT+IGfhYrqfOW245zy9Jhh4v3hYQUoQNMXIvYeE7OKblKWd/4uJrpdvGZVRg1RWVeYvGobZBqyNA==
-X-Received: by 2002:a05:6512:1383:b0:55b:7ff4:bb3b with SMTP id 2adb3069b0e04-55b88c8809emr893317e87.21.1753977521586;
-        Thu, 31 Jul 2025 08:58:41 -0700 (PDT)
+        bh=pEOkzQdBxpbC9Okf9MXfHH5aCeAaO0EgwJT3GQlkxY4=;
+        b=kHT5W+crpdEDTf1O4S3YmiDOpsJd3eZbJ2QWXkKl3liyNannwqQ0dwOF5m2A+NVp9A
+         inzS9uUKcsInAJSUxAN4KTXwuuxckwrvu7WWwxMNmx6KpkTGFMSDnbjBSA1JliAJevTA
+         JoRngTx/q3teaOQxuw5nV6DlZw4onRqjoPLw1TQDO/76i9cecqU4Umfngk6od9OmkPWI
+         cElrmMlzTs73kCuli6VuLK1WyweLCMpGOP664IZbqsDI92u3e/PjagV7Gw3kowiLSFiw
+         l5KKXo4P3jAPNfa/1Q1LhrikAO/EBkR11jWm8iccnwl0M3gKtAIvim6CJBc5tdwKrfz3
+         5lBQ==
+X-Gm-Message-State: AOJu0YyzEHnU7RKaO97nR2fx/9Olt12mnPETE6gXOhljUPjirZUYRFN6
+	zwObndqd2yKW4KeYompu/HNptSm3+wzPy9kNXy8WQ1l1f45zy8jkoUIfF2v8dg==
+X-Gm-Gg: ASbGnctyniT0zI4z1ObHCFuhwviRRowzsN/iqQ7cb2X0O7XZffAct8N38KB0ET62T40
+	0aXfkGb0EAWdSw/0PiAt3nSmOejAO0PqHKtGVt+oSeuHy5hb3FjbH2KOQvjnY/jUlS/YJ/6wtY7
+	2Fknv59k1MlHQZtNAx3p5N2BV0KBfBP4wP/99oDJw521IFGcgWWaFttHWMCm0mnMAnnOsbk+Tbu
+	49QYXSem1z/wMwWpviyq8+PJFJri9C0L4bGzS8l2Z8gZXZiYLcZGrLjT53IcJr/+enUp5tqdIkZ
+	+JpCDNdYICtjqz3U15ZuRC2/g1v3g5coUjwfPjLLdkdkZJ3+MIf7F2+JLEcPdjpo9P07YlDGM8t
+	SQYs1RTReZ3Wwxsua0qqWx4JHrIgQy57k2KStwCfAHzuzbbidjtU0h7xmTWWCpw==
+X-Google-Smtp-Source: AGHT+IFLTOuKuRf2T7tNGueoS/xGQR2k3DSUUMxZkxu+W21mtiv+Yw78Y6yFbwkuLfLx9uu1tuhAbA==
+X-Received: by 2002:a05:6512:3ba7:b0:554:f72c:819d with SMTP id 2adb3069b0e04-55b7c08ec37mr2819368e87.43.1753977522774;
+        Thu, 31 Jul 2025 08:58:42 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 08/20] xen/riscv: add new p2m types and helper macros for type classification
-Date: Thu, 31 Jul 2025 17:58:07 +0200
-Message-ID: <3d35b6f4bb79048647020ed4e7b222585ca3a9a3.1753973161.git.oleksii.kurochko@gmail.com>
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v3 09/20] xen/dom0less: abstract Arm-specific p2m type name for device MMIO mappings
+Date: Thu, 31 Jul 2025 17:58:08 +0200
+Message-ID: <b9f7a13262cb3b482fb3d5cbbee6c72781fbfdc2.1753973161.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <cover.1753973161.git.oleksii.kurochko@gmail.com>
 References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-- Extended p2m_type_t with additional types: p2m_mmio_direct,
-  p2m_grant_map_{rw,ro}.
-- Added macros to classify memory types: P2M_RAM_TYPES, P2M_GRANT_TYPES.
-- Introduced helper predicates: p2m_is_ram(), p2m_is_any_ram().
-- Define p2m_mmio_direct to tell handle_passthrough_prop() from common
-  code how to map device memory.
+Rename `p2m_mmio_direct_dev` to a more architecture-neutral alias
+`p2m_mmio_direct` to avoid leaking Arm-specific naming into common Xen code,
+such as dom0less passthrough property handling.
 
+This helps reduce platform-specific terminology in shared logic and
+improves clarity for future non-Arm ports (e.g. RISC-V or PowerPC).
+
+No functional changes — the definition is preserved via a macro alias
+for Arm.
+
+Suggested-by: Jan Beulich <jbeulich@suse.com>
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
-Changes in V3:
- - Drop p2m_ram_ro.
- - Rename p2m_mmio_direct_dev to p2m_mmio_direct_io to make it more RISC-V specicific.
- - s/p2m_mmio_direct_dev/p2m_mmio_direct_io.
+Changes in v3:
+ - New patch
 ---
-Changes in V2:
- - Drop stuff connected to foreign mapping as it isn't necessary for RISC-V
-   right now.
----
- xen/arch/riscv/include/asm/p2m.h | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ xen/arch/arm/include/asm/p2m.h          | 2 ++
+ xen/common/device-tree/dom0less-build.c | 2 +-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/riscv/include/asm/p2m.h b/xen/arch/riscv/include/asm/p2m.h
-index 3c37a708db..5f253da1dd 100644
---- a/xen/arch/riscv/include/asm/p2m.h
-+++ b/xen/arch/riscv/include/asm/p2m.h
-@@ -62,8 +62,30 @@ struct p2m_domain {
- typedef enum {
-     p2m_invalid = 0,    /* Nothing mapped here */
-     p2m_ram_rw,         /* Normal read/write domain RAM */
-+    p2m_mmio_direct_io, /* Read/write mapping of genuine Device MMIO area,
-+                           PTE_PBMT_IO will be used for such mappings */
-+    p2m_ext_storage,    /* Following types'll be stored outsude PTE bits: */
-+    p2m_grant_map_rw,   /* Read/write grant mapping */
-+    p2m_grant_map_ro,   /* Read-only grant mapping */
+diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
+index 2d53bf9b61..bade1eb71b 100644
+--- a/xen/arch/arm/include/asm/p2m.h
++++ b/xen/arch/arm/include/asm/p2m.h
+@@ -137,6 +137,8 @@ typedef enum {
+     p2m_max_real_type,  /* Types after this won't be store in the p2m */
  } p2m_type_t;
  
-+#define p2m_mmio_direct p2m_mmio_direct_io
++#define p2m_mmio_direct p2m_mmio_direct_dev
 +
-+/* We use bitmaps and mask to handle groups of types */
-+#define p2m_to_mask(t_) BIT(t_, UL)
-+
-+/* RAM types, which map to real machine frames */
-+#define P2M_RAM_TYPES (p2m_to_mask(p2m_ram_rw))
-+
-+/* Grant mapping types, which map to a real frame in another VM */
-+#define P2M_GRANT_TYPES (p2m_to_mask(p2m_grant_map_rw) | \
-+                         p2m_to_mask(p2m_grant_map_ro))
-+
-+/* Useful predicates */
-+#define p2m_is_ram(t_) (p2m_to_mask(t_) & P2M_RAM_TYPES)
-+#define p2m_is_any_ram(t_) (p2m_to_mask(t_) & \
-+                            (P2M_RAM_TYPES | P2M_GRANT_TYPES))
-+
- #include <xen/p2m-common.h>
+ /* We use bitmaps and mask to handle groups of types */
+ #define p2m_to_mask(_t) (1UL << (_t))
  
- static inline int get_page_and_type(struct page_info *page,
+diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
+index 6bb038111d..5b97bf0343 100644
+--- a/xen/common/device-tree/dom0less-build.c
++++ b/xen/common/device-tree/dom0less-build.c
+@@ -185,7 +185,7 @@ static int __init handle_passthrough_prop(struct kernel_info *kinfo,
+                                gaddr_to_gfn(gstart),
+                                PFN_DOWN(size),
+                                maddr_to_mfn(mstart),
+-                               p2m_mmio_direct_dev);
++                               p2m_mmio_direct);
+         if ( res < 0 )
+         {
+             printk(XENLOG_ERR
 -- 
 2.50.1
 
