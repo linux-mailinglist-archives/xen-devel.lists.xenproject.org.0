@@ -2,46 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02CE6B16DCE
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 10:43:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1065073.1430403 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D655B16DD2
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 10:43:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1065075.1430413 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhOsV-0006jy-Gx; Thu, 31 Jul 2025 08:43:07 +0000
+	id 1uhOsc-00075Z-Sw; Thu, 31 Jul 2025 08:43:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1065073.1430403; Thu, 31 Jul 2025 08:43:07 +0000
+Received: by outflank-mailman (output) from mailman id 1065075.1430413; Thu, 31 Jul 2025 08:43:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhOsV-0006h8-CQ; Thu, 31 Jul 2025 08:43:07 +0000
-Received: by outflank-mailman (input) for mailman id 1065073;
- Thu, 31 Jul 2025 08:43:05 +0000
+	id 1uhOsc-00071s-Ob; Thu, 31 Jul 2025 08:43:14 +0000
+Received: by outflank-mailman (input) for mailman id 1065075;
+ Thu, 31 Jul 2025 08:43:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=3v3Z=2M=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1uhOsT-0006gC-TB
- for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 08:43:05 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [2a07:de40:b251:101:10:150:64:2])
+ id 1uhOsb-0006gC-IT
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 08:43:13 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5f5d1fcd-6dea-11f0-b895-0df219b8e170;
- Thu, 31 Jul 2025 10:43:04 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ id 6252bb66-6dea-11f0-b895-0df219b8e170;
+ Thu, 31 Jul 2025 10:43:08 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9ACC61F7BE;
- Thu, 31 Jul 2025 08:43:02 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5A48F2119C;
+ Thu, 31 Jul 2025 08:43:08 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 69E7113AB4;
- Thu, 31 Jul 2025 08:43:02 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 17DE113AB4;
+ Thu, 31 Jul 2025 08:43:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id HskJGJYsi2jMDAAAD6G6ig
- (envelope-from <jgross@suse.com>); Thu, 31 Jul 2025 08:43:02 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id vH8tBJwsi2jSDAAAD6G6ig
+ (envelope-from <jgross@suse.com>); Thu, 31 Jul 2025 08:43:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,153 +51,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f5d1fcd-6dea-11f0-b895-0df219b8e170
+X-Inumbo-ID: 6252bb66-6dea-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1753951383; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1753951388; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=uSyQelwkAxmw7kyKn2rf/XibX90/X1XS9gD+6+Tbeuk=;
-	b=l3z3WlTuzdq5s2VMGAuJQkMkRGhJLtvsIumi6e0PorKe2T3Iaqmd1vIH/UbTAM1uwsNF1C
-	Exx0gVOD72bgbw1Nj7VAN5qo28BO4TJSIrk0TDDFlx49m6Uj9A/pbr82t7abzm+VKPqkdo
-	af0CGIeO6H0ojQts7PEl59o6we2Xsds=
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=tnyMA29K
+	bh=zxuwVWDlLAnmbyEtprz8FF0BaKxPp4KdchOH5r/IcTY=;
+	b=sj7yfkFSCaBJrOF4UL5JYZhj4Dla0iBu285uV4/Y6SHsauZBp+zeWbwm3jG+1QndebtrUI
+	dYDpqAA/IaT69gr3Bq3pjcy2hAs5u4z3cBpyr//bV7kPCAWP8Ikh4r3jWf0MiNP7xvfUjz
+	xi162V1AE+9j+d+VVlGAD6wZtBNB1Kw=
+Authentication-Results: smtp-out1.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1753951382; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1753951388; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=uSyQelwkAxmw7kyKn2rf/XibX90/X1XS9gD+6+Tbeuk=;
-	b=tnyMA29KW8msoGIUwbi1ARB0PULK6TQrySOaOC318h+PL9z7/ZPKojiCMxwPQZYysy2LYd
-	V6CuGb9TXH38nUi2vYxstiK82jSNB3PZatctdmpehEaHWBoH/AnpLKPVOfGk2QYJHLuBBE
-	oC+YKGx1Y3Nl3QKe8Ma7OfGG1v05W0E=
+	bh=zxuwVWDlLAnmbyEtprz8FF0BaKxPp4KdchOH5r/IcTY=;
+	b=sj7yfkFSCaBJrOF4UL5JYZhj4Dla0iBu285uV4/Y6SHsauZBp+zeWbwm3jG+1QndebtrUI
+	dYDpqAA/IaT69gr3Bq3pjcy2hAs5u4z3cBpyr//bV7kPCAWP8Ikh4r3jWf0MiNP7xvfUjz
+	xi162V1AE+9j+d+VVlGAD6wZtBNB1Kw=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
+	Nick Rosbrook <enr0n@ubuntu.com>,
+	George Dunlap <gwd@xenproject.org>,
 	Jason Andryuk <jason.andryuk@amd.com>
-Subject: [PATCH v3 1/2] tools/xl: add available Xenstore features to xl info output
-Date: Thu, 31 Jul 2025 10:42:53 +0200
-Message-ID: <20250731084254.25591-2-jgross@suse.com>
+Subject: [PATCH v3 2/2] tools: allow to limit xenstore features via guest config
+Date: Thu, 31 Jul 2025 10:42:54 +0200
+Message-ID: <20250731084254.25591-3-jgross@suse.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250731084254.25591-1-jgross@suse.com>
 References: <20250731084254.25591-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
 	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DWL_DNSWL_BLOCKED(0.00)[suse.com:dkim];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,amd.com:email,suse.com:mid,suse.com:dkim,suse.com:email];
-	RCVD_COUNT_TWO(0.00)[2];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+]
+	FROM_HAS_DN(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,amd.com:email,suse.com:mid,suse.com:email];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	RCPT_COUNT_FIVE(0.00)[6];
+	RCVD_TLS_ALL(0.00)[]
 X-Spam-Flag: NO
 X-Spam-Level: 
-X-Rspamd-Queue-Id: 9ACC61F7BE
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -3.01
+X-Spam-Score: -2.80
 
-Add the Xenstore feature value to the output of "xl info" in order to
-prepare for a future capability to limit Xenstore features visible by
-a guest.
+Add a guest config parameter "xenstore_feature_mask" allowing to limit
+the Xenstore features the guest can see and use. This can be needed in
+order to allow migrating a guest to a host running a Xenstore version
+providing less features than the source host.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-Acked-by: Anthony PERARD <anthony.perard@vates.tech>
+Acked-by: Nick Rosbrook <enr0n@ubuntu.com> # tools/golang
 ---
- tools/xl/Makefile  |  3 ++-
- tools/xl/xl_info.c | 22 ++++++++++++++++++++++
- 2 files changed, 24 insertions(+), 1 deletion(-)
+V2:
+- fix typo (Jason Andryuk)
+V3:
+- use LOGED for error logging (Anthony Perard)
+- don't leak vm_path in case of error (Anthony Perard)
+---
+ docs/man/xl.cfg.5.pod.in             | 36 ++++++++++++++++++++++++++++
+ tools/golang/xenlight/helpers.gen.go |  2 ++
+ tools/golang/xenlight/types.gen.go   |  1 +
+ tools/include/libxl.h                |  6 +++++
+ tools/libs/light/libxl_dom.c         | 17 ++++++++++++-
+ tools/libs/light/libxl_types.idl     |  1 +
+ tools/xl/xl_parse.c                  |  3 +++
+ 7 files changed, 65 insertions(+), 1 deletion(-)
 
-diff --git a/tools/xl/Makefile b/tools/xl/Makefile
-index d742e96a5b..ad577cdd70 100644
---- a/tools/xl/Makefile
-+++ b/tools/xl/Makefile
-@@ -13,6 +13,7 @@ LDFLAGS += $(PTHREAD_LDFLAGS)
+diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+index 5362fb0e9a..f0c920b39d 100644
+--- a/docs/man/xl.cfg.5.pod.in
++++ b/docs/man/xl.cfg.5.pod.in
+@@ -714,6 +714,42 @@ If this option is not specified then it will default to B<false>.
  
- CFLAGS_XL += $(CFLAGS_libxenlight)
- CFLAGS_XL += $(CFLAGS_libxenutil)
-+CFLAGS_XL += $(CFLAGS_libxenstore)
- CFLAGS_XL += -Wshadow
+ =back
  
- XL_OBJS-$(CONFIG_X86) = xl_psr.o
-@@ -32,7 +33,7 @@ $(XL_OBJS): CFLAGS += -include $(XEN_ROOT)/tools/config.h # libxl_json.h needs i
- all: xl
++=head3 Xenstore related settings
++
++=over 4
++
++=item B<xenstore_feature_mask=NUMBER>
++
++Specify which Xenstore features are visible for the guest.
++
++This might be needed when a guest should be able to be migrated to a host
++running a Xenstore implementation with less features than the one the guest
++is created on.
++
++The visible features are specified via a binary or of the following
++values:
++
++=over 4
++
++=item B<0x00000001>
++
++Xenstore is capable to reconnect to a guest.
++
++=item B<0x00000002>
++
++Xenstore will present an error value in case it disconnects due to an error
++condition.
++
++=back
++
++The features supported by the running Xenstore instance can be retrieved
++via the B<xl info> command in dom0.
++
++The default value is B<0xffffffff>, meaning that all possible Xenstore
++features are visible by the guest.
++
++=back
++
+ =head2 Devices
  
- xl: $(XL_OBJS)
--	$(CC) $(LDFLAGS) -o $@ $(XL_OBJS) $(LDLIBS_libxenutil) $(LDLIBS_libxenlight) $(LDLIBS_libxentoollog) -lyajl $(APPEND_LDFLAGS)
-+	$(CC) $(LDFLAGS) -o $@ $(XL_OBJS) $(LDLIBS_libxenutil) $(LDLIBS_libxenlight) $(LDLIBS_libxentoollog) $(LDLIBS_libxenstore) -lyajl $(APPEND_LDFLAGS)
+ The following options define the paravirtual, emulated and physical
+diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
+index b43aad7d00..667030cbd7 100644
+--- a/tools/golang/xenlight/helpers.gen.go
++++ b/tools/golang/xenlight/helpers.gen.go
+@@ -1175,6 +1175,7 @@ return fmt.Errorf("converting field Vpmu: %v", err)
+ if err := x.TrapUnmappedAccesses.fromC(&xc.trap_unmapped_accesses);err != nil {
+ return fmt.Errorf("converting field TrapUnmappedAccesses: %v", err)
+ }
++x.XenstoreFeatureMask = uint32(xc.xenstore_feature_mask)
  
- .PHONY: install
- install: all
-diff --git a/tools/xl/xl_info.c b/tools/xl/xl_info.c
-index 72e87eac46..eb019e3ee9 100644
---- a/tools/xl/xl_info.c
-+++ b/tools/xl/xl_info.c
-@@ -28,6 +28,7 @@
- #include <libxl_utils.h>
- #include <libxlutil.h>
- #include <xen-tools/arm-arch-capabilities.h>
-+#include <xenstore.h>
+  return nil}
  
- #include "xl.h"
- #include "xl_utils.h"
-@@ -333,6 +334,25 @@ static void output_topologyinfo(void)
-     return;
+@@ -1710,6 +1711,7 @@ return fmt.Errorf("converting field Vpmu: %v", err)
+ if err := x.TrapUnmappedAccesses.toC(&xc.trap_unmapped_accesses); err != nil {
+ return fmt.Errorf("converting field TrapUnmappedAccesses: %v", err)
+ }
++xc.xenstore_feature_mask = C.uint32_t(x.XenstoreFeatureMask)
+ 
+  return nil
+  }
+diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
+index 4777f528b5..e26b3cdfc7 100644
+--- a/tools/golang/xenlight/types.gen.go
++++ b/tools/golang/xenlight/types.gen.go
+@@ -608,6 +608,7 @@ Altp2MCount uint32
+ VmtraceBufKb int
+ Vpmu Defbool
+ TrapUnmappedAccesses Defbool
++XenstoreFeatureMask uint32
  }
  
-+static void output_xenstore_info(void)
-+{
-+    struct xs_handle *xsh;
-+    unsigned int features = 0;
+ type DomainBuildInfoTypeUnion interface {
+diff --git a/tools/include/libxl.h b/tools/include/libxl.h
+index d6b6e5d2dd..185f74d8a8 100644
+--- a/tools/include/libxl.h
++++ b/tools/include/libxl.h
+@@ -654,6 +654,12 @@
+  */
+ #define LIBXL_HAVE_DT_OVERLAY_DOMAIN 1
+ 
++/*
++ * LIBXL_HAVE_XENSTORE_FEATURE_MASK indicates the presence of
++ * xenstore_feature_mask in struct libxl_domain_build_info.
++ */
++#define LIBXL_HAVE_XENSTORE_FEATURE_MASK 1
 +
-+    xsh = xs_open(0);
-+    if (!xsh) {
-+        fprintf(stderr, "xs_open failed.\n");
-+        return;
+ /*
+  * libxl memory management
+  *
+diff --git a/tools/libs/light/libxl_dom.c b/tools/libs/light/libxl_dom.c
+index a61085ca3b..05ebc69534 100644
+--- a/tools/libs/light/libxl_dom.c
++++ b/tools/libs/light/libxl_dom.c
+@@ -494,9 +494,24 @@ retry_transaction:
+     if (!xs_transaction_end(ctx->xsh, t, 0))
+         if (errno == EAGAIN)
+             goto retry_transaction;
++
++    if (info->xenstore_feature_mask != ~0U) {
++        unsigned int features;
++
++        if (xs_get_features_supported(ctx->xsh, &features) &&
++            !xs_set_features_domain(ctx->xsh, domid,
++                                    features & info->xenstore_feature_mask)) {
++            LOGED(ERROR, domid, "Failed to set Xenstore features");
++            rc = ERROR_FAIL;
++            goto out;
++        }
 +    }
 +
-+    /* Ignore error, default to "0" for features. */
-+    xs_get_features_supported(xsh, &features);
+     xs_introduce_domain(ctx->xsh, domid, state->store_mfn, state->store_port);
 +
-+    maybe_printf("xenstore_features      : 0x%08x\n", features);
-+
-+    xs_close(xsh);
-+}
-+
- static void print_info(int numa)
- {
-     output_nodeinfo();
-@@ -345,6 +365,8 @@ static void print_info(int numa)
-     }
-     output_xeninfo();
++ out:
+     free(vm_path);
+-    return 0;
++    return rc;
+ }
  
-+    output_xenstore_info();
-+
-     maybe_printf("xend_config_format     : 4\n");
+ static int set_vnuma_info(libxl__gc *gc, uint32_t domid,
+diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
+index fe251649f3..a6030a2dbd 100644
+--- a/tools/libs/light/libxl_types.idl
++++ b/tools/libs/light/libxl_types.idl
+@@ -739,6 +739,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
  
-     return;
+     ("vpmu", libxl_defbool),
+     ("trap_unmapped_accesses", libxl_defbool),
++    ("xenstore_feature_mask", uint32, {'init_val': '~0U'}),
+ 
+     ], dir=DIR_IN,
+        copy_deprecated_fn="libxl__domain_build_info_copy_deprecated",
+diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+index 28cdbf07c2..90c9386f5b 100644
+--- a/tools/xl/xl_parse.c
++++ b/tools/xl/xl_parse.c
+@@ -1409,6 +1409,9 @@ void parse_config_data(const char *config_source,
+     if (!xlu_cfg_get_string (config, "pool", &buf, 0))
+         xlu_cfg_replace_string(config, "pool", &c_info->pool_name, 0);
+ 
++    if (!xlu_cfg_get_long (config, "xenstore_feature_mask", &l, 0))
++        b_info->xenstore_feature_mask = l;
++
+     libxl_domain_build_info_init_type(b_info, c_info->type);
+ 
+     if (b_info->type == LIBXL_DOMAIN_TYPE_PVH) {
 -- 
 2.43.0
 
