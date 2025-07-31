@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41A13B16ECC
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 11:39:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1065247.1430644 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EB40B16ED8
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 11:42:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1065254.1430666 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhPlR-0008Tr-RD; Thu, 31 Jul 2025 09:39:53 +0000
+	id 1uhPoF-0002KN-Nb; Thu, 31 Jul 2025 09:42:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1065247.1430644; Thu, 31 Jul 2025 09:39:53 +0000
+Received: by outflank-mailman (output) from mailman id 1065254.1430666; Thu, 31 Jul 2025 09:42:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhPlR-0008Qq-OQ; Thu, 31 Jul 2025 09:39:53 +0000
-Received: by outflank-mailman (input) for mailman id 1065247;
- Thu, 31 Jul 2025 09:39:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lm68=2M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uhPlQ-0008Qd-8p
- for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 09:39:52 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4dc2f4af-6df2-11f0-b895-0df219b8e170;
- Thu, 31 Jul 2025 11:39:50 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3b78d729bb8so546434f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 02:39:50 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-76bcce6f6b4sm1157060b3a.1.2025.07.31.02.39.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Jul 2025 02:39:48 -0700 (PDT)
+	id 1uhPoF-0002Jr-Gg; Thu, 31 Jul 2025 09:42:47 +0000
+Received: by outflank-mailman (input) for mailman id 1065254;
+ Thu, 31 Jul 2025 09:42:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=XXc8=2M=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
+ id 1uhPoD-00025Y-Fr
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 09:42:45 +0000
+Received: from AM0PR02CU008.outbound.protection.outlook.com
+ (mail-westeuropeazlp170130006.outbound.protection.outlook.com
+ [2a01:111:f403:c201::6])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b541ed1b-6df2-11f0-a320-13f23c93f187;
+ Thu, 31 Jul 2025 11:42:43 +0200 (CEST)
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com (2603:10a6:20b:5e4::22)
+ by DU5PR03MB10524.eurprd03.prod.outlook.com (2603:10a6:10:526::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8964.25; Thu, 31 Jul
+ 2025 09:42:37 +0000
+Received: from AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593]) by AS2PR03MB8907.eurprd03.prod.outlook.com
+ ([fe80::804:c187:252a:9593%4]) with mapi id 15.20.8989.010; Thu, 31 Jul 2025
+ 09:42:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,113 +47,222 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4dc2f4af-6df2-11f0-b895-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753954790; x=1754559590; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZtgizajH1KIs6XtVH3qBEWwC7Iu0FAm991Uz5UkbD/8=;
-        b=NfhNfFqcz+bZXrlPxSHyGn1D6kD24QlZfi63QnxffUZgPEhneKVdbk64HupzQqa0oj
-         L0VoBgqJZU4lmiFB1Wi1+YFW8KOpjc2mXfN7/sBYZCIsM/5Jb5+0uprY2aOmAuzIplHd
-         6il+9VnLUFB8q7uWAZHCKyyO1vgrU33pKZ3PfGMzJfSGRkGH44VNepg4iRlwE1Q3Cxm7
-         H6VuKZSSJ9E+P09g/ol3R0j89gSKyF2jtymSvjQuUFSCOU/S3rznGAP8/AwREkNz9IZc
-         s/6Llfix1h/NMR/5Dw9Bee2qjZhHFrW/rBYpJFRW0F/ZGMocGuEr1y6ux/Yt+CTeqpoJ
-         S6JQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753954790; x=1754559590;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZtgizajH1KIs6XtVH3qBEWwC7Iu0FAm991Uz5UkbD/8=;
-        b=Ll9hym4b6UmVqj/x1RjYpy3y7hhkBvnzBg2I68Z7KKitjFevWaVoNcqsY4vl5gw4Z0
-         XE1CqAG04to2XfMtL2lc0oFgHIUYLhdMfRmQmWCN8+7CPEjjYn6JPzM6ENGy1KyM4T5E
-         KjPxy5VFdc/lxdiRdopYF215g8f2m+Kb3o1CTJAX7q7VNZdU5tGtFVMTxL6RJoXhN97s
-         xFZijbH9w5QIXYN5LMu7ciwbyQKqaiOi1Dx25YXAe8U9PWaYQjy/xwdGs120p61ylNDf
-         qjwRU8pS++dpWLAZcndjV8W/6IFWqfWtLDmduD86kGfE9tdkW8AqsHt/arqt/GZ+1SOj
-         7YTg==
-X-Forwarded-Encrypted: i=1; AJvYcCW3u+LdIoX1Er3GFyOJ4tAo+gm3D9HjSUVShOtSr1BlpI8e6p3xjzuFsP3fIazJRwQmarEulQ5WetY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwZfwVKnirIU14DMjHD/yx9lBXxc8KdzmdsgFFZzEd0ZQxowaZf
-	OGkvN53keMdC0d581yHhb7XQFHKT1lQjgxT9sxo2K/KfnKiSdvTEZkRNSle4cGHdQQ==
-X-Gm-Gg: ASbGnctqFST1bvxGUD9drRQbQR/LrnBMYPx8saAVsqBmcA+QH634kCI6dlrBWyrNNtK
-	See2NWSEEsEghQQ4KMP5UezQMsQXLDiwthB0yWR4Vsjjcp34TI4jTkXjPAj9O3ir5Z0T8cx3phi
-	qXaRg2kDM2VCNRmgi5ajCo9JPsDLQPEvFHYg0N8YsxBk2UE77mChzhxquHrrT7fNropvBQmZULE
-	HVNe4cTHAOSxCj7ensxLZ+mXnnXhw9v170V9V9Vs74kwDtPnr413obC641S8nYvt9yk2jX5cPtF
-	0zAup4aBHCg0FLlXKaoeifNZoaJ9x9AEd9nEwblDc6GyrhZA2ldR/gYPMHt7sz4vAe8o2eHE1zV
-	4cYuNP9+GCFtUDo1rVM/qLCsLw4dKM7ECKXb+KanBi0Oz8jwlBlyC7eUrjXPn5UyNX+n10L8iTf
-	yA/dSWiX0=
-X-Google-Smtp-Source: AGHT+IGwg5wgvZVMx5jYuS8ca62O3CBnpo0fPPyJmZP/Y9RYH/TrUmlGo7G799Xt6hqNk6Qon7S2JQ==
-X-Received: by 2002:a05:6000:25ca:b0:3b4:6577:eed5 with SMTP id ffacd0b85a97d-3b794fc1aa4mr4956227f8f.12.1753954789481;
-        Thu, 31 Jul 2025 02:39:49 -0700 (PDT)
-Message-ID: <4e426848-cc68-46b8-ae53-ee63ded4099c@suse.com>
-Date: Thu, 31 Jul 2025 11:39:33 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 0/6] x86: Make MAX_ALTP2M configurable
-To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>, Juergen Gross
- <jgross@suse.com>, Christian Lindig <christian.lindig@citrix.com>,
- David Scott <dave@recoil.org>, xen-devel@lists.xenproject.org
-References: <cover.1753953832.git.w1benny@gmail.com>
- <379b70bc-2e1c-44fb-84ec-d7fd42fda147@suse.com>
- <CAKBKdXjWaKzMj1HtTvos8jcW9jPLn7tH61+hgpDgzMScGdmGdA@mail.gmail.com>
+X-Inumbo-ID: b541ed1b-6df2-11f0-a320-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EGm07XnXkTjcI1LtJHD7T0XouT1FfpVlP+1ltgRrTKSmjHmJz/ukXt6gMbkyfIGYLxqdwUH9Ea//IRMAbbGkn+23U87w1Cqk3EI9ycMuQSvZusSM87r8JGO+xun+v2V5gxBFMvnNXyzDHl55Ciwe7VXbmmr9D/hZNM3D82tWdh65j/5IyFRPlyPzwUejJBVr8wULJ7jiss+CRcMdrHxMX89KskBM5nb8Qs/EBagWJO5COUhGGDc3tgu3QLMvDyDaldWJvA/Adz3dtU9QhmeUKKmFjWllDLa1RVfXLD9XPJ5ZIexBTq0j6MldinoCSYULUD7SnE/isrW/a8fvV0oc/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LJGNO244xmbvCg8mFJ8B/E0SmsrA4Ra8FtaUDi5cEdw=;
+ b=nCT42uCXWB/MJ2IS70yDEBVhUAPqaRAyAobSt2s8Mb9hjQMXwQucEdLLOCI3Kh5x30F96xII/vVBLEkTbNbu4CnaOqUdlkg1eMHDPsgHkRjPnOR/kP6wjtEdrJJRLIoIOhA5bJO7+DF2rYc9ye19u0dxC3Uksv4hy0YRxxELUu5nXJQGT1L6XcHJTii8OqUKI/YLORqENiQi+XyXqvYfLyU2Cpxbg/mTZ0gUwbmkppQaKsOms/GuEFNU96cZas5AIXHHrihHXMaymbi218DO+e7H7Ler3rc3ViMB3/sclBsOoh1cDtknlHAQPinTuc/aZ0FxTnJsXzd2DsV09xeJyw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LJGNO244xmbvCg8mFJ8B/E0SmsrA4Ra8FtaUDi5cEdw=;
+ b=ma6TBYpyX0gyH/yiRdwdK7/HggdtnPcPG/DNUoXXvWIFJ79jg7sXemQVxj7cdHDfyzctoqSPE2Qfoc/cE7/7gjIZrAxgtkFNBPQbzlhlCpeL91mkv4btvldUPhQvzncWJ2InCUPS46n5lO0TlZjjQwCMQJJEi7Zipm915KcJHogluR5zVJ0lQXsxva5nFbSuBoB84AwXso5BTUoyIW1ADjmwfYo4jILFrO9pbqQY8K30KF6mIDYELd1ID4CY7c6YfN4iqL1QRCvBE+f8+TQwagYXBLoH1VSsUPeEp5+blXa0QLWsBSiiqA0B7/E1zXC0jQZcDEWkRXp9WhBkpwdBPg==
+From: Grygorii Strashko <grygorii_strashko@epam.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Alejandro Vallejo <alejandro.garciavallejo@amd.com>, Grygorii Strashko
+	<grygorii_strashko@epam.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
+	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
+	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>
+Subject: [XEN][PATCH 0/7] xen/arm: rework to probe kernel before creating
+ domains during xen boot
+Thread-Topic: [XEN][PATCH 0/7] xen/arm: rework to probe kernel before creating
+ domains during xen boot
+Thread-Index: AQHcAf9y7RxsIYyypkiwAYTFDxXPeg==
+Date: Thu, 31 Jul 2025 09:42:36 +0000
+Message-ID: <20250731094234.996684-1-grygorii_strashko@epam.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAKBKdXjWaKzMj1HtTvos8jcW9jPLn7tH61+hgpDgzMScGdmGdA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AS2PR03MB8907:EE_|DU5PR03MB10524:EE_
+x-ms-office365-filtering-correlation-id: 7e030263-aab8-48f2-b505-08ddd0169549
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|7416014|1800799024|38070700018;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?VfQ7c9GkZjhbLqKlg2zu1UiNUyGqoY+0x+xnrK7JxH+dW+icfefvKChURE?=
+ =?iso-8859-1?Q?cvbhsv3ivNQFU17ZFDBSbT11zdrD5fvk4neKqXZMdNuFWh4GqhvTWbhCW2?=
+ =?iso-8859-1?Q?TuKbAZdloJ9/pN6Q1uQcAgaPeRhTJtyjL8xpiNKW5saKs+91aFXSXPe5K8?=
+ =?iso-8859-1?Q?9bjD+FnVlnYDVg5CJR6HhSFFtUsMoFmRMmRcrvEdOPfsUjlTHBoXhWCCh6?=
+ =?iso-8859-1?Q?8HDHwq2bjIOlisEh0YQtp49Ca8/6h+EtWlwuw278Ldd0s1IJZCHncYSTx1?=
+ =?iso-8859-1?Q?AaYv2EP0KF9dJCPl4YjRBKm3GwbDS9gYnSNuH8tFhg9Gw0FYLRvg0HS/5K?=
+ =?iso-8859-1?Q?VH2L+pseiNeY7aBlx+0/vZxgIJ29LW13xsAso099IcmuQs5lu0tcxZZ8W0?=
+ =?iso-8859-1?Q?QVQD7A9Mvxn9ESaipqc1BfdS9+APDQRxojLolglkYdoWgsw0H4tJQMb9QJ?=
+ =?iso-8859-1?Q?DA7stfOKZqq+MX1lL7QVqzQnSYouwjU2B+Mw/1la1ONBljUBPsjxQkqoNQ?=
+ =?iso-8859-1?Q?khGysUXBoWNCNGHdKY4+5lVc9Lm6UTOUI9i7FHcYjjI10+H/akzT7Csoei?=
+ =?iso-8859-1?Q?UaOSrbi4P3AX9GtzbEJJW6zJjI9WpytdQZvnnrAnyjy7s9DgEBGwO337J+?=
+ =?iso-8859-1?Q?UzX2AKfPtj0ORrtGXh4kigCuZ8+67Slt4BPdZcFNBMGTRtK087m5A/Adxh?=
+ =?iso-8859-1?Q?Olt8oyCaKo1V8Tn9pnK7o5xEhrMssKxFamjBrJrBjrZR1gT40APG6Q4PyT?=
+ =?iso-8859-1?Q?mKitbyf4NgL/PnhJDE+ZgPorjquXnrA6gkqGNl7O5coyLgbIndOy83CM2A?=
+ =?iso-8859-1?Q?xGSQNkhtZB4WOW05B7xGUQtMPTVWfqkaZfsCmpAbxKjNWuB1bXa+wDcCU0?=
+ =?iso-8859-1?Q?5eDWlKqbQcy4dq3zdWwvceuc6sjUuLh/c8isUsse3sU35OzjZc6697BuU7?=
+ =?iso-8859-1?Q?VSAdPaVM+2BlAMvXrSJL0SB/MH7J5wEFj6s2/iUsJLwVCP9Yz7te4JSbns?=
+ =?iso-8859-1?Q?JoVS22PK8J4UTQeYD9Z8drLzAmIcmm1PYhhbbIOpWGVvnXqEWJVrUoAJj9?=
+ =?iso-8859-1?Q?4ENzTOYQIuMiQTpKqdfIxZ8ynzoOhuzroRIrQa9hqjQ//oiclngysHKH1J?=
+ =?iso-8859-1?Q?4iRRdoiLFQjId03s4D5kOWS+Vb8Kk+Q0+cRNVhVBbE+lmPLFf3btexExvS?=
+ =?iso-8859-1?Q?xylT6giYuFgC9SLRHApgTWhUGF+jmBKCB1YrZ7ri1DdkMn3FZtZr+LJt+b?=
+ =?iso-8859-1?Q?FRb/JMPBHZDBluCgsLRq02ha5Ykpzx0hDSjaIpb2DIbdckbsxnVEBYUdLt?=
+ =?iso-8859-1?Q?WKU8UAQqttkiFuK3ifglGM3ajy+19sSggzJ7e/wOemHXyopfq06txRn3YN?=
+ =?iso-8859-1?Q?CQn6aSmq1il66V3biuYeuQiGQSrULPD7lLE7xCI/2p/qZX0tU1MTrSLaXn?=
+ =?iso-8859-1?Q?gA+lF1qe9vebJD1NCvyqw6Lwkh1BU2B9sRFB1ARoUHPOyeUTY+h/iDojob?=
+ =?iso-8859-1?Q?o=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB8907.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?Szw98Fx81KEZUzhkSCehCvwG9MSib/LgwgVp1+oWefEQI9rMnzplicsyWM?=
+ =?iso-8859-1?Q?Yrle20kZwJFs/u2RnXMNqJqv+x4Bk2nLtuwEVLTUbv8CXUGRiqF3f7ZxRU?=
+ =?iso-8859-1?Q?juK37pTF0xz3wRxDcUWJ2Y8UVpJ5GN3gdYSxqrYqcWc5zHRYxxQZsaEDRG?=
+ =?iso-8859-1?Q?U2RHED2mfetbqOfdEZ8juKnd1TRRXhncgOF7nNKhcxak0lO7yCDD5tKzIF?=
+ =?iso-8859-1?Q?y9YodY7flgYSo8bIwZKYxtDro+7ZbR0XnPZy3WSiHVi6gzIPv+07fIcwJS?=
+ =?iso-8859-1?Q?VRTRiGxDwUagGf8PWmKq+V1cp+Wnbzco1NfmOGCfvEQ9Bl6t7FWAPHMjva?=
+ =?iso-8859-1?Q?RUR3rY8Bf369JE+KVUb7JWMNikL5mLsvGFCP2vu2IdM9YgxjNq5fnO0JCE?=
+ =?iso-8859-1?Q?V4mfAoO/yZxQ4gkxH4LZ4Ik/1kQclMoSVVvGjcidtAkPp9aelUkzCuBLXb?=
+ =?iso-8859-1?Q?OsIBjVsZ8eQ8ORkX3Q8vO0JRHBsmrr5QEUOAc1AZfoteETu3VZZS11ot5x?=
+ =?iso-8859-1?Q?cy2E9T8rOBkG4gVMpuXJLxVHMPZD1fSK20wgPXur4236S5aoYq9L6RjZ5z?=
+ =?iso-8859-1?Q?sTOjUHn63PHLRGVNa1sFHo5OYjG36qWwo2GSgGzHHSx/EXeuB4W1y247Vw?=
+ =?iso-8859-1?Q?imgHZ6p46hSo1wdeT0gvG9SjtccyVgE4x6G2BGF8DIxoK7pNyAh3zaO9X5?=
+ =?iso-8859-1?Q?PSYzg4CHPz6Tp0QVdkANrQPgCr4NND5HqQvv4pV/fHPlkJvCa5eqxuXRvE?=
+ =?iso-8859-1?Q?PhgaGPjCV8Gg+D5dAgXyO55yJFCEOqdcRVHynU2WbcoLHnb4G3xzq1Z8iu?=
+ =?iso-8859-1?Q?X6++rGYisXsmqKnT82JD1SwdaFnxye2MndxhVrTEngEc63S5Oyahdk5lPj?=
+ =?iso-8859-1?Q?/9rZy2FhkHPxi/f6kPNM2tXX0z3wsOXy7wCb6QLxuWZ6ZSEsOWJaESnlQ5?=
+ =?iso-8859-1?Q?SonjpG930MczUf44cX04sLdUOpCxANimhK3frjRJ6tkHgwNrYNneoSTfRU?=
+ =?iso-8859-1?Q?HeLo7lqOsN5057HTcbFraTeMYEklhwobxPFgMCDLjE1nYMv4AuYYzU//C1?=
+ =?iso-8859-1?Q?U14eiXWckCDi878DRBue8NjzarQD2lbBHlfZfD2WylCHuNLU+wvYNOkLTC?=
+ =?iso-8859-1?Q?3GOBhx+D7ZC4TI479d7oi94rW2QFMIs2jNwDhsYRmXnWqf6MWGR6+b/grx?=
+ =?iso-8859-1?Q?SG1f1biDKMgOT+dX28ME1KJ2N3rL8VAia5lAXw42IX/dL7jVADvMhWnai6?=
+ =?iso-8859-1?Q?0Vj4BCcEiJ7mDYJNfCk+rdSv1uyfr+zaW2jarN6YtnaxFgfsvvrs+6Yie3?=
+ =?iso-8859-1?Q?9HA1Z4HlnGRFmxHF0anFQhytRnS6Az8WcuvUoSoAylH9qYLXQq7U6bVh7i?=
+ =?iso-8859-1?Q?TOviJgXnrbtNvz+DRgzSCrTlQS4uMRDe1J0ds/62/xHgDPThQFh0hYKu5Y?=
+ =?iso-8859-1?Q?iLgIE/bU8Q3YjSZBNEdQNABq6Vg6hju0NDUWVnz0rw43uJKbNnTZN807yI?=
+ =?iso-8859-1?Q?gCipYNHejsbvxC+0lJ6xVuhuNCbz7LhZSAQqC9DPiJeLzQAtFM3rGq8fd0?=
+ =?iso-8859-1?Q?o3DzUUUhaXYkGDUvPtAFKtX1Th6eYDhSkQQMrXwEJlJ6H7oLuV+ysfXLvn?=
+ =?iso-8859-1?Q?xlM+ZeTSX0VRvrSxyCjuQMBWVHCFMYfVlwUbvO+zvWjSG0ejsmjZ1FlQ?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB8907.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7e030263-aab8-48f2-b505-08ddd0169549
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Jul 2025 09:42:36.8578
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8GFN1Af3+cLJvb+pByZZ+Fc6y93Z98eAlLjsUMa9L/H7lh3pfGFvd3tTj65oq/2rZVNzXatQRZQdsyPXFA4dFBUKaDRicdAVxs1wnjUiAvg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU5PR03MB10524
 
-On 31.07.2025 11:37, Petr Beneš wrote:
-> On Thu, Jul 31, 2025 at 11:31 AM Jan Beulich <jbeulich@suse.com> wrote:
->> As it is still lacking ack-s, as I think I had indicated.
-> 
-> Sorry if it sounded like complaining - it absolutely wasn't meant that
-> way. I was merely explaining why I did it, since I wasn't sure what's
-> the "right protocol" - i.e. whether I should let the commit be
-> unchanged and let you do it, or - considering I'm resubmitting anyway
-> - whether I should make the change (despite me agreeing to let you do
-> it).
+From: Grygorii Strashko <grygorii_strashko@epam.com>
 
-When you re-submit anyway, you want to carry all changes asked for. Offers
-to do on-commit adjustments are merely to (possibly) avoid another re-
-submission.
+This series follows discussion [1][2] which pointed to "historical" issue p=
+resent in Xen and
+related to creating domains on 64bit Arches which allows running both 64/32=
+bit guests (like Arm AArch64):
 
-Jan
+Now, during Xen boot or by toolstack, the domain is always created before k=
+nowing the guest type (32/64bit).
+For example, on ARM64 during Xen boot:
+- dom0 is created with default type 32bit
+- vcpu[0] is created
+- kernel binary probed and guest type is determined (for example 64bit)
+- dom0 type changed according to guest type causing vcpu[0] reconfiguration
+  (with restriction applied that domain type have to be properly set before=
+ allocating domain'a memory)
+
+The same domain creation sequence executed for dom0less boot and for creati=
+ng domains by toolstack
+(The toolstack uses XEN_DOMCTL_set_address_size hypercall to reconfigure do=
+main type).
+
+As indicated by Julien Grall and Andrew Cooper, above domain creation seque=
+nce
+is not robust and fragile, so it was proposed to introduce extra flags to X=
+EN_DOMCTL_createdomain
+to allow configuring domain type properly at domain creation time and perfo=
+rm further rework of
+domain creation sequence to probe guest type before creating domain.
+
+Hence, this series:
+- introduces extra "XEN_DOMCTL_CDF_is_32bits" flag which is intended to be =
+used by
+  64bit Arches for proper configuration of domain type when domain is creat=
+ed.
+
+  Now it adds initial support for this flag form Arm64 arch only. The defau=
+lt Arm64 domain type is
+  changed to 64bit:
+    - the Arm Xen boot code is handling this case properly already;
+    - for toolstack case the XEN_DOMCTL_set_address_size hypercall handling
+    updated to forcibly configure domain type regardless of current domain =
+type
+    configuration. Hence toolstack configures vcpus and memory after
+    configuring domain type it allows to start with domain default type AAr=
+ch64
+    and then switch to requested domain type and ensures all required domai=
+n
+    settings applied.
+
+  For Arm32 this flag is ignored.
+
+- dom0 setup sequence reworked to probe kernel before creating domain
+
+- dom0less domains setup sequence reworked to probe kernel before creating =
+domains
+
+Xen toolstack is not changed as part of this series and it expected to be r=
+eworked
+further to follow the same approach to probe guest binary before creating d=
+omain.
+
+Tested (Arm64):
+- dom0 a32/a64 boot
+- dom0less a32/a64 domU boot
+- toolstack create a32/a64
+
+[1] https://lists.xen.org/archives/html/xen-devel/2025-07/msg01647.html
+[2] https://lists.xen.org/archives/html/xen-devel/2025-07/msg01648.html
+
+Alejandro Vallejo (1):
+  dom0less: Parse memory properties in the common bindings
+
+Grygorii Strashko (6):
+  xen/arm64: domctl: set_address_size add check for vcpus not
+    initialized
+  xen/domctl: introduce XEN_DOMCTL_CDF_is_32bits
+  xen/fdt: kernel:  add generic is_32bit_type flag to struct kernel_info
+  xen/arm: probe kernel before creating dom0
+  dom0less: probe kernel before creating domains
+  xen/dt: kernel: add assert(!domain) in kernel_probe
+
+ xen/arch/arm/arm64/domctl.c                | 28 ++++++++++++---
+ xen/arch/arm/dom0less-build.c              |  2 +-
+ xen/arch/arm/domain.c                      | 10 +++++-
+ xen/arch/arm/domain_build.c                | 40 ++++++++++++----------
+ xen/arch/arm/include/asm/kernel.h          |  7 +---
+ xen/arch/arm/kernel.c                      | 10 +++---
+ xen/common/device-tree/dom0less-bindings.c |  3 ++
+ xen/common/device-tree/dom0less-build.c    | 28 +++++++--------
+ xen/common/device-tree/kernel.c            | 12 ++++---
+ xen/common/domain.c                        |  3 +-
+ xen/include/public/domctl.h                |  7 +++-
+ xen/include/xen/bootfdt.h                  |  2 ++
+ xen/include/xen/fdt-kernel.h               |  3 ++
+ 13 files changed, 97 insertions(+), 58 deletions(-)
+
+--=20
+2.34.1
 
