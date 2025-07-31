@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4248B16D6D
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 10:23:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1065030.1430362 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4544CB16DA5
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 10:37:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1065050.1430372 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhOZ7-00026D-8z; Thu, 31 Jul 2025 08:23:05 +0000
+	id 1uhOlt-0004Dd-Ck; Thu, 31 Jul 2025 08:36:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1065030.1430362; Thu, 31 Jul 2025 08:23:05 +0000
+Received: by outflank-mailman (output) from mailman id 1065050.1430372; Thu, 31 Jul 2025 08:36:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhOZ7-000243-6E; Thu, 31 Jul 2025 08:23:05 +0000
-Received: by outflank-mailman (input) for mailman id 1065030;
- Thu, 31 Jul 2025 08:23:03 +0000
+	id 1uhOlt-0004An-99; Thu, 31 Jul 2025 08:36:17 +0000
+Received: by outflank-mailman (input) for mailman id 1065050;
+ Thu, 31 Jul 2025 08:36:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lm68=2M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uhOZ5-00023w-Lb
- for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 08:23:03 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ id 1uhOlr-00049M-Ox
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 08:36:15 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 92b75510-6de7-11f0-b895-0df219b8e170;
- Thu, 31 Jul 2025 10:23:01 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3b7825e2775so101812f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 01:23:01 -0700 (PDT)
+ id 6b07f743-6de9-11f0-b895-0df219b8e170;
+ Thu, 31 Jul 2025 10:36:14 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3b783ea5014so380729f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 01:36:14 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b422bb09d1dsm914930a12.58.2025.07.31.01.22.56
+ d9443c01a7336-241e89a3a6fsm11556845ad.147.2025.07.31.01.36.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Jul 2025 01:23:00 -0700 (PDT)
+ Thu, 31 Jul 2025 01:36:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92b75510-6de7-11f0-b895-0df219b8e170
+X-Inumbo-ID: 6b07f743-6de9-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753950181; x=1754554981; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753950973; x=1754555773; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wO8l7zwKZjaMOZBibCk8qJwuis6zorRcDprhdNdBBxM=;
-        b=AUd52iJ4XsJAgIPwoxe+3e1gki2ih85NbA79BMb7PLdaYz63eFVlUN+YbxVPDfFScZ
-         tE9SQuZ8N0pcR7Od7m+5SIo9u34JXca7r8FOx/JofdTO4+J9BC7mXvUxKUaB/+zgg+rq
-         66mp73D6RBE/gtLogk/DPICMRDmKIi3lcYTAAniQ0t37eUEQoGjn3qOBuvnlYfQ+Fh6C
-         SjCwKaBnhWebMNMm6fGDV3/inhuDWqegIg6bM8aZzUy913WVQ1IcPAkJyP/5CnN/eSfW
-         bTnsnRghpU51/npB+sf6b2xFX0HEOHuHBXFtPbhtlxf1p1IOWFXftoC5BQ4key+9TWdS
-         /02A==
+        bh=ONgRhdXmf9onFuBGl4bd/30WXWwjYnF1E1GUafL/mWM=;
+        b=GarXf0Yf8hNGRh2z2+r6p35y4q6C/DwtOE4uq3Srr8vt8TZ/9B6Cno8yYHt/EFn8Pp
+         Y64JnGP/NWu41f97cRyH8zbhMjRRA72K4vXmEURmUQewDqTcWC9kG2RVkykzFTVr+vQq
+         QyAi0u5/5XG+yTZwE/3m+/gjaMBX/nb/MnMAhleeH47kX0kZijViqetzYZfjvryIiheM
+         uMraGhg9MJcxZs7ll2NzNg+aer4Ork2KvoOHtP9uPolM9rwLM8DQsU6gmsUlFhdZC6MA
+         BOvsEVbblFvfWs4ASwYewERkAOMiXZiKlCMbCal/bh1+JSZh5MW6OFrPgL5aczE3L1JH
+         KFrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753950181; x=1754554981;
+        d=1e100.net; s=20230601; t=1753950973; x=1754555773;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wO8l7zwKZjaMOZBibCk8qJwuis6zorRcDprhdNdBBxM=;
-        b=t0PdBDD7TA6JpthVfdXlWC7hJ9RnQv0dm2AU9oElk9/HdymyJbIbiixq0HNzmw2tpn
-         p/ztyBYagzgZWtC9SlC0qVk1xyhJ2us92KAYHCyvVdVSByKIBVlx8kqvu9+nE4BBrfo+
-         kgUEKfVxF73uZ8OYT81AVxb5YqZCmfRztWzhXIGywYVnYI5zKNb+Hvip+X0rd94dz++k
-         tOlhb8HP+pe1G1y1I/KvlWAABSajla3caCuVdhvI4dxGXaUGN967R/hCFtJGGDfXnM3Q
-         7Kt8pmvxA3UB3D5kZXcaWLNX6Ou6ff9zBB10W0/AGgutdbk57B3Z+s6u3tmnn40fw9AC
-         K2xQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVGBIVL3UzP8c1jiIGrgD67gk2ULbUpAL5rE5Jhxq0T2Njw7pv1nQbphPqROvxXrE96ofmGQk572Ak=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YygiHfaBDl3iBcJsKHGX/LbhCw80IksC1A4fzcU6Rm2isISMYyt
-	P9tOg6Dkrqu7vrBxu2eYCOaVNNdPtvdCMUq+l8TIbqLvJbrMafSOw6H2VsvEo/MZ+g==
-X-Gm-Gg: ASbGncvs+90Dfp03ADWHHjme8ul+hwKBuJUwSfH/ZNyQppmdILxqdPOReAFv19QLjcA
-	lUYXPIuurGxwDJk+i74ti2pnxm+GWqGDJ92V0rYi5wel6alr8KsNpxDRJ3C9QpDaFINCa9NJ5z2
-	8ZdgxqR2ClU3vYDig/kAhtZCPxR6AHWFk2KLFaa8qp2gtERHKLIHvxfm2+fY23tyNelb4crmHhe
-	svIm5NfUpr9dYhJyB/UJLMP4xvnIpK6l+ELSqLPNdE1G7X1NRF2GO8YlbOiZZyT2Dhk3xqVKYnX
-	gkKUu04Y35HtgSZdEY+k++dahXZ5wB2aPTq/3xXFZObG72yQHAxwB3zcRLC6J+c2ZHMcgTdGuD1
-	olDIPI0FerdHlNIgUu/MahYHrxIJhy9NLcWbPfNDa0eXFXmQel42q1J9mAWtSrbZqJO7v0BAUZ5
-	8SK3oiZhM=
-X-Google-Smtp-Source: AGHT+IHc91KHl5EknDVB7rt5digGF1fDKUoRJQc4GytKx+GWVEw398TVZhT95Rd7HEmWLN0LuAbKlA==
-X-Received: by 2002:a05:6000:4201:b0:3b7:6d95:56d2 with SMTP id ffacd0b85a97d-3b794fe5acamr5017500f8f.7.1753950180999;
-        Thu, 31 Jul 2025 01:23:00 -0700 (PDT)
-Message-ID: <8d2d444c-29cb-45da-9bf0-03dac4d01cb8@suse.com>
-Date: Thu, 31 Jul 2025 10:22:51 +0200
+        bh=ONgRhdXmf9onFuBGl4bd/30WXWwjYnF1E1GUafL/mWM=;
+        b=HTTDxrANiLYQ3/CoHN7QfmmfBkd7spRkd4GqP7t+abJVRrGyfbN1DJ55ZLtjfBMXAB
+         BTkXis8VwFiydacD6+trQhvIE/Rq5cguGdwRsqs0xk3Z77qFNwXVgCU+pRLY9ED1HOOj
+         kB8TierXvIdt5uMuEqpCN6289A7Bkv7TWP+Qc3ehgc240Ppr24mQ1QFkCvRLknY/q+bS
+         8NRvZWL+78OCQpICHaWZPCHwIcYTUJvgwrxdaEZ6OK+8+HEx903NhEPJiWWBPAonoxVO
+         gXb++t76Gky0QssUw1iHt//RTq+Eu2JH5Jwt8H8wtjmc2H8lSv/Pp566Lj5qgLHf34VD
+         tpwg==
+X-Forwarded-Encrypted: i=1; AJvYcCXiLjGknKej3nS+qJOwtSFEibaroe1LX1elIMmMoeOjwjpaUsWvL2O6xg2Tr6NCRqYTDzlepBZ/0SE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxSf+lP/biorC9WBKbQeCEM+DLzruwWNzrCAhlnIfKsxp/yArgu
+	AuAwlBRDcFsOxT253UvICr3VZv2a6kj1sxqgMJYZF42CL4fT5uZ4O6GACrjW/8iBew==
+X-Gm-Gg: ASbGncvdIg1WEqjBC9dNOziMIKw57IQenpvOrtw9Q7Ycro/yXVueA6DK2BtFfc3YKaN
+	GzCf3fFP7B6wMOtmHGQJRQI/Wo0xW6wAEsVoY8ZrX8zHsesT1G/hlUFcIIPTUco2NjrL2Q6KTuR
+	QkCm7NID7lh0oDKh5p00jmbUdf296iDyhsBGxEMzbU1S0zBsIXgvPB+wUZat8+xZwPS+Iu1Z3Ca
+	DrE536wDv2q8rCn07RWMGsvZOVwa3bfihJ88/jUDK6uw+2M17tUjD3M6pTj04NVxNbywIxN0WHw
+	CH0We92pym+vqyBQVmWhggEIddTvB3SZdOf0In3RE5EuCBKoHq7OHH5GaWXqiJ7oMNOUCSvZMSH
+	60ZmCL7wtHd0pLxpDEihufyQzAwTwzUO7jxcl/FULk3yR0Z3qB/Hk6ENnASK9ujDOfm+9r1ZZE8
+	6beo9Z2Jg=
+X-Google-Smtp-Source: AGHT+IFIR+V3Sx50qX9F3cFH3KIVD7JRX8u7NqplLZtwZlSSHLdOJVwGNtPMnuRm498rjY4BNC7ZPQ==
+X-Received: by 2002:a05:6000:43d5:b0:3b7:fbe3:66bb with SMTP id ffacd0b85a97d-3b7fbe36970mr399294f8f.50.1753950973376;
+        Thu, 31 Jul 2025 01:36:13 -0700 (PDT)
+Message-ID: <59f03a28-71a6-4cbd-aca6-0a5a1bf1f0cd@suse.com>
+Date: Thu, 31 Jul 2025 10:36:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] common: Make livepatch dependent on HAS_VMAP
-To: Michal Orzel <michal.orzel@amd.com>
+Subject: Re: [PATCH v4 2/3] hvmloader: fix SMBIOS table length checks
+To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250731080522.810468-1-michal.orzel@amd.com>
- <20250731080522.810468-3-michal.orzel@amd.com>
+ Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <cover.1753869323.git.w1benny@gmail.com>
+ <1f452cde49cd9cfa949affe6061fc628de434e18.1753869323.git.w1benny@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,21 +120,98 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250731080522.810468-3-michal.orzel@amd.com>
+In-Reply-To: <1f452cde49cd9cfa949affe6061fc628de434e18.1753869323.git.w1benny@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 31.07.2025 10:05, Michal Orzel wrote:
-> It should not be possible to select and build livepatch if HAS_VMAP is
-> not selected. This is the case on MPU systems.
-> 
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+On 30.07.2025 11:56, Petr Beneš wrote:
+> --- a/tools/firmware/hvmloader/smbios.c
+> +++ b/tools/firmware/hvmloader/smbios.c
+> @@ -47,6 +47,8 @@ static void
+>  smbios_pt_init(void);
+>  static void*
+>  get_smbios_pt_struct(uint8_t type, uint32_t *length_out);
+> +static void *
+> +smbios_pt_copy(void *start, uint8_t type, uint16_t handle, size_t table_size);
+>  static void
+>  get_cpu_manufacturer(char *buf, int len);
+>  static int
+> @@ -154,6 +156,24 @@ get_smbios_pt_struct(uint8_t type, uint32_t *length_out)
+>      return NULL;
+>  }
+>  
+> +static void *
+> +smbios_pt_copy(void *start, uint8_t type, uint16_t handle, size_t table_size)
+> +{
+> +    struct smbios_structure_header *header = start;
+> +    void *pts;
+> +    uint32_t length;
+> +
+> +    pts = get_smbios_pt_struct(type, &length);
+> +    if ( pts != NULL && length >= table_size )
 
-I agree this is necessary for now, so
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-But in principle live-patching ought to be possible without MMU as well,
-just that the code will need suitably enabling? If so, it would be nice
-if the description could somehow express this.
+With this, the function parameter may better be named "min_size" or "req_size".
+(I was first irritated by ...
+
+> @@ -381,16 +401,17 @@ smbios_type_0_init(void *start, const char *xen_version,
+>      struct smbios_type_0 *p = start;
+>      static const char *smbios_release_date = __SMBIOS_DATE__;
+>      const char *s;
+> -    void *pts;
+> -    uint32_t length;
+> +    void *next;
+>  
+> -    pts = get_smbios_pt_struct(0, &length);
+> -    if ( pts != NULL && length > 0 )
+> -    {
+> -        memcpy(start, pts, length);
+> -        p->header.handle = SMBIOS_HANDLE_TYPE0;
+> -        return start + length;
+> -    }
+> +    /*
+> +     * Specification says Type 0 table has length of at least 18h for v2.4-3.0.
+> +     */
+> +
+> +    BUILD_BUG_ON(sizeof(*p) != 24);
+
+... there being != here, despite the comment saying "at least". And the
+check here is ...
+
+> +    next = smbios_pt_copy(start, 0, SMBIOS_HANDLE_TYPE0, sizeof(*p));
+
+... for the sizeof() use here, aiui.)
+
+> @@ -498,26 +517,30 @@ smbios_type_2_init(void *start)
+>  {
+>      struct smbios_type_2 *p = start;
+>      const char *s;
+> -    uint8_t *ptr;
+> -    void *pts;
+> -    uint32_t length;
+> +    void *next;
+>      unsigned int counter = 0;
+>  
+> -    pts = get_smbios_pt_struct(2, &length);
+> -    if ( pts != NULL && length > 0 )
+> -    {
+> -        memcpy(start, pts, length);
+> -        p->header.handle = SMBIOS_HANDLE_TYPE2;
+> +    /*
+> +     * Specification says Type 2 table has length of at least 08h,
+> +     * which corresponds with the end of the "Serial Number" field.
+> +     */
+> +
+> +    BUILD_BUG_ON(offsetof_end(struct smbios_type_2, serial_number_str) != 8);
+>  
+> +    next = smbios_pt_copy(start, 2, SMBIOS_HANDLE_TYPE2,
+> +                          offsetof_end(struct smbios_type_3,
+
+Was this meant to be smbios_type_2?
+
+With the adjustments
+Acked-by: Jan Beulich <jbeulich@suse.com>
+The adjustments also look to be isolated enough to carry out while committing.
+Provided of course that you agree with making them.
 
 Jan
 
