@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AD68B17472
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 17:58:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1065869.1431224 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E598B17470
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 17:58:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1065870.1431230 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhVfy-00023l-J8; Thu, 31 Jul 2025 15:58:38 +0000
+	id 1uhVfy-00027X-VD; Thu, 31 Jul 2025 15:58:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1065869.1431224; Thu, 31 Jul 2025 15:58:38 +0000
+Received: by outflank-mailman (output) from mailman id 1065870.1431230; Thu, 31 Jul 2025 15:58:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhVfy-00021G-Dm; Thu, 31 Jul 2025 15:58:38 +0000
-Received: by outflank-mailman (input) for mailman id 1065869;
+	id 1uhVfy-00023S-Oh; Thu, 31 Jul 2025 15:58:38 +0000
+Received: by outflank-mailman (input) for mailman id 1065870;
  Thu, 31 Jul 2025 15:58:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0Jdx=2M=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uhVfx-0001FB-04
+ id 1uhVfx-0000zK-Bw
  for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 15:58:37 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 36e93794-6e27-11f0-b895-0df219b8e170;
- Thu, 31 Jul 2025 17:58:35 +0200 (CEST)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-32b7113ed6bso11700921fa.1
- for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 08:58:35 -0700 (PDT)
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 37c956c3-6e27-11f0-a320-13f23c93f187;
+ Thu, 31 Jul 2025 17:58:36 +0200 (CEST)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-55b7454c6b0so579788e87.3
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 08:58:36 -0700 (PDT)
 Received: from fedora (user-109-243-64-38.play-internet.pl. [109.243.64.38])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55b88c9931bsm278746e87.101.2025.07.31.08.58.32
+ 2adb3069b0e04-55b88c9931bsm278746e87.101.2025.07.31.08.58.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 31 Jul 2025 08:58:33 -0700 (PDT)
+ Thu, 31 Jul 2025 08:58:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36e93794-6e27-11f0-b895-0df219b8e170
+X-Inumbo-ID: 37c956c3-6e27-11f0-a320-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1753977514; x=1754582314; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1753977516; x=1754582316; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YAaFHO3rUPEAzf/9yrT1X5pYejy4+Vy0hPa0YIS5wII=;
-        b=Mu+5HaaUJGK74I0Ccav6fJAt0BT6wK3g9gdDax9PR9noX8AJmO/1MAjKqbK93wVQEb
-         +oOqf1+g+ws5IlrjoQDkGYtA23HxPHUijp7D5zOPK7wb4XU6l2jNORGfRl5pudiimhpE
-         5COwh4ugOpdBgfwNo55RST0VRlUgGjO9E8OfVsSMw0Zj4YYr2tEg68edewQGDNGX5lMA
-         NTB+bgT2zqPtwUZun0qBD0VSaXhb/Og7+u/BG0z3HYPVhxdUgEBx+AGuN1deRAtvIDDd
-         w4wxHRPTdQnDWGVGlvxf9404oQkG1RlusZysl3KIK6d2CKHPOwn0K0vaOO0Xr+0YihSU
-         NpRg==
+        bh=SucK4GD77NILFw9saTv0jC1xXZTivx/o3TP9MUfpwV0=;
+        b=hchlt1IrYvSaL3wNuzpL+mgpJ1UN3CwQPiBjHVLNLd4juiD0hJmaOSNrKljVgQCHap
+         nt3LE0LftOb5UziDxhHkEHidc5wtWzLTJeM2O+0NM6ONnLbPbRBL84/RkpXdaXB2f4wA
+         Ut9YIItv2p9A7dSYMtax+yrPqczVdNGQ2NXa91In4XgfRFA/SND0PmJYPEFiT9GFRmuN
+         XWE8yIvLbCO36wiwKo/KfJw452gWgoXJeqLfqnwDdEkQQ0PS1yP+Dkcq7+T4MN2EZbZH
+         i+V9FwctyOl6H/PaUZROXkrNSfxoH2n3IsVwqx3ljLzZe7gXr+1hcxpmYip1LZ7VbNRB
+         HhnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753977514; x=1754582314;
+        d=1e100.net; s=20230601; t=1753977516; x=1754582316;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=YAaFHO3rUPEAzf/9yrT1X5pYejy4+Vy0hPa0YIS5wII=;
-        b=Dh8e+dO/34e+WMuxKmL4NOQE4TTe5lYPv804WfdfpSoEC0s0ny2fDnjEgJPYLluMvb
-         HJT2kQGyp4sg3bPIZlhaiXf5obxe1XGfuAUFdL18iihHxfCr+kuFTxW2Sch+Ap/mnQK1
-         j2uT1G6aANbp7Oz/knmOK+SECsYbP6OmKLEcDxFBQGvPDwr24Guuxw1pX7WQcln4e5ze
-         eYZ9RrUTEwtT8mUzrVGgJa8NXdCxOVSfCEWSP+q7ALrqcogjtqHBBOa9P1hrPYz+Rajb
-         Qf1myMolQrzLflNfh17LDl1bGIRVhlYBUkqPlPC15tTgEszl2ARegPUc2+mFidPbv+wO
-         1pTg==
-X-Gm-Message-State: AOJu0YyWitFJeg/SE+Vid8OYGl20iAXbRq+/Zwu9hns2hcVRLmE7mMoy
-	eaN3CJKMdFuKpeu3yi53RXR54H3wR9zlI52RuxOKEO0Ghommm0BPNl4dHqDHAQ==
-X-Gm-Gg: ASbGnctHvUm3vgbHC3HiElJKjncHsdPLydlq/KypErggXjAHEB9c+JrZlCr1MH5Mf1T
-	SG8ptuRaT5WvKzPcmsQeqzZDYkZLYliD71WTPZwHiYUDC0xLzmRmkiBIXtoFcgDiayzzscY7Hjt
-	eYfitdVZlZhKNo8f1TnAiiNDSapfL0XmD3y+MSQFcZdODfK4f1PmEPxCqAEWS0wbE3MGryaTJG2
-	BjVmkKHeOcYQDg1AKllc9/Ef1LPoG3ybHL7q6QUHDan2iiO4Uyt0NKI46h7vAFqtefywMEEAhrE
-	WG9BdhsFg8IebTO3vN8dQYDwI9myAz6txgBRuaIgswP6mlATIsPr6kxJuLMjjA0H1gcj6UaiX/G
-	eFY0Zd/sF3ldgz9U8ADRLfyQIz6ENCMVz7Ss2fSv4YNNeaRYONYVqvQRv6fBcVw==
-X-Google-Smtp-Source: AGHT+IE9CGjE6mb4ckGHh0x7f7Wnu2OSI7Gu6OQJWfpE3SEzcDkHVtbLTZ6EDRFXe6aj/MqflRzFmg==
-X-Received: by 2002:a05:651c:214f:b0:32b:4773:7aaf with SMTP id 38308e7fff4ca-33224be5d43mr14803431fa.35.1753977514052;
-        Thu, 31 Jul 2025 08:58:34 -0700 (PDT)
+        bh=SucK4GD77NILFw9saTv0jC1xXZTivx/o3TP9MUfpwV0=;
+        b=dNuWWN6uLHeieAGBmJGk3zaLx1CRwB+ITi4h6zYNXQ2pEDDT/eYYP6AtwirCcGLuk/
+         IY1zh8p3xJ6/ohelZP9V4eHaOAbDlpeDX5KQKDnFeEYGGLMo2wHQpUIQqpQPAgI4uviN
+         PfT/jlsxZAvhAK7zgnEkc4kkv5rZ8WoErEbpOpFNSoW5J0zCmM/0trivXBj1AwTuJsvU
+         opg2+n13MfsGpPOf3842rjD5E5c37UNbLfhO4pQvngA5PErrdjetBO+NV3aZDxbu6fPE
+         QY2gga76YKWSK203wqyV4RH39v8bxCQrcHtrb+t/C+lyHob/Ds3ZNh0Rp6oFC6IBCy7w
+         bTGw==
+X-Gm-Message-State: AOJu0YzyxW1sm+c/Wfm04ORPwyignPkiX3rslpZgsGj5VVe7/eJonlgi
+	ZeU3wPQJ6Io4qbRUXeQeHpGTLeqmJ9r7xTQ7ITMToaXMS171+rl2e50EsA0o7w==
+X-Gm-Gg: ASbGncunQ85Z/Oj23VlrnpnI5p7tXMZeF/+H/MhWscJcZVHWc5rghmpoxCgH9HPcE9L
+	qorGwQ7SqoD/YaSlPNDqpIdWQg9ePb1RwdUjxu2eHarnxN+QX74csijCe2P2dq6yWZfy9OAVif6
+	aBZFZLwep8342+KlauWxcsYcm6KKq7OHtryVDlAOxXvk+RnLWnt/qpxR4WiXb1t0R3uccdWiztw
+	dqMnAe96tOl1RN7ibzQe1puUbDyHX0V9yPpfR8TsuyGYFJLkIB0CpdJWLBmhujCHPYBeIT6CXGx
+	AFDdoBJ6xkWwm50bZKlUC4P032tbglEcCGRBig4O75dk40cYvpvETaEPBoiMiGlnDFH8GOLsfJC
+	YrIARJ/6rbIjyaKlC+D7OYuKc3CpiEa06ygj5iMDNSSCYUgmowrCH9JurnCdzLg==
+X-Google-Smtp-Source: AGHT+IG4YTKZOLh7LwJcLbr7QTUyE6vXkH4b9u7bZEQLBlWOEnweb49wNI2Ccau5lElsWPXq4CzGlg==
+X-Received: by 2002:a05:6512:1449:20b0:553:291f:92d with SMTP id 2adb3069b0e04-55b7c0a8599mr1947600e87.57.1753977515826;
+        Thu, 31 Jul 2025 08:58:35 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -94,314 +94,191 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 03/20] xen/riscv: introduce VMID allocation and manegement
-Date: Thu, 31 Jul 2025 17:58:02 +0200
-Message-ID: <d61f5f831ac8045055a1775ee710d4f2fe8dcc26.1753973161.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v3 04/20] xen/riscv: introduce things necessary for p2m initialization
+Date: Thu, 31 Jul 2025 17:58:03 +0200
+Message-ID: <c526512aeda09527421e2d60bac7955a8c7c7c56.1753973161.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <cover.1753973161.git.oleksii.kurochko@gmail.com>
 References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Current implementation is based on x86's way to allocate VMIDs:
-  VMIDs partition the physical TLB. In the current implementation VMIDs are
-  introduced to reduce the number of TLB flushes.  Each time the guest's
-  virtual address space changes, instead of flushing the TLB, a new VMID is
-  assigned.  This reduces the number of TLB flushes to at most 1/#VMIDs.
-  The biggest advantage is that hot parts of the hypervisor's code and data
-  retain in the TLB.
-
-  VMIDs are a hart-local resource.  As preemption of VMIDs is not possible,
-  VMIDs are assigned in a round-robin scheme.  To minimize the overhead of
-  VMID invalidation, at the time of a TLB flush, VMIDs are tagged with a
-  64-bit generation. Only on a generation overflow the code needs to
-  invalidate all VMID information stored at the VCPUs with are run on the
-  specific physical processor.  This overflow appears after about 2^80
-  host processor cycles, so we do not optimize this case, but simply disable
-  VMID useage to retain correctness.
-
-Only minor changes are made compared to the x86 implementation.
-These include using RISC-V-specific terminology, adding a check to ensure
-the type used for storing the VMID has enough bits to hold VMIDLEN,
-and introducing a new function vmidlen_detect() to clarify the VMIDLEN
-value.
+Introduce the following things:
+- Update p2m_domain structure, which describe per p2m-table state, with:
+  - lock to protect updates to p2m.
+  - pool with pages used to construct p2m.
+  - clean_pte which indicate if it is requires to clean the cache when
+    writing an entry.
+  - back pointer to domain structure.
+- p2m_init() to initalize members introduced in p2m_domain structure.
+- Call of paging_domain_init() in p2m_init() to initlize paging spinlock
+  and freelist head.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in V3:
- - Reimplemnt VMID allocation similar to what x86 has implemented.
+ - s/p2m_type/p2m_types.
+ - Drop init. of p2m->clean_pte in p2m_init() as CONFIG_HAS_PASSTHROUGH is
+   going to be selected unconditionaly. Plus CONFIG_HAS_PASSTHROUGH isn't
+   ready to be used for RISC-V.
+   Add compilation error to not forget to init p2m->clean_pte.
+ - Move defintion of p2m->domain up in p2m_init().
+ - Add iommu_use_hap_pt() when p2m->clean_pte is initialized.
+ - Add the comment above p2m_types member of p2m_domain struct.
+ - Add need_flush member to p2m_domain structure.
+ - Move introduction of p2m_write_(un)lock() and p2m_tlb_flush_sync()
+   to the patch where they are really used:
+     xen/riscv: implement guest_physmap_add_entry() for mapping GFNs to MFN
+ - Add p2m member to arch_domain structure.
+ - Drop p2m_types from struct p2m_domain as P2M type for PTE will be stored
+   differently.
+ - Drop default_access as it isn't going to be used for now.
+ - Move defintion of p2m_is_write_locked() to "implement function to map memory
+   in guest p2m"  where it is really used.
 ---
 Changes in V2:
- - New patch.
+ - Use introduced erlier sbi_remote_hfence_gvma_vmid() for proper implementation
+   of p2m_force_tlb_flush_sync() as TLB flushing needs to happen for each pCPU
+   which potentially has cached a mapping, what is tracked by d->dirty_cpumask.
+ - Drop unnecessary blanks.
+ - Fix code style for # of pre-processor directive.
+ - Drop max_mapped_gfn and lowest_mapped_gfn as they aren't used now.
+ - [p2m_init()] Set p2m->clean_pte=false if CONFIG_HAS_PASSTHROUGH=n.
+ - [p2m_init()] Update the comment above p2m->domain = d;
+ - Drop p2m->need_flush as it seems to be always true for RISC-V and as a
+   consequence drop p2m_tlb_flush_sync().
+ - Move to separate patch an introduction of root page table allocation.
 ---
- xen/arch/riscv/Makefile               |   1 +
- xen/arch/riscv/include/asm/domain.h   |   6 +
- xen/arch/riscv/include/asm/flushtlb.h |   5 +
- xen/arch/riscv/include/asm/vmid.h     |   8 ++
- xen/arch/riscv/setup.c                |   3 +
- xen/arch/riscv/vmid.c                 | 165 ++++++++++++++++++++++++++
- 6 files changed, 188 insertions(+)
- create mode 100644 xen/arch/riscv/include/asm/vmid.h
- create mode 100644 xen/arch/riscv/vmid.c
+ xen/arch/riscv/Makefile             |  1 +
+ xen/arch/riscv/include/asm/domain.h |  5 +++++
+ xen/arch/riscv/include/asm/p2m.h    | 34 +++++++++++++++++++++++++++++
+ xen/arch/riscv/p2m.c                | 32 +++++++++++++++++++++++++++
+ 4 files changed, 72 insertions(+)
+ create mode 100644 xen/arch/riscv/p2m.c
 
 diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-index e2b8aa42c8..745a85e116 100644
+index 745a85e116..e2499210c8 100644
 --- a/xen/arch/riscv/Makefile
 +++ b/xen/arch/riscv/Makefile
-@@ -16,6 +16,7 @@ obj-y += smpboot.o
- obj-y += stubs.o
- obj-y += time.o
- obj-y += traps.o
-+obj-y += vmid.o
- obj-y += vm_event.o
- 
- $(TARGET): $(TARGET)-syms
+@@ -7,6 +7,7 @@ obj-y += intc.o
+ obj-y += irq.o
+ obj-y += mm.o
+ obj-y += pt.o
++obj-y += p2m.o
+ obj-$(CONFIG_RISCV_64) += riscv64/
+ obj-y += sbi.o
+ obj-y += setup.o
 diff --git a/xen/arch/riscv/include/asm/domain.h b/xen/arch/riscv/include/asm/domain.h
-index c3d965a559..aac1040658 100644
+index aac1040658..e688980efa 100644
 --- a/xen/arch/riscv/include/asm/domain.h
 +++ b/xen/arch/riscv/include/asm/domain.h
-@@ -5,6 +5,11 @@
+@@ -5,6 +5,8 @@
  #include <xen/xmalloc.h>
  #include <public/hvm/params.h>
  
-+struct vcpu_vmid {
-+    uint64_t generation;
-+    uint16_t vmid;
-+};
++#include <asm/p2m.h>
 +
- struct hvm_domain
- {
-     uint64_t              params[HVM_NR_PARAMS];
-@@ -14,6 +19,7 @@ struct arch_vcpu_io {
- };
- 
- struct arch_vcpu {
-+    struct vcpu_vmid vmid;
- };
+ struct vcpu_vmid {
+     uint64_t generation;
+     uint16_t vmid;
+@@ -24,6 +26,9 @@ struct arch_vcpu {
  
  struct arch_domain {
-diff --git a/xen/arch/riscv/include/asm/flushtlb.h b/xen/arch/riscv/include/asm/flushtlb.h
-index 51c8f753c5..f391ae6eb7 100644
---- a/xen/arch/riscv/include/asm/flushtlb.h
-+++ b/xen/arch/riscv/include/asm/flushtlb.h
-@@ -7,6 +7,11 @@
+     struct hvm_domain hvm;
++
++    /* Virtual MMU */
++    struct p2m_domain p2m;
+ };
  
- #include <asm/sbi.h>
+ #include <xen/sched.h>
+diff --git a/xen/arch/riscv/include/asm/p2m.h b/xen/arch/riscv/include/asm/p2m.h
+index 28f57a74f2..f8051ed893 100644
+--- a/xen/arch/riscv/include/asm/p2m.h
++++ b/xen/arch/riscv/include/asm/p2m.h
+@@ -3,11 +3,45 @@
+ #define ASM__RISCV__P2M_H
  
-+static inline void local_hfence_gvma_all(void)
-+{
-+    asm volatile ( "hfence.gvma zero, zero" ::: "memory" );
-+}
-+
- /* Flush TLB of local processor for address va. */
- static inline void flush_tlb_one_local(vaddr_t va)
- {
-diff --git a/xen/arch/riscv/include/asm/vmid.h b/xen/arch/riscv/include/asm/vmid.h
-new file mode 100644
-index 0000000000..2f1f7ec9a2
---- /dev/null
-+++ b/xen/arch/riscv/include/asm/vmid.h
-@@ -0,0 +1,8 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#ifndef ASM_RISCV_VMID_H
-+#define ASM_RISCV_VMID_H
-+
-+void vmid_init(void);
-+
-+#endif /* ASM_RISCV_VMID_H */
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 483cdd7e17..549228d73f 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -25,6 +25,7 @@
- #include <asm/sbi.h>
- #include <asm/setup.h>
- #include <asm/traps.h>
-+#include <asm/vmid.h>
+ #include <xen/errno.h>
++#include <xen/mm.h>
++#include <xen/rwlock.h>
++#include <xen/types.h>
  
- /* Xen stack for bringing up the first CPU. */
- unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
-@@ -148,6 +149,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+ #include <asm/page-bits.h>
  
-     console_init_postirq();
+ #define paddr_bits PADDR_BITS
  
-+    vmid_init();
++/* Get host p2m table */
++#define p2m_get_hostp2m(d) (&(d)->arch.p2m)
 +
-     printk("All set up\n");
- 
-     machine_halt();
-diff --git a/xen/arch/riscv/vmid.c b/xen/arch/riscv/vmid.c
-new file mode 100644
-index 0000000000..7ad1b91ee2
---- /dev/null
-+++ b/xen/arch/riscv/vmid.c
-@@ -0,0 +1,165 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
++/* Per-p2m-table state */
++struct p2m_domain {
++    /*
++     * Lock that protects updates to the p2m.
++     */
++    rwlock_t lock;
 +
-+#include <xen/domain.h>
-+#include <xen/init.h>
-+#include <xen/sections.h>
-+#include <xen/lib.h>
-+#include <xen/param.h>
-+#include <xen/percpu.h>
++    /* Pages used to construct the p2m */
++    struct page_list_head pages;
 +
-+#include <asm/atomic.h>
-+#include <asm/csr.h>
-+#include <asm/flushtlb.h>
++    /* Indicate if it is required to clean the cache when writing an entry */
++    bool clean_pte;
 +
-+/* Xen command-line option to enable VMIDs */
-+static bool __read_mostly opt_vmid_enabled = true;
-+boolean_param("vmid", opt_vmid_enabled);
++    /* Back pointer to domain */
++    struct domain *domain;
 +
-+/*
-+ * VMIDs partition the physical TLB. In the current implementation VMIDs are
-+ * introduced to reduce the number of TLB flushes.  Each time the guest's
-+ * virtual address space changes, instead of flushing the TLB, a new VMID is
-+ * assigned. This reduces the number of TLB flushes to at most 1/#VMIDs.
-+ * The biggest advantage is that hot parts of the hypervisor's code and data
-+ * retain in the TLB.
-+ *
-+ * Sketch of the Implementation:
-+ *
-+ * VMIDs are a hart-local resource.  As preemption of VMIDs is not possible,
-+ * VMIDs are assigned in a round-robin scheme.  To minimize the overhead of
-+ * VMID invalidation, at the time of a TLB flush, VMIDs are tagged with a
-+ * 64-bit generation. Only on a generation overflow the code needs to
-+ * invalidate all VMID information stored at the VCPUs with are run on the
-+ * specific physical processor.  This overflow appears after about 2^80
-+ * host processor cycles, so we do not optimize this case, but simply disable
-+ * VMID useage to retain correctness.
-+ */
-+
-+/* Per-Hart VMID management. */
-+struct vmid_data {
-+   uint64_t hart_vmid_generation;
-+   uint16_t next_vmid;
-+   uint16_t max_vmid;
-+   bool disabled;
++    /*
++     * P2M updates may required TLBs to be flushed (invalidated).
++     *
++     * Flushes may be deferred by setting 'need_flush' and then flushing
++     * when the p2m write lock is released.
++     *
++     * If an immediate flush is required (e.g, if a super page is
++     * shattered), call p2m_tlb_flush_sync().
++     */
++    bool need_flush;
 +};
 +
-+static DEFINE_PER_CPU(struct vmid_data, vmid_data);
+ /*
+  * List of possible type for each page in the p2m entry.
+  * The number of available bit per page in the pte for this purpose is 2 bits.
+diff --git a/xen/arch/riscv/p2m.c b/xen/arch/riscv/p2m.c
+new file mode 100644
+index 0000000000..ae937e9bdd
+--- /dev/null
++++ b/xen/arch/riscv/p2m.c
+@@ -0,0 +1,32 @@
++#include <xen/mm.h>
++#include <xen/rwlock.h>
++#include <xen/sched.h>
 +
-+static unsigned long vmidlen_detect(void)
++int p2m_init(struct domain *d)
 +{
-+    unsigned long vmid_bits;
-+    unsigned long old;
-+
-+    /* Figure-out number of VMID bits in HW */
-+    old = csr_read(CSR_HGATP);
-+
-+    csr_write(CSR_HGATP, old | HGATP_VMID_MASK);
-+    vmid_bits = csr_read(CSR_HGATP);
-+    vmid_bits =  MASK_EXTR(vmid_bits, HGATP_VMID_MASK);
-+    vmid_bits = flsl(vmid_bits);
-+    csr_write(CSR_HGATP, old);
++    struct p2m_domain *p2m = p2m_get_hostp2m(d);
 +
 +    /*
-+     * We polluted local TLB so flush all guest TLB as
-+     * a speculative access can happen at any time.
++     * "Trivial" initialisation is now complete.  Set the backpointer so the
++     * users of p2m could get an access to domain structure.
 +     */
-+    local_hfence_gvma_all();
++    p2m->domain = d;
 +
-+    return vmid_bits;
-+}
-+
-+void vmid_init(void)
-+{
-+    static bool g_disabled = false;
-+
-+    unsigned long vmid_len = vmidlen_detect();
-+    struct vmid_data *data = &this_cpu(vmid_data);
-+    unsigned long max_availalbe_bits = sizeof(data->max_vmid) << 3;
-+
-+    if ( vmid_len > max_availalbe_bits )
-+        panic("%s: VMIDLEN is bigger then a type which represent VMID: %lu(%lu)\n",
-+              __func__, vmid_len, max_availalbe_bits);
-+
-+    data->max_vmid = BIT(vmid_len, U) - 1;
-+    data->disabled = !opt_vmid_enabled || (vmid_len <= 1);
-+
-+    if ( g_disabled != data->disabled )
-+    {
-+        printk("%s: VMIDs %sabled.\n", __func__,
-+               data->disabled ? "dis" : "en");
-+        if ( !g_disabled )
-+            g_disabled = data->disabled;
-+    }
-+
-+    /* Zero indicates 'invalid generation', so we start the count at one. */
-+    data->hart_vmid_generation = 1;
-+
-+    /* Zero indicates 'VMIDs disabled', so we start the count at one. */
-+    data->next_vmid = 1;
-+}
-+
-+void vcpu_vmid_flush_vcpu(struct vcpu *v)
-+{
-+    write_atomic(&v->arch.vmid.generation, 0);
-+}
-+
-+void vmid_flush_hart(void)
-+{
-+    struct vmid_data *data = &this_cpu(vmid_data);
-+
-+    if ( data->disabled )
-+        return;
-+
-+    if ( likely(++data->hart_vmid_generation != 0) )
-+        return;
++    rwlock_init(&p2m->lock);
++    INIT_PAGE_LIST_HEAD(&p2m->pages);
 +
 +    /*
-+     * VMID generations are 64 bit.  Overflow of generations never happens.
-+     * For safety, we simply disable ASIDs, so correctness is established; it
-+     * only runs a bit slower.
++     * Currently, the infrastructure required to enable CONFIG_HAS_PASSTHROUGH
++     * is not ready for RISC-V support.
++     *
++     * When CONFIG_HAS_PASSTHROUGH=y, p2m->clean_pte must be properly
++     * initialized.
++     * At the moment, it defaults to false because the p2m structure is
++     * zero-initialized.
 +     */
-+    printk("%s: VMID generation overrun. Disabling VMIDs.\n", __func__);
-+    data->disabled = 1;
-+}
++#ifdef CONFIG_HAS_PASSTHROUGH
++#   error "Add init of p2m->clean_pte"
++#endif
 +
-+bool vmid_handle_vmenter(struct vcpu_vmid *vmid)
-+{
-+    struct vmid_data *data = &this_cpu(vmid_data);
-+
-+    /* Test if VCPU has valid VMID. */
-+    if ( read_atomic(&vmid->generation) == data->hart_vmid_generation )
-+        return 0;
-+
-+    /* If there are no free VMIDs, need to go to a new generation. */
-+    if ( unlikely(data->next_vmid > data->max_vmid) )
-+    {
-+        vmid_flush_hart();
-+        data->next_vmid = 1;
-+        if ( data->disabled )
-+            goto disabled;
-+    }
-+
-+    /* Now guaranteed to be a free VMID. */
-+    vmid->vmid = data->next_vmid++;
-+    write_atomic(&vmid->generation, data->hart_vmid_generation);
-+
-+    /*
-+     * When we assign VMID 1, flush all TLB entries as we are starting a new
-+     * generation, and all old VMID allocations are now stale.
-+     */
-+    return (vmid->vmid == 1);
-+
-+ disabled:
-+    vmid->vmid = 0;
 +    return 0;
 +}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
 -- 
 2.50.1
 
