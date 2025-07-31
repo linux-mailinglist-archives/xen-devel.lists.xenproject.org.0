@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE5C2B17694
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 21:22:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1066271.1431509 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D078B17695
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 21:22:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1066274.1431518 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhYqm-0007od-Fu; Thu, 31 Jul 2025 19:22:00 +0000
+	id 1uhYqv-0008I1-QK; Thu, 31 Jul 2025 19:22:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1066271.1431509; Thu, 31 Jul 2025 19:22:00 +0000
+Received: by outflank-mailman (output) from mailman id 1066274.1431518; Thu, 31 Jul 2025 19:22:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhYqm-0007nd-Bm; Thu, 31 Jul 2025 19:22:00 +0000
-Received: by outflank-mailman (input) for mailman id 1066271;
- Thu, 31 Jul 2025 19:21:59 +0000
+	id 1uhYqv-0008Ey-Lq; Thu, 31 Jul 2025 19:22:09 +0000
+Received: by outflank-mailman (input) for mailman id 1066274;
+ Thu, 31 Jul 2025 19:22:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hI6J=2M=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uhYqk-00075q-VO
- for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 19:21:58 +0000
-Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch
- [79.135.106.31]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9feebe00-6e43-11f0-b895-0df219b8e170;
- Thu, 31 Jul 2025 21:21:57 +0200 (CEST)
+ id 1uhYqu-00075q-5l
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 19:22:08 +0000
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch
+ [109.224.244.18]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a4bf5530-6e43-11f0-b895-0df219b8e170;
+ Thu, 31 Jul 2025 21:22:05 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,251 +36,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9feebe00-6e43-11f0-b895-0df219b8e170
+X-Inumbo-ID: a4bf5530-6e43-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1753989716; x=1754248916;
-	bh=zoECH25YDbXdPHfB0p+7Gx5JFpntJLKgd+Ev0MYzaRE=;
+	s=protonmail; t=1753989724; x=1754248924;
+	bh=8lIklxnXt50wHs0x1dEjXiRXbOxyK6NJO48hlbUQUkk=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=Rq9L0vAOUN3qibhR0iaxdCvnrXNIYJIKxypeihxa6pdNfoLYnIjxkEJy6WPz1vyFo
-	 MwnC9yGEecffdRpx0BOaaEmXRtjmdxYgD1bvLgQHWOUbXYjGbkpUn4rCZGXWIKy57V
-	 dPTtmNt0uQ0SZzQue/Ng/lo+3k7WZ/AIc1eoGza+IwAwFdQkjl+CtSWyL7cZP19gLs
-	 lVHcaYxiDx9Fuizvn9kPJpKF4BQCNbafBQ6R8m6hWZGGzO/6RsEjylxTtIR+Kx9RQ7
-	 4TcsUnzzq4kMv6eVefGq8frmPB/Vz/TsRUh8b+eRK2d6GzLGuRG9DyMZC6/fKAwPYj
-	 DcZziHFr16EnQ==
-Date: Thu, 31 Jul 2025 19:21:54 +0000
+	b=WgG0BaCpD8rgLHZGAH3pCnKsFqn+N+AVSk84RxU0YLDpbnqq5zTx78ChB211d+ob1
+	 +j9FYbqZfLaWfeqmwVdZm1/k19KLSK6c+MXdroUph7PhVCUJDd9G2LguNQX4QHahAy
+	 1z544+9g92UnIVMMX9Jie8UuirkTMfJsuzFKnF4Ha8xZoJbNcj4xMjfVeRXGpV75FQ
+	 /xs/to2lVZk95MekF8bFZSooOmP6YbvHV8tduKjbgK85TxZjI+oQimC2utLrbK3gNg
+	 XfN2csfX5+cIbM5E0pRw5KeduZUdpJB4whysWKbrhnqgbwsHf8jefxQkXYuG8Ja0sK
+	 YXMmhFBtHGDgg==
+Date: Thu, 31 Jul 2025 19:22:01 +0000
 To: xen-devel@lists.xenproject.org
 From: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH v4 3/8] x86/domain: allocate d->{iomem,irq}_caps before arch-specific initialization
-Message-ID: <20250731192130.3948419-4-dmukhin@ford.com>
+Subject: [PATCH v4 4/8] xen/8250-uart: update definitions
+Message-ID: <20250731192130.3948419-5-dmukhin@ford.com>
 In-Reply-To: <20250731192130.3948419-1-dmukhin@ford.com>
 References: <20250731192130.3948419-1-dmukhin@ford.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: b0e8eac80caf4ec0b2ae99bb705b93baabca747a
+X-Pm-Message-ID: 0838d986e3229c7a6454a8177cb5be715c3e6fae
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 From: Denis Mukhin <dmukhin@ford.com>=20
 
-Move IRQ/IOMEM rangesets allocation before arch_domain_create().
+Added missing definitions needed for NS16550 UART emulator.
 
-That guarantees that arch-specific code could access those rangesets to
-register traps for emulation.
+Newly introduced MSR definitions re-used in the existing ns16550 driver.
 
-It is necessary for those emulators registering trap handlers and ensuring
-that emulated IRQs are not shared with the physical IRQs.
-
-Move dom0_setup_permissions() call right after I/O rangesets are allocated.
-
-Move pvh_setup_mmcfg() inside dom0_setup_permissions() close to the place
-where MMCFG ranges are initialized.
-
-Not a functional change.
+Also, corrected FCR DMA definition bit#3 (0x08) as per:
+  https://www.ti.com/lit/ds/symlink/tl16c550c.pdf
+See "7.7.2 FIFO Control Register (FCR)".
 
 Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 ---
-Chanhes since v3:
-- new patch
+Changes since v3:
+- feedback addressed
+- made use of new UART_MCR_XXX bits in ns16550 driver
+- Link to v3: https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1=
+-19-c5d36b31d66c@ford.com/
 ---
- xen/arch/x86/dom0_build.c     | 26 +++++++++++++++++++++++
- xen/arch/x86/hvm/dom0_build.c | 39 -----------------------------------
- xen/arch/x86/hvm/hvm.c        | 16 ++++++++++++++
- xen/common/domain.c           | 12 +++++------
- 4 files changed, 48 insertions(+), 45 deletions(-)
+ xen/drivers/char/ns16550.c  |  6 ++---
+ xen/include/xen/8250-uart.h | 50 ++++++++++++++++++++++++++++++-------
+ 2 files changed, 44 insertions(+), 12 deletions(-)
 
-diff --git a/xen/arch/x86/dom0_build.c b/xen/arch/x86/dom0_build.c
-index 0b467fd4a4fc..e965f506a3c8 100644
---- a/xen/arch/x86/dom0_build.c
-+++ b/xen/arch/x86/dom0_build.c
-@@ -471,6 +471,24 @@ static void __init process_dom0_ioports_disable(struct=
- domain *dom0)
-     }
+diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
+index df7fff7f81df..a899711e2a8b 100644
+--- a/xen/drivers/char/ns16550.c
++++ b/xen/drivers/char/ns16550.c
+@@ -739,9 +739,9 @@ static int __init check_existence(struct ns16550 *uart)
+      * Check to see if a UART is really there.
+      * Use loopback test mode.
+      */
+-    ns_write_reg(uart, UART_MCR, UART_MCR_LOOP | 0x0A);
+-    status =3D ns_read_reg(uart, UART_MSR) & 0xF0;
+-    return (status =3D=3D 0x90);
++    ns_write_reg(uart, UART_MCR, UART_MCR_LOOP | UART_MCR_RTS | UART_MCR_O=
+UT2);
++    status =3D ns_read_reg(uart, UART_MSR) & UART_MSR_STATUS;
++    return (status =3D=3D (UART_MSR_CTS | UART_MSR_DCD));
  }
 =20
-+static void __hwdom_init setup_mmcfg(struct domain *d)
-+{
-+    unsigned int i;
-+    int rc;
-+
-+    for ( i =3D 0; i < pci_mmcfg_config_num; i++ )
-+    {
-+        rc =3D register_vpci_mmcfg_handler(d, pci_mmcfg_config[i].address,
-+                                         pci_mmcfg_config[i].start_bus_num=
-ber,
-+                                         pci_mmcfg_config[i].end_bus_numbe=
-r,
-+                                         pci_mmcfg_config[i].pci_segment);
-+        if ( rc )
-+            printk("Unable to setup MMCFG handler at %#lx for segment %u\n=
-",
-+                   pci_mmcfg_config[i].address,
-+                   pci_mmcfg_config[i].pci_segment);
-+    }
-+}
-+
- int __init dom0_setup_permissions(struct domain *d)
- {
-     unsigned long mfn;
-@@ -480,6 +498,14 @@ int __init dom0_setup_permissions(struct domain *d)
-     if ( pv_shim )
-         return 0;
+ #ifdef CONFIG_HAS_PCI
+diff --git a/xen/include/xen/8250-uart.h b/xen/include/xen/8250-uart.h
+index d13352940c13..bc11cdc376c9 100644
+--- a/xen/include/xen/8250-uart.h
++++ b/xen/include/xen/8250-uart.h
+@@ -32,6 +32,7 @@
+ #define UART_MCR          0x04    /* Modem control        */
+ #define UART_LSR          0x05    /* line status          */
+ #define UART_MSR          0x06    /* Modem status         */
++#define UART_SCR          0x07    /* Scratch pad          */
+ #define UART_USR          0x1f    /* Status register (DW) */
+ #define UART_DLL          0x00    /* divisor latch (ls) (DLAB=3D1) */
+ #define UART_DLM          0x01    /* divisor latch (ms) (DLAB=3D1) */
+@@ -42,6 +43,8 @@
+ #define UART_IER_ETHREI   0x02    /* tx reg. empty        */
+ #define UART_IER_ELSI     0x04    /* rx line status       */
+ #define UART_IER_EMSI     0x08    /* MODEM status         */
++#define UART_IER_MASK \
++    (UART_IER_ERDAI | UART_IER_ETHREI | UART_IER_ELSI | UART_IER_EMSI)
 =20
-+    /*
-+     * MMCFG initialization must be performed before setting domain
-+     * permissions, as the MCFG areas must not be part of the domain IOMEM
-+     * accessible regions.
-+     */
-+    if ( is_hvm_domain(d) )
-+        setup_mmcfg(d);
+ /* Interrupt Identification Register */
+ #define UART_IIR_NOINT    0x01    /* no interrupt pending */
+@@ -51,12 +54,19 @@
+ #define UART_IIR_THR      0x02    /*  - tx reg. empty     */
+ #define UART_IIR_MSI      0x00    /*  - MODEM status      */
+ #define UART_IIR_BSY      0x07    /*  - busy detect (DW) */
++#define UART_IIR_FE       0xc0    /* FIFO enabled (2 bits) */
+=20
+ /* FIFO Control Register */
+-#define UART_FCR_ENABLE   0x01    /* enable FIFO          */
+-#define UART_FCR_CLRX     0x02    /* clear Rx FIFO        */
+-#define UART_FCR_CLTX     0x04    /* clear Tx FIFO        */
+-#define UART_FCR_DMA      0x10    /* enter DMA mode       */
++#define UART_FCR_ENABLE     BIT(0, U)   /* enable FIFO          */
++#define UART_FCR_CLRX       BIT(1, U)   /* clear Rx FIFO        */
++#define UART_FCR_CLTX       BIT(2, U)   /* clear Tx FIFO        */
++#define UART_FCR_DMA        BIT(3, U)   /* enter DMA mode       */
++#define UART_FCR_RESERVED0  BIT(4, U)   /* reserved; always 0   */
++#define UART_FCR_RESERVED1  BIT(5, U)   /* reserved; always 0   */
++#define UART_FCR_RTB0       BIT(6, U)   /* receiver trigger bit #0 */
++#define UART_FCR_RTB1       BIT(7, U)   /* receiver trigger bit #1 */
++#define UART_FCR_TRG_MASK   (UART_FCR_RTB0 | UART_FCR_RTB1)
 +
-     /* The hardware domain is initially permitted full I/O capabilities. *=
+ #define UART_FCR_TRG1     0x00    /* Rx FIFO trig lev 1   */
+ #define UART_FCR_TRG4     0x40    /* Rx FIFO trig lev 4   */
+ #define UART_FCR_TRG8     0x80    /* Rx FIFO trig lev 8   */
+@@ -96,11 +106,32 @@
+ #define UART_LCR_CONF_MODE_B=090xBF=09=09/* Configuration mode B */
+=20
+ /* Modem Control Register */
+-#define UART_MCR_DTR      0x01    /* Data Terminal Ready  */
+-#define UART_MCR_RTS      0x02    /* Request to Send      */
+-#define UART_MCR_OUT2     0x08    /* OUT2: interrupt mask */
+-#define UART_MCR_LOOP     0x10    /* Enable loopback test mode */
+-#define UART_MCR_TCRTLR   0x40    /* Access TCR/TLR (TI16C752, EFR[4]=3D1)=
+ */
++#define UART_MCR_DTR            BIT(0, U)   /* Data Terminal Ready  */
++#define UART_MCR_RTS            BIT(1, U)   /* Request to Send      */
++#define UART_MCR_OUT1           BIT(2, U)   /* OUT1: interrupt mask */
++#define UART_MCR_OUT2           BIT(3, U)   /* OUT2: interrupt mask */
++#define UART_MCR_LOOP           BIT(4, U)   /* Enable loopback test mode *=
 /
-     rc =3D ioports_permit_access(d, 0, 0xFFFF);
-     rc |=3D iomem_permit_access(d, 0UL,
-diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
-index 5551f9044836..6f47c9eeeaa6 100644
---- a/xen/arch/x86/hvm/dom0_build.c
-+++ b/xen/arch/x86/hvm/dom0_build.c
-@@ -1310,24 +1310,6 @@ static int __init pvh_setup_acpi(struct domain *d, p=
-addr_t start_info)
-     return 0;
- }
-=20
--static void __hwdom_init pvh_setup_mmcfg(struct domain *d)
--{
--    unsigned int i;
--    int rc;
--
--    for ( i =3D 0; i < pci_mmcfg_config_num; i++ )
--    {
--        rc =3D register_vpci_mmcfg_handler(d, pci_mmcfg_config[i].address,
--                                         pci_mmcfg_config[i].start_bus_num=
-ber,
--                                         pci_mmcfg_config[i].end_bus_numbe=
-r,
--                                         pci_mmcfg_config[i].pci_segment);
--        if ( rc )
--            printk("Unable to setup MMCFG handler at %#lx for segment %u\n=
-",
--                   pci_mmcfg_config[i].address,
--                   pci_mmcfg_config[i].pci_segment);
--    }
--}
--
- int __init dom0_construct_pvh(const struct boot_domain *bd)
- {
-     paddr_t entry, start_info;
-@@ -1339,27 +1321,6 @@ int __init dom0_construct_pvh(const struct boot_doma=
-in *bd)
-     if ( bd->kernel =3D=3D NULL )
-         panic("Missing kernel boot module for %pd construction\n", d);
-=20
--    if ( is_hardware_domain(d) )
--    {
--        /*
--         * MMCFG initialization must be performed before setting domain
--         * permissions, as the MCFG areas must not be part of the domain I=
-OMEM
--         * accessible regions.
--         */
--        pvh_setup_mmcfg(d);
--
--        /*
--         * Setup permissions early so that calls to add MMIO regions to th=
-e
--         * p2m as part of vPCI setup don't fail due to permission checks.
--         */
--        rc =3D dom0_setup_permissions(d);
--        if ( rc )
--        {
--            printk("%pd unable to setup permissions: %d\n", d, rc);
--            return rc;
--        }
--    }
--
-     /*
-      * Craft dom0 physical memory map and set the paging allocation. This =
-must
-      * be done before the iommu initializion, since iommu initialization c=
-ode
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index cb8ecd050d41..b7edb1d6555d 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -35,6 +35,7 @@
- #include <asm/hap.h>
- #include <asm/current.h>
- #include <asm/debugreg.h>
-+#include <asm/dom0_build.h>
- #include <asm/e820.h>
- #include <asm/regs.h>
- #include <asm/cpufeature.h>
-@@ -651,6 +652,17 @@ int hvm_domain_initialise(struct domain *d,
-             goto fail1;
-         }
-         memset(d->arch.hvm.io_bitmap, ~0, HVM_IOBITMAP_SIZE);
++#define UART_MCR_RESERVED0      BIT(5, U)   /* Reserved #0 */
++#define UART_MCR_TCRTLR         BIT(6, U)   /* Access TCR/TLR (TI16C752, E=
+FR[4]=3D1) */
++#define UART_MCR_RESERVED1      BIT(7, U)   /* Reserved #1 */
++#define UART_MCR_MASK \
++    (UART_MCR_DTR | UART_MCR_RTS | \
++     UART_MCR_OUT1 | UART_MCR_OUT2 | \
++     UART_MCR_LOOP | UART_MCR_TCRTLR)
 +
-+        /*
-+         * Setup permissions early so that calls to add MMIO regions to th=
-e
-+         * p2m as part of vPCI setup don't fail due to permission checks.
-+         */
-+        rc =3D dom0_setup_permissions(d);
-+        if ( rc )
-+        {
-+            printk("%pd unable to setup permissions: %d\n", d, rc);
-+            goto fail1;
-+        }
-     }
-     else
-         d->arch.hvm.io_bitmap =3D hvm_io_bitmap;
-@@ -680,6 +692,10 @@ int hvm_domain_initialise(struct domain *d,
-         break;
-     }
++/* Modem Status Register */
++#define UART_MSR_DCTS           BIT(0, U)   /* Change in CTS */
++#define UART_MSR_DDSR           BIT(1, U)   /* Change in DSR */
++#define UART_MSR_TERI           BIT(2, U)   /* Change in RI */
++#define UART_MSR_DDCD           BIT(3, U)   /* Change in CTS */
++#define UART_MSR_CTS            BIT(4, U)
++#define UART_MSR_DSR            BIT(5, U)
++#define UART_MSR_RI             BIT(6, U)
++#define UART_MSR_DCD            BIT(7, U)
++#define UART_MSR_CHANGE \
++    (UART_MSR_DCTS | UART_MSR_DDSR | UART_MSR_TERI | UART_MSR_DDCD)
++#define UART_MSR_STATUS \
++    (UART_MSR_CTS | UART_MSR_DSR | UART_MSR_RI | UART_MSR_DCD)
 =20
-+    BUG_ON(!d->irq_caps);
-+    BUG_ON(!d->iomem_caps);
-+    BUG_ON(!d->arch.ioport_caps);
-+
-     vpic_init(d);
+ /* Line Status Register */
+ #define UART_LSR_DR       0x01    /* Data ready           */
+@@ -111,6 +142,7 @@
+ #define UART_LSR_THRE     0x20    /* Xmit hold reg empty  */
+ #define UART_LSR_TEMT     0x40    /* Xmitter empty        */
+ #define UART_LSR_ERR      0x80    /* Error                */
++#define UART_LSR_MASK     (UART_LSR_OE | UART_LSR_BI)
 =20
-     rc =3D vioapic_init(d);
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 5241a1629eeb..187637e8114a 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -944,6 +944,12 @@ struct domain *domain_create(domid_t domid,
-     radix_tree_init(&d->pirq_tree);
- #endif
-=20
-+    err =3D -ENOMEM;
-+    d->iomem_caps =3D rangeset_new(d, "I/O Memory", RANGESETF_prettyprint_=
-hex);
-+    d->irq_caps   =3D rangeset_new(d, "Interrupts", 0);
-+    if ( !d->iomem_caps || !d->irq_caps )
-+        goto fail;
-+
-     if ( (err =3D arch_domain_create(d, config, flags)) !=3D 0 )
-         goto fail;
-     init_status |=3D INIT_arch;
-@@ -951,12 +957,6 @@ struct domain *domain_create(domid_t domid,
-     watchdog_domain_init(d);
-     init_status |=3D INIT_watchdog;
-=20
--    err =3D -ENOMEM;
--    d->iomem_caps =3D rangeset_new(d, "I/O Memory", RANGESETF_prettyprint_=
-hex);
--    d->irq_caps   =3D rangeset_new(d, "Interrupts", 0);
--    if ( !d->iomem_caps || !d->irq_caps )
--        goto fail;
--
-     if ( (err =3D xsm_domain_create(XSM_HOOK, d, config->ssidref)) !=3D 0 =
-)
-         goto fail;
-=20
+ /* These parity settings can be ORed directly into the LCR. */
+ #define UART_PARITY_NONE  (0<<3)
 --=20
 2.34.1
 
