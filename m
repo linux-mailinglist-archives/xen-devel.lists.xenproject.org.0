@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62829B16C3C
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 08:55:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1064884.1430190 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5698AB16C67
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 09:08:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1064900.1430201 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhNBR-0007fB-Lr; Thu, 31 Jul 2025 06:54:33 +0000
+	id 1uhNOR-00017B-Qi; Thu, 31 Jul 2025 07:07:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1064884.1430190; Thu, 31 Jul 2025 06:54:33 +0000
+Received: by outflank-mailman (output) from mailman id 1064900.1430201; Thu, 31 Jul 2025 07:07:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhNBR-0007dD-JB; Thu, 31 Jul 2025 06:54:33 +0000
-Received: by outflank-mailman (input) for mailman id 1064884;
- Thu, 31 Jul 2025 06:54:32 +0000
+	id 1uhNOR-00014q-MV; Thu, 31 Jul 2025 07:07:59 +0000
+Received: by outflank-mailman (input) for mailman id 1064900;
+ Thu, 31 Jul 2025 07:07:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lm68=2M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uhNBP-0007d6-W4
- for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 06:54:31 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ id 1uhNOP-00014k-VD
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 07:07:57 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2fda393d-6ddb-11f0-b895-0df219b8e170;
- Thu, 31 Jul 2025 08:54:21 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3b78b2c6ecfso321813f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 30 Jul 2025 23:54:21 -0700 (PDT)
+ id 14801a61-6ddd-11f0-b895-0df219b8e170;
+ Thu, 31 Jul 2025 09:07:55 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-3b7961cf660so431719f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 00:07:54 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31f30dc9fd0sm3507681a91.1.2025.07.30.23.54.15
+ d9443c01a7336-241e899b4adsm9419765ad.132.2025.07.31.00.07.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Jul 2025 23:54:20 -0700 (PDT)
+ Thu, 31 Jul 2025 00:07:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2fda393d-6ddb-11f0-b895-0df219b8e170
+X-Inumbo-ID: 14801a61-6ddd-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1753944861; x=1754549661; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1753945674; x=1754550474; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=TFsvBzkJQR5KTMcKXa+yaxYcxiVVTO40WNJXYp7rpbw=;
-        b=da7BTkq1h4sm0YJu90Axh3rWzTn4L2dy5alQW57Hcv+A+hjOu8phMMOta3iQkxAyit
-         tt7ltYG+fbJ8j2a9ydmHVyqKKESB/muRKmsY3ze9iB1t79eCKKhsWUrMsHPQG5iBtjo4
-         qpgjaw0Vd7Iyi6On6jAJPkl1Fz8P3sMoDo5Keq4OuVSix94vbNDcjrpFjKkmSrKd/yfd
-         IFagYs6AZEDrV5IqZO2G2uMlmVdG6yNpkj1sh0KtRRwyS46zlLmFeyQLwcz2hPNWZy4+
-         nJaSTuXdmZvNAPeC2354EK7EQ2Fq1ifGVJlfYw66dV7/Mm7eR0tog6jz9cJIq2TmFuyW
-         8q/g==
+        bh=VZNAkw1VZgKMkAH1h1X4xE+cGQRnhvXPcGQ4bZdquhQ=;
+        b=akmNex84yQS1HvD07pPd8Lm7+a+W3tQsn6c98iX2+VmkU9u5ipHEAU+8/jtV+jomvA
+         u+a1DDWZ9ot7MXddFGhE6VR7egRMNFKMoDv1bKKrf85R6etvBpG/9uyXezLeRazEKgMJ
+         i5DHoRuZUVTPvexrCWcZpOE/Dk/cKSSlXj303CWr+xEpDR9KR/wxOgbrYhvEtbfo9eGY
+         TAVaRX7mUH6MwPjFsIQHJ0hH8Nnb6L2ggyThhoTVzH5eK3YHX032RlWydl0xwmW3vknA
+         g0ZwebpNdyh/n8PccwqyuqKS1VeQ5gDB+FaPxFCL+qk/sA2komWMJwErDWyxLEUIeCI1
+         EeZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1753944861; x=1754549661;
+        d=1e100.net; s=20230601; t=1753945674; x=1754550474;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=TFsvBzkJQR5KTMcKXa+yaxYcxiVVTO40WNJXYp7rpbw=;
-        b=N5gl0tCtnS2RrXFvAm0KnjlzQDf18MvQh+b2xqXSYcG5w4Uh+yJRBlTdc+CFgXcHod
-         FbAQVYEbSecNYhXKu9Hbt4ZsZdV4OTSCPWnQuDXtPCF/nKWw6m7ONrIwhxjnTWjOOqyp
-         WOjCUzsFBwtJ8Pe/1AvtIg686FPquCnmz1xTBNCUA25Xa94v2rk4pUOeq+PQ1qwasCrP
-         Qt3/nJ5FLTwRr970ntV1xkRUzE0M2UwYnLkScSP0d5y5P+7czWlnghNbihh9DU2g2mRR
-         sm05LIokxxTBrGTqNY5AZvHzO5/pTYIJ9V00/rwqzt4bpwGmlpDkjEpopjD9J6mX99MT
-         29tQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWY5HyDsG07xYRbMjAwGweRFBl0/Eb8acn20mm0RXAj3o0K4lJAzX+0pcxwQcJ8AdU/CkYL+3sMhqo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx+wFyzBb6jfdrGMkuIkljjImwuEarS1XWjdj+NnoHl+2mhSwko
-	i1qLLaU2ipbsw4Dekwmo0MUTCN6IwO5EFxvGrlkyaDTTREIkSs063BNQb5/HZspwtg==
-X-Gm-Gg: ASbGncuj8I2OdQq3iogx9CwOfAlubF228Vn6o+5N3sGC+MPinx7b3NGVg9fmw7HMsYm
-	zFxYubx3AKsWdsMFtb44ygJZXWTAlOMByRhGo1tDuToKpHrQwQlestLHdqw+Vla1fOm+vbo1/K3
-	S3nODFHSH61FsasqRUFiprXxs7+eN0EpMUwBkQAKuF0jJSZWXQo1xcqPFK7XWCbAgJnLKTMe4z3
-	wrtW7/KJ7YXdAJtX8Wgsf+7FUqG2bgK19VvitknSVXe/L8vUbVZxQGhCn3IGvyKlNFS6QJusxN6
-	iAeMVoY6gFVkuoNH3fCoex/ThCmHCqMGgy0efe0yNgpVjDbAZDHEfcsHHl1XVWJNtuVV4J7TAp0
-	4QBnPknY+OBlfAtyu/PREpnV2NLff9ExE1AS42QU+j3rGGuW8VjtoJHCQaL8IpwWFEWxcBRnZA7
-	PBz+sJsIc=
-X-Google-Smtp-Source: AGHT+IHJpErCcWthGzP2cwiDgD0STQAKm0HBvbUp6G70Qn34dEjyihsYCAF2gFCZFWVh7cuScS0keQ==
-X-Received: by 2002:a05:6000:2913:b0:3b7:8851:642 with SMTP id ffacd0b85a97d-3b794fb6e4fmr4697807f8f.16.1753944861173;
-        Wed, 30 Jul 2025 23:54:21 -0700 (PDT)
-Message-ID: <78128ec6-b79f-4d4c-a298-72315b190036@suse.com>
-Date: Thu, 31 Jul 2025 08:54:10 +0200
+        bh=VZNAkw1VZgKMkAH1h1X4xE+cGQRnhvXPcGQ4bZdquhQ=;
+        b=e5khlU2jLFWT+AO7av1Zzhlzsr2B+qZfpCBAD9S7o4kbK/2qpFJ3mKHcHVaccze/XB
+         NcuhskvulIKRTqvcj9mv2xYYHxJYjOBaEdPaa9IUUXKKAy17S5oFCmE1Uljta6Avah5n
+         Ss3cigj73hLbN8wB8fuYWNm9s1xNYkraOrLB6Ov7RY+4q7ZKN65mmeLDJSIJoYbqEvwZ
+         DL6tT6pZMj6atUfuclii2u7vYss+ftdfIAVCgArPPfprng1R7sFw+dce+tFRVN56JHPW
+         WnCC19q9CNnoQ7Tb50u6a0jok7JxwtbAZw0f1rSzE9/Up+h/wrXvzbwCcnZJWydXFKE5
+         AAWA==
+X-Forwarded-Encrypted: i=1; AJvYcCW7C7dOFHEM1F9SzidofTNiolbQ746UF1r3+giAkwuuB+YzFr8K/drJyR1MQvv+J4ksFSBRQcixjbg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxMYsbluYsaRYsnKY4A32U7yYu8vIODtQfCI0AfR0Ca4iPRHsLL
+	U6OrVqfVTBx2c7diBdti+rxlDaVP2FOCkenj1HhLM2gMmm9gW9s4D1NJBPmws9ocnQ==
+X-Gm-Gg: ASbGncvKxzSF604xzaXwG1EFXtCkejgsHcyI7S6QspZGUukFVesB4/Q+3gjDGd4D51k
+	bCXHZSwe7hWzrhPo23Pw4ciRW4TR/B7L5GylaMeTGZ67ZMmcJctEyG0VQ12IY6QrPFU3KJ1OQ55
+	t7/Mf1hbK/Ibbsuy6HIrO1Q2r7zX8HDZskdtglzSj6pbtXuCNTxpZ6YZIuJl/GJkDNtpelKL6TK
+	9j2j+iwx+CV44lKLE4nJEjFeo9pw3fV3OkGTJJJsjGl7IXoqf0O/QE/M63pz85EYQNiWshnXNgi
+	XRs3ul55G80W4FMJyuygoaO+/e9yeen1eW9A4+RKzYmGhOrEfkuHzgVvC9a13qEej5FcJ4CGnMK
+	1Jr9BxPOimYeE+XYWwdk0tHzEYn4T4PO8pRFWilbr84i/subL+LxI7e6CYDUPFkt+14YcRtQdxC
+	GHMJ15atA=
+X-Google-Smtp-Source: AGHT+IEqMn8BRtTA/rtSDGr7Xw0oOmej1OlVTOMf944VH0BTlaXEd5cCclmqMLIjwoaF5ZLAnB+YsQ==
+X-Received: by 2002:a05:6000:2288:b0:3b7:9dc1:74a5 with SMTP id ffacd0b85a97d-3b79dc176aamr748639f8f.52.1753945674201;
+        Thu, 31 Jul 2025 00:07:54 -0700 (PDT)
+Message-ID: <2da75706-9d76-4d89-9282-977bfd5d2a9c@suse.com>
+Date: Thu, 31 Jul 2025 09:07:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ns16550: ensure polling timer is disarmed
-To: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250730031249.1613142-1-dmukhin@ford.com>
- <5a4dc92b-139d-4fa5-9baf-2ebc41bba758@suse.com> <aIplBkq7BL52Fn/Q@kraken>
+Subject: Re: [PATCH v2] automation/eclair: deviate intentionally unreachable
+ code
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <6e47d071ffdb236642c1e9a70118a86d41487aa0.1753909082.git.dmytro_prokopchuk1@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,40 +125,78 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aIplBkq7BL52Fn/Q@kraken>
+In-Reply-To: <6e47d071ffdb236642c1e9a70118a86d41487aa0.1753909082.git.dmytro_prokopchuk1@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30.07.2025 20:31, dmkhn@proton.me wrote:
-> On Wed, Jul 30, 2025 at 10:12:54AM +0200, Jan Beulich wrote:
->> On 30.07.2025 05:13, dmkhn@proton.me wrote:
->>> From: Denis Mukhin <dmukhin@ford.com>
->>>
->>> As it stands, polling timer is kept in the list of timers even after the
->>> interrupts have been enabled / polling disabled on ns16550-compatible UART.
->>>
->>> Ensure polling timer is removed from the timer list once UART interrupts are
->>> enabled.
->>>
->>> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
->>
->> Wasn't it Andrew(?) who suggested something along these lines? That would
->> want reflecting by a tag then.
+On 30.07.2025 23:01, Dmytro Prokopchuk1 wrote:
+> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 > 
-> Yes, indeed.
+> MISRA C Rule 2.1 states: "A project shall not contain unreachable code".
+> Functions that are non-returning and are not explicitly annotated with
+> the `noreturn' attribute are considered a violation of this rule.
 > 
->>
->> Also, what's the real problem you want to solve here? The timer function
->> would be run one more time after ->intr_works is set, and then the timer
->> will be permanently inactive (up to a possible S3 resume). Is it being on
->> an inactive list an actual problem? (IOW I'd like to understand if the
->> change is merely cosmetic, or if there is some actual benefit.)
+> In certain cases, some functions might be non-returning in specific build
+> configurations (when assertions are enabled, i.e., when `NDEBUG' is not defined).
+> This is due to calls to `__builtin_unreachable()' in the expansion of the
+> macro `ASSERT_UNREACHABLE()'.
 > 
-> My understanding is running polling timer one more time after the interrupts
-> are enabled is the issue: if there's a pending timer when it is known the
-> timer not needed, then the timer should be canceled.
+> Conversely, in builds where `NDEBUG' is defined (assertions are disabled),
+> the macro `ASSERT_UNREACHABLE()' expands to an empty construct
+> (`do { } while (0)'), which does not affect the execution flow.
+> This allows such functions to return normally in such builds,
+> avoiding unreachable code.
+> 
+> To account for that in specific builds, the `noreturn` property of
+> `__builtin_unreachable()` is overridden in the ECLAIR configuration
+> to deviate these violations.
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
 
-And the effort of canceling outweighs the one extra running of the timer?
+Wording-wise I'm okay now (one further nit below), but I don't feel
+capable of ack-ing. I'd like to remind you though that commit messages
+want to be limited to 75(?) chars per line, so "git log" output wouldn't
+go beyond 80 chars.
+
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -86,6 +86,18 @@ Deviations related to MISRA C:2012 Rules:
+>         generate definitions for asm modules.
+>       - Tagged as `deliberate` for ECLAIR.
+>  
+> +   * - R2.1
+> +     - Calls to the `__builtin_unreachable()` function inside the expansion of
+> +       the `ASSERT_UNREACHABLE()` macro may cause a function to be marked as
+> +       non-returning. This behavior occurs only in configurations where
+> +       assertions are enabled. To address this, the `noreturn` property
+> +       for `__builtin_unreachable()` is overridden in these contexts,
+> +       resulting in the absence of reports that do not have an impact on
+> +       safety, despite being true positives.
+> +       Xen expects developers to ensure code remains safe and reliable in
+> +       builds, even when debug-only assertions like `ASSERT_UNREACHABLE()
+> +       are removed.
+
+Formatting nit: I think it would be nice if lines were wrapped consistently,
+such that available space is actually properly used. (Right here this means
+the "for" on the 5th line could move up, which likely would call for further
+re-wrapping of subsequent text. The "are" on the last line apparently also
+would still fit on the earlier line.)
+
+> --- a/docs/misra/rules.rst
+> +++ b/docs/misra/rules.rst
+> @@ -124,6 +124,15 @@ maintainers if you want to suggest a change.
+>             they are used to generate definitions for asm modules
+>           - Declarations without initializer are safe, as they are not
+>             executed
+> +         - Functions that are noreturn due to calls to `ASSERT_UNREACHABLE()`
+> +           macro in debug build configurations are not deemed as violations::
+
+I'm not a native speaker, but "deemed as" feels wrong to me; I would expect
+the "as" wants simply dropping (or replacing by "to be").
+
+Adjustments could likely be done while committing, assuming the necessary
+ack appears.
 
 Jan
 
