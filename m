@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A740B17832
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 23:29:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1066475.1431698 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E23D7B1785A
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 23:42:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1066513.1431709 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhapK-0001Rx-9M; Thu, 31 Jul 2025 21:28:38 +0000
+	id 1uhb2P-0004bk-Co; Thu, 31 Jul 2025 21:42:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1066475.1431698; Thu, 31 Jul 2025 21:28:38 +0000
+Received: by outflank-mailman (output) from mailman id 1066513.1431709; Thu, 31 Jul 2025 21:42:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhapK-0001QP-6M; Thu, 31 Jul 2025 21:28:38 +0000
-Received: by outflank-mailman (input) for mailman id 1066475;
- Thu, 31 Jul 2025 21:28:37 +0000
+	id 1uhb2P-0004ZR-A5; Thu, 31 Jul 2025 21:42:09 +0000
+Received: by outflank-mailman (input) for mailman id 1066513;
+ Thu, 31 Jul 2025 21:42:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=hI6J=2M=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uhapJ-0001QI-3U
- for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 21:28:37 +0000
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch
- [109.224.244.17]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4f970e9d-6e55-11f0-a320-13f23c93f187;
- Thu, 31 Jul 2025 23:28:33 +0200 (CEST)
+ id 1uhb2M-0004ZG-Ft
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 21:42:07 +0000
+Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch
+ [79.135.106.30]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 339355af-6e57-11f0-a320-13f23c93f187;
+ Thu, 31 Jul 2025 23:42:05 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,110 +36,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f970e9d-6e55-11f0-a320-13f23c93f187
+X-Inumbo-ID: 339355af-6e57-11f0-a320-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1753997312; x=1754256512;
-	bh=AAlIWml7bcoENwEStdn/K43hhrFAS8Fyi4C7owG9jEg=;
+	s=protonmail; t=1753998123; x=1754257323;
+	bh=ZFiPf6Q1IUag9JyW3jZDRfhV1/S3CIFye9NJ5Vlv1Bg=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=ZoIIpCaMi3aBQ3hkApyzIpDDz0nMyhLusXytZesM9kU8Ge6Sy4R6Z8lt6ATNWJ/ZY
-	 kAWEdIhQ5VtT8oKPJx/Hzk1oderqCxlWqJju55ditYX/5InOwnwvMX7VY7rTr/PlCP
-	 BoYA46msjsjKh+5enYk8oqI4nkCBHQ2uB3ICSyQCL4l3KRF6TWRIWsVKgGYqwX0Rt1
-	 rASyVxd4v9wLa5SJifzhzMuvFZQvVD8h92/XSy7TX/7C3nzxdhewvHSqAB9Hnxv24h
-	 4+hY4Gz88q0jo+Yq2n98hMkTDRwQItzP9n3CMOfrwSTdkaHR1IIDuKisfQ/8quwKnJ
-	 a0EaFWXAHMhTw==
-Date: Thu, 31 Jul 2025 21:28:28 +0000
+	b=TVs+lxoixD7Ij/94FKA0PIzP3C051+JkUxB1BSqb4fpCxc3wjPdvPSc6HSY2QDmKQ
+	 hCzKuiS85vuvxb1q9CACobUM/8G+LoPfAgBJvFgp/14VQNuU+FwH5IC996VyI9293E
+	 ZOZG2FjgcwmAv81sA+PArtveiDOk8oJvFfKV7a5342IR8X4/mlkuSwwwUscjcEgHmN
+	 4jmgtgAIFiKNcVx8gVy9CTHGC5uUk7p1ZmLIq6LkltQOCmTBXPhvFAd0FpU7sOxtEW
+	 GsPzdYt7AmvIA78t9b0WVL5TJgszBkZ5HADMTOaDYY3zcoeR2UaBAXHnqUNV2VGZi7
+	 0BnKkLlXzs/mw==
+Date: Thu, 31 Jul 2025 21:42:01 +0000
 To: Jan Beulich <jbeulich@suse.com>
 From: dmkhn@proton.me
-Cc: Julien Grall <julien@xen.org>, andrew.cooper3@citrix.com, anthony.perard@vates.tech, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v1] xen/console: remove __printk_ratelimit()
-Message-ID: <aIvf+FHRFgqZmQgA@kraken>
-In-Reply-To: <528f4bd1-4a2f-4fa1-94cc-363a5f5fdbea@suse.com>
-References: <20250725212235.753363-1-dmukhin@ford.com> <290ae958-4fba-42d8-a64b-d44845b85491@xen.org> <aade04e0-737f-481c-9ed1-1275969c2ef7@suse.com> <aIlIm7F5L3WQLoWd@kraken> <4292abbe-28b1-4545-87af-b37dd4ace53e@suse.com> <aIpfH5Cy10o8VMCu@kraken> <528f4bd1-4a2f-4fa1-94cc-363a5f5fdbea@suse.com>
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] ns16550: ensure polling timer is disarmed
+Message-ID: <aIvjJP6bpJpsQRtQ@kraken>
+In-Reply-To: <78128ec6-b79f-4d4c-a298-72315b190036@suse.com>
+References: <20250730031249.1613142-1-dmukhin@ford.com> <5a4dc92b-139d-4fa5-9baf-2ebc41bba758@suse.com> <aIplBkq7BL52Fn/Q@kraken> <78128ec6-b79f-4d4c-a298-72315b190036@suse.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 0544253cd5abf37931af09e17bf8700111222670
+X-Pm-Message-ID: dc797e1d8a0cd4b6e581fd8bc3040c636deb4387
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Jan,
-
-Thanks for the feedback.
-
-On Thu, Jul 31, 2025 at 08:23:16AM +0200, Jan Beulich wrote:
-> On 30.07.2025 20:06, dmkhn@proton.me wrote:
-> > On Wed, Jul 30, 2025 at 07:35:04AM +0200, Jan Beulich wrote:
-> >> On 30.07.2025 00:18, dmkhn@proton.me wrote:
-> >>> On Mon, Jul 28, 2025 at 11:32:43AM +0200, Jan Beulich wrote:
-> >>>> On 26.07.2025 11:20, Julien Grall wrote:
-> >>>>> On 25/07/2025 22:24, dmkhn@proton.me wrote:
-> >>>>>> From: Denis Mukhin <dmukhin@ford.com>
-> >>>>>>
-> >>>>>> __printk_ratelimit() is never used outside of the console driver.
-> >>>>>> Remove it from the lib.h and merge with the public printk_ratelimi=
-t().
-> >>>>>
-> >>>>> Is this solving any sort of violation? Asking because even if the
-> >>>>> function is only used by one caller, I could see a benefit to be ab=
-le to
-> >>>>> use different value for the ratelimit. So I leaning towards keep th=
-e
-> >>>>> code as-is.
-> >>>>
-> >>>> +1
-> >>>>
-> >>>> In fact I'm surprised (or maybe not) that we still don't make better=
- use
-> >>>> the rate limiting functionality.
+On Thu, Jul 31, 2025 at 08:54:10AM +0200, Jan Beulich wrote:
+> On 30.07.2025 20:31, dmkhn@proton.me wrote:
+> > On Wed, Jul 30, 2025 at 10:12:54AM +0200, Jan Beulich wrote:
+> >> On 30.07.2025 05:13, dmkhn@proton.me wrote:
+> >>> From: Denis Mukhin <dmukhin@ford.com>
 > >>>
-> >>> Out of curiosity, do you have any ideas re: make better use of the ra=
-te
-> >>> limiting functionality?
+> >>> As it stands, polling timer is kept in the list of timers even after =
+the
+> >>> interrupts have been enabled / polling disabled on ns16550-compatible=
+ UART.
+> >>>
+> >>> Ensure polling timer is removed from the timer list once UART interru=
+pts are
+> >>> enabled.
+> >>>
+> >>> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 > >>
-> >> No concrete ones; thinking about this has been way too long ago.
-> >>
-> >>> Build-time parameterization?
-> >>
-> >> That and/or command line controls.
+> >> Wasn't it Andrew(?) who suggested something along these lines? That wo=
+uld
+> >> want reflecting by a tag then.
 > >
-> > Got it.
+> > Yes, indeed.
 > >
-> > Can you please explain why exporting __printk_ratelimit() is still requ=
-ired
-> > for implementation of build/command line settings in console.c?
+> >>
+> >> Also, what's the real problem you want to solve here? The timer functi=
+on
+> >> would be run one more time after ->intr_works is set, and then the tim=
+er
+> >> will be permanently inactive (up to a possible S3 resume). Is it being=
+ on
+> >> an inactive list an actual problem? (IOW I'd like to understand if the
+> >> change is merely cosmetic, or if there is some actual benefit.)
+> >
+> > My understanding is running polling timer one more time after the inter=
+rupts
+> > are enabled is the issue: if there's a pending timer when it is known t=
+he
+> > timer not needed, then the timer should be canceled.
 >=20
-> I didn't say console.c, did I? Whatever subsystem wanted to do proper rat=
-e
+> And the effort of canceling outweighs the one extra running of the timer?
 
-But you also did not say anything about idea of having per-subsystem rate
-limiting.
-
-> limiting would need to gain some way of controlling this (as said, build
-> time or cmdline driven), and it'll then need that function: How would it
-> effect the behavior with custom ms and/or burst values, without having
-> that function to call? (It is another thing that the function, using stat=
-ic
-> variables rather than per-caller state, may not be quite ready for that
-> kind of use. Also the arbitrary and hard-coded 10 * 5 * 1000 there would
-> probably also want to be customizable.)
->=20
-> What you may want to do for Misra's sake is make the function static for
-> the time being. The compiler will then fold it into its sole caller,
-> until some new user appears. (At that occasion dropping one of the
-> underscores may also be reasonable.)
-
-Do I understand it correctly that you will accept the following submission:
- 1) make __printk_ratelimit() static
- 2) drop one underscore from the name
- 3) keep the only call __printk_ratelimit() in a hope of there will be
-    per-subsystem rate limiting in the future?
-
---
-Denis
+I think so, because intr_works will not flip at run-time once set.
+If so, no need to keep the timer ready to be rearmed.
 
 >=20
 > Jan
->=20
 
 
