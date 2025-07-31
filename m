@@ -2,45 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DE5EB16DCD
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 10:43:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1065072.1430392 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02CE6B16DCE
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Jul 2025 10:43:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1065073.1430403 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhOsP-0006TG-7X; Thu, 31 Jul 2025 08:43:01 +0000
+	id 1uhOsV-0006jy-Gx; Thu, 31 Jul 2025 08:43:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1065072.1430392; Thu, 31 Jul 2025 08:43:01 +0000
+Received: by outflank-mailman (output) from mailman id 1065073.1430403; Thu, 31 Jul 2025 08:43:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhOsP-0006Rb-4l; Thu, 31 Jul 2025 08:43:01 +0000
-Received: by outflank-mailman (input) for mailman id 1065072;
- Thu, 31 Jul 2025 08:42:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uhOsV-0006h8-CQ; Thu, 31 Jul 2025 08:43:07 +0000
+Received: by outflank-mailman (input) for mailman id 1065073;
+ Thu, 31 Jul 2025 08:43:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=3v3Z=2M=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1uhOsN-0006RV-ER
- for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 08:42:59 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5bd48332-6dea-11f0-a320-13f23c93f187;
- Thu, 31 Jul 2025 10:42:58 +0200 (CEST)
+ id 1uhOsT-0006gC-TB
+ for xen-devel@lists.xenproject.org; Thu, 31 Jul 2025 08:43:05 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [2a07:de40:b251:101:10:150:64:2])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5f5d1fcd-6dea-11f0-b895-0df219b8e170;
+ Thu, 31 Jul 2025 10:43:04 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id ED7DC1F7D3;
- Thu, 31 Jul 2025 08:42:56 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9ACC61F7BE;
+ Thu, 31 Jul 2025 08:43:02 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AF71213AB4;
- Thu, 31 Jul 2025 08:42:56 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 69E7113AB4;
+ Thu, 31 Jul 2025 08:43:02 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id zYcPKZAsi2jIDAAAD6G6ig
- (envelope-from <jgross@suse.com>); Thu, 31 Jul 2025 08:42:56 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id HskJGJYsi2jMDAAAD6G6ig
+ (envelope-from <jgross@suse.com>); Thu, 31 Jul 2025 08:43:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,33 +53,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5bd48332-6dea-11f0-a320-13f23c93f187
+X-Inumbo-ID: 5f5d1fcd-6dea-11f0-b895-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1753951377; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=3oEbq4sKt6r7kMK2h9RUAPYW29aeQJh/57BF7gdQyTY=;
-	b=fkCSpzEC5DVBB1GQJLO20m8h8bNNbK6jqi3Q4a0hXKSxLP9rL7hA12ItviUvCZapz2Bmul
-	auzGDcH310li5wF0AkDj3TVBl0KdUBwgRdbtjmK14RWwPMgi6icO+Dt06iPmq3ZMAkyyU3
-	yBqMsyfhcsftlK7w9CLoU0cEFQqKThw=
+	t=1753951383; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uSyQelwkAxmw7kyKn2rf/XibX90/X1XS9gD+6+Tbeuk=;
+	b=l3z3WlTuzdq5s2VMGAuJQkMkRGhJLtvsIumi6e0PorKe2T3Iaqmd1vIH/UbTAM1uwsNF1C
+	Exx0gVOD72bgbw1Nj7VAN5qo28BO4TJSIrk0TDDFlx49m6Uj9A/pbr82t7abzm+VKPqkdo
+	af0CGIeO6H0ojQts7PEl59o6we2Xsds=
 Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b="OF+99h/Z"
+	dkim=pass header.d=suse.com header.s=susede1 header.b=tnyMA29K
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1753951376; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=3oEbq4sKt6r7kMK2h9RUAPYW29aeQJh/57BF7gdQyTY=;
-	b=OF+99h/Z11UkK/X5SCO0PXUuKqyd6z2tF6qdv6ELn4nek6nvvTBdZ5ZyR1i1IgVocEB/jx
-	bEY+neUnR8v1iX4hLHTpGI719ASFogj8IZzCf+a09RQzNZxwzG6KTX/ZpCrNTsXh6TKMGm
-	YMREwFnX7LqPGrNl+qcDDws7rN9T4AY=
+	t=1753951382; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uSyQelwkAxmw7kyKn2rf/XibX90/X1XS9gD+6+Tbeuk=;
+	b=tnyMA29KW8msoGIUwbi1ARB0PULK6TQrySOaOC318h+PL9z7/ZPKojiCMxwPQZYysy2LYd
+	V6CuGb9TXH38nUi2vYxstiK82jSNB3PZatctdmpehEaHWBoH/AnpLKPVOfGk2QYJHLuBBE
+	oC+YKGx1Y3Nl3QKe8Ma7OfGG1v05W0E=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
-	Nick Rosbrook <enr0n@ubuntu.com>,
-	George Dunlap <gwd@xenproject.org>
-Subject: [PATCH v3 0/2] tools: add support for domain specific Xenstore features
-Date: Thu, 31 Jul 2025 10:42:52 +0200
-Message-ID: <20250731084254.25591-1-jgross@suse.com>
+	Jason Andryuk <jason.andryuk@amd.com>
+Subject: [PATCH v3 1/2] tools/xl: add available Xenstore features to xl info output
+Date: Thu, 31 Jul 2025 10:42:53 +0200
+Message-ID: <20250731084254.25591-2-jgross@suse.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250731084254.25591-1-jgross@suse.com>
+References: <20250731084254.25591-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-3.01 / 50.00];
@@ -101,49 +107,99 @@ X-Spamd-Result: default: False [-3.01 / 50.00];
 	DKIM_SIGNED(0.00)[suse.com:s=susede1];
 	FROM_EQ_ENVFROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
+	RCPT_COUNT_THREE(0.00)[4];
 	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,amd.com:email,suse.com:mid,suse.com:dkim,suse.com:email];
 	RCVD_COUNT_TWO(0.00)[2];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+]
 X-Spam-Flag: NO
 X-Spam-Level: 
-X-Rspamd-Queue-Id: ED7DC1F7D3
+X-Rspamd-Queue-Id: 9ACC61F7BE
 X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-Rspamd-Action: no action
 X-Spam-Score: -3.01
 
-Add support for limiting the optional Xenstore features via domain
-configuration. This will be needed when adding features like limiting
-the scope of Xenstore watch events.
+Add the Xenstore feature value to the output of "xl info" in order to
+prepare for a future capability to limit Xenstore features visible by
+a guest.
 
-This patch series is handling only the xl/libxl side, libxenstore and
-C Xenstore (xenstored and xenstore-stubdom). Oxenstored is not covered.
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+Acked-by: Anthony PERARD <anthony.perard@vates.tech>
+---
+ tools/xl/Makefile  |  3 ++-
+ tools/xl/xl_info.c | 22 ++++++++++++++++++++++
+ 2 files changed, 24 insertions(+), 1 deletion(-)
 
-Changes in V2:
-- added Jason's Reviewed-by: tags
-- a small fix of patch 4
-
-Changes in V3:
-- patches 1-5 have gone in already
-- 2 fixes in patch
-
-Juergen Gross (2):
-  tools/xl: add available Xenstore features to xl info output
-  tools: allow to limit xenstore features via guest config
-
- docs/man/xl.cfg.5.pod.in             | 36 ++++++++++++++++++++++++++++
- tools/golang/xenlight/helpers.gen.go |  2 ++
- tools/golang/xenlight/types.gen.go   |  1 +
- tools/include/libxl.h                |  6 +++++
- tools/libs/light/libxl_dom.c         | 17 ++++++++++++-
- tools/libs/light/libxl_types.idl     |  1 +
- tools/xl/Makefile                    |  3 ++-
- tools/xl/xl_info.c                   | 22 +++++++++++++++++
- tools/xl/xl_parse.c                  |  3 +++
- 9 files changed, 89 insertions(+), 2 deletions(-)
-
+diff --git a/tools/xl/Makefile b/tools/xl/Makefile
+index d742e96a5b..ad577cdd70 100644
+--- a/tools/xl/Makefile
++++ b/tools/xl/Makefile
+@@ -13,6 +13,7 @@ LDFLAGS += $(PTHREAD_LDFLAGS)
+ 
+ CFLAGS_XL += $(CFLAGS_libxenlight)
+ CFLAGS_XL += $(CFLAGS_libxenutil)
++CFLAGS_XL += $(CFLAGS_libxenstore)
+ CFLAGS_XL += -Wshadow
+ 
+ XL_OBJS-$(CONFIG_X86) = xl_psr.o
+@@ -32,7 +33,7 @@ $(XL_OBJS): CFLAGS += -include $(XEN_ROOT)/tools/config.h # libxl_json.h needs i
+ all: xl
+ 
+ xl: $(XL_OBJS)
+-	$(CC) $(LDFLAGS) -o $@ $(XL_OBJS) $(LDLIBS_libxenutil) $(LDLIBS_libxenlight) $(LDLIBS_libxentoollog) -lyajl $(APPEND_LDFLAGS)
++	$(CC) $(LDFLAGS) -o $@ $(XL_OBJS) $(LDLIBS_libxenutil) $(LDLIBS_libxenlight) $(LDLIBS_libxentoollog) $(LDLIBS_libxenstore) -lyajl $(APPEND_LDFLAGS)
+ 
+ .PHONY: install
+ install: all
+diff --git a/tools/xl/xl_info.c b/tools/xl/xl_info.c
+index 72e87eac46..eb019e3ee9 100644
+--- a/tools/xl/xl_info.c
++++ b/tools/xl/xl_info.c
+@@ -28,6 +28,7 @@
+ #include <libxl_utils.h>
+ #include <libxlutil.h>
+ #include <xen-tools/arm-arch-capabilities.h>
++#include <xenstore.h>
+ 
+ #include "xl.h"
+ #include "xl_utils.h"
+@@ -333,6 +334,25 @@ static void output_topologyinfo(void)
+     return;
+ }
+ 
++static void output_xenstore_info(void)
++{
++    struct xs_handle *xsh;
++    unsigned int features = 0;
++
++    xsh = xs_open(0);
++    if (!xsh) {
++        fprintf(stderr, "xs_open failed.\n");
++        return;
++    }
++
++    /* Ignore error, default to "0" for features. */
++    xs_get_features_supported(xsh, &features);
++
++    maybe_printf("xenstore_features      : 0x%08x\n", features);
++
++    xs_close(xsh);
++}
++
+ static void print_info(int numa)
+ {
+     output_nodeinfo();
+@@ -345,6 +365,8 @@ static void print_info(int numa)
+     }
+     output_xeninfo();
+ 
++    output_xenstore_info();
++
+     maybe_printf("xend_config_format     : 4\n");
+ 
+     return;
 -- 
 2.43.0
 
