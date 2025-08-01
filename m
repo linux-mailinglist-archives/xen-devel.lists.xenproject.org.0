@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 342F0B17B58
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Aug 2025 04:57:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1066724.1431849 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DD3EB17B66
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Aug 2025 05:28:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1066749.1431859 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhfxG-00053C-7g; Fri, 01 Aug 2025 02:57:10 +0000
+	id 1uhgRV-0000eG-Fk; Fri, 01 Aug 2025 03:28:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1066724.1431849; Fri, 01 Aug 2025 02:57:10 +0000
+Received: by outflank-mailman (output) from mailman id 1066749.1431859; Fri, 01 Aug 2025 03:28:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhfxG-00050i-4k; Fri, 01 Aug 2025 02:57:10 +0000
-Received: by outflank-mailman (input) for mailman id 1066724;
- Fri, 01 Aug 2025 02:57:09 +0000
+	id 1uhgRV-0000ce-C6; Fri, 01 Aug 2025 03:28:25 +0000
+Received: by outflank-mailman (input) for mailman id 1066749;
+ Fri, 01 Aug 2025 03:28:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GtvS=2N=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uhfxF-00050a-CP
- for xen-devel@lists.xenproject.org; Fri, 01 Aug 2025 02:57:09 +0000
-Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch
- [79.135.106.30]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 35ab08b6-6e83-11f0-a320-13f23c93f187;
- Fri, 01 Aug 2025 04:57:07 +0200 (CEST)
+ id 1uhgRS-0000cY-FK
+ for xen-devel@lists.xenproject.org; Fri, 01 Aug 2025 03:28:23 +0000
+Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch
+ [79.135.106.29]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 91f51ed7-6e87-11f0-a320-13f23c93f187;
+ Fri, 01 Aug 2025 05:28:21 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,242 +36,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35ab08b6-6e83-11f0-a320-13f23c93f187
+X-Inumbo-ID: 91f51ed7-6e87-11f0-a320-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1754017025; x=1754276225;
-	bh=CbLxfbhmKTEJANfkftWsM0RVXlGMNTWhuSK7vBajsd8=;
-	h=Date:To:From:Subject:Message-ID:In-Reply-To:References:
+	s=protonmail; t=1754018898; x=1754278098;
+	bh=xpQcuWE2Srq1OrS6YWkW2AaQ+rh9ZESSnvzioC/47bg=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=BFeaqeQOXBhjQXAuHGIsd4jPEdD6Y7ssvCgcQZmecEk9v6Dugcdm6XIDcNz83FYu8
-	 U0iX8MKLyBat4aPR3+JsJJSAt8lfA5OpRyb/rSAMC9O3M6uE1pT/gR0qrdYl3I5aE0
-	 dQxxfgBjAwTF0hI4BHssYAc+O8ek6cIhfNWw3596aOSEtkLEbIyv9RXEhjPUzOXkuO
-	 ZoyUlO9TzhmfhT/u5gEZjmWoYLqkDvFEwpDivrNJ/3sD/cOFpF6HvA3C8LVe0NB7EO
-	 5A7PP1beLvTCWUDZzu7M8To+glghjO8udlnMdlJxnNafW3fL5kWZdzexU9rBenElhh
-	 R+qIzgyQ1p5Kw==
-Date: Fri, 01 Aug 2025 02:57:01 +0000
-To: Grygorii Strashko <grygorii_strashko@epam.com>, xen-devel@lists.xenproject.org
+	b=aXFlDKW6XiLn5mn5n51o9ytQjN3y+Ngyfb5XE5BxOYIX9rwQg7KdN/dBJKVx5dVDz
+	 taU9RQ1pU6exuHLZW/Z+ibs2ChhtvkQcmm1IGa6qAd0aZvDZZvHHHGddezQaNWH1TJ
+	 /1hn+P768GCaEYoGgebiBJ/HXptutyy0JBuo3fr7hkJqXppDlem0pw876g8ILhWDW3
+	 THZQm4yUCrq7PujEVq3u4fSDZUEwrHuBlXm0lbc7Sn1jGOkppkjyEj7LzM9VP1Qfz2
+	 W8BgohT+WN4gdFzAlllPd+mbgP679cuRTCm7jAR3qoAY5ojkE2ZMef84SaP/c8SHVZ
+	 CsXZOrIY4Mgmg==
+Date: Fri, 01 Aug 2025 03:28:14 +0000
+To: Stefano Stabellini <sstabellini@kernel.org>
 From: dmkhn@proton.me
-Subject: Re: [PATCH v4 3/8] x86/domain: allocate d->{iomem,irq}_caps before arch-specific initialization
-Message-ID: <aIws+i2V3UIkzXR3@kraken>
-In-Reply-To: <aIvQQX6IqHfyHsyW@kraken>
-References: <20250731192130.3948419-1-dmukhin@ford.com> <20250731192130.3948419-4-dmukhin@ford.com> <6f209ee9-cf3c-473f-92d5-0c1f0fbc2e49@epam.com> <aIvQQX6IqHfyHsyW@kraken>
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, dmukhin@ford.com
+Subject: Re: [PATCH v4 5/8] emul/vuart-ns16550: introduce NS16550-compatible UART emulator (x86)
+Message-ID: <aIw0SmU8RIbClWCD@kraken>
+In-Reply-To: <alpine.DEB.2.22.394.2507311647480.468590@ubuntu-linux-20-04-desktop>
+References: <20250731192130.3948419-1-dmukhin@ford.com> <20250731192130.3948419-6-dmukhin@ford.com> <alpine.DEB.2.22.394.2507311647480.468590@ubuntu-linux-20-04-desktop>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 87fbc0b7c86ebca73383c85ec2487ed2facda496
+X-Pm-Message-ID: 3e8cdafa9f9802db10a97ac9263de613a8921cb0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 31, 2025 at 08:21:24PM +0000, dmkhn@proton.me wrote:
-> On Thu, Jul 31, 2025 at 10:52:08PM +0300, Grygorii Strashko wrote:
-> > Hi Denis,
-> >
-> > On 31.07.25 22:21, dmkhn@proton.me wrote:
-> > > From: Denis Mukhin <dmukhin@ford.com>
-> > >
-> > > Move IRQ/IOMEM rangesets allocation before arch_domain_create().
-> > >
-> > > That guarantees that arch-specific code could access those rangesets =
-to
-> > > register traps for emulation.
-> > >
-> > > It is necessary for those emulators registering trap handlers and ens=
-uring
-> > > that emulated IRQs are not shared with the physical IRQs.
-> > >
-> > > Move dom0_setup_permissions() call right after I/O rangesets are allo=
-cated.
-> > >
-> > > Move pvh_setup_mmcfg() inside dom0_setup_permissions() close to the p=
-lace
-> > > where MMCFG ranges are initialized.
-> > >
-> > > Not a functional change.
-> > >
-> > > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> > > ---
-> > > Chanhes since v3:
-> > > - new patch
-> > > ---
-> > >   xen/arch/x86/dom0_build.c     | 26 +++++++++++++++++++++++
-> > >   xen/arch/x86/hvm/dom0_build.c | 39 --------------------------------=
----
-> > >   xen/arch/x86/hvm/hvm.c        | 16 ++++++++++++++
-> > >   xen/common/domain.c           | 12 +++++------
-> > >   4 files changed, 48 insertions(+), 45 deletions(-)
-> > >
-> > > diff --git a/xen/arch/x86/dom0_build.c b/xen/arch/x86/dom0_build.c
-> > > index 0b467fd4a4fc..e965f506a3c8 100644
-> > > --- a/xen/arch/x86/dom0_build.c
-> > > +++ b/xen/arch/x86/dom0_build.c
-> > > @@ -471,6 +471,24 @@ static void __init process_dom0_ioports_disable(=
-struct domain *dom0)
-> > >       }
-> > >   }
-> > >
-> > > +static void __hwdom_init setup_mmcfg(struct domain *d)
-> > > +{
-> > > +    unsigned int i;
-> > > +    int rc;
-> > > +
-> > > +    for ( i =3D 0; i < pci_mmcfg_config_num; i++ )
-> > > +    {
-> > > +        rc =3D register_vpci_mmcfg_handler(d, pci_mmcfg_config[i].ad=
-dress,
-> > > +                                         pci_mmcfg_config[i].start_b=
-us_number,
-> > > +                                         pci_mmcfg_config[i].end_bus=
-_number,
-> > > +                                         pci_mmcfg_config[i].pci_seg=
-ment);
-> > > +        if ( rc )
-> > > +            printk("Unable to setup MMCFG handler at %#lx for segmen=
-t %u\n",
-> > > +                   pci_mmcfg_config[i].address,
-> > > +                   pci_mmcfg_config[i].pci_segment);
-> > > +    }
-> > > +}
-> > > +
-> > >   int __init dom0_setup_permissions(struct domain *d)
-> >
-> > It could be i'm missing smth, but ^ function is __init while ...
-> >
-> > >   {
-> > >       unsigned long mfn;
-> > > @@ -480,6 +498,14 @@ int __init dom0_setup_permissions(struct domain =
-*d)
-> > >       if ( pv_shim )
-> > >           return 0;
-> > >
-> > > +    /*
-> > > +     * MMCFG initialization must be performed before setting domain
-> > > +     * permissions, as the MCFG areas must not be part of the domain=
- IOMEM
-> > > +     * accessible regions.
-> > > +     */
-> > > +    if ( is_hvm_domain(d) )
-> > > +        setup_mmcfg(d);
-> > > +
-> > >       /* The hardware domain is initially permitted full I/O capabili=
-ties. */
-> > >       rc =3D ioports_permit_access(d, 0, 0xFFFF);
-> > >       rc |=3D iomem_permit_access(d, 0UL,
-> > > diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_bu=
-ild.c
-> > > index 5551f9044836..6f47c9eeeaa6 100644
-> > > --- a/xen/arch/x86/hvm/dom0_build.c
-> > > +++ b/xen/arch/x86/hvm/dom0_build.c
-> > > @@ -1310,24 +1310,6 @@ static int __init pvh_setup_acpi(struct domain=
- *d, paddr_t start_info)
-> > >       return 0;
-> > >   }
-> > >
-> > > -static void __hwdom_init pvh_setup_mmcfg(struct domain *d)
-> > > -{
-> > > -    unsigned int i;
-> > > -    int rc;
-> > > -
-> > > -    for ( i =3D 0; i < pci_mmcfg_config_num; i++ )
-> > > -    {
-> > > -        rc =3D register_vpci_mmcfg_handler(d, pci_mmcfg_config[i].ad=
-dress,
-> > > -                                         pci_mmcfg_config[i].start_b=
-us_number,
-> > > -                                         pci_mmcfg_config[i].end_bus=
-_number,
-> > > -                                         pci_mmcfg_config[i].pci_seg=
-ment);
-> > > -        if ( rc )
-> > > -            printk("Unable to setup MMCFG handler at %#lx for segmen=
-t %u\n",
-> > > -                   pci_mmcfg_config[i].address,
-> > > -                   pci_mmcfg_config[i].pci_segment);
-> > > -    }
-> > > -}
-> > > -
-> > >   int __init dom0_construct_pvh(const struct boot_domain *bd)
-> > >   {
-> > >       paddr_t entry, start_info;
-> > > @@ -1339,27 +1321,6 @@ int __init dom0_construct_pvh(const struct boo=
-t_domain *bd)
-> > >       if ( bd->kernel =3D=3D NULL )
-> > >           panic("Missing kernel boot module for %pd construction\n", =
-d);
-> > >
-> > > -    if ( is_hardware_domain(d) )
-> > > -    {
-> > > -        /*
-> > > -         * MMCFG initialization must be performed before setting dom=
-ain
-> > > -         * permissions, as the MCFG areas must not be part of the do=
-main IOMEM
-> > > -         * accessible regions.
-> > > -         */
-> > > -        pvh_setup_mmcfg(d);
-> > > -
-> > > -        /*
-> > > -         * Setup permissions early so that calls to add MMIO regions=
- to the
-> > > -         * p2m as part of vPCI setup don't fail due to permission ch=
-ecks.
-> > > -         */
-> > > -        rc =3D dom0_setup_permissions(d);
-> > > -        if ( rc )
-> > > -        {
-> > > -            printk("%pd unable to setup permissions: %d\n", d, rc);
-> > > -            return rc;
-> > > -        }
-> > > -    }
-> > > -
-> > >       /*
-> > >        * Craft dom0 physical memory map and set the paging allocation=
-. This must
-> > >        * be done before the iommu initializion, since iommu initializ=
-ation code
-> > > diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-> > > index cb8ecd050d41..b7edb1d6555d 100644
-> > > --- a/xen/arch/x86/hvm/hvm.c
-> > > +++ b/xen/arch/x86/hvm/hvm.c
-> > > @@ -35,6 +35,7 @@
-> > >   #include <asm/hap.h>
-> > >   #include <asm/current.h>
-> > >   #include <asm/debugreg.h>
-> > > +#include <asm/dom0_build.h>
-> > >   #include <asm/e820.h>
-> > >   #include <asm/regs.h>
-> > >   #include <asm/cpufeature.h>
-> > > @@ -651,6 +652,17 @@ int hvm_domain_initialise(struct domain *d,
-> > >               goto fail1;
-> > >           }
-> > >           memset(d->arch.hvm.io_bitmap, ~0, HVM_IOBITMAP_SIZE);
-> > > +
-> > > +        /*
-> > > +         * Setup permissions early so that calls to add MMIO regions=
- to the
-> > > +         * p2m as part of vPCI setup don't fail due to permission ch=
-ecks.
-> > > +         */
-> > > +        rc =3D dom0_setup_permissions(d);
-> >
-> > ... here hvm_domain_initialise() is not __init?
->=20
-> No, you're right, I missed this, thanks!
->=20
-> Good catch!
+On Thu, Jul 31, 2025 at 04:57:00PM -0700, Stefano Stabellini wrote:
+> On Thu, 31 Jul 2025, dmkhn@proton.me wrote:
 
-So addressing it will require some code movement, like
-dom0_setup_permissions() outside of arch/x86/dom0_build.c...
+[..]
 
+> > +/*
+> > + * Emulate 8-bit write access to NS16550 register.
+> > + */
+> > +static int ns16550_io_write8(
+> > +    struct vuart_ns16550 *vdev, uint32_t reg, uint8_t *data)
+> > +{
+> > +    uint8_t *regs =3D vdev->regs;
+> > +    uint8_t val =3D *data;
+> > +    int rc =3D 0;
+> > +
+> > +    if ( ns16550_dlab_get(vdev) && (reg =3D=3D UART_DLL || reg =3D=3D =
+UART_DLM) )
+> > +        regs[NS16550_REGS_NUM + reg] =3D val;
+> > +    else
+> > +    {
+> > +        switch ( reg )
+> > +        {
+> > +        case UART_THR:
+> > +            if ( regs[UART_MCR] & UART_MCR_LOOP )
+> > +            {
+> > +                (void)ns16550_fifo_rx_putchar(vdev, val);
+> > +                regs[UART_LSR] |=3D UART_LSR_OE;
 >=20
-> >
-> > [...]
-> >
-> >
-> > --
-> > Best regards,
-> > -grygorii
-> >
+> Why is UART_LSR_OE set unconditionally here instead of checking if
+> ns16550_fifo_rx_putchar returned -ENOSPC?
+
+Thanks!
+Yes, overrun condition should be emulated once FIFO is full.
+
+[..]
+
+> > +
+> > +            /* Calculate changes in modem status */
+> > +            if ( (msr_curr & UART_MSR_CTS) ^ (msr_next & UART_MSR_CTS)=
+ )
+> > +                msr_delta |=3D UART_MSR_DCTS;
+> > +            if ( (msr_curr & UART_MCR_RTS) ^ (msr_next & UART_MCR_RTS)=
+ )
+> > +                msr_delta |=3D UART_MSR_DDSR;
 >=20
->=20
+> Should we check UART_MSR_DSR instead of UART_MCR_RTS to set
+> UART_MSR_DDSR ?
+
+Good catch!
+Thanks.
+
+[..]
 
 
