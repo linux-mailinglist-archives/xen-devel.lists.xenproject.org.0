@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 517C8B17CA5
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Aug 2025 07:55:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1066814.1431879 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B721B17CB0
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Aug 2025 07:59:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1066821.1431889 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhijk-0001x6-Gi; Fri, 01 Aug 2025 05:55:24 +0000
+	id 1uhinm-0002WR-0r; Fri, 01 Aug 2025 05:59:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1066814.1431879; Fri, 01 Aug 2025 05:55:24 +0000
+Received: by outflank-mailman (output) from mailman id 1066821.1431889; Fri, 01 Aug 2025 05:59:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhijk-0001vB-E0; Fri, 01 Aug 2025 05:55:24 +0000
-Received: by outflank-mailman (input) for mailman id 1066814;
- Fri, 01 Aug 2025 05:55:22 +0000
+	id 1uhinl-0002Tf-TR; Fri, 01 Aug 2025 05:59:33 +0000
+Received: by outflank-mailman (input) for mailman id 1066821;
+ Fri, 01 Aug 2025 05:59:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zIvO=2N=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uhiji-0001v5-PD
- for xen-devel@lists.xenproject.org; Fri, 01 Aug 2025 05:55:22 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1uhink-0002TZ-Bf
+ for xen-devel@lists.xenproject.org; Fri, 01 Aug 2025 05:59:32 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1bf86781-6e9c-11f0-a320-13f23c93f187;
- Fri, 01 Aug 2025 07:55:21 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3b78a034f17so370718f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 22:55:21 -0700 (PDT)
+ id b10239d0-6e9c-11f0-a320-13f23c93f187;
+ Fri, 01 Aug 2025 07:59:31 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3b77673fd78so714205f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Jul 2025 22:59:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-241e899b5e5sm33201385ad.124.2025.07.31.22.55.14
+ d2e1a72fcca58-76bcce6f6bfsm3186912b3a.23.2025.07.31.22.59.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 31 Jul 2025 22:55:20 -0700 (PDT)
+ Thu, 31 Jul 2025 22:59:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1bf86781-6e9c-11f0-a320-13f23c93f187
+X-Inumbo-ID: b10239d0-6e9c-11f0-a320-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754027721; x=1754632521; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754027971; x=1754632771; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=OeMBKb7OWna1CoAfKsX4bSslW07EGIW7m/Wk47pqeNI=;
-        b=QUacE5GF+ixr9FqDOJFOaF9ZSW8OCo67zUhmTCSInAhrnHt1GbJL300/H6AjPwubUr
-         ziLaRvkVKlGa8OXml79hgmcOWyZRGGId5J0exG6MwTVkWlKTCgRUhLsornyqLjf0CDxp
-         C1UWnBM4k/omDGRo++BLD+geTWoK/AC1ZfeMIxxjqPekcIf6S+HhIhU7ink1plx+2qUl
-         199D3nznW/l+eWKhjPCoSmJ/EnuuT32gcx+t2kWP+m4BQzd3iVgbOxnXrGBSgbgp2hEl
-         JwGxjm4XwcGrO6r1nVAdWDyGYe+0qnbBvAp14zjVZPsLsFUHco8Q+LVYscSWqIHpBNXu
-         QAzw==
+        bh=4/0v1tmnV7HIQqvmy3mH/pRHBTmHyoMQNOpz1PhJQc0=;
+        b=Iu89HoXcpN5d3V92s5g3KgLvkfK6qk7H6wZVNFQntQkZNtV0EEThAb/+vyMD2CpDIR
+         ViWmWyaqxO+7jL5DdoP3Hvkm0llH7Kgr8CeC6lugs+aXfa9RXmiT1UQeB1emZodAsbRn
+         HmifKtcmwef7BjDnADijKKLVQO92mh73/DxdENxjj6qEPOTVW5PmRNhB/KM87s8jyO3i
+         VZ3oFhDCRODxE2eWeOqCid9gFGpLzxdu89RBb99d1E9sbhrhM7WxD/4howGIJ1FrsmWQ
+         tbMphCItaSAtopJJzJ+iRYVuZ4tbGWBPympBoAw/U4cwARodUGY3D+rlmBKLYIf+mUsM
+         TJSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754027721; x=1754632521;
+        d=1e100.net; s=20230601; t=1754027971; x=1754632771;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OeMBKb7OWna1CoAfKsX4bSslW07EGIW7m/Wk47pqeNI=;
-        b=hrOdxOnIuC8qoFagfYLsbBogmEekxoTdaPmZ6hfrfvrhX2jtmxBTFGg8URhHGHPLPs
-         4g0Aek7G5rAMxCVtfrCcIEVXw/buedgRaRpZqIuD+PXR9FnPKBD7Zdxw9Wya+Xy2YsNv
-         26fe+ebatVoCqx8L+gf7mehj8FsBRaX1DpuVib62ukhNqcHq4KJDWdk/itKxwtfis7pI
-         NsAEBqFO5KOGonF8j7rrYaWzt9AN+rJQbhxtfEN/qfsliLQADmDrnHonq/EZDzTW5T7G
-         Dc0oMPZjYcIRbp2AeVVz6Wths2AtW0BGmWvMtqw2+7/gKHmXUFY/8PsX5EU3fRI5MeeF
-         cuxw==
-X-Forwarded-Encrypted: i=1; AJvYcCWsADkNBXhV9IsqNOhW859EWir8frv/G3h/YKuiypOkYu5eUfkOuMkmREIqVVSW1WczsxrRt79Q6Tk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzeAiGfdzTk0BW39qFPfv8VbPYdXEeiNoK3+HS59uhHP8kPleII
-	TpoB7RJucuxKbG/RdVQ/OBO/a4X1R0pACOGHNUaCZw9CB1vaX3OTaOlfj0fafPW+ug==
-X-Gm-Gg: ASbGnctFqrS55+4S6ypRa7Vvr7lm2YQmh/BkqVUZMLZaGnvAGxBVTTOA172kJrpIkUH
-	v68gD2Wv9OQb5CRAHKOkRDUV4KHF8z903MfGLxzn1oEjqy8jzQDmri7yoIqiWKcYhr6kNWp74gv
-	NL+nf3BTrAXReRUuzzbTnWyG+Qx6r9/9Mgh8Nnsqux4NDsAFTKKGfXVT12L6BxmT3RmZJHt7WWe
-	7hLrvvLN/1e6zorTGC5CDydRuMzD7JOx5M3XwYIbqJCPGEXUL+AU8BANvp7p4md8JfbwQsQY/19
-	eMpBaweGEcgArpUYBqxcQ1GVTa+iL+Pw2Qs85GnOxiDchQsd+Vp8EaCd7Jo2ZakK1aMiYYR1BqH
-	5q8Wu5yXanhjIW7Yzjl8ce9N3KvlvdkTAAU7ZrnJ+wqcE6CGg3ckv+01lq1U+JS07CY9xh8hOct
-	qUxjVKiH4=
-X-Google-Smtp-Source: AGHT+IGU3nhlkHP+8ZTq24z4kTPWBEx1Yyjn/MSMbP16VvM8sDhfqB9/k2NXx3pxgUuuQsZ7enp29A==
-X-Received: by 2002:adf:fa11:0:b0:3b7:925b:571c with SMTP id ffacd0b85a97d-3b795025c18mr5787090f8f.57.1754027720712;
-        Thu, 31 Jul 2025 22:55:20 -0700 (PDT)
-Message-ID: <4f12dbce-29a2-4fba-9a44-669109fed450@suse.com>
-Date: Fri, 1 Aug 2025 07:55:10 +0200
+        bh=4/0v1tmnV7HIQqvmy3mH/pRHBTmHyoMQNOpz1PhJQc0=;
+        b=E5oJCN9v57Qa74o9nFnkGX4ieS3qBuYw31Ika6nxlKGu3vpqOF1WW1So59g/hXDIvd
+         ymo5WzRR0+JD8zuqU3vJzSM1t+r5JUhfEUn/4dlY5EMgbxX1O0Nm7RpFDbQ+ntpd3If3
+         E4oo8K7bbCYbE0iADfqFgaE/Txb953bLVAQU+tZbplv8egS15rMG0hLRmTuC5K5w7Cgu
+         YE9CTjxj+UxqgWePOiHda5sf5nYjuN4mCnmOdlwyi9DJZYGa0YI3xJW5loDXaUWFNIbW
+         Kvuouwx2OD8WmM0lacHrKI73gnVuNfVpCiRMHL86uwjfwyKgg0pUWF7GKyR6X+/ydaua
+         Iirw==
+X-Forwarded-Encrypted: i=1; AJvYcCXIcJ5Yhwhm11vEK5DuHGhh3dAwF3SXuQH8e8EfcumFrP9N9WJpuTqKtinkqqfDpIhozrxYOYd78Vc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwTwpaUBUwJrMcu8qGcZPjqylTslAzArAq5239EbyUeBgM7UMzB
+	xQOdaW4qAObN9Ao1p+QzGVhCwnHPsz+3C7drd8HI/JIymKsLsNOwnqL7dsD2Evby131/YZz+naQ
+	dXV4=
+X-Gm-Gg: ASbGncu9jUIR4t9U/3gb/uaK7w2+Z+RZRJ95hMIkYLIROFTCGRl6FyyJcMyiythA/iy
+	iUk1+TDKJGs9AkPKHqkONZTlTT+poSuurWcj5nzMcdUAo47IN54GihYioyNeBBos0CqUoGcO7D1
+	fwsx1k3ocQM2OJ+P/hLRTbfISUaSPwnaySPLNi0DQQdvwXSTNwtMNug2B8imlPFjsOhr9Ig2Qtq
+	pfSEFHtU77Y+KTLpmHS5OHQB2i+kj7ovtO7cowUWJDS+h1/dG9eicVcS5Hy3n8kUIpGzitGKp/A
+	GXggX/OJhYcIS7rEiPqnGltdni2uBN/l+0VOk5MXNKj9RZCza5I4o2h88OjdcXRV+rgU2N8wtt8
+	EMMRbW0QTznvhxTT8HEMRFoJZdTFruX/kZI3iklNl5FmgGBGZkvMsncwrvMOJD9i2/cmPmhh/Wj
+	GZI3potEcJznEBS7rSsg==
+X-Google-Smtp-Source: AGHT+IFKCcj9Q+pZOm/XMW38YxdKv1fOdfAjaayhVPr264gvAP3yK+VcFAXwAfzPGc03TyyddDEwtw==
+X-Received: by 2002:a05:6000:1886:b0:3b7:9d83:50ef with SMTP id ffacd0b85a97d-3b8d34b2a39mr1067171f8f.55.1754027970762;
+        Thu, 31 Jul 2025 22:59:30 -0700 (PDT)
+Message-ID: <69c7e79b-944a-432c-b86a-6cc73d94fc08@suse.com>
+Date: Fri, 1 Aug 2025 07:59:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] misra: allow discarding 'noreturn' during function
- pointer conversions
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [RFC PATCH v3 1/3] vmx: Rewrite vpid_sync_vcpu_gva
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <63d5d311e6502d5b957009be59e1c97599015b46.1753911912.git.dmytro_prokopchuk1@epam.com>
- <46e8dd16-11e4-4d96-95cb-f13b652e7317@suse.com>
- <0999ccba-37cf-4222-8b6e-82aa95371b75@epam.com>
+ xen-devel@lists.xenproject.org
+References: <cover.1750770621.git.teddy.astie@vates.tech>
+ <f92b18bd9ec6b5b83a4b8a66dea2440b65060c27.1750770621.git.teddy.astie@vates.tech>
+ <edb8bd9d-e5ca-42ad-a551-b7162d5e0f80@suse.com>
+ <b708c59f-353a-418a-a859-c8b0aef428eb@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,72 +123,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0999ccba-37cf-4222-8b6e-82aa95371b75@epam.com>
+In-Reply-To: <b708c59f-353a-418a-a859-c8b0aef428eb@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 31.07.2025 18:48, Dmytro Prokopchuk1 wrote:
-> 
-> 
-> On 7/31/25 10:20, Jan Beulich wrote:
->> On 30.07.2025 23:47, Dmytro Prokopchuk1 wrote:
->>> --- a/docs/misra/deviations.rst
->>> +++ b/docs/misra/deviations.rst
->>> @@ -342,6 +342,12 @@ Deviations related to MISRA C:2012 Rules:
->>>          semantics that do not lead to unexpected behaviour.
->>>        - Tagged as `safe` for ECLAIR.
+On 31.07.2025 18:18, Teddy Astie wrote:
+> Le 31/07/2025 à 17:54, Jan Beulich a écrit :
+>> On 26.06.2025 16:01, Teddy Astie wrote:
+>>> Rewrite this function such as it doesn't rely on goto, also change the
+>>> type of "type" to match the __invvpid function call.
+>>
+>> While this type change is probably okay (and benign to code generation), ...
+>>
+>>> --- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+>>> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+>>> @@ -287,10 +287,10 @@ extern uint8_t posted_intr_vector;
+>>>   #define cpu_has_vmx_vpid_invvpid_single_context_retaining_global    \
+>>>       (vmx_caps.vpid & VMX_VPID_INVVPID_SINGLE_CONTEXT_RETAINING_GLOBAL)
 >>>   
->>> +   * - R11.1
->>> +     - The conversion from 'void noreturn (*)(void *)' to 'void (*)(void *)'
->>> +       is safe because the semantics of the 'noreturn' attribute do not alter
->>> +       the calling convention or behavior of the resulting code.
->>> +     - Tagged as `safe` for ECLAIR.
+>>> -#define INVVPID_INDIVIDUAL_ADDR                 0
+>>> -#define INVVPID_SINGLE_CONTEXT                  1
+>>> -#define INVVPID_ALL_CONTEXT                     2
+>>> -#define INVVPID_SINGLE_CONTEXT_RETAINING_GLOBAL 3
+>>> +#define INVVPID_INDIVIDUAL_ADDR                 0UL
+>>> +#define INVVPID_SINGLE_CONTEXT                  1UL
+>>> +#define INVVPID_ALL_CONTEXT                     2UL
+>>> +#define INVVPID_SINGLE_CONTEXT_RETAINING_GLOBAL 3UL
 >>
->> As before, imo such a deviation should be generic, i.e. here independent
->> of what parameters a function takes. If that can't be easily expressed
->> to Eclair, then that wants stating as a justification for the
->> deviations.ecl change to not fully cover the deviation we put in place.
->> Having the textual deviation generic means later possible needs can be
->> easily addressed by just a deviations.ecl change, without any adjustment
->> to the deviations themselves.
->>
->> Jan
+>> ... I don't follow the need for these extra adjustments. Preferably with
+>> them dropped
 > 
-> Hi, Jan
-> 
-> Currently Eclair checks exact pointer type 'void (*)(void *)', as 
-> described in the configuration:
-> 
-> to(type(pointer(inner(return(builtin(void))&&all_param(1, 
-> pointer(builtin(void)))))))
-> 
-> Nicola wrote: "then if it needs to be extended when more cases emerge I 
-> can do that".
-> 
-> So, for clarification.
-> 
-> 1. In the file "deviations.ecl" I leave exist description and config:
-> "The conversion from 'void noreturn (*)(void *)' to 'void (*)(void *)' 
-> is safe because the semantics of the 'noreturn' attribute do not alter 
-> the calling convention or behavior of the resulting code."
-> 
-> 2. In the file "deviations.rst" I change the description to:
-> "The conversion from `void noreturn (*)(...)` to `void (*)(...)`
-> is safe because the semantics of the 'noreturn' attribute do not alter
-> the calling convention or behavior of the resulting code, parameter 
-> handling remain consistent."
-> 
-> 3. In the file "rules.rst" I change the description to:
-> "Conversions from 'void noreturn (*)(...)' to 'void (*)(...)' are 
-> permitted."
-> 
-> It means that only "deviations.ecl" needs to be updated if a new 
-> deviation needs to be addressed.
-> 
-> 
-> Is it OK?
+> With the type change from int to unsigned long to match __invvpid() 
+> parameter, IIUC MISRA rule 7.2 requires that integer literals that are 
+> used for unsigned must have the proper suffix.
 
-Yes, with the patch description also suitably adjusted.
+No, it doesn't. Please re-read carefully what docs/misra/rules.rst says
+in this regard.
 
 Jan
 
