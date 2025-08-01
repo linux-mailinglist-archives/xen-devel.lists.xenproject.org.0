@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B23CDB17B57
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Aug 2025 04:56:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1066714.1431838 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 342F0B17B58
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Aug 2025 04:57:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1066724.1431849 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhfvT-0004Uj-PU; Fri, 01 Aug 2025 02:55:19 +0000
+	id 1uhfxG-00053C-7g; Fri, 01 Aug 2025 02:57:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1066714.1431838; Fri, 01 Aug 2025 02:55:19 +0000
+Received: by outflank-mailman (output) from mailman id 1066724.1431849; Fri, 01 Aug 2025 02:57:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhfvT-0004SR-MV; Fri, 01 Aug 2025 02:55:19 +0000
-Received: by outflank-mailman (input) for mailman id 1066714;
- Fri, 01 Aug 2025 02:55:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uhfxG-00050i-4k; Fri, 01 Aug 2025 02:57:10 +0000
+Received: by outflank-mailman (input) for mailman id 1066724;
+ Fri, 01 Aug 2025 02:57:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GtvS=2N=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uhfvR-0004SL-MF
- for xen-devel@lists.xenproject.org; Fri, 01 Aug 2025 02:55:18 +0000
+ id 1uhfxF-00050a-CP
+ for xen-devel@lists.xenproject.org; Fri, 01 Aug 2025 02:57:09 +0000
 Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch
- [79.135.106.30]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eb451092-6e82-11f0-b895-0df219b8e170;
- Fri, 01 Aug 2025 04:55:02 +0200 (CEST)
+ [79.135.106.30]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 35ab08b6-6e83-11f0-a320-13f23c93f187;
+ Fri, 01 Aug 2025 04:57:07 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,529 +36,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb451092-6e82-11f0-b895-0df219b8e170
+X-Inumbo-ID: 35ab08b6-6e83-11f0-a320-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1754016900; x=1754276100;
-	bh=Napq1dcokFlHl192BT4BGuzTFYfN6exzUs9vCudnwY8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	s=protonmail; t=1754017025; x=1754276225;
+	bh=CbLxfbhmKTEJANfkftWsM0RVXlGMNTWhuSK7vBajsd8=;
+	h=Date:To:From:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=LFEq/YdJiiofRgjY5jso45nxvBYe8QVLqUjMMhJ3uXBieJcs7OjXeDheEHNY3dD95
-	 +h0OlBjgjJFH1SUauv0lY/l7bBoE7L8Eqe15MB9fvyuK7S+ipHYPrOOTIaA+QzV0DI
-	 fvIZbORYUmvcKI0IkeExHk4ICQRoL0k4eEhiOpDPDBRsM1nszBLNp0+CDQc4/cPBxf
-	 3vf+MnhxN/KFTJlJ3plkvxYrvyShR+ZBn77kTlwUJbzUKS5IKQBsjVu9lD2HCM6lAW
-	 2IUS3MsjWT7r2KijgjhQnLrCBwRh1rfVX44KDaNSW81pSTf+WX2bMwK1uzHlUvbDxe
-	 tgrCs6RVRCIFw==
-Date: Fri, 01 Aug 2025 02:54:55 +0000
-To: Stefano Stabellini <sstabellini@kernel.org>
+	b=BFeaqeQOXBhjQXAuHGIsd4jPEdD6Y7ssvCgcQZmecEk9v6Dugcdm6XIDcNz83FYu8
+	 U0iX8MKLyBat4aPR3+JsJJSAt8lfA5OpRyb/rSAMC9O3M6uE1pT/gR0qrdYl3I5aE0
+	 dQxxfgBjAwTF0hI4BHssYAc+O8ek6cIhfNWw3596aOSEtkLEbIyv9RXEhjPUzOXkuO
+	 ZoyUlO9TzhmfhT/u5gEZjmWoYLqkDvFEwpDivrNJ/3sD/cOFpF6HvA3C8LVe0NB7EO
+	 5A7PP1beLvTCWUDZzu7M8To+glghjO8udlnMdlJxnNafW3fL5kWZdzexU9rBenElhh
+	 R+qIzgyQ1p5Kw==
+Date: Fri, 01 Aug 2025 02:57:01 +0000
+To: Grygorii Strashko <grygorii_strashko@epam.com>, xen-devel@lists.xenproject.org
 From: dmkhn@proton.me
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, dmukhin@ford.com
-Subject: Re: [PATCH v4 2/8] emul/vuart: introduce framework for UART emulators
-Message-ID: <aIwseX+rI00yXa+9@kraken>
-In-Reply-To: <alpine.DEB.2.22.394.2507311659220.468590@ubuntu-linux-20-04-desktop>
-References: <20250731192130.3948419-1-dmukhin@ford.com> <20250731192130.3948419-3-dmukhin@ford.com> <alpine.DEB.2.22.394.2507311659220.468590@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v4 3/8] x86/domain: allocate d->{iomem,irq}_caps before arch-specific initialization
+Message-ID: <aIws+i2V3UIkzXR3@kraken>
+In-Reply-To: <aIvQQX6IqHfyHsyW@kraken>
+References: <20250731192130.3948419-1-dmukhin@ford.com> <20250731192130.3948419-4-dmukhin@ford.com> <6f209ee9-cf3c-473f-92d5-0c1f0fbc2e49@epam.com> <aIvQQX6IqHfyHsyW@kraken>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 34bc334a8b66cd8bd857de2903400591bf71ecef
+X-Pm-Message-ID: 87fbc0b7c86ebca73383c85ec2487ed2facda496
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jul 31, 2025 at 05:08:12PM -0700, Stefano Stabellini wrote:
-> On Thu, 31 Jul 2025, dmkhn@proton.me wrote:
-> > From: Denis Mukhin <dmukhin@ford.com>
+On Thu, Jul 31, 2025 at 08:21:24PM +0000, dmkhn@proton.me wrote:
+> On Thu, Jul 31, 2025 at 10:52:08PM +0300, Grygorii Strashko wrote:
+> > Hi Denis,
 > >
-> > Introduce a driver framework to abstract UART emulators in the hypervis=
-or.
-> >
-> > That allows for architecture-independent handling of virtual UARTs in t=
-he
-> > console driver and simplifies enabling new UART emulators.
-> >
-> > The framework is built under CONFIG_HAS_VUART, which will be automatica=
-lly
-> > enabled once the user enables any UART emulator.
-> >
-> > Current implementation supports maximum of one vUART of each kind per d=
-omain.
-> >
-> > Use new domain_has_vuart() in the console driver code to check whether =
+> > On 31.07.25 22:21, dmkhn@proton.me wrote:
+> > > From: Denis Mukhin <dmukhin@ford.com>
+> > >
+> > > Move IRQ/IOMEM rangesets allocation before arch_domain_create().
+> > >
+> > > That guarantees that arch-specific code could access those rangesets =
 to
-> > forward console input to the domain using vUART.
+> > > register traps for emulation.
+> > >
+> > > It is necessary for those emulators registering trap handlers and ens=
+uring
+> > > that emulated IRQs are not shared with the physical IRQs.
+> > >
+> > > Move dom0_setup_permissions() call right after I/O rangesets are allo=
+cated.
+> > >
+> > > Move pvh_setup_mmcfg() inside dom0_setup_permissions() close to the p=
+lace
+> > > where MMCFG ranges are initialized.
+> > >
+> > > Not a functional change.
+> > >
+> > > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> > > ---
+> > > Chanhes since v3:
+> > > - new patch
+> > > ---
+> > >   xen/arch/x86/dom0_build.c     | 26 +++++++++++++++++++++++
+> > >   xen/arch/x86/hvm/dom0_build.c | 39 --------------------------------=
+---
+> > >   xen/arch/x86/hvm/hvm.c        | 16 ++++++++++++++
+> > >   xen/common/domain.c           | 12 +++++------
+> > >   4 files changed, 48 insertions(+), 45 deletions(-)
+> > >
+> > > diff --git a/xen/arch/x86/dom0_build.c b/xen/arch/x86/dom0_build.c
+> > > index 0b467fd4a4fc..e965f506a3c8 100644
+> > > --- a/xen/arch/x86/dom0_build.c
+> > > +++ b/xen/arch/x86/dom0_build.c
+> > > @@ -471,6 +471,24 @@ static void __init process_dom0_ioports_disable(=
+struct domain *dom0)
+> > >       }
+> > >   }
+> > >
+> > > +static void __hwdom_init setup_mmcfg(struct domain *d)
+> > > +{
+> > > +    unsigned int i;
+> > > +    int rc;
+> > > +
+> > > +    for ( i =3D 0; i < pci_mmcfg_config_num; i++ )
+> > > +    {
+> > > +        rc =3D register_vpci_mmcfg_handler(d, pci_mmcfg_config[i].ad=
+dress,
+> > > +                                         pci_mmcfg_config[i].start_b=
+us_number,
+> > > +                                         pci_mmcfg_config[i].end_bus=
+_number,
+> > > +                                         pci_mmcfg_config[i].pci_seg=
+ment);
+> > > +        if ( rc )
+> > > +            printk("Unable to setup MMCFG handler at %#lx for segmen=
+t %u\n",
+> > > +                   pci_mmcfg_config[i].address,
+> > > +                   pci_mmcfg_config[i].pci_segment);
+> > > +    }
+> > > +}
+> > > +
+> > >   int __init dom0_setup_permissions(struct domain *d)
 > >
-> > Note: existing vUARTs are deliberately *not* hooked to the new framewor=
-k to
-> > minimize the scope of the patch: vpl011 (i.e. SBSA) emulator and "vuart=
-" (i.e.
-> > minimalistic MMIO-mapped dtuart for hwdoms on Arm) are kept unmodified.
+> > It could be i'm missing smth, but ^ function is __init while ...
 > >
-> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> > ---
-> > Changes since v3:
-> > - new patch
-> > - original patch from ML: https://lore.kernel.org/xen-devel/20250624035=
-443.344099-16-dmukhin@ford.com/
-> > ---
-> >  xen/arch/arm/xen.lds.S         |   1 +
-> >  xen/arch/ppc/xen.lds.S         |   1 +
-> >  xen/arch/riscv/xen.lds.S       |   1 +
-> >  xen/arch/x86/xen.lds.S         |   1 +
-> >  xen/common/Kconfig             |   2 +
-> >  xen/common/Makefile            |   1 +
-> >  xen/common/emul/Kconfig        |   6 ++
-> >  xen/common/emul/Makefile       |   1 +
-> >  xen/common/emul/vuart/Kconfig  |   6 ++
-> >  xen/common/emul/vuart/Makefile |   1 +
-> >  xen/common/emul/vuart/vuart.c  | 112 +++++++++++++++++++++++++++++++++
-> >  xen/common/keyhandler.c        |   3 +
-> >  xen/drivers/char/console.c     |   4 ++
-> >  xen/include/xen/vuart.h        |  84 +++++++++++++++++++++++++
-> >  xen/include/xen/xen.lds.h      |  10 +++
-> >  15 files changed, 234 insertions(+)
-> >  create mode 100644 xen/common/emul/Kconfig
-> >  create mode 100644 xen/common/emul/Makefile
-> >  create mode 100644 xen/common/emul/vuart/Kconfig
-> >  create mode 100644 xen/common/emul/vuart/Makefile
-> >  create mode 100644 xen/common/emul/vuart/vuart.c
-> >  create mode 100644 xen/include/xen/vuart.h
+> > >   {
+> > >       unsigned long mfn;
+> > > @@ -480,6 +498,14 @@ int __init dom0_setup_permissions(struct domain =
+*d)
+> > >       if ( pv_shim )
+> > >           return 0;
+> > >
+> > > +    /*
+> > > +     * MMCFG initialization must be performed before setting domain
+> > > +     * permissions, as the MCFG areas must not be part of the domain=
+ IOMEM
+> > > +     * accessible regions.
+> > > +     */
+> > > +    if ( is_hvm_domain(d) )
+> > > +        setup_mmcfg(d);
+> > > +
+> > >       /* The hardware domain is initially permitted full I/O capabili=
+ties. */
+> > >       rc =3D ioports_permit_access(d, 0, 0xFFFF);
+> > >       rc |=3D iomem_permit_access(d, 0UL,
+> > > diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_bu=
+ild.c
+> > > index 5551f9044836..6f47c9eeeaa6 100644
+> > > --- a/xen/arch/x86/hvm/dom0_build.c
+> > > +++ b/xen/arch/x86/hvm/dom0_build.c
+> > > @@ -1310,24 +1310,6 @@ static int __init pvh_setup_acpi(struct domain=
+ *d, paddr_t start_info)
+> > >       return 0;
+> > >   }
+> > >
+> > > -static void __hwdom_init pvh_setup_mmcfg(struct domain *d)
+> > > -{
+> > > -    unsigned int i;
+> > > -    int rc;
+> > > -
+> > > -    for ( i =3D 0; i < pci_mmcfg_config_num; i++ )
+> > > -    {
+> > > -        rc =3D register_vpci_mmcfg_handler(d, pci_mmcfg_config[i].ad=
+dress,
+> > > -                                         pci_mmcfg_config[i].start_b=
+us_number,
+> > > -                                         pci_mmcfg_config[i].end_bus=
+_number,
+> > > -                                         pci_mmcfg_config[i].pci_seg=
+ment);
+> > > -        if ( rc )
+> > > -            printk("Unable to setup MMCFG handler at %#lx for segmen=
+t %u\n",
+> > > -                   pci_mmcfg_config[i].address,
+> > > -                   pci_mmcfg_config[i].pci_segment);
+> > > -    }
+> > > -}
+> > > -
+> > >   int __init dom0_construct_pvh(const struct boot_domain *bd)
+> > >   {
+> > >       paddr_t entry, start_info;
+> > > @@ -1339,27 +1321,6 @@ int __init dom0_construct_pvh(const struct boo=
+t_domain *bd)
+> > >       if ( bd->kernel =3D=3D NULL )
+> > >           panic("Missing kernel boot module for %pd construction\n", =
+d);
+> > >
+> > > -    if ( is_hardware_domain(d) )
+> > > -    {
+> > > -        /*
+> > > -         * MMCFG initialization must be performed before setting dom=
+ain
+> > > -         * permissions, as the MCFG areas must not be part of the do=
+main IOMEM
+> > > -         * accessible regions.
+> > > -         */
+> > > -        pvh_setup_mmcfg(d);
+> > > -
+> > > -        /*
+> > > -         * Setup permissions early so that calls to add MMIO regions=
+ to the
+> > > -         * p2m as part of vPCI setup don't fail due to permission ch=
+ecks.
+> > > -         */
+> > > -        rc =3D dom0_setup_permissions(d);
+> > > -        if ( rc )
+> > > -        {
+> > > -            printk("%pd unable to setup permissions: %d\n", d, rc);
+> > > -            return rc;
+> > > -        }
+> > > -    }
+> > > -
+> > >       /*
+> > >        * Craft dom0 physical memory map and set the paging allocation=
+. This must
+> > >        * be done before the iommu initializion, since iommu initializ=
+ation code
+> > > diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> > > index cb8ecd050d41..b7edb1d6555d 100644
+> > > --- a/xen/arch/x86/hvm/hvm.c
+> > > +++ b/xen/arch/x86/hvm/hvm.c
+> > > @@ -35,6 +35,7 @@
+> > >   #include <asm/hap.h>
+> > >   #include <asm/current.h>
+> > >   #include <asm/debugreg.h>
+> > > +#include <asm/dom0_build.h>
+> > >   #include <asm/e820.h>
+> > >   #include <asm/regs.h>
+> > >   #include <asm/cpufeature.h>
+> > > @@ -651,6 +652,17 @@ int hvm_domain_initialise(struct domain *d,
+> > >               goto fail1;
+> > >           }
+> > >           memset(d->arch.hvm.io_bitmap, ~0, HVM_IOBITMAP_SIZE);
+> > > +
+> > > +        /*
+> > > +         * Setup permissions early so that calls to add MMIO regions=
+ to the
+> > > +         * p2m as part of vPCI setup don't fail due to permission ch=
+ecks.
+> > > +         */
+> > > +        rc =3D dom0_setup_permissions(d);
 > >
-> > diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S
-> > index 9f30c3a13ed1..bdba7eaa4f65 100644
-> > --- a/xen/arch/arm/xen.lds.S
-> > +++ b/xen/arch/arm/xen.lds.S
-> > @@ -58,6 +58,7 @@ SECTIONS
-> >         *(.rodata)
-> >         *(.rodata.*)
-> >         VPCI_ARRAY
-> > +       VUART_ARRAY
-> >         *(.data.rel.ro)
-> >         *(.data.rel.ro.*)
-> >
-> > diff --git a/xen/arch/ppc/xen.lds.S b/xen/arch/ppc/xen.lds.S
-> > index 1de0b77fc6b9..f9d4e5b0dcd8 100644
-> > --- a/xen/arch/ppc/xen.lds.S
-> > +++ b/xen/arch/ppc/xen.lds.S
-> > @@ -52,6 +52,7 @@ SECTIONS
-> >          *(.rodata)
-> >          *(.rodata.*)
-> >          VPCI_ARRAY
-> > +        VUART_ARRAY
-> >          *(.data.rel.ro)
-> >          *(.data.rel.ro.*)
-> >
-> > diff --git a/xen/arch/riscv/xen.lds.S b/xen/arch/riscv/xen.lds.S
-> > index edcadff90bfe..59dcaa5fef9a 100644
-> > --- a/xen/arch/riscv/xen.lds.S
-> > +++ b/xen/arch/riscv/xen.lds.S
-> > @@ -47,6 +47,7 @@ SECTIONS
-> >          *(.rodata)
-> >          *(.rodata.*)
-> >          VPCI_ARRAY
-> > +        VUART_ARRAY
-> >          *(.data.rel.ro)
-> >          *(.data.rel.ro.*)
-> >
-> > diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
-> > index 8e9cac75b09e..43426df33092 100644
-> > --- a/xen/arch/x86/xen.lds.S
-> > +++ b/xen/arch/x86/xen.lds.S
-> > @@ -136,6 +136,7 @@ SECTIONS
-> >         *(.rodata)
-> >         *(.rodata.*)
-> >         VPCI_ARRAY
-> > +       VUART_ARRAY
-> >         *(.data.rel.ro)
-> >         *(.data.rel.ro.*)
-> >
-> > diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-> > index 16936418a6e6..4e0bd524dc43 100644
-> > --- a/xen/common/Kconfig
-> > +++ b/xen/common/Kconfig
-> > @@ -1,6 +1,8 @@
-> >
-> >  menu "Common Features"
-> >
-> > +source "common/emul/Kconfig"
-> > +
-> >  config COMPAT
-> >  =09bool
-> >  =09help
-> > diff --git a/xen/common/Makefile b/xen/common/Makefile
-> > index c316957fcb36..c0734480ee4b 100644
-> > --- a/xen/common/Makefile
-> > +++ b/xen/common/Makefile
-> > @@ -11,6 +11,7 @@ obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) +=3D d=
-evice.o
-> >  obj-$(CONFIG_DEVICE_TREE_PARSE) +=3D device-tree/
-> >  obj-$(CONFIG_IOREQ_SERVER) +=3D dm.o
-> >  obj-y +=3D domain.o
-> > +obj-y +=3D emul/
-> >  obj-y +=3D event_2l.o
-> >  obj-y +=3D event_channel.o
-> >  obj-$(CONFIG_EVTCHN_FIFO) +=3D event_fifo.o
-> > diff --git a/xen/common/emul/Kconfig b/xen/common/emul/Kconfig
-> > new file mode 100644
-> > index 000000000000..7c6764d1756b
-> > --- /dev/null
-> > +++ b/xen/common/emul/Kconfig
-> > @@ -0,0 +1,6 @@
-> > +menu "Domain Emulation Features"
-> > +=09visible if EXPERT
-> > +
-> > +source "common/emul/vuart/Kconfig"
-> > +
-> > +endmenu
-> > diff --git a/xen/common/emul/Makefile b/xen/common/emul/Makefile
-> > new file mode 100644
-> > index 000000000000..670682102c13
-> > --- /dev/null
-> > +++ b/xen/common/emul/Makefile
-> > @@ -0,0 +1 @@
-> > +obj-$(CONFIG_HAS_VUART) +=3D vuart/
-> > diff --git a/xen/common/emul/vuart/Kconfig b/xen/common/emul/vuart/Kcon=
-fig
-> > new file mode 100644
-> > index 000000000000..02f7dd6dc1a1
-> > --- /dev/null
-> > +++ b/xen/common/emul/vuart/Kconfig
-> > @@ -0,0 +1,6 @@
-> > +config HAS_VUART
-> > +=09bool
-> > +
-> > +menu "UART Emulation"
-> > +
-> > +endmenu
-> > diff --git a/xen/common/emul/vuart/Makefile b/xen/common/emul/vuart/Mak=
-efile
-> > new file mode 100644
-> > index 000000000000..c6400b001e85
-> > --- /dev/null
-> > +++ b/xen/common/emul/vuart/Makefile
-> > @@ -0,0 +1 @@
-> > +obj-$(CONFIG_HAS_VUART) +=3D vuart.o
-> > diff --git a/xen/common/emul/vuart/vuart.c b/xen/common/emul/vuart/vuar=
-t.c
-> > new file mode 100644
-> > index 000000000000..14a7f8bd8b79
-> > --- /dev/null
-> > +++ b/xen/common/emul/vuart/vuart.c
-> > @@ -0,0 +1,112 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only */
-> > +/*
-> > + * UART emulator framework.
-> > + *
-> > + * Copyright 2025 Ford Motor Company
-> > + */
-> > +
-> > +#include <xen/errno.h>
-> > +#include <xen/sched.h>
-> > +#include <xen/vuart.h>
-> > +
-> > +#define VUART_ARRAY_SIZE    (__start_vuart_end - __start_vuart_array)
-> > +
-> > +#define for_each_vuart(vdev) \
-> > +    for (unsigned __i =3D 0; \
-> > +         __i < VUART_ARRAY_SIZE && (vdev =3D __start_vuart_array[__i],=
- 1); \
-> > +         __i++)
-> > +
-> > +extern const struct vuart_ops *const __start_vuart_array[];
-> > +extern const struct vuart_ops *const __start_vuart_end[];
-> > +
-> > +int vuart_add_node(struct domain *d, const void *node)
-> > +{
-> > +    const struct vuart_ops *vdev;
-> > +    int rc;
-> > +
-> > +    for_each_vuart(vdev)
-> > +    {
-> > +        if ( !vdev->add_node )
-> > +            continue;
-> > +
-> > +        rc =3D vdev->add_node(d, node);
-> > +        if ( rc )
-> > +            return rc;
-> > +    }
-> > +
-> > +    return 0;
-> > +}
+> > ... here hvm_domain_initialise() is not __init?
 >=20
-> Maybe skip this function until we needed? Without the reference
-> implementation of vuart-ns16550.c it is hard to tell what it is supposed
-> to do.
+> No, you're right, I missed this, thanks!
+>=20
+> Good catch!
 
-Ack
->=20
->=20
-> > +int vuart_init(struct domain *d, struct vuart_params *params)
-> > +{
-> > +    const struct vuart_ops *vdev;
-> > +    int rc;
-> > +
-> > +    if ( !domain_has_vuart(d) )
-> > +        return 0;
-> > +
-> > +    for_each_vuart(vdev)
-> > +    {
-> > +        rc =3D vdev->init(d, params);
-> > +        if ( rc )
-> > +            return rc;
-> > +    }
-> > +
-> > +    d->console.input_allowed =3D true;
->=20
-> This works because there is only one emulator (NS16550) but if there
-> were multiple possible emulators, I think we would want to only
-> initialize the emulator enabled in the specific domain.
-
-There are two emulators simultenously on Arm: "vuart", i.e. hwdom
-dtuart for earlycon and "vpl011", i.e. SBSA.
+So addressing it will require some code movement, like
+dom0_setup_permissions() outside of arch/x86/dom0_build.c...
 
 >=20
-> One domain could only have NS16550 and another domain could only have
-> PL011, while both NS16550 and PL011 might be possible.
->=20
-> I think it is OK for now and this function can be fixed/improved when
-> adding the second emulator.
->=20
->=20
-> > +    return 0;
-> > +}
-> > +
-> > +/*
-> > + * Release any resources taken by UART emulators.
-> > + *
-> > + * NB: no flags are cleared, since currently exit() is called only dur=
-ing
-> > + * domain destroy.
-> > + */
-> > +void vuart_deinit(struct domain *d)
-> > +{
-> > +    const struct vuart_ops *vdev;
-> > +
-> > +    for_each_vuart(vdev)
-> > +        vdev->deinit(d);
-> > +}
-> > +
-> > +void vuart_dump_state(const struct domain *d)
-> > +{
-> > +    const struct vuart_ops *vdev;
-> > +
-> > +    for_each_vuart(vdev)
-> > +        vdev->dump_state(d);
-> > +}
-> > +
-> > +/*
-> > + * Put character to the first suitable emulated UART's FIFO.
-> > + */
-> > +int vuart_put_rx(struct domain *d, char c)
-> > +{
-> > +    const struct vuart_ops *vdev =3D NULL;
-> > +
-> > +    ASSERT(domain_has_vuart(d));
-> > +
-> > +    for_each_vuart(vdev)
-> > +        if ( vdev->put_rx )
-> > +            break;
-> > +
-> > +    return vdev ? vdev->put_rx(d, c) : -ENODEV;
->=20
-> I don't think this would work with multiple emulators possible, maybe
-> enable or maybe not, for the same domain.
->=20
-> In a situation where there is both PL011 and NS16550 enable in the Xen
-> kconfig, but only NS16550 enabled for this specific domain,
-> for_each_vuart might find PL011 as the first emulator with a put_rx
-> implementation, but it is not actually the one the domain can use.
-
-Yes, multiple vUARTs will need more work.
-
->=20
-> I think this is OK for now, but it would have to be fixed when adding a
-> second emulator.
->=20
->=20
-> > +}
-> > +
-> > +bool domain_has_vuart(const struct domain *d)
-> > +{
-> > +    uint32_t mask =3D 0;
-> > +
-> > +    return !!(d->emulation_flags & mask);
-> > +}
-> > +
-> > +/*
-> > + * Local variables:
-> > + * mode: C
-> > + * c-file-style: "BSD"
-> > + * c-basic-offset: 4
-> > + * indent-tabs-mode: nil
-> > + * End:
-> > + */
-> > diff --git a/xen/common/keyhandler.c b/xen/common/keyhandler.c
-> > index eccd97c565c6..af427d25dc0d 100644
-> > --- a/xen/common/keyhandler.c
-> > +++ b/xen/common/keyhandler.c
-> > @@ -22,6 +22,7 @@
-> >  #include <xen/mm.h>
-> >  #include <xen/watchdog.h>
-> >  #include <xen/init.h>
-> > +#include <xen/vuart.h>
-> >  #include <asm/div64.h>
 > >
-> >  static unsigned char keypress_key;
-> > @@ -354,6 +355,8 @@ static void cf_check dump_domains(unsigned char key=
-)
-> >                             v->periodic_period / 1000000);
-> >              }
-> >          }
-> > +
-> > +        vuart_dump_state(d);
-> >      }
+> > [...]
 > >
-> >      for_each_domain ( d )
-> > diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> > index 963c7b043cd8..93254979817b 100644
-> > --- a/xen/drivers/char/console.c
-> > +++ b/xen/drivers/char/console.c
-> > @@ -33,6 +33,7 @@
-> >  #include <asm/setup.h>
-> >  #include <xen/sections.h>
-> >  #include <xen/consoled.h>
-> > +#include <xen/vuart.h>
 > >
-> >  #ifdef CONFIG_X86
-> >  #include <asm/guest.h>
-> > @@ -601,6 +602,7 @@ static void __serial_rx(char c)
-> >          /*
-> >           * Deliver input to the hardware domain buffer, unless it is
-> >           * already full.
-> > +         * NB: must be the first check: hardware domain may have emula=
-ted UART.
-> >           */
-> >          if ( (serial_rx_prod - serial_rx_cons) !=3D SERIAL_RX_SIZE )
-> >              serial_rx_ring[SERIAL_RX_MASK(serial_rx_prod++)] =3D c;
-> > @@ -611,6 +613,8 @@ static void __serial_rx(char c)
-> >           */
-> >          send_global_virq(VIRQ_CONSOLE);
-> >      }
-> > +    else if ( domain_has_vuart(d) )
-> > +        rc =3D vuart_put_rx(d, c);
-> >  #ifdef CONFIG_SBSA_VUART_CONSOLE
-> >      else
-> >          /* Deliver input to the emulated UART. */
-> > diff --git a/xen/include/xen/vuart.h b/xen/include/xen/vuart.h
-> > new file mode 100644
-> > index 000000000000..e843026df4b1
-> > --- /dev/null
-> > +++ b/xen/include/xen/vuart.h
-> > @@ -0,0 +1,84 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only */
-> > +/*
-> > + * UART emulator framework.
-> > + *
-> > + * Copyright 2025 Ford Motor Company
-> > + */
-> > +
-> > +#ifndef XEN_VUART_H
-> > +#define XEN_VUART_H
-> > +
-> > +#include <public/xen.h>
-> > +#include <public/event_channel.h>
-> > +#include <xen/types.h>
-> > +
-> > +struct vuart_params {
-> > +    domid_t console_domid;
-> > +    gfn_t gfn;
-> > +    evtchn_port_t evtchn;
-> > +};
-> > +
-> > +struct vuart_ops {
-> > +    int (*add_node)(struct domain *d, const void *node);
-> > +    int (*init)(struct domain *d, struct vuart_params *params);
-> > +    void (*deinit)(struct domain *d);
-> > +    void (*dump_state)(const struct domain *d);
-> > +    int (*put_rx)(struct domain *d, char c);
-> > +};
-> > +
-> > +#define VUART_REGISTER(name, x) \
-> > +    static const struct vuart_ops *const __name##_entry \
-> > +        __used_section(".data.vuart." #name) =3D (x);
-> > +
-> > +#ifdef CONFIG_HAS_VUART
-> > +
-> > +int vuart_add_node(struct domain *d, const void *node);
-> > +int vuart_init(struct domain *d, struct vuart_params *params);
-> > +void vuart_deinit(struct domain *d);
-> > +void vuart_dump_state(const struct domain *d);
-> > +int vuart_put_rx(struct domain *d, char c);
-> > +bool domain_has_vuart(const struct domain *d);
-> > +
-> > +#else
-> > +
-> > +static inline int vuart_add_node(struct domain *d, const void *node)
-> > +{
-> > +    return 0;
-> > +}
-> > +
-> > +static inline int vuart_init(struct domain *d, struct vuart_params *pa=
-rams)
-> > +{
-> > +    return 0;
-> > +}
-> > +
-> > +static inline void vuart_deinit(struct domain *d)
-> > +{
-> > +}
-> > +
-> > +static inline void vuart_dump_state(const struct domain *d)
-> > +{
-> > +}
-> > +
-> > +static inline int vuart_put_rx(struct domain *d, char c)
-> > +{
-> > +    ASSERT_UNREACHABLE();
-> > +    return -ENODEV;
-> > +}
-> > +
-> > +static inline bool domain_has_vuart(const struct domain *d)
-> > +{
-> > +    return false;
-> > +}
-> > +
-> > +#endif /* CONFIG_HAS_VUART */
-> > +
-> > +#endif /* XEN_VUART_H */
-> > +
-> > +/*
-> > + * Local variables:
-> > + * mode: C
-> > + * c-file-style: "BSD"
-> > + * c-basic-offset: 4
-> > + * indent-tabs-mode: nil
-> > + * End:
-> > + */
-> > diff --git a/xen/include/xen/xen.lds.h b/xen/include/xen/xen.lds.h
-> > index b126dfe88792..c2da180948ca 100644
-> > --- a/xen/include/xen/xen.lds.h
-> > +++ b/xen/include/xen/xen.lds.h
-> > @@ -194,4 +194,14 @@
-> >  #define VPCI_ARRAY
-> >  #endif
-> >
-> > +#ifdef CONFIG_HAS_VUART
-> > +#define VUART_ARRAY     \
-> > +       . =3D ALIGN(POINTER_ALIGN); \
-> > +       __start_vuart_array =3D .;  \
-> > +       *(SORT(.data.vuart.*))    \
-> > +       __start_vuart_end =3D .;
-> > +#else
-> > +#define VUART_ARRAY
-> > +#endif
-> > +
-> >  #endif /* __XEN_LDS_H__ */
 > > --
-> > 2.34.1
+> > Best regards,
+> > -grygorii
 > >
-> >
+>=20
+>=20
 
 
