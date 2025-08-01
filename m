@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E0BBB18786
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Aug 2025 20:58:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1067483.1432199 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD1EBB18794
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Aug 2025 21:05:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1067491.1432210 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhuxs-0000IZ-2h; Fri, 01 Aug 2025 18:58:48 +0000
+	id 1uhv49-0001xY-O9; Fri, 01 Aug 2025 19:05:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1067483.1432199; Fri, 01 Aug 2025 18:58:48 +0000
+Received: by outflank-mailman (output) from mailman id 1067491.1432210; Fri, 01 Aug 2025 19:05:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhuxr-0000Fo-Vx; Fri, 01 Aug 2025 18:58:47 +0000
-Received: by outflank-mailman (input) for mailman id 1067483;
- Fri, 01 Aug 2025 18:58:47 +0000
+	id 1uhv49-0001v6-K9; Fri, 01 Aug 2025 19:05:17 +0000
+Received: by outflank-mailman (input) for mailman id 1067491;
+ Fri, 01 Aug 2025 19:05:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GtvS=2N=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uhuxr-0000Fi-Bp
- for xen-devel@lists.xenproject.org; Fri, 01 Aug 2025 18:58:47 +0000
-Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch
- [79.135.106.30]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8c776738-6f09-11f0-b897-0df219b8e170;
- Fri, 01 Aug 2025 20:58:45 +0200 (CEST)
+ id 1uhv48-0001ux-9a
+ for xen-devel@lists.xenproject.org; Fri, 01 Aug 2025 19:05:16 +0000
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch
+ [79.135.106.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 744a9bc4-6f0a-11f0-b897-0df219b8e170;
+ Fri, 01 Aug 2025 21:05:14 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,109 +36,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8c776738-6f09-11f0-b897-0df219b8e170
+X-Inumbo-ID: 744a9bc4-6f0a-11f0-b897-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1754074724; x=1754333924;
-	bh=hF3fXRRemikXKpysMLkzFHck5hyY9cjkXpdyVpV7cYI=;
+	s=protonmail; t=1754075112; x=1754334312;
+	bh=oLeSik1vUwLPTmknUiN5N0jEWWDWQv90PmqFTYaDqLQ=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=hj6rLPnsHphwTNFp5Dv9JNEdAZ+Dde8RuHn4Mvi5T2SJonLdWGj+pBkZzJk1+mmeY
-	 4J3qL80DIqEXEmALoRyvuVGmh9ESEywJFrTBstKF4r1vg3RuUvP8YsIL2PP1Zy9r8x
-	 kWMn8zkCK68UjvDhuYCgxCVZmNPU8GJZF6MwbWYhxEumA8SHtSVLvrlTere0nAL6Aw
-	 06q21q3150bziToFsY4iTgyFwk5yZIRFAuw3hQsv2Re9CqVTn2WU6Vk97A4UzOdt8u
-	 EEC2+J/V+znX48fs+MUkN/bx1iUjlJdxBIxmOZeAS6ySb8G8S0/qJ93ulniNTsjL0t
-	 d9AzdV+TbPKMA==
-Date: Fri, 01 Aug 2025 18:58:39 +0000
-To: Jan Beulich <jbeulich@suse.com>
+	b=k9YalSSQLYPzlPZusKOlu4ZrDR24sEyKTBhem6SEkNAW1313b9NkepOG/Nodz/hDK
+	 KU7SsoKvj+RlHWQGWPgmSp2OTZUe9wPzra1p3ChB06/Cu6gdgCOBXkWwl5MVH3qoEN
+	 tbk7wbB0uCGMrfEzXIjOpj4a0YSwJJZWtReSqhh3ZDgVLK7rmrPbpOap655tcMK/FI
+	 SKsrH4C9OcPuW5nptsewX8qyYjCI8AQn+EjiXLc9hYGwQq1K+MZGLUDs247CYBOPHb
+	 oGxCr+pQWZO64pv7muRmY4fB4GOFlEwWYwbN7V3BuOwEoodyQdzdaPlMZLEJZL1Cs3
+	 MxXpVssTuSVgA==
+Date: Fri, 01 Aug 2025 19:05:06 +0000
+To: Grygorii Strashko <grygorii_strashko@epam.com>
 From: dmkhn@proton.me
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH] console: make printk_ratelimit_{burst,ms} const
-Message-ID: <aI0OWwWkr0wg6FKw@kraken>
-In-Reply-To: <5fcd1c68-6c18-4a1d-8a1d-f056bdb6cde9@suse.com>
-References: <5fcd1c68-6c18-4a1d-8a1d-f056bdb6cde9@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Oleksii Kurochko <oleksii.kurochko@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [XEN][PATCH] xen/dom0less: arm: fix hwdom 1:1 low memory allocation
+Message-ID: <aI0P3dT6Lz/WNU4B@kraken>
+In-Reply-To: <20250801155429.1402395-1-grygorii_strashko@epam.com>
+References: <20250801155429.1402395-1-grygorii_strashko@epam.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: ea52ee6d97e7d2fb159eae61bf75f796d4b8517f
+X-Pm-Message-ID: 81cd4bc29104ca0f73b7d5332f5b502769dad235
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Aug 01, 2025 at 09:30:34AM +0200, Jan Beulich wrote:
-> Them not being altered by any means, their __read_mostly attribute is
-> actually counter-productive: It causes the compiler to instantiate the
-> variables, when already with just the attributes dropped the compiler
-> can constant-propagate the values into the sole use site. Make the
-> situation yet more explicit by adding const.
+On Fri, Aug 01, 2025 at 03:54:30PM +0000, Grygorii Strashko wrote:
+> From: Grygorii Strashko <grygorii_strashko@epam.com>
 >=20
-> Also switch the variables away from being plain int, and have the
-> parameters of __printk_ratelimit() follow suit. While there also
-> similarly adjust the type of "missed" and "lost", and - while touching
-> the adjacent line - increase lost_str[] to accommodate any unsigned
-> 32-bit number.
+> Call stack for dom0less hwdom case (1:1) memory:
+> create_domUs
+> |-construct_domU
+>   |-construct_hwdom()
+>     |-allocate_memory_11()
 >=20
-> Fixes: a8b1845a7845 ("Miscellaneous data placement adjustments")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> And allocate_memory_11() uses "dom0_mem" as:
+> min_low_order =3D
+>   get_order_from_bytes(min_t(paddr_t, dom0_mem, MB(128)));
+>=20
+> In case of dom0less boot the "dom0_mem" is not used and defaulted to 0,
+> which causes min_low_order to get high value > order and so no allocation=
+s
+> happens from low memory.
+>=20
+> Fix it, by using kinfo->unassigned_mem instead of "dom0_mem" has correct
+> memory size in both cases: regular dom0 boot and dom0less boot.
+>=20
+> Fixes: 43afe6f030244 ("xen/common: dom0less: introduce common dom0less-bu=
+ild.c")
+> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+
+Reviewed-by: Denis Mukhin <dmukhin@ford.com>=20
+
 > ---
-> In principle {__,}printk_ratelimit() may also want to have their return
-> type changed to bool, but I think doing so would go too far here: This
-> would have knock-on effects elsewhere, and it would want considering to
-> actually flip polarity.
+>  xen/arch/arm/domain_build.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >=20
-> Despite the Fixes: tag I wouldn't consider this for backport.
->=20
-> --- a/xen/drivers/char/console.c
-> +++ b/xen/drivers/char/console.c
-> @@ -1268,12 +1268,12 @@ void console_end_sync(void)
->   * This enforces a rate limit: not more than one kernel message
->   * every printk_ratelimit_ms (millisecs).
->   */
-> -int __printk_ratelimit(int ratelimit_ms, int ratelimit_burst)
-> +int __printk_ratelimit(unsigned int ratelimit_ms, unsigned int ratelimit=
-_burst)
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 801a09071a50..0a555d1ae0e5 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -278,7 +278,7 @@ static void __init allocate_memory_11(struct domain *=
+d,
+>                                        struct kernel_info *kinfo)
 >  {
->      static DEFINE_SPINLOCK(ratelimit_lock);
->      static unsigned long toks =3D 10 * 5 * 1000;
->      static unsigned long last_msg;
-> -    static int missed;
-> +    static unsigned int missed;
->      unsigned long flags;
->      unsigned long long now =3D NOW(); /* ns */
->      unsigned long ms;
-> @@ -1288,14 +1288,16 @@ int __printk_ratelimit(int ratelimit_ms,
->          toks =3D ratelimit_burst * ratelimit_ms;
->      if ( toks >=3D ratelimit_ms )
->      {
-> -        int lost =3D missed;
-> +        unsigned int lost =3D missed;
-> +
->          missed =3D 0;
->          toks -=3D ratelimit_ms;
->          spin_unlock(&ratelimit_lock);
->          if ( lost )
->          {
-> -            char lost_str[8];
-> -            snprintf(lost_str, sizeof(lost_str), "%d", lost);
-> +            char lost_str[10];
-> +
-> +            snprintf(lost_str, sizeof(lost_str), "%u", lost);
-
-Since this code is touched, I would also simplify the entire `if ( lost )`
-block (I have it done in another experiment):
-=20
-            char lost_str[64];
-            size_t lost_len =3D snprintf(lost_str, sizeof(lost_str),
-                                       "printk: %d messages suppressed.\n",
-                                       lost_str);
-
-            /* console_lock may already be acquired by printk(). */
-            rspin_lock(&console_lock);
-            printk_start_of_line(CONSOLE_PREFIX, cflags);
-            __putstr(lost_str, lost_len);
-            ...
-
-What do you think?
-
---
-Denis
+>      const unsigned int min_low_order =3D
+> -        get_order_from_bytes(min_t(paddr_t, dom0_mem, MB(128)));
+> +        get_order_from_bytes(min_t(paddr_t, kinfo->unassigned_mem, MB(12=
+8)));
+>      const unsigned int min_order =3D get_order_from_bytes(MB(4));
+>      struct membanks *mem =3D kernel_info_get_mem(kinfo);
+>      struct page_info *pg;
+> --
+> 2.34.1
+>=20
 
 
