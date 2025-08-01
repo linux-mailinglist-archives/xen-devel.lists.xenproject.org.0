@@ -2,54 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76C15B17D36
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Aug 2025 09:12:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1066875.1431919 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CCD5B17D34
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Aug 2025 09:12:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1066877.1431929 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhjvc-0004mY-GS; Fri, 01 Aug 2025 07:11:44 +0000
+	id 1uhjvf-00053e-OM; Fri, 01 Aug 2025 07:11:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1066875.1431919; Fri, 01 Aug 2025 07:11:44 +0000
+Received: by outflank-mailman (output) from mailman id 1066877.1431929; Fri, 01 Aug 2025 07:11:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uhjvc-0004kE-D0; Fri, 01 Aug 2025 07:11:44 +0000
-Received: by outflank-mailman (input) for mailman id 1066875;
- Fri, 01 Aug 2025 07:11:42 +0000
+	id 1uhjvf-00050E-LG; Fri, 01 Aug 2025 07:11:47 +0000
+Received: by outflank-mailman (input) for mailman id 1066877;
+ Fri, 01 Aug 2025 07:11:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jpGp=2N=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1uhjva-0004LS-N4
- for xen-devel@lists.xenproject.org; Fri, 01 Aug 2025 07:11:42 +0000
-Received: from AM0PR02CU008.outbound.protection.outlook.com
- (mail-westeuropeazlp170130006.outbound.protection.outlook.com
- [2a01:111:f403:c201::6])
+ id 1uhjve-0004LS-2U
+ for xen-devel@lists.xenproject.org; Fri, 01 Aug 2025 07:11:46 +0000
+Received: from OSPPR02CU001.outbound.protection.outlook.com
+ (mail-norwayeastazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c20f::7])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c5b914b1-6ea6-11f0-b895-0df219b8e170;
- Fri, 01 Aug 2025 09:11:41 +0200 (CEST)
-Received: from AM6P192CA0073.EURP192.PROD.OUTLOOK.COM (2603:10a6:209:8d::14)
- by DB9PR08MB6377.eurprd08.prod.outlook.com (2603:10a6:10:259::8) with
+ id c7d770e2-6ea6-11f0-b895-0df219b8e170;
+ Fri, 01 Aug 2025 09:11:44 +0200 (CEST)
+Received: from DU7P191CA0010.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:54e::35)
+ by DU0PR08MB9582.eurprd08.prod.outlook.com (2603:10a6:10:44a::5) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.16; Fri, 1 Aug
- 2025 07:11:27 +0000
-Received: from AMS1EPF00000047.eurprd04.prod.outlook.com
- (2603:10a6:209:8d:cafe::d9) by AM6P192CA0073.outlook.office365.com
- (2603:10a6:209:8d::14) with Microsoft SMTP Server (version=TLS1_3,
+ 2025 07:11:40 +0000
+Received: from DB1PEPF000509FA.eurprd03.prod.outlook.com
+ (2603:10a6:10:54e:cafe::ca) by DU7P191CA0010.outlook.office365.com
+ (2603:10a6:10:54e::35) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.16 via Frontend Transport; Fri,
- 1 Aug 2025 07:11:27 +0000
+ 1 Aug 2025 07:11:40 +0000
 Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AMS1EPF00000047.mail.protection.outlook.com (10.167.16.135) with Microsoft
+ DB1PEPF000509FA.mail.protection.outlook.com (10.167.242.36) with Microsoft
  SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9009.8
- via Frontend Transport; Fri, 1 Aug 2025 07:11:26 +0000
+ via Frontend Transport; Fri, 1 Aug 2025 07:11:39 +0000
 Received: from DB9PR08MB6588.eurprd08.prod.outlook.com (2603:10a6:10:25a::24)
  by DU0PR08MB9653.eurprd08.prod.outlook.com (2603:10a6:10:449::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.12; Fri, 1 Aug
- 2025 07:10:54 +0000
+ 2025 07:11:07 +0000
 Received: from DB9PR08MB6588.eurprd08.prod.outlook.com
  ([fe80::a8fc:ea0d:baf1:23a]) by DB9PR08MB6588.eurprd08.prod.outlook.com
  ([fe80::a8fc:ea0d:baf1:23a%2]) with mapi id 15.20.8989.015; Fri, 1 Aug 2025
- 07:10:54 +0000
+ 07:11:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,14 +61,14 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c5b914b1-6ea6-11f0-b895-0df219b8e170
+X-Inumbo-ID: c7d770e2-6ea6-11f0-b895-0df219b8e170
 ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=c5kCaFbIMkM5lYLK6rZNBZZATg0cQq4WY6qvshTYKOCY4rN7FnoSAfB0hoLJSlKWzbPB5bjPwGF7Nim0YXvoOWNaWq1kX/gK3ecgnBCOi5X/HM1F/JgSVPdwSquwj8WfBLFns4S+6X1fmzWbD32HNY55d2X/gBkF4NSsOrPeAbWNA67eUkiYdtxSbux3E02K0jYmV7vUyqGtBiFbRG22nLc4MiVhCMkIRkKK+BotGjuyLYQDfKkKrbn3Vft4FASVWm/yJt/5n303Yl3nOBRGhUWuYcB1j5SX0QmR5I0cM8PSgsbXX2rb+5Yy/qDiA9fAtj38Hy8ki55yCscyghoj7Q==
+ b=x4VHkDqyN71OnMrJJHPHimQb/FkqJvEyqp4GVU/rJLpUnqS7B/EdLrVjC2aL3jjCdFD6PmtljGN/Kv9Os06KIW5qRgwSevBg9F4CV7s8Y31p1I062kOWPAyiin+UHG16fqQj8wxewdEy0vv9zpTy/K7HI2WtFsGvtWqL8muZEUSTTL+RIZd8qWJkdz1zmeUeFbVKZvCY30z0AY5WhXbAYLBHvjo+C97C4REPOlhj2TVsMObyD+416OODmfN0Hpa0BTHG3Z7g7g+dbIQzWLcHiOqACzM+85hwlfmwC3DQ+HzpyDxCEPXcNgoKj2I5R69fQBJGTJ3dEqUe5akFeiSQtA==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ALOs//xUM8fOs/AdT4f1GGnMIeqL+0xTf/QhGePVeE4=;
- b=Tkf30MOEbxSYP0hWfgucquPEmDBLh2oFGcny+YHwaFXIM6AZjOXFPBwMFqKnz/EZt8bOT9G2f9Ftk5s/UZ5SHrfPwYpQzqkJ1SkGKkvGmS7+NlFc0NAp/JpA3IETc/hVunWtcQHJWisUMtTYVyP7AwgoDZqgfxt271f7bZKRDX21yhmDDxk3uchhPNkF+jphy3EGOXSCnnQLQzbMls2yM9kMemzj6t+fXvyg4X01Rs5JwB/j531c1jkLTPI5onExIv04hk5RmqicgxZehfvOm7SLrxF7Xg0hFBvPcdQOk0stJMGWU/aXh6UlQ0Nb+JSRAHxkUrfyIr2FoKFluAyTzQ==
+ bh=L6uLJbDflK3g1YEpqtCmMHOkZCFWEKxWzHhlvwB/FTk=;
+ b=KuGvURduKQ7kriPg1n8luIHBI9Kdx4xQABdR4bNTsqu2wgIscRmrVdLgV2OHXF1R8/O0schHymnVw63Co3QSGUHvVBoSgvgCNzzuaOojjqKrm6SMExa7vXQ61BfZadF6BJFWE0WyZhGgJ2lZkbAMb8o3wAoug55GgprVlMMHjQke+dxTpjn6sKwKR7HQBSFT1SsFhBiPqR3iKPQInceBL006qjjlM1NWlw5iqYHixzlD7+R924WM2KxY44JL5aFM1MwwHFoYOwB12SsEXC0/o48FufLtDZ9w8yz2xk3YaSjOI0y2xDA5eCyImwo27Voa304vU1nCxeG4lcmgRQ9rNA==
 ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  4.158.2.129) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
@@ -77,8 +77,8 @@ ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  dmarc=[1,1,header.from=arm.com])
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ALOs//xUM8fOs/AdT4f1GGnMIeqL+0xTf/QhGePVeE4=;
- b=FOZNiMRnYY5M1Fl6XboXT1WthBG4SVUYu+ZoRw8kpJWlG1XmzU7T3oSDJW5qDQXJIM1ZKEX4vYJl3tnNQbNXU2zAMNvT3b/SNTiY43H5cXn4KN3OUtHDcuhqguHgwpalY7heYIbAkJf+5fkdct80iV7ooRN1AsxvvVMIQgOETmM=
+ bh=L6uLJbDflK3g1YEpqtCmMHOkZCFWEKxWzHhlvwB/FTk=;
+ b=K71QhJDpZN+fs99ZtatY4nrkVSF3M0kIs9oX8ZCQ6Bk7gkCtOMbdKSSjjXhzk6R2v8eV6j+gUCfCF71enVmVchFTtgQm0GwMB2oIfjVENGuFdej+rUZ/klVNKcLo2E2lZYA6r7t5B69HVCOZkfQghH7xDCIsmYHz2yAYNK7eojc=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
  smtp.mailfrom=arm.com; dkim=pass (signature was verified)
  header.d=arm.com;dmarc=pass action=none header.from=arm.com;
@@ -86,33 +86,33 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  4.158.2.129 as permitted sender) receiver=protection.outlook.com;
  client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RnZYnHjZWc+BNQoldV5fVhrQuf6XrR7MkauN2d8X/z2Kg0t6x58abeg5gYr6+zRJdq+4vibz9GRcXRxFJbAnG6AN95B22YipX+Dpv/VjN2vcoxqyztDOiA+d3xqEt4WZ/5Tag9DEgdZWtdkpyYm0aIGGce89yIKCcbYpXJpeo7q9aSE32k2zU6RWw/9UyFWDG9AzCTJrQc/6sTNNlWiP1FSuDs3ULSe1YVDS38kl3HtzK3jQykI3TPp4E4wnQHUFyNec6/9FSzgETco/y2p/dBFmLoJRnL3r24S3edX/FImkSk6bA/jqiyoGkGAlAC1arto6HmfPluZHoQ0yfhCRhw==
+ b=fyIZbIxjmLwiRU819OUPNcG8ImLPVDuEO1xTtZx7Sep32X6xt/YqfKtR0C81hGbimH+9EPc6AVjziT7vbw7Q0AtWqVvQta9k4gaue1kAPy097GRqblwDzUPyj+NoQPirWAJLawFXuoAFngrC9TGQd1CzsF6EbphAl1heQCVRXrto61Ijeq5fVBBqvPNA0J2ZkjAl4M2Ps5na2cbIMh2y6yFhkDm6ix2BLvtF4fnU4xbK4zh4wKAY13HtapbxSe9YToQlCVGldYLSWQKU8ClvKTuHmej1tg+1zQsWC74WtxwPpkm4lnCuY/uIgZjqM+Qiuqy/2vOxNZvHhYgORPGxcQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ALOs//xUM8fOs/AdT4f1GGnMIeqL+0xTf/QhGePVeE4=;
- b=aRcEVH+eTDh30/2BCear2LHhVImuJFZ9V+2K/zE7JBvsXGGFFELU8DdU2jyOKEMGM8bsU2Lqd4jKYdT2g9z/AKa5hcseWXE5of8d6LTzUy8RVVNVkIW6lIbYIk+IbefhLAnO15yOjYj2gvG4m9T6rSyXPUAVpyDLShMFx7+aJTCtlw+iutRjZdpm3ZYtqIax2ZYQY7y0/NOqFnHr6aHI8KmqFb0PS8olE8XwPx26h7Nlcl3HonOyId+9rsjgBTyCp5NchReifab1OLVN+wDjBrbFfBucR0S0v5Kcle8S/lqIAt/N9Pzgz0uAbsosIHitxo+moJ78SMEBce8yAedpiw==
+ bh=L6uLJbDflK3g1YEpqtCmMHOkZCFWEKxWzHhlvwB/FTk=;
+ b=kvBhnMXIQjx0RcHx3j3QOvWTMGVo+ypAhXzgKSMuwHd3hdZLqN3yylpghm/16DZhMscC9Zv8y7GUsi7P6tnDkYXtryGumdX3LK6I/YOig6it2E1mxh3nj9SkFgIqPnLJmgL5sTGxtBzjm0rh+JCYp5W8R5hCQdRwgOFJS1eruCIg7wJZ0NU02FItp2JMfwBhpFL4L4KTgiUN6CK5bpIi+03fbIUh5T0elocXf+IZjWpvS6hMdQILaueXDxQQNZLdcsDGHzoQ9ZgZZCXIikW81afyyt6/0pXtArPak/PI3G4H+/0HDMDnC8SLgBQvH8c4kS2mQMwTNx0o9sk2czOQAQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ALOs//xUM8fOs/AdT4f1GGnMIeqL+0xTf/QhGePVeE4=;
- b=FOZNiMRnYY5M1Fl6XboXT1WthBG4SVUYu+ZoRw8kpJWlG1XmzU7T3oSDJW5qDQXJIM1ZKEX4vYJl3tnNQbNXU2zAMNvT3b/SNTiY43H5cXn4KN3OUtHDcuhqguHgwpalY7heYIbAkJf+5fkdct80iV7ooRN1AsxvvVMIQgOETmM=
+ bh=L6uLJbDflK3g1YEpqtCmMHOkZCFWEKxWzHhlvwB/FTk=;
+ b=K71QhJDpZN+fs99ZtatY4nrkVSF3M0kIs9oX8ZCQ6Bk7gkCtOMbdKSSjjXhzk6R2v8eV6j+gUCfCF71enVmVchFTtgQm0GwMB2oIfjVENGuFdej+rUZ/klVNKcLo2E2lZYA6r7t5B69HVCOZkfQghH7xDCIsmYHz2yAYNK7eojc=
 From: Bertrand Marquis <Bertrand.Marquis@arm.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: "jens.wiklander@linaro.org" <jens.wiklander@linaro.org>, Volodymyr Babchuk
 	<volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [PATCH v7 6/6] xen/arm: ffa: Enable VM to VM without firmware
-Thread-Topic: [PATCH v7 6/6] xen/arm: ffa: Enable VM to VM without firmware
-Thread-Index: AQHb9xP7T/VoLAfGvk2gcX5wpv2f7LRNeKMA
-Date: Fri, 1 Aug 2025 07:10:54 +0000
-Message-ID: <A9B4FBBC-1FFE-4473-AB46-FE04C997A515@arm.com>
+Subject: Re: [PATCH v7 5/6] xen/arm: ffa: Add indirect message between VM
+Thread-Topic: [PATCH v7 5/6] xen/arm: ffa: Add indirect message between VM
+Thread-Index: AQHb9xP63AO3xKXxGUS6VQz+IbmVObRNeLKA
+Date: Fri, 1 Aug 2025 07:11:07 +0000
+Message-ID: <24F6DA9F-7FFD-407F-A695-420F0EF5242D@arm.com>
 References: <cover.1752754016.git.bertrand.marquis@arm.com>
- <9ed199ef3be4b6dc665f19f96ba4063c61ccbf00.1752754016.git.bertrand.marquis@arm.com>
+ <1a5ef965eca870918a120221667e2f26c7604afc.1752754016.git.bertrand.marquis@arm.com>
 In-Reply-To:
- <9ed199ef3be4b6dc665f19f96ba4063c61ccbf00.1752754016.git.bertrand.marquis@arm.com>
+ <1a5ef965eca870918a120221667e2f26c7604afc.1752754016.git.bertrand.marquis@arm.com>
 Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -121,8 +121,8 @@ x-mailer: Apple Mail (2.3826.600.51.1.1)
 Authentication-Results-Original: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
 x-ms-traffictypediagnostic:
-	DB9PR08MB6588:EE_|DU0PR08MB9653:EE_|AMS1EPF00000047:EE_|DB9PR08MB6377:EE_
-X-MS-Office365-Filtering-Correlation-Id: a7b7b228-0210-48e9-cea5-08ddd0caa13e
+	DB9PR08MB6588:EE_|DU0PR08MB9653:EE_|DB1PEPF000509FA:EE_|DU0PR08MB9582:EE_
+X-MS-Office365-Filtering-Correlation-Id: 78d0bf0e-c725-4151-9f38-08ddd0caa938
 x-checkrecipientrouted: true
 nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
@@ -130,86 +130,86 @@ X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted:
  BCL:0;ARA:13230040|366016|376014|10070799003|1800799024|38070700018;
 X-Microsoft-Antispam-Message-Info-Original:
- =?us-ascii?Q?cCyegifALqocElyUaAe46eU50QyNAo5cROWZFoYe6vOVRiRRdXoJagkWZsh3?=
- =?us-ascii?Q?XjjoQ67urWiIOflOOde5LFo0UA4gx+d9p5iYTrHt84DpM1hD3IWV1AQdH1k6?=
- =?us-ascii?Q?NFHhFGvzv5TbAjKRRApeP1ZJvtua7GTWn3SSzU/H9Qh0worDm3mCszpf6kEo?=
- =?us-ascii?Q?/n9eD0Yh0MxDNd6mMqJd0PoglwZLskqwUtPEY0sJ3iGZ1Szvfq5dVrARnkww?=
- =?us-ascii?Q?/A9IACCTJ2rQt6dBpsWo4ANq5Nips1ZhgoEXjyDTzw1IGBP/TiDVsIVSM3nI?=
- =?us-ascii?Q?BNS7ahXf5Bjoc1ER9+o21XlJ9vw/EQldhcTuAL12R9GTlPxvy8pYo0zNuhI4?=
- =?us-ascii?Q?3g8ZWUMS6r3C4s/UmCCfLC1JSmLdWp9eB70o8UCini9dKEVMDYp9JxHYaIQ1?=
- =?us-ascii?Q?EgwI6UdykSF8ydlvprCvM8iFg9eDHCe51KffybzjRtVww+oTJHp153gqoIhL?=
- =?us-ascii?Q?PQk+FBuf+lBZAKX4oLfRI9xNWrsUm9ylvVzuRxxUbnF5gW9BYsXSM2+3v4D2?=
- =?us-ascii?Q?s23RNzGTb08nA+ixixlenrJsCox5E5ff+t/09LwfZck7ujfgpYfv0wnNy9P9?=
- =?us-ascii?Q?HyO9i9M3ElITSLdVyq2ilimBAhc/8XDF/xavtgbTIb0k9KUy0NhWzc/I+2Yi?=
- =?us-ascii?Q?Z9GQLtCgMQuTSi1JKsni7+KS9Q7PoF7A23aHmT+x8xu83PK7/jBbI5lvultP?=
- =?us-ascii?Q?z9+xQAYuNGRCOGg2hB3snh7aw36rgkWCwEu4yU1aTfasNK86GBo/EaVGcghw?=
- =?us-ascii?Q?vBRUB3SJblsfRnnAXnjmzDJ3eAGnt09Cp8yHso/B0sCnerhncOg7SEocNVJO?=
- =?us-ascii?Q?N+dDXGI/tv3u7fjt58gRhzvINL8b4IkJELWaUiIqcpv9UWAhGy+OyU4178Mb?=
- =?us-ascii?Q?SUfx/1dL0YiCwofWOpl+bz0xNpMdA9rNPahatXsGZjEl/WTgEjyMGeOFSjKu?=
- =?us-ascii?Q?BtmS/UPHVAPxPRhfOr3IZGY+9nmQ/ntrcDskg24nmVYiSXBVsUH01lpJo5c4?=
- =?us-ascii?Q?vSKGn2lal11hzcgJXt3+byzlXg4liJxkqbuoc/92veXubgTztmJpYRzstjr2?=
- =?us-ascii?Q?+I1Kt1ZAC2bc4DfyKKDtAChrvnCSvJU6lzZPJvEPY2XaZl9Bjiw++H7yThjX?=
- =?us-ascii?Q?msyY6yXNE9aybBTqJGMpQ9LPccR0RDmFF7C7g6NIriXBRA5HYJ0Qw3n5veZN?=
- =?us-ascii?Q?mgyMIhF1WX81e0zgYd1KdbItm2uS8eARDYFKYAH060Ke+/4H+gW0ShDAnWAy?=
- =?us-ascii?Q?/zvexke9xx0wZYPUJ9j+hR7xu72TtTbVkVHQyKoVSl5Yp9nbRYUmbSE59QcI?=
- =?us-ascii?Q?D2rIYVIHBK5dXm30rgiRQkDqymcbK97Met7GcF7j8JAeEr7uvd4DkitqK25V?=
- =?us-ascii?Q?T3dWzD6WzgbYAPGCofH/I7KypXKwu/HbTEe01EVSyVEkXB6M45ohCk0R2GgB?=
- =?us-ascii?Q?R8NmU4Hh7Ev0jTiLjZI0wiSkep2eWMisYGqoeu55RUOtWWM8Cf/ccQ=3D=3D?=
+ =?us-ascii?Q?hD44Xg7IyT5iaxgvEWmJj/J+STjTpi+duvdMcysiM0B3ca88aUHZL/EQImeo?=
+ =?us-ascii?Q?kDqH7capkheUnNIHgkwmsPYdszKzti1MHMs2Ed7/6FLo4vm6YxwW13VfBCIK?=
+ =?us-ascii?Q?k49mYgokx9qcDPy0FkILAgcOHoJoMlmnIGYEKgpYOvUXpDDrpH0Tg49rY+aK?=
+ =?us-ascii?Q?MDpTzo+hQm0H8FReWk7+lV861RejypkXCAsU7st1Gx0/jHhXigcf0ofL8Eh7?=
+ =?us-ascii?Q?Z5UWh8sMN7bJ7dofQzAIsJPTumUEHupHJQzRx7TDi9e57ZX0n4dQfhovweIl?=
+ =?us-ascii?Q?/s5Zy+hKUJpcp0eY6Ks0VrHoBV/CZ2j52NcaZGgHEF6UQS7aekSUUQIihAgo?=
+ =?us-ascii?Q?BGdZDL6NaHiw/Wpgu54KdQWbFJxYx9sWjiZfBZkt3UKqM/WPGVkWf71au8CF?=
+ =?us-ascii?Q?tyeM79220sY5bqBLPoldQQv7CyepKb/9aFW/XOyGC2SzYJiQ/25Oaefozu8W?=
+ =?us-ascii?Q?Fh2giLoF99/SvRv0BXqUHbxAJyHaOmYtLSBLZMRgt4lxUn551UHHjpb8rezU?=
+ =?us-ascii?Q?7MsU0aoQsaa39whpyE+fspFxTl5Ajce529HDVMahWkia0jjfBfDILxvPoFYc?=
+ =?us-ascii?Q?Pa9PF6LCCRUIJKZzU2PvEomgfSRDQR4MYzRIRGPT2Kf6TIsOVnBcWUyXMgbo?=
+ =?us-ascii?Q?4pRR1AbMQkD6H29NHxyDiiCUVyZydD9HZT4dAMtLpAsloMOonXBAo5Eql3D3?=
+ =?us-ascii?Q?WbX/e+Fjk7KIcObir8xYc8JXmek+Qm54Hu9kKkVO6LJbwvM7n4Y7YQm5t4k1?=
+ =?us-ascii?Q?UOMGpO0jGZrMTbB/gsor9B3R9BU2W7lIeigVpOz0bD35GU7+qzZpWeVULs9q?=
+ =?us-ascii?Q?KTuun6mjfi4sDCiBHLRRcKWf5WwlA+Xahgdonz/+uRjR8Wa947H728lSaGpF?=
+ =?us-ascii?Q?/qvtFfZ0hc7ae8RaN3ATUF4ULnd5VfMaQI2BOzQoOTg1bzEXoqCEZ08cgaD6?=
+ =?us-ascii?Q?mFTbj3x0L4S+16M8PuwC/SWfNomb0AlYNJ9BYnNMhC74JQOiDFE6X/VBGD5I?=
+ =?us-ascii?Q?X1HeigFhsCgUEfJ4RwKd/vbQFD+1ZiYGebW6KQ1TM+NaO0U6kV10fyGPyzAV?=
+ =?us-ascii?Q?v1q1pDc/8FhL8XxCvKIgM+4FVRfixUm0PovWsv4h2ny1vMVZSlzzUNZ+Wol8?=
+ =?us-ascii?Q?Jl+aE1JU3wshZx/AOHEtuayKoWPQGaZJVbzlkS/kA4M5eEyQLUJRFTsUdZC0?=
+ =?us-ascii?Q?PWq8kS9Zkq0H+3KVOdPf7Zt0ebALjivL5Q5irEdvunVZPln0Bk+EHfc+JoeA?=
+ =?us-ascii?Q?3JfYtr79v/J1Bo0Vqe7bVdDslG4m+5NG8wx7n3gcAeQAnizz1qxRudlSE4Yj?=
+ =?us-ascii?Q?jnFg9aEoAgjZlUzL5E/eL+pdU+xK4Az/+xiBbUwTshu8UesLWcSt6YIqMR2y?=
+ =?us-ascii?Q?tFYHSmoxAtMbbBXRPKpiZGIwhGPGfwkjAT1rVMaAWPJeyQ1f9T3Q2YwADIOW?=
+ =?us-ascii?Q?Ognw3vPe7YPxLROyjP+wCHPRnaBEd8tKLB9Xggf2Yhz/wNe6Yg/hUw=3D=3D?=
 X-Forefront-Antispam-Report-Untrusted:
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6588.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(10070799003)(1800799024)(38070700018);DIR:OUT;SFP:1101;
 Content-Type: text/plain; charset="us-ascii"
-Content-ID: <E3A3070771BED74FB4DDFB5112FCACAA@eurprd08.prod.outlook.com>
+Content-ID: <BC86B44259B3694886B56694063C3308@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB9653
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AMS1EPF00000047.eurprd04.prod.outlook.com
+ DB1PEPF000509FA.eurprd03.prod.outlook.com
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	8c4528c2-197b-49d5-853b-08ddd0ca8e2e
+	94e5ccd8-bfc3-4deb-242a-08ddd0ca962c
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|376014|82310400026|35042699022|14060799003;
+	BCL:0;ARA:13230040|35042699022|82310400026|36860700013|1800799024|376014|14060799003;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?zsc73R4kb8TJJ7X9ezOXuVZUHoUVSN2Gr5Cw0Hsypw6BCBfWt63meyetDF/D?=
- =?us-ascii?Q?4ap7+TCnmhbb0tnvmN7jv1Yb2j45Aits2F4c6NPuMjCgjPmOltwfxhzvvV1Y?=
- =?us-ascii?Q?E1YczBzbnKdIcWZGpNb95Rl6CMGedbHDSmjaefvpGIApHWHT1DQ4NJjs55GD?=
- =?us-ascii?Q?G4fDssLHhmJS7j30OvsuklTkyIJTomWJmEChUjUxFQLP67anLVBoxft9lxIu?=
- =?us-ascii?Q?dY5axZDa9ORUJUDNTDSCe5i/o6LGkgInSd9uOJBUeS5adp0gRI4zyqlTw1uY?=
- =?us-ascii?Q?I2vHlpZhRSYN9gi+P7cfU54ymv2+nzKZXApx62CrxuC3RalDdDPAjesY4M8v?=
- =?us-ascii?Q?DEipIOoturL3Wvoaem7i+ED7fVupBPOsgUCYiKtE7EfKLVKMUU5RTN18eBJU?=
- =?us-ascii?Q?uopH/hW4u1fDsVbiCxIPTEFWqEkMSySIaUbzt5SuI9+dLzeDUGXyvJDLNM06?=
- =?us-ascii?Q?HKx/KMrm+8G1L/9SC2mV2T2PjElMvwwM1s2ACAUFubSeQT64P7/+UK+FHxsI?=
- =?us-ascii?Q?sp8fKqiiobC4D+iv96SXQZm6hYRAKs2BjrzykgANG2eeLcBC5PIPAfqUYQl/?=
- =?us-ascii?Q?MtYL7rP0LaXxA3NNyOrtqstXCLnq54W07QDSe9MY8q71GT4xFSP7EUYbbxWb?=
- =?us-ascii?Q?L0d+tNyeX8N/pA2kExT9guk/G2D18IYSr8ciUgXjQbgNKYgNkNDPgo5gIJY5?=
- =?us-ascii?Q?hzy36v7pxa/M+HcbVJLwXev4veaqFnwp/wMcCec+CqfU1JebmRdPmGEpG0qo?=
- =?us-ascii?Q?kMZQQkNtfH9Kit+6Mwzap2yHSFhfLkAnsHcmXgxLtUW2xWOmUGOsOnDWO2FB?=
- =?us-ascii?Q?2fd2NXsC4LK7yj2O75f1pk12VxVjWnJiCAnRd98FjbxVjB7IoudJ9SXTIz1z?=
- =?us-ascii?Q?woa8LFr5hRMAcm/DgpZbh+bAJXZGjQPzpKxBxnBAimrjJ8FUSe/kCuE0XUGg?=
- =?us-ascii?Q?n7zzuIeGRjIg/WseQxb3egLVq/hyhwO4fBppd76LEXK9x61rD4HMG5Wj2Ary?=
- =?us-ascii?Q?2CldHMN9UpooIlNZrTErWHpGDyvFh7qMy2dST7nu+S8RTfYhX0/d+BNFKALe?=
- =?us-ascii?Q?YdCtM1O2L81gmGxCgJnLlAV6XlFSFBLg1bsO/n08A2O6zBtlFBn2ThdurAko?=
- =?us-ascii?Q?o0ugKXCc6YjB8XeQveLd/I791H5u8xedxDAUgQhe2S+5q3egVnhRCI+bzrD0?=
- =?us-ascii?Q?LXZUjpB0PHbtSLosPbk1GcS4pVsKLymnr6C2nf1jhR6KnUmKROd+XMmv0r+Y?=
- =?us-ascii?Q?3GggAKZB7u9mgRx5z/OAgl8EWcWO5s6LsW4wQlRIrziLR/FzfvXiQNd+F55R?=
- =?us-ascii?Q?2sKgnObeul5WfcrlPhs5slyUMhazSeM7/TpwthwUInguoO27tNLBqQjzzsci?=
- =?us-ascii?Q?IbiGFJjFkhxv/slzlHgp/QYzWR4gUfQmiaX+q1q1sRAnUwXe3sV/7hs7uvFp?=
- =?us-ascii?Q?gAfx/Uf9yfwN8Xmu+8EOx1ggqZCesCe7SU0/awcDoTScU1VFqfy9INjigBdk?=
- =?us-ascii?Q?kZNkC6Pu5kCsp0OF2qzlnX87sVpVPMPtaeds?=
+	=?us-ascii?Q?7iJw/Tyge+y3WFTnCI8i7bvXZZQJsqAwtNtpxsth5ty1T5AQTW7JzAfrO8+w?=
+ =?us-ascii?Q?ifFLA+wMcVyMc6iGXlmWm7ULtr0Hi8NZZEU5LDB1RnL11YeiAQU59L8he5O8?=
+ =?us-ascii?Q?jfvvvKjuqeZeWK16QNXfxYcp1qTuJNA+PSjRWxTFlDbAkHeu+6Igs1LqzJCh?=
+ =?us-ascii?Q?Ce9I12rqW60O4QcKsB9DE0cuBEUkHQQ0Q2NJiCwuxA7dlwbKcrQR7z1U4HhP?=
+ =?us-ascii?Q?BumVWHaqt2q39SkgScjSCwh9hpxGOoFhJ7NrDmKtA+QasYTr2Ze0v15lzxdl?=
+ =?us-ascii?Q?Be9xRPCogaAHfpdxWe1aTLbQmTT3P5YRoE/tTj3I/XfrRZurrVey4s5btuQL?=
+ =?us-ascii?Q?cELfZ+8SIk96MFKJYac2khaKKA/1Nfu1pq76ZEa6SOVdNIxApbDmmKd6MSln?=
+ =?us-ascii?Q?iADphv1kKELz829WjZvCg6rgYFMBBKfBdkfS+OlWuKoJNNJM/wuc2t8AT7dA?=
+ =?us-ascii?Q?LlPSrL/iAOh2S4wYbFrR3bNVqsAGenrSaqnb0Ybk6OL0AAWe7QFroEOcoW2L?=
+ =?us-ascii?Q?mCEIY1zbuaeLdC6ams6aG8nZMeHdJ0q7vbGVbnQs5m2uHtfqOPW3r/Yx7/M5?=
+ =?us-ascii?Q?n1dUj9PHk0uEp0tv/m3/WXhFvKYb4ki0Ha7q6kUQ6OiT7MJIcu67UeUmjb/e?=
+ =?us-ascii?Q?S1FgCnZ9e+HtnaTn60SiaDU6QmDc4V/r3LFm+0uPR3gE/hNvOv0dmp1zvYRn?=
+ =?us-ascii?Q?kZOqqItiY5ONNtqiVEwoTFJHhPoDj/mYvRVgd/qlI/u7ocxWgDlH5Rh7uYuP?=
+ =?us-ascii?Q?wzZ5WeWl6SUkrD5tMoEf8pxv7FcLAScx54r62wRWTPkf+yP0wJS5gLfcct7K?=
+ =?us-ascii?Q?L9gTFihuX28ERSbbGUNH84x4Lux1JJ6GTHNVFEFrd1B5Ipi6jL6y8Ucu7vC8?=
+ =?us-ascii?Q?vt6uOUT/Lxmu4Ad1rx1c2uj65PMJQRAoPcPTQvULeJ7yej1BSmkZW1ss/5wq?=
+ =?us-ascii?Q?OtN9pYJLAcrqMjdnJxDtAG4r+2kbzGCzvJuQaiAi63XdmIfEbcwTzhBTdvcO?=
+ =?us-ascii?Q?kq4jk5oBumUUk/YFBl0L03qNFnGy/jjG0J3GDjLtLA22xAc729yOW21srinD?=
+ =?us-ascii?Q?Dw9VT6fAjDFsApAofTWwcXNFB4Zu+khb/MFZ9LNGLH3d5UMhebYuryVEOTXP?=
+ =?us-ascii?Q?eN1i7rUE+1/hJjPfT2FZV6+2TgO9sLEllZ0zueunO0uPoU1ZPiBPzDeg8lKl?=
+ =?us-ascii?Q?1iRUsiHsPOQbjUZy+ZBeVpkBvR4FzGHMossxNvoHcIJzX8/3EhTSmg1o6FXR?=
+ =?us-ascii?Q?LU2WLACSFUxp6ET7ba2VulzlYKCL6WEbf2Dgj0u/ywneljLR49t/b+5m1NID?=
+ =?us-ascii?Q?RWFo9DZha1/BaMnBMInGFm0p96KoY3SdgV46t/DZiLgEl/OvZ6NMGZFA7n8z?=
+ =?us-ascii?Q?8LukztBhpEZD4hYYplwA6Lzirbvj+0tVO5Ihf5lRb37F+rse1u+PuWwWfHzM?=
+ =?us-ascii?Q?PokT4E/u3oL6dtPCkFN2RA6LlldmHQFlipuuOn2zEsMqrBPU9TUSjUZ8vwka?=
+ =?us-ascii?Q?ntCQBt2yENm1m75VlteS4VCx8UxIC5/JiyTY?=
 X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026)(35042699022)(14060799003);DIR:OUT;SFP:1101;
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(35042699022)(82310400026)(36860700013)(1800799024)(376014)(14060799003);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2025 07:11:26.2712
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2025 07:11:39.6424
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7b7b228-0210-48e9-cea5-08ddd0caa13e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 78d0bf0e-c725-4151-9f38-08ddd0caa938
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AMS1EPF00000047.eurprd04.prod.outlook.com
+	DB1PEPF000509FA.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB6377
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB9582
 
 Hi,
 
@@ -221,416 +221,184 @@ Bertrand
 > On 17 Jul 2025, at 14:11, Bertrand Marquis <Bertrand.Marquis@arm.com> wro=
 te:
 >=20
-> When VM to VM support is activated and there is no suitable FF-A support
-> in the firmware, enable FF-A support for VMs to allow using it for VM to
-> VM communications.
-> If there is OP-TEE running in the secure world and using the non FF-A
-> communication system, having CONFIG_FFA_VM_TO_VM could be non functional
-> (if optee is probed first) or OP-TEE could be non functional (if FF-A is
-> probed first) so it is not recommended to activate the configuration
-> option for such systems.
->=20
-> To make buffer full notification work between VMs when there is no
-> firmware, rework the notification handling and modify the global flag to
-> only be used as check for firmware notification support instead.
->=20
-> Also split probe function into one for firmware and one for vm to vm to
-> make the implementation clearer.
+> Add support for indirect messages between VMs.
+> This is only enabled if CONFIG_FFA_VM_TO_VM is selected.
 >=20
 > Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 > Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
->=20
 > ---
-> Changes in v7:
-> - add Jens R-b
 > Changes in v6:
-> - split probe into fw and vm_to_vm probe
+> - fix code alignment (Jens)
+> - add Jens R-b
 > Changes in v5:
-> - init ctx list when there is no firmware
-> - rework init a bit to prevent duplicates
-> - Remove Jens R-b due to changes done
+> - Prevent potential overflow in send2 handling (Julien)
+> - Only use page_count with rx lock acquired
+> - Fix an issue where send2 between VMs was not doing the copy from the
+>  tx buffer but from a wrong location in the stack. This bug was
+>  introduced in v4 when switching to a local copy for the header.
 > Changes in v4:
-> - Fix Optee to OP-TEE in commit message
-> - Add Jens R-b
+> - Use a local copy of the message header to prevent a TOC/TOU possible
+>  issue when using the payload size
 > Changes in v3:
-> - fix typos in commit message
-> - add spaces around <<
-> - move notification id fix back into buffer full patch
-> - fix | position in if
+> - Move vm to vm indirect message handling in a sub function to simplify
+>  lock handling and make implementation easier to read
 > Changes in v2:
-> - replace ifdef with IS_ENABLED when possible
+> - Switch ifdef to IS_ENABLED
 > ---
-> xen/arch/arm/tee/ffa.c       |  93 ++++++++++++++++++-------------
-> xen/arch/arm/tee/ffa_notif.c | 104 ++++++++++++++++-------------------
-> 2 files changed, 104 insertions(+), 93 deletions(-)
+> xen/arch/arm/tee/ffa_msg.c | 117 ++++++++++++++++++++++++++++++++-----
+> 1 file changed, 102 insertions(+), 15 deletions(-)
 >=20
-> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> index be71eda4869f..df38b4e15b36 100644
-> --- a/xen/arch/arm/tee/ffa.c
-> +++ b/xen/arch/arm/tee/ffa.c
-> @@ -345,8 +345,9 @@ static int ffa_domain_init(struct domain *d)
->     struct ffa_ctx *ctx;
->     int ret;
->=20
-> -    if ( !ffa_fw_version )
-> +    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !ffa_fw_version )
->         return -ENODEV;
-> +
->     /*
->      * We are using the domain_id + 1 as the FF-A ID for VMs as FF-A ID 0=
- is
->      * reserved for the hypervisor and we only support secure endpoints u=
-sing
-> @@ -477,38 +478,12 @@ static void ffa_init_secondary(void)
->     ffa_notif_init_interrupt();
+> diff --git a/xen/arch/arm/tee/ffa_msg.c b/xen/arch/arm/tee/ffa_msg.c
+> index ee594e737fc7..c20c5bec0f76 100644
+> --- a/xen/arch/arm/tee/ffa_msg.c
+> +++ b/xen/arch/arm/tee/ffa_msg.c
+> @@ -88,43 +88,130 @@ out:
+>                  resp.a7 & mask);
 > }
 >=20
-> -static bool ffa_probe(void)
-> +static bool ffa_probe_fw(void)
-> {
->     uint32_t vers;
->     unsigned int major_vers;
->     unsigned int minor_vers;
->=20
-> -    /*
-> -     * FF-A often works in units of 4K pages and currently it's assumed
-> -     * that we can map memory using that granularity. See also the comme=
-nt
-> -     * above the FFA_PAGE_SIZE define.
-> -     *
-> -     * It is possible to support a PAGE_SIZE larger than 4K in Xen, but
-> -     * until that is fully handled in this code make sure that we only u=
-se
-> -     * 4K page sizes.
-> -     */
-> -    BUILD_BUG_ON(PAGE_SIZE !=3D FFA_PAGE_SIZE);
-> -
-> -    printk(XENLOG_INFO "ARM FF-A Mediator version %u.%u\n",
-> -           FFA_MY_VERSION_MAJOR, FFA_MY_VERSION_MINOR);
-> -
-> -    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-> -    {
-> -        /*
-> -         * When FFA VM to VM is enabled, the current implementation does=
- not
-> -         * offer any way to limit which VM can communicate with which VM=
- using
-> -         * FF-A.
-> -         * Signal this in the xen console and taint the system as insecu=
-re.
-> -         * TODO: Introduce a solution to limit what a VM can do through =
-FFA.
-> -         */
-> -        printk(XENLOG_ERR "ffa: VM to VM is enabled, system is insecure =
-!!\n");
-> -        add_taint(TAINT_MACHINE_INSECURE);
-> -    }
->     /*
->      * psci_init_smccc() updates this value with what's reported by EL-3
->      * or secure world.
-> @@ -527,11 +502,6 @@ static bool ffa_probe(void)
->         goto err_no_fw;
->     }
->=20
-> -    /* Some sanity check in case we update the version we support */
-> -    BUILD_BUG_ON(FFA_MIN_SPMC_VERSION > FFA_MY_VERSION);
-> -    BUILD_BUG_ON(FFA_VERSION_MAJOR(FFA_MIN_SPMC_VERSION) !=3D
-> -                                   FFA_MY_VERSION_MAJOR);
-> -
->     major_vers =3D FFA_VERSION_MAJOR(vers);
->     minor_vers =3D FFA_VERSION_MINOR(vers);
->=20
-> @@ -582,10 +552,6 @@ static bool ffa_probe(void)
->         goto err_rxtx_destroy;
->=20
->     ffa_notif_init();
-> -    INIT_LIST_HEAD(&ffa_teardown_head);
-> -    INIT_LIST_HEAD(&ffa_ctx_head);
-> -    rwlock_init(&ffa_ctx_list_rwlock);
-> -    init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback, NULL, 0=
-);
->=20
->     return true;
->=20
-> @@ -599,6 +565,59 @@ err_no_fw:
->     return false;
-> }
->=20
-> +static bool ffa_probe_vm_to_vm(void)
+> +static int32_t ffa_msg_send2_vm(uint16_t dst_id, const void *src_buf,
+> +                                struct ffa_part_msg_rxtx *src_msg)
 > +{
-> +    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-> +        return false;
+> +    struct domain *dst_d;
+> +    struct ffa_ctx *dst_ctx;
+> +    struct ffa_part_msg_rxtx *dst_msg;
+> +    int err;
+> +    int32_t ret;
 > +
-> +    /*
-> +     * When FFA VM to VM is enabled, the current implementation does not
-> +     * offer any way to limit which VM can communicate with which VM usi=
-ng
-> +     * FF-A.
-> +     * Signal this in the xen console and taint the system as insecure.
-> +     * TODO: Introduce a solution to limit what a VM can do through FFA.
-> +     */
-> +    printk(XENLOG_ERR "ffa: VM to VM is enabled, system is insecure !!\n=
-");
-> +    add_taint(TAINT_MACHINE_INSECURE);
+> +    if ( dst_id =3D=3D 0 )
+> +        /* FF-A ID 0 is the hypervisor, this is not valid */
+> +        return FFA_RET_INVALID_PARAMETERS;
 > +
-> +    return true;
-> +}
+> +    /* This is also checking that dest is not src */
+> +    err =3D rcu_lock_live_remote_domain_by_id(dst_id - 1, &dst_d);
+> +    if ( err )
+> +        return FFA_RET_INVALID_PARAMETERS;
 > +
-> +static bool ffa_probe(void)
-> +{
-> +    /*
-> +     * FF-A often works in units of 4K pages and currently it's assumed
-> +     * that we can map memory using that granularity. See also the comme=
-nt
-> +     * above the FFA_PAGE_SIZE define.
-> +     *
-> +     * It is possible to support a PAGE_SIZE larger than 4K in Xen, but
-> +     * until that is fully handled in this code make sure that we only u=
-se
-> +     * 4K page sizes.
-> +     */
-> +    BUILD_BUG_ON(PAGE_SIZE !=3D FFA_PAGE_SIZE);
-> +
-> +    /* Some sanity check in case we update the version we support */
-> +    BUILD_BUG_ON(FFA_MIN_SPMC_VERSION > FFA_MY_VERSION);
-> +    BUILD_BUG_ON(FFA_VERSION_MAJOR(FFA_MIN_SPMC_VERSION) !=3D
-> +                                   FFA_MY_VERSION_MAJOR);
-> +
-> +    printk(XENLOG_INFO "ARM FF-A Mediator version %u.%u\n",
-> +           FFA_MY_VERSION_MAJOR, FFA_MY_VERSION_MINOR);
-> +
-> +    if ( !ffa_probe_fw() && !ffa_probe_vm_to_vm() )
-> +        return false;
-> +
-> +    if ( !ffa_fw_version )
-> +        printk(XENLOG_INFO "ARM FF-A only available between VMs\n");
-> +
-> +    INIT_LIST_HEAD(&ffa_teardown_head);
-> +    INIT_LIST_HEAD(&ffa_ctx_head);
-> +    rwlock_init(&ffa_ctx_list_rwlock);
-> +    init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback, NULL, 0=
-);
-> +
-> +    return true;
-> +}
-> +
-> static const struct tee_mediator_ops ffa_ops =3D
-> {
->     .probe =3D ffa_probe,
-> diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.c
-> index f6df2f15bb00..86bef6b3b2ab 100644
-> --- a/xen/arch/arm/tee/ffa_notif.c
-> +++ b/xen/arch/arm/tee/ffa_notif.c
-> @@ -16,7 +16,7 @@
->=20
-> #include "ffa_private.h"
->=20
-> -static bool __ro_after_init notif_enabled;
-> +static bool __ro_after_init fw_notif_enabled;
-> static unsigned int __ro_after_init notif_sri_irq;
->=20
-> int ffa_handle_notification_bind(struct cpu_user_regs *regs)
-> @@ -27,21 +27,17 @@ int ffa_handle_notification_bind(struct cpu_user_regs=
- *regs)
->     uint32_t bitmap_lo =3D get_user_reg(regs, 3);
->     uint32_t bitmap_hi =3D get_user_reg(regs, 4);
->=20
-> -    if ( !notif_enabled )
-> -        return FFA_RET_NOT_SUPPORTED;
-> -
->     if ( (src_dst & 0xFFFFU) !=3D ffa_get_vm_id(d) )
->         return FFA_RET_INVALID_PARAMETERS;
->=20
->     if ( flags )    /* Only global notifications are supported */
->         return FFA_RET_DENIED;
->=20
-> -    /*
-> -     * We only support notifications from SP so no need to check the sen=
-der
-> -     * endpoint ID, the SPMC will take care of that for us.
-> -     */
-> -    return ffa_simple_call(FFA_NOTIFICATION_BIND, src_dst, flags, bitmap=
-_lo,
-> -                           bitmap_hi);
-> +    if ( FFA_ID_IS_SECURE(src_dst >> 16) && fw_notif_enabled )
-> +        return ffa_simple_call(FFA_NOTIFICATION_BIND, src_dst, flags,
-> +                               bitmap_lo, bitmap_hi);
-> +
-> +    return FFA_RET_NOT_SUPPORTED;
-> }
->=20
-> int ffa_handle_notification_unbind(struct cpu_user_regs *regs)
-> @@ -51,18 +47,14 @@ int ffa_handle_notification_unbind(struct cpu_user_re=
-gs *regs)
->     uint32_t bitmap_lo =3D get_user_reg(regs, 3);
->     uint32_t bitmap_hi =3D get_user_reg(regs, 4);
->=20
-> -    if ( !notif_enabled )
-> -        return FFA_RET_NOT_SUPPORTED;
-> -
->     if ( (src_dst & 0xFFFFU) !=3D ffa_get_vm_id(d) )
->         return FFA_RET_INVALID_PARAMETERS;
->=20
-> -    /*
-> -     * We only support notifications from SP so no need to check the
-> -     * destination endpoint ID, the SPMC will take care of that for us.
-> -     */
-> -    return  ffa_simple_call(FFA_NOTIFICATION_UNBIND, src_dst, 0, bitmap_=
-lo,
-> -                            bitmap_hi);
-> +    if ( FFA_ID_IS_SECURE(src_dst >> 16) && fw_notif_enabled )
-> +        return  ffa_simple_call(FFA_NOTIFICATION_UNBIND, src_dst, 0, bit=
-map_lo,
-> +                                bitmap_hi);
-> +
-> +    return FFA_RET_NOT_SUPPORTED;
-> }
->=20
-> void ffa_handle_notification_info_get(struct cpu_user_regs *regs)
-> @@ -71,7 +63,7 @@ void ffa_handle_notification_info_get(struct cpu_user_r=
-egs *regs)
->     struct ffa_ctx *ctx =3D d->arch.tee;
->     bool notif_pending;
->=20
-> -    if ( !notif_enabled )
-> +    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !fw_notif_enabled )
->     {
->         ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
->         return;
-> @@ -108,7 +100,7 @@ void ffa_handle_notification_get(struct cpu_user_regs=
- *regs)
->     uint32_t w6 =3D 0;
->     uint32_t w7 =3D 0;
->=20
-> -    if ( !notif_enabled )
-> +    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !fw_notif_enabled )
->     {
->         ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
->         return;
-> @@ -120,7 +112,8 @@ void ffa_handle_notification_get(struct cpu_user_regs=
- *regs)
->         return;
->     }
->=20
-> -    if ( flags & ( FFA_NOTIF_FLAG_BITMAP_SP | FFA_NOTIF_FLAG_BITMAP_SPM =
-) )
-> +    if ( fw_notif_enabled && (flags & ( FFA_NOTIF_FLAG_BITMAP_SP |
-> +                                        FFA_NOTIF_FLAG_BITMAP_SPM )) )
->     {
->         struct arm_smccc_1_2_regs arg =3D {
->             .a0 =3D FFA_NOTIFICATION_GET,
-> @@ -177,15 +170,14 @@ int ffa_handle_notification_set(struct cpu_user_reg=
-s *regs)
->     uint32_t bitmap_lo =3D get_user_reg(regs, 3);
->     uint32_t bitmap_hi =3D get_user_reg(regs, 4);
->=20
-> -    if ( !notif_enabled )
-> -        return FFA_RET_NOT_SUPPORTED;
-> -
->     if ( (src_dst >> 16) !=3D ffa_get_vm_id(d) )
->         return FFA_RET_INVALID_PARAMETERS;
->=20
-> -    /* Let the SPMC check the destination of the notification */
-> -    return ffa_simple_call(FFA_NOTIFICATION_SET, src_dst, flags, bitmap_=
-lo,
-> -                           bitmap_hi);
-> +    if ( FFA_ID_IS_SECURE(src_dst >> 16) && fw_notif_enabled )
-> +        return ffa_simple_call(FFA_NOTIFICATION_SET, src_dst, flags, bit=
-map_lo,
-> +                               bitmap_hi);
-> +
-> +    return FFA_RET_NOT_SUPPORTED;
-> }
->=20
-> #ifdef CONFIG_FFA_VM_TO_VM
-> @@ -371,7 +363,7 @@ void ffa_notif_init_interrupt(void)
-> {
->     int ret;
->=20
-> -    if ( notif_enabled && notif_sri_irq < NR_GIC_SGI )
-> +    if ( fw_notif_enabled && notif_sri_irq < NR_GIC_SGI )
->     {
->         /*
->          * An error here is unlikely since the primary CPU has already
-> @@ -402,41 +394,41 @@ void ffa_notif_init(void)
->     int ret;
->=20
->     /* Only enable fw notification if all ABIs we need are supported */
-> -    if ( !(ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_CREATE) &&
-> -           ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_DESTROY) &&
-> -           ffa_fw_supports_fid(FFA_NOTIFICATION_GET) &&
-> -           ffa_fw_supports_fid(FFA_NOTIFICATION_INFO_GET_64)) )
-> -        return;
-> -
-> -    arm_smccc_1_2_smc(&arg, &resp);
-> -    if ( resp.a0 !=3D FFA_SUCCESS_32 )
-> -        return;
-> -
-> -    irq =3D resp.a2;
-> -    notif_sri_irq =3D irq;
-> -    if ( irq >=3D NR_GIC_SGI )
-> -        irq_set_type(irq, IRQ_TYPE_EDGE_RISING);
-> -    ret =3D request_irq(irq, 0, notif_irq_handler, "FF-A notif", NULL);
-> -    if ( ret )
-> +    if ( ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_CREATE) &&
-> +         ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_DESTROY) &&
-> +         ffa_fw_supports_fid(FFA_NOTIFICATION_GET) &&
-> +         ffa_fw_supports_fid(FFA_NOTIFICATION_INFO_GET_64) )
->     {
-> -        printk(XENLOG_ERR "ffa: request_irq irq %u failed: error %d\n",
-> -               irq, ret);
-> -        return;
-> -    }
-> +        arm_smccc_1_2_smc(&arg, &resp);
-> +        if ( resp.a0 !=3D FFA_SUCCESS_32 )
-> +            return;
->=20
-> -    notif_enabled =3D true;
-> +        irq =3D resp.a2;
-> +        notif_sri_irq =3D irq;
-> +        if ( irq >=3D NR_GIC_SGI )
-> +            irq_set_type(irq, IRQ_TYPE_EDGE_RISING);
-> +        ret =3D request_irq(irq, 0, notif_irq_handler, "FF-A notif", NUL=
-L);
-> +        if ( ret )
-> +        {
-> +            printk(XENLOG_ERR "ffa: request_irq irq %u failed: error %d\=
-n",
-> +                   irq, ret);
-> +            return;
-> +        }
-> +        fw_notif_enabled =3D true;
-> +    }
-> }
->=20
-> int ffa_notif_domain_init(struct domain *d)
-> {
->     int32_t res;
->=20
-> -    if ( !notif_enabled )
-> -        return 0;
-> +    if ( fw_notif_enabled )
+> +    if ( dst_d->arch.tee =3D=3D NULL )
 > +    {
->=20
-> -    res =3D ffa_notification_bitmap_create(ffa_get_vm_id(d), d->max_vcpu=
-s);
-> -    if ( res )
-> -        return -ENOMEM;
-> +        res =3D ffa_notification_bitmap_create(ffa_get_vm_id(d), d->max_=
-vcpus);
-> +        if ( res )
-> +            return -ENOMEM;
+> +        ret =3D FFA_RET_INVALID_PARAMETERS;
+> +        goto out_unlock;
 > +    }
+> +
+> +    dst_ctx =3D dst_d->arch.tee;
+> +    if ( !dst_ctx->guest_vers )
+> +    {
+> +        ret =3D FFA_RET_INVALID_PARAMETERS;
+> +        goto out_unlock;
+> +    }
+> +
+> +    /* This also checks that destination has set a Rx buffer */
+> +    ret =3D ffa_rx_acquire(dst_d);
+> +    if ( ret )
+> +        goto out_unlock;
+> +
+> +    /* we need to have enough space in the destination buffer */
+> +    if ( (dst_ctx->page_count * FFA_PAGE_SIZE -
+> +          sizeof(struct ffa_part_msg_rxtx)) < src_msg->msg_size )
+> +    {
+> +        ret =3D FFA_RET_NO_MEMORY;
+> +        ffa_rx_release(dst_d);
+> +        goto out_unlock;
+> +    }
+> +
+> +    dst_msg =3D dst_ctx->rx;
+> +
+> +    /* prepare destination header */
+> +    dst_msg->flags =3D 0;
+> +    dst_msg->reserved =3D 0;
+> +    dst_msg->msg_offset =3D sizeof(struct ffa_part_msg_rxtx);
+> +    dst_msg->send_recv_id =3D src_msg->send_recv_id;
+> +    dst_msg->msg_size =3D src_msg->msg_size;
+> +
+> +    memcpy(dst_ctx->rx + sizeof(struct ffa_part_msg_rxtx),
+> +           src_buf + src_msg->msg_offset, src_msg->msg_size);
+> +
+> +    /* receiver rx buffer will be released by the receiver*/
+> +
+> +out_unlock:
+> +    rcu_unlock_domain(dst_d);
+> +    if ( !ret )
+> +        ffa_raise_rx_buffer_full(dst_d);
+> +
+> +    return ret;
+> +}
+> +
+> int32_t ffa_handle_msg_send2(struct cpu_user_regs *regs)
+> {
+>     struct domain *src_d =3D current->domain;
+>     struct ffa_ctx *src_ctx =3D src_d->arch.tee;
+> -    const struct ffa_part_msg_rxtx *src_msg;
+> +    struct ffa_part_msg_rxtx src_msg;
+>     uint16_t dst_id, src_id;
+>     int32_t ret;
 >=20
->     return 0;
-> }
-> @@ -447,6 +439,6 @@ void ffa_notif_domain_destroy(struct domain *d)
->      * Call bitmap_destroy even if bitmap create failed as the SPMC will
->      * return a DENIED error that we will ignore.
->      */
-> -    if ( notif_enabled )
-> +    if ( fw_notif_enabled )
->         ffa_notification_bitmap_destroy(ffa_get_vm_id(d));
+> -    if ( !ffa_fw_supports_fid(FFA_MSG_SEND2) )
+> -        return FFA_RET_NOT_SUPPORTED;
+> +    BUILD_BUG_ON(sizeof(struct ffa_part_msg_rxtx) >=3D FFA_PAGE_SIZE);
+>=20
+>     if ( !spin_trylock(&src_ctx->tx_lock) )
+>         return FFA_RET_BUSY;
+>=20
+> -    src_msg =3D src_ctx->tx;
+> -    src_id =3D src_msg->send_recv_id >> 16;
+> -    dst_id =3D src_msg->send_recv_id & GENMASK(15,0);
+> +    /* create a copy of the message header */
+> +    memcpy(&src_msg, src_ctx->tx, sizeof(src_msg));
+>=20
+> -    if ( src_id !=3D ffa_get_vm_id(src_d) || !FFA_ID_IS_SECURE(dst_id) )
+> +    src_id =3D src_msg.send_recv_id >> 16;
+> +    dst_id =3D src_msg.send_recv_id & GENMASK(15,0);
+> +
+> +    if ( src_id !=3D ffa_get_vm_id(src_d) )
+>     {
+>         ret =3D FFA_RET_INVALID_PARAMETERS;
+> -        goto out_unlock_tx;
+> +        goto out;
+>     }
+>=20
+>     /* check source message fits in buffer */
+> -    if ( src_ctx->page_count * FFA_PAGE_SIZE <
+> -         src_msg->msg_offset + src_msg->msg_size ||
+> -         src_msg->msg_offset < sizeof(struct ffa_part_msg_rxtx) )
+> +    if ( src_msg.msg_offset < sizeof(struct ffa_part_msg_rxtx) ||
+> +            src_msg.msg_size =3D=3D 0 ||
+> +            src_msg.msg_offset > src_ctx->page_count * FFA_PAGE_SIZE ||
+> +            src_msg.msg_size > (src_ctx->page_count * FFA_PAGE_SIZE -
+> +                                src_msg.msg_offset) )
+>     {
+>         ret =3D FFA_RET_INVALID_PARAMETERS;
+> -        goto out_unlock_tx;
+> +        goto out;
+>     }
+>=20
+> -    ret =3D ffa_simple_call(FFA_MSG_SEND2,
+> -                          ((uint32_t)ffa_get_vm_id(src_d)) << 16, 0, 0, =
+0);
+> +    if ( FFA_ID_IS_SECURE(dst_id) )
+> +    {
+> +        /* Message for a secure partition */
+> +        if ( !ffa_fw_supports_fid(FFA_MSG_SEND2) )
+> +        {
+> +            ret =3D FFA_RET_NOT_SUPPORTED;
+> +            goto out;
+> +        }
+> +
+> +        ret =3D ffa_simple_call(FFA_MSG_SEND2,
+> +                              ((uint32_t)ffa_get_vm_id(src_d)) << 16, 0,=
+ 0, 0);
+> +    }
+> +    else if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
+> +    {
+> +        /* Message for a VM */
+> +        ret =3D ffa_msg_send2_vm(dst_id, src_ctx->tx, &src_msg);
+> +    }
+> +    else
+> +        ret =3D FFA_RET_INVALID_PARAMETERS;
+>=20
+> -out_unlock_tx:
+> +out:
+>     spin_unlock(&src_ctx->tx_lock);
+>     return ret;
 > }
 > --=20
 > 2.47.1
