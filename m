@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 945D6B1933F
-	for <lists+xen-devel@lfdr.de>; Sun,  3 Aug 2025 11:48:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1068340.1432329 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 903EAB1933D
+	for <lists+xen-devel@lfdr.de>; Sun,  3 Aug 2025 11:48:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1068339.1432319 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uiVKG-0005qL-Tz; Sun, 03 Aug 2025 09:48:20 +0000
+	id 1uiVKE-0005ay-Gd; Sun, 03 Aug 2025 09:48:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1068340.1432329; Sun, 03 Aug 2025 09:48:20 +0000
+Received: by outflank-mailman (output) from mailman id 1068339.1432319; Sun, 03 Aug 2025 09:48:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uiVKG-0005nB-PS; Sun, 03 Aug 2025 09:48:20 +0000
-Received: by outflank-mailman (input) for mailman id 1068340;
- Sun, 03 Aug 2025 09:48:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uiVKE-0005YT-DB; Sun, 03 Aug 2025 09:48:18 +0000
+Received: by outflank-mailman (input) for mailman id 1068339;
+ Sun, 03 Aug 2025 09:48:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=f/pN=2P=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1uiVKF-0005hH-55
- for xen-devel@lists.xenproject.org; Sun, 03 Aug 2025 09:48:19 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2061a.outbound.protection.outlook.com
- [2a01:111:f403:2414::61a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fa39aed4-704e-11f0-b897-0df219b8e170;
+ id 1uiVKC-0005K3-VN
+ for xen-devel@lists.xenproject.org; Sun, 03 Aug 2025 09:48:16 +0000
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on20624.outbound.protection.outlook.com
+ [2a01:111:f403:2407::624])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fa7685a1-704e-11f0-a321-13f23c93f187;
  Sun, 03 Aug 2025 11:48:16 +0200 (CEST)
-Received: from BYAPR21CA0017.namprd21.prod.outlook.com (2603:10b6:a03:114::27)
- by SJ2PR12MB8182.namprd12.prod.outlook.com (2603:10b6:a03:4fd::20)
- with Microsoft SMTP Server (version=TLS1_2,
+Received: from SJ0PR03CA0258.namprd03.prod.outlook.com (2603:10b6:a03:3a0::23)
+ by DS2PR12MB9823.namprd12.prod.outlook.com (2603:10b6:8:2ad::22) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.18; Sun, 3 Aug
- 2025 09:48:10 +0000
-Received: from SJ1PEPF0000231A.namprd03.prod.outlook.com
- (2603:10b6:a03:114:cafe::e1) by BYAPR21CA0017.outlook.office365.com
- (2603:10b6:a03:114::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9031.1 via Frontend Transport; Sun, 3
- Aug 2025 09:48:10 +0000
+ 2025 09:48:12 +0000
+Received: from SJ1PEPF0000231C.namprd03.prod.outlook.com
+ (2603:10b6:a03:3a0:cafe::6) by SJ0PR03CA0258.outlook.office365.com
+ (2603:10b6:a03:3a0::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.20 via Frontend Transport; Sun,
+ 3 Aug 2025 09:48:12 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF0000231A.mail.protection.outlook.com (10.167.242.231) with Microsoft
+ SJ1PEPF0000231C.mail.protection.outlook.com (10.167.242.233) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9009.8 via Frontend Transport; Sun, 3 Aug 2025 09:48:10 +0000
+ 15.20.9009.8 via Frontend Transport; Sun, 3 Aug 2025 09:48:11 +0000
 Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Sun, 3 Aug 2025 04:48:01 -0500
+ 15.1.2507.39; Sun, 3 Aug 2025 04:48:04 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fa39aed4-704e-11f0-b897-0df219b8e170
+X-Inumbo-ID: fa7685a1-704e-11f0-a321-13f23c93f187
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WEYtYo4cK4NN2NLq29evqs4m5ANUxwzJGoMyn7RrNhPUGMdzsXxmRSiQ4qTYNfjL0jvlkFWHBmz+UxyTSVZxBO5+mWlMbnugFqzg2q52HCeu9RImu2I+/CIEzfJUmx9EJnZ8rhsKFBOJXlg1pm6frMY2myCC5aA5EvPZOu750M0DhsVEl+AmAdVL9rZlT+0MLkrZE4J8nmM52dF0Dt1BYYw+ggVyXOWhtlD+9wnbW9gRcOabV4YgTLKka/Dg+BT8jFcfzX+qLVA6hgSoIyN5hWOEchCdFZoiCKangkOP6xDjLE7+rCawVsqIWKeOcHyHmPwHbd4Y6W0WkrqsmwO+wQ==
+ b=c0m/qG1tmFSkKg8cBXdBedElg+l6UQ0Qq6i2XutMu98toKzdvRzV8KG0HkrW3gewcZ51xz9rUW0veRzw0cw4SRRfF5JegNAj1k58fXmusQfEhdPOdNcEf4sbE9XeSAHu5UalEh+BVgntwLESNCrIT8Ug2Wd1J8y1SM0wTqcO58DgE7RFsma5xCrkbOJ8yEPdDk5JP4j11xeMOGU2Ra8F+R/d9kJ3OSLobrWwB1zv5tGNdYBMC/oq9gdBdmqRFM/863a7r4p7r7kQe5kSL137V7NwIvUM+FPguOQFeXh+rkYBZ0LgzM5sOag9daVMLPI/YqUR3xTrhqWGxfPruNcjKw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SFOt+PCzlFzbUDdrbC/A6T41ntOa9X+pZCsEOSsCT40=;
- b=VeSrGkQFhtjmrYBDlngbp1roUikEx9r4Y4DUTBL1vsMpyz8wZ54REz2P7Sw+DUUe8DX1IoZ0hEAscrvOjn8exbLTEim9BQg9q2IXLoTCzKi+pPJVrKJrNfbCboHBFzX3h4Y6Fj5JON1CFDf7PdOBmC/uRvSoMB6oYbuaI8m73fNLQuB1SDYzXqJCBLY4Rx/GirR7B9BdgomgPykBN7M94yzXkderAemIumqdk+Pr/7w26tln1eeSAL/YvgIgE+uGKokZ7GhXSYcTIYsVl78A1TNi6zTrUvlU026E/YY2X+faBixFDGmnNTQowjVp49/hxvGQZO+6j+goFci2bXvRqw==
+ bh=wMenH/9InGy31gRbO7Zt6kQeOlelkssdQv5WC1YzgYM=;
+ b=jy6LBqOL7AGjs6rMqyOqNvXOePVWb9Fyf36Dot5cj9LriZw7w4vCwHDx7wRiyAoZzagACfcH9x+DeLMmOnkG528ueMXP4Z4HsBi9qX3rRJhWygJKUIiRP6TYvHQpPCYVL+fjJeKwQw2kaZKXLv+Q8fhGxro0lNa3iSvV8o5XlPgA1P8evq5un3h2vyAjfRZ4hYH25rvBY2EtCZjXN3IOVqnODimiIX1CqLzC294rGxJ7O5JM6RbZsSSIJFIwfyypHRfVl47X4YE7AcgNg6LqD62HczUIObzuII3iIEBVkYcblT9NHSTH4i1ktvCnEchzdxwWbW0vxleMRie02lwqgQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SFOt+PCzlFzbUDdrbC/A6T41ntOa9X+pZCsEOSsCT40=;
- b=FRPuTqH0TUpTm5JBe+xsTMxHdGK+kdoNOB9w35+G/5Ibq9vfQ8TJ7YJLLho7xNBeQwJ9sYLBJM6CzSQ5McIf6wq2CoUYHcjZZOM9+yIOz/YZbhRZjm0qiTE+vdQefLaSKoag12LZHWbFPtYPBAufkvdW2WN6bFTdRFccxvtXFdQ=
+ bh=wMenH/9InGy31gRbO7Zt6kQeOlelkssdQv5WC1YzgYM=;
+ b=29ddRivhTTAezUFe85aYMqQGxww+teKFngczXQ0ehnR/V7MOUJTIQXDkPDvXMJdV7SOWuh2bPm2kjDTyjrQPCHPF4puSKbAHV4+dCQXMDs5f050W/cu31+PQYn3SCWoner2P/72ZVX2CzahUKKcTLithPionVgErWiw7/ajbto4=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -82,12 +82,10 @@ From: Penny Zheng <Penny.Zheng@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <ray.huang@amd.com>, Penny Zheng <Penny.Zheng@amd.com>, Jan Beulich
 	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
- Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1 01/25] xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE
-Date: Sun, 3 Aug 2025 17:47:14 +0800
-Message-ID: <20250803094738.3625269-2-Penny.Zheng@amd.com>
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v1 02/25] xen/x86: consolidate vram tracking support
+Date: Sun, 3 Aug 2025 17:47:15 +0800
+Message-ID: <20250803094738.3625269-3-Penny.Zheng@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250803094738.3625269-1-Penny.Zheng@amd.com>
 References: <20250803094738.3625269-1-Penny.Zheng@amd.com>
@@ -99,170 +97,203 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231A:EE_|SJ2PR12MB8182:EE_
-X-MS-Office365-Filtering-Correlation-Id: 35a77a8c-7231-4743-9d25-08ddd272db7c
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231C:EE_|DS2PR12MB9823:EE_
+X-MS-Office365-Filtering-Correlation-Id: e91c1bc7-7004-4748-fd97-08ddd272dbe2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700013;
+	BCL:0;ARA:13230040|82310400026|36860700013|376014|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?JxsVR9tR3AxbvdiAOCcP4ZRwwb9PQ9h6iPlqKe60DM1o3c7a4f55wTHD7jV6?=
- =?us-ascii?Q?UqmXg5CtHyWMr9OLS/Dnwg6GWZpzP40y5zY4g0WOp6UD0uNtnJWMoRU/aDZ7?=
- =?us-ascii?Q?OHj7LTkL6u/GwmkkHBB9kcwwAKJZOqWKGB6MFM5FE6+CflECt5sYMO/G0tO8?=
- =?us-ascii?Q?CTymen0fGfFe0yxm/bqUfsn2vSMi7jzphd2YoedKhKWNGDhgb3uX3nKNnUeK?=
- =?us-ascii?Q?chv9U33qDwJkQ2Xbm6fWK4hyVBW4OEy2tcZ9ITTtIrtf91Iuz266jqJYy4bn?=
- =?us-ascii?Q?LG6ASsxOb90PrZjKJI7+ZjQLTVhBNlUJwDOfCPpNfF5THmkXm895v+hfurjD?=
- =?us-ascii?Q?YcYXOiU7aw2v55sQ4S4QvNXP9zjICnmQUovRPDpORh+pUmzBp9HwmjnWbpWQ?=
- =?us-ascii?Q?6qQA6ssn+fySJPgcsPbmQUcvoVEFeJU2hJhlHRK9PktSeyP2tJQ6gc5SYToE?=
- =?us-ascii?Q?zflgUMuy+jbMno/iEQofffk09N+1k43NgIFoyrJ8+88/ggZb3qi9c0OihYYx?=
- =?us-ascii?Q?W+L5bXiflTqUtRWJu52Usp21ORCzTHGljyaIE7t/uV7z8OdiUKROs1Ed3kri?=
- =?us-ascii?Q?xkROF6WoVjfTZMsepB7das8jMVz/TFAkgag+ggZv/E7k2RNNqaeXEL7F+kME?=
- =?us-ascii?Q?7bEFEGt0egIFG8CmLlUYKvWrc3YFkOgwDIIfGqQgN3LfO1fxfkEtQupPTojo?=
- =?us-ascii?Q?lsyJGaeToPW0+qcY2biL4BG58uaESJMOOEmHhWPqzFZ6mSMgxnHawtwlhsRW?=
- =?us-ascii?Q?cHtB0y87cJ+eBWKy/hqQcqkA4ALpwyWY8iBwZgEA/RVUmyCSZuTRMkC4I7mN?=
- =?us-ascii?Q?5qJGq/iD/BU1szJzEY9LUujp1l0/wklvQ6FDGMPZ+ZvbGpzFRuIZyRo1HjLr?=
- =?us-ascii?Q?vtLkMW+TLvgSOWz8P17vTF4+tVzrASoHuuJ4TozrGKGstFA3zcBHbOZhL7sg?=
- =?us-ascii?Q?P3aHL9FwL98jaG53EjfgPE3cEzJgpvNuz9oG9Y9r4VDKNwj0bDd/2+yoaDTE?=
- =?us-ascii?Q?3eQyNz6B41d/magiJu4couQ3fBT28xPS1Twrp0+iGsrOIW3otKex7lAb7Qp8?=
- =?us-ascii?Q?NMSNs12Qq8TxNJnDWL1+J+UJzQ46Wy9r/gSlbvQ3pceWEPhcvdS3xt8fOfcQ?=
- =?us-ascii?Q?3GjsZ7Tuej0xh3b5LDcN9ygts2EmmZ9erpRPstdn3ROO9WqYGZo05b8roh6a?=
- =?us-ascii?Q?RpvdPZtsyG8jHsHsBKocpWHDRepA+WsVck4CO35dVsEhRvP/PnqcWobM4YTB?=
- =?us-ascii?Q?f9Xc1Oj2sA0kkaCvUw1+/UqBUBog7AGGqcn/ToUJNJObNv1TieiaGpDOu66z?=
- =?us-ascii?Q?E2yvpHKKWVWFQmkkYo5OESoe+XYhrIBnRnoXi6ver4kLI9nyuyfFtHmLKdR4?=
- =?us-ascii?Q?9dqIS1C0j14ihlTnuncgs7hVpFKIiTH9K/X8bdumTbLPXzTtVp66cMs/igoq?=
- =?us-ascii?Q?JzkK10ZTX/HVQs+xCTsZcpCZZsv1ANIq226z0QkvG1PEFfQm+7ktEWV2Rekh?=
- =?us-ascii?Q?wgRIbzWaUDpS5Uw9dTGvHbYwZ3gIjbV1yo0+?=
+	=?us-ascii?Q?O3aToYzGtR3S1RoZDociDoTttKhSZ6hGS4l5daEiouiP97c85Vy2UBZ/q20l?=
+ =?us-ascii?Q?OVlJysAVCyvJfwP0JekUi4+Tb1f7tGSima7ciztu1l817aIpQolf6yoWEcEZ?=
+ =?us-ascii?Q?B+CQOg9dm02K4socorcong6n2VxBb7zDMZn+9+mC9FT4opbuUQBLPjzJlhbt?=
+ =?us-ascii?Q?ntH4Bl8DF2rREZNXsjtXvZY+T+6C8lPqRPZYlHlr1mgB6qli5ktlwJroM4tQ?=
+ =?us-ascii?Q?xBq1IdBY0toc6gL/Fy9ipIDFUpb0j8QSYKRmxfQolXuTT+OyG9aWasKic41+?=
+ =?us-ascii?Q?XpiAuSRBlFOWxnntw5FxymlC3MihfrjmZpMqXfcyIrqK2CSHf5OSa1NkO5EI?=
+ =?us-ascii?Q?ZeCiWIjVk0ka/aVTz1tILViMMFWOvAjDEJ8G5gPi1wI2oK9v0g7Dn9dEek7p?=
+ =?us-ascii?Q?R8z6OjHYr32pmqVKBHuzKSM6mQR4WyDwPdtGfGjYv9pLxleZe686j+SlxT81?=
+ =?us-ascii?Q?9p4CZgQShom2UdEZhxdmPFyTGi5zHegqYdPPwIjx9guyBxABn0fhA2LuUH7h?=
+ =?us-ascii?Q?XPnbk9omrRroV4LHqSXwej2HMvSqIHm8962o4a8d4YbUubQ5XD9dvrQ8ACsB?=
+ =?us-ascii?Q?vCRXfL5w2gxs4t5XW6r2s93y040WrLdcRn8xg+qnImDi1zWP94zMK44tBofH?=
+ =?us-ascii?Q?PTE3NAv7nXPipqCn5u5eYs7gyXpUZ9ahO4CaA75h1c50ZVwEy5Xtz9F3tQfm?=
+ =?us-ascii?Q?Ca1W938RAkyz5SusThxFIv9I1OUc821JzxCe8Ci2vXPP5ZfbYVk71pscot/y?=
+ =?us-ascii?Q?onkd1ohUIxX2SD4HP0aaRt6dZlmxRQtkuppvVxDe9VejnCvWc02hzp3LLp3x?=
+ =?us-ascii?Q?lULjDYXUWz+D+t90wpnnKdlkI1s+1jRmHM2Sf6IpoC3WT4cJnPxi3UZkgcRx?=
+ =?us-ascii?Q?s8ahsgWe2lP9+ATE6Gl9ezJ1OlSB1v6rv5YhCyk0kLzwU+fb/kycaSaKUmEb?=
+ =?us-ascii?Q?Q9NLzxEDl/6xaDBXWVI0SoGrEpebStI//Cj0R0HrdGdaVkkZ+toFib6XpcXD?=
+ =?us-ascii?Q?DfpFqZX4rd9AK1QJYlBgASJu63uraXZGtshD8nGypkqIcyl0H9acnCCF4LqX?=
+ =?us-ascii?Q?fiJpL6bF0QCz0xO9OqqxYbcoivLh/rCZ/ApWPSMxaNhj9J0pV6nq8geGccg3?=
+ =?us-ascii?Q?vZr22f+gXhOjIznprijUnPX7dWbRGR0f7BZq6mG8TPMYCz5+PLaPMqdzpc4q?=
+ =?us-ascii?Q?c6pD9nzL9TEwAyhSJWh7hvtWyInhpgGsCInjknhXx7fdO7rS5pXMnArHRoPH?=
+ =?us-ascii?Q?qtMp0cN5DTyxzO90rAzUTy31dz1CABi0Yr2xJBeQL6CONzIUDMA0qrYYUhJc?=
+ =?us-ascii?Q?AtNyIXYyNgaTzMGKYhJzgiliRETt42b0o8u3iLlVMsDbWzPbM0FNwDrHNbLq?=
+ =?us-ascii?Q?YaxDISYKQ0j6D85tTAjjOp4358D556kEoeB3Mij04/Zd15sodZuCdWAGwbUT?=
+ =?us-ascii?Q?Dzj9KF/+ziblR7+4mesM+RjlvZyHhRz+5C+UAP6DuGH3P7PcQx+ewiF1mJnU?=
+ =?us-ascii?Q?71K2qADh30ZbOrMeh3uM26RDDiVW6UDSHDrD?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2025 09:48:10.5614
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2025 09:48:11.2327
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35a77a8c-7231-4743-9d25-08ddd272db7c
+X-MS-Exchange-CrossTenant-Network-Message-Id: e91c1bc7-7004-4748-fd97-08ddd272dbe2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF0000231A.namprd03.prod.outlook.com
+	SJ1PEPF0000231C.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8182
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9823
 
-In order to fix CI error of a randconfig picking both PV_SHIM_EXCLUSIVE=y and
-HVM=y results in hvm.c being built, but domctl.c not being built, which leaves
-a few functions, like domctl_lock_acquire/release() undefined, causing linking
-to fail.
-To fix that, we intend to move domctl.o out of the PV_SHIM_EXCLUSIVE Makefile
-/hypercall-defs section, with this adjustment, we also need to release
-redundant vnuma_destroy() stub definition and paging_domctl hypercall-defs
-from PV_SHIM_EXCLUSIVE guardian, to not break compilation
-Above change will leave dead code in the shim binary temporarily and will be
-fixed with the introduction of CONFIG_DOMCTL.
+Flag PG_log_dirty is for paging log dirty support, not vram tracking support.
+However data structure sh_dirty_vram{} and function paging_log_dirty_range()
+designed for vram tracking support, are guarded with PG_log_dirty.
+We release both from PG_log_dirty, and also move paging_log_dirty_range() into
+hap.c, to make it static.
 
-Fixes: 568f806cba4c ("xen/x86: remove "depends on !PV_SHIM_EXCLUSIVE"")
-Reported-by: Jan Beulich <jbeulich@suse.com>
 Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 ---
-v1 -> v2:
-- remove paging_domctl hypercall-defs
----
- xen/arch/x86/Makefile        | 2 +-
- xen/common/Makefile          | 5 +----
- xen/include/hypercall-defs.c | 6 +-----
- xen/include/xen/domain.h     | 4 ----
- 4 files changed, 3 insertions(+), 14 deletions(-)
+ xen/arch/x86/include/asm/paging.h | 32 +++++++++++++------------------
+ xen/arch/x86/mm/hap/hap.c         | 32 +++++++++++++++++++++++++++++++
+ xen/arch/x86/mm/paging.c          | 32 -------------------------------
+ 3 files changed, 45 insertions(+), 51 deletions(-)
 
-diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-index 5aab30a0c4..7676d7cdd8 100644
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -28,6 +28,7 @@ obj-y += delay.o
- obj-y += desc.o
- obj-bin-y += dmi_scan.init.o
- obj-y += domain.o
-+obj-y += domctl.o
- obj-bin-y += dom0_build.init.o
- obj-y += domain_page.o
- obj-y += e820.o
-@@ -79,7 +80,6 @@ obj-y += vm_event.o
- obj-y += xstate.o
+diff --git a/xen/arch/x86/include/asm/paging.h b/xen/arch/x86/include/asm/paging.h
+index 8a2a0af408..173a569610 100644
+--- a/xen/arch/x86/include/asm/paging.h
++++ b/xen/arch/x86/include/asm/paging.h
+@@ -133,13 +133,20 @@ struct paging_mode {
+     (DIV_ROUND_UP(PADDR_BITS - PAGE_SHIFT - (PAGE_SHIFT + 3), \
+                   PAGE_SHIFT - ilog2(sizeof(mfn_t))) + 1)
  
- ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
--obj-y += domctl.o
- obj-y += platform_hypercall.o
- obj-$(CONFIG_COMPAT) += x86_64/platform_hypercall.o
- endif
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index c316957fcb..756ddf52c3 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -11,6 +11,7 @@ obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) += device.o
- obj-$(CONFIG_DEVICE_TREE_PARSE) += device-tree/
- obj-$(CONFIG_IOREQ_SERVER) += dm.o
- obj-y += domain.o
-+obj-y += domctl.o
- obj-y += event_2l.o
- obj-y += event_channel.o
- obj-$(CONFIG_EVTCHN_FIFO) += event_fifo.o
-@@ -69,10 +70,6 @@ obj-bin-$(CONFIG_X86) += $(foreach n,decompress bunzip2 unxz unlzma lzo unlzo un
+-#if PG_log_dirty
++#ifdef CONFIG_HVM
++/* VRAM dirty tracking support */
++struct sh_dirty_vram {
++    unsigned long begin_pfn;
++    unsigned long end_pfn;
++#ifdef CONFIG_SHADOW_PAGING
++    paddr_t *sl1ma;
++    uint8_t *dirty_bitmap;
++    s_time_t last_dirty;
++#endif
++};
++#endif
  
- obj-$(CONFIG_COMPAT) += $(addprefix compat/,domain.o memory.o multicall.o xlat.o)
+-/* get the dirty bitmap for a specific range of pfns */
+-void paging_log_dirty_range(struct domain *d,
+-                            unsigned long begin_pfn,
+-                            unsigned long nr,
+-                            uint8_t *dirty_bitmap);
++#if PG_log_dirty
  
--ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
--obj-y += domctl.o
--endif
+ /* log dirty initialization */
+ void paging_log_dirty_init(struct domain *d, const struct log_dirty_ops *ops);
+@@ -171,19 +178,6 @@ bool paging_mfn_is_dirty(const struct domain *d, mfn_t gmfn);
+ #define L4_LOGDIRTY_IDX(pfn) ((pfn_x(pfn) >> (PAGE_SHIFT + 3 + PAGETABLE_ORDER * 2)) & \
+                               (LOGDIRTY_NODE_ENTRIES-1))
+ 
+-#ifdef CONFIG_HVM
+-/* VRAM dirty tracking support */
+-struct sh_dirty_vram {
+-    unsigned long begin_pfn;
+-    unsigned long end_pfn;
+-#ifdef CONFIG_SHADOW_PAGING
+-    paddr_t *sl1ma;
+-    uint8_t *dirty_bitmap;
+-    s_time_t last_dirty;
+-#endif
+-};
+-#endif
 -
- extra-y := symbols-dummy.o
+ #else /* !PG_log_dirty */
  
- obj-$(CONFIG_COVERAGE) += coverage/
-diff --git a/xen/include/hypercall-defs.c b/xen/include/hypercall-defs.c
-index c1081d87a2..a2f2a7fa75 100644
---- a/xen/include/hypercall-defs.c
-+++ b/xen/include/hypercall-defs.c
-@@ -197,9 +197,9 @@ dm_op(domid_t domid, unsigned int nr_bufs, xen_dm_op_buf_t *bufs)
- #ifdef CONFIG_SYSCTL
- sysctl(xen_sysctl_t *u_sysctl)
- #endif
--#ifndef CONFIG_PV_SHIM_EXCLUSIVE
- domctl(xen_domctl_t *u_domctl)
- paging_domctl_cont(xen_domctl_t *u_domctl)
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
- platform_op(xen_platform_op_t *u_xenpf_op)
- #endif
- #ifdef CONFIG_HVM
-@@ -278,9 +278,7 @@ hvm_op                             do       do       do       do       do
- #ifdef CONFIG_SYSCTL
- sysctl                             do       do       do       do       do
- #endif
--#ifndef CONFIG_PV_SHIM_EXCLUSIVE
- domctl                             do       do       do       do       do
+ static inline void paging_log_dirty_init(struct domain *d,
+diff --git a/xen/arch/x86/mm/hap/hap.c b/xen/arch/x86/mm/hap/hap.c
+index ec5043a8aa..668a233923 100644
+--- a/xen/arch/x86/mm/hap/hap.c
++++ b/xen/arch/x86/mm/hap/hap.c
+@@ -36,6 +36,38 @@
+ /*          HAP VRAM TRACKING SUPPORT           */
+ /************************************************/
+ 
++#ifdef CONFIG_HVM
++static void paging_log_dirty_range(struct domain *d,
++                                   unsigned long begin_pfn,
++                                   unsigned long nr,
++                                   uint8_t *dirty_bitmap)
++{
++    struct p2m_domain *p2m = p2m_get_hostp2m(d);
++    int i;
++    unsigned long pfn;
++
++    /*
++     * Set l1e entries of P2M table to be read-only.
++     *
++     * On first write, it page faults, its entry is changed to read-write,
++     * and on retry the write succeeds.
++     *
++     * We populate dirty_bitmap by looking for entries that have been
++     * switched to read-write.
++     */
++
++    p2m_lock(p2m);
++
++    for ( i = 0, pfn = begin_pfn; pfn < begin_pfn + nr; i++, pfn++ )
++        if ( !p2m_change_type_one(d, pfn, p2m_ram_rw, p2m_ram_logdirty) )
++            dirty_bitmap[i >> 3] |= (1 << (i & 7));
++
++    p2m_unlock(p2m);
++
++    guest_flush_tlb_mask(d, d->dirty_cpumask);
++}
++#endif /* CONFIG_HVM */
++
+ /*
+  * hap_track_dirty_vram()
+  * Create the domain's dv_dirty_vram struct on demand.
+diff --git a/xen/arch/x86/mm/paging.c b/xen/arch/x86/mm/paging.c
+index c77f4c1dac..1216a181c3 100644
+--- a/xen/arch/x86/mm/paging.c
++++ b/xen/arch/x86/mm/paging.c
+@@ -583,38 +583,6 @@ static int paging_log_dirty_op(struct domain *d,
+     return rv;
+ }
+ 
+-#ifdef CONFIG_HVM
+-void paging_log_dirty_range(struct domain *d,
+-                           unsigned long begin_pfn,
+-                           unsigned long nr,
+-                           uint8_t *dirty_bitmap)
+-{
+-    struct p2m_domain *p2m = p2m_get_hostp2m(d);
+-    int i;
+-    unsigned long pfn;
+-
+-    /*
+-     * Set l1e entries of P2M table to be read-only.
+-     *
+-     * On first write, it page faults, its entry is changed to read-write,
+-     * and on retry the write succeeds.
+-     *
+-     * We populate dirty_bitmap by looking for entries that have been
+-     * switched to read-write.
+-     */
+-
+-    p2m_lock(p2m);
+-
+-    for ( i = 0, pfn = begin_pfn; pfn < begin_pfn + nr; i++, pfn++ )
+-        if ( !p2m_change_type_one(d, pfn, p2m_ram_rw, p2m_ram_logdirty) )
+-            dirty_bitmap[i >> 3] |= (1 << (i & 7));
+-
+-    p2m_unlock(p2m);
+-
+-    guest_flush_tlb_mask(d, d->dirty_cpumask);
+-}
 -#endif
- #ifdef CONFIG_KEXEC
- kexec_op                           compat   do       -        -        -
- #endif
-@@ -296,8 +294,6 @@ dm_op                              compat   do       compat   do       do
- hypfs_op                           do       do       do       do       do
- #endif
- mca                                do       do       -        -        -
--#ifndef CONFIG_PV_SHIM_EXCLUSIVE
- paging_domctl_cont                 do       do       do       do       -
--#endif
- 
- #endif /* !CPPCHECK */
-diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
-index e10baf2615..33dd90357c 100644
---- a/xen/include/xen/domain.h
-+++ b/xen/include/xen/domain.h
-@@ -182,11 +182,7 @@ struct vnuma_info {
-     struct xen_vmemrange *vmemrange;
- };
- 
--#ifndef CONFIG_PV_SHIM_EXCLUSIVE
- void vnuma_destroy(struct vnuma_info *vnuma);
--#else
--static inline void vnuma_destroy(struct vnuma_info *vnuma) { ASSERT(!vnuma); }
--#endif
- 
- extern bool vmtrace_available;
- 
+-
+ /*
+  * Callers must supply log_dirty_ops for the log dirty code to call. This
+  * function usually is invoked when paging is enabled. Check shadow_enable()
 -- 
 2.34.1
 
