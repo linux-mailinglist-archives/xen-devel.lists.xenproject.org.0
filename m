@@ -2,33 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93B63B18FBD
-	for <lists+xen-devel@lfdr.de>; Sat,  2 Aug 2025 21:11:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1068072.1432269 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48DBDB19160
+	for <lists+xen-devel@lfdr.de>; Sun,  3 Aug 2025 03:06:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1068175.1432278 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uiHcT-00056u-6u; Sat, 02 Aug 2025 19:10:13 +0000
+	id 1uiN9l-0002ec-Km; Sun, 03 Aug 2025 01:04:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1068072.1432269; Sat, 02 Aug 2025 19:10:13 +0000
+Received: by outflank-mailman (output) from mailman id 1068175.1432278; Sun, 03 Aug 2025 01:04:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uiHcT-00054S-3X; Sat, 02 Aug 2025 19:10:13 +0000
-Received: by outflank-mailman (input) for mailman id 1068072;
- Sat, 02 Aug 2025 19:10:11 +0000
+	id 1uiN9l-0002cV-Dx; Sun, 03 Aug 2025 01:04:57 +0000
+Received: by outflank-mailman (input) for mailman id 1068175;
+ Sun, 03 Aug 2025 01:04:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EIgm=2O=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1uiHcR-00048f-EI
- for xen-devel@lists.xenproject.org; Sat, 02 Aug 2025 19:10:11 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4eb3e514-6fd4-11f0-b897-0df219b8e170;
- Sat, 02 Aug 2025 21:10:09 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 3E2074EE0748;
- Sat,  2 Aug 2025 21:10:08 +0200 (CEST)
+ <SRS0=4692=2P=bootlin.com=alexandre.belloni@srs-se1.protection.inumbo.net>)
+ id 1uiN9j-0002cJ-UO
+ for xen-devel@lists.xenproject.org; Sun, 03 Aug 2025 01:04:56 +0000
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
+ [217.70.183.196]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dc7965a2-7005-11f0-b897-0df219b8e170;
+ Sun, 03 Aug 2025 03:04:52 +0200 (CEST)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 395D841DE2;
+ Sun,  3 Aug 2025 01:04:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,129 +38,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4eb3e514-6fd4-11f0-b897-0df219b8e170
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1754161808;
-	b=Hhxpm0HI6MojEjSGhmHl4qa6Q0BaiE2g0pVYP2GlNPJpdZv7svCoA1g6qAlfWmA3k5Hy
-	 I+SxEsEHvhBoSltFsSyZJjWAHMkBniUT7rAj4XCmnCEv822iEA4/2K8E5BKNrxTSQYB64
-	 y/nefQMMvJbhll3U1x80KcqoJxPBpBqLRYDX+ucxvewu2SBTrWmqcURBzD+n/zBw/l3xk
-	 W77Dk1Cp22mLGHr9A+jk2pXzqc6YcHZelZlKRQIBxtWocaK2wSf1HNuKHw7/t4QeSaq1q
-	 4A1xkAADUckIDZQcCNOnAtZrvMEXasBM2EgVdMPJqPIhrR1KGDRHufFaTk2n/BNzCre4b
-	 qdqyzBXj0Q/cVI2lJacE2mCquv4qFJpcKC/esQXcemCmuIvK3PI5rVEgBaLQc65DZzCPj
-	 PqPurCkhqpZDJMqaTH1RQMdRd0HXqQ9/d4W0OvmXJDVytBgATelgBAr+kQhA5sZxDT6Zi
-	 izkZ+fSpoaNONcyL4YoTFEYOa/jCtsZ+lF+VfRsIDtGrhCNylo3+jvl+5q12jvuDWvvsF
-	 J7B3lsSDHnI9D4kleFsnPZBRajhPIh2MyFAHd78WUbavkyUCG4HZtX7sS4fB88a+I41F8
-	 PoyHNUN3YHpe1S3U+0Xd7DXmIdYeqfL9AuZA0p+qfNZmWmNxGoEsbp763f7MsFs=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1754161808;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=88nOKc8o+VBGXlOwxgIr1tnB5w2iH0oea7Ab0M9yOQQ=;
-	b=eyh43HmnW7YzQVbyiEIcTB6dYu0zn/K8E/nZiTcnyt9I3c3+P45bvZh2Dd+ZpqbEmHoF
-	 h6vIsQd9mrZCaGyh+J5nNUC4jobPanJRoXfurwTEIycNyWPxjdzg34OHDr4cnt75p6zfq
-	 SsL7K+SeVsKssBSD0jVCY/jU0ssnnI2CLDSCuqAVM9g7TY9iVX31/Dat/4EA9smDdLBnd
-	 EsUUtEE07kENPkiE4mFZNLb6ousI59MFmIr9swNmysxrH9JaDQOORO4qFHN7MjQluSDj1
-	 Rk2ED+lIfpZn+9pu23s2a2CGXWImmbBNe2PLPHMTDY6A8IF0No9/lftmGjqE0Nt2Lc+YR
-	 EONYWsOGd3mg3Kn6A/veci5Uc7vPC84fJzasaiPaDnTFtDBBKwVi/h4cvlRTW6b0ewm98
-	 JEUbjC9cqd2L0RJvqRUeoXRGRGEydF1wc0le58SSKP/PsgMdmarp1NvSgUgO4B1mQdkB9
-	 eWkOS8KAoYxJE668BEh2UjLkLhDh6tPALokwcAkn22PWGFH5/yPw+yNRZ4USPyDVmyfkk
-	 mHyPw7MSVh5FS6abpkVztSBGFfZMNkjsd4Nf9Wtv9vqFlOwVrd8F68BhKi7M9RQcsOLM3
-	 99ARvErLp37jM+B1phWYNR1GgZRjnAATfckzgZRsGUV2cAVj4erv0noOr7l1BX4=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1754161808; bh=3zW3+kMHj8v/g7CQloeTL/9yWVXx4YDrLTSLqD+dl5E=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=PkmQoVw1o9gkfry9jvShK8+OjfPMWGbUhjSJiL2N4qgSW5MYOZMiu6fBlFWe41Wsg
-	 D0r2IMTMI5lWpciiHnecEGycUM81ge50nG1DLDcWz2uXSystofF8KDToTXyI+1aVR6
-	 MwMAud+wft6kaECtOTynchowWr72YUfLupUgWgsSf3+IYy+f8JF3JgeF65GCAUi7x7
-	 yEdCJ6XWFEYUT+ItKlMNcRbIfdYPzzhfqWuDVneRuk6Zuqk3tx/9vXgE/dKSOk0d9u
-	 J65Wt7veR7Nr1DUNKhqOS9CNhbnlLPzFyClPHxWYgKoIuAFPuwHJcNQfK4So1V7Rvm
-	 zSDxsFdy22/EQ==
+X-Inumbo-ID: dc7965a2-7005-11f0-b897-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1754183092;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IG2HpXzsqu+NkhilqnbEM95yf9B6n+TV1enjTn2IGB8=;
+	b=ibJLf44Stz+KQ8z1BIhUrXB8Hx8q3mDVJsoazKdnF5cGuJvjReExXK4mcEOGy+KCLeZn/+
+	kiZ6ksHecS6yzjenen9Bap4+NogZvlkX8LS/fcaTLx2nCLDMs16sjfVWHO2BVoee+7W6h1
+	UEJQo/hhQZmslKN2uXNBIo6f/iV7i4i2ULavQeZYg9xJlgn+4UWyifl1oqRN5FdvDOipjo
+	Anoil5WSqw3fdSJJkxGIZeUHKgePK471C7AqiXKnuTl4IJNxiRavQiZ+ZSEcB4GlH//Ny4
+	WFnmiHTOQORQeOxW5S5sx2Fjc6aV8soQemag6oeQvhlj/yfB9gN8N5R45YYCkg==
+Date: Sun, 3 Aug 2025 03:04:49 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Ard Biesheuvel <ardb+git@google.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
+	Feng Tang <feng.tang@linux.alibaba.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Sunil V L <sunilvl@ventanamicro.com>,
+	Bibo Mao <maobibo@loongson.cn>, linux-rtc@vger.kernel.org,
+	linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org,
+	x86@kernel.org, linux-riscv@lists.infradead.org,
+	loongarch@lists.linux.dev
+Subject: Re: [RFC PATCH 1/3] efi-rtc: Remove wakeup functionality
+Message-ID: <20250803010449df1f5cfb@mail.local>
+References: <20250714060843.4029171-5-ardb+git@google.com>
+ <20250714060843.4029171-6-ardb+git@google.com>
 MIME-Version: 1.0
-Date: Sat, 02 Aug 2025 21:10:08 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: xen-devel@lists.xenproject.org, Stefano Stabellini
- <sstabellini@kernel.org>
-Subject: Re: [RFC] Next steps for MISRA C Rule 17.7 in XEN
-In-Reply-To: <6d622813-1617-4af3-876e-52a551518f68@epam.com>
-References: <6d622813-1617-4af3-876e-52a551518f68@epam.com>
-Message-ID: <42f485a1e32536f3d905c9564b6fdebb@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250714060843.4029171-6-ardb+git@google.com>
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgddutdektdekucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuifetpfffkfdpucggtfgfnhhsuhgsshgtrhhisggvnecuuegrihhlohhuthemuceftddunecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpeetlhgvgigrnhgurhgvuceuvghllhhonhhiuceorghlvgigrghnughrvgdrsggvlhhlohhnihessghoohhtlhhinhdrtghomheqnecuggftrfgrthhtvghrnhepgeeiudeuteehhfekgeejveefhfeiudejuefhgfeljefgjeegkeeujeeugfehgefgnecuffhomhgrihhnpegsohhothhlihhnrdgtohhmnecukfhppedvrgdtudemvgdtrgemvdgumeeifeejtdemjeekvgdtmegttdgvkeemvdektdeimeekrggtieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpedvrgdtudemvgdtrgemvdgumeeifeejtdemjeekvgdtmegttdgvkeemvdektdeimeekrggtiedphhgvlhhopehlohgtrghlhhhoshhtpdhmrghilhhfrhhomheprghlvgigrghnughrvgdrsggvlhhlohhnihessghoohhtlhhinhdrtghomhdpnhgspghrtghpthhtohepudejpdhrtghpthhtoheprghruggsodhgihhtsehgohhoghhlvgdrtghomhdprhgtphhtthhopehlihhnuhigqdhkvghrnhgvlhesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgtphhtthhopehli
+ hhnuhigqdgrrhhmqdhkvghrnhgvlheslhhishhtshdrihhnfhhrrgguvggrugdrohhrghdprhgtphhtthhopegrrhgusgeskhgvrhhnvghlrdhorhhgpdhrtghpthhtohephhgvihhnrhhitghhrdhstghhuhgthhgrrhguthestggrnhhonhhitggrlhdrtghomhdprhgtphhtthhopehfvghnghdrthgrnhhgsehlihhnuhigrdgrlhhisggrsggrrdgtohhmpdhrtghpthhtohepjhhgrhhoshhssehsuhhsvgdrtghomhdprhgtphhtthhopehsshhtrggsvghllhhinhhisehkvghrnhgvlhdrohhrgh
+X-GND-Sasl: alexandre.belloni@bootlin.com
 
-On 2025-08-02 19:48, Dmytro Prokopchuk1 wrote:
-> Hello folks!
-> 
-> There are a lot of MISRA C R17.7 violations in the XEN.
-> This rule states: "The value returned by a function having non-void
-> return type shall be used".
-> 
-> Actually, need to decide how to deal with these violations.
-> Quick analyze shown that there are different cases in XEN code base.
-> Like, for example:
-> 
-> the return value of function 
-> `clean_and_invalidate_dcache_va_range(const
-> void*, unsigned long)' (unit `xen/arch/arm/alternative.c' with target
-> `xen/arch/arm/alternative.o') is unexpectedly ignored
-> 
+Hello,
 
-This thread [1] has some discussions around the cache invalidation 
-helpers, so it may be useful to consider the points raised there in this 
-discussion
+Apart from the topic that should be "rtc: efi:...", I'm ready to apply
+this patch.
 
-[1] 
-https://lore.kernel.org/xen-devel/cc6bf44701c808645c69bacaf4463295e2cb0fba.1708354388.git.nicola.vetrini@bugseng.com/
-
-> The return value of this function 
-> 'clean_and_invalidate_dcache_va_range'
-> is checked only in one place. Probably, after deeper analyze the return
-> value can be dropped and function prototype can be changed to
+On 14/07/2025 08:08:45+0200, Ard Biesheuvel wrote:
+> From: Ard Biesheuvel <ardb@kernel.org>
 > 
-> static inline void clean_and_invalidate_dcache_va_range
->      (const void *p, unsigned long size);
+> The EFI rtc driver is used by non-x86 architectures only, and exposes
+> the get/set wakeup time functionality provided by the underlying
+> platform. This is usually broken on most platforms, and not widely used
+> to begin with [if at all], so let's just remove it.
 > 
+> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+> ---
+>  drivers/rtc/rtc-efi.c | 76 +-------------------
+>  1 file changed, 2 insertions(+), 74 deletions(-)
 > 
-> Next case is vice versa:
+> diff --git a/drivers/rtc/rtc-efi.c b/drivers/rtc/rtc-efi.c
+> index fa8bf82df948..b4f44999ef0f 100644
+> --- a/drivers/rtc/rtc-efi.c
+> +++ b/drivers/rtc/rtc-efi.c
+> @@ -112,48 +112,6 @@ convert_from_efi_time(efi_time_t *eft, struct rtc_time *wtime)
+>  	return true;
+>  }
+>  
+> -static int efi_read_alarm(struct device *dev, struct rtc_wkalrm *wkalrm)
+> -{
+> -	efi_time_t eft;
+> -	efi_status_t status;
+> -
+> -	/*
+> -	 * As of EFI v1.10, this call always returns an unsupported status
+> -	 */
+> -	status = efi.get_wakeup_time((efi_bool_t *)&wkalrm->enabled,
+> -				     (efi_bool_t *)&wkalrm->pending, &eft);
+> -
+> -	if (status != EFI_SUCCESS)
+> -		return -EINVAL;
+> -
+> -	if (!convert_from_efi_time(&eft, &wkalrm->time))
+> -		return -EIO;
+> -
+> -	return rtc_valid_tm(&wkalrm->time);
+> -}
+> -
+> -static int efi_set_alarm(struct device *dev, struct rtc_wkalrm *wkalrm)
+> -{
+> -	efi_time_t eft;
+> -	efi_status_t status;
+> -
+> -	convert_to_efi_time(&wkalrm->time, &eft);
+> -
+> -	/*
+> -	 * XXX Fixme:
+> -	 * As of EFI 0.92 with the firmware I have on my
+> -	 * machine this call does not seem to work quite
+> -	 * right
+> -	 *
+> -	 * As of v1.10, this call always returns an unsupported status
+> -	 */
+> -	status = efi.set_wakeup_time((efi_bool_t)wkalrm->enabled, &eft);
+> -
+> -	dev_warn(dev, "write status is %d\n", (int)status);
+> -
+> -	return status == EFI_SUCCESS ? 0 : -EINVAL;
+> -}
+> -
+>  static int efi_read_time(struct device *dev, struct rtc_time *tm)
+>  {
+>  	efi_status_t status;
+> @@ -188,17 +146,13 @@ static int efi_set_time(struct device *dev, struct rtc_time *tm)
+>  
+>  static int efi_procfs(struct device *dev, struct seq_file *seq)
+>  {
+> -	efi_time_t        eft, alm;
+> +	efi_time_t        eft;
+>  	efi_time_cap_t    cap;
+> -	efi_bool_t        enabled, pending;
+> -	struct rtc_device *rtc = dev_get_drvdata(dev);
+>  
+>  	memset(&eft, 0, sizeof(eft));
+> -	memset(&alm, 0, sizeof(alm));
+>  	memset(&cap, 0, sizeof(cap));
+>  
+>  	efi.get_time(&eft, &cap);
+> -	efi.get_wakeup_time(&enabled, &pending, &alm);
+>  
+>  	seq_printf(seq,
+>  		   "Time\t\t: %u:%u:%u.%09u\n"
+> @@ -214,26 +168,6 @@ static int efi_procfs(struct device *dev, struct seq_file *seq)
+>  		/* XXX fixme: convert to string? */
+>  		seq_printf(seq, "Timezone\t: %u\n", eft.timezone);
+>  
+> -	if (test_bit(RTC_FEATURE_ALARM, rtc->features)) {
+> -		seq_printf(seq,
+> -			   "Alarm Time\t: %u:%u:%u.%09u\n"
+> -			   "Alarm Date\t: %u-%u-%u\n"
+> -			   "Alarm Daylight\t: %u\n"
+> -			   "Enabled\t\t: %s\n"
+> -			   "Pending\t\t: %s\n",
+> -			   alm.hour, alm.minute, alm.second, alm.nanosecond,
+> -			   alm.year, alm.month, alm.day,
+> -			   alm.daylight,
+> -			   enabled == 1 ? "yes" : "no",
+> -			   pending == 1 ? "yes" : "no");
+> -
+> -		if (alm.timezone == EFI_UNSPECIFIED_TIMEZONE)
+> -			seq_puts(seq, "Timezone\t: unspecified\n");
+> -		else
+> -			/* XXX fixme: convert to string? */
+> -			seq_printf(seq, "Timezone\t: %u\n", alm.timezone);
+> -	}
+> -
+>  	/*
+>  	 * now prints the capabilities
+>  	 */
+> @@ -249,8 +183,6 @@ static int efi_procfs(struct device *dev, struct seq_file *seq)
+>  static const struct rtc_class_ops efi_rtc_ops = {
+>  	.read_time	= efi_read_time,
+>  	.set_time	= efi_set_time,
+> -	.read_alarm	= efi_read_alarm,
+> -	.set_alarm	= efi_set_alarm,
+>  	.proc		= efi_procfs,
+>  };
+>  
+> @@ -271,11 +203,7 @@ static int __init efi_rtc_probe(struct platform_device *dev)
+>  	platform_set_drvdata(dev, rtc);
+>  
+>  	rtc->ops = &efi_rtc_ops;
+> -	clear_bit(RTC_FEATURE_UPDATE_INTERRUPT, rtc->features);
+> -	if (efi_rt_services_supported(EFI_RT_SUPPORTED_WAKEUP_SERVICES))
+> -		set_bit(RTC_FEATURE_ALARM_WAKEUP_ONLY, rtc->features);
+> -	else
+> -		clear_bit(RTC_FEATURE_ALARM, rtc->features);
+> +	clear_bit(RTC_FEATURE_ALARM, rtc->features);
+>  
+>  	device_init_wakeup(&dev->dev, true);
+>  
+> -- 
+> 2.50.0.727.gbf7dc18ff4-goog
 > 
-> the return value of function `vgic_reserve_virq(struct domain*,
-> unsigned)' is unexpectedly ignored
-> 
-> There is only one place where the return value is not checked.
-> Probably, in this place code may be changed to:
-> 
->      (void)vgic_reserve_virq(d, irq);
-> 
-> 
-> For the case with 'memset' function:
-> 
-> the return value of function `memset(void*, int, size_t)' is
-> unexpectedly ignored
-> 
-> I guess it's better to create deviation, something like:
-> 
-> "The return value of the function memset(void *, int, size_t) is 
-> ignored
-> because the primary purpose of the function is to set a block of memory
-> to a specific value, not to use the pointer returned by the function."
-> 
-> 
-> But due to the large number of violations, it will be tricky to address
-> all of them.
-> I don't know, maybe the only right solution is to deviate all.
-> 
-> 
-> Thanks!
-> Dmytro.
 
 -- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
