@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD407B1A3EB
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 15:56:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1069419.1433271 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C529B1A3EC
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 15:56:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1069420.1433280 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uivfM-0006m7-Fb; Mon, 04 Aug 2025 13:55:52 +0000
+	id 1uivfS-000717-Mk; Mon, 04 Aug 2025 13:55:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1069419.1433271; Mon, 04 Aug 2025 13:55:52 +0000
+Received: by outflank-mailman (output) from mailman id 1069420.1433280; Mon, 04 Aug 2025 13:55:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uivfM-0006jv-C1; Mon, 04 Aug 2025 13:55:52 +0000
-Received: by outflank-mailman (input) for mailman id 1069419;
- Mon, 04 Aug 2025 13:55:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=c2vN=2Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uivfK-0006jp-Cs
- for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 13:55:50 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b98d9f38-713a-11f0-b898-0df219b8e170;
- Mon, 04 Aug 2025 15:55:48 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-6152faff57eso7812538a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 06:55:48 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-615a8eff596sm6906762a12.5.2025.08.04.06.55.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Aug 2025 06:55:47 -0700 (PDT)
+	id 1uivfS-0006zG-JH; Mon, 04 Aug 2025 13:55:58 +0000
+Received: by outflank-mailman (input) for mailman id 1069420;
+ Mon, 04 Aug 2025 13:55:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OEzl=2Q=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uivfR-0006ys-DF
+ for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 13:55:57 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id be6763ab-713a-11f0-a321-13f23c93f187;
+ Mon, 04 Aug 2025 15:55:56 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3b78d729bb8so2875853f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 06:55:56 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-458953cfd10sm222481905e9.21.2025.08.04.06.55.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 Aug 2025 06:55:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,103 +45,221 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b98d9f38-713a-11f0-b898-0df219b8e170
+X-Inumbo-ID: be6763ab-713a-11f0-a321-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754315748; x=1754920548; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+qsbDAu9n7j04Iuujn77wTlIrVSjN8SCrQfzwXDs46g=;
-        b=K0IzVgjENtwZ0rBszd+Mmwpek0zNPZjtZsAQMHhkW9jy2O01qAPz3ohYkbXQivLQ7u
-         CPVrjYvZnCge/e/GRGt56Gd+xmjfcHufYT7V5P8JHVG9RWEciQcCA5XL1LQ1+5UI/E8v
-         W2BBiU6FJk2+QiFizy/EZ8RYNs2CaR4X4ICMjcXSLt4RyoXn9IJHNraNiYSVky80QVmh
-         VeJ18kzH809y0SktbkLGfOTQwmyiyVMBprLic/QTdzR+gqOUrZLSO4MPFVZxoSHp7zC1
-         ejQWBSU0H41j7X5TIEWE0yOAAdFdo5wvz90lF8GD2jDhpPZq8JFWxLU6Orv2L1LyhPHX
-         aHrQ==
+        d=citrix.com; s=google; t=1754315756; x=1754920556; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=fsI3gFn30N/s06axQ4heKlfLhQn0gveUpkn83xDaLI0=;
+        b=dPkS0k4ugv1VN+H/9GBIrjG6NCLcs5q2hVdgeH5UZ3ortI7TqI/ZShdwbYPKMooEwy
+         DZPqDMHLwu/TLO8i9XMu+oxz9z6ND/WBmJrdIxKWrWCCYilXDZa3gSxMrpSnJgUXYaRJ
+         DDDnrAb5pV0719TNUh1H0V3TCQ5alCgFcmGnk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754315748; x=1754920548;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+qsbDAu9n7j04Iuujn77wTlIrVSjN8SCrQfzwXDs46g=;
-        b=IOhlAYJ0BkMldvc9BGOPoEwBK5NpBRCN+xWb/wychD1Ttn3M61O0tUqFlSKyi8arzP
-         xQ2/Ikw5pGNb/d0Zrv7mYdpZ49gst7cydpkLc7rg2GaTZ4RE2gp/V9WJdTEEvo3N+c+h
-         HcWe+dCJmPYRLtem55/Vt5Yw/owPOst+RjwgfqMWIhdTV/nu7EjNfekndGumHixqqReo
-         fbfvgh2zWsFzKOt9cxe6ZJsRMYzJ0GIW2BSN5xCC6dnLwF+C2Prh6OCw5ueTtkgmHuEi
-         hcttz6+7eSOhxdeEnG9tiGkZJKXVdvYlD/A5ghDx6X7ZmmZeFGCIoe4nVCO/2fLLBqq9
-         A0TA==
-X-Forwarded-Encrypted: i=1; AJvYcCUEMJEv8RBMtchbRM4sjecE+6a9Qo2ShG4NYteIIFIodoPcVeJPbofFULAf+P9lqUKY+o2PIMjt4Nc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzzHUekPLWoXcTG9ZWqo4Wr0DoLfm+IqHR9pGFix4VOuGtcFpuY
-	5h6rZaiYM0lA/xMHE93m1m62uhroKhdnZV5PErRanT8jplNOXfPWnnpjipyVChBpRQ==
-X-Gm-Gg: ASbGncsRO7MMneFRW/r6R5SYTScxQlrOzgPtOfk5JSIth7YmD15XGopak0Z4MIS23el
-	5jqjm+OIMvn7jE4n4kc8qEy67x3KWU3ywcjndSXJptdtCNFK6WeDNOzNHXec28mQ7Mk6UdDZcrR
-	zbmArxr+Zr53zjjmgDSXK3DpoTwRva+gXBFps7Ht4vfuDqOo2DvqsdjO9ri23MlVFGEke3R4qf+
-	QQmseVa6XzKpbTXhvoDQ2ucsNLUrtPGLs0BeFD5D4iy7QbHa03M3TRZBL53AzOD0ZS3AwNMYYQ4
-	3H8ZyRj5jNnL0leFGSW/4TDzA5RG5et7YLupurq1ScKxu3uYHbXYhe/6Q8CrOLFvvRkVRhzR+AK
-	1cNn2kfMspEwXEhx+0dU9+YNZjWwcvyiCjSEcglMpcynbLmS5s4Hemk/CjQh4xUygSO/a7GZ6AZ
-	wBhux6HPQ=
-X-Google-Smtp-Source: AGHT+IELEwfsQMhy+6a5o1zeJqyLeL06POL/645SlSNi10K5jJig7PKTI7OKZnDBKzQC3vSVRvtaPg==
-X-Received: by 2002:a05:6402:5110:b0:615:7899:5734 with SMTP id 4fb4d7f45d1cf-615e716ed94mr9545459a12.28.1754315747734;
-        Mon, 04 Aug 2025 06:55:47 -0700 (PDT)
-Message-ID: <164e0f8e-3986-4c9a-8201-14ea006405c7@suse.com>
-Date: Mon, 4 Aug 2025 15:55:46 +0200
+        d=1e100.net; s=20230601; t=1754315756; x=1754920556;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=fsI3gFn30N/s06axQ4heKlfLhQn0gveUpkn83xDaLI0=;
+        b=bMhKnDvJAS51+cbpxs1WJF+DAhGplGjT/UvlqZgAjnnVE0ipyjQzzC2wCMeZZO3ZB6
+         7A7EPB3hbqySy7YXaOtUVPK6vjOOQwvJn5RhkCevpUV8eL3vDqgQKlVWo1XpK87JPgu0
+         UQ1XGx9rtcURtRvZpFWQMu/1+jsdHzAM5MsYIDhrJU66H7W+1+DxukdOCLCF8iepP20i
+         Dn3/JYKUo8vSe/I0BW/8KaKBNln/8sDu17fGlqmi4pJfcs6r4ZNO0QTUKA/wBiAKqRdT
+         5OsH6UDLLt/N5gJYOiKrZPYONc6twZWWE0Sq3M9iCAEJK7TTcAoJjaSezXdwbwLkdqcU
+         j6pg==
+X-Gm-Message-State: AOJu0Yy67pD7oEt/V/v7PyviqKrygqRXMkBiX7wbBMORyf6IOe4vW6f6
+	2G7f9WOoop0a58yuuDgT2ZBuP8kc/YkdmDX8loC0AezS+Yq3jDcppCJ+7NpiajqmOW0=
+X-Gm-Gg: ASbGncv8NzIycVMpMQD3KM9ht0R7P56qW8V9wgeBW5e/IFegd0HR+U34vQBWOjAqux1
+	67ks/I4lRhp1oSRbUpPgAjz3VgNWE3175Nd0ji6wrbp08/qUc0SdXyyAyEh3p8NRysaHSmwOq/R
+	u6rDBUcqf4QY4oMkw3Ur0i2ZsPYK7wbeuM8qHALtVo5rNIAjk2Kq+Jv/sdY6rrMRQ66R0X5mylo
+	I7wKJ1tQKPG8JQC9Xemcuw7Wwdrt0An2UtQjuOmzs9fH8uXtucM6bDktiIyzA1LaAq+rKWN+A2L
+	QKVm4IpQ/SalQayXAx98kYI2haSW0sTkDPxsrEt6RiL2s7xpqFgcG7YfLdQCznvTI2AiwySp+EX
+	UPp9YHwVdWkjlzoCxLI+s9bHS2Zk3RlV7yBHEFpfMXjPLg1XjqA7u77YUAFnmrc2NypJBY4f/1k
+	fi
+X-Google-Smtp-Source: AGHT+IEn+3uWNjTtUCcggdKwlvKJZOdQh/qZ63hFIt0q/8twa97oI/n10Ogs/fDgjZLQJYokAp8GfQ==
+X-Received: by 2002:a05:6000:26ca:b0:3b7:dd87:d73f with SMTP id ffacd0b85a97d-3b8d94c6708mr7064860f8f.43.1754315755964;
+        Mon, 04 Aug 2025 06:55:55 -0700 (PDT)
+Date: Mon, 4 Aug 2025 15:55:54 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 1/3] vpci: allow queueing of mapping operations
+Message-ID: <aJC76twnBXNQnA3d@macbook.local>
+References: <20250723163744.13095-1-stewart.hildebrand@amd.com>
+ <20250723163744.13095-2-stewart.hildebrand@amd.com>
+ <aIJi8E2BC-dzAIz8@macbook.local>
+ <aIM5IR-d4_u19JVe@macbook.local>
+ <6d5545a2-bbf0-4cf9-9820-5eaf6d8530f8@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/20] xen/riscv: introduce
- sbi_remote_hfence_gvma_vmid()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
- <de83ed75b0d7109d007389ec4809320c59c10bf7.1753973161.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <de83ed75b0d7109d007389ec4809320c59c10bf7.1753973161.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6d5545a2-bbf0-4cf9-9820-5eaf6d8530f8@amd.com>
 
-On 31.07.2025 17:58, Oleksii Kurochko wrote:
-> It instructs the remote harts to execute one or more HFENCE.GVMA instructions
-> by making an SBI call, covering the range of guest physical addresses between
-> start_addr and start_addr + size only for the given VMID.
+On Fri, Aug 01, 2025 at 05:06:32PM -0400, Stewart Hildebrand wrote:
+> On 7/25/25 03:58, Roger Pau Monné wrote:
+> > On Thu, Jul 24, 2025 at 06:44:32PM +0200, Roger Pau Monné wrote:
+> >> On Wed, Jul 23, 2025 at 12:37:41PM -0400, Stewart Hildebrand wrote:
+> >>> @@ -283,7 +297,48 @@ static int __init apply_map(struct domain *d, const struct pci_dev *pdev,
+> >>>      return rc;
+> >>>  }
+> >>>  
+> >>> -static void defer_map(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
+> >>> +static struct vpci_map_task *alloc_map_task(const struct pci_dev *pdev,
+> >>> +                                            uint16_t cmd, bool rom_only)
+> >>> +{
+> >>> +    struct vpci_map_task *task = xzalloc(struct vpci_map_task);
+> >>
+> >> xvzalloc() preferably.
+> >>
+> >> This however introduces run-time allocations as a result of guest
+> >> actions, which is not ideal IMO.  It would be preferable to do those
+> >> allocations as part of the header initialization, and re-use them.
+> > 
+> > I've been thinking over this, as I've realized that while commenting
+> > on it, I didn't provide any alternatives.
+> > 
+> > The usage of rangesets to figure out the regions to map is already not
+> > optimal, as adding/removing from a rangeset can lead to memory
+> > allocations.  It would be good if we could create rangesets with a
+> > pre-allocated number of ranges (iow: a pool of struct ranges), but
+> > that's for another patchset.  I think Jan already commented on this
+> > aspect long time ago.
 > 
-> The remote fence operation applies to the entire address space if either:
->   - start_addr and size are both 0, or
->   - size is equal to 2^XLEN-1.
+> +1
 > 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > I'm considering whether to allocate the deferred mapping structures
+> > per-vCPU instead of per-device.  That would for example mean moving
+> > the current vpci_bar->mem rangeset so it's allocated in vpci_vcpu
+> > struct instead.  The point would be to not have the rangesets per
+> > device (because there can be a lot of devices, specially for the
+> > hardware domain), but instead have those per-vCPU.  This should work
+> > because a vCPU can only queue a single vPCI operation, from a single
+> > device.
+> > 
+> > It should then be possible to allocate the deferred mapping structures
+> > at vCPU creation.  I also ponder if we really need a linked list to
+> > queue them; AFAIK there can only ever be an unmapping and a mapping
+> > operation pending (so 2 operations at most).  Hence we could use a
+> > more "fixed" structure like an array.  For example in struct vpci_vcpu
+> > you could introduce a struct vpci_map_task task[2] field?
+> > 
+> > Sorry, I know this is not a minor change to request.  It shouldn't
+> > change the overall logic much, but it would inevitably affect the
+> > code.  Let me know what you think.
+> 
+> Thanks for the feedback and suggestion. Yeah, I'll give this a try.
+> Here's roughly what I'm thinking so far. I'll keep playing with it.
+> 
+> diff --git a/xen/common/domain.c b/xen/common/domain.c
+> index 5241a1629eeb..942c9fe7d364 100644
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -387,6 +387,16 @@ static int vmtrace_alloc_buffer(struct vcpu *v)
+>   */
+>  static int vcpu_teardown(struct vcpu *v)
+>  {
+> +#ifdef CONFIG_HAS_VPCI
+> +    for ( unsigned int i = 0; i < ARRAY_SIZE(v->vpci.task); i++ )
+> +    {
+> +        struct vpci_map_task *task = &v->vpci.task[i];
+> +
+> +        for ( unsigned int j = 0; j < ARRAY_SIZE(task->bars); j++ )
+> +            rangeset_destroy(task->bars[j].mem);
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
-with perhaps a similar on-commit edit as suggested for patch 1.
+You might want to additionally do:
 
-Jan
+task->bars[j].mem = NULL;
+
+> +    }
+> +#endif
+> +
+>      vmtrace_free_buffer(v);
+>  
+>      return 0;
+> @@ -467,6 +477,26 @@ struct vcpu *vcpu_create(struct domain *d, unsigned int vcpu_id)
+>          d->vcpu[prev_id]->next_in_list = v;
+>      }
+>  
+> +#ifdef CONFIG_HAS_VPCI
+> +    for ( unsigned int i = 0; i < ARRAY_SIZE(v->vpci.task); i++ )
+> +    {
+> +        struct vpci_map_task *task = &v->vpci.task[i];
+> +
+> +        for ( unsigned int j = 0; j < ARRAY_SIZE(task->bars); j++ )
+> +        {
+> +            struct vpci_bar_map *bar = &task->bars[j];
+> +            char str[32];
+> +
+> +            snprintf(str, sizeof(str), "PCI map vcpu %u task %u BAR %u", vcpu_id, i, j);
+> +
+> +            bar->mem = rangeset_new(v->domain, str, RANGESETF_no_print);
+
+Not sure there's much point in naming those with that much detail -
+those are scratch space for mapping calculations.  You already pass
+RANGESETF_no_print, which means the contents of the rangeset won't be
+dumped, and hence the name is kind of meaningless.  I shouldn't have
+named those either when allocated in bar_add_rangeset().
+
+> +
+> +            if ( !bar->mem )
+> +                goto fail_sched;
+> +        }
+> +    }
+> +#endif
+> +
+>      /* Must be called after making new vcpu visible to for_each_vcpu(). */
+>      vcpu_check_shutdown(v);
+>  
+> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
+> index 17cfecb0aabf..afe78b00ffc9 100644
+> --- a/xen/include/xen/vpci.h
+> +++ b/xen/include/xen/vpci.h
+> @@ -116,7 +116,6 @@ struct vpci {
+>              uint64_t guest_addr;
+>              uint64_t size;
+>              uint64_t resizable_sizes;
+> -            struct rangeset *mem;
+>              enum {
+>                  VPCI_BAR_EMPTY,
+>                  VPCI_BAR_IO,
+> @@ -207,14 +206,23 @@ struct vpci {
+>  #endif
+>  };
+>  
+> +#ifdef __XEN__
+>  struct vpci_vcpu {
+>      /* Per-vcpu structure to store state while {un}mapping of PCI BARs. */
+>      const struct pci_dev *pdev;
+> -    uint16_t cmd;
+> -    bool rom_only : 1;
+> +    struct domain *domain;
+> +    unsigned int nr_pending_ops;
+
+Not sure you really need a pending ops counter?  Hard to tell without
+seeing the code that makes use of it.
+
+> +    struct vpci_map_task {
+> +        struct vpci_bar_map {
+> +            uint64_t addr;
+> +            uint64_t guest_addr;
+> +            struct rangeset *mem;
+> +        } bars[PCI_HEADER_NORMAL_NR_BARS + 1];
+> +        uint16_t cmd;
+> +        bool rom_only : 1;
+> +    } task[2];
+
+Don't you need a way to differentiate between map/unmap operations?
+Do you plan to use slot 0 as unmap and slot 1 as map?  Or would you
+rather introduce a boolean field to signal it in struct vpci_map_task?
+
+Overall seems OK, but obviously it all needs to fit together with the
+current code :).
+
+Thanks, Roger.
 
