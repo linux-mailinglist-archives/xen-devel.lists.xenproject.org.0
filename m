@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71A28B1A638
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 17:42:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1069680.1433459 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BD3EB1A6A0
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 17:53:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1069702.1433468 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uixJy-0001Xy-2H; Mon, 04 Aug 2025 15:41:54 +0000
+	id 1uixUq-0004BY-62; Mon, 04 Aug 2025 15:53:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1069680.1433459; Mon, 04 Aug 2025 15:41:54 +0000
+Received: by outflank-mailman (output) from mailman id 1069702.1433468; Mon, 04 Aug 2025 15:53:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uixJx-0001W1-Vn; Mon, 04 Aug 2025 15:41:53 +0000
-Received: by outflank-mailman (input) for mailman id 1069680;
- Mon, 04 Aug 2025 15:41:51 +0000
+	id 1uixUq-00048W-2v; Mon, 04 Aug 2025 15:53:08 +0000
+Received: by outflank-mailman (input) for mailman id 1069702;
+ Mon, 04 Aug 2025 15:53:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=c2vN=2Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uixJv-0001VX-N8
- for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 15:41:51 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ id 1uixUp-00047I-4a
+ for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 15:53:07 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 886cdd11-7149-11f0-b898-0df219b8e170;
- Mon, 04 Aug 2025 17:41:48 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-adfb562266cso736115966b.0
- for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 08:41:48 -0700 (PDT)
+ id 1bb42055-714b-11f0-b898-0df219b8e170;
+ Mon, 04 Aug 2025 17:53:05 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-615c29fc31eso7059956a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 08:53:05 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a1e82b0sm756737566b.87.2025.08.04.08.41.47
+ a640c23a62f3a-af9247845edsm683443166b.46.2025.08.04.08.53.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Aug 2025 08:41:47 -0700 (PDT)
+ Mon, 04 Aug 2025 08:53:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 886cdd11-7149-11f0-b898-0df219b8e170
+X-Inumbo-ID: 1bb42055-714b-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754322108; x=1754926908; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=hF+uact1MjumtddVYv5deeAkwW/D2/tEr3KBEzDcDH0=;
-        b=RFo1oPWZPbmr/po7GLXV1e37IND41+GRjgQnEpVXhyP0SX9bAYQsWYX1rW4oioH/wH
-         h6uNdnjS5VCq/uJA++KfBNilZ5y0aFleebKxxsz0bz0Er2BcHnb+CEZzTuAcMto5JTNj
-         iaQvMiTg3ynC7zOdstQ9WA4wRgngDcXVNPArnAbGUsD/YOqnarsxMsnQz2hIigRZKWfe
-         6ePnrbsUthpoKrWWkWQ6VhNpMLeTdChI+MqIMlgBjk5ceT2qumdgF1fJe7ZfNPSUYzaD
-         uXALUYid9+HQZ3W7CJOa7/xj1BBqCF5RzExuKubEzMkl2U2myi3Uou3OlcZLGuzVvsUk
-         oaLQ==
+        d=suse.com; s=google; t=1754322784; x=1754927584; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=EsAODfqZ3sep76Tn+MGFebB71CzByqg4OlXzxi1b1Bo=;
+        b=e6k5utGv2a1LMYFzJDXDakvo2bjzJ7ng98HMOUftCbhrDusBPlj4uXLSjs+ZzO1WaT
+         m646Fepj2qjCzne3ITjRCvw2gAkW98RKbu+uEIOucpsSkgpAFHaKCjo9kOcjpDvrjr+5
+         nY5ntdlIoPqs33Zx60t1bTHS7ukJaZaXWFo7mEz4AS12/NvhVWxbUD5XMy8FHHKlZtzn
+         8RUV4eNhjGGzxrFRjz/C7sH0xpP1f6c9cnn6Iu/Ue9OVfNZoJI4S5wrEojfDSN4bLAMd
+         u9g2EmjIH7n4CAoO1OjYr3ro5cB1MWo6gnwxYWFExfYBBm4cJDnF6ue6H3xvG8NxFFJc
+         3cpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754322108; x=1754926908;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=hF+uact1MjumtddVYv5deeAkwW/D2/tEr3KBEzDcDH0=;
-        b=a6ZvnrlqXxoh5ONCIJKMgyhbHetM9nLCngEwQrSN34r3s13VDHd2xm1Uox/6DrPV7Z
-         aTL7xjqzv88U08Z16sBYQevl1Ha5kUk71oRcFisAxDaqD9egEwzEcGT/VEgaDzL86q4p
-         I0PH9rM3uQbCVQPBvuT3JYuuAmSq38bMUGqni0ZOIcZnqHmr/IAM2Rn6/5o51MdjTyWl
-         4rw7HYlvNa0tGupLw0C9tbeIRXxAPwDTn+4xstP+6htgHBQgl/cf9/m8g93ANrXGqno/
-         SD7hjgQpsGIqDeMKCP8l0o6cWpTG4uUs2trJI9O7sWlUW4z6s6VY21CKMZTTg+zZsitO
-         vRjw==
-X-Gm-Message-State: AOJu0Yw0/7Vhwg8qf7SAXiI8bUUxivlYMrHnSsuENbs/F8EiKU1G9iT8
-	0/HjOf0m0mXfemfKmmC02d86EmQMUsxtNJ6bvteuMUGor9zG+0jyDA8Qz5y7Kkfexgg6CmeKTal
-	52XI=
-X-Gm-Gg: ASbGnctjMVwR5TFQW35AszD4rI2ZxPcARNdCWptxDfJ1ZMbdJ7F25HUakIOyznRdwB/
-	MFoiI24p0H8docHTE7mGUEgq4ZHYXn6EAkCSTbYUQu3ipvDrEjvctY/Pa9wt1YA1LgJLoKbXzxZ
-	+kiiVYTnmDWbA7ezjeHhGXRTj8Nz66/EcWvnmTakI23FSCwWtU+zBx1x9gTWfVTzLLeGYYLyoYx
-	nOxzZ3tdwF7W+sP05zNYAlxfAlH4sn6oHLuA2rtwDj3AVhhC0t8MX4wTGRvNN+hDg2FlPjAe/Kw
-	BRohfLk4HVo16jDwSUWHw3z5fXG2od/CQzmnxuNclcprEQWCqBIB/eS09AjRKpY8atjb175OD8+
-	xUAr6ysvQr7oRASJLuz1cQ+I0wyVyefLPUDYveK1fvBCOQyQtGt4z2R9FNnOQY6XWEjweCkrxGG
-	nKhKkpkBU=
-X-Google-Smtp-Source: AGHT+IHdT8D/nrzE79KAb9vmkktbHFXsH3QdyKg2LEEhNoIfIwmtFUGE90kUxbI464eexF0i0VABUQ==
-X-Received: by 2002:a17:907:7fa3:b0:af9:116c:61cf with SMTP id a640c23a62f3a-af940208ce9mr1104180666b.43.1754322107894;
-        Mon, 04 Aug 2025 08:41:47 -0700 (PDT)
-Message-ID: <ec351aea-e2a0-4335-b8ee-51c6eface104@suse.com>
-Date: Mon, 4 Aug 2025 17:41:47 +0200
+        d=1e100.net; s=20230601; t=1754322784; x=1754927584;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=EsAODfqZ3sep76Tn+MGFebB71CzByqg4OlXzxi1b1Bo=;
+        b=US0HF6KOKvKacxlLAs2MyOEm1a7V6acb2ipXQ2hMqq1vrg/MTpecToo7xaC7psOWGR
+         ylc3w2r7vme9qi/i7A8jjMTT6jRbSKZqG//zGO/9XyT6itnoq4TL4RhikDVZebJeKtOP
+         G4JDLBKDMZL2FC7q8fxpEwRRMHB5vGCXuFPAaHMTDa9qQpNOgNP1Sh3c5dKYh0WiegFN
+         pUz8H3QYbb0kWDjpUHoGBoDpj2uRhDBDNiW1M4IJRI29ub5ZQZlDbcmPMMvl1VC/Z1La
+         1gmnnUW1rRG7OMiqlRbjckvW1k8yw7tRC3z7ttw2H0hYGGqY8fHhIOahKA+6l9zlV13/
+         llkA==
+X-Forwarded-Encrypted: i=1; AJvYcCXhPbP32BZ/jbAMsxclAtEr+ZFQfuxn7QUA/XJsQNZ0PbW6NSxERIN/obi9L6qFhfQpLCHFHJjoECY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyuqiIea7DBJkuzwH7yiLgPcJiUhpA/X5pcx8pWKONhq+giepnj
+	C2QO0ge+sOxcY4VURZrXJsXbkHm8Y/M53rv2lTrTfpq2/tOHl6EGpKCHfSa0yuKqFw==
+X-Gm-Gg: ASbGncsCLiojV1QfVi3jWtoMiH/xfwnbVa4jwX3YkImkdLWcw6UfIMthAbp+KtrEngg
+	Pi6t078Mf9sMkYn0BnCXkS4d/putdE5p/3E2GnPIf9SkhsAZK3Ga0FC31/5wath9TUXJx339C1d
+	RG+bYQzfRFP6ZSecSA7nSq6dAvutQFUH6rqeUCU2N4/mn0Z1hn/zbBqKgyn6750gcrj0N+3tCyD
+	0QI7rJRxmogqVt2m60LsTMZjLfr4GvePpJGjS8YKdFHV/F/Dc+p7ih+/6ysHvIAYaDhTBAcvle4
+	otpZAkLpydMO6o1946rVTuNkuRwGDbhgAg8CyqMKzvLGW/NeDhyYL0eCJQG4Snyyo/lf2pbo9m4
+	jOD/HHmYF/7pRB9YhU7Se8zFT+bOzLgDyG8BgM/pdmdn+78qSiJkSXqNiat7vDcaW+aKSYNxu66
+	2PhFHxG4A=
+X-Google-Smtp-Source: AGHT+IH6EE/Ay87sTiqtTBrm7BVg/kV3FtbldzOKhykIZN9ZF4OGp7I880vxySOKNmoDYXq3ywrANw==
+X-Received: by 2002:a17:907:7247:b0:ae0:df46:abd1 with SMTP id a640c23a62f3a-af9401c783emr1066689566b.45.1754322784199;
+        Mon, 04 Aug 2025 08:53:04 -0700 (PDT)
+Message-ID: <cff0fc63-f5f6-464e-b738-0de03661084a@suse.com>
+Date: Mon, 4 Aug 2025 17:53:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 04/20] xen/riscv: introduce things necessary for p2m
+ initialization
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
+ <c526512aeda09527421e2d60bac7955a8c7c7c56.1753973161.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/HVM: polish hvm_asid_init() a little
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -116,74 +125,59 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <c526512aeda09527421e2d60bac7955a8c7c7c56.1753973161.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-While the logic there covers asymmetric cases, the resulting log
-messages would likely raise more confusion than clarify anything. Split
-the BSP action from the AP one, indicating the odd CPU in the AP log
-message, thus avoiding the impression that global state would have
-changed.
+On 31.07.2025 17:58, Oleksii Kurochko wrote:
+> --- a/xen/arch/riscv/include/asm/p2m.h
+> +++ b/xen/arch/riscv/include/asm/p2m.h
+> @@ -3,11 +3,45 @@
+>  #define ASM__RISCV__P2M_H
+>  
+>  #include <xen/errno.h>
+> +#include <xen/mm.h>
+> +#include <xen/rwlock.h>
+> +#include <xen/types.h>
+>  
+>  #include <asm/page-bits.h>
+>  
+>  #define paddr_bits PADDR_BITS
+>  
+> +/* Get host p2m table */
+> +#define p2m_get_hostp2m(d) (&(d)->arch.p2m)
+> +
+> +/* Per-p2m-table state */
+> +struct p2m_domain {
+> +    /*
+> +     * Lock that protects updates to the p2m.
+> +     */
+> +    rwlock_t lock;
+> +
+> +    /* Pages used to construct the p2m */
+> +    struct page_list_head pages;
+> +
+> +    /* Indicate if it is required to clean the cache when writing an entry */
+> +    bool clean_pte;
 
-While there also
-- move g_disabled into .data.ro_after_init; only the BSP will ever write
-  to it,
-- make the function's parameter unsigned; no negative values may be
-  passed in. Also reflect this in svm_asid_init().
+I'm a little puzzled by this field still being here, despite the extensive
+revlog commentary. If you really feel you need to keep it, please ...
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> +    /* Back pointer to domain */
+> +    struct domain *domain;
+> +
+> +    /*
+> +     * P2M updates may required TLBs to be flushed (invalidated).
+> +     *
+> +     * Flushes may be deferred by setting 'need_flush' and then flushing
+> +     * when the p2m write lock is released.
+> +     *
+> +     * If an immediate flush is required (e.g, if a super page is
+> +     * shattered), call p2m_tlb_flush_sync().
+> +     */
+> +    bool need_flush;
 
---- a/xen/arch/x86/hvm/asid.c
-+++ b/xen/arch/x86/hvm/asid.c
-@@ -48,20 +48,22 @@ struct hvm_asid_data {
- 
- static DEFINE_PER_CPU(struct hvm_asid_data, hvm_asid_data);
- 
--void hvm_asid_init(int nasids)
-+void hvm_asid_init(unsigned int nasids)
- {
--    static int8_t g_disabled = -1;
-+    static int8_t __ro_after_init g_disabled = -1;
-     struct hvm_asid_data *data = &this_cpu(hvm_asid_data);
- 
-     data->max_asid = nasids - 1;
-     data->disabled = !opt_asid_enabled || (nasids <= 1);
- 
--    if ( g_disabled != data->disabled )
-+    if ( g_disabled < 0 )
-     {
--        printk("HVM: ASIDs %sabled.\n", data->disabled ? "dis" : "en");
--        if ( g_disabled < 0 )
--            g_disabled = data->disabled;
-+        g_disabled = data->disabled;
-+        printk("HVM: ASIDs %sabled\n", data->disabled ? "dis" : "en");
-     }
-+    else if ( g_disabled != data->disabled )
-+        printk("HVM: CPU%u: ASIDs %sabled\n", smp_processor_id(),
-+               data->disabled ? "dis" : "en");
- 
-     /* Zero indicates 'invalid generation', so we start the count at one. */
-     data->core_asid_generation = 1;
---- a/xen/arch/x86/hvm/svm/asid.c
-+++ b/xen/arch/x86/hvm/svm/asid.c
-@@ -12,7 +12,7 @@
- 
- void svm_asid_init(const struct cpuinfo_x86 *c)
- {
--    int nasids = 0;
-+    unsigned int nasids = 0;
- 
-     /* Check for erratum #170, and leave ASIDs disabled if it's present. */
-     if ( !cpu_has_amd_erratum(c, AMD_ERRATUM_170) )
---- a/xen/arch/x86/include/asm/hvm/asid.h
-+++ b/xen/arch/x86/include/asm/hvm/asid.h
-@@ -13,7 +13,7 @@ struct vcpu;
- struct hvm_vcpu_asid;
- 
- /* Initialise ASID management for the current physical CPU. */
--void hvm_asid_init(int nasids);
-+void hvm_asid_init(unsigned int nasids);
- 
- /* Invalidate a particular ASID allocation: forces re-allocation. */
- void hvm_asid_flush_vcpu_asid(struct hvm_vcpu_asid *asid);
+... group booleans together, for better packing.
+
+Jan
 
