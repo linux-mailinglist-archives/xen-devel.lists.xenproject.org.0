@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBFA7B19CE3
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 09:47:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1068865.1432729 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87459B19D05
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 09:58:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1068876.1432739 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uipuj-0004Ez-UL; Mon, 04 Aug 2025 07:47:21 +0000
+	id 1uiq4j-000674-Qd; Mon, 04 Aug 2025 07:57:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1068865.1432729; Mon, 04 Aug 2025 07:47:21 +0000
+Received: by outflank-mailman (output) from mailman id 1068876.1432739; Mon, 04 Aug 2025 07:57:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uipuj-0004Bx-RD; Mon, 04 Aug 2025 07:47:21 +0000
-Received: by outflank-mailman (input) for mailman id 1068865;
- Mon, 04 Aug 2025 07:47:20 +0000
+	id 1uiq4j-000654-Nv; Mon, 04 Aug 2025 07:57:41 +0000
+Received: by outflank-mailman (input) for mailman id 1068876;
+ Mon, 04 Aug 2025 07:57:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=c2vN=2Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uipui-0004Br-CP
- for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 07:47:20 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ id 1uiq4i-00064x-6m
+ for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 07:57:40 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3ecc5728-7107-11f0-b898-0df219b8e170;
- Mon, 04 Aug 2025 09:47:18 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-615756b1e99so4523361a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 00:47:18 -0700 (PDT)
+ id b0621242-7108-11f0-b898-0df219b8e170;
+ Mon, 04 Aug 2025 09:57:38 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-61580eb7995so9047360a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 00:57:38 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-615a8fe7c88sm6447496a12.41.2025.08.04.00.47.16
+ 4fb4d7f45d1cf-615a8efffa5sm6352789a12.12.2025.08.04.00.57.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Aug 2025 00:47:17 -0700 (PDT)
+ Mon, 04 Aug 2025 00:57:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,74 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3ecc5728-7107-11f0-b898-0df219b8e170
+X-Inumbo-ID: b0621242-7108-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754293638; x=1754898438; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754294258; x=1754899058; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2UDRFzpvxKPEasMvNhqsQNQ/DiNWraBGrNUe11lrUM0=;
-        b=Ru5m3aD1JhAjTk+IQsn8j2kARmEFXxC5TZCeNvxB7JzC90ZCPtuzyYeid/k5fT55PS
-         Zz7sCF7yq64oL4patGfqnxlRExc4Iw3el6jRhM8TB0LhD3vSc1lnzSVRmqPKgJ4fUhyC
-         5VGU5vuTKvQFIcMmfDSeqHzHBENAgv+DxupYXY+ifp2eWKDMHBzc5yRxipu3rV7R4Bxt
-         /twg5MmaUUQzaJV9ny+XF6EXQO1KLBR+41oOOcD//hZcaHoKLDWnUoSTtCuBNk9/AdIA
-         LiY0vUi1rdVMkv6dEjwdzL57DUy8qEtwv2wng+ddBuYnRGMZbCMlLPPedXExekFZAK2U
-         64fQ==
+        bh=MfvF4myRl9OGefF3nwNHUkjGFs4EEnO3ZCbH4ezUxEQ=;
+        b=KgUCICyk0riqk7Adt3Upxnp11gNKDscag1lfnSva08gnxyuTaMrupaUsZcAnsAfZ54
+         hUedUBlgakGh8ctWVewo+8UAJqucOwqBRSO+zUDzMZTu/u9LVqbzFdlC1cwOP0MmwSqi
+         ont+T7HnAVxkVsV2AnTJlFY2E6qD9c0ZEZ0gfDRO1sEvGrTMnRRQJh4iNswfwBTdYypH
+         YQ/dhGN3GZKewii1bvhJckjq9wWRhkQiQjs1hlfLB9/dAhTy68ochcvY1/hdXMl8zekQ
+         2DK5spbzzWs5flDv/Z7893PoFqKcSDtBkmZ4QBN60dir2MOI6mFp8ycFL4pdeaReEXi8
+         +I4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754293638; x=1754898438;
+        d=1e100.net; s=20230601; t=1754294258; x=1754899058;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2UDRFzpvxKPEasMvNhqsQNQ/DiNWraBGrNUe11lrUM0=;
-        b=n3d6Todybqxm/DTcgv+ufWd3NjYu52bm7Dao+5HAXNT/15D6cMxqKv2ZdSukqACdZm
-         rtRKw1XB8awCFTJ2Y6VIPjeVWb3dbzUK8TvuKlw14+CCrhSvV4ktEoiU/8W1xvKDKjUx
-         xBmYOCkB8WTO2jlYTOQee3pMz1EkP5ql4/Es/DaxX+mLSNdY/aFUtYeP+Aet1G0BT2Qm
-         B5Baotphl6UuC5xeMQzdaZ7DTcYKH3l/0Sp4KbDnhSIaXCNcOYgnIRJ+1osYV34d6yJl
-         wcKoUAKgKoxfIIlmbl3zAa/zUr7PublO8Y+7Jg5TsWgARwmftrZWP9d2IqbMcXyHsiQG
-         JC3Q==
-X-Forwarded-Encrypted: i=1; AJvYcCX8Afa0ETzTuJvL/iiLHXhr57CHzlG8H3DC/+jh+mvpeql8MgCizehlk61+jfOUkCvuGJQD5evmdsU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxsTaYTNSyO/gZrvZ0uwS00ER+YZlqcrnuM321LDV/dpwg8TlMa
-	eYQKlRU2tZoYx9aG0eW8Ep/2DncIjkjF9aHA+CpkseD/YPSLjyEDAN9z9uhFmtggiQ==
-X-Gm-Gg: ASbGncsF4TGb08rKLhkYm/Z32HiuvIGkYh6p8RYPgcAhtT4EkBP9w56XRHp+doL6q+E
-	7F76GBm8mqI8mDfZPeDH+SYDl7eYVjzj5gWNS3f+10zOPM9FmgYTDBMFv9L3+z0i6pcLTfeSVou
-	vIO/c33t+qWm5hPPzVwpyFZErg30NoECyKoETUXsixlJFQXDWx/1wjLjjVTK0TCsmSjOY5nk15/
-	tJ83tZIJH2kH2emFFNGkDEcvF8ozbBOC3Ers45e2HMSgUm3tfQURnmZJbsBapgKP15aUm8CrJz+
-	4rbrkjX6nZ0IhrKWNfPjD3Bj5GkFzhkJfn8msufkRTRkBY2Tid20jJLn0b7cCRv+jLyWKa0drcH
-	E6Oc9E9v/fDPQuOijvP0VUGjSwO4OepUzYbJfdwQjHQe3zv5rhnVZSslnWOmuJtsWZHYS2zUUR+
-	yhuw//VBQ=
-X-Google-Smtp-Source: AGHT+IE/3GALxsfmNfanTZmRT4jJe7hkA6z7M38co6zKHyOgOCET50A5GDpsE5r/WJaKVl5/Uz8SCw==
-X-Received: by 2002:a05:6402:90c:b0:615:6fae:d766 with SMTP id 4fb4d7f45d1cf-615e73889a3mr7269078a12.26.1754293637540;
-        Mon, 04 Aug 2025 00:47:17 -0700 (PDT)
-Message-ID: <bb42b0a4-30b7-4c10-8320-ecd21aad5c2e@suse.com>
-Date: Mon, 4 Aug 2025 09:47:18 +0200
+        bh=MfvF4myRl9OGefF3nwNHUkjGFs4EEnO3ZCbH4ezUxEQ=;
+        b=K8DeugOM6QRVh1CsPJnZfXQFgokfosLiszNWlvQfdRDLCrjxL1OnH8sRkqfh3Yp6D1
+         kKXufQvyETqp3+nde3erdXl9PgDblJh3YCL4jVIUV0aPNGR5mLRcM3dZSdKLF8imgbi6
+         HI4awwlPPxCpJNjHYOwxDOT4bmNAWjEYKL8LFbRDZdTYzCt7Y3otteez1+s0HONwNSLc
+         OxhQQoMZyWU4Q9We2RAzC8+pBhbOO9dDgJbrnLA6sT6gHoYNkBd4YSyQBsnx2A9yCra1
+         bVmC1S+DB5txFWS9Fo4308lwCafXopY0MGkLhBm0PvHwCmjojs3x6p0FaYpSZocPMKFx
+         fQkQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWqoDfYF9eIwgv4/NnM0eGXLrmWHA6dr62U21zhMHohcy/4kCeQJjuya16y1BbHhxYjvcZumkfaKck=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwxeOrAxF/N7rz8vL2vCruwyit7Ata6uJ0S85lWF0fAIaUbDkad
+	uaJ/EgCwH1pxdhFgJAIUhnFKopQEAl+wiJGFiXx2YzcJZhsi9T/XqLeFl2GDdBhaPA==
+X-Gm-Gg: ASbGnctSXIdS4ClcIm6ZEnfnLzEdybL3eUtKiTzHXigl2TyUd+e75e56Va/j/NF5BL4
+	+chdU7wKzn/IwIuuTyZESCerzA+EL8LILeg2Q+39vcCeJKaAx36hWXmRi8/bjwTq6HM54UsDYjd
+	alxa/L6Ndj8sb6f4hJAGEcV4ocmSWCkp9+fAfmidLA+29HQBUZhzS3Lm7jmfUZNzR6OzOYJTivl
+	vZLHkKy0bW8ZWUs2XjlFXhTvbPVrCyn5gYNtqQoxGJyUcp2Gc3r1+439BEp+ZM419OocdMKzung
+	G1sC/+f4+pzBt2UZ+Zf8VMP3vxXsSc2CHCep1rrSBNQrgH57f/hBmAiEadK0Oq9ewOIDtWD9zTZ
+	xiIYvKwoblbsMKhX/6kT4eh9CpN3uBzq+I0t1NbayKuibuk2n9qhl0FnfxRmkmzagkjCnUMxyaV
+	DIEwuntzc=
+X-Google-Smtp-Source: AGHT+IFdwf6cdCV1zGsA2CO75h4I88SRacVtUGrg1YIQQuezJf4EcvFycoLvEMkKYUTXl1S9NKBfWw==
+X-Received: by 2002:a05:6402:13c9:b0:615:8b65:bfb6 with SMTP id 4fb4d7f45d1cf-615e5e5237amr7783767a12.13.1754294257645;
+        Mon, 04 Aug 2025 00:57:37 -0700 (PDT)
+Message-ID: <52ea4f10-26b4-447b-8753-0e4287a03408@suse.com>
+Date: Mon, 4 Aug 2025 09:57:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 00/25] Introduce CONFIG_DOMCTL
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH v2] xen: rework error handling in vcpu_create
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Tim Deegan <tim@xen.org>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Christopher Clark <christopher.w.clark@gmail.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
- George Dunlap <gwd@xenproject.org>,
- Nathan Studer <nathan.studer@dornerworks.com>,
- Stewart Hildebrand <stewart@stew.dk>, Meng Xu <mengxu@cis.upenn.edu>,
- Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org,
- xen-devel@dornerworks.com
-References: <20250803094738.3625269-1-Penny.Zheng@amd.com>
+ George Dunlap <gwd@xenproject.org>, xen-devel@lists.xenproject.org
+References: <20250801202418.38977-1-stewart.hildebrand@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -138,65 +123,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250803094738.3625269-1-Penny.Zheng@amd.com>
+In-Reply-To: <20250801202418.38977-1-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03.08.2025 11:47, Penny Zheng wrote:
-> It can be beneficial for some dom0less systems to further reduce Xen footprint
-> via disabling some hypercalls handling code, which may not to be used &
-> required in such systems. Each hypercall has a separate option to keep
-> configuration flexible.
-> 
-> Options to disable hypercalls:
-> - sysctl
-> - domctl
-> - hvm
-> - physdev
-> - platform
-> 
-> This patch serie is only focusing on introducing CONFIG_DOMCTL. Different
-> options will be covered in different patch serie.
-> 
-> Features, like VM event, or paging log-dirty support, which fully rely on
-> domctl op, will be wrapped with CONFIG_SYSCTL, to reduce Xen footprint as
-> much as possible.
-> 
-> It is derived from Stefano Stabellini's commit "xen: introduce kconfig options to
-> disable hypercalls"(
-> https://lore.kernel.org/xen-devel/20241219092917.3006174-1-Sergiy_Kibrik@epam.com)
-> 
-> Penny Zheng (25):
->   xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE
->   xen/x86: consolidate vram tracking support
->   xen/x86: complement PG_log_dirty wrapping
->   xen: consolidate CONFIG_VM_EVENT
->   xen: introduce CONFIG_DOMCTL
->   xen/domctl: provide stub for domctl_lock_{acquire,release}
->   xen/domctl: wrap around XEN_DOMCTL_pausedomain
->   xen/domctl: wrap around XEN_DOMCTL_soft_reset
->   xen/domctl: wrap around XEN_DOMCTL_destroydomain
->   xen/domctl: wrap around XEN_DOMCTL_setnodeaffinity
->   xen/domctl: wrap around XEN_DOMCTL_{getvcpuaffinity,setvcpuaffinity}
->   xen/domctl: wrap around XEN_DOMCTL_scheduler_op
->   xen/domctl: wrap around XEN_DOMCTL_getvcpucontext
->   xen/domctl: wrap around XEN_DOMCTL_{irq_permission,iomem_permission}
->   xen/domctl: wrap around XEN_DOMCTL_settimeoffset
->   xen/domctl: wrap around XEN_DOMCTL_set_target
->   xen: add stub for XEN_DOMCTL_getdomaininfo
->   xen/domctl: wrap around XEN_DOMCTL_set_access_required
->   xen: make CONFIG_VM_EVENT depend on DOMCTL
->   xen/domctl: wrap around XEN_DOMCTL_set_virq_handler
->   xen/domctl: wrap aound iommu-related domctl op
->   xen/domctl: wrap around XEN_DOMCTL_{get,set}_paging_mempool_size
->   xen/x86: make CONFIG_X86_PSR depend on SYSCTL || DOMCTL
->   xen/domctl: wrap around arch-specific domctl op
->   xen/domctl: wrap around domctl hypercall
+On 01.08.2025 22:24, Stewart Hildebrand wrote:
+> @@ -839,6 +839,9 @@ void sched_destroy_vcpu(struct vcpu *v)
+>  {
+>      struct sched_unit *unit = v->sched_unit;
+>  
+> +    if ( !unit )
+> +        return;
+> +
+>      kill_timer(&v->periodic_timer);
+>      kill_timer(&v->singleshot_timer);
+>      kill_timer(&v->poll_timer);
 
-Hmm, I should have remembered to Cc you on this [1] reply of mine to Jiqian.
-It applies here as well.
+What if it's the 2nd error path in sched_init_vcpu() that is taken? Then we
+might take this path (just out of context here)
+
+    if ( unit->vcpu_list == v )
+    {
+        rcu_read_lock(&sched_res_rculock);
+
+        sched_remove_unit(vcpu_scheduler(v), unit);
+        sched_free_udata(vcpu_scheduler(v), unit->priv);
+
+and at least Credit1's hook doesn't look to be safe against being passed NULL.
+(Not to speak of the risk of unit->priv being used elsewhere while cleaning
+up.)
 
 Jan
-
-[1] https://lists.xen.org/archives/html/xen-devel/2025-07/msg01884.html
 
