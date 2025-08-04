@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80C19B19DEF
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 10:48:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1068967.1432818 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA170B19DF0
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 10:48:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1068969.1432829 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uiqrw-00014U-Lm; Mon, 04 Aug 2025 08:48:32 +0000
+	id 1uiqsF-0001OQ-Ty; Mon, 04 Aug 2025 08:48:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1068967.1432818; Mon, 04 Aug 2025 08:48:32 +0000
+Received: by outflank-mailman (output) from mailman id 1068969.1432829; Mon, 04 Aug 2025 08:48:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uiqrw-000128-J5; Mon, 04 Aug 2025 08:48:32 +0000
-Received: by outflank-mailman (input) for mailman id 1068967;
- Mon, 04 Aug 2025 08:48:30 +0000
+	id 1uiqsF-0001MD-R1; Mon, 04 Aug 2025 08:48:51 +0000
+Received: by outflank-mailman (input) for mailman id 1068969;
+ Mon, 04 Aug 2025 08:48:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=c2vN=2Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uiqru-000122-Sh
- for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 08:48:30 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ id 1uiqsE-000122-W1
+ for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 08:48:50 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ca814d5e-710f-11f0-b898-0df219b8e170;
- Mon, 04 Aug 2025 10:48:28 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-61553a028dfso3812128a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 01:48:28 -0700 (PDT)
+ id d6f786df-710f-11f0-b898-0df219b8e170;
+ Mon, 04 Aug 2025 10:48:49 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-af66f444488so541334266b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 01:48:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-615a8effda1sm6458526a12.1.2025.08.04.01.48.27
+ a640c23a62f3a-af91a24365asm696790466b.137.2025.08.04.01.48.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Aug 2025 01:48:27 -0700 (PDT)
+ Mon, 04 Aug 2025 01:48:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca814d5e-710f-11f0-b898-0df219b8e170
+X-Inumbo-ID: d6f786df-710f-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754297308; x=1754902108; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754297329; x=1754902129; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rvSVJ95foTsBpRFS+4SvOU3DjjCK8hnlcDIJbxe2lE0=;
-        b=JE1ExhIwQ0Z2cd5zJfyccnROduw3kLbBChFeZrOdE7UpIdKqmNrbdDmMvne/qKmBMS
-         b0bmO64WKI77CbpbHnRQ37WRl57YaM27C5uupH5qmSMXUp1Two6hMmpbsb0x9qrj3dC0
-         6HxzXdfOmTUf9zYz6pPufSStdH9jNdAFruKpXBCk31/w6fDnJVuqPXMUOE3Ume45Xeio
-         ejfxjQ9JDCYdNj3wltkju6e58kIdJs7JLw0//3id5zbiW+IPkO74dINH+db97EnSc0c8
-         ku10c9TnCkq7abOBOgxnNNDqRV6G1gJM5w0q3CBL3PYLqroJ5F9+XB1vT1Ytam1aV0DJ
-         wwwQ==
+        bh=X3pzOVntHKUcKWR8z6U9pOBbDddhwgTd/XTq1OF+ttM=;
+        b=JCDG3OrEzPhV5ruNar4aV3LOokqCWAyPuuP5KKzCsh+C7Ll/a6Oda+6D0fHVIYBQ+u
+         VmyC0gqg9FbYZiqZCrmCCvNKZI5zPRSDmHC1a+JdeR491DRWsHDlg7ztYhJHzz8h16TV
+         uOxVPJ6n+xX+ocI/bneDWa9E92AkD+Z4lUzbK1MVaBTKNH9eVDjAalxhbRKC4mni643D
+         S5kFX8qpTKO3GWaOuc9lBowYbsLR8SJM9DVSW0O35njI0tDD93QBdPEMFQVmLgbM/cL4
+         JvfW8n326fNdnh10u6aZGuzXsMyKVeNz5mHGBD1hKN1dmj71+4syfq4zF1ATWBFNExQl
+         vJBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754297308; x=1754902108;
+        d=1e100.net; s=20230601; t=1754297329; x=1754902129;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rvSVJ95foTsBpRFS+4SvOU3DjjCK8hnlcDIJbxe2lE0=;
-        b=AYosL9Hwo36GCAlCenHmvQA+QwOKhWvaiYylckXOuYQ2r6wxpANIElfOu5+5tCLQnd
-         F6IzJe1l5SSxNjSltewwLt1hPFzSrimH8gC5AdiM4OMloxix7OXRqo5P2kUBD4rS0zdW
-         eOP6iQw0c88BDOGWcJ9P3KE8qQC0FMV/2GnZSoOSJGvRrkpvxSvy8C7CG5gcBZrpeUnK
-         hMY8LAnzkF31hb4HVZi+VRmueQTVO849Btxx6sI2FoUtcXJLdIJrjn5VvWN0jr+L//xO
-         wrd/SZCW81dYXKckwq1Ivyk+5FLiCAtGj7SdFzN2E7SfLiySCxlk5kxtg3zY5nocLvoC
-         +Z5w==
-X-Forwarded-Encrypted: i=1; AJvYcCWOQfCjAIuKgRJE08GqEufktpJfH5qlebIMhXmSL54RfwJyPG04L8KYC1Urtf6x6ewfMWz5tIfizDI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxIJ3TCFsxPkZxflXASBzs4zLi3yLjaIhmjYLNM8n6dwO8v0QCP
-	dMZDhSdOlJkbghcwKaK11WsFeQpccsNdYoeFTqWFobq5vPIOc/Waz34JHkwr1Wc+5g==
-X-Gm-Gg: ASbGncuZz49ZTf5rP1Jv5JdVZeX97fhglfZsVo6iYPk8o50vR+7fX9O3ZG9cpbX7/kN
-	go81OmqyLPhYZ3DMu4rbFdsV4abfr7gENQMrDNW34tbDXq9kX5piSaGNJ1zRdc7vagY/TcjvjcM
-	lxmLjHII0Y4SiFjqLFQo00otFMAw9Dtv1tEudXaUhD4N7uTVxjWyFa8XkzEua8F7SVpjpnFugjQ
-	4CWT+aM/6Xzkv06bevysnKcZp+yd7/F+cvCuGbELTn8yH6Kq4nr5zC3dIOTwQtW5OmuMYBi0WQx
-	CPA510CckJvBvrRcAZCcJnUKZnj3fCuks1BH+7STSFkhorNpTgEim1EPzNqPtRJRfCon7Oxt7j7
-	YKKpROpsvEBwZp2G4HIDSDleNNluaeI3mHR3LbPEZn+336yV2EFSVLZOJAhbKEyha8p+TjwudSq
-	3vdj5JgCbEq/BObkjevw==
-X-Google-Smtp-Source: AGHT+IG9INVx7HPbSjkfNR9Yg9TZA31ptT4Dr/p5609Q2k+8O2Vmuu8f5EDewgvXBsddWlOt+ZzQqQ==
-X-Received: by 2002:a05:6402:26cf:b0:615:920d:4de5 with SMTP id 4fb4d7f45d1cf-615e6ed63a5mr6588882a12.12.1754297307921;
-        Mon, 04 Aug 2025 01:48:27 -0700 (PDT)
-Message-ID: <a2411fcd-d6b1-4912-b00a-b331ab472f50@suse.com>
-Date: Mon, 4 Aug 2025 10:48:29 +0200
+        bh=X3pzOVntHKUcKWR8z6U9pOBbDddhwgTd/XTq1OF+ttM=;
+        b=LOvUSPGoRC8jSCuXAWGkvi1nEg5OzZBUJ9YjD5dk1cHmW41MA9Nv2+c0xbGYsqdS07
+         ym1gHDas0xd1cwxiVK+Tl3/VAK9DaNGSw1SeJ+TLCKsKJHGZpX04Kk5EcKn/F0yPxQg1
+         iidsgRzcpcaT4texNl6jpHrtmzga5YnZK91jA7bvt2fT1VB+UShPx+KmpDlW8v47OdQ1
+         9Io8bvlwKwwGzs3rtbjsu2fCmlljaG10rvsZv9OQqqdky8cbAJWIW0H877T2FMy56MpD
+         Vn4XVtsQXoES+47SF+6IK1WheT+Kw5tYJTTDW+cXdkPA5Hma8s8I9zjdYPbUNwkwn9RM
+         VNXQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXVSKPsprZVMILvILtQFYpZ388sTqFDsU8Htbk5MdaIz8GPXmN1H2DNVIsaLtlYsBxow8BP8WQIgiU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy29Gy2ufS/WWFeN2WEEt7S8FuwgqinKH2VvYjTyf8Co1xd9+RN
+	halM9/GwD0UnyYEfwMrNJrhj9xntNFnEjXaueH8H7RhZVgHwIf7/U9DLRNmAGGKV+A==
+X-Gm-Gg: ASbGncuhK/Mr4UhSMhC2z/KLP4HyY0rlAH+V9KqCr6H5SrAvG5TheaXqL6lLuDyCEQK
+	fdRT/Othbx8sM57rzR22M6FyY5piQKsbvSJqrm4L8V0uW3Jp8QwxbyWdLFHIMOuT0FYtGRZgJ+A
+	xTwD6Lgj0rnvmnYVhwu1kJMZ86OoRqPPubxPA33F2Dd574/45I4b+cJQrn2UFYu+hWjdovtSIOy
+	BcHB66vzBKDYeW3Pbba1uq9j0s9tJgGxxTi3SxAAr166A0Z9+XWIWf/zpRPQlVPh/gRzfQPJpqR
+	ASVahNei7VaWyG4alOUlb8t/hYlOe3AQQaY3DoEU28zi8bmLp/hH/y9Nig2wu/cz8wINz4NmnhG
+	9pnmEcDhne27yK3yonQCkSj1dki/ZWg+0UfIrZA8WZua6p0Qr6M840q3Me2UIO8f1Mpo3L1F7tJ
+	ewSK+BrDPIM+xy/9BfulBAwyOS5CTe
+X-Google-Smtp-Source: AGHT+IGxlSM3avoUbyb+fd3PwxjqQmuoDItEv/EngGr/UKLUC2ZTJ3kj75ONZCm617a8Z3F/IPG8Ig==
+X-Received: by 2002:a17:906:c149:b0:ae6:e0a7:234c with SMTP id a640c23a62f3a-af940156652mr884752466b.33.1754297328851;
+        Mon, 04 Aug 2025 01:48:48 -0700 (PDT)
+Message-ID: <4df7c533-8d6e-4cf6-9ab2-90a00a31ebbb@suse.com>
+Date: Mon, 4 Aug 2025 10:48:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v6 11/19] xen/x86: introduce "cpufreq=amd-cppc" xen
@@ -206,56 +206,15 @@ On 04.08.2025 10:09, Penny, Zheng wrote:
 >                 ret = -ENODEV;
 >                 break;
 >         }
-> " here? In which case, When CONFIG_AMD=n and users doesn't provide "cpufreq=xxx", we will have cpufreq_xen_cnt initialized as 1 and cpufreq_xen_opts[0] = CPUFREQ_xen. powernow_register_driver() hence gets invoked. The thing is that we don't have stub for it and it is compiled under CONFIG_AMD
-> I suggest to change to use #ifdef CONFIG_AMD code wrapping
-> 
->>> +                }
->>> +
->>> +                if ( !ret || ret == -EBUSY )
->>> +                    break;
->>> +            }
->>> +
->>>              break;
->>>          }
->>> +
->>> +        /*
->>> +         * After successful cpufreq driver registeration,
->> XEN_PROCESSOR_PM_CPPC
->>> +         * and XEN_PROCESSOR_PM_PX shall become exclusive flags.
->>> +         */
->>> +        if ( !ret )
->>> +        {
->>> +            ASSERT(i < cpufreq_xen_cnt);
->>> +            switch ( cpufreq_xen_opts[i] )
->>
->> Hmm, this is using the the initializer of i that I commented on. I think there's
->> another default: case missing, where you simply "return 0" (to retain prior behavior).
->> But again see also yet further down.
->>
->>
->>> +            /*
->>> +             * No cpufreq driver gets registered, clear both
->>> +             * XEN_PROCESSOR_PM_CPPC and XEN_PROCESSOR_PM_PX
->>> +             */
->>> +             xen_processor_pmbits &= ~(XEN_PROCESSOR_PM_CPPC |
->>> +                                       XEN_PROCESSOR_PM_PX);
->>
->> Yet more hmm - this path you want to get through for the case mentioned above.
->> But only this code; specifically not the "switch ( cpufreq_xen_opts[i] )", which really
->> is "switch ( cpufreq_xen_opts[0] )" in that case, and that's pretty clearly wrong to
->> evaluate in then.
-> 
-> Correct me if I understand you wrongly:
-> The above "case missing" , are we talking about is entering "case CPUFREQ_none" ?
-> IMO, it may never be entered. If users doesn't provide "cpufreq=xxx", we will have cpufreq_xen_cnt initialized as 1 and cpufreq_xen_opts[0] = CPUFREQ_xen. That is, we will have px states as default driver. Even if we have failed px-driver initialization, with cpufreq_xen_cnt limited to 1, we will not enter CPUFREQ_none.
-> CPUFREQ_none only could be set when users explicitly set "cpufreq=disabled/none/0", but in which case, cpufreq_controller will be set with FREQCTL_none. And the whole cpufreq_driver_init() is under " cpufreq_controller == FREQCTL_xen " condition
-> Or "case missing" is referring entering default case? In which case, we will have -ENOENT errno. As we have ret=-ENOENT in the very beginning
+> " here?
 
-Sorry, this is hard to follow. Plus I think I made the main requirement quite
-clear: You want to "retain prior behavior" for all cases you don't deliberately
-change to accommodate the new driver. Plus you want to watch out for pre-
-existing incorrect behavior: Rather than proliferating any, such would want
-adjusting.
+That's what I said, didn't I?
+
+> In which case, When CONFIG_AMD=n and users doesn't provide "cpufreq=xxx", we will have cpufreq_xen_cnt initialized as 1 and cpufreq_xen_opts[0] = CPUFREQ_xen. powernow_register_driver() hence gets invoked. The thing is that we don't have stub for it and it is compiled under CONFIG_AMD
+> I suggest to change to use #ifdef CONFIG_AMD code wrapping
+
+Perhaps necessary, yes. As you know, we generally prefer IS_ENABLED() where possible,
+but when not possible, #ifdef is certainly okay to use.
 
 Jan
 
