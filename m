@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53443B1A085
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 13:23:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1069108.1432950 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5452BB1A093
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 13:29:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1069121.1432959 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uitHr-0003cU-VW; Mon, 04 Aug 2025 11:23:27 +0000
+	id 1uitNH-0004Gh-LU; Mon, 04 Aug 2025 11:29:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1069108.1432950; Mon, 04 Aug 2025 11:23:27 +0000
+Received: by outflank-mailman (output) from mailman id 1069121.1432959; Mon, 04 Aug 2025 11:29:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uitHr-0003ZJ-RP; Mon, 04 Aug 2025 11:23:27 +0000
-Received: by outflank-mailman (input) for mailman id 1069108;
- Mon, 04 Aug 2025 11:23:26 +0000
+	id 1uitNH-0004EH-If; Mon, 04 Aug 2025 11:29:03 +0000
+Received: by outflank-mailman (input) for mailman id 1069121;
+ Mon, 04 Aug 2025 11:29:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=c2vN=2Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uitHq-0003ZC-4t
- for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 11:23:26 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ id 1uitNF-0004Dv-Gf
+ for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 11:29:01 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6ee00d21-7125-11f0-b898-0df219b8e170;
- Mon, 04 Aug 2025 13:23:23 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-61568fbed16so4744365a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 04:23:23 -0700 (PDT)
+ id 37118024-7126-11f0-b898-0df219b8e170;
+ Mon, 04 Aug 2025 13:28:59 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-61557997574so6436142a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 04:28:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-615a8fe7a83sm6695602a12.32.2025.08.04.04.23.22
+ 4fb4d7f45d1cf-615a8fe77cfsm6796126a12.42.2025.08.04.04.28.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Aug 2025 04:23:22 -0700 (PDT)
+ Mon, 04 Aug 2025 04:28:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ee00d21-7125-11f0-b898-0df219b8e170
+X-Inumbo-ID: 37118024-7126-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754306603; x=1754911403; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4H3sVxZQVuJuZBfj6ldymI2bSBltGEycy+PRbU7xvmU=;
-        b=E8gXLFfXP+fi6Jd1P6DHa3fd0FfycHHxGQr/AGQ8jlV3AhSqlvKKZ94mO6ag5Uv0aE
-         uOq1W2HJXo6e+/BFU2YT+xRsWy/EnQ/meLJNettgXzki2jIwPpM+7dAOXOXcmrlzmW+8
-         gFVcUBdzwZ3j2gRrwJLgNqPlYTmVqBq+nZ0DH/JieMwjrI+huZEl3sMKQKMwWhmtpICR
-         4RBpXFJKbGH4ftagQwflqJhRG8NpByuYWAnJD59s8N6ATR87968F1cVbU16luO+wqlDk
-         JIEKZl+bq+9/ktnGiJOCVXkbdR2RGLmgMWLMhESDH6upYhWCuG/9IR4Aj9JIyoGyDu2Q
-         Zs8A==
+        d=suse.com; s=google; t=1754306939; x=1754911739; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=4tQDWXUl/GGUvwCEmhBVfJ90ztk2vRfzUXGib0Q+gbg=;
+        b=cetFKnwoYrcJIGV+jUlCxNOVpXd85RTfD4wAjdylpfTB4V7ul1e9xDNZC1xJy6BFQR
+         DaIhgMFvOXdzHUE6C61LlSndSz7hjtnTP0ZZc+9CczeCNKrC0UaswLwmK3uGLmBeKwRc
+         cCSBc2bBCnfLgBBaIvkLKYJJXeOy5xPoEpztG51d6/Qk8ozyEfieTeBBUIhIMtphd/z4
+         rZQHIFQhybPwg6trfHScvgASMZCBkjSYzlPgKHbPcWBMkdKmPYDNIHJ9h6/4LWK9v9gA
+         YIcLgz5cJ9kqXqFvQRk6UOLOWsbb12iWvYFsyHVMe2f02ECeeJRhhAIHE1WPTemus5VB
+         Hklg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754306603; x=1754911403;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4H3sVxZQVuJuZBfj6ldymI2bSBltGEycy+PRbU7xvmU=;
-        b=AF9fFMQrajKo67cSjxoUkE6eePjbvFMVjCvCGDIRXRi6tRfJAdWnME7BeOhPHJHYGm
-         j6ByEGv3BQ2MbcncqekMLW2wxBeB7voHPLHpQq1jU5a9gdsl7KDEoKrFp05nF2YS5Smc
-         UNL399xMh6wReVkswuB0DFjrJmA5dcikU5v03QzzG86K54zvW43EBNcZuJOpEeuYzm0c
-         7UCds6guEZJhs/Ecg9vhvP7mXB1N5KnSKqXpfspDVs2yWc9dyU1K2XOEaJd+ER8izI3y
-         b5ZR7gsIc1Rqdu0Wctp4wljUu6/L6zxgYnpKwbffRfSmFbD79Vcmbfz/cxaUoovTnLrg
-         amMg==
-X-Forwarded-Encrypted: i=1; AJvYcCXXDc6+BVnLQszNfMaw/suUEuUKMS4BGc74tbFON+W9IxzaNUSMt1jzTxlknWySJkFMrYe6UkEAFRs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwK8BCDmPNYGmNemby9Um8Iag8MngvZu9CfPTmd+DTGuZ2+8lRF
-	6uWIzYlmhtCNFLa1g/YMXvqIdsncxPj9rbqGPEEtpKkVyXbQFU+T00o+1mYkELNIAg==
-X-Gm-Gg: ASbGncvEzoxEk7SQ+n2iksii2KUkAdojkOhrEE8H7ZHyzWA3NxLc9IwYHHJcoDyKyyM
-	+iJglc5JjD1k8DCuhUiXMNx53w1Bhcd9fwd0UEkmt4qVh3zVOpz1fkjMFqGuVTjPzybdep4Be+b
-	QwvSVhmXJsDCjiWqUtwiGL4mUb2XunLCsgPTNmDXgBdu2bUPihJSFNnuWLrgPKCTTzdmax7EFJ/
-	892cs0TH0Db1NuIZR+BaMW6TdfNzfSjfeQs3GqorR0/yNBKDUJhuuDDVsIA1QMD73Np0+7Wzzsv
-	Gu9tUl+6GDeIjlOppbkuhXuDu4yBcXbSkPfEp3pWNGMgxmquPEvrGnXhLkCU6KAEMPuZdxBo8vf
-	DXYwaBln8NDB2DDICI/xTOuiHGAfu+xRglMdIHunMeHDR/tzF+AjplU28oHt30+fTXve7VUadgp
-	I6qDeNPrw=
-X-Google-Smtp-Source: AGHT+IGbRwzSHYFLLlCJgwlrrIsz2Br/dVRqRridgRMorrqRCNbL7GS+qBvw9NNMA0onAxfFQRcnjQ==
-X-Received: by 2002:a05:6402:5210:b0:615:860d:7da8 with SMTP id 4fb4d7f45d1cf-615e6f10de3mr8220020a12.14.1754306603025;
-        Mon, 04 Aug 2025 04:23:23 -0700 (PDT)
-Message-ID: <1e83ed1c-6fa6-4295-9072-d4277f95f2a1@suse.com>
-Date: Mon, 4 Aug 2025 13:23:22 +0200
+        d=1e100.net; s=20230601; t=1754306939; x=1754911739;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=4tQDWXUl/GGUvwCEmhBVfJ90ztk2vRfzUXGib0Q+gbg=;
+        b=deLW5luLU72JIoncrve4a7W/YC6PByR8PrSLGYpdUYg3v4HI2o01cHT99In5ooZprX
+         npewE1znuIG/P/HMNAi5ChKMD5Eme5MLC6yfP12d3r5391tPcJ7s8QDa8Oo+mPl1NPPP
+         NNdPdyvKquijFi53f1C0mgJ8nro5ZVl+Mbm3Mk5afq5wRCoNwnUz1KKAIv31mnmQj2Id
+         hvd9CbXID1O4+U5wX48xz5HhFTkRApWhDTiSZHL9bmm6Rt7ubTsIwuRcf8ZmgvRFmhwf
+         DOpoPm99PhonobmGc8+2TFwpyfEYOs3mTLMvAFPGPBzjEdG3XSU+c4rOXGQlJGJyKCTj
+         fKZA==
+X-Gm-Message-State: AOJu0YywUVH3IFOQr8alH2ol79olLpIRjWzvxVfcg+k18Lm3YiyDCLbZ
+	0RUpHGnZWHwNVyMGEQle2MjUplFPs/W6W/t+Iak9xvB9W1wPhRMHSI+LiL7ImjFQgHJTI2qexiW
+	SxrA=
+X-Gm-Gg: ASbGncvfBs8zHHQ8zZNM08XRiNMmZmcK6N8S3WbAHCqzLNCFc+W5SEi+b3sGxICcx9L
+	xcCAZA0iyzp60rHcXV87Lej7xYwix38wrNbPsl0vnIrbgvynoGnVe+VdQxGCoFXtq2eXBbf/WSK
+	w9ZkdtG0BsQSjDvf0J3E6xcgx7rEqORRkuZ1p1FRNX1lDZ3s9vexnVBbQ1yv2JwWfKrPocAuVik
+	x9iEPCOhqcHJ9NZqBukIi+3RgwMP6tVJSecrTHTYYVw+/dsw1lDGrGGXl9+iM8uTbYSKo9QMNSd
+	hYT0Q/gF/ZZG3+ux4dsTrB7elHKx5zRxte6QBwop2+Rvai8QnqhG3Z41Nz6sRNKBoJWwGeKJgkA
+	jid9gN1l3NsWaESSDU/VSR09Gr6B65WIJMGQzM3HGQ2JXly/vccgsy94FtsNpAycXzMtYc/D6Wf
+	S4je/2DyevlGWw1qbppQ==
+X-Google-Smtp-Source: AGHT+IGPpsnKx/zspjBOkezE2xrWpZCzUKKHIyv8n2GXqG5L/naHwtmxgFiaDyA9lkyd5Uudp9FTTA==
+X-Received: by 2002:a05:6402:274c:b0:615:539b:7acf with SMTP id 4fb4d7f45d1cf-615e6eb694bmr7184812a12.2.1754306938220;
+        Mon, 04 Aug 2025 04:28:58 -0700 (PDT)
+Message-ID: <df6ce908-4c8e-4ac0-b663-95772d6ff9c9@suse.com>
+Date: Mon, 4 Aug 2025 13:28:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/x86: fix xen.efi boot crash from some bootloaders
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- Yann Sionneau <yann.sionneau@vates.tech>
-References: <20250724140731.1502774-1-yann.sionneau@vates.tech>
- <4ceb64fa-d7cb-4c77-8a60-1526046c037c@suse.com>
- <0f4abbb4-aa7f-4c09-8652-bc9041a25a56@citrix.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/CPU: extend is_forced_cpu_cap()'s "reach"
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -123,51 +116,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0f4abbb4-aa7f-4c09-8652-bc9041a25a56@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 04.08.2025 13:00, Andrew Cooper wrote:
-> On 04/08/2025 10:34 am, Jan Beulich wrote:
->> On 24.07.2025 16:07, Yann Sionneau wrote:
->>> xen.efi PE does not boot when loaded from shim or some patched
->>> downstream grub2.
->>>
->>> What happens is the bootloader would honour the MEM_DISCARDABLE
->>> flag of the .reloc section meaning it would not load its content
->>> into memory.
->>>
->>> But Xen is parsing the .reloc section content twice at boot:
->>> * https://elixir.bootlin.com/xen/v4.20.1/source/xen/common/efi/boot.c#L1362
->>> * https://elixir.bootlin.com/xen/v4.20.1/source/xen/arch/x86/efi/efi-boot.h#L237
->>>
->>> Therefore it would crash with the following message:
->>> "Unsupported relocation type" as reported there:
->>>
->>> * https://github.com/QubesOS/qubes-issues/issues/8206#issuecomment-2619048838
->>> * https://lore.kernel.org/xen-devel/7e039262-1f54-46e1-8f70-ac3f03607d5a@suse.com/T/#me122b9e6c27cd98db917da2c9f67e74a2c6ad7a5
->>>
->>> This commit adds a small C host tool named keeprelocs
->>> that is called after xen.efi is produced by the build system
->>> in order to remove this bit from its .reloc section header.
->>>
->>> Signed-off-by: Yann Sionneau <yann.sionneau@vates.tech>
->> So I found a way to deal with this at the linker side, without any new command
->> line options. Behavior is solely driven by the attributes of any incoming .reloc
->> sections (of which there would be none by default, retaining original behavior).
->> The important patch is [1], but at least the first patch of the series [2] would
->> in most cases also be wanted/needed (patch 04 is obviously a mechanical prereq
->> for the main patch). Need for other of the prereqs there depends on the scope
->> and purpose of one's binutils build(s).
->>
->> [1] https://sourceware.org/pipermail/binutils/2025-August/143153.html
->> [2] https://sourceware.org/pipermail/binutils/2025-August/143141.html
-> 
-> That's good to see.  Do we need any matching changes in Xen?
+"cpuid=no-rdrand" cannot actually be used to suppress the respective
+boot warning on certain AMD hardware. That's because cleared_caps[] are
+only applied after the ->c_init() hooks ran, i.e. cpu_has() still
+returns true in init_amd().
 
-Well, we'll need some (zero-size) contribution to .reloc then. For my
-testing I hacked this into the linking rule (which is a mess already
-anyway), but I hope / expect to find a cleaner solution for upstreaming.
+Fixes: 93401e28a84b ("x86: clear RDRAND CPUID bit on AMD family 15h/16h")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+TBD: It's not clear whether doing it this way is actually a good idea;
+     it may need to be two of the three call sites to be amended by a
+     new is_cleared_cpu_cap().
 
-Jan
+Also relevant to "x86/AMD: disable RDSEED on Fam17 model 47 stepping 0".
+
+--- a/xen/arch/x86/cpu/common.c
++++ b/xen/arch/x86/cpu/common.c
+@@ -108,7 +108,7 @@ void __init setup_force_cpu_cap(unsigned
+ 
+ bool __init is_forced_cpu_cap(unsigned int cap)
+ {
+-	return test_bit(cap, forced_caps);
++	return test_bit(cap, forced_caps) || test_bit(cap, cleared_caps);
+ }
+ 
+ static void cf_check default_init(struct cpuinfo_x86 * c)
 
