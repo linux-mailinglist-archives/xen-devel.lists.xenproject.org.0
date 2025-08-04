@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2783B1A182
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 14:35:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1069153.1432978 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC206B1A1A7
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 14:43:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1069162.1432989 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uiuPD-0004vK-J2; Mon, 04 Aug 2025 12:35:07 +0000
+	id 1uiuXC-0006Ww-BQ; Mon, 04 Aug 2025 12:43:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1069153.1432978; Mon, 04 Aug 2025 12:35:07 +0000
+Received: by outflank-mailman (output) from mailman id 1069162.1432989; Mon, 04 Aug 2025 12:43:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uiuPD-0004tD-GF; Mon, 04 Aug 2025 12:35:07 +0000
-Received: by outflank-mailman (input) for mailman id 1069153;
- Mon, 04 Aug 2025 12:35:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uiuXC-0006VJ-8P; Mon, 04 Aug 2025 12:43:22 +0000
+Received: by outflank-mailman (input) for mailman id 1069162;
+ Mon, 04 Aug 2025 12:43:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=c2vN=2Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uiuPC-0004t7-Dg
- for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 12:35:06 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 72aa9bc7-712f-11f0-a321-13f23c93f187;
- Mon, 04 Aug 2025 14:35:05 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-af66f444488so579656366b.0
- for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 05:35:05 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a243795sm727279666b.133.2025.08.04.05.35.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Aug 2025 05:35:04 -0700 (PDT)
+ (envelope-from <SRS0=lO+m=2Q=kernel.org=leon@srs-se1.protection.inumbo.net>)
+ id 1uiuXA-0006V7-Qe
+ for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 12:43:20 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 969ae083-7130-11f0-b898-0df219b8e170;
+ Mon, 04 Aug 2025 14:43:15 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by nyc.source.kernel.org (Postfix) with ESMTP id 030FAA55811;
+ Mon,  4 Aug 2025 12:43:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73ED3C4CEE7;
+ Mon,  4 Aug 2025 12:43:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,138 +41,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 72aa9bc7-712f-11f0-a321-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754310904; x=1754915704; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vFhG1S/5RjvlBUt76/bLDA0tsz6NYBSM5kuaOudpKWo=;
-        b=J8iPqsvhuZWeOefpFBZtjUVGmi+j84lCgpM0I/rSUxfM8XggVXJZFuy82yR/o0JLvY
-         nbKSqFj2SN45F1H/qDy4nLzeeOxrNCnUv/hTgvTZqThg2c4KSmHQvHHL2A4QD4EvnluE
-         ze+ikODsCIwX/ZpaCGRys6QiaPB6TdsUiGTnuTKEz94a54vAfXh97H7773T5AnAHX7QW
-         5vH8eW0XFA1Iaxhf+PHty1qw6kfQHRCkQ6cyHqjFIHlqg9ZoGZOD09T9t4INf2/uV4we
-         KLT3yYfTeA77d+1+gbcLSNO1ea/9cepJwyrDZR4gr+g/t3KfUpIfBUOEbvCYZeN4j4qO
-         BTrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754310904; x=1754915704;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vFhG1S/5RjvlBUt76/bLDA0tsz6NYBSM5kuaOudpKWo=;
-        b=pKzH5cUgTS2idugbHTLayV6zwcK2aua5hmd0CQUgdzEd3QS6WMABnKVE6D6lDeg+N8
-         GOKoStJ7sRIGFcwoZPO8UmjyFp8Y3ABKIjVEWZsfgirAnFwwdfOT937V9iCkqkdGDmr+
-         X8B2cmzJwfXXbW65Z7i/MeGGiEyBMsyXzvMP78tSStfP2aaaxKrPfIAC7uA1g0k3TULU
-         /Xw8rlgYGlTiSl4BfKZ1iR//OG+iyN5TGmCJAgLuerkcxfICQ7inHN82kWcmn0xM8o4S
-         OUOdIukmx5QykDkle+Zo0HNP1ssr+jNg0/qoMGm6jU3SS4Gb/gbefr8I4+miE/nCMP7f
-         DZZg==
-X-Forwarded-Encrypted: i=1; AJvYcCV1IzvijkGfW/K9H8KYgjNjcm6NIuE7embU4chFpLFjHNorTvZqtXYkbfNEydaL8kWT2AXXfEzKIh0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwTQkdGgOeGQqY/ieHcvWP/EhbXASdSvSWHSx5OefMert+giTJX
-	6bD3Qvrduv360ZRpMOZguu2VpWc2ALEvDZeXc83YphaDIHYpJjoAOhW5iIskolegnA==
-X-Gm-Gg: ASbGnctM3tRQJ6ba7iIrXc0b/b10LdyMvxoKQ4ObyjThfgyhlVJ7TF2MXt2s3NFIy/a
-	L4x94DLcM3A0Vpf83SIfevPPHbtnaPW+pY0efCDcdMxWIkI2oRg7d5b+DcQVa3FX+s2uGK1m5W7
-	X2Rdsz0BhJQDLCSrJ+FViz7xSf3jTLESqz60WivvrAw99WiG9Wk/XQzFOhORs8MDw4zyUNBX4S/
-	738aSaSWnxYaq4/hvhFs9gRwsRzN+Uz/JS36RyyQMgGEZAX1u4IlhrUQSbhDiQCLQdO/nAAaa9T
-	upqnjAEln3uROLBUV1N34ZimhOLMFnGfeioJkadvu65iySUOCSeB2YoRYGuwZslZBx8XUCAWHub
-	j/PQxK6YTPSGUDyiQ6k1rhW7OiPbbsF1O31QyekZeKxpJ+qZMP0c1W8EmXeVA6D0eqf/mHnJVSO
-	4flyDIw+OHRyq66HTqJw==
-X-Google-Smtp-Source: AGHT+IFQws+/ozEyCpyAeo4+Pecr3MkSOuyyFaM3UHOQxACPKvQQFCNJfRAiBvdajyoloaRbWAy8tA==
-X-Received: by 2002:a17:907:d78b:b0:aec:5a33:1549 with SMTP id a640c23a62f3a-af94018f2ffmr876699366b.40.1754310904373;
-        Mon, 04 Aug 2025 05:35:04 -0700 (PDT)
-Message-ID: <c0a0f5a4-7b58-43cd-82a7-7a6368070386@suse.com>
-Date: Mon, 4 Aug 2025 14:35:03 +0200
+X-Inumbo-ID: 969ae083-7130-11f0-b898-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1754311393;
+	bh=5JNlmVmGVDRpHLFMyx/IqEG6PVqYnGg8cLXnDHx1P9k=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Ea6NngjAGEvyrXvmgnjdDyM3mXPSC8QQfT+nOKbotr6HcSnhW9BlM6zfns9p9k3kL
+	 aHN1p5RrLF18qj2RnxxdzX8nS9REiqaWtNTzVJNCM1ShLOSb5FfV99ZaNORp06pQRf
+	 K3R1pWS9saoxzj1xXJAIiMxruqRredF2Zi+OmY/oC+bQ4mzzuhWorXTUyup4qpTeuv
+	 RrIC3bsvwJsKhiLKd060hGDOvjUq+dNjvySky2bOV6npAhY9wBNf0nitks6Cij982L
+	 fFaJuAYxFYDUX0NP4XT5/rJMF9kRy2ZpZIT9BlCY9GVEvgTb44GAyAGaBkqZ5aGmE4
+	 Sus5Is+qyLnxQ==
+From: Leon Romanovsky <leon@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>,
+	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Alex Gaynor <alex.gaynor@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Danilo Krummrich <dakr@kernel.org>,
+	iommu@lists.linux.dev,
+	Jason Wang <jasowang@redhat.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Joerg Roedel <joro@8bytes.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Juergen Gross <jgross@suse.com>,
+	kasan-dev@googlegroups.com,
+	Keith Busch <kbusch@kernel.org>,
+	linux-block@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-nvme@lists.infradead.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-trace-kernel@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	rust-for-linux@vger.kernel.org,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	virtualization@lists.linux.dev,
+	Will Deacon <will@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v1 00/16] dma-mapping: migrate to physical address-based API
+Date: Mon,  4 Aug 2025 15:42:34 +0300
+Message-ID: <cover.1754292567.git.leon@kernel.org>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 03/25] xen/x86: complement PG_log_dirty wrapping
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Tim Deegan <tim@xen.org>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-References: <20250803094738.3625269-1-Penny.Zheng@amd.com>
- <20250803094738.3625269-4-Penny.Zheng@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250803094738.3625269-4-Penny.Zheng@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 03.08.2025 11:47, Penny Zheng wrote:
-> We have PG_log_dirty flag to wrap codes about paging log-dirty support.
-> The main entry is paging_domctl(),
+Changelog:
+v1:
+ * Added new DMA_ATTR_MMIO attribute to indicate
+   PCI_P2PDMA_MAP_THRU_HOST_BRIDGE path.
+ * Rewrote dma_map_* functions to use thus new attribute
+v0: https://lore.kernel.org/all/cover.1750854543.git.leon@kernel.org/
+------------------------------------------------------------------------
 
-Yet paging_domctl() serves other paging modes, too. In fact for the shim
-PG_SH_forced is actually a mode that could plausibly come into use (even
-if not by way of a toolstack requesting it). It was previously indicated
-that it was wrong for SHADOW_PAGING to be forced off in shim-exclusive
-mode. No patch ever surfaced, but that may want sorting before any new
-boundaries are to be drawn. In fact, ...
+This series refactors the DMA mapping to use physical addresses
+as the primary interface instead of page+offset parameters. This
+change aligns the DMA API with the underlying hardware reality where
+DMA operations work with physical addresses, not page structures.
 
-> --- a/xen/arch/x86/include/asm/paging.h
-> +++ b/xen/arch/x86/include/asm/paging.h
-> @@ -55,7 +55,7 @@
->  #define PG_translate   0
->  #define PG_external    0
->  #endif
-> -#if defined(CONFIG_HVM) || !defined(CONFIG_PV_SHIM_EXCLUSIVE)
-> +#if defined(CONFIG_HVM)
->  /* Enable log dirty mode */
->  #define PG_log_dirty   (XEN_DOMCTL_SHADOW_ENABLE_LOG_DIRTY << PG_mode_shift)
+The series maintains export symbol backward compatibility by keeping
+the old page-based API as wrapper functions around the new physical
+address-based implementations.
 
-... the conditional here likely wants to become
+Thanks
 
-#if defined(CONFIG_HVM) || defined(CONFIG_SHADOW_PAGING)
+Leon Romanovsky (16):
+  dma-mapping: introduce new DMA attribute to indicate MMIO memory
+  iommu/dma: handle MMIO path in dma_iova_link
+  dma-debug: refactor to use physical addresses for page mapping
+  dma-mapping: rename trace_dma_*map_page to trace_dma_*map_phys
+  iommu/dma: rename iommu_dma_*map_page to iommu_dma_*map_phys
+  iommu/dma: extend iommu_dma_*map_phys API to handle MMIO memory
+  dma-mapping: convert dma_direct_*map_page to be phys_addr_t based
+  kmsan: convert kmsan_handle_dma to use physical addresses
+  dma-mapping: handle MMIO flow in dma_map|unmap_page
+  xen: swiotlb: Open code map_resource callback
+  dma-mapping: export new dma_*map_phys() interface
+  mm/hmm: migrate to physical address-based DMA mapping API
+  mm/hmm: properly take MMIO path
+  block-dma: migrate to dma_map_phys instead of map_page
+  block-dma: properly take MMIO path
+  nvme-pci: unmap MMIO pages with appropriate interface
 
-instead. This might actually be a far more isolated change then, still
-moving you in the direction that you want (I think).
+ Documentation/core-api/dma-api.rst        |   4 +-
+ Documentation/core-api/dma-attributes.rst |   7 ++
+ arch/powerpc/kernel/dma-iommu.c           |   4 +-
+ block/blk-mq-dma.c                        |  15 ++-
+ drivers/iommu/dma-iommu.c                 |  69 +++++++------
+ drivers/nvme/host/pci.c                   |  18 +++-
+ drivers/virtio/virtio_ring.c              |   4 +-
+ drivers/xen/swiotlb-xen.c                 |  21 +++-
+ include/linux/blk-mq-dma.h                |   6 +-
+ include/linux/blk_types.h                 |   2 +
+ include/linux/dma-direct.h                |   2 -
+ include/linux/dma-map-ops.h               |   8 +-
+ include/linux/dma-mapping.h               |  27 +++++
+ include/linux/iommu-dma.h                 |  11 +--
+ include/linux/kmsan.h                     |  12 ++-
+ include/trace/events/dma.h                |   9 +-
+ kernel/dma/debug.c                        |  71 ++++---------
+ kernel/dma/debug.h                        |  37 ++-----
+ kernel/dma/direct.c                       |  22 +----
+ kernel/dma/direct.h                       |  50 ++++++----
+ kernel/dma/mapping.c                      | 115 +++++++++++++---------
+ kernel/dma/ops_helpers.c                  |   6 +-
+ mm/hmm.c                                  |  19 ++--
+ mm/kmsan/hooks.c                          |  36 +++++--
+ rust/kernel/dma.rs                        |   3 +
+ tools/virtio/linux/kmsan.h                |   2 +-
+ 26 files changed, 320 insertions(+), 260 deletions(-)
 
-> --- a/xen/arch/x86/mm/hap/hap.c
-> +++ b/xen/arch/x86/mm/hap/hap.c
-> @@ -189,6 +189,7 @@ out:
->      return rc;
->  }
->  
-> +#if PG_log_dirty
->  /************************************************/
->  /*            HAP LOG DIRTY SUPPORT             */
->  /************************************************/
-> @@ -254,6 +255,7 @@ static void cf_check hap_clean_dirty_bitmap(struct domain *d)
->      p2m_change_entry_type_global(d, p2m_ram_rw, p2m_ram_logdirty);
->      guest_flush_tlb_mask(d, d->dirty_cpumask);
->  }
-> +#endif /* PG_log_dirty */
+-- 
+2.50.1
 
-Please also don't go overboard with #ifdef-ary: Files built for HVM=y
-only don't need these, as HVM=y implies non-zero PG_log_dirty. But maybe,
-with the other change that I outlined, you won't even need all of this
-anymore.
-
-Jan
 
