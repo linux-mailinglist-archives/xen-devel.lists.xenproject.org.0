@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEFC8B1A5A9
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 17:18:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1069509.1433363 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F31DB1A5B7
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 17:19:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1069521.1433373 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uiwwn-0007vc-Rw; Mon, 04 Aug 2025 15:17:57 +0000
+	id 1uiwyV-00005n-8g; Mon, 04 Aug 2025 15:19:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1069509.1433363; Mon, 04 Aug 2025 15:17:57 +0000
+Received: by outflank-mailman (output) from mailman id 1069521.1433373; Mon, 04 Aug 2025 15:19:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uiwwn-0007tG-Ok; Mon, 04 Aug 2025 15:17:57 +0000
-Received: by outflank-mailman (input) for mailman id 1069509;
- Mon, 04 Aug 2025 15:17:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZEzI=2Q=net-space.pl=dkiper@srs-se1.protection.inumbo.net>)
- id 1uiwwl-0007tA-Mk
- for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 15:17:55 +0000
-Received: from dibed.net-space.pl (dibed.net-space.pl [84.10.22.86])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2dd7547a-7146-11f0-b898-0df219b8e170;
- Mon, 04 Aug 2025 17:17:48 +0200 (CEST)
-Received: from router-fw.i.net-space.pl ([192.168.52.1]:41720 "EHLO
- tomti.i.net-space.pl") by router-fw-old.i.net-space.pl with ESMTP
- id S2271495AblHDPRq (ORCPT <rfc822;xen-devel@lists.xenproject.org>);
- Mon, 4 Aug 2025 17:17:46 +0200
+	id 1uiwyV-0008Vh-5x; Mon, 04 Aug 2025 15:19:43 +0000
+Received: by outflank-mailman (input) for mailman id 1069521;
+ Mon, 04 Aug 2025 15:19:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=c2vN=2Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uiwyT-0008VO-0P
+ for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 15:19:41 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7062f0e9-7146-11f0-a321-13f23c93f187;
+ Mon, 04 Aug 2025 17:19:39 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-61553a028dfso4336771a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 08:19:39 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-615a8eff596sm7024315a12.5.2025.08.04.08.19.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 04 Aug 2025 08:19:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,687 +45,275 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2dd7547a-7146-11f0-b898-0df219b8e170
-X-Comment: RFC 2476 MSA function at dibed.net-space.pl logged sender identity as: dkiper
-Date:	Mon, 4 Aug 2025 17:17:43 +0200
-From:	Daniel Kiper <dkiper@net-space.pl>
-To:	Aaron Rainbolt <arraybolt3@gmail.com>
-Cc:	grub-devel@gnu.org, xen-devel@lists.xenproject.org
-Subject: Re: [RESEND PATCH v3 1/1] kern/xen: Add Xen command line parsing
-Message-ID: <20250804151743.cjngftaseqesmht3@tomti.i.net-space.pl>
-References: <20250725153012.1dd46644@kf-m2g5>
- <20250725153112.4ea25243@kf-m2g5>
- <20250801125536.mc2sjrdyikljzea6@tomti.i.net-space.pl>
- <20250803105703.5c83d4b2@kf-m2g5>
+X-Inumbo-ID: 7062f0e9-7146-11f0-a321-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1754320779; x=1754925579; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=5BEGIl+6nDFuNrPOpcnk+fWPKWWOAF540EnRgCpaDB8=;
+        b=cXSaz3qRCMl9AYa6Kgs7RUHgr4rCt6SVXb647n2RJmeqfSo5WF7jtFKTSvJTQzD/IR
+         7R6CS2ydzd+ta76Kzsg4NYqM9PghxZiTzjoFigoX864AlWCTcMigfbPMYh+xqrAws5Ip
+         SYYwKqcC5nWpBtHDo73xGTJaZNujtRYUkMQykiRv+JOuonYtg9D7HFdAQ3l49bevJA5P
+         nRObl8x0W1liiEi4Wt3uThN2FP/RE/DYV3F/53uEWqvzYk434+XjtXcAUjXhpH7xKae1
+         963oWo5L53GdohVuSPRoGR9ujgqd1CTESlnn3ALJ0sZmTnmE5D4pD5lr9APlgF9b57be
+         o7Kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1754320779; x=1754925579;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5BEGIl+6nDFuNrPOpcnk+fWPKWWOAF540EnRgCpaDB8=;
+        b=Miqo7yv0DhYhQ3+Ywg7grLJemyKkqSmp7VASBP94RnILVmDDt4dX6AGbRhsgzPxpls
+         5vZjdJdkO2lZPQ9qRCq/z3EuMOj1Qe0HfmtfvecGyHaYYSkaFhdUraaeLIc48WkW5EhL
+         V/8zB0BBpTL2oqzb3iAcWPW0nlPRHCOUAcqTy1GDOgI3dZD02hWOcVtvrQfILLnQe3UD
+         xyE4ESmPwN4lma3+RmpxLfKSyAao+/bNRCahiMaJFczpsmAv9r+nEuzmZMevvrhaWbV+
+         kXRzp6p+x0APQFWz8nly4cEptaRhO+Faxfwv8+gqLG5IzLC7wjEJZUP6b7rKwoJLIIWB
+         voiA==
+X-Forwarded-Encrypted: i=1; AJvYcCUSHbBuaEAptnSuhMyv3wpNvqb06xtL2CBnWZ9S5sJiuA3/d1OAoMyBw3JSOhNpNJCxBiYh/OxUtBY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyLz9BP1t/ZWtu2hjljO34qeqxLL041LR29wjOHmcxmBngeMEAp
+	eoJ8pC+gw1p+6h0HY+pq8vtiMmt80lhY+4AT9CXoqUYANHNZtCwVDSl86NTeGj4fKA==
+X-Gm-Gg: ASbGncvJaM94NhQLe3cFwrXTKxCcZlSYK8p5l2BfpuUZY9BHxoxautDxFSQZWQtM4zg
+	CyvIr514asBZQwx0IV0I2y06mk98D+56AlB3Oagyq+Nf+A+VQA5eW2GzuaSTbAIUcT//2d20HqZ
+	vNAWuRw3UABFRe/gb5vrDCEkD75jqMJm/7tU3cDncuqOUpJm34AHuXAxb5EMUg1zTX9dDsjp2lN
+	I/oRdgemWEjSzoPRzRCiiqI+7UlY/gtFsv4xlhtj+49FKzbJqNYn89LwQ36NlxDC8ODptEtKjFH
+	aNR1gPuTWmxqrCv9FyoEhw+XTAJ6BM4d+JQb66zcYWAnu4kNLYxLPI/0o0u8l2hJ0/EbMiXmPpp
+	F33L0b2kPzwXs+bA6u0r0cMVYZP6ECn/8wD4acIPdX5esU+hLSEy1MeLjMu8WULLOINH8IgWpAI
+	NUkBxStq0=
+X-Google-Smtp-Source: AGHT+IFkrjhlZsNmXiv9gkcTG5CtSpxqjZSuG6x1coryUFVcSbK8az8nDxf0raQNp41BBluLha4WAw==
+X-Received: by 2002:a50:cc03:0:b0:615:b6b9:d873 with SMTP id 4fb4d7f45d1cf-615e715d669mr6751840a12.24.1754320778966;
+        Mon, 04 Aug 2025 08:19:38 -0700 (PDT)
+Message-ID: <cd1a0c64-49d7-4ae1-8dec-b3b1de3f1d09@suse.com>
+Date: Mon, 4 Aug 2025 17:19:37 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250803105703.5c83d4b2@kf-m2g5>
-User-Agent: NeoMutt/20170113 (1.7.2)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 03/20] xen/riscv: introduce VMID allocation and
+ manegement
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
+ <d61f5f831ac8045055a1775ee710d4f2fe8dcc26.1753973161.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <d61f5f831ac8045055a1775ee710d4f2fe8dcc26.1753973161.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, Aug 03, 2025 at 10:57:03AM -0500, Aaron Rainbolt wrote:
-> On Fri, 1 Aug 2025 14:55:36 +0200 Daniel Kiper <dkiper@net-space.pl> wrote:
-> > On Fri, Jul 25, 2025 at 03:31:12PM -0500, Aaron Rainbolt wrote:
-> > > Xen traditionally allows customizing guest behavior by passing
-> > > arguments to the VM kernel via the kernel command line. This is no
-> > > longer possible when using GRUB with Xen, as the kernel command
-> > > line is decided by the GRUB configuration file within the guest,
-> > > not data passed to the guest by Xen.
-> > >
-> > > To work around this limitation, enable GRUB to parse a command line
-> > > passed to it by Xen, and expose data from the command line to the
-> > > GRUB configuration as environment variables. These variables can be
-> > > used in the GRUB configuration for any desired purpose, such as
-> > > extending the kernel command line passed to the guest. The command
-> > > line format is inspired by the Linux kernel's command line format.
-> > >
-> > > To reduce the risk of misuse, abuse, or accidents in production, the
-> > > command line will only be parsed if it consists entirely of 7-bit
-> > > ASCII characters, only alphabetical characters and underscores are
-> > > permitted in variable names, and all variable names must start with
-> > > the string "xen_grub_env_". This also allows room for expanding the
-> > > command line arguments accepted by GRUB in the future, should other
-> > > arguments end up becoming desirable in the future.
-> > >
-> > > Signed-off-by: Aaron Rainbolt <arraybolt3@gmail.com>
-> > > ---
-> > >  docs/grub.texi                |  50 +++++
-> > >  grub-core/Makefile.core.def   |   2 +
-> > >  grub-core/kern/i386/xen/pvh.c |  14 ++
-> > >  grub-core/kern/main.c         |  12 ++
-> > >  grub-core/kern/xen/cmdline.c  | 343
-> > > ++++++++++++++++++++++++++++++++++ include/grub/xen.h            |
-> > >  2 + 6 files changed, 423 insertions(+)
-> > >  create mode 100644 grub-core/kern/xen/cmdline.c
-> > >
-> > > diff --git a/docs/grub.texi b/docs/grub.texi
-> > > index 34b3484..ce82483 100644
-> > > --- a/docs/grub.texi
-> > > +++ b/docs/grub.texi
-> > > @@ -3271,6 +3271,7 @@ GRUB.  Others may be used freely in GRUB
-> > > configuration files. @menu
-> > >  * Special environment variables::
-> > >  * Environment block::
-> > > +* Passing environment variables through Xen::
-> > >  @end menu
-> > >
-> > >
-> > > @@ -3871,6 +3872,55 @@ using BIOS or EFI functions (no ATA, USB or
-> > > IEEE1275). @command{grub-mkconfig} uses this facility to implement
-> > >  @samp{GRUB_SAVEDEFAULT} (@pxref{Simple configuration}).
-> > >
-> > > +@node Passing environment variables through Xen
-> > > +@section Passing environment variables through Xen
-> > > +
-> > > +If you are using a GRUB image as the kernel for a PV or PVH Xen
-> > > virtual +machine, you can pass environment variables from Xen's
-> > > dom0 to the VM through +the Xen-provided kernel command line. When
-> > > combined with a properly configured +guest, this can be used to
-> > > customize the guest's behavior on bootup via the +VM's Xen
-> > > configuration file. +
-> > > +GRUB will parse the kernel command line passed to it by Xen during
-> > > bootup. +The command line will be split into space-delimited words.
-> > > Single and +double quotes may be used to quote words or portions of
-> > > words that contain +spaces. Arbitrary characters may be
-> > > backslash-escaped to make them a literal +component of a word
-> > > rather than being parsed as quotes or word separators. The +command
-> > > line must consist entirely of printable 7-bit ASCII characters and
-> > > +spaces. If a non-printing ASCII character is found anywhere in the
-> > > command +line, the entire command line will be ignored by GRUB. +
-> > > +Each word should be a variable assignment in the format
-> > > ``variable'' or +``variable=value''. Variable names must contain
-> > > only the characters A-Z, a-z, +and underscore (``_''). Variable
-> > > names must begin with the string +``xen_grub_env_''. Variable
-> > > values can contain arbitrary printable 7-bit +ASCII characters and
-> > > space. If any variable contains an illegal name, that +variable
-> > > will be ignored. +
-> > > +If a variable name and value are both specified, the variable will
-> > > be set to +the specified value. If only a variable name is
-> > > specified, the variable's +value will be set to ``1''.
-> > > +
-> > > +The following is a simple example of how to use this functionality
-> > > to append +arbitrary variables to a guest's kernel command line:
-> > > +
-> > > +@example
-> > > +# In the Xen configuration file for the guest
-> > > +name = "linux_vm"
-> > > +type = "pvh"
-> > > +kernel = "/path/to/grub-i386-xen_pvh.bin"
-> > > +extra = "xen_grub_env_kernelappend='loglevel=3'"
-> >
-> > s/kernelappend/kernel_append/
-> >
-> > or maybe even
-> >
-> > s/kernelappend/linux_append/
-> >
-> > to make it clear it is appended to the "linux" command line...
->
-> Will do.
->
-> > > +memory = 1024
-> > > +disk = [ "file:/srv/vms/linux_vm.img,sda,w" ]
-> > > +
-> > > +# In the guest's GRUB configuration file
-> > > +menuentry "Linux VM with dom0-specified kernel parameters" @{
-> > > +    search --set=root --label linux_vm --hint hd0,msdos1
-> > > +    linux /boot/vmlinuz root=LABEL=linux_vm
-> > > $@{xen_grub_env_kernelappend@}
-> >
-> > Ditto...
->
-> Will do.
->
-> > > +    initrd /boot/initrd.img
-> > > +@}
-> > > +@end example
-> > > +
-> > >  @node Modules
-> > >  @chapter Modules
-> > >
-> > > diff --git a/grub-core/Makefile.core.def
-> > > b/grub-core/Makefile.core.def index b3f7119..df0f266 100644
-> > > --- a/grub-core/Makefile.core.def
-> > > +++ b/grub-core/Makefile.core.def
-> > > @@ -248,6 +248,7 @@ kernel = {
-> > >    xen = term/xen/console.c;
-> > >    xen = disk/xen/xendisk.c;
-> > >    xen = commands/boot.c;
-> > > +  xen = kern/xen/cmdline.c;
-> > >
-> > >    i386_xen_pvh = commands/boot.c;
-> > >    i386_xen_pvh = disk/xen/xendisk.c;
-> > > @@ -255,6 +256,7 @@ kernel = {
-> > >    i386_xen_pvh = kern/i386/xen/tsc.c;
-> > >    i386_xen_pvh = kern/i386/xen/pvh.c;
-> > >    i386_xen_pvh = kern/xen/init.c;
-> > > +  i386_xen_pvh = kern/xen/cmdline.c;
-> > >    i386_xen_pvh = term/xen/console.c;
-> > >
-> > >    ia64_efi = kern/ia64/efi/startup.S;
-> > > diff --git a/grub-core/kern/i386/xen/pvh.c
-> > > b/grub-core/kern/i386/xen/pvh.c index 91fbca8..12df2d8 100644
-> > > --- a/grub-core/kern/i386/xen/pvh.c
-> > > +++ b/grub-core/kern/i386/xen/pvh.c
-> > > @@ -321,6 +321,8 @@ void
-> > >  grub_xen_setup_pvh (void)
-> > >  {
-> > >    grub_addr_t par;
-> > > +  const char *xen_cmdline;
-> > > +  int i;
-> > >
-> > >    grub_xen_cpuid_base ();
-> > >    grub_xen_setup_hypercall_page ();
-> > > @@ -352,6 +354,18 @@ grub_xen_setup_pvh (void)
-> > >    grub_xen_mm_init_regions ();
-> > >
-> > >    grub_rsdp_addr = pvh_start_info->rsdp_paddr;
-> > > +
-> > > +  xen_cmdline = (const char *) pvh_start_info->cmdline_paddr;
-> > > +  for (i = 0; i < MAX_GUEST_CMDLINE; i++)
-> >
-> > Oh, MAX_GUEST_CMDLINE is a too generic. May I ask you to rename it to
-> > GRUB_XEN_MAX_GUEST_CMDLINE? This should be done in separate patch
-> > preceding this one.
->
-> Sure.
->
-> > > +    {
-> > > +      if (xen_cmdline[i] == '\0')
-> >
-> > I cannot see much sense in this check. Please look below...
-> >
-> > > +        {
-> > > +          grub_strncpy ((char *)
-> > > grub_xen_start_page_addr->cmd_line,
-> > > +			(char *) pvh_start_info->cmdline_paddr,
-> >
-> > s/char */const char */
-> >
-> > Is it always guaranteed that pvh_start_info->cmdline_paddr have
-> > MAX_GUEST_CMDLINE size? If yes then...
->
-> It is not guaranteed. I tested this under Qubes OS, and it is
-> unfortunately very possible to pass a guest command line longer than
-> MAX_GUEST_CMDLINE via pvh_start_info->cmdline_paddr. I do not know of
-> any documentation specifying what the "real" maximum length is in this
-> instance (if any), but in any event the string ultimately has to be
-> crammed into an array that is only MAX_GUEST_CMDLINE long. Originally I
-> wrote this to truncate the command line in this situation, but later
-> decided that discarding the command line would be safer than truncation.
+On 31.07.2025 17:58, Oleksii Kurochko wrote:
+> Current implementation is based on x86's way to allocate VMIDs:
+>   VMIDs partition the physical TLB. In the current implementation VMIDs are
+>   introduced to reduce the number of TLB flushes.  Each time the guest's
+>   virtual address space changes,
 
-I think you are confusing source, grub_xen_start_page_addr->cmd_line,
-and destination, pvh_start_info->cmdline_paddr. I am asking about the
-destination...
+virtual?
 
-> (When booting a VM in PV mode, Xen does guarantee the command line will
-> not be longer than MAX_GUEST_CMDLINE and will simply return a truncated
-> command line. There is no way to detect this condition to my awareness,
-> so in PV mode, we simply live with the truncation since we aren't given
-> another option.)
+> instead of flushing the TLB, a new VMID is
+>   assigned.  This reduces the number of TLB flushes to at most 1/#VMIDs.
+>   The biggest advantage is that hot parts of the hypervisor's code and data
+>   retain in the TLB.
+> 
+>   VMIDs are a hart-local resource.  As preemption of VMIDs is not possible,
+>   VMIDs are assigned in a round-robin scheme.  To minimize the overhead of
+>   VMID invalidation, at the time of a TLB flush, VMIDs are tagged with a
+>   64-bit generation. Only on a generation overflow the code needs to
+>   invalidate all VMID information stored at the VCPUs with are run on the
+>   specific physical processor.  This overflow appears after about 2^80
+>   host processor cycles,
 
-OK...
+Where's this number coming from? (If you provide numbers, I think they will
+want to be "reproducible" by the reader. Which I fear isn't the case here.)
 
-> > grub_memset ((void *) pvh_start_info->cmdline_paddr, 0,
-> > MAX_GUEST_CMDLINE); grub_strncpy ((char *)
-> > grub_xen_start_page_addr->cmd_line, (const char *)
-> > pvh_start_info->cmdline_paddr, MAX_GUEST_CMDLINE - 1);
-> >
-> > ... and you are done...
->
-> This would truncate the command line rather than discarding it. If the
-> goal is consistency with Xen's PV mode, then I can switch to this, but
-> I don't like the idea of booting a guest with corrupted data inserted
-> randomly into the grub.cfg file. (Like mentioned above, there isn't any
-> other option when using PV mode, but just because PV mode does things
-> dangerously doesn't mean we have to when running in PVH mode.)
+> @@ -148,6 +149,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+>  
+>      console_init_postirq();
+>  
+> +    vmid_init();
 
-OK, but please remember you have to ensure the string is NUL-terminated
-after grub_strncpy(). Potentially you could also use grub_strlen() to
-make a check and add NUL in proper place...
+This lives here only temporarily, I assume? Every hart will need to execute
+it, and hence (like we have it on x86) this may want to be a central place
+elsewhere.
 
-> > > +			MAX_GUEST_CMDLINE);
-> > > +          break;
-> > > +        }
-> > > +    }
-> > >  }
-> > >
-> > >  grub_err_t
-> > > diff --git a/grub-core/kern/main.c b/grub-core/kern/main.c
-> > > index 143a232..b4377d3 100644
-> > > --- a/grub-core/kern/main.c
-> > > +++ b/grub-core/kern/main.c
-> > > @@ -37,6 +37,10 @@
-> > >  #include <grub/machine/memory.h>
-> > >  #endif
-> > >
-> > > +#if defined (GRUB_MACHINE_XEN) || defined (GRUB_MACHINE_XEN_PVH)
-> > > +#include <grub/xen.h>
-> > > +#endif
-> > > +
-> > >  static bool cli_disabled = false;
-> > >  static bool cli_need_auth = false;
-> > >
-> > > @@ -351,6 +355,14 @@ grub_main (void)
-> > >    grub_env_export ("root");
-> > >    grub_env_export ("prefix");
-> > >
-> > > +  /*
-> > > +   * Parse command line parameters from Xen and export them as
-> > > environment
-> > > +   * variables
-> > > +   */
-> > > +#if defined (GRUB_MACHINE_XEN) || defined (GRUB_MACHINE_XEN_PVH)
-> > > +  grub_parse_xen_cmdline ();
-> >
-> > Please move this call to the
-> > grub-core/kern/xen/init.c:grub_machine_init().
->
-> Will do.
->
-> > > +#endif
-> > > +
-> > >    /* Reclaim space used for modules.  */
-> > >    reclaim_module_space ();
-> > >
-> > > diff --git a/grub-core/kern/xen/cmdline.c
-> > > b/grub-core/kern/xen/cmdline.c new file mode 100644
-> > > index 0000000..03dd88f
-> > > --- /dev/null
-> > > +++ b/grub-core/kern/xen/cmdline.c
-> > > @@ -0,0 +1,343 @@
-> > > +/*
-> > > + *  GRUB  --  GRand Unified Bootloader
-> > > + *  Copyright (C) 2025  Free Software Foundation, Inc.
-> > > + *
-> > > + *  GRUB is free software: you can redistribute it and/or modify
-> > > + *  it under the terms of the GNU General Public License as
-> > > published by
-> > > + *  the Free Software Foundation, either version 3 of the License,
-> > > or
-> > > + *  (at your option) any later version.
-> > > + *
-> > > + *  GRUB is distributed in the hope that it will be useful,
-> > > + *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-> > > + *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> > > + *  GNU General Public License for more details.
-> > > + *
-> > > + *  You should have received a copy of the GNU General Public
-> > > License
-> > > + *  along with GRUB.  If not, see <http://www.gnu.org/licenses/>.
-> > > + */
-> > > +
-> > > +#include <grub/env.h>
-> > > +#include <grub/misc.h>
-> > > +#include <grub/mm.h>
-> > > +#include <grub/xen.h>
-> > > +
-> > > +enum parse_flags
-> > > +{
-> > > +  PARSER_HIT_BACKSLASH = 0x1,
-> > > +  PARSER_IN_SINGLE_QUOTES = 0x2,
-> > > +  PARSER_IN_DOUBLE_QUOTES = 0x4,
-> > > +};
-> > typedef parse_flags parse_flags_t;
-> >
-> > ... and use parse_flags_t instead below...
->
-> Will do.
->
-> > And probably this should be a local variable...
->
-> See below for comments on globals in the parser.
->
-> > > +
-> > > +#define PARSER_BASE_WORD_LEN 16
-> >
-> > This constant begs for a few words of comment...
->
-> Will add. This is just the initial length of the dynamically allocated
-> buffer for storing each "word" of the command line, but it is confusing
-> as written. Perhaps it should be renamed to PARSER_WORD_BUF_START_LEN
-> or similar, to make it clear this isn't a string length, but a buffer
-> length?
+> --- /dev/null
+> +++ b/xen/arch/riscv/vmid.c
+> @@ -0,0 +1,165 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +
+> +#include <xen/domain.h>
+> +#include <xen/init.h>
+> +#include <xen/sections.h>
+> +#include <xen/lib.h>
+> +#include <xen/param.h>
+> +#include <xen/percpu.h>
+> +
+> +#include <asm/atomic.h>
+> +#include <asm/csr.h>
+> +#include <asm/flushtlb.h>
+> +
+> +/* Xen command-line option to enable VMIDs */
+> +static bool __read_mostly opt_vmid_enabled = true;
 
-s/length/size/ then... However, then why 16 not, e.g., 32?
+__ro_after_init ?
 
-> > > +static grub_size_t word_list_len;
-> > > +static char **word_list;
-> > > +static grub_size_t current_word_len;
-> > > +static grub_size_t current_word_pos;
-> > > +static char *current_word;
-> > > +static char current_char;
-> >
-> > I have a feeling that most if not all of this variables should be
-> > local in a given function...
->
-> I made them globals because making them local would have required an
-> awful lot of parameter "shuttling" that I believed made the code less
-> readable. For instance, the `append_word_to_list` function right now
-> has no parameters and can be called very simply by the parser whenever
-> it is needed. If all variables used were local, the function would have
-> to have a signature akin to:
->
->   static bool append_word_to_list(grub_size_t *current_word_pos_ref,
->     grub_size_t *current_word_len_ref, char *current_word,
->     grub_size_t *word_list_len_ref, char **word_list)
->
-> IMO this is difficult to read and frustrating to call (possibly even
-> error-prone). Ultimately the variables are "local" to the parser, and
-> the functions are just there to split up the parser's algorithm to
-> avoid repetition. They all ultimately operate on the same state, so
-> having the state variables static but global within the file fits the
-> current parser design well.
+> +boolean_param("vmid", opt_vmid_enabled);
+> +
+> +/*
+> + * VMIDs partition the physical TLB. In the current implementation VMIDs are
+> + * introduced to reduce the number of TLB flushes.  Each time the guest's
+> + * virtual address space changes, instead of flushing the TLB, a new VMID is
 
-First of all, think about the design. If you are sure it is optimal then
-please use struct and a pointer to pass as many argument as you need...
+The same odd "virtual" again? All the code here is about guest-physical, isn't
+it?
 
-> > > +static bool
-> > > +append_char_to_word (bool allow_null)
-> > > +{
-> > > +  /*
-> > > +   * Fail if the current char is outside of the range 0x20 to
-> > > 0x7E. If
-> > > +   * allow_null is true, make an exception for 0x00. This is a
-> > > safeguard
-> >
-> > Could you elaborate here when allow_null == true is useful?
->
-> Usually when appending characters to a word, you aren't going to be
-> appending null characters, thus `append_char_to_word` usually rejects
+> + * assigned. This reduces the number of TLB flushes to at most 1/#VMIDs.
+> + * The biggest advantage is that hot parts of the hypervisor's code and data
+> + * retain in the TLB.
+> + *
+> + * Sketch of the Implementation:
+> + *
+> + * VMIDs are a hart-local resource.  As preemption of VMIDs is not possible,
+> + * VMIDs are assigned in a round-robin scheme.  To minimize the overhead of
+> + * VMID invalidation, at the time of a TLB flush, VMIDs are tagged with a
+> + * 64-bit generation. Only on a generation overflow the code needs to
+> + * invalidate all VMID information stored at the VCPUs with are run on the
+> + * specific physical processor.  This overflow appears after about 2^80
 
-s/null/NUL/...
+And the same interesting number again.
 
-> those so as to make it harder to mess things up. However, the string
-> does need to be null-terminated, and thus once a command line word is
+> + * host processor cycles, so we do not optimize this case, but simply disable
+> + * VMID useage to retain correctness.
+> + */
+> +
+> +/* Per-Hart VMID management. */
+> +struct vmid_data {
+> +   uint64_t hart_vmid_generation;
 
-Ditto... In general, even it is correct, I prefer to use NUL instead of
-null/NULL to avoid confusion...
+Any reason not to simply use "generation"?
 
-> fully loaded into current_word, it is necessary to add the null
-> terminator on the end. In this instance the parser sets `current_char`
-> to '\0' and then calls the `append_char_to_word` function with
-> `allow_null` set to true, so that the function knows that the addition
-> of a null is intentional here.
->
-> (In retrospect, if allow_null is set to true, the only thing
-> `append_char_to_word` should append is a null character, it should
-> reject anything else in that instance. Otherwise someone could
-> accidentally append something other than a null when they meant to
-> append a null.)
+> +   uint16_t next_vmid;
+> +   uint16_t max_vmid;
+> +   bool disabled;
+> +};
+> +
+> +static DEFINE_PER_CPU(struct vmid_data, vmid_data);
+> +
+> +static unsigned long vmidlen_detect(void)
 
-Is not it simpler to open code this instead of complicating this function?
+__init ? Or wait, are you (deliberately) permitting different VMIDLEN
+across harts?
 
-> > > +   * against likely-invalid data.
-> > > +   */
-> > > +  if ( (!(current_char >= 0x20) || !(current_char <= 0x7E) )
-> >
-> > grub_isprint()?
->
-> That would work, I wasn't aware that existed. Maybe a mention of some
-> valuable GRUB internal API functions that are likely to remain stable
-> could be added to the GRUB development manual? (Or just a reference to
-> header files where useful things like this are defined.)
+> +{
+> +    unsigned long vmid_bits;
 
-Certainly it is a good idea. In general you can assume the GRUB has a lot
-of POSIX compatible functions which names are prefixed with "grub_".
+Why "long" (also for the function return type)?
 
-> > > +      && (current_char != '\0' || allow_null == false))
-> >
-> > I would drop redundant spaces between "(" and ")" and move "&&" to the
-> > end of first line of "if".
->
-> Will do, though I'm likely to rewrite this conditional anyway so that
-> anything other than '\0' will be rejected when `allow_null == true`.
->
-> > > +    return false;
-> > > +
-> > > +  if (current_word_pos == current_word_len)
-> > > +    {
-> > > +      current_word_len *= 2;
-> >
-> > You can do this in the argument of the function below...
->
-> I mean, yes, technically I can, but that's a lot less readable to me. I
-> can't find anywhere else in GRUB that uses that style (using
-> `grep -ri '\*='` to search), and can find a few spots that use a style
-> similar to the one I've used here:
->
-> * `util/grub-install.c` in function `device_map_check_duplicates`
-> * `grub-core/osdep/windows/platform.c` in function `get_efi_variable`
-> * `grub-core/osdep/unix/platform.c` in function `get_ofpathname`
->
-> > > +      current_word = grub_realloc (current_word, current_word_len);
-> > > +      if (current_word == NULL)
-> > > +        {
-> > > +          current_word_len /= 2;
-> > > +          return false;
-> > > +        }
-> > > +    }
-> > > +
-> > > +  current_word[current_word_pos] = current_char;
-> > > +  current_word_pos++;
-> >
-> > Again, you can do this operation in the "[]" above...
->
-> Will do. (This does seem to be a much more common way to write things
-> in GRUB than what I've done.)
->
-> > > +  return true;
-> > > +}
-> > > +
-> > > +static bool
-> > > +append_word_to_list (void)
-> > > +{
-> > > +  /* No-op on empty words. */
-> > > +  if (current_word_pos == 0)
-> >
-> > This should be probably an argument for the function...
->
-> See above for parser state and global variables rationale.
->
-> > > +    return true;
-> > > +
-> > > +  current_char = '\0';
-> > > +  if (append_char_to_word (true) == false)
-> > > +    {
-> > > +      grub_error (GRUB_ERR_BUG,
-> > > +		  "couldn't append null terminator to word during
-> > > Xen cmdline parsing");
-> > > +      grub_print_error ();
-> > > +      grub_exit ();
-> > > +    }
-> > > +
-> > > +  current_word_len = grub_strlen (current_word) + 1;
-> > > +  current_word = grub_realloc (current_word, current_word_len);
-> > > +  if (current_word == NULL)
-> > > +    return false;
-> > > +  word_list_len++;
-> >
-> > Again this, OK ++word_list_len to be precise, can be done in a
-> > function argument below...
->
-> `grep -ri 'alloc.*++'` doesn't show me any instance of this style
-> anywhere else in the GRUB codebase, and I find it much more difficult
-> to read since now I have to think about incrementing `word_list_len`'s
-> value and returning it and multiplying the returned value all at the
-> same time. `grub-core/osdep/unix/platform.c` uses the style I've used
-> here.
->
-> > > +  word_list = grub_realloc (word_list, word_list_len * sizeof
-> > > (char *));
+> +    unsigned long old;
+> +
+> +    /* Figure-out number of VMID bits in HW */
+> +    old = csr_read(CSR_HGATP);
+> +
+> +    csr_write(CSR_HGATP, old | HGATP_VMID_MASK);
+> +    vmid_bits = csr_read(CSR_HGATP);
+> +    vmid_bits =  MASK_EXTR(vmid_bits, HGATP_VMID_MASK);
 
-word_list = grub_realloc (word_list, ++word_list_len * sizeof (char *a));
+Nit: Stray blank.
 
-Is it really difficult to read? I do not think so...
+> +    vmid_bits = flsl(vmid_bits);
+> +    csr_write(CSR_HGATP, old);
+> +
+> +    /*
+> +     * We polluted local TLB so flush all guest TLB as
+> +     * a speculative access can happen at any time.
+> +     */
+> +    local_hfence_gvma_all();
 
-[...]
+There's no guest running. If you wrote hgat.MODE as zero, as per my
+understanding now new TLB entries could even purely theoretically appear.
+In fact, with no guest running (yet) I'm having a hard time seeing why
+you shouldn't be able to simply write the register with just
+HGATP_VMID_MASK, i.e. without OR-ing in "old". It's even questionable
+whether "old" needs restoring; writing plain zero afterwards ought to
+suffice. You're in charcge of the register, after all.
 
-> > > +void
-> > > +grub_parse_xen_cmdline (void)
-> > > +{
-> > > +  const char *cmdline = (const char *)
-> > > grub_xen_start_page_addr->cmd_line;
-> > > +  grub_size_t cmdline_len;
-> > > +  bool cmdline_valid = false;
-> > > +  char **param_keys = NULL;
-> > > +  char **param_vals = NULL;
-> > > +  grub_size_t param_dict_len = 0;
-> > > +  grub_size_t param_dict_pos = 0;
-> > > +  enum parse_flags parse_flags = 0;
-> > > +  grub_size_t i = 0;
-> > > +
-> > > +  /*
-> > > +   * The following algorithm is used to parse the Xen command line:
-> > > +   *
-> > > +   * - The command line is split into space-separated words.
-> > > +   *   - Single and double quotes may be used to suppress the
-> > > splitting
-> > > +   *     behavior of spaces.
-> > > +   *   - Double quotes are appended to the current word verbatim
-> > > if they
-> > > +   *     appear within a single-quoted string portion, and vice
-> > > versa.
-> > > +   *   - Backslashes may be used to cause the next character to be
-> > > +   *     appended to the current word verbatim. This is only
-> > > useful when
-> > > +   *     used to escape quotes, spaces, and backslashes, but for
-> > > simplicity
-> > > +   *     we allow backslash-escaping anything.
-> > > +   * - After splitting the command line into words, each word is
-> > > checked to
-> > > +   *   see if it contains an equals sign.
-> > > +   *   - If it does, it is split on the equals sign into a
-> > > key-value pair. The
-> > > +   *     key is then treated as an variable name, and the value is
-> > > treated as
-> > > +   *     the variable's value.
-> > > +   *   - If it does not, the entire word is treated as a variable
-> > > name. The
-> > > +   *     variable's value is implicitly considered to be `1`.
-> > > +   * - All variables detected on the command line are checked to
-> > > see if their
-> > > +   *   names begin with the string `xen_grub_env_`. Variables that
-> > > do not pass
-> > > +   *   this check are discarded, variables that do pass this check
-> > > are
-> > > +   *   exported so they are available to the GRUB configuration.
-> >
-> > I think not all from this valuable comment landed in the
-> > documentation. Please fix it...
->
-> Comparing the two side-by-side:
->
-> +----------------------------------+----------------------------------+
-> | Documentation                    | Comment                          |
-> +==================================+==================================+
-> | The command line will be split   | The command line is split into   |
-> | into space-delimited words.      | space-separated words. Single    |
-> | Single and double quotes may be  | and double quotes may be used to |
-> | used to quote words or portions  | suppress the splitting behavior  |
-> | of words that contain spaces.    | of spaces.                       |
-> +----------------------------------+----------------------------------+
-> | (Self-evident, any other         | Double quotes are appended to    |
-> | behavior involving quotes would  | the current word verbatim if     |
-> | be extremely unexpected.)        | they appear within a single-     |
-> |                                  | quoted string, and vice versa.   |
-> +----------------------------------+----------------------------------+
-> | Arbitrary characters may be      | Backslashes may be used to cause |
-> | backslash-escaped to make them a | the next character to be         |
-> | literal component of a word      | appended to the current word     |
-> | rather than being parsed as      | verbatim. This is only useful    |
-> | quotes or word separators.       | when used to escape quotes,      |
-> |                                  | spaces, and backslashes, but for |
-> |                                  | simplicity we allow backslash-   |
-> |                                  | escaping anything.               |
-> +----------------------------------+----------------------------------+
-> | Each word should be a variable   | After splitting the command line |
-> | assignment in the format         | into words, each word is checked |
-> | ``variable'' or                  | to see if it contains an equals  |
-> | ``variable=value''.              | sign.                            |
-> +----------------------------------+----------------------------------+
-> | If a variable name and value are | If it does, it is split on the   |
-> | both specified, the variable     | equals sign into a key-value     |
-> | will be set to the specified     | pair. The key is then treated as |
-> | value.                           | a variable name, and the value   |
-> |                                  | treated as the variable's value. |
-> +----------------------------------+----------------------------------+
-> | If only a variable name is       | If it does not, the entire word  |
-> | specified, the variable's value  | is treated as a variable name.   |
-> | will be set to ``1''.            | The variable's value is          |
-> |                                  | implicitly considered to be '1'. |
-> +----------------------------------+----------------------------------+
-> | Variable names must begin with   | All variables detected on the    |
-> | the string ``xen_grub_env_''...  | command line are checked to see  |
-> | If any variable contains an      | if their names begin with the    |
-> | illegal name, that variable will | string `xen_grub_env_`.          |
-> | be ignored.                      | Variables that do not pass this  |
-> |                                  | check are discarded,             |
-> +----------------------------------+----------------------------------+
-> | ...you can pass environment      | variables that do pass this      |
-> | variables from Xen's dom0 to the | check are exported so they are   |
-> | VM through the Xen-provided      | available to the GRUB            |
-> | kernel command line.             | configuration.                   |
-> +----------------------------------+----------------------------------+
->
-> The only missing detail I see is that single quotes are legal in
-> double-quoted strings and vice versa, though I guess I can make it more
-> explicit that the variables passed on the command line are exported
-> before getting to the example that shows this. Is there anything else
-> you see that's missing?
+> +    return vmid_bits;
+> +}
+> +
+> +void vmid_init(void)
+> +{
+> +    static bool g_disabled = false;
 
-Exactly, I was thing about single/double quotes here. If other stuff is
-in the documentation then OK...
 
-> > > +   */
-> > > +
-> > > +  current_word_len = PARSER_BASE_WORD_LEN;
-> > > +  current_word = grub_malloc (current_word_len);
-> > > +  if (current_word == NULL)
-> > > +    goto cleanup;
-> > > +
-> > > +  for (i = 0; i < MAX_GUEST_CMDLINE; i++)
-> > > +    {
-> > > +      if (cmdline[i] == '\0')
-> > > +        {
-> > > +          cmdline_valid = true;
-> > > +          break;
-> > > +        }
-> > > +    }
-> > > +
-> > > +  if (cmdline_valid == false)
-> > > +    {
-> > > +      grub_error (GRUB_ERR_BAD_ARGUMENT,
-> > > +		  "Command line from Xen is not NUL-terminated");
-> >
-> > GRUB errors usually start with lowercase...
->
-> Will fix.
->
-> > > +      grub_print_error ();
-> > > +      goto cleanup;
-> > > +    }
-> > > +
-> > > +  cmdline_len = grub_strlen (cmdline);
-> > > +  for (i = 0; i < cmdline_len; i++)
-> > > +    {
-> > > +      current_char = cmdline[i];
-> > > +
-> > > +      /*
-> > > +       * If the previous character was a backslash, append the
-> > > current
-> > > +       * character to the word verbatim
-> > > +       */
-> > > +      if (parse_flags & PARSER_HIT_BACKSLASH)
-> >
-> > s/parse_flags/parser_state/
->
-> Hmm, I don't like 'parser_state' as a name because the parser's "state"
-> is the global variables in `grub-core/kern/xen/cmdline.`. Maybe
-> 'splitter_state' instead, since this is just the bit of state that the
-> word splitter is concerned with?
 
-I am OK with both...
+> +    unsigned long vmid_len = vmidlen_detect();
+> +    struct vmid_data *data = &this_cpu(vmid_data);
+> +    unsigned long max_availalbe_bits = sizeof(data->max_vmid) << 3;
 
-Daniel
+Nit: Typo in "available". Also now that we have it, better use
+BITS_PER_BYTE here?
+
+> +    if ( vmid_len > max_availalbe_bits )
+> +        panic("%s: VMIDLEN is bigger then a type which represent VMID: %lu(%lu)\n",
+> +              __func__, vmid_len, max_availalbe_bits);
+
+This shouldn't be a runtime check imo. What you want to check (at build
+time) is that the bits set in HGATP_VMID_MASK can be held in ->max_vmid.
+
+> +    data->max_vmid = BIT(vmid_len, U) - 1;
+> +    data->disabled = !opt_vmid_enabled || (vmid_len <= 1);
+
+Actually, what exactly does it mean that "VMIDs are disabled"? There's
+no enable bit that I could find anywhere. Isn't it rather that in this
+case you need to arrange to flush always on VM entry (or always after a
+P2M change, depending how the TLB is split between guest and host use)?
+If you look at vmx_vmenter_helper(), its flipping of
+SECONDARY_EXEC_ENABLE_VPID tweaks CPU behavior, such that the flush
+would be implicit (when the bit is off). I don't expect RISC-V has any
+such "implicit" flushing behavior?
+
+> +    if ( g_disabled != data->disabled )
+> +    {
+> +        printk("%s: VMIDs %sabled.\n", __func__,
+> +               data->disabled ? "dis" : "en");
+> +        if ( !g_disabled )
+> +            g_disabled = data->disabled;
+
+This doesn't match x86 code. g_disabled is a tristate there, which only
+the boot CPU would ever write to.
+
+A clear shortcoming of the x86 code (that you copied) is that the log
+message doesn't identify the CPU in question. A sequence of "disabled"
+and "enabled" could thus result, without the last one (or in fact any
+one) making clear what the overall state is. I think you want to avoid
+this from the beginning.
+
+Jan
 
