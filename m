@@ -2,52 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 149FFB1A2B4
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 15:05:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1069335.1433209 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0BE6B1A2C2
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 15:07:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1069354.1433219 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uiusZ-0004a7-Pp; Mon, 04 Aug 2025 13:05:27 +0000
+	id 1uiutz-0005Ri-5w; Mon, 04 Aug 2025 13:06:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1069335.1433209; Mon, 04 Aug 2025 13:05:27 +0000
+Received: by outflank-mailman (output) from mailman id 1069354.1433219; Mon, 04 Aug 2025 13:06:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uiusZ-0004Xd-ML; Mon, 04 Aug 2025 13:05:27 +0000
-Received: by outflank-mailman (input) for mailman id 1069335;
- Mon, 04 Aug 2025 13:05:26 +0000
+	id 1uiutz-0005P9-2z; Mon, 04 Aug 2025 13:06:55 +0000
+Received: by outflank-mailman (input) for mailman id 1069354;
+ Mon, 04 Aug 2025 13:06:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dY6Z=2Q=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1uiusY-0004J4-9Y
- for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 13:05:26 +0000
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on20607.outbound.protection.outlook.com
- [2a01:111:f403:2405::607])
+ <SRS0=vAb3=2Q=rein-hpcbdc09=jahan@srs-se1.protection.inumbo.net>)
+ id 1uiutx-0005P3-Hr
+ for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 13:06:53 +0000
+Received: from rein-hpcbdc09 (unknown [1.6.89.6])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id af2f7ae2-7133-11f0-a321-13f23c93f187;
- Mon, 04 Aug 2025 15:05:25 +0200 (CEST)
-Received: from BN0PR10CA0018.namprd10.prod.outlook.com (2603:10b6:408:143::29)
- by DM6PR12MB4204.namprd12.prod.outlook.com (2603:10b6:5:212::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.20; Mon, 4 Aug
- 2025 13:05:20 +0000
-Received: from BL6PEPF0001AB4B.namprd04.prod.outlook.com
- (2603:10b6:408:143:cafe::cc) by BN0PR10CA0018.outlook.office365.com
- (2603:10b6:408:143::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.21 via Frontend Transport; Mon,
- 4 Aug 2025 13:05:20 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB4B.mail.protection.outlook.com (10.167.242.69) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9009.8 via Frontend Transport; Mon, 4 Aug 2025 13:05:19 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 4 Aug
- 2025 08:05:17 -0500
-Received: from [10.71.195.192] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 4 Aug 2025 08:05:15 -0500
+ id e180481f-7133-11f0-a321-13f23c93f187;
+ Mon, 04 Aug 2025 15:06:50 +0200 (CEST)
+Received: by rein-hpcbdc09 (Postfix, from userid 1000)
+ id 6AF1380C0979; Mon,  4 Aug 2025 18:36:46 +0530 (IST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,128 +38,387 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af2f7ae2-7133-11f0-a321-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Jt/+4CkBqZq9PfAvX4KmEU8ADTPulrtVm9w4B60fXn+5SmMYFg+9py1iD3+NqolwWgb+FNdqS9hiu65LJDsuopT1Q9dGgnJmkaErlPnmWktsnmZ6/Y6xiaw6ZocZSB+N/ofac8x4GqLS3DF2YonL7HHES+2GadvLhCPTL6egXBPIY+ZSlw+QuYsCgOeXLAzO0kkvqbR6mfTXcm6JIdt/vTXAUnaNgaWV9R0nEdIL1WtjNBRmFlyzZPHXrNfMSWjiyFV4p2C7ZHpGecCwx6sqw6aOS63Fxy7Sc3Z1XuM8CJfzNDsyb/VSql+w2HyrTL8VwAkEvvtvAQlvjAh9LjHrdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AyqMbx6RF2QMM1kzIOwOrAYT/PCGV3nj+5TDqGDxkGU=;
- b=ZcQ5kiDc7Z4hsFXf4xy4WjcDOJ1aQLfs+hSq7DbiKfNKbv662s6BTZQC+fG7USPvqST0gOmjdP07l7b4DiLEo0WaHfKDkAUvlu3dVAdZYb8IIf98LnnG8P/u6XhoIv+NtNREyIVE1PCHmn/ZPJHRCyyDNYbrvu5Ug9LxFH0o5O4FbM/fldjypYxOMZ9P4c4FwhiiSXYSeCs5tuc4Y2JU3PzYDcrnKkraC/AnYwgFbNB+f3heYHcmRofggdHh+5EFAJlSRqQJP4Ts8UPKiRp1AWqobvv6aZiPcNT6rI1cl66J+v1rFaiHs64yaw3H431e4HQUqUpkguHVDYWoUzgUFg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AyqMbx6RF2QMM1kzIOwOrAYT/PCGV3nj+5TDqGDxkGU=;
- b=fCSGto2YTvLMl0wN7uErGf2Io1wibYawYcTqxxTVrlmZCop6ZoiBQr0H5+fCkSIvdscGYsw2SS0tMLTWLpucqzFb8VLD9U0S+UhEcWOb0TQrI+aiZLOrEqdVyCjgkZOT9UJ+ekplQXPYf6xyO28VzRAq3XH1/61Hg8T/AMmYaCM=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <4335b725-08fa-4a22-b79b-fb1e22aaa594@amd.com>
-Date: Mon, 4 Aug 2025 14:05:15 +0100
+X-Inumbo-ID: e180481f-7133-11f0-a321-13f23c93f187
+From: Jahan Murudi <jahan.murudi.zg@renesas.com>
+To: xen-devel@lists.xenproject.org
+Cc: Jahan Murudi <jahan.murudi.zg@renesas.com>,
+	Anthony PERARD <anthony.perard@vates.tech>
+Subject: [RFC PATCH v3] tools/xentop: Add physical CPU statistics support
+Date: Mon,  4 Aug 2025 18:36:43 +0530
+Message-Id: <20250804130643.1046157-1-jahan.murudi.zg@renesas.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] xen/arm: map static memory on demand
-Content-Language: en-GB
-To: Hari Limaye <hari.limaye@arm.com>, <xen-devel@lists.xenproject.org>
-CC: <luca.fancellu@arm.com>, Penny Zheng <Penny.Zheng@arm.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
-	"Bertrand Marquis" <bertrand.marquis@arm.com>, Michal Orzel
-	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, "Jan Beulich" <jbeulich@suse.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Chen
-	<wei.chen@arm.com>
-References: <cover.1753864612.git.hari.limaye@arm.com>
- <c85ac9d6da3c13dabd26627faac90ea95feb3f95.1753864612.git.hari.limaye@arm.com>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <c85ac9d6da3c13dabd26627faac90ea95feb3f95.1753864612.git.hari.limaye@arm.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB04.amd.com: ayankuma@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4B:EE_|DM6PR12MB4204:EE_
-X-MS-Office365-Filtering-Correlation-Id: 58273b03-883f-4f68-2211-08ddd357909a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|376014|7416014|82310400026|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?ZityT3lXUmZOa09XeFZtVGZGMlYxS2xlMWNMSDl2T210UmxjWnJ3c0l5YU85?=
- =?utf-8?B?ZjIyOU5NcDNmdUNvb2VwTjNBVWZGZFVSL3RiVlBBSUdLZkYwV2kvZWh3YVFp?=
- =?utf-8?B?a0RlWklRU2MvK0NIVWhBVUg0M3Q3bkdYMU05Mzd1WVMyMFZXMkxKL3A3NmV3?=
- =?utf-8?B?d1AyaFpLYit1YTQ1QnJ4Z2RaSnhQcWFPRnlYMkN0WllZWk1LWW1kYWI5WXNT?=
- =?utf-8?B?cDY2QXJFN25rUDVrd2llcG1DMi9MTlc1WUFCSE94WktHNlh6NThpTGRxQi9x?=
- =?utf-8?B?eWFQMkVaRFRCWW10cFNPdy9RQXMraTNZakpZd0tBeHdwY1N6SFlUWm81ay9U?=
- =?utf-8?B?a1AzUXZUMUZEc1plbHBPZWF6ZVVOS0hjbWR1UmIvVG5SNi8rc0tGOWRxVWsy?=
- =?utf-8?B?K3dhRTU1TzRFREE4ellIdGwrWDRGbWVVbUdSekg1RFh2UXNXVkhvcGhuZXpE?=
- =?utf-8?B?dTFDUE8rMW5MNy9mZ3lWNnhZaWt5RGpRN0ViNndvdmZ4c2sxeGhoY1B6QUtu?=
- =?utf-8?B?Mzc2Y1ljQll3ay9tQXJmb0NIT0dkR0g4U3V0aWkxTDkxZXFmK1FWdHR2ZVBD?=
- =?utf-8?B?R3lpNzBPNXp2STdnQmszbXVsK0lFUkEyOUg5d0RpVHBLSW5WL2Q5UGZEMklX?=
- =?utf-8?B?OThGRzY0YU9XcUthOGh1S0FuNmZSNW1ZcW1vRzBYVlpoZmNwcDlhWHM3QWFt?=
- =?utf-8?B?ZnRDdmFmVWF5WlJ6RkFHbkNSK3ExN1g3MC9KcGlZRmZxeUdZaHY4bWgxY0p1?=
- =?utf-8?B?d2hzSWpEMUkvaXVoMTdtVFJFVUdTZTNnaUNMakpDcE1QRG15ZnRGaWtXbnZt?=
- =?utf-8?B?NGlYK0ZkOTVLOXozSEhKYldBVlpEajdlWWtjWHlERW1EUjB2bFNVZkhxdS9n?=
- =?utf-8?B?bmp1ZVNJNkd1c3pHU3lLbm44R29EN0kxcy9pZEQ4ZmpzbVNhUkFCUzZoc1Ja?=
- =?utf-8?B?VmMvbVRCN0gyMitrMnk5TGJQd21oNUVGT2lFYXNWMWkzMTJFKzVRbjJvT1E4?=
- =?utf-8?B?UjRJc1BCSWRxenZLbTNhYnUra0FrbGMxSlJsMXhBRVd2NDNVMSt3U1laQW5y?=
- =?utf-8?B?cWl2OFBlZkIrU25jdlNlZkZldW1ydnlzQ3VETXpqdVU4S0I0YWEwVDR5VTQ2?=
- =?utf-8?B?VWozMUxMTW54OXRZdTZ5SzJFcDJHek02RFJMdkd1eDlrWk40bklZRGt6MVZN?=
- =?utf-8?B?elVLbEh6cnRQSHVyODFoaDRnaFp4L2ZNYzd6SW83VTBnK29YY0M2cDY3aFFa?=
- =?utf-8?B?QmxKMmFnL2cyTEFXZzZ1V2Nnam1uaXhiY2RuZmI2a0tkYXdYZThLL0UxSW1u?=
- =?utf-8?B?dVhENDVBb2F1S2RXTVZoWEd4QjBSK1lMVHlaVnVDV2J5d2NkaUVOL1FJRTdn?=
- =?utf-8?B?QlhsdG1VVmx1V3d4VmlOM25JZlJxY1Q5N0QxMDVXZi9hQmZvRVl2NmFHMHJo?=
- =?utf-8?B?cDlYMTgwbkM0MXAya3Jka3BtaHg5UTN5d2lTRHMxbE1NU0xnd05PQWR5TWIy?=
- =?utf-8?B?QVorK2VxUk9Fc2Z4NGtFa3A3alV2aHlhQTZPWUc5TjVOMkhraGtmdkxpdzAy?=
- =?utf-8?B?OE8xUVBhL3daVythQksxT3FQMXdrTjJKMWNHMXpEZmR0bk1hcGdIV1hCVEJk?=
- =?utf-8?B?di9XYTFleWMrOVhUNGsxUzFSR2JzSktZTkg0aVZTL0x3YmpjZE53N01JU3Rk?=
- =?utf-8?B?S0lSWTE3bWE3SDk5TGJUWm9YNDBHN3V2UWl3ZG4zaGNWZjhhbnRFcnR6ejNi?=
- =?utf-8?B?Zks0dWJFZFRXMG1MQ0h2ekFMRDIrN2QvdWVKRGtxOW9VMFhHaGYrdU9COUFW?=
- =?utf-8?B?YlVhM0ZoVHN5OXduTEpHMHdXdlE0Zllmdjc5Mk5kMzFWUjVQQmlHaENXNmlX?=
- =?utf-8?B?dnZoOHp1RW93QWNMM1lOOVJYbmNyMTBoT3ptaGhON2JOV0VyQzRpaEsxdlI0?=
- =?utf-8?B?cnFISjJETGh5Y1VvVmNQTm51VHRXSVAyL3V3U2RuTlI3Qk1pdVMxTVdqZm9l?=
- =?utf-8?B?STYvRlVJSGJWdDZiNDNxK0ZsdkJmdFJrZlduZ1BFajFsSWZqS0czaldscXFv?=
- =?utf-8?Q?laz0uG?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(376014)(7416014)(82310400026)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2025 13:05:19.7676
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58273b03-883f-4f68-2211-08ddd357909a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB4B.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4204
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Hari,
+Introduce a new '-p/--pcpus' flag to display physical CPU utilization metrics
+using xc_interface. This provides hypervisor-level CPU usage insights alongside
+existing domain statistics. This helps correlate VM resource usage with host CPU
+load patterns.
 
-On 30/07/2025 09:45, Hari Limaye wrote:
-> CAUTION: This message has originated from an External Source. Please use proper judgment and caution when opening attachments, clicking links, or responding to this email.
->
->
-> From: Penny Zheng <Penny.Zheng@arm.com>
->
-> In the function `init_staticmem_pages` we need to have mapped static
-> memory banks for initialization. Unlike on an MMU system, we cannot map
-> the entire RAM on an MPU system as we have a limited number of MPU
-> memory regions. To solve this, transiently map the static memory banks
-> for initialization.
->
-> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-> Signed-off-by: Wei Chen <wei.chen@arm.com>
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-> Signed-off-by: Hari Limaye <hari.limaye@arm.com>
-Reviewed-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Tested-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-(On R82 and R52 with some additional patches)
+Changes:
+- Add pcpu.c/pcpu.h for PCPU stat collection logic
+- Link against libxenctrl for xc_handle access
+- Extend CLI with '-p' flag and output formatting
+- Forward declare xenstat_handle to access xc_handle
+- Include cleanup for PCPU resources in exit handler
+
+Example usage:
+  xentop -p  # Shows physical CPU stats
+  xentop -bp # Batch mode
+  xentop -d 1 -p # With different delays
+
+Example output with '-p':
+  NAME      STATE   CPU(%)  MEM(%)  VCPUS ...
+  Domain-0  -----r    17.0     6.3      8
+  DomD      -----r   767.0    38.1      8
+
+  Physical CPU Usage:
+  ┌───────┬────────┐
+  │ Core  │ Usage  │
+  ├───────┼────────┤
+  │ 0     │  98.1% │
+  │ ...   │  ...   │
+  │ 7     │  97.3% │
+  └───────┴────────┘
+
+Signed-off-by: Jahan Murudi <jahan.murudi.zg@renesas.com>
+---
+ tools/xentop/Makefile |   5 +-
+ tools/xentop/pcpu.c   | 152 ++++++++++++++++++++++++++++++++++++++++++
+ tools/xentop/pcpu.h   |  15 +++++
+ tools/xentop/xentop.c |  57 ++++++++++------
+ 4 files changed, 207 insertions(+), 22 deletions(-)
+ create mode 100644 tools/xentop/pcpu.c
+ create mode 100644 tools/xentop/pcpu.h
+
+diff --git a/tools/xentop/Makefile b/tools/xentop/Makefile
+index 70cc2211c5..f514a6f7a8 100644
+--- a/tools/xentop/Makefile
++++ b/tools/xentop/Makefile
+@@ -15,6 +15,7 @@ include $(XEN_ROOT)/tools/Rules.mk
+ 
+ CFLAGS += -DGCC_PRINTF $(CFLAGS_libxenstat)
+ LDLIBS += $(LDLIBS_libxenstat) $(CURSES_LIBS) $(TINFO_LIBS) $(SOCKET_LIBS) -lm
++LDLIBS += $(LDLIBS_libxenctrl)
+ CFLAGS += -DHOST_$(XEN_OS)
+ 
+ # Include configure output (config.h)
+@@ -25,8 +26,8 @@ TARGETS := xentop
+ .PHONY: all
+ all: $(TARGETS)
+ 
+-xentop: xentop.o
+-	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS) $(APPEND_LDFLAGS)
++xentop: xentop.o pcpu.o
++	$(CC) $(LDFLAGS) -o $@ $^ $(LDLIBS) $(APPEND_LDFLAGS)
+ 
+ .PHONY: install
+ install: all
+diff --git a/tools/xentop/pcpu.c b/tools/xentop/pcpu.c
+new file mode 100644
+index 0000000000..53d6b9c30c
+--- /dev/null
++++ b/tools/xentop/pcpu.c
+@@ -0,0 +1,152 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (C) 2025 Renesas Electronics Corporation
++ */
++
++#include <stdlib.h>
++#include <stdio.h>
++#include <string.h>
++#include <errno.h>
++#include <sys/time.h>
++#include <xenctrl.h>
++#include "pcpu.h"
++
++#define MAX_PCPUS 128
++
++typedef struct {
++    float usage_pct;
++} pcpu_stat_t;
++
++static pcpu_stat_t *pcpu_stats = NULL;
++static uint64_t *prev_idle = NULL;
++static uint64_t *prev_time = NULL;
++static int allocated_pcpus = 0;
++static xc_interface *xc_handle = NULL;
++
++static void report_pcpu_error(const char *context)
++{
++    fprintf(stderr, "PCPU error: %s (%s)\n", context, strerror(errno));
++}
++
++int update_pcpu_stats(const struct timeval *now, unsigned int delay_sec)
++{
++    struct xen_sysctl_cpuinfo info[MAX_PCPUS];
++    int detected_cpus = 0;
++    int ret, i;
++    uint64_t current_time = (uint64_t)now->tv_sec * 1000000ULL + now->tv_usec;
++
++    if (!xc_handle) {
++        xc_handle = xc_interface_open(NULL, NULL, 0);
++        if (!xc_handle) {
++            report_pcpu_error("xc_interface_open failed");
++            return -1;
++        }
++    }
++
++    ret = xc_getcpuinfo(xc_handle, MAX_PCPUS, info, &detected_cpus);
++    if (ret < 0) {
++        report_pcpu_error("xc_getcpuinfo failed");
++        return -1;
++    }
++
++    /* Allocate/reallocate memory if needed */
++    if (!pcpu_stats || detected_cpus > allocated_pcpus) {
++        pcpu_stat_t *new_stats = realloc(pcpu_stats,
++                        detected_cpus * sizeof(*pcpu_stats));
++        if (!new_stats) goto alloc_error;
++
++        uint64_t *new_prev_idle = realloc(prev_idle,
++                        detected_cpus * sizeof(*prev_idle));
++        if (!new_prev_idle) {
++            free(new_stats);
++            goto alloc_error;
++        }
++
++        uint64_t *new_prev_time = realloc(prev_time,
++                        detected_cpus * sizeof(*prev_time));
++        if (!new_prev_time) {
++            free(new_stats);
++            free(new_prev_idle);
++            goto alloc_error;
++        }
++
++        pcpu_stats = new_stats;
++        prev_idle = new_prev_idle;
++        prev_time = new_prev_time;
++        allocated_pcpus = detected_cpus;
++
++        /* Initialize new entries */
++        for (i = 0; i < detected_cpus; i++) {
++            prev_idle[i] = info[i].idletime / 1000; /* ns->us */
++            prev_time[i] = current_time;
++            pcpu_stats[i].usage_pct = 0.0;
++        }
++        return 0;
++    }
++
++    /* Calculate CPU usage with delay normalization */
++    for (i = 0; i < detected_cpus; i++) {
++        uint64_t current_idle = info[i].idletime / 1000;
++        uint64_t idle_diff = current_idle - prev_idle[i];
++        uint64_t time_diff = current_time - prev_time[i];
++
++        /* Use configured delay when actual interval is too small */
++        if (time_diff < 100000) {
++            time_diff = delay_sec * 1000000ULL;
++        }
++
++        if (time_diff > 0) {
++            double usage = 100.0 * (1.0 - ((double)idle_diff / time_diff));
++            /* Clamp between 0-100% */
++            pcpu_stats[i].usage_pct = (usage < 0) ? 0.0 :
++                                     (usage > 100) ? 100.0 : usage;
++        } else {
++            pcpu_stats[i].usage_pct = 0.0;
++        }
++
++        prev_idle[i] = current_idle;
++        prev_time[i] = current_time;
++    }
++
++    return 0;
++
++alloc_error:
++    free_pcpu_stats();
++    errno = ENOMEM;
++    report_pcpu_error("memory allocation failed");
++    return -1;
++}
++
++void print_pcpu_stats(void)
++{
++    if (!pcpu_stats || allocated_pcpus == 0) {
++        printf("\r\nNo PCPU data available\r\n");
++        return;
++    }
++
++    printf("\r\nPhysical CPU Usage:\r\n");
++    printf("+-------+--------+\r\n");
++    printf("| Core  | Usage  |\r\n");
++    printf("+-------+--------+\r\n");
++
++    for (int i = 0; i < allocated_pcpus; i++) {
++        printf("| %-5d | %5.1f%% |\r\n", i, pcpu_stats[i].usage_pct);
++    }
++
++    printf("+-------+--------+\r\n");
++}
++
++void free_pcpu_stats(void)
++{
++    if (xc_handle) {
++        xc_interface_close(xc_handle);
++        xc_handle = NULL;
++    }
++    free(pcpu_stats);
++    free(prev_idle);
++    free(prev_time);
++    pcpu_stats = NULL;
++    prev_idle = NULL;
++    prev_time = NULL;
++    allocated_pcpus = 0;
++}
+diff --git a/tools/xentop/pcpu.h b/tools/xentop/pcpu.h
+new file mode 100644
+index 0000000000..2ce86292a6
+--- /dev/null
++++ b/tools/xentop/pcpu.h
+@@ -0,0 +1,15 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (C) 2025 Renesas Electronics Corporation
++ */
++
++#ifndef __XENTOP_PCPU_H__
++#define __XENTOP_PCPU_H__
++
++#include <sys/time.h>
++
++int update_pcpu_stats(const struct timeval *now, unsigned int delay);
++void print_pcpu_stats(void);
++void free_pcpu_stats(void);
++
++#endif /* __XENTOP_PCPU_H__ */
+diff --git a/tools/xentop/xentop.c b/tools/xentop/xentop.c
+index f5d6c19cf9..dcf2f69b59 100644
+--- a/tools/xentop/xentop.c
++++ b/tools/xentop/xentop.c
+@@ -37,6 +37,7 @@
+ #endif
+ 
+ #include <xenstat.h>
++#include "pcpu.h"
+ 
+ #define XENTOP_VERSION "1.0"
+ 
+@@ -205,6 +206,7 @@ field_id sort_field = FIELD_DOMID;
+ unsigned int first_domain_index = 0;
+ unsigned int delay = 3;
+ unsigned int batch = 0;
++static unsigned int show_pcpus = 0;
+ unsigned int loop = 1;
+ unsigned int iterations = 0;
+ int show_vcpus = 0;
+@@ -230,22 +232,23 @@ static WINDOW *cwin;
+ /* Print usage message, using given program name */
+ static void usage(const char *program)
+ {
+-	printf("Usage: %s [OPTION]\n"
+-	       "Displays ongoing information about xen vm resources \n\n"
+-	       "-h, --help           display this help and exit\n"
+-	       "-V, --version        output version information and exit\n"
+-	       "-d, --delay=SECONDS  seconds between updates (default 3)\n"
+-	       "-n, --networks       output vif network data\n"
+-	       "-x, --vbds           output vbd block device data\n"
+-	       "-r, --repeat-header  repeat table header before each domain\n"
+-	       "-v, --vcpus          output vcpu data\n"
+-	       "-b, --batch	     output in batch mode, no user input accepted\n"
+-	       "-i, --iterations     number of iterations before exiting\n"
+-	       "-f, --full-name      output the full domain name (not truncated)\n"
+-	       "-z, --dom0-first     display dom0 first (ignore sorting)\n"
+-	       "\n" XENTOP_BUGSTO,
+-	       program);
+-	return;
++    printf("Usage: %s [OPTION]\n"
++           "Displays ongoing information about xen vm resources \n\n"
++           "-h, --help           display this help and exit\n"
++           "-V, --version        output version information and exit\n"
++           "-d, --delay=SECONDS  seconds between updates (default 3)\n"
++           "-n, --networks       output vif network data\n"
++           "-x, --vbds           output vbd block device data\n"
++           "-r, --repeat-header  repeat table header before each domain\n"
++           "-v, --vcpus          output vcpu data\n"
++           "-b, --batch          output in batch mode, no user input accepted\n"
++           "-p, --pcpus          show physical CPU stats\n"
++           "-i, --iterations     number of iterations before exiting\n"
++           "-f, --full-name      output the full domain name (not truncated)\n"
++           "-z, --dom0-first     display dom0 first (ignore sorting)\n"
++           "\n" XENTOP_BUGSTO,
++           program);
++    return;
+ }
+ 
+ /* Print program version information */
+@@ -267,6 +270,8 @@ static void cleanup(void)
+ 		xenstat_free_node(cur_node);
+ 	if(xhandle != NULL)
+ 		xenstat_uninit(xhandle);
++
++	free_pcpu_stats();
+ }
+ 
+ /* Display the given message and gracefully exit */
+@@ -1189,7 +1194,7 @@ static void top(void)
+ 		fail("Failed to retrieve statistics from libxenstat\n");
+ 
+ 	/* dump summary top information */
+-	if (!batch)
++	if (!batch && !show_pcpus)
+ 		do_summary();
+ 
+ 	/* Count the number of domains for which to report data */
+@@ -1245,9 +1250,17 @@ static void top(void)
+ 			do_vbd(domains[i]);
+ 	}
+ 
+-	if (!batch)
++	if (!batch && !show_pcpus)
+ 		do_bottom_line();
+ 
++    if (show_pcpus) {
++        if (update_pcpu_stats(&curtime, delay) == 0) {
++            print_pcpu_stats();
++        } else {
++            fail("Error getting PCPU stats\n");
++        }
++    }
++
+ 	free(domains);
+ }
+ 
+@@ -1271,13 +1284,14 @@ int main(int argc, char **argv)
+ 		{ "repeat-header", no_argument,       NULL, 'r' },
+ 		{ "vcpus",         no_argument,       NULL, 'v' },
+ 		{ "delay",         required_argument, NULL, 'd' },
+-		{ "batch",	   no_argument,	      NULL, 'b' },
++		{ "batch",         no_argument,	      NULL, 'b' },
++		{ "pcpus",         no_argument,       NULL, 'p' },
+ 		{ "iterations",	   required_argument, NULL, 'i' },
+ 		{ "full-name",     no_argument,       NULL, 'f' },
+ 		{ "dom0-first",    no_argument,       NULL, 'z' },
+ 		{ 0, 0, 0, 0 },
+ 	};
+-	const char *sopts = "hVnxrvd:bi:fz";
++	const char *sopts = "hVnxrvd:bpi:fz";
+ 
+ 	if (atexit(cleanup) != 0)
+ 		fail("Failed to install cleanup handler.\n");
+@@ -1312,6 +1326,9 @@ int main(int argc, char **argv)
+ 		case 'b':
+ 			batch = 1;
+ 			break;
++		case 'p':
++			show_pcpus = 1;
++			break;
+ 		case 'i':
+ 			iterations = atoi(optarg);
+ 			loop = 0;
+-- 
+2.34.1
+
 
