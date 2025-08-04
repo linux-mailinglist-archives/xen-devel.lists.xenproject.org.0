@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E5F3B1A139
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 14:21:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1069140.1432968 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2783B1A182
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 14:35:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1069153.1432978 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uiuAk-0003CP-Cz; Mon, 04 Aug 2025 12:20:10 +0000
+	id 1uiuPD-0004vK-J2; Mon, 04 Aug 2025 12:35:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1069140.1432968; Mon, 04 Aug 2025 12:20:10 +0000
+Received: by outflank-mailman (output) from mailman id 1069153.1432978; Mon, 04 Aug 2025 12:35:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uiuAk-00039w-9t; Mon, 04 Aug 2025 12:20:10 +0000
-Received: by outflank-mailman (input) for mailman id 1069140;
- Mon, 04 Aug 2025 12:20:09 +0000
+	id 1uiuPD-0004tD-GF; Mon, 04 Aug 2025 12:35:07 +0000
+Received: by outflank-mailman (input) for mailman id 1069153;
+ Mon, 04 Aug 2025 12:35:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=c2vN=2Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uiuAj-00039q-4T
- for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 12:20:09 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ id 1uiuPC-0004t7-Dg
+ for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 12:35:06 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5bc47152-712d-11f0-a321-13f23c93f187;
- Mon, 04 Aug 2025 14:20:07 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-af949bdf36cso330991766b.0
- for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 05:20:07 -0700 (PDT)
+ id 72aa9bc7-712f-11f0-a321-13f23c93f187;
+ Mon, 04 Aug 2025 14:35:05 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-af66f444488so579656366b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 05:35:05 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a075a74sm733348966b.17.2025.08.04.05.20.06
+ a640c23a62f3a-af91a243795sm727279666b.133.2025.08.04.05.35.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Aug 2025 05:20:06 -0700 (PDT)
+ Mon, 04 Aug 2025 05:35:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5bc47152-712d-11f0-a321-13f23c93f187
+X-Inumbo-ID: 72aa9bc7-712f-11f0-a321-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754310007; x=1754914807; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754310904; x=1754915704; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Llc9HrEFInWQfjFA/aZmmY7nVD+1kUn46YVQTljLo4E=;
-        b=PD9hT9MY12WPJTgidNK3nxgjtFbAuaWEeu39iCNmfGXQY5+K6fz+uU3911F5xTTKbn
-         y6kwASHVNf743OCmY/7vooBZerOfS9B0lywato+JeVredsmavx3eERSufc2gUBcyjYVz
-         JHRsOMZtZGVkzkmERbYL02+aTzJlYQ9bBsf7qAh2nP8oTC/HgXwLQHtvP6uDmt7D8dPm
-         qzBo+Uv4rmDzU8Vq1nqCxOjtEczlF8fstW3pNAbVXzmnvmRHJzGLLtD7Lyj4Wqg2WW/8
-         0x0XD+xb/WYrygQwJqUrbzBxvrmSEitPkObv4kf04OQFJFByX/hZxhiW5TyBqJFJ4vyD
-         DR4g==
+        bh=vFhG1S/5RjvlBUt76/bLDA0tsz6NYBSM5kuaOudpKWo=;
+        b=J8iPqsvhuZWeOefpFBZtjUVGmi+j84lCgpM0I/rSUxfM8XggVXJZFuy82yR/o0JLvY
+         nbKSqFj2SN45F1H/qDy4nLzeeOxrNCnUv/hTgvTZqThg2c4KSmHQvHHL2A4QD4EvnluE
+         ze+ikODsCIwX/ZpaCGRys6QiaPB6TdsUiGTnuTKEz94a54vAfXh97H7773T5AnAHX7QW
+         5vH8eW0XFA1Iaxhf+PHty1qw6kfQHRCkQ6cyHqjFIHlqg9ZoGZOD09T9t4INf2/uV4we
+         KLT3yYfTeA77d+1+gbcLSNO1ea/9cepJwyrDZR4gr+g/t3KfUpIfBUOEbvCYZeN4j4qO
+         BTrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754310007; x=1754914807;
+        d=1e100.net; s=20230601; t=1754310904; x=1754915704;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Llc9HrEFInWQfjFA/aZmmY7nVD+1kUn46YVQTljLo4E=;
-        b=JvwQtpgJ7cuv6LiqYqjaPltrCzPb0X1JzPwlzy2fjzzjf2wQIq+Wp12SJJsVRXpMNT
-         MDm2wyIQueu3Nqx1RBI00/jFloRog7fK75JXilUrniyjPrSIawnadUuPd/Uc0DxLoasJ
-         qIYj2Z7MbheR2ls27UZ6cMpF5nkPhwOfsEKKWR403L0qtrhg+e5qcodPwWqQjkM62C06
-         3yU1oVY9P+7Yb4OkdVm2QnO/BOKJF/cnBlPkGWN/yNzAQ7fvCffvpHdc3phomoQkik83
-         4QLSfKHZ/BW8K2aSEd+v1jPgVGjBgYIjs4+qTOmW6tLZSUF7MuGD8kI1dTFXS6eOiKbu
-         PtLQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW1lD1RdZYOFSw00aezQYqoBCJKkB2hnh3L+vdUd7c5oVIiMB3NlH6vdAyx3egQZTO3USOCCBuBEFA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yya4b09uyqowwW2bfzFc29oN0cDuOEGRU1twRvDz4f0iCTKAYm9
-	5XJILuEKJR32p+ZDGA4RLGZexfQWZ+XoSU97W5OhKq2PieR6ZHcfTtpUzz3UjrrAjw==
-X-Gm-Gg: ASbGncu3gLh4uehSIjkD3UYirA3vHD0wqI6ZsRIu8KFFSRgdCIFXdKGxbiIjsIoWXsg
-	H4hDNqT9kHwY2veQbgLQ37Ud7AWkMiH6AgxvNYN5urVc5XQ4YUPSx3So/DGU/h7dDeIgiwlULSF
-	Hl0jP5dpkoVWcB3Mj/tAI4sDys3UkcU5BQxucUy6H6VemjXxbFjTpxPuIhwJhaw7XJENhJSowGS
-	xmmxtdJS9uH1k5zwtuRYzaoPCho98U1ltvNefXIrJ8mFCGrJeVt97VgNM7ilLjSmX6mHw8Pf7yp
-	0PQqUWKHWfk1A9iaiuqf3/CeRd5634/O6Dz9YG78bZm28SSZucftrAkcxfEJ7DH74dqonazuZHb
-	wwLylUwimowJIrGDM5u+IIlDildEg4hT1JnF74f8N8ZYyhZ87GPTmTIzC0WthxzuAvCXt7WwSTe
-	lE9rLlMOpUsWWMVyGddA==
-X-Google-Smtp-Source: AGHT+IEEoUVe4vnggRjHdMjvJ681c8q4pidoRxnIUyDZUPTSbWdcyXpFhql+vGukTr2UXeB8/D7a7w==
-X-Received: by 2002:a17:906:299b:b0:af9:6bfb:58b7 with SMTP id a640c23a62f3a-af96bfb6b8amr282370166b.5.1754310006999;
-        Mon, 04 Aug 2025 05:20:06 -0700 (PDT)
-Message-ID: <a6eec6d8-8b37-4beb-8ec5-77a3efe782f7@suse.com>
-Date: Mon, 4 Aug 2025 14:20:05 +0200
+        bh=vFhG1S/5RjvlBUt76/bLDA0tsz6NYBSM5kuaOudpKWo=;
+        b=pKzH5cUgTS2idugbHTLayV6zwcK2aua5hmd0CQUgdzEd3QS6WMABnKVE6D6lDeg+N8
+         GOKoStJ7sRIGFcwoZPO8UmjyFp8Y3ABKIjVEWZsfgirAnFwwdfOT937V9iCkqkdGDmr+
+         X8B2cmzJwfXXbW65Z7i/MeGGiEyBMsyXzvMP78tSStfP2aaaxKrPfIAC7uA1g0k3TULU
+         /Xw8rlgYGlTiSl4BfKZ1iR//OG+iyN5TGmCJAgLuerkcxfICQ7inHN82kWcmn0xM8o4S
+         OUOdIukmx5QykDkle+Zo0HNP1ssr+jNg0/qoMGm6jU3SS4Gb/gbefr8I4+miE/nCMP7f
+         DZZg==
+X-Forwarded-Encrypted: i=1; AJvYcCV1IzvijkGfW/K9H8KYgjNjcm6NIuE7embU4chFpLFjHNorTvZqtXYkbfNEydaL8kWT2AXXfEzKIh0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwTQkdGgOeGQqY/ieHcvWP/EhbXASdSvSWHSx5OefMert+giTJX
+	6bD3Qvrduv360ZRpMOZguu2VpWc2ALEvDZeXc83YphaDIHYpJjoAOhW5iIskolegnA==
+X-Gm-Gg: ASbGnctM3tRQJ6ba7iIrXc0b/b10LdyMvxoKQ4ObyjThfgyhlVJ7TF2MXt2s3NFIy/a
+	L4x94DLcM3A0Vpf83SIfevPPHbtnaPW+pY0efCDcdMxWIkI2oRg7d5b+DcQVa3FX+s2uGK1m5W7
+	X2Rdsz0BhJQDLCSrJ+FViz7xSf3jTLESqz60WivvrAw99WiG9Wk/XQzFOhORs8MDw4zyUNBX4S/
+	738aSaSWnxYaq4/hvhFs9gRwsRzN+Uz/JS36RyyQMgGEZAX1u4IlhrUQSbhDiQCLQdO/nAAaa9T
+	upqnjAEln3uROLBUV1N34ZimhOLMFnGfeioJkadvu65iySUOCSeB2YoRYGuwZslZBx8XUCAWHub
+	j/PQxK6YTPSGUDyiQ6k1rhW7OiPbbsF1O31QyekZeKxpJ+qZMP0c1W8EmXeVA6D0eqf/mHnJVSO
+	4flyDIw+OHRyq66HTqJw==
+X-Google-Smtp-Source: AGHT+IFQws+/ozEyCpyAeo4+Pecr3MkSOuyyFaM3UHOQxACPKvQQFCNJfRAiBvdajyoloaRbWAy8tA==
+X-Received: by 2002:a17:907:d78b:b0:aec:5a33:1549 with SMTP id a640c23a62f3a-af94018f2ffmr876699366b.40.1754310904373;
+        Mon, 04 Aug 2025 05:35:04 -0700 (PDT)
+Message-ID: <c0a0f5a4-7b58-43cd-82a7-7a6368070386@suse.com>
+Date: Mon, 4 Aug 2025 14:35:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 02/25] xen/x86: consolidate vram tracking support
+Subject: Re: [PATCH v1 03/25] xen/x86: complement PG_log_dirty wrapping
 To: Penny Zheng <Penny.Zheng@amd.com>
 Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Tim Deegan <tim@xen.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  xen-devel@lists.xenproject.org
 References: <20250803094738.3625269-1-Penny.Zheng@amd.com>
- <20250803094738.3625269-3-Penny.Zheng@amd.com>
+ <20250803094738.3625269-4-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,74 +124,59 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250803094738.3625269-3-Penny.Zheng@amd.com>
+In-Reply-To: <20250803094738.3625269-4-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 03.08.2025 11:47, Penny Zheng wrote:
-> Flag PG_log_dirty is for paging log dirty support, not vram tracking support.
-> However data structure sh_dirty_vram{} and function paging_log_dirty_range()
-> designed for vram tracking support, are guarded with PG_log_dirty.
+> We have PG_log_dirty flag to wrap codes about paging log-dirty support.
+> The main entry is paging_domctl(),
 
-The struct decl is guarded by both, which is fine, merely a bit redundant.
-I'm okay with moving it if that helps elsewhere.
+Yet paging_domctl() serves other paging modes, too. In fact for the shim
+PG_SH_forced is actually a mode that could plausibly come into use (even
+if not by way of a toolstack requesting it). It was previously indicated
+that it was wrong for SHADOW_PAGING to be forced off in shim-exclusive
+mode. No patch ever surfaced, but that may want sorting before any new
+boundaries are to be drawn. In fact, ...
 
-> We release both from PG_log_dirty, and also move paging_log_dirty_range() into
-> hap.c, to make it static.
+> --- a/xen/arch/x86/include/asm/paging.h
+> +++ b/xen/arch/x86/include/asm/paging.h
+> @@ -55,7 +55,7 @@
+>  #define PG_translate   0
+>  #define PG_external    0
+>  #endif
+> -#if defined(CONFIG_HVM) || !defined(CONFIG_PV_SHIM_EXCLUSIVE)
+> +#if defined(CONFIG_HVM)
+>  /* Enable log dirty mode */
+>  #define PG_log_dirty   (XEN_DOMCTL_SHADOW_ENABLE_LOG_DIRTY << PG_mode_shift)
 
-This, I think, wants doing separately. paging.c isn't quite a correct home
-for it, yes, but neither is hap/hap.c. This is noticeable first and foremost
-from ...
+... the conditional here likely wants to become
+
+#if defined(CONFIG_HVM) || defined(CONFIG_SHADOW_PAGING)
+
+instead. This might actually be a far more isolated change then, still
+moving you in the direction that you want (I think).
 
 > --- a/xen/arch/x86/mm/hap/hap.c
 > +++ b/xen/arch/x86/mm/hap/hap.c
-> @@ -36,6 +36,38 @@
->  /*          HAP VRAM TRACKING SUPPORT           */
->  /************************************************/
+> @@ -189,6 +189,7 @@ out:
+>      return rc;
+>  }
 >  
-> +#ifdef CONFIG_HVM
-> +static void paging_log_dirty_range(struct domain *d,
-> +                                   unsigned long begin_pfn,
-> +                                   unsigned long nr,
-> +                                   uint8_t *dirty_bitmap)
-> +{
-> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
-> +    int i;
-> +    unsigned long pfn;
-> +
-> +    /*
-> +     * Set l1e entries of P2M table to be read-only.
-> +     *
-> +     * On first write, it page faults, its entry is changed to read-write,
-> +     * and on retry the write succeeds.
-> +     *
-> +     * We populate dirty_bitmap by looking for entries that have been
-> +     * switched to read-write.
-> +     */
-> +
-> +    p2m_lock(p2m);
+> +#if PG_log_dirty
+>  /************************************************/
+>  /*            HAP LOG DIRTY SUPPORT             */
+>  /************************************************/
+> @@ -254,6 +255,7 @@ static void cf_check hap_clean_dirty_bitmap(struct domain *d)
+>      p2m_change_entry_type_global(d, p2m_ram_rw, p2m_ram_logdirty);
+>      guest_flush_tlb_mask(d, d->dirty_cpumask);
+>  }
+> +#endif /* PG_log_dirty */
 
-... the lock it uses. This function really wants to move to p2m.c imo, and
-be suitably renamed (s/paging_/p2m_/). While there please also consider
-switching i to unsigned int.
-
-> +    for ( i = 0, pfn = begin_pfn; pfn < begin_pfn + nr; i++, pfn++ )
-> +        if ( !p2m_change_type_one(d, pfn, p2m_ram_rw, p2m_ram_logdirty) )
-> +            dirty_bitmap[i >> 3] |= (1 << (i & 7));
-> +
-> +    p2m_unlock(p2m);
-> +
-> +    guest_flush_tlb_mask(d, d->dirty_cpumask);
-> +}
-> +#endif /* CONFIG_HVM */
-
-This #ifdef / #endif isn't needed. Neither when it lives in hap/hap.c
-(the parent dir's Makefile has
-
-obj-$(CONFIG_HVM) += hap/
-
-) nor when in p2m.c. The function then still not being non-static is
-acceptable; it living where it logically belongs is more important imo.
+Please also don't go overboard with #ifdef-ary: Files built for HVM=y
+only don't need these, as HVM=y implies non-zero PG_log_dirty. But maybe,
+with the other change that I outlined, you won't even need all of this
+anymore.
 
 Jan
 
