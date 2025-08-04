@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D82FCB1A03F
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 13:06:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1069099.1432938 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53443B1A085
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 13:23:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1069108.1432950 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uit1X-0000cs-Lk; Mon, 04 Aug 2025 11:06:35 +0000
+	id 1uitHr-0003cU-VW; Mon, 04 Aug 2025 11:23:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1069099.1432938; Mon, 04 Aug 2025 11:06:35 +0000
+Received: by outflank-mailman (output) from mailman id 1069108.1432950; Mon, 04 Aug 2025 11:23:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uit1X-0000b6-Ir; Mon, 04 Aug 2025 11:06:35 +0000
-Received: by outflank-mailman (input) for mailman id 1069099;
- Mon, 04 Aug 2025 11:06:33 +0000
+	id 1uitHr-0003ZJ-RP; Mon, 04 Aug 2025 11:23:27 +0000
+Received: by outflank-mailman (input) for mailman id 1069108;
+ Mon, 04 Aug 2025 11:23:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=c2vN=2Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uit1V-0000b0-OP
- for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 11:06:33 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ id 1uitHq-0003ZC-4t
+ for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 11:23:26 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 13860420-7123-11f0-b898-0df219b8e170;
- Mon, 04 Aug 2025 13:06:31 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-60bfcada295so5133936a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 04:06:31 -0700 (PDT)
+ id 6ee00d21-7125-11f0-b898-0df219b8e170;
+ Mon, 04 Aug 2025 13:23:23 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-61568fbed16so4744365a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 04:23:23 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a2436easm716229766b.135.2025.08.04.04.06.29
+ 4fb4d7f45d1cf-615a8fe7a83sm6695602a12.32.2025.08.04.04.23.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Aug 2025 04:06:30 -0700 (PDT)
+ Mon, 04 Aug 2025 04:23:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 13860420-7123-11f0-b898-0df219b8e170
+X-Inumbo-ID: 6ee00d21-7125-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754305591; x=1754910391; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754306603; x=1754911403; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YXp/tr9Kwb+JyuLu1wWJfvhuzU+rZTRPD+ep8IRX400=;
-        b=SPR9ZXZ13HCZdryFaEs7F7x0oSLAoMewHmfkvXa0tPRqG7VTK5lVy+FtM+4KgUPtYn
-         DYhggG/KqlJkfaeoJFRtxQ2zvekrdXWcPEvZ5a/KCxdZE3JJERYnixt1W5K4l9ZHT5m8
-         eH9mIPeETFeVuLohokIiMdnB4eRcgI8cyxwPAFeJtNcRgrtMZQzZJue4z+qXyjbcvy6W
-         BGk7+rLEv8e/AGqtEc9ldqquwcMp5uQaLptwGnw9cLLr5tyJVTWuxYz8yzZOx8iZs5cY
-         j7JF/NIMIyFzTZQSrdjdTgTqzeHKLWFn4Qp9DA8BbONOCXm+kQyk6qtTTbpLAyCfuO5v
-         oLlQ==
+        bh=4H3sVxZQVuJuZBfj6ldymI2bSBltGEycy+PRbU7xvmU=;
+        b=E8gXLFfXP+fi6Jd1P6DHa3fd0FfycHHxGQr/AGQ8jlV3AhSqlvKKZ94mO6ag5Uv0aE
+         uOq1W2HJXo6e+/BFU2YT+xRsWy/EnQ/meLJNettgXzki2jIwPpM+7dAOXOXcmrlzmW+8
+         gFVcUBdzwZ3j2gRrwJLgNqPlYTmVqBq+nZ0DH/JieMwjrI+huZEl3sMKQKMwWhmtpICR
+         4RBpXFJKbGH4ftagQwflqJhRG8NpByuYWAnJD59s8N6ATR87968F1cVbU16luO+wqlDk
+         JIEKZl+bq+9/ktnGiJOCVXkbdR2RGLmgMWLMhESDH6upYhWCuG/9IR4Aj9JIyoGyDu2Q
+         Zs8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754305591; x=1754910391;
+        d=1e100.net; s=20230601; t=1754306603; x=1754911403;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YXp/tr9Kwb+JyuLu1wWJfvhuzU+rZTRPD+ep8IRX400=;
-        b=BagFvzc445NXuR4IHEGdiWWEiwPGwCX9S1IWJSlYzsnrK6fWjNfpcMFbwqboQfJZdo
-         oiTIMjXl5DoGiyIdhXcFSFY6zgSnH05A7ZozZW5cQH6G88WiTNiNyP4MrIw3Ubg9fbfX
-         ITBm8FJwpa8KqjY397vLkej6n0niAF20XtdsSxYn90IQpfIEpjYwzYudXFlOIalSpmXF
-         F1vLDUIeWHJXH60gbHiSxqX1EQNpvGK8jHg84dQZRXGDnAl7O0Z1pDv5XMXQt6UM5iAZ
-         1HAFXmG6rD/sp3mzEzzHiCAEkt+O3m7Ry9hrnZN7/fz86Zxo2G/33fl7duOZYpysuC8n
-         Vwpw==
-X-Forwarded-Encrypted: i=1; AJvYcCWsmGnni4rbIKuy6QrPYT4YX5t1FKRl5LYUskhZeUyloX2jDwRhRI0FoV56rhQJWZ+nLa/a9GUEUNw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw+uKlRXE7/RAl1ZEWfSKusz+rynDb4Xo/mvHAhKz5NwyPEfhtQ
-	fVRB0a9uBEyMsnrmPSMYIsbf/MbvrOgpNyvSH3FPzLNks7YIT++ieYedKo5CRo6Xmw==
-X-Gm-Gg: ASbGncuzvzoIjrk7KcGhkiKcS+79CyckYznrmhMmfOgxlR2LbO3Mz4eTBKfG7zGkfeY
-	tkbwGEpbdq3E5shaKxCJUC05QYneAS3eLs/syROhY7FxOLR8EPEX1sfdrY+7CDwBotpfjlw7xvq
-	zYSk89PU3GgxfQp/TYuSx2N7UDhKssSQ1wKDdOllH3NOlfA6c9FOjDPycS3Sst1j8jCaQ80rEGm
-	TvYMrtPub+AobY57ps253VRfdhT1Gg0Xha6Rgh+eCmJkHrGm7rXkILf0lKeeX7SQWQZIX069Z8o
-	eyA/CqIQxMx7d7ljFcr/SgSkDva2WBS27AFuraFiGI3GMFKecaiXhuSnuVmb35duErbzUBgej3w
-	TxJnvu2/VotlK5hOg32/4cKUzLxtfqbVf9+Tx/2RlaWQuPwF7QpP2weUC+0pMZNDVR5ZtkaI1x1
-	Zl0ieYkgO9fzMy8SX8/A==
-X-Google-Smtp-Source: AGHT+IH/pJHM6DMd+pen4bht6VxEt32yqOG2jbw/3SpbiIAUvMox9lvypCgSXNU92necwuEet9kQeQ==
-X-Received: by 2002:a17:906:f205:b0:af9:467d:abc0 with SMTP id a640c23a62f3a-af9467dae3cmr737288566b.50.1754305590700;
-        Mon, 04 Aug 2025 04:06:30 -0700 (PDT)
-Message-ID: <549bde88-38a3-4920-9309-f898b48d3bda@suse.com>
-Date: Mon, 4 Aug 2025 13:06:32 +0200
+        bh=4H3sVxZQVuJuZBfj6ldymI2bSBltGEycy+PRbU7xvmU=;
+        b=AF9fFMQrajKo67cSjxoUkE6eePjbvFMVjCvCGDIRXRi6tRfJAdWnME7BeOhPHJHYGm
+         j6ByEGv3BQ2MbcncqekMLW2wxBeB7voHPLHpQq1jU5a9gdsl7KDEoKrFp05nF2YS5Smc
+         UNL399xMh6wReVkswuB0DFjrJmA5dcikU5v03QzzG86K54zvW43EBNcZuJOpEeuYzm0c
+         7UCds6guEZJhs/Ecg9vhvP7mXB1N5KnSKqXpfspDVs2yWc9dyU1K2XOEaJd+ER8izI3y
+         b5ZR7gsIc1Rqdu0Wctp4wljUu6/L6zxgYnpKwbffRfSmFbD79Vcmbfz/cxaUoovTnLrg
+         amMg==
+X-Forwarded-Encrypted: i=1; AJvYcCXXDc6+BVnLQszNfMaw/suUEuUKMS4BGc74tbFON+W9IxzaNUSMt1jzTxlknWySJkFMrYe6UkEAFRs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwK8BCDmPNYGmNemby9Um8Iag8MngvZu9CfPTmd+DTGuZ2+8lRF
+	6uWIzYlmhtCNFLa1g/YMXvqIdsncxPj9rbqGPEEtpKkVyXbQFU+T00o+1mYkELNIAg==
+X-Gm-Gg: ASbGncvEzoxEk7SQ+n2iksii2KUkAdojkOhrEE8H7ZHyzWA3NxLc9IwYHHJcoDyKyyM
+	+iJglc5JjD1k8DCuhUiXMNx53w1Bhcd9fwd0UEkmt4qVh3zVOpz1fkjMFqGuVTjPzybdep4Be+b
+	QwvSVhmXJsDCjiWqUtwiGL4mUb2XunLCsgPTNmDXgBdu2bUPihJSFNnuWLrgPKCTTzdmax7EFJ/
+	892cs0TH0Db1NuIZR+BaMW6TdfNzfSjfeQs3GqorR0/yNBKDUJhuuDDVsIA1QMD73Np0+7Wzzsv
+	Gu9tUl+6GDeIjlOppbkuhXuDu4yBcXbSkPfEp3pWNGMgxmquPEvrGnXhLkCU6KAEMPuZdxBo8vf
+	DXYwaBln8NDB2DDICI/xTOuiHGAfu+xRglMdIHunMeHDR/tzF+AjplU28oHt30+fTXve7VUadgp
+	I6qDeNPrw=
+X-Google-Smtp-Source: AGHT+IGbRwzSHYFLLlCJgwlrrIsz2Br/dVRqRridgRMorrqRCNbL7GS+qBvw9NNMA0onAxfFQRcnjQ==
+X-Received: by 2002:a05:6402:5210:b0:615:860d:7da8 with SMTP id 4fb4d7f45d1cf-615e6f10de3mr8220020a12.14.1754306603025;
+        Mon, 04 Aug 2025 04:23:23 -0700 (PDT)
+Message-ID: <1e83ed1c-6fa6-4295-9072-d4277f95f2a1@suse.com>
+Date: Mon, 4 Aug 2025 13:23:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 7/8] tools/xl: enable NS16550-compatible UART emulator
- for PVH (x86)
-To: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250731192130.3948419-1-dmukhin@ford.com>
- <20250731192130.3948419-8-dmukhin@ford.com>
+Subject: Re: [PATCH v2] xen/x86: fix xen.efi boot crash from some bootloaders
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ Yann Sionneau <yann.sionneau@vates.tech>
+References: <20250724140731.1502774-1-yann.sionneau@vates.tech>
+ <4ceb64fa-d7cb-4c77-8a60-1526046c037c@suse.com>
+ <0f4abbb4-aa7f-4c09-8652-bc9041a25a56@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,95 +123,51 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250731192130.3948419-8-dmukhin@ford.com>
+In-Reply-To: <0f4abbb4-aa7f-4c09-8652-bc9041a25a56@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 31.07.2025 21:22, dmkhn@proton.me wrote:
-> From: Denis Mukhin <dmukhin@ford.com> 
+On 04.08.2025 13:00, Andrew Cooper wrote:
+> On 04/08/2025 10:34 am, Jan Beulich wrote:
+>> On 24.07.2025 16:07, Yann Sionneau wrote:
+>>> xen.efi PE does not boot when loaded from shim or some patched
+>>> downstream grub2.
+>>>
+>>> What happens is the bootloader would honour the MEM_DISCARDABLE
+>>> flag of the .reloc section meaning it would not load its content
+>>> into memory.
+>>>
+>>> But Xen is parsing the .reloc section content twice at boot:
+>>> * https://elixir.bootlin.com/xen/v4.20.1/source/xen/common/efi/boot.c#L1362
+>>> * https://elixir.bootlin.com/xen/v4.20.1/source/xen/arch/x86/efi/efi-boot.h#L237
+>>>
+>>> Therefore it would crash with the following message:
+>>> "Unsupported relocation type" as reported there:
+>>>
+>>> * https://github.com/QubesOS/qubes-issues/issues/8206#issuecomment-2619048838
+>>> * https://lore.kernel.org/xen-devel/7e039262-1f54-46e1-8f70-ac3f03607d5a@suse.com/T/#me122b9e6c27cd98db917da2c9f67e74a2c6ad7a5
+>>>
+>>> This commit adds a small C host tool named keeprelocs
+>>> that is called after xen.efi is produced by the build system
+>>> in order to remove this bit from its .reloc section header.
+>>>
+>>> Signed-off-by: Yann Sionneau <yann.sionneau@vates.tech>
+>> So I found a way to deal with this at the linker side, without any new command
+>> line options. Behavior is solely driven by the attributes of any incoming .reloc
+>> sections (of which there would be none by default, retaining original behavior).
+>> The important patch is [1], but at least the first patch of the series [2] would
+>> in most cases also be wanted/needed (patch 04 is obviously a mechanical prereq
+>> for the main patch). Need for other of the prereqs there depends on the scope
+>> and purpose of one's binutils build(s).
+>>
+>> [1] https://sourceware.org/pipermail/binutils/2025-August/143153.html
+>> [2] https://sourceware.org/pipermail/binutils/2025-August/143141.html
 > 
-> Enable virtual NS16550 for PVH domains in xl.
-> 
-> {map,unmap}_domain_emuirq_pirq() infrastructure is modified by adding new
-> type of interrupt resources 'IRQ_EMU' which means 'emulated device IRQ'
-> (similarly to IRQ_MSI_EMU).
-> 
-> This is necessary to for IOAPIC emulation code to skip IRQ->PIRQ mapping
-> (vioapic_hwdom_map_gsi()) when guest OS unmasks vIOAPIC pin corresponding to
-> virtual device's IRQ.
-> 
-> Also, hvm_gsi_eoi() is modified to trigger assertion in hvm_gsi_deassert()
-> path for ISA IRQs.
-> 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> ---
-> Changes since v3:
-> - new patch
-> ---
->  tools/libs/light/libxl_x86.c          |  2 +-
->  xen/arch/x86/domain.c                 |  2 ++
->  xen/arch/x86/hvm/vioapic.c            | 10 ++++++++++
->  xen/arch/x86/include/asm/irq.h        |  1 +
->  xen/common/emul/vuart/vuart-ns16550.c | 27 +++++++++++++++++++++++++--
->  xen/drivers/passthrough/x86/hvm.c     |  9 ++++-----
->  6 files changed, 43 insertions(+), 8 deletions(-)
+> That's good to see.  Do we need any matching changes in Xen?
 
-Given this diffstat, how come the patch prefix is "tools/xl:"? You don't even
-touch xl ...
-
-> --- a/xen/common/emul/vuart/vuart-ns16550.c
-> +++ b/xen/common/emul/vuart/vuart-ns16550.c
-> @@ -355,7 +355,9 @@ static void ns16550_irq_assert(const struct vuart_ns16550 *vdev)
->      struct domain *d = vdev->owner;
->      int vector;
->  
-> -    if ( has_vpic(d) ) /* HVM */
-> +    if ( has_vioapic(d) && !has_vpic(d) ) /* PVH */
-> +        vector = hvm_ioapic_assert(d, vdev->irq, false);
-> +    else if ( has_vpic(d) ) /* HVM */
->          vector = hvm_isa_irq_assert(d, vdev->irq, vioapic_get_vector);
-
-Why not
-
-    if ( has_vpic(d) ) /* HVM */
-         vector = hvm_isa_irq_assert(d, vdev->irq, vioapic_get_vector);
-    else if ( has_vioapic(d) ) /* PVH */
-        vector = hvm_ioapic_assert(d, vdev->irq, false);
-
-Less code churn and maybe even less generated code.
-
-> @@ -367,7 +369,9 @@ static void ns16550_irq_deassert(const struct vuart_ns16550 *vdev)
->  {
->      struct domain *d = vdev->owner;
->  
-> -    if ( has_vpic(d) ) /* HVM */
-> +    if ( has_vioapic(d) && !has_vpic(d) ) /* PVH */
-> +        hvm_ioapic_deassert(d, vdev->irq);
-> +    else if ( has_vpic(d) ) /* HVM */
->          hvm_isa_irq_deassert(d, vdev->irq);
-
-Same here then.
-
-> --- a/xen/drivers/passthrough/x86/hvm.c
-> +++ b/xen/drivers/passthrough/x86/hvm.c
-> @@ -924,12 +924,11 @@ static void hvm_gsi_eoi(struct domain *d, unsigned int gsi)
->  {
->      struct pirq *pirq = pirq_info(d, gsi);
->  
-> -    /* Check if GSI is actually mapped. */
-> -    if ( !pirq_dpci(pirq) )
-> -        return;
-> -
->      hvm_gsi_deassert(d, gsi);
-> -    hvm_pirq_eoi(pirq);
-> +
-> +    /* Check if GSI is actually mapped. */
-> +    if ( pirq_dpci(pirq) )
-> +        hvm_pirq_eoi(pirq);
->  }
-
-The correctness of this change (in particular hvm_gsi_deassert() now always
-running) wants reasoning about in the description.
+Well, we'll need some (zero-size) contribution to .reloc then. For my
+testing I hacked this into the linking rule (which is a mess already
+anyway), but I hope / expect to find a cleaner solution for upstreaming.
 
 Jan
 
