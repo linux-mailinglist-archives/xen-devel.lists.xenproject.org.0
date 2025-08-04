@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28367B19C6C
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 09:26:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1068832.1432688 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6006B19CD3
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 09:41:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1068848.1432709 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uipa0-0007qH-JW; Mon, 04 Aug 2025 07:25:56 +0000
+	id 1uipoS-0002wD-UL; Mon, 04 Aug 2025 07:40:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1068832.1432688; Mon, 04 Aug 2025 07:25:56 +0000
+Received: by outflank-mailman (output) from mailman id 1068848.1432709; Mon, 04 Aug 2025 07:40:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uipa0-0007on-Gn; Mon, 04 Aug 2025 07:25:56 +0000
-Received: by outflank-mailman (input) for mailman id 1068832;
- Mon, 04 Aug 2025 07:25:55 +0000
+	id 1uipoS-0002tu-Rc; Mon, 04 Aug 2025 07:40:52 +0000
+Received: by outflank-mailman (input) for mailman id 1068848;
+ Mon, 04 Aug 2025 07:40:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=c2vN=2Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uipZz-0007oh-GT
- for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 07:25:55 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ id 1uipoR-0002sG-Bt
+ for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 07:40:51 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 414552a2-7104-11f0-a321-13f23c93f187;
- Mon, 04 Aug 2025 09:25:54 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-6156463fae9so8378508a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 00:25:54 -0700 (PDT)
+ id 579b0470-7106-11f0-a321-13f23c93f187;
+ Mon, 04 Aug 2025 09:40:50 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-61571192ba5so6016069a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 00:40:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a078a11sm699479566b.7.2025.08.04.00.25.52
+ a640c23a62f3a-af91a21c099sm679150566b.108.2025.08.04.00.40.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Aug 2025 00:25:52 -0700 (PDT)
+ Mon, 04 Aug 2025 00:40:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 414552a2-7104-11f0-a321-13f23c93f187
+X-Inumbo-ID: 579b0470-7106-11f0-a321-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754292353; x=1754897153; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754293250; x=1754898050; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Pj4P3QBJfUG2ESOk/WDB36aNWoVLWCUT/GmpowtzHbg=;
-        b=Pm7HTqejPfDz73ZwZkvp76faXNAMmsf94FvKYvNFqq6Zurk6a9JiocbA/9fxaREXHq
-         XKdPJfGkmhSNg5bOAZyY9+KtR8seV1BLBUh2xSW7lc0vNRP9G9L284AJ1rTgoZ8jreGD
-         59XSAj7FARY9HhhDOBEb22gFzvdRhpNslDBaNary1UH2rNcyh09eQeVnEBFMMEAL0gV2
-         F085YKEOxuQVsDeqahAyRHhZZQSDG4Ilmcu1PX4ETKOhC3unVp5ez4s4PCW3yS7TAsn1
-         ZXs4Asy++MscoT86jdvzRC/lDf1zosCEmogn8DwMmFsnc6o6/d/20qtok3SGKQIu21Jq
-         fFMw==
+        bh=B9SF7RZMtoM3hYCSMqGBiDg2hhOtnjtDrsiw4g2HWks=;
+        b=MGJY5xGjHWXMSG5ltdIVDzuzKZPfW9Q6lctL65EPOqte2F6YldPunz5SIpcff79GTA
+         fDmWOBEP7uXNA1sA11VSSySlwEahrv0hxAJViabvQPaCw7yEvf3wG9jXIiyQ9Jpc4D17
+         KiGEhkLnpiT3iRednw7Ce0gNAOcs1lJdEXNxvvI1BndBSCCJhMkL5wdLVEGaOdjTcxJV
+         08UdJqPRe8s2CfMaNqAy9agB5desGuLi2VbHWjcQDplYf9PyQ001cbGB6vYGVltnQK45
+         o8+TMkRJD/NGrRwMXciVJX9ozQKorP6oosDspBGcHDFK2E+3P6hJ7nPu4fpmiHlzfS3X
+         yTBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754292353; x=1754897153;
+        d=1e100.net; s=20230601; t=1754293250; x=1754898050;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Pj4P3QBJfUG2ESOk/WDB36aNWoVLWCUT/GmpowtzHbg=;
-        b=IDng/0UsAYzet2Y0WHqQTweB9IL5A1XXuHqxcBfqWA4e6kb3Sz+VokG+XG/U/Oep8L
-         Jg4BOzc2c31VvZWj+uRYF2z8fxgsdZR1Xa0QHZQjLyHv0z6OB+USbO6uldpyMZ2pYQ42
-         7Vd+uXKuF5J8WS21UQ+/d/QzJxbANDJpJ0r5jIzDXwHmz+IVIsDFwyW6jVzhT/HodZEX
-         CJDQVtv1665WM35V+j7PLOsVQFn3MZY5nCBamLSsdCXg3O91UG8Nfj2nQxS3TgwWq4LR
-         e67AYyX1/i+l1CRQQIvUd26Bpda2+fZ76aEREhIGJyZYIL5lTAraNY+Uk19C4EhhPiqL
-         LJ1w==
-X-Forwarded-Encrypted: i=1; AJvYcCXPgOf/Stv4a5eLaY+OSgZUqvdou4Tw7Ilb/Y18bINFFmxGP3QYlXcpEv5p4r2ZFlU0NtQ3B5SY+QE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YznhIoP7xjJ9Kh9tGV0GO9B6+aDIVNjrbMdKbQVWOdco3n3X+2s
-	qT45+OSzL7VpHi+LJ371Z9JlOltOJntiOyNcLV2hyTOnVnkuC/p2dbzKmRygdWnkxQ==
-X-Gm-Gg: ASbGncug9m1vJSWxS3YvV5Mkry7/ndaZKGLk/DBy6sRcFzlNUuWiys6wzAbruLACvmR
-	EQL1vk1SutBoU4pgIeL/dx45K5MaUGmmjEUcNSmgvSHQvvs5sYiVTTJGnv8rGjI/CyPAiHmpNOp
-	gU5TDuZA0eGsAc7n6hGo9XqXjn0htIxx8VqVOKyFWXPcBYklToqqgPl7TfxDY8FyJFgUV2TV4+H
-	rhg8pdevgRjHlOcc7Hc8h0QnJnIIY7ZPxuUOZgyM4B+dq9engi+YYkIRNnQ14b/pigV2ZtbbxMe
-	CZJdUoz97Hej6zflivPs6MuxixyLJ0da/YHnfJWhzWRAPO82R0RSeOYeqdMQqRXfFIILEA4MZ90
-	JtPUkEhKnb88V3ohLRrokjZp+V5iy2CUUeycAfZug5lQ7DuMpkVEmzU8zAUgGXhswtKH7fIVXIP
-	T49f/AOQu2QtcO3Ha2bA==
-X-Google-Smtp-Source: AGHT+IFANaOepWRVt6+vT9pQ9ELWEWMZR1c6BGKI9yj+Zhviis7K40Z9Cp6tGE3HA+HGWp+AKfFpmg==
-X-Received: by 2002:a17:907:971e:b0:ae3:c777:6e5e with SMTP id a640c23a62f3a-af9408a1543mr851157566b.19.1754292353129;
-        Mon, 04 Aug 2025 00:25:53 -0700 (PDT)
-Message-ID: <5f6f16b9-3aea-4407-8938-2ce4cc6edcfd@suse.com>
-Date: Mon, 4 Aug 2025 09:25:55 +0200
+        bh=B9SF7RZMtoM3hYCSMqGBiDg2hhOtnjtDrsiw4g2HWks=;
+        b=o/7A3+SsylRrnRZ9wKbYmjnZi/DlW4RFbQjkZN+okFTIZEQeyvP9sK2fwZd5W3b4x/
+         zwM2GklZE7nIL3wX8fzRYTWNiilMYrwmKpo/jPSjBqXdBW6hipN+awyJ9YgZOoNxj81E
+         vheGLRJZHcT6kgyT6XTTXnK/fGD1Ez69UzORPdKmPY8MQr3Dkjw53AicLjd3a01cYFKk
+         mKx2+84BS2ajIlsTtw3vpmp6Agl5vZ9OxOeBD4lIOUGxuJSIr7QSMMknrYJliD0MwyDl
+         Q3h5/8v7Z9LSLy8wCJXlrxpRspTjoWd3+5UM4GN9Ry5FnVVqk06O67QFMgjnC+FV8IIZ
+         sFbg==
+X-Forwarded-Encrypted: i=1; AJvYcCXLCEkASqhefnkpLFvlcME1MjOqAPn+8/EWZMnGN9QqTErXh3xA5K6ly5IPLqRWiFV8zSkQM2C5j6k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyJBYzbI2pnqlkkrcb/JBT9jZfiD8PkRbwb1j+HcQCR4RHXPG7h
+	5dpCKqaOy6wS0iung8uRF/mL0J2Pfs+IZBq9TS3daE4efhy5PaydC3z1GWuZfKxnEw==
+X-Gm-Gg: ASbGncv7cFAywMEa/XGCKCSfhtGaO7s8dumI6FvYMQ8VAs/QttBgP+K8dtZCP0lNON1
+	iLY2h/haKKCbFWSMyYSPyo5LY+Fu8vlQ2O57UNF3dfkTwM7jUhuZnqGSf79E4YhSq0xN1UjczoZ
+	DJ2WpQjzf71EuASuHsCaHuARornXb1n5amFK1lO21zuhf9Y7dCmOfVomhNXVnwsL3ZT04z1Z0WU
+	kP6gDSctbbbhCI1BnI8IaRBHOkMFLPxhyfUcjxIHMRiBmiRuhsopgn/LGTvNItvWg406FQ8umis
+	ZLMqM3G1PmxZ+RIZTvd2NlOmtZAVE6hRD6cV68r7+S/lcijCMv5lXeyixyMmongI9aQNHmh4gJZ
+	73F/JLVnO4MoIL3GDPJN4jV7oRMoNpl5/1jkuvSuv+6ePsYVKuWZ3FYk24mUnMskwOvyK/kYNN6
+	G360dVMIRaHE7oWRIAEg==
+X-Google-Smtp-Source: AGHT+IHp45BE/jBmN4s/ABhjXU97ga54ghngbZuBA9MdMRmP88/9LLDDMQiDxNE2I2TP7/sNlinY3A==
+X-Received: by 2002:a17:907:e2cd:b0:af9:566c:4cba with SMTP id a640c23a62f3a-af9566c59a9mr536463166b.9.1754293249714;
+        Mon, 04 Aug 2025 00:40:49 -0700 (PDT)
+Message-ID: <770f41e5-5d02-4358-8f91-e577f762cf58@suse.com>
+Date: Mon, 4 Aug 2025 09:40:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 10/19] xen/cpufreq: introduce new sub-hypercall to
- propagate CPPC data
-To: "Penny, Zheng" <penny.zheng@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH v1 05/25] xen: introduce CONFIG_DOMCTL
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250711035106.2540522-1-Penny.Zheng@amd.com>
- <20250711035106.2540522-11-Penny.Zheng@amd.com>
- <916162aa-01fa-42a3-82c6-42a2c635f082@suse.com>
- <DM4PR12MB845142B33B4AE40453161BF1E123A@DM4PR12MB8451.namprd12.prod.outlook.com>
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250803094738.3625269-1-Penny.Zheng@amd.com>
+ <20250803094738.3625269-6-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,93 +122,25 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB845142B33B4AE40453161BF1E123A@DM4PR12MB8451.namprd12.prod.outlook.com>
+In-Reply-To: <20250803094738.3625269-6-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 04.08.2025 08:47, Penny, Zheng wrote:
-> [Public]
-> 
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Wednesday, July 16, 2025 11:39 PM
->> To: Penny, Zheng <penny.zheng@amd.com>
->> Cc: Huang, Ray <Ray.Huang@amd.com>; Andrew Cooper
->> <andrew.cooper3@citrix.com>; Roger Pau Monné <roger.pau@citrix.com>;
->> Anthony PERARD <anthony.perard@vates.tech>; Orzel, Michal
->> <Michal.Orzel@amd.com>; Julien Grall <julien@xen.org>; Stefano Stabellini
->> <sstabellini@kernel.org>; xen-devel@lists.xenproject.org
->> Subject: Re: [PATCH v6 10/19] xen/cpufreq: introduce new sub-hypercall to
->> propagate CPPC data
->>
->> On 11.07.2025 05:50, Penny Zheng wrote:
->>> +             cppc_data->cpc.nominal_perf > cppc_data->cpc.highest_perf )
->>> +            /*
->>> +             * Right now, Xen doesn't actually use highest_perf/nominal_perf/
->>> +             * lowest_nonlinear_perf/lowest_perf values read from ACPI _CPC
->>> +             * table. Xen reads CPPC capability MSR to get these four values.
->>> +             * So warning is enough.
->>> +             */
->>> +            printk_once(XENLOG_WARNING
->>> +                        "Broken CPPC perf values: lowest(%u), nonlinear_lowest(%u),
->> nominal(%u), highest(%u)\n",
->>> +                        cppc_data->cpc.lowest_perf,
->>> +                        cppc_data->cpc.lowest_nonlinear_perf,
->>> +                        cppc_data->cpc.nominal_perf,
->>> +                        cppc_data->cpc.highest_perf);
->>> +
->>> +        /* lowest_mhz and nominal_mhz are optional value */
->>> +        if ( cppc_data->cpc.lowest_mhz > cppc_data->cpc.nominal_mhz )
->>
->> If they're optional, what if lowest_mhz is provided but nominal_mhz isn't?
->> Wouldn't the warning needlessly trigger in that case?
->>
-> 
-> Yes, only both are provided, this check is meaningful
-> +        if ( cppc_data->cpc.nominal_mhz &&
-> +             cppc_data->cpc.lowest_mhz > cppc_data->cpc.nominal_mhz )
-> 
->>> --- a/xen/include/public/platform.h
->>> +++ b/xen/include/public/platform.h
->>> @@ -363,6 +363,7 @@ DEFINE_XEN_GUEST_HANDLE(xenpf_getidletime_t);
->>>  #define XEN_PM_PX   1
->>>  #define XEN_PM_TX   2
->>>  #define XEN_PM_PDC  3
->>> +#define XEN_PM_CPPC 4
->>>
->>>  /* Px sub info type */
->>>  #define XEN_PX_PCT   1
->>> @@ -370,6 +371,10 @@ DEFINE_XEN_GUEST_HANDLE(xenpf_getidletime_t);
->>>  #define XEN_PX_PPC   4
->>>  #define XEN_PX_PSD   8
->>>
->>> +/* CPPC sub info type */
->>> +#define XEN_CPPC_PSD   1
->>> +#define XEN_CPPC_CPC   2
->>
->> As per this, ...
->>
->>> @@ -457,6 +462,26 @@ struct xen_processor_performance {  typedef
->>> struct xen_processor_performance xen_processor_performance_t;
->>> DEFINE_XEN_GUEST_HANDLE(xen_processor_performance_t);
->>>
->>> +struct xen_processor_cppc {
->>> +    uint8_t flags; /* IN: XEN_CPPC_xxx */
->>
->> ... it's a type that's living here, not a collection of flags. Any reason the field isn't
->> named "type"?
-> 
-> It is a collection of flags. Only when both XEN_CPPC_PSD and XEN_CPPC_CPC are set, we could run cpufreq_cpu_init() to initialize cpufreq core.
+On 03.08.2025 11:47, Penny Zheng wrote:
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -627,6 +627,10 @@ config SYSCTL
+>  	  This option shall only be disabled on some dom0less systems, or
+>  	  PV shim on x86, to reduce Xen footprint.
+>  
+> +config DOMCTL
+> +	bool "Enable domctl hypercall"
+> +	def_bool y
+> +
 
-Hmm, right. The next legitimate XEN_CPPC_* value to use would be 4, not 3.
-That's not visible from how things are defined, though. May I suggest that
-you use
-
-/* CPPC sub info type */
-#define XEN_CPPC_PSD   (1U << 0)
-#define XEN_CPPC_CPC   (1U << 1)
-
-instead then?
+Just to re-iterate - we don't think we want things to be this fine-grained.
+(As an aside, nit: "bool" and "def_bool" are partly redundant with one
+another.)
 
 Jan
 
