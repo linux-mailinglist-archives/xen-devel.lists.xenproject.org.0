@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8325B1A25E
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 14:56:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1069289.1433168 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91643B1A26E
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 15:00:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1069297.1433178 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uiuk7-0000sD-7V; Mon, 04 Aug 2025 12:56:43 +0000
+	id 1uiunG-0001Ri-LE; Mon, 04 Aug 2025 12:59:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1069289.1433168; Mon, 04 Aug 2025 12:56:43 +0000
+Received: by outflank-mailman (output) from mailman id 1069297.1433178; Mon, 04 Aug 2025 12:59:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uiuk7-0000qR-4s; Mon, 04 Aug 2025 12:56:43 +0000
-Received: by outflank-mailman (input) for mailman id 1069289;
- Mon, 04 Aug 2025 12:56:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dY6Z=2Q=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1uiuk5-0000qJ-In
- for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 12:56:41 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2062d.outbound.protection.outlook.com
- [2a01:111:f403:200a::62d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 753322b8-7132-11f0-b898-0df219b8e170;
- Mon, 04 Aug 2025 14:56:39 +0200 (CEST)
-Received: from BN0PR04CA0112.namprd04.prod.outlook.com (2603:10b6:408:ec::27)
- by SA1PR12MB9515.namprd12.prod.outlook.com (2603:10b6:806:45a::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.20; Mon, 4 Aug
- 2025 12:56:35 +0000
-Received: from BL6PEPF0001AB74.namprd02.prod.outlook.com
- (2603:10b6:408:ec:cafe::2e) by BN0PR04CA0112.outlook.office365.com
- (2603:10b6:408:ec::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.21 via Frontend Transport; Mon,
- 4 Aug 2025 12:56:35 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB74.mail.protection.outlook.com (10.167.242.167) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9009.8 via Frontend Transport; Mon, 4 Aug 2025 12:56:34 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 4 Aug
- 2025 07:56:32 -0500
-Received: from [10.71.195.192] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 4 Aug 2025 07:56:31 -0500
+	id 1uiunG-0001P5-IL; Mon, 04 Aug 2025 12:59:58 +0000
+Received: by outflank-mailman (input) for mailman id 1069297;
+ Mon, 04 Aug 2025 12:59:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=c2vN=2Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uiunF-0001Oz-Dh
+ for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 12:59:57 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id eb478c6c-7132-11f0-a321-13f23c93f187;
+ Mon, 04 Aug 2025 14:59:55 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-af967835d0aso158910766b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 05:59:55 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-af91a241bdfsm731459166b.131.2025.08.04.05.59.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 04 Aug 2025 05:59:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,124 +45,260 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 753322b8-7132-11f0-b898-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AdV0SucYqnuHxMyPNFaRkJGJRV8PjY7vJOMbrbVjvVcAhSAzUiNrcLhk8cBtWp3UCotVZXSzCt3CX/uiyRYfG6TYCyQDRwJyl+wpE57fBvZWtJ+Om5bWyd2xVFWKrJP2mljgDmm7grm3dgULSZgzFdr2YzbHKCtZrvUFcszfYdLVm6Mk25uv5sz3fNHeOdFOs+Q9sWbSSx9nvMAISdVplEzGJtZRQuiGRdtMcpxhbBYCVjNepckl1/+aAo2sOo+tU7WvMcfQjca3rl7vXeL6sSyyEN9yAHQhekt3SOu8RCpGLXZUKzwuCpsbeVxjrVZ2kKcHSCgAOAwOOkhC9efppQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q8jbsFFrcx6WeJJtmTA/I51ObKrXb0k2J4e1Bak5mr8=;
- b=oySNV9AET57vdtz2kx20esMHW98j9Wed3QmB2FLm1dtl+E2bE2WiziCPjcqFxKEzSs0AWcouiSJruJ8OW9t32lbBz7kWM6G1wqWzmFkZZrj9ot8GlzUd3f3snxIXpNRQ/qDJmXA1DjQVhgzRXkT1YnPGz0Wl0gsgoE4MOEN4tp3go54v1FokOUn6kK1jNcsWMlXsqAG3NQjknsm2G+r0Z1VisgyEEicf88p6nD3/2/iexvMg2bqjaU9VDCWX7C6C7T4q0ipzcysyO1Jvej8VtL8Px8/gp2NpqJhKmNS7Cx5/vk0ERt64U+e3Pil3DMoEFX1q4ga/3aW0Xj2/FF1iPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
- is 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com;
- dmarc=temperror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q8jbsFFrcx6WeJJtmTA/I51ObKrXb0k2J4e1Bak5mr8=;
- b=SxC7YWo8OkRsi6iN5wHXVkA1+As5VIUzgE9sl9/UG8ndpn0bhbYj3qXvSFcsqsBuIfKGTgVF2oj5L/+hZXEUkE/H3aOVv0H12GzG15QEVvprEyaau9SRPQfDTvd8u0Hwi1v+0nh8JkwvN9tS6oCo6JCvH7UJOVe/LPpUU0byOWo=
-X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
- 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=temperror action=none header.from=amd.com;
-Received-SPF: TempError (protection.outlook.com: error in processing during
- lookup of amd.com: DNS Timeout)
-Message-ID: <fc9e4345-3dd5-47c5-8052-c95ff67a49ca@amd.com>
-Date: Mon, 4 Aug 2025 13:56:30 +0100
+X-Inumbo-ID: eb478c6c-7132-11f0-a321-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1754312395; x=1754917195; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=uvRhfOKLa0jtmJMekP2DS/JttHDhPCFUw2z2lbg3hck=;
+        b=gtMSxAClAGFmi7PYKZtz8Tn1CpD3TZT3+fN4GzlUNmcfqriX3mu6M2Sw94RLy+MF8B
+         YPJw3Ty8yvVgANjkwvZ/bsvNNKVIrSmyQWpcfBs9gycUYBpssiJjsIu/4WLb/uY6CSzV
+         4ApKrdfuDfeSfAXzyNx9amWlI3TCY7CokpPTdWkjBB36dCkBjYeVCyazV1VgsxonPoy7
+         57jzRrPJQxR40GKL+aWZPf3bUyphj9P8SdjHcdY9ktBo+N1lNNe3rTjfBA+pGN0NY+kC
+         bAHucUWH2/kLoOxKQcQkaIvCjvIVqtZGQcTznfaoz8L3zJZQ/6ZQT00zl0Bd96TQQraF
+         kVjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1754312395; x=1754917195;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uvRhfOKLa0jtmJMekP2DS/JttHDhPCFUw2z2lbg3hck=;
+        b=Xfjk6EfGGEMDYnnWnjxXyAQO2cpEFFQ1Vcr0rRYf3IDOvjlYYJVn+1h/LPnmqqSGCh
+         0aRmfymxpMAnr/4wMyiP93ksHb0JE/SUgyKoEnuoE5vuBMQ58kV0290t8W6ec6lHRVgf
+         ZgdjtWGjcCrCqsfST7iemLn3ZRu6GGRwP3NUbCJRESRsAXgZt9dlfzqE/dR902Qrrjih
+         tLUMZ371WS1axSv+d55nDTcLdo1O7kP6/nTGN2Q8cDoAkiYPobO+S2BJA6IcnGljgPwC
+         Hv8g9BWwelfLZFYapKYt9LH1DcSju8uf5o2XlaZpom+zN7fn/b2yv6S8eCg37Zj/qrQu
+         ayjQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUG69dM7jgFjfoJNnYlt0hISHSlI1sgQMJPSKPhYskZRH7tgzrNjzDX6v2HZfrJX6tzqtZWsV0bdfk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxMCr4J92NFOKGqvByEhgXV/TQ26uovbtjgYltFQGHjmYPebdlp
+	T6tCNjTsYbA4VbdUqsWZCC/X0SrGYwJLOzYZcnj/SjJYPAy15h8UAchzbKG4Srelrg==
+X-Gm-Gg: ASbGncsjxRev/S2U4DV2RZGejPCMjOqO3g7OlvtalAvu33Vj43kVXvzNEkbPqpEOitS
+	Y7hsbgbXuwKjfSSygXD7X3iy+55Ks6ltcIGZK5eEBio//xsyAxZ0udmu+1PUfb7/lao/tB/Ndv0
+	F/qo8Xa/HZ8v69Q1eq+PlBvpt5/kVGgy6okS7MdpjXaIdd9JG+1cqntbBYzDYloFc88tLtAut8R
+	AjkUZHTWrW8boNq12W113ICpFrJnlIRvhoxKqkmbtdU24vGcMzNSyGTg2OJ8Lc5GIp1xDT7Pq9U
+	wrFjfjozy+P1PPHtlSVa1s6bhOvzWt862JWPXD19zKlvlQjZ2a+lSsoCC4h66Lrq3rccUKbwck3
+	osknzknT0pKgsB5n5/PE8sb54sGGmguf/HhTVdKRjW8qt0s8ea0aAxUp2l7w4fjdUaIdmCrzJzs
+	Rz8S1MujE=
+X-Google-Smtp-Source: AGHT+IE6vQL4mYMR/dzRatPgbthtdwsYnI2mlxFEV7HAm6gEpg+OEHO74CRkdy/Ivm/jAWLznGEITA==
+X-Received: by 2002:a17:907:7f05:b0:ad8:9257:573a with SMTP id a640c23a62f3a-af93ffcc3bbmr993180966b.5.1754312395234;
+        Mon, 04 Aug 2025 05:59:55 -0700 (PDT)
+Message-ID: <b0ecb75b-1f2c-4d23-b830-38df310dcf35@suse.com>
+Date: Mon, 4 Aug 2025 14:59:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] arm/mpu: Implement transient mapping
-Content-Language: en-GB
-To: Hari Limaye <hari.limaye@arm.com>, <xen-devel@lists.xenproject.org>
-CC: <luca.fancellu@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-References: <cover.1753864612.git.hari.limaye@arm.com>
- <d6bd97094991a08fb5ffb48f2642b510b55693e8.1753864612.git.hari.limaye@arm.com>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <d6bd97094991a08fb5ffb48f2642b510b55693e8.1753864612.git.hari.limaye@arm.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Subject: Re: [PATCH v1 04/25] xen: consolidate CONFIG_VM_EVENT
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <20250803094738.3625269-1-Penny.Zheng@amd.com>
+ <20250803094738.3625269-5-Penny.Zheng@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250803094738.3625269-5-Penny.Zheng@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB04.amd.com: ayankuma@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB74:EE_|SA1PR12MB9515:EE_
-X-MS-Office365-Filtering-Correlation-Id: ada36b5d-2fae-4ef3-51b3-08ddd356574d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?NFJvc1VIblM0Mnl3TEg2QmQ4M2JNcXhXaXFaWktGZ1Z4Vll6Ylc1dEZraXhi?=
- =?utf-8?B?WEdISURDMUdCQ3JmbEZhdnk5Ni80L1k0dzVxc3JYZ3FKVll5ZmR1WjNSK2JX?=
- =?utf-8?B?SnN6S1NYRTYzY1paL2V2RDE3ekR2SjFONkE1bFZoa0RTeTNkSS9iTDA3TDlt?=
- =?utf-8?B?b1EyZUlHZnRCZGxOYW5BbTkxdUlUZ3RJZFE0SnhhVUVJVGdRTW50RzM3UTZn?=
- =?utf-8?B?S0gyaVdadVZ1cGhYeWRuQlNSdXhhWHNzd2h4ZHV6V0ZBMGtwNzJKN1hHUWVy?=
- =?utf-8?B?UjlUdzFSb1lEa0xUbHpReitDSGI3M1RzRlBkK3FQSmtVMklTVzhReXREbkNQ?=
- =?utf-8?B?OFA5TE5rSW44R1c1eWJEdHlzUzBGVyttTWVKMU1PYzJZL2NYR1JwZW1KampC?=
- =?utf-8?B?ZmpCRlJhOTd5d2JuK3E5Vlg5UHlDdE5MRFU1aHh0NXo0L0I2RUlUSWZwL0Iw?=
- =?utf-8?B?dVg5ckxvWHd4SWhvRDFkUHpNYzd4RlRsM3lrQUxOc1cxRWZ1TzVXN0ZuYjNJ?=
- =?utf-8?B?VFNnclBVWkVtbUNwVFNFc3M1UXNhNjkwZUdLNEtkTXFGaXI0YTNyM3RxZnJI?=
- =?utf-8?B?WHFsV2lUN25peFpZbmxDVnJoVG4zTXN4OE1qdmhhM1dlMkl4RCthemFla3dI?=
- =?utf-8?B?WmNaU1hYQ3B2L2NQOFlSRkFFS0lkRzV6NENodUkvUEJCMlFNQWIvTjVaRmVT?=
- =?utf-8?B?MmpITzZ1WE1qWlEvR3lobVN0dnIvM3ZCeEF4bEN5cWd2M01VSkI5TUU3dmMx?=
- =?utf-8?B?SXV1bHNLOGQ1bSsyRHk2b1A2QXk4U3N6TUpLWVlrdllaSlJpdFFhQ3ZRaFYv?=
- =?utf-8?B?Y2VSR2dGeGhmSmlSMTZxeWttdE9vdFVIZm85YmNwREpwT3lLNG5sOVBJbWlP?=
- =?utf-8?B?TTRQVWo3WlNZOEkvSDNFOHd0WWtlQjNLL3FjUlZrMlFoK3J3U2IrWVJuSjhN?=
- =?utf-8?B?a2xPYSthSzlPay8rWEVUc0gzYnhrNFA4bTREUTQvbVVqRjd3aG1wTno2bkRx?=
- =?utf-8?B?UFdTZ21NenZPNDRsVzg1ZTNrUWJxMUlobkFMMit4NGEyR1ZCWXNzaFEzT282?=
- =?utf-8?B?TzZZTWlxU1Y2Q0xkV05HbmI5eFlPanRFeUZoMUFwS0p5ckpSTGVYVmlJNXhE?=
- =?utf-8?B?aXJrOUlCcXYvZUVQVkYwQ3JTdkdyOXBWaWxjZGxORjd1SkNINDF4SERTM2Mv?=
- =?utf-8?B?ZENHcEZXRml4WDdyMVRsR0lCdFZZYm4rSllaT3Z2MXAwQ05nRXdIdkhzeFpR?=
- =?utf-8?B?OUFFa0xZOG1EU2VrOCtjN0FQS0wrWTBRKzFEaEZqdklIOGlGbHlWK3I2QWt6?=
- =?utf-8?B?RlBaQjh0aWRwQlNaMSsyN0NtajFhRXJVOFRwQzNGcnhHRFc4a0MzUnlqNWdL?=
- =?utf-8?B?ajZiQlJTS3Z2NzQyZE9BcWNrd0NhNVduNTNhWFVJOTJKbXI2ditXR3FyeGp2?=
- =?utf-8?B?aFdHbnpYQ3BWSkY5RzFTdGptTnhkWGcycjlHTDl4MzBCbUR5akN3RUpZVS9z?=
- =?utf-8?B?QXM0c2xPZmxrbUJTS09aTkdPWFM2RS9NRHBjTVZUYzUzQ2Rzd3MrS1JjSTFQ?=
- =?utf-8?B?VVVpYXN6dCsvYTdzOE9NTnAwSnY4blpMMVZCcWgzL3lpeUk1Y0xtRU9rT3N2?=
- =?utf-8?B?a2JLVjRFK1lDRWQrZUJUMFJHbHlLWTQraEhLMkdMVjFiSm9rZDBveUpydWxG?=
- =?utf-8?B?eHJrWTREbk02S1VLemo1cG94MjIzTWsrSnZtUUZnYnlFalRnVmlDMU1va3Ez?=
- =?utf-8?B?UTNwWmVSbUVDRWIvS1ZkSTUzRUMvTFVEL1R5bWRCQUNzUm1TSlJKV0sxcUxa?=
- =?utf-8?B?Q1ZOZ0lnV053RjRkVFF3Mkp6YWxEbFhHdGVjYy9MRU1ybFZpdjRFVnN5WjdE?=
- =?utf-8?B?M0lXdnlyMVJ4QUtWRnpZRG9UVndpY2JERzhURzAxUkZ3Skw3MjN3aXBXSkVF?=
- =?utf-8?B?OFhZMFlNRmRmSm8xZ0dqb0t6LzM3K3c4WERWMVExWlZRN2NWK3RnRDczUzB4?=
- =?utf-8?B?dktYbzNGSHFhbFd3MEdBQUdtUUtLcFhTOVo3MUFwQzk5TGIwQTZlQmFhVGkx?=
- =?utf-8?Q?fSSW0T?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2025 12:56:34.1386
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ada36b5d-2fae-4ef3-51b3-08ddd356574d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB74.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9515
 
-Hi Hari,
+On 03.08.2025 11:47, Penny Zheng wrote:
+> File hvm/vm_event.c and x86/vm_event.c are the extend to vm_event handling
+> routines, and its compilation shall be guarded by CONFIG_VM_EVENT too.
+> Futhermore, features about monitor_op and memory access are both based on
+> vm event subsystem, so monitor.o/mem_access.o shall be wrapped under
+> CONFIG_VM_EVENT.
+> 
+> Although CONFIG_VM_EVENT is forcibly enabled on x86, we could disable it
+> through disabling CONFIG_DOMCTL in the future.
+> In consequence, a few functions, like the ones defined in hvm/monitor.h,
+> needs stub to pass compilation when CONFIG_VM_EVENT=n.
+> Remove the CONFIG_VM_EVENT wrapper for "#include <asm/mem_access.h>", as
+> we need declaration there to pass compilation when CONFIG_VM_EVENT=n
+> 
+> The following functions are developed on the basis of vm event framework, or
+> only invoked by vm_event.c/monitor.c/mem_access.c, so they all shall be
+> wrapped with CONFIG_VM_EVENT:
+> - hvm_toggle_singlestep
+> - hvm_fast_singlestep
+> - p2m_mem_paging_drop_page
+> - p2m_mem_paging_populate_page
+> - p2m_mem_paging_resume
+> - hvm_enable_msr_interception
+>   - hvm_function_table.enable_msr_interception
+> - hvm_has_set_descriptor_access_existing
+>   - hvm_function_table.set_descriptor_access_existing
+> - xsm_vm_event_control
+> 
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> ---
+>  xen/arch/ppc/stubs.c                    |  2 +
+>  xen/arch/x86/Makefile                   |  2 +-
+>  xen/arch/x86/hvm/Makefile               |  4 +-
+>  xen/arch/x86/hvm/hvm.c                  |  2 +
+>  xen/arch/x86/hvm/svm/svm.c              |  8 +++
+>  xen/arch/x86/hvm/vmx/vmx.c              | 10 ++++
+>  xen/arch/x86/include/asm/hvm/hvm.h      | 10 ++++
+>  xen/arch/x86/include/asm/hvm/monitor.h  | 65 ++++++++++++++++++++++++-
+>  xen/arch/x86/include/asm/hvm/vm_event.h |  4 ++
+>  xen/arch/x86/include/asm/mem_access.h   |  9 ++++
+>  xen/arch/x86/include/asm/monitor.h      | 15 ++++++
+>  xen/arch/x86/include/asm/p2m.h          |  6 +++
+>  xen/arch/x86/mm/mem_paging.c            |  2 +
+>  xen/include/xen/mem_access.h            | 36 ++++++++++++--
+>  xen/include/xen/monitor.h               |  8 ++-
+>  xen/include/xen/vm_event.h              | 24 ++++++++-
+>  xen/include/xsm/xsm.h                   |  4 +-
+>  xen/xsm/dummy.c                         |  2 +-
+>  xen/xsm/flask/hooks.c                   |  4 +-
+>  19 files changed, 200 insertions(+), 17 deletions(-)
 
-On 30/07/2025 09:45, Hari Limaye wrote:
-> CAUTION: This message has originated from an External Source. Please use proper judgment and caution when opening attachments, clicking links, or responding to this email.
->
->
-> From: Luca Fancellu <luca.fancellu@arm.com>
->
-> Add a scheme to distinguish transient MPU regions, to identify MPU
-> regions which will be mapped for a short period of time.
->
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-> Signed-off-by: Hari Limaye <hari.limaye@arm.com>
+Overall it looks like the patch could be split some. E.g. the XSM changes look
+as if they could go separately.
 
-Reviewed-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> --- a/xen/arch/ppc/stubs.c
+> +++ b/xen/arch/ppc/stubs.c
+> @@ -60,6 +60,7 @@ void vcpu_show_execution_state(struct vcpu *v)
+>      BUG_ON("unimplemented");
+>  }
+>  
+> +#ifdef CONFIG_VM_EVENT
+>  /* vm_event.c */
+>  
+>  void vm_event_fill_regs(vm_event_request_t *req)
+> @@ -76,6 +77,7 @@ void vm_event_monitor_next_interrupt(struct vcpu *v)
+>  {
+>      /* Not supported on PPC. */
+>  }
+> +#endif /* CONFIG_VM_EVENT */
 
-Tested-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Is this really needed? I wouldn't bother editing stubs.c files unless really
+necessary.
 
-(On R82 and R52 with some additional patches)
+> --- a/xen/arch/x86/include/asm/monitor.h
+> +++ b/xen/arch/x86/include/asm/monitor.h
+> @@ -71,6 +71,7 @@ int arch_monitor_domctl_op(struct domain *d, struct xen_domctl_monitor_op *mop)
+>      return rc;
+>  }
+>  
+> +#ifdef CONFIG_VM_EVENT
+>  static inline uint32_t arch_monitor_get_capabilities(struct domain *d)
+>  {
+>      uint32_t capabilities = 0;
+> @@ -102,6 +103,13 @@ static inline uint32_t arch_monitor_get_capabilities(struct domain *d)
+>  
+>      return capabilities;
+>  }
+> +#else
+> +static inline uint32_t arch_monitor_get_capabilities(struct domain *d)
+> +{
+> +    ASSERT_UNREACHABLE();
+> +    return 0;
+> +}
 
-- Ayan
+Instead of this, a mere declaration (with no definition) would make a possible
+problem known at build time, rather than only at runtime.
 
+> --- a/xen/arch/x86/include/asm/p2m.h
+> +++ b/xen/arch/x86/include/asm/p2m.h
+> @@ -775,10 +775,16 @@ static inline int relinquish_p2m_mapping(struct domain *d)
+>  /* Modify p2m table for shared gfn */
+>  int set_shared_p2m_entry(struct domain *d, unsigned long gfn, mfn_t mfn);
+>  
+> +#ifdef CONFIG_VM_EVENT
+>  /* Tell xenpaging to drop a paged out frame */
+>  void p2m_mem_paging_drop_page(struct domain *d, gfn_t gfn, p2m_type_t p2mt);
+>  /* Start populating a paged out frame */
+>  void p2m_mem_paging_populate(struct domain *d, gfn_t gfn);
+> +#else
+> +static inline void p2m_mem_paging_drop_page(struct domain *d, gfn_t gfn,
+> +                                            p2m_type_t p2mt) {}
+
+This, I think, isn't needed. p2m_is_paging() is already short-circuited into
+0 / false when MEM_PAGING=n (implying VM_EVENT=n in your supposed future
+configuration, so the call site is being DCE-ed, and hence the declaration
+that was already there will suffice.
+
+> --- a/xen/arch/x86/mm/mem_paging.c
+> +++ b/xen/arch/x86/mm/mem_paging.c
+> @@ -15,6 +15,7 @@
+>  
+>  #include "mm-locks.h"
+>  
+> +#ifdef CONFIG_VM_EVENT
+>  /*
+>   * p2m_mem_paging_drop_page - Tell pager to drop its reference to a paged page
+>   * @d: guest domain
+> @@ -186,6 +187,7 @@ void p2m_mem_paging_resume(struct domain *d, vm_event_response_t *rsp)
+>          gfn_unlock(p2m, gfn, 0);
+>      }
+>  }
+> +#endif /* CONFIG_VM_EVENT */
+
+As per the previous remark: Why would this be needed? We already have
+
+obj-$(CONFIG_MEM_PAGING) += mem_paging.o
+
+in the corresponding Makefile.
+
+> --- a/xen/include/xen/mem_access.h
+> +++ b/xen/include/xen/mem_access.h
+> @@ -33,9 +33,7 @@
+>   */
+>  struct vm_event_st;
+>  
+> -#ifdef CONFIG_VM_EVENT
+>  #include <asm/mem_access.h>
+> -#endif
+
+Why?
+
+> @@ -73,6 +71,7 @@ typedef enum {
+>      /* NOTE: Assumed to be only 4 bits right now on x86. */
+>  } p2m_access_t;
+>  
+> +#ifdef CONFIG_VM_EVENT
+>  struct p2m_domain;
+>  bool xenmem_access_to_p2m_access(const struct p2m_domain *p2m,
+>                                   xenmem_access_t xaccess,
+> @@ -99,10 +98,41 @@ long p2m_set_mem_access_multi(struct domain *d,
+>  int p2m_get_mem_access(struct domain *d, gfn_t gfn, xenmem_access_t *access,
+>                         unsigned int altp2m_idx);
+>  
+> -#ifdef CONFIG_VM_EVENT
+>  int mem_access_memop(unsigned long cmd,
+>                       XEN_GUEST_HANDLE_PARAM(xen_mem_access_op_t) arg);
+>  #else
+> +struct p2m_domain;
+
+No point in duplicating this; just move it ahead of the #ifdef.
+
+Jan
 
