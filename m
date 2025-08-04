@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A3F8B1A3A3
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 15:41:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1069400.1433251 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6ECDB1A3E1
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 15:52:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1069412.1433261 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uivQz-00019B-VW; Mon, 04 Aug 2025 13:41:01 +0000
+	id 1uivbz-0005SQ-0b; Mon, 04 Aug 2025 13:52:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1069400.1433251; Mon, 04 Aug 2025 13:41:01 +0000
+Received: by outflank-mailman (output) from mailman id 1069412.1433261; Mon, 04 Aug 2025 13:52:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uivQz-00016a-SK; Mon, 04 Aug 2025 13:41:01 +0000
-Received: by outflank-mailman (input) for mailman id 1069400;
- Mon, 04 Aug 2025 13:41:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uivby-0005Qi-To; Mon, 04 Aug 2025 13:52:22 +0000
+Received: by outflank-mailman (input) for mailman id 1069412;
+ Mon, 04 Aug 2025 13:52:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=c2vN=2Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uivQy-00016T-ED
- for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 13:41:00 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a6c1bf05-7138-11f0-b898-0df219b8e170;
- Mon, 04 Aug 2025 15:40:58 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-af96fba3b37so139245766b.3
- for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 06:40:57 -0700 (PDT)
+ id 1uivbx-0005OJ-3e
+ for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 13:52:21 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3d2415ad-713a-11f0-a321-13f23c93f187;
+ Mon, 04 Aug 2025 15:52:19 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-af66f444488so596081466b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 06:52:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a24364fsm718006766b.140.2025.08.04.06.40.56
+ a640c23a62f3a-af9215cdc53sm691622366b.78.2025.08.04.06.52.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Aug 2025 06:40:56 -0700 (PDT)
+ Mon, 04 Aug 2025 06:52:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6c1bf05-7138-11f0-b898-0df219b8e170
+X-Inumbo-ID: 3d2415ad-713a-11f0-a321-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754314857; x=1754919657; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754315539; x=1754920339; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xoFaB6hOuROgJRMYJzJYnA17731w5us9zWBdDSdGBXU=;
-        b=AGeX4BOjTN0dvv3/eWO1r4O8iwSl5nuRFO64J4H9Ix4pMq+bUXOqPHDyQtMOXzOi1/
-         Y1imEr5Xg0Q/oOZfi5jvEvZKnsYU1rHltfD/Xu3+PGOFLdp4UUWmkgRGsEh7E4gPiABT
-         VDAjv/XQ36rN7AoIyQERCT5pEmm5BJ/6C9AfhrwfINM6GtIfshluuYoujzQ/gN5GpGa8
-         ci/yDgXgtZXqockjchYss1VhX3F5Mp65LgmFJCzPBOdmxzxdmB83oHtTcr3sWQHUk3dw
-         6PRFGgPM5S4Q8KkS4+kR1NZy81AGiR4+FZYXKhk2BdbCpYexjoJ8XTY5LlX0rci+TmX9
-         SXlg==
+        bh=/F1MKbyo2whIItkwM3f1Kx9gvYWDGVzVy/Y65aOS0wk=;
+        b=KKBoiE+47cdTIleptPJhtzsoliIXw/m3dlAyUL9sZvvpQLqGodZ7/bArmTXTXzQqyw
+         D4poXEhMJH9aE6XYXh1S0VtDEerZY2P+CyguEllcdFe0sxWJ+d56tSCWQxixFSMpZccP
+         b7iR/lNGVSud+sBBhDmJce2f9xNCgwwB75FN/9U8nIulLfqSNRUJ94qTKPcVcxWrUUNk
+         tdhAp4XZnVGvXt6JeOEvOVG8qvahJlwdZY6jCc2+4Teasky4sP4KbJpHCpbNDi1J2t10
+         9e7lkld47Yfj1ZeUG37jv9BTv8cdlWfv3H+vmF5jWF4C4mjuuavW9K2GlTflggtYQb5p
+         sXhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754314857; x=1754919657;
+        d=1e100.net; s=20230601; t=1754315539; x=1754920339;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xoFaB6hOuROgJRMYJzJYnA17731w5us9zWBdDSdGBXU=;
-        b=gpGXgtMEZLC5U9RWZia9Df8SkTP2JsOxz3nmPRwisHUBwdKMpmxVHYK8KN3vNfRhdG
-         n0wDN9xGHaH7Vbij3tO3jl/PTugmPQQ0rILpvHIYl7CghiYoPif8jjX5oahfnXz+SjWl
-         aI1HxYrSGdmhJBUfMJ/Y2iPzlKtOA9Rcx6YkAGtDvBn0RyczyKFTfVQw2RALWFg80p7b
-         F2azY72K0oFTLoJVSobsN3bFwwCeLAV/Wui8hfKl1/HMwXP9TOIY5mq4l4dR3Bxl4Tsm
-         m6J+RpIz7kag6xWeTj2WBVYIZrAM63i457n+N2aN/V0dBdEVjcbk7KfBFarhhkr9znPG
-         jwyg==
-X-Forwarded-Encrypted: i=1; AJvYcCU2mPaYjmxVQ6boteylWqOAOacaPgfcleEtwr0KPk7FtoKXCkXkp//fLwrQOUBUmhXE0LVnXPysH+E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwPSlmI0ZK8gB4qacpaECPGoGhpYBF0mJh0AV8NEhClbfTau3p8
-	wSa9kx8oMUjRK/ToKC2SqBaodNGivwzExSgBX3uN5qeWMIPMYk8quJr2m4XIK6eK2w==
-X-Gm-Gg: ASbGncsgms2M2x+PnlHQ82ijKQLXiyBAzts4H47Va4Ip3enMSWkF/eIIOpfC0OxnbNb
-	7C8PwFKcbixUxzgoUGgDvejorOupK6rFRbWbic0cd9M8xBGjBGEQLjavgul8aqxtDYISNMC5I0D
-	hKQLezugMoW+NYcfMvqWrERBYmNmiYali1LDmxN2fMGM5jwq2Sq49qscqzKjWFC5iirbOVQyDaY
-	lQXBS784j820pZHTJWpUzDbU5o5OR6gOQCPfkxKx9deWBYNQa2atQTguN1q0MJLEUTsJgbfNYl7
-	VtH9OB4K2vDfUziS6UX5+nxjepap8heioyuLD1wcv6pZwaew8xAabShbClNE6TL/lCRA0XWVCCk
-	ml2+W+LH8oyosYA/RnUmnPfk1MfTK6QMQ3ua2PcMrex2tBfyBRrhUOW17HAyZf9LEsjjmCgazHk
-	LwxI3I7ag=
-X-Google-Smtp-Source: AGHT+IEPeWvAUILsdcqEOY+6AbHLE7TwVnkW5TKULyFG5VEPsaQ8onzppVWSq6FeGfYgOl/C4MPKUQ==
-X-Received: by 2002:a17:906:478c:b0:ae6:f663:7232 with SMTP id a640c23a62f3a-af940258c08mr782419766b.61.1754314857116;
-        Mon, 04 Aug 2025 06:40:57 -0700 (PDT)
-Message-ID: <e1d00521-2a95-43bf-a5ea-61696d0c2023@suse.com>
-Date: Mon, 4 Aug 2025 15:40:55 +0200
+        bh=/F1MKbyo2whIItkwM3f1Kx9gvYWDGVzVy/Y65aOS0wk=;
+        b=gI8QTkc8R9GuibfTZWHrD3RMFc18a2Y1pKNtQ/LALIGufch5JJeweDFYY2aEyDEXDJ
+         tsTzEASp8HjSCBK86B9O1+sbzujCbAhnM92zWNvlEkbzww2MO7q/dbg6asUIEr3GAMtR
+         lnRXpK4WYwGgopV0aINKGqZ3n3IXOBZYLuXcBrCoPkcj6J0cBTQC0zPnuStzlA06zO7o
+         JJvyhyDbouk4ch7UU2FwuP1zvvw/AQHIsRU3wPj7gieKcLYjdm/xHsT/4/89OYjhI82E
+         G/Zv1sNjUhbFppKXWzVC90FKuKqkmsBr3rhbYDxu5CHW9I31NUo16qGkX/enbxkuQb5Q
+         DkzQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWBrPbsKNQCriqziRq5rbWDb++gZpquXWR6/rq0OyAhnEPbvEhS+JpA0/iV1UicupqEkX56B86Ffdc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy5BO4HYC+GhJU59kt522qFqkqZMTswKJ0Rw3hR6ZTx9N7hVMqx
+	YJF7ss1oItnO/Dy2Md+S3+GeJXaHkjXk4D+WkMRPMFlPdXVHph6suTcj8MYcsCAJNg==
+X-Gm-Gg: ASbGncv6j0HkNIlaFQwMs/yci4pn0t7o0l54Ua5OzeWMCLD35yTQeNIF9KFF0nbIlDq
+	ESgRuZ/NUfrtP0liMhENsjki/9p/nNz7TswpjWDxkBjsylqruaiMixKuzVF+g3J0gpQ45idSHpp
+	8e+5NS4k0BQJ2F/SHJZYpsFN9BLMd3MbNzDMlWvY+ypw/5ZZwuzjB3AK6dXZj5wq6zlOr2YtfdB
+	ThHezc2ES/WmB0vwaxqvPzn0d96DqzleH8Rmd6m5nkr9qL6XCHrwBoXEX9WuIDeaHUFDpI3y7s8
+	kl2AdWsfZmESbUoAjGMa6NLUl4A3ftBTsbx/EJM0N0RcN4KEgFsaPg8KIpUUugl4vR9CJSNLh3x
+	YzQgZPKzeGCt2R4536FD8afE5wdWl8C9S5cWFtkROL0pt8LAK9ApHAeelMYiBucv4Fp/aJkSzpd
+	lfoEaKGuiAKyCGEZfBKw==
+X-Google-Smtp-Source: AGHT+IHJxHUoohHWFrjuy5qfOCv55/tLt5fsA7q+Frsw3ncGw4xMD7FUVC2IWnhnkKFtD+RU8WaJ+Q==
+X-Received: by 2002:a17:907:3e8d:b0:adb:23e0:9297 with SMTP id a640c23a62f3a-af940014680mr949623866b.17.1754315539092;
+        Mon, 04 Aug 2025 06:52:19 -0700 (PDT)
+Message-ID: <829f9477-2b18-47f0-8fb3-57bffa8d133d@suse.com>
+Date: Mon, 4 Aug 2025 15:52:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/8] pdx: introduce a new compression algorithm based
- on region offsets
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Community Manager <community.manager@xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v3 01/20] xen/riscv: implement sbi_remote_hfence_gvma()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250724110416.2081-1-roger.pau@citrix.com>
- <20250724110416.2081-8-roger.pau@citrix.com>
- <87c1a72d-62cf-475a-8320-70e1954cd0f5@suse.com>
- <aJCw0vS2rw2CXJqq@macbook.local>
+References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
+ <b0649cf7b071d0a1cdd7fc9b8d73abea5d0646b4.1753973161.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,229 +124,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aJCw0vS2rw2CXJqq@macbook.local>
+In-Reply-To: <b0649cf7b071d0a1cdd7fc9b8d73abea5d0646b4.1753973161.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 04.08.2025 15:08, Roger Pau Monné wrote:
-> On Tue, Jul 29, 2025 at 04:16:15PM +0200, Jan Beulich wrote:
->> On 24.07.2025 13:04, Roger Pau Monne wrote:
->>> --- a/xen/common/pdx.c
->>> +++ b/xen/common/pdx.c
->>> @@ -24,6 +24,7 @@
->>>  #include <xen/param.h>
->>>  #include <xen/pfn.h>
->>>  #include <xen/sections.h>
->>> +#include <xen/sort.h>
->>>  
->>>  /**
->>>   * Maximum (non-inclusive) usable pdx. Must be
->>> @@ -40,6 +41,12 @@ bool __mfn_valid(unsigned long mfn)
->>>  
->>>  #ifdef CONFIG_PDX_MASK_COMPRESSION
->>>      invalid |= mfn & pfn_hole_mask;
->>> +#elif defined(CONFIG_PDX_OFFSET_COMPRESSION)
->>> +{
->>> +    unsigned long base = pfn_bases[PFN_TBL_IDX(mfn)];
->>> +
->>> +    invalid |= mfn < base || mfn >= base + pdx_region_size;
->>
->> Leveraging wrapping, this could be simplified to
->>
->>     invalid |= mfn - base >= pdx_region_size;
->>
->> I think. Considering it's a frequently used path, doing so may be worthwhile.
+On 31.07.2025 17:58, Oleksii Kurochko wrote:
+> Instruct the remote harts to execute one or more HFENCE.GVMA instructions,
+> covering the range of guest physical addresses between start_addr and
+> start_addr + size for all VMIDs.
 > 
-> I don't think that would work for all cases, take the following
-> example:
+> The remote fence operation applies to the entire address space if either:
+>  - start_addr and size are both 0, or
+>  - size is equal to 2^XLEN-1.
 > 
-> PFN compression using lookup table shift 18 and region size 0x40000
->  range   0 [0000000280000, 00000002bffff] PFN IDX  10 : 0000000280000
-> 
-> If you pass mfn 0 to mfn_valid() with your proposed adjustment, the
-> result of the subtraction would be:
-> 
-> 0 - ~0UL == 1
-> 
-> Which wouldn't satisfy the >= condition, and hence pfn 0 would be
-> reported as a valid mfn.  I think we need to keep both sides of the
-> check.
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Hmm, right - I keep forgetting that the start of a pfn_bases[x] isn't necessarily
-a valid page itself.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
->>> +static void __init cf_check swp_node(void *a, void *b, size_t size)
->>> +{
->>> +    SWAP(a, b);
->>
->> This doesn't look right - you swap a and b, not what they point to.
->>
->>> +static bool __init pfn_offset_sanitize_ranges(void)
->>> +{
->>> +    unsigned int i = 0;
->>> +
->>> +    if ( nr_ranges == 1 )
->>> +    {
->>> +        ASSERT(PFN_TBL_IDX(ranges[0].base) ==
->>> +               PFN_TBL_IDX(ranges[0].base + ranges[0].size - 1));
->>
->> I think this points out a naming issue in patch 2: "base" and "size" look
->> as if these were address / byte count, when they're PFN / page count.
->> Which caught my eye because of the values being passed to something that
->> actually wants a PFN (and hence looked wrong at the first glance).
-> 
-> The struct name is pfn_range, I could rename the fields to base_pfn
-> and pages or similar, but my impression was that the struct name was
-> enough of a pointer that those are PFN ranges.
+However, ...
 
-Problem being that the struct name isn't anywhere in sight here.
+> --- a/xen/arch/riscv/include/asm/sbi.h
+> +++ b/xen/arch/riscv/include/asm/sbi.h
+> @@ -89,6 +89,25 @@ bool sbi_has_rfence(void);
+>  int sbi_remote_sfence_vma(const cpumask_t *cpu_mask, vaddr_t start,
+>                            size_t size);
+>  
+> +/*
+> + * Instructs the remote harts to execute one or more HFENCE.GVMA
+> + * instructions, covering the range of guest physical addresses
+> + * between start_addr and start_addr + size for all VMIDs.
 
->  Do you have any
-> alternative proposal about how to name those?
+... I'd like to ask that you avoid fuzzy terminology like this one. Afaict
+you mean [start, start + size). Help yourself and future readers by then
+also saying it exactly like this. (Happy to make a respective edit while
+committing.)
 
-Your suggested new naming looks good to me.
+> + * Returns 0 if IPI was sent to all the targeted harts successfully
+> + * or negative value if start_addr or size is not valid.
 
->>> +        return true;
->>> +    }
->>> +
->>> +    while ( i + 1 < nr_ranges )
->>> +    {
->>> +        /*
->>> +         * Ensure ranges [start, end] use the same offset table index.  Should
->>> +         * be guaranteed by the logic that calculates the pfn shift.
->>> +         */
->>> +        if ( PFN_TBL_IDX(ranges[i].base) !=
->>> +             PFN_TBL_IDX(ranges[i].base + ranges[i].size - 1) ||
->>> +             PFN_TBL_IDX(ranges[i + 1].base) !=
->>> +             PFN_TBL_IDX(ranges[i + 1].base + ranges[i + 1].size - 1) )
->>
->> It feels a little odd to re-do the 2nd half of the checking here on the next
->> iteration, when the table wouldn't have changed when ...
->>
->>> +        {
->>> +            ASSERT_UNREACHABLE();
->>> +            return false;
->>> +        }
->>> +
->>> +        if ( PFN_TBL_IDX(ranges[i].base) != PFN_TBL_IDX(ranges[i + 1].base) )
->>> +        {
->>> +            i++;
->>> +            continue;
->>
->> ... taking this path. Could I talk you into moving the latter half ...
->>
->>> +        }
->>
->> ... here? If that's needed at all, as ...
->>
->>> +        /* Merge ranges with the same table index. */
->>> +        ranges[i].size = ranges[i + 1].base + ranges[i + 1].size -
->>> +                         ranges[i].base;
->>
->> ... the new range should also fulfill the requirement. Just that the last
->> such range then wouldn't be checked, unless ...
->>
->>> +        memmove(&ranges[i + 1], &ranges[i + 2],
->>> +                (nr_ranges - (i + 2)) * sizeof(ranges[0]));
->>> +        nr_ranges--;
->>> +    }
->>
->> ... that checking was put past the loop. Which then would allow to remove
->> the special casing of nr_ranges == 1 at the top of the function: You'd
->> uniformly check the ranges[nr_ranges - 1] here.	
-> 
-> What about doing it like:
-> 
-> static bool __init pfn_offset_sanitize_ranges(void)
-> {
->     unsigned int i = 0;
-> 
->     if ( PFN_TBL_IDX(ranges[0].base) !=
->          PFN_TBL_IDX(ranges[0].base + ranges[0].size - 1) )
->     {
->         ASSERT_UNREACHABLE();
->         return false;
->     }
-> 
->     while ( i + 1 < nr_ranges )
->     {
->         /*
->          * Ensure ranges [start, end] use the same offset table index.  Should
->          * be guaranteed by the logic that calculates the pfn shift.
->          */
->         if ( PFN_TBL_IDX(ranges[i + 1].base) !=
->              PFN_TBL_IDX(ranges[i + 1].base + ranges[i + 1].size - 1) )
->         {
->             ASSERT_UNREACHABLE();
->             return false;
->         }
-> 
->         if ( PFN_TBL_IDX(ranges[i].base) != PFN_TBL_IDX(ranges[i + 1].base) )
->         {
->             i++;
->             continue;
->         }
-> 
->         /* Merge ranges with the same table index. */
->         ranges[i].size = ranges[i + 1].base + ranges[i + 1].size -
->                          ranges[i].base;
->         memmove(&ranges[i + 1], &ranges[i + 2],
->                 (nr_ranges - (i + 2)) * sizeof(ranges[0]));
->         nr_ranges--;
->     }
-> 
->     return true;
-> }
-> 
-> I've pulled the index 0 check ahead of the loop, which then covers for
-> the case where nr_ranges == 1.  There's also no duplicate checking of
-> the ranges, since the range at i + 1 will always be a non-checked one;
-> either because the array has been shifted as a result of a range
-> merging, or the index has been advanced.
+This similarly is ambiguous: The union of the success case stated and the
+error case stated isn't obviously all possible states. The success
+statement in particular alludes to the possibility of an IPI not actually
+reaching its target.
 
-Looks good, thanks.
+> + * The remote fence operation applies to the entire address space if either:
+> + *  - start_addr and size are both 0, or
+> + *  - size is equal to 2^XLEN-1.
 
->>> +        ranges[i].size = start + ranges[i].size - ranges[i].base;
->>> +        ranges[i - 1].size = ranges[i].base + ranges[i].size -
->>> +                             ranges[i - 1].base;
->>> +
->>> +        if ( i + 1 < nr_ranges )
->>> +            memmove(&ranges[i], &ranges[i + 1],
->>> +                    (nr_ranges - (i + 1)) * sizeof(ranges[0]));
->>> +        else /* last range */
->>> +            mask |= pdx_region_mask(ranges[i].base, ranges[i].size);
->>> +        nr_ranges--;
->>> +        i--;
->>> +    }
->>> +
->>> +    /*
->>> +     * Populate a mask with the non-equal bits of the different ranges, do this
->>> +     * to calculate the maximum PFN shift to use as the lookup table index.
->>> +     */
->>> +    for ( i = 0; i < nr_ranges; i++ )
->>> +        for ( unsigned int j = 0; j < nr_ranges; j++ )
->>> +            idx_mask |= (ranges[i].base & ~mask) ^ (ranges[j].base & ~mask);
->>> +
->>> +    if ( !idx_mask )
->>> +        /* Single region case. */
->>> +        pfn_index_shift = flsl(mask);
->>> +    else if ( flsl(idx_mask) - ffsl(idx_mask) < CONFIG_PDX_OFFSET_TBL_ORDER )
->>> +        /* The changed mask fits in the table index width. */
->>> +        pfn_index_shift = ffsl(idx_mask) - 1;
->>> +    else
->>> +        /* Changed mask is wider than array size, use most significant bits. */
->>> +        pfn_index_shift = flsl(idx_mask) - CONFIG_PDX_OFFSET_TBL_ORDER;
->>
->> Perhaps emit a log message here to indicate that bigger PDX_OFFSET_TBL_ORDER
->> may yield better results?
-> 
-> What about:
-> 
-> printk(XENLOG_DEBUG
->        "PFN compression table index truncated, requires order %u\n",
->        flsl(idx_mask) - ffsl(idx_mask) + 1);
-
-Again, fine with me.
+Whose XLEN is this? The guest's? The host's? (I assume the latter, but it's
+not unambiguous, unless there's specific terminology that I'm unaware of,
+yet which would make this unambiguous.)
 
 Jan
 
