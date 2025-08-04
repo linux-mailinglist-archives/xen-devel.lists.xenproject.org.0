@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C13CB19ED1
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 11:35:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1068990.1432839 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBFEDB19EF5
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 11:46:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1069002.1432849 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uiraW-00010p-83; Mon, 04 Aug 2025 09:34:36 +0000
+	id 1uirmG-0003zM-BA; Mon, 04 Aug 2025 09:46:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1068990.1432839; Mon, 04 Aug 2025 09:34:36 +0000
+Received: by outflank-mailman (output) from mailman id 1069002.1432849; Mon, 04 Aug 2025 09:46:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uiraW-0000z7-4u; Mon, 04 Aug 2025 09:34:36 +0000
-Received: by outflank-mailman (input) for mailman id 1068990;
- Mon, 04 Aug 2025 09:34:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uirmG-0003wu-6y; Mon, 04 Aug 2025 09:46:44 +0000
+Received: by outflank-mailman (input) for mailman id 1069002;
+ Mon, 04 Aug 2025 09:46:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=c2vN=2Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uiraV-0000ys-2r
- for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 09:34:35 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 39bcbdc3-7116-11f0-a321-13f23c93f187;
- Mon, 04 Aug 2025 11:34:32 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-af925cbd73aso670545366b.1
- for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 02:34:32 -0700 (PDT)
+ id 1uirmE-0003wY-9v
+ for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 09:46:42 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e8b27213-7117-11f0-b898-0df219b8e170;
+ Mon, 04 Aug 2025 11:46:35 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-af93bcaf678so320813166b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 02:46:35 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a0a3792sm701998966b.50.2025.08.04.02.34.30
+ a640c23a62f3a-af919e96050sm710727066b.0.2025.08.04.02.46.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Aug 2025 02:34:31 -0700 (PDT)
+ Mon, 04 Aug 2025 02:46:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 39bcbdc3-7116-11f0-a321-13f23c93f187
+X-Inumbo-ID: e8b27213-7117-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754300071; x=1754904871; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754300794; x=1754905594; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+GE+zGTv9O+mdDD0ctcHl8vIDE2iHIW9l++of6DZ9A8=;
-        b=CCv/UqX4vPQR4LOcU/hHp8a5HfZYzRXC3h3d647KkuFrkOXuCrGx7I/k+ad8r/AIV4
-         kGJ1B3feUXCbaI9kmdA3xufG3IIutOtCQ+Udk0j6xQj8Z72kZrOmOtKibtRmU86lkFpP
-         dZNlGGYO+sC2CUR1cXEz6Rk7lkBz9rj7vfe0o8mOi+evC27VrLRIz8e/1n0y+unHjVjx
-         6uWZzGUHGesoPvekgM6KVwEnWKcL4kfHz+4Nx1kRfCUQR1z/TAQJzUs44rTbbJ9keDVO
-         ss0StQ4LlgZ3LvH5Cx2+Lw+FLbYabusGS/5TurbZbwrgioPaJHX3Hl7/rXfwXGcbhORG
-         kKBA==
+        bh=HdrvA9JI2A33aDBJxxfFF1vQBWdZKHdIZjz6ftvV8LI=;
+        b=Mmn1Pbr6qLuSASMJy9O2QITp18DjnC9Ar/otaFnD6TsQjBUdg1NeKO890FCLB4p7CS
+         B8T2GNEkkjPvxbcOoMJgoP2LSt5oufdv+kOQSTiPLEqNk5wKW2zl8Ako2+wlkR7F099G
+         mrX8Jo2bmBXdnKdyXPb6G7wK41Z2PfsXZFQuqy+kTi8ZaNkJ4tElKsPv/1dAvyE/fKXw
+         muKCru8dZaEdwPTZM3WHsjIbdaARQmGxFiYKIgOi47zaTJ7qBdOgIW0X8w5Vm54VFF+F
+         ZK/0yAPZwNXc5MDODj4CWmiEARHnZZBd6NfAJQJQgpcWw/JRgHw9SPVPGR8YSzjc2d/2
+         x3IA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754300071; x=1754904871;
+        d=1e100.net; s=20230601; t=1754300794; x=1754905594;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+GE+zGTv9O+mdDD0ctcHl8vIDE2iHIW9l++of6DZ9A8=;
-        b=v9Wf24Of1ZKn7mIlRqonn87VIvs1O9hz4OGWweFtk2dPtbnaxiU9+AB2gSEdkdLK3D
-         B0cY6JduxW2Ao+JnUVHRebG9rWURRZbrTqKcXmszagCroWtwMn3pD++7JZV7jm14ErG6
-         WFzvqwens0dkgfKE81nmwW9YLon8qPaxKTNm6AK5sbQJ3GCLyimyZHfZ8aAtAZQgkRPL
-         vStlycIIv2KRevkHH1xEhyWQSImP+gy6CbHD8D84KR4zuR6ep/Rztb0gglgUwqjizyK7
-         xXAXnsexkZe38aqu+YlUkPRivpkBe9WLJN9mUFqbI8Z60xG8QOQPO+FnivBLM+R7rPY1
-         QgPg==
-X-Forwarded-Encrypted: i=1; AJvYcCUTbSLX/rbHfHRnY8q+nW6yVxKhpQcDB2zNI0X2V0EUcMjRJxMvmJaFUp+siTHx5nTtFQcNMZRwCBE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwrDgYDj5Vznuswi00uBwFK4mJY5FGEppjftwpIi7niruYPoFfP
-	16WMn1Bf1r886MHsTCMrO8HWUM7Rx+b98kkmPxZi4xH9+W7f+g7Okt++agkoJ9A4kg==
-X-Gm-Gg: ASbGncvu8JF/rsMkdzdUfqiJG1DgCJj7wDSdA7ea0BB3QCmKS+2X2bNpbz9x/SGJjux
-	YUQluaWcvPB63Ojlpda5HE5OWIqSFpBgqT/h0euAPwNrm0RkUBSh1prJI0nbO/WUV1a9JuUmUo9
-	d/62Xk+mizAWDHVQ5a3H4Ej2KjpmcJiSSkRAm1EPoG97RZPCAoR7Eu2L0DpmHMmRrrlycvGAX14
-	tJxZsqFvey/sfYUVpJ+NPlWo94E68RyTWY6Q7HZjuqAXUHKRpGpHrpGZz6TlnuFZcsTQpt0OvW9
-	FZY58opPIiAwjpbdmxgDwfqR0e1DdGGpMB2mibRGiCRr8HRf52/IZzBkCxc+GUahoQHXo97NOyA
-	ezl214o7+59S4r8hAZ4kSJYfRc7IbKluh69h4IBdjfrHse6N2DxzOJEW2BO5TtxPLpWi/ZdN6rO
-	g1x4ovZ30=
-X-Google-Smtp-Source: AGHT+IGRyfG0jEfscZ9nBBlqUPrcyGWQmWyVvnvNBVsoWBj/UsO5ktFFMlA9OZ5rrPYuZt2jnOd+lg==
-X-Received: by 2002:a17:906:c10b:b0:af9:3d0a:f37d with SMTP id a640c23a62f3a-af9401679d4mr931111666b.37.1754300071508;
-        Mon, 04 Aug 2025 02:34:31 -0700 (PDT)
-Message-ID: <4ceb64fa-d7cb-4c77-8a60-1526046c037c@suse.com>
-Date: Mon, 4 Aug 2025 11:34:33 +0200
+        bh=HdrvA9JI2A33aDBJxxfFF1vQBWdZKHdIZjz6ftvV8LI=;
+        b=FjMjF1iC/lrYlfAgoeq/ZGvq4Bu4/iDZu0oy2lyOSilTxIJ0ZwxCHlBSXslmkYLaIf
+         nAJJzMZnBG3Zkm63rROqRn8UUzKrUa/hZfI35rG403F/lMPfybu4ud215QizKjYdfbmD
+         Us8e4m8G0RgOoD1zUfw54/AUXiSm5OQ7dNcKS/sucjEY6SVRadFsQCqwFThY7eV+Esg+
+         MjMSl+1qSxfKAKNYwqs39PPY3823uBQsktHF642utAL1aSkCTwjOPZVWBsI6Y9Il6kov
+         akQK5rS1Tt/60z+YGCPUOZ8dwyXYm9vrifwyUlBNQKbu7/fvjZfSkod/wkBfFdC+/TS/
+         KheA==
+X-Forwarded-Encrypted: i=1; AJvYcCWU08GemqQOLzI6YKl6akH0W8nIWJS82R2zYLSkb+OuSoMAx8QlQRorlr3d1E4x+D2HZAhmA9evp6Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywk40eBdfTJ62B4xkcPaV9iY/GhVbRo1mE5OlUbDZl5isc97srv
+	rJgXYM5f5lPTr3bQZ85vzAedhYqG5cFQjH9+ibVCWa5JEOra1BX+hI1if5QorxDHVA==
+X-Gm-Gg: ASbGncsaxEmE/ONhibLZUBwaqufeSgmc6fVWEKIizG81tofeW5jwappBSyOTExx/Yqu
+	Ej+F+b+6lz4Y1ff6iT6IpZaGhfuMUgeq5BcLvDWQNdVvgG8kXZO7hFFofl5kQCMIzqbX3bif0R9
+	h0wr7pjiFiy2IZRJFT+ZXoFg8zF8ReLkK9ILaPzShlLQKUZnJLpqBi9g1UgoUeD8vsaqlQD0M19
+	BPKV7PuchfQtqFPaaZjtZhvSJjZZ95uhhX2CdWlz2iX5rFqlEfdpMfdfHtgtgL71ANY07kLwdOH
+	qLfrt7P2CFUFSJvxRKc8LHmtBO6lJeHNzFPJ3EVGe8Hj7QgKeSjC+HZLAeGz8JMnqNUdz9ovclB
+	M+w6KW7TYTKKCUf2/QSZ/s1eWoaO5WV9gZz9C8w7dYE8ucSbQBOk/Gw7CUCRc2OQbw5MrM1nKph
+	jcvqkNVk+9+MQyxheofA==
+X-Google-Smtp-Source: AGHT+IG3qTXoyNCQM9iP3YXVvfWJA9kb9szxX7r9xgsqPEab9ctwU3slVu1ePPrP26wccyZaQY6bqw==
+X-Received: by 2002:a17:906:9f92:b0:ae0:bff9:98de with SMTP id a640c23a62f3a-af9401ff12cmr770699566b.40.1754300794443;
+        Mon, 04 Aug 2025 02:46:34 -0700 (PDT)
+Message-ID: <f2be5a00-63e6-489d-a26a-7d48d6ae41ad@suse.com>
+Date: Mon, 4 Aug 2025 11:46:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/x86: fix xen.efi boot crash from some bootloaders
-To: Yann Sionneau <yann.sionneau@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250724140731.1502774-1-yann.sionneau@vates.tech>
+Subject: Re: [PATCH v4 1/8] xen/domain: introduce common emulation flags
+To: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20250731192130.3948419-1-dmukhin@ford.com>
+ <20250731192130.3948419-2-dmukhin@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,44 +120,23 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250724140731.1502774-1-yann.sionneau@vates.tech>
+In-Reply-To: <20250731192130.3948419-2-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.07.2025 16:07, Yann Sionneau wrote:
-> xen.efi PE does not boot when loaded from shim or some patched
-> downstream grub2.
-> 
-> What happens is the bootloader would honour the MEM_DISCARDABLE
-> flag of the .reloc section meaning it would not load its content
-> into memory.
-> 
-> But Xen is parsing the .reloc section content twice at boot:
-> * https://elixir.bootlin.com/xen/v4.20.1/source/xen/common/efi/boot.c#L1362
-> * https://elixir.bootlin.com/xen/v4.20.1/source/xen/arch/x86/efi/efi-boot.h#L237
-> 
-> Therefore it would crash with the following message:
-> "Unsupported relocation type" as reported there:
-> 
-> * https://github.com/QubesOS/qubes-issues/issues/8206#issuecomment-2619048838
-> * https://lore.kernel.org/xen-devel/7e039262-1f54-46e1-8f70-ac3f03607d5a@suse.com/T/#me122b9e6c27cd98db917da2c9f67e74a2c6ad7a5
-> 
-> This commit adds a small C host tool named keeprelocs
-> that is called after xen.efi is produced by the build system
-> in order to remove this bit from its .reloc section header.
-> 
-> Signed-off-by: Yann Sionneau <yann.sionneau@vates.tech>
+On 31.07.2025 21:21, dmkhn@proton.me wrote:
+> --- a/xen/include/xen/sched.h
+> +++ b/xen/include/xen/sched.h
+> @@ -652,6 +652,8 @@ struct domain
+>      unsigned int *llc_colors;
+>  #endif
+>  
+> +    uint32_t emulation_flags;
 
-So I found a way to deal with this at the linker side, without any new command
-line options. Behavior is solely driven by the attributes of any incoming .reloc
-sections (of which there would be none by default, retaining original behavior).
-The important patch is [1], but at least the first patch of the series [2] would
-in most cases also be wanted/needed (patch 04 is obviously a mechanical prereq
-for the main patch). Need for other of the prereqs there depends on the scope
-and purpose of one's binutils build(s).
+Just one further remark: The field probably never should have been of this
+type; unsigned int will do, and imo will want switching to while the field
+is being moved. (Before giving an x86 ack, I want to convince myself though
+that this is moving us in the right direction.)
 
 Jan
-
-[1] https://sourceware.org/pipermail/binutils/2025-August/143153.html
-[2] https://sourceware.org/pipermail/binutils/2025-August/143141.html
 
