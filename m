@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BD3EB1A6A0
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 17:53:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1069702.1433468 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF9A7B1A6E4
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 17:59:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1069713.1433479 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uixUq-0004BY-62; Mon, 04 Aug 2025 15:53:08 +0000
+	id 1uixaU-0005H0-PX; Mon, 04 Aug 2025 15:58:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1069702.1433468; Mon, 04 Aug 2025 15:53:08 +0000
+Received: by outflank-mailman (output) from mailman id 1069713.1433479; Mon, 04 Aug 2025 15:58:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uixUq-00048W-2v; Mon, 04 Aug 2025 15:53:08 +0000
-Received: by outflank-mailman (input) for mailman id 1069702;
- Mon, 04 Aug 2025 15:53:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uixaU-0005Ep-Mp; Mon, 04 Aug 2025 15:58:58 +0000
+Received: by outflank-mailman (input) for mailman id 1069713;
+ Mon, 04 Aug 2025 15:58:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=c2vN=2Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uixUp-00047I-4a
- for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 15:53:07 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1bb42055-714b-11f0-b898-0df219b8e170;
- Mon, 04 Aug 2025 17:53:05 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-615c29fc31eso7059956a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 08:53:05 -0700 (PDT)
+ id 1uixaT-0005Ej-Ij
+ for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 15:58:57 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ed3cc2e2-714b-11f0-a321-13f23c93f187;
+ Mon, 04 Aug 2025 17:58:56 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-af958127df5so324736666b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 08:58:56 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af9247845edsm683443166b.46.2025.08.04.08.53.03
+ a640c23a62f3a-af91a0a3981sm753607666b.35.2025.08.04.08.58.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Aug 2025 08:53:03 -0700 (PDT)
+ Mon, 04 Aug 2025 08:58:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1bb42055-714b-11f0-b898-0df219b8e170
+X-Inumbo-ID: ed3cc2e2-714b-11f0-a321-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754322784; x=1754927584; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754323136; x=1754927936; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EsAODfqZ3sep76Tn+MGFebB71CzByqg4OlXzxi1b1Bo=;
-        b=e6k5utGv2a1LMYFzJDXDakvo2bjzJ7ng98HMOUftCbhrDusBPlj4uXLSjs+ZzO1WaT
-         m646Fepj2qjCzne3ITjRCvw2gAkW98RKbu+uEIOucpsSkgpAFHaKCjo9kOcjpDvrjr+5
-         nY5ntdlIoPqs33Zx60t1bTHS7ukJaZaXWFo7mEz4AS12/NvhVWxbUD5XMy8FHHKlZtzn
-         8RUV4eNhjGGzxrFRjz/C7sH0xpP1f6c9cnn6Iu/Ue9OVfNZoJI4S5wrEojfDSN4bLAMd
-         u9g2EmjIH7n4CAoO1OjYr3ro5cB1MWo6gnwxYWFExfYBBm4cJDnF6ue6H3xvG8NxFFJc
-         3cpQ==
+        bh=yI7Yb0AYIcmOD6mV+6lj+VTP26acA9tTSKKEj246r98=;
+        b=AUq5MD+F5jOzp+VE6I6LRkwdQSuTPp6MR0T461Qdf4sc83t41wKkl0s3SAs6TvED8Y
+         5Sip4jf/YalQ5spS6OKWP9/u1wN8pPaiVnt8msLwkpjn6HEz42XKEuJZq6BFzVIPBGWM
+         GVfwTtRErqV3QTgKHXxE6YwL4CmFAvDE12p0o1KyGMonz/0Fw7DPgoPmU53ZS8az1TOw
+         n/bpCHfl6OgPhUsqWqJH7Jvtfhi14dwFQ/b52VsqrDbUIN8STLwikStJeg0UeK3FH1zj
+         g0/ssZeqX3ov4rqeBPZdMW05dInjZJCtyy0O4KpefXZvvGZGwLhaw9jdwooeRz8oYeMT
+         NLrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754322784; x=1754927584;
+        d=1e100.net; s=20230601; t=1754323136; x=1754927936;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EsAODfqZ3sep76Tn+MGFebB71CzByqg4OlXzxi1b1Bo=;
-        b=US0HF6KOKvKacxlLAs2MyOEm1a7V6acb2ipXQ2hMqq1vrg/MTpecToo7xaC7psOWGR
-         ylc3w2r7vme9qi/i7A8jjMTT6jRbSKZqG//zGO/9XyT6itnoq4TL4RhikDVZebJeKtOP
-         G4JDLBKDMZL2FC7q8fxpEwRRMHB5vGCXuFPAaHMTDa9qQpNOgNP1Sh3c5dKYh0WiegFN
-         pUz8H3QYbb0kWDjpUHoGBoDpj2uRhDBDNiW1M4IJRI29ub5ZQZlDbcmPMMvl1VC/Z1La
-         1gmnnUW1rRG7OMiqlRbjckvW1k8yw7tRC3z7ttw2H0hYGGqY8fHhIOahKA+6l9zlV13/
-         llkA==
-X-Forwarded-Encrypted: i=1; AJvYcCXhPbP32BZ/jbAMsxclAtEr+ZFQfuxn7QUA/XJsQNZ0PbW6NSxERIN/obi9L6qFhfQpLCHFHJjoECY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyuqiIea7DBJkuzwH7yiLgPcJiUhpA/X5pcx8pWKONhq+giepnj
-	C2QO0ge+sOxcY4VURZrXJsXbkHm8Y/M53rv2lTrTfpq2/tOHl6EGpKCHfSa0yuKqFw==
-X-Gm-Gg: ASbGncsCLiojV1QfVi3jWtoMiH/xfwnbVa4jwX3YkImkdLWcw6UfIMthAbp+KtrEngg
-	Pi6t078Mf9sMkYn0BnCXkS4d/putdE5p/3E2GnPIf9SkhsAZK3Ga0FC31/5wath9TUXJx339C1d
-	RG+bYQzfRFP6ZSecSA7nSq6dAvutQFUH6rqeUCU2N4/mn0Z1hn/zbBqKgyn6750gcrj0N+3tCyD
-	0QI7rJRxmogqVt2m60LsTMZjLfr4GvePpJGjS8YKdFHV/F/Dc+p7ih+/6ysHvIAYaDhTBAcvle4
-	otpZAkLpydMO6o1946rVTuNkuRwGDbhgAg8CyqMKzvLGW/NeDhyYL0eCJQG4Snyyo/lf2pbo9m4
-	jOD/HHmYF/7pRB9YhU7Se8zFT+bOzLgDyG8BgM/pdmdn+78qSiJkSXqNiat7vDcaW+aKSYNxu66
-	2PhFHxG4A=
-X-Google-Smtp-Source: AGHT+IH6EE/Ay87sTiqtTBrm7BVg/kV3FtbldzOKhykIZN9ZF4OGp7I880vxySOKNmoDYXq3ywrANw==
-X-Received: by 2002:a17:907:7247:b0:ae0:df46:abd1 with SMTP id a640c23a62f3a-af9401c783emr1066689566b.45.1754322784199;
-        Mon, 04 Aug 2025 08:53:04 -0700 (PDT)
-Message-ID: <cff0fc63-f5f6-464e-b738-0de03661084a@suse.com>
-Date: Mon, 4 Aug 2025 17:53:03 +0200
+        bh=yI7Yb0AYIcmOD6mV+6lj+VTP26acA9tTSKKEj246r98=;
+        b=mFriUrh6DCxM3JI8yALPJGi1WggIjNqbFvDQe7BLPif+EnqwND3dkfVYJXucKx6iT6
+         QW16GfO8zb8ruz/riDH2nAtOzEKSk3h52MOhoH5JOztWBGJ4ZWYKS1BHF6NswN4eFoKA
+         YG2yFv0ukLB4q3Cy0okJWOVWy4yG54EGQe1iH3ZONrm7pM/zrpEPxJy1Snk0xVh5OHcp
+         OEhCrt4Jzl17CG4IJYEiL173XGkeEs4BJhXi+X1/s9kiBKXxYiXZu7c3G65+7hIyei8T
+         e4B+lrCNQegRee4tz4+no6Sj66oNl0JvQTQyLa2TsRvmnaYRaJqsHJUVBGLgKAKXXqoO
+         yj2w==
+X-Forwarded-Encrypted: i=1; AJvYcCUCFi9ET8cpJwzF4V/JuyuArA4ZUfZ975akRQhhtE+Qvnht5YdWnAQKHAuh19o52c4c8JtwDasU1f8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx3BEo9YJyaNUkgQ47Z7/YU7xehVP0fZ6Q5Zu4RJzO0ZIywFt1X
+	QDxnR4lv73lxXBgSSdmVZJ2HLY62/BwX/uHDyfPytyvY/j1BFnIxskqFLPPNMNMv9g==
+X-Gm-Gg: ASbGncti4RptKdINZXnhUR3stVCqC8lqjVTB/ufhfADww8kUPIHdd79vfOtp7+0DDdL
+	83AKXh3Up81ucrZjgofyAmmRMdJBYvm4HKKvMTRQeaRTtOt1xxtq4dGJMyUWV4ttMDtGmUnot1Y
+	QRRe5EzNw7ifR4S3O2lwa2kqNC4fcjDBDJYspP4ygBpzUlCeWkcefGcjvps5NApuxTxVlDqjS6/
+	ZHGF/DyAPzs7HP8/2p7nwXjYt/fgMKul9TMweRVU/SG1SZhyEXv809mLxMwN52QTNV+9DEV53kA
+	26vK6munegoeGR9hBh+3lDCicEnk9EN0zSZ7ddhUfrecXUZso3BZId/8l7QX91kOsLaj5nxRe4F
+	Ey+tLYRtKdCc7avppivfg7e7ws9y+hSI9xk0Vs8pCMxDMUmHlu41OAJ3HRJXl6Uxb90LHF6/y/0
+	gH+5uU7XA=
+X-Google-Smtp-Source: AGHT+IHN1EeEnNpNmRdZ9y/2EcbclvjVsGA7nR1zcI+jq78GBMd6fRHO12FOyKJrBCfO2sngY9flUw==
+X-Received: by 2002:a17:906:c10b:b0:ae0:9fdf:25e8 with SMTP id a640c23a62f3a-af940243f74mr1227163366b.47.1754323135967;
+        Mon, 04 Aug 2025 08:58:55 -0700 (PDT)
+Message-ID: <db365e00-47ac-4586-9037-874f32af044e@suse.com>
+Date: Mon, 4 Aug 2025 17:58:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 04/20] xen/riscv: introduce things necessary for p2m
- initialization
+Subject: Re: [PATCH v3 05/20] xen/riscv: construct the P2M pages pool for
+ guests
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -99,7 +99,7 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
- <c526512aeda09527421e2d60bac7955a8c7c7c56.1753973161.git.oleksii.kurochko@gmail.com>
+ <4e7de8ffc929c1bdfa28b40fdd31b814acef103c.1753973161.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,59 +125,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c526512aeda09527421e2d60bac7955a8c7c7c56.1753973161.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <4e7de8ffc929c1bdfa28b40fdd31b814acef103c.1753973161.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 31.07.2025 17:58, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/include/asm/p2m.h
-> +++ b/xen/arch/riscv/include/asm/p2m.h
-> @@ -3,11 +3,45 @@
->  #define ASM__RISCV__P2M_H
->  
->  #include <xen/errno.h>
-> +#include <xen/mm.h>
-> +#include <xen/rwlock.h>
-> +#include <xen/types.h>
->  
->  #include <asm/page-bits.h>
->  
->  #define paddr_bits PADDR_BITS
->  
-> +/* Get host p2m table */
-> +#define p2m_get_hostp2m(d) (&(d)->arch.p2m)
-> +
-> +/* Per-p2m-table state */
-> +struct p2m_domain {
-> +    /*
-> +     * Lock that protects updates to the p2m.
-> +     */
-> +    rwlock_t lock;
-> +
-> +    /* Pages used to construct the p2m */
-> +    struct page_list_head pages;
-> +
-> +    /* Indicate if it is required to clean the cache when writing an entry */
-> +    bool clean_pte;
+> Implement p2m_set_allocation() to construct p2m pages pool for guests
+> based on required number of pages.
+> 
+> This is implemented by:
+> - Adding a `struct paging_domain` which contains a freelist, a
+>   counter variable and a spinlock to `struct arch_domain` to
+>   indicate the free p2m pages and the number of p2m total pages in
+>   the p2m pages pool.
+> - Adding a helper `p2m_set_allocation` to set the p2m pages pool
+>   size. This helper should be called before allocating memory for
+>   a guest and is called from domain_p2m_set_allocation(), the latter
+>   is a part of common dom0less code.
+> - Adding paging_freelist_init() to struct paging_domain.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-I'm a little puzzled by this field still being here, despite the extensive
-revlog commentary. If you really feel you need to keep it, please ...
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> +    /* Back pointer to domain */
-> +    struct domain *domain;
-> +
-> +    /*
-> +     * P2M updates may required TLBs to be flushed (invalidated).
-> +     *
-> +     * Flushes may be deferred by setting 'need_flush' and then flushing
-> +     * when the p2m write lock is released.
-> +     *
-> +     * If an immediate flush is required (e.g, if a super page is
-> +     * shattered), call p2m_tlb_flush_sync().
-> +     */
-> +    bool need_flush;
-
-... group booleans together, for better packing.
-
-Jan
 
