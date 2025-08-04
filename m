@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA07AB19F83
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 12:11:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1069025.1432868 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C643B19FA3
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Aug 2025 12:20:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1069034.1432878 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uis9q-0002fg-Ai; Mon, 04 Aug 2025 10:11:06 +0000
+	id 1uisIg-0005R2-4b; Mon, 04 Aug 2025 10:20:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1069025.1432868; Mon, 04 Aug 2025 10:11:06 +0000
+Received: by outflank-mailman (output) from mailman id 1069034.1432878; Mon, 04 Aug 2025 10:20:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uis9q-0002ci-87; Mon, 04 Aug 2025 10:11:06 +0000
-Received: by outflank-mailman (input) for mailman id 1069025;
- Mon, 04 Aug 2025 10:11:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uisIg-0005Ot-1j; Mon, 04 Aug 2025 10:20:14 +0000
+Received: by outflank-mailman (input) for mailman id 1069034;
+ Mon, 04 Aug 2025 10:20:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=c2vN=2Q=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uis9p-0002cW-Ne
- for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 10:11:05 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 530c919d-711b-11f0-b898-0df219b8e170;
- Mon, 04 Aug 2025 12:11:02 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-61553a028dfso3904304a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 03:11:02 -0700 (PDT)
+ id 1uisIe-0005OZ-KP
+ for xen-devel@lists.xenproject.org; Mon, 04 Aug 2025 10:20:12 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9aa0f61f-711c-11f0-a321-13f23c93f187;
+ Mon, 04 Aug 2025 12:20:11 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-615c8ca53efso6590427a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 03:20:11 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-615a8f26cc6sm6633294a12.23.2025.08.04.03.11.00
+ 4fb4d7f45d1cf-6176052d163sm944386a12.48.2025.08.04.03.20.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Aug 2025 03:11:01 -0700 (PDT)
+ Mon, 04 Aug 2025 03:20:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 530c919d-711b-11f0-b898-0df219b8e170
+X-Inumbo-ID: 9aa0f61f-711c-11f0-a321-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754302261; x=1754907061; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754302811; x=1754907611; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=FnYaJI1V2XWrtQAK1N+wRN1uuvnOhji6nallZ3Lyaf4=;
-        b=FWud6tk/q12mtfQs/HYTVqSprcSWbffBn5ITYiAplovoiL4obP5k6QkQ4dwo0tFe9j
-         XY9rg8uSiIEgIJcrd4Cto+4CwioXuoCAQ1EQJIwFwO4SFzwz77aPcf14D7loJGOhMG2J
-         SysLXABrin9w71sK2kLwPxjWFL+5c9PVQ5VUWxbatcdHFbHXkSTp7d9EnHxT1UTbKW8T
-         3lQhN6a+bv2ryh+rG4HLqYoPnfozPAA7sU/ESolbtTOfKgdcdbUlBgwWLmp3uvT7QCMy
-         wLulhG/DFF4TqXTf1bDnw2k5KNXIMgHpfyRTY+j1sXSD/kGLbNVkFOj2/2aUDmwBaoh3
-         apKw==
+        bh=ngxG24gtmdeLe70doGO2EN3TZL4REuYZqRMoH/TkfnQ=;
+        b=V8Osc/80GIERpkWWkqlqEtV6OIyW4tGxZY3YtODKkpnyhDenZ5rP+53idveTlK4Tbb
+         4x7h5J9266XrUwpUkLowV7Lm7gzhiQh2E6PQRygDC82f3ezXs85qxHHYvQNS6b4z6T8P
+         gJztG3J6N87ZjAG2iXZBNCdCxHptfDbuKM2nEBkaxQsfBm8LhD9ic9cPfymCIsr4Jyu9
+         aUUOjXwWVJFXlFx4W4zbyEVF6vgLbBoVRz0tmUsRfnQpP5Nz76IBQbbOkmCfdKefGoIA
+         kfalp7doQZgiCWranWeB+eCCcHjLLXlxTMGrIZBpE6LZQ12o695oFj/u7uFjbNCpJjhG
+         vCdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754302261; x=1754907061;
+        d=1e100.net; s=20230601; t=1754302811; x=1754907611;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FnYaJI1V2XWrtQAK1N+wRN1uuvnOhji6nallZ3Lyaf4=;
-        b=wUgi8+asqVdctOtnSsjiFu2dXHwNyPft+DojDVgMXWKWKa7IPmKIAowFiFKnQkTZvZ
-         qIX24+VH6oeZUbwYtDeYY8GRNGWgfj1MBrWX1uiK9TwOmP2M7CYlEDna2cT+JRZ8IJo/
-         tCabKbZgtZIDXvhZd61h2uIVPUCDT93dWmvd2yr6xcQIxPLOxQXG5Y9yFJ7zLcKaWqBn
-         N/E/YzvGurJlPp/l0Us42IvQn2hAyj8xYyZO6f/HlvGfyOFcu1O/+bIEPGOah5mTWrHK
-         sDzbv+Q80iNiBiOOfaBFxSgn8dgcGHrBatPNkvVebgyBISvklyGEEY+d2ntukMI687LU
-         NcMw==
-X-Forwarded-Encrypted: i=1; AJvYcCUOqe8bizHKT6CyR5XJlvTMQgoaVPxlvIAZ/jtTIXLWbREvUV6ekIMbjxIy6ttu69h4V1QqrZ5IqU0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwQ1WMyVyrDAKY3b7vpffa/lLxES574PB98GxbSC5nvmKfpN/uk
-	cVkI0LBFkIAb1dGR8/JP6bfp8foMxpD4ACCglnWlsHWojNwdsGzfc1Jlbg2oEeG2YQ==
-X-Gm-Gg: ASbGncuCxjMTc9vE+vt8e+zZ2tLwC8RDgpYtuswGso9RjdPolti4yz9fA/Q/KH4ZDXL
-	MQIw/GYaRJtGeRZJI4z3x5bTcJ0c7hVTQs2cYrZvIbiIrvlwZMDUjRWX7cMJ2hIa0oeZ/+J9zu3
-	Fw+kdAkOiFmx8QDL4PAaRplp1ifW5lT7qXY7Geqi4oDa0ToHhxpzNodUrlD0t9+0FFUEIPJf/XW
-	bypvD2X+s6qdgnT72o631cvSDcw5+VJVYOlESaGcd9L59MBvIxQQSRkYHXga/iJKFZ/G8R5aKke
-	CGg/Bqj1tha9/jXgAaqyrA4nkJE+hWhuoG9Gxe9OToRcu1lijb2hoc0VG1mW5q8GdXl0N2s9yAb
-	Gj7vXHZU0dGr4bJVRsA2/1ev9AVrD4+fZ79ga+DrfNVv9+997yQk3V1kdW80JYTlOzR29EtEpoM
-	WqI4nHSzg=
-X-Google-Smtp-Source: AGHT+IHfg8UkPao3X4ZCKd/GRrvOlp8iAmbzRvf9iVZtCTDK3F335VBwhMrDttEIt6p+/Xgbhk472w==
-X-Received: by 2002:a17:907:9407:b0:af9:3eea:65bd with SMTP id a640c23a62f3a-af940248c89mr874133266b.61.1754302261413;
-        Mon, 04 Aug 2025 03:11:01 -0700 (PDT)
-Message-ID: <a416cc08-5970-433a-8015-5d2aa961a000@suse.com>
-Date: Mon, 4 Aug 2025 12:11:03 +0200
+        bh=ngxG24gtmdeLe70doGO2EN3TZL4REuYZqRMoH/TkfnQ=;
+        b=tfpjz3mcRqgul3zhxe0EXkdgRY1nrvlvYpWlZu4d3nUSnXCnB5NxXHF/NEvxTN0Q5E
+         lOV/SZJ146lAZKsK0Fxsz2i17WfwVQdNfOSxDnjHCFZC81W1hZal4JV0coigZ5qFdb5I
+         hy92bUbwVfaA2wHg813kuRUSA882WaFjVRVSt1nJS2P++/cTf+rYIDfHT8ML17WiLcdP
+         l8OzPyHdChjUCbzzntys/wGKHs0boOFho/i/8zMI2v/tbqXHApmxc9AnS3tbTA/Y2xnG
+         7a+QltgZZ9xQ4ZIOBNV5UsrkyiRiAhHM+b+2zD7Dq4cWcLwmYgRjHsvm+RqcjpXY1H11
+         r/mw==
+X-Forwarded-Encrypted: i=1; AJvYcCUopoOJHgyFh1vjbYpsJl5gTRXk/dIkIaXqv5bJJpcSbXxDIIZuER57LD5rnQLzjUam9+X4s26lKIQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwBObLcd7iSXWdwNvMYKHs0gpLRU4oPxEWWosVBEotNYvDttPIX
+	AAlLxukOUH8GaY2VgCMuiiToMRZT9RqPF301X4tfuqSTzaIq9fFgrygJzA3tM46J5w==
+X-Gm-Gg: ASbGncuLoiTeIfqh2eS+1+Y8CP5mZmeiM2UZNW4dN4SjF6ySpDvGfjDL82XEg3pbSLj
+	iuSb2aNvjT4ESt3uKpNm2udGLrdFcLo0fjBuPLZDm2A0cWBdpGyEQDq8OJnh9RqsPWOnlTHlBtE
+	y90ternadShqSslHSAo0P4hjlf1OVbnKJPdjFH36+SxH93ijP6inC0+5YYlb8ErvnZw4wNFwado
+	dx4IscJOnW21KQl/Sl9SZCaruq3tFuZUt4sPsmZJjHqeaSURfp97KnAn1W/lfZCPR8IGGgt7Zi7
+	V6WcSDvnSCI5tcGU9QjyQTMEF+Veu4U3oMNYbaCjN1RJOaX8+GvES46klyowVviooWcKwzinS5k
+	Ng63dgiwf5YcTebnrjGpaE5BZXlPBS63fk7/03KTpjrRLm5KtB1VGWv70T/13HVFBHHJF4rb9CG
+	RxHowDx5Q=
+X-Google-Smtp-Source: AGHT+IEKY1Av/KABrUK8QD+D0aWKj+S8xbai1oAZMCW8YOWW6VIcl5KKgUB5yuUthxXO86WmOfyI5g==
+X-Received: by 2002:a05:6402:1d4a:b0:615:b9cf:ef3b with SMTP id 4fb4d7f45d1cf-615e71749cemr7354078a12.34.1754302810973;
+        Mon, 04 Aug 2025 03:20:10 -0700 (PDT)
+Message-ID: <032daad1-29a0-48ca-9f50-5234d42a3ea1@suse.com>
+Date: Mon, 4 Aug 2025 12:20:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/8] emul/vuart: introduce framework for UART emulators
+Subject: Re: [PATCH v4 3/8] x86/domain: allocate d->{iomem,irq}_caps before
+ arch-specific initialization
 To: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
  michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
  dmukhin@ford.com, xen-devel@lists.xenproject.org
 References: <20250731192130.3948419-1-dmukhin@ford.com>
- <20250731192130.3948419-3-dmukhin@ford.com>
+ <20250731192130.3948419-4-dmukhin@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,312 +121,52 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250731192130.3948419-3-dmukhin@ford.com>
+In-Reply-To: <20250731192130.3948419-4-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 31.07.2025 21:21, dmkhn@proton.me wrote:
 > From: Denis Mukhin <dmukhin@ford.com> 
 > 
-> Introduce a driver framework to abstract UART emulators in the hypervisor.
+> Move IRQ/IOMEM rangesets allocation before arch_domain_create().
 > 
-> That allows for architecture-independent handling of virtual UARTs in the
-> console driver and simplifies enabling new UART emulators.
+> That guarantees that arch-specific code could access those rangesets to
+> register traps for emulation.
 > 
-> The framework is built under CONFIG_HAS_VUART, which will be automatically
-> enabled once the user enables any UART emulator.
+> It is necessary for those emulators registering trap handlers and ensuring
+> that emulated IRQs are not shared with the physical IRQs.
+> 
+> Move dom0_setup_permissions() call right after I/O rangesets are allocated.
+> 
+> Move pvh_setup_mmcfg() inside dom0_setup_permissions() close to the place
+> where MMCFG ranges are initialized.
 
-Yet then still - why "HAS"? Call it just VUART or VUART_FRAMEWORK or some such.
+And this is just because you like doing so? I ask because first and foremost
+I can't make the connection between this and the purpose of this patch.
 
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -1,6 +1,8 @@
+> --- a/xen/arch/x86/dom0_build.c
+> +++ b/xen/arch/x86/dom0_build.c
+> @@ -471,6 +471,24 @@ static void __init process_dom0_ioports_disable(struct domain *dom0)
+>      }
+>  }
 >  
->  menu "Common Features"
+> +static void __hwdom_init setup_mmcfg(struct domain *d)
+
+Why __hwdom_init when ...
+
+> @@ -480,6 +498,14 @@ int __init dom0_setup_permissions(struct domain *d)
+>      if ( pv_shim )
+>          return 0;
 >  
-> +source "common/emul/Kconfig"
-> +
->  config COMPAT
+> +    /*
+> +     * MMCFG initialization must be performed before setting domain
+> +     * permissions, as the MCFG areas must not be part of the domain IOMEM
+> +     * accessible regions.
+> +     */
+> +    if ( is_hvm_domain(d) )
+> +        setup_mmcfg(d);
 
-Why at the very top?
-
-> --- a/xen/common/Makefile
-> +++ b/xen/common/Makefile
-> @@ -11,6 +11,7 @@ obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) += device.o
->  obj-$(CONFIG_DEVICE_TREE_PARSE) += device-tree/
->  obj-$(CONFIG_IOREQ_SERVER) += dm.o
->  obj-y += domain.o
-> +obj-y += emul/
->  obj-y += event_2l.o
->  obj-y += event_channel.o
->  obj-$(CONFIG_EVTCHN_FIFO) += event_fifo.o
-> diff --git a/xen/common/emul/Kconfig b/xen/common/emul/Kconfig
-> new file mode 100644
-> index 000000000000..7c6764d1756b
-> --- /dev/null
-> +++ b/xen/common/emul/Kconfig
-> @@ -0,0 +1,6 @@
-> +menu "Domain Emulation Features"
-> +	visible if EXPERT
-> +
-> +source "common/emul/vuart/Kconfig"
-> +
-> +endmenu
-> diff --git a/xen/common/emul/Makefile b/xen/common/emul/Makefile
-> new file mode 100644
-> index 000000000000..670682102c13
-> --- /dev/null
-> +++ b/xen/common/emul/Makefile
-> @@ -0,0 +1 @@
-> +obj-$(CONFIG_HAS_VUART) += vuart/
-
-With this you can ...
-
-> --- /dev/null
-> +++ b/xen/common/emul/vuart/Makefile
-> @@ -0,0 +1 @@
-> +obj-$(CONFIG_HAS_VUART) += vuart.o
-
-... use the simpler obj-y here.
-
-> --- /dev/null
-> +++ b/xen/common/emul/vuart/vuart.c
-> @@ -0,0 +1,112 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * UART emulator framework.
-> + *
-> + * Copyright 2025 Ford Motor Company
-> + */
-> +
-> +#include <xen/errno.h>
-> +#include <xen/sched.h>
-> +#include <xen/vuart.h>
-> +
-> +#define VUART_ARRAY_SIZE    (__start_vuart_end - __start_vuart_array)
-> +
-> +#define for_each_vuart(vdev) \
-> +    for (unsigned __i = 0; \
-> +         __i < VUART_ARRAY_SIZE && (vdev = __start_vuart_array[__i], 1); \
-> +         __i++)
-
-Nit: Xen style please. Any preferably no leading underscores; in no case
-two of them.
-
-> +extern const struct vuart_ops *const __start_vuart_array[];
-> +extern const struct vuart_ops *const __start_vuart_end[];
-
-Is there an actual need for this extra level of indirection? It is in the
-process of being done away with for vPCI.
-
-> +int vuart_add_node(struct domain *d, const void *node)
-> +{
-> +    const struct vuart_ops *vdev;
-> +    int rc;
-> +
-> +    for_each_vuart(vdev)
-> +    {
-> +        if ( !vdev->add_node )
-> +            continue;
-> +
-> +        rc = vdev->add_node(d, node);
-
-Here and below - shouldn't you call hooks only when the kind of driver is
-actually enabled for the domkain in question?
-
-> +        if ( rc )
-> +            return rc;
-> +    }
-> +
-> +    return 0;
-> +}
-> +
-> +int vuart_init(struct domain *d, struct vuart_params *params)
-> +{
-> +    const struct vuart_ops *vdev;
-> +    int rc;
-> +
-> +    if ( !domain_has_vuart(d) )
-> +        return 0;
-> +
-> +    for_each_vuart(vdev)
-> +    {
-> +        rc = vdev->init(d, params);
-> +        if ( rc )
-> +            return rc;
-> +    }
-> +
-> +    d->console.input_allowed = true;
-
-Unconditionally?
-
-> +void vuart_deinit(struct domain *d)
-> +{
-> +    const struct vuart_ops *vdev;
-> +
-> +    for_each_vuart(vdev)
-> +        vdev->deinit(d);
-> +}
-
-I can perhaps see why this hook wants to uniformly be set, but ...
-
-> +void vuart_dump_state(const struct domain *d)
-> +{
-> +    const struct vuart_ops *vdev;
-> +
-> +    for_each_vuart(vdev)
-> +        vdev->dump_state(d);
-> +}
-
-... state dumping pretty surely wants to be optional?
-
-> +/*
-> + * Put character to the first suitable emulated UART's FIFO.
-> + */
-
-What's "suitable"? Along the lines of the earlier remark, what if the domain
-has vUART kind A configured, ...
-
-> +int vuart_put_rx(struct domain *d, char c)
-> +{
-> +    const struct vuart_ops *vdev = NULL;
-> +
-> +    ASSERT(domain_has_vuart(d));
-> +
-> +    for_each_vuart(vdev)
-> +        if ( vdev->put_rx )
-
-... but only kind B offers this hook?
-
-> +            break;
-> +
-> +    return vdev ? vdev->put_rx(d, c) : -ENODEV;
-
-The check for NULL helps for the "no vUART drivers" case, but it won't
-help if you exhausted the array without finding a driver with the wanted
-hook.
-
-> +}
-> +
-> +bool domain_has_vuart(const struct domain *d)
-> +{
-> +    uint32_t mask = 0;
-
-unsigned int?
-
-> --- a/xen/common/keyhandler.c
-> +++ b/xen/common/keyhandler.c
-> @@ -22,6 +22,7 @@
->  #include <xen/mm.h>
->  #include <xen/watchdog.h>
->  #include <xen/init.h>
-> +#include <xen/vuart.h>
->  #include <asm/div64.h>
->  
->  static unsigned char keypress_key;
-> @@ -354,6 +355,8 @@ static void cf_check dump_domains(unsigned char key)
->                             v->periodic_period / 1000000);
->              }
->          }
-> +
-> +        vuart_dump_state(d);
-
-How verbose is this going to get?
-
-> --- /dev/null
-> +++ b/xen/include/xen/vuart.h
-> @@ -0,0 +1,84 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * UART emulator framework.
-> + *
-> + * Copyright 2025 Ford Motor Company
-> + */
-> +
-> +#ifndef XEN_VUART_H
-> +#define XEN_VUART_H
-> +
-> +#include <public/xen.h>
-> +#include <public/event_channel.h>
-> +#include <xen/types.h>
-
-The order is wrong - types must be available before public headers are included.
-
-> +struct vuart_params {
-> +    domid_t console_domid;
-> +    gfn_t gfn;
-> +    evtchn_port_t evtchn;
-> +};
-> +
-> +struct vuart_ops {
-> +    int (*add_node)(struct domain *d, const void *node);
-> +    int (*init)(struct domain *d, struct vuart_params *params);
-> +    void (*deinit)(struct domain *d);
-> +    void (*dump_state)(const struct domain *d);
-> +    int (*put_rx)(struct domain *d, char c);
-> +};
-> +
-> +#define VUART_REGISTER(name, x) \
-> +    static const struct vuart_ops *const __name##_entry \
-> +        __used_section(".data.vuart." #name) = (x);
-> +
-> +#ifdef CONFIG_HAS_VUART
-> +
-> +int vuart_add_node(struct domain *d, const void *node);
-> +int vuart_init(struct domain *d, struct vuart_params *params);
-> +void vuart_deinit(struct domain *d);
-> +void vuart_dump_state(const struct domain *d);
-> +int vuart_put_rx(struct domain *d, char c);
-> +bool domain_has_vuart(const struct domain *d);
-> +
-> +#else
-> +
-> +static inline int vuart_add_node(struct domain *d, const void *node)
-> +{
-> +    return 0;
-> +}
-> +
-> +static inline int vuart_init(struct domain *d, struct vuart_params *params)
-> +{
-> +    return 0;
-> +}
-> +
-> +static inline void vuart_deinit(struct domain *d)
-> +{
-> +}
-> +
-> +static inline void vuart_dump_state(const struct domain *d)
-> +{
-> +}
-> +
-> +static inline int vuart_put_rx(struct domain *d, char c)
-> +{
-> +    ASSERT_UNREACHABLE();
-> +    return -ENODEV;
-> +}
-> +
-> +static inline bool domain_has_vuart(const struct domain *d)
-> +{
-> +    return false;
-> +}
-
-With this, some of the other stubs should not be necessary. Declarations
-will suffice, e.g. for vuart_put_rx().
-
-> --- a/xen/include/xen/xen.lds.h
-> +++ b/xen/include/xen/xen.lds.h
-> @@ -194,4 +194,14 @@
->  #define VPCI_ARRAY
->  #endif
->  
-> +#ifdef CONFIG_HAS_VUART
-> +#define VUART_ARRAY     \
-> +       . = ALIGN(POINTER_ALIGN); \
-> +       __start_vuart_array = .;  \
-> +       *(SORT(.data.vuart.*))    \
-
-This is r/o data afaict, so would want naming .rodata.vuart.*. Which in
-turn means the uses of the macros need to move up in the linker scripts.
+... the sole caller is __init?
 
 Jan
 
