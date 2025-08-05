@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0119B1B77A
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 17:27:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1070636.1434284 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6250B1B77D
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 17:31:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1070659.1434293 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujJZo-0006Dp-Ai; Tue, 05 Aug 2025 15:27:44 +0000
+	id 1ujJdF-0007ue-Ng; Tue, 05 Aug 2025 15:31:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1070636.1434284; Tue, 05 Aug 2025 15:27:44 +0000
+Received: by outflank-mailman (output) from mailman id 1070659.1434293; Tue, 05 Aug 2025 15:31:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujJZo-0006BA-6V; Tue, 05 Aug 2025 15:27:44 +0000
-Received: by outflank-mailman (input) for mailman id 1070636;
- Tue, 05 Aug 2025 15:27:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ujJdF-0007tD-KI; Tue, 05 Aug 2025 15:31:17 +0000
+Received: by outflank-mailman (input) for mailman id 1070659;
+ Tue, 05 Aug 2025 15:31:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Xkmx=2R=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1ujJZm-0006B4-AQ
- for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 15:27:42 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b9d50e61-7210-11f0-a321-13f23c93f187;
- Tue, 05 Aug 2025 17:27:41 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-459d62184c9so17012985e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 05 Aug 2025 08:27:41 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-458953cfeaesm271894195e9.16.2025.08.05.08.27.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Aug 2025 08:27:40 -0700 (PDT)
+ <SRS0=tjfC=2R=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1ujJdD-0007r9-KB
+ for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 15:31:15 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20612.outbound.protection.outlook.com
+ [2a01:111:f403:2415::612])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 35222c54-7211-11f0-b898-0df219b8e170;
+ Tue, 05 Aug 2025 17:31:10 +0200 (CEST)
+Received: from BN0PR04CA0187.namprd04.prod.outlook.com (2603:10b6:408:e9::12)
+ by BN7PPF0D2C72F0D.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::6c6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.26; Tue, 5 Aug
+ 2025 15:31:04 +0000
+Received: from MN1PEPF0000F0E4.namprd04.prod.outlook.com
+ (2603:10b6:408:e9:cafe::67) by BN0PR04CA0187.outlook.office365.com
+ (2603:10b6:408:e9::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.21 via Frontend Transport; Tue,
+ 5 Aug 2025 15:31:04 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ MN1PEPF0000F0E4.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9009.8 via Frontend Transport; Tue, 5 Aug 2025 15:31:03 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 5 Aug
+ 2025 10:31:02 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 5 Aug
+ 2025 10:31:01 -0500
+Received: from [172.17.35.128] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Tue, 5 Aug 2025 10:31:01 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,143 +63,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9d50e61-7210-11f0-a321-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1754407661; x=1755012461; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=KpQ6JVuYGsB2GRKbtOPMGOVowMsWszSsXYpd1hQT2Fk=;
-        b=XVdegpZ/xoX2OtCzvNHU/QkMTjIdsNXB4WaX1nCfzFfDCFhiggAbps6LdGXv+L/qFo
-         QlqlU3Xx2ifCk9eezCSHCQTriU8P+f3f2OZoi12jGIO20XdE8KLfj/9p0hHVUuoTvpOX
-         Utoacl0yz1HEVu6mb+++72/eP/B6+gBDKQKTI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754407661; x=1755012461;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KpQ6JVuYGsB2GRKbtOPMGOVowMsWszSsXYpd1hQT2Fk=;
-        b=eon5f90kqTIY4ZUl0QWPlPh7s4wE6Wfi9K8YNqIdHKaPW28bKWqyxT+uUnWyHFZqOR
-         RRxxidzhQJtqeJ3cr4eKMwZX91HAJQXaaIRQz99QYcRBJl/qK/UfU5+jHDYUaRLVd6sj
-         +JxbO44ZfmDT+OuWF2KMQOUBAlMnnzp27ri3vB98ea60ziWCCTxPTQK2sc07vSKK00XK
-         B/C1u0ku3I/MeTs2Pt3AITwM4iVRZFHhws9Ka9i6N3GwBRlgzQxmQyr35HF74v0Y1E5a
-         mV0YMOKPeeynb7v4DM9DNQuYMNwkOxuEFkyQWeIYMZ6dR6oWC9Hyjk5A1RibsQvkfFz3
-         NdZg==
-X-Forwarded-Encrypted: i=1; AJvYcCXMA7+9AlbXWDpCHXg0AniwaQ8XoSdgC3iTvHccr7g0ZtNPlALJBCBCfP6CGFOO66TuKEQwiIyyS/A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyJPieIP91WEqhUgSlYemsKEODz9ozk4KImusISIxQhWbOVbJJZ
-	s8NWGgrKPOkybMAS0wIJNbTlfIoYjrcHB1/v4mA+l5J2sMPNlHo05OnH7EVgxH3W3mekqg9bYP+
-	AltwU
-X-Gm-Gg: ASbGncvm2uqXa1lXi1wOxddAkjlL9SUX7ysYD3lg9OrFdzAvlUGazBRhxhsK6WhS5XT
-	Jtd3Gt1MPYsY2cUofiebySCh/cCTdQpceCycch/P7QqL1Gdt2D+83WdBA1J/+/aVbZE/WkBscS6
-	/u5fV80Ty6KH1Cr2oK/HQPGwLXq7YTpx+0WtyrBAJi63XYLSlhuYlcpDtWVwQvNoyVcBt9ivK7J
-	1XbGGBLxmc5+nAPw4zahaB3BTKXHDoVu+OLzfM1CDLmV4R2e0dQj16iBiywNL/dsbR47wqcCxl1
-	sDYdsqf8w1boVhvliv9sL71T1ZExGWbnOI3A+E0Sa287R4VRz17QLTAfxA4iw3oNfSu7uDzr2To
-	GluGjrJvqnW7I3BH461dqQXB+EY2+XVRaPtnFlDhKi6xwcfqrQQNZIPnbe841/1mie95tmcRZVg
-	4x
-X-Google-Smtp-Source: AGHT+IFyOv2Xc+fp5Zcq7Qrz3t1lTUDHVhOZr2Rpw/TGq+7T7Eht6R6qm8rCdqbdSc/wZswRgGTEpg==
-X-Received: by 2002:a05:600c:4ed0:b0:459:e466:1bec with SMTP id 5b1f17b1804b1-459e4661e0bmr17456935e9.2.1754407660595;
-        Tue, 05 Aug 2025 08:27:40 -0700 (PDT)
-Date: Tue, 5 Aug 2025 17:27:39 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v4 8/8] x86/mm: adjust loop in arch_init_memory() to
- iterate over the PDX space
-Message-ID: <aJIi6wrNZck1DSU_@macbook.local>
-References: <20250805095257.74975-1-roger.pau@citrix.com>
- <20250805095257.74975-9-roger.pau@citrix.com>
- <31691bf7-94bf-4f73-b04c-a32f86bb0e37@suse.com>
+X-Inumbo-ID: 35222c54-7211-11f0-b898-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Z5nhKKia2GpQfRbCrQr2QbXVkzY7pHsC7NYHCTIMBw6nQOkxXZv8FO4Kxa55d56qyteZNSByv7iEBh5NapqxjKcB9/RLbEprOUAOJyZC3vAWxJYuGKpIrQ1lgmTpl5hn3qZVDbVZxn+Um9jrER70EqWjJqOyWv6QmnQNKad/GhvatYu++ZDZA56S00br9Lt992ou4AlIK2PwcWeONJscmccmxwEvjPYavrmIAaYCIudgvENfUua8mLiX9rGt7X9zWRgJPnYEfSPjNb71rMTFWiex9xpbcemrMMqaPkX3zbdnaEZFvFwGySSoYD0R6QwgZWlneYaOMsS46kk9Vz43Mg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tFEV+eaLF0XRM9fi1aEPR912nYi2HAOu0w8fh8HAiWo=;
+ b=nK/uE3JNurqI1vhe5I/lm5R1NkEpGWwo3r1Si31+jdTj+bkNZ8TltAxLx3yietQaYAgp4jNJak8PaT/SVECANWllT7gs8WsVGl7WVjzUpDDD2PASKCgYLR31hI9vUbp6uA/BGUOZx9M/NK1BnUx6HPqMN2dT98GcDolUnTlq6sKxRP5XOHADq8YHNk41PK1fs5kUuneiw+CnAGhENqEEooJaCBlEp9GqsCZqNqfoUsnysjxQ7iTpbxshxe1+3ScPCAKPR4FPYTlgIgKNSueenyjyeCkMWtfpa9hPfxiKsrDeYl+ui+ro+zd8GmPnldm6kkaST3UN+7a3NcmAekF7eA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tFEV+eaLF0XRM9fi1aEPR912nYi2HAOu0w8fh8HAiWo=;
+ b=d/y5mSH1bhXuawJPPufs2bhAb7JPTw/mx1b9Kab9+wFJ3x5qL00nlSUT1CXiCCtvpM5ykTcQDRqbyjj3Jj183IdiGX2UZuV7klQBL6kpm18bFjrw6mn/aQQm+AmizaCIYh87ziY4H25NQl46FUjG4sL68oykAwzSqTd967dz894=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <b98abcdb-38ba-4176-8d6a-d4bc234b37ca@amd.com>
+Date: Tue, 5 Aug 2025 11:30:58 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <31691bf7-94bf-4f73-b04c-a32f86bb0e37@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/HVM: polish hvm_asid_init() a little
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <ec351aea-e2a0-4335-b8ee-51c6eface104@suse.com>
+Content-Language: en-US
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <ec351aea-e2a0-4335-b8ee-51c6eface104@suse.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E4:EE_|BN7PPF0D2C72F0D:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8cf19268-9360-47b3-413e-08ddd43516f4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|36860700013|82310400026|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?bHN1U0lGSmZhall3ckNGN2NjY3VWa1JuM3NKWmhHVVBadlFzY3pIbVg1dVVV?=
+ =?utf-8?B?ZzRZZmJQY0dtK2pNSmo5QXdKVm40eEo5bVAzazN0aHA0aW80MkVEUWk1Z0ZI?=
+ =?utf-8?B?NjNpcU40aGtqRkRpcW5LUVFNL0ZkSTlmcFhhM0hFTkp2Q0d4QitjRUdEaGdH?=
+ =?utf-8?B?ZElQcVlTR3JuZE80ZDE4b3VDUkY5VFEwbVF1VUZlSXpJQXF3L214WThOVFRh?=
+ =?utf-8?B?UVRVWkZHSEFoOEhqb3U5VTUzYWhtZU45QW0rR21JK3dpdkVUMk5VRGw3NXdm?=
+ =?utf-8?B?emM0a014SW41M3pueVd0SGZXMEsvYjBmVjlUWTVaU3BqaDl1b0ZwMTUwZkFx?=
+ =?utf-8?B?R0JiRHBaakNUYUhlVXAvQ0s2RXJVek5CQW5ob0JuNjcyNHVpWDVOS1hlS083?=
+ =?utf-8?B?d2VqOCsrWS9DbHVVVkhQZXBiMmlmaUwxajRTamsvTzJxU1N3a210NWFwaERn?=
+ =?utf-8?B?S3NWdVJKdE9tS3RTZktkQnp1NTF5WUgyWkgxaVB4aXlraXFNS3loZFcrVzlF?=
+ =?utf-8?B?OEhOdzFRUXdpYTg5WGZQTGFZTlQ4bitvbURXM056YU5taHB2OFMyakhaYVdI?=
+ =?utf-8?B?SUU4UE1QR3ZBSndNRlRHVVp2ajB6ZUQvcGNPZzduVGpvNDNPaFFlc1UvTGU4?=
+ =?utf-8?B?T0pJVmp0SFo0eEJUa1laUUxjejRIQ1Y1SnozT1ZjL28rcmRiMktXR3o0bmlJ?=
+ =?utf-8?B?dDRyTEkvT05wTDdFWlJHbXFLUVJYNWpoYjhWK0E5R09UMVZHbHFjazQzU2Z4?=
+ =?utf-8?B?Y3RDbm5aM0toZE5ZcUFJV0JtMTZYSUdnRG82WGozOFI2cFkrUmsvdENGNDkr?=
+ =?utf-8?B?NEFqdkZKOGY1SkxXQ1VJNjNOUzY2MlpjdFp4NUprclg5YW5hSmYrNTd0Rmpi?=
+ =?utf-8?B?b2VETmxOR25pVTNWVkVieFVGUlFQMUJOTGpOeEt3Q3pEYVBjT1crOHJLbHJa?=
+ =?utf-8?B?MXVPN1kzdERxV2ExVmd0UUZNY09lVitMRUI1b1ZqQ3NPSmF4MUh5L1htSUpK?=
+ =?utf-8?B?M1JlK3BEMXdxTDFVemtycDN1M2d6V21QczZRcTNQYlJnWFZCamxZNVdPQmZK?=
+ =?utf-8?B?MlFJaEJuYjJabzFrZ05VZUpsMWJQdk1KL0NJUDd6YlBxVTRSOHRpeDk5cDd1?=
+ =?utf-8?B?Mml5a3hubVhyK1JubDNQdmU2anFnUUFsaDFDRnlpanRQeE81VTd3UHJtYUJk?=
+ =?utf-8?B?YzVoTFB4Um9ka2hNOHlHNSt6M3JGaHlaSnpJM1FLTE9ZZzREaVIvUXZ2WUw2?=
+ =?utf-8?B?ZFRLd0dMQ0pDMDRUN0NkaWw0U1JlTVZvaldqTStrMkIreUZ5aXhmYk1uOEhl?=
+ =?utf-8?B?cTdvNEY0bmdLY04vVi9hWkFWdVkwSVFEck1HODN3L1hvQm56K2Y2eUdBVGRT?=
+ =?utf-8?B?d29yV0lLY2tqOGJCMVkyRStGRjROK0ZDV1VxeTlNWGIwQ1plL0lYZDc1NUh1?=
+ =?utf-8?B?UUg1bTBLSktJYnp1WElLZnQvVDNwNlJjd0FjN1lPaDF1cm04UkorOXgva1R0?=
+ =?utf-8?B?d3hnbkJaNko2TG94L0tram9GZHJBYmpiNmxMQ0FyZHIwcTZVK1kxMGhnUnk2?=
+ =?utf-8?B?dlV0MkdEK21sKzhrcEJ4cWN6aktjc0ZyanJhUWlLS2dIUTlXdEhVOCtYV0tO?=
+ =?utf-8?B?Y0VUUURkQld2RjV3TGYrRFdvUkU4ZnpNS2NrVmNZSDRiaWF0YyswUjQwTFV1?=
+ =?utf-8?B?QmF4bzFGRW91RWlNZzZEckR3OUNZOS9lV1dnd3NhLzZlNlk0cWdJcDVseXk4?=
+ =?utf-8?B?dWtMRnVoVExDSXhici9QSEYwN2Z1N25hYjJSclFDRmZnM3g2TjJ6N3FPeDZS?=
+ =?utf-8?B?V21tNisvVnZBQlNGWHh0TDlFTDVENEp5MDFYWWNlOWNMcGhiRDFwUVVqZ0tu?=
+ =?utf-8?B?b2FhWjNVcVJUYlBUdm9jaHJXSi9qSUN0Z2ZVa1J6L29uM0drTVVXSHRoMnRm?=
+ =?utf-8?B?Vi84OGx6U0R4M1JycUtmYTlyWW1BWGNnSy9QdEJEajIwMmoyT0dMNWI2Z3pU?=
+ =?utf-8?B?NGdwbDN2MXVIWFg1WjZCZitHemcrOFp4U0Yrbnl1ZUhXZWpIZWt2QXluN1Ir?=
+ =?utf-8?Q?Mec7Iw?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2025 15:31:03.9422
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8cf19268-9360-47b3-413e-08ddd43516f4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MN1PEPF0000F0E4.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF0D2C72F0D
 
-On Tue, Aug 05, 2025 at 02:38:38PM +0200, Jan Beulich wrote:
-> On 05.08.2025 11:52, Roger Pau Monne wrote:
-> > --- a/xen/arch/x86/mm.c
-> > +++ b/xen/arch/x86/mm.c
-> > @@ -275,7 +275,7 @@ static void __init assign_io_page(struct page_info *page)
-> >  
-> >  void __init arch_init_memory(void)
-> >  {
-> > -    unsigned long i, pfn, rstart_pfn, rend_pfn, iostart_pfn, ioend_pfn;
-> > +    unsigned long i, pfn, rstart_pfn, rend_pfn, iostart_pfn, ioend_pfn, pdx;
-> >  
-> >      /*
-> >       * Basic guest-accessible flags:
-> > @@ -328,9 +328,20 @@ void __init arch_init_memory(void)
-> >              destroy_xen_mappings((unsigned long)mfn_to_virt(iostart_pfn),
-> >                                   (unsigned long)mfn_to_virt(ioend_pfn));
-> >  
-> > -        /* Mark as I/O up to next RAM region. */
-> > -        for ( ; pfn < rstart_pfn; pfn++ )
-> > +        /*
-> > +         * Mark as I/O up to next RAM region.  Iterate over the PDX space to
-> > +         * skip holes which would always fail the mfn_valid() check.
-> > +         *
-> > +         * pfn_to_pdx() requires a valid (iow: RAM) PFN to convert to PDX,
-> > +         * hence provide pfn - 1, which is the tailing PFN from the last RAM
-> > +         * range, or pdx 0 if the input pfn is 0.
-> > +         */
-> > +        for ( pdx = pfn ? pfn_to_pdx(pfn - 1) + 1 : 0;
-> > +              pdx < pfn_to_pdx(rstart_pfn);
-> > +              pdx++ )
-> >          {
-> > +            pfn = pdx_to_pfn(pdx);
-> > +
-> >              if ( !mfn_valid(_mfn(pfn)) )
-> >                  continue;
-> >  
+On 2025-08-04 11:41, Jan Beulich wrote:
+> While the logic there covers asymmetric cases, the resulting log
+> messages would likely raise more confusion than clarify anything. Split
+> the BSP action from the AP one, indicating the odd CPU in the AP log
+> message, thus avoiding the impression that global state would have
+> changed.
 > 
-> As much as I would have liked to ack this, I fear there's another caveat here:
-> At the top of the loop we check not only for RAM, but also for UNUSABLE. The
-> latter, like RAM, shouldn't be marked I/O, but we also can't use PFN <-> PDX
-> transformations on any such page.
+> While there also
+> - move g_disabled into .data.ro_after_init; only the BSP will ever write
+>    to it,
+> - make the function's parameter unsigned; no negative values may be
+>    passed in. Also reflect this in svm_asid_init().
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Right you are.  I'm not sure however why we do this - won't we want
-the mappings of UNUSABLE regions also be removed from the Xen
-page-tables? (but not marked as IO)
-
-I could do something like:
-
-        /* Mark as I/O up to next RAM or UNUSABLE region. */
-        if ( (!pfn || pdx_is_region_compressible(pfn_to_paddr(pfn - 1), 1)) &&
-             pdx_is_region_compressible(pfn_to_paddr(rstart_pfn), 1) )
-        {
-            /*
-             * Iterate over the PDX space to skip holes which would always fail
-             * the mfn_valid() check.
-             *
-             * pfn_to_pdx() requires a valid (iow: RAM) PFN to convert to PDX,
-             * hence provide pfn - 1, which is the tailing PFN from the last
-             * RAM range, or pdx 0 if the input pfn is 0.
-             */
-            for ( pdx = pfn ? pfn_to_pdx(pfn - 1) + 1 : 0;
-                  pdx < pfn_to_pdx(rstart_pfn);
-                  pdx++ )
-            {
-                pfn = pdx_to_pfn(pdx);
-
-                if ( !mfn_valid(_mfn(pfn)) )
-                    continue;
-
-                assign_io_page(mfn_to_page(_mfn(pfn)));
-            }
-        }
-        else
-        {
-            /* Slow path, iterate over the PFN space. */
-            for ( ; pfn < rstart_pfn; pfn++ )
-            {
-                if ( !mfn_valid(_mfn(pfn)) )
-                    continue;
-
-                assign_io_page(mfn_to_page(_mfn(pfn)));
-            }
-        }
-
-But I find it a bit ugly - I might send v5 without this final patch
-while I see if I can find a better alternative.
-
-Thanks, Roger.
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
