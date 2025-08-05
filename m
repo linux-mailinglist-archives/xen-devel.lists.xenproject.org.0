@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14D75B1B6AB
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 16:38:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1070532.1434142 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C971B1B6D6
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 16:46:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1070540.1434153 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujIno-00011Y-Sq; Tue, 05 Aug 2025 14:38:08 +0000
+	id 1ujIvW-0002nF-L4; Tue, 05 Aug 2025 14:46:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1070532.1434142; Tue, 05 Aug 2025 14:38:08 +0000
+Received: by outflank-mailman (output) from mailman id 1070540.1434153; Tue, 05 Aug 2025 14:46:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujIno-000104-Px; Tue, 05 Aug 2025 14:38:08 +0000
-Received: by outflank-mailman (input) for mailman id 1070532;
- Tue, 05 Aug 2025 14:38:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ujIvW-0002k7-Hk; Tue, 05 Aug 2025 14:46:06 +0000
+Received: by outflank-mailman (input) for mailman id 1070540;
+ Tue, 05 Aug 2025 14:46:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Xkmx=2R=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1ujInn-0000zy-4p
- for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 14:38:07 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c9c171c0-7209-11f0-b898-0df219b8e170;
- Tue, 05 Aug 2025 16:38:01 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-458c063baeaso21313545e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 05 Aug 2025 07:38:01 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-45895377708sm248310625e9.8.2025.08.05.07.38.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Aug 2025 07:38:00 -0700 (PDT)
+ <SRS0=fV7N=2R=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1ujIvV-0002k1-2e
+ for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 14:46:05 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e93691e5-720a-11f0-a321-13f23c93f187;
+ Tue, 05 Aug 2025 16:46:03 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-60c9d8a169bso8056592a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Aug 2025 07:46:03 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-615a8ffb8d7sm8602309a12.47.2025.08.05.07.46.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 05 Aug 2025 07:46:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,218 +45,386 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c9c171c0-7209-11f0-b898-0df219b8e170
+X-Inumbo-ID: e93691e5-720a-11f0-a321-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1754404681; x=1755009481; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Y3kWFb4yBoOLoTJjBIvHK8CDF3oXpQ59LnqtyPRirIQ=;
-        b=ZUMjTZjnPelPP8tX6/yPEnL/tZ6YrXcecxjqwDrU5c4fuowP2nWvIBh+5pZPfZb2QO
-         g4CoR2qRGp9usqT/L5PkieYQxbU90szSwVV/1aXU/59nbdyIIY8X+Ni2tcvdIZAZdVO4
-         u7BmiLLWAQ0Qpeb+t4Bm04vSoO7lLM/TQ6Lx8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754404681; x=1755009481;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1754405163; x=1755009963; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Y3kWFb4yBoOLoTJjBIvHK8CDF3oXpQ59LnqtyPRirIQ=;
-        b=eJWwfQhUHFzG6PSSo0MUN2Xilf8JtaDNxgmt4QhVWPb4WAInbnooHLXIkhmOf49mCQ
-         706o7oHT3YfE3R14wm5WcYwYgHB+3Cd1pPVmCbmdiH910itrSFcBhmzEtlIULHCoLutH
-         dGmq2HoTeIsiGQnCs+fzgAPfa/TxjW7+eU3MABrSapmb4mHuQKVQvjHhr/96EzeLrKPa
-         sWtAuvCqntp3RckkZ3zu5Iut8USWBE0vNJRNZUtg7f9AKfMjT6yragA8bh1raCQokVAk
-         u9oBLjzqM3SnF+F/bxju5qH3UAmTcY+raiv2qoQc78ApI8KH6d+wKtXOuLov02GfoLBm
-         KWYw==
-X-Forwarded-Encrypted: i=1; AJvYcCVvUiCDLNac1VU3UhR44FG6h4c4QZa4JgSllC4SQeytDhI/goLfHlT1PMIZE6L9VEu3jDI6K2G76iI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwNhjbxQTWNDt4vtogNAn5EVWHohF9SR8hTGRZoNMFJ4GKk8ntI
-	0XofbvwPUWqJ2QWQ3ts8ejrI7kH6BRQ18ToZjfLrAX9IAzbMdfpXuHbjhl+LraGboJk=
-X-Gm-Gg: ASbGncvh4U1ExyBE7NWB+cYBpRv0//tRc3csvvj9787Tr32c2lHas36t2r0z71ZUv7D
-	SqvKe86godGSRQdwOYv1ZYLajTKgLvklbNG1YHXSh34qkAV8QfTV5zS7aQNlD+rvOBQHqY7g2us
-	jK/1rmpwevkUHADcPn9JgU9WOLvW/tC3TPtYoZBlQIAr9yL0194PynuoTwyfr4v0O+miupBhmrR
-	PVEO9oPtOWWSk2GuEMhsSJnfv2OMZJqT93UJPBJMqtIH5ZAzN5lDXDrWj4tbwnTrQfNElOoODPr
-	cdgsJwcO8UxybMR46nb/jfAsMpenLji6eGC6xOiXNHsf2tkR613WcBaXFvc6jcN+1Lb3avZQFAl
-	iCIMPYMIaJiSw6/9G2zqWbXvB5ZbT++V90CRlyeO7eOApZLBybOx23B1eQ1fNst9iAg==
-X-Google-Smtp-Source: AGHT+IFVY/WLfB2VEnFOFi8WeIxyYhSIW7uKHiPncgAqkna8IUHk0UoFucHlEfkWBdD0wp/8HAtooA==
-X-Received: by 2002:a05:600c:c178:b0:455:fc16:9eb3 with SMTP id 5b1f17b1804b1-458b6b579e9mr102336525e9.33.1754404680807;
-        Tue, 05 Aug 2025 07:38:00 -0700 (PDT)
-Date: Tue, 5 Aug 2025 16:37:59 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Community Manager <community.manager@xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v4 7/8] pdx: introduce a new compression algorithm based
- on region offsets
-Message-ID: <aJIXR7WRiEzZXCgk@macbook.local>
-References: <20250805095257.74975-1-roger.pau@citrix.com>
- <20250805095257.74975-8-roger.pau@citrix.com>
- <50aa7098-3777-43b2-8217-0b836a3c8879@suse.com>
+        bh=AVKjcG+I5FfwHY+H43Brm9z2hdRjzirAlr0kKUF8qoY=;
+        b=WCzm9NO8ThYYt9UB9vZjN2O5sUbctqwG8jiAILvwf8b/eqYtLGzya2FYKlSn3nTAxR
+         TnxQziDpuQ61DzBujcy9NIime182W4RUPKQ89IvCC3ytain+l1jC3bQmnmIECIQWVcC9
+         zDCDluTGzI4fQPiq8jnA3R3ZFiWyUxQJVq0VHt5/fbHMUnWzih+Pi3iGmflmdW154JKj
+         6j52WBB4iwrEXjPVxCAqm+QQikSD6aiTdxjZ2OiH/djQlLLchxXF8zlZgVdcWOeitzyM
+         JKE0CpSpvbTnLUrgeOQi6SID4cPqn7In6tgH/KSD+6koNsvLNcEYIhrZvRAkid50kOX3
+         +UgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1754405163; x=1755009963;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=AVKjcG+I5FfwHY+H43Brm9z2hdRjzirAlr0kKUF8qoY=;
+        b=jnHzYyyVu+x9eRrQhH/ZC6ofIpHv+HGZ847RsLasXBM7k9FGvGDljeR4Xvr0GYWSxM
+         cjwJ0Tr55F5DnkX94jXggmfkqNObvxvWXgoVQVQ/mgyDZNO4TZm2MEdz3RBViNi31LDl
+         IXstbbiZqIWII+30YD6cquNEKy03+7n3nqYdNn3SqCxlVlXpKIjXc7PVaN2a1K2088Bo
+         B4C0aQTuiKHQXzOK7+Rb2w9YtS9tHdjCw4/sfIjHIBP1woahmtBOXyDHcpVznJku5u1w
+         fjU8dqt2Xa9nQ+TWwoqfG6MJQZ+ZkG/VWsqXIeTdxWldKXOMsUv8RrUMXYW2KpvQnuQn
+         FLTw==
+X-Forwarded-Encrypted: i=1; AJvYcCWQEaw5W1OMRY0ZrdcXhHJk64nevFXXKLHlhjoYA1OWFxR1NaaBgGju2PX3KbuuMhHHERtGMLf30Vc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzWAagDVGcFSlh7BKKA6FcFeYR3jVbp6E9hqjJG5P2bVa0PJdoB
+	mPM9cTImGZL3XtWt7X678N8xf7Ns5kCdCgMvCA/Fp4GC6MSH+FoGcbwv
+X-Gm-Gg: ASbGncvpMzBSfX9lg6GLeZl27Ow6nC1p12vfqXoPmg7AHd33W+8KzoFdZ0TFBzsAFUw
+	w/9KzCnaT6aIkLo+0rraMtWkqhVf87SsiBbKmjobl6hfvmNXptqCz5SDYYbfbPxNJsXxUC3IhT1
+	v95Kak74vwAn6KLGr1jlnfJCARlzF1ZvwbJGjnvckf95+v5k7SS+1xWw92f9PUIqCTAYQ3BYnD/
+	jjmZaV9DCQNU16cHbHqWyix2FcnE6uiOxhwNBHH7TxzqWoM9/lVo9NwWjG/7OnIwj/i4G7O95Tc
+	pRl4OgsaCc9fJcyH9pBC47S2DhlCTV8CeztTd0/+f6gbee9ucLCqf1FlqGcb3zg52BEJwyDIpXR
+	tUuNvbBXoax42SlykrR6jiQ7rseZk8a2YHyIEC/KXnGw+6AdSS/TEJp7INmERXN5bFMa5Gs4=
+X-Google-Smtp-Source: AGHT+IFF1XTBKw1iO6PFALH9OmUpeTkFS7RBU3NdPaMsrVp/Tpubo2pzCQAcXih3EjLTU/V6tngEEQ==
+X-Received: by 2002:a05:6402:354f:b0:615:adc4:1e66 with SMTP id 4fb4d7f45d1cf-615e7173006mr13415278a12.25.1754405161413;
+        Tue, 05 Aug 2025 07:46:01 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------kdt00xxFjWrjsxUeIoZikbxX"
+Message-ID: <b9fb09d7-ea4c-4b23-811b-f87ca658fff7@gmail.com>
+Date: Tue, 5 Aug 2025 16:45:59 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <50aa7098-3777-43b2-8217-0b836a3c8879@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 01/20] xen/riscv: implement sbi_remote_hfence_gvma()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
+ <b0649cf7b071d0a1cdd7fc9b8d73abea5d0646b4.1753973161.git.oleksii.kurochko@gmail.com>
+ <829f9477-2b18-47f0-8fb3-57bffa8d133d@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <829f9477-2b18-47f0-8fb3-57bffa8d133d@suse.com>
 
-On Tue, Aug 05, 2025 at 02:28:22PM +0200, Jan Beulich wrote:
-> On 05.08.2025 11:52, Roger Pau Monne wrote:
-> > --- a/xen/common/pdx.c
-> > +++ b/xen/common/pdx.c
-> > @@ -24,6 +24,7 @@
-> >  #include <xen/param.h>
-> >  #include <xen/pfn.h>
-> >  #include <xen/sections.h>
-> > +#include <xen/sort.h>
-> >  
-> >  /**
-> >   * Maximum (non-inclusive) usable pdx. Must be
-> > @@ -40,6 +41,12 @@ bool __mfn_valid(unsigned long mfn)
-> >  
-> >  #ifdef CONFIG_PDX_MASK_COMPRESSION
-> >      invalid |= mfn & pfn_hole_mask;
-> > +#elif defined(CONFIG_PDX_OFFSET_COMPRESSION)
-> > +{
-> > +    unsigned long base = pfn_bases[PFN_TBL_IDX(mfn)];
-> > +
-> > +    invalid |= mfn < base || mfn >= base + pdx_region_size;
-> > +}
-> >  #endif
-> 
-> Hmm, didn't notice this earlier on: Brace placement looks odd here. I think
-> they want to be indented by one level, as they aren't starting a function
-> body.
+This is a multi-part message in MIME format.
+--------------kdt00xxFjWrjsxUeIoZikbxX
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Right, I can adjust.  Since they are inside of the ifdef block it did
-look kind of OK to me, and avoided having to indent the content one
-extra level.
 
-> > @@ -294,7 +308,245 @@ void __init pfn_pdx_compression_reset(void)
-> >      nr_ranges = 0;
-> >  }
-> >  
-> > -#endif /* CONFIG_PDX_COMPRESSION */
-> > +#elif defined(CONFIG_PDX_OFFSET_COMPRESSION) /* CONFIG_PDX_MASK_COMPRESSION */
-> > +
-> > +unsigned int __ro_after_init pfn_index_shift;
-> > +unsigned int __ro_after_init pdx_index_shift;
-> > +
-> > +unsigned long __ro_after_init pfn_pdx_lookup[CONFIG_PDX_NR_LOOKUP];
-> > +unsigned long __ro_after_init pdx_pfn_lookup[CONFIG_PDX_NR_LOOKUP];
-> > +unsigned long __ro_after_init pfn_bases[CONFIG_PDX_NR_LOOKUP];
-> > +unsigned long __ro_after_init pdx_region_size = ~0UL;
-> 
-> For cache locality, might this last one better also move ahead of the arrays?
+On 8/4/25 3:52 PM, Jan Beulich wrote:
+> On 31.07.2025 17:58, Oleksii Kurochko wrote:
+>> Instruct the remote harts to execute one or more HFENCE.GVMA instructions,
+>> covering the range of guest physical addresses between start_addr and
+>> start_addr + size for all VMIDs.
+>>
+>> The remote fence operation applies to the entire address space if either:
+>>   - start_addr and size are both 0, or
+>>   - size is equal to 2^XLEN-1.
+>>
+>> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+> Acked-by: Jan Beulich<jbeulich@suse.com>
+>
+> However, ...
+>
+>> --- a/xen/arch/riscv/include/asm/sbi.h
+>> +++ b/xen/arch/riscv/include/asm/sbi.h
+>> @@ -89,6 +89,25 @@ bool sbi_has_rfence(void);
+>>   int sbi_remote_sfence_vma(const cpumask_t *cpu_mask, vaddr_t start,
+>>                             size_t size);
+>>   
+>> +/*
+>> + * Instructs the remote harts to execute one or more HFENCE.GVMA
+>> + * instructions, covering the range of guest physical addresses
+>> + * between start_addr and start_addr + size for all VMIDs.
+> ... I'd like to ask that you avoid fuzzy terminology like this one. Afaict
+> you mean [start, start + size). Help yourself and future readers by then
+> also saying it exactly like this. (Happy to make a respective edit while
+> committing.)
 
-Oh, yes, this was a late addition and I clearly didn't place enough
-attention when adding it.
+I just tried the following wording in SBI spec.
 
-> > +bool pdx_is_region_compressible(paddr_t base, unsigned long npages)
-> > +{
-> > +    unsigned long pfn = PFN_DOWN(base);
-> > +    unsigned long pfn_base = pfn_bases[PFN_TBL_IDX(pfn)];
-> > +
-> > +    return pfn >= pfn_base &&
-> > +           pfn + npages <= pfn_base + pdx_region_size;
-> > +}
-> > +
-> > +static int __init cf_check cmp_node(const void *a, const void *b)
-> > +{
-> > +    const struct pfn_range *l = a;
-> > +    const struct pfn_range *r = b;
-> > +
-> > +    if ( l->base_pfn > r->base_pfn )
-> > +        return 1;
-> > +    if ( l->base_pfn < r->base_pfn )
-> > +        return -1;
-> > +
-> > +    return 0;
-> > +}
-> > +
-> > +static void __init cf_check swp_node(void *a, void *b)
-> > +{
-> > +    SWAP(a, b);
-> > +}
-> 
-> This hasn't changed from v3, and still looks wrong to me.
+I agree that using [start, start+size) is clearer as each time I'm going
+to check SBI code to verify if 'start+size' is included or not.
 
-Oh, I did recall a comment to that regard, but somehow forgot to apply
-it, I'm sorry, I've now fixed it.
+It would be happy if you could update this part of commit message during
+commit.
 
-> > +bool __init pfn_pdx_compression_setup(paddr_t base)
-> > +{
-> > +    unsigned long mask = PFN_DOWN(pdx_init_mask(base)), idx_mask = 0;
-> > +    unsigned long pages = 0;
-> > +    unsigned int i;
-> > +
-> > +    if ( !nr_ranges )
-> > +    {
-> > +        printk(XENLOG_DEBUG "PFN compression disabled%s\n",
-> > +               pdx_compress ? ": no ranges provided" : "");
-> > +        return false;
-> > +    }
-> > +
-> > +    if ( nr_ranges > ARRAY_SIZE(ranges) )
-> > +    {
-> > +        printk(XENLOG_WARNING
-> > +               "Too many PFN ranges (%u > %zu), not attempting PFN compression\n",
-> > +               nr_ranges, ARRAY_SIZE(ranges));
-> > +        return false;
-> > +    }
-> > +
-> > +    /* Sort ranges by start address. */
-> > +    sort(ranges, nr_ranges, sizeof(*ranges), cmp_node, swp_node);
-> > +
-> > +    for ( i = 0; i < nr_ranges; i++ )
-> > +    {
-> > +        unsigned long start = ranges[i].base_pfn;
-> > +
-> > +        /*
-> > +         * Align range base to MAX_ORDER.  This is required so the PDX offset
-> > +         * for the bits below MAX_ORDER matches the MFN offset, and pages
-> > +         * greater than the minimal order can be used to populate the
-> > +         * directmap.
-> > +         */
-> > +        ranges[i].base_pfn = start & ~((1UL << MAX_ORDER) - 1);
-> > +        ranges[i].pages = start + ranges[i].pages - ranges[i].base_pfn;
-> > +
-> > +        /*
-> > +         * Only merge overlapped regions now, leave adjacent regions separated.
-> > +         * They would be merged later if both use the same index into the
-> > +         * lookup table.
-> > +         */
-> > +        if ( !i ||
-> > +             ranges[i].base_pfn >=
-> > +             (ranges[i - 1].base_pfn + ranges[i - 1].pages) )
-> > +        {
-> > +            mask |= pdx_region_mask(ranges[i].base_pfn, ranges[i].pages);
-> > +            continue;
-> > +        }
-> > +
-> > +        ranges[i - 1].pages = ranges[i].base_pfn + ranges[i].pages -
-> > +                              ranges[i - 1].base_pfn;
-> > +
-> > +        if ( i + 1 < nr_ranges )
-> > +            memmove(&ranges[i], &ranges[i + 1],
-> > +                    (nr_ranges - (i + 1)) * sizeof(ranges[0]));
-> > +        else /* last range */
-> > +            mask |= pdx_region_mask(ranges[i].base_pfn, ranges[i].pages);
-> > +        nr_ranges--;
-> > +        i--;
-> > +    }
-> > +
-> > +    /*
-> > +     * Populate a mask with the non-equal bits of the different ranges, do this
-> > +     * to calculate the maximum PFN shift to use as the lookup table index.
-> > +     */
-> > +    for ( i = 0; i < nr_ranges; i++ )
-> > +        for ( unsigned int j = 0; j < nr_ranges; j++ )
-> > +            idx_mask |= (ranges[i].base_pfn & ~mask) ^
-> > +                        (ranges[j].base_pfn & ~mask);
-> 
-> "mask" is loop invariant - can't the AND-ing be pulled out, after the loop?
+>
+>> + * Returns 0 if IPI was sent to all the targeted harts successfully
+>> + * or negative value if start_addr or size is not valid.
+> This similarly is ambiguous: The union of the success case stated and the
+> error case stated isn't obviously all possible states. The success
+> statement in particular alludes to the possibility of an IPI not actually
+> reaching its target.
 
-I've applied both of the above, thanks for the help.
+The same as above this is what SBI spec. tells.
 
-Regards, Roger.
+I've not checked SBI code deeply, but it seems like the code is waiting while
+IPI will be reached as looking at the code:
+	/**
+	 * As this this function only handlers scalar values of hart mask, it must be
+	 * set to all online harts if the intention is to send IPIs to all the harts.
+	 * If hmask is zero, no IPIs will be sent.
+	 */
+	int sbi_ipi_send_many(ulong hmask, ulong hbase, u32 event, void *data)
+	{
+                 ...
+	
+		/* Send IPIs */
+		do {
+			retry_needed = false;
+			sbi_hartmask_for_each_hart(i, &target_mask) {
+				rc = sbi_ipi_send(scratch, i, event, data);
+				if (rc == SBI_IPI_UPDATE_RETRY)
+					retry_needed = true;
+				else
+					sbi_hartmask_clear_hart(i, &target_mask);
+			}
+		} while (retry_needed);
+	
+		/* Sync IPIs */
+		sbi_ipi_sync(scratch, event);
+	
+		return 0;
+	}
+and
+	static int sbi_ipi_sync(struct sbi_scratch *scratch, u32 event)
+	{
+		const struct sbi_ipi_event_ops *ipi_ops;
+	
+		if ((SBI_IPI_EVENT_MAX <= event) ||
+		    !ipi_ops_array[event])
+			return SBI_EINVAL;
+		ipi_ops = ipi_ops_array[event];
+	
+		if (ipi_ops->sync)
+			ipi_ops->sync(scratch);
+	
+		return 0;
+	}
+which calls:
+	static void tlb_sync(struct sbi_scratch *scratch)
+	{
+		atomic_t *tlb_sync =
+				sbi_scratch_offset_ptr(scratch, tlb_sync_off);
+	
+		while (atomic_read(tlb_sync) > 0) {
+			/*
+			 * While we are waiting for remote hart to set the sync,
+			 * consume fifo requests to avoid deadlock.
+			 */
+			tlb_process_once(scratch);
+		}
+	
+		return;
+	}
+
+>
+>> + * The remote fence operation applies to the entire address space if either:
+>> + *  - start_addr and size are both 0, or
+>> + *  - size is equal to 2^XLEN-1.
+> Whose XLEN is this? The guest's? The host's? (I assume the latter, but it's
+> not unambiguous, unless there's specific terminology that I'm unaware of,
+> yet which would make this unambiguous.)
+
+RISC-V spec quite mixes the terminology (3.1.6.2. Base ISA Control in mstatus Register)
+around XLEN:
+   For RV64 harts, the SXL and UXL fields are WARL fields that control the value
+   of XLEN for S-mode and U-mode, respectively. The encoding of these fields is
+   the same as the MXL field of misa, shown in Table 9. The effective XLEN in
+   S-mode and U-mode are termed SXLEN and UXLEN, respectively
+
+Basically, RISC-V privileged architecture defines different XLEN values for
+various privilege modes:
+  - MXLEN for Machine mode
+  - SXLEN for Supervisor mode.
+  - HSXLEN for Hypervisor-Supervisor mode.
+  - VSXLEN for Virtual Supervisor mode.
+
+Considering that SBI is an API that is provided for S-mode I expect that XLEN = SXLEN
+in this case, but SBI spec. is using just XLEN.
+
+~ Oleksii
+
+--------------kdt00xxFjWrjsxUeIoZikbxX
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 8/4/25 3:52 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:829f9477-2b18-47f0-8fb3-57bffa8d133d@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 31.07.2025 17:58, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">Instruct the remote harts to execute one or more HFENCE.GVMA instructions,
+covering the range of guest physical addresses between start_addr and
+start_addr + size for all VMIDs.
+
+The remote fence operation applies to the entire address space if either:
+ - start_addr and size are both 0, or
+ - size is equal to 2^XLEN-1.
+
+Signed-off-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Acked-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
+
+However, ...
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/sbi.h
++++ b/xen/arch/riscv/include/asm/sbi.h
+@@ -89,6 +89,25 @@ bool sbi_has_rfence(void);
+ int sbi_remote_sfence_vma(const cpumask_t *cpu_mask, vaddr_t start,
+                           size_t size);
+ 
++/*
++ * Instructs the remote harts to execute one or more HFENCE.GVMA
++ * instructions, covering the range of guest physical addresses
++ * between start_addr and start_addr + size for all VMIDs.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+... I'd like to ask that you avoid fuzzy terminology like this one. Afaict
+you mean [start, start + size). Help yourself and future readers by then
+also saying it exactly like this. (Happy to make a respective edit while
+committing.)</pre>
+    </blockquote>
+    <pre>I just tried the following wording in SBI spec.
+
+I agree that using [start, start+size) is clearer as each time I'm going
+to check SBI code to verify if 'start+size' is included or not.
+
+It would be happy if you could update this part of commit message during
+commit.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:829f9477-2b18-47f0-8fb3-57bffa8d133d@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+ * Returns 0 if IPI was sent to all the targeted harts successfully
++ * or negative value if start_addr or size is not valid.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+This similarly is ambiguous: The union of the success case stated and the
+error case stated isn't obviously all possible states. The success
+statement in particular alludes to the possibility of an IPI not actually
+reaching its target.</pre>
+    </blockquote>
+    <pre>The same as above this is what SBI spec. tells.
+
+I've not checked SBI code deeply, but it seems like the code is waiting while
+IPI will be reached as looking at the code:
+	/**
+	 * As this this function only handlers scalar values of hart mask, it must be
+	 * set to all online harts if the intention is to send IPIs to all the harts.
+	 * If hmask is zero, no IPIs will be sent.
+	 */
+	int sbi_ipi_send_many(ulong hmask, ulong hbase, u32 event, void *data)
+	{
+                ...
+	
+		/* Send IPIs */
+		do {
+			retry_needed = false;
+			sbi_hartmask_for_each_hart(i, &amp;target_mask) {
+				rc = sbi_ipi_send(scratch, i, event, data);
+				if (rc == SBI_IPI_UPDATE_RETRY)
+					retry_needed = true;
+				else
+					sbi_hartmask_clear_hart(i, &amp;target_mask);
+			}
+		} while (retry_needed);
+	
+		/* Sync IPIs */
+		sbi_ipi_sync(scratch, event);
+	
+		return 0;
+	}
+and
+	static int sbi_ipi_sync(struct sbi_scratch *scratch, u32 event)
+	{
+		const struct sbi_ipi_event_ops *ipi_ops;
+	
+		if ((SBI_IPI_EVENT_MAX &lt;= event) ||
+		    !ipi_ops_array[event])
+			return SBI_EINVAL;
+		ipi_ops = ipi_ops_array[event];
+	
+		if (ipi_ops-&gt;sync)
+			ipi_ops-&gt;sync(scratch);
+	
+		return 0;
+	}
+which calls:
+	static void tlb_sync(struct sbi_scratch *scratch)
+	{
+		atomic_t *tlb_sync =
+				sbi_scratch_offset_ptr(scratch, tlb_sync_off);
+	
+		while (atomic_read(tlb_sync) &gt; 0) {
+			/*
+			 * While we are waiting for remote hart to set the sync,
+			 * consume fifo requests to avoid deadlock.
+			 */
+			tlb_process_once(scratch);
+		}
+	
+		return;
+	}
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:829f9477-2b18-47f0-8fb3-57bffa8d133d@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+ * The remote fence operation applies to the entire address space if either:
++ *  - start_addr and size are both 0, or
++ *  - size is equal to 2^XLEN-1.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Whose XLEN is this? The guest's? The host's? (I assume the latter, but it's
+not unambiguous, unless there's specific terminology that I'm unaware of,
+yet which would make this unambiguous.)</pre>
+    </blockquote>
+    <pre>RISC-V spec quite mixes the terminology (3.1.6.2. Base ISA Control in mstatus Register)
+around XLEN:
+  For RV64 harts, the SXL and UXL fields are WARL fields that control the value
+  of XLEN for S-mode and U-mode, respectively. The encoding of these fields is
+  the same as the MXL field of misa, shown in Table 9. The effective XLEN in
+  S-mode and U-mode are termed SXLEN and UXLEN, respectively
+
+Basically, RISC-V privileged architecture defines different XLEN values for
+various privilege modes:
+ - MXLEN for Machine mode
+ - SXLEN for Supervisor mode.
+ - HSXLEN for Hypervisor-Supervisor mode.
+ - VSXLEN for Virtual Supervisor mode.
+
+Considering that SBI is an API that is provided for S-mode I expect that XLEN = SXLEN
+in this case, but SBI spec. is using just XLEN.
+
+~ Oleksii
+</pre>
+  </body>
+</html>
+
+--------------kdt00xxFjWrjsxUeIoZikbxX--
 
