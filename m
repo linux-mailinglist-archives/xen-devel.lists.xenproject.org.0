@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F9CAB1B7EB
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 18:05:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1070718.1434345 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEE2FB1B88B
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 18:31:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1070736.1434355 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujKAa-0006UW-4u; Tue, 05 Aug 2025 16:05:44 +0000
+	id 1ujKYb-0002Fw-1h; Tue, 05 Aug 2025 16:30:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1070718.1434345; Tue, 05 Aug 2025 16:05:44 +0000
+Received: by outflank-mailman (output) from mailman id 1070736.1434355; Tue, 05 Aug 2025 16:30:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujKAa-0006Sg-0w; Tue, 05 Aug 2025 16:05:44 +0000
-Received: by outflank-mailman (input) for mailman id 1070718;
- Tue, 05 Aug 2025 16:05:42 +0000
+	id 1ujKYa-0002ET-Tu; Tue, 05 Aug 2025 16:30:32 +0000
+Received: by outflank-mailman (input) for mailman id 1070736;
+ Tue, 05 Aug 2025 16:30:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yoJv=2R=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ujKAY-0006SK-QM
- for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 16:05:42 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ id 1ujKYZ-0002EN-3Y
+ for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 16:30:31 +0000
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [2a00:1450:4864:20::442])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 06d65ecf-7216-11f0-b898-0df219b8e170;
- Tue, 05 Aug 2025 18:05:37 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-458ba079338so185255e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 05 Aug 2025 09:05:37 -0700 (PDT)
+ id 7fa03f09-7219-11f0-b898-0df219b8e170;
+ Tue, 05 Aug 2025 18:30:29 +0200 (CEST)
+Received: by mail-wr1-x442.google.com with SMTP id
+ ffacd0b85a97d-3b788feab29so3282168f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Aug 2025 09:30:29 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-459e6214640sm2883005e9.1.2025.08.05.09.05.36
+ 5b1f17b1804b1-459e5862fd9sm11846605e9.16.2025.08.05.09.30.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Aug 2025 09:05:36 -0700 (PDT)
+ Tue, 05 Aug 2025 09:30:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06d65ecf-7216-11f0-b898-0df219b8e170
+X-Inumbo-ID: 7fa03f09-7219-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1754409937; x=1755014737; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1754411428; x=1755016228; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iomsWgcklMta5jk+zcDV2STtNifIaXuiNXNCW/qes5g=;
-        b=mrlsGZms64gAGqRiMXgmxr71pFK2RYoJJDNb9GiPWCAo8DEIU+F2VHLqaIzntDtgPh
-         JTrdH8AnA0/+Pl0+PzSNVRN8xMb9i/fAlprvDhsBZzWehEB7zC7M6lijrVMDUuyUJonb
-         u2ZClKVSU5a7BCH3kWIxATKm2+Zr5S6sRgO0Q=
+        bh=PM1NioD3AaSZK7dKZ8xpkrIjCA6kGXg8Oj72JfhVMg8=;
+        b=J7fgH4jAj/l44WsixYoMiRgDBbPGEclt023Vie7k9Wt1rS9VlEHHDC94pFv+C3KzDB
+         ZjoEDm2ZG/1MnyjvV71INLuO2dHWT/DemNsWKO5t/IG7kmR0vHTvcflLlxTYleRzmRjU
+         hsiuQx3txvPNJo3PSqN2sN7R2d7dk+BQvIHd8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754409937; x=1755014737;
+        d=1e100.net; s=20230601; t=1754411428; x=1755016228;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iomsWgcklMta5jk+zcDV2STtNifIaXuiNXNCW/qes5g=;
-        b=ghTE4NyiTtr3q+56tEmM1moD6poHizCvzdt1jDiG8deGugz12rAB/FLDtebFpq5yUM
-         Gd4f39fLAj0LRdiKmpkGPEjaeoCTk0yZbJPFTMW/3owL6qSdpKBHEdDto8goo+Hr5vm2
-         d4yv4i+iQ3agUGOLD1yBjAoTPSmujifXZun0dc4+qaqKgLuEOTXP4Z2F89NM57RfsQdc
-         EAyheoMXX32I4TQ5Rt2aC96XTFYPNXuML7i0tKEtGvL3Emz9HNY5tCwT4lwhpjsQe9Td
-         pfdRfoVMAvzkC8i1kiJvbWnhSvQjf3InRSMInLgS1zzmCxsXTOJpBCZXwaYGNR+4OdxK
-         PidA==
-X-Forwarded-Encrypted: i=1; AJvYcCVCTkCBNNkryyZM53M1c1FjVjAnkfPRuhxGCDea6UhFsF7D/8jjXf5/jBQUzzg9B2DhUh50H/mSfRI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzD3xB0ErDnskF1gIlEiQHAEi6/8R2GFgZ4T8psLei3M23jc/Dy
-	r5op5PTl/IVbIDExqOMGc7G8IKhJuzGfD4HiSAkoIliq+Vxyf3hx1qFSXae81hefJCQ=
-X-Gm-Gg: ASbGncuRrW+n7TqRDvD7JMR0st0HcBzdLZTdkEk6BPhH1nU1DTFEqPG0nUNBwISaZJD
-	ZwZChIbLUYrRFjEqFMgMNARUrfaZJEb5olDVRZzvEJc1xb3qThB/rkSFCBPoKMNas4kEJQMpdCQ
-	yXBaEZBtUTNkuA5YleqF8O80sRF//C9XIY/h1mcRlte/SAdp/8K7dDaSQ3tyop/lcohJxpznF8u
-	BgZzepS6JlGFQPxTFrQQ0T7HKrreOfgvtmyLoPD2ZeDpsZw6KQGcgOv/HZVv9hg2z0QB35ttDkw
-	8BcOjmBYQbL498O6Nr+9ZQ9XFMdS9vgQ+8/8om+T6hurPev6QtONsCXqZw+N5ZFtyaqe05D0gWJ
-	jo/xS2cZoCjtfw50M7OvRoCj4hQMnaaG1msscDeiv+ky33G2K+HDePt5VpjawaNsxzxmT
-X-Google-Smtp-Source: AGHT+IFBmq60J+l+DOXX1mTr+io9rzRXeiwmIR2j0vf1G7sviA2M6Z0id2EYvSuuhOYoOyN/rkK19w==
-X-Received: by 2002:a05:600c:5009:b0:455:f7d5:1224 with SMTP id 5b1f17b1804b1-459e0cb8c2fmr37611625e9.9.1754409937340;
-        Tue, 05 Aug 2025 09:05:37 -0700 (PDT)
-Message-ID: <641a944b-ed71-49f3-aa3e-e92f4ee06508@citrix.com>
-Date: Tue, 5 Aug 2025 17:05:35 +0100
+        bh=PM1NioD3AaSZK7dKZ8xpkrIjCA6kGXg8Oj72JfhVMg8=;
+        b=MSYvREJ0ku4E5P5NDPf4+vofhVQrUPJ91dDni/XY/zoKIPrqwAltqlEKnKYYUce64y
+         dyX9XEnTQAqA8KDPxADX6H2b/+3c79WF3p0xNM/vrg7Nt+yGjiIem4TgRjAwaDfTInJ8
+         qFPcX9/r4l0wQ5+eTJmsJIo04ic5lDNKSNqC3Gw58qt9Kwbs6ccrCAXrf0NU78PHJwDw
+         4tvCboRqxUiMqehUggP86yyqG1cDRMHOT1AyShEszIelEGHFYtpjG3hWJPliyBIyscDa
+         bi6V/EOglTUBNBqOL1YsDuF+0iuiKmq54akoG/HwCekBR6S8gJv0iIQvS4vdudT83+v1
+         kz0w==
+X-Forwarded-Encrypted: i=1; AJvYcCVPuQk7QEtk9cLJvkra+eYjF23EdCrzLFXlZZWSe2PfXnsnQbA+Wd2mn0Vm1mB3PvbgN/ijQNpA1l0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwRBE40nvcPvcgaKd/gHJdE5xYkwSl4kEYseF3R9rC7XtxKJdvn
+	z8V0HzMB9blD1x97l79/FQieC0BIOOdmeDuyLF1RqvG86EeqM8rbaZWue4VqSS9SWGo=
+X-Gm-Gg: ASbGncuUhmI/u/+TTBcyJHR4g5yYabQe2ay0us6fyobvexkkSDF37um4Tp6viESr1YY
+	L+1WPLXLcZU/KxKeH0Bw/rJmkKVc2K1lTXM7MeDRZ6o6cV1FqD5FSDoSScERo1SPQUqPk/NNXRP
+	a1JJBXVkq9FyLL9zh0WhhYehc+7XqP7bJxfDdDSnZv8ZXPuW0yAJkZpu8rzzEYPQl9ZAJWG8XLt
+	ucRafm0IxTaBwIpmRxyRgF/QbUdtC5F7ZopqTxieWWMLsm+QFYiVxdYpeN5R+c2QpAys4o1da/X
+	ECaJ7/KQqv0Q0Dl4WHDvW1JStMDy/EMMO3K6wvtzA6hFFy1nwhvZyLULOCzyuDkMcxKJGUOYews
+	tTYbS0s0mPLt0p1aHbJ9OelT6eVlTpeed2eTpEs1d/KgJlQLAg2+I8tS4vzKSusMC328K
+X-Google-Smtp-Source: AGHT+IFOl7yntiwacf0GzeSdiH5y/z8AxyA43gAvCJKEKtuARSmJlN9DqJXdRs6vE9d+qmllG56RCA==
+X-Received: by 2002:a05:6000:2a11:b0:3b8:eb7d:910c with SMTP id ffacd0b85a97d-3b8eb7d9159mr2679147f8f.43.1754411428433;
+        Tue, 05 Aug 2025 09:30:28 -0700 (PDT)
+Message-ID: <eec4c77b-c2fa-4554-9016-094e0daa73e9@citrix.com>
+Date: Tue, 5 Aug 2025 17:30:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/hpet: do local APIC EOI after interrupt processing
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>
-References: <20250805160326.78837-1-roger.pau@citrix.com>
+Subject: Re: [PATCH v2] systemd: Add hooks to stop/start xen-watchdog on
+ suspend/resume
+To: Mykola Kvach <xakep.amatop@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Mykola Kvach <mykola_kvach@epam.com>,
+ Anthony PERARD <anthony.perard@vates.tech>
+References: <b44966513abc729f44795c0d5012e1c5fd106477.1752783296.git.mykola_kvach@epam.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -133,27 +135,31 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250805160326.78837-1-roger.pau@citrix.com>
+In-Reply-To: <b44966513abc729f44795c0d5012e1c5fd106477.1752783296.git.mykola_kvach@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 05/08/2025 5:03 pm, Roger Pau Monne wrote:
-> The current logic in the HPET interrupt ->ack() hook will perform a local
-> APIC EOI ahead of enabling interrupts, possibly leading to recursion in the
-> interrupt handler.
->
-> Fix this by doing the local APIC EOI strictly after the window with
-> interrupt enabled, as that prevents the recursion, and would only allow for
-> interrupts with higher priority to be serviced.
->
-> Use the generic ack_nonmaskable_msi_irq() and end_nonmaskable_irq()
-> functions, removing the need for hpet_msi_ack().
->
-> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Fixes: 3ba523ff957c ('CPUIDLE: enable MSI capable HPET for timer broadcast')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On 17/07/2025 9:16 pm, Mykola Kvach wrote:
+>  config/Tools.mk.in                            |  1 +
+>  m4/systemd.m4                                 | 14 ++++++++
+>  tools/hotplug/Linux/systemd/Makefile          |  8 ++++-
+>  .../Linux/systemd/xen-watchdog-sleep.sh       | 34 +++++++++++++++++++
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+This has been committed, but it drops the file:
 
-Good riddance to the mess in our patchqueue cased by this.
+  /usr/lib/systemd/system-sleep/xen-watchdog-sleep.sh
+
+into a directory which more normally contains:
+
+$ file /usr/lib/systemd/system-sleep/*
+/usr/lib/systemd/system-sleep/hdparm:              POSIX shell script, ASCII text executable
+/usr/lib/systemd/system-sleep/nvidia:              POSIX shell script, ASCII text executable
+/usr/lib/systemd/system-sleep/sysstat.sleep:       POSIX shell script, ASCII text executable
+/usr/lib/systemd/system-sleep/tlp:                 POSIX shell script, ASCII text executable
+/usr/lib/systemd/system-sleep/unattended-upgrades: POSIX shell script, ASCII text executable
+
+
+I'd suggest renaming it to xen-watchdog (or perhaps xen-watchdog.sleep).
+
+~Andrew
 
