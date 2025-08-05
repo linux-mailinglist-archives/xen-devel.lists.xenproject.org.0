@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF78FB1AD3B
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 06:49:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1069979.1433649 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E19FB1AD3C
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 06:49:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1069988.1433658 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uj9bE-0002FT-5v; Tue, 05 Aug 2025 04:48:32 +0000
+	id 1uj9by-0002iC-EB; Tue, 05 Aug 2025 04:49:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1069979.1433649; Tue, 05 Aug 2025 04:48:32 +0000
+Received: by outflank-mailman (output) from mailman id 1069988.1433658; Tue, 05 Aug 2025 04:49:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uj9bE-0002D6-2m; Tue, 05 Aug 2025 04:48:32 +0000
-Received: by outflank-mailman (input) for mailman id 1069979;
- Tue, 05 Aug 2025 04:48:30 +0000
+	id 1uj9by-0002fz-BJ; Tue, 05 Aug 2025 04:49:18 +0000
+Received: by outflank-mailman (input) for mailman id 1069988;
+ Tue, 05 Aug 2025 04:49:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8F9P=2R=gmail.com=arraybolt3@srs-se1.protection.inumbo.net>)
- id 1uj9bC-0002D0-Lc
- for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 04:48:30 +0000
-Received: from mail-il1-x12c.google.com (mail-il1-x12c.google.com
- [2607:f8b0:4864:20::12c])
+ id 1uj9bw-0002fb-Nx
+ for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 04:49:16 +0000
+Received: from mail-il1-x133.google.com (mail-il1-x133.google.com
+ [2607:f8b0:4864:20::133])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6e0f574e-71b7-11f0-a321-13f23c93f187;
- Tue, 05 Aug 2025 06:48:29 +0200 (CEST)
-Received: by mail-il1-x12c.google.com with SMTP id
- e9e14a558f8ab-3e3fdfa4c2aso2790365ab.1
- for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 21:48:29 -0700 (PDT)
+ id 89cd20e3-71b7-11f0-a321-13f23c93f187;
+ Tue, 05 Aug 2025 06:49:16 +0200 (CEST)
+Received: by mail-il1-x133.google.com with SMTP id
+ e9e14a558f8ab-3e3df510580so1349615ab.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Aug 2025 21:49:16 -0700 (PDT)
 Received: from kf-m2g5 ([2607:fb90:bf84:45ad:2f41:d127:adbe:c0d6])
  by smtp.gmail.com with ESMTPSA id
- e9e14a558f8ab-3e402b34532sm48015065ab.56.2025.08.04.21.48.27
+ 8926c6da1cb9f-50ab153eeb3sm522662173.25.2025.08.04.21.49.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Aug 2025 21:48:27 -0700 (PDT)
+ Mon, 04 Aug 2025 21:49:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,128 +45,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e0f574e-71b7-11f0-a321-13f23c93f187
+X-Inumbo-ID: 89cd20e3-71b7-11f0-a321-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1754369308; x=1754974108; darn=lists.xenproject.org;
-        h=mime-version:message-id:subject:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=fAeb9X+8AuYEPG8mHnlJ16wIPZcag0txnZ1arZNalQ0=;
-        b=H3lAVRTeU+yBVc0fC01gLVj6lukHhLs+OePODKqUdbI0L1TtLhLvFDSrlRY1Y0Gd2x
-         Vumdq+l6bGOWGFy0tFbIv3DmkACCIgBEZNl2ZlXvE6Q6CSepv3bbojTJzQG91Xhkintj
-         0mcdUB8B5DnvcpEIZCRiNIHf38DTTEgPB8xt4rPG3mSg8eqKd+nSJjsQFA8fblPWQoGy
-         MjuaMLNbPIx6BxCOn0++d2ZDKk8nawrrCCd+PJZaAAPyEO1TONV2jKnUQW8YtXGNtMEg
-         6wT7Caq2pCkHNvu0KpTwW3TQWeCLohpC73fXBXt5SljxUM7cKuSTFzUHQLIZR4Xdaib3
-         YqRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754369308; x=1754974108;
-        h=mime-version:message-id:subject:to:from:date:x-gm-message-state
+        d=gmail.com; s=20230601; t=1754369355; x=1754974155; darn=lists.xenproject.org;
+        h=mime-version:references:in-reply-to:message-id:subject:to:from:date
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=fAeb9X+8AuYEPG8mHnlJ16wIPZcag0txnZ1arZNalQ0=;
-        b=FGQaTZjpAVozHaexu7EtS2wKlT4ZrsBe7fbZ/whQSMjMyKD5qW2cRcYrcbtaHM+W5p
-         Wt3tAs2IGXhmsdCbu+M6I+Ix3nluf41yJfAG3xQD1/d9UrUY8PW5BTtlzzYEiwAZ0bF3
-         Rik3odsjjKFStx8R2WuRQTSOT3dm/HkXp0J6KmUlCq5QgMAArG0RY2yJS2NJ7gfFWjlK
-         IRch32yuoWPaTSW5F0S5ILlt2bxtp9dO2evkXSLn4Yi8H/jOvQJn3rEMWqGvT2rQEb7H
-         PFOlK3K3SwRKvr2fmm63kEjBj5bUvU5F56CHYrINP18slWsYjG/ru3/eVCiwURIRVoWS
-         SEug==
-X-Forwarded-Encrypted: i=1; AJvYcCWbMXZFgvNbXspNNIWk65wfUbOWsDm1WVnqyTjRFhH6CPLvPwIvQyAcSZG9RGNM/Vtv9JH7FVVaxsI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy7WoZQSDYT9j9GdMAcB6WtsqhH1L+dR0RAIRwBNl3dV0bXTBWz
-	TW5yT0WYVyv7gJRoHl4LHhu8XJOWwC7DkM/X4AmCzhYEnVE6frkvOHIO
-X-Gm-Gg: ASbGncv65iBg7ERGSrdEYtd94Hf99vaTIG4m5WLty2tAlryHcCy23RBSWQCS//8coXP
-	4NbbRY+UwEH+8ebME1H3rgpVYKzk1fQ/VqgqSazjpQfoFv50vNhPGbNhgK6BeJ8P+yMoo834Fp0
-	Z9BZYjstVT7yqeUx/g5UwMC7BxfWLeKGwdTe0X0pbn/XZ5TPPhK51lSsAGw/+R5HO0sQIsZ2vH3
-	UHTtub7eUj71FvVC2h7D7s59549jdWYkVitrYAZVWfggnHLtx3DFdC6WMcWQtRFkZStEcO3CZeg
-	O2BDzcPGMFY1ctIkdPuzcyKXLVlxIh7GCPgF+6oEB2fwzJOHtuHOnSZyoff+3Ja7x0G57lm7+Vj
-	uxYwpK7haFl9oyoZfnR1gfzXsSWpMGXitA0N0R2IRAw==
-X-Google-Smtp-Source: AGHT+IEKeEi/gAby9VnxKw5TgC6XlozkOvfKVx6TrT+v3TIv3VnhHxTOSNY+bluWQN+20xgcwCOhjw==
-X-Received: by 2002:a05:6e02:2482:b0:3e4:6c1:74a4 with SMTP id e9e14a558f8ab-3e416190916mr55764455ab.3.1754369308047;
-        Mon, 04 Aug 2025 21:48:28 -0700 (PDT)
-Date: Mon, 4 Aug 2025 23:48:16 -0500
+        bh=GXs9SwO4XSOIUWvjoKCrX+uREz6ahOCzhSla9A0bVUM=;
+        b=KzamnNy77t/A5EhbLJHd4ZT6N1U6Ml18tIxW1FUTY51FMlOAMX/3ExPYmWDR+B9Tj4
+         kD+Fv4HdrdZV+FGKzhGNsAGEFB0s2cguXyMPae/nn+qBd5XjWD0Ccm1oboZxH2d9BZS4
+         rOqNN0+2JGt0EkMt5xpZjX/4OJ3TIdUkf16AFF6trcmF+KcR1yLLHWpMRnN0OPKKpvyV
+         46NbQMtC1MtnyUjS81c5zyqBlK+sXkm9lAYsGJ3hCSl/33fFVbrwCTI7biFtjlBRpMlu
+         bMKCH+X1xfTheh1jeofVJBClxbR+scLWrKTx11IJ9NciHzViyywMJJjDeNTtQOONmFag
+         ruBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1754369355; x=1754974155;
+        h=mime-version:references:in-reply-to:message-id:subject:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=GXs9SwO4XSOIUWvjoKCrX+uREz6ahOCzhSla9A0bVUM=;
+        b=rUmMX0+7sMML0LOnHszn+Q20NCcixbfjMmhF/fxxBm5ZZQvyiO+eSfUdCMVfpT67sI
+         YOrOaU24fcWPUEG3IdaZhsu1ei33A76HAxIv2dsbHqbQwM6dLDW0B7gtqxGExGUqlj3T
+         Rs1XM7tPs+lIr+jMQ9pQEvqTNQj8S4oFcoJjp62x+/Qb00/1pWIU7J3JXIYNmcc3X9Yc
+         3TqZOkEe3f4p9/T4DfXTn+zTGGrS16rP4FvmOaVakbfpugM+OrR/xxKcGsZUPgdxJQb6
+         CLC4A/sXYzhHpDNpcGnIxymUHhlrAwU5vAOXsQ2xqdhNBKb8WLzJ/KEM0sTPexWCfxTd
+         vCBA==
+X-Forwarded-Encrypted: i=1; AJvYcCWwhjmvlMqJzwaqvwolCArgHTzsCy8m+GRswaKNWGfqHltTGcbcblM5s1tfP1yNy9OqJQufNSOUYCc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyszGocvBSSaacwD/SDMgs23DYzgFof10mCsNpUVxhVl5n1HCLk
+	TrGo91GCZGce+Vfn1hethh53/MeVfUa+c4/3rUY7hof/yzUpjz00NJMP
+X-Gm-Gg: ASbGncu94SRD9Q3063VBtwUkA32FSUtarkZX7ah3Zf7YG8urUHb4r3dW01ciIBd0Yd2
+	2+6HnfgwI14h0HvLSQOv8rd3gXmTfJQo7Ih8gPLqT6t/J6xp1BH3m4gU5o0apDjOFTxbBlzCPHZ
+	Waa4s6mC4wWALvsUObfB1d7FfaUBVVJEGm9S019LefWyd/OtWPx8OX1sZWoAQBztfi7mqkg8FZK
+	IdIFg0fVghM3DJJR5WcCv1iwMAVONMvQXA4RwhWcWZbM8DglrwhlfF7WJasBDDHkc8svXa6AZhX
+	oGxy7hKIstFsn+RcnWtJVajcepMDD7Hqtc4fwRtHsZvEempMlqpOFZdVZoL4YMX7yjahXzk0jkc
+	HnPAqG4wJI1VJOeIGz071wcPHYwaddNs=
+X-Google-Smtp-Source: AGHT+IH8VyvpMYmeKrfWuSB8PKhzo0cdcmlppy8+mTsfWjTZFGwyfCTjPHESrMmpxY3ES7MyKSnMtQ==
+X-Received: by 2002:a05:6e02:b44:b0:3e3:c947:e323 with SMTP id e9e14a558f8ab-3e41610a3fbmr55523055ab.2.1754369354792;
+        Mon, 04 Aug 2025 21:49:14 -0700 (PDT)
+Date: Mon, 4 Aug 2025 23:49:11 -0500
 From: Aaron Rainbolt <arraybolt3@gmail.com>
 To: grub-devel@gnu.org, xen-devel@lists.xenproject.org
-Subject: [PATCH v4 0/2] kern/xen: Add Xen command line parsing
-Message-ID: <20250804234816.3d14f53f@kf-m2g5>
+Subject: [PATCH v4 1/2] include/xen: Rename MAX_GUEST_CMDLINE to
+ GRUB_XEN_MAX_GUEST_CMDLINE
+Message-ID: <20250804234911.3cc3997c@kf-m2g5>
+In-Reply-To: <20250804234816.3d14f53f@kf-m2g5>
+References: <20250804234816.3d14f53f@kf-m2g5>
 X-Mailer: Claws Mail 4.3.1 (GTK 3.24.41; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/xScQGjvbhehxfi4Rs=kQNRS";
+Content-Type: multipart/signed; boundary="Sig_/cayLqM02C/AJXMYF4q/w2jR";
  protocol="application/pgp-signature"; micalg=pgp-sha512
 
---Sig_/xScQGjvbhehxfi4Rs=kQNRS
+--Sig_/cayLqM02C/AJXMYF4q/w2jR
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: quoted-printable
 
-The purpose of this patch is to allow the Xen hypervisor to pass extra
-data to GRUB in the form of a kernel command line, allowing the host to
-customize the boot process of the guest. The command line from Xen is
-parsed, and any variables within that start with the string
-`xen_grub_env_` are exposed as environment variables. The grub.cfg
-script can then use those environment variables as it sees fit.
+The xen.h header was using an overly generic name to refer to the
+maximum length of the command line passed from Xen to a guest. Rename it
+to avoid confusion or conflicts in the future.
 
-The main reason for doing this is to allow implementing boot modes in
-Qubes OS while also using in-VM kernels. For more context on Qubes boot
-modes, see [1]. In order for this to work with in-VM kernels, it is
-necessary for dom0 to pass kernel parameters to the guest without
-modifying the guest's grub.cfg manually. This patch allows this to be
-done, by allowing dom0 to pass kernel parameters to GRUB, which then
-provides them to grub.cfg as an environment variable. The grub.cfg
-script within the VM can then append those variables to the kernel
-command line.
+Signed-off-by: Aaron Rainbolt <arraybolt3@gmail.com>
+---
+ include/xen/xen.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-All of the changes from version 3 of the patch are simply refinements
-after a review from Daniel Kiper (coding style cleanups, avoiding
-global variables, double-checking NUL-termination after using
-grub_strncpy, etc.). The patch's functionality is unchanged.
-
-Since there are substantial changes since version 3, I've re-run the
-entire battery of tests that were used against the v3 patch, plus an
-extra test to ensure an escaped control character won't be accepted in
-variable values. The test results can be seen at [2]. As previously, the
-tests were done by booting a patched GRUB in Xen with various different
-parameters passed to it via the Xen-provided kernel command line. The
-effects of these parameters on the bootloader's environment were then
-tested, and then an Arch Linux image was booted to ensure that boot
-still worked.
-
-[1] https://github.com/QubesOS/qubes-linux-pvgrub2/pull/16
-[2] https://bpa.st/3SBQ
-
-Aaron Rainbolt (2):
-  include/xen: Rename MAX_GUEST_CMDLINE to GRUB_XEN_MAX_GUEST_CMDLINE
-  kern/xen: Add Xen command line parsing
-
- docs/grub.texi                |  51 +++++
- grub-core/Makefile.core.def   |   2 +
- grub-core/kern/i386/xen/pvh.c |  23 +++
- grub-core/kern/xen/cmdline.c  | 376 ++++++++++++++++++++++++++++++++++
- grub-core/kern/xen/init.c     |   2 +
- include/grub/xen.h            |   2 +
- include/xen/xen.h             |   4 +-
- 7 files changed, 458 insertions(+), 2 deletions(-)
- create mode 100644 grub-core/kern/xen/cmdline.c
-
+diff --git a/include/xen/xen.h b/include/xen/xen.h
+index 692f97a..fdf0fc4 100644
+--- a/include/xen/xen.h
++++ b/include/xen/xen.h
+@@ -823,8 +823,8 @@ struct start_info {
+                                 /* (PFN of pre-loaded module if           =
+*/
+                                 /*  SIF_MOD_START_PFN set in flags).      =
+*/
+     unsigned long mod_len;      /* Size (bytes) of pre-loaded module.     =
+*/
+-#define MAX_GUEST_CMDLINE 1024
+-    int8_t cmd_line[MAX_GUEST_CMDLINE];
++#define GRUB_XEN_MAX_GUEST_CMDLINE 1024
++    int8_t cmd_line[GRUB_XEN_MAX_GUEST_CMDLINE];
+     /* The pfn range here covers both page table and p->m table frames.   =
+*/
+     unsigned long first_p2m_pfn;/* 1st pfn forming initial P->M table.    =
+*/
+     unsigned long nr_p2m_frames;/* # of pfns forming initial P->M table.  =
+*/
 --=20
 2.50.1
 
 
---Sig_/xScQGjvbhehxfi4Rs=kQNRS
+--Sig_/cayLqM02C/AJXMYF4q/w2jR
 Content-Type: application/pgp-signature
 Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEudh48PFXwyPDa0wGpwkWDXPHkQkFAmiRjRAACgkQpwkWDXPH
-kQmUcQ/+IK73jDnnYdHxMHW5n0qqZPpSkOK1mYaH7o9lzLGngg9ias2SqAML8aw+
-Fyi+QQhVd7XRmPjZHe85yyVgEY3NM4WK7+T2PY4LfSAWq5xRKHVtm4mnhSMmXp95
-/DPqL4k8Dyj8oVuu861gdSxGk3L8Bq8bW1ttMIxTn9j1A3lKZ7h3//z6aXu+fTgQ
-MJuACkFJRGVjMnRXT40AKlRCM36KFktCC+C1r+a8Lh7rHhSzLWf6TbF+0A9Nt8vZ
-foLAvqAGlYfLtyi5nCMPdC88VeOcVc2PjymhzCd2MdTc7Wumxhw/xUFsJcoggaZK
-Al//2ekOjTjRP/Cirx6KBCe6eId3vk6YOC5HWKrHcFyCdYG3D+4MGXFPL9wQMEyN
-c1QLWdIPtBtFXXHLjppX1gsd0Wi9Jt47K1Xr1glzLHs7b++Zhlz+/qtoguPHU74i
-ilvAe8E4XRaCDZyFlxQofrfUVpa2OJOLHsoubS35X7DFpcNc+nHMYesDw4L6Bk0P
-McjaJ1CAbsxfELJ82ReQajhjTLB10C26EUd+JolR3g6+6fU2L4Aiy+IwQw348Rmc
-KKV429earA8F8Pu6UkgKEG8JQJlkbTts0wMs94+5pOslM5rqFqrbi/IDNJXV9e/2
-fsU01RHTu4HKB6j8ryDi0Mgo5sPqfkJJJplfxQeaiRpeeo7Txj8=
-=k+GH
+iQIzBAEBCgAdFiEEudh48PFXwyPDa0wGpwkWDXPHkQkFAmiRjUcACgkQpwkWDXPH
+kQnPRhAAwD0BnZnH/WypxaZfvHSRWFj2A1vN+TZL4GAj8foEiE9r6ia/uPRVDR60
+uayYCi0NQ35VfGYYA8Ok/ses+8kpCtFcNQaGOwu8DwzQu2+4gaTp5EKAz4cl189e
+JsRds5jE8nLReqFxKhNbVMTMMlz91THrPM9vMlt3SJLnDveNhZgTCZl+JqQPV0wZ
+FxBxb08f8fcA3k6MPZfZkY1su2ncLszFJUidDSjyA+8PHzxiT2n8PNCUJX06a60O
+xPNnr9bfb9P13H4hk57gSazsc03iVnbw14njhssBYr2Aw/1J+gGWWRBXTyqFBFiu
+JLsZPdFkEKo0CAsuNNW4teNXurCjLMjad/mVvfOUOw65NQUM9bpPAcm+SdgviVG/
+Xj1m/fIKVRBoPwfDHXgcDVPIE8YtcP6kN3+YKeJrmHdT7sUPv9Rcbp+jNeRa6BC+
+rzIVnkIPXYP95dV0Ycou0lYTBuFSTYAS7wPOotV/HxPp/Z1trRnYXmeWJieF6Iis
+z6Ih4dywciqSfy5Q+xanxKC8vq17KZW49QQc/aWC9hJt45KnkcAFJeUFEbZfBWXV
+FW/e59JWreNSNQ7IZ87j7Wk8zbBXShNAJ7uONiox00W3cJrglSBbOkI4DZ1zMt/Q
+mI0uzhOJ4uAOrRZ3qFS+oei+C8jaz69jgG9PjtJ+HV/hxlzmBpQ=
+=xDlH
 -----END PGP SIGNATURE-----
 
---Sig_/xScQGjvbhehxfi4Rs=kQNRS--
+--Sig_/cayLqM02C/AJXMYF4q/w2jR--
 
