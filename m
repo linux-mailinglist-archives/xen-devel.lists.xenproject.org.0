@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85C0EB1B17C
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 11:53:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1070228.1433916 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF770B1B17B
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 11:53:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1070227.1433908 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujEMC-00039a-2Q; Tue, 05 Aug 2025 09:53:20 +0000
+	id 1ujEMB-00031G-Ec; Tue, 05 Aug 2025 09:53:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1070228.1433916; Tue, 05 Aug 2025 09:53:19 +0000
+Received: by outflank-mailman (output) from mailman id 1070227.1433908; Tue, 05 Aug 2025 09:53:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujEMB-00031U-PT; Tue, 05 Aug 2025 09:53:19 +0000
-Received: by outflank-mailman (input) for mailman id 1070228;
+	id 1ujEMB-0002zG-Ax; Tue, 05 Aug 2025 09:53:19 +0000
+Received: by outflank-mailman (input) for mailman id 1070227;
  Tue, 05 Aug 2025 09:53:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Xkmx=2R=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1ujEM9-00026G-RI
+ id 1ujEM9-0001yh-Bl
  for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 09:53:17 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 02297962-71e2-11f0-b898-0df219b8e170;
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 028c75f3-71e2-11f0-a321-13f23c93f187;
  Tue, 05 Aug 2025 11:53:16 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3b7886bee77so4477966f8f.0
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-458bc3ce3beso17623665e9.1
  for <xen-devel@lists.xenproject.org>; Tue, 05 Aug 2025 02:53:16 -0700 (PDT)
 Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
  by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3b79c3b95f4sm18447847f8f.23.2025.08.05.02.53.14
+ ffacd0b85a97d-3b79c3ac115sm18611197f8f.12.2025.08.05.02.53.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Aug 2025 02:53:14 -0700 (PDT)
+ Tue, 05 Aug 2025 02:53:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 02297962-71e2-11f0-b898-0df219b8e170
+X-Inumbo-ID: 028c75f3-71e2-11f0-a321-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1754387595; x=1754992395; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1754387596; x=1754992396; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=f1xBFAQp2tU3X5eYxoTRxXwfOAwjqwHWw59TnMhPZ9E=;
-        b=c7MBeCHiCF/1qUpO+iiwYHbrHY9wcB+QuR2xazxnaFp4qjTLqPTR2LtDv1utuNCBgH
-         mLqLd13md5+PXbvXvf5bT98cPORVCM3tjny5EmoK7y9f5IzxPWFN8J+NOpjGRt48AAWZ
-         DZOJZltmaspumcZLHnl0fAzNrQTVbm/IDn6cQ=
+        bh=GhNVb0ZBMkEpsnDvzYh3YmEGHHdUK0KvBkXDeBZiN3g=;
+        b=akO85gkBD+r0K5/Y7o4s68DoH8pGUy5Tze4ruo/N6qqTfZhD+f7BjUpNpQhZ56Y05V
+         ZJxUwTp7Bq4NsYjiQN12GmXFL99TajTUEcNzzOKJ3pgxU9huIers7PzzMAkVO3WGBrOW
+         W/r4vADg35aUrjZYBBiAtqhiIc2wgecAckStY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754387595; x=1754992395;
+        d=1e100.net; s=20230601; t=1754387596; x=1754992396;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=f1xBFAQp2tU3X5eYxoTRxXwfOAwjqwHWw59TnMhPZ9E=;
-        b=GLtiPxzGsu4E6tKIYRXwTdjyD5BpFILq3EvgkcOKkYbldps8Dr4O7AtanZ63rFjK1E
-         EKnoV+X2kCLy3UIOwma26MjqkJgomBEpcJct1OpG2ic85e005oc+1Cb/6BJO1vH2dcYn
-         IDmPvDXFZ1UsAFQTFrLzNJE4ZNTAwn8nkKe23cu8CVvtG4lscqQT4fGrgRKGZ53HA38A
-         TCTAEVEaUQX8ofqL+aX5KRDEelW8NVvdgfmOY3bl1ycKHNlRNPDtF/8Qqxj8HxkgMG9v
-         xy+O7z5ctFbyaO1ZPZ0hqo56XyyZVHCJvGatEz6uCoJoGKVdd9LRiEU3il4+EbE1af+F
-         mcKg==
-X-Gm-Message-State: AOJu0YzdMR7yG4bRWb5amUVeQOkD7ISxBhBgMTC6gEYD2JdSebsEUj08
-	3c1EzmdvAau7dEurca9jkEAViWDtpu7yx6eIyGLvrPc4YC2j9zprL9a4jJ3JKpz0pPGXs6N9UjC
-	8nzNq
-X-Gm-Gg: ASbGncvzxsNC7HZPe1VJkJ5G1Ny1JYdVfnePHfFmxd9HEr0XETfY/v33Y4swDQtErJp
-	OBca8ZsUaCYKRWbEJAbt1rZTjI/WUOTJlR6uxjsQO4fc7aejhN5Z/DqJcXCpsbW2sXHl/lCf5FB
-	qiUxjVYqRmuDCvYcLJz3oGu52LlleCE0xz9AN+/ZTWJnXrw5hX9DotlOlV9n6aEmI1v/Cj1NIF+
-	rOjVJtwwiFM8ntV9uVi26C3IEcrcX8yxXrUiG6QMK9rFwRk74hsuCYrpYq+RWun27H5gl/GIDoi
-	nySQEaSo4ic+EDZj4XDnsblvuQnQz1azqu9HS8OUZgLdBt2BeBRSZtGHzvRKI7kGVPboLmlbk99
-	zxUFQLSZVvPeO1P/JezYC5sO5805y6/cVl+UhZ2em1l5iN0qTskJHcOwnEIWHlT5idg==
-X-Google-Smtp-Source: AGHT+IFHLgGTaQ6E5u7Plz8Q4Qef8ivTkL1ylGSdq7BstwwYvvUspsHFDN/BNElPxIzFK+sVHrumXg==
-X-Received: by 2002:a5d:588a:0:b0:3b7:e3c3:fbb6 with SMTP id ffacd0b85a97d-3b8d94ba9aemr9316236f8f.31.1754387594710;
-        Tue, 05 Aug 2025 02:53:14 -0700 (PDT)
+        bh=GhNVb0ZBMkEpsnDvzYh3YmEGHHdUK0KvBkXDeBZiN3g=;
+        b=EGfW684fxW0M5OpvKlH3l+yzZK51BCkD+b9iUl55qvu10e1Yfhf3Ndv/VOlXXyQAj1
+         nLoaqhrJh49qe4GV9khvG6JzDKo+FC+seHz7gshZ9vNjg1ET0zQvUB8y59cASjSWJLM8
+         x/QCVVNA21f7yos3ntPr88LxYIHsY6eT7KKHCPQtfNjjanMvJbzA+n8lUEJvtHgW3W2t
+         3k3Xh7vWjq/myEqIoecw8XhUFev9IijmfNGeZWmmK/UFyOnO0UlWwqUmR0y8XNtwWL7o
+         d9OWCiD6O7Kkgy6OlvypXnsTN7jLPDWE2K8iDyoYoKmbX0oUaaZT8W6Y0r+tRv7JNHsO
+         OKFQ==
+X-Gm-Message-State: AOJu0YxJ+r+/+AQhRTN7b3ngXZ175xiSSSIUh90y+PRq4+CW2bq7d4Kg
+	YqpNQSc/ZdO1gR+2ij/Hgp0xAMeAxEbisY5p8G35QLqavXjAJz4mQ3ai5fhv7MiCikmR05ugfdy
+	Ou91M
+X-Gm-Gg: ASbGncsd7g8Sj61aEk9+o5PiqRI7aoiW2znZGTjpS1GA6qaTQGT7/xSYMVxrHsM8WrR
+	oh3lamArNWax1+8TTlxPdLkvBSG41x0v8qQX0Iff6+Qo9e1BZOW8fl+W+i7ymI5S0eEiR3pu5wW
+	Net4dMJZkxVrd0m/7S7Ct5NRE+HYnDmQZqTZBPzSJBumcvk7OvJzUaZ1qu7/npfgFHzlVsMb+WM
+	d0vXcHSzcoSv/l09RbtYp2gv6n8UHmMGlEknFibJwzOMCXdZig8+eVKDnlH7iORTjPBHc/gJbQ7
+	8ygFeZ4V02RsYLx2DXyH1w/sATmpx7S8E84rHVYPOuMT64WKSRHIedIiS2NNAJvjximoKdsMCKb
+	oGHV0RNHtikr7uLR2ljX8h5UG80YM5NnIzb1poKylVHNZOFjbgU+d6ko/Txu1GMDjXA==
+X-Google-Smtp-Source: AGHT+IF8Hlz1NANF27jwxjR7WhHDaJIu9qeg8DsnUouM8UGa3gJLwXNf3/SypT85GbgbUedpf/x+lw==
+X-Received: by 2002:a05:600c:4752:b0:456:25aa:e9c0 with SMTP id 5b1f17b1804b1-458b69e3710mr115207405e9.14.1754387595822;
+        Tue, 05 Aug 2025 02:53:15 -0700 (PDT)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v4 4/8] pdx: allow per-arch optimization of PDX conversion helpers
-Date: Tue,  5 Aug 2025 11:52:53 +0200
-Message-ID: <20250805095257.74975-5-roger.pau@citrix.com>
+Subject: [PATCH v4 5/8] test/pdx: add PDX compression unit tests
+Date: Tue,  5 Aug 2025 11:52:54 +0200
+Message-ID: <20250805095257.74975-6-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250805095257.74975-1-roger.pau@citrix.com>
 References: <20250805095257.74975-1-roger.pau@citrix.com>
@@ -98,127 +98,195 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-There are four performance critical PDX conversion helpers that do the PFN
-to/from PDX and the physical addresses to/from directmap offsets
-translations.
+Introduce a set of unit tests for PDX compression.  The unit tests contains
+both real and crafted memory maps that are then compressed using the
+selected PDX algorithm.  Note the build system for the unit tests has been
+done in a way to support adding new compression algorithms easily.  That
+requires generating a new test-pdx-<compress> executable that's build with
+the selected PDX compression enabled.
 
-In the absence of an active PDX compression, those functions would still do
-the calculations needed, just to return the same input value as no
-translation is in place and hence PFN and PDX spaces are identity mapped.
-
-To reduce the overhead of having to do the pointless calculations allow
-architectures to implement the translation helpers in a per-arch header.
-Rename the existing conversion functions to add a trailing _xlate suffix,
-so that the per-arch headers can define the non suffixed versions.
-
-Currently only x86 implements meaningful custom handlers to short circuit
-the translation when not active, using asm goto.  Other architectures use
-generic macros that map the non-xlate to the xlate variants to keep the
-previous behavior.
+Currently the only generated executable is test-pdx-mask that tests PDX
+mask compression.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
-Changes since v3:
- - Use has_include.
-
 Changes since v2:
- - Consume the skip label as parameter in the PDX optimize macro.
+ - Use set -e when running the tests.
+ - Drop stray removal of pdx.c.
+ - Use * instead of ? for header blank space capture.
+ - Add some more memory maps.
 
 Changes since v1:
- - Pull return out of OPTIMIZE_PDX macro.
- - undef OPTIMIZE_PDX.
+ - New in this version (partially pulled out from a different patch).
 ---
-Would it make sense to move the x86 implementation to the common pdx.h
-header and let architectures define PDX_ASM_GOTO_SKIP instead?
----
- xen/arch/x86/include/asm/cpufeatures.h |  1 +
- xen/arch/x86/include/asm/pdx.h         | 71 ++++++++++++++++++++++++++
- xen/arch/x86/srat.c                    |  6 ++-
- xen/common/pdx.c                       | 10 ++--
- xen/include/xen/pdx.h                  | 29 ++++++++---
- 5 files changed, 106 insertions(+), 11 deletions(-)
- create mode 100644 xen/arch/x86/include/asm/pdx.h
+ tools/tests/Makefile       |   1 +
+ tools/tests/pdx/.gitignore |   2 +
+ tools/tests/pdx/Makefile   |  49 +++++++
+ tools/tests/pdx/harness.h  |  84 ++++++++++++
+ tools/tests/pdx/test-pdx.c | 267 +++++++++++++++++++++++++++++++++++++
+ xen/common/pdx.c           |   4 +
+ 6 files changed, 407 insertions(+)
+ create mode 100644 tools/tests/pdx/.gitignore
+ create mode 100644 tools/tests/pdx/Makefile
+ create mode 100644 tools/tests/pdx/harness.h
+ create mode 100644 tools/tests/pdx/test-pdx.c
 
-diff --git a/xen/arch/x86/include/asm/cpufeatures.h b/xen/arch/x86/include/asm/cpufeatures.h
-index bc108c3819e8..71308d9dafc8 100644
---- a/xen/arch/x86/include/asm/cpufeatures.h
-+++ b/xen/arch/x86/include/asm/cpufeatures.h
-@@ -42,6 +42,7 @@ XEN_CPUFEATURE(XEN_IBT,           X86_SYNTH(27)) /* Xen uses CET Indirect Branch
- XEN_CPUFEATURE(IBPB_ENTRY_PV,     X86_SYNTH(28)) /* MSR_PRED_CMD used by Xen for PV */
- XEN_CPUFEATURE(IBPB_ENTRY_HVM,    X86_SYNTH(29)) /* MSR_PRED_CMD used by Xen for HVM */
- XEN_CPUFEATURE(USE_VMCALL,        X86_SYNTH(30)) /* Use VMCALL instead of VMMCALL */
-+XEN_CPUFEATURE(PDX_COMPRESSION,   X86_SYNTH(31)) /* PDX compression */
- 
- /* Bug words follow the synthetic words. */
- #define X86_NR_BUG 1
-diff --git a/xen/arch/x86/include/asm/pdx.h b/xen/arch/x86/include/asm/pdx.h
+diff --git a/tools/tests/Makefile b/tools/tests/Makefile
+index 36928676a666..97ba2a13894d 100644
+--- a/tools/tests/Makefile
++++ b/tools/tests/Makefile
+@@ -9,6 +9,7 @@ ifneq ($(clang),y)
+ SUBDIRS-$(CONFIG_X86) += x86_emulator
+ endif
+ SUBDIRS-y += xenstore
++SUBDIRS-y += pdx
+ SUBDIRS-y += rangeset
+ SUBDIRS-y += vpci
+ SUBDIRS-y += paging-mempool
+diff --git a/tools/tests/pdx/.gitignore b/tools/tests/pdx/.gitignore
 new file mode 100644
-index 000000000000..6be7e1185eb1
+index 000000000000..a32c7db4de79
 --- /dev/null
-+++ b/xen/arch/x86/include/asm/pdx.h
-@@ -0,0 +1,71 @@
++++ b/tools/tests/pdx/.gitignore
+@@ -0,0 +1,2 @@
++/pdx.h
++/test-pdx-mask
+diff --git a/tools/tests/pdx/Makefile b/tools/tests/pdx/Makefile
+new file mode 100644
+index 000000000000..b3734afde686
+--- /dev/null
++++ b/tools/tests/pdx/Makefile
+@@ -0,0 +1,49 @@
++XEN_ROOT=$(CURDIR)/../../..
++include $(XEN_ROOT)/tools/Rules.mk
++
++TARGETS := test-pdx-mask
++
++.PHONY: all
++all: $(TARGETS)
++
++.PHONY: run
++run: $(TARGETS)
++ifeq ($(CC),$(HOSTCC))
++	set -e;             \
++	for test in $? ; do \
++		./$$test ;  \
++	done
++else
++	$(warning HOSTCC != CC, will not run test)
++endif
++
++.PHONY: clean
++clean:
++	$(RM) -- *.o $(TARGETS) $(DEPS_RM) pdx.h
++
++.PHONY: distclean
++distclean: clean
++	$(RM) -- *~
++
++.PHONY: install
++install: all
++	$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC)/tests
++	$(INSTALL_PROG) $(TARGETS) $(DESTDIR)$(LIBEXEC)/tests
++
++.PHONY: uninstall
++uninstall:
++	$(RM) -- $(patsubst %,$(DESTDIR)$(LIBEXEC)/tests/%,$(TARGETS))
++
++pdx.h: $(XEN_ROOT)/xen/include/xen/pdx.h
++	sed -E -e '/^#[[:space:]]*include/d' <$< >$@
++
++CFLAGS += -D__XEN_TOOLS__
++CFLAGS += $(APPEND_CFLAGS)
++CFLAGS += $(CFLAGS_xeninclude)
++
++test-pdx-mask: CFLAGS += -DCONFIG_PDX_MASK_COMPRESSION
++
++test-pdx-%: test-pdx.c pdx.h
++	$(CC) $(CPPFLAGS) $(CFLAGS) $(CFLAGS_$*.o) -o $@ $< $(APPEND_CFLAGS)
++
++-include $(DEPS_INCLUDE)
+diff --git a/tools/tests/pdx/harness.h b/tools/tests/pdx/harness.h
+new file mode 100644
+index 000000000000..5bef7df650d2
+--- /dev/null
++++ b/tools/tests/pdx/harness.h
+@@ -0,0 +1,84 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#ifndef X86_PDX_H
-+#define X86_PDX_H
-+
-+#include <asm/alternative.h>
-+
 +/*
-+ * Introduce a macro to avoid repeating the same asm goto block in each helper.
-+ * Note the macro is strictly tied to the code in the helpers.
++ * Unit tests for PDX compression.
++ *
++ * Copyright (C) 2025 Cloud Software Group
 + */
-+#define PDX_ASM_GOTO(label)                         \
-+    asm_inline goto (                               \
-+        ALTERNATIVE(                                \
-+            "",                                     \
-+            "jmp %l0",                              \
-+            ALT_NOT(X86_FEATURE_PDX_COMPRESSION))   \
-+        : : : : label )
 +
-+static inline unsigned long pfn_to_pdx(unsigned long pfn)
++#ifndef _TEST_HARNESS_
++#define _TEST_HARNESS_
++
++#include <assert.h>
++#include <stdbool.h>
++#include <stdint.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++
++#include <xen-tools/common-macros.h>
++
++#define __init
++#define __initdata
++#define __ro_after_init
++#define cf_check
++
++#define printk printf
++#define XENLOG_INFO
++#define XENLOG_DEBUG
++#define XENLOG_WARNING
++#define KERN_INFO
++
++#define BITS_PER_LONG (unsigned int)(sizeof(unsigned long) * 8)
++
++#define PAGE_SHIFT    12
++/* Some libcs define PAGE_SIZE in limits.h. */
++#undef  PAGE_SIZE
++#define PAGE_SIZE     (1 << PAGE_SHIFT)
++#define MAX_ORDER     18 /* 2 * PAGETABLE_ORDER (9) */
++
++#define PFN_DOWN(x)   ((x) >> PAGE_SHIFT)
++#define PFN_UP(x)     (((x) + PAGE_SIZE-1) >> PAGE_SHIFT)
++
++#define pfn_to_paddr(pfn) ((paddr_t)(pfn) << PAGE_SHIFT)
++#define paddr_to_pfn(pa)  ((unsigned long)((pa) >> PAGE_SHIFT))
++
++#define MAX_RANGES 16
++#define MAX_PFN_RANGES MAX_RANGES
++
++#define ASSERT assert
++
++#define CONFIG_DEBUG
++
++static inline unsigned int find_next(
++    const unsigned long *addr, unsigned int size, unsigned int off, bool value)
 +{
-+    PDX_ASM_GOTO(skip);
++    unsigned int i;
 +
-+    return pfn_to_pdx_xlate(pfn);
++    ASSERT(size <= BITS_PER_LONG);
 +
-+ skip:
-+    return pfn;
++    for ( i = off; i < size; i++ )
++        if ( !!(*addr & (1UL << i)) == value )
++            return i;
++
++    return size;
 +}
 +
-+static inline unsigned long pdx_to_pfn(unsigned long pdx)
-+{
-+    PDX_ASM_GOTO(skip);
++#define find_next_zero_bit(a, s, o) find_next(a, s, o, false)
++#define find_next_bit(a, s, o)      find_next(a, s, o, true)
 +
-+    return pdx_to_pfn_xlate(pdx);
++#define boolean_param(name, func)
 +
-+ skip:
-+    return pdx;
-+}
++typedef uint64_t paddr_t;
 +
-+static inline unsigned long maddr_to_directmapoff(paddr_t ma)
-+{
-+    PDX_ASM_GOTO(skip);
++#include "pdx.h"
 +
-+    return maddr_to_directmapoff_xlate(ma);
-+
-+ skip:
-+    return ma;
-+}
-+
-+static inline paddr_t directmapoff_to_maddr(unsigned long offset)
-+{
-+    PDX_ASM_GOTO(skip);
-+
-+    return directmapoff_to_maddr_xlate(offset);
-+
-+ skip:
-+    return offset;
-+}
-+
-+#undef PDX_ASM_GOTO_SKIP
-+
-+#endif /* X86_PDX_H */
++#endif
 +
 +/*
 + * Local variables:
@@ -228,163 +296,301 @@ index 000000000000..6be7e1185eb1
 + * indent-tabs-mode: nil
 + * End:
 + */
-diff --git a/xen/arch/x86/srat.c b/xen/arch/x86/srat.c
-index 747607439fb4..42ccb0c0f3ae 100644
---- a/xen/arch/x86/srat.c
-+++ b/xen/arch/x86/srat.c
-@@ -298,7 +298,8 @@ void __init srat_parse_regions(paddr_t addr)
- 	acpi_table_parse_srat(ACPI_SRAT_TYPE_MEMORY_AFFINITY,
- 			      srat_parse_region, 0);
- 
--	pfn_pdx_compression_setup(addr);
-+	if (!pfn_pdx_compression_setup(addr))
-+		return;
- 
- 	/* Ensure all RAM ranges in the e820 are covered. */
- 	for (i = 0; i < e820.nr_map; i++) {
-@@ -318,6 +319,9 @@ void __init srat_parse_regions(paddr_t addr)
- 			return;
- 		}
- 	}
+diff --git a/tools/tests/pdx/test-pdx.c b/tools/tests/pdx/test-pdx.c
+new file mode 100644
+index 000000000000..0798ccee359b
+--- /dev/null
++++ b/tools/tests/pdx/test-pdx.c
+@@ -0,0 +1,267 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Unit tests for PDX compression.
++ *
++ * Copyright (C) 2025 Cloud Software Group
++ */
 +
-+	/* If we got this far compression is working as expected. */
-+	setup_force_cpu_cap(X86_FEATURE_PDX_COMPRESSION);
- }
- 
- unsigned int numa_node_to_arch_nid(nodeid_t n)
++#include "harness.h"
++
++#include "../../xen/common/pdx.c"
++
++struct range {
++    /* Ranges are defined as [start, end). */
++    unsigned long start, end;
++};
++
++static void print_ranges(const struct range *r)
++{
++    unsigned int i;
++
++    printf("Ranges:\n");
++
++    for ( i = 0; i < MAX_RANGES; i++ )
++    {
++        if ( !r[i].start && !r[i].end )
++            break;
++
++        printf(" %013lx-%013lx\n", r[i].start, r[i].end);
++    }
++}
++
++int main(int argc, char **argv)
++{
++    static const struct {
++        struct range ranges[MAX_RANGES];
++        bool compress;
++    } tests[] = {
++#ifdef __LP64__
++        /*
++         * Only for targets where unsigned long is 64bits, otherwise compiler
++         * will complain about truncation from 'long long' -> 'long' conversion.
++         *
++         * Real memory map from a 4s Intel GNR.  Not compressible using PDX
++         * mask compression.
++         */
++        {
++            .ranges = {
++                { .start =           0,   .end =     0x80000UL },
++                { .start =   0x0100000UL, .end =   0x8080000UL },
++                { .start =  0x63e80000UL, .end =  0x6be80000UL },
++                { .start =  0xc7e80000UL, .end =  0xcfe80000UL },
++                { .start = 0x12be80000UL, .end = 0x133e80000UL },
++            },
++            .compress = false,
++        },
++        /* Simple hole. */
++        {
++            .ranges = {
++                { .start =                                                 0,
++                  .end   =                            (1UL << MAX_ORDER) * 1 },
++                { .start = (1UL << (MAX_ORDER * 2)) |                      0,
++                  .end   = (1UL << (MAX_ORDER * 2)) | (1UL << MAX_ORDER) * 1 },
++            },
++            .compress = true,
++        },
++        /* Simple hole, unsorted ranges. */
++        {
++            .ranges = {
++                { .start = (1UL << (MAX_ORDER * 2)) |                      0,
++                  .end   = (1UL << (MAX_ORDER * 2)) | (1UL << MAX_ORDER) * 1 },
++                { .start =                                                 0,
++                  .end   =                            (1UL << MAX_ORDER) * 1 },
++            },
++            .compress = true,
++        },
++        /* PDX compression, 2 ranges covered by the lower mask. */
++        {
++            .ranges = {
++                { .start =                    0,
++                  .end   = (1 << MAX_ORDER) * 1 },
++                { .start = (1 << MAX_ORDER) * 2,
++                  .end   = (1 << MAX_ORDER) * 3 },
++                { .start = (1 << MAX_ORDER) * 20,
++                  .end   = (1 << MAX_ORDER) * 22 },
++            },
++            .compress = true,
++        },
++        /* Single range not starting at 0. */
++        {
++            .ranges = {
++                { .start = (1 << MAX_ORDER) * 10,
++                  .end   = (1 << MAX_ORDER) * 11 },
++            },
++            .compress = true,
++        },
++        /* Resulting PDX region size leads to no compression. */
++        {
++            .ranges = {
++                { .start =                    0,
++                  .end   = (1 << MAX_ORDER) * 1 },
++                { .start = (1 << MAX_ORDER) * 2,
++                  .end   = (1 << MAX_ORDER) * 3 },
++                { .start = (1 << MAX_ORDER) * 4,
++                  .end   = (1 << MAX_ORDER) * 7 },
++                { .start = (1 << MAX_ORDER) * 8,
++                  .end   = (1 << MAX_ORDER) * 12 },
++            },
++            .compress = false,
++        },
++        /* AMD Versal Gen 2 ARM board. */
++        {
++            .ranges = {
++                { .start =          0,   .end =    0x80000UL },
++                { .start =   0x800000UL, .end =   0x880000UL },
++                { .start = 0x50000000UL, .end = 0x50080000UL },
++                { .start = 0x60000000UL, .end = 0x60080000UL },
++                { .start = 0x70000000UL, .end = 0x70080000UL },
++            },
++            .compress = true,
++        },
++        /* Unsorted ranges, lower one not starting at 0. */
++        {
++        .ranges = {
++                { .start = (1UL << (35 - PAGE_SHIFT)) + (1 << MAX_ORDER) * 2,
++                  .end =   (1UL << (35 - PAGE_SHIFT)) + (1 << MAX_ORDER) * 3 },
++                { .start = (1 << MAX_ORDER) * 2,
++                  .end =   (1 << MAX_ORDER) * 3 },
++            },
++            .compress = true,
++        },
++        /* Two ranges with the same high bit set. */
++        {
++        .ranges = {
++                { .start = (1UL << (51 - PAGE_SHIFT)) + (1 << MAX_ORDER) * 0,
++                  .end =   (1UL << (51 - PAGE_SHIFT)) + (1 << MAX_ORDER) * 1 },
++                { .start = (1UL << (51 - PAGE_SHIFT)) + (1 << MAX_ORDER) * 3,
++                  .end =   (1UL << (51 - PAGE_SHIFT)) + (1 << MAX_ORDER) * 4 },
++            },
++            .compress = true,
++        },
++#endif
++        /* AMD Naples Epyc 7281 2 sockets, 8 NUMA nodes. */
++        {
++            .ranges = {
++                { .start =         0,   .end =      0xa0UL },
++                { .start =     0x100UL, .end =   0xb0000UL },
++                { .start =  0x100000UL, .end =  0x430000UL },
++                { .start =  0x430000UL, .end =  0x830000UL },
++                { .start =  0x830000UL, .end =  0xc30000UL },
++                { .start =  0xc30000UL, .end = 0x1030000UL },
++                { .start = 0x1030000UL, .end = 0x1430000UL },
++                { .start = 0x1430000UL, .end = 0x1830000UL },
++                { .start = 0x1830000UL, .end = 0x1c30000UL },
++                { .start = 0x1c30000UL, .end = 0x2030000UL },
++            },
++            .compress = false,
++        },
++        /* 2-node 2GB per-node QEMU layout. */
++        {
++            .ranges = {
++                { .start =        0,   .end =  0x80000UL },
++                { .start = 0x100000UL, .end = 0x180000UL },
++            },
++            .compress = true,
++        },
++        /* Not compressible, smaller than MAX_ORDER. */
++        {
++            .ranges = {
++                { .start =     0,   .end =     1   },
++                { .start = 0x100UL, .end = 0x101UL },
++            },
++            .compress = false,
++        },
++        /* Compressible, requires adjusting size to (1 << MAX_ORDER). */
++        {
++            .ranges = {
++                { .start =        0,   .end =        1   },
++                { .start = 0x100000UL, .end = 0x100001UL },
++            },
++            .compress = true,
++        },
++        /* 2s Intel CLX with contiguous ranges, no compression. */
++        {
++            .ranges = {
++                { .start =        0  , .end =  0x180000UL },
++                { .start = 0x180000UL, .end = 0x3040000UL },
++            },
++            .compress = false,
++        },
++    };
++    int ret_code = EXIT_SUCCESS;
++
++    for ( unsigned int i = 0 ; i < ARRAY_SIZE(tests); i++ )
++    {
++        unsigned int j;
++
++        pfn_pdx_compression_reset();
++
++        for ( j = 0; j < ARRAY_SIZE(tests[i].ranges); j++ )
++        {
++            unsigned long size = tests[i].ranges[j].end -
++                                 tests[i].ranges[j].start;
++
++            if ( !tests[i].ranges[j].start && !tests[i].ranges[j].end )
++                break;
++
++            pfn_pdx_add_region(tests[i].ranges[j].start << PAGE_SHIFT,
++                               size << PAGE_SHIFT);
++        }
++
++        if ( pfn_pdx_compression_setup(0) != tests[i].compress )
++        {
++            printf("PFN compression diverge, expected %scompressible\n",
++                   tests[i].compress ? "" : "un");
++            print_ranges(tests[i].ranges);
++
++            ret_code = EXIT_FAILURE;
++            continue;
++        }
++
++        if ( !tests[i].compress )
++            continue;
++
++        for ( j = 0; j < ARRAY_SIZE(tests[i].ranges); j++ )
++        {
++            unsigned long start = tests[i].ranges[j].start;
++            unsigned long end = tests[i].ranges[j].end;
++
++            if ( !start && !end )
++                break;
++
++            if ( !pdx_is_region_compressible(start << PAGE_SHIFT, 1) ||
++                 !pdx_is_region_compressible((end - 1) << PAGE_SHIFT, 1) )
++            {
++                printf(
++    "PFN compression invalid, pages %#lx and %#lx should be compressible\n",
++                       start, end - 1);
++                print_ranges(tests[i].ranges);
++                ret_code = EXIT_FAILURE;
++            }
++
++            if ( start != pdx_to_pfn(pfn_to_pdx(start)) ||
++                 end - 1 != pdx_to_pfn(pfn_to_pdx(end - 1)) )
++            {
++                printf("Compression is not bi-directional:\n");
++                printf(" PFN %#lx -> PDX %#lx -> PFN %#lx\n",
++                       start, pfn_to_pdx(start), pdx_to_pfn(pfn_to_pdx(start)));
++                printf(" PFN %#lx -> PDX %#lx -> PFN %#lx\n",
++                       end - 1, pfn_to_pdx(end - 1),
++                       pdx_to_pfn(pfn_to_pdx(end - 1)));
++                print_ranges(tests[i].ranges);
++                ret_code = EXIT_FAILURE;
++            }
++        }
++    }
++
++    return ret_code;
++}
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
 diff --git a/xen/common/pdx.c b/xen/common/pdx.c
-index f4a3dcf6cb60..c9ec86729151 100644
+index c9ec86729151..cd8a9e75a836 100644
 --- a/xen/common/pdx.c
 +++ b/xen/common/pdx.c
-@@ -215,7 +215,7 @@ static uint64_t __init pdx_init_mask(uint64_t base_addr)
-                          (uint64_t)1 << (MAX_ORDER + PAGE_SHIFT)) - 1);
+@@ -15,6 +15,8 @@
+  * along with this program; If not, see <http://www.gnu.org/licenses/>.
+  */
+ 
++/* Trim content when built for the test harness. */
++#ifdef __XEN__
+ #include <xen/init.h>
+ #include <xen/mm.h>
+ #include <xen/bitops.h>
+@@ -57,6 +59,8 @@ void set_pdx_range(unsigned long smfn, unsigned long emfn)
+         __set_bit(idx, pdx_group_valid);
  }
  
--void __init pfn_pdx_compression_setup(paddr_t base)
-+bool __init pfn_pdx_compression_setup(paddr_t base)
- {
-     unsigned int i, j, bottom_shift = 0, hole_shift = 0;
-     unsigned long mask = pdx_init_mask(base) >> PAGE_SHIFT;
-@@ -224,7 +224,7 @@ void __init pfn_pdx_compression_setup(paddr_t base)
-     {
-         printk(XENLOG_DEBUG "PFN compression disabled%s\n",
-                pdx_compress ? ": no ranges provided" : "");
--        return;
-+        return false;
-     }
- 
-     if ( nr_ranges > ARRAY_SIZE(ranges) )
-@@ -232,7 +232,7 @@ void __init pfn_pdx_compression_setup(paddr_t base)
-         printk(XENLOG_WARNING
-                "Too many PFN ranges (%u > %zu), not attempting PFN compression\n",
-                nr_ranges, ARRAY_SIZE(ranges));
--        return;
-+        return false;
-     }
- 
-     for ( i = 0; i < nr_ranges; i++ )
-@@ -263,7 +263,7 @@ void __init pfn_pdx_compression_setup(paddr_t base)
-         }
-     }
-     if ( !hole_shift )
--        return;
-+        return false;
- 
-     printk(KERN_INFO "PFN compression on bits %u...%u\n",
-            bottom_shift, bottom_shift + hole_shift - 1);
-@@ -274,6 +274,8 @@ void __init pfn_pdx_compression_setup(paddr_t base)
-     pfn_hole_mask       = ((1UL << hole_shift) - 1) << bottom_shift;
-     pfn_top_mask        = ~(pfn_pdx_bottom_mask | pfn_hole_mask);
-     ma_top_mask         = pfn_top_mask << PAGE_SHIFT;
++#endif /* __XEN__ */
 +
-+    return true;
- }
+ #ifndef CONFIG_PDX_NONE
  
- void __init pfn_pdx_compression_reset(void)
-diff --git a/xen/include/xen/pdx.h b/xen/include/xen/pdx.h
-index 10153da98bf1..425d45e9f08e 100644
---- a/xen/include/xen/pdx.h
-+++ b/xen/include/xen/pdx.h
-@@ -114,7 +114,7 @@ extern unsigned long pfn_top_mask, ma_top_mask;
-  * @param pfn Frame number
-  * @return Obtained pdx after compressing the pfn
-  */
--static inline unsigned long pfn_to_pdx(unsigned long pfn)
-+static inline unsigned long pfn_to_pdx_xlate(unsigned long pfn)
- {
-     return (pfn & pfn_pdx_bottom_mask) |
-            ((pfn & pfn_top_mask) >> pfn_pdx_hole_shift);
-@@ -126,7 +126,7 @@ static inline unsigned long pfn_to_pdx(unsigned long pfn)
-  * @param pdx Page index
-  * @return Obtained pfn after decompressing the pdx
-  */
--static inline unsigned long pdx_to_pfn(unsigned long pdx)
-+static inline unsigned long pdx_to_pfn_xlate(unsigned long pdx)
- {
-     return (pdx & pfn_pdx_bottom_mask) |
-            ((pdx << pfn_pdx_hole_shift) & pfn_top_mask);
-@@ -139,7 +139,7 @@ static inline unsigned long pdx_to_pfn(unsigned long pdx)
-  * @return Offset on the direct map where that
-  *         machine address can be accessed
-  */
--static inline unsigned long maddr_to_directmapoff(paddr_t ma)
-+static inline unsigned long maddr_to_directmapoff_xlate(paddr_t ma)
- {
-     return (((ma & ma_top_mask) >> pfn_pdx_hole_shift) |
-             (ma & ma_va_bottom_mask));
-@@ -151,7 +151,7 @@ static inline unsigned long maddr_to_directmapoff(paddr_t ma)
-  * @param offset Offset into the direct map
-  * @return Corresponding machine address of that virtual location
-  */
--static inline paddr_t directmapoff_to_maddr(unsigned long offset)
-+static inline paddr_t directmapoff_to_maddr_xlate(unsigned long offset)
- {
-     return ((((paddr_t)offset << pfn_pdx_hole_shift) & ma_top_mask) |
-             (offset & ma_va_bottom_mask));
-@@ -181,8 +181,9 @@ static inline void pfn_pdx_add_region(paddr_t base, paddr_t size)
- {
- }
- 
--static inline void pfn_pdx_compression_setup(paddr_t base)
-+static inline bool pfn_pdx_compression_setup(paddr_t base)
- {
-+    return false;
- }
- 
- static inline void pfn_pdx_compression_reset(void)
-@@ -191,6 +192,21 @@ static inline void pfn_pdx_compression_reset(void)
- 
- #else /* !CONFIG_PDX_NONE */
- 
-+/*
-+ * Allow each architecture to define its (possibly optimized) versions of the
-+ * translation functions.
-+ *
-+ * Do not use _xlate suffixed functions, always use the non _xlate variants.
-+ */
-+#if __has_include(<asm/pdx.h>)
-+# include <asm/pdx.h>
-+#else
-+# define pdx_to_pfn pdx_to_pfn_xlate
-+# define pfn_to_pdx pfn_to_pdx_xlate
-+# define maddr_to_directmapoff maddr_to_directmapoff_xlate
-+# define directmapoff_to_maddr directmapoff_to_maddr_xlate
-+#endif
-+
- /* Shared functions implemented by all PDX compressions. */
- 
- /**
-@@ -215,8 +231,9 @@ void pfn_pdx_add_region(paddr_t base, paddr_t size);
-  * range of the current memory regions.
-  *
-  * @param base address to start compression from.
-+ * @return True if PDX compression has been enabled.
-  */
--void pfn_pdx_compression_setup(paddr_t base);
-+bool pfn_pdx_compression_setup(paddr_t base);
- 
- /**
-  * Reset the global variables to it's default values, thus disabling PFN
+ #ifdef CONFIG_X86
 -- 
 2.49.0
 
