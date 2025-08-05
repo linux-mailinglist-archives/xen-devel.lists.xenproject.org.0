@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40466B1B17F
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 11:53:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1070233.1433945 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CAC3B1B192
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 11:58:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1070253.1433959 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujEMG-00040K-Cp; Tue, 05 Aug 2025 09:53:24 +0000
+	id 1ujERH-0006qM-3I; Tue, 05 Aug 2025 09:58:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1070233.1433945; Tue, 05 Aug 2025 09:53:24 +0000
+Received: by outflank-mailman (output) from mailman id 1070253.1433959; Tue, 05 Aug 2025 09:58:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujEMG-0003vb-5M; Tue, 05 Aug 2025 09:53:24 +0000
-Received: by outflank-mailman (input) for mailman id 1070233;
- Tue, 05 Aug 2025 09:53:21 +0000
+	id 1ujERH-0006na-0V; Tue, 05 Aug 2025 09:58:35 +0000
+Received: by outflank-mailman (input) for mailman id 1070253;
+ Tue, 05 Aug 2025 09:58:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Xkmx=2R=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1ujEMD-0001yh-RQ
- for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 09:53:21 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=j2i0=2R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ujERF-0006nU-7d
+ for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 09:58:33 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 04c6e06f-71e2-11f0-a321-13f23c93f187;
- Tue, 05 Aug 2025 11:53:20 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3b79bddd604so3581404f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 05 Aug 2025 02:53:20 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-458b73868a4sm128606745e9.11.2025.08.05.02.53.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Aug 2025 02:53:19 -0700 (PDT)
+ id be8d30a9-71e2-11f0-a321-13f23c93f187;
+ Tue, 05 Aug 2025 11:58:32 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-af934d7c932so582164166b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Aug 2025 02:58:32 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-af91a078a11sm892226266b.7.2025.08.05.02.58.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 05 Aug 2025 02:58:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,116 +45,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04c6e06f-71e2-11f0-a321-13f23c93f187
+X-Inumbo-ID: be8d30a9-71e2-11f0-a321-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1754387600; x=1754992400; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lLIn3FF6zwDcWQpb5QcmoMzmzTKK4Qs20CfUmv+TlvU=;
-        b=pryDO7v4wpFvoa4dmDMvxdpOKkRxHpN7dF6Okli9zEBoyuEdbvVNgrGmx3UqXUa/Kd
-         yRBJppAOglSfAL1iPUmjcDB0c4RWIPfDY+Gn4yoUjFIGlnbDqfdR8rPM7R/WFMOQBVCn
-         UTCSQAkvxVI608jbJ3MRArKTS4HGkFBgrF774=
+        d=suse.com; s=google; t=1754387912; x=1754992712; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=bFmMS+yUv8L/ynG0NcGXlcHupF4SHptUfZfnvFPWvGM=;
+        b=dSJQ3nSM0C3CKpfiFYYsEq6Xnc0BmqRLJCeavRBKPP9O4LLkWggLg49OAldMowiO9I
+         dk/cA96cLmdq72/fqBqgTVOotns3XG7mGOEjDA/njuXG8yngPXwtw/w+ciDje7zjc7YL
+         nOBMiVudTQevu3RZqvA4ayYjv4Ep/waHqgxP3KfUL5D8ErC08ff2wpRnh7Raii+TUNbc
+         R/czL2hgmNedJ+y1TpFk5Q/9sf6vu2SoT6eKe26hjDTIKALrz+BCvavX9AtQfFjZGN+W
+         B9/ru3CFXz0JnxevSQWt1/HuDxIjaHJ9HKeR4SrS0VeA2VgwyOMyo+4u62PPg5clH/mQ
+         fYVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754387600; x=1754992400;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=lLIn3FF6zwDcWQpb5QcmoMzmzTKK4Qs20CfUmv+TlvU=;
-        b=emBCJ0WJbH/KaxcUKZ9q1mLdaCE8jKSGFnIWRDPSHM617T9sHCs40d2jcxwO2O/R1v
-         xAy1t1EC3bCWu0tRrdVcuIn9yC+1WYEuGXeG5PlhWjn3kKGG54HpyQi0pL+ssM9dLV46
-         NUTnbdJr62iO1IAWT0nELhoUs865thF2DW8HKyYXfvgsWem9pGBo9gFFtRusFMhkLxhz
-         fJlOGU9sBPca+uoTtF5vd8Ljr0BSGzhhwWktKtZWW8rwFvv9nxmzLRoD+NVBUqP+mbZW
-         2veCoF7hnwR7RNO62i/wIJ8hrDstQDV7j7wQi2Tbfam5oEFRaG2B1O5dNiqB8lfwyJC6
-         s1qw==
-X-Gm-Message-State: AOJu0YwFEkOdL6QiAW6AnVVOrXC0CmtFOhud2dITX1a58/SZ3DeuUeJl
-	k1NV673DKCk2nfTf/oAwjicvDa1XlX5shU5wdPuZePr//66TZv1/07uBeYCK+falle3N4+BpKyr
-	febNQ
-X-Gm-Gg: ASbGncvCMp52xD6gXqOYFWeFJkEORdbC5ZtzntVtstJHmhFgeNpg2GaYuJQyylj3IGB
-	ZE0OW0nqAz4P7fSn0R8LeZ4/iWX1P7m3FH103Jb90WJ7ihe43LdU/ZN9SobNiWxkyPiwPm9wmHT
-	b74b1LkT/UC80/NVbZSMdsyWioO48jikk0YCMSP3vXx+IClj5uTpoVAF7yItkPbiggTVrGA2vso
-	zGLsO1RHhixjWaWcSASusmu+VkcliN2dGZIsSv2voWHMMTZe9ZOIsaHzpBowTascrCyos3gu5B9
-	HaxzaD6aKv/TTgQFeelLM4Gq0O3urIqER8DFMBQHHkp8n/yiW5vVswACRo5lM1y+PB7PIofYhIU
-	uy8aMZXNQ/d2/M4GcmMcioVlg2RK4SkMZrAJ9sLekxBZStfzma2sOVJP63IiVD41lTzIkNIzf1s
-	Bc
-X-Google-Smtp-Source: AGHT+IF1tlMb6KZwDcyrJwRY0DLZ3X9YMOMVZzsA08b0rnKgAvFdrqoP72cSYcW9kqUAOHbX8Xfvpg==
-X-Received: by 2002:a5d:5d0e:0:b0:3b7:9564:29be with SMTP id ffacd0b85a97d-3b8d94c1febmr8669986f8f.49.1754387599726;
-        Tue, 05 Aug 2025 02:53:19 -0700 (PDT)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v4 8/8] x86/mm: adjust loop in arch_init_memory() to iterate over the PDX space
-Date: Tue,  5 Aug 2025 11:52:57 +0200
-Message-ID: <20250805095257.74975-9-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250805095257.74975-1-roger.pau@citrix.com>
-References: <20250805095257.74975-1-roger.pau@citrix.com>
+        d=1e100.net; s=20230601; t=1754387912; x=1754992712;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bFmMS+yUv8L/ynG0NcGXlcHupF4SHptUfZfnvFPWvGM=;
+        b=gvvnjSHlFtnHTEOSvMGdjOk7Igd+7pnJElsxmjolDxaas810qVqk1/ivW6KIKK54Ms
+         CVEPi/eejvG+t9TFg8glFee4HB1M9mWU5OGVMydw++VdmrkAGJ+wWsIIul/pXJ3CdiLn
+         0EgMpgwNPoz9EHlBNTBzBKIuU1NGb8SIg+tFI8ZqvcWTN3o38JcewCbJfFtSr3IZL5rZ
+         ruurf9t9Mb3HwKU8oXViUkTXOjiMquMhXYuKQiSx8rQ4SULyBCp+d7jUUBFDXj2ex0+7
+         i32v6OXlgTziz8jAPvuCx8+FqkTjxbl/2iJG8nnu6not1eeV9vbeMgZghtmURVo/qXtN
+         KB6A==
+X-Forwarded-Encrypted: i=1; AJvYcCX3h+sZjYbZvXInNDaYynZVM6Nxl9+p9CcEqRoUS94/9IejWIMXhv569kCZQ7361MsW63HLW2FbcXM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxCaCvV65dwGFQlNEJXKAr5KN9FTPJ4ZfH7z41se151pDb6pAYZ
+	zLA0pXcNZDLq//ghoZjcx+ZRJDy3XeSNAnuQkGBTwLprYR++pySS7DFmbTQdPCdfpw==
+X-Gm-Gg: ASbGncvatYGLkywTLUA8imZoRIyPVGJZylmSRrg8lYUtJd2X3gMeqGjmSu+uU0VfOFD
+	4kYJ9OwII8V7sCMl7Ov4BetSkQA+XmH1fTw0YPHqSYoMsiuMiSg8zO0dKpk0LnEmV/ZmOsMRDGe
+	OrpFI/zElHTCP+gMbJk4QyaJgKqagd1f1Jg+Ka8X+S2ozuZLrC4jKHmFd+fBKFX/OV1XxjLJ0q7
+	MI5ZdWozpxgLaa8MWVEDWyXCwhl9vxfPR4kPmSx52uqac8zyzc+JgXlwZxCnuzuRgfEpe6+isdi
+	lp8gU4fxb5QA243MthKxp3RNh+RKnwpuv2xdzrIqi2961bfTYGrQBcpQJ+bOk2UOEM+Bq9+Sh32
+	Li8rEatZ1NN8+ViadJtZ9Pylt1vi2ldlvWaAecPzg8uSvDvf5laSw1NmmA3+XWkLR2yC9uHawIB
+	PIMJmfogk=
+X-Google-Smtp-Source: AGHT+IHupIrEWsBNGQcRhV+jfIGYt0WzCfM7AE2IoLjnHLFRf3ef/4RmguEBGYdgiKduc91l9kXRzQ==
+X-Received: by 2002:a17:906:c149:b0:ae6:e0a7:234c with SMTP id a640c23a62f3a-af940156652mr1299570066b.33.1754387911734;
+        Tue, 05 Aug 2025 02:58:31 -0700 (PDT)
+Message-ID: <22e33697-b1a0-47a6-9294-9b7dc8e567a4@suse.com>
+Date: Tue, 5 Aug 2025 11:58:30 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 03/25] xen/x86: complement PG_log_dirty wrapping
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Tim Deegan <tim@xen.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <20250803094738.3625269-1-Penny.Zheng@amd.com>
+ <20250803094738.3625269-4-Penny.Zheng@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250803094738.3625269-4-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-There's a loop in arch_init_memory() that iterates over holes and non-RAM
-regions to possibly mark any page_info structures matching those addresses
-as IO.  The looping there is done over the PFN space.
+On 03.08.2025 11:47, Penny Zheng wrote:
+> --- a/xen/include/hypercall-defs.c
+> +++ b/xen/include/hypercall-defs.c
+> @@ -198,7 +198,9 @@ dm_op(domid_t domid, unsigned int nr_bufs, xen_dm_op_buf_t *bufs)
+>  sysctl(xen_sysctl_t *u_sysctl)
+>  #endif
+>  domctl(xen_domctl_t *u_domctl)
+> +#if PG_log_dirty
+>  paging_domctl_cont(xen_domctl_t *u_domctl)
+> +#endif
+>  #ifndef CONFIG_PV_SHIM_EXCLUSIVE
+>  platform_op(xen_platform_op_t *u_xenpf_op)
+>  #endif
+> @@ -294,6 +296,8 @@ dm_op                              compat   do       compat   do       do
+>  hypfs_op                           do       do       do       do       do
+>  #endif
+>  mca                                do       do       -        -        -
+> +#if PG_log_dirty
+>  paging_domctl_cont                 do       do       do       do       -
+> +#endif
 
-PFNs not covered by the PDX space will always fail the mfn_valid() check,
-hence re-write the loop to iterate over the PDX space and avoid checking
-any holes that are not covered by the PDX translation.
+While putting together my pair of patches, I figured that using PG_log_dirty
+here is wrong. asm/paging.h isn't (and cannot easily be) included, and hence
+the compiler will consider PG_log_dirty uniformly 0, no matter what .config
+holds.
 
-On a system with a ~6TiB hole this change together with using PDX
-compression reduces boot time in approximately 20 seconds.  Xen boot time
-without the change is ~50s, with the change it's ~30s.
-
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v3:
- - Ensure parameter to pfn_to_pdx() is always RAM.
-
-Changes since v2:
- - New in this version.
----
- xen/arch/x86/mm.c | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
-
-diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index e7fd56c7ce90..e27dc28cfdd6 100644
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -275,7 +275,7 @@ static void __init assign_io_page(struct page_info *page)
- 
- void __init arch_init_memory(void)
- {
--    unsigned long i, pfn, rstart_pfn, rend_pfn, iostart_pfn, ioend_pfn;
-+    unsigned long i, pfn, rstart_pfn, rend_pfn, iostart_pfn, ioend_pfn, pdx;
- 
-     /*
-      * Basic guest-accessible flags:
-@@ -328,9 +328,20 @@ void __init arch_init_memory(void)
-             destroy_xen_mappings((unsigned long)mfn_to_virt(iostart_pfn),
-                                  (unsigned long)mfn_to_virt(ioend_pfn));
- 
--        /* Mark as I/O up to next RAM region. */
--        for ( ; pfn < rstart_pfn; pfn++ )
-+        /*
-+         * Mark as I/O up to next RAM region.  Iterate over the PDX space to
-+         * skip holes which would always fail the mfn_valid() check.
-+         *
-+         * pfn_to_pdx() requires a valid (iow: RAM) PFN to convert to PDX,
-+         * hence provide pfn - 1, which is the tailing PFN from the last RAM
-+         * range, or pdx 0 if the input pfn is 0.
-+         */
-+        for ( pdx = pfn ? pfn_to_pdx(pfn - 1) + 1 : 0;
-+              pdx < pfn_to_pdx(rstart_pfn);
-+              pdx++ )
-         {
-+            pfn = pdx_to_pfn(pdx);
-+
-             if ( !mfn_valid(_mfn(pfn)) )
-                 continue;
- 
--- 
-2.49.0
-
+Jan
 
