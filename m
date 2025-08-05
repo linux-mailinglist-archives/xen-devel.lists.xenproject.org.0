@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87AA1B1B8A3
+	by mail.lfdr.de (Postfix) with ESMTPS id 8161DB1B8A2
 	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 18:37:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1070764.1434424 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1070765.1434435 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujKfO-00069u-Hb; Tue, 05 Aug 2025 16:37:34 +0000
+	id 1ujKfP-0006Ns-Ps; Tue, 05 Aug 2025 16:37:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1070764.1434424; Tue, 05 Aug 2025 16:37:34 +0000
+Received: by outflank-mailman (output) from mailman id 1070765.1434435; Tue, 05 Aug 2025 16:37:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujKfO-00067m-EM; Tue, 05 Aug 2025 16:37:34 +0000
-Received: by outflank-mailman (input) for mailman id 1070764;
+	id 1ujKfP-0006LM-MV; Tue, 05 Aug 2025 16:37:35 +0000
+Received: by outflank-mailman (input) for mailman id 1070765;
  Tue, 05 Aug 2025 16:37:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yoJv=2R=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ujKfN-00067a-0h
- for xen-devel@lists.xen.org; Tue, 05 Aug 2025 16:37:33 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7b99c725-721a-11f0-a321-13f23c93f187;
+ id 1ujKfN-00067g-TP
+ for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 16:37:33 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7b9a7d7d-721a-11f0-b898-0df219b8e170;
  Tue, 05 Aug 2025 18:37:31 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-458b49c98a7so26699355e9.1
- for <xen-devel@lists.xen.org>; Tue, 05 Aug 2025 09:37:31 -0700 (PDT)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-459d7726ee6so17417505e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Aug 2025 09:37:31 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
  5b1f17b1804b1-459e58542f3sm10789375e9.10.2025.08.05.09.37.30
@@ -45,16 +45,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b99c725-721a-11f0-a321-13f23c93f187
+X-Inumbo-ID: 7b9a7d7d-721a-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1754411851; x=1755016651; darn=lists.xen.org;
+        d=citrix.com; s=google; t=1754411851; x=1755016651; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
         bh=DcTrrKHCxjGpWj0rumg0FDiXmLUWF4il3f7mb5TP3tM=;
-        b=f+WjMsoyiWXrbjvILpZBw/3VdoTY7gWWpCIWXgdE/iKwvZg1hOFiwvR+U5YOTMlFi0
-         uhR7bfGHiO5vcso3UpkMakpjwMhXkLzIbr6H/tUwAULfB+ntE2Yc+0bL+drxLqWMsgS5
-         9tadeK5qbOVb/2ZCfj+GGHsWIS0R+9VOnt6Cs=
+        b=ZKDSWYErL7CZ5v19TYP7AC1dgDCI0JuCQOqu9t0PapYlHj0S+xPeFrBBGdyxf9c1r7
+         VlUTMMOJL0U1dpKQRwnLcpG84p+CHdOjC5Yi0Mt729ZwlY5GLg6vJycT3oLrQU4bl0h2
+         ML4qyUJ3HzF4aC7wLGGjU9SVnpW5floEOR4UA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1754411851; x=1755016651;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
@@ -62,21 +62,21 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
         bh=DcTrrKHCxjGpWj0rumg0FDiXmLUWF4il3f7mb5TP3tM=;
-        b=S6XSygBS4ZVAZwUg4sR4JG3fwKeMzcTD5Dz/cdU8rRbcbySq4HISOAGYPjA6DHSWkk
-         DBewF4Zs2uBnQgH336hX8it/AzxXpaFO9J614dGCyL4+j8E4jiKPocdd9gkJbfiHLKuK
-         HGy3C1ruohVq0gyH2PkYPexJbSpcT8B6yUhYtki+CTYtEP52ng1xcE0dIgwqPCJK2av2
-         4KznS791cB7gA5vxhbbrehskeDjFffo5/p0xJwwywPRXEqJKdBF3uP7TmKNxOor4TEqp
-         XkGNhjLyOfz5CNXpFdNOGeDm4PqSf0CCfui0+OM5QBeUCktALa3wFsOFlRK33/qKQ7TV
-         NIuA==
-X-Forwarded-Encrypted: i=1; AJvYcCUtQhYlnRbdhuD+ljPR0iJdEeMh1fBsp4UlLWxWXXKRNReHqNa9CPyThgA9U/N6C1xEEQ4TTuNPISc=@lists.xen.org
-X-Gm-Message-State: AOJu0Yw27pqg6Mepo64qEYGjLsIVEYJlk5Z31y2UYF2kA7EEo+wQQQhJ
-	fqzAntpHIjKgpguqYi7X/+byLyrK9C5gVyTviXi7/rXICpk3UXOZfP8rQy7DnqXVhvY=
-X-Gm-Gg: ASbGncvPyuUGVrBamQ2P/mfFGohBvLA1n+IUIpBRVMeHy1/wZvKFCrdmaaYhfNVtWOn
-	FBGx3Qn90RCn+2GuLISMi2Gao0m4nxMn1e6OnoV5rNJgD3wm2lhSeMsN/UaC0QygLaUBY17awcP
-	mA7CwOCwnpcnTV52OIYPfHT6mrW0aXIRFDWL5yh4gJFTXMkmrsRdUtLm+zZLBkyXtLvIQSxuibm
-	8XW6B/8k+8O3hNU/WDPXMoQ6Gzk2Jj7xidh1krla2monee6Ukhz6MxglgbdyB9KMWOEkRsvVbkF
-	3pNuA5BbNR6gHobBMHFrcgVRk0mfvI8QsWtjuRWV9Kjj2Fl7HjLb7x09ULbEAPj45VXrAlhPQ5a
-	GeO0rmoRSA8yknB2FZNwlY7MCk/b8xMCt1A5XNDWOH9hxIaM9WERgpHOmvtVj9jkc6Dcb
+        b=IaYVDtGClwWsBOij2Ppjx5mgbuz9gXAcrBWcZ2cBVZGHVfGVM8Jjs5zhvdIwfk7EJs
+         J3phb9DXGV8nYoBSBdMSRVcRefTtncEz7xlzBmt4+V22IMlgh9IBCEC00pIxsaHG7Udj
+         HIJP9Oz4DiL8hmsqJXttwhWJLN9FG4KCf5WDP6R9my0Ju3KkfSoSchtOMDtuc6BdIact
+         P1LZaFQk2chNHEQO+6VZ2uiosLt4lwjLEequ9NDm5t9EBnlSo92DriVdPgN3xmKXXe9K
+         pK0Nel8hISbZvDFaqmqJ6WevYjnOqJgW3hCfn3DTO6bB6SuVScQFWjCmLLk0mwIacEZq
+         wlBQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXwTHfbPML3ArH78ao0YGTB+VP6Q+F+3W/QaAo1cTUz0KrmUhQUtnsr5REmiBrgcpovWnqP/wgBNqQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YySLOfWY0dvZXMFVMCHdF1uROS0HhSHCgxItCiP3dqAGGjd4dTX
+	gaUeAro4sHtdaqWkSMqhmyIvgzpDBHPDrc2OXvEi4cstP/Et9g8tabcZBmqAs8OUQVk=
+X-Gm-Gg: ASbGnctQGJkWueALTK5YpaMg1C7url+8/MjzuAnWDwZesJR8+HXI7tm07LQBvR8FL9p
+	9wBgXKWWZwzCzgcrY8dB3EGpwf3zcmr+seiM+m3qyHMNJ6jNzoI0RAz5xALMnv02T8E1oyT+Cmt
+	zqaUAqXHTFzfpkNf9SqJ6HhF6JreqARrpaA/IBm8UJjTs3r4eetjuTU1HcIR6fi36HEM7XzeEPB
+	kVdq9ZEUfDT8CGEeZMdcmEJ/yWNqrvSbs0Rm4p8RWKDFLPL3560Z/w3O9df7sUkEL6Y8iGPpnuT
+	uRJ5Xkp6QvhiBclY93pBve1WwLUMmxPm23VS6TjwomEiWWnZWk9bq3jabaV29nsJZycsRjJcFPm
+	snLHt3TDMYcBhzXaVDMN+KKtBcGjfVY/qfq+xurgOHH1WeSuCVe+Og0XkVdW6mUJ7tmyV
 X-Google-Smtp-Source: AGHT+IHHjz5bsg0TqLNtqa9cAyBQGg/tEMn9oJQ/u5n9sIdIsm+p/d+DdO22Xpxu19u5Q+Qh9egT0A==
 X-Received: by 2002:a05:600c:4e10:b0:459:443e:b180 with SMTP id 5b1f17b1804b1-459443eb330mr95296375e9.8.1754411851166;
         Tue, 05 Aug 2025 09:37:31 -0700 (PDT)
