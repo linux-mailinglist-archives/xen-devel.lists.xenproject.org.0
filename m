@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0581B1AFE7
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 09:57:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1070077.1433729 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA2B9B1AFE9
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 09:58:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1070083.1433739 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujCYA-0004RG-2A; Tue, 05 Aug 2025 07:57:34 +0000
+	id 1ujCZ5-0004vo-BQ; Tue, 05 Aug 2025 07:58:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1070077.1433729; Tue, 05 Aug 2025 07:57:34 +0000
+Received: by outflank-mailman (output) from mailman id 1070083.1433739; Tue, 05 Aug 2025 07:58:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujCY9-0004Po-VQ; Tue, 05 Aug 2025 07:57:33 +0000
-Received: by outflank-mailman (input) for mailman id 1070077;
- Tue, 05 Aug 2025 07:57:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ujCZ5-0004tz-7l; Tue, 05 Aug 2025 07:58:31 +0000
+Received: by outflank-mailman (input) for mailman id 1070083;
+ Tue, 05 Aug 2025 07:58:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=j2i0=2R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ujCY8-0004Pi-Ci
- for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 07:57:32 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d5fd0685-71d1-11f0-b898-0df219b8e170;
- Tue, 05 Aug 2025 09:57:30 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-6156a162537so8444369a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 05 Aug 2025 00:57:30 -0700 (PDT)
+ id 1ujCZ3-0004ej-LS
+ for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 07:58:29 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f8f4ef2c-71d1-11f0-a321-13f23c93f187;
+ Tue, 05 Aug 2025 09:58:28 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-af967835d0aso310496466b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Aug 2025 00:58:29 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-615a9113e40sm7965723a12.57.2025.08.05.00.57.29
+ a640c23a62f3a-af91a21c0e7sm862177966b.114.2025.08.05.00.58.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Aug 2025 00:57:29 -0700 (PDT)
+ Tue, 05 Aug 2025 00:58:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d5fd0685-71d1-11f0-b898-0df219b8e170
+X-Inumbo-ID: f8f4ef2c-71d1-11f0-a321-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754380650; x=1754985450; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=K4ava1rDLI3wPKtFeUdT8w1Gn3fes96YdVTkhImFi2s=;
-        b=XzXNp/bCJpNU1vyBOjtK2mV7VrjYMgi8HihN4aHTrI1CtaSsEMxv0Ml6GRijcz9akP
-         WquW7JE2jpmF/g5YxadwhMtPtNCP/HiN45zRgXiAJkbYTLrnNs0A2C2IUb5d3vMscOGt
-         2ZPvzgLcRgx4+30ppLlcJK7b/TQKGzsXzT0QqqxRSndr6nQfOiZHiJyCHPpYDEjPrZwl
-         l7eRfE3rfpY27MHox3bfQtVOUgtmCA80fzGPak1ZzCva+IhRN84i7ovHHmxd0wfpTObd
-         Klu4sKoIBENMemBdTmEzhm0j4VF4cPY4pmc/VvHDMus3LylJuSOnNXqf51qM17TRQdNj
-         UEgQ==
+        d=suse.com; s=google; t=1754380708; x=1754985508; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=zk8ARQLxEnVZagtjLCkEYukRPf4eTmdGxwGH7j4lTGc=;
+        b=bNaNRjhgt0e6XGbfCEoaKmg6KGAolQUbiPnTJzXdrWBkfKmKllHaxSZopIfXFrQP3F
+         iceHo3vsutWe8nfRl3dP1nYlyUfjM+NJnu2BVRxox1IZ+qwDaYqpqnOx7AN9ok3EtTRF
+         w6K3wUTuwdcXB5rGbj7wiULt4hCFqJ2EOBXTEoTZ21wURuBoYfVCTe+NDqC7elJZaDl3
+         wvGY2uM8vmeQZDv2wFazojhG98d+av3IRxUdufe9/jWMEHT7FgQn4Fr1w8Ti+4qipdrW
+         xjKu7R8IMwaUMnoNV0fR4eVhyg068knitBiOiZgMHilA45n0rcBdFuBUZBOpzeq5flBC
+         C03A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754380650; x=1754985450;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=K4ava1rDLI3wPKtFeUdT8w1Gn3fes96YdVTkhImFi2s=;
-        b=dmEIuKLbC9csemRhB3shVfbCGyFq9jcWp8F4mYj3X6ldktykqqmk96hmJ21HGo7xsh
-         +yF9iRadlaZlzshRsMmHe/r1oZKv6iwe9oFoIofsU21+LywsFVeQgv54hQO7lbKEUnK4
-         Dv5JyVzJfOnq1MYZxxHX7Lc+7N7KZ+SJXImD989DEhwIPlxHXUzaDt3Bnf0DzmeXy5OB
-         JAJ58OeRw5bCvippuCGWVPZMtDKmp6FfPRReCVh4VJgTEi6EeAym+Ig1GLAQx/g6rSeJ
-         iuNHshfD2o3XjBejEeV9X8r6uUUV5JDLyd9gblC9Ps2m1PzasGPyCrLN3A85HcJk7IWO
-         OURg==
-X-Gm-Message-State: AOJu0Yyg1QU+vqJfYlMOyO56Zn3QaZuS4q8PynshMcHJQwUr2ijXh9nA
-	qZcDEJd2INYCY/DUla93GEFbuB/s52Uz7IyNCCr0xPKju9epcsoETZ021Z0UqAtvUTiRJymHH2O
-	4D+Y=
-X-Gm-Gg: ASbGncsowLKtVkBYyV4AVCx6DsuEgPT38IWEn2A+Dq0t+7wXLBCmJytLBloR5CsGznu
-	noJLmJvn0OV+R01V2yldgwdNbKtgH/VQ0d4SpHC281+xLbRepE6NfL2MP0FU9qUM3+1YS9ZC9TK
-	3fh/5e2yQ65PriyiCEhUxY1ixU5xOs6JgGeyCWaW8aqWgz2kupcQ1vqSCAC9+F+uYIUSYySpjM3
-	fYKIIHOtAF52Fztnc+Wihb3q7YrmYON05xb5/7kZYx33Fl/QZeJRtPbJUJltL2OWuGm1cCeRdVf
-	V2dlRfl0cWYQW7nYELoIQTD/xyRmmZ6ym4iI2Ijq4dvxyWH6gT/AhTwq3tr9f/4mvkpJSP6zGgm
-	pPxdTSncP5iLre1FVoKzKe+syOxTxvKilKLsBG3w4ZMAfEGB19SBby5FqXr2PxLuZl42/POtgbM
-	bm2hPt7Iw=
-X-Google-Smtp-Source: AGHT+IETUpDWfhzD6Q1fEYPQ9DOC9HoQk0MxtMzMFCXB/JtsqlW7oUgtpDllk1q2rtuTuUUSgsKIcA==
-X-Received: by 2002:a05:6402:90c:b0:615:6fae:d766 with SMTP id 4fb4d7f45d1cf-615e73889a3mr10787302a12.26.1754380649593;
-        Tue, 05 Aug 2025 00:57:29 -0700 (PDT)
-Message-ID: <c506f225-0993-4ef3-9e7e-60b8f17c872e@suse.com>
-Date: Tue, 5 Aug 2025 09:57:28 +0200
+        d=1e100.net; s=20230601; t=1754380708; x=1754985508;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=zk8ARQLxEnVZagtjLCkEYukRPf4eTmdGxwGH7j4lTGc=;
+        b=pMosYoudmrmsu9MGUUqAtHm3GplZgWki2JNHrAcaiHLInV8VuldNzHs5ePmfbqI2Fn
+         RSICfWqf47c/3ARYZnAlfE6Vaxfb9cKD42soI65r0rbTZ8JSU/ImknX7Q6WCJTy++182
+         6hTmZIw2PrxYr4zSvFtALxCY+4wpWE7zfloVZGbe5RMCfYHyB60K3jCM/SufPZVZNbPV
+         RtAQ8br8/imWXcThjI95oyEkYG3mrOyRpik/JkP12qwDuJmlJao4uwHM0bKzTnLm6ccY
+         r5EkAsg7VM6EvKV7OZx3ztlGD9raae2URMZGbrREpiY/8aUNIZTWgUnuWKuIsi0txdE6
+         5gBw==
+X-Gm-Message-State: AOJu0YzA8nBSnGxZdlhh4+GbaX/h2jsP5keAwbMoi/Hhlckvwp+pgG/Z
+	c1LhYHxfnP5hexi3U0xkJTPxot/tDhk1yefkyFs2Hb5MToaKN2jwg1KFASf61tg1lAQ/+x7ovS5
+	g9ck=
+X-Gm-Gg: ASbGncuae2G2OdhKey32zwUBHpcCOSTAiwnGX7kVRRlvBB6qZRxfA/e5XAiowpoquPK
+	braYL0Gl5XQMJi20Lq/1ILbF/5frgLtwPjPD62jQJft82sa8Pze9CK7pW1ew/ry2dHx9PcFxZAV
+	TzX7bHZP/Z9fvMYMoYoco/G/hjus+attpwRfIiUQdFOaL8TgvF9O5ipHJInmfpAm2VtVTF1SBlz
+	Y0/e3Ryi9S6EgYoFwOpUJ9G6SM44ZOpoFqaM6KQ0JLqEgzfn33zhEw//O8bXkSy18oTXFCYXhCF
+	haEHxGRVcpH/aRtIC8eJGn6rl4vgAsGsQih3nR+5sZ9zyFGo7B4QIpTOFpAebe9ycsFL2FeewjI
+	wHCs3/m2b/fKdbNEIzF6g6bd3TWZ/rbFJT/drqmbi4cfDuUXHuI/LFhnOrw21q9RztJJVVI0d9d
+	ci8rfCviBH5xiS5oE6HA==
+X-Google-Smtp-Source: AGHT+IHrh6RWKmfuaIlBXu9xt3EqUmQYyQKIlJvef21/qMD6Jcd0zL1ygxI2tqPUlH7X8z0nVPyotQ==
+X-Received: by 2002:a17:907:86a0:b0:ae3:f2a0:459f with SMTP id a640c23a62f3a-af9402225damr1292618166b.54.1754380708362;
+        Tue, 05 Aug 2025 00:58:28 -0700 (PDT)
+Message-ID: <0c75ef27-7584-4e56-9ead-6bb0274ce3eb@suse.com>
+Date: Tue, 5 Aug 2025 09:58:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
+Subject: [PATCH 1/2] x86/mm: drop paging_get_mode()
+From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Penny Zheng <Penny.Zheng@amd.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH 0/2] x86/mm: paging build adjustments
+References: <c506f225-0993-4ef3-9e7e-60b8f17c872e@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -117,17 +119,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <c506f225-0993-4ef3-9e7e-60b8f17c872e@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-This is in the hope that it'll lead to a better overall result than plainly
-taking [1] and [2] (or whichever re-work thereof).
+The function was introduced without any caller, and never gained any.
+Thus it has always been violating Misra rule 2.1 (unreachable code).
 
-1: drop paging_get_mode()
-2: correct PG_log_dirty definition
+Fixes: dd6de3ab9985 ("Implement Nested-on-Nested")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+--- a/xen/arch/x86/include/asm/paging.h
++++ b/xen/arch/x86/include/asm/paging.h
+@@ -225,7 +225,6 @@ int paging_enable(struct domain *d, u32
+ 
+ #define paging_get_hostmode(v)		((v)->arch.paging.mode)
+ #define paging_get_nestedmode(v)	((v)->arch.paging.nestedmode)
+-const struct paging_mode *paging_get_mode(struct vcpu *v);
+ void paging_update_nestedmode(struct vcpu *v);
+ 
+ /* Page fault handler
+--- unstable.orig/xen/arch/x86/mm/paging.c	2025-08-05 08:59:15.512131147 +0200
++++ unstable/xen/arch/x86/mm/paging.c	2025-08-05 09:00:24.160657794 +0200
+@@ -946,14 +946,6 @@ void paging_dump_vcpu_info(struct vcpu *
+     }
+ }
+ 
+-const struct paging_mode *paging_get_mode(struct vcpu *v)
+-{
+-    if (!nestedhvm_is_n2(v))
+-        return paging_get_hostmode(v);
+-
+-    return paging_get_nestedmode(v);
+-}
+-
+ #ifdef CONFIG_HVM
+ void paging_update_nestedmode(struct vcpu *v)
+ {
 
-[1] https://lists.xen.org/archives/html/xen-devel/2025-08/msg00050.html
-[2] https://lists.xen.org/archives/html/xen-devel/2025-08/msg00051.html
 
