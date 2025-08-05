@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAEBEB1AFF8
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 10:02:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1070105.1433759 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EF7FB1B006
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 10:11:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1070118.1433769 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujCca-0007kr-4y; Tue, 05 Aug 2025 08:02:08 +0000
+	id 1ujClB-000166-2d; Tue, 05 Aug 2025 08:11:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1070105.1433759; Tue, 05 Aug 2025 08:02:08 +0000
+Received: by outflank-mailman (output) from mailman id 1070118.1433769; Tue, 05 Aug 2025 08:11:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujCca-0007i0-1P; Tue, 05 Aug 2025 08:02:08 +0000
-Received: by outflank-mailman (input) for mailman id 1070105;
- Tue, 05 Aug 2025 08:02:06 +0000
+	id 1ujClA-000144-VL; Tue, 05 Aug 2025 08:11:00 +0000
+Received: by outflank-mailman (input) for mailman id 1070118;
+ Tue, 05 Aug 2025 08:10:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=j2i0=2R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ujCcY-0007hu-R7
- for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 08:02:06 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ id 1ujCl9-00012l-7G
+ for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 08:10:59 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 79b5efc5-71d2-11f0-b898-0df219b8e170;
- Tue, 05 Aug 2025 10:02:04 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-af95b919093so350600566b.2
- for <xen-devel@lists.xenproject.org>; Tue, 05 Aug 2025 01:02:04 -0700 (PDT)
+ id b6fb73af-71d3-11f0-b898-0df219b8e170;
+ Tue, 05 Aug 2025 10:10:57 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-615d1865b2dso6353499a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Aug 2025 01:10:57 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a07659dsm848977366b.21.2025.08.05.01.02.03
+ 4fb4d7f45d1cf-615a8f00066sm7863105a12.7.2025.08.05.01.10.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Aug 2025 01:02:03 -0700 (PDT)
+ Tue, 05 Aug 2025 01:10:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79b5efc5-71d2-11f0-b898-0df219b8e170
+X-Inumbo-ID: b6fb73af-71d3-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754380924; x=1754985724; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CtmSLy6PqvBlDIW9PGwauE7arZ7BbkR68+6Y6KWVICA=;
-        b=V9ysxjmQVhQVhcwdxrpeGuiepa46RwRBLIBTwDu1VBP83SqvRv06Wo77eYI8JVXbRo
-         4AqtE573QqBH+Xq85d3+LWKU2+SvwLD91y8xNWqYGqHIay1XfHjoLbTV4GfkR2uCGVB4
-         0MDftJWZmwzfNIkOgT3WT/wNa3jKUJCKKYcwHt+ImseXNHSyCqUAI8OaCmeJ87NsY5sW
-         OCS8GWs9NrouZDRc5zNox69lijV1zxk/Lu9WBeJD1DtiquMSqacC4/ddOIdbueVzzL6w
-         WrxO4MCOU4ZrLgqbz5Wchoy4/ugdYzcY3I5oFmNQGdvKFFwwAhFiNvmFkP021v0OyM9V
-         rfUQ==
+        d=suse.com; s=google; t=1754381456; x=1754986256; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=rd/xTim005buCVdoW0OuuV7xncLVOUA5t6nqxX9G0JU=;
+        b=gk/t6lEviwrwJEaDrcjPIBtKF45ZthUAVOaB/Gfv67oQ2fwXnqrgG0OKV6GwtggaKQ
+         Mvz7xU8q8Lg6ZGnv1OBUkp0IIIaQjqyrmZDTuvGIiCPvpAax7GT4M0DS9WV0nISVIs6f
+         xIDuJLZtHeZ+9mla5nBTNE/whmkkn34AqP9c6R0S603Ip4aK6kIyJD+cVEaX+SQhsvkn
+         Ep9RawbEfwClzPUoC6hZh9Tkpxga1UxxbzfV0H0dhDpJNi1V/GxKK2JEOrqglBr9Zts3
+         6f4s29sSLkix0TtsfFPwdLKXXxkGJv2ZTzNQiET88Shhn9/PG9eJPX7X/Q23zJIWjSKI
+         xTmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754380924; x=1754985724;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=CtmSLy6PqvBlDIW9PGwauE7arZ7BbkR68+6Y6KWVICA=;
-        b=R2FTvC15wVzNljdLtselkycdLnc7eZfyo1U1jEl+Sp6eVWfoMbVlPVJhwLhAXwsjYz
-         FSLRSXbXN5hl9S2auN17/bc5HrAnV74vejaLWA8d3TKj27zrkXsG4DdoH3tWVRGf7dEw
-         e16FAAviBswbMoflC2dvbKu3sgZcHMd7p3aBFTagKxUHjZQRSjEJWEP4LCsHsvImaRJL
-         eJzHM6cUMRrZ9kDOvJZ0/Lmdd6P5zTlTqbzLvlWmtx8S8NuMJvUTZcBztEjh7XJa4xpl
-         LlusMaEP/dzaTmgRtNVTPCWp/tfYrOKqPB8Gt3UGV6lubkRfq9dx80SWw2X/k1cXkWDk
-         x45w==
-X-Forwarded-Encrypted: i=1; AJvYcCUgfGFFQYqmiX8tH+r6Ma1ap/UvHQ1sGJMcCJ4faSJhHIQuQ33dt5mTdSieFkKBA3nvlJRzIoBMTOU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy/MC/ylAjH3p8owiQCnWXu9acqtk9gG59+SlV99yPW3C2u47G5
-	IPsBG32hlMKXSEbizjpUOk0CNNQuHqq78R8cmi0QLKXQH/d3QWpJI0C/J1xk6e2rA0kwFY6bZP/
-	0S3M=
-X-Gm-Gg: ASbGncuIXVhpOgDzDZAntFSHWMhWghWUMae0PjRghHa/UrNbvgVlEwxDrlH0WwGxho7
-	SWsq9PjoFYugpyXOQzLuw4LLL7G3OErHAh1B3VQm75miClSlwtReoDhtxAIpCwL795gxA8IpM6K
-	zS2hujHU9KynBhsN+JiuAyuQJB6c5URnl+YkiQGH0TxP2mEd3s6NOMY7O6Q30eWC99nlzO/sVfl
-	cXSxtPa+ArnGPrCE1jDMEUMwY8XGwmi/pWFESk+ny1Nm6k+F0HxAHMpAkze/R+2j6hA+KogrmoH
-	QLGEKO9GpdlXr1RflU2RT+VSCupJjvMvZKR81mdCgHtejC92Hs5IuRTEmFmi3EP152Ycy+nn59e
-	QStfdWr7Kdqbz0Q8s2nB2Su5mLCDC+XgK00iBrJQd5Z9mSjJ0eBD7lt3Zk5TBKVzzeyibnkJUw6
-	t6L3eJ8qI=
-X-Google-Smtp-Source: AGHT+IHARCC5ug1NuLrn0wCnmLqOduhZFGQKjxjU3JOkQeWOdEzlQSUUDkqvxMdJM0hO+Wf40wK99w==
-X-Received: by 2002:a17:907:d86:b0:af9:3e06:46ff with SMTP id a640c23a62f3a-af940015684mr1413696466b.18.1754380924070;
-        Tue, 05 Aug 2025 01:02:04 -0700 (PDT)
-Message-ID: <450982f5-4032-4b63-9635-40dbc10f6779@suse.com>
-Date: Tue, 5 Aug 2025 10:02:02 +0200
+        d=1e100.net; s=20230601; t=1754381456; x=1754986256;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rd/xTim005buCVdoW0OuuV7xncLVOUA5t6nqxX9G0JU=;
+        b=dQ+clqoIn+zgZGZk7wYkuJjivm68KAaE93K0gRrAJ5//K6/01MDPltNy1bBcskZb7d
+         q/sza2/LZWOlZ23zbQ0gEOPUX/anpvrImK3JROy9qjiLM702Zp8T8ZakRdES0UK1KE3S
+         B4y70VEikZQEz+6SYS2x1/GEI4+DO5Ru6BK2j03IKmA1NYc8IuX/JyHflPRclqp6hRfY
+         5PysZM8X6lZJ1SRv6LOYj+MYxt6woJdA3f4CX2RViQL3ymDUWTWrZBAE/bnukVhSYw99
+         14ZIwpHLfTmM484V984EMUWJ6vB0at+7V/JN0eDkIDGYkrOuYNjm0X/AeTQsYs8aKiZP
+         I9EA==
+X-Forwarded-Encrypted: i=1; AJvYcCWwx5wKJGsp+hk9WacN2TNXw3Y0V5/iOh5eF5HWYkxqaeVPsYqKMnN+9tH7dnQQ7SRvbGqCdEGmwEM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzIlVedih5zIAjdri69DsnH04w/4CQJwnuO/QbqEOaQrfuAK6kW
+	CaVYERmBX784gHPC1ZAr4C0pc2tKfl2mRSAVHA4IpBht8Wzi5Yi3TqqdHJL6Let7vA==
+X-Gm-Gg: ASbGncsGY95Axh8bQdl2ARmjeEyoCOVTlZdasA+p4tehI2pjHzSqE/YX8SdH5mu/YwD
+	KILTVCRsaWJYzripjjA97F2v3kf+oJMFcTyFMU+GGuCzJE8jKSRY3qO+iHd/jTC2488DFal/QJD
+	5MoPmv2F7zmCsZb2KlQpj/blFYk+JIF+qDnYudRAMDQXKfbzmFp5Dnd7kDcltytrlJ15rXktg2V
+	XeTgD2u4Nr8Ar3j+AMOxTHDbGkG7FNXGg76Y+2qV+aXAjpmoPGUG41hjp5tGiBjsXPEYk9DZmQb
+	tJ6sv28BVopzr7VMaBbNptktk+tQspyM69enUWkwnPAQPqa1k48sgQbkmF1GZRNGccWMMeH1oBi
+	j1Ybod4o0mXWPW0pKVTDRNEaC1Z8QvFZQpceuqo5odgX/Ulp3L64QTBB7qHYQQ7n+MyNWXS0VQr
+	8+IMkaXu8=
+X-Google-Smtp-Source: AGHT+IFchRG07DF3ik6Pvfdl6O/fFY6YI19ca/ly7KKZgvE/EPyFHi/Na0SKPzqFcKKuInU8mTZurA==
+X-Received: by 2002:a05:6402:1118:b0:615:905a:3d43 with SMTP id 4fb4d7f45d1cf-615e71451c1mr9421099a12.16.1754381456524;
+        Tue, 05 Aug 2025 01:10:56 -0700 (PDT)
+Message-ID: <889e32d2-b50f-4d61-b04b-6c73472abf23@suse.com>
+Date: Tue, 5 Aug 2025 10:10:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/HVM: polish hvm_asid_init() a little
-From: Jan Beulich <jbeulich@suse.com>
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <ec351aea-e2a0-4335-b8ee-51c6eface104@suse.com>
+Subject: Re: [PATCH v10 4/4] vpci/msix: Free MSIX resources when init_msix()
+ fails
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: Huang Rui <ray.huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+References: <20250805034906.1014212-1-Jiqian.Chen@amd.com>
+ <20250805034906.1014212-5-Jiqian.Chen@amd.com>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -120,83 +120,58 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ec351aea-e2a0-4335-b8ee-51c6eface104@suse.com>
+In-Reply-To: <20250805034906.1014212-5-Jiqian.Chen@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 04.08.2025 17:41, Jan Beulich wrote:
-> While the logic there covers asymmetric cases, the resulting log
-> messages would likely raise more confusion than clarify anything. Split
-> the BSP action from the AP one, indicating the odd CPU in the AP log
-> message, thus avoiding the impression that global state would have
-> changed.
+On 05.08.2025 05:49, Jiqian Chen wrote:
+> When MSI-X initialization fails vPCI will hide the capability, but
+> remove of handlers and data won't be performed until the device is
+> deassigned.  Introduce a MSI-X cleanup hook that will be called when
+> initialization fails to cleanup MSI-X related hooks and free it's
+> associated data.
 > 
-> While there also
-> - move g_disabled into .data.ro_after_init; only the BSP will ever write
->   to it,
-> - make the function's parameter unsigned; no negative values may be
->   passed in. Also reflect this in svm_asid_init().
+> As all supported capabilities have been switched to use the cleanup
+> hooks call those from vpci_deassign_device() instead of open-code the
+> capability specific cleanup in there.
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> ---
+> cc: "Roger Pau Monné" <roger.pau@citrix.com>
+> ---
+> v9->v10 changes:
+> * Call all cleanup hook in vpci_deassign_device() instead of cleanup_msix().
 
-Sorry, I meant to Cc: you on the submission, as it was the reviewing of
-your copied code which made me spot the shortcomings (which, as indicated,
-I think it would be nice if you avoided from the very start).
+Isn't this rather an omission in an earlier change, and hence may want to
+come separately and with a Fixes: tag?
+
+> --- a/xen/drivers/vpci/vpci.c
+> +++ b/xen/drivers/vpci/vpci.c
+> @@ -321,6 +321,27 @@ void vpci_deassign_device(struct pci_dev *pdev)
+>                      &pdev->domain->vpci_dev_assigned_map);
+>  #endif
+>  
+> +    for ( i = 0; i < NUM_VPCI_INIT; i++ )
+> +    {
+> +        const vpci_capability_t *capability = &__start_vpci_array[i];
+> +        const unsigned int cap = capability->id;
+> +        unsigned int pos = 0;
+> +
+> +        if ( !capability->is_ext )
+> +            pos = pci_find_cap_offset(pdev->sbdf, cap);
+> +        else if ( is_hardware_domain(pdev->domain) )
+> +            pos = pci_find_ext_capability(pdev->sbdf, cap);
+
+What's the point of doing this when ...
+
+> +        if ( pos && capability->cleanup )
+
+... ->cleanup is NULL? Don't you want to have
+
+        if ( !capability->cleanup )
+            continue;
+
+earlier on?
 
 Jan
-
-> --- a/xen/arch/x86/hvm/asid.c
-> +++ b/xen/arch/x86/hvm/asid.c
-> @@ -48,20 +48,22 @@ struct hvm_asid_data {
->  
->  static DEFINE_PER_CPU(struct hvm_asid_data, hvm_asid_data);
->  
-> -void hvm_asid_init(int nasids)
-> +void hvm_asid_init(unsigned int nasids)
->  {
-> -    static int8_t g_disabled = -1;
-> +    static int8_t __ro_after_init g_disabled = -1;
->      struct hvm_asid_data *data = &this_cpu(hvm_asid_data);
->  
->      data->max_asid = nasids - 1;
->      data->disabled = !opt_asid_enabled || (nasids <= 1);
->  
-> -    if ( g_disabled != data->disabled )
-> +    if ( g_disabled < 0 )
->      {
-> -        printk("HVM: ASIDs %sabled.\n", data->disabled ? "dis" : "en");
-> -        if ( g_disabled < 0 )
-> -            g_disabled = data->disabled;
-> +        g_disabled = data->disabled;
-> +        printk("HVM: ASIDs %sabled\n", data->disabled ? "dis" : "en");
->      }
-> +    else if ( g_disabled != data->disabled )
-> +        printk("HVM: CPU%u: ASIDs %sabled\n", smp_processor_id(),
-> +               data->disabled ? "dis" : "en");
->  
->      /* Zero indicates 'invalid generation', so we start the count at one. */
->      data->core_asid_generation = 1;
-> --- a/xen/arch/x86/hvm/svm/asid.c
-> +++ b/xen/arch/x86/hvm/svm/asid.c
-> @@ -12,7 +12,7 @@
->  
->  void svm_asid_init(const struct cpuinfo_x86 *c)
->  {
-> -    int nasids = 0;
-> +    unsigned int nasids = 0;
->  
->      /* Check for erratum #170, and leave ASIDs disabled if it's present. */
->      if ( !cpu_has_amd_erratum(c, AMD_ERRATUM_170) )
-> --- a/xen/arch/x86/include/asm/hvm/asid.h
-> +++ b/xen/arch/x86/include/asm/hvm/asid.h
-> @@ -13,7 +13,7 @@ struct vcpu;
->  struct hvm_vcpu_asid;
->  
->  /* Initialise ASID management for the current physical CPU. */
-> -void hvm_asid_init(int nasids);
-> +void hvm_asid_init(unsigned int nasids);
->  
->  /* Invalidate a particular ASID allocation: forces re-allocation. */
->  void hvm_asid_flush_vcpu_asid(struct hvm_vcpu_asid *asid);
-
 
