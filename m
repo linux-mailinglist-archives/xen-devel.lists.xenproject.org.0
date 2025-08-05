@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EF7FB1B006
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 10:11:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1070118.1433769 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35C6CB1B019
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 10:16:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1070126.1433778 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujClB-000166-2d; Tue, 05 Aug 2025 08:11:01 +0000
+	id 1ujCq0-0001mY-I4; Tue, 05 Aug 2025 08:16:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1070118.1433769; Tue, 05 Aug 2025 08:11:01 +0000
+Received: by outflank-mailman (output) from mailman id 1070126.1433778; Tue, 05 Aug 2025 08:16:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujClA-000144-VL; Tue, 05 Aug 2025 08:11:00 +0000
-Received: by outflank-mailman (input) for mailman id 1070118;
- Tue, 05 Aug 2025 08:10:59 +0000
+	id 1ujCq0-0001kN-FT; Tue, 05 Aug 2025 08:16:00 +0000
+Received: by outflank-mailman (input) for mailman id 1070126;
+ Tue, 05 Aug 2025 08:15:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=j2i0=2R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ujCl9-00012l-7G
- for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 08:10:59 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ id 1ujCpy-0001kG-Ri
+ for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 08:15:58 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b6fb73af-71d3-11f0-b898-0df219b8e170;
- Tue, 05 Aug 2025 10:10:57 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-615d1865b2dso6353499a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 05 Aug 2025 01:10:57 -0700 (PDT)
+ id 69a90dfc-71d4-11f0-b898-0df219b8e170;
+ Tue, 05 Aug 2025 10:15:57 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-adfb562266cso848427766b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Aug 2025 01:15:56 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-615a8f00066sm7863105a12.7.2025.08.05.01.10.56
+ a640c23a62f3a-af91a0766f9sm872386966b.24.2025.08.05.01.15.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Aug 2025 01:10:56 -0700 (PDT)
+ Tue, 05 Aug 2025 01:15:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6fb73af-71d3-11f0-b898-0df219b8e170
+X-Inumbo-ID: 69a90dfc-71d4-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754381456; x=1754986256; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754381756; x=1754986556; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rd/xTim005buCVdoW0OuuV7xncLVOUA5t6nqxX9G0JU=;
-        b=gk/t6lEviwrwJEaDrcjPIBtKF45ZthUAVOaB/Gfv67oQ2fwXnqrgG0OKV6GwtggaKQ
-         Mvz7xU8q8Lg6ZGnv1OBUkp0IIIaQjqyrmZDTuvGIiCPvpAax7GT4M0DS9WV0nISVIs6f
-         xIDuJLZtHeZ+9mla5nBTNE/whmkkn34AqP9c6R0S603Ip4aK6kIyJD+cVEaX+SQhsvkn
-         Ep9RawbEfwClzPUoC6hZh9Tkpxga1UxxbzfV0H0dhDpJNi1V/GxKK2JEOrqglBr9Zts3
-         6f4s29sSLkix0TtsfFPwdLKXXxkGJv2ZTzNQiET88Shhn9/PG9eJPX7X/Q23zJIWjSKI
-         xTmg==
+        bh=wt/RvL3z2MOCMJ7xgls2sDYSiF446Vvd5P2xrV6RHws=;
+        b=XOFJPSmzW3EuFAs1UCQTsqVayC48/0uv7oj4k4a1DlMxW6vS6+WS+HpXaX/o3GRL0O
+         ZKtqM5nlLllRCom4b3h+oGCtjXRhShG8yXVXXU+eIYrCUFfViBQuXV8CG8uDOJcDJ93K
+         iUR5IM4WkxHshGZQMyVH80um57STo5z54U71CVdsPAx7WAGtQaxryzpXoHD1Ggux4e0l
+         WgHslTS7Ooyx7ueUJW4qrT4LRz5OV+RZXncNaZi9dnFif1dxq2mGtrXM1omlZk3RgUlB
+         d1J3/SmmrjeCwnbyeEfzuJIheuj/+v/4FQcekoDSMh+hkGBx9/jCdqMjsadQddJ2QULj
+         +0Iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754381456; x=1754986256;
+        d=1e100.net; s=20230601; t=1754381756; x=1754986556;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rd/xTim005buCVdoW0OuuV7xncLVOUA5t6nqxX9G0JU=;
-        b=dQ+clqoIn+zgZGZk7wYkuJjivm68KAaE93K0gRrAJ5//K6/01MDPltNy1bBcskZb7d
-         q/sza2/LZWOlZ23zbQ0gEOPUX/anpvrImK3JROy9qjiLM702Zp8T8ZakRdES0UK1KE3S
-         B4y70VEikZQEz+6SYS2x1/GEI4+DO5Ru6BK2j03IKmA1NYc8IuX/JyHflPRclqp6hRfY
-         5PysZM8X6lZJ1SRv6LOYj+MYxt6woJdA3f4CX2RViQL3ymDUWTWrZBAE/bnukVhSYw99
-         14ZIwpHLfTmM484V984EMUWJ6vB0at+7V/JN0eDkIDGYkrOuYNjm0X/AeTQsYs8aKiZP
-         I9EA==
-X-Forwarded-Encrypted: i=1; AJvYcCWwx5wKJGsp+hk9WacN2TNXw3Y0V5/iOh5eF5HWYkxqaeVPsYqKMnN+9tH7dnQQ7SRvbGqCdEGmwEM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzIlVedih5zIAjdri69DsnH04w/4CQJwnuO/QbqEOaQrfuAK6kW
-	CaVYERmBX784gHPC1ZAr4C0pc2tKfl2mRSAVHA4IpBht8Wzi5Yi3TqqdHJL6Let7vA==
-X-Gm-Gg: ASbGncsGY95Axh8bQdl2ARmjeEyoCOVTlZdasA+p4tehI2pjHzSqE/YX8SdH5mu/YwD
-	KILTVCRsaWJYzripjjA97F2v3kf+oJMFcTyFMU+GGuCzJE8jKSRY3qO+iHd/jTC2488DFal/QJD
-	5MoPmv2F7zmCsZb2KlQpj/blFYk+JIF+qDnYudRAMDQXKfbzmFp5Dnd7kDcltytrlJ15rXktg2V
-	XeTgD2u4Nr8Ar3j+AMOxTHDbGkG7FNXGg76Y+2qV+aXAjpmoPGUG41hjp5tGiBjsXPEYk9DZmQb
-	tJ6sv28BVopzr7VMaBbNptktk+tQspyM69enUWkwnPAQPqa1k48sgQbkmF1GZRNGccWMMeH1oBi
-	j1Ybod4o0mXWPW0pKVTDRNEaC1Z8QvFZQpceuqo5odgX/Ulp3L64QTBB7qHYQQ7n+MyNWXS0VQr
-	8+IMkaXu8=
-X-Google-Smtp-Source: AGHT+IFchRG07DF3ik6Pvfdl6O/fFY6YI19ca/ly7KKZgvE/EPyFHi/Na0SKPzqFcKKuInU8mTZurA==
-X-Received: by 2002:a05:6402:1118:b0:615:905a:3d43 with SMTP id 4fb4d7f45d1cf-615e71451c1mr9421099a12.16.1754381456524;
-        Tue, 05 Aug 2025 01:10:56 -0700 (PDT)
-Message-ID: <889e32d2-b50f-4d61-b04b-6c73472abf23@suse.com>
-Date: Tue, 5 Aug 2025 10:10:55 +0200
+        bh=wt/RvL3z2MOCMJ7xgls2sDYSiF446Vvd5P2xrV6RHws=;
+        b=QJMRKzReOPKwGwEBFoQso+vr53soXIQugoru0XKQ847Zq6oyQeS9c5KidmLrAcQMcY
+         55GPHzkcOKPm/BITcvcX7S3HfzM32wyV7j1az/kCPh1MvAwWwkqH/YmvfQzpq71+LwoB
+         bSiw35GljBOy1x34W8pPt8X3eGMWgGh4lJ4hhtEgpfUf4b0VArPe8CRnVPr2jue2d5Q/
+         ZnHkYPEx9z07zZDuvgFcelUSux4QQjRzF2mXygrR1NNC2u78Yq3dO6u57MdyzCyJYqVi
+         3cgZvUqhm8MMesZYB3w/EUIGvqJbPUXnGNdCZ9bZzj8zUslYx0x2YuG6j2UK92nD2z6B
+         djBw==
+X-Forwarded-Encrypted: i=1; AJvYcCV4dMS44OcSsV3Xfl+h1qrYLjrSxPL3Mbk9pJBV11PlyfygVowVnC+ydGlVXnXSLe5YEKKDXrvaTwQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywvs622eXzb1QNcx1sUa9z+3kS+vavwkndxeFukUsFsO6JsaQHS
+	/Ppu8WAfJkrDg2repPAXYGh7hUOyyGVdgPWnFPDwqpAw4sJYINVZneU0FFeIqqf2nA==
+X-Gm-Gg: ASbGnctY6hYTaIoaWpWqapmgVUqCI1GEVGhb1Kd03ZbZqtVHNek8z5U8Xt6RFT8ZlJf
+	KbKEoyj7BGStBhQByea3cxztUh+lzVA+4D7ibLSJcvtNjDIpmSiAETtFy/ls4g4BoPG5jOaXiO4
+	2S5UexxR6MwX+P4ba5E0kWan7wZsgaBS1SYYF7nsEJnxxdkN0wSOvLO++9UGODgCQUiqNkmsErt
+	sGNsdIc00fg8uuDyWToscMqKTspLjki51/ozzENOa+k9NEU7DD2PS5QZdfPQBLjgovLlhJuPZlW
+	0hWtF4Fce1MWUaRQy/AssC7kxRo4ikyEKdQdjnpLD+CLw4MqUCCSLmssFaYeyy6Jwd5lMuVsa1s
+	GUKVD8HVmU2Se5hpCuIz8PWRj3uoS8k+CxNFs0cgu5erigrESVcr1GZuz4plsM7yGslNiDSj9aT
+	3Bh4SV+aU=
+X-Google-Smtp-Source: AGHT+IEzJJQyfsuj9JnPWMnVlLzedmSD5OtMHzS6h4vUGELTNbYGbHmGhxdzXeVZxTSC7VifOrrPhg==
+X-Received: by 2002:a17:907:7fa3:b0:ae0:da2d:44b9 with SMTP id a640c23a62f3a-af94003327emr1384767566b.7.1754381756248;
+        Tue, 05 Aug 2025 01:15:56 -0700 (PDT)
+Message-ID: <321d07ea-1688-4036-a031-37c46dab5c15@suse.com>
+Date: Tue, 5 Aug 2025 10:15:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 4/4] vpci/msix: Free MSIX resources when init_msix()
- fails
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250805034906.1014212-1-Jiqian.Chen@amd.com>
- <20250805034906.1014212-5-Jiqian.Chen@amd.com>
+Subject: Re: [PATCH] misra: remove default case in single-clause switch
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <725ec86ac1aa883c35fb30b8f226c95cbe0934e9.1754322299.git.dmytro_prokopchuk1@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,58 +122,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250805034906.1014212-5-Jiqian.Chen@amd.com>
+In-Reply-To: <725ec86ac1aa883c35fb30b8f226c95cbe0934e9.1754322299.git.dmytro_prokopchuk1@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 05.08.2025 05:49, Jiqian Chen wrote:
-> When MSI-X initialization fails vPCI will hide the capability, but
-> remove of handlers and data won't be performed until the device is
-> deassigned.  Introduce a MSI-X cleanup hook that will be called when
-> initialization fails to cleanup MSI-X related hooks and free it's
-> associated data.
+On 04.08.2025 19:33, Dmytro Prokopchuk1 wrote:
+> MISRA Rule 16.4: Every switch statement shall have a default label.
+> The default clause must contain either a statement or a comment
+> prior to its terminating break statement.
 > 
-> As all supported capabilities have been switched to use the cleanup
-> hooks call those from vpci_deassign_device() instead of open-code the
-> capability specific cleanup in there.
+> However, there is a documented deviation for this rule in Xen:
+> 'docs/misra/deviations.rst':
+> * - R16.4
+>   - A switch statement with a single clause and no default label
+>     may replace an equivalent if statement to improve readability.
+>   - Tagged as `deliberate` for ECLAIR.
 > 
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> ---
-> cc: "Roger Pau Monné" <roger.pau@citrix.com>
-> ---
-> v9->v10 changes:
-> * Call all cleanup hook in vpci_deassign_device() instead of cleanup_msix().
+> This change removes empty default cases in single-clause switches
+> to avoid violations of the rule where the `default` clause lacks
+> a suitable comment or statement.
+> 
+> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
 
-Isn't this rather an omission in an earlier change, and hence may want to
-come separately and with a Fixes: tag?
-
-> --- a/xen/drivers/vpci/vpci.c
-> +++ b/xen/drivers/vpci/vpci.c
-> @@ -321,6 +321,27 @@ void vpci_deassign_device(struct pci_dev *pdev)
->                      &pdev->domain->vpci_dev_assigned_map);
->  #endif
->  
-> +    for ( i = 0; i < NUM_VPCI_INIT; i++ )
-> +    {
-> +        const vpci_capability_t *capability = &__start_vpci_array[i];
-> +        const unsigned int cap = capability->id;
-> +        unsigned int pos = 0;
-> +
-> +        if ( !capability->is_ext )
-> +            pos = pci_find_cap_offset(pdev->sbdf, cap);
-> +        else if ( is_hardware_domain(pdev->domain) )
-> +            pos = pci_find_ext_capability(pdev->sbdf, cap);
-
-What's the point of doing this when ...
-
-> +        if ( pos && capability->cleanup )
-
-... ->cleanup is NULL? Don't you want to have
-
-        if ( !capability->cleanup )
-            continue;
-
-earlier on?
+It's all CPU notifiers that you alter, and iirc the outcome of earlier
+discussion was that particularly for those we _want_ to add commentary,
+clarifying why only the given subset of notification need handling in
+the particular case. It may also well be that the (at least) one case
+of the possibly missing handling of some other notification still is
+unaddressed (and might hence be wrongly hidden by the adjustment done
+here, if it's in one of the function that are being altered).
 
 Jan
 
