@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80DA4B1AFEC
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 09:59:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1070092.1433749 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAEBEB1AFF8
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 10:02:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1070105.1433759 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujCZw-0005U4-JY; Tue, 05 Aug 2025 07:59:24 +0000
+	id 1ujCca-0007kr-4y; Tue, 05 Aug 2025 08:02:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1070092.1433749; Tue, 05 Aug 2025 07:59:24 +0000
+Received: by outflank-mailman (output) from mailman id 1070105.1433759; Tue, 05 Aug 2025 08:02:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujCZw-0005Rl-Gc; Tue, 05 Aug 2025 07:59:24 +0000
-Received: by outflank-mailman (input) for mailman id 1070092;
- Tue, 05 Aug 2025 07:59:22 +0000
+	id 1ujCca-0007i0-1P; Tue, 05 Aug 2025 08:02:08 +0000
+Received: by outflank-mailman (input) for mailman id 1070105;
+ Tue, 05 Aug 2025 08:02:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=j2i0=2R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ujCZu-0005FK-Qs
- for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 07:59:22 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ id 1ujCcY-0007hu-R7
+ for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 08:02:06 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1836bb6f-71d2-11f0-b898-0df219b8e170;
- Tue, 05 Aug 2025 09:59:21 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-61553a028dfso5261368a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 05 Aug 2025 00:59:21 -0700 (PDT)
+ id 79b5efc5-71d2-11f0-b898-0df219b8e170;
+ Tue, 05 Aug 2025 10:02:04 +0200 (CEST)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-af95b919093so350600566b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Aug 2025 01:02:04 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-615a8fe7970sm7829833a12.31.2025.08.05.00.59.20
+ a640c23a62f3a-af91a07659dsm848977366b.21.2025.08.05.01.02.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Aug 2025 00:59:20 -0700 (PDT)
+ Tue, 05 Aug 2025 01:02:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1836bb6f-71d2-11f0-b898-0df219b8e170
+X-Inumbo-ID: 79b5efc5-71d2-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754380761; x=1754985561; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754380924; x=1754985724; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lDYhhVqtVHSkEY2KScDddpRPE5yfRSX0wYxMEMeyzd0=;
-        b=WiXf0sIS/t6jokvq+lYDpSMOOaEp+GoKJV8Cb0AwtKvumEt3CacOaf+eajB5D4oL/Q
-         QM2l3DYuavaWasOsd5DjlMVtHhW/69eHTevTrCLbVSE83/iIIFA4kF//xM+WRskt8fzR
-         hYR8mgi/QYBx7oFfBbLlND/n2UYSovuh27u9MNbiSXlyJyUeb9c6MzhCD1NyUFQDlg5P
-         0u/8QBFXZ8jp6U2yULKinpYS3Gd7qFpmc1oF4jX932cNGvNKo/lKnyZ3b5ykEzSM1eIe
-         v3p6+9Fny7nJHeAILfLQ6/EDSJq+tWVHRrS9u2oDRCULVZPeQ8ZxqMAu7V9080iWEvRE
-         4zsg==
+        bh=CtmSLy6PqvBlDIW9PGwauE7arZ7BbkR68+6Y6KWVICA=;
+        b=V9ysxjmQVhQVhcwdxrpeGuiepa46RwRBLIBTwDu1VBP83SqvRv06Wo77eYI8JVXbRo
+         4AqtE573QqBH+Xq85d3+LWKU2+SvwLD91y8xNWqYGqHIay1XfHjoLbTV4GfkR2uCGVB4
+         0MDftJWZmwzfNIkOgT3WT/wNa3jKUJCKKYcwHt+ImseXNHSyCqUAI8OaCmeJ87NsY5sW
+         OCS8GWs9NrouZDRc5zNox69lijV1zxk/Lu9WBeJD1DtiquMSqacC4/ddOIdbueVzzL6w
+         WrxO4MCOU4ZrLgqbz5Wchoy4/ugdYzcY3I5oFmNQGdvKFFwwAhFiNvmFkP021v0OyM9V
+         rfUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754380761; x=1754985561;
+        d=1e100.net; s=20230601; t=1754380924; x=1754985724;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=lDYhhVqtVHSkEY2KScDddpRPE5yfRSX0wYxMEMeyzd0=;
-        b=g2RYuTDkC7eXWpXco4g2bEIgxdQIyw0/AqVTJrF9ZZXqNFU612/pVjW5J2kVPBc4+6
-         ladFiUWIfSlwkRbl3ZC10jOw5wMR0JYl85O2DrZKPUOGRQRn0zXMGQiCVFZvwGXFHRxm
-         91G2P1RWdDlgGxRcxHwx40E2pNpI59IC14N2z84WbbKNweQ/Ya8V8XTvzKAeD0jKxfhp
-         qDpya4ccnnizB8yTcc4JWgue//EUhsE7UMKzvNRjDDxGDaPguqy3+2Jw7/u1t9ZDNemT
-         Y66KQ1KhTdeUDK4qGYB+kwvbjMquaBFHSrrc6dFHonxtSldTmMlObKOMIN7nFXnWnT6n
-         9MlQ==
-X-Gm-Message-State: AOJu0YyvvhzNRXRRNPi1d7muManujTwWc2EDKuhx5WJhpNhTj7N2bA15
-	Ny+CyoVUW4DLvYgBaiHjnBuBePkV2Y2O+uUA/9H0JjVKlRDz0iaMBm7Bshgq41IdxcE1XBVj5ue
-	Hsq0=
-X-Gm-Gg: ASbGncsFFywQBp7vuDuG6OEKLEcE+DpPwrjN+rAYB2X09P3P6cwaPwTwXaX2vVGxOB4
-	8OCzNG7A+OTx/GMS7V6hva7cx4QP0AXOiD9k9NbKQhAm8FVgm9X1BMBv8XNvxSzvQETjkBhrb+g
-	bbhRpBaAdXLkEHVFP5Cz99uqLcLbLrOrur8H9jdE3gyqZCcvwUj6R7+d9ORLr4GTjbR4bjfniAa
-	8Lifnax1sXpB7ixx1uovvaMUQaqGHZkFkkSps/Yzfp5hStjjAjWVRU6fnqq/xV1YPcH6nCyPwTD
-	HKj+1NLOKpM0M7uq/nvGpLvnZoPedpMECcX/CkLDp/AZFwH7GnDGCaAPUQJqbazJPBSdF96vyMd
-	cD+tRkSWuTZVpDYLwj/myMuZw6BUVn+8imofPx+NMBnjVan2w9R+P14v6wklRrA69vNqJb+QjMK
-	ZsJTE0FOw=
-X-Google-Smtp-Source: AGHT+IH3VSvg/T0CwmYObPNUvKXOBd6Eas/r6GDF+jg82t7MVSCFQYTH3sHkvamtqTu71XfW3BmJsQ==
-X-Received: by 2002:a50:cc03:0:b0:615:b6b9:d873 with SMTP id 4fb4d7f45d1cf-615e715d669mr8536823a12.24.1754380760630;
-        Tue, 05 Aug 2025 00:59:20 -0700 (PDT)
-Message-ID: <65e27b35-9256-4ab0-966a-c50a18900ba5@suse.com>
-Date: Tue, 5 Aug 2025 09:59:19 +0200
+        bh=CtmSLy6PqvBlDIW9PGwauE7arZ7BbkR68+6Y6KWVICA=;
+        b=R2FTvC15wVzNljdLtselkycdLnc7eZfyo1U1jEl+Sp6eVWfoMbVlPVJhwLhAXwsjYz
+         FSLRSXbXN5hl9S2auN17/bc5HrAnV74vejaLWA8d3TKj27zrkXsG4DdoH3tWVRGf7dEw
+         e16FAAviBswbMoflC2dvbKu3sgZcHMd7p3aBFTagKxUHjZQRSjEJWEP4LCsHsvImaRJL
+         eJzHM6cUMRrZ9kDOvJZ0/Lmdd6P5zTlTqbzLvlWmtx8S8NuMJvUTZcBztEjh7XJa4xpl
+         LlusMaEP/dzaTmgRtNVTPCWp/tfYrOKqPB8Gt3UGV6lubkRfq9dx80SWw2X/k1cXkWDk
+         x45w==
+X-Forwarded-Encrypted: i=1; AJvYcCUgfGFFQYqmiX8tH+r6Ma1ap/UvHQ1sGJMcCJ4faSJhHIQuQ33dt5mTdSieFkKBA3nvlJRzIoBMTOU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy/MC/ylAjH3p8owiQCnWXu9acqtk9gG59+SlV99yPW3C2u47G5
+	IPsBG32hlMKXSEbizjpUOk0CNNQuHqq78R8cmi0QLKXQH/d3QWpJI0C/J1xk6e2rA0kwFY6bZP/
+	0S3M=
+X-Gm-Gg: ASbGncuIXVhpOgDzDZAntFSHWMhWghWUMae0PjRghHa/UrNbvgVlEwxDrlH0WwGxho7
+	SWsq9PjoFYugpyXOQzLuw4LLL7G3OErHAh1B3VQm75miClSlwtReoDhtxAIpCwL795gxA8IpM6K
+	zS2hujHU9KynBhsN+JiuAyuQJB6c5URnl+YkiQGH0TxP2mEd3s6NOMY7O6Q30eWC99nlzO/sVfl
+	cXSxtPa+ArnGPrCE1jDMEUMwY8XGwmi/pWFESk+ny1Nm6k+F0HxAHMpAkze/R+2j6hA+KogrmoH
+	QLGEKO9GpdlXr1RflU2RT+VSCupJjvMvZKR81mdCgHtejC92Hs5IuRTEmFmi3EP152Ycy+nn59e
+	QStfdWr7Kdqbz0Q8s2nB2Su5mLCDC+XgK00iBrJQd5Z9mSjJ0eBD7lt3Zk5TBKVzzeyibnkJUw6
+	t6L3eJ8qI=
+X-Google-Smtp-Source: AGHT+IHARCC5ug1NuLrn0wCnmLqOduhZFGQKjxjU3JOkQeWOdEzlQSUUDkqvxMdJM0hO+Wf40wK99w==
+X-Received: by 2002:a17:907:d86:b0:af9:3e06:46ff with SMTP id a640c23a62f3a-af940015684mr1413696466b.18.1754380924070;
+        Tue, 05 Aug 2025 01:02:04 -0700 (PDT)
+Message-ID: <450982f5-4032-4b63-9635-40dbc10f6779@suse.com>
+Date: Tue, 5 Aug 2025 10:02:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 2/2] x86/mm: correct PG_log_dirty definition
+Subject: Re: [PATCH] x86/HVM: polish hvm_asid_init() a little
 From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Penny Zheng <Penny.Zheng@amd.com>
-References: <c506f225-0993-4ef3-9e7e-60b8f17c872e@suse.com>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <ec351aea-e2a0-4335-b8ee-51c6eface104@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -121,125 +120,83 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c506f225-0993-4ef3-9e7e-60b8f17c872e@suse.com>
+In-Reply-To: <ec351aea-e2a0-4335-b8ee-51c6eface104@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-While it is correct that in shim-exclusive mode log-dirty handling is
-all unreachable code, the present conditional still isn't correct: In a
-HVM=n and SHADOW_PAGING=n configuration log-dirty code also is all
-unreachable (and hence violating Misra rule 2.1).
+On 04.08.2025 17:41, Jan Beulich wrote:
+> While the logic there covers asymmetric cases, the resulting log
+> messages would likely raise more confusion than clarify anything. Split
+> the BSP action from the AP one, indicating the odd CPU in the AP log
+> message, thus avoiding the impression that global state would have
+> changed.
+> 
+> While there also
+> - move g_disabled into .data.ro_after_init; only the BSP will ever write
+>   to it,
+> - make the function's parameter unsigned; no negative values may be
+>   passed in. Also reflect this in svm_asid_init().
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-As we're aiming at moving away from special casing PV_SHIM_EXCLUSIVE=y,
-don't retain that part of the conditional.
+Sorry, I meant to Cc: you on the submission, as it was the reviewing of
+your copied code which made me spot the shortcomings (which, as indicated,
+I think it would be nice if you avoided from the very start).
 
-Because of hypercall-defs.c we need to carry out the dependency by
-introducing a new auxiliary PAGING control.
+Jan
 
-Since compiling out mm/paging.c altogether would entail further changes,
-merely conditionalize the one function in there (paging_enable()) which
-would otherwise remain unreachable (Misra rule 2.1 again) when PAGING=n.
-
-Fixes: 23d4e0d17b76 ("x86/shim: fix build with PV_SHIM_EXCLUSIVE and SHADOW_PAGING")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Of course PAGING is at risk of being confused with MEM_PAGING. It not
-having a prompt, I hope that's tolerable, as I can't really think of a
-better name.
-
-Other PG_log_dirty pre-processor conditionals then likely also want
-replacing. mm/paging.c and mm/p2m-basic.c could also be compiled out
-altogether when PAGING=n, at the expense of introducing a few more
-stubs.
-
-FTAOD, the Fixes: tag being referenced does not mean this patch corrects
-the far more recently introduced build issue with the combination of the
-two features. That's still work that I expect Penny to carry out (with
-there still being the option of reverting the final part of the earlier
-series).
-
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -162,6 +162,9 @@ config SHADOW_PAGING
- 
-           If unsure, say Y.
- 
-+config PAGING
-+	def_bool HVM || SHADOW_PAGING
-+
- config BIGMEM
- 	bool "big memory support"
- 	default n
---- a/xen/arch/x86/domctl.c
-+++ b/xen/arch/x86/domctl.c
-@@ -213,11 +213,15 @@ long arch_do_domctl(
-     {
- 
-     case XEN_DOMCTL_shadow_op:
-+#ifdef CONFIG_PAGING
-         ret = paging_domctl(d, &domctl->u.shadow_op, u_domctl, 0);
-         if ( ret == -ERESTART )
-             return hypercall_create_continuation(
-                        __HYPERVISOR_paging_domctl_cont, "h", u_domctl);
-         copyback = true;
-+#else
-+        ret = -EOPNOTSUPP;
-+#endif
-         break;
- 
-     case XEN_DOMCTL_ioport_permission:
---- a/xen/arch/x86/include/asm/paging.h
-+++ b/xen/arch/x86/include/asm/paging.h
-@@ -55,7 +55,7 @@
- #define PG_translate   0
- #define PG_external    0
- #endif
--#if defined(CONFIG_HVM) || !defined(CONFIG_PV_SHIM_EXCLUSIVE)
-+#ifdef CONFIG_PAGING
- /* Enable log dirty mode */
- #define PG_log_dirty   (XEN_DOMCTL_SHADOW_ENABLE_LOG_DIRTY << PG_mode_shift)
- #else
---- a/xen/arch/x86/mm/paging.c
-+++ b/xen/arch/x86/mm/paging.c
-@@ -864,6 +864,7 @@ void paging_final_teardown(struct domain
-     p2m_final_teardown(d);
- }
- 
-+#ifdef CONFIG_PAGING
- /* Enable an arbitrary paging-assistance mode.  Call once at domain
-  * creation. */
- int paging_enable(struct domain *d, u32 mode)
-@@ -889,6 +890,7 @@ int paging_enable(struct domain *d, u32
-     else
-         return shadow_enable(d, mode);
- }
-+#endif
- 
- #ifdef CONFIG_HVM
- /* Called from the guest to indicate that a process is being torn down
---- a/xen/include/hypercall-defs.c
-+++ b/xen/include/hypercall-defs.c
-@@ -197,9 +197,11 @@ dm_op(domid_t domid, unsigned int nr_buf
- #ifdef CONFIG_SYSCTL
- sysctl(xen_sysctl_t *u_sysctl)
- #endif
-+#if defined(CONFIG_X86) && defined(CONFIG_PAGING)
-+paging_domctl_cont(xen_domctl_t *u_domctl)
-+#endif
- #ifndef CONFIG_PV_SHIM_EXCLUSIVE
- domctl(xen_domctl_t *u_domctl)
--paging_domctl_cont(xen_domctl_t *u_domctl)
- platform_op(xen_platform_op_t *u_xenpf_op)
- #endif
- #ifdef CONFIG_HVM
-@@ -296,7 +298,7 @@ dm_op                              compa
- hypfs_op                           do       do       do       do       do
- #endif
- mca                                do       do       -        -        -
--#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-+#if defined(CONFIG_X86) && defined(CONFIG_PAGING)
- paging_domctl_cont                 do       do       do       do       -
- #endif
- 
+> --- a/xen/arch/x86/hvm/asid.c
+> +++ b/xen/arch/x86/hvm/asid.c
+> @@ -48,20 +48,22 @@ struct hvm_asid_data {
+>  
+>  static DEFINE_PER_CPU(struct hvm_asid_data, hvm_asid_data);
+>  
+> -void hvm_asid_init(int nasids)
+> +void hvm_asid_init(unsigned int nasids)
+>  {
+> -    static int8_t g_disabled = -1;
+> +    static int8_t __ro_after_init g_disabled = -1;
+>      struct hvm_asid_data *data = &this_cpu(hvm_asid_data);
+>  
+>      data->max_asid = nasids - 1;
+>      data->disabled = !opt_asid_enabled || (nasids <= 1);
+>  
+> -    if ( g_disabled != data->disabled )
+> +    if ( g_disabled < 0 )
+>      {
+> -        printk("HVM: ASIDs %sabled.\n", data->disabled ? "dis" : "en");
+> -        if ( g_disabled < 0 )
+> -            g_disabled = data->disabled;
+> +        g_disabled = data->disabled;
+> +        printk("HVM: ASIDs %sabled\n", data->disabled ? "dis" : "en");
+>      }
+> +    else if ( g_disabled != data->disabled )
+> +        printk("HVM: CPU%u: ASIDs %sabled\n", smp_processor_id(),
+> +               data->disabled ? "dis" : "en");
+>  
+>      /* Zero indicates 'invalid generation', so we start the count at one. */
+>      data->core_asid_generation = 1;
+> --- a/xen/arch/x86/hvm/svm/asid.c
+> +++ b/xen/arch/x86/hvm/svm/asid.c
+> @@ -12,7 +12,7 @@
+>  
+>  void svm_asid_init(const struct cpuinfo_x86 *c)
+>  {
+> -    int nasids = 0;
+> +    unsigned int nasids = 0;
+>  
+>      /* Check for erratum #170, and leave ASIDs disabled if it's present. */
+>      if ( !cpu_has_amd_erratum(c, AMD_ERRATUM_170) )
+> --- a/xen/arch/x86/include/asm/hvm/asid.h
+> +++ b/xen/arch/x86/include/asm/hvm/asid.h
+> @@ -13,7 +13,7 @@ struct vcpu;
+>  struct hvm_vcpu_asid;
+>  
+>  /* Initialise ASID management for the current physical CPU. */
+> -void hvm_asid_init(int nasids);
+> +void hvm_asid_init(unsigned int nasids);
+>  
+>  /* Invalidate a particular ASID allocation: forces re-allocation. */
+>  void hvm_asid_flush_vcpu_asid(struct hvm_vcpu_asid *asid);
 
 
