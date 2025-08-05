@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AACBB1B05D
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 10:43:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1070154.1433809 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D7A4B1B06A
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 10:48:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1070167.1433819 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujDGM-00074E-4O; Tue, 05 Aug 2025 08:43:14 +0000
+	id 1ujDLP-0007gC-Lw; Tue, 05 Aug 2025 08:48:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1070154.1433809; Tue, 05 Aug 2025 08:43:14 +0000
+Received: by outflank-mailman (output) from mailman id 1070167.1433819; Tue, 05 Aug 2025 08:48:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujDGM-00071Z-10; Tue, 05 Aug 2025 08:43:14 +0000
-Received: by outflank-mailman (input) for mailman id 1070154;
- Tue, 05 Aug 2025 08:43:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ujDLP-0007e5-IQ; Tue, 05 Aug 2025 08:48:27 +0000
+Received: by outflank-mailman (input) for mailman id 1070167;
+ Tue, 05 Aug 2025 08:48:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=j2i0=2R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ujDGK-00071S-Go
- for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 08:43:12 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 37c5bf04-71d8-11f0-a321-13f23c93f187;
- Tue, 05 Aug 2025 10:43:11 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-af95d5c0736so371859966b.2
- for <xen-devel@lists.xenproject.org>; Tue, 05 Aug 2025 01:43:11 -0700 (PDT)
+ id 1ujDLO-0007dN-0f
+ for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 08:48:26 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f279791c-71d8-11f0-b898-0df219b8e170;
+ Tue, 05 Aug 2025 10:48:24 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-615622ed70fso8101230a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Aug 2025 01:48:24 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af95734a066sm473288766b.44.2025.08.05.01.43.10
+ a640c23a62f3a-af91a0df10asm860581966b.59.2025.08.05.01.48.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Aug 2025 01:43:10 -0700 (PDT)
+ Tue, 05 Aug 2025 01:48:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37c5bf04-71d8-11f0-a321-13f23c93f187
+X-Inumbo-ID: f279791c-71d8-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754383391; x=1754988191; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754383704; x=1754988504; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=V4fSyvszulgMiK4p6iZF4g3R+UZYXDJHthT6RzS213w=;
-        b=DazP84ZdpEcrIiYNUu4/6tQ526TrNE+msP6dYEk8GLCE+EfUJnOQDgvEgP1RSiI6Wn
-         5tPd7WdyK2ktgPXLghQ5z2haE/CAe8xQWFk2Kf0T9M2vgUC8ImF7egCyALzmBFDToLaz
-         UcE4X8R34I1mzt9/rIH64mLYPrIV+ZevIbQ3LJJ2NYBNZX7qxL8MgDaL9mzYdOxOykss
-         pJV/28/FHNKPVxY94DN046/UQMc+0Wi09qgv7X0QWW8I/koqy3T1LsmUkNMcYy9EOukn
-         gY+NOZRxcwJWnY8udNVH2f0nBsaFgILOrajtPNbUhn6S2QZKsCKRwQRpliCx1M4S6jFe
-         ytCg==
+        bh=RI2VX13MI7ulpHZ+PIe7JcNxs3UwWqLyUqlMvQmY7sU=;
+        b=gf0JeYoIF7uuOuuSiJd6zkCci3K5RnTsJ1Pir4NHkVx4kPfLGVuPm0uIJExYmK9ada
+         IO82io9QDlSBoJFZPQvmxqkAG3UGh6xF1FGknrWivVjBYC6aMqpcJ6OI86/DHz+qD/74
+         26bvGiJAmQYpoXWcE4oH9aHXeLqHLAVJoUe2ieGjav4YEK3syEy2xWCa1FxzzRVnaAFP
+         yEpFMuYOfNarcGILI7BA8qCR+40whEj3e5DNXD/NSPba6QsPwKvGfcugfsjMuYuTscT3
+         1XmlfQqB6j45ItOpSWgioiTPeCArvn73KlPv9VtjkIK56hiL9CaRrArjQ4vjubX3RcE+
+         5BTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754383391; x=1754988191;
+        d=1e100.net; s=20230601; t=1754383704; x=1754988504;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=V4fSyvszulgMiK4p6iZF4g3R+UZYXDJHthT6RzS213w=;
-        b=LbzOdm3ES/qFQuQf4o3us9TNVNXlQSwoh9LMOfgj1YF3CkAG6uRlc1JFDEvSKDOPrs
-         JdCSxzJeHSynYwu14uEC4fIX4TAhMWME4G3H3HKviF/BS3srYXrOh6eT4YY7otNUy/8k
-         9eYHSwI6dlpVPZZ/kC+6KYkUk0N6koEM0TjvWaODXBG6apcNvFq5T8g31WAVXJyja1jf
-         XdFpdmGnqNCUQz86NAbKA/GQqe/Bmzo/FfHstV9ndzHCoKG2Fm/RopTU2xw/nhpb+F8p
-         mWWAw/8bPuv54apPPd9gESdeQAJr7Kh9vLpqvGfbGVP+YrsWoJyFtgkCVA+AfrEpcGIs
-         1stg==
-X-Forwarded-Encrypted: i=1; AJvYcCWlmL94U0jc5zgnkJk14q/lW2GLEMR+aPdrRcXriH4vhScd3iv/nvR5XfLzbUNi9LCd49YNWwy7IZ0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyIsEn/gjvvzSo4Fpp5eeXt3Sjn0p5HbE28xGstpyPzpZKpwElv
-	VWEYdaa9gKpUVDMhNO7LohVQsn7xFekPo+XiPhkYeQ3B7QB7frRrmCb3898VvWgrpA==
-X-Gm-Gg: ASbGnctILw3R1uxO6OQEpsdzPPZUl8EQHrc+CDIgb0mYOhw7RDl2c1UBmrf1x2bP3sr
-	68snK+IukckksmxXk9znI3g3ulkxPnw0DM9SFkQJVyrtsA/qVkDjlu7eyHEzBSJVnokecJwraBD
-	3HQ+LuvfrZ2tyVWWEjhv55FYWVihV2BAp5ScgEJQhVK2y/1H1HsgCBa6ed8zYNHinaayejDPhtC
-	LKjeHwfGV8VLypnQv5y22USkyhZkumi0/u5dev0jYobUZEoyV3/jyfq+RBjVEh48/F70bHGptlZ
-	kYlIEkvbwU7IIUKDWWDZhfEjNHIy/wiYpnJCyog8NYIqhb1PDvFhGPy2f0w6vJ6COLFnOCZydPp
-	QLA5U+BcymPT8PwutHoCAlr0kf1B60NXCMKnFYGnhJH+fF1OE56ik9Xb4ZHXC0b7syiG07o+5B1
-	UHm8a0y9I=
-X-Google-Smtp-Source: AGHT+IHSwlbHv+hWiAJogUWtSvd96V21OesInd0hVXYR0ClHmVXvjZPM5ALoobdKfxh7Rw+op28wtQ==
-X-Received: by 2002:a17:907:3e14:b0:af9:7b49:c0 with SMTP id a640c23a62f3a-af97b49031amr319861166b.29.1754383390614;
-        Tue, 05 Aug 2025 01:43:10 -0700 (PDT)
-Message-ID: <775a45bd-61df-4cab-948e-bdc79dfd89ef@suse.com>
-Date: Tue, 5 Aug 2025 10:43:09 +0200
+        bh=RI2VX13MI7ulpHZ+PIe7JcNxs3UwWqLyUqlMvQmY7sU=;
+        b=ONXUAjhndOvSmlWLJCZjdGYo+lvqao1a1xFoDIMsxILG+9v9ViwCQn7Ra+96ywHOn7
+         /hndnT01qLC9sxIR4Kxax8kfxW9xVYv8PwxsWzcV/lTUqA0Xr+oBkHZIooUL3L6t3ESy
+         +fSNCg/W5k8OJml9Ug7yQHn3FPwlGacq2Nnh1mxJJGpj1Lkqw5eHF+buUpmDImXsRT6d
+         GZlRrh0X5DzeGzpm+yc28m07FqoRIkHeGFenMUXKdL3IQMHL6m7LyaWnsDGrBdyW8WiB
+         02jg5Eo7eMJwvYHOIeVwGMhhJQZ/YFTjBKmU824K0Hmh6kph5QQhTerYg/geev/nlj0o
+         jg2g==
+X-Forwarded-Encrypted: i=1; AJvYcCX1Mx3vTnQHM46ozz8zoNdoogdMhXGTgwibuyVQdqZF7BQ134RTU/svBWt+HhVqU73u4e9UqBmzBk0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywfw9RwDSyh0cY43ixoGJ0dMvLn9cjJR5pJOoXbWhz0l4pqWrsd
+	nAEtjzedcbgqG5qYa/5AtMEMyNXUIqHgtxwDgewUveLnu6S5jWUp7vOIbFSN96g6cQ==
+X-Gm-Gg: ASbGncvvGT2nqecyjG+MwCPjYMw+tnqIlMVBlwKtJhNzG1hlfjIAhXo4LOwHdRYh2Fy
+	UCjeoOi+L3zp1xE+H8Z0RSnhb7blJ88uHZWu0laJoJ+qgeMU45l7asC+qeo7OzDY0H5cZ5qR9E7
+	JvLVEi9xe7ez5opUZrvusTbo1qweWwg6DhszwIyGV2AIfRxt/gqKbMeUhAq2+lZ+lyixhpol38e
+	YEQB5atyeix2TMxWPBf5WjyPQ8JocdsZvFebNFETe3KG19BY+VZgBeqCz7D8oJ1f3fp3vPg9saK
+	JHsX8ONAbOPjHeff/J+hzZ72+qXYq6qoH5ID7TliZckLXAu1OgMvWQG4I/qigk2awtjXu4ui1+I
+	poy8PVVxOrdCGWwygIhsPPYxgWYJ9/tRJFTaCCpQQaT52eL2QodhvyswxQlIeb6Doe9bniGHTK7
+	38ISRYti0=
+X-Google-Smtp-Source: AGHT+IFrw/qfJ8SGJVZMOh58Xvty5DKFRik5nQ6f5ywQQwLxCJ1FmxYX71FQnmdcJo395rmTvoMGwQ==
+X-Received: by 2002:a17:907:f497:b0:af9:1c73:cefd with SMTP id a640c23a62f3a-af940247d01mr1279712666b.52.1754383703764;
+        Tue, 05 Aug 2025 01:48:23 -0700 (PDT)
+Message-ID: <a14449dd-a7dd-4369-9e73-656442b36f2a@suse.com>
+Date: Tue, 5 Aug 2025 10:48:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 4/4] vpci/msix: Free MSIX resources when init_msix()
- fails
+Subject: Re: [PATCH v10 2/4] vpci/rebar: Free Rebar resources when
+ init_rebar() fails
 To: Jiqian Chen <Jiqian.Chen@amd.com>
 Cc: Huang Rui <ray.huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
 References: <20250805034906.1014212-1-Jiqian.Chen@amd.com>
- <20250805034906.1014212-5-Jiqian.Chen@amd.com>
+ <20250805034906.1014212-3-Jiqian.Chen@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,90 +120,46 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250805034906.1014212-5-Jiqian.Chen@amd.com>
+In-Reply-To: <20250805034906.1014212-3-Jiqian.Chen@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 05.08.2025 05:49, Jiqian Chen wrote:
-> --- a/xen/drivers/vpci/msix.c
-> +++ b/xen/drivers/vpci/msix.c
-> @@ -655,6 +655,48 @@ int vpci_make_msix_hole(const struct pci_dev *pdev)
->      return 0;
+> --- a/xen/drivers/vpci/rebar.c
+> +++ b/xen/drivers/vpci/rebar.c
+> @@ -49,6 +49,32 @@ static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
+>      bar->guest_addr = bar->addr;
 >  }
 >  
-> +static int cf_check cleanup_msix(const struct pci_dev *pdev)
+> +static int cf_check cleanup_rebar(const struct pci_dev *pdev)
 > +{
 > +    int rc;
-> +    struct vpci *vpci = pdev->vpci;
-> +    const unsigned int msix_pos = pdev->msix_pos;
+> +    uint32_t ctrl;
+> +    unsigned int nbars;
+> +    unsigned int rebar_offset = pci_find_ext_capability(pdev->sbdf,
+> +                                                        PCI_EXT_CAP_ID_REBAR);
 > +
-> +    if ( !msix_pos )
-> +        return 0;
-> +
-> +    rc = vpci_remove_registers(vpci, msix_control_reg(msix_pos), 2);
-> +    if ( rc )
+> +    if ( !rebar_offset || !is_hardware_domain(pdev->domain) )
 > +    {
-> +        printk(XENLOG_ERR "%pd %pp: fail to remove MSIX handlers rc=%d\n",
-> +               pdev->domain, &pdev->sbdf, rc);
 > +        ASSERT_UNREACHABLE();
-> +        return rc;
+> +        return 0;
 > +    }
 > +
-> +    if ( vpci->msix )
-> +    {
-> +        list_del(&vpci->msix->next);
-> +        for ( unsigned int i = 0; i < ARRAY_SIZE(vpci->msix->table); i++ )
-> +            if ( vpci->msix->table[i] )
-> +                iounmap(vpci->msix->table[i]);
+> +    ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(0));
+> +    nbars = MASK_EXTR(ctrl, PCI_REBAR_CTRL_NBAR_MASK);
 > +
-> +        XFREE(vpci->msix);
-> +    }
-> +
-> +    /*
-> +     * The driver may not traverse the capability list and think device
-> +     * supports MSIX by default. So here let the control register of MSIX
-> +     * be Read-Only is to ensure MSIX disabled.
-> +     */
-> +    rc = vpci_add_register(vpci, vpci_hw_read16, NULL,
-> +                           msix_control_reg(msix_pos), 2, NULL);
+> +    rc = vpci_remove_registers(pdev->vpci, rebar_offset + PCI_REBAR_CAP(0),
+> +                               PCI_REBAR_CTRL(nbars - 1));
 > +    if ( rc )
-> +        printk(XENLOG_ERR "%pd %pp: fail to add MSIX ctrl handler rc=%d\n",
+> +        printk(XENLOG_ERR "%pd %pp: fail to remove Rebar handlers rc=%d\n",
 > +               pdev->domain, &pdev->sbdf, rc);
 
-Here as well as for MSI: Wouldn't this better be limited to the init-failure
-case? No point in adding a register hook (and possibly emitting a misleading
-log message) when we're tearing down anyway. IOW I think the ->cleanup()
-hook needs a boolean parameter, unless the distinction of the two cases can
-be (reliably) inferred from some other property.
+MSI and MSI-X (now) have ASSERT_UNREACHABLE() on their respective paths. Is
+there a reason this shouldn't be done here as well?
 
-> --- a/xen/drivers/vpci/vpci.c
-> +++ b/xen/drivers/vpci/vpci.c
-> @@ -321,6 +321,27 @@ void vpci_deassign_device(struct pci_dev *pdev)
->                      &pdev->domain->vpci_dev_assigned_map);
->  #endif
->  
-> +    for ( i = 0; i < NUM_VPCI_INIT; i++ )
-> +    {
-> +        const vpci_capability_t *capability = &__start_vpci_array[i];
-> +        const unsigned int cap = capability->id;
-> +        unsigned int pos = 0;
-> +
-> +        if ( !capability->is_ext )
-> +            pos = pci_find_cap_offset(pdev->sbdf, cap);
-> +        else if ( is_hardware_domain(pdev->domain) )
-> +            pos = pci_find_ext_capability(pdev->sbdf, cap);
-> +
-> +        if ( pos && capability->cleanup )
-> +        {
-> +            int rc = capability->cleanup(pdev);
-> +            if ( rc )
-> +                printk(XENLOG_ERR "%pd %pp: clean %s cap %u fail rc=%d\n",
-> +                       pdev->domain, &pdev->sbdf,
-> +                       capability->is_ext ? "extended" : "legacy", cap, rc);
-> +        }
-> +    }
-
-With this imo the patch subject is now wrong, too.
+MSI and MSI-X further have another add-register below here, to ensure the
+control register cannot be written. Again - is there a reason the same
+shouldn't be done here? (If so, I think this may want putting in a comment.)
 
 Jan
 
