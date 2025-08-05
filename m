@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1166B1B7EA
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 18:05:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1070714.1434334 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F9CAB1B7EB
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Aug 2025 18:05:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1070718.1434345 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujK9w-00061T-R3; Tue, 05 Aug 2025 16:05:04 +0000
+	id 1ujKAa-0006UW-4u; Tue, 05 Aug 2025 16:05:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1070714.1434334; Tue, 05 Aug 2025 16:05:04 +0000
+Received: by outflank-mailman (output) from mailman id 1070718.1434345; Tue, 05 Aug 2025 16:05:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujK9w-000604-OJ; Tue, 05 Aug 2025 16:05:04 +0000
-Received: by outflank-mailman (input) for mailman id 1070714;
- Tue, 05 Aug 2025 16:05:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=j2i0=2R=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ujK9u-0005KP-PA
- for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 16:05:02 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f119556d-7215-11f0-a321-13f23c93f187;
- Tue, 05 Aug 2025 18:05:01 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-615398dc162so10087224a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 05 Aug 2025 09:05:01 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-615a8fe7a20sm8663522a12.34.2025.08.05.09.04.59
+	id 1ujKAa-0006Sg-0w; Tue, 05 Aug 2025 16:05:44 +0000
+Received: by outflank-mailman (input) for mailman id 1070718;
+ Tue, 05 Aug 2025 16:05:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=yoJv=2R=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ujKAY-0006SK-QM
+ for xen-devel@lists.xenproject.org; Tue, 05 Aug 2025 16:05:42 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 06d65ecf-7216-11f0-b898-0df219b8e170;
+ Tue, 05 Aug 2025 18:05:37 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-458ba079338so185255e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Aug 2025 09:05:37 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-459e6214640sm2883005e9.1.2025.08.05.09.05.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Aug 2025 09:05:00 -0700 (PDT)
+ Tue, 05 Aug 2025 09:05:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,391 +45,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f119556d-7215-11f0-a321-13f23c93f187
+X-Inumbo-ID: 06d65ecf-7216-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754409901; x=1755014701; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1754409937; x=1755014737; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=IkJAYVyzbq4UhxLCXnefKHK4q1RB9cUHgpCWqkKsAuI=;
-        b=augDAyeZ65FFA4VdFyYEjiDJVy2yfPLJkgCYEmDglG6dhX8ouhLsaaK8JcIzoXKOwU
-         ghlis2DImkv1HEj79k8fvmlejo6LhQOKEW98v/UF9l5HklxnjBDvzqhxxmT4InSAL9cC
-         nVfttTcjpz6VIuw+xvCl4Fsu1XU27Dkf3AQNzS3ZPtDG2TFHiBWwq2mqUo6d466QBtgi
-         f72bVvqWmX1poxUJNvlJ0Q9zW+W54PL29AeYiv09i1wMceMI8PH/RX/SaQL9AuiLPQ2/
-         quuvyDIH//L7QTPIoifkJ8e8G+nKCpzr0FdYwyjk0ZV06nlbxxv47vQyYe1/AmpRy72B
-         GKSw==
+        bh=iomsWgcklMta5jk+zcDV2STtNifIaXuiNXNCW/qes5g=;
+        b=mrlsGZms64gAGqRiMXgmxr71pFK2RYoJJDNb9GiPWCAo8DEIU+F2VHLqaIzntDtgPh
+         JTrdH8AnA0/+Pl0+PzSNVRN8xMb9i/fAlprvDhsBZzWehEB7zC7M6lijrVMDUuyUJonb
+         u2ZClKVSU5a7BCH3kWIxATKm2+Zr5S6sRgO0Q=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754409901; x=1755014701;
+        d=1e100.net; s=20230601; t=1754409937; x=1755014737;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IkJAYVyzbq4UhxLCXnefKHK4q1RB9cUHgpCWqkKsAuI=;
-        b=dvric2fWzErT5l3kluLuQQdLporODAyLtUC/qPQxSUvqIBcHNBNucev0SHH8eNIHiI
-         s8bB8AqI0ksnC9SyJCZaTJ9PhjNhdr3zVpGqiIockW20ru4hEUjyg2AxT2aKalRjkFuB
-         BVUfArKD6NXwc5VLO63tVBR9ttEywtFCg62gszx4P2KzEZHx/2/1omicrE0bxOTfdJdW
-         34wRgpBedP0uRFq+EEVuVvUJeFZtfdCkNjxFq2xwbxF72yPeuHGFTDjeFRnQjnPqX37f
-         cuJ3eLcy0COhl9LVPjfHaOFApKVC6rlaBnO5/A091miC/AWwaxrzNxssHVfcB3FFItym
-         Vhyg==
-X-Forwarded-Encrypted: i=1; AJvYcCVpGb26M8lJf333iQrlzUhXhZEKDxEAa1+lKhX9A2cZNUZuiks0G1zalAzXGGqyj2MroTiXX868ET4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzeG23z4L6wmj0kJ8Pckf/urKegybAAz7TtsCk/39v6l0vtIduY
-	CCpUP2gTVNV1DjvBH/6tk4BAc10Fbc8cgF2KBkFGn92YYt2MX3VdMBKTpxk1tj/8IQ==
-X-Gm-Gg: ASbGncv/E7mfiqXmdk9YIOAd172toMAFASs2LduEyQ/SotJk4/7dhUdz/e1RExCazYY
-	WBPrlsi6BbsaHIEO+o4oCbb5tUz3NJ0quqvJBwGdGUr3RSJghHdzE16TaUzWti3bpxp3QIGwYhK
-	YBq+pGdWwUn6jjs3+x5UHonMVw0qZo8hj5ZQW9KKnpPST9k2Je/0HT/Sr6Ik5GBgY88uc44XPfp
-	mqBvfSkk9uvwLjD3n+Af4sZCYAOYCS4lCf8qkzFKaaYsArgEK5c8NDxa/cqg4TaY2FpK4FQZ6Kg
-	8Re691DivVTj9+y3+Z/KzvKZaGd/jRF182DqisBM8x/maL8Lc1SDEfAFjoe35fo4sdHYdM5IbU/
-	MD1Ha7s6VI7cyQAr2LQ75gS9AyGNDnVONFG67wzj0yuweM/1B/Gl0l8hj63wrueLGCmkuEfzg8M
-	A8sWr+v/c=
-X-Google-Smtp-Source: AGHT+IHWeUVtspS8GrGYYkrKVwLlqrvJJoextQ0jmJXjbHXoJOO9MQxLu/txbENk7Wbaj4he4DvsTA==
-X-Received: by 2002:a05:6402:3590:b0:615:8bee:56b6 with SMTP id 4fb4d7f45d1cf-615e717303fmr11309634a12.34.1754409900714;
-        Tue, 05 Aug 2025 09:05:00 -0700 (PDT)
-Message-ID: <f217021e-1fef-4324-a56e-529fd29b4c69@suse.com>
-Date: Tue, 5 Aug 2025 18:04:59 +0200
+        bh=iomsWgcklMta5jk+zcDV2STtNifIaXuiNXNCW/qes5g=;
+        b=ghTE4NyiTtr3q+56tEmM1moD6poHizCvzdt1jDiG8deGugz12rAB/FLDtebFpq5yUM
+         Gd4f39fLAj0LRdiKmpkGPEjaeoCTk0yZbJPFTMW/3owL6qSdpKBHEdDto8goo+Hr5vm2
+         d4yv4i+iQ3agUGOLD1yBjAoTPSmujifXZun0dc4+qaqKgLuEOTXP4Z2F89NM57RfsQdc
+         EAyheoMXX32I4TQ5Rt2aC96XTFYPNXuML7i0tKEtGvL3Emz9HNY5tCwT4lwhpjsQe9Td
+         pfdRfoVMAvzkC8i1kiJvbWnhSvQjf3InRSMInLgS1zzmCxsXTOJpBCZXwaYGNR+4OdxK
+         PidA==
+X-Forwarded-Encrypted: i=1; AJvYcCVCTkCBNNkryyZM53M1c1FjVjAnkfPRuhxGCDea6UhFsF7D/8jjXf5/jBQUzzg9B2DhUh50H/mSfRI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzD3xB0ErDnskF1gIlEiQHAEi6/8R2GFgZ4T8psLei3M23jc/Dy
+	r5op5PTl/IVbIDExqOMGc7G8IKhJuzGfD4HiSAkoIliq+Vxyf3hx1qFSXae81hefJCQ=
+X-Gm-Gg: ASbGncuRrW+n7TqRDvD7JMR0st0HcBzdLZTdkEk6BPhH1nU1DTFEqPG0nUNBwISaZJD
+	ZwZChIbLUYrRFjEqFMgMNARUrfaZJEb5olDVRZzvEJc1xb3qThB/rkSFCBPoKMNas4kEJQMpdCQ
+	yXBaEZBtUTNkuA5YleqF8O80sRF//C9XIY/h1mcRlte/SAdp/8K7dDaSQ3tyop/lcohJxpznF8u
+	BgZzepS6JlGFQPxTFrQQ0T7HKrreOfgvtmyLoPD2ZeDpsZw6KQGcgOv/HZVv9hg2z0QB35ttDkw
+	8BcOjmBYQbL498O6Nr+9ZQ9XFMdS9vgQ+8/8om+T6hurPev6QtONsCXqZw+N5ZFtyaqe05D0gWJ
+	jo/xS2cZoCjtfw50M7OvRoCj4hQMnaaG1msscDeiv+ky33G2K+HDePt5VpjawaNsxzxmT
+X-Google-Smtp-Source: AGHT+IFBmq60J+l+DOXX1mTr+io9rzRXeiwmIR2j0vf1G7sviA2M6Z0id2EYvSuuhOYoOyN/rkK19w==
+X-Received: by 2002:a05:600c:5009:b0:455:f7d5:1224 with SMTP id 5b1f17b1804b1-459e0cb8c2fmr37611625e9.9.1754409937340;
+        Tue, 05 Aug 2025 09:05:37 -0700 (PDT)
+Message-ID: <641a944b-ed71-49f3-aa3e-e92f4ee06508@citrix.com>
+Date: Tue, 5 Aug 2025 17:05:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 12/20] xen/riscv: implement p2m_set_range()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
- <ea69584222a4c41eac276de1ec8eed25b13642d3.1753973161.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ea69584222a4c41eac276de1ec8eed25b13642d3.1753973161.git.oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH] x86/hpet: do local APIC EOI after interrupt processing
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>
+References: <20250805160326.78837-1-roger.pau@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250805160326.78837-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 31.07.2025 17:58, Oleksii Kurochko wrote:
-> This patch introduces p2m_set_range() and its core helper p2m_set_entry() for
+On 05/08/2025 5:03 pm, Roger Pau Monne wrote:
+> The current logic in the HPET interrupt ->ack() hook will perform a local
+> APIC EOI ahead of enabling interrupts, possibly leading to recursion in the
+> interrupt handler.
+>
+> Fix this by doing the local APIC EOI strictly after the window with
+> interrupt enabled, as that prevents the recursion, and would only allow for
+> interrupts with higher priority to be serviced.
+>
+> Use the generic ack_nonmaskable_msi_irq() and end_nonmaskable_irq()
+> functions, removing the need for hpet_msi_ack().
+>
+> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Fixes: 3ba523ff957c ('CPUIDLE: enable MSI capable HPET for timer broadcast')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Nit: This patch doesn't introduce p2m_set_range(); it merely fleshes it out.
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-> --- a/xen/arch/riscv/include/asm/p2m.h
-> +++ b/xen/arch/riscv/include/asm/p2m.h
-> @@ -7,11 +7,13 @@
->  #include <xen/rwlock.h>
->  #include <xen/types.h>
->  
-> +#include <asm/page.h>
->  #include <asm/page-bits.h>
->  
->  extern unsigned int p2m_root_order;
->  #define P2M_ROOT_ORDER  p2m_root_order
->  #define P2M_ROOT_PAGES  BIT(P2M_ROOT_ORDER, U)
-> +#define P2M_ROOT_LEVEL  HYP_PT_ROOT_LEVEL
-
-I think I commented on this before, and I would have hoped for at least a remark
-in the description to appear (perhaps even a comment here): It's okay(ish) to tie
-these together for now, but in the longer run I don't expect this is going to be
-wanted. If e.g. we ran Xen in Sv57 mode, there would be no reason at all to force
-all P2Ms to use 5 levels of page tables.
-
-> @@ -175,13 +179,257 @@ int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
->      return 0;
->  }
->  
-> +/*
-> + * Find and map the root page table. The caller is responsible for
-> + * unmapping the table.
-> + *
-> + * The function will return NULL if the offset into the root table is
-> + * invalid.
-> + */
-> +static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
-> +{
-> +    unsigned long root_table_indx;
-> +
-> +    root_table_indx = gfn_x(gfn) >> XEN_PT_LEVEL_ORDER(P2M_ROOT_LEVEL);
-
-Right now page table layouts / arrangements are indeed similar enough to
-share accessor constructs. Nevertheless I find it problematic (doc-wise
-at the very least) that a Xen page table construct is used to access a
-P2M page table. If and when these needed to be decoupled, it would likely
-help of the distinction was already made, by - for now - simply
-introducing aliases (here e.g. P2M_LEVEL_ORDER(), expanding to
-XEN_PT_LEVEL_ORDER() for the time being).
-
-> +    if ( root_table_indx >= P2M_ROOT_PAGES )
-> +        return NULL;
-> +
-> +    return __map_domain_page(p2m->root + root_table_indx);
-> +}
-> +
-> +static inline void p2m_write_pte(pte_t *p, pte_t pte, bool clean_pte)
-> +{
-> +    write_pte(p, pte);
-> +    if ( clean_pte )
-> +        clean_dcache_va_range(p, sizeof(*p));
-
-Not necessarily for right away, but if multiple adjacent PTEs are
-written without releasing the lock, this then redundant cache flushing
-can be a performance issue.
-
-> +}
-> +
-> +static inline void p2m_clean_pte(pte_t *p, bool clean_pte)
-> +{
-> +    pte_t pte;
-> +
-> +    memset(&pte, 0, sizeof(pte));
-
-Why memset()? Why not simply give the variable an appropriate initializer?
-Or use ...
-
-> +    p2m_write_pte(p, pte, clean_pte);
-
-... a compound literal here, like you do ...
-
-> +}
-> +
-> +static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t)
-> +{
-> +    panic("%s: hasn't been implemented yet\n", __func__);
-> +
-> +    return (pte_t) { .pte = 0 };
-
-... here? (Just {} would also do, if I'm not mistaken.)
-
-> +}
-> +
-> +#define P2M_TABLE_MAP_NONE 0
-> +#define P2M_TABLE_MAP_NOMEM 1
-> +#define P2M_TABLE_SUPER_PAGE 2
-> +#define P2M_TABLE_NORMAL 3
-> +
-> +/*
-> + * Take the currently mapped table, find the corresponding the entry
-> + * corresponding to the GFN, and map the next table, if available.
-
-Nit: Double "corresponding".
-
-> + * The previous table will be unmapped if the next level was mapped
-> + * (e.g P2M_TABLE_NORMAL returned).
-> + *
-> + * `alloc_tbl` parameter indicates whether intermediate tables should
-> + * be allocated when not present.
-> + *
-> + * Return values:
-> + *  P2M_TABLE_MAP_NONE: a table allocation isn't permitted.
-> + *  P2M_TABLE_MAP_NOMEM: allocating a new page failed.
-> + *  P2M_TABLE_SUPER_PAGE: next level or leaf mapped normally.
-> + *  P2M_TABLE_NORMAL: The next entry points to a superpage.
-> + */
-> +static int p2m_next_level(struct p2m_domain *p2m, bool alloc_tbl,
-> +                          unsigned int level, pte_t **table,
-> +                          unsigned int offset)
-> +{
-> +    panic("%s: hasn't been implemented yet\n", __func__);
-> +
-> +    return P2M_TABLE_MAP_NONE;
-> +}
-> +
-> +/* Free pte sub-tree behind an entry */
-> +static void p2m_free_subtree(struct p2m_domain *p2m,
-> +                             pte_t entry, unsigned int level)
-> +{
-> +    panic("%s: hasn't been implemented yet\n", __func__);
-> +}
-> +
-> +/*
-> + * Insert an entry in the p2m. This should be called with a mapping
-> + * equal to a page/superpage.
-> + */
-> +static int p2m_set_entry(struct p2m_domain *p2m,
-> +                           gfn_t gfn,
-> +                           unsigned long page_order,
-> +                           mfn_t mfn,
-> +                           p2m_type_t t)
-> +{
-> +    unsigned int level;
-> +    unsigned int target = page_order / PAGETABLE_ORDER;
-> +    pte_t *entry, *table, orig_pte;
-> +    int rc;
-> +    /* A mapping is removed if the MFN is invalid. */
-> +    bool removing_mapping = mfn_eq(mfn, INVALID_MFN);
-
-Comment and code don't fit together. Many MFNs are invalid (any for which
-mfn_valid() returns false), yet you only check for INVALID_MFN here.
-
-> +    DECLARE_OFFSETS(offsets, gfn_to_gaddr(gfn));
-> +
-> +    ASSERT(p2m_is_write_locked(p2m));
-> +
-> +    /*
-> +     * Check if the level target is valid: we only support
-> +     * 4K - 2M - 1G mapping.
-> +     */
-> +    ASSERT((target <= 2) && !(page_order % PAGETABLE_ORDER));
-
-If you think you need to check this, don't you also want to check that
-GFN and MFN (the latter if it isn't INVALID_MFN) fit the requested order?
-
-> +    table = p2m_get_root_pointer(p2m, gfn);
-> +    if ( !table )
-> +        return -EINVAL;
-> +
-> +    for ( level = P2M_ROOT_LEVEL; level > target; level-- )
-> +    {
-> +        /*
-> +         * Don't try to allocate intermediate page table if the mapping
-> +         * is about to be removed.
-> +         */
-> +        rc = p2m_next_level(p2m, !removing_mapping,
-> +                            level, &table, offsets[level]);
-> +        if ( (rc == P2M_TABLE_MAP_NONE) || (rc == P2M_TABLE_MAP_NOMEM) )
-> +        {
-> +            rc = (rc == P2M_TABLE_MAP_NONE) ? -ENOENT : -ENOMEM;
-> +            /*
-> +             * We are here because p2m_next_level has failed to map
-> +             * the intermediate page table (e.g the table does not exist
-> +             * and they p2m tree is read-only). It is a valid case
-> +             * when removing a mapping as it may not exist in the
-> +             * page table. In this case, just ignore it.
-> +             */
-> +            rc = removing_mapping ?  0 : rc;
-
-Nit: Stray blank.
-
-> +            goto out;
-> +        }
-> +
-> +        if ( rc != P2M_TABLE_NORMAL )
-> +            break;
-> +    }
-> +
-> +    entry = table + offsets[level];
-> +
-> +    /*
-> +     * If we are here with level > target, we must be at a leaf node,
-> +     * and we need to break up the superpage.
-> +     */
-> +    if ( level > target )
-> +    {
-> +        panic("Shattering isn't implemented\n");
-> +    }
-> +
-> +    /*
-> +     * We should always be there with the correct level because all the
-> +     * intermediate tables have been installed if necessary.
-> +     */
-> +    ASSERT(level == target);
-> +
-> +    orig_pte = *entry;
-> +
-> +    if ( removing_mapping )
-> +        p2m_clean_pte(entry, p2m->clean_pte);
-> +    else
-> +    {
-> +        pte_t pte = p2m_pte_from_mfn(mfn, t);
-> +
-> +        p2m_write_pte(entry, pte, p2m->clean_pte);
-> +
-> +        p2m->max_mapped_gfn = gfn_max(p2m->max_mapped_gfn,
-> +                                      gfn_add(gfn, BIT(page_order, UL) - 1));
-> +        p2m->lowest_mapped_gfn = gfn_min(p2m->lowest_mapped_gfn, gfn);
-> +    }
-> +
-> +    p2m->need_flush = true;
-> +
-> +    /*
-> +     * Currently, the infrastructure required to enable CONFIG_HAS_PASSTHROUGH
-> +     * is not ready for RISC-V support.
-> +     *
-> +     * When CONFIG_HAS_PASSTHROUGH=y, iommu_iotlb_flush() should be done
-> +     * here.
-> +     */
-> +#ifdef CONFIG_HAS_PASSTHROUGH
-> +#   error "add code to flush IOMMU TLB"
-> +#endif
-> +
-> +    rc = 0;
-> +
-> +    /*
-> +     * Free the entry only if the original pte was valid and the base
-> +     * is different (to avoid freeing when permission is changed).
-> +     */
-> +    if ( pte_is_valid(orig_pte) &&
-> +         !mfn_eq(pte_get_mfn(*entry), pte_get_mfn(orig_pte)) )
-
-I'm puzzled by this 2nd check: A permission change would - I expect - only
-occur to a leaf entry. If the new entry is a super-page one and the old
-wasn't, don't you still need to free the sub-tree, no matter whether the
-MFNs are the same? Plus consider the special case of MFN 0: If you clear
-an entry using MFN 0, you will find old and new PTEs' both having the same
-MFN.
-
->  static int p2m_set_range(struct p2m_domain *p2m,
->                           gfn_t sgfn,
->                           unsigned long nr,
->                           mfn_t smfn,
->                           p2m_type_t t)
->  {
-> -    return -EOPNOTSUPP;
-> +    int rc = 0;
-> +    unsigned long left = nr;
-> +
-> +    /*
-> +     * Any reference taken by the P2M mappings (e.g. foreign mapping) will
-> +     * be dropped in relinquish_p2m_mapping(). As the P2M will still
-> +     * be accessible after, we need to prevent mapping to be added when the
-> +     * domain is dying.
-> +     */
-> +    if ( unlikely(p2m->domain->is_dying) )
-> +        return -EACCES;
-> +
-> +    while ( left )
-> +    {
-> +        unsigned long order = p2m_mapping_order(sgfn, smfn, left);
-> +
-> +        rc = p2m_set_entry(p2m, sgfn, order, smfn, t);
-> +        if ( rc )
-> +            break;
-> +
-> +        sgfn = gfn_add(sgfn, BIT(order, UL));
-> +        if ( !mfn_eq(smfn, INVALID_MFN) )
-> +           smfn = mfn_add(smfn, BIT(order, UL));
-> +
-> +        left -= BIT(order, UL);
-> +    }
-> +
-> +    return !left ? 0 : left == nr ? rc : (nr - left);
-
-The function returning "int", you may be truncating the return value here.
-In the worst case indicating success (0) or an error (negative) when some
-of the upper bits were set.
-
-Also looks like you could get away with a single conditional operator here:
-
-    return !left || left == nr ? rc : (nr - left);
-
-Jan
+Good riddance to the mess in our patchqueue cased by this.
 
