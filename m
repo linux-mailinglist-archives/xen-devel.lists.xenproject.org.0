@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80088B1C486
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Aug 2025 12:47:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1071599.1435021 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A06AB1C487
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Aug 2025 12:48:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1071606.1435032 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujbfQ-0004FO-9F; Wed, 06 Aug 2025 10:46:44 +0000
+	id 1ujbge-0004kT-Ia; Wed, 06 Aug 2025 10:48:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1071599.1435021; Wed, 06 Aug 2025 10:46:44 +0000
+Received: by outflank-mailman (output) from mailman id 1071606.1435032; Wed, 06 Aug 2025 10:48:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujbfQ-0004EF-6Q; Wed, 06 Aug 2025 10:46:44 +0000
-Received: by outflank-mailman (input) for mailman id 1071599;
- Wed, 06 Aug 2025 10:46:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ujbge-0004iN-Fa; Wed, 06 Aug 2025 10:48:00 +0000
+Received: by outflank-mailman (input) for mailman id 1071606;
+ Wed, 06 Aug 2025 10:47:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=G2Yn=2S=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1ujbfP-0004E9-3v
- for xen-devel@lists.xenproject.org; Wed, 06 Aug 2025 10:46:43 +0000
-Received: from fhigh-a8-smtp.messagingengine.com
- (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a25b96dd-72b2-11f0-b898-0df219b8e170;
- Wed, 06 Aug 2025 12:46:41 +0200 (CEST)
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
- by mailfhigh.phl.internal (Postfix) with ESMTP id A60E9140011C;
- Wed,  6 Aug 2025 06:46:39 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-09.internal (MEProxy); Wed, 06 Aug 2025 06:46:39 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 6 Aug 2025 06:46:38 -0400 (EDT)
+ <SRS0=kasG=2S=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1ujbgc-0004iF-VI
+ for xen-devel@lists.xenproject.org; Wed, 06 Aug 2025 10:47:58 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d07636c4-72b2-11f0-a322-13f23c93f187;
+ Wed, 06 Aug 2025 12:47:57 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-458b49c98a7so31729745e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Aug 2025 03:47:58 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-459e5887b7fsm42153925e9.30.2025.08.06.03.47.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 06 Aug 2025 03:47:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,120 +45,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a25b96dd-72b2-11f0-b898-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1754477199;
-	 x=1754563599; bh=uoAcjmEPeXl7PTXRUb8xvLhW1b9d0oqFjbUHC8fRFHs=; b=
-	ms92w+4Vmfhp7ZVUwV+34usBgcsVsMqZr2Fl56K5RefcGGBOc4Pygp7vq5fyTdii
-	lG33wTDufug8tjwZLHrdCzwypW0KxyYcu9bqPq1foNRcz+quPvQCD0Ea9UHupJ5K
-	ZIK7NiKYkJV1jVWIRjKBu/uv5nsQsvBb5BoK0qvpiitxmijQoB4ypxG4VVzFwAaz
-	LykILBH7ioxnYehC/OyuaiknDWFI5b3WEtpCgxgbrhEA1rTuCecHc3hQSHyzIWmB
-	JWE7PY9cvFKxBg4a2WdvVWrCYeKqcmAoaQeODiTj8inQfwT+xwhnG4R37ullW/gC
-	hHlExBh5y9VBF8fml5MxRQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1754477199; x=1754563599; bh=uoAcjmEPeXl7PTXRUb8xvLhW1b9d0oqFjbU
-	HC8fRFHs=; b=PKwlTJ9znKIeaIXgWMpVYmdH9zmBkXzpbKonAAmP5C5Z2flxMct
-	+aZe5DQOH6QeDo8K0UK9xadU1gskgjTWzijkz7aNklIvglrCUMyOS3sP3tVSPw5P
-	GUubsO2yCiGju2dzZvQPUuxwVGbB/YyuCzKj7KO96rtswroakugfc9XZu4cA9WHS
-	VmChr30bHniNk/qhxpNPfLdkjCpJVkP8gJGmSTYkTwko1KbKyc/Q+lPS1NWiSuj1
-	MNEoDR2/bNjXaVswFfvRL+IBPwoAsKqFjGm2TvZgKICi/VVkf4zZITlWbc655Qpl
-	bWePyGK1/y7XDF23oT9gISaowq+gJbTIwyg==
-X-ME-Sender: <xms:jzKTaMPjb1fc1L1oWbDvIP0q16WrQuYeBSrOO4Lm3lBpeoMKdhPeFA>
-    <xme:jzKTaGM0hwcVbNb0vPxhTzzkjQW-B00eVNeU7IsrvzJ5Z6OvLeDJsXUYSddmIZbyS
-    9HSMd4yXVdr9w>
-X-ME-Received: <xmr:jzKTaMvDsLuICZYbI4EXXVrbI_GkJHtHFL6IMdxMr_cGQMRXd9TnQS0JrsAQb5G1Uk9xokUxjPV4rFbpvZV6J5Q3x4Ibuhyy444>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgdduudejkeehucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
-    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfduleet
-    feevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluhhsth
-    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
-    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepfedpmh
-    houggvpehsmhhtphhouhhtpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtgho
-    mhdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghithhrihigrdgtohhmpd
-    hrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdho
-    rhhg
-X-ME-Proxy: <xmx:jzKTaAU7sa251EPpEOpir6WepzKf0dt0xWeVEaeZRpLsK0v4QfTi5A>
-    <xmx:jzKTaEsgqvgXBHt1mdHliF4aqc-TECPoH5kz1ZUIQRbfqQ_Nw5HD5w>
-    <xmx:jzKTaMUravZMGCEo5mpNPisogr6QgRASi48mIasYIRyb5maZlZZznQ>
-    <xmx:jzKTaHlhUuFjs4RMYodlIRgm9cds0PsI_1dIi2oPdHHbfJI_xtfxCA>
-    <xmx:jzKTaEUii5ayCJuow2Wk_eB7Bed0NqJMcFIl6KtASP8AT_EfeoxoBq5I>
-Feedback-ID: i1568416f:Fastmail
-Date: Wed, 6 Aug 2025 12:46:36 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: S3 regression related to XSA-471 patches
-Message-ID: <aJMyjYfeTL5uPRtk@mail-itl>
-References: <aJMtPLNqQFbGg5cs@mail-itl>
- <f971f8a8-487e-4b9f-8c75-80ebfe70c3b6@suse.com>
+X-Inumbo-ID: d07636c4-72b2-11f0-a322-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1754477277; x=1755082077; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=kf5pgCVN5jPLE1G0eb2TRa3nZG3xWz4Hz3vRLpntyGM=;
+        b=D70owyZ8c0OEm+VqV5vhLygFi9D3p/TanN0EAz3tBSJls7heHCAZ7EWKBBSLlUseK0
+         MnTLJcykajM6ElzMuBmts+dWQAkv5iW2oozd3ay+BZ5mhgyZT2CJC32vUsFcPR57OOs+
+         PUg8ZJXfl/c8R+U7CxRwpnovoJUURg32K3PQ0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1754477277; x=1755082077;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kf5pgCVN5jPLE1G0eb2TRa3nZG3xWz4Hz3vRLpntyGM=;
+        b=KJW3mGhjLQOPUIvOgn7yl9s1H1fTsfgutkYAjnqoaSyad/WfF0c5QX4Sq/STQqfJhw
+         q3fDMtKA/fp6GhOjMgO8s3INUlSY4SSZ/2Q4fgbo2pjhyw07StoumIgqn4V4ZfFKPOFq
+         aiACin0tyP4co2AGmaIyNT0/btKWaDD67Mn6K7BPAbKf/2clTqvmtdqzLUEzvMRdF4Dz
+         KKSO/6gSuP2fA6mMC1AvcrYKY6CbHKLybUMF1j27RmwwCtcoaaDIyj/cqx3NCMxalrX+
+         r0i7qUuUd7HTJKANwovYUxIt1VrH8thsUzObTUFXdrbhXY1BLP0QpUzbfOsx919BGYe/
+         ULXQ==
+X-Gm-Message-State: AOJu0YxYya7ETKORgT9wrdq53d/mT2Rpg1gtBFhPo6RJDUu/973ar8y8
+	OuwJYkj9zGLxqOgZ7PP2ps9TG04jBMd5VOFAv+AQ1yxhY2Ze5Zw9QrYpTs2YoLYKGog=
+X-Gm-Gg: ASbGncvo5XIR0cP3enU5oItEeZKFNK2beY6g3M77+27YOKJrxrNG1gDmppOEy2UMxgP
+	TrVq/iI2xPVvKQrFTjCveyjhd5DQ5MM9G/zib4F/1qXdTdDHv3hmjyvB834h9Ywu7gSJvGmz5Lt
+	Rw6mwwkL/4n4YPP6C4IPiHOfLqOxplZmxYrj+jSRegFUQ66u4QngusVcyTf01sSuiynulj/FjBo
+	moFLcEnSPoRe3lUQtGxXRWSbXd9v6myEb6wCiVj0GD7MKdXEaS5bIoKtzP8B7Fp38XyIHi/3Q/n
+	j+52/nATSMn4u7Stu9OPjYphvwHg1+6fL8uDSzkA4sHXEQk/tZEFNsSjhD5cxW34hWLp6YRDGrH
+	egsldQJmshB/CK0eojKd7CanSgLE5gPEG/hHp0hDV3tCGI70DXikw0SW8I/QcyymAWg==
+X-Google-Smtp-Source: AGHT+IFQ6/THYXInIDZ4Tr0/VubQJxNWCOvWahc34YnbYIL9nxi7nTWvwIczqpueaNWXp32DEEwrlw==
+X-Received: by 2002:a05:6000:2204:b0:3b7:9d83:50ef with SMTP id ffacd0b85a97d-3b8f420f03bmr2082001f8f.55.1754477277242;
+        Wed, 06 Aug 2025 03:47:57 -0700 (PDT)
+Date: Wed, 6 Aug 2025 12:47:56 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: dmkhn@proton.me
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
+	anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
+	michal.orzel@amd.com, sstabellini@kernel.org, dmukhin@ford.com
+Subject: Re: [PATCH] ns16550: ensure polling timer is disarmed
+Message-ID: <aJMy3KBPy7tjjYj3@macbook.local>
+References: <20250730031249.1613142-1-dmukhin@ford.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="napIOcvaMj7fpBqC"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <f971f8a8-487e-4b9f-8c75-80ebfe70c3b6@suse.com>
+In-Reply-To: <20250730031249.1613142-1-dmukhin@ford.com>
 
+On Wed, Jul 30, 2025 at 03:13:31AM +0000, dmkhn@proton.me wrote:
+> From: Denis Mukhin <dmukhin@ford.com> 
+> 
+> As it stands, polling timer is kept in the list of timers even after the
+> interrupts have been enabled / polling disabled on ns16550-compatible UART.
+> 
+> Ensure polling timer is removed from the timer list once UART interrupts are
+> enabled.
+> 
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+>  xen/drivers/char/ns16550.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
+> index df7fff7f81df..299773d80065 100644
+> --- a/xen/drivers/char/ns16550.c
+> +++ b/xen/drivers/char/ns16550.c
+> @@ -191,6 +191,10 @@ static void cf_check ns16550_interrupt(int irq, void *dev_id)
+>      struct serial_port *port = dev_id;
+>      struct ns16550 *uart = port->uart;
+>  
+> +    /* Ensure polling timer is disarmed and removed from the timer list. */
+> +    if ( !uart->intr_works )
+> +        kill_timer(&uart->timer);
 
---napIOcvaMj7fpBqC
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 6 Aug 2025 12:46:36 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: S3 regression related to XSA-471 patches
+I think if anything you should issue a stop_timer() call, but not a
+kill_timer() one, otherwise the uart code will hit an ASSERT when
+calling set_timer() from ns16550_setup_postirq()? (that's from
+_ns16550_resume()).
 
-On Wed, Aug 06, 2025 at 12:36:56PM +0200, Jan Beulich wrote:
-> On 06.08.2025 12:23, Marek Marczykowski-G=C3=B3recki wrote:
-> > We've got several reports that S3 reliability recently regressed. We
-> > identified it's definitely related to XSA-471 patches, and bisection
-> > points at "x86/idle: Remove broken MWAIT implementation". I don't have
-> > reliable reproduction steps, so I'm not 100% sure if it's really this
-> > patch, or maybe an earlier one - but it's definitely already broken at
-> > this point in the series. Most reports are about Xen 4.17 (as that's
-> > what stable Qubes OS version currently use), but I think I've seen
-> > somebody reporting the issue on 4.19 too (but I don't have clear
-> > evidence, especially if it's the same issue).
->=20
-> At the time we've been discussing the explicit raising of TIMER_SOFTIRQ
-> in mwait_idle_with_hints() a lot. If it was now truly missing, that imo
-> shouldn't cause problems only after resume, but then it may have covered
-> for some omission during resume. As a far-fetched experiment, could you
-> try putting that back (including the calculation of the "expires" local
-> variable)?
-
-Sure, I'll try.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---napIOcvaMj7fpBqC
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmiTMowACgkQ24/THMrX
-1yyz/gf/TAjjh3F2m+hJHergkwX4ZwPtXu33CoPXWPENb6t2wXDgEVOP4K6tN4j9
-5/hwE0lDaFiHFTYr/lWGY2dcV8Z60lJCYv+Pg1NYu25VhE5yyByanBEnftmwiJs1
-nDJ711I9gG82uqdzDlMh6jzx4C5EtgEyYJISLwQ9B5hsKgmfQ2zCsMF3jaqna5QJ
-zJTx0tbR4JWkkNvlj0R0a6LPFUYrPiIBlnC3c0MBYs27ZAu8X7ZXZk0mkLoBd+W1
-Z0FOqKvgCorTkdgigbfLab7NgY3W3r2ORuXbD+adim964UzkH3CFlm9c6GvYifla
-RblTFxvVKcL3KHB7zmO6mYHgwyWVeg==
-=sbTY
------END PGP SIGNATURE-----
-
---napIOcvaMj7fpBqC--
+Thanks, Roger.
 
