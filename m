@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D14DB1C80B
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Aug 2025 17:00:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1071901.1435251 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17453B1C840
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Aug 2025 17:06:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1071911.1435262 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujfbZ-0005jN-Rp; Wed, 06 Aug 2025 14:59:01 +0000
+	id 1ujfin-0007dc-Nb; Wed, 06 Aug 2025 15:06:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1071901.1435251; Wed, 06 Aug 2025 14:59:01 +0000
+Received: by outflank-mailman (output) from mailman id 1071911.1435262; Wed, 06 Aug 2025 15:06:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujfbZ-0005ga-P8; Wed, 06 Aug 2025 14:59:01 +0000
-Received: by outflank-mailman (input) for mailman id 1071901;
- Wed, 06 Aug 2025 14:59:00 +0000
+	id 1ujfin-0007bg-JT; Wed, 06 Aug 2025 15:06:29 +0000
+Received: by outflank-mailman (input) for mailman id 1071911;
+ Wed, 06 Aug 2025 15:06:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cHpH=2S=epam.com=Dmytro_Firsov@srs-se1.protection.inumbo.net>)
- id 1ujfbY-0005gS-47
- for xen-devel@lists.xenproject.org; Wed, 06 Aug 2025 14:59:00 +0000
-Received: from AM0PR83CU005.outbound.protection.outlook.com
- (mail-westeuropeazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c201::1])
+ <SRS0=kasG=2S=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1ujfil-0007ba-ES
+ for xen-devel@lists.xenproject.org; Wed, 06 Aug 2025 15:06:27 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e11621ef-72d5-11f0-a323-13f23c93f187;
- Wed, 06 Aug 2025 16:58:58 +0200 (CEST)
-Received: from DB9PR03MB8327.eurprd03.prod.outlook.com (2603:10a6:10:37f::12)
- by DB3PR0302MB9206.eurprd03.prod.outlook.com (2603:10a6:10:43c::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.20; Wed, 6 Aug
- 2025 14:58:55 +0000
-Received: from DB9PR03MB8327.eurprd03.prod.outlook.com
- ([fe80::b7f:9b2d:242e:f7f0]) by DB9PR03MB8327.eurprd03.prod.outlook.com
- ([fe80::b7f:9b2d:242e:f7f0%6]) with mapi id 15.20.9009.013; Wed, 6 Aug 2025
- 14:58:55 +0000
+ id ec5c7890-72d6-11f0-a323-13f23c93f187;
+ Wed, 06 Aug 2025 17:06:26 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-451d3f72391so1245e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Aug 2025 08:06:26 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-3b8e009e465sm14315257f8f.43.2025.08.06.08.06.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 06 Aug 2025 08:06:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,265 +45,1346 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e11621ef-72d5-11f0-a323-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D6Bc53H2B2648t4bDshHlFLhRst0wi0/rZxiOD3hLazKQ3V66NvTijGyTqJQTagEBZUy2N3M0sXBm8Ii/VLqioWW7YQ8mZC1SmIMvSsqsaQbGg4CyLFyHzHHR7qcjiESU8yEO7RTZzQ+1zyxDlHtM7KlvTbEWEbScv0KW0znvhx/7SPCX1VadtspvYBPv2yPOaUrYpnoh7OCVkDfMwew1jbzOWNV1X68NSfm3vO6JoD6vludLENuQfgmO13G7yD7iUbRsU+rBKk4XKZe6Q17wLsr8aWQ2cKYjP8eUtH6Lem9MqLv7cui9MYlWZvp/yGfKsSCfcOG+7i6Tte4SKiRPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dYhpCbpdRqtHQG0qWN9E2ZSljMfq2rfgBTqMs/d2TRg=;
- b=Ovvj1916yHz++4f7xhtPHXS14ToC1g2H1d1unVTaqJjLw17bp8GAqfzV8HGytPMI0jQ6CZle4SAy1TMI6StmZbH/Rxmw8weDsAmE4bTc3SccAj5LekdA2RY7kL5WpTyBkR9Z1T9yA7Ysr1A8p34ihBwIVhBDNZGd1Oik/zIp1Tx/5vpWEgdvoqqcqWYPMqNEXyHZ5ZWwzEuwfNjRvekIyemvH7KBiewy3UMDy8DJGf5S2nEJfDGH9ZYA8aebnzBIqTYbVS1Fib6ME9mUjh2F/4mJibHYlegIGRdxkJ2sY5/wof3gu1ZJDXybNxx/la5522o4Y8QaEX57RGRu2xwikw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dYhpCbpdRqtHQG0qWN9E2ZSljMfq2rfgBTqMs/d2TRg=;
- b=nXEAxa4733/BGq2cxcEcqvQN8s2gZTgmym7o9Lz2FU4DI1HgUzo9Y+WXr54gKGmmp0I3QgmUuqlfyN3NkPwVjREQrvjlawT2JppbV73RyYjlQdMLMouXTsFHMWJVMXKa9TngCwYUBe46IzXFBHaYcHETSi5htacry9LQ6oUuD621xn7bxy8470G6dl/g31NM4QEN7vtNQRbf0GeGge1tzfDPG6AsOaN614Fgagx25pZUp8ySS7ipUEgyim/J/lAOvOpIx6/j1XDVCoRn8u0DBIhG92vkFjxnyoJKNpfqBYfOdvpCsnEcxPAQIzPFgNr3UF+mdy12yqmzP7VeyGD8nw==
-From: Dmytro Firsov <Dmytro_Firsov@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Dmytro Firsov <Dmytro_Firsov@epam.com>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Rahul Singh <rahul.singh@arm.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Michal
- Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH] xen/arm: smmuv3: Add cache maintenance for non-coherent SMMU
- queues
-Thread-Topic: [PATCH] xen/arm: smmuv3: Add cache maintenance for non-coherent
- SMMU queues
-Thread-Index: AQHcBuKhRQAjcpitXUCHafCQJ8zznQ==
-Date: Wed, 6 Aug 2025 14:58:55 +0000
-Message-ID:
- <24567cc1630b1577c33939ff71d67fb2ebe5572f.1754491424.git.dmytro_firsov@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DB9PR03MB8327:EE_|DB3PR0302MB9206:EE_
-x-ms-office365-filtering-correlation-id: 182a360d-2273-469e-71aa-08ddd4f9c3f1
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|1800799024|38070700018;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?g7wtv9qkQhW0Y7rq6cMcGJ9gxBy+F57eNp3QEiUgEcweiTRuVXZhVkVgYx?=
- =?iso-8859-1?Q?H3tc8X4jr0C5xZ22TwlsDDe6UooYhii2reSAN+8okKRtsVNjBv7aywcTAA?=
- =?iso-8859-1?Q?wH4q1iVNsBnRsareMzk5VDzhjdv4EiZj/Dg9Qa/XsWTLJjY7PGYlrppSe1?=
- =?iso-8859-1?Q?2nPrSS8YA3r/ny9KFe/W6dT9n+BVB8wCi9plODybmUhbmSi/Lf/fv/JghV?=
- =?iso-8859-1?Q?tsY7U55hFoJ3HkFzBOEDbp8z3lviRKUF427txyX3pVmo8Al/q8blPONVD5?=
- =?iso-8859-1?Q?JQUpVZYGYYURgRtuOILDhEOvJKlbA1wdgzcvOtWuCkUN0vb1WgkgAVu7fS?=
- =?iso-8859-1?Q?k7LX0T3amHwjvK7kLo5OhgwWlXaxPpBTzXydYNgGZoyHRSSuXMEQIqZntX?=
- =?iso-8859-1?Q?4fdCA3aLTdw3Ss6oCjJRLDoU+1j2q+Q0+uUzTLU9BuwWGXnmHj25MKLM07?=
- =?iso-8859-1?Q?CF7VDuSzG7Bs3MTuQzThG9joxtaUnK5qvwYXq/FuHSKPHjne9oJT7ryIW/?=
- =?iso-8859-1?Q?LdCHb0Hs7KK4OR0vYNwtpd+cpuZNLZgd50mS4qalUQmxk2Jz1Nxd1CPByo?=
- =?iso-8859-1?Q?cZeOWux+0Qs0ia3vwXlwqd6B3trVFyPMyejutxCPy8h45ghbOfLpICZqnV?=
- =?iso-8859-1?Q?0yekD6jUNHKrOtipVIlKnCzAL2zdHUWLLORlHndyvHrQNz56gl1Mrl8spd?=
- =?iso-8859-1?Q?IbNQ3wApjGs7Mm0XedvyMu4mvTDVD7NULQetpHn02whThemq1D1NbfA3wB?=
- =?iso-8859-1?Q?eQIhTIMGyV/+8ZVsAohWaC9lL4PiCaLALv0YgItsdIzJw5Re69rQ7Z5l7E?=
- =?iso-8859-1?Q?VtAoZ95t3y5WFiD1WPDuE/FPJhQv+a6q6K5HB6OFqzDw31Nr04DGjTsTk5?=
- =?iso-8859-1?Q?l45KvKKJ2ortyyriqcnaiYZ2G6sLG0MpEDsIouP9oSghZnR/aTJMNR69hJ?=
- =?iso-8859-1?Q?uKoCinbq242G3ZqjeHzOpu7V1g216LJuaBsCfRS5QkCj5PD8e+v5BZsVbh?=
- =?iso-8859-1?Q?WJ+qF7+LnkxjkjsCikNZAnsB2tQAF2+0b6LncKwP8t29MTT43qC5YPFzLI?=
- =?iso-8859-1?Q?CSSXkhvwkPATYYBOzRnRzLRBz97gzvSYduvFBf2JhhLL/0UvXG7yrvwdo9?=
- =?iso-8859-1?Q?DCf5ZshqTjYjUjnfh/McZXWel4aurs3JJwkBlbrkD40X2omdasQidJ3Fbk?=
- =?iso-8859-1?Q?Yr4dujHqCOLzmwdnDNtyTx1TUQz745E9ymQWWghM2wxOK2h14IvhTmxWis?=
- =?iso-8859-1?Q?1UPWX57dRfvrSgeEvD0fJczT9rv11qw0Zk00J56VO+FcsCtREDI9ESf95E?=
- =?iso-8859-1?Q?kGPSlScXC1gKiQJi2z3n49IFzSxuCYgqUj+I0dryxvbnCNQUinbSVg6Sp5?=
- =?iso-8859-1?Q?jmki+qNqyX7liV7eTmwSZUURvBaVRZwmtG0ZGLWR0H1RO8PT0aUYlQSbcW?=
- =?iso-8859-1?Q?URK3mKVBtjpcWSPXj3wbqqdtksC9ouXF1NzNocFM0t3jRfQdUniT7tofdF?=
- =?iso-8859-1?Q?/8tLg6izEirjeOsTptl0sR5qNVVxOnEZK5ZqGVvIsL6A=3D=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR03MB8327.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?UY7Ik3MJ5hfDZ5X4JbPscjnVpta5R+qd8Y5lp6yXvSqTtVZKrbamF2Leue?=
- =?iso-8859-1?Q?kljgn5GNILowVsGi1GicQj9HSSGGQlEqgdGpox1e3TcLoMBku3Lh3cSGO3?=
- =?iso-8859-1?Q?yUZSeyHSMyax6bgXRC9UPw0tnjl6ZCGXVzxev93O12UV4yHM7QPi138oeQ?=
- =?iso-8859-1?Q?/iHoF8n+Cf+K7jMgzsBP0KTfoEBMAomE2qYjBb1VtvMV3D4WUyMVRmleDL?=
- =?iso-8859-1?Q?0FUKN007LJD1SOCV4lrS7rfs7j3EBEOszmaI5nmY+VFrN3es5sfoubdzmU?=
- =?iso-8859-1?Q?XytVTqIrNZPqB95qfTn0GSQOLzjIYUGjEd+mtgCVFTEuZ9DMRjh6UfuriP?=
- =?iso-8859-1?Q?wEfXRnB9rpeZL0GbVKxO94JsiRwJNupR7SgozsH1qUg+vCuhb1BQ7d63Hf?=
- =?iso-8859-1?Q?CA8gvQAjIGeLnrhhJlyrZAcIgAUiTxi1kZ+v7AIKZn3kuY16vnjhwrrSWF?=
- =?iso-8859-1?Q?9HsmU5IL5bajw0k99Mb560IhtMdV3oGnRI6BHf/5QzKx0aRZkRUThfXrbq?=
- =?iso-8859-1?Q?3sIDTiasO7nPFaq46o76UpviKAqw70/v8tgIvO3/N9wSiNXydjjgf8us32?=
- =?iso-8859-1?Q?io90TJT97YnnzxzzjpiUyQev8K/jsLna73uqMcWZV+hH3+ZKao/ebhrUar?=
- =?iso-8859-1?Q?qLrU090jKy7OFB75sWQ7pA+bjVFRhBYtbp/EQN6yXkUKzVy+cGzG6/Ul7q?=
- =?iso-8859-1?Q?a4f++jKrFhSPBESBUUed4RW+tHunqYbRbsqVFpH1JzWIeIRtSGKliaEo6K?=
- =?iso-8859-1?Q?gZNURhTEiV8OAu0t/fwYfPm4XDyz2TP239q5+lodc2ATZytra+Gn9vW9OY?=
- =?iso-8859-1?Q?gDIqOaOkbR7kWlVJFa+8ExP+ONLccgO6ymun04V8kZlkVUQxM4xkWhxNAk?=
- =?iso-8859-1?Q?yu/RqzvUwXMTvSL9qr7BIWb6VdNsPDFvR/vsrPvWg26H9r6pLsWbhBtiqn?=
- =?iso-8859-1?Q?8VZq2Zca/LbOPAnqmbIUpIVKF4HAWMye+jc/TWvbo3ZCPCrayRcYatNXsW?=
- =?iso-8859-1?Q?IBaXQpfaYeiTH0GCCU2yqF2HRaRW2BS+FE9ULL/YXRbLvqJgSahjteCCC0?=
- =?iso-8859-1?Q?nN63t+NkLWdR4ov4aQyynUOaM9HV/2DPx5gO4cfmCxUjDWt6K3EXQALP+r?=
- =?iso-8859-1?Q?0sOEiEOApzykYKrHc0rdyW1/uKRhWIzG+8uxfmHdbZfEVHctB6xZg6ojAa?=
- =?iso-8859-1?Q?H9hUguo1pT/NwICBiOFeYd/USxvn2JafDDUvQQSWPge1R465iiP/YCqPCg?=
- =?iso-8859-1?Q?rmJ+FsSfYfL5avHSKQSv4sbUmBMNiTC/KR4bVm8bwqXVvrqUJ5cDb7zIHv?=
- =?iso-8859-1?Q?7DiL5QGOPQw8K8YIs9+uhaBjYtCrB+jYjVWDU4od83esKSSKJccyOzzfC0?=
- =?iso-8859-1?Q?a8WP9N3gtHFyVATy0Nc8Airj4mLPuzzeeZlb5wNyn4NHNNyuEd8dwb+/Id?=
- =?iso-8859-1?Q?rR+dsRQsH3rfs/YqC1rMdNfsaW2X1vz2PO8yWeX8aXjpap8t7kpJMhoF9+?=
- =?iso-8859-1?Q?msmMiB4uMF8gUkMYi4Ho9TBKeMZSkN0nxtKFmM2C9TJhpB01C0RNtoZzCf?=
- =?iso-8859-1?Q?WJXwkjmKfuHCO6Rsoqy5Fel43yOXPxsGDlp27q9L9fT/M+OyYJ5i6wt7MT?=
- =?iso-8859-1?Q?XCGE8tinyrRywzDa5MXCn0fla49NNEMv30zfJb8Ovr4MJdf7IfqXYjVA?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: ec5c7890-72d6-11f0-a323-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1754492786; x=1755097586; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=sObkrsPJtFdQqviYRHPMJ4QqVNAEUtCrASLsbEhqQ+k=;
+        b=GJeDkWyZPcntPKc3a8sUd8xNFl1ERIur/qbugd+ZckgLzZthkIDc/hjFupdpS6l8Fr
+         0OPtwPz2tH4gBNnmuaF8a12qo/gyzcPHbpD6Lx3sFrjg8xQcSnhG7TcO9nt9AF0gimlX
+         Ff+2fTIS/TLR2yhMsw9+jhHqkPR0Po0yEtJGQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1754492786; x=1755097586;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=sObkrsPJtFdQqviYRHPMJ4QqVNAEUtCrASLsbEhqQ+k=;
+        b=iJ8cbBnV5W0ePYWXz8tpAdEHAejX+FNzjQPY4GTncJBq2Rb8YzVNumNzkL84feykWf
+         arcZj5LkEYjV3I2KTCuxnuUz55EMecxqscKG3B4zfmx3TT0A10rIMyUOeG3kdvGRXuwH
+         J1dszJvBtlGdwzdqdW5lTSJsO3LZhEuvarzlGVISbDDbgySJzxN2EzJWP7IJ8Jc2/I6R
+         2VaDRlH42r8F109rTvZncZ/QnqO0DzKrinj7kiV/0vA5DFCPEUrF7nD65mhtAKiJWcwJ
+         /7L2asOIKvshlzCs52FGtmi/nSk9zTK30UCOggBjUKm+SoJrkgQJP5cSThFjAf1xwU3W
+         TEBg==
+X-Gm-Message-State: AOJu0YxlpMete0gr2ldPDoQPvnkxbZmiM+JzylHz8eQbBLOHGnvQqKEs
+	1aFZJhwSrVlIC+Ye11FSy+e29xVzSJ+daS+I0ZhhVsTZovEdUgPRVIM/mc02HEb/DOA=
+X-Gm-Gg: ASbGncvZKWsG870a57rEsTT/YvbNidN/hS+BhvOF9j+ryg6Wv46vu4u0q9pGmzuYi/y
+	OKeOV6q6YlRQZTM1kshoGv0bZy57N+Oo4TiyU/kOP9qIp7ztPBoug3FhgQO35ILmSYeQfNxt1E+
+	w9W5ZcyzgfEOibUwNLveTYS2Ml+Qmpby2dOrs0n988/p1+Tw8v2hw8QaJWT3yk3J/TD2ZGJ4FmL
+	fVs9jVvifKZE0w7EWvOHtFqSZFJ7Mr7ycWbcVVC29bTBSK6v0b1BgA/6K1l01bWRFXeER6mYoht
+	jmQL8eG2X6ye+D0LJ0uemNcCxehb+yX5zaObYpfijVJmg+a5DpSntLMJj71wRJnXy3JniUy39Z3
+	dQXX3nbIqRf+NIUAHP9kMRYz5hJ0CT6yfAAlcgsEHFLHDiutdCj+Bz0niBxSawTrVmWZiglDJbt
+	i10xNEmyurg2Y=
+X-Google-Smtp-Source: AGHT+IE5xqyZJoqQCOnwZGphg8Y9EKnNFef5+TU/8hrfOT7AKChf9GDyzK513LmdfjtReniRJFDo4g==
+X-Received: by 2002:a05:600c:358a:b0:458:a992:6f1e with SMTP id 5b1f17b1804b1-459e7076775mr29908745e9.5.1754492785463;
+        Wed, 06 Aug 2025 08:06:25 -0700 (PDT)
+Date: Wed, 6 Aug 2025 17:06:24 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: dmkhn@proton.me
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
+	anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
+	michal.orzel@amd.com, sstabellini@kernel.org, dmukhin@ford.com
+Subject: Re: [PATCH v4 5/8] emul/vuart-ns16550: introduce NS16550-compatible
+ UART emulator (x86)
+Message-ID: <aJNvcLgsUOahsQZl@macbook.local>
+References: <20250731192130.3948419-1-dmukhin@ford.com>
+ <20250731192130.3948419-6-dmukhin@ford.com>
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB8327.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 182a360d-2273-469e-71aa-08ddd4f9c3f1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Aug 2025 14:58:55.5199
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: gLWok0+Td+9QBQ0gJtVRxqmEFqgx+xa+n8lqOF+xIGql0NiZXyc2wPLUcSC1ZnFCcYqYttFgIKbVTBP8NCLC+Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB3PR0302MB9206
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20250731192130.3948419-6-dmukhin@ford.com>
 
-According to the Arm SMMUv3 spec (ARM IHI 0070), a system may have
-SMMU(s) that is/are non-coherent to the PE (processing element). In such
-cases, memory accesses from the PE should be either non-cached or be
-augmented with manual cache maintenance. SMMU cache coherency is reported
-by bit 4 (COHACC) of the SMMU_IDR0 register and is already present in the
-Xen driver. However, the current implementation is not aware of cache
-maintenance for memory that is shared between the PE and non-coherent
-SMMUs. It contains dmam_alloc_coherent() function, that is added during
-Linux driver porting. But it is actually a wrapper for _xzalloc(), that
-returns normal writeback memory (which is OK for coherent SMMUs).
+On Thu, Jul 31, 2025 at 07:22:06PM +0000, dmkhn@proton.me wrote:
+> From: Denis Mukhin <dmukhin@ford.com> 
+> 
+> Add initial in-hypervisor emulator for NS8250/NS16x50-compatible UARTs under
+> CONFIG_VUART_NS16550 for x86 port of Xen.
+> 
+> x86 port of Xen lacks vUART facility similar to Arm's SBSA emulator to support
+> x86 guest OS bring up in the embedded setups.
+> 
+> In parallel domain creation scenario (hyperlaunch), NS16550 emulator helps
+> early guest firmware and/or OS bringup debugging, because it eliminates
+> dependency on the external emulator (qemu) being operational by the time
+> domains are created.
+> 
+> The emulator also allows to forward the physical console input to the x86
+> domain which is useful when a system has only one physical UART for early
+> debugging and this UART is owned by Xen. Such functionality is limited to dom0
+> use currently.
+> 
+> By default, CONFIG_VUART_NS16550 enables emulation of NS16550 at I/O port
+> 0x3f8, IRQ#4 in guest OS (legacy COM1).
+> 
+> Legacy COM resources can be selected at built-time and cannot be configured
+> per-domain via .cfg or DT yet.
+> 
+> Introduce new emulation flag for virtual UART on x86 and plumb it through
+> domain creation code so NS16550 emulator can be instantiated properly.
+> 
+> Please refer to the NS16550 emulator code for full list of limitations.
+> 
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+> Changes since v3:
+> - feedback addressed
+> - adjusted to new vUART framework APIs
+> - Link to v3: https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-21-c5d36b31d66c@ford.com/
+> ---
+>  xen/arch/x86/hvm/hvm.c                |    9 +
+>  xen/arch/x86/include/asm/domain.h     |    4 +-
+>  xen/arch/x86/include/asm/hvm/domain.h |    4 +
+>  xen/common/emul/vuart/Kconfig         |   48 ++
+>  xen/common/emul/vuart/Makefile        |    1 +
+>  xen/common/emul/vuart/vuart-ns16550.c | 1009 +++++++++++++++++++++++++
+>  xen/common/emul/vuart/vuart.c         |    4 +
+>  xen/include/public/arch-x86/xen.h     |    4 +-
+>  xen/include/xen/resource.h            |    3 +
+>  9 files changed, 1084 insertions(+), 2 deletions(-)
+>  create mode 100644 xen/common/emul/vuart/vuart-ns16550.c
+> 
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index b7edb1d6555d..1156e7ebcc4c 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -31,6 +31,7 @@
+>  #include <xen/nospec.h>
+>  #include <xen/vm_event.h>
+>  #include <xen/console.h>
+> +#include <xen/vuart.h>
+>  #include <asm/shadow.h>
+>  #include <asm/hap.h>
+>  #include <asm/current.h>
+> @@ -702,6 +703,10 @@ int hvm_domain_initialise(struct domain *d,
+>      if ( rc != 0 )
+>          goto fail1;
+>  
+> +    rc = vuart_init(d, NULL);
+> +    if ( rc != 0 )
+> +        goto out_vioapic_deinit;
+> +
+>      stdvga_init(d);
+>  
+>      rtc_init(d);
+> @@ -725,6 +730,8 @@ int hvm_domain_initialise(struct domain *d,
+>      return 0;
+>  
+>   fail2:
+> +    vuart_deinit(d);
+> + out_vioapic_deinit:
+>      vioapic_deinit(d);
+>   fail1:
+>      if ( is_hardware_domain(d) )
+> @@ -787,6 +794,8 @@ void hvm_domain_destroy(struct domain *d)
+>      if ( hvm_funcs.domain_destroy )
+>          alternative_vcall(hvm_funcs.domain_destroy, d);
+>  
+> +    vuart_deinit(d);
+> +
+>      vioapic_deinit(d);
+>  
+>      XFREE(d->arch.hvm.pl_time);
+> diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+> index eafd5cfc903d..1ecc7c2cae32 100644
+> --- a/xen/arch/x86/include/asm/domain.h
+> +++ b/xen/arch/x86/include/asm/domain.h
+> @@ -468,6 +468,7 @@ struct arch_domain
+>  #define X86_EMU_IOMMU    XEN_X86_EMU_IOMMU
+>  #define X86_EMU_USE_PIRQ XEN_X86_EMU_USE_PIRQ
+>  #define X86_EMU_VPCI     XEN_X86_EMU_VPCI
+> +#define X86_EMU_NS16550  XEN_X86_EMU_NS16550
+>  #else
+>  #define X86_EMU_LAPIC    0
+>  #define X86_EMU_HPET     0
+> @@ -479,6 +480,7 @@ struct arch_domain
+>  #define X86_EMU_IOMMU    0
+>  #define X86_EMU_USE_PIRQ 0
+>  #define X86_EMU_VPCI     0
+> +#define X86_EMU_NS16550  0
+>  #endif
+>  
+>  #define X86_EMU_PIT     XEN_X86_EMU_PIT
+> @@ -489,7 +491,7 @@ struct arch_domain
+>                                   X86_EMU_IOAPIC | X86_EMU_PIC |         \
+>                                   X86_EMU_VGA | X86_EMU_IOMMU |          \
+>                                   X86_EMU_PIT | X86_EMU_USE_PIRQ |       \
+> -                                 X86_EMU_VPCI)
+> +                                 X86_EMU_VPCI | X86_EMU_NS16550)
+>  
+>  #define has_vlapic(d)      (!!((d)->emulation_flags & X86_EMU_LAPIC))
+>  #define has_vhpet(d)       (!!((d)->emulation_flags & X86_EMU_HPET))
+> diff --git a/xen/arch/x86/include/asm/hvm/domain.h b/xen/arch/x86/include/asm/hvm/domain.h
+> index 333501d5f2ac..9945b16d1a6e 100644
+> --- a/xen/arch/x86/include/asm/hvm/domain.h
+> +++ b/xen/arch/x86/include/asm/hvm/domain.h
+> @@ -149,6 +149,10 @@ struct hvm_domain {
+>  #ifdef CONFIG_MEM_SHARING
+>      struct mem_sharing_domain mem_sharing;
+>  #endif
+> +
+> +#ifdef CONFIG_VUART_NS16550
+> +    void *vuart; /* Virtual UART handle. */
+> +#endif
+>  };
+>  
+>  #endif /* __ASM_X86_HVM_DOMAIN_H__ */
+> diff --git a/xen/common/emul/vuart/Kconfig b/xen/common/emul/vuart/Kconfig
+> index 02f7dd6dc1a1..ebefd90d913e 100644
+> --- a/xen/common/emul/vuart/Kconfig
+> +++ b/xen/common/emul/vuart/Kconfig
+> @@ -3,4 +3,52 @@ config HAS_VUART
+>  
+>  menu "UART Emulation"
+>  
+> +config VUART_NS16550
+> +	bool "NS16550-compatible UART Emulation" if EXPERT
+> +	depends on X86 && HVM
+> +	select HAS_VUART
+> +	help
+> +	  In-hypervisor NS16550/NS16x50 UART emulation.
+> +
+> +	  Only legacy PC I/O ports are emulated.
+> +
+> +	  This is strictly for testing purposes (such as early HVM guest console),
+> +	  and not appropriate for use in production.
+> +
+> +choice VUART_NS16550_PC
+> +	prompt "IBM PC COM resources"
+> +	depends on VUART_NS16550
+> +	default VUART_NS16550_PC_COM1
+> +	help
+> +	  Default emulated NS16550 resources.
+> +
+> +config VUART_NS16550_PC_COM1
+> +	bool "COM1 (I/O port 0x3f8, IRQ#4)"
+> +
+> +config VUART_NS16550_PC_COM2
+> +	bool "COM2 (I/O port 0x2f8, IRQ#3)"
+> +
+> +config VUART_NS16550_PC_COM3
+> +	bool "COM3 (I/O port 0x3e8, IRQ#4)"
+> +
+> +config VUART_NS16550_PC_COM4
+> +	bool "COM4 (I/O port 0x2e8, IRQ#3)"
+> +
+> +endchoice
 
-During Xen bring-up on a system with non-coherent SMMUs, the driver did
-not work properly - the SMMU was not functional and halted initialization
-at the very beginning due to a timeout while waiting for CMD_SYNC
-completion:
+You can turn this into an index define here in Kconfig, using:
 
-  (XEN) SMMUv3: /soc/iommu@fa000000: CMD_SYNC timeout
-  (XEN) SMMUv3: /soc/iommu@fa000000: CMD_SYNC timeout
+config VUART_NS16550_PC_IDX
+	depends on VUART_NS16550
+	int
+	default 3 if VUART_NS16550_PC_COM4
+	default 2 if VUART_NS16550_PC_COM3
+	default 1 if VUART_NS16550_PC_COM2
+	default 0
 
-To properly handle such scenarios, add the non_coherent flag to the
-arm_smmu_queue struct. It is initialized using features reported by the
-SMMU HW and will be used for triggering cache clean/invalidate operations.
-This flag is not queue-specific (it is applicable to the whole SMMU), but
-adding it to arm_smmu_queue allows us to not change function signatures
-and simplify the patch (smmu->features, which contains the required flag,
-are not available in code parts that require cache maintenance).
+Or similar, seeing what you do with X86_PC_UART_IDX below.
 
-Signed-off-by: Dmytro Firsov <dmytro_firsov@epam.com>
----
- xen/drivers/passthrough/arm/smmu-v3.c | 27 +++++++++++++++++++++++----
- xen/drivers/passthrough/arm/smmu-v3.h |  7 +++++++
- 2 files changed, 30 insertions(+), 4 deletions(-)
+> +
+> +config VUART_NS16550_LOG_LEVEL
+> +	int "UART emulator verbosity level"
+> +	range 0 3
+> +	default "1"
+> +	depends on VUART_NS16550
+> +	help
+> +	  Set the default log level of UART emulator.
+> +	  See include/xen/config.h for more details.
+> +
+> +config VUART_NS16550_DEBUG
+> +	bool "UART emulator development debugging"
+> +	depends on VUART_NS16550
+> +	help
+> +	  Enable development debugging.
+> +
+>  endmenu
+> diff --git a/xen/common/emul/vuart/Makefile b/xen/common/emul/vuart/Makefile
+> index c6400b001e85..85650ca5d8ce 100644
+> --- a/xen/common/emul/vuart/Makefile
+> +++ b/xen/common/emul/vuart/Makefile
+> @@ -1 +1,2 @@
+>  obj-$(CONFIG_HAS_VUART) += vuart.o
+> +obj-$(CONFIG_VUART_NS16550) += vuart-ns16550.o
+> diff --git a/xen/common/emul/vuart/vuart-ns16550.c b/xen/common/emul/vuart/vuart-ns16550.c
+> new file mode 100644
+> index 000000000000..48bbf58264fe
+> --- /dev/null
+> +++ b/xen/common/emul/vuart/vuart-ns16550.c
+> @@ -0,0 +1,1009 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * NS16550-compatible UART Emulator.
+> + *
+> + * See:
+> + * - Serial and UART Tutorial:
+> + *     https://download.freebsd.org/doc/en/articles/serial-uart/serial-uart_en.pdf
+> + * - UART w/ 16 byte FIFO:
+> + *     https://www.ti.com/lit/ds/symlink/tl16c550c.pdf
+> + * - UART w/ 64 byte FIFO:
+> + *     https://www.ti.com/lit/ds/symlink/tl16c750.pdf
+> + *
+> + * Limitations:
+> + * - Only x86;
+> + * - Only HVM domains support (build-time), PVH domains are not supported yet;
+> + * - Only legacy COM{1,2,3,4} resources via Kconfig, custom I/O ports/IRQs
+> + *   are not supported;
+> + * - Only Xen console as a backend, no inter-domain communication (similar to
+> + *   vpl011 on Arm);
+> + * - Only 8n1 emulation (8-bit data, no parity, 1 stop bit);
+> + * - No toolstack integration;
+> + * - No baud rate emulation (reports 115200 baud to the guest OS);
+> + * - No FIFO-less mode emulation;
+> + * - No RX FIFO interrupt moderation (FCR) emulation;
+> + * - No integration w/ VM snapshotting (HVM_REGISTER_SAVE_RESTORE() and
+> + *   friends);
+> + * - No ISA IRQ sharing allowed;
+> + * - No MMIO-based UART emulation.
 
-diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthroug=
-h/arm/smmu-v3.c
-index 5e9e3e048e..bf153227db 100644
---- a/xen/drivers/passthrough/arm/smmu-v3.c
-+++ b/xen/drivers/passthrough/arm/smmu-v3.c
-@@ -346,10 +346,14 @@ static void queue_write(__le64 *dst, u64 *src, size_t=
- n_dwords)
-=20
- static int queue_insert_raw(struct arm_smmu_queue *q, u64 *ent)
- {
-+	__le64 *q_addr =3D Q_ENT(q, q->llq.prod);
-+
- 	if (queue_full(&q->llq))
- 		return -ENOSPC;
-=20
--	queue_write(Q_ENT(q, q->llq.prod), ent, q->ent_dwords);
-+	queue_write(q_addr, ent, q->ent_dwords);
-+	if (q->non_coherent)
-+		clean_dcache_va_range(q_addr, q->ent_dwords * sizeof(*q_addr));
- 	queue_inc_prod(&q->llq);
- 	queue_sync_prod_out(q);
- 	return 0;
-@@ -365,10 +369,15 @@ static void queue_read(u64 *dst, __le64 *src, size_t =
-n_dwords)
-=20
- static int queue_remove_raw(struct arm_smmu_queue *q, u64 *ent)
- {
-+	__le64 *q_addr =3D Q_ENT(q, q->llq.cons);
-+
- 	if (queue_empty(&q->llq))
- 		return -EAGAIN;
-=20
--	queue_read(ent, Q_ENT(q, q->llq.cons), q->ent_dwords);
-+	if (q->non_coherent)
-+		invalidate_dcache_va_range(q_addr, q->ent_dwords * sizeof(*q_addr));
-+
-+	queue_read(ent, q_addr, q->ent_dwords);
- 	queue_inc_cons(&q->llq);
- 	queue_sync_cons_out(q);
- 	return 0;
-@@ -463,6 +472,7 @@ static void arm_smmu_cmdq_skip_err(struct arm_smmu_devi=
-ce *smmu)
- 	struct arm_smmu_queue *q =3D &smmu->cmdq.q;
- 	u32 cons =3D readl_relaxed(q->cons_reg);
- 	u32 idx =3D FIELD_GET(CMDQ_CONS_ERR, cons);
-+	__le64 *q_addr =3D Q_ENT(q, cons);
- 	struct arm_smmu_cmdq_ent cmd_sync =3D {
- 		.opcode =3D CMDQ_OP_CMD_SYNC,
- 	};
-@@ -489,11 +499,14 @@ static void arm_smmu_cmdq_skip_err(struct arm_smmu_de=
-vice *smmu)
- 		break;
- 	}
-=20
-+	if (q->non_coherent)
-+		invalidate_dcache_va_range(q_addr, q->ent_dwords * sizeof(*q_addr));
-+
- 	/*
- 	 * We may have concurrent producers, so we need to be careful
- 	 * not to touch any of the shadow cmdq state.
- 	 */
--	queue_read(cmd, Q_ENT(q, cons), q->ent_dwords);
-+	queue_read(cmd, q_addr, q->ent_dwords);
- 	dev_err(smmu->dev, "skipping command in error state:\n");
- 	for (i =3D 0; i < ARRAY_SIZE(cmd); ++i)
- 		dev_err(smmu->dev, "\t0x%016llx\n", (unsigned long long)cmd[i]);
-@@ -504,7 +517,10 @@ static void arm_smmu_cmdq_skip_err(struct arm_smmu_dev=
-ice *smmu)
- 		return;
- 	}
-=20
--	queue_write(Q_ENT(q, cons), cmd, q->ent_dwords);
-+	queue_write(q_addr, cmd, q->ent_dwords);
-+
-+	if (q->non_coherent)
-+		clean_dcache_va_range(q_addr, q->ent_dwords * sizeof(*q_addr));
- }
-=20
- static void arm_smmu_cmdq_insert_cmd(struct arm_smmu_device *smmu, u64 *cm=
-d)
-@@ -1634,6 +1650,9 @@ static int __init arm_smmu_init_one_queue(struct arm_=
-smmu_device *smmu,
- 	q->q_base |=3D FIELD_PREP(Q_BASE_LOG2SIZE, q->llq.max_n_shift);
-=20
- 	q->llq.prod =3D q->llq.cons =3D 0;
-+
-+	q->non_coherent =3D !(smmu->features & ARM_SMMU_FEAT_COHERENCY);
-+
- 	return 0;
- }
-=20
-diff --git a/xen/drivers/passthrough/arm/smmu-v3.h b/xen/drivers/passthroug=
-h/arm/smmu-v3.h
-index f09048812c..db936b9bd4 100644
---- a/xen/drivers/passthrough/arm/smmu-v3.h
-+++ b/xen/drivers/passthrough/arm/smmu-v3.h
-@@ -522,6 +522,13 @@ struct arm_smmu_queue {
-=20
- 	u32 __iomem			*prod_reg;
- 	u32 __iomem			*cons_reg;
-+
-+	/*
-+	 * According to SMMU spec section 3.16, some systems may have
-+	 * SMMUs, that are non-coherent to PE (processing elements).
-+	 * In such case manual cache management is needed.
-+	 */
-+	bool				non_coherent;
- };
-=20
- struct arm_smmu_cmdq {
---=20
-2.50.1
+Listing the limitations here might not be the beast approach, this is
+likely to get out of sync as it's too far away from the code
+implementation.
+
+If anything those comments want to be closer together to where the
+feature would otherwise be implemented.
+
+> + */
+> +
+> +#define pr_prefix               "ns16550"
+> +#define pr_fmt(fmt)             pr_prefix ": " fmt
+> +#define pr_log_level            CONFIG_VUART_NS16550_LOG_LEVEL
+> +
+> +#include <xen/8250-uart.h>
+> +#include <xen/console.h>
+> +#include <xen/iocap.h>
+> +#include <xen/ioreq.h>
+> +#include <xen/resource.h>
+> +#include <xen/vuart.h>
+> +#include <xen/xvmalloc.h>
+> +
+> +#include <public/io/console.h>
+> +
+> +#define pr_err(fmt, args...) do { \
+> +    gprintk(KERN_ERR, pr_fmt(fmt), ## args); \
+> +} while (0)
+> +
+> +#define pr_warn(fmt, args...) do { \
+> +    if ( pr_log_level >= 1) \
+> +        gprintk(KERN_WARNING, pr_fmt(fmt), ## args); \
+> +} while (0)
+> +
+> +#define pr_info(fmt, args...) do { \
+> +    if ( pr_log_level >= 2 ) \
+> +        gprintk(KERN_INFO, pr_fmt(fmt), ## args); \
+> +} while (0)
+> +
+> +#define pr_debug(fmt, args...) do { \
+> +    if ( pr_log_level >= 3 ) \
+> +        gprintk(KERN_DEBUG, pr_fmt(fmt), ## args); \
+> +} while (0)
+
+We would use the pr_* set of logging functions for code imported from
+Linux, but for Xen code we would directly use the gprintk() functions
+rather than wrap them as you do.
+
+> +
+> +#if defined(CONFIG_VUART_NS16550_PC_COM1)
+> +#define X86_PC_UART_IDX         0
+> +#elif defined(CONFIG_VUART_NS16550_PC_COM2)
+> +#define X86_PC_UART_IDX         1
+> +#elif defined(CONFIG_VUART_NS16550_PC_COM3)
+> +#define X86_PC_UART_IDX         2
+> +#elif defined(CONFIG_VUART_NS16550_PC_COM4)
+> +#define X86_PC_UART_IDX         3
+> +#else
+> +#error "Unsupported I/O port"
+> +#endif
+> +
+> +#ifdef CONFIG_VUART_NS16550_DEBUG
+> +#define guest_prefix            "FROM GUEST "
+> +#else
+> +#define guest_prefix            ""
+> +#endif
+> +
+> +/*
+> + * Number of supported registers in the UART.
+> + */
+> +#define NS16550_REGS_NUM        ( UART_SCR + 1 )
+
+Extra spaces around parentheses? (here and below)
+
+> +
+> +/*
+> + * Number of emulated registers.
+> + *
+> + * - Emulated registers [0..NS16550_REGS_NUM] are R/W registers for DLAB=0.
+> + * - DLAB=1, R/W, DLL            = NS16550_REGS_NUM + 0
+> + * - DLAB=1, R/W, DLM            = NS16550_REGS_NUM + 1
+> + * -         R/O, IIR (IIR_THR)  = NS16550_REGS_NUM + 2
+> + */
+> +#define NS16550_EMU_REGS_NUM    ( NS16550_REGS_NUM + 3 )
+> +
+> +/*
+> + * Virtual NS16550 device state.
+> + */
+> +struct vuart_ns16550 {
+> +    struct xencons_interface cons;      /* Emulated RX/TX FIFOs */
+> +    uint8_t regs[NS16550_EMU_REGS_NUM]; /* Emulated registers */
+> +    unsigned int irq;                   /* Emulated IRQ# */
+> +    uint64_t io_addr;                   /* Emulated I/O region base address */
+> +    uint64_t io_size;                   /* Emulated I/O region size */
+> +    const char *name;                   /* Device name */
+> +    struct domain *owner;               /* Owner domain */
+> +    spinlock_t lock;                    /* Protection */
+> +};
+> +
+> +/*
+> + * Virtual device description.
+> + */
+> +struct virtdev_desc {
+> +    const char *name;
+> +    const struct resource *res;
+> +};
+> +
+> +/*
+> + * Legacy IBM PC NS16550 resources.
+> + * There are only 4 I/O port ranges, hardcoding all of them here.
+> + */
+> +static const struct virtdev_desc x86_pc_uarts[4] = {
+> +    [0] = {
+
+You don't need the explicit array indexes?
+
+> +        .name = "COM1",
+> +        .res = (const struct resource[]){
+> +            { .type = IORESOURCE_IO,  .addr = 0x3f8, .size = NS16550_REGS_NUM },
+> +            { .type = IORESOURCE_IRQ, .addr = 4,     .size = 1 },
+> +            { .type = IORESOURCE_UNKNOWN },
+> +        },
+> +    },
+> +    [1] = {
+> +        .name = "COM2",
+> +        .res = (const struct resource[]){
+> +            { .type = IORESOURCE_IO,  .addr = 0x2f8, .size = NS16550_REGS_NUM },
+> +            { .type = IORESOURCE_IRQ, .addr = 3,     .size = 1 },
+> +            { .type = IORESOURCE_UNKNOWN },
+> +        },
+> +    },
+> +    [2] = {
+> +        .name = "COM3",
+> +        .res = (const struct resource[]){
+> +            { .type = IORESOURCE_IO,  .addr = 0x3e8, .size = NS16550_REGS_NUM },
+> +            { .type = IORESOURCE_IRQ, .addr = 4,     .size = 1 },
+> +            { .type = IORESOURCE_UNKNOWN },
+> +        },
+> +    },
+> +    [3] = {
+> +        .name = "COM4",
+> +        .res = (const struct resource[]){
+> +            { .type = IORESOURCE_IO,  .addr = 0x2e8, .size = NS16550_REGS_NUM },
+> +            { .type = IORESOURCE_IRQ, .addr = 3,     .size = 1 },
+> +            { .type = IORESOURCE_UNKNOWN },
+> +        },
+> +    },
+> +};
+> +
+> +static bool ns16550_fifo_rx_empty(const struct vuart_ns16550 *vdev)
+> +{
+> +    const struct xencons_interface *cons = &vdev->cons;
+> +
+> +    return cons->in_prod == cons->in_cons;
+> +}
+> +
+> +static bool ns16550_fifo_rx_full(const struct vuart_ns16550 *vdev)
+> +{
+> +    const struct xencons_interface *cons = &vdev->cons;
+> +
+> +    return cons->in_prod - cons->in_cons == ARRAY_SIZE(cons->in);
+> +}
+> +
+> +static void ns16550_fifo_rx_reset(struct vuart_ns16550 *vdev)
+> +{
+> +    struct xencons_interface *cons = &vdev->cons;
+> +
+> +    cons->in_cons = cons->in_prod;
+> +}
+> +
+> +static int ns16550_fifo_rx_getchar(struct vuart_ns16550 *vdev)
+> +{
+> +    struct xencons_interface *cons = &vdev->cons;
+> +    int rc;
+> +
+> +    if ( ns16550_fifo_rx_empty(vdev) )
+> +    {
+> +        pr_debug("%s: RX FIFO empty\n", vdev->name);
+> +        rc = -ENODATA;
+> +    }
+> +    else
+> +    {
+> +        rc = cons->in[MASK_XENCONS_IDX(cons->in_cons, cons->in)];
+> +        cons->in_cons++;
+> +    }
+> +
+> +    return rc;
+> +}
+> +
+> +static int ns16550_fifo_rx_putchar(struct vuart_ns16550 *vdev, char c)
+> +{
+> +    struct xencons_interface *cons = &vdev->cons;
+> +    int rc;
+> +
+> +    /*
+> +     * FIFO-less 8250/16450 UARTs: newly arrived word overwrites the contents
+> +     * of the THR.
+> +     */
+> +    if ( ns16550_fifo_rx_full(vdev) )
+> +    {
+> +        pr_debug("%s: RX FIFO full; resetting\n", vdev->name);
+> +        ns16550_fifo_rx_reset(vdev);
+> +        rc = -ENOSPC;
+> +    }
+> +    else
+> +        rc = 0;
+> +
+> +    cons->in[MASK_XENCONS_IDX(cons->in_prod, cons->in)] = c;
+> +    cons->in_prod++;
+> +
+> +    return rc;
+> +}
+> +
+> +static bool ns16550_fifo_tx_empty(const struct vuart_ns16550 *vdev)
+> +{
+> +    const struct xencons_interface *cons = &vdev->cons;
+> +
+> +    return cons->out_prod == cons->out_cons;
+> +}
+> +
+> +static void ns16550_fifo_tx_reset(struct vuart_ns16550 *vdev)
+> +{
+> +    struct xencons_interface *cons = &vdev->cons;
+> +
+> +    cons->out_prod = 0;
+> +    ASSERT(cons->out_cons == cons->out_prod);
+> +}
+> +
+> +/*
+> + * Flush cached output to Xen console.
+> + */
+> +static void ns16550_fifo_tx_flush(struct vuart_ns16550 *vdev)
+> +{
+> +    struct xencons_interface *cons = &vdev->cons;
+> +
+> +    if ( ns16550_fifo_tx_empty(vdev) )
+> +        return;
+> +
+> +    ASSERT(cons->out_prod < ARRAY_SIZE(cons->out));
+> +    cons->out[cons->out_prod] = '\0';
+> +    cons->out_prod++;
+> +
+> +    guest_printk(vdev->owner, guest_prefix "%s", cons->out);
+> +
+> +    ns16550_fifo_tx_reset(vdev);
+> +}
+> +
+> +/*
+> + * Accumulate guest OS output before sending to Xen console.
+> + */
+> +static void ns16550_fifo_tx_putchar(struct vuart_ns16550 *vdev, char ch)
+> +{
+> +    struct xencons_interface *cons = &vdev->cons;
+> +
+> +    if ( !is_console_printable(ch) )
+> +        return;
+> +
+> +    if ( ch != '\0' )
+> +    {
+> +        cons->out[cons->out_prod] = ch;
+> +        cons->out_prod++;
+> +    }
+> +
+> +    if ( cons->out_prod == ARRAY_SIZE(cons->out) - 1 ||
+> +         ch == '\n' || ch == '\0' )
+> +        ns16550_fifo_tx_flush(vdev);
+> +}
+> +
+> +static inline uint8_t cf_check ns16550_dlab_get(const struct vuart_ns16550 *vdev)
+> +{
+> +    return vdev->regs[UART_LCR] & UART_LCR_DLAB ? 1 : 0;
+> +}
+> +
+> +static bool cf_check ns16550_iir_check_lsi(const struct vuart_ns16550 *vdev)
+> +{
+> +    return !!(vdev->regs[UART_LSR] & UART_LSR_MASK);
+> +}
+> +
+> +static bool cf_check ns16550_iir_check_rda(const struct vuart_ns16550 *vdev)
+> +{
+> +    return !ns16550_fifo_rx_empty(vdev);
+> +}
+> +
+> +static bool cf_check ns16550_iir_check_thr(const struct vuart_ns16550 *vdev)
+> +{
+> +    return !!(vdev->regs[NS16550_REGS_NUM + UART_IIR] & UART_IIR_THR);
+> +}
+> +
+> +static bool cf_check ns16550_iir_check_msi(const struct vuart_ns16550 *vdev)
+> +{
+> +    return !!(vdev->regs[UART_MSR] & UART_MSR_CHANGE);
+> +}
+> +
+> +/*
+> + * Get the interrupt identity reason.
+> + *
+> + * IIR is re-calculated once called, because NS16550 always reports high
+> + * priority events first.
+> + * regs[NS16550_REGS_NUM + UART_IIR] is used to store THR reason only.
+> + */
+> +static uint8_t ns16550_iir_get(const struct vuart_ns16550 *vdev)
+> +{
+> +    /*
+> +     * Interrupt identity reasons by priority.
+> +     * NB: high priority are at lower indexes below.
+> +     */
+> +    static const struct {
+> +        bool (*check)(const struct vuart_ns16550 *vdev);
+> +        uint8_t ier;
+> +        uint8_t iir;
+> +    } iir_by_prio[] = {
+> +        [0] = { ns16550_iir_check_lsi, UART_IER_ELSI,   UART_IIR_LSI },
+> +        [1] = { ns16550_iir_check_rda, UART_IER_ERDAI,  UART_IIR_RDA },
+> +        [2] = { ns16550_iir_check_thr, UART_IER_ETHREI, UART_IIR_THR },
+> +        [3] = { ns16550_iir_check_msi, UART_IER_EMSI,   UART_IIR_MSI },
+> +    };
+> +    const uint8_t *regs = vdev->regs;
+> +    uint8_t iir = 0;
+> +    unsigned int i;
+> +
+> +    /*
+> +     * NB: every interaction w/ NS16550 registers (except DLAB=1) goes
+> +     * through that call.
+> +     */
+> +    ASSERT(spin_is_locked(&vdev->lock));
+> +
+> +    for ( i = 0; i < ARRAY_SIZE(iir_by_prio); i++ )
+> +    {
+> +        if ( (regs[UART_IER] & iir_by_prio[i].ier) &&
+> +             iir_by_prio[i].check(vdev) )
+> +            break;
+> +
+> +    }
+> +    if ( i == ARRAY_SIZE(iir_by_prio) )
+> +        iir |= UART_IIR_NOINT;
+> +    else
+> +        iir |= iir_by_prio[i].iir;
+> +
+> +    if ( regs[UART_FCR] & UART_FCR_ENABLE )
+> +        iir |= UART_IIR_FE;
+> +
+> +    return iir;
+> +}
+> +
+> +static void ns16550_irq_assert(const struct vuart_ns16550 *vdev)
+> +{
+> +    struct domain *d = vdev->owner;
+> +    int vector;
+> +
+> +    if ( has_vpic(d) ) /* HVM */
+> +        vector = hvm_isa_irq_assert(d, vdev->irq, vioapic_get_vector);
+> +    else
+> +        ASSERT_UNREACHABLE();
+> +
+> +    pr_debug("%s: IRQ#%d vector %d assert\n", vdev->name, vdev->irq, vector);
+> +}
+> +
+> +static void ns16550_irq_deassert(const struct vuart_ns16550 *vdev)
+> +{
+> +    struct domain *d = vdev->owner;
+> +
+> +    if ( has_vpic(d) ) /* HVM */
+> +        hvm_isa_irq_deassert(d, vdev->irq);
+> +    else
+> +        ASSERT_UNREACHABLE();
+> +
+> +    pr_debug("%s: IRQ#%d deassert\n", vdev->name, vdev->irq);
+> +}
+> +
+> +/*
+> + * Assert/deassert virtual NS16550 interrupt line.
+> + */
+> +static void ns16550_irq_check(const struct vuart_ns16550 *vdev)
+> +{
+> +    uint8_t iir = ns16550_iir_get(vdev);
+> +
+> +    if ( iir & UART_IIR_NOINT )
+> +        ns16550_irq_assert(vdev);
+> +    else
+> +        ns16550_irq_deassert(vdev);
+> +
+> +    pr_debug("%s: IRQ#%d IIR 0x%02x %s\n", vdev->name, vdev->irq, iir,
+> +             (iir & UART_IIR_NOINT) ? "deassert" : "assert");
+> +}
+> +
+> +/*
+> + * Emulate 8-bit write access to NS16550 register.
+> + */
+> +static int ns16550_io_write8(
+> +    struct vuart_ns16550 *vdev, uint32_t reg, uint8_t *data)
+> +{
+> +    uint8_t *regs = vdev->regs;
+> +    uint8_t val = *data;
+> +    int rc = 0;
+> +
+> +    if ( ns16550_dlab_get(vdev) && (reg == UART_DLL || reg == UART_DLM) )
+> +        regs[NS16550_REGS_NUM + reg] = val;
+> +    else
+> +    {
+> +        switch ( reg )
+> +        {
+> +        case UART_THR:
+> +            if ( regs[UART_MCR] & UART_MCR_LOOP )
+> +            {
+> +                (void)ns16550_fifo_rx_putchar(vdev, val);
+> +                regs[UART_LSR] |= UART_LSR_OE;
+> +            }
+> +            else
+> +                ns16550_fifo_tx_putchar(vdev, val);
+> +
+> +            regs[NS16550_REGS_NUM + UART_IIR] |= UART_IIR_THR;
+> +
+> +            break;
+> +
+> +        case UART_IER:
+> +            /*
+> +             * NB: Make sure THR interrupt is re-triggered once guest OS
+> +             * re-enabled ETHREI in EIR.
+> +             */
+> +            if ( val & regs[UART_IER] & UART_IER_ETHREI )
+> +                regs[NS16550_REGS_NUM + UART_IIR] |= UART_IIR_THR;
+> +
+> +            regs[UART_IER] = val & UART_IER_MASK;
+> +
+> +            break;
+> +
+> +        case UART_FCR: /* WO */
+> +            if ( val & UART_FCR_RESERVED0 )
+> +                pr_warn("%s: FCR: attempt to set reserved bit: %x\n",
+> +                        vdev->name, UART_FCR_RESERVED0);
+> +
+> +            if ( val & UART_FCR_RESERVED1 )
+> +                pr_warn("%s: FCR: attempt to set reserved bit: %x\n",
+> +                        vdev->name, UART_FCR_RESERVED1);
+> +
+> +            if ( val & UART_FCR_CLRX )
+> +                ns16550_fifo_rx_reset(vdev);
+> +
+> +            if ( val & UART_FCR_CLTX )
+> +                ns16550_fifo_tx_flush(vdev);
+> +
+> +            if ( val & UART_FCR_ENABLE )
+> +                val &= UART_FCR_ENABLE | UART_FCR_DMA | UART_FCR_TRG_MASK;
+> +            else
+> +                val = 0;
+> +
+> +            regs[UART_FCR] = val;
+> +
+> +            break;
+> +
+> +        case UART_LCR:
+> +            regs[UART_LCR] = val;
+> +            break;
+> +
+> +        case UART_MCR: {
+> +            uint8_t msr_curr, msr_next, msr_delta;
+> +
+> +            msr_curr = regs[UART_MSR];
+> +            msr_next = 0;
+> +            msr_delta = 0;
+> +
+> +            if ( val & UART_MCR_RESERVED0 )
+> +                pr_warn("%s: MCR: attempt to set reserved bit: %x\n",
+> +                        vdev->name, UART_MCR_RESERVED0);
+> +
+> +            if ( val & UART_MCR_TCRTLR )
+> +                pr_warn("%s: MCR: not supported: %x\n",
+> +                        vdev->name, UART_MCR_TCRTLR);
+> +
+> +            if ( val & UART_MCR_RESERVED1 )
+> +                pr_warn("%s: MCR: attempt to set reserved bit: %x\n",
+> +                        vdev->name, UART_MCR_RESERVED1);
+> +
+> +            /* Set modem status */
+> +            if ( val & UART_MCR_LOOP )
+> +            {
+> +                if ( val & UART_MCR_DTR )
+> +                    msr_next |= UART_MSR_DSR;
+> +                if ( val & UART_MCR_RTS )
+> +                    msr_next |= UART_MSR_CTS;
+> +                if ( val & UART_MCR_OUT1 )
+> +                    msr_next |= UART_MSR_RI;
+> +                if ( val & UART_MCR_OUT2 )
+> +                    msr_next |= UART_MSR_DCD;
+> +            }
+> +            else
+> +                msr_next |= UART_MSR_DCD | UART_MSR_DSR | UART_MSR_CTS;
+> +
+> +            /* Calculate changes in modem status */
+> +            if ( (msr_curr & UART_MSR_CTS) ^ (msr_next & UART_MSR_CTS) )
+> +                msr_delta |= UART_MSR_DCTS;
+> +            if ( (msr_curr & UART_MCR_RTS) ^ (msr_next & UART_MCR_RTS) )
+> +                msr_delta |= UART_MSR_DDSR;
+> +            if ( (msr_curr & UART_MSR_RI)  & (msr_next & UART_MSR_RI) )
+> +                msr_delta |= UART_MSR_TERI;
+> +            if ( (msr_curr & UART_MSR_DCD) ^ (msr_next & UART_MSR_DCD) )
+> +                msr_delta |= UART_MSR_DDCD;
+> +
+> +            regs[UART_MCR] = val & UART_MCR_MASK;
+> +            regs[UART_MSR] = msr_next | msr_delta;
+> +
+> +            break;
+> +        }
+> +
+> +        /* NB: Firmware (e.g. OVMF) may rely on SCR presence. */
+> +        case UART_SCR:
+> +            regs[UART_SCR] = val;
+> +            break;
+> +
+> +        case UART_LSR: /* RO */
+> +        case UART_MSR: /* RO */
+> +        default:
+> +            rc = -EINVAL;
+> +            break;
+> +        }
+> +
+> +        ns16550_irq_check(vdev);
+> +    }
+> +
+> +    return rc;
+> +}
+> +
+> +/*
+> + * Emulate 16-bit write access to NS16550 register.
+> + * NB: some guest OSes use outw() to access UART_DLL.
+> + */
+> +static int ns16550_io_write16(
+> +    struct vuart_ns16550 *vdev, uint32_t reg, uint16_t *data)
+> +{
+> +    uint16_t val = *data;
+> +    int rc;
+> +
+> +    if ( ns16550_dlab_get(vdev) && reg == UART_DLL )
+> +    {
+> +        vdev->regs[NS16550_REGS_NUM + UART_DLL] = val & 0xff;
+> +        vdev->regs[NS16550_REGS_NUM + UART_DLM] = (val >> 8) & 0xff;
+> +        rc = 0;
+> +    }
+> +    else
+> +        rc = -EINVAL;
+> +
+> +    return rc;
+> +}
+> +
+> +/*
+> + * Emulate write access to NS16550 register.
+> + */
+> +static int ns16550_io_write(
+> +    struct vuart_ns16550 *vdev, uint8_t reg, uint32_t size, uint32_t *data)
+> +{
+> +    int rc;
+> +
+> +    switch ( size )
+> +    {
+> +    case 1:
+> +        rc = ns16550_io_write8(vdev, reg, (uint8_t *)data);
+> +        break;
+> +
+> +    case 2:
+> +        rc = ns16550_io_write16(vdev, reg, (uint16_t *)data);
+> +        break;
+> +
+> +    default:
+> +        rc = -EINVAL;
+> +        break;
+> +    }
+> +
+> +    return rc;
+> +}
+> +
+> +/*
+> + * Emulate 8-bit read access to NS16550 register.
+> + */
+> +static int ns16550_io_read8(
+> +    struct vuart_ns16550 *vdev, uint32_t reg, uint8_t *data)
+> +{
+> +    uint8_t *regs = vdev->regs;
+> +    uint8_t val = 0xff;
+> +    int rc = 0;
+> +
+> +    if ( ns16550_dlab_get(vdev) && (reg == UART_DLL || reg == UART_DLM) )
+> +        val = regs[NS16550_REGS_NUM + reg];
+> +    else {
+> +        switch ( reg )
+> +        {
+> +        case UART_RBR:
+> +            /* NB: do not forget to clear overrun condition */
+> +            regs[UART_LSR] &= ~UART_LSR_OE;
+> +
+> +            rc = ns16550_fifo_rx_getchar(vdev);
+> +            if ( rc >= 0 )
+> +                val = (uint8_t)rc;
+> +
+> +            rc = 0;
+> +            break;
+> +
+> +        case UART_IER:
+> +            val = regs[UART_IER];
+> +            break;
+> +
+> +        case UART_IIR: /* RO */
+> +            val = ns16550_iir_get(vdev);
+> +
+> +            /* NB: clear IIR scratch location */
+> +            if ( val & UART_IIR_THR )
+> +                regs[NS16550_REGS_NUM + UART_IIR] &= ~UART_IIR_THR;
+> +
+> +            break;
+> +
+> +        case UART_LCR:
+> +            val = regs[UART_LCR];
+> +            break;
+> +
+> +        case UART_MCR:
+> +            val = regs[UART_MCR];
+> +            break;
+> +
+> +        case UART_LSR:
+> +            val = regs[UART_LSR] | UART_LSR_THRE | UART_LSR_TEMT;
+> +            if ( ns16550_fifo_rx_empty(vdev) )
+> +                val &= ~UART_LSR_DR;
+> +            else
+> +                val |= UART_LSR_DR;
+> +
+> +            regs[UART_LSR] = val & ~UART_LSR_MASK;
+> +
+> +            break;
+> +
+> +        case UART_MSR:
+> +            val = regs[UART_MSR];
+> +            regs[UART_MSR] &= ~UART_MSR_CHANGE;
+> +            break;
+> +
+> +        case UART_SCR:
+> +            val = regs[UART_SCR];
+> +            break;
+> +
+> +        default:
+> +            rc = -EINVAL;
+> +            break;
+> +        }
+> +
+> +        ns16550_irq_check(vdev);
+> +    }
+> +
+> +    *data = val;
+> +
+> +    return rc;
+> +}
+> +
+> +/*
+> + * Emulate 16-bit read access to NS16550 register.
+> + */
+> +static int ns16550_io_read16(
+> +    struct vuart_ns16550 *vdev, uint32_t reg, uint16_t *data)
+> +{
+> +    uint16_t val = 0xffff;
+> +    int rc = -EINVAL;
+> +
+> +    if ( ns16550_dlab_get(vdev) && reg == UART_DLL )
+> +    {
+> +        val = vdev->regs[NS16550_REGS_NUM + UART_DLM] << 8 |
+> +              vdev->regs[NS16550_REGS_NUM + UART_DLL];
+> +        rc = 0;
+> +    }
+> +
+> +    *data = val;
+> +
+> +    return rc;
+> +}
+> +
+> +/*
+> + * Emulate read access to NS16550 register.
+> + */
+> +static int ns16550_io_read(
+> +    struct vuart_ns16550 *vdev, uint8_t reg, uint32_t size, uint32_t *data)
+> +{
+> +    int rc;
+> +
+> +    switch ( size )
+> +    {
+> +    case 1:
+> +        rc = ns16550_io_read8(vdev, reg, (uint8_t *)data);
+> +        break;
+> +
+> +    case 2:
+> +        rc = ns16550_io_read16(vdev, reg, (uint16_t *)data);
+> +        break;
+> +
+> +    default:
+> +        *data = 0xffffffff;
+> +        rc = -EINVAL;
+> +        break;
+> +    }
+> +
+> +    return rc;
+> +}
+> +
+> +static void cf_check ns16550_dump_state(const struct domain *d)
+> +{
+> +    struct vuart_ns16550 *vdev = d->arch.hvm.vuart;
+> +    const struct xencons_interface *cons;
+> +    const uint8_t *regs;
+> +
+> +    if ( !vdev )
+> +        return;
+> +
+> +    /* Allow printing state in case of a deadlock. */
+> +    if ( !spin_trylock(&vdev->lock) )
+> +        return;
+> +
+> +    cons = &vdev->cons;
+> +    regs = &vdev->regs[0];
+> +
+> +    printk("Virtual " pr_prefix " (%s) I/O port 0x%04"PRIx64" IRQ#%d owner %pd\n",
+> +            vdev->name, vdev->io_addr, vdev->irq, vdev->owner);
+> +
+> +    printk("  RX FIFO size %ld in_prod %d in_cons %d used %d\n",
+> +            ARRAY_SIZE(cons->in), cons->in_prod, cons->in_cons,
+> +            cons->in_prod - cons->in_cons);
+> +
+> +    printk("  TX FIFO size %ld out_prod %d out_cons %d used %d\n",
+> +            ARRAY_SIZE(cons->out), cons->out_prod, cons->out_cons,
+> +            cons->out_prod - cons->out_cons);
+> +
+> +    printk("  %02"PRIx8" RBR %02"PRIx8" THR %02"PRIx8" DLL %02"PRIx8" DLM %02"PRIx8"\n",
+> +            UART_RBR,
+> +            cons->in[MASK_XENCONS_IDX(cons->in_prod, cons)],
+> +            cons->out[MASK_XENCONS_IDX(cons->out_prod, cons)],
+> +            regs[NS16550_REGS_NUM + UART_DLL],
+> +            regs[NS16550_REGS_NUM + UART_DLM]);
+> +
+> +    printk("  %02"PRIx8" IER %02"PRIx8"\n", UART_IER, regs[UART_IER]);
+> +
+> +    printk("  %02"PRIx8" FCR %02"PRIx8" IIR %02"PRIx8"\n",
+> +            UART_FCR, regs[UART_FCR], ns16550_iir_get(vdev));
+> +
+> +    printk("  %02"PRIx8" LCR %02"PRIx8"\n", UART_LCR, regs[UART_LCR]);
+> +    printk("  %02"PRIx8" MCR %02"PRIx8"\n", UART_MCR, regs[UART_MCR]);
+> +    printk("  %02"PRIx8" LSR %02"PRIx8"\n", UART_LSR, regs[UART_LSR]);
+> +    printk("  %02"PRIx8" MSR %02"PRIx8"\n", UART_MSR, regs[UART_MSR]);
+> +    printk("  %02"PRIx8" SCR %02"PRIx8"\n", UART_SCR, regs[UART_SCR]);
+> +
+> +    spin_unlock(&vdev->lock);
+> +}
+> +
+> +/*
+> + * Emulate I/O access to NS16550 register.
+> + * Note, emulation always returns X86EMUL_OKAY, once I/O port trap is enabled.
+> + */
+> +static int cf_check ns16550_io_handle(
+> +    int dir, unsigned int addr, unsigned int size, uint32_t *data)
+> +{
+> +#define op(dir)     (((dir) == IOREQ_WRITE) ? 'W' : 'R')
+> +    struct domain *d = rcu_lock_current_domain();
+> +    struct vuart_ns16550 *vdev = d->arch.hvm.vuart;
+> +    uint32_t reg;
+> +    unsigned dlab;
+> +    int rc;
+> +
+> +    if ( !vdev )
+> +    {
+> +        pr_err("%s: %c io 0x%04x %d: not initialized\n",
+> +                vdev->name, op(dir), addr, size);
+> +
+> +        ASSERT_UNREACHABLE();
+> +        goto out;
+> +    }
+> +
+> +    if ( d != vdev->owner )
+> +    {
+> +        pr_err("%s: %c io 0x%04x %d: does not match current domain %pv\n",
+> +                vdev->name, op(dir), addr, size, d);
+> +
+> +        ASSERT_UNREACHABLE();
+> +        goto out;
+> +    }
+> +
+> +    reg = addr - vdev->io_addr;
+> +    if ( !IS_ALIGNED(reg, size) )
+> +    {
+> +        pr_err("%s: %c 0x%04x %d: unaligned access\n",
+> +                vdev->name, op(dir), addr, size);
+> +        goto out;
+> +    }
+> +
+> +    dlab = ns16550_dlab_get(vdev);
+> +    if ( reg >= NS16550_REGS_NUM )
+> +    {
+> +        pr_err("%s: %c io 0x%04x %d: DLAB=%d %02"PRIx32" 0x%08"PRIx32": not implemented\n",
+> +                vdev->name, op(dir), addr, size,
+> +                dlab, reg, *data);
+> +        goto out;
+> +    }
+> +
+> +    spin_lock(&vdev->lock);
+> +
+> +    if ( dir == IOREQ_WRITE )
+> +    {
+> +        pr_debug("%s: %c 0x%04x %d: DLAB=%d %02"PRIx32" 0x%08"PRIx32"\n",
+> +                 vdev->name, op(dir), addr, size,
+> +                 dlab, reg, *data);
+> +        rc = ns16550_io_write(vdev, reg, size, data);
+> +    }
+> +    else
+> +    {
+> +        rc = ns16550_io_read(vdev, reg, size, data);
+> +        pr_debug("%s: %c 0x%04x %d: DLAB=%d %02"PRIx32" 0x%08"PRIx32"\n",
+> +                 vdev->name, op(dir), addr, size,
+> +                 dlab, reg, *data);
+> +    }
+> +    if ( rc < 0 )
+> +        pr_err("%s: %c 0x%04x %d: DLAB=%d %02"PRIx32" 0x%08"PRIx32": unsupported access\n",
+> +               vdev->name, op(dir), addr, size,
+> +               dlab, reg, *data);
+> +
+> +    spin_unlock(&vdev->lock);
+> +#ifdef CONFIG_VUART_NS16550_DEBUG
+> +    ns16550_dump_state(d);
+> +#endif
+> +
+> +out:
+> +    rcu_unlock_domain(d);
+> +
+> +    return X86EMUL_OKAY;
+> +#undef op
+> +}
+> +
+> +static int cf_check ns16550_init(struct domain *d,
+> +                                 struct vuart_params *params)
+> +{
+> +    const struct virtdev_desc *desc = &x86_pc_uarts[X86_PC_UART_IDX];
+> +    const struct resource *r = desc->res;
+> +    const uint16_t divisor = (UART_CLOCK_HZ / 115200) >> 4;
+> +    struct vuart_ns16550 *vdev;
+> +    int rc;
+> +
+> +    BUG_ON(d->arch.hvm.vuart);
+> +
+> +    if ( !is_hvm_domain(d) )
+> +    {
+> +        pr_err("%s: not an HVM domain\n", desc->name);
+> +        return -ENOSYS;
+> +    }
+> +
+> +    vdev = xvzalloc(typeof(*vdev));
+> +    if ( !vdev )
+> +    {
+> +        pr_err("%s: failed to allocate memory\n", desc->name);
+> +        return -ENOMEM;
+> +    }
+> +
+> +    for_each_resource(r)
+> +    {
+> +        if ( r->type & IORESOURCE_IO )
+> +        {
+> +            /* Disallow sharing physical I/O port */
+> +            rc = ioports_deny_access(d, r->addr, r->addr + r->size - 1);
+> +            if ( rc )
+> +            {
+> +                pr_err("%s: virtual I/O port range [0x%04x"PRIx64"..0x%04x"PRIx64"]: conflict w/ physical range\n",
+> +                        desc->name,
+> +                        (unsigned int)r->addr,
+> +                        (unsigned int)(r->addr + r->size - 1));
+> +                return rc;
+> +            }
+> +
+> +            register_portio_handler(d, r->addr, r->size, ns16550_io_handle);
+> +
+> +            vdev->io_addr = r->addr;
+> +            vdev->io_size = r->size;
+> +        }
+> +        else if ( r->type & IORESOURCE_IRQ )
+> +        {
+> +            /* Disallow sharing physical IRQ */
+> +            rc = irq_deny_access(d, r->addr);
+> +            if ( rc )
+> +            {
+> +                pr_err("%s: virtual IRQ#%"PRIu64": conflict w/ physical IRQ: %d\n",
+> +                        desc->name, r->addr, rc);
+> +                return rc;
+> +            }
+> +
+> +            vdev->irq = r->addr;
+> +        }
+> +        else
+> +            ASSERT_UNREACHABLE();
+> +    }
+> +
+> +    spin_lock_init(&vdev->lock);
+> +
+> +    vdev->owner = d;
+> +    vdev->name = desc->name;
+> +
+> +    /* NB: report 115200 baud rate */
+> +    vdev->regs[NS16550_REGS_NUM + UART_DLL] = divisor & 0xff;
+> +    vdev->regs[NS16550_REGS_NUM + UART_DLM] = (divisor >> 8) & 0xff;
+> +
+> +    /* NS16550 shall assert UART_IIR_THR whenever transmitter is empty. */
+> +    vdev->regs[NS16550_REGS_NUM + UART_IIR] = UART_IIR_THR;
+> +
+> +    d->arch.hvm.vuart = vdev;
+> +
+> +    spin_lock(&vdev->lock);
+> +    ns16550_irq_check(vdev);
+> +    spin_unlock(&vdev->lock);
+> +
+> +    return 0;
+> +}
+> +
+> +static void cf_check ns16550_deinit(struct domain *d)
+> +{
+> +    struct vuart_ns16550 *vdev = d->arch.hvm.vuart;
+> +
+> +    if ( !vdev )
+> +        return;
+> +
+> +    spin_lock(&vdev->lock);
+> +
+> +    ns16550_fifo_tx_flush(vdev);
+> +
+> +    spin_unlock(&vdev->lock);
+> +
+> +    XVFREE(d->arch.hvm.vuart);
+> +}
+> +
+> +static int cf_check ns16550_put_rx(struct domain *d, char ch)
+> +{
+> +    struct vuart_ns16550 *vdev = d->arch.hvm.vuart;
+> +    uint8_t *regs;
+> +    uint8_t dlab;
+> +    int rc;
+> +
+> +    ASSERT(d == vdev->owner);
+> +    if ( !vdev )
+> +        return -ENODEV;
+> +
+> +    spin_lock(&vdev->lock);
+> +
+> +    dlab = ns16550_dlab_get(vdev);
+> +    regs = vdev->regs;
+> +
+> +    if ( dlab )
+> +    {
+> +        pr_debug("%s: THR/RBR access disabled: DLAB=1\n", vdev->name);
+> +        rc = -EBUSY;
+> +    }
+> +    else if ( regs[UART_MCR] & UART_MCR_LOOP )
+> +    {
+> +        pr_debug("%s: THR/RBR access disabled: loopback mode\n", vdev->name);
+> +        rc = -EBUSY;
+> +    }
+> +    else
+> +    {
+> +        uint8_t val = 0;
+> +
+> +        rc = ns16550_fifo_rx_putchar(vdev, ch);
+> +        if ( rc == -ENOSPC )
+> +            val |= UART_LSR_OE;
+> +
+> +        /* NB: UART_LSR_DR is also set when UART_LSR is accessed. */
+> +        regs[UART_LSR] |= UART_LSR_DR | val;
+> +
+> +        /*
+> +         * Echo the user input on Xen console iff Xen console input is owned
+> +         * by NS16550 domain.
+> +         * NB: use 'console_timestamps=none' to disable Xen timestamps.
+> +         */
+> +        if ( is_console_printable(ch) )
+> +            guest_printk(d, "%c", ch);
+> +
+> +        /* FIXME: check FCR when to fire an interrupt */
+> +        ns16550_irq_check(vdev);
+> +    }
+> +
+> +    spin_unlock(&vdev->lock);
+> +#ifdef CONFIG_VUART_NS16550_DEBUG
+> +    ns16550_dump_state(d);
+> +#endif
+> +
+> +    return rc;
+> +}
+> +
+> +static const struct vuart_ops ns16550_ops = {
+> +    .add_node   = NULL,
+> +    .init       = ns16550_init,
+> +    .deinit     = ns16550_deinit,
+> +    .dump_state = ns16550_dump_state,
+> +    .put_rx     = ns16550_put_rx,
+> +};
+> +
+> +VUART_REGISTER(ns16550, &ns16550_ops);
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/common/emul/vuart/vuart.c b/xen/common/emul/vuart/vuart.c
+> index 14a7f8bd8b79..7971813a723d 100644
+> --- a/xen/common/emul/vuart/vuart.c
+> +++ b/xen/common/emul/vuart/vuart.c
+> @@ -99,6 +99,10 @@ bool domain_has_vuart(const struct domain *d)
+>  {
+>      uint32_t mask = 0;
+>  
+> +#ifdef CONFIG_VUART_NS16550
+> +    mask |= XEN_X86_EMU_NS16550;
+> +#endif
+> +
+>      return !!(d->emulation_flags & mask);
+>  }
+>  
+> diff --git a/xen/include/public/arch-x86/xen.h b/xen/include/public/arch-x86/xen.h
+> index fc2487986642..f905e1252c70 100644
+> --- a/xen/include/public/arch-x86/xen.h
+> +++ b/xen/include/public/arch-x86/xen.h
+> @@ -283,13 +283,15 @@ struct xen_arch_domainconfig {
+>  #define XEN_X86_EMU_USE_PIRQ        (1U<<_XEN_X86_EMU_USE_PIRQ)
+>  #define _XEN_X86_EMU_VPCI           10
+>  #define XEN_X86_EMU_VPCI            (1U<<_XEN_X86_EMU_VPCI)
+> +#define _XEN_X86_EMU_NS16550        11
+> +#define XEN_X86_EMU_NS16550         (1U<<_XEN_X86_EMU_NS16550)
+>  
+>  #define XEN_X86_EMU_ALL             (XEN_X86_EMU_LAPIC | XEN_X86_EMU_HPET |  \
+>                                       XEN_X86_EMU_PM | XEN_X86_EMU_RTC |      \
+>                                       XEN_X86_EMU_IOAPIC | XEN_X86_EMU_PIC |  \
+>                                       XEN_X86_EMU_VGA | XEN_X86_EMU_IOMMU |   \
+>                                       XEN_X86_EMU_PIT | XEN_X86_EMU_USE_PIRQ |\
+> -                                     XEN_X86_EMU_VPCI)
+> +                                     XEN_X86_EMU_VPCI | XEN_X86_EMU_NS16550)
+
+libxl also consumes XEN_X86_EMU_ALL, and with the proposed change here
+it will create all HVM domains with XEN_X86_EMU_NS16550, which I don't
+think it's indented?
+
+Overall I agree for Jan it would be better if this patch could be
+split into somehow smaller units.  Is this something feasible?  We
+don't want a patch for each register handle, but maybe you cna somehow
+grup those into functional sections, so that patches can be < 250
+lines?
+
+Maybe you have already considered this approach and it wasn't
+feasible?
+
+Thanks, Roger.
 
