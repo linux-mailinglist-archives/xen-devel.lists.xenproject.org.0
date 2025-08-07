@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72FF6B1D676
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B1E4B1D674
 	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 13:17:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1072834.1435811 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1072831.1435781 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujycP-0003X0-C7; Thu, 07 Aug 2025 11:17:09 +0000
+	id 1ujycK-0002oT-Cq; Thu, 07 Aug 2025 11:17:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1072834.1435811; Thu, 07 Aug 2025 11:17:09 +0000
+Received: by outflank-mailman (output) from mailman id 1072831.1435781; Thu, 07 Aug 2025 11:17:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujycP-0003Ru-7h; Thu, 07 Aug 2025 11:17:09 +0000
-Received: by outflank-mailman (input) for mailman id 1072834;
- Thu, 07 Aug 2025 11:17:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ujycK-0002mS-9x; Thu, 07 Aug 2025 11:17:04 +0000
+Received: by outflank-mailman (input) for mailman id 1072831;
+ Thu, 07 Aug 2025 11:17:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LYnK=2T=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ujycN-00030Z-Jp
- for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 11:17:07 +0000
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [2a00:1450:4864:20::344])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0ab40a4d-7380-11f0-b898-0df219b8e170;
- Thu, 07 Aug 2025 13:17:02 +0200 (CEST)
-Received: by mail-wm1-x344.google.com with SMTP id
- 5b1f17b1804b1-458b2d9dba5so5633235e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 07 Aug 2025 04:17:02 -0700 (PDT)
+ id 1ujycJ-0002Ym-Fu
+ for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 11:17:03 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0b1b6fd2-7380-11f0-a324-13f23c93f187;
+ Thu, 07 Aug 2025 13:17:03 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-458bece40fcso5178045e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Aug 2025 04:17:03 -0700 (PDT)
 Received: from localhost.localdomain (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-459e5c84b8csm45456435e9.4.2025.08.07.04.17.00
+ 5b1f17b1804b1-459e5c84b8csm45456435e9.4.2025.08.07.04.17.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Aug 2025 04:17:00 -0700 (PDT)
+ Thu, 07 Aug 2025 04:17:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ab40a4d-7380-11f0-b898-0df219b8e170
+X-Inumbo-ID: 0b1b6fd2-7380-11f0-a324-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1754565421; x=1755170221; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1754565422; x=1755170222; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dL2YvSztXVd/Fab5v2hd2sS7i1yVeJls/PSnVnUMirw=;
-        b=umUj4Las8LHB4nu85ypm4PpH052nZGtOEJ5zQrfl8IIoeMTK85diBzTaxMobyiYU0M
-         kXAQVqZUdaGjitaHg+agQr3TuPYkOMXwHFY9n5OaVaYjpKjE7KZoqQE1Awnm9zUQwueq
-         EijVthjo9wLJ1bJ2LpyGTMA0iE7P6ZcMcayzw=
+        bh=WQKYHz4fSaJ/OtAFeeWkxochLoIzcmc/dz0cmOGZA7c=;
+        b=Yet7FYOilVJX0hLZFyWVHsZEWASYJL1oiG5OSVYtNPGhfa0WfokYNThyDFewA6S5dr
+         opR8Dt+OSW//i+0TirTY2aXVxEEjPnaacQsx8bzQtk533bIGwjsCUZBSfbphO/2UtDVd
+         eZ10KxeLf7hTXXPDu0TCdgXO9I9bG5grhGECQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754565421; x=1755170221;
+        d=1e100.net; s=20230601; t=1754565422; x=1755170222;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=dL2YvSztXVd/Fab5v2hd2sS7i1yVeJls/PSnVnUMirw=;
-        b=Z9Wc5OcP7ZFXYdbzsdTbGOLtn0XHNi31Rs//C+GyKW2knvxMg0jjvZ/ZKZVTeyWl+7
-         OJjgmWp+n/6NLSqqIdJm2HGyz5VeChcU4tfrHbPtQQdRJMEcrKPPeoO2i5Iveul0S88p
-         EMzG94UgfATvNZsAjsm5aKuvPS6ZiR7A3LA/zVMwo5WEMD4D60LG3I2hrJf1Wao7HJsq
-         lr8cltBq2yvYGDCEc1w6oHeMl7BewOJbuUv+Pd3/8Ee59CIGk3NzYMWrrxN6UAS2bb/D
-         GfPW137UlVaVIS5u1y+4CAcTzw7x1HtY7MmayK72NOpDU0dbTOHDPFj2PIna2NytEqPX
-         uAwA==
-X-Gm-Message-State: AOJu0Yz+X78U68Eq1vhSvR/s4B3EU8rZF8rX2FaU4If1uYetNFjZW0uI
-	ECN1zbpdLb2/+oRao68Ma3GrqIQIG0D9OmMANUxPVkd5E3YExrzlVmdN7W7YsBbUHOjnJHzDGXy
-	GBV+nnK9zFg==
-X-Gm-Gg: ASbGncvcc1enndQa1PAQpNvZebE0LG+EIqwcYosP9hjSz3yD44Fcp+cs0ZXYfnfYULo
-	Q1PaQQ0Ny7MSiE2OcjeTkPDqHxQCwNI54pL6ZSTI9SNMuwkxwqOP2aRXSa/SKM73hRoF6rtSX+P
-	0Vl5nLDjjWDb/g9LgmUnetY0ZyJW8bk4DbVWOCDX58WuDXIBXzWCKsWP0Kyjv5WhkAhfxGWQbzS
-	SjDnkMriXPT/npYrowWVM5ai7EsfQhUskpPt6iFcutFEFKvSPwnG6VCLIgJO8gLbAoThZdg0RWI
-	OAKvoBC/GkIN4vVOKB9nHStvEMMRjtxdJWHRz4TeOGDX5CsTDzWdO/YGqR/K/hAku7oeznavxki
-	AgfWLjrsROpxLP8xQJgP1vz/fmNj08dIO55u54jD/6fG4BQ1FoXBrF2chSOtXbgc75bqUk0Bk/F
-	Cx
-X-Google-Smtp-Source: AGHT+IGWE4tTGGHjLdAwv6JpciHuz5qoT7XvVZfUijtwN1vJQdLXauax63tQQfhZAl6wuse/OyybKA==
-X-Received: by 2002:a05:600c:1554:b0:456:18cf:66b5 with SMTP id 5b1f17b1804b1-459e70eecadmr54586005e9.22.1754565421168;
-        Thu, 07 Aug 2025 04:17:01 -0700 (PDT)
+        bh=WQKYHz4fSaJ/OtAFeeWkxochLoIzcmc/dz0cmOGZA7c=;
+        b=pl2Y/Rt2TGooF181GAItB8zshHRyYN0ixTildiQ9KMgryoTvQXSJfBv64AXFKo2POk
+         nyJN/zAa/7Yg2UPfLK6nqpL6IqzclTGo2B8dtSX1bjKcnCrF/Ei7zY1OG5bn1GWw2nU1
+         9SbaokxJcKtO0KU+NW71VDsuwMTQWsfDlepmmDy8iYewX/21v8PmGUnyVdB2eo9vdisj
+         okwx22/Fi79wUH5hDNH4kbteONS0la2gt6fHYaox1fQ1k2hhuNDYUwqr8Wf3/gPSXtAQ
+         MOGaNyyJ/TkF9vP2ITBHuMGx/aTvgd5Q6QVY0m6g4Khj9O3jtUXmDeYU6lp/+g30b9m3
+         U+ww==
+X-Gm-Message-State: AOJu0YwdbdCQVZ2SXiMnMw5BZ8No31K9xAKobJO8L4n/YWUfP4Nwep5z
+	8bORHhdhB+I/wNmqfvHwfjHHLXVXlfDKEPaB0tL8ycetTm0yp5YdZrfq4Zu692X6qbaWRQJdTQR
+	bi59waJ0=
+X-Gm-Gg: ASbGnctiIRQqlVJWkQBpkVv6wSkGoZyjP08gTuQV4fW3C/XHf7Pe6expUt1dLoSJrhI
+	nhwg/150ufoUC2gJvUFxGwusmrW2p4gzPTJHumzMePEkV518UgPDlsa4kZzzvc6s8qnQXhoePFT
+	hbFtiA2R/qDRonTVOf843gDr3PHqUjKkd8jw+jKzrMzNPPTJP5bLYui+6/HtY3Y/cvDb/Cy7z9J
+	8hGtNp28M9TPsmcMAwYSbfwGwtFSN/Vu8bT1VOUNg+juet1/2Y3vXsJjPsVyZFatDHEIMVuW9+d
+	7R4xmEtaawdlltT/g9ynEYbpar/2277rhBFBZQvGi5rZmu/lHH+pAFkwX5VLtPvEWSN9S00AWSj
+	nqXkrSIB1AXamA+yTdsCcZ2st4CDhyVqFlw1N4/ziwOrhb0gXd4ZF7n85kXh9k/cJ8F1LWdqe23
+	Eh
+X-Google-Smtp-Source: AGHT+IFCS7cWq/GjuAVaBl4wcf4yItIQ/KmNepCkDF3DNa0rK/h6fEXzW6daydMplkdrsw8VBTkb8w==
+X-Received: by 2002:a05:600c:444c:b0:456:1560:7c5f with SMTP id 5b1f17b1804b1-459ee82237amr26787405e9.14.1754565422141;
+        Thu, 07 Aug 2025 04:17:02 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2 2/4] x86/pv: Store the data segment selectors outside of cpu_user_regs
-Date: Thu,  7 Aug 2025 12:16:55 +0100
-Message-Id: <20250807111657.201849-3-andrew.cooper3@citrix.com>
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>
+Subject: [PATCH v2 3/4] x86/public: Split the struct cpu_user_regs type
+Date: Thu,  7 Aug 2025 12:16:56 +0100
+Message-Id: <20250807111657.201849-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250807111657.201849-1-andrew.cooper3@citrix.com>
 References: <20250807111657.201849-1-andrew.cooper3@citrix.com>
@@ -97,267 +97,222 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 In order to support FRED, we're going to have to remove the {ds..gs} fields
-from struct cpu_user_regs.  This will impact v->arch.user_regs.
+from struct cpu_user_regs, meaning that it is going to have to become a
+different type to the structure embedded in vcpu_guest_context_u.
 
-These fields are unused for HVM guests, but for PV hold the selector values
-when the vCPU is scheduled out.
+struct cpu_user_regs is a name used in common Xen code (i.e. needs to stay
+using this name), so renaming the public struct to be guest_user_regs in Xen's
+view only.
 
-Introduce new fields for the selectors in struct pv_vcpu, and update:
+Introduce a brand hew cpu-user-regs.h, currently containing a duplicate
+structure.
 
- * {save,load}_segments(), context switching
- * arch_{set,set}_info_guest(), hypercalls
- * vcpu_show_registers(), diagnostics
- * dom0_construct(), PV dom0
+Notably, this removes the need to include pubic/xen.h in ~every translation
+unit in Xen (via current.h), and highlights one case where the emulator was
+picking up cpu_user_regs transitively.
 
-to use the new storage.  This removes the final user of read_sregs() so drop
-it too.
+Include comments describing how hardware interacts with this structure under
+IDT delivery, as it's quite magic to start with.  FRED is going make things
+more complicated.
+
+No functional change.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/domain.c             | 70 +++++++++++++++----------------
- xen/arch/x86/domctl.c             | 16 +++----
- xen/arch/x86/include/asm/domain.h |  2 +
- xen/arch/x86/include/asm/regs.h   |  8 ----
- xen/arch/x86/pv/dom0_build.c      |  6 ++-
- xen/arch/x86/x86_64/traps.c       |  8 ++--
- 6 files changed, 53 insertions(+), 57 deletions(-)
 
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index 56111eac3d94..a4ee8ff6ef0e 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -1246,10 +1246,10 @@ int arch_set_info_guest(
-         v->arch.user_regs.rflags            = c.nat->user_regs.rflags;
-         v->arch.user_regs.rsp               = c.nat->user_regs.rsp;
-         v->arch.user_regs.ss                = c.nat->user_regs.ss;
--        v->arch.user_regs.es                = c.nat->user_regs.es;
--        v->arch.user_regs.ds                = c.nat->user_regs.ds;
--        v->arch.user_regs.fs                = c.nat->user_regs.fs;
--        v->arch.user_regs.gs                = c.nat->user_regs.gs;
-+        v->arch.pv.es                       = c.nat->user_regs.es;
-+        v->arch.pv.ds                       = c.nat->user_regs.ds;
-+        v->arch.pv.fs                       = c.nat->user_regs.fs;
-+        v->arch.pv.gs                       = c.nat->user_regs.gs;
- 
-         if ( is_pv_domain(d) )
-             memcpy(v->arch.pv.trap_ctxt, c.nat->trap_ctxt,
-@@ -1271,10 +1271,10 @@ int arch_set_info_guest(
-         v->arch.user_regs.eflags            = c.cmp->user_regs.eflags;
-         v->arch.user_regs.esp               = c.cmp->user_regs.esp;
-         v->arch.user_regs.ss                = c.cmp->user_regs.ss;
--        v->arch.user_regs.es                = c.cmp->user_regs.es;
--        v->arch.user_regs.ds                = c.cmp->user_regs.ds;
--        v->arch.user_regs.fs                = c.cmp->user_regs.fs;
--        v->arch.user_regs.gs                = c.cmp->user_regs.gs;
-+        v->arch.pv.es                       = c.cmp->user_regs.es;
-+        v->arch.pv.ds                       = c.cmp->user_regs.ds;
-+        v->arch.pv.fs                       = c.cmp->user_regs.fs;
-+        v->arch.pv.gs                       = c.cmp->user_regs.gs;
- 
-         if ( is_pv_domain(d) )
-         {
-@@ -1762,7 +1762,6 @@ long do_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
-  */
- static void load_segments(struct vcpu *n)
- {
--    struct cpu_user_regs *uregs = &n->arch.user_regs;
-     unsigned long gsb = 0, gss = 0;
-     bool compat = is_pv_32bit_vcpu(n);
-     bool all_segs_okay = true, fs_gs_done = false;
-@@ -1796,7 +1795,7 @@ static void load_segments(struct vcpu *n)
-         if ( !(n->arch.flags & TF_kernel_mode) )
-             SWAP(gsb, gss);
- 
--        if ( using_svm() && (uregs->fs | uregs->gs) <= 3 )
-+        if ( using_svm() && (n->arch.pv.fs | n->arch.pv.gs) <= 3 )
-             fs_gs_done = svm_load_segs(n->arch.pv.ldt_ents, LDT_VIRT_START(n),
-                                        n->arch.pv.fs_base, gsb, gss);
-     }
-@@ -1805,12 +1804,12 @@ static void load_segments(struct vcpu *n)
-     {
-         load_LDT(n);
- 
--        TRY_LOAD_SEG(fs, uregs->fs);
--        TRY_LOAD_SEG(gs, uregs->gs);
-+        TRY_LOAD_SEG(fs, n->arch.pv.fs);
-+        TRY_LOAD_SEG(gs, n->arch.pv.gs);
-     }
- 
--    TRY_LOAD_SEG(ds, uregs->ds);
--    TRY_LOAD_SEG(es, uregs->es);
-+    TRY_LOAD_SEG(ds, n->arch.pv.ds);
-+    TRY_LOAD_SEG(es, n->arch.pv.es);
- 
-     if ( !fs_gs_done && !compat )
-     {
-@@ -1863,13 +1862,13 @@ static void load_segments(struct vcpu *n)
-             }
- 
-             if ( ret |
--                 put_guest(rflags,      esp - 1) |
--                 put_guest(cs_and_mask, esp - 2) |
--                 put_guest(regs->eip,   esp - 3) |
--                 put_guest(uregs->gs,   esp - 4) |
--                 put_guest(uregs->fs,   esp - 5) |
--                 put_guest(uregs->es,   esp - 6) |
--                 put_guest(uregs->ds,   esp - 7) )
-+                 put_guest(rflags,        esp - 1) |
-+                 put_guest(cs_and_mask,   esp - 2) |
-+                 put_guest(regs->eip,     esp - 3) |
-+                 put_guest(n->arch.pv.gs, esp - 4) |
-+                 put_guest(n->arch.pv.fs, esp - 5) |
-+                 put_guest(n->arch.pv.es, esp - 6) |
-+                 put_guest(n->arch.pv.ds, esp - 7) )
-                 domain_crash(n->domain,
-                              "Error creating compat failsafe callback frame\n");
- 
-@@ -1895,17 +1894,17 @@ static void load_segments(struct vcpu *n)
-         cs_and_mask = (unsigned long)regs->cs |
-             ((unsigned long)vcpu_info(n, evtchn_upcall_mask) << 32);
- 
--        if ( put_guest(regs->ss,    rsp -  1) |
--             put_guest(regs->rsp,   rsp -  2) |
--             put_guest(rflags,      rsp -  3) |
--             put_guest(cs_and_mask, rsp -  4) |
--             put_guest(regs->rip,   rsp -  5) |
--             put_guest(uregs->gs,   rsp -  6) |
--             put_guest(uregs->fs,   rsp -  7) |
--             put_guest(uregs->es,   rsp -  8) |
--             put_guest(uregs->ds,   rsp -  9) |
--             put_guest(regs->r11,   rsp - 10) |
--             put_guest(regs->rcx,   rsp - 11) )
-+        if ( put_guest(regs->ss,      rsp -  1) |
-+             put_guest(regs->rsp,     rsp -  2) |
-+             put_guest(rflags,        rsp -  3) |
-+             put_guest(cs_and_mask,   rsp -  4) |
-+             put_guest(regs->rip,     rsp -  5) |
-+             put_guest(n->arch.pv.gs, rsp -  6) |
-+             put_guest(n->arch.pv.fs, rsp -  7) |
-+             put_guest(n->arch.pv.es, rsp -  8) |
-+             put_guest(n->arch.pv.ds, rsp -  9) |
-+             put_guest(regs->r11,     rsp - 10) |
-+             put_guest(regs->rcx,     rsp - 11) )
-             domain_crash(n->domain,
-                          "Error creating failsafe callback frame\n");
- 
-@@ -1934,9 +1933,10 @@ static void load_segments(struct vcpu *n)
-  */
- static void save_segments(struct vcpu *v)
- {
--    struct cpu_user_regs *regs = &v->arch.user_regs;
--
--    read_sregs(regs);
-+    asm ( "mov %%ds, %0" : "=m" (v->arch.pv.ds) );
-+    asm ( "mov %%es, %0" : "=m" (v->arch.pv.es) );
-+    asm ( "mov %%fs, %0" : "=m" (v->arch.pv.fs) );
-+    asm ( "mov %%gs, %0" : "=m" (v->arch.pv.gs) );
- 
-     if ( !is_pv_32bit_vcpu(v) )
-     {
-diff --git a/xen/arch/x86/domctl.c b/xen/arch/x86/domctl.c
-index 28fec0e12dbb..3e94af51a795 100644
---- a/xen/arch/x86/domctl.c
-+++ b/xen/arch/x86/domctl.c
-@@ -1412,10 +1412,10 @@ void arch_get_info_guest(struct vcpu *v, vcpu_guest_context_u c)
-         c.nat->user_regs.rflags            = v->arch.user_regs.rflags;
-         c.nat->user_regs.rsp               = v->arch.user_regs.rsp;
-         c.nat->user_regs.ss                = v->arch.user_regs.ss;
--        c.nat->user_regs.es                = v->arch.user_regs.es;
--        c.nat->user_regs.ds                = v->arch.user_regs.ds;
--        c.nat->user_regs.fs                = v->arch.user_regs.fs;
--        c.nat->user_regs.gs                = v->arch.user_regs.gs;
-+        c.nat->user_regs.es                = v->arch.pv.es;
-+        c.nat->user_regs.ds                = v->arch.pv.ds;
-+        c.nat->user_regs.fs                = v->arch.pv.fs;
-+        c.nat->user_regs.gs                = v->arch.pv.gs;
- 
-         if ( is_pv_domain(d) )
-             memcpy(c.nat->trap_ctxt, v->arch.pv.trap_ctxt,
-@@ -1437,10 +1437,10 @@ void arch_get_info_guest(struct vcpu *v, vcpu_guest_context_u c)
-         c.cmp->user_regs.eflags            = v->arch.user_regs.eflags;
-         c.cmp->user_regs.esp               = v->arch.user_regs.esp;
-         c.cmp->user_regs.ss                = v->arch.user_regs.ss;
--        c.cmp->user_regs.es                = v->arch.user_regs.es;
--        c.cmp->user_regs.ds                = v->arch.user_regs.ds;
--        c.cmp->user_regs.fs                = v->arch.user_regs.fs;
--        c.cmp->user_regs.gs                = v->arch.user_regs.gs;
-+        c.cmp->user_regs.es                = v->arch.pv.es;
-+        c.cmp->user_regs.ds                = v->arch.pv.ds;
-+        c.cmp->user_regs.fs                = v->arch.pv.fs;
-+        c.cmp->user_regs.gs                = v->arch.pv.gs;
- 
-         if ( is_pv_domain(d) )
-         {
-diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
-index 8c0dea12a526..c31e74c6fa9b 100644
---- a/xen/arch/x86/include/asm/domain.h
-+++ b/xen/arch/x86/include/asm/domain.h
-@@ -546,6 +546,8 @@ struct pv_vcpu
-     bool syscall32_disables_events;
-     bool sysenter_disables_events;
- 
-+    uint16_t ds, es, fs, gs;
+v2:
+ * Remove the macros from cpu-user-regs.h and write the struct longhand
+ * Exclude the guest handles in Xen context
+---
+ xen/arch/x86/include/asm/cpu-user-regs.h | 63 ++++++++++++++++++++++++
+ xen/arch/x86/include/asm/current.h       |  3 +-
+ xen/arch/x86/x86_emulate/private.h       |  1 +
+ xen/include/public/arch-x86/xen-x86_32.h |  9 ++++
+ xen/include/public/arch-x86/xen-x86_64.h |  9 ++++
+ xen/include/public/arch-x86/xen.h        | 11 +++++
+ 6 files changed, 95 insertions(+), 1 deletion(-)
+ create mode 100644 xen/arch/x86/include/asm/cpu-user-regs.h
+
+diff --git a/xen/arch/x86/include/asm/cpu-user-regs.h b/xen/arch/x86/include/asm/cpu-user-regs.h
+new file mode 100644
+index 000000000000..0e78e38ed00d
+--- /dev/null
++++ b/xen/arch/x86/include/asm/cpu-user-regs.h
+@@ -0,0 +1,63 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++#ifndef X86_CPU_USER_REGS_H
++#define X86_CPU_USER_REGS_H
 +
-     /*
-      * 64bit segment bases.
-      *
-diff --git a/xen/arch/x86/include/asm/regs.h b/xen/arch/x86/include/asm/regs.h
-index 60b0d7b8735b..ce9b028276a1 100644
---- a/xen/arch/x86/include/asm/regs.h
-+++ b/xen/arch/x86/include/asm/regs.h
-@@ -44,12 +44,4 @@
-     __sel;                                           \
- })
++#include <xen/stdint.h>
++
++/*
++ * cpu_user_regs represents the interrupted GPR state at the point of an
++ * interrupt, exception or syscall.  The layout is dictated by the hardware
++ * format for the event frame, with software filling in the rest.
++ */
++struct cpu_user_regs
++{
++    union { uint64_t r15;    uint32_t r15d;   uint16_t r15w;  uint8_t r15b; };
++    union { uint64_t r14;    uint32_t r14d;   uint16_t r14w;  uint8_t r14b; };
++    union { uint64_t r13;    uint32_t r13d;   uint16_t r13w;  uint8_t r13b; };
++    union { uint64_t r12;    uint32_t r12d;   uint16_t r12w;  uint8_t r12b; };
++    union { uint64_t rbp;    uint32_t ebp;    uint16_t bp;    uint8_t bpl;  };
++    union { uint64_t rbx;    uint32_t ebx;    uint16_t bx;    struct { uint8_t bl, bh; }; };
++    union { uint64_t r11;    uint32_t r11d;   uint16_t r11w;  uint8_t r11b; };
++    union { uint64_t r10;    uint32_t r10d;   uint16_t r10w;  uint8_t r10b; };
++    union { uint64_t r9;     uint32_t r9d;    uint16_t r9w;   uint8_t r9b;  };
++    union { uint64_t r8;     uint32_t r8d;    uint16_t r8w;   uint8_t r8b;  };
++    union { uint64_t rax;    uint32_t eax;    uint16_t ax;    struct { uint8_t al, ah; }; };
++    union { uint64_t rcx;    uint32_t ecx;    uint16_t cx;    struct { uint8_t cl, ch; }; };
++    union { uint64_t rdx;    uint32_t edx;    uint16_t dx;    struct { uint8_t dl, dh; }; };
++    union { uint64_t rsi;    uint32_t esi;    uint16_t si;    uint8_t sil;  };
++    union { uint64_t rdi;    uint32_t edi;    uint16_t di;    uint8_t dil;  };
++
++    /*
++     * During IDT delivery for exceptions with an error code, hardware pushes
++     * to this point.  Entry_vector is filled in by software.
++     */
++
++    uint32_t error_code;
++    uint32_t entry_vector;
++
++    /*
++     * During IDT delivery for interrupts or exceptions without an error code,
++     * hardware pushes to this point.  Both error_code and entry_vector are
++     * filled in by software.
++     */
++
++    union { uint64_t rip;    uint32_t eip;    uint16_t ip; };
++    uint16_t cs, _pad0[1];
++    uint8_t  saved_upcall_mask; /* PV (v)rflags.IF == !saved_upcall_mask */
++    uint8_t  _pad1[3];
++    union { uint64_t rflags; uint32_t eflags; uint16_t flags; };
++    union { uint64_t rsp;    uint32_t esp;    uint16_t sp;    uint8_t spl; };
++    uint16_t ss, _pad2[3];
++
++    /*
++     * For IDT delivery, tss->rsp0 points to this boundary as embedded within
++     * struct cpu_info.  It must be 16-byte aligned.
++     */
++
++    uint16_t es, _pad3[3];
++    uint16_t ds, _pad4[3];
++    uint16_t fs, _pad5[3];
++    uint16_t gs, _pad6[3];
++};
++
++#endif /* X86_CPU_USER_REGS_H */
+diff --git a/xen/arch/x86/include/asm/current.h b/xen/arch/x86/include/asm/current.h
+index bcec328c9875..243d17ef79fd 100644
+--- a/xen/arch/x86/include/asm/current.h
++++ b/xen/arch/x86/include/asm/current.h
+@@ -9,7 +9,8 @@
  
--static inline void read_sregs(struct cpu_user_regs *regs)
--{
--    asm ( "mov %%ds, %0" : "=m" (regs->ds) );
--    asm ( "mov %%es, %0" : "=m" (regs->es) );
--    asm ( "mov %%fs, %0" : "=m" (regs->fs) );
--    asm ( "mov %%gs, %0" : "=m" (regs->gs) );
--}
--
- #endif /* __X86_REGS_H__ */
-diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
-index c37bea945431..21158ce1812e 100644
---- a/xen/arch/x86/pv/dom0_build.c
-+++ b/xen/arch/x86/pv/dom0_build.c
-@@ -1012,8 +1012,10 @@ static int __init dom0_construct(const struct boot_domain *bd)
-      *  [rAX,rBX,rCX,rDX,rDI,rBP,R8-R15 are zero]
-      */
-     regs = &v->arch.user_regs;
--    regs->ds = regs->es = regs->fs = regs->gs =
--               (compat ? FLAT_COMPAT_KERNEL_DS : FLAT_KERNEL_DS);
-+    v->arch.pv.ds = (compat ? FLAT_COMPAT_KERNEL_DS : FLAT_KERNEL_DS);
-+    v->arch.pv.es = (compat ? FLAT_COMPAT_KERNEL_DS : FLAT_KERNEL_DS);
-+    v->arch.pv.fs = (compat ? FLAT_COMPAT_KERNEL_DS : FLAT_KERNEL_DS);
-+    v->arch.pv.gs = (compat ? FLAT_COMPAT_KERNEL_DS : FLAT_KERNEL_DS);
-     regs->ss = (compat ? FLAT_COMPAT_KERNEL_SS : FLAT_KERNEL_SS);
-     regs->cs = (compat ? FLAT_COMPAT_KERNEL_CS : FLAT_KERNEL_CS);
-     regs->rip = parms.virt_entry;
-diff --git a/xen/arch/x86/x86_64/traps.c b/xen/arch/x86/x86_64/traps.c
-index 8460a4a1ae59..29ac5a14ca3f 100644
---- a/xen/arch/x86/x86_64/traps.c
-+++ b/xen/arch/x86/x86_64/traps.c
-@@ -220,10 +220,10 @@ void vcpu_show_registers(struct vcpu *v)
-         state.gsb = gsb;
-         state.gss = gss;
+ #include <xen/percpu.h>
+ #include <xen/page-size.h>
+-#include <public/xen.h>
++
++#include <asm/cpu-user-regs.h>
  
--        state.ds = v->arch.user_regs.ds;
--        state.es = v->arch.user_regs.es;
--        state.fs = v->arch.user_regs.fs;
--        state.gs = v->arch.user_regs.gs;
-+        state.ds = v->arch.pv.ds;
-+        state.es = v->arch.pv.es;
-+        state.fs = v->arch.pv.fs;
-+        state.gs = v->arch.pv.gs;
+ /*
+  * Xen's cpu stacks are 8 pages (8-page aligned), arranged as:
+diff --git a/xen/arch/x86/x86_emulate/private.h b/xen/arch/x86/x86_emulate/private.h
+index 940087987011..24c79c4e8fac 100644
+--- a/xen/arch/x86/x86_emulate/private.h
++++ b/xen/arch/x86/x86_emulate/private.h
+@@ -14,6 +14,7 @@
+ # include <xen/bug.h>
+ # include <xen/kernel.h>
  
-         context = CTXT_pv_guest;
-     }
++# include <asm/cpu-user-regs.h>
+ # include <asm/endbr.h>
+ # include <asm/msr-index.h>
+ # include <asm/stubs.h>
+diff --git a/xen/include/public/arch-x86/xen-x86_32.h b/xen/include/public/arch-x86/xen-x86_32.h
+index 9e3bf06b121e..25cc44728838 100644
+--- a/xen/include/public/arch-x86/xen-x86_32.h
++++ b/xen/include/public/arch-x86/xen-x86_32.h
+@@ -114,6 +114,10 @@
+ #define __DECL_REG_LO16(name) uint32_t e ## name
+ #endif
+ 
++#ifdef __XEN__
++#define cpu_user_regs guest_user_regs
++#endif
++
+ struct cpu_user_regs {
+     __DECL_REG_LO8(b);
+     __DECL_REG_LO8(c);
+@@ -136,8 +140,13 @@ struct cpu_user_regs {
+     uint16_t fs, _pad4;
+     uint16_t gs, _pad5;
+ };
++
++#ifdef __XEN__
++#undef cpu_user_regs
++#else
+ typedef struct cpu_user_regs cpu_user_regs_t;
+ DEFINE_XEN_GUEST_HANDLE(cpu_user_regs_t);
++#endif
+ 
+ #undef __DECL_REG_LO8
+ #undef __DECL_REG_LO16
+diff --git a/xen/include/public/arch-x86/xen-x86_64.h b/xen/include/public/arch-x86/xen-x86_64.h
+index 43f6e3d22001..ea6b56aa3bd8 100644
+--- a/xen/include/public/arch-x86/xen-x86_64.h
++++ b/xen/include/public/arch-x86/xen-x86_64.h
+@@ -159,6 +159,10 @@ struct iret_context {
+ #define __DECL_REG_HI(num)    uint64_t r ## num
+ #endif
+ 
++#ifdef __XEN__
++#define cpu_user_regs guest_user_regs
++#endif
++
+ struct cpu_user_regs {
+     __DECL_REG_HI(15);
+     __DECL_REG_HI(14);
+@@ -189,8 +193,13 @@ struct cpu_user_regs {
+     uint16_t fs, _pad5[3];
+     uint16_t gs, _pad6[3];
+ };
++
++#ifdef __XEN__
++#undef cpu_user_regs
++#else
+ typedef struct cpu_user_regs cpu_user_regs_t;
+ DEFINE_XEN_GUEST_HANDLE(cpu_user_regs_t);
++#endif
+ 
+ #undef __DECL_REG
+ #undef __DECL_REG_LOHI
+diff --git a/xen/include/public/arch-x86/xen.h b/xen/include/public/arch-x86/xen.h
+index fc2487986642..b99a691706f8 100644
+--- a/xen/include/public/arch-x86/xen.h
++++ b/xen/include/public/arch-x86/xen.h
+@@ -173,7 +173,18 @@ struct vcpu_guest_context {
+ #define _VGCF_online                   5
+ #define VGCF_online                    (1<<_VGCF_online)
+     unsigned long flags;                    /* VGCF_* flags                 */
++
++    /*
++     * Outside of Xen, regs type stays named cpu_user_regs for backwards
++     * compatibility.  Inside Xen, the type called cpu_user_regs is different,
++     * and the public API type is renamed to guest_user_regs.
++     */
++#ifdef __XEN__
++    struct guest_user_regs user_regs;       /* User-level CPU registers     */
++#else
+     struct cpu_user_regs user_regs;         /* User-level CPU registers     */
++#endif
++
+     struct trap_info trap_ctxt[256];        /* Virtual IDT                  */
+     unsigned long ldt_base, ldt_ents;       /* LDT (linear address, # ents) */
+     unsigned long gdt_frames[16], gdt_ents; /* GDT (machine frames, # ents) */
 -- 
 2.39.5
 
