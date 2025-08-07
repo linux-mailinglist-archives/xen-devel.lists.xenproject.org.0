@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50102B1D464
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 10:43:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1072636.1435643 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63529B1D47A
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 10:50:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1072647.1435651 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujwDY-0000kR-Ml; Thu, 07 Aug 2025 08:43:20 +0000
+	id 1ujwKW-0002LK-F2; Thu, 07 Aug 2025 08:50:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1072636.1435643; Thu, 07 Aug 2025 08:43:20 +0000
+Received: by outflank-mailman (output) from mailman id 1072647.1435651; Thu, 07 Aug 2025 08:50:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujwDY-0000hK-Jn; Thu, 07 Aug 2025 08:43:20 +0000
-Received: by outflank-mailman (input) for mailman id 1072636;
- Thu, 07 Aug 2025 08:43:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oMMd=2T=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1ujwDX-0000hE-3Y
- for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 08:43:19 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9067c58f-736a-11f0-a324-13f23c93f187;
- Thu, 07 Aug 2025 10:43:17 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-af9180a11bcso156328766b.0
- for <xen-devel@lists.xenproject.org>; Thu, 07 Aug 2025 01:43:17 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a076724sm1255969766b.23.2025.08.07.01.43.14
+	id 1ujwKW-0002Ih-CF; Thu, 07 Aug 2025 08:50:32 +0000
+Received: by outflank-mailman (input) for mailman id 1072647;
+ Thu, 07 Aug 2025 08:50:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=+2Ad=2T=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ujwKV-0002Ib-Bd
+ for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 08:50:31 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 90e3b37d-736b-11f0-b898-0df219b8e170;
+ Thu, 07 Aug 2025 10:50:27 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-615756b1e99so1135695a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Aug 2025 01:50:27 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-af91a219ef2sm1267613366b.96.2025.08.07.01.50.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Aug 2025 01:43:14 -0700 (PDT)
+ Thu, 07 Aug 2025 01:50:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,521 +45,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9067c58f-736a-11f0-a324-13f23c93f187
+X-Inumbo-ID: 90e3b37d-736b-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1754556197; x=1755160997; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7RqvFjCM2NDqqed3L4SquP7fLKhf9Kfwsc1lYa0G0gE=;
-        b=NglBaWNCe2GoIkuZzsQdUzUU7U3R7q0cg0x7pt3vstE0ajQPtVKnWFfxaXQQWxo3cM
-         4XvBbwXNBtz7bjVOfDTlN/fdmlnHWor+cjgwfwkn0iIXEj/1YK2aUOwIHy6iFuzMsZBs
-         TDX5F6UGQ9g0Fi70KsV14dqTYbyE35JX94UnTcEGICO1yEMRb3ZPGSEMjGP+cUrtfDTa
-         Zwd1wOnyOqCjZxxJCvVJCFY4nx9nLV3vF41Ds2dlFXXFbZZD8UsBHH93zGY8Blfk2yrx
-         4PcWUav5MSNMU/WtM81Ja4ceECnX8VTA9LRXfF5JJweNaXLjNZpLcpsiyD8jcfFbJo3a
-         Y/rg==
+        d=suse.com; s=google; t=1754556627; x=1755161427; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=lDC92W9A9lAsblfPUtOc0R4iDWmNlvOrw0F9YGmEf90=;
+        b=IY/3V0GYgU8R452X8eYs2o5nr3W05ZNctxjbPYNh8H8TnREqvBrE1ZAGQIr+goT46T
+         LjZ5HISCc0x0FFJ0/62E/CeNpwwQESoXEPtqr8JvjxVoUH3u85weeU6IJNL+EKE7nl48
+         UUt80MHf7PIB5rCBHevAU6Dl5f+erCM+EUz9vBK4yAPyqkioiTeTN5YvjQIy2jO+3O2W
+         Q2SvN4VhXvWklr5oOyWctDb+3cOmlPiw3SlX79NnDdJlE9udP2CzM9AOQo8EsYbRW5uv
+         KH71MEC+GBekynk7m+r5YoTL6+Z37VmIDvBRIRuAjvN+4Y3uLwR1J4NfAc2DN+JcDXEa
+         j1YQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754556197; x=1755160997;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=7RqvFjCM2NDqqed3L4SquP7fLKhf9Kfwsc1lYa0G0gE=;
-        b=iGsW+5DIo41fmvHhNcHTfkpN4C/XW7TFS8Ip3dK5KRrkg7GmLkeKnQwKZvJ1f4vloS
-         zQNJVWSMgbOTVYFmqVBOl1Ee5P3semJ31PyUCxV6ir2OSDugtRis87he9Kp2fgK6ARQi
-         002J1QgsW5Zqzystd9BCcldH8nvvWhaaJ5P910QDOTelXqBv4c8qeHjKUtRXMkCEBExB
-         ooo4qSt9K+cwxwVcnRIGU2k9eU1EjJd0rbDbhpTKPk6WxIX1kW6vD8KrdeZkK18brCow
-         0yUu6ohFxK3pidCGLcJDwuaHGYrqTYg6pyrVU1cwC+a+r7YzVtV9xhpvbbKIuLyw5MGN
-         KcRQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW1kLa5PY/4VZwKFjE7Xz+kEXiswEmybzd2ioTIhc5rOq3lxiI5ThAVCuZdSPkCf5pi2nvj1G6FfA8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YycVsjx4x9im1pKTAJVlTefzt66e14sI/8ABWXOq5H7Jg86WjYI
-	7xI8S5c40O+w5sXMeu4cse8D3odyna637TCmZvc009fj7EfQykY03RhP
-X-Gm-Gg: ASbGncsocKZuDyeDeatt1UXIPRgVygrj+6IH3jkRqMdIyrpeUL32FCg5oZc/qeFRDl9
-	hDm56snXSYnFseOh6FXCiy5wZdCO4f4SYJQHfEYeWUbOLVSGywyVi4YZQUTsgxLznvDZ58ECBnx
-	BRfBLcORQWvDGzw8uQlsaMhuAegEBxD7TQcdUpPZyWtFTm/ZunPYUa4fUQyrfHDSASaRDRgulVa
-	dsduqopzgWX1REjsNrmJuf+rKK18+/NeMgTvZlDSXxl7yyP4SPL3tTlnMhPeRVYvLWe1Sfu0caD
-	x+coSaBQwA/wfPtrHSpOsnfOroFk6+cWJE1vsP15rUbSAxJitUIRz3lSFo1AEb+wgPrTaVJih8K
-	6a2RBwjKfQoYeBzOrSfu39TW9/cz20E1pzPDWudlQ0hEvIyXSVHYQkCXvGuKW75MALsDEypw=
-X-Google-Smtp-Source: AGHT+IElBqpK52T+grYSN+cVh03ZeJF7KIbiuJyVXnWzeZIYNPLprV0dRt3dMSZvDwDwnBF7nbP1qQ==
-X-Received: by 2002:a17:907:94c8:b0:af9:5f2a:6f5b with SMTP id a640c23a62f3a-af9a3c9accemr231805166b.9.1754556196635;
-        Thu, 07 Aug 2025 01:43:16 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------fD8N5IalILLFp4Wq7DTsS7xq"
-Message-ID: <e868dc1f-4492-4203-a0c6-c008f11e6f74@gmail.com>
-Date: Thu, 7 Aug 2025 10:43:13 +0200
+        d=1e100.net; s=20230601; t=1754556627; x=1755161427;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lDC92W9A9lAsblfPUtOc0R4iDWmNlvOrw0F9YGmEf90=;
+        b=gwEU4gLQ++STLdZVdLhn1N6onTzj5Dpm0X8otmjLeGmyc4FzdNlZAVkfveeruZ7NUT
+         zFc90HiNKLi/bGJSjd4usAXfVieS0cpPK4Lklr1Z/zZUOylxfyJIcmZROcPbnlrBNaK9
+         zKZAMK3WwqIXmkPm8yfJw2PgNCTZTDSouslKlJ5dZ9IJcEUoA8n2xNp35J9PcOA6cQqD
+         1wQIkncrnGBvNO0d3dBL7catVeTNq8bB3GZqEtUNYFXskaieiABdeagOx5b1oOHUF4Bq
+         OsAPHLQe/81p8DIqitPrmJltA8CkrEe73L9rKfZqTZt3t+LkKKU7C9WCTa1ZID/MGvWY
+         HjuA==
+X-Forwarded-Encrypted: i=1; AJvYcCUO64trqO4hcGY2nQCcGAn2NOzlc8E9y5KOeQesr4tTHTJ2Vm2MjSb0vyQkmhBPHc3OdsWq4VEAHus=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyz74Sp5dwl5G1hmKKjpYfjy/qvyY185SOord92R1V8dLgDvsJj
+	Bes4SKYx855X8dt84mk2Y9PA9x9bA88J79NXbgRUxYq5Zt/BnAERDQFsCeXaP4aUyA==
+X-Gm-Gg: ASbGncs6WPQS3aIFSOOgbld2regFHsaZ1FZBuAkleZ/ss0PwVOnsijhC8hFOvAeon1C
+	iF9Ry5Wo2/dKbwb0YjDUQANuoemYBSz1Oya/KQm6XGouHBBsUEul8Hj2vThCYcnidhlWuxQHJYa
+	qWb4YuU0KTE3WrbyxlhzsFn8nuN4q/85LqQ7DFXtBhNlierGRJeGusvX2XEnn/T6p1JbEbp54VQ
+	O8So6cK8bFaC8jTYmXznr2LjpcwGzV3jf9aEZZVnRwAa5IwPeKMWu6i96x1U5Td4Tuv0LO3k1WN
+	IOt5Ak4vBikl5maPt2MelEwloDqEbu8V1Z8bi4Wq4grGP+dwVkVaTt4A50tDGEwHET74JxNTijW
+	AuVyS7YFqiXjAEmRgjirIa9V7ZwqOvuzKVb91rrFCPnheWqAaapqRTea1ADvnkgOGDOZTnC7xz4
+	zETMUYuwA=
+X-Google-Smtp-Source: AGHT+IGq/VVfzxNtTIHnGf+eMkY49oPU9izbSxQQ7kKARWFJo7zeEvHQcDF+iAjk7xTEUNjuSpW2Og==
+X-Received: by 2002:a17:907:2d13:b0:af2:42e8:ad92 with SMTP id a640c23a62f3a-af992c9705amr449373066b.61.1754556627193;
+        Thu, 07 Aug 2025 01:50:27 -0700 (PDT)
+Message-ID: <0bcf4d5b-8f6c-4a65-a7b4-cd638977fd71@suse.com>
+Date: Thu, 7 Aug 2025 10:50:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 03/20] xen/riscv: introduce VMID allocation and
- manegement
-To: Demi Marie Obenour <demiobenour@gmail.com>,
- Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH 2/2] x86/mm: correct PG_log_dirty definition
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
- <d61f5f831ac8045055a1775ee710d4f2fe8dcc26.1753973161.git.oleksii.kurochko@gmail.com>
- <cd1a0c64-49d7-4ae1-8dec-b3b1de3f1d09@suse.com>
- <bcf4c3aa-5c09-4171-a4f5-85110d6e634f@gmail.com>
- <6ddee574-6fe2-4de7-b000-a3af0b2c9d12@suse.com>
- <cc6bb8a7-ed22-4d3e-a352-fa305f0ea56a@gmail.com>
- <14e1c224-c648-41bb-97c6-ec63596bd38b@gmail.com>
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Penny Zheng <Penny.Zheng@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <c506f225-0993-4ef3-9e7e-60b8f17c872e@suse.com>
+ <65e27b35-9256-4ab0-966a-c50a18900ba5@suse.com>
+ <b3edf693-6f54-487d-b465-6224daf9746d@amd.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <14e1c224-c648-41bb-97c6-ec63596bd38b@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <b3edf693-6f54-487d-b465-6224daf9746d@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This is a multi-part message in MIME format.
---------------fD8N5IalILLFp4Wq7DTsS7xq
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-On 8/6/25 6:50 PM, Demi Marie Obenour wrote:
-> On 8/6/25 12:24, Oleksii Kurochko wrote:
->> On 8/6/25 2:05 PM, Jan Beulich wrote:
->>> On 06.08.2025 13:33, Oleksii Kurochko wrote:
->>>> On 8/4/25 5:19 PM, Jan Beulich wrote:
->>>>> On 31.07.2025 17:58, Oleksii Kurochko wrote:
->>>>>> @@ -148,6 +149,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
->>>>>>     
->>>>>>         console_init_postirq();
->>>>>>     
->>>>>> +    vmid_init();
->>>>> This lives here only temporarily, I assume? Every hart will need to execute
->>>>> it, and hence (like we have it on x86) this may want to be a central place
->>>>> elsewhere.
->>>> I haven’t checked how it is done on x86; I probably should.
->>>>
->>>> I planned to call it for each hart separately during secondary hart bring-up,
->>>> since accessing the|hgatp| register of a hart is required to detect|VMIDLEN|.
->>>> Therefore,|vmid_init()| should be called for secondary harts when their
->>>> initialization code starts executing.
->>> But is this going to be the only per-hart thing that will need doing? Otherwise
->>> the same larger "container" function may want calling instead.
->> Yes, it is going to be the only per-hart operation.
+On 06.08.2025 23:24, Jason Andryuk wrote:
+> On 2025-08-05 03:59, Jan Beulich wrote:
+>> While it is correct that in shim-exclusive mode log-dirty handling is
+>> all unreachable code, the present conditional still isn't correct: In a
+>> HVM=n and SHADOW_PAGING=n configuration log-dirty code also is all
+>> unreachable (and hence violating Misra rule 2.1).
 >>
->> There is|__cpu_up()| (not yet upstreamed [1]), which calls
->> |sbi_hsm_hart_start(hartid, boot_addr, hsm_data)| to start a hart, and I planned
->> to place|vmid_init()| somewhere in the code executed at|boot_addr|.
+>> As we're aiming at moving away from special casing PV_SHIM_EXCLUSIVE=y,
+>> don't retain that part of the conditional.
 >>
->> [1]https://gitlab.com/xen-project/people/olkur/xen/-/blob/latest/xen/arch/riscv/smpboot.c#L40
+>> Because of hypercall-defs.c we need to carry out the dependency by
+>> introducing a new auxiliary PAGING control.
 >>
->>>>>> +{
->>>>>> +    unsigned long vmid_bits;
->>>>> Why "long" (also for the function return type)?
->>>> Because csr_read() returns unsigned long as HGATP register has
->>>> 'unsigned long' length.
->>> Oh, right, I should have commented on the function return type only.
->>> Yet then I also can't resist stating that this kind of use of a variable,
->>> which initially is assigned a value that doesn't really fit its name, is
->>> easily misleading towards giving such comments.
->>>
->>>> But it could be done in this way:
->>>>        csr_write(CSR_HGATP, old | HGATP_VMID_MASK);
->>>>        vmid_bits =  MASK_EXTR(csr_read(CSR_HGATP), HGATP_VMID_MASK);
->>>>        vmid_bits = ffs_g(vmid_bits);
->>>>        csr_write(CSR_HGATP, old);
->>>> And then use uint16_t for vmid_bits and use uin16_t as a return type.
->>> Please check ./CODING_STYLE again as to the use of fixed-width types.
->> I meant unsigned short, uint16_t was just short to write. I'll try to be
->> more specific.
+>> Since compiling out mm/paging.c altogether would entail further changes,
+>> merely conditionalize the one function in there (paging_enable()) which
+>> would otherwise remain unreachable (Misra rule 2.1 again) when PAGING=n.
 >>
->>>>>> +    unsigned long old;
->>>>>> +
->>>>>> +    /* Figure-out number of VMID bits in HW */
->>>>>> +    old = csr_read(CSR_HGATP);
->>>>>> +
->>>>>> +    csr_write(CSR_HGATP, old | HGATP_VMID_MASK);
->>>>>> +    vmid_bits = csr_read(CSR_HGATP);
->>>>>> +    vmid_bits =  MASK_EXTR(vmid_bits, HGATP_VMID_MASK);
->>>>> Nit: Stray blank.
->>>>>
->>>>>> +    vmid_bits = flsl(vmid_bits);
->>>>>> +    csr_write(CSR_HGATP, old);
->>>>>> +
->>>>>> +    /*
->>>>>> +     * We polluted local TLB so flush all guest TLB as
->>>>>> +     * a speculative access can happen at any time.
->>>>>> +     */
->>>>>> +    local_hfence_gvma_all();
->>>>> There's no guest running. If you wrote hgat.MODE as zero, as per my
->>>>> understanding now new TLB entries could even purely theoretically appear.
->>>> It could be an issue (or, at least, it is recommended) when hgatp.MODE is
->>>> changed:
->>>>     If hgatp.MODE is changed for a given VMID, an HFENCE.GVMA with rs1=x0
->>>>     (and rs2 set to either x0 or the VMID) must be executed to order subsequent
->>>>     guest translations with the MODE change—even if the old MODE or new MODE
->>>>     is Bare.
->>>> On other hand it is guaranteed that, at least, on Reset (and so I assume
->>>> for power on) that:
->>>>     If the hypervisor extension is implemented, the hgatp.MODE and vsatp.MODE
->>>>     fields are reset to 0.
->>>>
->>>> So it seems like if no guest is ran then there is no need even to write
->>>> hgatp.MODE as zero, but it might be sense to do that explicitly just to
->>>> be sure.
->>>>
->>>> I thought it was possible to have a running guest and perform a CPU hotplug.
->>> But that guest will run on another hart.
->>>
->>>> In that case, I expect that during the hotplug,|vmidlen_detect()| will be
->>>> called and return the|vmid_bits| value, which is used as the active VMID.
->>>> At that moment, the local TLB could be speculatively polluted, I think.
->>>> Likely, it makes sense to call vmidlen_detect() only once for each hart
->>>> during initial bringup.
->>> That may bring you more problems than it solves. You'd need to stash away
->>> the value originally read somewhere. And that somewhere isn't per-CPU data.
->>>
->>>>> In fact, with no guest running (yet) I'm having a hard time seeing why
->>>>> you shouldn't be able to simply write the register with just
->>>>> HGATP_VMID_MASK, i.e. without OR-ing in "old". It's even questionable
->>>>> whether "old" needs restoring; writing plain zero afterwards ought to
->>>>> suffice. You're in charcge of the register, after all.
->>>> It make sense (but I don't know if it is a possible case) to be sure that
->>>> HGATP.MODE remains the same, so there is no need to have TLB flush. If
->>>> HGATP.MODE is changed then it will be needed to do TLB flush as I mentioned
->>>> above.
->>>>
->>>> If we agreed to keep local_hfence_gvma_all() then I think it isn't really
->>>> any sense to restore 'old' or OR-ing it with HGATP_VMID_MASK.
->>>>
->>>> Generally if 'old' is guaranteed to be zero (and, probably, it makes sense
->>>> to check that in vmidlen_detect() and panic if it isn't zero) and if
->>>> vmidlen_detect() function will be called before any guest domain(s) will
->>>> be ran then I could agree that we don't need local_hfence_gvma_all() here.
->>>>
->>>> As an option we can do local_hfence_gvma_all() only if 'old' value wasn't
->>>> set to zero.
->>>>
->>>> Does it make sense?
->>> Well - I'd like the pre-conditions to be understood better. For example, can
->>> a hart really speculate into guest mode, when the hart is only in the
->>> process of being brought up?
->> I couldn't explicit words that a hart can't speculate into guest mode
->> either on bring up or during its work.
+>> Fixes: 23d4e0d17b76 ("x86/shim: fix build with PV_SHIM_EXCLUSIVE and SHADOW_PAGING")
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> Of course PAGING is at risk of being confused with MEM_PAGING. It not
+>> having a prompt, I hope that's tolerable, as I can't really think of a
+>> better name.
 >>
->> But there are some moments in the spec which tells:
->>     Implementations with virtual memory are permitted to perform address
->>     translations speculatively and earlier than required by an explicit
->>     memory access, and are permitted to cache them in address translation
->>     cache structures—including possibly caching the identity mappings from
->>     effective address to physical address used in Bare translation modes and
->>     M-mode.
->> And here:
->>     Implementations may also execute the address-translation algorithm
->>     speculatively at any time, for any virtual address, as long as satp is
->>     active (as defined in Section 10.1.11). Such speculative executions have
->>     the effect of pre-populating the address-translation cache.
->> Where it is explicitly mentioned that speculation can happen in *any time*.
->> And at the same time:
->>     Speculative executions of the address-translation algorithm behave as
->>     non-speculative executions of the algorithm do, except that they must
->>     not set the dirty bit for a PTE, they must not trigger an exception,
->>     and they must not create address-translation cache entries if those
->>     entries would have been invalidated by any SFENCE.VMA instruction
->>     executed by the hart since the speculative execution of the algorithm began.
->> What I read as if TLB was empty before it will stay empty.
-> I read that as "flushing the TLB invalidates entries created by speculative
-> execution before the TLB flush".
+>> Other PG_log_dirty pre-processor conditionals then likely also want
+>> replacing.
 
-But this part:
-   they must not create address-translation cache entries if those entries
-   would have been invalidated by any SFENCE.VMA instruction
+Isn't this remark of mine ...
 
-Doesn't it mean that entries which was invalidated by SFENCE.VMA can't be
-inserted into the TLB during speculative execution?
+>> mm/paging.c and mm/p2m-basic.c could also be compiled out
+>> altogether when PAGING=n, at the expense of introducing a few more
+>> stubs.
+>>
+>> FTAOD, the Fixes: tag being referenced does not mean this patch corrects
+>> the far more recently introduced build issue with the combination of the
+>> two features. That's still work that I expect Penny to carry out (with
+>> there still being the option of reverting the final part of the earlier
+>> series).
+>>
+> 
+>> --- a/xen/arch/x86/mm/paging.c
+>> +++ b/xen/arch/x86/mm/paging.c
+>> @@ -864,6 +864,7 @@ void paging_final_teardown(struct domain
+>>       p2m_final_teardown(d);
+>>   }
+>>   
+>> +#ifdef CONFIG_PAGING
+> 
+> The file already has a lot of uses of #if PG_log_dirty with similar 
+> meaning, if I am not mistaken, so using that would make it more 
+> consistent.  But CONFIG_PAGING is directly tied to the Kconfig, so maybe 
+> it is better?  Just something I noticed.
 
-So, if the speculative page walk started before|SFENCE.VMA|,|SFENCE.VMA|
-indicates: “All previous TLB entries might be invalid". Therefore, any
-speculative TLB entry/that started before/ must*not* be inserted into the
-TLB afterward.
+... precisely matching your observation? If we want to accept the extra churn,
+we certainly can go this route in a follow-on patch.
 
-So, hardware tracks if a|SFENCE.VMA| occurred/after/ speculation started.
-If so, any speculative address translations must be*discarded* or
-*not committed*.
+> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
->    That is the bare minimum needed for TLB
-> flushing to work.  You have to do the TLB flush *after* changing the PTEs,
-> not before.
->
-> This is true on at least x86 but I expect it to hold in general.
+Thanks.
 
-Agree with that.
-
-~ Oleksii
-
---------------fD8N5IalILLFp4Wq7DTsS7xq
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 8/6/25 6:50 PM, Demi Marie Obenour
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:14e1c224-c648-41bb-97c6-ec63596bd38b@gmail.com">
-      <pre wrap="" class="moz-quote-pre">On 8/6/25 12:24, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-On 8/6/25 2:05 PM, Jan Beulich wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On 06.08.2025 13:33, Oleksii Kurochko wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">On 8/4/25 5:19 PM, Jan Beulich wrote:
-</pre>
-            <blockquote type="cite">
-              <pre wrap="" class="moz-quote-pre">On 31.07.2025 17:58, Oleksii Kurochko wrote:
-</pre>
-              <blockquote type="cite">
-                <pre wrap="" class="moz-quote-pre">@@ -148,6 +149,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
-   
-       console_init_postirq();
-   
-+    vmid_init();
-</pre>
-              </blockquote>
-              <pre wrap="" class="moz-quote-pre">This lives here only temporarily, I assume? Every hart will need to execute
-it, and hence (like we have it on x86) this may want to be a central place
-elsewhere.
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">I haven’t checked how it is done on x86; I probably should.
-
-I planned to call it for each hart separately during secondary hart bring-up,
-since accessing the|hgatp| register of a hart is required to detect|VMIDLEN|.
-Therefore,|vmid_init()| should be called for secondary harts when their
-initialization code starts executing.
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">But is this going to be the only per-hart thing that will need doing? Otherwise
-the same larger "container" function may want calling instead.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-Yes, it is going to be the only per-hart operation.
-
-There is|__cpu_up()| (not yet upstreamed [1]), which calls
-|sbi_hsm_hart_start(hartid, boot_addr, hsm_data)| to start a hart, and I planned
-to place|vmid_init()| somewhere in the code executed at|boot_addr|.
-
-[1]<a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/people/olkur/xen/-/blob/latest/xen/arch/riscv/smpboot.c#L40">https://gitlab.com/xen-project/people/olkur/xen/-/blob/latest/xen/arch/riscv/smpboot.c#L40</a>
-
-</pre>
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <pre wrap="" class="moz-quote-pre">+{
-+    unsigned long vmid_bits;
-</pre>
-              </blockquote>
-              <pre wrap="" class="moz-quote-pre">Why "long" (also for the function return type)?
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">Because csr_read() returns unsigned long as HGATP register has
-'unsigned long' length.
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">Oh, right, I should have commented on the function return type only.
-Yet then I also can't resist stating that this kind of use of a variable,
-which initially is assigned a value that doesn't really fit its name, is
-easily misleading towards giving such comments.
-
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">But it could be done in this way:
-      csr_write(CSR_HGATP, old | HGATP_VMID_MASK);
-      vmid_bits =  MASK_EXTR(csr_read(CSR_HGATP), HGATP_VMID_MASK);
-      vmid_bits = ffs_g(vmid_bits);
-      csr_write(CSR_HGATP, old);
-And then use uint16_t for vmid_bits and use uin16_t as a return type.
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">Please check ./CODING_STYLE again as to the use of fixed-width types.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-I meant unsigned short, uint16_t was just short to write. I'll try to be
-more specific.
-
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <pre wrap="" class="moz-quote-pre">+    unsigned long old;
-+
-+    /* Figure-out number of VMID bits in HW */
-+    old = csr_read(CSR_HGATP);
-+
-+    csr_write(CSR_HGATP, old | HGATP_VMID_MASK);
-+    vmid_bits = csr_read(CSR_HGATP);
-+    vmid_bits =  MASK_EXTR(vmid_bits, HGATP_VMID_MASK);
-</pre>
-              </blockquote>
-              <pre wrap="" class="moz-quote-pre">Nit: Stray blank.
-
-</pre>
-              <blockquote type="cite">
-                <pre wrap="" class="moz-quote-pre">+    vmid_bits = flsl(vmid_bits);
-+    csr_write(CSR_HGATP, old);
-+
-+    /*
-+     * We polluted local TLB so flush all guest TLB as
-+     * a speculative access can happen at any time.
-+     */
-+    local_hfence_gvma_all();
-</pre>
-              </blockquote>
-              <pre wrap="" class="moz-quote-pre">There's no guest running. If you wrote hgat.MODE as zero, as per my
-understanding now new TLB entries could even purely theoretically appear.
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">It could be an issue (or, at least, it is recommended) when hgatp.MODE is
-changed:
-   If hgatp.MODE is changed for a given VMID, an HFENCE.GVMA with rs1=x0
-   (and rs2 set to either x0 or the VMID) must be executed to order subsequent
-   guest translations with the MODE change—even if the old MODE or new MODE
-   is Bare.
-On other hand it is guaranteed that, at least, on Reset (and so I assume
-for power on) that:
-   If the hypervisor extension is implemented, the hgatp.MODE and vsatp.MODE
-   fields are reset to 0.
-
-So it seems like if no guest is ran then there is no need even to write
-hgatp.MODE as zero, but it might be sense to do that explicitly just to
-be sure.
-
-I thought it was possible to have a running guest and perform a CPU hotplug.
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">But that guest will run on another hart.
-
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">In that case, I expect that during the hotplug,|vmidlen_detect()| will be
-called and return the|vmid_bits| value, which is used as the active VMID.
-At that moment, the local TLB could be speculatively polluted, I think.
-Likely, it makes sense to call vmidlen_detect() only once for each hart
-during initial bringup.
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">That may bring you more problems than it solves. You'd need to stash away
-the value originally read somewhere. And that somewhere isn't per-CPU data.
-
-</pre>
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <pre wrap="" class="moz-quote-pre">In fact, with no guest running (yet) I'm having a hard time seeing why
-you shouldn't be able to simply write the register with just
-HGATP_VMID_MASK, i.e. without OR-ing in "old". It's even questionable
-whether "old" needs restoring; writing plain zero afterwards ought to
-suffice. You're in charcge of the register, after all.
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">It make sense (but I don't know if it is a possible case) to be sure that
-HGATP.MODE remains the same, so there is no need to have TLB flush. If
-HGATP.MODE is changed then it will be needed to do TLB flush as I mentioned
-above.
-
-If we agreed to keep local_hfence_gvma_all() then I think it isn't really
-any sense to restore 'old' or OR-ing it with HGATP_VMID_MASK.
-
-Generally if 'old' is guaranteed to be zero (and, probably, it makes sense
-to check that in vmidlen_detect() and panic if it isn't zero) and if
-vmidlen_detect() function will be called before any guest domain(s) will
-be ran then I could agree that we don't need local_hfence_gvma_all() here.
-
-As an option we can do local_hfence_gvma_all() only if 'old' value wasn't
-set to zero.
-
-Does it make sense?
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">Well - I'd like the pre-conditions to be understood better. For example, can
-a hart really speculate into guest mode, when the hart is only in the
-process of being brought up?
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-I couldn't explicit words that a hart can't speculate into guest mode
-either on bring up or during its work.
-
-But there are some moments in the spec which tells:
-   Implementations with virtual memory are permitted to perform address
-   translations speculatively and earlier than required by an explicit
-   memory access, and are permitted to cache them in address translation
-   cache structures—including possibly caching the identity mappings from
-   effective address to physical address used in Bare translation modes and
-   M-mode.
-And here:
-   Implementations may also execute the address-translation algorithm
-   speculatively at any time, for any virtual address, as long as satp is
-   active (as defined in Section 10.1.11). Such speculative executions have
-   the effect of pre-populating the address-translation cache.
-Where it is explicitly mentioned that speculation can happen in *any time*.
-And at the same time:
-   Speculative executions of the address-translation algorithm behave as
-   non-speculative executions of the algorithm do, except that they must
-   not set the dirty bit for a PTE, they must not trigger an exception,
-   and they must not create address-translation cache entries if those
-   entries would have been invalidated by any SFENCE.VMA instruction
-   executed by the hart since the speculative execution of the algorithm began.
-What I read as if TLB was empty before it will stay empty.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I read that as "flushing the TLB invalidates entries created by speculative
-execution before the TLB flush".</pre>
-    </blockquote>
-    <pre>But this part:
-  they must not create address-translation cache entries if those entries
-  would have been invalidated by any SFENCE.VMA instruction
-
-Doesn't it mean that entries which was invalidated by SFENCE.VMA can't be
-inserted into the TLB during speculative execution?
-
-So, if the speculative page walk started before <code data-start="1577"
-    data-end="1589">SFENCE.VMA</code>, <code data-start="1593"
-    data-end="1605">SFENCE.VMA</code>
-indicates: “All previous TLB entries might be invalid". Therefore, any
-speculative TLB entry <em data-start="1701" data-end="1722">that started before</em> must <strong
-    data-start="1728" data-end="1735">not</strong> be inserted into the
-TLB afterward.
-
-So, hardware tracks if a <code data-start="1836" data-end="1848">SFENCE.VMA</code> occurred <em
-    data-start="1858" data-end="1865">after</em> speculation started.
-If so, any speculative address translations must be <strong
-    data-start="1941" data-end="1954">discarded</strong> or
-<strong data-start="1958" data-end="1975">not committed</strong>.</pre>
-    <p></p>
-    <blockquote type="cite"
-      cite="mid:14e1c224-c648-41bb-97c6-ec63596bd38b@gmail.com">
-      <pre wrap="" class="moz-quote-pre">  That is the bare minimum needed for TLB
-flushing to work.  You have to do the TLB flush *after* changing the PTEs,
-not before.
-
-This is true on at least x86 but I expect it to hold in general.</pre>
-    </blockquote>
-    <pre>Agree with that.
-
-~ Oleksii</pre>
-  </body>
-</html>
-
---------------fD8N5IalILLFp4Wq7DTsS7xq--
+Jan
 
