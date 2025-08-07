@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31F01B1D822
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 14:41:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1073002.1435961 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D4D8B1D81C
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 14:41:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1072961.1435952 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujzwF-0000fy-5R; Thu, 07 Aug 2025 12:41:43 +0000
+	id 1ujzvO-00080x-Rb; Thu, 07 Aug 2025 12:40:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1073002.1435961; Thu, 07 Aug 2025 12:41:43 +0000
+Received: by outflank-mailman (output) from mailman id 1072961.1435952; Thu, 07 Aug 2025 12:40:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujzwF-0000e9-25; Thu, 07 Aug 2025 12:41:43 +0000
-Received: by outflank-mailman (input) for mailman id 1073002;
- Thu, 07 Aug 2025 12:41:42 +0000
+	id 1ujzvO-0007yR-OU; Thu, 07 Aug 2025 12:40:50 +0000
+Received: by outflank-mailman (input) for mailman id 1072961;
+ Thu, 07 Aug 2025 12:40:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SGIa=2T=epam.com=Leonid_Komarianskyi@srs-se1.protection.inumbo.net>)
- id 1ujzoa-0001m4-RF
- for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 12:33:48 +0000
+ id 1ujzoY-0001m4-R3
+ for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 12:33:46 +0000
 Received: from AM0PR02CU008.outbound.protection.outlook.com
  (mail-westeuropeazlp170130006.outbound.protection.outlook.com
  [2a01:111:f403:c201::6])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c3410df8-738a-11f0-b898-0df219b8e170;
- Thu, 07 Aug 2025 14:33:46 +0200 (CEST)
+ id c2144e93-738a-11f0-b898-0df219b8e170;
+ Thu, 07 Aug 2025 14:33:44 +0200 (CEST)
 Received: from GV2PR03MB8678.eurprd03.prod.outlook.com (2603:10a6:150:7d::13)
  by DU5PR03MB10563.eurprd03.prod.outlook.com (2603:10a6:10:51b::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.13; Thu, 7 Aug
- 2025 12:33:34 +0000
+ 2025 12:33:36 +0000
 Received: from GV2PR03MB8678.eurprd03.prod.outlook.com
  ([fe80::4eb:3e7b:1ffa:25f9]) by GV2PR03MB8678.eurprd03.prod.outlook.com
  ([fe80::4eb:3e7b:1ffa:25f9%6]) with mapi id 15.20.9009.013; Thu, 7 Aug 2025
- 12:33:34 +0000
+ 12:33:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,35 +47,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3410df8-738a-11f0-b898-0df219b8e170
+X-Inumbo-ID: c2144e93-738a-11f0-b898-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=arCR8dLw7AtjeuRj45jbunxTLMn/K6qIYQawX72OP7gtpJGn+Cxltrf272u4UAXm6MeEJn9Mo5vW+xb5S7CklsmWc5+DPdFNAGyRHcmJcs5MyYJMMBduT31khEAGKGkgpEo7BqDYFopEJk2KhorwPP1Fz9EVXUrXF7gncypIt8EZ1NoYZs99SjJ/EgWO3hlJra98+rjUucHTu/tmd0Sqi45atiAPpHSm+E+Jm8xjNpBpHNHOhceVaR/41qdONXVXBToOr6PIAkZtgG6l8nPhN2OBsfsL9ocrOWWizDPLHGnpcu/TuZEZ8Nd5bbwbdHj/ABLjuEh9GEx6+XRELw9/DA==
+ b=uJSv9yVnt//skqjZuPMutnZcobjEs+dn7xK7whcbBVEiJJgTgq+iQm+Ke9oSP/bJ8EzJVuLhD8rdylOgOM8k6UOFg4pq50zLpFxh5+wtL3q0IrJsA5LXgkOXH2kWkPfDaBUm2lsJDhW45ETVAFUu5WyvVQTOPdLNy+SdpIkGQVKVKlo4dd/h3yg42wbtZU2opkPoCWmULZS6GizKiUcntlt7nimGlJKDmtqMsdsRHsrFodmqVAtGsefhykMeC57HNklBIhGSVa6CgDey9SW6J1PQQF1lHPte6v+e+EWZGrKigawuSW+pAx3cidgTQJ6aZ4xdWX1Uz0ef8zs0mZXL7g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k24ZeMIWJBScosWjOnfAG1zBAOVNlmJrx4Zkv/BkUDw=;
- b=c8/JfhZycflhS/2vyXacw3eO/0ApV2nhl2zAQzjN1EAv4XSrg+LvVKiVq6pmvs22pMezXDptNlWRWrPFNxjKJIY18AZg12M69l7YC6MIr0PULYiGxN8kIMTlWHxHrUp+23uTYfBTHjDveNHwMc+c0jMC5FEJtwwPilTxtQ0CfhQ2fC3Nsg39o14SjabkEHulXjMNPTr6FTlo6KdrmCVumE2VxgfIGFMchZMSD/+sikjT4mEZpPeLFh8x0QjMaZmy97y2NSfKXA4UT8q7gJKhIeu/WCsNPyfRrXmU+BCIWxTVrOnguPGVnqRClNJ466O4zK6BUNJguH1hHz6gM1VR6A==
+ bh=UQ89LMIPTbRnlzEDyq9ltnP9nKlxsnZBGFd6mUivo7M=;
+ b=wbEl8kPs4JEn/SYYrqQvIKjCwIZ9gVd8POp2uPy4ZRveGuhQVpl7QZMZYu/0GXTmfY9NvVUlvjB8Va1HdSzFiwuIovlEvagj8TLyizktETSQRVBtdf4W9f99nHi0BKv0qnHBOw870rwXSR9NbS3KvVoljAW3alf8xdq7YzF/jEKMj06gIbYhDT/HvOBfvtv2c0qLZLCdn1ekzN4ZhC2OHC/tNwCgvmBKXtKkYM7ERA/Abl3KvCxlHd4qNgSxEjjOOpkmGmuVWi94nOtVwsWljJKbOeeO6PQ8PU7YaD2TSqLrXLD951+hQ2mPpr4wWSEg4Wu2jsmZjbnWbylNmrylmQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k24ZeMIWJBScosWjOnfAG1zBAOVNlmJrx4Zkv/BkUDw=;
- b=Cc+CEPNKBhsKfbqOdBtioXJl0HKrB2j/y11XntDTtMHCQ5MXLaZWZvVN+0dTv0ou1R+xlPq4313wvPQ8g6nM57Orj4Yv5RFRLbI415bdLqsiEQHgtf8meolYrttWrSfWcDCK+7rPwhezqZghYf+Q+cpf6+ieWn+mOOd6Khs7Ld+yEWYlxz2OIe28oNRfcvTqfBVYnC78tuPt3lA/VdFyjGD1P1Vpmss/YfkR97IPhgT4HYInJT5O/T/2bXYNq1dbl9oX4M+2eFrWssJ3p3mZ4IV6cdXL29el7BaJFWRMuRey0+KYbuZI9g8+QmiZq/5hz/ABdi7cXbTxFK8PgH5RjA==
+ bh=UQ89LMIPTbRnlzEDyq9ltnP9nKlxsnZBGFd6mUivo7M=;
+ b=aHMErXJG0YB58w8pHTP/irxmR7+A98k6sz2/w5OCTNNCmvv2Q9XdFzGFt0YO8ti0rr0g2KGSB2fcx6zAnn9/1c9Jts+73n3wCfvm/wOzsYqp8hRNmrpq8TX1DJsBzoOxSumHlBNRUghzba8WPdtxmlRBqeRtCmB5VUcSi44k6T7PtaOZKdrpmjAN1Als6wNBEPati5bCMKsapTqpZ4fbXfBC3QFFw8HOI1s1z5ysVkdopz+vdovDNmC3mPZeNEJfvvhedpSUlW6zlj/CKXiilX85S30LpwA/mb8vdL4jLq/hzO9l8iRWWptsE5JVvw+5GElfhDFvUYS1xVHgzRrSxg==
 From: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
 	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
  Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2 08/10] xen/arm: vgic: add resource management for extended
- SPIs
-Thread-Topic: [PATCH v2 08/10] xen/arm: vgic: add resource management for
- extended SPIs
-Thread-Index: AQHcB5d8BuZ0dq8rx0Owht+h5hVtIg==
-Date: Thu, 7 Aug 2025 12:33:33 +0000
+Subject: [PATCH v2 10/10] xen/arm: vgic-v3: add emulation of GICv3.1 eSPI
+ registers
+Thread-Topic: [PATCH v2 10/10] xen/arm: vgic-v3: add emulation of GICv3.1 eSPI
+ registers
+Thread-Index: AQHcB5d9o2YugLH3UUKTUBQVCD+iyg==
+Date: Thu, 7 Aug 2025 12:33:34 +0000
 Message-ID:
- <fde65754a60a8cc090bb212749ec2c10877c4943.1754568795.git.leonid_komarianskyi@epam.com>
+ <3ba2381b4c782a5187161f9418e5a35e7916c752.1754568795.git.leonid_komarianskyi@epam.com>
 References:
  <7e6477a83ab65220ef1c5dd22f4ef3536fbbdd5c.1754568795.git.leonid_komarianskyi@epam.com>
 In-Reply-To:
@@ -88,451 +88,528 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: GV2PR03MB8678:EE_|DU5PR03MB10563:EE_
-x-ms-office365-filtering-correlation-id: 437159ee-7e02-49a4-9a6a-08ddd5ae9fea
+x-ms-office365-filtering-correlation-id: 2aec7064-9a5e-498b-5926-08ddd5aea117
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|38070700018;
 x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?xUlsxo/L4T7DpFjv/1a4MOmLqBtIaBDhAPkJCzsATIVyPPQaU+Ya5L7Mf7?=
- =?iso-8859-1?Q?NxNuT1+qPDhDxurTiXybeDO3jnQ1AabFAhKzZr5E/y9SINvOYTmXMefnZk?=
- =?iso-8859-1?Q?jy1SBh9Xiz6B07OFTGPhelfrrN6O0WJK/wHhRc7fUCBkE3yu7IOKqBWmH5?=
- =?iso-8859-1?Q?NwCWLG1xAJJPl4AyCl/+C0KwPXg5hMVJk01j1IFM66jZ+o8+CzeVgUjnRV?=
- =?iso-8859-1?Q?RxBvP+1ecSG11QBy2jueX/ZM+Sgd2VZJ0XpMHjvzQC5HZm6O3+tK2cLTMP?=
- =?iso-8859-1?Q?WUmGQkcar6ZZt4Rc9gqorp/EtI39fA2faseR/WKmkB573/kI38k4Js3OJn?=
- =?iso-8859-1?Q?oKJvKpZj2CB78C8t3xBWrTv4bv7klYAp/Z/6Bdc5RAQcngzzf4u51NWxr2?=
- =?iso-8859-1?Q?e7kJ/r6P/EKZVC3wHstHM40jOWlHALB6wyY3gjCe2K1kLUuBKmVf1dn+dN?=
- =?iso-8859-1?Q?8JDI6yWsGvEcKUJpehFjLcWGAVxgq/h5apKUtlVWXEHZScEmsXN0uzoaZj?=
- =?iso-8859-1?Q?xrrpoZSrzImKf+/b6kbC/8lWCGOb239wQunnTnzSuVHy8x3dEn5HoDfH1k?=
- =?iso-8859-1?Q?5LyHet5PxJCaj55bZRJJzO34Q16Wy9/VlFM53iKNlbSLM28GwqM2FVOWvR?=
- =?iso-8859-1?Q?iiS9UNyZYx+jYDKJeRv9VkthZWjNgLL42KEx0wTIhgltXpuBnV5dSvTlZx?=
- =?iso-8859-1?Q?YWmFetv4Yv+mzXrwVAAcsbAxl+evh/c92mF/LZmTntUexBmQwfGDbpAHZg?=
- =?iso-8859-1?Q?VF+Jyd/zYmsBUcqKtvtizob56n1eGqxKaha0Xb4aQ4zckxZhit+0YuWeos?=
- =?iso-8859-1?Q?2ItjdIAIB3FFtnYBgxKf5o/oW818f1yqzqTd2B03bJKQsuQe2to7lIx96y?=
- =?iso-8859-1?Q?sxgLM+ueKZTnwOQ5NYrjzL+413GsdafbxNq33CcrOgJdlYD/O8q/GBJD4a?=
- =?iso-8859-1?Q?Gr/v5C0pC71dC7GLXQEooisgjWGLFxaAUJ8cEyL92JJpF7yb0MJTyjHZn5?=
- =?iso-8859-1?Q?ucDGxN18ZsVQRI6wwNZmkhqN2Bu/AX3Du/xdCGn9pBnFYb27gVlwiJM/Jz?=
- =?iso-8859-1?Q?eamFZX8wrRpEgny4Zj6zleViPuNbMCGxpVWZ3zhhHU2WU4ihxONT7P3zET?=
- =?iso-8859-1?Q?D+reoOlRu5zKvbWFaLq8P3q7jFGRLJSD7+hysTegTtk6NblCQRlu+thAU5?=
- =?iso-8859-1?Q?FLAuSlMWtjMJ1m/OIjRj7dIXUKN6NyF3+SlxOrGJBO4wh7ImUn7bajgrhh?=
- =?iso-8859-1?Q?0oXxpOwO7WmaAp3m7+R1H8MeYRx2UU/7CX4hZpAzI9q0G7+vS3fuxv/WlU?=
- =?iso-8859-1?Q?wRw1NTn7zBGH5C7Sb4zzw436q0lKEGVwvq6DG9owRpwTK7BNN4EJo9kZ0d?=
- =?iso-8859-1?Q?XrPClgitAr8jdlAQmsKAdwEf0MYt+Fvc1nOELk9+4xWOTv7DaUBfOaPYtI?=
- =?iso-8859-1?Q?wQqOcSejY1u9jLr6ipDKrwjeZNX6gTjVVlXRDVsnFh79GiPbfFb9barGZm?=
- =?iso-8859-1?Q?EtTR/ZeQcfe2p5KnJwugte40fFUqTj+xVIp1tjfQuhJA=3D=3D?=
+ =?iso-8859-1?Q?nQLNwnzT7OA9i1QSPFTUELdgtPcwWvg0ntCOql4RDpPC95wqdUVUY9s1fu?=
+ =?iso-8859-1?Q?x0orl5KBu+HcpjAErG1b5P94sWjBaif3vamGoxKABtoUt2lDy6VCQraobv?=
+ =?iso-8859-1?Q?uc+YANXuABiAuSx95olTK7ssLfhLAUDSZSuGBIBHmt1U+r3n48BMcHgB/n?=
+ =?iso-8859-1?Q?fgXyBqjOEVLkl5ZysCVCSgYuAv7O3Bch6aHBtbEbpctgvS4FQrOBcKcvkk?=
+ =?iso-8859-1?Q?H3PzKxjwYu1eRx6yhtRtK0tXtuEiKIBKwqjYuV2xEnRKP7raHhRK9yXVwV?=
+ =?iso-8859-1?Q?f8hJsLztFHFpBiW+Zqk1UcEXB+K8F/J9pcTAK0yirNyqwl4eOMSX0L0ZWp?=
+ =?iso-8859-1?Q?bDRe0xLNVGf/eF+WjlwbpG/Y6rg5dzpBkBBKun2aEOOyzY7eGeO7EXM9q8?=
+ =?iso-8859-1?Q?AOvRcYVuOklS2x19unjOA+nJEQZ0bUfAtV5nGki8Fn49j6X6YPgiQHovAT?=
+ =?iso-8859-1?Q?OlIhLuSyK0wfsSTbCBNXYCQ41rw6AOHiYdDooO3ETsYO9Fs27ctgsSutHv?=
+ =?iso-8859-1?Q?Em93aXUe0P0l9U8I3X7b6wPAFgTE5ufc6d+8sjAM0U4U4mZYVo7YnAWNNu?=
+ =?iso-8859-1?Q?zPVhrHR5nEUARYMEor8cddIT8D4k+Mj2kb8bvbvYhAJecyND1m93Gqsla4?=
+ =?iso-8859-1?Q?HxsuzeoydnqsKetG/4JZfjW/LseS9h3kRmwYkwmj2pc3gEt6nBwZmOyAMe?=
+ =?iso-8859-1?Q?+oaKWRyW/oWHf932qMVdVcC2G0a2jUcsIzI9j9szZS6sYiXC21dAkZ5X3B?=
+ =?iso-8859-1?Q?7jkkqze3ItF1gharzWw5YjpasYqEOmn9JFWXeiywbLuMIjwoywN4udV9l/?=
+ =?iso-8859-1?Q?DKcN5wuXcdQu329Fe/7PHRF7OSvQhCEHTR1Z77WdpMChJWZjvo1IZU6jDr?=
+ =?iso-8859-1?Q?SyPGLLikmC7yOyi4nQ2ad3hw599MbOBqaJGQ9RjPWZjXNJnnIPWF6L4SKd?=
+ =?iso-8859-1?Q?tzV05eooXrhnTBvMiJBlRAjwkIOp0LcbVJt/+vtikQUivKY80jpkLROqEj?=
+ =?iso-8859-1?Q?9wtqlosesNeqPLw5/Gp4lgYvNbESa7XGWCfOjoOktSeDOT4g8nAYycpVrY?=
+ =?iso-8859-1?Q?KUO1A0vwUQHk3D6GAA59TdDILhifT/3HRYb/XoVfBkNTMrCOTXBDpCJe2G?=
+ =?iso-8859-1?Q?U/fZ28dhqjV6pRHuhPUSpeIzow0mMqBqUZBzXnaF87MQmGQnGv3JayZ4hN?=
+ =?iso-8859-1?Q?u//Xkev6hmCyy6skaJVZO5c8vGg7nTxkjH690nigwmMPELA9nfKmlSC7Ia?=
+ =?iso-8859-1?Q?71oWVpkjMtQd6JvHUcND94Hu7jc2EP19kDGPIZ1vEs3IjX71jHAWP8wFdp?=
+ =?iso-8859-1?Q?PXyx+GqYBrs8fkBj8Io5Vg1+H4MfzwHsgEHIEf8mKSRY3xII+/9f6b/OkJ?=
+ =?iso-8859-1?Q?JDF9yfkkWjQ1r3lHEbBn5IypPpuT888/48XKuqg3ZVSrO20gsH7f8n3AZ0?=
+ =?iso-8859-1?Q?AgPdVJiHnRhAa4+SsZIlOdX7S+8upBOsIRXOjHnidicVbHsYWUWgndQwRK?=
+ =?iso-8859-1?Q?lbucS4LgQ11y25nTdeGoOGvXWu223q5bA6g3uDJcukew=3D=3D?=
 x-forefront-antispam-report:
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB8678.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(38070700018);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?goTqzFf8pl6L+dqIdOiGJjr2GqjYMHTzN4Muw4hjfkTvDOPgW1bi4NgiPo?=
- =?iso-8859-1?Q?tpGUuof7EPW50jWyAYAwHoDnjsGXqUCd9vxCVdwtpQsgFFt7xubypFklyX?=
- =?iso-8859-1?Q?eWnzaJy5lEGjT2JvM4z7TG2nM/JizKv/EdBOiXACzRD2vISjZR7mFErpwJ?=
- =?iso-8859-1?Q?iB4p+QK7g9oJPJvKRAQglCIPHhbVkhFp1ODSsxtiEbNNMD4rGWnhq3ShFs?=
- =?iso-8859-1?Q?9T5nrCgPe6DxTZqIeCJ899KpMiByVe3lGC+US7MFsItYZxauLZGhZVgGkr?=
- =?iso-8859-1?Q?tAaZBt4aPep6FKOgaEPbI5UpPpkRQHkolJMAscD8aYlEgG0EiBrvucUoQK?=
- =?iso-8859-1?Q?pPI3NmbPN/A9yylWmJAk7TwzFqvoHsFj3cmnonDO+lNHh+uA1FQ+a88ial?=
- =?iso-8859-1?Q?ZBzfESVA0vmni6Nr/VmyqEISSFVSI+ZNd7HXQExhGr+/XAQjQN+yBxpo+f?=
- =?iso-8859-1?Q?iXyKIxgZVrE7XgDK2V9yd8Sf4VdyGAU2tmcBXdkgzUpsj88hFWVUnUOQv7?=
- =?iso-8859-1?Q?ghqeWzHEmtDINZtpGpeCRiEVMW9K/4mNYmovZtiRWuQShU5pluk38BT//R?=
- =?iso-8859-1?Q?IYopfyrV0VDUNywWshVhGrKjF9/VJNSsyN5FQNeTR80nvoZM1CPtNiAMAh?=
- =?iso-8859-1?Q?IlnK4mSrxSOR2/FtahBc22t1k03tKjoxGGXa0dlXA2n9Izi2uAeiIIWqAh?=
- =?iso-8859-1?Q?fYLbPgk8nI98AWKA3wSdbwW1UtTkI9CdX+yv8QHV8YCNmRm87KSE6rKqkA?=
- =?iso-8859-1?Q?zhnIqbW6a6JBC0m7KlXTmj5BDGE7XDfnE8+9i9lazKDPioIu4yKEtlOpbB?=
- =?iso-8859-1?Q?UBTdhmCmFkcmt91GTcuaPsTtktDspufPUenUJHlaLLW1cApVCNSLVVz74N?=
- =?iso-8859-1?Q?/SYsCak25aJf7FR52WU+v6p5RxEUEkUHnyH9N9Ua8HFxSGE8CdUFXVOnwN?=
- =?iso-8859-1?Q?1vXjH9klqFlvGxmzdyuyrc2lKnMMd9LH3FzZM7/aeYqmC62zEPuilFpqGW?=
- =?iso-8859-1?Q?mJlQKGIovULJbxIdrhXmrNuf+zIh9qwvulSAfFQlic07XZRI64IwDGl3G3?=
- =?iso-8859-1?Q?5DKfS4BEINSN3ZDtkyqTXkxQvCliGQ1xv0od1CDencsXkNWEomu59tjMnm?=
- =?iso-8859-1?Q?jKLfB3E8ZB5u+w9VcauAUZFlFIo+YIhlZcwJDPUdD+5pjjBuCvZS9q3CEM?=
- =?iso-8859-1?Q?ftt8edyHU00mWsTgsSK45uc58Gv4EuJY6kbl5FcIDQStvcp59vjaDCEG82?=
- =?iso-8859-1?Q?BDo7L33FtIqhVM1qJtz5jlWa3u74o4eg2lb+xkjekk+c87rRBVhCjzMmjr?=
- =?iso-8859-1?Q?s4cuyhQ80jC6sMIshgvIiDxOFv0A4JMor1FKpYAniSwEF5majJo0W/LNJK?=
- =?iso-8859-1?Q?c8AfEMXnrcbSo57Co6Xt8MLp8YQf1Z67rATioQek1z5OPuoKrYC2TfgJ1b?=
- =?iso-8859-1?Q?d9Pjw76v0AJeMgzfO1sNrzX6FLYcSeETAqOxTtVZOAf5teWJg7gG0XmBzG?=
- =?iso-8859-1?Q?KzBZ73rAVsD28OCalxxFtFifh3ZvUf7CE4XQGLIfzVyCdOhX5hzaFNAYGx?=
- =?iso-8859-1?Q?7X19xLE8PjwrI9AR7ck8EAjl4kv7BktEdpBqqdQxHu49B1ZibhubQsSfeR?=
- =?iso-8859-1?Q?wfaxGIGsJFVI3eDaQqdWiwMtQo4ZyK01LL8g/bn1hK1nvYgZ0LdlF6gWkK?=
- =?iso-8859-1?Q?yOH8C2DIMS58SyoNOUc=3D?=
+ =?iso-8859-1?Q?YV4PVr7L3MSTxkLQc5D6Jp29kgJPh6Oa7wYw+sZfgq5f0+dTZQRW1ERvdY?=
+ =?iso-8859-1?Q?7kt5kpR0S9MDlC+vOgvDL9M9CgXY/fnJBIsC+lugvCqjZEw4qc0O73R0Vy?=
+ =?iso-8859-1?Q?xrkQJEhVefrIx4QQxjYFO/z9OoCpKBL/CGjNGNmBsXHSAzh2POAgGExrlT?=
+ =?iso-8859-1?Q?ZAUTakfIjm83eh1k+TMPdcjJ+zVb1UQ5mJHc1OGsJbK8SqMqmvFvre6FBc?=
+ =?iso-8859-1?Q?DBMesE/ugkX5JlAcYkmR8byylg9hKJhvRpRyg7CF6oP4v0Y1Xviko+NfD6?=
+ =?iso-8859-1?Q?tsqqMT3lKd0qdRTLBItMGivk6as6tF0BWscB7Dmpc8LVWtacdFdwYW57uS?=
+ =?iso-8859-1?Q?WlsdoN19zLWs2L7n1qkHiaMPNLWK7g/6znYDVZNmcDDV1VrWg8I8cSuhKE?=
+ =?iso-8859-1?Q?cQdqm2Glzx8A9geMpwpVLG0W2InpiJFhTuSrrmK/sTgUbxmB2fitoSthws?=
+ =?iso-8859-1?Q?5PsLNniNjdFJJgDXYPxnTYdshmh7CfU+j41y5HXWAwX5gO1svjy40BhCbf?=
+ =?iso-8859-1?Q?+TSJFAUCPetHvQ8ieC3sf/b+keW21w5gNg5Ls/EcnF27LoIydVE6OetBaj?=
+ =?iso-8859-1?Q?YWaXN2oDqXJYfHvvXCqOTAQbtxOM1OU4l1JO9Ugb5+xv7GVE1fVLsI0gOu?=
+ =?iso-8859-1?Q?jucdBgDufZbyNeMcOrbS55ArMRWNoeDN0+QsYf/d303fjYUZD/cjGByf39?=
+ =?iso-8859-1?Q?JD6JBZQSOdO8/Xl3GolBWKrDjyoqUkoMQ8GjwO3lp7tTDQnJdJwa/gp4U0?=
+ =?iso-8859-1?Q?+NNfpoZ8a3w60TGnOrIpLobB0WMeCoheVig1f51LW479Iqakwf/FjlRNKA?=
+ =?iso-8859-1?Q?3cN7AJsDJZBR61IHN21nwhRnKq70GrFtuuQrBy1FjHBVNhV5C4T88gtUB/?=
+ =?iso-8859-1?Q?sToBL7JA+FPr71vkdIJD0A64c9FyFD9skBHyT6I5md5pLkBvF9KIVkDE3x?=
+ =?iso-8859-1?Q?HiIvb2edAiuTfYOq4FohNe+oPmfRou15B3dtmT6xMze8X7DwaQvVN8SgdF?=
+ =?iso-8859-1?Q?Bbcoyhb4u0F8IrbpZPp693RNCqlVQ5n5GRX4B/YlG6xfX3XEWc0vko32Po?=
+ =?iso-8859-1?Q?jpfTJnn6RLNeQuLIJIkaR8h9rsiBueX9AQ/IPo2dUOkm3hKOWkDDAumpRj?=
+ =?iso-8859-1?Q?yeO8o17oFfRTtdhCfuSDVhu+fnz+l/I5iYufsGsBQmKNmtCC1iJb3Yaywi?=
+ =?iso-8859-1?Q?ws3jEIjqTPe2hak/AvsQ+/7ud3AXls+FOptNOHvVeg70lQFQNwqlpKCKsh?=
+ =?iso-8859-1?Q?KoYPCm8Du94+JLonLHgeUdv0lob2n1suXEeAOfWh22AyulhAnc3UyIr9WU?=
+ =?iso-8859-1?Q?pkPfe/OIph3va2EbYdywqcAdWTJ0J89dp5aiiMBR0Sm75vgNWFt2dtHkma?=
+ =?iso-8859-1?Q?mjDDC5At6AazEzpvtWZfrDncJ6BZwYF104MZg84FlbcQ+hVYa6Fl8MK02a?=
+ =?iso-8859-1?Q?0CsMZJF/4hpGhWEDUqAhwLM1qgZjio0OVDtGRS6MElwtoiDdqFcxO/qSRd?=
+ =?iso-8859-1?Q?/EBV8XMltasnDMKrvDmbRuybxp7rJ/e+AnVF+afajyN+ewytXa/RGPECcJ?=
+ =?iso-8859-1?Q?fsp24j2MJLVT6SbvJsC7UrkaCv1MUs7mrKOEBisQTT7DJ7LA2SjiMgxANw?=
+ =?iso-8859-1?Q?ygYBbEHMwfdc/POqzK1c8cUZKIgiaym8K0gb1m5oXlEZiP+XmF114hT+9z?=
+ =?iso-8859-1?Q?4sE9CiilX7sO/PceFAc=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB8678.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 437159ee-7e02-49a4-9a6a-08ddd5ae9fea
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Aug 2025 12:33:33.0440
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2aec7064-9a5e-498b-5926-08ddd5aea117
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Aug 2025 12:33:34.6060
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: jvVnaQ/7caqQnPedEtPEuCdMqNdb6eTCYZ9t8C+EwDXHDTNz6PhfDf7xisnaxZzRZil8r9J4pP3DgGnQyPJiXI56S1N794kW9j5QR8JI62A=
+X-MS-Exchange-CrossTenant-userprincipalname: 2oSSk9YCzf7RaVe4qtZLyz38SqZQKirprYgNWMh3IR92HiUV5/O90vwLx+NZRpcXBckQMX81SmwGZ18EiHpBAa4NKdC74dFo9EDTmhWE5Jw=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU5PR03MB10563
 
-This change introduces resource management in the VGIC to handle
-extended SPIs introduced in GICv3.1. The pending_irqs and
-allocated_irqs arrays are resized to support the required
-number of eSPIs, based on what is supported by the hardware and
-requested by the guest. A new field, ext_shared_irqs, is added
-to the VGIC structure to store information about eSPIs, similar
-to how shared_irqs is used for regular SPIs.
+Implemented support for GICv3.1 extended SPI registers for vGICv3,
+allowing the emulation of eSPI-specific behavior for guest domains.
+The implementation includes read and write emulation for eSPI-related
+registers (e.g., GICD_ISENABLERnE, GICD_IROUTERnE, and others),
+following a similar approach to the handling of regular SPIs.
 
-Since the eSPI range starts at INTID 4096 and INTIDs between 1025
-and 4095 are reserved, helper macros are introduced to simplify the
-transformation of indices and to enable easier access to eSPI-specific
-resources. These changes prepare the VGIC for processing eSPIs as
-required by future functionality.
+The eSPI registers, previously located in reserved address ranges,
+are now adjusted to support MMIO read and write operations correctly
+when CONFIG_GICV3_ESPI is enabled.
 
-The initialization and deinitialization paths for vgic have been updated
-to allocate and free these resources appropriately. Additionally,
-updated handling of INTIDs greater than 1024, passed from the toolstack
-during domain creation, and verification logic ensures only valid SPI or
-eSPI INTIDs are used.
-
-The existing SPI behavior remains unaffected when guests do not request
-eSPIs, GIC hardware does not support them, or the CONFIG_GICV3_ESPI
-option is disabled.
+The availability of eSPIs and the number of emulated extended SPIs
+for guest domains is reported by setting the appropriate bits in the
+GICD_TYPER register, based on the number of eSPIs requested by the
+domain and supported by the hardware. In cases where the configuration
+option is disabled, the hardware does not support eSPIs, or the domain
+does not request such interrupts, the functionality remains unchanged.
 
 Signed-off-by: Leonid Komarianskyi <leonid_komarianskyi@epam.com>
 
 ---
 Changes in V2:
-- change is_espi_rank to is_valid_espi_rank to verify whether the array
-  element ext_shared_irqs exists. The previous version, is_espi_rank,
-  only checked if the rank index was less than the maximum possible eSPI
-  rank index, but this could potentially result in accessing a
-  non-existing array element. To address this, is_valid_espi_rank was
-  introduced, which ensures that the required eSPI rank exists
-- move gic_number_espis to
-  xen/arm: gicv3: implement handling of GICv3.1 eSPI
-- update vgic_is_valid_irq checks to allow operating with eSPIs
-- remove redundant newline in vgic_allocate_virq
+- add missing rank index conversion for pending and inflight irqs
 ---
- xen/arch/arm/include/asm/vgic.h |  18 ++++
- xen/arch/arm/vgic.c             | 145 ++++++++++++++++++++++++++++++++
- 2 files changed, 163 insertions(+)
+ xen/arch/arm/vgic-v3.c | 248 ++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 245 insertions(+), 3 deletions(-)
 
-diff --git a/xen/arch/arm/include/asm/vgic.h b/xen/arch/arm/include/asm/vgi=
-c.h
-index 45201f4ca5..9fa4523018 100644
---- a/xen/arch/arm/include/asm/vgic.h
-+++ b/xen/arch/arm/include/asm/vgic.h
-@@ -146,6 +146,10 @@ struct vgic_dist {
-     int nr_spis; /* Number of SPIs */
-     unsigned long *allocated_irqs; /* bitmap of IRQs allocated */
-     struct vgic_irq_rank *shared_irqs;
-+#ifdef CONFIG_GICV3_ESPI
-+    struct vgic_irq_rank *ext_shared_irqs;
-+    int nr_espis; /* Number of extended SPIs */
-+#endif
-     /*
-      * SPIs are domain global, SGIs and PPIs are per-VCPU and stored in
-      * struct arch_vcpu.
-@@ -243,6 +247,14 @@ struct vgic_ops {
- /* Number of ranks of interrupt registers for a domain */
- #define DOMAIN_NR_RANKS(d) (((d)->arch.vgic.nr_spis+31)/32)
-=20
-+#ifdef CONFIG_GICV3_ESPI
-+#define DOMAIN_NR_EXT_RANKS(d) (((d)->arch.vgic.nr_espis+31)/32)
-+#define EXT_RANK_MIN (ESPI_BASE_INTID/32)
-+#define EXT_RANK_MAX ((ESPI_MAX_INTID+31)/32)
-+#define EXT_RANK_NUM2IDX(num) ((num)-EXT_RANK_MIN)
-+#define EXT_RANK_IDX2NUM(idx) ((idx)+EXT_RANK_MIN)
-+#endif
-+
- #define vgic_lock(v)   spin_lock_irq(&(v)->domain->arch.vgic.lock)
- #define vgic_unlock(v) spin_unlock_irq(&(v)->domain->arch.vgic.lock)
-=20
-@@ -302,6 +314,12 @@ extern struct vgic_irq_rank *vgic_rank_offset(struct v=
-cpu *v,
-                                               unsigned int b,
-                                               unsigned int n,
-                                               unsigned int s);
-+#ifdef CONFIG_GICV3_ESPI
-+extern struct vgic_irq_rank *vgic_ext_rank_offset(struct vcpu *v,
-+                                                  unsigned int b,
-+                                                  unsigned int n,
-+                                                  unsigned int s);
-+#endif
- extern struct vgic_irq_rank *vgic_rank_irq(struct vcpu *v, unsigned int ir=
-q);
- extern void vgic_disable_irqs(struct vcpu *v, uint32_t r, unsigned int n);
- extern void vgic_enable_irqs(struct vcpu *v, uint32_t r, unsigned int n);
-diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
-index 48fbaf56fb..1a6c765af9 100644
---- a/xen/arch/arm/vgic.c
-+++ b/xen/arch/arm/vgic.c
-@@ -27,9 +27,26 @@
-=20
- bool vgic_is_valid_irq(struct domain *d, unsigned int virq)
+diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
+index 4369c55177..1cacbb6e43 100644
+--- a/xen/arch/arm/vgic-v3.c
++++ b/xen/arch/arm/vgic-v3.c
+@@ -111,7 +111,7 @@ static uint64_t vgic_fetch_irouter(struct vgic_irq_rank=
+ *rank,
+  * Note the offset will be aligned to the appropriate boundary.
+  */
+ static void vgic_store_irouter(struct domain *d, struct vgic_irq_rank *ran=
+k,
+-                               unsigned int offset, uint64_t irouter)
++                               unsigned int offset, uint64_t irouter, bool=
+ espi)
  {
+     struct vcpu *new_vcpu, *old_vcpu;
+     unsigned int virq;
+@@ -123,7 +123,8 @@ static void vgic_store_irouter(struct domain *d, struct=
+ vgic_irq_rank *rank,
+      * The IROUTER0-31, used for SGIs/PPIs, are reserved and should
+      * never call this function.
+      */
+-    ASSERT(virq >=3D 32);
++    if ( !espi )
++        ASSERT(virq >=3D 32);
+=20
+     /* Get the index in the rank */
+     offset =3D virq & INTERRUPT_RANK_MASK;
+@@ -146,6 +147,11 @@ static void vgic_store_irouter(struct domain *d, struc=
+t vgic_irq_rank *rank,
+     /* Only migrate the IRQ if the target vCPU has changed */
+     if ( new_vcpu !=3D old_vcpu )
+     {
 +#ifdef CONFIG_GICV3_ESPI
-+    if ( virq >=3D ESPI_BASE_INTID && virq < ESPI_IDX2INTID(d->arch.vgic.n=
-r_espis) )
-+        return true;
++        /* Convert virq index to eSPI range */
++        if ( espi )
++            virq =3D ESPI_IDX2INTID(virq);
 +#endif
-+
-     return virq < vgic_num_irqs(d);
- }
+         if ( vgic_migrate_irq(old_vcpu, new_vcpu, virq) )
+             write_atomic(&rank->vcpu[offset], new_vcpu->vcpu_id);
+     }
+@@ -685,6 +691,9 @@ static int __vgic_v3_distr_common_mmio_read(const char =
+*name, struct vcpu *v,
+     {
+     case VRANGE32(GICD_IGROUPR, GICD_IGROUPRN):
+     case VRANGE32(GICD_IGRPMODR, GICD_IGRPMODRN):
++#ifdef CONFIG_GICV3_ESPI
++    case VRANGE32(GICD_IGROUPRnE, GICD_IGROUPRnEN):
++#endif
+         /* We do not implement security extensions for guests, read zero *=
+/
+         if ( dabt.size !=3D DABT_WORD ) goto bad_width;
+         goto read_as_zero;
+@@ -710,11 +719,19 @@ static int __vgic_v3_distr_common_mmio_read(const cha=
+r *name, struct vcpu *v,
+     /* Read the pending status of an IRQ via GICD/GICR is not supported */
+     case VRANGE32(GICD_ISPENDR, GICD_ISPENDRN):
+     case VRANGE32(GICD_ICPENDR, GICD_ICPENDRN):
++#ifdef CONFIG_GICV3_ESPI
++    case VRANGE32(GICD_ISPENDRnE, GICD_ISPENDRnEN):
++    case VRANGE32(GICD_ICPENDRnE, GICD_ICPENDRnEN):
++#endif
+         goto read_as_zero;
+=20
+     /* Read the active status of an IRQ via GICD/GICR is not supported */
+     case VRANGE32(GICD_ISACTIVER, GICD_ISACTIVERN):
+     case VRANGE32(GICD_ICACTIVER, GICD_ICACTIVERN):
++#ifdef CONFIG_GICV3_ESPI
++    case VRANGE32(GICD_ISACTIVERnE, GICD_ISACTIVERnEN):
++    case VRANGE32(GICD_ICACTIVERnE, GICD_ICACTIVERnEN):
++#endif
+         goto read_as_zero;
+=20
+     case VRANGE32(GICD_IPRIORITYR, GICD_IPRIORITYRN):
+@@ -752,6 +769,61 @@ static int __vgic_v3_distr_common_mmio_read(const char=
+ *name, struct vcpu *v,
+         return 1;
+     }
 =20
 +#ifdef CONFIG_GICV3_ESPI
-+/*
-+ * Since eSPI indexes start from 4096 and numbers from 1024 to
-+ * 4095 are forbidden, we need to check both lower and upper
-+ * limits for ranks.
-+ */
-+static inline bool is_valid_espi_rank(struct domain *d, unsigned int rank)
-+{
-+    return ( rank >=3D EXT_RANK_MIN && EXT_RANK_NUM2IDX(rank) < DOMAIN_NR_=
-EXT_RANKS(d) );
-+}
++    case VRANGE32(GICD_ISENABLERnE, GICD_ISENABLERnEN):
++        if ( dabt.size !=3D DABT_WORD ) goto bad_width;
++        rank =3D vgic_ext_rank_offset(v, 1, reg - GICD_ISENABLERnE, DABT_W=
+ORD);
++        if ( rank =3D=3D NULL ) goto read_as_zero;
++        vgic_lock_rank(v, rank, flags);
++        *r =3D vreg_reg32_extract(rank->ienable, info);
++        vgic_unlock_rank(v, rank, flags);
++        return 1;
++
++    case VRANGE32(GICD_ICENABLERnE, GICD_ICENABLERnEN):
++        if ( dabt.size !=3D DABT_WORD ) goto bad_width;
++        rank =3D vgic_ext_rank_offset(v, 1, reg - GICD_ICENABLERnE, DABT_W=
+ORD);
++        if ( rank =3D=3D NULL ) goto read_as_zero;
++        vgic_lock_rank(v, rank, flags);
++        *r =3D vreg_reg32_extract(rank->ienable, info);
++        vgic_unlock_rank(v, rank, flags);
++        return 1;
++
++    case VRANGE32(GICD_IPRIORITYRnE, GICD_IPRIORITYRnEN):
++    {
++        uint32_t ipriorityr;
++        uint8_t rank_index;
++
++        if ( dabt.size !=3D DABT_BYTE && dabt.size !=3D DABT_WORD ) goto b=
+ad_width;
++        rank =3D vgic_ext_rank_offset(v, 8, reg - GICD_IPRIORITYRnE, DABT_=
+WORD);
++        if ( rank =3D=3D NULL ) goto read_as_zero;
++        rank_index =3D REG_RANK_INDEX(8, reg - GICD_IPRIORITYRnE, DABT_WOR=
+D);
++
++        vgic_lock_rank(v, rank, flags);
++        ipriorityr =3D ACCESS_ONCE(rank->ipriorityr[rank_index]);
++        vgic_unlock_rank(v, rank, flags);
++
++        *r =3D vreg_reg32_extract(ipriorityr, info);
++
++        return 1;
++    }
++
++    case VRANGE32(GICD_ICFGRnE, GICD_ICFGRnEN):
++    {
++        uint32_t icfgr;
++
++        if ( dabt.size !=3D DABT_WORD ) goto bad_width;
++        rank =3D vgic_ext_rank_offset(v, 2, reg - GICD_ICFGRnE, DABT_WORD)=
+;
++        if ( rank =3D=3D NULL ) goto read_as_zero;
++        vgic_lock_rank(v, rank, flags);
++        icfgr =3D rank->icfg[REG_RANK_INDEX(2, reg - GICD_ICFGRnE, DABT_WO=
+RD)];
++        vgic_unlock_rank(v, rank, flags);
++
++        *r =3D vreg_reg32_extract(icfgr, info);
++
++        return 1;
++    }
 +#endif
 +
- static inline struct vgic_irq_rank *vgic_get_rank(struct vcpu *v,
-                                                   unsigned int rank)
- {
-@@ -37,6 +54,10 @@ static inline struct vgic_irq_rank *vgic_get_rank(struct=
- vcpu *v,
-         return v->arch.vgic.private_irqs;
-     else if ( rank <=3D DOMAIN_NR_RANKS(v->domain) )
-         return &v->domain->arch.vgic.shared_irqs[rank - 1];
+     default:
+         printk(XENLOG_G_ERR
+                "%pv: %s: unhandled read r%d offset %#08x\n",
+@@ -782,6 +854,9 @@ static int __vgic_v3_distr_common_mmio_write(const char=
+ *name, struct vcpu *v,
+     {
+     case VRANGE32(GICD_IGROUPR, GICD_IGROUPRN):
+     case VRANGE32(GICD_IGRPMODR, GICD_IGRPMODRN):
 +#ifdef CONFIG_GICV3_ESPI
-+    else if ( is_valid_espi_rank(v->domain, rank) )
-+        return &v->domain->arch.vgic.ext_shared_irqs[EXT_RANK_NUM2IDX(rank=
-)];
++    case VRANGE32(GICD_IGROUPRnE, GICD_IGROUPRnEN):
 +#endif
-     else
-         return NULL;
- }
-@@ -53,6 +74,16 @@ struct vgic_irq_rank *vgic_rank_offset(struct vcpu *v, u=
-nsigned int b,
-     return vgic_get_rank(v, rank);
- }
+         /* We do not implement security extensions for guests, write ignor=
+e */
+         goto write_ignore_32;
+=20
+@@ -871,6 +946,87 @@ static int __vgic_v3_distr_common_mmio_write(const cha=
+r *name, struct vcpu *v,
+         vgic_unlock_rank(v, rank, flags);
+         return 1;
 =20
 +#ifdef CONFIG_GICV3_ESPI
-+struct vgic_irq_rank *vgic_ext_rank_offset(struct vcpu *v, unsigned int b,
-+                                           unsigned int n, unsigned int s)
-+{
-+    unsigned int rank =3D REG_RANK_NR(b, (n >> s));
++    case VRANGE32(GICD_ISENABLERnE, GICD_ISENABLERnEN):
++        if ( dabt.size !=3D DABT_WORD ) goto bad_width;
++        rank =3D vgic_ext_rank_offset(v, 1, reg - GICD_ISENABLERnE, DABT_W=
+ORD);
++        if ( rank =3D=3D NULL ) goto write_ignore;
++        vgic_lock_rank(v, rank, flags);
++        tr =3D rank->ienable;
++        vreg_reg32_setbits(&rank->ienable, r, info);
++        vgic_enable_irqs(v, (rank->ienable) & (~tr), EXT_RANK_IDX2NUM(rank=
+->index));
++        vgic_unlock_rank(v, rank, flags);
++        return 1;
 +
-+    return vgic_get_rank(v, rank + EXT_RANK_MIN);
-+}
-+#endif
++    case VRANGE32(GICD_ICENABLERnE, GICD_ICENABLERnEN):
++        if ( dabt.size !=3D DABT_WORD ) goto bad_width;
++        rank =3D vgic_ext_rank_offset(v, 1, reg - GICD_ICENABLERnE, DABT_W=
+ORD);
++        if ( rank =3D=3D NULL ) goto write_ignore;
++        vgic_lock_rank(v, rank, flags);
++        tr =3D rank->ienable;
++        vreg_reg32_clearbits(&rank->ienable, r, info);
++        vgic_disable_irqs(v, (~rank->ienable) & tr, EXT_RANK_IDX2NUM(rank-=
+>index));
++        vgic_unlock_rank(v, rank, flags);
++        return 1;
 +
- struct vgic_irq_rank *vgic_rank_irq(struct vcpu *v, unsigned int irq)
- {
-     unsigned int rank =3D irq / 32;
-@@ -117,6 +148,29 @@ int domain_vgic_register(struct domain *d, unsigned in=
-t *mmio_count)
-     return 0;
- }
-=20
-+#ifdef CONFIG_GICV3_ESPI
-+static int init_vgic_espi(struct domain *d)
-+{
-+    int i;
++    case VRANGE32(GICD_ISPENDRnE, GICD_ISPENDRnEN):
++        if ( dabt.size !=3D DABT_WORD ) goto bad_width;
++        rank =3D vgic_ext_rank_offset(v, 1, reg - GICD_ISPENDRnE, DABT_WOR=
+D);
++        if ( rank =3D=3D NULL ) goto write_ignore;
 +
-+    if ( d->arch.vgic.nr_espis =3D=3D 0 )
++        vgic_set_irqs_pending(v, r, EXT_RANK_IDX2NUM(rank->index));
++
++        return 1;
++
++    case VRANGE32(GICD_ICPENDRnE, GICD_ICPENDRnEN):
++        if ( dabt.size !=3D DABT_WORD ) goto bad_width;
++        rank =3D vgic_ext_rank_offset(v, 1, reg - GICD_ICPENDRnE, DABT_WOR=
+D);
++        if ( rank =3D=3D NULL ) goto write_ignore;
++
++        vgic_check_inflight_irqs_pending(v, EXT_RANK_IDX2NUM(rank->index),=
+ r);
++
++        goto write_ignore;
++    case VRANGE32(GICD_ISACTIVERnE, GICD_ISACTIVERnEN):
++        if ( dabt.size !=3D DABT_WORD ) goto bad_width;
++        printk(XENLOG_G_ERR
++               "%pv: %s: unhandled word write %#"PRIregister" to ISACTIVER=
+%d\n",
++               v, name, r, reg - GICD_ISACTIVERnE);
 +        return 0;
 +
-+    d->arch.vgic.ext_shared_irqs =3D
-+        xzalloc_array(struct vgic_irq_rank, DOMAIN_NR_EXT_RANKS(d));
-+    if ( d->arch.vgic.ext_shared_irqs =3D=3D NULL )
-+        return -ENOMEM;
++    case VRANGE32(GICD_ICACTIVERnE, GICD_ICACTIVERnEN):
++        printk(XENLOG_G_ERR
++               "%pv: %s: unhandled word write %#"PRIregister" to ICACTIVER=
+%d\n",
++               v, name, r, reg - GICD_ICACTIVER);
++        goto write_ignore_32;
 +
-+    for ( i =3D 0; i < d->arch.vgic.nr_espis; i++ )
-+        vgic_init_pending_irq(&d->arch.vgic.pending_irqs[i + d->arch.vgic.=
-nr_spis], ESPI_IDX2INTID(i));
-+
-+    for ( i =3D 0; i < DOMAIN_NR_EXT_RANKS(d); i++ )
-+        vgic_rank_init(&d->arch.vgic.ext_shared_irqs[i], i, 0);
-+
-+    return 0;
-+}
-+#endif
-+
- int domain_vgic_init(struct domain *d, unsigned int nr_spis)
- {
-     int i;
-@@ -131,6 +185,30 @@ int domain_vgic_init(struct domain *d, unsigned int nr=
-_spis)
-      */
-     nr_spis =3D ROUNDUP(nr_spis, 32);
-=20
-+#ifdef CONFIG_GICV3_ESPI
-+    if ( nr_spis > ESPI_MAX_INTID )
-+        return -EINVAL;
-+
-+    if ( is_espi(nr_spis) )
++    case VRANGE32(GICD_IPRIORITYRnE, GICD_IPRIORITYRnEN):
 +    {
-+        /*
-+         * During domain creation, the toolstack specifies the maximum INT=
-ID,
-+         * which is defined in the domain config subtracted by 32. To comp=
-ute the
-+         * actual number of eSPI that will be usable for, add back 32.
-+         */
-+        d->arch.vgic.nr_espis =3D min(nr_spis - ESPI_BASE_INTID + 32, 1024=
-U);
-+        /* Verify if GIC HW can handle provided INTID */
-+        if ( d->arch.vgic.nr_espis > gic_number_espis() )
-+            return -EINVAL;
-+        /* Set the maximum available number for defult SPI to pass the nex=
-t check */
-+        nr_spis =3D VGIC_DEF_NR_SPIS;
-+    } else
-+    {
-+        /* Domain will use the regular SPI range */
-+        d->arch.vgic.nr_espis =3D 0;
++        uint32_t *ipriorityr, priority;
++
++        if ( dabt.size !=3D DABT_BYTE && dabt.size !=3D DABT_WORD ) goto b=
+ad_width;
++        rank =3D vgic_ext_rank_offset(v, 8, reg - GICD_IPRIORITYRnE, DABT_=
+WORD);
++        if ( rank =3D=3D NULL ) goto write_ignore;
++        vgic_lock_rank(v, rank, flags);
++        ipriorityr =3D &rank->ipriorityr[REG_RANK_INDEX(8, reg - GICD_IPRI=
+ORITYRnE,
++                                                      DABT_WORD)];
++        priority =3D ACCESS_ONCE(*ipriorityr);
++        vreg_reg32_update(&priority, r, info);
++        ACCESS_ONCE(*ipriorityr) =3D priority;
++        vgic_unlock_rank(v, rank, flags);
++        return 1;
 +    }
-+#endif
-+
-     /* Limit the number of virtual SPIs supported to (1020 - 32) =3D 988  =
-*/
-     if ( nr_spis > (1020 - NR_LOCAL_IRQS) )
-         return -EINVAL;
-@@ -145,7 +223,12 @@ int domain_vgic_init(struct domain *d, unsigned int nr=
-_spis)
-         return -ENOMEM;
-=20
-     d->arch.vgic.pending_irqs =3D
-+#ifdef CONFIG_GICV3_ESPI
-+        xzalloc_array(struct pending_irq, d->arch.vgic.nr_spis +
-+                      d->arch.vgic.nr_espis);
-+#else
-         xzalloc_array(struct pending_irq, d->arch.vgic.nr_spis);
-+#endif
-     if ( d->arch.vgic.pending_irqs =3D=3D NULL )
-         return -ENOMEM;
-=20
-@@ -156,12 +239,23 @@ int domain_vgic_init(struct domain *d, unsigned int n=
-r_spis)
-     for ( i =3D 0; i < DOMAIN_NR_RANKS(d); i++ )
-         vgic_rank_init(&d->arch.vgic.shared_irqs[i], i + 1, 0);
-=20
-+#ifdef CONFIG_GICV3_ESPI
-+    ret =3D init_vgic_espi(d);
-+    if ( ret )
-+        return ret;
-+#endif
-+
-     ret =3D d->arch.vgic.handler->domain_init(d);
-     if ( ret )
-         return ret;
-=20
-     d->arch.vgic.allocated_irqs =3D
-+#ifdef CONFIG_GICV3_ESPI
-+        xzalloc_array(unsigned long, BITS_TO_LONGS(vgic_num_irqs(d) +
-+                      d->arch.vgic.nr_espis));
-+#else
-         xzalloc_array(unsigned long, BITS_TO_LONGS(vgic_num_irqs(d)));
-+#endif
-     if ( !d->arch.vgic.allocated_irqs )
-         return -ENOMEM;
-=20
-@@ -195,9 +289,27 @@ void domain_vgic_free(struct domain *d)
-         }
-     }
-=20
-+#ifdef CONFIG_GICV3_ESPI
-+    for ( i =3D 0; i < (d->arch.vgic.nr_espis); i++ )
-+    {
-+        struct pending_irq *p =3D spi_to_pending(d, ESPI_IDX2INTID(i));
-+
-+        if ( p->desc )
-+        {
-+            ret =3D release_guest_irq(d, p->irq);
-+            if ( ret )
-+                dprintk(XENLOG_G_WARNING, "d%u: Failed to release virq %u =
-ret =3D %d\n",
-+                        d->domain_id, p->irq, ret);
-+        }
-+    }
-+#endif
-+
-     if ( d->arch.vgic.handler )
-         d->arch.vgic.handler->domain_free(d);
-     xfree(d->arch.vgic.shared_irqs);
-+#ifdef CONFIG_GICV3_ESPI
-+    xfree(d->arch.vgic.ext_shared_irqs);
-+#endif
-     xfree(d->arch.vgic.pending_irqs);
-     xfree(d->arch.vgic.allocated_irqs);
- }
-@@ -331,6 +443,17 @@ void arch_move_irqs(struct vcpu *v)
-         if ( v_target =3D=3D v && !test_bit(GIC_IRQ_GUEST_MIGRATING, &p->s=
-tatus) )
-             irq_set_affinity(p->desc, cpu_mask);
-     }
-+
-+#ifdef CONFIG_GICV3_ESPI
-+    for ( i =3D ESPI_BASE_INTID; i < (d)->arch.vgic.nr_espis; i++ )
-+    {
-+        v_target =3D vgic_get_target_vcpu(v, i);
-+        p =3D irq_to_pending(v_target, i);
-+
-+        if ( v_target =3D=3D v && !test_bit(GIC_IRQ_GUEST_MIGRATING, &p->s=
-tatus) )
-+            irq_set_affinity(p->desc, cpu_mask);
-+    }
-+#endif
- }
-=20
- void vgic_disable_irqs(struct vcpu *v, uint32_t r, unsigned int n)
-@@ -538,6 +661,10 @@ struct pending_irq *irq_to_pending(struct vcpu *v, uns=
-igned int irq)
-         n =3D &v->arch.vgic.pending_irqs[irq];
-     else if ( is_lpi(irq) )
-         n =3D v->domain->arch.vgic.handler->lpi_to_pending(v->domain, irq)=
++    case VRANGE32(GICD_ICFGRnE, GICD_ICFGRnEN):
++        if ( dabt.size !=3D DABT_WORD ) goto bad_width;
++        rank =3D vgic_ext_rank_offset(v, 2, reg - GICD_ICFGRnE, DABT_WORD)=
 ;
-+#ifdef CONFIG_GICV3_ESPI
-+    else if ( is_espi(irq) )
-+        n =3D &v->domain->arch.vgic.pending_irqs[ESPI_INTID2IDX(irq) + v->=
-domain->arch.vgic.nr_spis];
++        if ( rank =3D=3D NULL ) goto write_ignore;
++        vgic_lock_rank(v, rank, flags);
++        vreg_reg32_update(&rank->icfg[REG_RANK_INDEX(2, reg - GICD_ICFGRnE=
+,
++                                                     DABT_WORD)],
++                          r, info);
++        vgic_unlock_rank(v, rank, flags);
++        return 1;
 +#endif
-     else
-         n =3D &v->domain->arch.vgic.pending_irqs[irq - 32];
-     return n;
-@@ -547,6 +674,14 @@ struct pending_irq *spi_to_pending(struct domain *d, u=
-nsigned int irq)
- {
-     ASSERT(irq >=3D NR_LOCAL_IRQS);
++
+     default:
+         printk(XENLOG_G_ERR
+                "%pv: %s: unhandled write r%d=3D%"PRIregister" offset %#08x=
+\n",
+@@ -1129,6 +1285,16 @@ static int vgic_v3_distr_mmio_read(struct vcpu *v, m=
+mio_info_t *info,
+             typer |=3D GICD_TYPE_LPIS;
+=20
+         typer |=3D (v->domain->arch.vgic.intid_bits - 1) << GICD_TYPE_ID_B=
+ITS_SHIFT;
++#ifdef CONFIG_GICV3_ESPI
++        if ( v->domain->arch.vgic.nr_espis > 0 )
++        {
++            /* Set eSPI support bit for the domain */
++            typer |=3D GICD_TYPER_ESPI;
++            /* Set ESPI range bits */
++            typer |=3D (DIV_ROUND_UP(v->domain->arch.vgic.nr_espis, 32) - =
+1)
++                       << GICD_TYPER_ESPI_RANGE_SHIFT;
++        }
++#endif
+=20
+         *r =3D vreg_reg32_extract(typer, info);
+=20
+@@ -1194,6 +1360,18 @@ static int vgic_v3_distr_mmio_read(struct vcpu *v, m=
+mio_info_t *info,
+     case VRANGE32(GICD_IPRIORITYR, GICD_IPRIORITYRN):
+     case VRANGE32(GICD_ICFGR, GICD_ICFGRN):
+     case VRANGE32(GICD_IGRPMODR, GICD_IGRPMODRN):
++
++#ifdef CONFIG_GICV3_ESPI
++    case VRANGE32(GICD_IGROUPRnE, GICD_IGROUPRnEN):
++    case VRANGE32(GICD_ISENABLERnE, GICD_ISENABLERnEN):
++    case VRANGE32(GICD_ICENABLERnE, GICD_ICENABLERnEN):
++    case VRANGE32(GICD_ISPENDRnE, GICD_ISPENDRnEN):
++    case VRANGE32(GICD_ICPENDRnE, GICD_ICPENDRnEN):
++    case VRANGE32(GICD_ISACTIVERnE, GICD_ISACTIVERnEN):
++    case VRANGE32(GICD_ICACTIVERnE, GICD_ICACTIVERnEN):
++    case VRANGE32(GICD_IPRIORITYRnE, GICD_IPRIORITYRnEN):
++    case VRANGE32(GICD_ICFGRnE, GICD_ICFGRnEN):
++#endif
+         /*
+          * Above all register are common with GICR and GICD
+          * Manage in common
+@@ -1216,7 +1394,11 @@ static int vgic_v3_distr_mmio_read(struct vcpu *v, m=
+mio_info_t *info,
+         /* Replaced with GICR_ISPENDR0. So ignore write */
+         goto read_as_zero_32;
 =20
 +#ifdef CONFIG_GICV3_ESPI
-+    if ( is_espi(irq) )
++    case VRANGE32(0x3100, 0x60FC):
++#else
+     case VRANGE32(0x0F30, 0x60FC):
++#endif
+         goto read_reserved;
+=20
+     case VRANGE64(GICD_IROUTER32, GICD_IROUTER1019):
+@@ -1235,8 +1417,30 @@ static int vgic_v3_distr_mmio_read(struct vcpu *v, m=
+mio_info_t *info,
+=20
+         return 1;
+     }
++#ifdef CONFIG_GICV3_ESPI
++    case VRANGE64(GICD_IROUTERnE, GICD_IROUTERnEN):
 +    {
-+        irq =3D ESPI_INTID2IDX(irq) + d->arch.vgic.nr_spis;
-+        return &d->arch.vgic.pending_irqs[irq];
++        uint64_t irouter;
++
++        if ( !vgic_reg64_check_access(dabt) ) goto bad_width;
++        rank =3D vgic_ext_rank_offset(v, 64, gicd_reg - GICD_IROUTERnE,
++                                DABT_DOUBLE_WORD);
++        if ( rank =3D=3D NULL ) goto read_as_zero;
++        vgic_lock_rank(v, rank, flags);
++        irouter =3D vgic_fetch_irouter(rank, gicd_reg - GICD_IROUTERnE);
++        vgic_unlock_rank(v, rank, flags);
++
++        *r =3D vreg_reg64_extract(irouter, info);
++
++        return 1;
 +    }
 +#endif
-+
-     return &d->arch.vgic.pending_irqs[irq - 32];
- }
-=20
-@@ -668,6 +803,11 @@ bool vgic_reserve_virq(struct domain *d, unsigned int =
-virq)
-     if ( !vgic_is_valid_irq(d, virq) )
-         return false;
 =20
 +#ifdef CONFIG_GICV3_ESPI
-+    if ( is_espi(virq) )
-+        return !test_and_set_bit(ESPI_INTID2IDX(virq) + vgic_num_irqs(d), =
-d->arch.vgic.allocated_irqs);
++    case VRANGE32(0xA004, 0xBFFC):
++#else
+     case VRANGE32(0x7FE0, 0xBFFC):
 +#endif
-+
-     return !test_and_set_bit(virq, d->arch.vgic.allocated_irqs);
- }
+         goto read_reserved;
 =20
-@@ -686,6 +826,11 @@ int vgic_allocate_virq(struct domain *d, bool spi)
-     {
-         first =3D 32;
-         end =3D vgic_num_irqs(d);
-+#ifdef CONFIG_GICV3_ESPI
-+        /* Take into account extended SPI range */
-+        end +=3D d->arch.vgic.nr_espis;
-+#endif
+     case VRANGE32(0xC000, 0xFFCC):
+@@ -1382,6 +1586,18 @@ static int vgic_v3_distr_mmio_write(struct vcpu *v, =
+mmio_info_t *info,
+     case VRANGE32(GICD_IPRIORITYR, GICD_IPRIORITYRN):
+     case VRANGE32(GICD_ICFGR, GICD_ICFGRN):
+     case VRANGE32(GICD_IGRPMODR, GICD_IGRPMODRN):
 +
++#ifdef CONFIG_GICV3_ESPI
++    case VRANGE32(GICD_IGROUPRnE, GICD_IGROUPRnEN):
++    case VRANGE32(GICD_ISENABLERnE, GICD_ISENABLERnEN):
++    case VRANGE32(GICD_ICENABLERnE, GICD_ICENABLERnEN):
++    case VRANGE32(GICD_ISPENDRnE, GICD_ISPENDRnEN):
++    case VRANGE32(GICD_ICPENDRnE, GICD_ICPENDRnEN):
++    case VRANGE32(GICD_ISACTIVERnE, GICD_ISACTIVERnEN):
++    case VRANGE32(GICD_ICACTIVERnE, GICD_ICACTIVERnEN):
++    case VRANGE32(GICD_IPRIORITYRnE, GICD_IPRIORITYRnEN):
++    case VRANGE32(GICD_ICFGRnE, GICD_ICFGRnEN):
++#endif
+         /* Above registers are common with GICR and GICD
+          * Manage in common */
+         return __vgic_v3_distr_common_mmio_write("vGICD", v, info,
+@@ -1405,7 +1621,11 @@ static int vgic_v3_distr_mmio_write(struct vcpu *v, =
+mmio_info_t *info,
+         if ( dabt.size !=3D DABT_WORD ) goto bad_width;
+         return 0;
+=20
++#ifdef CONFIG_GICV3_ESPI
++    case VRANGE32(0x3100, 0x60FC):
++#else
+     case VRANGE32(0x0F30, 0x60FC):
++#endif
+         goto write_reserved;
+=20
+     case VRANGE64(GICD_IROUTER32, GICD_IROUTER1019):
+@@ -1419,12 +1639,34 @@ static int vgic_v3_distr_mmio_write(struct vcpu *v,=
+ mmio_info_t *info,
+         vgic_lock_rank(v, rank, flags);
+         irouter =3D vgic_fetch_irouter(rank, gicd_reg - GICD_IROUTER);
+         vreg_reg64_update(&irouter, r, info);
+-        vgic_store_irouter(v->domain, rank, gicd_reg - GICD_IROUTER, irout=
+er);
++        vgic_store_irouter(v->domain, rank, gicd_reg - GICD_IROUTER, irout=
+er, false);
++        vgic_unlock_rank(v, rank, flags);
++        return 1;
++    }
++
++#ifdef CONFIG_GICV3_ESPI
++    case VRANGE64(GICD_IROUTERnE, GICD_IROUTERnEN):
++    {
++        uint64_t irouter;
++
++        if ( !vgic_reg64_check_access(dabt) ) goto bad_width;
++        rank =3D vgic_ext_rank_offset(v, 64, gicd_reg - GICD_IROUTERnE,
++                                DABT_DOUBLE_WORD);
++        if ( rank =3D=3D NULL ) goto write_ignore;
++        vgic_lock_rank(v, rank, flags);
++        irouter =3D vgic_fetch_irouter(rank, gicd_reg - GICD_IROUTERnE);
++        vreg_reg64_update(&irouter, r, info);
++        vgic_store_irouter(v->domain, rank, gicd_reg - GICD_IROUTERnE, iro=
+uter, true);
+         vgic_unlock_rank(v, rank, flags);
+         return 1;
      }
++#endif
 =20
-     /*
++#ifdef CONFIG_GICV3_ESPI
++    case VRANGE32(0xA004, 0xBFFC):
++#else
+     case VRANGE32(0x7FE0, 0xBFFC):
++#endif
+         goto write_reserved;
+=20
+     case VRANGE32(0xC000, 0xFFCC):
 --=20
 2.34.1
 
