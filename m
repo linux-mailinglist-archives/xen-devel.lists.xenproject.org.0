@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9F99B1DB1F
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 17:58:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1073258.1436155 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FEEEB1DB27
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 17:59:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1073267.1436167 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uk305-0000Z4-2u; Thu, 07 Aug 2025 15:57:53 +0000
+	id 1uk31d-0001Am-H1; Thu, 07 Aug 2025 15:59:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1073258.1436155; Thu, 07 Aug 2025 15:57:53 +0000
+Received: by outflank-mailman (output) from mailman id 1073267.1436167; Thu, 07 Aug 2025 15:59:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uk305-0000XQ-06; Thu, 07 Aug 2025 15:57:53 +0000
-Received: by outflank-mailman (input) for mailman id 1073258;
- Thu, 07 Aug 2025 15:57:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+2Ad=2T=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uk303-0000X4-KF
- for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 15:57:51 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 451d50b0-73a7-11f0-a324-13f23c93f187;
- Thu, 07 Aug 2025 17:57:50 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-615398dc162so1876191a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 07 Aug 2025 08:57:50 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-615a8f2b892sm12236540a12.25.2025.08.07.08.57.49
+	id 1uk31d-00017m-Dj; Thu, 07 Aug 2025 15:59:29 +0000
+Received: by outflank-mailman (input) for mailman id 1073267;
+ Thu, 07 Aug 2025 15:59:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=oMMd=2T=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uk31b-00017c-FM
+ for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 15:59:27 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7da6901d-73a7-11f0-b898-0df219b8e170;
+ Thu, 07 Aug 2025 17:59:25 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-ae6f8d3bcd4so227618266b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Aug 2025 08:59:25 -0700 (PDT)
+Received: from [192.168.1.17] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-af93d62bc97sm1056064666b.80.2025.08.07.08.59.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Aug 2025 08:57:49 -0700 (PDT)
+ Thu, 07 Aug 2025 08:59:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 451d50b0-73a7-11f0-a324-13f23c93f187
+X-Inumbo-ID: 7da6901d-73a7-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754582270; x=1755187070; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=sc4K/GGTJOODWjBVp/Eg2EoY1eJv9sdXLDIapNjsyZo=;
-        b=cjmkxvTl9Q//cifowDIKlncwk53Jf34vvi6BCUROmNTVBI2XITZm3EzmwbXmpELNNy
-         x4KpRm+dyocYNz0b5fwqaw5ibamxuQLTautSCyTROIQgy27mZHcBHQt7msFGujsMsFbi
-         lMpyFjTFQ/oREvptDbLiwQnlBV6FJuk8qvUMbWV994EguTQMC4LR5DJXzarlqqO5YRBf
-         puAR+trJtzt3gy0SbIMFInL+yYpn2c2M8OeTarvMdwlrq5DIc1Kmgy/+hPbpGzF6x495
-         GOeLToraM50cej6z0tIxiEFe6/uBacT5xB7r1GFyOr2jrpOYcbo7wpKoUF1gKh5Ts2we
-         j1bQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754582270; x=1755187070;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1754582365; x=1755187165; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sc4K/GGTJOODWjBVp/Eg2EoY1eJv9sdXLDIapNjsyZo=;
-        b=GPRHnyUO6jMLbmx2ctuIR2xJh5fpxi2T5Smq4+qiOM2Y79hEBeeHPHVObOKYN6+kV1
-         XAuxF2+oLaO0G+RwVU+zHLkrU5AfMUb/KOqCmc4tN9uHNfPKLwJaQn3EU4L+5EvHJPw0
-         jBOxltTegvpom0ZdnvUkVdhkvaMgsBMlHts1Gk2jI/dM95WcmbMcfzlB2KbuWWTQa0hm
-         lapBHS0EEXag7UF4IVD1w6xau8PMDSQMx5wL/hEpLpb3Rzhd/b5A5fMdGhA02tERqjSH
-         j6kUn/tSq+wb05wLIwFfZ06+m5sfupYT6t5JhBKy91Xwrc9G89XG4uBO0zHSBY7oDN9C
-         6rDw==
-X-Forwarded-Encrypted: i=1; AJvYcCWxNyHJ1vmW/TvxVmB92nrRLQd5CbS26Y0Dvvr3vbJIMUAZxIAa7IbrbHa595arVA6PQAKVMwVhJss=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzjSODK2WJbTcwVHvX5pzqaWgXe48qiYzBy3CqtnzTufQLATwlZ
-	SI+ZHSWZRgUAm7jLyzz0mqsI1KcL8WUVt5qRXPWaAN9k9jhGL/oAgxq4Gk1GEI5SOQ==
-X-Gm-Gg: ASbGncuB3SmxKkfJRCiqE9b7h4oDFutv+p8VJlCtOvGi0ZL6vRM7XumjTD0ebZp5hwe
-	8GDzieO/fXH8JbiTrmDF8n7WA5hTCljyqJB4sTKnWyvU4rxhLVBnSCrcJC53ciDcxBA5fYrsvZK
-	erEnCGrj0vhZfsZ924l/DJ6culcAT4KB3V1l9y1FnmgsFngah+SDkVgNPNM+yqbAwIFopdJgbsP
-	J8v3KYbH2cedS79EIm6mQhlc4Poc6LGdZCK7N8GwrBjz2pzooEB0sYuuOo8iXPg/KWL7K93qNia
-	LpID0Y0JQ9q8/idEAkgA4veGuRtm0YWp6jcyIv5/QlxhAF5lwHNKZ9554HGCEK8IBTIHN+v7cDQ
-	sHyykyZC1T0aFsJ+6ptiqsTVHiZ/p2IMKuht/CxKwtP/Iu4+/f9frntqDurLii2swgkliGdzb02
-	ZcXkiuA1k=
-X-Google-Smtp-Source: AGHT+IFcenFdFzsv72NfyTJmIbLhoYinj/v1eQVO+SQWqIZevHxAMLCDr9vQKOp3ZJqfRKgRJwgqlA==
-X-Received: by 2002:a05:6402:d0e:b0:615:c767:5ba1 with SMTP id 4fb4d7f45d1cf-617dc3607d6mr273326a12.3.1754582269880;
-        Thu, 07 Aug 2025 08:57:49 -0700 (PDT)
-Message-ID: <2aa2135f-e422-417f-a509-74f61c3b19de@suse.com>
-Date: Thu, 7 Aug 2025 17:57:47 +0200
+        bh=0wgtPBavqi4PFHyWY9Rb9EAc0CZ4jorCn0z6GQ8ZqWE=;
+        b=RKtPQNkv97/JGpObUssHpocSl8hMwDX0AyxITsndHeDk6DD6ruWOjBvl6IlPTkJD1x
+         owQQ6bnZve03zzQXqIyGIKcofnJmRM7ZkjQqterHoCXzRgl4weuhcOb+7WgKv3ABFkjp
+         HYmnMsSC6IO8B+AY276xz6sfUt1lRImCoWwalUPEwNlWMToFY1Z5E2EdwJow+/FT7dVl
+         m2/l7XXEgMq7C7YOwwfYMoWi8++4NB65ATNdX11NZd/mSOhtjFrw+syOUXi5gwpLR+IL
+         GzBbevODLNzcu7rPZW2LMd0LYVwElUAVUgen3S2f8632uPbebKjwH5lCwXw+GQxDvICS
+         0uig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1754582365; x=1755187165;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=0wgtPBavqi4PFHyWY9Rb9EAc0CZ4jorCn0z6GQ8ZqWE=;
+        b=dP0gMuw0IteE18BTzJpXtla6YYiLWeWXIXtUB9eIBV5VE49iyftISqNlXBF0ZVEVdK
+         RstcBWNpn78EviSUdVnf6QXoEUn5+nbud9TvRUBuoHVPrEanlvUD05G45KNFML7tElET
+         0nHAT/O6u4obQ7Tle8sJP1GCALQwcuLzdWiHRdIAXZpGczOZQCR3Sg+OFEmCfmjWza69
+         zC+QgMC+Fe7UFK6eU0OBDc7R2nLph+wWTsGYn+9e92u0aMOxlL0c5JdY8CDUbKNJ9vYS
+         2m6XBCBD+fYLJARlshluJ4QjiT/OTXj5g/U0I3vZeVOjJWEll6dbE2vfgoGuh9tON7uO
+         ntVA==
+X-Forwarded-Encrypted: i=1; AJvYcCVNGlegRuVbvPWlb3TbmsPCKDjQxY1BNU5dWzUrFG18TA3PYH2TRg9jN+T5iOwZ89+WeSLwULWtpjc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzgrxqlPlOOBRVFpGiUl94OChS/K3qIu+22Z3TbwuvJgJHwr/FV
+	i7pzFGvkkkgMY5EZJqwVYaeKnYVuwOL3ecO4jkR8tkZ7YiFzKCbwvcNM
+X-Gm-Gg: ASbGncsDKmZjyDMCNz6PJXfAZeOvhqjZEiIvNXMPhdPyDmIapedvJ4KF3HqX3GHH2O8
+	ESgHYiu4zsfQtvMf/w+I+6RdjAwUTkDbDi2FYjEnaKZB3ojlWk+22kd8PcFCZJzD4ouIJTTitz8
+	Zz+WQ25EvuYOv6zGZUCEmBeZWJ1lgnRW0NpjqiSJqZTGvKBeUX0WwfBEQNVVcwD/1FyEm55e4kG
+	CKgBsiGm7TeYphRXFn+/iaGScW1YI3fYKCQc4ldIqXCEe2SbGjDdvFPKKO0jJh3Ya4WUePoNdtB
+	EaWYfqrVcj1VUsJmZmCfwfMSZZft+Z8yX0RJ8hQAxSZGMr7asRq1NBnTBMc0tsL5tJfxhqcYvVJ
+	ujn5T+eNx+AkDmGR3KqE6TkEIOeEbsaL1J6EGgLEk7PIhJaE5lssfYN2fzWKe4smb49js43gx
+X-Google-Smtp-Source: AGHT+IF6JpGu0ylcGSsFXKfkBWZUNHNaQB51sxXElkBY8cIkavWQP5x60LqdH4bvjmey/yjsXPrlhg==
+X-Received: by 2002:a17:907:96a5:b0:ade:198c:4b6f with SMTP id a640c23a62f3a-af9c1c503ecmr42455566b.1.1754582364461;
+        Thu, 07 Aug 2025 08:59:24 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------5KcyPkjop0awM4nKFAFs0bwU"
+Message-ID: <9fec023f-3b93-49a4-8ee2-ab2194951b19@gmail.com>
+Date: Thu, 7 Aug 2025 17:59:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 06/20] xen/riscv: add root page table allocation
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
  <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -99,76 +99,154 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
  <23c79f07221dee7eb782ebb160442f3a796a41b2.1753973161.git.oleksii.kurochko@gmail.com>
- <7491c934-f847-4fe2-9d9b-a500f0888198@suse.com>
- <ccdd5caa-2c91-4125-9c6b-067c941649b1@gmail.com>
+ <3c02593f-deae-4109-9334-0ac4376a9a9e@suse.com>
+ <d160c6da-a4a8-44ca-9dc5-b1e3cb31bde5@gmail.com>
+ <d81b41c9-59e1-4807-af27-9d952d35ba42@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ccdd5caa-2c91-4125-9c6b-067c941649b1@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <d81b41c9-59e1-4807-af27-9d952d35ba42@suse.com>
+
+This is a multi-part message in MIME format.
+--------------5KcyPkjop0awM4nKFAFs0bwU
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 07.08.2025 15:35, Oleksii Kurochko wrote:
-> 
-> On 8/5/25 12:43 PM, Jan Beulich wrote:
->> On 31.07.2025 17:58, Oleksii Kurochko wrote:
->>> +static int p2m_alloc_root_table(struct p2m_domain *p2m)
->>> +{
->>> +    struct domain *d = p2m->domain;
->>> +    struct page_info *page;
->>> +    const unsigned int nr_root_pages = P2M_ROOT_PAGES;
->>> +
->>> +    /*
->>> +     * Return back nr_root_pages to assure the root table memory is also
->>> +     * accounted against the P2M pool of the domain.
->>> +     */
->>> +    if ( !paging_ret_pages_to_domheap(d, nr_root_pages) )
->>> +        return -ENOMEM;
->>> +
->>> +    page = p2m_allocate_root(d);
->>> +    if ( !page )
->>> +        return -ENOMEM;
->>> +
->>> +    p2m->root = page;
->>> +
->>> +    return 0;
->>> +}
->> In the success case, shouldn't you bump the paging pool's total_pages by
->> P2M_ROOT_PAGES? (As the freeing side is missing so far, it's not easy to
->> tell whether there's [going to be] a balancing problem in the long run.
->> In the short run there certainly is.)
-> 
-> I think that total_pages should be updated only in case when page is added
-> to freelist.
-> In the case of p2m root table, we just returning some pages to domheap and
-> durint that decreasing an amount of total_pages as freelist has lesser pages,
-> and then just allocate pages from domheap without adding them to freelist.
 
-But how's freeing of a root table going to look like? Logically that group
-of 4 pages would be put back into the pool. And from that the pool's
-total_pages should reflect that right after successful allocation.
+On 8/7/25 5:30 PM, Jan Beulich wrote:
+> On 07.08.2025 14:00, Oleksii Kurochko wrote:
+>> On 8/5/25 12:37 PM, Jan Beulich wrote:
+>>> On 31.07.2025 17:58, Oleksii Kurochko wrote:
+>>>> +    /*
+>>>> +     * Return back nr_root_pages to assure the root table memory is also
+>>>> +     * accounted against the P2M pool of the domain.
+>>>> +     */
+>>>> +    if ( !paging_ret_pages_to_domheap(d, nr_root_pages) )
+>>>> +        return -ENOMEM;
+>>>> +
+>>>> +    page = p2m_allocate_root(d);
+>>>> +    if ( !page )
+>>>> +        return -ENOMEM;
+>>> Hmm, and the pool is then left shrunk by 4 pages?
+>> Yes until they are used for root table it shouldn't be in p2m pool (freelist),
+>> when root table will be freed then it makes sense to return them back.
+>> Am I missing something?
+> I'm commenting specifically on the error path here.
 
-Jan
+Ohh, got it.
+
+In this case, should we really care about this 4 pages as a domain can't be ran
+without allocated page root table and a panic() will be occured anyway according
+to the create_domUs() common code (construct_domU() -> domain_p2m_set_allocation()
+-> p2m_set_allocation() -> p2m_alloc_root_table()):
+...
+         rc = construct_domU(&ki, node);
+         if ( rc )
+             panic("Could not set up domain %s (rc = %d)\n",
+                   dt_node_name(node), rc);
+...
+(Note: I missed to return a value returned by p2m_alloc_root_table() in p2m_set_allocation()
+so it isn't really propagated, at the moment, but I will fix that in the next patch
+version) ...
+
+>> Probably, you meant that it is needed to update p2m->pages?
+> That (I think) I commented on elsewhere, yes.
+...
+
+if it is needed really to update p2m->pages when a page is allocated, I think
+it will be better to in p2m_allocate_root() immediately after alloc_domheap_pages()
+is called in p2m_allocate_root().
+
+~ Oleksii
+
+
+--------------5KcyPkjop0awM4nKFAFs0bwU
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 8/7/25 5:30 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:d81b41c9-59e1-4807-af27-9d952d35ba42@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 07.08.2025 14:00, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On 8/5/25 12:37 PM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 31.07.2025 17:58, Oleksii Kurochko wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">+    /*
++     * Return back nr_root_pages to assure the root table memory is also
++     * accounted against the P2M pool of the domain.
++     */
++    if ( !paging_ret_pages_to_domheap(d, nr_root_pages) )
++        return -ENOMEM;
++
++    page = p2m_allocate_root(d);
++    if ( !page )
++        return -ENOMEM;
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Hmm, and the pool is then left shrunk by 4 pages?
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+Yes until they are used for root table it shouldn't be in p2m pool (freelist),
+when root table will be freed then it makes sense to return them back.
+Am I missing something?
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+I'm commenting specifically on the error path here.</pre>
+    </blockquote>
+    <pre>Ohh, got it.
+
+In this case, should we really care about this 4 pages as a domain can't be ran
+without allocated page root table and a panic() will be occured anyway according
+to the create_domUs() common code (construct_domU() -&gt; domain_p2m_set_allocation()
+-&gt; p2m_set_allocation() -&gt; p2m_alloc_root_table()):
+...
+        rc = construct_domU(&amp;ki, node);
+        if ( rc )
+            panic("Could not set up domain %s (rc = %d)\n",
+                  dt_node_name(node), rc);
+...
+(Note: I missed to return a value returned by p2m_alloc_root_table() in p2m_set_allocation()
+so it isn't really propagated, at the moment, but I will fix that in the next patch
+version) ...
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:d81b41c9-59e1-4807-af27-9d952d35ba42@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">Probably, you meant that it is needed to update p2m-&gt;pages?
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+That (I think) I commented on elsewhere, yes.</pre>
+    </blockquote>
+    ... <br>
+    <pre>if it is needed really to update p2m-&gt;pages when a page is allocated, I think
+it will be better to in p2m_allocate_root() immediately after alloc_domheap_pages()
+is called in p2m_allocate_root().
+
+</pre>
+    <pre>~ Oleksii
+</pre>
+    <br>
+  </body>
+</html>
+
+--------------5KcyPkjop0awM4nKFAFs0bwU--
 
