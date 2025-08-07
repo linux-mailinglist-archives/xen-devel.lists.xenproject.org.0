@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B1E4B1D674
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 13:17:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1072831.1435781 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 119DDB1D672
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 13:17:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1072832.1435791 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujycK-0002oT-Cq; Thu, 07 Aug 2025 11:17:04 +0000
+	id 1ujycN-00033z-R1; Thu, 07 Aug 2025 11:17:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1072831.1435781; Thu, 07 Aug 2025 11:17:04 +0000
+Received: by outflank-mailman (output) from mailman id 1072832.1435791; Thu, 07 Aug 2025 11:17:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujycK-0002mS-9x; Thu, 07 Aug 2025 11:17:04 +0000
-Received: by outflank-mailman (input) for mailman id 1072831;
- Thu, 07 Aug 2025 11:17:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ujycN-00031X-Mw; Thu, 07 Aug 2025 11:17:07 +0000
+Received: by outflank-mailman (input) for mailman id 1072832;
+ Thu, 07 Aug 2025 11:17:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LYnK=2T=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ujycJ-0002Ym-Fu
- for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 11:17:03 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0b1b6fd2-7380-11f0-a324-13f23c93f187;
- Thu, 07 Aug 2025 13:17:03 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-458bece40fcso5178045e9.3
+ id 1ujycL-00030Z-Tx
+ for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 11:17:05 +0000
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [2a00:1450:4864:20::344])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0bc7cd9b-7380-11f0-b898-0df219b8e170;
+ Thu, 07 Aug 2025 13:17:04 +0200 (CEST)
+Received: by mail-wm1-x344.google.com with SMTP id
+ 5b1f17b1804b1-45994a72356so7051315e9.0
  for <xen-devel@lists.xenproject.org>; Thu, 07 Aug 2025 04:17:03 -0700 (PDT)
 Received: from localhost.localdomain (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-459e5c84b8csm45456435e9.4.2025.08.07.04.17.01
+ 5b1f17b1804b1-459e5c84b8csm45456435e9.4.2025.08.07.04.17.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Aug 2025 04:17:01 -0700 (PDT)
+ Thu, 07 Aug 2025 04:17:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b1b6fd2-7380-11f0-a324-13f23c93f187
+X-Inumbo-ID: 0bc7cd9b-7380-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1754565422; x=1755170222; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1754565423; x=1755170223; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WQKYHz4fSaJ/OtAFeeWkxochLoIzcmc/dz0cmOGZA7c=;
-        b=Yet7FYOilVJX0hLZFyWVHsZEWASYJL1oiG5OSVYtNPGhfa0WfokYNThyDFewA6S5dr
-         opR8Dt+OSW//i+0TirTY2aXVxEEjPnaacQsx8bzQtk533bIGwjsCUZBSfbphO/2UtDVd
-         eZ10KxeLf7hTXXPDu0TCdgXO9I9bG5grhGECQ=
+        bh=0hmnpbxHbRiELs1onHAWQPq0xNtY0+GLpJxJ3yll7+U=;
+        b=B5Bqf/Ep5QlNhAqZV9m7iFwVw11o2Lj+6BAoSXQnJyoE9ChEKen3WAuf/l/7fVEb4y
+         +LqJ2YzmU1DV/BujzvzK2HTWELs0897QSwNmRC3AfJllHpM3FcAy6bTuIlWHpXGEoiWH
+         0Vt3aZBt2BXWSe+Jqi0L94Ok1BRPitDI65HzU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754565422; x=1755170222;
+        d=1e100.net; s=20230601; t=1754565423; x=1755170223;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=WQKYHz4fSaJ/OtAFeeWkxochLoIzcmc/dz0cmOGZA7c=;
-        b=pl2Y/Rt2TGooF181GAItB8zshHRyYN0ixTildiQ9KMgryoTvQXSJfBv64AXFKo2POk
-         nyJN/zAa/7Yg2UPfLK6nqpL6IqzclTGo2B8dtSX1bjKcnCrF/Ei7zY1OG5bn1GWw2nU1
-         9SbaokxJcKtO0KU+NW71VDsuwMTQWsfDlepmmDy8iYewX/21v8PmGUnyVdB2eo9vdisj
-         okwx22/Fi79wUH5hDNH4kbteONS0la2gt6fHYaox1fQ1k2hhuNDYUwqr8Wf3/gPSXtAQ
-         MOGaNyyJ/TkF9vP2ITBHuMGx/aTvgd5Q6QVY0m6g4Khj9O3jtUXmDeYU6lp/+g30b9m3
-         U+ww==
-X-Gm-Message-State: AOJu0YwdbdCQVZ2SXiMnMw5BZ8No31K9xAKobJO8L4n/YWUfP4Nwep5z
-	8bORHhdhB+I/wNmqfvHwfjHHLXVXlfDKEPaB0tL8ycetTm0yp5YdZrfq4Zu692X6qbaWRQJdTQR
-	bi59waJ0=
-X-Gm-Gg: ASbGnctiIRQqlVJWkQBpkVv6wSkGoZyjP08gTuQV4fW3C/XHf7Pe6expUt1dLoSJrhI
-	nhwg/150ufoUC2gJvUFxGwusmrW2p4gzPTJHumzMePEkV518UgPDlsa4kZzzvc6s8qnQXhoePFT
-	hbFtiA2R/qDRonTVOf843gDr3PHqUjKkd8jw+jKzrMzNPPTJP5bLYui+6/HtY3Y/cvDb/Cy7z9J
-	8hGtNp28M9TPsmcMAwYSbfwGwtFSN/Vu8bT1VOUNg+juet1/2Y3vXsJjPsVyZFatDHEIMVuW9+d
-	7R4xmEtaawdlltT/g9ynEYbpar/2277rhBFBZQvGi5rZmu/lHH+pAFkwX5VLtPvEWSN9S00AWSj
-	nqXkrSIB1AXamA+yTdsCcZ2st4CDhyVqFlw1N4/ziwOrhb0gXd4ZF7n85kXh9k/cJ8F1LWdqe23
-	Eh
-X-Google-Smtp-Source: AGHT+IFCS7cWq/GjuAVaBl4wcf4yItIQ/KmNepCkDF3DNa0rK/h6fEXzW6daydMplkdrsw8VBTkb8w==
-X-Received: by 2002:a05:600c:444c:b0:456:1560:7c5f with SMTP id 5b1f17b1804b1-459ee82237amr26787405e9.14.1754565422141;
-        Thu, 07 Aug 2025 04:17:02 -0700 (PDT)
+        bh=0hmnpbxHbRiELs1onHAWQPq0xNtY0+GLpJxJ3yll7+U=;
+        b=f8zzinjij/7IqsWh85FDYDTNDAJpWMg5L8bBBvjAZ44gKFSIsBIrl0t8iL8o37xHPb
+         tONsMGhbXAtVeOtYgtG1Fen8VXKR8bTnUEbfPxl05wDgd+e/gzE4uSuMvcAovS87Uphu
+         H76bgeoHLYblUVXRmieRVGpYZnk9WAsa4Q1E4Py+0fcHyc0HNq24fb7Y3aENaljEvq8a
+         xsIlSneXviT6H61Gl82JA0hVLl9IryrS7xPqlzJzfg5XS4FwiHXw1b3yGMUjnPjlneLx
+         +JSKCHLDIF6I3tEP+b2ahtqwUxdBZQW43Sb//ujavscO9TzWqjOLMa8+hObZFHwfGSQ7
+         d8UQ==
+X-Gm-Message-State: AOJu0YwGViw4FbQUUlFmuw9gjAUea2aJ0WA9/IucRJJje0zr47jQ9H4N
+	jCVRrLEQf+gbcA4UyefQ6THfzQsfEnVgi61HC/3CiCu+0PtTaX83oHmskp2elP7abkRASk7ASR7
+	vKaOprvNaIQ==
+X-Gm-Gg: ASbGncufMdhUagXBirJy08sQfOQr1vn0t7SBnqZifRHAm93ZQJ20LE1qm2NEf9OJn6g
+	jBB91gsOf3kHnVbjL7UcEI85PeJu0SHO/t0iqhXgZrXyAyRWr9NFsxG9YtEy4Pl6IuN2SrOmgmd
+	sDbSzkmRgTl+X095dWkhBk0XhvvxS6vucc9v5MN5NawmOOd88/12B31zTq3jqHcig61g/1s1xd8
+	0Hzy3LLPa+vvjWkA9wymwm5m6nLQUa9oyvanmre+GowTEa9kaMnqP5J0yjRRYE63Kv0VvSDY1ZX
+	F96DtsJRxe9EicKahzRqyyFQpHwoxTTEOOGhJPDYyrwbadV1oBdDZofN6QktHPNF6/eJcejLcaX
+	fMPOErDXRatupdKMekaM+y6aqN6mDhm1upSdmR82xuHcXnyhim3rZ6Wv4CKhTCbTMRB4echmSUd
+	LH
+X-Google-Smtp-Source: AGHT+IFevs16pz+VsZb/UZMURkjLra61JgMdOci8x7oIf31U66eiK+gVeW8J+SsxN31mm6FKA6EFKg==
+X-Received: by 2002:a05:600c:358b:b0:459:dd1d:2ee0 with SMTP id 5b1f17b1804b1-459ede03686mr29138935e9.0.1754565423049;
+        Thu, 07 Aug 2025 04:17:03 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>
-Subject: [PATCH v2 3/4] x86/public: Split the struct cpu_user_regs type
-Date: Thu,  7 Aug 2025 12:16:56 +0100
-Message-Id: <20250807111657.201849-4-andrew.cooper3@citrix.com>
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v2 4/4] x86: Drop the vm86 segments selectors from struct cpu_user_regs
+Date: Thu,  7 Aug 2025 12:16:57 +0100
+Message-Id: <20250807111657.201849-5-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250807111657.201849-1-andrew.cooper3@citrix.com>
 References: <20250807111657.201849-1-andrew.cooper3@citrix.com>
@@ -96,223 +96,167 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-In order to support FRED, we're going to have to remove the {ds..gs} fields
-from struct cpu_user_regs, meaning that it is going to have to become a
-different type to the structure embedded in vcpu_guest_context_u.
+The data segment registers are part of the on-stack IRET frame when
+interrupting Virtual 8086 mode, but this ceased being relevant for Xen in
+commit 5d1181a5ea5e ("xen: Remove x86_32 build target.") in 2012.
 
-struct cpu_user_regs is a name used in common Xen code (i.e. needs to stay
-using this name), so renaming the public struct to be guest_user_regs in Xen's
-view only.
+With all other cleanup in place, delete the fields so we can introduce FRED
+support which uses this space for different data.
 
-Introduce a brand hew cpu-user-regs.h, currently containing a duplicate
-structure.
+Everywhere which used the es field as an offset in cpu_user_regs needs
+adjusting.  However, they'll change again for FRED, so no cleanup is performed
+at this juncture.
 
-Notably, this removes the need to include pubic/xen.h in ~every translation
-unit in Xen (via current.h), and highlights one case where the emulator was
-picking up cpu_user_regs transitively.
+This also undoes the OoB Read workaround in show_registers(), which can now
+switch back to being simple structure copy.
 
-Include comments describing how hardware interacts with this structure under
-IDT delivery, as it's quite magic to start with.  FRED is going make things
-more complicated.
-
-No functional change.
+No functional change, but a lot of rearranging of stack and struct layout
+under the hood.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
-
-v2:
- * Remove the macros from cpu-user-regs.h and write the struct longhand
- * Exclude the guest handles in Xen context
 ---
- xen/arch/x86/include/asm/cpu-user-regs.h | 63 ++++++++++++++++++++++++
- xen/arch/x86/include/asm/current.h       |  3 +-
- xen/arch/x86/x86_emulate/private.h       |  1 +
- xen/include/public/arch-x86/xen-x86_32.h |  9 ++++
- xen/include/public/arch-x86/xen-x86_64.h |  9 ++++
- xen/include/public/arch-x86/xen.h        | 11 +++++
- 6 files changed, 95 insertions(+), 1 deletion(-)
- create mode 100644 xen/arch/x86/include/asm/cpu-user-regs.h
+ xen/arch/x86/cpu/common.c                | 2 +-
+ xen/arch/x86/include/asm/cpu-user-regs.h | 5 -----
+ xen/arch/x86/include/asm/current.h       | 8 ++++----
+ xen/arch/x86/include/asm/hvm/hvm.h       | 4 ----
+ xen/arch/x86/include/asm/regs.h          | 3 +--
+ xen/arch/x86/traps.c                     | 2 +-
+ xen/arch/x86/x86_64/asm-offsets.c        | 2 +-
+ xen/arch/x86/x86_64/traps.c              | 8 +-------
+ 8 files changed, 9 insertions(+), 25 deletions(-)
 
+diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
+index e063fe790a97..97bdda1d4a25 100644
+--- a/xen/arch/x86/cpu/common.c
++++ b/xen/arch/x86/cpu/common.c
+@@ -959,7 +959,7 @@ void load_system_tables(void)
+ 	 * Defer checks until exception support is sufficiently set up.
+ 	 */
+ 	BUILD_BUG_ON((sizeof(struct cpu_info) -
+-		      offsetof(struct cpu_info, guest_cpu_user_regs.es)) & 0xf);
++		      sizeof(struct cpu_user_regs)) & 0xf);
+ 	BUG_ON(system_state != SYS_STATE_early_boot && (stack_bottom & 0xf));
+ }
+ 
 diff --git a/xen/arch/x86/include/asm/cpu-user-regs.h b/xen/arch/x86/include/asm/cpu-user-regs.h
-new file mode 100644
-index 000000000000..0e78e38ed00d
---- /dev/null
+index 0e78e38ed00d..d700a3ef3447 100644
+--- a/xen/arch/x86/include/asm/cpu-user-regs.h
 +++ b/xen/arch/x86/include/asm/cpu-user-regs.h
-@@ -0,0 +1,63 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+#ifndef X86_CPU_USER_REGS_H
-+#define X86_CPU_USER_REGS_H
-+
-+#include <xen/stdint.h>
-+
-+/*
-+ * cpu_user_regs represents the interrupted GPR state at the point of an
-+ * interrupt, exception or syscall.  The layout is dictated by the hardware
-+ * format for the event frame, with software filling in the rest.
-+ */
-+struct cpu_user_regs
-+{
-+    union { uint64_t r15;    uint32_t r15d;   uint16_t r15w;  uint8_t r15b; };
-+    union { uint64_t r14;    uint32_t r14d;   uint16_t r14w;  uint8_t r14b; };
-+    union { uint64_t r13;    uint32_t r13d;   uint16_t r13w;  uint8_t r13b; };
-+    union { uint64_t r12;    uint32_t r12d;   uint16_t r12w;  uint8_t r12b; };
-+    union { uint64_t rbp;    uint32_t ebp;    uint16_t bp;    uint8_t bpl;  };
-+    union { uint64_t rbx;    uint32_t ebx;    uint16_t bx;    struct { uint8_t bl, bh; }; };
-+    union { uint64_t r11;    uint32_t r11d;   uint16_t r11w;  uint8_t r11b; };
-+    union { uint64_t r10;    uint32_t r10d;   uint16_t r10w;  uint8_t r10b; };
-+    union { uint64_t r9;     uint32_t r9d;    uint16_t r9w;   uint8_t r9b;  };
-+    union { uint64_t r8;     uint32_t r8d;    uint16_t r8w;   uint8_t r8b;  };
-+    union { uint64_t rax;    uint32_t eax;    uint16_t ax;    struct { uint8_t al, ah; }; };
-+    union { uint64_t rcx;    uint32_t ecx;    uint16_t cx;    struct { uint8_t cl, ch; }; };
-+    union { uint64_t rdx;    uint32_t edx;    uint16_t dx;    struct { uint8_t dl, dh; }; };
-+    union { uint64_t rsi;    uint32_t esi;    uint16_t si;    uint8_t sil;  };
-+    union { uint64_t rdi;    uint32_t edi;    uint16_t di;    uint8_t dil;  };
-+
-+    /*
-+     * During IDT delivery for exceptions with an error code, hardware pushes
-+     * to this point.  Entry_vector is filled in by software.
-+     */
-+
-+    uint32_t error_code;
-+    uint32_t entry_vector;
-+
-+    /*
-+     * During IDT delivery for interrupts or exceptions without an error code,
-+     * hardware pushes to this point.  Both error_code and entry_vector are
-+     * filled in by software.
-+     */
-+
-+    union { uint64_t rip;    uint32_t eip;    uint16_t ip; };
-+    uint16_t cs, _pad0[1];
-+    uint8_t  saved_upcall_mask; /* PV (v)rflags.IF == !saved_upcall_mask */
-+    uint8_t  _pad1[3];
-+    union { uint64_t rflags; uint32_t eflags; uint16_t flags; };
-+    union { uint64_t rsp;    uint32_t esp;    uint16_t sp;    uint8_t spl; };
-+    uint16_t ss, _pad2[3];
-+
-+    /*
-+     * For IDT delivery, tss->rsp0 points to this boundary as embedded within
-+     * struct cpu_info.  It must be 16-byte aligned.
-+     */
-+
-+    uint16_t es, _pad3[3];
-+    uint16_t ds, _pad4[3];
-+    uint16_t fs, _pad5[3];
-+    uint16_t gs, _pad6[3];
-+};
-+
-+#endif /* X86_CPU_USER_REGS_H */
+@@ -53,11 +53,6 @@ struct cpu_user_regs
+      * For IDT delivery, tss->rsp0 points to this boundary as embedded within
+      * struct cpu_info.  It must be 16-byte aligned.
+      */
+-
+-    uint16_t es, _pad3[3];
+-    uint16_t ds, _pad4[3];
+-    uint16_t fs, _pad5[3];
+-    uint16_t gs, _pad6[3];
+ };
+ 
+ #endif /* X86_CPU_USER_REGS_H */
 diff --git a/xen/arch/x86/include/asm/current.h b/xen/arch/x86/include/asm/current.h
-index bcec328c9875..243d17ef79fd 100644
+index 243d17ef79fd..a7c9473428b2 100644
 --- a/xen/arch/x86/include/asm/current.h
 +++ b/xen/arch/x86/include/asm/current.h
-@@ -9,7 +9,8 @@
- 
- #include <xen/percpu.h>
- #include <xen/page-size.h>
--#include <public/xen.h>
-+
-+#include <asm/cpu-user-regs.h>
+@@ -106,12 +106,12 @@ static inline struct cpu_info *get_cpu_info(void)
+ #define get_per_cpu_offset()  (get_cpu_info()->per_cpu_offset)
  
  /*
-  * Xen's cpu stacks are 8 pages (8-page aligned), arranged as:
-diff --git a/xen/arch/x86/x86_emulate/private.h b/xen/arch/x86/x86_emulate/private.h
-index 940087987011..24c79c4e8fac 100644
---- a/xen/arch/x86/x86_emulate/private.h
-+++ b/xen/arch/x86/x86_emulate/private.h
-@@ -14,6 +14,7 @@
- # include <xen/bug.h>
- # include <xen/kernel.h>
+- * Get the bottom-of-stack, as stored in the per-CPU TSS. This actually points
+- * into the middle of cpu_info.guest_cpu_user_regs, at the section that
+- * precisely corresponds to a CPU trap frame.
++ * Get the bottom-of-stack, as stored in the per-CPU TSS. This points at the
++ * end of cpu_info.guest_cpu_user_regs, at the section that precisely
++ * corresponds to a CPU trap frame.
+  */
+ #define get_stack_bottom()                      \
+-    ((unsigned long)&get_cpu_info()->guest_cpu_user_regs.es)
++    ((unsigned long)(&get_cpu_info()->guest_cpu_user_regs + 1))
  
-+# include <asm/cpu-user-regs.h>
- # include <asm/endbr.h>
- # include <asm/msr-index.h>
- # include <asm/stubs.h>
-diff --git a/xen/include/public/arch-x86/xen-x86_32.h b/xen/include/public/arch-x86/xen-x86_32.h
-index 9e3bf06b121e..25cc44728838 100644
---- a/xen/include/public/arch-x86/xen-x86_32.h
-+++ b/xen/include/public/arch-x86/xen-x86_32.h
-@@ -114,6 +114,10 @@
- #define __DECL_REG_LO16(name) uint32_t e ## name
+ /*
+  * Get the reasonable stack bounds for stack traces and stack dumps.  Stack
+diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
+index bf8bc2e100bd..18e40910ff71 100644
+--- a/xen/arch/x86/include/asm/hvm/hvm.h
++++ b/xen/arch/x86/include/asm/hvm/hvm.h
+@@ -624,10 +624,6 @@ static inline void hvm_sanitize_regs_fields(struct cpu_user_regs *regs,
+     regs->saved_upcall_mask = 0xbf;
+     regs->cs = 0xbeef;
+     regs->ss = 0xbeef;
+-    regs->ds = 0xbeef;
+-    regs->es = 0xbeef;
+-    regs->fs = 0xbeef;
+-    regs->gs = 0xbeef;
  #endif
+ }
  
-+#ifdef __XEN__
-+#define cpu_user_regs guest_user_regs
-+#endif
-+
- struct cpu_user_regs {
-     __DECL_REG_LO8(b);
-     __DECL_REG_LO8(c);
-@@ -136,8 +140,13 @@ struct cpu_user_regs {
-     uint16_t fs, _pad4;
-     uint16_t gs, _pad5;
- };
-+
-+#ifdef __XEN__
-+#undef cpu_user_regs
-+#else
- typedef struct cpu_user_regs cpu_user_regs_t;
- DEFINE_XEN_GUEST_HANDLE(cpu_user_regs_t);
-+#endif
+diff --git a/xen/arch/x86/include/asm/regs.h b/xen/arch/x86/include/asm/regs.h
+index ce9b028276a1..72595110e2d5 100644
+--- a/xen/arch/x86/include/asm/regs.h
++++ b/xen/arch/x86/include/asm/regs.h
+@@ -23,8 +23,7 @@
+     (!is_pv_32bit_vcpu(v) ? ((tb)->eip == 0) : (((tb)->cs & ~3) == 0))
  
- #undef __DECL_REG_LO8
- #undef __DECL_REG_LO16
-diff --git a/xen/include/public/arch-x86/xen-x86_64.h b/xen/include/public/arch-x86/xen-x86_64.h
-index 43f6e3d22001..ea6b56aa3bd8 100644
---- a/xen/include/public/arch-x86/xen-x86_64.h
-+++ b/xen/include/public/arch-x86/xen-x86_64.h
-@@ -159,6 +159,10 @@ struct iret_context {
- #define __DECL_REG_HI(num)    uint64_t r ## num
- #endif
+ /* Number of bytes of on-stack execution state to be context-switched. */
+-/* NB. Segment registers and bases are not saved/restored on x86/64 stack. */
+-#define CTXT_SWITCH_STACK_BYTES (offsetof(struct cpu_user_regs, es))
++#define CTXT_SWITCH_STACK_BYTES sizeof(struct cpu_user_regs)
  
-+#ifdef __XEN__
-+#define cpu_user_regs guest_user_regs
-+#endif
-+
- struct cpu_user_regs {
-     __DECL_REG_HI(15);
-     __DECL_REG_HI(14);
-@@ -189,8 +193,13 @@ struct cpu_user_regs {
-     uint16_t fs, _pad5[3];
-     uint16_t gs, _pad6[3];
- };
-+
-+#ifdef __XEN__
-+#undef cpu_user_regs
-+#else
- typedef struct cpu_user_regs cpu_user_regs_t;
- DEFINE_XEN_GUEST_HANDLE(cpu_user_regs_t);
-+#endif
+ #define guest_mode(r)                                                         \
+ ({                                                                            \
+diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+index 34dc077cad34..238d923dd188 100644
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -387,7 +387,7 @@ unsigned long get_stack_trace_bottom(unsigned long sp)
+     {
+     case 1 ... 4:
+         return ROUNDUP(sp, PAGE_SIZE) -
+-            offsetof(struct cpu_user_regs, es) - sizeof(unsigned long);
++            sizeof(struct cpu_user_regs) - sizeof(unsigned long);
  
- #undef __DECL_REG
- #undef __DECL_REG_LOHI
-diff --git a/xen/include/public/arch-x86/xen.h b/xen/include/public/arch-x86/xen.h
-index fc2487986642..b99a691706f8 100644
---- a/xen/include/public/arch-x86/xen.h
-+++ b/xen/include/public/arch-x86/xen.h
-@@ -173,7 +173,18 @@ struct vcpu_guest_context {
- #define _VGCF_online                   5
- #define VGCF_online                    (1<<_VGCF_online)
-     unsigned long flags;                    /* VGCF_* flags                 */
-+
-+    /*
-+     * Outside of Xen, regs type stays named cpu_user_regs for backwards
-+     * compatibility.  Inside Xen, the type called cpu_user_regs is different,
-+     * and the public API type is renamed to guest_user_regs.
-+     */
-+#ifdef __XEN__
-+    struct guest_user_regs user_regs;       /* User-level CPU registers     */
-+#else
-     struct cpu_user_regs user_regs;         /* User-level CPU registers     */
-+#endif
-+
-     struct trap_info trap_ctxt[256];        /* Virtual IDT                  */
-     unsigned long ldt_base, ldt_ents;       /* LDT (linear address, # ents) */
-     unsigned long gdt_frames[16], gdt_ents; /* GDT (machine frames, # ents) */
+     case 6 ... 7:
+         return ROUNDUP(sp, STACK_SIZE) -
+diff --git a/xen/arch/x86/x86_64/asm-offsets.c b/xen/arch/x86/x86_64/asm-offsets.c
+index 630bdc39451d..2258b4ce1b95 100644
+--- a/xen/arch/x86/x86_64/asm-offsets.c
++++ b/xen/arch/x86/x86_64/asm-offsets.c
+@@ -52,7 +52,7 @@ void __dummy__(void)
+     OFFSET(UREGS_eflags, struct cpu_user_regs, rflags);
+     OFFSET(UREGS_rsp, struct cpu_user_regs, rsp);
+     OFFSET(UREGS_ss, struct cpu_user_regs, ss);
+-    OFFSET(UREGS_kernel_sizeof, struct cpu_user_regs, es);
++    DEFINE(UREGS_kernel_sizeof, sizeof(struct cpu_user_regs));
+     BLANK();
+ 
+     /*
+diff --git a/xen/arch/x86/x86_64/traps.c b/xen/arch/x86/x86_64/traps.c
+index 29ac5a14ca3f..34adf55e48df 100644
+--- a/xen/arch/x86/x86_64/traps.c
++++ b/xen/arch/x86/x86_64/traps.c
+@@ -135,17 +135,11 @@ static void _show_registers(
+ 
+ void show_registers(const struct cpu_user_regs *regs)
+ {
+-    struct cpu_user_regs fault_regs;
++    struct cpu_user_regs fault_regs = *regs;
+     struct extra_state fault_state;
+     enum context context;
+     struct vcpu *v = system_state >= SYS_STATE_smp_boot ? current : NULL;
+ 
+-    /*
+-     * Don't read beyond the end of the hardware frame.  It is out of bounds
+-     * for WARN()/etc.
+-     */
+-    memcpy(&fault_regs, regs, offsetof(struct cpu_user_regs, es));
+-
+     if ( guest_mode(regs) && is_hvm_vcpu(v) )
+     {
+         get_hvm_registers(v, &fault_regs, &fault_state);
 -- 
 2.39.5
 
