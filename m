@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DA96B1DAEA
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 17:41:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1073232.1436135 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93E21B1DAFA
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 17:46:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1073242.1436146 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uk2jr-00059E-JD; Thu, 07 Aug 2025 15:41:07 +0000
+	id 1uk2p5-0006Op-5P; Thu, 07 Aug 2025 15:46:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1073232.1436135; Thu, 07 Aug 2025 15:41:07 +0000
+Received: by outflank-mailman (output) from mailman id 1073242.1436146; Thu, 07 Aug 2025 15:46:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uk2jr-000577-GH; Thu, 07 Aug 2025 15:41:07 +0000
-Received: by outflank-mailman (input) for mailman id 1073232;
- Thu, 07 Aug 2025 15:41:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uk2p5-0006MF-2G; Thu, 07 Aug 2025 15:46:31 +0000
+Received: by outflank-mailman (input) for mailman id 1073242;
+ Thu, 07 Aug 2025 15:46:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oMMd=2T=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uk2jq-000571-JB
- for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 15:41:06 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ece8c226-73a4-11f0-a324-13f23c93f187;
- Thu, 07 Aug 2025 17:41:03 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-61592ff5ebbso1831840a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 07 Aug 2025 08:41:03 -0700 (PDT)
-Received: from [192.168.1.17] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a0766d1sm1334005666b.18.2025.08.07.08.41.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Aug 2025 08:41:02 -0700 (PDT)
+ <SRS0=V1Uc=2T=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1uk2p3-0006M8-QV
+ for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 15:46:30 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2062c.outbound.protection.outlook.com
+ [2a01:111:f403:2415::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ab6344d6-73a5-11f0-b898-0df219b8e170;
+ Thu, 07 Aug 2025 17:46:24 +0200 (CEST)
+Received: from CH2PR11CA0010.namprd11.prod.outlook.com (2603:10b6:610:54::20)
+ by CH3PR12MB9219.namprd12.prod.outlook.com (2603:10b6:610:197::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.17; Thu, 7 Aug
+ 2025 15:46:18 +0000
+Received: from CH1PEPF0000A349.namprd04.prod.outlook.com
+ (2603:10b6:610:54:cafe::25) by CH2PR11CA0010.outlook.office365.com
+ (2603:10b6:610:54::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9009.15 via Frontend Transport; Thu,
+ 7 Aug 2025 15:46:18 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH1PEPF0000A349.mail.protection.outlook.com (10.167.244.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9009.8 via Frontend Transport; Thu, 7 Aug 2025 15:46:18 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 7 Aug
+ 2025 10:46:17 -0500
+Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via
+ Frontend Transport; Thu, 7 Aug 2025 10:46:17 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,187 +59,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ece8c226-73a4-11f0-a324-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1754581263; x=1755186063; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Ml60KIc2CYkWNPdjzB+KfxViAnMLY5u6Fz5Mxsc9eVI=;
-        b=OCfb0vuYx1Jd4k8WbBjvL2I30KsPmWhMQSpuxwtW4tyfBBr2nkqEjpwMqnpvJNe0fu
-         60ecqMbwlWiL50ZOqrVJ0hpq0yGzXlK7Z+4g2kH3w0+k/Ry57gYGXun4twJ2VMPNFA7T
-         z4abP34awS16bVCHB2e/1isQlCiEsMv7cZ2ehQeIRTuMYcjePc5WhX75jQKiyA4XxvGS
-         ejJVsKP3BP9CbaHW816eIP+DpS/IoPmOjxzu59vlXfU1ZoE+kzE6GQQUeMUngKQuAFkQ
-         BZ4khqyn9tdlnu3kXhzeUSsb3sRyL+yBaVwxWwLUyMTUlih5tJkDhyRoVl26wiaCDrT2
-         LxeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754581263; x=1755186063;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Ml60KIc2CYkWNPdjzB+KfxViAnMLY5u6Fz5Mxsc9eVI=;
-        b=pvIFuupQ733bG7QIdwlOngnaV/VmZGQ2E0wFiDYurb6YTzZ1Xjz6HN+kGCtuw3UcC9
-         Wk5wHLWCEroBS9YxUsNd8EFIGnxM21+2Cl82THUNKxUyuHpnKF489JIOKsdnoLKjelRJ
-         49hvevPZQe0BksnSbCAYcVk5iHnYf7uapAmqLEKhYS7qMmeV34MDTiTNyJ47YXFIcrgJ
-         zkCU43kxgrIKAMFOH5U6SnwINE0fBrtbM6Zy4O8QuWnBFnAjipWchdbK8ztnduAgnsm+
-         Cu7yR3iF2UpsMuLZYKlde6Jk5SSJGOPmXjQDvUz1ak56SVMIMma918MarpaeyfacJDFd
-         ORDA==
-X-Forwarded-Encrypted: i=1; AJvYcCUDgup/Jwimfa7XHxbjuub59Bvtj82ZmgPxG0tACSow/vnbsQkW5iT+h7i1qgwhQGWB2vwj1IsekoE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzhaqAG0CxKbJdkoG1a/hEInt+nRAc2eajwFeCMpjqmJq/kkCMI
-	RATiB0NDCeSN60r462dO/hcKF4EuQkxiA6/S3A1d2jswmT6ChMMTfwnu
-X-Gm-Gg: ASbGnctdtvn9LHAUXXUt5btlS2bzkPnqHTv1/lKSw4xXzelAzB+q6gECZ1UH3h2+a5B
-	co0xn3jl4KTuyUN+LoP+x0Pmlbrv5xjlUflE0rv2CYHOD1Bje1u0PNoP6l3TUpC45eEyt3PK14m
-	FLp42EjX7OV3zfMpYzdwF6BleLrWTHLfUEQDIJu8694HXAXW2e8ia3Yu0/o2jF9vwIGU6bbc7TR
-	2IQfzb8UFLTMzfN6VZ4tfUMNghSnuCBNSx1rTqzftU0Fex+pdTEQDro8j0ObrU+u6g8jg1ab4Gj
-	mf9fptnS5EKgYCLbsbb+zRzPk8n6lC7lfXkiXVua6h21MFCgWqhvTcXBCp5RQcip/CvBFARzdAE
-	drcFlS1vZFY0HTaVa1rHnKY3/gb2hZiOsMuUr31hJLA0nExUkv3oreMvTzPlk/NMAuVFnMKgFTM
-	RZcBZOVOA=
-X-Google-Smtp-Source: AGHT+IFZzBeO+CrkV99PhiYIeka1twZ0VKs0QEN93feMIL1d+GHXFsdYnJhWVnQXyj9HP8SxzqX0LQ==
-X-Received: by 2002:a17:907:3e20:b0:ad8:9a3b:b274 with SMTP id a640c23a62f3a-af9c1e56b52mr35970466b.52.1754581262479;
-        Thu, 07 Aug 2025 08:41:02 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------sgn0ZyzKW2f2ep2DX6nNsYTN"
-Message-ID: <9a89f0ad-1ba8-47a5-8b9e-1d85f7be8308@gmail.com>
-Date: Thu, 7 Aug 2025 17:41:00 +0200
+X-Inumbo-ID: ab6344d6-73a5-11f0-b898-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XnywDfJ0dsy+T66+K6LZC02TYMRbbQD5KlusqjC4ts45can3t3O98u3FtUJpTzhxhFoNmen2xYc+0Dvu10QiPzIW7/uaJTWwn8UWvWNKzK6ZfAg3/DhFKVQHSr7hZ5DRJfvzkLkQzBg4jQFKRbTU8CN9Lt/FDtVwuwzoRyNDGXFc9DjY1CXxA2dYOIssPFTCvZmC+6WXxA9yKDO6R6bQ9j0+94g955On3bbO5qwUH26Ndh+L4LsavsBYNlepaLrO2nG9ntvGA5u0P07bm0WC5OtMaWhavR09h6fBeHgGyWrrA4Ou1geUBS9F3M42/k0xY/YIeNjzSbd/M2V6197xIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5uxN93jMk7+Z4rEDJjTVZeidtGtjL4eNpluKhEjyj30=;
+ b=ApjKnzVQmUjvPKIjDIPVocfM/IT/ZONBY9DhwYPSlbo6N2DzkIX5KIWuI88LQwbflSK0HU7jGFLW0lUmlHjAEax9g0fewBQS6+lPMDi6bZW9I7UJtSxLbIbsiV1TAtE54EsI/lYJ6IQeeaFtKg7d/8PGKy1Yyw07hUCVKbsW4YakQoJkjEhW2iRX4dOAwtztJrXpzE7Au3st+e8cF3eo0SZyAJWa7JwBEr3uvQDM+AtL5yB2GxErSAuIsqs8NkgR48j2WYk6K8c9ctdb++Kvglcm0Rat2/JM+T+uOdanTI90r40XApRYWdpywbg1xiDTfrakuCID1VHyhASta8fpdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5uxN93jMk7+Z4rEDJjTVZeidtGtjL4eNpluKhEjyj30=;
+ b=gaGwpZ9kW1bTlA4+76bSEu/2eOyJLXPpLnNbgixmg2riKisz5iE792PDSrl8lxaUlnsR8LFUy9aaM+LaTg2e7+hJrUn8TdIbQtTyl66FbLkp4K2GNhuaTDa6CF1pAzF73C2dVcACNzksaENu/D9Cv0mTKyhXXEkCLYxEZLs/5F0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, <michal.orzel@amd.com>,
+	<andrei.cherechesu@nxp.com>, <dmukhin@ford.com>, Ayan Kumar Halder
+	<ayan.kumar.halder@amd.com>
+Subject: [ImageBuilder] Make DEVICE_TREE optional parameter
+Date: Thu, 7 Aug 2025 16:46:14 +0100
+Message-ID: <20250807154614.456654-1-ayan.kumar.halder@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 08/20] xen/riscv: add new p2m types and helper macros
- for type classification
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
- <3d35b6f4bb79048647020ed4e7b222585ca3a9a3.1753973161.git.oleksii.kurochko@gmail.com>
- <48dcca92-4dd8-4d6e-a4cb-c10a7ee80f19@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <48dcca92-4dd8-4d6e-a4cb-c10a7ee80f19@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB04.amd.com: ayan.kumar.halder@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A349:EE_|CH3PR12MB9219:EE_
+X-MS-Office365-Filtering-Correlation-Id: 60111baa-fa5b-4b77-d7e0-08ddd5c98cca
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?SFA1QUhaYmdyMTlibVZiYXJJZ05qY0J4TUo3QzBmdjdURWl3VlRTZUxvS0Qr?=
+ =?utf-8?B?RDl4T3hTYzB2Ym9mVmJjWWl5Tk1KaDVPMEtYZkd0cEs4bU81OVRoZFlZNWU3?=
+ =?utf-8?B?MFNMYzRuVktRWUc1Tmsvc3FUdkZJMC9hUktEWXVOQU1oTjFPdjFoZWR3bWI1?=
+ =?utf-8?B?K05vaUQxVitoM1UrbjFvTy9wcW9zVW8xSW5IOVhKdEhTQXRGTFdsNG11bnRN?=
+ =?utf-8?B?UzNEb1NnM2EyZGd4aDdTdldaSVNReVBNdkxpdXNKeU5xR2VPdUNkSk00Mjh5?=
+ =?utf-8?B?bWxTaGUzdDl2MjUwSnhDcFRjb1BvellyWHJDRjljZms5Skc3Ym1OMnpKcVB6?=
+ =?utf-8?B?RnF6amlLNUgzYkpLcmh4akMvUjkxSXoyay80WUJKUkVBR255MmkvandLUDFE?=
+ =?utf-8?B?SFYwUGtReXVKREpoRnZ3eVE4QjdaVDFnRlVrMUN5V2JTbWFiOFZVcWFGSEsy?=
+ =?utf-8?B?L3RPRVM1Z3VkeDk5TjhzM082U3RjUUxSaWRqS1NGTU5QNHV2dHgvbU1UZVE0?=
+ =?utf-8?B?UEJ6QjdMNFdrbHlIZzFJUlhFMzBWcVREeVhjWlJ4MkpKRnR3QU8ybXVrU21R?=
+ =?utf-8?B?QmtLMlpKN1YrS0hoTEFwd0JhZ3JlTjYxcHZGK010RFNNMXI4NXVsY2RaRHpx?=
+ =?utf-8?B?VU4weURzU3dMZ0ZvV3RhbGV6TUhLbkdBTnoxYzQ1STBqS2pQcnlEcHFVM0V6?=
+ =?utf-8?B?OUlqTHN5am10bElaL3pIN2YvQUplS1hjdkhXcVM0MS9MaFgyZjdsZHl3S0Jh?=
+ =?utf-8?B?MC9OQWJ3MnprNjcrM2w0enVEQW1vZjlNdjNGaUhJdXVBY0kzcXJ1REhTbHJV?=
+ =?utf-8?B?ZGtvQzl2QldPeW10Z3EyLzU3R0psUlNFVU16NldNUG9XSmlSdTVacGJlZTlX?=
+ =?utf-8?B?RXFYRXFsdWJJdHJxaDlRQzgzdXh5TW9SZmJvOUV6cTlwLytMaytLaUdPMkF4?=
+ =?utf-8?B?WkJjZ2k1RXBzNko5VzJJdjZXVVVFUVFYb3VQNEIrSUxteWJ1RUNBSzJ0Tnlx?=
+ =?utf-8?B?TFl6cUJBWUlYQml4bzVlSDUyVmdTR2Y4OW04N1ZTSnpKY0NubFRHdXJWYXJW?=
+ =?utf-8?B?dFpRbWNPbVdLd2JraXJrWk5WSGl1bjhOdWJFbENaUGd6ZzNHRndMK2RzV2Zo?=
+ =?utf-8?B?YWRsajZ0cGFVaFdwdHpkY0k0cWRMelVQK2M2dGRJK1MrUUFaOE1mU3N2ckpX?=
+ =?utf-8?B?RE5QV0hwZVZtcUU3SWNSblVja0dQQlRsM3dreGg4blI1VXNMWThQMGc3R3Q1?=
+ =?utf-8?B?aUpPWTQ1aW12REpXVnZhQjFMVXViZjZKVmRocGpFQUJObW1ZbDYyTmRpbHp0?=
+ =?utf-8?B?dzRUWXQ5QzR1Mm9yZC8rM1pCVDV1eHJoeTd3UVZkam4zS3NlSmJEWjF1Myto?=
+ =?utf-8?B?dmhDWXEra2dKMHVOSFJERXp4b2w1WlIxTVN6ZVROY0laNTFxSEZqOHZyN2N0?=
+ =?utf-8?B?QldnU3ZUM0xIODkrQW1jUWprRk9XODJrTnB4blRLenpVN3A0WVg3NDE1OVor?=
+ =?utf-8?B?UENKMmJuc0FWWTlOV0ZsV2hDZ093N00xb2NPaWhQeDN3NllFdUp3bmVnRlJC?=
+ =?utf-8?B?eGJCdjdlL2l4dGJMT3psc1orVUR3S0I2b1ZPanZtV3J0cWxDdUJheXJGMUhl?=
+ =?utf-8?B?TG0zbVJMREFvdU01cFQ0K2wzQ3lQNXVadEV3aENWdHRtT3dJdWtQQVVyVG5E?=
+ =?utf-8?B?U200RnplaC9qNzJFQnZnZ01IbmkxYUY1S3RFVGFhWEx6UlpQcXJ6aG1OOGZM?=
+ =?utf-8?B?dnlkbUMxaWZPZzF1ZVMrcXJBNUZ5YWJuMVRlK3NoRkY5c3FjUHNackdHOGVv?=
+ =?utf-8?B?SmNMTmIwcUZLb0xZa21CYS9NcEZJNlpXN2xzSGhOSlNrQUd4TGl2Vm1vRElx?=
+ =?utf-8?B?Q1BQVVNSbTlLa1ZCTzJ6VFUwN3kyT1pRTWFZc01KN1hyZmkwTlpmai9Cb3BR?=
+ =?utf-8?B?ZU85cUJKdW5ROTNJdTFhNHd2MW1hNG9WTjFkMFZDODFrZXRnbmI0K1hBUmNN?=
+ =?utf-8?B?NERoYjh3c0x2RTlaY2NpMm1vQmxFYjZZdGhwbUR5QVBDOVNpSkUxbzh1Q3FI?=
+ =?utf-8?Q?WQaNS5?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2025 15:46:18.3185
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 60111baa-fa5b-4b77-d7e0-08ddd5c98cca
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000A349.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9219
 
-This is a multi-part message in MIME format.
---------------sgn0ZyzKW2f2ep2DX6nNsYTN
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+There are systems where device tree binary is passed by the U-Boot as
+$fdtcontroladdr. In such cases, no external device tree binary is provided
+during uboot script generation.
 
+This is an enhancement on top of the following commit:-
+uboot-script-gen: Dynamically compute addr and size when loading bina…
 
-On 8/4/25 4:16 PM, Jan Beulich wrote:
-> On 31.07.2025 17:58, Oleksii Kurochko wrote:
->> - Extended p2m_type_t with additional types: p2m_mmio_direct,
->>    p2m_grant_map_{rw,ro}.
->> - Added macros to classify memory types: P2M_RAM_TYPES, P2M_GRANT_TYPES.
->> - Introduced helper predicates: p2m_is_ram(), p2m_is_any_ram().
->> - Define p2m_mmio_direct to tell handle_passthrough_prop() from common
->>    code how to map device memory.
->>
->> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
-> Almost ready to be acked, except for ...
->
->> --- a/xen/arch/riscv/include/asm/p2m.h
->> +++ b/xen/arch/riscv/include/asm/p2m.h
->> @@ -62,8 +62,30 @@ struct p2m_domain {
->>   typedef enum {
->>       p2m_invalid = 0,    /* Nothing mapped here */
->>       p2m_ram_rw,         /* Normal read/write domain RAM */
->> +    p2m_mmio_direct_io, /* Read/write mapping of genuine Device MMIO area,
->> +                           PTE_PBMT_IO will be used for such mappings */
->> +    p2m_ext_storage,    /* Following types'll be stored outsude PTE bits: */
->> +    p2m_grant_map_rw,   /* Read/write grant mapping */
->> +    p2m_grant_map_ro,   /* Read-only grant mapping */
->>   } p2m_type_t;
->>   
->> +#define p2m_mmio_direct p2m_mmio_direct_io
-> ... this (see reply to patch 09).
->
->> +/* We use bitmaps and mask to handle groups of types */
->> +#define p2m_to_mask(t_) BIT(t_, UL)
-> I notice that you moved the underscore to the back of the parameters,
-> compared to how Arm has it. I wonder though: What use are these
-> underscores in the first place, here and below? (There are macros where
-> conflicts could arise, but the ones here don't fall in that group,
-> afaict.)
+When DEVICE_TREE is not present, $CALC is set as the addresses and sizes should
+be computed dynamically from U-Boot.
 
-Good point, there is really no name conflicts here, so underscore could
-be just dropped.
+Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+---
+ README.md                |  3 ++-
+ scripts/uboot-script-gen | 26 +++++++++++++++++++-------
+ 2 files changed, 21 insertions(+), 8 deletions(-)
 
-~ Oleksii
-
---------------sgn0ZyzKW2f2ep2DX6nNsYTN
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 8/4/25 4:16 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:48dcca92-4dd8-4d6e-a4cb-c10a7ee80f19@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 31.07.2025 17:58, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">- Extended p2m_type_t with additional types: p2m_mmio_direct,
-  p2m_grant_map_{rw,ro}.
-- Added macros to classify memory types: P2M_RAM_TYPES, P2M_GRANT_TYPES.
-- Introduced helper predicates: p2m_is_ram(), p2m_is_any_ram().
-- Define p2m_mmio_direct to tell handle_passthrough_prop() from common
-  code how to map device memory.
-
-Signed-off-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Almost ready to be acked, except for ...
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/p2m.h
-+++ b/xen/arch/riscv/include/asm/p2m.h
-@@ -62,8 +62,30 @@ struct p2m_domain {
- typedef enum {
-     p2m_invalid = 0,    /* Nothing mapped here */
-     p2m_ram_rw,         /* Normal read/write domain RAM */
-+    p2m_mmio_direct_io, /* Read/write mapping of genuine Device MMIO area,
-+                           PTE_PBMT_IO will be used for such mappings */
-+    p2m_ext_storage,    /* Following types'll be stored outsude PTE bits: */
-+    p2m_grant_map_rw,   /* Read/write grant mapping */
-+    p2m_grant_map_ro,   /* Read-only grant mapping */
- } p2m_type_t;
+diff --git a/README.md b/README.md
+index 4be6efb..d80bdc9 100644
+--- a/README.md
++++ b/README.md
+@@ -90,7 +90,8 @@ Where:
+   DTB are stored in 'host_kernel_addr' and 'host_fdt_addr' u-boot
+   env variables respectively, to be used manually when booting.
  
-+#define p2m_mmio_direct p2m_mmio_direct_io
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-... this (see reply to patch 09).
+-- DEVICE_TREE specifies the DTB file to load.
++- DEVICE_TREE specifies the DTB file to load. If not set, then $fdtcontroladdr
++  is used as the address of the DTB loaded by u-boot.
+ 
+ - XEN specifies the Xen hypervisor binary to load. Note that it has to
+   be a regular Xen binary, not a u-boot binary.
+diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
+index fed53aa..9fe4a55 100755
+--- a/scripts/uboot-script-gen
++++ b/scripts/uboot-script-gen
+@@ -560,7 +560,7 @@ function device_tree_editing()
+     if test $UBOOT_SOURCE
+     then
+         if test "$CALC"; then
+-            echo "fdt addr \${host_fdt_addr}" >> $UBOOT_SOURCE
++            echo "fdt addr \${fdtcontroladdr}" >> $UBOOT_SOURCE
+         else
+             echo "fdt addr $device_tree_addr" >> $UBOOT_SOURCE
+         fi
+@@ -591,7 +591,7 @@ function device_tree_editing()
+ 
+ function fill_reserved_spaces_from_dtb()
+ {
+-    if [ ! -f $DEVICE_TREE ]
++    if test ! -f $DEVICE_TREE || test -z ${DEVICE_TREE+x}
+     then
+         if test "$CALC"; then
+             return
+@@ -1502,6 +1502,11 @@ check_depends
+ declare -A DOMU_VCPU_HARD_AFFINITY
+ source "$cfg_file"
+ 
++if test -z ${DEVICE_TREE+x}
++then
++    CALC=y
++fi
++
+ SCRIPT_PATH=$(dirname "$0")
+ source "$SCRIPT_PATH/common"
+ source "$SCRIPT_PATH/xen_dt_domu"
+@@ -1703,9 +1708,13 @@ then
+     done
+ fi
+ 
+-check_file_type $DEVICE_TREE "Device Tree Blob"
+-device_tree_addr=$memaddr
+-load_file $DEVICE_TREE "host_fdt" "$XEN_LOAD"
++if test ${DEVICE_TREE+x}
++then
++    check_file_type $DEVICE_TREE "Device Tree Blob"
++    device_tree_addr=$memaddr
++    load_file $DEVICE_TREE "host_fdt" "$XEN_LOAD"
++fi
++
+ bitstream_load_and_config  # bitstream is loaded last but used first
+ device_tree_editing $device_tree_addr
+ 
+@@ -1727,14 +1736,17 @@ fi
+ if [ "$BOOT_CMD" != "none" ]
+ then
+     if test "$CALC"; then
+-        echo "$BOOT_CMD \${host_kernel_addr} $([ "$BOOT_CMD" = "bootefi" ] || echo '-') \${host_fdt_addr}" >> $UBOOT_SOURCE
++        echo "$BOOT_CMD \${host_kernel_addr} $([ "$BOOT_CMD" = "bootefi" ] || echo '-') \${fdtcontroladdr}" >> $UBOOT_SOURCE
+     else
+         echo "$BOOT_CMD $kernel_addr $([ "$BOOT_CMD" = "bootefi" ] || echo '-') $device_tree_addr" >> $UBOOT_SOURCE
+     fi
+ else
+     # skip boot command but store load addresses to be used later
+     echo "setenv host_kernel_addr $kernel_addr" >> $UBOOT_SOURCE
+-    echo "setenv host_fdt_addr $device_tree_addr" >> $UBOOT_SOURCE
++    if test ${DEVICE_TREE+x}
++    then
++        echo "setenv host_fdt_addr $device_tree_addr" >> $UBOOT_SOURCE
++    fi
+ fi
+ 
+ if test "$FIT"
+-- 
+2.25.1
 
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+/* We use bitmaps and mask to handle groups of types */
-+#define p2m_to_mask(t_) BIT(t_, UL)
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I notice that you moved the underscore to the back of the parameters,
-compared to how Arm has it. I wonder though: What use are these
-underscores in the first place, here and below? (There are macros where
-conflicts could arise, but the ones here don't fall in that group,
-afaict.)</pre>
-    </blockquote>
-    <pre>Good point, there is really no name conflicts here, so underscore could
-be just dropped.
-
-~ Oleksii
-</pre>
-  </body>
-</html>
-
---------------sgn0ZyzKW2f2ep2DX6nNsYTN--
 
