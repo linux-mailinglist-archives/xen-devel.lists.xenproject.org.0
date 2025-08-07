@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EF85B1D845
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 14:51:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1073029.1435972 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93AADB1D89C
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 15:09:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1073045.1435982 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uk05B-0002jB-5J; Thu, 07 Aug 2025 12:50:57 +0000
+	id 1uk0M8-0006AO-GK; Thu, 07 Aug 2025 13:08:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1073029.1435972; Thu, 07 Aug 2025 12:50:57 +0000
+Received: by outflank-mailman (output) from mailman id 1073045.1435982; Thu, 07 Aug 2025 13:08:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uk05B-0002gz-1u; Thu, 07 Aug 2025 12:50:57 +0000
-Received: by outflank-mailman (input) for mailman id 1073029;
- Thu, 07 Aug 2025 12:50:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gbW2=2T=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1uk059-0002gt-Ly
- for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 12:50:55 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 27bed60d-738d-11f0-a324-13f23c93f187;
- Thu, 07 Aug 2025 14:50:54 +0200 (CEST)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-55b8b8e00caso1101110e87.3
- for <xen-devel@lists.xenproject.org>; Thu, 07 Aug 2025 05:50:54 -0700 (PDT)
+	id 1uk0M8-00068I-DT; Thu, 07 Aug 2025 13:08:28 +0000
+Received: by outflank-mailman (input) for mailman id 1073045;
+ Thu, 07 Aug 2025 13:08:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=igFk=2T=nvidia.com=jgg@srs-se1.protection.inumbo.net>)
+ id 1uk0M6-000689-Cu
+ for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 13:08:26 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20617.outbound.protection.outlook.com
+ [2a01:111:f403:200a::617])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 96f0fa02-738f-11f0-b898-0df219b8e170;
+ Thu, 07 Aug 2025 15:08:21 +0200 (CEST)
+Received: from CH3PR12MB8659.namprd12.prod.outlook.com (2603:10b6:610:17c::13)
+ by DM4PR12MB8558.namprd12.prod.outlook.com (2603:10b6:8:187::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.16; Thu, 7 Aug
+ 2025 13:08:13 +0000
+Received: from CH3PR12MB8659.namprd12.prod.outlook.com
+ ([fe80::6eb6:7d37:7b4b:1732]) by CH3PR12MB8659.namprd12.prod.outlook.com
+ ([fe80::6eb6:7d37:7b4b:1732%4]) with mapi id 15.20.9009.017; Thu, 7 Aug 2025
+ 13:08:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,627 +47,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27bed60d-738d-11f0-a324-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1754571054; x=1755175854; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=y2a02EPa/Dkm1TIb8QJlzmnUQQOhfAv4onLhwTgD+dU=;
-        b=NwbJA/Z0pBFHpBWipj0CKVwWtq0mZQbzlFxddHLfHf+4cdUkcAnQO0lkXHciymUm7R
-         VG5mQngfw5dzv6TRlZTZCYKa0uV/cz9ossRtm/dz2cb8kQokuXiUhxynOq8HdzwS086m
-         ZuCZHz+bpGtsSXbuDbSmBYUQWIVsRPq5d86ODP/2XhJ7JB5Akz9KUk2HwUoucl8Lj8ps
-         KXd7yY2/gZFjNtnCrbb4XkRCNMM4HX63jg874byJA2K4dJkQTX6Tya1z6yLMcUup9iJF
-         iGsqKibqKn9Z/yb4NLfTBNDC6V+Xm1I3HrJE94gTyfTRyOabmW5sgOl81kS7j/jKsH09
-         U6xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754571054; x=1755175854;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=y2a02EPa/Dkm1TIb8QJlzmnUQQOhfAv4onLhwTgD+dU=;
-        b=oUMSjof+ZedVkIaqabNE5wHRYDhP5eV6bHMh+N1qOHWi8T3rlAqada3yk8lxFp1ztO
-         0xxbFCPSmgGyswtxQv2/+gZf/a95cTrNgZHZoEZiEIMUszNLC5ZHrzD4Vxv/C+QqcsRi
-         sW0YqXWspZcBNQlESuHzD2stZ782hXnHf8XlgJRSSyXtMMJiRkdVhncPP8BhpUeT3n+P
-         6fenLulshTW4GG7wDPonl6/j7t2OyNJxTNphlcuXofyNEVt1vnDODSwG6j+H3a06H6p2
-         CKy8/WBP0zsoWnmbbHUTc4QWkYrstp/S5j91OPslaoqzNa7P5LUNrCyZf32j+gNeX5c5
-         HbDQ==
-X-Gm-Message-State: AOJu0YwIgOGzJ9L82QOgiUngtMNIeere4ZbbswePFmEk4DO2iltrbiDz
-	fhfj7g04RGqR5t4Ii6cAGz+lY6fXGYtMXkzxTl0YhflytuegXzrUEA3+WTNv1UMk99lW37/yA42
-	fx0Rm6AaxfWqpuoywPGRFx2B+GW9hQbk=
-X-Gm-Gg: ASbGnctuwC6q7s4eIFOgvXIlkmtkjIhEGGmICS29bmO15KeSVDJHA80BvrxyVMMHKvd
-	xMUufQYGZ6+LjOXjf5wIW+1ZNJjATcS55nbWPuo9IlK6aqkTO9ek0YTrNZJ/pgNvjH3i/nuTNXL
-	ZCyul8YnQ+FnyK4+VzLMsJfjyZSbGVjAQzijcLKzz9QTDN7fFvnqrwcibChRPUpvrfNrIe0DnuW
-	Ndxbg==
-X-Google-Smtp-Source: AGHT+IHoHL9mSbQtj0ZD6KHTZ2n5gTAZNINXEidoJ0xVPAu2g4IHdpvbyV1DGIkc/OXb8a8BiXGzB2jDdcCvgE9v8nc=
-X-Received: by 2002:a05:6512:23a9:b0:55b:87b8:839a with SMTP id
- 2adb3069b0e04-55caf39cd30mr2340353e87.51.1754571053337; Thu, 07 Aug 2025
- 05:50:53 -0700 (PDT)
+X-Inumbo-ID: 96f0fa02-738f-11f0-b898-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tQ1+zt8SxkWpi6XQvKb/4txJLmNhj/lKE1tbbt1yHm5Mc5mfMh1id0s7n9GI5o++auSo5fgwsbyFF8RGHy/AhtAQmxzQ50KAfwY+Lk+ne7i9/mPM6kIjAisy9OVGCuJDn89lx40GkRUvA92ncv0c2r7XBOY1KlrUvG81hcJl/JCd1EKx5Qz3kZ488T0o9nNYANzl74kNcFUIhK1EKWagmcQFDl7gCFYfa/YppIhvPXVVWPvY0tosrnQ06eTFBoFUEu1y4rfvyEjIg0ev32yYzL/OxMyWvHTDYb6Vc3xTRZh/5pybM9kmC5wf/gCuvZ7fNOa3OtGQIP1Q8Pvuvl0srQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HcNahN9GoGL0AP88sLUVxLsV+OiezgDlSya5Beqdmb4=;
+ b=kzDGV6ClUN6JhAsCb/Tg2C17AqRbsb3oWrHgWl17B9xc8vaSbqHGdsTIoTLBp8xnm7fuotA5anPz87YJfP9LyCJ4aXVEJHepCizOuK5BZjEA6OSQ/wJlCsuslw8jZAGYQ+OVW7nHymzqFALhtmHmdtBC1jSarxIPH4iwu6ViqOWNDcXBuuGW3KqEEcm67zRTLCtxpgU50wz0Xa3B+SNZIKomGv06gR3y1AtY4jwGFe7EDNtR2A0Cu1gQr0YYJQf9F4b331gjSHFe+aMKXkuj3/CMchqVpsMKgeSg3af87PgeGXihKo06Xheu+myXJZautZ77luPaUmCww9ZssjNJug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HcNahN9GoGL0AP88sLUVxLsV+OiezgDlSya5Beqdmb4=;
+ b=M/m2K/JOv5Yv/ToHUCusN/WyEgwTM6QbQuHVoqqc47QW+gR1ysR4Pg6h76Sl+YdllzPOb0n72NW81+RCaZjQxsxyywcvEPM5ArW+4Qa8V8qy3uXMm42Sv/2JIXJ+qMYfEs/p+4xbYG9JB5SeI+QyzFxQiWcm0FsDBoVoEYNVFORQvqGgDWZOFyUu2tVHRM4HOJ+Yo6Y9/CL2luVzoALO4GJ9ScwWm6W8ZSmHB/Je55r4hNG+nARGUVDGA8uaF9aoxwLgdp+QJRTSyuL08tlXFnGCKylCGENcMF7jfRoUjmRDnnZ16+AGtOItUsGDZUWM4k3EY7kQJ0WZQ3tWW/2NKQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Date: Thu, 7 Aug 2025 10:08:11 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
+	Leon Romanovsky <leonro@nvidia.com>,
+	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Alex Gaynor <alex.gaynor@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
+	iommu@lists.linux.dev, Jason Wang <jasowang@redhat.com>,
+	Jens Axboe <axboe@kernel.dk>, Joerg Roedel <joro@8bytes.org>,
+	Jonathan Corbet <corbet@lwn.net>, Juergen Gross <jgross@suse.com>,
+	kasan-dev@googlegroups.com, Keith Busch <kbusch@kernel.org>,
+	linux-block@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-nvme@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+	linux-trace-kernel@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 09/16] dma-mapping: handle MMIO flow in
+ dma_map|unmap_page
+Message-ID: <20250807130811.GI184255@nvidia.com>
+References: <cover.1754292567.git.leon@kernel.org>
+ <152745932ce4200e4baaedcc59ef45c230e47896.1754292567.git.leon@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <152745932ce4200e4baaedcc59ef45c230e47896.1754292567.git.leon@kernel.org>
+X-ClientProxiedBy: YT3PR01CA0108.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:85::25) To CH3PR12MB8659.namprd12.prod.outlook.com
+ (2603:10b6:610:17c::13)
 MIME-Version: 1.0
-References: <ae2c2e35-72df-40ed-bffe-391f3c11b826@gmail.com>
-In-Reply-To: <ae2c2e35-72df-40ed-bffe-391f3c11b826@gmail.com>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Thu, 7 Aug 2025 15:50:42 +0300
-X-Gm-Features: Ac12FXzHVSMx7LFUOAcW_ZaOdUZjGmgCubJyuXDqoWr2DCHmozc9DM_V--LKuBM
-Message-ID: <CAGeoDV9S3oqg-AgvQ1PhDCMM2Fd-uTrunD2q-4vSj9G8LwU9AA@mail.gmail.com>
-Subject: Re: Xen 4.21 Development Update [June-July]
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-	Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>, 
-	", Ayan Kumar Halder" <ayan.kumar.halder@amd.com>, Mykyta Poturai <Mykyta_Poturai@epam.com>, 
-	Juergen Gross <jgross@suse.com>, Teddy Astie <teddy.astie@vates.tech>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Luca Fancellu <luca.fancellu@arm.com>, 
-	"Jason Andryuk," <jason.andryuk@amd.com>, Alejandro Vallejo <alejandro.vallejo@cloud.com>, 
-	Sergii Dmytruk <sergii.dmytruk@3mdeb.com>, "Penny Zheng," <Penny.Zheng@amd.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki=2C?= <marmarek@invisiblethingslab.com>, 
-	Roger Pau Monne <roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>, dmkhn@proton.me, 
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>, Grygorii Strashko <gragst.linux@gmail.com>, 
-	Alejandro Vallejo <agarciav@amd.com>, "committers@xenproject.org" <committers@xenproject.org>, 
-	Community Manager <community.manager@xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR12MB8659:EE_|DM4PR12MB8558:EE_
+X-MS-Office365-Filtering-Correlation-Id: 08950cc1-2de1-4780-484f-08ddd5b376d7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?Nq/4a2aPxe/mtkoI+QV41hdJKUg3cdlvSoOR/muTmjH0jenhZt1pRK5w3IzH?=
+ =?us-ascii?Q?p/QFHExc/MgAgAc9aZQDcNnoHwi28teNBmt1OWbiyYcoTOc5Cb2wtWDPulgK?=
+ =?us-ascii?Q?lRbbS7eEZagenmxQTEc+UUnF8s1mRoMLRy32fpksYmbw5v8mYjrbqJAKM1u7?=
+ =?us-ascii?Q?KOTKhGVh777MbtRutO4zJRcrF1kRDXeKNnthTkAOSt/dKpif4LMWsvTKEha4?=
+ =?us-ascii?Q?Q1VF2VW8cL2wutuXlsjVj8hGa8LVjTreJD7E3Z1xkfakk9+ka0SyNAseQpcG?=
+ =?us-ascii?Q?gsLbMjQCzBddVDXCW1kuNJvSGpoI7lnQiSfA7pZ8ADRalwfE+Wd03wgQR3C2?=
+ =?us-ascii?Q?kLpHy3kjaXHOmiEXvOv++7pxX5zMW7IRAtLjqcjoQHoev6H3/qXbKik5wHXc?=
+ =?us-ascii?Q?RRyt/ae8W9ZVP6FekBsEETq2wOTaO9MlqpMCLFsWmX8vKQVuI+iYUOTaTd04?=
+ =?us-ascii?Q?HUBwHFwWjIpnrD3cFb3qcNkg4yi+bm8/GC/Et6ucLgPJXJbUKe2YkwKSZqSs?=
+ =?us-ascii?Q?CDXXbkHaVZwJbeU0WnrPRZbrfPcUDbVI5eA10870B0FyKaIHyMRI0x7/zCCP?=
+ =?us-ascii?Q?AQ3jJ9Op0mto7K0skfRbtGmvyreJY3Nh4Leuq440dmD3GbRTxpMmUJeTrSFB?=
+ =?us-ascii?Q?sFdvVDqzXfYUTFxKXAmkp+H3L5XiaIg5fTDbsHh3T31qSBy+4Ggfd0FDv0wB?=
+ =?us-ascii?Q?QGRI2WkOXf2Kln/xZiyDkCqR6+CtYgA9c23F0/9VpyPCk5ZIYjUdKhKWc/l6?=
+ =?us-ascii?Q?TM16Zonii3uyIvOX+gBnQbtIVf8om4ZEYnCLTSajZ5xI3/rcs+rp549OwAaH?=
+ =?us-ascii?Q?v4pwvGo9mvAy3l8n82aOYSmGg7xY25BQIvsalU3qzA9AWBQgz7SMLMNJpPSD?=
+ =?us-ascii?Q?g8W0JjY7HjdwX5em71q4xpApzR95Q6pUwlfnbKpMtaz1BMNHNYXpfaiQmK4T?=
+ =?us-ascii?Q?U30RbT4w7xqdhd7GCtAugnvLNCa0ZYjBubYnmojSsQNfh8blXE5jjBIyEvyl?=
+ =?us-ascii?Q?N1ML8UBAaT/6M4w8S9RWSQ1HXCw3gyVhmA5qVYz6kRnwYAuH4jttPqqU21ts?=
+ =?us-ascii?Q?mc6+jLwdCTRLxaqX0cAjTWTnOURE0pG7WC78sDc2oRS+nazzJoxhLoQR3j8R?=
+ =?us-ascii?Q?ovpm0N+kaQoi6TiloWW4BZ8JiuhTZ9orE5xiKzRfsva9gFbF67IV1C1iLGHE?=
+ =?us-ascii?Q?3Izs9IQYnVOP0aFr/uYb9NX1NcfuEY5HPyY1iQw5B6mk5As1LaYlHuIYnodk?=
+ =?us-ascii?Q?mF32bjbDXsSDkQIxF/0LhDcdp9IuwTqAbTgUeSi9SOrVI3x8sat/XVh1s/GM?=
+ =?us-ascii?Q?bmQc+MvkzYeqQSqXEvWk/4BPL43BorkZoPfZfxAAlzy9x+MlHnog1mzE/DD5?=
+ =?us-ascii?Q?bl0OWTpu948qX9qOmmcDYGR17MxIM/C5TBPx+yLLOQF062Nxw7t4KN9UiIOI?=
+ =?us-ascii?Q?P1tH+x/69d0=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB8659.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Rj4qcstFxUNxsRt471nCdJj82wmdEq5/Kx7zvkQBLfZLQRl+ga88yJlYaCsf?=
+ =?us-ascii?Q?CbdR5MQ2vuVy3EpcYdVVFFFuGDV6c/18dGgVy+aIQX4Xz3Taj0QWItN6MfAp?=
+ =?us-ascii?Q?fdK3eG9vIwBOxPgwq3r8hbXL8FUymx7Ury4B1K21cfVGfAHu0/T8/7mSvooq?=
+ =?us-ascii?Q?jJIMjROfGb2SglfRzuidjznIqdf3HNmIvDb9Vf0G8LS1A52miIu11TW9wBUe?=
+ =?us-ascii?Q?1BGs6bBOxq8N9mz/FIwxof2vawn/poPbtXLbRIpUYk8UgzUBrBv1v4c1JtYn?=
+ =?us-ascii?Q?otlxohDx2mxKpVCgHnOqkg5xVBuF0zgfBgBf0AlwsLRpwd4Q8G3xdiwPTnR4?=
+ =?us-ascii?Q?Sspl65u0J6IPBVkwiQgyZatvFlT3rrhAQ+tuJO2UQ0mG239MR9IeOUJg9kSE?=
+ =?us-ascii?Q?gW82aHqUFkerfU8AD3AFAWXH+Jfs6lzIna8/opyIEIDZIE73ZPXwj4CB5c8P?=
+ =?us-ascii?Q?ioeE2zfcTc3PdvivMeeXMulub5u5IHBdiy2g5fVp/PRSrplWN1lgGq5TaOoW?=
+ =?us-ascii?Q?EmfRJ957EM/oJ/1LU6bjRlXSt5CGu7B55SDYzKgMVCUNqIxc1mmDGOAArrwe?=
+ =?us-ascii?Q?UihpLdOIVq2JzAecSr1X2GDfb3wYgiwSAORwRdpg4e4LyyimuAnso83lo+b1?=
+ =?us-ascii?Q?ta0eoJPuf3AAa0xtEh+F1Rk89sYQF5ye5EZ9yOBx3VC1VC1NiMA5E2rIr7P4?=
+ =?us-ascii?Q?uoSqNodY+GPN5iARUia8nXINxqfJBJNu3xlleOAE/SRO0smabmoLTY1a1FO1?=
+ =?us-ascii?Q?piaXqyKi7ywfW73iD0HP7uZx2/0i/hfqglw01epL/KqZYbC60xX7iT5hW49Z?=
+ =?us-ascii?Q?9cfUqCcxOAmwSFJR0PO/GKRiqarvC+1sD6fP7GS4kcFZ8jPtpItFsF9aWYX7?=
+ =?us-ascii?Q?0FQVBSuV5d7s2mCE5WH8vNkQagG4ongmjy9XtQwwxlu/RH+LpeVH0NxyluGu?=
+ =?us-ascii?Q?CULKE00Q+0mZc984ezCco3ZtV14RqVSsiCyR+XWoGXeCFv8hg9rD0s5tQGGd?=
+ =?us-ascii?Q?YbKb24R9elV2YHlqk4oYH0kER3H2kQqdSdVXkIN7LeuWGVVN2E0boCQAWVrW?=
+ =?us-ascii?Q?V3Vn6ZdR+qj3JARf/nEiTsP17PDBHDFKU6+Mfs0psjZXvdgFKHAl0TQqnLDZ?=
+ =?us-ascii?Q?hWedoX7mADffbzxiSX2BhY2PCTciTJbseJX7GwyG6+FcZP+B3w3iakMH/pPZ?=
+ =?us-ascii?Q?KcCtjslOcZ5QaDx6+zFxoEVghkCAbFOVxC7jA715eh+7ppgYr6nlG50Qimnc?=
+ =?us-ascii?Q?Ge89r+xdDkrN+ZcjOqiXojuASnecl3FGDce7S6+ovPgNRbvtjNei5tn2J6Zt?=
+ =?us-ascii?Q?CUVkOheZnHigLiuTQ/sJQ0//HdwQ9VAAgv+dMPZjKsNgbkF7N1cC5CZXI0uc?=
+ =?us-ascii?Q?K9ct3Peu/gXnCYvZMLdFnl5mP/9x3jzXxseDC2Xq0GURAfeZAaZxCTjReqh5?=
+ =?us-ascii?Q?CZ4WSzmbS5FGb4DPjk7IkC2gHvwHSDkiFBy0bOmm4ars19OIebfBS8MDl3C9?=
+ =?us-ascii?Q?aoQdrCQAc1YMTs90T867gbeVLXS3snMjDLJlzsIbMvkkksphpbdW5Jz4pryX?=
+ =?us-ascii?Q?Ma1w0FcmuWectGjgXy4=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 08950cc1-2de1-4780-484f-08ddd5b376d7
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB8659.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2025 13:08:12.8802
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vOq4jHUsSKGMaJyXZYTLbMWHzFOPikNkJkIkpgwbuFDcTt8ZteeQkm001BjRjw4P
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8558
 
-Hi Oleksii,
+On Mon, Aug 04, 2025 at 03:42:43PM +0300, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
+> 
+> Extend base DMA page API to handle MMIO flow.
 
-On Tue, Aug 5, 2025 at 9:19=E2=80=AFPM Oleksii Kurochko
-<oleksii.kurochko@gmail.com> wrote:
->
-> Hello everyone,
->
-> This email only tracks big items for xen.git tree. Please reply for
-> items you
-> would like to see in 4.21 so that people have an idea what is going on an=
-d
-> prioritise accordingly.
->
-> You're welcome to provide description and use cases of the feature you're
-> working on.
->
-> =3D Timeline =3D
->
-> The current release schedule could be found here:
->    https://wiki.xenproject.org/wiki/Xen_Project_X.YY_Release_Notes
->
-> And as a reminder I would like to remind at the of this week we will have
-> Last posting date (Fri Aug 08, 2025).
->
-> =3D Updates =3D
->
-> The following items ( the links for them could be found int the list belo=
-w )
-> were moved to completed:
->    [since Jun2 - Aug5]:
->     Added some tags: [4.21], [next-rel(s)] to the list "Full list of item=
-s"
->     below.
->     * x86:
->      - kexec: add kexec support to Mini-OS.
->      - x86: memcpy() / memset() (non-)ERMS flavors plus fallout
->     * Arm:
->      - SMMU handling for PCIe Passthrough on ARM.
->      - Add support for R-Car Gen4 PCI host controller.
->      - First chunk for Arm R82 and MPU support.
->      - Enable R52 support for the first chunk of MPU support
->      - ARM split hardware and control domains.
->     * RISC-V:
->      - Introduce basic UART support and interrupts for hypervisor mode.
->
->    [since May 6 - Jun2]:
->      * Hypervisor:
->        - tools: remove qemu-traditional
->      * Arm:
->        - PCI devices passthrough on Arm, part 3
->      * x86:
->        - xen: cache control improvements
->    [since 4.20 relese - May 6]:
->      * Hypervisor:
->        - Move parts of Arm's Dom0less to common code
->        - remove libxenctrl usage from xenstored
->      * Arm:
->        - Enable early bootup of Armv8-R AArch32 systems
->      * x86:
->        - x86/HVM: emulation (MMIO) improvements
->      * RISC-V:
->        - RISC-V some preinit calls.
->        - Fixes for UBSAN & GCOV support for RISC-V.
->
-> Some new items added:
->   [since May]
->      * x86:
->       - Allow x86 to unflatten DTs
->       - hyperlaunch: move remaining pvh dom0 construction
->       - x86/hyperlaunch: introduce concept of core domains
->       - Confidential computing and AMD SEV support
->      * Arm:
->       - SMMU handling for PCIe Passthrough on ARM
->       - xen/arm: scmi: introduce SCI SCMI SMC multi-agent support
->       - Add initial Xen Suspend-to-RAM support on ARM64
->      * RISC-V:
->       - introduce p2m functionality
->   [since 4.20 release]
->      * Hypervisor:
->        - tools: remove qemu-traditional
->        - Physical address hypercall ABI ("HVMv2")
->        - xen: Untangle mm.h
->        - xen: introduce CONFIG_SYSCTL
->        - Add support for exact-node memory claims
->        - Several CI cleanups and improvements, plus yet another new runne=
-r
->      * x86:
->        - x86/EFI: prevent write-execute sections
->        - x86: Trenchboot Secure Launch DRTM (Xen)
->        - Hyperlaunch device tree for dom0 (v6)
->        - amd-cppc CPU Performance Scaling Driver (v4)
->        - Hyperlaunch domain builder
->        - kexec: add kexec support to Mini-OS
->        - xen: cache control improvements (should be moved to "Hypervisor"=
-?)
->        - x86: generate xen.efi image with no write-execute sections
->        - x86/asm: cleanups after toolchain baseline upgrade
->      * Arm:
->        - Add support for R-Car Gen4 PCI host controller (v4)
->        - FF-A VM to VM support (v5)
->        - First chunk for Arm R82 and MPU support (v4)
->        - ARM split hardware and control domains (v5)
->        - MPU mm subsistem skeleton
->      * RISC-V:
->        - introduce basic UART support and interrupts for hypervisor mode
->
-> * Full list of items : *
->
-> =3D Projects =3D
->
-> =3D=3D Hypervisor =3D=3D
->
-> * [4.21] xen/console: cleanup console input switch logic (v5)
->    - Denis Mukhin
->    -
-> https://lore.kernel.org/xen-devel/20250530231841.73386-1-dmukhin@ford.com=
-/
->
-> * [4.21] xen: introduce CONFIG_SYSCTL (v4 -> v8)
->    -  Penny Zheng
->    -
-> https://lore.kernel.org/xen-devel/20250711043158.2566880-1-Penny.Zheng@am=
-d.com/
->
-> * [4.21] Several CI cleanups and improvements, plus yet another new runne=
-r
->    - Marek Marczykowski-G=C3=B3recki
->    -
-> https://lore.kernel.org/xen-devel/cover.7da1777882774486a13e6f39ff4a2096f=
-6b7901e.1744028549.git-series.marmarek@invisiblethingslab.com/
->    -
-> https://patchew.org/Xen/cover.7da1777882774486a13e6f39ff4a2096f6b7901e.17=
-44028549.git-series.marmarek@invisiblethingslab.com/
->
-> * [4.21] automation: Refresh the remaining Debian containers (v2)
->    -  Javi Merino
->    -
-> https://lore.kernel.org/xen-devel/cover.1730743077.git.javi.merino@cloud.=
-com/T/#m5d9acb7cf5db3c2be3d6527de14b69b07812314e
->
-> * [4.21] MSI-X support with qemu in stubdomain, and other related
-> changes (v8)
->    -  Marek Marczykowski-G=C3=B3recki
->    -
-> https://lore.kernel.org/xen-devel/cover.33fb4385b7dd6c53bda4acf0a9e91748b=
-3d7b1f7.1715313192.git-series.marmarek@invisiblethingslab.com/
->    -  Only automation patch left to be reviewed/merged.
->
-> * [next-rel(s)] Physical address hypercall ABI ("HVMv2")
->    - Teddy Astie
->    -
-> https://lore.kernel.org/xen-devel/cover.1744981654.git.teddy.astie@vates.=
-tech/
->
-> * [next-rel(s)] xen: Untangle mm.h
->    -  Andrew Cooper
->    -
-> https://lore.kernel.org/xen-devel/20250312174513.4075066-1-andrew.cooper3=
-@citrix.com/
->    -
-> https://patchew.org/Xen/20250312174513.4075066-1-andrew.cooper3@citrix.co=
-m/
->
-> * [next-rel(s)] Add support for exact-node memory claims
->    -  Alejandro Vallejo
->    -
-> https://lore.kernel.org/xen-devel/20250314172502.53498-1-alejandro.vallej=
-o@cloud.com/
->    -
-> https://patchew.org/Xen/20250314172502.53498-1-alejandro.vallejo@cloud.co=
-m/
->
-> * [next-rel(s)] Remove the directmap (v5)
->    -  Alejandro Vallejo
->    -
-> https://lore.kernel.org/xen-devel/20250108151822.16030-1-alejandro.vallej=
-o@cloud.com/
->    -
-> https://patchew.org/Xen/20250108151822.16030-1-alejandro.vallejo@cloud.co=
-m/
->
-> * [next-rel(s)] GRUB: Supporting Secure Boot of xen.gz (v1)
->    -  Ross Lagerwall
->    -
-> https://patchew.org/Xen/20240313150748.791236-1-ross.lagerwall@citrix.com=
-/
->
-> * [next-rel(s)] Introduce xenbindgen to autogen hypercall structs (v1)
->    -  Alejandro Vallejo
->    -
-> https://patchew.org/Xen/20241115115200.2824-1-alejandro.vallejo@cloud.com=
-/
->
-> * [next-rel(s)] Introduce NS8250 UART emulator (v2)
->    -  Denis Mukhin
->    -
-> https://patchew.org/Xen/20241205-vuart-ns8250-v1-0-e9aa923127eb@ford.com/
->
-> * [next-rel(s)] xen: framework for UART emulators
->    - Denis Mukhin
->    -
-> https://lore.kernel.org/xen-devel/20250624035443.344099-1-dmukhin@ford.co=
-m/
->
-> =3D=3D=3D x86 =3D=3D=3D
-> * [4.21] x86/asm: cleanups after toolchain baseline upgrade (v1 -> v2)
->    - Denis Mukhin
->    -
-> https://lore.kernel.org/xen-devel/20250403182250.3329498-1-dmukhin@ford.c=
-om/
->    - https://patchew.org/Xen/20250403182250.3329498-1-dmukhin@ford.com/
->
-> * [4.21?] x86/efi: Fix booting when NX is disabled (v1 -> v2)
->    - Andrew Cooper
->    -
-> https://patchew.org/Xen/20240722101838.3946983-1-andrew.cooper3@citrix.co=
-m/
->    -
-> https://lore.kernel.org/xen-devel/20240722101838.3946983-1-andrew.cooper3=
-@citrix.com/
->
-> * [4.21?] Hyperlaunch device tree for dom0 (v6)
->    - Alejandro Vallejo
->    - https://patchew.org/Xen/20250429123629.20839-1-agarciav@amd.com/
->    -
-> https://lore.kernel.org/xen-devel/20250429123629.20839-1-agarciav@amd.com=
-/
->
-> *  [4.21?] Boot modules for Hyperlaunch (v9)
->    -  Daniel P. Smith
->    -
-> https://lore.kernel.org/xen-devel/20241115131204.32135-1-dpsmith@apertuss=
-olutions.com/
->    -
-> https://patchew.org/Xen/20241115131204.32135-1-dpsmith@apertussolutions.c=
-om/
->
-> *  [4.21?] Address Space Isolation FPU preparations (v2->v3)
->    -  Alejandro Vallejo
->    -
-> https://patchew.org/Xen/20250110132823.24348-1-alejandro.vallejo@cloud.co=
-m/
->
-> * [next-rel(s)] Hyperlaunch domain builder
->    - Daniel P. Smith
->    -
-> https://lore.kernel.org/xen-devel/20250515131744.3843-1-dpsmith@apertusso=
-lutions.com/
->
-> * [next-rel(s)] Confidential computing and AMD SEV support
->    - Teddy Astie
->    - https://patchew.org/Xen/cover.1747312394.git.teddy.astie@vates.tech/
->    -
-> https://lore.kernel.org/xen-devel/cover.1747312394.git.teddy.astie@vates.=
-tech/
->
-> * [next-rel(s)] amd-cppc CPU Performance Scaling Driver (v5 -> v6)
->    - Penny Zheng
->    -
-> https://lore.kernel.org/xen-devel/20250711035106.2540522-1-Penny.Zheng@am=
-d.com/
->
-> * [next-rel(s)] x86: Trenchboot Secure Launch DRTM (Xen) (v1 -> v3)
->    - Sergii Dmytruk
->    - https://patchew.org/Xen/cover.1745172094.git.sergii.dmytruk@3mdeb.co=
-m/
->    -
-> https://lore.kernel.org/xen-devel/cover.1748611041.git.sergii.dmytruk@3md=
-eb.com/
->
-> * [next-rel(s)] x86/EFI: prevent write-execute sections
->    - Roger Pau Monne <roger.pau@citrix.com>
->    -
-> https://lore.kernel.org/xen-devel/20250401130840.72119-1-roger.pau@citrix=
-.com/
->
-> * [next-rel(s)] x86: generate xen.efi image with no write-execute section=
-s
->    - Roger Pau Monne
->    -
-> https://lore.kernel.org/xen-devel/20250318173547.59475-1-roger.pau@citrix=
-.com/
->
-> *  [next-rel(s)] Expose consistent topology to guests (v7)
->    -  Alejandro Vallejo
->    -
-> https://patchew.org/Xen/20241021154600.11745-1-alejandro.vallejo@cloud.co=
-m/
->
-> *  [next-rel(s)] x86/alternatives: Adjust all insn-relative fields (v2)
->    -  Andrew Cooper
->    -
-> https://lore.kernel.org/xen-devel/20241002152725.1841575-1-andrew.cooper3=
-@citrix.com/T/#mac2deaea7e02a343210d61887486433d946ad129
->
-> *  [next-rel(s)] x86emul: misc additions (v7)
->    -  Jan Beulich
->    - https://patchew.org/Xen/3a25cd59-e1cb-4bfc-b868-fb11599d22f5@suse.co=
-m/
->
-> *  [next-rel(s)] x86: support AVX10 (v3)
->    -  Jan Beulich
->    -
-> https://lore.kernel.org/xen-devel/516b7f9a-048e-409d-8a4e-89aeb8ffacc4@su=
-se.com/
->    - https://patchew.org/Xen/516b7f9a-048e-409d-8a4e-89aeb8ffacc4@suse.co=
-m/
->
-> *  [next-rel(s)] VT-d: SATC handling; ATS: tidying (v2)
->    -  Jan Beulich
->    - https://patchew.org/Xen/64b028be-2197-4951-ae5b-32f9eabfa84a@suse.co=
-m/
->
-> *  [next-rel(s)] x86: parallelize AP bring-up during boot (v1)
->    -  Krystian Hebel
->    -
-> https://lore.kernel.org/xen-devel/cover.1699982111.git.krystian.hebel@3md=
-eb.com/
->
-> *  [next-rel(s)] x86/spec-ctrl: IBPB improvements (v4)
->    -  Jan Beulich
->    - https://patchew.org/Xen/06591b64-2f05-a4cc-a2f3-a74c3c4a76d6@suse.co=
-m/
->
-> *  [next-rel(s)] Move some boot code from assembly to C (v2)
->    -  Frediano Ziglio
->    -
-> https://lore.kernel.org/xen-devel/20241122093358.478774-1-frediano.ziglio=
-@cloud.com/
->    -
-> https://patchew.org/Xen/20241122093358.478774-1-frediano.ziglio@cloud.com=
-/
->
-> *  [next-rel(s)]amd-pstate CPU Performance Scaling Driver (v1)
->    -  Penny Zheng
->    - https://patchew.org/Xen/20241203081111.463400-1-Penny.Zheng@amd.com/
->    -
-> https://lore.kernel.org/xen-devel/593baee2-9bf1-4db4-86e8-015cae48dc1a@su=
-se.com/
->
-> * [next-rel(s)] x86: adventures in Address Space Isolation
->    - Roger Pau Monne <roger.pau@citrix.com>
->    -
-> https://lore.kernel.org/xen-devel/20250108142659.99490-1-roger.pau@citrix=
-.com/
->
-> =3D=3D=3D ARM =3D=3D=3D
->
-> * [4.21?] MPU mm subsistem skeleton
->    - Luca Fancellu
->    -
-> https://lore.kernel.org/xen-devel/20250312135258.1815706-1-luca.fancellu@=
-arm.com/
->    - https://patchew.org/Xen/20250312135258.1815706-1-luca.fancellu@arm.c=
-om/
->
-> * [4.21?] Add initial Xen Suspend-to-RAM support on ARM64 (v4)
->    - Mykola Kvach
->    -
-> https://lore.kernel.org/xen-devel/cover.1748848482.git.mykola_kvach@epam.=
-com/
+I would mention here this follows the long ago agreement that we don't
+need to enable P2P in the legacy dma_ops area. Simply failing when
+getting an ATTR_MMIO is OK.
 
-Our team expects to see this feature included in the 4.21 release.
+> --- a/kernel/dma/mapping.c
+> +++ b/kernel/dma/mapping.c
+> @@ -158,6 +158,7 @@ dma_addr_t dma_map_page_attrs(struct device *dev, struct page *page,
+>  {
+>  	const struct dma_map_ops *ops = get_dma_ops(dev);
+>  	phys_addr_t phys = page_to_phys(page) + offset;
+> +	bool is_mmio = attrs & DMA_ATTR_MMIO;
+>  	dma_addr_t addr;
+>  
+>  	BUG_ON(!valid_dma_direction(dir));
+> @@ -166,12 +167,23 @@ dma_addr_t dma_map_page_attrs(struct device *dev, struct page *page,
+>  		return DMA_MAPPING_ERROR;
+>  
+>  	if (dma_map_direct(dev, ops) ||
+> -	    arch_dma_map_phys_direct(dev, phys + size))
+> +	    (!is_mmio && arch_dma_map_phys_direct(dev, phys + size)))
+>  		addr = dma_direct_map_phys(dev, phys, size, dir, attrs);
 
-Additional related patches for this feature:
-https://lore.kernel.org/xen-devel/cover.1753778926.git.mykola_kvach@epam.co=
-m/
-https://lore.kernel.org/xen-devel/e57133182b9bcecb519911c8b3f0d871955d6fef.=
-1754540991.git.mykola_kvach@epam.com/
+I don't know this area, maybe explain a bit in the commit message how
+you see ATTR_MMIO interacts with arch_dma_map_phys_direct ?
 
->
-> * [4.21?] xen/arm: scmi: introduce SCI SCMI SMC multi-agent support (->v4=
-)
->    - Oleksii Moisieiev
->    -
-> https://lore.kernel.org/xen-devel/cover.1753184487.git.oleksii_moisieiev@=
-epam.com/
->
-> * [next-rel(s)] FF-A VM to VM support (v6)
->    - Bertrand Marquis <bertrand.marquis@arm.com>
->    -
-> https://lore.kernel.org/xen-devel/cover.1747925287.git.bertrand.marquis@a=
-rm.com/
->    - https://patchew.org/Xen/cover.1747925287.git.bertrand.marquis@arm.co=
-m/
->
-> *  [next-rel(s)] Add Virtio-PCI for dom0less on ARM (v1)
->    -  Edgar E. Iglesias
->    -
-> https://lore.kernel.org/xen-devel/20240924162359.1390487-1-edgar.iglesias=
-@gmail.com/T/#mfa148991b9408f223a079d4cef610244d5b04c2b
->    -
-> https://patchew.org/Xen/20240924162359.1390487-1-edgar.iglesias@gmail.com=
-/
->
-> *  [next-rel(s)] DOMCTL-based guest magic region allocation for 11 domUs
-> (v4)
->    -  Henry Wang
->    - https://patchew.org/Xen/20240409045357.236802-1-xin.wang2@amd.com/
->
-> =3D=3D=3D RISCV =3D=3D=3D
->
-> * [4.21] xen/riscv: introduce p2m functionality (v1->v3)
->    - Oleksii Kurochko
->    -
-> https://lore.kernel.org/xen-devel/cover.1753973161.git.oleksii.kurochko@g=
-mail.com/T/#t
->
-> =3D=3D=3D PPC =3D=3D=3D
->
-> *  Early Boot Allocation on Power (v5)
->    -  Shawn Anastasio
->    -
-> https://lore.kernel.org/xen-devel/cover.1727388925.git.sanastasio@raptore=
-ngineering.com/T/#m8cac91a93b56a359fa2d5f08596c4be61dca290d
->    -
-> https://patchew.org/Xen/cover.1727388925.git.sanastasio@raptorengineering=
-.com/
->
-> =3D=3D Completed =3D=3D
->
-> =3D=3D=3D Hypervisor =3D=3D=3D
->
-> * tools: remove qemu-traditional
->    - Juergen Gross <jgross@suse.com>
->    - https://lore.kernel.org/xen-devel/20250527132035.985-1-jgross@suse.c=
-om/
->
-> *  remove libxenctrl usage from xenstored (v8)
->    -  Juergen Gross
->    -
-> https://lore.kernel.org/xen-devel/20250204113407.16839-1-jgross@suse.com/
->
-> * xen/config.h: Move BITS_PER_* definitions from asm/config.h to
-> xen/config.h
->    - Oleksii Kurochko
->    -
-> https://lore.kernel.org/xen-devel/6b21fb046cf1c8ca760f5ad72fa3cc13b59c406=
-9.1743092485.git.oleksii.kurochko@gmail.com/
->
-> * Move parts of Arm's Dom0less to common code
->    - Oleksii Kurochko
->    -
-> https://patchew.org/Xen/cover.1746468003.git.oleksii.kurochko@gmail.com/
->    -
-> https://lore.kernel.org/xen-devel/cover.1746468003.git.oleksii.kurochko@g=
-mail.com/T/#t
->
-> =3D=3D=3D x86 =3D=3D=3D
->
-> *  x86: memcpy() / memset() (non-)ERMS flavors plus fallout (v4 -> v5)
->    -  Jan Beulich
->    - https://patchew.org/Xen/14b65231-b83b-43fb-bbcf-dec5c07d285b@suse.co=
-m/
->
-> * kexec: add kexec support to Mini-OS (v1 -> v2)
->    - Juergen Gross <jgross@suse.com>
->    -
-> https://lore.kernel.org/xen-devel/20250616084619.11112-1-jgross@suse.com/
->
-> * [4.21] Allow x86 to unflatten DTs (v8)
->    - Alejandro Vallejo
->    -
-> https://lore.kernel.org/xen-devel/20250722000525.7247-1-alejandro.garciav=
-allejo@amd.com/#t
->
-> * xen: cache control improvements
->    - Roger Pau Monne
->    -
-> https://lore.kernel.org/xen-devel/20250506083148.34963-1-roger.pau@citrix=
-.com/
->
-> *  x86/HVM: emulation (MMIO) improvements (v3)
->    -  Jan Beulich
->    - https://patchew.org/Xen/729f7896-55b7-4b5b-a7e9-6eb0420e0b14@suse.co=
-m/
->
-> =3D=3D=3D ARM =3D=3D=3D
->
-> * Enable R52 support for the first chunk of MPU support
->   -  Ayan Kumar Halder
->   -
-> https://lore.kernel.org/xen-devel/20250619113152.2723066-1-ayan.kumar.hal=
-der@amd.com/
->
-> * ARM split hardware and control domains (v5)
->    - Jason Andryuk
->    -
-> https://lore.kernel.org/xen-devel/20250416212911.410946-1-jason.andryuk@a=
-md.com/
->    - https://patchew.org/Xen/20250416212911.410946-1-jason.andryuk@amd.co=
-m/
->
-> * First chunk for Arm R82 and MPU support (v4 -> v6)
->    - Luca Fancellu
->    -
-> https://lore.kernel.org/xen-devel/20250523065406.3795420-1-luca.fancellu@=
-arm.com/
->    - https://patchew.org/Xen/20250523065406.3795420-1-luca.fancellu@arm.c=
-om/
->
-> * Add support for R-Car Gen4 PCI host controller (v4 -> v5)
->    - Mykyta Poturai
->    -
-> https://lore.kernel.org/xen-devel/cover.1747820844.git.mykyta_poturai@epa=
-m.com/
->    -
-> https://patchew.org/Xen/cover.1747820844.git.mykyta._5Fpoturai@epam.com/
->
-> * SMMU handling for PCIe Passthrough on ARM (v11 -> v12)
->    - Mykyta Poturai
->    -
-> https://lore.kernel.org/xen-devel/cover.1751439885.git.mykyta_poturai@epa=
-m.com/
->
-> *  PCI devices passthrough on Arm, part 3 (v16->v20->v21)
->    -  Stewart Hildebrand
->    -
-> https://patchew.org/Xen/20250508104608.531079-1-stewart.hildebrand@amd.co=
-m/
->    -
-> https://lore.kernel.org/xen-devel/20250508104608.531079-1-stewart.hildebr=
-and@amd.com/
->
-> * Enable early bootup of Armv8-R AArch32 systems
->    - Ayan Kumar Halder
->    -
-> https://lore.kernel.org/xen-devel/20250414164514.588373-1-ayan.kumar.hald=
-er@amd.com/
->    -
-> https://patchew.org/Xen/20250414164514.588373-1-ayan.kumar.halder@amd.com=
-/
->
-> =3D=3D=3D RISC-V =3D=3D=3D
->
-> * riscv: introduce basic UART support and interrupts for hypervisor mode
-> (v2 -> v3)
->    -  Oleksii Kurochko
->    -
-> https://lore.kernel.org/xen-devel/cover.1747843009.git.oleksii.kurochko@g=
-mail.com/
->    -
-> https://patchew.org/Xen/cover.1747843009.git.oleksii.kurochko@gmail.com/
->
-> * RISC-V some preinit calls:
->    -  Oleksii Kurochko
->    -
-> https://lore.kernel.org/xen-devel/4ddde60347edf6740fbc69b5739d099616f5b5f=
-f.1743165791.git.oleksii.kurochko@gmail.com/
->
-> * Fixes for UBSAN & GCOV support for RISC-V:
->    -  Oleksii Kurochko
->    -
-> https://lore.kernel.org/xen-devel/9fbb5e1389b84bed2e95f99e4c383d0215c7a52=
-4.1744889185.git.oleksii.kurochko@gmail.com/
->
-> Have a good week!
->
-> Best regards,
->   Oleksi
+>  	else if (use_dma_iommu(dev))
+>  		addr = iommu_dma_map_phys(dev, phys, size, dir, attrs);
+> -	else
+> +	else if (is_mmio) {
+> +		if (!ops->map_resource)
+> +			return DMA_MAPPING_ERROR;
+> +
+> +		addr = ops->map_resource(dev, phys, size, dir, attrs);
+> +	} else {
+> +		/*
+> +		 * All platforms which implement .map_page() don't support
+> +		 * non-struct page backed addresses.
+> +		 */
+>  		addr = ops->map_page(dev, page, offset, size, dir, attrs);
 
-Best regards,
-Mykola
+Comment could be clearer maybe just:
+
+ The dma_ops API contract for ops->map_page() requires kmappable memory, while
+ ops->map_resource() does not.
+
+But this approach looks good to me, it prevents non-kmappable phys
+from going down to the legacy dma_ops map_page where it cannot work.
+
+From here you could do what Marek and Christoph asked to flush the
+struct page out of the ops->map_page() and replace it with
+kmap_local_phys().
+
+Jason
 
