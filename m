@@ -2,52 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CA10B1CE5C
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Aug 2025 23:25:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1072243.1435471 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DBECB1CFAD
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 02:06:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1072307.1435481 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujlcR-0006PL-Sv; Wed, 06 Aug 2025 21:24:19 +0000
+	id 1ujo8n-000298-Ao; Thu, 07 Aug 2025 00:05:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1072243.1435471; Wed, 06 Aug 2025 21:24:19 +0000
+Received: by outflank-mailman (output) from mailman id 1072307.1435481; Thu, 07 Aug 2025 00:05:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujlcR-0006NE-Pg; Wed, 06 Aug 2025 21:24:19 +0000
-Received: by outflank-mailman (input) for mailman id 1072243;
- Wed, 06 Aug 2025 21:24:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ujo8n-00026m-7l; Thu, 07 Aug 2025 00:05:53 +0000
+Received: by outflank-mailman (input) for mailman id 1072307;
+ Thu, 07 Aug 2025 00:05:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VUPx=2S=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1ujlcQ-0006N8-EM
- for xen-devel@lists.xenproject.org; Wed, 06 Aug 2025 21:24:18 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2061e.outbound.protection.outlook.com
- [2a01:111:f403:2412::61e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b199dbb7-730b-11f0-b898-0df219b8e170;
- Wed, 06 Aug 2025 23:24:12 +0200 (CEST)
-Received: from MW4PR04CA0336.namprd04.prod.outlook.com (2603:10b6:303:8a::11)
- by MN2PR12MB4389.namprd12.prod.outlook.com (2603:10b6:208:262::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8989.20; Wed, 6 Aug
- 2025 21:24:06 +0000
-Received: from MWH0EPF000A6735.namprd04.prod.outlook.com
- (2603:10b6:303:8a:cafe::cf) by MW4PR04CA0336.outlook.office365.com
- (2603:10b6:303:8a::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8989.20 via Frontend Transport; Wed,
- 6 Aug 2025 21:24:06 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- MWH0EPF000A6735.mail.protection.outlook.com (10.167.249.27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9009.8 via Frontend Transport; Wed, 6 Aug 2025 21:24:06 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 6 Aug
- 2025 16:24:04 -0500
-Received: from [172.17.35.128] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 6 Aug 2025 16:24:03 -0500
+ <SRS0=llzQ=2T=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1ujo8l-00026g-3i
+ for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 00:05:51 +0000
+Received: from fhigh-b6-smtp.messagingengine.com
+ (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 463b5111-7322-11f0-a324-13f23c93f187;
+ Thu, 07 Aug 2025 02:05:50 +0200 (CEST)
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id EA1457A08FD;
+ Wed,  6 Aug 2025 20:05:48 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-12.internal (MEProxy); Wed, 06 Aug 2025 20:05:49 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 6 Aug 2025 20:05:47 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,169 +44,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b199dbb7-730b-11f0-b898-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZATdNZaHjT1fTZvxqTot48iPjdglfKrBo3fyi7Qa3egnfI9iRhEpUoAy8/+yJy3jjUBzeREsqwOo3MZw9xL6q99KGNvr4/jGjvMFslk+DDM8e/9p3BeQ6DPVHDV9mvnUKZ7csvfi92syc1VMwTG+F0kW7yKW/WJMsEv12F+sMVWERfTGr39ync997zVPNgmuFmgUDRXvUjoBrVm+0ftGigUEmhHuIczt3zu5YyfwEulVjO/wZP1TRV53x57RD2rYUoGddyggoK+Eg0hjROmplynjHUal1c5XtoJGQ4CoUolNfAht6pQ5mbRmrMN4ZTnX9b3+PCQ5LjBqK3xqK0/mdw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=39EmAH5FAicSc8YRclDIl5SElJIogV7JY0cYKX8W230=;
- b=RSzmtYso2OYnH42pyzDZJMiRlknhWczWip9UxjqmGUcK62itBMz/pLcNt0gnpkJG3Bl2hnca8vdVBmRzCAiGtnlFfTxXHsvImk5gEXwT7F7IqXxZUSUm80ao9FfhLisvpVNcZW8VbRYiFaLhV1DY1BcoWpfBh9dpojs35Ucx+ngKieLToDtnSYWmKA5KzIOO6swr5gnIJGUdJZ3x10wpS1+BWdROKWLGQjLyKvbs7wwLbBszTHf26uhyfjxoJnwe3N/B1H0NLoA2s1BoTnFiHs13H8Lg3ewgxyM0iwJDVUv/KKhqUVytrLHu9Ca/M8GjPtizb8JJqQKbdgmT907/DA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=39EmAH5FAicSc8YRclDIl5SElJIogV7JY0cYKX8W230=;
- b=tjwqBFbFMiaaykTwv9QWckuXtF80hCQlvfiP7D4KKtsSeOrA7M1IvfD81UaebNS0WTslRUgwvfvfvDywi9eE8lY4jLvdgly3nB28uO1tx+amZn5027S6Kllq7P3LAUKaCbHGI4/Xy5WR7WbSzm++AIZTrHTLF3K+jin+vmBAOY0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <b3edf693-6f54-487d-b465-6224daf9746d@amd.com>
-Date: Wed, 6 Aug 2025 17:24:05 -0400
+X-Inumbo-ID: 463b5111-7322-11f0-a324-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1754525148;
+	 x=1754611548; bh=Yy4AwNCxyeIe0srEz6aXNzEAyAg8MNNYDyg7dsTsAXk=; b=
+	KTaJI8auG1k/obqyfjikELAMeLaWvyVYl4qlJVnX5y/TdBK8ziriuAScM3Z4tuqj
+	m8DJ8OL349ptrinw8u7M7H3lDXABUdiEBi1Z7RuOg4IxNhhPT5GLbInkAK8S0fVd
+	gVIucqBLb+ckC6UyJohDZ37z/Uy7oThjF+RGD7yA07D0pAeudrJuULTLcknVjphP
+	0VTZnauwia5Ou4qT0L1bNzQbCqEKykERavCR6MMPpQOWvOUf6sZaDqY2PmIfAO5e
+	zTsnU4iNFtS1T9agauGjWl2n8PvW8NrDHuwUjUdEoLxZE3exZaP8Ew9JeodLvbjS
+	edHsQVztGW8fx8M4PGh7pw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1754525148; x=1754611548; bh=Yy4AwNCxyeIe0srEz6aXNzEAyAg8MNNYDyg
+	7dsTsAXk=; b=SFeNFT0mu9Os3EZZZGuMXIMqdKVPdfQt7SW/1VLoqPv9+g3RcsY
+	MxfjlLn84JXhwmAZmU62L8JbBY/m38LrY913Wi7cvgI3eKSu2c+MSD2PrPh7HlD9
+	+cC5MDI8d/GB3kuGRuLcJM2cIrJVDLo9ND4xi2bcIgFPdiba/95Okj64l46heli8
+	sVvEtYfNMmHARuveWldyWy9437gzEHI9pCDzW6onsuoptOVztgjsnxEwRQT6vJWq
+	WaEvV1FAN/Y0tSUtycCki/pnVSvyN5rtVHi72Es3Nfvbqeu7qVnjyVDU06z5Y12X
+	YhnamWP1/3Le4ld33Od8ex+kx2KDy3eR0Nw==
+X-ME-Sender: <xms:3O2TaHyf8GfnJ8WYH6v5kiusnw19KDj8V6KJCOcx8SjJN1_682uMOw>
+    <xme:3O2TaJ1d92xNsf8LkcKhSi_P165GqqmfVgx45NQQd__CeOUSW_BLry_TXXQzKY7ZD
+    rh6zQKlAsGD7Q>
+X-ME-Received: <xmr:3O2TaN73Se8OLu-pPyAPbSk5cDQpvf3DLAqOXKtNek3KtDAS_FpqSDxKSUKmF3Hdk6e9_17Qzd0Vf2CIdfk2c8TS60osEPcSR6I>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgdduudelgeegucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
+    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnheptdevtdeh
+    gfdtkeejhfeggedvtddvleffueeuuedtjedvveevffejhedvieefvdefnecuffhomhgrih
+    hnpeigvghnphhrohhjvggtthdrohhrghdpihhnuhhmsghordgtohhmnecuvehluhhsthgv
+    rhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepgedpmhho
+    uggvpehsmhhtphhouhhtpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgi
+    gvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrhef
+    segtihhtrhhigidrtghomhdprhgtphhtthhopehsshhtrggsvghllhhinhhisehkvghrnh
+    gvlhdrohhrghdprhgtphhtthhopehrohhgvghrrdhprghusegtihhtrhhigidrtghomh
+X-ME-Proxy: <xmx:3O2TaEUzGQkI66AUfNkeZFfyY4UGOz-sMBd0lZsYc4Jdj0miKXDNcw>
+    <xmx:3O2TaEAg_evJ45ELPtVzHGbNhjzCEZIhFiJRGRXwSKNK6aTQnmChDQ>
+    <xmx:3O2TaL5Oq6jq6ZsteuHmnNFT9g1IXWN9yXdaDQo--4_YnrGqrCc8oQ>
+    <xmx:3O2TaHwhBDCGd0Vk7O2na1cj96zVy_lE5G_JWsOUPxjAcxUQtEUZkw>
+    <xmx:3O2TaJMIps2430orJxMHXQxa1Hw8xHjs3uJOiC1O2UeK88-k4kXGb5DZ>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 7 Aug 2025 02:05:45 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Subject: Re: [PATCH test-artifacts] Add debian rootfs artifact
+Message-ID: <aJPt2klRMJz34b-o@mail-itl>
+References: <20250807000318.2284283-1-marmarek@invisiblethingslab.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86/mm: correct PG_log_dirty definition
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Penny Zheng
-	<Penny.Zheng@amd.com>
-References: <c506f225-0993-4ef3-9e7e-60b8f17c872e@suse.com>
- <65e27b35-9256-4ab0-966a-c50a18900ba5@suse.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <65e27b35-9256-4ab0-966a-c50a18900ba5@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A6735:EE_|MN2PR12MB4389:EE_
-X-MS-Office365-Filtering-Correlation-Id: 646cf61f-ed6b-4cd0-c099-08ddd52f931c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|376014|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?RUNFNnNnd2FWSmFkYXlZdjF2TmF3MWxQbEZIbCs1SFdqN2NsV05nS3VINHlz?=
- =?utf-8?B?aHk5Mk03WVQvYUloZXdtVFM2SjV0K1pEMDZlM1NzWWlOVVJGMXM2LzZLZlhQ?=
- =?utf-8?B?cHBLYTlSbDg2L3JRcXZzdU4wdUV3VzlkUXNSMGUwZ2N5dVRHenBOSURMcEs3?=
- =?utf-8?B?TEppTFM0Z1hLUFdHY2hWTk41RmJzcVJHUzFCejdYSHVpTFdKV0h3Mmo5a01L?=
- =?utf-8?B?dkJ2ZkREVkt6eTFtOXhpZm43UUlqdUdmTitPdHN1b2lKSnFscTROZ1JHZnNm?=
- =?utf-8?B?U3l4OFN3RTlzZ0MrbjJaemNqbUV6SEdiUXZJMDh5V0hrQ1UxazFCclR3TVVS?=
- =?utf-8?B?SGZwaU9hb3IxalRpc1dJZDNYS3VSRjB5Qm15UjdEZ3hjNER6a2podTlQRmpp?=
- =?utf-8?B?U1grOWh4UjFiUUFOd2hzbit1MXB3VTNXZTE0VitjaExYZm42RUtFTkR5Q1U2?=
- =?utf-8?B?SUx2RGlVM1U3RWhxVlFUUjl5a1IzYVJHZGVkTGlqNWNudkdVZzlPaUFnSDB2?=
- =?utf-8?B?SHE5SGEyV1hPUWFKNzNWTGJWd0NqQ1UwNm1BUElUVXhLTFpBbVczOElub3pQ?=
- =?utf-8?B?SmdHaUNsVGJzYmZRV3VRYWJYRjI5RHhheXdZWmdzeEY2Y1NwYnlTRFFCOEZ0?=
- =?utf-8?B?dXkyT24ya3d6dVByQTJueUpNdEhlYjJBWlJmeWJpWFA4N0dOMk9qWXVyUk90?=
- =?utf-8?B?Y21KaEhSRGtzdlF3TTd0eUpHMXlQQ3p3cmpSRit2TlZzRU9kbFJyVVFWSkVu?=
- =?utf-8?B?eEVKcWUrUVZtaTR5aDhscjE4S0Rnck1Hb3lDWmNZZW5wMDgzYjBSc3JlcVFQ?=
- =?utf-8?B?dGJDWEMwSVFrMElhVWVva05mc2VKUHAxMXp4VzcrWSswdStKNk83eXJiWXU5?=
- =?utf-8?B?bUVkb2kzMnhZYmdEcDlqd3dUSStQYlV1USt1N3FkYjRtNklnUS9NOWhLUTJo?=
- =?utf-8?B?VTR3R2NHY0xTTzdKTUF2NzE5cFc1VXQ1dnRzNnFIOUNwclZ5WVVDc3JzalBM?=
- =?utf-8?B?RHc2MEZ3V3lRd25uWHk4U2pYbG1GOXdPcW1sVGswbkorNy9LRVJoWExUUndJ?=
- =?utf-8?B?TW1zSHl4dlUwcGwvdmdPWU04azU2b2hQYmk2RzR3dm0xV3R1Y2RpdG1tNXhp?=
- =?utf-8?B?RnFCS1E4bUg3ZzdQaitBMlpMTmxIUmdyL3ZPVkMvTlpSK3ErWEh0QXY3MDh1?=
- =?utf-8?B?dDJaVDJrTzNvaDA4dk5DYmtrU3VhK1d5cWhXZDdRNml6M09rVGM3OFlxU1pV?=
- =?utf-8?B?eGQ5eVBOdThqWjBrTWZ6NkxENE1zMDdhaGtyZVd1ZUJFNURxamh6TkxpSGVo?=
- =?utf-8?B?VVNGVkR2NElkL2hET1NhSEw4Y0JiSW5TRWhuUEtDRlBlWFU2a0lqelVkOHQy?=
- =?utf-8?B?dUhFRndsVlQ0Z25LaWNMWER6ZzdNVmZ5ZzIzNHpzSi9EMW82K2M4MnpTRGJD?=
- =?utf-8?B?R1NBNlV3QnkvLzZ3NEYxZzk3L3drQ0ZMNlhVMHhyMENuZS9weFBQTXdJQWJi?=
- =?utf-8?B?ZW5namhSa3V4UWtZd29WUVlIZzdBbWNLZEd3ekhISzlPSXQ0TGVIRy9xejh1?=
- =?utf-8?B?aTFiRlY0K01LR1E4SjhpUVV2cVhTT2owcDg1YWU0aE1vQ0x6WVlPeVdwUW5S?=
- =?utf-8?B?dk5hTlRaczk3Q2VWUWtHOS9QOWsrc3JmT0h4YlcvaTlSc2hxVXk5SHkrb3U5?=
- =?utf-8?B?TVJXQVRqM1NwOWJjWERuZCsyb0g5cmwyRXZjUU5halEyMmNPYTR3ZG5nbXZV?=
- =?utf-8?B?K3FjZnB2bkpPaU1Kbm5CK1ArVithR2k4VE8xMTRzMzBmMHZtRmwxVys4Zmo0?=
- =?utf-8?B?a2duVXBPR0x1VG1MeFZtaFVQdFBoV2s5Q01aOURPd1dzZk9KTnQwTUFuaWEr?=
- =?utf-8?B?cUtGc2F4QjhtMmducDZwa0xDWk11UGlESmN5TnJPTXlTVkk0WnJ5YnB1SkJx?=
- =?utf-8?B?VXE0NkhSaDhvaU5MSVAvd0lDZmxxcjc4ZWIva2tsa2Q1TnZSbXRLSENxNGQz?=
- =?utf-8?B?WmEyNVBjYVo1d1JMMFlXc25id0gvY3ZRaXVVZDhaNlBZbzJxeHBiU3E1Vnoy?=
- =?utf-8?Q?RtchG6?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2025 21:24:06.3429
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 646cf61f-ed6b-4cd0-c099-08ddd52f931c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000A6735.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4389
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="JQJX+YBVouSRJAht"
+Content-Disposition: inline
+In-Reply-To: <20250807000318.2284283-1-marmarek@invisiblethingslab.com>
 
-On 2025-08-05 03:59, Jan Beulich wrote:
-> While it is correct that in shim-exclusive mode log-dirty handling is
-> all unreachable code, the present conditional still isn't correct: In a
-> HVM=n and SHADOW_PAGING=n configuration log-dirty code also is all
-> unreachable (and hence violating Misra rule 2.1).
-> 
-> As we're aiming at moving away from special casing PV_SHIM_EXCLUSIVE=y,
-> don't retain that part of the conditional.
-> 
-> Because of hypercall-defs.c we need to carry out the dependency by
-> introducing a new auxiliary PAGING control.
-> 
-> Since compiling out mm/paging.c altogether would entail further changes,
-> merely conditionalize the one function in there (paging_enable()) which
-> would otherwise remain unreachable (Misra rule 2.1 again) when PAGING=n.
-> 
-> Fixes: 23d4e0d17b76 ("x86/shim: fix build with PV_SHIM_EXCLUSIVE and SHADOW_PAGING")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> Of course PAGING is at risk of being confused with MEM_PAGING. It not
-> having a prompt, I hope that's tolerable, as I can't really think of a
-> better name.
-> 
-> Other PG_log_dirty pre-processor conditionals then likely also want
-> replacing. mm/paging.c and mm/p2m-basic.c could also be compiled out
-> altogether when PAGING=n, at the expense of introducing a few more
-> stubs.
-> 
-> FTAOD, the Fixes: tag being referenced does not mean this patch corrects
-> the far more recently introduced build issue with the combination of the
-> two features. That's still work that I expect Penny to carry out (with
-> there still being the option of reverting the final part of the earlier
-> series).
-> 
 
-> --- a/xen/arch/x86/mm/paging.c
-> +++ b/xen/arch/x86/mm/paging.c
-> @@ -864,6 +864,7 @@ void paging_final_teardown(struct domain
->       p2m_final_teardown(d);
->   }
->   
-> +#ifdef CONFIG_PAGING
+--JQJX+YBVouSRJAht
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 7 Aug 2025 02:05:45 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Subject: Re: [PATCH test-artifacts] Add debian rootfs artifact
 
-The file already has a lot of uses of #if PG_log_dirty with similar 
-meaning, if I am not mistaken, so using that would make it more 
-consistent.  But CONFIG_PAGING is directly tied to the Kconfig, so maybe 
-it is better?  Just something I noticed.
+On Thu, Aug 07, 2025 at 02:03:07AM +0200, Marek Marczykowski-G=C3=B3recki w=
+rote:
+> Will be used as dom0/domU in some tests.
+>=20
+> Install OpenRC and setup it to start /etc/local.d/ scripts so tests
+> don't need different cases for Alpine and Debian.
 
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+Looks like this one did not reached the list:
+<xen-devel@lists.xenproject.org>: host
+    lists.xenproject.org.us1.protection.inumbo.com[46.21.106.111] said: 550
+    5.7.1 Rejected by spam filter (f436205f-7321-11f0-a324-13f23c93f187) (in
+    reply to end of DATA command)
 
-Regards,
-Jason
+I just hope people explicitly included in cc did got it...
 
->   /* Enable an arbitrary paging-assistance mode.  Call once at domain
->    * creation. */
->   int paging_enable(struct domain *d, u32 mode)
-> @@ -889,6 +890,7 @@ int paging_enable(struct domain *d, u32
->       else
->           return shadow_enable(d, mode);
->   }
-> +#endif
->   
->   #ifdef CONFIG_HVM
->   /* Called from the guest to indicate that a process is being torn down
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--JQJX+YBVouSRJAht
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmiT7doACgkQ24/THMrX
+1ywPsQf/YyTYxuEGfUTd2kR931Aj5xchaVEuLoCKtxKaLMmua+XJ9fPYtMKjoBhP
+DpN4GhZFE1dnPDHFYaoOMGDmvH4zZwvDYioE8TGq4ycbVAM4HB7V7a88AnnjxkqB
+sy31YLt5GtavIie4SeaMQq67umwRI4Z0P4asLKMYx/0ZtaWTrSJ/R9cLnKhHeMk6
+mqBbBk02oBv93ZbhCVlPW3y+QZuexgY7oNKca8uaWgZtIEtcfnl2KnG0E2OdaBVt
+LE5UGhX3nbn3kPC7aB1REr23nOuFibr2HpDO/vy908YW0A0EJQVqY75x/Z9dv8yi
+o6IFe4vILOdpNK4OJZ/QDmEOJRSoAw==
+=zFuh
+-----END PGP SIGNATURE-----
+
+--JQJX+YBVouSRJAht--
 
