@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28842B1D55B
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 12:03:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1072761.1435732 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEA5BB1D589
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 12:12:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1072768.1435741 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujxT8-0007j7-Ae; Thu, 07 Aug 2025 10:03:30 +0000
+	id 1ujxbH-0001R6-2Q; Thu, 07 Aug 2025 10:11:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1072761.1435732; Thu, 07 Aug 2025 10:03:30 +0000
+Received: by outflank-mailman (output) from mailman id 1072768.1435741; Thu, 07 Aug 2025 10:11:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujxT8-0007hj-6x; Thu, 07 Aug 2025 10:03:30 +0000
-Received: by outflank-mailman (input) for mailman id 1072761;
- Thu, 07 Aug 2025 10:03:29 +0000
+	id 1ujxbG-0001Og-Vr; Thu, 07 Aug 2025 10:11:54 +0000
+Received: by outflank-mailman (input) for mailman id 1072768;
+ Thu, 07 Aug 2025 10:11:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eTYG=2T=epam.com=grygorii_strashko@srs-se1.protection.inumbo.net>)
- id 1ujxT7-0007hd-As
- for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 10:03:29 +0000
-Received: from GVXPR05CU001.outbound.protection.outlook.com
- (mail-swedencentralazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c202::7])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=+2Ad=2T=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ujxbG-0001OY-2X
+ for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 10:11:54 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c3d95373-7375-11f0-a324-13f23c93f187;
- Thu, 07 Aug 2025 12:03:28 +0200 (CEST)
-Received: from DB3PR0302MB8919.eurprd03.prod.outlook.com
- (2603:10a6:10:435::21) by PA6PR03MB10211.eurprd03.prod.outlook.com
- (2603:10a6:102:3cd::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.15; Thu, 7 Aug
- 2025 10:03:25 +0000
-Received: from DB3PR0302MB8919.eurprd03.prod.outlook.com
- ([fe80::ce88:43f9:c971:9584]) by DB3PR0302MB8919.eurprd03.prod.outlook.com
- ([fe80::ce88:43f9:c971:9584%7]) with mapi id 15.20.8989.018; Thu, 7 Aug 2025
- 10:03:25 +0000
+ id efbe0d9e-7376-11f0-a324-13f23c93f187;
+ Thu, 07 Aug 2025 12:11:51 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-ae6f8d3bcd4so155154766b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Aug 2025 03:11:51 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-af985e63730sm451485066b.67.2025.08.07.03.11.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 07 Aug 2025 03:11:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,202 +45,265 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3d95373-7375-11f0-a324-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wToG+n6x9HmjLFgXppME0mzKgIo5PJXZScLsfrcWbobZYHLaNiMU4/uy4rvyt8SgH9/M1Bc5xXrTy8H/kvOsNbNvSNLYQ5zlwKAgx4e5sxUlVIkljVubPMyQ3ShqSsO7elliruKPDBMaQgc2HU6fPDSPoieKzg6/wPEcIlsdXOvn+oAM5Dw4p5pEJu8/8eHzvSJT7Ljmanv3tDb+LfJqPI8Qe9rrj2BY3Jd+tghtLfPqjk/qMhYR6HA/f68pVQwRDKJucWTn8xtL2SamH1HbZQY2p+sIlOHTUK0FbxUPLGF0ueZRuK+9nO1lWLbIXK1iXSVU3jVugHoH2g8h9h39Mg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=B7hZ5D3jfW8bkALQeyclhEHdwOVrPtaxLoDxcmg317U=;
- b=C9iHal1x99cEaRHm7KTdnQHugus/pACk5Nnm8L/yK1qLj7wpD0x9TH0OLRURJsNiJO37llZhfH8NkahanD+FHTj9FyzJ0hOPo5wGUMQQ0mefqLqMIHEU21EyFQz5ZyJST5nZBdZp6Cch8+9tNQiZBCm3SOGVeQzKJvftOKmGynTgp3lz0dQgGYsELbiuF/S3z30zzKbZodOUCKWjKCKzOBMEuskVPmJxt/yvabznbYlA7zcy8C3jF07k+Xv1SPJL53u5DpxvZwaojtiBEfem4AMAEhlcE8RajVKtKNEpKsHW7NIGWRgDCI+hm5PbZ2jCN52hArxXFMmxs856v7slWQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B7hZ5D3jfW8bkALQeyclhEHdwOVrPtaxLoDxcmg317U=;
- b=nC7iPrBjksJxKbxoktj0nsihd0Us/uWsHPPYjgrpJyHH8yhRq2V64PqOcNAZxdhpS1J334E3OsTb2ZTNgxJuF6rgHV6Rc8Ov1vH5gqohzjXC4EO5th5bGHdlWzEB8NJ7FOqrYBEPH+kp0YKkrD1uXH3B6Ik0ArF31WF4hTZlIkTeFGC+9EwLE9YHdmfEBvYvHavGDdmJnKlDAuRpAGyNoF+6JvX7LBruwJX40a93SMgyMsU9pAkYg0Sp/lUtXJOaSosUX0O+FAddi3fr9uY/7W9QHorHwI7SDQbHXcEZzccTN/nprHWK6P1N897WK0M3aZH/iG0nkcjGeTETXrBVIw==
-From: Grygorii Strashko <grygorii_strashko@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Grygorii Strashko <grygorii_strashko@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
- Grall <julien@xen.org>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, Bertrand
- Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Denis Mukhin <dmukhin@ford.com>, Jason Andryuk
-	<jason.andryuk@amd.com>, Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v3] xen/dom0less: arm: fix hwdom 1:1 low memory allocation
-Thread-Topic: [PATCH v3] xen/dom0less: arm: fix hwdom 1:1 low memory
- allocation
-Thread-Index: AQHcB4KDC2FxELT99UexPqqnlkcdng==
-Date: Thu, 7 Aug 2025 10:03:25 +0000
-Message-ID: <20250807100323.513384-1-grygorii_strashko@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DB3PR0302MB8919:EE_|PA6PR03MB10211:EE_
-x-ms-office365-filtering-correlation-id: e41910b4-51ec-47c0-f4d1-08ddd599a669
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|7416014|376014|38070700018;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?QvUYkH1ohvfFR4S7jVSv5lWkwwRf8OXd4TsxnhewlJ3wHmYb4m1T53fJgN?=
- =?iso-8859-1?Q?jBRNanuJ8Dhs+ujiIgGjhHLTY/KtzqOuobpaYfXuZnRbv8GCdbO7sBTmrN?=
- =?iso-8859-1?Q?Jqs6UQY/ypimZcvF9/h+ucBdWGanp6AYTJl/9RUSphxMgwwftlOb9L8LpN?=
- =?iso-8859-1?Q?F3zXZYAVBZdJLkQUUxinqgsa09jX13V024+b1qVtT+N77IXZJQnPvDhy9x?=
- =?iso-8859-1?Q?gMlz6Sa5OexChcWznrJ3B6MRvFlVKpZLmOMsaYHyDUtwxaK/4/lvTQUWvp?=
- =?iso-8859-1?Q?J6zwtR5ttvQH07dybzVQTNgxsewA1qU/NWeG6WifeAHRlsi3TjOaYZRK6g?=
- =?iso-8859-1?Q?AQIDj4bjjBXPxlQjVFKztSuQTpxJ/jHU60ML76YltVYgT7Sry5VNVqcXmp?=
- =?iso-8859-1?Q?UG8EDMijBTuRWcvCo4raQhBza0hfCLSJEWH9YehrDpgXAeBRQmyMnkOGyz?=
- =?iso-8859-1?Q?tFKvRIpX0h1InOo6d9GveJ+pLZ2qEFBT/K49N4Weqk49fEYTUGZY757/Ok?=
- =?iso-8859-1?Q?qsTTQIz/ibQ+FcXZqZnphlAy7Wbp8ACrD4h6yh6t7d5J3vERV8A4sLRBzC?=
- =?iso-8859-1?Q?MjUTy99ICzznbMNccltJK3ocCWndWoDFN2BVkKQ3d/BY7n+iky7MV21PvD?=
- =?iso-8859-1?Q?UXDNBnbx79YUUsb7rx8im7VCnjuyBuoYVVZRR9IWjWtvl/5QFtU6kSxGNY?=
- =?iso-8859-1?Q?AlP9Xh5N3RfnVejozzMUzK2z6OQA5ELYlxjKTTz4hkYM6FcuklzsjuO+iU?=
- =?iso-8859-1?Q?KGhbeSQWXjAnvw7tcqDaG1pdWarRlI2XIY91JjAgDNHM1o3MdMtw+gWQ5h?=
- =?iso-8859-1?Q?gn3r7TqpWlv8Rv//CWgiMs85J2OGTOofbZ+NMMtyTbbheXQPa79A/8Pdw6?=
- =?iso-8859-1?Q?4WjfeoTh0AiuzoGFjy4Kx9Nz9gv/3rQQVzv6WL0TZ+jo0Cfe3JpPe61zNN?=
- =?iso-8859-1?Q?iq6Dk4MUUQWuemsCNoQ9D47JL/xXla2DkuMvFOJcLd+r8+P2/jjL4Hjhbb?=
- =?iso-8859-1?Q?C4TMk4aZk5PP9DdqxdVouRhXBjmZ2avvB03XNRWuDJlN8nh2mX2ItCbYkJ?=
- =?iso-8859-1?Q?21AAAc9Sqr6MSHERMwGnRwqbpY/mAfDhOEXtOon5YkGIk2YVJ5+lixQK8b?=
- =?iso-8859-1?Q?NGAA/VuFmvrdP6umJ4CfUgbCs3wHec+6IkAHBdx3gCn+k7ygurzHDJlObk?=
- =?iso-8859-1?Q?9IOmW5AMxwnC66TysKNiBYSULZCecvWBlUauxIDlLMuKQ4UmzuH3Wh0dbn?=
- =?iso-8859-1?Q?rU5/CedFbrGp0BuwKgLikjHj9/OJrtEMvi5OPHXDLJUAsBEXbcpcJX+eB/?=
- =?iso-8859-1?Q?tXHZlbPJRaiz81WzTDnvQSr/6O04/ewyM5Tlz5Iku7QRvzWUgrdKdLzkJb?=
- =?iso-8859-1?Q?TarH6028dh3w8M+0qN6oHc5CRo+qwoL3Gx9hr8VhsyY2FrRV8/3YNF2L8O?=
- =?iso-8859-1?Q?tGWTsMphN1pgKYa7vWvh5FY1bznx7rYsKs3hqMKvcKd//tfIgE0S+ycDJE?=
- =?iso-8859-1?Q?z+2ijeTS6y4WVh0fhbaMYiWCeYVCewZ4RCUKhyd2F3VQ=3D=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB3PR0302MB8919.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?waq/oJPrx0QwILL+YeCqfMH+Iw8fd8H6DnKIthjFrDuMz7b7U6oHV866Xs?=
- =?iso-8859-1?Q?rjsGZ1bGz00SrsABq+azIFyC+YvlBUQG6oBfgE26tBwa4bmn2VP5PNUBkw?=
- =?iso-8859-1?Q?UQwv1cWEi5SFe//44UJ9mwVPxmEaHC1XeIZuQ21970WJCmIaVlq/EPoGUU?=
- =?iso-8859-1?Q?zN7rQtLLAuJ+wKGy6pEgPPh0k3Bs0dURMI3fKfKLn5vCWUat6b1MTmm2Qm?=
- =?iso-8859-1?Q?NWbgnF/zn+I2ynpMME0eZakAfJwPRaefPtIFPuKLC3e1JxAob8H0TC+Vnh?=
- =?iso-8859-1?Q?7e2HYMCroisnaZYOWmeO5Pve/KXQqx6kWkAv8x545V4jerUCSJ1Bkk0ud7?=
- =?iso-8859-1?Q?ujDeWCF5lbP74eFFQrVqbRjo9SuSEXPQFaOFFdHC4+k2SuksFbwqEBi/ay?=
- =?iso-8859-1?Q?GsC03p7tXHNQBVyLanNr22kRpqXrYJY4WRS/7gfdQV/hEKjWnsdLmasOtA?=
- =?iso-8859-1?Q?wfWFS9CUnIdnLhb4pl1WyAW9336jfa8M5csHGB7ADppj8SmNGMf9hRX/yB?=
- =?iso-8859-1?Q?90EHkKna7nONRf9pTcLckY5tNyHiNSQtLXzXY+idl1g0+2pFkqypjvFwa6?=
- =?iso-8859-1?Q?cJ6ap4ok4Y2hv2HSK2JsqVXQlxDg6yDdEwKG3DA0k1FcTJWZ+QMkJtiO/n?=
- =?iso-8859-1?Q?U7r/wQ+geXkSPA/aJMCjWppVQQ58KdLMvScukz6R+siBaOfKzXj2T5VQnm?=
- =?iso-8859-1?Q?dh6KjRKfHaQJk2Zo4xkMyHVDxLJLwR8FopgWNS2Jn5mNu6UodcgV6cqWds?=
- =?iso-8859-1?Q?G5C7++T2rTiIRiVoZV/soYar1jH30oinLmsFpQY5t/wNgEP5DNCvea7TkO?=
- =?iso-8859-1?Q?BolrLdgSZH1FZ4ApH8miqWIIEwRWXmHxqB+55sZR49qz5TvBTKaYJLp2vS?=
- =?iso-8859-1?Q?bYzuKKow4ZT6th+u5KKgTqRSA/RvTX1W6SYGXF181O3f60TwcQCDI3f1CP?=
- =?iso-8859-1?Q?q0WRv+PrQ6iIxidkYoKkPTXtpIsgJf9gA4yYlfjdzWdktmmVfodqCBZW1s?=
- =?iso-8859-1?Q?223v1OxbTRg0MYm8/JZABg5SlNiz5WVltE9i69oh+B6z6fEWMuf0x3hDHh?=
- =?iso-8859-1?Q?rPv84cV8KvV+YWO9riaXSOlZFOP53iCVLeHudwS3o8hzI2dwgaz815MMnV?=
- =?iso-8859-1?Q?wNyKn9hwkNcv/sX5tvkbVHgoDVaX8ywEUvUZxj288xZAgTrFBeylB4t2Dk?=
- =?iso-8859-1?Q?ycZ9jj/KZn1/Yg/VIIBSdUzKdi2A2NtHZaJ+6gcS1PFZg+0WbIS5Dr9CR5?=
- =?iso-8859-1?Q?2jjf7537csXxQTMNDwFI1p1OijB393ZzkDq8edDT4nOOgLKxXaYfkTitTk?=
- =?iso-8859-1?Q?1hECNZFrI+Bspu8u5pdXbD45dTe3tTiLYx7XJpq15QIb4FQ98KBg67aSrd?=
- =?iso-8859-1?Q?3tS7wLqEP7IGnZO8ALkiKzqZjwBxSM231iFcTpYjk8rEHx0D0j+jm5cAZA?=
- =?iso-8859-1?Q?H+RKUCbAJZcFCSdaiCubAk30Tx8JS3npCartfgKVCVFwZM8aGpvyN5DNg1?=
- =?iso-8859-1?Q?BU4kBKjEqSiOf1Pm7aYXzlyJR5Yu90HIx7TZsK4kuEppuiins+ppb2ZQhi?=
- =?iso-8859-1?Q?BwB471NptlYV3p+O2duEHniMUdvBCJAaXk6i/FhGACrvB5FH86sdiCpL0b?=
- =?iso-8859-1?Q?lCcB6fNimlR8233m8yFtKTC/iB4mi/o5ny6Cp70vO6+mtc9sbcxOvthw?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: efbe0d9e-7376-11f0-a324-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1754561511; x=1755166311; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=dDQ8rvNQzB5IMXZPuZ1Mgl6mOsnFX7TIDFqMJFg9Ycw=;
+        b=Vpxkp/fAk31v3SqfmQEy7/C65EF2i6uEyTl/a16zKFvkBoIvrE+Q4VwdUi5labyhOH
+         ZJMpxPRsmCi0Prm0FxQzhieXaOc39UuEJ76o7IWZNFVuZNkCCafFV5Z3fyqbFJod5cO8
+         CD1CVRHC/HP0R128NgNtZvhE14+/EwnKGEknvekFDRgkMy4VzDB8xj0Q5w2+CUu0YLBL
+         R64gfJdnG/BVXWRhKh/KCVT02CF1AtnAZZZbTWo/PM1paezH0Gu4iaDVtJKu+WH1xKJx
+         TY9OtBelzI2NL9V8aiK+ea5Kver3kxnsAbFFyWgJ86WQiY8JSiIib+aKN9/9ef7V5bbY
+         g41A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1754561511; x=1755166311;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dDQ8rvNQzB5IMXZPuZ1Mgl6mOsnFX7TIDFqMJFg9Ycw=;
+        b=AK8EGtbyUp8o3N1pvh+hPij2/DPtttISkPRI98fmhDDSL39vzs/zPhc9dmndOSZpWs
+         07CCwX1knFztCPZmpmP0AA9YFVNEERtCjyKIHlRVIc1KQuR/wVkhfpZV3gcGuHOe55ay
+         RTSPcEQeh6T4h95oEMHfkBOwnbSYTHyWdSzwSfF3h2K6b2/y22khGlYi3pfSd0XCNxSq
+         4pKVV5FRx73PN6oElHjVPE1vuEvsbc1HJDchdQpcSuxi7akLMQaZvKzbC9g3MN++cxSd
+         5dDxnclvDVae4Vdx2mHrYK4Ot0c0p9a5xG0nSp/LTw+ayLJyl2u5LhhyuAQZI9rtGAA3
+         4oRQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXdepdKZPGQaA235/qxQtsh1PO1kyJ0DClLaBm7CInPETd4uG+UIw6BhoQBPXPhbCrqhrvAUy7mJmY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yze/yNfHW6xyziGUQX05rh62x/kmBb9G4cJ3WOrA4+s6rPk8j1w
+	f2nP+n+TEEq+dF1ZPjMrYFky1EGIIjBs8R32hdBFR23e7crRulb03+YEyX28EqDn9w==
+X-Gm-Gg: ASbGncuwzO4NMsJFnR6CzZmAxun9ZMVaeFrkmnrglTw5OQMDf2WhmX7yqRKf3nPQcn/
+	1G2tvBmiErH40VtbQcIqqN1G15oXG3/8IG9JYnhfgYBJvKGcpzRYyV+SvxIGIfJs0XOUv1u79fg
+	NYd4WXK+e0YlhrH48VWramkymlMdMClfgfoBED5452SeiKDwNGHKoZQfu6IDi8EBTjaMAQeCEWh
+	cksbOr1bGPDO0julJaZkPaAWZKREg2tGMiz2f6kRY7LWQb7DgVOakOaqhXbcZEFy55qEhWZdUnp
+	TqbyE8UowmaNXvR1XrLEeZaf+ddAFUt2XH0B6Y4mDrS4TdyIf36I96OTK0quwfV/0f0k12uRx2Y
+	PDuWcvgDk7qcVjWibBBvd76FM7Dn2vrPOloru8nYdOmUUODD9luiOMEpp6UhJGtE91USfLEbxdY
+	2Ly0UNvYs=
+X-Google-Smtp-Source: AGHT+IHlLQO1d43mXfMUEF4ZoDof+Tz0egZgCyDOe70C5uWzBMJvcG2VDntKQlFdHUV3nvrUcPNizw==
+X-Received: by 2002:a17:907:868a:b0:ade:198c:4b6f with SMTP id a640c23a62f3a-af9a6046c89mr210053766b.1.1754561510549;
+        Thu, 07 Aug 2025 03:11:50 -0700 (PDT)
+Message-ID: <affb589c-0e4e-46c1-a2c7-d09b6cca0a6c@suse.com>
+Date: Thu, 7 Aug 2025 12:11:48 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB3PR0302MB8919.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e41910b4-51ec-47c0-f4d1-08ddd599a669
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Aug 2025 10:03:25.4776
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 5RFfXCwejZwfDxIUXjnuixwlXvd1obEEgxdt3JAgYorBzO2XCD8eoZatKrpFwxR5wrxNWnDCVPAPURJzGUJ37iumWpFTLltC7wGspA92I6Y=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR03MB10211
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 03/20] xen/riscv: introduce VMID allocation and
+ manegement
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
+ <d61f5f831ac8045055a1775ee710d4f2fe8dcc26.1753973161.git.oleksii.kurochko@gmail.com>
+ <cd1a0c64-49d7-4ae1-8dec-b3b1de3f1d09@suse.com>
+ <bcf4c3aa-5c09-4171-a4f5-85110d6e634f@gmail.com>
+ <6ddee574-6fe2-4de7-b000-a3af0b2c9d12@suse.com>
+ <cc6bb8a7-ed22-4d3e-a352-fa305f0ea56a@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <cc6bb8a7-ed22-4d3e-a352-fa305f0ea56a@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Grygorii Strashko <grygorii_strashko@epam.com>
+On 06.08.2025 18:24, Oleksii Kurochko wrote:
+> On 8/6/25 2:05 PM, Jan Beulich wrote:
+>> On 06.08.2025 13:33, Oleksii Kurochko wrote:
+>>> On 8/4/25 5:19 PM, Jan Beulich wrote:
+>>>> On 31.07.2025 17:58, Oleksii Kurochko wrote:
+>>>>> +{
+>>>>> +    unsigned long vmid_bits;
+>>>> Why "long" (also for the function return type)?
+>>> Because csr_read() returns unsigned long as HGATP register has
+>>> 'unsigned long' length.
+>> Oh, right, I should have commented on the function return type only.
+>> Yet then I also can't resist stating that this kind of use of a variable,
+>> which initially is assigned a value that doesn't really fit its name, is
+>> easily misleading towards giving such comments.
+>>
+>>> But it could be done in this way:
+>>>       csr_write(CSR_HGATP, old | HGATP_VMID_MASK);
+>>>       vmid_bits =  MASK_EXTR(csr_read(CSR_HGATP), HGATP_VMID_MASK);
+>>>       vmid_bits = ffs_g(vmid_bits);
+>>>       csr_write(CSR_HGATP, old);
+>>> And then use uint16_t for vmid_bits and use uin16_t as a return type.
+>> Please check ./CODING_STYLE again as to the use of fixed-width types.
+> 
+> I meant unsigned short, uint16_t was just short to write. I'll try to be
+> more specific.
 
-Call stack for dom0less hwdom case (1:1) memory:
-create_domUs
-|-construct_domU
-  |-construct_hwdom()
-    |-allocate_memory_11()
+I'd also recommend against unsigned short when there are no space concerns.
+unsigned int is what wants using in the general case.
 
-And allocate_memory_11() uses "dom0_mem" as:
-min_low_order =3D
-  get_order_from_bytes(min_t(paddr_t, dom0_mem, MB(128)));
+>>>>> +    unsigned long old;
+>>>>> +
+>>>>> +    /* Figure-out number of VMID bits in HW */
+>>>>> +    old = csr_read(CSR_HGATP);
+>>>>> +
+>>>>> +    csr_write(CSR_HGATP, old | HGATP_VMID_MASK);
+>>>>> +    vmid_bits = csr_read(CSR_HGATP);
+>>>>> +    vmid_bits =  MASK_EXTR(vmid_bits, HGATP_VMID_MASK);
+>>>> Nit: Stray blank.
+>>>>
+>>>>> +    vmid_bits = flsl(vmid_bits);
+>>>>> +    csr_write(CSR_HGATP, old);
+>>>>> +
+>>>>> +    /*
+>>>>> +     * We polluted local TLB so flush all guest TLB as
+>>>>> +     * a speculative access can happen at any time.
+>>>>> +     */
+>>>>> +    local_hfence_gvma_all();
+>>>> There's no guest running. If you wrote hgat.MODE as zero, as per my
+>>>> understanding now new TLB entries could even purely theoretically appear.
+>>> It could be an issue (or, at least, it is recommended) when hgatp.MODE is
+>>> changed:
+>>>    If hgatp.MODE is changed for a given VMID, an HFENCE.GVMA with rs1=x0
+>>>    (and rs2 set to either x0 or the VMID) must be executed to order subsequent
+>>>    guest translations with the MODE change—even if the old MODE or new MODE
+>>>    is Bare.
+>>> On other hand it is guaranteed that, at least, on Reset (and so I assume
+>>> for power on) that:
+>>>    If the hypervisor extension is implemented, the hgatp.MODE and vsatp.MODE
+>>>    fields are reset to 0.
+>>>
+>>> So it seems like if no guest is ran then there is no need even to write
+>>> hgatp.MODE as zero, but it might be sense to do that explicitly just to
+>>> be sure.
+>>>
+>>> I thought it was possible to have a running guest and perform a CPU hotplug.
+>> But that guest will run on another hart.
+>>
+>>> In that case, I expect that during the hotplug,|vmidlen_detect()| will be
+>>> called and return the|vmid_bits| value, which is used as the active VMID.
+>>> At that moment, the local TLB could be speculatively polluted, I think.
+>>> Likely, it makes sense to call vmidlen_detect() only once for each hart
+>>> during initial bringup.
+>> That may bring you more problems than it solves. You'd need to stash away
+>> the value originally read somewhere. And that somewhere isn't per-CPU data.
+>>
+>>>> In fact, with no guest running (yet) I'm having a hard time seeing why
+>>>> you shouldn't be able to simply write the register with just
+>>>> HGATP_VMID_MASK, i.e. without OR-ing in "old". It's even questionable
+>>>> whether "old" needs restoring; writing plain zero afterwards ought to
+>>>> suffice. You're in charcge of the register, after all.
+>>> It make sense (but I don't know if it is a possible case) to be sure that
+>>> HGATP.MODE remains the same, so there is no need to have TLB flush. If
+>>> HGATP.MODE is changed then it will be needed to do TLB flush as I mentioned
+>>> above.
+>>>
+>>> If we agreed to keep local_hfence_gvma_all() then I think it isn't really
+>>> any sense to restore 'old' or OR-ing it with HGATP_VMID_MASK.
+>>>
+>>> Generally if 'old' is guaranteed to be zero (and, probably, it makes sense
+>>> to check that in vmidlen_detect() and panic if it isn't zero) and if
+>>> vmidlen_detect() function will be called before any guest domain(s) will
+>>> be ran then I could agree that we don't need local_hfence_gvma_all() here.
+>>>
+>>> As an option we can do local_hfence_gvma_all() only if 'old' value wasn't
+>>> set to zero.
+>>>
+>>> Does it make sense?
+>> Well - I'd like the pre-conditions to be understood better. For example, can
+>> a hart really speculate into guest mode, when the hart is only in the
+>> process of being brought up?
+> 
+> I couldn't explicit words that a hart can't speculate into guest mode
+> either on bring up or during its work.
+> 
+> But there are some moments in the spec which tells:
+>    Implementations with virtual memory are permitted to perform address
+>    translations speculatively and earlier than required by an explicit
+>    memory access, and are permitted to cache them in address translation
+>    cache structures—including possibly caching the identity mappings from
+>    effective address to physical address used in Bare translation modes and
+>    M-mode.
+> And here:
+>    Implementations may also execute the address-translation algorithm
+>    speculatively at any time, for any virtual address, as long as satp is
+>    active (as defined in Section 10.1.11). Such speculative executions have
+>    the effect of pre-populating the address-translation cache.
 
-In case of dom0less boot the "dom0_mem" is not used and defaulted to 0,
-which causes min_low_order to get high value > order and so no allocations
-happens from low memory.
+That's satp though, not hgatp.
 
-Fix it, by using kinfo->unassigned_mem instead of "dom0_mem" which has
-correct memory size in both cases: regular dom0 boot and dom0less boot.
+> Where it is explicitly mentioned that speculation can happen in *any time*.
+> And at the same time:
+>    Speculative executions of the address-translation algorithm behave as
+>    non-speculative executions of the algorithm do, except that they must
+>    not set the dirty bit for a PTE, they must not trigger an exception,
+>    and they must not create address-translation cache entries if those
+>    entries would have been invalidated by any SFENCE.VMA instruction
+>    executed by the hart since the speculative execution of the algorithm began.
+> What I read as if TLB was empty before it will stay empty.
+> 
+> Also, despite of the fact here it is mentioned that when V=0 two-stage address
+> translation is inactivated:
+>    The current virtualization mode, denoted V, indicates whether the hart is
+>    currently executing in a guest. When V=1, the hart is either in virtual
+>    S-mode (VS-mode), or in virtual U-mode (VU-mode) atop a guest OS running
+>    in VS-mode. When V=0, the hart is either in M-mode, in HS-mode, or in
+>    U-mode atop an OS running in HS-mode. The virtualization mode also
+>    indicates whether two-stage address translation is active (V=1) or
+>    inactive (V=0).
+> But on the same side, writing to hgatp register activates it:
+>    The hgatp register is considered active for the purposes of
+>    the address-translation algorithm unless the effective privilege mode
+>    is U and hstatus.HU=0.
+> And if so + considering that speculation could happen at any time, and
+> we are in HS-mode, not it U mode then I would say that it could really
+> speculate into guest mode.
 
-Fixes: 52cb53f1816a ("xen/arm: dom0less hwdom construction")
-Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
-Reviewed-by: Denis Mukhin <dmukhin@ford.com>
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-Acked-by: Julien Grall <jgrall@amazon.com>
----
-Changes in v3:
-- updated "dom0_mem" doc in xen-command-line.pandoc
-- add tag from Julien Grall
+Hmm, that leaves some things to be desired. What I'm particularly puzzled
+by is that there's nothing said either way towards speculation through SRET.
+That's the important aspect here aiui, because without that the hart can't
+speculate into guest mode.
 
-Changes in v2:
-- changed 'fixes' tag
-- fixed comment for allocate_memory_11()
-- added reviewer's tags
+But yes, in the absence of any clear indication to the contrary, I think
+you want to keep the local_hfence_gvma_all() (with a suitable comment).
 
- docs/misc/xen-command-line.pandoc | 3 ++-
- xen/arch/arm/domain_build.c       | 4 ++--
- 2 files changed, 4 insertions(+), 3 deletions(-)
+>>>>> +    data->max_vmid = BIT(vmid_len, U) - 1;
+>>>>> +    data->disabled = !opt_vmid_enabled || (vmid_len <= 1);
+>>>> Actually, what exactly does it mean that "VMIDs are disabled"? There's
+>>>> no enable bit that I could find anywhere. Isn't it rather that in this
+>>>> case you need to arrange to flush always on VM entry (or always after a
+>>>> P2M change, depending how the TLB is split between guest and host use)?
+>>> "VMIDs are disabled" here means that TLB flush will happen each time p2m
+>>> is changed.
+>> That's better described as "VMIDs aren't used" then?
+> 
+> It sounds a little bit just like an opposite to "disabled" (i.e. means
+> basically the same), but I am okay to use "used" instead.
 
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line=
-.pandoc
-index 6865a61220ca..1f33b7a11eba 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -1035,7 +1035,8 @@ For example, with `dom0_max_vcpus=3D4-8`:
- > `=3D <size>`
-=20
- Set the amount of memory for the initial domain (dom0). It must be
--greater than zero. This parameter is required.
-+greater than zero. This parameter is required (and only used) when the ini=
-tial
-+domain is not described in the Device-Tree.
-=20
- ### dom0_mem (x86)
- > `=3D List of ( min:<sz> | max:<sz> | <sz> )`
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 463ae4474d30..a9e4153e3cf9 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -249,7 +249,7 @@ fail:
-  *
-  * We first allocate the largest allocation we can as low as we
-  * can. This then becomes the first bank. This bank must be at least
-- * 128MB (or dom0_mem if that is smaller).
-+ * 128MB (or memory size requested for domain if that is smaller).
-  *
-  * Then we start allocating more memory, trying to allocate the
-  * largest possible size and trying smaller sizes until we
-@@ -278,7 +278,7 @@ static void __init allocate_memory_11(struct domain *d,
-                                       struct kernel_info *kinfo)
- {
-     const unsigned int min_low_order =3D
--        get_order_from_bytes(min_t(paddr_t, dom0_mem, MB(128)));
-+        get_order_from_bytes(min_t(paddr_t, kinfo->unassigned_mem, MB(128)=
-));
-     const unsigned int min_order =3D get_order_from_bytes(MB(4));
-     struct membanks *mem =3D kernel_info_get_mem(kinfo);
-     struct page_info *pg;
---=20
-2.34.1
+If you want to stick to using "disabled", then how about "VMID use is
+disabled"? (You probably meanwhile understood that what I'm after is it
+becoming clear that this is a software decision, not something you can
+enforce in hardware.)
+
+Jan
 
