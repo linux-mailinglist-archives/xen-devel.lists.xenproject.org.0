@@ -2,29 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 041CCB1DDB2
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 21:52:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1073745.1436616 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D439EB1DF14
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 23:55:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1073803.1436625 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uk6ei-0000UI-Rm; Thu, 07 Aug 2025 19:52:04 +0000
+	id 1uk8Ys-0001Ma-7A; Thu, 07 Aug 2025 21:54:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1073745.1436616; Thu, 07 Aug 2025 19:52:04 +0000
+Received: by outflank-mailman (output) from mailman id 1073803.1436625; Thu, 07 Aug 2025 21:54:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uk6ei-0000S1-OJ; Thu, 07 Aug 2025 19:52:04 +0000
-Received: by outflank-mailman (input) for mailman id 1073745;
- Thu, 07 Aug 2025 19:52:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ybbA=2T=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uk6UH-0002bD-6O
- for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 19:41:17 +0000
-Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch
- [79.135.106.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7afae8a4-73c6-11f0-b898-0df219b8e170;
- Thu, 07 Aug 2025 21:41:15 +0200 (CEST)
+	id 1uk8Ys-0001KE-4R; Thu, 07 Aug 2025 21:54:10 +0000
+Received: by outflank-mailman (input) for mailman id 1073803;
+ Thu, 07 Aug 2025 21:54:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Qi0u=2T=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1uk8Yp-0001K7-Pc
+ for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 21:54:08 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 09c9b619-73d9-11f0-a324-13f23c93f187;
+ Thu, 07 Aug 2025 23:54:06 +0200 (CEST)
+Received: from localhost.localdomain (93-57-249-207.ip167.fastwebnet.it
+ [93.57.249.207]) (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPSA id 10EB34EE3C03;
+ Thu,  7 Aug 2025 23:54:01 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,102 +40,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7afae8a4-73c6-11f0-b898-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1754595674; x=1754854874;
-	bh=bweBhttY+RKorq/sriT2aTEg4aDPhmF6aPdjup9SFIo=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=aqGKJW9q2lEwnTXdNN6UySgCKEahUmdQz2ekJhy9HIBQhgAZ8WYO1b8oTCwF9vUhG
-	 sxKSvk/4n3DUFC0nZuhQPkyIf1egb2ko6OhnuBnA0zxqX6R+sPAKilUg84c6Pw3yfa
-	 sJoE3QKK7yWr4GU1tg2rrjl08eMa7/z4+pGP/DgpMTn9urxOcps1RurVyak2WTapvo
-	 e6ANEeeN48gAcWMLoW7D/KrdfMuBRN9mbXnW+xpPCgHdFrxE7/LJpfL6OwKJgmPanN
-	 DMQazYF9LPw+YM35LJsKxJ2Wh1/3hPG6t0Ce6DP3IvIOWQKhaHCMmAXnswhXAVEdVO
-	 wbvaMW4Rj/G5g==
-Date: Thu, 07 Aug 2025 19:41:09 +0000
-To: Jan Beulich <jbeulich@suse.com>
-From: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v4 4/8] xen/8250-uart: update definitions
-Message-ID: <aJUBUSm9oBPSHC7l@kraken>
-In-Reply-To: <b207d809-bd2a-43fb-9592-58e8c37de31a@suse.com>
-References: <20250731192130.3948419-1-dmukhin@ford.com> <20250731192130.3948419-5-dmukhin@ford.com> <b207d809-bd2a-43fb-9592-58e8c37de31a@suse.com>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 0360f84061203a04567f34cd791ddeb5d3ec63e0
+X-Inumbo-ID: 09c9b619-73d9-11f0-a324-13f23c93f187
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=93.57.249.207
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1754603644;
+	b=1B/UGFpqqkt+gSwtRlw/gEHvAeLoqreonljhtdJVpZBrT3IdkbxqcQxxEQJ78pr+D6ls
+	 zMSwHBISqVZgD8H9HF2ZEfPGjS83gUij0AJW1ONuNKbLsnbc0yuXksfCIwktKIL7Ht6/x
+	 S0uXMCvXXkdm8+yku1xgRDd8uFBvHgu1aDbD40IlE7lblwKF5Mo+2Ur0/DRqoj3eQOP67
+	 sZ+pLqzKd/PgXmtTXtT2rQEvZOaf1hhsU1+BtvZ4FlCE/fwGLtWk2bUNLtCKylCh/hK4u
+	 VLSyZuggdvUQWCitRjNjyhmMJVwIqCx6ZW+glj9PxM1JR8gGyreXRABMhWCeRQm7RaA0c
+	 /9WY7t3vXCN+BlhjG7AzL3TaDuur1SlDqbOkhiyA8dDPS8D0VPeWvjSMSXuTWQ67jfX/G
+	 kkV8ZvReXMLLjv/xSB+QwBP60WpiATwY+wWv+acP3ehTI+JcYkCIF38GHaD7IQbEbczAe
+	 uO3knh35zZXJ1LX5zHOwifqARaTkcTKqxn/Er5jfCjiskoK16tnyro6eKFrCYyFx2BXd1
+	 lH1FZ5odpadL4DP+6izUpYg9t5OZs18n4NRaneZdJwoC7FhzLDCgQVVEAbYIZGduCJ/7V
+	 Ih7+ZnW+kiW3Z68Z6sODGcEiv7cmMOv8AwPnHo5hgbnc1HCGvp1Ji78WTG/6hdg=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1754603644;
+	h=DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=qFuvZ+swQQPjceeObM5baItpe6tINcMkCFRA54Gvm44=;
+	b=tCLxcpL/F0iCws1GmmkirFQ7eU9Hd9YlkpgiPOITKuKc2sL3PeAHDdZojfg+D3GkbmMi
+	 BjTdS8+58sZ0IyURQ7OGYaYlFSnXR3N3iGdF+WLc8T+078JM5RYdsRlo1YWiHge1ZKIRQ
+	 lHHllr4VfGQeMX5MiFiimAjDBeB15yY3+Bx3Ypl9jxqns6Pd8GRwYT+bk2CSonPeR9uFw
+	 xMhy5auQbRkkgBFCofIFe75UWRxNngM9lfCDmW+ZYCvytDbOR2evxtTxusXgFWs9fJ1Wv
+	 1MrE0hpXomdhG/pXBqKWasWidTpVCMiYUd4DZ+oIqo88SSJmM2sLFVrO+8qAN3UJWvLWi
+	 PnUR9dDtREdeEoXvzcd1fjZJuYUxA0+QSE9kPcSbW8qKXqPibgwbUMFxJrweDOhB2G1gf
+	 /sgCHn1nferEK4IhROHmE/4iOmp7DtQvEnZmkGUI1tTIFshCs5JROAU8mPUBH4gLqy0lK
+	 xVXUkASw88rIxCP5FLnOxcwKGkKjcScBGcTZEQWsFhT08ZxmgJZWltBLeHqqAeKGgU+bu
+	 LGiOqs6tjAyA0T1nlFiR9A1+F6iNUQIMXeRJ0E2tBpsUi5yG0H0gp7KBCm/hudYPMTzcL
+	 w0mD6YC1L/iKzQl/V6yIP9uvQ5EN8Voknu2TFaNaUsj0+ZHqEuCr1CVtOcHg4dU=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=93.57.249.207
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1754603644; bh=q43OfBL8YD5tbNqVHj8MYPctFYXKfq24FymRSVpqVGg=;
+	h=From:To:Cc:Subject:Date:From;
+	b=R1K+4+BDFdLybj1m5LxigOaY9c0+bECIcL+cgXv2Dd8y4gDwk1jaj+yxxtt3eM8E5
+	 FRjy8Vz73xH7TpUNrbyFjzCKwMsE1DoMhmPoFGrIIgonZHaPsmcxeQ6vXI2QQ2cdIj
+	 z58+TjTANtAp1Gle+0uOcw91ioHwAUKRvyPj8z6P6fsDbSh4aVAunb//bkVcC9hZ+W
+	 B4pBHYVJYD9miaPdiAI5Fwh3QgNzQf3rPZnxGj3edsPvqo3+Dan9+Eb4Xk+Sq8IwE7
+	 J2QnB0i4MBpEv5+IhzQtExzuZXTzClqFEgT7W20tl4mil6HaLU++dEx1qY8c/LIT78
+	 dQD+Zx0230qIg==
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	michal.orzel@amd.com,
+	xenia.ragiadakou@amd.com,
+	ayan.kumar.halder@amd.com,
+	consulting@bugseng.com,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [XEN PATCH] automation/eclair: restrict clean target to xen
+Date: Thu,  7 Aug 2025 23:53:56 +0200
+Message-ID: <a1127245a45139c3c3fcd05b07c1c1e6dabb66c0.1747387457.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 04, 2025 at 12:23:34PM +0200, Jan Beulich wrote:
-> On 31.07.2025 21:22, dmkhn@proton.me wrote:
-> > From: Denis Mukhin <dmukhin@ford.com>
-> >
-> > Added missing definitions needed for NS16550 UART emulator.
-> >
-> > Newly introduced MSR definitions re-used in the existing ns16550 driver=
-.
-> >
-> > Also, corrected FCR DMA definition bit#3 (0x08) as per:
-> >   https://www.ti.com/lit/ds/symlink/tl16c550c.pdf
-> > See "7.7.2 FIFO Control Register (FCR)".
-> >
-> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> > ---
-> > Changes since v3:
-> > - feedback addressed
-> > - made use of new UART_MCR_XXX bits in ns16550 driver
-> > - Link to v3: https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v=
-3-v1-19-c5d36b31d66c@ford.com/
-> > ---
-> >  xen/drivers/char/ns16550.c  |  6 ++---
-> >  xen/include/xen/8250-uart.h | 50 ++++++++++++++++++++++++++++++-------
-> >  2 files changed, 44 insertions(+), 12 deletions(-)
-> >
-> > diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-> > index df7fff7f81df..a899711e2a8b 100644
-> > --- a/xen/drivers/char/ns16550.c
-> > +++ b/xen/drivers/char/ns16550.c
-> > @@ -739,9 +739,9 @@ static int __init check_existence(struct ns16550 *u=
-art)
-> >       * Check to see if a UART is really there.
-> >       * Use loopback test mode.
-> >       */
-> > -    ns_write_reg(uart, UART_MCR, UART_MCR_LOOP | 0x0A);
-> > -    status =3D ns_read_reg(uart, UART_MSR) & 0xF0;
-> > -    return (status =3D=3D 0x90);
-> > +    ns_write_reg(uart, UART_MCR, UART_MCR_LOOP | UART_MCR_RTS | UART_M=
-CR_OUT2);
-> > +    status =3D ns_read_reg(uart, UART_MSR) & UART_MSR_STATUS;
-> > +    return (status =3D=3D (UART_MSR_CTS | UART_MSR_DCD));
-> >  }
-> >
-> >  #ifdef CONFIG_HAS_PCI
-> > diff --git a/xen/include/xen/8250-uart.h b/xen/include/xen/8250-uart.h
-> > index d13352940c13..bc11cdc376c9 100644
-> > --- a/xen/include/xen/8250-uart.h
-> > +++ b/xen/include/xen/8250-uart.h
-> > @@ -32,6 +32,7 @@
-> >  #define UART_MCR          0x04    /* Modem control        */
-> >  #define UART_LSR          0x05    /* line status          */
-> >  #define UART_MSR          0x06    /* Modem status         */
-> > +#define UART_SCR          0x07    /* Scratch pad          */
-> >  #define UART_USR          0x1f    /* Status register (DW) */
-> >  #define UART_DLL          0x00    /* divisor latch (ls) (DLAB=3D1) */
-> >  #define UART_DLM          0x01    /* divisor latch (ms) (DLAB=3D1) */
-> > @@ -42,6 +43,8 @@
-> >  #define UART_IER_ETHREI   0x02    /* tx reg. empty        */
-> >  #define UART_IER_ELSI     0x04    /* rx line status       */
-> >  #define UART_IER_EMSI     0x08    /* MODEM status         */
-> > +#define UART_IER_MASK \
-> > +    (UART_IER_ERDAI | UART_IER_ETHREI | UART_IER_ELSI | UART_IER_EMSI)
->=20
-> At the example of this: It having no users here, how are we to know it'll
-> gain some (and hence be useful)? Adding missing base definitions is imo
-> fine without immediate users, but for derived ones it's less clear.
+The clean target also clears files outside the xen directory,
+which is not needed for the purposes of running an analysis.
 
-There're UART_IIR and UART_IER bits which could be re-used.
-Will update ns16550 driver.
-Thanks.
+No functional change.
+
+Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+ automation/eclair_analysis/prepare.sh | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/automation/eclair_analysis/prepare.sh b/automation/eclair_analysis/prepare.sh
+index 4285ff26de54..e941e6edc4f3 100755
+--- a/automation/eclair_analysis/prepare.sh
++++ b/automation/eclair_analysis/prepare.sh
+@@ -39,12 +39,12 @@ fi
+     fi
+ 
+     ./configure
+-    make clean
++    make -C xen clean
+     find . -type f -name "*.safparse" -print -delete
+     "${script_dir}/build.sh" "$1"
+     # Generate additional configuration files
+     "${script_dir}/ECLAIR/generate_ecl.sh"
+-    make clean
++    make -C xen clean
+     cd xen
+     make -f "${script_dir}/Makefile.prepare" prepare
+     # Translate the /* SAF-n-safe */ comments into ECLAIR CBTs
+-- 
+2.43.0
 
 
