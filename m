@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AD32B1D7F5
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 14:33:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1072931.1435911 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C81EB1D7F2
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 14:33:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1072933.1435928 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujzoV-0002yv-L4; Thu, 07 Aug 2025 12:33:43 +0000
+	id 1ujzoY-0003Mi-Ny; Thu, 07 Aug 2025 12:33:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1072931.1435911; Thu, 07 Aug 2025 12:33:43 +0000
+Received: by outflank-mailman (output) from mailman id 1072933.1435928; Thu, 07 Aug 2025 12:33:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujzoV-0002xq-G5; Thu, 07 Aug 2025 12:33:43 +0000
-Received: by outflank-mailman (input) for mailman id 1072931;
- Thu, 07 Aug 2025 12:33:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ujzoY-0003Ib-9h; Thu, 07 Aug 2025 12:33:46 +0000
+Received: by outflank-mailman (input) for mailman id 1072933;
+ Thu, 07 Aug 2025 12:33:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SGIa=2T=epam.com=Leonid_Komarianskyi@srs-se1.protection.inumbo.net>)
- id 1ujzoT-0001m4-T9
- for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 12:33:42 +0000
-Received: from AM0PR02CU008.outbound.protection.outlook.com
- (mail-westeuropeazlp170130006.outbound.protection.outlook.com
- [2a01:111:f403:c201::6])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bf692a2c-738a-11f0-b898-0df219b8e170;
- Thu, 07 Aug 2025 14:33:40 +0200 (CEST)
+ id 1ujzoV-0002xP-D6
+ for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 12:33:43 +0000
+Received: from MRWPR03CU001.outbound.protection.outlook.com
+ (mail-francesouthazlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c207::3])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c085f846-738a-11f0-a324-13f23c93f187;
+ Thu, 07 Aug 2025 14:33:42 +0200 (CEST)
 Received: from GV2PR03MB8678.eurprd03.prod.outlook.com (2603:10a6:150:7d::13)
  by DU5PR03MB10563.eurprd03.prod.outlook.com (2603:10a6:10:51b::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.13; Thu, 7 Aug
- 2025 12:33:32 +0000
+ 2025 12:33:33 +0000
 Received: from GV2PR03MB8678.eurprd03.prod.outlook.com
  ([fe80::4eb:3e7b:1ffa:25f9]) by GV2PR03MB8678.eurprd03.prod.outlook.com
  ([fe80::4eb:3e7b:1ffa:25f9%6]) with mapi id 15.20.9009.013; Thu, 7 Aug 2025
- 12:33:32 +0000
+ 12:33:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,34 +47,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf692a2c-738a-11f0-b898-0df219b8e170
+X-Inumbo-ID: c085f846-738a-11f0-a324-13f23c93f187
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BNKtysRbipV/Qaa/yQM+tyhCdUQm7wgiq/GEdL1sn6wSnMM2utuzNSXT49scDW2FpKhOjgm7V6W7Tc19dhSdDVTw09DLrXdnq81bSi1J16qG9cbZqxonRGLKoO+KJM4uDXPBwKiEDAjY14D+JFwupT3E5dtsDisdfxNOxOaQFhahEPxWhUHzQHvzz3GjRf0R/RQHvNrubtZGeA9QG5V1HdhgjeShWS6Gj07VVM8NeZlafMyQtaH88o2BfUBagcZY3dUp4TuQ5HOju0zOfw34/aJHBehFL5aR0bRRiKYYcJCKYdMoKeQw4mk3bZN8X2a64hIzsW72xwGq9lMszO72nw==
+ b=qXigvCrHu7/zvi5d5U5Vv8rg0X35/CukEm8lAJh8tebdW6XVx2Pd+6zJEwPgwQcJNuWvuqi9ID1rbFyIgcOAOKmSGNIBWOerqwRFKGI/7zxdT+1FcprQfHmHChUINzbYCtm73Bi0Fu4X8t5q8HX8wqaZVXd7/vOVAOM/sc+WUf1kVCk0fP0bqtnw05KUfr165SW+ExZw2PuIBS+Axy+R6l1lUwFFQWSIOEvqUQfc/58mHd3yYZhYvf/QUH/VkeZWmY1yXQHzCoJrRQUnKAsdwL3G5DncZ055gYTd6QU+ltq963TDqCUjeo7HVA8OMV+LLjERpg2/15/9GOa7wchJtA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/Kst0HyankTjBF7MgL7OyGBFGTNSbo/6GNJ3IGOGwTQ=;
- b=icbQvXwiQqfOJLtUyvR5e8yCR1k8uw88aPWFNdZZs9u4sixrKrkRM2umErUq4JVd4/pAKQ/jJYuYAu7nfOTAR/qKWGOniv2pFDPGjfK9iLllgL+hOEmHgeYkZ4KWt5zRkjwNwk+5rlxn4Tk36qDTSzElun12zHwx/AvS4diV/v4XMQDRDraulwZMcxUB/2iyRuxR10vtEV/1rIEySfnI6FXPk7jzPtozFBE6kPYpXTiXTBPTnLtcUOZ+GcQUgfiS0ZsyOG5PWxhugJUHPOqIuxEA5fTWRPymQJuubH8hs8hDd5bc5TeoyBTsoPQ4LyVBsPerlH1H8S+P64GLJDBXOg==
+ bh=x6mmEA9bHBX6D34Is5x+px4HirCrkSiiECL5U3Jl6Vc=;
+ b=u8nSUOESQJFzuH5064QYk3OQCrecLhvjEaAFJvHvob4ZF4piiQrj5qOFyMrMG4FKjbTNEyvnp7gPQIQpiG5azNRcYiAkZQOzpkFwiPdvaBbMvgTndEoCyaxO4zIyFGHC5y4AdJ1dcmxDcNrnO5E0h7W/CHTslISTucsUlgAd1fmKFvZgzjcJDOofja6IrTBIoOL1b3Y+pWPcILKD6wAW6ZvRms9qaaPOl7iFbDsNHYLlfWD07trxVhe7ZPqnO5JjjTvpz4mEPUBlRvdEr6lBFqy13+VRSmGvH86ApKElsualSBbHxJzee7y+k1MXBa4G1S8pLXKbnN52aaDX6PjisA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/Kst0HyankTjBF7MgL7OyGBFGTNSbo/6GNJ3IGOGwTQ=;
- b=dj7doJP9wCPWOudAdOpI8p7BylS6UIf6CsQi3soFy8zaQXOwsZeXGWHypYbhq7h5jYygVh6h8EyKR4ZRDhGF57s/ZQSsYKegeAqSH81nA9UMkuDG13KuepxMkXZ7LJFUmk7hHNbkXZ25UR925HKaR/ZOs3XZ4WNpDfCdQKZLBgV18ds7bSKnIce7WXug1ICCnzVAo3NTpcSLPI392cQ/c0sZpnET5twjw0VzB6zRoHGQNNVfjHIonuhJYuu5CwgzEbRr8DgANnltH8yYZzA6ojNOaYFKH+ZYetmBQWBjubPlGKuvAKML4QjgQnUpuWPzZaqHckoVRfMUenCF2Y+Kcw==
+ bh=x6mmEA9bHBX6D34Is5x+px4HirCrkSiiECL5U3Jl6Vc=;
+ b=LSxWPr1Cr9QhvQ0pwxF4K+7MpUolp22ZkyanOzNyrlizHiAkkka6hI7sGnoxPhTVdgMYksYx2N9cVyJOpC3myG6NuX42jcY0x4xr+hUSst/HoJpA9ThLvstDEvLIEms8mpwn5s9ppR+jdGJeTs139hSS8rc9hvno/t6/llpRxpGUp8gv409EmFiC0DJQ+GPxTSB3LuPodMTvWmrIH7VHcfXq9rF2jLOuVFiCeTgjiPBl4ZxZp8ZgksMvlURwGjNkAk2yA2tcQKAJZTWSmxhkiJ1vHJdnCvAOaf7lkrWU+kGHny3j03Jt0IR+KONfeaiObU9mMBI1qsMC3a1fP5LibA==
 From: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
 	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
  Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2 05/10] xen/arm: gicv3: implement handling of GICv3.1 eSPI
-Thread-Topic: [PATCH v2 05/10] xen/arm: gicv3: implement handling of GICv3.1
- eSPI
-Thread-Index: AQHcB5d8tjpgMfEXfkClUacVz54EpQ==
-Date: Thu, 7 Aug 2025 12:33:31 +0000
+Subject: [PATCH v2 06/10] xen/arm/irq: allow eSPI processing in the do_IRQ
+ function
+Thread-Topic: [PATCH v2 06/10] xen/arm/irq: allow eSPI processing in the
+ do_IRQ function
+Thread-Index: AQHcB5d86f8hb7ZHKUC0loGFpjDKxw==
+Date: Thu, 7 Aug 2025 12:33:32 +0000
 Message-ID:
- <2491bee7441f13a3c1a01fd77ece1749e7276352.1754568795.git.leonid_komarianskyi@epam.com>
+ <3a434b2581a7b6dbed950773f1a471515c68c406.1754568795.git.leonid_komarianskyi@epam.com>
 References:
  <7e6477a83ab65220ef1c5dd22f4ef3536fbbdd5c.1754568795.git.leonid_komarianskyi@epam.com>
 In-Reply-To:
@@ -87,314 +88,114 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: GV2PR03MB8678:EE_|DU5PR03MB10563:EE_
-x-ms-office365-filtering-correlation-id: 3246f53f-888d-498e-ae8b-08ddd5ae9f15
+x-ms-office365-filtering-correlation-id: de084be2-96be-469c-b9f2-08ddd5ae9f4a
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|38070700018;
 x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?c4t+V3gH+cTynBEJQA+87Aitixn51++pNP8c5w0l643MBIM4ZTCLw6q0O5?=
- =?iso-8859-1?Q?AuiZXtWsehxt1inikR84I3d0K8ofZDKWesqmuKpIubtw3dfMzyoHLeAXUW?=
- =?iso-8859-1?Q?/wFXWLcBhhrt186ehFvs7EXpNq/fEhsl+ZxQRLdVNiAxP8LTHFfoucykxT?=
- =?iso-8859-1?Q?LCFB/ZH8EtXL9PZYBXYJkrgIQxcc/h9Z8o5mKiHDhyH3kHCge6jbW5fpau?=
- =?iso-8859-1?Q?YWjo8kt9eiTSY9bzjrzasRxy9uL0E2kyGqn59fi5pt7nZb1oPsq2C2mTmb?=
- =?iso-8859-1?Q?3hh+JbU/uyjSoAKKLcBnkUio+F09F1tm2kyQ7u3w7vUlxjygLTKLm3Mq+N?=
- =?iso-8859-1?Q?OeUK1158xdMlhn3cvOvJGVEeLOb3qdHf0gLgeVF0YV7YEFSKXrW0N2SxqP?=
- =?iso-8859-1?Q?VHc9xEd420yKL9+gfP26SNRKtAOBwtVj/rpZXddzzfzkC6DPC0f39skJLw?=
- =?iso-8859-1?Q?dkRCy5vthRy+//4BMvk5LF41bHOnvCjGbUdh5uDB9ND9aQTys9wzAXpCcO?=
- =?iso-8859-1?Q?mYZvEd8nYoWmlvL9jztm9cRO78d9EoiB19Ri1U/TOIe8soYSA26HjeoaCE?=
- =?iso-8859-1?Q?YjqrylyhfCvooO/AZtVf2zBRvEPdILTvHvGrzzmv6RaBdJN6tCjXazanbN?=
- =?iso-8859-1?Q?/p3PS2rrhdffuDOVvV+9zWz1e/1NRMh50XFN5sRFcbW1cmi5VWGHd8a1kd?=
- =?iso-8859-1?Q?9becohVSiK6H/i/6ToZhU94E75hB0bjep9MIujhjy7EqoofNGjPPseqWpW?=
- =?iso-8859-1?Q?RHamjgs2dlP2dCnoxiIaEN5vfH6EB3d7Tfamo9WR4Un4Vb/sfIZ13ATicP?=
- =?iso-8859-1?Q?9Mq0tUlyt/I9nH2HjcCxZep+eR30qgXOTKSgb6QLC+iZy6Yy93qJspHMpw?=
- =?iso-8859-1?Q?PmtwpW6JQcx79VBSnGHAhOsKAbkBdEgOznGR6mMf6UYhqFn+GCCamr74dE?=
- =?iso-8859-1?Q?zvlySHd/oyLXdWnoqcXuP5giTbEA2dsi2JJnp3ep09GLrKBHVPp/d35sjx?=
- =?iso-8859-1?Q?UldxktRe3OdWB8Yrpf+RYFbyS0EQWsMngwJmgIr5aKhYNXfoYwveoUvcqX?=
- =?iso-8859-1?Q?TPvx9UNAdGXGK9xm1xoLybyS9z7PU75JEGWdnGq+xDwVpwapfESdZ1rLlW?=
- =?iso-8859-1?Q?Rp1l+cvdoIU0hQ9ajROlsMznvTRFnV4yF1qNfcS1Myjdt895eFt/guVj3N?=
- =?iso-8859-1?Q?7cf94JIOTJkuPVGl0O6aiL0BnzxPJC03G9UxdxqfQNsZbMrgE4YJJjfH7M?=
- =?iso-8859-1?Q?k7W+AvVaX5iqBMLKx1x4md6J630vSDC0nQc2kpxviUmF0GuyEDxtkTXOrV?=
- =?iso-8859-1?Q?sTA+VIS+HQZyDtll9lefB1dIBwvqh3hxbEg/aOJmYyvsNlBy03zk8XYDiD?=
- =?iso-8859-1?Q?HXcdi1EoDrSW+3VuuT9uNcAJ1Xw5uPZe8EaioqbF/K7MHvJW4rfiwiJDSb?=
- =?iso-8859-1?Q?jcNq02sK5ax3jMKQOGuIY7BmQ1QwHxZjkBrllPyRnhXXIjCwiRliPxA1jt?=
- =?iso-8859-1?Q?YzZl6oCCbA/+N37Z7jPdUdaF2RkJUe2ZeCh8eGkPFkkw=3D=3D?=
+ =?iso-8859-1?Q?kw1cKDIDyLZtCxUqU09roxlNt3MDIIjSOzOCe7G+FpdG+sZM6e3jd/Xhdb?=
+ =?iso-8859-1?Q?qAJIz5PIeccRk+KbcZtDZ2wQul2fFuUeW++lrf9hzvwz1DllUWCpc81Yq2?=
+ =?iso-8859-1?Q?RRQxHyHa06152ayJItFJKdHE7MjEBgUgIJ4uHTXxELOihJKTmSU7CrPK/N?=
+ =?iso-8859-1?Q?whlhf9i2z8Mh8d9ci2KzJwafGHJXsc39cICpn4Ytw5DhWadz4hIIuUcAPG?=
+ =?iso-8859-1?Q?P7IVAl/CiItIujJWQNr118er+sKIMEcvqK72yPse/er55ajGX8PGqmBmEM?=
+ =?iso-8859-1?Q?MuOHSGzidZV6kJ8khjjpu8H3m5UynkY7vhSQHu+XQ+vrRpL2fptrhNGODa?=
+ =?iso-8859-1?Q?aj6llkasDJBrkD2Rq7GWI5woaHjY/L5m7Yi+L9CbuslFeoLfYlzT2Sh+91?=
+ =?iso-8859-1?Q?0WWLh4d5Djs8b6mOepEqDUtOG1C0gj037doh2TfTrcB1OrRQwjJTmR97Ll?=
+ =?iso-8859-1?Q?J+iCKySRHJuNR8GH7P8DCZVLj5hHxtpNe1uBqUH1E9ppF2i0IpgS2n3Q1Y?=
+ =?iso-8859-1?Q?B0CBs5Jfqou4Nl9ts9y5Y0l+Ee3z+inaw627uB5MYy4LUktzee51MSpL/T?=
+ =?iso-8859-1?Q?6zURE7zikMJmkzn4H0YWmp/o6NMoEdIpFYNvUJqw2CVTf02CnLSa3RaBrt?=
+ =?iso-8859-1?Q?p0qSdTPBiCHe83pZ5FrE7ICAGLqxUDnj2tJlAn5XWW+FtHbAKEVUNUH11i?=
+ =?iso-8859-1?Q?VTKplnfzl4Gs1gVqciAg8rD0ylmncJ5TOYDJ6ZE4IpRrQUzGikDKf6gc9j?=
+ =?iso-8859-1?Q?An5Mo0eyRhSOLGp6mxW2RlpF11w/GTL4Wvhq26uXqjusJ3VWLo+FafD18D?=
+ =?iso-8859-1?Q?qs4IpygrvZtQnsvT7IsttVLSddVv8lyngdtTKI2aXZxbstB0c/V3FMISna?=
+ =?iso-8859-1?Q?NUdB89ZzsuyL5Yt/TZMXQUkj7IfXzTfZETs4KX6jE/XC2D687NqOXP1/Vx?=
+ =?iso-8859-1?Q?jgHe4wyp6eObsr9A3ukNra93JvsJEcSLhAgHXoTbM2R6OVJfIq0i5QcpEG?=
+ =?iso-8859-1?Q?uqylLdIOYqIVK2tbhq4HN2CO7ladOKBRD7xtBBPnYV2TOn/h+wENX4hrIr?=
+ =?iso-8859-1?Q?g6IsFSNBRSSdZap9c87KV1k5vtL8EPZmCzBuyxBWjHqQ8VNX+8iQNZQ7oQ?=
+ =?iso-8859-1?Q?Gg8NMgxkew/lDsDQnfYyoE6IJ47e31xzTQJyerUFxSrfZ3/c62urw3tOCj?=
+ =?iso-8859-1?Q?4bm9zacvhE/9LGaaAChoT/TSR52bHZ4Ur1JTBBlBmrta0e6JF/uorW0RHl?=
+ =?iso-8859-1?Q?6HJ9y7dCr7MmVFWbInIO5UqJmCZP226IkWmQmvJUb4DMSCMV+CfoSZI5uj?=
+ =?iso-8859-1?Q?xWtsEkYZHo/6eMzLBlKt0DDU1unuq68ARSH2Euv1xggh/jFBoihL/Vlw1C?=
+ =?iso-8859-1?Q?qgbIepPSROL9U68LLcFhPd1Hmx/Wln/ysTHMbPL9WmydW79+sqXy/bw3Zw?=
+ =?iso-8859-1?Q?ukmK61VA5rn8vxMo5lytlT7Odx8GBALPNbbSuE5maq8drbupfoVpM3PGk+?=
+ =?iso-8859-1?Q?209YVe59OT3IHaeiXwt60RliaqmHVOp6Wu1QLm3IxsLQ=3D=3D?=
 x-forefront-antispam-report:
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB8678.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(38070700018);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?CjamkyDkc8ZZxjxT6K/NCpsLO0SS+Q/wI1PYHuU7xcwZ4KXrFG5TEqqNMq?=
- =?iso-8859-1?Q?5YsedxGF6a0VVi2b7R5LYvjnqJo5Mwrv3E/CJsTXJNYBcFZlPBmPa9JJne?=
- =?iso-8859-1?Q?76J/AO2ysuUqxF/LtrmTaooF0ljYRx5W8gu+v6JLIZiIrUBD0RLGVnyhFy?=
- =?iso-8859-1?Q?ClSCr0HWk6I1iMQzb/hBCL9cV6wU9954MwHyZxf9WFgtRpnCx4ZCKIv4fg?=
- =?iso-8859-1?Q?VBZp8NJxFR8xMdQbp/LwGdRz+EgpTZXTuHAdzrPMmTr3gK80zg9FT5wUFm?=
- =?iso-8859-1?Q?PC5vZcBDU59Lw//+Q5YMLFvA+BjgErJAkXY29TgJenR4Ar3avI/C3eERwQ?=
- =?iso-8859-1?Q?ph1ruVorAWh/gTST0fq4K0vMsH6VUItuUqef+ym4qcoyOfWH4KIQskIwA8?=
- =?iso-8859-1?Q?uvYDGwyUjK3g/23LRvfzvri3vUb+aYFb024vNS0NZ+fuALDEdNAhVYqy7l?=
- =?iso-8859-1?Q?1Q0ghsi8DtGhuLV0IlrRN7Yr3Aei4UL7YJX4HNTzFYGhEEyG67cNV3w8YV?=
- =?iso-8859-1?Q?9LKT4LF5wzuCt7C341EKSi0nS8VezydMNx/VHNfgUVo1twuxQfJrbJ9zVb?=
- =?iso-8859-1?Q?nmJtYh9kjIg1Us5b27lbH1O20ps4qZ7aHTC8a9NGt/klOfeA7oGnJVCdwa?=
- =?iso-8859-1?Q?YQ5trie5i2YnTYC7MSsexolCd8rsqZYyV1m10zh1RoYjUQTNq9C3cKV/aG?=
- =?iso-8859-1?Q?nfLDLa5/NdzO6hrH2swTO+4bNmljMGRi57QGOENFRm62GlJaaAJeh4nGrK?=
- =?iso-8859-1?Q?IgllrNXow+fcEcF72SvlhYLWw8xpqwFQptgOq4wPRB0nDA4CZjoZoJlSk9?=
- =?iso-8859-1?Q?wSAQ2UtEPa42tqI27c4k9ssNCVi8i/D7s6/S92X9xsIkPi88P4cVbXzYOP?=
- =?iso-8859-1?Q?OiFsKyUbSe/8FoSTQMATPQibU5VblvMcAEARjZuwVSQDG3yEwD4iVzsrDY?=
- =?iso-8859-1?Q?EQQyYF0bh2QEZP3EIIypm5pjl8iFLN+XHLgT5i0pac5UmK4q8kR0e0pKaG?=
- =?iso-8859-1?Q?GDOw7bDVOn8CFq4JOqPqkJy0ev5XvmlYMXV1F5oVlc/rn4xURwCkB0PlSM?=
- =?iso-8859-1?Q?HOA7//Abh4rgiQvBdZTVQWOy3qoa89EFy6ys/2qqjdToSeQxHGcvacVxxQ?=
- =?iso-8859-1?Q?Yn33LaHxce+bgPAazq42/2QQ7IQ6fUWBFWW8gyynp/KGg+AZIeljTdKEPU?=
- =?iso-8859-1?Q?9sBR6xgCMqdrr9bccz/3hH2K6StKh37TOKabkYZTi5DO3kX5xWZg1Xxri+?=
- =?iso-8859-1?Q?MrhIFlNbhEvxAbIDRLhhaibILu+upRlpz0ry1DnvJlQViT/ow0UIFUsOUF?=
- =?iso-8859-1?Q?3gIlmVpQKmqb9TCBtt021IDxaN65lcrqd7Jy/DLGQI4/2uS8eBIMNGEPlG?=
- =?iso-8859-1?Q?toZass7OhNGccmcsG71pd0JFoY1e0mPZHxLQZGYJdSp0g5RGZMPoHeSAHS?=
- =?iso-8859-1?Q?UHw8Vdl2UGfyNwfhv0ZRsH0vZkCHkpv6Zz1rQ15zuEn/nazL17pj+EVrPi?=
- =?iso-8859-1?Q?3ZO0kF9kXD+l+jdXskwLQA5pYxvA1RCBRvKiwYBAih4/mT5Rg0aGTYpQKZ?=
- =?iso-8859-1?Q?1BDp6eN2IUs0/ZQjb8+aVVYJ6SXGzXsK9tyEEFC+xNItd2I374iYVfqGvU?=
- =?iso-8859-1?Q?/5m+pZk6FA1bm8a/pSuNkqqwrskFdG6oVXW2p1ZC24K2AsfSSCzHITA2sN?=
- =?iso-8859-1?Q?al3Msi2OlWsukv1nXJ4=3D?=
+ =?iso-8859-1?Q?f/XWOe/jH36GJez8MQMs8bhbR3eL/fJl+yXSI153A/AAaE3alKnV+WaPI+?=
+ =?iso-8859-1?Q?Utuj89irr+h+N8sJtwpP78uRksElPoS9ufMsp+QRqUG24NGwI9mVXjxFbq?=
+ =?iso-8859-1?Q?3WJg14DiRunNrC7HLQOGrXFHg5gdXLv6IaOuR+geUVMZgxfJLmW0ZTpQ1N?=
+ =?iso-8859-1?Q?xPg2z2nhnivH9bTsnhmK4XXohGyvtd1d4eoElkug0ymWHqeLAjwrZv/Qpy?=
+ =?iso-8859-1?Q?AwS/NdkDkJXkbhwrW/yPocW2vREe129fO912EyX0i3dDEEIMmg6gqNIG75?=
+ =?iso-8859-1?Q?twcGNn1hGV6iDzTtmR/gGd+/GYIkehakJDkjTtcmliNfymJgX5sJYBwlm6?=
+ =?iso-8859-1?Q?ueElC+HnuGcclxxwrD2fILFKjuen5ozsMg4KHcDkg8vRksFVj2QgsOh48v?=
+ =?iso-8859-1?Q?IdHUPTP3T64s1PecW2F/a04nUy8LEIU6qYCf9nEHuE/KQK2wcul7Jy39fa?=
+ =?iso-8859-1?Q?H9L2MOP68lki412VrZycPx1i+FuJaL5vX5LPgGfaNcAhXvY6wK6B8qDKAc?=
+ =?iso-8859-1?Q?VpfJXHCdohLBFBag6RGAacLk9dTq2nE1XZHHrJ+DibrNbkg5OLC5wRvyFZ?=
+ =?iso-8859-1?Q?0wLQbxEppkNzcHqXxRhs2dVcx8eFIqlBWhtJBxYzSfE3kbRgdKhLjEWNO7?=
+ =?iso-8859-1?Q?YmR+7VwW4BEdjloOvqjPmW9nZzcAtG1U+SPgQ4IThobPCzxaZmOrwvSeTj?=
+ =?iso-8859-1?Q?uZHE3+rVHtMbIIWOI+/Jk5E4MwYtF/Nb10VGig4rA2TKxt6r7hXmGU0XPw?=
+ =?iso-8859-1?Q?mSye7iDmMeTRmGdnzpKKfyNqEjoyHBgWr/IzaaRhE/0UFuwxjsPJA2wwUt?=
+ =?iso-8859-1?Q?b8BIN3BEr3+i9jrwFnTKa7O3bmKTKmAYZbxr+ZS+2hpExavGdWESJjMqTm?=
+ =?iso-8859-1?Q?ZLtlYJuvdI+4Vz/dnwJwAcz49ZawjVNFtBWBCkDm8+4N+yhNkYD+BUO6Mt?=
+ =?iso-8859-1?Q?9yn/i2bXI08uQCLEKMr0dt48BDD0RDUFZAXoRBeie3VOiTatu3p7zCKQoq?=
+ =?iso-8859-1?Q?wq66S0ETRLQMAKd1DtwUrhiZcgkhBPUzmqSX+eWWe7jSbEh0PkmXu3CkL9?=
+ =?iso-8859-1?Q?UfoqTpu3gO1MzkfoHt7zoKYAiqq6LEy80/6Nm15RgL+zd+lQ1LwFxpxkNO?=
+ =?iso-8859-1?Q?EYv6fYybKgGCVteFd5hWSxO26oGnEoaoarEX4PW4ZsJ2jDG1zcGpODYPvN?=
+ =?iso-8859-1?Q?AnINY3U1yXAXJcJb8Xxu2qb0YVurHXdE6hs7yjLAhj4gZcGXEiGVkFDbX6?=
+ =?iso-8859-1?Q?t6beCQ09vr9Hmefe3ov2wFpDE5pipDKp7uTvx0cRGMMpCZ2EU82Kh2CDgO?=
+ =?iso-8859-1?Q?PqWzOT9uM1LY7majMRXo66uZnOgXjGMtWgYNGGhebLZKF9AYSTY9rnd/aB?=
+ =?iso-8859-1?Q?z6LDB3DhxEuzDRrklU3gn/JykYqABcilzaFNPSQiyfOrHQdPYCocIVj60O?=
+ =?iso-8859-1?Q?fRvKd/LjoQ+RyxDdK/iFMisDDOm4B3+BkBx9uNOZqLUX4gDY/OVNGtH0hV?=
+ =?iso-8859-1?Q?EGPZXFVZM3dVXxgYr2xeL0IhJeicTAu7o7GO1cArpr5EReUronw5YIX4o4?=
+ =?iso-8859-1?Q?dzmuFrlxyiNuNivJYHhVXYiQ5vqzl5f+FOIc57c4MBhVbsHaiSoTztSUD5?=
+ =?iso-8859-1?Q?eBk8bGByen7mg1rDZGAe3RtujFPg4WItMwlhlfAqX35oC8ec5Ue1kdAQv0?=
+ =?iso-8859-1?Q?pkXoXP9D5glvgIyyB4c=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB8678.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3246f53f-888d-498e-ae8b-08ddd5ae9f15
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Aug 2025 12:33:31.6838
+X-MS-Exchange-CrossTenant-Network-Message-Id: de084be2-96be-469c-b9f2-08ddd5ae9f4a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Aug 2025 12:33:32.0647
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: PT3pEVwh66/j8LhrC5hwqJ8VUaXoqD03bjQpnkBDcRQdnke3XqzbkhfQg/O7O5HNtC1hvTpiT9pH+GdLwDSM/xJic9NbJpB0S9nsfbzo28w=
+X-MS-Exchange-CrossTenant-userprincipalname: VmCtgzAmIjsw9qtISyOpQKgRaklIVOBC/YYaGTqtZXhZzCFDKbrmicOgree2JnMaXlGoUw7IUNi8ZOi/Mp7sTKH+9aV5Qizv+2IuYUOdrxw=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU5PR03MB10563
 
-Introduced appropriate register definitions, helper macros,
-and initialization of required GICv3.1 distributor registers
-to support eSPI. This type of interrupt is handled in the
-same way as regular SPI interrupts, with the following
-differences:
-
-1) eSPIs can have up to 1024 interrupts, starting from the
-beginning of the range, whereas regular SPIs use INTIDs from
-32 to 1019, totaling 988 interrupts;
-2) eSPIs start at INTID 4096, necessitating additional interrupt
-index conversion during register operations.
-
-In case if appropriate config is disabled, or GIC HW doesn't
-support eSPI, the existing functionality will remain the same.
+The do_IRQ() function is the main handler for processing IRQs.
+Currently, due to restrictive checks, it does not process interrupt
+numbers greater than 1024. This patch updates the condition to allow
+the handling of interrupts from the eSPI range.
 
 Signed-off-by: Leonid Komarianskyi <leonid_komarianskyi@epam.com>
 
 ---
 Changes in V2:
-- move gic_number_espis function from
-  [PATCH 08/10] xen/arm: vgic: add resource management for extended SPIs
-  to use it in the newly introduced gic_is_valid_espi
-- add gic_is_valid_espi which checks if IRQ number is in supported
-  by HW eSPI range
-- update gic_is_valid_irq conditions to allow operations with eSPIs
+- no changes
 ---
- xen/arch/arm/gic-v3.c                  | 73 ++++++++++++++++++++++++++
- xen/arch/arm/include/asm/gic.h         | 17 ++++++
- xen/arch/arm/include/asm/gic_v3_defs.h | 33 ++++++++++++
- 3 files changed, 123 insertions(+)
+ xen/arch/arm/gic.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-index 8fd78aba44..a0e8ee1a1e 100644
---- a/xen/arch/arm/gic-v3.c
-+++ b/xen/arch/arm/gic-v3.c
-@@ -485,6 +485,36 @@ static void __iomem *get_addr_by_offset(struct irq_des=
-c *irqd, u32 offset)
-         default:
-             break;
-         }
-+#ifdef CONFIG_GICV3_ESPI
-+    case ESPI_BASE_INTID ... ESPI_MAX_INTID:
-+    {
-+        u32 irq_index =3D ESPI_INTID2IDX(irqd->irq);
-+
-+        switch ( offset )
-+        {
-+        case GICD_ISENABLER:
-+            return (GICD + GICD_ISENABLERnE + (irq_index / 32) * 4);
-+        case GICD_ICENABLER:
-+            return (GICD + GICD_ICENABLERnE + (irq_index / 32) * 4);
-+        case GICD_ISPENDR:
-+            return (GICD + GICD_ISPENDRnE + (irq_index / 32) * 4);
-+        case GICD_ICPENDR:
-+            return (GICD + GICD_ICPENDRnE + (irq_index / 32) * 4);
-+        case GICD_ISACTIVER:
-+            return (GICD + GICD_ISACTIVERnE + (irq_index / 32) * 4);
-+        case GICD_ICACTIVER:
-+            return (GICD + GICD_ICACTIVERnE + (irq_index / 32) * 4);
-+        case GICD_ICFGR:
-+            return (GICD + GICD_ICFGRnE + (irq_index / 16) * 4);
-+        case GICD_IROUTER:
-+            return (GICD + GICD_IROUTERnE + irq_index * 8);
-+        case GICD_IPRIORITYR:
-+            return (GICD + GICD_IPRIORITYRnE + irq_index);
-+        default:
-+            break;
-+        }
-+    }
-+#endif
-     default:
-         break;
-     }
-@@ -645,6 +675,40 @@ static void gicv3_set_irq_priority(struct irq_desc *de=
-sc,
-     spin_unlock(&gicv3.lock);
- }
+diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
+index 47fccf21d8..7186c3d40a 100644
+--- a/xen/arch/arm/gic.c
++++ b/xen/arch/arm/gic.c
+@@ -341,7 +341,7 @@ void gic_interrupt(struct cpu_user_regs *regs, int is_f=
+iq)
+         /* Reading IRQ will ACK it */
+         irq =3D gic_hw_ops->read_irq();
 =20
-+#ifdef CONFIG_GICV3_ESPI
-+unsigned int gic_number_espis(void)
-+{
-+    return gic_hw_ops->info->nr_espi;
-+}
-+
-+static void gicv3_dist_espi_common_init(uint32_t type)
-+{
-+    unsigned int espi_nr;
-+    int i;
-+
-+    espi_nr =3D min(1024U, GICD_TYPER_ESPIS_NUM(type));
-+    gicv3_info.nr_espi =3D espi_nr;
-+    /* The GIC HW doesn't support eSPI, so we can leave from here */
-+    if ( gicv3_info.nr_espi =3D=3D 0 )
-+        return;
-+
-+    for ( i =3D 0; i < espi_nr; i +=3D 16 )
-+        writel_relaxed(0, GICD + GICD_ICFGRnE + (i / 16) * 4);
-+
-+    for ( i =3D 0; i < espi_nr; i +=3D 4 )
-+        writel_relaxed(GIC_PRI_IRQ_ALL, GICD + GICD_IPRIORITYRnE + (i / 4)=
- * 4);
-+
-+    for ( i =3D 0; i < espi_nr; i +=3D 32 )
-+    {
-+        writel_relaxed(0xffffffffU, GICD + GICD_ICENABLERnE + (i / 32) * 4=
-);
-+        writel_relaxed(0xffffffffU, GICD + GICD_ICACTIVERnE + (i / 32) * 4=
-);
-+    }
-+
-+    for ( i =3D 0; i < espi_nr; i +=3D 32 )
-+        writel_relaxed(GENMASK(31, 0), GICD + GICD_IGROUPRnE + (i / 32) * =
-4);
-+}
-+#endif
-+
- static void __init gicv3_dist_init(void)
- {
-     uint32_t type;
-@@ -690,6 +754,10 @@ static void __init gicv3_dist_init(void)
-     for ( i =3D NR_GIC_LOCAL_IRQS; i < nr_lines; i +=3D 32 )
-         writel_relaxed(GENMASK(31, 0), GICD + GICD_IGROUPR + (i / 32) * 4)=
-;
-=20
-+#ifdef CONFIG_GICV3_ESPI
-+    gicv3_dist_espi_common_init(type);
-+#endif
-+
-     gicv3_dist_wait_for_rwp();
-=20
-     /* Turn on the distributor */
-@@ -703,6 +771,11 @@ static void __init gicv3_dist_init(void)
-=20
-     for ( i =3D NR_GIC_LOCAL_IRQS; i < nr_lines; i++ )
-         writeq_relaxed_non_atomic(affinity, GICD + GICD_IROUTER + i * 8);
-+
-+#ifdef CONFIG_GICV3_ESPI
-+    for ( i =3D 0; i < gicv3_info.nr_espi; i++ )
-+        writeq_relaxed_non_atomic(affinity, GICD + GICD_IROUTERnE + i * 8)=
-;
-+#endif
- }
-=20
- static int gicv3_enable_redist(void)
-diff --git a/xen/arch/arm/include/asm/gic.h b/xen/arch/arm/include/asm/gic.=
-h
-index ac0b7b783e..2f570abf70 100644
---- a/xen/arch/arm/include/asm/gic.h
-+++ b/xen/arch/arm/include/asm/gic.h
-@@ -306,8 +306,21 @@ extern void gic_dump_vgic_info(struct vcpu *v);
-=20
- /* Number of interrupt lines */
- extern unsigned int gic_number_lines(void);
-+#ifdef CONFIG_GICV3_ESPI
-+extern unsigned int gic_number_espis(void);
-+
-+static inline bool gic_is_valid_espi(unsigned int irq)
-+{
-+    return (irq >=3D ESPI_BASE_INTID && irq < ESPI_IDX2INTID(gic_number_es=
-pis()));
-+}
-+#endif
-+
- static inline bool gic_is_valid_irq(unsigned int irq)
- {
-+#ifdef CONFIG_GICV3_ESPI
-+    if ( gic_is_valid_espi(irq) )
-+        return true;
-+#endif
-     return irq < gic_number_lines();
- }
-=20
-@@ -325,6 +338,10 @@ struct gic_info {
-     enum gic_version hw_version;
-     /* Number of GIC lines supported */
-     unsigned int nr_lines;
-+#ifdef CONFIG_GICV3_ESPI
-+    /* Number of GIC eSPI supported */
-+    unsigned int nr_espi;
-+#endif
-     /* Number of LR registers */
-     uint8_t nr_lrs;
-     /* Maintenance irq number */
-diff --git a/xen/arch/arm/include/asm/gic_v3_defs.h b/xen/arch/arm/include/=
-asm/gic_v3_defs.h
-index 2af093e774..7f769b38e3 100644
---- a/xen/arch/arm/include/asm/gic_v3_defs.h
-+++ b/xen/arch/arm/include/asm/gic_v3_defs.h
-@@ -37,6 +37,39 @@
- #define GICD_IROUTER1019             (0x7FD8)
- #define GICD_PIDR2                   (0xFFE8)
-=20
-+#ifdef CONFIG_GICV3_ESPI
-+/* Additional registers for GICv3.1 */
-+#define GICD_IGROUPRnE               (0x1000)
-+#define GICD_IGROUPRnEN              (0x107C)
-+#define GICD_ISENABLERnE             (0x1200)
-+#define GICD_ISENABLERnEN            (0x127C)
-+#define GICD_ICENABLERnE             (0x1400)
-+#define GICD_ICENABLERnEN            (0x147C)
-+#define GICD_ISPENDRnE               (0x1600)
-+#define GICD_ISPENDRnEN              (0x167C)
-+#define GICD_ICPENDRnE               (0x1800)
-+#define GICD_ICPENDRnEN              (0x187C)
-+#define GICD_ISACTIVERnE             (0x1A00)
-+#define GICD_ISACTIVERnEN            (0x1A7C)
-+#define GICD_ICACTIVERnE             (0x1C00)
-+#define GICD_ICACTIVERnEN            (0x1C7C)
-+#define GICD_IPRIORITYRnE            (0x2000)
-+#define GICD_IPRIORITYRnEN           (0x23FC)
-+#define GICD_ICFGRnE                 (0x3000)
-+#define GICD_ICFGRnEN                (0x30FC)
-+#define GICD_IROUTERnE               (0x8000)
-+#define GICD_IROUTERnEN              (0x9FFC)
-+
-+#define GICD_TYPER_ESPI_SHIFT        8
-+#define GICD_TYPER_ESPI_RANGE_SHIFT  27
-+#define GICD_TYPER_ESPI_RANGE_MASK   (0x1F)
-+#define GICD_TYPER_ESPI              (1U << GICD_TYPER_ESPI_SHIFT)
-+#define GICD_TYPER_ESPI_RANGE(typer) ((((typer) & GICD_TYPER_ESPI_RANGE_MA=
-SK) + 1) * 32)
-+#define GICD_TYPER_ESPIS_NUM(typer)    \
-+        (((typer) & GICD_TYPER_ESPI) ? \
-+        GICD_TYPER_ESPI_RANGE((typer) >> GICD_TYPER_ESPI_RANGE_SHIFT) : 0)
-+#endif
-+
- /* Common between GICD_PIDR2 and GICR_PIDR2 */
- #define GIC_PIDR2_ARCH_MASK         (0xf0)
- #define GIC_PIDR2_ARCH_GICv3        (0x30)
+-        if ( likely(irq >=3D GIC_SGI_STATIC_MAX && irq < 1020) )
++        if ( likely(irq >=3D GIC_SGI_STATIC_MAX && irq < 1020) || is_espi(=
+irq) )
+         {
+             isb();
+             do_IRQ(regs, irq, is_fiq);
 --=20
 2.34.1
 
