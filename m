@@ -2,33 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C26BAB1D377
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 09:39:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1072592.1435601 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC904B1D3B1
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 09:49:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1072603.1435612 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujvDQ-0005ts-B0; Thu, 07 Aug 2025 07:39:08 +0000
+	id 1ujvNZ-0007mm-Cn; Thu, 07 Aug 2025 07:49:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1072592.1435601; Thu, 07 Aug 2025 07:39:08 +0000
+Received: by outflank-mailman (output) from mailman id 1072603.1435612; Thu, 07 Aug 2025 07:49:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujvDQ-0005rv-8E; Thu, 07 Aug 2025 07:39:08 +0000
-Received: by outflank-mailman (input) for mailman id 1072592;
- Thu, 07 Aug 2025 07:39:07 +0000
+	id 1ujvNZ-0007lJ-8u; Thu, 07 Aug 2025 07:49:37 +0000
+Received: by outflank-mailman (input) for mailman id 1072603;
+ Thu, 07 Aug 2025 07:49:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gbW2=2T=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1ujvDO-0005rp-Tu
- for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 07:39:06 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 93df4453-7361-11f0-a324-13f23c93f187;
- Thu, 07 Aug 2025 09:38:57 +0200 (CEST)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-55b8a0f36fcso790020e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 07 Aug 2025 00:38:57 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ybbA=2T=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1ujvNW-0007lD-DC
+ for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 07:49:35 +0000
+Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch
+ [79.135.106.31]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0e13b50f-7363-11f0-a324-13f23c93f187;
+ Thu, 07 Aug 2025 09:49:32 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,187 +36,225 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 93df4453-7361-11f0-a324-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1754552337; x=1755157137; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=oKAtAZGw0OLUOOWa2L+nz0djnwMkXJBjzcf4z7gEyBw=;
-        b=O7R4yaFshvH7D2wCZrZ9M79BBWXoEJuyJyErnkFtVIxC2+V50J3FYybEZcviT/ZqX1
-         m8L/O/ffxj1GY/DMA10ciRNtNJi6ZLDpsKD/LrUepRunMVI6M7GGyAED4loKlOf92+YK
-         FD9dbY7iOEIqJj2nuTfjMyGvf8Cp3v0v3We5ae/Wo2wzEtgfVQl30hxpjNjqz2j4mpKn
-         kDZWajGFYqz3PpV5oHhD5LCbyuzS7xRtBoeMwYjMi/f+Ni2818aDG3zBzJ2wLmw8WNCQ
-         /cNPXT9Ad1zNjdaTAh237rAP9eKncJ1XOvIGfEC0Wpo0nibPIlmWubnwqiNx+HLxJVjd
-         NDVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754552337; x=1755157137;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=oKAtAZGw0OLUOOWa2L+nz0djnwMkXJBjzcf4z7gEyBw=;
-        b=WGVH99pE1GBF9xrXEYHvpC9eJQT7/p32lxWYn/dG1y2JJVtxSqOqhA8RFZQwGbwzED
-         AmpP09/u+vnJNmEfz4/k390ktp46osEASrsy90gCZZuf0f5okrpkGz54Zno/ipCWU4Wq
-         PEAT4METrsjhL9bK5LhVJ20m+dvC3TRTXFetvk/H5/sPSKkEMpqiv69EyEF+Q+q0awHF
-         IRCX7ReHwBUHQWQIqf1J+/dcQmgpGcc5N8F/FW54P/DMWRn3CDttbhINrLxJu+651Ub9
-         7ylSm7xgJF5CNAa1aXyWNo9eWCAbic/zHrqUz4FSBcBbLbqp9HXE+qh0mgzVRA/UYfnN
-         OvLw==
-X-Forwarded-Encrypted: i=1; AJvYcCX1O/lvTOT7udOyiiy9dLrfMVwM9BJ1NCZExwYCsgjLXXupAyc4FvhBGrTTvMnacjoC9blRSp7X1EA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwwhWLuDQPDOiIldI8Ji6ZLiIjl/lZErEcOG23oUZBeeQQ4iQXT
-	2SyPaQzbH2pFIP3igcjexH3pcyrtjw0MhJBiKSfyz203DYjgZzrGdttDsgEHk92847AwvpE8r/v
-	YXsbWcr0uy3TyrSFR7q6deWtl6tUEVSY=
-X-Gm-Gg: ASbGnct5N1cIxCNXtJ2v2CoYy61eg4Ve9ncBh/ynndlINmOJVQ9LRW8pEoOS7pz4zSp
-	HAEGZdy2qtB9IFwAIBLcpK7eIeNzU95XCRNdJMJd0FJaP5RhpdaAePbOVWHsbwVa4TYBoRGpLft
-	tQJkjdhiVnNmrbtTHGGNydQdOZuUCx1/1vy6SCt6UytE17tRlB0Krp8ndYrv11TNO5vLynKFQwO
-	z3I5gjhsLT5egtB
-X-Google-Smtp-Source: AGHT+IHKx1vIJEtczLCUs3vrUB65kKa6tDRKDhVVVuY7mcwZrkQsNQYqLHQfkh1XPsFg6ssjVO5fLQIXXOmMsBMwge4=
-X-Received: by 2002:ac2:4e01:0:b0:55b:5393:bb32 with SMTP id
- 2adb3069b0e04-55caf37bd4cmr1576631e87.33.1754552336994; Thu, 07 Aug 2025
- 00:38:56 -0700 (PDT)
+X-Inumbo-ID: 0e13b50f-7363-11f0-a324-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1754552971; x=1754812171;
+	bh=sK0q8LHiEeboW+yR7qN4ExejpcaZADbLso5ZIIG2rjI=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=hJTVxqkrPLOJ2LxoYCrnM8MgTxBXhJzF/rYBZ4YdVFPMh/DGwG5V3NSbv98zdMs1D
+	 mpxqhqp6qtTqQhP6NcsvF9G4LlRiuoApV4LdW0Rp5XFazY+ekHdUeMN16YLGnfNeaI
+	 v1vfaZXWMO2EWpm/h+f9swAC4UysUWv/o0DboxpxJyRK1xKv26hzorbRKMheUvtXjv
+	 FZhFyAPXTVWQx97/4N9SWvVTQhq8/4Jvkq0CWn4llGhsk82imFhmUzrfdKz47mGK/J
+	 bZvj2cB4SbG9x3xFwBx3Sp+oFpdDJnLsI3eNxDS9wpr4GK9gCPedoZiC0WZBIXJshL
+	 ERoVNb/WbcZ0w==
+Date: Thu, 07 Aug 2025 07:49:26 +0000
+To: =?utf-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+From: dmkhn@proton.me
+Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v1 1/2] CI: Add driver domains tests
+Message-ID: <aJRagWBzU+FC7wvK@kraken>
+In-Reply-To: <4595a5aaa66e8d26ff9851496624ceb9c734ee4c.1754525202.git-series.marmarek@invisiblethingslab.com>
+References: <cover.a3ae44ad160fb5827451cd35aa8ebbd546cf3866.1754525202.git-series.marmarek@invisiblethingslab.com> <4595a5aaa66e8d26ff9851496624ceb9c734ee4c.1754525202.git-series.marmarek@invisiblethingslab.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: ad206df7e30e8103fec34f2a9a895287760e13bc
 MIME-Version: 1.0
-References: <cover.1753778926.git.mykola_kvach@epam.com> <45e670391c37ab54f721b6576a41ded2e543d6db.1753778926.git.mykola_kvach@epam.com>
- <2e43ded3-d14d-49f8-bf98-f3d58d0b39af@suse.com>
-In-Reply-To: <2e43ded3-d14d-49f8-bf98-f3d58d0b39af@suse.com>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Thu, 7 Aug 2025 10:38:46 +0300
-X-Gm-Features: Ac12FXzENTIOvUC_-kobFDIHWBUHMvWuVpSCa-16IyJxIrWtUNP4OgitmvWAiJQ
-Message-ID: <CAGeoDV8QuaFHFg3_MaFdk_zsMCKVD0V6a55ut74HoLuQF3diJw@mail.gmail.com>
-Subject: Re: [PATCH v7 1/4] xen/arm: Implement PSCI SYSTEM_SUSPEND call for guests
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Mykola Kvach <mykola_kvach@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Jan,
+On Thu, Aug 07, 2025 at 02:06:49AM +0200, Marek Marczykowski-G=C3=B3recki w=
+rote:
+> Setup a simple two domU system. One with network backend, running
+> xendriverdomain service, and one with frontend, trying to ping the
+> backend.
+>=20
+> Contrary to other similar tests, use disk image instead of initrd, to
+> allow bigger rootfs without adding more RAM (for both dom0 and domU).
+> But keep using pxelinux as a bootloader as it's easier to setup than
+> installing grub on the disk. Theoretically, it could be started via direc=
+t
+> kernel boot in QEMU, but pxelinux is slightly closer to real-world
+> deployment.
+>=20
+> Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingsl=
+ab.com>
+> ---
+>  automation/gitlab-ci/test.yaml                  |   8 +-
+>  automation/scripts/qemu-driverdomains-x86_64.sh | 116 +++++++++++++++++-
+>  2 files changed, 124 insertions(+)
+>  create mode 100755 automation/scripts/qemu-driverdomains-x86_64.sh
+>=20
+> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.y=
+aml
+> index 1f0b27b2378a..5c4b2dc304b4 100644
+> --- a/automation/gitlab-ci/test.yaml
+> +++ b/automation/gitlab-ci/test.yaml
+> @@ -656,6 +656,14 @@ qemu-alpine-x86_64-gcc:
+>      - *x86-64-test-needs
+>      - alpine-3.18-gcc
+>=20
+> +qemu-alpine-driverdomains-x86_64-gcc:
+> +  extends: .qemu-x86-64
+> +  script:
+> +    - ./automation/scripts/qemu-driverdomains-x86_64.sh 2>&1 | tee ${LOG=
+FILE}
+> +  needs:
+> +    - *x86-64-test-needs
+> +    - alpine-3.18-gcc
+> +
+>  qemu-smoke-x86-64-gcc:
+>    extends: .qemu-smoke-x86-64
+>    script:
+> diff --git a/automation/scripts/qemu-driverdomains-x86_64.sh b/automation=
+/scripts/qemu-driverdomains-x86_64.sh
+> new file mode 100755
+> index 000000000000..1caaede7722e
+> --- /dev/null
+> +++ b/automation/scripts/qemu-driverdomains-x86_64.sh
+> @@ -0,0 +1,116 @@
+> +#!/bin/bash
+> +
+> +set -ex -o pipefail
+> +
+> +dom0_rootfs_extra_comp=3D()
+> +dom0_rootfs_extra_uncomp=3D()
+> +
+> +cd binaries
+> +
+> +# DomU rootfs
+> +
+> +mkdir -p rootfs
+> +cd rootfs
+> +mkdir -p etc/local.d
+> +passed=3D"ping test passed"
+> +echo "#!/bin/bash
+> +
+> +set -x
+> +
+> +if grep -q test=3Dbackend /proc/cmdline; then
+> +    brctl addbr xenbr0
+> +    ip link set xenbr0 up
+> +    ip addr add 192.168.0.1/24 dev xenbr0
+> +    bash /etc/init.d/xendriverdomain start
+> +    # log backend-related logs to the console
+> +    tail -F /var/log/xen/xldevd.log /var/log/xen/xen-hotplug.log >>/dev/=
+console 2>/dev/null &
+> +else
+> +    ip link set eth0 up
+> +    ip addr add 192.168.0.2/24 dev eth0
+> +    until ping -c 10 192.168.0.1; do
 
-On Tue, Jul 29, 2025 at 12:11=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wr=
-ote:
->
-> On 29.07.2025 10:52, Mykola Kvach wrote:
-> > --- a/xen/common/domain.c
-> > +++ b/xen/common/domain.c
-> > @@ -1334,16 +1334,15 @@ int domain_shutdown(struct domain *d, u8 reason=
-)
-> >      return 0;
-> >  }
-> >
-> > -void domain_resume(struct domain *d)
-> > +#ifdef CONFIG_ARM
-> > +void domain_resume_nopause(struct domain *d)
-> > +#else
-> > +static void domain_resume_nopause(struct domain *d)
-> > +#endif
->
-> #ifndef CONFIG_ARM
-> static
-> #endif
-> void domain_resume_nopause(struct domain *d)
->
-> to have as little redundancy as possible.
+I would limit the number of iterations (60?), otherwise in the worst case t=
+he
+test will execute intil the test job timeout, which AFAIU is undesired if
+anything goes wrong.
 
-Okay, I=E2=80=99ll change it.
+> +        sleep 1
+> +    done
+> +    echo \"${passed}\"
+> +fi
+> +
+> +" > etc/local.d/xen.start
 
->
-> >  {
-> >      struct vcpu *v;
-> >
-> > -    /*
-> > -     * Some code paths assume that shutdown status does not get reset =
-under
-> > -     * their feet (e.g., some assertions make this assumption).
-> > -     */
-> > -    domain_pause(d);
-> > -
-> > +    domain_lock(d);
->
-> This addition of locking affects domain_resume() as well. Neither need no=
-r
-> correctness are discussed in the description. If the locking was really
-> needed for domain_resume() as well, I suppose adding that would better be
-> a separate change anyway.
+For the block generating xen.start: suggest switching to heredoc like for
+pxelinux.0 config below, this way escaping will not be needed.
 
-Thanks for the review.
+> +chmod +x etc/local.d/xen.start
+> +zcat ../rootfs.cpio.gz | cpio -imd
+> +zcat ../xen-tools.cpio.gz | cpio -imd
+> +mkfs.ext4 -d . ../domU-rootfs.img 1024M
+> +cd ..
+> +rm -rf rootfs
+> +
+> +# Dom0 rootfs
+> +mkdir -p rootfs
+> +cd rootfs
+> +zcat ../rootfs.cpio.gz | cpio -imd
+> +zcat ../xen-tools.cpio.gz | cpio -imd
+> +mkdir -p root etc/local.d
+> +echo "name=3D\"backend\"
+> +memory=3D512
+> +vcpus=3D1
+> +kernel=3D\"/root/bzImage\"
+> +extra=3D\"console=3Dhvc0 root=3D/dev/xvda net.ifnames=3D0 test=3Dbackend=
+\"
+> +disk=3D[ '/root/domU-rootfs-b.img,raw,xvda,rw' ]
+> +" > root/backend.cfg
+> +echo "name=3D\"frontend\"
+> +memory=3D512
+> +vcpus=3D1
+> +kernel=3D\"/root/bzImage\"
+> +extra=3D\"console=3Dhvc0 root=3D/dev/xvda net.ifnames=3D0 test=3Dfronten=
+d\"
+> +disk=3D[ '/root/domU-rootfs-f.img,raw,xvda,rw' ]
+> +vif=3D[ 'bridge=3Dxenbr0,backend=3Dbackend' ]
+> +" > root/frontend.cfg
 
-The locking was added to avoid potential races involving _VPF_suspended and
-the suspend/resume logic.
+.. and heredoc here ^^ ?
 
-Consider the case where domain_lock() is not used inside domain_resume():
+> +echo "#!/bin/bash
+> +
+> +set -x
+> +
+> +bash /etc/init.d/xencommons start
+> +
+> +xl list
+> +
+> +tail -F /var/log/xen/console/guest-backend.log 2>/dev/null | sed -e \"s/=
+^/(backend) /\" &
+> +tail -F /var/log/xen/console/guest-frontend.log 2>/dev/null | sed -e \"s=
+/^/(frontend) /\" &
+> +xl -vvv create /root/backend.cfg
+> +xl -vvv create /root/frontend.cfg
+> +" > etc/local.d/xen.start
 
-Domain 1 initiates suspend via PSCI SYSTEM_SUSPEND. At the same time,
-Domain 0 invokes resume for Domain 1.
+.. and heredoc here ^^ ?
 
-Domain 0 calls xl resume, which leads to domain_resume(). Domain 1 acquires
-domain_lock() as part of the suspend path. Then it acquires the shutdown
-lock in domain_shutdown(). Domain 0 is blocked waiting for the shutdown
-lock. When Domain 1 releases the shutdown lock, it sets _VPF_suspended and
-modifies the VCPU context. Then Domain 0 clears _VPF_suspended.
+> +chmod +x etc/local.d/xen.start
+> +
+> +cp ../domU-rootfs.img ./root/domU-rootfs-b.img
+> +cp ../domU-rootfs.img ./root/domU-rootfs-f.img
+                                            ^
+Perhaps use "backend" and "frontend" suffixes for clarify?
 
-At this point, ctxt_switch_from() might be called with _VPF_suspended
-already cleared, and the VCPU context partially updated. For example, the
-guest PC is set to the resume entry point, but some registers like TTBR or
-SCTLR_EL1 are saved from the current hardware context by
-ctxt_switch_from.
+> +cp ../bzImage ./root/
+> +mkdir -p etc/default
+> +echo 'XENCONSOLED_TRACE=3Dall' >> etc/default/xencommons
+> +mkdir -p var/log/xen/console
+> +mkfs.ext4 -d . ../dom0-rootfs.img 2048M
+> +cd ..
+> +rm -rf rootfs
+> +
+> +cd ..
+> +
+> +cat >> binaries/pxelinux.0 << EOF
+> +#!ipxe
+> +
+> +kernel xen console=3Dcom1 console_timestamps=3Dboot
+> +module bzImage console=3Dhvc0 root=3D/dev/sda net.ifnames=3D0
+> +boot
+> +EOF
+> +
+> +# Run the test
+> +rm -f smoke.serial
+> +export TEST_CMD=3D"qemu-system-x86_64 \
+> +    -cpu qemu64,+svm \
+> +    -m 2G -smp 2 \
+> +    -monitor none -serial stdio \
+> +    -nographic \
+> +    -device virtio-net-pci,netdev=3Dn0 \
+> +    -netdev user,id=3Dn0,tftp=3Dbinaries,bootfile=3D/pxelinux.0 \
+> +    -drive file=3Dbinaries/dom0-rootfs.img,format=3Draw"
+> +
+> +export TEST_LOG=3D"smoke.serial"
+> +export BOOT_MSG=3D"Latest ChangeSet: "
+> +export LOG_MSG=3D"Domain-0"
+> +export PASSED=3D"$passed"
+> +
+> +./automation/scripts/console.exp | sed 's/\r\+$//'
+> --
+> git-series 0.9.1
+>=20
 
-However, after reviewing the flow again, I think this kind of race could
-still happen even with the lock in place. Imagine Domain 1 sets the flag
-via SYSTEM_SUSPEND, and then Domain 0 clears it by resuming the domain
-before the first context switch. This could still result in a partially
-updated context with inconsistent state.
-
-So it might be better to update the VCPU context at the point of resume
-instead of doing it during suspend. I'll look into that further and also
-check for other possible races if the update is moved.
-
->
-> The addition of this locking is particularly interesting considering that
-> ...
->
-> >      spin_lock(&d->shutdown_lock);
->
-> ... is what follows right after.
->
-> > --- a/xen/include/xen/sched.h
-> > +++ b/xen/include/xen/sched.h
-> > @@ -814,6 +814,9 @@ void domain_destroy(struct domain *d);
-> >  int domain_kill(struct domain *d);
-> >  int domain_shutdown(struct domain *d, u8 reason);
-> >  void domain_resume(struct domain *d);
-> > +#ifdef CONFIG_ARM
-> > +void domain_resume_nopause(struct domain *d);
-> > +#endif
-> >
-> >  int domain_soft_reset(struct domain *d, bool resuming);
-> >
-> > @@ -1010,6 +1013,10 @@ static inline struct domain *next_domain_in_cpup=
-ool(
-> >  /* VCPU is parked. */
-> >  #define _VPF_parked          8
-> >  #define VPF_parked           (1UL<<_VPF_parked)
-> > +/* VCPU is suspended. */
-> > +#define _VPF_suspended       9
-> > +#define VPF_suspended        (1UL<<_VPF_suspended)
->
-> Irrespective of the style violations in pre-existing code, can you please
-> not add further violations, by inserting the missing blanks?
-
-Okay
-
->
-> > +
-> >
->
-> Please also don't introduce double blank lines.
-
-I'll remove it.
-
->
-> Jan
-
-Best regards,
-Mykola
 
