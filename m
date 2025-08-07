@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FCA0B1D0D9
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 04:12:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1072417.1435553 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC8A5B1D1ED
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 07:18:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1072506.1435562 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujq7C-0005Ay-E9; Thu, 07 Aug 2025 02:12:22 +0000
+	id 1ujszt-000337-T7; Thu, 07 Aug 2025 05:17:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1072417.1435553; Thu, 07 Aug 2025 02:12:22 +0000
+Received: by outflank-mailman (output) from mailman id 1072506.1435562; Thu, 07 Aug 2025 05:17:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujq7C-00057r-Am; Thu, 07 Aug 2025 02:12:22 +0000
-Received: by outflank-mailman (input) for mailman id 1072417;
- Thu, 07 Aug 2025 02:12:21 +0000
+	id 1ujszt-00030W-Pi; Thu, 07 Aug 2025 05:17:01 +0000
+Received: by outflank-mailman (input) for mailman id 1072506;
+ Thu, 07 Aug 2025 05:17:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ybbA=2T=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1ujq7A-00057l-Bp
- for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 02:12:21 +0000
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gbW2=2T=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1ujszs-00030Q-I4
+ for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 05:17:00 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f138c6cb-7333-11f0-a324-13f23c93f187;
- Thu, 07 Aug 2025 04:12:18 +0200 (CEST)
+ id be04f9c9-734d-11f0-a324-13f23c93f187;
+ Thu, 07 Aug 2025 07:16:58 +0200 (CEST)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-332559ace6eso5183631fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Aug 2025 22:16:58 -0700 (PDT)
+Received: from yp-VivoBook-ASUSLaptop-M1503QA-M1503QA.. ([95.67.15.120])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-332617dad03sm15339301fa.58.2025.08.06.22.16.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 06 Aug 2025 22:16:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,459 +45,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f138c6cb-7333-11f0-a324-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1754532736; x=1754791936;
-	bh=pnbjNA7b84S64s2d5tVI8OT6Mn3KUydHYnfCEMr6Byk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=AwDOYtM4rGbp21lkPv3uo3qxnLYkJQZ0Yo2wF4IW4D4KFo9K8dkfeJRjn1QnLDmgg
-	 P6Dac3mA38o9X3NziOM6lWOXBpMvbxkeCXGAPYeOqtRYrFDxzyjbSGCfwXJE3n9b3M
-	 2MJJ88S2ME4tbVG+vagkx1xIcEl/PtJp2KaPbxVrgu2RBR3awiGeIgW1X3BmC1WjQJ
-	 jGy2jT7PHB1oka9eIQMAAJ7Z2CFiUrABL/Lz4txCUQ/cbg/P7po7ET8HaCzu/F9Fu+
-	 vwtPt+w0A/QmT8s0zFdrG187zfG49lG7JC/nolFuwn2UO8CFfbHXxQiEvGdHO+w+1D
-	 7BNM1ZGeP2ZjA==
-Date: Thu, 07 Aug 2025 02:12:10 +0000
-To: =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-From: dmkhn@proton.me
-Cc: xen-devel@lists.xenproject.org, alejandro.garciavallejo@amd.com, andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: Re: [PATCH v13 2/3] tools/tests: introduce unit tests for domain ID allocator
-Message-ID: <aJQLdgpNsMj3oMgK@kraken>
-In-Reply-To: <aJISADd9g16o8nud@macbook.local>
-References: <20250730174042.1632011-1-dmukhin@ford.com> <20250730174042.1632011-3-dmukhin@ford.com> <aJISADd9g16o8nud@macbook.local>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 84f27724c176e8decbd57fd9db920fe020f13f45
+X-Inumbo-ID: be04f9c9-734d-11f0-a324-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1754543818; x=1755148618; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=2cwbTztMm7LAAWc7S9z7SIjMK5xW5qzQ5BPRA2LNUzk=;
+        b=hAUUwIvtbwFjf7EVen+wjgjLrg+u7+is/QUTEoQKfjLLLvL0vCFVmMPCiAT03P0jb+
+         zzY3xH/YcN5sN1hCq3R8Xhrb4izhfdXwvPFh2IqjCanhAt/ANHJviJXq0Fk9lhwaIYOr
+         HOlhOM3HgnH2M0O8ZPk+LsRWe2jqDEqwadMStkjl6MWc4jBtNDUSoUExQNqTiMoDl8L+
+         OiiCdfBs67/OpJhlzGM4jYl1tLYevhwx39oWX1yBvnxrduj482+QFWLM0gPluvSPqw7T
+         Qqa5REq7qDtA8RPm3sRUcQ+kdaFyP3u7mz8Ol4XRjIVpSaipIRx+njelBLb4qoY4E0Kf
+         Sziw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1754543818; x=1755148618;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=2cwbTztMm7LAAWc7S9z7SIjMK5xW5qzQ5BPRA2LNUzk=;
+        b=Vao1IamqHV6lEPLfVLcJf4KM1u9DeKnvw23Zi722KBIEpQSD/qkR37oo9fk+5rRDRn
+         aFfoyqm2nq6yeLqGiXqn3ljwPntsGgdy3q5CdhlDOA2sE4p20YJ9f7R4T8Ugc/8Z1eaz
+         QF2NBsCa+omGSxeRKdgWRmOreWgyntEFLiSvB1rZSlKphcla9SOxQz67kzLENsA6DRqG
+         0wgkgq4TTuwnGoTmFIZP9Y9PvtlkHx4SF072zWVFgx0k+VnP7MNaij0aHg4KGOQdbXdG
+         +a22dR7Rh3rJ9Td3+LRCBdGo7acepLj/HdLmHrW/jhKAehQOHyDDPfeqUg4HEi7O/ZNG
+         0p6w==
+X-Gm-Message-State: AOJu0Yxg/WVQtpatwUc6LB3b3jmFcl6KnywC7Ga1AHzLEc0iGRARCgik
+	iw9IknytMiBWIiRzpQkqZPlOq/9rXRRVGD6fYD+OARiWo/tVEVXtDGhvlGkRhg==
+X-Gm-Gg: ASbGncu355VvywOw4OzvWRBjVjljYIhEFZzpW7/kWU2Y+CKQUKlHqedn3tzP2E0NJHp
+	4CtoBeR+O+Duqt1RVZchP+tfuS/JQwASeg8mdohK+eXQL9rZK+670JqMackunL7CTqaq6tcxnbv
+	FSuvD+UHDLn55FnscIqXCr4w/9QSu+0Qyr8vUQM0agi/C2ba4dhM0pkBhe1Dmx5WW3J3dIG+WPo
+	sJOSU5cr8NyAGhyl65PAT7k9FWcV7ec0+By8Zb1OcbqIRGLqiGbAeXSmP7SUToR6vs9tN98WrCz
+	BxqTOab+OXjzW6nAHR3bPf3F9NXkRHvqrN8HgTdvuNKTEaubsePA8f8s1aIJDydIywwJOk1biUf
+	PyFaBsMT70l85psA2xZpxxqL9eHQkORwGwRJDTh9XZ5udwaK639M3i6BnHrBsPEHHyEDeAGJ0
+X-Google-Smtp-Source: AGHT+IGvuioCeTS98AKrplArDhtvwSyMwrb+yYBqVXHVvICbOsAyeSz3J4FR4WidZls81El2gvsIcw==
+X-Received: by 2002:a2e:1311:0:b0:32c:abf4:d76a with SMTP id 38308e7fff4ca-33381477218mr12043971fa.38.1754543817383;
+        Wed, 06 Aug 2025 22:16:57 -0700 (PDT)
+From: Mykola Kvach <xakep.amatop@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	Mykola Kvach <mykola_kvach@epam.com>
+Subject: [PATCH v5] xen/char: implement suspend/resume calls for SCIF driver
+Date: Thu,  7 Aug 2025 08:16:52 +0300
+Message-ID: <e57133182b9bcecb519911c8b3f0d871955d6fef.1754540991.git.mykola_kvach@epam.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 05, 2025 at 04:15:28PM +0200, Roger Pau Monn=C3=A9 wrote:
-> On Wed, Jul 30, 2025 at 05:41:00PM +0000, dmkhn@proton.me wrote:
-> > From: Denis Mukhin <dmukhin@ford.com>
-> >
-> > Introduce some basic infrastructure for doing domain ID allocation unit=
- tests,
-> > and add a few tests that ensure correctness of the domain ID allocator.
-> >
-> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> > ---
-> > Changes since v12:
-> > - fixed Makefile
-> > - dropped unused symbols/includes from the test harness header
-> > - s/printk/printf/g in the test code
-> > ---
-> >  tools/tests/Makefile                   |   2 +-
-> >  tools/tests/domid/.gitignore           |   2 +
-> >  tools/tests/domid/Makefile             |  48 ++++++++++
-> >  tools/tests/domid/include/xen/domain.h | 126 +++++++++++++++++++++++++
-> >  tools/tests/domid/test-domid.c         |  78 +++++++++++++++
-> >  5 files changed, 255 insertions(+), 1 deletion(-)
-> >  create mode 100644 tools/tests/domid/.gitignore
-> >  create mode 100644 tools/tests/domid/Makefile
-> >  create mode 100644 tools/tests/domid/include/xen/domain.h
-> >  create mode 100644 tools/tests/domid/test-domid.c
-> >
-> > diff --git a/tools/tests/Makefile b/tools/tests/Makefile
-> > index 36928676a666..ff1666425436 100644
-> > --- a/tools/tests/Makefile
-> > +++ b/tools/tests/Makefile
-> > @@ -1,7 +1,7 @@
-> >  XEN_ROOT =3D $(CURDIR)/../..
-> >  include $(XEN_ROOT)/tools/Rules.mk
-> >
-> > -SUBDIRS-y :=3D
-> > +SUBDIRS-y :=3D domid
-> >  SUBDIRS-y +=3D resource
-> >  SUBDIRS-$(CONFIG_X86) +=3D cpu-policy
-> >  SUBDIRS-$(CONFIG_X86) +=3D tsx
-> > diff --git a/tools/tests/domid/.gitignore b/tools/tests/domid/.gitignor=
-e
-> > new file mode 100644
-> > index 000000000000..70e306b3c074
-> > --- /dev/null
-> > +++ b/tools/tests/domid/.gitignore
-> > @@ -0,0 +1,2 @@
-> > +*.o
-> > +test-domid
-> > diff --git a/tools/tests/domid/Makefile b/tools/tests/domid/Makefile
-> > new file mode 100644
-> > index 000000000000..08fbad096aec
-> > --- /dev/null
-> > +++ b/tools/tests/domid/Makefile
-> > @@ -0,0 +1,48 @@
-> > +# SPDX-License-Identifier: GPL-2.0-only
-> > +#
-> > +# Unit tests for domain ID allocator.
-> > +#
-> > +# Copyright 2025 Ford Motor Company
-> > +
-> > +XEN_ROOT=3D$(CURDIR)/../../..
-> > +include $(XEN_ROOT)/tools/Rules.mk
-> > +
-> > +TESTS :=3D test-domid
-> > +
-> > +vpath domid.c $(XEN_ROOT)/xen/common/
-> > +
-> > +.PHONY: all
-> > +all: $(TESTS)
-> > +
-> > +.PHONY: run
-> > +run: $(TESTS)
-> > +=09$(foreach t,$(TESTS),./$(t);)
-> > +
-> > +.PHONY: clean
-> > +clean:
-> > +=09$(RM) -- *.o $(TESTS) $(DEPS_RM)
-> > +
-> > +.PHONY: distclean
-> > +distclean: clean
-> > +=09$(RM) -- *~
-> > +
-> > +.PHONY: install
-> > +install: all
-> > +=09$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC)/tests
-> > +=09$(INSTALL_PROG) test-domid $(DESTDIR)$(LIBEXEC)/tests
-> > +
-> > +.PHONY: uninstall
-> > +uninstall:
-> > +=09$(RM) -- $(DESTDIR)$(LIBEXEC)/tests/test-domid
-> > +
-> > +CFLAGS +=3D -D__XEN_TOOLS__
-> > +CFLAGS +=3D $(APPEND_CFLAGS)
-> > +CFLAGS +=3D $(CFLAGS_xeninclude)
-> > +CFLAGS +=3D -I./include/
-> > +
-> > +LDFLAGS +=3D $(APPEND_LDFLAGS)
-> > +
-> > +test-domid: domid.o test-domid.o
-> > +=09$(CC) $^ -o $@ $(LDFLAGS)
-> > +
-> > +-include $(DEPS_INCLUDE)
-> > diff --git a/tools/tests/domid/include/xen/domain.h b/tools/tests/domid=
-/include/xen/domain.h
-> > new file mode 100644
-> > index 000000000000..e5db0235445e
-> > --- /dev/null
-> > +++ b/tools/tests/domid/include/xen/domain.h
-> > @@ -0,0 +1,126 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only */
-> > +/*
-> > + * Unit test harness for domain ID allocator.
-> > + *
-> > + * Copyright 2025 Ford Motor Company
-> > + */
-> > +
-> > +#ifndef _TEST_HARNESS_
-> > +#define _TEST_HARNESS_
-> > +
-> > +#include <assert.h>
-> > +#include <stdbool.h>
-> > +#include <stdint.h>
-> > +#include <stdio.h>
-> > +
-> > +#include <xen-tools/common-macros.h>
-> > +
-> > +#define BUG_ON(x)               assert(!(x))
-> > +#define ASSERT(x)               assert(x)
-> > +
-> > +#define DOMID_FIRST_RESERVED    (10)
-> > +#define DOMID_INVALID           (11)
-> > +
-> > +#define DEFINE_SPINLOCK(x)      unsigned long *(x)
->=20
-> I think this shouldn't be a pointer?  As you otherwise trigger a NULL
-> pointer dereference in the increases and decreases done below?
+From: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 
-Sorry, this bitops integration is very raw.
+Implement suspend and resume callbacks for the SCIF UART driver,
+enabled when CONFIG_SYSTEM_SUSPEND is set. This allows proper
+handling of UART state across system suspend/resume cycles.
 
-Thanks for all your suggestions, I reworked it.
+Tested on Renesas R-Car H3 Starter Kit.
 
->=20
-> > +#define spin_lock(x)            ((*(x))++)
-> > +#define spin_unlock(x)          ((*(x))--)
->=20
-> FWIW, I would use a plain bool:
->=20
-> #define DEFINE_SPINLOCK(l)      bool l
-> #define spin_lock(l)            (*(l) =3D true)
-> #define spin_unlock(l)          (*(l) =3D false)
->=20
-> As you don't expect concurrency tests, you could even assert the lock
-> is in the expected state before taking/releasing it.
->=20
-> > +
-> > +#define printk printf
-> > +
-> > +#define BITS_PER_LONG           sizeof(unsigned long)
->=20
-> That's BYTES_PER_LONG, BITS_PER_LONG would be (sizeof(unsigned long) * 8)=
-.
->=20
-> > +#define BITS_PER_WORD           (8U * BITS_PER_LONG)
-> > +#define BITS_TO_LONGS(bits) \
-> > +    (((bits) + BITS_PER_LONG - 1) / BITS_PER_LONG)
-> > +#define DECLARE_BITMAP(name, bits) \
-> > +    unsigned long name[BITS_TO_LONGS(bits)]
-> > +
-> > +static inline int __test_and_set_bit(unsigned int nr, unsigned long *a=
-ddr)
-> > +{
-> > +    unsigned long mask =3D 1UL << (nr % BITS_PER_WORD);
-> > +    unsigned long *p =3D addr + (nr / BITS_PER_WORD);
-> > +    int old =3D (*p & mask) !=3D 0;
-> > +
-> > +    *p |=3D mask;
-> > +
-> > +    return old;
-> > +}
-> > +
-> > +static inline int __test_and_clear_bit(unsigned int nr, unsigned long =
-*addr)
-> > +{
-> > +    unsigned long mask =3D 1UL << (nr % BITS_PER_WORD);
-> > +    unsigned long *p =3D addr + (nr / BITS_PER_WORD);
-> > +    int old =3D (*p & mask) !=3D 0;
-> > +
-> > +    *p &=3D ~mask;
-> > +
-> > +    return old;
-> > +}
->=20
-> Could you somehow use the generic__test_and_set_bit() and
-> generic__test_and_clear_bit() implementations in bitops.h?
+Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+---
+In patch v5, there are no changes at all;
+it was done just to trigger a review.
 
-I tried that originally, and it pulls a lot of dependencies from xen/bitops=
-.h;
-that will be a mini project to compile xen/bitops.h for the host, which I
-think I can skip doing for the purpose of this test.
+In patch v4, enhance commit message, no functional changes
 
-I followed another approach as discussed offline in matrix: re-purpose
-tools/libs/ctrl/xc_bitops.h which seems to be working nice!
+In patch v2, I just added a CONFIG_SYSTEM_SUSPEND check around
+the suspend/resume functions in the SCIF driver.
+---
+ xen/drivers/char/scif-uart.c | 40 ++++++++++++++++++++++++++++++++++--
+ 1 file changed, 38 insertions(+), 2 deletions(-)
 
->=20
-> > +
-> > +static inline void __set_bit(unsigned int nr, volatile unsigned long *=
-addr)
-> > +{
-> > +    unsigned long mask =3D 1UL << (nr % BITS_PER_WORD);
-> > +    unsigned long *p =3D (unsigned long *)addr + (nr / BITS_PER_WORD);
->=20
-> Why do you need the cast to drop the volatile here?
->=20
-> > +
-> > +    *p |=3D mask;
-> > +}
->=20
-> I think you could possibly simplify to a single line:
->=20
->     ((unsigned int *)addr)[nr >> 5] |=3D (1u << (nr & 31));
->=20
-> That's the implementation of constant_set_bit() in x86.
->=20
-> > +
-> > +static inline void __clear_bit(unsigned int nr, volatile unsigned long=
- *addr)
-> > +{
-> > +    unsigned long mask =3D 1UL << (nr % BITS_PER_WORD);
-> > +    unsigned long *p =3D (unsigned long *)addr + (nr / BITS_PER_WORD);
-> > +
-> > +    *p &=3D ~mask;
-> > +}
->=20
-> I don't think you need __clear_bit()?  It's not used by domid.c AFAICT.
-
-Overlooked, thanks.
-
->=20
-> > +
-> > +static inline unsigned long find_next_zero_bit(const unsigned long *ad=
-dr,
-> > +                                               unsigned long size,
-> > +                                               unsigned long offset)
-> > +{
-> > +    unsigned long idx =3D offset / BITS_PER_WORD;
-> > +    unsigned long bit =3D offset % BITS_PER_WORD;
-> > +
-> > +    if (offset >=3D size)
-> > +        return size;
-> > +
-> > +    while (offset < size)
-> > +    {
-> > +        unsigned long val =3D addr[idx] | (~0UL >> (BITS_PER_WORD - bi=
-t));
-> > +
-> > +        if (~val)
-> > +        {
-> > +            unsigned long pos =3D __builtin_ffsl(~val);
-> > +
-> > +            if (pos > 0)
-> > +            {
-> > +                unsigned long rc =3D idx * BITS_PER_WORD + (pos - 1);
-> > +
-> > +                if (rc < size)
-> > +                    return rc;
-> > +            }
-> > +        }
-> > +
-> > +        offset =3D (idx + 1) * BITS_PER_WORD;
-> > +        idx++;
-> > +        bit =3D 0;
-> > +    }
-> > +
-> > +    return size;
-> > +}
->=20
-> Hm, you need a full find_next_zero_bit() implementation here because
-> addr can be arbitrarily long.  Could you somehow include
-> xen/lib/find-next-bit.c and set the right defines so only the
-> implementation of find_next_bit() is included?
-
-That's a good idea!
-
-xen/lib/find-next-bit.c seems to be integrating pretty simple.
-
-Thanks for the hint!
-
->=20
-> > +
-> > +typedef bool spinlock_t;
->=20
-> You want to put this ahead, so that DEFINE_SPINLOCK can be:
->=20
-> #define DEFINE_SPINLOCK(l)      spinlock_t l
->=20
-> > +typedef uint16_t domid_t;
-> > +
-> > +/* See include/xen/domain.h */
-> > +extern domid_t domid_alloc(domid_t domid);
-> > +extern void domid_free(domid_t domid);
-> > +
-> > +#endif /* _TEST_HARNESS_ */
-> > +
-> > +/*
-> > + * Local variables:
-> > + * mode: C
-> > + * c-file-style: "BSD"
-> > + * c-basic-offset: 4
-> > + * indent-tabs-mode: nil
-> > + * End:
-> > + */
-> > diff --git a/tools/tests/domid/test-domid.c b/tools/tests/domid/test-do=
-mid.c
-> > new file mode 100644
-> > index 000000000000..d52eaf5f1f55
-> > --- /dev/null
-> > +++ b/tools/tests/domid/test-domid.c
-> > @@ -0,0 +1,78 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only */
-> > +/*
-> > + * Unit tests for domain ID allocator.
-> > + *
-> > + * Copyright 2025 Ford Motor Company
-> > + */
-> > +
-> > +/* Local test include replicating hypervisor includes. */
-> > +#include <xen/domain.h>
->=20
-> I think this is a difficult to maintain position.  Right now domid.c
-> only includes xen/domain.h, so you can easily replace this in
-> user-space.  However if/when domid.c starts including more headers,
-> replicating this in user-space will be cumbersome IMO.
->=20
-> I would just guard the includes in domid.c with #ifdef __XEN__ for the
-> preprocessor to remove them when domid.c is compiled as part of the
-> unit-tests harness.
->=20
-> I usually include a harness.h that contains the glue to make the
-> imported code build (much like what you have placed in the test
-> harness xen/domain.h header.
-
-I like that there's no need to modify the tested code.
-
-I reworked this slightly differently: local include/xen/domain.h is a symli=
-nk
-to local harness.h, and all future dependendent files will be symlinks to
-harness.h as well.
-
->=20
-> > +
-> > +int main(int argc, char **argv)
-> > +{
-> > +    domid_t expected, allocated;
-> > +
-> > +    printf("DOMID_FIRST_RESERVED=3D%u DOMID_INVALID=3D%u\n",
-> > +            DOMID_FIRST_RESERVED, DOMID_INVALID);
-> > +
-> > +    /* Test ID#0 cannot be allocated twice. */
-> > +    allocated =3D domid_alloc(0);
-> > +    printf("TEST 1: expected %u allocated %u\n", 0, allocated);
-> > +    ASSERT(allocated =3D=3D 0);
-> > +    allocated =3D domid_alloc(0);
-> > +    printf("TEST 1: expected %u allocated %u\n", DOMID_INVALID, alloca=
-ted);
-> > +    ASSERT(allocated =3D=3D DOMID_INVALID);
-> > +
-> > +    /* Ensure ID is not allocated. */
-> > +    domid_free(0);
-> > +
-> > +    /*
-> > +     * Test that that two consecutive calls of domid_alloc(DOMID_INVAL=
-ID)
-> > +     * will never return the same ID.
-> > +     * NB: ID#0 is reserved and shall not be allocated by
-> > +     * domid_alloc(DOMID_INVALID).
-> > +     */
-> > +    for ( expected =3D 1; expected < DOMID_FIRST_RESERVED; expected++ =
-)
-> > +    {
-> > +        allocated =3D domid_alloc(DOMID_INVALID);
-> > +        printf("TEST 2: expected %u allocated %u\n", expected, allocat=
-ed);
-> > +        ASSERT(allocated =3D=3D expected);
-> > +    }
-> > +    for ( expected =3D 1; expected < DOMID_FIRST_RESERVED; expected++ =
-)
-> > +    {
-> > +        allocated =3D domid_alloc(DOMID_INVALID);
-> > +        printf("TEST 3: expected %u allocated %u\n", DOMID_INVALID, al=
-located);
-> > +        ASSERT(allocated =3D=3D DOMID_INVALID);
-> > +    }
-> > +
-> > +    /* Re-allocate first ID from [1..DOMID_FIRST_RESERVED - 1]. */
-> > +    expected =3D 1;
-> > +    domid_free(1);
-> > +    allocated =3D domid_alloc(DOMID_INVALID);
-> > +    printf("TEST 4: expected %u allocated %u\n", expected, allocated);
-> > +    ASSERT(allocated =3D=3D expected);
-> > +
-> > +    /* Re-allocate last ID from [1..DOMID_FIRST_RESERVED - 1]. */
-> > +    expected =3D DOMID_FIRST_RESERVED - 1;
-> > +    domid_free(DOMID_FIRST_RESERVED - 1);
-> > +    allocated =3D domid_alloc(DOMID_INVALID);
-> > +    printf("TEST 5: expected %u allocated %u\n", expected, allocated);
-> > +    ASSERT(allocated =3D=3D expected);
-> > +
-> > +    /* Allocate an invalid ID. */
-> > +    expected =3D DOMID_INVALID;
-> > +    allocated =3D domid_alloc(DOMID_FIRST_RESERVED);
-> > +    printf("TEST 6: expected %u allocated %u\n", expected, allocated);
-> > +    ASSERT(allocated =3D=3D expected);
->=20
-> I would make this a bit less chatty maybe?
-
-Ack.
-
->=20
-> I think you only need to print on errors, and you probably don't want
-> to ASSERT() on failure, and rather try to finish all the tests in
-> order to report multiple failures in a single run.
-
-I thought about it originally, but my "tests" depend on each other, so I'll
-keep failing on the first error as is, if there's no strong objection.
-
->=20
-> Thanks, Roger.
+diff --git a/xen/drivers/char/scif-uart.c b/xen/drivers/char/scif-uart.c
+index 757793ca45..888821a3b8 100644
+--- a/xen/drivers/char/scif-uart.c
++++ b/xen/drivers/char/scif-uart.c
+@@ -139,9 +139,8 @@ static void scif_uart_interrupt(int irq, void *data)
+     }
+ }
+ 
+-static void __init scif_uart_init_preirq(struct serial_port *port)
++static void scif_uart_disable(struct scif_uart *uart)
+ {
+-    struct scif_uart *uart = port->uart;
+     const struct port_params *params = uart->params;
+ 
+     /*
+@@ -155,6 +154,14 @@ static void __init scif_uart_init_preirq(struct serial_port *port)
+ 
+     /* Reset TX/RX FIFOs */
+     scif_writew(uart, SCIF_SCFCR, SCFCR_RFRST | SCFCR_TFRST);
++}
++
++static void scif_uart_init_preirq(struct serial_port *port)
++{
++    struct scif_uart *uart = port->uart;
++    const struct port_params *params = uart->params;
++
++    scif_uart_disable(uart);
+ 
+     /* Clear all errors and flags */
+     scif_readw(uart, params->status_reg);
+@@ -271,6 +278,31 @@ static void scif_uart_stop_tx(struct serial_port *port)
+     scif_writew(uart, SCIF_SCSCR, scif_readw(uart, SCIF_SCSCR) & ~SCSCR_TIE);
+ }
+ 
++#ifdef CONFIG_SYSTEM_SUSPEND
++
++static void scif_uart_suspend(struct serial_port *port)
++{
++    struct scif_uart *uart = port->uart;
++
++    scif_uart_stop_tx(port);
++    scif_uart_disable(uart);
++}
++
++static void scif_uart_resume(struct serial_port *port)
++{
++    struct scif_uart *uart = port->uart;
++    const struct port_params *params = uart->params;
++    uint16_t ctrl;
++
++    scif_uart_init_preirq(port);
++
++    /* Enable TX/RX and Error Interrupts  */
++    ctrl = scif_readw(uart, SCIF_SCSCR);
++    scif_writew(uart, SCIF_SCSCR, ctrl | params->irq_flags);
++}
++
++#endif /* CONFIG_SYSTEM_SUSPEND */
++
+ static struct uart_driver __read_mostly scif_uart_driver = {
+     .init_preirq  = scif_uart_init_preirq,
+     .init_postirq = scif_uart_init_postirq,
+@@ -281,6 +313,10 @@ static struct uart_driver __read_mostly scif_uart_driver = {
+     .start_tx     = scif_uart_start_tx,
+     .stop_tx      = scif_uart_stop_tx,
+     .vuart_info   = scif_vuart_info,
++#ifdef CONFIG_SYSTEM_SUSPEND
++    .suspend      = scif_uart_suspend,
++    .resume       = scif_uart_resume,
++#endif
+ };
+ 
+ static const struct dt_device_match scif_uart_dt_match[] __initconst =
+-- 
+2.48.1
 
 
