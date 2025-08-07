@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2842B1DAD5
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 17:30:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1073215.1436125 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DA96B1DAEA
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 17:41:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1073232.1436135 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uk2ZQ-0002C7-HR; Thu, 07 Aug 2025 15:30:20 +0000
+	id 1uk2jr-00059E-JD; Thu, 07 Aug 2025 15:41:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1073215.1436125; Thu, 07 Aug 2025 15:30:20 +0000
+Received: by outflank-mailman (output) from mailman id 1073232.1436135; Thu, 07 Aug 2025 15:41:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uk2ZQ-0002AQ-Dz; Thu, 07 Aug 2025 15:30:20 +0000
-Received: by outflank-mailman (input) for mailman id 1073215;
- Thu, 07 Aug 2025 15:30:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+2Ad=2T=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uk2ZP-0002AK-8F
- for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 15:30:19 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 69ea50eb-73a3-11f0-b898-0df219b8e170;
- Thu, 07 Aug 2025 17:30:14 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-af95ecfbd5bso215330666b.1
- for <xen-devel@lists.xenproject.org>; Thu, 07 Aug 2025 08:30:14 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af96bc4fb0dsm744720866b.112.2025.08.07.08.30.12
+	id 1uk2jr-000577-GH; Thu, 07 Aug 2025 15:41:07 +0000
+Received: by outflank-mailman (input) for mailman id 1073232;
+ Thu, 07 Aug 2025 15:41:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=oMMd=2T=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uk2jq-000571-JB
+ for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 15:41:06 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ece8c226-73a4-11f0-a324-13f23c93f187;
+ Thu, 07 Aug 2025 17:41:03 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-61592ff5ebbso1831840a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Aug 2025 08:41:03 -0700 (PDT)
+Received: from [192.168.1.17] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-af91a0766d1sm1334005666b.18.2025.08.07.08.41.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Aug 2025 08:30:13 -0700 (PDT)
+ Thu, 07 Aug 2025 08:41:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69ea50eb-73a3-11f0-b898-0df219b8e170
+X-Inumbo-ID: ece8c226-73a4-11f0-a324-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754580614; x=1755185414; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=oX7zJNSglFlShZAkmD9jfV8HWgXHlPPuKXa58RsdfN4=;
-        b=UzCzcmcAUTH87Ulun8h+QAhY09Bfdu8gCks2i8xT5J6fjtg47EX+VbYExqTeJFvQ9c
-         qZHlo7ohKY5di12nh3jSzKD6szBZVP5+v4CRP/G1fQBZxPUZpGpo7LWpy9SVKHvLQj/5
-         vr/HccA752y7rfacpPdCgsAV3kxY6LLt8T3KZPCiwZIRohxia39n4eVubJtGEUwCfauM
-         yF+BtjHIYLSaEVn/Inu0wSmCu4Blva5y9YfAcrff+FBrUH9LsPpj4ekSwdaKIwG3UV5H
-         niKBBVOyDspUOqRiMISPyohCUulz9fDojKG2PV8tVxbCgFiIxtKqG6dZCPMVazrSLGtu
-         veKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754580614; x=1755185414;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1754581263; x=1755186063; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=oX7zJNSglFlShZAkmD9jfV8HWgXHlPPuKXa58RsdfN4=;
-        b=IjpEvwYgVCpMjj/9NvylXj3PLpo2B9Ycz+j174Z8zVwJkRFphxowJtI9tjG3FBvZBa
-         FCqhRS7CGx9eiQ93HPrBe9aFOXPHKWPsc5oq10MV3nLopao3kkwYPGHurb8r36P9wXqy
-         XxIYjWrnh4BHIbkTj+Zx2SnwG43jRLbH2+vX0VWcaZV2uKctlixMrmpegC3SUEGijMR+
-         R1JQaOZIoRDY5dNKPOLxNNzX5rdgQWExgRaakZM/hIr7WqdG3wg5PGwLju95bqPRHXIZ
-         15/PlkqplNwcRawUqtYxZJjAHZEVGi11QOgn9kXXhmo+KeMya6eaZmxsZV82hfaEBfm5
-         plEg==
-X-Forwarded-Encrypted: i=1; AJvYcCVkERhj6ZCoe8eZSQ8lgdVECaG6Rjb7rI3jkQ6P2G1EkSBkIh0FlYcI/V24vgPyrJEEv5NLewW+8SI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzwr1NHkcPDKy0DfQo40cboOL/UgkVNIhrTnUc4ewEg9IBtPc6b
-	ttXi0T54Aq1MmIA/UyU8RZDd0DF835X/XHU2cPIZ3CzTrEHwtzcbF99mf8uisqkWVQ==
-X-Gm-Gg: ASbGncuHz+0XaxRLN4sB2qJni+5GEZw2XRgFBUeEg64JUlkCBpyfAeZbwNNVTaRaDq3
-	nuiI4roxYEiLHGuEFKW5vmhVACrShRPwn1AkoeX81Prtz0BZhvrROlvHj07ZleIXaIdiSK96xND
-	stN5g0N/7lbqjrjydOH0/chbwSLS/fI6XY7TB/plRUyajKJ2kWJYjcXlkyPP8uJJFN2JGxIXm6w
-	WDLwcek6Y55AB6/pvTTgv4rJNRmAzqkHyX/kqkwiYWfv4g060M60zx0+Vf43oNL/UumQ8TTKBe+
-	UsMsAEyrtPuhxHWsXebLyvOi5jobUXbGKDjZM49yHg4KMIG7U/mfrEpRECO9sn84T7e+RaInDlA
-	tlXzMwG6I41/ZP1wWx5IhArhOFM7wtjMegzyXoh/7+NP3RN0f8hvrUK+xJEj+xILdXjqZhCLYbY
-	sz6pu6CAA=
-X-Google-Smtp-Source: AGHT+IE5v9wPcfGEbBvJOmKEJbeMPrqPy/q0EZrroHWcIFviUCpKBzW8ijmucZYUC/IoZVOJifwlBw==
-X-Received: by 2002:a17:907:7b9d:b0:af9:34de:e4a1 with SMTP id a640c23a62f3a-af9902e4aacmr706788766b.33.1754580613633;
-        Thu, 07 Aug 2025 08:30:13 -0700 (PDT)
-Message-ID: <d81b41c9-59e1-4807-af27-9d952d35ba42@suse.com>
-Date: Thu, 7 Aug 2025 17:30:11 +0200
+        bh=Ml60KIc2CYkWNPdjzB+KfxViAnMLY5u6Fz5Mxsc9eVI=;
+        b=OCfb0vuYx1Jd4k8WbBjvL2I30KsPmWhMQSpuxwtW4tyfBBr2nkqEjpwMqnpvJNe0fu
+         60ecqMbwlWiL50ZOqrVJ0hpq0yGzXlK7Z+4g2kH3w0+k/Ry57gYGXun4twJ2VMPNFA7T
+         z4abP34awS16bVCHB2e/1isQlCiEsMv7cZ2ehQeIRTuMYcjePc5WhX75jQKiyA4XxvGS
+         ejJVsKP3BP9CbaHW816eIP+DpS/IoPmOjxzu59vlXfU1ZoE+kzE6GQQUeMUngKQuAFkQ
+         BZ4khqyn9tdlnu3kXhzeUSsb3sRyL+yBaVwxWwLUyMTUlih5tJkDhyRoVl26wiaCDrT2
+         LxeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1754581263; x=1755186063;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Ml60KIc2CYkWNPdjzB+KfxViAnMLY5u6Fz5Mxsc9eVI=;
+        b=pvIFuupQ733bG7QIdwlOngnaV/VmZGQ2E0wFiDYurb6YTzZ1Xjz6HN+kGCtuw3UcC9
+         Wk5wHLWCEroBS9YxUsNd8EFIGnxM21+2Cl82THUNKxUyuHpnKF489JIOKsdnoLKjelRJ
+         49hvevPZQe0BksnSbCAYcVk5iHnYf7uapAmqLEKhYS7qMmeV34MDTiTNyJ47YXFIcrgJ
+         zkCU43kxgrIKAMFOH5U6SnwINE0fBrtbM6Zy4O8QuWnBFnAjipWchdbK8ztnduAgnsm+
+         Cu7yR3iF2UpsMuLZYKlde6Jk5SSJGOPmXjQDvUz1ak56SVMIMma918MarpaeyfacJDFd
+         ORDA==
+X-Forwarded-Encrypted: i=1; AJvYcCUDgup/Jwimfa7XHxbjuub59Bvtj82ZmgPxG0tACSow/vnbsQkW5iT+h7i1qgwhQGWB2vwj1IsekoE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzhaqAG0CxKbJdkoG1a/hEInt+nRAc2eajwFeCMpjqmJq/kkCMI
+	RATiB0NDCeSN60r462dO/hcKF4EuQkxiA6/S3A1d2jswmT6ChMMTfwnu
+X-Gm-Gg: ASbGnctdtvn9LHAUXXUt5btlS2bzkPnqHTv1/lKSw4xXzelAzB+q6gECZ1UH3h2+a5B
+	co0xn3jl4KTuyUN+LoP+x0Pmlbrv5xjlUflE0rv2CYHOD1Bje1u0PNoP6l3TUpC45eEyt3PK14m
+	FLp42EjX7OV3zfMpYzdwF6BleLrWTHLfUEQDIJu8694HXAXW2e8ia3Yu0/o2jF9vwIGU6bbc7TR
+	2IQfzb8UFLTMzfN6VZ4tfUMNghSnuCBNSx1rTqzftU0Fex+pdTEQDro8j0ObrU+u6g8jg1ab4Gj
+	mf9fptnS5EKgYCLbsbb+zRzPk8n6lC7lfXkiXVua6h21MFCgWqhvTcXBCp5RQcip/CvBFARzdAE
+	drcFlS1vZFY0HTaVa1rHnKY3/gb2hZiOsMuUr31hJLA0nExUkv3oreMvTzPlk/NMAuVFnMKgFTM
+	RZcBZOVOA=
+X-Google-Smtp-Source: AGHT+IFZzBeO+CrkV99PhiYIeka1twZ0VKs0QEN93feMIL1d+GHXFsdYnJhWVnQXyj9HP8SxzqX0LQ==
+X-Received: by 2002:a17:907:3e20:b0:ad8:9a3b:b274 with SMTP id a640c23a62f3a-af9c1e56b52mr35970466b.52.1754581262479;
+        Thu, 07 Aug 2025 08:41:02 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------sgn0ZyzKW2f2ep2DX6nNsYTN"
+Message-ID: <9a89f0ad-1ba8-47a5-8b9e-1d85f7be8308@gmail.com>
+Date: Thu, 7 Aug 2025 17:41:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 06/20] xen/riscv: add root page table allocation
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v3 08/20] xen/riscv: add new p2m types and helper macros
+ for type classification
+To: Jan Beulich <jbeulich@suse.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
  <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -98,62 +100,132 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
- <23c79f07221dee7eb782ebb160442f3a796a41b2.1753973161.git.oleksii.kurochko@gmail.com>
- <3c02593f-deae-4109-9334-0ac4376a9a9e@suse.com>
- <d160c6da-a4a8-44ca-9dc5-b1e3cb31bde5@gmail.com>
+ <3d35b6f4bb79048647020ed4e7b222585ca3a9a3.1753973161.git.oleksii.kurochko@gmail.com>
+ <48dcca92-4dd8-4d6e-a4cb-c10a7ee80f19@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d160c6da-a4a8-44ca-9dc5-b1e3cb31bde5@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <48dcca92-4dd8-4d6e-a4cb-c10a7ee80f19@suse.com>
+
+This is a multi-part message in MIME format.
+--------------sgn0ZyzKW2f2ep2DX6nNsYTN
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 07.08.2025 14:00, Oleksii Kurochko wrote:
-> On 8/5/25 12:37 PM, Jan Beulich wrote:
->> On 31.07.2025 17:58, Oleksii Kurochko wrote:
->>> +    /*
->>> +     * Return back nr_root_pages to assure the root table memory is also
->>> +     * accounted against the P2M pool of the domain.
->>> +     */
->>> +    if ( !paging_ret_pages_to_domheap(d, nr_root_pages) )
->>> +        return -ENOMEM;
->>> +
->>> +    page = p2m_allocate_root(d);
->>> +    if ( !page )
->>> +        return -ENOMEM;
->> Hmm, and the pool is then left shrunk by 4 pages?
-> 
-> Yes until they are used for root table it shouldn't be in p2m pool (freelist),
-> when root table will be freed then it makes sense to return them back.
-> Am I missing something?
 
-I'm commenting specifically on the error path here.
+On 8/4/25 4:16 PM, Jan Beulich wrote:
+> On 31.07.2025 17:58, Oleksii Kurochko wrote:
+>> - Extended p2m_type_t with additional types: p2m_mmio_direct,
+>>    p2m_grant_map_{rw,ro}.
+>> - Added macros to classify memory types: P2M_RAM_TYPES, P2M_GRANT_TYPES.
+>> - Introduced helper predicates: p2m_is_ram(), p2m_is_any_ram().
+>> - Define p2m_mmio_direct to tell handle_passthrough_prop() from common
+>>    code how to map device memory.
+>>
+>> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+> Almost ready to be acked, except for ...
+>
+>> --- a/xen/arch/riscv/include/asm/p2m.h
+>> +++ b/xen/arch/riscv/include/asm/p2m.h
+>> @@ -62,8 +62,30 @@ struct p2m_domain {
+>>   typedef enum {
+>>       p2m_invalid = 0,    /* Nothing mapped here */
+>>       p2m_ram_rw,         /* Normal read/write domain RAM */
+>> +    p2m_mmio_direct_io, /* Read/write mapping of genuine Device MMIO area,
+>> +                           PTE_PBMT_IO will be used for such mappings */
+>> +    p2m_ext_storage,    /* Following types'll be stored outsude PTE bits: */
+>> +    p2m_grant_map_rw,   /* Read/write grant mapping */
+>> +    p2m_grant_map_ro,   /* Read-only grant mapping */
+>>   } p2m_type_t;
+>>   
+>> +#define p2m_mmio_direct p2m_mmio_direct_io
+> ... this (see reply to patch 09).
+>
+>> +/* We use bitmaps and mask to handle groups of types */
+>> +#define p2m_to_mask(t_) BIT(t_, UL)
+> I notice that you moved the underscore to the back of the parameters,
+> compared to how Arm has it. I wonder though: What use are these
+> underscores in the first place, here and below? (There are macros where
+> conflicts could arise, but the ones here don't fall in that group,
+> afaict.)
 
-> Probably, you meant that it is needed to update p2m->pages?
+Good point, there is really no name conflicts here, so underscore could
+be just dropped.
 
-That (I think) I commented on elsewhere, yes.
+~ Oleksii
 
-Jan
+--------------sgn0ZyzKW2f2ep2DX6nNsYTN
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 8/4/25 4:16 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:48dcca92-4dd8-4d6e-a4cb-c10a7ee80f19@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 31.07.2025 17:58, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">- Extended p2m_type_t with additional types: p2m_mmio_direct,
+  p2m_grant_map_{rw,ro}.
+- Added macros to classify memory types: P2M_RAM_TYPES, P2M_GRANT_TYPES.
+- Introduced helper predicates: p2m_is_ram(), p2m_is_any_ram().
+- Define p2m_mmio_direct to tell handle_passthrough_prop() from common
+  code how to map device memory.
+
+Signed-off-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Almost ready to be acked, except for ...
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/p2m.h
++++ b/xen/arch/riscv/include/asm/p2m.h
+@@ -62,8 +62,30 @@ struct p2m_domain {
+ typedef enum {
+     p2m_invalid = 0,    /* Nothing mapped here */
+     p2m_ram_rw,         /* Normal read/write domain RAM */
++    p2m_mmio_direct_io, /* Read/write mapping of genuine Device MMIO area,
++                           PTE_PBMT_IO will be used for such mappings */
++    p2m_ext_storage,    /* Following types'll be stored outsude PTE bits: */
++    p2m_grant_map_rw,   /* Read/write grant mapping */
++    p2m_grant_map_ro,   /* Read-only grant mapping */
+ } p2m_type_t;
+ 
++#define p2m_mmio_direct p2m_mmio_direct_io
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+... this (see reply to patch 09).
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+/* We use bitmaps and mask to handle groups of types */
++#define p2m_to_mask(t_) BIT(t_, UL)
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+I notice that you moved the underscore to the back of the parameters,
+compared to how Arm has it. I wonder though: What use are these
+underscores in the first place, here and below? (There are macros where
+conflicts could arise, but the ones here don't fall in that group,
+afaict.)</pre>
+    </blockquote>
+    <pre>Good point, there is really no name conflicts here, so underscore could
+be just dropped.
+
+~ Oleksii
+</pre>
+  </body>
+</html>
+
+--------------sgn0ZyzKW2f2ep2DX6nNsYTN--
 
