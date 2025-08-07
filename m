@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0272B1D928
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 15:35:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1073091.1436012 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1341B1D92F
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 15:39:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1073102.1436022 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uk0mL-0004WB-0g; Thu, 07 Aug 2025 13:35:33 +0000
+	id 1uk0pd-0005v2-H1; Thu, 07 Aug 2025 13:38:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1073091.1436012; Thu, 07 Aug 2025 13:35:32 +0000
+Received: by outflank-mailman (output) from mailman id 1073102.1436022; Thu, 07 Aug 2025 13:38:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uk0mK-0004Su-T1; Thu, 07 Aug 2025 13:35:32 +0000
-Received: by outflank-mailman (input) for mailman id 1073091;
- Thu, 07 Aug 2025 13:35:31 +0000
+	id 1uk0pd-0005sh-E9; Thu, 07 Aug 2025 13:38:57 +0000
+Received: by outflank-mailman (input) for mailman id 1073102;
+ Thu, 07 Aug 2025 13:38:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oMMd=2T=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uk0mJ-0004So-Rq
- for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 13:35:31 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=igFk=2T=nvidia.com=jgg@srs-se1.protection.inumbo.net>)
+ id 1uk0pb-0005sb-R9
+ for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 13:38:55 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20614.outbound.protection.outlook.com
+ [2a01:111:f403:200a::614])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 63048c59-7393-11f0-a324-13f23c93f187;
- Thu, 07 Aug 2025 15:35:30 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-6157b5d0cc2so1415896a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 07 Aug 2025 06:35:30 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6176052d163sm6033291a12.48.2025.08.07.06.35.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Aug 2025 06:35:29 -0700 (PDT)
+ id dbda8b48-7393-11f0-a324-13f23c93f187;
+ Thu, 07 Aug 2025 15:38:54 +0200 (CEST)
+Received: from CH3PR12MB8659.namprd12.prod.outlook.com (2603:10b6:610:17c::13)
+ by DS0PR12MB8768.namprd12.prod.outlook.com (2603:10b6:8:14f::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.13; Thu, 7 Aug
+ 2025 13:38:49 +0000
+Received: from CH3PR12MB8659.namprd12.prod.outlook.com
+ ([fe80::6eb6:7d37:7b4b:1732]) by CH3PR12MB8659.namprd12.prod.outlook.com
+ ([fe80::6eb6:7d37:7b4b:1732%4]) with mapi id 15.20.9009.017; Thu, 7 Aug 2025
+ 13:38:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,165 +47,208 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 63048c59-7393-11f0-a324-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1754573730; x=1755178530; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZMQQUPqbSmAQ84PcDpsPR1TssQhbrv8TMUlid5SMt7U=;
-        b=m8JNP52qLmGDLPbhnclYlDxUaOMejxStOU5w6vJmQI87A36ndAG8ALgGM78e0dz0oW
-         tdrhkOZKk0Q4VKaoTVAd7DYsYW6Tu3bIAEvoWoRtkwy8tFtHnGPV4cSFl9ERF6m6QTD2
-         BvUZdGOlgpHfYfzt8XQYaeqDa2cPXlJyJMYMQuWknpdg3LrqJ2O3UyEYEWbUoLbRj7R0
-         FUDvYiECAdNO4KXwpQVH0fIbxOqDO/IrVRWhxJkDOIdXWQ2QZiHBljJL4bYHU2/O8+i7
-         9iEGp09Hfsjd+OcG9HTlG5nGkL5uBLSaaEaMH+YbI0+V0R+/jBab0hjue3iE7FEhP3RW
-         JlLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754573730; x=1755178530;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ZMQQUPqbSmAQ84PcDpsPR1TssQhbrv8TMUlid5SMt7U=;
-        b=TCP90csNVkcuGsOXqTaR/YgGZ4xhIrA7zCLqCT+V+fWhZ2fWVwa8hkm0f2i6ovD3pq
-         AKr40m/kYkXPkTH/iuhl8mN0rLpIWcACUibYhh4LsTRADmmSTYit23jtImLxNMFafpy6
-         ks5WFitZaTVKR7SBq0mdh/zKlq/UlRA4ThjUndM9BYpM9+HLlP9E/hC3t1wytrRNT8Cn
-         6e5coc45SKQ1PsiCIU4u1lEyW3WGUa5RZVupOpTRB+8haQX9B/QLv+Y2wxEPIoGtf2rW
-         rQHNmi7aaoYTieI8qvbXVlP8rknwK3rye6Gx10Onq49GB/h6nYb5F8WdD4teeCvfv2oX
-         0f+Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVi+RrKFdgi2SRAuG8lylA1Caw9jJ01oIcmzfHSZTPYFalwcJjyJZZDX8bvEdU6+s41ughRUgY9KsY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwzqUlYw42li6f0TA/IKIQUMHlU2I2uK7diux6rJdCH3j9bk+jx
-	QnAr7KplVKJVhcUf0S2r/vb6efCZo9MYS5YbbqZzpeSR4DoB/j4+tw/v
-X-Gm-Gg: ASbGncsIQjmpKM0P0N86MX2Tfjn+bpUB81rT2yHDeaNjitOfwMOeFc2RZQ6sAAkQhnh
-	w3ogvWc0i3o9hj66rUNulZfie93UfnIwzwSqPRD23tWXsrhtY8sPwnCTqWk2GsqHMe7ISmw273h
-	eIVXrCstQDz2T0EoTKNZZjsgYA7tJizQM/oHJDGyzxLNDIWWy81P8R5PxP9AqqbsUy8mGiU8y12
-	F8UwC55sol1SDVJEVvQME150/x1xPIdczZM985Jfij1+/UchBqqLC9LkVKjCHW4Le+1XPvK2OQ7
-	DcI4fKnQfzEbCyJ82GZEW/VJOIWHlx6v4+grcWAg7RHZmXauYWzedyTOq6xfpfz8+ENL6K8Ll1B
-	JTOKYUw04bFEeU/f8nXS3TckXz2svUqhmz63ral6lqb6XzJnwYD1jfXBstdQW8USk0CmSWSs=
-X-Google-Smtp-Source: AGHT+IEM0roZqSysoFXqrDxjwksiGBMuheWYWRwh/WggvQ3R1gIncLhEctJQNa34eECIheOm/jWesg==
-X-Received: by 2002:a05:6402:3111:b0:615:399e:d3ba with SMTP id 4fb4d7f45d1cf-61797e2b407mr3699780a12.32.1754573729903;
-        Thu, 07 Aug 2025 06:35:29 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------Ai0G5NcisNLRIKxItrFcJzkT"
-Message-ID: <ccdd5caa-2c91-4125-9c6b-067c941649b1@gmail.com>
-Date: Thu, 7 Aug 2025 15:35:28 +0200
+X-Inumbo-ID: dbda8b48-7393-11f0-a324-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=odOtssjFOkCHYaLHQ+/p9kfwL3oWQqyiWiKZLpw7XJiF0foKdV34qpOhsa1iNCspSxVdxU4gA0WIItvoFQ9sRtdvvhlbhXyTBk5Ca0RXJ3RlP78IzX7daEYxP+3DERHoiEVZUq6MhT6APGT5uklKHYQGIFquSh71x2Puus3T4i8nJPnglcxkCDj+8H6wruHDXuIIsoc9Tm1p4FS/4NhFdVpTORh7rLv1w8bBVZVxzJvWspW37QJRE8JbsVFRKO7JzmyP7iBHI65AgMr19mjmpCkS4hgxSVfHwg581jbnkd35C/EEQ7HPbqjeAMv/llJMdnXVlbhEQw0Qywxz9wytHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=54Px3zvYf4CuEyxVRynpi6iF48N3mew5kEum4tnD5v0=;
+ b=WHGqL+evN1vHpZ7qbQ6RVVDVkvnpn9fYJEwlKcNw2tuS3UHw/cekUJCZobaYpQw5oT7ZwdVyQKnVpTVWm91I3/g6uByftqmmGJajARVQMwsOO9dqOj08ynUXbkUqDt6SJ5/gtWuR9mLD8+eLzSM5/PNlgbOjQw+WTLl9Q+Wilktn4nmyWf4bk60zuNCZL/pFTfeMO+nffuX/AI27zQBaZMKSFQQb2GELkui8GmIZSdjYczrggAtJANFiIiV2RKlxQg+TV+OCwfC3kU1vxB88biOmpAblynNudTd1fLMHTUoWJN7e0avj0G1kzWej0DCDpJG7TOjvkxlpUnW+JZo5Vg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=54Px3zvYf4CuEyxVRynpi6iF48N3mew5kEum4tnD5v0=;
+ b=Bf0mhOSD+JdgReLtcb1INqB0/uyZWs8MTJetWOhSwa3/PLkVmbmv/hM6Jl3dg3NDMwPrsdDM/AlzyEUrUBURHkACZ6cjHLXiooKnG2YMGnzXwkRRzEcBCBNXbcVCGh58e12vxDNvxaaYSD3/bhb5e9s0aMvTNDZ9mGcWTWp5Z0O13GK0Lzmffv4MQJjFCGVLtyoFeRFT2sBeSM6zy6Jvlf/218RHAdsr+LCFfAT+PZAJJKhqdojdp/MgjqxqGvZgP7XN2ZxopR4zMA620B+mgkDwCkQXS11WIz7ZuvEqkQWL/b9jGOLORKloIcURxJ7DSXvoNKuXdOWI1COqBddbww==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Date: Thu, 7 Aug 2025 10:38:48 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
+	Leon Romanovsky <leonro@nvidia.com>,
+	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Alex Gaynor <alex.gaynor@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
+	iommu@lists.linux.dev, Jason Wang <jasowang@redhat.com>,
+	Jens Axboe <axboe@kernel.dk>, Joerg Roedel <joro@8bytes.org>,
+	Jonathan Corbet <corbet@lwn.net>, Juergen Gross <jgross@suse.com>,
+	kasan-dev@googlegroups.com, Keith Busch <kbusch@kernel.org>,
+	linux-block@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-nvme@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+	linux-trace-kernel@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 11/16] dma-mapping: export new dma_*map_phys()
+ interface
+Message-ID: <20250807133848.GL184255@nvidia.com>
+References: <cover.1754292567.git.leon@kernel.org>
+ <b96c639433d3b614288be4b305ecba3a9fb2c00f.1754292567.git.leon@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b96c639433d3b614288be4b305ecba3a9fb2c00f.1754292567.git.leon@kernel.org>
+X-ClientProxiedBy: YT4PR01CA0497.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10c::15) To CH3PR12MB8659.namprd12.prod.outlook.com
+ (2603:10b6:610:17c::13)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 06/20] xen/riscv: add root page table allocation
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
- <23c79f07221dee7eb782ebb160442f3a796a41b2.1753973161.git.oleksii.kurochko@gmail.com>
- <7491c934-f847-4fe2-9d9b-a500f0888198@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <7491c934-f847-4fe2-9d9b-a500f0888198@suse.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR12MB8659:EE_|DS0PR12MB8768:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5c6203ba-7b89-4eee-7a5d-08ddd5b7bd5f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?AMKVoTshkoWihCrrnOUvbEbK3Gi7aXCYIDForZBGpYKryA4uJRbN0UDpbFTN?=
+ =?us-ascii?Q?H/nr1xjNK0yCSTAH2/3voqKzqcPQ8JjFMyfvCCv2aMnvNbHTA33B63muGzmW?=
+ =?us-ascii?Q?5DuQYeQkxu9Uw2xN2G18A8DecvYxjTEqqa7EJ52Dz0bjjAPXvhQ6AbLFGWBo?=
+ =?us-ascii?Q?59GavV3fO9HNdDxXcrP+paneiJa1nxYzUrzHDIscVuUyHiCjrFZNgOHhDikR?=
+ =?us-ascii?Q?7wcVcGvgI+hCp9HjXxKQW7tGN8V0FZgKJ/bqXmnsX/x5N/3zlk0pVa9FtJCH?=
+ =?us-ascii?Q?CLPxOt79JdMBCRMDwcNL4hI95vmDbD6/mce+8brYWOpRzcZnRWyO0Z5vCBGI?=
+ =?us-ascii?Q?JDKz/8pIG7Vb3fuJmFMrtI+6ePyGKdAZgWpMJplKOpaDdL8hONs1XFxGY7VF?=
+ =?us-ascii?Q?svLNjoB5HWfHueL7yuniD8+OFfjxkYeo06UE1BdxGED3DIddzKnkvCsYbmy2?=
+ =?us-ascii?Q?VVwT75RYTyr6y5rIgz8ZLeboijTMVYkuysX3l8Ek+VqpZpozDcvGgOwi5WrW?=
+ =?us-ascii?Q?TLv867KYTn5yifskzFshdlklW2WRDN6LKSXpACxyJQaInAZ5DaBuhGWJmIoI?=
+ =?us-ascii?Q?DaBEtwnyLGOS/S1BvFNEUiuqy0i++7tiaJLQxVzGHrqb1qEGEukHyzAMHjZi?=
+ =?us-ascii?Q?TDdil9vH++NAqfwB+u16QWc/W04KAsYHH0kgRD1OlGGP4AQ/OWmGu2I69nP3?=
+ =?us-ascii?Q?IeWJNgKGb2zPeCIR5L77759PtmgLjN9ZhwxCfwgEgrCcd6CywpMAD2pVM8hu?=
+ =?us-ascii?Q?3mZVa0GoXXJgLkCn2cznn+Rk7DSN3JZxQZRyFAC7E5crCHy/caMXV0IW6cKu?=
+ =?us-ascii?Q?u34KX7iKGK8KAze/O4LNUcsx+v3h1RnDfd/N/Rou0rM+Z5viJS4XumBIE1Jz?=
+ =?us-ascii?Q?SzYPcu8cpkdfVKdtTBdSm0oGs3ugExQh0AgyzrygW3AI/wEbU+hmjREG4iGS?=
+ =?us-ascii?Q?qtmNR6urQDwKamP16/n/ls1+o0YkvBPAuhiwtpUP9HOlaORcZB3FN29xVU1v?=
+ =?us-ascii?Q?TqXUAq7QjNtdswDx9oAvbvt/vTce4GRKf/wneoIZAVvOjUckgyP6SfE/Y193?=
+ =?us-ascii?Q?jwhYRGUwASumZDJM62eTSJoZUQEb7/X0M+i1nPjqPkJP33D4vu3NtK94/gKB?=
+ =?us-ascii?Q?wGakF67m/iwQtk5r07m1A/AtX6+j5UjwVztZ34j7mNl+c1EeLAnYfnmrB7aw?=
+ =?us-ascii?Q?sJwNviOQtRPsQfeJqQ/GG5CFr4zbQt7E0hoxpBm9rXEMb8O7/x3Nu0rM+YS6?=
+ =?us-ascii?Q?rxP5rXjWZsJa9uzk+4HAdEq4C3vazwpTl7fBeNJsDiScIPUUvpC5+7OteGZ3?=
+ =?us-ascii?Q?pM8bimM2DTTDvatW94F9tddt+JSq7lKAKgOsbF3YH0ARnXa7VuNBAwsbNsbU?=
+ =?us-ascii?Q?Kt8K+jvchAm+kmGcMUFNcXaGLGeT2VGjqdTOqFq/nWWV8fszgKi6LZ8x6BWB?=
+ =?us-ascii?Q?oJRmbUVR0z0=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB8659.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?MBPINjYfPGiE5jDtZnc+kL6Tem1DGVvWnnr4IAqOJ3QqDGwGQYyBqSEdaTWv?=
+ =?us-ascii?Q?rCrkX2y/Sk4d6j61UbByvUXt3nKTkD+MeO8cPgtXL/XPX2sGtHrb8gNrSr/u?=
+ =?us-ascii?Q?OEKNTVQZ7CHsvHCdnd9X5FXuoX0i/hrhFXJMhY5OxAO2m5eI/uVKfnRhtNME?=
+ =?us-ascii?Q?WfPPxcc0BXNl1H77XG1bbVfLl4VNWDgxX70H0hEofaU4W5E3P1swLrZW9mdQ?=
+ =?us-ascii?Q?Feukc/5DifHe2SePpUv2EKDGC4VLP8K0ep5Ci+eTGyK2EaR19DpqUB7DqHVw?=
+ =?us-ascii?Q?ocoo7Xx2dFbyGGwWrbx8IanAzYUqZ6w3V2/BwdDcAbpOYtPMk++ubsPaWkJS?=
+ =?us-ascii?Q?86KBb6LCEKOCBbnz91YiL8E+jtdRHZk0nVLho1rNXZKq6wB0lX7GySKFPJYi?=
+ =?us-ascii?Q?4omNcGV34wSS0K+GJyD46PR/zDcAmDow1riE3YHKDXpojGGSfyFt7iU3pvfH?=
+ =?us-ascii?Q?wc8uUrVB+XPvmrMfTcW6f6GhHRWWtb4Dv4kTaBpvPOa+uihaAGvn0nj+7oA0?=
+ =?us-ascii?Q?lH1msGlh5aLcnLykZ0KM2VqWGkDwK1aa8TxDl0T7g19lHp/PkCYYEyI4Oydg?=
+ =?us-ascii?Q?x36u5MNNY4csSkfMtShIOKMjAXTOfgsV3noFPXKv7GWBj4G63jQRQy7KIztY?=
+ =?us-ascii?Q?iPkXT0BhYBwhfcaZNLxAMZv/8/Vpu40Cz3B5loET0MoCiijmOSqhjQdf7GwW?=
+ =?us-ascii?Q?D35UMZoK5FjnyeDHRoCkY78/CsRcdqBbRu0V6nzyYh7xTVf8SEmvcU4/IM9+?=
+ =?us-ascii?Q?3LW+QVoPsOUarqzKeGJeU5AoFMb/rluC1yy28WSJumduJKF/GZW2yw51wFAB?=
+ =?us-ascii?Q?AX9Y4SJw5BaOn58fwEy4isBeUtWN43pvqqdfGWTuVGltm4QnzrrRrmFYQxzo?=
+ =?us-ascii?Q?YCfQhh0zaLBvD0u0iYz56hPKffO19tDiR+lPXZxIpIVEszLomukhAvwhOJUW?=
+ =?us-ascii?Q?Mw+9j/MEH0hp09oZ3t8tmTi9yYBa4OvVYhtPBCu7s0rvRmL1yCnVTkTlJvQ5?=
+ =?us-ascii?Q?l3+N6jLtVsMz+54ZIPO8T0dp0FSwyKmeiM2I57nUM+9+kei6xaLYl/nsyMcS?=
+ =?us-ascii?Q?lFDpa4criGr7VWHlF9ecZdlmf8lRoqzbwaY2QJALFxY+Yy8lXP2jKXIhGrlI?=
+ =?us-ascii?Q?nsR1LN7f5+rqLOuMwqDQX4KgxOZc2rBg31tXp98jmNTtVA0VPrwb7rTxuXnP?=
+ =?us-ascii?Q?K7xw5frFaQTc7Tm/sId0dEa4GdyvSh4TxEDupjoJUpbOPfqqUDwiCgIA8VCG?=
+ =?us-ascii?Q?qGb3DHiGYlIQyyN5h8MRnLL5ilAlfSWqxXHhjp5U3+BnT323tDZHc4o4W3Hr?=
+ =?us-ascii?Q?xKkMQNzUFeKjJZjncuQgF/AamcRWrEHt26fXixwlZVz+XJNC3GEHrBc+Ri4r?=
+ =?us-ascii?Q?0+lMkCA/HXc2Shv8z27rCCJ46nrnGEQEFheADapJYipY4Mc0WWth2NBJ4r/t?=
+ =?us-ascii?Q?SM90I4M3q/2GCRG7KRKfbnaRI5P/PHGCBgNBYW/YrXQ62mQggCHMTmkRy/6E?=
+ =?us-ascii?Q?aahjgO1NFxrLDGTYgcHOkgZKuqC/j4pfzuZPIHHd7UDLyQf/J9B+7fmCNSfu?=
+ =?us-ascii?Q?sxifWglQ0mC+PDduUgw=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c6203ba-7b89-4eee-7a5d-08ddd5b7bd5f
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB8659.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2025 13:38:49.1750
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ONwX7mHa1EuCmMcNdBKJGTu1Z2nQrZWEhwSNbSygKKjIuQb9Rcj66qSQFOkzaU9W
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8768
 
-This is a multi-part message in MIME format.
---------------Ai0G5NcisNLRIKxItrFcJzkT
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+On Mon, Aug 04, 2025 at 03:42:45PM +0300, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
+> 
+> Introduce new DMA mapping functions dma_map_phys() and dma_unmap_phys()
+> that operate directly on physical addresses instead of page+offset
+> parameters. This provides a more efficient interface for drivers that
+> already have physical addresses available.
+> 
+> The new functions are implemented as the primary mapping layer, with
+> the existing dma_map_page_attrs() and dma_unmap_page_attrs() functions
+> converted to simple wrappers around the phys-based implementations.
 
+Briefly explain how the existing functions are remapped into wrappers
+calling the phys functions.
 
-On 8/5/25 12:43 PM, Jan Beulich wrote:
-> On 31.07.2025 17:58, Oleksii Kurochko wrote:
->> +static int p2m_alloc_root_table(struct p2m_domain *p2m)
->> +{
->> +    struct domain *d = p2m->domain;
->> +    struct page_info *page;
->> +    const unsigned int nr_root_pages = P2M_ROOT_PAGES;
->> +
->> +    /*
->> +     * Return back nr_root_pages to assure the root table memory is also
->> +     * accounted against the P2M pool of the domain.
->> +     */
->> +    if ( !paging_ret_pages_to_domheap(d, nr_root_pages) )
->> +        return -ENOMEM;
->> +
->> +    page = p2m_allocate_root(d);
->> +    if ( !page )
->> +        return -ENOMEM;
->> +
->> +    p2m->root = page;
->> +
->> +    return 0;
->> +}
-> In the success case, shouldn't you bump the paging pool's total_pages by
-> P2M_ROOT_PAGES? (As the freeing side is missing so far, it's not easy to
-> tell whether there's [going to be] a balancing problem in the long run.
-> In the short run there certainly is.)
+> +dma_addr_t dma_map_page_attrs(struct device *dev, struct page *page,
+> +		size_t offset, size_t size, enum dma_data_direction dir,
+> +		unsigned long attrs)
+> +{
+> +	phys_addr_t phys = page_to_phys(page) + offset;
+> +
+> +	if (unlikely(attrs & DMA_ATTR_MMIO))
+> +		return DMA_MAPPING_ERROR;
+> +
+> +	if (IS_ENABLED(CONFIG_DMA_API_DEBUG))
+> +		WARN_ON_ONCE(!pfn_valid(PHYS_PFN(phys)));
 
-I think that total_pages should be updated only in case when page is added
-to freelist.
-In the case of p2m root table, we just returning some pages to domheap and
-durint that decreasing an amount of total_pages as freelist has lesser pages,
-and then just allocate pages from domheap without adding them to freelist.
+This is not useful, if we have a struct page and did page_to_phys then
+pfn_valid is always true.
 
-~ Oleksii
+Instead this should check for any ZONE_DEVICE page and reject that.
+And handle the error:
 
---------------Ai0G5NcisNLRIKxItrFcJzkT
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+  if (WARN_ON_ONCE()) return DMA_MAPPING_ERROR;
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 8/5/25 12:43 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:7491c934-f847-4fe2-9d9b-a500f0888198@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 31.07.2025 17:58, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+static int p2m_alloc_root_table(struct p2m_domain *p2m)
-+{
-+    struct domain *d = p2m-&gt;domain;
-+    struct page_info *page;
-+    const unsigned int nr_root_pages = P2M_ROOT_PAGES;
-+
-+    /*
-+     * Return back nr_root_pages to assure the root table memory is also
-+     * accounted against the P2M pool of the domain.
-+     */
-+    if ( !paging_ret_pages_to_domheap(d, nr_root_pages) )
-+        return -ENOMEM;
-+
-+    page = p2m_allocate_root(d);
-+    if ( !page )
-+        return -ENOMEM;
-+
-+    p2m-&gt;root = page;
-+
-+    return 0;
-+}
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-In the success case, shouldn't you bump the paging pool's total_pages by
-P2M_ROOT_PAGES? (As the freeing side is missing so far, it's not easy to
-tell whether there's [going to be] a balancing problem in the long run.
-In the short run there certainly is.)</pre>
-    </blockquote>
-    <pre>I think that total_pages should be updated only in case when page is added
-to freelist.
-In the case of p2m root table, we just returning some pages to domheap and
-durint that decreasing an amount of total_pages as freelist has lesser pages,
-and then just allocate pages from domheap without adding them to freelist.
+I'd add another debug check inside dma_map_phys that if !ATTR_MMIO
+then pfn_valid, and not zone_device
 
-~ Oleksii
-</pre>
-  </body>
-</html>
+> @@ -337,41 +364,18 @@ EXPORT_SYMBOL(dma_unmap_sg_attrs);
+>  dma_addr_t dma_map_resource(struct device *dev, phys_addr_t phys_addr,
+>  		size_t size, enum dma_data_direction dir, unsigned long attrs)
+>  {
 
---------------Ai0G5NcisNLRIKxItrFcJzkT--
+> -	const struct dma_map_ops *ops = get_dma_ops(dev);
+> -	dma_addr_t addr = DMA_MAPPING_ERROR;
+> -
+> -	BUG_ON(!valid_dma_direction(dir));
+> -
+> -	if (WARN_ON_ONCE(!dev->dma_mask))
+> +	if (IS_ENABLED(CONFIG_DMA_API_DEBUG) &&
+> +	    WARN_ON_ONCE(pfn_valid(PHYS_PFN(phys_addr))))
+>  		return DMA_MAPPING_ERROR;
+>  
+> -	if (dma_map_direct(dev, ops))
+> -		addr = dma_direct_map_resource(dev, phys_addr, size, dir, attrs);
+> -	else if (use_dma_iommu(dev))
+> -		addr = iommu_dma_map_resource(dev, phys_addr, size, dir, attrs);
+> -	else if (ops->map_resource)
+> -		addr = ops->map_resource(dev, phys_addr, size, dir, attrs);
+> -
+> -	trace_dma_map_resource(dev, phys_addr, addr, size, dir, attrs);
+> -	debug_dma_map_resource(dev, phys_addr, size, dir, addr, attrs);
+> -	return addr;
+> +	return dma_map_phys(dev, phys_addr, size, dir, attrs | DMA_ATTR_MMIO);
+>  }
+>  EXPORT_SYMBOL(dma_map_resource);
+
+I think this makes alot of sense at least.
+
+Jason
 
