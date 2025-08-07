@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63529B1D47A
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 10:50:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1072647.1435651 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35068B1D482
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Aug 2025 10:57:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1072661.1435662 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujwKW-0002LK-F2; Thu, 07 Aug 2025 08:50:32 +0000
+	id 1ujwRT-0003Dm-4P; Thu, 07 Aug 2025 08:57:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1072647.1435651; Thu, 07 Aug 2025 08:50:32 +0000
+Received: by outflank-mailman (output) from mailman id 1072661.1435662; Thu, 07 Aug 2025 08:57:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ujwKW-0002Ih-CF; Thu, 07 Aug 2025 08:50:32 +0000
-Received: by outflank-mailman (input) for mailman id 1072647;
- Thu, 07 Aug 2025 08:50:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ujwRT-0003B8-1p; Thu, 07 Aug 2025 08:57:43 +0000
+Received: by outflank-mailman (input) for mailman id 1072661;
+ Thu, 07 Aug 2025 08:57:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+2Ad=2T=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ujwKV-0002Ib-Bd
- for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 08:50:31 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 90e3b37d-736b-11f0-b898-0df219b8e170;
- Thu, 07 Aug 2025 10:50:27 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-615756b1e99so1135695a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 07 Aug 2025 01:50:27 -0700 (PDT)
+ id 1ujwRR-0003B2-Ph
+ for xen-devel@lists.xenproject.org; Thu, 07 Aug 2025 08:57:41 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8bd51110-736c-11f0-a324-13f23c93f187;
+ Thu, 07 Aug 2025 10:57:28 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-604bff84741so1422335a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Aug 2025 01:57:28 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a219ef2sm1267613366b.96.2025.08.07.01.50.26
+ 4fb4d7f45d1cf-615a8fe79a0sm11479181a12.39.2025.08.07.01.57.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Aug 2025 01:50:26 -0700 (PDT)
+ Thu, 07 Aug 2025 01:57:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90e3b37d-736b-11f0-b898-0df219b8e170
+X-Inumbo-ID: 8bd51110-736c-11f0-a324-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754556627; x=1755161427; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754557048; x=1755161848; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lDC92W9A9lAsblfPUtOc0R4iDWmNlvOrw0F9YGmEf90=;
-        b=IY/3V0GYgU8R452X8eYs2o5nr3W05ZNctxjbPYNh8H8TnREqvBrE1ZAGQIr+goT46T
-         LjZ5HISCc0x0FFJ0/62E/CeNpwwQESoXEPtqr8JvjxVoUH3u85weeU6IJNL+EKE7nl48
-         UUt80MHf7PIB5rCBHevAU6Dl5f+erCM+EUz9vBK4yAPyqkioiTeTN5YvjQIy2jO+3O2W
-         Q2SvN4VhXvWklr5oOyWctDb+3cOmlPiw3SlX79NnDdJlE9udP2CzM9AOQo8EsYbRW5uv
-         KH71MEC+GBekynk7m+r5YoTL6+Z37VmIDvBRIRuAjvN+4Y3uLwR1J4NfAc2DN+JcDXEa
-         j1YQ==
+        bh=ryQl9WcoqwSsOiqVdb6BTb/4D5XKgurS1IVsplIN86w=;
+        b=Vx24esgc9Yvmsy/fnxVN/ItcOpT4g6gvmYBnPbUtH8AO5DPblE14W0gFaXcPjv5upM
+         87QR/jWU3GGyHZWN9epb4bOm8PjQnyO90T1ihSxInFBU16yIo/JghL8nJGrCGgS1NzfO
+         kaQgtMoT9+uQQOILtajLfPf0+iuEUGon0kpZTSiUCABf2peexJ7A8wlqkCEqelKR8IMy
+         gkEMXjzpvjSdPRyjPuzWg/gzPkR7+FV+3wd3aYKG7PHmZ1nCIE1R+nVA1sgysHRbrA+1
+         xzqJ41THgrn2d/bsGUL3NDPG3c6lW4bCq1yvLswB5NvBLIDPs28n5BTOXtmW9p4Bomvp
+         JmkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754556627; x=1755161427;
+        d=1e100.net; s=20230601; t=1754557048; x=1755161848;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lDC92W9A9lAsblfPUtOc0R4iDWmNlvOrw0F9YGmEf90=;
-        b=gwEU4gLQ++STLdZVdLhn1N6onTzj5Dpm0X8otmjLeGmyc4FzdNlZAVkfveeruZ7NUT
-         zFc90HiNKLi/bGJSjd4usAXfVieS0cpPK4Lklr1Z/zZUOylxfyJIcmZROcPbnlrBNaK9
-         zKZAMK3WwqIXmkPm8yfJw2PgNCTZTDSouslKlJ5dZ9IJcEUoA8n2xNp35J9PcOA6cQqD
-         1wQIkncrnGBvNO0d3dBL7catVeTNq8bB3GZqEtUNYFXskaieiABdeagOx5b1oOHUF4Bq
-         OsAPHLQe/81p8DIqitPrmJltA8CkrEe73L9rKfZqTZt3t+LkKKU7C9WCTa1ZID/MGvWY
-         HjuA==
-X-Forwarded-Encrypted: i=1; AJvYcCUO64trqO4hcGY2nQCcGAn2NOzlc8E9y5KOeQesr4tTHTJ2Vm2MjSb0vyQkmhBPHc3OdsWq4VEAHus=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyz74Sp5dwl5G1hmKKjpYfjy/qvyY185SOord92R1V8dLgDvsJj
-	Bes4SKYx855X8dt84mk2Y9PA9x9bA88J79NXbgRUxYq5Zt/BnAERDQFsCeXaP4aUyA==
-X-Gm-Gg: ASbGncs6WPQS3aIFSOOgbld2regFHsaZ1FZBuAkleZ/ss0PwVOnsijhC8hFOvAeon1C
-	iF9Ry5Wo2/dKbwb0YjDUQANuoemYBSz1Oya/KQm6XGouHBBsUEul8Hj2vThCYcnidhlWuxQHJYa
-	qWb4YuU0KTE3WrbyxlhzsFn8nuN4q/85LqQ7DFXtBhNlierGRJeGusvX2XEnn/T6p1JbEbp54VQ
-	O8So6cK8bFaC8jTYmXznr2LjpcwGzV3jf9aEZZVnRwAa5IwPeKMWu6i96x1U5Td4Tuv0LO3k1WN
-	IOt5Ak4vBikl5maPt2MelEwloDqEbu8V1Z8bi4Wq4grGP+dwVkVaTt4A50tDGEwHET74JxNTijW
-	AuVyS7YFqiXjAEmRgjirIa9V7ZwqOvuzKVb91rrFCPnheWqAaapqRTea1ADvnkgOGDOZTnC7xz4
-	zETMUYuwA=
-X-Google-Smtp-Source: AGHT+IGq/VVfzxNtTIHnGf+eMkY49oPU9izbSxQQ7kKARWFJo7zeEvHQcDF+iAjk7xTEUNjuSpW2Og==
-X-Received: by 2002:a17:907:2d13:b0:af2:42e8:ad92 with SMTP id a640c23a62f3a-af992c9705amr449373066b.61.1754556627193;
-        Thu, 07 Aug 2025 01:50:27 -0700 (PDT)
-Message-ID: <0bcf4d5b-8f6c-4a65-a7b4-cd638977fd71@suse.com>
-Date: Thu, 7 Aug 2025 10:50:25 +0200
+        bh=ryQl9WcoqwSsOiqVdb6BTb/4D5XKgurS1IVsplIN86w=;
+        b=sjT0nACnnRfkMDGIlFcw+FqoJ1SfmAvLgRUgS3ZWP9BNCj8ZIU8cSbiU8VsF+PTkgk
+         B0v8iHbgBuzSifi8dcyb/aFNPUABLEX8DuZo5Yr/bZSgQuI2X2UUfXdXI9qSnHMT9BRZ
+         K8dqm7PUfi9mbRXoK1XscJWdvmRB8hrZpPQMayRb9cJmfeNw2nTiE5xf42VbtijzbpZY
+         WYxZJgaKbovSR9neR6YxhlQFL/V9tZXNmjhV1LcLhTfc9Peij4Uwtcamq0xECb+vvLI6
+         UluQf4qWAH0tOnEQH4wCDz0kH8OVTDmLo72pG3UzsK7TAHmO9+i2txeINF7vKLMcM3+S
+         1oMg==
+X-Gm-Message-State: AOJu0Ywng/am0Pc7oRmpwPbwSXBLHvI6Co0ZKOgXPrY5LTFlB73WTnza
+	DIaxbSRB/QgiDSEIeNKmSWy7lfmEft8F8cuzm/Ftl3/M36fghvtj7qdzjT8ETlHEaw==
+X-Gm-Gg: ASbGncvqF6su9HXINBp7iscyOpGZoJFM6JoQ+Q/FycSF+50lCRYTHmF53jlT5JWjFqC
+	GcHF4ghbwn4eR2WCkQDxLNhib0PULuhWRWU+I3psws1Lat3mtNLOV1IRBimdaY1gUv6qlCSYoij
+	aThOlW1FTgrYhomOTgjSByPxuhNAGeKwYW63Z9VrGRbBHp0/p3yiGUIy9Y1qGUeMRAY4M9WKVqX
+	8TCOZX4rBHso6iN7TTqYdRVt3aXC2FJAHixpP5vppAPhbHMIL1Ten4KS1E2+pvDVPWZKVb5kxyE
+	XTkFaRPkdD0GvvQmy7gVbK19RcK3dCI0eKeD8UWBtALPMLJO3+kQlcukIcKyKL3baaq1r6eI9NG
+	askyaLs31gQgtWMNRyzNR3IdvkBsjHVRMwuC2Zw7OkKjj/oMDDR3skWdFfyKPaV/6T+0KXy1WIX
+	8jPbg+pBs=
+X-Google-Smtp-Source: AGHT+IG5KnhJCVDpPBgRLioBUywQ9XXFIzULmJLIcsvYU033i85c91vnohpF2gi+08seAzOILxBRfA==
+X-Received: by 2002:a05:6402:27d1:b0:615:aec5:b5bc with SMTP id 4fb4d7f45d1cf-61795fb9277mr4545017a12.0.1754557048084;
+        Thu, 07 Aug 2025 01:57:28 -0700 (PDT)
+Message-ID: <b948a9ab-e6b6-4096-954b-c364c16f198e@suse.com>
+Date: Thu, 7 Aug 2025 10:57:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86/mm: correct PG_log_dirty definition
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH v4] misra: add deviations of MISRA C Rule 5.5
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Doug Goldstein <cardoe@cardoe.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Penny Zheng <Penny.Zheng@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <c506f225-0993-4ef3-9e7e-60b8f17c872e@suse.com>
- <65e27b35-9256-4ab0-966a-c50a18900ba5@suse.com>
- <b3edf693-6f54-487d-b465-6224daf9746d@amd.com>
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+References: <afe942916b8a2408f575d2acda49699f74718161.1753991597.git.dmytro_prokopchuk1@epam.com>
+ <a3ac54d4fa69bfde695a55791a89eab6@bugseng.com>
+ <148c16be-03c0-43cd-a394-2b37088f4383@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,69 +125,169 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b3edf693-6f54-487d-b465-6224daf9746d@amd.com>
+In-Reply-To: <148c16be-03c0-43cd-a394-2b37088f4383@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 06.08.2025 23:24, Jason Andryuk wrote:
-> On 2025-08-05 03:59, Jan Beulich wrote:
->> While it is correct that in shim-exclusive mode log-dirty handling is
->> all unreachable code, the present conditional still isn't correct: In a
->> HVM=n and SHADOW_PAGING=n configuration log-dirty code also is all
->> unreachable (and hence violating Misra rule 2.1).
+On 06.08.2025 18:56, Dmytro Prokopchuk1 wrote:
+> On 8/1/25 01:32, Nicola Vetrini wrote:
+>> On 2025-07-31 22:43, Dmytro Prokopchuk1 wrote:
+>>> MISRA C Rule 5.5 states: "Identifiers shall be distinct from macro 
+>>> names".
+>>>
+>>> Update ECLAIR configuration to deviate clashes: specify the macros that
+>>> should be ignored. Update deviations.rst and rules.rst accordingly.
+>>>
+>>> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
 >>
->> As we're aiming at moving away from special casing PV_SHIM_EXCLUSIVE=y,
->> don't retain that part of the conditional.
+>> Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com> # ECLAIR
 >>
->> Because of hypercall-defs.c we need to carry out the dependency by
->> introducing a new auxiliary PAGING control.
->>
->> Since compiling out mm/paging.c altogether would entail further changes,
->> merely conditionalize the one function in there (paging_enable()) which
->> would otherwise remain unreachable (Misra rule 2.1 again) when PAGING=n.
->>
->> Fixes: 23d4e0d17b76 ("x86/shim: fix build with PV_SHIM_EXCLUSIVE and SHADOW_PAGING")
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> Of course PAGING is at risk of being confused with MEM_PAGING. It not
->> having a prompt, I hope that's tolerable, as I can't really think of a
->> better name.
->>
->> Other PG_log_dirty pre-processor conditionals then likely also want
->> replacing.
-
-Isn't this remark of mine ...
-
->> mm/paging.c and mm/p2m-basic.c could also be compiled out
->> altogether when PAGING=n, at the expense of introducing a few more
->> stubs.
->>
->> FTAOD, the Fixes: tag being referenced does not mean this patch corrects
->> the far more recently introduced build issue with the combination of the
->> two features. That's still work that I expect Penny to carry out (with
->> there still being the option of reverting the final part of the earlier
->> series).
->>
+>>> ---
+>>> Changes in v4:
+>>> - fixed formatting (aligned length chars per line)
+>>> - set 'ignored_macros' as a regex expression
+>>> - set a deviation restriction on xen/common/grant_table.c
+>>> - s/ensures/to ensure/
+>>> - fixed grammar errors
+>>>
+>>> Link to v3:
+>>> https://eur01.safelinks.protection.outlook.com/? 
+>>> url=https%3A%2F%2Fpatchew.org%2FXen%2Fe681e0c083d945f48e6d0add1aee32af16be224e.1753911247.git.dmytro._5Fprokopchuk1%40epam.com%2F&data=05%7C02%7Cdmytro_prokopchuk1%40epam.com%7Ce9d60ddeef764dfa381208ddd0823178%7Cb41b72d04e9f4c268a69f949f367c91d%7C1%7C0%7C638895979778846477%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=n0QPvqr8O8gos%2BYMpZ%2BMOG0spC46A7T56Vpz44wutlw%3D&reserved=0
+>>>
+>>> Test CI pipeline:
+>>> https://eur01.safelinks.protection.outlook.com/? 
+>>> url=https%3A%2F%2Fgitlab.com%2Fxen- 
+>>> project%2Fpeople%2Fdimaprkp4k%2Fxen%2F- 
+>>> %2Fpipelines%2F1960066579&data=05%7C02%7Cdmytro_prokopchuk1%40epam.com%7Ce9d60ddeef764dfa381208ddd0823178%7Cb41b72d04e9f4c268a69f949f367c91d%7C1%7C0%7C638895979778869002%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=z8DtrlxxN8nyrMNRXXW8IktFaru4f3f8N99iirhnbw0%3D&reserved=0
+>>> ---
+>>>  .../eclair_analysis/ECLAIR/deviations.ecl     | 10 +++++++++
+>>>  docs/misra/deviations.rst                     | 22 +++++++++++++++++++
+>>>  docs/misra/rules.rst                          | 17 ++++++++++++++
+>>>  3 files changed, 49 insertions(+)
+>>>
+>>> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/ 
+>>> automation/eclair_analysis/ECLAIR/deviations.ecl
+>>> index 483507e7b9..ab3400fc89 100644
+>>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>> @@ -117,6 +117,16 @@ it defines would (in the common case) be already 
+>>> defined. Peer reviewed by the c
+>>>  -config=MC3A2.R5.5,reports+={deliberate, 
+>>> "any_area(decl(kind(function))||any_loc(macro(name(memcpy||memset|| 
+>>> memmove))))&&any_area(any_loc(file(^xen/common/libelf/libelf-private\ 
+>>> \.h$)))"}
+>>>  -doc_end
+>>>
+>>> +-doc_begin="Clashes between bitops functions and macro names are 
+>>> deliberate.
+>>> +These macros are needed for input validation and error handling."
+>>> +-config=MC3A2.R5.5,ignored_macros+="^(__)?(test|set|clear|change| 
+>>> test_and_(set|clear|change))_bit$"
+>>> +-doc_end
+>>> +
+>>> +-doc_begin="Clashes between grant table functions and macro names in 
+>>> 'xen/common/grant_table.c' are deliberate.
+>>> +These macros address differences in argument count during compile- 
+>>> time, effectively discarding unused parameters to avoid warnings or 
+>>> errors related to them."
+>>> +-config=MC3A2.R5.5,ignored_macros+="name(update_gnttab_par|| 
+>>> parse_gnttab_limit)&&loc(file(^xen/common/grant_table\\.c$))"
+>>> +-doc_end
+>>> +
+>>>  -doc_begin="The type \"ret_t\" is deliberately defined multiple times,
+>>>  depending on the guest."
+>>>
+>>> - 
+>>> config=MC3A2.R5.6,reports+={deliberate,"any_area(any_loc(text(^.*ret_t.*$)))"}
+>>> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+>>> index e78179fcb8..4c64a8be62 100644
+>>> --- a/docs/misra/deviations.rst
+>>> +++ b/docs/misra/deviations.rst
+>>> @@ -142,6 +142,28 @@ Deviations related to MISRA C:2012 Rules:
+>>>         memmove.
+>>>       - Tagged as `deliberate` for ECLAIR.
+>>>
+>>> +   * - R5.5
+>>> +     - Clashes between bitops ('__test_and_set_bit', 
+>>> '__test_and_clear_bit',
+>>> +       '__test_and_change_bit', 'test_bit', 'set_bit', 'clear_bit', 
+>>> 'change_bit',
+>>> +       'test_and_set_bit', 'test_and_clear_bit', 'test_and_change_bit')
+>>> +       functions and macro names are intentional. These are necessary 
+>>> for error
+>>> +       handling and input validation to ensure that the size of the 
+>>> object being
+>>> +       referenced by the memory address (passed as an argument to the 
+>>> macro)
+>>> +       meets the minimum requirements for the bit operation. This 
+>>> prevents unsafe
+>>> +       operations on improperly sized data types that could lead to 
+>>> undefined
+>>> +       behavior or memory corruption. The macros encapsulate this 
+>>> conditional
+>>> +       logic into a single, reusable form, simplifying the code and 
+>>> avoiding
+>>> +       function call overhead. Also this bit operations API was 
+>>> inherited from
+>>> +       Linux and should be kept for familiarity.
+>>> +     - ECLAIR has been configured to ignore these macros.
+>>> +
+>>> +   * - R5.5
+>>> +     - Clashes between grant table ('update_gnttab_par', 
+>>> 'parse_gnttab_limit')
+>>> +       functions and macro names are intentional. These macros address
+>>> +       differences in argument count during compile-time, effectively 
+>>> discarding
+>>> +       unused 2nd and 3rd parameters to avoid warnings or errors 
+>>> related to them.
+>>> +     - ECLAIR has been configured to ignore these macros.
+>>> +
+>>>     * - R5.6
+>>>       - The type ret_t is deliberately defined multiple times 
+>>> depending on the
+>>>         type of guest to service.
+>>> diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
+>>> index 3e014a6298..cba15933fe 100644
+>>> --- a/docs/misra/rules.rst
+>>> +++ b/docs/misra/rules.rst
+>>> @@ -196,6 +196,23 @@ maintainers if you want to suggest a change.
+>>>             #define f(x, y) f(x, y)
+>>>             void f(int x, int y);
+>>>
+>>> +       Clashes between bitops functions and macro names are allowed
+>>> +       because they are used for input validation and error handling.
+>>> +       Example::
+>>> +
+>>> +           static inline void set_bit(int nr, volatile void *addr)
+>>> +           {
+>>> +               asm volatile ( "lock btsl %1,%0"
+>>> +                              : "+m" (ADDR) : "Ir" (nr) : "memory");
+>>> +           }
+>>> +           #define set_bit(nr, addr) ({                            \
+>>> +               if ( bitop_bad_size(addr) ) __bitop_bad_size();     \
+>>> +               set_bit(nr, addr);                                  \
+>>> +           })
+>>> +
+>>> +       Clashes between grant table functions and macro names are allowed
+>>> +       because they are used for discarding unused parameters.
+>>> +
+>>>     * - `Rule 5.6 <https://eur01.safelinks.protection.outlook.com/? 
+>>> url=https%3A%2F%2Fgitlab.com%2FMISRA%2FMISRA-C%2FMISRA- 
+>>> C-2012%2FExample-Suite%2F- 
+>>> %2Fblob%2Fmaster%2FR_05_06.c&data=05%7C02%7Cdmytro_prokopchuk1%40epam.com%7Ce9d60ddeef764dfa381208ddd0823178%7Cb41b72d04e9f4c268a69f949f367c91d%7C1%7C0%7C638895979778883822%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=crVYwr4A0vyXcUXfQ2%2FJ5EObWfr0XGLgaQ0%2FLH9pMnM%3D&reserved=0>`_
+>>>       - Required
+>>>       - A typedef name shall be a unique identifier
 > 
->> --- a/xen/arch/x86/mm/paging.c
->> +++ b/xen/arch/x86/mm/paging.c
->> @@ -864,6 +864,7 @@ void paging_final_teardown(struct domain
->>       p2m_final_teardown(d);
->>   }
->>   
->> +#ifdef CONFIG_PAGING
+> Hello Jan, Nicola.
 > 
-> The file already has a lot of uses of #if PG_log_dirty with similar 
-> meaning, if I am not mistaken, so using that would make it more 
-> consistent.  But CONFIG_PAGING is directly tied to the Kconfig, so maybe 
-> it is better?  Just something I noticed.
+> Do you have any comments regarding this patch?
+> Does it require updates/fixes?
 
-... precisely matching your observation? If we want to accept the extra churn,
-we certainly can go this route in a follow-on patch.
+Hmm, you have Nicola's R-b, so it's not clear to me what else you need from
+him. In its present shape I'm okay for the patch to go in with somebody
+else's ack (after all it's not just me who can legitimately ack it); I'm not
+happy enough with the patch to give an ack myself, even if I can't offer a
+good suggestion towards improvements.
 
-> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-
-Thanks.
-
-Jan
+Sorry, Jan
 
