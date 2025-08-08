@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E615B1E233
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Aug 2025 08:21:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1074040.1436745 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9B8DB1E238
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Aug 2025 08:22:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1074047.1436756 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukGTO-0001Kk-MO; Fri, 08 Aug 2025 06:21:02 +0000
+	id 1ukGUy-0001q1-1J; Fri, 08 Aug 2025 06:22:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1074040.1436745; Fri, 08 Aug 2025 06:21:02 +0000
+Received: by outflank-mailman (output) from mailman id 1074047.1436756; Fri, 08 Aug 2025 06:22:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukGTO-0001JJ-JY; Fri, 08 Aug 2025 06:21:02 +0000
-Received: by outflank-mailman (input) for mailman id 1074040;
- Fri, 08 Aug 2025 06:21:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ukGUx-0001oa-TZ; Fri, 08 Aug 2025 06:22:39 +0000
+Received: by outflank-mailman (input) for mailman id 1074047;
+ Fri, 08 Aug 2025 06:22:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=illN=2U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ukGTM-0001Is-Ib
- for xen-devel@lists.xenproject.org; Fri, 08 Aug 2025 06:21:00 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d9c6268b-741f-11f0-a324-13f23c93f187;
- Fri, 08 Aug 2025 08:20:59 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-af9180a11bcso366526766b.0
- for <xen-devel@lists.xenproject.org>; Thu, 07 Aug 2025 23:20:59 -0700 (PDT)
+ id 1ukGUw-0001oS-V7
+ for xen-devel@lists.xenproject.org; Fri, 08 Aug 2025 06:22:38 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 13d418d1-7420-11f0-b898-0df219b8e170;
+ Fri, 08 Aug 2025 08:22:37 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-61592ff5ebbso2799137a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Aug 2025 23:22:37 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af99148eab9sm484037666b.77.2025.08.07.23.20.58
+ a640c23a62f3a-af91a21c081sm1423945766b.97.2025.08.07.23.22.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Aug 2025 23:20:58 -0700 (PDT)
+ Thu, 07 Aug 2025 23:22:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d9c6268b-741f-11f0-a324-13f23c93f187
+X-Inumbo-ID: 13d418d1-7420-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754634059; x=1755238859; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754634156; x=1755238956; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=t/ZVNGssmV1swo3G4gqvI055lSSTPFlKR8S+iSThrzI=;
-        b=AtDQO3PvLoN6Yg37IsOcZn5H6yDUZFGnxX1wq3W1HQ1HARq5Yk49ONRpCT3HSsnSYZ
-         PNg6zBGKp+CM+Au42Bxv2JzJUiFy8WeNOy5O9YM1OTpu2R06+IZ9AQcYv73+whi9Ihpa
-         iqtM5IdrJQW+oYgGc+QDD0XJEsSU1flvIrY6fVE/Sxd1QesoNZpsjeXXwkCiGwR8Apko
-         D4pLK7OmiqlNufQxso6ZH5BLbXoix0Oin/B8Or1cmXP6POAvkiXgQDMrXXo7Sh2cQCdO
-         fL6bjQM2d5I7t9OgByEFZ9xq3wrxT5yL+YzUArH4t48UD0cjoyJRN04XSM/+zVnGHa90
-         iyhw==
+        bh=6aXxFV3eD5Lof/Z1Tv1rnOToxgqOe+zWIms9TM3lhUw=;
+        b=Wcq9Zsj8lQcRVPYkEc95ux0lcj1FcVRulVi4rrSsEYiCprya7IA4BTDfeN8dY5h3td
+         mEkITT3Z7TZt47aDu7gqX4eA2BvW4Ba0jV/XRULR0OW++D7+HOb6PkCVQgDNRVq5xOtw
+         rzDdyzbTE4R1gOJ1nlVx1/lJUWAuzjxAX7O7/kylv2eiGVubKdI1+dMuoWZVRbnemeuk
+         j/ZD64QVrXQGbNGCBbr0UjU2uaZrazytA88oTXpRqCuLmPiNAjGzS80vW1hhIf7mWdy2
+         C2GiyjvCODN7gcUy6U662LMr756Y85CifNmxeymD3ci1XSAZ1/Lm+kowa6mDNzQ5gjS7
+         VDhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754634059; x=1755238859;
+        d=1e100.net; s=20230601; t=1754634156; x=1755238956;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=t/ZVNGssmV1swo3G4gqvI055lSSTPFlKR8S+iSThrzI=;
-        b=azNo309yudFSsrjl9eba02sOCsQAO0hf/0Kg3xDOXdI4AQpvfHlJT7ZNuyBYzenWyk
-         He+lFyEH/InBPXzPGwcpFKqqVQCXRnU9SaXmxz3gUgNo6Ylrs8zTmT99Rwv2jKKZCR+o
-         sODC/fGE989PsLkX4tkMMSPOwG0JyPoHy6mUH8X+CXzimsIybWt5nzWZ16Jq0Vldp7vP
-         ya3mNKYfvXNg15QZ8Bwwrk7nT9K2PnjRprYekRvPr7Bt9c5zle4VKzY8y7cxTCMBzgJC
-         UYw64HLO57xlDtecLmlI2ftEZpol9Hgbp4ZnIJJJO8BBxKAKGXPzZkwtZEET/d7ubRko
-         8shg==
-X-Forwarded-Encrypted: i=1; AJvYcCUqNQUeTk6VcDW1hIeyVaZ+GRdQMPYT2PjS9cO6mwacn131DNS8VFPwAhZisBHe96HnRArnT5NKZp4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyLEo2TSSMEaHU+bYsEWWWr9z6Y9lVUuNWGbKy/zUiVFfnC/8/0
-	OVz7oIdewR/YCDhzcbne6/zBsgvhCvh/JIgI6x50NTnYMhCBnGSJONKK4VcHFUcyzA==
-X-Gm-Gg: ASbGnct9ZaGkoT5moaFkrumLA42u6Dp5c1OD3oM2WyxIbgdHu+phvnw9oaPK0PkQwhb
-	tt6VcC0vmJq6cBuVXyjr5ttGp6qv21LQUEOqbdw6DoWlOJsn5F6RVCLrXTniezayGX6ssnKqDCd
-	QtZWkBOFr30b7+IvfOJ1ZbYf/JHndzPlUnjfHcJZi677mcUrhf506OuuWTnLUAiAxGsLgzrJqgB
-	ND25LFEzIHbA8fdVlE4H9hvGRzgol+4CsFTDK7fiilL0n9rsQIHduBhnTn0q/7abgcznzh0mWy0
-	TEQbgk81gR7l8pSV4pEj6uZ8bxxHQsVTaScMRyqGyAqvPYH0fhwqVOpxVxbwi8bGADXxon+Yg9h
-	g4ZlyCPKf7tBV6qwsSnA6GBqhfnWtoAlWx5WYtWRyoEy9+8uT1KUTtnLKe53it6ReYvK4+y3vQp
-	NbNUgs3mAE8GyN3uqkqA==
-X-Google-Smtp-Source: AGHT+IE1spSqbHh7qWI12yKBcu+/NGzUpi1v6bpwVVPckjgGn8qxWG6KBd7fsScJImf2jginJyJAXA==
-X-Received: by 2002:a17:907:9707:b0:af8:fef0:9b23 with SMTP id a640c23a62f3a-af9c700a332mr134313966b.20.1754634058977;
-        Thu, 07 Aug 2025 23:20:58 -0700 (PDT)
-Message-ID: <dd006b8c-c198-4f38-bfaa-990122bb7174@suse.com>
-Date: Fri, 8 Aug 2025 08:20:57 +0200
+        bh=6aXxFV3eD5Lof/Z1Tv1rnOToxgqOe+zWIms9TM3lhUw=;
+        b=XljEKVxq66G6uk6wz2GcyEPhCwkBSZzUUNcthf+5A6aXJmA7jqswuoKpYa7e8h9t5p
+         FDniDThtGZmC/Ucfv34UkEHBR4STDumm9aamndnqVBPiv5oXvdSbZVtgUfPJC5qzpGkI
+         +XChVf0TpaTq9OKxNOzIqYw7p0zv128unPXCSbxFTg5G0ikwvdnC0B9r0RO5TH5TqatV
+         VPPsOw/UJChTJrEcmk7WksL6Ccpy+Cnu+ymIODTHOzdocg6kWqmsZAD60Z2+zFCfKB8r
+         DF3ljyeSmPezeojnal94hrROxDnPPpCk2G6zinF/UCXW/ksIPYo6Cl6VvsbMxOwLQ2cw
+         vxTg==
+X-Forwarded-Encrypted: i=1; AJvYcCWALMqpiDw910PaDzQ6M4a2B5EFW5ZEHwQyR2cO+9ewKLGU2mqUmayJrxKW3JmFtPiiwzBfGeiJe/c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw3J/HxfqD/qOZGwqWWowf/x7nF5ui3dAeblxTHitB0YvBj8BZh
+	I5fg07r3cPUFqf++H7rA00Zl0zSigtXVjNgrj3QzBXownRlwg6sDt10HPHV2sStOVw==
+X-Gm-Gg: ASbGncvIFYEhUk17Dh/Nv1HvkFmx9B12pAS932WffwgKiOq9BDy0nvuu9x+Xw1k/gY7
+	Ux6FcaUB22doMFIwmWTIyjfllt30krYRY735n8qhCxWEI6gMzpGcG/49HYUmdjpXHa/9jBoIj0h
+	Ea0Yz5fixGgoY9ZC62u8U7DajF3neI7ZMe5/viejtdPitXh1FYa9ZU0bkextYodYoaKomSkzy0D
+	9CriCb1NDcwh9QXa+nb55Gab76ZHbSwXCHXTHSkVPrHaV7aQt1Q4KdZ+KMqbbGkGHpi9v3KR+gi
+	yPrkfD0lZ99rmbswb77r3WREOyu2Cu66QtnhbGhQBaLtrq9voSaSnN2hUmz+IRaTrlhfNS7A6dw
+	NYUkBBpM8PDfma1hdE9n694+XNROYMqnbBG94/E0f0IHjcsc/N9RPVxUtW44e87FJuFZdm0zFgo
+	WLEIdGugw=
+X-Google-Smtp-Source: AGHT+IHhYW/igUCOdkMxzMzlRvljMTBoWejWsxcT15amTjq9FtYzCHcKEBz2ejAyJUGBf9Pz098L6g==
+X-Received: by 2002:a17:906:fe45:b0:ae6:c555:8dcf with SMTP id a640c23a62f3a-af9c63b08f4mr169060066b.26.1754634156426;
+        Thu, 07 Aug 2025 23:22:36 -0700 (PDT)
+Message-ID: <563a59a7-07fa-46c5-b22e-0f0318fb1c48@suse.com>
+Date: Fri, 8 Aug 2025 08:22:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/20] xen/arm: vIOMMU: Add cmdline boot option "viommu =
- <boolean>"
+Subject: Re: [PATCH 11/20] xen/arm: vsmmuv3: Attach Stage-1 configuration to
+ SMMUv3 hardware
 To: Milan Djokic <milan_djokic@epam.com>
 Cc: Rahul Singh <rahul.singh@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <cover.1754580687.git.milan_djokic@epam.com>
- <c539f673eef6f44a1191b0f8213ff5571baa411a.1754580688.git.milan_djokic@epam.com>
+ <f90c81d800e040db7574906fdf2ee4d57e30f2e6.1754580688.git.milan_djokic@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,33 +125,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c539f673eef6f44a1191b0f8213ff5571baa411a.1754580688.git.milan_djokic@epam.com>
+In-Reply-To: <f90c81d800e040db7574906fdf2ee4d57e30f2e6.1754580688.git.milan_djokic@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 07.08.2025 18:59, Milan Djokic wrote:
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -2058,6 +2058,13 @@ This option can be specified more than once (up to 8 times at present).
+> --- a/xen/include/xen/iommu.h
+> +++ b/xen/include/xen/iommu.h
+> @@ -311,6 +311,15 @@ static inline int iommu_add_dt_pci_sideband_ids(struct pci_dev *pdev)
 >  
->  Flag to enable or disable support for PCI passthrough
+>  #endif /* HAS_DEVICE_TREE_DISCOVERY */
 >  
-> +### viommu (arm)
-> +> `= <boolean>`
-> +
-> +> Default: `false`
-> +
-> +Flag to enable or disable support for Virtual IOMMU for guests.
+> +#ifdef CONFIG_ARM
+> +struct iommu_guest_config {
+> +    paddr_t     s1ctxptr;
+> +    uint8_t     config;
+> +    uint8_t     s1fmt;
+> +    uint8_t     s1cdmax;
+> +};
+> +#endif /* CONFIG_ARM */
 
-Isn't this too coarse-grained? IOW don't you want to specify the kind of IOMMU
-to use, even if right now only one is being implemented? Also - why on the
-command line? Isn't this rather a per-guest setting?
-
->  ### pcid (x86)
->  > `= <boolean> | xpti=<bool>`
-
-Also, seeing this adjacent entry, you're inserting in the wrong place. The
-options are supposed to be alphabetically sorted.
+This looks like it should rather go into Arm's asm/iommu.h.
 
 Jan
 
