@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE9F1B1EB66
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Aug 2025 17:17:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1074794.1437284 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE09EB1EBE4
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Aug 2025 17:29:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1074800.1437293 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukOpo-0001Of-RZ; Fri, 08 Aug 2025 15:16:44 +0000
+	id 1ukP1W-0003PX-R2; Fri, 08 Aug 2025 15:28:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1074794.1437284; Fri, 08 Aug 2025 15:16:44 +0000
+Received: by outflank-mailman (output) from mailman id 1074800.1437293; Fri, 08 Aug 2025 15:28:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukOpo-0001Ls-OQ; Fri, 08 Aug 2025 15:16:44 +0000
-Received: by outflank-mailman (input) for mailman id 1074794;
- Fri, 08 Aug 2025 15:16:43 +0000
+	id 1ukP1W-0003NO-OS; Fri, 08 Aug 2025 15:28:50 +0000
+Received: by outflank-mailman (input) for mailman id 1074800;
+ Fri, 08 Aug 2025 15:28:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Dtzj=2U=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ukOpn-0001Lm-FJ
- for xen-devel@lists.xenproject.org; Fri, 08 Aug 2025 15:16:43 +0000
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [2a00:1450:4864:20::441])
+ id 1ukP1V-0003NI-7j
+ for xen-devel@lists.xenproject.org; Fri, 08 Aug 2025 15:28:49 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id adeeeab2-746a-11f0-b898-0df219b8e170;
- Fri, 08 Aug 2025 17:16:38 +0200 (CEST)
-Received: by mail-wr1-x441.google.com with SMTP id
- ffacd0b85a97d-3b79bdc9a7dso1270924f8f.1
- for <xen-devel@lists.xenproject.org>; Fri, 08 Aug 2025 08:16:38 -0700 (PDT)
+ id 604a1026-746c-11f0-b898-0df219b8e170;
+ Fri, 08 Aug 2025 17:28:47 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-458bf6d69e4so20138025e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 08 Aug 2025 08:28:47 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b8f8b1bc81sm8289222f8f.69.2025.08.08.08.16.37
+ 5b1f17b1804b1-459dcb86d6asm193478935e9.5.2025.08.08.08.28.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 08 Aug 2025 08:16:37 -0700 (PDT)
+ Fri, 08 Aug 2025 08:28:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: adeeeab2-746a-11f0-b898-0df219b8e170
+X-Inumbo-ID: 604a1026-746c-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1754666198; x=1755270998; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UlCCSBOGyt/alOiIsi4ur2+ZRdDyb3EuCXPGeG4MBdE=;
-        b=sbvnW7912X57iNvIsLo/LlXf4/v879MUbtn5321cvIsu8GhmAiA7tbpd/40M1XJDto
-         zahPWmTxt4hUygpBRsqWfb4ULQ1ZAyTkkbrswBiCSnBk3tLd554AatBr3Bik98rN7Hxn
-         cgP6JVIpWk9cfulVJeVmPWvUO6JNdQjBbTuPY=
+        d=citrix.com; s=google; t=1754666926; x=1755271726; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=L+fjovgMHvAMO2GTAbojTnvppBMO9jbILXOU0N9Q2PE=;
+        b=l8phi0yDGUExs7W9sa/SoV2yB92njG0DVcBt+kXFtr9LIV7JHQAKpJSAdudvIcm/AD
+         3co/dW0HJnu6Nrt/Qz5R7YrCHxqieN4u9wwW4EkoOkeHs7fqD6gbxT9df4nq7LdwntL5
+         UCZiZKoUSJM/aDzhK0PEsBJlCh8f08zgfMbDk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754666198; x=1755270998;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=UlCCSBOGyt/alOiIsi4ur2+ZRdDyb3EuCXPGeG4MBdE=;
-        b=wYaEMW/zIHhbJd//tbzUE9qTsGmNg5F+/2NA09Rc7lNOjCgDVW7ZNdGiTA7Qxmb5n8
-         Z/xOoF8ieA5Tff4ArsH1Dhiw/xv5Q1gguJvpkL53YcbTGj6GG917eZZi+2O14yUTjJVl
-         XVpqO7cIvpl8jN7nayCpCVVqJY0Z4sb7Sl4IziyE2LnNjnwaxrBIsFFRGjTonKh3zdxc
-         JxvN/BZm7BUnGBc/Qvp27tfqXsMdGGohwoxZh5Bhwul5pUn+cAZLHha2fEEwkkrBvhW+
-         upxjYM/vz/ITZlwycbwScu7c5d2PeK4iEOIUzmjGL4CMCy+8mz/xaaI6NfEx58y8wCI1
-         rMWw==
-X-Forwarded-Encrypted: i=1; AJvYcCXFTfI1fmtSIuX7VXd6wbOUyIXDgojAuT62P/tMAockRmFM9gz11Qa1POUrXyxpKskSGZxl4ka39mo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw5iIN7ZDEJTWXvfbJv47rByLwePRn6rnkCxxyvjHTvdVFmp53Q
-	+TP9bAm3X4rdEZqZ7LJudjo4jrv+KF/d7aW9hbbHhZtFsw53F94hJdnAAF5Y6trT9qw=
-X-Gm-Gg: ASbGncuYcyxEwdy5coBW3nmEYsKDDw1xhy6aS+HnCF4V0zedljs+riT1ccx3yl3AoGl
-	VIvPG6haMkjn0Yquk9WCECHIeyG1HY8j2EloNwk5CG8pGjjNRy48aWeNR6P2iLOGjXahus9f5Qy
-	Mj+pg92QxB9BPQV9cSrjz1PWd4VqqPhVU7eZN3zhBx3T0m9MNnwFdL9XEX7HE+BNwWd1CtlPG7z
-	07+VeglKg+qqcFwUBUHaM3/ue75885Ffrpi0SRkSu4gRS5XupkgaW2SKhbq3zGpD2yhMf1U37F2
-	LyC9PUPRvxNiFyDSHK2Jr3F9PRfvuOvGPggstAhqSc/iayJODkueNMZdy8Jlbs5XSOO15uteVe3
-	4T4H1CpmKMljSiTj3tM1BTHOygG7i7uAl6v6xAfWPTD11T+wKUffY0KB7OO/Oy7jACb/+TBQh6u
-	G7khI=
-X-Google-Smtp-Source: AGHT+IEmPfmGffSn5h6oyOdDKN/cxMWMpMs0ON2XwIfZfiF1tbpTQ0FLbDepH0/FGncTDkSpT5HH8A==
-X-Received: by 2002:a05:6000:220c:b0:3b7:8abc:eba2 with SMTP id ffacd0b85a97d-3b900b4f140mr2657755f8f.20.1754666197784;
-        Fri, 08 Aug 2025 08:16:37 -0700 (PDT)
-Message-ID: <5bef1a60-e608-4f9f-b658-a702e2306ebd@citrix.com>
-Date: Fri, 8 Aug 2025 16:16:36 +0100
+        d=1e100.net; s=20230601; t=1754666926; x=1755271726;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=L+fjovgMHvAMO2GTAbojTnvppBMO9jbILXOU0N9Q2PE=;
+        b=mgpJScYJTOjtAs8Aqs/vQb/f8q8CUuo2gU1bbBGNgRGRnvWV3fsCXoaHaP5EQEF5ZI
+         p+IIJ4+HwYsQW91hlHbwpFvrs9cSQZSlgZn7t6B0k1nVZOttImLO1f0IC+KtX82I8YAs
+         y7/tCRGUfkeQsr5lCLXtFX8MOUooUsjRkLLfU3WmgAdRlxd3yeWBrOs5rSUqspkkh8ai
+         h3TfNH6D7F40UypDyuDxLb+V7+K1nMCnW1hYyaghCnZYRglbDlhgT2nhyki4WKfoK80u
+         kYu0EfXgqRewAduG42Ccn1hVktZEx6kHKJzruhfhKzXvByq3sBUlRmJBAsgFGZqxUcFB
+         zjkA==
+X-Forwarded-Encrypted: i=1; AJvYcCWPsQWzlF1ahBdaAONtVVRt+EqlDfEI6j7pDEmFvR22Rvy+Kb6+W2/U9NmKH4E9Rw0HY8k8sJTtOgo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzgsalsmfbjV0j5InqVr2Fb9xcoL9mama7oGqwfhubSVZTP0xdw
+	9t83bqvSQwHCywmcbiU1iHLiivEt2PH8xHKvYLGIfnehxoVCh8/zGF9iB8MwGTpCp/M=
+X-Gm-Gg: ASbGncvcl6OxBxsyzmpLGKqDwD3+tT2k72kGaf3+bYgjzT26WQN0uLpy7/p4AlIpfzr
+	1Y5Zyn5u5zRgIz50bqFHcpXS9+ltg08OJiLn/Usoe9m3rJ+TrNJmZmDLGBUA2CNTgGjnDWoEs14
+	XkF+ozHvsd1t+Wumi518TypekVsC92TIass5oWcBMclHTRDPIRD5mMdwaAvVZFZrObVGAR6cX00
+	C5vMqy1siTw+rY3Fapk1YHSw5tKj76bFymj2l4dR0Rqx8v2N4YOz4FBFi5XcfPZ626YKgHM5vQp
+	R/WfLhAhb0wXToX+q9TqQQdaLkQa8VqyltmIIKuQLCmUx4tGcrWuj6nINX5lOLbrEEmoIqBYJIQ
+	eI6P0GgF09g8NmffPTDa/+ygXVJpN+Qd2uC72mvfhfFdvxb3wiJt3ObWst87N7uEM+KHz
+X-Google-Smtp-Source: AGHT+IFmr7aXeMUDqxisXJmiOXnf0OsqiQCyhbexW56xGxwGZz64qTrkFGgXx52O3bptJ9U08y9q6Q==
+X-Received: by 2002:a05:6000:2890:b0:3a4:d64a:3df6 with SMTP id ffacd0b85a97d-3b900b49992mr3370730f8f.3.1754666926520;
+        Fri, 08 Aug 2025 08:28:46 -0700 (PDT)
+Message-ID: <bab1e787-d690-41fc-8406-28695f0887fc@citrix.com>
+Date: Fri, 8 Aug 2025 16:28:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Fork or replace dependency yajl?
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: =?UTF-8?Q?Christoph_Gr=C3=BCninger?= <foss@grueninger.de>,
+Subject: Re: [XEN PATCH] automation/eclair: restrict clean target to xen
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
  xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>
-References: <d49ad645-35dd-4bd2-b166-d1803b2d95ba@grueninger.de>
- <25afca10-18e7-445c-b914-98d767016d70@citrix.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Doug Goldstein <cardoe@cardoe.com>
+References: <a1127245a45139c3c3fcd05b07c1c1e6dabb66c0.1747387457.git.nicola.vetrini@bugseng.com>
 Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -137,40 +136,18 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <25afca10-18e7-445c-b914-98d767016d70@citrix.com>
+In-Reply-To: <a1127245a45139c3c3fcd05b07c1c1e6dabb66c0.1747387457.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 03/08/2025 2:36 pm, Andrew Cooper wrote:
-> On 03/08/2025 9:52 am, Christoph Grüninger wrote:
->> Dear Xen developers,
->>
->> you are using the dependency yajl (yet another json library, [1]) to
->> parse JSON files. The project seems abandoned with the last commit 10
->> years ago, the last release over 11 years ago, and 75 open pull
->> requests. Packaging yajl requires patches, e.g., to make it compatible
->> with CMake 4.0.
->> There are some forks but none has replaced the old one yet [2].
->>
->> I think there are three paths forward:
->> 1. Xen could pick a prominent fork and use it as its main dependency.
->> 2. Xen could create a fork of its own, hopefully attracting more
->> people interested in an maintained successor of yajl.
->> 3. Switch to a different JSON parser library that remained healthy.
->>
->> Sure, you could stick to option 4., do nothing an offload the burden
->> to fix yajl to distribution packagers.
->>
->> Xen is an important project and its decision can create momentum that
->> might lead other projects.
->>
->> [1] https://github.com/lloyd/yajl
->> [2] https://github.com/lloyd/yajl/issues/252
-> CCing the libxl maintainers.
+On 07/08/2025 10:53 pm, Nicola Vetrini wrote:
+> The clean target also clears files outside the xen directory,
+> which is not needed for the purposes of running an analysis.
+>
+> No functional change.
+>
+> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-To follow up here, please try
-https://lore.kernel.org/xen-devel/20250808145602.41716-1-anthony@xenproject.org/T/#u
-which should make libxl use json-c by preference.
-
-~Andrew
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
