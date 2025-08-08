@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0FD9B1EF6D
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Aug 2025 22:23:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1075025.1437523 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82314B1EF73
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Aug 2025 22:23:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1075022.1437503 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukTcg-0007Se-3v; Fri, 08 Aug 2025 20:23:30 +0000
+	id 1ukTce-00072W-Ju; Fri, 08 Aug 2025 20:23:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1075025.1437523; Fri, 08 Aug 2025 20:23:30 +0000
+Received: by outflank-mailman (output) from mailman id 1075022.1437503; Fri, 08 Aug 2025 20:23:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukTcf-0007KS-Ut; Fri, 08 Aug 2025 20:23:29 +0000
-Received: by outflank-mailman (input) for mailman id 1075025;
- Fri, 08 Aug 2025 20:23:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ukTce-0006wp-El; Fri, 08 Aug 2025 20:23:28 +0000
+Received: by outflank-mailman (input) for mailman id 1075022;
+ Fri, 08 Aug 2025 20:23:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Dtzj=2U=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ukTcd-0005tJ-TY
- for xen-devel@lists.xenproject.org; Fri, 08 Aug 2025 20:23:27 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 895497cd-7495-11f0-b898-0df219b8e170;
- Fri, 08 Aug 2025 22:23:25 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-459ebb6bbdfso16617565e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 08 Aug 2025 13:23:25 -0700 (PDT)
+ id 1ukTcc-0005tW-BF
+ for xen-devel@lists.xenproject.org; Fri, 08 Aug 2025 20:23:26 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 89bf789a-7495-11f0-a324-13f23c93f187;
+ Fri, 08 Aug 2025 22:23:26 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-4589b3e3820so26573755e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 08 Aug 2025 13:23:26 -0700 (PDT)
 Received: from localhost.localdomain (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-459e075047fsm103989805e9.1.2025.08.08.13.23.23
+ 5b1f17b1804b1-459e075047fsm103989805e9.1.2025.08.08.13.23.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Aug 2025 13:23:23 -0700 (PDT)
+ Fri, 08 Aug 2025 13:23:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 895497cd-7495-11f0-b898-0df219b8e170
+X-Inumbo-ID: 89bf789a-7495-11f0-a324-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1754684604; x=1755289404; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1754684605; x=1755289405; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=caOVNgxtLJ5K64XlKHZ2JgkxvEgD9Gt7Q0o1sCQ6UZg=;
-        b=PLE7MiksilklFd+GuyiBAfcnEzz2AHJOe8fGD8lp/JL4eBNo+D1M7JR05TA/WHgwY+
-         YUZxMXmqHRvmqpCiuUpK4JZmbyPxqA7wyIUi9usm0o4FcT+RrY0Jbg4yjBofnvu2JBfs
-         SSwzugldX1ndxjdagwjCFfuks0mhsF3/yjAsE=
+        bh=h85hVDVJx6qX407q69uvd9gGoiZ0d1y+NYblpylfdg8=;
+        b=qGZfcltPjK3K4MD4I+U4S/OW6x2tBlO0r/RYcWspvxqXjEdkQdZTeh+91IYvjEanDJ
+         IzCHL6aHaM8W5hk4mNX6kdFgzPz+2ShkOOLPtNgFKkN7HyU1r21E5+1vmlI+gy35XSUo
+         GCPKfplEeA3fA15QduhXq8wht+UJIg32t4LIE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754684604; x=1755289404;
+        d=1e100.net; s=20230601; t=1754684605; x=1755289405;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=caOVNgxtLJ5K64XlKHZ2JgkxvEgD9Gt7Q0o1sCQ6UZg=;
-        b=BSmEGvIfzMVaHEI39nfUcaEDTyl/lTmUw5tFT0X7htHGLuSXZFiTbeMV50EZcHwzo+
-         yd/I/MpsHQhaZHQYtT14IkWTumLJrETYCVn4KZLXP8+TeCC4m6xBceUQEfhq1JxiuCP1
-         hJnbSK8n9gTomGr6XVv7j/N27uCi49xQnQWtCvOQHbS5ONpZ0OLtge88TJyGpyZt07v2
-         spCs9PjtIa5dm9zMzC49WjZFhpkeo/qpaYHY+1pd/3WiHc8MQaZtwKuYNgtVVObekGcO
-         MsXbaSM1BGiDUbJwJSXCIKxC93lu7rJoPhfD0nRr6MAET0hGlAnXBsfIEp830qAhXRHg
-         IBxg==
-X-Gm-Message-State: AOJu0YwVbgc9ULesr5RGN+xSKgSiSEyGOWL81GefASoacGzJFSHM+FlY
-	1gUbwOiUO07CypUsGGIDFVFl4CEvQowc0mxYz+R9lSa0bARAoQJ4V9Z+AMiNjZeypwB0deDklZQ
-	OB6qH9L0=
-X-Gm-Gg: ASbGnctPEYpZTmx669sQ910jwRPFrUwCPtK9J4JjLrMgh2apEVLpFOw4uZKLk+3aH3T
-	mOatoW0+dT/nPNaEao8ubBHSHbC4oSzk1U+uzKauMkDo+MITEM3C7MkMZd2rX7JqHDk7UolJcZh
-	tkCDSmJJm8Tg6B903NIUKXN1ZY63kVnR14Xbx7Ztd1iLeirfiDib11K1aJWlVnkFQirKj6/Xq43
-	xA3fBekl0TThmZpxhL1PGX+QJRBUi2SDdb3GqG+1Ox/YV3MhUkVXwMsoJtzQXsP47Im/sZw4TnZ
-	QK4OBDDr+nnC2ltWduOAW0s54WA1Qx6ErkocPB0cBLNsw6nhSYwEhi8zrXZHdgNrsRQo0vZ83ky
-	f0B/NLALZQddC8hKLS0VgQfX01e5WsDwxX9otPftQfCqKXDtUAxhzrgrapm00Mz9nFwI1hFuj2e
-	u8
-X-Google-Smtp-Source: AGHT+IGOw0qlDsxnoU+vKA/UvdlwbYyhckxJzdRWuP44Ae/YhL3fBnTji410tsUsLoTPsQG0MJuVlQ==
-X-Received: by 2002:a05:6000:290b:b0:3b7:8fcc:a1e3 with SMTP id ffacd0b85a97d-3b900b5108cmr3392835f8f.48.1754684604384;
-        Fri, 08 Aug 2025 13:23:24 -0700 (PDT)
+        bh=h85hVDVJx6qX407q69uvd9gGoiZ0d1y+NYblpylfdg8=;
+        b=iX6HQqJCotE6A/zWeOMKiflhHY0K1rY4JUYqWmaE0jJfXcPS9fK+13rKhEHKpNYNZi
+         gcw2aNGM/ONiMaUG3ejPpvI2i60Ve7niv2iIFkQmQDfGIRvlU8YeL+V2IUYIwmI1+e+p
+         DnzekAHho4Zn05tIfq+037AJbNpEHJELXx+8GtaAeLEFsw+fAIBPOv6hZ5KZ9cFE3+R5
+         MrnGr+F5cMeN6heFgXqxgAsMngG4Zd8fNXb2dc/tNZxpdZVhT/gy6D6jbLbMQDlfoyWp
+         vz3tYaqo/RpEf0X14c0wjuXUs71xNLk9SLxZmz403GJ80SfoXVr4hkVH5aJkGbCXm/ml
+         yDUQ==
+X-Gm-Message-State: AOJu0Yzj8O0cet9RcD1Z0xR0XuGRtQzeao6vqtUtRtock+SsacJBoFG/
+	kVtryNMMYK3Ance/GMdvyMKNNI99xIxVw0axo/tVUGF5/uks+DuvJzqxyKe2NLum9ILKJXoQKOO
+	hPIfI21M=
+X-Gm-Gg: ASbGncvl+kcmVNZD3FRJNRDGvZFGSrAwXB3Vc3P9+CTo7gGR/MsNJ4j7G/kCe8T2Tmp
+	ZsXUyVLwN1tb98orIgz+MaHgmot0fQX3lv5tqU7v1Hdri12ID8TeMxaGj+2/TxTAoBII62f+fIe
+	O7F1If6Vhz5fWv5zv0uixMB1qIR4E8YMGlkyGK3b/WrxztwktmVpwdtgBivEH1POAfy8Z8Oippa
+	OXN4uFj/RAQ4ez4NLMwlctZybH4j/a21qJYnYjBYrVy48NDu9YR3zs0n8S+NZundwOKF8VNCRhI
+	GWjzUXqoUzfBJL+HQSxWMoaOwwxqCxOth+MfAB79MDGdbCwUBApktrYaaO6UBtaGy275uyFy+wp
+	ERZ0ClNMXvygXfaIGHw8xysSx/xZUOZPJFS9TbqfX3x9KLL6Pg1FWGnzOgTJUGEUBE1aOKvj92m
+	nR
+X-Google-Smtp-Source: AGHT+IGYu93z8rD/S4ZzA0Js9mi1Yg20K9J7g4zt6O4WDVxrf7zwfkIAFpVjDibxTtyZOq96BOWg6Q==
+X-Received: by 2002:a05:600c:1c98:b0:456:eab:633e with SMTP id 5b1f17b1804b1-459fb4fb214mr14807545e9.17.1754684605171;
+        Fri, 08 Aug 2025 13:23:25 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 06/22] x86/traps: Introduce bsp_traps_reinit()
-Date: Fri,  8 Aug 2025 21:22:58 +0100
-Message-Id: <20250808202314.1045968-7-andrew.cooper3@citrix.com>
+Subject: [PATCH 07/22] x86/spec-ctrl: Rework init_shadow_spec_ctrl_state() to take an info pointer
+Date: Fri,  8 Aug 2025 21:22:59 +0100
+Message-Id: <20250808202314.1045968-8-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
 References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
@@ -95,67 +95,76 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-... to abstract away updating the refereces to the old BSP stack.
+We're going to want to reuse it for a remote stack shortly.
+
+No functional change.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/arch/x86/include/asm/traps.h | 1 +
- xen/arch/x86/setup.c             | 6 +-----
- xen/arch/x86/traps-setup.c       | 9 +++++++++
- 3 files changed, 11 insertions(+), 5 deletions(-)
+ xen/arch/x86/include/asm/spec_ctrl.h | 4 +---
+ xen/arch/x86/setup.c                 | 2 +-
+ xen/arch/x86/smpboot.c               | 2 +-
+ xen/arch/x86/spec_ctrl.c             | 2 +-
+ 4 files changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/xen/arch/x86/include/asm/traps.h b/xen/arch/x86/include/asm/traps.h
-index 7414420e57d8..6ae451d3fc70 100644
---- a/xen/arch/x86/include/asm/traps.h
-+++ b/xen/arch/x86/include/asm/traps.h
-@@ -9,6 +9,7 @@
+diff --git a/xen/arch/x86/include/asm/spec_ctrl.h b/xen/arch/x86/include/asm/spec_ctrl.h
+index 6724d3812029..3d92928f9439 100644
+--- a/xen/arch/x86/include/asm/spec_ctrl.h
++++ b/xen/arch/x86/include/asm/spec_ctrl.h
+@@ -99,10 +99,8 @@ extern bool opt_bp_spec_reduce;
+  */
+ extern paddr_t l1tf_addr_mask, l1tf_safe_maddr;
  
- void bsp_early_traps_init(void);
- void traps_init(void);
-+void bsp_traps_reinit(void);
- void percpu_traps_init(void);
- 
- extern unsigned int ler_msr;
+-static inline void init_shadow_spec_ctrl_state(void)
++static inline void init_shadow_spec_ctrl_state(struct cpu_info *info)
+ {
+-    struct cpu_info *info = get_cpu_info();
+-
+     info->shadow_spec_ctrl = 0;
+     info->xen_spec_ctrl = default_xen_spec_ctrl;
+     info->scf = default_scf;
 diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 64f02699e1aa..c8c408e02436 100644
+index c8c408e02436..6fb42c5a5f95 100644
 --- a/xen/arch/x86/setup.c
 +++ b/xen/arch/x86/setup.c
-@@ -902,11 +902,7 @@ static void __init noreturn reinit_bsp_stack(void)
-     unsigned long *stack = (void*)(get_stack_bottom() & ~(STACK_SIZE - 1));
-     int rc;
+@@ -1126,7 +1126,7 @@ void asmlinkage __init noreturn __start_xen(void)
  
--    /* Update TSS and ISTs */
--    load_system_tables();
--
--    /* Update SYSCALL trampolines */
--    percpu_traps_init();
-+    bsp_traps_reinit();
+     /* Critical region without exception handling.  Any fault is deadly! */
  
-     stack_base[0] = stack;
+-    init_shadow_spec_ctrl_state();
++    init_shadow_spec_ctrl_state(info);
  
-diff --git a/xen/arch/x86/traps-setup.c b/xen/arch/x86/traps-setup.c
-index 7713f427d344..370f4d5f7b60 100644
---- a/xen/arch/x86/traps-setup.c
-+++ b/xen/arch/x86/traps-setup.c
-@@ -107,6 +107,15 @@ void __init traps_init(void)
-     percpu_traps_init();
- }
+     percpu_init_areas();
  
-+/*
-+ * Re-initialise all state referencing the early-boot stack.
-+ */
-+void bsp_traps_reinit(void)
-+{
-+    load_system_tables();
-+    percpu_traps_init();
-+}
-+
- /*
-  * Set up per-CPU linkage registers for exception, interrupt and syscall
-  * handling.
+diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
+index 302be4341bf3..ce4862dde5a7 100644
+--- a/xen/arch/x86/smpboot.c
++++ b/xen/arch/x86/smpboot.c
+@@ -332,7 +332,7 @@ void asmlinkage start_secondary(void)
+     set_current(idle_vcpu[cpu]);
+     this_cpu(curr_vcpu) = idle_vcpu[cpu];
+     rdmsrl(MSR_EFER, this_cpu(efer));
+-    init_shadow_spec_ctrl_state();
++    init_shadow_spec_ctrl_state(info);
+ 
+     /*
+      * Just as during early bootstrap, it is convenient here to disable
+diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
+index feae0d710f8e..1ff3d6835d9d 100644
+--- a/xen/arch/x86/spec_ctrl.c
++++ b/xen/arch/x86/spec_ctrl.c
+@@ -2226,7 +2226,7 @@ void __init init_speculation_mitigations(void)
+         opt_eager_fpu = should_use_eager_fpu();
+ 
+     /* (Re)init BSP state now that default_scf has been calculated. */
+-    init_shadow_spec_ctrl_state();
++    init_shadow_spec_ctrl_state(get_cpu_info());
+ 
+     /*
+      * For microcoded IBRS only (i.e. Intel, pre eIBRS), it is recommended to
 -- 
 2.39.5
 
