@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92DB4B1E51B
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Aug 2025 10:58:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1074156.1436836 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4005B1E575
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Aug 2025 11:15:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1074173.1436846 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukIvQ-0002Na-Ov; Fri, 08 Aug 2025 08:58:08 +0000
+	id 1ukJBG-0005ZN-2y; Fri, 08 Aug 2025 09:14:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1074156.1436836; Fri, 08 Aug 2025 08:58:08 +0000
+Received: by outflank-mailman (output) from mailman id 1074173.1436846; Fri, 08 Aug 2025 09:14:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukIvQ-0002Kb-Lt; Fri, 08 Aug 2025 08:58:08 +0000
-Received: by outflank-mailman (input) for mailman id 1074156;
- Fri, 08 Aug 2025 08:58:07 +0000
+	id 1ukJBF-0005X0-Vl; Fri, 08 Aug 2025 09:14:29 +0000
+Received: by outflank-mailman (input) for mailman id 1074173;
+ Fri, 08 Aug 2025 09:14:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=illN=2U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ukIvP-0002KV-EY
- for xen-devel@lists.xenproject.org; Fri, 08 Aug 2025 08:58:07 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=2rj7=2U=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1ukJBE-0005Wu-R5
+ for xen-devel@lists.xenproject.org; Fri, 08 Aug 2025 09:14:28 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cbddb32c-7435-11f0-b898-0df219b8e170;
- Fri, 08 Aug 2025 10:58:05 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-60bfcada295so3125918a12.1
- for <xen-devel@lists.xenproject.org>; Fri, 08 Aug 2025 01:58:05 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-617c843c48fsm2220856a12.10.2025.08.08.01.58.04
+ id 14e55648-7438-11f0-b898-0df219b8e170;
+ Fri, 08 Aug 2025 11:14:26 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-af934d7c932so279095766b.3
+ for <xen-devel@lists.xenproject.org>; Fri, 08 Aug 2025 02:14:26 -0700 (PDT)
+Received: from [192.168.1.17] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-af91a0a37a8sm1466918266b.40.2025.08.08.02.14.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 08 Aug 2025 01:58:04 -0700 (PDT)
+ Fri, 08 Aug 2025 02:14:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,111 +45,233 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cbddb32c-7435-11f0-b898-0df219b8e170
+X-Inumbo-ID: 14e55648-7438-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754643484; x=1755248284; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=b3Xrb/kMCbbPdbyyPoWEKuJ48aiOOWYFah5ZkKo8rjQ=;
-        b=LGy0IeaP0z5azPiiyHImOY2wn8pLvwJp4gDSo3NQA5pnRm0X+kd9UJbsUDHzc3d9TH
-         Nq0+19zL3wXlHX8sdKbyzkbJFG7kL8rZF1bY8K0Si6+xiyw3HLC4HmTr0KM0Lj9pvndn
-         Dc0BPQXFwWWZiqUzoLNdnvd/R14yHkyBqK0dPAk4iikLVlV5R+Gn8FZfoQqIyyckoOOc
-         drM5mpDflnRUmCjXZwyPuvM4JyJWTr7gRL1UPeaYo23wApLnVghNGygO0ZfWe8I5FXkG
-         TzCgP7nAkldqwSXsNd7mWxJgoT4o2TKqfrahDvtr8yKvqdi9goHHTonBB5V/lJDzzX/1
-         Pwtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754643485; x=1755248285;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1754644466; x=1755249266; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=b3Xrb/kMCbbPdbyyPoWEKuJ48aiOOWYFah5ZkKo8rjQ=;
-        b=AcNGfl97uxZIfBRrL1TikYL1HVReBkwwiskFWJklQOozo3smUSy5KyBIOHgikqeDcf
-         AtTENyQMPxVbU4qsHemdV2/RQJDKVLj2iMstqQkdKAt9Iu8NH+6Cp08Dx6aPuZXH5U3L
-         xNREl3u6kPjeIcIOD7WtTyDYdJvMHM2RlYvp0dYLddMJftWibsZJJSt4VHhCmSvXNPdZ
-         D4bTOQuWJyWMTbGlGf0G40FmKWz2vM2FkSAcdgGvQIHTp5uwQDqbrnxp3uM8UtqnMxC3
-         qq3rwuoRQ1jargaXceCRjKkzWmDUpvZmVnj5NAL9nOEjLAugabY9A0uVTSjl4dc8qXAT
-         pPWQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXw+oyO+zBZQqZbq3XTR+mOA+DDGzBaILwuOjjQrJEvx1VTMwCU0c7jW8hxY+ciVy4dWPLFCEXF1Xk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy/oUUe9A6GYKh/5A00tzkmKrp2qzWMEddEzRkh0e7CbQK7syp1
-	raKEF41B/ZDu24hvq9sdxTBnhLDoieAmw+Tgx9KuOfzO70JTM0FNftm/nsHGuLlWGw==
-X-Gm-Gg: ASbGncsB+EcAEKBHUIad1wOQCelkUT3bguJEIKxAUJL/B4Ky/Y37fs3OxGeGA7b6Inx
-	+newK6cwCLh/FxyvvQhhes0QaUZcHAPmi3L5ed4I6SqqTLoN+ojC4sxusIf7KIEW8zKceNdQdsI
-	gXkZS1MvVdVZnKrSejBqBXBa5jtZCRt6jHYhsBACZ6zJMISJdPzcC6uDGvdPqm8sUJVh3UknXqu
-	psLqTZpmk9h8iQRw+pFTclW+cXiGtU8fqvOu2wdydvBCwCHo9AboqOOwYFuguv2/vGhVPLJ+y/O
-	ZDamOmJrbSNibtfmpztbbnmy7Y7kRrgKvKoWdlJGuG4F9OfMBY6yINzhc0ljkOv7jxH17YZuKbG
-	dIVa170sptHIdIDsIGGHxcEb4Edkg3hqdaWbXPC6cF5YLf4Yiwm+8m+qXhfjzpQX9V6DV6tpLHG
-	SMabdwKrI=
-X-Google-Smtp-Source: AGHT+IHBQ6PXQ6mldcVCCjJququGjw1l4crXtly8IPfMEivMZhgLpqk9YVhHI5wg2CFgx8+UqSiVgA==
-X-Received: by 2002:a05:6402:1ec4:b0:615:9b4e:7b81 with SMTP id 4fb4d7f45d1cf-617e2b8bf98mr1752673a12.7.1754643484550;
-        Fri, 08 Aug 2025 01:58:04 -0700 (PDT)
-Message-ID: <31f9800f-5d2a-4614-9850-07d6bbe232d8@suse.com>
-Date: Fri, 8 Aug 2025 10:58:03 +0200
+        bh=Pl1ZzAy1LqPq4LjhFItU9Y3FV9NUFt6Urx1O9YusIrI=;
+        b=gJXLZXIe+Q2CGIaRKQCce+5qPJAhpjajWPSV64imR1TEFIpIjmyQsHlCjon9Uk9CD0
+         ZEED0cwQVxTUfPhV86adrdESN1DcqkUvHi/tMCmCItUllRv5Jr2ot4lxf879MMpXe/Pk
+         bq8mIVkufaBvAjGoKoC9ggd/kbjBzO70qT6kUNlsmGsmG3DAo4/Ts7dViujx3ux2Tza1
+         BwDQHEqsyJsFeYv8WatYSRx5gfB/y6SKnXUFuRCNxhi0QJh+VyeOakZEcQr8xtf/eRpU
+         tMTHEY/i5q2Ggx7pjxE5XADSdS+S00qty56OkyDElpCFH5zje//Z0u+VeD0nOBGgbKO8
+         PhrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1754644466; x=1755249266;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Pl1ZzAy1LqPq4LjhFItU9Y3FV9NUFt6Urx1O9YusIrI=;
+        b=afOwLFKQ6CRKoiBINLxTh2TySKMn8SFnAe1EAdow5av77tAhT7KQgNk0mbhwHP8TQn
+         hcG/14AxevpjmkyAvA7qecIVreM+uJJ1/oGfnWzDhDC9tDzxiTfYOkr//HYyCLj9dRbv
+         DPMwqi9Nzx5b73WM7xKbzAGgsk+QCfDaK/6jcZui5w7tjQ4pGKsc//G8SRlqej7Sw4yZ
+         hujTu3X7WwFBvdYANHOL+5MmARyvDNUFs1ESl7tHKSOmxNWWAXTAzK9WZ5R4FCENU6eV
+         YNhrWVbB54PNkJGxOdDKzSndTBtERtqeXozfj0E3ZvoW/B756hlyvpDZBmh1zXBsEenr
+         woXg==
+X-Forwarded-Encrypted: i=1; AJvYcCViOsCQpKSKieP+2VNfLiVHnrnvkzl3gdr8R1b5z3ZBB7eMtk6x7qg/mWtaqgmXCiVHlAixq54S7v4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxivc8fm6EgJObC46RbLXvGvtxpNwBqmJiDQ6hNdtHUAF9VUWO2
+	muvXYYY+sjp0njyZ0mF0AKHN8xd8NzzjzaHF6SSqYdbOqhBYlGMX5tjL
+X-Gm-Gg: ASbGncvSOqZ52/iJE0jhADnb3kpvHo4FunHjFgB/wUYmlpLnBEw406hZje8e3+OyOOL
+	QCIlDiG5id2D/hXb7yboB1RutfaZb8Dz2nJ0SMcYpsBCr4kNz8JxriAXRhyRJxkt/6UINYuuJPK
+	V0hXh8AsuKWuJpsxX9V94q/Pq5gB2/SaBXOZxiYTDOgOTthwd4T9/2brm/foIBMDVemvZa9CLxY
+	BeFihjUODhxrfzurnsCV3M0xAGOeHOMHfHmyMD3vxMSMYKGK1nBkRHSO3QAG9PkTWLu8m5DDNAK
+	rPs4pWVOFAugdLwRHZjTTdfP6+YlbP4ri1Z4ZWY0QFQOOANwLJCNTkyYjTDpwZxxwk69j69NREb
+	ZM/pIaveYTWXizuG94aD6L/z/uce/I0sGV3IpXEj5VtICnWb5fG+tVzMgImfOYPZM7dmUIwf6
+X-Google-Smtp-Source: AGHT+IF+pDHxr80uiDkVGpp0iwsLT6WwNpqrsQ9pSp0lRazEh55jnBkJqGMqVlbwXcdxUum8rQ4Nkg==
+X-Received: by 2002:a17:907:9281:b0:af8:fa64:917f with SMTP id a640c23a62f3a-af9c650abc2mr203839066b.48.1754644465719;
+        Fri, 08 Aug 2025 02:14:25 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------t95ZBYk0mol7q0a0O8M8qfXE"
+Message-ID: <6f9714f7-3b65-4903-acbf-a0aa537bb3f5@gmail.com>
+Date: Fri, 8 Aug 2025 11:14:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 1/5] vpci: Use cleanup to free capability resource
- during deassign
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-References: <20250808080337.28609-1-Jiqian.Chen@amd.com>
- <20250808080337.28609-2-Jiqian.Chen@amd.com>
+Subject: Re: [PATCH v3 06/20] xen/riscv: add root page table allocation
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
+ <23c79f07221dee7eb782ebb160442f3a796a41b2.1753973161.git.oleksii.kurochko@gmail.com>
+ <7491c934-f847-4fe2-9d9b-a500f0888198@suse.com>
+ <ccdd5caa-2c91-4125-9c6b-067c941649b1@gmail.com>
+ <2aa2135f-e422-417f-a509-74f61c3b19de@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250808080337.28609-2-Jiqian.Chen@amd.com>
-Content-Type: text/plain; charset=UTF-8
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <2aa2135f-e422-417f-a509-74f61c3b19de@suse.com>
+
+This is a multi-part message in MIME format.
+--------------t95ZBYk0mol7q0a0O8M8qfXE
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 08.08.2025 10:03, Jiqian Chen wrote:
-> @@ -321,6 +321,29 @@ void vpci_deassign_device(struct pci_dev *pdev)
->                      &pdev->domain->vpci_dev_assigned_map);
->  #endif
->  
-> +    for ( i = 0; i < NUM_VPCI_INIT; i++ )
-> +    {
-> +        const vpci_capability_t *capability = &__start_vpci_array[i];
-> +        const unsigned int cap = capability->id;
-> +        unsigned int pos = 0;
-> +
-> +        if ( !capability->cleanup )
-> +            continue;
-> +
-> +        if ( !capability->is_ext )
-> +            pos = pci_find_cap_offset(pdev->sbdf, cap);
-> +        else if ( is_hardware_domain(pdev->domain) )
-> +            pos = pci_find_ext_capability(pdev->sbdf, cap);
-> +        if ( pos )
-> +        {
-> +            int rc = capability->cleanup(pdev, false);
-> +            if ( rc )
 
-Nit: Blank line between declaration(s) and statement(s) please. (Likely
-easy enough to adjust while committing, if no other need for a v12
-arises.)
+On 8/7/25 5:57 PM, Jan Beulich wrote:
+> On 07.08.2025 15:35, Oleksii Kurochko wrote:
+>> On 8/5/25 12:43 PM, Jan Beulich wrote:
+>>> On 31.07.2025 17:58, Oleksii Kurochko wrote:
+>>>> +static int p2m_alloc_root_table(struct p2m_domain *p2m)
+>>>> +{
+>>>> +    struct domain *d = p2m->domain;
+>>>> +    struct page_info *page;
+>>>> +    const unsigned int nr_root_pages = P2M_ROOT_PAGES;
+>>>> +
+>>>> +    /*
+>>>> +     * Return back nr_root_pages to assure the root table memory is also
+>>>> +     * accounted against the P2M pool of the domain.
+>>>> +     */
+>>>> +    if ( !paging_ret_pages_to_domheap(d, nr_root_pages) )
+>>>> +        return -ENOMEM;
+>>>> +
+>>>> +    page = p2m_allocate_root(d);
+>>>> +    if ( !page )
+>>>> +        return -ENOMEM;
+>>>> +
+>>>> +    p2m->root = page;
+>>>> +
+>>>> +    return 0;
+>>>> +}
+>>> In the success case, shouldn't you bump the paging pool's total_pages by
+>>> P2M_ROOT_PAGES? (As the freeing side is missing so far, it's not easy to
+>>> tell whether there's [going to be] a balancing problem in the long run.
+>>> In the short run there certainly is.)
+>> I think that total_pages should be updated only in case when page is added
+>> to freelist.
+>> In the case of p2m root table, we just returning some pages to domheap and
+>> durint that decreasing an amount of total_pages as freelist has lesser pages,
+>> and then just allocate pages from domheap without adding them to freelist.
+> But how's freeing of a root table going to look like?
 
-Jan
+We have saved pointer to first page of P2M_ROOT_PAGES allocated for root page
+table which is stored in p2m->root. Then when a domain is going to be destroyed,
+then do something like:
+     for ( i = 0; i < P2M_ROOT_PAGES; i++ )
+         clear_and_clean_page(p2m->root + i);
+...
+
+
+> Logically that group
+> of 4 pages would be put back into the pool. And from that the pool's
+> total_pages should reflect that right after successful allocation.
+
+... I think instead of having the loop mentioned above we could add root table
+pages to p2m->pages (as you suggested) in p2m_allocate_root() and then a domain
+is being destroyed just do the following:
+   while ( (pg = page_list_remove_head(&p2m->pages)) )
+   {
+       p2m_free_page(p2m->domain, pg);
+And it will be a job of internals of p2m_free_page() -> paging_free_page() to
+adjust freelist's total_pages and return back page(s) allocated for root table
+to the freelist. (Note: the current implementation of paging_free_page() just
+add a page to freelist without updating of freelist's total_pages what looks
+incorrect. And it will be enough as total_pages is present only for freelist
+and there is not separate total_pages (or something similar) for p2m->pages).
+
+~ Oleksii
+
+--------------t95ZBYk0mol7q0a0O8M8qfXE
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 8/7/25 5:57 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:2aa2135f-e422-417f-a509-74f61c3b19de@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 07.08.2025 15:35, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+On 8/5/25 12:43 PM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 31.07.2025 17:58, Oleksii Kurochko wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">+static int p2m_alloc_root_table(struct p2m_domain *p2m)
++{
++    struct domain *d = p2m-&gt;domain;
++    struct page_info *page;
++    const unsigned int nr_root_pages = P2M_ROOT_PAGES;
++
++    /*
++     * Return back nr_root_pages to assure the root table memory is also
++     * accounted against the P2M pool of the domain.
++     */
++    if ( !paging_ret_pages_to_domheap(d, nr_root_pages) )
++        return -ENOMEM;
++
++    page = p2m_allocate_root(d);
++    if ( !page )
++        return -ENOMEM;
++
++    p2m-&gt;root = page;
++
++    return 0;
++}
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">In the success case, shouldn't you bump the paging pool's total_pages by
+P2M_ROOT_PAGES? (As the freeing side is missing so far, it's not easy to
+tell whether there's [going to be] a balancing problem in the long run.
+In the short run there certainly is.)
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+I think that total_pages should be updated only in case when page is added
+to freelist.
+In the case of p2m root table, we just returning some pages to domheap and
+durint that decreasing an amount of total_pages as freelist has lesser pages,
+and then just allocate pages from domheap without adding them to freelist.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+But how's freeing of a root table going to look like? </pre>
+    </blockquote>
+    <pre>We have saved pointer to first page of P2M_ROOT_PAGES allocated for root page
+table which is stored in p2m-&gt;root. Then when a domain is going to be destroyed,
+then do something like:
+    for ( i = 0; i &lt; P2M_ROOT_PAGES; i++ )
+        clear_and_clean_page(p2m-&gt;root + i);
+...
+</pre>
+    <p><br>
+    </p>
+    <blockquote type="cite"
+      cite="mid:2aa2135f-e422-417f-a509-74f61c3b19de@suse.com">
+      <pre wrap="" class="moz-quote-pre">Logically that group
+of 4 pages would be put back into the pool. And from that the pool's
+total_pages should reflect that right after successful allocation.</pre>
+    </blockquote>
+    <pre>... I think instead of having the loop mentioned above we could add root table
+pages to p2m-&gt;pages (as you suggested) in p2m_allocate_root() and then a domain
+is being destroyed just do the following:
+  while ( (pg = page_list_remove_head(&amp;p2m-&gt;pages)) )
+  {
+      p2m_free_page(p2m-&gt;domain, pg);
+And it will be a job of internals of p2m_free_page() -&gt; paging_free_page() to
+adjust freelist's total_pages and return back page(s) allocated for root table
+to the freelist. (Note: the current implementation of paging_free_page() just
+add a page to freelist without updating of freelist's total_pages what looks
+incorrect. And it will be enough as total_pages is present only for freelist
+and there is not separate total_pages (or something similar) for p2m-&gt;pages).
+
+~ Oleksii</pre>
+  </body>
+</html>
+
+--------------t95ZBYk0mol7q0a0O8M8qfXE--
 
