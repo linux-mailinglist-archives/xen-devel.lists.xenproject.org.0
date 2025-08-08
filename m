@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D694AB1E6BD
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Aug 2025 12:47:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1074281.1436946 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BDDFB1E6E2
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Aug 2025 12:58:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1074299.1436966 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukKcf-0006iA-IU; Fri, 08 Aug 2025 10:46:53 +0000
+	id 1ukKnk-00013z-Nm; Fri, 08 Aug 2025 10:58:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1074281.1436946; Fri, 08 Aug 2025 10:46:53 +0000
+Received: by outflank-mailman (output) from mailman id 1074299.1436966; Fri, 08 Aug 2025 10:58:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukKcf-0006gj-FZ; Fri, 08 Aug 2025 10:46:53 +0000
-Received: by outflank-mailman (input) for mailman id 1074281;
- Fri, 08 Aug 2025 10:46:52 +0000
+	id 1ukKnk-00011P-Kh; Fri, 08 Aug 2025 10:58:20 +0000
+Received: by outflank-mailman (input) for mailman id 1074299;
+ Fri, 08 Aug 2025 10:58:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HESy=2U=ideasonboard.com=tomi.valkeinen@srs-se1.protection.inumbo.net>)
- id 1ukKce-0006gd-HJ
- for xen-devel@lists.xenproject.org; Fri, 08 Aug 2025 10:46:52 +0000
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fde9467c-7444-11f0-a324-13f23c93f187;
- Fri, 08 Aug 2025 12:46:51 +0200 (CEST)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id A9F54185B;
- Fri,  8 Aug 2025 12:46:00 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=illN=2U=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ukKni-00011G-FM
+ for xen-devel@lists.xenproject.org; Fri, 08 Aug 2025 10:58:18 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 968b4d5b-7446-11f0-a324-13f23c93f187;
+ Fri, 08 Aug 2025 12:58:17 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-6157ed5dc51so3082878a12.1
+ for <xen-devel@lists.xenproject.org>; Fri, 08 Aug 2025 03:58:17 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-af91a078afbsm1472476166b.4.2025.08.08.03.58.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 08 Aug 2025 03:58:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,123 +45,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fde9467c-7444-11f0-a324-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1754649961;
-	bh=aQZJ/ACAteL1Xe/fs+a56dnUeh7YIhfVoFkhEVZ11OI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=wZUMfrjyCRUxfFQYD2A6qF3ZH6eFLp8DLnCkLjR1H5yIUW8fWHy0BO+JVzjmrQfkA
-	 TPRktYsf0e/oWVJtiBcF/INX79qdjT+sK4Yi+HtJoigCiC95TT5u7jtd0ziBzxu29v
-	 Q4LLAsWDuHGyhnkeyE3UicJEnQv6TJJcXZjtGT2k=
-Message-ID: <1aaa3b42-a80e-48cf-b5ba-a4cece86b620@ideasonboard.com>
-Date: Fri, 8 Aug 2025 13:46:47 +0300
+X-Inumbo-ID: 968b4d5b-7446-11f0-a324-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1754650697; x=1755255497; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=jl73XMyaXmupn5Rj/nJpGseDEzad6aGCPwYOw8VsIyQ=;
+        b=Og1qnjlsLR0aH1n0SUSBep985p1XOQdX8e3FBL+prnxkVHeIciMnjNZpz51Syj53IP
+         UNW7Qmn5sXRnbybdXL5QwpdIS7bsynwu1/JG5EsqT51EnxaO5nyXeqNAwwvXW7VB4V6l
+         437ognyXYKPm/KiZkgEefXwXKQJikBrpGgvVdBTT3EBTYguX73Enl/J0YjZZ85fxdOlg
+         Il8CLnOcNGXn3e0+BAIks6P4NKKpeJhm3GlOXU9fibY4Si/lZF4qS+iNc0OAtu5X26AF
+         QcoHJD4mjff+6/K+uL2mYEE6xfY68r5/8TfGRaf+WaOp/vDqR6WsN0Pd+S7MoUuTTxs0
+         IYUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1754650697; x=1755255497;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jl73XMyaXmupn5Rj/nJpGseDEzad6aGCPwYOw8VsIyQ=;
+        b=aACcrdRzX+C7xJTitYi/VNlHDWq8t8/BJFXX3G0I5EcJjMHnIkm4o5gYr/ZG1YQs4g
+         vDsx/vS+zhoejM4OA/fR5/QTAz7IJaGG0V5LVUFdinAuDLIdP80BCyERuG5xZgi8WwZx
+         Ea1xVaUHABgajO3vgGmsx3eszAL7bxKQ1t/ikEyk2Lz79GbLYaPmqFEL80iGAAnsV/rh
+         aIYbwx1fn4dQfhmzr9wWNfjzN6j1OD13DpEvsYMUe+ztdtet1ITnIaJLCTZynGHLCTgp
+         qs8D2ART/4OJcsxN7Wo0yr4Nyi44AACRn4+PPhZOwJq7BlJeM/+YeVv9d6mGkSAYvVA5
+         mHfQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWFTwLhuTe5f0vEZhdNY5jqVUa4wF4reGghT518Y7UdTAKquuOmTjF23+lOKF4RltbE/KoJ+hye/Vk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxQqwUxFzaRynb2gKvtz69I64pmlapbJ6BBvISTLTpRuEZupBDk
+	ftJoBKdYp/vt4/gev6yR6ht1RbTXJisDP/oWixm6+bj1YAEuDFT1HpJRwNYRg+qChg==
+X-Gm-Gg: ASbGnctI/6/skBRv67YavkwtwW9hoexolYhdJ5qoHoo1mcrmIGhGwtxTx21tM7LzMHT
+	0sqzexC75Ild8mg16lUQxXNyHHXnbFkGznIaq4q4xBid3esiwROgOOdyaZrq3y2PqopkNiFsAzZ
+	uDgjimmD7y9hsQO1JwOUgAAGGRCNlrV03nRDBZJlCzzwx0FSDDn/bPD8pzmI5GtG6SgA/a2kbJk
+	xnmUOXefmEUrBWY4soynxEvikKcA/ozih4MNZ4QiJgW+uQEzwK9JXoy/3X+EqKhhmte4cds35HU
+	NK2LQsnspubyCSyZDY4i4UiYavWDdbEt8hYAo4psTScAZft99/aVeFDZ0eri99G95Z7/mSYpqMv
+	XOf4MvBKl7z2dR93iYseRuSvRro8OY07mh3NQw/X9pXUEa2EfwwEkwPeKfsX5U/ZJleqDrr+d7P
+	JE3h6Br4g=
+X-Google-Smtp-Source: AGHT+IHeQNKIXxmjbxdDqcsQGAg6pIwmxe2qjpuXyT9zwlxbNqfrkmVGJz9pbGyV3cWKGPa+DtiI2g==
+X-Received: by 2002:a17:907:3c84:b0:ad5:d597:561e with SMTP id a640c23a62f3a-af9c659f0c9mr219708666b.56.1754650696596;
+        Fri, 08 Aug 2025 03:58:16 -0700 (PDT)
+Message-ID: <789c023e-4098-4e54-acea-abab9e24bb0d@suse.com>
+Date: Fri, 8 Aug 2025 12:58:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 25/25] drm/xlnx: Compute dumb-buffer sizes with
- drm_mode_size_dumb()
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, simona@ffwll.ch,
- airlied@gmail.com, mripard@kernel.org, maarten.lankhorst@linux.intel.com,
- geert@linux-m68k.org
-References: <20250613090431.127087-1-tzimmermann@suse.de>
- <20250613090431.127087-26-tzimmermann@suse.de>
+Subject: Re: [PATCH] x86: Remove x86 prefixed names from cpuinfo
+To: Kevin Lampis <kevin.lampis@cloud.com>
+Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com,
+ xen-devel@lists.xenproject.org
+References: <20250808104349.635091-1-kevin.lampis@cloud.com>
 Content-Language: en-US
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
- 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
-In-Reply-To: <20250613090431.127087-26-tzimmermann@suse.de>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250808104349.635091-1-kevin.lampis@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13/06/2025 12:00, Thomas Zimmermann wrote:
-> Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch and
-> buffer size. Align the pitch according to hardware requirements.
+On 08.08.2025 12:43, Kevin Lampis wrote:
+> struct cpuinfo_x86
+>   .x86        => .family
+>   .x86_vendor => .vendor
+>   .x86_model  => .model
+>   .x86_mask   => .stepping
 > 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> No functional change.
+> 
+> Signed-off-by: Kevin Lampis <kevin.lampis@cloud.com>
 > ---
->  drivers/gpu/drm/xlnx/zynqmp_kms.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/xlnx/zynqmp_kms.c b/drivers/gpu/drm/xlnx/zynqmp_kms.c
-> index b47463473472..7ea0cd4f71d3 100644
-> --- a/drivers/gpu/drm/xlnx/zynqmp_kms.c
-> +++ b/drivers/gpu/drm/xlnx/zynqmp_kms.c
-> @@ -19,6 +19,7 @@
->  #include <drm/drm_crtc.h>
->  #include <drm/drm_device.h>
->  #include <drm/drm_drv.h>
-> +#include <drm/drm_dumb_buffers.h>
->  #include <drm/drm_encoder.h>
->  #include <drm/drm_fbdev_dma.h>
->  #include <drm/drm_fourcc.h>
-> @@ -363,10 +364,12 @@ static int zynqmp_dpsub_dumb_create(struct drm_file *file_priv,
->  				    struct drm_mode_create_dumb *args)
->  {
->  	struct zynqmp_dpsub *dpsub = to_zynqmp_dpsub(drm);
-> -	unsigned int pitch = DIV_ROUND_UP(args->width * args->bpp, 8);
-> +	int ret;
->  
->  	/* Enforce the alignment constraints of the DMA engine. */
-> -	args->pitch = ALIGN(pitch, dpsub->dma_align);
-> +	ret = drm_mode_size_dumb(drm, args, dpsub->dma_align, 0);
-> +	if (ret)
-> +		return ret;
->  
->  	return drm_gem_dma_dumb_create_internal(file_priv, drm, args);
->  }
+>  xen/arch/x86/acpi/cpu_idle.c             | 20 +++---
+>  xen/arch/x86/acpi/cpufreq/acpi.c         |  2 +-
+>  xen/arch/x86/acpi/cpufreq/cpufreq.c      |  4 +-
+>  xen/arch/x86/acpi/cpufreq/powernow.c     |  4 +-
+>  xen/arch/x86/alternative.c               |  8 +--
+>  xen/arch/x86/apic.c                      |  8 +--
+>  xen/arch/x86/cpu/amd.c                   | 84 ++++++++++++------------
+>  xen/arch/x86/cpu/centaur.c               |  4 +-
+>  xen/arch/x86/cpu/common.c                | 38 +++++------
+>  xen/arch/x86/cpu/hygon.c                 |  4 +-
+>  xen/arch/x86/cpu/intel.c                 | 30 ++++-----
+>  xen/arch/x86/cpu/intel_cacheinfo.c       |  6 +-
+>  xen/arch/x86/cpu/mcheck/amd_nonfatal.c   |  2 +-
+>  xen/arch/x86/cpu/mcheck/mcaction.c       |  2 +-
+>  xen/arch/x86/cpu/mcheck/mce.c            | 30 ++++-----
+>  xen/arch/x86/cpu/mcheck/mce.h            |  2 +-
+>  xen/arch/x86/cpu/mcheck/mce_amd.c        | 16 ++---
+>  xen/arch/x86/cpu/mcheck/mce_intel.c      |  5 +-
+>  xen/arch/x86/cpu/mcheck/non-fatal.c      |  2 +-
+>  xen/arch/x86/cpu/mcheck/vmce.c           |  8 +--
+>  xen/arch/x86/cpu/mtrr/generic.c          |  6 +-
+>  xen/arch/x86/cpu/mwait-idle.c            |  4 +-
+>  xen/arch/x86/cpu/vpmu.c                  |  4 +-
+>  xen/arch/x86/cpu/vpmu_amd.c              |  6 +-
+>  xen/arch/x86/cpu/vpmu_intel.c            |  4 +-
+>  xen/arch/x86/cpuid.c                     |  2 +-
+>  xen/arch/x86/dom0_build.c                |  4 +-
+>  xen/arch/x86/domain.c                    | 12 ++--
+>  xen/arch/x86/e820.c                      |  2 +-
+>  xen/arch/x86/hvm/hvm.c                   |  2 +-
+>  xen/arch/x86/hvm/svm/svm.c               |  6 +-
+>  xen/arch/x86/hvm/vmx/vmcs.c              |  4 +-
+>  xen/arch/x86/hvm/vmx/vmx.c               | 28 ++++----
+>  xen/arch/x86/i8259.c                     |  2 +-
+>  xen/arch/x86/include/asm/cpufeature.h    | 21 ++----
+>  xen/arch/x86/include/asm/intel-family.h  |  4 ++
+>  xen/arch/x86/io_apic.c                   |  2 +-
+>  xen/arch/x86/irq.c                       |  4 +-
+>  xen/arch/x86/mpparse.c                   |  8 +--
+>  xen/arch/x86/msr.c                       |  4 +-
+>  xen/arch/x86/nmi.c                       | 12 ++--
+>  xen/arch/x86/platform_hypercall.c        |  6 +-
+>  xen/arch/x86/pv/domain.c                 |  2 +-
+>  xen/arch/x86/pv/emul-priv-op.c           | 30 ++++-----
+>  xen/arch/x86/setup.c                     |  6 +-
+>  xen/arch/x86/traps-setup.c               |  4 +-
+>  xen/arch/x86/tsx.c                       |  4 +-
+>  xen/drivers/passthrough/amd/iommu_init.c |  6 +-
+>  48 files changed, 234 insertions(+), 244 deletions(-)
 
-Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Can you perhaps get this broken up some? The bigger such a patch, the easier it
+is that one unintended change slips through.
 
- Tomi
+When doing the conversion wholesale, backporting considerations also come into
+play: More adjustments may then need making all in one go when crossing the
+4.21 / 4.20 boundary.
 
+Jan
 
