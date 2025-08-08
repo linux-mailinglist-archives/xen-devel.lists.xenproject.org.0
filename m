@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BB39B1EDA6
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Aug 2025 19:10:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1074898.1437373 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23E8AB1EDC0
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Aug 2025 19:21:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1074910.1437383 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukQbj-0005kW-8B; Fri, 08 Aug 2025 17:10:19 +0000
+	id 1ukQmb-0008Ca-75; Fri, 08 Aug 2025 17:21:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1074898.1437373; Fri, 08 Aug 2025 17:10:19 +0000
+Received: by outflank-mailman (output) from mailman id 1074910.1437383; Fri, 08 Aug 2025 17:21:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukQbj-0005ir-5W; Fri, 08 Aug 2025 17:10:19 +0000
-Received: by outflank-mailman (input) for mailman id 1074898;
- Fri, 08 Aug 2025 17:10:17 +0000
+	id 1ukQmb-0008A5-4O; Fri, 08 Aug 2025 17:21:33 +0000
+Received: by outflank-mailman (input) for mailman id 1074910;
+ Fri, 08 Aug 2025 17:21:31 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ukQbh-0005il-Jr
- for xen-devel@lists.xenproject.org; Fri, 08 Aug 2025 17:10:17 +0000
+ (envelope-from <julien@xen.org>) id 1ukQmZ-00089z-Mt
+ for xen-devel@lists.xenproject.org; Fri, 08 Aug 2025 17:21:31 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1ukQbh-008358-02;
- Fri, 08 Aug 2025 17:10:17 +0000
+ (envelope-from <julien@xen.org>) id 1ukQmZ-0083Ki-0A;
+ Fri, 08 Aug 2025 17:21:31 +0000
 Received: from [2a02:8012:3a1:0:a91b:b567:8726:98f7]
  by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1ukQbg-009MZF-2d;
- Fri, 08 Aug 2025 17:10:16 +0000
+ (envelope-from <julien@xen.org>) id 1ukQmY-009N2g-2m;
+ Fri, 08 Aug 2025 17:21:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,14 +42,14 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Risfi83inZ5256jtnn+XLkdIpym8WWNbCkv3WmHFzPQ=; b=0sNmpZzcHPATnhHPJrfhnqrzsY
-	6ZZIneIXJweW+KXUA5U/Qvr5sua8AOHGzHr1Y87pRE/cYIrkBkQodY5IjhPzMKT7G8biDnOirRSlD
-	5dPpnaD+y8o8EntOQE9ENj528fTxpRp9YXTMgq2tVSaMlWwsKboR9yLrd2SSZHABjDfE=;
-Message-ID: <f6631efb-8929-4c5e-8e20-7aec4ff84574@xen.org>
-Date: Fri, 8 Aug 2025 18:10:12 +0100
+	bh=hS/RSivYCtyHijQmtH3hyBlWsLYA+NJJub2+aT6ayy8=; b=wgZ2dABwtvyzz6lByjkwWJn/0a
+	ZBUi6j0gnWCBDpMfQgSJ6bsMYSHmc8mX1QPP0yuALCWC5sYpxz8outIRdiYlL7C1B4hUNkbOXc1Sg
+	N+hmyrBjcW95BzBMZSf0fS8X8UXfr8wnkaCaLnmjYscSEkd1Ac5fyH0RuDJXSAAxgvio=;
+Message-ID: <5b940bdf-9bc0-49b2-af92-7251b2780c71@xen.org>
+Date: Fri, 8 Aug 2025 18:21:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/8] kconfig: turn PDX compression into a choice
+Subject: Re: [PATCH v4 2/8] pdx: provide a unified set of unit functions
 Content-Language: en-GB
 To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
@@ -59,37 +59,65 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>
 References: <20250805095257.74975-1-roger.pau@citrix.com>
- <20250805095257.74975-2-roger.pau@citrix.com>
+ <20250805095257.74975-3-roger.pau@citrix.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20250805095257.74975-2-roger.pau@citrix.com>
+In-Reply-To: <20250805095257.74975-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 Hi Roger,
 
 On 05/08/2025 10:52, Roger Pau Monne wrote:
-> Rename the current CONFIG_PDX_COMPRESSION to CONFIG_PDX_MASK_COMPRESSION,
-> and make it part of the PDX compression choice block, in preparation for
-> adding further PDX compression algorithms.
-> 
-> The PDX compression defaults should still be the same for all
-> architectures, however the choice block cannot be protected under EXPERT
-> and still have a default choice being unconditionally selected.  As a
-> result, the new "PDX (Page inDeX) compression" item will be unconditionally
-> visible in Kconfig, even on architectures like x86 that previously had no
-> way to enable PDX compression.
-> 
-> As part of this preparation work to introduce new PDX compressions, adjust
-> some of the comments on pdx.h to note they apply to a specific PDX
-> compression.  Also shuffle function prototypes and dummy implementations
-> around to make it easier to introduce a new PDX compression.  Note all
-> PDX compression implementations are expected to provide a
-> pdx_is_region_compressible() that takes the same set of arguments.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
+> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+> index a77b31071ed8..ba35bf1fe3bb 100644
+> --- a/xen/arch/arm/setup.c
+> +++ b/xen/arch/arm/setup.c
+> @@ -256,9 +256,11 @@ void __init init_pdx(void)
+>   {
+>       const struct membanks *mem = bootinfo_get_mem();
+>       paddr_t bank_start, bank_size, bank_end, ram_end = 0;
+> -    int bank;
+> +    unsigned int bank;
+>   
+>   #ifndef CONFIG_PDX_NONE
+> +    for ( bank = 0 ; bank < mem->nr_banks; bank++ )
+> +        pfn_pdx_add_region(mem->bank[bank].start, mem->bank[bank].size);
+>       /*
+>        * Arm does not have any restrictions on the bits to compress. Pass 0 to
+>        * let the common code further restrict the mask.
+> @@ -266,26 +268,24 @@ void __init init_pdx(void)
+>        * If the logic changes in pfn_pdx_hole_setup we might have to
+>        * update this function too.
+>        */
+> -    uint64_t mask = pdx_init_mask(0x0);
+> -
+> -    for ( bank = 0 ; bank < mem->nr_banks; bank++ )
+> -    {
+> -        bank_start = mem->bank[bank].start;
+> -        bank_size = mem->bank[bank].size;
+> -
+> -        mask |= bank_start | pdx_region_mask(bank_start, bank_size);
+> -    }
+> +    pfn_pdx_compression_setup(0);
+>   
+>       for ( bank = 0 ; bank < mem->nr_banks; bank++ )
+>       {
+> -        bank_start = mem->bank[bank].start;
+> -        bank_size = mem->bank[bank].size;
+> -
+> -        if (~mask & pdx_region_mask(bank_start, bank_size))
+> -            mask = 0;
+> +        if ( !pdx_is_region_compressible(
+> +                  mem->bank[bank].start,
+> +                  PFN_UP(mem->bank[bank].start + mem->bank[bank].size) -
+> +                  PFN_DOWN(mem->bank[bank].start)) )
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+This code is a bit too verbose. Can we at least introduce "bank = 
+&mem->bank[bank]" to reduce a bit the verbosity?
+
+The rest of the logic looks fine. So:
+
+Acked-by: Julien Grall <jgrall@amazon.com> # ARM
 
 Cheers,
 
