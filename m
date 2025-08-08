@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B63EDB1ED9F
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Aug 2025 19:04:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1074892.1437364 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BB39B1EDA6
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Aug 2025 19:10:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1074898.1437373 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukQW8-0004Dg-ML; Fri, 08 Aug 2025 17:04:32 +0000
+	id 1ukQbj-0005kW-8B; Fri, 08 Aug 2025 17:10:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1074892.1437364; Fri, 08 Aug 2025 17:04:32 +0000
+Received: by outflank-mailman (output) from mailman id 1074898.1437373; Fri, 08 Aug 2025 17:10:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukQW8-0004At-Jq; Fri, 08 Aug 2025 17:04:32 +0000
-Received: by outflank-mailman (input) for mailman id 1074892;
- Fri, 08 Aug 2025 17:04:31 +0000
+	id 1ukQbj-0005ir-5W; Fri, 08 Aug 2025 17:10:19 +0000
+Received: by outflank-mailman (input) for mailman id 1074898;
+ Fri, 08 Aug 2025 17:10:17 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ukQW7-0004Ah-9o
- for xen-devel@lists.xenproject.org; Fri, 08 Aug 2025 17:04:31 +0000
+ (envelope-from <julien@xen.org>) id 1ukQbh-0005il-Jr
+ for xen-devel@lists.xenproject.org; Fri, 08 Aug 2025 17:10:17 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1ukQW6-0082ys-2z;
- Fri, 08 Aug 2025 17:04:30 +0000
+ (envelope-from <julien@xen.org>) id 1ukQbh-008358-02;
+ Fri, 08 Aug 2025 17:10:17 +0000
 Received: from [2a02:8012:3a1:0:a91b:b567:8726:98f7]
  by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1ukQW6-009MRY-2Q;
- Fri, 08 Aug 2025 17:04:30 +0000
+ (envelope-from <julien@xen.org>) id 1ukQbg-009MZF-2d;
+ Fri, 08 Aug 2025 17:10:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,48 +42,52 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Sw8BCxiBnS3dZm4Eomw4ndZ4m8tGN3vOSmmNUYA5sXY=; b=Hotdm+hbkGquTAUsn6vn3gFVUS
-	WtunmQGsEt0eE7eF1cJpHMWz2+L2Iib6WDpMygKn5Q6oXu3S7Q6K+LObL6MKw/tTk0uI80wv3kK9K
-	RKpwrmx6QVuDjrW3EMPICPCywJrechkegOP3szol60rOxTENz+T3bTmNtbBQyh+LKzj0=;
-Message-ID: <ee580076-994d-47a4-b4a8-450783369738@xen.org>
-Date: Fri, 8 Aug 2025 18:04:28 +0100
+	bh=Risfi83inZ5256jtnn+XLkdIpym8WWNbCkv3WmHFzPQ=; b=0sNmpZzcHPATnhHPJrfhnqrzsY
+	6ZZIneIXJweW+KXUA5U/Qvr5sua8AOHGzHr1Y87pRE/cYIrkBkQodY5IjhPzMKT7G8biDnOirRSlD
+	5dPpnaD+y8o8EntOQE9ENj528fTxpRp9YXTMgq2tVSaMlWwsKboR9yLrd2SSZHABjDfE=;
+Message-ID: <f6631efb-8929-4c5e-8e20-7aec4ff84574@xen.org>
+Date: Fri, 8 Aug 2025 18:10:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 6/6] xen/arm: ffa: Enable VM to VM without firmware
+Subject: Re: [PATCH v4 1/8] kconfig: turn PDX compression into a choice
 Content-Language: en-GB
-To: Bertrand Marquis <bertrand.marquis@arm.com>,
- xen-devel@lists.xenproject.org
-Cc: jens.wiklander@linaro.org, Volodymyr Babchuk
- <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>
-References: <cover.1752754016.git.bertrand.marquis@arm.com>
- <9ed199ef3be4b6dc665f19f96ba4063c61ccbf00.1752754016.git.bertrand.marquis@arm.com>
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>
+References: <20250805095257.74975-1-roger.pau@citrix.com>
+ <20250805095257.74975-2-roger.pau@citrix.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <9ed199ef3be4b6dc665f19f96ba4063c61ccbf00.1752754016.git.bertrand.marquis@arm.com>
+In-Reply-To: <20250805095257.74975-2-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Bertrand,
+Hi Roger,
 
-On 17/07/2025 13:11, Bertrand Marquis wrote:
-> When VM to VM support is activated and there is no suitable FF-A support
-> in the firmware, enable FF-A support for VMs to allow using it for VM to
-> VM communications.
-> If there is OP-TEE running in the secure world and using the non FF-A
-> communication system, having CONFIG_FFA_VM_TO_VM could be non functional
-> (if optee is probed first) or OP-TEE could be non functional (if FF-A is
-> probed first) so it is not recommended to activate the configuration
-> option for such systems.
+On 05/08/2025 10:52, Roger Pau Monne wrote:
+> Rename the current CONFIG_PDX_COMPRESSION to CONFIG_PDX_MASK_COMPRESSION,
+> and make it part of the PDX compression choice block, in preparation for
+> adding further PDX compression algorithms.
 > 
-> To make buffer full notification work between VMs when there is no
-> firmware, rework the notification handling and modify the global flag to
-> only be used as check for firmware notification support instead.
+> The PDX compression defaults should still be the same for all
+> architectures, however the choice block cannot be protected under EXPERT
+> and still have a default choice being unconditionally selected.  As a
+> result, the new "PDX (Page inDeX) compression" item will be unconditionally
+> visible in Kconfig, even on architectures like x86 that previously had no
+> way to enable PDX compression.
 > 
-> Also split probe function into one for firmware and one for vm to vm to
-> make the implementation clearer.
+> As part of this preparation work to introduce new PDX compressions, adjust
+> some of the comments on pdx.h to note they apply to a specific PDX
+> compression.  Also shuffle function prototypes and dummy implementations
+> around to make it easier to introduce a new PDX compression.  Note all
+> PDX compression implementations are expected to provide a
+> pdx_is_region_compressible() that takes the same set of arguments.
 > 
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Acked-by: Julien Grall <jgrall@amazon.com>
 
