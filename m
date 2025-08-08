@@ -2,41 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC581B1EE8E
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Aug 2025 20:51:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1074987.1437443 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D17BB1EF70
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Aug 2025 22:23:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1075021.1437486 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukSBU-0007sv-IJ; Fri, 08 Aug 2025 18:51:20 +0000
+	id 1ukTcd-0006Zy-96; Fri, 08 Aug 2025 20:23:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1074987.1437443; Fri, 08 Aug 2025 18:51:20 +0000
+Received: by outflank-mailman (output) from mailman id 1075021.1437486; Fri, 08 Aug 2025 20:23:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukSBU-0007qI-FS; Fri, 08 Aug 2025 18:51:20 +0000
-Received: by outflank-mailman (input) for mailman id 1074987;
- Fri, 08 Aug 2025 18:51:19 +0000
+	id 1ukTcd-0006W1-3P; Fri, 08 Aug 2025 20:23:27 +0000
+Received: by outflank-mailman (input) for mailman id 1075021;
+ Fri, 08 Aug 2025 20:23:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cFBd=2U=samsung.com=m.szyprowski@srs-se1.protection.inumbo.net>)
- id 1ukSBS-0007qA-Az
- for xen-devel@lists.xenproject.org; Fri, 08 Aug 2025 18:51:19 +0000
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a8b21195-7488-11f0-b898-0df219b8e170;
- Fri, 08 Aug 2025 20:51:15 +0200 (CEST)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20250808185114euoutp0162c911292defe8bfee54f2309b1e8171~Z31I7WGpl0720707207euoutp01Y;
- Fri,  8 Aug 2025 18:51:14 +0000 (GMT)
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20250808185112eucas1p285bfbeb3352a16df0b5c8f262fadbf2f~Z31Hzuzfc1555715557eucas1p2H;
- Fri,  8 Aug 2025 18:51:12 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20250808185109eusmtip1cf791168d581e5b5b824a27d8cdd9069~Z31ElK-rK1126511265eusmtip1F;
- Fri,  8 Aug 2025 18:51:09 +0000 (GMT)
+ <SRS0=Dtzj=2U=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ukTcb-0005tJ-TT
+ for xen-devel@lists.xenproject.org; Fri, 08 Aug 2025 20:23:25 +0000
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [2a00:1450:4864:20::344])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 865873cd-7495-11f0-b898-0df219b8e170;
+ Fri, 08 Aug 2025 22:23:20 +0200 (CEST)
+Received: by mail-wm1-x344.google.com with SMTP id
+ 5b1f17b1804b1-458b885d6eeso16335155e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 08 Aug 2025 13:23:20 -0700 (PDT)
+Received: from localhost.localdomain (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-459e075047fsm103989805e9.1.2025.08.08.13.23.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 08 Aug 2025 13:23:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,158 +45,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8b21195-7488-11f0-b898-0df219b8e170
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20250808185114euoutp0162c911292defe8bfee54f2309b1e8171~Z31I7WGpl0720707207euoutp01Y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1754679074;
-	bh=eZMpLLPpWLfEcYOqjTqa6+eB/bqRZJ+BbYqsgnnPbkY=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=WGyqUFMDFBBsAtsI8xiD1Ayr7WYuZYdyBJMCoPCRGfrVxwAdMcl3GCV7Qwkcc4nI/
-	 gnDfUeRP8iiJIUgEStFM4TfVVnoq/LDogKUpBA2D+NmwrtJRryBOG1ru2ITf74oehS
-	 IO287BU42jFk8ZARXzvIDO/cRSfPjtUJVNlWylGo=
-Message-ID: <a154e058-c0e6-4208-9f52-57cec22eaf7d@samsung.com>
-Date: Fri, 8 Aug 2025 20:51:08 +0200
+X-Inumbo-ID: 865873cd-7495-11f0-b898-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1754684599; x=1755289399; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=NXB3evWZT2QzGQ/J5BzSyaQ1jIiR7GXFqd50zzqLOmQ=;
+        b=bMrI3an2I3UqEGkn2ZNgxp+lFXuwJyYHez+8hjPuUSuROd/VkSmWiyyHFwuGDWMbGo
+         gS3kcQxx5jt3Fe5XqAIoITakSQClYDVZDpaPl8albzmrzsOj3mt2MNEw4jEtZh+7fG2G
+         Laf1u0Y31p6S2ce8BM1ij0WYYJuUEqR6icss8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1754684599; x=1755289399;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=NXB3evWZT2QzGQ/J5BzSyaQ1jIiR7GXFqd50zzqLOmQ=;
+        b=JIn1qpDs7In/CVvd45n8H0yxm9LDGazbFq3nIhbWyKg1ApOgxFTizk1s4yRotMDoI9
+         v3ZMxytsRnOs6LTFu6KVK6fiobRNDHjE+/yVJFzTFoMu8XVULUwUC3pB49YKkiAwizjq
+         plAnB5TQ1aPe4P3VqAxksiLnqO0FJXUvO6TuPDc7ecrx1sEay03wIc1rbXkc19Bp6zM6
+         Sn/SxdC6UYXW4kP0gHyqbajz1oexybRqRHveD5uTSe3pH5TLxkepmtqbC/rKqYHldU+e
+         S3BFXjsyxF1mIko/aMNmXoRJB3S3Taaw1EUcxqhErgmpfv/OHtUeoliInaOKVh2Lff7o
+         +X2w==
+X-Gm-Message-State: AOJu0YwjFMrS9Jz2FA+XsTtxnTWOJxhpLE5bV9jGyU+m+bNoqYAZQcJa
+	Ku0LNs87dcPxzKZRVffw8ENjCbGmR2J1iymibGjTuuVIbWe5yyM+M3EHpaq7mJnVVxF4TQWM3UD
+	Lwaf6JRxinQ==
+X-Gm-Gg: ASbGnct0WKbTWrylgMeDR67QJzAvrO67uJ9eo5CcAWQY8LnZWuNtQTbNam+YT3UvpLf
+	wDQnihqtYUkwN8PYydKflCePuG6aQjcsQyx/gdL/JCQRBTMuDbWvpFZtJIRU6OPQ1L/BWo2GO7w
+	qWvUiFSXQVpdMRSz8fv2+Zi7vbavs4/goJcIk0KrFNvdj1koD7mEEidjo3xjZzwckdrE6YXlnfb
+	Vryth91t9g6QvmH7goDmDE8CqlZkq7vpKKszAt8GSUAvcdnI1fE20z538gzRSm23vzrHgcFERNl
+	CHgms1PkHmURci3Wn16Dg8LsxaTchSCFmuPRJoxOPXan7Xubh1/pR+kkLxPEn0nBvqddChsSBTp
+	KemAE74oXLHn4zSPohaU+bdjy70nCiSDfwEz5bipHMkX0XlQbu621JA+U2/vZPnfj4XHymGoIVQ
+	Oi
+X-Google-Smtp-Source: AGHT+IEWfXGmnWSAfrcKcA8kPPSp8RIjb9u20ShqxnvVUVZlpICEvaGami8eRfr1Y30jsJWCYUzvIg==
+X-Received: by 2002:a05:600c:46c7:b0:456:1a41:f932 with SMTP id 5b1f17b1804b1-459f4f048d7mr37200675e9.22.1754684599342;
+        Fri, 08 Aug 2025 13:23:19 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH 00/22] x86: FRED support, part 1 (stacks and exceptions)
+Date: Fri,  8 Aug 2025 21:22:52 +0100
+Message-Id: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v1 00/16] dma-mapping: migrate to physical address-based
- API
-To: Jason Gunthorpe <jgg@nvidia.com>, Leon Romanovsky <leon@kernel.org>
-Cc: Abdiel Janulgue <abdiel.janulgue@gmail.com>, Alexander Potapenko
-	<glider@google.com>, Alex Gaynor <alex.gaynor@gmail.com>, Andrew Morton
-	<akpm@linux-foundation.org>, Christoph Hellwig <hch@lst.de>, Danilo
-	Krummrich <dakr@kernel.org>, iommu@lists.linux.dev, Jason Wang
-	<jasowang@redhat.com>, Jens Axboe <axboe@kernel.dk>, Joerg Roedel
-	<joro@8bytes.org>, Jonathan Corbet <corbet@lwn.net>, Juergen Gross
-	<jgross@suse.com>, kasan-dev@googlegroups.com, Keith Busch
-	<kbusch@kernel.org>, linux-block@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-nvme@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
-	linux-trace-kernel@vger.kernel.org, Madhavan Srinivasan
-	<maddy@linux.ibm.com>, Masami Hiramatsu <mhiramat@kernel.org>, Michael
-	Ellerman <mpe@ellerman.id.au>, "Michael S. Tsirkin" <mst@redhat.com>, Miguel
-	Ojeda <ojeda@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	rust-for-linux@vger.kernel.org, Sagi Grimberg <sagi@grimberg.me>, Stefano
-	Stabellini <sstabellini@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
-	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
-	xen-devel@lists.xenproject.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20250807141929.GN184255@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20250808185112eucas1p285bfbeb3352a16df0b5c8f262fadbf2f
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20250807141938eucas1p2319a0526b25db120b3c9aeb49f69cce1
-X-EPHeader: CA
-X-CMS-RootMailID: 20250807141938eucas1p2319a0526b25db120b3c9aeb49f69cce1
-References: <cover.1754292567.git.leon@kernel.org>
-	<CGME20250807141938eucas1p2319a0526b25db120b3c9aeb49f69cce1@eucas1p2.samsung.com>
-	<20250807141929.GN184255@nvidia.com>
 
-On 07.08.2025 16:19, Jason Gunthorpe wrote:
-> On Mon, Aug 04, 2025 at 03:42:34PM +0300, Leon Romanovsky wrote:
->> Changelog:
->> v1:
->>   * Added new DMA_ATTR_MMIO attribute to indicate
->>     PCI_P2PDMA_MAP_THRU_HOST_BRIDGE path.
->>   * Rewrote dma_map_* functions to use thus new attribute
->> v0: https://lore.kernel.org/all/cover.1750854543.git.leon@kernel.org/
->> ------------------------------------------------------------------------
->>
->> This series refactors the DMA mapping to use physical addresses
->> as the primary interface instead of page+offset parameters. This
->> change aligns the DMA API with the underlying hardware reality where
->> DMA operations work with physical addresses, not page structures.
-> Lets elaborate this as Robin asked:
->
-> This series refactors the DMA mapping API to provide a phys_addr_t
-> based, and struct-page free, external API that can handle all the
-> mapping cases we want in modern systems:
->
->   - struct page based cachable DRAM
->   - struct page MEMORY_DEVICE_PCI_P2PDMA PCI peer to peer non-cachable MMIO
->   - struct page-less PCI peer to peer non-cachable MMIO
->   - struct page-less "resource" MMIO
->
-> Overall this gets much closer to Matthew's long term wish for
-> struct-pageless IO to cachable DRAM. The remaining primary work would
-> be in the mm side to allow kmap_local_pfn()/phys_to_virt() to work on
-> phys_addr_t without a struct page.
->
-> The general design is to remove struct page usage entirely from the
-> DMA API inner layers. For flows that need to have a KVA for the
-> physical address they can use kmap_local_pfn() or phys_to_virt(). This
-> isolates the struct page requirements to MM code only. Long term all
-> removals of struct page usage are supporting Matthew's memdesc
-> project which seeks to substantially transform how struct page works.
->
-> Instead make the DMA API internals work on phys_addr_t. Internally
-> there are still dedicated 'page' and 'resource' flows, except they are
-> now distinguished by a new DMA_ATTR_MMIO instead of by callchain. Both
-> flows use the same phys_addr_t.
->
-> When DMA_ATTR_MMIO is specified things work similar to the existing
-> 'resource' flow. kmap_local_pfn(), phys_to_virt(), phys_to_page(),
-> pfn_valid(), etc are never called on the phys_addr_t. This requires
-> rejecting any configuration that would need swiotlb. CPU cache
-> flushing is not required, and avoided, as ATTR_MMIO also indicates the
-> address have no cachable mappings. This effectively removes any
-> DMA API side requirement to have struct page when DMA_ATTR_MMIO is
-> used.
->
-> In the !DMA_ATTR_MMIO mode things work similarly to the 'page' flow,
-> except on the common path of no cache flush, no swiotlb it never
-> touches a struct page. When cache flushing or swiotlb copying
-> kmap_local_pfn()/phys_to_virt() are used to get a KVA for CPU
-> usage. This was already the case on the unmap side, now the map side
-> is symmetric.
->
-> Callers are adjusted to set DMA_ATTR_MMIO. Existing 'resource' users
-> must set it. The existing struct page based MEMORY_DEVICE_PCI_P2PDMA
-> path must also set it. This corrects some existing bugs where iommu
-> mappings for P2P MMIO were improperly marked IOMMU_CACHE.
->
-> Since ATTR_MMIO is made to work with all the existing DMA map entry
-> points, particularly dma_iova_link(), this finally allows a way to use
-> the new DMA API to map PCI P2P MMIO without creating struct page. The
-> VFIO DMABUF series demonstrates how this works. This is intended to
-> replace the incorrect driver use of dma_map_resource() on PCI BAR
-> addresses.
->
-> This series does the core code and modern flows. A followup series
-> will give the same treatement to the legacy dma_ops implementation.
+Patches 1-12 are cleanup and rearrangement in order to fit FRED in more
+nicely.
 
-Thanks for the elaborate description, that's something that was missing 
-in the previous attempt. I read again all the previous discussion and 
-this explanation and there are still two things that imho needs more 
-clarification.
+Patches 13-22 are the start of FRED support, setting up the stacks and
+exception handling.
+
+By the end of this series, Xen can run a PVH dom0 (if NMIs aren't in use -
+VT-x has a really nasty corner case here), or can get to the point of
+launching a PV dom0.  Running a PV dom0 is going to take a similar quantity of
+work.
+
+All deveopment work has been done with Intel SIMICS.  I don't yet have real
+hardware to test on.
+
+The Gitlab CI AlderLake box, sporting both Shadow Stacks and S3 has been
+working overtime checking that S3 works on every relevant patch boundary.
+
+https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1974989391
 
 
-First - basing the API on the phys_addr_t.
+Andrew Cooper (22):
+  x86/msr: Rename MSR_INTERRUPT_SSP_TABLE to MSR_ISST
+  x86/msr: Rename wrmsr_ns() to wrmsrns(), and take 64bit value
+  x86/traps: Drop incorrect BUILD_BUG_ON() and comment in load_system_tables()
+  x86/idt: Minor improvements to _update_gate_addr_lower()
+  x86/traps: Rename early_traps_init() to bsp_early_traps_init()
+  x86/traps: Introduce bsp_traps_reinit()
+  x86/spec-ctrl: Rework init_shadow_spec_ctrl_state() to take an info pointer
+  x86/traps: Introduce ap_early_traps_init() and set up exception handling earlier
+  x86/traps: Move load_system_tables() into traps-setup.c
+  x86/traps: Move subarch_percpu_traps_init() into traps-setup.c
+  x86/traps: Fold x86_64/traps.c into traps.c
+  x86/traps: Unexport show_code() and show_stack_overflow()
+  x86: FRED enumerations
+  x86/traps: Extend struct cpu_user_regs/cpu_info with FRED fields
+  x86/traps: Introduce opt_fred
+  x86/boot: Adjust CR4 handling around ap_early_traps_init()
+  x86/S3: Switch to using RSTORSSP to recover SSP on resume
+  x86/traps: Set MSR_PL0_SSP in load_system_tables()
+  x86/boot: Use RSTORSSP to establish SSP
+  x86/traps: Alter switch_stack_and_jump() for FRED mode
+  x86/traps: Introduce FRED entrypoints
+  x86/traps: Enable FRED when requested
 
-Page based API had the advantage that it was really hard to abuse it and 
-call for something that is not 'a normal RAM'. I initially though that 
-phys_addr_t based API will somehow simplify arch specific 
-implementation, as some of them indeed rely on phys_addr_t internally, 
-but I missed other things pointed by Robin. Do we have here any 
-alternative?
+ docs/misc/xen-command-line.pandoc           |  10 +
+ xen/arch/x86/Kconfig                        |   4 +
+ xen/arch/x86/acpi/wakeup_prot.S             |  57 +--
+ xen/arch/x86/boot/x86_64.S                  |  53 ++-
+ xen/arch/x86/cpu/common.c                   | 120 ------
+ xen/arch/x86/include/asm/asm-defns.h        |   9 +
+ xen/arch/x86/include/asm/asm_defns.h        |  65 +++
+ xen/arch/x86/include/asm/cpu-user-regs.h    |  71 +++-
+ xen/arch/x86/include/asm/cpufeature.h       |   3 +
+ xen/arch/x86/include/asm/current.h          |  14 +-
+ xen/arch/x86/include/asm/idt.h              |  13 +-
+ xen/arch/x86/include/asm/msr-index.h        |  13 +-
+ xen/arch/x86/include/asm/msr.h              |  12 +-
+ xen/arch/x86/include/asm/processor.h        |   2 -
+ xen/arch/x86/include/asm/prot-key.h         |   4 +-
+ xen/arch/x86/include/asm/spec_ctrl.h        |   4 +-
+ xen/arch/x86/include/asm/system.h           |   3 -
+ xen/arch/x86/include/asm/traps.h            |   7 +-
+ xen/arch/x86/include/asm/x86-defns.h        |   1 +
+ xen/arch/x86/msr.c                          |   4 +-
+ xen/arch/x86/setup.c                        |  37 +-
+ xen/arch/x86/smpboot.c                      |  17 +-
+ xen/arch/x86/spec_ctrl.c                    |   2 +-
+ xen/arch/x86/traps-setup.c                  | 358 +++++++++++++++-
+ xen/arch/x86/traps.c                        | 448 +++++++++++++++++++-
+ xen/arch/x86/x86_64/Makefile                |   2 +-
+ xen/arch/x86/x86_64/entry-fred.S            |  35 ++
+ xen/arch/x86/x86_64/traps.c                 | 414 ------------------
+ xen/include/public/arch-x86/cpufeatureset.h |   3 +
+ xen/include/xen/macros.h                    |   2 +
+ 30 files changed, 1142 insertions(+), 645 deletions(-)
+ create mode 100644 xen/arch/x86/x86_64/entry-fred.S
+ delete mode 100644 xen/arch/x86/x86_64/traps.c
 
-
-Second - making dma_map_phys() a single API to handle all cases.
-
-Do we really need such single function to handle all cases? To handle 
-P2P case, the caller already must pass DMA_ATTR_MMIO, so it must somehow 
-keep such information internally. Cannot it just call existing 
-dma_map_resource(), so there will be clear distinction between these 2 
-cases (DMA to RAM and P2P DMA)? Do we need additional check for 
-DMA_ATTR_MMIO for every typical DMA user? I know that branching is 
-cheap, but this will probably increase code size for most of the typical 
-users for no reason.
-
-
-Best regards
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+2.39.5
 
 
