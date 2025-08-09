@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3F55B1F589
-	for <lists+xen-devel@lfdr.de>; Sat,  9 Aug 2025 19:08:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1076130.1437874 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82EA7B1F58A
+	for <lists+xen-devel@lfdr.de>; Sat,  9 Aug 2025 19:15:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1076159.1437884 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukn3Y-0007eE-S6; Sat, 09 Aug 2025 17:08:32 +0000
+	id 1uknA3-0001uI-Fa; Sat, 09 Aug 2025 17:15:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1076130.1437874; Sat, 09 Aug 2025 17:08:32 +0000
+Received: by outflank-mailman (output) from mailman id 1076159.1437884; Sat, 09 Aug 2025 17:15:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukn3Y-0007ci-OP; Sat, 09 Aug 2025 17:08:32 +0000
-Received: by outflank-mailman (input) for mailman id 1076130;
- Sat, 09 Aug 2025 17:08:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uknA3-0001rH-Cf; Sat, 09 Aug 2025 17:15:15 +0000
+Received: by outflank-mailman (input) for mailman id 1076159;
+ Sat, 09 Aug 2025 17:15:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gHj1=2V=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1ukn3W-00067a-Kj
- for xen-devel@lists.xenproject.org; Sat, 09 Aug 2025 17:08:30 +0000
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch
- [109.224.244.18]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 77be217e-7543-11f0-b898-0df219b8e170;
- Sat, 09 Aug 2025 19:08:28 +0200 (CEST)
+ id 1uknA2-0001rB-0U
+ for xen-devel@lists.xenproject.org; Sat, 09 Aug 2025 17:15:14 +0000
+Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch
+ [79.135.106.31]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6929d338-7544-11f0-a325-13f23c93f187;
+ Sat, 09 Aug 2025 19:15:13 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,101 +36,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77be217e-7543-11f0-b898-0df219b8e170
+X-Inumbo-ID: 6929d338-7544-11f0-a325-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1754759307; x=1755018507;
-	bh=ExFqjWjqjBKIkst9TjGPeYZbHwQVcQbFc9c45DPIdPw=;
+	s=protonmail; t=1754759712; x=1755018912;
+	bh=thanlJuksLNx6tanpBgKgBiIGs9aSMKVMgh72IminGE=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=T1gKrSUhD10gMR/Wh0kd43tRjLerGP22zAUN/pnrNLCaovAvOEwowwcdViRb8PA4V
-	 D9X1AGwZ25IYLI6k0gbvGi4S2stDMdIX8RU+BpHdZi2Faw7NgsryN+99hB+b+04RVF
-	 Y7A4184Ag6h/Yc8uSZyCxAMPvHK68iexGI0jGMGPyAFTBBKB5CO6Yx2gZMXt/aWK5N
-	 YBHWKOeGpxHbPeScP530LLyYwlcoYZiDtWaTwA0Sl5fTgZxP8LRyIDFZmod6i+CsY3
-	 IDsuSSj58+iIH9Gfa0A2LqzCPiTHLmnndMWkV/Cf7JxUG0cGyCbdbireGaTHIXknZg
-	 zNTljc+rutuDA==
-Date: Sat, 09 Aug 2025 17:08:20 +0000
-To: xen-devel@lists.xenproject.org
+	b=b8+GPoqdm+/6I5vBnZUuonjTdbJ3Jxx/28dTIRk0/AXuKi7JaH1rPe2B2TxtZL68k
+	 ZYqenzlENMJSNJIf/f1dNuefZx7ScarLbbsnzCen/ahMyF6SFQPE0K1cyV6lSe0kV0
+	 nvq16NQR6Yupg3z062BjOnAz3HptGiITXjj0VvltVcnD5qDgiROYvsrFlDRcROXO7l
+	 Cuocu9wv8r4JD4kVDVpXoNlCJ9zqCFGe9TVlcZAd8KBASDZvfN6f/+KeksWRqFqs9F
+	 x0VzhN9jzhYfgIobktfuyH6oaiBJDy29m60UHjuAj3iVgqX5+W+G5itroHCkZ7o4JU
+	 /qna6U3xgnGgA==
+Date: Sat, 09 Aug 2025 17:15:04 +0000
+To: Mykola Kvach <xakep.amatop@gmail.com>
 From: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, Alejandro Vallejo <alejandro.garciavallejo@amd.com>, Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v15 4/4] xen/domain: update create_dom0() messages
-Message-ID: <20250809170747.1836880-5-dmukhin@ford.com>
-In-Reply-To: <20250809170747.1836880-1-dmukhin@ford.com>
-References: <20250809170747.1836880-1-dmukhin@ford.com>
+Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH] xen/arm: irq: add missing spin_unlock() in init_local_irq_data() error path
+Message-ID: <aJeCElyVkGY8Ri3i@kraken>
+In-Reply-To: <bd707bd0fd88fc53974a1214313a9b9103162bcc.1754749899.git.mykola_kvach@epam.com>
+References: <bd707bd0fd88fc53974a1214313a9b9103162bcc.1754749899.git.mykola_kvach@epam.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: e32306d32ff33ac3514e7b7e19bddf676a2d82ee
+X-Pm-Message-ID: 03b61940d2d15721c225bcebd61a236476080a71
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-From: Denis Mukhin <dmukhin@ford.com>=20
+On Sat, Aug 09, 2025 at 05:32:41PM +0300, Mykola Kvach wrote:
+> From: Mykola Kvach <mykola_kvach@epam.com>
+>=20
+> If init_one_irq_desc() fails, init_local_irq_data() returns without
+> releasing local_irqs_type_lock, leading to a possible deadlock.
+>=20
+> Release the lock before returning to ensure proper cleanup.
+>=20
+> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 
-Use %pd for domain identification in error/panic messages in create_dom0().
+Nice catch!
 
-No functional change.
+Please consider:
 
-Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-Reviewed-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
-Acked-by: Julien Grall <jgrall@amazon.com>
----
-Changes since v14:
-- added Julien's A-b
----
- xen/arch/arm/domain_build.c | 6 +++---
- xen/arch/x86/setup.c        | 4 ++--
- 2 files changed, 5 insertions(+), 5 deletions(-)
+Reviewed-by: Denis Mukhin <dmukhin@ford.com>=20
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 789f2b9d3ce7..02a15d160962 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -2084,14 +2084,14 @@ void __init create_dom0(void)
-         panic("Error creating domain 0 (rc =3D %ld)\n", PTR_ERR(dom0));
-=20
-     if ( llc_coloring_enabled && (rc =3D dom0_set_llc_colors(dom0)) )
--        panic("Error initializing LLC coloring for domain 0 (rc =3D %d)\n"=
-, rc);
-+        panic("Error initializing LLC coloring for %pd (rc =3D %d)\n", dom=
-0, rc);
-=20
-     if ( vcpu_create(dom0, 0) =3D=3D NULL )
--        panic("Error creating domain 0 vcpu0\n");
-+        panic("Error creating %pdv0\n", dom0);
-=20
-     rc =3D construct_dom0(dom0);
-     if ( rc )
--        panic("Could not set up DOM0 guest OS (rc =3D %d)\n", rc);
-+        panic("Could not set up %pd guest OS (rc =3D %d)\n", dom0, rc);
-=20
-     set_xs_domain(dom0);
- }
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 398da734c0c5..bf21c55f7193 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -1084,7 +1084,7 @@ static struct domain *__init create_dom0(struct boot_=
-info *bi)
-=20
-         if ( (strlen(acpi_param) =3D=3D 0) && acpi_disabled )
-         {
--            printk("ACPI is disabled, notifying Domain 0 (acpi=3Doff)\n");
-+            printk("ACPI is disabled, notifying %pd (acpi=3Doff)\n", d);
-             safe_strcpy(acpi_param, "off");
-         }
-=20
-@@ -1099,7 +1099,7 @@ static struct domain *__init create_dom0(struct boot_=
-info *bi)
-=20
-     bd->d =3D d;
-     if ( construct_dom0(bd) !=3D 0 )
--        panic("Could not construct domain 0\n");
-+        panic("Could not construct %pd\n", d);
-=20
-     bd->cmdline =3D NULL;
-     xfree(cmdline);
---=20
-2.34.1
-
+> ---
+>  xen/arch/arm/irq.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>=20
+> diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
+> index 4bbf0b0664..02ca82c089 100644
+> --- a/xen/arch/arm/irq.c
+> +++ b/xen/arch/arm/irq.c
+> @@ -94,7 +94,10 @@ static int init_local_irq_data(unsigned int cpu)
+>          int rc =3D init_one_irq_desc(desc);
+>=20
+>          if ( rc )
+> +        {
+> +            spin_unlock(&local_irqs_type_lock);
+>              return rc;
+> +        }
+>=20
+>          desc->irq =3D irq;
+>          desc->action  =3D NULL;
+> --
+> 2.48.1
+>=20
+>=20
 
 
