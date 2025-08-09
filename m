@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E475B1F5D3
-	for <lists+xen-devel@lfdr.de>; Sat,  9 Aug 2025 20:38:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1076205.1437893 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58F36B1F5F1
+	for <lists+xen-devel@lfdr.de>; Sat,  9 Aug 2025 20:56:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1076217.1437904 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukoRV-0004wt-Vl; Sat, 09 Aug 2025 18:37:21 +0000
+	id 1ukojQ-0007wq-Dk; Sat, 09 Aug 2025 18:55:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1076205.1437893; Sat, 09 Aug 2025 18:37:21 +0000
+Received: by outflank-mailman (output) from mailman id 1076217.1437904; Sat, 09 Aug 2025 18:55:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukoRV-0004uL-ST; Sat, 09 Aug 2025 18:37:21 +0000
-Received: by outflank-mailman (input) for mailman id 1076205;
- Sat, 09 Aug 2025 18:37:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ukojQ-0007v8-Aj; Sat, 09 Aug 2025 18:55:52 +0000
+Received: by outflank-mailman (input) for mailman id 1076217;
+ Sat, 09 Aug 2025 18:55:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gHj1=2V=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1ukoRS-0004uF-T8
- for xen-devel@lists.xenproject.org; Sat, 09 Aug 2025 18:37:20 +0000
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id df6acb60-754f-11f0-a325-13f23c93f187;
- Sat, 09 Aug 2025 20:37:16 +0200 (CEST)
+ id 1ukojP-0007v2-8W
+ for xen-devel@lists.xenproject.org; Sat, 09 Aug 2025 18:55:51 +0000
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch
+ [109.224.244.18]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 74a1ca3e-7552-11f0-b898-0df219b8e170;
+ Sat, 09 Aug 2025 20:55:45 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,445 +36,412 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df6acb60-754f-11f0-a325-13f23c93f187
+X-Inumbo-ID: 74a1ca3e-7552-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1754764634; x=1755023834;
-	bh=n5Ehv5KB0OtjRGUxggTUAaUhi43nCx1jRRE/9S54hLk=;
+	s=protonmail; t=1754765744; x=1755024944;
+	bh=V0dPOPPGKZioYBhiypfxDr+zGniz/rls6nMEBhUeJK0=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=JPEBJqxwBKDH0YItkp6RrTEg+BsIcHiI5tK0XYqQoC+i5Enm9blVJHANpfMGfChTY
-	 qSGm18Y4OoE2nMfuJ4LtkjG6kPNmvAfcSDPC4pAO/AKVv8pkR8gDLYBy2ToV/CsAG4
-	 TD25gDJ/L7OHw3HuiKSnz5TIuRFkk9ILxJvTL83vvartqbN4t1sF0fXdbrIlby/YKD
-	 fDhK40IvrNW3bJjZhcRBPX0PCh4C/nNPUm72yqHBddabsGehqnFQHkLHnETx9sDr+z
-	 CQst12OaMsq62K9uXYl76wMtjlMid5KceczEnJDwYEyIj7nc391HU1trQhPwpVQvfG
-	 XAm0/CRg6+whQ==
-Date: Sat, 09 Aug 2025 18:37:07 +0000
+	b=NZ9i7Nik2NDWTh0lPHQyeKFRPMRv4EapJMUmW5cRcWd7X7SKEvgLxLEw4j2eXbjl7
+	 /dQ+jZdQNaxecZC+9YhOHypMeOmIfS8sdYIvFRCyXTnv+vlrMnDu0tefGBo7D4SLQf
+	 kVAMHLkM/F9gtOavAZ8UdnJ4s1uZtIKPdw/T5+uoJz0sBe0voqQToSh/kMUEVKRAbb
+	 0nID0J8zXLnUP5L8VrARimzDy4xC0EytWmWPVZQmnFZupAABmTGL51+TRL7g62Y+to
+	 wOGlR3C1QXidGu++vUbZpdzoXRyM1kl486tq0ylY6htZJFK6L0RQG9bI9ulJ8M7u4i
+	 LOcX/nuIs3Zvg==
+Date: Sat, 09 Aug 2025 18:55:39 +0000
 To: Jan Beulich <jbeulich@suse.com>
 From: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v4 5/8] emul/vuart-ns16550: introduce NS16550-compatible UART emulator (x86)
-Message-ID: <aJeVTIG2nU3bqGwO@starscream>
-In-Reply-To: <5c0589a2-91fe-484d-bded-5a68a1626355@suse.com>
-References: <20250731192130.3948419-1-dmukhin@ford.com> <20250731192130.3948419-6-dmukhin@ford.com> <5c0589a2-91fe-484d-bded-5a68a1626355@suse.com>
+Subject: Re: [PATCH v4 2/8] emul/vuart: introduce framework for UART emulators
+Message-ID: <aJeZpiM35gOtB+4Z@starscream>
+In-Reply-To: <a416cc08-5970-433a-8015-5d2aa961a000@suse.com>
+References: <20250731192130.3948419-1-dmukhin@ford.com> <20250731192130.3948419-3-dmukhin@ford.com> <a416cc08-5970-433a-8015-5d2aa961a000@suse.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: c627fc21628400d7789407cd5d43beba529c74dd
+X-Pm-Message-ID: 91913e1add216a34988391efbfb1d45c74a31d02
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 04, 2025 at 12:53:36PM +0200, Jan Beulich wrote:
-> On 31.07.2025 21:22, dmkhn@proton.me wrote:
+On Mon, Aug 04, 2025 at 12:11:03PM +0200, Jan Beulich wrote:
+> On 31.07.2025 21:21, dmkhn@proton.me wrote:
 > > From: Denis Mukhin <dmukhin@ford.com>
 > >
-> > Add initial in-hypervisor emulator for NS8250/NS16x50-compatible UARTs =
-under
-> > CONFIG_VUART_NS16550 for x86 port of Xen.
+> > Introduce a driver framework to abstract UART emulators in the hypervis=
+or.
 > >
-> > x86 port of Xen lacks vUART facility similar to Arm's SBSA emulator to =
-support
-> > x86 guest OS bring up in the embedded setups.
+> > That allows for architecture-independent handling of virtual UARTs in t=
+he
+> > console driver and simplifies enabling new UART emulators.
 > >
-> > In parallel domain creation scenario (hyperlaunch), NS16550 emulator he=
-lps
-> > early guest firmware and/or OS bringup debugging, because it eliminates
-> > dependency on the external emulator (qemu) being operational by the tim=
-e
-> > domains are created.
-> >
-> > The emulator also allows to forward the physical console input to the x=
-86
-> > domain which is useful when a system has only one physical UART for ear=
-ly
-> > debugging and this UART is owned by Xen. Such functionality is limited =
-to dom0
-> > use currently.
-> >
-> > By default, CONFIG_VUART_NS16550 enables emulation of NS16550 at I/O po=
-rt
-> > 0x3f8, IRQ#4 in guest OS (legacy COM1).
-> >
-> > Legacy COM resources can be selected at built-time and cannot be config=
-ured
-> > per-domain via .cfg or DT yet.
-> >
-> > Introduce new emulation flag for virtual UART on x86 and plumb it throu=
-gh
-> > domain creation code so NS16550 emulator can be instantiated properly.
-> >
-> > Please refer to the NS16550 emulator code for full list of limitations.
-> >
-> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> > ---
-> > Changes since v3:
-> > - feedback addressed
-> > - adjusted to new vUART framework APIs
-> > - Link to v3: https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v=
-3-v1-21-c5d36b31d66c@ford.com/
-> > ---
-> >  xen/arch/x86/hvm/hvm.c                |    9 +
-> >  xen/arch/x86/include/asm/domain.h     |    4 +-
-> >  xen/arch/x86/include/asm/hvm/domain.h |    4 +
-> >  xen/common/emul/vuart/Kconfig         |   48 ++
-> >  xen/common/emul/vuart/Makefile        |    1 +
-> >  xen/common/emul/vuart/vuart-ns16550.c | 1009 +++++++++++++++++++++++++
-> >  xen/common/emul/vuart/vuart.c         |    4 +
-> >  xen/include/public/arch-x86/xen.h     |    4 +-
-> >  xen/include/xen/resource.h            |    3 +
-> >  9 files changed, 1084 insertions(+), 2 deletions(-)
-> >  create mode 100644 xen/common/emul/vuart/vuart-ns16550.c
+> > The framework is built under CONFIG_HAS_VUART, which will be automatica=
+lly
+> > enabled once the user enables any UART emulator.
 >=20
-> Overall I think this patch is too large to sensibly review. Surely base s=
-tructure
-> and then (incrementally) fleshing out of the hooks can be separated from =
-one
-> another?
-
-I'll do a split.
-
+> Yet then still - why "HAS"? Call it just VUART or VUART_FRAMEWORK or some=
+ such.
 >=20
-> > --- a/xen/arch/x86/hvm/hvm.c
-> > +++ b/xen/arch/x86/hvm/hvm.c
-> > @@ -31,6 +31,7 @@
-> >  #include <xen/nospec.h>
-> >  #include <xen/vm_event.h>
-> >  #include <xen/console.h>
-> > +#include <xen/vuart.h>
-> >  #include <asm/shadow.h>
-> >  #include <asm/hap.h>
-> >  #include <asm/current.h>
-> > @@ -702,6 +703,10 @@ int hvm_domain_initialise(struct domain *d,
-> >      if ( rc !=3D 0 )
-> >          goto fail1;
+> > --- a/xen/common/Kconfig
+> > +++ b/xen/common/Kconfig
+> > @@ -1,6 +1,8 @@
 > >
-> > +    rc =3D vuart_init(d, NULL);
-> > +    if ( rc !=3D 0 )
-> > +        goto out_vioapic_deinit;
+> >  menu "Common Features"
+> >
+> > +source "common/emul/Kconfig"
 > > +
-> >      stdvga_init(d);
-> >
-> >      rtc_init(d);
-> > @@ -725,6 +730,8 @@ int hvm_domain_initialise(struct domain *d,
-> >      return 0;
-> >
-> >   fail2:
-> > +    vuart_deinit(d);
-> > + out_vioapic_deinit:
-> >      vioapic_deinit(d);
-> >   fail1:
-> >      if ( is_hardware_domain(d) )
+> >  config COMPAT
 >=20
-> Would be better if vuart_deinit() was idempotent, and hence could be call=
-ed
-> unconditionally here.
+> Why at the very top?
 
-Agree, vuart_deinit() is idempotent even in this submisson.
-Will update.
+I did not find a better place, since the settings are not sorted and to me =
+it
+makes sense to list emulation capabilities first...
+
+Where would be the best location for that submenu?
+Close to another submenu `source "common/sched/Kconfig"`?
 
 >=20
-> > @@ -787,6 +794,8 @@ void hvm_domain_destroy(struct domain *d)
-> >      if ( hvm_funcs.domain_destroy )
-> >          alternative_vcall(hvm_funcs.domain_destroy, d);
-> >
-> > +    vuart_deinit(d);
->=20
-> You require a fair level of idempotency already anyway, as a domain may n=
-ot
-> have any vUART, so this call already needs to be "capabale" of doing noth=
-ing.
->=20
-> > --- a/xen/arch/x86/include/asm/hvm/domain.h
-> > +++ b/xen/arch/x86/include/asm/hvm/domain.h
-> > @@ -149,6 +149,10 @@ struct hvm_domain {
-> >  #ifdef CONFIG_MEM_SHARING
-> >      struct mem_sharing_domain mem_sharing;
-> >  #endif
+> > --- a/xen/common/Makefile
+> > +++ b/xen/common/Makefile
+> > @@ -11,6 +11,7 @@ obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) +=3D d=
+evice.o
+> >  obj-$(CONFIG_DEVICE_TREE_PARSE) +=3D device-tree/
+> >  obj-$(CONFIG_IOREQ_SERVER) +=3D dm.o
+> >  obj-y +=3D domain.o
+> > +obj-y +=3D emul/
+> >  obj-y +=3D event_2l.o
+> >  obj-y +=3D event_channel.o
+> >  obj-$(CONFIG_EVTCHN_FIFO) +=3D event_fifo.o
+> > diff --git a/xen/common/emul/Kconfig b/xen/common/emul/Kconfig
+> > new file mode 100644
+> > index 000000000000..7c6764d1756b
+> > --- /dev/null
+> > +++ b/xen/common/emul/Kconfig
+> > @@ -0,0 +1,6 @@
+> > +menu "Domain Emulation Features"
+> > +=09visible if EXPERT
 > > +
-> > +#ifdef CONFIG_VUART_NS16550
-> > +    void *vuart; /* Virtual UART handle. */
-> > +#endif
-> >  };
+> > +source "common/emul/vuart/Kconfig"
+> > +
+> > +endmenu
+> > diff --git a/xen/common/emul/Makefile b/xen/common/emul/Makefile
+> > new file mode 100644
+> > index 000000000000..670682102c13
+> > --- /dev/null
+> > +++ b/xen/common/emul/Makefile
+> > @@ -0,0 +1 @@
+> > +obj-$(CONFIG_HAS_VUART) +=3D vuart/
 >=20
-> With your framework you allow for multiple vUART drivers. Either the fiel=
-d
-> looks misnamed or the CONFIG_* option checked is the wrong one.
-
-Agree; will update.
-
+> With this you can ...
 >=20
-> Also, why's this x86-specific? NS16550s can exist anywhere, can't they?
-> (The present, but presumably temporary tying to x86 looks to be the use o=
-f
-> I/O ports.)
-
-struct hvm_domain is arch-specific.
-
-I do not think I need to add NS16550 to, say RISC-V's, hvm_domain without
-implementing MMIO part and guest DT-binding generation.
-
->=20
-> > --- a/xen/common/emul/vuart/Kconfig
-> > +++ b/xen/common/emul/vuart/Kconfig
-> > @@ -3,4 +3,52 @@ config HAS_VUART
-> >
-> >  menu "UART Emulation"
-> >
-> > +config VUART_NS16550
-> > +=09bool "NS16550-compatible UART Emulation" if EXPERT
-> > +=09depends on X86 && HVM
-> > +=09select HAS_VUART
-> > +=09help
-> > +=09  In-hypervisor NS16550/NS16x50 UART emulation.
-> > +
-> > +=09  Only legacy PC I/O ports are emulated.
-> > +
-> > +=09  This is strictly for testing purposes (such as early HVM guest co=
-nsole),
-> > +=09  and not appropriate for use in production.
-> > +
-> > +choice VUART_NS16550_PC
-> > +=09prompt "IBM PC COM resources"
-> > +=09depends on VUART_NS16550
-> > +=09default VUART_NS16550_PC_COM1
-> > +=09help
-> > +=09  Default emulated NS16550 resources.
-> > +
-> > +config VUART_NS16550_PC_COM1
-> > +=09bool "COM1 (I/O port 0x3f8, IRQ#4)"
-> > +
-> > +config VUART_NS16550_PC_COM2
-> > +=09bool "COM2 (I/O port 0x2f8, IRQ#3)"
-> > +
-> > +config VUART_NS16550_PC_COM3
-> > +=09bool "COM3 (I/O port 0x3e8, IRQ#4)"
-> > +
-> > +config VUART_NS16550_PC_COM4
-> > +=09bool "COM4 (I/O port 0x2e8, IRQ#3)"
-> > +
-> > +endchoice
-> > +
-> > +config VUART_NS16550_LOG_LEVEL
-> > +=09int "UART emulator verbosity level"
-> > +=09range 0 3
-> > +=09default "1"
-> > +=09depends on VUART_NS16550
-> > +=09help
-> > +=09  Set the default log level of UART emulator.
-> > +=09  See include/xen/config.h for more details.
->=20
-> For someone merely running kconfig but not otherwise knowing the sources,
-> this isn't an overly helful pointer. But I question the need for such a
-> control anyway, and I think I did say so already before.
-
-I'll drop that Kconfig setting.
-
->=20
-> > +config VUART_NS16550_DEBUG
-> > +=09bool "UART emulator development debugging"
-> > +=09depends on VUART_NS16550
->=20
-> && DEBUG ?
-
-I will drop that Kconfig.
-
->=20
-> > --- a/xen/common/emul/vuart/Makefile
+> > --- /dev/null
 > > +++ b/xen/common/emul/vuart/Makefile
-> > @@ -1 +1,2 @@
-> >  obj-$(CONFIG_HAS_VUART) +=3D vuart.o
-> > +obj-$(CONFIG_VUART_NS16550) +=3D vuart-ns16550.o
+> > @@ -0,0 +1 @@
+> > +obj-$(CONFIG_HAS_VUART) +=3D vuart.o
 >=20
-> I don't think files in this directory need a vuart- name prefix.
+> ... use the simpler obj-y here.
 
-Ack.
-
-Hmm, there's already ns16550.c which is UART driver, so it may be confusing=
- to
-have two ns16550s (although in different directories).
-
-I do not have a strong preference on the naming here.
+Thanks.
 
 >=20
 > > --- /dev/null
-> > +++ b/xen/common/emul/vuart/vuart-ns16550.c
-> > @@ -0,0 +1,1009 @@
+> > +++ b/xen/common/emul/vuart/vuart.c
+> > @@ -0,0 +1,112 @@
 > > +/* SPDX-License-Identifier: GPL-2.0-only */
 > > +/*
-> > + * NS16550-compatible UART Emulator.
+> > + * UART emulator framework.
 > > + *
-> > + * See:
-> > + * - Serial and UART Tutorial:
-> > + *     https://download.freebsd.org/doc/en/articles/serial-uart/serial=
--uart_en.pdf
-> > + * - UART w/ 16 byte FIFO:
-> > + *     https://www.ti.com/lit/ds/symlink/tl16c550c.pdf
-> > + * - UART w/ 64 byte FIFO:
-> > + *     https://www.ti.com/lit/ds/symlink/tl16c750.pdf
-> > + *
-> > + * Limitations:
-> > + * - Only x86;
-> > + * - Only HVM domains support (build-time), PVH domains are not suppor=
-ted yet;
-> > + * - Only legacy COM{1,2,3,4} resources via Kconfig, custom I/O ports/=
-IRQs
-> > + *   are not supported;
-> > + * - Only Xen console as a backend, no inter-domain communication (sim=
-ilar to
-> > + *   vpl011 on Arm);
-> > + * - Only 8n1 emulation (8-bit data, no parity, 1 stop bit);
-> > + * - No toolstack integration;
-> > + * - No baud rate emulation (reports 115200 baud to the guest OS);
-> > + * - No FIFO-less mode emulation;
-> > + * - No RX FIFO interrupt moderation (FCR) emulation;
-> > + * - No integration w/ VM snapshotting (HVM_REGISTER_SAVE_RESTORE() an=
-d
-> > + *   friends);
-> > + * - No ISA IRQ sharing allowed;
-> > + * - No MMIO-based UART emulation.
+> > + * Copyright 2025 Ford Motor Company
 > > + */
 > > +
-> > +#define pr_prefix               "ns16550"
-> > +#define pr_fmt(fmt)             pr_prefix ": " fmt
-> > +#define pr_log_level            CONFIG_VUART_NS16550_LOG_LEVEL
-> > +
-> > +#include <xen/8250-uart.h>
-> > +#include <xen/console.h>
-> > +#include <xen/iocap.h>
-> > +#include <xen/ioreq.h>
-> > +#include <xen/resource.h>
+> > +#include <xen/errno.h>
+> > +#include <xen/sched.h>
 > > +#include <xen/vuart.h>
-> > +#include <xen/xvmalloc.h>
 > > +
-> > +#include <public/io/console.h>
+> > +#define VUART_ARRAY_SIZE    (__start_vuart_end - __start_vuart_array)
+> > +
+> > +#define for_each_vuart(vdev) \
+> > +    for (unsigned __i =3D 0; \
+> > +         __i < VUART_ARRAY_SIZE && (vdev =3D __start_vuart_array[__i],=
+ 1); \
+> > +         __i++)
 >=20
-> Except for cases where Xen itself runs as a guest, I don't think any of t=
-hese
-> headers should be used in Xen sources. If I'm not mistaken, ...
-
-I'll double check, thanks.
-
->=20
-> > +/*
-> > + * Virtual NS16550 device state.
-> > + */
-> > +struct vuart_ns16550 {
-> > +    struct xencons_interface cons;      /* Emulated RX/TX FIFOs */
->=20
-> ... this also isn't to communicate with some remote, but merely to use so=
-me
-> of the fields conveniently.
-
-The plan is to add peer-to-peer connection over vUART similarly to existing
-vpl011.
-
->=20
-> > +    uint8_t regs[NS16550_EMU_REGS_NUM]; /* Emulated registers */
-> > +    unsigned int irq;                   /* Emulated IRQ# */
-> > +    uint64_t io_addr;                   /* Emulated I/O region base ad=
-dress */
-> > +    uint64_t io_size;                   /* Emulated I/O region size */
->=20
-> These are huge; for the size that's true even if considering future MMIO-
-> based emulation.
+> Nit: Xen style please. Any preferably no leading underscores; in no case
+> two of them.
 
 Ack.
 
 >=20
-> > +    const char *name;                   /* Device name */
-> > +    struct domain *owner;               /* Owner domain */
-> > +    spinlock_t lock;                    /* Protection */
-> > +};
-> > +
-> > +/*
-> > + * Virtual device description.
-> > + */
-> > +struct virtdev_desc {
-> > +    const char *name;
-> > +    const struct resource *res;
-> > +};
-> > +
-> > +/*
-> > + * Legacy IBM PC NS16550 resources.
-> > + * There are only 4 I/O port ranges, hardcoding all of them here.
-> > + */
-> > +static const struct virtdev_desc x86_pc_uarts[4] =3D {
-> > +    [0] =3D {
-> > +        .name =3D "COM1",
-> > +        .res =3D (const struct resource[]){
-> > +            { .type =3D IORESOURCE_IO,  .addr =3D 0x3f8, .size =3D NS1=
-6550_REGS_NUM },
-> > +            { .type =3D IORESOURCE_IRQ, .addr =3D 4,     .size =3D 1 }=
-,
-> > +            { .type =3D IORESOURCE_UNKNOWN },
-> > +        },
-> > +    },
-> > +    [1] =3D {
-> > +        .name =3D "COM2",
-> > +        .res =3D (const struct resource[]){
-> > +            { .type =3D IORESOURCE_IO,  .addr =3D 0x2f8, .size =3D NS1=
-6550_REGS_NUM },
-> > +            { .type =3D IORESOURCE_IRQ, .addr =3D 3,     .size =3D 1 }=
-,
-> > +            { .type =3D IORESOURCE_UNKNOWN },
-> > +        },
-> > +    },
-> > +    [2] =3D {
-> > +        .name =3D "COM3",
-> > +        .res =3D (const struct resource[]){
-> > +            { .type =3D IORESOURCE_IO,  .addr =3D 0x3e8, .size =3D NS1=
-6550_REGS_NUM },
-> > +            { .type =3D IORESOURCE_IRQ, .addr =3D 4,     .size =3D 1 }=
-,
-> > +            { .type =3D IORESOURCE_UNKNOWN },
-> > +        },
-> > +    },
-> > +    [3] =3D {
-> > +        .name =3D "COM4",
-> > +        .res =3D (const struct resource[]){
-> > +            { .type =3D IORESOURCE_IO,  .addr =3D 0x2e8, .size =3D NS1=
-6550_REGS_NUM },
-> > +            { .type =3D IORESOURCE_IRQ, .addr =3D 3,     .size =3D 1 }=
-,
-> > +            { .type =3D IORESOURCE_UNKNOWN },
-> > +        },
-> > +    },
-> > +};
+> > +extern const struct vuart_ops *const __start_vuart_array[];
+> > +extern const struct vuart_ops *const __start_vuart_end[];
 >=20
-> The choice of COMn is at build time. Why do we need all four configuratio=
-ns
-> resident not only in the binary, but even at (post-init) runtime? Also, t=
-he
-> way you do initialization of .res, I think adding __initconst to the main
-> array wouldn't have the effect of pulling all those inti .init.* as well.
-> For the time being I simply don't see the need for the extra level of
-> indirection: All instances have two entries (plus the then likely not
-> necessary sentinel).
+> Is there an actual need for this extra level of indirection? It is in the
+> process of being done away with for vPCI.
 
-Will rework that.
+Ack.
 
 >=20
-> > +static bool cf_check ns16550_iir_check_lsi(const struct vuart_ns16550 =
-*vdev)
+> > +int vuart_add_node(struct domain *d, const void *node)
 > > +{
-> > +    return !!(vdev->regs[UART_LSR] & UART_LSR_MASK);
+> > +    const struct vuart_ops *vdev;
+> > +    int rc;
+> > +
+> > +    for_each_vuart(vdev)
+> > +    {
+> > +        if ( !vdev->add_node )
+> > +            continue;
+> > +
+> > +        rc =3D vdev->add_node(d, node);
 >=20
-> No need for !! (also elsewhere).
+> Here and below - shouldn't you call hooks only when the kind of driver is
+> actually enabled for the domkain in question?
+
+Thanks; this looks a bit raw...
+
+I will rework that in the follow on change. I will drop vuart_add_node()
+from NS16550 series since it is not used yet.
+
+>=20
+> > +        if ( rc )
+> > +            return rc;
+> > +    }
+> > +
+> > +    return 0;
+> > +}
+> > +
+> > +int vuart_init(struct domain *d, struct vuart_params *params)
+> > +{
+> > +    const struct vuart_ops *vdev;
+> > +    int rc;
+> > +
+> > +    if ( !domain_has_vuart(d) )
+> > +        return 0;
+> > +
+> > +    for_each_vuart(vdev)
+> > +    {
+> > +        rc =3D vdev->init(d, params);
+> > +        if ( rc )
+> > +            return rc;
+> > +    }
+> > +
+> > +    d->console.input_allowed =3D true;
+>=20
+> Unconditionally?
+
+Thanks.
+That should be a least under rc =3D=3D 0.
+
+>=20
+> > +void vuart_deinit(struct domain *d)
+> > +{
+> > +    const struct vuart_ops *vdev;
+> > +
+> > +    for_each_vuart(vdev)
+> > +        vdev->deinit(d);
+> > +}
+>=20
+> I can perhaps see why this hook wants to uniformly be set, but ...
+>=20
+> > +void vuart_dump_state(const struct domain *d)
+> > +{
+> > +    const struct vuart_ops *vdev;
+> > +
+> > +    for_each_vuart(vdev)
+> > +        vdev->dump_state(d);
+> > +}
+>=20
+> ... state dumping pretty surely wants to be optional?
 
 Ack.
 
 >=20
-> > --- a/xen/include/xen/resource.h
-> > +++ b/xen/include/xen/resource.h
-> > @@ -31,4 +31,7 @@ struct resource {
-> >
-> >  #define resource_size(res)      ((res)->size)
-> >
-> > +#define for_each_resource(res) \
-> > +    for ( ; (res) && (res)->type !=3D IORESOURCE_UNKNOWN; (res)++ )
+> > +/*
+> > + * Put character to the first suitable emulated UART's FIFO.
+> > + */
 >=20
-> I'm not sure this is a good generic #define; imo it wants keeping local t=
-o
-> the one file that uses it.
+> What's "suitable"? Along the lines of the earlier remark, what if the dom=
+ain
+> has vUART kind A configured, ...
+
+"suitable" is meant to be the first emulator with put_rx !=3D NULL.
+I will update that.
+
+>=20
+> > +int vuart_put_rx(struct domain *d, char c)
+> > +{
+> > +    const struct vuart_ops *vdev =3D NULL;
+> > +
+> > +    ASSERT(domain_has_vuart(d));
+> > +
+> > +    for_each_vuart(vdev)
+> > +        if ( vdev->put_rx )
+>=20
+> ... but only kind B offers this hook?
+>=20
+> > +            break;
+> > +
+> > +    return vdev ? vdev->put_rx(d, c) : -ENODEV;
+>=20
+> The check for NULL helps for the "no vUART drivers" case, but it won't
+> help if you exhausted the array without finding a driver with the wanted
+> hook.
+
+Ack.
+
+>=20
+> > +}
+> > +
+> > +bool domain_has_vuart(const struct domain *d)
+> > +{
+> > +    uint32_t mask =3D 0;
+>=20
+> unsigned int?
+
+Ack.
+
+>=20
+> > --- a/xen/common/keyhandler.c
+> > +++ b/xen/common/keyhandler.c
+> > @@ -22,6 +22,7 @@
+> >  #include <xen/mm.h>
+> >  #include <xen/watchdog.h>
+> >  #include <xen/init.h>
+> > +#include <xen/vuart.h>
+> >  #include <asm/div64.h>
+> >
+> >  static unsigned char keypress_key;
+> > @@ -354,6 +355,8 @@ static void cf_check dump_domains(unsigned char key=
+)
+> >                             v->periodic_period / 1000000);
+> >              }
+> >          }
+> > +
+> > +        vuart_dump_state(d);
+>=20
+> How verbose is this going to get?
+
+Looks something like this:
+```
+(XEN) [   88.334893] 'q' pressed -> dumping domain info (now =3D 8833482830=
+3)
+[..]
+(XEN) [   88.335673] Virtual ns16550 (COM2) I/O port 0x02f8 IRQ#3 owner d0
+(XEN) [   88.335681]   RX FIFO size 1024 in_prod 258 in_cons 258 used 0
+(XEN) [   88.335689]   TX FIFO size 2048 out_prod 15 out_cons 0 used 15
+(XEN) [   88.335696]   00 RBR 02 THR 6f DLL 01 DLM 00
+(XEN) [   88.335703]   01 IER 05
+(XEN) [   88.335709]   02 FCR 81 IIR c1
+(XEN) [   88.335715]   03 LCR 13
+(XEN) [   88.335720]   04 MCR 0b
+(XEN) [   88.335726]   05 LSR 60
+(XEN) [   88.335731]   06 MSR b0
+(XEN) [   88.335736]   07 SCR 00
+
+```
+
+>=20
+> > --- /dev/null
+> > +++ b/xen/include/xen/vuart.h
+> > @@ -0,0 +1,84 @@
+> > +/* SPDX-License-Identifier: GPL-2.0-only */
+> > +/*
+> > + * UART emulator framework.
+> > + *
+> > + * Copyright 2025 Ford Motor Company
+> > + */
+> > +
+> > +#ifndef XEN_VUART_H
+> > +#define XEN_VUART_H
+> > +
+> > +#include <public/xen.h>
+> > +#include <public/event_channel.h>
+> > +#include <xen/types.h>
+>=20
+> The order is wrong - types must be available before public headers are in=
+cluded.
+
+Ack.
+
+>=20
+> > +struct vuart_params {
+> > +    domid_t console_domid;
+> > +    gfn_t gfn;
+> > +    evtchn_port_t evtchn;
+> > +};
+> > +
+> > +struct vuart_ops {
+> > +    int (*add_node)(struct domain *d, const void *node);
+> > +    int (*init)(struct domain *d, struct vuart_params *params);
+> > +    void (*deinit)(struct domain *d);
+> > +    void (*dump_state)(const struct domain *d);
+> > +    int (*put_rx)(struct domain *d, char c);
+> > +};
+> > +
+> > +#define VUART_REGISTER(name, x) \
+> > +    static const struct vuart_ops *const __name##_entry \
+> > +        __used_section(".data.vuart." #name) =3D (x);
+> > +
+> > +#ifdef CONFIG_HAS_VUART
+> > +
+> > +int vuart_add_node(struct domain *d, const void *node);
+> > +int vuart_init(struct domain *d, struct vuart_params *params);
+> > +void vuart_deinit(struct domain *d);
+> > +void vuart_dump_state(const struct domain *d);
+> > +int vuart_put_rx(struct domain *d, char c);
+> > +bool domain_has_vuart(const struct domain *d);
+> > +
+> > +#else
+> > +
+> > +static inline int vuart_add_node(struct domain *d, const void *node)
+> > +{
+> > +    return 0;
+> > +}
+> > +
+> > +static inline int vuart_init(struct domain *d, struct vuart_params *pa=
+rams)
+> > +{
+> > +    return 0;
+> > +}
+> > +
+> > +static inline void vuart_deinit(struct domain *d)
+> > +{
+> > +}
+> > +
+> > +static inline void vuart_dump_state(const struct domain *d)
+> > +{
+> > +}
+> > +
+> > +static inline int vuart_put_rx(struct domain *d, char c)
+> > +{
+> > +    ASSERT_UNREACHABLE();
+> > +    return -ENODEV;
+> > +}
+> > +
+> > +static inline bool domain_has_vuart(const struct domain *d)
+> > +{
+> > +    return false;
+> > +}
+>=20
+> With this, some of the other stubs should not be necessary. Declarations
+> will suffice, e.g. for vuart_put_rx().
+
+Thanks, will update.
+
+>=20
+> > --- a/xen/include/xen/xen.lds.h
+> > +++ b/xen/include/xen/xen.lds.h
+> > @@ -194,4 +194,14 @@
+> >  #define VPCI_ARRAY
+> >  #endif
+> >
+> > +#ifdef CONFIG_HAS_VUART
+> > +#define VUART_ARRAY     \
+> > +       . =3D ALIGN(POINTER_ALIGN); \
+> > +       __start_vuart_array =3D .;  \
+> > +       *(SORT(.data.vuart.*))    \
+>=20
+> This is r/o data afaict, so would want naming .rodata.vuart.*. Which in
+> turn means the uses of the macros need to move up in the linker scripts.
 
 Ack.
 
