@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37630B1F71F
-	for <lists+xen-devel@lfdr.de>; Sun, 10 Aug 2025 00:12:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1076297.1437914 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9BC7B1F71B
+	for <lists+xen-devel@lfdr.de>; Sun, 10 Aug 2025 00:12:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1076301.1437948 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukrnU-0005sb-M4; Sat, 09 Aug 2025 22:12:16 +0000
+	id 1ukrnX-0006R4-2q; Sat, 09 Aug 2025 22:12:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1076297.1437914; Sat, 09 Aug 2025 22:12:16 +0000
+Received: by outflank-mailman (output) from mailman id 1076301.1437948; Sat, 09 Aug 2025 22:12:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukrnU-0005qd-IE; Sat, 09 Aug 2025 22:12:16 +0000
-Received: by outflank-mailman (input) for mailman id 1076297;
- Sat, 09 Aug 2025 22:12:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ukrnW-0006N9-Mg; Sat, 09 Aug 2025 22:12:18 +0000
+Received: by outflank-mailman (input) for mailman id 1076301;
+ Sat, 09 Aug 2025 22:12:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gSuF=2V=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ukrnT-0005qN-1o
- for xen-devel@lists.xenproject.org; Sat, 09 Aug 2025 22:12:15 +0000
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [2a00:1450:4864:20::341])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e6b94cbe-756d-11f0-a325-13f23c93f187;
- Sun, 10 Aug 2025 00:12:13 +0200 (CEST)
-Received: by mail-wm1-x341.google.com with SMTP id
- 5b1f17b1804b1-451d3f72391so25592555e9.3
- for <xen-devel@lists.xenproject.org>; Sat, 09 Aug 2025 15:12:13 -0700 (PDT)
+ id 1ukrnU-0005qO-NM
+ for xen-devel@lists.xenproject.org; Sat, 09 Aug 2025 22:12:16 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e72a9bba-756d-11f0-b898-0df219b8e170;
+ Sun, 10 Aug 2025 00:12:14 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3b786421e36so1706392f8f.3
+ for <xen-devel@lists.xenproject.org>; Sat, 09 Aug 2025 15:12:14 -0700 (PDT)
 Received: from localhost.localdomain (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b79c453ab0sm35424323f8f.44.2025.08.09.15.12.11
+ ffacd0b85a97d-3b79c453ab0sm35424323f8f.44.2025.08.09.15.12.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Sat, 09 Aug 2025 15:12:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -45,41 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e6b94cbe-756d-11f0-a325-13f23c93f187
+X-Inumbo-ID: e72a9bba-756d-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1754777532; x=1755382332; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1754777533; x=1755382333; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=W1InbWNIn9kEj9hdKR1puWI33YAQ4yKAVpamMRnwML8=;
-        b=QrTmMDOa6lu4F89PpnRD+MQvYq2TxS43PhwtMoq3akOSTzSeeKrHd1Tvw1aELCgkKD
-         HBRZKzVf8pnRsJfMbrNmpXpyu+W5dWemcdcmgk5xWAZqOxNsYeGnVL1EVJSZOA/f5Y1S
-         O/Nvp9fu7Oc3XI8cmqcD5J1FYYAT2llBSXbjs=
+        bh=sfND0zg2ZLDeX3cn2aUNtMfsNyhu9pemRzEnrfx6pMg=;
+        b=RreJLoH9gntuJDdsOj+t1oAS0eRBG6E5qU0EkyGZZUTuLl4NZUwGIhELDDVLeUOuwb
+         i8NiG+gs1JDc5Ot5+6+vzmyvtdtB7z2vhwHL/Q1OxQ4qRy4anHFtfU0j2abXR/HHjjah
+         kA7TZyePuqTF6GXnfhV4h9DjTy6tbPKSRm8MU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754777532; x=1755382332;
+        d=1e100.net; s=20230601; t=1754777533; x=1755382333;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=W1InbWNIn9kEj9hdKR1puWI33YAQ4yKAVpamMRnwML8=;
-        b=JPI8jSmHf0VTVwQrQaBu9+hVkEz453ag+aCkNXcs3FITZ3zhY/v0/plqAP5uqe4lkl
-         ObjSmJmp2T7nfYycyEWGT4DXgTYwaVlBbPMUOE4zSkF9UTpa3LRUxWVDmGQujHZaCTG1
-         dx9iaW8ep//CAQfWHQWUi7jv1YG5/1m6ROhjTH7U4jrXLqMp924w0s04rfTYpyGUc8c6
-         d2+a1CZul3Avp3tgQUHPAkYYkF7il/DNclcPz4FFbgf/J0BuNikjYj7ETXtu40lSEtw8
-         LafvhpeC7GKnD3wNWf2m9AnX8pLz4Xex4rC8TwFTdFcO4BQE0qwp5sWYrUhNMM4AuEZa
-         wBjw==
-X-Gm-Message-State: AOJu0YzwMLjZnNkzrWvyO+Ypw/CFe0t9htKNxL44UaJqpjcVBry4q1k3
-	dqcC95FB9ZB2dsLCWWXWlju1mQJ7eOd79w59aRJdSLQ6IpXQkU4kSSn4hxhjbGYFeRGRuNy+N3J
-	bDY8lMk4t8A==
-X-Gm-Gg: ASbGnctDm3O5Sxl3aY6OyTxnPwL89oiaozc8DwxL1O6EPbWF45BDboQ6m73Aa+i+UFN
-	uZewh5bzWdwmNbfm7AkgHEeTuN3yy+IbBmzp5SMOY5NXm4YAv1TKrZKLWh0Wavs05bhkNz5kLb4
-	fc9rENoV80B+9eCdkLa765jfthhS2NCzn/Uz+A+prJvlLH13LuhhvxWmqE1DM4xj3HgaisewJAT
-	+U+Gjj0GGniEpxALSK08l224wNJY2HmXpIIAo1UQ0MjiAzHTXTnd2JyFADwjtizDN6F1fTAB54u
-	w1ZofU3+1F2Iud6k3HJ/067ZtSs7DDqCNwJGO7lAqn5RLUvsuQHyx4UMjGMko3JgVx2xZLT2gwU
-	jLJSbCvlXlbjQ9FCBFpOjOdOBMitXeyYkwJFaPXJZBO7LU6nj2FKu85+NiLhvgKe13MI0YmRkqX
-	MG
-X-Google-Smtp-Source: AGHT+IEWLBt6JAVymy0iPTqZYOzsL0c0vEPxi/XIXIpC2HGIwkuFh1Wii6izAKTSzTIP0QpJ3amErA==
-X-Received: by 2002:a05:600c:5254:b0:456:13d8:d141 with SMTP id 5b1f17b1804b1-459f4f282damr60550315e9.27.1754777532480;
-        Sat, 09 Aug 2025 15:12:12 -0700 (PDT)
+        bh=sfND0zg2ZLDeX3cn2aUNtMfsNyhu9pemRzEnrfx6pMg=;
+        b=ahvytwk78aYTSr+PFcSM2xhCVtBL9BeL+fhfNtBWobuf7CFWgjSBQPS2OWxMBy209G
+         snAkj7g918+Bopg27KTtoBmNnW28Pd4l97Y1/mWXZVrFAxP+iCb5nCp9amPwPB/PE/tb
+         tYcXIQyylTJPSQ9fDGAlQxKY61wob4w5+XKtrrLJCFB0mPI2gpZOm+/N92pRohWmPbti
+         PvX1MhiLhwtuFCo39Mg38s9C/2NVd0aYDi0fxftNTSouel6Uxjnl9z4e9nYjQfQuEn1A
+         fkX9pY4eG57Myv3OCa9iM5hoDlBPuCgyV24c06xHfQJSilFaC/PO3ykk7hW+inkZHlj3
+         F0vw==
+X-Gm-Message-State: AOJu0YzN1r4TVB3gHw8/3kJoCHb7TDd3jFUxyRDG1/nwHmwAQBAjQnHZ
+	vCZl+rlM++ksBv8CrdNEwMwibs+iE+ksIio9BFcCoseYHi48XjXCCDUdKenv30pRi1kL7cgVSeS
+	3oDtBuCY=
+X-Gm-Gg: ASbGnctzoLx/y/R6y885OAN9Wl6557394XpAXwU2n3L3JDF6kafQL3ymZw1BFmoOALm
+	jw4K6yg8LQd6FjonwJjU5MgV0fMmbjK6gJgorHbuiunsXimJ1j2PXwC18zRregtbnmdgOMnOUEQ
+	Ea18rNpA3XjqWkHhsetVY+DV/pk3kW5pVTaj8w0nsdxT/FwG6KEecXpLl4WrHv+D0xGT6sJ2Zd+
+	4EnDnY+DDJYsx5/zZq2jKx6LNKTcuzc/CiT21u1vOfDeDN+WNfFs76uHvCJoEHI9JRoj2c4IgBF
+	I8j95LWHXbg470KPnjn2E2TfYVDx3o2LZ/U7od9yszawo8/qn8GoC2Bc97ib7a8L2zdbzep60Qh
+	6Mck0IWzONCY6WI4zhXyBFhXPMC8gH+KLfpDlMNPU7X65eLNZn/1WRw1mLBzGItVaTgHvEyQHYL
+	H+
+X-Google-Smtp-Source: AGHT+IF56eny7f5TY2zNi77piWoa/BoaYTwZw+7F+6xe3Y3GzRAWxu7PyUIxjQbhhGnLBTyQpUHk+g==
+X-Received: by 2002:a05:6000:288a:b0:3b8:d2d1:5c11 with SMTP id ffacd0b85a97d-3b900b56f28mr6273885f8f.51.1754777533210;
+        Sat, 09 Aug 2025 15:12:13 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -89,14 +89,11 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Victor Lira <victorm.lira@amd.com>
-Subject: [PATCH 3/5] CI: Update riscv64 to use Debian Trixie
-Date: Sat,  9 Aug 2025 23:12:04 +0100
-Message-Id: <20250809221206.1260861-4-andrew.cooper3@citrix.com>
+	Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH 4/5] stubdom: Fix -Wimplicit-int in newlib
+Date: Sat,  9 Aug 2025 23:12:05 +0100
+Message-Id: <20250809221206.1260861-5-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250809221206.1260861-1-andrew.cooper3@citrix.com>
 References: <20250809221206.1260861-1-andrew.cooper3@citrix.com>
@@ -104,8 +101,7 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Everything works fine with Debian 13.  Provide two new build jobs, and update
-both the randconfig the test jobs.
+This is an error now Debian Trixie's gcc-14
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -115,82 +111,57 @@ CC: Jan Beulich <jbeulich@suse.com>
 CC: Julien Grall <julien@xen.org>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Shawn Anastasio <sanastasio@raptorengineering.com>
-CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-CC: Doug Goldstein <cardoe@cardoe.com>
-CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-CC: Victor Lira <victorm.lira@amd.com>
+CC: Samuel Thibault <samuel.thibault@ens-lyon.org>
+CC: Juergen Gross <jgross@suse.com>
 
-https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1975929387
+I really think we need to move onto Unikraft as a maintained base...
 ---
- automation/gitlab-ci/build.yaml | 22 ++++++++++++++++++----
- automation/gitlab-ci/test.yaml  |  2 +-
- 2 files changed, 19 insertions(+), 5 deletions(-)
+ stubdom/Makefile               |  1 +
+ stubdom/newlib-fix-etext.patch | 23 +++++++++++++++++++++++
+ 2 files changed, 24 insertions(+)
+ create mode 100644 stubdom/newlib-fix-etext.patch
 
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index 3fe539dc5683..f8e45f3467c8 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -329,10 +329,10 @@ debian-13-ppc64le-gcc-debug:
-       CONFIG_UBSAN=y
-       CONFIG_UBSAN_FATAL=y
- 
--debian-12-riscv64-gcc-debug:
-+debian-13-riscv64-gcc-debug:
-   extends: .gcc-riscv64-cross-build-debug
-   variables:
--    CONTAINER: debian:12-riscv64
-+    CONTAINER: debian:13-riscv64
-     KBUILD_DEFCONFIG: tiny64_defconfig
-     HYPERVISOR_ONLY: y
-     EXTRA_XEN_CONFIG: |
-@@ -727,6 +727,20 @@ debian-12-riscv64-gcc:
-     KBUILD_DEFCONFIG: tiny64_defconfig
-     HYPERVISOR_ONLY: y
- 
-+debian-12-riscv64-gcc-debug:
-+  extends: .gcc-riscv64-cross-build-debug
-+  variables:
-+    CONTAINER: debian:12-riscv64
-+    KBUILD_DEFCONFIG: tiny64_defconfig
-+    HYPERVISOR_ONLY: y
+diff --git a/stubdom/Makefile b/stubdom/Makefile
+index 666c3221dcd7..9aa0d3dee4de 100644
+--- a/stubdom/Makefile
++++ b/stubdom/Makefile
+@@ -94,6 +94,7 @@ newlib-$(NEWLIB_VERSION): newlib-$(NEWLIB_VERSION).tar.gz
+ 	patch -d $@ -p1 < newlib-cygmon-gmon.patch
+ 	patch -d $@ -p1 < newlib-makedoc.patch
+ 	patch -d $@ -p1 < newlib-fix-copy_past_newline.patch
++	patch -d $@ -p1 < newlib-fix-etext.patch
+ 	find $@ -type f | xargs perl -i.bak \
+ 		-pe 's/\b_(tzname|daylight|timezone)\b/$$1/g'
+ 	touch $@
+diff --git a/stubdom/newlib-fix-etext.patch b/stubdom/newlib-fix-etext.patch
+new file mode 100644
+index 000000000000..e7bd4bb0cead
+--- /dev/null
++++ b/stubdom/newlib-fix-etext.patch
+@@ -0,0 +1,23 @@
++GCC-14 in Debian Trixie i386 complains:
 +
-+debian-13-riscv64-gcc:
-+  extends: .gcc-riscv64-cross-build
-+  variables:
-+    CONTAINER: debian:13-riscv64
-+    KBUILD_DEFCONFIG: tiny64_defconfig
-+    HYPERVISOR_ONLY: y
++../../../../newlib-1.16.0/libgloss/i386/cygmon-gmon.c: In function '_mcount':
++../../../../newlib-1.16.0/libgloss/i386/cygmon-gmon.c:227:14: error: type defaults to 'int' in declaration of '_etext' [-Wimplicit-int]
++  227 |       extern _etext();
++      |              ^~~~~~
++../../../../newlib-1.16.0/libgloss/i386/cygmon-gmon.c:228:14: error: type defaults to 'int' in declaration of '_ftext' [-Wimplicit-int]
++  228 |       extern _ftext();
++      |              ^~~~~~
 +
- .riscv-fixed-randconfig:
-   variables: &riscv-fixed-randconfig
-     EXTRA_FIXED_RANDCONFIG: |
-@@ -739,10 +753,10 @@ debian-12-riscv64-gcc:
-       CONFIG_VM_EVENT=n
-       CONFIG_XSM=n
- 
--debian-12-riscv64-gcc-randconfig:
-+debian-13-riscv64-gcc-randconfig:
-   extends: .gcc-riscv64-cross-build
-   variables:
--    CONTAINER: debian:12-riscv64
-+    CONTAINER: debian:13-riscv64
-     KBUILD_DEFCONFIG: tiny64_defconfig
-     RANDCONFIG: y
-     <<: *riscv-fixed-randconfig
-diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-index 2f6f3affa637..9acd984d294c 100644
---- a/automation/gitlab-ci/test.yaml
-+++ b/automation/gitlab-ci/test.yaml
-@@ -705,7 +705,7 @@ qemu-smoke-riscv64-gcc:
-   script:
-     - ./automation/scripts/qemu-smoke-riscv64.sh 2>&1 | tee ${LOGFILE}
-   needs:
--    - debian-12-riscv64-gcc-debug
-+    - debian-13-riscv64-gcc-debug
- 
- qemu-smoke-ppc64le-powernv9-gcc:
-   extends: .qemu-ppc64le
++--- newlib-1.16.0/libgloss/i386/cygmon-gmon.c.orig	2025-08-09 22:48:09.864068481 +0100
+++++ newlib-1.16.0/libgloss/i386/cygmon-gmon.c	2025-08-09 22:52:18.458393484 +0100
++@@ -224,8 +224,8 @@
++ 
++   if (! already_setup) 
++     {
++-      extern _etext();
++-      extern _ftext();
+++      extern char _etext[];
+++      extern char _ftext[];
++       already_setup = 1;
++       monstartup(_ftext, _etext);
++       atexit(_mcleanup);
 -- 
 2.39.5
 
