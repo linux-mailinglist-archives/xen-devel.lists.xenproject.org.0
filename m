@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 718B6B1F56E
-	for <lists+xen-devel@lfdr.de>; Sat,  9 Aug 2025 18:25:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1076054.1437784 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C13FB1F57C
+	for <lists+xen-devel@lfdr.de>; Sat,  9 Aug 2025 18:54:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1076070.1437794 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukmNy-0006oR-PF; Sat, 09 Aug 2025 16:25:34 +0000
+	id 1ukmp4-0002cF-Tr; Sat, 09 Aug 2025 16:53:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1076054.1437784; Sat, 09 Aug 2025 16:25:34 +0000
+Received: by outflank-mailman (output) from mailman id 1076070.1437794; Sat, 09 Aug 2025 16:53:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukmNy-0006lu-MU; Sat, 09 Aug 2025 16:25:34 +0000
-Received: by outflank-mailman (input) for mailman id 1076054;
- Sat, 09 Aug 2025 16:25:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ukmp4-0002Zl-Q4; Sat, 09 Aug 2025 16:53:34 +0000
+Received: by outflank-mailman (input) for mailman id 1076070;
+ Sat, 09 Aug 2025 16:53:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pNAa=2V=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1ukmNw-0006lg-Ro
- for xen-devel@lists.xenproject.org; Sat, 09 Aug 2025 16:25:32 +0000
-Received: from fout-a8-smtp.messagingengine.com
- (fout-a8-smtp.messagingengine.com [103.168.172.151])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 77eb4ae9-753d-11f0-a325-13f23c93f187;
- Sat, 09 Aug 2025 18:25:32 +0200 (CEST)
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
- by mailfout.phl.internal (Postfix) with ESMTP id 38BB8EC0692;
- Sat,  9 Aug 2025 12:25:31 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-02.internal (MEProxy); Sat, 09 Aug 2025 12:25:31 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 9 Aug 2025 12:25:29 -0400 (EDT)
+ <SRS0=9Mhn=2V=gmail.com=demiobenour@srs-se1.protection.inumbo.net>)
+ id 1ukmp4-0002Zf-4q
+ for xen-devel@lists.xenproject.org; Sat, 09 Aug 2025 16:53:34 +0000
+Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
+ [2607:f8b0:4864:20::72c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6125f07d-7541-11f0-b898-0df219b8e170;
+ Sat, 09 Aug 2025 18:53:31 +0200 (CEST)
+Received: by mail-qk1-x72c.google.com with SMTP id
+ af79cd13be357-7e81c336e10so357123685a.0
+ for <xen-devel@lists.xenproject.org>; Sat, 09 Aug 2025 09:53:31 -0700 (PDT)
+Received: from [10.138.10.6] ([89.187.178.201])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-7e840d96d78sm64740685a.3.2025.08.09.09.53.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 09 Aug 2025 09:53:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,143 +45,417 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77eb4ae9-753d-11f0-a325-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1754756731;
-	 x=1754843131; bh=zS+8Cb70qLjojvObOhXUZtr4XGKJjLy7vzLKSXHxvec=; b=
-	lpeDdCIB/+LMT5AmxOcnKJKV+5wZ9B5Ra7VlmHyE8T3ZozSxMiyLianyZ70/YqaA
-	56KGsF08+/DLX+KEkfb/V6+UTFvaUmPXGjAFGG42W7tUzA/FLDMSoJ1+T7yuXCPP
-	5P7vtFw4Ii5hmmyXGRlBb5/mQxrFOLkVJPacnDOv4M/Ot7fAG2m0ECatbr2FN0Zu
-	K3ZszImj+M2B0JnHuyAeq6huit3pPOJbViDAimE556jWk3qs+YUv3c9E5T03J9Ef
-	NSNo10nL7r5HOvuBrKo7S4Yvv1a4GqNPRbc/t6UTwVAr6pzIg7dCR0C2vo9pIsk5
-	N75sbv071hePx6axgvttNA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1754756731; x=1754843131; bh=zS+8Cb70qLjojvObOhXUZtr4XGKJjLy7vzL
-	KSXHxvec=; b=SOfatopEcc0ZZW0brlJmejXym7QQcP9DnDhconLJ1XLgu97W2vK
-	rycsqLfsXN2xNa8hvhUtam2zswED0sEiFsfY/TQz1mHjHuujbmucCi8bZSYZ6hLt
-	C4wWgRpCZX+1JN1Cb1bfotrFfgIHw+BrQoz95Dh2SnenXNg2xy/nVL6SdQt+Yhol
-	z6+GCNF/0lmVZs2ToaCZdW0K8LlJWTY6cpluV62wa47ACPKhbTchG8/zx7IvLFIK
-	YzgXoBTzFQsDvbxKYodqCRnjzyCX4Fy/Ir3Mgf79XfjU7eZuKDzHoOxYpIm/VZfb
-	3iznyPJHCQLUnSvczPMKsz8RJgAFw/5sUZA==
-X-ME-Sender: <xms:enaXaPmhNMM0RzB_Cc-SL3l3-VnwDmehofJ6ILv6S2GP5Pn0VxqQ6g>
-    <xme:enaXaLQHPu_ZYOKgVE9dYVUaDj8_qUOP0-xsc0w9V-SC8pZrxWnAkKy8Rm2vz3RsW
-    oyTEB0Etz-cmw>
-X-ME-Received: <xmr:enaXaGFvMq5-vs8ZpBQNggMB4f-mudAdpzKKn0xTj2kjlc7y2kCGrSCrhSXWZXBEPmHER7BQC6DNOOM0Nxc34tAPaltWYPXeCxI>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgdduvdejudejucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
-    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfduleet
-    feevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluhhsth
-    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
-    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepiedpmh
-    houggvpehsmhhtphhouhhtpdhrtghpthhtoheprghnthhhohhnhiesgigvnhhprhhojhgv
-    tghtrdhorhhgpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprh
-    hojhgvtghtrdhorhhgpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrhefsegtihht
-    rhhigidrtghomhdprhgtphhtthhopegrnhhthhhonhihrdhpvghrrghrugesvhgrthgvsh
-    drthgvtghhpdhrtghpthhtoheptggrrhguohgvsegtrghrughovgdrtghomhdprhgtphht
-    thhopehsshhtrggsvghllhhinhhisehkvghrnhgvlhdrohhrgh
-X-ME-Proxy: <xmx:enaXaIFhbK0HAr3Skm3C1YE6PZDUcSoXSbJg2Q58FWqgD096tx2u2w>
-    <xmx:enaXaMSI24aAbfJHJ0fndMeXsWoHQ-dppgEgs8aPpTlrD6obfoXzrQ>
-    <xmx:enaXaBLKEcMr1SB_DP9yfpc3vBNgyApysreLooq-3U9CWRyoZMWRWg>
-    <xmx:enaXaPY5he2oT22-JIAKqQghVBsI0vzG_-1pzzgLfVwbn8xkzmpa6Q>
-    <xmx:e3aXaMJeMiPhoZSNNEZOMx2fK3DWJengmhR4PGtcvkV2zxxdkyilPVNI>
-Feedback-ID: i1568416f:Fastmail
-Date: Sat, 9 Aug 2025 18:25:28 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Anthony PERARD <anthony@xenproject.org>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH v2 3/3] CI: Workaround extra content in junit
-Message-ID: <aJd2eHFgiLBNiWCy@mail-itl>
-References: <20250730152602.45436-1-anthony@xenproject.org>
- <20250730152602.45436-4-anthony@xenproject.org>
+X-Inumbo-ID: 6125f07d-7541-11f0-b898-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1754758410; x=1755363210; darn=lists.xenproject.org;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=b82Zl5v+n85Fe4l4e0mlHahtdka+pmXx7LMxto17f5Q=;
+        b=YSpHgzK5qCF9Sk4g0aeX/MP4kqHEIVYY/COl4stgI5AP/PHqi9huopvofDdemta3RY
+         lR743nF/zccydPgqiME/NBIBtHVIwm4kgxdExZTHKtIJHvwUe/D/QO2tu4PDToyNW9oD
+         euDQucnMN0qaUJ1kO+XYNXtGrNO+tZrSkzROL0dPxQAbzBjsEb6N3nVsNuKBXDXyblas
+         dD85BHhLLB5As1UJFegFziO3IpT76gN4z4q5eXZzXzOP2jT1kwvrkgZA6kY1ITfyYWG4
+         yb3Fcht6qtHD/p1G/HNCFWvrXbLQr5+n0GhN4S7R8gMERj2BzssQ4lrewt0p5K1ghl4D
+         vgYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1754758410; x=1755363210;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=b82Zl5v+n85Fe4l4e0mlHahtdka+pmXx7LMxto17f5Q=;
+        b=QDVp9wh/GXykZBe8Mu0+VvxMXf7vqj3UezhTdI0WsV2bijiZhgTVlYyrnF+ATDTRYN
+         005riDQcf1BTIVIc9vQWZAKX15dyn//ubyxdkHo35ReYXPxZC/T1By52WObppR2O5rgc
+         YH+qGQnLd2ZvhEtTpU0nAX942sryzBwHMojZ50TRaTJCPNie6r3arLOD4kFZHU2nN9qL
+         Na9AmamL/jXJ6HngXxSeWiFXas+UhyVH67m7R9C2+AZdD7C7BEdzDuFcBwLD5qZnXis8
+         rfa8tdYDtnTNUWLGBxV/ROGGEhunwuW3Z6NkXytQr3OA4tzOpLVBzEJzFJ4OTBitxYYp
+         Z1Cg==
+X-Forwarded-Encrypted: i=1; AJvYcCVM/e+YmzmliG5pMezkuzx2oFzhdqqTYLDJz9dLWx41YFiffesbxzEcmDQdh0RErcfI6+4+wUsEgBk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzsCYvqm93r8AtMaN/QXe9r08Fh07hDVstu+Vfolc6yTJbxh1sA
+	I/HdsYM0D+f42ADSoC2jwqF7WTu1Jrk/CjW6rNiSk7pWhUGFLGKnDyWw
+X-Gm-Gg: ASbGnctsBsLJ9ITeUf8C0oMYGGQJnvBFv034rh/QsymZ6zoiqIrI1MRSTiWYcV14zqX
+	NILBFg/EeR90DI6rTJzxPE3BH2BGmm66H+z5vsbqF/luAaxLmFsz0pyxD1p4HWysFMWbP2pvNIs
+	zh5i9M5OPH50Myd9QqhBI9mMQr3c1IY1+V7u7qZGuUqY9nk2Qk82rhDfM7HM/CsbfhbU83tI6Ej
+	vxGBOp6ABRSum9mdXTCOcd/10L0AvbnYnOEryTtnsy+vawjFCKIUZIOThrQ4GCON+kr2sO9dl6p
+	sBBpvnxK2V5I/fqGGQqBSb4fOI4eVTbJ3m9fSE+LTdd7enIFmNXQ7XE8hmyEZNanOgYebUbzjg7
+	XR0CA27Lm2l5mxH/bKJKug7xs6iN4gLzoFd7xdA==
+X-Google-Smtp-Source: AGHT+IF9oGm+vOmYY4e4ObD+uhpA4yymxsi+N6AjJ7hC/qynLLDha6S5LoqCkRbeKeqnaRxdFbffcA==
+X-Received: by 2002:a05:620a:70e7:b0:7e1:ef9c:551b with SMTP id af79cd13be357-7e82c67f4b6mr814292485a.14.1754758410392;
+        Sat, 09 Aug 2025 09:53:30 -0700 (PDT)
+Message-ID: <6cbaa3a3-694e-4951-abb3-b88e6c9d6638@gmail.com>
+Date: Sat, 9 Aug 2025 12:53:09 -0400
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 00/16] dma-mapping: migrate to physical address-based
+ API
+To: Jason Gunthorpe <jgg@nvidia.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Leon Romanovsky <leon@kernel.org>,
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+ Alexander Potapenko <glider@google.com>, Alex Gaynor
+ <alex.gaynor@gmail.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
+ iommu@lists.linux.dev, Jason Wang <jasowang@redhat.com>,
+ Jens Axboe <axboe@kernel.dk>, Joerg Roedel <joro@8bytes.org>,
+ Jonathan Corbet <corbet@lwn.net>, Juergen Gross <jgross@suse.com>,
+ kasan-dev@googlegroups.com, Keith Busch <kbusch@kernel.org>,
+ linux-block@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-nvme@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+ linux-trace-kernel@vger.kernel.org, Madhavan Srinivasan
+ <maddy@linux.ibm.com>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Michael Ellerman <mpe@ellerman.id.au>, "Michael S. Tsirkin"
+ <mst@redhat.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
+ Sagi Grimberg <sagi@grimberg.me>, Stefano Stabellini
+ <sstabellini@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1754292567.git.leon@kernel.org>
+ <CGME20250807141938eucas1p2319a0526b25db120b3c9aeb49f69cce1@eucas1p2.samsung.com>
+ <20250807141929.GN184255@nvidia.com>
+ <a154e058-c0e6-4208-9f52-57cec22eaf7d@samsung.com>
+ <20250809133454.GP184255@nvidia.com>
+Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49yB+l2nipd
+ aq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYfbWpr/si88QKgyGSV
+ Z7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/UorR+FaSuVwT7rqzGrTlscnT
+ DlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7MMPCJwI8JpPlBedRpe9tfVyfu3euTPLPx
+ wcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9Hzx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR
+ 6h3nBc3eyuZ+q62HS1pJ5EvUT1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl
+ 5FMWo8TCniHynNXsBtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2
+ Bkg1b//r6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
+ 9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nSm9BBff0N
+ m0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQABzTxEZW1pIE1hcmll
+ IE9iZW5vdXIgKGxvdmVyIG9mIGNvZGluZykgPGRlbWlvYmVub3VyQGdtYWlsLmNvbT7CwXgE
+ EwECACIFAlp+A0oCGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJELKItV//nCLBhr8Q
+ AK/xrb4wyi71xII2hkFBpT59ObLN+32FQT7R3lbZRjVFjc6yMUjOb1H/hJVxx+yo5gsSj5LS
+ 9AwggioUSrcUKldfA/PKKai2mzTlUDxTcF3vKx6iMXKA6AqwAw4B57ZEJoMM6egm57TV19kz
+ PMc879NV2nc6+elaKl+/kbVeD3qvBuEwsTe2Do3HAAdrfUG/j9erwIk6gha/Hp9yZlCnPTX+
+ VK+xifQqt8RtMqS5R/S8z0msJMI/ajNU03kFjOpqrYziv6OZLJ5cuKb3bZU5aoaRQRDzkFIR
+ 6aqtFLTohTo20QywXwRa39uFaOT/0YMpNyel0kdOszFOykTEGI2u+kja35g9TkH90kkBTG+a
+ EWttIht0Hy6YFmwjcAxisSakBuHnHuMSOiyRQLu43ej2+mDWgItLZ48Mu0C3IG1seeQDjEYP
+ tqvyZ6bGkf2Vj+L6wLoLLIhRZxQOedqArIk/Sb2SzQYuxN44IDRt+3ZcDqsPppoKcxSyd1Ny
+ 2tpvjYJXlfKmOYLhTWs8nwlAlSHX/c/jz/ywwf7eSvGknToo1Y0VpRtoxMaKW1nvH0OeCSVJ
+ itfRP7YbiRVc2aNqWPCSgtqHAuVraBRbAFLKh9d2rKFB3BmynTUpc1BQLJP8+D5oNyb8Ts4x
+ Xd3iV/uD8JLGJfYZIR7oGWFLP4uZ3tkneDfYzsFNBFp+A0oBEAC9ynZI9LU+uJkMeEJeJyQ/
+ 8VFkCJQPQZEsIGzOTlPnwvVna0AS86n2Z+rK7R/usYs5iJCZ55/JISWd8xD57ue0eB47bcJv
+ VqGlObI2DEG8TwaW0O0duRhDgzMEL4t1KdRAepIESBEA/iPpI4gfUbVEIEQuqdqQyO4GAe+M
+ kD0Hy5JH/0qgFmbaSegNTdQg5iqYjRZ3ttiswalql1/iSyv1WYeC1OAs+2BLOAT2NEggSiVO
+ txEfgewsQtCWi8H1SoirakIfo45Hz0tk/Ad9ZWh2PvOGt97Ka85o4TLJxgJJqGEnqcFUZnJJ
+ riwoaRIS8N2C8/nEM53jb1sH0gYddMU3QxY7dYNLIUrRKQeNkF30dK7V6JRH7pleRlf+wQcN
+ fRAIUrNlatj9TxwivQrKnC9aIFFHEy/0mAgtrQShcMRmMgVlRoOA5B8RTulRLCmkafvwuhs6
+ dCxN0GNAORIVVFxjx9Vn7OqYPgwiofZ6SbEl0hgPyWBQvE85klFLZLoj7p+joDY1XNQztmfA
+ rnJ9x+YV4igjWImINAZSlmEcYtd+xy3Li/8oeYDAqrsnrOjb+WvGhCykJk4urBog2LNtcyCj
+ kTs7F+WeXGUo0NDhbd3Z6AyFfqeF7uJ3D5hlpX2nI9no/ugPrrTVoVZAgrrnNz0iZG2DVx46
+ x913pVKHl5mlYQARAQABwsFfBBgBAgAJBQJafgNKAhsMAAoJELKItV//nCLBwNIP/AiIHE8b
+ oIqReFQyaMzxq6lE4YZCZNj65B/nkDOvodSiwfwjjVVE2V3iEzxMHbgyTCGA67+Bo/d5aQGj
+ gn0TPtsGzelyQHipaUzEyrsceUGWYoKXYyVWKEfyh0cDfnd9diAm3VeNqchtcMpoehETH8fr
+ RHnJdBcjf112PzQSdKC6kqU0Q196c4Vp5HDOQfNiDnTf7gZSj0BraHOByy9LEDCLhQiCmr+2
+ E0rW4tBtDAn2HkT9uf32ZGqJCn1O+2uVfFhGu6vPE5qkqrbSE8TG+03H8ecU2q50zgHWPdHM
+ OBvy3EhzfAh2VmOSTcRK+tSUe/u3wdLRDPwv/DTzGI36Kgky9MsDC5gpIwNbOJP2G/q1wT1o
+ Gkw4IXfWv2ufWiXqJ+k7HEi2N1sree7Dy9KBCqb+ca1vFhYPDJfhP75I/VnzHVssZ/rYZ9+5
+ 1yDoUABoNdJNSGUYl+Yh9Pw9pE3Kt4EFzUlFZWbE4xKL/NPno+z4J9aWemLLszcYz/u3XnbO
+ vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
+ HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+In-Reply-To: <20250809133454.GP184255@nvidia.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="ixp8jPEmCs6W2s3B"
-Content-Disposition: inline
-In-Reply-To: <20250730152602.45436-4-anthony@xenproject.org>
+ protocol="application/pgp-signature";
+ boundary="------------ANOjCz5i1k7QI0nCYN2dEm0B"
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------ANOjCz5i1k7QI0nCYN2dEm0B
+Content-Type: multipart/mixed; boundary="------------Tcin0j6gTuXw4zaLOgBCLymL";
+ protected-headers="v1"
+From: Demi Marie Obenour <demiobenour@gmail.com>
+To: Jason Gunthorpe <jgg@nvidia.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Leon Romanovsky <leon@kernel.org>,
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+ Alexander Potapenko <glider@google.com>, Alex Gaynor
+ <alex.gaynor@gmail.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
+ iommu@lists.linux.dev, Jason Wang <jasowang@redhat.com>,
+ Jens Axboe <axboe@kernel.dk>, Joerg Roedel <joro@8bytes.org>,
+ Jonathan Corbet <corbet@lwn.net>, Juergen Gross <jgross@suse.com>,
+ kasan-dev@googlegroups.com, Keith Busch <kbusch@kernel.org>,
+ linux-block@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-nvme@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+ linux-trace-kernel@vger.kernel.org, Madhavan Srinivasan
+ <maddy@linux.ibm.com>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Michael Ellerman <mpe@ellerman.id.au>, "Michael S. Tsirkin"
+ <mst@redhat.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
+ Sagi Grimberg <sagi@grimberg.me>, Stefano Stabellini
+ <sstabellini@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
+ xen-devel@lists.xenproject.org
+Message-ID: <6cbaa3a3-694e-4951-abb3-b88e6c9d6638@gmail.com>
+Subject: Re: [PATCH v1 00/16] dma-mapping: migrate to physical address-based
+ API
+References: <cover.1754292567.git.leon@kernel.org>
+ <CGME20250807141938eucas1p2319a0526b25db120b3c9aeb49f69cce1@eucas1p2.samsung.com>
+ <20250807141929.GN184255@nvidia.com>
+ <a154e058-c0e6-4208-9f52-57cec22eaf7d@samsung.com>
+ <20250809133454.GP184255@nvidia.com>
+In-Reply-To: <20250809133454.GP184255@nvidia.com>
+Autocrypt-Gossip: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
 
---ixp8jPEmCs6W2s3B
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+--------------Tcin0j6gTuXw4zaLOgBCLymL
+Content-Type: multipart/mixed; boundary="------------XI3qD7GRJn9UB00QQXegC2mE"
+
+--------------XI3qD7GRJn9UB00QQXegC2mE
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 9 Aug 2025 18:25:28 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Anthony PERARD <anthony@xenproject.org>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH v2 3/3] CI: Workaround extra content in junit
 
-On Wed, Jul 30, 2025 at 05:26:02PM +0200, Anthony PERARD wrote:
-> From: Anthony PERARD <anthony.perard@vates.tech>
+On 8/9/25 09:34, Jason Gunthorpe wrote:
+> On Fri, Aug 08, 2025 at 08:51:08PM +0200, Marek Szyprowski wrote:
+>> First - basing the=C2=A0API on the phys_addr_t.
+>>
+>> Page based API had the advantage that it was really hard to abuse it a=
+nd=20
+>> call for something that is not 'a normal RAM'.=20
 >=20
-> Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
-
-Is it still an issue? AFAIR similar issue was fixed together with fixing
-xml upload hanging.
-
-> ---
->  automation/scripts/qubes-x86-64.sh | 6 ++++++
->  1 file changed, 6 insertions(+)
+> This is not true anymore. Today we have ZONE_DEVICE as a struct page
+> type with a whole bunch of non-dram sub-types:
 >=20
-> diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qube=
-s-x86-64.sh
-> index 21dcd9b063..f1b7e02e63 100755
-> --- a/automation/scripts/qubes-x86-64.sh
-> +++ b/automation/scripts/qubes-x86-64.sh
-> @@ -298,6 +298,12 @@ TEST_RESULT=3D$?
-> =20
->  if [ -n "$retrieve_xml" ]; then
->      nc -w 10 "$SUT_ADDR" 8080 > tests-junit.xml </dev/null
-> +    # Workaround duplicated data been received
-> +    sed -i.old '/^<\/testsuites>/q' tests-junit.xml > /dev/null
-> +    extra_line_in_junit=3D$(($(wc -l < tests-junit.xml.old) - $(wc -l < =
-tests-junit.xml)))
-> +    if [ $extra_line_in_junit -gt 0 ]; then
-> +        echo "WARNING: Found $extra_line_in_junit too many lines in juni=
-t."
-> +    fi
->      # Findout if one of the test failed
->      if ! grep -q '</testsuites>' tests-junit.xml; then
->          echo "ERROR: tests-junit.xml is incomplete or missing."
-> --=20
-> Anthony PERARD
+> enum memory_type {
+> 	/* 0 is reserved to catch uninitialized type fields */
+> 	MEMORY_DEVICE_PRIVATE =3D 1,
+> 	MEMORY_DEVICE_COHERENT,
+> 	MEMORY_DEVICE_FS_DAX,
+> 	MEMORY_DEVICE_GENERIC,
+> 	MEMORY_DEVICE_PCI_P2PDMA,
+> };
 >=20
+> Few of which are kmappable/page_to_virtable() in a way that is useful
+> for the DMA API.
+>=20
+> DMA API sort of ignores all of this and relies on the caller to not
+> pass in an incorrect struct page. eg we rely on things like the block
+> stack to do the right stuff when a MEMORY_DEVICE_PCI_P2PDMA is present
+> in a bio_vec.
+>=20
+> Which is not really fundamentally different from just using
+> phys_addr_t in the first place.
+>=20
+> Sure, this was a stronger argument when this stuff was originally
+> written, before ZONE_DEVICE was invented.
+>=20
+>> I initially though that phys_addr_t based API will somehow simplify
+>> arch specific implementation, as some of them indeed rely on
+>> phys_addr_t internally, but I missed other things pointed by
+>> Robin. Do we have here any alternative?
+>=20
+> I think it is less of a code simplification, more as a reduction in
+> conceptual load. When we can say directly there is no struct page type
+> anyhwere in the DMA API layers then we only have to reason about
+> kmap/phys_to_virt compatibly.
+>=20
+> This is also a weaker overall requirement than needing an actual
+> struct page which allows optimizing other parts of the kernel. Like we
+> aren't forced to create MEMORY_DEVICE_PCI_P2PDMA stuct pages just to
+> use the dma api.
+>=20
+> Again, any place in the kernel we can get rid of struct page the
+> smoother the road will be for the MM side struct page restructuring.
+>=20
+> For example one of the bigger eventual goes here is to make a bio_vec
+> store phys_addr_t, not struct page pointers.
+>=20
+> DMA API is not alone here, we have been de-struct-paging the kernel
+> for a long time now:
+>=20
+> netdev: https://lore.kernel.org/linux-mm/20250609043225.77229-1-byungch=
+ul@sk.com/
+> slab: https://lore.kernel.org/linux-mm/20211201181510.18784-1-vbabka@su=
+se.cz/
+> iommmu: https://lore.kernel.org/all/0-v4-c8663abbb606+3f7-iommu_pages_j=
+gg@nvidia.com/
+> page tables: https://lore.kernel.org/linux-mm/20230731170332.69404-1-vi=
+shal.moola@gmail.com/
+> zswap: https://lore.kernel.org/all/20241216150450.1228021-1-42.hyeyoo@g=
+mail.com/
+>=20
+> With a long term goal that struct page only exists for legacy code,
+> and is maybe entirely compiled out of modern server kernels.
 
+Why just server kernels?  I suspect client systems actually run
+newer kernels than servers do.
 --=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+--------------XI3qD7GRJn9UB00QQXegC2mE
+Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
---ixp8jPEmCs6W2s3B
-Content-Type: application/pgp-signature; name=signature.asc
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49y
+B+l2nipdaq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYf
+bWpr/si88QKgyGSVZ7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/
+UorR+FaSuVwT7rqzGrTlscnTDlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7M
+MPCJwI8JpPlBedRpe9tfVyfu3euTPLPxwcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9H
+zx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR6h3nBc3eyuZ+q62HS1pJ5EvU
+T1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl5FMWo8TCniHynNXs
+BtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2Bkg1b//r
+6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
+9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nS
+m9BBff0Nm0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQAB
+zTxEZW1pIE9iZW5vdXIgKElUTCBFbWFpbCBLZXkpIDxhdGhlbmFAaW52aXNpYmxl
+dGhpbmdzbGFiLmNvbT7CwY4EEwEIADgWIQR2h02fEza6IlkHHHGyiLVf/5wiwQUC
+X6YJvQIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCyiLVf/5wiwWRhD/0Y
+R+YYC5Kduv/2LBgQJIygMsFiRHbR4+tWXuTFqgrxxFSlMktZ6gQrQCWe38WnOXkB
+oY6n/5lSJdfnuGd2UagZ/9dkaGMUkqt+5WshLFly4BnP7pSsWReKgMP7etRTwn3S
+zk1OwFx2lzY1EnnconPLfPBc6rWG2moA6l0WX+3WNR1B1ndqpl2hPSjT2jUCBWDV
+rGOUSX7r5f1WgtBeNYnEXPBCUUM51pFGESmfHIXQrqFDA7nBNiIVFDJTmQzuEqIy
+Jl67pKNgooij5mKzRhFKHfjLRAH4mmWZlB9UjDStAfFBAoDFHwd1HL5VQCNQdqEc
+/9lZDApqWuCPadZN+pGouqLysesIYsNxUhJ7dtWOWHl0vs7/3qkWmWun/2uOJMQh
+ra2u8nA9g91FbOobWqjrDd6x3ZJoGQf4zLqjmn/P514gb697788e573WN/MpQ5XI
+Fl7aM2d6/GJiq6LC9T2gSUW4rbPBiqOCeiUx7Kd/sVm41p9TOA7fEG4bYddCfDsN
+xaQJH6VRK3NOuBUGeL+iQEVF5Xs6Yp+U+jwvv2M5Lel3EqAYo5xXTx4ls0xaxDCu
+fudcAh8CMMqx3fguSb7Mi31WlnZpk0fDuWQVNKyDP7lYpwc4nCCGNKCj622ZSocH
+AcQmX28L8pJdLYacv9pU3jPy4fHcQYvmTavTqowGnM08RGVtaSBNYXJpZSBPYmVu
+b3VyIChsb3ZlciBvZiBjb2RpbmcpIDxkZW1pb2Jlbm91ckBnbWFpbC5jb20+wsF4
+BBMBAgAiBQJafgNKAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCyiLVf
+/5wiwYa/EACv8a2+MMou9cSCNoZBQaU+fTmyzft9hUE+0d5W2UY1RY3OsjFIzm9R
+/4SVccfsqOYLEo+S0vQMIIIqFEq3FCpXXwPzyimotps05VA8U3Bd7yseojFygOgK
+sAMOAee2RCaDDOnoJue01dfZMzzHPO/TVdp3OvnpWipfv5G1Xg96rwbhMLE3tg6N
+xwAHa31Bv4/Xq8CJOoIWvx6fcmZQpz01/lSvsYn0KrfEbTKkuUf0vM9JrCTCP2oz
+VNN5BYzqaq2M4r+jmSyeXLim922VOWqGkUEQ85BSEemqrRS06IU6NtEMsF8EWt/b
+hWjk/9GDKTcnpdJHTrMxTspExBiNrvpI2t+YPU5B/dJJAUxvmhFrbSIbdB8umBZs
+I3AMYrEmpAbh5x7jEjoskUC7uN3o9vpg1oCLS2ePDLtAtyBtbHnkA4xGD7ar8mem
+xpH9lY/i+sC6CyyIUWcUDnnagKyJP0m9ks0GLsTeOCA0bft2XA6rD6aaCnMUsndT
+ctrab42CV5XypjmC4U1rPJ8JQJUh1/3P48/8sMH+3krxpJ06KNWNFaUbaMTGiltZ
+7x9DngklSYrX0T+2G4kVXNmjaljwkoLahwLla2gUWwBSyofXdqyhQdwZsp01KXNQ
+UCyT/Pg+aDcm/E7OMV3d4lf7g/CSxiX2GSEe6BlhSz+Lmd7ZJ3g32M1ARGVtaSBN
+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
+EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
+=3Dx94R
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------XI3qD7GRJn9UB00QQXegC2mE--
+
+--------------Tcin0j6gTuXw4zaLOgBCLymL--
+
+--------------ANOjCz5i1k7QI0nCYN2dEm0B
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmiXdngACgkQ24/THMrX
-1ywVxAf/VyXVYyff+VxZWa1rxo3PwObk3mzOS4TcOZQMOcBVDuMXzZuIu79A/jC2
-2ZcOCO0pjx6+/6siW6vAJm4ROA6W8rGGyGfc23SqfIcDJpNqArgB4w2Y6pEKJP4O
-cWZDTucxY7aWyUElWRqsEsgkD8X7vcls4/6l1th+rzbSaEwTibWBo07plKpoW6rc
-No34PV65SpL3EX7yIbHeuAJLL1jc+zkRYC1+w4KTqOvZ+BiSYne6CqwZPrWc8ZKx
-PtnTtzalOIpiARVc5SXoN02h1919Yh/gD2rBPm/iM5ax4G6RR2j09tQKGzbD/v29
-P1z/e8kD7JozMsiyQ0v1PQqGwIG8Zg==
-=kSx7
+iQIzBAEBCAAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmiXfP8ACgkQszaHOrMp
+8lOWXBAAnJj/H7NOyJp7v2jGgmnhKlYEqtVi6qlmJcJz14v7rr9/EaskUUoYUujH
+YJp2/18HGnAPoUbUjxec8OzMRUwx1/a93C3+eCSL1AGwf46p6+oTZqMI8RKa10EN
+N8Zn/HcQBQ59AAowJ/XM4UB7bbcG7iqY35SqJ4EiE638m6TkA1I8aFz4xNBS0fuA
+5SdjEn7Pdy9MU5J5Isy8K6eDGwHmKOGVLw2wh7PwCOeBX+Nxy6dKs918KO+tQ5OE
+V/XHQuejVDUEjzknLlJygVa8riswgiP5sEHUT3ByvPP3gR9pPxw734I5LtLKI6vT
+FZHDmcBLkOKsCN7aCP17hef8GziM+krJOh2eMOaMyN6FTvRD3iUluF0TvtEqlnFY
+KZ6/eb/T0W5uz++VA9hFaOlq7sLIFUKRZZqdMXPKGVWSfv90jA12s7t12/gah/SY
+YKNo6UxWKoDXSZWghJ9AZulG6aXoidf4Z1OIDA/bWR7k0XPYO/ibs9HGKXxfpcC1
+ic+vKawKRYsAymyBOrUPYq0tyIO8H6ZGxzSM/U1HvkPnCkcLfb+EhgN0vb10r8+L
+vzcnKJc0HQrXPaW9fqEikyWD+KAmpGhUTEJZFlQaiCMk3VYK1cBx1iVi1i+cZY4S
+zdJjfggKCJ9cXiQB+4wmUT3TiA+fqC/I9hplAia1eXYCQeDQiNM=
+=TrA+
 -----END PGP SIGNATURE-----
 
---ixp8jPEmCs6W2s3B--
+--------------ANOjCz5i1k7QI0nCYN2dEm0B--
 
