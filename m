@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24E4EB1F71E
-	for <lists+xen-devel@lfdr.de>; Sun, 10 Aug 2025 00:12:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1076298.1437923 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B1B3B1F72A
+	for <lists+xen-devel@lfdr.de>; Sun, 10 Aug 2025 01:03:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1076376.1437974 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukrnV-00065H-S1; Sat, 09 Aug 2025 22:12:17 +0000
+	id 1uksah-0006hL-Nx; Sat, 09 Aug 2025 23:03:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1076298.1437923; Sat, 09 Aug 2025 22:12:17 +0000
+Received: by outflank-mailman (output) from mailman id 1076376.1437974; Sat, 09 Aug 2025 23:03:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukrnV-00064K-Oe; Sat, 09 Aug 2025 22:12:17 +0000
-Received: by outflank-mailman (input) for mailman id 1076298;
- Sat, 09 Aug 2025 22:12:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gSuF=2V=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ukrnT-0005qN-SW
- for xen-devel@lists.xenproject.org; Sat, 09 Aug 2025 22:12:15 +0000
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [2a00:1450:4864:20::441])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e812a21a-756d-11f0-a325-13f23c93f187;
- Sun, 10 Aug 2025 00:12:15 +0200 (CEST)
-Received: by mail-wr1-x441.google.com with SMTP id
- ffacd0b85a97d-3b78315ff04so2741325f8f.0
- for <xen-devel@lists.xenproject.org>; Sat, 09 Aug 2025 15:12:15 -0700 (PDT)
-Received: from localhost.localdomain (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b79c453ab0sm35424323f8f.44.2025.08.09.15.12.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 09 Aug 2025 15:12:14 -0700 (PDT)
+	id 1uksah-0006fq-Kl; Sat, 09 Aug 2025 23:03:07 +0000
+Received: by outflank-mailman (input) for mailman id 1076376;
+ Sat, 09 Aug 2025 23:03:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jH7k=2V=kernel.org=ardb@srs-se1.protection.inumbo.net>)
+ id 1uksah-0006fJ-53
+ for xen-devel@lists.xenproject.org; Sat, 09 Aug 2025 23:03:07 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0112c7f8-7575-11f0-b898-0df219b8e170;
+ Sun, 10 Aug 2025 01:03:04 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3016245CB4
+ for <xen-devel@lists.xenproject.org>; Sat,  9 Aug 2025 23:03:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D429C4CEF8
+ for <xen-devel@lists.xenproject.org>; Sat,  9 Aug 2025 23:03:03 +0000 (UTC)
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-3323b99094fso27909031fa.0
+ for <xen-devel@lists.xenproject.org>; Sat, 09 Aug 2025 16:03:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,231 +44,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e812a21a-756d-11f0-a325-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1754777535; x=1755382335; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=x8jEOu6+Wmu2jfug+vxWSSfDmwNVRaIms3wraAaPkLY=;
-        b=Dz9vn92BJ2/ySmJ9P3NT+nMOKO7mp6sYZp4m4Y99sSj5SzinDmwxVbvE1sNUQsuZx5
-         kjmQB9rOV5gPDa1nJHtSVoo/4GrQKtlh00j4JEC1tWjn9q9J/1u7QTXWi0FCyMvwN6vs
-         j8czStDMGitj6nRzE3jSYXhDxR/2OFG0HFMXo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754777535; x=1755382335;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=x8jEOu6+Wmu2jfug+vxWSSfDmwNVRaIms3wraAaPkLY=;
-        b=ZJVwnZMLXRF7UvEW19vKJcGvGhTDkKWPb97plLwqx7XZ1I1HdOQraZCPMhxjpaSIgU
-         rbZAwAx5lxnnU/OvNKQFPxaUwjAVDNzAiqyVo6NyqwFRQAWmcVFqYzn6eMYIiBRGf8tu
-         QVEVBz52dK1kwybGAuBs9X03nriEV9lpeAkeHIT0bY3LsoQrQe0JoMRu3F+7r6IGgWbA
-         fhCm0+o4vULMCZRtiR3kdJpMElE5NE499dsoLel/hJo5t45gfkwcR0sin5IR0r49yvki
-         TOUNj+HKsT3zC9K7HBXec1ErO0xazS08SaqMN83zDMDToBXAer1DtofhrWbMte7eQ5zq
-         JuDQ==
-X-Gm-Message-State: AOJu0YxJ4LEiGFovoFgGrCz3Dggb/Hy+KGgmWe1B8wBz9hn1bETTs/9/
-	bjjDw8bJngpnYrOklavnDnyZ2A4Jk+5w5pN6RIBGoqmh4bw0kCH/M1QZRv9kwIK7Trh+edcsZFX
-	y5NCLoCi2OA==
-X-Gm-Gg: ASbGncsTXXwXu6K9DNFa8sq7QB5cMxua3gYx76YEKzJT8h6N1i5uT1725qOWfi/yH6B
-	S0EVHNi4pkK9d80jDxW6cblmPKauWaetQ6f80qU3g6W51Jx0NMoo4+ZbW5srn8SWmDl0TToRNzn
-	s+KXK5dGAnlFhp3FmI3S79xQj7/llUSJ3ohCZEkI5iA6jfI/LUHBQ2iEnNMBYzHXxk8djkeX9Wp
-	mecNXraw/UvFIF5kH/0oL52V7SkY5YccJVwycymlLimGVESgima7/cbchcbFJNK1J7Iq28zdcDj
-	ZvFjjkdvAZCbk80eM9Auj7CY0VGr9KJBCQ43K4FMuUH8jhq62X0hu70Q+8cBGDLfzsaCZRVirQA
-	MIckWw859VIDotTH8jKJDDaS9kM5k9mzbsgf0gPVZX0052Y+KDYByw5P2eLB7LnbsLQehNUWpIx
-	+/
-X-Google-Smtp-Source: AGHT+IH0EYhksleZNTZuq5+L/1QNNPMQh/53GIa6ar0t3hlOvb82O7XDJykDV4EsYFApiPg/bioABA==
-X-Received: by 2002:a05:6000:1ac7:b0:3b7:6d95:56d2 with SMTP id ffacd0b85a97d-3b900b449b0mr5556976f8f.7.1754777534659;
-        Sat, 09 Aug 2025 15:12:14 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Victor Lira <victorm.lira@amd.com>
-Subject: [PATCH 5/5] CI: Update x86 to use Debian Trixie
-Date: Sat,  9 Aug 2025 23:12:06 +0100
-Message-Id: <20250809221206.1260861-6-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250809221206.1260861-1-andrew.cooper3@citrix.com>
-References: <20250809221206.1260861-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 0112c7f8-7575-11f0-b898-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1754780583;
+	bh=st/eweHiwV92mUXCvAGpIiPGkvX3rErOBfHnwy2GSps=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=NhkQpTou8reSM51IS+2E4WNb4pJgZFOq/hiUQIN0TiElPNcMp+LS6vjXxnv71d4GX
+	 CZ8daBgABogz2YQMbScCOF/d8NbeFW758Rd7zV2ByVOhKuIt2kltfkzhwnHxif1Tm3
+	 9VQYogOHuqRGA+YDMuekUicwZt+o5UA5FCbCY72jizCTMxVBRyJyfTrP9oh0MGmZAQ
+	 N2g5GZu8o3juqPBxT6HV374BnxqpEcyNfGmE1jlFN7gDhQzD2Qsv20tH/QBo+X9vRE
+	 9t/LN5bDUAIJ4uIwGiW0lkf2p8zzdxxw28/w7CukWqdthBfNDALjDtlGDEGzwidSC5
+	 bfV52PDqTIPVQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWomncXOWwigfuHOV5zQBsO52QEaLL1+Jg1NVX4tdAwKJ2hVlrrlcSRQ3TcEv/INelR1iFiy5NizxI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwvjzJOundgbMXaWyUdb2sknLw1GAQi1qhlJmT8mlihNse7tutJ
+	zlCGGQPEK5CNQtLyYG8qq1Fg7CqU6RA6CecrjLnKDsqtJPR1217ZOcUoS5dBaE6Z/gxhEtkQDUz
+	MKYOiAsGqzt51rNxL0b5SJTgKMQj3k60=
+X-Google-Smtp-Source: AGHT+IHacj93S4TAyJS2Y33dq5fDEf3fw3H8pVieqGYKOrts0lqIXyoZID+Z9tXd8YeI87NlNCl9WjBC2eK/6u6auvE=
+X-Received: by 2002:a05:651c:3799:b0:32a:7270:5c29 with SMTP id
+ 38308e7fff4ca-333a213e262mr13218821fa.2.1754780581250; Sat, 09 Aug 2025
+ 16:03:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20250714060843.4029171-5-ardb+git@google.com> <20250714060843.4029171-6-ardb+git@google.com>
+ <20250803010449df1f5cfb@mail.local>
+In-Reply-To: <20250803010449df1f5cfb@mail.local>
+From: Ard Biesheuvel <ardb@kernel.org>
+Date: Sun, 10 Aug 2025 09:02:49 +1000
+X-Gmail-Original-Message-ID: <CAMj1kXGQyLXwk9Bq24xhPPsB1nO9RcSkvh=0p8aNP=Q=Az8V7w@mail.gmail.com>
+X-Gm-Features: Ac12FXyxSfM9EC_oe23LQ4fW6u1l84sRZB4iGnVNSBFl1E9opWCoKNhC-oXMcUQ
+Message-ID: <CAMj1kXGQyLXwk9Bq24xhPPsB1nO9RcSkvh=0p8aNP=Q=Az8V7w@mail.gmail.com>
+Subject: Re: [RFC PATCH 1/3] efi-rtc: Remove wakeup functionality
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Ard Biesheuvel <ardb+git@google.com>, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, 
+	Heinrich Schuchardt <heinrich.schuchardt@canonical.com>, Feng Tang <feng.tang@linux.alibaba.com>, 
+	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Sunil V L <sunilvl@ventanamicro.com>, 
+	Bibo Mao <maobibo@loongson.cn>, linux-rtc@vger.kernel.org, linux-efi@vger.kernel.org, 
+	xen-devel@lists.xenproject.org, x86@kernel.org, 
+	linux-riscv@lists.infradead.org, loongarch@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-With the exception of the custom IBT job, copy all Debian 12 jobs making
-Debian 13 versions, then trim the Debian 12 ranconfig jobs.  Update the test
-jobs.
+On Sun, 3 Aug 2025 at 11:05, Alexandre Belloni
+<alexandre.belloni@bootlin.com> wrote:
+>
+> Hello,
+>
+> Apart from the topic that should be "rtc: efi:...", I'm ready to apply
+> this patch.
+>
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Anthony PERARD <anthony.perard@vates.tech>
-CC: Michal Orzel <michal.orzel@amd.com>
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Julien Grall <julien@xen.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Shawn Anastasio <sanastasio@raptorengineering.com>
-CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-CC: Doug Goldstein <cardoe@cardoe.com>
-CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-CC: Victor Lira <victorm.lira@amd.com>
+Thanks, please go ahead.
 
-https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1975958452
-
-We may want to trim a few more jobs, but I'm not sure where the right balance is.
----
- automation/gitlab-ci/build.yaml | 54 +++++++++++++++++++++++++--------
- automation/gitlab-ci/test.yaml  | 10 +++---
- 2 files changed, 47 insertions(+), 17 deletions(-)
-
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index f8e45f3467c8..4cb52fe59715 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -309,15 +309,15 @@ alpine-3.18-gcc-debug:
-       CONFIG_UCODE_SCAN_DEFAULT=y
-       CONFIG_XHCI=y
- 
--debian-12-x86_64-gcc-debug:
-+debian-13-x86_64-gcc-debug:
-   extends: .gcc-x86-64-build-debug
-   variables:
--    CONTAINER: debian:12-x86_64
-+    CONTAINER: debian:13-x86_64
- 
--debian-12-x86_64-clang-debug:
-+debian-13-x86_64-clang-debug:
-   extends: .clang-x86-64-build-debug
-   variables:
--    CONTAINER: debian:12-x86_64
-+    CONTAINER: debian:13-x86_64
- 
- debian-13-ppc64le-gcc-debug:
-   extends: .gcc-ppc64le-cross-build-debug
-@@ -545,24 +545,20 @@ debian-12-x86_64-clang:
-   variables:
-     CONTAINER: debian:12-x86_64
- 
--debian-12-x86_64-clang-randconfig:
--  extends: .clang-x86-64-build
-+debian-12-x86_64-clang-debug:
-+  extends: .clang-x86-64-build-debug
-   variables:
-     CONTAINER: debian:12-x86_64
--    RANDCONFIG: y
--    EXTRA_FIXED_RANDCONFIG: |
--      CONFIG_COVERAGE=n # Disable coverage otherwise build times out.
- 
- debian-12-x86_64-gcc:
-   extends: .gcc-x86-64-build
-   variables:
-     CONTAINER: debian:12-x86_64
- 
--debian-12-x86_64-gcc-randconfig:
--  extends: .gcc-x86-64-build
-+debian-12-x86_64-gcc-debug:
-+  extends: .gcc-x86-64-build-debug
-   variables:
-     CONTAINER: debian:12-x86_64
--    RANDCONFIG: y
- 
- debian-12-x86_32-clang-debug:
-   extends: .clang-x86-32-build-debug
-@@ -574,6 +570,40 @@ debian-12-x86_32-gcc-debug:
-   variables:
-     CONTAINER: debian:12-x86_32
- 
-+debian-13-x86_64-clang:
-+  extends: .clang-x86-64-build
-+  variables:
-+    CONTAINER: debian:13-x86_64
-+
-+debian-13-x86_64-clang-randconfig:
-+  extends: .clang-x86-64-build
-+  variables:
-+    CONTAINER: debian:13-x86_64
-+    RANDCONFIG: y
-+    EXTRA_FIXED_RANDCONFIG: |
-+      CONFIG_COVERAGE=n # Disable coverage otherwise build times out.
-+
-+debian-13-x86_64-gcc:
-+  extends: .gcc-x86-64-build
-+  variables:
-+    CONTAINER: debian:13-x86_64
-+
-+debian-13-x86_64-gcc-randconfig:
-+  extends: .gcc-x86-64-build
-+  variables:
-+    CONTAINER: debian:13-x86_64
-+    RANDCONFIG: y
-+
-+debian-13-x86_32-clang-debug:
-+  extends: .clang-x86-32-build-debug
-+  variables:
-+    CONTAINER: debian:13-x86_32
-+
-+debian-13-x86_32-gcc-debug:
-+  extends: .gcc-x86-32-build-debug
-+  variables:
-+    CONTAINER: debian:13-x86_32
-+
- fedora-41-x86_64-gcc:
-   extends: .gcc-x86-64-build
-   variables:
-diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-index 9acd984d294c..96e952235737 100644
---- a/automation/gitlab-ci/test.yaml
-+++ b/automation/gitlab-ci/test.yaml
-@@ -661,35 +661,35 @@ qemu-smoke-x86-64-gcc:
-   script:
-     - ./automation/scripts/qemu-xtf.sh x86-64 pv64 example 2>&1 | tee ${LOGFILE}
-   needs:
--    - debian-12-x86_64-gcc-debug
-+    - debian-13-x86_64-gcc-debug
- 
- qemu-smoke-x86-64-clang:
-   extends: .qemu-smoke-x86-64
-   script:
-     - ./automation/scripts/qemu-xtf.sh x86-64 pv64 example 2>&1 | tee ${LOGFILE}
-   needs:
--    - debian-12-x86_64-clang-debug
-+    - debian-13-x86_64-clang-debug
- 
- qemu-smoke-x86-64-gcc-pvh:
-   extends: .qemu-smoke-x86-64
-   script:
-     - ./automation/scripts/qemu-xtf.sh x86-64 hvm64 example 2>&1 | tee ${LOGFILE}
-   needs:
--    - debian-12-x86_64-gcc-debug
-+    - debian-13-x86_64-gcc-debug
- 
- qemu-smoke-x86-64-clang-pvh:
-   extends: .qemu-smoke-x86-64
-   script:
-     - ./automation/scripts/qemu-xtf.sh x86-64 hvm64 example 2>&1 | tee ${LOGFILE}
-   needs:
--    - debian-12-x86_64-clang-debug
-+    - debian-13-x86_64-clang-debug
- 
- qemu-smoke-x86-64-gcc-efi:
-   extends: .qemu-smoke-x86-64
-   script:
-     - ./automation/scripts/qemu-xtf.sh x86-64-efi pv64 example 2>&1 | tee ${LOGFILE}
-   needs:
--    - debian-12-x86_64-gcc-debug
-+    - debian-13-x86_64-gcc-debug
- 
- qemu-xtf-argo-x86_64-gcc-debug:
-   extends: .qemu-smoke-x86-64
--- 
-2.39.5
-
+> On 14/07/2025 08:08:45+0200, Ard Biesheuvel wrote:
+> > From: Ard Biesheuvel <ardb@kernel.org>
+> >
+> > The EFI rtc driver is used by non-x86 architectures only, and exposes
+> > the get/set wakeup time functionality provided by the underlying
+> > platform. This is usually broken on most platforms, and not widely used
+> > to begin with [if at all], so let's just remove it.
+> >
+> > Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+> > ---
+> >  drivers/rtc/rtc-efi.c | 76 +-------------------
+> >  1 file changed, 2 insertions(+), 74 deletions(-)
+> >
+> > diff --git a/drivers/rtc/rtc-efi.c b/drivers/rtc/rtc-efi.c
+> > index fa8bf82df948..b4f44999ef0f 100644
+> > --- a/drivers/rtc/rtc-efi.c
+> > +++ b/drivers/rtc/rtc-efi.c
+> > @@ -112,48 +112,6 @@ convert_from_efi_time(efi_time_t *eft, struct rtc_time *wtime)
+> >       return true;
+> >  }
+> >
+> > -static int efi_read_alarm(struct device *dev, struct rtc_wkalrm *wkalrm)
+> > -{
+> > -     efi_time_t eft;
+> > -     efi_status_t status;
+> > -
+> > -     /*
+> > -      * As of EFI v1.10, this call always returns an unsupported status
+> > -      */
+> > -     status = efi.get_wakeup_time((efi_bool_t *)&wkalrm->enabled,
+> > -                                  (efi_bool_t *)&wkalrm->pending, &eft);
+> > -
+> > -     if (status != EFI_SUCCESS)
+> > -             return -EINVAL;
+> > -
+> > -     if (!convert_from_efi_time(&eft, &wkalrm->time))
+> > -             return -EIO;
+> > -
+> > -     return rtc_valid_tm(&wkalrm->time);
+> > -}
+> > -
+> > -static int efi_set_alarm(struct device *dev, struct rtc_wkalrm *wkalrm)
+> > -{
+> > -     efi_time_t eft;
+> > -     efi_status_t status;
+> > -
+> > -     convert_to_efi_time(&wkalrm->time, &eft);
+> > -
+> > -     /*
+> > -      * XXX Fixme:
+> > -      * As of EFI 0.92 with the firmware I have on my
+> > -      * machine this call does not seem to work quite
+> > -      * right
+> > -      *
+> > -      * As of v1.10, this call always returns an unsupported status
+> > -      */
+> > -     status = efi.set_wakeup_time((efi_bool_t)wkalrm->enabled, &eft);
+> > -
+> > -     dev_warn(dev, "write status is %d\n", (int)status);
+> > -
+> > -     return status == EFI_SUCCESS ? 0 : -EINVAL;
+> > -}
+> > -
+> >  static int efi_read_time(struct device *dev, struct rtc_time *tm)
+> >  {
+> >       efi_status_t status;
+> > @@ -188,17 +146,13 @@ static int efi_set_time(struct device *dev, struct rtc_time *tm)
+> >
+> >  static int efi_procfs(struct device *dev, struct seq_file *seq)
+> >  {
+> > -     efi_time_t        eft, alm;
+> > +     efi_time_t        eft;
+> >       efi_time_cap_t    cap;
+> > -     efi_bool_t        enabled, pending;
+> > -     struct rtc_device *rtc = dev_get_drvdata(dev);
+> >
+> >       memset(&eft, 0, sizeof(eft));
+> > -     memset(&alm, 0, sizeof(alm));
+> >       memset(&cap, 0, sizeof(cap));
+> >
+> >       efi.get_time(&eft, &cap);
+> > -     efi.get_wakeup_time(&enabled, &pending, &alm);
+> >
+> >       seq_printf(seq,
+> >                  "Time\t\t: %u:%u:%u.%09u\n"
+> > @@ -214,26 +168,6 @@ static int efi_procfs(struct device *dev, struct seq_file *seq)
+> >               /* XXX fixme: convert to string? */
+> >               seq_printf(seq, "Timezone\t: %u\n", eft.timezone);
+> >
+> > -     if (test_bit(RTC_FEATURE_ALARM, rtc->features)) {
+> > -             seq_printf(seq,
+> > -                        "Alarm Time\t: %u:%u:%u.%09u\n"
+> > -                        "Alarm Date\t: %u-%u-%u\n"
+> > -                        "Alarm Daylight\t: %u\n"
+> > -                        "Enabled\t\t: %s\n"
+> > -                        "Pending\t\t: %s\n",
+> > -                        alm.hour, alm.minute, alm.second, alm.nanosecond,
+> > -                        alm.year, alm.month, alm.day,
+> > -                        alm.daylight,
+> > -                        enabled == 1 ? "yes" : "no",
+> > -                        pending == 1 ? "yes" : "no");
+> > -
+> > -             if (alm.timezone == EFI_UNSPECIFIED_TIMEZONE)
+> > -                     seq_puts(seq, "Timezone\t: unspecified\n");
+> > -             else
+> > -                     /* XXX fixme: convert to string? */
+> > -                     seq_printf(seq, "Timezone\t: %u\n", alm.timezone);
+> > -     }
+> > -
+> >       /*
+> >        * now prints the capabilities
+> >        */
+> > @@ -249,8 +183,6 @@ static int efi_procfs(struct device *dev, struct seq_file *seq)
+> >  static const struct rtc_class_ops efi_rtc_ops = {
+> >       .read_time      = efi_read_time,
+> >       .set_time       = efi_set_time,
+> > -     .read_alarm     = efi_read_alarm,
+> > -     .set_alarm      = efi_set_alarm,
+> >       .proc           = efi_procfs,
+> >  };
+> >
+> > @@ -271,11 +203,7 @@ static int __init efi_rtc_probe(struct platform_device *dev)
+> >       platform_set_drvdata(dev, rtc);
+> >
+> >       rtc->ops = &efi_rtc_ops;
+> > -     clear_bit(RTC_FEATURE_UPDATE_INTERRUPT, rtc->features);
+> > -     if (efi_rt_services_supported(EFI_RT_SUPPORTED_WAKEUP_SERVICES))
+> > -             set_bit(RTC_FEATURE_ALARM_WAKEUP_ONLY, rtc->features);
+> > -     else
+> > -             clear_bit(RTC_FEATURE_ALARM, rtc->features);
+> > +     clear_bit(RTC_FEATURE_ALARM, rtc->features);
+> >
+> >       device_init_wakeup(&dev->dev, true);
+> >
+> > --
+> > 2.50.0.727.gbf7dc18ff4-goog
+> >
+>
+> --
+> Alexandre Belloni, co-owner and COO, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
+>
 
