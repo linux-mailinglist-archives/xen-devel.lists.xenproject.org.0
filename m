@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9BC7B1F71B
-	for <lists+xen-devel@lfdr.de>; Sun, 10 Aug 2025 00:12:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1076301.1437948 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24E4EB1F71E
+	for <lists+xen-devel@lfdr.de>; Sun, 10 Aug 2025 00:12:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1076298.1437923 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukrnX-0006R4-2q; Sat, 09 Aug 2025 22:12:19 +0000
+	id 1ukrnV-00065H-S1; Sat, 09 Aug 2025 22:12:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1076301.1437948; Sat, 09 Aug 2025 22:12:18 +0000
+Received: by outflank-mailman (output) from mailman id 1076298.1437923; Sat, 09 Aug 2025 22:12:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ukrnW-0006N9-Mg; Sat, 09 Aug 2025 22:12:18 +0000
-Received: by outflank-mailman (input) for mailman id 1076301;
- Sat, 09 Aug 2025 22:12:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ukrnV-00064K-Oe; Sat, 09 Aug 2025 22:12:17 +0000
+Received: by outflank-mailman (input) for mailman id 1076298;
+ Sat, 09 Aug 2025 22:12:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gSuF=2V=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ukrnU-0005qO-NM
- for xen-devel@lists.xenproject.org; Sat, 09 Aug 2025 22:12:16 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e72a9bba-756d-11f0-b898-0df219b8e170;
- Sun, 10 Aug 2025 00:12:14 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3b786421e36so1706392f8f.3
- for <xen-devel@lists.xenproject.org>; Sat, 09 Aug 2025 15:12:14 -0700 (PDT)
+ id 1ukrnT-0005qN-SW
+ for xen-devel@lists.xenproject.org; Sat, 09 Aug 2025 22:12:15 +0000
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [2a00:1450:4864:20::441])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e812a21a-756d-11f0-a325-13f23c93f187;
+ Sun, 10 Aug 2025 00:12:15 +0200 (CEST)
+Received: by mail-wr1-x441.google.com with SMTP id
+ ffacd0b85a97d-3b78315ff04so2741325f8f.0
+ for <xen-devel@lists.xenproject.org>; Sat, 09 Aug 2025 15:12:15 -0700 (PDT)
 Received: from localhost.localdomain (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b79c453ab0sm35424323f8f.44.2025.08.09.15.12.12
+ ffacd0b85a97d-3b79c453ab0sm35424323f8f.44.2025.08.09.15.12.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 09 Aug 2025 15:12:12 -0700 (PDT)
+ Sat, 09 Aug 2025 15:12:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,41 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e72a9bba-756d-11f0-b898-0df219b8e170
+X-Inumbo-ID: e812a21a-756d-11f0-a325-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1754777533; x=1755382333; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1754777535; x=1755382335; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sfND0zg2ZLDeX3cn2aUNtMfsNyhu9pemRzEnrfx6pMg=;
-        b=RreJLoH9gntuJDdsOj+t1oAS0eRBG6E5qU0EkyGZZUTuLl4NZUwGIhELDDVLeUOuwb
-         i8NiG+gs1JDc5Ot5+6+vzmyvtdtB7z2vhwHL/Q1OxQ4qRy4anHFtfU0j2abXR/HHjjah
-         kA7TZyePuqTF6GXnfhV4h9DjTy6tbPKSRm8MU=
+        bh=x8jEOu6+Wmu2jfug+vxWSSfDmwNVRaIms3wraAaPkLY=;
+        b=Dz9vn92BJ2/ySmJ9P3NT+nMOKO7mp6sYZp4m4Y99sSj5SzinDmwxVbvE1sNUQsuZx5
+         kjmQB9rOV5gPDa1nJHtSVoo/4GrQKtlh00j4JEC1tWjn9q9J/1u7QTXWi0FCyMvwN6vs
+         j8czStDMGitj6nRzE3jSYXhDxR/2OFG0HFMXo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754777533; x=1755382333;
+        d=1e100.net; s=20230601; t=1754777535; x=1755382335;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=sfND0zg2ZLDeX3cn2aUNtMfsNyhu9pemRzEnrfx6pMg=;
-        b=ahvytwk78aYTSr+PFcSM2xhCVtBL9BeL+fhfNtBWobuf7CFWgjSBQPS2OWxMBy209G
-         snAkj7g918+Bopg27KTtoBmNnW28Pd4l97Y1/mWXZVrFAxP+iCb5nCp9amPwPB/PE/tb
-         tYcXIQyylTJPSQ9fDGAlQxKY61wob4w5+XKtrrLJCFB0mPI2gpZOm+/N92pRohWmPbti
-         PvX1MhiLhwtuFCo39Mg38s9C/2NVd0aYDi0fxftNTSouel6Uxjnl9z4e9nYjQfQuEn1A
-         fkX9pY4eG57Myv3OCa9iM5hoDlBPuCgyV24c06xHfQJSilFaC/PO3ykk7hW+inkZHlj3
-         F0vw==
-X-Gm-Message-State: AOJu0YzN1r4TVB3gHw8/3kJoCHb7TDd3jFUxyRDG1/nwHmwAQBAjQnHZ
-	vCZl+rlM++ksBv8CrdNEwMwibs+iE+ksIio9BFcCoseYHi48XjXCCDUdKenv30pRi1kL7cgVSeS
-	3oDtBuCY=
-X-Gm-Gg: ASbGnctzoLx/y/R6y885OAN9Wl6557394XpAXwU2n3L3JDF6kafQL3ymZw1BFmoOALm
-	jw4K6yg8LQd6FjonwJjU5MgV0fMmbjK6gJgorHbuiunsXimJ1j2PXwC18zRregtbnmdgOMnOUEQ
-	Ea18rNpA3XjqWkHhsetVY+DV/pk3kW5pVTaj8w0nsdxT/FwG6KEecXpLl4WrHv+D0xGT6sJ2Zd+
-	4EnDnY+DDJYsx5/zZq2jKx6LNKTcuzc/CiT21u1vOfDeDN+WNfFs76uHvCJoEHI9JRoj2c4IgBF
-	I8j95LWHXbg470KPnjn2E2TfYVDx3o2LZ/U7od9yszawo8/qn8GoC2Bc97ib7a8L2zdbzep60Qh
-	6Mck0IWzONCY6WI4zhXyBFhXPMC8gH+KLfpDlMNPU7X65eLNZn/1WRw1mLBzGItVaTgHvEyQHYL
-	H+
-X-Google-Smtp-Source: AGHT+IF56eny7f5TY2zNi77piWoa/BoaYTwZw+7F+6xe3Y3GzRAWxu7PyUIxjQbhhGnLBTyQpUHk+g==
-X-Received: by 2002:a05:6000:288a:b0:3b8:d2d1:5c11 with SMTP id ffacd0b85a97d-3b900b56f28mr6273885f8f.51.1754777533210;
-        Sat, 09 Aug 2025 15:12:13 -0700 (PDT)
+        bh=x8jEOu6+Wmu2jfug+vxWSSfDmwNVRaIms3wraAaPkLY=;
+        b=ZJVwnZMLXRF7UvEW19vKJcGvGhTDkKWPb97plLwqx7XZ1I1HdOQraZCPMhxjpaSIgU
+         rbZAwAx5lxnnU/OvNKQFPxaUwjAVDNzAiqyVo6NyqwFRQAWmcVFqYzn6eMYIiBRGf8tu
+         QVEVBz52dK1kwybGAuBs9X03nriEV9lpeAkeHIT0bY3LsoQrQe0JoMRu3F+7r6IGgWbA
+         fhCm0+o4vULMCZRtiR3kdJpMElE5NE499dsoLel/hJo5t45gfkwcR0sin5IR0r49yvki
+         TOUNj+HKsT3zC9K7HBXec1ErO0xazS08SaqMN83zDMDToBXAer1DtofhrWbMte7eQ5zq
+         JuDQ==
+X-Gm-Message-State: AOJu0YxJ4LEiGFovoFgGrCz3Dggb/Hy+KGgmWe1B8wBz9hn1bETTs/9/
+	bjjDw8bJngpnYrOklavnDnyZ2A4Jk+5w5pN6RIBGoqmh4bw0kCH/M1QZRv9kwIK7Trh+edcsZFX
+	y5NCLoCi2OA==
+X-Gm-Gg: ASbGncsTXXwXu6K9DNFa8sq7QB5cMxua3gYx76YEKzJT8h6N1i5uT1725qOWfi/yH6B
+	S0EVHNi4pkK9d80jDxW6cblmPKauWaetQ6f80qU3g6W51Jx0NMoo4+ZbW5srn8SWmDl0TToRNzn
+	s+KXK5dGAnlFhp3FmI3S79xQj7/llUSJ3ohCZEkI5iA6jfI/LUHBQ2iEnNMBYzHXxk8djkeX9Wp
+	mecNXraw/UvFIF5kH/0oL52V7SkY5YccJVwycymlLimGVESgima7/cbchcbFJNK1J7Iq28zdcDj
+	ZvFjjkdvAZCbk80eM9Auj7CY0VGr9KJBCQ43K4FMuUH8jhq62X0hu70Q+8cBGDLfzsaCZRVirQA
+	MIckWw859VIDotTH8jKJDDaS9kM5k9mzbsgf0gPVZX0052Y+KDYByw5P2eLB7LnbsLQehNUWpIx
+	+/
+X-Google-Smtp-Source: AGHT+IH0EYhksleZNTZuq5+L/1QNNPMQh/53GIa6ar0t3hlOvb82O7XDJykDV4EsYFApiPg/bioABA==
+X-Received: by 2002:a05:6000:1ac7:b0:3b7:6d95:56d2 with SMTP id ffacd0b85a97d-3b900b449b0mr5556976f8f.7.1754777534659;
+        Sat, 09 Aug 2025 15:12:14 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -89,11 +89,14 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH 4/5] stubdom: Fix -Wimplicit-int in newlib
-Date: Sat,  9 Aug 2025 23:12:05 +0100
-Message-Id: <20250809221206.1260861-5-andrew.cooper3@citrix.com>
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Victor Lira <victorm.lira@amd.com>
+Subject: [PATCH 5/5] CI: Update x86 to use Debian Trixie
+Date: Sat,  9 Aug 2025 23:12:06 +0100
+Message-Id: <20250809221206.1260861-6-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250809221206.1260861-1-andrew.cooper3@citrix.com>
 References: <20250809221206.1260861-1-andrew.cooper3@citrix.com>
@@ -101,7 +104,9 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This is an error now Debian Trixie's gcc-14
+With the exception of the custom IBT job, copy all Debian 12 jobs making
+Debian 13 versions, then trim the Debian 12 ranconfig jobs.  Update the test
+jobs.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -111,57 +116,159 @@ CC: Jan Beulich <jbeulich@suse.com>
 CC: Julien Grall <julien@xen.org>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Samuel Thibault <samuel.thibault@ens-lyon.org>
-CC: Juergen Gross <jgross@suse.com>
+CC: Shawn Anastasio <sanastasio@raptorengineering.com>
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+CC: Doug Goldstein <cardoe@cardoe.com>
+CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+CC: Victor Lira <victorm.lira@amd.com>
 
-I really think we need to move onto Unikraft as a maintained base...
+https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1975958452
+
+We may want to trim a few more jobs, but I'm not sure where the right balance is.
 ---
- stubdom/Makefile               |  1 +
- stubdom/newlib-fix-etext.patch | 23 +++++++++++++++++++++++
- 2 files changed, 24 insertions(+)
- create mode 100644 stubdom/newlib-fix-etext.patch
+ automation/gitlab-ci/build.yaml | 54 +++++++++++++++++++++++++--------
+ automation/gitlab-ci/test.yaml  | 10 +++---
+ 2 files changed, 47 insertions(+), 17 deletions(-)
 
-diff --git a/stubdom/Makefile b/stubdom/Makefile
-index 666c3221dcd7..9aa0d3dee4de 100644
---- a/stubdom/Makefile
-+++ b/stubdom/Makefile
-@@ -94,6 +94,7 @@ newlib-$(NEWLIB_VERSION): newlib-$(NEWLIB_VERSION).tar.gz
- 	patch -d $@ -p1 < newlib-cygmon-gmon.patch
- 	patch -d $@ -p1 < newlib-makedoc.patch
- 	patch -d $@ -p1 < newlib-fix-copy_past_newline.patch
-+	patch -d $@ -p1 < newlib-fix-etext.patch
- 	find $@ -type f | xargs perl -i.bak \
- 		-pe 's/\b_(tzname|daylight|timezone)\b/$$1/g'
- 	touch $@
-diff --git a/stubdom/newlib-fix-etext.patch b/stubdom/newlib-fix-etext.patch
-new file mode 100644
-index 000000000000..e7bd4bb0cead
---- /dev/null
-+++ b/stubdom/newlib-fix-etext.patch
-@@ -0,0 +1,23 @@
-+GCC-14 in Debian Trixie i386 complains:
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+index f8e45f3467c8..4cb52fe59715 100644
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -309,15 +309,15 @@ alpine-3.18-gcc-debug:
+       CONFIG_UCODE_SCAN_DEFAULT=y
+       CONFIG_XHCI=y
+ 
+-debian-12-x86_64-gcc-debug:
++debian-13-x86_64-gcc-debug:
+   extends: .gcc-x86-64-build-debug
+   variables:
+-    CONTAINER: debian:12-x86_64
++    CONTAINER: debian:13-x86_64
+ 
+-debian-12-x86_64-clang-debug:
++debian-13-x86_64-clang-debug:
+   extends: .clang-x86-64-build-debug
+   variables:
+-    CONTAINER: debian:12-x86_64
++    CONTAINER: debian:13-x86_64
+ 
+ debian-13-ppc64le-gcc-debug:
+   extends: .gcc-ppc64le-cross-build-debug
+@@ -545,24 +545,20 @@ debian-12-x86_64-clang:
+   variables:
+     CONTAINER: debian:12-x86_64
+ 
+-debian-12-x86_64-clang-randconfig:
+-  extends: .clang-x86-64-build
++debian-12-x86_64-clang-debug:
++  extends: .clang-x86-64-build-debug
+   variables:
+     CONTAINER: debian:12-x86_64
+-    RANDCONFIG: y
+-    EXTRA_FIXED_RANDCONFIG: |
+-      CONFIG_COVERAGE=n # Disable coverage otherwise build times out.
+ 
+ debian-12-x86_64-gcc:
+   extends: .gcc-x86-64-build
+   variables:
+     CONTAINER: debian:12-x86_64
+ 
+-debian-12-x86_64-gcc-randconfig:
+-  extends: .gcc-x86-64-build
++debian-12-x86_64-gcc-debug:
++  extends: .gcc-x86-64-build-debug
+   variables:
+     CONTAINER: debian:12-x86_64
+-    RANDCONFIG: y
+ 
+ debian-12-x86_32-clang-debug:
+   extends: .clang-x86-32-build-debug
+@@ -574,6 +570,40 @@ debian-12-x86_32-gcc-debug:
+   variables:
+     CONTAINER: debian:12-x86_32
+ 
++debian-13-x86_64-clang:
++  extends: .clang-x86-64-build
++  variables:
++    CONTAINER: debian:13-x86_64
 +
-+../../../../newlib-1.16.0/libgloss/i386/cygmon-gmon.c: In function '_mcount':
-+../../../../newlib-1.16.0/libgloss/i386/cygmon-gmon.c:227:14: error: type defaults to 'int' in declaration of '_etext' [-Wimplicit-int]
-+  227 |       extern _etext();
-+      |              ^~~~~~
-+../../../../newlib-1.16.0/libgloss/i386/cygmon-gmon.c:228:14: error: type defaults to 'int' in declaration of '_ftext' [-Wimplicit-int]
-+  228 |       extern _ftext();
-+      |              ^~~~~~
++debian-13-x86_64-clang-randconfig:
++  extends: .clang-x86-64-build
++  variables:
++    CONTAINER: debian:13-x86_64
++    RANDCONFIG: y
++    EXTRA_FIXED_RANDCONFIG: |
++      CONFIG_COVERAGE=n # Disable coverage otherwise build times out.
 +
-+--- newlib-1.16.0/libgloss/i386/cygmon-gmon.c.orig	2025-08-09 22:48:09.864068481 +0100
-++++ newlib-1.16.0/libgloss/i386/cygmon-gmon.c	2025-08-09 22:52:18.458393484 +0100
-+@@ -224,8 +224,8 @@
-+ 
-+   if (! already_setup) 
-+     {
-+-      extern _etext();
-+-      extern _ftext();
-++      extern char _etext[];
-++      extern char _ftext[];
-+       already_setup = 1;
-+       monstartup(_ftext, _etext);
-+       atexit(_mcleanup);
++debian-13-x86_64-gcc:
++  extends: .gcc-x86-64-build
++  variables:
++    CONTAINER: debian:13-x86_64
++
++debian-13-x86_64-gcc-randconfig:
++  extends: .gcc-x86-64-build
++  variables:
++    CONTAINER: debian:13-x86_64
++    RANDCONFIG: y
++
++debian-13-x86_32-clang-debug:
++  extends: .clang-x86-32-build-debug
++  variables:
++    CONTAINER: debian:13-x86_32
++
++debian-13-x86_32-gcc-debug:
++  extends: .gcc-x86-32-build-debug
++  variables:
++    CONTAINER: debian:13-x86_32
++
+ fedora-41-x86_64-gcc:
+   extends: .gcc-x86-64-build
+   variables:
+diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+index 9acd984d294c..96e952235737 100644
+--- a/automation/gitlab-ci/test.yaml
++++ b/automation/gitlab-ci/test.yaml
+@@ -661,35 +661,35 @@ qemu-smoke-x86-64-gcc:
+   script:
+     - ./automation/scripts/qemu-xtf.sh x86-64 pv64 example 2>&1 | tee ${LOGFILE}
+   needs:
+-    - debian-12-x86_64-gcc-debug
++    - debian-13-x86_64-gcc-debug
+ 
+ qemu-smoke-x86-64-clang:
+   extends: .qemu-smoke-x86-64
+   script:
+     - ./automation/scripts/qemu-xtf.sh x86-64 pv64 example 2>&1 | tee ${LOGFILE}
+   needs:
+-    - debian-12-x86_64-clang-debug
++    - debian-13-x86_64-clang-debug
+ 
+ qemu-smoke-x86-64-gcc-pvh:
+   extends: .qemu-smoke-x86-64
+   script:
+     - ./automation/scripts/qemu-xtf.sh x86-64 hvm64 example 2>&1 | tee ${LOGFILE}
+   needs:
+-    - debian-12-x86_64-gcc-debug
++    - debian-13-x86_64-gcc-debug
+ 
+ qemu-smoke-x86-64-clang-pvh:
+   extends: .qemu-smoke-x86-64
+   script:
+     - ./automation/scripts/qemu-xtf.sh x86-64 hvm64 example 2>&1 | tee ${LOGFILE}
+   needs:
+-    - debian-12-x86_64-clang-debug
++    - debian-13-x86_64-clang-debug
+ 
+ qemu-smoke-x86-64-gcc-efi:
+   extends: .qemu-smoke-x86-64
+   script:
+     - ./automation/scripts/qemu-xtf.sh x86-64-efi pv64 example 2>&1 | tee ${LOGFILE}
+   needs:
+-    - debian-12-x86_64-gcc-debug
++    - debian-13-x86_64-gcc-debug
+ 
+ qemu-xtf-argo-x86_64-gcc-debug:
+   extends: .qemu-smoke-x86-64
 -- 
 2.39.5
 
