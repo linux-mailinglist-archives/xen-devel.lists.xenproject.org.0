@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 908C1B20816
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 13:44:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077522.1438577 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B9D5B20848
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 14:00:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077534.1438585 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulQwy-0000ry-He; Mon, 11 Aug 2025 11:44:24 +0000
+	id 1ulRBC-0003lY-Mt; Mon, 11 Aug 2025 11:59:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077522.1438577; Mon, 11 Aug 2025 11:44:24 +0000
+Received: by outflank-mailman (output) from mailman id 1077534.1438585; Mon, 11 Aug 2025 11:59:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulQwy-0000or-Eo; Mon, 11 Aug 2025 11:44:24 +0000
-Received: by outflank-mailman (input) for mailman id 1077522;
- Mon, 11 Aug 2025 11:44:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ulRBC-0003jS-Jy; Mon, 11 Aug 2025 11:59:06 +0000
+Received: by outflank-mailman (input) for mailman id 1077534;
+ Mon, 11 Aug 2025 11:59:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ku41=2X=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ulQwx-0000ol-CX
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 11:44:23 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 85642f7c-76a8-11f0-b898-0df219b8e170;
- Mon, 11 Aug 2025 13:44:21 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-af95b919093so623255966b.2
- for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 04:44:21 -0700 (PDT)
+ id 1ulRBB-0003jH-Aa
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 11:59:05 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 92c4e783-76aa-11f0-a325-13f23c93f187;
+ Mon, 11 Aug 2025 13:59:02 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-adfb562266cso586168366b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 04:59:02 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a0a3792sm1997441966b.50.2025.08.11.04.44.19
+ a640c23a62f3a-af91a23ffc3sm2008166766b.124.2025.08.11.04.59.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Aug 2025 04:44:19 -0700 (PDT)
+ Mon, 11 Aug 2025 04:59:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85642f7c-76a8-11f0-b898-0df219b8e170
+X-Inumbo-ID: 92c4e783-76aa-11f0-a325-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754912661; x=1755517461; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754913542; x=1755518342; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=H6IgQA1IS1QG0Ap2C4UrD5lFa+wKraqXe2AGVdf/5tw=;
-        b=R+fvc/x52S2hEcfQOcnvu8SrfcNKpnlQ+mRUJytN6xY9Vd3gbe2FmdUirJnL1Ybdhj
-         fKciudOvtQ2wV3x6nKdZUgHfGEjD0ql6NHUexcRsllxoECYCLKRNVM2EE5rjVFvZaIWO
-         5dDaSOqUINFxYWn3HX1vJmeoOI4xjnbTYRsHPH4JZQXcjBUwAefsk31LjAZsLTriKfJQ
-         DEPDic/OyqmD2dqFUK9JjZWBBURnDtZ1SKlIgFDhEnGZga2fPRYBsYPlldB9cqnmFKY0
-         0zbW0M0fORXENXtrIXo0lMrbOH3QrPMV17Gd6KzQDyEZLqhTL3kfLauVtV6KfbUiY+8x
-         vDXQ==
+        bh=Lj0GM1Ir9wAJW/08C1hiiJS7uJTmr8GPBiyo0b2B28k=;
+        b=B6C8THoeYSe/tcYPV3gCKB1BffAquy9ftj+tOra253JZw3efyqlKl8dJxenmZNsfeA
+         g/tt0oIdcnmKkDB/0A1QZbFI+HsCezmXKAiczd9itBhOMsCFjOLjSE0Gr/fKwfmQCvNN
+         dsVS/2ZK3HfNfvqlfTWSefPTLNbKScbQ4FD3sFBsjhSixgrt4uZri1vwga4Teye57CZH
+         4xyP7ftM9lp9Vb6efXM1HHNsSm4onsWLKaMydRPEHYLIXIJLRKlvZuTK/H3FDujTM2p1
+         OA+I5E3qsafbM08Tjsa1+Tf30UQy5cDUTFbcislcwKs1xsqnfFeqX7xMl36IEl1NA4PT
+         bEow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754912661; x=1755517461;
+        d=1e100.net; s=20230601; t=1754913542; x=1755518342;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=H6IgQA1IS1QG0Ap2C4UrD5lFa+wKraqXe2AGVdf/5tw=;
-        b=DE3iKsmSa9JJGrn/FPhVf6K2DDnrJQsr25x3fUgjVfYMdPwIYxA2AC5CIp+82JIKv6
-         qKHkqC0GntDjSrUIZ7xKSiJAByO10JsS42IhQUATaaQF0q/3235sNo3enennA0tf2vy3
-         pQJserd6ZCHnVj+Kd3Klz2lakZIBF4XXe2IkdsHT90K8+hsD4IXz6GeaOXomb2fPydZi
-         AK+PD1MPX8s6hD7i+3vN5udIfU/jvSjOYvbHOhA8xbY5FRMdCSJAi4i5s9u7wiAcu1VM
-         w0Y3VArbg7p7aJ/SmeBAIs6LqYX8m/HmImcNu8qFNB8g9OceSnW7rDpDk4d+ZemiSgAU
-         j6xw==
-X-Forwarded-Encrypted: i=1; AJvYcCUL3ayfdKZ68zGe86ke0R4T/t1pKAmY/8mYuIazdsGhDWUrmtsOsrWustcLGr6AytDURWGYLTc5Gfw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzPhTf+o47K5rBkkrkTIVkhLctADOCfNJo2Pi0QSknZLDqUSFmM
-	FIeAzoHGUEBfuTLw9OxLCnhCqVwMEYDTE1wHtdqwClBQMUkK0P1St+AkxqM80LePRA==
-X-Gm-Gg: ASbGncu3TMhTiUr4vEttLzV5nsmHr8D9DSq1KxS9vcsTv72LNx6qtE3saqpgEvMAYTM
-	bOOwlZ0YFZplZ+BLGh4syDhgwBm0q3jPbqisqiwgSQTlnurR6irXXpakCKetRbGc9lUmsTR9XJ8
-	pBI8Q770K4BNYf8+FwjvUnE/kexDGz8Jr5h7C0SU4fQlma1HitT1/H6L6dzID1w7sQ+Guh+37Td
-	MiRQj0h3WS+yTIlvUBIigftJEV2eDVAgIMIVPuAHywftoEx/o5SA/oy/kYkPo7jba4nvdPVsgKc
-	8/aUsMhE7pcKIR+yvEBRefZuQI5OfOMctXfyBKHVt4h8ZYbhOyNYFo37znKKuTD/TdijBL/uEYS
-	UCL3b2JD1jnu+Ncf2Ips/1iYNPWfO0vVAz+gI7+QWPNbv4FpZ3kyaiBBwKpkmndXR/iJHneli1b
-	+EbVjr3pg=
-X-Google-Smtp-Source: AGHT+IHu8/6+G9QRuGim/hl6exZqou+QHqgVbxJwSqZC2+yyQNEs/F/SNq7dvi/A8ceMKwhMBs51Zw==
-X-Received: by 2002:a17:906:99c3:b0:af9:a4de:f092 with SMTP id a640c23a62f3a-af9c65f2e00mr1144935766b.55.1754912660766;
-        Mon, 11 Aug 2025 04:44:20 -0700 (PDT)
-Message-ID: <d1803b0c-b536-4d31-a070-c2c146b3132b@suse.com>
-Date: Mon, 11 Aug 2025 13:44:18 +0200
+        bh=Lj0GM1Ir9wAJW/08C1hiiJS7uJTmr8GPBiyo0b2B28k=;
+        b=FQ4KKJDoy0wC9G7LTB3gdz49gw4FYiHk6uBBLAgU2I2i/d67QRaa+u2IZ6VJq6/wRT
+         8/pZL4tK6DoL0E3cr1LXvXNVXZNDlRNb1tUuButDCaAuV2s3NpTJqGFQKO2Vgt9QhwkM
+         cBJYHuIoWRfur5vuzExYbzso+JyGaQ/Fo1L7NgBpCY4syKPNO+R7ESqEv4tgqvyfOBeN
+         FssyraTfs7wSLvesQhcB821dx/joSw442/suv3TsGXT9Br9vuRcvW9elly7gNVwgZPcV
+         rvRynm91KVpCy6A4UgkcbDCCEc0RWuru4s8SdsJTvupulOqL2FsAOCkZ6CE/RB7zz+G9
+         72mw==
+X-Forwarded-Encrypted: i=1; AJvYcCVXZY+pCduXt8ccd/asYS7Q7KBn9p34CQTtRCc2yMGtI1r7lcCJuGE/5HtWFkQLN9cqDfRkGzKi6Rg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzofsR1E2YAPZSnkqpjxr0ev6riWqg0tmZz0MZiJ7EAnaHm7zlL
+	kzZLAWVDcTvR/V1+iuUcbZegfWYDsEffIBQejTZY7R++cry0UMPVnj3K+ZSv4xXwHg==
+X-Gm-Gg: ASbGnctno3ZqAxKEgazCNgL6MCQYQJ8RqU+9CKlciRp2AwfZWWeWv7b/6sc6hOm5Ho9
+	ecaWJqmTeL0hRR9r7SgvlpEgrrtG9JbsNNOgEG8Htluap/UoNHxN5YsnsYcFMGmK+8r5tc+HDye
+	B89Hq+k0iny55IoB+XCaLRS6K8v7JUHjRY0cuaq8XpJTHqwOBQI7POLWzoeJUIazF1c74x6ID/8
+	c/CE8iY4YKm1EZWf1L5zgGXYZOMR0P/Ybe0kkuB8X1acHlV2wQAhVvaYvdh2vsSEDAEaOUKACTR
+	Qfyic8UJ4ccnIg0Q3Pa6QVyK3m93dF9DwsD9aXUIzmZ5uJmgyhE+oDwDYqMV5E7wJB4pxorbbFT
+	Sg0S5aBlPKQnxWBSRjS/vmovuSk8xU7Qdy+0v5qLqXMzukifrH49eXEvbhLPGpOlczpWODih7Go
+	bvxVXQE5Y=
+X-Google-Smtp-Source: AGHT+IFOEH7v7byAjBYR4alZDP3KWHRhfqW4/wS1sguHqQ5pIS4lqjSFze9jK9qx3n+4rp16VkzGWg==
+X-Received: by 2002:a17:906:6a02:b0:af7:37d1:93b6 with SMTP id a640c23a62f3a-af9c6371790mr1202794266b.15.1754913542083;
+        Mon, 11 Aug 2025 04:59:02 -0700 (PDT)
+Message-ID: <cc0fd91c-2dd1-4094-997a-87856f6cd914@suse.com>
+Date: Mon, 11 Aug 2025 13:59:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 15/20] xen/riscv: implement p2m_next_level()
+Subject: Re: [PATCH v3 16/20] xen/riscv: Implement superpage splitting for p2m
+ mappings
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -98,7 +99,7 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
- <8d8953fb00b4ac64bb2e82d827da4fbbe0c29918.1753973161.git.oleksii.kurochko@gmail.com>
+ <6890f77e577493194ea94834989dc0841d18eed0.1753973161.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,65 +125,105 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8d8953fb00b4ac64bb2e82d827da4fbbe0c29918.1753973161.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <6890f77e577493194ea94834989dc0841d18eed0.1753973161.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 31.07.2025 17:58, Oleksii Kurochko wrote:
+> Add support for down large memory mappings ("superpages") in the RISC-V
+> p2m mapping so that smaller, more precise mappings ("finer-grained entries")
+> can be inserted into lower levels of the page table hierarchy.
+> 
+> To implement that the following is done:
+> - Introduce p2m_split_superpage(): Recursively shatters a superpage into
+>   smaller page table entries down to the target level, preserving original
+>   permissions and attributes.
+> - p2m_set_entry() updated to invoke superpage splitting when inserting
+>   entries at lower levels within a superpage-mapped region.
+> 
+> This implementation is based on the ARM code, with modifications to the part
+> that follows the BBM (break-before-make) approach, some parts are simplified
+> as according to RISC-V spec:
+>   It is permitted for multiple address-translation cache entries to co-exist
+>   for the same address. This represents the fact that in a conventional
+>   TLB hierarchy, it is possible for multiple entries to match a single
+>   address if, for example, a page is upgraded to a superpage without first
+>   clearing the original non-leaf PTE’s valid bit and executing an SFENCE.VMA
+>   with rs1=x0, or if multiple TLBs exist in parallel at a given level of the
+>   hierarchy. In this case, just as if an SFENCE.VMA is not executed between
+>   a write to the memory-management tables and subsequent implicit read of the
+>   same address: it is unpredictable whether the old non-leaf PTE or the new
+>   leaf PTE is used, but the behavior is otherwise well defined.
+> In contrast to the Arm architecture, where BBM is mandatory and failing to
+> use it in some cases can lead to CPU instability, RISC-V guarantees
+> stability, and the behavior remains safe — though unpredictable in terms of
+> which translation will be used.
+> 
+> Additionally, the page table walk logic has been adjusted, as ARM uses the
+> opposite number of levels compared to RISC-V.
+
+As before, I think you mean "numbering".
+
 > --- a/xen/arch/riscv/p2m.c
 > +++ b/xen/arch/riscv/p2m.c
-> @@ -302,6 +302,48 @@ static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t, bool is_table)
->      return e;
+> @@ -539,6 +539,91 @@ static void p2m_free_subtree(struct p2m_domain *p2m,
+>      p2m_free_page(p2m, pg);
 >  }
 >  
-> +/* Generate table entry with correct attributes. */
-> +static pte_t page_to_p2m_table(struct page_info *page)
-
-You don't mean to alter what page points to, so pointer-to-const please.
-
-> @@ -326,9 +368,43 @@ static int p2m_next_level(struct p2m_domain *p2m, bool alloc_tbl,
->                            unsigned int level, pte_t **table,
->                            unsigned int offset)
->  {
-> -    panic("%s: hasn't been implemented yet\n", __func__);
-> +    pte_t *entry;
-> +    int ret;
-
-Please can this move into the more narrow scope it's (solely) used in?
-
-> +    mfn_t mfn;
+> +static bool p2m_split_superpage(struct p2m_domain *p2m, pte_t *entry,
+> +                                unsigned int level, unsigned int target,
+> +                                const unsigned int *offsets)
+> +{
+> +    struct page_info *page;
+> +    unsigned long i;
+> +    pte_t pte, *table;
+> +    bool rv = true;
 > +
-> +    /* The function p2m_next_level() is never called at the last level */
-> +    ASSERT(level != 0);
-
-The revlog says "move", but ...
-
-> +    entry = *table + offset;
+> +    /* Convenience aliases */
+> +    mfn_t mfn = pte_get_mfn(*entry);
+> +    unsigned int next_level = level - 1;
+> +    unsigned int level_order = XEN_PT_LEVEL_ORDER(next_level);
 > +
-> +    if ( !pte_is_valid(*entry) )
+> +    /*
+> +     * This should only be called with target != level and the entry is
+> +     * a superpage.
+> +     */
+> +    ASSERT(level > target);
+> +    ASSERT(pte_is_superpage(*entry, level));
+> +
+> +    page = p2m_alloc_page(p2m->domain);
+> +    if ( !page )
 > +    {
-> +        if ( !alloc_tbl )
-> +            return P2M_TABLE_MAP_NONE;
-> +
-> +        ret = p2m_create_table(p2m, entry);
-> +        if ( ret )
-> +            return P2M_TABLE_MAP_NOMEM;
+> +        /*
+> +         * The caller is in charge to free the sub-tree.
+> +         * As we didn't manage to allocate anything, just tell the
+> +         * caller there is nothing to free by invalidating the PTE.
+> +         */
+> +        memset(entry, 0, sizeof(*entry));
+> +        return false;
 > +    }
 > +
-> +    /* The function p2m_next_level() is never called at the last level */
-> +    ASSERT(level != 0);
+> +    table = __map_domain_page(page);
+> +
+> +    /*
+> +     * We are either splitting a second level 1G page into 512 first level
+> +     * 2M pages, or a first level 2M page into 512 zero level 4K pages.
+> +     */
 
-... the original one's still here.
+Such a comment is at risk of (silently) going stale when support for 512G
+mappings is added. I wonder if it's really that informative to have here.
 
-> --- a/xen/arch/riscv/paging.c
-> +++ b/xen/arch/riscv/paging.c
-> @@ -91,6 +91,17 @@ void paging_free_page(struct domain *d, struct page_info *pg)
->      spin_unlock(&d->arch.paging.lock);
->  }
->  
-> +struct page_info * paging_alloc_page(struct domain *d)
+> +    for ( i = 0; i < XEN_PT_ENTRIES; i++ )
+> +    {
+> +        pte_t *new_entry = table + i;
+> +
+> +        /*
+> +         * Use the content of the superpage entry and override
+> +         * the necessary fields. So the correct permission are kept.
+> +         */
 
-Nit: Stray blank after *.
+It's not just permissions though? The memory type field also needs
+retaining (and is being retained this way). Maybe better say "attributes"?
 
 Jan
 
