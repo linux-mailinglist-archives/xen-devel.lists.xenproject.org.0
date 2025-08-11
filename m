@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39D0DB20492
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 11:56:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077203.1438281 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D928EB20497
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 11:56:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077211.1438292 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulPGK-0002f5-AF; Mon, 11 Aug 2025 09:56:16 +0000
+	id 1ulPGt-000381-M9; Mon, 11 Aug 2025 09:56:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077203.1438281; Mon, 11 Aug 2025 09:56:16 +0000
+Received: by outflank-mailman (output) from mailman id 1077211.1438292; Mon, 11 Aug 2025 09:56:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulPGK-0002c5-78; Mon, 11 Aug 2025 09:56:16 +0000
-Received: by outflank-mailman (input) for mailman id 1077203;
- Mon, 11 Aug 2025 09:56:14 +0000
+	id 1ulPGt-00035K-Iy; Mon, 11 Aug 2025 09:56:51 +0000
+Received: by outflank-mailman (input) for mailman id 1077211;
+ Mon, 11 Aug 2025 09:56:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=92re=2X=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ulPGI-0002bz-SJ
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 09:56:14 +0000
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [2a00:1450:4864:20::343])
+ id 1ulPGs-0002bz-0K
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 09:56:50 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 69ce6f17-7699-11f0-b898-0df219b8e170;
- Mon, 11 Aug 2025 11:56:12 +0200 (CEST)
-Received: by mail-wm1-x343.google.com with SMTP id
- 5b1f17b1804b1-459d62184c9so23758225e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 02:56:12 -0700 (PDT)
+ id 7f1519b3-7699-11f0-b898-0df219b8e170;
+ Mon, 11 Aug 2025 11:56:48 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3b7823559a5so1871389f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 02:56:48 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b79c3b9386sm40087750f8f.18.2025.08.11.02.56.11
+ ffacd0b85a97d-3b79c3b9c7dsm39789224f8f.26.2025.08.11.02.56.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Aug 2025 02:56:11 -0700 (PDT)
+ Mon, 11 Aug 2025 02:56:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69ce6f17-7699-11f0-b898-0df219b8e170
+X-Inumbo-ID: 7f1519b3-7699-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1754906172; x=1755510972; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1754906208; x=1755511008; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wF76E3pK10aybSWJoNLKNKlJoCYBCDGZ1DFhqWgInXw=;
-        b=lWOS478q/TulV6iALvi/wBOPZ4ry8VPQPkDs0bvznDV5eTzJUJ2IsgpWOBliEChGp0
-         Ky4kdB0FNl0kI8CrzqF57IpEMTwFMDZVycfdCPNxWc/SwWLbcvz59pS8xA2NrbIO/tvm
-         zncO4mdafRx17Ha0Hq1z7txXvlchwdFmtY2lU=
+        bh=Ux+FTk2Cd1CY17fcCBAF9+6lyRgRi7vQ0izw6onAcm4=;
+        b=YEe/4wSKLmJH+AvXV3Clg1boiDZ6/P9u0QSrgUhtEjRXlLqCpjw+AWQn8nHLwEn9e3
+         81EWnEsfXb50YgQOhdFCUClFCw7exhuytBVsPvkPrKj3qJhu0gnFOcVnQTzGWEXqk+xp
+         P1tBu+Zn9gUR/ywhQG8bimWPrtw4PboMyIuEo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754906172; x=1755510972;
+        d=1e100.net; s=20230601; t=1754906208; x=1755511008;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wF76E3pK10aybSWJoNLKNKlJoCYBCDGZ1DFhqWgInXw=;
-        b=t1YIeSVpPdHp66ukrP9oWhKTL394n8BfslxZw3gDudftc5MkL7XALU01cX74Xc8nZr
-         7AIvoXww229s1xkLWmjRsz7CAMLxJRQObsqRQqZdXR0Lgg/NJ2M0Ah1m4M3cQf6XTDlM
-         XLRqtpzelWocmITOEjy2dncrlZsSZ0+uc7DWWK8fpC+SPvSTrJVjTABpcd+ZlBZPA0iy
-         Dspa7ao3GGBLOZLPn7cRcjmcsbdFB4SU3VYyuo6XdQSmJ0+lf1BvADbnql1+eL3gByfr
-         y4kAIOftPolMXX5hE465Eo1KopZg6LBr4nZvN+vF2SFqE8T2N65M8TF756rJdbnEf3bz
-         Z6ow==
-X-Forwarded-Encrypted: i=1; AJvYcCUDUDTam/XEzPbDrSQuKjvQ1Ikiwi56Cf12M//FmA6yZW/LyNq7wjc6qAYqxzZq9tY6sVr3ny3jKkU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzkS59ejXd7Lf43/KOOVkUYyPrgkiVZfJJrKgTFyum/2ijLakIv
-	E+BXLHzbAb49YIOZcoYt1Rw9sCdnhIAlLq5bkc7ZDuCs2aHuRJp0XXa0eUNcX2uoY+g=
-X-Gm-Gg: ASbGncsmXB2b0SmtGnqfk+8N/slAiCV8ZLYQv4/AAzKsve6j9/gahEgW9jVjISVMSO6
-	4uiPlJMqc1aaE1VMRRlceJbx9LwSmCJvLHh1SDmRhQd4ahONO2HuiD4KKq0KUjkVSeQmX7NJdj3
-	ZoxJpuHN4coKoPkgtt38+KE6RBIw0bEMr/6mwss8VRi7MxmPl+vFNPrW1pSXJIjeg/7KuGLH4oR
-	OjGrJYoe5K9tS8EMU/VLcWGCE/nZ4fv+75dJmv76e8h8HJdiHFW0cSibAHKS+BsijFKSrc+KJXj
-	M6GcfboCDeo31ccD5Oe8KiJ9oaIsWt4HGtSy6yupvHSHnxsie/t8gzcA2I+IPdPsSB0caSSZWdF
-	3oaf4/V6R3QOjUMCG0n7KT8Y+oJmr1jlP636cD1I2ZG6WRxiKn+Ud9xa4dkOC3mYkkyo1
-X-Google-Smtp-Source: AGHT+IEqWhkjwHDaufB0hgjvJZMDTyb3rwb9F/2bwF7cPDMMs6fBXobf70GFQzaxlMhjLKCbInpyOw==
-X-Received: by 2002:a05:600c:4e16:b0:456:db0:4f3d with SMTP id 5b1f17b1804b1-459f7a37036mr97810955e9.24.1754906172025;
-        Mon, 11 Aug 2025 02:56:12 -0700 (PDT)
-Message-ID: <2e3412e8-9d62-449b-87e6-22d34ce06e30@citrix.com>
-Date: Mon, 11 Aug 2025 10:56:10 +0100
+        bh=Ux+FTk2Cd1CY17fcCBAF9+6lyRgRi7vQ0izw6onAcm4=;
+        b=J4Ut+TsnA9+Qzh3ioZGYp5NAxQpedqKhb67CrZaPGWEcWn72naXRosR8VG8+fGRSsB
+         VAosn1yT3U8rVRif+ok+/4OkbCM48xqPJzDFPYHL846Epb2gynB0tL2j/qW/K+nqItbV
+         mSpvnXKhA4azWFp9smUJ124OLtxAcd6CqhZdo7a3CG8tddCBz+zDqeP7WqtdVoqfAh2u
+         71HwY1WlxbJTnUgN51cTd05pd+HzlQ2btDpDtFar58EScgC+S045IVlv1AUHL2uqSN+W
+         20RtvD2NjEf97Kbjx8TFJBtdJ9T7y6iaRwuethfZ56WFfGilk4whsuwV3QMbcaHoQSwe
+         EjXw==
+X-Forwarded-Encrypted: i=1; AJvYcCWykBf4BkkvVbh2U29xGJN9Kot4MwQixmi17TQIZHO8QrpC0ANKsWtBLEI7BSr7T5Zq+uIjB5LMsZI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyzXehbMNmB2yuc/1Zlx2mn6Vs07owNtxAYsw2FejZAS4GL4weG
+	95C7IedFUHD6LvUhFj0uRIVVkPcs/IMIuLcA8yHnwF7Bc7eL4J7YV05b4F363ngpj94=
+X-Gm-Gg: ASbGncvqSycNSsFtLe2khjE8Pwu1aj9+jWVq9gdBOuYcRKx80oKKd2JKsjVMhw39tBN
+	Kk2/uKsHRKbb1aIq7eUwujkZRnKGCPWih6YtOuEWa7Li945lAeu8o3SvAEQwbHJ3YXruKam6HPA
+	j2Xchfd5A2V+9a/bVwhfg4DOg2sxZQD5LzPeutLFgTA2nPWLQq2YSJX8AfUuyyFOUXjHiBYS+GW
+	mll4TTH3cVS1g93q1S+AJmugym3PHsn5LUUgs2b3TDanKsNASPct1SouMNvj8UfalRHOxUGq7B9
+	CisA6XmkkMiftjw44Wen9EbeHTKgA0Lx3mZsVxmqHwnhxJubfwj6OKEAUUOqWgFsq9ynQ+xXa6F
+	GRHffX1E+M7CfSWSaEA73+w2+CSTkVAlvzHHVeMOdEGFwyHFHIZvQUi6X9KOVTQnqcPnU
+X-Google-Smtp-Source: AGHT+IFy0HDnIVP1kg2ixTdd23oCiCiaBBB6MEzUV5IttwAhY3cko+lVwDIf+G3En9TFaTxXouxA4w==
+X-Received: by 2002:a05:6000:26c1:b0:3b7:8b5e:831d with SMTP id ffacd0b85a97d-3b900b2d7aemr3169570f8f.17.1754906207736;
+        Mon, 11 Aug 2025 02:56:47 -0700 (PDT)
+Message-ID: <19ae8104-9a87-4b44-a2fe-9d72a6d07fef@citrix.com>
+Date: Mon, 11 Aug 2025 10:56:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] CI: Update riscv64 to use Debian Trixie
+Subject: Re: [PATCH 1/5] CI: Trixie containers
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Anthony PERARD <anthony.perard@vates.tech>,
@@ -96,8 +96,8 @@ Cc: Anthony PERARD <anthony.perard@vates.tech>,
  =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>, Victor Lira <victorm.lira@amd.com>
 References: <20250809221206.1260861-1-andrew.cooper3@citrix.com>
- <20250809221206.1260861-4-andrew.cooper3@citrix.com>
- <2919f22b-0b0c-488e-b0c6-96b9538e63d9@gmail.com>
+ <20250809221206.1260861-2-andrew.cooper3@citrix.com>
+ <37edbe9d-3c14-422b-b21b-49a5fa25a453@gmail.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -143,16 +143,15 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <2919f22b-0b0c-488e-b0c6-96b9538e63d9@gmail.com>
+In-Reply-To: <37edbe9d-3c14-422b-b21b-49a5fa25a453@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11/08/2025 9:43 am, Oleksii Kurochko wrote:
+On 11/08/2025 9:47 am, Oleksii Kurochko wrote:
 >
 >
 > On 8/10/25 12:12 AM, Andrew Cooper wrote:
->> Everything works fine with Debian 13.  Provide two new build jobs, and update
->> both the randconfig the test jobs.
+>> Debian Trixie has been released.  Provide new containers.
 >>
 >> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 >> ---
@@ -168,107 +167,20 @@ On 11/08/2025 9:43 am, Oleksii Kurochko wrote:
 >> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 >> CC: Victor Lira <victorm.lira@amd.com>
 >>
->> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1975929387
->> ---
->>  automation/gitlab-ci/build.yaml | 22 ++++++++++++++++++----
->>  automation/gitlab-ci/test.yaml  |  2 +-
->>  2 files changed, 19 insertions(+), 5 deletions(-)
+>> I've deployed these containers already so people can play.
 >>
->> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
->> index 3fe539dc5683..f8e45f3467c8 100644
->> --- a/automation/gitlab-ci/build.yaml
->> +++ b/automation/gitlab-ci/build.yaml
->> @@ -329,10 +329,10 @@ debian-13-ppc64le-gcc-debug:
->>        CONFIG_UBSAN=y
->>        CONFIG_UBSAN_FATAL=y
->>  
->> -debian-12-riscv64-gcc-debug:
->> +debian-13-riscv64-gcc-debug:
->>    extends: .gcc-riscv64-cross-build-debug
->>    variables:
->> -    CONTAINER: debian:12-riscv64
->> +    CONTAINER: debian:13-riscv64
->>      KBUILD_DEFCONFIG: tiny64_defconfig
->>      HYPERVISOR_ONLY: y
->>      EXTRA_XEN_CONFIG: |
->> @@ -727,6 +727,20 @@ debian-12-riscv64-gcc:
->>      KBUILD_DEFCONFIG: tiny64_defconfig
->>      HYPERVISOR_ONLY: y
->>  
->> +debian-12-riscv64-gcc-debug:
->> +  extends: .gcc-riscv64-cross-build-debug
->> +  variables:
->> +    CONTAINER: debian:12-riscv64
->> +    KBUILD_DEFCONFIG: tiny64_defconfig
->> +    HYPERVISOR_ONLY: y
-> Don't you mind to keep an order? So:
->   debian-12-riscv64-gcc-debug:
->   ...
->   debian-13-riscv64-gcc-debug:
->   ...
-
-Notice how those 2 hunks are 400 lines apart in the file.
-
-This is deliberate so debian-13-riscv64-gcc-debug (the one needed for
-tests) is scheduled with higher priority than the others.
-
-The diff certainly isn't great, but this is necessary to shorten the
-pipeline.
-
+>> No ARM yet.  There's an (old) outstanding series cleaning up the arm
+>> infrastructure, blocked on unclear root requirements for the Xilinx runners.
+>> That series really needs fixing.
+>> ---
+>>  automation/build/debian/13-ppc64le.dockerfile | 37 ++++++++++
+>>  automation/build/debian/13-riscv64.dockerfile | 37 ++++++++++
+> LKGTM: Reviewed-by: Oleksii Kurochko <oleksii.kurochko@gmail.com> #riscv
 >
-> Also, it will make a diff a little bit better.
->
->> +
->> +debian-13-riscv64-gcc:
->> +  extends: .gcc-riscv64-cross-build
->> +  variables:
->> +    CONTAINER: debian:13-riscv64
->> +    KBUILD_DEFCONFIG: tiny64_defconfig
->> +    HYPERVISOR_ONLY: y
->> +
->>  .riscv-fixed-randconfig:
->>    variables: &riscv-fixed-randconfig
->>      EXTRA_FIXED_RANDCONFIG: |
->> @@ -739,10 +753,10 @@ debian-12-riscv64-gcc:
->>        CONFIG_VM_EVENT=n
->>        CONFIG_XSM=n
->>  
->> -debian-12-riscv64-gcc-randconfig:
->> +debian-13-riscv64-gcc-randconfig:
-> Are we going to have randconfig build test only for Debian-13?
+> Also, shouldn’t we update the |automation/scripts/containerize| script to
+> add Debian 13 support?
 
-We only have finite test capacity.
-
->
->>    extends: .gcc-riscv64-cross-build
->>    variables:
->> -    CONTAINER: debian:12-riscv64
->> +    CONTAINER: debian:13-riscv64
->>      KBUILD_DEFCONFIG: tiny64_defconfig
->>      RANDCONFIG: y
->>      <<: *riscv-fixed-randconfig
->> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
->> index 2f6f3affa637..9acd984d294c 100644
->> --- a/automation/gitlab-ci/test.yaml
->> +++ b/automation/gitlab-ci/test.yaml
->> @@ -705,7 +705,7 @@ qemu-smoke-riscv64-gcc:
->>    script:
->>      - ./automation/scripts/qemu-smoke-riscv64.sh 2>&1 | tee ${LOGFILE}
->>    needs:
->> -    - debian-12-riscv64-gcc-debug
->> +    - debian-13-riscv64-gcc-debug
-> The same as above, are we going to run smoke tests only for Debian-13?
-
-Again, test capacity.  Even for x86 and ARM, we only have one main build
-under test.
-
->
-> If the answer to this and the question above is “yes,” then (probably
-> keeping the order — first debian-12, then debian-13 — for the jobs):
->  Reviewed-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-Sorry, but rearranging is one thing that can't really happen.  Are you
-happy with my justification?
+Yes, and I should probably put something in Changelog too.
 
 ~Andrew
 
