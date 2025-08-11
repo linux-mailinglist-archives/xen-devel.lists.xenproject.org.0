@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E6D6B2133D
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 19:32:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077873.1438899 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81818B2134B
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 19:33:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077886.1438909 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulWNp-0006JH-Mg; Mon, 11 Aug 2025 17:32:29 +0000
+	id 1ulWOv-0006s3-3q; Mon, 11 Aug 2025 17:33:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077873.1438899; Mon, 11 Aug 2025 17:32:29 +0000
+Received: by outflank-mailman (output) from mailman id 1077886.1438909; Mon, 11 Aug 2025 17:33:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulWNp-0006Hl-Ij; Mon, 11 Aug 2025 17:32:29 +0000
-Received: by outflank-mailman (input) for mailman id 1077873;
- Mon, 11 Aug 2025 17:32:28 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ulWNo-0006Hf-C2
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 17:32:28 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1ulWNn-000B1c-2f;
- Mon, 11 Aug 2025 17:32:28 +0000
-Received: from [2a02:8012:3a1:0:2562:7575:7df6:8090]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1ulWNo-000QJ6-0C;
- Mon, 11 Aug 2025 17:32:27 +0000
+	id 1ulWOv-0006qA-0o; Mon, 11 Aug 2025 17:33:37 +0000
+Received: by outflank-mailman (input) for mailman id 1077886;
+ Mon, 11 Aug 2025 17:33:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Nn8B=2X=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1ulWOt-0006q2-DC
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 17:33:35 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4dfe4b0c-76d9-11f0-a326-13f23c93f187;
+ Mon, 11 Aug 2025 19:33:34 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id C004E4EE0744;
+ Mon, 11 Aug 2025 19:33:32 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,96 +40,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=/VakfUvkcvYfPcmKigNHJ4kNmNjQyqgEfg7iBSB58wg=; b=ZkbTFIzuM+yOF24DgQ25vfGTAE
-	Iqpvs9OlIEMFMfYl0UtKV3n2OLWVUPl4FoxnL7OLohYycNpboxF6NWzHoYktSbTXXSkxTDhaZCIJ7
-	atOQejjFt+xj7XU9BCHsSZSkgkSDDFcDSS79AkZlzRFVpD9uZgY1UhwYnb0CFmZB0/nA=;
-Message-ID: <d405fdbf-c6db-4fdb-9d63-f31d7a431e19@xen.org>
-Date: Mon, 11 Aug 2025 18:32:25 +0100
+X-Inumbo-ID: 4dfe4b0c-76d9-11f0-a326-13f23c93f187
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1754933612;
+	b=28QLEHD2E6rjY3UMInlNrFNlmUEr238UvixU5KlBytiCm1qZ12DvACfhn6WIy3MWwwOn
+	 7aP18OZmp+quPmgrvkAf4R2iB1BxAhxUECvLklXeq9BsTDDAu70PH6DBAQLvTIJM8M/Xv
+	 i0nHcz0lqFW1hnfx8peI9yHWRQf/gMzQJgj6C08tw869w6AugOpBxrdaH1Ot0uf5DssYh
+	 XuFxAJSDk7VyMm4PVtrr2JZW+jken50bEZI4trKDcihrYxv2AeDFg52S4SOUYlBVGkvXh
+	 5oVbUK4ATkljANPGOElqCWx/aO57FSCmMzuXOe95pB8uAHOF7a7XfSh4hObhhMUf97/FM
+	 1wDIyvCCe5M9aG1czIk92DV4GaqqsiS/A4PAaNHQDXDkllCMUslgvZFczjSVS01oCzcCn
+	 pTHoBVxYbB0dnE0Nd8sk7HlACycobdxL+8HDuyn2P+q/KysZziOLAR9vT3xKWgv/da3Oi
+	 pDEdZqN1RMrTfcG7Nk64/cByBRcy6V50QNl3bHlWC8/ac0N0PGGXohiWz9lhTlNxSZJlC
+	 YnIYjcr5J1HDRiwf13M5Hi29Sdc5Pyfu0+V9U/QDhfJxpV1NWcAuR4n6mstVktNIpZdbP
+	 f0/2p0D7YVIXD4O3pNpYwi25xCNoMSuZttqhc2wVZPpiT3XovYFK0ZADotw/vsA=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1754933612;
+	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=KPhUVmT+WZ7A7Zg9ag6Jkhm3PsKJ59NCsU7cZ71Vju0=;
+	b=mFmduCEuzAA5WcQLTy0AOFMaTHPr0da3OClS4gkgW5FE7MwcCW0QVO+b5oswD/c+LJhP
+	 C/tEnmS/1nyq1W09gbYonAvR38bgstlypm4uUWtwn78FyFL9WKXB+c/TeyfyVpzFe2VE1
+	 iys0v4Db2bN6wFpmmC7wQwZ3ZXLQViA73oWa0RVOkX0RSrlZUvpu2Nyifes5HGn7hQiDv
+	 RBQvado3vSgGBPCqqzWupSLBDTZFS8mhKrSfME7P4+MKaVS8rwO0XGS2mifGkKTLBLmw7
+	 qya8/jrp39wUtzQhIy9OcQ/+Mr3Ow0dTQAHwaIBnmfZlDSs3Yj81LxJ+0mh2zcjk/9oAj
+	 l0hNO9H7WEIoHYkOFQA3HSVWGIKLvV666YRi2FwUgz+15bXUcYA9ki2qdWq6I1qN8lPWm
+	 KRVcjHsQI5hpo1wI53npp8CQ8RGq3hZX/Q4LSEddp0TVvsGEtvEt12ltI9r/hgN+AP2Sy
+	 DgwbuFNV3utuT5se6+DzchBc8XMlVVFEwnht3YRR77vDJLedFmjsREzpqG5HcuJKBtK8h
+	 +jaSIe8rxPUNZSVxpJogcPtGIDa7TCz/chBv+A3MiVEi6SUiI2lAYL0ZG0AhqlN7UyiW6
+	 BhUKWIoLxifFMg2xxme4gJIOj7hYlsPeJXQkj2RTsGXEMgtJaav15s8Cek66REk=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1754933612; bh=+2tMGRj7/V5wGSMPz2tkmNX/tx42u975yZz+sCLW1oo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=hMEnkHiiPsF1ShlbeTs2qyuN2BHMTCiAln0D5/MH79p74KuUjrlrrhgs3jEODWW5+
+	 ahzHU77kkHBEw6DxpPr2FTqUYwFKqhbLcpzbQPW12o/e5HAqiIWQzI4fgWGIZ4/CWw
+	 NZpF4ioXqa4fyUs8B2cz21oZHz9aJIPgWe8yYOxbkEFpfaGZKaPKWD2TX5zqrrSCh9
+	 2kpRd4G8cvkAfo5AgzvNwuRdzldyC9nBkxsum25d9HBCcGi4DJUU+Y/ubkvvNV6Wto
+	 2R8mvw9cB1JM6o7e+2Df9Rux1CqZ3eYdwD0qEDUphQwTXnU6OgS3WKg08roCB6QTb3
+	 0kszpop9gbN8A==
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] xen/arm: fix arm_iommu_map_page after f9f6b22abf1d
-Content-Language: en-GB
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250725140130.4008-1-stewart.hildebrand@amd.com>
- <5fab90b6-7cae-45d0-bb8e-b1ffa0390b6f@xen.org>
- <7a3a08f4-c08e-4490-a033-53e81b261181@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <7a3a08f4-c08e-4490-a033-53e81b261181@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Date: Mon, 11 Aug 2025 19:33:32 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: nicola.vetrini@gmail.com, xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
+ Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH] xen: Drop logic for old clang versions.
+In-Reply-To: <aJn_xi5dVD3-imnz@macbook.local>
+References: <e8bb42876317c19aca79f81c3fc48dc3a4fdaf71.1754830862.git.nicola.vetrini@bugseng.com>
+ <aJmgCv4wgl-IHupn@macbook.local>
+ <2ca7082120df5e1ad6a29582d6dfb215@bugseng.com>
+ <aJn_xi5dVD3-imnz@macbook.local>
+Message-ID: <179776cb8b5b5dd265af01238cf8eedd@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Stewart,
-
-On 06/08/2025 14:58, Stewart Hildebrand wrote:
-> On 7/26/25 05:23, Julien Grall wrote:
->> Hi,
->>
->> On 25/07/2025 15:01, Stewart Hildebrand wrote:
->>> From: Stefano Stabellini <stefano.stabellini@amd.com>
->>>
->>> Up until f9f6b22abf1d "xen/arm: Map ITS doorbell register to IOMMU page
->>> tables" the only caller of iommu_map on ARM was grant_table.c which has
->>> a specific usage model and restrictions as described by the in-code
->>> comment in arm_iommu_map_page.
->>>
->>> f9f6b22abf1d introduced a second caller to iommu_map on ARM:
->>> vgic_v3_its_init_virtual. This specific statement in the
->>> f9f6b22abf1d commit message is partially wrong:
->>>
->>> "Note that the 1:1 check in arm_iommu_map_page remains for now, as
->>> virtual ITSes are currently only created for hwdom where the doorbell
->>> mapping is always 1:1."
->>>
->>> Leading to crashes any time the hardware domain is not direct-mapped
->>> (e.g. cache coloring and non-Dom0 hardware domain):
->>>
->>> (XEN) Xen BUG at drivers/passthrough/arm/iommu_helpers.c:47
->>> [...]
->>> (XEN) Xen call trace:
->>> (XEN)    [<00000a000024c758>] arm_iommu_map_page+0x80/0x90 (PC)
->>> (XEN)    [<00000a000024c750>] arm_iommu_map_page+0x78/0x90 (LR)
->>> (XEN)    [<00000a0000250884>] iommu_map+0xcc/0x29c
->>> (XEN)    [<00000a0000288024>] vgic_v3_its_init_domain+0x18c/0x1e8
->>> (XEN)    [<00000a0000285228>] vgic-v3.c#vgic_v3_domain_init+0x168/0x21c
->>> (XEN)    [<00000a0000281dcc>] domain_vgic_init+0x14c/0x210
->>> (XEN)    [<00000a00002705a4>] arch_domain_create+0x150/0x1f0
->>> (XEN)    [<00000a00002055e8>] domain_create+0x47c/0x6c0
->>> (XEN)    [<00000a00002cf090>] create_domUs+0x7f8/0x8cc
->>> (XEN)    [<00000a00002eb588>] start_xen+0x8f4/0x998
->>> (XEN)    [<00000a000020018c>] head.o#primary_switched+0x4/0x10
->>>
->>> Specifically, non-1:1 hardware domain exists with cache coloring
->>> enabled. For that, is_domain_direct_mapped(d) is false but
->>> domain_use_host_layout(d) is true.
->>>
->>> Change the is_domain_direct_mapped(d) checks in arm_iommu_map_page and
->>> arm_iommu_unmap_page into domain_use_host_layout(d) checks.
->>>
->>> Drop stale in-code comment specific to grant table mappings.
->>>
->>> Fixes: f9f6b22abf1d ("xen/arm: Map ITS doorbell register to IOMMU page tables")
->>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
->>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
->>
->> Reviewed-by: Julien Grall <jgrall@amazon.com>
+On 2025-08-11 16:35, Roger Pau Monné wrote:
+> On Mon, Aug 11, 2025 at 11:37:46AM +0200, Nicola Vetrini wrote:
+>> On 2025-08-11 09:47, Roger Pau Monné wrote:
+>> > On Sun, Aug 10, 2025 at 03:03:53PM +0200, nicola.vetrini@gmail.com
+>> > wrote:
+>> > > From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>> > >
+>> > > The enforced toolchain baseline for clang is version 11,
+>> > > therefore this logic is effectively dead code.
+>> > >
+>> > > No functional change.
+>> > >
+>> > > Signed-off-by: Nicola Vetrini <nicola.vetrini@gmail.com>
+>> >
+>> > Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+>> >
+>> > > ---
+>> > > Mentioned in https://gitlab.com/xen-project/xen/-/issues/201
+>> > > ---
+>> > >  xen/common/coverage/llvm.c   | 4 ----
+>> > >  xen/include/xen/self-tests.h | 9 +--------
+>> > >  2 files changed, 1 insertion(+), 12 deletions(-)
+>> > >
+>> > > diff --git a/xen/common/coverage/llvm.c b/xen/common/coverage/llvm.c
+>> > > index 50d7a3c5d301..517b2aa8c202 100644
+>> > > --- a/xen/common/coverage/llvm.c
+>> > > +++ b/xen/common/coverage/llvm.c
+>> > > @@ -44,12 +44,8 @@
+>> > >      ((uint64_t)'f' << 16) | ((uint64_t)'R' << 8)  | ((uint64_t)129)
+>> > >  #endif
+>> > >
+>> > > -#if __clang_major__ >= 4 || (__clang_major__ == 3 &&
+>> > > __clang_minor__ >= 9)
+>> > >  #define LLVM_PROFILE_VERSION    4
+>> > >  #define LLVM_PROFILE_NUM_KINDS  2
+>> > > -#else
+>> > > -#error "clang version not supported with coverage"
+>> > > -#endif
+>> >
+>> > Rant: most of the LLVM coverage stuff is already kind of dead code, as
+>> > the format of the data changes between versions and there's no way for
+>> > LLVM to generate the blob itself using a builtin function or
+>> > similar.  We haven't kept up with new formats, and now it's not
+>> > possible to parse the output coverage data when using newish LLVM
+>> > versions.
+>> >
+>> > Linux converts it's LLVM coverage data to gcov format (which AFAIK is
+>> > way more stable), and exports it in gcov format.  We should consider
+>> > importing that from Linux.
+>> >
+>> > Thanks, Roger.
+>> 
+>> Fair point. Generally I found coverage reports generated using LLVM 
+>> tooling
+>> a bit more informative than gcov's, but I don't know how much work 
+>> would it
+>> be to adapt Xen for newer versions of LLVM.
 > 
-> Thanks for the review! Is this ready to be committed?
+> It's a pain because they keep changing the blob format between
+> versions, so we would basically need code in Xen to be able to
+> generate the right blob for each possible clang version.
+> 
+> It would be helpful if clang provided the helpers to generate the
+> coverage data in a version agnostic way, but so far I haven't found a
+> way to do it.  I've raised a question with upstream LLVM project, but
+> no replies:
+> 
+> https://github.com/llvm/llvm-project/issues/123034
+> 
+> Regards, Roger.
 
-Yes. Sorry, this fell through the cracks. I have queue the patch for 
-testing and committing.
-
-Cheers,
+Perhaps the "coverage" and "llvm-cov" tag might help get more traction; 
+there is at least one developer working on the source-based code 
+coverage area in the past months with various improvements.
 
 -- 
-Julien Grall
-
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
