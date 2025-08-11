@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B43ECB20469
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 11:51:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077194.1438272 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39D0DB20492
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 11:56:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077203.1438281 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulPBG-000250-OI; Mon, 11 Aug 2025 09:51:02 +0000
+	id 1ulPGK-0002f5-AF; Mon, 11 Aug 2025 09:56:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077194.1438272; Mon, 11 Aug 2025 09:51:02 +0000
+Received: by outflank-mailman (output) from mailman id 1077203.1438281; Mon, 11 Aug 2025 09:56:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulPBG-00022b-LQ; Mon, 11 Aug 2025 09:51:02 +0000
-Received: by outflank-mailman (input) for mailman id 1077194;
- Mon, 11 Aug 2025 09:51:01 +0000
+	id 1ulPGK-0002c5-78; Mon, 11 Aug 2025 09:56:16 +0000
+Received: by outflank-mailman (input) for mailman id 1077203;
+ Mon, 11 Aug 2025 09:56:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=92re=2X=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ulPBF-00022U-0u
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 09:51:01 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ id 1ulPGI-0002bz-SJ
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 09:56:14 +0000
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [2a00:1450:4864:20::343])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ae7c7f93-7698-11f0-b898-0df219b8e170;
- Mon, 11 Aug 2025 11:50:58 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-459e794b331so24820165e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 02:50:58 -0700 (PDT)
+ id 69ce6f17-7699-11f0-b898-0df219b8e170;
+ Mon, 11 Aug 2025 11:56:12 +0200 (CEST)
+Received: by mail-wm1-x343.google.com with SMTP id
+ 5b1f17b1804b1-459d62184c9so23758225e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 02:56:12 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-458f713eb44sm371093015e9.14.2025.08.11.02.50.57
+ ffacd0b85a97d-3b79c3b9386sm40087750f8f.18.2025.08.11.02.56.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Aug 2025 02:50:57 -0700 (PDT)
+ Mon, 11 Aug 2025 02:56:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae7c7f93-7698-11f0-b898-0df219b8e170
+X-Inumbo-ID: 69ce6f17-7699-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1754905858; x=1755510658; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1754906172; x=1755510972; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VctuL99TGMSbM9k2sDcx8mKeApKJEWYgjDa2qFkfm+U=;
-        b=qX30mlkhNJy+OJ0jws4CnrqwIJiwzAtrSHm+67Zn2KxnX1+70QE3hO5Nm7JCl3aTF/
-         3Y2QvpmpjPdnmI6odI3JXAKyya9iylkRQhu8Y2yKaSGS2SFZ14G50nQAJKvH+2QSi2n8
-         SuvcYtZlfGO2h/rJXuNkS5nIG6mlUbqiud8O4=
+        bh=wF76E3pK10aybSWJoNLKNKlJoCYBCDGZ1DFhqWgInXw=;
+        b=lWOS478q/TulV6iALvi/wBOPZ4ry8VPQPkDs0bvznDV5eTzJUJ2IsgpWOBliEChGp0
+         Ky4kdB0FNl0kI8CrzqF57IpEMTwFMDZVycfdCPNxWc/SwWLbcvz59pS8xA2NrbIO/tvm
+         zncO4mdafRx17Ha0Hq1z7txXvlchwdFmtY2lU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754905858; x=1755510658;
+        d=1e100.net; s=20230601; t=1754906172; x=1755510972;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VctuL99TGMSbM9k2sDcx8mKeApKJEWYgjDa2qFkfm+U=;
-        b=TA89phn2AJirh6h3VCPR3Pdi7dtYysF+HzIJvD+JBYht6CvBX1qYAxDMsg+h2HF3yO
-         Cec/ZG/+DhqHT7XeGgZ1sfXj3DLECXC7RJJXncrRmtapDfzYUtNHsEdEvbGmWuf1F931
-         jlxjOjVgyJB88CFta+2XcmuiSGxCbxPRRGd6KYKu0yySVMA7vQUqPr/d2Ie7sKSUYpHF
-         i/+KxsOTBPbNfRd/sQV/BxPEW9roESLN/Q053Py3bceUFGxmkoMkfcYZt4edzgO0BxcC
-         Mfpdu3QDDEUOSU9zuK7Vbeddk2oJMjx3E4U9Dk+YuqLatvHar1zDYuSgXjyBt9vsOM09
-         LDAA==
-X-Forwarded-Encrypted: i=1; AJvYcCXRFfJVvwLJPoA8FDpQjL6CFUo8ZaBPgnTx0Ej0MdHAuyVUGJwBBmw17Ozvf3JkDq2sj++d3agVcok=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzJdqt/dCAtcwKWTAlusjNlIc/MRusRncegAcMHIHzxWw9A+SMW
-	2LYXgpZpmbvORjJGHRIDWObJxr5Ja1L16Rqny+MpE4dUu7Ucj3EdB/a19kjQA4Q+DBI=
-X-Gm-Gg: ASbGncv9n0PjpAPO2xfABerM4goobfMNqo6Lvq6kKCuMa3dJiOLIx53FzbU03j9T63i
-	LZyKTRvRHHem+YdyApUwM7S0dnNSUb+4oOiP24KRR//E7yfvDnwRfmJj2pLUupirsdSbtWy8Z6x
-	eA65cjfNaY9+akryY4sS2aoiBktXDtYuG7K/qlrj/Y2ZXbKPZwp90oe08ZB85IfTlUDiY7vwVsC
-	BLEZpnpwM4Gn6mMl2j+KqyGaZl1XEFK/ottss0TNdwibV9ur+ALq2gN2uZc6j0LP9ChdioZVs9u
-	AjQsn2jNhgZ/Ol5aLTxGc8J3BclAnvAf11f8JgxZ6KMHx1i7bY7TrxfFVmXoCEahKxjRoMjlZDw
-	Ausy0W10MwPxtIoY6Awnxucd3gmMIuPTSAFXIoP1TmFJVNUkFC0avlC+f2cZEzRMBBzmp
-X-Google-Smtp-Source: AGHT+IHe7JjdCabchw4vqGyYXQkhiLINMsVkJ1ZSJ2yhu3FIkDhmrRnDUL1L1Hv6jH7JFMbcmYgJRw==
-X-Received: by 2002:a05:600c:1d01:b0:459:dba8:bb7b with SMTP id 5b1f17b1804b1-459f4ecf85cmr111572515e9.13.1754905857805;
-        Mon, 11 Aug 2025 02:50:57 -0700 (PDT)
-Message-ID: <0d78dd8e-af92-4b29-9706-e08c2c06ee89@citrix.com>
-Date: Mon, 11 Aug 2025 10:50:56 +0100
+        bh=wF76E3pK10aybSWJoNLKNKlJoCYBCDGZ1DFhqWgInXw=;
+        b=t1YIeSVpPdHp66ukrP9oWhKTL394n8BfslxZw3gDudftc5MkL7XALU01cX74Xc8nZr
+         7AIvoXww229s1xkLWmjRsz7CAMLxJRQObsqRQqZdXR0Lgg/NJ2M0Ah1m4M3cQf6XTDlM
+         XLRqtpzelWocmITOEjy2dncrlZsSZ0+uc7DWWK8fpC+SPvSTrJVjTABpcd+ZlBZPA0iy
+         Dspa7ao3GGBLOZLPn7cRcjmcsbdFB4SU3VYyuo6XdQSmJ0+lf1BvADbnql1+eL3gByfr
+         y4kAIOftPolMXX5hE465Eo1KopZg6LBr4nZvN+vF2SFqE8T2N65M8TF756rJdbnEf3bz
+         Z6ow==
+X-Forwarded-Encrypted: i=1; AJvYcCUDUDTam/XEzPbDrSQuKjvQ1Ikiwi56Cf12M//FmA6yZW/LyNq7wjc6qAYqxzZq9tY6sVr3ny3jKkU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzkS59ejXd7Lf43/KOOVkUYyPrgkiVZfJJrKgTFyum/2ijLakIv
+	E+BXLHzbAb49YIOZcoYt1Rw9sCdnhIAlLq5bkc7ZDuCs2aHuRJp0XXa0eUNcX2uoY+g=
+X-Gm-Gg: ASbGncsmXB2b0SmtGnqfk+8N/slAiCV8ZLYQv4/AAzKsve6j9/gahEgW9jVjISVMSO6
+	4uiPlJMqc1aaE1VMRRlceJbx9LwSmCJvLHh1SDmRhQd4ahONO2HuiD4KKq0KUjkVSeQmX7NJdj3
+	ZoxJpuHN4coKoPkgtt38+KE6RBIw0bEMr/6mwss8VRi7MxmPl+vFNPrW1pSXJIjeg/7KuGLH4oR
+	OjGrJYoe5K9tS8EMU/VLcWGCE/nZ4fv+75dJmv76e8h8HJdiHFW0cSibAHKS+BsijFKSrc+KJXj
+	M6GcfboCDeo31ccD5Oe8KiJ9oaIsWt4HGtSy6yupvHSHnxsie/t8gzcA2I+IPdPsSB0caSSZWdF
+	3oaf4/V6R3QOjUMCG0n7KT8Y+oJmr1jlP636cD1I2ZG6WRxiKn+Ud9xa4dkOC3mYkkyo1
+X-Google-Smtp-Source: AGHT+IEqWhkjwHDaufB0hgjvJZMDTyb3rwb9F/2bwF7cPDMMs6fBXobf70GFQzaxlMhjLKCbInpyOw==
+X-Received: by 2002:a05:600c:4e16:b0:456:db0:4f3d with SMTP id 5b1f17b1804b1-459f7a37036mr97810955e9.24.1754906172025;
+        Mon, 11 Aug 2025 02:56:12 -0700 (PDT)
+Message-ID: <2e3412e8-9d62-449b-87e6-22d34ce06e30@citrix.com>
+Date: Mon, 11 Aug 2025 10:56:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] RFC x86/msr: Use WRMSRNS $imm when available
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH 3/5] CI: Update riscv64 to use Debian Trixie
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250808222013.1071291-1-andrew.cooper3@citrix.com>
- <e81bc459-347c-4eb9-8f8e-ada25fe8966f@suse.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Victor Lira <victorm.lira@amd.com>
+References: <20250809221206.1260861-1-andrew.cooper3@citrix.com>
+ <20250809221206.1260861-4-andrew.cooper3@citrix.com>
+ <2919f22b-0b0c-488e-b0c6-96b9538e63d9@gmail.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -135,109 +143,132 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <e81bc459-347c-4eb9-8f8e-ada25fe8966f@suse.com>
+In-Reply-To: <2919f22b-0b0c-488e-b0c6-96b9538e63d9@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11/08/2025 9:16 am, Jan Beulich wrote:
-> On 09.08.2025 00:20, Andrew Cooper wrote:
+On 11/08/2025 9:43 am, Oleksii Kurochko wrote:
+>
+>
+> On 8/10/25 12:12 AM, Andrew Cooper wrote:
+>> Everything works fine with Debian 13.  Provide two new build jobs, and update
+>> both the randconfig the test jobs.
+>>
 >> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 >> ---
->> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Anthony PERARD <anthony.perard@vates.tech>
+>> CC: Michal Orzel <michal.orzel@amd.com>
+>> CC: Jan Beulich <jbeulich@suse.com>
+>> CC: Julien Grall <julien@xen.org>
 >> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>> CC: Shawn Anastasio <sanastasio@raptorengineering.com>
+>> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>> CC: Doug Goldstein <cardoe@cardoe.com>
+>> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+>> CC: Victor Lira <victorm.lira@amd.com>
 >>
->> This is on top of the FRED series for the wrmsrns() cleanup, but otherwise
->> unrelated.
+>> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1975929387
+>> ---
+>>  automation/gitlab-ci/build.yaml | 22 ++++++++++++++++++----
+>>  automation/gitlab-ci/test.yaml  |  2 +-
+>>  2 files changed, 19 insertions(+), 5 deletions(-)
 >>
->> The code generation isn't entirely ideal
->>
->>   Function                                     old     new   delta
->>   init_fred                                    255     274     +19
->>   vmx_set_reg                                  248     256      +8
->>   enter_state_helper.cold                     1014    1018      +4
->>   __start_xen                                 8893    8897      +4
->>
->> but made worse by the the prior codegen for wrmsrns(MSR_STAR, ...) being mad:
->>
->>   mov    $0xc0000081,%ecx
->>   mov    $0xe023e008,%edx
->>   movabs $0xe023e00800000000,%rax
->>   cs wrmsr
->>
->> The two sources of code expansion come from the compiler not being able to
->> construct %eax and %edx separately, and not being able propagate constants.
->>
->> Loading 0 is possibly common enough to warrant another specialisation where we
->> can use "a" (0), "d" (0) and forgo the MOV+SHR.
->>
->> I'm probably overthinking things.  The addition will be in the noise in
->> practice, and Intel are sure the advantage of MSR_IMM will not be.
-> It's not entirely clear to me what the overall effects are now with your
-> 02/22 reply on the FRED series.
-
-The delta gets larger now that 2/22 isn't quite as bad as it was.
-
->  Nevertheless a nit or two here.
->
->> --- a/xen/arch/x86/include/asm/msr.h
->> +++ b/xen/arch/x86/include/asm/msr.h
->> @@ -38,9 +38,46 @@ static inline void wrmsrl(unsigned int msr, uint64_t val)
->>          wrmsr(msr, lo, hi);
->>  }
+>> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+>> index 3fe539dc5683..f8e45f3467c8 100644
+>> --- a/automation/gitlab-ci/build.yaml
+>> +++ b/automation/gitlab-ci/build.yaml
+>> @@ -329,10 +329,10 @@ debian-13-ppc64le-gcc-debug:
+>>        CONFIG_UBSAN=y
+>>        CONFIG_UBSAN_FATAL=y
 >>  
->> +/*
->> + * Non-serialising WRMSR with a compile-time constant index, when available.
->> + * Falls back to plain WRMSRNS, or to a serialising WRMSR.
->> + */
->> +static always_inline void __wrmsrns_imm(uint32_t msr, uint64_t val)
->> +{
->> +    /*
->> +     * For best performance, WRMSRNS %r64, $msr is recommended.  For
->> +     * compatibility, we need to fall back to plain WRMSRNS, or to WRMSR.
->> +     *
->> +     * The combined ABI is awkward, because WRMSRNS $imm takes a single r64,
->> +     * whereas WRMSR{,NS} takes a split edx:eax pair.
->> +     *
->> +     * Always use WRMSRNS %rax, $imm, because it has the most in common with
->> +     * the legacy forms.  When MSR_IMM isn't available, emit setup logic for
->> +     * %ecx and %edx too.
->> +     */
->> +    alternative_input_2(
->> +        "mov $%c[msr], %%ecx\n\t"
-> Simply %[msr] here?
->
-> And then, might it make sense to pull out this and ...
->
->> +        "mov %%rax, %%rdx\n\t"
->> +        "shr $32, %%rdx\n\t"
->> +        ".byte 0x2e; wrmsr",
->> +
->> +        /* WRMSRNS %rax, $msr */
->> +        ".byte 0xc4,0xe7,0x7a,0xf6,0xc0; .long %c[msr]", X86_FEATURE_MSR_IMM,
->> +
->> +        "mov $%c[msr], %%ecx\n\t"
-> ... this, to ...
->
->> +        "mov %%rax, %%rdx\n\t"
->> +        "shr $32, %%rdx\n\t"
->> +        ".byte 0x0f,0x01,0xc6", X86_FEATURE_WRMSRNS,
->> +
->> +        [msr] "i" (msr), "a" (val) : "rcx", "rdx");
->         [msr] "i" (msr), "a" (val), "c" (msr) : "rdx");
->
-> allowing the compiler to actually know what's put in %ecx? That'll make
-> original and 2nd replacement code 10 bytes, better balancing with the 9
-> bytes of the 1st replacement. And I'd guess that the potentially dead
-> MOV to %ecx would be hidden in the noise as well.
+>> -debian-12-riscv64-gcc-debug:
+>> +debian-13-riscv64-gcc-debug:
+>>    extends: .gcc-riscv64-cross-build-debug
+>>    variables:
+>> -    CONTAINER: debian:12-riscv64
+>> +    CONTAINER: debian:13-riscv64
+>>      KBUILD_DEFCONFIG: tiny64_defconfig
+>>      HYPERVISOR_ONLY: y
+>>      EXTRA_XEN_CONFIG: |
+>> @@ -727,6 +727,20 @@ debian-12-riscv64-gcc:
+>>      KBUILD_DEFCONFIG: tiny64_defconfig
+>>      HYPERVISOR_ONLY: y
+>>  
+>> +debian-12-riscv64-gcc-debug:
+>> +  extends: .gcc-riscv64-cross-build-debug
+>> +  variables:
+>> +    CONTAINER: debian:12-riscv64
+>> +    KBUILD_DEFCONFIG: tiny64_defconfig
+>> +    HYPERVISOR_ONLY: y
+> Don't you mind to keep an order? So:
+>   debian-12-riscv64-gcc-debug:
+>   ...
+>   debian-13-riscv64-gcc-debug:
+>   ...
 
-I considered that, but what can the compiler do as a result of knowing %ecx?
+Notice how those 2 hunks are 400 lines apart in the file.
 
-That said, we do need an RDMSR form (which I desperately want to make
-foo = rdmsr(MSR_BAR) but my cleanup series from 2019 got nowhere), and
-in a read+write case I suppose the compiler could deduplicate the setup
-of %ecx.
+This is deliberate so debian-13-riscv64-gcc-debug (the one needed for
+tests) is scheduled with higher priority than the others.
 
-A dead mov $imm, %ecx probably is as close to a nop as makes no difference.
+The diff certainly isn't great, but this is necessary to shorten the
+pipeline.
+
+>
+> Also, it will make a diff a little bit better.
+>
+>> +
+>> +debian-13-riscv64-gcc:
+>> +  extends: .gcc-riscv64-cross-build
+>> +  variables:
+>> +    CONTAINER: debian:13-riscv64
+>> +    KBUILD_DEFCONFIG: tiny64_defconfig
+>> +    HYPERVISOR_ONLY: y
+>> +
+>>  .riscv-fixed-randconfig:
+>>    variables: &riscv-fixed-randconfig
+>>      EXTRA_FIXED_RANDCONFIG: |
+>> @@ -739,10 +753,10 @@ debian-12-riscv64-gcc:
+>>        CONFIG_VM_EVENT=n
+>>        CONFIG_XSM=n
+>>  
+>> -debian-12-riscv64-gcc-randconfig:
+>> +debian-13-riscv64-gcc-randconfig:
+> Are we going to have randconfig build test only for Debian-13?
+
+We only have finite test capacity.
+
+>
+>>    extends: .gcc-riscv64-cross-build
+>>    variables:
+>> -    CONTAINER: debian:12-riscv64
+>> +    CONTAINER: debian:13-riscv64
+>>      KBUILD_DEFCONFIG: tiny64_defconfig
+>>      RANDCONFIG: y
+>>      <<: *riscv-fixed-randconfig
+>> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+>> index 2f6f3affa637..9acd984d294c 100644
+>> --- a/automation/gitlab-ci/test.yaml
+>> +++ b/automation/gitlab-ci/test.yaml
+>> @@ -705,7 +705,7 @@ qemu-smoke-riscv64-gcc:
+>>    script:
+>>      - ./automation/scripts/qemu-smoke-riscv64.sh 2>&1 | tee ${LOGFILE}
+>>    needs:
+>> -    - debian-12-riscv64-gcc-debug
+>> +    - debian-13-riscv64-gcc-debug
+> The same as above, are we going to run smoke tests only for Debian-13?
+
+Again, test capacity.  Even for x86 and ARM, we only have one main build
+under test.
+
+>
+> If the answer to this and the question above is “yes,” then (probably
+> keeping the order — first debian-12, then debian-13 — for the jobs):
+>  Reviewed-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+
+Sorry, but rearranging is one thing that can't really happen.  Are you
+happy with my justification?
 
 ~Andrew
 
