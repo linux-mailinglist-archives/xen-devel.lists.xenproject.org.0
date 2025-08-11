@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D928EB20497
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 11:56:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077211.1438292 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 994DCB204DB
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 12:06:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077227.1438302 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulPGt-000381-M9; Mon, 11 Aug 2025 09:56:51 +0000
+	id 1ulPPv-00057q-GM; Mon, 11 Aug 2025 10:06:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077211.1438292; Mon, 11 Aug 2025 09:56:51 +0000
+Received: by outflank-mailman (output) from mailman id 1077227.1438302; Mon, 11 Aug 2025 10:06:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulPGt-00035K-Iy; Mon, 11 Aug 2025 09:56:51 +0000
-Received: by outflank-mailman (input) for mailman id 1077211;
- Mon, 11 Aug 2025 09:56:50 +0000
+	id 1ulPPv-00055I-DW; Mon, 11 Aug 2025 10:06:11 +0000
+Received: by outflank-mailman (input) for mailman id 1077227;
+ Mon, 11 Aug 2025 10:06:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=92re=2X=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ulPGs-0002bz-0K
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 09:56:50 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ku41=2X=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ulPPu-00055C-PT
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 10:06:10 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7f1519b3-7699-11f0-b898-0df219b8e170;
- Mon, 11 Aug 2025 11:56:48 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3b7823559a5so1871389f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 02:56:48 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b79c3b9c7dsm39789224f8f.26.2025.08.11.02.56.46
+ id cc9224bb-769a-11f0-b898-0df219b8e170;
+ Mon, 11 Aug 2025 12:06:07 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-af9180a11bcso824590366b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 03:06:07 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-af91a21c0f4sm1981443066b.106.2025.08.11.03.06.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Aug 2025 02:56:47 -0700 (PDT)
+ Mon, 11 Aug 2025 03:06:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,142 +45,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f1519b3-7699-11f0-b898-0df219b8e170
+X-Inumbo-ID: cc9224bb-769a-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1754906208; x=1755511008; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754906767; x=1755511567; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ux+FTk2Cd1CY17fcCBAF9+6lyRgRi7vQ0izw6onAcm4=;
-        b=YEe/4wSKLmJH+AvXV3Clg1boiDZ6/P9u0QSrgUhtEjRXlLqCpjw+AWQn8nHLwEn9e3
-         81EWnEsfXb50YgQOhdFCUClFCw7exhuytBVsPvkPrKj3qJhu0gnFOcVnQTzGWEXqk+xp
-         P1tBu+Zn9gUR/ywhQG8bimWPrtw4PboMyIuEo=
+        bh=rwa5hDRlm6ED9r8XhxDoq0M3ih9cHxB9U4KsWn+JG1g=;
+        b=SEuTIiyroxQWsZnZFKi3Ow89B1b/qK4EYv+qhDuOh8TELgyOxdyJvLucnBVN3RIPTm
+         uKENaIOLFgURtoeCLiPbMWpVYdYPY2a9IrTaq0LyazwDJa88vWw9g/WOENbUToqcDQVC
+         RWp+XJsfCNx92Dc3yFzm0cXkNj26lm0scLOJoQTbivbpg5y3Nkn2ksOojW7o+4BMZdj/
+         MfbLXZMtp4hDV4hqTR7Ba6Au3I5tnI/JbW9E1oBrnSPtWMAzDwhIZMDeCT47eaM/qJ55
+         +bKILvc70POmkIa7sCXdzCgJqG8ajXilXKB3Gg/NVeqvDh6htBp4yuGPyibOUeOPwhcj
+         LAzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754906208; x=1755511008;
+        d=1e100.net; s=20230601; t=1754906767; x=1755511567;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Ux+FTk2Cd1CY17fcCBAF9+6lyRgRi7vQ0izw6onAcm4=;
-        b=J4Ut+TsnA9+Qzh3ioZGYp5NAxQpedqKhb67CrZaPGWEcWn72naXRosR8VG8+fGRSsB
-         VAosn1yT3U8rVRif+ok+/4OkbCM48xqPJzDFPYHL846Epb2gynB0tL2j/qW/K+nqItbV
-         mSpvnXKhA4azWFp9smUJ124OLtxAcd6CqhZdo7a3CG8tddCBz+zDqeP7WqtdVoqfAh2u
-         71HwY1WlxbJTnUgN51cTd05pd+HzlQ2btDpDtFar58EScgC+S045IVlv1AUHL2uqSN+W
-         20RtvD2NjEf97Kbjx8TFJBtdJ9T7y6iaRwuethfZ56WFfGilk4whsuwV3QMbcaHoQSwe
-         EjXw==
-X-Forwarded-Encrypted: i=1; AJvYcCWykBf4BkkvVbh2U29xGJN9Kot4MwQixmi17TQIZHO8QrpC0ANKsWtBLEI7BSr7T5Zq+uIjB5LMsZI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyzXehbMNmB2yuc/1Zlx2mn6Vs07owNtxAYsw2FejZAS4GL4weG
-	95C7IedFUHD6LvUhFj0uRIVVkPcs/IMIuLcA8yHnwF7Bc7eL4J7YV05b4F363ngpj94=
-X-Gm-Gg: ASbGncvqSycNSsFtLe2khjE8Pwu1aj9+jWVq9gdBOuYcRKx80oKKd2JKsjVMhw39tBN
-	Kk2/uKsHRKbb1aIq7eUwujkZRnKGCPWih6YtOuEWa7Li945lAeu8o3SvAEQwbHJ3YXruKam6HPA
-	j2Xchfd5A2V+9a/bVwhfg4DOg2sxZQD5LzPeutLFgTA2nPWLQq2YSJX8AfUuyyFOUXjHiBYS+GW
-	mll4TTH3cVS1g93q1S+AJmugym3PHsn5LUUgs2b3TDanKsNASPct1SouMNvj8UfalRHOxUGq7B9
-	CisA6XmkkMiftjw44Wen9EbeHTKgA0Lx3mZsVxmqHwnhxJubfwj6OKEAUUOqWgFsq9ynQ+xXa6F
-	GRHffX1E+M7CfSWSaEA73+w2+CSTkVAlvzHHVeMOdEGFwyHFHIZvQUi6X9KOVTQnqcPnU
-X-Google-Smtp-Source: AGHT+IFy0HDnIVP1kg2ixTdd23oCiCiaBBB6MEzUV5IttwAhY3cko+lVwDIf+G3En9TFaTxXouxA4w==
-X-Received: by 2002:a05:6000:26c1:b0:3b7:8b5e:831d with SMTP id ffacd0b85a97d-3b900b2d7aemr3169570f8f.17.1754906207736;
-        Mon, 11 Aug 2025 02:56:47 -0700 (PDT)
-Message-ID: <19ae8104-9a87-4b44-a2fe-9d72a6d07fef@citrix.com>
-Date: Mon, 11 Aug 2025 10:56:46 +0100
+        bh=rwa5hDRlm6ED9r8XhxDoq0M3ih9cHxB9U4KsWn+JG1g=;
+        b=gE634+DT5XlyJPm77JZSPxnzl7QZUwLfaOOKjrtqfRwvmuSJGWgXUYI8KSweF8BPAS
+         GSXvqhYygI33JkllrIiGAjHkBHCvPHnyeoC/DlN8owNsdZuxszBs85CLHWqulYFiTo3r
+         9ZxoAIuIRsGp+UOnrpkCGyNTYyBWSmH3LwQPYDgpVgwQzM7qDh/PrUbfwH9kB0/RX2Bs
+         01vrB9zcSybwiws6Vy2ZFDR87ihB02NaytYYhQ5ugyQsl6ubxf5vR/gyV3DfIEk41rA3
+         V1V0Q9ia5nNSZ+awFT3vXpPXIqULOFhYa5R2c/cfhHfCJMNKXyLlfkOwQVrRg2UtrTTd
+         p2hA==
+X-Forwarded-Encrypted: i=1; AJvYcCU9p/cdGJ44Ejm/tH6NpLs9fjOuc2NAIFVavHSH+rpLkZrsNxGaqu13Rh3w2jQKLvW95Artp1Jxka0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy9dbBYOSf3Ah/Pd0ieKn/eZKnNoxr/6FO99c5b7NXgSPGayubm
+	vNXuwkLqLc2emZBto3FNrm3iBBloWbVU72HX4QOd5nUVWuYcr/qPl0rChZA9P3WXYg==
+X-Gm-Gg: ASbGnctFTrWae+Wojeh3LED6AvlR6xHPBA89EMe/4zELuH14e4I09YSzMicnV1ENxxy
+	yhrfGo4ivZcDIz0ul11vrz3goaRGP3FiRJL3OUkM9ZM6e8DlLuEGu1HwOOpZhuKRPKaoPbUzTKa
+	/bu275Rc/av412sRFMkaCf9vT+5ObN7X0fgEbPxlyRfon2TOubrAQFd43TLbgXkuWiRkFq+dgmF
+	sqjywIMMw52Wp5Pt0zwv4viQZsf3+lEH5TSsuM+0B+LnqDDJW/msDBLFBBTiTX7coG/MS9BHy5S
+	MXGLZ4rx/3Sb/dQK1C+5zBl0glbqLjTfgTOjwhZt2PDc4NoWi8FWZZclOYeNuoSn+aNdsglToV3
+	CP0badrP4+4e0ETOT8ihqQfFsFaU/C7n6WTR5lGNRHviiKWl86zsaLVNnJ/K8jlhHwM68KabJRH
+	fcFCt4Gf6m2shlBC9FqA==
+X-Google-Smtp-Source: AGHT+IEgVEj6auOp7ZrFVpVoEHVOLgA1m1YaSccgB1Vsd0mMKCnfEfyqzXZQw/4SWPCzt5dS8N1XPQ==
+X-Received: by 2002:a17:907:d16:b0:af9:8739:10ca with SMTP id a640c23a62f3a-af9a3ebc937mr1689572966b.28.1754906767255;
+        Mon, 11 Aug 2025 03:06:07 -0700 (PDT)
+Message-ID: <d6b13991-e158-4232-8850-44c0b027edbb@suse.com>
+Date: Mon, 11 Aug 2025 12:06:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] CI: Trixie containers
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+Subject: Re: [PATCH] RFC x86/msr: Use WRMSRNS $imm when available
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Victor Lira <victorm.lira@amd.com>
-References: <20250809221206.1260861-1-andrew.cooper3@citrix.com>
- <20250809221206.1260861-2-andrew.cooper3@citrix.com>
- <37edbe9d-3c14-422b-b21b-49a5fa25a453@gmail.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <37edbe9d-3c14-422b-b21b-49a5fa25a453@gmail.com>
+References: <20250808222013.1071291-1-andrew.cooper3@citrix.com>
+ <e81bc459-347c-4eb9-8f8e-ada25fe8966f@suse.com>
+ <0d78dd8e-af92-4b29-9706-e08c2c06ee89@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <0d78dd8e-af92-4b29-9706-e08c2c06ee89@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 11/08/2025 9:47 am, Oleksii Kurochko wrote:
->
->
-> On 8/10/25 12:12 AM, Andrew Cooper wrote:
->> Debian Trixie has been released.  Provide new containers.
+On 11.08.2025 11:50, Andrew Cooper wrote:
+> On 11/08/2025 9:16 am, Jan Beulich wrote:
+>> On 09.08.2025 00:20, Andrew Cooper wrote:
+>>> --- a/xen/arch/x86/include/asm/msr.h
+>>> +++ b/xen/arch/x86/include/asm/msr.h
+>>> @@ -38,9 +38,46 @@ static inline void wrmsrl(unsigned int msr, uint64_t val)
+>>>          wrmsr(msr, lo, hi);
+>>>  }
+>>>  
+>>> +/*
+>>> + * Non-serialising WRMSR with a compile-time constant index, when available.
+>>> + * Falls back to plain WRMSRNS, or to a serialising WRMSR.
+>>> + */
+>>> +static always_inline void __wrmsrns_imm(uint32_t msr, uint64_t val)
+>>> +{
+>>> +    /*
+>>> +     * For best performance, WRMSRNS %r64, $msr is recommended.  For
+>>> +     * compatibility, we need to fall back to plain WRMSRNS, or to WRMSR.
+>>> +     *
+>>> +     * The combined ABI is awkward, because WRMSRNS $imm takes a single r64,
+>>> +     * whereas WRMSR{,NS} takes a split edx:eax pair.
+>>> +     *
+>>> +     * Always use WRMSRNS %rax, $imm, because it has the most in common with
+>>> +     * the legacy forms.  When MSR_IMM isn't available, emit setup logic for
+>>> +     * %ecx and %edx too.
+>>> +     */
+>>> +    alternative_input_2(
+>>> +        "mov $%c[msr], %%ecx\n\t"
+>> Simply %[msr] here?
 >>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Anthony PERARD <anthony.perard@vates.tech>
->> CC: Michal Orzel <michal.orzel@amd.com>
->> CC: Jan Beulich <jbeulich@suse.com>
->> CC: Julien Grall <julien@xen.org>
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->> CC: Stefano Stabellini <sstabellini@kernel.org>
->> CC: Shawn Anastasio <sanastasio@raptorengineering.com>
->> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->> CC: Doug Goldstein <cardoe@cardoe.com>
->> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
->> CC: Victor Lira <victorm.lira@amd.com>
+>> And then, might it make sense to pull out this and ...
 >>
->> I've deployed these containers already so people can play.
+>>> +        "mov %%rax, %%rdx\n\t"
+>>> +        "shr $32, %%rdx\n\t"
+>>> +        ".byte 0x2e; wrmsr",
+>>> +
+>>> +        /* WRMSRNS %rax, $msr */
+>>> +        ".byte 0xc4,0xe7,0x7a,0xf6,0xc0; .long %c[msr]", X86_FEATURE_MSR_IMM,
+>>> +
+>>> +        "mov $%c[msr], %%ecx\n\t"
+>> ... this, to ...
 >>
->> No ARM yet.  There's an (old) outstanding series cleaning up the arm
->> infrastructure, blocked on unclear root requirements for the Xilinx runners.
->> That series really needs fixing.
->> ---
->>  automation/build/debian/13-ppc64le.dockerfile | 37 ++++++++++
->>  automation/build/debian/13-riscv64.dockerfile | 37 ++++++++++
-> LKGTM: Reviewed-by: Oleksii Kurochko <oleksii.kurochko@gmail.com> #riscv
->
-> Also, shouldn’t we update the |automation/scripts/containerize| script to
-> add Debian 13 support?
+>>> +        "mov %%rax, %%rdx\n\t"
+>>> +        "shr $32, %%rdx\n\t"
+>>> +        ".byte 0x0f,0x01,0xc6", X86_FEATURE_WRMSRNS,
+>>> +
+>>> +        [msr] "i" (msr), "a" (val) : "rcx", "rdx");
+>>         [msr] "i" (msr), "a" (val), "c" (msr) : "rdx");
+>>
+>> allowing the compiler to actually know what's put in %ecx? That'll make
+>> original and 2nd replacement code 10 bytes, better balancing with the 9
+>> bytes of the 1st replacement. And I'd guess that the potentially dead
+>> MOV to %ecx would be hidden in the noise as well.
+> 
+> I considered that, but what can the compiler do as a result of knowing %ecx?
 
-Yes, and I should probably put something in Changelog too.
+For example ...
 
-~Andrew
+> That said, we do need an RDMSR form (which I desperately want to make
+> foo = rdmsr(MSR_BAR) but my cleanup series from 2019 got nowhere), and
+> in a read+write case I suppose the compiler could deduplicate the setup
+> of %ecx.
+
+... this. But also simply to use a good pattern (exposing as much as possible
+to the compiler), so there are more good instances of code for future cloning
+from. (In size-optimizing builds, the compiler could further favor ADD/SUB
+over MOV when the two MSRs accessed are relatively close together.)
+
+Jan
 
