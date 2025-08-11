@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B9D5B20848
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 14:00:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077534.1438585 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29A98B208D8
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 14:35:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077553.1438595 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulRBC-0003lY-Mt; Mon, 11 Aug 2025 11:59:06 +0000
+	id 1ulRjt-0004my-EU; Mon, 11 Aug 2025 12:34:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077534.1438585; Mon, 11 Aug 2025 11:59:06 +0000
+Received: by outflank-mailman (output) from mailman id 1077553.1438595; Mon, 11 Aug 2025 12:34:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulRBC-0003jS-Jy; Mon, 11 Aug 2025 11:59:06 +0000
-Received: by outflank-mailman (input) for mailman id 1077534;
- Mon, 11 Aug 2025 11:59:05 +0000
+	id 1ulRjt-0004kW-BW; Mon, 11 Aug 2025 12:34:57 +0000
+Received: by outflank-mailman (input) for mailman id 1077553;
+ Mon, 11 Aug 2025 12:34:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ku41=2X=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ulRBB-0003jH-Aa
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 11:59:05 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ id 1ulRjr-0004kP-Q5
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 12:34:55 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 92c4e783-76aa-11f0-a325-13f23c93f187;
- Mon, 11 Aug 2025 13:59:02 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-adfb562266cso586168366b.0
- for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 04:59:02 -0700 (PDT)
+ id 9553ad99-76af-11f0-a325-13f23c93f187;
+ Mon, 11 Aug 2025 14:34:54 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-af934d7c932so564595566b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 05:34:54 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a23ffc3sm2008166766b.124.2025.08.11.04.59.01
+ a640c23a62f3a-af91a218cf8sm2031179866b.95.2025.08.11.05.34.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Aug 2025 04:59:01 -0700 (PDT)
+ Mon, 11 Aug 2025 05:34:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92c4e783-76aa-11f0-a325-13f23c93f187
+X-Inumbo-ID: 9553ad99-76af-11f0-a325-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754913542; x=1755518342; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Lj0GM1Ir9wAJW/08C1hiiJS7uJTmr8GPBiyo0b2B28k=;
-        b=B6C8THoeYSe/tcYPV3gCKB1BffAquy9ftj+tOra253JZw3efyqlKl8dJxenmZNsfeA
-         g/tt0oIdcnmKkDB/0A1QZbFI+HsCezmXKAiczd9itBhOMsCFjOLjSE0Gr/fKwfmQCvNN
-         dsVS/2ZK3HfNfvqlfTWSefPTLNbKScbQ4FD3sFBsjhSixgrt4uZri1vwga4Teye57CZH
-         4xyP7ftM9lp9Vb6efXM1HHNsSm4onsWLKaMydRPEHYLIXIJLRKlvZuTK/H3FDujTM2p1
-         OA+I5E3qsafbM08Tjsa1+Tf30UQy5cDUTFbcislcwKs1xsqnfFeqX7xMl36IEl1NA4PT
-         bEow==
+        d=suse.com; s=google; t=1754915694; x=1755520494; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=q8I+YLL5Oftq4fsAcZAeKMsXq0/WEQfNuJ9V59e4WoI=;
+        b=Pw0EW1oVwTZd6BPaGiEsiFMh9pUh30pXWmmDVY6GrPotuRge3R2IdOQf7M9zjxAiIl
+         ajEvohDXwibqkGxpdsQPDLJTAStOMF9tG110l8pOiRgTQxPF3Vs+lQIvaRuNuQOYX8I5
+         FJ65kiVtcfXS/Fw2wGNEBLftca+YRvK1ekiWl1Ymw7AXrkKM0HENYPMfGL1OEjIF1xPI
+         rljYZLdic6WeGNmH9xlBXSnhbfa7t726oo+vXKNl2MN+M6ggAU2ksqErMrvwWGReSE7R
+         EaF9dCh+YRipXmY03zBPlzxbLHFMB4LE+PhxpkhsZaTXr5Xuce5rapjv29QY7oPHUmlS
+         SU/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754913542; x=1755518342;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Lj0GM1Ir9wAJW/08C1hiiJS7uJTmr8GPBiyo0b2B28k=;
-        b=FQ4KKJDoy0wC9G7LTB3gdz49gw4FYiHk6uBBLAgU2I2i/d67QRaa+u2IZ6VJq6/wRT
-         8/pZL4tK6DoL0E3cr1LXvXNVXZNDlRNb1tUuButDCaAuV2s3NpTJqGFQKO2Vgt9QhwkM
-         cBJYHuIoWRfur5vuzExYbzso+JyGaQ/Fo1L7NgBpCY4syKPNO+R7ESqEv4tgqvyfOBeN
-         FssyraTfs7wSLvesQhcB821dx/joSw442/suv3TsGXT9Br9vuRcvW9elly7gNVwgZPcV
-         rvRynm91KVpCy6A4UgkcbDCCEc0RWuru4s8SdsJTvupulOqL2FsAOCkZ6CE/RB7zz+G9
-         72mw==
-X-Forwarded-Encrypted: i=1; AJvYcCVXZY+pCduXt8ccd/asYS7Q7KBn9p34CQTtRCc2yMGtI1r7lcCJuGE/5HtWFkQLN9cqDfRkGzKi6Rg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzofsR1E2YAPZSnkqpjxr0ev6riWqg0tmZz0MZiJ7EAnaHm7zlL
-	kzZLAWVDcTvR/V1+iuUcbZegfWYDsEffIBQejTZY7R++cry0UMPVnj3K+ZSv4xXwHg==
-X-Gm-Gg: ASbGnctno3ZqAxKEgazCNgL6MCQYQJ8RqU+9CKlciRp2AwfZWWeWv7b/6sc6hOm5Ho9
-	ecaWJqmTeL0hRR9r7SgvlpEgrrtG9JbsNNOgEG8Htluap/UoNHxN5YsnsYcFMGmK+8r5tc+HDye
-	B89Hq+k0iny55IoB+XCaLRS6K8v7JUHjRY0cuaq8XpJTHqwOBQI7POLWzoeJUIazF1c74x6ID/8
-	c/CE8iY4YKm1EZWf1L5zgGXYZOMR0P/Ybe0kkuB8X1acHlV2wQAhVvaYvdh2vsSEDAEaOUKACTR
-	Qfyic8UJ4ccnIg0Q3Pa6QVyK3m93dF9DwsD9aXUIzmZ5uJmgyhE+oDwDYqMV5E7wJB4pxorbbFT
-	Sg0S5aBlPKQnxWBSRjS/vmovuSk8xU7Qdy+0v5qLqXMzukifrH49eXEvbhLPGpOlczpWODih7Go
-	bvxVXQE5Y=
-X-Google-Smtp-Source: AGHT+IFOEH7v7byAjBYR4alZDP3KWHRhfqW4/wS1sguHqQ5pIS4lqjSFze9jK9qx3n+4rp16VkzGWg==
-X-Received: by 2002:a17:906:6a02:b0:af7:37d1:93b6 with SMTP id a640c23a62f3a-af9c6371790mr1202794266b.15.1754913542083;
-        Mon, 11 Aug 2025 04:59:02 -0700 (PDT)
-Message-ID: <cc0fd91c-2dd1-4094-997a-87856f6cd914@suse.com>
-Date: Mon, 11 Aug 2025 13:59:01 +0200
+        d=1e100.net; s=20230601; t=1754915694; x=1755520494;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=q8I+YLL5Oftq4fsAcZAeKMsXq0/WEQfNuJ9V59e4WoI=;
+        b=QDz4zjJRdf/r/HqzOvcfKks2PF3Bo8rfWGgXUiPNHNS0L8UrkUnVV5BFwzIAZBzS73
+         HV+vLE/Byhjl2JVtwrpuW1ak0BmTz5MKtVVW4DCv72lUgTyHi/70GdmD1IThzPxZq/uO
+         U61IUW+yFJ6o9OPhljkOwh0ntoULUJ7IH2utGeSqAMqb2uQnG6rhGYteeYdON57cj8QY
+         L9F9q/oDNX0lQsHUrGnM11AI46edvb8faSAz/ZZU201sW1rn5OeIcp+xjJt4x0aN4vQL
+         Cp5rh3aTa50192paXTnR/d3H7S0otVQeGaZf+ARyyDjdYq3xJ+OyTXkyficKjOYuXOTF
+         AzhA==
+X-Gm-Message-State: AOJu0YyQWn3R1i9yjpDFCZ/xMQb4nRAfEZtrAaaVxlBniJ1OTpatrGex
+	tzt88nb9lEVlPiyDEwmnbHXCYq6OYwpAENtiWd5kXmpgUlqv8y5VdRM/BwTgDopubw==
+X-Gm-Gg: ASbGncupMUov8htigJzr0YHtpV/Zlbqqjs2t9mV9BvWMnNmDjY0DCnPp4AnZnsFSLBW
+	yJOF9/GgyNBlzTWI6A9i1vh7M51ecT3ZLo9sCLcS+mpTLlQKY0arj5+Z6JBLGdN0k2vBWn4C0r/
+	P3TcZ4XnJeC+RVjgzwPFka0bgtxuhiySiXkeN4QRGK9thf+M6z6B1zxJxQ/734g0nCz/mhib8fC
+	EhFaT2qQrMb2Q/Zlai2/VoMcBLT0X12HNgjCIPLNEZYL+zeP+AztCqldrQxzEr5RrABQpFibx+D
+	BSMZS85BuxiCrjl46ltEDrwAspkOAPMXJiksBp9YCshyD/5+BB0KuqyAubwDqsBWiET7QPLmci5
+	TVJOvts4c0377+1GuQeQUUe+ca+ubuOWAgnqRmTJuYeso6WOxSf6VY+6nWV5lpXhWIqeMjQqu8z
+	qpKCieDy0=
+X-Google-Smtp-Source: AGHT+IEP2df2VTD7XIadDhRFUTT3SEl+mGc8gQfPKjlbsqNc2aK+n9aTFLNSuqFs8N1kkh3/qP3faQ==
+X-Received: by 2002:a17:907:72c9:b0:af2:7ccd:3429 with SMTP id a640c23a62f3a-af9c634faccmr1109345566b.9.1754915693943;
+        Mon, 11 Aug 2025 05:34:53 -0700 (PDT)
+Message-ID: <a23b88f6-87b9-45bf-ae9b-ee2f3f66cb38@suse.com>
+Date: Mon, 11 Aug 2025 14:34:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 16/20] xen/riscv: Implement superpage splitting for p2m
- mappings
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
- <6890f77e577493194ea94834989dc0841d18eed0.1753973161.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
+Subject: Ping: [PATCH v3] EFI/runtime: switch to xv[mz]alloc_array()
 From: Jan Beulich <jbeulich@suse.com>
+To: Marek Marczykowski <marmarek@invisiblethingslab.com>,
+ Daniel Smith <dpsmith@apertussolutions.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <41b7e14c-59ef-40f5-8c43-69bdc5fb4531@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -125,105 +117,131 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6890f77e577493194ea94834989dc0841d18eed0.1753973161.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <41b7e14c-59ef-40f5-8c43-69bdc5fb4531@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 31.07.2025 17:58, Oleksii Kurochko wrote:
-> Add support for down large memory mappings ("superpages") in the RISC-V
-> p2m mapping so that smaller, more precise mappings ("finer-grained entries")
-> can be inserted into lower levels of the page table hierarchy.
+On 23.07.2025 15:39, Jan Beulich wrote:
+> Use the more "modern" form, thus doing away with effectively open-coding
+> xmalloc_array() at the same time. While there is a difference in
+> generated code, as xmalloc_bytes() forces SMP_CACHE_BYTES alignment, if
+> code really cared about such higher than default alignment, it should
+> request so explicitly.
 > 
-> To implement that the following is done:
-> - Introduce p2m_split_superpage(): Recursively shatters a superpage into
->   smaller page table entries down to the target level, preserving original
->   permissions and attributes.
-> - p2m_set_entry() updated to invoke superpage splitting when inserting
->   entries at lower levels within a superpage-mapped region.
-> 
-> This implementation is based on the ARM code, with modifications to the part
-> that follows the BBM (break-before-make) approach, some parts are simplified
-> as according to RISC-V spec:
->   It is permitted for multiple address-translation cache entries to co-exist
->   for the same address. This represents the fact that in a conventional
->   TLB hierarchy, it is possible for multiple entries to match a single
->   address if, for example, a page is upgraded to a superpage without first
->   clearing the original non-leaf PTE’s valid bit and executing an SFENCE.VMA
->   with rs1=x0, or if multiple TLBs exist in parallel at a given level of the
->   hierarchy. In this case, just as if an SFENCE.VMA is not executed between
->   a write to the memory-management tables and subsequent implicit read of the
->   same address: it is unpredictable whether the old non-leaf PTE or the new
->   leaf PTE is used, but the behavior is otherwise well defined.
-> In contrast to the Arm architecture, where BBM is mandatory and failing to
-> use it in some cases can lead to CPU instability, RISC-V guarantees
-> stability, and the behavior remains safe — though unpredictable in terms of
-> which translation will be used.
-> 
-> Additionally, the page table walk logic has been adjusted, as ARM uses the
-> opposite number of levels compared to RISC-V.
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> v3: Use xv[mz]alloc_array().
 
-As before, I think you mean "numbering".
+May I ask for an ack (or otherwise) please? Perhaps also for Ross'es
+"efi: Call FreePages only if needed"?
 
-> --- a/xen/arch/riscv/p2m.c
-> +++ b/xen/arch/riscv/p2m.c
-> @@ -539,6 +539,91 @@ static void p2m_free_subtree(struct p2m_domain *p2m,
->      p2m_free_page(p2m, pg);
->  }
+Thanks, Jan
+
+> --- a/xen/common/efi/runtime.c
+> +++ b/xen/common/efi/runtime.c
+> @@ -6,6 +6,7 @@
+>  #include <xen/irq.h>
+>  #include <xen/sections.h>
+>  #include <xen/time.h>
+> +#include <xen/xvmalloc.h>
 >  
-> +static bool p2m_split_superpage(struct p2m_domain *p2m, pte_t *entry,
-> +                                unsigned int level, unsigned int target,
-> +                                const unsigned int *offsets)
-> +{
-> +    struct page_info *page;
-> +    unsigned long i;
-> +    pte_t pte, *table;
-> +    bool rv = true;
-> +
-> +    /* Convenience aliases */
-> +    mfn_t mfn = pte_get_mfn(*entry);
-> +    unsigned int next_level = level - 1;
-> +    unsigned int level_order = XEN_PT_LEVEL_ORDER(next_level);
-> +
-> +    /*
-> +     * This should only be called with target != level and the entry is
-> +     * a superpage.
-> +     */
-> +    ASSERT(level > target);
-> +    ASSERT(pte_is_superpage(*entry, level));
-> +
-> +    page = p2m_alloc_page(p2m->domain);
-> +    if ( !page )
-> +    {
-> +        /*
-> +         * The caller is in charge to free the sub-tree.
-> +         * As we didn't manage to allocate anything, just tell the
-> +         * caller there is nothing to free by invalidating the PTE.
-> +         */
-> +        memset(entry, 0, sizeof(*entry));
-> +        return false;
-> +    }
-> +
-> +    table = __map_domain_page(page);
-> +
-> +    /*
-> +     * We are either splitting a second level 1G page into 512 first level
-> +     * 2M pages, or a first level 2M page into 512 zero level 4K pages.
-> +     */
+>  DEFINE_XEN_GUEST_HANDLE(CHAR16);
+>  
+> @@ -500,23 +501,23 @@ int efi_runtime_call(struct xenpf_efi_ru
+>          len = gwstrlen(guest_handle_cast(op->u.get_variable.name, CHAR16));
+>          if ( len < 0 )
+>              return len;
+> -        name = xmalloc_array(CHAR16, ++len);
+> +        name = xvmalloc_array(CHAR16, ++len);
+>          if ( !name )
+>             return -ENOMEM;
+>          if ( __copy_from_guest(name, op->u.get_variable.name, len) ||
+>               wmemchr(name, 0, len) != name + len - 1 )
+>          {
+> -            xfree(name);
+> +            xvfree(name);
+>              return -EIO;
+>          }
+>  
+>          size = op->u.get_variable.size;
+>          if ( size )
+>          {
+> -            data = xmalloc_bytes(size);
+> +            data = xvmalloc_array(unsigned char, size);
+>              if ( !data )
+>              {
+> -                xfree(name);
+> +                xvfree(name);
+>                  return -ENOMEM;
+>              }
+>          }
+> @@ -539,8 +540,8 @@ int efi_runtime_call(struct xenpf_efi_ru
+>          else
+>              rc = -EOPNOTSUPP;
+>  
+> -        xfree(data);
+> -        xfree(name);
+> +        xvfree(data);
+> +        xvfree(name);
+>      }
+>      break;
+>  
+> @@ -553,17 +554,17 @@ int efi_runtime_call(struct xenpf_efi_ru
+>          len = gwstrlen(guest_handle_cast(op->u.set_variable.name, CHAR16));
+>          if ( len < 0 )
+>              return len;
+> -        name = xmalloc_array(CHAR16, ++len);
+> +        name = xvmalloc_array(CHAR16, ++len);
+>          if ( !name )
+>             return -ENOMEM;
+>          if ( __copy_from_guest(name, op->u.set_variable.name, len) ||
+>               wmemchr(name, 0, len) != name + len - 1 )
+>          {
+> -            xfree(name);
+> +            xvfree(name);
+>              return -EIO;
+>          }
+>  
+> -        data = xmalloc_bytes(op->u.set_variable.size);
+> +        data = xvmalloc_array(unsigned char, op->u.set_variable.size);
+>          if ( !data )
+>              rc = -ENOMEM;
+>          else if ( copy_from_guest(data, op->u.set_variable.data,
+> @@ -581,8 +582,8 @@ int efi_runtime_call(struct xenpf_efi_ru
+>              efi_rs_leave(&state);
+>          }
+>  
+> -        xfree(data);
+> -        xfree(name);
+> +        xvfree(data);
+> +        xvfree(name);
+>      }
+>      break;
+>  
+> @@ -598,13 +599,13 @@ int efi_runtime_call(struct xenpf_efi_ru
+>              return -EINVAL;
+>  
+>          size = op->u.get_next_variable_name.size;
+> -        name.raw = xzalloc_bytes(size);
+> +        name.raw = xvzalloc_array(unsigned char, size);
+>          if ( !name.raw )
+>              return -ENOMEM;
+>          if ( copy_from_guest(name.raw, op->u.get_next_variable_name.name,
+>                               size) )
+>          {
+> -            xfree(name.raw);
+> +            xvfree(name.raw);
+>              return -EFAULT;
+>          }
+>  
+> @@ -629,7 +630,7 @@ int efi_runtime_call(struct xenpf_efi_ru
+>          else
+>              rc = -EOPNOTSUPP;
+>  
+> -        xfree(name.raw);
+> +        xvfree(name.raw);
+>      }
+>      break;
+>  
 
-Such a comment is at risk of (silently) going stale when support for 512G
-mappings is added. I wonder if it's really that informative to have here.
-
-> +    for ( i = 0; i < XEN_PT_ENTRIES; i++ )
-> +    {
-> +        pte_t *new_entry = table + i;
-> +
-> +        /*
-> +         * Use the content of the superpage entry and override
-> +         * the necessary fields. So the correct permission are kept.
-> +         */
-
-It's not just permissions though? The memory type field also needs
-retaining (and is being retained this way). Maybe better say "attributes"?
-
-Jan
 
