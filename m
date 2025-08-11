@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAAE7B20225
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 10:45:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077105.1438197 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74DDAB2022E
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 10:48:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077114.1438208 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulO9r-0006Gc-Lu; Mon, 11 Aug 2025 08:45:31 +0000
+	id 1ulOCX-0006nG-1t; Mon, 11 Aug 2025 08:48:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077105.1438197; Mon, 11 Aug 2025 08:45:31 +0000
+Received: by outflank-mailman (output) from mailman id 1077114.1438208; Mon, 11 Aug 2025 08:48:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulO9r-0006E4-J5; Mon, 11 Aug 2025 08:45:31 +0000
-Received: by outflank-mailman (input) for mailman id 1077105;
- Mon, 11 Aug 2025 08:45:30 +0000
+	id 1ulOCW-0006le-V7; Mon, 11 Aug 2025 08:48:16 +0000
+Received: by outflank-mailman (input) for mailman id 1077114;
+ Mon, 11 Aug 2025 08:48:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=21ui=2X=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1ulO9q-0006Dw-0Q
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 08:45:30 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
+ id 1ulOCV-0006lY-RZ
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 08:48:15 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8867c500-768f-11f0-a325-13f23c93f187;
- Mon, 11 Aug 2025 10:45:29 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-6180b9e4e74so3409385a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 01:45:29 -0700 (PDT)
-Received: from yp-VivoBook-ASUSLaptop-M1503QA-M1503QA.Dlink ([77.52.179.37])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a0a3e80sm1995121866b.47.2025.08.11.01.45.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Aug 2025 01:45:26 -0700 (PDT)
+ id eb3badfe-768f-11f0-a325-13f23c93f187;
+ Mon, 11 Aug 2025 10:48:14 +0200 (CEST)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-55502821bd2so4254900e87.2
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 01:48:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,88 +40,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8867c500-768f-11f0-a325-13f23c93f187
+X-Inumbo-ID: eb3badfe-768f-11f0-a325-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1754901928; x=1755506728; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=gOdShwPIr5kiLYik+t8QMnDr8E3Is5wCiMPgD2hGSeM=;
-        b=UR4gSywtT2i9cL3hiuKIKc/B1cWkP7TLTpfuEwI8gL7qgivhy3jP21Jo/X5imsydDY
-         LE/uKj1CWbnMszWXD2v9oiy+sLK7SsPO9jfzzWdLbFGuD/t/AYO0yXaH395IW0cT9yPp
-         ZeZLS5KYB0ORNNu5WPdmUuJw5xQwRUBT/aPrOHASPo/Awholk34jGY8Q7B85LrKkIYUC
-         5WefiJVY7BG+viKYadbvJ0fF/uzXg2uR4wU9Umbq2fgr99dqvIUfWrBF7n0LCShDBpcH
-         kPcFuJkhfIwRTNW0Wr2Q+Ndob6iKQp6DQbyejmfyB9eFAccccG00N8dEHNTRvlS8UPRn
-         9vEA==
+        d=gmail.com; s=20230601; t=1754902094; x=1755506894; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hqGsWRXWp/HZdOQieC5QgH2PV9Ff0EAfQeIphWwDWg8=;
+        b=f6KqDr4AFNhEeMe6sBiA+Da1OBc3UrZ+NushuAdmuTexqrTYGjraqREP4THAXlJfr8
+         RURTCznJT7rXKp4UpUEHZtPDpdpv9z5Nedph8uiohgsh6pUvoa3Y64UnrlAFByiPAwI8
+         h5Vr+7hkVyXHMkVtOj1fQvleEhz/Md0b+k5WbcIH43USlQAupUvxb1DC3mZwYMKAfrob
+         qrjRjSJD0vddCR6gQOpg4K+enSKUp/ne4BoSdgbNZvtklARhKyCkh7zTNxp1tmuWt/t+
+         GxCmHYOC6fyb/iRfNDbK33D+e1E4Rtyd2KDo2GettrSpzkdqyMqXRBGkqSs3W+QICcaO
+         hGZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754901928; x=1755506728;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=gOdShwPIr5kiLYik+t8QMnDr8E3Is5wCiMPgD2hGSeM=;
-        b=nLfrXFTZU5NMOe+4aUcStG7U6VQsZzskW3ORGL6rsJ9sIImcsRdrPNLP01YKlw5k/Z
-         OCyZKbvgWaW0Vq0N2MoHE2NiFsX5jg2VJoW4hvRa+rwLON8WyvhCTGTX3/cegV0AvURd
-         7MRtRPv69iIHX0IL1cXmm+N+TQzhHmtyqaVbpFF5dTMjINVTZ0SkCzP7G1hromAWkIl/
-         gvtMOvTHDXATKZxUbRMN1wnJD6RHYZfI8BhPuozlqQHnhX07nArkObX+NNwNGO8CGVdK
-         3XF5VBpDvCDtOr8CfLidrPWR7THxNeKBvftsDDaRpHIYdAPDOWkzGnBAgbrm8g0Cochk
-         aLhg==
-X-Gm-Message-State: AOJu0YxG305OEgNrha6vJYxKTuXGOGPi7+BHk7ppNOfnKcUG59Mxyc7V
-	m6J2EByHD48/97ZQSAra1P5IGAsoL1riCKxyuz4aw9nNcNq6tcyx690sl7MwHQ==
-X-Gm-Gg: ASbGncsDFN1h5+VTeLgS89ttyj0X/FFz9+Cvxo1+KNvGjITCzryihuxcG88qsdrmdTR
-	YEHcPKarhUfjURIchRBD1gaBE+fpNEVcWRLFti3bb6kAzJ6rSN3JmzKDlVKO87zDKypI+yGIu6+
-	ihh9hNNwWAzL3tRKwsUWyjloR2aSwJfnttI1rV6WvlskPZXd6BOFHdm0BU8T65dkQ6rdPKtrxHX
-	6HbPTfu+9CIecrPv2PYAY2XeiZgj42eRfaRK7HGr0RPrytTD5s0bbYERrOjD+0fQQO5CL5M13Yj
-	sCIpZzNzje7HCHSuKrtQDMiC6Lly17qQsXK9Xa45IWqilVFl8KpQpfncQT5ruc/61ZGBziwqoOT
-	nTOO2X1cFiL6pshqlNQmC0xvD7jYsfuUdmdy2bm3fayql2f+CnOEJzK2VmeuTfx6JbxRse+8sRD
-	3nkA==
-X-Google-Smtp-Source: AGHT+IGUlIxSW/LjM+RZqJFYDftesPxQGIv1eDYD5ommX9a3Vaa6gtSD5P6RCX2uVd6PP4UC4nCv/g==
-X-Received: by 2002:a17:907:971f:b0:ae3:cc60:8ce7 with SMTP id a640c23a62f3a-af9c64545admr1117750466b.19.1754901928057;
-        Mon, 11 Aug 2025 01:45:28 -0700 (PDT)
-From: Mykola Kvach <xakep.amatop@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Mykola Kvach <mykola_kvach@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Denis Mukhin <dmukhin@ford.com>
-Subject: [PATCH v2] xen/arm: irq: add missing spin_unlock() in init_local_irq_data() error path
-Date: Mon, 11 Aug 2025 11:45:20 +0300
-Message-ID: <f983bb7c3c9f0912da7e7f2fc22384ce1081a7a3.1754901835.git.mykola_kvach@epam.com>
-X-Mailer: git-send-email 2.48.1
+        d=1e100.net; s=20230601; t=1754902094; x=1755506894;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=hqGsWRXWp/HZdOQieC5QgH2PV9Ff0EAfQeIphWwDWg8=;
+        b=SBtCsPxTSH0BcBqylgwv+YEURhKWae7UAuiPOO50bE8ZCHojPww0AFlucG4xVjmYgn
+         lrpf1DajnWj+Rasc0YzAIMCkWF7qIufmutlTEYE/jWhHW8tvFpxk404ziekWmBEuG8D2
+         cixKfZoy92gDA7zfQ6Cd6saRBCvmej4UpJOKvqcD1fqAvUpprx0O0ug10susFDN0vz0i
+         Q2s8nw9aKJuR6gG3MQjzFYl1NsJskPynJq6O532K/qYhkKWH9aJ1HdDG134+4l6uSJkX
+         ssTp3QSHgvxQs/gcRX3B6KqBqHzkMm4/tydsDl8J+7oc63Uc+0CiAByYNsD3u8Ub43cQ
+         BJ7A==
+X-Forwarded-Encrypted: i=1; AJvYcCWf3AJcIkZS3Hbyq8GPlWfzprRxhX/kYxEPZjoblHpLqgCEMm8BPlteeLpRovjyPCfiERU8d/ZsQNw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywd+woO/fBRHF2ZHUPZ1i02aPSnysTqoo9LlgHv0fDxO82cybD6
+	mpjVa6132hQ13zPGRg02+7xd6O/7RxPywIob2P6bpwgAcCSNQolFkcmu7nnH/vzyb9DGxyhjXkT
+	s1V71EdI2FG+isSKnCnjihxwC8wAXRZ4=
+X-Gm-Gg: ASbGncvAeQXVp6PHhoMJ9/40ChLxXM7ZAr8eECCoc9NFluCfx1NABW+GNtKpbSzLt1S
+	rjC+k8yl9w2dDYpULccu5wWyvgp82rpRXm1WY6bqYHKvWL5LoGDLDRKyq7NgNV5Dz24VEvUDgy2
+	HsMoAok+9XUGc4brimxybCxaFEEduOy7iTqikDnmH6BLPsJSTHQ+KFn1N8jls6ugn8sweDbvVjo
+	oetIQ==
+X-Google-Smtp-Source: AGHT+IHUk2b7VFDDxFKffd7YN4DgqdGks8yJwuMLGYNPVMHkOT+AKcDp94OpW17PcX2JAQ5279sADMLm9h/4WbTwzsI=
+X-Received: by 2002:a05:6512:1043:b0:55b:8ab3:c1a1 with SMTP id
+ 2adb3069b0e04-55cc012781fmr3201076e87.49.1754902094073; Mon, 11 Aug 2025
+ 01:48:14 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <bd707bd0fd88fc53974a1214313a9b9103162bcc.1754749899.git.mykola_kvach@epam.com>
+ <977c6c31-af2a-4108-8b28-172dc3916731@suse.com>
+In-Reply-To: <977c6c31-af2a-4108-8b28-172dc3916731@suse.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Mon, 11 Aug 2025 11:48:01 +0300
+X-Gm-Features: Ac12FXwfKdgosCmxV3tOTGt6GjUB0-CZ6yOxbGr4JqHR4FtaUSN_gPYRXuMSITk
+Message-ID: <CAGeoDV8eB6dFP=kek9CnEOd=w4bJB5-CjO6S6v8Fp=ZJqyDg6w@mail.gmail.com>
+Subject: Re: [PATCH] xen/arm: irq: add missing spin_unlock() in
+ init_local_irq_data() error path
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Mykola Kvach <mykola_kvach@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Mykola Kvach <mykola_kvach@epam.com>
+On Mon, Aug 11, 2025 at 10:53=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wr=
+ote:
+>
+> On 09.08.2025 16:32, Mykola Kvach wrote:
+> > From: Mykola Kvach <mykola_kvach@epam.com>
+> >
+> > If init_one_irq_desc() fails, init_local_irq_data() returns without
+> > releasing local_irqs_type_lock, leading to a possible deadlock.
+> >
+> > Release the lock before returning to ensure proper cleanup.
+> >
+> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+>
+> Pretty likely wants backporting, which would best be indicated by a suita=
+ble
+> Fixes: tag.
 
-If init_one_irq_desc() fails, init_local_irq_data() returns without
-releasing local_irqs_type_lock, leading to a possible deadlock.
+I have added the Fixes: tag as suggested and resent the patch.
+Thank you for pointing this out.
 
-Release the lock before returning to ensure proper cleanup.
+>
+> Jan
+>
+> > --- a/xen/arch/arm/irq.c
+> > +++ b/xen/arch/arm/irq.c
+> > @@ -94,7 +94,10 @@ static int init_local_irq_data(unsigned int cpu)
+> >          int rc =3D init_one_irq_desc(desc);
+> >
+> >          if ( rc )
+> > +        {
+> > +            spin_unlock(&local_irqs_type_lock);
+> >              return rc;
+> > +        }
+> >
+> >          desc->irq =3D irq;
+> >          desc->action  =3D NULL;
+>
 
-Fixes: 2bb32b809250 ("xen/irq: Propagate the error from init_one_desc_irq() in init_*_irq_data()")
-Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-Reviewed-by: Denis Mukhin <dmukhin@ford.com>
----
- xen/arch/arm/irq.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
-index 4bbf0b0664..02ca82c089 100644
---- a/xen/arch/arm/irq.c
-+++ b/xen/arch/arm/irq.c
-@@ -94,7 +94,10 @@ static int init_local_irq_data(unsigned int cpu)
-         int rc = init_one_irq_desc(desc);
- 
-         if ( rc )
-+        {
-+            spin_unlock(&local_irqs_type_lock);
-             return rc;
-+        }
- 
-         desc->irq = irq;
-         desc->action  = NULL;
--- 
-2.48.1
-
+Best regards,
+Mykola
 
