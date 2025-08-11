@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61684B209E7
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 15:17:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077599.1438635 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8EF7B20A0E
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 15:25:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077608.1438645 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulSOW-0006jO-7s; Mon, 11 Aug 2025 13:16:56 +0000
+	id 1ulSWZ-0000Zv-0E; Mon, 11 Aug 2025 13:25:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077599.1438635; Mon, 11 Aug 2025 13:16:56 +0000
+Received: by outflank-mailman (output) from mailman id 1077608.1438645; Mon, 11 Aug 2025 13:25:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulSOW-0006h4-56; Mon, 11 Aug 2025 13:16:56 +0000
-Received: by outflank-mailman (input) for mailman id 1077599;
- Mon, 11 Aug 2025 13:16:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=92re=2X=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ulSOU-0006gy-DS
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 13:16:54 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6fd415fd-76b5-11f0-b898-0df219b8e170;
- Mon, 11 Aug 2025 15:16:48 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-459ebb6bbdfso27596425e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 06:16:48 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b79c3bf93dsm40730669f8f.27.2025.08.11.06.16.47
+	id 1ulSWY-0000YU-Td; Mon, 11 Aug 2025 13:25:14 +0000
+Received: by outflank-mailman (input) for mailman id 1077608;
+ Mon, 11 Aug 2025 13:25:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ku41=2X=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ulSWX-0000YO-1x
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 13:25:13 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9b9f2228-76b6-11f0-a325-13f23c93f187;
+ Mon, 11 Aug 2025 15:25:11 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-af95b919093so639822366b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 06:25:11 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-af91a0a396fsm2029839266b.42.2025.08.11.06.25.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Aug 2025 06:16:47 -0700 (PDT)
+ Mon, 11 Aug 2025 06:25:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,129 +45,274 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6fd415fd-76b5-11f0-b898-0df219b8e170
+X-Inumbo-ID: 9b9f2228-76b6-11f0-a325-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1754918208; x=1755523008; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754918711; x=1755523511; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5myF4aui7F/pjoMuI7/Jcxv0qY1yShjpcKQ694jxm5Q=;
-        b=TVoklmKqQNm0ej3uWVOtWNdVrRdFR56Itz6AWGqwAergCkpJDPReKb3YVaLkzxK6JI
-         iOEy2wYG9/plj4dchEKvwADjvjMJ4HO+IinGK0E0yqxZ9Ekey4g00OAMpkbkSGRju8nl
-         Ylf0vMVq8MpUKL/dreyBMm3LaZYXXM/0KSWcw=
+        bh=1QakprPly9v0H+YwMbntGulgbO21nLMu9KER28L80Gs=;
+        b=chBK22rdZ86AdeMryVz55wKHr9Vo5AL1jUBdXu6+SAuUl00tFlJFiy34ZZlpRie4SN
+         GwBgV4hdYd10nlrc5nyOR9q5rODlREHngtRC1A9OM9YnD0d3Iwrso6y34xSFcDeIj0Jp
+         dwP35WveRi5ayHuyR543obuOUmn8GnZ153aM2N1nJOGq/aCyt2hrWdr+6aLnfuaHeB+e
+         CYQnAKA/mfVV1j6gmSNMap+kAZ+xbV+f6yDkwg4A4KYy0AdHHhjyCRBNBYYiYpJpLw7h
+         5nVJggHmjWXOgpc4ZDPKRtGg3YMlGMk5EWCW+XXFOB1jaBCwwxuVAQYViL+HzfqSRcut
+         +01w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754918208; x=1755523008;
+        d=1e100.net; s=20230601; t=1754918711; x=1755523511;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5myF4aui7F/pjoMuI7/Jcxv0qY1yShjpcKQ694jxm5Q=;
-        b=Qz/WFGhvsJMAfxfuClk7UcCluhqSfzkSkJewX/ZvBaowQlkNbCfuYh9NnPE05vxibS
-         rWxpM9f6EJpeethXYeHtQ+Ka18HBecxcMfRI8pTUWihotxK9aTSordveOf+Ck7vXKFZM
-         Ao7O6tNhntUUuloCoz8+EZxy5Vc3eVS67Zp2rBqDmBS5qacshyhF+EqjbdMmIE1t9ibt
-         NgqyR8LQb+SZqN2A1ljscRbJYZfdigcxtQmJuKg573jPCcux8go4rteVacVNQe+I2ceO
-         K4UO7cuH19RDV+QQirh1RXzAlVQO6wUuIWmwuirWV/BO785ZRxGfN45/vFQ6RqdQtx2P
-         Aoow==
-X-Gm-Message-State: AOJu0YyZHul7cLJzaBmxsOGnLBt+UAGWzZ+JAsLNdEcdiIG+dOFvUXb0
-	a0McaWk6Z6ggoBUyr6p41CKqdEOiGdL6SCav3pN0S61Ah78XVM6NrMCHLJrpvIqaAy4=
-X-Gm-Gg: ASbGncvukimz8qrRxvtzvmfmfipSNhPEDgxdV7qjZyNmj0dLhHSvSCPdNLU36ARI6wd
-	6Dv4SzITV/RB7h5CK0PZNeHXPRrzP1Bhl0QMaaWxz5XWHY6gq9TOnoZmAOFd+/s4Iz5mTmVLYP5
-	X+wPlOeBqiM+5XlkzZhApF7NhdrmgzPh6jDZ0EJdK6Hi0mFGxWrBpGozyzf1LW/JaTurJZ0rpOQ
-	aVH2uP52aH6209Y/w69cVZYDaIvetz7GtWTzC0owOQy+lFpUswMcSNuJAaGiMzyecEOopR1oieH
-	Z3g7ySW80OqeneccJujHXi9ZTkXZFjv6WdSpG5z9gV54HAhyr+AZmXHgDQjwR1pWNh0/sfyZ5E6
-	1kv+wLxtKhQs1tlr0iVc7J5bCTYmviRn6c2N/cuqBnLv1vwYvzVMZ5juCifC3PUGYUyoM
-X-Google-Smtp-Source: AGHT+IF8n0iu976Dai538Iar5sFYvijTM2LBx5PULRxNLxAmEJRIFjrQt07F6tXAuSms5aqALW4dVw==
-X-Received: by 2002:a05:600c:5490:b0:459:d645:bff7 with SMTP id 5b1f17b1804b1-459f4f52999mr115874275e9.12.1754918208077;
-        Mon, 11 Aug 2025 06:16:48 -0700 (PDT)
-Message-ID: <4fb544d7-fede-46b8-950e-f9c4af1cb04f@citrix.com>
-Date: Mon, 11 Aug 2025 14:16:46 +0100
+        bh=1QakprPly9v0H+YwMbntGulgbO21nLMu9KER28L80Gs=;
+        b=FqCjFAkiqI/O1T7prkr3JylqG17b2N6ZrzJfNVxomVfK2re0H2MoRfZKxgevqhGzCP
+         GZWef/+l5/O7UnzvfZflm/sAzMzQmRrKv+Gk56yaVYX+XVLz7xPH2GaIh+l6dYKnTUX0
+         G0LooqUXQUdyYW0oXDBQPZpHWxIj380g+HJL9OzyUc99VaLmcs7eArHYRdQ/63Os1Fuw
+         g+vtAUR9ARbz1Vwt9N/7IylvKa56k3U5Mf1yj7U+hONlkCptuVckpYiz5FOoSiPGREv/
+         6oYxpCeP1M8oMbngX13peQ3PN1ITZtUaos89E5I0CJV8BbnYZ3ongiBK7D7+hBTeEkt4
+         WHDg==
+X-Forwarded-Encrypted: i=1; AJvYcCXVmZU7/cDopuiad4LtDIoVUNUhtbXQmo6nrKHH6TlIbRiLOvaj7acFjicpH31h2lkAIuudf1y1FiE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzxfDO12pQ9Hv3N3Mt+q/+rkhHFnC6FMtskqvgHW3BjvpSsAfw2
+	DPESb3IPnlmqChIt6oR7GTWAM8hdUJHev+1Iuy1EGOFpWuz+iHt4MH+0/9g5YvP+jg==
+X-Gm-Gg: ASbGnctnus9P+T5Wu38A2FE7i8LwbfqqaRZkBJZmMPTT4ulZXodatmnJ3nAktRyEVha
+	mPSJTG40Lw/wPO9Yx1DZdWZU1dxv6ceA4MAxinV7oSH3QcKG2X0XmLEReNs07WUvZtJJ1G9tlJr
+	Z+JEZBO+9SZxTFMhPm6AW4Q8C33Hj+NRTB6ZZGdzjdVjmMyEOHXJPBQmstBt2VUyle8sNoa8v6g
+	MekmT0rsuT+vfRtvaYlOlEoFa5WUe5z0g/lRxUwYYrFpf89uV3sDYnfIYCXvRko9AgKtCsqk3Fb
+	yRSmFEwqU9v/tjZCTWkBz8HHnb5oEiEWqdf/Q6nkd6R2cOywqaitVfi1eIKvwBitGfC4Ku5UCpm
+	HbDp+aBMOFSMEmGS0qoy5Njm0I4niCHabt5a07kzFmQueVOjRh5APBLFEyReUO8FOG9fzExwOXk
+	pf1VLMU9g=
+X-Google-Smtp-Source: AGHT+IHY4Rm+lGrXLtN2Td2JlKwbYXsjIbG9k3+P4y+Q8mBCEV0q5v2le7EJnCJ4dLrAiWEuSf5YSg==
+X-Received: by 2002:a17:907:3d8d:b0:af9:5ca0:e4fe with SMTP id a640c23a62f3a-af9c6608b5amr1158947566b.56.1754918710929;
+        Mon, 11 Aug 2025 06:25:10 -0700 (PDT)
+Message-ID: <f7f81e65-5c85-4e30-a68b-01cdcf51dc07@suse.com>
+Date: Mon, 11 Aug 2025 15:25:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: S3 regression related to XSA-471 patches
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-References: <aJMtPLNqQFbGg5cs@mail-itl>
- <f971f8a8-487e-4b9f-8c75-80ebfe70c3b6@suse.com> <aJMyjYfeTL5uPRtk@mail-itl>
- <aJTilUXpchmRq2Ng@mail-itl>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <aJTilUXpchmRq2Ng@mail-itl>
+Subject: Re: [PATCH v3 19/20] xen/riscv: add support of page lookup by GFN
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
+ <24bb8ca6ad9d325f48d0c64b0fa461db5f0d0cc5.1753973161.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <24bb8ca6ad9d325f48d0c64b0fa461db5f0d0cc5.1753973161.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 07/08/2025 6:29 pm, Marek Marczykowski-Górecki wrote:
-> On Wed, Aug 06, 2025 at 12:46:36PM +0200, Marek Marczykowski-Górecki wrote:
->> On Wed, Aug 06, 2025 at 12:36:56PM +0200, Jan Beulich wrote:
->>> On 06.08.2025 12:23, Marek Marczykowski-Górecki wrote:
->>>> We've got several reports that S3 reliability recently regressed. We
->>>> identified it's definitely related to XSA-471 patches, and bisection
->>>> points at "x86/idle: Remove broken MWAIT implementation". I don't have
->>>> reliable reproduction steps, so I'm not 100% sure if it's really this
->>>> patch, or maybe an earlier one - but it's definitely already broken at
->>>> this point in the series. Most reports are about Xen 4.17 (as that's
->>>> what stable Qubes OS version currently use), but I think I've seen
->>>> somebody reporting the issue on 4.19 too (but I don't have clear
->>>> evidence, especially if it's the same issue).
->>> At the time we've been discussing the explicit raising of TIMER_SOFTIRQ
->>> in mwait_idle_with_hints() a lot. If it was now truly missing, that imo
->>> shouldn't cause problems only after resume, but then it may have covered
->>> for some omission during resume. As a far-fetched experiment, could you
->>> try putting that back (including the calculation of the "expires" local
->>> variable)?
->> Sure, I'll try.
-> It appears this fixes the issue, at least in ~10 attempts so far
-> (usually I could reproduce the issue after 2-3 attempts).
->
+On 31.07.2025 17:58, Oleksii Kurochko wrote:
+> Introduce helper functions for safely querying the P2M (physical-to-machine)
+> mapping:
+>  - add p2m_read_lock(), p2m_read_unlock(), and p2m_is_locked() for managing
+>    P2M lock state.
+>  - Implement p2m_get_entry() to retrieve mapping details for a given GFN,
+>    including MFN, page order, and validity.
+>  - Add p2m_lookup() to encapsulate read-locked MFN retrieval.
+>  - Introduce p2m_get_page_from_gfn() to convert a GFN into a page_info
+>    pointer, acquiring a reference to the page if valid.
+>  - Introduce get_page().
+> 
+> Implementations are based on Arm's functions with some minor modifications:
+> - p2m_get_entry():
+>   - Reverse traversal of page tables, as RISC-V uses the opposite level
+>     numbering compared to Arm.
+>   - Removed the return of p2m_access_t from p2m_get_entry() since
+>     mem_access_settings is not introduced for RISC-V.
+>   - Updated BUILD_BUG_ON() to check using the level 0 mask, which corresponds
+>     to Arm's THIRD_MASK.
+>   - Replaced open-coded bit shifts with the BIT() macro.
+>   - Other minor changes, such as using RISC-V-specific functions to validate
+>     P2M PTEs, and replacing Arm-specific GUEST_* macros with their RISC-V
+>     equivalents.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+> Changes in V3:
+>  - Add is_p2m_foreign() macro and connected stuff.
 
-Can you show the exact code which seems to have made this stable?
+What is this about?
 
-We discussed this in the x86 maintainers meeting, and our best guess is
-a timer that's not torn down or recreated properly on S3, but this is
-largely speculation.
+> --- a/xen/arch/riscv/include/asm/p2m.h
+> +++ b/xen/arch/riscv/include/asm/p2m.h
+> @@ -202,6 +202,24 @@ static inline int p2m_is_write_locked(struct p2m_domain *p2m)
+>  
+>  unsigned long construct_hgatp(struct p2m_domain *p2m, uint16_t vmid);
+>  
+> +static inline void p2m_read_lock(struct p2m_domain *p2m)
+> +{
+> +    read_lock(&p2m->lock);
+> +}
+> +
+> +static inline void p2m_read_unlock(struct p2m_domain *p2m)
+> +{
+> +    read_unlock(&p2m->lock);
+> +}
+> +
+> +static inline int p2m_is_locked(struct p2m_domain *p2m)
 
-~Andrew
+bool return type (also for p2m_is_write_locked() in patch 11)? Also perhaps
+pointer-to-const parameter?
+
+> --- a/xen/arch/riscv/p2m.c
+> +++ b/xen/arch/riscv/p2m.c
+> @@ -852,3 +852,139 @@ int map_regions_p2mt(struct domain *d,
+>  {
+>      return p2m_insert_mapping(p2m_get_hostp2m(d), gfn, nr, mfn, p2mt);
+>  }
+> +
+> +/*
+> + * Get the details of a given gfn.
+> + *
+> + * If the entry is present, the associated MFN will be returned type filled up.
+
+This sentence doesn't really parse, perhaps due to missing words.
+
+> + * The page_order will correspond to the order of the mapping in the page
+> + * table (i.e it could be a superpage).
+> + *
+> + * If the entry is not present, INVALID_MFN will be returned and the
+> + * page_order will be set according to the order of the invalid range.
+> + *
+> + * valid will contain the value of bit[0] (e.g valid bit) of the
+> + * entry.
+> + */
+> +static mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
+> +                           p2m_type_t *t,
+> +                           unsigned int *page_order,
+> +                           bool *valid)
+> +{
+> +    unsigned int level = 0;
+> +    pte_t entry, *table;
+> +    int rc;
+> +    mfn_t mfn = INVALID_MFN;
+> +    DECLARE_OFFSETS(offsets, gfn_to_gaddr(gfn));
+> +
+> +    ASSERT(p2m_is_locked(p2m));
+> +    BUILD_BUG_ON(XEN_PT_LEVEL_MAP_MASK(0) != PAGE_MASK);
+
+What function-wide property is this check about? Even when moved ...
+
+> +    if ( valid )
+> +        *valid = false;
+> +
+> +    /* XXX: Check if the mapping is lower than the mapped gfn */
+
+(Nested: What is this about?)
+
+> +    /* This gfn is higher than the highest the p2m map currently holds */
+> +    if ( gfn_x(gfn) > gfn_x(p2m->max_mapped_gfn) )
+> +    {
+> +        for ( level = P2M_ROOT_LEVEL; level; level-- )
+> +            if ( (gfn_x(gfn) & (XEN_PT_LEVEL_MASK(level) >> PAGE_SHIFT)) >
+
+... into the more narrow scope where another XEN_PT_LEVEL_MASK() exists I
+can't really spot what the check is to guard against.
+
+> +                 gfn_x(p2m->max_mapped_gfn) )
+> +                break;
+> +
+> +        goto out;
+> +    }
+> +
+> +    table = p2m_get_root_pointer(p2m, gfn);
+> +
+> +    /*
+> +     * the table should always be non-NULL because the gfn is below
+> +     * p2m->max_mapped_gfn and the root table pages are always present.
+> +     */
+
+Nit: Style.
+
+> +    if ( !table )
+> +    {
+> +        ASSERT_UNREACHABLE();
+> +        level = P2M_ROOT_LEVEL;
+> +        goto out;
+> +    }
+> +
+> +    for ( level = P2M_ROOT_LEVEL; level; level-- )
+> +    {
+> +        rc = p2m_next_level(p2m, true, level, &table, offsets[level]);
+
+Why would you blindly allocate a page table (hierarchy) here? If anything,
+this may need doing upon caller request (as it's only up the call chain
+where the necessary knowledge exists). For example, ...
+
+> +static mfn_t p2m_lookup(struct p2m_domain *p2m, gfn_t gfn, p2m_type_t *t)
+> +{
+> +    mfn_t mfn;
+> +
+> +    p2m_read_lock(p2m);
+> +    mfn = p2m_get_entry(p2m, gfn, t, NULL, NULL);
+
+... this (by its name) pretty likely won't want allocation, while ...
+
+> +    p2m_read_unlock(p2m);
+> +
+> +    return mfn;
+> +}
+> +
+> +struct page_info *p2m_get_page_from_gfn(struct p2m_domain *p2m, gfn_t gfn,
+> +                                        p2m_type_t *t)
+> +{
+
+... this will. Yet then ...
+
+> +    struct page_info *page;
+> +    p2m_type_t p2mt = p2m_invalid;
+> +    mfn_t mfn = p2m_lookup(p2m, gfn, t);
+
+... you use the earlier one here.
+
+> +    if ( !mfn_valid(mfn) )
+> +        return NULL;
+> +
+> +    if ( t )
+> +        p2mt = *t;
+> +
+> +    page = mfn_to_page(mfn);
+> +
+> +    /*
+> +     * get_page won't work on foreign mapping because the page doesn't
+> +     * belong to the current domain.
+> +     */
+> +    if ( p2m_is_foreign(p2mt) )
+> +    {
+> +        struct domain *fdom = page_get_owner_and_reference(page);
+> +        ASSERT(fdom != NULL);
+> +        ASSERT(fdom != p2m->domain);
+> +        return page;
+
+In a release build (with no assertions) this will be wrong if either of the
+two condition would not be satisfied. See x86'es respective code.
+
+Jan
 
