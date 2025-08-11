@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1892B1FF6D
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 08:38:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1076915.1438024 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D59BDB2003B
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 09:25:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1076943.1438038 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulM9b-0005zN-1N; Mon, 11 Aug 2025 06:37:07 +0000
+	id 1ulMtb-0003mc-Dv; Mon, 11 Aug 2025 07:24:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1076915.1438024; Mon, 11 Aug 2025 06:37:06 +0000
+Received: by outflank-mailman (output) from mailman id 1076943.1438038; Mon, 11 Aug 2025 07:24:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulM9a-0005wT-Ta; Mon, 11 Aug 2025 06:37:06 +0000
-Received: by outflank-mailman (input) for mailman id 1076915;
- Mon, 11 Aug 2025 06:37:05 +0000
+	id 1ulMtb-0003kz-Ay; Mon, 11 Aug 2025 07:24:39 +0000
+Received: by outflank-mailman (input) for mailman id 1076943;
+ Mon, 11 Aug 2025 07:24:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=92re=2X=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ulM9Z-0005wL-9S
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 06:37:05 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ku41=2X=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ulMta-0003kt-1y
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 07:24:38 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 928dd67e-767d-11f0-b898-0df219b8e170;
- Mon, 11 Aug 2025 08:36:55 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3b783ea5014so2067616f8f.0
- for <xen-devel@lists.xenproject.org>; Sun, 10 Aug 2025 23:36:55 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b8e009e465sm30837961f8f.43.2025.08.10.23.36.53
+ id 396a6ef7-7684-11f0-b898-0df219b8e170;
+ Mon, 11 Aug 2025 09:24:32 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-615398dc162so6382196a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 00:24:32 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-615a8fe7944sm17707156a12.33.2025.08.11.00.24.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 10 Aug 2025 23:36:53 -0700 (PDT)
+ Mon, 11 Aug 2025 00:24:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,158 +45,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 928dd67e-767d-11f0-b898-0df219b8e170
+X-Inumbo-ID: 396a6ef7-7684-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1754894214; x=1755499014; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754897071; x=1755501871; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=da6plSrU7tXzWlA0zgg2moTYg2a1oxT5nHXgJraLh08=;
-        b=mmfcLsSI0AhKrXTnjFbPGq64bANMMoCskYRmZ4/x4orOnkqtj5gCwdFHKnEnt2q0HL
-         kSdqiH8oRCWPRyGuk8fNVBV4Fb8XsdgyhygrvlyG3+MXgjuFExr4G1Z5gOQBIdX/77q/
-         VKfKkS5NTAgoMdkOEVYTuQmxZUr3mFFI1+mq4=
+        bh=zDlCfej6ttBAkB6klhF/uEI3o5KH14EGls0y+nduFas=;
+        b=erjoXBfDLrDGLiiv2zVWVTZ6ze8v90KD2K9u6pxyvhr71vFMaJZaM67gARw38V5+Ah
+         cdZqdsTs5YJ/olyLuKCaIMgjVdbOPljUQpok8Qip4YmrLehPCi+r8Fi7kWOKDFo1XvXS
+         XtQtF/LP1F88FE11BhgUdvh9IumiFsS+ZMcMcOQWv1x0GU8Fool+vMwDuT6q18RBZa5G
+         JCyYPb84rErHvjPdSlDA0iJ2DSIsaQ6ydeD3IP+xxMuvbY43CkoknWOFbHG28BSBRnkK
+         D1bl5qXzRrVxMpAA/nRpEH9ndM4mdp4GnAgn8XnBDLddR4kZeYvZywJRqF8JGE+Cv++f
+         jEgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754894214; x=1755499014;
+        d=1e100.net; s=20230601; t=1754897071; x=1755501871;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=da6plSrU7tXzWlA0zgg2moTYg2a1oxT5nHXgJraLh08=;
-        b=pEkoD7DC8pSKEqyYsWEIt+5UDjmGURc1CO1MoB7GRoFtDkXtbkhMuUE3W0mINlAdYq
-         XJFZc+a9hXO3/D7POocBO49/JUYP4symq3RYeUcXB4grylXGWZbsRgAge/z/NK3FBR/x
-         WWWBHCLz0Y7cTbAaGtOWKzBQdmwDGnbtjOvWDg8I++UDeHIbDUpF8GIcPW4pX9KH5txN
-         ABYv0SvVz644mShfnayEwyULOnfQ6v39ulcv/6hr47bV8Mq1eE2MonYSUqkk3w5toTpO
-         pYW1oMJtkPpkTZenxVXWNiRu1Lm2XzWczeHTg525HaZXMyI5IOdUvDFDymMElJK9hEZ/
-         cZrA==
-X-Gm-Message-State: AOJu0YwfNUZYIoCEg535AC3+r5IaVH/7KFOpUV4RYPBE+uzl1FT329IF
-	EWGT/OsyDUzyR9fvF0oPY+inpW8NFdv8iS0rBkQ+7RnL+jEr2JR1XSkDzFuxxTXKLFrY6EYlnJ6
-	adCK5ROA=
-X-Gm-Gg: ASbGnctO1K6edBG1EkYdLeLXE6L2NCLIsYZMJ4BWCnCIn8B8K3zX5cAQQ7dyY0Nedf+
-	1jF9SnPud6m5N0wugOgqcVeliYD9rCGLA4POFRgej37aJrRhXRjft2pWpGD2tyAlAmwq8SAfNrk
-	aspCso3k7nPrPAhwaWizJkMd/wNkBETVasmQB+SOz0oVy+A8qDU+bHVBi/xq8hmFqichiKvuPpu
-	UaSBsUt/gYBaFKM36MRDn2wqOZxGdBjwDykpFKiKkq4IavXSKSm3SHq2vP36VM5HlPbN1+8hPkr
-	+F7d5UuSxNgsLoXszW0ZkZXG53toGCQhmd3eSn0pDNZ48aem9PFRoQTHfLnhYp8kC3rnXh2/NIk
-	nOsBNZk6INPkhrpMrjuKrkNTSQ4EgcGJZT83JOO71qo7WuhcPSZfFR+6F//gOB0cWfbXs
-X-Google-Smtp-Source: AGHT+IE67wkAKEQqwyB8+ailwpG3sfceZbqpcFOqQ17X8wFak8hbEOyXyjnM3yvipSzbiLhuKT7tKw==
-X-Received: by 2002:a05:6000:40ce:b0:3b7:c703:ce4 with SMTP id ffacd0b85a97d-3b900b6aad8mr7998590f8f.59.1754894214269;
-        Sun, 10 Aug 2025 23:36:54 -0700 (PDT)
-Message-ID: <be2b70cc-11ba-4f3a-b0b8-0ead6d14934f@citrix.com>
-Date: Mon, 11 Aug 2025 07:36:52 +0100
+        bh=zDlCfej6ttBAkB6klhF/uEI3o5KH14EGls0y+nduFas=;
+        b=wqmh3ukRn0epOOmZctt/8V96xS4x0MDzkqev1ImvsBVbwfTz3ZXRB9GPKmklomSfEw
+         m4AhSVNeStYD97BndzD5gox4csoajEpK5Lo6OXrZiwzVeh3gtmAfHeUDb2zSoJl+VBoj
+         NKC3FxzNdOXL7e45WTtRkOP0zQm8nz8vb9AmOLj8xnOyyC+7wgw2IDUEatthmI4PQSr0
+         scio7ENIegPgcbEX/PDYpo3YFHFTGEJibz9r3cWFPXs9OkLXB3AjVH10nKkJJtto5NMY
+         /1HgW5Rkh8L+7scw7K/E8/lAxfdHLHUGrs0dudPyJmh/DHhpwRWBhgeNI6YzKzzht9KW
+         8tnQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXdtD69e75E+Pfhs/C3TBwBk8REh8bqONtie56ynIhsXDO3tkn0MLGbucw256Elp3mjjK9u9A38kIE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwuxkK2woaUucAKPx7PVuGC3SrGidKwsps/yf/Mj3m9ln6MeTrK
+	O9FGRC7a8KZK+Ttetj+1Odo2wud57ztTI+L21fKNce8j4CTYZHRZx9u9kE1SIWhtEw==
+X-Gm-Gg: ASbGncuUmIBIMWuDnr8qnZXlbniB8496mTTktuoE+zxTC+EbcGm+eJ/swpOjILPxDkq
+	FqawyAEs3Z6kZTPGDmP1CCsoYVOBDvrZRWvdSwGm1+dXqilIdJNY1bWvZRvb4Q3rsdj6wAmAnbd
+	MFB3UXMIqDhbuH9iMxVF/x7EdxvJc2B8Cszg9qWQEtayGTCN3Oy3TzE1FKHqde+8HQ9X45BtpTP
+	Nw+zLcJnKNkW4kWin1PMI+N+S5DBjvPllqwcxTRVh0tmFO04nXhhbxm7Hi10p8PKp/cla0cuJhF
+	z/r7/E/qHJf421pOr1Jonav/XddDr2HFb69VP9oxSJFdyec7poW/jDsLt/eox8aPhy49gSt1xHz
+	uHKOm8Njc3Xx4Qy233JFWiBwvcUZkM6t5fUg5MYSv1axFzrJ4Ct5G1lH8RBwe6v9pacrhx6kpSP
+	uegLTq3d0=
+X-Google-Smtp-Source: AGHT+IFlA77HUI4WF7UNYhvRZp3saESxGcVEbIsjsAYLw7MSg5zI/N/QFbS9pgfzqMjFAfvKo/JUxg==
+X-Received: by 2002:a17:906:4788:b0:ae9:8dc8:511c with SMTP id a640c23a62f3a-af9c641a806mr1021904666b.13.1754897071474;
+        Mon, 11 Aug 2025 00:24:31 -0700 (PDT)
+Message-ID: <5e4b3bb2-653e-46cf-9fc3-5bf57296f2c0@suse.com>
+Date: Mon, 11 Aug 2025 09:24:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/22] x86/msr: Rename wrmsr_ns() to wrmsrns(), and take
- 64bit value
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
- <20250808202314.1045968-3-andrew.cooper3@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20250808202314.1045968-3-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v11 1/5] vpci: Use cleanup to free capability resource
+ during deassign
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250808080337.28609-1-Jiqian.Chen@amd.com>
+ <20250808080337.28609-2-Jiqian.Chen@amd.com>
+ <31f9800f-5d2a-4614-9850-07d6bbe232d8@suse.com>
+ <BL1PR12MB584915F4FA5E4366E0338FC0E728A@BL1PR12MB5849.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <BL1PR12MB584915F4FA5E4366E0338FC0E728A@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 08/08/2025 9:22 pm, Andrew Cooper wrote:
-> In hindsight, having the wrapper name not be the instruction mnemonic was a
-> poor choice.  Also, PKS turns out to be quite rare in wanting a split value.
->
-> Switch to using a single 64bit value in preparation for new users.
->
-> No functional change.
->
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> ---
->  xen/arch/x86/include/asm/msr.h      | 4 ++--
->  xen/arch/x86/include/asm/prot-key.h | 4 ++--
->  2 files changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/xen/arch/x86/include/asm/msr.h b/xen/arch/x86/include/asm/msr.h
-> index 4c4f18b3a54d..b6b85b04c3fd 100644
-> --- a/xen/arch/x86/include/asm/msr.h
-> +++ b/xen/arch/x86/include/asm/msr.h
-> @@ -39,7 +39,7 @@ static inline void wrmsrl(unsigned int msr, uint64_t val)
->  }
->  
->  /* Non-serialising WRMSR, when available.  Falls back to a serialising WRMSR. */
-> -static inline void wrmsr_ns(uint32_t msr, uint32_t lo, uint32_t hi)
-> +static inline void wrmsrns(uint32_t msr, uint64_t val)
->  {
->      /*
->       * WRMSR is 2 bytes.  WRMSRNS is 3 bytes.  Pad WRMSR with a redundant CS
-> @@ -47,7 +47,7 @@ static inline void wrmsr_ns(uint32_t msr, uint32_t lo, uint32_t hi)
->       */
->      alternative_input(".byte 0x2e; wrmsr",
->                        ".byte 0x0f,0x01,0xc6", X86_FEATURE_WRMSRNS,
-> -                      "c" (msr), "a" (lo), "d" (hi));
-> +                      "c" (msr), "a" (val), "d" (val >> 32));
->  }
+On 11.08.2025 06:04, Chen, Jiqian wrote:
+> On 2025/8/8 16:58, Jan Beulich wrote:
+>> On 08.08.2025 10:03, Jiqian Chen wrote:
+>>> @@ -321,6 +321,29 @@ void vpci_deassign_device(struct pci_dev *pdev)
+>>>                      &pdev->domain->vpci_dev_assigned_map);
+>>>  #endif
+>>>  
+>>> +    for ( i = 0; i < NUM_VPCI_INIT; i++ )
+>>> +    {
+>>> +        const vpci_capability_t *capability = &__start_vpci_array[i];
+>>> +        const unsigned int cap = capability->id;
+>>> +        unsigned int pos = 0;
+>>> +
+>>> +        if ( !capability->cleanup )
+>>> +            continue;
+>>> +
+>>> +        if ( !capability->is_ext )
+>>> +            pos = pci_find_cap_offset(pdev->sbdf, cap);
+>>> +        else if ( is_hardware_domain(pdev->domain) )
+>>> +            pos = pci_find_ext_capability(pdev->sbdf, cap);
+>>> +        if ( pos )
+>>> +        {
+>>> +            int rc = capability->cleanup(pdev, false);
+>>> +            if ( rc )
+>>
+>> Nit: Blank line between declaration(s) and statement(s) please. (Likely
+>> easy enough to adjust while committing, if no other need for a v12
+>> arises.)
+> Thanks.
+> BTW, do I need for-4.21 flag if I expect this series to be merged before 4.21 release?
 
-It turns out this is the case poor code generation for MSR_STAR.
+I wouldn't say "need", but adding such a tag may now be advisable.
 
-I've adjusted it to:
-
-@@ -39,8 +39,10 @@ static inline void wrmsrl(unsigned int msr, uint64_t val)
- }
- 
- /* Non-serialising WRMSR, when available.  Falls back to a serialising WRMSR. */
--static inline void wrmsr_ns(uint32_t msr, uint32_t lo, uint32_t hi)
-+static inline void wrmsrns(uint32_t msr, uint64_t val)
- {
-+    uint32_t lo = val, hi = val >> 32;
-+
-     /*
-      * WRMSR is 2 bytes.  WRMSRNS is 3 bytes.  Pad WRMSR with a redundant CS
-      * prefix to avoid a trailing NOP.
-
-
-which stops the compiler from loading the high half of %rax too.
-
-~Andrew
+Jan
 
