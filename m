@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3724B20C0B
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 16:36:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077695.1438726 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE370B20C17
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 16:38:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077708.1438735 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulTcx-0007F7-W1; Mon, 11 Aug 2025 14:35:55 +0000
+	id 1ulTer-0007qu-Ek; Mon, 11 Aug 2025 14:37:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077695.1438726; Mon, 11 Aug 2025 14:35:55 +0000
+Received: by outflank-mailman (output) from mailman id 1077708.1438735; Mon, 11 Aug 2025 14:37:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulTcx-0007Dg-Sb; Mon, 11 Aug 2025 14:35:55 +0000
-Received: by outflank-mailman (input) for mailman id 1077695;
- Mon, 11 Aug 2025 14:35:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8H9H=2X=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1ulTcw-0007DC-00
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 14:35:54 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7b61603d-76c0-11f0-a325-13f23c93f187;
- Mon, 11 Aug 2025 16:35:53 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-459e20ec1d9so44250905e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 07:35:52 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-459e587d378sm255047825e9.23.2025.08.11.07.35.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Aug 2025 07:35:51 -0700 (PDT)
+	id 1ulTer-0007oX-Bx; Mon, 11 Aug 2025 14:37:53 +0000
+Received: by outflank-mailman (input) for mailman id 1077708;
+ Mon, 11 Aug 2025 14:37:51 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <anthony@xenproject.org>) id 1ulTep-0007oR-Sh
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 14:37:51 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <anthony@xenproject.org>) id 1ulTeo-00072X-0l;
+ Mon, 11 Aug 2025 14:37:50 +0000
+Received: from [2a01:cb15:80df:da00:c70a:43d:5717:e951] (helo=l14)
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <anthony@xenproject.org>) id 1ulTeo-000Dfp-0m;
+ Mon, 11 Aug 2025 14:37:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,126 +39,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b61603d-76c0-11f0-a325-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1754922952; x=1755527752; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=GTUev54ZcTfpbtj0slFOAhsdQHUK4EUNpAEgpCcOuvE=;
-        b=k45mmMiJw7QHUvmJ8l5ZZtsWmJVM67seTDo96RxFwMjQnwN9TiVYEL7dDJdnAIEvjd
-         gIdoSTse6/tk3/AEJHrg9Lqm1/qp7jsFG7rhGG2gs9LbAcIBYPKqtS6SE9ykdSfHKjSA
-         LqzwJnS7MG69R1BTxZaZ9r1WagHhDMuz1Eo3I=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754922952; x=1755527752;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GTUev54ZcTfpbtj0slFOAhsdQHUK4EUNpAEgpCcOuvE=;
-        b=lPAUM9h2uDpnKYL9D2sZrIe+sU+tGjXj4rtHTQEf2g1c3s16WuOTtQOwush1bm2Sn+
-         mZVAHQN+sadDv1lWpiI5w7McCxByZN4w2W96vBwkJB2c9bYegt1F6esYsEbYG919boj8
-         kKSKVh+CPL7jddTwsVvzw6jZU6PM5vVJYpH9ayoLJE7/cINHH9mH8FePLNarZyEMUtOe
-         PIayFNIhj220GS3bzCRYEegXlHl3sVzG2TdtsZ4SZA3X2K9PEGkCMljZRp9CVtF0tzu/
-         QzctObL3L5JK9jQ0mapaGcIEWZWGXmtEbcPOrv20MZALDH53CBLpzRUAmkDR5yMyEbW8
-         RaRA==
-X-Forwarded-Encrypted: i=1; AJvYcCUPz6a1YRhgTRy+LzsM9h8DPt8LRWif92IRv10RbgsCzQNUzKrXv/MIukHOrEHNl5ZbLkM0ELyso4A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzHqSIvRWr0XQFyPEeC9ttDtuXjupsyo8vWEB7ybGiPfB9AVV5A
-	71Zptw78vV2vbe8dZDBE3m2Sl+1vIn6yA508wczk+cRmhUBWOHHFrCd7O1kwO9bErx0=
-X-Gm-Gg: ASbGncvr2A1iS9TyUMMwBgNhsjEUIYdo3Jya+Zann7NPrpR1dlZWvIL0ibL0zZii4LJ
-	9rRxX7uveNd5rVLnWD9zASs6Q87obsV7i0XT3vyGbN8YT6oMapOWfZeltTGSz/5ifnCEErOyc4F
-	QDz+8E4Jli3f29+UMfhUIjekMdbHszwxNQDAf+gFew+TUu1vIJ5kT8JaH6fQJoPbthjKtjV35mh
-	H/D6M475m9NbTj0evFk3AG++FDZEZ3/ON1RFSfL/9KvhX5IRpJ/YOSEUftw1MEdLdBTlsUfhiIi
-	uL+23PgBqQxLV87MSc42NPzhIVkNOj9kDFFd1BASDYXifK0R0duPc1I8VKruYJl/g3yOZs8W2Oc
-	D/UIGjEPghQKzvy03hoQRC6FUG0fOz20iDQDAKwWQ6AfS5ELiTyPZN2hgR+BK7qlwTwql1uZOnT
-	VQ
-X-Google-Smtp-Source: AGHT+IFLT/Dy8tcf/vsaSHC663m+mEX+vX5uYQIc1kukmhi8UimxCTzELxuGhOEn9DNofrW+WR5YTA==
-X-Received: by 2002:a05:600c:3b99:b0:458:bbed:a827 with SMTP id 5b1f17b1804b1-459f4f3dc39mr100977145e9.1.1754922951809;
-        Mon, 11 Aug 2025 07:35:51 -0700 (PDT)
-Date: Mon, 11 Aug 2025 16:35:50 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: nicola.vetrini@gmail.com, xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date;
+	bh=pUvTOK7d21O0RFicswGWQ0GbYd+15lKWkdu6ppvKHpo=; b=5wOqFEDbqb5Cb1jPgNe0arN0a1
+	KgHFc4xsTJc1RHRPDDZZXQp7ivUafeC+H6hgmFYCW2XbX4LjHTc5ErnhAejQbbvpk99SKXYgXr5yk
+	NWDzmuNaC8dfv4Jw0SBSDD8n4Kegn7m6JbVzHKzm82byydfCMhF9qcy3Fy0hiymOZ+Hc=;
+Date: Mon, 11 Aug 2025 16:37:47 +0200
+From: Anthony PERARD <anthony@xenproject.org>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
 	Anthony PERARD <anthony.perard@vates.tech>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Community Manager <community.manager@xenproject.org>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH] xen: Drop logic for old clang versions.
-Message-ID: <aJn_xi5dVD3-imnz@macbook.local>
-References: <e8bb42876317c19aca79f81c3fc48dc3a4fdaf71.1754830862.git.nicola.vetrini@bugseng.com>
- <aJmgCv4wgl-IHupn@macbook.local>
- <2ca7082120df5e1ad6a29582d6dfb215@bugseng.com>
+Subject: Re: [XEN PATCH 11/11] Update CHANGELOG and README with dependency on
+ json-c
+Message-ID: <aJoAO2NOLtIxBbAf@l14>
+References: <20250808145602.41716-1-anthony@xenproject.org>
+ <20250808145602.41716-12-anthony@xenproject.org>
+ <2f073fa0-5064-4cd2-b332-c3a6ceaf537a@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <2ca7082120df5e1ad6a29582d6dfb215@bugseng.com>
+In-Reply-To: <2f073fa0-5064-4cd2-b332-c3a6ceaf537a@citrix.com>
 
-On Mon, Aug 11, 2025 at 11:37:46AM +0200, Nicola Vetrini wrote:
-> On 2025-08-11 09:47, Roger Pau Monn√© wrote:
-> > On Sun, Aug 10, 2025 at 03:03:53PM +0200, nicola.vetrini@gmail.com
-> > wrote:
-> > > From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> > > 
-> > > The enforced toolchain baseline for clang is version 11,
-> > > therefore this logic is effectively dead code.
-> > > 
-> > > No functional change.
-> > > 
-> > > Signed-off-by: Nicola Vetrini <nicola.vetrini@gmail.com>
-> > 
-> > Acked-by: Roger Pau Monn√© <roger.pau@citrix.com>
-> > 
-> > > ---
-> > > Mentioned in https://gitlab.com/xen-project/xen/-/issues/201
-> > > ---
-> > >  xen/common/coverage/llvm.c   | 4 ----
-> > >  xen/include/xen/self-tests.h | 9 +--------
-> > >  2 files changed, 1 insertion(+), 12 deletions(-)
-> > > 
-> > > diff --git a/xen/common/coverage/llvm.c b/xen/common/coverage/llvm.c
-> > > index 50d7a3c5d301..517b2aa8c202 100644
-> > > --- a/xen/common/coverage/llvm.c
-> > > +++ b/xen/common/coverage/llvm.c
-> > > @@ -44,12 +44,8 @@
-> > >      ((uint64_t)'f' << 16) | ((uint64_t)'R' << 8)  | ((uint64_t)129)
-> > >  #endif
-> > > 
-> > > -#if __clang_major__ >= 4 || (__clang_major__ == 3 &&
-> > > __clang_minor__ >= 9)
-> > >  #define LLVM_PROFILE_VERSION    4
-> > >  #define LLVM_PROFILE_NUM_KINDS  2
-> > > -#else
-> > > -#error "clang version not supported with coverage"
-> > > -#endif
-> > 
-> > Rant: most of the LLVM coverage stuff is already kind of dead code, as
-> > the format of the data changes between versions and there's no way for
-> > LLVM to generate the blob itself using a builtin function or
-> > similar.  We haven't kept up with new formats, and now it's not
-> > possible to parse the output coverage data when using newish LLVM
-> > versions.
-> > 
-> > Linux converts it's LLVM coverage data to gcov format (which AFAIK is
-> > way more stable), and exports it in gcov format.  We should consider
-> > importing that from Linux.
-> > 
-> > Thanks, Roger.
+On Mon, Aug 11, 2025 at 11:55:04AM +0100, Andrew Cooper wrote:
+> On 08/08/2025 3:56 pm, Anthony PERARD wrote:
+> > From: Anthony PERARD <anthony.perard@vates.tech>
+> >
+> > Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
+> > ---
+> >  CHANGELOG.md | 2 ++
+> >  README       | 2 +-
+> >  2 files changed, 3 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/CHANGELOG.md b/CHANGELOG.md
+> > index 5f31ca08fe..83195e2dae 100644
+> > --- a/CHANGELOG.md
+> > +++ b/CHANGELOG.md
+> > @@ -11,6 +11,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+> >     - For x86, GCC 5.1 and Binutils 2.25, or Clang/LLVM 11
+> >     - For ARM32 and ARM64, GCC 5.1 and Binutils 2.25
+> >   - Linux based device model stubdomains are now fully supported.
+> > + - New dependency on library json-c, the toolstack will prefer it to `YAJL`
+> > +   when available.
+> >  
+> >   - On x86:
+> >     - Restrict the cache flushing done as a result of guest physical memory map
+> > diff --git a/README b/README
+> > index 6ee58f7b35..9329f30e13 100644
+> > --- a/README
+> > +++ b/README
+> > @@ -53,7 +53,7 @@ provided by your OS distributor:
+> >      * Development install of Python 2.7 or later (e.g., python-dev)
+> >      * Development install of curses (e.g., libncurses-dev)
+> >      * Development install of uuid (e.g. uuid-dev)
+> > -    * Development install of yajl (e.g. libyajl-dev)
+> > +    * Development install of json-c (e.g. libjson-c-dev) or yajl (e.g. libyajl-dev)
+> >      * Development install of libaio (e.g. libaio-dev) version 0.3.107 or
+> >        greater.
+> >      * Development install of GLib v2.0 (e.g. libglib2.0-dev)
 > 
-> Fair point. Generally I found coverage reports generated using LLVM tooling
-> a bit more informative than gcov's, but I don't know how much work would it
-> be to adapt Xen for newer versions of LLVM.
+> What are we going to do about testing this?
+> 
+> We should add libjson-c to some build containers.† We need to annotate #
+> Xen < 4.21 in the existing containers so we can drop it in due course.
 
-It's a pain because they keep changing the blob format between
-versions, so we would basically need code in Xen to be able to
-generate the right blob for each possible clang version.
+archlinux container already have `json-c` so the CI already do some
+build jobs with it. (no *-dev needed for this one container). It even
+notice an issue with `debug=n` builds, I had to replace `strncpy` by
+`memcpy`.
 
-It would be helpful if clang provided the helpers to generate the
-coverage data in a version agnostic way, but so far I haven't found a
-way to do it.  I've raised a question with upstream LLVM project, but
-no replies:
+> Also, for a container we don't intend to backport to stable trees, we
+> should have libjson-c only and no yajl.† Probably best to do this in the
+> Alpine update which is long overdue.
 
-https://github.com/llvm/llvm-project/issues/123034
+Doing this on alpine container would allow to actually do some runtime
+tests with json-c instead of yajl, so yes.
 
-Regards, Roger.
+-- 
+Anthony PERARD
 
