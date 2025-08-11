@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E5D5B20398
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 11:30:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077157.1438232 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEC75B203C1
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 11:34:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077165.1438242 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulOqq-0004fd-Fh; Mon, 11 Aug 2025 09:29:56 +0000
+	id 1ulOv0-0006JX-Ti; Mon, 11 Aug 2025 09:34:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077157.1438232; Mon, 11 Aug 2025 09:29:56 +0000
+Received: by outflank-mailman (output) from mailman id 1077165.1438242; Mon, 11 Aug 2025 09:34:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulOqq-0004dS-Bb; Mon, 11 Aug 2025 09:29:56 +0000
-Received: by outflank-mailman (input) for mailman id 1077157;
- Mon, 11 Aug 2025 09:29:54 +0000
+	id 1ulOv0-0006I5-Qs; Mon, 11 Aug 2025 09:34:14 +0000
+Received: by outflank-mailman (input) for mailman id 1077165;
+ Mon, 11 Aug 2025 09:34:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MOyo=2X=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1ulOqo-0004dM-TO
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 09:29:54 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ <SRS0=92re=2X=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ulOuy-0006Hx-Ju
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 09:34:12 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bcbe3934-7695-11f0-a325-13f23c93f187;
- Mon, 11 Aug 2025 11:29:53 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-af968aa2de4so760406866b.1
- for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 02:29:53 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91dfd4b31sm1960350966b.85.2025.08.11.02.29.49
+ id 566c08d1-7696-11f0-a325-13f23c93f187;
+ Mon, 11 Aug 2025 11:34:11 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3b79bd3b1f7so1887519f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 02:34:11 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3b79c3ad803sm39660387f8f.6.2025.08.11.02.34.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Aug 2025 02:29:52 -0700 (PDT)
+ Mon, 11 Aug 2025 02:34:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,180 +45,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bcbe3934-7695-11f0-a325-13f23c93f187
+X-Inumbo-ID: 566c08d1-7696-11f0-a325-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1754904593; x=1755509393; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ygEu8Zq34Qj+4eE6Zo2ZjMIiW9SUV/Kk87MPF/tT2VY=;
-        b=Se+fbOdXSRtnjVY93xfKRTAdkNeKO7w5QdML5nrEyWeBsIpGtYplrMxyklTGRO62DL
-         FtvHnvv6XEclmlvMrlt3SMUpWrL96jzAFtp3GkC/hF+4tSdw1NgieFFS7butWkT19CtI
-         SgEPXil/4l8X3w6iCdb+aQ2fvOvUy5IwhOoBu0IZcbgEW+I22BqjFbP/FFEocZrCFyOH
-         m4pRxT+Nfp1FEJUorD2R3q+oF+l3/qporEk2yvaoDdV20dtuPzyj1cMgFvKwvDqX6fny
-         Jff4yx6C4Wn8sd7mQlskzgoPjuHJa7C1NLt8jBxb4b7LfKCJmsyDcCbdKmjMrfJ70963
-         M63w==
+        d=citrix.com; s=google; t=1754904851; x=1755509651; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=8Cz/d1D2rU6ODDYD7qOW4j4fo0XFs1scsOGjxN01U+A=;
+        b=Vh7ZrfnbYXTz91jjEFKyu8PcyhAGU6PIyOYURD/Q4u5tpm/eeymdwQShBBV5Zt1SPb
+         OiaTSeq4GR18l4E959aFSlpv0C1LvyMO9AeC8twg+IymXvE/tanodIWk27Lq8/Z0B9+a
+         pJFqp6IxS405q0edR6Gpk/IdwY7QB6z643unE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754904593; x=1755509393;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ygEu8Zq34Qj+4eE6Zo2ZjMIiW9SUV/Kk87MPF/tT2VY=;
-        b=Clh9/46Wu5c5b8zCHYtV93sxwu5Bbb59iBq+mvoUs36LCG9a8ZrAqgXaCEuncL0ck6
-         XAN3EXc78Xr51S2sa+2lN27ittKlU0OTGStmm1D2vK8uons1y25hYvbs3bBY4RPVIODE
-         XU+3b5DesxS/q7ARQIS17EetI0JfCvVUZ3si/lGOpVEuhdMTcYPnRpytCIJVEeblmK5F
-         brOTDX9tgj5ZdnLAphy7Vz1GFrSHR8loDyLR0QlkOg3aHSwzzaHLy3MQNfOKNZIzLYI4
-         lS3izbo0W7Es8VWrE0nriao9gSKmr5oKfxu40idJNSExlI+Npr1nrWd66eA6zu53fEtj
-         mtrA==
-X-Forwarded-Encrypted: i=1; AJvYcCVKJMqVJDQh6kVE1N7Es0aXUO0qsiXBm6Ri1x5czDPKvScCxVLHA+cvtnla9rvHSiDe0T4Pfwnlt1g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzJt+sF+hzl8dV4nHh5j3N72eqShwJi4aM0ZXU1sh0Lo9B26pcf
-	Xs1OSaUGhVUPHvpYUrqPMiXKuoSIvk1yH477P48/tcVaqD/W0+XmUCEL
-X-Gm-Gg: ASbGncuqRPurHH/WgFrEpCepcL7+sM5xkkb5yPmr6pCgBnBOhJUrEcveFIwPS7s15qx
-	NCGLTphepTPf9+NjcCIAggU2QFDhrQ+yfexoR9sU4ehWjBlpQKMb8JnbkKyf0Fl4ZVNvQMZoE3P
-	GFcbkkgS95IsMuW6+FdlKsTOi5tu0zUbLcof7U0/LkIW9/cswcVq8cPC3IJ3o5/dURyZ+w3p6e+
-	+cB+xMXooZ/N4PFG+bxbBN9uOcc3neCaHlP6E7Jeq4pYTa02/YWtcNYwnccVdoUponYVNbFZUxN
-	9k++znbnnOdehT+/QiV3PtYU2MDM2dcGk2KW6d80gXTdJTK++qJ4E1WB/8GvYh9mTldz0741w6k
-	SsiAQzwyPodXN6UfxkrNkfd1NFnmw8NTNB02mjk+FthsJZYj1BdDFxf0heUBiwjuAE/M6xcU=
-X-Google-Smtp-Source: AGHT+IFd8UJ5bwzo5FO2pkFNIF2c/faOTe1hNAdhQI7m35AbUmaa/g9grOw+c3n8D7pUpk1qvlr0yw==
-X-Received: by 2002:a17:906:730a:b0:af9:c31c:eeca with SMTP id a640c23a62f3a-af9c6546458mr1234671566b.48.1754904593108;
-        Mon, 11 Aug 2025 02:29:53 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------ZP86uGEkdA3IPxgR203hpA6P"
-Message-ID: <89787fe2-3eea-44b7-ad38-82d0d09be06f@gmail.com>
-Date: Mon, 11 Aug 2025 11:29:49 +0200
+        d=1e100.net; s=20230601; t=1754904851; x=1755509651;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8Cz/d1D2rU6ODDYD7qOW4j4fo0XFs1scsOGjxN01U+A=;
+        b=R9f3GKgROcZIPV6INoKDRCmOdiLU1juxrA5H3WHSMaIx7bnDMokgkBYV0UbTpeOwJ2
+         sdBBt4gkq4xn375QfspCBeZsAn77Z59q1cSL5xiLdsZauR3Ik4Z+VbgeSh9p/rxd47Md
+         xhEfyksStmW45xCCVx9cP3jGMPr8Wb6poRLiF/1i1xB1GYS9swGQ+57Gng14gz19NhIe
+         xGwxlyveNhk86MAaJfAHw5PmVoX7ynyeIOo7+osW6X6L6kEnwIPzdBfIgqBxDnVtIdGU
+         VXt4s9uhkwpQjPikSgQQI3Z1D0RrgDLkLwarwsr/PVLPbqPKvigNFYRYT3GB9XNl/7+0
+         73CQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUsB5LTFpUES8oDYNKXFfbVP9BgpX/JVoMaaucb5hDVtGfUt5VjzopFj8cAI6ASAgSyXjuNYzP7h8g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzO/vnsZfCL/jmB7egTgVWOxGunpj490EVoAWSsLxF/t4opbB8w
+	IPYxUzDx6ElU41vaWtghiMphJOyjHXuJATm1nu0hx5CQcGcAzEcKYB39ihd+Yh/rz/A=
+X-Gm-Gg: ASbGncv8UkVO3raSu0Y5iKnna/z1QbAga5jrX1DCg8RUn5hWUYi3FbPKnZVCeNIHVtD
+	Y4UdjJZlLb2ZuncSaLWmzer1Xk/N3dvNDVQemnF96MaNGDxJ2RJtCi1B4nWatAifEi6YvGTO7p7
+	fuqhJSUG1EiSja0KKvfWOVJVQYHos1kIK9kokSruaoDiExAGbPBYzBHbKstGiAwW5uzcLadi+w+
+	oiXfa/KSM6xd61wtAC8QFPKkc51GdLr77fbB6FB4lv36bO/FYGJeL1jOStEd5jzH7fVhwQXwEry
+	/AZpOlXOHis6CLw4CCEBRIk8rZqVmQtT+GT6cR7/qsPICqQAnB+qVGHb6r23jK32u5z4ksQc1L5
+	xnsNktCeEygjA/aYvKgVVmTYBbrYdJEFw4EyKBscjmXn0ily+l/4Fmw3NN4+46mWgU1/Z
+X-Google-Smtp-Source: AGHT+IEQZ7ByTq2SeYaVU30pzH0vZBcachC15kCFt3Y1t/KhmeeyoaSEdQuItA2RapOOleym1Y7cRA==
+X-Received: by 2002:a05:6000:25c7:b0:3b7:970d:a565 with SMTP id ffacd0b85a97d-3b900b551c7mr9589869f8f.46.1754904851086;
+        Mon, 11 Aug 2025 02:34:11 -0700 (PDT)
+Message-ID: <80a714e6-0c9b-44af-b786-6b8b53ea9e25@citrix.com>
+Date: Mon, 11 Aug 2025 10:34:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 11/20] xen/riscv: implement function to map memory in
- guest p2m
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
- <e00dcbecf8f0dbe863628dcc45526100f9ee86a3.1753973161.git.oleksii.kurochko@gmail.com>
- <e7b4b220-4da9-4a87-a4d6-179350849eaa@suse.com>
- <31c75a64-8b69-47ac-9e08-6010fa6cfb9c@gmail.com>
- <ffec4fe0-cca7-40fb-a870-6fdf0201f44a@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <ffec4fe0-cca7-40fb-a870-6fdf0201f44a@suse.com>
+Subject: Re: [XEN PATCH] xen: Drop logic for old clang versions.
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: nicola.vetrini@gmail.com, xen-devel@lists.xenproject.org,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <e8bb42876317c19aca79f81c3fc48dc3a4fdaf71.1754830862.git.nicola.vetrini@bugseng.com>
+ <96b878a1-2a4e-4df3-900c-a2b2142f0638@citrix.com>
+ <3a1fe9570bdaf5332c93a97c1da38255@bugseng.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <3a1fe9570bdaf5332c93a97c1da38255@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This is a multi-part message in MIME format.
---------------ZP86uGEkdA3IPxgR203hpA6P
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-
-On 8/11/25 9:28 AM, Jan Beulich wrote:
-> On 08.08.2025 15:46, Oleksii Kurochko wrote:
->> On 8/5/25 5:20 PM, Jan Beulich wrote:
->>> On 31.07.2025 17:58, Oleksii Kurochko wrote:
->>>> +/* Unlock the flush and do a P2M TLB flush if necessary */
->>>> +void p2m_write_unlock(struct p2m_domain *p2m)
->>>> +{
->>>> +    /*
->>>> +     * The final flush is done with the P2M write lock taken to avoid
->>>> +     * someone else modifying the P2M wbefore the TLB invalidation has
->>> Nit: Stray 'w'.
+On 11/08/2025 10:13 am, Nicola Vetrini wrote:
+> On 2025-08-11 10:07, Andrew Cooper wrote:
+>> On 10/08/2025 2:03 pm, nicola.vetrini@gmail.com wrote:
+>>> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 >>>
->>>> +     * completed.
->>>> +     */
->>>> +    p2m_tlb_flush_sync(p2m);
->>> Wasn't the plan to have this be conditional?
->> Not really, probably, I misunderstood you before.
+>>> The enforced toolchain baseline for clang is version 11,
+>>> therefore this logic is effectively dead code.
+>>>
+>>> No functional change.
+>>>
+>>> Signed-off-by: Nicola Vetrini <nicola.vetrini@gmail.com>
 >>
->> Previously, I only had|p2m_force_tlb_flush_sync()| here, instead of
->> |p2m_tlb_flush_sync()|, and the latter includes a condition check on
->> |p2m->need_flush|.
-> Just to re-iterate my point: Not every unlock will require a flush. Hence
-> why I expect the flush to be conditional upon there being an indication
-> that some change was done that requires flushing.
+>> Thanks for the patch, but your From and SoB lines don't match.  Which is
+>> it supposed to be?
+>>
+>> ~Andrew
 >
-The flush is actually conditional; the condition is inside
-|p2m_tlb_flush_sync()|:
-   void p2m_tlb_flush_sync(struct p2m_domain *p2m)
-   {
-     if ( p2m->need_flush )
-       p2m_force_tlb_flush_sync(p2m);
-   }
+> The gmail one, git misconfiguration, sorry. Should I resend?
+>
 
-~ Oleksii
+No need.  I can fix up on commit.  Thanks.
 
---------------ZP86uGEkdA3IPxgR203hpA6P
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 8/11/25 9:28 AM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:ffec4fe0-cca7-40fb-a870-6fdf0201f44a@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 08.08.2025 15:46, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">On 8/5/25 5:20 PM, Jan Beulich wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On 31.07.2025 17:58, Oleksii Kurochko wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">+/* Unlock the flush and do a P2M TLB flush if necessary */
-+void p2m_write_unlock(struct p2m_domain *p2m)
-+{
-+    /*
-+     * The final flush is done with the P2M write lock taken to avoid
-+     * someone else modifying the P2M wbefore the TLB invalidation has
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">Nit: Stray 'w'.
-
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">+     * completed.
-+     */
-+    p2m_tlb_flush_sync(p2m);
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">Wasn't the plan to have this be conditional?
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-Not really, probably, I misunderstood you before.
-
-Previously, I only had|p2m_force_tlb_flush_sync()| here, instead of
-|p2m_tlb_flush_sync()|, and the latter includes a condition check on
-|p2m-&gt;need_flush|.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Just to re-iterate my point: Not every unlock will require a flush. Hence
-why I expect the flush to be conditional upon there being an indication
-that some change was done that requires flushing.
-
-</pre>
-    </blockquote>
-    <pre>The flush is actually conditional; the condition is inside
-<code data-start="94" data-end="116">p2m_tlb_flush_sync()</code>:
-  void p2m_tlb_flush_sync(struct p2m_domain *p2m)
-  {
-    if ( p2m-&gt;need_flush )
-      p2m_force_tlb_flush_sync(p2m);
-  }
-
-~ Oleksii</pre>
-  </body>
-</html>
-
---------------ZP86uGEkdA3IPxgR203hpA6P--
+~Andrew
 
