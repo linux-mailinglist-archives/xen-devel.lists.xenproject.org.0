@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81818B2134B
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 19:33:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077886.1438909 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 694F2B21359
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 19:37:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077895.1438918 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulWOv-0006s3-3q; Mon, 11 Aug 2025 17:33:37 +0000
+	id 1ulWSA-0007Qj-HN; Mon, 11 Aug 2025 17:36:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077886.1438909; Mon, 11 Aug 2025 17:33:37 +0000
+Received: by outflank-mailman (output) from mailman id 1077895.1438918; Mon, 11 Aug 2025 17:36:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulWOv-0006qA-0o; Mon, 11 Aug 2025 17:33:37 +0000
-Received: by outflank-mailman (input) for mailman id 1077886;
- Mon, 11 Aug 2025 17:33:35 +0000
+	id 1ulWSA-0007Ok-El; Mon, 11 Aug 2025 17:36:58 +0000
+Received: by outflank-mailman (input) for mailman id 1077895;
+ Mon, 11 Aug 2025 17:36:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Nn8B=2X=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1ulWOt-0006q2-DC
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 17:33:35 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=UdnH=2X=epam.com=dmytro_prokopchuk1@srs-se1.protection.inumbo.net>)
+ id 1ulWS9-0007Oe-K0
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 17:36:57 +0000
+Received: from AS8PR04CU009.outbound.protection.outlook.com
+ (mail-westeuropeazlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c201::3])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4dfe4b0c-76d9-11f0-a326-13f23c93f187;
- Mon, 11 Aug 2025 19:33:34 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id C004E4EE0744;
- Mon, 11 Aug 2025 19:33:32 +0200 (CEST)
+ id c6b3789e-76d9-11f0-a326-13f23c93f187;
+ Mon, 11 Aug 2025 19:36:56 +0200 (CEST)
+Received: from GV2PR03MB9572.eurprd03.prod.outlook.com (2603:10a6:150:da::5)
+ by AM9PR03MB7929.eurprd03.prod.outlook.com (2603:10a6:20b:438::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.21; Mon, 11 Aug
+ 2025 17:36:53 +0000
+Received: from GV2PR03MB9572.eurprd03.prod.outlook.com
+ ([fe80::edd1:842f:9b14:509e]) by GV2PR03MB9572.eurprd03.prod.outlook.com
+ ([fe80::edd1:842f:9b14:509e%3]) with mapi id 15.20.9009.018; Mon, 11 Aug 2025
+ 17:36:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,144 +47,243 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4dfe4b0c-76d9-11f0-a326-13f23c93f187
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1754933612;
-	b=28QLEHD2E6rjY3UMInlNrFNlmUEr238UvixU5KlBytiCm1qZ12DvACfhn6WIy3MWwwOn
-	 7aP18OZmp+quPmgrvkAf4R2iB1BxAhxUECvLklXeq9BsTDDAu70PH6DBAQLvTIJM8M/Xv
-	 i0nHcz0lqFW1hnfx8peI9yHWRQf/gMzQJgj6C08tw869w6AugOpBxrdaH1Ot0uf5DssYh
-	 XuFxAJSDk7VyMm4PVtrr2JZW+jken50bEZI4trKDcihrYxv2AeDFg52S4SOUYlBVGkvXh
-	 5oVbUK4ATkljANPGOElqCWx/aO57FSCmMzuXOe95pB8uAHOF7a7XfSh4hObhhMUf97/FM
-	 1wDIyvCCe5M9aG1czIk92DV4GaqqsiS/A4PAaNHQDXDkllCMUslgvZFczjSVS01oCzcCn
-	 pTHoBVxYbB0dnE0Nd8sk7HlACycobdxL+8HDuyn2P+q/KysZziOLAR9vT3xKWgv/da3Oi
-	 pDEdZqN1RMrTfcG7Nk64/cByBRcy6V50QNl3bHlWC8/ac0N0PGGXohiWz9lhTlNxSZJlC
-	 YnIYjcr5J1HDRiwf13M5Hi29Sdc5Pyfu0+V9U/QDhfJxpV1NWcAuR4n6mstVktNIpZdbP
-	 f0/2p0D7YVIXD4O3pNpYwi25xCNoMSuZttqhc2wVZPpiT3XovYFK0ZADotw/vsA=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1754933612;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=KPhUVmT+WZ7A7Zg9ag6Jkhm3PsKJ59NCsU7cZ71Vju0=;
-	b=mFmduCEuzAA5WcQLTy0AOFMaTHPr0da3OClS4gkgW5FE7MwcCW0QVO+b5oswD/c+LJhP
-	 C/tEnmS/1nyq1W09gbYonAvR38bgstlypm4uUWtwn78FyFL9WKXB+c/TeyfyVpzFe2VE1
-	 iys0v4Db2bN6wFpmmC7wQwZ3ZXLQViA73oWa0RVOkX0RSrlZUvpu2Nyifes5HGn7hQiDv
-	 RBQvado3vSgGBPCqqzWupSLBDTZFS8mhKrSfME7P4+MKaVS8rwO0XGS2mifGkKTLBLmw7
-	 qya8/jrp39wUtzQhIy9OcQ/+Mr3Ow0dTQAHwaIBnmfZlDSs3Yj81LxJ+0mh2zcjk/9oAj
-	 l0hNO9H7WEIoHYkOFQA3HSVWGIKLvV666YRi2FwUgz+15bXUcYA9ki2qdWq6I1qN8lPWm
-	 KRVcjHsQI5hpo1wI53npp8CQ8RGq3hZX/Q4LSEddp0TVvsGEtvEt12ltI9r/hgN+AP2Sy
-	 DgwbuFNV3utuT5se6+DzchBc8XMlVVFEwnht3YRR77vDJLedFmjsREzpqG5HcuJKBtK8h
-	 +jaSIe8rxPUNZSVxpJogcPtGIDa7TCz/chBv+A3MiVEi6SUiI2lAYL0ZG0AhqlN7UyiW6
-	 BhUKWIoLxifFMg2xxme4gJIOj7hYlsPeJXQkj2RTsGXEMgtJaav15s8Cek66REk=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1754933612; bh=+2tMGRj7/V5wGSMPz2tkmNX/tx42u975yZz+sCLW1oo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=hMEnkHiiPsF1ShlbeTs2qyuN2BHMTCiAln0D5/MH79p74KuUjrlrrhgs3jEODWW5+
-	 ahzHU77kkHBEw6DxpPr2FTqUYwFKqhbLcpzbQPW12o/e5HAqiIWQzI4fgWGIZ4/CWw
-	 NZpF4ioXqa4fyUs8B2cz21oZHz9aJIPgWe8yYOxbkEFpfaGZKaPKWD2TX5zqrrSCh9
-	 2kpRd4G8cvkAfo5AgzvNwuRdzldyC9nBkxsum25d9HBCcGi4DJUU+Y/ubkvvNV6Wto
-	 2R8mvw9cB1JM6o7e+2Df9Rux1CqZ3eYdwD0qEDUphQwTXnU6OgS3WKg08roCB6QTb3
-	 0kszpop9gbN8A==
+X-Inumbo-ID: c6b3789e-76d9-11f0-a326-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MXEu3O7p4oHTEVS3aM701ZCZKUFt3Pr09nJwuFq0ru40kCULv5MW/KosTyGDjlqmFIo0xEv5YU+6ZmyOmkdJ+NydB/VuqdQF4j/LJasCtIKnA/Lp0F8J/ZFsvpAXK+FI4IcBXsA/AS35MfT8wgMVLqasaFySFzus8jyKuoDCJ40+kPYToiLEhoaiHKgtwwR5Vi69BnCUPNCqqTL6e96pilhgWe+iKb0wDLdbNr0QCoPwzTSTeN/8oQk+l+McM5BHH2+HCJsYtkmoRwbS8UcJ6mUFlSEw9DfHLZRA77dKWg/ps4Jxfy90AnAG/3uZejFrMYMriga2UPVUByAlTPWS2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yNqFeLEcTWrPGlajBVbJB109KX7ojmBgbcImzAPEgN8=;
+ b=GE+aN97IKFbd6L1EUtOQmqwuekOm4ny0jaCDnJoy/jC8ESQ4HEBRyM0iLpjRcDkE7DQsP7U3eO29/O9tP/CpqAedEAzA1ljdNUEA7ppMw63RE7mzg6ZNRAG2X4++kVqzClOgQEF8DC4uzLvtm73fXj0IlrXV2z3taJ2S7QKB6LyFTvL+n3FoUHhpxxJqu+fLmHmXMdRMpaADXSUfAi1wPVZ6HsSOR7hHA+XNBJ3j3j9LRDBF39nVl9X0GNKw7djkpwC368GkztkfFlcaYh95z+TLSZdDWv4ReT8KW0Zqu013gaygHFUQAWUgCd0/NALRxvOb4+u2GQr3Z8nK+B0oqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yNqFeLEcTWrPGlajBVbJB109KX7ojmBgbcImzAPEgN8=;
+ b=SXDdvOOZA7Ebi3baM85ZddP8d/TylKuW3vYgz6wpcjSGXFur/D+pPXi3vCGb4KYkx9RnSNkUIA0IfEDdq+m83SOiXg+NAs4LLQawoTTFmipdVyXtBthIhjCj+aMltXgyPF4ZhE+1dDYnH+QwaD2q+15IqwYzXQFlAezLDdCqlHxRzVwvKmKD1UM2tWYIaFUWFykvb3aiHOdmhWQzUWpzvqgMqLGLQJWfHRnooaAlzuOFWKtWs+rk45o/3Xj4SZdY5X9MyA/880dLW96xP7ZCtTGFg4o6h+egmZ+vJ+QD/2OrK99toHWCB0JYNF0psBcLIXpSrWF81baWPQROdcKcQg==
+From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>
+Subject: [PATCH] misra: comment default case in single-clause switch
+Thread-Topic: [PATCH] misra: comment default case in single-clause switch
+Thread-Index: AQHcCuaGmRofUvvSEEWe+78HEkEpWw==
+Date: Mon, 11 Aug 2025 17:36:52 +0000
+Message-ID:
+ <1d3c5364b726e42a8c38c396f2e20efc52790f62.1754933752.git.dmytro_prokopchuk1@epam.com>
+Accept-Language: en-US, uk-UA, ru-RU
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV2PR03MB9572:EE_|AM9PR03MB7929:EE_
+x-ms-office365-filtering-correlation-id: 48cb2eda-3d19-433d-2b0b-08ddd8fda8de
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|42112799006|366016|376014|38070700018;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?/1FAVPXs4JT56sHkOC2BV+krUXaLnbdXZ0GrzOw4NMCRXM31n31cmndof6?=
+ =?iso-8859-1?Q?QJsOXq3eNFtR+iwUUmkzjOvIPwTAHZwTdccTAyGsTrzvha3vNDjX/zH5Aq?=
+ =?iso-8859-1?Q?R49nqrOkRPM1bmcH8xxkcCGTSVbCBYfAdWmmBmHbhOeGj/Nl4Ebg6Wb1vL?=
+ =?iso-8859-1?Q?AUzPPeu/3DQGz5j0bweWv71Aie8z+yhaovRANhhVwDx2WjaiYS52eoLJUR?=
+ =?iso-8859-1?Q?NF52iAzDg2dgDLjUxrQ7Zi4nYdfwS1clEKObEizuqJr5Hr7EAuODuAQ3HG?=
+ =?iso-8859-1?Q?QSGRZlrJRoBrM6ZSmbw3LqSBkptOxlGHb9WW6PJmile0CcEYQrgkGoEwOI?=
+ =?iso-8859-1?Q?e6NDRnbFqRN+a0wf0FbbVcEj5Sx32N0l/t2qRwR5HX5zxmDwZvlUvTKkQh?=
+ =?iso-8859-1?Q?c6WX+e1MAcYpjQkCsZrkN1B6015hSHSr/2Pdja8eVsdakiHhcafEVM3PR0?=
+ =?iso-8859-1?Q?SVvyHbBxVPSgDv4k1QHnWLuv5T2WVX1VLovE6qQXT0a3Ob36TowVGbYoPQ?=
+ =?iso-8859-1?Q?xWkHsp+JxyghYiH09eJFzvjR2YKHcJBJ7oi/iqiJu3q8HqYu2kYgHpmIo4?=
+ =?iso-8859-1?Q?sVGbgtCslw9/gA+yvi6b+Z4E7F+23zv2ORXk9eMepN8nkX5wsT9S2Jq5X2?=
+ =?iso-8859-1?Q?Ff2Am4xZ3mpLmUOgG/ljwJ3mMUzWidHhLRFJFA66+wIFzkYZ3isdWoRuu+?=
+ =?iso-8859-1?Q?KphUw4bNRrsGiZFPnMPYSG06HSfam6M7yaBOZ8jMZh0Z+uLmWp5NNSPv8m?=
+ =?iso-8859-1?Q?JHUo5WWBfSejG/1lYTSL8b6jX+hGuMQo6QpQKkqOnHfR6zXgQ4A9aaWOT4?=
+ =?iso-8859-1?Q?sF/kT8VlaUk1nnJ3BKrTV66yMPLYxa4xsDEVbeaJ+F53wRlKo85eOCdiQe?=
+ =?iso-8859-1?Q?ptFSDCz7ZaQZX9EazF53fagJhJWASwFLCWuBkvHpqiyD1qAosVfTFMYTHd?=
+ =?iso-8859-1?Q?DdCJnHjRP7dyMb75nlYD27VRAZTf/+e0fKyDyNhNe4XGnjUAmJToe0xNpb?=
+ =?iso-8859-1?Q?H3tCBd0g5faKOKzhzP8/ghJFMJikNDnW5muBD0VOYcY1oUTar+NGuKRX+t?=
+ =?iso-8859-1?Q?6gXPt595yYlx9G7NDNDebQmL9dNbib2DCiDr7prTUUO0jVc0WK29sE9L/w?=
+ =?iso-8859-1?Q?/eW6lUAJdnoDczsOqM2RvWxVMFjuoRjx7loNHyiZR4+bNkHhJhR/ZNqvS9?=
+ =?iso-8859-1?Q?NU5TIpGaKo8HoHwejgXOP2k+/1a3sjIYmfIJr823YRpILrXA08eyynSwoJ?=
+ =?iso-8859-1?Q?HnCQKqc/+0hhkPH4zHwlYnYugz52/f6nE1vnr2L8l+UQwfKFZIQdrpp7tu?=
+ =?iso-8859-1?Q?I/GI2fJawqguF1IWkNfrA0bT2xdKz4FYOcAcqkq0oj59YdafF06Cn85p13?=
+ =?iso-8859-1?Q?2T3oHH4KOimLcknCMb7/jH4NjwZQJy8o2y7X8ICN+oWHTlHhXy75opKDV5?=
+ =?iso-8859-1?Q?+1HGARtBuc4+vQwpHeVt/RpT+W8OXmrF8cYLuFYQRPk9uBcaQeUbtJQFk4?=
+ =?iso-8859-1?Q?L3e6h/3g1aBeC8Vja7uNz6oUFsuOwLlyA1Nn7/SjoLJg=3D=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB9572.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(42112799006)(366016)(376014)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?n8N7qxDR2bUiO7uvaA1zFlnchPHzg64LCFA4gs78+HV6HFA+aKcVYcjGAa?=
+ =?iso-8859-1?Q?zo5ZqKTULKnq4AhrIiYbSGCUbfwzxwidQ3CwWmgc9wJ10EWKIM4DCmU28I?=
+ =?iso-8859-1?Q?1W+x2LtaJQYvuX8Rf44jUaZDhWD6dyShqRkw3VRdsGl0PKaPWxsceveDkZ?=
+ =?iso-8859-1?Q?Ll1a+bXp5ooJQceF/1XoALIoz8Mlpw/Pg6T6tDotJ9nOwykCB3w+O2SnYd?=
+ =?iso-8859-1?Q?wpqbTh7afhQDTwf/SOy09LYm7EfA0tYsbuQTARmANgnQLY2yxBrZovIw9L?=
+ =?iso-8859-1?Q?oRmMmVrfwh9eorVwEFIFXakdXt3a/+x0lBrWIOsuxBv+GTPENXQKVFoNAJ?=
+ =?iso-8859-1?Q?a5GJ6T2JAQL3/eBRFgatr6kzX28aMNSm0xN3h1mrdJRC+QFwfvWDw3WzR0?=
+ =?iso-8859-1?Q?AANBXJ7ei6iXlfTY75UZM+nUSkFT//AnVq1nk4uZ9qL+vG1ow6o4cMvkoH?=
+ =?iso-8859-1?Q?G9Q+vUgQw87ZHybNx0dxXhb8fvkUZyCcOB92F29Mj/nratExbej3Y/tuHC?=
+ =?iso-8859-1?Q?WDCOmgl2ipUa5qXMJ9vYsEJSxp2TToiKbbxzYV47YJ1d7eyLEPeoBhDY+C?=
+ =?iso-8859-1?Q?yUoTMznG0hj8vcQqNY+8DeVnaVo8KN4FsecAk34SUdScssdECkZTuYjaSr?=
+ =?iso-8859-1?Q?5/7dqBY1SUhTJdeatbbhTLIrPApWnw2a01yn3ocWqK28H1fogGTUy34ckH?=
+ =?iso-8859-1?Q?s7QlZppHlYhHPsB14mLJOUGIXKqs2wiLSLfLN9KUvjeYVAfUFlSgj++bY5?=
+ =?iso-8859-1?Q?i5YVZ6dXNo0Oxdk49A87sFIy+DHkdl3Ziq6z/3Ii+OPBM4RwyaxzikDDDL?=
+ =?iso-8859-1?Q?EZVyTZL54lpl+Hv9oA3hI2Rbk891ttrOymXZJmahs7f4l0y2NkS8SW4fp1?=
+ =?iso-8859-1?Q?ysLZK4tU+YV1HDUNfVWfAV1RFv4xFYnLoC/7rWnJJh+B0gMJmJqyIov37X?=
+ =?iso-8859-1?Q?0yPMKW9v/TDCZa2rJzPixCzeCs1/73aSeoTfu7T6z5UKLzM+o+4jMMFC3/?=
+ =?iso-8859-1?Q?sfHykiptZnThnu8rG6DCR7XkbZdEa31vAAAZ7cbE6FLxiLvjUjwrcSL86d?=
+ =?iso-8859-1?Q?9k6RtQaSWcjAwHmrBUoLvQVk75zsNjosunZzdMMDo9luZDQAkKlPYUp4HW?=
+ =?iso-8859-1?Q?mOmRnfCI2HXzlhTUbFKPK3worTtEL5zulIMYAEUa0QjYBDvVJGI1lbJzxA?=
+ =?iso-8859-1?Q?VzDus2aFTZ/ui0aWoGTzOoPf1uuOpsjl3d9J7UxiwgS9Yt+TC2YisLhs8C?=
+ =?iso-8859-1?Q?aX6Q1wJ6TEKQu6kuaTtkQIAjboPpJ4kAkKnLeHXVBCVE3tYtt4O/Wy9q0O?=
+ =?iso-8859-1?Q?fsBg9Q3BkjRVevZDM05AzhDc+H+WmL/7erAxOMT5BbR13vqhaCzVdPetFP?=
+ =?iso-8859-1?Q?/YYcQiRzUaxZ5b+9mLfPaC4cpwTqBKVbY8BIfs3CkwiaWSUtNp0V+UkhMg?=
+ =?iso-8859-1?Q?dTyY7v5dViWEKEOaIbVuEsrlH0Z1jdYfqcQ9m0hUXjIPKiu0o0Qvb/IBZs?=
+ =?iso-8859-1?Q?q6HWo6Sn2TowGrRHgiERatr7hGk0yvhxX7SMldWvpOBR+jqVkrh6hPXpeQ?=
+ =?iso-8859-1?Q?COPnkGGu8U2I+tR82p8DFlL5xgreKqajw7VUzxww/DFepIX8ni9R0YJyj1?=
+ =?iso-8859-1?Q?JMo7ww8ep4DHLSLqy7wWYjecDuOUq/FOyM8I+CCcwwQCcnFDNITRgPYg?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Date: Mon, 11 Aug 2025 19:33:32 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: nicola.vetrini@gmail.com, xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
- Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH] xen: Drop logic for old clang versions.
-In-Reply-To: <aJn_xi5dVD3-imnz@macbook.local>
-References: <e8bb42876317c19aca79f81c3fc48dc3a4fdaf71.1754830862.git.nicola.vetrini@bugseng.com>
- <aJmgCv4wgl-IHupn@macbook.local>
- <2ca7082120df5e1ad6a29582d6dfb215@bugseng.com>
- <aJn_xi5dVD3-imnz@macbook.local>
-Message-ID: <179776cb8b5b5dd265af01238cf8eedd@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB9572.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48cb2eda-3d19-433d-2b0b-08ddd8fda8de
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2025 17:36:52.7827
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: HjhVi49GVp2nAj+njKhhOWSJ6seBhGpppj/jKRuqimTSAyThMtdilRAbWMo0G66GqwWLFMIrEe2gImT/YSMoETZJtLuFD0EGcn5V6k803x0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7929
 
-On 2025-08-11 16:35, Roger Pau Monné wrote:
-> On Mon, Aug 11, 2025 at 11:37:46AM +0200, Nicola Vetrini wrote:
->> On 2025-08-11 09:47, Roger Pau Monné wrote:
->> > On Sun, Aug 10, 2025 at 03:03:53PM +0200, nicola.vetrini@gmail.com
->> > wrote:
->> > > From: Nicola Vetrini <nicola.vetrini@bugseng.com>
->> > >
->> > > The enforced toolchain baseline for clang is version 11,
->> > > therefore this logic is effectively dead code.
->> > >
->> > > No functional change.
->> > >
->> > > Signed-off-by: Nicola Vetrini <nicola.vetrini@gmail.com>
->> >
->> > Acked-by: Roger Pau Monné <roger.pau@citrix.com>
->> >
->> > > ---
->> > > Mentioned in https://gitlab.com/xen-project/xen/-/issues/201
->> > > ---
->> > >  xen/common/coverage/llvm.c   | 4 ----
->> > >  xen/include/xen/self-tests.h | 9 +--------
->> > >  2 files changed, 1 insertion(+), 12 deletions(-)
->> > >
->> > > diff --git a/xen/common/coverage/llvm.c b/xen/common/coverage/llvm.c
->> > > index 50d7a3c5d301..517b2aa8c202 100644
->> > > --- a/xen/common/coverage/llvm.c
->> > > +++ b/xen/common/coverage/llvm.c
->> > > @@ -44,12 +44,8 @@
->> > >      ((uint64_t)'f' << 16) | ((uint64_t)'R' << 8)  | ((uint64_t)129)
->> > >  #endif
->> > >
->> > > -#if __clang_major__ >= 4 || (__clang_major__ == 3 &&
->> > > __clang_minor__ >= 9)
->> > >  #define LLVM_PROFILE_VERSION    4
->> > >  #define LLVM_PROFILE_NUM_KINDS  2
->> > > -#else
->> > > -#error "clang version not supported with coverage"
->> > > -#endif
->> >
->> > Rant: most of the LLVM coverage stuff is already kind of dead code, as
->> > the format of the data changes between versions and there's no way for
->> > LLVM to generate the blob itself using a builtin function or
->> > similar.  We haven't kept up with new formats, and now it's not
->> > possible to parse the output coverage data when using newish LLVM
->> > versions.
->> >
->> > Linux converts it's LLVM coverage data to gcov format (which AFAIK is
->> > way more stable), and exports it in gcov format.  We should consider
->> > importing that from Linux.
->> >
->> > Thanks, Roger.
->> 
->> Fair point. Generally I found coverage reports generated using LLVM 
->> tooling
->> a bit more informative than gcov's, but I don't know how much work 
->> would it
->> be to adapt Xen for newer versions of LLVM.
-> 
-> It's a pain because they keep changing the blob format between
-> versions, so we would basically need code in Xen to be able to
-> generate the right blob for each possible clang version.
-> 
-> It would be helpful if clang provided the helpers to generate the
-> coverage data in a version agnostic way, but so far I haven't found a
-> way to do it.  I've raised a question with upstream LLVM project, but
-> no replies:
-> 
-> https://github.com/llvm/llvm-project/issues/123034
-> 
-> Regards, Roger.
+MISRA Rule 16.4: Every switch statement shall have a default label. The
+default clause must contain either a statement or a comment prior to its
+terminating break statement.
 
-Perhaps the "coverage" and "llvm-cov" tag might help get more traction; 
-there is at least one developer working on the source-based code 
-coverage area in the past months with various improvements.
+This change adds comments in default cases in single-clause switches to
+avoid violations of the rule where the `default` clause lacks a suitable
+comment or statement.
 
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+---
+ xen/arch/arm/cpuerrata.c | 5 +++++
+ xen/arch/arm/gic.c       | 6 ++++++
+ xen/arch/arm/mmu/p2m.c   | 6 ++++++
+ xen/arch/arm/time.c      | 6 ++++++
+ xen/common/kexec.c       | 6 ++++++
+ 5 files changed, 29 insertions(+)
+
+diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
+index 17cf134f1b..e31c72694b 100644
+--- a/xen/arch/arm/cpuerrata.c
++++ b/xen/arch/arm/cpuerrata.c
+@@ -735,6 +735,11 @@ static int cpu_errata_callback(struct notifier_block *=
+nfb,
+         rc =3D enable_nonboot_cpu_caps(arm_errata);
+         break;
+     default:
++        /*
++         * Default case left empty as other notifier actions do not requir=
+e handling here.
++         * The single CPU_STARTING action in the switch is sufficient beca=
+use this function
++         * specifically handles enabling errata workarounds during CPU sta=
+rtup.
++         */
+         break;
+     }
+=20
+diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
+index e80fe0ca24..dfbb0dfe08 100644
+--- a/xen/arch/arm/gic.c
++++ b/xen/arch/arm/gic.c
+@@ -436,6 +436,12 @@ static int cpu_gic_callback(struct notifier_block *nfb=
+,
+         release_irq(gic_hw_ops->info->maintenance_irq, NULL);
+         break;
+     default:
++        /*
++         * Default case left empty as other notifier actions do not requir=
+e handling here.
++         * The CPU_DYING action specifically handles releasing resources a=
+cquired by
++         * init_maintenance_interrupt(), when the CPU is being taken offli=
+ne. Other CPU
++         * actions do not require GIC-specific handling.
++         */
+         break;
+     }
+=20
+diff --git a/xen/arch/arm/mmu/p2m.c b/xen/arch/arm/mmu/p2m.c
+index 51abf3504f..d1f0ae0226 100644
+--- a/xen/arch/arm/mmu/p2m.c
++++ b/xen/arch/arm/mmu/p2m.c
+@@ -1828,6 +1828,12 @@ static int cpu_virt_paging_callback(struct notifier_=
+block *nfb,
+         setup_virt_paging_one(NULL);
+         break;
+     default:
++        /*
++         * Default case left empty as other notifier actions do not requir=
+e handling here.
++         * The CPU_STARTING action is specifically handled because this fu=
+nction sets up
++         * virtual paging for CPUs, particularly for non-boot CPUs during =
+hotplug. Other
++         * actions do not involve virtual paging setup.
++         */
+         break;
+     }
+=20
+diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
+index e74d30d258..4776110d97 100644
+--- a/xen/arch/arm/time.c
++++ b/xen/arch/arm/time.c
+@@ -382,6 +382,12 @@ static int cpu_time_callback(struct notifier_block *nf=
+b,
+         deinit_timer_interrupt();
+         break;
+     default:
++        /*
++         * Default case left empty as other notifier actions do not requir=
+e handling here.
++         * The CPU_DYING action is specifically handled to revert actions =
+done in
++         * init_timer_interrupt() and properly disable timer interrupts on=
+ the CPU being
++         * taken offline. Other actions do not involve timer deinitializat=
+ion.
++         */
+         break;
+     }
+=20
+diff --git a/xen/common/kexec.c b/xen/common/kexec.c
+index 84fe8c3597..0f78087a4a 100644
+--- a/xen/common/kexec.c
++++ b/xen/common/kexec.c
+@@ -549,6 +549,12 @@ static int cf_check cpu_callback(
+         kexec_init_cpu_notes(cpu);
+         break;
+     default:
++        /*
++         * Default case left empty as other notifier actions do not requir=
+e handling here.
++         * The CPU_UP_PREPARE action is specifically handled to allocate c=
+rash note buffers
++         * for a newly onlined CPU. Other actions do not pertain to crash =
+note allocation
++         * or memory preservation for kexec.
++         */
+         break;
+     }
+     return NOTIFY_DONE;
+--=20
+2.43.0
 
