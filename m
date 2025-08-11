@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A22AAB2064A
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 12:50:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077296.1438366 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59C52B2066D
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 12:54:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077311.1438376 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulQ6l-0005mv-Uo; Mon, 11 Aug 2025 10:50:27 +0000
+	id 1ulQAR-0006kB-GS; Mon, 11 Aug 2025 10:54:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077296.1438366; Mon, 11 Aug 2025 10:50:27 +0000
+Received: by outflank-mailman (output) from mailman id 1077311.1438376; Mon, 11 Aug 2025 10:54:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulQ6l-0005kR-Po; Mon, 11 Aug 2025 10:50:27 +0000
-Received: by outflank-mailman (input) for mailman id 1077296;
- Mon, 11 Aug 2025 10:50:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ulQAR-0006hR-Cx; Mon, 11 Aug 2025 10:54:15 +0000
+Received: by outflank-mailman (input) for mailman id 1077311;
+ Mon, 11 Aug 2025 10:54:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ku41=2X=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ulQ6k-0005a8-9S
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 10:50:26 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fc2ed450-76a0-11f0-a325-13f23c93f187;
- Mon, 11 Aug 2025 12:50:24 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-61530559887so6661329a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 03:50:24 -0700 (PDT)
+ id 1ulQAP-0006hL-TC
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 10:54:13 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 827e03dd-76a1-11f0-b898-0df219b8e170;
+ Mon, 11 Aug 2025 12:54:10 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-af968aa2de4so771470266b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 03:54:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-615a8ff9ae5sm17911920a12.43.2025.08.11.03.50.23
+ a640c23a62f3a-af91a21c157sm2007428166b.100.2025.08.11.03.54.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Aug 2025 03:50:23 -0700 (PDT)
+ Mon, 11 Aug 2025 03:54:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc2ed450-76a0-11f0-a325-13f23c93f187
+X-Inumbo-ID: 827e03dd-76a1-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754909424; x=1755514224; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NNP7nFEccI8WBoRocVIQ5vYhIflCxYg5OB3S5qlC4j0=;
-        b=SNgEFLv7XtAKkgCPBDBbxsUdEoJc9x6BMPtQskPHxnpySGDEeSa1kXWuwa0rx6MGik
-         jz53cGDYM+sdmOj96HOpeAhQ/ehq/tbbCd3XXGZnOrYiTJWt2EoS+dfuYRvJezBQF3VK
-         DR/0fn7NBIeExL/MWP2LkdVO0gsPTJzBJtfQQUuHEDfr4oJmsJaVlRASbNwTWJcY9CBD
-         JcbskeZq7JiRcPiT7U6XQpC4VAj9K+4uKYhkJ6TMBdoRPNMuPmOvomLiJK/PSS62+cQd
-         rOvqviaCmRpzw/CzOuY87sRE6yG5fz8I6WEojZAovvZgQs1OSlkv9SI/LcAM3MBqEL+F
-         TnTw==
+        d=suse.com; s=google; t=1754909649; x=1755514449; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=mUCV2NyNMANoGwoFXtVyYXTcA8jNF19RM15JavBWQsA=;
+        b=ZIXto8UJXTPOx6rvHSAjWRizj3Yyg1yIuITsZtI8v4M6hunbad/rep54povaoqEsO1
+         JXPthrEskt1IBk+1aRpXlfdOfatVXm5w+fbyOYYaFvSvCRZmSi/DWE0bU9D7QbPBUnv+
+         +gjmXuuc+98NGy7sclagSu06JOU0AUE/bYgGlCzwkl487KUrn69TJyqWt7bW3wzAgS2P
+         QP+0g8sJpsJUKxIUzzsG3o96yMpcAIafTq6M8nVICEh03IBUYqeonOMJfJqlwxkelj4p
+         CtyB3nMlmC0rARSYIKdB4WtIqYxxAZquRLnuQym5zwc8oFmCrk24YNogAbW9/nVTDogc
+         AnZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754909424; x=1755514224;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=NNP7nFEccI8WBoRocVIQ5vYhIflCxYg5OB3S5qlC4j0=;
-        b=JFFCkgu0ac3IcFHdzYF25asY1WeEu4ZlO2/dGcII5jO1Abq7okAZZPeOz/yuJxTC8Y
-         t4hlw4WFzpG8Yrgtevb+2+WgPJ19784J2oX6jWFOyZATGIRm9uXScDkdEvdjlLIpmGzN
-         l7lp9bLXJPY+lfpnOXJWF5Az7egpF2trpHEYuAsKnQ64WrSLvblf/xM07APG1+KIagn+
-         I1V0IEyd2HHTahpdFoLjRQQ3BQ2RmzvtMNtK/xDqvBfXQ/fHG+HbnTUwbbUD5cOrhv6w
-         v1XZuQkq/eBYy26zFF/VEtBkd/V5oO1wtWJYDfvaQuz0/tgWUS2OkbzHmgBqfh6iOy2q
-         Kobw==
-X-Gm-Message-State: AOJu0YxVVEDLHuu31Mi3A5xayT0KurJbxXI55UCC5U8cXyQlZ30PsyBU
-	MmhAQiIkcBfDcyKmOEtAvZlg7GFThAI1giM3uK2TDprTPk+dlCtbpXiAeIScqj8T0Ka6XHEg+KX
-	fk+g=
-X-Gm-Gg: ASbGncu7kLAI0XwTVmUG4lQrnOppR858zHy4bc/jozuUAPSJWIsREsoyL+l3JKfgBbH
-	5XOpNB5pYly56TNBptKhntZY1PXw+naKCZSqbKvqf0i2DzifgSdZpEyP8sP+ThP6EmxJthPRxpG
-	v6WyEA8azC+cg9miWV8ZuleEnbH5jYIZrRJ0JC8blyDYMdxOm9AmDPaB6jVrlAWTo3fcpt3aQrx
-	d4H69WapUYG84MTGcgfvB60KczYW02D9wVASIXGWeSXbfsxA/1xpPR/XCnc8BDIgbO6Mw5wNF/+
-	4z34K3V5ulcusD6zV4/v49H++z3QS9EBP+qjg0+rKFymMgj3iwLw/QEwxTzHwN6RJ73KYQJRvlP
-	WVVUIpp7cRI9E1NrUsz1rCSeFyZEqz+zf+Ye1GzQkRacFNF5HK3O4oxK+AqoHM+Q+m2yXQ7pXvl
-	0px4ZRpOM=
-X-Google-Smtp-Source: AGHT+IGzX4dx7d/KHV1d0qMMph5KvSflSYCtu7+99cMBUjVuyjE3Mr8n2aQNe/dZhuCR+ATvlFYa2Q==
-X-Received: by 2002:a05:6402:1ec4:b0:615:87a6:58a7 with SMTP id 4fb4d7f45d1cf-617e2e9e45bmr12117531a12.33.1754909424149;
-        Mon, 11 Aug 2025 03:50:24 -0700 (PDT)
-Message-ID: <5a862787-40d8-4c9f-bd89-01d866648120@suse.com>
-Date: Mon, 11 Aug 2025 12:50:23 +0200
+        d=1e100.net; s=20230601; t=1754909649; x=1755514449;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=mUCV2NyNMANoGwoFXtVyYXTcA8jNF19RM15JavBWQsA=;
+        b=afP/lV++z74KKxWfMDA9XikJlTERyosLbqo/VBItS+i+8cF3ixK386YcKfjNuBmcLl
+         op6SLk0OHe6K2+F8zLk7yfQHdeCVq5dAulVNH/+sycApnZwItNhTKZD5nrHGxZft/XUr
+         40GVjbibvmASQMhnv9pASQzboVOJyd4+CDXBnzv5YZwSxRryaj17EXY4W2I8U6cVK6aG
+         g7lNBLX2Aj4rk8A5k5H8fDQpaOh5haAwczYn7KGyGxpqwKXMLFyrPu4ISrCAOkapZ4+1
+         /m45sFOYSifAX3zrY96cZcTVJpRilLHt72HxoYK8w3WrjCkEU5cT200hdmoDLzTvoyG0
+         yngA==
+X-Gm-Message-State: AOJu0Yw1jDOTgf9y20VMFCm3MuPcYIAwjwORY0OwXJDdNHl2pIjG/CLg
+	sldvq5ZV3IYAbNt6mYJc+1DqjTnv+/OClJrP6aiK5yC+7BjL6R35OB/YGs1YKcOCGkgUm+NFZHp
+	wG+A=
+X-Gm-Gg: ASbGncvaXI1ecYAvqgxpnbA0UgQpUsY8ibfqZ+ip0F1nw2bz1xNT/RPGYkZEQLDz9we
+	GknPcLlsVGGQs6/RAcY5k27TNqh8+Y02tMjy/yRZq6LNaX8aFR0nmii4FVXOW0mPQyFpAlJvQOz
+	5As4/yjzO5ocvEewJ0jwolsu3Va+QwI5Z/bsU4wPvjau+g7x6qM6e6lRoWTT0WREBmPeZBm3vWj
+	3ZxKkZnugBXwXMVxpB7MQmLGcuJRRqj6oQXK5jvakNFFbDoN3anrz1ppb3G8Qy448+HDYSNzUcI
+	sn0kZcXwL+fzjC4fitrZyI/4xWt4GCq9TTiiYRfhgd5Jr2/wxL8MTzdvHsOIfXsv4v6Xn5iQJiQ
+	fNe9ryQQFCC9bFWvyLafcrBVzbnyubv4Osl5fCDTdzGhU2EKr/Gb9RN5h2bBnsxfSyu4qxDYaex
+	7ev5NiY5k=
+X-Google-Smtp-Source: AGHT+IEgpHnKU7MIqgsQKSml3pAYfURDH06SDAw2wLNd+pnihsRB4O/q5UxkvwbxVKljV96FShrZ2A==
+X-Received: by 2002:a17:906:6a02:b0:af9:4fa9:b132 with SMTP id a640c23a62f3a-af9c6516306mr1100470366b.33.1754909649391;
+        Mon, 11 Aug 2025 03:54:09 -0700 (PDT)
+Message-ID: <c6e38491-6fcd-4d14-a7da-fa77c9edc4a2@suse.com>
+Date: Mon, 11 Aug 2025 12:54:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 2/2] x86/mm: drop unmapping from marking-as-I/O in
- arch_init_memory()
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <ddfd86ad-19b3-495b-930c-1770dd92fa99@suse.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] ELF: correct .note.* alignment handling
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -119,80 +119,197 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ddfd86ad-19b3-495b-930c-1770dd92fa99@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-The unmapping part would have wanted to cover UNUSABLE regions as well,
-and it would now have been necessary for space outside the low 16Mb
-(wherever Xen is placed). However, with everything up to the next 2Mb
-boundary now properly backed by RAM, we don't need to unmap anything
-anymore: Space up to __2M_rwdata_end[] is properly reserved, whereas
-space past that mark (up to the next 2Mb boundary) is ordinary RAM.
+The present uniform 4-byte alignment hasn't been right for, I think, a
+very long time (albeit not forever). As per e.g. [1], 8-byte alignment
+is required in 64-bit ELF containers (and assembler-generated
+.note.gnu.property, for example, is 8-byte aligned, while - oddly -
+linker-generated .note.gnu.build-id is only 4-byte aligned [2]). Sadly
+libelf is also affected, and hence going strictly by the spec would
+break kernels also getting it wrong (e.g. Linux). Apply the same
+heuristic as GNU readelf does: If section alignment is 4 or less, assume
+only 4-byte padding.
 
-While there, limit the scopes of involved variables.
+[1] https://refspecs.linuxfoundation.org/elf/gabi4+/ch5.pheader.html#note_section
+[2] https://sourceware.org/bugzilla/show_bug.cgi?id=33259
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v2: Drop unmapping code altogether.
+x86's mkelf32 also isn't dealing right with .note.* sections: Due to the
+different padding rules for 32- and 64-bit ELF, what is correct in
+xen-syms would need adjustment in xen. Question is whether we care
+enough, as long as it's only a cosmetic problem: In the shim, the Xen
+note comes first, and that's the only thing that really needs looking at
+from the outside, aiui. (Since we actively tail-pad .note.Xen entries,
+.note.gnu-build-id ends up correctly placed anyway, despite GNU ld only
+aligning it at a 4-byte boundary.)
 
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -275,8 +275,6 @@ static void __init assign_io_page(struct
+Arguably the spec text is ambiguous as to the width of namesz, descsz,
+and type: They could well be meant to be 8-byte quantities in 64-bit
+ELF as per "each entry is an array of 8-byte words". Yet with everyone
+using 4-byte fields, that's the defacto standard now anyway.
+
+--- a/xen/arch/x86/include/asm/asm_defns.h
++++ b/xen/arch/x86/include/asm/asm_defns.h
+@@ -334,14 +334,14 @@ static always_inline void stac(void)
  
- void __init arch_init_memory(void)
- {
--    unsigned long i, pfn, rstart_pfn, rend_pfn, iostart_pfn, ioend_pfn;
--
-     /*
-      * Basic guest-accessible flags:
-      *   PRESENT, R/W, USER, A/D, AVAIL[0,1,2], AVAIL_HIGH, NX (if available).
-@@ -292,12 +290,17 @@ void __init arch_init_memory(void)
-      * case the low 1MB.
-      */
-     BUG_ON(pvh_boot && trampoline_phys != 0x1000);
--    for ( i = 0; i < 0x100; i++ )
-+    for ( unsigned int i = 0; i < MB(1) >> PAGE_SHIFT; i++ )
-         assign_io_page(mfn_to_page(_mfn(i)));
+ #define ELFNOTE(name, type, desc)           \
+     .pushsection .note.name, "a", @note   ; \
+-    .p2align 2                            ; \
++    .balign BYTES_PER_LONG                ; \
+     .long 2f - 1f       /* namesz */      ; \
+     .long 4f - 3f       /* descsz */      ; \
+     .long type          /* type   */      ; \
+ 1:  .asciz #name        /* name   */      ; \
+-2:  .p2align 2                            ; \
++2:  .balign BYTES_PER_LONG                ; \
+ 3:  desc                /* desc   */      ; \
+-4:  .p2align 2                            ; \
++4:  .balign BYTES_PER_LONG                ; \
+     .popsection
  
--    /* Any areas not specified as RAM by the e820 map are considered I/O. */
--    for ( i = 0, pfn = 0; pfn < max_page; i++ )
-+    /*
-+     * Any areas not specified as RAM or UNUSABLE by the e820 map are
-+     * considered I/O.
-+     */
-+    for ( unsigned long i = 0, pfn = 0; pfn < max_page; i++ )
+ #define ASM_CONSTANT(name, value)                \
+--- a/xen/common/libelf/libelf-dominfo.c
++++ b/xen/common/libelf/libelf-dominfo.c
+@@ -583,6 +583,8 @@ elf_errorstatus elf_xen_parse(struct elf
+     count = elf_phdr_count(elf);
+     for ( i = 0; i < count; i++ )
      {
-+        unsigned long rstart_pfn, rend_pfn;
++        unsigned orig_align = elf->note_align;
 +
-         while ( (i < e820.nr_map) &&
-                 (e820.map[i].type != E820_RAM) &&
-                 (e820.map[i].type != E820_UNUSABLE) )
-@@ -317,17 +320,6 @@ void __init arch_init_memory(void)
-                                PFN_DOWN(e820.map[i].addr + e820.map[i].size));
-         }
+         phdr = elf_phdr_by_index(elf, i);
+         if ( !elf_access_ok(elf, ELF_HANDLE_PTRVAL(phdr), 1) )
+             /* input has an insane program header count field */
+@@ -597,10 +599,15 @@ elf_errorstatus elf_xen_parse(struct elf
+         if (elf_uval(elf, phdr, p_offset) == 0)
+              continue;
  
--        /*
--         * Make sure any Xen mappings of RAM holes above 1MB are blown away.
--         * In particular this ensures that RAM holes are respected even in
--         * the statically-initialised 1-16MB mapping area.
--         */
--        iostart_pfn = max_t(unsigned long, pfn, 1UL << (20 - PAGE_SHIFT));
--        ioend_pfn = min(rstart_pfn, 16UL << (20 - PAGE_SHIFT));
--        if ( iostart_pfn < ioend_pfn )
--            destroy_xen_mappings((unsigned long)mfn_to_virt(iostart_pfn),
--                                 (unsigned long)mfn_to_virt(ioend_pfn));
--
-         /* Mark as I/O up to next RAM region. */
-         for ( ; pfn < rstart_pfn; pfn++ )
++        elf->note_align = elf_uval(elf, phdr, p_align);
++
+         more_notes = elf_xen_parse_notes(elf, parms,
+                                  elf_segment_start(elf, phdr),
+                                  elf_segment_end(elf, phdr),
+                                  &total_note_count);
++
++        elf->note_align = orig_align;
++
+         if ( more_notes == ELF_NOTE_INVALID )
+             return -1;
+ 
+@@ -616,6 +623,8 @@ elf_errorstatus elf_xen_parse(struct elf
+         count = elf_shdr_count(elf);
+         for ( i = 1; i < count; i++ )
          {
-@@ -365,6 +357,7 @@ void __init arch_init_memory(void)
-                     const l3_pgentry_t *l3idle = map_l3t_from_l4e(
-                             idle_pg_table[l4_table_offset(split_va)]);
-                     l3_pgentry_t *l3tab = map_domain_page(l3mfn);
-+                    unsigned int i;
++            unsigned orig_align = elf->note_align;
++
+             shdr = elf_shdr_by_index(elf, i);
+             if ( !elf_access_ok(elf, ELF_HANDLE_PTRVAL(shdr), 1) )
+                 /* input has an insane section header count field */
+@@ -624,11 +633,15 @@ elf_errorstatus elf_xen_parse(struct elf
+             if ( elf_uval(elf, shdr, sh_type) != SHT_NOTE )
+                 continue;
  
-                     for ( i = 0; i < l3_table_offset(split_va); ++i )
-                         l3tab[i] = l3idle[i];
-
++            elf->note_align = elf_uval(elf, shdr, sh_addralign);
++
+             more_notes = elf_xen_parse_notes(elf, parms,
+                                      elf_section_start(elf, shdr),
+                                      elf_section_end(elf, shdr),
+                                      &total_note_count);
+ 
++            elf->note_align = orig_align;
++
+             if ( more_notes == ELF_NOTE_INVALID )
+                 return -1;
+ 
+--- a/xen/common/libelf/libelf-loader.c
++++ b/xen/common/libelf/libelf-loader.c
+@@ -72,6 +72,9 @@ elf_errorstatus elf_init(struct elf_bina
+         return -1;
+     }
+ 
++    /* Record default note alignment, as per EI_CLASS. */
++    elf->note_align = elf_64bit(elf) ? 8 : 4;
++
+     /* Find section string table. */
+     section = elf_uval(elf, elf->ehdr, e_shstrndx);
+     shdr = elf_shdr_by_index(elf, section);
+--- a/xen/common/libelf/libelf-tools.c
++++ b/xen/common/libelf/libelf-tools.c
+@@ -288,6 +288,20 @@ ELF_HANDLE_DECL(elf_sym) elf_sym_by_inde
+     return sym;
+ }
+ 
++/*
++ * Notes are special: Formally for a long time the spec has demanded that
++ * 64-bit ELF would have 8-byte padding at respective places.  However, many
++ * producers were never updated, so apply a heuristic GNU readelf also applies:
++ * Take section (or segment) alignment into consideration.  When alignment is 4
++ * or less, assume only 4-byte padding.
++ */
++static unsigned elf_note_round_up(const struct elf_binary *elf, unsigned pos)
++{
++    unsigned align = elf_32bit(elf) || elf->note_align <= 4 ? 4 : 8;
++
++    return (pos + align - 1) & ~(align - 1);
++}
++
+ const char *elf_note_name(struct elf_binary *elf, ELF_HANDLE_DECL(elf_note) note)
+ {
+     return elf_strval(elf, ELF_HANDLE_PTRVAL(note) + elf_size(elf, note));
+@@ -295,9 +309,9 @@ const char *elf_note_name(struct elf_bin
+ 
+ elf_ptrval elf_note_desc(struct elf_binary *elf, ELF_HANDLE_DECL(elf_note) note)
+ {
+-    unsigned namesz = (elf_uval(elf, note, namesz) + 3) & ~3;
+-
+-    return ELF_HANDLE_PTRVAL(note) + elf_size(elf, note) + namesz;
++    return ELF_HANDLE_PTRVAL(note) +
++           elf_note_round_up(elf,
++                             elf_size(elf, note) + elf_uval(elf, note, namesz));
+ }
+ 
+ uint64_t elf_note_numeric(struct elf_binary *elf, ELF_HANDLE_DECL(elf_note) note)
+@@ -339,11 +353,9 @@ uint64_t elf_note_numeric_array(struct e
+ 
+ ELF_HANDLE_DECL(elf_note) elf_note_next(struct elf_binary *elf, ELF_HANDLE_DECL(elf_note) note)
+ {
+-    unsigned namesz = (elf_uval(elf, note, namesz) + 3) & ~3;
+-    unsigned descsz = (elf_uval(elf, note, descsz) + 3) & ~3;
+-
+-    elf_ptrval ptrval = ELF_HANDLE_PTRVAL(note)
+-        + elf_size(elf, note) + namesz + descsz;
++    elf_ptrval ptrval =
++        elf_note_desc(elf, note) +
++        elf_note_round_up(elf, elf_uval(elf, note, descsz));
+ 
+     if ( ( ptrval <= ELF_HANDLE_PTRVAL(note) || /* wrapped or stuck */
+            !elf_access_ok(elf, ELF_HANDLE_PTRVAL(note), 1) ) )
+--- a/xen/include/xen/elf.h
++++ b/xen/include/xen/elf.h
+@@ -29,7 +29,7 @@
+ 
+ #include <xen/elfstructs.h>
+ 
+-#define ELFNOTE_ALIGN(_n_) (((_n_)+3)&~3)
++#define ELFNOTE_ALIGN(_n_) ROUNDUP(_n_, BYTES_PER_LONG)
+ #define ELFNOTE_NAME(_n_) ((char*)(_n_) + sizeof(*(_n_)))
+ #define ELFNOTE_DESC(_n_) (ELFNOTE_NAME(_n_) + ELFNOTE_ALIGN((_n_)->namesz))
+ #define ELFNOTE_NEXT(_n_) ((Elf_Note *)(ELFNOTE_DESC(_n_) + ELFNOTE_ALIGN((_n_)->descsz)))
+--- a/xen/include/xen/libelf.h
++++ b/xen/include/xen/libelf.h
+@@ -181,6 +181,12 @@ struct elf_binary {
+     char class;
+     char data;
+ 
++    /*
++     * Note alignment is defaulted from EI_CLASS, but overridden by
++     * segment / section alignment.
++     */
++    unsigned note_align;
++
+     ELF_HANDLE_DECL(elf_ehdr) ehdr;
+     elf_ptrval sec_strtab;
+     ELF_HANDLE_DECL(elf_shdr) sym_tab;
 
