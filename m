@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B2D0B206C6
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 13:03:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077344.1438406 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF1A4B206EF
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 13:10:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077359.1438416 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulQIg-0001J7-RO; Mon, 11 Aug 2025 11:02:46 +0000
+	id 1ulQQG-0002rt-IH; Mon, 11 Aug 2025 11:10:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077344.1438406; Mon, 11 Aug 2025 11:02:46 +0000
+Received: by outflank-mailman (output) from mailman id 1077359.1438416; Mon, 11 Aug 2025 11:10:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulQIg-0001Gk-OJ; Mon, 11 Aug 2025 11:02:46 +0000
-Received: by outflank-mailman (input) for mailman id 1077344;
- Mon, 11 Aug 2025 11:02:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ku41=2X=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ulQIf-0001Ge-K5
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 11:02:45 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b48c48f7-76a2-11f0-b898-0df219b8e170;
- Mon, 11 Aug 2025 13:02:43 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-615460d9897so4867695a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 04:02:43 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af985e63730sm1178098266b.67.2025.08.11.04.02.42
+	id 1ulQQG-0002pg-FR; Mon, 11 Aug 2025 11:10:36 +0000
+Received: by outflank-mailman (input) for mailman id 1077359;
+ Mon, 11 Aug 2025 11:10:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=92re=2X=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ulQQE-0001si-Qf
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 11:10:34 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cd23164e-76a3-11f0-a325-13f23c93f187;
+ Mon, 11 Aug 2025 13:10:34 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3b7961cf660so3436425f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 04:10:34 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3b79c3abec8sm41873193f8f.8.2025.08.11.04.10.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Aug 2025 04:02:42 -0700 (PDT)
+ Mon, 11 Aug 2025 04:10:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +45,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b48c48f7-76a2-11f0-b898-0df219b8e170
+X-Inumbo-ID: cd23164e-76a3-11f0-a325-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754910163; x=1755514963; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=0AbdxcfE/93uEpfKNSHP2CpS1hPezW07bTy7hhuuf1o=;
-        b=SobbXrx8be3NVkAY7/197OlTsMTt2BoCY1541OAIzffX8K8VA6gXt6kBGI+RBIAk8/
-         ccmHu0SvtBCokZo8odWJYa6PErzjI0BvJKQM3hB7qTjo8FJB0GQX6odgrqU10b55Jo2c
-         VD8q38ox9BMzZwyodh/CPK4x7MREgqDRy/KgrRmadwd6XEzHo2Xxt1HBMWIz4fAUBHnr
-         Ih0yZd18Jgz7LPMoipLMEFrr7bWzVf60QtWWuFtjnOGm3+JdWnQoy54TToTqm+4z0k5X
-         upNuzayYWt5G8la17D7YBdFYiw7KxEnyUdwqgXJheLk12Yh+SzzHKjhNCXVSwPXTYJk5
-         VDgA==
+        d=citrix.com; s=google; t=1754910634; x=1755515434; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ihhxUOplkDCJ0sk+3/G1R8Pi/mQRhc86idSFJNHoez8=;
+        b=VZQLvqCNOOH+3dffI1IZTzG28aOayicZr0JEEcdy0jdkfOmjtGRFwSk4/FSIFdkyU2
+         2zxLT/hQV1W+u5elWT+V8fW77QSRr2tpRUhPqmezRs84r+WV4+6dmEPUtCg/QJ9wU48K
+         5PBiOSxU7RVy+pmPgLgBdaHBI0doZ92XUM+Gs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754910163; x=1755514963;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0AbdxcfE/93uEpfKNSHP2CpS1hPezW07bTy7hhuuf1o=;
-        b=par7dekpa7uBQougi2hyr3VFj25Xs/5TnBbaxjESqeNZ75M7v6Fiwr67VsrcfMVnUc
-         xsHtkbspTSkMkcWaMA0gONdIvHq2NJXYYYszR+NeISZitZecU1othPsT0O6s5k+icMHk
-         tAWGILYcTPNAP8uk5iU467QVeOFIYJJMvZnz4oD+1/v6f+djohgjlVAgjpWuqGGh5Y4c
-         E1bLKI3cgdLclEaV++aFD16an/BIwd6GiE0D37BMDVjnDNIIQVBbyxJeIwkhnqX5jl6+
-         bcWg8dORvwDnnKhHJNWUguV/OcEcOBx6tvkK+aAiXaeEfQPjrZ+6NTdy5HgluTAVgM9P
-         lFfg==
-X-Gm-Message-State: AOJu0Yxcfs6YR8g1pEe8acywVCkPzR4yQQ5ZkRs42aXCIaOXLIq8E485
-	x8RIsOPuHSl5mo/HQXzvRFe7YMiyS4qyPJsOssP3D+HjV/l32bJq2ntOCXWwZBgmlF0mkvGdDfD
-	d1wM=
-X-Gm-Gg: ASbGnctq3hJXgVNoZ8EE3djC0J8Hx+xsdUSr7ZJvtvnufp6xWH5DTatbwOREb+faWEB
-	PBw9Z+1FEByl3u/3O1kL3Mxfnm98Ik159bgsmIbgMZQDfBMEaYAz4nFoPPVyokMlgvNbTFJ920C
-	hq3bnsAl2Bm3mmUQpvRyXo726CF2ku/DKTstp5Q0Rz/jWg3VAv0tqppBryzlyhzRr7r7DUUn80q
-	2qKwSMGAcEFljTAwRflXYinUYetPKg5Izs3ZGh5edGrASZjlBDAVyhdLkB9DKj5RJM2rx5fMZXB
-	BRijPsrnQCGU9cnubjridC6tsC7e3+goYglXngrIWdtLkYDpb754As5gQZEVjQyIinVmfqAVOiC
-	uGs0V/dXbLq9niebyafbpRhMOxSXCg8vBrpN0e8GnOaNrjtzOIUtV2JqQt26M+nfF0jr6pMU9pK
-	et+fwwvDw3lsUQMkGFQQ==
-X-Google-Smtp-Source: AGHT+IG7BI2fdJ+WmphpimgFK13VQDU56WaLOjncuHCXd8Joe2oal9SCDEXUZ+srDC7dmW7GTXa/AQ==
-X-Received: by 2002:a17:906:730a:b0:af9:566c:4cd1 with SMTP id a640c23a62f3a-af9c6485b27mr1139701366b.24.1754910162737;
-        Mon, 11 Aug 2025 04:02:42 -0700 (PDT)
-Message-ID: <7a24d8c9-97c2-4721-9e38-600858b30119@suse.com>
-Date: Mon, 11 Aug 2025 13:02:41 +0200
+        d=1e100.net; s=20230601; t=1754910634; x=1755515434;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ihhxUOplkDCJ0sk+3/G1R8Pi/mQRhc86idSFJNHoez8=;
+        b=o/NyurCXPVMx92RP3P6cTaSpM8Xx0cZpv6h705c0k1cgDOgZCeq1LePy6JhcS9kfjE
+         B6C9WCj8/mulAKzToGU2qbwNzzPfeExvwVESAuPlkpIqVwLJG0SfbMme6S8ICfYSVJAQ
+         IvAgqT7IamJXxc32r0QpM3NlvvFlmDMYfW2hP45g2/52qkx9+QRBECEiaHuFVyF5bZ06
+         J18Ses8lWdvn0PspXToLU7JdFGxU/EWzIKIXRA+BfLad2fBXW0onW9dwGBJdgy9fDjx0
+         JE0x2dtndbRrpc3X8kYUrl41oleMYvlMdVWi7z6lZWTZZWMqOZ1HqFuNXLyzlzekfw3R
+         gHxw==
+X-Forwarded-Encrypted: i=1; AJvYcCWhEOnj8/aC2XNgC9BfvdT2LrCLlTnehGoacWsEa5ONsinTnb4kwv596+0L8JkdEyRa/ne7P5U1uW8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YymbYy18jNlM5yvaQrpJEW7vFVqr7AgMGhACqmw/vDrOOQCSwt2
+	Vtko3uozA4J+BJoj4q2SvzhOXTPxB+hjITLMmIYX8gR1G7sydfBV2bTT2G2ioJMSPshldX7uo5V
+	Szxa9s80=
+X-Gm-Gg: ASbGnct4dJP65uJUigX1ukZUgXuSoPbQU5IobSQQFSemBr1oTWT0koNwHZcNq/5bQYg
+	wI6FBZE5OXGTil6QWqNSK53T2OqnDuayKeTuu1D7/5gJxFP8X/cHLmWGnxbDecVvVQdM6S15gfu
+	zhJRCjwvcHSvxQt8wZOZgYlQxbw6HyqNaFA+l4R2AUd85ktqeUdQAL6laUDajkZQ18bQ13G4221
+	yC86LaybinmzivaCppsPrrYOn3oOjVhDyFpRZ/q0TeZMx0LNEe+E/XQa08nr8dyv7c0BjoDcksK
+	LKuijz+nz+14jB+LkOolnT3jReSsTY3HJFNIKjdCnWnwrZ2DraeRjSdQUE51mzQaoGNIfG8eQZc
+	iclTaWiuzPc/Tm0PyYuLzQyEVkL6rr3h46L+VCGQK76enr/Ss2y39dVjzZnw0OlHxu+JT
+X-Google-Smtp-Source: AGHT+IFoYD35fxyc5jjW34hWU15OblY2lT4CeY4FI5/5uvEjJysPX0gln4wFkCYM43JAwPf6tHnEnQ==
+X-Received: by 2002:a05:6000:20c4:b0:3b8:d493:31ed with SMTP id ffacd0b85a97d-3b900b7941fmr7230860f8f.47.1754910633644;
+        Mon, 11 Aug 2025 04:10:33 -0700 (PDT)
+Message-ID: <75f5d54e-8ec1-42dd-8f4f-6023113203ee@citrix.com>
+Date: Mon, 11 Aug 2025 12:10:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH for-4.21?] x86: drop detection of ld supporting
+Subject: Re: [PATCH for-4.21?] x86: drop detection of ld supporting
  SORT_BY_INIT_PRIORITY()
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <7a24d8c9-97c2-4721-9e38-600858b30119@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <7a24d8c9-97c2-4721-9e38-600858b30119@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-GNU ld 2.25 supports this, and we already assume all lld versions do.
+On 11/08/2025 12:02 pm, Jan Beulich wrote:
+> GNU ld 2.25 supports this, and we already assume all lld versions do.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-While past the submission deadline, this fits the toolchain baseline
-update we did in this release cycle, so I'd like to ask that it be
-considered to still permit this in.
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
---- a/xen/arch/x86/arch.mk
-+++ b/xen/arch/x86/arch.mk
-@@ -72,16 +72,6 @@ ifeq ($(CONFIG_UBSAN),y)
- $(call cc-option-add,CFLAGS_UBSAN,CC,-fno-sanitize=alignment)
- endif
- 
--ifeq ($(CONFIG_LD_IS_GNU),y)
--# While not much better than going by raw GNU ld version, utilize that the
--# feature we're after has appeared in the same release as the
--# --print-output-format command line option.
--AFLAGS-$(call ld-option,--print-output-format) += -DHAVE_LD_SORT_BY_INIT_PRIORITY
--else
--# Assume all versions of LLD support this.
--AFLAGS += -DHAVE_LD_SORT_BY_INIT_PRIORITY
--endif
--
- ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
- 
- efi-check := arch/x86/efi/check
---- a/xen/arch/x86/xen.lds.S
-+++ b/xen/arch/x86/xen.lds.S
-@@ -35,10 +35,6 @@ ENTRY(start_pa)
- # define SECTION_ALIGN PAGE_SIZE
- #endif
- 
--#ifndef HAVE_LD_SORT_BY_INIT_PRIORITY
--# define SORT_BY_INIT_PRIORITY SORT
--#endif
--
- OUTPUT_FORMAT(FORMAT, FORMAT, FORMAT)
- 
- OUTPUT_ARCH(i386:x86-64)
+> ---
+> While past the submission deadline, this fits the toolchain baseline
+> update we did in this release cycle, so I'd like to ask that it be
+> considered to still permit this in.
+
+There's loads of cleanup still in the ticket I made and talked about at
+the start of 4.21.
+
+There are a view bits posted and still in need of pushing through, but I
+consider anything along these lines to be fair game in the short term.
+
+~Andrew
 
