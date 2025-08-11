@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39B3AB20646
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 12:50:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077291.1438356 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A22AAB2064A
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 12:50:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077296.1438366 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulQ6L-0004Nb-MM; Mon, 11 Aug 2025 10:50:01 +0000
+	id 1ulQ6l-0005mv-Uo; Mon, 11 Aug 2025 10:50:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077291.1438356; Mon, 11 Aug 2025 10:50:01 +0000
+Received: by outflank-mailman (output) from mailman id 1077296.1438366; Mon, 11 Aug 2025 10:50:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulQ6L-0004LH-Hz; Mon, 11 Aug 2025 10:50:01 +0000
-Received: by outflank-mailman (input) for mailman id 1077291;
- Mon, 11 Aug 2025 10:50:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ulQ6l-0005kR-Po; Mon, 11 Aug 2025 10:50:27 +0000
+Received: by outflank-mailman (input) for mailman id 1077296;
+ Mon, 11 Aug 2025 10:50:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ku41=2X=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ulQ6K-0004L9-Hs
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 10:50:00 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ec8d174c-76a0-11f0-b898-0df219b8e170;
- Mon, 11 Aug 2025 12:49:58 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-af958127df5so632791966b.2
- for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 03:49:58 -0700 (PDT)
+ id 1ulQ6k-0005a8-9S
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 10:50:26 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fc2ed450-76a0-11f0-a325-13f23c93f187;
+ Mon, 11 Aug 2025 12:50:24 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-61530559887so6661329a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 03:50:24 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af929c6a157sm1883763266b.91.2025.08.11.03.49.57
+ 4fb4d7f45d1cf-615a8ff9ae5sm17911920a12.43.2025.08.11.03.50.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Aug 2025 03:49:57 -0700 (PDT)
+ Mon, 11 Aug 2025 03:50:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec8d174c-76a0-11f0-b898-0df219b8e170
+X-Inumbo-ID: fc2ed450-76a0-11f0-a325-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754909398; x=1755514198; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754909424; x=1755514224; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=c0kRRXWE/dsdx4mKZYOIAFzRpb2D9T2OWENbKt8BtM0=;
-        b=LcT9RvDwy+fK5IxjNq/TtFZ7JNl+IPMYHNSEs9t/StxBVeEyXqV954GMri3o1S9EAd
-         kFnun4SAK6HbCDFWUXxMd+297WUpSoE3H7DbVZxKZh4dxCk+GnlaCOmwY+C8EDgVVwfO
-         8R99P1H+zrpMIpSkDeXjMlFq6ONsYAGGvtKRh6puCIMqfXQYFyuLZ8gChRsv/odvHV8t
-         u0rio2kaWQd68LPGDIVboXQ8u8M/LRhpGVCQc35h1iTlP+peRRy14VuwAxd5rhS9wlVj
-         ciuzMdVAJwnff8428ncHQQ2j/2xpSf9Lp3rP13C90L30vtJ+L/n6XaWxHoMbgzZm6wUg
-         rqgQ==
+        bh=NNP7nFEccI8WBoRocVIQ5vYhIflCxYg5OB3S5qlC4j0=;
+        b=SNgEFLv7XtAKkgCPBDBbxsUdEoJc9x6BMPtQskPHxnpySGDEeSa1kXWuwa0rx6MGik
+         jz53cGDYM+sdmOj96HOpeAhQ/ehq/tbbCd3XXGZnOrYiTJWt2EoS+dfuYRvJezBQF3VK
+         DR/0fn7NBIeExL/MWP2LkdVO0gsPTJzBJtfQQUuHEDfr4oJmsJaVlRASbNwTWJcY9CBD
+         JcbskeZq7JiRcPiT7U6XQpC4VAj9K+4uKYhkJ6TMBdoRPNMuPmOvomLiJK/PSS62+cQd
+         rOvqviaCmRpzw/CzOuY87sRE6yG5fz8I6WEojZAovvZgQs1OSlkv9SI/LcAM3MBqEL+F
+         TnTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754909398; x=1755514198;
+        d=1e100.net; s=20230601; t=1754909424; x=1755514224;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=c0kRRXWE/dsdx4mKZYOIAFzRpb2D9T2OWENbKt8BtM0=;
-        b=fVjduTrfbVPKNS2PV73kc4jdEiyB/bJw5E/kjL0ooJZ3O/Uhw36PGdGI0behKDwqtW
-         oZtqpMgCYsOtx3LMFM86//v7yESCVBayNyMPb2cBeZRRrpPmsCcfA4MF2XZFXk+1wgYh
-         1KxlZvBuHIo7s59rCrRtO44/GRg3clvKE3kvR69eMvJXFKcbZW2RjXwY5ywldYGNv/oG
-         LkuxdtRhanukE2r/AAJ/khu6k5/fVtDVS6uSikVG5BIgw/bvyN0rIp9WuUpJ5yRcHzTL
-         lKRr8AOcv/HS+yCRSzLXfaRuxR/mi1DpZhrt/dJtGcdHMyKxqcgllPYBor3nYVXxFEXb
-         CthQ==
-X-Gm-Message-State: AOJu0YxF4zZ3J3Ys/N3Mp237gEZApIAn4+eQCDl/B7thNkgkV+xpyJ2P
-	WeWu5mEcpY8qHZAxV14Ym/TpjEMslU6wwtBnkp/y7cX4pSKtbYBYIBwrkpWjf4NPu93pB3yo71w
-	Td/Y=
-X-Gm-Gg: ASbGncsetAeQ0gaDw0EnXwAYug1QhIRMJkQDQoyPgcLpfVAyMe+moRN4UgVPAJ+glfZ
-	Au+QUyTvZAbaLz1wJMp7MaT+/exopQUilpxmiH+by7ITzjcSr9BGiDEYte2jYObRYBC6nFWCvxj
-	bLiOY2yoSGaBLs2W1ajjlfLtm6h2AHx3WVqzOrjnm+STw18erg/NlWDu8kGIa0HA6KsfPwvJCJU
-	f/gulUMOMJmd2sDxPbURhoGOk+2xtiJ5z4K3fiPs/RyMuizwlctKSbOB3F5lSTrV3FnLImJOsxA
-	e/Wunmkqy1mzehzMHJwWYJMJTfuDTmCBelbVlJabqNc0Xof8ydeISo2EG5384SYvVeZtiTqv6OV
-	5FSodtcQw0T8U9TPgYKDquo/2jr9R2Yac+dRM41YjCe+Hzkj+AoZaCOG4y0VveIL2JERj6u1y+0
-	kPV/p5ZkY=
-X-Google-Smtp-Source: AGHT+IFIiIOXTIfVIQ0ibV7NNZ95KDX2AyW9ZiKJINRkwWBFe/0km40+ll+vOgX3b6y501vFfzYcEQ==
-X-Received: by 2002:a17:907:cd0e:b0:af9:3ad2:6930 with SMTP id a640c23a62f3a-af9c64859a3mr1060375766b.24.1754909397940;
-        Mon, 11 Aug 2025 03:49:57 -0700 (PDT)
-Message-ID: <6e295921-0432-435e-9efe-51caa106f203@suse.com>
-Date: Mon, 11 Aug 2025 12:49:57 +0200
+        bh=NNP7nFEccI8WBoRocVIQ5vYhIflCxYg5OB3S5qlC4j0=;
+        b=JFFCkgu0ac3IcFHdzYF25asY1WeEu4ZlO2/dGcII5jO1Abq7okAZZPeOz/yuJxTC8Y
+         t4hlw4WFzpG8Yrgtevb+2+WgPJ19784J2oX6jWFOyZATGIRm9uXScDkdEvdjlLIpmGzN
+         l7lp9bLXJPY+lfpnOXJWF5Az7egpF2trpHEYuAsKnQ64WrSLvblf/xM07APG1+KIagn+
+         I1V0IEyd2HHTahpdFoLjRQQ3BQ2RmzvtMNtK/xDqvBfXQ/fHG+HbnTUwbbUD5cOrhv6w
+         v1XZuQkq/eBYy26zFF/VEtBkd/V5oO1wtWJYDfvaQuz0/tgWUS2OkbzHmgBqfh6iOy2q
+         Kobw==
+X-Gm-Message-State: AOJu0YxVVEDLHuu31Mi3A5xayT0KurJbxXI55UCC5U8cXyQlZ30PsyBU
+	MmhAQiIkcBfDcyKmOEtAvZlg7GFThAI1giM3uK2TDprTPk+dlCtbpXiAeIScqj8T0Ka6XHEg+KX
+	fk+g=
+X-Gm-Gg: ASbGncu7kLAI0XwTVmUG4lQrnOppR858zHy4bc/jozuUAPSJWIsREsoyL+l3JKfgBbH
+	5XOpNB5pYly56TNBptKhntZY1PXw+naKCZSqbKvqf0i2DzifgSdZpEyP8sP+ThP6EmxJthPRxpG
+	v6WyEA8azC+cg9miWV8ZuleEnbH5jYIZrRJ0JC8blyDYMdxOm9AmDPaB6jVrlAWTo3fcpt3aQrx
+	d4H69WapUYG84MTGcgfvB60KczYW02D9wVASIXGWeSXbfsxA/1xpPR/XCnc8BDIgbO6Mw5wNF/+
+	4z34K3V5ulcusD6zV4/v49H++z3QS9EBP+qjg0+rKFymMgj3iwLw/QEwxTzHwN6RJ73KYQJRvlP
+	WVVUIpp7cRI9E1NrUsz1rCSeFyZEqz+zf+Ye1GzQkRacFNF5HK3O4oxK+AqoHM+Q+m2yXQ7pXvl
+	0px4ZRpOM=
+X-Google-Smtp-Source: AGHT+IGzX4dx7d/KHV1d0qMMph5KvSflSYCtu7+99cMBUjVuyjE3Mr8n2aQNe/dZhuCR+ATvlFYa2Q==
+X-Received: by 2002:a05:6402:1ec4:b0:615:87a6:58a7 with SMTP id 4fb4d7f45d1cf-617e2e9e45bmr12117531a12.33.1754909424149;
+        Mon, 11 Aug 2025 03:50:24 -0700 (PDT)
+Message-ID: <5a862787-40d8-4c9f-bd89-01d866648120@suse.com>
+Date: Mon, 11 Aug 2025 12:50:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 1/2] x86/mkelf32: pad load segment to 2Mb boundary
+Subject: [PATCH v2 2/2] x86/mm: drop unmapping from marking-as-I/O in
+ arch_init_memory()
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -122,95 +123,76 @@ In-Reply-To: <ddfd86ad-19b3-495b-930c-1770dd92fa99@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-In order to legitimately set up initial mappings past _end[], we need
-to make sure that the entire mapped range is inside a RAM region.
-Therefore we need to inform the bootloader (or alike) that our allocated
-size is larger than just the next SECTION_ALIGN-ed boundary past _end[].
+The unmapping part would have wanted to cover UNUSABLE regions as well,
+and it would now have been necessary for space outside the low 16Mb
+(wherever Xen is placed). However, with everything up to the next 2Mb
+boundary now properly backed by RAM, we don't need to unmap anything
+anymore: Space up to __2M_rwdata_end[] is properly reserved, whereas
+space past that mark (up to the next 2Mb boundary) is ordinary RAM.
 
-This allows dropping a command line option from the tool, which was
-introduced to work around a supposed linker bug, when the problem was
-really Xen's.
-
-While adjusting adjacent code, correct the argc check to also cover the
-case correctly when --notes was passed.
+While there, limit the scopes of involved variables.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-There's no good Fixes: tag, I don't think, as in theory the issue could
-even have happened when we still required to be loaded at a fixed
-physical address (1Mb originally, later 2Mb), and when we statically
-mapped the low 16Mb. If we assumed such can't happen below 16Mb, these
-two should be added:
-Fixes: e4dd91ea85a3 ("x86: Ensure RAM holes really are not mapped in Xen's ongoing 1:1 physmap")
-Fixes: 7cd7f2f5e116 ("x86/boot: Remove the preconstructed low 16M superpage mappings")
----
-v2: New.
+v2: Drop unmapping code altogether.
 
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -130,8 +130,7 @@ orphan-handling-$(call ld-option,--orpha
+--- a/xen/arch/x86/mm.c
++++ b/xen/arch/x86/mm.c
+@@ -275,8 +275,6 @@ static void __init assign_io_page(struct
  
- $(TARGET): TMP = $(dot-target).elf32
- $(TARGET): $(TARGET)-syms $(efi-y) $(obj)/boot/mkelf32
--	$(obj)/boot/mkelf32 $(notes_phdrs) $(TARGET)-syms $(TMP) $(XEN_IMG_OFFSET) \
--	               `$(NM) $(TARGET)-syms | sed -ne 's/^\([^ ]*\) . __2M_rwdata_end$$/0x\1/p'`
-+	$(obj)/boot/mkelf32 $(notes_phdrs) $(TARGET)-syms $(TMP) $(XEN_IMG_OFFSET)
- 	od -t x4 -N 8192 $(TMP)  | grep 1badb002 > /dev/null || \
- 		{ echo "No Multiboot1 header found" >&2; false; }
- 	od -t x4 -N 32768 $(TMP) | grep e85250d6 > /dev/null || \
---- a/xen/arch/x86/boot/mkelf32.c
-+++ b/xen/arch/x86/boot/mkelf32.c
-@@ -248,7 +248,6 @@ static void do_read(int fd, void *data,
- 
- int main(int argc, char **argv)
+ void __init arch_init_memory(void)
  {
--    uint64_t   final_exec_addr;
-     uint32_t   loadbase, dat_siz, mem_siz, note_base, note_sz, offset;
-     char      *inimage, *outimage;
-     int        infd, outfd;
-@@ -261,22 +260,24 @@ int main(int argc, char **argv)
-     Elf64_Ehdr in64_ehdr;
-     Elf64_Phdr in64_phdr;
+-    unsigned long i, pfn, rstart_pfn, rend_pfn, iostart_pfn, ioend_pfn;
+-
+     /*
+      * Basic guest-accessible flags:
+      *   PRESENT, R/W, USER, A/D, AVAIL[0,1,2], AVAIL_HIGH, NX (if available).
+@@ -292,12 +290,17 @@ void __init arch_init_memory(void)
+      * case the low 1MB.
+      */
+     BUG_ON(pvh_boot && trampoline_phys != 0x1000);
+-    for ( i = 0; i < 0x100; i++ )
++    for ( unsigned int i = 0; i < MB(1) >> PAGE_SHIFT; i++ )
+         assign_io_page(mfn_to_page(_mfn(i)));
  
--    if ( argc < 5 )
-+    if ( argc < 4 )
-     {
-+    help:
-         fprintf(stderr, "Usage: mkelf32 [--notes] <in-image> <out-image> "
--                "<load-base> <final-exec-addr>\n");
-+                "<load-base>\n");
-         return 1;
-     }
- 
-     if ( !strcmp(argv[1], "--notes") )
-     {
-+        if ( argc < 5 )
-+            goto help;
-         i = 2;
-         num_phdrs = 2;
-     }
-     inimage  = argv[i++];
-     outimage = argv[i++];
-     loadbase = strtoul(argv[i++], NULL, 16);
--    final_exec_addr = strtoull(argv[i++], NULL, 16);
- 
-     infd = open(inimage, O_RDONLY);
-     if ( infd == -1 )
-@@ -339,9 +340,12 @@ int main(int argc, char **argv)
-     (void)lseek(infd, in64_phdr.p_offset, SEEK_SET);
-     dat_siz = (uint32_t)in64_phdr.p_filesz;
- 
--    /* Do not use p_memsz: it does not include BSS alignment padding. */
--    /*mem_siz = (uint32_t)in64_phdr.p_memsz;*/
--    mem_siz = (uint32_t)(final_exec_addr - in64_phdr.p_vaddr);
+-    /* Any areas not specified as RAM by the e820 map are considered I/O. */
+-    for ( i = 0, pfn = 0; pfn < max_page; i++ )
 +    /*
-+     * We don't pad .bss in the linker script, but during early boot we map
-+     * the Xen image using 2M pages.  To avoid running into adjacent non-RAM
-+     * regions, pad the segment to the next 2M boundary.
++     * Any areas not specified as RAM or UNUSABLE by the e820 map are
++     * considered I/O.
 +     */
-+    mem_siz = ((uint32_t)in64_phdr.p_memsz + (1U << 20) - 1) & (-1U << 20);
++    for ( unsigned long i = 0, pfn = 0; pfn < max_page; i++ )
+     {
++        unsigned long rstart_pfn, rend_pfn;
++
+         while ( (i < e820.nr_map) &&
+                 (e820.map[i].type != E820_RAM) &&
+                 (e820.map[i].type != E820_UNUSABLE) )
+@@ -317,17 +320,6 @@ void __init arch_init_memory(void)
+                                PFN_DOWN(e820.map[i].addr + e820.map[i].size));
+         }
  
-     note_sz = note_base = offset = 0;
-     if ( num_phdrs > 1 )
+-        /*
+-         * Make sure any Xen mappings of RAM holes above 1MB are blown away.
+-         * In particular this ensures that RAM holes are respected even in
+-         * the statically-initialised 1-16MB mapping area.
+-         */
+-        iostart_pfn = max_t(unsigned long, pfn, 1UL << (20 - PAGE_SHIFT));
+-        ioend_pfn = min(rstart_pfn, 16UL << (20 - PAGE_SHIFT));
+-        if ( iostart_pfn < ioend_pfn )
+-            destroy_xen_mappings((unsigned long)mfn_to_virt(iostart_pfn),
+-                                 (unsigned long)mfn_to_virt(ioend_pfn));
+-
+         /* Mark as I/O up to next RAM region. */
+         for ( ; pfn < rstart_pfn; pfn++ )
+         {
+@@ -365,6 +357,7 @@ void __init arch_init_memory(void)
+                     const l3_pgentry_t *l3idle = map_l3t_from_l4e(
+                             idle_pg_table[l4_table_offset(split_va)]);
+                     l3_pgentry_t *l3tab = map_domain_page(l3mfn);
++                    unsigned int i;
+ 
+                     for ( i = 0; i < l3_table_offset(split_va); ++i )
+                         l3tab[i] = l3idle[i];
 
 
