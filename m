@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBFB0B203D1
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 11:35:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077172.1438251 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E79C9B203E3
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 11:37:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077184.1438262 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulOw8-0006oK-6C; Mon, 11 Aug 2025 09:35:24 +0000
+	id 1ulOyU-0007SK-Ll; Mon, 11 Aug 2025 09:37:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077172.1438251; Mon, 11 Aug 2025 09:35:24 +0000
+Received: by outflank-mailman (output) from mailman id 1077184.1438262; Mon, 11 Aug 2025 09:37:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulOw8-0006mj-3P; Mon, 11 Aug 2025 09:35:24 +0000
-Received: by outflank-mailman (input) for mailman id 1077172;
- Mon, 11 Aug 2025 09:35:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ku41=2X=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ulOw6-0006mb-6t
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 09:35:22 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7f45a130-7696-11f0-b898-0df219b8e170;
- Mon, 11 Aug 2025 11:35:20 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-6182ea5a6c0so1112113a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 02:35:20 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a21e44csm1972179466b.113.2025.08.11.02.35.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Aug 2025 02:35:19 -0700 (PDT)
+	id 1ulOyU-0007Pn-Id; Mon, 11 Aug 2025 09:37:50 +0000
+Received: by outflank-mailman (input) for mailman id 1077184;
+ Mon, 11 Aug 2025 09:37:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Nn8B=2X=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1ulOyT-0007Ph-9B
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 09:37:49 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d77c4386-7696-11f0-a325-13f23c93f187;
+ Mon, 11 Aug 2025 11:37:48 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id F34804EE0744;
+ Mon, 11 Aug 2025 11:37:46 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,132 +40,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f45a130-7696-11f0-b898-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754904920; x=1755509720; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xu/o5lhozpSl2swzBnM4sfNjUphVc7yoGvbpld/MyxU=;
-        b=IWTo2JRH1RkSxIcVuB8nFsJ4t3EwShH66NbwjgBH7UZasLyZE4Du5Q1Gtpb1iWFOvh
-         Zc6jNSdmGDR1a9TUCRHy+ZaaohrvkRImpfr6nyWGZjhOaTk6eDZIHwTwGXm1Bpvuv4SS
-         HkJsEUUXZDpcx3mm0APeb4EV0o0pfxq00OjUyNzl18INk+deQlU2THayGvP1kE9El3rX
-         Kmvlesl9FHTt/P0M4fcw3gNGpsRYcgg88dn9NEY/SB4mS3uIW0Pgn0W4ljzygJFQDPN1
-         KP4ajsjqIBNC5rgTERoFNp6SeKcTftyts2dnEprFmbxcHPs1J5y2LSvOt+8nsPSsHx7o
-         4oeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754904920; x=1755509720;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xu/o5lhozpSl2swzBnM4sfNjUphVc7yoGvbpld/MyxU=;
-        b=DZmc127tbnD440rnWcH+U6cJT2lgwpULO6uYOvHg+d2PGIrYD20dVIyRtuacRIPQkX
-         BVCnmt5O31MF6ZguVt9RpwpVSuD2Qm7QAEnN9X1LWcw2uJeYXk/X+rO99gkQiIrlp0J0
-         u5MhASv1CVCEC0HNjmv0ILetjFkLutino54tKRG1KSSj1lNhqoI7YYpvnMLkeAMhPiu/
-         YCSZSqr/QcRb0Qmzo9EvYGv3DfMljTfOWnBQrUkSm/5YgCMwWyyJ34CrddMWIlm6SxGF
-         Dchd81KOXJIuffhrgeNh9mcwiGDtJBSCStHcFXVx5pMkrZjG7A3T68vg2c3Y2l10wsJS
-         avXA==
-X-Forwarded-Encrypted: i=1; AJvYcCWFzDAdOcZTkKBTc24MzjPhivAd6RqTGSqQV+Ownboj0csyXhkVFdSMaAH7sL0oMyK+z+r752ix2vQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyWv6nabrQiT8u27IaLNY1JgtLbjV+KUr16p2kOVdLIBEG8nXOL
-	3/I+ucEfbKMnyQVQy9eM6yHIseKe7eNziTCZfhVul4iZ6hsCe28kLMuyCE1MQddpeg==
-X-Gm-Gg: ASbGnct6aGhceRKcXsD6EMIhNPg9Mj3QCVwqFlZmDVQZtgf6LzJ+TqOKWRw/sgiebHQ
-	44cBqId52BdmHxZUOL2ejWidIaFkO4+GL1va8NZrV2C0dirp4RJ8S3e6WfO2Oc0cyA50JPhZR3G
-	xuD6WNAup4DeBxXozePOocCT3xnhgI7Zkdm2apQXPNtzS8DzDio5LWWLP4iMAj+F4PdKuxK/IdT
-	HLcLhO7hbuxsh+nVv+OMRR0/suXGV+z5VAI9QIC49Dr0OFVG+WnjBSjnYknEOaoVEKioSv4RdMk
-	r0Zz97xttBtTea7kSn2FJVcmnI+dLW86kL5ZngFvPuM8MJQwZZQBD066jg+NTbP2gcanZQlUJ9O
-	3J2l4s/BguA2poY0P4zw9nAAJhGmpsMGd7d/eyK7RkJb/xTHo2OXbOF2E7XeIMfm60irq63veWj
-	G2O15q25k=
-X-Google-Smtp-Source: AGHT+IFUykwHz4HJem7pDZXoFKquzfKda0fMMlFcJg0nwG12IixG21hmUXZ9W6e2UD+KpGWJZmm6lw==
-X-Received: by 2002:a17:907:72c3:b0:af9:6e2b:f30c with SMTP id a640c23a62f3a-af9c64d4ac0mr1061771566b.34.1754904919572;
-        Mon, 11 Aug 2025 02:35:19 -0700 (PDT)
-Message-ID: <c913ead7-46f4-4906-821e-2289d0f30b63@suse.com>
-Date: Mon, 11 Aug 2025 11:35:21 +0200
+X-Inumbo-ID: d77c4386-7696-11f0-a325-13f23c93f187
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1754905067;
+	b=TpoGD1L2+fY/HabGhqi3AyvB0j6fnspRCTaQsDcv4irAa36GEeUyYXMUNfksJvxqVITE
+	 K5UANGizzf+m+oJ638rifzJoJj+ByOwFWS2R2vD0s8cBaTnoDZunprMn0iKmNtiZqXMpG
+	 vDdcLJYMRCsV6PsCm8ROI6pYMRzDbka9Y/ekf4UXT9KceDQk+ChUyLofCZgvK0HeDHeUO
+	 OKuqTsLqe3X2dEFvngSMnIcbk5bVUhQbmcJn6czwOBw8VI9tQ6WoBL2mEG/rDjx02TN/O
+	 Wlk2yKVu1koLyPU+X76Q+vPzZfq/5UMvUzv9oEN/JRZL9wck1goHFVHQcRAdv9PqDLpgE
+	 j2HvzeDH1hhVotXp7ZY8ZGh+ZnJFUWraCfxpkxopVycdbCZC+lCFA7AjJ+rV0n4Fl1ZkK
+	 kc5iZzjVBN/6JsyBNy3togwG/i7i32bp518uW+S6JtrPZl+dupbncQFfWlyIlinl+8HlK
+	 jJvC6++PGZCsIV7q2F3Jse5NIKMWXul1P31NVNwBudy/3RXhxoDK/HBmhMxkh/FJFZaq4
+	 SIt+aSwbs2++LaoQZm6STngO1QTYNUdCEVAJ+L3j/McSAh7AgZS0U9X23Bo7xNODCuIKh
+	 xyr2sGFIP2Ek6zTdwlfc89deJKeL0c9ZLAVwigVLdo6B1IzU/fNuNCWmutrVJUc=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1754905067;
+	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=B+VCLIM59gNO7oGRL5RbaIyllKvsSR+p7SZBqqqyJgc=;
+	b=rsk7fDjJx/QcV3mHeCFtevo7ZMugQvqoObBdB5BWOeYUlirQ03Jb2CM6wpCYg6AycjA7
+	 h/8705csLGzt93uaqwCcfBloPHRcGCB7DsGbMj3sUHEAdwHZlfZCZDYw+NUkFFxTFW/eR
+	 0YTvHiCw5HGyH5Tj9nKh/B3Bbovl1lNQpc9ggOql9QV8o1+PnPiWvYXUYl8CXOPJwXBEr
+	 +/H0TnTYp+AzOHig74l1CNfCVJMHvrP+XgLgogJ4XlvlOtUTsq0VtQWop9eyoao5cAPmu
+	 NdipGi1jSHa5F79xWgqVDmse+iZxGtMI/hfrAFygIi5/dimU4ZTCbHWmzsypgchu25M/y
+	 I7TlbSxxVyRU4VbEaKKbXCC6+lnP1DQ88aXkHphbEsRXkFXLOdffk9VViWQgcl9QnsAUL
+	 Oxsg/qpMYJiiPz7G5BZiu1jJDebQ/pmO4RXFfHagtzfSnIVxpxLQr7UUQ7tY3TYZ0JG6s
+	 yg1yFFMmfc0nU55BArxruJ8a17b0IYcA8PmoZVGctrPQL9JqrFNb1Ig30QcAIkFTA47BN
+	 vMuyrIDYX7zdgXhOqC3m61InbTR7jpMGEh7A8jYx2/gzE/HOheaW3F8vZuGVwo66b5Qpn
+	 sA3iHSvG3ZAsd2D0RAJa+M+sFnaTyXE0ww80X8q4k1p7mXL92ZrKwpS0WKcwm0o=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1754905067; bh=fPizuQcs0OTx9Ca+iCbtlDW9LGWCBhL4ud03pLLkJIA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=ZEhAbXw6s11UnP16cY3+bUTmpRGJ4oasM8DryrJph9YJOe1jIvN4vo0y7PI7oL70z
+	 NUOwq4d4DJAufOop0H8y7LsiI+3FocCHDJHWDRRBRHYJxAEieWGGWVgTTgHYEbEcbW
+	 Z/IxzlZBMUPPu8IOIc7/8yawBx822O1QSWPc+41sLF7RtwX3GAtBhWdtxt1IEoNNU9
+	 0lBASq0j8oYsQ4UxUGkI32icLB5QGcf81YuRp/L7qy/S6oenzSEKUkr+wz2AdYPwCW
+	 OG/E5wbF87GoWbSydIhLAo+XbXPUV8hBXcrdYhIUwTRs1evw21PNaV7fnXRwTgfnZu
+	 S+qD9Quli3mVw==
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 11/20] xen/riscv: implement function to map memory in
- guest p2m
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
- <e00dcbecf8f0dbe863628dcc45526100f9ee86a3.1753973161.git.oleksii.kurochko@gmail.com>
- <e7b4b220-4da9-4a87-a4d6-179350849eaa@suse.com>
- <31c75a64-8b69-47ac-9e08-6010fa6cfb9c@gmail.com>
- <ffec4fe0-cca7-40fb-a870-6fdf0201f44a@suse.com>
- <89787fe2-3eea-44b7-ad38-82d0d09be06f@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <89787fe2-3eea-44b7-ad38-82d0d09be06f@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Mon, 11 Aug 2025 11:37:46 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: nicola.vetrini@gmail.com, xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
+ Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH] xen: Drop logic for old clang versions.
+In-Reply-To: <aJmgCv4wgl-IHupn@macbook.local>
+References: <e8bb42876317c19aca79f81c3fc48dc3a4fdaf71.1754830862.git.nicola.vetrini@bugseng.com>
+ <aJmgCv4wgl-IHupn@macbook.local>
+Message-ID: <2ca7082120df5e1ad6a29582d6dfb215@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 11.08.2025 11:29, Oleksii Kurochko wrote:
+On 2025-08-11 09:47, Roger Pau Monné wrote:
+> On Sun, Aug 10, 2025 at 03:03:53PM +0200, nicola.vetrini@gmail.com 
+> wrote:
+>> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>> 
+>> The enforced toolchain baseline for clang is version 11,
+>> therefore this logic is effectively dead code.
+>> 
+>> No functional change.
+>> 
+>> Signed-off-by: Nicola Vetrini <nicola.vetrini@gmail.com>
 > 
-> On 8/11/25 9:28 AM, Jan Beulich wrote:
->> On 08.08.2025 15:46, Oleksii Kurochko wrote:
->>> On 8/5/25 5:20 PM, Jan Beulich wrote:
->>>> On 31.07.2025 17:58, Oleksii Kurochko wrote:
->>>>> +/* Unlock the flush and do a P2M TLB flush if necessary */
->>>>> +void p2m_write_unlock(struct p2m_domain *p2m)
->>>>> +{
->>>>> +    /*
->>>>> +     * The final flush is done with the P2M write lock taken to avoid
->>>>> +     * someone else modifying the P2M wbefore the TLB invalidation has
->>>> Nit: Stray 'w'.
->>>>
->>>>> +     * completed.
->>>>> +     */
->>>>> +    p2m_tlb_flush_sync(p2m);
->>>> Wasn't the plan to have this be conditional?
->>> Not really, probably, I misunderstood you before.
->>>
->>> Previously, I only had|p2m_force_tlb_flush_sync()| here, instead of
->>> |p2m_tlb_flush_sync()|, and the latter includes a condition check on
->>> |p2m->need_flush|.
->> Just to re-iterate my point: Not every unlock will require a flush. Hence
->> why I expect the flush to be conditional upon there being an indication
->> that some change was done that requires flushing.
->>
-> The flush is actually conditional; the condition is inside
-> |p2m_tlb_flush_sync()|:
->    void p2m_tlb_flush_sync(struct p2m_domain *p2m)
->    {
->      if ( p2m->need_flush )
->        p2m_force_tlb_flush_sync(p2m);
->    }
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+> 
+>> ---
+>> Mentioned in https://gitlab.com/xen-project/xen/-/issues/201
+>> ---
+>>  xen/common/coverage/llvm.c   | 4 ----
+>>  xen/include/xen/self-tests.h | 9 +--------
+>>  2 files changed, 1 insertion(+), 12 deletions(-)
+>> 
+>> diff --git a/xen/common/coverage/llvm.c b/xen/common/coverage/llvm.c
+>> index 50d7a3c5d301..517b2aa8c202 100644
+>> --- a/xen/common/coverage/llvm.c
+>> +++ b/xen/common/coverage/llvm.c
+>> @@ -44,12 +44,8 @@
+>>      ((uint64_t)'f' << 16) | ((uint64_t)'R' << 8)  | ((uint64_t)129)
+>>  #endif
+>> 
+>> -#if __clang_major__ >= 4 || (__clang_major__ == 3 && __clang_minor__ 
+>> >= 9)
+>>  #define LLVM_PROFILE_VERSION    4
+>>  #define LLVM_PROFILE_NUM_KINDS  2
+>> -#else
+>> -#error "clang version not supported with coverage"
+>> -#endif
+> 
+> Rant: most of the LLVM coverage stuff is already kind of dead code, as
+> the format of the data changes between versions and there's no way for
+> LLVM to generate the blob itself using a builtin function or
+> similar.  We haven't kept up with new formats, and now it's not
+> possible to parse the output coverage data when using newish LLVM
+> versions.
+> 
+> Linux converts it's LLVM coverage data to gcov format (which AFAIK is
+> way more stable), and exports it in gcov format.  We should consider
+> importing that from Linux.
+> 
+> Thanks, Roger.
 
-Hmm, I'd consider this misleading function naming then. Especially with
-"force" and "sync" being kind of redundant with one another already anyway.
-See x86'es naming.
+Fair point. Generally I found coverage reports generated using LLVM 
+tooling a bit more informative than gcov's, but I don't know how much 
+work would it be to adapt Xen for newer versions of LLVM.
 
-Jan
+-- 
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
