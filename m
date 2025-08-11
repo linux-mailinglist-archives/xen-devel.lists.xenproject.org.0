@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B539DB20C59
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 16:44:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077716.1438746 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9063CB20D35
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 17:12:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077726.1438756 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulTkv-0001K7-3Q; Mon, 11 Aug 2025 14:44:09 +0000
+	id 1ulUBp-0005po-24; Mon, 11 Aug 2025 15:11:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077716.1438746; Mon, 11 Aug 2025 14:44:09 +0000
+Received: by outflank-mailman (output) from mailman id 1077726.1438756; Mon, 11 Aug 2025 15:11:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulTkv-0001HQ-0I; Mon, 11 Aug 2025 14:44:09 +0000
-Received: by outflank-mailman (input) for mailman id 1077716;
- Mon, 11 Aug 2025 14:44:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MOyo=2X=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1ulTkt-0001HJ-LZ
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 14:44:07 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a101d46f-76c1-11f0-b898-0df219b8e170;
- Mon, 11 Aug 2025 16:44:05 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-af958127df5so669517266b.2
- for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 07:44:05 -0700 (PDT)
-Received: from [192.168.1.17] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a0766b8sm2035173166b.25.2025.08.11.07.44.02
+	id 1ulUBo-0005nQ-VR; Mon, 11 Aug 2025 15:11:56 +0000
+Received: by outflank-mailman (input) for mailman id 1077726;
+ Mon, 11 Aug 2025 15:11:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ku41=2X=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ulUBn-0005nK-Q4
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 15:11:55 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 83771d97-76c5-11f0-a325-13f23c93f187;
+ Mon, 11 Aug 2025 17:11:53 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-af968aa2de4so817965966b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 08:11:53 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-af91a21c0ccsm2027664366b.111.2025.08.11.08.11.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Aug 2025 07:44:03 -0700 (PDT)
+ Mon, 11 Aug 2025 08:11:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a101d46f-76c1-11f0-b898-0df219b8e170
+X-Inumbo-ID: 83771d97-76c5-11f0-a325-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1754923444; x=1755528244; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kCDzhV1gdL7gWyvcPn5QunPXYe+y9kR3Y1+xAuyR2fA=;
-        b=ibKc3z7jv7cDKGlZYdd7K7cyFdtG7VKROGX7zlRSkaJ0PoGRuaAwix3LPTzF0DA8zL
-         262/S10KLC3wfQDHsBRvn5DxSCYb0oLFmDlstzJP3nBoPQjlkAoUbgH/crWR3K93ybBN
-         TGUiTeVcBMs3djaf8jY5N8CU+haTPkErtCY4MSzFK2XI51YgtkV9yWw7Gop3TuoIXgiv
-         PJmqYGPI7Xy2O0ILIOKvgJXyNnv0TCiEw24/ihWh3xvW/z4IJ2iJR+85X9zH10iKX2cj
-         sQDZQdk8r0Mhgwyl5HKfGatTAtNfuntmfAM3CdYHy8Yzn/4KClCAZ507S+b5Ov9iK+X3
-         d46w==
+        d=suse.com; s=google; t=1754925113; x=1755529913; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=MyaD43a+XYQZS+eDoU3zc1/+jHiBCIyYsw7KL5qKibQ=;
+        b=aZ2amIWoKy/tv+GWY2A763RoCKwpinF4mP2n9KEEu63qJW5dM7iOFhCS9EiEwkZrb4
+         jXJKEZJCdHE+Awk17PJpZGyQM3qwj/vOWEvSYBeZ1x2+xFMRgtMfWAgzejYTr63Dk3X1
+         7SRiv+InLGzpYVJknB5KJaH/ORWy/8KaQ4l2qO8Hjfc++evPiuCM5axRHBnJmu7aHDMw
+         jpOJgstX9763fBdixEbhZH8ZdgSYQMy4+XGsbi/UQ+H7MjCDs934gjkM4bixthYymyzU
+         CIs5jP4YG1mtWgQMmQaaLL03V9GDDyA4oS2XP5x7KIXBqbDNWbMw/SZllLq472ui10+h
+         IL8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754923444; x=1755528244;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=kCDzhV1gdL7gWyvcPn5QunPXYe+y9kR3Y1+xAuyR2fA=;
-        b=bQrjWYjTVE5oK9txfg30GMeUuDE79UiqLn+dEu1hv3M3RkGlr41q4URfwFwFPU/90D
-         +eGUZRIzDOy2hOQyf6tbjC/qhlwGSntLriedupkY1V6no5+YuopRDPek7G+WMLMRK8Xy
-         zc2GQazUQCULDeXlYXrjdzKWXo1vKV9xlqbnnVFufav+88iJvK45/J++WH5ssGSIL6t+
-         9TIVImWVdmYw83zkbgtEct/CKy65waYJFju2koIlrdSo8R5rpe81m8Tt9m5tYKELEwgR
-         +Ox/QW66K+czyX/fnVTQDgUWFoLLcGEAI6jkgEgJLjLrqYSu+RaEX66SgqWahJ2YIh3Q
-         wm6Q==
-X-Forwarded-Encrypted: i=1; AJvYcCV/N4os8rL6Ad6tUEpgciZEGYbTeOdJpRhaAzEgD1ynjhiZksibBFnrQ3V1fIABRfw/as30uxtZITM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzhXu88lj7V2Y41NxVHk0jNc0aLPpizr0LlneoCyXoHz13qzi6+
-	xM+wDS1+bRRV699A00IeH/nvcC7umIjLGrGIsZRolL6eOTepD3tuqpQX
-X-Gm-Gg: ASbGnctGguNxDqy8dgHbVuKEsYflMPo9xYPJ/Kn038BGvWzC31Sc0ethiwah5iBXTM8
-	oorDFEEeTBNdGLIEDIoCRiiAEsEAU0dFup6h37I3MR5T8TzsgV32TBWVefUaD7AWS84Q9LsIB/N
-	7i1pu8Ox708vsPst1VPvkxKGOFyUNwLHS4NqAq7uUqjgZ9sihMxCnRmq0NFDGArZPW+MSvVH7JW
-	Yu6J266t1pMy9EtFV5XWepyLU6BXG0JMRI15WhvR2+rkosWMywj5Hidq+6GW6d+3Lg8WCQuZEVC
-	DpGB/Yz7kmeThJUNAVpquP4gKScTuNqdY5Ei8DD/ihnR5bPYFV+49B0kTrZI6WV7AFHwaSYpETO
-	Ohuq1SwBtlio5EmYF4rp/p1t/95b3DLxk8zYkdRy0ILc4q41JoTpuXQXUo2W0CD7EVgkOEOAc
-X-Google-Smtp-Source: AGHT+IGN7TIsCqOijARoS/ywOjqc9fIHOfrBsImD7ZeAWAP87yA8pUS8cAGVCtd4old1JVWhutJkMw==
-X-Received: by 2002:a17:907:9446:b0:ae3:4f57:2110 with SMTP id a640c23a62f3a-af9c6588280mr1326265366b.54.1754923444242;
-        Mon, 11 Aug 2025 07:44:04 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------kAGi4LqE0ZJsty7WsbAHekyl"
-Message-ID: <e0f21085-8cce-4778-b15d-6dfd5e615aa2@gmail.com>
-Date: Mon, 11 Aug 2025 16:44:02 +0200
+        d=1e100.net; s=20230601; t=1754925113; x=1755529913;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=MyaD43a+XYQZS+eDoU3zc1/+jHiBCIyYsw7KL5qKibQ=;
+        b=mEhyuw0+8rAGb5YNZHEYKBL4W5ekZlcR7TdrmGzd+CedH1lxctjWberdq+MOJVlhXa
+         SpwnWtRlAKgxyuBPKdhu3srH4N4kDtRgqQ0sFELCnXRXoUVH0N+yZLGdVg3dwa73x7jB
+         izsXN3GEx8P2N9FgP4++q52+Pil1CB3JhsT/rykp6twJggpRBih9yCNCHbkR3TqowiA0
+         vSL1JD8HAtCjiqDjEb0uIRXiztSrTNYrcpXr3rOQRfKw5hEkg0JrMRdog3x2PYOzjIxH
+         z9yYhrI5ckPgd2OsMatP/RCTROQcBHGnXnvvZ7j13pU3nK9gRCWRwLghejFyvAHFQ5yl
+         AOUg==
+X-Forwarded-Encrypted: i=1; AJvYcCVr5M7cIFM87o+3f5cXokQK7Wn+teDz3zI2cgbrV8dhoBUDVpoOuTaH4eFyh/iYTGcX/TForCdsbAk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy3ZPN4C+qCKWsGCsGGhQEf33WPC6AHXREKGNdI0DjMewD+5/cM
+	kdPbkP6ruPAl104sNnY1d+vPAX5ew/PDS0oE18XgpVxeivyGnGITXojnhUjL/eHAoQ==
+X-Gm-Gg: ASbGncupChSflfpzZVX8+BZIHmiv5K0FZOpn6DTj9JfORTDgQylVC3vGWkmxfx3u7lo
+	o3QU+oxz7/J0PBG9rOBmA97r/XibBsZl3yWREGrCJQ1gOupzCWAxWZGBiO+WmJBKAaeKCYk/gA2
+	9NorD8BTC06qAdGomsTYzp5QAZ61qz/Wzzw02rl3ETcS2PCHO7EIKSzdBG0l/iZVicOAqdz0KkV
+	hU9DrZXIGhHROsYa8KBD69pOj71CTwyRbQJH6SJhujAaezULMThDgwcSsRGxBzekmJIvaIgjkYX
+	2ZWHUPoSeRD5Bcllg1I9Ws34yVdm6X9JEY44k4e6ssBTWBjnMJ26/AaOUxhJ1K8szneroE/DxNW
+	I6btgpJkTfk8Z7bFdsu5uNOZF46fy88rcTn04TwkaiPhAafQfmwYxMmwkbKt9/L8MCaz4nyc7Vn
+	5tDOz8ihMl1mBCjDRKMA==
+X-Google-Smtp-Source: AGHT+IHAx2g7G0Q5RYGEj6oxsFPiMHyJX8IJCtJmYRd4xmA6b/4gxr6xPvF6FdpNrI5/XcVld9xdNg==
+X-Received: by 2002:a17:906:ee89:b0:ae3:7058:7b48 with SMTP id a640c23a62f3a-af9c648c961mr1220977166b.25.1754925112895;
+        Mon, 11 Aug 2025 08:11:52 -0700 (PDT)
+Message-ID: <13854e74-5804-4453-9344-092e0c81796a@suse.com>
+Date: Mon, 11 Aug 2025 17:11:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 14/20] xen/riscv: Implement p2m_pte_from_mfn() and
  support PBMT configuration
-To: Jan Beulich <jbeulich@suse.com>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
  <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -101,365 +101,94 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
 References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
  <1370613cd6f52e90591b15ad52c95d7c81908cf6.1753973161.git.oleksii.kurochko@gmail.com>
  <3ede10e7-8e43-4277-9197-14a3e5ab1cc1@suse.com>
+ <e0f21085-8cce-4778-b15d-6dfd5e615aa2@gmail.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <3ede10e7-8e43-4277-9197-14a3e5ab1cc1@suse.com>
-
-This is a multi-part message in MIME format.
---------------kAGi4LqE0ZJsty7WsbAHekyl
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <e0f21085-8cce-4778-b15d-6dfd5e615aa2@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
+On 11.08.2025 16:44, Oleksii Kurochko wrote:
+> On 8/11/25 1:36 PM, Jan Beulich wrote:
+>> On 31.07.2025 17:58, Oleksii Kurochko wrote:
+>>> +static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t, bool is_table)
+>>> +{
+>>> +    pte_t e = (pte_t) { PTE_VALID };
+>> This and the rest of the function demand that mfn != INVALID_MFN, no matter
+>> whether ...
+>>
+>>> +    switch ( t )
+>>> +    {
+>>> +    case p2m_mmio_direct_io:
+>>> +        e.pte |= PTE_PBMT_IO;
+>>> +        break;
+>>> +
+>>> +    default:
+>>> +        break;
+>>> +    }
+>>> +
+>>> +    pte_set_mfn(&e, mfn);
+>>> +
+>>> +    ASSERT(!(mfn_to_maddr(mfn) & ~PADDR_MASK));
+>> ... PADDR_MASK is actually narrow enough to catch that case. Maybe best to
+>> add an explicit assertion to that effect?
+> 
+> Then it should be enough instead of what we have now:
+>    ASSERT(mfn_valid(mfn));
 
-On 8/11/25 1:36 PM, Jan Beulich wrote:
-> On 31.07.2025 17:58, Oleksii Kurochko wrote:
->> --- a/xen/arch/riscv/p2m.c
->> +++ b/xen/arch/riscv/p2m.c
->> @@ -1,3 +1,4 @@
->> +#include <xen/bug.h>
->>   #include <xen/domain_page.h>
->>   #include <xen/mm.h>
->>   #include <xen/rwlock.h>
->> @@ -197,6 +198,18 @@ static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
->>       return __map_domain_page(p2m->root + root_table_indx);
->>   }
->>   
->> +static int p2m_set_type(pte_t *pte, p2m_type_t t)
->> +{
->> +    int rc = 0;
->> +
->> +    if ( t > p2m_ext_storage )
-> Seeing this separator enumerator in use, it becomes pretty clear that its name
-> needs to change, so one doesn't need to go look at its definition to understand
-> whether it's inclusive or exclusive. (This isn't helped by there presently being
-> a spare entry, which, when made use of, might then cause problems with
-> expressions like this one as well.)
+No, that would exclude MMIO living beyond max_page.
 
-Then|p2m_pte_type_count| might be a better name, as it indicates how many types are
-stored directly in the PTE bits.
+>>> +    if ( !is_table )
+>>> +    {
+>>> +        p2m_set_permission(&e, t);
+>>> +
+>>> +        if ( t < p2m_ext_storage )
+>>> +            p2m_set_type(&e, t);
+>>> +        else
+>>> +            panic("unimplemeted\n");
+>> The check is already done inside p2m_set_type() - why open-code it here?
+> 
+> It isn't really matters now (so could be dropped), but in further patch this part
+> of code will look like:
+>          metadata[indx].pte = p2m_invalid;
+> 
+>          if ( t < p2m_ext_storage )
+>              p2m_set_type(&e, t, indx);
+>          else
+>          {
+>              e.pte |= MASK_INSR(p2m_ext_storage, P2M_TYPE_PTE_BITS_MASK);
+>              p2m_set_type(metadata, t, indx);
+>          }
+> So my intention was to re-use p2m_set_type() without changing of a prototype. So,
+> if a type is stored in PTE bits then we pass PTE directly, if not - then pass
+> metadata.
 
->
->> @@ -222,11 +235,71 @@ static inline void p2m_clean_pte(pte_t *p, bool clean_pte)
->>       p2m_write_pte(p, pte, clean_pte);
->>   }
->>   
->> -static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t)
->> +static void p2m_set_permission(pte_t *e, p2m_type_t t)
->>   {
->> -    panic("%s: hasn't been implemented yet\n", __func__);
->> +    e->pte &= ~PTE_ACCESS_MASK;
->> +
->> +    switch ( t )
->> +    {
->> +    case p2m_grant_map_rw:
->> +    case p2m_ram_rw:
->> +        e->pte |= PTE_READABLE | PTE_WRITABLE;
->> +        break;
-> While I agree for r/w grants, shouldn't r/w RAM also be executable?
->
->> +    case p2m_ext_storage:
-> Why exactly would this placeholder ...
->
->> +    case p2m_mmio_direct_io:
->> +        e->pte |= PTE_ACCESS_MASK;
->> +        break;
-> ... gain full access? It shouldn't make it here at all, should it?
+Then at the very least p2m_set_type() may not be a good name; a function of this
+name imo should set the type, whatever it takes to do so. But I'm unconvinced of
+the model as a whole.
 
-I missed to add break between them, but I don't remember why I
-put it here.
-It could be freely moved before "default".
-
-And, yes, you are right it seems like is shouldn't be handled at all
-in this function as this function isn't expected to be called with
-this type as this type only is used to indicate that a real type is
-stored somwehere.
-
->
->> +
->> +    case p2m_invalid:
->> +        e->pte &= ~(PTE_ACCESS_MASK | PTE_VALID);
-> Redundantly masking off PTE_ACCESS_MASK? (Plus, for the entry to be
-> invalid, turning off PTE_VALID alone ought to suffice anyway?)
-
-Agree, turning off PTE_VALID would be just enough.
-
->> +        break;
->> +
->> +    case p2m_grant_map_ro:
->> +        e->pte |= PTE_READABLE;
->> +        break;
->> +
->> +    default:
->> +        ASSERT_UNREACHABLE();
->> +        break;
->> +    }
->> +}
->> +
->> +static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t, bool is_table)
->> +{
->> +    pte_t e = (pte_t) { PTE_VALID };
-> This and the rest of the function demand that mfn != INVALID_MFN, no matter
-> whether ...
->
->> +    switch ( t )
->> +    {
->> +    case p2m_mmio_direct_io:
->> +        e.pte |= PTE_PBMT_IO;
->> +        break;
->> +
->> +    default:
->> +        break;
->> +    }
->> +
->> +    pte_set_mfn(&e, mfn);
->> +
->> +    ASSERT(!(mfn_to_maddr(mfn) & ~PADDR_MASK));
-> ... PADDR_MASK is actually narrow enough to catch that case. Maybe best to
-> add an explicit assertion to that effect?
-
-Then it should be enough instead of what we have now:
-   ASSERT(mfn_valid(mfn));
-
->
->> +    if ( !is_table )
->> +    {
->> +        p2m_set_permission(&e, t);
->> +
->> +        if ( t < p2m_ext_storage )
->> +            p2m_set_type(&e, t);
->> +        else
->> +            panic("unimplemeted\n");
-> The check is already done inside p2m_set_type() - why open-code it here?
-
-It isn't really matters now (so could be dropped), but in further patch this part
-of code will look like:
-         metadata[indx].pte = p2m_invalid;
-
-         if ( t < p2m_ext_storage )
-             p2m_set_type(&e, t, indx);
-         else
-         {
-             e.pte |= MASK_INSR(p2m_ext_storage, P2M_TYPE_PTE_BITS_MASK);
-             p2m_set_type(metadata, t, indx);
-         }
-So my intention was to re-use p2m_set_type() without changing of a prototype. So,
-if a type is stored in PTE bits then we pass PTE directly, if not - then pass
-metadata.
-
-Thanks.
-
-~ Oleksii
-
---------------kAGi4LqE0ZJsty7WsbAHekyl
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 8/11/25 1:36 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:3ede10e7-8e43-4277-9197-14a3e5ab1cc1@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 31.07.2025 17:58, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/p2m.c
-+++ b/xen/arch/riscv/p2m.c
-@@ -1,3 +1,4 @@
-+#include &lt;xen/bug.h&gt;
- #include &lt;xen/domain_page.h&gt;
- #include &lt;xen/mm.h&gt;
- #include &lt;xen/rwlock.h&gt;
-@@ -197,6 +198,18 @@ static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
-     return __map_domain_page(p2m-&gt;root + root_table_indx);
- }
- 
-+static int p2m_set_type(pte_t *pte, p2m_type_t t)
-+{
-+    int rc = 0;
-+
-+    if ( t &gt; p2m_ext_storage )
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Seeing this separator enumerator in use, it becomes pretty clear that its name
-needs to change, so one doesn't need to go look at its definition to understand
-whether it's inclusive or exclusive. (This isn't helped by there presently being
-a spare entry, which, when made use of, might then cause problems with
-expressions like this one as well.)</pre>
-    </blockquote>
-    <pre>Then <code data-start="53" data-end="73">p2m_pte_type_count</code> might be a better name, as it indicates how many types are
-stored directly in the PTE bits.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:3ede10e7-8e43-4277-9197-14a3e5ab1cc1@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">@@ -222,11 +235,71 @@ static inline void p2m_clean_pte(pte_t *p, bool clean_pte)
-     p2m_write_pte(p, pte, clean_pte);
- }
- 
--static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t)
-+static void p2m_set_permission(pte_t *e, p2m_type_t t)
- {
--    panic("%s: hasn't been implemented yet\n", __func__);
-+    e-&gt;pte &amp;= ~PTE_ACCESS_MASK;
-+
-+    switch ( t )
-+    {
-+    case p2m_grant_map_rw:
-+    case p2m_ram_rw:
-+        e-&gt;pte |= PTE_READABLE | PTE_WRITABLE;
-+        break;
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-While I agree for r/w grants, shouldn't r/w RAM also be executable?
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    case p2m_ext_storage:
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Why exactly would this placeholder ...
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    case p2m_mmio_direct_io:
-+        e-&gt;pte |= PTE_ACCESS_MASK;
-+        break;
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-... gain full access? It shouldn't make it here at all, should it?</pre>
-    </blockquote>
-    <pre>I missed to add break between them, but I don't remember why I
-put it here.
-It could be freely moved before "default".
-
-And, yes, you are right it seems like is shouldn't be handled at all
-in this function as this function isn't expected to be called with
-this type as this type only is used to indicate that a real type is
-stored somwehere.
-</pre>
-    <blockquote type="cite"
-      cite="mid:3ede10e7-8e43-4277-9197-14a3e5ab1cc1@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+
-+    case p2m_invalid:
-+        e-&gt;pte &amp;= ~(PTE_ACCESS_MASK | PTE_VALID);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Redundantly masking off PTE_ACCESS_MASK? (Plus, for the entry to be
-invalid, turning off PTE_VALID alone ought to suffice anyway?)
-</pre>
-    </blockquote>
-    <pre>Agree, turning off PTE_VALID would be just enough.
-</pre>
-    <blockquote type="cite"
-      cite="mid:3ede10e7-8e43-4277-9197-14a3e5ab1cc1@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+        break;
-+
-+    case p2m_grant_map_ro:
-+        e-&gt;pte |= PTE_READABLE;
-+        break;
-+
-+    default:
-+        ASSERT_UNREACHABLE();
-+        break;
-+    }
-+}
-+
-+static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t, bool is_table)
-+{
-+    pte_t e = (pte_t) { PTE_VALID };
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-This and the rest of the function demand that mfn != INVALID_MFN, no matter
-whether ...
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    switch ( t )
-+    {
-+    case p2m_mmio_direct_io:
-+        e.pte |= PTE_PBMT_IO;
-+        break;
-+
-+    default:
-+        break;
-+    }
-+
-+    pte_set_mfn(&amp;e, mfn);
-+
-+    ASSERT(!(mfn_to_maddr(mfn) &amp; ~PADDR_MASK));
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-... PADDR_MASK is actually narrow enough to catch that case. Maybe best to
-add an explicit assertion to that effect?</pre>
-    </blockquote>
-    <pre>Then it should be enough instead of what we have now:
-  ASSERT(mfn_valid(mfn));
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:3ede10e7-8e43-4277-9197-14a3e5ab1cc1@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    if ( !is_table )
-+    {
-+        p2m_set_permission(&amp;e, t);
-+
-+        if ( t &lt; p2m_ext_storage )
-+            p2m_set_type(&amp;e, t);
-+        else
-+            panic("unimplemeted\n");
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-The check is already done inside p2m_set_type() - why open-code it here?</pre>
-    </blockquote>
-    <pre>It isn't really matters now (so could be dropped), but in further patch this part
-of code will look like:
-        metadata[indx].pte = p2m_invalid;
-
-        if ( t &lt; p2m_ext_storage )
-            p2m_set_type(&amp;e, t, indx);
-        else
-        {
-            e.pte |= MASK_INSR(p2m_ext_storage, P2M_TYPE_PTE_BITS_MASK);
-            p2m_set_type(metadata, t, indx);
-        }
-So my intention was to re-use p2m_set_type() without changing of a prototype. So,
-if a type is stored in PTE bits then we pass PTE directly, if not - then pass
-metadata.
-
-Thanks.
-</pre>
-    <pre>~ Oleksii</pre>
-  </body>
-</html>
-
---------------kAGi4LqE0ZJsty7WsbAHekyl--
+Jan
 
