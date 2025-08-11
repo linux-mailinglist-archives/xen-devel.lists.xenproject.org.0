@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3593CB201B8
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 10:23:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077069.1438157 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA757B201D0
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 10:27:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077076.1438169 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulNog-0001RN-AZ; Mon, 11 Aug 2025 08:23:38 +0000
+	id 1ulNsa-00020c-Qr; Mon, 11 Aug 2025 08:27:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077069.1438157; Mon, 11 Aug 2025 08:23:38 +0000
+Received: by outflank-mailman (output) from mailman id 1077076.1438169; Mon, 11 Aug 2025 08:27:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulNog-0001Od-6o; Mon, 11 Aug 2025 08:23:38 +0000
-Received: by outflank-mailman (input) for mailman id 1077069;
- Mon, 11 Aug 2025 08:23:37 +0000
+	id 1ulNsa-0001xg-Me; Mon, 11 Aug 2025 08:27:40 +0000
+Received: by outflank-mailman (input) for mailman id 1077076;
+ Mon, 11 Aug 2025 08:27:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NowU=2X=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1ulNof-0001OX-6D
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 08:23:37 +0000
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on20612.outbound.protection.outlook.com
- [2a01:111:f403:240a::612])
+ <SRS0=MOyo=2X=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1ulNsZ-0001xa-C8
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 08:27:39 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 76a1c1fb-768c-11f0-b898-0df219b8e170;
- Mon, 11 Aug 2025 10:23:32 +0200 (CEST)
-Received: from DM4PR12MB8451.namprd12.prod.outlook.com (2603:10b6:8:182::7) by
- SJ0PR12MB6967.namprd12.prod.outlook.com (2603:10b6:a03:44b::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8989.17; Mon, 11 Aug 2025 08:23:27 +0000
-Received: from DM4PR12MB8451.namprd12.prod.outlook.com
- ([fe80::b04e:2da5:7189:4c4d]) by DM4PR12MB8451.namprd12.prod.outlook.com
- ([fe80::b04e:2da5:7189:4c4d%7]) with mapi id 15.20.9009.018; Mon, 11 Aug 2025
- 08:23:27 +0000
+ id 099f5b71-768d-11f0-b898-0df219b8e170;
+ Mon, 11 Aug 2025 10:27:37 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-6154d14d6b7so4753690a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 01:27:37 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-af91a23fec4sm1984307966b.121.2025.08.11.01.27.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 11 Aug 2025 01:27:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,165 +45,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76a1c1fb-768c-11f0-b898-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tA2OlXwQ8tKOTKBpWzjrNJC+Yb2Vn4Kfd0sPziw0tn9qBAA21mFolZrCZ3DGzdUHc60cRk54Gn6SUvYn1Neg9axN2cCwhrFHib8H8nHwaKvMZw84BA/4PmUbM23iRByOb8NrHJiADIw1CHji9TcU1S758bFVjDOmrrwUq39Ak0tZkR17XhNR/Ob6WOO5vu40vk6HL1HEIAE3BJmpl2qiIiTiBZcbJ3KH9UPegSwNmZu01SIgnsl/kylM/M4VTUQ8TJOAQmhwLrvo2Q6tlYwuUuQJhGgjfIDwVm9SHjWfXFigFrm+bWW10mqG82kKv0g784HB+49qTJIb+/EuAeMcHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XA+6qBJFfAcU6uUPUx/xX6ZfMwWuHXFgNARnbW/qYaM=;
- b=Q2tL/CeafFjnUuQ0W0bWHy7NAl6a378bjByDF4A3il2BdEfwiCr+KHGY6R+vY/ds00Fg9BqBB9KAurtfi7UqOECfdSNP6JYWqum87HXzYsV+i3hkfAEtD/8JdiTur/ZyTsl43mLU8FrHlHKsvjsV8BCeFSJBn2kJN2zFNo9Xgn2gl/97XRcGQmrgTMGK2Rot5Ua+J/L/8pBsD8N4ZQVCOHKy4GVdIRgdLF1sRCqEhEj3bfzu9AiyshT6Ll8NmZYlLwiG0hAhrMgIYDvTdxeE2r/4fXEfpWWmy+AmKMzKiacw/MHCHO8Yp9UX2LK31Pl2myH4AU5NhxmcLMjr3hXVXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XA+6qBJFfAcU6uUPUx/xX6ZfMwWuHXFgNARnbW/qYaM=;
- b=gt5AsRYEjfDjAxDCrbOsfU1jnBWswbfTGChDsEDKxC2XrhZ2gaeD+BwbIhpQL4D2hDJ2MJj9TErhrZqJHMuG7EefSQtpUqXfaWSW1jfXfrukINCHubvYUOnzDq7vA10D8v2MohPCG0H/wVdEvGjNyFtpDE+YOchmYIVlzRHs2hc=
-From: "Penny, Zheng" <penny.zheng@amd.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "Huang, Ray" <Ray.Huang@amd.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
-	<roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, "Orzel,
- Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-Subject: RE: [PATCH v6 12/19] xen/cpufreq: implement amd-cppc driver for CPPC
- in passive mode
-Thread-Topic: [PATCH v6 12/19] xen/cpufreq: implement amd-cppc driver for CPPC
- in passive mode
-Thread-Index: AQHb8hcm/2j2N+pZoEenN2J+6s0qPrQ2T+AAgCb91HA=
-Date: Mon, 11 Aug 2025 08:23:27 +0000
-Message-ID:
- <DM4PR12MB8451D773D2D9823E4CC03E30E128A@DM4PR12MB8451.namprd12.prod.outlook.com>
-References: <20250711035106.2540522-1-Penny.Zheng@amd.com>
- <20250711035106.2540522-13-Penny.Zheng@amd.com>
- <1899ebd0-c64a-4bb8-bf3d-0bf90f2b6299@suse.com>
-In-Reply-To: <1899ebd0-c64a-4bb8-bf3d-0bf90f2b6299@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-08-11T08:23:21.0000000Z;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB8451:EE_|SJ0PR12MB6967:EE_
-x-ms-office365-filtering-correlation-id: 4ae9c1a4-0548-445a-89dc-08ddd8b058f5
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?ZEVVWm5BcXhwMzhoQllZMFBvZEliTnNxMUVKeWRRSmw4d2JxMGxSa1p6SG5E?=
- =?utf-8?B?VlFQK3Y2bWtCWUlDZWdwc3BGc0dPdmk0enRDSDd4OXFEZk9SekRyWEl2aVNk?=
- =?utf-8?B?VWdWSkZPWWhkQ3RLc2h5VVpLczF4dy9hM3lDZFAyRjhJVERmUUNKekQrM0gz?=
- =?utf-8?B?a0hYUHhmeVVIK0plWGxVdTIvbDV4VE1scnMzVzJJMGg5THZPVWFtUkw3Wm5F?=
- =?utf-8?B?bzhkZzVESEk3eUIvUmNxcFJ3emRIUjRKekFBK3p0UzhPZlA4RWZPWWNmTG5z?=
- =?utf-8?B?WmQyVGgvVlRhelFvRVBlNkF3MGNpSm1yVmkxOEF1ZzdiQWdRcERnYjI0c2dI?=
- =?utf-8?B?ZkU4ZGhjM3YrWjlpSVFDK3Z4TExhN1RZdmdGYkd2VHJ2ekdWQnZ1aDhPRXJx?=
- =?utf-8?B?VDYxU05Fbzl3eWxyemMybFNGeTZ0T0FVYjFxYkZsanlJTlRBV1JTcXBwcXJX?=
- =?utf-8?B?aXBnQkpVeEZPZmtOd2hCNVQ1WUh0N1dOTlF4eXhKa1p4aGVnS2YyeUR5aU00?=
- =?utf-8?B?bDIxWERDSmlLa2xFSnVYOERhSmFEMXpuWHgwNjQzZFJnbzZYbWdtM2pyM05y?=
- =?utf-8?B?NUVCdjZTeVZOUVN6ZjBVaG9SSXpWc3dUYUJPYW8vWEJ4Y0t4TWw0eUJOUU1Q?=
- =?utf-8?B?TkdBMnFUUzhTMUV6Y1g4a3hHV0h4VUJhWFJDVzJOVWJ0ajF1clJUd3ZEMG5C?=
- =?utf-8?B?RUFMdGpQZ2ErdVk0VXRiNG9QNitPeXpwaytQV3FPc3pGbVg4MW9nbmZVekU2?=
- =?utf-8?B?MFhoUG1wcGFPV29meUlFK2EyWXZTaERHMTlVcE1yVm80NTM5cUs4aUF2WCsz?=
- =?utf-8?B?UGtsV0gyM01MSEpPVG9XNVoyYTZCQnc4WlppZkdjRy9YTlNSVWJoR1drTlpu?=
- =?utf-8?B?aHJaYk0vNytzazV2ank3cGhjSXgzM0VVN1J1dnJMMUV2VEhyRVVwZ2w0ZXpq?=
- =?utf-8?B?cUt5OEorVStmN0xlMjU3WkVTL3FCSGdEYk5FNXdCMlF0RzZYM1lxdmNRa3Rx?=
- =?utf-8?B?dDN2NGI3OXdtdGZJZlZERUFRYVVlWWxqbytFWnk3TXZMRjdZUDNVTGZFaWxK?=
- =?utf-8?B?UDZ1YlRGVW5lVEg1cVRYd2x6SFJsSkZTczlZRXhhRGc5N2ZXQmRFNUVhQVdE?=
- =?utf-8?B?TVcvT0xmdFExZnR2eDZCNDdiRm96L0VTOGNKb0JqaUZPeGN0SThBRFJ4bm0v?=
- =?utf-8?B?Rk1OZTl2ZVNWRm0yZjlFbVYxaHkvNGVyQnd4NmhNbFFGbXBYVTZaQkhaSms5?=
- =?utf-8?B?SFk5ZGxwVnNvZk1ranppcjdTZm5qZmNudlhXTWo0MXVZbWhSNzJyTk5jeWs5?=
- =?utf-8?B?THBiSHhTQU1Fc0xPK0FncUV0MnJoU0ZYb1NCOS95YWZPSzNRelNic1VBd1g2?=
- =?utf-8?B?NXFMajE0QkZyQkRCNVhuaEZnK0FURkFmbEpMNkZBYW0rZGs4Y3dnVXIwTzJk?=
- =?utf-8?B?Q2hwaVdiRzZ3U24vanJQS3VpdE5UMmV4VEdKck9YbU5KTklSTWhjUFRoZ0xZ?=
- =?utf-8?B?N2JsQ2RCTXF3aDRzWVJoYVNsaWJQc0liZUxhemo5eTZGTndBa2VFRXN0dE9O?=
- =?utf-8?B?YWFkR3R3VDY4WTRscmhGSUhJbUxKdXJjeGw1cDV3bEo1VHo0aVQ2SEVENDl4?=
- =?utf-8?B?QldnS0MzcCs4anFjdldzSkgrYW9sQ2Y1Tldzc2VuTlNxVEV6aFl0cCtCM2w4?=
- =?utf-8?B?RWs3WU5hS1pieGZqcStQQk1WTU9LVERZemlDemJhcXMzelBhdTg3YlUvZFVz?=
- =?utf-8?B?QzVlWjF1UnBqVHFaaW1EcVdMWk5WTWFueFcyRFQ4NCsrektSaWFSbjdodWZY?=
- =?utf-8?B?YUpuRy9ERG9LOWdmSURwdG91SWJneXVTRHFhOUpwSVlwUVRBK0ZRL2hNWVFT?=
- =?utf-8?B?Rk1IRitqaEsyMlkzM0hFd2tTelo0SGhVUWtXV0UrY1lLQXVpUlNrdWhGRGwz?=
- =?utf-8?B?YjZHanIxZGZjVll1V1VnRGJ5QzlCbzk0RC81dkdWaUpmRlR6aVUzNTNlRDBW?=
- =?utf-8?Q?/kjB3+bv0YLMln6MK2nd/TWcLQLV7g=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB8451.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?ZHZka0ZzY3p0aXdPZkJSVGxxNkxMRU1SdmVRa2s5cU5sQTdXQ0M2Vk14ZjRv?=
- =?utf-8?B?cHczWVVYSHBiMno2ZWFkTDYwU2xSSkhwZGcwTHJYTHRSOCtYdUJ1OXA0Z2U3?=
- =?utf-8?B?aFppYjNsR2pZdjc1N3lOVGhJUHJyWE5iUDRyelNVWUJOU1pJQ1N1VEpUQW1W?=
- =?utf-8?B?bm8vRHRjeDdiUnpuSGtMOEEwUTFuMnljdXZiMm90bm94K29TQ0RFc2RYYkNT?=
- =?utf-8?B?YWJXT3F1T25FSmRPU1JiWG9OblZ5aUxBVm9ON3U0Nkt6TFNXWXp3NG0wS2d1?=
- =?utf-8?B?N2V1THlrVEdWMUZ6N3EzcVQ0ZkpuaEdlZzJZYjlqOU1EbXp6MVlpVDU2cFZw?=
- =?utf-8?B?b0xKdUQzWTFRYm5OUUlxWEtKVHlsREJLanFuQVpsamdWbDR6ZEI3MFNvaStP?=
- =?utf-8?B?NGhML3JiRHV0cTJ5ZmNFMGliNmg1OGZCWkxrSmR6b045KzZOSW9wL2x6VWo5?=
- =?utf-8?B?NCszRlMzaTFQTjloeWZwSDdQZ0xwM3BqcDNudE9ka3ZYd0p4TDVLVHNxbWRo?=
- =?utf-8?B?ZHAva25Cdk8raUNKczk0bUF6dis1ODdBMStuSUJHMnBDdFhJL2psVEUxK2V3?=
- =?utf-8?B?Yk5tTEM0VG1oS2JCeUlOdFhsT01jQkRKVlNaS0pPSjlmQUZyQ1IwYnUyMERG?=
- =?utf-8?B?QXRxZ2RXOHYxei9zUUhvNmRodTgyNFJZdXcyZi9Md0U5L2dYWVBwUVRaR043?=
- =?utf-8?B?ZFNncnZPdUcxRzZiL2I0S1NlMVptSnVkQlovR0pBSi9KaHhPL1JQdnlOK1Fn?=
- =?utf-8?B?bmViVWJZdDZwL21aZjUrbm02S3Q4aWk5bEdEajJVenlBeUJEZTRITWJLdjkz?=
- =?utf-8?B?eXBkUmdzRXVaYVJLVVFaSUJDRWovUUVaSllzY01YOGtKQnRmYU9iZFRnRDJB?=
- =?utf-8?B?WGRVVW5HUzg1MThCdnkweHRKZ3VZUzhESC9mZGtXSU0vaWtNNDRDTTArc1Bz?=
- =?utf-8?B?S2tZcjBLamZPbVJLYXBUbHJWSklRWmp4bFYyTGpEV2dyekpPdmNwQzViZ2hw?=
- =?utf-8?B?emJHQnNNTmVnQmVvL3pTdUpJazdCME4yNkd6Yy9FbmFvVzdjQ3FWSURYTStj?=
- =?utf-8?B?aGYrL3R6SUZxczVKejhFVysyUVNKL2F4OTJXMStjcFZReklBVGg1NFR5QnV1?=
- =?utf-8?B?WVE2ajJjZndyMTBVK2JBOGMzQWIweU5ZMStodGJJVmM1ZUc1clJ5N010OXNG?=
- =?utf-8?B?dmUwZ1JpYVUySzdPQ2ZLbkFRWDNZRGpKcEtVQU0yc21nMkFSSGtrT0VGanZF?=
- =?utf-8?B?UTd6T1dhOXFCNXpVdXo4Z1FjTWdPaG15V0VrTXFGMXhRRXJydG5RWjBvTWVa?=
- =?utf-8?B?dmhxM1FoemdHM1JYbHdsU2NTYkZrY1NJZkhKTFhPeC95eUpqRFhmTWNHZmxL?=
- =?utf-8?B?WGRaTHJmNlRYN0QydDdzdHplS0ZRQzkwcG9iRU9QZFB6eVFKOFpKY1lnUTNI?=
- =?utf-8?B?NXV1WVpUVWdMTXE2dXdNbEI2VUxnaTByRlpPR1o5UHJQbmFpcVlFUTYzWmlB?=
- =?utf-8?B?YW1JMWtlWEJyZ24za0dkWjg0akFDSEgwaUpKbnVKNWRISE9lQlVWc055bUFn?=
- =?utf-8?B?MkdINk1oMm9ON3F3NjQydnJmSGFKbitvN3BJa0tpenZyTXNRZkVmZ05vY000?=
- =?utf-8?B?VlJWUW9QeDROekgrdGl2VzgxcE5FbTNCb0pGdERtbERMZXJlV3BYd3dsMHQv?=
- =?utf-8?B?a1RWLzR6Ym8wcGMxTDQvelUvU2g3SXdvWVhxVHB6NmRKUDBXY0FyV043Z2po?=
- =?utf-8?B?NWNhdWhuSk5qa3B2Sk10QTB4UTE4L3RsVXdxdGZNVXFnMTJDaG96aXZMc3ln?=
- =?utf-8?B?Uk4rWFFldmcxM1JqdzRZNWRLaEpESmRxbnU4S2NsNm1rNkhjdUNMTHhjeHNu?=
- =?utf-8?B?TXlOQ3NZVm1RRUdCVlQxZEY5OUx2QmJrTWdYS2x1WExkbWk1WklFQ1I5aVl6?=
- =?utf-8?B?bkJ1OVBnVzNob3ZpVEd0cU5HZUdXZU9oNlBwQ2JOWHNOVm9CcGdpbHUyMFQv?=
- =?utf-8?B?VzlKa3hRNmVsc2pBc0w3eUlydVZ6eVJSOTN5QmlzV3pOUG9uUVdLNFlHY2J6?=
- =?utf-8?B?VHY0YXpiV2JxRE82dTloVmhJTERQMjEwZmVqTWdJdUlkUCtIVmZYMXdmUlNV?=
- =?utf-8?Q?p+T8=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 099f5b71-768d-11f0-b898-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1754900857; x=1755505657; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7H+n72LjNEssch+2Htm6ggRF93EOIzn/BLE/Hvkm6/w=;
+        b=klJ21eNxt0y7zNL3ki1hIF2JIbJ6oBu+nTjfvak7OO/iBhTLcrzgp2tEsO3VC6mhS9
+         U9PJMX63ChbNONxCSMqqBiIolnqBGGNHshVtV9VkXgsbHA05W4RQdKQCMlcI9YLdZ/6l
+         H75VYnwUQfX64UlaTouEhiuHKt55TIAFJQ+IkzvY3UQXx+cWOzRs0AtT3MfQ1YscW2zk
+         z3iOZesWAVBOyxWcqN2KjoWcQC3DFFf+qcpQ314T8JtP3khNeHsu/y0mZa/1VFSpbxvf
+         HuAc8/h7VHZo7HEY/9GkEgUYZwFMXl19HA+9fCDB+nHzkZc/dJk31hjJgJl7uCjjBIYr
+         m4sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1754900857; x=1755505657;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=7H+n72LjNEssch+2Htm6ggRF93EOIzn/BLE/Hvkm6/w=;
+        b=NhMfb/BEKCBikTHvSBJ93+QtQNCAfA3n67hRUBQg8dv3iMbUql8g60JzmwYvRPGEN0
+         G98Oy11NzPRIns7o9B52c1PdfRUbs56Lz9kLL+Aa6Hm+BVvt0kEyTpbhArBNQKEj5TWt
+         9dE9GFLMvzLSVy2oWUkP/rXPDSVEguSKZ3Qd1KDrKWB0VvedhdByFFariSHE9B3WrbBg
+         myD/QUUXyOoLefWa+Jd/YJe8HSpwUDoEPNQyzgCa/q9K6TfYq8+tyuxQO48BFIyRzVe/
+         uwiVG+0NL0EnpXlnRrSyB9xPn3RpkLvs5ZxS/EpHuKhiU8xhYJqXuT5x/TNCnWXEt5Gl
+         26Eg==
+X-Forwarded-Encrypted: i=1; AJvYcCWodYKcnWFGDMc6eGLmdy0SxLlcqyZROiv3x13CRfEpYPQWA48flIbabthv9bo6sJjybY3Ud6bquY8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzmPResL6G9g6y9pwmoIwntj7RpcBzlU2lnTpfMuzmN6PnJtnJP
+	gkYR7rGWlf9sCAQj+hAcLxilZuC92TY4Z8aWRsZPr8ZcqagpbbvzzaAx
+X-Gm-Gg: ASbGncsG5NjgBBtp+D4q0HW8SL3ft5WSRvf84I9F0Psea87nCLO4PKSNx+tj9WWdSm4
+	+n9w+LiZnGE1OX/mYUVS7800RKradjmeG3TjmGxuP4KMnKuZKggbldYRyobsLTrphGC+lCEaWOT
+	b4/Rp4v5r481u5Y/CgkOq6R7oNSUtqp0BA3KCZP96Rkedm9YV7KahmOs6tW0WRMIoz5JPBe8rGw
+	7ntsbnMeb6sStmK1LYq7T5uJedruJHcsKM7evJ6q9c8lLfYcL9SLNYaHPhzL0OHlGahvQbhk/63
+	yM4k0y7WNRVjx9hkzhx6DDRiWtndAknn2SKMY7lnpXsgOtxHpcHW42Y4SlKTHUQl2Q2jib+6zve
+	CG0Knyo1tU64TpoVSWPO95KlEsk5s5JMUpZGvpMJQWkiU/jOkQ4ZhHg0GfrZLnnW/Hl6NYsk=
+X-Google-Smtp-Source: AGHT+IFh0g7OiWOqykr+/q27GAFm7PAn8kbFCE6Kj8XIA2Orvf2v1pvFV49P/+tQVHYPMs8omPf6Lw==
+X-Received: by 2002:a17:907:6eab:b0:add:fe17:e970 with SMTP id a640c23a62f3a-af9c63b12f4mr1116210166b.14.1754900856479;
+        Mon, 11 Aug 2025 01:27:36 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------HWaOhxSqo62uZovjrqlsQOyW"
+Message-ID: <10097ea3-f0a6-45cb-971f-a9c342bc4589@gmail.com>
+Date: Mon, 11 Aug 2025 10:27:31 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8451.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ae9c1a4-0548-445a-89dc-08ddd8b058f5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2025 08:23:27.4725
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: DliUUkfoOMAfTu3cAL7PCf2TPPXLHZ1GgqRm7K80k979kXyYt3uOMHNRKWCW/xZc7KIPVvGO9Zj2b9bZZSlfOg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6967
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH 11/11] Update CHANGELOG and README with dependency on
+ json-c
+To: Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Community Manager <community.manager@xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20250808145602.41716-1-anthony@xenproject.org>
+ <20250808145602.41716-12-anthony@xenproject.org>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <20250808145602.41716-12-anthony@xenproject.org>
 
-W1B1YmxpY10NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBKYW4gQmV1
-bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQo+IFNlbnQ6IFRodXJzZGF5LCBKdWx5IDE3LCAyMDI1
-IDg6NTUgUE0NCj4gVG86IFBlbm55LCBaaGVuZyA8cGVubnkuemhlbmdAYW1kLmNvbT4NCj4gQ2M6
-IEh1YW5nLCBSYXkgPFJheS5IdWFuZ0BhbWQuY29tPjsgQW5kcmV3IENvb3Blcg0KPiA8YW5kcmV3
-LmNvb3BlcjNAY2l0cml4LmNvbT47IFJvZ2VyIFBhdSBNb25uw6kgPHJvZ2VyLnBhdUBjaXRyaXgu
-Y29tPjsNCj4gQW50aG9ueSBQRVJBUkQgPGFudGhvbnkucGVyYXJkQHZhdGVzLnRlY2g+OyBPcnpl
-bCwgTWljaGFsDQo+IDxNaWNoYWwuT3J6ZWxAYW1kLmNvbT47IEp1bGllbiBHcmFsbCA8anVsaWVu
-QHhlbi5vcmc+OyBTdGVmYW5vIFN0YWJlbGxpbmkNCj4gPHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+
-OyB4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcNCj4gU3ViamVjdDogUmU6IFtQQVRDSCB2
-NiAxMi8xOV0geGVuL2NwdWZyZXE6IGltcGxlbWVudCBhbWQtY3BwYyBkcml2ZXIgZm9yIENQUEMN
-Cj4gaW4gcGFzc2l2ZSBtb2RlDQo+DQo+IE9uIDExLjA3LjIwMjUgMDU6NTAsIFBlbm55IFpoZW5n
-IHdyb3RlOg0KPiA+IC0tLSBhL3hlbi9hcmNoL3g4Ni9hY3BpL2NwdWZyZXEvYW1kLWNwcGMuYw0K
-PiA+ICsrKyBiL3hlbi9hcmNoL3g4Ni9hY3BpL2NwdWZyZXEvYW1kLWNwcGMuYw0KPiA+ICsgICAg
-aWYgKCByZXMgPCAwICkNCj4gPiArICAgIHsNCj4gPiArICAgICAgICBwcmludGtfb25jZShYRU5M
-T0dfV0FSTklORw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICJQZXJmIHZhbHVlIHNtYWxsZXIg
-dGhhbiBtaW5pbXVtIHZhbHVlIDA6ICVkXG4iLCByZXMpOw0KPiA+ICsgICAgICAgICpwZXJmID0g
-MDsNCj4gPiArICAgICAgICByZXR1cm4gMDsNCj4gPiArICAgIH0NCj4gPiArICAgICpwZXJmID0g
-cmVzOw0KPg0KPiBDb25zaWRlcmluZyB0aGF0IGFtZF9jcHBjX2luaXRfbXNycygpIHJlamVjdHMg
-cGVyZiB2YWx1ZXMgb2YgMCBhcyBpbnZhbGlkLCBpcyAwDQo+IGFjdHVhbGx5IHZhbGlkIGFzIGFu
-IG91dHB1dCBoZXJlPw0KPg0KDQpZZXMuLi4gd2UgYXJlIHJlamVjdGluZyAwIGluIHRoZXJlLiBN
-YXliZSBJIHNoYWxsIHJldHVybiAtRVJBTkdFIGhlcmUgaW5zdGVhZA0KDQo+IEphbg0K
+This is a multi-part message in MIME format.
+--------------HWaOhxSqo62uZovjrqlsQOyW
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+
+On 8/8/25 4:56 PM, Anthony PERARD wrote:
+> From: Anthony PERARD<anthony.perard@vates.tech>
+>
+> Signed-off-by: Anthony PERARD<anthony.perard@vates.tech>
+
+LGTM: Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail>
+With one question ...
+
+
+> ---
+>   CHANGELOG.md | 2 ++
+>   README       | 2 +-
+>   2 files changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/CHANGELOG.md b/CHANGELOG.md
+> index 5f31ca08fe..83195e2dae 100644
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -11,6 +11,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>      - For x86, GCC 5.1 and Binutils 2.25, or Clang/LLVM 11
+>      - For ARM32 and ARM64, GCC 5.1 and Binutils 2.25
+>    - Linux based device model stubdomains are now fully supported.
+> + - New dependency on library json-c, the toolstack will prefer it to `YAJL`
+> +   when available.
+>   
+>    - On x86:
+>      - Restrict the cache flushing done as a result of guest physical memory map
+> diff --git a/README b/README
+> index 6ee58f7b35..9329f30e13 100644
+> --- a/README
+> +++ b/README
+> @@ -53,7 +53,7 @@ provided by your OS distributor:
+>       * Development install of Python 2.7 or later (e.g., python-dev)
+>       * Development install of curses (e.g., libncurses-dev)
+>       * Development install of uuid (e.g. uuid-dev)
+> -    * Development install of yajl (e.g. libyajl-dev)
+> +    * Development install of json-c (e.g. libjson-c-dev) or yajl (e.g. libyajl-dev)
+
+... as you mentioned in the cover letter libyajl-dev is unmaintained for several years. Do any plans
+exist to drop libyajl-dev at all? Can't it be dropped now?
+
+~ Oleksii
+
+>       * Development install of libaio (e.g. libaio-dev) version 0.3.107 or
+>         greater.
+>       * Development install of GLib v2.0 (e.g. libglib2.0-dev)
+--------------HWaOhxSqo62uZovjrqlsQOyW
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 8/8/25 4:56 PM, Anthony PERARD
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20250808145602.41716-12-anthony@xenproject.org">
+      <pre wrap="" class="moz-quote-pre">From: Anthony PERARD <a class="moz-txt-link-rfc2396E" href="mailto:anthony.perard@vates.tech">&lt;anthony.perard@vates.tech&gt;</a>
+
+Signed-off-by: Anthony PERARD <a class="moz-txt-link-rfc2396E" href="mailto:anthony.perard@vates.tech">&lt;anthony.perard@vates.tech&gt;</a></pre>
+    </blockquote>
+    <pre>LGTM: Acked-by: Oleksii Kurochko &lt;oleksii.kurochko@gmail&gt;
+With one question ...
+</pre>
+    <p><br>
+    </p>
+    <blockquote type="cite"
+      cite="mid:20250808145602.41716-12-anthony@xenproject.org">
+      <pre wrap="" class="moz-quote-pre">
+---
+ CHANGELOG.md | 2 ++
+ README       | 2 +-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 5f31ca08fe..83195e2dae 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -11,6 +11,8 @@ The format is based on [Keep a Changelog](<a class="moz-txt-link-freetext" href="https://keepachangelog.com/en/1.0.0/">https://keepachangelog.com/en/1.0.0/</a>)
+    - For x86, GCC 5.1 and Binutils 2.25, or Clang/LLVM 11
+    - For ARM32 and ARM64, GCC 5.1 and Binutils 2.25
+  - Linux based device model stubdomains are now fully supported.
++ - New dependency on library json-c, the toolstack will prefer it to `YAJL`
++   when available.
+ 
+  - On x86:
+    - Restrict the cache flushing done as a result of guest physical memory map
+diff --git a/README b/README
+index 6ee58f7b35..9329f30e13 100644
+--- a/README
++++ b/README
+@@ -53,7 +53,7 @@ provided by your OS distributor:
+     * Development install of Python 2.7 or later (e.g., python-dev)
+     * Development install of curses (e.g., libncurses-dev)
+     * Development install of uuid (e.g. uuid-dev)
+-    * Development install of yajl (e.g. libyajl-dev)
++    * Development install of json-c (e.g. libjson-c-dev) or yajl (e.g. libyajl-dev)</pre>
+    </blockquote>
+    <pre>... as you mentioned in the cover letter libyajl-dev is unmaintained for several years. Do any plans
+exist to drop libyajl-dev at all? Can't it be dropped now?
+
+~ Oleksii
+</pre>
+    <blockquote type="cite"
+      cite="mid:20250808145602.41716-12-anthony@xenproject.org">
+      <pre wrap="" class="moz-quote-pre">
+     * Development install of libaio (e.g. libaio-dev) version 0.3.107 or
+       greater.
+     * Development install of GLib v2.0 (e.g. libglib2.0-dev)
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------HWaOhxSqo62uZovjrqlsQOyW--
 
