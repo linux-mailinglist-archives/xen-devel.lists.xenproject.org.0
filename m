@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7E49B2021C
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 10:44:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077097.1438188 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAAE7B20225
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 10:45:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077105.1438197 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulO7r-0005lC-AU; Mon, 11 Aug 2025 08:43:27 +0000
+	id 1ulO9r-0006Gc-Lu; Mon, 11 Aug 2025 08:45:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077097.1438188; Mon, 11 Aug 2025 08:43:27 +0000
+Received: by outflank-mailman (output) from mailman id 1077105.1438197; Mon, 11 Aug 2025 08:45:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulO7r-0005iK-7p; Mon, 11 Aug 2025 08:43:27 +0000
-Received: by outflank-mailman (input) for mailman id 1077097;
- Mon, 11 Aug 2025 08:43:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ulO9r-0006E4-J5; Mon, 11 Aug 2025 08:45:31 +0000
+Received: by outflank-mailman (input) for mailman id 1077105;
+ Mon, 11 Aug 2025 08:45:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MOyo=2X=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1ulO7p-0005iE-Bb
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 08:43:25 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 37d0324d-768f-11f0-b898-0df219b8e170;
- Mon, 11 Aug 2025 10:43:13 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-6154655c8aeso5758420a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 01:43:13 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-615a8ffbde5sm17944208a12.54.2025.08.11.01.43.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Aug 2025 01:43:12 -0700 (PDT)
+ <SRS0=21ui=2X=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1ulO9q-0006Dw-0Q
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 08:45:30 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8867c500-768f-11f0-a325-13f23c93f187;
+ Mon, 11 Aug 2025 10:45:29 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-6180b9e4e74so3409385a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 01:45:29 -0700 (PDT)
+Received: from yp-VivoBook-ASUSLaptop-M1503QA-M1503QA.Dlink ([77.52.179.37])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-af91a0a3e80sm1995121866b.47.2025.08.11.01.45.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 11 Aug 2025 01:45:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,325 +45,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37d0324d-768f-11f0-b898-0df219b8e170
+X-Inumbo-ID: 8867c500-768f-11f0-a325-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1754901793; x=1755506593; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KWCgUz6GVKLbEbvxJqlmU/6PlX5HX7aQWbOcWcqHhwE=;
-        b=kd0lZ/UipTjMexU+XMp9I3FZ1FPsVZ6wa/M4JgoiEko6XQ6KAGC5Sk8VLqOr+laLk3
-         IBxo2q+voAabezcSt1dMkkm+apxT7CGpzolEMvhaci4Dfiiu6X3BZYUNwnYAKc1VmlwB
-         bHzfm8/swp4R+P5Ymb3CEnwMNcQcloUgXP2Y/eGhtas5ssZt2btHXMExKS3rJ6CH2EA4
-         hXgXdqw5jKMhmvY659tV5Xs5umwYZl1Q2XC0s6DSxhGE4+gMM5gURZruY6jkiyIkyZzu
-         G3KU7EsygVv1dkA3Rj3TG/WtKNNrqC41yStywplJbsW/bRhuHF/vjGWy+WKBpRiloGeS
-         l8zg==
+        d=gmail.com; s=20230601; t=1754901928; x=1755506728; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=gOdShwPIr5kiLYik+t8QMnDr8E3Is5wCiMPgD2hGSeM=;
+        b=UR4gSywtT2i9cL3hiuKIKc/B1cWkP7TLTpfuEwI8gL7qgivhy3jP21Jo/X5imsydDY
+         LE/uKj1CWbnMszWXD2v9oiy+sLK7SsPO9jfzzWdLbFGuD/t/AYO0yXaH395IW0cT9yPp
+         ZeZLS5KYB0ORNNu5WPdmUuJw5xQwRUBT/aPrOHASPo/Awholk34jGY8Q7B85LrKkIYUC
+         5WefiJVY7BG+viKYadbvJ0fF/uzXg2uR4wU9Umbq2fgr99dqvIUfWrBF7n0LCShDBpcH
+         kPcFuJkhfIwRTNW0Wr2Q+Ndob6iKQp6DQbyejmfyB9eFAccccG00N8dEHNTRvlS8UPRn
+         9vEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754901793; x=1755506593;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=KWCgUz6GVKLbEbvxJqlmU/6PlX5HX7aQWbOcWcqHhwE=;
-        b=b/c68G05xXMxwBCAAK7MF+/+cKQMvAIHpOV1oeoVEGJTDLOXMgj4UI0FmoT0V5wI8k
-         8TPy1hy1SMf1yVFy74ek7QUXa1TXzbVcfUb5C0tJxHjsjJOjlN0KiUTroax71fSIT1/B
-         iOBSGo8zyGQyLWTQT0jFeo+s+6qK/ngF8grfxy/yJrkvl53H6AjOFiIKw1UX1yWGNyXZ
-         TyEE+8mLMs0bqEsxwAPCb2AA3JiVaQ7/LVXG7/Y9vZGS1ApLkSHtnZ/JDzWfay27i8BT
-         qkSI9Bu86DVxxS6ax9NE2mxLtL+45DqP8ZqCvPATbkQHevCFz5v3D7XpSzLasPgUqemJ
-         AJMg==
-X-Forwarded-Encrypted: i=1; AJvYcCWsQ0JcgOWJIm1sMXaLSaE0Y6ivNEmKr/5d13v23/lGtppVOX8HgCN1T66crnjVbjzqAs+fPplK+Uo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywulv2Jaoo9GO0GbnlpX1GwCKI2BzUS8gp2cluISky0rp8KWie9
-	Ib85EAa/1JFxAZRNpwRE+qJoX0jFYYe1n6Z+DKt3UT8EzoC6lXNvOzmu
-X-Gm-Gg: ASbGnct8nUiMdYqp29n7Ku89T315KOR35Qeg//1mzKfciPObNH7EzZ75PYlZW5YDAo+
-	JbnchJmM2+x6DMyKbLuflBNz6CH6JypRnMp8s+Vjw6TpWmy3zThGTUYBRKFJJi4nBpTyCy2p/mu
-	LbvK44e2MJ9mN7i0UdlX5IwLY+GYUdaukJUsBv4ABRDjPkQdgJSQ1oZ0uBTGllCrrsS3awmCQZv
-	3FcaXVYv5IdgH6ww3VjUH9LwXCkbCx3AS+XrMis39AMmLvAVaA8g10NAW5B0QIMszkGL4rwX+4f
-	9452hHqEV9xTd3biLMVhuuQSUJ7LyksXE+d6PZKYRzh+wfvcoEZFLESdN0whBiJCg4JS15tlaxP
-	3g+aLxn7WjVuR9nWLF28xZYo1/CFQeHgispmOj2/BhrP4FYJbVlAvxtQL3B4f2GEK+D4CdAI=
-X-Google-Smtp-Source: AGHT+IE8ov+ppGayhzOqdELEGfgDTzgS2m/jQdZ5RGMlI6MSf+mKq58nwED8TZmFOjY7Gpi3cgMG2Q==
-X-Received: by 2002:a05:6402:5216:b0:612:a86b:ac79 with SMTP id 4fb4d7f45d1cf-617e2b77876mr10829070a12.2.1754901792998;
-        Mon, 11 Aug 2025 01:43:12 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------jBo8MouCJ84UWa0950Sndq1f"
-Message-ID: <2919f22b-0b0c-488e-b0c6-96b9538e63d9@gmail.com>
-Date: Mon, 11 Aug 2025 10:43:10 +0200
+        d=1e100.net; s=20230601; t=1754901928; x=1755506728;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=gOdShwPIr5kiLYik+t8QMnDr8E3Is5wCiMPgD2hGSeM=;
+        b=nLfrXFTZU5NMOe+4aUcStG7U6VQsZzskW3ORGL6rsJ9sIImcsRdrPNLP01YKlw5k/Z
+         OCyZKbvgWaW0Vq0N2MoHE2NiFsX5jg2VJoW4hvRa+rwLON8WyvhCTGTX3/cegV0AvURd
+         7MRtRPv69iIHX0IL1cXmm+N+TQzhHmtyqaVbpFF5dTMjINVTZ0SkCzP7G1hromAWkIl/
+         gvtMOvTHDXATKZxUbRMN1wnJD6RHYZfI8BhPuozlqQHnhX07nArkObX+NNwNGO8CGVdK
+         3XF5VBpDvCDtOr8CfLidrPWR7THxNeKBvftsDDaRpHIYdAPDOWkzGnBAgbrm8g0Cochk
+         aLhg==
+X-Gm-Message-State: AOJu0YxG305OEgNrha6vJYxKTuXGOGPi7+BHk7ppNOfnKcUG59Mxyc7V
+	m6J2EByHD48/97ZQSAra1P5IGAsoL1riCKxyuz4aw9nNcNq6tcyx690sl7MwHQ==
+X-Gm-Gg: ASbGncsDFN1h5+VTeLgS89ttyj0X/FFz9+Cvxo1+KNvGjITCzryihuxcG88qsdrmdTR
+	YEHcPKarhUfjURIchRBD1gaBE+fpNEVcWRLFti3bb6kAzJ6rSN3JmzKDlVKO87zDKypI+yGIu6+
+	ihh9hNNwWAzL3tRKwsUWyjloR2aSwJfnttI1rV6WvlskPZXd6BOFHdm0BU8T65dkQ6rdPKtrxHX
+	6HbPTfu+9CIecrPv2PYAY2XeiZgj42eRfaRK7HGr0RPrytTD5s0bbYERrOjD+0fQQO5CL5M13Yj
+	sCIpZzNzje7HCHSuKrtQDMiC6Lly17qQsXK9Xa45IWqilVFl8KpQpfncQT5ruc/61ZGBziwqoOT
+	nTOO2X1cFiL6pshqlNQmC0xvD7jYsfuUdmdy2bm3fayql2f+CnOEJzK2VmeuTfx6JbxRse+8sRD
+	3nkA==
+X-Google-Smtp-Source: AGHT+IGUlIxSW/LjM+RZqJFYDftesPxQGIv1eDYD5ommX9a3Vaa6gtSD5P6RCX2uVd6PP4UC4nCv/g==
+X-Received: by 2002:a17:907:971f:b0:ae3:cc60:8ce7 with SMTP id a640c23a62f3a-af9c64545admr1117750466b.19.1754901928057;
+        Mon, 11 Aug 2025 01:45:28 -0700 (PDT)
+From: Mykola Kvach <xakep.amatop@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Mykola Kvach <mykola_kvach@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Denis Mukhin <dmukhin@ford.com>
+Subject: [PATCH v2] xen/arm: irq: add missing spin_unlock() in init_local_irq_data() error path
+Date: Mon, 11 Aug 2025 11:45:20 +0300
+Message-ID: <f983bb7c3c9f0912da7e7f2fc22384ce1081a7a3.1754901835.git.mykola_kvach@epam.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] CI: Update riscv64 to use Debian Trixie
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Victor Lira <victorm.lira@amd.com>
-References: <20250809221206.1260861-1-andrew.cooper3@citrix.com>
- <20250809221206.1260861-4-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <20250809221206.1260861-4-andrew.cooper3@citrix.com>
-
-This is a multi-part message in MIME format.
---------------jBo8MouCJ84UWa0950Sndq1f
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+From: Mykola Kvach <mykola_kvach@epam.com>
 
-On 8/10/25 12:12 AM, Andrew Cooper wrote:
-> Everything works fine with Debian 13.  Provide two new build jobs, and update
-> both the randconfig the test jobs.
->
-> Signed-off-by: Andrew Cooper<andrew.cooper3@citrix.com>
-> ---
-> CC: Anthony PERARD<anthony.perard@vates.tech>
-> CC: Michal Orzel<michal.orzel@amd.com>
-> CC: Jan Beulich<jbeulich@suse.com>
-> CC: Julien Grall<julien@xen.org>
-> CC: Roger Pau Monné<roger.pau@citrix.com>
-> CC: Stefano Stabellini<sstabellini@kernel.org>
-> CC: Shawn Anastasio<sanastasio@raptorengineering.com>
-> CC: Oleksii Kurochko<oleksii.kurochko@gmail.com>
-> CC: Doug Goldstein<cardoe@cardoe.com>
-> CC: Marek Marczykowski-Górecki<marmarek@invisiblethingslab.com>
-> CC: Victor Lira<victorm.lira@amd.com>
->
-> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1975929387
-> ---
->   automation/gitlab-ci/build.yaml | 22 ++++++++++++++++++----
->   automation/gitlab-ci/test.yaml  |  2 +-
->   2 files changed, 19 insertions(+), 5 deletions(-)
->
-> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-> index 3fe539dc5683..f8e45f3467c8 100644
-> --- a/automation/gitlab-ci/build.yaml
-> +++ b/automation/gitlab-ci/build.yaml
-> @@ -329,10 +329,10 @@ debian-13-ppc64le-gcc-debug:
->         CONFIG_UBSAN=y
->         CONFIG_UBSAN_FATAL=y
->   
-> -debian-12-riscv64-gcc-debug:
-> +debian-13-riscv64-gcc-debug:
->     extends: .gcc-riscv64-cross-build-debug
->     variables:
-> -    CONTAINER: debian:12-riscv64
-> +    CONTAINER: debian:13-riscv64
->       KBUILD_DEFCONFIG: tiny64_defconfig
->       HYPERVISOR_ONLY: y
->       EXTRA_XEN_CONFIG: |
-> @@ -727,6 +727,20 @@ debian-12-riscv64-gcc:
->       KBUILD_DEFCONFIG: tiny64_defconfig
->       HYPERVISOR_ONLY: y
->   
-> +debian-12-riscv64-gcc-debug:
-> +  extends: .gcc-riscv64-cross-build-debug
-> +  variables:
-> +    CONTAINER: debian:12-riscv64
-> +    KBUILD_DEFCONFIG: tiny64_defconfig
-> +    HYPERVISOR_ONLY: y
+If init_one_irq_desc() fails, init_local_irq_data() returns without
+releasing local_irqs_type_lock, leading to a possible deadlock.
 
-Don't you mind to keep an order? So:
-   debian-12-riscv64-gcc-debug:
-   ...
-   debian-13-riscv64-gcc-debug:
-   ...
+Release the lock before returning to ensure proper cleanup.
 
-Also, it will make a diff a little bit better.
-
-> +
-> +debian-13-riscv64-gcc:
-> +  extends: .gcc-riscv64-cross-build
-> +  variables:
-> +    CONTAINER: debian:13-riscv64
-> +    KBUILD_DEFCONFIG: tiny64_defconfig
-> +    HYPERVISOR_ONLY: y
-> +
->   .riscv-fixed-randconfig:
->     variables: &riscv-fixed-randconfig
->       EXTRA_FIXED_RANDCONFIG: |
-> @@ -739,10 +753,10 @@ debian-12-riscv64-gcc:
->         CONFIG_VM_EVENT=n
->         CONFIG_XSM=n
->   
-> -debian-12-riscv64-gcc-randconfig:
-> +debian-13-riscv64-gcc-randconfig:
-
-Are we going to have randconfig build test only for Debian-13?
-
->     extends: .gcc-riscv64-cross-build
->     variables:
-> -    CONTAINER: debian:12-riscv64
-> +    CONTAINER: debian:13-riscv64
->       KBUILD_DEFCONFIG: tiny64_defconfig
->       RANDCONFIG: y
->       <<: *riscv-fixed-randconfig
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index 2f6f3affa637..9acd984d294c 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -705,7 +705,7 @@ qemu-smoke-riscv64-gcc:
->     script:
->       - ./automation/scripts/qemu-smoke-riscv64.sh 2>&1 | tee ${LOGFILE}
->     needs:
-> -    - debian-12-riscv64-gcc-debug
-> +    - debian-13-riscv64-gcc-debug
-
-The same as above, are we going to run smoke tests only for Debian-13?
-
-If the answer to this and the question above is “yes,” then (probably
-keeping the order — first debian-12, then debian-13 — for the jobs):
-  Reviewed-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
-
-Thanks.
-
-~ Oleksii
-
->   
->   qemu-smoke-ppc64le-powernv9-gcc:
->     extends: .qemu-ppc64le
---------------jBo8MouCJ84UWa0950Sndq1f
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 8/10/25 12:12 AM, Andrew Cooper
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:20250809221206.1260861-4-andrew.cooper3@citrix.com">
-      <pre wrap="" class="moz-quote-pre">Everything works fine with Debian 13.  Provide two new build jobs, and update
-both the randconfig the test jobs.
-
-Signed-off-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
+Fixes: 2bb32b809250 ("xen/irq: Propagate the error from init_one_desc_irq() in init_*_irq_data()")
+Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+Reviewed-by: Denis Mukhin <dmukhin@ford.com>
 ---
-CC: Anthony PERARD <a class="moz-txt-link-rfc2396E" href="mailto:anthony.perard@vates.tech">&lt;anthony.perard@vates.tech&gt;</a>
-CC: Michal Orzel <a class="moz-txt-link-rfc2396E" href="mailto:michal.orzel@amd.com">&lt;michal.orzel@amd.com&gt;</a>
-CC: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
-CC: Julien Grall <a class="moz-txt-link-rfc2396E" href="mailto:julien@xen.org">&lt;julien@xen.org&gt;</a>
-CC: Roger Pau Monné <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a>
-CC: Stefano Stabellini <a class="moz-txt-link-rfc2396E" href="mailto:sstabellini@kernel.org">&lt;sstabellini@kernel.org&gt;</a>
-CC: Shawn Anastasio <a class="moz-txt-link-rfc2396E" href="mailto:sanastasio@raptorengineering.com">&lt;sanastasio@raptorengineering.com&gt;</a>
-CC: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-CC: Doug Goldstein <a class="moz-txt-link-rfc2396E" href="mailto:cardoe@cardoe.com">&lt;cardoe@cardoe.com&gt;</a>
-CC: Marek Marczykowski-Górecki <a class="moz-txt-link-rfc2396E" href="mailto:marmarek@invisiblethingslab.com">&lt;marmarek@invisiblethingslab.com&gt;</a>
-CC: Victor Lira <a class="moz-txt-link-rfc2396E" href="mailto:victorm.lira@amd.com">&lt;victorm.lira@amd.com&gt;</a>
+ xen/arch/arm/irq.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-<a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1975929387">https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1975929387</a>
----
- automation/gitlab-ci/build.yaml | 22 ++++++++++++++++++----
- automation/gitlab-ci/test.yaml  |  2 +-
- 2 files changed, 19 insertions(+), 5 deletions(-)
-
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index 3fe539dc5683..f8e45f3467c8 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -329,10 +329,10 @@ debian-13-ppc64le-gcc-debug:
-       CONFIG_UBSAN=y
-       CONFIG_UBSAN_FATAL=y
+diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
+index 4bbf0b0664..02ca82c089 100644
+--- a/xen/arch/arm/irq.c
++++ b/xen/arch/arm/irq.c
+@@ -94,7 +94,10 @@ static int init_local_irq_data(unsigned int cpu)
+         int rc = init_one_irq_desc(desc);
  
--debian-12-riscv64-gcc-debug:
-+debian-13-riscv64-gcc-debug:
-   extends: .gcc-riscv64-cross-build-debug
-   variables:
--    CONTAINER: debian:12-riscv64
-+    CONTAINER: debian:13-riscv64
-     KBUILD_DEFCONFIG: tiny64_defconfig
-     HYPERVISOR_ONLY: y
-     EXTRA_XEN_CONFIG: |
-@@ -727,6 +727,20 @@ debian-12-riscv64-gcc:
-     KBUILD_DEFCONFIG: tiny64_defconfig
-     HYPERVISOR_ONLY: y
+         if ( rc )
++        {
++            spin_unlock(&local_irqs_type_lock);
+             return rc;
++        }
  
-+debian-12-riscv64-gcc-debug:
-+  extends: .gcc-riscv64-cross-build-debug
-+  variables:
-+    CONTAINER: debian:12-riscv64
-+    KBUILD_DEFCONFIG: tiny64_defconfig
-+    HYPERVISOR_ONLY: y</pre>
-    </blockquote>
-    <pre>Don't you mind to keep an order? So:
-  debian-12-riscv64-gcc-debug:
-  ...
-  debian-13-riscv64-gcc-debug:
-  ...
+         desc->irq = irq;
+         desc->action  = NULL;
+-- 
+2.48.1
 
-Also, it will make a diff a little bit better.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:20250809221206.1260861-4-andrew.cooper3@citrix.com">
-      <pre wrap="" class="moz-quote-pre">
-+
-+debian-13-riscv64-gcc:
-+  extends: .gcc-riscv64-cross-build
-+  variables:
-+    CONTAINER: debian:13-riscv64
-+    KBUILD_DEFCONFIG: tiny64_defconfig
-+    HYPERVISOR_ONLY: y
-+
- .riscv-fixed-randconfig:
-   variables: &amp;riscv-fixed-randconfig
-     EXTRA_FIXED_RANDCONFIG: |
-@@ -739,10 +753,10 @@ debian-12-riscv64-gcc:
-       CONFIG_VM_EVENT=n
-       CONFIG_XSM=n
- 
--debian-12-riscv64-gcc-randconfig:
-+debian-13-riscv64-gcc-randconfig:</pre>
-    </blockquote>
-    <pre>Are we going to have randconfig build test only for Debian-13?
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:20250809221206.1260861-4-andrew.cooper3@citrix.com">
-      <pre wrap="" class="moz-quote-pre">
-   extends: .gcc-riscv64-cross-build
-   variables:
--    CONTAINER: debian:12-riscv64
-+    CONTAINER: debian:13-riscv64
-     KBUILD_DEFCONFIG: tiny64_defconfig
-     RANDCONFIG: y
-     &lt;&lt;: *riscv-fixed-randconfig
-diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-index 2f6f3affa637..9acd984d294c 100644
---- a/automation/gitlab-ci/test.yaml
-+++ b/automation/gitlab-ci/test.yaml
-@@ -705,7 +705,7 @@ qemu-smoke-riscv64-gcc:
-   script:
-     - ./automation/scripts/qemu-smoke-riscv64.sh 2&gt;&amp;1 | tee ${LOGFILE}
-   needs:
--    - debian-12-riscv64-gcc-debug
-+    - debian-13-riscv64-gcc-debug</pre>
-    </blockquote>
-    <pre>The same as above, are we going to run smoke tests only for Debian-13?
-
-If the answer to this and the question above is “yes,” then (probably
-keeping the order — first debian-12, then debian-13 — for the jobs):
- Reviewed-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-
-Thanks.
-
-~ Oleksii
-</pre>
-    <blockquote type="cite"
-      cite="mid:20250809221206.1260861-4-andrew.cooper3@citrix.com">
-      <pre wrap="" class="moz-quote-pre">
- 
- qemu-smoke-ppc64le-powernv9-gcc:
-   extends: .qemu-ppc64le
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------jBo8MouCJ84UWa0950Sndq1f--
 
