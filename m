@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26E70B2190C
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 01:15:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1078138.1439139 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84C1BB21983
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 01:47:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1078146.1439148 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulbiM-0000MX-14; Mon, 11 Aug 2025 23:14:02 +0000
+	id 1ulcE4-0004Jq-EU; Mon, 11 Aug 2025 23:46:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1078138.1439139; Mon, 11 Aug 2025 23:14:02 +0000
+Received: by outflank-mailman (output) from mailman id 1078146.1439148; Mon, 11 Aug 2025 23:46:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulbiL-0000Jz-UA; Mon, 11 Aug 2025 23:14:01 +0000
-Received: by outflank-mailman (input) for mailman id 1078138;
- Mon, 11 Aug 2025 23:14:00 +0000
+	id 1ulcE4-0004HO-BV; Mon, 11 Aug 2025 23:46:48 +0000
+Received: by outflank-mailman (input) for mailman id 1078146;
+ Mon, 11 Aug 2025 23:46:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6XhN=2X=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1ulbiK-0000Ja-66
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 23:14:00 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org
- [2600:3c0a:e001:78e:0:1991:8:25])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d92319ee-7708-11f0-b898-0df219b8e170;
- Tue, 12 Aug 2025 01:13:54 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C1A5F42B8B;
- Mon, 11 Aug 2025 23:13:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB218C4CEED;
- Mon, 11 Aug 2025 23:13:51 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=EhVm=2X=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1ulcE1-0004HI-5C
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 23:46:46 +0000
+Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch
+ [79.135.106.30]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6c5ead86-770d-11f0-b898-0df219b8e170;
+ Tue, 12 Aug 2025 01:46:38 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,116 +36,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d92319ee-7708-11f0-b898-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1754954032;
-	bh=bwC4EqjSsFYGlKn9k17jzkkCt8DFr5cjT8mwHg1dH5Y=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=G1moMz/DghypV3TcV8wnxVOI5OrSjEddGf0GTQdNk71z7wgZL5uDqiTziBaEmRxho
-	 +oK++6bFQYfnrBOwBeZGWwDq/8na2XROl5SWrkGSg5IEKW0DG4Jb+3dOLMXEvlG2J0
-	 1NpSiWybz9cFrh2C/I4fOi35W+sdFnEAO8sLHUtDTW4EdrEi3x8H0m7qVtR/bLOySG
-	 m7vs9CITQ64ZNyQs8cu/lRQLHCvFI2OXO+9T7mbbYeMnl+LWntoyYG0W0N48WGMshq
-	 og0Ny8Hf0ICiTJhb3YoeZaxHw1xvrnrIM15Mfz8ZoWIHu9iDaR+HUo+KHuvh7G2X26
-	 y5O4DfgnahC4g==
-Date: Mon, 11 Aug 2025 16:13:50 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
-    michal.orzel@amd.com, andrei.cherechesu@nxp.com, dmukhin@ford.com
-Subject: Re: [ImageBuilder] Make DEVICE_TREE optional parameter
-In-Reply-To: <20250807154614.456654-1-ayan.kumar.halder@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2508111447010.2883419@ubuntu-linux-20-04-desktop>
-References: <20250807154614.456654-1-ayan.kumar.halder@amd.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 6c5ead86-770d-11f0-b898-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1754955996; x=1755215196;
+	bh=45YZaAccxyO0H/wTpuwwvtCoJrDQ1nfLPoAe4C+9ZHk=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=CvOGE97DP6jnkO9gvoJHpsswc253mhFKyLKjlJuRpm+qYV7Kz91qRz35zMzrWKQgo
+	 wHLX6VxZSGULNTq/XlaslouSI+yVnGUiYWJnZA7WEabpFp7gk5gXNkZx+Y8/cQnz6D
+	 ECMbzRA6zLuFIhExFPV9tqj7PfclfUa6rEffsDhJngrvraSnz3EixHE0UfnkWW5sJs
+	 7e2MRz9B/x/dv3Om4sqOb9TGnwrWXfeXGDGFfmTWS9mDWzxHRHy5hdI4yPnBYGq0H9
+	 HboRjzNsU3vLJ2Ea/Yqlhnxrhn3e0y4jaMoUXTYsFf+wVa7vegsGXy4q9SmBBrbWyV
+	 DVv8TpWWgcaPw==
+Date: Mon, 11 Aug 2025 23:46:32 +0000
+To: Jan Beulich <jbeulich@suse.com>
+From: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v15 1/4] xen/domain: unify domain ID allocation
+Message-ID: <aJqA0yi5k0qtg6TU@kraken>
+In-Reply-To: <db85bafd-c2f8-4aa0-9cf4-0529b0a39bcd@suse.com>
+References: <20250809170747.1836880-1-dmukhin@ford.com> <20250809170747.1836880-2-dmukhin@ford.com> <db85bafd-c2f8-4aa0-9cf4-0529b0a39bcd@suse.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 88a8abf1cc3e039132c37fff2b1d2ee00e144360
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-146452198-1754953035=:2883419"
-Content-ID: <alpine.DEB.2.22.394.2508111602110.2883419@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Mon, Aug 11, 2025 at 01:14:49PM +0200, Jan Beulich wrote:
+> On 09.08.2025 19:08, dmkhn@proton.me wrote:
+> > --- /dev/null
+> > +++ b/xen/common/domid.c
+> > @@ -0,0 +1,95 @@
+> > +/* SPDX-License-Identifier: GPL-2.0-only */
+> > +/*
+> > + * Domain ID allocator.
+> > + *
+> > + * Covers dom0 or late hwdom, predefined domains, post-boot domains.
+> > + * Excludes system domains (ID >=3D DOMID_FIRST_RESERVED).
+> > + *
+> > + * Copyright 2025 Ford Motor Company
+> > + */
+> > +
+> > +#include <xen/domain.h>
+> > +
+> > +static DEFINE_SPINLOCK(domid_lock);
+> > +static DECLARE_BITMAP(domid_bitmap, DOMID_FIRST_RESERVED);
+> > +
+> > +/*
+> > + * Allocate domain ID.
+> > + *
+> > + * @param domid Domain ID hint:
+> > + * - If an explicit domain ID is provided, verify its availability and=
+ use it
+> > + *   if ID is not used;
+> > + * - If DOMID_INVALID is provided, search [1..DOMID_FIRST_RESERVED-1] =
+range,
+> > + *   starting from the last used ID. Implementation guarantees that tw=
+o
+> > + *   consecutive calls will never return the same ID. ID#0 is reserved=
+ for
+> > + *   the first boot domain (currently, dom0) and excluded from the all=
+ocation
+> > + *   range.
+> > + * @return Valid domain ID in case of successful allocation,
+> > + *         DOMID_INVALID - otherwise.
+> > + */
+> > +domid_t domid_alloc(domid_t domid)
+> > +{
+> > +    static domid_t domid_last;
+> > +
+> > +    spin_lock(&domid_lock);
+> > +
+> > +    /* Exact match. */
+> > +    if ( domid < DOMID_FIRST_RESERVED )
+> > +    {
+> > +        if ( __test_and_set_bit(domid, domid_bitmap) )
+> > +            domid =3D DOMID_INVALID;
+> > +    }
+> > +    /*
+> > +     * Exhaustive search.
+> > +     *
+> > +     * Domain ID#0 is reserved for the first boot domain (e.g. control=
+ domain)
+> > +     * and excluded from allocation.
+> > +     */
+> > +    else
+> > +    {
+> > +        domid_t num =3D DOMID_FIRST_RESERVED;
+> > +
+> > +        domid =3D find_next_zero_bit(domid_bitmap, num, domid_last + 1=
+);
+> > +        if ( domid =3D=3D num && domid_last !=3D 0 )
+>=20
+> I'm pretty sure I commented on this before, yet then maybe it was in the =
+context
+> of another patch: Using =3D=3D here isn't sufficient; it needs to be >=3D=
+. See e.g.
+> cpumask_next().
 
---8323329-146452198-1754953035=:2883419
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2508111602111.2883419@ubuntu-linux-20-04-desktop>
+I've missed that one. Will fix, thank you.
 
-On Thu, 7 Aug 2025, Ayan Kumar Halder wrote:
-> There are systems where device tree binary is passed by the U-Boot as
-> $fdtcontroladdr. In such cases, no external device tree binary is provided
-> during uboot script generation.
-> 
-> This is an enhancement on top of the following commit:-
-> uboot-script-gen: Dynamically compute addr and size when loading bina…
-> 
-> When DEVICE_TREE is not present, $CALC is set as the addresses and sizes should
-> be computed dynamically from U-Boot.
+>=20
+> Jan
 
-I would prefer if we did not automatically enable $CALC. If it doesn't
-work without $CALC enabled, we could add a check for it and print an
-error and exit. I would prefer that then enabling $CALC silently.
-
-Also I don't think we should use the check ${DEVICE_TREE+x}. I'd prefer
-to stick with the existing checks based on test ${DEVICE_TREE}.
-
-The rest looks OK.
-
-It might be possible to simplify this patch down to this (untested).
-The last chunk of the diff is actually an unrelated fix, it looks like
-we didn't test BOOT_CMD="none" when the -s option was introduced.
-
-What do you think?
-
-
-diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
-index 9e97944..67e0f9a 100755
---- a/scripts/uboot-script-gen
-+++ b/scripts/uboot-script-gen
-@@ -1646,6 +1646,15 @@ if test "$FIT"
- then
-     echo 'fit_addr=$fileaddr' >>  $UBOOT_SOURCE
- fi
-+if test -z "$DEVICE_TREE"
-+then
-+    if test -z "$CALC"
-+    then
-+       echo "DEVICE_TREE is unset and -s is not specified"
-+       exit 1
-+    fi
-+    echo "setenv host_fdt_addr \${fdtcontroladdr}" >> $UBOOT_SOURCE
-+fi
- 
- memaddr=$(( $MEMORY_START + $offset ))
- # 12582912 is 0xc00000, 12MB
-@@ -1689,9 +1698,12 @@ then
-     done
- fi
- 
--check_file_type $DEVICE_TREE "Device Tree Blob"
--device_tree_addr=$memaddr
--load_file $DEVICE_TREE "host_fdt" "$XEN_LOAD"
-+if test "$DEVICE_TREE"
-+then
-+    check_file_type $DEVICE_TREE "Device Tree Blob"
-+    device_tree_addr=$memaddr
-+    load_file $DEVICE_TREE "host_fdt" "$XEN_LOAD"
-+fi
- bitstream_load_and_config  # bitstream is loaded last but used first
- device_tree_editing $device_tree_addr
- 
-@@ -1719,8 +1731,11 @@ then
-     fi
- else
-     # skip boot command but store load addresses to be used later
--    echo "setenv host_kernel_addr $kernel_addr" >> $UBOOT_SOURCE
--    echo "setenv host_fdt_addr $device_tree_addr" >> $UBOOT_SOURCE
-+    if test -z "$CALC"
-+    then
-+        echo "setenv host_kernel_addr $kernel_addr" >> $UBOOT_SOURCE
-+        echo "setenv host_fdt_addr $device_tree_addr" >> $UBOOT_SOURCE
-+    fi
- fi
- 
- if test "$FIT"
---8323329-146452198-1754953035=:2883419--
 
