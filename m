@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74DDAB2022E
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 10:48:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077114.1438208 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAC70B202F9
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 11:14:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077146.1438222 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulOCX-0006nG-1t; Mon, 11 Aug 2025 08:48:17 +0000
+	id 1ulOax-0002rx-4Z; Mon, 11 Aug 2025 09:13:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077114.1438208; Mon, 11 Aug 2025 08:48:17 +0000
+Received: by outflank-mailman (output) from mailman id 1077146.1438222; Mon, 11 Aug 2025 09:13:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulOCW-0006le-V7; Mon, 11 Aug 2025 08:48:16 +0000
-Received: by outflank-mailman (input) for mailman id 1077114;
- Mon, 11 Aug 2025 08:48:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ulOax-0002q1-1W; Mon, 11 Aug 2025 09:13:31 +0000
+Received: by outflank-mailman (input) for mailman id 1077146;
+ Mon, 11 Aug 2025 09:13:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=21ui=2X=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1ulOCV-0006lY-RZ
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 08:48:15 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eb3badfe-768f-11f0-a325-13f23c93f187;
- Mon, 11 Aug 2025 10:48:14 +0200 (CEST)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-55502821bd2so4254900e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 01:48:14 -0700 (PDT)
+ <SRS0=Nn8B=2X=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1ulOav-0002pv-64
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 09:13:29 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6ea06e2d-7693-11f0-b898-0df219b8e170;
+ Mon, 11 Aug 2025 11:13:23 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id 50C524EE0744;
+ Mon, 11 Aug 2025 11:13:22 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,99 +40,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb3badfe-768f-11f0-a325-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1754902094; x=1755506894; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hqGsWRXWp/HZdOQieC5QgH2PV9Ff0EAfQeIphWwDWg8=;
-        b=f6KqDr4AFNhEeMe6sBiA+Da1OBc3UrZ+NushuAdmuTexqrTYGjraqREP4THAXlJfr8
-         RURTCznJT7rXKp4UpUEHZtPDpdpv9z5Nedph8uiohgsh6pUvoa3Y64UnrlAFByiPAwI8
-         h5Vr+7hkVyXHMkVtOj1fQvleEhz/Md0b+k5WbcIH43USlQAupUvxb1DC3mZwYMKAfrob
-         qrjRjSJD0vddCR6gQOpg4K+enSKUp/ne4BoSdgbNZvtklARhKyCkh7zTNxp1tmuWt/t+
-         GxCmHYOC6fyb/iRfNDbK33D+e1E4Rtyd2KDo2GettrSpzkdqyMqXRBGkqSs3W+QICcaO
-         hGZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754902094; x=1755506894;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=hqGsWRXWp/HZdOQieC5QgH2PV9Ff0EAfQeIphWwDWg8=;
-        b=SBtCsPxTSH0BcBqylgwv+YEURhKWae7UAuiPOO50bE8ZCHojPww0AFlucG4xVjmYgn
-         lrpf1DajnWj+Rasc0YzAIMCkWF7qIufmutlTEYE/jWhHW8tvFpxk404ziekWmBEuG8D2
-         cixKfZoy92gDA7zfQ6Cd6saRBCvmej4UpJOKvqcD1fqAvUpprx0O0ug10susFDN0vz0i
-         Q2s8nw9aKJuR6gG3MQjzFYl1NsJskPynJq6O532K/qYhkKWH9aJ1HdDG134+4l6uSJkX
-         ssTp3QSHgvxQs/gcRX3B6KqBqHzkMm4/tydsDl8J+7oc63Uc+0CiAByYNsD3u8Ub43cQ
-         BJ7A==
-X-Forwarded-Encrypted: i=1; AJvYcCWf3AJcIkZS3Hbyq8GPlWfzprRxhX/kYxEPZjoblHpLqgCEMm8BPlteeLpRovjyPCfiERU8d/ZsQNw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywd+woO/fBRHF2ZHUPZ1i02aPSnysTqoo9LlgHv0fDxO82cybD6
-	mpjVa6132hQ13zPGRg02+7xd6O/7RxPywIob2P6bpwgAcCSNQolFkcmu7nnH/vzyb9DGxyhjXkT
-	s1V71EdI2FG+isSKnCnjihxwC8wAXRZ4=
-X-Gm-Gg: ASbGncvAeQXVp6PHhoMJ9/40ChLxXM7ZAr8eECCoc9NFluCfx1NABW+GNtKpbSzLt1S
-	rjC+k8yl9w2dDYpULccu5wWyvgp82rpRXm1WY6bqYHKvWL5LoGDLDRKyq7NgNV5Dz24VEvUDgy2
-	HsMoAok+9XUGc4brimxybCxaFEEduOy7iTqikDnmH6BLPsJSTHQ+KFn1N8jls6ugn8sweDbvVjo
-	oetIQ==
-X-Google-Smtp-Source: AGHT+IHUk2b7VFDDxFKffd7YN4DgqdGks8yJwuMLGYNPVMHkOT+AKcDp94OpW17PcX2JAQ5279sADMLm9h/4WbTwzsI=
-X-Received: by 2002:a05:6512:1043:b0:55b:8ab3:c1a1 with SMTP id
- 2adb3069b0e04-55cc012781fmr3201076e87.49.1754902094073; Mon, 11 Aug 2025
- 01:48:14 -0700 (PDT)
+X-Inumbo-ID: 6ea06e2d-7693-11f0-b898-0df219b8e170
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1754903602;
+	b=vzrh74IgDLvYH0LeuDF09Zzm2GDPczQPWQ31fQxjSW+F7l1yIeQ+Y5rGO3niIJeMS8DN
+	 LPYt5pG9Wm8oj2rAM2PCITjwlb+NMbhWKQjm4WzeZUbllm8EpvtaALvdgu6VxHmYi7ant
+	 tSUevFczpGrCxIshsKIZoNXrQFiFpxgglxV6cIji4S+qnJHknCFE+sd1XnKSME02s1TmV
+	 fUSX5vJGV1hXulXRZjlzSpZj5O/HhldMnmswg7vYIysgH0l0V9qpry4+Hky5EqA7E8Qfx
+	 Yp0pusnO7IWbpVDo6gobgYtljvz62qyzlylAAh+GaujtKNCD4MB/slQocLo9R/pY7JedD
+	 oAdTOfkjW6KRpSimLfzwzhXDAZdjY+d0bvnUuhawiKLz1wtjN445O9tcgVWrYVUYQwIcy
+	 opWxmIWXdN7JR2USb8h54Qcq707RaeAN+jnODOI9eKCbkg+D1xQOItHRpqOVMagPgJFCJ
+	 0twHD42pB8AePdmSQVil/pBLuEQzbOoJTysT2ru5DvRtGGeRN5eq/WlHNybWJGKNkXK+c
+	 6cIp9uC1Q1uEgLxR9wRoDznGJnNqtQo0M/FaAmntVVq2ITtiMb+YeAq6NA0JzQ4cYRhi9
+	 77ov9+KKlLF5Ya0dRnr6Q5aEFoadhM5uNMNc7nqO+wAkbqPDXwpebyQ+OllFIGk=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1754903602;
+	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=k8Qtvar8YbFN8TMOa5vQk7H+KLOwckI7poc6ZXfBqbU=;
+	b=2VEuvT4ywPsj6ytq+o4KcJaSxJTBhmPF6VopKBdeZylIYS5aM3qzUtwciP4+U6nluE0h
+	 nV6tRNmD6JJbRGWIQjgooSXOqdgdFtsEo3MkzxXK8OeYlMxRR/P8CNXZ300k4YlEzVDGO
+	 0b99XqDFKN9I/4zl/U6aT9WC0hGYi6COENcJKmXTCpNB57/q9kzeXKkag6eNR5gkV9EkO
+	 9DVBlyajoxKeabGZSIvFkJVB6Ez0N8gpiRY/VWqGtwMzn2Fu+OvajUAarAS+d3H2BpgKN
+	 URRse/wZK9oe6XpuJBnbWyaoVlPj4ao2uvfvvVstFU5jmyUziWeIXneo/m9DARibIU7PM
+	 8twkoGIuE/CkzXw4fa02xqA11TiWgtRafh+8QW8vLRoqlFZH4Cn6cMobIeVkZTnSh6sCC
+	 PPbn6QUeHJgpf/aX4W6rtaMY7PSnuL3Gn6mSjJpZB3fvpINwhK/JE/wm2xTob87q4pBRT
+	 soAXRji8k2L06OKg6ZcNCFKAzbp9oqljH/y1pmHwwaHNGOe8erQZNaFP28hXrCGEjL2xm
+	 ygG2qshK122CMlZ9oiTdfvrarpqVDMZPApfwsXJcYtS5D2i5IDgFF5w1IIcBHEvItLhUU
+	 geTHBgO1gsCxqSxzBSYB5pyZsg1cXPtCzUyJRY8J6x02bky/nMELPasFuxBFRNY=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1754903602; bh=sy4XWIXsvu+oCHkQjWNZTb2qFLKm/lHyRlC9QS4Llb8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=xDV675i5UnkevtsZ36AsRVeC9q25p9+q6yr6Q9jPhWma995RyhyNMI+A5f9F6NHX2
+	 Bq33vAfARUU5U4HFfyNvYPf6dOQ/FQirMIDEqybx4qxfl17PKKIQLmaxVyGKbr2sWm
+	 QLyB5PrSPkt/cGk/QfrNRUz50iJ+dazg35F7qszCt70xfk11856Q3rycT/7w+8IlBc
+	 oWGpJWusvjg/l4zVUagh6a9BtZmmDdqLRB7Hd/JJYp2Y0Re+0WAx1hvg2CYIKTsr+h
+	 Tx1vPM7rpZG2IHcffyQ9o2sfH7vDKsXAxoTcOWkU3FyATzYq0ozRpweoTqP1cq0KBK
+	 eshh3ULkEDlKQ==
 MIME-Version: 1.0
-References: <bd707bd0fd88fc53974a1214313a9b9103162bcc.1754749899.git.mykola_kvach@epam.com>
- <977c6c31-af2a-4108-8b28-172dc3916731@suse.com>
-In-Reply-To: <977c6c31-af2a-4108-8b28-172dc3916731@suse.com>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Mon, 11 Aug 2025 11:48:01 +0300
-X-Gm-Features: Ac12FXwfKdgosCmxV3tOTGt6GjUB0-CZ6yOxbGr4JqHR4FtaUSN_gPYRXuMSITk
-Message-ID: <CAGeoDV8eB6dFP=kek9CnEOd=w4bJB5-CjO6S6v8Fp=ZJqyDg6w@mail.gmail.com>
-Subject: Re: [PATCH] xen/arm: irq: add missing spin_unlock() in
- init_local_irq_data() error path
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Mykola Kvach <mykola_kvach@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Date: Mon, 11 Aug 2025 11:13:22 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: nicola.vetrini@gmail.com, xen-devel@lists.xenproject.org, Anthony PERARD
+ <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan
+ Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini
+ <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH] xen: Drop logic for old clang versions.
+In-Reply-To: <96b878a1-2a4e-4df3-900c-a2b2142f0638@citrix.com>
+References: <e8bb42876317c19aca79f81c3fc48dc3a4fdaf71.1754830862.git.nicola.vetrini@bugseng.com>
+ <96b878a1-2a4e-4df3-900c-a2b2142f0638@citrix.com>
+Message-ID: <3a1fe9570bdaf5332c93a97c1da38255@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 11, 2025 at 10:53=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wr=
-ote:
->
-> On 09.08.2025 16:32, Mykola Kvach wrote:
-> > From: Mykola Kvach <mykola_kvach@epam.com>
-> >
-> > If init_one_irq_desc() fails, init_local_irq_data() returns without
-> > releasing local_irqs_type_lock, leading to a possible deadlock.
-> >
-> > Release the lock before returning to ensure proper cleanup.
-> >
-> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
->
-> Pretty likely wants backporting, which would best be indicated by a suita=
-ble
-> Fixes: tag.
+On 2025-08-11 10:07, Andrew Cooper wrote:
+> On 10/08/2025 2:03 pm, nicola.vetrini@gmail.com wrote:
+>> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>> 
+>> The enforced toolchain baseline for clang is version 11,
+>> therefore this logic is effectively dead code.
+>> 
+>> No functional change.
+>> 
+>> Signed-off-by: Nicola Vetrini <nicola.vetrini@gmail.com>
+> 
+> Thanks for the patch, but your From and SoB lines don't match.  Which 
+> is
+> it supposed to be?
+> 
+> ~Andrew
 
-I have added the Fixes: tag as suggested and resent the patch.
-Thank you for pointing this out.
+The gmail one, git misconfiguration, sorry. Should I resend?
 
->
-> Jan
->
-> > --- a/xen/arch/arm/irq.c
-> > +++ b/xen/arch/arm/irq.c
-> > @@ -94,7 +94,10 @@ static int init_local_irq_data(unsigned int cpu)
-> >          int rc =3D init_one_irq_desc(desc);
-> >
-> >          if ( rc )
-> > +        {
-> > +            spin_unlock(&local_irqs_type_lock);
-> >              return rc;
-> > +        }
-> >
-> >          desc->irq =3D irq;
-> >          desc->action  =3D NULL;
->
-
-Best regards,
-Mykola
+-- 
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
