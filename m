@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23B56B207FF
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 13:36:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077500.1438557 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6095BB20801
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 13:39:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077509.1438565 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulQpQ-0005ul-GM; Mon, 11 Aug 2025 11:36:36 +0000
+	id 1ulQrX-0006Qh-Qv; Mon, 11 Aug 2025 11:38:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077500.1438557; Mon, 11 Aug 2025 11:36:36 +0000
+Received: by outflank-mailman (output) from mailman id 1077509.1438565; Mon, 11 Aug 2025 11:38:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulQpQ-0005rd-D8; Mon, 11 Aug 2025 11:36:36 +0000
-Received: by outflank-mailman (input) for mailman id 1077500;
- Mon, 11 Aug 2025 11:36:34 +0000
+	id 1ulQrX-0006PG-O4; Mon, 11 Aug 2025 11:38:47 +0000
+Received: by outflank-mailman (input) for mailman id 1077509;
+ Mon, 11 Aug 2025 11:38:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ku41=2X=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ulQpO-0005rX-7l
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 11:36:34 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=92re=2X=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ulQrW-0006P6-DW
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 11:38:46 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6d8de603-76a7-11f0-b898-0df219b8e170;
- Mon, 11 Aug 2025 13:36:31 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-af95525bac4so762583466b.0
- for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 04:36:31 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a07659dsm1990757566b.21.2025.08.11.04.36.28
+ id bc7719a4-76a7-11f0-b898-0df219b8e170;
+ Mon, 11 Aug 2025 13:38:44 +0200 (CEST)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-459d62184c9so24453695e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 04:38:44 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-459e585586esm266337595e9.13.2025.08.11.04.38.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Aug 2025 04:36:29 -0700 (PDT)
+ Mon, 11 Aug 2025 04:38:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,197 +45,224 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d8de603-76a7-11f0-b898-0df219b8e170
+X-Inumbo-ID: bc7719a4-76a7-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754912191; x=1755516991; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1754912323; x=1755517123; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XPDykFm7ig9ojixPgGFnVK8vToDaGfT56W5dWqqo6aQ=;
-        b=e30nGKu0OC0TqW/gSfFPhyF7iAKWP+7Lrwl1GSrBg3QYkY9aqT+rxcK46xAzvEU2i8
-         7Vo/LtixYitYfROF0MVzfQ53AqfeJTEKCy5UlAbZna9nd5PwnS4UQRa4MYiEi5vHig7h
-         zIRU884IXnZ/kOxz5EVscMCR6TPI8NKT9o6rmxVdocUDmF+mrPmlY/j4Wfn1vMIERGtU
-         tD+tFpnJg+l3Ptx8QIKDhOSvxhV/6hsggztW+6qm9eWLaGYtoYrpVBxs5Itjc+ePhLAc
-         yGMS5BQe5+TCy8cDFxsSTbs4LZjji09YRHHsU4PESbII4Y7AXTmumz5yFn2EsBfZ4Jag
-         kaRQ==
+        bh=qqjOfXFMmZAfftxklX2kz4tF2SaqqC01TwGBHxbvoUo=;
+        b=dXOqlR6No1YHqHSc3RLDg9YBElw1HesjbWJLS/P+d+RBAhRxfhGQU3khScsJCGfNcH
+         ioXbF7n7aNZmbp38d0k5W5nzem620KgU/Fc1Zy/pYbw4KR1w5/VrjhswaZN53/fpupFo
+         CF9jD9uEF41h7DR6v0WePYeP+//qCN4c/bpJc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754912191; x=1755516991;
+        d=1e100.net; s=20230601; t=1754912323; x=1755517123;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XPDykFm7ig9ojixPgGFnVK8vToDaGfT56W5dWqqo6aQ=;
-        b=t+wx4CcFCRDU69Z+llY0flY0ixPgXZZCa/cLQoIMKLDNMqsova6CRYSe1C+S08LLfX
-         SrqDam5SMt/Wj+iAKbEZXk7QuASQqkW03QgSwFRM1MVtX47wXhDgvP9R3g1ckjzWAJap
-         3V2UsnP71+MwZYxxJtDHlStywu4LbWJH4bPsPqlFt+sSdk09//LQymR1OOmAok59BxtL
-         LEc8/ejICXaPcridKDmM7f3dVPnoIt68g5afZdqmtMGtr4UIVTgh/JGUzUWVpSBZhe+6
-         S6neQz09Nu5xU/X9F34tp+nI+tZGtyCvMJzAJxX2bM+EsMFFNtubc/uKWFr2TrmBdcyl
-         nQmQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX64z2oAdhCLd7chYO1DNM5z7eqQjlyf6l+RXdVs9VkU+x9/Mz17yyGw9997NTYbgaIUPHlSjsJpUM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxZZ56R+Vsw0S5OpS0HVkxVCx4KmRel3Vj5/qBjDQXiNBTyMwf9
-	fgoWOAqLRm6u/Do2ZGPzXzRG2RbJ7rteLfxhHXT95BW9u3oIhMfAIZKiHIaWi48FBn8rOdnWx2s
-	dW84=
-X-Gm-Gg: ASbGnct91USDa2ghWc/P17E+qutMzT8COYw5K6+fVvF+SM3CrFRGUjsbcpxMCBM7c3d
-	kaTbZ5VMKhFHrssr2tblNpjLXRVTvvl4U0IcOBc8e53hBlQycIAsCSd1hRLBWND1ibL1/tiQdws
-	uqo59IVjko1KRaQPf9TP0T1qy4os5OWy2oeaTC9WijBYdd8ovFqbtHqN3sTn7/6dLWaEf9b92xP
-	sYn7l0h0wCgqSM7z8s4qRxaYN2lQTWpj+Bwy/8xLq1p//5uGAeE4hfoSaFOJP54dZA2vSS8kc9Z
-	g1Y798r4lFLAE5jbhreTwy2MMqAQohZIwbu7LxLlDoLCBh7IbMm0CMSyylwrLC0OGKGVCMRKg73
-	xMf3pGFDZlaCRRBRYZsycd+FTngFP2BbzQ6D5qaJU6fRqi8ZgZvXTz2vD/s1JjuCrxCNFNJLVoR
-	p9lzVooHw=
-X-Google-Smtp-Source: AGHT+IGD3zOL2Ex7TbX2SnV02P5tUAtglVdOjmzTodiqgxNGGdZ7PaPQKiMWF6tkX0/6Ljf+lrXY1Q==
-X-Received: by 2002:a17:907:972a:b0:ad8:8719:f6f3 with SMTP id a640c23a62f3a-af9c645b793mr1065087466b.22.1754912191299;
-        Mon, 11 Aug 2025 04:36:31 -0700 (PDT)
-Message-ID: <3ede10e7-8e43-4277-9197-14a3e5ab1cc1@suse.com>
-Date: Mon, 11 Aug 2025 13:36:28 +0200
+        bh=qqjOfXFMmZAfftxklX2kz4tF2SaqqC01TwGBHxbvoUo=;
+        b=E2yL1J0mI9DsvN83YFnAe+DYW0Fyfv+F5REf1zDfXZ/FjmXAmwCrzBScPmNbvbRfmn
+         kQ3isHa9fKIFPr5on+eB0Nd/RZSYFAJJJPZjQ0HtzfsoTTvWhmuNi0AZXVDU2/mFi6bl
+         zWRR+oeIcgKOnkqUeOdsM2ReomCGFsBF6CNgtedavwH/in2cz0r5az+xVpORbxgD7ZtO
+         gZR4QGdZuB2TnGq8bNnEpbM/2FgdS1hOxTePsujmbaW2LAhRPn3yyzY73WbIPIQBZeeM
+         7m2Fp5J5JPmw+Vps5LiuZo5KTkkk/Oqs4DrA1WaXUoiQxNNz5Sw1y+I5w3MNe+2nTDdX
+         H1nw==
+X-Gm-Message-State: AOJu0YyWsnbtGsEbED9LydwxsaqMhZGcT2/A360FsHR5STtIKWRXTWTH
+	KtzwwQmbyNhZbQIcp9rDnkxQN0CS3DVAaEwjbMpUvFIv5lw4EsXgTzhElgnXlGG+CI2BO64rr93
+	3tU2+5tE=
+X-Gm-Gg: ASbGncs9J7N7KSqGjpYh+ONn/Hrhjrs81qzfPzfBfXJo5fvKjZzw+hM2htQ1UnjA0NK
+	UjYTSKiTvn+526UZo/JT21LOOB0qTMvXHx4gNfYb/LVuHj4sUgH23PRM6i8G0OSwR0KMaYSjFx8
+	PlpWb5CZo3kp2X9hQ0EZr4aWGvU1IoVeYP9ELyvWtPRBhqCiXPJQrG6XYeOydYL3DysBtG3fylF
+	2M85YE7+hCUweDOSSCnm42NK4lotL3759J0/wYxBV7m0dDjlEEXOwgHeyREaIX8yi+cAa5WN/cA
+	Zqm96QwtvIAG+tnNQPNiv7tXW36+pbtWbOxxKldLQQgKpBuSazq6IDCYT43LR2lPmlAYMapw85/
+	iJMwsU0IDkCQPtO2tHWB+b/o7Ugxxh0L4VC7QzvZkSK3nN7v91PVfMqNfKt6KdYDKR6fK
+X-Google-Smtp-Source: AGHT+IFZ7boyfhDojHkKAwsqaOJHH7JJU4Mv0CwImghiMqBQEgT3sMQ2pIoFwsUUykHqYzSPlr8N/Q==
+X-Received: by 2002:a05:600c:310d:b0:459:aa0a:db2d with SMTP id 5b1f17b1804b1-459f4f141bdmr93580155e9.28.1754912323517;
+        Mon, 11 Aug 2025 04:38:43 -0700 (PDT)
+Message-ID: <59303864-c6c7-4d6c-be43-8cf9a887cfe2@citrix.com>
+Date: Mon, 11 Aug 2025 12:38:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 14/20] xen/riscv: Implement p2m_pte_from_mfn() and
- support PBMT configuration
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
- <1370613cd6f52e90591b15ad52c95d7c81908cf6.1753973161.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1370613cd6f52e90591b15ad52c95d7c81908cf6.1753973161.git.oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH 21/22] x86/traps: Introduce FRED entrypoints
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
+ <20250808202314.1045968-22-andrew.cooper3@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250808202314.1045968-22-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 31.07.2025 17:58, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/p2m.c
-> +++ b/xen/arch/riscv/p2m.c
-> @@ -1,3 +1,4 @@
-> +#include <xen/bug.h>
->  #include <xen/domain_page.h>
->  #include <xen/mm.h>
->  #include <xen/rwlock.h>
-> @@ -197,6 +198,18 @@ static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
->      return __map_domain_page(p2m->root + root_table_indx);
+On 08/08/2025 9:23 pm, Andrew Cooper wrote:
+> diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+> index 270b93ed623e..e67a428e4362 100644
+> --- a/xen/arch/x86/traps.c
+> +++ b/xen/arch/x86/traps.c
+> @@ -2181,6 +2240,94 @@ void asmlinkage check_ist_exit(const struct cpu_user_regs *regs, bool ist_exit)
 >  }
+>  #endif
 >  
-> +static int p2m_set_type(pte_t *pte, p2m_type_t t)
+> +void asmlinkage entry_from_pv(struct cpu_user_regs *regs)
 > +{
-> +    int rc = 0;
+> +    /* Copy fred_ss.vector into entry_vector as IDT delivery would have done. */
+> +    regs->entry_vector = regs->fred_ss.vector;
 > +
-> +    if ( t > p2m_ext_storage )
-
-Seeing this separator enumerator in use, it becomes pretty clear that its name
-needs to change, so one doesn't need to go look at its definition to understand
-whether it's inclusive or exclusive. (This isn't helped by there presently being
-a spare entry, which, when made use of, might then cause problems with
-expressions like this one as well.)
-
-> @@ -222,11 +235,71 @@ static inline void p2m_clean_pte(pte_t *p, bool clean_pte)
->      p2m_write_pte(p, pte, clean_pte);
->  }
->  
-> -static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t)
-> +static void p2m_set_permission(pte_t *e, p2m_type_t t)
->  {
-> -    panic("%s: hasn't been implemented yet\n", __func__);
-> +    e->pte &= ~PTE_ACCESS_MASK;
-> +
-> +    switch ( t )
+> +    switch ( regs->fred_ss.type )
 > +    {
-> +    case p2m_grant_map_rw:
-> +    case p2m_ram_rw:
-> +        e->pte |= PTE_READABLE | PTE_WRITABLE;
-> +        break;
-
-While I agree for r/w grants, shouldn't r/w RAM also be executable?
-
-> +    case p2m_ext_storage:
-
-Why exactly would this placeholder ...
-
-> +    case p2m_mmio_direct_io:
-> +        e->pte |= PTE_ACCESS_MASK;
-> +        break;
-
-... gain full access? It shouldn't make it here at all, should it?
-
-> +
-> +    case p2m_invalid:
-> +        e->pte &= ~(PTE_ACCESS_MASK | PTE_VALID);
-
-Redundantly masking off PTE_ACCESS_MASK? (Plus, for the entry to be
-invalid, turning off PTE_VALID alone ought to suffice anyway?)
-
+> +    case X86_ET_EXT_INTR:
+> +        do_IRQ(regs);
 > +        break;
 > +
-> +    case p2m_grant_map_ro:
-> +        e->pte |= PTE_READABLE;
+> +    case X86_ET_NMI:
+> +        do_nmi(regs);
 > +        break;
+> +
+> +    case X86_ET_HW_EXC:
+> +    case X86_ET_SW_INT:
+> +    case X86_ET_PRIV_SW_EXC:
+> +    case X86_ET_SW_EXC:
+> +        goto fatal;
 > +
 > +    default:
-> +        ASSERT_UNREACHABLE();
-> +        break;
+> +        goto fatal;
 > +    }
+> +
+> +    return;
+> +
+> + fatal:
+> +    fatal_trap(regs, false);
 > +}
 > +
-> +static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t, bool is_table)
+> +void asmlinkage entry_from_xen(struct cpu_user_regs *regs)
 > +{
-> +    pte_t e = (pte_t) { PTE_VALID };
-
-This and the rest of the function demand that mfn != INVALID_MFN, no matter
-whether ...
-
-> +    switch ( t )
+> +    /* Copy fred_ss.vector into entry_vector as IDT delivery would have done. */
+> +    regs->entry_vector = regs->fred_ss.vector;
+> +
+> +    switch ( regs->fred_ss.type )
 > +    {
-> +    case p2m_mmio_direct_io:
-> +        e.pte |= PTE_PBMT_IO;
+> +    case X86_ET_EXT_INTR:
+> +        do_IRQ(regs);
+> +        break;
+> +
+> +    case X86_ET_NMI:
+> +        do_nmi(regs);
+> +        break;
+> +
+> +    case X86_ET_HW_EXC:
+> +    case X86_ET_SW_INT:
+> +    case X86_ET_PRIV_SW_EXC:
+> +    case X86_ET_SW_EXC:
+> +        switch ( regs->fred_ss.vector )
+> +        {
+> +        case X86_EXC_PF:  do_page_fault(regs); break;
+> +        case X86_EXC_GP:  do_general_protection(regs); break;
+> +        case X86_EXC_UD:  do_invalid_op(regs); break;
+> +        case X86_EXC_NM:  do_device_not_available(regs); break;
+> +        case X86_EXC_BP:  do_int3(regs); break;
+> +        case X86_EXC_DB:  do_debug(regs); break;
+> +        case X86_EXC_DF:  do_double_fault(regs); break;
+> +
+> +        case X86_EXC_DE:
+> +        case X86_EXC_OF:
+> +        case X86_EXC_BR:
+> +        case X86_EXC_NP:
+> +        case X86_EXC_SS:
+> +        case X86_EXC_MF:
+> +        case X86_EXC_AC:
+> +        case X86_EXC_XM:
+> +            do_trap(regs);
+> +            break;
+> +
+> +        case X86_EXC_CP:  do_entry_CP(regs); break;
+> +
+> +        default:
+> +            goto fatal;
+> +        }
 > +        break;
 > +
 > +    default:
-> +        break;
+> +        goto fatal;
 > +    }
 > +
-> +    pte_set_mfn(&e, mfn);
+> +    return;
 > +
-> +    ASSERT(!(mfn_to_maddr(mfn) & ~PADDR_MASK));
+> + fatal:
+> +    fatal_trap(regs, false);
+> +}
 
-... PADDR_MASK is actually narrow enough to catch that case. Maybe best to
-add an explicit assertion to that effect?
+Having started work on the PV support, I think this patch needs to
+change somewhat.
 
-> +    if ( !is_table )
-> +    {
-> +        p2m_set_permission(&e, t);
-> +
-> +        if ( t < p2m_ext_storage )
-> +            p2m_set_type(&e, t);
-> +        else
-> +            panic("unimplemeted\n");
+I've split #DB and #PF to have separate IDT prologues, which in turns
+gives us uniform handling of IRQ re-enabling for synchronous actions. 
+But, async still needs special handling.
 
-The check is already done inside p2m_set_type() - why open-code it here?
+I think we want something that looks more like:
 
-Jan
+    switch ( regs->fred_ss.type )
+    {
+    case X86_ET_EXT_INTR: return do_IRQ(regs);
+    case X86_ET_NMI:      return do_nmi(regs);
+    case X86_ET_HW_EXC:
+        if ( regs->fred_ss.vector == X86_EXC_MC )
+            return do_machine_check(regs);
+        break;
+    }
+
+    if ( regs->eflags & X86_EFLAGS_IF ) // From Xen only
+        local_irq_enable();             // From both
+
+    switch ( regs->fred_ss.type )
+
+
+Either way, it's probably not worth focusing too much on how the C in
+this patch looks for now.
+
+~Andrew
 
