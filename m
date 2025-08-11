@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2735B21328
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 19:29:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077864.1438888 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E6D6B2133D
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 19:32:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077873.1438899 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulWKP-0004jL-7J; Mon, 11 Aug 2025 17:28:57 +0000
+	id 1ulWNp-0006JH-Mg; Mon, 11 Aug 2025 17:32:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077864.1438888; Mon, 11 Aug 2025 17:28:57 +0000
+Received: by outflank-mailman (output) from mailman id 1077873.1438899; Mon, 11 Aug 2025 17:32:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulWKP-0004hl-4N; Mon, 11 Aug 2025 17:28:57 +0000
-Received: by outflank-mailman (input) for mailman id 1077864;
- Mon, 11 Aug 2025 17:28:56 +0000
+	id 1ulWNp-0006Hl-Ij; Mon, 11 Aug 2025 17:32:29 +0000
+Received: by outflank-mailman (input) for mailman id 1077873;
+ Mon, 11 Aug 2025 17:32:28 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ulWKO-0004hP-08
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 17:28:56 +0000
+ (envelope-from <julien@xen.org>) id 1ulWNo-0006Hf-C2
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 17:32:28 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1ulWKN-000Avr-0X;
- Mon, 11 Aug 2025 17:28:55 +0000
+ (envelope-from <julien@xen.org>) id 1ulWNn-000B1c-2f;
+ Mon, 11 Aug 2025 17:32:28 +0000
 Received: from [2a02:8012:3a1:0:2562:7575:7df6:8090]
  by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1ulWKN-000Q9m-1K;
- Mon, 11 Aug 2025 17:28:55 +0000
+ (envelope-from <julien@xen.org>) id 1ulWNo-000QJ6-0C;
+ Mon, 11 Aug 2025 17:32:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,46 +42,89 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=O1lA9/19+j5F2XJyQPpRqhW/plmDGmDoSavMLAxlWn4=; b=Gq2Q5vJPPhovhs4JcJ8a0++IBc
-	AKtS1VKousYN/0pdIzMj7zgS1Q1LiOsThKX5lYrx/vnvExWrX0/YIJw4invjXWgmqVE21QduuCb43
-	55rHq7V87kkHWNgNC+iUYC+QAfOgFh/YkglSGIR28mUZc4A0RGbGXiAKmbeZnq1pW354=;
-Message-ID: <1a51ba8c-93c5-4cfb-b76e-26e318c0b22d@xen.org>
-Date: Mon, 11 Aug 2025 18:28:52 +0100
+	bh=/VakfUvkcvYfPcmKigNHJ4kNmNjQyqgEfg7iBSB58wg=; b=ZkbTFIzuM+yOF24DgQ25vfGTAE
+	Iqpvs9OlIEMFMfYl0UtKV3n2OLWVUPl4FoxnL7OLohYycNpboxF6NWzHoYktSbTXXSkxTDhaZCIJ7
+	atOQejjFt+xj7XU9BCHsSZSkgkSDDFcDSS79AkZlzRFVpD9uZgY1UhwYnb0CFmZB0/nA=;
+Message-ID: <d405fdbf-c6db-4fdb-9d63-f31d7a431e19@xen.org>
+Date: Mon, 11 Aug 2025 18:32:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/arm: irq: add missing spin_unlock() in
- init_local_irq_data() error path
+Subject: Re: [PATCH v5 1/2] xen/arm: fix arm_iommu_map_page after f9f6b22abf1d
 Content-Language: en-GB
-To: Mykola Kvach <xakep.amatop@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Mykola Kvach <mykola_kvach@epam.com>,
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Denis Mukhin <dmukhin@ford.com>
-References: <f983bb7c3c9f0912da7e7f2fc22384ce1081a7a3.1754901835.git.mykola_kvach@epam.com>
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20250725140130.4008-1-stewart.hildebrand@amd.com>
+ <5fab90b6-7cae-45d0-bb8e-b1ffa0390b6f@xen.org>
+ <7a3a08f4-c08e-4490-a033-53e81b261181@amd.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <f983bb7c3c9f0912da7e7f2fc22384ce1081a7a3.1754901835.git.mykola_kvach@epam.com>
+In-Reply-To: <7a3a08f4-c08e-4490-a033-53e81b261181@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Mykola,
+Hi Stewart,
 
-On 11/08/2025 09:45, Mykola Kvach wrote:
-> From: Mykola Kvach <mykola_kvach@epam.com>
+On 06/08/2025 14:58, Stewart Hildebrand wrote:
+> On 7/26/25 05:23, Julien Grall wrote:
+>> Hi,
+>>
+>> On 25/07/2025 15:01, Stewart Hildebrand wrote:
+>>> From: Stefano Stabellini <stefano.stabellini@amd.com>
+>>>
+>>> Up until f9f6b22abf1d "xen/arm: Map ITS doorbell register to IOMMU page
+>>> tables" the only caller of iommu_map on ARM was grant_table.c which has
+>>> a specific usage model and restrictions as described by the in-code
+>>> comment in arm_iommu_map_page.
+>>>
+>>> f9f6b22abf1d introduced a second caller to iommu_map on ARM:
+>>> vgic_v3_its_init_virtual. This specific statement in the
+>>> f9f6b22abf1d commit message is partially wrong:
+>>>
+>>> "Note that the 1:1 check in arm_iommu_map_page remains for now, as
+>>> virtual ITSes are currently only created for hwdom where the doorbell
+>>> mapping is always 1:1."
+>>>
+>>> Leading to crashes any time the hardware domain is not direct-mapped
+>>> (e.g. cache coloring and non-Dom0 hardware domain):
+>>>
+>>> (XEN) Xen BUG at drivers/passthrough/arm/iommu_helpers.c:47
+>>> [...]
+>>> (XEN) Xen call trace:
+>>> (XEN)    [<00000a000024c758>] arm_iommu_map_page+0x80/0x90 (PC)
+>>> (XEN)    [<00000a000024c750>] arm_iommu_map_page+0x78/0x90 (LR)
+>>> (XEN)    [<00000a0000250884>] iommu_map+0xcc/0x29c
+>>> (XEN)    [<00000a0000288024>] vgic_v3_its_init_domain+0x18c/0x1e8
+>>> (XEN)    [<00000a0000285228>] vgic-v3.c#vgic_v3_domain_init+0x168/0x21c
+>>> (XEN)    [<00000a0000281dcc>] domain_vgic_init+0x14c/0x210
+>>> (XEN)    [<00000a00002705a4>] arch_domain_create+0x150/0x1f0
+>>> (XEN)    [<00000a00002055e8>] domain_create+0x47c/0x6c0
+>>> (XEN)    [<00000a00002cf090>] create_domUs+0x7f8/0x8cc
+>>> (XEN)    [<00000a00002eb588>] start_xen+0x8f4/0x998
+>>> (XEN)    [<00000a000020018c>] head.o#primary_switched+0x4/0x10
+>>>
+>>> Specifically, non-1:1 hardware domain exists with cache coloring
+>>> enabled. For that, is_domain_direct_mapped(d) is false but
+>>> domain_use_host_layout(d) is true.
+>>>
+>>> Change the is_domain_direct_mapped(d) checks in arm_iommu_map_page and
+>>> arm_iommu_unmap_page into domain_use_host_layout(d) checks.
+>>>
+>>> Drop stale in-code comment specific to grant table mappings.
+>>>
+>>> Fixes: f9f6b22abf1d ("xen/arm: Map ITS doorbell register to IOMMU page tables")
+>>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+>>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+>>
+>> Reviewed-by: Julien Grall <jgrall@amazon.com>
 > 
-> If init_one_irq_desc() fails, init_local_irq_data() returns without
-> releasing local_irqs_type_lock, leading to a possible deadlock.
-> 
-> Release the lock before returning to ensure proper cleanup.
-> 
-> Fixes: 2bb32b809250 ("xen/irq: Propagate the error from init_one_desc_irq() in init_*_irq_data()")
-> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-> Reviewed-by: Denis Mukhin <dmukhin@ford.com>
+> Thanks for the review! Is this ready to be committed?
 
-Acked-by: Julien Grall <jgrall@amazon.com>
-
-I will commit the patch soon.
+Yes. Sorry, this fell through the cracks. I have queue the patch for 
+testing and committing.
 
 Cheers,
 
