@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3641CB20A60
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 15:35:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1077633.1438715 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3724B20C0B
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Aug 2025 16:36:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1077695.1438726 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulSge-0004fw-SJ; Mon, 11 Aug 2025 13:35:40 +0000
+	id 1ulTcx-0007F7-W1; Mon, 11 Aug 2025 14:35:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1077633.1438715; Mon, 11 Aug 2025 13:35:40 +0000
+Received: by outflank-mailman (output) from mailman id 1077695.1438726; Mon, 11 Aug 2025 14:35:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulSge-0004d9-OL; Mon, 11 Aug 2025 13:35:40 +0000
-Received: by outflank-mailman (input) for mailman id 1077633;
- Mon, 11 Aug 2025 13:35:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ulTcx-0007Dg-Sb; Mon, 11 Aug 2025 14:35:55 +0000
+Received: by outflank-mailman (input) for mailman id 1077695;
+ Mon, 11 Aug 2025 14:35:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6owi=2X=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
- id 1ulSgd-0002rn-6X
- for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 13:35:39 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 102dff35-76b8-11f0-b898-0df219b8e170;
- Mon, 11 Aug 2025 15:35:36 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 10F562641;
- Mon, 11 Aug 2025 06:35:28 -0700 (PDT)
-Received: from C3HXLD123V.arm.com (unknown [10.57.55.159])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EE3123F63F;
- Mon, 11 Aug 2025 06:35:34 -0700 (PDT)
+ <SRS0=8H9H=2X=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1ulTcw-0007DC-00
+ for xen-devel@lists.xenproject.org; Mon, 11 Aug 2025 14:35:54 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7b61603d-76c0-11f0-a325-13f23c93f187;
+ Mon, 11 Aug 2025 16:35:53 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-459e20ec1d9so44250905e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 07:35:52 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-459e587d378sm255047825e9.23.2025.08.11.07.35.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 11 Aug 2025 07:35:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,400 +45,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 102dff35-76b8-11f0-b898-0df219b8e170
-From: Bertrand Marquis <bertrand.marquis@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
+X-Inumbo-ID: 7b61603d-76c0-11f0-a325-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1754922952; x=1755527752; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=GTUev54ZcTfpbtj0slFOAhsdQHUK4EUNpAEgpCcOuvE=;
+        b=k45mmMiJw7QHUvmJ8l5ZZtsWmJVM67seTDo96RxFwMjQnwN9TiVYEL7dDJdnAIEvjd
+         gIdoSTse6/tk3/AEJHrg9Lqm1/qp7jsFG7rhGG2gs9LbAcIBYPKqtS6SE9ykdSfHKjSA
+         LqzwJnS7MG69R1BTxZaZ9r1WagHhDMuz1Eo3I=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1754922952; x=1755527752;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=GTUev54ZcTfpbtj0slFOAhsdQHUK4EUNpAEgpCcOuvE=;
+        b=lPAUM9h2uDpnKYL9D2sZrIe+sU+tGjXj4rtHTQEf2g1c3s16WuOTtQOwush1bm2Sn+
+         mZVAHQN+sadDv1lWpiI5w7McCxByZN4w2W96vBwkJB2c9bYegt1F6esYsEbYG919boj8
+         kKSKVh+CPL7jddTwsVvzw6jZU6PM5vVJYpH9ayoLJE7/cINHH9mH8FePLNarZyEMUtOe
+         PIayFNIhj220GS3bzCRYEegXlHl3sVzG2TdtsZ4SZA3X2K9PEGkCMljZRp9CVtF0tzu/
+         QzctObL3L5JK9jQ0mapaGcIEWZWGXmtEbcPOrv20MZALDH53CBLpzRUAmkDR5yMyEbW8
+         RaRA==
+X-Forwarded-Encrypted: i=1; AJvYcCUPz6a1YRhgTRy+LzsM9h8DPt8LRWif92IRv10RbgsCzQNUzKrXv/MIukHOrEHNl5ZbLkM0ELyso4A=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzHqSIvRWr0XQFyPEeC9ttDtuXjupsyo8vWEB7ybGiPfB9AVV5A
+	71Zptw78vV2vbe8dZDBE3m2Sl+1vIn6yA508wczk+cRmhUBWOHHFrCd7O1kwO9bErx0=
+X-Gm-Gg: ASbGncvr2A1iS9TyUMMwBgNhsjEUIYdo3Jya+Zann7NPrpR1dlZWvIL0ibL0zZii4LJ
+	9rRxX7uveNd5rVLnWD9zASs6Q87obsV7i0XT3vyGbN8YT6oMapOWfZeltTGSz/5ifnCEErOyc4F
+	QDz+8E4Jli3f29+UMfhUIjekMdbHszwxNQDAf+gFew+TUu1vIJ5kT8JaH6fQJoPbthjKtjV35mh
+	H/D6M475m9NbTj0evFk3AG++FDZEZ3/ON1RFSfL/9KvhX5IRpJ/YOSEUftw1MEdLdBTlsUfhiIi
+	uL+23PgBqQxLV87MSc42NPzhIVkNOj9kDFFd1BASDYXifK0R0duPc1I8VKruYJl/g3yOZs8W2Oc
+	D/UIGjEPghQKzvy03hoQRC6FUG0fOz20iDQDAKwWQ6AfS5ELiTyPZN2hgR+BK7qlwTwql1uZOnT
+	VQ
+X-Google-Smtp-Source: AGHT+IFLT/Dy8tcf/vsaSHC663m+mEX+vX5uYQIc1kukmhi8UimxCTzELxuGhOEn9DNofrW+WR5YTA==
+X-Received: by 2002:a05:600c:3b99:b0:458:bbed:a827 with SMTP id 5b1f17b1804b1-459f4f3dc39mr100977145e9.1.1754922951809;
+        Mon, 11 Aug 2025 07:35:51 -0700 (PDT)
+Date: Mon, 11 Aug 2025 16:35:50 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: nicola.vetrini@gmail.com, xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Jens Wiklander <jens.wiklander@linaro.org>,
-	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v8 6/6] xen/arm: ffa: Enable VM to VM without firmware
-Date: Mon, 11 Aug 2025 15:35:02 +0200
-Message-ID: <51eebef30505dafbd9f3ccbf9e0dd99bb316c852.1754899329.git.bertrand.marquis@arm.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <cover.1754899329.git.bertrand.marquis@arm.com>
-References: <cover.1754899329.git.bertrand.marquis@arm.com>
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH] xen: Drop logic for old clang versions.
+Message-ID: <aJn_xi5dVD3-imnz@macbook.local>
+References: <e8bb42876317c19aca79f81c3fc48dc3a4fdaf71.1754830862.git.nicola.vetrini@bugseng.com>
+ <aJmgCv4wgl-IHupn@macbook.local>
+ <2ca7082120df5e1ad6a29582d6dfb215@bugseng.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <2ca7082120df5e1ad6a29582d6dfb215@bugseng.com>
 
-When VM to VM support is activated and there is no suitable FF-A support
-in the firmware, enable FF-A support for VMs to allow using it for VM to
-VM communications.
-If there is OP-TEE running in the secure world and using the non FF-A
-communication system, having CONFIG_FFA_VM_TO_VM could be non functional
-(if optee is probed first) or OP-TEE could be non functional (if FF-A is
-probed first) so it is not recommended to activate the configuration
-option for such systems.
+On Mon, Aug 11, 2025 at 11:37:46AM +0200, Nicola Vetrini wrote:
+> On 2025-08-11 09:47, Roger Pau Monné wrote:
+> > On Sun, Aug 10, 2025 at 03:03:53PM +0200, nicola.vetrini@gmail.com
+> > wrote:
+> > > From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> > > 
+> > > The enforced toolchain baseline for clang is version 11,
+> > > therefore this logic is effectively dead code.
+> > > 
+> > > No functional change.
+> > > 
+> > > Signed-off-by: Nicola Vetrini <nicola.vetrini@gmail.com>
+> > 
+> > Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+> > 
+> > > ---
+> > > Mentioned in https://gitlab.com/xen-project/xen/-/issues/201
+> > > ---
+> > >  xen/common/coverage/llvm.c   | 4 ----
+> > >  xen/include/xen/self-tests.h | 9 +--------
+> > >  2 files changed, 1 insertion(+), 12 deletions(-)
+> > > 
+> > > diff --git a/xen/common/coverage/llvm.c b/xen/common/coverage/llvm.c
+> > > index 50d7a3c5d301..517b2aa8c202 100644
+> > > --- a/xen/common/coverage/llvm.c
+> > > +++ b/xen/common/coverage/llvm.c
+> > > @@ -44,12 +44,8 @@
+> > >      ((uint64_t)'f' << 16) | ((uint64_t)'R' << 8)  | ((uint64_t)129)
+> > >  #endif
+> > > 
+> > > -#if __clang_major__ >= 4 || (__clang_major__ == 3 &&
+> > > __clang_minor__ >= 9)
+> > >  #define LLVM_PROFILE_VERSION    4
+> > >  #define LLVM_PROFILE_NUM_KINDS  2
+> > > -#else
+> > > -#error "clang version not supported with coverage"
+> > > -#endif
+> > 
+> > Rant: most of the LLVM coverage stuff is already kind of dead code, as
+> > the format of the data changes between versions and there's no way for
+> > LLVM to generate the blob itself using a builtin function or
+> > similar.  We haven't kept up with new formats, and now it's not
+> > possible to parse the output coverage data when using newish LLVM
+> > versions.
+> > 
+> > Linux converts it's LLVM coverage data to gcov format (which AFAIK is
+> > way more stable), and exports it in gcov format.  We should consider
+> > importing that from Linux.
+> > 
+> > Thanks, Roger.
+> 
+> Fair point. Generally I found coverage reports generated using LLVM tooling
+> a bit more informative than gcov's, but I don't know how much work would it
+> be to adapt Xen for newer versions of LLVM.
 
-To make buffer full notification work between VMs when there is no
-firmware, rework the notification handling and modify the global flag to
-only be used as check for firmware notification support instead.
+It's a pain because they keep changing the blob format between
+versions, so we would basically need code in Xen to be able to
+generate the right blob for each possible clang version.
 
-Also split probe function into one for firmware and one for vm to vm to
-make the implementation clearer.
+It would be helpful if clang provided the helpers to generate the
+coverage data in a version agnostic way, but so far I haven't found a
+way to do it.  I've raised a question with upstream LLVM project, but
+no replies:
 
-Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
-Acked-by: Julien Grall <jgrall@amazon.com>
----
-Changes in v8:
-- add Julien A-b
-Changes in v7:
-- add Jens R-b
-Changes in v6:
-- split probe into fw and vm_to_vm probe
-Changes in v5:
-- init ctx list when there is no firmware
-- rework init a bit to prevent duplicates
-- Remove Jens R-b due to changes done
-Changes in v4:
-- Fix Optee to OP-TEE in commit message
-- Add Jens R-b
-Changes in v3:
-- fix typos in commit message
-- add spaces around <<
-- move notification id fix back into buffer full patch
-- fix | position in if
-Changes in v2:
-- replace ifdef with IS_ENABLED when possible
----
- xen/arch/arm/tee/ffa.c       |  87 +++++++++++++++++------------
- xen/arch/arm/tee/ffa_notif.c | 104 ++++++++++++++++-------------------
- 2 files changed, 101 insertions(+), 90 deletions(-)
+https://github.com/llvm/llvm-project/issues/123034
 
-diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-index 0eb6a0bda5fb..1d0239cf6950 100644
---- a/xen/arch/arm/tee/ffa.c
-+++ b/xen/arch/arm/tee/ffa.c
-@@ -346,8 +346,9 @@ static int ffa_domain_init(struct domain *d)
-     struct ffa_ctx *ctx;
-     int ret;
- 
--    if ( !ffa_fw_version )
-+    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !ffa_fw_version )
-         return -ENODEV;
-+
-     /*
-      * We are using the domain_id + 1 as the FF-A ID for VMs as FF-A ID 0 is
-      * reserved for the hypervisor and we only support secure endpoints using
-@@ -478,38 +479,12 @@ static void ffa_init_secondary(void)
-     ffa_notif_init_interrupt();
- }
- 
--static bool ffa_probe(void)
-+static bool ffa_probe_fw(void)
- {
-     uint32_t vers;
-     unsigned int major_vers;
-     unsigned int minor_vers;
- 
--    /*
--     * FF-A often works in units of 4K pages and currently it's assumed
--     * that we can map memory using that granularity. See also the comment
--     * above the FFA_PAGE_SIZE define.
--     *
--     * It is possible to support a PAGE_SIZE larger than 4K in Xen, but
--     * until that is fully handled in this code make sure that we only use
--     * 4K page sizes.
--     */
--    BUILD_BUG_ON(PAGE_SIZE != FFA_PAGE_SIZE);
--
--    printk(XENLOG_INFO "ARM FF-A Mediator version %u.%u\n",
--           FFA_MY_VERSION_MAJOR, FFA_MY_VERSION_MINOR);
--
--    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
--    {
--        /*
--         * When FFA VM to VM is enabled, the current implementation does not
--         * offer any way to limit which VM can communicate with which VM using
--         * FF-A.
--         * Signal this in the xen console and taint the system as insecure.
--         * TODO: Introduce a solution to limit what a VM can do through FFA.
--         */
--        printk(XENLOG_ERR "ffa: VM to VM is enabled, system is insecure !!\n");
--        add_taint(TAINT_MACHINE_INSECURE);
--    }
-     /*
-      * psci_init_smccc() updates this value with what's reported by EL-3
-      * or secure world.
-@@ -528,11 +503,6 @@ static bool ffa_probe(void)
-         goto err_no_fw;
-     }
- 
--    /* Some sanity check in case we update the version we support */
--    BUILD_BUG_ON(FFA_MIN_SPMC_VERSION > FFA_MY_VERSION);
--    BUILD_BUG_ON(FFA_VERSION_MAJOR(FFA_MIN_SPMC_VERSION) !=
--                                   FFA_MY_VERSION_MAJOR);
--
-     major_vers = FFA_VERSION_MAJOR(vers);
-     minor_vers = FFA_VERSION_MINOR(vers);
- 
-@@ -583,7 +553,6 @@ static bool ffa_probe(void)
-         goto err_rxtx_destroy;
- 
-     ffa_notif_init();
--    init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback, NULL, 0);
- 
-     return true;
- 
-@@ -597,6 +566,56 @@ err_no_fw:
-     return false;
- }
- 
-+static bool ffa_probe_vm_to_vm(void)
-+{
-+    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-+        return false;
-+
-+    /*
-+     * When FFA VM to VM is enabled, the current implementation does not
-+     * offer any way to limit which VM can communicate with which VM using
-+     * FF-A.
-+     * Signal this in the xen console and taint the system as insecure.
-+     * TODO: Introduce a solution to limit what a VM can do through FFA.
-+     */
-+    printk(XENLOG_ERR "ffa: VM to VM is enabled, system is insecure !!\n");
-+    add_taint(TAINT_MACHINE_INSECURE);
-+
-+    return true;
-+}
-+
-+static bool ffa_probe(void)
-+{
-+    /*
-+     * FF-A often works in units of 4K pages and currently it's assumed
-+     * that we can map memory using that granularity. See also the comment
-+     * above the FFA_PAGE_SIZE define.
-+     *
-+     * It is possible to support a PAGE_SIZE larger than 4K in Xen, but
-+     * until that is fully handled in this code make sure that we only use
-+     * 4K page sizes.
-+     */
-+    BUILD_BUG_ON(PAGE_SIZE != FFA_PAGE_SIZE);
-+
-+    /* Some sanity check in case we update the version we support */
-+    BUILD_BUG_ON(FFA_MIN_SPMC_VERSION > FFA_MY_VERSION);
-+    BUILD_BUG_ON(FFA_VERSION_MAJOR(FFA_MIN_SPMC_VERSION) !=
-+                                   FFA_MY_VERSION_MAJOR);
-+
-+    printk(XENLOG_INFO "ARM FF-A Mediator version %u.%u\n",
-+           FFA_MY_VERSION_MAJOR, FFA_MY_VERSION_MINOR);
-+
-+    if ( !ffa_probe_fw() && !ffa_probe_vm_to_vm() )
-+        return false;
-+
-+    if ( !ffa_fw_version )
-+        printk(XENLOG_INFO "ARM FF-A only available between VMs\n");
-+
-+    init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback, NULL, 0);
-+
-+    return true;
-+}
-+
- static const struct tee_mediator_ops ffa_ops =
- {
-     .probe = ffa_probe,
-diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.c
-index f6df2f15bb00..86bef6b3b2ab 100644
---- a/xen/arch/arm/tee/ffa_notif.c
-+++ b/xen/arch/arm/tee/ffa_notif.c
-@@ -16,7 +16,7 @@
- 
- #include "ffa_private.h"
- 
--static bool __ro_after_init notif_enabled;
-+static bool __ro_after_init fw_notif_enabled;
- static unsigned int __ro_after_init notif_sri_irq;
- 
- int ffa_handle_notification_bind(struct cpu_user_regs *regs)
-@@ -27,21 +27,17 @@ int ffa_handle_notification_bind(struct cpu_user_regs *regs)
-     uint32_t bitmap_lo = get_user_reg(regs, 3);
-     uint32_t bitmap_hi = get_user_reg(regs, 4);
- 
--    if ( !notif_enabled )
--        return FFA_RET_NOT_SUPPORTED;
--
-     if ( (src_dst & 0xFFFFU) != ffa_get_vm_id(d) )
-         return FFA_RET_INVALID_PARAMETERS;
- 
-     if ( flags )    /* Only global notifications are supported */
-         return FFA_RET_DENIED;
- 
--    /*
--     * We only support notifications from SP so no need to check the sender
--     * endpoint ID, the SPMC will take care of that for us.
--     */
--    return ffa_simple_call(FFA_NOTIFICATION_BIND, src_dst, flags, bitmap_lo,
--                           bitmap_hi);
-+    if ( FFA_ID_IS_SECURE(src_dst >> 16) && fw_notif_enabled )
-+        return ffa_simple_call(FFA_NOTIFICATION_BIND, src_dst, flags,
-+                               bitmap_lo, bitmap_hi);
-+
-+    return FFA_RET_NOT_SUPPORTED;
- }
- 
- int ffa_handle_notification_unbind(struct cpu_user_regs *regs)
-@@ -51,18 +47,14 @@ int ffa_handle_notification_unbind(struct cpu_user_regs *regs)
-     uint32_t bitmap_lo = get_user_reg(regs, 3);
-     uint32_t bitmap_hi = get_user_reg(regs, 4);
- 
--    if ( !notif_enabled )
--        return FFA_RET_NOT_SUPPORTED;
--
-     if ( (src_dst & 0xFFFFU) != ffa_get_vm_id(d) )
-         return FFA_RET_INVALID_PARAMETERS;
- 
--    /*
--     * We only support notifications from SP so no need to check the
--     * destination endpoint ID, the SPMC will take care of that for us.
--     */
--    return  ffa_simple_call(FFA_NOTIFICATION_UNBIND, src_dst, 0, bitmap_lo,
--                            bitmap_hi);
-+    if ( FFA_ID_IS_SECURE(src_dst >> 16) && fw_notif_enabled )
-+        return  ffa_simple_call(FFA_NOTIFICATION_UNBIND, src_dst, 0, bitmap_lo,
-+                                bitmap_hi);
-+
-+    return FFA_RET_NOT_SUPPORTED;
- }
- 
- void ffa_handle_notification_info_get(struct cpu_user_regs *regs)
-@@ -71,7 +63,7 @@ void ffa_handle_notification_info_get(struct cpu_user_regs *regs)
-     struct ffa_ctx *ctx = d->arch.tee;
-     bool notif_pending;
- 
--    if ( !notif_enabled )
-+    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !fw_notif_enabled )
-     {
-         ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-         return;
-@@ -108,7 +100,7 @@ void ffa_handle_notification_get(struct cpu_user_regs *regs)
-     uint32_t w6 = 0;
-     uint32_t w7 = 0;
- 
--    if ( !notif_enabled )
-+    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !fw_notif_enabled )
-     {
-         ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-         return;
-@@ -120,7 +112,8 @@ void ffa_handle_notification_get(struct cpu_user_regs *regs)
-         return;
-     }
- 
--    if ( flags & ( FFA_NOTIF_FLAG_BITMAP_SP | FFA_NOTIF_FLAG_BITMAP_SPM ) )
-+    if ( fw_notif_enabled && (flags & ( FFA_NOTIF_FLAG_BITMAP_SP |
-+                                        FFA_NOTIF_FLAG_BITMAP_SPM )) )
-     {
-         struct arm_smccc_1_2_regs arg = {
-             .a0 = FFA_NOTIFICATION_GET,
-@@ -177,15 +170,14 @@ int ffa_handle_notification_set(struct cpu_user_regs *regs)
-     uint32_t bitmap_lo = get_user_reg(regs, 3);
-     uint32_t bitmap_hi = get_user_reg(regs, 4);
- 
--    if ( !notif_enabled )
--        return FFA_RET_NOT_SUPPORTED;
--
-     if ( (src_dst >> 16) != ffa_get_vm_id(d) )
-         return FFA_RET_INVALID_PARAMETERS;
- 
--    /* Let the SPMC check the destination of the notification */
--    return ffa_simple_call(FFA_NOTIFICATION_SET, src_dst, flags, bitmap_lo,
--                           bitmap_hi);
-+    if ( FFA_ID_IS_SECURE(src_dst >> 16) && fw_notif_enabled )
-+        return ffa_simple_call(FFA_NOTIFICATION_SET, src_dst, flags, bitmap_lo,
-+                               bitmap_hi);
-+
-+    return FFA_RET_NOT_SUPPORTED;
- }
- 
- #ifdef CONFIG_FFA_VM_TO_VM
-@@ -371,7 +363,7 @@ void ffa_notif_init_interrupt(void)
- {
-     int ret;
- 
--    if ( notif_enabled && notif_sri_irq < NR_GIC_SGI )
-+    if ( fw_notif_enabled && notif_sri_irq < NR_GIC_SGI )
-     {
-         /*
-          * An error here is unlikely since the primary CPU has already
-@@ -402,41 +394,41 @@ void ffa_notif_init(void)
-     int ret;
- 
-     /* Only enable fw notification if all ABIs we need are supported */
--    if ( !(ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_CREATE) &&
--           ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_DESTROY) &&
--           ffa_fw_supports_fid(FFA_NOTIFICATION_GET) &&
--           ffa_fw_supports_fid(FFA_NOTIFICATION_INFO_GET_64)) )
--        return;
--
--    arm_smccc_1_2_smc(&arg, &resp);
--    if ( resp.a0 != FFA_SUCCESS_32 )
--        return;
--
--    irq = resp.a2;
--    notif_sri_irq = irq;
--    if ( irq >= NR_GIC_SGI )
--        irq_set_type(irq, IRQ_TYPE_EDGE_RISING);
--    ret = request_irq(irq, 0, notif_irq_handler, "FF-A notif", NULL);
--    if ( ret )
-+    if ( ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_CREATE) &&
-+         ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_DESTROY) &&
-+         ffa_fw_supports_fid(FFA_NOTIFICATION_GET) &&
-+         ffa_fw_supports_fid(FFA_NOTIFICATION_INFO_GET_64) )
-     {
--        printk(XENLOG_ERR "ffa: request_irq irq %u failed: error %d\n",
--               irq, ret);
--        return;
--    }
-+        arm_smccc_1_2_smc(&arg, &resp);
-+        if ( resp.a0 != FFA_SUCCESS_32 )
-+            return;
- 
--    notif_enabled = true;
-+        irq = resp.a2;
-+        notif_sri_irq = irq;
-+        if ( irq >= NR_GIC_SGI )
-+            irq_set_type(irq, IRQ_TYPE_EDGE_RISING);
-+        ret = request_irq(irq, 0, notif_irq_handler, "FF-A notif", NULL);
-+        if ( ret )
-+        {
-+            printk(XENLOG_ERR "ffa: request_irq irq %u failed: error %d\n",
-+                   irq, ret);
-+            return;
-+        }
-+        fw_notif_enabled = true;
-+    }
- }
- 
- int ffa_notif_domain_init(struct domain *d)
- {
-     int32_t res;
- 
--    if ( !notif_enabled )
--        return 0;
-+    if ( fw_notif_enabled )
-+    {
- 
--    res = ffa_notification_bitmap_create(ffa_get_vm_id(d), d->max_vcpus);
--    if ( res )
--        return -ENOMEM;
-+        res = ffa_notification_bitmap_create(ffa_get_vm_id(d), d->max_vcpus);
-+        if ( res )
-+            return -ENOMEM;
-+    }
- 
-     return 0;
- }
-@@ -447,6 +439,6 @@ void ffa_notif_domain_destroy(struct domain *d)
-      * Call bitmap_destroy even if bitmap create failed as the SPMC will
-      * return a DENIED error that we will ignore.
-      */
--    if ( notif_enabled )
-+    if ( fw_notif_enabled )
-         ffa_notification_bitmap_destroy(ffa_get_vm_id(d));
- }
--- 
-2.47.1
-
+Regards, Roger.
 
