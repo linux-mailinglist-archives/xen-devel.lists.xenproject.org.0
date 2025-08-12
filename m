@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6016B2258E
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 13:14:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1078703.1439762 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F362B225B6
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 13:19:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1078716.1439773 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulmwz-0000ks-NT; Tue, 12 Aug 2025 11:13:53 +0000
+	id 1uln23-0001P3-E8; Tue, 12 Aug 2025 11:19:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1078703.1439762; Tue, 12 Aug 2025 11:13:53 +0000
+Received: by outflank-mailman (output) from mailman id 1078716.1439773; Tue, 12 Aug 2025 11:19:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulmwz-0000jR-KV; Tue, 12 Aug 2025 11:13:53 +0000
-Received: by outflank-mailman (input) for mailman id 1078703;
- Tue, 12 Aug 2025 11:13:52 +0000
+	id 1uln23-0001Md-AW; Tue, 12 Aug 2025 11:19:07 +0000
+Received: by outflank-mailman (input) for mailman id 1078716;
+ Tue, 12 Aug 2025 11:19:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UlY3=2Y=arm.com=mark.rutland@srs-se1.protection.inumbo.net>)
- id 1ulmwy-0000jL-EC
- for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 11:13:52 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 6c0e78fe-776d-11f0-b898-0df219b8e170;
- Tue, 12 Aug 2025 13:13:49 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0FE5225E1;
- Tue, 12 Aug 2025 04:13:41 -0700 (PDT)
-Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5BB453F63F;
- Tue, 12 Aug 2025 04:13:45 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Pr65=2Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uln21-0001MX-FK
+ for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 11:19:05 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 26da3661-776e-11f0-b898-0df219b8e170;
+ Tue, 12 Aug 2025 13:19:03 +0200 (CEST)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-6153a19dddfso7985502a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 04:19:03 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-615a8f26cc6sm20259380a12.23.2025.08.12.04.19.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 Aug 2025 04:19:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,182 +45,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6c0e78fe-776d-11f0-b898-0df219b8e170
-Date: Tue, 12 Aug 2025 12:13:42 +0100
-From: Mark Rutland <mark.rutland@arm.com>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: catalin.marinas@arm.com, will@kernel.org, oleg@redhat.com,
-	sstabellini@kernel.org, puranjay@kernel.org, broonie@kernel.org,
-	mbenes@suse.cz, ryan.roberts@arm.com, akpm@linux-foundation.org,
-	chenl311@chinatelecom.cn, ada.coupriediaz@arm.com,
-	anshuman.khandual@arm.com, kristina.martsenko@arm.com,
-	liaochang1@huawei.com, ardb@kernel.org, leitao@debian.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH -next v7 5/7] arm64: entry: Refactor
- preempt_schedule_irq() check code
-Message-ID: <aJsh5oM3CoUELkvY@J2N7QTR9R3>
-References: <20250729015456.3411143-1-ruanjinjie@huawei.com>
- <20250729015456.3411143-6-ruanjinjie@huawei.com>
+X-Inumbo-ID: 26da3661-776e-11f0-b898-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1754997542; x=1755602342; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=uU80gNACUDmfnw0pRqCk6zUjHTfTG4dJeNPVlHZ7qGA=;
+        b=dEFiS5odBmWgrnabuJpbEcmup2vb7LOsRXftwXE6AdvPuQ50Inh9SFDwyu1n1aBjUj
+         EU1REFVN/GszU2hDC+FHqbJcZPw0uO3wz86lHfxUARQtaEf5w38bm2vdqNZqb3OvB4Du
+         YWI0h+TDzX91HWt3xedeH1inNaQZcHcuyBF1BAMojtCNUOqguvOqgMLSO6yCyMPViylL
+         eEG9/agFEm7z9DPhes4FStLiuGirNMITJ/nb02UmEdjiMrWHQpcMWBMk3QejTJ3yVWqZ
+         48v4jT6cAwnWM7IERC4OaWYZS0hmhvaZAdhmp9qlJ9ONA7TOjbPZlc4N4ZhCCyof9Eud
+         zCzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1754997542; x=1755602342;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uU80gNACUDmfnw0pRqCk6zUjHTfTG4dJeNPVlHZ7qGA=;
+        b=ozOnoUU7WAckYgb3HmCh331cFLOPrMQYDaaAftEXrw9YzWXCL3sQ0bKO1iodr4ivGk
+         /30N2w98lm+vocSBkC+kEWQbBpeRLwpAMIHkL2J356a31MA/DwnK7twRF5qmOx+k1M+x
+         4XitAxYjRR/ufwCvoD1YszOlA7JRSyEPn0IKezzOAh2yIMqiEcoE+ONrQylVB5zxiVEi
+         im3VCOM4JQ3YH2VEX+Jz5K3rrBoPUGm0S0ZxUmtWBkJIgCJVpICoIPLxBR+3qQ0Ia77k
+         b8ynh4mRhoKeQ5RnsJvY3IKZq3+kQazy5Csh4R38WanrrePDNimQUgpiCnyoVkyHZ/qs
+         2R0Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXWL4qbZ7rB01nJnQHzAylkeaE5NUjBCLniVdiHUZgWXTrJHJK2w990cwq+bfk4wUwgmITAzf24W4c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwMwLQG3MC1RHed+7h197S9ZbGZpOIQskYuIoR2KHcoyy/9bJED
+	C4U3fS+nz19+7hp5V7fFCtb2YirNqlTq7GJSwAYFLiEC2gPC9j1Jd34pv6axIlaZQA==
+X-Gm-Gg: ASbGncuU3HK9y6VSqehB+kJ0rxlmYuqzcgXnUFF7dIzk2FZ82+/DhmxsqkQ+CmIHHBF
+	5/KeObjpoNHaAhE0MxBbxTGM5HZB+HMGaYLNvBTlJS3ZXl7XCZtAhQe+DsH5XcH3gUGdQ2Os0Fv
+	AZLzXs3+2VLz0R5+SA5mONY0HkbMMKBglGRVCRwoppofrjL5DBf5xbCRLZBPa7amCfwaNutQUWq
+	Hp7vbvfyRbhkpso81bEhzUjuF2JaPrKrtb+zX9rCMm1z6sFENkNj9Mkz76JidvktwUTH98F1UKT
+	DoyBoA779sVlDG37QK0es3TAfoTUMoUNkHioLEFRojb6YMdZtKWAj3MK1z6QbF3uW+RdNY1twmP
+	/DBy3p1mztR+EbTnd7aLMm2fNeshj/6V1/tPO/aoV6z3sla6pRemQT6YFgylmJw1fikdmzfALhE
+	V8ruDt5bQwpYtOBELhqA==
+X-Google-Smtp-Source: AGHT+IGhEYImBGoqIsOrl+zALTYiQSUEjWprSloXX6wfAzRHhLdbgXauCmHljQcgQGcpNl5UUs5WTA==
+X-Received: by 2002:a05:6402:27d0:b0:617:b516:287c with SMTP id 4fb4d7f45d1cf-6184ec73171mr2465640a12.18.1754997542551;
+        Tue, 12 Aug 2025 04:19:02 -0700 (PDT)
+Message-ID: <d13f0a15-42c7-45f9-9c6c-fe19fafd85a2@suse.com>
+Date: Tue, 12 Aug 2025 13:19:01 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250729015456.3411143-6-ruanjinjie@huawei.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 3/3] xen/pci: add discovered PCI device at boot
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>
+Cc: Luca Fancellu <luca.fancellu@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <cover.1753968306.git.mykyta_poturai@epam.com>
+ <5097b76acf0a5c64cc78522f6af6233370c948e6.1753968306.git.mykyta_poturai@epam.com>
+ <123626b4-3234-40e5-b1cf-bd5c2b19cbc8@suse.com>
+ <2a324f7a-6b25-4f30-a3a1-9c115aadbfae@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <2a324f7a-6b25-4f30-a3a1-9c115aadbfae@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jul 29, 2025 at 09:54:54AM +0800, Jinjie Ruan wrote:
-> ARM64 requires an additional check whether to reschedule on return
-> from interrupt. So add arch_irqentry_exit_need_resched() as the default
-> NOP implementation and hook it up into the need_resched() condition in
-> raw_irqentry_exit_cond_resched(). This allows ARM64 to implement
-> the architecture specific version for switching over to
-> the generic entry code.
+On 12.08.2025 13:09, Mykyta Poturai wrote:
+> On 04.08.25 11:35, Jan Beulich wrote:
+>> On 01.08.2025 11:22, Mykyta Poturai wrote:
+>>> Create add_discovered_pci_devices function that calls pci_device_add
+>>> on every PCI device discovered.
+>>> The devices will be added to dom_io so that they can be assigned
+>>> later to other domains.
+>>
+>> And why's the intermediate step necessary? IOW can't they be assigned to their
+>> target domains right away, and only whatever's left would go to DOM_IO?
 > 
-> To align the structure of the code with irqentry_exit_cond_resched()
-> from the generic entry code, hoist the need_irq_preemption()
-> and IS_ENABLED() check earlier. And different preemption check functions
-> are defined based on whether dynamic preemption is enabled.
-> 
-> Suggested-by: Mark Rutland <mark.rutland@arm.com>
-> Suggested-by: Kevin Brodsky <kevin.brodsky@arm.com>
-> Suggested-by: Thomas Gleixner <tglx@linutronix.de>
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> ---
->  arch/arm64/include/asm/preempt.h |  4 ++++
->  arch/arm64/kernel/entry-common.c | 35 ++++++++++++++++++--------------
->  kernel/entry/common.c            | 16 ++++++++++++++-
->  3 files changed, 39 insertions(+), 16 deletions(-)
+> For Dom0less case, guest domains are not yet created at this point.
 
-Can you please split the change to kernel/entry/common.c into a separate
-patch? That doesn't depend on the arm64-specific changes, and it'll make
-it easier to handle any conflcits when merging this.
+I understand that, but this doesn't answer my question. Once the guest domains
+are there, can't you directly assign their devices to them?
 
-Mark.
+>>> --- a/xen/drivers/passthrough/pci.c
+>>> +++ b/xen/drivers/passthrough/pci.c
+>>> @@ -1180,6 +1180,34 @@ int __init scan_pci_devices(void)
+>>>       return ret;
+>>>   }
+>>>   
+>>> +static int __init _add_discovered_pci_devices(struct pci_seg *pseg, void *arg)
+>>> +{
+>>> +    struct pci_dev *pdev;
+>>> +    int ret = 0;
+>>> +
+>>> +    list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
+>>> +    {
+>>> +        ret = pci_add_device(dom_io, pdev->seg, pdev->bus, pdev->devfn, NULL,
+>>> +                             NUMA_NO_NODE);
+>>> +        if ( ret < 0 )
+>>> +        {
+>>> +            printk(XENLOG_ERR
+>>> +                   "%pp: Failure adding the discovered pci device (Error %d)\n",
+>>> +                   &pdev->sbdf, ret);
+>>> +            break;
+>>> +        }
+>>> +    }
+>>> +
+>>> +    return ret;
+>>> +}
+>>> +
+>>> +void __init add_discovered_pci_devices(void)
+>>> +{
+>>> +    pcidevs_lock();
+>>> +    pci_segments_iterate(_add_discovered_pci_devices, NULL);
+>>> +    pcidevs_unlock();
+>>> +}
+>>
+>> This looks to merely be a specialized form of what ...
+>>
+>>>   struct setup_hwdom {
+>>>       struct domain *d;
+>>>       int (*handler)(uint8_t devfn, struct pci_dev *pdev);
+>>
+>> ... follows below here. By generalizing what we have (perhaps from the top, i.e.
+>> iommu_hwdom_init()), you'd also avoid violating Misra rule 2.1 on x86, as you add
+>> unreachable code there.
+> 
+> Can you please elaborate a little further on how you see this 
+> generalization? With routines you mentioned being specifically for 
+> hwdom, which may not exist,
 
+That's precisely the generalization I'm having in mind. What's hwdom-only
+now ought to be possible to be made usable in wider manner.
+
+> and the different approaches to PCI 
+> initialization on Arm/x86 (as far as I understand on x86 all of the PCI 
+> related stuff is initialized from iommu helpers, while Arm has a 
+> dedicated init step)
+
+This, too, may want harmonizing.
+
+> I am afraid I can't find a nice point of contact to 
+> generalize this, but I can be missing somthing due to unfamiliarity with 
+> x86 code.
 > 
-> diff --git a/arch/arm64/include/asm/preempt.h b/arch/arm64/include/asm/preempt.h
-> index 0159b625cc7f..0f0ba250efe8 100644
-> --- a/arch/arm64/include/asm/preempt.h
-> +++ b/arch/arm64/include/asm/preempt.h
-> @@ -85,6 +85,7 @@ static inline bool should_resched(int preempt_offset)
->  void preempt_schedule(void);
->  void preempt_schedule_notrace(void);
->  
-> +void raw_irqentry_exit_cond_resched(void);
->  #ifdef CONFIG_PREEMPT_DYNAMIC
->  
->  DECLARE_STATIC_KEY_TRUE(sk_dynamic_irqentry_exit_cond_resched);
-> @@ -92,11 +93,14 @@ void dynamic_preempt_schedule(void);
->  #define __preempt_schedule()		dynamic_preempt_schedule()
->  void dynamic_preempt_schedule_notrace(void);
->  #define __preempt_schedule_notrace()	dynamic_preempt_schedule_notrace()
-> +void dynamic_irqentry_exit_cond_resched(void);
-> +#define irqentry_exit_cond_resched()	dynamic_irqentry_exit_cond_resched()
->  
->  #else /* CONFIG_PREEMPT_DYNAMIC */
->  
->  #define __preempt_schedule()		preempt_schedule()
->  #define __preempt_schedule_notrace()	preempt_schedule_notrace()
-> +#define irqentry_exit_cond_resched()	raw_irqentry_exit_cond_resched()
->  
->  #endif /* CONFIG_PREEMPT_DYNAMIC */
->  #endif /* CONFIG_PREEMPTION */
-> diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
-> index 7c2299c1ba79..4f92664fd46c 100644
-> --- a/arch/arm64/kernel/entry-common.c
-> +++ b/arch/arm64/kernel/entry-common.c
-> @@ -285,19 +285,8 @@ static void noinstr arm64_exit_el1_dbg(struct pt_regs *regs,
->  		lockdep_hardirqs_on(CALLER_ADDR0);
->  }
->  
-> -#ifdef CONFIG_PREEMPT_DYNAMIC
-> -DEFINE_STATIC_KEY_TRUE(sk_dynamic_irqentry_exit_cond_resched);
-> -#define need_irq_preemption() \
-> -	(static_branch_unlikely(&sk_dynamic_irqentry_exit_cond_resched))
-> -#else
-> -#define need_irq_preemption()	(IS_ENABLED(CONFIG_PREEMPTION))
-> -#endif
-> -
->  static inline bool arm64_preempt_schedule_irq(void)
->  {
-> -	if (!need_irq_preemption())
-> -		return false;
-> -
->  	/*
->  	 * DAIF.DA are cleared at the start of IRQ/FIQ handling, and when GIC
->  	 * priority masking is used the GIC irqchip driver will clear DAIF.IF
-> @@ -672,6 +661,24 @@ static __always_inline void __el1_pnmi(struct pt_regs *regs,
->  	arm64_exit_nmi(regs, state);
->  }
->  
-> +void raw_irqentry_exit_cond_resched(void)
-> +{
-> +	if (!preempt_count()) {
-> +		if (need_resched() && arm64_preempt_schedule_irq())
-> +			preempt_schedule_irq();
-> +	}
-> +}
-> +
-> +#ifdef CONFIG_PREEMPT_DYNAMIC
-> +DEFINE_STATIC_KEY_TRUE(sk_dynamic_irqentry_exit_cond_resched);
-> +void dynamic_irqentry_exit_cond_resched(void)
-> +{
-> +	if (!static_branch_unlikely(&sk_dynamic_irqentry_exit_cond_resched))
-> +		return;
-> +	raw_irqentry_exit_cond_resched();
-> +}
-> +#endif
-> +
->  static __always_inline void __el1_irq(struct pt_regs *regs,
->  				      void (*handler)(struct pt_regs *))
->  {
-> @@ -681,10 +688,8 @@ static __always_inline void __el1_irq(struct pt_regs *regs,
->  	do_interrupt_handler(regs, handler);
->  	irq_exit_rcu();
->  
-> -	if (!preempt_count() && need_resched()) {
-> -		if (arm64_preempt_schedule_irq())
-> -			preempt_schedule_irq();
-> -	}
-> +	if (IS_ENABLED(CONFIG_PREEMPTION))
-> +		irqentry_exit_cond_resched();
->  
->  	exit_to_kernel_mode(regs, state);
->  }
-> diff --git a/kernel/entry/common.c b/kernel/entry/common.c
-> index b82032777310..4aa9656fa1b4 100644
-> --- a/kernel/entry/common.c
-> +++ b/kernel/entry/common.c
-> @@ -142,6 +142,20 @@ noinstr irqentry_state_t irqentry_enter(struct pt_regs *regs)
->  	return ret;
->  }
->  
-> +/**
-> + * arch_irqentry_exit_need_resched - Architecture specific need resched function
-> + *
-> + * Invoked from raw_irqentry_exit_cond_resched() to check if need resched.
-> + * Defaults return true.
-> + *
-> + * The main purpose is to permit arch to skip preempt a task from an IRQ.
-> + */
-> +static inline bool arch_irqentry_exit_need_resched(void);
-> +
-> +#ifndef arch_irqentry_exit_need_resched
-> +static inline bool arch_irqentry_exit_need_resched(void) { return true; }
-> +#endif
-> +
->  void raw_irqentry_exit_cond_resched(void)
->  {
->  	if (!preempt_count()) {
-> @@ -149,7 +163,7 @@ void raw_irqentry_exit_cond_resched(void)
->  		rcu_irq_exit_check_preempt();
->  		if (IS_ENABLED(CONFIG_DEBUG_ENTRY))
->  			WARN_ON_ONCE(!on_thread_stack());
-> -		if (need_resched())
-> +		if (need_resched() && arch_irqentry_exit_need_resched())
->  			preempt_schedule_irq();
->  	}
->  }
-> -- 
-> 2.34.1
-> 
+> Another way of addressing possible MISRA violation I can see is moving 
+> the add_discovered_pci_devices to xen/arch/arm/pci/pci.c so it will only 
+> be compiled when used.
+
+And pose a problem when e.g. RISC-V also wants the same.
+
+Jan
 
