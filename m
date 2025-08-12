@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D68AB22C10
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 17:49:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1078866.1439899 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40076B22C1F
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 17:51:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1078874.1439908 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulrFs-0006DN-M0; Tue, 12 Aug 2025 15:49:40 +0000
+	id 1ulrHR-0007t3-VS; Tue, 12 Aug 2025 15:51:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1078866.1439899; Tue, 12 Aug 2025 15:49:40 +0000
+Received: by outflank-mailman (output) from mailman id 1078874.1439908; Tue, 12 Aug 2025 15:51:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulrFs-0006B2-JI; Tue, 12 Aug 2025 15:49:40 +0000
-Received: by outflank-mailman (input) for mailman id 1078866;
- Tue, 12 Aug 2025 15:49:39 +0000
+	id 1ulrHR-0007rA-ST; Tue, 12 Aug 2025 15:51:17 +0000
+Received: by outflank-mailman (input) for mailman id 1078874;
+ Tue, 12 Aug 2025 15:51:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WPHn=2Y=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1ulrFq-0006Aw-Ku
- for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 15:49:39 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=BkKW=2Y=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ulrHQ-0007r4-5V
+ for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 15:51:16 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f30745b4-7793-11f0-a327-13f23c93f187;
- Tue, 12 Aug 2025 17:49:37 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id D63134EE0744;
- Tue, 12 Aug 2025 17:49:35 +0200 (CEST)
+ id 2d765a6a-7794-11f0-a327-13f23c93f187;
+ Tue, 12 Aug 2025 17:51:15 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-458bc3ce3beso34201965e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 08:51:15 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-459e5852e28sm298486965e9.9.2025.08.12.08.51.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 Aug 2025 08:51:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,99 +45,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f30745b4-7793-11f0-a327-13f23c93f187
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1755013775;
-	b=hWsy1XXb+IhtjyVtI094BmKpY6oX7bfBLwMxJhWcRnY6xvC/fhHjurNYhc1vUzX0cUeH
-	 CjJwRKRaDusWP0rz6B8KSGn+oRmS5nY+aCQpaj98je5w3NNM+ontAFx58oqchesEoQ/WD
-	 vQ8BMX1n2CyhVrwY0q06F+Fu3qsq1MahfOaovx69Fl0iHA8P7G3X+XyQ82mXJwkU0QB2E
-	 dndiCKZoJBMRy/inwbbgKDeNYKGYbxkgWK8cfHA6dmF6VOsY8+luYnmkn/XndhUCze3kp
-	 bRmoQeyAPrMlLhVmYJCxQaCbWZXV3gb2xqoFI8YnBc6MEJ5tIh3bQHwsyVrEdEWX4CK12
-	 UdBCcVh0xUrb95a0DuEVEEAroBfaTZGvSUgF/Xe1Dy5+GsaXCHSzBt4OshS+2/W/DZ4Si
-	 BngneFnHgp/l1nEhsyZmeUGOMW5oH6f1zwLW9P2+C9ZCfigERpoKscBW+2xl/7qDnKxWM
-	 Os3i13sZB784xWHCmzjGw4lBxwqewfSr4xMTrzOB5zCPYJt17ndy4Q7aZ/4HgZgShTRPX
-	 h2C9HjCuQTd5BFpXB/uTYarjAkcgF0nMLDmS/at7YMbDSw+xlQFtDmjw81zseBLgQm0Lm
-	 PXyNPAVtIAHQ31q0OHRDwyEjEVUMNdhluRD3z6WlqSIhhlKspzU1ystGM16t9KM=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1755013775;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=92+Xp9/ptUrRMK/PBNThr9/1s4fDv2zdvs5B2CKPtRA=;
-	b=29/csnUI1hrs16f3AM4yA0Kr5Ry5KfCJH65kVFjs4iHADO9N5on1GYdIJZYPe4lrPk/P
-	 BTyieFwoF0TRmR+66P3HT+QeP/x7YstqjI7BrNI+0pHOLAPMZB38RLYKjB0tkX27eatWK
-	 f0LE93D/fdvdahlrLXm1YsJ7ScvsdPGd8oO5RwlOiW/hI8rYQwHWmYq7JsYJrs2pvgJZY
-	 aZouD1SRKwMC0gIWyYCkXStcMilVTj/zxzjKL+2dUn3mtbf7Jo0M/0HDfdBi6c3lDduxN
-	 +WFj8i4mEsUEjIMzxk9j7auqDQrFVhafXLasG1pNGde/CtbGoL1OWpwMPDJMuVhYqHTUG
-	 ZbwbZ/Onuq+nZAB2RvnqTlPuFkezXSeBTe8IEwIon+Is1gmRMS7DO4zE66D3KKIY9Gh2U
-	 U89WJqAAeYW3FKRSagtDQ7aEPung2HaO6UfUVLkm4FZIS1oTxPW+luH/+fQUpKXR5eQxd
-	 rVTSC7MJWOHHmssTMgkeVp67Zc75/yqE7DXVvPNtg/HxyxRzuKbAIcr/oliJZXz4O3s91
-	 NoJAGRtGcg1OSNevG2MdYfSwI8w4QWYHw26Rxc7s1T5Dp6KRSiFIUL6X0ZJbYpD/LR99N
-	 zlhj3p5fMd7RqsWRbRUwudq4fRzr9BSICrMCZfa5PpAMf3XWUsOM7eQOUJjZcME=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1755013775; bh=af0Dom1/TSFFK5AmTYyYolg6Vz6yqixWwh8drceswgg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=cFpre41fBYY+GylfQLgq2RtEeXsq+IyMVQHqLCEm3KOfBwUK7qyYDAiXmExo+gla5
-	 wgS+mJn4+4qjM7kZ99PsYBLVDUgPa9RMchEpypdLX6FDPOd8VC5JaIOZl5cON8mGpw
-	 cslvwx8/mbRdL+hiEFL75Y0NvDETrVsHNkgoHVBMHZUM91/gOkYpafOgP09vQbttVA
-	 ScoTQ6wsvNv+QsFg8i1Au5BCI8hoywp/gY8ZSddQWUyXmgp1/ard1BN/8YgUTYPo+y
-	 L4oJDr4o5nW6yQ+ZUxwrx+c/e3Vhe2iSVLpUMMMfgZPBE4DWun/0wg8x3bHdcxKZbn
-	 PpN09QDPCHOsg==
+X-Inumbo-ID: 2d765a6a-7794-11f0-a327-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1755013874; x=1755618674; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=iqW/+PCBX2Y4oQSo0oAABlQ2kTfubhM4GA/WBixaJYM=;
+        b=sWSBPAadTLWHSeoEcROcqw2LqtNEiMyHbtvSg/Fv4nuuk/UOSaBNcKEApiaTkfyJG2
+         jmvYIkvVsa7flVL1CM7WrUdeUXuCvyPaFVzrUQ69yFR35oC/P4EnGVCvjC51HB+GNEci
+         PGcIHQBXffySQ3H7f/z46e6FZidkqz5jBpXiQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1755013874; x=1755618674;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iqW/+PCBX2Y4oQSo0oAABlQ2kTfubhM4GA/WBixaJYM=;
+        b=myOsr390XysVkP3bGHigUmkwailFX6GTH0dLysSwpj5+gMttf+zccVIukmkpIwjiWz
+         grF1Rj5mB7+P/9GJo4jwGxtbRCy4Ui44xOdFbobPfUGLCMTSIwBVDQ84jw/1nOqr8bMO
+         ROcBkTV3rhzUhJc01RkjiONdL2zG8/GpFx2Ju6Ti+zDot29K27zWNrP/VDvXHQTPxPXp
+         NWeLkIfcfazm6NvCtNKxp/+2KmPu3ZhY7Pwfxe3UF3ZPzPinkYn1IiJfDsrBDqMT4aHz
+         V/nj/W2bMvwMLCRTjq2Zml4kA+cGOSgbDx+zUYW0Sx2ZFTxH1AG5itl/p2C9r2Z6mldp
+         a29g==
+X-Forwarded-Encrypted: i=1; AJvYcCW8DNodVrbFdxyUlerUBLRsvwfteZnKxSeN0CWVKC02NE3QJNREO2Ewil38HgdrQU8lWx3HvDQlLiA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw7au1kENmtLRrcolpYFBWJTWI56H9WgxMd39CijD1usQ8PysgB
+	79cLAgIeZhXz/VD0vUZyd5g/ihlm/8N6HZMvloQVZ70Z8jH9xr3TU7TbSTcz0GwXDf4=
+X-Gm-Gg: ASbGncsNyte3OBhl0u0ju0YqNFIU2FvYisPwVi196limZ+ak6pwdzmnlO9sLRMdyFEN
+	ioChE6Qa++vl+E/EwuO13no5czibwjOXfEuU3BaU/UXbWvyLQQg4cMyuhOeK/xZdmmQjcQMgFQ9
+	ww2w03dPFBRx4aQvXV6Eojvy1DOTniU6dG9Ms6JaENXDLYizoL0VRI1ydmbuieb59hkvlWRREqt
+	hmaAMKhbQuo13MbfQOKJYBZFMr/C1S7dxoyqryfA7srTeEIIbSsRdwHCca5NfHLI9LDtqRFJ86X
+	XaJlLcanFJFHUek1b2jZaTeALbExlQEDDEoAQQZkXdH85QqOzu/PhFKiYYqbCK3veik75hiR0Iv
+	aSy5MfDsgo8U+t1ivTdZiw84Lspi8DhKhFBif0OYvAM4oT1FwonrSSM7HiwxMS7XkLaAD
+X-Google-Smtp-Source: AGHT+IGUnpaqcXcyy5CfWrwqF4SRPXansY8Mr+zsvZ3+3GeO839Kcvn7GZeWrKVR8lJjKunTVld/VQ==
+X-Received: by 2002:a05:600c:1381:b0:459:dba8:bb7b with SMTP id 5b1f17b1804b1-45a15b100a2mr3845025e9.13.1755013874407;
+        Tue, 12 Aug 2025 08:51:14 -0700 (PDT)
+Message-ID: <8275b155-d04d-4d75-bdd0-f9a6a8f72875@citrix.com>
+Date: Tue, 12 Aug 2025 16:51:13 +0100
 MIME-Version: 1.0
-Date: Tue, 12 Aug 2025 17:49:35 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: xen-devel@lists.xenproject.org, Stefano Stabellini
- <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
- <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH] misra: add missing noreturn attribute for __div0()
-In-Reply-To: <1b5549a97db31c65edb769302deff73576cec41d.1755013482.git.dmytro_prokopchuk1@epam.com>
-References: <1b5549a97db31c65edb769302deff73576cec41d.1755013482.git.dmytro_prokopchuk1@epam.com>
-Message-ID: <6aa50b8147d14e4d654f1291fc3b9cef@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/boot: Remove unused symbols from linker script
+To: Frediano Ziglio <frediano.ziglio@cloud.com>,
+ xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <20250812151923.96832-1-frediano.ziglio@cloud.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
+ XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+In-Reply-To: <20250812151923.96832-1-frediano.ziglio@cloud.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 2025-08-12 17:46, Dmytro Prokopchuk1 wrote:
-> The __div0() function never returns to its caller, causing a violation
-> of MISRA C Rule 2.1: "A project shall not contain unreachable code".
-> Add the `noreturn` attribute to fix this.
-> 
+On 12/08/2025 4:19 pm, Frediano Ziglio wrote:
+> The symbols declared with DECLARE_IMPORT are meant to be
+> used by the 32 bit code.
+> The __base_relocs_{start,end} symbols were not used by the
+> code.
+> No functional changes.
+>
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 
-I was convinced that this was already upstream, as I made a patch a 
-while ago, but evidently I forgot to send it.
+Reported-by: Jan
 
-> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> ---
-> Test CI pipeline:
-> https://gitlab.com/xen-project/people/dimaprkp4k/xen/-/pipelines/1980129839
-> ---
->  xen/arch/arm/traps.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-> index 445e7378dd..2bc3e1df04 100644
-> --- a/xen/arch/arm/traps.c
-> +++ b/xen/arch/arm/traps.c
-> @@ -172,7 +172,7 @@ void init_traps(void)
->      isb();
->  }
-> 
-> -void asmlinkage __div0(void)
-> +void asmlinkage noreturn __div0(void)
->  {
->      printk("Division by zero in hypervisor.\n");
->      BUG();
-
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+Can be fixed on commit.
 
