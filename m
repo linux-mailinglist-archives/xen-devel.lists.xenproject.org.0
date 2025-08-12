@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8AC6B22041
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 10:07:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1078366.1439349 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CB28B2204D
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 10:08:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1078375.1439359 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulk1Z-0000MP-KU; Tue, 12 Aug 2025 08:06:25 +0000
+	id 1ulk3E-0000to-Uz; Tue, 12 Aug 2025 08:08:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1078366.1439349; Tue, 12 Aug 2025 08:06:25 +0000
+Received: by outflank-mailman (output) from mailman id 1078375.1439359; Tue, 12 Aug 2025 08:08:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulk1Z-0000KF-Gu; Tue, 12 Aug 2025 08:06:25 +0000
-Received: by outflank-mailman (input) for mailman id 1078366;
- Tue, 12 Aug 2025 08:06:24 +0000
+	id 1ulk3E-0000rI-Ry; Tue, 12 Aug 2025 08:08:08 +0000
+Received: by outflank-mailman (input) for mailman id 1078375;
+ Tue, 12 Aug 2025 08:08:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Pr65=2Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ulk1Y-0000K9-B8
- for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 08:06:24 +0000
+ id 1ulk3D-0000r8-Gj
+ for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 08:08:07 +0000
 Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
  [2a00:1450:4864:20::632])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3c834fe7-7753-11f0-a327-13f23c93f187;
- Tue, 12 Aug 2025 10:06:23 +0200 (CEST)
+ id 7a3c7ac2-7753-11f0-a327-13f23c93f187;
+ Tue, 12 Aug 2025 10:08:06 +0200 (CEST)
 Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-af968aa2de4so939039166b.1
- for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 01:06:23 -0700 (PDT)
+ a640c23a62f3a-af9618282a5so989161866b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 01:08:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af99604e648sm1166011566b.6.2025.08.12.01.06.21
+ a640c23a62f3a-af938aa8275sm1928395566b.57.2025.08.12.01.08.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Aug 2025 01:06:21 -0700 (PDT)
+ Tue, 12 Aug 2025 01:08:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c834fe7-7753-11f0-a327-13f23c93f187
+X-Inumbo-ID: 7a3c7ac2-7753-11f0-a327-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754985982; x=1755590782; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754986086; x=1755590886; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=A9aBB6lecwzo1fq4Qf6xjEh90CLTo+xgCO7eVuN4nRA=;
-        b=TQ8/JjHL11SfZP5SYFiad/sqheJlrZ0NDIArosJBcPSggZYbzmaTpcjMUZCH/F3p2J
-         KaBCwQPEei0iBvAdGwG+wEhSAIDG2GT58avLRh58sROs7yLbGfcSJWTZNTPCQMamY1jd
-         w+dThshaxQmeu/csOLWJ7QyCiJVloA0ATY1XyKtg1oP0W/JJduQkVkLklO91QHpXJUpp
-         ZkoGdRh7bBHo784Jluj9e615/1DG4PlbUS+79YkoOpZ97icenuTtZO8jRJzRGZwrK+wW
-         t6KbHHl1nmVOoZhpI3/ECp20hPimJKYvISwhoGplQkNCaFT8A4cP5rDOtZKQWtAdEeXA
-         Rzbg==
+        bh=tikZqxniQEeCxvq1AdcRoaG4v/+IN2vdkpwVHqucwKE=;
+        b=gsWQiodrVreMVkwQ2HNPaXx+lD/Wt7Jb0+/b4iA/oJD5RqODJ1sDSV+ljgOrcO/I/x
+         Q5nvK7VJODr7HuZpPTL7Pz8aYRVRZQLi+s8dZdc5HdRz1sZkFWOeAr1wP1Kz68JlYSzR
+         JdBuKQI3zNzhUJukPflzsbkS7+Q6U852zk+TYvMpQjcskjIEWHZ7Rv6VYc/zNNzjQUjV
+         8Gdz95jON9XXy/T1cHtRx9/jiwkE2oSy6hUl4DBe95NIKa5FbzzuZdcdzCuuAzkbMl2R
+         xh9RYThpnq7SCdur6qb0aisJqtAcbr4WirpdmAg2ohdtYPgta+NRm54flTat5Z5gTbV1
+         6CJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754985982; x=1755590782;
+        d=1e100.net; s=20230601; t=1754986086; x=1755590886;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=A9aBB6lecwzo1fq4Qf6xjEh90CLTo+xgCO7eVuN4nRA=;
-        b=aZfq8/3ya+NBBzJMbybx+n7dgAzkXG6f1KyM8Nco7Sow6PQ7D6xhu2Mh1kZNYu+3H1
-         QUGMXICFZ0QSKJSTOk7XXa0SBYbLtw5YA4fhJ0yN5ouK0mnqGmAJzm95nDwGbQujznRT
-         GmnqVPxsQjOuS86h3KGxh3Qmb53AZjV7aUp60FXskHFtLOqEEalNiM7MK5Ik787IGngu
-         fqjTj4gMVDYf4R34VCzvDspwUUwcbx8LYRcVwoyqZC69Env9F3RiWOVFw0yp/tGhnwGL
-         FJd16ZZoZ6i2b/IsAfvHBijDK7iIk4/N+p52s3QRpXR4tUy6GCErtvj8Hg8Z9NINQigh
-         89og==
-X-Forwarded-Encrypted: i=1; AJvYcCUbk3VL0Rmq4DAVn9kxKyH5OHtGY63l2Ptl05NJj3T1Mv9nH0aNuxqlSaTXGRc3UNokLSNP1Zqq74Q=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzMGwVYS7Cka5zDN0F7sTp/Qc7F2p0cam12PPZxdXwZAzkLPNfw
-	9pcqG5lYRcrNObf7CozvNFSVdX6RHXd59iHPrsEY6+rrGmKB8BLnMxnzEi8J3gfNtg==
-X-Gm-Gg: ASbGncvW/yNo3esGiUHxef5SBMneOMO4fhaEOtBsJbqtQb7p+5Y8grsjG60h1wYHjIb
-	p598k+V98fgAhpC2/L5p9me0MpaoYDGg8AXq+qXUD6RwbH1KA0dnqurIPViQ9Xsi2KW1iM3ZKjV
-	oZm84olbxHyCich64jsmsFjdOpV0If74+6OFQvjA8GJvmgrucA7KZCduBbpAuDBRtXqoqhV2Mg0
-	3Az9UFoQUWnFCwzOUZrdUdRbtutPwDd5SRIuXyJnD8M2ugiZH9NldJY78kq3TyKPJnBgZ5sk/Ws
-	1sm/ZR/mgSIo3ReTtmUOtuZuwZnyuDRtqakYh4glKrho4Qdz5r8JTvh6kSR2ltEJcvfznbfVVBa
-	cNw0qy7gUOoCjd+gPN6JuPges1+AvgpA4gCxF8gRLFKZcOXjRd9fMKX7EI9eyY4U1/cJ3Dxrrb2
-	Q4TzXs/rM=
-X-Google-Smtp-Source: AGHT+IEgRO/PYnFkRw9te58B5COpsTHplJJYbSRFJs2RDYWnqRj5wXpyRTYHV1xod1fBIvBPLlNkGw==
-X-Received: by 2002:a17:907:741:b0:af9:467d:abc0 with SMTP id a640c23a62f3a-af9c65587e2mr1438392166b.50.1754985982279;
-        Tue, 12 Aug 2025 01:06:22 -0700 (PDT)
-Message-ID: <9f13d1c5-8f92-4a73-8a67-f4b44b72fa50@suse.com>
-Date: Tue, 12 Aug 2025 10:06:21 +0200
+        bh=tikZqxniQEeCxvq1AdcRoaG4v/+IN2vdkpwVHqucwKE=;
+        b=hGvHgFdQLXW+Sxex17/cwLsga35neyELz+OHHrVSMufGUXGozXYVskHH/i7PTEuWH7
+         P0sz3GAuAJvsVoIpdbb06dcd9+Gn4Mkdpa8sXLSST5tib3abEX+dzT+FK63ulvZGvLgK
+         8r1MqEx2u+Oo0tfsA1tmuEONIn/a4bztzs/TiMnPyyGTUfxNgSs6o/npxTT75yAUTnmq
+         XkFPAgN60K4+cUpEQ5n1E31o/2uPtxTC4yn4snvs0BtoIKXZxIa+w19T5ghvPbYZNh8Y
+         M7OWzB0B6EJ1pDltjkRX25njFe2Smi6cJ+JK39mT9MwHC6+06t68xvNPQ8C14jDBSvjK
+         XxPg==
+X-Forwarded-Encrypted: i=1; AJvYcCXBNn6nc7i+meRj4Dqdu3lLmSm/bY0RfpgGUSUcz2oc4tCD4IWOlpZArKWmMzNGd6K+1Q1ffthRF3s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzLQuuTx5fkUCaYUXcZNPr0DyuLzaVEfPVUjW57HgmN4/9Jh+Wk
+	/ZhKo8XBMM005bz3+lTeD7KEAWt/nU//KjfgIcBmv7JsqGDbwFov1OWTvxZkbMoJ/g==
+X-Gm-Gg: ASbGncsEoaDHHDj9quOnPo9XQDWJYRGmLiPN3RACJbW87Xk/nXr3LSMBTP64n2VFm2j
+	HmVN0pTIHGyzZxzA/yu8cjjCSM+j40K6ZEvL4o5t+xgLAp6PCOcxdAkQHupwPNPcpzsf6PBFuK8
+	GlMVCydHdfYYIo1db6w2calschOXmthJIB/z9o3CJuKAGdh3N5MgMQl5NBi3M4CGWKpZIUyJSH2
+	fCNpJbNs8EBNwbiAf1isdI9+hnL9VbcG9CLebm6D+IgEuoVn10/dQaM2f3uHuyuVZXvYQ83YVhl
+	U8xRNxpASN4lZlixTATnmmgkE9TKhHg38xwFnnAFCyLoxivEixlQ/wg+3Yjvssc9hGPJClrjoW2
+	H9BMGM7mWkDZYUGiPtV6IAWxeSOiTaF0fr5k9RNjdfq1+fsSZOLrgTOfUBq6nrTbBFzTZyKh/FQ
+	zWeXFxAUA=
+X-Google-Smtp-Source: AGHT+IHjx4ALgaGg8V07LRx+k3imaWuyQWVd9NvF2AhjyVKaxrJRGlY7Cat3GQ+WoXJouvO8p0YXPg==
+X-Received: by 2002:a17:906:9f91:b0:af9:e3d3:a43f with SMTP id a640c23a62f3a-afa1e129125mr224942266b.47.1754986085938;
+        Tue, 12 Aug 2025 01:08:05 -0700 (PDT)
+Message-ID: <18bf1a4d-5af9-44a4-8c51-3a0bf6e69e20@suse.com>
+Date: Tue, 12 Aug 2025 10:08:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/22] x86/msr: Rename MSR_INTERRUPT_SSP_TABLE to MSR_ISST
+Subject: Re: [PATCH 02/22] x86/msr: Rename wrmsr_ns() to wrmsrns(), and take
+ 64bit value
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
- <20250808202314.1045968-2-andrew.cooper3@citrix.com>
+ <20250808202314.1045968-3-andrew.cooper3@citrix.com>
+ <be2b70cc-11ba-4f3a-b0b8-0ead6d14934f@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,23 +121,69 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250808202314.1045968-2-andrew.cooper3@citrix.com>
+In-Reply-To: <be2b70cc-11ba-4f3a-b0b8-0ead6d14934f@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08.08.2025 22:22, Andrew Cooper wrote:
-> The name AMD chose is rather more concise.
+On 11.08.2025 08:36, Andrew Cooper wrote:
+> On 08/08/2025 9:22 pm, Andrew Cooper wrote:
+>> In hindsight, having the wrapper name not be the instruction mnemonic was a
+>> poor choice.  Also, PKS turns out to be quite rare in wanting a split value.
+>>
+>> Switch to using a single 64bit value in preparation for new users.
+>>
+>> No functional change.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> ---
+>>  xen/arch/x86/include/asm/msr.h      | 4 ++--
+>>  xen/arch/x86/include/asm/prot-key.h | 4 ++--
+>>  2 files changed, 4 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/xen/arch/x86/include/asm/msr.h b/xen/arch/x86/include/asm/msr.h
+>> index 4c4f18b3a54d..b6b85b04c3fd 100644
+>> --- a/xen/arch/x86/include/asm/msr.h
+>> +++ b/xen/arch/x86/include/asm/msr.h
+>> @@ -39,7 +39,7 @@ static inline void wrmsrl(unsigned int msr, uint64_t val)
+>>  }
+>>  
+>>  /* Non-serialising WRMSR, when available.  Falls back to a serialising WRMSR. */
+>> -static inline void wrmsr_ns(uint32_t msr, uint32_t lo, uint32_t hi)
+>> +static inline void wrmsrns(uint32_t msr, uint64_t val)
+>>  {
+>>      /*
+>>       * WRMSR is 2 bytes.  WRMSRNS is 3 bytes.  Pad WRMSR with a redundant CS
+>> @@ -47,7 +47,7 @@ static inline void wrmsr_ns(uint32_t msr, uint32_t lo, uint32_t hi)
+>>       */
+>>      alternative_input(".byte 0x2e; wrmsr",
+>>                        ".byte 0x0f,0x01,0xc6", X86_FEATURE_WRMSRNS,
+>> -                      "c" (msr), "a" (lo), "d" (hi));
+>> +                      "c" (msr), "a" (val), "d" (val >> 32));
+>>  }
 > 
-> No functional change.
+> It turns out this is the case poor code generation for MSR_STAR.
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> I've adjusted it to:
+> 
+> @@ -39,8 +39,10 @@ static inline void wrmsrl(unsigned int msr, uint64_t val)
+>  }
+>  
+>  /* Non-serialising WRMSR, when available.  Falls back to a serialising WRMSR. */
+> -static inline void wrmsr_ns(uint32_t msr, uint32_t lo, uint32_t hi)
+> +static inline void wrmsrns(uint32_t msr, uint64_t val)
+>  {
+> +    uint32_t lo = val, hi = val >> 32;
+> +
+>      /*
+>       * WRMSR is 2 bytes.  WRMSRNS is 3 bytes.  Pad WRMSR with a redundant CS
+>       * prefix to avoid a trailing NOP.
+> 
+> 
+> which stops the compiler from loading the high half of %rax too.
 
-I'm okay with the (much) shorter name, so:
 Acked-by: Jan Beulich <jbeulich@suse.com>
 
-But I can't make the connection to AMD: It's INTERRUPT_SST_TABLE (figure)
-or INTERRUPT_SSP_TABLE (text) there, afaics. And ISST_ADDR in yet further
-places.
-
-Jan
 
