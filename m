@@ -2,40 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15C94B23800
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 21:18:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1079144.1440114 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A0EEB23914
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 21:36:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1079157.1440122 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uluV5-0004qw-R8; Tue, 12 Aug 2025 19:17:35 +0000
+	id 1ulunB-0001OK-CW; Tue, 12 Aug 2025 19:36:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1079144.1440114; Tue, 12 Aug 2025 19:17:35 +0000
+Received: by outflank-mailman (output) from mailman id 1079157.1440122; Tue, 12 Aug 2025 19:36:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uluV5-0004no-Ny; Tue, 12 Aug 2025 19:17:35 +0000
-Received: by outflank-mailman (input) for mailman id 1079144;
- Tue, 12 Aug 2025 19:17:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ulunB-0001MP-9i; Tue, 12 Aug 2025 19:36:17 +0000
+Received: by outflank-mailman (input) for mailman id 1079157;
+ Tue, 12 Aug 2025 19:36:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3OTH=2Y=epam.com=dmytro_prokopchuk1@srs-se1.protection.inumbo.net>)
- id 1uluV4-0004nW-9Q
- for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 19:17:34 +0000
-Received: from DB3PR0202CU003.outbound.protection.outlook.com
- (mail-northeuropeazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c200::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fec83552-77b0-11f0-a328-13f23c93f187;
- Tue, 12 Aug 2025 21:17:32 +0200 (CEST)
-Received: from GV2PR03MB9572.eurprd03.prod.outlook.com (2603:10a6:150:da::5)
- by AS2PR03MB9671.eurprd03.prod.outlook.com (2603:10a6:20b:5e8::15) with
+ <SRS0=Ed2z=2Y=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1ulun9-0001MH-Lo
+ for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 19:36:15 +0000
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on20620.outbound.protection.outlook.com
+ [2a01:111:f403:2406::620])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9a1a41ab-77b3-11f0-b898-0df219b8e170;
+ Tue, 12 Aug 2025 21:36:12 +0200 (CEST)
+Received: from SA9P221CA0005.NAMP221.PROD.OUTLOOK.COM (2603:10b6:806:25::10)
+ by LV2PR12MB5824.namprd12.prod.outlook.com (2603:10b6:408:176::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.22; Tue, 12 Aug
- 2025 19:17:28 +0000
-Received: from GV2PR03MB9572.eurprd03.prod.outlook.com
- ([fe80::edd1:842f:9b14:509e]) by GV2PR03MB9572.eurprd03.prod.outlook.com
- ([fe80::edd1:842f:9b14:509e%3]) with mapi id 15.20.9009.018; Tue, 12 Aug 2025
- 19:17:28 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.20; Tue, 12 Aug
+ 2025 19:36:07 +0000
+Received: from SN1PEPF00026367.namprd02.prod.outlook.com
+ (2603:10b6:806:25:cafe::e7) by SA9P221CA0005.outlook.office365.com
+ (2603:10b6:806:25::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9009.22 via Frontend Transport; Tue,
+ 12 Aug 2025 19:36:07 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF00026367.mail.protection.outlook.com (10.167.241.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9031.11 via Frontend Transport; Tue, 12 Aug 2025 19:36:07 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 12 Aug
+ 2025 14:36:07 -0500
+Received: from [172.18.164.135] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Tue, 12 Aug 2025 14:36:06 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,339 +59,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fec83552-77b0-11f0-a328-13f23c93f187
+X-Inumbo-ID: 9a1a41ab-77b3-11f0-b898-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nI+fWWqdkxgg6wPR71Ojz5A2067xg88Cyp4dqtlkXgRD6T1MBZ66D/DNEGpEe4fAu2cOC069tGfHHicJJLB8WUyg/yWg5eO3c+tONmqoZMQWXPaF6MAjfzwd+X2NYNLj25pfHmjyIat4wY4dKsh8GTXai05cTKMqANOcFz4tolufw/k+NFvtfoafNvJXQeh5rQRaERU3U54V9DFNmoMyNUEXqN0viVXOXWkl18VKho0Aoa+8C2EcnFgRSC3I/6PGd+EhGamgYHxOtdTdK64OR1meWm8TPM6zWO82wkZdxKMPejB+3/PLPrWIxG0NpdVN78VHOGVSXCS2/eBed/8ARg==
+ b=PXL2um4rQx0adO29LpZuw2VTHitULBOpIKdjXy1Yf2JgJYzD6rCv4O8EJtnYIhGXkaDcx10qxhgpO/93DWj0eaMrx9ywipB1Wg0i3ZdxOHFUozSGeugj5/8hgkvvUbWq1xwlUVOwAii3HNq8cMpTqof5cTGQpZNOJacMZlNbbfDPKjE1KYMNKTGI6y7gaYXuGaTl8EKfNYQat5UCZ4C37bYLXnRd2GNNtnJeuujvHiF9HjldiVVoMPCX+noNja6QlsUuoc9Wrlf/SCn/GO3gA09WLnq5EmrChH9jWSaUvxz54a+me8Ghd410P5V43mue531EGq294sPZoy/PcKcN/g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W8qo+9Nn7D8YDP+Om+eE1Ge44AFkkk9sqUHYa6TEpKY=;
- b=Zw8xUlZBouWUlghrFbMXkkm+lDciM3OwWxHrK7EJX+6qRprRwaxT4k/sznVVVDux+NWwC7NZwQskP7C8Nd6EWFF6fbWYmN/+sF0irir2be1Pt7xWlHuGSqXKFux7ov2yKOh/SHRXR0VipaW7inAdcAbOE8mOYhy/JvZOf/ZOlJd41gh3g7eXUSJhstiT45aofAwrMmkvunEwbVdNtUSxgkxm9zhAzSCG8SeECOP5CCDckoqaLqlxwo79recuvS7tLx0c2El/KEZHgung9weg5SRFdrhiMe21BpUt1dNsfzxTUM6VsHnuDoIQ6o0fezBmjtkiogtPfTf65VyWeSQaMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ bh=LqHkB/iKh0iOalV5y38Gym5n4ZW2TlAwTzGUmDm+sNQ=;
+ b=PYfttHmB6xEb+WSMLfFtTFZIkl2JNFe++AcObNAxKopteTEZ7t92JaOuBzsvIuA5JbbRz62ZaXXkaB+24D7J/KGJP/bbiN9S35NLAPTZK/p+pzwHcvxLizpUOyMO1Zd8JfVhDjqhpwdzavH8NYkyfxBtgXQeft51Q2ILT+4qcSLE79uyhzsb1olk57znCBOMMggXxSllaj5HBY+9UNs7br5OVArlH8CxrNZ122bF3J1U6Jm/+BVogREnQC9t6TRg+u8jzca7sAROQ+BCWpwy7HvSZFdB/2ce6/neVq4BjqydiCz+7O7Jx7DqP14Wcvw0xiQc/3an/j+W3GHwwh65gw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W8qo+9Nn7D8YDP+Om+eE1Ge44AFkkk9sqUHYa6TEpKY=;
- b=eHc/lj/o5WkhdVgUbDvW6cD1XLBtVK84nv8SZqT1beFN5O9RpxNF0q06r81QNVfFy3E5mwP+09zqC0s14xNsodZaV9vUcsTIEzmSuTAZU41PP2h1cCY7ZUfr5qB/vtcyUvgzjEHn4eyjrlhAfWcgmf05W54bqHiy6b/qxXEGTzDYQIIEMqaMTtb6uv0kKptaCVEsJAK5rzxKPzKeYGst+oAn0332PXOdA0NGYy+LRCTrOw5iieqGFYNGb50aQCH9knWoz/SRD18TjKp8Y2FLo/6M6nYEPg1PeE+OTWGQqgxeNlxBa5vSSDZUivgFao2TdKx7a5j2zmyH9Mq/8jWPhg==
-From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>, "Daniel P. Smith"
-	<dpsmith@apertussolutions.com>, =?iso-8859-1?Q?Marek_Marczykowski-G=F3recki?=
-	<marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] efi: remove unreachable code in read_file()
-Thread-Topic: [PATCH] efi: remove unreachable code in read_file()
-Thread-Index: AQHcC72+MqlVxdSA/E6jjiAcMI3Ndw==
-Date: Tue, 12 Aug 2025 19:17:28 +0000
-Message-ID:
- <52dbb5c5c1385b3b9d8522ef308ef15248973368.1755023074.git.dmytro_prokopchuk1@epam.com>
-Accept-Language: en-US, uk-UA, ru-RU
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR03MB9572:EE_|AS2PR03MB9671:EE_
-x-ms-office365-filtering-correlation-id: 1e609905-2c08-4628-5639-08ddd9d4e0da
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|42112799006|376014|38070700018;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?BxGExv//9BSL+JNOvM0PXjRGRHiv6s36f0c2BosUlCS/Y6ZCUtlaWQ3a66?=
- =?iso-8859-1?Q?/Wx9cofsELPmDNXOJ0+gZgli9L3GDGGrgnQ/tpdkwdTc/k+FJLpFFThmJ5?=
- =?iso-8859-1?Q?9socgCHd5F66lP/pn0qwwTfACRNZ8YH0Qmo8Cykxo/LH4+r4FmBJmTXmUM?=
- =?iso-8859-1?Q?1EM4gtPH0yflC5iPhoAOfixfZBp6p5DuhAdLg2p4ezogf+cqVlIfMGp+s2?=
- =?iso-8859-1?Q?i4Aro2LfCLzMJvMDfnVRrRp4smpQQjsOmptSKdIMqWK2RBILBDyFS50ZeZ?=
- =?iso-8859-1?Q?i4zJqf3Ej8YIqyjRCauU43OYYI8HBOyHGwEqAusv24L2focHr8+ziTXx+j?=
- =?iso-8859-1?Q?fB/QO14QsR8El4AhGtjV4wCrD4wx5R4CCC4UYq/It7qN2XYx8dwg/WtkgB?=
- =?iso-8859-1?Q?GZu3nrKA4meNWGHHj9Wg5iKZB2gVdRv3zlyDiYMtbxxyMKjBAzF6DEO6k3?=
- =?iso-8859-1?Q?kSM9+FV/P4SB9Z1GecoVbCVnY6hE4ubDXwDu3pN9/M7EkHIogD5kgYX6Uc?=
- =?iso-8859-1?Q?/9j7G7XOYmpuPW3nz8v0M69M8OLp64Ekq3T8xA4XxUbgO13Q5yPMTKa0oQ?=
- =?iso-8859-1?Q?EReUe4kWww5DL6tVsh4su3avdiyQv+Qn6URZ8SwIyG1LxqKtV/EvqjbV4U?=
- =?iso-8859-1?Q?IiX43kUQqRF+/nZivqTpNhgRDCCwSX86BsbApZrSPNWnl8SLwOMlGGNRn2?=
- =?iso-8859-1?Q?X1No4TFw38R0rZCvGrzzMo4LLUbYJLgr3NKXZvDXZItqn1xRmusvRyd6YS?=
- =?iso-8859-1?Q?S1yHmOzjU3H700W4v8EJ9MLJgAPdII+s8kcTWxrgRaCrxY97Yu6tmlXQrm?=
- =?iso-8859-1?Q?uoF8+3Sf79hKG73AofR0kdh2SfZQ0Q+WmmeHSz4eZ//YtkYxagkuiWxzdM?=
- =?iso-8859-1?Q?IjduX2JsNGDflPmKzNl3mFHiOkteXjhUJ3F5RtQuWWbUlVJ7PFaAbm0rZA?=
- =?iso-8859-1?Q?qeFgv01Ybr3HEp54DN9L/Il2M3fxUru8ZEViuBFV7Y93LHa234LdymJ3ZQ?=
- =?iso-8859-1?Q?9x8iDPRFz8Ut3Uh6F4P779R0oHBSNpIlqZ1kCCoOrPesnAMxizybKeE9xW?=
- =?iso-8859-1?Q?ySkxPMz0eDPLjw07JutxwiyTiNHnj7W9dlXN1eGlo6B9OdOQ/xCBAeRhr8?=
- =?iso-8859-1?Q?Xhr0nGALk+4TrbhcRd81FTOtFHF9BjaW8AOhptGxrTwaYU1tQinGa6J816?=
- =?iso-8859-1?Q?ylURRi+IBKzXSicIdfs35W9DsKiJIxHSVInRIDDct0M9TAmXIbJjRIe0Fd?=
- =?iso-8859-1?Q?FnMTjOeTqADTi8SJyI+qDRLtexHeEqbAUfPnpI4QsBuGa05ckOtZZJv6FR?=
- =?iso-8859-1?Q?oPCBPkcQ31rB4EWfHTNraEs3AKdR4CbKP/8EGB5jkGiTVcyq+54Hl9HAzV?=
- =?iso-8859-1?Q?L3nYWTy+CjkaTmo6P7g14TZe/btDnjzwYsAqilTLyvB5oCAZ+vZagf3l4P?=
- =?iso-8859-1?Q?iEXCumfBJiIB8cgB20FtoBJuh4Zu9N3S6RmVbEtMxbpEQRU996Uza94DNl?=
- =?iso-8859-1?Q?ZxW9sPvSVqVTHQ7ivPDwVXpLEUPG5VOipAWx6CNtQBEmUxVI0X85vY8KgT?=
- =?iso-8859-1?Q?k+NiNdY=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB9572.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(42112799006)(376014)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?uBbTcCr5SZMSpt8RxQLGA3OM3yh0zP47scQ1v+YTR1SpsK/YRnpCYRZwIV?=
- =?iso-8859-1?Q?8IZlB/ZvfSSH0rVHvhvWE8bQ9KFT/8zN0OWsCP1WOnovNAmC8gw631lC4q?=
- =?iso-8859-1?Q?FNoo/K9hinpMK0vB7wsCU48ib1mspGzoffUxl8Td4KI/BOlX237wM7UVqE?=
- =?iso-8859-1?Q?2DjhhnZ+cuNtKpvYGONhIKlTrfSYF5wmcrb81xff4vbn9g+YY7jl87Iosl?=
- =?iso-8859-1?Q?lhfkHA8X8GjTx3VOdnAbX8qdEXoHODa2/mo+5Korwpq4KlRCzZMAB7yZpC?=
- =?iso-8859-1?Q?0k2Di89ZXl/weuDjnTgr6qHWuzC9b3uPS7BbpdgQJajRztKSackfezHUXv?=
- =?iso-8859-1?Q?wVUQxhizcBJ5S7XAPebEB6WUk2c38C8j2Vk8TFFt7NN87EFrsZ9yNK+7gG?=
- =?iso-8859-1?Q?8Q1vGvI4gPVaRtCvgoAcoR5OGwlgCde1jYnbaZJHwOZzFe1HgBP2Jl7/MC?=
- =?iso-8859-1?Q?w+ee29IR1YHbUA8GOLEkgqoupgIgQfNWwA8U8zL+Tw9ogR91V9rk3xaFq3?=
- =?iso-8859-1?Q?qr1a+mpFANnRSqUKwOORdGz/ntrPWHPENH35VWZ5+CBhAAT24qv7Pm20am?=
- =?iso-8859-1?Q?7HBpBZMjg6RbrI/c5T1s+/tD32G7gs7dBSxJTnP2lAV1rMfnnNHJUwequj?=
- =?iso-8859-1?Q?m1Uiz3m1Kvj6NzIWw1KxomsO0bNg1ppiYkii2kMBxM6ZcDs8vqIob+juNA?=
- =?iso-8859-1?Q?/szM0lJe+RRD26duvetGtswnCsMa6rbFWDDyyJCrLuFNYnJnH4bQXR1/qX?=
- =?iso-8859-1?Q?HnjltFRhu9VrzSSXxB5PZDY7GIVZR1beV4Ok21yeBZ5WeGbcpbgMFIRCTG?=
- =?iso-8859-1?Q?sbAg2TtS2ir10RbVLfO26REu+mEG+6QTetEfeLd2jSEVJLslHfClR0XYLT?=
- =?iso-8859-1?Q?jpdXXq4Q9l3lT6DYf3abLa/vEsPjNWl6+JVbhRwQB6DNYLFuQw6KXnNzh1?=
- =?iso-8859-1?Q?fcECIeHB/3OUsCKPy8suFJJ/s0gLbO262mLaRTXHCgHRIQwi/ydhR4XG/S?=
- =?iso-8859-1?Q?6CRQRYTDlqOxdi8ESMK8fwaGu853vRS36hGvPAddG/kU2jdiXdrHN9D8rZ?=
- =?iso-8859-1?Q?vCOQ0nVF1PKzWdKXqTccOmR5PaNcRaoqg9q5aTTm/xKyuqqJ2bGQI8PWTd?=
- =?iso-8859-1?Q?60JvpiJN90Oj942EMY/Xh72lVqdgpe0FtkOpz+RcgMwWHC1b/47pRFbguV?=
- =?iso-8859-1?Q?ycJAlRnFPRjTPNziPUfrNbdcK+C/ftt39sEeItVUyzsxUBK6Jjj2M6SGI6?=
- =?iso-8859-1?Q?6Oh6Qdw6rNvURHYAVwM/U3jM0DfE2vcwtihyk5jBPIX+rWHu/hUEG7h9uH?=
- =?iso-8859-1?Q?vnLJL2ACbNoWbkwqaMLByhdBZJseD7zNXI1VK4q5yXHKPt9qXqAFdr3uOd?=
- =?iso-8859-1?Q?9mo6Gg9EWU8RoOd/dkFODJorii1G7RfCNCDxBKcJVo5JJKATfilxvrFQFt?=
- =?iso-8859-1?Q?TqVzxAmPylSqIkbRRN8NmpBLD34NWdKZJ8MTdpDwcpTXbWm+kjLg6JzfhX?=
- =?iso-8859-1?Q?mx1AY+nN+CeDY/SVdGatqOw7OnVpzlLRXcXjVzU3e9ZgCasrHBJSExhSi1?=
- =?iso-8859-1?Q?eDIrln+Pwk/KK2QkNfToT4waEmWHEEC1xY+wA/iXbKICYRWHpyZWtBtoau?=
- =?iso-8859-1?Q?pxjmfXBUNSLbyzffs4MPfAWalRN4M65p84aq9xRF4W9pOiCKbtW0gq1g?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ bh=LqHkB/iKh0iOalV5y38Gym5n4ZW2TlAwTzGUmDm+sNQ=;
+ b=cBS9V82naXa4vuAuKC351TZJd/OHnhesZX/VTU2JsiX+Vpe730E5c4DNq3VeVrKCMC46nN80YhH1MjXBn3KamEWZaZubGdu7JEB6X3N/e8agGXiUTkU1pag+pviMU7t8NF9RGtU4J3QCwIDhFmU+rjO+SgLX++ZXZPuu1ypVFw4=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <1651b43b-3230-4404-b65c-50de6d971d74@amd.com>
+Date: Tue, 12 Aug 2025 15:36:07 -0400
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB9572.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e609905-2c08-4628-5639-08ddd9d4e0da
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Aug 2025 19:17:28.4555
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/events: Fix Global and Domain VIRQ tracking
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Juergen Gross
+	<jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Oleksandr
+ Tyshchenko <oleksandr_tyshchenko@epam.com>, Chris Wright
+	<chrisw@sous-sol.org>, Jeremy Fitzhardinge <jeremy@xensource.com>,
+	Christopher Clark <christopher.w.clark@gmail.com>, Daniel Smith
+	<dpsmith@apertussolutions.com>
+CC: <stable@vger.kernel.org>, <xen-devel@lists.xenproject.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20250812190041.23276-1-jason.andryuk@amd.com>
+ <5407877d-4c7c-494f-8fc1-d44eea4762b9@citrix.com>
+Content-Language: en-US
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <5407877d-4c7c-494f-8fc1-d44eea4762b9@citrix.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00026367:EE_|LV2PR12MB5824:EE_
+X-MS-Office365-Filtering-Correlation-Id: d61780af-f4b9-4570-f088-08ddd9d77bd7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|36860700013|82310400026|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?VUVNcEkyVTZSZzBYY2VLNDU3S01ZQ2IxbmRGalpQOXh6YjVzZVJOOHBUNml2?=
+ =?utf-8?B?MktOSUk0Zk1uaDh5eFhaQ1BRSHMwQlpjVTQxRFZrZFdSb2N2bW1ZTVRnbzZC?=
+ =?utf-8?B?M0ZOelNTT0VIZWdrMkZVZHV4cGlpd3BoVWhBU245ek53VUVZNzFmZVA5TFg0?=
+ =?utf-8?B?WVk1TEJ2RlpxT2JqSGhZM2xmd0lOZjZlOTduVnFwc0FQRUhBMlppTjRxcU0v?=
+ =?utf-8?B?dTgwd1E1Zk1YMDg1TzM2NFZtK3VsUDlrcDRxTG9sWS84SUFSdTR4Y1JUT1Bs?=
+ =?utf-8?B?TGdlVGZQTEtZaTVvd2lwMzB0Q3NuNEZTOHBNTWp4RXNxUFFzNU5pU1pDZHBh?=
+ =?utf-8?B?Wm55SksvTEJTUWUveGUxejhYY2l4MWZwb25Ycmh0a3RncXBCSGN3a0tiM3A4?=
+ =?utf-8?B?QXJOcEZSdHNRM2NqbCtxaldlak9yOVRQMTJzcStiSFNvRTRnL25ZR1A0YXQy?=
+ =?utf-8?B?RlByTnZ4cnVJTGY1QnNMU1YxcmVudWppZ1dwMXIrMktnQUd2aTVtcVZuRVpN?=
+ =?utf-8?B?WVRVY3Z3WWl5WkI0V1BDeFZmMTJZQVVQV2Z0WTI3SEh4RGozYWtGZU8remZj?=
+ =?utf-8?B?SW11dUtxT212U2JLYThtbFBIQUVPY0hvMitOWCtlVVd2Mk92VmZXdmR2b0N4?=
+ =?utf-8?B?aTZORXFKL2VJN3hJOXAxNXJlcnBDclJIZFNUVTllZkh1QnZ6SmFIbjJoNGR3?=
+ =?utf-8?B?dXVCN0RUTWtlYXJHRTE0eWJhL05Nc2RDQ09yYTdyOGgyZDAzbUZtUkFRYXpE?=
+ =?utf-8?B?dGdVYWRadzhnQ1Z6Wlpud2hLRDRSa2x3Nk5NbTUwTXhtUm9sbVZLM2tsVzVK?=
+ =?utf-8?B?THNHQWdEOFVkMmpWdnRSakxOcndjYnE2WmpUREJxSmhrcEN5YUpKYVlRaVQ1?=
+ =?utf-8?B?TEpMN3VQbnFTWklTcFQwUUFrSGtydU83ZXA3MkhpYktnK1Z5d2VWNEtBYnlK?=
+ =?utf-8?B?amU1TVUvRExDazBuZmZ1ZWdrb05EQmxLK1cySnVLOCtWSEVRMHFJbEFLci9v?=
+ =?utf-8?B?S2hiMUhOU0Y1RGg3QXRLZzg2cE84aDhFRUdodmlsdG5JMmpRVlRwOXp4Slhy?=
+ =?utf-8?B?UVEzNGVJWFJqaXFsQnYxczNPZXoyVmZZZnZoR1RXNEpZMVNXVitsNzR6UUNM?=
+ =?utf-8?B?b3pPRlpiRjVjanAySnMraU9uTjFyeTVrdi9CK25ySmVjcXZPaVgreEVTN01u?=
+ =?utf-8?B?VDEwSDJoVlZodlgvL3FEWjdzOGxPMERoS1RSUXZJaXdUTEh4cWszRVpLNVZi?=
+ =?utf-8?B?aERPOEV6eUpISHpVRFBKeUhiN0JSTFBrRng2cmJmcTVXdmxsUjNGaTVhdU8z?=
+ =?utf-8?B?dEpQek5ZRUVsYTdKVkZnQkNiUllvaFJtampYK2t5djVMZnpqWU9iRHhyeDI2?=
+ =?utf-8?B?WUJWTnVLejJqWEdGNXFWaEg0TlhrdHFVVXk3emV1dzBKdVFSVHhURFhnRko0?=
+ =?utf-8?B?dDcyR2l4NDF6YmUwYXUyWGZ5bTR5azF5WTZzSEpKeXpBYXJpNk8wS0VUV3I3?=
+ =?utf-8?B?SWZuUFJnQ2Y1Zm1sZkpZTHFYWFo0eTk0KzhyU3RqNVdIRlRFVTJkTnY4b3dl?=
+ =?utf-8?B?Yy9ZT3lTcFRKUzZxa2JWVWhIS1B6eDJFZ3FpRm1uYTlVSXpyMzdIc1pjUXQv?=
+ =?utf-8?B?alB1RExoWC9XOHJlbXdzRHpUUUJBMmQxUlpLaURwMWRpc2VJS2tTQVJVNnFT?=
+ =?utf-8?B?bGV2em5UWXA4U3lkUW5hRWJWNUZYRkgvb0ZJRUJGbGYzcWcrVE1mRHdOVXE4?=
+ =?utf-8?B?MTdDb3FMYk5tSjZzeDFjY2lwRVYxSVJxbVB6SnVLbkxnWmxxa1pUK2hnT2ZS?=
+ =?utf-8?B?NFBJSjVzenlobVo2cGZNdGQydUdvZDNSbFc5aC9EYlluQjUwRmk4Q3ZjNkhp?=
+ =?utf-8?B?bXc3RTd4RHZkSnc1UXlJVzcvWHA3azRZR1U3cXYya2FaOFJZV1ZTS2g4Q05B?=
+ =?utf-8?B?RGozbldvSjdBSDNlNzAvN0hYN3VNN0g2Y3Q0b2JGRDlNSWpwc09QdDR2UXBW?=
+ =?utf-8?B?N1JBNWthQ3BiUHFIWGVqVzkvc0Z3MFRzTWRJWHYxTXVmUDdKeTZJY2hxSEJm?=
+ =?utf-8?Q?4SgGM6?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(36860700013)(82310400026)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2025 19:36:07.4667
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: O9SdnWiGFQ3Jp1ZX++6oegkKC7WdXRKNf18Ei2ExSSfe/SJ5YuomPmbBU8Cqd9am+Hzr9AOPkUDe2eY1a/JT+fvFYDXps2kcDEdztlpNPSY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR03MB9671
+X-MS-Exchange-CrossTenant-Network-Message-Id: d61780af-f4b9-4570-f088-08ddd9d77bd7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF00026367.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5824
 
-MISRA C Rule 2.1 states: "A project shall not contain unreachable code."
+On 2025-08-12 15:10, Andrew Cooper wrote:
+> On 12/08/2025 8:00 pm, Jason Andryuk wrote:
+>> VIRQs come in 3 flavors, per-VPU, per-domain, and global.  The existing
+>> tracking of VIRQs is handled by per-cpu variables virq_to_irq.
+>>
+>> The issue is that bind_virq_to_irq() sets the per_cpu virq_to_irq at
+>> registration time - typically CPU 0.  Later, the interrupt can migrate,
+>> and info->cpu is updated.  When calling unbind_from_irq(), the per-cpu
+>> virq_to_irq is cleared for a different cpu.  If bind_virq_to_irq() is
+>> called again with CPU 0, the stale irq is returned.
+>>
+>> Change the virq_to_irq tracking to use CPU 0 for per-domain and global
+>> VIRQs.  As there can be at most one of each, there is no need for
+>> per-vcpu tracking.  Also, per-domain and global VIRQs need to be
+>> registered on CPU 0 and can later move, so this matches the expectation.
+>>
+>> Fixes: e46cdb66c8fc ("xen: event channels")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+>> ---
+>> Fixes is the introduction of the virq_to_irq per-cpu array.
+>>
+>> This was found with the out-of-tree argo driver during suspend/resume.
+>> On suspend, the per-domain VIRQ_ARGO is unbound.  On resume, the driver
+>> attempts to bind VIRQ_ARGO.  The stale irq is returned, but the
+>> WARN_ON(info == NULL || info->type != IRQT_VIRQ) in bind_virq_to_irq()
+>> triggers for NULL info.  The bind fails and execution continues with the
+>> driver trying to clean up by unbinding.  This eventually faults over the
+>> NULL info.
+> 
+> I don't think the Fixes: tag is entirely appropriate.
+> 
+> per-domain VIRQs were created (unexpectedly) by the merge of ARGO into
+> Xen.  It was during some unrelated cleanup that this was noticed and
+> bugfixed into working.  i.e. the ARGO VIRQ is the singular weird one here.
+> 
+> In Xen we did accept that per-domain VIRQs now exist; they had for
+> several releases before we realised.
 
-Function `PrintErrMesg(const CHAR16*, EFI_STATUS)` isn't intended to return
-control to its caller. At the end, it calls `blexit()`, which, in turn,
-invokes the `__builtin_unreachable()` function, making subsequent return
-statements in `read_file()` unreachable:
+AFAICT, global VIRQs have the same issue - I think they just aren't 
+unbound and rebound.  I just happened to trigger this with the 
+per-domain ARGO VIRQ.
 
-    PrintErrMesg(name, ret);
-    /* not reached */
-    return false;
+I double checked, and the cpu is updated like so:
 
-This also causes unreachability of the code meant to handle `read_file()`
-errors, as seen in these examples:
+set_affinity_irq()
+   rebind_irq_to_cpu()
+     bind_evtchn_to_cpu()
+       cpu_evtchn[chn] = cpu;
 
-In this block:
-    if ( read_file(dir_handle, file_name, &cfg, NULL) )
-        break;
-    *tail =3D 0;
-    }
-    if ( !tail )
-        blexit(L"No configuration file found.");
+unbind_from_irq()
+     case IRQT_VIRQ:
+         per_cpu(virq_to_irq, cpu_from_evtchn(evtchn))
+                 [index_from_irq(irq)] = -1;
 
-And here:
-    else if ( !read_file(dir_handle, cfg_file_name, &cfg, NULL) )
-        blexit(L"Configuration file not found.");
+cpu_from_evtchn()
+     return cpu_evtchn[evtchn];
 
-And here:
-    if ( !read_file(dir_handle, s2w(&name), &cfg, NULL) )
-    {
-        PrintStr(L"Chained configuration file '");
-        PrintStr(name.w);
-        efi_bs->FreePool(name.w);
-        blexit(L"'not found.");
-    }
+So global VIRQs were mis-tracked even in the Fixes commit.
 
-The issue arises because when an error occurs inside `read_file()`, it call=
-s
-`PrintErrMesg()` and does not return to the caller.
+Regards,
+Jason
 
-To address this the following changes are applied:
-1. Remove `PrintErrMesg(name, ret);` from the `read_file()` function.
-2. Replaced it with `PrintErr(name);`, which prints the file name and retur=
-ns
-   control to the caller.
-3. Change the `read_file()` return type from `bool` to `EFI_STATUS`, allowi=
-ng
-   file operation result codes to be returned to the caller.
-4. Properly handle error codes returned from the `read_file()` function in =
-the
-   relevant areas of the code.
-5. Replace `blexit()` calls with informative error codes using `PrintErrMes=
-g()`
-   where appropriate.
+>> ---
+>>   drivers/xen/events/events_base.c | 17 ++++++++++++++++-
+>>   1 file changed, 16 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
+>> index 41309d38f78c..a27e4d7f061e 100644
+>> --- a/drivers/xen/events/events_base.c
+>> +++ b/drivers/xen/events/events_base.c
+>> @@ -159,7 +159,19 @@ static DEFINE_MUTEX(irq_mapping_update_lock);
+>>   
+>>   static LIST_HEAD(xen_irq_list_head);
+>>   
+>> -/* IRQ <-> VIRQ mapping. */
+>> +static bool is_per_vcpu_virq(int virq) {
+>> +	switch (virq) {
+>> +	case VIRQ_TIMER:
+>> +	case VIRQ_DEBUG:
+>> +	case VIRQ_XENOPROF:
+>> +	case VIRQ_XENPMU:
+>> +		return true;
+>> +	default:
+>> +		return false;
+>> +	}
+>> +}
+>> +
+>> +/* IRQ <-> VIRQ mapping.  Global/Domain virqs are tracked in cpu 0.  */
+>>   static DEFINE_PER_CPU(int [NR_VIRQS], virq_to_irq) = {[0 ... NR_VIRQS-1] = -1};
+>>   
+>>   /* IRQ <-> IPI mapping */
+>> @@ -974,6 +986,9 @@ static void __unbind_from_irq(struct irq_info *info, unsigned int irq)
+>>   
+>>   		switch (info->type) {
+>>   		case IRQT_VIRQ:
+>> +			if (!is_per_vcpu_virq(virq_from_irq(info)))
+>> +				cpu = 0;
+>> +
+>>   			per_cpu(virq_to_irq, cpu)[virq_from_irq(info)] = -1;
+>>   			break;
+>>   		case IRQT_IPI:
+> 
 
-Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
----
-Test CI pipeline:
-https://gitlab.com/xen-project/people/dimaprkp4k/xen/-/pipelines/1980590118
----
- xen/common/efi/boot.c | 57 ++++++++++++++++++++++++++++++-------------
- 1 file changed, 40 insertions(+), 17 deletions(-)
-
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index 50ff1d1bd2..ddbafb2f9c 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -132,7 +132,7 @@ struct file {
-     };
- };
-=20
--static bool read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
-+static EFI_STATUS read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
-                       struct file *file, const char *options);
- static bool read_section(const EFI_LOADED_IMAGE *image, const CHAR16 *name=
-,
-                          struct file *file, const char *options);
-@@ -782,7 +782,7 @@ static void __init handle_file_info(const CHAR16 *name,
-     efi_arch_handle_module(file, name, options);
- }
-=20
--static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
-+static EFI_STATUS __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *nam=
-e,
-                              struct file *file, const char *options)
- {
-     EFI_FILE_HANDLE FileHandle =3D NULL;
-@@ -791,7 +791,7 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle=
-, CHAR16 *name,
-     const CHAR16 *what =3D NULL;
-=20
-     if ( !name )
--        PrintErrMesg(L"No filename", EFI_OUT_OF_RESOURCES);
-+        return EFI_INVALID_PARAMETER;
-=20
-     what =3D L"Open";
-     if ( dir_handle )
-@@ -842,7 +842,7 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle=
-, CHAR16 *name,
-=20
-     efi_arch_flush_dcache_area(file->ptr, file->size);
-=20
--    return true;
-+    return ret;
-=20
-  fail:
-     if ( FileHandle )
-@@ -850,10 +850,9 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handl=
-e, CHAR16 *name,
-=20
-     PrintErr(what);
-     PrintErr(L" failed for ");
--    PrintErrMesg(name, ret);
-+    PrintErr(name);
-=20
--    /* not reached */
--    return false;
-+    return ret;
- }
-=20
- static bool __init read_section(const EFI_LOADED_IMAGE *image,
-@@ -1433,18 +1432,20 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE Im=
-ageHandle,
-             while ( (tail =3D point_tail(file_name)) !=3D NULL )
-             {
-                 wstrcpy(tail, L".cfg");
--                if ( read_file(dir_handle, file_name, &cfg, NULL) )
-+                if ( (status =3D read_file(dir_handle, file_name,
-+                                         &cfg, NULL)) =3D=3D EFI_SUCCESS )
-                     break;
-                 *tail =3D 0;
-             }
-             if ( !tail )
--                blexit(L"No configuration file found.");
-+                PrintErrMesg(L"Configuration file failure.", status);
-             PrintStr(L"Using configuration file '");
-             PrintStr(file_name);
-             PrintStr(L"'\r\n");
-         }
--        else if ( !read_file(dir_handle, cfg_file_name, &cfg, NULL) )
--            blexit(L"Configuration file not found.");
-+        else if ( (status =3D read_file(dir_handle, cfg_file_name,
-+                                      &cfg, NULL)) !=3D EFI_SUCCESS )
-+            PrintErrMesg(L"Configuration file failure.", status);
-         pre_parse(&cfg);
-=20
-         if ( section.w )
-@@ -1465,12 +1466,13 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE Im=
-ageHandle,
-                 efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
-                 cfg.need_to_free =3D false;
-             }
--            if ( !read_file(dir_handle, s2w(&name), &cfg, NULL) )
-+            if ( (status =3D read_file(dir_handle, s2w(&name),
-+                                     &cfg, NULL)) !=3D EFI_SUCCESS )
-             {
--                PrintStr(L"Chained configuration file '");
-+                PrintStr(L"Configuration file '");
-                 PrintStr(name.w);
-                 efi_bs->FreePool(name.w);
--                blexit(L"'not found.");
-+                PrintErrMesg(L"'failure.", status);
-             }
-             pre_parse(&cfg);
-             efi_bs->FreePool(name.w);
-@@ -1483,7 +1485,14 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE Ima=
-geHandle,
-         if ( !read_section(loaded_image, L"kernel", &kernel, option_str) &=
-&
-              name.s )
-         {
--            read_file(dir_handle, s2w(&name), &kernel, option_str);
-+            status =3D read_file(dir_handle, s2w(&name), &kernel, option_s=
-tr);
-+            if ( status !=3D EFI_SUCCESS )
-+            {
-+                PrintStr(L"Configuration file '");
-+                PrintStr(name.w);
-+                efi_bs->FreePool(name.w);
-+                PrintErrMesg(L"'failure.", status);
-+            }
-             efi_bs->FreePool(name.w);
-         }
-         else
-@@ -1497,7 +1506,14 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE Ima=
-geHandle,
-             name.s =3D get_value(&cfg, section.s, "ramdisk");
-             if ( name.s )
-             {
--                read_file(dir_handle, s2w(&name), &ramdisk, NULL);
-+                status =3D read_file(dir_handle, s2w(&name), &ramdisk, NUL=
-L);
-+                if ( status !=3D EFI_SUCCESS )
-+                {
-+                    PrintStr(L"Configuration file '");
-+                    PrintStr(name.w);
-+                    efi_bs->FreePool(name.w);
-+                    PrintErrMesg(L"'failure.", status);
-+                }
-                 efi_bs->FreePool(name.w);
-             }
-         }
-@@ -1507,7 +1523,14 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE Ima=
-geHandle,
-             name.s =3D get_value(&cfg, section.s, "xsm");
-             if ( name.s )
-             {
--                read_file(dir_handle, s2w(&name), &xsm, NULL);
-+                status =3D read_file(dir_handle, s2w(&name), &xsm, NULL);
-+                if ( status !=3D EFI_SUCCESS )
-+                {
-+                    PrintStr(L"Configuration file '");
-+                    PrintStr(name.w);
-+                    efi_bs->FreePool(name.w);
-+                    PrintErrMesg(L"'failure.", status);
-+                }
-                 efi_bs->FreePool(name.w);
-             }
-         }
---=20
-2.43.0
 
