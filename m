@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E556B22B20
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 16:53:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1078791.1439829 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71B54B22B67
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 17:08:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1078806.1439839 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulqMk-0004hb-1I; Tue, 12 Aug 2025 14:52:42 +0000
+	id 1ulqbr-0006aL-CC; Tue, 12 Aug 2025 15:08:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1078791.1439829; Tue, 12 Aug 2025 14:52:41 +0000
+Received: by outflank-mailman (output) from mailman id 1078806.1439839; Tue, 12 Aug 2025 15:08:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulqMj-0004fA-U0; Tue, 12 Aug 2025 14:52:41 +0000
-Received: by outflank-mailman (input) for mailman id 1078791;
- Tue, 12 Aug 2025 14:52:41 +0000
+	id 1ulqbr-0006Y6-9R; Tue, 12 Aug 2025 15:08:19 +0000
+Received: by outflank-mailman (input) for mailman id 1078806;
+ Tue, 12 Aug 2025 15:08:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OhhA=2Y=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1ulqMi-0004es-N5
- for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 14:52:41 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ <SRS0=x9jM=2Y=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1ulqbq-0006Y0-1R
+ for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 15:08:18 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fd2410d0-778b-11f0-a327-13f23c93f187;
- Tue, 12 Aug 2025 16:52:39 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-61580eb7995so11235477a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 07:52:38 -0700 (PDT)
-Received: from [192.168.1.17] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-615a8f28374sm20606620a12.24.2025.08.12.07.52.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Aug 2025 07:52:36 -0700 (PDT)
+ id 2cca1aab-778e-11f0-a327-13f23c93f187;
+ Tue, 12 Aug 2025 17:08:17 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3b914a9c77dso450334f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 08:08:17 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-3b8f5d7deaasm23807813f8f.65.2025.08.12.08.08.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 12 Aug 2025 08:08:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,865 +45,685 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd2410d0-778b-11f0-a327-13f23c93f187
+X-Inumbo-ID: 2cca1aab-778e-11f0-a327-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1755010357; x=1755615157; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vcsLAubzFhAWxIF25HITPyXvlnHVvVmwmyePy+kyVVc=;
-        b=B72wJobrESusdJ7vTvT6k+AqZJYyxbLBOf6e55O7Q3kyjMtWIVZLfsif0gVeW+hI7G
-         ELKSDKH5fhBaTMQdgwrlGnqOiuBgu4d9ZqSzW5Jtj11JHX71DLKVCDkAHwgAiPNYhL9Q
-         rjoAVu8ccKDZ8V/Setjdivui3yWHQMbA+DI6aqbEvhdUu2C1ZR2ZPt0r24zYj3FRPP9F
-         UGXZl5F74p3ble6dMHN3UCDwPfMXQLCwx9oQTvZNr7HTVa2BmdDWl4Zz9t67OJ3s9W7A
-         nBiv/bIzGCCHZHtVeuQFKuiMjnKrwzH+zmMHKE6WzotPwuzILLrbuY/RWCFe8LemK0Hc
-         slHg==
+        d=citrix.com; s=google; t=1755011296; x=1755616096; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=qUsMnAiYc/4Og+0dMtt5CNY6KmtsY345nCph8lKlO3w=;
+        b=NykQsqGpzDJAxRPT+NvUQBMmnBmm3FMp748IdPqgK7wti4pbRSv4a286wH8wABSpoP
+         P80njjiOa7sihUGxRgz6+nqQmnFmsPk3poEiaVmKSa7g93N6KaSkeaYagwp6TRJrShMx
+         /Mg9AKMf7hzyb1vpgbSRzuQgVHVDWj8S4hA4I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755010357; x=1755615157;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=vcsLAubzFhAWxIF25HITPyXvlnHVvVmwmyePy+kyVVc=;
-        b=MBys+TT0AvyEUOYlr1Yv3kw0tot56iHFjOoqEoMHh+TUw/BnGxl3CvTZ84yvSo4LqJ
-         q9/4zq0MEqOK27J0SXSgJv3YgUJduoGfknhL7wvhPfCxPXmGoQnVg84HFhH3K63+Ilj2
-         M1gSpJxkoLhldzP2O1skA9nWCrCKCiyZFUApEhxBOIL+LZHZXqWCiuEOZQxaV7hlWfQZ
-         fQ6tA26yTt+v0ineoAe8Wv0tQGFXrt20B8m3iB5+OYmq8GIjqXVBr7p/H/PlccyFHrep
-         HjWH+GOCq0kcksNejMPzzCa0z4ZD5EWbZQp2cKvp6GaN0pWfb1vSREzwEOdYZ6ZvbA7q
-         BIvg==
-X-Forwarded-Encrypted: i=1; AJvYcCXgcxHiVVGXkABtvVacXSSeI9188AGN+c3naFiGHiAwSvJaNTF55t8gOfC9tmmNeC2qsM8Tr2Pdyns=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxfWbgxtpkw1sLghqroO98KaCqDBoeINYgPRWwURrk45Fynj/8R
-	s3QEDOTFgtv5+SCwKQr6AaSfed14zzhxRk7tg6jc/r+shZVGw1FEWNXQ
-X-Gm-Gg: ASbGncv1d7GonnQ4VjwsKyMmF30wHtK6aNAdWuQRNx/4OWvNa/pT4W0kPrEO6WDZb2s
-	cdH93RP60VqCqteSUq9TheL/WugVfb3SQQ3Kf36RLOZV8yWYa2gVEJ0PmbN6cX3zdXTx+Jj4KNQ
-	NCqTaBVz1gbbNYJikgQEYWNyYgir0w8V+sFx3XQmZ75m5PLBzARpK3VBdXF6YNSHlm2JHLhGWqx
-	ZVMA9V3wNmG5tlP7aNhsO02pRDuuY3kbA4Xjm4zwXhVImRV2uRgtM66Fd5UYRKBFOL3SwOzO1/D
-	gvN7rAMX4LCfMa0/86LpV8DQLYjXCGHdHpgZ6CzrIlZx9teZOUiad4kxh2ar/ZyhNolWJxgiE4o
-	f1SE8OX/WLCLycwem8gxoPeqa9KoELFLbdfSszdwBaIEEEh5sUnEEIAEVGInxXdfWbK6iMZ2J
-X-Google-Smtp-Source: AGHT+IFhaJNYuEt2o1kce8dIKJ1aA2RRtRhSCokuvH9RkfNga3OWtUNk7/5sBX2UTtnTByuUUzwfmQ==
-X-Received: by 2002:a50:9356:0:b0:615:7e88:ef95 with SMTP id 4fb4d7f45d1cf-6184dbb3101mr2134601a12.11.1755010356974;
-        Tue, 12 Aug 2025 07:52:36 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------nNjh60kUbwPkc03zVml00qG0"
-Message-ID: <b8781695-5fb4-456b-8c40-6bebea5a1af5@gmail.com>
-Date: Tue, 12 Aug 2025 16:52:35 +0200
+        d=1e100.net; s=20230601; t=1755011296; x=1755616096;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=qUsMnAiYc/4Og+0dMtt5CNY6KmtsY345nCph8lKlO3w=;
+        b=fM+RbDx3t7bpSUyoY1IdWyH9z/pjczxllsOc8vbNLNpCjBoxBzIgS28HFqhVIQb3D6
+         ppMAFBK9vb46SbUqDKwcJO//e9Q6UaQXt9wMNEChQ0zoPKBTvYQd4RsJHZnAuAgWWVwF
+         0H+Cll1P+3R2tn++HOUtA9y+XB8sL3DloSX1LOoBGysWQuqiouwLBcyWg4SLHVF8yw4G
+         t37UnFurSfoKA11ov7Lt/6ewRVxRD2zzeizL64oPQFzE/Ira13c+7rlzDI6PAEmfhHBM
+         nJATk4zF2/wJ7lWVVC9lFt32MgrvRX+DfDjsg/ps2BE+9Sr+v7hbnYU1NJ3Ua8i6x8jh
+         Ng6Q==
+X-Gm-Message-State: AOJu0Yx6m7BO2NJSXc8UWGDKfpCgMBG7q21+lIo+ATMXhZbsSNZoJrQh
+	qM+uIYGuAXspYco90JQMVzjQXpLfHqfmT/JEPOYt6n1y00hyEIDdmB/5s4C/TeK9EU+9mh9UYVk
+	CwwlW
+X-Gm-Gg: ASbGncvIRpnRQ1EEEiGNrRi1xdVTZ3Schx24Sn8WLwU+Qf6SFGGs55kdW4kVRlfvYzf
+	OP6KBq/pSqeY0ZsLfIbK3CYt1G4Oih+H9p4HaU4Mo2XIx1qlRpATMwfDdbvg3ye+r/GA0IMKc1t
+	gRA9j9E6/xTGOaMNtQbUZLZzGPTxnTtAGicgPxdIPpwjv+zdPxgB1jETBAJFwYIKBzey3nOstKU
+	7Tigf8rSM6gake13al1n/NMe7+NagIEzoGk6LSnYBjtWmhgD6xFzI5tl/kfUa8zu6KvpXXDzQnc
+	bCQQG0pe9ifa2LqwlK+u8nHWh/pCKR+JwjekmcWErkzUu/fOiJtnqO/YgGLwCTTFoxmfwQROyV8
+	U5b7s2S58F9nEuKt2ZJL7AdlRWoWYjkfDBv8xRsGn7VPG0PqwFwey07UWe9JYTRwOKw==
+X-Google-Smtp-Source: AGHT+IG+FQelw2vMQPdE/0azStuo5SvBxRWN0cxLaQWb5zTW50nmKbTHM6lBqDXXWTT3oZ7OE1uCwA==
+X-Received: by 2002:a05:6000:200f:b0:3b7:940e:6520 with SMTP id ffacd0b85a97d-3b900b2d7d1mr11598431f8f.18.1755011295507;
+        Tue, 12 Aug 2025 08:08:15 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Community Manager <community.manager@xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v5] pdx: introduce a new compression algorithm based on region offsets
+Date: Tue, 12 Aug 2025 17:06:24 +0200
+Message-ID: <20250812150624.64898-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 20/20] xen/riscv: introduce metadata table to store P2M
- type
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
- <802d757c167121c0a5ae2e529f5a365f779c5e59.1753973161.git.oleksii.kurochko@gmail.com>
- <12adb163-5f6b-4478-9592-7423b8db69a9@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <12adb163-5f6b-4478-9592-7423b8db69a9@suse.com>
-
-This is a multi-part message in MIME format.
---------------nNjh60kUbwPkc03zVml00qG0
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+With the appearance of Intel Sierra Forest and Granite Rapids it's now
+possible to get a production x86 host with the following memory map:
 
-On 8/11/25 5:44 PM, Jan Beulich wrote:
-> On 31.07.2025 17:58, Oleksii Kurochko wrote:
->> RISC-V's PTE has only two available bits that can be used to store the P2M
->> type. This is insufficient to represent all the current RISC-V P2M types.
->> Therefore, some P2M types must be stored outside the PTE bits.
->>
->> To address this, a metadata table is introduced to store P2M types that
->> cannot fit in the PTE itself. Not all P2M types are stored in the
->> metadata table—only those that require it.
->>
->> The metadata table is linked to the intermediate page table via the
->> `struct page_info`'s list field of the corresponding intermediate page.
->>
->> To simplify the allocation and linking of intermediate and metadata page
->> tables, `p2m_{alloc,free}_table()` functions are implemented.
->>
->> These changes impact `p2m_split_superpage()`, since when a superpage is
->> split, it is necessary to update the metadata table of the new
->> intermediate page table — if the entry being split has its P2M type set
->> to `p2m_ext_storage` in its `P2M_TYPES` bits.
-> Oh, this was an aspect I didn't realize when commenting on the name of
-> the enumerator. I think you want to keep the name for the purpose here,
-> but you better wouldn't apply relational operators to it (and hence
-> have a second value to serve that purpose).
+SRAT: Node 0 PXM 0 [0000000000000000, 000000007fffffff]
+SRAT: Node 0 PXM 0 [0000000100000000, 000000807fffffff]
+SRAT: Node 1 PXM 1 [0000063e80000000, 000006be7fffffff]
+SRAT: Node 2 PXM 2 [00000c7e80000000, 00000cfe7fffffff]
+SRAT: Node 3 PXM 3 [000012be80000000, 0000133e7fffffff]
 
-It could be done in this way, but I think that it would be better just to have
-one value with a better name as I suggested in the reply to other patch.
+This is from a four socket Granite Rapids system, with each node having
+512GB of memory.  The total amount of RAM on the system is 2TB, but without
+enabling CONFIG_BIGMEM the last range is not accessible, as it's above the
+16TB boundary covered by the frame table. Sierra Forest and Granite Rapids
+are socket compatible, however Sierra Forest only supports 2 socket
+configurations, while Granite Rapids can go up to 8 sockets.
 
->
->> In addition to updating
->> the metadata of the new intermediate page table, the corresponding entry
->> in the metadata for the original superpage is invalidated.
->>
->> Also, update p2m_{get,set}_type to work with P2M types which don't fit
->> into PTE bits.
->>
->> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
-> No Suggested-by: or anything?
+Note that while the memory map is very sparse, it couldn't be compressed
+using the current PDX_MASK compression algorithm, which relies on all
+ranges having a shared zeroed region of bits that can be removed.
 
-Sorry for that, Suggested-by should be added here, I'll fix that in the
-next patch series version.
+The memory map presented above has the property of all regions being
+similarly spaced between each other, and all having also a similar size.
+Use a lookup table to store the offsets to translate from/to PFN and PDX
+spaces.  Such table is indexed based on the input PFN or PDX to translated.
+The example PFN layout about would get compressed using the following:
 
->
->> --- a/xen/arch/riscv/include/asm/mm.h
->> +++ b/xen/arch/riscv/include/asm/mm.h
->> @@ -150,6 +150,15 @@ struct page_info
->>               /* Order-size of the free chunk this page is the head of. */
->>               unsigned int order;
->>           } free;
->> +
->> +        /* Page is used to store metadata: p2m type. */
-> That's not correct. The page thus described is what the pointer below
-> points to. Here it's more like "Page is used as an intermediate P2M
-> page table".
->
->> +        struct {
->> +            /*
->> +             * Pointer to a page which store metadata for an intermediate page
->> +             * table.
->> +             */
->> +            struct page_info *metadata;
->> +        } md;
-> In the description you say you would re-use the list field.
+PFN compression using PFN lookup table shift 29 and PDX region size 0x10000000
+ range 0 [0000000000000, 0x0000807ffff] PFN IDX  0 : 0000000000000
+ range 1 [0x00063e80000, 0x0006be7ffff] PFN IDX  3 : 0x00053e80000
+ range 2 [0x000c7e80000, 0x000cfe7ffff] PFN IDX  6 : 0x000a7e80000
+ range 3 [0x0012be80000, 0x00133e7ffff] PFN IDX  9 : 0x000fbe80000
 
-It was so in a first version of storing P2M type outside PTE bits, so, it is a
-stale part of the commit message. I'll correct it.
+Note how the tow ranges belonging to node 0 get merged into a single PDX
+region by the compression algorithm.
 
->
->> --- a/xen/arch/riscv/p2m.c
->> +++ b/xen/arch/riscv/p2m.c
->> @@ -101,7 +101,16 @@ static int p2m_alloc_root_table(struct p2m_domain *p2m)
->>   {
->>       struct domain *d = p2m->domain;
->>       struct page_info *page;
->> -    const unsigned int nr_root_pages = P2M_ROOT_PAGES;
->> +    /*
->> +     * If the root page table starts at Level <= 2, and since only 1GB, 2MB,
->> +     * and 4KB mappings are supported (as enforced by the ASSERT() in
->> +     * p2m_set_entry()), it is necessary to allocate P2M_ROOT_PAGES for
->> +     * the root page table itself, plus an additional P2M_ROOT_PAGES for
->> +     * metadata storage. This is because only two free bits are available in
->> +     * the PTE, which are not sufficient to represent all possible P2M types.
->> +     */
->> +    const unsigned int nr_root_pages = P2M_ROOT_PAGES *
->> +                                       ((P2M_ROOT_LEVEL <= 2) ? 2 : 1);
->>   
->>       /*
->>        * Return back nr_root_pages to assure the root table memory is also
->> @@ -114,6 +123,23 @@ static int p2m_alloc_root_table(struct p2m_domain *p2m)
->>       if ( !page )
->>           return -ENOMEM;
->>   
->> +    if ( P2M_ROOT_LEVEL <= 2 )
->> +    {
->> +        /*
->> +         * In the case where P2M_ROOT_LEVEL <= 2, it is necessary to allocate
->> +         * a page of the same size as that used for the root page table.
->> +         * Therefore, p2m_allocate_root() can be safely reused.
->> +         */
->> +        struct page_info *metadata = p2m_allocate_root(d);
->> +        if ( !metadata )
->> +        {
->> +            free_domheap_pages(page, P2M_ROOT_ORDER);
->> +            return -ENOMEM;
->> +        }
->> +
->> +        page->v.md.metadata = metadata;
-> Don't you need to install such a link for every one of the 4 pages?
+The default size of lookup tables currently set in Kconfig is 64 entries,
+and the example memory map consumes 10 entries.  Such memory map is from a
+4 socket Granite Rapids host, which in theory supports up to 8 sockets
+according to Intel documentation.  Assuming the layout of a 8 socket system
+is similar to the 4 socket one, it would require 21 lookup table entries to
+support it, way below the current default of 64 entries.
 
-Yes, I need to do that. Thanks.
+The valid range of lookup table size is currently restricted from 1 to 512
+elements in Kconfig.
 
->
->> @@ -198,24 +224,25 @@ static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
->>       return __map_domain_page(p2m->root + root_table_indx);
->>   }
->>   
->> -static int p2m_set_type(pte_t *pte, p2m_type_t t)
->> +static void p2m_set_type(pte_t *pte, const p2m_type_t t, const unsigned int i)
->>   {
->> -    int rc = 0;
->> -
->>       if ( t > p2m_ext_storage )
->> -        panic("unimplemeted\n");
->> +    {
->> +        ASSERT(pte);
->> +
->> +        pte[i].pte = t;
-> What does i identify here?
+An extra array is used to keep track of the base PFN for each translated
+range.  Non used slots are set to ~0UL, so that in mfn_valid() the mfn <
+base check always fails, thus reporting the mfn as invalid.
 
-An index in metadata page where P2M type for corresponding PTE is stored.
-I will re-name it to metadata_indx for more clarity.
+Introduce __init_or_pdx_mask and use it on some shared functions between
+PDX mask and offset compression, as otherwise some code becomes unreachable
+after boot if PDX offset compression is used.  Mark the code as __init in
+that case, so it's pruned after boot.
 
->
->> +    }
->>       else
->>           pte->pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
->> -
->> -    return rc;
->>   }
->>   
->> -static p2m_type_t p2m_get_type(const pte_t pte)
->> +static p2m_type_t p2m_get_type(const pte_t pte, const pte_t *metadata,
->> +                               const unsigned int i)
->>   {
->>       p2m_type_t type = MASK_EXTR(pte.pte, P2M_TYPE_PTE_BITS_MASK);
->>   
->>       if ( type == p2m_ext_storage )
->> -        panic("unimplemented\n");
->> +        type = metadata[i].pte;
->>   
->>       return type;
->>   }
-> Overall this feels pretty fragile, as the caller has to pass several values
-> which all need to be in sync with one another. If you ...
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+Changes since v4:
+ - Fold pfn_offset_sanitize_ranges() into pfn_pdx_compression_setup().
+ - Fix usage of SWAP().
+ - Indented code block added to mfn_valid().
+ - Optimize a loop.
+ - Move definition of pdx_region_size.
 
-Generally, agree it is fragile enough.
+Changes since v3:
+ - Rename __init_or_pdx_mask.
+ - Reorder logic in pfn_offset_sanitize_ranges() to reduce code.
+ - Print a message if the table index is truncated from what would be
+   required to represent all input ranges independently.
+ - Cast size to paddr_t for pdx_init_mask() call.
 
->
->> @@ -265,7 +292,10 @@ static void p2m_set_permission(pte_t *e, p2m_type_t t)
->>       }
->>   }
->>   
->> -static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t, bool is_table)
->> +static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t,
->> +                              struct page_info *metadata_pg,
->> +                              const unsigned int indx,
->> +                              bool is_table)
->>   {
->>       pte_t e = (pte_t) { PTE_VALID };
->>   
->> @@ -285,12 +315,21 @@ static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t, bool is_table)
->>   
->>       if ( !is_table )
->>       {
->> +        pte_t *metadata = __map_domain_page(metadata_pg);
-> ... map the page anyway, no matter whether ...
->
->>           p2m_set_permission(&e, t);
->>   
->> +        metadata[indx].pte = p2m_invalid;
->> +
->>           if ( t < p2m_ext_storage )
->> -            p2m_set_type(&e, t);
->> +            p2m_set_type(&e, t, indx);
->>           else
->> -            panic("unimplemeted\n");
->> +        {
->> +            e.pte |= MASK_INSR(p2m_ext_storage, P2M_TYPE_PTE_BITS_MASK);
->> +            p2m_set_type(metadata, t, indx);
->> +        }
-> ... you'll actually use it, maybe best to map both pages at the same point?
+Changes since v2:
+ - s/PDX_OFFSET_TLB_ORDER/PDX_OFFSET_TBL_ORDER/.
+ - Fix changelog mention of Sapphire Rapids.
+ - Misc fixes in the test harness.
+ - Use SWAP() macro.
+ - Introduce an extra table to keep the bases of the valid ranges.
 
-Only one page is mapped here (?) and it should be mapped here, I suppose, it could be a case
-when a previous set type is overwritten, so, it could be needed to invalidate a type written
-in metadata.
+Changes since v1:
+ - Use a lookup table with the offsets.
+ - Split the adding of the test to a pre-patch.
+ - Amend diagram to also show possible padding after compression.
+---
+ CHANGELOG.md               |   3 +
+ tools/tests/pdx/.gitignore |   1 +
+ tools/tests/pdx/Makefile   |   3 +-
+ tools/tests/pdx/harness.h  |  14 +++
+ tools/tests/pdx/test-pdx.c |   4 +
+ xen/common/Kconfig         |  21 +++-
+ xen/common/pdx.c           | 241 ++++++++++++++++++++++++++++++++++++-
+ xen/include/xen/pdx.h      |  87 ++++++++++++-
+ 8 files changed, 368 insertions(+), 6 deletions(-)
 
-> And as said elsewhere, no, I don't think you want to use p2m_set_type() for
-> two entirely different purposes.
-
-I wasn't very happy too, but, at the same time I didn't want to have a prototype where
-it isn't really clear when it is needed to pass metadata and where it is not. But considering
-your comments then this one solution isn't good too. So maybe it would be better just have
-two separate functions: p2m_set_pte_type() and p2m_set_metadata_type().
-
->
->> @@ -323,22 +364,71 @@ static struct page_info *p2m_alloc_page(struct p2m_domain *p2m)
->>       return pg;
->>   }
->>   
->> +static void p2m_free_page(struct p2m_domain *p2m, struct page_info *pg);
->> +
->> +/*
->> + * Allocate a page table with an additional extra page to store
->> + * metadata for each entry of the page table.
->> + * Link this metadata page to page table page's list field.
->> + */
->> +static struct page_info * p2m_alloc_table(struct p2m_domain *p2m)
-> Nit: Stray blank after * again.
->
->> +{
->> +    enum table_type
->> +    {
->> +        INTERMEDIATE_TABLE=0,
-> If you really think you need the "= 0", then please with blanks around '='.
->
->> +        /*
->> +         * At the moment, metadata is going to store P2M type
->> +         * for each PTE of page table.
->> +         */
->> +        METADATA_TABLE,
->> +        TABLE_MAX
->> +    };
->> +
->> +    struct page_info *tables[TABLE_MAX];
->> +
->> +    for ( unsigned int i = 0; i < TABLE_MAX; i++ )
->> +    {
->> +        tables[i] = p2m_alloc_page(p2m);
->> +
->> +        if ( !tables[i] )
->> +            goto out;
->> +
->> +        clear_and_clean_page(tables[i]);
->> +    }
->> +
->> +    tables[INTERMEDIATE_TABLE]->v.md.metadata = tables[METADATA_TABLE];
->> +
->> +    return tables[INTERMEDIATE_TABLE];
->> +
->> + out:
->> +    for ( unsigned int i = 0; i < TABLE_MAX; i++ )
->> +        if ( tables[i] )
-> You didn't clear all of tables[] first, though.
-
-Oh, right, i missed an initalizer for tables[] array.
-
->   This kind of cleanup is
-> often better done as
->
->      while ( i-- > 0 )
->          ...
->
-> You don't even need an if() then, as you know allocations succeeded for all
-> earlier array slots.
-
-Yes, it looks very nice.
-
->
->> +            p2m_free_page(p2m, tables[i]);
->> +
->> +    return NULL;
->> +}
-> I'm also surprised you allocate the metadata table no matter whether you'll
-> actually need it. That'll double your average paging pool usage, when in a
-> typical case only very few entries would actually require this extra
-> storage.
-
-Nice point, we could really do a delayed allocation instead and allocate only
-when requested P2M type is > p2m_ext_storage.
-I'll implement that.
-
->
->> @@ -453,10 +543,9 @@ static void p2m_put_2m_superpage(mfn_t mfn, p2m_type_t type)
->>   }
->>   
->>   /* Put any references on the page referenced by pte. */
->> -static void p2m_put_page(const pte_t pte, unsigned int level)
->> +static void p2m_put_page(const pte_t pte, unsigned int level, p2m_type_t p2mt)
->>   {
->>       mfn_t mfn = pte_get_mfn(pte);
->> -    p2m_type_t p2m_type = p2m_get_type(pte);
->>   
->>       ASSERT(pte_is_valid(pte));
->>   
->> @@ -470,10 +559,10 @@ static void p2m_put_page(const pte_t pte, unsigned int level)
->>       switch ( level )
->>       {
->>       case 1:
->> -        return p2m_put_2m_superpage(mfn, p2m_type);
->> +        return p2m_put_2m_superpage(mfn, p2mt);
->>   
->>       case 0:
->> -        return p2m_put_4k_page(mfn, p2m_type);
->> +        return p2m_put_4k_page(mfn, p2mt);
->>       }
->>   }
-> Might it be better to introduce this function in this shape right away, in
-> the earlier patch?
-
-Agree, probably, I did that intentionally, but I don't remember why. I will try to
-avoid these changes in this patch as it looks unnecessary here.
-
->
->> @@ -690,18 +791,23 @@ static int p2m_set_entry(struct p2m_domain *p2m,
->>       {
->>           /* We need to split the original page. */
->>           pte_t split_pte = *entry;
->> +        struct page_info *metadata = virt_to_page(table)->v.md.metadata;
-> This (or along these lines) is how I would have expected things to be done
-> elsewhere as well, limiting the amount of arguments you need to pass
-> around.
-
-I will try to re-use this approach elsewhere I can.
-
-Thanks.
-
-~ Oleksii
-
---------------nNjh60kUbwPkc03zVml00qG0
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 8/11/25 5:44 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:12adb163-5f6b-4478-9592-7423b8db69a9@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 31.07.2025 17:58, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">RISC-V's PTE has only two available bits that can be used to store the P2M
-type. This is insufficient to represent all the current RISC-V P2M types.
-Therefore, some P2M types must be stored outside the PTE bits.
-
-To address this, a metadata table is introduced to store P2M types that
-cannot fit in the PTE itself. Not all P2M types are stored in the
-metadata table—only those that require it.
-
-The metadata table is linked to the intermediate page table via the
-`struct page_info`'s list field of the corresponding intermediate page.
-
-To simplify the allocation and linking of intermediate and metadata page
-tables, `p2m_{alloc,free}_table()` functions are implemented.
-
-These changes impact `p2m_split_superpage()`, since when a superpage is
-split, it is necessary to update the metadata table of the new
-intermediate page table — if the entry being split has its P2M type set
-to `p2m_ext_storage` in its `P2M_TYPES` bits.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Oh, this was an aspect I didn't realize when commenting on the name of
-the enumerator. I think you want to keep the name for the purpose here,
-but you better wouldn't apply relational operators to it (and hence
-have a second value to serve that purpose).</pre>
-    </blockquote>
-    <pre>It could be done in this way, but I think that it would be better just to have
-one value with a better name as I suggested in the reply to other patch.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:12adb163-5f6b-4478-9592-7423b8db69a9@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">In addition to updating
-the metadata of the new intermediate page table, the corresponding entry
-in the metadata for the original superpage is invalidated.
-
-Also, update p2m_{get,set}_type to work with P2M types which don't fit
-into PTE bits.
-
-Signed-off-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-No Suggested-by: or anything?</pre>
-    </blockquote>
-    <pre>Sorry for that, Suggested-by should be added here, I'll fix that in the
-next patch series version.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:12adb163-5f6b-4478-9592-7423b8db69a9@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/mm.h
-+++ b/xen/arch/riscv/include/asm/mm.h
-@@ -150,6 +150,15 @@ struct page_info
-             /* Order-size of the free chunk this page is the head of. */
-             unsigned int order;
-         } free;
-+
-+        /* Page is used to store metadata: p2m type. */
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-That's not correct. The page thus described is what the pointer below
-points to. Here it's more like "Page is used as an intermediate P2M
-page table".
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+        struct {
-+            /*
-+             * Pointer to a page which store metadata for an intermediate page
-+             * table.
-+             */
-+            struct page_info *metadata;
-+        } md;
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-In the description you say you would re-use the list field.</pre>
-    </blockquote>
-    <pre>It was so in a first version of storing P2M type outside PTE bits, so, it is a 
-stale part of the commit message. I'll correct it.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:12adb163-5f6b-4478-9592-7423b8db69a9@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/p2m.c
-+++ b/xen/arch/riscv/p2m.c
-@@ -101,7 +101,16 @@ static int p2m_alloc_root_table(struct p2m_domain *p2m)
- {
-     struct domain *d = p2m-&gt;domain;
-     struct page_info *page;
--    const unsigned int nr_root_pages = P2M_ROOT_PAGES;
-+    /*
-+     * If the root page table starts at Level &lt;= 2, and since only 1GB, 2MB,
-+     * and 4KB mappings are supported (as enforced by the ASSERT() in
-+     * p2m_set_entry()), it is necessary to allocate P2M_ROOT_PAGES for
-+     * the root page table itself, plus an additional P2M_ROOT_PAGES for
-+     * metadata storage. This is because only two free bits are available in
-+     * the PTE, which are not sufficient to represent all possible P2M types.
-+     */
-+    const unsigned int nr_root_pages = P2M_ROOT_PAGES *
-+                                       ((P2M_ROOT_LEVEL &lt;= 2) ? 2 : 1);
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 5f31ca08fe3f..f9ef893f4851 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -20,6 +20,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+      grant table or foreign memory.
  
+ ### Added
++ - Introduce new PDX compression algorithm to cope with Intel Sierra Forest and
++   Granite Rapids having sparse memory maps.
++
+  - On x86:
+    - Option to attempt to fixup p2m page-faults on PVH dom0.
+    - Resizable BARs is supported for PVH dom0.
+diff --git a/tools/tests/pdx/.gitignore b/tools/tests/pdx/.gitignore
+index a32c7db4de79..1202a531a7fd 100644
+--- a/tools/tests/pdx/.gitignore
++++ b/tools/tests/pdx/.gitignore
+@@ -1,2 +1,3 @@
+ /pdx.h
+ /test-pdx-mask
++/test-pdx-offset
+diff --git a/tools/tests/pdx/Makefile b/tools/tests/pdx/Makefile
+index b3734afde686..10b354f0cefd 100644
+--- a/tools/tests/pdx/Makefile
++++ b/tools/tests/pdx/Makefile
+@@ -1,7 +1,7 @@
+ XEN_ROOT=$(CURDIR)/../../..
+ include $(XEN_ROOT)/tools/Rules.mk
+ 
+-TARGETS := test-pdx-mask
++TARGETS := test-pdx-mask test-pdx-offset
+ 
+ .PHONY: all
+ all: $(TARGETS)
+@@ -42,6 +42,7 @@ CFLAGS += $(APPEND_CFLAGS)
+ CFLAGS += $(CFLAGS_xeninclude)
+ 
+ test-pdx-mask: CFLAGS += -DCONFIG_PDX_MASK_COMPRESSION
++test-pdx-offset: CFLAGS += -DCONFIG_PDX_OFFSET_COMPRESSION
+ 
+ test-pdx-%: test-pdx.c pdx.h
+ 	$(CC) $(CPPFLAGS) $(CFLAGS) $(CFLAGS_$*.o) -o $@ $< $(APPEND_CFLAGS)
+diff --git a/tools/tests/pdx/harness.h b/tools/tests/pdx/harness.h
+index 5bef7df650d2..7c1c5a246868 100644
+--- a/tools/tests/pdx/harness.h
++++ b/tools/tests/pdx/harness.h
+@@ -44,8 +44,10 @@
+ 
+ #define MAX_RANGES 16
+ #define MAX_PFN_RANGES MAX_RANGES
++#define CONFIG_PDX_OFFSET_TBL_ORDER 6
+ 
+ #define ASSERT assert
++#define ASSERT_UNREACHABLE() assert(0)
+ 
+ #define CONFIG_DEBUG
+ 
+@@ -66,10 +68,22 @@ static inline unsigned int find_next(
+ #define find_next_zero_bit(a, s, o) find_next(a, s, o, false)
+ #define find_next_bit(a, s, o)      find_next(a, s, o, true)
+ 
++#define flsl(x) ((x) ? BITS_PER_LONG - __builtin_clzl(x) : 0)
++#define ffsl(x) __builtin_ffsl(x)
++
+ #define boolean_param(name, func)
+ 
+ typedef uint64_t paddr_t;
+ 
++#define SWAP(a, b) \
++   do { typeof(a) t_ = (a); (a) = (b); (b) = t_; } while ( 0 )
++
++#define sort(elem, nr, size, cmp, swp) ({                               \
++    /* Consume swp() so compiler doesn't complain it's unused. */       \
++    (void)swp;                                                          \
++    qsort(elem, nr, size, cmp);                                         \
++})
++
+ #include "pdx.h"
+ 
+ #endif
+diff --git a/tools/tests/pdx/test-pdx.c b/tools/tests/pdx/test-pdx.c
+index 0798ccee359b..eefd54c76815 100644
+--- a/tools/tests/pdx/test-pdx.c
++++ b/tools/tests/pdx/test-pdx.c
+@@ -51,7 +51,11 @@ int main(int argc, char **argv)
+                 { .start =  0xc7e80000UL, .end =  0xcfe80000UL },
+                 { .start = 0x12be80000UL, .end = 0x133e80000UL },
+             },
++#ifdef CONFIG_PDX_OFFSET_COMPRESSION
++            .compress = true,
++#else
+             .compress = false,
++#endif
+         },
+         /* Simple hole. */
+         {
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 8dad0c923a9d..76f9ce705f7a 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -59,7 +59,8 @@ config EVTCHN_FIFO
+ 
+ choice
+ 	prompt "PDX (Page inDeX) compression"
+-	default PDX_MASK_COMPRESSION if !X86 && !RISCV
++	default PDX_OFFSET_COMPRESSION if X86
++	default PDX_MASK_COMPRESSION if !RISCV
+ 	default PDX_NONE
+ 	help
+ 	  PDX compression is a technique designed to reduce the memory
+@@ -78,12 +79,30 @@ config PDX_MASK_COMPRESSION
+ 	help
+ 	  Compression relying on all RAM addresses sharing a zeroed bit region.
+ 
++config PDX_OFFSET_COMPRESSION
++	bool "Offset compression"
++	help
++	  Compression relying on size and distance between RAM regions being
++	  compressible using an offset lookup table.
++
+ config PDX_NONE
+ 	bool "None"
+ 	help
+ 	  No compression
+ endchoice
+ 
++config PDX_OFFSET_TBL_ORDER
++	int "PDX offset compression lookup table order" if EXPERT
++	depends on PDX_OFFSET_COMPRESSION
++	default 6
++	range 0 9
++	help
++	  Order of the PFN to PDX and PDX to PFN translation lookup tables.
++	  Number of table entries is calculated as 2^N.
++
++	  Size of the tables can be adjusted from 1 entry (order 0) to 512
++	  entries (order 9).
++
+ config ALTERNATIVE_CALL
+ 	bool
+ 
+diff --git a/xen/common/pdx.c b/xen/common/pdx.c
+index 9e6b36086fbd..7e070ff962e8 100644
+--- a/xen/common/pdx.c
++++ b/xen/common/pdx.c
+@@ -24,6 +24,7 @@
+ #include <xen/param.h>
+ #include <xen/pfn.h>
+ #include <xen/sections.h>
++#include <xen/sort.h>
+ 
+ /**
+  * Maximum (non-inclusive) usable pdx. Must be
+@@ -40,6 +41,12 @@ bool __mfn_valid(unsigned long mfn)
+ 
+ #ifdef CONFIG_PDX_MASK_COMPRESSION
+     invalid |= mfn & pfn_hole_mask;
++#elif defined(CONFIG_PDX_OFFSET_COMPRESSION)
++    {
++        unsigned long base = pfn_bases[PFN_TBL_IDX(mfn)];
++
++        invalid |= mfn < base || mfn >= base + pdx_region_size;
++    }
+ #endif
+ 
+     if ( unlikely(evaluate_nospec(invalid)) )
+@@ -75,6 +82,13 @@ void set_pdx_range(unsigned long smfn, unsigned long emfn)
+ # error "Missing architecture maximum number of RAM ranges"
+ #endif
+ 
++/* Some functions should be init when not using PDX mask compression. */
++#ifndef CONFIG_PDX_MASK_COMPRESSION
++# define __init_or_mask_compr __init
++#else
++# define __init_or_mask_compr
++#endif
++
+ /* Generic PFN compression helpers. */
+ static struct pfn_range {
+     unsigned long base_pfn, pages;
+@@ -102,7 +116,7 @@ void __init pfn_pdx_add_region(paddr_t base, paddr_t size)
+ }
+ 
+ /* Sets all bits from the most-significant 1-bit down to the LSB */
+-static uint64_t fill_mask(uint64_t mask)
++static uint64_t __init_or_mask_compr fill_mask(uint64_t mask)
+ {
+     while (mask & (mask + 1))
+         mask |= mask + 1;
+@@ -128,7 +142,7 @@ static uint64_t fill_mask(uint64_t mask)
+  * @param len  Size in octets of the region
+  * @return Mask of moving bits at the bottom of all the region addresses
+  */
+-static uint64_t pdx_region_mask(uint64_t base, uint64_t len)
++static uint64_t __init_or_mask_compr pdx_region_mask(uint64_t base, uint64_t len)
+ {
      /*
-      * Return back nr_root_pages to assure the root table memory is also
-@@ -114,6 +123,23 @@ static int p2m_alloc_root_table(struct p2m_domain *p2m)
-     if ( !page )
-         return -ENOMEM;
+      * We say a bit "moves" in a range if there exist 2 addresses in that
+@@ -294,7 +308,228 @@ void __init pfn_pdx_compression_reset(void)
+     nr_ranges = 0;
+ }
  
-+    if ( P2M_ROOT_LEVEL &lt;= 2 )
+-#endif /* CONFIG_PDX_COMPRESSION */
++#elif defined(CONFIG_PDX_OFFSET_COMPRESSION) /* CONFIG_PDX_MASK_COMPRESSION */
++
++unsigned int __ro_after_init pfn_index_shift;
++unsigned int __ro_after_init pdx_index_shift;
++unsigned long __ro_after_init pdx_region_size = ~0UL;
++
++unsigned long __ro_after_init pfn_pdx_lookup[CONFIG_PDX_NR_LOOKUP];
++unsigned long __ro_after_init pdx_pfn_lookup[CONFIG_PDX_NR_LOOKUP];
++unsigned long __ro_after_init pfn_bases[CONFIG_PDX_NR_LOOKUP];
++
++bool pdx_is_region_compressible(paddr_t base, unsigned long npages)
++{
++    unsigned long pfn = PFN_DOWN(base);
++    unsigned long pfn_base = pfn_bases[PFN_TBL_IDX(pfn)];
++
++    return pfn >= pfn_base &&
++           pfn + npages <= pfn_base + pdx_region_size;
++}
++
++static int __init cf_check cmp_node(const void *a, const void *b)
++{
++    const struct pfn_range *l = a, *r = b;
++
++    if ( l->base_pfn > r->base_pfn )
++        return 1;
++    if ( l->base_pfn < r->base_pfn )
++        return -1;
++
++    return 0;
++}
++
++static void __init cf_check swp_node(void *a, void *b)
++{
++    struct pfn_range *l = a, *r = b;
++
++    SWAP(*l, *r);
++}
++
++bool __init pfn_pdx_compression_setup(paddr_t base)
++{
++    unsigned long mask = PFN_DOWN(pdx_init_mask(base)), idx_mask = 0;
++    unsigned long pages = 0;
++    unsigned int i;
++
++    if ( !nr_ranges )
 +    {
-+        /*
-+         * In the case where P2M_ROOT_LEVEL &lt;= 2, it is necessary to allocate
-+         * a page of the same size as that used for the root page table.
-+         * Therefore, p2m_allocate_root() can be safely reused.
-+         */
-+        struct page_info *metadata = p2m_allocate_root(d);
-+        if ( !metadata )
-+        {
-+            free_domheap_pages(page, P2M_ROOT_ORDER);
-+            return -ENOMEM;
-+        }
-+
-+        page-&gt;v.md.metadata = metadata;
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Don't you need to install such a link for every one of the 4 pages?</pre>
-    </blockquote>
-    <pre>Yes, I need to do that. Thanks.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:12adb163-5f6b-4478-9592-7423b8db69a9@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">@@ -198,24 +224,25 @@ static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
-     return __map_domain_page(p2m-&gt;root + root_table_indx);
- }
- 
--static int p2m_set_type(pte_t *pte, p2m_type_t t)
-+static void p2m_set_type(pte_t *pte, const p2m_type_t t, const unsigned int i)
- {
--    int rc = 0;
--
-     if ( t &gt; p2m_ext_storage )
--        panic("unimplemeted\n");
-+    {
-+        ASSERT(pte);
-+
-+        pte[i].pte = t;
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-What does i identify here?</pre>
-    </blockquote>
-    <pre>An index in metadata page where P2M type for corresponding PTE is stored.
-I will re-name it to metadata_indx for more clarity.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:12adb163-5f6b-4478-9592-7423b8db69a9@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    }
-     else
-         pte-&gt;pte |= MASK_INSR(t, P2M_TYPE_PTE_BITS_MASK);
--
--    return rc;
- }
- 
--static p2m_type_t p2m_get_type(const pte_t pte)
-+static p2m_type_t p2m_get_type(const pte_t pte, const pte_t *metadata,
-+                               const unsigned int i)
- {
-     p2m_type_t type = MASK_EXTR(pte.pte, P2M_TYPE_PTE_BITS_MASK);
- 
-     if ( type == p2m_ext_storage )
--        panic("unimplemented\n");
-+        type = metadata[i].pte;
- 
-     return type;
- }
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Overall this feels pretty fragile, as the caller has to pass several values
-which all need to be in sync with one another. If you ...</pre>
-    </blockquote>
-    <pre>Generally, agree it is fragile enough.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:12adb163-5f6b-4478-9592-7423b8db69a9@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">@@ -265,7 +292,10 @@ static void p2m_set_permission(pte_t *e, p2m_type_t t)
-     }
- }
- 
--static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t, bool is_table)
-+static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t,
-+                              struct page_info *metadata_pg,
-+                              const unsigned int indx,
-+                              bool is_table)
- {
-     pte_t e = (pte_t) { PTE_VALID };
- 
-@@ -285,12 +315,21 @@ static pte_t p2m_pte_from_mfn(mfn_t mfn, p2m_type_t t, bool is_table)
- 
-     if ( !is_table )
-     {
-+        pte_t *metadata = __map_domain_page(metadata_pg);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-... map the page anyway, no matter whether ...
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">         p2m_set_permission(&amp;e, t);
- 
-+        metadata[indx].pte = p2m_invalid;
-+
-         if ( t &lt; p2m_ext_storage )
--            p2m_set_type(&amp;e, t);
-+            p2m_set_type(&amp;e, t, indx);
-         else
--            panic("unimplemeted\n");
-+        {
-+            e.pte |= MASK_INSR(p2m_ext_storage, P2M_TYPE_PTE_BITS_MASK);
-+            p2m_set_type(metadata, t, indx);
-+        }
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-... you'll actually use it, maybe best to map both pages at the same point?</pre>
-    </blockquote>
-    <pre>Only one page is mapped here (?) and it should be mapped here, I suppose, it could be a case
-when a previous set type is overwritten, so, it could be needed to invalidate a type written
-in metadata.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:12adb163-5f6b-4478-9592-7423b8db69a9@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-And as said elsewhere, no, I don't think you want to use p2m_set_type() for
-two entirely different purposes.</pre>
-    </blockquote>
-    <pre>I wasn't very happy too, but, at the same time I didn't want to have a prototype where
-it isn't really clear when it is needed to pass metadata and where it is not. But considering
-your comments then this one solution isn't good too. So maybe it would be better just have
-two separate functions: p2m_set_pte_type() and p2m_set_metadata_type().
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:12adb163-5f6b-4478-9592-7423b8db69a9@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">@@ -323,22 +364,71 @@ static struct page_info *p2m_alloc_page(struct p2m_domain *p2m)
-     return pg;
- }
- 
-+static void p2m_free_page(struct p2m_domain *p2m, struct page_info *pg);
-+
-+/*
-+ * Allocate a page table with an additional extra page to store
-+ * metadata for each entry of the page table.
-+ * Link this metadata page to page table page's list field.
-+ */
-+static struct page_info * p2m_alloc_table(struct p2m_domain *p2m)
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Nit: Stray blank after * again.
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+{
-+    enum table_type
-+    {
-+        INTERMEDIATE_TABLE=0,
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-If you really think you need the "= 0", then please with blanks around '='.
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+        /*
-+         * At the moment, metadata is going to store P2M type
-+         * for each PTE of page table.
-+         */
-+        METADATA_TABLE,
-+        TABLE_MAX
-+    };
-+
-+    struct page_info *tables[TABLE_MAX];
-+
-+    for ( unsigned int i = 0; i &lt; TABLE_MAX; i++ )
-+    {
-+        tables[i] = p2m_alloc_page(p2m);
-+
-+        if ( !tables[i] )
-+            goto out;
-+
-+        clear_and_clean_page(tables[i]);
++        printk(XENLOG_DEBUG "PFN compression disabled%s\n",
++               pdx_compress ? ": no ranges provided" : "");
++        return false;
 +    }
 +
-+    tables[INTERMEDIATE_TABLE]-&gt;v.md.metadata = tables[METADATA_TABLE];
++    if ( nr_ranges > ARRAY_SIZE(ranges) )
++    {
++        printk(XENLOG_WARNING
++               "Too many PFN ranges (%u > %zu), not attempting PFN compression\n",
++               nr_ranges, ARRAY_SIZE(ranges));
++        return false;
++    }
 +
-+    return tables[INTERMEDIATE_TABLE];
++    /* Sort ranges by start address. */
++    sort(ranges, nr_ranges, sizeof(*ranges), cmp_node, swp_node);
 +
-+ out:
-+    for ( unsigned int i = 0; i &lt; TABLE_MAX; i++ )
-+        if ( tables[i] )
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-You didn't clear all of tables[] first, though.</pre>
-    </blockquote>
-    <pre>Oh, right, i missed an initalizer for tables[] array.
-</pre>
-    <blockquote type="cite"
-      cite="mid:12adb163-5f6b-4478-9592-7423b8db69a9@suse.com">
-      <pre wrap="" class="moz-quote-pre"> This kind of cleanup is
-often better done as
-
-    while ( i-- &gt; 0 )
-        ...
-
-You don't even need an if() then, as you know allocations succeeded for all
-earlier array slots.</pre>
-    </blockquote>
-    <pre>Yes, it looks very nice.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:12adb163-5f6b-4478-9592-7423b8db69a9@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+            p2m_free_page(p2m, tables[i]);
++    for ( i = 0; i < nr_ranges; i++ )
++    {
++        unsigned long start = ranges[i].base_pfn;
 +
-+    return NULL;
++        /*
++         * Align range base to MAX_ORDER.  This is required so the PDX offset
++         * for the bits below MAX_ORDER matches the MFN offset, and pages
++         * greater than the minimal order can be used to populate the
++         * directmap.
++         */
++        ranges[i].base_pfn = start & ~((1UL << MAX_ORDER) - 1);
++        ranges[i].pages = start + ranges[i].pages - ranges[i].base_pfn;
++
++        /*
++         * Only merge overlapped regions now, leave adjacent regions separated.
++         * They would be merged later if both use the same index into the
++         * lookup table.
++         */
++        if ( !i ||
++             ranges[i].base_pfn >=
++             (ranges[i - 1].base_pfn + ranges[i - 1].pages) )
++        {
++            mask |= pdx_region_mask(ranges[i].base_pfn, ranges[i].pages);
++            continue;
++        }
++
++        ranges[i - 1].pages = ranges[i].base_pfn + ranges[i].pages -
++                              ranges[i - 1].base_pfn;
++
++        if ( i + 1 < nr_ranges )
++            memmove(&ranges[i], &ranges[i + 1],
++                    (nr_ranges - (i + 1)) * sizeof(ranges[0]));
++        else /* last range */
++            mask |= pdx_region_mask(ranges[i].base_pfn, ranges[i].pages);
++        nr_ranges--;
++        i--;
++    }
++
++    /*
++     * Populate a mask with the non-equal bits of the different ranges, do this
++     * to calculate the maximum PFN shift to use as the lookup table index.
++     */
++    for ( i = 0; i < nr_ranges; i++ )
++        for ( unsigned int j = i + 1; j < nr_ranges; j++ )
++            idx_mask |= ranges[i].base_pfn ^ ranges[j].base_pfn;
++    /* Mask out the bits that change inside of ranges. */
++    idx_mask &= ~mask;
++
++    if ( !idx_mask )
++        /* Single region case. */
++        pfn_index_shift = flsl(mask);
++    else if ( flsl(idx_mask) - ffsl(idx_mask) < CONFIG_PDX_OFFSET_TBL_ORDER )
++        /* The changed mask fits in the table index width. */
++        pfn_index_shift = ffsl(idx_mask) - 1;
++    else
++    {
++        /* Changed mask is wider than array size, use most significant bits. */
++        pfn_index_shift = flsl(idx_mask) - CONFIG_PDX_OFFSET_TBL_ORDER;
++        printk(XENLOG_DEBUG
++               "PFN compression table index truncated, requires order %u\n",
++               flsl(idx_mask) - ffsl(idx_mask) + 1);
++    }
++
++    /*
++     * Check correctness of the calculated values, plus merge ranges if they
++     * use the same lookup table index.
++     */
++    for ( i = 0; i < nr_ranges; i++ )
++    {
++        /*
++         * Ensure ranges [start, end] use the same offset table index.  Should
++         * be guaranteed by the logic that calculates the pfn shift.
++         */
++        if ( PFN_TBL_IDX(ranges[i].base_pfn) !=
++             PFN_TBL_IDX(ranges[i].base_pfn + ranges[i].pages - 1) )
++        {
++            printk(XENLOG_DEBUG "PFN compression is invalid, disabling\n");
++            ASSERT_UNREACHABLE();
++            pfn_pdx_compression_reset();
++            return false;
++        }
++
++        if ( !i ||
++             PFN_TBL_IDX(ranges[i - 1].base_pfn) !=
++             PFN_TBL_IDX(ranges[i].base_pfn) )
++            continue;
++
++        /* Merge ranges with the same table index. */
++        ranges[i - 1].pages = ranges[i].base_pfn + ranges[i].pages -
++                              ranges[i - 1].base_pfn;
++        if ( i + 1 < nr_ranges )
++            memmove(&ranges[i], &ranges[i + 1],
++                    (nr_ranges - (i + 1)) * sizeof(ranges[0]));
++        nr_ranges--;
++        i--;
++    }
++
++    /*
++     * Find the maximum PFN range size after having merged ranges with same
++     * index.  The rounded up region size will be the base for the PDX region
++     * size and shift.
++     */
++    for ( i = 0; i < nr_ranges; i++ )
++        pages = max(pages, ranges[i].pages);
++
++    /* pdx_init_mask() already takes MAX_ORDER into account. */
++    mask = PFN_DOWN(pdx_init_mask((paddr_t)pages << PAGE_SHIFT));
++    pdx_index_shift = flsl(mask);
++
++    /* Avoid compression if there's no gain. */
++    if ( (mask + 1) * (nr_ranges - 1) >= ranges[nr_ranges - 1].base_pfn )
++    {
++        printk(XENLOG_DEBUG
++               "PFN compression yields no space gain, disabling\n");
++        pfn_pdx_compression_reset();
++        return false;
++    }
++
++    /*
++     * Set all entries in the bases table to ~0 to force both mfn_valid() and
++     * pdx_is_region_compressible() to return false for non-handled pfns.
++     */
++    memset(pfn_bases, ~0, sizeof(pfn_bases));
++
++    pdx_region_size = mask + 1;
++
++    printk(XENLOG_INFO
++           "PFN compression using lookup table shift %u and region size %#lx\n",
++           pfn_index_shift, pdx_region_size);
++
++    for ( i = 0; i < nr_ranges; i++ )
++    {
++        unsigned int idx = PFN_TBL_IDX(ranges[i].base_pfn);
++
++        pfn_pdx_lookup[idx] = ranges[i].base_pfn - (mask + 1) * i;
++        pdx_pfn_lookup[i] = pfn_pdx_lookup[idx];
++        pfn_bases[idx] = ranges[i].base_pfn;
++
++        printk(XENLOG_DEBUG
++               " range %3u [%013lx, %013lx] PFN IDX %3u : %013lx\n",
++               i, ranges[i].base_pfn, ranges[i].base_pfn + ranges[i].pages - 1,
++               idx, pfn_pdx_lookup[idx]);
++    }
++
++    return true;
 +}
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I'm also surprised you allocate the metadata table no matter whether you'll
-actually need it. That'll double your average paging pool usage, when in a
-typical case only very few entries would actually require this extra
-storage.</pre>
-    </blockquote>
-    <pre>Nice point, we could really do a delayed allocation instead and allocate only
-when requested P2M type is &gt; p2m_ext_storage.
-I'll implement that.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:12adb163-5f6b-4478-9592-7423b8db69a9@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">@@ -453,10 +543,9 @@ static void p2m_put_2m_superpage(mfn_t mfn, p2m_type_t type)
++
++void __init pfn_pdx_compression_reset(void)
++{
++    memset(pfn_pdx_lookup, 0, sizeof(pfn_pdx_lookup));
++    memset(pdx_pfn_lookup, 0, sizeof(pfn_pdx_lookup));
++    memset(pfn_bases, 0, sizeof(pfn_bases));
++    pfn_index_shift = 0;
++    pdx_index_shift = 0;
++    pdx_region_size = ~0UL;
++
++    nr_ranges = 0;
++}
++
++#endif /* CONFIG_PDX_OFFSET_COMPRESSION */
+ 
+ /*
+  * Local variables:
+diff --git a/xen/include/xen/pdx.h b/xen/include/xen/pdx.h
+index 425d45e9f08e..856fc3e8a0e6 100644
+--- a/xen/include/xen/pdx.h
++++ b/xen/include/xen/pdx.h
+@@ -65,6 +65,46 @@
+  * This scheme also holds for multiple regions, where HHHHHHH acts as
+  * the region identifier and LLLLLL fully contains the span of every
+  * region involved.
++ *
++ * ## PDX offset compression
++ *
++ * Alternative compression mechanism that relies on RAM ranges having a similar
++ * size and offset between them:
++ *
++ * PFN address space:
++ * ┌────────┬──────────┬────────┬──────────┐   ┌────────┬──────────┐
++ * │ RAM 0  │          │ RAM 1  │          │...│ RAM N  │          │
++ * ├────────┼──────────┼────────┴──────────┘   └────────┴──────────┘
++ * │<------>│          │
++ * │  size             │
++ * │<----------------->│
++ *         offset
++ *
++ * The compression reduces the holes between RAM regions:
++ *
++ * PDX address space:
++ * ┌────────┬───┬────────┬───┐   ┌─┬────────┐
++ * │ RAM 0  │   │ RAM 1  │   │...│ │ RAM N  │
++ * ├────────┴───┼────────┴───┘   └─┴────────┘
++ * │<---------->│
++ *   pdx region size
++ *
++ * The offsets to convert from PFN to PDX and from PDX to PFN are stored in a
++ * pair of lookup tables, and the index into those tables to find the offset
++ * for each PFN or PDX is obtained by shifting the to be translated address by
++ * a specific value calculated at boot:
++ *
++ * pdx = pfn - pfn_lookup_table[pfn >> pfn_shift]
++ * pfn = pdx + pdx_lookup_table[pdx >> pdx_shift]
++ *
++ * Note the indexes into the lookup tables are masked to avoid out of bounds
++ * accesses.
++ *
++ * This compression requires the PFN ranges to contain a non-equal most
++ * significant part that's smaller than the lookup table size, so that a valid
++ * shift value can be found to differentiate between PFN regions.  The setup
++ * algorithm might merge otherwise separate PFN ranges to use the same lookup
++ * table entry.
+  */
+ 
+ extern unsigned long max_pdx;
+@@ -157,7 +197,52 @@ static inline paddr_t directmapoff_to_maddr_xlate(unsigned long offset)
+             (offset & ma_va_bottom_mask));
  }
  
- /* Put any references on the page referenced by pte. */
--static void p2m_put_page(const pte_t pte, unsigned int level)
-+static void p2m_put_page(const pte_t pte, unsigned int level, p2m_type_t p2mt)
- {
-     mfn_t mfn = pte_get_mfn(pte);
--    p2m_type_t p2m_type = p2m_get_type(pte);
+-#endif /* CONFIG_PDX_MASK_COMPRESSION */
++#elif defined(CONFIG_PDX_OFFSET_COMPRESSION) /* CONFIG_PDX_MASK_COMPRESSION */
++
++#include <xen/page-size.h>
++
++#define CONFIG_PDX_NR_LOOKUP (1UL << CONFIG_PDX_OFFSET_TBL_ORDER)
++#define PDX_TBL_MASK (CONFIG_PDX_NR_LOOKUP - 1)
++
++#define PFN_TBL_IDX(pfn) \
++    (((pfn) >> pfn_index_shift) & PDX_TBL_MASK)
++#define PDX_TBL_IDX(pdx) \
++    (((pdx) >> pdx_index_shift) & PDX_TBL_MASK)
++#define MADDR_TBL_IDX(ma) \
++    (((ma) >> (pfn_index_shift + PAGE_SHIFT)) & PDX_TBL_MASK)
++#define DMAPOFF_TBL_IDX(off) \
++    (((off) >> (pdx_index_shift + PAGE_SHIFT)) & PDX_TBL_MASK)
++
++extern unsigned int pfn_index_shift;
++extern unsigned int pdx_index_shift;
++extern unsigned long pdx_region_size;
++
++extern unsigned long pfn_pdx_lookup[];
++extern unsigned long pdx_pfn_lookup[];
++extern unsigned long pfn_bases[];
++
++static inline unsigned long pfn_to_pdx_xlate(unsigned long pfn)
++{
++    return pfn - pfn_pdx_lookup[PFN_TBL_IDX(pfn)];
++}
++
++static inline unsigned long pdx_to_pfn_xlate(unsigned long pdx)
++{
++    return pdx + pdx_pfn_lookup[PDX_TBL_IDX(pdx)];
++}
++
++static inline unsigned long maddr_to_directmapoff_xlate(paddr_t ma)
++{
++    return ma - ((paddr_t)pfn_pdx_lookup[MADDR_TBL_IDX(ma)] << PAGE_SHIFT);
++}
++
++static inline paddr_t directmapoff_to_maddr_xlate(unsigned long offset)
++{
++    return offset + ((paddr_t)pdx_pfn_lookup[DMAPOFF_TBL_IDX(offset)] <<
++                     PAGE_SHIFT);
++}
++
++#endif /* CONFIG_PDX_OFFSET_COMPRESSION */
  
-     ASSERT(pte_is_valid(pte));
+ #ifdef CONFIG_PDX_NONE
  
-@@ -470,10 +559,10 @@ static void p2m_put_page(const pte_t pte, unsigned int level)
-     switch ( level )
-     {
-     case 1:
--        return p2m_put_2m_superpage(mfn, p2m_type);
-+        return p2m_put_2m_superpage(mfn, p2mt);
- 
-     case 0:
--        return p2m_put_4k_page(mfn, p2m_type);
-+        return p2m_put_4k_page(mfn, p2mt);
-     }
- }
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Might it be better to introduce this function in this shape right away, in
-the earlier patch?</pre>
-    </blockquote>
-    <pre>Agree, probably, I did that intentionally, but I don't remember why. I will try to
-avoid these changes in this patch as it looks unnecessary here.
+-- 
+2.49.0
 
-</pre>
-    <blockquote type="cite"
-      cite="mid:12adb163-5f6b-4478-9592-7423b8db69a9@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">@@ -690,18 +791,23 @@ static int p2m_set_entry(struct p2m_domain *p2m,
-     {
-         /* We need to split the original page. */
-         pte_t split_pte = *entry;
-+        struct page_info *metadata = virt_to_page(table)-&gt;v.md.metadata;
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-This (or along these lines) is how I would have expected things to be done
-elsewhere as well, limiting the amount of arguments you need to pass
-around.</pre>
-    </blockquote>
-    <pre>I will try to re-use this approach elsewhere I can.
-
-Thanks.
-
-~ Oleksii</pre>
-  </body>
-</html>
-
---------------nNjh60kUbwPkc03zVml00qG0--
 
