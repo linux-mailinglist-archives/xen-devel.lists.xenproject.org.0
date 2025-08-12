@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F9ACB2375B
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 21:10:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1079135.1440102 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15C94B23800
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 21:18:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1079144.1440114 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uluOV-0003BC-4h; Tue, 12 Aug 2025 19:10:47 +0000
+	id 1uluV5-0004qw-R8; Tue, 12 Aug 2025 19:17:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1079135.1440102; Tue, 12 Aug 2025 19:10:47 +0000
+Received: by outflank-mailman (output) from mailman id 1079144.1440114; Tue, 12 Aug 2025 19:17:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uluOV-00038s-1v; Tue, 12 Aug 2025 19:10:47 +0000
-Received: by outflank-mailman (input) for mailman id 1079135;
- Tue, 12 Aug 2025 19:10:45 +0000
+	id 1uluV5-0004no-Ny; Tue, 12 Aug 2025 19:17:35 +0000
+Received: by outflank-mailman (input) for mailman id 1079144;
+ Tue, 12 Aug 2025 19:17:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BkKW=2Y=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uluOT-0002eX-Kh
- for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 19:10:45 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ <SRS0=3OTH=2Y=epam.com=dmytro_prokopchuk1@srs-se1.protection.inumbo.net>)
+ id 1uluV4-0004nW-9Q
+ for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 19:17:34 +0000
+Received: from DB3PR0202CU003.outbound.protection.outlook.com
+ (mail-northeuropeazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c200::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0c1a90bd-77b0-11f0-a328-13f23c93f187;
- Tue, 12 Aug 2025 21:10:45 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3b78127c5d1so3778217f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 12:10:45 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b79c4530a8sm45046198f8f.38.2025.08.12.12.10.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Aug 2025 12:10:44 -0700 (PDT)
+ id fec83552-77b0-11f0-a328-13f23c93f187;
+ Tue, 12 Aug 2025 21:17:32 +0200 (CEST)
+Received: from GV2PR03MB9572.eurprd03.prod.outlook.com (2603:10a6:150:da::5)
+ by AS2PR03MB9671.eurprd03.prod.outlook.com (2603:10a6:20b:5e8::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.22; Tue, 12 Aug
+ 2025 19:17:28 +0000
+Received: from GV2PR03MB9572.eurprd03.prod.outlook.com
+ ([fe80::edd1:842f:9b14:509e]) by GV2PR03MB9572.eurprd03.prod.outlook.com
+ ([fe80::edd1:842f:9b14:509e%3]) with mapi id 15.20.9009.018; Tue, 12 Aug 2025
+ 19:17:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,131 +47,339 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c1a90bd-77b0-11f0-a328-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755025844; x=1755630644; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gwkf35IKqMkIlNl9yA5fGHvhKn8wkfiIrpd1gBUtckU=;
-        b=Z9SXSyu3oHwiQ3rI56rdlgDpQWk3/SNj9BCpmD5SUd+WiMq+R+VcmIJL7i3OOUFsC+
-         AYfMHCXA7Jl0tGIVdHL8PFPj4HJ46H7PlNoBs5YLlHN23b+iy/F2uwn4Bu7ypU7OBOO8
-         1kvoZtpDTeuCv+/OSlk0wCUll83Z8CinkeS1E=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755025844; x=1755630644;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gwkf35IKqMkIlNl9yA5fGHvhKn8wkfiIrpd1gBUtckU=;
-        b=mNP45hCrhepnd+PJhVGk9h+q4zUHzxNNG/qXq4Ggk93duTTF0QdfoRNucWu0OFQpc7
-         xQVZEeUSpI307jVsWo86xfeY7i0mAi0wImsJBs6FwzuYVAQ6X2VPTDRMb7giQdH57L3V
-         mSqMox2ozJ8sNizXFe3flw7ToIKyKlsgzJrx/VZrM6+ZC/czjQUs6wp4e4Nsgn+EbVK/
-         rl3lxbwfJxHmwMr+wWjMOuKGr6bxfuCxA83hqQkLR1+z/trSKgpwBDBhUU5vX+kNLEL1
-         qO0pxkYrYvffBBV3okMrboEgaYF6P2xhDSLjsWE0yu8h/WqNCva0legtvxcX8A5Kr6t8
-         uMnA==
-X-Gm-Message-State: AOJu0YyjgWDNKYutvT36WJnCIeibJDExeTCoDOfQVI2vb37/XgsB38mC
-	XbVvmsJfiGvq+788pSoqAmACKecYIs9bnbIyOD2VhnaSUMVrk8T+GcyyKL7Fm0BZDBU=
-X-Gm-Gg: ASbGnctZR6FYt6tXEUTNi4ppU+JqGHg9Yjm4bJT+Cim8LaT1eC2zEyzfSLtPw3YiUzd
-	i/Ihl0airnh4TEQBH/vM/TysizVkBIlF3xFGN+vNcbCqvjAxEBT8Buz5In+fQYmkA/uW0vBZgcA
-	spuUvv50x4Sfak4+rsGQQ4iJltsiFn3XrwRxhNVafsaXAhyN/mm1cgDPDt/dRN1ikVKPif/aDOs
-	Gz2GQvaGTBCjaQqEcT++U1Qs2VaRTAyV5f2d98UsLfQAIw/vUtaU+4Y/+qtX/eOcHUOGbWfMCXO
-	WXDAy7VEuU4Sn/5S6RMJorgYCjDZl1vwi1GOBpi2Zwb47K6xIFD8BogtmbEDnSNRxShK1STVaK/
-	t6QtS6yXg94HuQfBvvqxd9/699LLDu69GoSZIaXgNrm3xQRLbqhECVObGgSESgD6fpPlu
-X-Google-Smtp-Source: AGHT+IGLEEproL9S5eXAiaagxXJyixn2MGxqc8jZjqWJG1RF9GzyvXfDla4rq9zKQC79nfzUmSN/FA==
-X-Received: by 2002:a05:6000:1a8b:b0:3a5:39ee:2619 with SMTP id ffacd0b85a97d-3b917ebb5bamr97068f8f.47.1755025844442;
-        Tue, 12 Aug 2025 12:10:44 -0700 (PDT)
-Message-ID: <c435b168-888c-4953-97df-2bab8f9e5e02@citrix.com>
-Date: Tue, 12 Aug 2025 20:10:43 +0100
+X-Inumbo-ID: fec83552-77b0-11f0-a328-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nI+fWWqdkxgg6wPR71Ojz5A2067xg88Cyp4dqtlkXgRD6T1MBZ66D/DNEGpEe4fAu2cOC069tGfHHicJJLB8WUyg/yWg5eO3c+tONmqoZMQWXPaF6MAjfzwd+X2NYNLj25pfHmjyIat4wY4dKsh8GTXai05cTKMqANOcFz4tolufw/k+NFvtfoafNvJXQeh5rQRaERU3U54V9DFNmoMyNUEXqN0viVXOXWkl18VKho0Aoa+8C2EcnFgRSC3I/6PGd+EhGamgYHxOtdTdK64OR1meWm8TPM6zWO82wkZdxKMPejB+3/PLPrWIxG0NpdVN78VHOGVSXCS2/eBed/8ARg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=W8qo+9Nn7D8YDP+Om+eE1Ge44AFkkk9sqUHYa6TEpKY=;
+ b=Zw8xUlZBouWUlghrFbMXkkm+lDciM3OwWxHrK7EJX+6qRprRwaxT4k/sznVVVDux+NWwC7NZwQskP7C8Nd6EWFF6fbWYmN/+sF0irir2be1Pt7xWlHuGSqXKFux7ov2yKOh/SHRXR0VipaW7inAdcAbOE8mOYhy/JvZOf/ZOlJd41gh3g7eXUSJhstiT45aofAwrMmkvunEwbVdNtUSxgkxm9zhAzSCG8SeECOP5CCDckoqaLqlxwo79recuvS7tLx0c2El/KEZHgung9weg5SRFdrhiMe21BpUt1dNsfzxTUM6VsHnuDoIQ6o0fezBmjtkiogtPfTf65VyWeSQaMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=W8qo+9Nn7D8YDP+Om+eE1Ge44AFkkk9sqUHYa6TEpKY=;
+ b=eHc/lj/o5WkhdVgUbDvW6cD1XLBtVK84nv8SZqT1beFN5O9RpxNF0q06r81QNVfFy3E5mwP+09zqC0s14xNsodZaV9vUcsTIEzmSuTAZU41PP2h1cCY7ZUfr5qB/vtcyUvgzjEHn4eyjrlhAfWcgmf05W54bqHiy6b/qxXEGTzDYQIIEMqaMTtb6uv0kKptaCVEsJAK5rzxKPzKeYGst+oAn0332PXOdA0NGYy+LRCTrOw5iieqGFYNGb50aQCH9knWoz/SRD18TjKp8Y2FLo/6M6nYEPg1PeE+OTWGQqgxeNlxBa5vSSDZUivgFao2TdKx7a5j2zmyH9Mq/8jWPhg==
+From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>, "Daniel P. Smith"
+	<dpsmith@apertussolutions.com>, =?iso-8859-1?Q?Marek_Marczykowski-G=F3recki?=
+	<marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] efi: remove unreachable code in read_file()
+Thread-Topic: [PATCH] efi: remove unreachable code in read_file()
+Thread-Index: AQHcC72+MqlVxdSA/E6jjiAcMI3Ndw==
+Date: Tue, 12 Aug 2025 19:17:28 +0000
+Message-ID:
+ <52dbb5c5c1385b3b9d8522ef308ef15248973368.1755023074.git.dmytro_prokopchuk1@epam.com>
+Accept-Language: en-US, uk-UA, ru-RU
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV2PR03MB9572:EE_|AS2PR03MB9671:EE_
+x-ms-office365-filtering-correlation-id: 1e609905-2c08-4628-5639-08ddd9d4e0da
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|42112799006|376014|38070700018;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?BxGExv//9BSL+JNOvM0PXjRGRHiv6s36f0c2BosUlCS/Y6ZCUtlaWQ3a66?=
+ =?iso-8859-1?Q?/Wx9cofsELPmDNXOJ0+gZgli9L3GDGGrgnQ/tpdkwdTc/k+FJLpFFThmJ5?=
+ =?iso-8859-1?Q?9socgCHd5F66lP/pn0qwwTfACRNZ8YH0Qmo8Cykxo/LH4+r4FmBJmTXmUM?=
+ =?iso-8859-1?Q?1EM4gtPH0yflC5iPhoAOfixfZBp6p5DuhAdLg2p4ezogf+cqVlIfMGp+s2?=
+ =?iso-8859-1?Q?i4Aro2LfCLzMJvMDfnVRrRp4smpQQjsOmptSKdIMqWK2RBILBDyFS50ZeZ?=
+ =?iso-8859-1?Q?i4zJqf3Ej8YIqyjRCauU43OYYI8HBOyHGwEqAusv24L2focHr8+ziTXx+j?=
+ =?iso-8859-1?Q?fB/QO14QsR8El4AhGtjV4wCrD4wx5R4CCC4UYq/It7qN2XYx8dwg/WtkgB?=
+ =?iso-8859-1?Q?GZu3nrKA4meNWGHHj9Wg5iKZB2gVdRv3zlyDiYMtbxxyMKjBAzF6DEO6k3?=
+ =?iso-8859-1?Q?kSM9+FV/P4SB9Z1GecoVbCVnY6hE4ubDXwDu3pN9/M7EkHIogD5kgYX6Uc?=
+ =?iso-8859-1?Q?/9j7G7XOYmpuPW3nz8v0M69M8OLp64Ekq3T8xA4XxUbgO13Q5yPMTKa0oQ?=
+ =?iso-8859-1?Q?EReUe4kWww5DL6tVsh4su3avdiyQv+Qn6URZ8SwIyG1LxqKtV/EvqjbV4U?=
+ =?iso-8859-1?Q?IiX43kUQqRF+/nZivqTpNhgRDCCwSX86BsbApZrSPNWnl8SLwOMlGGNRn2?=
+ =?iso-8859-1?Q?X1No4TFw38R0rZCvGrzzMo4LLUbYJLgr3NKXZvDXZItqn1xRmusvRyd6YS?=
+ =?iso-8859-1?Q?S1yHmOzjU3H700W4v8EJ9MLJgAPdII+s8kcTWxrgRaCrxY97Yu6tmlXQrm?=
+ =?iso-8859-1?Q?uoF8+3Sf79hKG73AofR0kdh2SfZQ0Q+WmmeHSz4eZ//YtkYxagkuiWxzdM?=
+ =?iso-8859-1?Q?IjduX2JsNGDflPmKzNl3mFHiOkteXjhUJ3F5RtQuWWbUlVJ7PFaAbm0rZA?=
+ =?iso-8859-1?Q?qeFgv01Ybr3HEp54DN9L/Il2M3fxUru8ZEViuBFV7Y93LHa234LdymJ3ZQ?=
+ =?iso-8859-1?Q?9x8iDPRFz8Ut3Uh6F4P779R0oHBSNpIlqZ1kCCoOrPesnAMxizybKeE9xW?=
+ =?iso-8859-1?Q?ySkxPMz0eDPLjw07JutxwiyTiNHnj7W9dlXN1eGlo6B9OdOQ/xCBAeRhr8?=
+ =?iso-8859-1?Q?Xhr0nGALk+4TrbhcRd81FTOtFHF9BjaW8AOhptGxrTwaYU1tQinGa6J816?=
+ =?iso-8859-1?Q?ylURRi+IBKzXSicIdfs35W9DsKiJIxHSVInRIDDct0M9TAmXIbJjRIe0Fd?=
+ =?iso-8859-1?Q?FnMTjOeTqADTi8SJyI+qDRLtexHeEqbAUfPnpI4QsBuGa05ckOtZZJv6FR?=
+ =?iso-8859-1?Q?oPCBPkcQ31rB4EWfHTNraEs3AKdR4CbKP/8EGB5jkGiTVcyq+54Hl9HAzV?=
+ =?iso-8859-1?Q?L3nYWTy+CjkaTmo6P7g14TZe/btDnjzwYsAqilTLyvB5oCAZ+vZagf3l4P?=
+ =?iso-8859-1?Q?iEXCumfBJiIB8cgB20FtoBJuh4Zu9N3S6RmVbEtMxbpEQRU996Uza94DNl?=
+ =?iso-8859-1?Q?ZxW9sPvSVqVTHQ7ivPDwVXpLEUPG5VOipAWx6CNtQBEmUxVI0X85vY8KgT?=
+ =?iso-8859-1?Q?k+NiNdY=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB9572.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(42112799006)(376014)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?uBbTcCr5SZMSpt8RxQLGA3OM3yh0zP47scQ1v+YTR1SpsK/YRnpCYRZwIV?=
+ =?iso-8859-1?Q?8IZlB/ZvfSSH0rVHvhvWE8bQ9KFT/8zN0OWsCP1WOnovNAmC8gw631lC4q?=
+ =?iso-8859-1?Q?FNoo/K9hinpMK0vB7wsCU48ib1mspGzoffUxl8Td4KI/BOlX237wM7UVqE?=
+ =?iso-8859-1?Q?2DjhhnZ+cuNtKpvYGONhIKlTrfSYF5wmcrb81xff4vbn9g+YY7jl87Iosl?=
+ =?iso-8859-1?Q?lhfkHA8X8GjTx3VOdnAbX8qdEXoHODa2/mo+5Korwpq4KlRCzZMAB7yZpC?=
+ =?iso-8859-1?Q?0k2Di89ZXl/weuDjnTgr6qHWuzC9b3uPS7BbpdgQJajRztKSackfezHUXv?=
+ =?iso-8859-1?Q?wVUQxhizcBJ5S7XAPebEB6WUk2c38C8j2Vk8TFFt7NN87EFrsZ9yNK+7gG?=
+ =?iso-8859-1?Q?8Q1vGvI4gPVaRtCvgoAcoR5OGwlgCde1jYnbaZJHwOZzFe1HgBP2Jl7/MC?=
+ =?iso-8859-1?Q?w+ee29IR1YHbUA8GOLEkgqoupgIgQfNWwA8U8zL+Tw9ogR91V9rk3xaFq3?=
+ =?iso-8859-1?Q?qr1a+mpFANnRSqUKwOORdGz/ntrPWHPENH35VWZ5+CBhAAT24qv7Pm20am?=
+ =?iso-8859-1?Q?7HBpBZMjg6RbrI/c5T1s+/tD32G7gs7dBSxJTnP2lAV1rMfnnNHJUwequj?=
+ =?iso-8859-1?Q?m1Uiz3m1Kvj6NzIWw1KxomsO0bNg1ppiYkii2kMBxM6ZcDs8vqIob+juNA?=
+ =?iso-8859-1?Q?/szM0lJe+RRD26duvetGtswnCsMa6rbFWDDyyJCrLuFNYnJnH4bQXR1/qX?=
+ =?iso-8859-1?Q?HnjltFRhu9VrzSSXxB5PZDY7GIVZR1beV4Ok21yeBZ5WeGbcpbgMFIRCTG?=
+ =?iso-8859-1?Q?sbAg2TtS2ir10RbVLfO26REu+mEG+6QTetEfeLd2jSEVJLslHfClR0XYLT?=
+ =?iso-8859-1?Q?jpdXXq4Q9l3lT6DYf3abLa/vEsPjNWl6+JVbhRwQB6DNYLFuQw6KXnNzh1?=
+ =?iso-8859-1?Q?fcECIeHB/3OUsCKPy8suFJJ/s0gLbO262mLaRTXHCgHRIQwi/ydhR4XG/S?=
+ =?iso-8859-1?Q?6CRQRYTDlqOxdi8ESMK8fwaGu853vRS36hGvPAddG/kU2jdiXdrHN9D8rZ?=
+ =?iso-8859-1?Q?vCOQ0nVF1PKzWdKXqTccOmR5PaNcRaoqg9q5aTTm/xKyuqqJ2bGQI8PWTd?=
+ =?iso-8859-1?Q?60JvpiJN90Oj942EMY/Xh72lVqdgpe0FtkOpz+RcgMwWHC1b/47pRFbguV?=
+ =?iso-8859-1?Q?ycJAlRnFPRjTPNziPUfrNbdcK+C/ftt39sEeItVUyzsxUBK6Jjj2M6SGI6?=
+ =?iso-8859-1?Q?6Oh6Qdw6rNvURHYAVwM/U3jM0DfE2vcwtihyk5jBPIX+rWHu/hUEG7h9uH?=
+ =?iso-8859-1?Q?vnLJL2ACbNoWbkwqaMLByhdBZJseD7zNXI1VK4q5yXHKPt9qXqAFdr3uOd?=
+ =?iso-8859-1?Q?9mo6Gg9EWU8RoOd/dkFODJorii1G7RfCNCDxBKcJVo5JJKATfilxvrFQFt?=
+ =?iso-8859-1?Q?TqVzxAmPylSqIkbRRN8NmpBLD34NWdKZJ8MTdpDwcpTXbWm+kjLg6JzfhX?=
+ =?iso-8859-1?Q?mx1AY+nN+CeDY/SVdGatqOw7OnVpzlLRXcXjVzU3e9ZgCasrHBJSExhSi1?=
+ =?iso-8859-1?Q?eDIrln+Pwk/KK2QkNfToT4waEmWHEEC1xY+wA/iXbKICYRWHpyZWtBtoau?=
+ =?iso-8859-1?Q?pxjmfXBUNSLbyzffs4MPfAWalRN4M65p84aq9xRF4W9pOiCKbtW0gq1g?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] CI: Turn debian/12-x86_64 into a non-root container
-To: Anthony PERARD <anthony@xenproject.org>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>
-References: <20250812162950.1903901-1-andrew.cooper3@citrix.com>
- <aJuOP52xGg8hUN_H@l14>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <aJuOP52xGg8hUN_H@l14>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB9572.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e609905-2c08-4628-5639-08ddd9d4e0da
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Aug 2025 19:17:28.4555
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: O9SdnWiGFQ3Jp1ZX++6oegkKC7WdXRKNf18Ei2ExSSfe/SJ5YuomPmbBU8Cqd9am+Hzr9AOPkUDe2eY1a/JT+fvFYDXps2kcDEdztlpNPSY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR03MB9671
 
-On 12/08/2025 7:55 pm, Anthony PERARD wrote:
-> On Tue, Aug 12, 2025 at 05:29:50PM +0100, Andrew Cooper wrote:
->> From: Javi Merino <javi.merino@cloud.com>
->>
->> Since commit 4611ae6fb8f9 ("CI: save toolstack artifact as cpio.gz"), the
->> various automation/scripts/* no longer need to be root to correctly repack the
->> initrd for test.
->>
->> Signed-off-by: Javi Merino <javi.merino@cloud.com>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->> CC: Stefano Stabellini <sstabellini@kernel.org>
->> CC: Anthony PERARD <anthony.perard@vates.tech>
->>
->> Xen 4.20 and later uses debian:12-x86_64 and also contains 4611ae6fb8f9 so
->> this is safe to change generally.
-> I gave it a try, just to be sure:
->     https://gitlab.com/xen-project/people/anthonyper/xen/-/pipelines/1980442689
-> and staging-4.20:
->     https://gitlab.com/xen-project/people/anthonyper/xen/-/pipelines/1980621317
->
-> (all the failed build should be because I was lazy and didn't rebuild
-> all containers or didn't select a subset of the builds. All test passed
-> or are skipped, which is what I was looking for)
->
-> So:
-> Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
+MISRA C Rule 2.1 states: "A project shall not contain unreachable code."
 
-Thanks.  I'll commit and deploy this now.
+Function `PrintErrMesg(const CHAR16*, EFI_STATUS)` isn't intended to return
+control to its caller. At the end, it calls `blexit()`, which, in turn,
+invokes the `__builtin_unreachable()` function, making subsequent return
+statements in `read_file()` unreachable:
 
-~Andrew
+    PrintErrMesg(name, ret);
+    /* not reached */
+    return false;
+
+This also causes unreachability of the code meant to handle `read_file()`
+errors, as seen in these examples:
+
+In this block:
+    if ( read_file(dir_handle, file_name, &cfg, NULL) )
+        break;
+    *tail =3D 0;
+    }
+    if ( !tail )
+        blexit(L"No configuration file found.");
+
+And here:
+    else if ( !read_file(dir_handle, cfg_file_name, &cfg, NULL) )
+        blexit(L"Configuration file not found.");
+
+And here:
+    if ( !read_file(dir_handle, s2w(&name), &cfg, NULL) )
+    {
+        PrintStr(L"Chained configuration file '");
+        PrintStr(name.w);
+        efi_bs->FreePool(name.w);
+        blexit(L"'not found.");
+    }
+
+The issue arises because when an error occurs inside `read_file()`, it call=
+s
+`PrintErrMesg()` and does not return to the caller.
+
+To address this the following changes are applied:
+1. Remove `PrintErrMesg(name, ret);` from the `read_file()` function.
+2. Replaced it with `PrintErr(name);`, which prints the file name and retur=
+ns
+   control to the caller.
+3. Change the `read_file()` return type from `bool` to `EFI_STATUS`, allowi=
+ng
+   file operation result codes to be returned to the caller.
+4. Properly handle error codes returned from the `read_file()` function in =
+the
+   relevant areas of the code.
+5. Replace `blexit()` calls with informative error codes using `PrintErrMes=
+g()`
+   where appropriate.
+
+Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+---
+Test CI pipeline:
+https://gitlab.com/xen-project/people/dimaprkp4k/xen/-/pipelines/1980590118
+---
+ xen/common/efi/boot.c | 57 ++++++++++++++++++++++++++++++-------------
+ 1 file changed, 40 insertions(+), 17 deletions(-)
+
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index 50ff1d1bd2..ddbafb2f9c 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -132,7 +132,7 @@ struct file {
+     };
+ };
+=20
+-static bool read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
++static EFI_STATUS read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
+                       struct file *file, const char *options);
+ static bool read_section(const EFI_LOADED_IMAGE *image, const CHAR16 *name=
+,
+                          struct file *file, const char *options);
+@@ -782,7 +782,7 @@ static void __init handle_file_info(const CHAR16 *name,
+     efi_arch_handle_module(file, name, options);
+ }
+=20
+-static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
++static EFI_STATUS __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *nam=
+e,
+                              struct file *file, const char *options)
+ {
+     EFI_FILE_HANDLE FileHandle =3D NULL;
+@@ -791,7 +791,7 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle=
+, CHAR16 *name,
+     const CHAR16 *what =3D NULL;
+=20
+     if ( !name )
+-        PrintErrMesg(L"No filename", EFI_OUT_OF_RESOURCES);
++        return EFI_INVALID_PARAMETER;
+=20
+     what =3D L"Open";
+     if ( dir_handle )
+@@ -842,7 +842,7 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle=
+, CHAR16 *name,
+=20
+     efi_arch_flush_dcache_area(file->ptr, file->size);
+=20
+-    return true;
++    return ret;
+=20
+  fail:
+     if ( FileHandle )
+@@ -850,10 +850,9 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handl=
+e, CHAR16 *name,
+=20
+     PrintErr(what);
+     PrintErr(L" failed for ");
+-    PrintErrMesg(name, ret);
++    PrintErr(name);
+=20
+-    /* not reached */
+-    return false;
++    return ret;
+ }
+=20
+ static bool __init read_section(const EFI_LOADED_IMAGE *image,
+@@ -1433,18 +1432,20 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE Im=
+ageHandle,
+             while ( (tail =3D point_tail(file_name)) !=3D NULL )
+             {
+                 wstrcpy(tail, L".cfg");
+-                if ( read_file(dir_handle, file_name, &cfg, NULL) )
++                if ( (status =3D read_file(dir_handle, file_name,
++                                         &cfg, NULL)) =3D=3D EFI_SUCCESS )
+                     break;
+                 *tail =3D 0;
+             }
+             if ( !tail )
+-                blexit(L"No configuration file found.");
++                PrintErrMesg(L"Configuration file failure.", status);
+             PrintStr(L"Using configuration file '");
+             PrintStr(file_name);
+             PrintStr(L"'\r\n");
+         }
+-        else if ( !read_file(dir_handle, cfg_file_name, &cfg, NULL) )
+-            blexit(L"Configuration file not found.");
++        else if ( (status =3D read_file(dir_handle, cfg_file_name,
++                                      &cfg, NULL)) !=3D EFI_SUCCESS )
++            PrintErrMesg(L"Configuration file failure.", status);
+         pre_parse(&cfg);
+=20
+         if ( section.w )
+@@ -1465,12 +1466,13 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE Im=
+ageHandle,
+                 efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
+                 cfg.need_to_free =3D false;
+             }
+-            if ( !read_file(dir_handle, s2w(&name), &cfg, NULL) )
++            if ( (status =3D read_file(dir_handle, s2w(&name),
++                                     &cfg, NULL)) !=3D EFI_SUCCESS )
+             {
+-                PrintStr(L"Chained configuration file '");
++                PrintStr(L"Configuration file '");
+                 PrintStr(name.w);
+                 efi_bs->FreePool(name.w);
+-                blexit(L"'not found.");
++                PrintErrMesg(L"'failure.", status);
+             }
+             pre_parse(&cfg);
+             efi_bs->FreePool(name.w);
+@@ -1483,7 +1485,14 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE Ima=
+geHandle,
+         if ( !read_section(loaded_image, L"kernel", &kernel, option_str) &=
+&
+              name.s )
+         {
+-            read_file(dir_handle, s2w(&name), &kernel, option_str);
++            status =3D read_file(dir_handle, s2w(&name), &kernel, option_s=
+tr);
++            if ( status !=3D EFI_SUCCESS )
++            {
++                PrintStr(L"Configuration file '");
++                PrintStr(name.w);
++                efi_bs->FreePool(name.w);
++                PrintErrMesg(L"'failure.", status);
++            }
+             efi_bs->FreePool(name.w);
+         }
+         else
+@@ -1497,7 +1506,14 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE Ima=
+geHandle,
+             name.s =3D get_value(&cfg, section.s, "ramdisk");
+             if ( name.s )
+             {
+-                read_file(dir_handle, s2w(&name), &ramdisk, NULL);
++                status =3D read_file(dir_handle, s2w(&name), &ramdisk, NUL=
+L);
++                if ( status !=3D EFI_SUCCESS )
++                {
++                    PrintStr(L"Configuration file '");
++                    PrintStr(name.w);
++                    efi_bs->FreePool(name.w);
++                    PrintErrMesg(L"'failure.", status);
++                }
+                 efi_bs->FreePool(name.w);
+             }
+         }
+@@ -1507,7 +1523,14 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE Ima=
+geHandle,
+             name.s =3D get_value(&cfg, section.s, "xsm");
+             if ( name.s )
+             {
+-                read_file(dir_handle, s2w(&name), &xsm, NULL);
++                status =3D read_file(dir_handle, s2w(&name), &xsm, NULL);
++                if ( status !=3D EFI_SUCCESS )
++                {
++                    PrintStr(L"Configuration file '");
++                    PrintStr(name.w);
++                    efi_bs->FreePool(name.w);
++                    PrintErrMesg(L"'failure.", status);
++                }
+                 efi_bs->FreePool(name.w);
+             }
+         }
+--=20
+2.43.0
 
