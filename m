@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6FBAB21E9E
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 08:52:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1078286.1439269 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D12DAB21F53
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 09:19:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1078295.1439278 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulirv-000319-K1; Tue, 12 Aug 2025 06:52:23 +0000
+	id 1uljH4-00069z-IJ; Tue, 12 Aug 2025 07:18:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1078286.1439269; Tue, 12 Aug 2025 06:52:23 +0000
+Received: by outflank-mailman (output) from mailman id 1078295.1439278; Tue, 12 Aug 2025 07:18:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulirv-0002yw-Gd; Tue, 12 Aug 2025 06:52:23 +0000
-Received: by outflank-mailman (input) for mailman id 1078286;
- Tue, 12 Aug 2025 06:52:22 +0000
+	id 1uljH4-00067j-FE; Tue, 12 Aug 2025 07:18:22 +0000
+Received: by outflank-mailman (input) for mailman id 1078295;
+ Tue, 12 Aug 2025 07:18:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Pr65=2Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uliru-0002yq-Fl
- for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 06:52:22 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ id 1uljH3-00067d-2E
+ for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 07:18:21 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e4cc83de-7748-11f0-a327-13f23c93f187;
- Tue, 12 Aug 2025 08:52:21 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-605b9488c28so9097865a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 23:52:21 -0700 (PDT)
+ id 85e4bfde-774c-11f0-a327-13f23c93f187;
+ Tue, 12 Aug 2025 09:18:19 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-af94e75445dso927778066b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 00:18:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-615a91141e9sm19551845a12.58.2025.08.11.23.52.19
+ a640c23a62f3a-af91a219ecfsm2150557766b.94.2025.08.12.00.18.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Aug 2025 23:52:19 -0700 (PDT)
+ Tue, 12 Aug 2025 00:18:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e4cc83de-7748-11f0-a327-13f23c93f187
+X-Inumbo-ID: 85e4bfde-774c-11f0-a327-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754981540; x=1755586340; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754983099; x=1755587899; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CU6l/YxR38H56kfp+AvQsVaRCIYqsznCnye+9vNlqXc=;
-        b=gLt/ChTkBps9pzkyZGTpZopgcFTgMflNApWnyxxVhWSWMfGY/C8WoeYc8EaWI2shQS
-         8cgm9vBhDhnF/s8VwK4ez8LR2vQ8WKmRzBfLT227iY6gKfCNa0bzK0FFnZC0xpCai/Hv
-         JJ9xzg2UTDVDobFTl6I+plLFrUCukyP0q+dPbmri8vkYq3PPLvXFajB6tFrg5XX9x8LN
-         qwJ7nlRcaIhJX815oJbhGKxTBYUW0EqPhWYvNIhsmCUa/ZmU/ixKE/gzGzq0rH+K9S5y
-         keHEBmST+255jadDiEopMP/nGIXJBJew1rcoFEPpwFzAjFF7Dc5u0LDqM3FBYX9ynfcw
-         PQlA==
+        bh=tYs6ssAz+uVr078xuY+6RZ0po0mZXiP/Xip2L0bl8qU=;
+        b=fgvAWelCY9Vmx/XbrybiCy2i13csUBxG+hY0nwb+hpSvMO8KQLEe0UZORyhO556F36
+         7imwWL2v6t/OGdB8ZY2CEnSYMPuqoNrDUPTBh7gUc1Vt4m5IhrLEet+4fUcMFDD0oEvQ
+         1PRWG+T/4YU+6wcgW3cOOhd7QUAx6T7RMMssjBwrmYbJ4aSyhnoJqQIYt5UpIltXUfUT
+         OFhXZSIGt4tU3nobYiUcW5PDQc4ggZLY1gQlJ2xOgNDGH52ZXQ5lIA/YpQFVTr8I5GsB
+         4PQhl7m+5bux1XM0yOw2kwlUcjO0yyrM7+BJ5dCe5KEI1OZX6h9btfXo0LdMmyZVk91g
+         p5jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754981540; x=1755586340;
+        d=1e100.net; s=20230601; t=1754983099; x=1755587899;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CU6l/YxR38H56kfp+AvQsVaRCIYqsznCnye+9vNlqXc=;
-        b=CzBYUZv1P4Pmm/vcIC3nZpnVWwu5m4+3bt+t66fVEbCkT1w/WNfbNGWBohfGUOWm4N
-         tZItqZ5uo4o+vu4p9ges1HGN2BQMKJAodp6gPS5zdopOndrSyIyiBoe7Fh2lfhhtTzh5
-         fTYvXrlDlKpSX5c8b7FF0/3Iho2uTtc2sO3PhhCH8QmCjXuxVb10hqzGgQJbYREHwEyZ
-         ioFwvRhzX7uvqU/y4NdGJjc68dB5Q5L1LNfr2Ii9l0RV0GLrIHFLGnkPAQsf0p5DKGE4
-         arUBdk2yfJUpC6QcMc5v3DRXYPbKXKX/jT64hnv8B5iSH41nLfQxscjNQMue2S8Twu4A
-         vKlg==
-X-Forwarded-Encrypted: i=1; AJvYcCWkBpWnz9pCVivbkGwTSBgsYbI6KHtyBYfgymWLObKUFRhjDlhdet3W9nCShvilrzQ6ba/QVyDqaAw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzydDkRysbKVQYpywoiVvmyOPcEB7s9QjL+CVuY/FeV610Eim2L
-	DdG52X6BQH62evb+a1KG9hlDVsOBMnaHReFJZG1FWmXM7Mk8mLxTIzY5MjpVhad2pA==
-X-Gm-Gg: ASbGncvRg5EZRMvHHJrxzJGa63EkAvMoK3uDqHt0fMXrf8yrCCu+zXMGkYUxVMiIUA2
-	o9bCR+7CSP8YUBY18ntG2pQiOV/VX0RzceaX4/R4L1UytNL9qUQJaQU8OE6na74lRS9b4o5v78G
-	AokNdOWW8r3qw02+HnnSvGsZktpmA6Df3N7YW1ym800/B4hEOwPl2m1v7oEt7RcbUkDnCLr5FfQ
-	eFmmj31vEYSTbzsX+HCmn04eK5yL/vyDO8XrtPbehcpKz9vVNptJIllKTEzmdCyMN0bgGi5QDEs
-	ZDGefpGbmM0ZB3+JXF6yQzZ4c1PxnNtwC/xZ4kDAhPEvQ0EG79DZpKCFPhawztSJxoDMUpz1/5/
-	DnEGReb/WDvtibwloNa5LIlEIJG5knWvDZrL5b14GRKYUG71IF6pcN8Bz5TPR+h733EiwgB9zaV
-	lMZMfx65g=
-X-Google-Smtp-Source: AGHT+IGIHo3ItpHf9LP6uFZElkGgRV++/2iHH18r9OKCr0sWzB7swAfosvGvyqb4KUtvA/zDoPGepA==
-X-Received: by 2002:a05:6402:280e:b0:617:b6fe:b6a5 with SMTP id 4fb4d7f45d1cf-6184ecf27b1mr1679161a12.27.1754981540228;
-        Mon, 11 Aug 2025 23:52:20 -0700 (PDT)
-Message-ID: <61aeb2a2-dc53-4f52-ab65-a9a8143a3307@suse.com>
-Date: Tue, 12 Aug 2025 08:52:18 +0200
+        bh=tYs6ssAz+uVr078xuY+6RZ0po0mZXiP/Xip2L0bl8qU=;
+        b=Pbnzy/ACnsIiZ8b2H9WvcB3WNXI11nWb4lSm9H0KFLfBBu85JMSB9OnrOjsqppSern
+         cnw/WldUA8TqsuwtKv8IqwERcQcDswb1FD95qDDG9GG+KlV57c+tEIIGOnkxKWzAmScD
+         I9AsouXb74TqDR25nOWro8Ld2JcGZB9bJQuQWrvyjMlYCE22NbUuwZogH7yDMu7aLIFA
+         RDh8TUkDW1i6ThFZ0R9R+5XEROVTsVw/vJ+wLt1oNhHAdC16HzabIKSR5/qGCciSgPkf
+         oC9qhdeALqNRjcINZRkdjyjxZvHIFdh85BvPUU7P7Es3g4Dsj7lqugw6XgESNimhb/i4
+         xWIg==
+X-Forwarded-Encrypted: i=1; AJvYcCXcCl5BXSWYNtZ2X+sKR/Si0XGDDUC5EbwhdNWtQ64KG7Qs8s7eNfRYV/NcFxIB2NNNFZARboqE/UU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzOMNOFScylCqD3LngtrekoFQ1dPnublgbtE5ERF8MZUZY0qwPW
+	l81yCcNhyEu+xIIl2CQySULGS0jQMvfEZjbXuJWP2X7y8VJ+08cT2+JPF9ioDAU2zA==
+X-Gm-Gg: ASbGncuF+0z9epWdF81eAjl6A8K7D8YlXuLswgYmDBMItsgTuerbpTe44BGUu84t0Ac
+	gTZv1b7ibX9COzN0WQ4MAKXJGoG2ugfSPADKe8taNRjOOkZE7/i47tYPTGFgEar7nSwFZAd4RbQ
+	cIcfInmVUdlQUJ7n8NbmJ9bEQg66RkD9Z9GrYxENeGsTLVv9UTSTpuGhio/HTOGVahkPgVooSDl
+	EMQPjpvqhRRTQEqE3Osnfv7LPYVhNjjmHIhmNb2GOEPLDfoR+cOljgKTBpqTiaIlntKknYx4nht
+	eFFaaEhIqy0u/LAbG7xY47yHdc50IDMeVSeZ3Fc+9EwR5ooq7hiMOIUWbSfERrhyDG5joNJvC/7
+	2mkTL7zGAX8Dxw2/wX9E50jbjCS5DqUTrMOfFgjj1i0kKhLGHi/REkuSyIStOGs1TQccmTx4fBn
+	WBOU/Ux7c=
+X-Google-Smtp-Source: AGHT+IGjVgtzcRxweTPnbV6uJNBrKqdgxTvvahXlONdSOOLcB8R2qYjfgnf/VUBrzFTSPlG7EHOhxg==
+X-Received: by 2002:a17:907:961d:b0:af2:5229:bd74 with SMTP id a640c23a62f3a-afa1e089f5dmr221386166b.26.1754983099089;
+        Tue, 12 Aug 2025 00:18:19 -0700 (PDT)
+Message-ID: <67216d88-9296-43d1-aa46-54cefb53ea5d@suse.com>
+Date: Tue, 12 Aug 2025 09:18:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/8] emul/vuart: introduce framework for UART emulators
-To: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250731192130.3948419-1-dmukhin@ford.com>
- <20250731192130.3948419-3-dmukhin@ford.com>
- <a416cc08-5970-433a-8015-5d2aa961a000@suse.com> <aJeZpiM35gOtB+4Z@starscream>
- <6953603b-8c3f-4f12-9f5e-45cb553fe8cc@suse.com> <aJqDCJp19/iMIfDq@kraken>
+Subject: Re: [PATCH v5 07/12] xen/arm: Add support for system suspend
+ triggered by hardware domain
+To: Mykola Kvach <xakep.amatop@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Mirela Simonovic <mirela.simonovic@aggios.com>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Saeed Nowshadi <saeed.nowshadi@xilinx.com>,
+ Mykyta Poturai <mykyta_poturai@epam.com>,
+ Mykola Kvach <mykola_kvach@epam.com>, xen-devel@lists.xenproject.org
+References: <cover.1754943874.git.mykola_kvach@epam.com>
+ <c995126a9a61aecff7cb9a7c6fd28f091a332443.1754943875.git.mykola_kvach@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,49 +129,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aJqDCJp19/iMIfDq@kraken>
+In-Reply-To: <c995126a9a61aecff7cb9a7c6fd28f091a332443.1754943875.git.mykola_kvach@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12.08.2025 01:55, dmkhn@proton.me wrote:
-> On Mon, Aug 11, 2025 at 09:34:58AM +0200, Jan Beulich wrote:
->> On 09.08.2025 20:55, dmkhn@proton.me wrote:
->>> On Mon, Aug 04, 2025 at 12:11:03PM +0200, Jan Beulich wrote:
->>>> On 31.07.2025 21:21, dmkhn@proton.me wrote:
->>>>> @@ -354,6 +355,8 @@ static void cf_check dump_domains(unsigned char key)
->>>>>                             v->periodic_period / 1000000);
->>>>>              }
->>>>>          }
->>>>> +
->>>>> +        vuart_dump_state(d);
->>>>
->>>> How verbose is this going to get?
->>>
->>> Looks something like this:
->>> ```
->>> (XEN) [   88.334893] 'q' pressed -> dumping domain info (now = 88334828303)
->>> [..]
->>> (XEN) [   88.335673] Virtual ns16550 (COM2) I/O port 0x02f8 IRQ#3 owner d0
->>> (XEN) [   88.335681]   RX FIFO size 1024 in_prod 258 in_cons 258 used 0
->>> (XEN) [   88.335689]   TX FIFO size 2048 out_prod 15 out_cons 0 used 15
->>> (XEN) [   88.335696]   00 RBR 02 THR 6f DLL 01 DLM 00
->>> (XEN) [   88.335703]   01 IER 05
->>> (XEN) [   88.335709]   02 FCR 81 IIR c1
->>> (XEN) [   88.335715]   03 LCR 13
->>> (XEN) [   88.335720]   04 MCR 0b
->>> (XEN) [   88.335726]   05 LSR 60
->>> (XEN) [   88.335731]   06 MSR b0
->>> (XEN) [   88.335736]   07 SCR 00
->>>
->>> ```
->>
->> Definitely too much (for my taste) to put under 'q'.
-> 
-> I'll try to limit the number of printed lines; register dump can be made
-> compact for sure.
+On 11.08.2025 22:48, Mykola Kvach wrote:
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -1311,7 +1311,11 @@ int domain_shutdown(struct domain *d, u8 reason)
+>          d->shutdown_code = reason;
+>      reason = d->shutdown_code;
+>  
+> +#if defined(CONFIG_SYSTEM_SUSPEND) && defined(CONFIG_ARM)
+> +    if ( reason != SHUTDOWN_suspend && is_hardware_domain(d) )
+> +#else
+>      if ( is_hardware_domain(d) )
+> +#endif
+>          hwdom_shutdown(reason);
 
-Yet even then I'm inclined to say that device specific data simply doesn't
-belong here.
+There better wouldn't be any #ifdef here. Afaict you can easily use
+IS_ENABLED(CONFIG_SYSTEM_SUSPEND). For CONFIG_ARM, though, I think some
+new abstraction will need adding. E.g. HAS_HWDOM_SUSPEND (with want for
+a better, yet not overly long name).
+
+With the hwdom / ctldom separation work in mind I wonder though if it's
+really hwdom to be in charge of initiating system suspend. Imo
+conceptually that rather would want to be ctldom. Stefano?
 
 Jan
 
