@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 272BAB21F8A
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 09:32:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1078323.1439310 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AB87B21FA8
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 09:35:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1078331.1439320 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uljV2-0001x8-8s; Tue, 12 Aug 2025 07:32:48 +0000
+	id 1uljXE-0002TU-L3; Tue, 12 Aug 2025 07:35:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1078323.1439310; Tue, 12 Aug 2025 07:32:48 +0000
+Received: by outflank-mailman (output) from mailman id 1078331.1439320; Tue, 12 Aug 2025 07:35:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uljV2-0001u1-63; Tue, 12 Aug 2025 07:32:48 +0000
-Received: by outflank-mailman (input) for mailman id 1078323;
- Tue, 12 Aug 2025 07:32:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uljXE-0002QN-IH; Tue, 12 Aug 2025 07:35:04 +0000
+Received: by outflank-mailman (input) for mailman id 1078331;
+ Tue, 12 Aug 2025 07:35:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Pr65=2Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uljV1-0001tv-As
- for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 07:32:47 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 89bcaa0c-774e-11f0-b898-0df219b8e170;
- Tue, 12 Aug 2025 09:32:45 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-af96fba3b37so963603066b.3
- for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 00:32:45 -0700 (PDT)
+ id 1uljXD-0002QF-6t
+ for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 07:35:03 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id db69e505-774e-11f0-a327-13f23c93f187;
+ Tue, 12 Aug 2025 09:35:02 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-615d1865b2dso7604508a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 00:35:02 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a0a3cecsm2156787366b.53.2025.08.12.00.32.43
+ 4fb4d7f45d1cf-615a8f26cc6sm19961548a12.23.2025.08.12.00.35.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Aug 2025 00:32:44 -0700 (PDT)
+ Tue, 12 Aug 2025 00:35:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 89bcaa0c-774e-11f0-b898-0df219b8e170
+X-Inumbo-ID: db69e505-774e-11f0-a327-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754983964; x=1755588764; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754984102; x=1755588902; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=r9QWuPCJoRTeDO1mWK7IIn2aTvJNgbPKVU6GtUcsPpQ=;
-        b=XH4zzDUxjRLHW5Rdle4xGp41KzfjuWRwxIoJdJLkJpHOo8ESTkz0VpuxqKYi/NSCne
-         f6nWXqogkueSrcvo8MKjfau5Y0FqPf8dub7e/q7DK+LtTd2OpuB784MfPnX/Yy0J5jQx
-         cK29VGAm1ufiquhqXw0nLEuh1DG96VP6WsxK338PU+iL7LaAx8ZA9KPcJtaqTznswYOu
-         qMVV1BEI2VUIZwYGypgRDgXrPX32xsIahE89T5TdvAiepqZ8QxrNgzo+ngdyT/6Hcq+5
-         OabrJNv38kLCR74q8cvwX0xOEdslTnfLX06sZkM9TUaXXDVPQF+6vmFiO81qHs6yOu7F
-         wGmg==
+        bh=TjgY2L9LIm6Y/Iy9QxSTk1W1C6xWfCe15u3DnJipLGY=;
+        b=QVcDDcJECx4nuLCIpO3hG+J6EJOH2aG6bV8lhwrLmjHBYsXOUEcfm8Uz2uQ8tBiE/Z
+         28z3vGGpv4TvkxU4A4oT7TlM2P1DWUNSzXVT1ZTjsIJxVcgPp5oDCIjwInLRU6KXM0sK
+         CE9F+124rJgXD/AivL4piw1bv+v1bSGU2hcZsoqYXiV3EHZ+tGy1T5rEebxPcZMxwO/L
+         vBk6cacpV9RiN5Fm2At+irQbRhhG9DeCpNAtHfjK4FKcJ6f3fnm+zUyxh/bcK8P+r8F7
+         tcQFdV31gqQ+w+zS6QCXKYuQdY0X1u0ylwxMDr4RsfE3cuF0zuEZu4+fix55fp5HnKM9
+         ow0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754983964; x=1755588764;
+        d=1e100.net; s=20230601; t=1754984102; x=1755588902;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=r9QWuPCJoRTeDO1mWK7IIn2aTvJNgbPKVU6GtUcsPpQ=;
-        b=jRNGZTL+tCHj0gCukIlZaG3UAy5PZc6yhFUIqfKAqlh8IYzLY/c1EPuSUzPsyWw0by
-         VrNhWvFJx+Wmf6ERmmSpbCeHW+R2tSNLyJlvuoWFOsmMGvBDJ3Er9M1g2NDXToeEkBaE
-         wvb14ypCn64qkyJExJtFcu4juLnkkjZg6ywewxolUTIQVsD/66hfTHzZ81x372DcIxfI
-         SxVwLyoO6y7URqBPWmkbZOQX7JBpRg0xsPmAiOQjSW/PZmL5/2NWUZZvIj/GkNl/A+7z
-         Kz2RiLgVYTnyJZDBKvBr+iLO6kFHMT4ALJCybdftdLYmP2SvGjX+PcqI/UET2QXsGGxP
-         jzDA==
-X-Forwarded-Encrypted: i=1; AJvYcCViqQgaGzuc/xz79+Dq3FWZ6caocHUSMtIfJiI0BZ5uVxwh1I6fsw6KpPNbck+5dwd2ViNcxZd69lw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzHt6qqlRWyxtJVTKX9x0WbuohkTaCV41h09Ykukc8iGmItr/8t
-	PA9gN+ajRt6C77a3wNQ5Otc41J4JlNJNg/f6jeUuUnQ44/D2eFeqa1DEsgVR+zic9A==
-X-Gm-Gg: ASbGncsgEYA3mTzZ1hnrZCbRhKacfi8GwFasuYGTMkE3q4fAsEsx0bzcAn6xeJxZjBg
-	KdbNw6QSSj+fCThFmK8c6ymynjenyHQxDz/WxB0ny/9z+l8zzzZLXztWkGyVYMDDn/iCMs6K+je
-	wa6mV6+25PI+GY0msfhDoNxUtlLK5l8plSVXOfEVBrEcFFUCKw1VW+QYyIT0x5ZZvtLDxVyOM9R
-	QLMyXiEQABMQOju7w4zJWC9Zih8Kzt19Z4u4bod9/5DE8ZYNYNI/0THQ0EH90vClr+kH52x3W1w
-	2u/gsA3e2+pyp0/pagMVo9h6C2wTaeIfeMguQyCnTsMQulXv+CxqPKY2os/vVc5AoMgbRsD5yJh
-	AVhNKv22VOJ7CCNNRuB1dEn61g4On/saUtygDoWG/ABwtg1tsilbwJkOrUspIacDYnv6VAbZM6H
-	lrk0Q/O5JS93Vwclc7lBrkXel3qqvQ
-X-Google-Smtp-Source: AGHT+IF8668MVVu3pTMsJJvsf8lkmvVTxvcTr+pKvYku26TpyWop8DCaXcHLF+Au+NxrIlNYvSX3ug==
-X-Received: by 2002:a17:907:3e8b:b0:ae3:eed1:d018 with SMTP id a640c23a62f3a-afa1dfe892bmr180617966b.9.1754983964582;
-        Tue, 12 Aug 2025 00:32:44 -0700 (PDT)
-Message-ID: <aba2627f-b38d-4d6c-9c5e-4bdc4f5b563f@suse.com>
-Date: Tue, 12 Aug 2025 09:32:43 +0200
+        bh=TjgY2L9LIm6Y/Iy9QxSTk1W1C6xWfCe15u3DnJipLGY=;
+        b=P1Xh+WtMwZOGBLa8/WUC3SvOIutQdB71a7BbQH41ELe6JDHRdF3ONYTfTVhAcKm6/N
+         eJbc9jCg86NRfB8mtPvHukROwpueWWMLfnaiknUdttlOERL4CtYIcZQ2IL8C8dDwvhQD
+         Gds/7QPr+ckt0wJujYXd6OQVT5SbhSN70dy9fIBCv9/BrT7F0PGVa+54lgos71uevAAG
+         J+D7L4mPefwm6hYXnWGNx4rj9wb61Cw0QSTPLobYpXON4DsqZ41l3bBqAHmtQCFd9Zd/
+         10524iT1xUDl6PbRCaZk2xqQ5ySidWBhzrkn2y0m3XN3z7Wcc0IsqO25HpzpZa5CXsA4
+         BBtQ==
+X-Gm-Message-State: AOJu0YxoFPUhT6JF4U262ez7MN8eNF763FZAbTjBy5MOmSEiuRq9TFP2
+	JjGN3gnMrWdrgcjJ3Vgnlv8PDO+OuRrZkYmfnxWZxN5lkVv3EbkafdVNM3GBrl3KWA==
+X-Gm-Gg: ASbGnct4hRsJLFjSow/zCFP3N2helNx44DaPBOj7EuwkJeUmGRm1HP3WAgxT7raxuEG
+	k6KI00uAepVQT9mmlERQi1OcE2F9NwxrUywgpuZE4NpPpKCbqHNBLmUBIcFyBdRWyuUG09emApe
+	HmeKg8PD/XIP73M5laAL+bMxNY1dcQagYjvksPiWLzuyoxP5dgRDmkHymLA4cpvJVRuMVVdsRZD
+	n9dJ2oqp9HsPTiREMu7xitaXX3ZhwVIQuIBS/qObYzMI9mGifzZTlEne3QmN+2Cf2M3O9FoqkQ5
+	bmBU+l44COLoGmTzXeiFFVY/IsyJQCqhpWJ1etyOlCfivE88MNJauixlNhNZjRcP6eWierIWSAP
+	Zr2gGUzRVs8genbSfYJAN3VQ5Vm23sGXae9rZTSGWWINU0OIOON3sVWdxFCtpSMSp16yLuC3XMo
+	HSS2ujiAU=
+X-Google-Smtp-Source: AGHT+IFmw/9NOE/XLPprKqSzrpsec2S49D+xyfTArXE9D95V7HxQh/36Q/proL03zcoC4TUDorE7IQ==
+X-Received: by 2002:a05:6402:5246:b0:618:30f3:1d7d with SMTP id 4fb4d7f45d1cf-6184ea28edamr1690587a12.2.1754984101522;
+        Tue, 12 Aug 2025 00:35:01 -0700 (PDT)
+Message-ID: <21bb7592-544f-4714-b45b-0ddfca3fc724@suse.com>
+Date: Tue, 12 Aug 2025 09:35:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] misra: add ASSERT_UNREACHABLE() in default clauses
-To: Julien Grall <julien@xen.org>,
- Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [PATCH] misra: comment default case in single-clause switch
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <7cd71ed21383c189fedb3250ddde54a593f7f98b.1754944131.git.dmytro_prokopchuk1@epam.com>
- <59396fd1-ca82-4655-9dcf-ec36e0d51ffc@xen.org>
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <1d3c5364b726e42a8c38c396f2e20efc52790f62.1754933752.git.dmytro_prokopchuk1@epam.com>
+ <d82cc723a17ec65f12fd60182fd6fe20@bugseng.com>
+ <110fc2a9-2f48-4718-995b-3295b9c7e9aa@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,41 +124,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <59396fd1-ca82-4655-9dcf-ec36e0d51ffc@xen.org>
+In-Reply-To: <110fc2a9-2f48-4718-995b-3295b9c7e9aa@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.08.2025 23:21, Julien Grall wrote:
-> On 11/08/2025 21:30, Dmytro Prokopchuk1 wrote:
->> --- a/xen/common/grant_table.c
->> +++ b/xen/common/grant_table.c
->> @@ -330,9 +330,12 @@ shared_entry_header(struct grant_table *t, grant_ref_t ref)
->>           /* Returned values should be independent of speculative execution */
->>           block_speculation();
->>           return &shared_entry_v2(t, ref).hdr;
->> +
->> +    default:
->> +        ASSERT_UNREACHABLE();
->> +        break;
->>       }
->>   
->> -    ASSERT_UNREACHABLE();
->  >       block_speculation();>
->>       return NULL;
+On 12.08.2025 09:19, Dmytro Prokopchuk1 wrote:
 > 
-> I know you are trying to apply the MISRA rule. But this is odd that you 
-> move the ASSERT_UNREACHABLE() but then code after is still only 
-> reachable from the default. In fact, this is introducing a risk if 
-> someone decides to add a new case but then forgot to return a value.
 > 
-> By moving the two other lines, the compiler should be able to throw an 
-> error if you forgot a return.
+> On 8/12/25 00:14, Nicola Vetrini wrote:
+>> On 2025-08-11 19:36, Dmytro Prokopchuk1 wrote:
+>>> MISRA Rule 16.4: Every switch statement shall have a default label. The
+>>> default clause must contain either a statement or a comment prior to its
+>>> terminating break statement.
+>>>
+>>> This change adds comments in default cases in single-clause switches to
+>>> avoid violations of the rule where the `default` clause lacks a suitable
+>>> comment or statement.
+>>>
+>>
+>> If you want to go this way then at least this config wants dropping:
+>>
+>> -doc_begin="A switch statement with a single switch clause and no 
+>> default label may be used in place of an equivalent if statement if it 
+>> is considered to improve readability."
+>> -config=MC3A2.R16.4,switch_clauses+={deliberate,"switch(1)&&default(0)"}
+>> -doc_end
+>>
+>> and probably this one too (haven't checked):
+>>
+>> -doc_begin="A switch statement with a single switch clause and no 
+>> default label may be used in place of an equivalent if statement if it 
+>> is considered to improve readability."
+>> -config=MC3A2.R16.6,switch_clauses+={deliberate, "default(0)"}
+>> -doc_end
+>>
+>> In the end it's a tradeoff; placing a comment with a suitable 
+>> argumentation might be strictly better than simply tagging the tool 
+>> report, at least from a developer's perspective. From a MISRA compliance 
+>> standpoint in my opinion both are fine. Let's see what the maintainers 
+>> think.
+>>
+> 
+> According to Jan's comment here
+> https://patchew.org/Xen/725ec86ac1aa883c35fb30b8f226c95cbe0934e9.1754322299.git.dmytro._5Fprokopchuk1@epam.com/
+> there were discussions about placing comments inside 'default' case.
 
-I think we did discuss this pattern in the past. While moving everything up
-to the "return" into the default: handling will please Eclair / Misra, we'll
-then end up with no return statement at the end of a non-void function.
-Beyond being good practice (imo) to have such a "main" return statement,
-that's actually another rule, just one we apparently didn't accept (15.5).
+For notifier functions in particular, yes. The config quoted above covers
+more than those, though, if I'm not mistaken.
 
 Jan
 
