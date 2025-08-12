@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F362B225B6
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 13:19:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1078716.1439773 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D958CB225B8
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 13:19:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1078724.1439783 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uln23-0001P3-E8; Tue, 12 Aug 2025 11:19:07 +0000
+	id 1uln2a-0001r4-Ll; Tue, 12 Aug 2025 11:19:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1078716.1439773; Tue, 12 Aug 2025 11:19:07 +0000
+Received: by outflank-mailman (output) from mailman id 1078724.1439783; Tue, 12 Aug 2025 11:19:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uln23-0001Md-AW; Tue, 12 Aug 2025 11:19:07 +0000
-Received: by outflank-mailman (input) for mailman id 1078716;
- Tue, 12 Aug 2025 11:19:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Pr65=2Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uln21-0001MX-FK
- for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 11:19:05 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 26da3661-776e-11f0-b898-0df219b8e170;
- Tue, 12 Aug 2025 13:19:03 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-6153a19dddfso7985502a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 04:19:03 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-615a8f26cc6sm20259380a12.23.2025.08.12.04.19.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Aug 2025 04:19:02 -0700 (PDT)
+	id 1uln2a-0001o0-Ho; Tue, 12 Aug 2025 11:19:40 +0000
+Received: by outflank-mailman (input) for mailman id 1078724;
+ Tue, 12 Aug 2025 11:19:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UlY3=2Y=arm.com=mark.rutland@srs-se1.protection.inumbo.net>)
+ id 1uln2Y-0001eC-Fc
+ for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 11:19:38 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 3b39dab5-776e-11f0-a327-13f23c93f187;
+ Tue, 12 Aug 2025 13:19:37 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 91CE425E1;
+ Tue, 12 Aug 2025 04:19:28 -0700 (PDT)
+Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EB39D3F63F;
+ Tue, 12 Aug 2025 04:19:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,176 +42,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26da3661-776e-11f0-b898-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754997542; x=1755602342; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=uU80gNACUDmfnw0pRqCk6zUjHTfTG4dJeNPVlHZ7qGA=;
-        b=dEFiS5odBmWgrnabuJpbEcmup2vb7LOsRXftwXE6AdvPuQ50Inh9SFDwyu1n1aBjUj
-         EU1REFVN/GszU2hDC+FHqbJcZPw0uO3wz86lHfxUARQtaEf5w38bm2vdqNZqb3OvB4Du
-         YWI0h+TDzX91HWt3xedeH1inNaQZcHcuyBF1BAMojtCNUOqguvOqgMLSO6yCyMPViylL
-         eEG9/agFEm7z9DPhes4FStLiuGirNMITJ/nb02UmEdjiMrWHQpcMWBMk3QejTJ3yVWqZ
-         48v4jT6cAwnWM7IERC4OaWYZS0hmhvaZAdhmp9qlJ9ONA7TOjbPZlc4N4ZhCCyof9Eud
-         zCzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754997542; x=1755602342;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=uU80gNACUDmfnw0pRqCk6zUjHTfTG4dJeNPVlHZ7qGA=;
-        b=ozOnoUU7WAckYgb3HmCh331cFLOPrMQYDaaAftEXrw9YzWXCL3sQ0bKO1iodr4ivGk
-         /30N2w98lm+vocSBkC+kEWQbBpeRLwpAMIHkL2J356a31MA/DwnK7twRF5qmOx+k1M+x
-         4XitAxYjRR/ufwCvoD1YszOlA7JRSyEPn0IKezzOAh2yIMqiEcoE+ONrQylVB5zxiVEi
-         im3VCOM4JQ3YH2VEX+Jz5K3rrBoPUGm0S0ZxUmtWBkJIgCJVpICoIPLxBR+3qQ0Ia77k
-         b8ynh4mRhoKeQ5RnsJvY3IKZq3+kQazy5Csh4R38WanrrePDNimQUgpiCnyoVkyHZ/qs
-         2R0Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXWL4qbZ7rB01nJnQHzAylkeaE5NUjBCLniVdiHUZgWXTrJHJK2w990cwq+bfk4wUwgmITAzf24W4c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwMwLQG3MC1RHed+7h197S9ZbGZpOIQskYuIoR2KHcoyy/9bJED
-	C4U3fS+nz19+7hp5V7fFCtb2YirNqlTq7GJSwAYFLiEC2gPC9j1Jd34pv6axIlaZQA==
-X-Gm-Gg: ASbGncuU3HK9y6VSqehB+kJ0rxlmYuqzcgXnUFF7dIzk2FZ82+/DhmxsqkQ+CmIHHBF
-	5/KeObjpoNHaAhE0MxBbxTGM5HZB+HMGaYLNvBTlJS3ZXl7XCZtAhQe+DsH5XcH3gUGdQ2Os0Fv
-	AZLzXs3+2VLz0R5+SA5mONY0HkbMMKBglGRVCRwoppofrjL5DBf5xbCRLZBPa7amCfwaNutQUWq
-	Hp7vbvfyRbhkpso81bEhzUjuF2JaPrKrtb+zX9rCMm1z6sFENkNj9Mkz76JidvktwUTH98F1UKT
-	DoyBoA779sVlDG37QK0es3TAfoTUMoUNkHioLEFRojb6YMdZtKWAj3MK1z6QbF3uW+RdNY1twmP
-	/DBy3p1mztR+EbTnd7aLMm2fNeshj/6V1/tPO/aoV6z3sla6pRemQT6YFgylmJw1fikdmzfALhE
-	V8ruDt5bQwpYtOBELhqA==
-X-Google-Smtp-Source: AGHT+IGhEYImBGoqIsOrl+zALTYiQSUEjWprSloXX6wfAzRHhLdbgXauCmHljQcgQGcpNl5UUs5WTA==
-X-Received: by 2002:a05:6402:27d0:b0:617:b516:287c with SMTP id 4fb4d7f45d1cf-6184ec73171mr2465640a12.18.1754997542551;
-        Tue, 12 Aug 2025 04:19:02 -0700 (PDT)
-Message-ID: <d13f0a15-42c7-45f9-9c6c-fe19fafd85a2@suse.com>
-Date: Tue, 12 Aug 2025 13:19:01 +0200
+X-Inumbo-ID: 3b39dab5-776e-11f0-a327-13f23c93f187
+Date: Tue, 12 Aug 2025 12:19:30 +0100
+From: Mark Rutland <mark.rutland@arm.com>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, oleg@redhat.com,
+	sstabellini@kernel.org, puranjay@kernel.org, broonie@kernel.org,
+	mbenes@suse.cz, ryan.roberts@arm.com, akpm@linux-foundation.org,
+	chenl311@chinatelecom.cn, ada.coupriediaz@arm.com,
+	anshuman.khandual@arm.com, kristina.martsenko@arm.com,
+	liaochang1@huawei.com, ardb@kernel.org, leitao@debian.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH -next v7 0/7] arm64: entry: Convert to generic irq entry
+Message-ID: <aJsjQsDZjhG8oiK-@J2N7QTR9R3>
+References: <20250729015456.3411143-1-ruanjinjie@huawei.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/3] xen/pci: add discovered PCI device at boot
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: Luca Fancellu <luca.fancellu@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1753968306.git.mykyta_poturai@epam.com>
- <5097b76acf0a5c64cc78522f6af6233370c948e6.1753968306.git.mykyta_poturai@epam.com>
- <123626b4-3234-40e5-b1cf-bd5c2b19cbc8@suse.com>
- <2a324f7a-6b25-4f30-a3a1-9c115aadbfae@epam.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2a324f7a-6b25-4f30-a3a1-9c115aadbfae@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250729015456.3411143-1-ruanjinjie@huawei.com>
 
-On 12.08.2025 13:09, Mykyta Poturai wrote:
-> On 04.08.25 11:35, Jan Beulich wrote:
->> On 01.08.2025 11:22, Mykyta Poturai wrote:
->>> Create add_discovered_pci_devices function that calls pci_device_add
->>> on every PCI device discovered.
->>> The devices will be added to dom_io so that they can be assigned
->>> later to other domains.
->>
->> And why's the intermediate step necessary? IOW can't they be assigned to their
->> target domains right away, and only whatever's left would go to DOM_IO?
+Hi,
+
+This is looking pretty good now, thanks for continuing to work on this!
+
+I've left a couple of minor comments, and Ada has left a few more. If
+you're able to address those and respin atop v6.17-rc1, I think we can
+start figuring out how to queue this.
+
+Mark.
+
+On Tue, Jul 29, 2025 at 09:54:49AM +0800, Jinjie Ruan wrote:
+> Currently, x86, Riscv, Loongarch use the generic entry. Also convert
+> arm64 to use the generic entry infrastructure from kernel/entry/*.
+> The generic entry makes maintainers' work easier and codes more elegant,
+> which will make PREEMPT_DYNAMIC and PREEMPT_LAZY use the generic entry
+> common code and remove a lot of duplicate code.
 > 
-> For Dom0less case, guest domains are not yet created at this point.
-
-I understand that, but this doesn't answer my question. Once the guest domains
-are there, can't you directly assign their devices to them?
-
->>> --- a/xen/drivers/passthrough/pci.c
->>> +++ b/xen/drivers/passthrough/pci.c
->>> @@ -1180,6 +1180,34 @@ int __init scan_pci_devices(void)
->>>       return ret;
->>>   }
->>>   
->>> +static int __init _add_discovered_pci_devices(struct pci_seg *pseg, void *arg)
->>> +{
->>> +    struct pci_dev *pdev;
->>> +    int ret = 0;
->>> +
->>> +    list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
->>> +    {
->>> +        ret = pci_add_device(dom_io, pdev->seg, pdev->bus, pdev->devfn, NULL,
->>> +                             NUMA_NO_NODE);
->>> +        if ( ret < 0 )
->>> +        {
->>> +            printk(XENLOG_ERR
->>> +                   "%pp: Failure adding the discovered pci device (Error %d)\n",
->>> +                   &pdev->sbdf, ret);
->>> +            break;
->>> +        }
->>> +    }
->>> +
->>> +    return ret;
->>> +}
->>> +
->>> +void __init add_discovered_pci_devices(void)
->>> +{
->>> +    pcidevs_lock();
->>> +    pci_segments_iterate(_add_discovered_pci_devices, NULL);
->>> +    pcidevs_unlock();
->>> +}
->>
->> This looks to merely be a specialized form of what ...
->>
->>>   struct setup_hwdom {
->>>       struct domain *d;
->>>       int (*handler)(uint8_t devfn, struct pci_dev *pdev);
->>
->> ... follows below here. By generalizing what we have (perhaps from the top, i.e.
->> iommu_hwdom_init()), you'd also avoid violating Misra rule 2.1 on x86, as you add
->> unreachable code there.
+> Since commit a70e9f647f50 ("entry: Split generic entry into generic
+> exception and syscall entry") split the generic entry into generic irq
+> entry and generic syscall entry, it is time to convert arm64 to use
+> the generic irq entry. And ARM64 will be completely converted to generic
+> entry in the upcoming patch series.
 > 
-> Can you please elaborate a little further on how you see this 
-> generalization? With routines you mentioned being specifically for 
-> hwdom, which may not exist,
-
-That's precisely the generalization I'm having in mind. What's hwdom-only
-now ought to be possible to be made usable in wider manner.
-
-> and the different approaches to PCI 
-> initialization on Arm/x86 (as far as I understand on x86 all of the PCI 
-> related stuff is initialized from iommu helpers, while Arm has a 
-> dedicated init step)
-
-This, too, may want harmonizing.
-
-> I am afraid I can't find a nice point of contact to 
-> generalize this, but I can be missing somthing due to unfamiliarity with 
-> x86 code.
+> The main convert steps are as follows:
+> - Split generic entry into generic irq entry and generic syscall to
+>   make the single patch more concentrated in switching to one thing.
+> - Make arm64 easier to use irqentry_enter/exit().
+> - Make arm64 closer to the PREEMPT_DYNAMIC code of generic entry.
+> - Switch to generic irq entry.
 > 
-> Another way of addressing possible MISRA violation I can see is moving 
-> the add_discovered_pci_devices to xen/arch/arm/pci/pci.c so it will only 
-> be compiled when used.
-
-And pose a problem when e.g. RISC-V also wants the same.
-
-Jan
+> It was tested ok with following test cases on QEMU virt platform:
+>  - Perf tests.
+>  - Different `dynamic preempt` mode switch.
+>  - Pseudo NMI tests.
+>  - Stress-ng CPU stress test.
+>  - MTE test case in Documentation/arch/arm64/memory-tagging-extension.rst
+>    and all test cases in tools/testing/selftests/arm64/mte/*.
+> 
+> The test QEMU configuration is as follows:
+> 
+> 	qemu-system-aarch64 \
+> 		-M virt,gic-version=3,virtualization=on,mte=on \
+> 		-cpu max,pauth-impdef=on \
+> 		-kernel Image \
+> 		-smp 8,sockets=1,cores=4,threads=2 \
+> 		-m 512m \
+> 		-nographic \
+> 		-no-reboot \
+> 		-device virtio-rng-pci \
+> 		-append "root=/dev/vda rw console=ttyAMA0 kgdboc=ttyAMA0,115200 \
+> 			earlycon preempt=voluntary irqchip.gicv3_pseudo_nmi=1" \
+> 		-drive if=none,file=images/rootfs.ext4,format=raw,id=hd0 \
+> 		-device virtio-blk-device,drive=hd0 \
+> 
+> Changes in v7:
+> - Rebased on v6.16-rc7 and remove the merged first patch.
+> - Update the commit message.
+> 
+> Changes in v6:
+> - Rebased on 6.14 rc2 next.
+> - Put the syscall bits aside and split it out.
+> - Have the split patch before the arm64 changes.
+> - Merge some tightly coupled patches.
+> - Adjust the order of some patches to make them more reasonable.
+> - Define regs_irqs_disabled() by inline function.
+> - Define interrupts_enabled() in terms of regs_irqs_disabled().
+> - Delete the fast_interrupts_enabled() macro.
+> - irqentry_state_t -> arm64_irqentry_state_t.
+> - Remove arch_exit_to_user_mode_prepare() and pull local_daif_mask() later
+>   in the arm64 exit sequence
+> - Update the commit message.
+> 
+> Changes in v5:
+> - Not change arm32 and keep inerrupts_enabled() macro for gicv3 driver.
+> - Move irqentry_state definition into arch/arm64/kernel/entry-common.c.
+> - Avoid removing the __enter_from_*() and __exit_to_*() wrappers.
+> - Update "irqentry_state_t ret/irq_state" to "state"
+>   to keep it consistently.
+> - Use generic irq entry header for PREEMPT_DYNAMIC after split
+>   the generic entry.
+> - Also refactor the ARM64 syscall code.
+> - Introduce arch_ptrace_report_syscall_entry/exit(), instead of
+>   arch_pre/post_report_syscall_entry/exit() to simplify code.
+> - Make the syscall patches clear separation.
+> - Update the commit message.
+> 
+> Changes in v4:
+> - Rework/cleanup split into a few patches as Mark suggested.
+> - Replace interrupts_enabled() macro with regs_irqs_disabled(), instead
+>   of left it here.
+> - Remove rcu and lockdep state in pt_regs by using temporary
+>   irqentry_state_t as Mark suggested.
+> - Remove some unnecessary intermediate functions to make it clear.
+> - Rework preempt irq and PREEMPT_DYNAMIC code
+>   to make the switch more clear.
+> - arch_prepare_*_entry/exit() -> arch_pre_*_entry/exit().
+> - Expand the arch functions comment.
+> - Make arch functions closer to its caller.
+> - Declare saved_reg in for block.
+> - Remove arch_exit_to_kernel_mode_prepare(), arch_enter_from_kernel_mode().
+> - Adjust "Add few arch functions to use generic entry" patch to be
+>   the penultimate.
+> - Update the commit message.
+> - Add suggested-by.
+> 
+> Changes in v3:
+> - Test the MTE test cases.
+> - Handle forget_syscall() in arch_post_report_syscall_entry()
+> - Make the arch funcs not use __weak as Thomas suggested, so move
+>   the arch funcs to entry-common.h, and make arch_forget_syscall() folded
+>   in arch_post_report_syscall_entry() as suggested.
+> - Move report_single_step() to thread_info.h for arm64
+> - Change __always_inline() to inline, add inline for the other arch funcs.
+> - Remove unused signal.h for entry-common.h.
+> - Add Suggested-by.
+> - Update the commit message.
+> 
+> Changes in v2:
+> - Add tested-by.
+> - Fix a bug that not call arch_post_report_syscall_entry() in
+>   syscall_trace_enter() if ptrace_report_syscall_entry() return not zero.
+> - Refactor report_syscall().
+> - Add comment for arch_prepare_report_syscall_exit().
+> - Adjust entry-common.h header file inclusion to alphabetical order.
+> - Update the commit message.
+> 
+> Jinjie Ruan (7):
+>   arm64: ptrace: Replace interrupts_enabled() with regs_irqs_disabled()
+>   arm64: entry: Refactor the entry and exit for exceptions from EL1
+>   arm64: entry: Rework arm64_preempt_schedule_irq()
+>   arm64: entry: Use preempt_count() and need_resched() helper
+>   arm64: entry: Refactor preempt_schedule_irq() check code
+>   arm64: entry: Move arm64_preempt_schedule_irq() into
+>     __exit_to_kernel_mode()
+>   arm64: entry: Switch to generic IRQ entry
+> 
+>  arch/arm64/Kconfig                    |   1 +
+>  arch/arm64/include/asm/daifflags.h    |   2 +-
+>  arch/arm64/include/asm/entry-common.h |  56 ++++
+>  arch/arm64/include/asm/preempt.h      |   2 -
+>  arch/arm64/include/asm/ptrace.h       |  13 +-
+>  arch/arm64/include/asm/xen/events.h   |   2 +-
+>  arch/arm64/kernel/acpi.c              |   2 +-
+>  arch/arm64/kernel/debug-monitors.c    |   2 +-
+>  arch/arm64/kernel/entry-common.c      | 411 +++++++++-----------------
+>  arch/arm64/kernel/sdei.c              |   2 +-
+>  arch/arm64/kernel/signal.c            |   3 +-
+>  kernel/entry/common.c                 |  16 +-
+>  12 files changed, 217 insertions(+), 295 deletions(-)
+>  create mode 100644 arch/arm64/include/asm/entry-common.h
+> 
+> -- 
+> 2.34.1
+> 
 
