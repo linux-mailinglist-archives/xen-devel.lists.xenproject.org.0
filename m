@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0433AB220C2
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 10:27:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1078444.1439442 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B472B2216D
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 10:41:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1078452.1439452 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulkLf-0007DE-03; Tue, 12 Aug 2025 08:27:11 +0000
+	id 1ulkZH-00027w-5y; Tue, 12 Aug 2025 08:41:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1078444.1439442; Tue, 12 Aug 2025 08:27:10 +0000
+Received: by outflank-mailman (output) from mailman id 1078452.1439452; Tue, 12 Aug 2025 08:41:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulkLe-0007B7-Tj; Tue, 12 Aug 2025 08:27:10 +0000
-Received: by outflank-mailman (input) for mailman id 1078444;
- Tue, 12 Aug 2025 08:27:09 +0000
+	id 1ulkZH-00025t-3L; Tue, 12 Aug 2025 08:41:15 +0000
+Received: by outflank-mailman (input) for mailman id 1078452;
+ Tue, 12 Aug 2025 08:41:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Pr65=2Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ulkLd-0007B1-F1
- for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 08:27:09 +0000
+ id 1ulkZF-000245-LQ
+ for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 08:41:13 +0000
 Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
  [2a00:1450:4864:20::52e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 228de14e-7756-11f0-a327-13f23c93f187;
- Tue, 12 Aug 2025 10:27:08 +0200 (CEST)
+ id 19c37585-7758-11f0-a327-13f23c93f187;
+ Tue, 12 Aug 2025 10:41:12 +0200 (CEST)
 Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-6180ce2197cso5538575a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 01:27:08 -0700 (PDT)
+ 4fb4d7f45d1cf-6182b3218aeso3401087a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 01:41:12 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-618465fb431sm1708492a12.33.2025.08.12.01.27.06
+ 4fb4d7f45d1cf-615a8feaf2fsm19629216a12.38.2025.08.12.01.41.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Aug 2025 01:27:07 -0700 (PDT)
+ Tue, 12 Aug 2025 01:41:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 228de14e-7756-11f0-a327-13f23c93f187
+X-Inumbo-ID: 19c37585-7758-11f0-a327-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754987227; x=1755592027; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754988072; x=1755592872; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Qz6ppPLgaBrJv0BjXlT/BwhWZfY0abwTkQmwUIAYXO4=;
-        b=aCdP7WmsPxcP9DlIT1ICz6+RKzeDST6uyg/3yqMtf+en/y2xm5KPylgODjJZPOfPMN
-         H38nmo4pSRXvHXvTC7/5rBBPwoBs85MltifUmKZuKxZPKCCnQ6XtPCJMfg7wZiqi8XF4
-         z7BvQrITJ25Svri1kvr6zmLOgbgBz6gdlEIvGGRW8oOWmMnRbMSENLX3zd/f1imlvdXn
-         wK35maAuA6Am8WpMoEki7lH/a20xsNhnRFRGxaWBegcCvACOJwBAwWh/YbktZvmLZCHJ
-         /RvV/hqSxJEVjWNCam8CuKvpx4NFayziPuiEY+sCtlvtkn098XFl9W0Q3ePPJz8DyM1j
-         lZiQ==
+        bh=6bHBrTtcsFNvDGEPfkFSlriiOrbe/T9oNttNa050lxM=;
+        b=ULBh2blc8HhxyriSI+jUwNs47bJ5pOJRstU9mNODrZlYBLLDyOj6k8NbBN/p5WAQFh
+         qUhocrtrXS20LECV1oNTxmnacdlaTGRDF2plrWdR3E+uRHb+tzOsjvNyWRQshU1TlhTx
+         QDQdfZllXvAk7H908yzVc2wJxS5K3i72vWxZPu1MGEenNGlYrjXeBcD5fVQaDt5NV1RP
+         EGHjVKn+L+pqnMsNQ3s9j6YZJggs4i/HH9osoP+4pKPvYikbUNAyN+Ps0uT6Zbx3pGja
+         1uQq/3PZj/hk9onG229gDJgRsJw4Sx7waxdQAU21G0OQgctJ5JgSv90SQgWHpM0vKBZ3
+         3FTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754987227; x=1755592027;
+        d=1e100.net; s=20230601; t=1754988072; x=1755592872;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Qz6ppPLgaBrJv0BjXlT/BwhWZfY0abwTkQmwUIAYXO4=;
-        b=AbZnsT1g8LA6B8SeoRKfYs0D8FDgwmH2qfHgQx314zYXW01pkNTD04Ub1f8kyjGO3x
-         6Cb7+tHcX1tCYesUOBvdMzu2eHM0rSllWDkJ44OdsCr/QXBaW5BXOIgdPqrmyX8BfZNC
-         We230wvSC4taAkdm/enwMgyR9UPlH3A2KyN+hcdsXR5zZholJN/JDjh6GN2ssZ1KoNiI
-         c0aiLCcNJf9GjJPboLRMu/VppZG+JzVoD4vv9x2atg/0g8RJDC21ONh9g2Gx/ONJ3lkV
-         tpF+x1kivmAYI1tnB5gtbBfy5imuLBn0yEGrSbuiwWe1MQGWaWgwMHyqdp+vXm/BxJs2
-         fgsA==
-X-Forwarded-Encrypted: i=1; AJvYcCVmdI1AT4r7FZHC3KbNIWOJhbZ0sMElZPLIT9qDCGHStqxfVMGDdda4ZkBaGG5CW9Hrx6qJUJhEY5c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxZho9HAiTzRxp9HfdrdU0keCry11GRPBTIMy+V6SWzaTG5UoP7
-	XA+dMqrTeKANm29G2BvEt/DvzzXWpUASkongo5I/IBHBfF+CCiQcc2e3OCPCcaKVWQ==
-X-Gm-Gg: ASbGncuwMdFLnGthLF0wX5W6ZQcWIMjI19SSEgwEr1DP1oO++z2yfWL45bcuF14LiNc
-	F5Tm7gXAFlfxKbm8LOq3TKKhmHWGjb4PqYQjznrU6+db/wvGk5O3Oqtw743wMiKRRL+G+tWiX2o
-	k9qKXMtYoDWwHzEPomcPJazwn3X9JiJDUaNwbxdxwLcQYaFv57U9zzTA24nGo2J3RPMR1OcpLg2
-	j9FN7IgM2Exk0c/ZZlK0Teh6R6XMEW+rAvaU+ByNK9faeMjnu/o3mm7PwyKXX/8CLMeR9p0Bo0f
-	k017uXFUmx2/OoVISookQ/zPta7jDN/A8aBW81WOeCsXvWCbMmE0DUwKOFSUOX0YgsXQcajAfXK
-	jyAwaaXMvloA5MfPokvLsaUKLPMPwRAqxrupsvTI2ULbFSlk3RN6U0XShS+yKuGT+rhopEbM9M8
-	uYdr9wTHg=
-X-Google-Smtp-Source: AGHT+IHu+lqXqwKQu3owDql+kfucDs0OEsvC/CtOji1iwEGJxk9gILv0HhonOMUyAP1zJhfvWWe+EA==
-X-Received: by 2002:a05:6402:84d:b0:617:b3ee:9be6 with SMTP id 4fb4d7f45d1cf-6184e3b3202mr2030235a12.0.1754987227333;
-        Tue, 12 Aug 2025 01:27:07 -0700 (PDT)
-Message-ID: <fa34bc4a-64d9-499c-bc07-787d2cdb36ea@suse.com>
-Date: Tue, 12 Aug 2025 10:27:06 +0200
+        bh=6bHBrTtcsFNvDGEPfkFSlriiOrbe/T9oNttNa050lxM=;
+        b=XNnsIoPrMOaujUJTFSKG8KajWk1c+McbqgTaNEKusRT0uS0wtqR4fKT+I4bibpNLPP
+         ypBFCpzpojUevxlG8EaLfGEbpe0pPZW0dXk/EZKQ1oKwzDLWwMJdpp0iHVAoDIIqiIXn
+         GQZClWAqlOHsD3TeNrRm2V4FX1rRoVl1569JyeWVnIpBmUqGU++R+517D/gi4bMMtIP5
+         Cz2beymuVLv8saHHDejDF6iADQG+0KKpwnZTLxqcTN46/6nLhiHJr4ATpc+bHdKnQsNf
+         QNiky2HDgtjorBYRclzih1itZlYE/NEQrwjwYx4Vz/o2GEBs/n0txbxkC/xzzExkvahs
+         xOCQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWUo9NhZqNgwIKV8083en0lSbS/A5M6WHmjtvVrES5oWhy9+kgiyWk/SdDT0szIN9v3sT7ojVr08ZY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxyvrwasDSjESKzeJO0K2WUxPo2djD3v4Iwn47JgI9xW6dMuqta
+	pJm1p/ucrDqXM1R28I5fgH5SqHDAq1KHla4ADArNWf3RExGOMAwlZD+MhqkLtieOQMZsKApkUEj
+	z/2w=
+X-Gm-Gg: ASbGncuJ77y8Hy97QFfPUwKCW48ItZm/giehyUJ96q0kxjyY3QHGZT0BrqPRsERsPow
+	jhDaX35SvBL9IybrGNIH+elF5Lpy4R1ERT3T8js8og10AT5oUY2+kUu/TXH2QrglmtMSOLIzpkp
+	ghDIVYTfT5eQT/LANIAyPRIMTKQuCUpezQWWUPAPCJTNFsv0alwuKPnwwB9yUtr3kJGZqH9E1Zf
+	YB9wS+fIQxcfWD7P73VY2mGTTrYVNEtZWf9LkZjNcsradErrDRBcbuXormv8ObxIRA9HTA0rfEx
+	j4t4DgupN41iKJTQupwFNA4PF7VJm7/f36r2DGdKVeO386e4QCo35VUVQmVNvPAbW7Y6A2rIFm8
+	sDGSY9PSlt+BuDBlBaVJO93IIxd1UMXo1LPOnEk1XXXZuPxn8SSpoldwyH59Y6W7pxhSFE1hasI
+	ZiPNIZXPB0B0W8Byg0fm7u7aiwqhW8
+X-Google-Smtp-Source: AGHT+IE+XH4cjk87nisW+DOKv62FY5GY7l5ZhtVOCCYVQTe83olwKiHRIq5gvm3Omg5T1Zl/BXzukw==
+X-Received: by 2002:a05:6402:1510:b0:618:18e3:bd73 with SMTP id 4fb4d7f45d1cf-6184eb46d44mr1700559a12.15.1754988071689;
+        Tue, 12 Aug 2025 01:41:11 -0700 (PDT)
+Message-ID: <d6573487-14ed-4e1f-9525-b702048bb87e@suse.com>
+Date: Tue, 12 Aug 2025 10:41:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/22] x86/spec-ctrl: Rework init_shadow_spec_ctrl_state()
- to take an info pointer
+Subject: Re: [PATCH 08/22] x86/traps: Introduce ap_early_traps_init() and set
+ up exception handling earlier
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
- <20250808202314.1045968-8-andrew.cooper3@citrix.com>
+ <20250808202314.1045968-9-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,23 +121,80 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250808202314.1045968-8-andrew.cooper3@citrix.com>
+In-Reply-To: <20250808202314.1045968-9-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08.08.2025 22:22, Andrew Cooper wrote:
-> We're going to want to reuse it for a remote stack shortly.
+On 08.08.2025 22:23, Andrew Cooper wrote:
+> --- a/xen/arch/x86/acpi/wakeup_prot.S
+> +++ b/xen/arch/x86/acpi/wakeup_prot.S
+> @@ -63,6 +63,9 @@ LABEL(s3_resume)
+>          pushq   %rax
+>          lretq
+>  1:
+> +        /* Set up early exceptions and CET before entering C properly. */
+> +        call    ap_early_traps_init
 
-Are we? From the titles of subsequent patches I can't judge where that would
-be, so it's hard to peek ahead. And iirc earlier on it was a concious decision
-to only ever run this locally.
+But this is the BSP?
 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> --- a/xen/arch/x86/smpboot.c
+> +++ b/xen/arch/x86/smpboot.c
+> @@ -327,12 +327,7 @@ void asmlinkage start_secondary(void)
+>      struct cpu_info *info = get_cpu_info();
+>      unsigned int cpu = smp_processor_id();
+>  
+> -    /* Critical region without IDT or TSS.  Any fault is deadly! */
+> -
+> -    set_current(idle_vcpu[cpu]);
+> -    this_cpu(curr_vcpu) = idle_vcpu[cpu];
+>      rdmsrl(MSR_EFER, this_cpu(efer));
+> -    init_shadow_spec_ctrl_state(info);
+>  
+>      /*
+>       * Just as during early bootstrap, it is convenient here to disable
+> @@ -352,14 +347,6 @@ void asmlinkage start_secondary(void)
+>       */
+>      spin_debug_disable();
+>  
+> -    get_cpu_info()->use_pv_cr3 = false;
+> -    get_cpu_info()->xen_cr3 = 0;
+> -    get_cpu_info()->pv_cr3 = 0;
+> -
+> -    load_system_tables();
+> -
+> -    /* Full exception support from here on in. */
+> -
+>      if ( cpu_has_pks )
+>          wrpkrs_and_cache(0); /* Must be before setting CR4.PKS */
+>  
+> @@ -1064,8 +1051,12 @@ static int cpu_smpboot_alloc(unsigned int cpu)
+>              goto out;
+>  
+>      info = get_cpu_info_from_stack((unsigned long)stack_base[cpu]);
+> +    memset(info, 0, sizeof(*info));
 
-Nevertheless, trusting that you have a good reason:
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Why do we suddenly need this? Or is this just out of an abundance of
+caution (while making the individual ->*_cr3 writes unnecessary)?
+
+> +    init_shadow_spec_ctrl_state(info);
+
+May I suggest to move this further down a little, at least ...
+
+>      info->processor_id = cpu;
+
+... past here? Just in case other values in the struct may be needed
+in the function at some point.
+
+>      info->per_cpu_offset = __per_cpu_offset[cpu];
+> +    info->current_vcpu = idle_vcpu[cpu];
+
+To be able to spot this, I think it wants /* set_current() */ or some
+such.
+
+> +    per_cpu(curr_vcpu, cpu) = idle_vcpu[cpu];
+
+It's a little odd to do this early (and remotely), but it looks all fine
+with how the variable is currently used.
 
 Jan
 
