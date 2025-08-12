@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A0EEB23914
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 21:36:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1079157.1440122 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A910B23927
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 21:40:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1079166.1440133 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulunB-0001OK-CW; Tue, 12 Aug 2025 19:36:17 +0000
+	id 1uluqj-0001xA-Re; Tue, 12 Aug 2025 19:39:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1079157.1440122; Tue, 12 Aug 2025 19:36:17 +0000
+Received: by outflank-mailman (output) from mailman id 1079166.1440133; Tue, 12 Aug 2025 19:39:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulunB-0001MP-9i; Tue, 12 Aug 2025 19:36:17 +0000
-Received: by outflank-mailman (input) for mailman id 1079157;
- Tue, 12 Aug 2025 19:36:15 +0000
+	id 1uluqj-0001um-OU; Tue, 12 Aug 2025 19:39:57 +0000
+Received: by outflank-mailman (input) for mailman id 1079166;
+ Tue, 12 Aug 2025 19:39:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ed2z=2Y=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1ulun9-0001MH-Lo
- for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 19:36:15 +0000
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on20620.outbound.protection.outlook.com
- [2a01:111:f403:2406::620])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9a1a41ab-77b3-11f0-b898-0df219b8e170;
- Tue, 12 Aug 2025 21:36:12 +0200 (CEST)
-Received: from SA9P221CA0005.NAMP221.PROD.OUTLOOK.COM (2603:10b6:806:25::10)
- by LV2PR12MB5824.namprd12.prod.outlook.com (2603:10b6:408:176::19) with
+ <SRS0=CWaV=2Y=oracle.com=lorenzo.stoakes@srs-se1.protection.inumbo.net>)
+ id 1uluqi-0001ug-Ej
+ for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 19:39:56 +0000
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1c3aadeb-77b4-11f0-b898-0df219b8e170;
+ Tue, 12 Aug 2025 21:39:51 +0200 (CEST)
+Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57CJC2wF004779;
+ Tue, 12 Aug 2025 19:39:04 GMT
+Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 48dwxv5g1x-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 12 Aug 2025 19:39:04 +0000 (GMT)
+Received: from pps.filterd
+ (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
+ with ESMTP id 57CIE6FP030192; Tue, 12 Aug 2025 19:39:03 GMT
+Received: from dm1pr04cu001.outbound.protection.outlook.com
+ (mail-centralusazon11010066.outbound.protection.outlook.com [52.101.61.66])
+ by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 48dvsadsda-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 12 Aug 2025 19:39:03 +0000
+Received: from DM4PR10MB8218.namprd10.prod.outlook.com (2603:10b6:8:1cc::16)
+ by DS4PPFD57E5FBF5.namprd10.prod.outlook.com (2603:10b6:f:fc00::d4d) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.20; Tue, 12 Aug
- 2025 19:36:07 +0000
-Received: from SN1PEPF00026367.namprd02.prod.outlook.com
- (2603:10b6:806:25:cafe::e7) by SA9P221CA0005.outlook.office365.com
- (2603:10b6:806:25::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9009.22 via Frontend Transport; Tue,
- 12 Aug 2025 19:36:07 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF00026367.mail.protection.outlook.com (10.167.241.132) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9031.11 via Frontend Transport; Tue, 12 Aug 2025 19:36:07 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 12 Aug
- 2025 14:36:07 -0500
-Received: from [172.18.164.135] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 12 Aug 2025 14:36:06 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.13; Tue, 12 Aug
+ 2025 19:39:00 +0000
+Received: from DM4PR10MB8218.namprd10.prod.outlook.com
+ ([fe80::2650:55cf:2816:5f2]) by DM4PR10MB8218.namprd10.prod.outlook.com
+ ([fe80::2650:55cf:2816:5f2%5]) with mapi id 15.20.9031.012; Tue, 12 Aug 2025
+ 19:39:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,210 +63,283 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a1a41ab-77b3-11f0-b898-0df219b8e170
+X-Inumbo-ID: 1c3aadeb-77b4-11f0-b898-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=corp-2025-04-25; bh=4NH2Wp9+q0nQBCEAHm
+	EVusm3040LluU6lw+YERl2G6M=; b=gi4lFGTJ+1OSCbWYXzFQrEsrHw6XViYoLm
+	cntOTi4FC3/XFxyi0JiIy8JJxQdeyw3sFr4eA84nfydr8x9tzyuyj8pURfOIss3/
+	RRbAVJqeeN9xxB0cUT368nj3gR+oM5Aax7ZBGMdlUq5Zzv5a9dgBGWb4KmwsqoG9
+	EKvqXHjWe/gTdHFDS6gJ2Fgi0V0VYbJr/56sso63cAG8NSHw2MatC2sCT0fl/KXv
+	YeSLma0tF1oZSiiugB6nabdOMOG7LqP1G750F8/wHhRgiw0LZt2juooHoyaJ7l/f
+	7KG/0I7ssxgPlh1wQLj9c+vLnIajGY5noMf619BwTAP9Y/gHhTaw==
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PXL2um4rQx0adO29LpZuw2VTHitULBOpIKdjXy1Yf2JgJYzD6rCv4O8EJtnYIhGXkaDcx10qxhgpO/93DWj0eaMrx9ywipB1Wg0i3ZdxOHFUozSGeugj5/8hgkvvUbWq1xwlUVOwAii3HNq8cMpTqof5cTGQpZNOJacMZlNbbfDPKjE1KYMNKTGI6y7gaYXuGaTl8EKfNYQat5UCZ4C37bYLXnRd2GNNtnJeuujvHiF9HjldiVVoMPCX+noNja6QlsUuoc9Wrlf/SCn/GO3gA09WLnq5EmrChH9jWSaUvxz54a+me8Ghd410P5V43mue531EGq294sPZoy/PcKcN/g==
+ b=i0Md3xEHc5MJvCYtZRFQsz2gpUDIF7Xh0mvDDgPzwiZbpp8RmuvCwgUGUg790n+V7fMykvPv9X1sFcoyBwuezq4BgU1VoHDNKy6TnauIjzBEt59eqmyQVfPFDM75Tc1Jvq0rZXIFnzuyetVfyqWFUbyLW5JQKn+7u13uQ7BEoJebc4KSZaJq9sPbryRAnnko9GkvkaD0Dxc2B87BnRJwVCQ7l1hxg8YpcaoWwspOIBqxmf0+HRoUtzikAttF3GKBdpChMJHdKxacw4t4Rd2/1DbFXdNpOjhyWNiRwKFGQMfxJMyb8bZXnceSwt98BPWxPdb6c4LAu5L+SElbh6TOXg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LqHkB/iKh0iOalV5y38Gym5n4ZW2TlAwTzGUmDm+sNQ=;
- b=PYfttHmB6xEb+WSMLfFtTFZIkl2JNFe++AcObNAxKopteTEZ7t92JaOuBzsvIuA5JbbRz62ZaXXkaB+24D7J/KGJP/bbiN9S35NLAPTZK/p+pzwHcvxLizpUOyMO1Zd8JfVhDjqhpwdzavH8NYkyfxBtgXQeft51Q2ILT+4qcSLE79uyhzsb1olk57znCBOMMggXxSllaj5HBY+9UNs7br5OVArlH8CxrNZ122bF3J1U6Jm/+BVogREnQC9t6TRg+u8jzca7sAROQ+BCWpwy7HvSZFdB/2ce6/neVq4BjqydiCz+7O7Jx7DqP14Wcvw0xiQc/3an/j+W3GHwwh65gw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=4NH2Wp9+q0nQBCEAHmEVusm3040LluU6lw+YERl2G6M=;
+ b=YVMZRef3nxbklzLyhK9V9xBCIAd26vPUJiJO/6Fbs7yn6Djse+WfDTkLrMNaxZqyovkukQsMZQcwfTdJEAtNuioNwh1aLxpHyshYyww/2OnX+TzkRX+VtLfVBY/cNbRvRT7NbjglHIVs+B+SGJdaVbYX7ZSXezL3Fo1O8Hf9irqKNxgM4AeVOCSxuBxpfOdvg96jqrYNCW9RrHnSZU7Icq3TqLM6eWxTShep+3mz6je4LL9N/5ioYnph84/Gd2tqeXd3qKCr3SEU6krT2CRC5xE6IAyEHi7Sqeit5KyI7Iuzyc6ivWuewCNDG7vc0GHyjwagW6mLfkGU3Bk0zqwyMA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LqHkB/iKh0iOalV5y38Gym5n4ZW2TlAwTzGUmDm+sNQ=;
- b=cBS9V82naXa4vuAuKC351TZJd/OHnhesZX/VTU2JsiX+Vpe730E5c4DNq3VeVrKCMC46nN80YhH1MjXBn3KamEWZaZubGdu7JEB6X3N/e8agGXiUTkU1pag+pviMU7t8NF9RGtU4J3QCwIDhFmU+rjO+SgLX++ZXZPuu1ypVFw4=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <1651b43b-3230-4404-b65c-50de6d971d74@amd.com>
-Date: Tue, 12 Aug 2025 15:36:07 -0400
+ bh=4NH2Wp9+q0nQBCEAHmEVusm3040LluU6lw+YERl2G6M=;
+ b=0C4yxav0HH+fQmv5zglHpe86f9hvdNlo9fGC2Ok5CJ/SWNOWcC68enKxx6ccYevsgk18HSQLZxmoal/DcUY4H3PiUy7LHAMVe353tAeAc+PmLQ7BJVGg4AcoVZ6Minj9dktjt6xw6Y2RZPHd4n/m/95JsGYAWE7in+A6PUsb8OQ=
+Date: Tue, 12 Aug 2025 20:38:50 +0100
+From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+To: David Hildenbrand <david@redhat.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+        xen-devel@lists.xenproject.org, linux-fsdevel@vger.kernel.org,
+        nvdimm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Christophe Leroy <christophe.leroy@csgroup.eu>,
+        Juergen Gross <jgross@suse.com>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+        Dan Williams <dan.j.williams@intel.com>,
+        Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+        Alexander Viro <viro@zeniv.linux.org.uk>,
+        Christian Brauner <brauner@kernel.org>,
+        "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+        Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
+        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+        Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+        Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
+        Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+        Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+        Hugh Dickins <hughd@google.com>, Oscar Salvador <osalvador@suse.de>,
+        Lance Yang <lance.yang@linux.dev>,
+        Wei Yang <richard.weiyang@gmail.com>
+Subject: Re: [PATCH v3 10/11] mm: introduce and use vm_normal_page_pud()
+Message-ID: <8bd06a6e-8d61-47aa-bb37-1916b18597da@lucifer.local>
+References: <20250811112631.759341-1-david@redhat.com>
+ <20250811112631.759341-11-david@redhat.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250811112631.759341-11-david@redhat.com>
+X-ClientProxiedBy: GVZP280CA0090.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:150:275::12) To DM4PR10MB8218.namprd10.prod.outlook.com
+ (2603:10b6:8:1cc::16)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/events: Fix Global and Domain VIRQ tracking
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Juergen Gross
-	<jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Oleksandr
- Tyshchenko <oleksandr_tyshchenko@epam.com>, Chris Wright
-	<chrisw@sous-sol.org>, Jeremy Fitzhardinge <jeremy@xensource.com>,
-	Christopher Clark <christopher.w.clark@gmail.com>, Daniel Smith
-	<dpsmith@apertussolutions.com>
-CC: <stable@vger.kernel.org>, <xen-devel@lists.xenproject.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20250812190041.23276-1-jason.andryuk@amd.com>
- <5407877d-4c7c-494f-8fc1-d44eea4762b9@citrix.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <5407877d-4c7c-494f-8fc1-d44eea4762b9@citrix.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00026367:EE_|LV2PR12MB5824:EE_
-X-MS-Office365-Filtering-Correlation-Id: d61780af-f4b9-4570-f088-08ddd9d77bd7
+X-MS-TrafficTypeDiagnostic: DM4PR10MB8218:EE_|DS4PPFD57E5FBF5:EE_
+X-MS-Office365-Filtering-Correlation-Id: e3784dba-5fa3-40c6-a0a1-08ddd9d7e2b1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|36860700013|82310400026|1800799024;
+	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?VUVNcEkyVTZSZzBYY2VLNDU3S01ZQ2IxbmRGalpQOXh6YjVzZVJOOHBUNml2?=
- =?utf-8?B?MktOSUk0Zk1uaDh5eFhaQ1BRSHMwQlpjVTQxRFZrZFdSb2N2bW1ZTVRnbzZC?=
- =?utf-8?B?M0ZOelNTT0VIZWdrMkZVZHV4cGlpd3BoVWhBU245ek53VUVZNzFmZVA5TFg0?=
- =?utf-8?B?WVk1TEJ2RlpxT2JqSGhZM2xmd0lOZjZlOTduVnFwc0FQRUhBMlppTjRxcU0v?=
- =?utf-8?B?dTgwd1E1Zk1YMDg1TzM2NFZtK3VsUDlrcDRxTG9sWS84SUFSdTR4Y1JUT1Bs?=
- =?utf-8?B?TGdlVGZQTEtZaTVvd2lwMzB0Q3NuNEZTOHBNTWp4RXNxUFFzNU5pU1pDZHBh?=
- =?utf-8?B?Wm55SksvTEJTUWUveGUxejhYY2l4MWZwb25Ycmh0a3RncXBCSGN3a0tiM3A4?=
- =?utf-8?B?QXJOcEZSdHNRM2NqbCtxaldlak9yOVRQMTJzcStiSFNvRTRnL25ZR1A0YXQy?=
- =?utf-8?B?RlByTnZ4cnVJTGY1QnNMU1YxcmVudWppZ1dwMXIrMktnQUd2aTVtcVZuRVpN?=
- =?utf-8?B?WVRVY3Z3WWl5WkI0V1BDeFZmMTJZQVVQV2Z0WTI3SEh4RGozYWtGZU8remZj?=
- =?utf-8?B?SW11dUtxT212U2JLYThtbFBIQUVPY0hvMitOWCtlVVd2Mk92VmZXdmR2b0N4?=
- =?utf-8?B?aTZORXFKL2VJN3hJOXAxNXJlcnBDclJIZFNUVTllZkh1QnZ6SmFIbjJoNGR3?=
- =?utf-8?B?dXVCN0RUTWtlYXJHRTE0eWJhL05Nc2RDQ09yYTdyOGgyZDAzbUZtUkFRYXpE?=
- =?utf-8?B?dGdVYWRadzhnQ1Z6Wlpud2hLRDRSa2x3Nk5NbTUwTXhtUm9sbVZLM2tsVzVK?=
- =?utf-8?B?THNHQWdEOFVkMmpWdnRSakxOcndjYnE2WmpUREJxSmhrcEN5YUpKYVlRaVQ1?=
- =?utf-8?B?TEpMN3VQbnFTWklTcFQwUUFrSGtydU83ZXA3MkhpYktnK1Z5d2VWNEtBYnlK?=
- =?utf-8?B?amU1TVUvRExDazBuZmZ1ZWdrb05EQmxLK1cySnVLOCtWSEVRMHFJbEFLci9v?=
- =?utf-8?B?S2hiMUhOU0Y1RGg3QXRLZzg2cE84aDhFRUdodmlsdG5JMmpRVlRwOXp4Slhy?=
- =?utf-8?B?UVEzNGVJWFJqaXFsQnYxczNPZXoyVmZZZnZoR1RXNEpZMVNXVitsNzR6UUNM?=
- =?utf-8?B?b3pPRlpiRjVjanAySnMraU9uTjFyeTVrdi9CK25ySmVjcXZPaVgreEVTN01u?=
- =?utf-8?B?VDEwSDJoVlZodlgvL3FEWjdzOGxPMERoS1RSUXZJaXdUTEh4cWszRVpLNVZi?=
- =?utf-8?B?aERPOEV6eUpISHpVRFBKeUhiN0JSTFBrRng2cmJmcTVXdmxsUjNGaTVhdU8z?=
- =?utf-8?B?dEpQek5ZRUVsYTdKVkZnQkNiUllvaFJtampYK2t5djVMZnpqWU9iRHhyeDI2?=
- =?utf-8?B?WUJWTnVLejJqWEdGNXFWaEg0TlhrdHFVVXk3emV1dzBKdVFSVHhURFhnRko0?=
- =?utf-8?B?dDcyR2l4NDF6YmUwYXUyWGZ5bTR5azF5WTZzSEpKeXpBYXJpNk8wS0VUV3I3?=
- =?utf-8?B?SWZuUFJnQ2Y1Zm1sZkpZTHFYWFo0eTk0KzhyU3RqNVdIRlRFVTJkTnY4b3dl?=
- =?utf-8?B?Yy9ZT3lTcFRKUzZxa2JWVWhIS1B6eDJFZ3FpRm1uYTlVSXpyMzdIc1pjUXQv?=
- =?utf-8?B?alB1RExoWC9XOHJlbXdzRHpUUUJBMmQxUlpLaURwMWRpc2VJS2tTQVJVNnFT?=
- =?utf-8?B?bGV2em5UWXA4U3lkUW5hRWJWNUZYRkgvb0ZJRUJGbGYzcWcrVE1mRHdOVXE4?=
- =?utf-8?B?MTdDb3FMYk5tSjZzeDFjY2lwRVYxSVJxbVB6SnVLbkxnWmxxa1pUK2hnT2ZS?=
- =?utf-8?B?NFBJSjVzenlobVo2cGZNdGQydUdvZDNSbFc5aC9EYlluQjUwRmk4Q3ZjNkhp?=
- =?utf-8?B?bXc3RTd4RHZkSnc1UXlJVzcvWHA3azRZR1U3cXYya2FaOFJZV1ZTS2g4Q05B?=
- =?utf-8?B?RGozbldvSjdBSDNlNzAvN0hYN3VNN0g2Y3Q0b2JGRDlNSWpwc09QdDR2UXBW?=
- =?utf-8?B?N1JBNWthQ3BiUHFIWGVqVzkvc0Z3MFRzTWRJWHYxTXVmUDdKeTZJY2hxSEJm?=
- =?utf-8?Q?4SgGM6?=
+	=?us-ascii?Q?e8UMrE+sXP3ZzLkeQYVZWmTkuEup/7ufvf5jAFEKXzXK23aWG8Cmfa3T0eOr?=
+ =?us-ascii?Q?yZiNCFf2Xb11U6lHAqh+/BbW2di7RAC0DxgMzELHJh+D8qsKnubak72A27Ug?=
+ =?us-ascii?Q?OLWrdt+xIK//Rs8fDKFgUyggwfPVroZK78yXII7eWO1twQhQ7bPSFU/Dar/L?=
+ =?us-ascii?Q?s+6QBliXkA4b1hY7OO9py3RJ2XwoB08EUD+BQGpmp4u0OgMBvvna3JzyedhU?=
+ =?us-ascii?Q?b4DnapbsRm+IKEGELUFVOBf45G/K/JL1cjrsXgSktsWHG9/HR/vEpUZLbLjV?=
+ =?us-ascii?Q?ZKMMnGF+K6tgk+h7dCFw3W2Itd4InAjN9Ryc5JKIQmuSmpiwFqMQadelKbWh?=
+ =?us-ascii?Q?dvkjE8zoE2Gdiyc6PyUxOfIatllPsFJ+wALATqBGDG89Sav5DiuIhg75tlGx?=
+ =?us-ascii?Q?pi6snmTuki4LS4sqgW8F9PzvSFPv0+B03ukJrE3bihpsrwYNhYmEWNznZKuo?=
+ =?us-ascii?Q?cWOsksqj4l5JbYFzhcgJTxeLkFVxES04T30orKg5nxbv2Gd+c6wQo79OS9P9?=
+ =?us-ascii?Q?9GGQkT0y56Wvt+iPGk5ypAuFS7eFWioidLMQSTMLiIRZtNKjwQsjvskDIgWN?=
+ =?us-ascii?Q?Tc62y2VD4e8ldyEJGmUcXNQplwZOZOoGr0VUFLP/xxEzfK9yYu+tPKcHCFpy?=
+ =?us-ascii?Q?jF9vsS3ukIL8ubdp/LY2OHT+CmsMs6Wli/d2JYLNjDOefF3KNZ+hiZz2oJzS?=
+ =?us-ascii?Q?ud4pCup9Fw7oEjo4s6cKxo68IGxY1nThkOfuZcrMIDyhYfnMEEUm5jkJx8TO?=
+ =?us-ascii?Q?zytmA0ofecA1GPNWWEsPuRpjsRcFIblXt39pQbCzNsm7N0mpXlKSZSyX/xT/?=
+ =?us-ascii?Q?7OBggXQ4O0bmUOIeePRQ4fG1VewP04DMZScW0V+t/a54oapOeoQ2IewCor9M?=
+ =?us-ascii?Q?25az8aquDWChHbA1TO6QUkcNaYpS19QoWOoHvP1icz8GB7QGURl4TXWIWMp5?=
+ =?us-ascii?Q?nKRICS5N5+gezLTRKIgzQZXP0s5iAbG4cI95KGhxPN1Aek6Di+d3ydzAb+EN?=
+ =?us-ascii?Q?WuvEHyOaPMvGHrvkvdiIMELcm89dcT5/5GpeT1a0HtYjcwDkqyHMU8sDcTgB?=
+ =?us-ascii?Q?qHI6jIvaV5S13o89v4a4nvJEnMRKz9gQZVE0Alg0GwZRZCldKqCKZKSTJ2y+?=
+ =?us-ascii?Q?wtGx5C1j/HjQv04S34mg+RJmxOXyYN7yXcII6poZFWjDa25AJtAjc79ZL+s0?=
+ =?us-ascii?Q?uawrZynyO+855MXZ5s9M86CFKVbPidzXv4FoatNS6TpEoZmcWF1NxSjQbnAU?=
+ =?us-ascii?Q?j25YlGuoBIWrpfDdGJqWUGNGn09w79cof//OI6kCUldntpncCY+QY+jAymLM?=
+ =?us-ascii?Q?9YF4LcLVnzF6c81LHhR9Esb4mgkuyreuRNuqzWL4eaiYZlVXjeQW+289dguL?=
+ =?us-ascii?Q?67OE7wGagzcTAdnSBtfpnhgwy2XxaUglZDRa0T7W2QYnyeEzPw=3D=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(36860700013)(82310400026)(1800799024);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2025 19:36:07.4667
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR10MB8218.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?NfjypGTCzHy0dtIgYNg07fvFgoV8MBndmp+Sgz4G6ZA1mg0xBexU8dTfe4lo?=
+ =?us-ascii?Q?qYVGJgXtocGUCUyXQ6qbxVIuguWCv8KBnNx5RQBlEglKPq0a8INMusVGolZx?=
+ =?us-ascii?Q?I5RHFovXnxpsk3z4OZJ3Qr+xNbvTWG1p5YFgmD2hVujUI38y642IyT9HhGQ8?=
+ =?us-ascii?Q?TTIGPGFoKko/+/IPbBMomcbHQ6+87gzjWXHAGzbkqLiUsG6kdW+SHqt6kQQD?=
+ =?us-ascii?Q?j7nrC3vN/tUwEB2rZioPym6KsEel8NyGsYaZo/LpJj8qAwQwJ2AN+or+79oH?=
+ =?us-ascii?Q?ap9NBEPl4oAyaEBAvQs5qByHOwHMqQf9JUspWrBCG/6SB278iiszQyeqHdiF?=
+ =?us-ascii?Q?gWoyanFIS186mI0ztvp27hBUIwA2kXIwz1m2z7j5hk7qXtNkpZq/3AWBoJcP?=
+ =?us-ascii?Q?5rNxrXoSMV/ZNyWqgUdnI+jSDTLcEXwCachS7UAAxyHZZPYo/CuuiKyt0A2e?=
+ =?us-ascii?Q?7YP6E+Rbxq8op7KebCkDZ/248vf8iN22uxq+1NpiYol7Hp5onY5BRbEEltke?=
+ =?us-ascii?Q?Ja01+E4Km3rBz02YaptOQ8XC2gAfJtyGGYEMIaIkQj3Q311crh4plB2/Y9c/?=
+ =?us-ascii?Q?66SN335H/sbzjX9yHD1lmuEPVXpf8xG2LJf09GGP7j2JkiqAf/3soglJnNS4?=
+ =?us-ascii?Q?lvtI5oUL/Zcl4YSGu9dvHkBzy/efVYzKaF6oeayJMXE0MOZfG+1LJ1HWHQkc?=
+ =?us-ascii?Q?HH63GIAEIMT8FB/41g6vfIOJIenEVt1wi9sfF/vbkQZaNfuP4pf9RGJBpmDV?=
+ =?us-ascii?Q?Zo2IuNg/GU7HzlPGkD/Y56oY4/FbazbM8rre/3q5W6zRp5mnKmekSGjEtER7?=
+ =?us-ascii?Q?j0GCkdr34Ewpn5j2qRogvWkFMIZ864xm/4u3+pB//q0NMG3ARUth5qP2Goh7?=
+ =?us-ascii?Q?+nt6jXceXtM+dPOGAUhlNa7O7jWoRdYaI13E719hDDNprhYjbMPm6gnysFX/?=
+ =?us-ascii?Q?Wc4+Z+t6pZn79KvPpfG76ZqcL6V03Z9I+9LsbtB+3p0ZCgEqJqejq9zsomfx?=
+ =?us-ascii?Q?A1zs7KVPr6tlAvQQ2MUR/9BhaL1ZZ0wQZS+j1iqs8uhjjDBx2WMAqVZQgQa1?=
+ =?us-ascii?Q?R1Aod9Af70VWj/x5nWWsnjjGu/3fFSB5nLYtNh+cSfSlEUz3rYINowhI6PLL?=
+ =?us-ascii?Q?B5zh8ANOcKqQYkcfSTydVSwc8B277e8+zUVZJLBcn8GXF6CyO81HQOTHCD8z?=
+ =?us-ascii?Q?eJIwvaxfwDyMZhDc2uyR9YdoYqCAcgTo6ZDE2km1RkdjVrbd/RgNqoZty3Ve?=
+ =?us-ascii?Q?Jnb2Bowem4JtsOwU79ZBeWQMsqOLm/iZ+fxCRlu78VbKzTRxeC+42cgKz0Hg?=
+ =?us-ascii?Q?zYcLQlssl0iz/ws4+vko3rCaP3SwqrCsmi2eDrQ/QHeAhxX0Fuk7xCldtnTY?=
+ =?us-ascii?Q?9o21f4AAm1FHzzzdRzdKOh/hEXvSVCghonAKYZdO3WLv4vh5DU/rQHGbSCCc?=
+ =?us-ascii?Q?tfmaV8MFJrfvEf2eVabFLourfn81FbfuX8lo+d6bp4wMdhJtCEI5eTD2ZSkL?=
+ =?us-ascii?Q?2gJRAYSue+YiFQIeQ4UuQHbTe+SN5vBCY9CsAWk2/Sfn2j5V3lDnlRWmuP9Z?=
+ =?us-ascii?Q?Q0s+CKIhnrZmz2RdQzqwI+q3kqLFVXsyTYoInz0ij8yRsnJ6kosVoA+NKHdy?=
+ =?us-ascii?Q?sQ=3D=3D?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	Sf7S9ZnQyKf7rLyy1bXfjA4loX94CVu8IqGx+gl67F+1srIGvJwO19Ne2mOKUPpnSlGc7MPiz4V8mp7GxI7lUP5/R1xUIY9jXCKU9miIrJv9nrqeFbVJEcyTEHM66YoISRWlZ9yVIjJfoU7JCwTseTu0f0rphwJvXvBglxSUXP/+8ujXvZrM7fXqYXa4SKpck7KAAfF07hy3Xr0adCL3Tb7Gg97xoJ7DXX+DNlr80Nd8fSFRXPeNUNeniR5Cf+QPYpV5TW7a3hNlQ8+eDUnCUrsaZubjwU9j40IkoJ/DWmORXo8yzFQxHAxpe250/K12J5p1TOGURcWZ32DoAmC2kJkMLm/nz/Ycq5lasASu3pN1L09sirk+wejJfXa4Bmge9xMax+dH7wKHx34cpCYTLu8cKKwKAw0NkmGXWLWak9IWWVcC9rz4eWwkIJZ9fda7mLD1Q659ubgBMhH65+HIuHFdal7sK7wCq60B5Va4kPA2ZQUkVu4tYsURA5mLVFW0L1nBk8q7wklDpqaqKqQO+fgtLMtsgAkFS/speHkGS/1tOF6CjI+Ruijfz1fNn77OnNiIH5l0hCVD2DxkHzQbWX3qFC0Ym9ROdg+3o0WNjgY=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e3784dba-5fa3-40c6-a0a1-08ddd9d7e2b1
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR10MB8218.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2025 19:39:00.2110
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d61780af-f4b9-4570-f088-08ddd9d77bd7
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF00026367.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5824
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: p48QJtHL88lLgu9i0ZIx7EdpI4C3CWqJPjIA0QfRd2yhWL9SXHB+A0SE+KEL0gWGmoUYMTwcbS5I9GiFShqZ+LP94oXwCb6WbspgqGB0UVQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPFD57E5FBF5
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-12_07,2025-08-11_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0 phishscore=0
+ adultscore=0 mlxscore=0 bulkscore=0 spamscore=0 mlxlogscore=999
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2507300000 definitions=main-2508120189
+X-Proofpoint-GUID: BCabanmaFOSTCbImAI4uzUebr1raNkuu
+X-Proofpoint-ORIG-GUID: BCabanmaFOSTCbImAI4uzUebr1raNkuu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODEyMDE4OSBTYWx0ZWRfX/m3VhgS8/jzo
+ xqYQq8CCyZvtCmfgc61Vf6Snsww2eMuV+PqOgjzmvAMJ9mZGWQqAQxcI795T1CH/jpl4qdkgTzh
+ InV49fyTySnMIqFs3kvwUFnZKIUURSscOTLP+oNEJZOQOVbOTXsRNKe2TXEOSOjHFk7MxocmWRY
+ KFHu/k8GDBK49F7L1BEQmjolL9i4cTm0zjUMYaJMjPkBRVbw8oNPehU690r1yMFy1Raruh5clNN
+ 5L8PEXW2YM+x1Y62JkAg4795QDgHdWKLl3v9ZuelPu0LMfLn+h6FDViOhxzU3xDeHk+PAsr1Byw
+ KnNV4USvbvKCN6XLWMxNgtTUzj41xEfOWYkFgqIgVLd9A2D4rTHS70iqraTrFCJd2BqtjRjrRtN
+ AMFXsVmJRt2KnqO4Oh8cjt97SiEwLCeyuZJheOwk3G7cX2oXqI3zjW5uUtLUA1e/2INKBIR6
+X-Authority-Analysis: v=2.4 cv=KJZaDEFo c=1 sm=1 tr=0 ts=689b9858 cx=c_pps
+ a=OOZaFjgC48PWsiFpTAqLcw==:117 a=OOZaFjgC48PWsiFpTAqLcw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=wKuvFiaSGQ0qltdbU6+NXLB8nM8=:19
+ a=Ol13hO9ccFRV9qXi2t6ftBPywas=:19 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=2OwXVqhp2XgA:10 a=GoEa3M9JfhUA:10 a=pGLkceISAAAA:8 a=20KFwNOVAAAA:8
+ a=yPCof4ZbAAAA:8 a=_vYpphbN4_vJ8DAqhOgA:9 a=CjuIK1q_8ugA:10
 
-On 2025-08-12 15:10, Andrew Cooper wrote:
-> On 12/08/2025 8:00 pm, Jason Andryuk wrote:
->> VIRQs come in 3 flavors, per-VPU, per-domain, and global.  The existing
->> tracking of VIRQs is handled by per-cpu variables virq_to_irq.
->>
->> The issue is that bind_virq_to_irq() sets the per_cpu virq_to_irq at
->> registration time - typically CPU 0.  Later, the interrupt can migrate,
->> and info->cpu is updated.  When calling unbind_from_irq(), the per-cpu
->> virq_to_irq is cleared for a different cpu.  If bind_virq_to_irq() is
->> called again with CPU 0, the stale irq is returned.
->>
->> Change the virq_to_irq tracking to use CPU 0 for per-domain and global
->> VIRQs.  As there can be at most one of each, there is no need for
->> per-vcpu tracking.  Also, per-domain and global VIRQs need to be
->> registered on CPU 0 and can later move, so this matches the expectation.
->>
->> Fixes: e46cdb66c8fc ("xen: event channels")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->> ---
->> Fixes is the introduction of the virq_to_irq per-cpu array.
->>
->> This was found with the out-of-tree argo driver during suspend/resume.
->> On suspend, the per-domain VIRQ_ARGO is unbound.  On resume, the driver
->> attempts to bind VIRQ_ARGO.  The stale irq is returned, but the
->> WARN_ON(info == NULL || info->type != IRQT_VIRQ) in bind_virq_to_irq()
->> triggers for NULL info.  The bind fails and execution continues with the
->> driver trying to clean up by unbinding.  This eventually faults over the
->> NULL info.
-> 
-> I don't think the Fixes: tag is entirely appropriate.
-> 
-> per-domain VIRQs were created (unexpectedly) by the merge of ARGO into
-> Xen.  It was during some unrelated cleanup that this was noticed and
-> bugfixed into working.  i.e. the ARGO VIRQ is the singular weird one here.
-> 
-> In Xen we did accept that per-domain VIRQs now exist; they had for
-> several releases before we realised.
+On Mon, Aug 11, 2025 at 01:26:30PM +0200, David Hildenbrand wrote:
+> Let's introduce vm_normal_page_pud(), which ends up being fairly simple
+> because of our new common helpers and there not being a PUD-sized zero
+> folio.
+>
+> Use vm_normal_page_pud() in folio_walk_start() to resolve a TODO,
+> structuring the code like the other (pmd/pte) cases. Defer
+> introducing vm_normal_folio_pud() until really used.
+>
+> Note that we can so far get PUDs with hugetlb, daxfs and PFNMAP entries.
 
-AFAICT, global VIRQs have the same issue - I think they just aren't 
-unbound and rebound.  I just happened to trigger this with the 
-per-domain ARGO VIRQ.
+I guess hugetlb will be handled in a separate way, daxfs will be... special, I
+think? and PFNMAP definitely is.
 
-I double checked, and the cpu is updated like so:
+>
+> Reviewed-by: Wei Yang <richard.weiyang@gmail.com>
+> Reviewed-by: Oscar Salvador <osalvador@suse.de>
+> Signed-off-by: David Hildenbrand <david@redhat.com>
 
-set_affinity_irq()
-   rebind_irq_to_cpu()
-     bind_evtchn_to_cpu()
-       cpu_evtchn[chn] = cpu;
+Anyway this is nice, thanks! Nice to resolve the todo :)
 
-unbind_from_irq()
-     case IRQT_VIRQ:
-         per_cpu(virq_to_irq, cpu_from_evtchn(evtchn))
-                 [index_from_irq(irq)] = -1;
+Reviewed-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
 
-cpu_from_evtchn()
-     return cpu_evtchn[evtchn];
-
-So global VIRQs were mis-tracked even in the Fixes commit.
-
-Regards,
-Jason
-
->> ---
->>   drivers/xen/events/events_base.c | 17 ++++++++++++++++-
->>   1 file changed, 16 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
->> index 41309d38f78c..a27e4d7f061e 100644
->> --- a/drivers/xen/events/events_base.c
->> +++ b/drivers/xen/events/events_base.c
->> @@ -159,7 +159,19 @@ static DEFINE_MUTEX(irq_mapping_update_lock);
->>   
->>   static LIST_HEAD(xen_irq_list_head);
->>   
->> -/* IRQ <-> VIRQ mapping. */
->> +static bool is_per_vcpu_virq(int virq) {
->> +	switch (virq) {
->> +	case VIRQ_TIMER:
->> +	case VIRQ_DEBUG:
->> +	case VIRQ_XENOPROF:
->> +	case VIRQ_XENPMU:
->> +		return true;
->> +	default:
->> +		return false;
->> +	}
->> +}
->> +
->> +/* IRQ <-> VIRQ mapping.  Global/Domain virqs are tracked in cpu 0.  */
->>   static DEFINE_PER_CPU(int [NR_VIRQS], virq_to_irq) = {[0 ... NR_VIRQS-1] = -1};
->>   
->>   /* IRQ <-> IPI mapping */
->> @@ -974,6 +986,9 @@ static void __unbind_from_irq(struct irq_info *info, unsigned int irq)
->>   
->>   		switch (info->type) {
->>   		case IRQT_VIRQ:
->> +			if (!is_per_vcpu_virq(virq_from_irq(info)))
->> +				cpu = 0;
->> +
->>   			per_cpu(virq_to_irq, cpu)[virq_from_irq(info)] = -1;
->>   			break;
->>   		case IRQT_IPI:
-> 
-
+> ---
+>  include/linux/mm.h |  2 ++
+>  mm/memory.c        | 19 +++++++++++++++++++
+>  mm/pagewalk.c      | 20 ++++++++++----------
+>  3 files changed, 31 insertions(+), 10 deletions(-)
+>
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index b626d1bacef52..8ca7d2fa71343 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -2360,6 +2360,8 @@ struct folio *vm_normal_folio_pmd(struct vm_area_struct *vma,
+>  				  unsigned long addr, pmd_t pmd);
+>  struct page *vm_normal_page_pmd(struct vm_area_struct *vma, unsigned long addr,
+>  				pmd_t pmd);
+> +struct page *vm_normal_page_pud(struct vm_area_struct *vma, unsigned long addr,
+> +		pud_t pud);
+>
+>  void zap_vma_ptes(struct vm_area_struct *vma, unsigned long address,
+>  		  unsigned long size);
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 78af3f243cee7..6f806bf3cc994 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -809,6 +809,25 @@ struct folio *vm_normal_folio_pmd(struct vm_area_struct *vma,
+>  		return page_folio(page);
+>  	return NULL;
+>  }
+> +
+> +/**
+> + * vm_normal_page_pud() - Get the "struct page" associated with a PUD
+> + * @vma: The VMA mapping the @pud.
+> + * @addr: The address where the @pud is mapped.
+> + * @pud: The PUD.
+> + *
+> + * Get the "struct page" associated with a PUD. See __vm_normal_page()
+> + * for details on "normal" and "special" mappings.
+> + *
+> + * Return: Returns the "struct page" if this is a "normal" mapping. Returns
+> + *	   NULL if this is a "special" mapping.
+> + */
+> +struct page *vm_normal_page_pud(struct vm_area_struct *vma,
+> +		unsigned long addr, pud_t pud)
+> +{
+> +	return __vm_normal_page(vma, addr, pud_pfn(pud), pud_special(pud),
+> +				pud_val(pud), PGTABLE_LEVEL_PUD);
+> +}
+>  #endif
+>
+>  /**
+> diff --git a/mm/pagewalk.c b/mm/pagewalk.c
+> index 648038247a8d2..c6753d370ff4e 100644
+> --- a/mm/pagewalk.c
+> +++ b/mm/pagewalk.c
+> @@ -902,23 +902,23 @@ struct folio *folio_walk_start(struct folio_walk *fw,
+>  		fw->pudp = pudp;
+>  		fw->pud = pud;
+>
+> -		/*
+> -		 * TODO: FW_MIGRATION support for PUD migration entries
+> -		 * once there are relevant users.
+> -		 */
+> -		if (!pud_present(pud) || pud_special(pud)) {
+> +		if (pud_none(pud)) {
+>  			spin_unlock(ptl);
+>  			goto not_found;
+> -		} else if (!pud_leaf(pud)) {
+> +		} else if (pud_present(pud) && !pud_leaf(pud)) {
+>  			spin_unlock(ptl);
+>  			goto pmd_table;
+> +		} else if (pud_present(pud)) {
+> +			page = vm_normal_page_pud(vma, addr, pud);
+> +			if (page)
+> +				goto found;
+>  		}
+>  		/*
+> -		 * TODO: vm_normal_page_pud() will be handy once we want to
+> -		 * support PUD mappings in VM_PFNMAP|VM_MIXEDMAP VMAs.
+> +		 * TODO: FW_MIGRATION support for PUD migration entries
+> +		 * once there are relevant users.
+>  		 */
+> -		page = pud_page(pud);
+> -		goto found;
+> +		spin_unlock(ptl);
+> +		goto not_found;
+>  	}
+>
+>  pmd_table:
+> --
+> 2.50.1
+>
 
