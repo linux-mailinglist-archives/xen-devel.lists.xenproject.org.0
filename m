@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A52DB21F72
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 09:25:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1078315.1439299 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 272BAB21F8A
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 09:32:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1078323.1439310 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uljO0-0008V6-JW; Tue, 12 Aug 2025 07:25:32 +0000
+	id 1uljV2-0001x8-8s; Tue, 12 Aug 2025 07:32:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1078315.1439299; Tue, 12 Aug 2025 07:25:32 +0000
+Received: by outflank-mailman (output) from mailman id 1078323.1439310; Tue, 12 Aug 2025 07:32:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uljO0-0008Si-G3; Tue, 12 Aug 2025 07:25:32 +0000
-Received: by outflank-mailman (input) for mailman id 1078315;
- Tue, 12 Aug 2025 07:25:31 +0000
+	id 1uljV2-0001u1-63; Tue, 12 Aug 2025 07:32:48 +0000
+Received: by outflank-mailman (input) for mailman id 1078323;
+ Tue, 12 Aug 2025 07:32:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Pr65=2Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uljNz-0008SZ-69
- for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 07:25:31 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ id 1uljV1-0001tv-As
+ for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 07:32:47 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 854c9e25-774d-11f0-b898-0df219b8e170;
- Tue, 12 Aug 2025 09:25:29 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-604bff84741so9567484a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 00:25:28 -0700 (PDT)
+ id 89bcaa0c-774e-11f0-b898-0df219b8e170;
+ Tue, 12 Aug 2025 09:32:45 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-af96fba3b37so963603066b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 00:32:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af96bc4fb0dsm1576495766b.112.2025.08.12.00.25.26
+ a640c23a62f3a-af91a0a3cecsm2156787366b.53.2025.08.12.00.32.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Aug 2025 00:25:27 -0700 (PDT)
+ Tue, 12 Aug 2025 00:32:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 854c9e25-774d-11f0-b898-0df219b8e170
+X-Inumbo-ID: 89bcaa0c-774e-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754983528; x=1755588328; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754983964; x=1755588764; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qVtUBR5KpLqv7F9nuZEXabBZFdorfFJIFGMYWZs8i44=;
-        b=XWDzA0SXkHE5gcY3PT303a1oDgKB1mPl0KvCCrM0FALRMZ6PCtleX6mDGutqz26+0g
-         UZS0mf3FyZ1RmC/V0og3bdo9v2lxYLccq/iWFtHjDqhy6pY2FDQUX8boRNXX8jjuivdR
-         V1UmoSwUe8M97psjFYOcDqg20j2fQEUFtninomXcYkf3Y7bblYoyS/IirPncyZvS1nAH
-         Vu731ongwwKhAhJHRZeSPRsb1x0+5Hy0gtIlEjiWWYTp4IgaClnXOy2nnKfArZABJ+Me
-         jonCCZEZXGFBOe5ByLs+HPAS0OXP1yPb9II5zqhgM9d7bup81R8F7PxwzKJfDIQaLOqP
-         z0Hw==
+        bh=r9QWuPCJoRTeDO1mWK7IIn2aTvJNgbPKVU6GtUcsPpQ=;
+        b=XH4zzDUxjRLHW5Rdle4xGp41KzfjuWRwxIoJdJLkJpHOo8ESTkz0VpuxqKYi/NSCne
+         f6nWXqogkueSrcvo8MKjfau5Y0FqPf8dub7e/q7DK+LtTd2OpuB784MfPnX/Yy0J5jQx
+         cK29VGAm1ufiquhqXw0nLEuh1DG96VP6WsxK338PU+iL7LaAx8ZA9KPcJtaqTznswYOu
+         qMVV1BEI2VUIZwYGypgRDgXrPX32xsIahE89T5TdvAiepqZ8QxrNgzo+ngdyT/6Hcq+5
+         OabrJNv38kLCR74q8cvwX0xOEdslTnfLX06sZkM9TUaXXDVPQF+6vmFiO81qHs6yOu7F
+         wGmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754983528; x=1755588328;
+        d=1e100.net; s=20230601; t=1754983964; x=1755588764;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qVtUBR5KpLqv7F9nuZEXabBZFdorfFJIFGMYWZs8i44=;
-        b=HuOeBpo+3B83GrcYFHX76k4AciHk5w5ovPeCWsK1gCxEP1wwvAH3qzCU6Duxc+HyEn
-         DhD95BhzrBlE/LIXtxPtmBDRCLEOY1F16aBT8VtzQ47ZdZ0okTaT6YBRpmufYc+df8Sp
-         3ZS3FUUK2G8pR+t7Fdr5ir8zW5u5IfNVy3SkrG3UG/r7g/SwpO1ySNF9CBG1rNpmxoFX
-         i9qoUgAwwxDVUic9p2BwyzQNQbXgD/oxAL6Hs2QTYYBi6D8F2s/idr4b5i81c/mLmBhf
-         l5DQvUeD+JqtmQydu21jAdPICkt/qPCM3KRz66IbXWsudLNJnJvpHPVKO/lyeRwiYDzQ
-         UPIQ==
-X-Gm-Message-State: AOJu0YzJ697V/VAnPDCuwzuetAkwCwu9QOhsyYvnZ09RiWaeqQl1zVRP
-	omfBgmrvxigUM0qvud78x6HegIwYAHyOnYiyn6FRLPYZEIA7tWNMeUo7RqGqjzuIJw==
-X-Gm-Gg: ASbGnctryX8ehBOoPN37YlWSLJjwGGldnflCwbVIP43FaljqGWTtNCUq1EYfqQtA7B0
-	HVlNMA5Yg14EyTEz0e6y8YPfD4083BDjtjPZZAgarOOYI0XRTqv6bhiVPHrkkmiphz6CzfwRfYB
-	jCmxkUdQ8G/HXHB3desfJV1Bi+OqBukUjFLeQdrxa5iLQmO8oHLW3P0HNJDzO8B8IlhjbqvmvbB
-	oBmCWYuonmb4gaFDrnQF01WiQ1HnWKDg1RcalJB+4MUesVeYU27umyZ9SEU4qNAEZN52DqQis4q
-	s7Kb3EmKFWzIzjOZvgYUBAr2TurEShA2GIthYvq9EHmkesGCwkG4tIzCnMp3GcDy4wy9pM9/4vy
-	SoSfrSKanD/1yXWlxNWURqYuZu7vMcmeHLa68z1b+r73EQFGDVc+eJMD6rPoHqwsLED+HuLXepw
-	M9EkGi0RR7ppyTW3SyEQ==
-X-Google-Smtp-Source: AGHT+IH6kFn6WihT4r/AJTKlKuYTTUOh9JW2HIBIpfeXiEQYkyS/SW404iEzn32AD/Xn+pwQPuvJ5A==
-X-Received: by 2002:a17:907:6d1d:b0:af9:3589:68cb with SMTP id a640c23a62f3a-afa1e128f52mr224668766b.48.1754983527580;
-        Tue, 12 Aug 2025 00:25:27 -0700 (PDT)
-Message-ID: <c7f118a9-aea8-4f3a-8072-1bfa128d56b8@suse.com>
-Date: Tue, 12 Aug 2025 09:25:26 +0200
+        bh=r9QWuPCJoRTeDO1mWK7IIn2aTvJNgbPKVU6GtUcsPpQ=;
+        b=jRNGZTL+tCHj0gCukIlZaG3UAy5PZc6yhFUIqfKAqlh8IYzLY/c1EPuSUzPsyWw0by
+         VrNhWvFJx+Wmf6ERmmSpbCeHW+R2tSNLyJlvuoWFOsmMGvBDJ3Er9M1g2NDXToeEkBaE
+         wvb14ypCn64qkyJExJtFcu4juLnkkjZg6ywewxolUTIQVsD/66hfTHzZ81x372DcIxfI
+         SxVwLyoO6y7URqBPWmkbZOQX7JBpRg0xsPmAiOQjSW/PZmL5/2NWUZZvIj/GkNl/A+7z
+         Kz2RiLgVYTnyJZDBKvBr+iLO6kFHMT4ALJCybdftdLYmP2SvGjX+PcqI/UET2QXsGGxP
+         jzDA==
+X-Forwarded-Encrypted: i=1; AJvYcCViqQgaGzuc/xz79+Dq3FWZ6caocHUSMtIfJiI0BZ5uVxwh1I6fsw6KpPNbck+5dwd2ViNcxZd69lw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzHt6qqlRWyxtJVTKX9x0WbuohkTaCV41h09Ykukc8iGmItr/8t
+	PA9gN+ajRt6C77a3wNQ5Otc41J4JlNJNg/f6jeUuUnQ44/D2eFeqa1DEsgVR+zic9A==
+X-Gm-Gg: ASbGncsgEYA3mTzZ1hnrZCbRhKacfi8GwFasuYGTMkE3q4fAsEsx0bzcAn6xeJxZjBg
+	KdbNw6QSSj+fCThFmK8c6ymynjenyHQxDz/WxB0ny/9z+l8zzzZLXztWkGyVYMDDn/iCMs6K+je
+	wa6mV6+25PI+GY0msfhDoNxUtlLK5l8plSVXOfEVBrEcFFUCKw1VW+QYyIT0x5ZZvtLDxVyOM9R
+	QLMyXiEQABMQOju7w4zJWC9Zih8Kzt19Z4u4bod9/5DE8ZYNYNI/0THQ0EH90vClr+kH52x3W1w
+	2u/gsA3e2+pyp0/pagMVo9h6C2wTaeIfeMguQyCnTsMQulXv+CxqPKY2os/vVc5AoMgbRsD5yJh
+	AVhNKv22VOJ7CCNNRuB1dEn61g4On/saUtygDoWG/ABwtg1tsilbwJkOrUspIacDYnv6VAbZM6H
+	lrk0Q/O5JS93Vwclc7lBrkXel3qqvQ
+X-Google-Smtp-Source: AGHT+IF8668MVVu3pTMsJJvsf8lkmvVTxvcTr+pKvYku26TpyWop8DCaXcHLF+Au+NxrIlNYvSX3ug==
+X-Received: by 2002:a17:907:3e8b:b0:ae3:eed1:d018 with SMTP id a640c23a62f3a-afa1dfe892bmr180617966b.9.1754983964582;
+        Tue, 12 Aug 2025 00:32:44 -0700 (PDT)
+Message-ID: <aba2627f-b38d-4d6c-9c5e-4bdc4f5b563f@suse.com>
+Date: Tue, 12 Aug 2025 09:32:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] misra: add ASSERT_UNREACHABLE() in default clauses
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+To: Julien Grall <julien@xen.org>,
+ Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <7cd71ed21383c189fedb3250ddde54a593f7f98b.1754944131.git.dmytro_prokopchuk1@epam.com>
- <a318ef2d5cad37d2fda0bb4a52c90964@bugseng.com>
+ <59396fd1-ca82-4655-9dcf-ec36e0d51ffc@xen.org>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,40 +126,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a318ef2d5cad37d2fda0bb4a52c90964@bugseng.com>
+In-Reply-To: <59396fd1-ca82-4655-9dcf-ec36e0d51ffc@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.08.2025 23:25, Nicola Vetrini wrote:
-> On 2025-08-11 22:30, Dmytro Prokopchuk1 wrote:
->> --- a/xen/arch/arm/decode.c
->> +++ b/xen/arch/arm/decode.c
->> @@ -178,6 +178,9 @@ static int decode_thumb(register_t pc, struct 
->> hsr_dabt *dabt)
->>          case 3: /* Signed byte */
->>              update_dabt(dabt, reg, 0, true);
->>              break;
->> +        default:
->> +            ASSERT_UNREACHABLE();
->> +            break;
->>          }
->>
+On 11.08.2025 23:21, Julien Grall wrote:
+> On 11/08/2025 21:30, Dmytro Prokopchuk1 wrote:
+>> --- a/xen/common/grant_table.c
+>> +++ b/xen/common/grant_table.c
+>> @@ -330,9 +330,12 @@ shared_entry_header(struct grant_table *t, grant_ref_t ref)
+>>           /* Returned values should be independent of speculative execution */
+>>           block_speculation();
+>>           return &shared_entry_v2(t, ref).hdr;
+>> +
+>> +    default:
+>> +        ASSERT_UNREACHABLE();
+>> +        break;
+>>       }
+>>   
+>> -    ASSERT_UNREACHABLE();
+>  >       block_speculation();>
+>>       return NULL;
 > 
-> I think this is fine, and there should be no problems with the break 
-> being unreachable in some configs due to the call property for 
-> ASSERT_UNREACHABLE
+> I know you are trying to apply the MISRA rule. But this is odd that you 
+> move the ASSERT_UNREACHABLE() but then code after is still only 
+> reachable from the default. In fact, this is introducing a risk if 
+> someone decides to add a new case but then forgot to return a value.
 > 
-> -doc_begin="Calls to function `__builtin_unreachable()' in the expansion 
-> of macro
-> `ASSERT_UNREACHABLE()' are not considered to have the `noreturn' 
-> property."
-> -call_properties+={"name(__builtin_unreachable)&&stmt(begin(any_exp(macro(name(ASSERT_UNREACHABLE)))))", 
-> {"noreturn(false)"}}
-> -doc_end
+> By moving the two other lines, the compiler should be able to throw an 
+> error if you forgot a return.
 
-Did you also see Julien's reply? Imo, to address a complaint from one
-rule, another rule is then being violated: The "default" label itself
-is unreachable here.
+I think we did discuss this pattern in the past. While moving everything up
+to the "return" into the default: handling will please Eclair / Misra, we'll
+then end up with no return statement at the end of a non-void function.
+Beyond being good practice (imo) to have such a "main" return statement,
+that's actually another rule, just one we apparently didn't accept (15.5).
 
 Jan
 
