@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE5E2B21E51
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 08:30:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1078273.1439259 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6FBAB21E9E
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 08:52:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1078286.1439269 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uliWE-0007D8-PZ; Tue, 12 Aug 2025 06:29:58 +0000
+	id 1ulirv-000319-K1; Tue, 12 Aug 2025 06:52:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1078273.1439259; Tue, 12 Aug 2025 06:29:58 +0000
+Received: by outflank-mailman (output) from mailman id 1078286.1439269; Tue, 12 Aug 2025 06:52:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uliWE-0007Bg-M2; Tue, 12 Aug 2025 06:29:58 +0000
-Received: by outflank-mailman (input) for mailman id 1078273;
- Tue, 12 Aug 2025 06:29:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ulirv-0002yw-Gd; Tue, 12 Aug 2025 06:52:23 +0000
+Received: by outflank-mailman (input) for mailman id 1078286;
+ Tue, 12 Aug 2025 06:52:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Pr65=2Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uliWD-0007BX-Ti
- for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 06:29:57 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c11c5204-7745-11f0-b898-0df219b8e170;
- Tue, 12 Aug 2025 08:29:52 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-615d1865b2dso7533935a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 23:29:52 -0700 (PDT)
+ id 1uliru-0002yq-Fl
+ for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 06:52:22 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e4cc83de-7748-11f0-a327-13f23c93f187;
+ Tue, 12 Aug 2025 08:52:21 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-605b9488c28so9097865a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Aug 2025 23:52:21 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-615a8f2a448sm19708905a12.20.2025.08.11.23.29.51
+ 4fb4d7f45d1cf-615a91141e9sm19551845a12.58.2025.08.11.23.52.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Aug 2025 23:29:51 -0700 (PDT)
+ Mon, 11 Aug 2025 23:52:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c11c5204-7745-11f0-b898-0df219b8e170
+X-Inumbo-ID: e4cc83de-7748-11f0-a327-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754980192; x=1755584992; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754981540; x=1755586340; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UOpw8XetIMan0yhWiD5lJE5cK4SohqTFNxbbqrq+sRY=;
-        b=OHpUN4jO8CtX1XDpnKLFfRUcDTuMSsxOBRlizlbHxrm/MvaESTs2qfxaQOpO8PM3jt
-         X88hJcuznBo0tnNmARb6v7JP+vFp781JytQIoRBp/BMDk8eMWW3HrIjnJ3PQHKsYQjMB
-         ODr05LSvEEyku4HaA8VxhRC1+t7Qt6xRygRlj/PzEyftXYc2tZ+2UGRBIO/NEN83xVsO
-         xw0CJ7GL0+uYhQb61Fz2iroDoV3cVs11M6D1zRFrBGjPdSVlYkdXHd7y3pqT/ytZ9+Nu
-         jAMUQ6tya0dImeIG6Yvt+5OI6N/cxV2tSfhR4tV9zGpaFsHMjIBq5oPmjql5aiOK77nB
-         TqzA==
+        bh=CU6l/YxR38H56kfp+AvQsVaRCIYqsznCnye+9vNlqXc=;
+        b=gLt/ChTkBps9pzkyZGTpZopgcFTgMflNApWnyxxVhWSWMfGY/C8WoeYc8EaWI2shQS
+         8cgm9vBhDhnF/s8VwK4ez8LR2vQ8WKmRzBfLT227iY6gKfCNa0bzK0FFnZC0xpCai/Hv
+         JJ9xzg2UTDVDobFTl6I+plLFrUCukyP0q+dPbmri8vkYq3PPLvXFajB6tFrg5XX9x8LN
+         qwJ7nlRcaIhJX815oJbhGKxTBYUW0EqPhWYvNIhsmCUa/ZmU/ixKE/gzGzq0rH+K9S5y
+         keHEBmST+255jadDiEopMP/nGIXJBJew1rcoFEPpwFzAjFF7Dc5u0LDqM3FBYX9ynfcw
+         PQlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754980192; x=1755584992;
+        d=1e100.net; s=20230601; t=1754981540; x=1755586340;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UOpw8XetIMan0yhWiD5lJE5cK4SohqTFNxbbqrq+sRY=;
-        b=k4jD82MddLQ7NBWeaW6ZPTfENGdnRJB2LCgNuC8yMRqht6eIib95u9Hm9XlVCofSdw
-         HUitcnlgWggmGHTum8mCaDpNYl9eQXKQZq5UKKdSwa5+djZgGwvTt2a+EkdQyPjkWDVK
-         W9UpCxty9DkamwDCXHbsrs8MvqBY49B3Itil28SAjn5GQ0p9uigPgGkaZv6R88XAqtTB
-         OD8rHKr/oDNST4RUx44pOOGijs6ihqd2BVOIWylDid9UrAE0ClmWm/GCS5VOLhya2NTv
-         1mCQ32oFz3BkPK/XM4XjPsjbzfDY9/QLgw9fMEVV7LFsOIaNZgDzjP7BEniXS6IclBPF
-         nU5Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVlGWYO6RDEmIOy8vrB9sarkTIGeHVWg08/AUQigCV68iuyAnmCkJF6OArdrFkn9wVxLX6zGe4sgFM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwQBoLR0BhGxfsT4G2AnqppyrHFmrwllb1P1uiyo06ireO6gYSX
-	EJ+0u7Jit2kVtuuC/xXJvYU6shXDj6Dkkv/qfRhZTY617XWxjITo7ozwuT/atb57SQ==
-X-Gm-Gg: ASbGncsE/FG8KitSHMuSk9xg85D0Sm4N4q8n0LNStQJeS44hr8RLVnzgwW0C06iZp+/
-	g7xufMMimK/5djDbfYvTZ0EKfg9NjAKz711TDZ5FenGT+u5fxCM46+ds5gieRwkUSf1Oa/HmKs1
-	8YhtbM+s6ZjMkoJ2Bv/DuNeZbu0+I+G6hHlhLh9VYhS6zr98qN/olpL9XrBrTtAszpbDxW35m/k
-	XHebhmy1EO0DacSxEILPmKWZf0bsel7jeVCd2Lp63Pu5E1SJEiP5p2FNasbRYOCKG5U5lCdkXGO
-	RA9e1iZUBUt+N5/mcOUOP/4Ynqvb7Y+FrAsRPcOIWfasScc1vxYekkyr4c3ppusxYSrvnNinJcj
-	TRzT9ENEcs4t4r9dUV/I7y5uAWI1SbFtTLSJ0MjMmWnJSDFYREaVYD49k5EeAWvxkBhWTSsnW6u
-	KkAXsI1vzrhqxXyCZDvQ==
-X-Google-Smtp-Source: AGHT+IEK4yiVmkCLThUnyCElrDWbiQ23/ZYLAF+98DtJB4d+67Q39FPWgJ2JZwBxuUbbaZANs5uFyg==
-X-Received: by 2002:a05:6402:2354:b0:618:c2d:dd97 with SMTP id 4fb4d7f45d1cf-6184ea28ea0mr1685512a12.1.1754980192024;
-        Mon, 11 Aug 2025 23:29:52 -0700 (PDT)
-Message-ID: <ece155ab-d247-41cb-b3a1-ae4233423cef@suse.com>
-Date: Tue, 12 Aug 2025 08:29:50 +0200
+        bh=CU6l/YxR38H56kfp+AvQsVaRCIYqsznCnye+9vNlqXc=;
+        b=CzBYUZv1P4Pmm/vcIC3nZpnVWwu5m4+3bt+t66fVEbCkT1w/WNfbNGWBohfGUOWm4N
+         tZItqZ5uo4o+vu4p9ges1HGN2BQMKJAodp6gPS5zdopOndrSyIyiBoe7Fh2lfhhtTzh5
+         fTYvXrlDlKpSX5c8b7FF0/3Iho2uTtc2sO3PhhCH8QmCjXuxVb10hqzGgQJbYREHwEyZ
+         ioFwvRhzX7uvqU/y4NdGJjc68dB5Q5L1LNfr2Ii9l0RV0GLrIHFLGnkPAQsf0p5DKGE4
+         arUBdk2yfJUpC6QcMc5v3DRXYPbKXKX/jT64hnv8B5iSH41nLfQxscjNQMue2S8Twu4A
+         vKlg==
+X-Forwarded-Encrypted: i=1; AJvYcCWkBpWnz9pCVivbkGwTSBgsYbI6KHtyBYfgymWLObKUFRhjDlhdet3W9nCShvilrzQ6ba/QVyDqaAw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzydDkRysbKVQYpywoiVvmyOPcEB7s9QjL+CVuY/FeV610Eim2L
+	DdG52X6BQH62evb+a1KG9hlDVsOBMnaHReFJZG1FWmXM7Mk8mLxTIzY5MjpVhad2pA==
+X-Gm-Gg: ASbGncvRg5EZRMvHHJrxzJGa63EkAvMoK3uDqHt0fMXrf8yrCCu+zXMGkYUxVMiIUA2
+	o9bCR+7CSP8YUBY18ntG2pQiOV/VX0RzceaX4/R4L1UytNL9qUQJaQU8OE6na74lRS9b4o5v78G
+	AokNdOWW8r3qw02+HnnSvGsZktpmA6Df3N7YW1ym800/B4hEOwPl2m1v7oEt7RcbUkDnCLr5FfQ
+	eFmmj31vEYSTbzsX+HCmn04eK5yL/vyDO8XrtPbehcpKz9vVNptJIllKTEzmdCyMN0bgGi5QDEs
+	ZDGefpGbmM0ZB3+JXF6yQzZ4c1PxnNtwC/xZ4kDAhPEvQ0EG79DZpKCFPhawztSJxoDMUpz1/5/
+	DnEGReb/WDvtibwloNa5LIlEIJG5knWvDZrL5b14GRKYUG71IF6pcN8Bz5TPR+h733EiwgB9zaV
+	lMZMfx65g=
+X-Google-Smtp-Source: AGHT+IGIHo3ItpHf9LP6uFZElkGgRV++/2iHH18r9OKCr0sWzB7swAfosvGvyqb4KUtvA/zDoPGepA==
+X-Received: by 2002:a05:6402:280e:b0:617:b6fe:b6a5 with SMTP id 4fb4d7f45d1cf-6184ecf27b1mr1679161a12.27.1754981540228;
+        Mon, 11 Aug 2025 23:52:20 -0700 (PDT)
+Message-ID: <61aeb2a2-dc53-4f52-ab65-a9a8143a3307@suse.com>
+Date: Tue, 12 Aug 2025 08:52:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Arm: drop assertion from page_is_ram_type()
-To: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <804094ae-bb76-4165-9e07-46b775b4b46e@suse.com>
- <86faa2fa-9f23-49a9-a909-a3dd3d5a938f@xen.org>
+Subject: Re: [PATCH v4 2/8] emul/vuart: introduce framework for UART emulators
+To: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20250731192130.3948419-1-dmukhin@ford.com>
+ <20250731192130.3948419-3-dmukhin@ford.com>
+ <a416cc08-5970-433a-8015-5d2aa961a000@suse.com> <aJeZpiM35gOtB+4Z@starscream>
+ <6953603b-8c3f-4f12-9f5e-45cb553fe8cc@suse.com> <aJqDCJp19/iMIfDq@kraken>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,42 +122,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <86faa2fa-9f23-49a9-a909-a3dd3d5a938f@xen.org>
+In-Reply-To: <aJqDCJp19/iMIfDq@kraken>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.08.2025 19:24, Julien Grall wrote:
-> On 11/08/2025 14:01, Jan Beulich wrote:
->> Its uses in offline_page() and query_page_offline() make it reachable on
->> Arm, as long as XEN_SYSCTL_page_offline_op doesn't have any Arm-specific
->> code added. It being reachable was even mentioned in the commit
->> introducing it, claiming it "clearly shouldn't be called on ARM just
->> yet".
+On 12.08.2025 01:55, dmkhn@proton.me wrote:
+> On Mon, Aug 11, 2025 at 09:34:58AM +0200, Jan Beulich wrote:
+>> On 09.08.2025 20:55, dmkhn@proton.me wrote:
+>>> On Mon, Aug 04, 2025 at 12:11:03PM +0200, Jan Beulich wrote:
+>>>> On 31.07.2025 21:21, dmkhn@proton.me wrote:
+>>>>> @@ -354,6 +355,8 @@ static void cf_check dump_domains(unsigned char key)
+>>>>>                             v->periodic_period / 1000000);
+>>>>>              }
+>>>>>          }
+>>>>> +
+>>>>> +        vuart_dump_state(d);
+>>>>
+>>>> How verbose is this going to get?
+>>>
+>>> Looks something like this:
+>>> ```
+>>> (XEN) [   88.334893] 'q' pressed -> dumping domain info (now = 88334828303)
+>>> [..]
+>>> (XEN) [   88.335673] Virtual ns16550 (COM2) I/O port 0x02f8 IRQ#3 owner d0
+>>> (XEN) [   88.335681]   RX FIFO size 1024 in_prod 258 in_cons 258 used 0
+>>> (XEN) [   88.335689]   TX FIFO size 2048 out_prod 15 out_cons 0 used 15
+>>> (XEN) [   88.335696]   00 RBR 02 THR 6f DLL 01 DLM 00
+>>> (XEN) [   88.335703]   01 IER 05
+>>> (XEN) [   88.335709]   02 FCR 81 IIR c1
+>>> (XEN) [   88.335715]   03 LCR 13
+>>> (XEN) [   88.335720]   04 MCR 0b
+>>> (XEN) [   88.335726]   05 LSR 60
+>>> (XEN) [   88.335731]   06 MSR b0
+>>> (XEN) [   88.335736]   07 SCR 00
+>>>
+>>> ```
+>>
+>> Definitely too much (for my taste) to put under 'q'.
 > 
-> So I agree that the function can be reached. But then I don't think the 
-> function can simply return 0.
-> 
-> The name is too generic enough that someone may end up to use it in 
-> common code and there will be no signal to the user that the function 
-> will not properly indicate a RAM page on Arm.
-> 
-> I can think of two possible approaches:
-> 
-> 1/ Implement properly page_is_ram_type(). We don't have an e820, but we 
-> could mimick it using the memory banks we stored.
-> 2/ Rename page_is_ram_type() to page_offlinable() (or similar) so it is 
-> clear that the common use is for offlining.
-> 
-> The latter might be the simplest.
+> I'll try to limit the number of printed lines; register dump can be made
+> compact for sure.
 
-I consider page_offlinable() potentially ambiguous: When you offline a PCI
-device, you offline its MMIO as well, for example. Or, much like RAM, some
-page in, say, a video device's framebuffer may have gone bad. One might
-think that such would then also be covered by that function. So minimally
-page_offlinable_ram() or page_is_offlinable_ram(), I think. That would
-then have the benefit of allowing an avenue towards x86 also making its
-checking more precise, as certain RAM ranges can't possibly be offlined.
-If that's fine with you, I can enlarge the patch accordingly.
+Yet even then I'm inclined to say that device specific data simply doesn't
+belong here.
 
 Jan
 
