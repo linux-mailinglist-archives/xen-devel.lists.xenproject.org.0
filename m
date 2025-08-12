@@ -2,33 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECD4CB22E79
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 19:03:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1078963.1439962 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A46EDB22F2D
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 19:34:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1078979.1439972 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulsOH-0003FH-0U; Tue, 12 Aug 2025 17:02:25 +0000
+	id 1ulst2-0007HD-C0; Tue, 12 Aug 2025 17:34:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1078963.1439962; Tue, 12 Aug 2025 17:02:24 +0000
+Received: by outflank-mailman (output) from mailman id 1078979.1439972; Tue, 12 Aug 2025 17:34:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulsOG-0003CW-Tv; Tue, 12 Aug 2025 17:02:24 +0000
-Received: by outflank-mailman (input) for mailman id 1078963;
- Tue, 12 Aug 2025 17:02:23 +0000
+	id 1ulst2-0007ES-96; Tue, 12 Aug 2025 17:34:12 +0000
+Received: by outflank-mailman (input) for mailman id 1078979;
+ Tue, 12 Aug 2025 17:34:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qHa6=2Y=net-space.pl=dkiper@srs-se1.protection.inumbo.net>)
- id 1ulsOF-0003CQ-NC
- for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 17:02:23 +0000
-Received: from dibed.net-space.pl (dibed.net-space.pl [84.10.22.86])
+ <SRS0=2eVr=2Y=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1ulst1-0007E3-Cr
+ for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 17:34:11 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20611.outbound.protection.outlook.com
+ [2a01:111:f403:2416::611])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1940c18c-779e-11f0-b898-0df219b8e170;
- Tue, 12 Aug 2025 19:02:16 +0200 (CEST)
-Received: from router-fw.i.net-space.pl ([192.168.52.1]:38848 "EHLO
- tomti.i.net-space.pl") by router-fw-old.i.net-space.pl with ESMTP
- id S1920936AblHLRCO (ORCPT <rfc822;xen-devel@lists.xenproject.org>);
- Tue, 12 Aug 2025 19:02:14 +0200
+ id 8a515657-77a2-11f0-b898-0df219b8e170;
+ Tue, 12 Aug 2025 19:34:05 +0200 (CEST)
+Received: from MN0PR02CA0008.namprd02.prod.outlook.com (2603:10b6:208:530::10)
+ by IA1PR12MB8080.namprd12.prod.outlook.com (2603:10b6:208:3fd::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.22; Tue, 12 Aug
+ 2025 17:34:01 +0000
+Received: from BL6PEPF00022574.namprd02.prod.outlook.com
+ (2603:10b6:208:530:cafe::4a) by MN0PR02CA0008.outlook.office365.com
+ (2603:10b6:208:530::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9031.15 via Frontend Transport; Tue,
+ 12 Aug 2025 17:34:01 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL6PEPF00022574.mail.protection.outlook.com (10.167.249.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9031.11 via Frontend Transport; Tue, 12 Aug 2025 17:34:00 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 12 Aug
+ 2025 12:34:00 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 12 Aug
+ 2025 12:33:59 -0500
+Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via
+ Frontend Transport; Tue, 12 Aug 2025 12:33:59 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,619 +63,209 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1940c18c-779e-11f0-b898-0df219b8e170
-X-Comment: RFC 2476 MSA function at dibed.net-space.pl logged sender identity as: dkiper
-Date:	Tue, 12 Aug 2025 19:02:11 +0200
-From:	Daniel Kiper <dkiper@net-space.pl>
-To:	Aaron Rainbolt <arraybolt3@gmail.com>
-Cc:	grub-devel@gnu.org, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v4 2/2] kern/xen: Add Xen command line parsing
-Message-ID: <20250812170211.q7ezlveygfsdkz34@tomti.i.net-space.pl>
-References: <20250804234816.3d14f53f@kf-m2g5>
- <20250804234911.3cc3997c@kf-m2g5>
- <20250804235009.30e39bd9@kf-m2g5>
+X-Inumbo-ID: 8a515657-77a2-11f0-b898-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=f6FSYr2v1A43zoC/GVccpTLejm0phoSB2/oxCPiVyLCgt02ZEpgeynYAt0B/UlbXUd7jKDTsq92ALAJOMZ/sIlBTyUP98LV4Zv1fWxSXTCYyTIb52aiIYrbZdE3cmfBaEB50tUwzqwmFiEiFZiyqRcveBbZLnaLRdpVkyrDSAQYLi4Syzx3hZUdz7vpSXLspL+9Y3tLV5wswKSOgZpaO+Hg11s5HpnXrmt/Lyita41LEO32e3GPNDW+3UtMChaparSswpRMX8sHO0eUzpPbZmLa7y7amWwFEUZcjfGD6iJ/27GAqRobHcMRTw1kxRPN4OuLGP4iT/vGuICcHnLU17g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JHkduoHjGrrLbmr5Rlfx5Axcfh82wYY/BjtQ5rAPZAM=;
+ b=MUiEtkRT0Aan6SRDcxerPrjjHMimC7lkgCLLLhgyG8v4BD5iZyUiN3Db/KOtBaHBjl67kGHVYor4TqWDFpN+RNXLq4qcjBMhPo4FF4R5o/DoFMKYpewrFn2wf5t3Yzqy9ZbZ1PFph6Tns8yqFXk9CXPu9tO9bwsikAxc+BTmK9jMrE3OajYubnH6K4JeLzMQ2Sq6G9zoemh1pZXlOEz9YzCz90SpzZdwb/lTtQ0GqZfAWer/xd1sA68WXOLEBjK20zmnY6S58S2lZu+//TWTovPeWyazAuU+DABrFDEy3oUbExVuV99dqgBqQAzWmJb1/PYccuFWSWgpUTcv/MV0vQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JHkduoHjGrrLbmr5Rlfx5Axcfh82wYY/BjtQ5rAPZAM=;
+ b=eWdLYU3xq4NTm6toNonGOE/5vVBW+QOn0x2Z+p7SbTf9IhPmpFitNcKVAwnDhcHHwUdyNJC7KVpfdomdqbNpCuBi0eERYp9U5+Uu/77tfxr55DQy4sGhNL2sU3omGeXPym9GVbuUKHw9ptqFeP7YtIlxbGV3ig55afh90hizrE4=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, <michal.orzel@amd.com>,
+	<andrei.cherechesu@nxp.com>, <dmukhin@ford.com>, Ayan Kumar Halder
+	<ayan.kumar.halder@amd.com>
+Subject: [ImageBuilder v2] Make DEVICE_TREE optional parameter
+Date: Tue, 12 Aug 2025 18:33:50 +0100
+Message-ID: <20250812173350.2612682-1-ayan.kumar.halder@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250804235009.30e39bd9@kf-m2g5>
-User-Agent: NeoMutt/20170113 (1.7.2)
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB05.amd.com: ayan.kumar.halder@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00022574:EE_|IA1PR12MB8080:EE_
+X-MS-Office365-Filtering-Correlation-Id: 87972465-b0ab-4813-3b9e-08ddd9c66c87
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|376014|1800799024|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?WEJsRXgzQ2hPNE9RRFhPb29TMWRnKzVKVXAwZWVTSjRwWitjdmx0VjVxM3cv?=
+ =?utf-8?B?dHk3alpGano3d1M5YzBkaGtEQ0llbWNJM2lEc1E4TnMrQ2xhWnl0TmlLZE4y?=
+ =?utf-8?B?Yi9sMjgrOVh2aW1oNnFsdDFsa3BobUxCY0NwNnZnUVhsQzI5SDYxNGpCVHFX?=
+ =?utf-8?B?eWJvVmdhVmkrTjdna3I1SG1BQ21hRTZ2WXNoMExWdFVkRS9obVJHK2ViMk5O?=
+ =?utf-8?B?REhyL0VPRzdhdVJpSjJWWjF5a0oyRlJsY1A5MmdQSWk4b1pLWWhYK253bHVn?=
+ =?utf-8?B?RURYdDBrVUZKc2lpRFpMK3pHSzdKaU1ZZjNHOEdxVmU1RTluMmlIbGFuVmsw?=
+ =?utf-8?B?YmZndWNKRzhqbWFYWkNPVXBrNDh3VmJaSER1S3ZDTjVqREZ4dTgrU3JjM2FW?=
+ =?utf-8?B?TFZHc3JCVlQvZGxUK3ZtSEU1clpBR2p5dGhLMDRRUVlIQlBvZkowbU8rSnNB?=
+ =?utf-8?B?bzl6TmdRa3cwZU1ZRmZlQVNPZ245T0VjTTRvUkFMSStmR2FmTTg5ZzQ3NUg1?=
+ =?utf-8?B?dzRqajBRWnl1UWZ5d29PVkdPU0llaXZyVzU4RWZ4MXNUS3RvclZWUkhDODVR?=
+ =?utf-8?B?Y2EwZ1JpWTFXN0IzWlNsOWVMZEN0dTRmOFFKZ0o5UEhGMm1Xb2cvdStuQTJJ?=
+ =?utf-8?B?eVhEN293Z09Ud2Vaa1dhK2Y3UUtQNDA0bGE2NUo3NVdVcGFLd0RUblFNRE04?=
+ =?utf-8?B?bmdOMGpraXhNZ3RvZXFpNkVpbmg2Sy9xT1IwZ29PZUpOaW9rN0tCWFRCcFp0?=
+ =?utf-8?B?bGtjZGFmTm5wempMM3FIaG9DT3cwM2VxM3RkZ0NCNmk3SllMMG11dXpaRHI1?=
+ =?utf-8?B?R205MHZtWThlSE5XeFd1WlZSWlR3T3ZJY0tiK3lmd2VkdzdWMnErbDZyL3Z0?=
+ =?utf-8?B?MXdCVlRIQ0Z2S3RvM3RiM3RjMUtQc1Q5YXJrNlUrMk5yWGk3K2d3VzR1WjJL?=
+ =?utf-8?B?U045L1lJQUg3U2l1QTAvY1Fva2pSOHBDQ3RBMjBIZ1VLdXp3am0yekxlaXpL?=
+ =?utf-8?B?bmZWdXovRXlUdjNuS3dVdlpORi9lSjQvM3F2bm1Dc1pOcDVNQVZRWmlhWjUv?=
+ =?utf-8?B?ayt2WlhPejR0eUdSdHVyRmlPUXVTYjFOVkpBSGdCZElTMk5aaCtkUi9qR2p4?=
+ =?utf-8?B?RFlZK002bmVqMnQ3NTFFOFlIcHord0tOY2JZNThkdXEzYnFmQyszYThtM2Nl?=
+ =?utf-8?B?b0I0SEhpSXVocloyc3JGRHFtWEpXYVlXZjl5ZmFFSHBZdjg5QlNoM2ZiTmlZ?=
+ =?utf-8?B?WEttZDRKRnFxVmhXTVVsUkdmYXJWalVuMWd6cTMyOVg3MjhBcWtCZnhVK3lG?=
+ =?utf-8?B?WEF1Q0EzWWZsLzA4aTRJS1NKemV3WVZQQ1VOT1NpT1RNcGlOdkV3bkx4ZURs?=
+ =?utf-8?B?VmsyZVR0TWVUZVdpZjZHdE9yeU1hZjdQaE1zcDRLRm81V1lkc0M3cURweXIw?=
+ =?utf-8?B?cE9ST1NOUXpoTDAydzM5YW9GYXNoUEZ6dmVRcC9TK0lZalB6Mlg3OUd1a0R5?=
+ =?utf-8?B?RWloS0VwZ2trbm90UFRGcnVON0FLVm1Bd2lzZXNQZmlMMWdyY1FXYjZNeVNN?=
+ =?utf-8?B?aFVkbzFnREVCOVRkNjlZbjZHdzhRNVV3cEQ5TUlMaVVlTHVlbFR4K2c5OVJ6?=
+ =?utf-8?B?amY3Ty9TbldQK0xIYnpvRGhRRGg0bGZNMk4vaHVKM25PNTE5ZE9JR0ZXZnFO?=
+ =?utf-8?B?bmU3QWZqby9uOHl0dnpFYUd5S3k2VHV1VThlU0JZWkpIdTd0RUM0Zzg4Tk1r?=
+ =?utf-8?B?WG5lV3Nrb2VLS2VFQ3FLeEgrTnRrdmM0N3dlM3pDL0gyNzV2NmNFV2N0VWlY?=
+ =?utf-8?B?OHJJeVBUUFlrWmNMRHBMUXNyR2NCRFFvaUNiM2Rsc3BUcGIzR2E4ZGdIODdq?=
+ =?utf-8?B?R2RHQmhLeVdrOUpsRVI1ZlcrcnNrcmFQVUFDN0NkMFZzSmUzZW9nZVZPM05L?=
+ =?utf-8?B?ZEtGK0pyYTRhMFZOcW1VeXhTWTBoWDU5VHRGK0o3VHFJczhYUHppRkRGTC9y?=
+ =?utf-8?B?V25RVENiZzhQM1BLNjRnWFJUVEFMS0pNTWZMWXJXZVh2ZDhrbjlWcWxERFVU?=
+ =?utf-8?Q?oa58V2?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2025 17:34:00.3594
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87972465-b0ab-4813-3b9e-08ddd9c66c87
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF00022574.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8080
 
-On Mon, Aug 04, 2025 at 11:50:09PM -0500, Aaron Rainbolt wrote:
-> Xen traditionally allows customizing guest behavior by passing arguments
-> to the VM kernel via the kernel command line. This is no longer possible
-> when using GRUB with Xen, as the kernel command line is decided by the
-> GRUB configuration file within the guest, not data passed to the guest
-> by Xen.
->
-> To work around this limitation, enable GRUB to parse a command line
-> passed to it by Xen, and expose data from the command line to the GRUB
-> configuration as environment variables. These variables can be used in
-> the GRUB configuration for any desired purpose, such as extending the
-> kernel command line passed to the guest. The command line format is
-> inspired by the Linux kernel's command line format.
->
-> To reduce the risk of misuse, abuse, or accidents in production, the
-> command line will only be parsed if it consists entirely of 7-bit ASCII
-> characters, only alphabetical characters and underscores are permitted
-> in variable names, and all variable names must start with the string
-> "xen_grub_env_". This also allows room for expanding the command line
-> arguments accepted by GRUB in the future, should other arguments end up
-> becoming desirable in the future.
->
-> Signed-off-by: Aaron Rainbolt <arraybolt3@gmail.com>
-> ---
->  docs/grub.texi                |  51 +++++
->  grub-core/Makefile.core.def   |   2 +
->  grub-core/kern/i386/xen/pvh.c |  23 +++
->  grub-core/kern/xen/cmdline.c  | 376 ++++++++++++++++++++++++++++++++++
->  grub-core/kern/xen/init.c     |   2 +
->  include/grub/xen.h            |   2 +
->  6 files changed, 456 insertions(+)
->  create mode 100644 grub-core/kern/xen/cmdline.c
->
-> diff --git a/docs/grub.texi b/docs/grub.texi
-> index 34b3484..b58cf98 100644
-> --- a/docs/grub.texi
-> +++ b/docs/grub.texi
-> @@ -3271,6 +3271,7 @@ GRUB.  Others may be used freely in GRUB configuration files.
->  @menu
->  * Special environment variables::
->  * Environment block::
-> +* Passing environment variables through Xen::
->  @end menu
->
->
-> @@ -3871,6 +3872,56 @@ using BIOS or EFI functions (no ATA, USB or IEEE1275).
->  @command{grub-mkconfig} uses this facility to implement
->  @samp{GRUB_SAVEDEFAULT} (@pxref{Simple configuration}).
->
-> +@node Passing environment variables through Xen
-> +@section Passing environment variables through Xen
-> +
-> +If you are using a GRUB image as the kernel for a PV or PVH Xen virtual
-> +machine, you can pass environment variables from Xen's dom0 to the VM through
-> +the Xen-provided kernel command line. When combined with a properly configured
-> +guest, this can be used to customize the guest's behavior on bootup via the
-> +VM's Xen configuration file.
-> +
-> +GRUB will parse the kernel command line passed to it by Xen during bootup.
-> +The command line will be split into space-delimited words. Single and
-> +double quotes may be used to quote words or portions of words that contain
-> +spaces. Single quotes will be considered part of a word if inside double
-> +quotes, and vice versa. Arbitrary characters may be backslash-escaped to make
-> +them a literal component of a word rather than being parsed as quotes or word
-> +separators. The command line must consist entirely of printable 7-bit ASCII
-> +characters and spaces. If a non-printing ASCII character is found anywhere in
-> +the command line, the entire command line will be ignored by GRUB.
-> +
-> +Each word should be a variable assignment in the format ``variable'' or
-> +``variable=value''. Variable names must contain only the characters A-Z, a-z,
-> +and underscore (``_''). Variable names must begin with the string
-> +``xen_grub_env_''. Variable values can contain arbitrary printable 7-bit
-> +ASCII characters and space. If any variable contains an illegal name, that
-> +variable will be ignored.
-> +
-> +If a variable name and value are both specified, the variable will be set to
-> +the specified value. If only a variable name is specified, the variable's
-> +value will be set to ``1''.
-> +
-> +The following is a simple example of how to use this functionality to append
-> +arbitrary variables to a guest's kernel command line:
-> +
-> +@example
-> +# In the Xen configuration file for the guest
-> +name = "linux_vm"
-> +type = "pvh"
-> +kernel = "/path/to/grub-i386-xen_pvh.bin"
-> +extra = "xen_grub_env_linux_append='loglevel=3'"
-> +memory = 1024
-> +disk = [ "file:/srv/vms/linux_vm.img,sda,w" ]
-> +
-> +# In the guest's GRUB configuration file
-> +menuentry "Linux VM with dom0-specified kernel parameters" @{
-> +    search --set=root --label linux_vm --hint hd0,msdos1
-> +    linux /boot/vmlinuz root=LABEL=linux_vm $@{xen_grub_env_linux_append@}
-> +    initrd /boot/initrd.img
-> +@}
-> +@end example
-> +
->  @node Modules
->  @chapter Modules
->
-> diff --git a/grub-core/Makefile.core.def b/grub-core/Makefile.core.def
-> index b3f7119..df0f266 100644
-> --- a/grub-core/Makefile.core.def
-> +++ b/grub-core/Makefile.core.def
-> @@ -248,6 +248,7 @@ kernel = {
->    xen = term/xen/console.c;
->    xen = disk/xen/xendisk.c;
->    xen = commands/boot.c;
-> +  xen = kern/xen/cmdline.c;
->
->    i386_xen_pvh = commands/boot.c;
->    i386_xen_pvh = disk/xen/xendisk.c;
-> @@ -255,6 +256,7 @@ kernel = {
->    i386_xen_pvh = kern/i386/xen/tsc.c;
->    i386_xen_pvh = kern/i386/xen/pvh.c;
->    i386_xen_pvh = kern/xen/init.c;
-> +  i386_xen_pvh = kern/xen/cmdline.c;
->    i386_xen_pvh = term/xen/console.c;
->
->    ia64_efi = kern/ia64/efi/startup.S;
-> diff --git a/grub-core/kern/i386/xen/pvh.c b/grub-core/kern/i386/xen/pvh.c
-> index 91fbca8..a8988d2 100644
-> --- a/grub-core/kern/i386/xen/pvh.c
-> +++ b/grub-core/kern/i386/xen/pvh.c
-> @@ -321,6 +321,8 @@ void
->  grub_xen_setup_pvh (void)
->  {
->    grub_addr_t par;
-> +  const char *xen_cmdline;
-> +  int i;
->
->    grub_xen_cpuid_base ();
->    grub_xen_setup_hypercall_page ();
-> @@ -352,6 +354,27 @@ grub_xen_setup_pvh (void)
->    grub_xen_mm_init_regions ();
->
->    grub_rsdp_addr = pvh_start_info->rsdp_paddr;
-> +
-> +  xen_cmdline = (const char *) pvh_start_info->cmdline_paddr;
-> +  for (i = 0; i < GRUB_XEN_MAX_GUEST_CMDLINE; i++)
-> +    {
-> +      if (xen_cmdline[i] == '\0')
+There are systems where device tree binary is passed by the U-Boot as
+$fdtcontroladdr. In such cases, no external device tree binary is provided
+during uboot script generation.
 
-This code still does not make a lot of sense for me. You have NUL check
-in grub_parse_xen_cmdline(). So, you duplicate the check here...
+This is an enhancement on top of the following commit:-
+uboot-script-gen: Dynamically compute addr and size when loading bina…
 
-I would just fire grub_strncpy() here and forget...
+When DEVICE_TREE is not present, user should provide '-s' as the addresses and
+sizes should be computed dynamically from U-Boot.
 
-> +        {
-> +          grub_strncpy ((char *) grub_xen_start_page_addr->cmd_line,
-> +			(char *) pvh_start_info->cmdline_paddr,
-> +			GRUB_XEN_MAX_GUEST_CMDLINE);
-> +
-> +          if (grub_xen_start_page_addr->cmd_line[GRUB_XEN_MAX_GUEST_CMDLINE - 1] != '\0')
+Also, fixed uboot-script-gen to set host_kernel_addr when BOOT_CMD="none" and
+'-s' is not used.
 
-If you convince me this code is still needed then I am afraid that this
-is not what you meant here...
+Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+---
+This patch should be applied after the previous patch.
+"[ImageBuilder v2] Add config option to use separate load commands for..."
 
-> +            {
-> +              grub_error (GRUB_ERR_BUG,
-> +			  "Xen command line is not NUL-terminated");
-> +              grub_print_error ();
-> +              grub_exit ();
+Changes from :-
 
-grub_fatal() and you are done...
+v1 :- 1. Check that user provides '-s' when DEVICE_TREE is not set, instead of
+setting CALC silently.
 
-> +            }
-> +
-> +          break;
-> +        }
-> +    }
->  }
->
->  grub_err_t
-> diff --git a/grub-core/kern/xen/cmdline.c b/grub-core/kern/xen/cmdline.c
-> new file mode 100644
-> index 0000000..46a9998
-> --- /dev/null
-> +++ b/grub-core/kern/xen/cmdline.c
-> @@ -0,0 +1,376 @@
-> +/*
-> + *  GRUB  --  GRand Unified Bootloader
-> + *  Copyright (C) 2025  Free Software Foundation, Inc.
-> + *
-> + *  GRUB is free software: you can redistribute it and/or modify
-> + *  it under the terms of the GNU General Public License as published by
-> + *  the Free Software Foundation, either version 3 of the License, or
-> + *  (at your option) any later version.
-> + *
-> + *  GRUB is distributed in the hope that it will be useful,
-> + *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-> + *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> + *  GNU General Public License for more details.
-> + *
-> + *  You should have received a copy of the GNU General Public License
-> + *  along with GRUB.  If not, see <http://www.gnu.org/licenses/>.
-> + */
-> +
-> +#include <grub/env.h>
-> +#include <grub/misc.h>
-> +#include <grub/mm.h>
-> +#include <grub/xen.h>
-> +
-> +enum splitter_state
-> +{
-> +  SPLITTER_HIT_BACKSLASH = 0x1,
-> +  SPLITTER_IN_SINGLE_QUOTES = 0x2,
-> +  SPLITTER_IN_DOUBLE_QUOTES = 0x4,
-> +};
-> +typedef enum splitter_state splitter_state_t;
-> +
-> +/*
-> + * The initial size of the current_word buffer. The buffer may be resized as
-> + * needed.
-> + */
-> +#define PARSER_BASE_WORD_SIZE 32
-> +
-> +struct parser_state
-> +{
-> +  grub_size_t word_list_len;
+2. Set 'host_fdt_addr' to '\${fdtcontroladdr}' when DEVICE_TREE is not set.
 
-s/word_list_len/words_count/
+3. Add a fix for BOOT_CMD="none".
+ 
+ README.md                |  5 ++++-
+ scripts/uboot-script-gen | 29 +++++++++++++++++++++++------
+ 2 files changed, 27 insertions(+), 7 deletions(-)
 
-And I would put it behind word_list...
+diff --git a/README.md b/README.md
+index 59919df..fc448e0 100644
+--- a/README.md
++++ b/README.md
+@@ -92,7 +92,10 @@ Where:
+   DTB are stored in 'host_kernel_addr' and 'host_fdt_addr' u-boot
+   env variables respectively, to be used manually when booting.
+ 
+-- DEVICE_TREE specifies the DTB file to load.
++- DEVICE_TREE specifies the DTB file to load. If not set, then $fdtcontroladdr
++  is used as the address of the DTB loaded by u-boot. If user does not set this
++  option, then '-s' should be provided to ensure that addresses and sizes are
++  calculated dynamically by uboot.
+ 
+ - XEN specifies the Xen hypervisor binary to load. Note that it has to
+   be a regular Xen binary, not a u-boot binary.
+diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
+index 656de72..be61fc4 100755
+--- a/scripts/uboot-script-gen
++++ b/scripts/uboot-script-gen
+@@ -591,7 +591,7 @@ function device_tree_editing()
+ 
+ function fill_reserved_spaces_from_dtb()
+ {
+-    if [ ! -f $DEVICE_TREE ]
++    if test ! -f $DEVICE_TREE || test -z "$DEVICE_TREE"
+     then
+         if test "$CALC"; then
+             return
+@@ -1674,6 +1674,16 @@ fi
+ 
+ rm -f $UBOOT_SOURCE $UBOOT_SCRIPT
+ 
++if test -z "$DEVICE_TREE"
++then
++    if test -z "$CALC"
++    then
++       echo "DEVICE_TREE is unset and -s is not specified"
++       exit 1
++    fi
++    echo "setenv host_fdt_addr \${fdtcontroladdr}" >> $UBOOT_SOURCE
++fi
++
+ if test "$FIT"
+ then
+     echo 'fit_addr=$fileaddr' >>  $UBOOT_SOURCE
+@@ -1721,9 +1731,13 @@ then
+     done
+ fi
+ 
+-check_file_type $DEVICE_TREE "Device Tree Blob"
+-device_tree_addr=$memaddr
+-load_file $DEVICE_TREE "host_fdt" "$XEN_LOAD"
++if test "$DEVICE_TREE"
++then
++    check_file_type $DEVICE_TREE "Device Tree Blob"
++    device_tree_addr=$memaddr
++    load_file $DEVICE_TREE "host_fdt" "$XEN_LOAD"
++fi
++
+ bitstream_load_and_config  # bitstream is loaded last but used first
+ device_tree_editing $device_tree_addr
+ 
+@@ -1751,8 +1765,11 @@ then
+     fi
+ else
+     # skip boot command but store load addresses to be used later
+-    echo "setenv host_kernel_addr $kernel_addr" >> $UBOOT_SOURCE
+-    echo "setenv host_fdt_addr $device_tree_addr" >> $UBOOT_SOURCE
++    if test -z "$CALC"
++    then
++        echo "setenv host_kernel_addr $kernel_addr" >> $UBOOT_SOURCE
++        echo "setenv host_fdt_addr $device_tree_addr" >> $UBOOT_SOURCE
++    fi
+ fi
+ 
+ if test "$FIT"
+-- 
+2.25.1
 
-> +  char **word_list;
-
-s/word_list/words/
-
-> +  grub_size_t current_word_len;
-> +  grub_size_t current_word_pos;
-> +  char *current_word;
-> +};
-> +typedef struct parser_state parser_state_t;
-> +
-> +static bool
-
-s/bool/grub_err_t/
-
-> +append_char_to_word (parser_state_t *s, char c, bool allow_null)
-> +{
-> +  /*
-> +   * We ban any chars that are not in the ASCII printable range. If
-> +   * allow_null == true, we make an exception for NUL. (This is needed so that
-> +   * append_word_to_list can add a NUL terminator to the word).
-> +   */
-> +  if (grub_isprint (c) == false && allow_null == false)
-
-grub_isprint() et consortes return int instead of bool. So, it should be
-"!grub_isprint(c)" here...
-
-> +    return false;
-> +  else if (allow_null == true && c != '\0')
-> +    return false;
-> +
-> +  if (s->current_word_pos == s->current_word_len)
-> +    {
-> +      s->current_word = grub_realloc (s->current_word, s->current_word_len *= 2);
-> +      if (s->current_word == NULL)
-> +        {
-> +          s->current_word_len /= 2;
-> +          return false;
-> +        }
-> +    }
-> +
-> +  s->current_word[s->current_word_pos++] = c;
-> +  return true;
-> +}
-> +
-> +static bool
-
-s/bool/grub_err_t/
-
-> +append_word_to_list (parser_state_t *s)
-> +{
-> +  /* No-op on empty words. */
-> +  if (s->current_word_pos == 0)
-> +    return true;
-> +
-> +  if (append_char_to_word (s, '\0', true) == false)
-> +    {
-> +      grub_error (GRUB_ERR_BUG,
-> +		  "couldn't append NUL terminator to word during Xen cmdline parsing");
-> +      grub_print_error ();
-> +      grub_exit ();
-
-grub_fatal()
-
-> +    }
-> +
-> +  s->current_word_len = grub_strlen (s->current_word) + 1;
-> +  s->current_word = grub_realloc (s->current_word, s->current_word_len);
-> +  if (s->current_word == NULL)
-> +    return false;
-
-return grub_errno;
-
-> +  s->word_list = grub_realloc (s->word_list, ++s->word_list_len * sizeof (char *));
-> +  if (s->word_list == NULL)
-> +    return false;
-
-return grub_errno;
-
-...
-
-I think many (related) functions in this code returning bool should
-really return grub_err_t...
-
-> +  s->word_list[s->word_list_len - 1] = s->current_word;
-> +
-> +  s->current_word_len = PARSER_BASE_WORD_SIZE;
-> +  s->current_word_pos = 0;
-> +  s->current_word = grub_malloc (s->current_word_len);
-> +  if (s->current_word == NULL)
-> +    return false;
-> +
-> +  return true;
-> +}
-> +
-> +static bool
-
-But this bool makes sense...
-
-> +is_key_safe (char *key, grub_size_t len)
-> +{
-> +  grub_size_t i;
-> +
-> +  for (i = 0; i < len; i++)
-> +    {
-> +      if (! (grub_isalpha (key[i]) || key[i] == '_'))
-
-Please drop space after "!"...
-
-> +        return false;
-> +    }
-
-You can drop curly braces from here...
-
-> +
-> +  return true;
-> +}
-> +
-> +void
-> +grub_parse_xen_cmdline (void)
-> +{
-> +  parser_state_t *s = NULL;
-
-parser_state_t ps = {0};
-
-... and you do not need grub_malloc(s) and stuff any longer below...
-
-And I would put it next to splitter_state...
-
-> +  const char *cmdline = (const char *) grub_xen_start_page_addr->cmd_line;
-> +  grub_size_t cmdline_len;
-> +  bool cmdline_valid = false;
-> +  char **param_keys = NULL;
-> +  char **param_vals = NULL;
-> +  grub_size_t param_dict_len = 0;
-> +  grub_size_t param_dict_pos = 0;
-> +  splitter_state_t splitter_state = 0;
-
-You nicely define an enum and then assign plain number. Sigh...
-I think you should define SPLITTER_NORMAL or something similar
-as well...
-
-And s/splitter_state/ss/...
-
-> +  char current_char = '\0';
-> +  grub_size_t i = 0;
-> +
-> +  s = grub_malloc (sizeof (parser_state_t));
-> +  if (s == NULL)
-> +    goto cleanup_final;
-> +
-> +  /*
-> +   * The following algorithm is used to parse the Xen command line:
-> +   *
-> +   * - The command line is split into space-separated words.
-> +   *   - Single and double quotes may be used to suppress the splitting
-> +   *     behavior of spaces.
-> +   *   - Double quotes are appended to the current word verbatim if they
-> +   *     appear within a single-quoted string portion, and vice versa.
-> +   *   - Backslashes may be used to cause the next character to be
-> +   *     appended to the current word verbatim. This is only useful when
-> +   *     used to escape quotes, spaces, and backslashes, but for simplicity
-> +   *     we allow backslash-escaping anything.
-> +   * - After splitting the command line into words, each word is checked to
-> +   *   see if it contains an equals sign.
-> +   *   - If it does, it is split on the equals sign into a key-value pair. The
-> +   *     key is then treated as an variable name, and the value is treated as
-> +   *     the variable's value.
-> +   *   - If it does not, the entire word is treated as a variable name. The
-> +   *     variable's value is implicitly considered to be `1`.
-> +   * - All variables detected on the command line are checked to see if their
-> +   *   names begin with the string `xen_grub_env_`. Variables that do not pass
-> +   *   this check are discarded, variables that do pass this check are
-> +   *   exported so they are available to the GRUB configuration.
-> +   */
-> +
-> +  s->current_word_len = PARSER_BASE_WORD_SIZE;
-> +  s->current_word = grub_malloc (s->current_word_len);
-> +  if (s->current_word == NULL)
-> +    goto cleanup_main;
-> +
-> +  for (i = 0; i < GRUB_XEN_MAX_GUEST_CMDLINE; i++)
-> +    {
-> +      if (cmdline[i] == '\0')
-> +        {
-> +          cmdline_valid = true;
-> +          break;
-> +        }
-> +    }
-> +
-> +  if (cmdline_valid == false)
-> +    {
-> +      grub_error (GRUB_ERR_BAD_ARGUMENT,
-> +		  "command line from Xen is not NUL-terminated");
-> +      grub_print_error ();
-
-grub_fatal()?
-
-> +      goto cleanup_main;
-> +    }
-> +
-> +  cmdline_len = grub_strlen (cmdline);
-> +  for (i = 0; i < cmdline_len; i++)
-> +    {
-> +      current_char = cmdline[i];
-> +
-> +      /*
-> +       * If the previous character was a backslash, append the current
-> +       * character to the word verbatim
-> +       */
-> +      if (splitter_state & SPLITTER_HIT_BACKSLASH)
-> +        {
-> +          splitter_state &= ~SPLITTER_HIT_BACKSLASH;
-> +          if (append_char_to_word (s, current_char, false) == false)
-> +            goto cleanup_main;
-> +          continue;
-> +        }
-> +
-> +      switch (current_char)
-> +        {
-> +        case '\\':
-> +          /* Backslashes escape arbitrary characters. */
-> +          splitter_state |= SPLITTER_HIT_BACKSLASH;
-> +          continue;
-> +
-> +        case '\'':
-> +          /*
-> +           * Single quotes suppress word splitting and double quoting until
-> +           * the next single quote is encountered.
-> +           */
-> +          if (splitter_state & SPLITTER_IN_DOUBLE_QUOTES)
-> +            {
-> +              if (append_char_to_word (s, current_char, false) == false)
-> +                goto cleanup_main;
-> +              continue;
-> +            }
-> +
-> +          splitter_state ^= SPLITTER_IN_SINGLE_QUOTES;
-> +          continue;
-> +
-> +        case '"':
-> +          /*
-> +           * Double quotes suppress word splitting and single quoting until
-> +           * the next double quote is encountered.
-> +           */
-> +          if (splitter_state & SPLITTER_IN_SINGLE_QUOTES)
-> +            {
-> +              if (append_char_to_word (s, current_char, false) == false)
-> +                goto cleanup_main;
-> +              continue;
-> +            }
-> +
-> +          splitter_state ^= SPLITTER_IN_DOUBLE_QUOTES;
-> +          continue;
-> +
-> +        case ' ':
-> +          /* Spaces separate words in the command line from each other. */
-> +          if (splitter_state & SPLITTER_IN_SINGLE_QUOTES ||
-> +              splitter_state & SPLITTER_IN_DOUBLE_QUOTES)
-> +            {
-> +              if (append_char_to_word (s, current_char, false) == false)
-> +                goto cleanup_main;
-> +              continue;
-> +            }
-> +
-> +          if (append_word_to_list (s) == false)
-> +            goto cleanup_main;
-
-I think this is not fully correct. You should not run append_word_to_list()
-until the closing quote. So, here you should have "else" for the first "if",
-i.e., "if (splitter_state & ..." and call append_word_to_list() for closing
-\" and \' above.
-
-> +          continue;
-> +        }
-> +
-> +      if (append_char_to_word (s, current_char, false) == false)
-> +        goto cleanup_main;
-
-This should be part of "default:" for the switch above... Even if it
-works now...
-
-Then many "continue" should be converted to more natural "break"...
-
-> +    }
-> +
-> +  if (append_word_to_list (s) == false)
-> +    goto cleanup_main;
-> +
-> +  param_keys = grub_malloc (s->word_list_len * sizeof (char *));
-> +  if (param_keys == NULL)
-> +    goto cleanup_main;
-> +  param_vals = grub_malloc (s->word_list_len * sizeof (char *));
-> +  if (param_vals == NULL)
-> +    goto cleanup_main;
-> +
-> +  for (i = 0; i < s->word_list_len; i++)
-> +    {
-> +      char *current_word_eq_ptr;
-
-s/current_word_eq_ptr/eq_pos/
-
-> +      s->current_word = s->word_list[i];
-> +      s->current_word_len = grub_strlen (s->current_word) + 1;
-> +      current_word_eq_ptr = grub_strchr (s->current_word, '=');
-> +
-> +      if (current_word_eq_ptr != NULL)
-> +        {
-> +          /*
-> +           * Both pre_eq_len and post_eq_len represent substring lengths
-> +           * without a NUL terminator.
-> +           */
-> +          grub_size_t pre_eq_len = (grub_size_t) (current_word_eq_ptr - s->current_word);
-> +          /*
-> +           * s->current_word_len includes the NUL terminator, so we subtract
-> +           * one to get rid of the terminator, and one more to get rid of the
-> +           * equals sign.
-> +           */
-> +          grub_size_t post_eq_len = (s->current_word_len - 2) - pre_eq_len;
-> +
-> +          if (is_key_safe (s->current_word, pre_eq_len) == true)
-> +            {
-> +              param_dict_pos = param_dict_len++;
-> +              param_keys[param_dict_pos] = grub_malloc (pre_eq_len + 1);
-> +              if (param_keys == NULL)
-> +                goto cleanup_main;
-> +              param_vals[param_dict_pos] = grub_malloc (post_eq_len + 1);
-> +              if (param_vals == NULL)
-> +                goto cleanup_main;
-> +
-> +              grub_strncpy (param_keys[param_dict_pos], s->current_word, pre_eq_len);
-> +              grub_strncpy (param_vals[param_dict_pos],
-> +			    s->current_word + pre_eq_len + 1, post_eq_len);
-> +              param_keys[param_dict_pos][pre_eq_len] = '\0';
-> +              param_vals[param_dict_pos][post_eq_len] = '\0';
-> +            }
-> +        }
-> +      else
-
-else if (is_key_safe (s->current_word, s->current_word_len - 1) == true)
-
-... and you can drop an extra indention...
-
-> +        {
-> +          if (is_key_safe (s->current_word, s->current_word_len - 1) == true)
-> +            {
-> +              param_dict_pos = param_dict_len++;
-> +              param_keys[param_dict_pos] = grub_malloc (s->current_word_len);
-> +              if (param_keys == NULL)
-> +                goto cleanup_main;
-> +              param_vals[param_dict_pos] = grub_malloc (2);
-> +              if (param_vals == NULL)
-> +                goto cleanup_main;
-> +
-> +              grub_strncpy (param_keys[param_dict_pos], s->current_word,
-> +			    s->current_word_len);
-> +              if (param_keys[param_dict_pos][s->current_word_len - 1] != '\0' )
-> +                {
-> +                  grub_error (GRUB_ERR_BUG,
-> +			      "NUL terminator missing from key during Xen cmdline parsing");
-> +                  grub_print_error ();
-> +                  grub_exit ();
-
-grub_fatal()
-
-> +                }
-> +              grub_strcpy (param_vals[param_dict_pos], "1");
-> +            }
-> +        }
-> +    }
-
-Daniel
 
