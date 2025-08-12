@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CB28B2204D
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 10:08:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1078375.1439359 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC921B22066
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 10:11:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1078383.1439368 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulk3E-0000to-Uz; Tue, 12 Aug 2025 08:08:08 +0000
+	id 1ulk6c-0002iA-DP; Tue, 12 Aug 2025 08:11:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1078375.1439359; Tue, 12 Aug 2025 08:08:08 +0000
+Received: by outflank-mailman (output) from mailman id 1078383.1439368; Tue, 12 Aug 2025 08:11:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulk3E-0000rI-Ry; Tue, 12 Aug 2025 08:08:08 +0000
-Received: by outflank-mailman (input) for mailman id 1078375;
- Tue, 12 Aug 2025 08:08:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ulk6c-0002ge-9Z; Tue, 12 Aug 2025 08:11:38 +0000
+Received: by outflank-mailman (input) for mailman id 1078383;
+ Tue, 12 Aug 2025 08:11:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Pr65=2Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ulk3D-0000r8-Gj
- for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 08:08:07 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7a3c7ac2-7753-11f0-a327-13f23c93f187;
- Tue, 12 Aug 2025 10:08:06 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-af9618282a5so989161866b.2
- for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 01:08:06 -0700 (PDT)
+ id 1ulk6a-0002gX-Hy
+ for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 08:11:36 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f6289629-7753-11f0-b898-0df219b8e170;
+ Tue, 12 Aug 2025 10:11:34 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-afa15bc3651so198189766b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 01:11:34 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af938aa8275sm1928395566b.57.2025.08.12.01.08.05
+ a640c23a62f3a-af91a075a74sm2193334366b.17.2025.08.12.01.11.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Aug 2025 01:08:05 -0700 (PDT)
+ Tue, 12 Aug 2025 01:11:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a3c7ac2-7753-11f0-a327-13f23c93f187
+X-Inumbo-ID: f6289629-7753-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754986086; x=1755590886; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754986294; x=1755591094; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tikZqxniQEeCxvq1AdcRoaG4v/+IN2vdkpwVHqucwKE=;
-        b=gsWQiodrVreMVkwQ2HNPaXx+lD/Wt7Jb0+/b4iA/oJD5RqODJ1sDSV+ljgOrcO/I/x
-         Q5nvK7VJODr7HuZpPTL7Pz8aYRVRZQLi+s8dZdc5HdRz1sZkFWOeAr1wP1Kz68JlYSzR
-         JdBuKQI3zNzhUJukPflzsbkS7+Q6U852zk+TYvMpQjcskjIEWHZ7Rv6VYc/zNNzjQUjV
-         8Gdz95jON9XXy/T1cHtRx9/jiwkE2oSy6hUl4DBe95NIKa5FbzzuZdcdzCuuAzkbMl2R
-         xh9RYThpnq7SCdur6qb0aisJqtAcbr4WirpdmAg2ohdtYPgta+NRm54flTat5Z5gTbV1
-         6CJQ==
+        bh=nhJEwPmuu22oDm2pcFoGijh2E/uw2ztQqZ9LQb45uyY=;
+        b=Bka5Esf4I4/pxutLDjp6f6CaZnnGc9uCiD/L6uspdg3pcSHoQ3H/2f29keePxXoxyW
+         GT8sCRoHLQA1eWxZ/V8isglLWUBAzXVrnorBiQynshOgwvWfXL593tLPGBrRU5PmKOQd
+         lInzU9KTceRQxmh9ckNkl14SX1cRHE9V8eP7EoaTnkQyVcdGS5oygraUtkmRyCbLqj3P
+         TmGqKiOhAxG/vjKT7a7X8qZC2u6Ab76gAUrwkoG4vLYLUyv+wtPUfbyCk4DQwhKZW5+T
+         s2Ip+wte4SLgIdOOi7eXA6kqDyQ1b/1Ozh+dpwOD4siSMY12CYoklt0089Gq95VFWLEB
+         nxGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754986086; x=1755590886;
+        d=1e100.net; s=20230601; t=1754986294; x=1755591094;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tikZqxniQEeCxvq1AdcRoaG4v/+IN2vdkpwVHqucwKE=;
-        b=hGvHgFdQLXW+Sxex17/cwLsga35neyELz+OHHrVSMufGUXGozXYVskHH/i7PTEuWH7
-         P0sz3GAuAJvsVoIpdbb06dcd9+Gn4Mkdpa8sXLSST5tib3abEX+dzT+FK63ulvZGvLgK
-         8r1MqEx2u+Oo0tfsA1tmuEONIn/a4bztzs/TiMnPyyGTUfxNgSs6o/npxTT75yAUTnmq
-         XkFPAgN60K4+cUpEQ5n1E31o/2uPtxTC4yn4snvs0BtoIKXZxIa+w19T5ghvPbYZNh8Y
-         M7OWzB0B6EJ1pDltjkRX25njFe2Smi6cJ+JK39mT9MwHC6+06t68xvNPQ8C14jDBSvjK
-         XxPg==
-X-Forwarded-Encrypted: i=1; AJvYcCXBNn6nc7i+meRj4Dqdu3lLmSm/bY0RfpgGUSUcz2oc4tCD4IWOlpZArKWmMzNGd6K+1Q1ffthRF3s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzLQuuTx5fkUCaYUXcZNPr0DyuLzaVEfPVUjW57HgmN4/9Jh+Wk
-	/ZhKo8XBMM005bz3+lTeD7KEAWt/nU//KjfgIcBmv7JsqGDbwFov1OWTvxZkbMoJ/g==
-X-Gm-Gg: ASbGncsEoaDHHDj9quOnPo9XQDWJYRGmLiPN3RACJbW87Xk/nXr3LSMBTP64n2VFm2j
-	HmVN0pTIHGyzZxzA/yu8cjjCSM+j40K6ZEvL4o5t+xgLAp6PCOcxdAkQHupwPNPcpzsf6PBFuK8
-	GlMVCydHdfYYIo1db6w2calschOXmthJIB/z9o3CJuKAGdh3N5MgMQl5NBi3M4CGWKpZIUyJSH2
-	fCNpJbNs8EBNwbiAf1isdI9+hnL9VbcG9CLebm6D+IgEuoVn10/dQaM2f3uHuyuVZXvYQ83YVhl
-	U8xRNxpASN4lZlixTATnmmgkE9TKhHg38xwFnnAFCyLoxivEixlQ/wg+3Yjvssc9hGPJClrjoW2
-	H9BMGM7mWkDZYUGiPtV6IAWxeSOiTaF0fr5k9RNjdfq1+fsSZOLrgTOfUBq6nrTbBFzTZyKh/FQ
-	zWeXFxAUA=
-X-Google-Smtp-Source: AGHT+IHjx4ALgaGg8V07LRx+k3imaWuyQWVd9NvF2AhjyVKaxrJRGlY7Cat3GQ+WoXJouvO8p0YXPg==
-X-Received: by 2002:a17:906:9f91:b0:af9:e3d3:a43f with SMTP id a640c23a62f3a-afa1e129125mr224942266b.47.1754986085938;
-        Tue, 12 Aug 2025 01:08:05 -0700 (PDT)
-Message-ID: <18bf1a4d-5af9-44a4-8c51-3a0bf6e69e20@suse.com>
-Date: Tue, 12 Aug 2025 10:08:04 +0200
+        bh=nhJEwPmuu22oDm2pcFoGijh2E/uw2ztQqZ9LQb45uyY=;
+        b=P8/uZ5jiryzkA0HGca2oDl4iZ4HT+AMalzOvgcqMcqOmWp5qLOuh9wizdMat6jR+SD
+         DELv9C+mP5Jk6v6OYRVlFMEMLFEVUjV47qZfsN7ybZMBV4a2iw+if4nLxb9ah9SGmd3s
+         7RYj1JrMMi2COME+EDlBCf/JicaXLjii+wTMjjBXyNJMoql0ltvzzVHN1b7h/53AP3ff
+         25NjgYyddklv+Ozcu5UJr7Wfhs/ViR4S9GmYyWSzDGmdsoLYoCkWUaIBReENtYjBBykr
+         rMk/Db7DAPc07AXq3iAnTIXHWEn8Pav9NNYODB9dplixE9oArxCHKqpk/e+mwjgQsEZN
+         8rDg==
+X-Forwarded-Encrypted: i=1; AJvYcCUVWYgENaw+TMwDi7E9xfrkIofV2BlwzwRIuGBtsEhEmDZD23/y53tzzyK9VnJDb6j1XAKirKuww34=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwbPHgwc27Ul/yZ01EpeRdY8zmO/Ab7x0OWdo1SPjjCZI9WHzYo
+	nhozkaMSPqhc3lV99JTdpZbHO1gFl8JCDS/EsW85je4OhDOXyB+j1DPEDRNCN8EKX2KliLgLG5Z
+	NhTY=
+X-Gm-Gg: ASbGncttHscRpOxzeF44E+RO2tGNSIUiraxK2RuKb6lJKl4xT855je98LZoN+IcQZOI
+	XPIb31ipW0C9n1hNFSTG5VnnFYOt6IIUJI+XDM7JM2De/aHPxtIDIIeuU+Nz64Cneq4n0rTFSIV
+	ztdDanIWmiubWrbhEaakVZviPVgWV/gVxoTR1LVX/ZdCX0aAoj7HifSbTvtxnAETJ9B/b49FkSc
+	hgwr8bg5KrLrsRpDoHZ8uWNCA/d5BCjrL1+3G21iKbNVqAQbDOtik5dgsNG/jk9BpjCjO8G7ezk
+	mYAVHqxAczXXZrcgGNNl4/yHd9FQuOBort5tljYfeOr3TrJTpChcQ5X+ZihFESHp+nHgmSOD2OW
+	UB/XRd2q5fx1letUKpGGkfyhXOXZpKvb780v8KXf0IbIkdOZAb/blsFvGhDxZ6DULJhqEOJZmvT
+	t1kixlSaw=
+X-Google-Smtp-Source: AGHT+IEx5Vp4l77hloeMX6MWr5vtYT7rR5Kv94DW/5pyQZaTmCjSUSYgAq7dchQjmrY4LXuySFui7Q==
+X-Received: by 2002:a17:907:1b10:b0:ae3:f524:b51 with SMTP id a640c23a62f3a-afa1dff7f31mr203696966b.10.1754986293917;
+        Tue, 12 Aug 2025 01:11:33 -0700 (PDT)
+Message-ID: <f8cfb9c0-f505-452d-b18e-801beea69d1d@suse.com>
+Date: Tue, 12 Aug 2025 10:11:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/22] x86/msr: Rename wrmsr_ns() to wrmsrns(), and take
- 64bit value
+Subject: Re: [PATCH 03/22] x86/traps: Drop incorrect BUILD_BUG_ON() and
+ comment in load_system_tables()
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
- <20250808202314.1045968-3-andrew.cooper3@citrix.com>
- <be2b70cc-11ba-4f3a-b0b8-0ead6d14934f@citrix.com>
+ <20250808202314.1045968-4-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,69 +121,45 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <be2b70cc-11ba-4f3a-b0b8-0ead6d14934f@citrix.com>
+In-Reply-To: <20250808202314.1045968-4-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11.08.2025 08:36, Andrew Cooper wrote:
-> On 08/08/2025 9:22 pm, Andrew Cooper wrote:
->> In hindsight, having the wrapper name not be the instruction mnemonic was a
->> poor choice.  Also, PKS turns out to be quite rare in wanting a split value.
->>
->> Switch to using a single 64bit value in preparation for new users.
->>
->> No functional change.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Jan Beulich <JBeulich@suse.com>
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->> ---
->>  xen/arch/x86/include/asm/msr.h      | 4 ++--
->>  xen/arch/x86/include/asm/prot-key.h | 4 ++--
->>  2 files changed, 4 insertions(+), 4 deletions(-)
->>
->> diff --git a/xen/arch/x86/include/asm/msr.h b/xen/arch/x86/include/asm/msr.h
->> index 4c4f18b3a54d..b6b85b04c3fd 100644
->> --- a/xen/arch/x86/include/asm/msr.h
->> +++ b/xen/arch/x86/include/asm/msr.h
->> @@ -39,7 +39,7 @@ static inline void wrmsrl(unsigned int msr, uint64_t val)
->>  }
->>  
->>  /* Non-serialising WRMSR, when available.  Falls back to a serialising WRMSR. */
->> -static inline void wrmsr_ns(uint32_t msr, uint32_t lo, uint32_t hi)
->> +static inline void wrmsrns(uint32_t msr, uint64_t val)
->>  {
->>      /*
->>       * WRMSR is 2 bytes.  WRMSRNS is 3 bytes.  Pad WRMSR with a redundant CS
->> @@ -47,7 +47,7 @@ static inline void wrmsr_ns(uint32_t msr, uint32_t lo, uint32_t hi)
->>       */
->>      alternative_input(".byte 0x2e; wrmsr",
->>                        ".byte 0x0f,0x01,0xc6", X86_FEATURE_WRMSRNS,
->> -                      "c" (msr), "a" (lo), "d" (hi));
->> +                      "c" (msr), "a" (val), "d" (val >> 32));
->>  }
+On 08.08.2025 22:22, Andrew Cooper wrote:
+> This was added erroneously by me.
 > 
-> It turns out this is the case poor code generation for MSR_STAR.
+> Hardware task switching does demand a TSS of at least 0x67 bytes, but that's
+> not relevant in 64bit, and not relevant for Xen since commit
+> 5d1181a5ea5e ("xen: Remove x86_32 build target.") in 2012.
 > 
-> I've adjusted it to:
+> We already load a 0-length TSS in early_traps_init() demonstrating that it's
+> possible.
 > 
-> @@ -39,8 +39,10 @@ static inline void wrmsrl(unsigned int msr, uint64_t val)
->  }
->  
->  /* Non-serialising WRMSR, when available.  Falls back to a serialising WRMSR. */
-> -static inline void wrmsr_ns(uint32_t msr, uint32_t lo, uint32_t hi)
-> +static inline void wrmsrns(uint32_t msr, uint64_t val)
->  {
-> +    uint32_t lo = val, hi = val >> 32;
-> +
->      /*
->       * WRMSR is 2 bytes.  WRMSRNS is 3 bytes.  Pad WRMSR with a redundant CS
->       * prefix to avoid a trailing NOP.
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+>  xen/arch/x86/cpu/common.c | 2 --
+>  1 file changed, 2 deletions(-)
 > 
-> 
-> which stops the compiler from loading the high half of %rax too.
+> diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
+> index f6ec5c9df522..cdc41248d4e9 100644
+> --- a/xen/arch/x86/cpu/common.c
+> +++ b/xen/arch/x86/cpu/common.c
+> @@ -936,8 +936,6 @@ void load_system_tables(void)
+>  		wrmsrl(MSR_ISST, (unsigned long)ist_ssp);
+>  	}
+>  
+> -	BUILD_BUG_ON(sizeof(*tss) <= 0x67); /* Mandated by the architecture. */
+> -
+>  	_set_tssldt_desc(gdt + TSS_ENTRY, (unsigned long)tss,
+>  			 sizeof(*tss) - 1, SYS_DESC_tss_avail);
+>  	if ( IS_ENABLED(CONFIG_PV32) )
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Well, the comment is wrong. Whether the BUILD_BUG_ON() itself is also wrong
+depends on our intentions with the structure. Don't we need it to be that
+size for everything (incl I/O bitmap) to work correctly elsewhere?
 
+Jan
 
