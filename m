@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AA71B219BA
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 02:20:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1078199.1439198 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CEB0B219BC
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 02:21:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1078209.1439219 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulcjy-0002rU-R9; Tue, 12 Aug 2025 00:19:46 +0000
+	id 1ulcly-0004jn-FS; Tue, 12 Aug 2025 00:21:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1078199.1439198; Tue, 12 Aug 2025 00:19:46 +0000
+Received: by outflank-mailman (output) from mailman id 1078209.1439219; Tue, 12 Aug 2025 00:21:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulcjy-0002p8-OM; Tue, 12 Aug 2025 00:19:46 +0000
-Received: by outflank-mailman (input) for mailman id 1078199;
- Tue, 12 Aug 2025 00:19:45 +0000
+	id 1ulcly-0004hl-CR; Tue, 12 Aug 2025 00:21:50 +0000
+Received: by outflank-mailman (input) for mailman id 1078209;
+ Tue, 12 Aug 2025 00:21:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UEr3=2Y=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1ulcjx-0002p2-L1
- for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 00:19:45 +0000
+ id 1ulclx-0004hA-DW
+ for xen-devel@lists.xen.org; Tue, 12 Aug 2025 00:21:49 +0000
 Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
  [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 085f8cbc-7712-11f0-b898-0df219b8e170;
- Tue, 12 Aug 2025 02:19:39 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1754957974051186.28010670768845;
- Mon, 11 Aug 2025 17:19:34 -0700 (PDT)
+ id 53c58538-7712-11f0-b898-0df219b8e170;
+ Tue, 12 Aug 2025 02:21:47 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1754958095779439.9373542941788;
+ Mon, 11 Aug 2025 17:21:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,35 +38,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 085f8cbc-7712-11f0-b898-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; t=1754957976; cv=none; 
+X-Inumbo-ID: 53c58538-7712-11f0-b898-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; t=1754958097; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=Bahxkm0PdaqpSMEfKKX5t1z49Dzm1mFMp/I6sxW3BcZ5M4DBxpcNWWyBF0He1fFjoS9cXJ6nL7cHCkWMGcjg9OX2CmcJrFhx8x228HKxrZvIBAMHfMumGFwDHMz68yfOwOpYmm3AABF9GHbgWVi9tP55eFA6I6Fy7MGNvrZOq00=
+	b=FvzGNyygDzwtLsdQHvusSGLsLYR8Z7M9aqvRQjeOlDckDUm4VwKrID1rFwHlqzF6cemkWtmGaeNCwNBC3YpTaq1BLfOQasJM2Zs7vZV9tSa/XeGQEdEC2rAsAdptx0LQ+FHKJQDwY8ASh8Se8Fl8cxxSq/9Faz+tXuS/MPzF06s=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1754957976; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=/SnaI2kkQcPBgygS5Sgb5bJ3hy/qubZcZmGgG7Rzm5E=; 
-	b=RQ75dhdNBySYYmEY0tbmMsYWajjSFU8CxTzGY97mxWZOjmGMoFo0VZJf+RKfL2PYb1Cnewq1x977cnUA6x9U1JplPOly3qaGxtxDY4hpnyyM6hl+vF/Rzfq8oGtl7m1E7/E+1fFNRumqoVb65oZQNKrQK61zlocY0l6nGsQsnQA=
+	t=1754958097; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=4NUbASRAIQxbvkBSh3DhmQpeURA4LUl/lBxONl93bQo=; 
+	b=huM9EQa67rE+KhdBesH37lLFEHI/ICOBLsEl34Dq/C4rO2858LYvDTLpZK5W34FZkSMhLQwhV/+m/LUzNR4dVSXaSIocJmYQypbCqnAtsZYgrRpEEPWYFz94PxnTwHIpKoVgBJKJLncwNX37LClcPJiGzOlO+xiU2867R4PWkRk=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1754957976;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1754958097;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=/SnaI2kkQcPBgygS5Sgb5bJ3hy/qubZcZmGgG7Rzm5E=;
-	b=mfNqG1Q8CaVVKVdAPPH9Ogun+TqfLGa63lHFYujBusLe52lPzUlFFxBCWnG7d9ZO
-	eq6DhtHDC/0qu1nbUa6k0M/nq7yLWKUjEck/EQ27ci7dSmL1HkngiCTQl5McLTck0oJ
-	maBEhRSa5M5KXZkDrlP+AK3uvM+HriBvfWmjyN70=
-Message-ID: <761b584a-51fb-403d-948e-3366501cea50@apertussolutions.com>
-Date: Mon, 11 Aug 2025 20:19:32 -0400
+	bh=4NUbASRAIQxbvkBSh3DhmQpeURA4LUl/lBxONl93bQo=;
+	b=QEBkJXI1bas8YW+LCSplJwoB90CYg0xwm6HAZm0v6+tAT4ipSaortF2kmRtZyDzP
+	2MDlh3peEHk9gsNUmN9cswbhs9i1uy1yXDYRlgTVlSJ3bFFfMDGgjc67DRkbj1Yd2d3
+	f90ugiXSqzCtXbTN4I6dP8YgQvJ2d4PMxEMkKXK8=
+Message-ID: <1993ca56-8aac-4ef1-aa60-f784d27ea230@apertussolutions.com>
+Date: Mon, 11 Aug 2025 20:21:34 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] EFI/runtime: switch to xv[mz]alloc_array()
+Subject: Re: [PATCH 1/2] efi: Call FreePages only if needed
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Marek Marczykowski <marmarek@invisiblethingslab.com>
-References: <41b7e14c-59ef-40f5-8c43-69bdc5fb4531@suse.com>
+To: Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Xen-devel <xen-devel@lists.xen.org>, xen-devel@lists.xenproject.org
+Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>
+References: <20250805163204.3631483-1-ross.lagerwall@citrix.com>
+ <20250805163204.3631483-2-ross.lagerwall@citrix.com>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
@@ -99,138 +101,45 @@ Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
  p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
  NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <41b7e14c-59ef-40f5-8c43-69bdc5fb4531@suse.com>
+In-Reply-To: <20250805163204.3631483-2-ross.lagerwall@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
 
-On 7/23/25 09:39, Jan Beulich wrote:
-> Use the more "modern" form, thus doing away with effectively open-coding
-> xmalloc_array() at the same time. While there is a difference in
-> generated code, as xmalloc_bytes() forces SMP_CACHE_BYTES alignment, if
-> code really cared about such higher than default alignment, it should
-> request so explicitly.
-
-While I don't object to the change itself, I think this description is a 
-bit over simplification of the change. If the allocation is under 
-PAGE_SIZE, then they are equivalent, but if it is over the page size 
-there are a few more differences than just cache alignment. It 
-completely changes the underlying allocator. I personally also find it a 
-bit of a stretch to call xmalloc_bytes(size) an open coded version of 
-xmalloc_array(char, size).
-
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> v3: Use xv[mz]alloc_array().
+On 8/5/25 12:32, Ross Lagerwall wrote:
+> If the config file is builtin, cfg.addr will be zero but Xen
+> unconditionally calls FreePages() on the address.
 > 
-> --- a/xen/common/efi/runtime.c
-> +++ b/xen/common/efi/runtime.c
-> @@ -6,6 +6,7 @@
->   #include <xen/irq.h>
->   #include <xen/sections.h>
->   #include <xen/time.h>
-> +#include <xen/xvmalloc.h>
+> Xen may also call FreePages() with a zero address if blexit() is called
+> after this point since cfg.need_to_free is not set to false.
+> 
+> The UEFI specification does not say whether calling FreePages() with a
+> zero address is allowed so let's be cautious and use cfg.need_to_free
+> properly.
+> 
+> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+> ---
+>   xen/common/efi/boot.c | 7 +++++--
+>   1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+> index 778a39cc48e6..50ff1d1bd225 100644
+> --- a/xen/common/efi/boot.c
+> +++ b/xen/common/efi/boot.c
+> @@ -1534,8 +1534,11 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
 >   
->   DEFINE_XEN_GUEST_HANDLE(CHAR16);
+>           efi_arch_cfg_file_late(loaded_image, dir_handle, section.s);
 >   
-> @@ -500,23 +501,23 @@ int efi_runtime_call(struct xenpf_efi_ru
->           len = gwstrlen(guest_handle_cast(op->u.get_variable.name, CHAR16));
->           if ( len < 0 )
->               return len;
-> -        name = xmalloc_array(CHAR16, ++len);
-> +        name = xvmalloc_array(CHAR16, ++len);
->           if ( !name )
->              return -ENOMEM;
->           if ( __copy_from_guest(name, op->u.get_variable.name, len) ||
->                wmemchr(name, 0, len) != name + len - 1 )
->           {
-> -            xfree(name);
-> +            xvfree(name);
->               return -EIO;
->           }
+> -        efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
+> -        cfg.addr = 0;
+> +        if ( cfg.need_to_free )
+> +        {
+> +            efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
+> +            cfg.need_to_free = false;
+> +        }
 >   
->           size = op->u.get_variable.size;
->           if ( size )
->           {
-> -            data = xmalloc_bytes(size);
-> +            data = xvmalloc_array(unsigned char, size);
->               if ( !data )
->               {
-> -                xfree(name);
-> +                xvfree(name);
->                   return -ENOMEM;
->               }
->           }
-> @@ -539,8 +540,8 @@ int efi_runtime_call(struct xenpf_efi_ru
->           else
->               rc = -EOPNOTSUPP;
->   
-> -        xfree(data);
-> -        xfree(name);
-> +        xvfree(data);
-> +        xvfree(name);
->       }
->       break;
->   
-> @@ -553,17 +554,17 @@ int efi_runtime_call(struct xenpf_efi_ru
->           len = gwstrlen(guest_handle_cast(op->u.set_variable.name, CHAR16));
->           if ( len < 0 )
->               return len;
-> -        name = xmalloc_array(CHAR16, ++len);
-> +        name = xvmalloc_array(CHAR16, ++len);
->           if ( !name )
->              return -ENOMEM;
->           if ( __copy_from_guest(name, op->u.set_variable.name, len) ||
->                wmemchr(name, 0, len) != name + len - 1 )
->           {
-> -            xfree(name);
-> +            xvfree(name);
->               return -EIO;
->           }
->   
-> -        data = xmalloc_bytes(op->u.set_variable.size);
-> +        data = xvmalloc_array(unsigned char, op->u.set_variable.size);
->           if ( !data )
->               rc = -ENOMEM;
->           else if ( copy_from_guest(data, op->u.set_variable.data,
-> @@ -581,8 +582,8 @@ int efi_runtime_call(struct xenpf_efi_ru
->               efi_rs_leave(&state);
->           }
->   
-> -        xfree(data);
-> -        xfree(name);
-> +        xvfree(data);
-> +        xvfree(name);
->       }
->       break;
->   
-> @@ -598,13 +599,13 @@ int efi_runtime_call(struct xenpf_efi_ru
->               return -EINVAL;
->   
->           size = op->u.get_next_variable_name.size;
-> -        name.raw = xzalloc_bytes(size);
-> +        name.raw = xvzalloc_array(unsigned char, size);
->           if ( !name.raw )
->               return -ENOMEM;
->           if ( copy_from_guest(name.raw, op->u.get_next_variable_name.name,
->                                size) )
->           {
-> -            xfree(name.raw);
-> +            xvfree(name.raw);
->               return -EFAULT;
->           }
->   
-> @@ -629,7 +630,7 @@ int efi_runtime_call(struct xenpf_efi_ru
->           else
->               rc = -EOPNOTSUPP;
->   
-> -        xfree(name.raw);
-> +        xvfree(name.raw);
->       }
->       break;
->   
+>           if ( dir_handle )
+>               dir_handle->Close(dir_handle);
 
-With a stronger description of the change,
-
-Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+Acked-by Daniel P. Smith <dpsmith@apertussolutions.com>
 
