@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ADEFB223C4
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 11:55:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1078512.1439544 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 882CCB223C7
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 11:55:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1078517.1439554 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ullie-00057T-Nt; Tue, 12 Aug 2025 09:55:00 +0000
+	id 1ulljF-0005ck-0C; Tue, 12 Aug 2025 09:55:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1078512.1439544; Tue, 12 Aug 2025 09:55:00 +0000
+Received: by outflank-mailman (output) from mailman id 1078517.1439554; Tue, 12 Aug 2025 09:55:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ullie-00054m-Kc; Tue, 12 Aug 2025 09:55:00 +0000
-Received: by outflank-mailman (input) for mailman id 1078512;
- Tue, 12 Aug 2025 09:54:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Pr65=2Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ullid-00044d-NL
- for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 09:54:59 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 685bc83b-7762-11f0-a327-13f23c93f187;
- Tue, 12 Aug 2025 11:54:59 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-af8fd1b80e5so936586266b.2
- for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 02:54:59 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a21c022sm2134216366b.101.2025.08.12.02.54.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Aug 2025 02:54:58 -0700 (PDT)
+	id 1ulljE-0005ZT-T1; Tue, 12 Aug 2025 09:55:36 +0000
+Received: by outflank-mailman (input) for mailman id 1078517;
+ Tue, 12 Aug 2025 09:55:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WPHn=2Y=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1ulljD-0005LM-Gx
+ for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 09:55:35 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7b472d4c-7762-11f0-b898-0df219b8e170;
+ Tue, 12 Aug 2025 11:55:30 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id AD1C04EE0744;
+ Tue, 12 Aug 2025 11:55:29 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,92 +40,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 685bc83b-7762-11f0-a327-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754992498; x=1755597298; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1LpUH7HgtAJMURFE1DFIZimmj822E6aRthFxF0nuiu0=;
-        b=Gsm47rOYT9GE9irNsbk1Lt3FROe5oitVLpKOE1pE/jiQz6IHs1ZnAsFkrd3NLFTaAP
-         HCH1XDYFwMWILgGGUFv0z/HgMWxHI0Lx67AdRTpXL/uk2EnByST8YCr9G+alckrfxwx7
-         aQTyfXf63l2tkCVWnDbLoWGjWPyDiHuCydd6r4DmnIZsfZy3dsc+F0MYo0RUSVrteFfY
-         azwdnXtrpkmAFYrpxtu3LUde9DL7a/ac2Ptqb1iTU2Eqtxjboh5l9lDX+vGf/ESR6+MO
-         FMSk72RZEef6nkRlB3Bml30iPbSArctxY2iGGXeJnULLZy52OydDek6lG+ZSK36l4Pyv
-         ntIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754992498; x=1755597298;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1LpUH7HgtAJMURFE1DFIZimmj822E6aRthFxF0nuiu0=;
-        b=wOYIySb3OqacA8oXwyW2eiDSBGq+xPhyYXd1pZ+ZRNCAFV6pjWAOeo7DpFHb1+wBUV
-         vzA+aJIQGfb5IRQPyjuLF4+te7kZ7sHdcxU722HGMd71dXCd0p3CneSr/kAZhBGP9kGv
-         5Gk4jwg6MMEBwyrNVcVX20GMjIgD8TbFFytWTOMs3ocFi50uaxacEIJ4VLsmKis17J3W
-         jKPfSc614an09+Mei6ceEOuq5jXhq55o/OPTrYAQ2CoGN8YHcZ6fc2sFxSkGnaA6ytrO
-         4qKFAmo61z7Lsvf5uivbDZNPFTcjUH9V6mW8Q64YJWBODjFB7b1zYJ5GYO5Eb8fS6Vjb
-         N2JQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVk0rHOqu97Z1M1b32IueKvczJzIuhPTJywj4BWNC+q0dit0IETPTDl30V1gFTpSdzfRn+lbu6p2sc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzCPFK/GIVQb5yHLsKsToehjO9busyCQZHBtu1W/wSkHMZXlunu
-	nE2O/nz77Seie/J8ZhsMQtQp9E+uVvqMD393RWyWPKtblQ+wKfnEhRNMsQ9SgX6g+Q==
-X-Gm-Gg: ASbGncv4BRR6DARer8ujwD0t6ltDGBhNq0agwXXig3Cph/kwg6iQm1nG3CltGo76Fx6
-	4SgPX3h9AdmbYCpaRWqVGbeTn7kZvCwAXUwo3xeS0hFzzZmeNB9J2WA76FcbCsaYiZ7dXSOvRkz
-	FzYCeCUW7Kf4I9bIQfggXN6O1kjnLph4rWjnAH63PWxLEaA0bSBc8F63dYT2ZDaBbdhVE7a6yd+
-	4T2sUWM+cbuoqUNPBRnOMQ1tuFBEDcvSw28khFhvj0dJ6cZFJJDKwlXp81t1kCVmLFUHMtR6947
-	zI3Et9v+GiAgaBZ/M3AUF+QslxvYzu/lAtTmGWDDbk/gX96MyufeqHTr2Hu2WnOV8SfIQZTboQG
-	+3fpVkbDKSE8L9yCGjcTTzhFgS8Y2apxT1u1bdb1LQohmJNNeba50yYeN/Uly3oQOhkgQKu3Taf
-	sQcAwDkFB6xSJimeVLUg==
-X-Google-Smtp-Source: AGHT+IHjIMfqjP2OZ8MvcQOqjsGqzpnLY51Rsn2G2Mi3UWojfGHetkCyS175GxNqg3htynl1vvz8xw==
-X-Received: by 2002:a17:907:980f:b0:af9:c10d:746 with SMTP id a640c23a62f3a-afa1dfade34mr262872066b.10.1754992498547;
-        Tue, 12 Aug 2025 02:54:58 -0700 (PDT)
-Message-ID: <7931ecf2-4ff4-4eb2-875f-dbd316a08728@suse.com>
-Date: Tue, 12 Aug 2025 11:54:57 +0200
+X-Inumbo-ID: 7b472d4c-7762-11f0-b898-0df219b8e170
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1754992529;
+	b=QpGX9XTTywofc4gI0da7rNhdizWJH4bqW2CjHmFHECTw014W2wDtg5xYnoEsils3FkM/
+	 wX+Kz0MVJeGJUnZzZf4Yv8DBSX2A3+UyRNGFMpN6138btBKJV7xKzAfMSfMHmJ02XE0Ny
+	 rGML3AdHtq7mKLpQ1ZR0ob4nIC95GHO/EbVGGAFSH5jr09rMv1Yb46tpxpuDS8/vTuo/S
+	 4Fnu78cJkRtRGXpIG74YeOVoiZDnBaUgHrk+ahGNzfZAxhY5syDCbcmJ78PX7N26mNV6T
+	 5zscf9ZsHptPsJBP4/IIV96qW69MxQrykCA3JKRqNe08HLioiLal/PXj+DeMgnPaNjwyp
+	 xJb+2KYyfRee0rUIkQ9+dS1CJmG5m2/1oQlEXrO34GGnouzQ/RPzpv6A9GbR7a5u1GIPP
+	 nSXUydEORKT30HCCUorKuh3PqB5BqksleqX2eAAS9L9B+zCVa87UOMKBWkCW8B4qb50Lj
+	 9WgwWn8QtCHO9LPxN4X9UIH0hoInOgGMvJmvyHChSv/9cg4Mqp/WNMbbBUdae0UxmknYm
+	 R+QJ6b3M9viUqZm6lGPF8BqcoSe8OzkgJ6jLW1BkC9/DME4r2IRmxohvg90FxvuTo+1GR
+	 q3sEnBvjPH5H17EHXoHGv3YMqtOkzK9JnCaqzToh9EkGbyUZj9FyCl1+nlXI0lo=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1754992529;
+	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=zgCLErdLpKs/wpfDwOMcpwvPL3ZgyljHBF8UneGlrrk=;
+	b=apfakXfvuo2VLpd9x2uPMSj0wBevjoB2MGfM/oUX9CEY2UDFqGqTFP3PsgOJgZgKYCk2
+	 Q/aiuz7u32rIVNR6tjMlh2qlttO4KEpIzD+uehfn9lJM351EzkmD3oFzQpCE72YVy3AbP
+	 cbnpALtTcXrotPn5FJrUUBzczhrRk4keFkER1i0xUY9ZEX5R7DuSBouo+nkKbS77az+3O
+	 J5/c4D34E069R8Vm7PqGtOYNe1HrTgcwNF57xeliH1QKWRFmNg1HIhq3tPuRDP8htShxy
+	 exvEDv6jy9IBs5vqYn2/yGc56Po/QA7wN6AaqnoSJvuBVXPYVBO6xtaM11UIeBZmua/Bm
+	 zpLmtT6oVYE+XHBMcRpprqsEZm0jYz0PN6S9DTIza3NnkQb2RILQs7j/AXjMHUw8RF5gE
+	 CDF3Z+lboSMolIi3oU4Vx4kCanZ+8rDg2Z8Ed25lCrmsuIIOugpquPWAq7JXVfBoQyWKF
+	 1IfpwWt3XM5ke1ZZkkCSZM2kiJlnpamFrlGjOHj4gBDwY3gkjTW2gn6w66mbWtK72xBfB
+	 rRCz9z0jraESNjsjDyhbhviEaQcmliPtT8YfHI75Q6khFgQ1G+us/NuOhpEY5I5Ty7Xct
+	 RMqIwiGc0q0TaO/7CgXe1yJeLHvDdIxeLA0Qd7RLablK/rZ0PbydPvjmmMhLvyQ=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1754992529; bh=bdPaF8/29s842X2nnDpdkkDi87DKbMEQlRA9W0U8szA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=PIKYRDEzwt75Bbg23O9+FdeNez3fTjNDCKTcT9gCgWZmTHewizYt2SrSlenLb6BFu
+	 RSNTULptYNMlNPAHcE8zxtfwMW5VlZXAxl5Xz/9SQi0bYl8rzSSuyEe60pPm7FRiHy
+	 j52kFIB4VsKVKot8dSC0rCcDoolw6aOFekZdT13U8ouRvgLNkMnK7SjGGSfuBz2bz8
+	 7E6cLxLBYF4RSRIRRJ/7PSo7lM99FMHYibLz1qruN1UQy0lI0AXOAWAbyEooApH+0g
+	 zqdBGLPpKBa3611rdSrhf3y/CKQDoQg1sfR0oDCendlID7ea+dO6NNN6soNYe0mzXB
+	 4m4Zzw8ibQJTQ==
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 12/22] x86/traps: Unexport show_code() and
- show_stack_overflow()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
- <20250808202314.1045968-13-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250808202314.1045968-13-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+Date: Tue, 12 Aug 2025 11:55:29 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, Stefano Stabellini
+ <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Dmytro Prokopchuk1
+ <dmytro_prokopchuk1@epam.com>
+Subject: Re: [PATCH] misra: add ASSERT_UNREACHABLE() in default clauses
+In-Reply-To: <c7f118a9-aea8-4f3a-8072-1bfa128d56b8@suse.com>
+References: <7cd71ed21383c189fedb3250ddde54a593f7f98b.1754944131.git.dmytro_prokopchuk1@epam.com>
+ <a318ef2d5cad37d2fda0bb4a52c90964@bugseng.com>
+ <c7f118a9-aea8-4f3a-8072-1bfa128d56b8@suse.com>
+Message-ID: <8ce96224f88513e4041d33248456fab3@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 08.08.2025 22:23, Andrew Cooper wrote:
-> These can become static now the two traps.c have been merged.
+On 2025-08-12 09:25, Jan Beulich wrote:
+> On 11.08.2025 23:25, Nicola Vetrini wrote:
+>> On 2025-08-11 22:30, Dmytro Prokopchuk1 wrote:
+>>> --- a/xen/arch/arm/decode.c
+>>> +++ b/xen/arch/arm/decode.c
+>>> @@ -178,6 +178,9 @@ static int decode_thumb(register_t pc, struct
+>>> hsr_dabt *dabt)
+>>>          case 3: /* Signed byte */
+>>>              update_dabt(dabt, reg, 0, true);
+>>>              break;
+>>> +        default:
+>>> +            ASSERT_UNREACHABLE();
+>>> +            break;
+>>>          }
+>>> 
+>> 
+>> I think this is fine, and there should be no problems with the break
+>> being unreachable in some configs due to the call property for
+>> ASSERT_UNREACHABLE
+>> 
+>> -doc_begin="Calls to function `__builtin_unreachable()' in the 
+>> expansion
+>> of macro
+>> `ASSERT_UNREACHABLE()' are not considered to have the `noreturn'
+>> property."
+>> -call_properties+={"name(__builtin_unreachable)&&stmt(begin(any_exp(macro(name(ASSERT_UNREACHABLE)))))",
+>> {"noreturn(false)"}}
+>> -doc_end
 > 
-> No fucntional change.
+> Did you also see Julien's reply? Imo, to address a complaint from one
+> rule, another rule is then being violated: The "default" label itself
+> is unreachable here.
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Jan
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Unfortunately only after sending my reply, however the point here is 
+that ASSERT_UNREACHABLE() is now considered as if it was not actually a 
+source of unreachability for any statement below (which is the case only 
+in configurations where NDEBUG is undefined iirc). This was done mainly 
+to allow stubs for Rule 2.1 so that their return statement just after an 
+ASSERT_UNREACHABLE() is not seen as a problem, but given that the 
+configuration to obtain that is global it influences treatment for other 
+rules as well, and its addition is relatively recent compared to the 
+text written in rules.rst.
 
+-- 
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
