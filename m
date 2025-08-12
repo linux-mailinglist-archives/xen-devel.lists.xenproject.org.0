@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D958CB225B8
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 13:19:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1078724.1439783 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42B2FB22614
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 13:43:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1078741.1439808 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uln2a-0001r4-Ll; Tue, 12 Aug 2025 11:19:40 +0000
+	id 1ulnPB-0006YI-Ir; Tue, 12 Aug 2025 11:43:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1078724.1439783; Tue, 12 Aug 2025 11:19:40 +0000
+Received: by outflank-mailman (output) from mailman id 1078741.1439808; Tue, 12 Aug 2025 11:43:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uln2a-0001o0-Ho; Tue, 12 Aug 2025 11:19:40 +0000
-Received: by outflank-mailman (input) for mailman id 1078724;
- Tue, 12 Aug 2025 11:19:38 +0000
+	id 1ulnPB-0006UW-F5; Tue, 12 Aug 2025 11:43:01 +0000
+Received: by outflank-mailman (input) for mailman id 1078741;
+ Tue, 12 Aug 2025 11:43:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UlY3=2Y=arm.com=mark.rutland@srs-se1.protection.inumbo.net>)
- id 1uln2Y-0001eC-Fc
- for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 11:19:38 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 3b39dab5-776e-11f0-a327-13f23c93f187;
- Tue, 12 Aug 2025 13:19:37 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 91CE425E1;
- Tue, 12 Aug 2025 04:19:28 -0700 (PDT)
-Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EB39D3F63F;
- Tue, 12 Aug 2025 04:19:32 -0700 (PDT)
+ <SRS0=OhhA=2Y=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1ulnP9-0006UQ-Q6
+ for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 11:42:59 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7e57bb72-7771-11f0-a327-13f23c93f187;
+ Tue, 12 Aug 2025 13:42:58 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-af968aa2de4so968322166b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 04:42:58 -0700 (PDT)
+Received: from [192.168.1.17] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-af91a0771basm2179148466b.29.2025.08.12.04.42.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 Aug 2025 04:42:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,178 +45,636 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b39dab5-776e-11f0-a327-13f23c93f187
-Date: Tue, 12 Aug 2025 12:19:30 +0100
-From: Mark Rutland <mark.rutland@arm.com>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: catalin.marinas@arm.com, will@kernel.org, oleg@redhat.com,
-	sstabellini@kernel.org, puranjay@kernel.org, broonie@kernel.org,
-	mbenes@suse.cz, ryan.roberts@arm.com, akpm@linux-foundation.org,
-	chenl311@chinatelecom.cn, ada.coupriediaz@arm.com,
-	anshuman.khandual@arm.com, kristina.martsenko@arm.com,
-	liaochang1@huawei.com, ardb@kernel.org, leitao@debian.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH -next v7 0/7] arm64: entry: Convert to generic irq entry
-Message-ID: <aJsjQsDZjhG8oiK-@J2N7QTR9R3>
-References: <20250729015456.3411143-1-ruanjinjie@huawei.com>
+X-Inumbo-ID: 7e57bb72-7771-11f0-a327-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1754998978; x=1755603778; darn=lists.xenproject.org;
+        h=in-reply-to:content-language:references:cc:to:subject:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CpZHnTP4IsRt7Ry6sEMfFvV3Br8wp8kr4qhHL2GsnHg=;
+        b=Q2t1POEcrtBvBeSIF7uZu48ERnkS7d1bSNDK+NTrYifufdZXOJCTaubnUiokbdbosI
+         UmMOaFmnc+KayWeMNgLXtM5UlDR3Tw/RL40YP7OvSHfGKGev1Qqbgjo0x3qMWB4x/s/i
+         gt0c5u3TxmPXh/Jpg1P73Muec7De2GedeJNZT/0O9ByWezpu6PkuddeNrznNqQwa4o5C
+         m7qleL2aTglZ6hVBxsqu+iknTI8VK5SgbFhzLmwJcClMAqJz8kzJ8bnx80tL1/fgx/if
+         NDsYUGXSqgq8sHerEyIAiXk80xgoKrQELYkOUZsFaQzfp4rBhRpcJXRVjIxsDDJIGfz/
+         sVCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1754998978; x=1755603778;
+        h=in-reply-to:content-language:references:cc:to:subject:from
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=CpZHnTP4IsRt7Ry6sEMfFvV3Br8wp8kr4qhHL2GsnHg=;
+        b=u61umYREsgKwKZC++ed63VE8/GbE+DZvRFedXpI7borU9uVFUKL2/5yxy6c6j+WwfE
+         i1ArJXwsuwesc2QJiGrEfQdfSf7OxXsx5KHOFaYa09+U1+fanYun/snTvZmzzmpZghHV
+         byW/cLUfNyDfiV9lFv9Gg+E8fS7Voiys6wBpSC3THKVHkJC/awVMY7dT5i1o7TZY8XXu
+         8nvROtd6VSgwE1SXI4p6V9CekGjbh4fYT7OZIPKhUUSiY9At4KHXO0MaHQ8LQdG1nZLO
+         7kuEkaKhPSdsQzpbRLfrr2PW6q9/WcUeTXhfjWDZWpB6OXn8K1g2lM3176RjHJ1gwl39
+         lsrQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWvW+V+AxyFF+4TSRJcyBvqhCo9C8t1zDJHNFIJdIVm8Z20FrUKzT7PUy8GQ9ydvpX3lj8P66Fsfp0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxRe8cBWYTdGp1JAyRaLfcN5oV3a8g42XPdDk3GuEGayil8RtZS
+	WrtosRUuHioBbCvnxmvCTTIFIHUTT+AcLhaOk7SZP3zcQe/mrPt6Xsap
+X-Gm-Gg: ASbGncvEMTOz9qBLrDA8b8/DN/zdM521jN5tnboKvtM1c4taL+cgn/B3qMsf8oYz9PW
+	7eRLL+VCGNViVDzkB8x8fwqw0kng4WUB9/8a98SnELpv2odj6h4wXVyc0SxXtswLkkqNXlKAFHY
+	u+X82AU4tyKNEIlX0fyYlWX16ugzxYuw5obS+GpCwmFsVEnmOJ+l7Qa+Dz3MiHTy1rXdaHBv8z2
+	49O5hazckqpDh2rAauZ4O48QpIzeEzBzNeVSRXRLO/r7/5jOq7+y0Ytw8FgkCX5grtISvYdIPZ5
+	1NKXoB488W2BU/UWUVtahtVN3QNKUHybjT7BvfQtgr1nv37V0fDpoY0jP3DUcRr2jzyUg55Jx59
+	lS5E/kNqo9WR5mcO8zp62bb349a81ahtyzxyC0EdpfAPdIGr0jV1RFsaJrTZpAWZVi4TVKOaM
+X-Google-Smtp-Source: AGHT+IFi27JzFGWJePrpbhnbGzTAMVtSlLBli9OwBER40oK0XvXn08KOehV4mY/gsLtZgIoQcAkh4A==
+X-Received: by 2002:a17:907:869f:b0:ae1:f1e0:8730 with SMTP id a640c23a62f3a-af9c659fafemr1583281666b.57.1754998977373;
+        Tue, 12 Aug 2025 04:42:57 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------t0OIcO9CZCU0XKU2PJ9JQBKp"
+Message-ID: <923d76de-2849-4496-b1e6-c1362e007696@gmail.com>
+Date: Tue, 12 Aug 2025 13:42:55 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250729015456.3411143-1-ruanjinjie@huawei.com>
+User-Agent: Mozilla Thunderbird
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v3 19/20] xen/riscv: add support of page lookup by GFN
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
+ <24bb8ca6ad9d325f48d0c64b0fa461db5f0d0cc5.1753973161.git.oleksii.kurochko@gmail.com>
+ <f7f81e65-5c85-4e30-a68b-01cdcf51dc07@suse.com>
+Content-Language: en-US
+In-Reply-To: <f7f81e65-5c85-4e30-a68b-01cdcf51dc07@suse.com>
 
-Hi,
+This is a multi-part message in MIME format.
+--------------t0OIcO9CZCU0XKU2PJ9JQBKp
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-This is looking pretty good now, thanks for continuing to work on this!
 
-I've left a couple of minor comments, and Ada has left a few more. If
-you're able to address those and respin atop v6.17-rc1, I think we can
-start figuring out how to queue this.
+On 8/11/25 3:25 PM, Jan Beulich wrote:
+> On 31.07.2025 17:58, Oleksii Kurochko wrote:
+>> Introduce helper functions for safely querying the P2M (physical-to-machine)
+>> mapping:
+>>   - add p2m_read_lock(), p2m_read_unlock(), and p2m_is_locked() for managing
+>>     P2M lock state.
+>>   - Implement p2m_get_entry() to retrieve mapping details for a given GFN,
+>>     including MFN, page order, and validity.
+>>   - Add p2m_lookup() to encapsulate read-locked MFN retrieval.
+>>   - Introduce p2m_get_page_from_gfn() to convert a GFN into a page_info
+>>     pointer, acquiring a reference to the page if valid.
+>>   - Introduce get_page().
+>>
+>> Implementations are based on Arm's functions with some minor modifications:
+>> - p2m_get_entry():
+>>    - Reverse traversal of page tables, as RISC-V uses the opposite level
+>>      numbering compared to Arm.
+>>    - Removed the return of p2m_access_t from p2m_get_entry() since
+>>      mem_access_settings is not introduced for RISC-V.
+>>    - Updated BUILD_BUG_ON() to check using the level 0 mask, which corresponds
+>>      to Arm's THIRD_MASK.
+>>    - Replaced open-coded bit shifts with the BIT() macro.
+>>    - Other minor changes, such as using RISC-V-specific functions to validate
+>>      P2M PTEs, and replacing Arm-specific GUEST_* macros with their RISC-V
+>>      equivalents.
+>>
+>> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+>> ---
+>> Changes in V3:
+>>   - Add is_p2m_foreign() macro and connected stuff.
+> What is this about?
 
-Mark.
+Sorry for that, it is a stale change. I will drop it in the next patch version.
 
-On Tue, Jul 29, 2025 at 09:54:49AM +0800, Jinjie Ruan wrote:
-> Currently, x86, Riscv, Loongarch use the generic entry. Also convert
-> arm64 to use the generic entry infrastructure from kernel/entry/*.
-> The generic entry makes maintainers' work easier and codes more elegant,
-> which will make PREEMPT_DYNAMIC and PREEMPT_LAZY use the generic entry
-> common code and remove a lot of duplicate code.
-> 
-> Since commit a70e9f647f50 ("entry: Split generic entry into generic
-> exception and syscall entry") split the generic entry into generic irq
-> entry and generic syscall entry, it is time to convert arm64 to use
-> the generic irq entry. And ARM64 will be completely converted to generic
-> entry in the upcoming patch series.
-> 
-> The main convert steps are as follows:
-> - Split generic entry into generic irq entry and generic syscall to
->   make the single patch more concentrated in switching to one thing.
-> - Make arm64 easier to use irqentry_enter/exit().
-> - Make arm64 closer to the PREEMPT_DYNAMIC code of generic entry.
-> - Switch to generic irq entry.
-> 
-> It was tested ok with following test cases on QEMU virt platform:
->  - Perf tests.
->  - Different `dynamic preempt` mode switch.
->  - Pseudo NMI tests.
->  - Stress-ng CPU stress test.
->  - MTE test case in Documentation/arch/arm64/memory-tagging-extension.rst
->    and all test cases in tools/testing/selftests/arm64/mte/*.
-> 
-> The test QEMU configuration is as follows:
-> 
-> 	qemu-system-aarch64 \
-> 		-M virt,gic-version=3,virtualization=on,mte=on \
-> 		-cpu max,pauth-impdef=on \
-> 		-kernel Image \
-> 		-smp 8,sockets=1,cores=4,threads=2 \
-> 		-m 512m \
-> 		-nographic \
-> 		-no-reboot \
-> 		-device virtio-rng-pci \
-> 		-append "root=/dev/vda rw console=ttyAMA0 kgdboc=ttyAMA0,115200 \
-> 			earlycon preempt=voluntary irqchip.gicv3_pseudo_nmi=1" \
-> 		-drive if=none,file=images/rootfs.ext4,format=raw,id=hd0 \
-> 		-device virtio-blk-device,drive=hd0 \
-> 
-> Changes in v7:
-> - Rebased on v6.16-rc7 and remove the merged first patch.
-> - Update the commit message.
-> 
-> Changes in v6:
-> - Rebased on 6.14 rc2 next.
-> - Put the syscall bits aside and split it out.
-> - Have the split patch before the arm64 changes.
-> - Merge some tightly coupled patches.
-> - Adjust the order of some patches to make them more reasonable.
-> - Define regs_irqs_disabled() by inline function.
-> - Define interrupts_enabled() in terms of regs_irqs_disabled().
-> - Delete the fast_interrupts_enabled() macro.
-> - irqentry_state_t -> arm64_irqentry_state_t.
-> - Remove arch_exit_to_user_mode_prepare() and pull local_daif_mask() later
->   in the arm64 exit sequence
-> - Update the commit message.
-> 
-> Changes in v5:
-> - Not change arm32 and keep inerrupts_enabled() macro for gicv3 driver.
-> - Move irqentry_state definition into arch/arm64/kernel/entry-common.c.
-> - Avoid removing the __enter_from_*() and __exit_to_*() wrappers.
-> - Update "irqentry_state_t ret/irq_state" to "state"
->   to keep it consistently.
-> - Use generic irq entry header for PREEMPT_DYNAMIC after split
->   the generic entry.
-> - Also refactor the ARM64 syscall code.
-> - Introduce arch_ptrace_report_syscall_entry/exit(), instead of
->   arch_pre/post_report_syscall_entry/exit() to simplify code.
-> - Make the syscall patches clear separation.
-> - Update the commit message.
-> 
-> Changes in v4:
-> - Rework/cleanup split into a few patches as Mark suggested.
-> - Replace interrupts_enabled() macro with regs_irqs_disabled(), instead
->   of left it here.
-> - Remove rcu and lockdep state in pt_regs by using temporary
->   irqentry_state_t as Mark suggested.
-> - Remove some unnecessary intermediate functions to make it clear.
-> - Rework preempt irq and PREEMPT_DYNAMIC code
->   to make the switch more clear.
-> - arch_prepare_*_entry/exit() -> arch_pre_*_entry/exit().
-> - Expand the arch functions comment.
-> - Make arch functions closer to its caller.
-> - Declare saved_reg in for block.
-> - Remove arch_exit_to_kernel_mode_prepare(), arch_enter_from_kernel_mode().
-> - Adjust "Add few arch functions to use generic entry" patch to be
->   the penultimate.
-> - Update the commit message.
-> - Add suggested-by.
-> 
-> Changes in v3:
-> - Test the MTE test cases.
-> - Handle forget_syscall() in arch_post_report_syscall_entry()
-> - Make the arch funcs not use __weak as Thomas suggested, so move
->   the arch funcs to entry-common.h, and make arch_forget_syscall() folded
->   in arch_post_report_syscall_entry() as suggested.
-> - Move report_single_step() to thread_info.h for arm64
-> - Change __always_inline() to inline, add inline for the other arch funcs.
-> - Remove unused signal.h for entry-common.h.
-> - Add Suggested-by.
-> - Update the commit message.
-> 
-> Changes in v2:
-> - Add tested-by.
-> - Fix a bug that not call arch_post_report_syscall_entry() in
->   syscall_trace_enter() if ptrace_report_syscall_entry() return not zero.
-> - Refactor report_syscall().
-> - Add comment for arch_prepare_report_syscall_exit().
-> - Adjust entry-common.h header file inclusion to alphabetical order.
-> - Update the commit message.
-> 
-> Jinjie Ruan (7):
->   arm64: ptrace: Replace interrupts_enabled() with regs_irqs_disabled()
->   arm64: entry: Refactor the entry and exit for exceptions from EL1
->   arm64: entry: Rework arm64_preempt_schedule_irq()
->   arm64: entry: Use preempt_count() and need_resched() helper
->   arm64: entry: Refactor preempt_schedule_irq() check code
->   arm64: entry: Move arm64_preempt_schedule_irq() into
->     __exit_to_kernel_mode()
->   arm64: entry: Switch to generic IRQ entry
-> 
->  arch/arm64/Kconfig                    |   1 +
->  arch/arm64/include/asm/daifflags.h    |   2 +-
->  arch/arm64/include/asm/entry-common.h |  56 ++++
->  arch/arm64/include/asm/preempt.h      |   2 -
->  arch/arm64/include/asm/ptrace.h       |  13 +-
->  arch/arm64/include/asm/xen/events.h   |   2 +-
->  arch/arm64/kernel/acpi.c              |   2 +-
->  arch/arm64/kernel/debug-monitors.c    |   2 +-
->  arch/arm64/kernel/entry-common.c      | 411 +++++++++-----------------
->  arch/arm64/kernel/sdei.c              |   2 +-
->  arch/arm64/kernel/signal.c            |   3 +-
->  kernel/entry/common.c                 |  16 +-
->  12 files changed, 217 insertions(+), 295 deletions(-)
->  create mode 100644 arch/arm64/include/asm/entry-common.h
-> 
-> -- 
-> 2.34.1
-> 
+>> --- a/xen/arch/riscv/include/asm/p2m.h
+>> +++ b/xen/arch/riscv/include/asm/p2m.h
+>> @@ -202,6 +202,24 @@ static inline int p2m_is_write_locked(struct p2m_domain *p2m)
+>>   
+>>   unsigned long construct_hgatp(struct p2m_domain *p2m, uint16_t vmid);
+>>   
+>> +static inline void p2m_read_lock(struct p2m_domain *p2m)
+>> +{
+>> +    read_lock(&p2m->lock);
+>> +}
+>> +
+>> +static inline void p2m_read_unlock(struct p2m_domain *p2m)
+>> +{
+>> +    read_unlock(&p2m->lock);
+>> +}
+>> +
+>> +static inline int p2m_is_locked(struct p2m_domain *p2m)
+> bool return type (also for p2m_is_write_locked() in patch 11)? Also perhaps
+> pointer-to-const parameter?
+
+I haven't checked what is a argument type of rw_is_locked() inside, so, automatically
+use just pointer parameter, but now I see that it could be really const.
+
+>> --- a/xen/arch/riscv/p2m.c
+>> +++ b/xen/arch/riscv/p2m.c
+>> @@ -852,3 +852,139 @@ int map_regions_p2mt(struct domain *d,
+>>   {
+>>       return p2m_insert_mapping(p2m_get_hostp2m(d), gfn, nr, mfn, p2mt);
+>>   }
+>> +
+>> +/*
+>> + * Get the details of a given gfn.
+>> + *
+>> + * If the entry is present, the associated MFN will be returned type filled up.
+> This sentence doesn't really parse, perhaps due to missing words.
+
+IDK what happened but it should be:
+   ... the associated MFN will returned and type filled up ...
+Perhpaps, it would be better just:
+   ... the associated MFN will returned and the p2m type of the mapping.
+   (or just entry's type)
+
+>> + * The page_order will correspond to the order of the mapping in the page
+>> + * table (i.e it could be a superpage).
+>> + *
+>> + * If the entry is not present, INVALID_MFN will be returned and the
+>> + * page_order will be set according to the order of the invalid range.
+>> + *
+>> + * valid will contain the value of bit[0] (e.g valid bit) of the
+>> + * entry.
+>> + */
+>> +static mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
+>> +                           p2m_type_t *t,
+>> +                           unsigned int *page_order,
+>> +                           bool *valid)
+>> +{
+>> +    unsigned int level = 0;
+>> +    pte_t entry, *table;
+>> +    int rc;
+>> +    mfn_t mfn = INVALID_MFN;
+>> +    DECLARE_OFFSETS(offsets, gfn_to_gaddr(gfn));
+>> +
+>> +    ASSERT(p2m_is_locked(p2m));
+>> +    BUILD_BUG_ON(XEN_PT_LEVEL_MAP_MASK(0) != PAGE_MASK);
+> What function-wide property is this check about? Even when moved ...
+
+I think this check isn't needed anymore.
+
+This check is/was needed to be sure that 4k page(s) are used on L3 (in Arm terms)
+mapping as Arm can support 4k, 16k and 64k.
+Initially this check derived from:
+   https://lore.kernel.org/xen-devel/1402394278-9850-4-git-send-email-ian.campbell@citrix.com/
+And it was needed because of the way how maddr is calculated, calculation for which
+could be wrong if page size isn't 4k.
+But then this check was migrated to p2m_get_entry():
+   https://lore.kernel.org/xen-devel/1469717505-8026-13-git-send-email-julien.grall@arm.com/
+But the way how maddr is got isn't depends on mask and PAGE_MASK, and I don't see any other
+reason to why BUILD_BUG_ON() is needed now.
+
+>
+>> +    if ( valid )
+>> +        *valid = false;
+>> +
+>> +    /* XXX: Check if the mapping is lower than the mapped gfn */
+> (Nested: What is this about?)
+>
+>> +    /* This gfn is higher than the highest the p2m map currently holds */
+>> +    if ( gfn_x(gfn) > gfn_x(p2m->max_mapped_gfn) )
+>> +    {
+>> +        for ( level = P2M_ROOT_LEVEL; level; level-- )
+>> +            if ( (gfn_x(gfn) & (XEN_PT_LEVEL_MASK(level) >> PAGE_SHIFT)) >
+> ... into the more narrow scope where another XEN_PT_LEVEL_MASK() exists I
+> can't really spot what the check is to guard against.
+>
+>> +                 gfn_x(p2m->max_mapped_gfn) )
+>> +                break;
+>> +
+>> +        goto out;
+>> +    }
+>> +
+>> +    table = p2m_get_root_pointer(p2m, gfn);
+>> +
+>> +    /*
+>> +     * the table should always be non-NULL because the gfn is below
+>> +     * p2m->max_mapped_gfn and the root table pages are always present.
+>> +     */
+> Nit: Style.
+>
+>> +    if ( !table )
+>> +    {
+>> +        ASSERT_UNREACHABLE();
+>> +        level = P2M_ROOT_LEVEL;
+>> +        goto out;
+>> +    }
+>> +
+>> +    for ( level = P2M_ROOT_LEVEL; level; level-- )
+>> +    {
+>> +        rc = p2m_next_level(p2m, true, level, &table, offsets[level]);
+> Why would you blindly allocate a page table (hierarchy) here? If anything,
+> this may need doing upon caller request (as it's only up the call chain
+> where the necessary knowledge exists).
+
+I wanted to set it to always|false|, as based on the name|p2m_get_entry()|,
+it is expected that the page tables are already allocated.
+
+> For example, ...
+>
+>> +static mfn_t p2m_lookup(struct p2m_domain *p2m, gfn_t gfn, p2m_type_t *t)
+>> +{
+>> +    mfn_t mfn;
+>> +
+>> +    p2m_read_lock(p2m);
+>> +    mfn = p2m_get_entry(p2m, gfn, t, NULL, NULL);
+> ... this (by its name) pretty likely won't want allocation, while ...
+>
+>> +    p2m_read_unlock(p2m);
+>> +
+>> +    return mfn;
+>> +}
+>> +
+>> +struct page_info *p2m_get_page_from_gfn(struct p2m_domain *p2m, gfn_t gfn,
+>> +                                        p2m_type_t *t)
+>> +{
+> ... this will. Yet then ...
+
+I didn't really get why p2m_get_page_from_gfn() is expected to allocate
+page table. My understanding is that GFN will point to a page only if
+a mapping was done before for the GFN.
+
+>
+>> +    struct page_info *page;
+>> +    p2m_type_t p2mt = p2m_invalid;
+>> +    mfn_t mfn = p2m_lookup(p2m, gfn, t);
+> ... you use the earlier one here.
+
+We don't need|page_order| and/or the valid bit in|p2m_get_page_from_gfn()|.
+
+>
+>> +    if ( !mfn_valid(mfn) )
+>> +        return NULL;
+>> +
+>> +    if ( t )
+>> +        p2mt = *t;
+>> +
+>> +    page = mfn_to_page(mfn);
+>> +
+>> +    /*
+>> +     * get_page won't work on foreign mapping because the page doesn't
+>> +     * belong to the current domain.
+>> +     */
+>> +    if ( p2m_is_foreign(p2mt) )
+>> +    {
+>> +        struct domain *fdom = page_get_owner_and_reference(page);
+>> +        ASSERT(fdom != NULL);
+>> +        ASSERT(fdom != p2m->domain);
+>> +        return page;
+> In a release build (with no assertions) this will be wrong if either of the
+> two condition would not be satisfied. See x86'es respective code.
+
+I will add the following then instead:
+     if ( unlikely(p2m_is_foreign(t)) )
+     {
+         const struct domain *fdom = page_get_owner_and_reference(page);
+
+         if ( fdom )
+         {
+             if ( likely(fdom != d) )
+                 return page;
+             ASSERT_UNREACHABLE();
+             put_page(page);
+         }
+
+         return NULL;
+     }
+
+I'm not sure that unlikely() is needed, x86 has it.
+It seems then Arm needs such a change too.
+
+Thanks.
+
+~ Oleksii
+
+
+--------------t0OIcO9CZCU0XKU2PJ9JQBKp
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 8/11/25 3:25 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:f7f81e65-5c85-4e30-a68b-01cdcf51dc07@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 31.07.2025 17:58, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">Introduce helper functions for safely querying the P2M (physical-to-machine)
+mapping:
+ - add p2m_read_lock(), p2m_read_unlock(), and p2m_is_locked() for managing
+   P2M lock state.
+ - Implement p2m_get_entry() to retrieve mapping details for a given GFN,
+   including MFN, page order, and validity.
+ - Add p2m_lookup() to encapsulate read-locked MFN retrieval.
+ - Introduce p2m_get_page_from_gfn() to convert a GFN into a page_info
+   pointer, acquiring a reference to the page if valid.
+ - Introduce get_page().
+
+Implementations are based on Arm's functions with some minor modifications:
+- p2m_get_entry():
+  - Reverse traversal of page tables, as RISC-V uses the opposite level
+    numbering compared to Arm.
+  - Removed the return of p2m_access_t from p2m_get_entry() since
+    mem_access_settings is not introduced for RISC-V.
+  - Updated BUILD_BUG_ON() to check using the level 0 mask, which corresponds
+    to Arm's THIRD_MASK.
+  - Replaced open-coded bit shifts with the BIT() macro.
+  - Other minor changes, such as using RISC-V-specific functions to validate
+    P2M PTEs, and replacing Arm-specific GUEST_* macros with their RISC-V
+    equivalents.
+
+Signed-off-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E"
+        href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+---
+Changes in V3:
+ - Add is_p2m_foreign() macro and connected stuff.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">What is this about?</pre>
+    </blockquote>
+    <pre>Sorry for that, it is a stale change. I will drop it in the next patch version.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:f7f81e65-5c85-4e30-a68b-01cdcf51dc07@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/p2m.h
++++ b/xen/arch/riscv/include/asm/p2m.h
+@@ -202,6 +202,24 @@ static inline int p2m_is_write_locked(struct p2m_domain *p2m)
+ 
+ unsigned long construct_hgatp(struct p2m_domain *p2m, uint16_t vmid);
+ 
++static inline void p2m_read_lock(struct p2m_domain *p2m)
++{
++    read_lock(&amp;p2m-&gt;lock);
++}
++
++static inline void p2m_read_unlock(struct p2m_domain *p2m)
++{
++    read_unlock(&amp;p2m-&gt;lock);
++}
++
++static inline int p2m_is_locked(struct p2m_domain *p2m)
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">bool return type (also for p2m_is_write_locked() in patch 11)? Also perhaps
+pointer-to-const parameter?</pre>
+    </blockquote>
+    <pre>I haven't checked what is a argument type of rw_is_locked() inside, so, automatically
+use just pointer parameter, but now I see that it could be really const.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:f7f81e65-5c85-4e30-a68b-01cdcf51dc07@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/p2m.c
++++ b/xen/arch/riscv/p2m.c
+@@ -852,3 +852,139 @@ int map_regions_p2mt(struct domain *d,
+ {
+     return p2m_insert_mapping(p2m_get_hostp2m(d), gfn, nr, mfn, p2mt);
+ }
++
++/*
++ * Get the details of a given gfn.
++ *
++ * If the entry is present, the associated MFN will be returned type filled up.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">This sentence doesn't really parse, perhaps due to missing words.</pre>
+    </blockquote>
+    <pre>IDK what happened but it should be:
+  ... the associated MFN will returned and type filled up ...
+Perhpaps, it would be better just:
+  ... the associated MFN will returned and the p2m type of the mapping.
+  (or just entry's type)
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:f7f81e65-5c85-4e30-a68b-01cdcf51dc07@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+ * The page_order will correspond to the order of the mapping in the page
++ * table (i.e it could be a superpage).
++ *
++ * If the entry is not present, INVALID_MFN will be returned and the
++ * page_order will be set according to the order of the invalid range.
++ *
++ * valid will contain the value of bit[0] (e.g valid bit) of the
++ * entry.
++ */
++static mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
++                           p2m_type_t *t,
++                           unsigned int *page_order,
++                           bool *valid)
++{
++    unsigned int level = 0;
++    pte_t entry, *table;
++    int rc;
++    mfn_t mfn = INVALID_MFN;
++    DECLARE_OFFSETS(offsets, gfn_to_gaddr(gfn));
++
++    ASSERT(p2m_is_locked(p2m));
++    BUILD_BUG_ON(XEN_PT_LEVEL_MAP_MASK(0) != PAGE_MASK);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">What function-wide property is this check about? Even when moved ...</pre>
+    </blockquote>
+    <pre>I think this check isn't needed anymore.
+
+This check is/was needed to be sure that 4k page(s) are used on L3 (in Arm terms)
+mapping as Arm can support 4k, 16k and 64k.
+Initially this check derived from:
+  <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/1402394278-9850-4-git-send-email-ian.campbell@citrix.com/">https://lore.kernel.org/xen-devel/1402394278-9850-4-git-send-email-ian.campbell@citrix.com/</a>
+And it was needed because of the way how maddr is calculated, calculation for which
+could be wrong if page size isn't 4k.
+But then this check was migrated to p2m_get_entry():
+  <a class="moz-txt-link-freetext" href="https://lore.kernel.org/xen-devel/1469717505-8026-13-git-send-email-julien.grall@arm.com/">https://lore.kernel.org/xen-devel/1469717505-8026-13-git-send-email-julien.grall@arm.com/</a>
+But the way how maddr is got isn't depends on mask and PAGE_MASK, and I don't see any other
+reason to why BUILD_BUG_ON() is needed now.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:f7f81e65-5c85-4e30-a68b-01cdcf51dc07@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    if ( valid )
++        *valid = false;
++
++    /* XXX: Check if the mapping is lower than the mapped gfn */
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">(Nested: What is this about?)
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    /* This gfn is higher than the highest the p2m map currently holds */
++    if ( gfn_x(gfn) &gt; gfn_x(p2m-&gt;max_mapped_gfn) )
++    {
++        for ( level = P2M_ROOT_LEVEL; level; level-- )
++            if ( (gfn_x(gfn) &amp; (XEN_PT_LEVEL_MASK(level) &gt;&gt; PAGE_SHIFT)) &gt;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">... into the more narrow scope where another XEN_PT_LEVEL_MASK() exists I
+can't really spot what the check is to guard against.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+                 gfn_x(p2m-&gt;max_mapped_gfn) )
++                break;
++
++        goto out;
++    }
++
++    table = p2m_get_root_pointer(p2m, gfn);
++
++    /*
++     * the table should always be non-NULL because the gfn is below
++     * p2m-&gt;max_mapped_gfn and the root table pages are always present.
++     */
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">Nit: Style.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    if ( !table )
++    {
++        ASSERT_UNREACHABLE();
++        level = P2M_ROOT_LEVEL;
++        goto out;
++    }
++
++    for ( level = P2M_ROOT_LEVEL; level; level-- )
++    {
++        rc = p2m_next_level(p2m, true, level, &amp;table, offsets[level]);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">Why would you blindly allocate a page table (hierarchy) here? If anything,
+this may need doing upon caller request (as it's only up the call chain
+where the necessary knowledge exists). </pre>
+    </blockquote>
+    <pre>I wanted to set it to always <code data-start="77"
+    data-end="84">false</code>, as based on the name <code
+    data-start="107" data-end="124">p2m_get_entry()</code>,
+it is expected that the page tables are already allocated.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:f7f81e65-5c85-4e30-a68b-01cdcf51dc07@suse.com">
+      <pre wrap="" class="moz-quote-pre">For example, ...
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+static mfn_t p2m_lookup(struct p2m_domain *p2m, gfn_t gfn, p2m_type_t *t)
++{
++    mfn_t mfn;
++
++    p2m_read_lock(p2m);
++    mfn = p2m_get_entry(p2m, gfn, t, NULL, NULL);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">... this (by its name) pretty likely won't want allocation, while ...
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    p2m_read_unlock(p2m);
++
++    return mfn;
++}
++
++struct page_info *p2m_get_page_from_gfn(struct p2m_domain *p2m, gfn_t gfn,
++                                        p2m_type_t *t)
++{
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">... this will. Yet then ...</pre>
+    </blockquote>
+    <pre>I didn't really get why p2m_get_page_from_gfn() is expected to allocate
+page table. My understanding is that GFN will point to a page only if
+a mapping was done before for the GFN.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:f7f81e65-5c85-4e30-a68b-01cdcf51dc07@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    struct page_info *page;
++    p2m_type_t p2mt = p2m_invalid;
++    mfn_t mfn = p2m_lookup(p2m, gfn, t);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">... you use the earlier one here.</pre>
+    </blockquote>
+    <pre data-start="48" data-end="127">We don't need <code
+    data-start="62" data-end="74">page_order</code> and/or the valid bit in <code
+    data-start="99" data-end="124">p2m_get_page_from_gfn()</code>.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:f7f81e65-5c85-4e30-a68b-01cdcf51dc07@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    if ( !mfn_valid(mfn) )
++        return NULL;
++
++    if ( t )
++        p2mt = *t;
++
++    page = mfn_to_page(mfn);
++
++    /*
++     * get_page won't work on foreign mapping because the page doesn't
++     * belong to the current domain.
++     */
++    if ( p2m_is_foreign(p2mt) )
++    {
++        struct domain *fdom = page_get_owner_and_reference(page);
++        ASSERT(fdom != NULL);
++        ASSERT(fdom != p2m-&gt;domain);
++        return page;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">In a release build (with no assertions) this will be wrong if either of the
+two condition would not be satisfied. See x86'es respective code.</pre>
+    </blockquote>
+    <pre>I will add the following then instead:
+    if ( unlikely(p2m_is_foreign(t)) )
+    {
+        const struct domain *fdom = page_get_owner_and_reference(page);
+
+        if ( fdom )
+        {
+            if ( likely(fdom != d) )
+                return page;
+            ASSERT_UNREACHABLE();
+            put_page(page);
+        }
+
+        return NULL;
+    }
+</pre>
+    <pre>I'm not sure that unlikely() is needed, x86 has it.
+It seems then Arm needs such a change too.
+
+Thanks.
+
+~ Oleksii
+</pre>
+    <br>
+  </body>
+</html>
+
+--------------t0OIcO9CZCU0XKU2PJ9JQBKp--
 
