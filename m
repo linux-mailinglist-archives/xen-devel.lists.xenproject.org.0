@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E8D1B22088
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 10:17:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1078400.1439389 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E26AB22090
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 10:19:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1078411.1439399 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulkCL-0003qP-A2; Tue, 12 Aug 2025 08:17:33 +0000
+	id 1ulkDw-0004O5-K7; Tue, 12 Aug 2025 08:19:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1078400.1439389; Tue, 12 Aug 2025 08:17:33 +0000
+Received: by outflank-mailman (output) from mailman id 1078411.1439399; Tue, 12 Aug 2025 08:19:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulkCL-0003nj-7L; Tue, 12 Aug 2025 08:17:33 +0000
-Received: by outflank-mailman (input) for mailman id 1078400;
- Tue, 12 Aug 2025 08:17:32 +0000
+	id 1ulkDw-0004MN-HS; Tue, 12 Aug 2025 08:19:12 +0000
+Received: by outflank-mailman (input) for mailman id 1078411;
+ Tue, 12 Aug 2025 08:19:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Pr65=2Y=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ulkCK-0003bX-Ej
- for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 08:17:32 +0000
+ id 1ulkDv-0004MH-Cj
+ for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 08:19:11 +0000
 Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
  [2a00:1450:4864:20::632])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ca922829-7754-11f0-b898-0df219b8e170;
- Tue, 12 Aug 2025 10:17:30 +0200 (CEST)
+ id 05608c07-7755-11f0-b898-0df219b8e170;
+ Tue, 12 Aug 2025 10:19:09 +0200 (CEST)
 Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-af98b77d2f0so968649466b.3
- for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 01:17:30 -0700 (PDT)
+ a640c23a62f3a-af9611d8ff7so913458466b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 01:19:09 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a23bedcsm2166374266b.120.2025.08.12.01.17.29
+ a640c23a62f3a-af91a078cbasm2169983266b.5.2025.08.12.01.19.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Aug 2025 01:17:29 -0700 (PDT)
+ Tue, 12 Aug 2025 01:19:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca922829-7754-11f0-b898-0df219b8e170
+X-Inumbo-ID: 05608c07-7755-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1754986650; x=1755591450; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1754986749; x=1755591549; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=J9/UtMIJfoJ79AGdHRB1b7dnHc+lGTsD5eII4rAr4M0=;
-        b=C06YJzuPmgfklFv6cBGUNqLtzd5Hsf6mcW5EoCEY5ybfxHHTArlBWALzusoIoy3oq2
-         fkniCiqBkZt505R/w+zu6sBGLlSg9azEl4zwvi2pzxjM+rxA+qBdLnc4QPonLjEdXipc
-         ofh85CdnVOeqLjWNg5od/vKPI1JOV5OwshCjVEgXzpWB2+VCoFR0I54/j+8LOUBXKjQJ
-         6C2Y3A25oXIC1Vl9K5DdK6L0jpJvoYTalQi70RTWuirIbmDYMU2ofbi8iqThNvOiBoqD
-         bfV8j/LJhzYOO1BagZSheim+CUCPSu4f/24AduOv5/dCOK7isNvhxGKHU+Cy4FtJgFiI
-         gMRA==
+        bh=msNObn64K/b+WyR6ZKvFGUVAbGoAb9fs4i3A4OZSrow=;
+        b=Mm9li0MopS3oKO9ctAaeV1bpJiQbIgaSRm+f1KqdwE0PdHyYyU2hFegcvahA1/6PE8
+         JTCDmoH/EbW3DOnobu9rOsKVC9IeR2hNIjmUt0N2ivikAxKcxtYpYUCS0Bhgf27EZvTz
+         ToO/iE7WXSUfRtMCZ0csgxx8hvQF9KAP0FjOGBD6PPqYMMx079Vt8zNHV7q/RhY6F+YA
+         941dGF+su/p8K3wlnNNFwsQsY/Y8gU7ykyTDFYj+45s9SpwvAp6Rq1bDN7udCp0iwOTm
+         EEAxNa4AZPhFiuwgFKM3htDjS9XRrZ4ow0mCAFZE4SCE6OOz9ll+Zz9+XOz/RpaeJkCy
+         jp/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754986650; x=1755591450;
+        d=1e100.net; s=20230601; t=1754986749; x=1755591549;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=J9/UtMIJfoJ79AGdHRB1b7dnHc+lGTsD5eII4rAr4M0=;
-        b=vP9+RIa9uIYv9N+HPeSoK3pr6ldXw/1/6PnkDq2l0OZX23wzbcxy1/agCU8S8/H0De
-         /UKpa9kbrMGBu4rue+X//ImOMR1Rh5AveUwNJ2eaXq2z4T38HweVbd4ao23fN9yqA+Eu
-         XawaBN6zCZUb7ZW66KFCDIFbj4YdDndWb0zby24FlwTLzDSxkB0BrVektMO+p0mERrG1
-         ZCnH0PVX9g0ajme/FXJH0IkgEXuewz1F9YATZzk3bjxcxYpjcuHOGYSydHGiyfk3iSi5
-         AVBrjQoEdWavGj8eSHsnTc8Hl6s7DEcnJZJy2vhmj49KtiMiK9aDBPWUTO6c6j9/uW7I
-         MYFw==
-X-Forwarded-Encrypted: i=1; AJvYcCXMUiLDWUVYt7Jshu8rmwK/Xna3r/9u/0jXpqDQ9ErFcLWkU9Bm+wh6qbWcfYDKZBFl1sY+wGyg9Ag=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yynf8ls1jFc8TKjc7nwFlxovD21ktIT9MfU7bbkvxgxKyb1faIy
-	CS0h1XWcnu7PLUCnR2klsrPqjOQZTx0+oDtNRrGAcP3ohjSbgNC2ea3b4oKRJsCj7g==
-X-Gm-Gg: ASbGncumA0bMVTlUTz801PIoacH0x1kFkbucagrUtJlyfIZPiFI5UclDiDMgoRrdIPk
-	hwmjYbXY8rjdAeEMocKS2vxSjAJdetsMb0K42iUDCnUqz5vGMcY4oCUJ82BkKGKtMxEbH9taqek
-	WB9Vp3Soiyc/zmSU85rrK12swuPTR9miEKPyKBvBUShXmuIH2NTO8Rk83lka88JqHgA/igC+lNZ
-	/r1ICgK3GAVUSzrApIKruPIqWlZEIHDTJ4Mi6ZRPJCk0iiiL8usJEWcqgheP8wd3baAP7y/KIBp
-	R42hMQ45HlD3COuEpRANbivl6UJZ8DY4ocfv2fr0FYKRSByKLb4rPE/piwaKYjQJ1TI+qAJlz+G
-	skj5F6cJA1JqHBqg2aKT1AEd1mSFea11tHdFvttjrLGF6H91dG1dOWsE/w1i/3uK+Vui2CBMe24
-	AnYKHCOdA=
-X-Google-Smtp-Source: AGHT+IHMveklrPiiQk3eabv4a9B1JDqMK9Y7tnX/1/MtkhoQFmQL+upOh833oyIQcEF6IlCOrzrdWg==
-X-Received: by 2002:a17:907:940c:b0:af2:42e8:ad92 with SMTP id a640c23a62f3a-af9c65b2f50mr1429942366b.61.1754986650163;
-        Tue, 12 Aug 2025 01:17:30 -0700 (PDT)
-Message-ID: <16b35284-fb2b-4ca2-9329-1a50eb3a1774@suse.com>
-Date: Tue, 12 Aug 2025 10:17:29 +0200
+        bh=msNObn64K/b+WyR6ZKvFGUVAbGoAb9fs4i3A4OZSrow=;
+        b=nEXHwvpXaPXvC7tzJDjKxJYemBxCYVnzTjwJ2A+OGI6QKohOsZV2UBJx+DGEOCzNbB
+         P9kE+5t7hvbTr/NA77XO/OF4Vjt2xxauNWQsr7nLG1xXKgAuTiFFU56k3cIZMF9ZEA6Y
+         /unrqxuLH7iXS+94y6vdbqUReQikU2CuBBlTcNG1NtgzjUlzgEZv3coYteorovvtTIFI
+         3T4Ov/VZrVaglbrf0mjye/6agAuhdNhhcIpQ/mf3f6oe3XsMddmE8R234J8aJjQkc/gA
+         6ceRqhJGKGUpXw+or9fXHMssYqXhnl4MFyRFtRKQID3BxgbHpCp7YROY0ga+m5lj46vh
+         70/Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXwmqXJes7RC8OHMfr4urJ5u8tICj0hokr1GnG/mlBZToOCyWxFWoIuLuyg1wwcNLgdCQ/LQ9g7JQ8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzv80O3gVPyHSEMXk99gtdAZGf06Y6RhR/QFSkHajz6mZUgcKEQ
+	SVT3xLT1rTz9bgtS3czpTCPlq3AQ3GFEmZrqP5FgnUe4saFm/6VMEzc13PY9+6u65w==
+X-Gm-Gg: ASbGncseQhf7hau7JzBQ9mzDV6h0Ga/02RPSnWk9G+ehlu9Ve8XaP18D8UmJ9Kn3oy6
+	q3UV+ua09IOCKK7LBosPh44Q9Zn/uPdidZOc644RZkQFlHHKKEY1djTKkaKf1d94J5T/SEtEU3r
+	QK8z/kMGR0KSzwGax/TExmgwKmVCd6J2/U7GWPXnbm66IYlSUDiu87ldcKqUndVHZtqsvLqX+fW
+	cfxujUcSHBSY9yYmwajOdDk9TPWMhaq1tDtpfydEfP64Dbh+g/i/0Ml76XOfQVtgfSOiED3bJKz
+	8ft0468+hVEjRia4avpWLKUj3QQgnOB1kpj3q4Yh6MspvzuAhBpNuGEjnD8/JEggIeItfsd0U7y
+	5BS2corUCA8Yqh3SEN2Qe/t9eSJ3e7UOMSXyQQufMp9OwzQ+AyAmrYdnWvBVm3UIvgGJl+1ZL71
+	QLrcmgtas=
+X-Google-Smtp-Source: AGHT+IFXDqucQ+tsb4a1uoljrTkceXBHKgD/V448VdcnbjlhBBPAHKos+ep8xyoMczh5UeUxEccbXg==
+X-Received: by 2002:a17:907:971c:b0:af9:3f99:1422 with SMTP id a640c23a62f3a-afa1d617a1dmr261034266b.5.1754986749041;
+        Tue, 12 Aug 2025 01:19:09 -0700 (PDT)
+Message-ID: <59f267a5-ca5f-4708-8538-e2c7d5fc0c3b@suse.com>
+Date: Tue, 12 Aug 2025 10:19:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/22] x86/traps: Rename early_traps_init() to
- bsp_early_traps_init()
+Subject: Re: [PATCH 06/22] x86/traps: Introduce bsp_traps_reinit()
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
- <20250808202314.1045968-6-andrew.cooper3@citrix.com>
+ <20250808202314.1045968-7-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,17 +119,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250808202314.1045968-6-andrew.cooper3@citrix.com>
+In-Reply-To: <20250808202314.1045968-7-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 08.08.2025 22:22, Andrew Cooper wrote:
-> We're going to want to introduce an AP version shortly.
-> 
-> No functional change.
+> ... to abstract away updating the refereces to the old BSP stack.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
+If it helps later:
 Acked-by: Jan Beulich <jbeulich@suse.com>
+with ..
 
+> --- a/xen/arch/x86/traps-setup.c
+> +++ b/xen/arch/x86/traps-setup.c
+> @@ -107,6 +107,15 @@ void __init traps_init(void)
+>      percpu_traps_init();
+>  }
+>  
+> +/*
+> + * Re-initialise all state referencing the early-boot stack.
+> + */
+> +void bsp_traps_reinit(void)
+
+... __init added here.
+
+Jan
 
