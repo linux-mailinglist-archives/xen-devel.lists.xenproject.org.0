@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AB4BB22D91
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 18:30:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1078917.1439942 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAED5B22D99
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Aug 2025 18:30:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1078923.1439953 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulrsu-0005bj-BA; Tue, 12 Aug 2025 16:30:00 +0000
+	id 1ulrtQ-0006zB-Jq; Tue, 12 Aug 2025 16:30:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1078917.1439942; Tue, 12 Aug 2025 16:30:00 +0000
+Received: by outflank-mailman (output) from mailman id 1078923.1439953; Tue, 12 Aug 2025 16:30:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ulrsu-0005Zc-8h; Tue, 12 Aug 2025 16:30:00 +0000
-Received: by outflank-mailman (input) for mailman id 1078917;
- Tue, 12 Aug 2025 16:29:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ulrtQ-0006wJ-GU; Tue, 12 Aug 2025 16:30:32 +0000
+Received: by outflank-mailman (input) for mailman id 1078923;
+ Tue, 12 Aug 2025 16:30:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BkKW=2Y=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ulrss-0005ZW-QC
- for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 16:29:58 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 935490e1-7799-11f0-b898-0df219b8e170;
- Tue, 12 Aug 2025 18:29:53 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-459eb4ae596so52370815e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 09:29:53 -0700 (PDT)
-Received: from localhost.localdomain (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-459e5879d76sm325530775e9.24.2025.08.12.09.29.51
+ <SRS0=x9jM=2Y=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1ulrtO-0006qJ-Gu
+ for xen-devel@lists.xenproject.org; Tue, 12 Aug 2025 16:30:30 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a8afa204-7799-11f0-a327-13f23c93f187;
+ Tue, 12 Aug 2025 18:30:29 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3b78d337dd9so3633362f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Aug 2025 09:30:29 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-3b914e70596sm1709176f8f.61.2025.08.12.09.30.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Aug 2025 09:29:52 -0700 (PDT)
+ Tue, 12 Aug 2025 09:30:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,95 +45,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 935490e1-7799-11f0-b898-0df219b8e170
+X-Inumbo-ID: a8afa204-7799-11f0-a327-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755016193; x=1755620993; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=DygpHkHCAWXEXJ0qnm84vWIJZfgiN67CPoChrR+iPFo=;
-        b=deBJ/HpFKxfXLcGRTfqTnDdCJDNILhvo76sQWVtJrSA1hkFNs0HEUy2WsPDqWmQQIW
-         h/TK5wad/vnIlh24iFYs55r1a2xeLw/6zpEUI7hmgPZgwgQkKcxnOMHtFz1I/g8ctFKZ
-         sGm7vG49BzdBf/Ii1vP8xWxGEfakfxxbuZmS0=
+        d=citrix.com; s=google; t=1755016229; x=1755621029; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=qfyjV2aQwERkeLBqfx62psSD0uVXV64x/x82IAJFOc4=;
+        b=ZU8aaYC9X48ROknTFR11JTnkWBW5800SDfentgi5X0SobtfcMdxJ8kpuhTUor5z0AP
+         puEP8XkqkLb5yCVTTAwK0l5sNfUDkwxTH/3TAaLtDfWI2jYKMUropKcTd3ybXFqshYUk
+         qCzKevhJxNf7rnHDLn6hBVaBYDwUdndwrYXKk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755016193; x=1755620993;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=DygpHkHCAWXEXJ0qnm84vWIJZfgiN67CPoChrR+iPFo=;
-        b=LbnsYWF3Hr0W2vuR9Hu/AaSrpMGnhf19oD3tWJIKk/0NFOgSLdr8rXyPadxuEs/ani
-         oZy2WEDfSuOv94tbk1INRf540sGDSiENwkXXrzPhkvSrzNst6k4WbyhdynjoLrmmerqL
-         tqDdvqZ8FKDLrt8WAeEY8S78tF2TF9T6RkFx4KnRP4DcisRcsD3dfOvdT1DADkxci4aJ
-         G5HLRAeVY6WTjEwJHeuY+1ke5WgFZL3ztII6GBre9OWu/5u469Vx+TSv5enwQih2hCnR
-         dgwK8RUEW6fljAgEEcb2h8KKfsDyRPxx03Xl81pBLMlPFPd7r3X3OllGQ2VoJKsqsqX+
-         956Q==
-X-Gm-Message-State: AOJu0YxhiOdAepEhUlV9Oec8o0PQRO3hKRaD8YELG+JMegiwwO47Cdwa
-	0so3yeuLWoZvsukdxOpr/10s8rfn1UpRDXTGW61UWk4ZBhvO401k5vQSJl2Ufk+pP+X9DhGXVgL
-	F9VB/P18=
-X-Gm-Gg: ASbGncsUlSK91/aNZEe1+gZk/If6/ZVufXC0BFXn0rBWBQpqb5o6Ol8Gt+3Jymqqcmd
-	7BDKHU3f3rLk3reNnXm4q0IFc+oS6suMWA1q5LKwzNt8hntNgXbmcvZokQPnHr+iqlgVHHU/sIM
-	pnJNY0DLr6kVh6pNvljajAsFAFKswjCDKM1LkLkEBqm7wbisiizpiEVehglPnXUxB3ThFuWKJVM
-	er/YuF45+QtHv21LIrZGTwbeEl5W1ZR61uhj8+16mQHEHSQK6HjZDEscxagaswrrkNmJErGe31M
-	58qq16Q12qQQqdDp/CBwCr0XHLaE1UQOqqW6QnSGFHN95UtnrPTovft2WYfC+Kb7/kAM82VfI0o
-	wH5HxCh/cuIidCsCPRO4ylBMxBF2uv6WbbFSam9Q3KtO0TXPGtseq+/atfWtXsK9LuDHIf8bhZU
-	Ha
-X-Google-Smtp-Source: AGHT+IFmDfvir2qjc9ospiCh7zAn+em9I2TqJPmRvwOrpBpEoxRJ6xPEfZNlbLYBr3GhhlULJqnFxA==
-X-Received: by 2002:a05:600c:3ba7:b0:459:d8c2:80b2 with SMTP id 5b1f17b1804b1-45a15b0bc9amr4137825e9.7.1755016192673;
-        Tue, 12 Aug 2025 09:29:52 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Javi Merino <javi.merino@cloud.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH] CI: Turn debian/12-x86_64 into a non-root container
-Date: Tue, 12 Aug 2025 17:29:50 +0100
-Message-Id: <20250812162950.1903901-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+        d=1e100.net; s=20230601; t=1755016229; x=1755621029;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=qfyjV2aQwERkeLBqfx62psSD0uVXV64x/x82IAJFOc4=;
+        b=wAlxnLEuf7aNP1W0DRlkwVoLO1PBFfXga7Y3xMZKSKIgqTIkWbMp9sPG5b+3emEADa
+         LG5FzchqTUQ4QMHwVVHQI4a7BCYRR5kzoNnm/bQiHuqf+XEclZZpPgGN3y3ewc8iNZhT
+         FCKo/rQGylwn//MGm0xbnsT/rBpiPvkJARiXM7ZlF6+Ahtv3qZaz+sRBcdhAEHLFfhUt
+         KPupehO/U789AwBEANZcvDRHP4lH2sw8w9LGyN3dDaPpeDkEauQjuowSEK/sVbFOpwrU
+         pvrZJLV9K9QyZ8hjZwM4KOV9WQe+nMJF1i0P/B/9n5GPyVNKaan4gV8sMCiB3pXQYamJ
+         AEPA==
+X-Gm-Message-State: AOJu0Yzn5DmRSa9N11r8NIvfMDnO7caI9fQEVZrDZB1BfN2m4EpWKgiZ
+	HUBRJAM+TOkKULlVLDz0Nm3d0A1Qjc69xu3b6kuD1vv0lJjGvCP8/COhoTPUkTKSC2g=
+X-Gm-Gg: ASbGncsdGJwn2chCxG9mn9Dl4N6kp60xKk80PaPTqNUQcnvGAS8QJ/SXKQ5FPve4ISm
+	VormODRKJND87BsSH5SpBpJxj2+w1BHMzMVLYOR0UyT6X2bzsFZfohiYUl/ieToJvz4KfFwPDRX
+	DzNpPIKh8+DIszZoV6B5JOat8x4Gt8Nw75C7ovXhRB1iwvaObY1qxwHzmHUh0bLxOkjhUnSXG2D
+	bWFohDHqFIPvEK2zZQbXNDljXO9kEaefXaEx1VQ4nOKpk67k0KHv/O3ejbbW/QGZ3ibdbWlh/py
+	6jz73qIb9Ft3eTAu8AQ0Un8AuWU4vIcZCLZGDHcQaxEJYz2qu7YfhdUSE4qaGt59wnJANf7FkKy
+	aXpS36i4w4/Sp7iTHy8ys0hovi3ZTuzUsmOZsIPQSH/hN3SNMPVd4JhxEg2UeYqmb9g==
+X-Google-Smtp-Source: AGHT+IEXlnArkuBKnMlzoaaU2IKYnyn8SKq8qb9OKFuI0pYh8ZJKzWNNaMF5DyC9mAoYzqszoeVE1Q==
+X-Received: by 2002:a05:6000:2dc6:b0:3b7:7ceb:1428 with SMTP id ffacd0b85a97d-3b91724c308mr60675f8f.8.1755016228709;
+        Tue, 12 Aug 2025 09:30:28 -0700 (PDT)
+Date: Tue, 12 Aug 2025 18:30:27 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v2 2/2] x86/mm: drop unmapping from marking-as-I/O in
+ arch_init_memory()
+Message-ID: <aJtsIxI4y-UspLKg@macbook.local>
+References: <ddfd86ad-19b3-495b-930c-1770dd92fa99@suse.com>
+ <5a862787-40d8-4c9f-bd89-01d866648120@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <5a862787-40d8-4c9f-bd89-01d866648120@suse.com>
 
-From: Javi Merino <javi.merino@cloud.com>
+On Mon, Aug 11, 2025 at 12:50:23PM +0200, Jan Beulich wrote:
+> The unmapping part would have wanted to cover UNUSABLE regions as well,
+> and it would now have been necessary for space outside the low 16Mb
+> (wherever Xen is placed). However, with everything up to the next 2Mb
+> boundary now properly backed by RAM, we don't need to unmap anything
+> anymore: Space up to __2M_rwdata_end[] is properly reserved, whereas
+> space past that mark (up to the next 2Mb boundary) is ordinary RAM.
 
-Since commit 4611ae6fb8f9 ("CI: save toolstack artifact as cpio.gz"), the
-various automation/scripts/* no longer need to be root to correctly repack the
-initrd for test.
+Oh, I see, so this was done to unmap trailing space when the Xen image
+region is mapped using 2M pages.
 
-Signed-off-by: Javi Merino <javi.merino@cloud.com>
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Anthony PERARD <anthony.perard@vates.tech>
+> While there, limit the scopes of involved variables.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Xen 4.20 and later uses debian:12-x86_64 and also contains 4611ae6fb8f9 so
-this is safe to change generally.
----
- automation/build/debian/12-x86_64.dockerfile | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-diff --git a/automation/build/debian/12-x86_64.dockerfile b/automation/build/debian/12-x86_64.dockerfile
-index e26a19079e38..3cf99c730b61 100644
---- a/automation/build/debian/12-x86_64.dockerfile
-+++ b/automation/build/debian/12-x86_64.dockerfile
-@@ -9,6 +9,8 @@ RUN <<EOF
- #!/bin/bash
-     set -eu
- 
-+    useradd --create-home user
-+
-     apt-get update
- 
-     DEPS=(
-@@ -70,5 +72,5 @@ RUN <<EOF
-     rm -rf /var/lib/apt/lists*
- EOF
- 
--USER root
-+USER user
- WORKDIR /build
--- 
-2.39.5
+> ---
+> v2: Drop unmapping code altogether.
+> 
+> --- a/xen/arch/x86/mm.c
+> +++ b/xen/arch/x86/mm.c
+> @@ -275,8 +275,6 @@ static void __init assign_io_page(struct
+>  
+>  void __init arch_init_memory(void)
+>  {
+> -    unsigned long i, pfn, rstart_pfn, rend_pfn, iostart_pfn, ioend_pfn;
+> -
+>      /*
+>       * Basic guest-accessible flags:
+>       *   PRESENT, R/W, USER, A/D, AVAIL[0,1,2], AVAIL_HIGH, NX (if available).
+> @@ -292,12 +290,17 @@ void __init arch_init_memory(void)
+>       * case the low 1MB.
+>       */
+>      BUG_ON(pvh_boot && trampoline_phys != 0x1000);
+> -    for ( i = 0; i < 0x100; i++ )
+> +    for ( unsigned int i = 0; i < MB(1) >> PAGE_SHIFT; i++ )
 
+I would use PFN_DOWN() rather than the shift, but that's just my
+preference.
+
+Thanks, Roger.
 
