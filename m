@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F95EB249F9
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Aug 2025 14:58:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1079932.1440604 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D8F3B24BD3
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Aug 2025 16:28:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1079979.1440630 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umB3t-00009Z-RB; Wed, 13 Aug 2025 12:58:37 +0000
+	id 1umCRk-0002Xe-70; Wed, 13 Aug 2025 14:27:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1079932.1440604; Wed, 13 Aug 2025 12:58:37 +0000
+Received: by outflank-mailman (output) from mailman id 1079979.1440630; Wed, 13 Aug 2025 14:27:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umB3t-00006q-Ni; Wed, 13 Aug 2025 12:58:37 +0000
-Received: by outflank-mailman (input) for mailman id 1079932;
- Wed, 13 Aug 2025 12:58:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1umCRk-0002VC-36; Wed, 13 Aug 2025 14:27:20 +0000
+Received: by outflank-mailman (input) for mailman id 1079979;
+ Wed, 13 Aug 2025 14:27:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2/kn=2Z=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1umB3s-00006k-Lb
- for xen-devel@lists.xenproject.org; Wed, 13 Aug 2025 12:58:36 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 39276238-7845-11f0-a328-13f23c93f187;
- Wed, 13 Aug 2025 14:58:35 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3b7825e2775so6007379f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 13 Aug 2025 05:58:35 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45a1a58fc69sm1411635e9.22.2025.08.13.05.58.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Aug 2025 05:58:34 -0700 (PDT)
+ <SRS0=7RVd=2Z=net-space.pl=dkiper@srs-se1.protection.inumbo.net>)
+ id 1umCRi-0002V5-CV
+ for xen-devel@lists.xenproject.org; Wed, 13 Aug 2025 14:27:18 +0000
+Received: from dibed.net-space.pl (dibed.net-space.pl [84.10.22.86])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9c0c6033-7851-11f0-b898-0df219b8e170;
+ Wed, 13 Aug 2025 16:27:15 +0200 (CEST)
+Received: from router-fw.i.net-space.pl ([192.168.52.1]:46210 "EHLO
+ tomti.i.net-space.pl") by router-fw-old.i.net-space.pl with ESMTP
+ id S2272809AblHMO1O (ORCPT <rfc822;xen-devel@lists.xenproject.org>);
+ Wed, 13 Aug 2025 16:27:14 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,118 +40,313 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 39276238-7845-11f0-a328-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755089915; x=1755694715; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Lgd3aFHk9Ia1mL0OdffpXf04JzQU1lFHG3EEzVPIibQ=;
-        b=XkQRR1Ph/eCemnpTmEawrSSkVQWOP7szidx19+gT97NvBpekUulzo0MThKk0Oh2DPE
-         Fwyu6RirfEbc9FDaaHIe8fKevhIpqWDzbTc68FLJfNBxbQIzEp6gt44cWLMsThK4kHWD
-         0Mh5k3rTMpOo3NOlNvgGr9A30yDOjqoy0DaJ8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755089915; x=1755694715;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Lgd3aFHk9Ia1mL0OdffpXf04JzQU1lFHG3EEzVPIibQ=;
-        b=o7s/SsSupQnx8npDSEsf3QAWfdfwgDWsWaQWqa8JeKl3UGkvMai+8rMMc3/2ruoLJV
-         /1Wm8Qeh1194IubndKnf9B99Y9dFdfSZZ8/ci0IPEqrubBTGbBlzB7I9Mi+0NOGRynoX
-         Nm7I1Hkgy/+j49N6RZAmM0aXseDeA8wtNByOuA7Rc92JWmU7qKLl+bfCtSBU+Pu4mGcb
-         ppINUzIRAPmFiA/Xo9AmMdpfjBP5jTRr7jU7lB20kHzt88pFyut99zL1p4xRBtrwvyOa
-         gkafuugdu+ZjNPE2t4dQdIzshSZBnDxSGc+xsuST6F3jQPcczkVY03/IFzGZnFXfLVBD
-         WNuw==
-X-Forwarded-Encrypted: i=1; AJvYcCVnbY5bvqcdbKCrlPAvbbQNfx/1RZx4ULp9S7N+iwHGiaWMR9YtxpwBXHRSZkV0LqSbkJVWWxv69f8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxWvsZB76frcU0Fy3mATYBgO23kkysctL+eSCR2tmerai3rzixZ
-	k8gsbZ2aF1mDSPTIri0ag/sx2/3Aks4UlD6oO20UVCdziTCbAT9xTzJHNDAzSH04IC8=
-X-Gm-Gg: ASbGncusmp3I9HcPSpdwP1rUH2hYf2x31QaAV8W0tH3v7XmG2FaoHp8R4n/cFL+bAZf
-	BUCdPSAVZdkdjEAm0guBuVfBZiTer0qGjKLBag+wIK7IKId+7IfeiaOYtLi5kEkYL4H8VDnUk3h
-	DLFZ4b8zO4vmazJIpNY6tkznygaorhDBx+M/JaOfuwCZx/bQod44N9VhkKuU0e8gGyJpNOlwl01
-	6c6xemGE6y6Sjyms9Dgl6WPVVoa1JY6DDh3wp3yHsjCSR2GPqowh3r6BF4CvF/vTL8AehbRssmk
-	RCOlNqizdQdQDWqEjuZd+1EBdwuu7XLooAxb4+Vdh+XEXebTgBKLQoI8K2HrCSopNl1sc4dcDY4
-	gFXsu58V/IdKrAaI8f6sUwnF7nu+MjdPuYZeYiUDi5Jrd/UipCQnuQMvv9r1nXEbPBfRb
-X-Google-Smtp-Source: AGHT+IHMqqR9Gev5u18AKeDQpCUjQTsMfXSr+eTplf5knMy049aNEBNFTINtwCmc8/eSjVzl/bokVQ==
-X-Received: by 2002:a5d:5f4a:0:b0:3a5:8d08:6239 with SMTP id ffacd0b85a97d-3b917e460a7mr2184192f8f.21.1755089915040;
-        Wed, 13 Aug 2025 05:58:35 -0700 (PDT)
-Message-ID: <7db8af65-0ea2-4724-90e6-3980c499bb9e@citrix.com>
-Date: Wed, 13 Aug 2025 13:58:33 +0100
+X-Inumbo-ID: 9c0c6033-7851-11f0-b898-0df219b8e170
+X-Comment: RFC 2476 MSA function at dibed.net-space.pl logged sender identity as: dkiper
+Date:	Wed, 13 Aug 2025 16:27:11 +0200
+From:	Daniel Kiper <dkiper@net-space.pl>
+To:	Aaron Rainbolt <arraybolt3@gmail.com>
+Cc:	grub-devel@gnu.org, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v4 2/2] kern/xen: Add Xen command line parsing
+Message-ID: <20250813142711.l4jxlgjk426ansab@tomti.i.net-space.pl>
+References: <20250804234816.3d14f53f@kf-m2g5>
+ <20250804234911.3cc3997c@kf-m2g5>
+ <20250804235009.30e39bd9@kf-m2g5>
+ <20250812170211.q7ezlveygfsdkz34@tomti.i.net-space.pl>
+ <20250812185515.436a33da@kf-m2g5>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] pdx: cast PAGE_SIZE value ahead of shifting
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20250813125538.78174-1-roger.pau@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20250813125538.78174-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250812185515.436a33da@kf-m2g5>
+User-Agent: NeoMutt/20170113 (1.7.2)
 
-On 13/08/2025 1:55 pm, Roger Pau Monne wrote:
-> Coverity complains that:
+On Tue, Aug 12, 2025 at 06:55:15PM -0500, Aaron Rainbolt wrote:
+> On Tue, 12 Aug 2025 19:02:11 +0200 Daniel Kiper <dkiper@net-space.pl> wrote:
+> > On Mon, Aug 04, 2025 at 11:50:09PM -0500, Aaron Rainbolt wrote:
+> > > Xen traditionally allows customizing guest behavior by passing
+> > > arguments to the VM kernel via the kernel command line. This is no
+> > > longer possible when using GRUB with Xen, as the kernel command
+> > > line is decided by the GRUB configuration file within the guest,
+> > > not data passed to the guest by Xen.
+> > >
+> > > To work around this limitation, enable GRUB to parse a command line
+> > > passed to it by Xen, and expose data from the command line to the
+> > > GRUB configuration as environment variables. These variables can be
+> > > used in the GRUB configuration for any desired purpose, such as
+> > > extending the kernel command line passed to the guest. The command
+> > > line format is inspired by the Linux kernel's command line format.
+> > >
+> > > To reduce the risk of misuse, abuse, or accidents in production, the
+> > > command line will only be parsed if it consists entirely of 7-bit
+> > > ASCII characters, only alphabetical characters and underscores are
+> > > permitted in variable names, and all variable names must start with
+> > > the string "xen_grub_env_". This also allows room for expanding the
+> > > command line arguments accepted by GRUB in the future, should other
+> > > arguments end up becoming desirable in the future.
+> > >
+> > > Signed-off-by: Aaron Rainbolt <arraybolt3@gmail.com>
+
+[...]
+
+> > > diff --git a/grub-core/kern/i386/xen/pvh.c b/grub-core/kern/i386/xen/pvh.c index 91fbca8..a8988d2 100644
+> > > --- a/grub-core/kern/i386/xen/pvh.c
+> > > +++ b/grub-core/kern/i386/xen/pvh.c
+> > > @@ -321,6 +321,8 @@ void
+> > >  grub_xen_setup_pvh (void)
+> > >  {
+> > >    grub_addr_t par;
+> > > +  const char *xen_cmdline;
+> > > +  int i;
+> > >
+> > >    grub_xen_cpuid_base ();
+> > >    grub_xen_setup_hypercall_page ();
+> > > @@ -352,6 +354,27 @@ grub_xen_setup_pvh (void)
+> > >    grub_xen_mm_init_regions ();
+> > >
+> > >    grub_rsdp_addr = pvh_start_info->rsdp_paddr;
+> > > +
+> > > +  xen_cmdline = (const char *) pvh_start_info->cmdline_paddr;
+> > > +  for (i = 0; i < GRUB_XEN_MAX_GUEST_CMDLINE; i++)
+> > > +    {
+> > > +      if (xen_cmdline[i] == '\0')
+> >
+> > This code still does not make a lot of sense for me. You have NUL
+> > check in grub_parse_xen_cmdline(). So, you duplicate the check here...
+> >
+> > I would just fire grub_strncpy() here and forget...
 >
-> 277    ma_va_bottom_mask   = (PAGE_SIZE << bottom_shift) - 1;
-
-I'd perhaps drop this line from the commit message.  The sentence below
-is fine, and there's only a single hunk so it's obvious what is being
-referred to.
-
->  In expression 0x1000 << bottom_shift, left shifting by more than 31 bits
->  has undefined behavior. The shift amount, bottom_shift, is as much as 63.
+> I guess it depends on how you view grub_xen_start_page_addr->cmd_line's
+> semantics. In my mind, cmd_line is a NUL-terminated string, always. If
+> you boot in PV mode, Xen ensures it's a NUL-terminated string, so it's
+> reasonable for code in GRUB to assume it will be one. If you boot in
+> PVH mode, it starts out initialized to all zeros which is technically a
+> NUL-terminated string, and the code that exists here ensures that if we
+> copy the kernel command line to cmd_line, it will still be a
+> NUL-terminated string. If we use a "bare" grub_strncpy() here, then if
+> someone passes a kernel command line larger than
+> GRUB_XEN_MAX_GUEST_CMDLINE - 1, cmd_line will end up not being
+> NUL-terminated anymore, and any code added to GRUB in the future that
+> assumes it is a NUL-terminated string may buffer overflow.
 >
-> Cast PAGE_SIZE to paddr_t so it has the right width.
->
-> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Coverity ID: 1662707
-> Fixes: bac2000063ba ('x86-64: reduce range spanned by 1:1 mapping and frame table indexes')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> One could argue "let's keep the NUL check here and remove it from
+> grub_parse_xen_cmdline()", but that doesn't work either because we only
+> get to control the contents of cmd_line if we boot in PVH mode. If
+> instead we boot in PV mode, cmd_line is initialized by Xen itself. GRUB
+> receives a pre-populated and ready-to-use start_info struct directly
+> from the hypervisor in this scenario. Xen is supposed to ensure that
+> start_info is always NUL-terminated, but if there's ever a bug in Xen
+> that breaks that assumption, that could result in bad things happening,
+> the same as if we didn't do the NUL check in grub_xen_setup_pvh(). Now
+> of course there's nothing we can do about Xen possibly being buggy (if
+> it gives us a GRUB_XEN_MAX_GUEST_CMDLINE-long buffer with no NUL
+> terminator, too bad), but we can at least make sure that we're ready
+> for that eventuality. That's why I like having both NUL checks - we're
+> ready for if Xen does things wrong, and any future code that isn't
+> ready for that eventuality will still work if things go wrong, at least
+> in PVH mode.
 
-Formatting aside, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+OK, it looks like this explanation, in shortened form, should land
+around this code... Or not... Please look below...
+
+> (Arguably any new code that depends on cmd_line *should* check it for a
+> NUL terminator. But I don't want to assume that all new code *will* do
+> so.)
+>
+> > > +        {
+> > > +          grub_strncpy ((char *)
+> > > grub_xen_start_page_addr->cmd_line,
+> > > +			(char *) pvh_start_info->cmdline_paddr,
+> > > +			GRUB_XEN_MAX_GUEST_CMDLINE);
+> > > +
+> > > +          if
+> > > (grub_xen_start_page_addr->cmd_line[GRUB_XEN_MAX_GUEST_CMDLINE - 1]
+> > > != '\0')
+> >
+> > If you convince me this code is still needed then I am afraid that
+> > this is not what you meant here...
+>
+> grub_strncpy doesn't just NUL-terminate the command line, it also fills
+> the entire remainder of the buffer with NUL characters. Therefore if
+
+I am afraid we are looking at different grub_strncpy() functions...
+
+> grub_strncpy NUL-terminated the copied string, the last character of
+> the buffer will always be NUL. This is a redundant check since the code
+> above goes to great lengths to avoid ever putting anything
+> non-NUL-terminated into the buffer, but I was under the impression you
+> wanted the check added just in case. I'm happy to remove it if it's not
+> desirable.
+
+I think we misunderstood each other. This code is redundant now...
+
+[...]
+
+> > > +is_key_safe (char *key, grub_size_t len)
+> > > +{
+> > > +  grub_size_t i;
+> > > +
+> > > +  for (i = 0; i < len; i++)
+> > > +    {
+> > > +      if (! (grub_isalpha (key[i]) || key[i] == '_'))
+> >
+> > Please drop space after "!"...
+>
+> Will change.
+>
+> > > +        return false;
+> > > +    }
+> >
+> > You can drop curly braces from here...
+>
+> Will change.
+>
+> (I initially kept this written the way it was though because the GNU
+> coding standards seemed to indicate I should keep the braces. "When
+> you have an if-else statement nested in another if statement, always
+> put braces around the if-else." [1] This isn't a nested if, but it's an
+> if within a for which is very similar.)
+>
+> Is there any recommended coding style documentation I should be looking
+> at other than the GNU coding standards and the GRUB coding style
+> guidelines? It seems I'm making an awful lot of style mistakes and
+> would like to avoid that going forward.
+
+Yes, it is but sadly it is not fully/properly/.. documented [1]...
+
+[...]
+
+> > > +  for (i = 0; i < GRUB_XEN_MAX_GUEST_CMDLINE; i++)
+> > > +    {
+> > > +      if (cmdline[i] == '\0')
+> > > +        {
+> > > +          cmdline_valid = true;
+> > > +          break;
+> > > +        }
+> > > +    }
+> > > +
+> > > +  if (cmdline_valid == false)
+> > > +    {
+> > > +      grub_error (GRUB_ERR_BAD_ARGUMENT,
+> > > +		  "command line from Xen is not NUL-terminated");
+> > > +      grub_print_error ();
+> >
+> > grub_fatal()?
+>
+> That would probably be a bad idea here. We use (or, at least, will use)
+> grub_fatal() in grub_xen_setup_pvh() because if grub_strncpy() doesn't
+> NUL-terminate the string it copies, it indicates a bug in GRUB (either
+> in grub_strncpy, or more likely in the nearby NUL-checking code). On
+> the other hand, cmdline_valid may equal false if we boot in PV mode and
+> Xen incorrectly hands us a non-NUL-terminated string. That's bad and
+> prevents us from parsing the command line safely, but I'd argue it
+> shouldn't entirely block boot. (Then again, maybe if it does block
+> boot, that will make this kind of theoretical Xen bug be much more
+> noticeable and help it get fixed quicker. If you'd prefer that we bail
+> out entirely here, I'm happy to change it.)
+
+As I said earlier, I would simply call grub_strncpy() in grub_xen_setup_pvh()
+without additional NUL-check there and fail if non-NUL-terminated string
+is detected here...
+
+> > > +      goto cleanup_main;
+> > > +    }
+> > > +
+> > > +  cmdline_len = grub_strlen (cmdline);
+> > > +  for (i = 0; i < cmdline_len; i++)
+> > > +    {
+> > > +      current_char = cmdline[i];
+> > > +
+> > > +      /*
+> > > +       * If the previous character was a backslash, append the current
+> > > +       * character to the word verbatim
+> > > +       */
+> > > +      if (splitter_state & SPLITTER_HIT_BACKSLASH)
+> > > +        {
+> > > +          splitter_state &= ~SPLITTER_HIT_BACKSLASH;
+> > > +          if (append_char_to_word (s, current_char, false) == false)
+> > > +            goto cleanup_main;
+> > > +          continue;
+> > > +        }
+> > > +
+> > > +      switch (current_char)
+> > > +        {
+> > > +        case '\\':
+> > > +          /* Backslashes escape arbitrary characters. */
+> > > +          splitter_state |= SPLITTER_HIT_BACKSLASH;
+> > > +          continue;
+> > > +
+> > > +        case '\'':
+> > > +          /*
+> > > +           * Single quotes suppress word splitting and double quoting until
+> > > +           * the next single quote is encountered.
+> > > +           */
+> > > +          if (splitter_state & SPLITTER_IN_DOUBLE_QUOTES)
+> > > +            {
+> > > +              if (append_char_to_word (s, current_char, false) == false)
+> > > +                goto cleanup_main;
+> > > +              continue;
+> > > +            }
+> > > +
+> > > +          splitter_state ^= SPLITTER_IN_SINGLE_QUOTES;
+> > > +          continue;
+> > > +
+> > > +        case '"':
+> > > +          /*
+> > > +           * Double quotes suppress word splitting and single quoting until
+> > > +           * the next double quote is encountered.
+> > > +           */
+> > > +          if (splitter_state & SPLITTER_IN_SINGLE_QUOTES)
+> > > +            {
+> > > +              if (append_char_to_word (s, current_char, false) == false)
+> > > +                goto cleanup_main;
+> > > +              continue;
+> > > +            }
+> > > +
+> > > +          splitter_state ^= SPLITTER_IN_DOUBLE_QUOTES;
+> > > +          continue;
+> > > +
+> > > +        case ' ':
+> > > +          /* Spaces separate words in the command line from each other. */
+> > > +          if (splitter_state & SPLITTER_IN_SINGLE_QUOTES ||
+> > > +              splitter_state & SPLITTER_IN_DOUBLE_QUOTES)
+> > > +            {
+> > > +              if (append_char_to_word (s, current_char, false) == false)
+> > > +                goto cleanup_main;
+> > > +              continue;
+> > > +            }
+> > > +
+> > > +          if (append_word_to_list (s) == false)
+> > > +            goto cleanup_main;
+> >
+> > I think this is not fully correct. You should not run
+> > append_word_to_list() until the closing quote. So, here you should
+> > have "else" for the first "if", i.e., "if (splitter_state & ..." and
+> > call append_word_to_list() for closing \" and \' above.
+>
+> What closing quote? If we're in quotes, the `if (splitter_state &...`
+> block will run. That block runs `continue`, restarting the loop before
+> we get to the `append_word_to_list (s)` call. If we hit a closing
+> quote, either the `case '\''` or the `case '"'` block will be
+> triggered, changing the splitter's state so that it knows it's no
+> longer within a quote block, and then the next space (or the end of the
+> string) will cause `append_word_to_list()` to be called, adding the
+> quoted word to the list. Even if this `continue` changes to a `break`
+> like suggested below, the logic and control flow will remain the same.
+>
+> Calling `append_word_to_list()` for closing quotes would break the
+> splitter. I'm trying to implement splitting behavior similar to Bash or
+> GRUB's configuration language, both of which parse
+> `xen_grub_env_var="abc def"ghi` into the variable `xen_grub_env_var`
+> with the value `abc defghi`. If we split on closing quotes too, the
+> input above will be parsed into two words, `xen_grub_env_var=abc def`
+> and an extra word `ghi`, resulting in the environment variable
+> `xen_grub_env_var` being set to `abc def` and the `ghi` being lost
+> entirely. One could argue that this is reasonable behavior, but it
+> isn't consistent with the other splitting behavior in GRUB.
+
+OK, makes sense for me... Maybe you should mention somewhere in the code
+current splitter behavior...
+
+Daniel
+
+[1] https://www.gnu.org/software/grub/manual/grub-dev/grub-dev.html#Coding-style
 
