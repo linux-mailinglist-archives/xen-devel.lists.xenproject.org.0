@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32D5FB24763
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Aug 2025 12:35:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1079715.1440441 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9415B24827
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Aug 2025 13:15:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1079750.1440452 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1um8pQ-00021w-QH; Wed, 13 Aug 2025 10:35:32 +0000
+	id 1um9Qi-000769-L1; Wed, 13 Aug 2025 11:14:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1079715.1440441; Wed, 13 Aug 2025 10:35:32 +0000
+Received: by outflank-mailman (output) from mailman id 1079750.1440452; Wed, 13 Aug 2025 11:14:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1um8pQ-0001zS-NW; Wed, 13 Aug 2025 10:35:32 +0000
-Received: by outflank-mailman (input) for mailman id 1079715;
- Wed, 13 Aug 2025 10:35:31 +0000
+	id 1um9Qi-000739-Hs; Wed, 13 Aug 2025 11:14:04 +0000
+Received: by outflank-mailman (input) for mailman id 1079750;
+ Wed, 13 Aug 2025 11:14:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2/kn=2Z=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1um8pP-0001zJ-1p
- for xen-devel@lists.xenproject.org; Wed, 13 Aug 2025 10:35:31 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1um9Qg-000732-F0
+ for xen-devel@lists.xenproject.org; Wed, 13 Aug 2025 11:14:02 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 395b6243-7831-11f0-b898-0df219b8e170;
- Wed, 13 Aug 2025 12:35:26 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-459d4d7c745so58428795e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 13 Aug 2025 03:35:26 -0700 (PDT)
+ id 9c7aafef-7836-11f0-b898-0df219b8e170;
+ Wed, 13 Aug 2025 13:13:59 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-45a0dc77a15so18128005e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Aug 2025 04:13:59 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45a16de7665sm25028425e9.16.2025.08.13.03.35.24
+ 5b1f17b1804b1-45a16dffb63sm26604115e9.29.2025.08.13.04.13.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Aug 2025 03:35:25 -0700 (PDT)
+ Wed, 13 Aug 2025 04:13:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 395b6243-7831-11f0-b898-0df219b8e170
+X-Inumbo-ID: 9c7aafef-7836-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755081325; x=1755686125; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ece5JrrLOidUkSR6vq4emLTrQMDHU8C4Z3a6nPTuk/s=;
-        b=YFoRBP4mXhG4R1h94lyWa0YD6RaNrWI9pqb2bmiFODnPvO8stAyK6Etg6xcFrR3loh
-         tJahWFQAnhz5HMA+NFJvE3FbeBsOnFCU7qFb37H1ZPPiAstH6waPKNjJOBDUJTgtntRl
-         iAzQMpQtWojj+3h6rN+32hYCBlSTwBNQW0FAw=
+        d=citrix.com; s=google; t=1755083639; x=1755688439; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=B8vSB0+rV6l3e8E3zeiWrsPZzISbuCZrZhYDht06bwE=;
+        b=HNDhqrLx0ekRQU/HOU9fRKePcmW7afQHghzgx5FlDJN9dN1Uzxfes9p9AQbm4v6mG5
+         ceB5IifT2T4cbTOi7DZ+CxGpiBwUuZDMhJ7lPh/HfSlGA6dQQp5ObGSQn5VBd4e/ue15
+         +ZllS6qVWn6dViXkE8ft0pwmPRdkRV0nxaJlU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755081325; x=1755686125;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Ece5JrrLOidUkSR6vq4emLTrQMDHU8C4Z3a6nPTuk/s=;
-        b=jcb4/psv1Dd/t7kq5FhdNk07PvS6QDqn2yNUCm5O4WcGmNXOVgLcYxcrpMdTv/tdFJ
-         t/L7eon99jpA1m9wM9lso+Bd/XES6AGAwb0PQKjtSvenBKEOh5P3D4BoBD8Mw6/yAgW9
-         IDLWmL4uFws2aHCRbAqkT0aHLYaBfH27fBHa5FWdsJ2Al/OiUxav2mIE5J2sHCaUEBAT
-         O00/RWdDP/L3h51S9BKAWpDuiBZS/DBhFJX4JfhBkKDPFRrr01iYuLFn5ZS7+v7bHv+g
-         g0pfil+LEWLjGLcwO+u/mHgX7GnD6IHUqE3xwoUCVmTaXSNau2du96YLfdTavdtrioen
-         9gCQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVgQmE6tz78OEnbv+R5+j9bYCrYKDP3jeN12ky+6oUX+6p41JIA5PVGN2OdIt7UUqT2F3SXdpdVoWk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwZDHFQ/5b/TxyVtS8ewaW85+P7a+4PhD35tf9ACy6PK7iuQHvz
-	8+itNtubIs4MU5mD2woyJImVG2nqsoLR8telgVvGUnPJg6SOwKhtLczveP2ltGA9cfo=
-X-Gm-Gg: ASbGnctw3bVrwWGXYDVJ7vSx6/ImeF+hkPZ4/O5+nRiMods2fP5JN7LsZny7uRd3DUn
-	QHLjU2w3nmaowOy+GjxfRZmlVRCfmfdBI2j/U7sYO4C97+CWdyf6lsns6i8yvbe+RAPW6bw04XB
-	OOZ347Ty7xPxaXsT8q9Bpw2mGToM2X3E1lZhUM+lzeA8wtvwLEfpxRCunYvm0CYVtnmOyIjIOub
-	Ayazl8Ag3Dho2ZSB9zUO3GNJZwTKjz075JU+D9ncWXfrlM5gjXGI5aM2ak7tdwFRAWTcRv8JKt2
-	csUeiNG14DaXmneJ1QoLE4lZV39ZZLbU0Fs9pz4MKyJogI8E8+AM/1weTdxmOzd2OiU3E390XXd
-	uiiXo7fdnfPurjbLP0DD7Xhe70Gnv4aPnguZPvZIDFFArdOVWT6+gyGOBtN4Pr4PuAjvx
-X-Google-Smtp-Source: AGHT+IGJqlktXG1jgG7cc2YsLZHTKoViemFa7MYQqD4aHHKCWGLNnr2w9R2pG0jeeYZxHjPoUCFYKQ==
-X-Received: by 2002:a05:600c:4753:b0:458:bfb1:1fb6 with SMTP id 5b1f17b1804b1-45a16599f53mr22319655e9.2.1755081325421;
-        Wed, 13 Aug 2025 03:35:25 -0700 (PDT)
-Message-ID: <b97b30a3-0b26-43f2-95b4-41b79c416615@citrix.com>
-Date: Wed, 13 Aug 2025 11:35:24 +0100
+        d=1e100.net; s=20230601; t=1755083639; x=1755688439;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=B8vSB0+rV6l3e8E3zeiWrsPZzISbuCZrZhYDht06bwE=;
+        b=mo5NG7uxkTS9QnVLT0LDMhaKNNwKAZ/vmQb9TP1W9nI1B/79fD+ZBJf6qpxVZPFG4z
+         lTiWVN/vDm7neyoUoqUaCtih/Hoc1v8MbGU/cYgDzRl0W5I8LX452+JpRRLPbF8+qMHC
+         qCj0FsEiiezmPB2McgHn7BGKjPpLRjR3KGGjakokwylEK7/3+XC6RKfpsTWS5YQ7dAmC
+         BP3q9Z+pZVOSnOHyX7hrlIlVvNL7OZPiS+1YNG6xP360IO98riHuOPGieT2YDGjaoLqY
+         FsaFJKcrLjhT79p2ZYeBcWUxsUYo4E0xgWYAygFFUWdenSbpHElF9ftyFDZfFkIO3sqO
+         H4mg==
+X-Forwarded-Encrypted: i=1; AJvYcCWEpl83xtV2r1nN5/nJcx8o1ZvlLq4n5PtDe9Y3HWN9BMO939I6qP3A+4Ifb2wImlmVnSjynLF3niA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yye8pfm6HuEZX81v+XZMcV3kRGePQbi3X+oE/DaczKr5MHB+mxl
+	fDwQXbE7a/tUl0cSqAekhQGIorvRT9KUqSNlBGbCNXljf9xjwvdqhKcoiepQiCc93Hk=
+X-Gm-Gg: ASbGnctIsex8Q4r0eGbCMxxGgyTvGydDkPI5Wf6FuBlLPUFlyMM0MzDvcMPGwaUm3Fb
+	Oh1zAsf1bJsmsKxnj7XNTw2ODTtdISAG/eFZULoXKpZlgbU8uDxhkMnrIVcLa850qC28Avnbp8T
+	ZC/ezFIPTh4wYLrflQl0qz45CvboDtSJqIrJURA1kkzigoJh7KoY387DtyHZ1C65UVd0gJf/73y
+	n/XihdRVBS4+BsrJeov0DmHRJ+JFvnYFfEX4deoFJdEpPzIAiSqpo5mMqizEExpmgYIX3S3KiK2
+	VGcI18nSYz/w7hMstQzKZuKif4DKdBE7DxjZAaP1/GF00E6EGGkUsDiATq5YOYQI14F7EL9DsCE
+	0CX93UYdQTOoUB89TcIgguLeaMV+ofARLqGbddMIMisUBynCFlwVa3eC+sWMLJ3+4bGkt
+X-Google-Smtp-Source: AGHT+IGxQbQqy849mubTXsKB3Pfv+vfUZfcS/adkGw5qp7AYPLsGsdIC/bXOICBe5fxIl835nHmEXA==
+X-Received: by 2002:a05:600c:45c7:b0:450:d37d:7c with SMTP id 5b1f17b1804b1-45a165db0d1mr18842915e9.21.1755083639187;
+        Wed, 13 Aug 2025 04:13:59 -0700 (PDT)
+Message-ID: <3e590b78-b2ac-435d-98d7-89c39d6f731f@citrix.com>
+Date: Wed, 13 Aug 2025 12:13:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/22] x86/spec-ctrl: Rework init_shadow_spec_ctrl_state()
- to take an info pointer
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 08/22] x86/traps: Introduce ap_early_traps_init() and set
+ up exception handling earlier
 To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
- <20250808202314.1045968-8-andrew.cooper3@citrix.com>
- <fa34bc4a-64d9-499c-bc07-787d2cdb36ea@suse.com>
+ <20250808202314.1045968-9-andrew.cooper3@citrix.com>
+ <d6573487-14ed-4e1f-9525-b702048bb87e@suse.com>
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -137,30 +137,119 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <fa34bc4a-64d9-499c-bc07-787d2cdb36ea@suse.com>
+In-Reply-To: <d6573487-14ed-4e1f-9525-b702048bb87e@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 12/08/2025 9:27 am, Jan Beulich wrote:
-> On 08.08.2025 22:22, Andrew Cooper wrote:
->> We're going to want to reuse it for a remote stack shortly.
-> Are we? From the titles of subsequent patches I can't judge where that would
-> be, so it's hard to peek ahead. And iirc earlier on it was a concious decision
-> to only ever run this locally.
+On 12/08/2025 9:41 am, Jan Beulich wrote:
+> On 08.08.2025 22:23, Andrew Cooper wrote:
+>> --- a/xen/arch/x86/acpi/wakeup_prot.S
+>> +++ b/xen/arch/x86/acpi/wakeup_prot.S
+>> @@ -63,6 +63,9 @@ LABEL(s3_resume)
+>>          pushq   %rax
+>>          lretq
+>>  1:
+>> +        /* Set up early exceptions and CET before entering C properly. */
+>> +        call    ap_early_traps_init
+> But this is the BSP?
 
-I don't recall that.  I recall bugs which occurred because there were
-several variables and we failed to sync one of them.
+By the end of the cleanup, what we have is:
 
-Either way, it's very clearly the right course of action to take now.
+At boot only:
+ * really early init, basic exception handling only
+ * regular init (inc syscall trampolines)
+ * late re-init as we change the stack linear address
+
+For everything else (APs, S3, hot-online):
+ * early, full exception handling
+ * regular init (inc syscall trampolines)
+
+
+Currently, these are named:
+ * bsp_early_traps_init()
+ * traps_init()
+ * bsp_traps_reinit()
+
+and
+ * ap_early_traps_init()
+ * percpu_traps_init()
+
+
+Perhaps ap_early_traps_init() should be named
+percpu_early_traps_init()?  But I'm open to suggestions.
 
 >
->> No functional change.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Nevertheless, trusting that you have a good reason:
-> Acked-by: Jan Beulich <jbeulich@suse.com>
+>> --- a/xen/arch/x86/smpboot.c
+>> +++ b/xen/arch/x86/smpboot.c
+>> @@ -327,12 +327,7 @@ void asmlinkage start_secondary(void)
+>>      struct cpu_info *info = get_cpu_info();
+>>      unsigned int cpu = smp_processor_id();
+>>  
+>> -    /* Critical region without IDT or TSS.  Any fault is deadly! */
+>> -
+>> -    set_current(idle_vcpu[cpu]);
+>> -    this_cpu(curr_vcpu) = idle_vcpu[cpu];
+>>      rdmsrl(MSR_EFER, this_cpu(efer));
+>> -    init_shadow_spec_ctrl_state(info);
+>>  
+>>      /*
+>>       * Just as during early bootstrap, it is convenient here to disable
+>> @@ -352,14 +347,6 @@ void asmlinkage start_secondary(void)
+>>       */
+>>      spin_debug_disable();
+>>  
+>> -    get_cpu_info()->use_pv_cr3 = false;
+>> -    get_cpu_info()->xen_cr3 = 0;
+>> -    get_cpu_info()->pv_cr3 = 0;
+>> -
+>> -    load_system_tables();
+>> -
+>> -    /* Full exception support from here on in. */
+>> -
+>>      if ( cpu_has_pks )
+>>          wrpkrs_and_cache(0); /* Must be before setting CR4.PKS */
+>>  
+>> @@ -1064,8 +1051,12 @@ static int cpu_smpboot_alloc(unsigned int cpu)
+>>              goto out;
+>>  
+>>      info = get_cpu_info_from_stack((unsigned long)stack_base[cpu]);
+>> +    memset(info, 0, sizeof(*info));
+> Why do we suddenly need this? Or is this just out of an abundance of
+> caution (while making the individual ->*_cr3 writes unnecessary)?
 
-Thanks.
+cpu_alloc_stack() explicitly uses alloc_xenheap_pages() which uses
+MEMF_no_scrub.  It will usually be zeroed memory because we allocate
+them all at the start of day, but it also has a habbit of being 0xc2'd
+when running under Xen.
+
+Also yes, I do dislike the ad-hoc zeroes of misc fields.
+
+>
+>> +    init_shadow_spec_ctrl_state(info);
+> May I suggest to move this further down a little, at least ...
+>
+>>      info->processor_id = cpu;
+> ... past here? Just in case other values in the struct may be needed
+> in the function at some point.
+
+Ok.
+
+>
+>>      info->per_cpu_offset = __per_cpu_offset[cpu];
+>> +    info->current_vcpu = idle_vcpu[cpu];
+> To be able to spot this, I think it wants /* set_current() */ or some
+> such.
+
+Ok.
+
+>
+>> +    per_cpu(curr_vcpu, cpu) = idle_vcpu[cpu];
+> It's a little odd to do this early (and remotely), but it looks all fine
+> with how the variable is currently used.
+
+It did take a little while for me to conclude that it is safe, but yes -
+it does relax a lot of ordering constraints for AP bringup.
 
 ~Andrew
+
 
