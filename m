@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89C0CB248C2
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Aug 2025 13:48:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1079791.1440482 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB412B248DF
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Aug 2025 13:54:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1079809.1440492 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1um9xL-0003nf-Ly; Wed, 13 Aug 2025 11:47:47 +0000
+	id 1umA3E-0005PD-8G; Wed, 13 Aug 2025 11:53:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1079791.1440482; Wed, 13 Aug 2025 11:47:47 +0000
+Received: by outflank-mailman (output) from mailman id 1079809.1440492; Wed, 13 Aug 2025 11:53:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1um9xL-0003kw-Ib; Wed, 13 Aug 2025 11:47:47 +0000
-Received: by outflank-mailman (input) for mailman id 1079791;
- Wed, 13 Aug 2025 11:47:46 +0000
+	id 1umA3E-0005Nj-4a; Wed, 13 Aug 2025 11:53:52 +0000
+Received: by outflank-mailman (input) for mailman id 1079809;
+ Wed, 13 Aug 2025 11:53:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2/kn=2Z=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1um9xK-0003ko-30
- for xen-devel@lists.xenproject.org; Wed, 13 Aug 2025 11:47:46 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
+ id 1umA3C-0005Nd-BL
+ for xen-devel@lists.xenproject.org; Wed, 13 Aug 2025 11:53:50 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4fd64a88-783b-11f0-b898-0df219b8e170;
- Wed, 13 Aug 2025 13:47:38 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3b78a034f17so4954157f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 13 Aug 2025 04:47:38 -0700 (PDT)
+ id 2bed270c-783c-11f0-b898-0df219b8e170;
+ Wed, 13 Aug 2025 13:53:48 +0200 (CEST)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-45a15fd04d9so5743625e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Aug 2025 04:53:48 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b8fc28a7b0sm23073146f8f.63.2025.08.13.04.47.37
+ 5b1f17b1804b1-45a16dfdb01sm30261665e9.26.2025.08.13.04.53.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Aug 2025 04:47:37 -0700 (PDT)
+ Wed, 13 Aug 2025 04:53:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4fd64a88-783b-11f0-b898-0df219b8e170
+X-Inumbo-ID: 2bed270c-783c-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755085658; x=1755690458; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1755086027; x=1755690827; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iy1tBLDIVk3xzTwJcF3vFaNJwhpfkhjyT2B1lZ9N6JI=;
-        b=CrOnp1exa036BuMVpw+sA6aPOGE8aorHSjIrNXyUgE9qdI/aqVtz2cbXB9R3s3isj7
-         Z6SAkFVANeFeyN7G+gCuAHw+OID5/TZtjAXL3+/dcNLK5PuHvyt76Jj9qViUPdYGGYwB
-         Qqf7rKPz5Fg2UWh8aPj+MiG7LgSFLa3A+ZRx0=
+        bh=sEgN1NBRp2UQbu6ugHzoR/y9qKrCo5852koNe2J45jY=;
+        b=uP8C4mKoTxCz01BNaRda7c6ogzKtbzEcy30mSXQ3TAL8XAJSxubUNowij32BuMCj9X
+         M+2ZodZGXnEKkAc8LolXnSNNFkrYp40qB4ql4soZjyWaDQLpv5ct/idyO3gHOyAbvv+X
+         RBXK8KsK7tnpdMGhzMmMfGSLcg7jhq4GoNMe8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755085658; x=1755690458;
+        d=1e100.net; s=20230601; t=1755086027; x=1755690827;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iy1tBLDIVk3xzTwJcF3vFaNJwhpfkhjyT2B1lZ9N6JI=;
-        b=nPPnbi8P5bhlm6jTXenWsgilCMFaSs43Y/wr/8RD3B2iIrUYp6Y9tqRtp6C/e5glnH
-         qoFVouTbwOkVgvT9jlol3lhuujpQdsIozTsqPcA55D98O0Gc3KC+CEf/cjEC8hsEBkq3
-         0Zh1EwDzeM+E7CfZjsBtfxnlUQzrK/SAn85/MfcemEpcWuCvZueDU4Iy1zmUEN7+1ule
-         tcvBLb1ZJqtHaD2eP/MQ9ISSYGpOvocgZKZIb6DslWY71TJrYuUEgYC5JwASdBDERMXf
-         vbATpw7BzKUI9+NvqsgEWUj9ZxSpQBJdvMAcPevypSlxGdXo+ATjaLRyaCs3YS34lid2
-         C8+Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVZYRmhHwLRmeME6fCMTE0V29yoENQCPEDtM1Kq5Q/QKgZhOh8tpiYWe6VjNtaEiiUKVskVK2UjQd8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwE7A01d+3RLSrtMwzubIJXizzBy628+YNGCj5tIBaa/NzW4m0q
-	ioAVNI/cLxYUclA7tW2HUkmM/kYhc9bOup03U8O+cImIzcPw2WwpJ2U/lYwvPGcVoAs=
-X-Gm-Gg: ASbGncv7UnLddJXvGcecS8MVRdgpdRLWoJViZBSFvMS9WApLCiME1CeTc6j+ndBF/md
-	hKNaqD4c1aB9cKWjxAr84wsl/ZT/uW3XygQqa3V0LkrseEdDKg2CW5JGSOqDBGhPpJznsRXWYLd
-	omd+HNH9+6xn4755peqSKq3X1TSdkuYUutr+Xl4/9mPy8VSjSpRws0HDu/D7WXgYr3+CXGqHdHT
-	DH8r9OU1CDpztRom2t2nko9nIzRAzT5A3/WSVI8r4c7fI2V7Z1avCn2xOIXtKf9uCxJMWfiEX8z
-	WvRdFRnAicyMe6KOSNyNQispMKo86tfNdj6DbJ2M++EUnzn3+Vp1VKDn4PoirZzo2aU6zNLgQZY
-	rTW3G8osMYxjlYPueBDIDTfKA1Rvz2Bm8QeKzVWjxrjG19pgSsqamWXZyW6vXLpRSrtTv
-X-Google-Smtp-Source: AGHT+IFj2U5g5L4A/6mfvy60zsXMic7fuMjZcMnAGsCRvxY9EsvCBOPq3KF8OOh4BcqamhgKFlQccA==
-X-Received: by 2002:a05:6000:4285:b0:3a5:8934:4940 with SMTP id ffacd0b85a97d-3b917f417ffmr1827310f8f.50.1755085658099;
-        Wed, 13 Aug 2025 04:47:38 -0700 (PDT)
-Message-ID: <f3e57860-d4db-43c5-8cb2-29eac2163c1d@citrix.com>
-Date: Wed, 13 Aug 2025 12:47:37 +0100
+        bh=sEgN1NBRp2UQbu6ugHzoR/y9qKrCo5852koNe2J45jY=;
+        b=rgx1obvC32EWtZbJAWJCGTxlf7O5agxbm9sor/MO3gd8zZSRb4o7bhtWlRiAFMCHiK
+         5ifCBbXH2qOg/NqCYtmFuyXAAVS5au9kLaNdnkGXVwpZFqj2zJxKjBFuleQwnu+DTyQN
+         XeQNV0u8kHmL1mz8TqfaNrsgW2WCUo6Q5MhawWecheMZ7NxB2JW1WG6pwgVtnO3A1N7p
+         jUmHgLtRRVpNMR3bDgdtKjHWA5oa5n9lw3yONQYbzWq3Xoo6appDa9P6n2xGmByR8I8K
+         9pSAljkMGjaiDj/I27kaY3Ng50kZBMj3e873F4p81HsrpWSUgV3qRNC5CxxcyUPSXRI7
+         G0JQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUHZRpa/eYiEJ9R2Ee+SqMae8ItrRqTupc6tI8VKOh0A8Ow0lTuSUsqJOQ4T64nOhuwDdJ/iu/qkGA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzzzuohvRqVMEGN+Su9r/atALE5MC1QBvtgznXmXKATNIC3gDzM
+	5iQieyijK/FaGTSj9IKyTUTiSSNM8jtrJ3/8Ku+rGRIqElIIJA1f8hqiw0RyDgKlfxQXMdv+zxT
+	pjyDs
+X-Gm-Gg: ASbGncvmOd1qzg8IOhttpAqC/ffvjk5GrZhdtG4DtN1VKiS78jbZRXQUv6Zkb/YBQgX
+	1biU06hy7VBBbN2giCAJ69uxWsCWqXcemJPzJbABbLwCama/HywXepssFOgyaHhT2VVdN2iY1WN
+	Snbcwsh62FHKtAXAVMmNaWshMh75FBoGRw48CzZVymZohqGU+MIYM3SzzZIFimYXJs0MzcAhmmu
+	pgJIH75af2eSaQtx1bgvuA8CDMPDbzy67lH5jkttZO892FbIjkQmEh/y/wO1+z4KjbXHRq0CIpP
+	/Hg1bCnCkxAN+0L3VmTMO+7m6mX/8P4hguiRbG4pVxbI0W0CmwwYwpVzKes2yG6bbzvEJNywMkb
+	/K0RRqwnPwqWDMX0CRZwtwOLUjShmWUwdGpkBzg7G6g8utKEXT61qbipgyBYm6HPJ5Z+D
+X-Google-Smtp-Source: AGHT+IF1Wo/7udQ7g3xKzCTVNG6LSJABJbb/rM32Bh7Ez55u0dYGApC3Duu0BGdCKExOKqUF8L0qvQ==
+X-Received: by 2002:a05:600c:5296:b0:459:d3e2:d743 with SMTP id 5b1f17b1804b1-45a1701b813mr22155885e9.8.1755086027325;
+        Wed, 13 Aug 2025 04:53:47 -0700 (PDT)
+Message-ID: <3ff00f71-b16e-4426-98f5-27bc6f6b92cf@citrix.com>
+Date: Wed, 13 Aug 2025 12:53:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [Coverity complaint] Re: [PATCH v5] pdx: introduce a new compression
- algorithm based on region offsets
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Community Manager <community.manager@xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20250812150624.64898-1-roger.pau@citrix.com>
+Subject: Re: [PATCH 10/22] x86/traps: Move subarch_percpu_traps_init() into
+ traps-setup.c
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
+ <20250808202314.1045968-11-andrew.cooper3@citrix.com>
+ <646c538a-850a-4370-8132-c06d9be8b422@citrix.com>
+ <769ba73f-b490-43db-a056-fc1d95ec9f27@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -138,33 +139,178 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250812150624.64898-1-roger.pau@citrix.com>
+In-Reply-To: <769ba73f-b490-43db-a056-fc1d95ec9f27@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 12/08/2025 4:06 pm, Roger Pau Monne wrote:
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On 12/08/2025 10:52 am, Jan Beulich wrote:
+> On 11.08.2025 10:17, Andrew Cooper wrote:
+>> On 08/08/2025 9:23 pm, Andrew Cooper wrote:
+>>> ... along with the supporting functions.  Switch to Xen coding style, and make
+>>> static as there are no external callers.
+>>>
+>>> Rename to legacy_syscall_init() as a more accurate name.
+>>>
+>>> No functional change.
+>>>
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> ---
+>>> CC: Jan Beulich <JBeulich@suse.com>
+>>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>> ---
+>>>  xen/arch/x86/include/asm/system.h |  2 -
+>>>  xen/arch/x86/traps-setup.c        | 97 ++++++++++++++++++++++++++++++-
+>>>  xen/arch/x86/x86_64/traps.c       | 92 -----------------------------
+>>>  3 files changed, 95 insertions(+), 96 deletions(-)
+>>>
+>>> diff --git a/xen/arch/x86/include/asm/system.h b/xen/arch/x86/include/asm/system.h
+>>> index 3cdc56e4ba6d..6c2800d8158d 100644
+>>> --- a/xen/arch/x86/include/asm/system.h
+>>> +++ b/xen/arch/x86/include/asm/system.h
+>>> @@ -256,6 +256,4 @@ static inline int local_irq_is_enabled(void)
+>>>  #define BROKEN_ACPI_Sx          0x0001
+>>>  #define BROKEN_INIT_AFTER_S1    0x0002
+>>>  
+>>> -void subarch_percpu_traps_init(void);
+>>> -
+>>>  #endif
+>>> diff --git a/xen/arch/x86/traps-setup.c b/xen/arch/x86/traps-setup.c
+>>> index 13b8fcf0ba51..fbae7072c292 100644
+>>> --- a/xen/arch/x86/traps-setup.c
+>>> +++ b/xen/arch/x86/traps-setup.c
+>>> @@ -2,13 +2,15 @@
+>>>  /*
+>>>   * Configuration of event handling for all CPUs.
+>>>   */
+>>> +#include <xen/domain_page.h>
+>>>  #include <xen/init.h>
+>>>  #include <xen/param.h>
+>>>  
+>>> +#include <asm/endbr.h>
+>>>  #include <asm/idt.h>
+>>>  #include <asm/msr.h>
+>>>  #include <asm/shstk.h>
+>>> -#include <asm/system.h>
+>>> +#include <asm/stubs.h>
+>>>  #include <asm/traps.h>
+>>>  
+>>>  DEFINE_PER_CPU_READ_MOSTLY(idt_entry_t *, idt);
+>>> @@ -19,6 +21,8 @@ static bool __initdata opt_ler;
+>>>  boolean_param("ler", opt_ler);
+>>>  
+>>>  void nocall entry_PF(void);
+>>> +void nocall lstar_enter(void);
+>>> +void nocall cstar_enter(void);
+>>>  
+>>>  /*
+>>>   * Sets up system tables and descriptors for IDT devliery.
+>>> @@ -138,6 +142,95 @@ static void load_system_tables(void)
+>>>      BUG_ON(stack_bottom & 15);
+>>>  }
+>>>  
+>>> +static unsigned int write_stub_trampoline(
+>>> +    unsigned char *stub, unsigned long stub_va,
+>>> +    unsigned long stack_bottom, unsigned long target_va)
+>>> +{
+>>> +    unsigned char *p = stub;
+>>> +
+>>> +    if ( cpu_has_xen_ibt )
+>>> +    {
+>>> +        place_endbr64(p);
+>>> +        p += 4;
+>>> +    }
+>>> +
+>>> +    /* Store guest %rax into %ss slot */
+>>> +    /* movabsq %rax, stack_bottom - 8 */
+>>> +    *p++ = 0x48;
+>>> +    *p++ = 0xa3;
+>>> +    *(uint64_t *)p = stack_bottom - 8;
+>>> +    p += 8;
+>>> +
+>>> +    /* Store guest %rsp in %rax */
+>>> +    /* movq %rsp, %rax */
+>>> +    *p++ = 0x48;
+>>> +    *p++ = 0x89;
+>>> +    *p++ = 0xe0;
+>>> +
+>>> +    /* Switch to Xen stack */
+>>> +    /* movabsq $stack_bottom - 8, %rsp */
+>>> +    *p++ = 0x48;
+>>> +    *p++ = 0xbc;
+>>> +    *(uint64_t *)p = stack_bottom - 8;
+>>> +    p += 8;
+>>> +
+>>> +    /* jmp target_va */
+>>> +    *p++ = 0xe9;
+>>> +    *(int32_t *)p = target_va - (stub_va + (p - stub) + 4);
+>>> +    p += 4;
+>>> +
+>>> +    /* Round up to a multiple of 16 bytes. */
+>>> +    return ROUNDUP(p - stub, 16);
+>>> +}
+>>> +
+>>> +static void legacy_syscall_init(void)
+>>> +{
+>>> +    unsigned long stack_bottom = get_stack_bottom();
+>>> +    unsigned long stub_va = this_cpu(stubs.addr);
+>>> +    unsigned char *stub_page;
+>>> +    unsigned int offset;
+>>> +
+>>> +    /* No PV guests?  No need to set up SYSCALL/SYSENTER infrastructure. */
+>>> +    if ( !IS_ENABLED(CONFIG_PV) )
+>>> +        return;
+>>> +
+>>> +    stub_page = map_domain_page(_mfn(this_cpu(stubs.mfn)));
+>>> +
+>>> +    /*
+>>> +     * Trampoline for SYSCALL entry from 64-bit mode.  The VT-x HVM vcpu
+>>> +     * context switch logic relies on the SYSCALL trampoline being at the
+>>> +     * start of the stubs.
+>>> +     */
+>>> +    wrmsrl(MSR_LSTAR, stub_va);
+>>> +    offset = write_stub_trampoline(stub_page + (stub_va & ~PAGE_MASK),
+>>> +                                   stub_va, stack_bottom,
+>>> +                                   (unsigned long)lstar_enter);
+>>> +    stub_va += offset;
+>>> +
+>>> +    if ( cpu_has_sep )
+>>> +    {
+>>> +        /* SYSENTER entry. */
+>>> +        wrmsrl(MSR_IA32_SYSENTER_ESP, stack_bottom);
+>>> +        wrmsrl(MSR_IA32_SYSENTER_EIP, (unsigned long)sysenter_entry);
+>>> +        wrmsr(MSR_IA32_SYSENTER_CS, __HYPERVISOR_CS, 0);
+>>> +    }
+>>> +
+>>> +    /* Trampoline for SYSCALL entry from compatibility mode. */
+>>> +    wrmsrl(MSR_CSTAR, stub_va);
+>>> +    offset += write_stub_trampoline(stub_page + (stub_va & ~PAGE_MASK),
+>>> +                                    stub_va, stack_bottom,
+>>> +                                    (unsigned long)cstar_enter);
+>>> +
+>>> +    /* Don't consume more than half of the stub space here. */
+>>> +    ASSERT(offset <= STUB_BUF_SIZE / 2);
+>>> +
+>>> +    unmap_domain_page(stub_page);
+>>> +
+>>> +    /* Common SYSCALL parameters. */
+>>> +    wrmsrl(MSR_STAR, XEN_MSR_STAR);
+>>> +    wrmsrl(MSR_SYSCALL_MASK, XEN_SYSCALL_MASK);
+>>> +}
+>> These want adjusting to use wrmsrns(), similarly to the previous patch. 
+>> Fixed locally.
+> Also the one higher in the function, I suppose.
 
-Not this patch, but this is probably the best place to report it.
+All of them.
 
-https://scan5.scan.coverity.com/#/project-view/30554/10426?selectedIssue=1662707
+I'm not aware of anywhere were we want serialising behaviour, except for
+ICR which is buggly non-serialising and has workarounds.
 
-Something you did in the series made enough changes in
-pfn_pdx_compression_setup() for Coverity to start reporting an issue in
-some decade-old code.
+But I'm also not sure enough of this to suggest that we make wrmsr() be
+wrmsrns() by default.
 
-The complaint is on line:
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 
-277    ma_va_bottom_mask   = (PAGE_SIZE << bottom_shift) - 1;
-CID 1662707: (#1 of 1): Bad bit shift operation (BAD_SHIFT)
-
-34. large_shift: In expression 0x1000 << bottom_shift, left shifting by more than 31 bits
-has undefined behavior. The shift amount, bottom_shift, is as much as 63.
-
-
-The relevant part of earlier analysis seems to be the "i >=
-BITS_PER_LONG" check in the order loop, causing Coverity to think that i
-can be up to 63.
+Thanks.
 
 ~Andrew
 
