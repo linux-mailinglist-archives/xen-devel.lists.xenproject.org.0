@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52045B253BB
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Aug 2025 21:14:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1080216.1440759 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C064CB253BD
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Aug 2025 21:14:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1080218.1440768 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umGv4-00088b-Oy; Wed, 13 Aug 2025 19:13:54 +0000
+	id 1umGvC-0008R3-VS; Wed, 13 Aug 2025 19:14:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1080216.1440759; Wed, 13 Aug 2025 19:13:54 +0000
+Received: by outflank-mailman (output) from mailman id 1080218.1440768; Wed, 13 Aug 2025 19:14:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umGv4-00086a-Lb; Wed, 13 Aug 2025 19:13:54 +0000
-Received: by outflank-mailman (input) for mailman id 1080216;
- Wed, 13 Aug 2025 19:13:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1umGvC-0008Ot-SN; Wed, 13 Aug 2025 19:14:02 +0000
+Received: by outflank-mailman (input) for mailman id 1080218;
+ Wed, 13 Aug 2025 19:14:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EaOB=2Z=gmail.com=nicola.vetrini@bugseng.com>)
- id 1umGv2-0007sc-Fs
- for xen-devel@lists.xenproject.org; Wed, 13 Aug 2025 19:13:52 +0000
+ id 1umGvA-0008Mm-N8
+ for xen-devel@lists.xenproject.org; Wed, 13 Aug 2025 19:14:00 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a5f331ad-7879-11f0-a328-13f23c93f187;
- Wed, 13 Aug 2025 21:13:52 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a9c478ef-7879-11f0-b898-0df219b8e170;
+ Wed, 13 Aug 2025 21:13:58 +0200 (CEST)
 Received: from nico.tail79467d.ts.net (unknown [46.228.253.214])
  (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPSA id 0285C4EE3C05;
- Wed, 13 Aug 2025 21:13:49 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPSA id 605154EE3C05;
+ Wed, 13 Aug 2025 21:13:55 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,34 +40,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a5f331ad-7879-11f0-a328-13f23c93f187
+X-Inumbo-ID: a9c478ef-7879-11f0-b898-0df219b8e170
 Authentication-Results: bugseng.com; arc=none smtp.remote-ip=46.228.253.214
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1755112431;
-	b=WUSxfd6QKmXCEYL1lgv5Kf+5yGRKv/zdL9MdCPOIs1qRRMinh+Y7Gc48Cse+T3QDPWOi
-	 2nLy+tnZ/ur/E8qfecWkOVnWqHc3VyyTk6wiNhiWqlHOhmNmlsZ3e2ctkrOvX6O32n6Hb
-	 Kp1oAde6rdGjjL57yO087x/8b/XVkAYjTgZQFdcx/WXi+poXrkMfaLFdwBfVpm3dbnHwh
-	 6ytm1iKTqUD6KlR4RDuy+fQp5VSYIrSeBaG6tdsEn4wWhAgU4/PdbTM1A91hT4vuFX8Gv
-	 uu/AqmFmlBE8CUMWNZNzHSlNRf8bbFTIldkl/QfWmLvozJ+S6AU5+3eI8Bo1gApW/G7rL
-	 ZKCzjnwHwwqnJtMgUaAzLmBerwgqRKZopJf4V1VLVRL5q7dsj7IczMA2YdIj+XxKuKmOk
-	 yRLxZYbba/GWUwU00j5QY4UlSy+7YC59kpDKVPmKHePF4hkRZfaFZUBoK7vjSN1GjKjd0
-	 oxafUra7G4kzrGn5aK17sLe7J2GD9SE5b5jzdTVFgWXJsLw31+Q4WKYHc0xI9aX4dlS5i
-	 QFnjE56UDUwEzI1XoK8jgw2K8HHozBfABrWdhm/OklJTWIzF7V1VI3yUSnX/Qiyy+Sign
-	 h+FbofBVsM4FSsMcP62I41aYQLfcaxfBTYYW+m2cZ+xJ+7uVaXpVZFhXGS547DI=
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1755112438;
+	b=xYpRKG0Du5MG9elu+KVdUZcS71KNziGvjzX5TOOeQ+qOXLyxBmPpC9DnnSz1/7OCsSW/
+	 ZlUeUUOtolTiZ2w8hEICuhjhyyYI/mOslVdko3ZAk6D59Re7OCCu7u7FXyV/uSUjIaMk0
+	 gVVdPVu+X6QHkZvbZJLZIkayAqxVoadGYlpw6cBqb5UUjdOtj+cqTvjtfwC+9nplbShfs
+	 2brMdWfUzHNBOhWWbFJCTNq9+k+cwrk+5DS7pNZHE1rGdMyG7EnYV6kTqgQtszyr03Fz4
+	 7k6mHip8BS2AjgLrkkuQjnMKg+aOVslkHxsMeDjA4YNkSx37XQByL/7vGFf4gzvddIrHL
+	 WaDP0FCDrw982v718GixZIRmsDMhU1yZEGQx6emuEtQS7069Prc1izkdD0G66H0o/nx/d
+	 +GBs7qh8+8bb4U3YxUxV8CXECDBKptqazVgc1klt3NZfhqv9E3D3rECD6J8PWulS8fUNp
+	 cntKESnJY3M16Gy+IhuSXXz++g0WaWXJH7MT1ijGm8YyKfjxsEMJZJxSGA09h0jPzkQkc
+	 as31F5Gl2Zc5WdRTAr+RdDUuUWg4S4LKV5NLxjJSv+7eOWUrNK7M2Sal5648AGQ0+k8WK
+	 RQ2bOaNic8tIeCreo9mA1teB8GADkuZqHnZqHYMts64Peug0MVsfSuUfpi24V7I=
 ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1755112431;
+	c=relaxed/relaxed; t=1755112438;
 	h=From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=VOKEf9dD+zgMtMXQ5hikRxtG6VewsOUliCA+rvTuy60=;
-	b=kPGNecuzv54LVaDjZZTgvZLLDFeW6GmBzKh9OEc2AMuOqUbItm34KJtOCCf8h+pYEsSw
-	 uGZYJeQJDyUy0nMojOcfx42EIw2Guzm1TNC3NKSrU2Gy3yvDVIvmAPo+mAD6pqKS/0Cxb
-	 yDvD6dgwvzfi1IPmaYHDLrqYID4XLH+xbiSuJw6MkEnkvDCCUwX1Mz1Ydrq3etsSUqv4k
-	 isvxyDljWTCC9nIL/KefZGFVwb8NEe7UKi3zxJlLZLD4OrUtKC/9CBxuHGBiGbep3l76u
-	 DY+dBcNRfb1wIU3AGa9XcwZXexZcgEVQRrqFss2+ZFYUvtZ9t3fimpmfqTasZU99OV9Tq
-	 7/Ag22e77Fq3yO+ts3cFkPBDSAg6TvaJLGd+1/+GQn7EI2eYxQQDVmeXI+QsIw5FEdqIx
-	 EKWlfgd6qVksSEHbmzAzZFcDEdaTNurVac72udjbJaIb4AuDSc+WK8KYbPAR/Z4kx95uG
-	 nocdmpb177yC5oF+jwyDyHNC4px3n3viwADQVQZdZyOdMDoSjGQ/vklNfaFuUc1qbjbsu
-	 Cs6I6e7Mo20i1MvtUAvdt25C//Z7tr7kOSYzXbtXMXaA9SnBcviWdk+7D9/MVjpfN88aG
-	 AR+5E57+o7hKD2DbysKWHLXb5SfYhgbRV5CYFPpejCuV7voHOnCebkeI+mkc01E=
+	bh=X8Z/Iy3vEL05qlHR3iwBDCDEqtsnD159/f7F2D0+DUs=;
+	b=i6ZvIGiNHShaLfpmOXmHMrPxxxR11TeZd46h0tCg6aSV3BEFcnS/37r5blbbkCMdB5cK
+	 kUIAusgTbkFlUxn8+9TMbi4o1rFFYBcolN8i6NxwQv0quIyXKVrgMtH7xT7sqLg67eOYw
+	 E0MD7HUOYJFdjahoz4rqevsfk30GfVuaz3KN0nRN/IeRUEUCRZcHtNd6cX93oWI5Mim0E
+	 2UH9Ze4Pl2Ifvn6/mVsRN8Bq1bnP3jlo/ieZI3hD5xx1fQvQqV6rlfZ/w/ajclj2V4Y5w
+	 RW+147oYe+gI/jhIaRiwl27yTBTyaPmnifjKyYMdRXnS7JpovXrG914zVHRlz1nDQ0IwH
+	 w5mMLpFa3NTMo9xV0BwHXftIglaIV7nFosC5AI4C7JAXYVKbE58Huk8nKplLHmPHDiGm9
+	 ok8v6LPqP3BwOiwprBVysBTiznh3/GoG9YR6FlUi4mAJ3jqrt2zLz/BL7l/64ksPzi3hU
+	 pz+IYNVnX40ESwbqeR2VztlC03+8fgVY+jwxq6TlKn9tHlSMpnc8VPx+3zyeY8AL3c2T1
+	 owe1So80mE4OR3zsIAIfDF2ROINyEW6YaoPtBlIj5kCNi9pHFKBcGxvwI54z7vL6ykKJ2
+	 MOWo2qKIycsZiAMt6BzvpotWbXU+6ZZM2CGUAqohbaWbIj0dT9R8NkkXhXSdvx8=
 ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=46.228.253.214
 From: nicola.vetrini@gmail.com
 To: xen-devel@lists.xenproject.org
@@ -79,9 +79,9 @@ Cc: Nicola Vetrini <nicola.vetrini@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [XEN PATCH 1/3] xen/compiler: drop alternative unreachable() definition for older GCC
-Date: Wed, 13 Aug 2025 21:12:48 +0200
-Message-ID: <9215845f364527203efaea9dd1019cd1e3c1768b.1755111932.git.nicola.vetrini@bugseng.com>
+Subject: [XEN PATCH 2/3] xen/macros: Drop alternative definition of BUILD_BUG_ON(_ZERO)? for old GCC
+Date: Wed, 13 Aug 2025 21:12:49 +0200
+Message-ID: <d716610470ddd7da75789cfa546ed209ff24e1d1.1755111932.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1755111932.git.nicola.vetrini@bugseng.com>
 References: <cover.1755111932.git.nicola.vetrini@bugseng.com>
@@ -90,32 +90,44 @@ Content-Transfer-Encoding: 8bit
 
 From: Nicola Vetrini <nicola.vetrini@gmail.com>
 
-The GCC baseline version is 5.1, which supports __builtin_unreachable(),
-therefore the alternative definition can be dropped
+The toolchain baseline for GCC is 5.1, which supports _Static_assert
+in c99 mode
+
+No functional change.
 
 Signed-off-by: Nicola Vetrini <nicola.vetrini@gmail.com>
 ---
 Mentioned in https://gitlab.com/xen-project/xen/-/issues/201
 ---
- xen/include/xen/compiler.h | 4 ----
- 1 file changed, 4 deletions(-)
+ xen/include/xen/macros.h | 8 --------
+ 1 file changed, 8 deletions(-)
 
-diff --git a/xen/include/xen/compiler.h b/xen/include/xen/compiler.h
-index 735c844d2d15..88bf26bc5109 100644
---- a/xen/include/xen/compiler.h
-+++ b/xen/include/xen/compiler.h
-@@ -47,11 +47,7 @@
- # define cf_check
- #endif
+diff --git a/xen/include/xen/macros.h b/xen/include/xen/macros.h
+index cd528fbdb127..f9ccde86fb23 100644
+--- a/xen/include/xen/macros.h
++++ b/xen/include/xen/macros.h
+@@ -40,9 +40,6 @@
  
--#if (!defined(__clang__) && (__GNUC__ == 4) && (__GNUC_MINOR__ < 5))
--#define unreachable() do {} while (1)
+ #ifndef __ASSEMBLY__
+ 
+-/* All clang versions supported by Xen have _Static_assert. */
+-#if defined(__clang__) || \
+-    (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6))
+ /* Force a compilation error if condition is true */
+ #define BUILD_BUG_ON(cond) ({ _Static_assert(!(cond), "!(" #cond ")"); })
+ 
+@@ -54,11 +51,6 @@
+  */
+ #define BUILD_BUG_ON_ZERO(cond) \
+     (sizeof(struct { char c; _Static_assert(!(cond), "!(" #cond ")"); }) & 0)
 -#else
- #define unreachable() __builtin_unreachable()
+-#define BUILD_BUG_ON_ZERO(cond) \
+-    (sizeof(struct { unsigned u : !(cond); }) & 0)
+-#define BUILD_BUG_ON(cond) ((void)BUILD_BUG_ON_ZERO(cond))
 -#endif
  
  /*
-  * Compilers estimate the size of an asm() block for inlining purposes.
+  * Force a compilation error.  This is for code which, in the normal case,
 -- 
 2.43.0
 
