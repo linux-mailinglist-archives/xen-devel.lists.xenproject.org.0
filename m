@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AD06B24CD5
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Aug 2025 17:07:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1080031.1440666 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4C6BB24D0B
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Aug 2025 17:17:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1080043.1440679 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umD4a-00089o-HQ; Wed, 13 Aug 2025 15:07:28 +0000
+	id 1umDDs-0001Si-DM; Wed, 13 Aug 2025 15:17:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1080031.1440666; Wed, 13 Aug 2025 15:07:28 +0000
+Received: by outflank-mailman (output) from mailman id 1080043.1440679; Wed, 13 Aug 2025 15:17:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umD4a-00088L-Eg; Wed, 13 Aug 2025 15:07:28 +0000
-Received: by outflank-mailman (input) for mailman id 1080031;
- Wed, 13 Aug 2025 15:07:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1umDDs-0001Q7-AA; Wed, 13 Aug 2025 15:17:04 +0000
+Received: by outflank-mailman (input) for mailman id 1080043;
+ Wed, 13 Aug 2025 15:17:02 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YXQr=2Z=kernel.org=leon@srs-se1.protection.inumbo.net>)
- id 1umD4Z-00088F-G9
- for xen-devel@lists.xenproject.org; Wed, 13 Aug 2025 15:07:27 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 37be6c12-7857-11f0-b898-0df219b8e170;
- Wed, 13 Aug 2025 17:07:24 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 2F0C06112D;
- Wed, 13 Aug 2025 15:07:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B711C4CEF1;
- Wed, 13 Aug 2025 15:07:22 +0000 (UTC)
+ (envelope-from <anthony@xenproject.org>) id 1umDDq-0001Pv-CR
+ for xen-devel@lists.xenproject.org; Wed, 13 Aug 2025 15:17:02 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <anthony@xenproject.org>) id 1umDDp-003PZp-0y;
+ Wed, 13 Aug 2025 15:17:01 +0000
+Received: from [2a01:cb15:80df:da00:7360:a082:15b4:b94d] (helo=l14)
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <anthony@xenproject.org>) id 1umDDo-002Xxi-2z;
+ Wed, 13 Aug 2025 15:17:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,117 +39,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37be6c12-7857-11f0-b898-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1755097642;
-	bh=AgCFVr8B6NzxkSuzvPEJMB9AhjM0iYqJptnGya/8rdo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YENt6LTmzTF5MtD2CCE/V13VNj4PuphZirCcbsVboFbdWpo5pbDoM+O1RwGND9hHA
-	 WetmjCRKzL7pVzJCuB6ANhgpmI5NnCbOUKiA98JWJtIXOH8N50EVLmuQyuay6zm6ky
-	 Onvhe46hQosw9HCamdkdEFdjBFc8sAKkHOvcvhEwHpJ12ST8cc+74GQ77yCDPQN8yP
-	 6Wv7nBFsNIocmJw6FI3A2Sw+oIhMT6YNdwdLIq5MhleD6VLBx07CKPNCPkvEmssek+
-	 ZjeG2ZowZ0nIKyT2jMky93WoiZsWFLORbU579a0ityJsLq0oaeKqLOOi+Bq4oEc02a
-	 vNc66YhlSs8qQ==
-Date: Wed, 13 Aug 2025 18:07:18 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
-	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
-	Alexander Potapenko <glider@google.com>,
-	Alex Gaynor <alex.gaynor@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
-	iommu@lists.linux.dev, Jason Wang <jasowang@redhat.com>,
-	Jens Axboe <axboe@kernel.dk>, Joerg Roedel <joro@8bytes.org>,
-	Jonathan Corbet <corbet@lwn.net>, Juergen Gross <jgross@suse.com>,
-	kasan-dev@googlegroups.com, Keith Busch <kbusch@kernel.org>,
-	linux-block@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-nvme@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
-	linux-trace-kernel@vger.kernel.org,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
-	Sagi Grimberg <sagi@grimberg.me>,
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date;
+	bh=5CGFoFkA0da/z0blA5erXGxEsnjl6kQegdpa2LiIwvU=; b=0folAU/1q3OTwntCPIShxjfP88
+	kLt7YAZ0Qwv0gvst78dK9BsCy3B68CeCUYUBXRMMs1QEGnEag0d5l26vTseb6jR6ePONRzvOcEnvb
+	9MxGxGYNQvTIYMvITZjLVTYwr1a4751p9kRoDAPZXitP/a5KJp4L9WsvJ74D2d501Cac=;
+Date: Wed, 13 Aug 2025 17:16:58 +0200
+From: Anthony PERARD <anthony@xenproject.org>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v1 08/16] kmsan: convert kmsan_handle_dma to use physical
- addresses
-Message-ID: <20250813150718.GB310013@unreal>
-References: <cover.1754292567.git.leon@kernel.org>
- <5b40377b621e49ff4107fa10646c828ccc94e53e.1754292567.git.leon@kernel.org>
- <20250807122115.GH184255@nvidia.com>
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
+	Victor Lira <victorm.lira@amd.com>
+Subject: Re: [PATCH 2/5] CI: Update ppc64 to use Debian Trixie
+Message-ID: <aJysartA4Sh6bdTE@l14>
+References: <20250809221206.1260861-1-andrew.cooper3@citrix.com>
+ <20250809221206.1260861-3-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250807122115.GH184255@nvidia.com>
+In-Reply-To: <20250809221206.1260861-3-andrew.cooper3@citrix.com>
 
-On Thu, Aug 07, 2025 at 09:21:15AM -0300, Jason Gunthorpe wrote:
-> On Mon, Aug 04, 2025 at 03:42:42PM +0300, Leon Romanovsky wrote:
-> > From: Leon Romanovsky <leonro@nvidia.com>
-> > 
-> > Convert the KMSAN DMA handling function from page-based to physical
-> > address-based interface.
-> > 
-> > The refactoring renames kmsan_handle_dma() parameters from accepting
-> > (struct page *page, size_t offset, size_t size) to (phys_addr_t phys,
-> > size_t size). A PFN_VALID check is added to prevent KMSAN operations
-> > on non-page memory, preventing from non struct page backed address,
-> > 
-> > As part of this change, support for highmem addresses is implemented
-> > using kmap_local_page() to handle both lowmem and highmem regions
-> > properly. All callers throughout the codebase are updated to use the
-> > new phys_addr_t based interface.
-> 
-> Use the function Matthew pointed at kmap_local_pfn()
-> 
-> Maybe introduce the kmap_local_phys() he suggested too.
+On Sat, Aug 09, 2025 at 11:12:03PM +0100, Andrew Cooper wrote:
+> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+> index ab5211f77e5e..3fe539dc5683 100644
+> --- a/automation/gitlab-ci/build.yaml
+> +++ b/automation/gitlab-ci/build.yaml
+> @@ -319,10 +319,10 @@ debian-12-x86_64-clang-debug:
+>    variables:
+>      CONTAINER: debian:12-x86_64
+>  
+> -debian-12-ppc64le-gcc-debug:
+> +debian-13-ppc64le-gcc-debug:
+>    extends: .gcc-ppc64le-cross-build-debug
+>    variables:
+> -    CONTAINER: debian:12-ppc64le
+> +    CONTAINER: debian:13-ppc64le
+>      KBUILD_DEFCONFIG: ppc64_defconfig
+>      HYPERVISOR_ONLY: y
+>      EXTRA_XEN_CONFIG: |
+> @@ -705,6 +705,20 @@ debian-12-ppc64le-gcc:
+>      KBUILD_DEFCONFIG: ppc64_defconfig
+>      HYPERVISOR_ONLY: y
+>  
+> +debian-12-ppc64le-gcc-debug:
+> +  extends: .gcc-ppc64le-cross-build-debug
+> +  variables:
+> +    CONTAINER: debian:12-ppc64le
+> +    KBUILD_DEFCONFIG: ppc64_defconfig
+> +    HYPERVISOR_ONLY: y
+> +
 
-At this point it gives nothing.
+Why did you remove the EXTRA_XEN_CONFIG from this job? Currently, the
+job is setup as:
 
-> 
-> >  /* Helper function to handle DMA data transfers. */
-> > -void kmsan_handle_dma(struct page *page, size_t offset, size_t size,
-> > +void kmsan_handle_dma(phys_addr_t phys, size_t size,
-> >  		      enum dma_data_direction dir)
-> >  {
-> >  	u64 page_offset, to_go, addr;
-> > +	struct page *page;
-> > +	void *kaddr;
-> >  
-> > -	if (PageHighMem(page))
-> > +	if (!pfn_valid(PHYS_PFN(phys)))
-> >  		return;
-> 
-> Not needed, the caller must pass in a phys that is kmap
-> compatible. Maybe just leave a comment. FWIW today this is also not
-> checking for P2P or DEVICE non-kmap struct pages either, so it should
-> be fine without checks.
+    debian-12-ppc64le-gcc-debug:
+      extends: .gcc-ppc64le-cross-build-debug
+      variables:
+        CONTAINER: debian:12-ppc64le
+        KBUILD_DEFCONFIG: ppc64_defconfig
+        HYPERVISOR_ONLY: y
+        EXTRA_XEN_CONFIG: |
+          CONFIG_UBSAN=y
+          CONFIG_UBSAN_FATAL=y
 
-It is not true as we will call to kmsan_handle_dma() unconditionally in
-dma_map_phys(). The reason to it is that kmsan_handle_dma() is guarded
-with debug kconfig options and cost of pfn_valid() can be accommodated
-in that case. It gives more clean DMA code.
+Thanks,
 
-   155 dma_addr_t dma_map_phys(struct device *dev, phys_addr_t phys, size_t size,
-   156                 enum dma_data_direction dir, unsigned long attrs)
-   157 {
-   <...>
-   187
-   188         kmsan_handle_dma(phys, size, dir);
-   189         trace_dma_map_phys(dev, phys, addr, size, dir, attrs);
-   190         debug_dma_map_phys(dev, phys, size, dir, addr, attrs);
-   191
-   192         return addr;
-   193 }
-   194 EXPORT_SYMBOL_GPL(dma_map_phys);
-
-So let's keep this patch as is.
-
-Thanks
+-- 
+Anthony PERARD
 
