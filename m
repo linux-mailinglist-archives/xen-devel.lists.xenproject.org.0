@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2882AB256A4
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 00:34:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1080384.1440821 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62D17B256CA
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 00:40:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1080394.1440831 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umK2e-0008OH-IX; Wed, 13 Aug 2025 22:33:56 +0000
+	id 1umK8X-0000YI-57; Wed, 13 Aug 2025 22:40:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1080384.1440821; Wed, 13 Aug 2025 22:33:56 +0000
+Received: by outflank-mailman (output) from mailman id 1080394.1440831; Wed, 13 Aug 2025 22:40:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umK2e-0008Mi-Ej; Wed, 13 Aug 2025 22:33:56 +0000
-Received: by outflank-mailman (input) for mailman id 1080384;
- Wed, 13 Aug 2025 22:33:54 +0000
+	id 1umK8X-0000Vy-2R; Wed, 13 Aug 2025 22:40:01 +0000
+Received: by outflank-mailman (input) for mailman id 1080394;
+ Wed, 13 Aug 2025 22:39:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2/kn=2Z=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1umK2c-0008Mc-TD
- for xen-devel@lists.xenproject.org; Wed, 13 Aug 2025 22:33:54 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1umK8V-0000Vs-Te
+ for xen-devel@lists.xenproject.org; Wed, 13 Aug 2025 22:39:59 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 97b35266-7895-11f0-a328-13f23c93f187;
- Thu, 14 Aug 2025 00:33:54 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3b9dc5c2f0eso171144f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 13 Aug 2025 15:33:54 -0700 (PDT)
+ id 714462fa-7896-11f0-a328-13f23c93f187;
+ Thu, 14 Aug 2025 00:39:59 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-45a1ac7c066so2390055e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Aug 2025 15:39:59 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b79c3abedesm49490504f8f.3.2025.08.13.15.33.51
+ ffacd0b85a97d-3b79c4530a8sm48815802f8f.38.2025.08.13.15.39.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Aug 2025 15:33:52 -0700 (PDT)
+ Wed, 13 Aug 2025 15:39:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 97b35266-7895-11f0-a328-13f23c93f187
+X-Inumbo-ID: 714462fa-7896-11f0-a328-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755124433; x=1755729233; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1755124798; x=1755729598; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4hmgEIVlZGhK3VPLW2Zid7pc2EdMVtlmM8ABR/FV6ZU=;
-        b=HObf9VuWKcSZ5/UtaqgkvwyoaYF8NY8pfmmy4CccxuwkqhvPxD+0eSHb42r5j5XUMa
-         j5P0lnh4alhFvumyziqBQvVq8BsW3GvNQkKqJJYhvzQdvsXczOMRYgT3gmGinedUv2Qt
-         kQCK133hqNOKgwrgVhpXFltFyJ28/cq5NlJcA=
+        bh=vWd3APzGmEVc6GEtfE7z1vcUyLzkfJ/i1RhtHPCY/1E=;
+        b=X7XWPldTOWlmx+ZAyrp2KTkA4wRVMutTkvKJ2N/HUDM1MePk1I5fTcdyCjrETVDL/b
+         Nc894I7fdIQmWG8ZzEaXdj25OjunFY2k5xEGYIfY6NBkZajeia1wnNqwBREATZr46n29
+         64tC5zxULl8MdVMrHTSTfz5z3k0Jx5Ul9vIHw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755124433; x=1755729233;
+        d=1e100.net; s=20230601; t=1755124798; x=1755729598;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4hmgEIVlZGhK3VPLW2Zid7pc2EdMVtlmM8ABR/FV6ZU=;
-        b=DUZcpiiPscmybmuVCJpqG8KmqwtDCffdX8mF/2uIgUe6DwQnmx8E3idOX8ha0RiLmX
-         SEtucRTqL+Ltki7baLmeOqK4YfM4n9ZPiQHD//pAiJ1cBu7oegiJ7E3rESnBltloWBqr
-         PDA215+Viq8pJwRPg3Fzzb/t32jmnNmYgD42iZ/nUYfi4fmG0TdGL+daO6dJ0yNX/LEQ
-         svoCVnmGJFS7vPtspP+FSS67P+ylbMzUWouSfjWwNGSlpflj9z7f3AhIQYMqcTjUq+0r
-         NuN1PjZvd6KoR3hPp+LF7q00zLduMsVgkfGscqH/3kAVEDS3UfSg+AGt6S3K8C38vK1m
-         1u5g==
-X-Forwarded-Encrypted: i=1; AJvYcCVprKWa0yzy9jHT5yWIli1C4SZYhgA63prANk0k1PDSXc4D3pf9tkvVDhK8x3/If6Vjae8eLjZkzsA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyAIEFumd/30JHgArQIL5783a7+WuwDaXwtJ/h8AkhQe/Ne/Ni2
-	0wzBrH+ST88kSzM4CVMlWpitj8nzvNJkMqwf7mBwVx/8dx90+e4j0pHte4xxCB7MkQ8=
-X-Gm-Gg: ASbGnctVqARJPVpO6uRyE6zOZLS4/yCqgj1qIMjj9wSvnM2/3m9gsbxrH8IsGNelIXb
-	QL3rvO/6st0bHR+Z2+qyg3ewPNWvvNmiVTJFXv2ZtwM1a96YO783LM2UFLxkfiQXBIYi9TsgYpa
-	SzzW+KY/+9f7rUU/UamInAGR2TbbSBnHuqYfil1E2l9gzw8I16CuDFwOovEb55bf4/MgSS2YitX
-	Ho4yN60L8xfy9VUHvcMgd3sWhhNtoy0kckIvNH5i49xumdSqqPl1Xpy1latPN3a3f+8+FUxGnv7
-	wxCmkr4xTpRBrA0RaJqAJWHDpuKfGj0rViIXpkAyKalRJS/xpBgFYAUjjYpU6X5dw0HJ8BgSycR
-	3QUeZO7bY/f2kfsJaEBuvEsawdGhRzD5GvXaPmUqT12wbKlmUrzXr5EsFS7+KYMYci2Xw
-X-Google-Smtp-Source: AGHT+IGsZH07ICk2ccFUD6R15G1gCa60Kv6tOYAEZtBAIRyX1QOWyEJeRS8uMt0D8StSTEEDY5jmKg==
-X-Received: by 2002:a05:6000:25c6:b0:3a4:dc2a:924e with SMTP id ffacd0b85a97d-3b9e7438457mr623339f8f.6.1755124433387;
-        Wed, 13 Aug 2025 15:33:53 -0700 (PDT)
-Message-ID: <fe58d539-c650-4f38-bfe5-7e45c1181f7e@citrix.com>
-Date: Wed, 13 Aug 2025 23:33:51 +0100
+        bh=vWd3APzGmEVc6GEtfE7z1vcUyLzkfJ/i1RhtHPCY/1E=;
+        b=LXCut54zOSJ2wb2jMASs85lDzyNqji3QGawfsO1JrAiGaAxMzQpymydLuSB3esbM7w
+         UVwNPXqhsJnKU4477UMjhhGEt7vzmZRpCcUxdZ+O913MOe75HbkgGfykZZOgN8L0zV6K
+         dg9h1HeCh9jaWCf0A9TgbT6TCVPRp/S0TZayvGhu2FdterVwWs9baFhWTA3lvth1DmXy
+         dO7q/RwPCHmlJipXXnV+6p6TwJA2uGqKj+IHfgA+P/MzSl/A9dnOd7+yeh6DgqA1/Yvx
+         8PpOGSQncaOZQ/q1PlV2V35gF//zZmuOiMvqaWMFxLLt1wCJvDD8MkEqvcYhpbEz5fZ2
+         8sfA==
+X-Forwarded-Encrypted: i=1; AJvYcCXJcU6b54k814+X5znwSVHgznMzwENPvg0fEcLLCg4b0Un9i2N6YlzfsojJIEHrBqyOfkjGfAkky+0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxcEgytpzQgQwD1Qy/xMPqwb0nS31gTBpsknCrCHDTf9RbJYrGH
+	cB9wzVG3hkA26pZz+HXZHKSWdYwBk7BenRSGp9d2r8h2XA9iONrvCi50aWtuliHRRMw=
+X-Gm-Gg: ASbGncvbHc98jZ7egkbl0iqKmnIp4Cgm+yEV+G5Z5e3Oaz1XwCfHmlyeHDmbgYHHeWl
+	HQWeWV0BkA1eUbGjsIRI5iSeR0u9Lt0hsiGQtnF0yEc/qBCEHDjayM8A28n6G0SUEofWj1acaYU
+	UbtpSQ9It5kKtGrFBZ+6MBA0ofgRsKTYK3trDZT+EbLPYNQlYz7IyZvW/obbD2glBwdFDXxcU80
+	rXJ+dbRMrCB2rJnfnZZuE6PH+LEcKx+6jVKL1ZGdxG6JtX0AVvFhP8Sh6k3T4fW3BT6LpVzCAzG
+	v8py0L+2FaK4JaELgDbBv8wjuxhONGkpvBxJ/ADEbYxDQlJrDRq8tmfMp4AeJI7ohqQdxROWpNN
+	8TxfeTPUAxBZP+v7WWjLSdbdCIoZmMKVNQvi8cInkpJZt06TARdHANeNxtLyubLskeQES
+X-Google-Smtp-Source: AGHT+IHRserOVL2c18Bu/axnWisPhE9j7MfII9Pq7WJs3M+RGqnpCj9o2NrMbJTvbpZ9WjWcvHSyRw==
+X-Received: by 2002:a05:600c:19d2:b0:458:bd08:72a8 with SMTP id 5b1f17b1804b1-45a1b7b2166mr3454445e9.13.1755124798401;
+        Wed, 13 Aug 2025 15:39:58 -0700 (PDT)
+Message-ID: <a4ff322a-8cf3-4e8f-b243-6153e823eafd@citrix.com>
+Date: Wed, 13 Aug 2025 23:39:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 2/3] xen/macros: Drop alternative definition of
- BUILD_BUG_ON(_ZERO)? for old GCC
+Subject: Re: [XEN PATCH 3/3] xen/efi: efibind: Drop alternative define for old
+ GCC versions
 To: nicola.vetrini@gmail.com, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <cover.1755111932.git.nicola.vetrini@bugseng.com>
- <d716610470ddd7da75789cfa546ed209ff24e1d1.1755111932.git.nicola.vetrini@bugseng.com>
+ <4140895d7382e1e1d84b5f3988b497a7edd67034.1755111932.git.nicola.vetrini@bugseng.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -138,21 +138,40 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <d716610470ddd7da75789cfa546ed209ff24e1d1.1755111932.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <4140895d7382e1e1d84b5f3988b497a7edd67034.1755111932.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 13/08/2025 8:12 pm, nicola.vetrini@gmail.com wrote:
 > From: Nicola Vetrini <nicola.vetrini@gmail.com>
 >
-> The toolchain baseline for GCC is 5.1, which supports _Static_assert
-> in c99 mode
->
-> No functional change.
+> Since the toolchain baseline for GCC is 5.1, there is no need for
+> this case.
 >
 > Signed-off-by: Nicola Vetrini <nicola.vetrini@gmail.com>
 > ---
 > Mentioned in https://gitlab.com/xen-project/xen/-/issues/201
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+I personally am in favour of this change, but in the past there has been
+objection to changing this header it is vendered from elsewhere.
+
+e.g. far more could be stripped out if ...
+
+> ---
+>  xen/arch/x86/include/asm/x86_64/efibind.h | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+>
+> diff --git a/xen/arch/x86/include/asm/x86_64/efibind.h b/xen/arch/x86/include/asm/x86_64/efibind.h
+> index b29342c61cac..d71b9324a6bb 100644
+> --- a/xen/arch/x86/include/asm/x86_64/efibind.h
+> +++ b/xen/arch/x86/include/asm/x86_64/efibind.h
+> @@ -173,10 +173,8 @@ typedef uint64_t   UINTN;
+>  #ifndef EFIAPI                  // Forces EFI calling conventions reguardless of compiler options
+>      #ifdef _MSC_EXTENSIONS
+>          #define EFIAPI __cdecl  // Force C calling convention for Microsoft C compiler
+
+... it's noted that Xen doesn't use MSC and I can't see anyone taking
+the time to make it work.
+
+~Andrew
 
