@@ -2,33 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D8F3B24BD3
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Aug 2025 16:28:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1079979.1440630 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCBD0B24CC3
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Aug 2025 17:04:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1080022.1440655 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umCRk-0002Xe-70; Wed, 13 Aug 2025 14:27:20 +0000
+	id 1umD11-0007bJ-2h; Wed, 13 Aug 2025 15:03:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1079979.1440630; Wed, 13 Aug 2025 14:27:20 +0000
+Received: by outflank-mailman (output) from mailman id 1080022.1440655; Wed, 13 Aug 2025 15:03:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umCRk-0002VC-36; Wed, 13 Aug 2025 14:27:20 +0000
-Received: by outflank-mailman (input) for mailman id 1079979;
- Wed, 13 Aug 2025 14:27:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1umD10-0007Zv-W2; Wed, 13 Aug 2025 15:03:46 +0000
+Received: by outflank-mailman (input) for mailman id 1080022;
+ Wed, 13 Aug 2025 15:03:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7RVd=2Z=net-space.pl=dkiper@srs-se1.protection.inumbo.net>)
- id 1umCRi-0002V5-CV
- for xen-devel@lists.xenproject.org; Wed, 13 Aug 2025 14:27:18 +0000
-Received: from dibed.net-space.pl (dibed.net-space.pl [84.10.22.86])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9c0c6033-7851-11f0-b898-0df219b8e170;
- Wed, 13 Aug 2025 16:27:15 +0200 (CEST)
-Received: from router-fw.i.net-space.pl ([192.168.52.1]:46210 "EHLO
- tomti.i.net-space.pl") by router-fw-old.i.net-space.pl with ESMTP
- id S2272809AblHMO1O (ORCPT <rfc822;xen-devel@lists.xenproject.org>);
- Wed, 13 Aug 2025 16:27:14 +0200
+ <SRS0=ADYb=2Z=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1umD0z-0007Zp-Hr
+ for xen-devel@lists.xenproject.org; Wed, 13 Aug 2025 15:03:45 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20619.outbound.protection.outlook.com
+ [2a01:111:f403:2414::619])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b362fd6a-7856-11f0-a328-13f23c93f187;
+ Wed, 13 Aug 2025 17:03:43 +0200 (CEST)
+Received: from MN0P221CA0013.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:52a::18)
+ by DM4PR12MB6663.namprd12.prod.outlook.com (2603:10b6:8:8f::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.13; Wed, 13 Aug
+ 2025 15:03:38 +0000
+Received: from BL6PEPF00022574.namprd02.prod.outlook.com
+ (2603:10b6:208:52a:cafe::c4) by MN0P221CA0013.outlook.office365.com
+ (2603:10b6:208:52a::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9031.15 via Frontend Transport; Wed,
+ 13 Aug 2025 15:03:38 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL6PEPF00022574.mail.protection.outlook.com (10.167.249.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9031.11 via Frontend Transport; Wed, 13 Aug 2025 15:03:38 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 13 Aug
+ 2025 10:03:34 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 13 Aug
+ 2025 10:03:34 -0500
+Received: from [172.23.255.54] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 13 Aug 2025 10:03:32 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,313 +63,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c0c6033-7851-11f0-b898-0df219b8e170
-X-Comment: RFC 2476 MSA function at dibed.net-space.pl logged sender identity as: dkiper
-Date:	Wed, 13 Aug 2025 16:27:11 +0200
-From:	Daniel Kiper <dkiper@net-space.pl>
-To:	Aaron Rainbolt <arraybolt3@gmail.com>
-Cc:	grub-devel@gnu.org, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v4 2/2] kern/xen: Add Xen command line parsing
-Message-ID: <20250813142711.l4jxlgjk426ansab@tomti.i.net-space.pl>
-References: <20250804234816.3d14f53f@kf-m2g5>
- <20250804234911.3cc3997c@kf-m2g5>
- <20250804235009.30e39bd9@kf-m2g5>
- <20250812170211.q7ezlveygfsdkz34@tomti.i.net-space.pl>
- <20250812185515.436a33da@kf-m2g5>
+X-Inumbo-ID: b362fd6a-7856-11f0-a328-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qcPt3LjFUgL5sInauuz86Coww4uSJ64ZeGfmP7j/wGAXupyDxREFppM9z6QC0KUcpc4/HsBXvP9o8qJ9H9mNdDW3QwT4ljC6JzyJXzdmNq18wQKfK809zJ/OtOKGcBJB9rilp6LK4irym8/FobbDuEsG4mQM2pmOwH+2bsqKfAURkk08dsK64JFD7qnbj7wkYathBEpzg+N04GnS/VIEWWhzZ8THmiM1VdT2lTs3DGb9osHXk0xaiVGWNi7Ac9YGdoZPKoeTYsvyRcNLAJvadLSzf/CF0/xXLCQs9G8JfOKY08O2TfsOReKpYmsqBSDFlASuetugD+PtQoyWO6+yfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fbXIz+dpf07LB8Lps4BsCGr7J8+XyURVjsYYM66Yg1Y=;
+ b=WayCJ5Vyv1Gc4z/M1yktRmM5RRMEQse2enL59vlTX0XP2VjPrNT0gAwVoYp1uYXd24/oyp9viVYg7uuBq330wBbv1pRglUcpIuhiOSaCaeDdxVZkzcIH18oebMafVyt96cLZNMC+aKmkx032lTCJSWm53zoN/wkbFABkRsI1NG0Aw6JZwUiEMxZIwU+J3+pJnIUl90NJFR9brEF34oeP1aWkHQzJ6JEQQw7K0sD74PH4dOctqWlpSmT3ncXDtYE94XcEBlz5YdgFQQ8Ob0ccBtE91bonxHQovZH35d544PQrI5/nHCB1dMshUUM0T39p9qYm0LW71bYl3sz9730TgQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fbXIz+dpf07LB8Lps4BsCGr7J8+XyURVjsYYM66Yg1Y=;
+ b=py+VIA2ICXxTSJ8YMzZAZmBbBfUBJrgcotpgG2oxqyZrqbTJJ9GoqiBMcEFayUUG6Etalbchh8ViWxMdGy18CDYKRulRtsQhZKgi5uZrZebdRDtymvbHTUV1Ir/1DEcOds1o3so3nBNspm06gL92oHls255zW4TEnBmgZKoPtak=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <a4b5fd6b-80db-4b58-b3e8-5832e542d64c@amd.com>
+Date: Wed, 13 Aug 2025 11:03:28 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250812185515.436a33da@kf-m2g5>
-User-Agent: NeoMutt/20170113 (1.7.2)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/events: Fix Global and Domain VIRQ tracking
+To: Juergen Gross <jgross@suse.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Oleksandr Tyshchenko
+	<oleksandr_tyshchenko@epam.com>, Chris Wright <chrisw@sous-sol.org>, "Jeremy
+ Fitzhardinge" <jeremy@xensource.com>
+CC: <stable@vger.kernel.org>, <xen-devel@lists.xenproject.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20250812190041.23276-1-jason.andryuk@amd.com>
+Content-Language: en-US
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <20250812190041.23276-1-jason.andryuk@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00022574:EE_|DM4PR12MB6663:EE_
+X-MS-Office365-Filtering-Correlation-Id: ba4759dc-dea8-49be-b56e-08ddda7a9579
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|36860700013|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?OE5CNXFid3cyZG9VR1E3Ym4rK1RHNWRDaDV2WHBIbDZCZFRCVDd4Q3Z3dHBD?=
+ =?utf-8?B?ZVB1Z2xQdy9Fc29EcjR3WnZqZDNEYjlDakdJZTVlT1lWaFQzTitqZDFHd05H?=
+ =?utf-8?B?akR1LytvVEpFRVRrTW1ncXJBMk1vYncvTEFhSDc1cTR2eVlXQmNEdHlrbkNy?=
+ =?utf-8?B?d1k3UGNLQUJDS0lySUxjaVFlTkRxcVEyeW5NdVQwaWZ6R3VtN280RVh6ekds?=
+ =?utf-8?B?S01BeEFlTGo1Mmd1RnlxL3hvb2NZUHhsY3NoczRaT3VwM0tpb1hIWURPUnZy?=
+ =?utf-8?B?OFFwOWV4UmlwZDBZVG1RczRxZzJCWnlTSFdYMld3M3VzMnVEUWlDNjQ5VDhw?=
+ =?utf-8?B?RVJwdnZOY01rVjFvaktWTHpxa1F1bU1pUkVPTzRva1JZTzhNTDlBV0xkVTcx?=
+ =?utf-8?B?S3RGZDg5anhsdTg0eFo3YlJZZ2dCdnBLNnhnVEcvdmdydXNUTjFBZjAzTU41?=
+ =?utf-8?B?TEpPL08rbm5Qb0ZlNHJYVHFURXBlbHdoZzF0dkh0R1d0b09sQ0lHd3N2ZW5P?=
+ =?utf-8?B?eHVQYjhrSDZrbVM3RWN0cmlrdGt5a085cmNndkRSMmt0SU82eVc1MWg4ZHBn?=
+ =?utf-8?B?dEc1bjJwR0dBNUVldWpaWmJMc3k5aTM0N1l6WThIOVdrR1pOajhnQzZwK0dq?=
+ =?utf-8?B?cnFwdHlnL0JqWG5hazBvRmRoS3h4em1FWnV6NUhsbithaDU2MXY2WmNXaHNr?=
+ =?utf-8?B?YXg4WnpkREpuWXVrTzVvd0lOUlp2UDZtbDJaUWlRYzhzWHFqWnlBcjZ3Q2tq?=
+ =?utf-8?B?K0NBanN6d3l2YUVyak5yUmJHbmJnaVdrQ2tLei9BR0Z6a1BMeHpIa1JjUDAv?=
+ =?utf-8?B?Z0FvZ1ZLZnhzNXI2dklpbWhKZjJuK2pYNU96Y0JQQkxpQjRiNG1qVWVROHdo?=
+ =?utf-8?B?eW9NTVhxeHdyMFl2SkVrMjc0LzhlUEQ5VCtQQmxlNWI4aFZNeFowZU1HbnFy?=
+ =?utf-8?B?Ymp0U1ZOcVhyTGlyaDhBTE5xY3BrYU95MGlSVHcrWjlpdUgwQ3E4YmhEYW9M?=
+ =?utf-8?B?c2hNNm5yVzg3NVRZTllaUWpydGQ4V0ZvWml3MFY2TWxsSGVlWlZTeVRQMlZi?=
+ =?utf-8?B?VjZOcENKbTVMSk1EWlhTU1FQSEtKMys4QnZ6M1hGNDhmNWc3SDFlY1VaVWhk?=
+ =?utf-8?B?Mk16WDBxSU9PR3JlWTg4RmJVQWVKb01GekMyK0tGYUJWc3VvR0RwdXdVTnZv?=
+ =?utf-8?B?UXJlRTZ5aE4vM0FycDJ2T1YrR29CT3RPWHRQV01yeExBMkl0MUk2L2NyTkd6?=
+ =?utf-8?B?WGNibWp3TkRXbTJpME5FSVVwK1RGSXVza1JvdXlsY0pBMUtjZnhiZVZVdHVw?=
+ =?utf-8?B?RWtlZjFDOG1GWFJHeGx3RXIxZ2RRMVpIalduUlQxb3IrTFdZdEtxeXkyU0hy?=
+ =?utf-8?B?WVIyZU1MZGNLdGN0Ry8vR29UczQzcTl3eDdZaDZKdmpYUENLbjZrQWl5aDNx?=
+ =?utf-8?B?bmpjU2x4QVVINmdEYVYzRlZERS9LTC9kU1o3L2JWZ3U0L1ZCdEJRTDRIaXdn?=
+ =?utf-8?B?NHdVOVZvc2syenZDczJMNnVDNlpWdXVHMU5XMHM5TjIzR2ZKZG1kNHBjbXp5?=
+ =?utf-8?B?VG1kU2hXSGVUM0VaMnhWd0RKd0c4ZTc1bTMzV3ZDWFRySXFJK0RCOXNiK2Nn?=
+ =?utf-8?B?WUVqZ05Ka2ZHVjhiQ1VKSUxvcTlVWVBLUUIvR21zbkZuaG52R09iUkdhR29y?=
+ =?utf-8?B?MGZPU3ZTRVpQT1o2NTJEdGZuZ29SNU95QnVobVVMNHlPd0J5bjBzWlBDNkpV?=
+ =?utf-8?B?bXpOWDVoRnRWalNSbzI2aU81T2NEQmdxd3RuSDBkWWNOcTR6Si9lbG9xdTB4?=
+ =?utf-8?B?WXU3dU5jUi8zSDB3eVpkcHdGaDZzTjZMb2k1WXFrSmdTNXNlU2ZrcllpaWdL?=
+ =?utf-8?B?REVZZVhYRnFFMVRzdlpFdlVPNlc1enQwcWJFbGZ3ZE0zd0Z1YTNkNnVnWEc2?=
+ =?utf-8?B?b1d1U1hpWXZxcXF6RU5CWVZCRmN6WGZwR0RKMUVXTGJibHIzVFlhclV1cStC?=
+ =?utf-8?B?amR0RVY5S1BwNWF4MU9hMU5nUTZkbmgxUFc3ZFdWQUVsM2hidHAzUTVtaVAx?=
+ =?utf-8?Q?d+ru2D?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2025 15:03:38.4675
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba4759dc-dea8-49be-b56e-08ddda7a9579
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF00022574.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6663
 
-On Tue, Aug 12, 2025 at 06:55:15PM -0500, Aaron Rainbolt wrote:
-> On Tue, 12 Aug 2025 19:02:11 +0200 Daniel Kiper <dkiper@net-space.pl> wrote:
-> > On Mon, Aug 04, 2025 at 11:50:09PM -0500, Aaron Rainbolt wrote:
-> > > Xen traditionally allows customizing guest behavior by passing
-> > > arguments to the VM kernel via the kernel command line. This is no
-> > > longer possible when using GRUB with Xen, as the kernel command
-> > > line is decided by the GRUB configuration file within the guest,
-> > > not data passed to the guest by Xen.
-> > >
-> > > To work around this limitation, enable GRUB to parse a command line
-> > > passed to it by Xen, and expose data from the command line to the
-> > > GRUB configuration as environment variables. These variables can be
-> > > used in the GRUB configuration for any desired purpose, such as
-> > > extending the kernel command line passed to the guest. The command
-> > > line format is inspired by the Linux kernel's command line format.
-> > >
-> > > To reduce the risk of misuse, abuse, or accidents in production, the
-> > > command line will only be parsed if it consists entirely of 7-bit
-> > > ASCII characters, only alphabetical characters and underscores are
-> > > permitted in variable names, and all variable names must start with
-> > > the string "xen_grub_env_". This also allows room for expanding the
-> > > command line arguments accepted by GRUB in the future, should other
-> > > arguments end up becoming desirable in the future.
-> > >
-> > > Signed-off-by: Aaron Rainbolt <arraybolt3@gmail.com>
+On 2025-08-12 15:00, Jason Andryuk wrote:
+> VIRQs come in 3 flavors, per-VPU, per-domain, and global.  The existing
+> tracking of VIRQs is handled by per-cpu variables virq_to_irq.
+> 
+> The issue is that bind_virq_to_irq() sets the per_cpu virq_to_irq at
+> registration time - typically CPU 0.  Later, the interrupt can migrate,
+> and info->cpu is updated.  When calling unbind_from_irq(), the per-cpu
+> virq_to_irq is cleared for a different cpu.  If bind_virq_to_irq() is
+> called again with CPU 0, the stale irq is returned.
+> 
+> Change the virq_to_irq tracking to use CPU 0 for per-domain and global
+> VIRQs.  As there can be at most one of each, there is no need for
+> per-vcpu tracking.  Also, per-domain and global VIRQs need to be
+> registered on CPU 0 and can later move, so this matches the expectation.
+> 
+> Fixes: e46cdb66c8fc ("xen: event channels")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> ---
+> Fixes is the introduction of the virq_to_irq per-cpu array.
+> 
+> This was found with the out-of-tree argo driver during suspend/resume.
+> On suspend, the per-domain VIRQ_ARGO is unbound.  On resume, the driver
+> attempts to bind VIRQ_ARGO.  The stale irq is returned, but the
+> WARN_ON(info == NULL || info->type != IRQT_VIRQ) in bind_virq_to_irq()
+> triggers for NULL info.  The bind fails and execution continues with the
+> driver trying to clean up by unbinding.  This eventually faults over the
+> NULL info.
+> ---
+>   drivers/xen/events/events_base.c | 17 ++++++++++++++++-
+>   1 file changed, 16 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
+> index 41309d38f78c..a27e4d7f061e 100644
+> --- a/drivers/xen/events/events_base.c
+> +++ b/drivers/xen/events/events_base.c
+> @@ -159,7 +159,19 @@ static DEFINE_MUTEX(irq_mapping_update_lock);
+>   
+>   static LIST_HEAD(xen_irq_list_head);
+>   
+> -/* IRQ <-> VIRQ mapping. */
+> +static bool is_per_vcpu_virq(int virq) {
+> +	switch (virq) {
+> +	case VIRQ_TIMER:
+> +	case VIRQ_DEBUG:
+> +	case VIRQ_XENOPROF:
+> +	case VIRQ_XENPMU:
+> +		return true;
+> +	default:
+> +		return false;
+> +	}
+> +}
+> +
+> +/* IRQ <-> VIRQ mapping.  Global/Domain virqs are tracked in cpu 0.  */
+>   static DEFINE_PER_CPU(int [NR_VIRQS], virq_to_irq) = {[0 ... NR_VIRQS-1] = -1};
+>   
+>   /* IRQ <-> IPI mapping */
+> @@ -974,6 +986,9 @@ static void __unbind_from_irq(struct irq_info *info, unsigned int irq)
+>   
+>   		switch (info->type) {
+>   		case IRQT_VIRQ:
+> +			if (!is_per_vcpu_virq(virq_from_irq(info)))
+> +				cpu = 0;
+> +
+>   			per_cpu(virq_to_irq, cpu)[virq_from_irq(info)] = -1;
+>   			break;
+>   		case IRQT_IPI:
 
-[...]
+Thinking about it a little more, bind_virq_to_irq() should ensure cpu == 
+0 for per-domain and global VIRQs to ensure the property holds.  Also 
+virq_to_irq accesses should go through wrappers to ensure all accesses 
+are handled consistently.
 
-> > > diff --git a/grub-core/kern/i386/xen/pvh.c b/grub-core/kern/i386/xen/pvh.c index 91fbca8..a8988d2 100644
-> > > --- a/grub-core/kern/i386/xen/pvh.c
-> > > +++ b/grub-core/kern/i386/xen/pvh.c
-> > > @@ -321,6 +321,8 @@ void
-> > >  grub_xen_setup_pvh (void)
-> > >  {
-> > >    grub_addr_t par;
-> > > +  const char *xen_cmdline;
-> > > +  int i;
-> > >
-> > >    grub_xen_cpuid_base ();
-> > >    grub_xen_setup_hypercall_page ();
-> > > @@ -352,6 +354,27 @@ grub_xen_setup_pvh (void)
-> > >    grub_xen_mm_init_regions ();
-> > >
-> > >    grub_rsdp_addr = pvh_start_info->rsdp_paddr;
-> > > +
-> > > +  xen_cmdline = (const char *) pvh_start_info->cmdline_paddr;
-> > > +  for (i = 0; i < GRUB_XEN_MAX_GUEST_CMDLINE; i++)
-> > > +    {
-> > > +      if (xen_cmdline[i] == '\0')
-> >
-> > This code still does not make a lot of sense for me. You have NUL
-> > check in grub_parse_xen_cmdline(). So, you duplicate the check here...
-> >
-> > I would just fire grub_strncpy() here and forget...
->
-> I guess it depends on how you view grub_xen_start_page_addr->cmd_line's
-> semantics. In my mind, cmd_line is a NUL-terminated string, always. If
-> you boot in PV mode, Xen ensures it's a NUL-terminated string, so it's
-> reasonable for code in GRUB to assume it will be one. If you boot in
-> PVH mode, it starts out initialized to all zeros which is technically a
-> NUL-terminated string, and the code that exists here ensures that if we
-> copy the kernel command line to cmd_line, it will still be a
-> NUL-terminated string. If we use a "bare" grub_strncpy() here, then if
-> someone passes a kernel command line larger than
-> GRUB_XEN_MAX_GUEST_CMDLINE - 1, cmd_line will end up not being
-> NUL-terminated anymore, and any code added to GRUB in the future that
-> assumes it is a NUL-terminated string may buffer overflow.
->
-> One could argue "let's keep the NUL check here and remove it from
-> grub_parse_xen_cmdline()", but that doesn't work either because we only
-> get to control the contents of cmd_line if we boot in PVH mode. If
-> instead we boot in PV mode, cmd_line is initialized by Xen itself. GRUB
-> receives a pre-populated and ready-to-use start_info struct directly
-> from the hypervisor in this scenario. Xen is supposed to ensure that
-> start_info is always NUL-terminated, but if there's ever a bug in Xen
-> that breaks that assumption, that could result in bad things happening,
-> the same as if we didn't do the NUL check in grub_xen_setup_pvh(). Now
-> of course there's nothing we can do about Xen possibly being buggy (if
-> it gives us a GRUB_XEN_MAX_GUEST_CMDLINE-long buffer with no NUL
-> terminator, too bad), but we can at least make sure that we're ready
-> for that eventuality. That's why I like having both NUL checks - we're
-> ready for if Xen does things wrong, and any future code that isn't
-> ready for that eventuality will still work if things go wrong, at least
-> in PVH mode.
+I'll send a v2.
 
-OK, it looks like this explanation, in shortened form, should land
-around this code... Or not... Please look below...
-
-> (Arguably any new code that depends on cmd_line *should* check it for a
-> NUL terminator. But I don't want to assume that all new code *will* do
-> so.)
->
-> > > +        {
-> > > +          grub_strncpy ((char *)
-> > > grub_xen_start_page_addr->cmd_line,
-> > > +			(char *) pvh_start_info->cmdline_paddr,
-> > > +			GRUB_XEN_MAX_GUEST_CMDLINE);
-> > > +
-> > > +          if
-> > > (grub_xen_start_page_addr->cmd_line[GRUB_XEN_MAX_GUEST_CMDLINE - 1]
-> > > != '\0')
-> >
-> > If you convince me this code is still needed then I am afraid that
-> > this is not what you meant here...
->
-> grub_strncpy doesn't just NUL-terminate the command line, it also fills
-> the entire remainder of the buffer with NUL characters. Therefore if
-
-I am afraid we are looking at different grub_strncpy() functions...
-
-> grub_strncpy NUL-terminated the copied string, the last character of
-> the buffer will always be NUL. This is a redundant check since the code
-> above goes to great lengths to avoid ever putting anything
-> non-NUL-terminated into the buffer, but I was under the impression you
-> wanted the check added just in case. I'm happy to remove it if it's not
-> desirable.
-
-I think we misunderstood each other. This code is redundant now...
-
-[...]
-
-> > > +is_key_safe (char *key, grub_size_t len)
-> > > +{
-> > > +  grub_size_t i;
-> > > +
-> > > +  for (i = 0; i < len; i++)
-> > > +    {
-> > > +      if (! (grub_isalpha (key[i]) || key[i] == '_'))
-> >
-> > Please drop space after "!"...
->
-> Will change.
->
-> > > +        return false;
-> > > +    }
-> >
-> > You can drop curly braces from here...
->
-> Will change.
->
-> (I initially kept this written the way it was though because the GNU
-> coding standards seemed to indicate I should keep the braces. "When
-> you have an if-else statement nested in another if statement, always
-> put braces around the if-else." [1] This isn't a nested if, but it's an
-> if within a for which is very similar.)
->
-> Is there any recommended coding style documentation I should be looking
-> at other than the GNU coding standards and the GRUB coding style
-> guidelines? It seems I'm making an awful lot of style mistakes and
-> would like to avoid that going forward.
-
-Yes, it is but sadly it is not fully/properly/.. documented [1]...
-
-[...]
-
-> > > +  for (i = 0; i < GRUB_XEN_MAX_GUEST_CMDLINE; i++)
-> > > +    {
-> > > +      if (cmdline[i] == '\0')
-> > > +        {
-> > > +          cmdline_valid = true;
-> > > +          break;
-> > > +        }
-> > > +    }
-> > > +
-> > > +  if (cmdline_valid == false)
-> > > +    {
-> > > +      grub_error (GRUB_ERR_BAD_ARGUMENT,
-> > > +		  "command line from Xen is not NUL-terminated");
-> > > +      grub_print_error ();
-> >
-> > grub_fatal()?
->
-> That would probably be a bad idea here. We use (or, at least, will use)
-> grub_fatal() in grub_xen_setup_pvh() because if grub_strncpy() doesn't
-> NUL-terminate the string it copies, it indicates a bug in GRUB (either
-> in grub_strncpy, or more likely in the nearby NUL-checking code). On
-> the other hand, cmdline_valid may equal false if we boot in PV mode and
-> Xen incorrectly hands us a non-NUL-terminated string. That's bad and
-> prevents us from parsing the command line safely, but I'd argue it
-> shouldn't entirely block boot. (Then again, maybe if it does block
-> boot, that will make this kind of theoretical Xen bug be much more
-> noticeable and help it get fixed quicker. If you'd prefer that we bail
-> out entirely here, I'm happy to change it.)
-
-As I said earlier, I would simply call grub_strncpy() in grub_xen_setup_pvh()
-without additional NUL-check there and fail if non-NUL-terminated string
-is detected here...
-
-> > > +      goto cleanup_main;
-> > > +    }
-> > > +
-> > > +  cmdline_len = grub_strlen (cmdline);
-> > > +  for (i = 0; i < cmdline_len; i++)
-> > > +    {
-> > > +      current_char = cmdline[i];
-> > > +
-> > > +      /*
-> > > +       * If the previous character was a backslash, append the current
-> > > +       * character to the word verbatim
-> > > +       */
-> > > +      if (splitter_state & SPLITTER_HIT_BACKSLASH)
-> > > +        {
-> > > +          splitter_state &= ~SPLITTER_HIT_BACKSLASH;
-> > > +          if (append_char_to_word (s, current_char, false) == false)
-> > > +            goto cleanup_main;
-> > > +          continue;
-> > > +        }
-> > > +
-> > > +      switch (current_char)
-> > > +        {
-> > > +        case '\\':
-> > > +          /* Backslashes escape arbitrary characters. */
-> > > +          splitter_state |= SPLITTER_HIT_BACKSLASH;
-> > > +          continue;
-> > > +
-> > > +        case '\'':
-> > > +          /*
-> > > +           * Single quotes suppress word splitting and double quoting until
-> > > +           * the next single quote is encountered.
-> > > +           */
-> > > +          if (splitter_state & SPLITTER_IN_DOUBLE_QUOTES)
-> > > +            {
-> > > +              if (append_char_to_word (s, current_char, false) == false)
-> > > +                goto cleanup_main;
-> > > +              continue;
-> > > +            }
-> > > +
-> > > +          splitter_state ^= SPLITTER_IN_SINGLE_QUOTES;
-> > > +          continue;
-> > > +
-> > > +        case '"':
-> > > +          /*
-> > > +           * Double quotes suppress word splitting and single quoting until
-> > > +           * the next double quote is encountered.
-> > > +           */
-> > > +          if (splitter_state & SPLITTER_IN_SINGLE_QUOTES)
-> > > +            {
-> > > +              if (append_char_to_word (s, current_char, false) == false)
-> > > +                goto cleanup_main;
-> > > +              continue;
-> > > +            }
-> > > +
-> > > +          splitter_state ^= SPLITTER_IN_DOUBLE_QUOTES;
-> > > +          continue;
-> > > +
-> > > +        case ' ':
-> > > +          /* Spaces separate words in the command line from each other. */
-> > > +          if (splitter_state & SPLITTER_IN_SINGLE_QUOTES ||
-> > > +              splitter_state & SPLITTER_IN_DOUBLE_QUOTES)
-> > > +            {
-> > > +              if (append_char_to_word (s, current_char, false) == false)
-> > > +                goto cleanup_main;
-> > > +              continue;
-> > > +            }
-> > > +
-> > > +          if (append_word_to_list (s) == false)
-> > > +            goto cleanup_main;
-> >
-> > I think this is not fully correct. You should not run
-> > append_word_to_list() until the closing quote. So, here you should
-> > have "else" for the first "if", i.e., "if (splitter_state & ..." and
-> > call append_word_to_list() for closing \" and \' above.
->
-> What closing quote? If we're in quotes, the `if (splitter_state &...`
-> block will run. That block runs `continue`, restarting the loop before
-> we get to the `append_word_to_list (s)` call. If we hit a closing
-> quote, either the `case '\''` or the `case '"'` block will be
-> triggered, changing the splitter's state so that it knows it's no
-> longer within a quote block, and then the next space (or the end of the
-> string) will cause `append_word_to_list()` to be called, adding the
-> quoted word to the list. Even if this `continue` changes to a `break`
-> like suggested below, the logic and control flow will remain the same.
->
-> Calling `append_word_to_list()` for closing quotes would break the
-> splitter. I'm trying to implement splitting behavior similar to Bash or
-> GRUB's configuration language, both of which parse
-> `xen_grub_env_var="abc def"ghi` into the variable `xen_grub_env_var`
-> with the value `abc defghi`. If we split on closing quotes too, the
-> input above will be parsed into two words, `xen_grub_env_var=abc def`
-> and an extra word `ghi`, resulting in the environment variable
-> `xen_grub_env_var` being set to `abc def` and the `ghi` being lost
-> entirely. One could argue that this is reasonable behavior, but it
-> isn't consistent with the other splitting behavior in GRUB.
-
-OK, makes sense for me... Maybe you should mention somewhere in the code
-current splitter behavior...
-
-Daniel
-
-[1] https://www.gnu.org/software/grub/manual/grub-dev/grub-dev.html#Coding-style
+Regards,
+Jason
 
