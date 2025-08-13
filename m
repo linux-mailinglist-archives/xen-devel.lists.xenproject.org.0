@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4C6BB24D0B
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Aug 2025 17:17:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1080043.1440679 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 030E8B24D99
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Aug 2025 17:38:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1080053.1440689 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umDDs-0001Si-DM; Wed, 13 Aug 2025 15:17:04 +0000
+	id 1umDXl-0004KH-Vr; Wed, 13 Aug 2025 15:37:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1080043.1440679; Wed, 13 Aug 2025 15:17:04 +0000
+Received: by outflank-mailman (output) from mailman id 1080053.1440689; Wed, 13 Aug 2025 15:37:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umDDs-0001Q7-AA; Wed, 13 Aug 2025 15:17:04 +0000
-Received: by outflank-mailman (input) for mailman id 1080043;
- Wed, 13 Aug 2025 15:17:02 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1umDXl-0004IN-T2; Wed, 13 Aug 2025 15:37:37 +0000
+Received: by outflank-mailman (input) for mailman id 1080053;
+ Wed, 13 Aug 2025 15:37:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <anthony@xenproject.org>) id 1umDDq-0001Pv-CR
- for xen-devel@lists.xenproject.org; Wed, 13 Aug 2025 15:17:02 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1umDDp-003PZp-0y;
- Wed, 13 Aug 2025 15:17:01 +0000
-Received: from [2a01:cb15:80df:da00:7360:a082:15b4:b94d] (helo=l14)
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1umDDo-002Xxi-2z;
- Wed, 13 Aug 2025 15:17:01 +0000
+ (envelope-from <SRS0=YXQr=2Z=kernel.org=leon@srs-se1.protection.inumbo.net>)
+ id 1umDXk-0004IH-8j
+ for xen-devel@lists.xenproject.org; Wed, 13 Aug 2025 15:37:36 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6e358bec-785b-11f0-a328-13f23c93f187;
+ Wed, 13 Aug 2025 17:37:34 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id B00E35C1360;
+ Wed, 13 Aug 2025 15:37:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A911EC4CEEB;
+ Wed, 13 Aug 2025 15:37:31 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,80 +42,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date;
-	bh=5CGFoFkA0da/z0blA5erXGxEsnjl6kQegdpa2LiIwvU=; b=0folAU/1q3OTwntCPIShxjfP88
-	kLt7YAZ0Qwv0gvst78dK9BsCy3B68CeCUYUBXRMMs1QEGnEag0d5l26vTseb6jR6ePONRzvOcEnvb
-	9MxGxGYNQvTIYMvITZjLVTYwr1a4751p9kRoDAPZXitP/a5KJp4L9WsvJ74D2d501Cac=;
-Date: Wed, 13 Aug 2025 17:16:58 +0200
-From: Anthony PERARD <anthony@xenproject.org>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+X-Inumbo-ID: 6e358bec-785b-11f0-a328-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1755099452;
+	bh=PQhq5rWxBSi6wo5Tnnh0V92zapg7M+UyVJSAH0kCd/o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=kkqdIE/HRQ5cedE1zyuMfMRaAZJeqzpFBH0/fLyOJbOpD7Q9Y6fUKKVCUSYg6Iu9+
+	 +0lhPpaogX+zo7DE625PlBBN7tO+nQtx0LA2aKRv5GqYQcf/TD8I++3mIddUS1oGuS
+	 2Xu0FGRyeN7MRl5kxApDBRYf8dHZhW8fLMu9BCMo8fTZeDkfiJH03TaTo8MCeUS3wk
+	 Q3N2kSeVd08IYz9d3sNubS0p0XfPjY2fnOy5IU5HLL6nAdg88Wdvo9IzmX54CnrqWQ
+	 dCVsQbDhz8GqQ+nB2+l0260S3CZs7QJe8H773Ex1NmDTheYUl2t1VYx6TqiJOtited
+	 Jw1XTt4Q0BCbw==
+Date: Wed, 13 Aug 2025 18:37:28 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
+	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Alex Gaynor <alex.gaynor@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
+	iommu@lists.linux.dev, Jason Wang <jasowang@redhat.com>,
+	Jens Axboe <axboe@kernel.dk>, Joerg Roedel <joro@8bytes.org>,
+	Jonathan Corbet <corbet@lwn.net>, Juergen Gross <jgross@suse.com>,
+	kasan-dev@googlegroups.com, Keith Busch <kbusch@kernel.org>,
+	linux-block@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-nvme@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+	linux-trace-kernel@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
+	Sagi Grimberg <sagi@grimberg.me>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
-	Victor Lira <victorm.lira@amd.com>
-Subject: Re: [PATCH 2/5] CI: Update ppc64 to use Debian Trixie
-Message-ID: <aJysartA4Sh6bdTE@l14>
-References: <20250809221206.1260861-1-andrew.cooper3@citrix.com>
- <20250809221206.1260861-3-andrew.cooper3@citrix.com>
+	Steven Rostedt <rostedt@goodmis.org>,
+	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 16/16] nvme-pci: unmap MMIO pages with appropriate
+ interface
+Message-ID: <20250813153728.GC310013@unreal>
+References: <cover.1754292567.git.leon@kernel.org>
+ <5b0131f82a3d14acaa85f0d1dd608d2913af84e2.1754292567.git.leon@kernel.org>
+ <20250807134533.GM184255@nvidia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250809221206.1260861-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20250807134533.GM184255@nvidia.com>
 
-On Sat, Aug 09, 2025 at 11:12:03PM +0100, Andrew Cooper wrote:
-> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-> index ab5211f77e5e..3fe539dc5683 100644
-> --- a/automation/gitlab-ci/build.yaml
-> +++ b/automation/gitlab-ci/build.yaml
-> @@ -319,10 +319,10 @@ debian-12-x86_64-clang-debug:
->    variables:
->      CONTAINER: debian:12-x86_64
->  
-> -debian-12-ppc64le-gcc-debug:
-> +debian-13-ppc64le-gcc-debug:
->    extends: .gcc-ppc64le-cross-build-debug
->    variables:
-> -    CONTAINER: debian:12-ppc64le
-> +    CONTAINER: debian:13-ppc64le
->      KBUILD_DEFCONFIG: ppc64_defconfig
->      HYPERVISOR_ONLY: y
->      EXTRA_XEN_CONFIG: |
-> @@ -705,6 +705,20 @@ debian-12-ppc64le-gcc:
->      KBUILD_DEFCONFIG: ppc64_defconfig
->      HYPERVISOR_ONLY: y
->  
-> +debian-12-ppc64le-gcc-debug:
-> +  extends: .gcc-ppc64le-cross-build-debug
-> +  variables:
-> +    CONTAINER: debian:12-ppc64le
-> +    KBUILD_DEFCONFIG: ppc64_defconfig
-> +    HYPERVISOR_ONLY: y
-> +
+On Thu, Aug 07, 2025 at 10:45:33AM -0300, Jason Gunthorpe wrote:
+> On Mon, Aug 04, 2025 at 03:42:50PM +0300, Leon Romanovsky wrote:
+> > From: Leon Romanovsky <leonro@nvidia.com>
+> > 
+> > Block layer maps MMIO memory through dma_map_phys() interface
+> > with help of DMA_ATTR_MMIO attribute. There is a need to unmap
+> > that memory with the appropriate unmap function.
+> 
+> Be specific, AFIACT the issue is that on dma_ops platforms the map
+> will call ops->map_resource for ATTR_MMIO so we must have the unmap
+> call ops->unmap_resournce
+> 
+> Maybe these patches should be swapped then, as adding ATTR_MMIO seems
+> like it created this issue?
 
-Why did you remove the EXTRA_XEN_CONFIG from this job? Currently, the
-job is setup as:
+The best variant will be to squash previous patch "block-dma: properly
+take MMIO path", but I don't want to mix them as they for different
+kernel areas.
 
-    debian-12-ppc64le-gcc-debug:
-      extends: .gcc-ppc64le-cross-build-debug
-      variables:
-        CONTAINER: debian:12-ppc64le
-        KBUILD_DEFCONFIG: ppc64_defconfig
-        HYPERVISOR_ONLY: y
-        EXTRA_XEN_CONFIG: |
-          CONFIG_UBSAN=y
-          CONFIG_UBSAN_FATAL=y
+Thanks
 
-Thanks,
-
--- 
-Anthony PERARD
+> 
+> Jason
+> 
 
