@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4A83B26751
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 15:30:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1081728.1441741 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 860E1B26759
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 15:31:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1081737.1441751 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umY1y-0007DW-2A; Thu, 14 Aug 2025 13:30:10 +0000
+	id 1umY33-0007sG-AT; Thu, 14 Aug 2025 13:31:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1081728.1441741; Thu, 14 Aug 2025 13:30:10 +0000
+Received: by outflank-mailman (output) from mailman id 1081737.1441751; Thu, 14 Aug 2025 13:31:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umY1x-0007Ac-V6; Thu, 14 Aug 2025 13:30:09 +0000
-Received: by outflank-mailman (input) for mailman id 1081728;
- Thu, 14 Aug 2025 13:30:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1umY33-0007qU-80; Thu, 14 Aug 2025 13:31:17 +0000
+Received: by outflank-mailman (input) for mailman id 1081737;
+ Thu, 14 Aug 2025 13:31:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xqZt=22=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1umY1x-0007AW-2x
- for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 13:30:09 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cb709a6a-7912-11f0-a328-13f23c93f187;
- Thu, 14 Aug 2025 15:30:08 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-afcb78fb04cso150578666b.1
- for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 06:30:08 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a1e8306sm2608020566b.83.2025.08.14.06.30.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Aug 2025 06:30:06 -0700 (PDT)
+ (envelope-from <SRS0=Hncw=22=kernel.org=leon@srs-se1.protection.inumbo.net>)
+ id 1umY32-0007SK-61
+ for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 13:31:16 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f26c0c94-7912-11f0-b898-0df219b8e170;
+ Thu, 14 Aug 2025 15:31:14 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 766E96111F;
+ Thu, 14 Aug 2025 13:31:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02E81C4CEF1;
+ Thu, 14 Aug 2025 13:31:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,143 +41,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cb709a6a-7912-11f0-a328-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755178207; x=1755783007; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1iIUrcmnSM5eogYqDCcCjFRVuLj75gpAVQMZtG6TB2o=;
-        b=SA5Vmf/2BZ5qUOBiv4xzaw4/6FxAUnih4REK8UpIEJSu9WE8ldBuHnyfgYYrawYizc
-         YxT55NRvpe1wyRyQV/56jBzROzBeHtB0cl+tdeP2z8AMSbxPWKqdeS87/Iku7s83adZb
-         6OnJT+r2Pq80IutpO7Z2TEAuHNAu9rvKg1vF4QV6YxARoOtOEwsqxbJ9R+5z7T8IRCnR
-         20IoAi9myCro9ipjCgohhZvEBnLHPPM3dbB9YbR5oE0ZYeNMwpDqhA+DffKPb4QA1Qai
-         PsnlaSgG+LKsvMa9odSY1ekhuqFtned2xp+G8pD8jmD89hzYIDhIK8qwj1zXk/mvOPal
-         MvMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755178207; x=1755783007;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=1iIUrcmnSM5eogYqDCcCjFRVuLj75gpAVQMZtG6TB2o=;
-        b=jhejyevhJhhad7sNClKWVUNQ2lQ1lkXqDCexuHoSwNVLTXz8/KnMPnObBm+CbarEfi
-         Ejnw8wm/IB+GL7xIMD0Uevb0BqcnEeRlzYR9Sn4DelSXODeqk/se+yBYwNYHmglB5fme
-         3hM+7Kj4s1bnpD14/R5R5Dg+8C6LVBOBR1wCSX/twOj4GYI3Q3N9gv7U6sGICZjqnwWe
-         q4ATPmaIIlc/0oWAGr7UGeltXEL5PMzz/afpu171QExI/+G522M0HisQH4IMlW7Lr0He
-         53XIwDRPBSjYJx8mZtrzgjLBBPvgjcyQI5Tug/cR3oDSY9iF5NnuXcBLLU0jC19njyV9
-         ehgA==
-X-Gm-Message-State: AOJu0YyTXu0yvSB4KSqhbCY+k9ulba9vLGFe7sPuiNT5Si3h51aqvFci
-	4SVQfmkUxMvfwVCMm0wE/t0HBnSu/bFo3cCyd6TvC19DkqkiAPrrAsgijJPyGMTJJDzu12ryOTq
-	xGo4=
-X-Gm-Gg: ASbGncscS1vsP+nn2/eE5J23mr13Wxw3FO94z/BEmjpyebPT83ue1VfbU7f8Bi5Kpd1
-	A1n4tMh5PNB+OQ6FSm8kJW/OdgfbRghL5qeS6aP3E9IAOk6BJaBlnUj/0V6nvv6HFmrS4kDqvPw
-	wRQr7rJmx8wB8cI3x/XYYNQAo2VQvTc4do/6OpyEHeTgSP2iNSVEfOBGcMjdmJkFBGURgWJSYXj
-	RuINr6/l5OmrGzaBo67VxvcNR3TM0qf+Bwh88h8nmtx516x3RA4XVUcbx2b2bhbeAL4tUz1l2FP
-	xAMgEVMwdCeFUXSo2q9InohPITJA3+W5tyMf56amG0OiRCyTBeIlvH93gd6e1MM/fMFEWcBB9tG
-	x2PUhKsRA/HvexVDBPTdq1C/XnO6dXRQ2PSBv49K61DM3IsWwQWeZNVk7rD6Yv0GL0Sj+qdoldO
-	s+R0cxbxF9PhbklJoGO4kGK9krIH1m
-X-Google-Smtp-Source: AGHT+IGBomTxEt8gXR/H3fLzs4mEoKoviCqbnHyXfWeXIKEOqVJKIE9YphHyTC1jsUEqOOl4VlYS7g==
-X-Received: by 2002:a17:907:72c3:b0:af9:3ad2:6923 with SMTP id a640c23a62f3a-afcb996b207mr334753166b.38.1755178207183;
-        Thu, 14 Aug 2025 06:30:07 -0700 (PDT)
-Message-ID: <0a6b6fce-2cc8-4933-8703-399e4a4fdad6@suse.com>
-Date: Thu, 14 Aug 2025 15:30:04 +0200
+X-Inumbo-ID: f26c0c94-7912-11f0-b898-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1755178272;
+	bh=WW0xB1u8XI1L1gGsXl6wpt3WDXrr4yCiJlHi7BUNlCY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=XqHxW8YW58Ln/tIjnGi73wY9qD5/Iqkzwyv6qop3T0s5v319Ftg/c1ujK3/+Pmp3O
+	 3SJY9d+x4hq26C9R4ldz3ap27JZ3CK6dbddTXlBk+z2z09uVrOYjtUFTpeGlFvgNjV
+	 L1huyBWZL3RmFzTXcCZe8HHfxLc3AApxz5Ss7QLL+ussS/TR5qi1rfohz3kzvuYQXA
+	 z9fOR+m/fazEworlcK45UcqDrJLI+rHyeuLbz0YS0ZizqgTQFWAKE1JSOTRnlpXZlF
+	 3y7wTMxm2dgJYYjVCyrbQbIxiWn20GP+y7nUAEOT4RU14M4Kgk2W8/qCK/ckcjXpyq
+	 NVGeZpIDI1XVQ==
+Date: Thu, 14 Aug 2025 16:31:06 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
+	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Alex Gaynor <alex.gaynor@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
+	iommu@lists.linux.dev, Jason Wang <jasowang@redhat.com>,
+	Jens Axboe <axboe@kernel.dk>, Joerg Roedel <joro@8bytes.org>,
+	Jonathan Corbet <corbet@lwn.net>, Juergen Gross <jgross@suse.com>,
+	kasan-dev@googlegroups.com, Keith Busch <kbusch@kernel.org>,
+	linux-block@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-nvme@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+	linux-trace-kernel@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 08/16] kmsan: convert kmsan_handle_dma to use physical
+ addresses
+Message-ID: <20250814133106.GE310013@unreal>
+References: <cover.1754292567.git.leon@kernel.org>
+ <5b40377b621e49ff4107fa10646c828ccc94e53e.1754292567.git.leon@kernel.org>
+ <20250807122115.GH184255@nvidia.com>
+ <20250813150718.GB310013@unreal>
+ <20250814121316.GC699432@nvidia.com>
+ <20250814123506.GD310013@unreal>
+ <20250814124448.GE699432@nvidia.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 15/22] x86/traps: Introduce opt_fred
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
- <20250808202314.1045968-16-andrew.cooper3@citrix.com>
-Content-Language: en-US
-Cc: Xen-devel <xen-devel@lists.xenproject.org>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250808202314.1045968-16-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250814124448.GE699432@nvidia.com>
 
-On 08.08.2025 22:23, Andrew Cooper wrote:
-> ... disabled by default.  There is a lot of work before FRED can be enabled by
-> default.
+On Thu, Aug 14, 2025 at 09:44:48AM -0300, Jason Gunthorpe wrote:
+> On Thu, Aug 14, 2025 at 03:35:06PM +0300, Leon Romanovsky wrote:
+> > > Then check attrs here, not pfn_valid.
+> > 
+> > attrs are not available in kmsan_handle_dma(). I can add it if you prefer.
 > 
-> One part of FRED, the LKGS (Load Kernel GS) instruction, is enumerated
-> separately but is mandatory as FRED disallows the SWAPGS instruction.
-> Therefore, both CPUID bits must be checked.
+> That makes more sense to the overall design. The comments I gave
+> before were driving at a promise to never try to touch a struct page
+> for ATTR_MMIO and think this should be comphrensive to never touching
+> a struct page even if pfnvalid.
+> 
+> > > > So let's keep this patch as is.
+> > > 
+> > > Still need to fix the remarks you clipped, do not check PageHighMem
+> > > just call kmap_local_pfn(). All thie PageHighMem stuff is new to this
+> > > patch and should not be here, it is the wrong way to use highmem.
+> > 
+> > Sure, thanks
+> 
+> I am wondering if there is some reason it was written like this in the
+> first place. Maybe we can't even do kmap here.. So perhaps if there is
+> not a strong reason to change it just continue to check pagehighmem
+> and fail.
+> 
+> if (!(attrs & ATTR_MMIO) && PageHighMem(phys_to_page(phys)))
+>    return;
 
-See my (further) reply to patch 13 - I think FRED simply ought to depend on
-LKGS.
+Does this version good enough? There is no need to call to
+kmap_local_pfn() if we prevent PageHighMem pages.
 
-> @@ -20,6 +22,9 @@ unsigned int __ro_after_init ler_msr;
->  static bool __initdata opt_ler;
->  boolean_param("ler", opt_ler);
->  
-> +int8_t __ro_after_init opt_fred = 0; /* -1 when supported. */
+diff --git a/mm/kmsan/hooks.c b/mm/kmsan/hooks.c
+index eab7912a3bf0..d9cf70f4159c 100644
+--- a/mm/kmsan/hooks.c
++++ b/mm/kmsan/hooks.c
+@@ -337,13 +337,13 @@ static void kmsan_handle_dma_page(const void *addr, size_t size,
 
-I'm a little puzzled by the comment? DYM "once default-enabled"? Then ...
+ /* Helper function to handle DMA data transfers. */
+ void kmsan_handle_dma(phys_addr_t phys, size_t size,
+-                     enum dma_data_direction dir)
++                     enum dma_data_direction dir, unsigned long attrs)
+ {
+        u64 page_offset, to_go, addr;
+        struct page *page;
+        void *kaddr;
 
-> @@ -305,6 +310,32 @@ void __init traps_init(void)
->      /* Replace early pagefault with real pagefault handler. */
->      _update_gate_addr_lower(&bsp_idt[X86_EXC_PF], entry_PF);
->  
-> +    if ( !cpu_has_fred || !cpu_has_lkgs )
-> +    {
-> +        if ( opt_fred )
+-       if (!pfn_valid(PHYS_PFN(phys)))
++       if ((attrs & ATTR_MMIO) || PageHighMem(phys_to_page(phys)))
+                return;
 
-... this won't work anymore once the initializer is changed.
+        page = phys_to_page(phys);
+@@ -357,19 +357,12 @@ void kmsan_handle_dma(phys_addr_t phys, size_t size,
+        while (size > 0) {
+                to_go = min(PAGE_SIZE - page_offset, (u64)size);
 
-> +            printk(XENLOG_WARNING "FRED not available, ignoring\n");
-> +        opt_fred = false;
+-               if (PageHighMem(page))
+-                       /* Handle highmem pages using kmap */
+-                       kaddr = kmap_local_page(page);
+-               else
+-                       /* Lowmem pages can be accessed directly */
+-                       kaddr = page_address(page);
++               /* Lowmem pages can be accessed directly */
++               kaddr = page_address(page);
 
-Better use 0 here?
+                addr = (u64)kaddr + page_offset;
+                kmsan_handle_dma_page((void *)addr, to_go, dir);
 
-> +    }
-> +
-> +    if ( opt_fred == -1 )
-> +        opt_fred = !pv_shim;
+-               if (PageHighMem(page))
+-                       kunmap_local(page);
+-
+                phys += to_go;
+                size -= to_go;
 
-Imo it would be better to have the initializer be -1 right away, and comment
-out the "!pv_shim" here, until we mean it to be default-enabled.
+(END)
 
-> +    if ( opt_fred )
-> +    {
-> +#ifdef CONFIG_PV32
-> +        if ( opt_pv32 )
-> +        {
-> +            opt_pv32 = 0;
-> +            printk(XENLOG_INFO "Disabling PV32 due to FRED\n");
-> +        }
-> +#endif
-> +        printk("Using FRED event delivery\n");
-> +    }
-> +    else
-> +    {
-> +        printk("Using IDT event delivery\n");
-> +    }
 
-Could I talk you into omitting the figure braces here? Hmm, or perhaps you
-mean to later move code here.
-
-Jan
+> 
+> Jason
+> 
 
