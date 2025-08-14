@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 442B6B25CE7
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 09:19:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1080875.1441047 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30C0CB25D00
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 09:22:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1080885.1441058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umSEe-0005K7-4p; Thu, 14 Aug 2025 07:18:52 +0000
+	id 1umSHf-0006tJ-Id; Thu, 14 Aug 2025 07:21:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1080875.1441047; Thu, 14 Aug 2025 07:18:52 +0000
+Received: by outflank-mailman (output) from mailman id 1080885.1441058; Thu, 14 Aug 2025 07:21:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umSEe-0005I0-2C; Thu, 14 Aug 2025 07:18:52 +0000
-Received: by outflank-mailman (input) for mailman id 1080875;
- Thu, 14 Aug 2025 07:18:51 +0000
+	id 1umSHf-0006rS-F8; Thu, 14 Aug 2025 07:21:59 +0000
+Received: by outflank-mailman (input) for mailman id 1080885;
+ Thu, 14 Aug 2025 07:21:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xqZt=22=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1umSEd-0005Hu-4j
- for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 07:18:51 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ id 1umSHd-0006rK-PZ
+ for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 07:21:57 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ebe31ed9-78de-11f0-b898-0df219b8e170;
- Thu, 14 Aug 2025 09:18:48 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-61868d83059so3045207a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 00:18:48 -0700 (PDT)
+ id 5b6fd404-78df-11f0-b898-0df219b8e170;
+ Thu, 14 Aug 2025 09:21:55 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-afcb7a8dd3dso100873566b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 00:21:55 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a22057esm2530827566b.115.2025.08.14.00.18.47
+ a640c23a62f3a-af91a1e833dsm2531294866b.64.2025.08.14.00.21.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Aug 2025 00:18:47 -0700 (PDT)
+ Thu, 14 Aug 2025 00:21:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ebe31ed9-78de-11f0-b898-0df219b8e170
+X-Inumbo-ID: 5b6fd404-78df-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755155928; x=1755760728; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755156115; x=1755760915; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=mklUsJ7vxGTUC2EwtB+R6sguZ1NogECxb5Z+hL4e/Xo=;
-        b=G/SINh/EEuTR9eEu2cpZexfOp+B3vSWG2/FDaJ5JBNN6sUdph57lpQKmtvTBcyqltI
-         tIrjWfAk9m+FZMOaC2WLoFDNt2kTgMWbSU4m3FiTIs73SRmE9u0XKBLtpo9BVSwuANBy
-         lqiUaZWNM3MFwBiAzmETdF2tO/EyPWtB+oxUm7M2Ug6XiYXS0/8O2f8m8ej0+mqWVrAy
-         gtiT4szTi4gDekmOes3f+uUIFONsP3QXAZuKSIuFDAhM+TaAq9/IyXcsvLO7euNI2W+l
-         Bp4hDuaRdGQxocsULu/8O92Mr2e2jPRJ7E3mujSw52rpOFNPcS3Zw4G0jfmWQaJnHPjZ
-         Au+w==
+        bh=6zCWVr8YlARbhp8eihqlcOGDcXnchmGSpuufd4e86MQ=;
+        b=ML4kmQTzQg9cac1pKlxSaWDHhbzuMp7zCG0zNgA5vrArQMrNyw4tR/mVQKQOx+fkxJ
+         w5XNpL/rt1OMZfBvoKcBr+BUeTJhmkhv5UeOdINkEOZctK/HLX7I4yuaryBNr9k2/Bmi
+         n5i+uRm7E8nTNdy/vIveCTa8c0RSRFJLwzs4JlODUS4emJHiuJIYie5HcNdHmjS+6JFJ
+         zv/I3krEgzk9brhICuDeuuFCvxtFivolBQAINRn9N4Sez/lrjILG8p+Bq1kDgFlVpGR1
+         nL3v7m12+qsC3yyz8kkgvwKn28B9ePctC2DfwNnnxQVoOr71DHJQCYWRYl6pvnQdNHre
+         2MxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755155928; x=1755760728;
+        d=1e100.net; s=20230601; t=1755156115; x=1755760915;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mklUsJ7vxGTUC2EwtB+R6sguZ1NogECxb5Z+hL4e/Xo=;
-        b=ZklC4mG3qjOypC+dlr4w63U4snWOJK5yTJkVGpzH3ZAJ+tEwIEIAJzyAqIYQdVSdNR
-         VFv8BbUovQ0CXgvpmY1OjyQNMkGXQzyhyhm1WOzCiMhpzUDXFSJVudtIIWpnxxP/laIG
-         VXiobbLz4vqGYqGt8J3SkUAdaqT9LXAKgA2TPIUQQ3HruEhBJFt2Lb8k2oxsmvBH/s7K
-         C1vhUWCPscziqDaco73nuSrfQomJZnkamXD7A68bFohpmsLEXAoJ0AMyg3iQ0oKVl35W
-         ymmM12zlB7/qkaYJTmZaCKnEtgqa+rkKVzmW3Ubr/a0q1wwjlkpSiG/q+UVlDypPVpJC
-         2qnA==
-X-Forwarded-Encrypted: i=1; AJvYcCVRX8gk9NtqAhhbE50Janh11bLqjav4JRrGh7WS3XXxuaeOrblBJbOK/Ve7vVfG4/C0/mimv0GXAKA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YycVJbgg2YLK/qK0ytPSgUsLSLfa0gFueopF9QGJ9bR1pSLhS4T
-	VCB1EoFj82W5b4I7pkCGPRw3ixctBaZozsq81aMyg6OetuRVS4/P9Dw8coXnST9Gaw==
-X-Gm-Gg: ASbGncvEd8hG8V7T7H7cvm5ewK9Kp+5mw7fNkHtOqGpEWrEX+pOkq81TQmHQdysDvY/
-	v1LgstrKx6hDiyvwPuE+RsUgE6CljuURX/e5077KyEiIqsnqxbam3lZNRw3dDw83H/rjDD+QE0y
-	09Y/DqYApmARnhgje+WC5yvvoWp90gZ5eDSOzzEUTYNB1vwa+fxmm7110awL3EXlRHffpJYW2tX
-	GkThu6GCitR11J007NmBViaP4Uee2OfmldFY/XbSYt19L1dBMtYPDPudMCUSvqQrch0mwfCBjlz
-	YnFemdyunRHFMaD+JgmPT1OlRleAigqf+P4X8FFv4DEqRXosTxipiw4I9sJ6UYHE8l931VAlz6+
-	+K0JwuoxZ9Fo6UKlOZB+c9vagEgFXDJ4a5YGFecbIMEvWAbWzSTi0YLtF9n9Drr7oRJidpB9O+u
-	XXBLdemRA8tKbCDn3Y3I/PHEfHl/R8
-X-Google-Smtp-Source: AGHT+IG4mDVtUBk731gRojJHAGLMdBBwSSNKler09eZui66saknVY6GhFzK3RBpuy97lhkS7c+QLFg==
-X-Received: by 2002:a17:906:d54b:b0:af9:41a4:25b3 with SMTP id a640c23a62f3a-afcbd93582cmr146452466b.29.1755155927803;
-        Thu, 14 Aug 2025 00:18:47 -0700 (PDT)
-Message-ID: <e644c968-ab68-49f4-801e-0f161fd85f2e@suse.com>
-Date: Thu, 14 Aug 2025 09:18:45 +0200
+        bh=6zCWVr8YlARbhp8eihqlcOGDcXnchmGSpuufd4e86MQ=;
+        b=Sf++GuWjTFcdeTsuOgfTeqBcVvNv5Vae+q+U8MQmSdAya1dvb20/GRYESS8kSr1nFw
+         PGOoYswQMzfu8XE3JHxycjGUgfLb48Umfy7sTbLCRBYuKpjGiy+UfiMfLlumOCo5aebO
+         eKKk4xwtF58REtpFCaUzuNW5cunnq7FqExRZGbo/JlwIFT2sBtGu67PDn44hMtuCxCKW
+         z1KdcsTboNpa06BRAf5xLciZzaxux9s95qdgQyVG9fUe0kU+R3nVDrXNZqGQUdq9j6+w
+         +GigBoPTMobpMp30VIPsA9RhroZamnXiP01s+x/DS6o5/CtJxYEHZyvI+hiHc+tXtAmB
+         GC/g==
+X-Forwarded-Encrypted: i=1; AJvYcCVWsKVmGHNBveDFhhTPmy8+uZs3N4GQ+sLtBzWEbK9soliwe13ynqC+r4JsYgVH5fenrO9RsAwVN6E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzl7xR9PU0ILLK/Ur3IgQLsZCW7uoKHnTm8XRHT+dZmhIZXIyxt
+	lWAbNuW4n5I5sCuLPzGiBWpEY+mDT/JhZ2wD21+BD3ZmrHGwmPOyJ9SsFid1cljfKg==
+X-Gm-Gg: ASbGncuO+JqaG9/vjCW+DtUfmTQ92EdXzTzzDg9tm+zny9oR7i7SLAxJNaokaoLB+dL
+	J02/Rwyur8K23iN1Zx/4/IZq2tzM/sMzmjb1tA8iJO0/toZH6x7aOCQu53w+vNqyDGG4zABNJPs
+	mFeoi+CNPUeQJmQtQI0Dw22IMztu+V6kbDHOp2odcEgnX83VCOWugfMu5HquJCRPCA5zlAaN1jM
+	9cEhbmhT86xZ4enidR8sCBGDUzzzqMWUUKYHdswSDEIPFuVAdNprbn00pVGub9n/3zb3KvLKIeF
+	/xDyMixAR+FVWCoHfMWK1EF/V6e6ca5GJ2qwRwAAI/jSKdKpjCz9f1pWL6IgPlmOa8kzBRdVQJN
+	lhC4XeeCsYjDPVR46LvZ1BD5MvEx1Ucw/p//jsGSBOZlCcE9dazEt6e2qNqW3RGLHDh4NmpZ1KM
+	hVXUStrMw=
+X-Google-Smtp-Source: AGHT+IEw3b8l3on29kufgt3w8WiPHuvpUL4fEFDI+V0sPBtBffNmNP1pG8ezhjgHZAWUnxlvW+YXYw==
+X-Received: by 2002:a17:907:3e91:b0:af9:a486:412e with SMTP id a640c23a62f3a-afcb97d76b6mr180501166b.26.1755156115129;
+        Thu, 14 Aug 2025 00:21:55 -0700 (PDT)
+Message-ID: <becdc624-7bff-4b78-94c2-2999bad114fb@suse.com>
+Date: Thu, 14 Aug 2025 09:21:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] pdx: cast PAGE_SIZE value ahead of shifting
+Subject: Re: [PATCH] x86/pvh: update "Host ACPI" support status
 To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250813125538.78174-1-roger.pau@citrix.com>
+References: <20250813093220.76030-1-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,33 +120,17 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250813125538.78174-1-roger.pau@citrix.com>
+In-Reply-To: <20250813093220.76030-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.08.2025 14:55, Roger Pau Monne wrote:
-> --- a/xen/common/pdx.c
-> +++ b/xen/common/pdx.c
-> @@ -288,7 +288,7 @@ bool __init pfn_pdx_compression_setup(paddr_t base)
->  
->      pfn_pdx_hole_shift  = hole_shift;
->      pfn_pdx_bottom_mask = (1UL << bottom_shift) - 1;
-> -    ma_va_bottom_mask   = (PAGE_SIZE << bottom_shift) - 1;
-> +    ma_va_bottom_mask   = ((paddr_t)PAGE_SIZE << bottom_shift) - 1;
+On 13.08.2025 11:32, Roger Pau Monne wrote:
+> For x86 PVH dom0 makes uses of the host ACPI tables, and hence the status
+> of Host ACPI entry should have been updated to reflect that PVH dom0 is now
+> supported, and Host ACPI support is not one of the caveats.
 
-Given
-
-#define PAGE_SIZE           (_AC(1,L) << PAGE_SHIFT)
-
-this shouldn't be needed, except maybe for Arm32. There, however, ...
-
->      pfn_hole_mask       = ((1UL << hole_shift) - 1) << bottom_shift;
-
-... this and the shift immediately ahead would also be a problem afaict,
-which makes me conclude this isn't what Coverity has looked at. I expect
-the problem is with the toolstack side definition of PAGE_SIZE, which imo
-would rather be addressed there. (And yes, I'm pretty averse to arbitrary
-casts like this being introduced.)
+Well, not explicitly, but seeing changes like 6378909b41c4 ("x86/PVH: expose
+OEMx ACPI tables to Dom0") I'm not convinced we're there yet.
 
 Jan
 
