@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CFF3B26A4E
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 17:01:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1081881.1441840 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CC64B26A69
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 17:04:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1081894.1441851 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umZRi-0003UU-5j; Thu, 14 Aug 2025 15:00:50 +0000
+	id 1umZVD-0004dc-MK; Thu, 14 Aug 2025 15:04:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1081881.1441840; Thu, 14 Aug 2025 15:00:50 +0000
+Received: by outflank-mailman (output) from mailman id 1081894.1441851; Thu, 14 Aug 2025 15:04:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umZRi-0003Sx-38; Thu, 14 Aug 2025 15:00:50 +0000
-Received: by outflank-mailman (input) for mailman id 1081881;
- Thu, 14 Aug 2025 15:00:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1umZVD-0004au-IX; Thu, 14 Aug 2025 15:04:27 +0000
+Received: by outflank-mailman (input) for mailman id 1081894;
+ Thu, 14 Aug 2025 15:04:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xqZt=22=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1umZRh-0003Sr-CI
- for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 15:00:49 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 75a40bf7-791f-11f0-b898-0df219b8e170;
- Thu, 14 Aug 2025 17:00:47 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-618690a80e8so3136869a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 08:00:47 -0700 (PDT)
+ id 1umZVC-0004ao-2t
+ for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 15:04:26 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f5cab187-791f-11f0-a328-13f23c93f187;
+ Thu, 14 Aug 2025 17:04:22 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-afcb7af30a5so169647766b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 08:04:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a1e820asm2595674966b.90.2025.08.14.08.00.46
+ a640c23a62f3a-af92b650c8asm2452607766b.65.2025.08.14.08.04.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Aug 2025 08:00:46 -0700 (PDT)
+ Thu, 14 Aug 2025 08:04:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75a40bf7-791f-11f0-b898-0df219b8e170
+X-Inumbo-ID: f5cab187-791f-11f0-a328-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755183647; x=1755788447; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755183862; x=1755788662; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZnIa5viQ38Bw02h0y4IdKaAPBYlGi+dYGT6sE3zaIv8=;
-        b=gteEKo49kO0D8I5aptj6lBJhkeKj22FxCTFhjIK0HW53A0/xSSg7wQmz+Xx+zh6UtO
-         SJK9o6eGq/rZOc7hlJipTpj+EDiDade5WwoFd90b1BJIkEs3BixuFWykZoxYLRCCYvLY
-         ZlfTi+ds07thAaIvXB2lZ0P983W/qdISANdzgufvwDcUx/+hr6abiynHSEjnfMktu9uL
-         z7mlGixcElt2th0oLyiSVv4QaZgT22TqS7VPJNZt8wYuCvLJ9UD5L+ckKhVWqWVNT7YJ
-         oIKsSsP7oCZqPA7iDI8epnEFV9Qo8Ub5bJPQfiQl7PfYFB8JaCPcWbzQ/XYuBP3axaSV
-         5t3g==
+        bh=iT0JmRs8SG/3DDAkdf1w8N2zE1W70t4E9Vrll9s3avw=;
+        b=K5TpN4xRtEysoeHkGurjRjn5zHZpSQ3edyWe20E1qsbWtqRtn0sNQFC8SCSJh2CVDf
+         vHSGP3l0C9ddcfMufyoVdVRvfQzWjqt+Er18U2ViLeDeJj04avLV5wyaJA9n/xU5dEqV
+         1mP3UuaMLjwSAkWHNwiRcz/oes3/+V6RrG5OtxzTVk+FK4A6hptvisWxZv9lc7fZIMdT
+         XUeQDVSAln3NcFDHX2Db+2LLgK3YEnrJx+Lk2uyOO+pRhbbsEYTTRiZ0utNOe4fKoL4R
+         l3Rn/GqMjHhM/+HgfkeTzjudTjG1oz1W7QMPmYA4KRQMwTHOYVJOP0ZlZt9KMN+Jnx9s
+         n8iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755183647; x=1755788447;
+        d=1e100.net; s=20230601; t=1755183862; x=1755788662;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZnIa5viQ38Bw02h0y4IdKaAPBYlGi+dYGT6sE3zaIv8=;
-        b=PDxnUo2Uy64Hj76Y7VxPJ5ClhqyWzqQL/Uq48EkpUA8iZTTaLQTIi+y0oMdUd7IveO
-         1e/LWLdMbxZS2QgTVnPb+hK675RkaJaRDmlSpOTlNO4SIzpC/bg1nSTwTEEe4RftBiem
-         Jm1DfkpXRovWZkNIu1UmNNxQyI5y4KPglb65SIr5m8aXOgIlJlXPiKCUAo39RcIAJr6d
-         ncrUzabGtmrv+zECKBx0BfYQTDRcq4TwGrwgRt09tWq2h4c1QUF9R5KSN9QZk9DSqD/W
-         /fKCF0D0VcvHv9VNABZaCxgeqtLM56bNPVLReGxmibPYDFxaJMgiXn1gFbfF4LNhnsLu
-         5OCQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXv5yeMF8uump1Eq2Z4TUWEaspp+nZr4izF96scYlUZ9DfdEcxdNtZGZHlUmp6Yy/jSFmyzjnirfzE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxTqSCc1LWrVoWH3BkK6WN2hQA2HoUnR+IZJvSN8MtSpf9fQDBl
-	0CE+GZ/GVfi4MSH798AU9NYVa94KJ6gB/su6aJLCt9oGJgdEulN5BvLNYvmKNOxT8w==
-X-Gm-Gg: ASbGnctNq/nu8FNnCD5QYpG3wYbOR9MRVE9LgJ6UJf/7fTYK11+hIfaGaIpXcV9Xv0c
-	ifo1LLP4l8wWis9WPngjTZWpQI5D6jSn7+g4dPdcP3Fy6HSNpoP0Z6nBOk+iATtLop5iytnJuny
-	duK1vAMsBoYLFw+Y7yx/zzwOXn5P1i9cU8EVe3ELENFS9otQoHBCvbFfbZoC6ymJL2ZTQW05fYD
-	TnJtFpIqi1+0lSjHe6I+7ZmywuaD/TW5iJVXs652l8mNfPvwBbdsd3koe2GEkms47yiqANf4x1Z
-	bXjm9wXLkTd8zZUK02FAkckDfyi8go6h74pCLzqHXEGTm64P7bf1ITiditz/nV9HUXlzswpvqW7
-	olqk07sqF3wY2OjsAFCNb0WN9xWunpNgBqTvszYRiXeHmEYc0geKamQNN5GXEv6mcOZPf1KaNhB
-	Oh8poliio=
-X-Google-Smtp-Source: AGHT+IEZ6NYFToZkXanQZbhOyIW1ErZYLwSkJhoiKdMah29JuH/VjoZbzdKqSWO/rjUA6QY7/qtmYQ==
-X-Received: by 2002:a17:907:160c:b0:afc:a3b2:d100 with SMTP id a640c23a62f3a-afcbe7c8410mr340164966b.7.1755183646751;
-        Thu, 14 Aug 2025 08:00:46 -0700 (PDT)
-Message-ID: <74a76087-e45e-4d7a-8df3-2711f77eea2a@suse.com>
-Date: Thu, 14 Aug 2025 17:00:44 +0200
+        bh=iT0JmRs8SG/3DDAkdf1w8N2zE1W70t4E9Vrll9s3avw=;
+        b=I1a4r3kp/5h7tipe2BUff35vPOiMqLM19pp5jX/YTc1n4xHiiFsojczee7Ep/T0ikh
+         oSysfFWg+ZMeqn2g/Jf+vXiI8oaraYLyXiJ97/Xf8wIEaPaZ3qqGn0iWeMHF2dP3HWFd
+         zJrSINq/4mI+9+sQ5elwJFM21eDJPbnNd1QJRXFW1TWnvuc3r8Xrtw/tC51gXu0whSyp
+         UcQStuveDZsGw8jPwh6JN6R7lEfOK2WqUFz50PxpC+IwW9oOhj2NMDDc5t7DhMrF6bXd
+         TWXvvXL7437ILmj4BSDCTK8IUpscSzKFgMaYyoZPQVZf5PWandNwos3ZsrX5RUF6UtSJ
+         /c8Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXw9DmLW68lbR8D6uvWimKW+Os+iYpjztepBAhx9b490Eh3MYxieUf2xHxxgP0SEjlm2dGoXAKoOvU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxdEtZPvxX359PogGPjZKnqo6i1qE7XDtxI5/4MEEPENXoqf523
+	2KotXfnQznd4ich5LzJvdb8PCPoAd9FYjASj5zscLNrXuQevV8vy9C5FkQ/jwtRY1Q==
+X-Gm-Gg: ASbGncuamSu9LMT+0Z5OuSdFLRkGLMTlBptocKBiQK/aWBHoQl6psqqlt6TITLiVejl
+	GrCBw8cHdieztyQcVops+GtEHoAX4012mUDOPIkmZO+LZlMBCf3ZmxZGgZOwflulc0Uy5XPsIm3
+	3RZzRSAEew4Ht3UGJQKZifLqgaCxiW42Fj9gW7fITTjo0MtsdBQ0ncd+8m86NKSoeJOV09BulCW
+	MgKonb7K4zwEOB0H1il/GLtq+/SFPwRP0+sLByavqPnrQRD1OW6tLXc/Ocfzw0CMAMm3eq4FSZD
+	UJyGG272LC+aXwMJqYtR/RoYZXFkOYZWtTNr3PxJ4mePaMxqxxDEWgBgBNnX3hvb9mH99tW097b
+	zxGr11pPvsB8UHT4qwjpNzgTydq01PVxshWHfoGgeR14aXt+eIi6ZGWrplnoGZoxjkw1G3X6ris
+	DptfZZrYvyBKhd0z4mSw==
+X-Google-Smtp-Source: AGHT+IFxQAMs+KX9H1S8Z/q6OrNaoV/MB3D0d0AXTmj5D9mTXy9hwBeDmUTTlh93BljHsX/ahm7Jmg==
+X-Received: by 2002:a17:907:94c1:b0:af9:4fa9:b132 with SMTP id a640c23a62f3a-afcb98cd087mr301705466b.33.1755183861795;
+        Thu, 14 Aug 2025 08:04:21 -0700 (PDT)
+Message-ID: <849fe2bf-4840-405e-ba9c-6ddec4a47983@suse.com>
+Date: Thu, 14 Aug 2025 17:04:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 18/22] x86/traps: Set MSR_PL0_SSP in load_system_tables()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
- <20250808202314.1045968-19-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] pdx: cast PAGE_SIZE value ahead of shifting
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250813125538.78174-1-roger.pau@citrix.com>
+ <e644c968-ab68-49f4-801e-0f161fd85f2e@suse.com>
+ <aJ26UmemwxyyTioE@macbook.local>
+ <3fbdd1fc-e739-42cf-892b-a561910a5693@suse.com>
+ <aJ3eRFc7CCwVi5WE@macbook.local>
+ <f707d57e-73f3-43c4-a005-f2b93ad3d1cf@suse.com>
+ <aJ35SplaIL1vZAE9@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,51 +126,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250808202314.1045968-19-andrew.cooper3@citrix.com>
+In-Reply-To: <aJ35SplaIL1vZAE9@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08.08.2025 22:23, Andrew Cooper wrote:
-> FRED and IDT differ by a Supervisor Token on the base of the shstk.  This
-> means that the value they load into MSR_PL0_SSP differs by 8.
+On 14.08.2025 16:57, Roger Pau Monné wrote:
+> I've adjusted UL -> L as requested by Andrew, and added the following
+> commit message:
 > 
-> s3_resume() in particular has logic which is otherwise invariant of FRED mode,
-> and must not clobber a FRED MSR_PL0_SSP with an IDT one.
+> tests/pdx: define PAGE_SIZE as long
 > 
-> This also simplifies the AP path too.  Updating reinit_bsp_stack() is deferred
-> until later.
+> Otherwise Coverity complains about possibly shifting an integer more than
+> 31 bits.
 > 
-> No functional change.
+> This also reverts the previous attempt to fix this Coverity reported
+> issue, commit 4dd323029094d93dbc8d174fe744fd7f54f0a7a4.
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Coverity ID: 1662707
+> Fixes: cb50e4033717 ('test/pdx: add PDX compression unit tests')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Let me know if you are OK with the adjustment and commit message.
 
-I wonder why this was originally done in assembly in the first place, when
-we aim at reducing tghe assembly code we have.
-
-> --- a/xen/arch/x86/boot/x86_64.S
-> +++ b/xen/arch/x86/boot/x86_64.S
-> @@ -65,17 +65,11 @@ ENTRY(__high_start)
->          or      $(PRIMARY_SHSTK_SLOT + 1) * PAGE_SIZE - 8, %rdx
->  
->          /*
-> -         * Write a new supervisor token.  Doesn't matter on boot, but for S3
-> -         * resume this clears the busy bit.
-> +         * Write a new Supervisor Token.  It doesn't matter the first time a
-> +         * CPU boots, but for S3 resume or CPU hot re-add, this clears the
-> +         * busy bit.
->           */
->          wrssq   %rdx, (%rdx)
-> -
-> -        /* Point MSR_PL0_SSP at the token. */
-> -        mov     $MSR_PL0_SSP, %ecx
-> -        mov     %edx, %eax
-> -        shr     $32, %rdx
-> -        wrmsr
-> -
->          setssbsy
-
-This is ending up a little odd: The comment says the write is to clear the
-busy bit, when that's re-set immediately afterwards.
+Fine with me.
 
 Jan
 
