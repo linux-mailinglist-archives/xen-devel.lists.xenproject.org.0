@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A38FCB25C18
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 08:46:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1080751.1440962 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A10AB25C4A
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 08:55:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1080760.1440973 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umRj8-0004wN-VS; Thu, 14 Aug 2025 06:46:18 +0000
+	id 1umRrl-0006cp-Ro; Thu, 14 Aug 2025 06:55:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1080751.1440962; Thu, 14 Aug 2025 06:46:18 +0000
+Received: by outflank-mailman (output) from mailman id 1080760.1440973; Thu, 14 Aug 2025 06:55:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umRj8-0004u5-SG; Thu, 14 Aug 2025 06:46:18 +0000
-Received: by outflank-mailman (input) for mailman id 1080751;
- Thu, 14 Aug 2025 06:46:17 +0000
+	id 1umRrl-0006aS-NZ; Thu, 14 Aug 2025 06:55:13 +0000
+Received: by outflank-mailman (input) for mailman id 1080760;
+ Thu, 14 Aug 2025 06:55:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xqZt=22=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1umRj7-0004tz-6N
- for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 06:46:17 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ id 1umRrk-0006aL-H1
+ for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 06:55:12 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5f7c32a5-78da-11f0-b898-0df219b8e170;
- Thu, 14 Aug 2025 08:46:15 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-6188b5b7c72so833353a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 13 Aug 2025 23:46:15 -0700 (PDT)
+ id 9eae632c-78db-11f0-b898-0df219b8e170;
+ Thu, 14 Aug 2025 08:55:10 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-6188b6548adso1130496a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Aug 2025 23:55:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-615a9113e40sm23273099a12.57.2025.08.13.23.46.13
+ 4fb4d7f45d1cf-618200a0159sm7596088a12.6.2025.08.13.23.55.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Aug 2025 23:46:14 -0700 (PDT)
+ Wed, 13 Aug 2025 23:55:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f7c32a5-78da-11f0-b898-0df219b8e170
+X-Inumbo-ID: 9eae632c-78db-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755153974; x=1755758774; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755154510; x=1755759310; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=D51Dl1Hui5oW/P3mi1h17sLsDXKyeUTd6NjKaNWBmuw=;
-        b=QLOfCcdR7415rU6gJMyHxjtRi8a+zfq50rcvW/cY3ospoN4eoQvOfOfA+ZUKSCR9KH
-         Wbi0CuOMBvTPhFMnzhIsahIzCir2E6Q31uNNz0y5Ug8+rngd9V8d7Wenf0gjYPDhyQ2d
-         guEykSJKoKnXbap1Z458wZfVskOjshTPQzcm8tCqQtLjWE19CnWloV2BYu5V4eZ37DFH
-         650s8ZNqSLJuDY3aAqUEJf2L4ldRTPl0yK8T+5HI5EYtqebF3xCqVtJ1TeCwDBghiOQq
-         nLerssnGiLWaZok9C5qsaKIN5oIsHYKN8Gb2e2CPY54R3oj6vrwyzuLJoY7VXejeTVKV
-         w5xw==
+        bh=4qXG+bIbgMiOJBFJxeVw/3rcYc8u/FkUq2D1f9zpciI=;
+        b=JXRNOFcFh3qSONe/9a+f9bU+kODwxYSJLJS3NMpqfIgrhzRob4XTPrzsPVRkZ3Z3Lb
+         yig9C1eJ6iJk9mKg4BcvDTxUwDE1pqlfE0WnpgLj+H2IF7ZWDI/t3ep/PO2qMdCcoIpC
+         kJNa72Y+MNCLpx20adsqIne7ED7XF6r7or880rKHH/XSTMW6/odx4gNu6f0WaisJBY84
+         n0wM9Zuxpnl9ruII2AqMm3cynIaKlGPh1oYFSi1/vnHlH7hHNtfNJanOIv4IcKCRg4IB
+         Vn1i2EGrjNQWPqvkV44LSNedOuWWVB91jMlGxS5vO5ouYJFlscVxuXY1r+DdS3MUo0Uh
+         MO6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755153974; x=1755758774;
+        d=1e100.net; s=20230601; t=1755154510; x=1755759310;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=D51Dl1Hui5oW/P3mi1h17sLsDXKyeUTd6NjKaNWBmuw=;
-        b=lGtKgqpnR40yaWWWW6frNBXJD3LOPLFnD52SRsUCExGyIdA1BR5ZDu+zemMI1TnXWR
-         e680YuS4pkSMCVzHsqjWZpH/rAMfxHJOLGcyFfTBw756LtIz300vdwNtMU3pCAcyXTWI
-         73ETA6EErex18F5KBXNy4LPzDuGOsgIMG0PTS+m6eH7dEW2/7KDxj7GRT4vS4BQ1elPQ
-         1Vh7L3JTbFFZTy7Hz5Yw0+Hsu4OWmQDMjFSef1TJP/WoeetWa1unSMYLEv4K6m6n3wpR
-         zZzH01RKG/ay4O5a1S8+bFBQmURWP4t7/qT4wxQcUtNuec1UVHbIGbBvzFEtk/IAGgQ7
-         IojQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXwHBAX3qA10lsrJyCMbAqtt/Am8HOlK+tkJ3YdxFutCjdFW4fN2SYLe3V7OhB0F9rt2qTOepdVYN8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxVoGYqM13/tv0MsBq0LeeV0oYn0JRLz9z7NOz3uU3osjZBIYW5
-	zFov1/QHmA2fbrEB8ZA+0/V2u38J/qEaYE7tpgSA7jz5x1AduOOcoxAaJIMdYVMw+A==
-X-Gm-Gg: ASbGncuidHvMzUQGAm+l9HuJuj25Sz173MBLaSiO80BDeuNnxxflZ/pxPBAvQEMXeFj
-	YvuP3EXBAMOO61MHWYzKYwgANdR398WOrfSjr5HC4bXHxbFnF9qHdQZf0G7E4mzhA7/idDRZReR
-	6WpKKAU7FHvyJIBJmsOgWCRu51S5wcrbo+fJy2h0gceFF+wEp5Yvl/mlfHo91JJx7xz9fZ17jm7
-	twIyturyMRSpRZgv9YemtMe4rG02bFSpnsu+Nx3B+rnoYeSgeJETDiSuYEK1A89ytvBscEP5DIX
-	e+nAi4eUF765lrpZu+IePZrPe1dmXfsAL1R3leibtlRaGAAMKR84JvExQ9xYOKZcNM2KbMSXy0k
-	NyMFTHQ6RT+aeRXj9HJqd7I8V5lzLROn/wuSIKOM6KAlcwlB5VGL1I2eVdKMiULLMTdmz+57cyu
-	v51dBdyAjlIPC6mPahMQ==
-X-Google-Smtp-Source: AGHT+IHQ6/LxzRf/tS+ri4Jz39XxuAbsZkqhvwrm+bDr2KCbQKGASWXl7SEj7RTIOC/9rMz5t9l30Q==
-X-Received: by 2002:a05:6402:274d:b0:618:2733:1a52 with SMTP id 4fb4d7f45d1cf-6188b9a43f1mr1467986a12.8.1755153974363;
-        Wed, 13 Aug 2025 23:46:14 -0700 (PDT)
-Message-ID: <2d93e9a7-abef-4ef6-bcbc-9081661edb58@suse.com>
-Date: Thu, 14 Aug 2025 08:46:12 +0200
+        bh=4qXG+bIbgMiOJBFJxeVw/3rcYc8u/FkUq2D1f9zpciI=;
+        b=mAaUUMtynTFb0rYDNjliRCnPGL4KDNFNzwi1s8QxMqO5lMChQl4G75e922ScM1SsO5
+         U32EnuicMRiZ430Ya9alzM2fCMWi4/h+5ifcsKS0wlxKxEN+Q8kC0USDsskigKAOvt/Z
+         fikOzOStwkGMEvVCwz74DdTaEGaylLMpdSHLWMeAdzBua17tPowP0CSz1oCQUxm3gZYn
+         aRW7MAwfFT9T+JJMD+xf/ikkycL/O9+ZklqTr6s8bqKozEMSIfuGDpbF5KAN7W+4EBQI
+         1uC9VXp8e2v7+4gaw3dsWQQgle0R9VX+WIDz//5EQi5jpZq4FHx5i2+tZjkIwRiBvSfe
+         e02Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUvS4BFz5QixLoRT8heUAzxYoxjB7rrBEUHN+1LU4nkwjg35OYMPtxqeKONjrFs1Aap7Zu44ZeTLx0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw3mrTT01ch6TOIPXhJaLfVx42N/JFF4nxkAet1MiK+I9zwA9HC
+	ofompq6gXOb8W+w/qnszOFjFy2UiXj63/Cp1u/03x/NTTZ9+5bCymfQUR1nGJ0CERA==
+X-Gm-Gg: ASbGncvlr+63cltwGKmGgqjFQYNCUsm6YOC9AEk+PxsThQhC1mW7hvm55Eh33oY+GDA
+	mkJFcnjp1lblUDiGC/hvxvmSfIof/jpKlf3U2+BRReVFE7w7TtzOPHKixyKIaaL/57ZPmtXh463
+	SPZwJKCA5DTYnj2K/mn1PiX3Lp4eJbnk3zoxkghKof5j3d4nWjg24SfoAwgiRk9135dFNNSBokX
+	9wBz1K0l5cIVd1ywSmQNe2OrhTvdkeJ2iFVop4bfPIR0AkyUO13M/LGmNQnyrsLrlcGV3Uu7yBy
+	z56rfhHb0fhekgVCJyOT82zC4xkhLfy+WGkvECmS35d4PM7ygdARPN8/5co00nuk7rAvskDMbeO
+	e0XzZjByv5fDoJhdB7k3nAa82CNya+tfw7BHkgInGccwCUQFWLXqjwiaupo4WKsantbDYKXRYGz
+	eqUbcRFYQi+5NAKq29Uw==
+X-Google-Smtp-Source: AGHT+IEXYdI1phRO3EGwPKyO6oMR88V7KMDHVaLkVvF5pLKcpSdwuh60P6MV9XUL6wrobDFX3R6WWQ==
+X-Received: by 2002:a05:6402:3596:b0:617:cd9d:e2a4 with SMTP id 4fb4d7f45d1cf-6188b934575mr1478509a12.2.1755154509723;
+        Wed, 13 Aug 2025 23:55:09 -0700 (PDT)
+Message-ID: <1b96f2f3-55a2-4b33-84b1-a7c18d38d10c@suse.com>
+Date: Thu, 14 Aug 2025 08:55:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] EFI/runtime: switch to xv[mz]alloc_array()
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: Marek Marczykowski <marmarek@invisiblethingslab.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <41b7e14c-59ef-40f5-8c43-69bdc5fb4531@suse.com>
- <761b584a-51fb-403d-948e-3366501cea50@apertussolutions.com>
- <755dd957-514b-4316-82f5-3619c19cbb15@suse.com>
- <9f9f24f0-c16a-4f55-b3c2-a3f4b485c403@apertussolutions.com>
+Subject: Re: Consider changing CONFIG_ACPI default on ARM?
+To: Elliott Mitchell <ehem+xen@m5p.com>
+Cc: xen-users@lists.xenproject.org, xen-devel@lists.xenproject.org,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Paul Leiber <paul@onlineschubla.de>
+References: <CAO_48GG1Tg0d3ATnNAYNr0cg7Ty_zsnzT29=dpkk99DxyTWcmg@mail.gmail.com>
+ <fceb5df8-d628-479d-acb3-d1d26409fbac@onlineschubla.de>
+ <aJLae1Nl0pyOZgyh@mattapan.m5p.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,76 +124,111 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9f9f24f0-c16a-4f55-b3c2-a3f4b485c403@apertussolutions.com>
+In-Reply-To: <aJLae1Nl0pyOZgyh@mattapan.m5p.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.08.2025 02:29, Daniel P. Smith wrote:
-> On 8/12/25 02:12, Jan Beulich wrote:
->> On 12.08.2025 02:19, Daniel P. Smith wrote:
->>> On 7/23/25 09:39, Jan Beulich wrote:
->>>> Use the more "modern" form, thus doing away with effectively open-coding
->>>> xmalloc_array() at the same time. While there is a difference in
->>>> generated code, as xmalloc_bytes() forces SMP_CACHE_BYTES alignment, if
->>>> code really cared about such higher than default alignment, it should
->>>> request so explicitly.
+On 06.08.2025 06:30, Elliott Mitchell wrote:
+> On Tue, Jul 01, 2025 at 10:01:13PM +0200, Paul Leiber wrote:
+>>
+>> Unfortunately, I don't have a direct answer to the question (as is so often
+>> the case, due to my limited knowledge and experience). However, I am
+>> successfully running Xen on a RPi 4 (mostly, except for some VLAN related
+>> networking issues).
+>>
+>> I used instructions in [1] to install vanilla Debian on the RPi, including
+>> UEFI boot and grub. I then compiled Xen with expert options and ACPI
+>> enabled.
+>>
+>> I don't know if there are better solutions. For example, I suffer from the
+>> fact that I2C doesn't work when using UEFI boot on a RPi. Nowadays, Debian
+>> provides their own vanilla Debian images for RPi and with working I2C, but
+>> these images are using a different boot method that I didn't know how to use
+>> with Xen.  So far, the procedure described above seems to be the easiest
+>> solution for me.
+> 
+> 
+>> [1] https://forums.raspberrypi.com/viewtopic.php?t=282839
+>>
+>> Am 30.06.2025 um 12:35 schrieb Sumit Semwal:
 >>>
->>> While I don't object to the change itself, I think this description is a
->>> bit over simplification of the change. If the allocation is under
->>> PAGE_SIZE, then they are equivalent, but if it is over the page size
->>> there are a few more differences than just cache alignment. It
->>> completely changes the underlying allocator. I personally also find it a
->>> bit of a stretch to call xmalloc_bytes(size) an open coded version of
->>> xmalloc_array(char, size).
->>
->> My take is that xmalloc_bytes() should never have existed. Hence why I
->> didn't add xzmalloc_bytes() when introducing that family of interfaces.
+>>> I've just begun to experiment with the Raspberry Pi 5, trying to run a
+>>> simple xen + Dom0 setup, using uBoot, and the bookworm based Rpi
+>>> distro.
+>>>
+>>> I've tried combinations of the following setup:
+>>>
+>>> 1. prebuilt Rpi5 kernel + dtbs, and have also tried to build them from
+>>> source [1]
+>>> 2. Xen from upstream [2] and xen-troops [3]
+>>> 3. upstream uBoot from [4]
+>>>
+>>> but with the same result: [short log below; I can provide a fuller log
+>>> if needed]
+>>>
+>>> (XEN) DT: ** translation for device /axi/msi-controller@1000130000 **
+>>> (XEN) DT: bus is default (na=2, ns=2) on /axi
+>>> (XEN) DT: translating address:<3> 000000ff<3> fffff000<3>
+>>> (XEN) DT: parent bus is default (na=2, ns=1) on /
+>>> (XEN) DT: walking ranges...
+>>> (XEN) DT: default map, cp=0, s=1000000000, da=fffffff000
+>>> (XEN) DT: default map, cp=1000000000, s=100000000, da=fffffff000
+>>> (XEN) DT: default map, cp=1400000000, s=400000000, da=fffffff000
+>>> (XEN) DT: default map, cp=1800000000, s=400000000, da=fffffff000
+>>> (XEN) DT: default map, cp=1c00000000, s=400000000, da=fffffff000
+>>> (XEN) DT: not found !
+>>> (XEN) Unable to retrieve address 1 for /axi/msi-controller@1000130000
+>>> (XEN) Device tree generation failed (-22).
+>>> (XEN) debugtrace_dump() global buffer starting
+>>> 1 cpupool_create(pool=0,sched=6)
+>>> 2 Created cpupool 0 with scheduler SMP Credit Scheduler rev2 (credit2)
+>>> 3 cpupool_add_domain(dom=0,pool=0) n_dom 1 rc 0
+>>> (XEN) wrap: 0
+>>> (XEN) debugtrace_dump() global buffer finished
+>>> (XEN)
+>>> (XEN) ****************************************
+>>> (XEN) Panic on CPU 0:
+>>> (XEN) Could not set up DOM0 guest OS (rc = -22)
+>>> (XEN) ****************************************
+>>>
+>>>
+>>> I'm certain I'm missing something, but before I delve deeper, I just
+>>> wanted to ask if this is a known issue, and if so, are there any
+>>> workarounds or solutions available for this?
+>>>
+>>> Any help about this is highly appreciated!
+>>>
+>>> Thanks and Best regards,
+>>> Sumit.
+>>>
+>>> [1]:  https://github.com/raspberrypi/linux rpi-6.12.y branch
+>>> [2]: git://xenbits.xen.org/xen.git - main branch
+>>> [3] xen-troops https://github.com/xen-troops/xen - rpi5_dev branch
+>>> [4]: https://github.com/u-boot/u-boot.git master branch
 > 
-> Right, which would be a valid argument for replacing it with 
-> xmalloc_array(). Though, I would note that there is an xzalloc_bytes(). 
-> My concern was that you stated there was an open coding, which had me 
-> expecting there was a line of the form, xmanlloc_bytes(count * 
-> size_of_something bigger), being replaced by 
-> xvmalloc_arryay(something_bigger, count).
-
-Both fir this and ...
-
-> IMHO, while the C spec does specify char as 1 byte and thus 
-> interchangeable, I would agree that from a contextual perspective, 
-> xmalloc_array() is the more appropriate call. The use of the allocation 
-> is a character array and not a chunk of bytes for an arbitrary buffer.
-
-... for this: Hence my wording using "effectively".
-
->>> With a stronger description of the change,
->>
->> So what exactly do you mean by "stronger"? I can add that in the unlikely
->> event that one of the allocations is (near) PAGE_SIZE or larger, we now
->> wouldn't require contiguous memory anymore. Yet based on your comment at
->> the top I'm not quite sure if that's what you're after and/or enough to
->> satisfy your request.
+> Ultimately Debian is choosing to leave most defaults alone.  So far the
+> Xen developers have left CONFIG_ACPI defaulting to off on ARM*.  The
+> Debian project doesn't have paid people to support Raspberry PI hardware,
+> despite being rather common.  As a result there aren't any official
+> Raspberry PI images, but people associated with Tianocore have gotten
+> generic images to boot on Raspberry PI hardware.
 > 
-> The phrasing stronger was meant to be more clear on the change/effect, 
-> specifically that the underlying allocator is being changed when the 
-> allocation is greater than a PAGE_SIZE. Not necessarily a long 
-> explanation, just the fact that the allocation will be coming from the 
-> dom heap allocator as opposed to the xen heap allocator. There are 
-> implications to changing the allocater, e.g.,  at a minimum the 
-> allocation order and nonphysical vs. physically contiguous effects. 
-> Having it noted in the commit makes it more obvious what this change is 
-> actually doing. Which may not be obvious when seeing the simple line 
-> changes occurring in the diff. Later, if there is an unexpected 
-> consequence caused by this change, a stronger commit will be helpful 
-> with the bisection investigations.
+> I'm unsure of the likelihood of getting the Debian maintainers to
+> override the default.  Yet due being by far the simplest way to install
+> Debian and Xen on a very common ARM64 platform, perhaps the Xen
+> developers should consider changing?
 
-First: I don't think each and every such change (there are going to be many)
-should re-explain the switch to the xvmalloc() family of functions. This is
-already stated clearly at the top of xvmalloc.h: Over time, the entire code
-base is meant to be switched.
+In an open source project everyone is a developer. There is a
+significant amount of work someone needs to pick up to change this
+SUPPORT.md entry:
 
-Beyond that, to achieve the stronger wording you're after, would it perhaps
-suffice to have the first sentence say "..., thus also doing away ..."?
-Otherwise, may I ask that you please make a more concrete suggestion?
+### Host ACPI (via Domain 0)
+
+    Status, x86 PV: Supported
+    Status, ARM: Experimental
+
+Parties interested in changing the support status of any component are the
+primary candidates to actually carry out the necessary work.
 
 Jan
 
