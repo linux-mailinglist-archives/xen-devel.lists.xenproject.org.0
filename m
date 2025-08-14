@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2D15B26FD1
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 21:44:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1082457.1442304 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1FC8B27001
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 22:10:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1082466.1442314 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umdsH-0003Cu-8K; Thu, 14 Aug 2025 19:44:33 +0000
+	id 1umeGp-0008UI-4L; Thu, 14 Aug 2025 20:09:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1082457.1442304; Thu, 14 Aug 2025 19:44:33 +0000
+Received: by outflank-mailman (output) from mailman id 1082466.1442314; Thu, 14 Aug 2025 20:09:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umdsH-0003BD-5K; Thu, 14 Aug 2025 19:44:33 +0000
-Received: by outflank-mailman (input) for mailman id 1082457;
- Thu, 14 Aug 2025 19:44:31 +0000
+	id 1umeGp-0008Rw-12; Thu, 14 Aug 2025 20:09:55 +0000
+Received: by outflank-mailman (input) for mailman id 1082466;
+ Thu, 14 Aug 2025 20:09:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mOIo=22=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1umdsF-0003B6-OL
- for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 19:44:31 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ id 1umeGn-0008Rq-Eh
+ for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 20:09:53 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 186d1d5c-7947-11f0-a328-13f23c93f187;
- Thu, 14 Aug 2025 21:44:31 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3b9e4148134so702633f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 12:44:30 -0700 (PDT)
+ id a2f21ee8-794a-11f0-a328-13f23c93f187;
+ Thu, 14 Aug 2025 22:09:52 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-45a1b0990b2so8590425e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 13:09:52 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b8fc28a7b0sm27488609f8f.63.2025.08.14.12.44.29
+ 5b1f17b1804b1-45a1c6bc85csm32396155e9.5.2025.08.14.13.09.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Aug 2025 12:44:29 -0700 (PDT)
+ Thu, 14 Aug 2025 13:09:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 186d1d5c-7947-11f0-a328-13f23c93f187
+X-Inumbo-ID: a2f21ee8-794a-11f0-a328-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755200670; x=1755805470; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1755202191; x=1755806991; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7ZRLayb7V0RceJQ2jytl80WgfPBsENNbB3t8RL8blr4=;
-        b=k3yIASwgPJncZBBU3yDxtS0Rs6zJJ8dZdswrRV/fWcn3nu82uO7SSxSRSbZU8rJVoM
-         InWnMOPyNFhXGBzQDcoXEmIyJZqu9Ytdlqey+FNhW/zX93mdInbgpkjB6+ygUhiygyV6
-         X0IWTtzMyDGXrMy/bfJCUiUIAnMOLJ+a15Xcw=
+        bh=2C3Bpq/5YK7rjuqCAASb3WVo7vUPUKLoHP7HHauFe24=;
+        b=CMAePYvfY66chLaAI2BJnjx+3y4qJNhXeOeQiB0Dz+jJiLY1LwzO0N8E9ecqiJ8Lyv
+         bflrLAXwcRlGhRenT8k2HCvmEk5YDjkT3d5Lg3xYeDQUrWOMnXI+qYkYuDo0ZzzdX0Mq
+         tIiaqb5deQJKCdVeFmE/6gj5Hm6f3fPLAEk/I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755200670; x=1755805470;
+        d=1e100.net; s=20230601; t=1755202191; x=1755806991;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7ZRLayb7V0RceJQ2jytl80WgfPBsENNbB3t8RL8blr4=;
-        b=ly/KOjnhTz/8YE0oqXJsi7sWfwp2a3cLMZctjJtLpvlRax8kKHCuHFUKf1RM3i5kD3
-         E+a9AFCKXX/Ih3uwIC1ORMN4vEjihYHrpl3Bj4EP+zDgy8D3JE9zuDCQWIBz8fAgkeFr
-         +Q50x9vxupWZlglU0fSpLnvaBOxAfmEGa3m8gr31c+JroLkB1PmAuzpSlmQ3nu3RXLUY
-         U9JRBLm35D7kBTIk2atZCzIOZT/JT9jV3s0W2HYAwxeDDaXhFe6eKCLeE4WNjoNCdMV9
-         ZkOxECbg2BEZGjbooblS/eqWXkCLMrKffpmoeQ85WDxpChEGRvFB7GSwAPJjyKYyXM1l
-         BKfg==
-X-Forwarded-Encrypted: i=1; AJvYcCUDn4B5YGkGb9moQ+twfXjJDyLGGK/vhIRwBtHR1E1MOGQKv22ZjpdPjZWLlOjazipsPDR06b9Bu8w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywd1DC0vu5HiNGS9r/v0MRLKu/vk6hKma/URcL7hbSk6PnlN6/S
-	8gpfoeO0FE+kLNAuB2wkShp9tSxxSwI3Xmr1NPBRPWmCEqBZakLe4C3kxUwXv+S2MyQ=
-X-Gm-Gg: ASbGncu8XO6agSqjD9AfCj9bZXDhpflh9J5Zs2jc1he/5LdeY9OWhg7LCuwBV/oZC4I
-	B6aZ2llpLzwi/+6PE5SZ6tN4DOtcyD36cSEKJTHbxSL9GsSiutZfheS9d8Eu+0ootBqFjDTs24X
-	KIQROqhE+KloyGq8UqQUA8nvuc4V8oFP7rN+K3xOZDHz/Dfwg/0IQ33b03alr7uoS1ia/FKxTPy
-	ClsUZAi+OjRsV5gltPoW+8dyT0szws8xjsqh0kqu2xYmXKq90B2ufalcSW5Wj7v5sXs8wYU97ON
-	bEKJphxB+cHZsK03ZcvYdQAvGyb4z5ujjHLtBWV8WoELM4R+62KHH8GKerbDA8227BI5taxqvZc
-	HZ4CVEbkzfcIpfl0461a2ldrOyq8phio7yBfKDwg2qWC90xIrUMQSuHfxQtBPzi+PmT43
-X-Google-Smtp-Source: AGHT+IHikOc+Z9L9AbBHM8g3seujuup2o7uUtxLjJqCyqlSlW4eTBofjn7vqrPpgFL8nk3sXUJaW3A==
-X-Received: by 2002:a05:6000:1449:b0:3b8:d79a:6a35 with SMTP id ffacd0b85a97d-3b9edfb6f3emr4015470f8f.20.1755200670326;
-        Thu, 14 Aug 2025 12:44:30 -0700 (PDT)
-Message-ID: <c325aa24-d0e1-4895-89d3-3f7ec196407c@citrix.com>
-Date: Thu, 14 Aug 2025 20:44:29 +0100
+        bh=2C3Bpq/5YK7rjuqCAASb3WVo7vUPUKLoHP7HHauFe24=;
+        b=HyWIou2HYooFX8n+iWE8YvmQ2yj9s/ri49tL529pypq4l4EQluaRH0G3kX1rD7U/PM
+         Let5KkPjIMaIho7Fs0EhHbyclGuEnQONurt+f+42SsTLOiBwBrbNCIKPpL+wHTv+GVwl
+         LXiABkeT0v72GPpZpGHxSUFqUsemxmuB/LeSZHOwmPnAA11dyt/GTaBxRNvaOGDEG40L
+         4GIofeD71q3f9Q7i2Zfp9+/GegHQ+QAiuPJ3jIO1ECaA4sdGaZXz+IUiH2psax9JA3F6
+         LgERLTpj5PAhrJUtkNhN7oTfMhPElkn0pCEIOltmhzB8iBFd7PqTECT2xzDAgV58HtVS
+         B0/w==
+X-Forwarded-Encrypted: i=1; AJvYcCXC2EwIu0GI8vraKxpwEhR8V0FDqDyQ+kQrJmhlNbZV86fgeqHrBFfE4f7z430YS5cNe97sB064GBQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzHYYynPMF2WZlR+QiKNBBwVVSVtCVQd2TQ5etypYc/XGp0NpfO
+	JV7hIWIq3z4fQEAMcQXccZTJGMH8+cFzQOsHUYvQNSLXf6YFFpIZfa/rI20OrV/LCho=
+X-Gm-Gg: ASbGncsk8zk0YrS2SSZ/fqTptYl3N4HyhN+aduGXRub58HOGsQvA5nQ52yqvoZ4veHD
+	94mWX387rymt0b27zpmtH9q9yePPkk5fohxt5jinLK0wa12hpDk/x9UuCAtYbcKA2/sMr86dDGc
+	RaDhc1oKCeTnIKTAI4WU+WJJYSwHdQw4oeRmVNdQGhYZCsy6+QzTE3S7wwYAa1VgVJhR3y5SDEW
+	A6l8Tv3hux0TMKL1fSryJ3OOoId4NpUoc6pqEdsmgpSRhEJ1IlaSL1LO9N/GzSaBowgQooR3jBg
+	NeSSPupBgiCSoapihPdX8Avch3tGQbbVjLSuWlrYd/yKBKso0pN+OEwQA26011Igi1bj3lG9oC2
+	u9RhyoUiWBXDwOzsdkCQCOlea2weSTwFKGvOcmGGWzQQpXqe5YLoLIDvSilV5IPPfJJz8
+X-Google-Smtp-Source: AGHT+IH0TCP/R0AjIEQJyrxlL2CgdDpSFZSGg8SiwhDl3plTjuPkCxzzQKovUh/daQyl44BTWBxzFg==
+X-Received: by 2002:a05:600c:4e93:b0:43c:fe5e:f03b with SMTP id 5b1f17b1804b1-45a1b668299mr42064945e9.30.1755202191279;
+        Thu, 14 Aug 2025 13:09:51 -0700 (PDT)
+Message-ID: <757e3b87-bb4f-410a-84b7-cf3607bf3eb3@citrix.com>
+Date: Thu, 14 Aug 2025 21:09:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 13/22] x86: FRED enumerations
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 19/22] x86/boot: Use RSTORSSP to establish SSP
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
- <20250808202314.1045968-14-andrew.cooper3@citrix.com>
- <9b4da5b3-dd68-4052-92cc-fe322164eaa5@suse.com>
- <9cc46920-b1a6-4085-8481-abf0f1cd0aab@citrix.com>
- <c7e82bee-1b38-41e1-89c6-d1d3717087b2@suse.com>
- <b058cb18-7a03-403d-b0c4-402fc0353da2@citrix.com>
- <e3416a404c78156ff33de829c7b4b664@bugseng.com>
+ <20250808202314.1045968-20-andrew.cooper3@citrix.com>
+ <5ad64534-514c-412a-b2a2-23adaf835f60@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -140,48 +136,60 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <e3416a404c78156ff33de829c7b4b664@bugseng.com>
+In-Reply-To: <5ad64534-514c-412a-b2a2-23adaf835f60@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 14/08/2025 8:37 pm, Nicola Vetrini wrote:
-> On 2025-08-14 13:47, Andrew Cooper wrote:
->> On 14/08/2025 12:44 pm, Jan Beulich wrote:
->>> On 14.08.2025 13:42, Andrew Cooper wrote:
->>>> On 14/08/2025 12:20 pm, Jan Beulich wrote:
->>>>> On 08.08.2025 22:23, Andrew Cooper wrote:
->>>>>> --- a/xen/arch/x86/include/asm/x86-defns.h
->>>>>> +++ b/xen/arch/x86/include/asm/x86-defns.h
->>>>>> @@ -75,6 +75,7 @@
->>>>>>  #define X86_CR4_PKE        0x00400000 /* enable PKE */
->>>>>>  #define X86_CR4_CET        0x00800000 /* Control-flow
->>>>>> Enforcement Technology */
->>>>>>  #define X86_CR4_PKS        0x01000000 /* Protection Key
->>>>>> Supervisor */
->>>>>> +#define X86_CR4_FRED      0x100000000 /* Fast Return and Event
->>>>>> Delivery */
->>>>> ... a UL suffix added here for Misra.
->>>> I was surprised, but Eclair is entirely fine with this.
->>> And there is a use of the identifier in a monitored C file?
+On 14/08/2025 4:11 pm, Jan Beulich wrote:
+> On 08.08.2025 22:23, Andrew Cooper wrote:
+>> Under FRED, SETSSBSY is unavailable, and we want to be setting up FRED prior
+>> to setting up shadow stacks.  As we still need Supervisor Tokens in IDT mode,
+>> we need mode-specific logic to establish SSP.
 >>
->> Yes.  traps-setup.c which definitely has not been added to an exclusion
->> list.
+>> In FRED mode, write a Restore Token, RSTORSSP it, and discard the resulting
+>> Previous-SSP token.
 >>
+>> No change outside of FRED mode.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Why is it that in patch 17 you could use identical code, but here you can't?
+
+This caught me out at first too.
+
+For S3, we're going from "no shadow stack" to "back to where we were on
+an active shadow stack".  All we need to do is get saved_ssp back into
+the SSP register.
+
+Here, we're going from "no shadow stack" to "on a good, empty, shadow
+stack".  For FRED we only need to load a value into SSP, but in IDT mode
+we must also arrange to create a busy Supervisor Token on the base of
+the stack.
+
+We could in principle conditionally write a busy supervisor token, then
+unconditionally RSTORSSP, but that's even more complicated to follow IMO.
+
+It also flips around our position of "clean the busy bit on S3/hotplug"
+to "set it even on first-bringup".
+
+
+
+
+
 >
-> Might look into it before the end of the week, if time allows. Is [1]
-> the right branch to look at?
->
-> [1]
-> https://gitlab.com/xen-project/hardware/xen-staging/-/commits/andrew/fred
+>> @@ -912,10 +913,30 @@ static void __init noreturn reinit_bsp_stack(void)
+>>  
+>>      if ( cpu_has_xen_shstk )
+>>      {
+>> -        wrmsrl(MSR_PL0_SSP,
+>> -               (unsigned long)stack + (PRIMARY_SHSTK_SLOT + 1) * PAGE_SIZE - 8);
+> Does this removal perhaps belong elsewhere, especially with "No change
+> outside of FRED mode" in the description?
 
-Yes, although I am force pushing this with fixes as I find them.
+This is the "Updating reinit_bsp_stack() is deferred until later." note
+in the previous patch.
 
-In the latest run at the time of writing, I had one trivial R8.4
-violation to fix, and all other clean rules came up fine.  I expect the
-next run to be clean.
-
-One thing that might be relevant, IIRC it's implementation defined
-behaviour what happens to constants which are wider than int to begin with.
+This hunk was illegible without the split, although I have to admit that
+I can't quite remember why now.
 
 ~Andrew
 
