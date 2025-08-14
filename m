@@ -2,31 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1426B25859
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 02:29:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1080476.1440862 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C1F6B2585E
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 02:33:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1080486.1440872 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umLqg-00075x-97; Thu, 14 Aug 2025 00:29:42 +0000
+	id 1umLud-0000Fz-Nm; Thu, 14 Aug 2025 00:33:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1080476.1440862; Thu, 14 Aug 2025 00:29:42 +0000
+Received: by outflank-mailman (output) from mailman id 1080486.1440872; Thu, 14 Aug 2025 00:33:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umLqg-00073l-4x; Thu, 14 Aug 2025 00:29:42 +0000
-Received: by outflank-mailman (input) for mailman id 1080476;
- Thu, 14 Aug 2025 00:29:41 +0000
+	id 1umLud-0000Df-KT; Thu, 14 Aug 2025 00:33:47 +0000
+Received: by outflank-mailman (input) for mailman id 1080486;
+ Thu, 14 Aug 2025 00:33:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gZ3w=22=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1umLqe-00073c-VP
- for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 00:29:41 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c2474095-78a5-11f0-a328-13f23c93f187;
- Thu, 14 Aug 2025 02:29:38 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1755131373152234.87412345956682;
- Wed, 13 Aug 2025 17:29:33 -0700 (PDT)
+ <SRS0=AjlG=22=bounce.vates.tech=bounce-md_30504962.689d2eaa.v1-f82e5ff317ef4803833550b6120c223a@srs-se1.protection.inumbo.net>)
+ id 1umLuc-0000DZ-Ju
+ for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 00:33:46 +0000
+Received: from mail145-23.atl61.mandrillapp.com
+ (mail145-23.atl61.mandrillapp.com [198.2.145.23])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 311c03a9-78a6-11f0-a328-13f23c93f187;
+ Thu, 14 Aug 2025 02:32:44 +0200 (CEST)
+Received: from pmta06.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail145-23.atl61.mandrillapp.com (Mailchimp) with ESMTP id
+ 4c2R624WgKz1XLSCy
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 00:32:42 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ f82e5ff317ef4803833550b6120c223a; Thu, 14 Aug 2025 00:32:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,133 +43,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2474095-78a5-11f0-a328-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; t=1755131376; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=gKvqDdPoMhHOjKpQeK17xE+1l7BBa0Dgu9s/+F/zlKMi5FGt2h0DI9HirCMG2kRWkSDB9hlz64U4876BbekbERzgyvxS+gJCUf+lhOrUf6qylnFs9GOlZERdR/y0/SoismjPVZLEp43aePIXcyyQ3HoA0wFrNljxfjo7atJFpTA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1755131376; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=I4vISBO2CcIDBCnxpq18sQ2LUSn1D53ZZQfrXnOI3I4=; 
-	b=P1choNYd4JKU4pwhsGxBIlTEToFKfwqEWDh3BFzg1AbISiwPv9Po8727KZu2fHOLJQK/lLGl8QYY43DAwxNYIVJ9cgcTE2EEdwzLsZDeq1mZnrZe3Lg8IC7Oe89GgAOLhPSYCS5Hw9E4mFddMGX9/25aB9MRx9lKMrOypO+DLsQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1755131376;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=I4vISBO2CcIDBCnxpq18sQ2LUSn1D53ZZQfrXnOI3I4=;
-	b=OFwRSv2FsZwSj2lqZvbikMnATtnmJ5JnJQakIteKvRWYglBpn/TD0RR1CtWxGoK9
-	Qyl+0f6otMSpwU3bKrriqzmqItEFe9putM5UjvIqDPibVL0eWK+CJTs31PDkfdcgBFJ
-	CkRoV7JpLF6dZlYAwo4arNH91cHwD3iY2WOwNxGg=
-Message-ID: <9f9f24f0-c16a-4f55-b3c2-a3f4b485c403@apertussolutions.com>
-Date: Wed, 13 Aug 2025 20:29:32 -0400
+X-Inumbo-ID: 311c03a9-78a6-11f0-a328-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1755131562; x=1755401562;
+	bh=fyvq1kl+iP4CmHov+3M9OucDvmebNmPcZJRWq/jdFvM=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=sYXGVbwNizQeU4hRyQeQqC+J2y7sHGvankKxarM4ArkAy3ii6G6g119rQEA7e7s2P
+	 7s0fJuY6owY537Z3ZJpP9y+NiA9gWLM+vVw92NujaEJ3t0EG16cCBh8XG+DezUWUeO
+	 yig8NCX/7wGKkeAye9Vou9oe6X+d/7G2loMcYv7AfylFBsj2osyQP9u35QdY3ORoDc
+	 EXN11CN1QsoxB1yzrTVbrC4ddPYze1rvDhxfruHak4rFt3qv5m1h7s211z9jSWMEG1
+	 E5nnK26ZLkiwBQI92dCA4gdurW4gt2d4YnVn+BE91OErYXBZvVYF43bqDlSKI9MBn0
+	 UoT1Y9tPf+iJw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1755131562; x=1755392062; i=teddy.astie@vates.tech;
+	bh=fyvq1kl+iP4CmHov+3M9OucDvmebNmPcZJRWq/jdFvM=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=X3AIhF+rO735fyTEV3CRB+wFutnQ60vMm6bs4QTrqRQu0P/Agb3W1/NiOz8POQ3Qs
+	 PUgQxRDLTxEiQYJ7Rh2LcL0qstaRxEMJaoaqF8gVfABQTBU8ebtAL4WGeVQnLWQasK
+	 WoTCnSP+O34bleBfDRP0FhOXtljNODjqiksVA+v4zTlIXpB0zrMEuSzX9l99V5+Clc
+	 AX1WobEDJPCkv27jNIO7VS3KS5G7DiOQibTR2qDvao02Xd9rNPpSGdOaDx8e+xXaY/
+	 k7Eqk6jov9SX/GASbwjKP/Jp2fZn1y33XOL6h2WlsQaaogY7/3QeEzQuCI4NgmWd0v
+	 ouK8x9wEG8TpQ==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20[RFC=20PATCH]=20misra:=20allow=20conversion=20from=20unsigned=20long=20to=20function=20pointer?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1755131560161
+Message-Id: <7129feb6-31a3-40c8-9d99-f7d7d2ae89f7@vates.tech>
+To: "Dmytro Prokopchuk1" <dmytro_prokopchuk1@epam.com>, xen-devel@lists.xenproject.org
+Cc: "Nicola Vetrini" <nicola.vetrini@bugseng.com>, "Doug Goldstein" <cardoe@cardoe.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Bertrand Marquis" <bertrand.marquis@arm.com>, "Volodymyr Babchuk" <Volodymyr_Babchuk@epam.com>
+References: <8cbc9e6d881661d0d7a1055cbcef5a65e20522be.1755109168.git.dmytro_prokopchuk1@epam.com>
+In-Reply-To: <8cbc9e6d881661d0d7a1055cbcef5a65e20522be.1755109168.git.dmytro_prokopchuk1@epam.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.f82e5ff317ef4803833550b6120c223a?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250814:md
+Date: Thu, 14 Aug 2025 00:32:42 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] EFI/runtime: switch to xv[mz]alloc_array()
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Marek Marczykowski <marmarek@invisiblethingslab.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <41b7e14c-59ef-40f5-8c43-69bdc5fb4531@suse.com>
- <761b584a-51fb-403d-948e-3366501cea50@apertussolutions.com>
- <755dd957-514b-4316-82f5-3619c19cbb15@suse.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- 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
-In-Reply-To: <755dd957-514b-4316-82f5-3619c19cbb15@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 8/12/25 02:12, Jan Beulich wrote:
-> On 12.08.2025 02:19, Daniel P. Smith wrote:
->> On 7/23/25 09:39, Jan Beulich wrote:
->>> Use the more "modern" form, thus doing away with effectively open-coding
->>> xmalloc_array() at the same time. While there is a difference in
->>> generated code, as xmalloc_bytes() forces SMP_CACHE_BYTES alignment, if
->>> code really cared about such higher than default alignment, it should
->>> request so explicitly.
->>
->> While I don't object to the change itself, I think this description is a
->> bit over simplification of the change. If the allocation is under
->> PAGE_SIZE, then they are equivalent, but if it is over the page size
->> there are a few more differences than just cache alignment. It
->> completely changes the underlying allocator. I personally also find it a
->> bit of a stretch to call xmalloc_bytes(size) an open coded version of
->> xmalloc_array(char, size).
+Hello,
+
+Le 13/08/2025 =C3=A0 20:30, Dmytro Prokopchuk1 a =C3=A9crit=C2=A0:
+> ...
 > 
-> My take is that xmalloc_bytes() should never have existed. Hence why I
-> didn't add xzmalloc_bytes() when introducing that family of interfaces.
-
-Right, which would be a valid argument for replacing it with 
-xmalloc_array(). Though, I would note that there is an xzalloc_bytes(). 
-My concern was that you stated there was an open coding, which had me 
-expecting there was a line of the form, xmanlloc_bytes(count * 
-size_of_something bigger), being replaced by 
-xvmalloc_arryay(something_bigger, count).
-
-IMHO, while the C spec does specify char as 1 byte and thus 
-interchangeable, I would agree that from a contextual perspective, 
-xmalloc_array() is the more appropriate call. The use of the allocation 
-is a character array and not a chunk of bytes for an arbitrary buffer.
-
->> With a stronger description of the change,
+> from `vaddr_t' (that is `unsigned long') to `switch_ttbr_fn*' (that is `v=
+oid(*)(unsigned long)')
 > 
-> So what exactly do you mean by "stronger"? I can add that in the unlikely
-> event that one of the allocations is (near) PAGE_SIZE or larger, we now
-> wouldn't require contiguous memory anymore. Yet based on your comment at
-> the top I'm not quite sure if that's what you're after and/or enough to
-> satisfy your request.
-
-The phrasing stronger was meant to be more clear on the change/effect, 
-specifically that the underlying allocator is being changed when the 
-allocation is greater than a PAGE_SIZE. Not necessarily a long 
-explanation, just the fact that the allocation will be coming from the 
-dom heap allocator as opposed to the xen heap allocator. There are 
-implications to changing the allocater, e.g.,  at a minimum the 
-allocation order and nonphysical vs. physically contiguous effects. 
-Having it noted in the commit makes it more obvious what this change is 
-actually doing. Which may not be obvious when seeing the simple line 
-changes occurring in the diff. Later, if there is an unexpected 
-consequence caused by this change, a stronger commit will be helpful 
-with the bisection investigations.
-
-dps
-
->> Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+> ---
+> This is just a RFC patch.
+> The commit message is not important at this stage.
 > 
-> Thanks, but will need clarification first as per above.
+> I am seeking comments regarding this case.
 > 
-> Jan
+> Thanks.
+> ---
+>   automation/eclair_analysis/ECLAIR/deviations.ecl |  8 ++++++++
+>   docs/misra/deviations.rst                        | 10 ++++++++++
+>   docs/misra/rules.rst                             |  8 +++++++-
+>   xen/arch/arm/arm64/mmu/mm.c                      |  2 ++
+>   4 files changed, 27 insertions(+), 1 deletion(-)
+> 
+> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automatio=
+n/eclair_analysis/ECLAIR/deviations.ecl
+> index ebce1ceab9..f9fd6076b7 100644
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -365,6 +365,14 @@ constant expressions are required.\""
+>   }
+>   -doc_end
+>   
+> +-doc_begin=3D"The conversion from unsigned long to a function pointer do=
+es not lose any information, provided that the source type has enough bits =
+to restore it."
+> +-config=3DMC3A2.R11.1,casts+=3D{safe,
+> +  "from(type(canonical(builtin(unsigned long))))
+> +   &&to(type(canonical(__function_pointer_types)))
+> +   &&relation(definitely_preserves_value)"
+> +}
+> +-doc_end
+> +
+>   -doc_begin=3D"The conversion from a function pointer to a boolean has a=
+ well-known semantics that do not lead to unexpected behaviour."
+>   -config=3DMC3A2.R11.1,casts+=3D{safe,
+>     "from(type(canonical(__function_pointer_types)))
+> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+> index 3c46a1e47a..27848602f6 100644
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -348,6 +348,16 @@ Deviations related to MISRA C:2012 Rules:
+>          to store it.
+>        - Tagged as `safe` for ECLAIR.
+>   
+> +   * - R11.1
+> +     - The conversion from unsigned long to a function pointer does not =
+lose any
+> +       information or violate type safety assumptions if the unsigned lo=
+ng type
+> +       is guaranteed to be at least as large as a function pointer. This=
+ ensures
+> +       that the function pointer address can be fully represented withou=
+t
+> +       truncation or corruption. Macro BUILD_BUG_ON can be integrated in=
+to the
+> +       build system to confirm that 'sizeof(unsigned long) >=3D sizeof(v=
+oid (*)())'
+
+Wouldn't `sizeof(unsigned long) =3D=3D sizeof(void (*)())` be preferable ?
+
+I assume sizeof(unsigned long) is the size of a CPU word.
+Having `sizeof(unsigned long) < sizeof(void (*)())` makes use of 
+operations like cmpxchg unsuitable on function pointers (because of 
+object size mismatch).
+
+> +       on all target platforms.
+> +     - Tagged as `safe` for ECLAIR.
+> +
+>      * - R11.1
+>        - The conversion from a function pointer to a boolean has a well-k=
+nown
+>          semantics that do not lead to unexpected behaviour.
+> diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
+> index 6812eb7e8a..8b97ecf3f4 100644
+> --- a/docs/misra/rules.rst
+> +++ b/docs/misra/rules.rst
+> @@ -414,7 +414,13 @@ maintainers if you want to suggest a change.
+>        - All conversions to integer types are permitted if the destinatio=
+n
+>          type has enough bits to hold the entire value. Conversions to bo=
+ol
+>          and void* are permitted. Conversions from 'void noreturn (*)(...=
+)'
+> -       to 'void (*)(...)' are permitted.
+> +       to 'void (*)(...)' are permitted. Conversions from unsigned long =
+to
+> +       function pointer are permitted if the unsigned long type has a si=
+ze
+> +       and representation sufficient to store the entire function pointe=
+r
+> +       value without truncation or corruption. Example::
+> +
+> +           unsigned long func_addr =3D (unsigned long)&some_function;
+> +           void (*restored_func)(void) =3D (void (*)(void))func_addr;
+>   
+>      * - `Rule 11.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Exampl=
+e-Suite/-/blob/master/R_11_02.c>`_
+>        - Required
+> diff --git a/xen/arch/arm/arm64/mmu/mm.c b/xen/arch/arm/arm64/mmu/mm.c
+> index 3e64be6ae6..998d52c162 100644
+> --- a/xen/arch/arm/arm64/mmu/mm.c
+> +++ b/xen/arch/arm/arm64/mmu/mm.c
+> @@ -150,6 +150,7 @@ void __init relocate_and_switch_ttbr(uint64_t ttbr)
+>       vaddr_t id_addr =3D virt_to_maddr(relocate_xen);
+>       relocate_xen_fn *fn =3D (relocate_xen_fn *)id_addr;
+>       lpae_t pte;
+> +    BUILD_BUG_ON(sizeof(unsigned long) < sizeof(fn));
+>   
+>       /* Enable the identity mapping in the boot page tables */
+>       update_identity_mapping(true);
+> @@ -178,6 +179,7 @@ void __init switch_ttbr(uint64_t ttbr)
+>       vaddr_t id_addr =3D virt_to_maddr(switch_ttbr_id);
+>       switch_ttbr_fn *fn =3D (switch_ttbr_fn *)id_addr;
+>       lpae_t pte;
+> +    BUILD_BUG_ON(sizeof(unsigned long) < sizeof(fn));
+>   
+>       /* Enable the identity mapping in the boot page tables */
+>       update_identity_mapping(true);
+
+
+
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
 
