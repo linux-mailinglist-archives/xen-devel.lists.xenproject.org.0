@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E80AB269EC
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 16:47:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1081831.1441790 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8053AB26A1C
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 16:54:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1081841.1441799 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umZEl-0006oo-63; Thu, 14 Aug 2025 14:47:27 +0000
+	id 1umZLL-0000MQ-RY; Thu, 14 Aug 2025 14:54:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1081831.1441790; Thu, 14 Aug 2025 14:47:27 +0000
+Received: by outflank-mailman (output) from mailman id 1081841.1441799; Thu, 14 Aug 2025 14:54:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umZEl-0006mM-2j; Thu, 14 Aug 2025 14:47:27 +0000
-Received: by outflank-mailman (input) for mailman id 1081831;
- Thu, 14 Aug 2025 14:47:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1umZLL-0000Jl-Ov; Thu, 14 Aug 2025 14:54:15 +0000
+Received: by outflank-mailman (input) for mailman id 1081841;
+ Thu, 14 Aug 2025 14:54:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xqZt=22=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1umZEj-0006mG-T1
- for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 14:47:25 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 96e20d97-791d-11f0-a328-13f23c93f187;
- Thu, 14 Aug 2025 16:47:24 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-61868d83059so3661550a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 07:47:24 -0700 (PDT)
+ id 1umZLK-0000Jf-4W
+ for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 14:54:14 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 88244208-791e-11f0-b898-0df219b8e170;
+ Thu, 14 Aug 2025 16:54:09 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-6188b5b7c72so1389882a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 07:54:09 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-618461ab3dcsm5798551a12.56.2025.08.14.07.47.23
+ 4fb4d7f45d1cf-615a9113e40sm23880914a12.57.2025.08.14.07.54.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Aug 2025 07:47:23 -0700 (PDT)
+ Thu, 14 Aug 2025 07:54:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 96e20d97-791d-11f0-a328-13f23c93f187
+X-Inumbo-ID: 88244208-791e-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755182844; x=1755787644; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755183248; x=1755788048; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0PzSZX8cJpRvZEoRZks2M9zfbhZ+zG35XO5dF7p2NWk=;
-        b=IZ+is3aUpTNfwEv0rR3CfWRTZDYGQ8JR0SeCcwTZMYWmmOCxcHAWY/Pz4KcThrlOSg
-         R4+L0fnCw4xgKoA7uNdSAzhAg7D17w3JNVZRkcdpFTHAk26JAEXSh4hpJ8/9Bvhb5oqK
-         +pd9GCt6kEH75SUtFbyW+JxkJfYoyg85KAX8uNPSCJRPtJhQnyJYXDRkeRet5Y8zoC0w
-         6Oy4dfBELnf8veaO9fqVAPJJq4FlWOpSMjBYzRB1yobjJbdqfDYnw7Da1O045F5XUilu
-         hfKACAs0rUk8f18O+FtN/4O/NqUz+DrkHWkahhEW3/kRAVShrTqAsZwZF91vRaXDzUR2
-         DYhw==
+        bh=KdCgU1v9HK6NrezqwvKMitSNFgouyHp1cNf1VReAl54=;
+        b=XdPBkLg+1Vh5Rn3k9U0PUtuoTalh/5RtAe8Rk4C2OywZeVfU8LbS5WdHpziCZeSyIR
+         zttC14fvj7dk2tkn1V8YgYH988HpQi8fs+QOYUhxPPbLc8iP1Uy5fjDPZpXLXSt3Bz3z
+         kOEDrOMpC0lyFA0DNOD2hpF6+MUew3yiLf69tBupsybxHzdOYHl8vsKEbtn5sSdUWxph
+         U4GbFlG1AFO9wsmZIkBMGTCESmbv9vFxb1jMiC4lN2rH7tFJzVZJgE3/LYvdl9ypfvfB
+         THye3Najo4blIMAHxzeJCIRlmC1qx1YIKwKzR65uNTxQn65F601pzFok27fGUcSQqTZJ
+         HfPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755182844; x=1755787644;
+        d=1e100.net; s=20230601; t=1755183248; x=1755788048;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0PzSZX8cJpRvZEoRZks2M9zfbhZ+zG35XO5dF7p2NWk=;
-        b=Aj4trdixTvEMJHGViTm7MPP4j4+Vj6Na7XBR+HsNwFD5TP1N4pnNIvWkWB/6GrgS2t
-         1MmA1JYdnWe31dxV9ddtmeBQfruACogqP1LqXVSX8naRWrth+J7cRDkHWBFLuu+1pgbA
-         6T40HWBgrkHlOfnZ1+qIKBS5/pIHeqbk+mx7WZmI+eyrGkLmSC1fq43uC61QEC/ytgY0
-         /+2oKS6rDG5Htog5MzL4FUFv7eHSdsxRslouhw/23es06h973R6gUDpBcRqQkci095wY
-         R0yZMOtHdbdDsEbpc9PZA3ALYGOM1FQyQ2jSOv5eJGyCM50m41Phq/tExWUA1kaPcev/
-         B5rg==
-X-Forwarded-Encrypted: i=1; AJvYcCV7z7issA7UI8bMZzc7XSpW6piEj3f8TBmjL1T1WstEWKOAZI3eGQF0HrF4gfMbf7kYqGBz7KT2yWw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyp0/b3IVSSecX0U0hqsL45DScyVHbG9UxbBNlXx7prqnYwMGoq
-	ZeyYG5IxLiczpT3j2tbKxm3h7pF6y2szjR3ZZ9zrnN60fNfkl9ZQ63UiktsVyt+1ng==
-X-Gm-Gg: ASbGncuB0X5D+C35tMH1pl+KGOdB0QDztBxyRKpAtOVfVQYEzkf1OJgXjZMigXvGuU9
-	dD9fwR+jFzZQGnVAutY5c+g5YN3alFMOc4Qm12N5ieUMMO3pa/jXLy5taO5IaFRAenV3gJ+5PSV
-	D/GYpGnoklKILXTEfouo5O8gX7emUm5zrJ+IynVy9GLLrGzzV3kqAs2bGkY/9FQyyzNjDW3ISQ5
-	g/w9lpbEtCdwEQe412p7ZpEJ7NU5eE/mHG4ATc364mazYQhsaDl3B7huZjy6gpZOPs6YU3cR4cw
-	BwWmP58QPWijaDI57Nuw2qL961GQinfyGr2JmOF23GvV6bYtx2SZQqnZ3MJdvGfSdOSUZaHQJp0
-	FxnKei6noxGDV3sBgbq1s3M06HcpijMuYBpObEvp3wmqLfu/iFsCbjZz9tcISc/YmuhOQcwq0wM
-	shy1C0DhLiWFNt82SH+zwNaqqL+THa
-X-Google-Smtp-Source: AGHT+IEIv2Qy7vMmzbW5n9n9O93ylH3tlTgGIyvq9jsyUIn2j4PVkhALpFA1QgwIV1Z+TDeZxLjXMQ==
-X-Received: by 2002:a05:6402:2188:b0:618:780f:e89d with SMTP id 4fb4d7f45d1cf-6189199fa41mr2801632a12.3.1755182843558;
-        Thu, 14 Aug 2025 07:47:23 -0700 (PDT)
-Message-ID: <270b2ad1-fb8a-4a0a-8733-a8f3f8f25a94@suse.com>
-Date: Thu, 14 Aug 2025 16:47:21 +0200
+        bh=KdCgU1v9HK6NrezqwvKMitSNFgouyHp1cNf1VReAl54=;
+        b=Jdi9/gx70/cVX4EvdfmYe7khOnpbERRIsa0jJY/zk5DrywViHsScvJ3UWFzU2PkFfM
+         acSYoNHUJZkyGocnMkB/GIzxBvt4FynlyVUVgXHbTbxC84NgWo9ZCheLTYILJpxzD38w
+         iGqzR4Hx4ubvarfw58vMpb956xQBS5eULzk3iKfUIkF6tD4m3j6TN/1XTsVpfU6i0yG4
+         lUOlrIj5TcigdN7Kk0jO1xPgtE/VgYn7uOl1V++KP59RzOy4yNBDo5n/+R+rfY9Dixc1
+         M0dImMPf42yytYMLbzednekuJKYvlDSl3r9+nPupY1VoKJ0EnLUrwA78R++weL6HBFgy
+         Vxjg==
+X-Forwarded-Encrypted: i=1; AJvYcCVj65VwNKIVNgY7TuVNJ9+P4R5xi5ECAKmjPagydWQ2GH09TGDhaNnUVhPBR1l5valya+anUOXRvkM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy3C9TrDUGuveHeP2rA6wIIP70FoWrOYSyAz8RMnSsIBkNmixpW
+	r9fQhBkR3T6cvEJF3cN8e2TeRWH42GnySJRjpH6Rng58coJxE3hXjCwOcH27QMyHDA==
+X-Gm-Gg: ASbGncum7kAOtYS0jQel3UPwQCKX0oYC2ocLQEGZ9FGGakSyHfLO2XeNbv3C9KynlJH
+	Jk7dNnmkD+byGXc2znKNm/BZiW2Bdr55PgQlh2uhG3qRKkCAFWDcraZ/tpp1gRYMM/C0yjCjAwW
+	zPpr8Ko6qqbOTQ2PnIQinCtf4ghE89sVvb7ubylRgGDWxC4zPCLbikRccAtwfft8YTjpWfGFwBd
+	AT501zvsVgRS/1EKZDCpySeVH69r4RLuF6KK0zuFGdYPvNWLOQ9n7/cb53wbtS21Kc+VxZAIhST
+	9LF4Vc3gBgW/Fa4TTaW5CIOkAow8yQvRFkV8SZkJDXvlk4/qwEECqAoOn3zh48RNyLhUjlyj2qc
+	Sp6YnfLgKixBk2yOVmo3EFgvVtj9etNxT/vEEbx4DrB5P/Q2DgDezxEaKdRfzsRPlrgdimQdqWY
+	ry7pjVdB1ILGhJ4TZAOA==
+X-Google-Smtp-Source: AGHT+IGWAmz1kzEepN4KVbE5BgC9osFy0BlWS5O052n1+LjR2SPfInMoS1bbsIViHJFzDFn0obhEHg==
+X-Received: by 2002:a05:6402:348c:b0:602:1b8b:2925 with SMTP id 4fb4d7f45d1cf-6188c21772cmr2549821a12.29.1755183248324;
+        Thu, 14 Aug 2025 07:54:08 -0700 (PDT)
+Message-ID: <50fd32ef-ac5e-4842-9d14-2d9b77a9d470@suse.com>
+Date: Thu, 14 Aug 2025 16:54:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 16/22] x86/boot: Adjust CR4 handling around
- ap_early_traps_init()
+Subject: Re: [PATCH 17/22] x86/S3: Switch to using RSTORSSP to recover SSP on
+ resume
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
- <20250808202314.1045968-17-andrew.cooper3@citrix.com>
+ <20250808202314.1045968-18-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,66 +120,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250808202314.1045968-17-andrew.cooper3@citrix.com>
+In-Reply-To: <20250808202314.1045968-18-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 08.08.2025 22:23, Andrew Cooper wrote:
-> ap_early_traps_init() will shortly be setting CR4.FRED.  This requires that
-> cpu_info->cr4 is already set up, and that the enablement of CET doesn't
-> truncate FRED back out because of it's 32bit logic.
+> Under FRED, SETSSBSY is unavailable, and we want to be setting up FRED prior
+> to setting up shadow stacks.  Luckily, RSTORSSP will also work in this case.
 > 
-> For __high_start(), defer re-loading XEN_MINIMAL_CR4 until after %rsp is set
-> up and we can store the result in the cr4 field too.
+> This involves a new type of shadow stack token, the Restore Token, which is
+> distinguished from the Supervisor Token by pointing to the adjacent slot on
+> the shadow stack rather than pointing at itself.
 > 
-> For s3_resume(), explicitly re-load XEN_MINIMAL_CR4.  Later when loading all
-> features, use the mmu_cr4_features variable which is how the rest of Xen
-> performs this operation.
+> In the short term, this logic still needs to load MSR_PL0_SSP.
 > 
-> No functional change, yet.
+> No functional change.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/xen/arch/x86/acpi/wakeup_prot.S
-> +++ b/xen/arch/x86/acpi/wakeup_prot.S
-> @@ -63,6 +63,14 @@ LABEL(s3_resume)
->          pushq   %rax
->          lretq
->  1:
-> +
-> +        GET_STACK_END(15)
-> +
-> +        /* Enable minimal CR4 features. */
-> +        mov     $XEN_MINIMAL_CR4, %eax
-> +        mov     %rax, STACK_CPUINFO_FIELD(cr4)(%r15)
-
-Strictly speaking this and ...
-
-> --- a/xen/arch/x86/boot/x86_64.S
-> +++ b/xen/arch/x86/boot/x86_64.S
-> @@ -11,16 +11,19 @@ ENTRY(__high_start)
->          mov     %ecx,%gs
->          mov     %ecx,%ss
->  
-> -        /* Enable minimal CR4 features. */
-> -        mov     $XEN_MINIMAL_CR4,%rcx
-> -        mov     %rcx,%cr4
-> -
->          mov     stack_start(%rip),%rsp
->  
->          /* Reset EFLAGS (subsumes CLI and CLD). */
->          pushq   $0
->          popf
->  
-> +        GET_STACK_END(15)
-> +
-> +        /* Enable minimal CR4 features. */
-> +        mov     $XEN_MINIMAL_CR4, %eax
-> +        mov     %rax, STACK_CPUINFO_FIELD(cr4)(%r15)
-
-... this could be 32-bit stores, even in the longer run.
-
-Jan
 
