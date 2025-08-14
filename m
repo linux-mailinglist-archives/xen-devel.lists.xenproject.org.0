@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C21FDB26E63
+	by mail.lfdr.de (Postfix) with ESMTPS id C31CAB26E64
 	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 20:01:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1082178.1442139 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1082176.1442134 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umcFy-00087S-9q; Thu, 14 Aug 2025 18:00:54 +0000
+	id 1umcFx-00082R-W9; Thu, 14 Aug 2025 18:00:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1082178.1442139; Thu, 14 Aug 2025 18:00:54 +0000
+Received: by outflank-mailman (output) from mailman id 1082176.1442134; Thu, 14 Aug 2025 18:00:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umcFy-00082b-2z; Thu, 14 Aug 2025 18:00:54 +0000
-Received: by outflank-mailman (input) for mailman id 1082178;
- Thu, 14 Aug 2025 18:00:52 +0000
+	id 1umcFx-0007zX-SC; Thu, 14 Aug 2025 18:00:53 +0000
+Received: by outflank-mailman (input) for mailman id 1082176;
+ Thu, 14 Aug 2025 18:00:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Hncw=22=kernel.org=leon@srs-se1.protection.inumbo.net>)
- id 1umcA7-0002OV-JL
- for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 17:54:51 +0000
+ id 1umcAL-0002OV-RJ
+ for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 17:55:05 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c4c49a03-7937-11f0-b898-0df219b8e170;
- Thu, 14 Aug 2025 19:54:48 +0200 (CEST)
+ id cddd7c37-7937-11f0-b898-0df219b8e170;
+ Thu, 14 Aug 2025 19:55:04 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id AD63A5C721E;
- Thu, 14 Aug 2025 17:54:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F749C4CEF6;
- Thu, 14 Aug 2025 17:54:46 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id ED6975C71E8;
+ Thu, 14 Aug 2025 17:55:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7099C4CEF6;
+ Thu, 14 Aug 2025 17:55:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c4c49a03-7937-11f0-b898-0df219b8e170
+X-Inumbo-ID: cddd7c37-7937-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1755194087;
-	bh=6kQRc8M4kSTN6oNlv6UupesxmLI8KrU+a1TL4nhd0iE=;
+	s=k20201202; t=1755194102;
+	bh=0mJoy+46tPnckyRiCMrZ6rM11HgiRAqoXhfeDURewQs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=C6w4ugQYiUdcIBDBap/wpiQAIwZla3sL70dXT7fdDwlS8iAo7WkvllaYcXF4QU2M9
-	 kt4WEnzYrIn4ZDZURbuikMUlP1Qp9CxkQOq+obTZHosuKzmVJJ0AF/lK9fQSX5YtoJ
-	 kzMxjlyIoIy5MaeVth9MfY0uS93UJW4vr922gEZKEo2egnsKAq7kg8ZgHQF2XBxqCZ
-	 F1uVGjeU46DFgcCqPy+lW15qydDCb2UvhK7t93bEVpZBLmZ+yVMS129GxQ41QBkFWL
-	 CFslA3zPU9Peu4BjTd3+d/0rvdaudAz+bJ7W9WzhuA5hIM9mliO10n+CPNH4ALRsGy
-	 OQQa8odedrzVg==
+	b=q5y8UPYbkB2gzf2uIya/X3vdHYBLt5p8f2+4LvAOXumYTMXCUY8KcMUO+hVWuG5Mi
+	 7MzmZa8BOiq3ncXs0zot46eTEMUqsrH0jSfmEBc4Rd3RC/EnHrCaD8bS0umwGI1rMd
+	 UdLZ+i6qVKHnzlk0T5qsMDg7gCo2PKlNRDcnn29eXsO4dvTPBeiyKX3kJYqrunChzP
+	 vBTtaqwfzFacD2KSsvNKIuqP2BySwh9+2MLpaW2otrJlck+iVxAf0mH6nSYGwNIHe7
+	 pVOlSpgYbdrZ6NMFd3ZlatqJdHDz1ybQq38chzBmAVKpPy4QK8iQXExLGVHCiU/RcX
+	 j/D9of2rZm+xA==
 From: Leon Romanovsky <leon@kernel.org>
 To: Marek Szyprowski <m.szyprowski@samsung.com>
 Cc: Leon Romanovsky <leonro@nvidia.com>,
@@ -90,9 +90,9 @@ Cc: Leon Romanovsky <leonro@nvidia.com>,
 	virtualization@lists.linux.dev,
 	Will Deacon <will@kernel.org>,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH v3 09/16] dma-mapping: handle MMIO flow in dma_map|unmap_page
-Date: Thu, 14 Aug 2025 20:54:00 +0300
-Message-ID: <ae473ed08a384bd70e3816cc74e11513213d71f4.1755193625.git.leon@kernel.org>
+Subject: [PATCH v3 10/16] xen: swiotlb: Open code map_resource callback
+Date: Thu, 14 Aug 2025 20:54:01 +0300
+Message-ID: <be7c97a559d2482c99e41b7714400934251c53cd.1755193625.git.leon@kernel.org>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <cover.1755193625.git.leon@kernel.org>
 References: <cover.1755193625.git.leon@kernel.org>
@@ -101,77 +101,52 @@ Content-Transfer-Encoding: 8bit
 
 From: Leon Romanovsky <leonro@nvidia.com>
 
-Extend base DMA page API to handle MMIO flow and follow
-existing dma_map_resource() implementation to rely on dma_map_direct()
-only to take DMA direct path.
+General dma_direct_map_resource() is going to be removed
+in next patch, so simply open-code it in xen driver.
 
+Reviewed-by: Juergen Gross <jgross@suse.com>
 Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 ---
- kernel/dma/mapping.c | 26 +++++++++++++++++++++-----
- 1 file changed, 21 insertions(+), 5 deletions(-)
+ drivers/xen/swiotlb-xen.c | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/dma/mapping.c b/kernel/dma/mapping.c
-index 891e1fc3e582..fdabfdaeff1d 100644
---- a/kernel/dma/mapping.c
-+++ b/kernel/dma/mapping.c
-@@ -158,6 +158,7 @@ dma_addr_t dma_map_page_attrs(struct device *dev, struct page *page,
- {
- 	const struct dma_map_ops *ops = get_dma_ops(dev);
- 	phys_addr_t phys = page_to_phys(page) + offset;
-+	bool is_mmio = attrs & DMA_ATTR_MMIO;
- 	dma_addr_t addr;
+diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
+index da1a7d3d377c..dd7747a2de87 100644
+--- a/drivers/xen/swiotlb-xen.c
++++ b/drivers/xen/swiotlb-xen.c
+@@ -392,6 +392,25 @@ xen_swiotlb_sync_sg_for_device(struct device *dev, struct scatterlist *sgl,
+ 	}
+ }
  
- 	BUG_ON(!valid_dma_direction(dir));
-@@ -166,14 +167,25 @@ dma_addr_t dma_map_page_attrs(struct device *dev, struct page *page,
- 		return DMA_MAPPING_ERROR;
- 
- 	if (dma_map_direct(dev, ops) ||
--	    arch_dma_map_phys_direct(dev, phys + size))
-+	    (!is_mmio && arch_dma_map_phys_direct(dev, phys + size)))
- 		addr = dma_direct_map_phys(dev, phys, size, dir, attrs);
- 	else if (use_dma_iommu(dev))
- 		addr = iommu_dma_map_phys(dev, phys, size, dir, attrs);
--	else
-+	else if (is_mmio) {
-+		if (!ops->map_resource)
-+			return DMA_MAPPING_ERROR;
++static dma_addr_t xen_swiotlb_direct_map_resource(struct device *dev,
++						  phys_addr_t paddr,
++						  size_t size,
++						  enum dma_data_direction dir,
++						  unsigned long attrs)
++{
++	dma_addr_t dma_addr = paddr;
 +
-+		addr = ops->map_resource(dev, phys, size, dir, attrs);
-+	} else {
-+		/*
-+		 * The dma_ops API contract for ops->map_page() requires
-+		 * kmappable memory, while ops->map_resource() does not.
-+		 */
- 		addr = ops->map_page(dev, page, offset, size, dir, attrs);
++	if (unlikely(!dma_capable(dev, dma_addr, size, false))) {
++		dev_err_once(dev,
++			     "DMA addr %pad+%zu overflow (mask %llx, bus limit %llx).\n",
++			     &dma_addr, size, *dev->dma_mask, dev->bus_dma_limit);
++		WARN_ON_ONCE(1);
++		return DMA_MAPPING_ERROR;
 +	}
- 
--	kmsan_handle_dma(phys, size, dir);
-+	if (!is_mmio)
-+		kmsan_handle_dma(phys, size, dir);
- 	trace_dma_map_phys(dev, phys, addr, size, dir, attrs);
- 	debug_dma_map_phys(dev, phys, size, dir, addr, attrs);
- 
-@@ -185,14 +197,18 @@ void dma_unmap_page_attrs(struct device *dev, dma_addr_t addr, size_t size,
- 		enum dma_data_direction dir, unsigned long attrs)
- {
- 	const struct dma_map_ops *ops = get_dma_ops(dev);
-+	bool is_mmio = attrs & DMA_ATTR_MMIO;
- 
- 	BUG_ON(!valid_dma_direction(dir));
- 	if (dma_map_direct(dev, ops) ||
--	    arch_dma_unmap_phys_direct(dev, addr + size))
-+	    (!is_mmio && arch_dma_unmap_phys_direct(dev, addr + size)))
- 		dma_direct_unmap_phys(dev, addr, size, dir, attrs);
- 	else if (use_dma_iommu(dev))
- 		iommu_dma_unmap_phys(dev, addr, size, dir, attrs);
--	else
-+	else if (is_mmio) {
-+		if (ops->unmap_resource)
-+			ops->unmap_resource(dev, addr, size, dir, attrs);
-+	} else
- 		ops->unmap_page(dev, addr, size, dir, attrs);
- 	trace_dma_unmap_phys(dev, addr, size, dir, attrs);
- 	debug_dma_unmap_phys(dev, addr, size, dir);
++
++	return dma_addr;
++}
++
+ /*
+  * Return whether the given device DMA address mask can be supported
+  * properly.  For example, if your device can only drive the low 24-bits
+@@ -426,5 +445,5 @@ const struct dma_map_ops xen_swiotlb_dma_ops = {
+ 	.alloc_pages_op = dma_common_alloc_pages,
+ 	.free_pages = dma_common_free_pages,
+ 	.max_mapping_size = swiotlb_max_mapping_size,
+-	.map_resource = dma_direct_map_resource,
++	.map_resource = xen_swiotlb_direct_map_resource,
+ };
 -- 
 2.50.1
 
