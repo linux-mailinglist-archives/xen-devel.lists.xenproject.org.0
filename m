@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 860E1B26759
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 15:31:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1081737.1441751 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AF9BB2687D
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 16:05:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1081767.1441769 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umY33-0007sG-AT; Thu, 14 Aug 2025 13:31:17 +0000
+	id 1umYZj-0007RP-Sj; Thu, 14 Aug 2025 14:05:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1081737.1441751; Thu, 14 Aug 2025 13:31:17 +0000
+Received: by outflank-mailman (output) from mailman id 1081767.1441769; Thu, 14 Aug 2025 14:05:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umY33-0007qU-80; Thu, 14 Aug 2025 13:31:17 +0000
-Received: by outflank-mailman (input) for mailman id 1081737;
- Thu, 14 Aug 2025 13:31:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Hncw=22=kernel.org=leon@srs-se1.protection.inumbo.net>)
- id 1umY32-0007SK-61
- for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 13:31:16 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f26c0c94-7912-11f0-b898-0df219b8e170;
- Thu, 14 Aug 2025 15:31:14 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 766E96111F;
- Thu, 14 Aug 2025 13:31:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02E81C4CEF1;
- Thu, 14 Aug 2025 13:31:11 +0000 (UTC)
+	id 1umYZj-0007PU-Px; Thu, 14 Aug 2025 14:05:03 +0000
+Received: by outflank-mailman (input) for mailman id 1081767;
+ Thu, 14 Aug 2025 14:05:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6Upc=22=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1umYZi-0006vV-36
+ for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 14:05:02 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ab43d6cb-7917-11f0-a328-13f23c93f187;
+ Thu, 14 Aug 2025 16:05:01 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-45a1b0bde14so4899375e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 07:05:01 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-45a1c78b33csm23945245e9.25.2025.08.14.07.05.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Aug 2025 07:05:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,136 +45,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f26c0c94-7912-11f0-b898-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1755178272;
-	bh=WW0xB1u8XI1L1gGsXl6wpt3WDXrr4yCiJlHi7BUNlCY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=XqHxW8YW58Ln/tIjnGi73wY9qD5/Iqkzwyv6qop3T0s5v319Ftg/c1ujK3/+Pmp3O
-	 3SJY9d+x4hq26C9R4ldz3ap27JZ3CK6dbddTXlBk+z2z09uVrOYjtUFTpeGlFvgNjV
-	 L1huyBWZL3RmFzTXcCZe8HHfxLc3AApxz5Ss7QLL+ussS/TR5qi1rfohz3kzvuYQXA
-	 z9fOR+m/fazEworlcK45UcqDrJLI+rHyeuLbz0YS0ZizqgTQFWAKE1JSOTRnlpXZlF
-	 3y7wTMxm2dgJYYjVCyrbQbIxiWn20GP+y7nUAEOT4RU14M4Kgk2W8/qCK/ckcjXpyq
-	 NVGeZpIDI1XVQ==
-Date: Thu, 14 Aug 2025 16:31:06 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
-	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
-	Alexander Potapenko <glider@google.com>,
-	Alex Gaynor <alex.gaynor@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
-	iommu@lists.linux.dev, Jason Wang <jasowang@redhat.com>,
-	Jens Axboe <axboe@kernel.dk>, Joerg Roedel <joro@8bytes.org>,
-	Jonathan Corbet <corbet@lwn.net>, Juergen Gross <jgross@suse.com>,
-	kasan-dev@googlegroups.com, Keith Busch <kbusch@kernel.org>,
-	linux-block@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-nvme@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
-	linux-trace-kernel@vger.kernel.org,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v1 08/16] kmsan: convert kmsan_handle_dma to use physical
- addresses
-Message-ID: <20250814133106.GE310013@unreal>
-References: <cover.1754292567.git.leon@kernel.org>
- <5b40377b621e49ff4107fa10646c828ccc94e53e.1754292567.git.leon@kernel.org>
- <20250807122115.GH184255@nvidia.com>
- <20250813150718.GB310013@unreal>
- <20250814121316.GC699432@nvidia.com>
- <20250814123506.GD310013@unreal>
- <20250814124448.GE699432@nvidia.com>
+X-Inumbo-ID: ab43d6cb-7917-11f0-a328-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1755180301; x=1755785101; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=k2xvaITA3b0kdsxlFAbZtv4pFa7e33kAas+Pqqz57dY=;
+        b=JR9wAzFhrtm7v7+5HgcTX31VP1YOI1z+lW+ixQedhAfHM5qSjC87js4bPG+0V5Ckxi
+         4HZqGcjtLstnxlNdIfMu5/QwArVFurMelG7VzAEP6MkHQ2Aj4K4JwPPb2WkEMN/+JweY
+         Hx+RcwIZq1IUyKUkTMTf6wsgR+L3R5B2uQtcQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1755180301; x=1755785101;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=k2xvaITA3b0kdsxlFAbZtv4pFa7e33kAas+Pqqz57dY=;
+        b=CbEhn7kJfe8M4NbG87oOgLXxX+LWrdlek3+4jNqalvUTh+oBqUFE7yCQLEwo5dMBRW
+         P4q2lN9olWK/i0QfPoJBcZWosk7WCM5BEya21/uIc7V1fDnyT2HLNy/FfoJzXwCZmyMG
+         bNIVGfd+g6ikQ2s0WZWE4sN9beX5j1dj2TjdTdVzOHxM/Wg07XyNIoAboYgYeIaSI0N8
+         1gAQMET/j0AyqnyMUxmrfa+gu7kVJaCtdiULO7fQC54VtLcENYIppYa4Jw2/4xH2oOwc
+         j+wvNWgYzwgmBvmUWB5itQ3YV1TsZQC/tkSJ5zPA1eGn6QuYbZmV/j9L6Ox+KhBTDDx8
+         ekdw==
+X-Gm-Message-State: AOJu0YzFieqILiGi2G9PO295Pv15z66LcVloNUHY+6WibIILAce71oQ5
+	uizPx8XYY4sbLYFV19oWFVIcmzqr2PL9ofnig521i7fuxIkX+ftzrBE0wNcNmGIatIs=
+X-Gm-Gg: ASbGncuAHZiXFNh2aBBkKRglrjUKSdE06F6Fn0MMaxv78M5GirwJzTiwrwyMCyfM9aY
+	1KWpQOExBR76xbGCKx0Gp1g1KDnAInL6oGjuYSEefuOBU1xFEcTY0wBLzZCWcVrTIdTx6X22Phe
+	srD67GXhoO08Fq+2nbAXLqlzO3dckvmTRWX5IXrg+j1ajcBqwT4FYIOUoMhrtdlcwZng8EqnzNH
+	bFNR8EY+R+vNP+s2cS0lEq8/TSLnBaI8ffyBevuKqvon1LrToUUhcEk2x3Sstj0gI+uWQXIXfye
+	plZi4JAe8vxfzsTgch4RVBQVZiq15ouG7kW5hJMOD77S9B0pAhuw0SGmN52h2T+G6YPT6SZwVuJ
+	SyGdjxQAh54JGJVLyBPhQqIm9Xyb8gc2VW8Ho7V1PBrvjTKq9YchAeTJghREyRwUIPg==
+X-Google-Smtp-Source: AGHT+IHpiNAwz1bjaejTn8Am/As73IbST4bvPRvozdYr0Z3+R0X6wSqfXHJtwYY95hM7tJYktlVLGA==
+X-Received: by 2002:a05:600c:4509:b0:459:443e:b177 with SMTP id 5b1f17b1804b1-45a1b6682f3mr23512835e9.25.1755180300783;
+        Thu, 14 Aug 2025 07:05:00 -0700 (PDT)
+Date: Thu, 14 Aug 2025 16:04:59 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v2 1/2] x86/mkelf32: pad load segment to 2Mb boundary
+Message-ID: <aJ3tC9h0ERajD-Ya@macbook.local>
+References: <ddfd86ad-19b3-495b-930c-1770dd92fa99@suse.com>
+ <6e295921-0432-435e-9efe-51caa106f203@suse.com>
+ <aJtpXOM2AERnOCrH@macbook.local>
+ <38430fbf-a6e4-4ba9-bbff-2279108721e6@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20250814124448.GE699432@nvidia.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <38430fbf-a6e4-4ba9-bbff-2279108721e6@suse.com>
 
-On Thu, Aug 14, 2025 at 09:44:48AM -0300, Jason Gunthorpe wrote:
-> On Thu, Aug 14, 2025 at 03:35:06PM +0300, Leon Romanovsky wrote:
-> > > Then check attrs here, not pfn_valid.
+On Thu, Aug 14, 2025 at 09:02:35AM +0200, Jan Beulich wrote:
+> On 12.08.2025 18:18, Roger Pau Monné wrote:
+> > On Mon, Aug 11, 2025 at 12:49:57PM +0200, Jan Beulich wrote:
+> >> @@ -339,9 +340,12 @@ int main(int argc, char **argv)
+> >>      (void)lseek(infd, in64_phdr.p_offset, SEEK_SET);
+> >>      dat_siz = (uint32_t)in64_phdr.p_filesz;
+> >>  
+> >> -    /* Do not use p_memsz: it does not include BSS alignment padding. */
+> >> -    /*mem_siz = (uint32_t)in64_phdr.p_memsz;*/
+> >> -    mem_siz = (uint32_t)(final_exec_addr - in64_phdr.p_vaddr);
+> >> +    /*
+> >> +     * We don't pad .bss in the linker script, but during early boot we map
+> >> +     * the Xen image using 2M pages.  To avoid running into adjacent non-RAM
+> >> +     * regions, pad the segment to the next 2M boundary.
 > > 
-> > attrs are not available in kmsan_handle_dma(). I can add it if you prefer.
+> > Won't it be easier to pad in the linker script?  We could still have
+> > __bss_end before the padding, so that initialization isn't done to the
+> > extra padding area.  Otherwise it would be helpful to mention why the
+> > padding must be done here (opposed to being done in the linker
+> > script).
 > 
-> That makes more sense to the overall design. The comments I gave
-> before were driving at a promise to never try to touch a struct page
-> for ATTR_MMIO and think this should be comphrensive to never touching
-> a struct page even if pfnvalid.
-> 
-> > > > So let's keep this patch as is.
-> > > 
-> > > Still need to fix the remarks you clipped, do not check PageHighMem
-> > > just call kmap_local_pfn(). All thie PageHighMem stuff is new to this
-> > > patch and should not be here, it is the wrong way to use highmem.
-> > 
-> > Sure, thanks
-> 
-> I am wondering if there is some reason it was written like this in the
-> first place. Maybe we can't even do kmap here.. So perhaps if there is
-> not a strong reason to change it just continue to check pagehighmem
-> and fail.
-> 
-> if (!(attrs & ATTR_MMIO) && PageHighMem(phys_to_page(phys)))
->    return;
+> The way the linker script currently is written doesn't lend itself to do
+> the padding there: It would either mean to introduce an artificial
+> padding section (which I'd dislike), or it would result in _end[] and
+> __2M_rwdata_end[] also moving, which pretty clearly we don't want. Maybe
+> there are other options that I simply don't see.
 
-Does this version good enough? There is no need to call to
-kmap_local_pfn() if we prevent PageHighMem pages.
+We could move both _end and __2M_rwdata_end inside the .bss section,
+but that's also ugly IMO.  I would probably prefer the extra padding
+section.
 
-diff --git a/mm/kmsan/hooks.c b/mm/kmsan/hooks.c
-index eab7912a3bf0..d9cf70f4159c 100644
---- a/mm/kmsan/hooks.c
-+++ b/mm/kmsan/hooks.c
-@@ -337,13 +337,13 @@ static void kmsan_handle_dma_page(const void *addr, size_t size,
+> A further complication would be xen.efi's .reloc, which we don't want to
+> needlessly move either. That may be coverable by pr-processor
+> conditionals, but I wanted to mention the aspect nevertheless.
 
- /* Helper function to handle DMA data transfers. */
- void kmsan_handle_dma(phys_addr_t phys, size_t size,
--                     enum dma_data_direction dir)
-+                     enum dma_data_direction dir, unsigned long attrs)
- {
-        u64 page_offset, to_go, addr;
-        struct page *page;
-        void *kaddr;
+Yeah, we could make the extra padding section depend on pre-processor
+checks.  I think I would prefer the usage of such extra section rather
+than mangling the elf program headers afterwards, but since we are
+already doing it:
 
--       if (!pfn_valid(PHYS_PFN(phys)))
-+       if ((attrs & ATTR_MMIO) || PageHighMem(phys_to_page(phys)))
-                return;
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-        page = phys_to_page(phys);
-@@ -357,19 +357,12 @@ void kmsan_handle_dma(phys_addr_t phys, size_t size,
-        while (size > 0) {
-                to_go = min(PAGE_SIZE - page_offset, (u64)size);
-
--               if (PageHighMem(page))
--                       /* Handle highmem pages using kmap */
--                       kaddr = kmap_local_page(page);
--               else
--                       /* Lowmem pages can be accessed directly */
--                       kaddr = page_address(page);
-+               /* Lowmem pages can be accessed directly */
-+               kaddr = page_address(page);
-
-                addr = (u64)kaddr + page_offset;
-                kmsan_handle_dma_page((void *)addr, to_go, dir);
-
--               if (PageHighMem(page))
--                       kunmap_local(page);
--
-                phys += to_go;
-                size -= to_go;
-
-(END)
-
-
-> 
-> Jason
-> 
+Thanks, Roger.
 
