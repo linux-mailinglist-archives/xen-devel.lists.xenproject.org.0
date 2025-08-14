@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80E50B26620
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 15:02:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1081672.1441691 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D71A0B2668B
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 15:13:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1081686.1441701 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umXam-0006Te-TJ; Thu, 14 Aug 2025 13:02:04 +0000
+	id 1umXlH-0001nX-Tq; Thu, 14 Aug 2025 13:12:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1081672.1441691; Thu, 14 Aug 2025 13:02:04 +0000
+Received: by outflank-mailman (output) from mailman id 1081686.1441701; Thu, 14 Aug 2025 13:12:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umXam-0006Sp-PU; Thu, 14 Aug 2025 13:02:04 +0000
-Received: by outflank-mailman (input) for mailman id 1081672;
- Thu, 14 Aug 2025 13:02:03 +0000
+	id 1umXlH-0001lb-R7; Thu, 14 Aug 2025 13:12:55 +0000
+Received: by outflank-mailman (input) for mailman id 1081686;
+ Thu, 14 Aug 2025 13:12:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6Upc=22=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1umXal-0006Lz-8Q
- for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 13:02:03 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xqZt=22=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1umXlG-0001lV-Gu
+ for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 13:12:54 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dc5fb869-790e-11f0-b898-0df219b8e170;
- Thu, 14 Aug 2025 15:01:58 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-45a1b0990b2so6040865e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 06:01:58 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-45a1cda0021sm18834025e9.13.2025.08.14.06.01.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Aug 2025 06:01:56 -0700 (PDT)
+ id 6225cba7-7910-11f0-b898-0df219b8e170;
+ Thu, 14 Aug 2025 15:12:52 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-afcb7a3b3a9so133174766b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 06:12:52 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-af91a0a396fsm2602355866b.42.2025.08.14.06.12.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Aug 2025 06:12:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,139 +45,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc5fb869-790e-11f0-b898-0df219b8e170
+X-Inumbo-ID: 6225cba7-7910-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755176518; x=1755781318; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=S4CO4Pew9PdsaPgLIkf571HyC7kEQqHFIFBjIJKQkkc=;
-        b=YLUFo+2rR0Bb/56hlaNBs1L3ocrgbEh5SR0gvU98xd3kl2Njd9mX1GhI8qCxnJvwwY
-         NJbzACbihpwfmCN7C8jlokw6//+slFkTwSmHQBOb3NdtNGvtSYBkm7CO8or3atuM4xY3
-         Nv5/cOTLgl08GeGHamBCatqj6ou64vRIkS8yk=
+        d=suse.com; s=google; t=1755177172; x=1755781972; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=QrH0g3z8vfq5qfd1P0V6MRrlXghDtoggjXJky0P56oM=;
+        b=auFLkPlxpAoBv18+whPnRjaRMOG3xK20nyizVGSu/b6e9Y1iakEMFv835QHL6I8Dnk
+         +VnIbEJmFQEP0kf2YDMWaVRipk0z2GzZBSBq5SRnGMqCr8Endj1IjjykHQJCZCS+i/4h
+         UwWJs8DWI9MGL/CxmixkP03VQE2kGTD1sHF2woM8BldR5yy0xDEOi1xn6HGiGIikf88y
+         DD/ZU7uYzqZLYUL/uDkgHABGXZ2nA1W45lb45BcD0izavOL/SF4YHeuOlb7i2btPPZgH
+         vKk3j0/vFx4BEt8sLvDDhw8funOHj25WmDajz677Y0mYDIcRwjdKKx1TfIK493wB8hj6
+         pXzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755176518; x=1755781318;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=S4CO4Pew9PdsaPgLIkf571HyC7kEQqHFIFBjIJKQkkc=;
-        b=Bc2RfIt3oPKz7D2f+70nfxv30jJNPnpv8kdtFuvnrA7InAG9bxhztqyLVPxU2XRBPm
-         nxlQDYcxeHjZ1DrAQAeABq/oRNaYEqBfOstPhGn03mLQfSphjpRlAka9SnoY655NqiYG
-         e/qj7izoCXGewkksPABBpvaK6LE7aId6JuMg554BJ9q0tQ3FYY3rmc/ZeNNqczuQZBDC
-         bjnyHBTaWjGqg18GyeeIOLfVhhpFl11n2tV/9KIthmti8L8zcuf7FixrGfbsDQajXmJi
-         bLKQboPVimiSVxZ/VuFTr/oCdDTQOa6guaKxWeZQY0CfbydLcct7BoKc6pbmNfPj7yay
-         e49g==
-X-Forwarded-Encrypted: i=1; AJvYcCW7G7Rjg0Bz0L7TavtoUkV0VBnDXUPmK+sWCGAsY19deaqLbxgyKeO+QsQUjTqBnRbmzcOqzX+mswY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzvkOm/73uG/sePemJb+Rv3uy7d9BBrDSUNBtgtX94ipavOARfE
-	dI5BBp7gQSKYbw7cDYR45Tbq9JTvKRqc939qVfJHqB0NQwbPyt31fWTsY75JFN1ljDI=
-X-Gm-Gg: ASbGncu66I0FOwK2/n/P+xw/5vUVAsU8Iq0CqKCeZqvah8rNsmLEDpu2XoR7MohH/+s
-	cnsA9TF9GL6164714yJYKAi2RhtXllnVMxDXfYCrjV6fkSPaF7WMpZ+6X+8F7JUvbsQmlx9Nr0K
-	7icxlCDj4RgAS+KoTR90LtuL1Fnm0Qou5fvqpecyprqA43T9qzzwVVqShpTCYNvGfDl5tBKrUw5
-	kZumxZgX9RCkUSqavYD3B0t2giUCAT57faeRVY3+F/5Xfb0agcGyeQk/+UVrWpkbaFsEXum0KSf
-	M1njY3QLByyBI1ZZK2onylegFd3afBFZ67zflP5ERE77hLfNDHy9oo3XOseXmnPqPsDuK6ZFm+Z
-	KYyGqrjkF69pqv+kZNnjLsqaSoUWQm3KOskrdLcLmBvY7BzVEowZDBgWsxL+ICBDxQg==
-X-Google-Smtp-Source: AGHT+IF1YAxRwBpsmkYSwfMmKOkdlRmBNudwsxBpjbUBitckaJLS1J2ZF8akXCJpf/bJ5tcqoVl9Lg==
-X-Received: by 2002:a05:600c:1da5:b0:458:c059:7d9c with SMTP id 5b1f17b1804b1-45a1b946558mr23207715e9.6.1755176517306;
-        Thu, 14 Aug 2025 06:01:57 -0700 (PDT)
-Date: Thu, 14 Aug 2025 15:01:56 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] pdx: cast PAGE_SIZE value ahead of shifting
-Message-ID: <aJ3eRFc7CCwVi5WE@macbook.local>
-References: <20250813125538.78174-1-roger.pau@citrix.com>
- <e644c968-ab68-49f4-801e-0f161fd85f2e@suse.com>
- <aJ26UmemwxyyTioE@macbook.local>
- <3fbdd1fc-e739-42cf-892b-a561910a5693@suse.com>
+        d=1e100.net; s=20230601; t=1755177172; x=1755781972;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QrH0g3z8vfq5qfd1P0V6MRrlXghDtoggjXJky0P56oM=;
+        b=EiHtbLPraeCzj+tlpNqkc2JY1Bne5EX+Yjrd/BHyCIAo5vDuUm1g7VVRFSnFLbSGYr
+         QFeG9a3VoWZXR3gBXryynRdYoqh6CuVKSPFsZ6Q1dfN94ZOZ4XD6y2SPQOcbPYez1ShW
+         +/7+MYOJk0V8+ks72fIN055AJgqYIT4ZJFjgAumIIMHTA/nD3MFXB3VGJyN7Mt25Ckul
+         Z/hibbC/dJ2Gz9TdkXT09G9TTend2gZjzyfDKTfaAbxeJt0QRcKMh5qfhkSLesmNZH1O
+         l7oj1ndGLXUyfzUVvno2pdP9pls1dhJbdsFA1fMPiqgj1YNYGwUfQhzmPqnAuGOGeLTt
+         pzAg==
+X-Forwarded-Encrypted: i=1; AJvYcCWIHC9Pv9hRH0OPeKd0WQsHcUa5G8E1wD/tLFqX9TwlUkq60/VlDzpu+J19OHm2qxfL4rsObH0NEIs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzqHzBAPNXuX0wuVgxPzgNNvQEJn0SI5GICyZiiw7Dv1U7xHoCU
+	R5VybDyRJyKq8k4P5dC4U1kRDSmsv/ZeayJPFOZkTjYAvHq/wmhlmVSE77IGTtOzqQ==
+X-Gm-Gg: ASbGncvrKq00O9tkyTYtM4mTz17TZu5TrJndjSgXVYPEbwpnbZV28g2liG3sk75A8HX
+	hD0Wht+V4I0JrF+uQZw78ER1PK54j0zyqaPwwk2GyhBBW9b7/S7kU92wPj+gUauSmOgfUesG/td
+	qOepZprDR91BYWKyUsv6TR/JPxNb/A0dIbapfX3ysGBNIoYQ2cH8yrfh+jYgAMo4v3JKBkf9l8P
+	v3Opiyw7l/HAKSLPg/qK0T5v36ZJbQEhlPiJDGDHGJC4s2nau6ZsFp1Eo1uuy9qR967dxLn/c4v
+	TYD+W72fsOoXPbJI14vs7iILG5USd1kDZUtaSmZU8wPXXaHFvzmiaao4dSucMFURNH4Uu3O+sBa
+	tXR2749yNRHWo/E0IvIb5HosbUsKlnhh8rQiNDdhSLbaXsekW8ZdoeFLoILZgSrTCmDupHpx1TW
+	IX1lyDIbw=
+X-Google-Smtp-Source: AGHT+IGYaE95PZBOPtszuyJ22ZjFRT2+OS5/v7tXpsRSI9qxpARDXDOQmoZ/R1B+n56hnnFHAEY40A==
+X-Received: by 2002:a17:907:94c1:b0:af9:116c:61cf with SMTP id a640c23a62f3a-afcb98e90a0mr290064666b.43.1755177171570;
+        Thu, 14 Aug 2025 06:12:51 -0700 (PDT)
+Message-ID: <a16deee1-de3b-4850-852a-f45aeaa982f2@suse.com>
+Date: Thu, 14 Aug 2025 15:12:49 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3fbdd1fc-e739-42cf-892b-a561910a5693@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 14/22] x86/traps: Extend struct cpu_user_regs/cpu_info
+ with FRED fields
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
+ <20250808202314.1045968-15-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250808202314.1045968-15-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 14, 2025 at 12:45:40PM +0200, Jan Beulich wrote:
-> On 14.08.2025 12:28, Roger Pau Monné wrote:
-> > On Thu, Aug 14, 2025 at 09:18:45AM +0200, Jan Beulich wrote:
-> >> On 13.08.2025 14:55, Roger Pau Monne wrote:
-> >>> --- a/xen/common/pdx.c
-> >>> +++ b/xen/common/pdx.c
-> >>> @@ -288,7 +288,7 @@ bool __init pfn_pdx_compression_setup(paddr_t base)
-> >>>  
-> >>>      pfn_pdx_hole_shift  = hole_shift;
-> >>>      pfn_pdx_bottom_mask = (1UL << bottom_shift) - 1;
-> >>> -    ma_va_bottom_mask   = (PAGE_SIZE << bottom_shift) - 1;
-> >>> +    ma_va_bottom_mask   = ((paddr_t)PAGE_SIZE << bottom_shift) - 1;
-> >>
-> >> Given
-> >>
-> >> #define PAGE_SIZE           (_AC(1,L) << PAGE_SHIFT)
-> >>
-> >> this shouldn't be needed, except maybe for Arm32. There, however, ...
-> >>
-> >>>      pfn_hole_mask       = ((1UL << hole_shift) - 1) << bottom_shift;
-> >>
-> >> ... this and the shift immediately ahead would also be a problem afaict,
-> >> which makes me conclude this isn't what Coverity has looked at. I expect
-> >> the problem is with the toolstack side definition of PAGE_SIZE, which imo
-> >> would rather be addressed there. (And yes, I'm pretty averse to arbitrary
-> >> casts like this being introduced.)
-> > 
-> > As I've realized while looking at this, wouldn't ma_va_bottom_mask
-> > also better be of type paddr_t, since it's not operating on pfns, but
-> > physical addresses.  I didn't adjust the type of ma_va_bottom_mask,
-> > but I would be happy to do it if you agree.
-> 
-> No, as its name says it's also used on virtual addresses (really: offsets
-> into the direct map). It hence would better not have any bits set outside
-> of the range that VAs can cover.
+On 08.08.2025 22:23, Andrew Cooper wrote:
+> @@ -42,17 +46,76 @@ struct cpu_user_regs
+>       */
+>  
+>      union { uint64_t rip;    uint32_t eip;    uint16_t ip; };
+> -    uint16_t cs, _pad0[1];
+> -    uint8_t  saved_upcall_mask; /* PV (v)rflags.IF == !saved_upcall_mask */
+> -    uint8_t  _pad1[3];
+> +    union {
+> +        struct {
+> +            uint16_t      cs;
+> +            unsigned long :16;
+> +            uint8_t       saved_upcall_mask; /* PV (v)rflags.IF == !saved_upcall_mask */
 
-It's confusing that it's sometimes used against a paddr_t or an
-unsigned long type.  The logic itself already limits the shift so it's
-below the width of unsigned long AFAICT.
+Would this better be reproduced ...
 
-> With that, imo the cast (if any) also
-> should have been to unsigned long, not paddr_t. Yet as said, im the cast
-> would better not be there in the first place. Just that meanwhile I've
-> learned that this was committed already.
+> +        };
+> +        unsigned long     csx;
+> +        struct {
+> +            /*
+> +             * Bits 0 thru 31 control ERET{U,S} behaviour, and is state of the
+> +             * interrupted context.
+> +             */
+> +            uint16_t      cs;
+> +            unsigned int  sl:2;      /* Stack Level */
+> +            bool          wfe:1;     /* Wait-for-ENDBRANCH state */
 
-Sorry, I should have waited for your opinion.
+... here as well, just like you reproduce "cs"?
 
-I think you would prefer the patch below.  I can send this formally,
-not sure whether you would prefer a formal revert of the previous
-patch, plus the new fix applied, or doing the revert in the new patc
-(like below) is fine.
+> +        } fred_cs;
+> +    };
+>      union { uint64_t rflags; uint32_t eflags; uint16_t flags; };
+>      union { uint64_t rsp;    uint32_t esp;    uint16_t sp;    uint8_t spl; };
+> -    uint16_t ss, _pad2[3];
+> +    union {
+> +        uint16_t          ss;
+> +        unsigned long     ssx;
 
-Thanks, Roger.
----
-diff --git a/tools/tests/pdx/harness.h b/tools/tests/pdx/harness.h
-index 5bef7df650d2..a0fe33b4f1e0 100644
---- a/tools/tests/pdx/harness.h
-+++ b/tools/tests/pdx/harness.h
-@@ -33,7 +33,7 @@
- #define PAGE_SHIFT    12
- /* Some libcs define PAGE_SIZE in limits.h. */
- #undef  PAGE_SIZE
--#define PAGE_SIZE     (1 << PAGE_SHIFT)
-+#define PAGE_SIZE     (1UL << PAGE_SHIFT)
- #define MAX_ORDER     18 /* 2 * PAGETABLE_ORDER (9) */
- 
- #define PFN_DOWN(x)   ((x) >> PAGE_SHIFT)
-diff --git a/xen/common/pdx.c b/xen/common/pdx.c
-index 06536cc639f3..9e6b36086fbd 100644
---- a/xen/common/pdx.c
-+++ b/xen/common/pdx.c
-@@ -274,7 +274,7 @@ bool __init pfn_pdx_compression_setup(paddr_t base)
- 
-     pfn_pdx_hole_shift  = hole_shift;
-     pfn_pdx_bottom_mask = (1UL << bottom_shift) - 1;
--    ma_va_bottom_mask   = ((paddr_t)PAGE_SIZE << bottom_shift) - 1;
-+    ma_va_bottom_mask   = (PAGE_SIZE << bottom_shift) - 1;
-     pfn_hole_mask       = ((1UL << hole_shift) - 1) << bottom_shift;
-     pfn_top_mask        = ~(pfn_pdx_bottom_mask | pfn_hole_mask);
-     ma_top_mask         = pfn_top_mask << PAGE_SHIFT;
+What use do you foresee for this and "csx"?
 
+> +        struct {
+> +            /*
+> +             * Bits 0 thru 31 control ERET{U,S} behaviour, and is state about
+> +             * the event which occured.
+> +             */
+> +            uint16_t      ss;
+> +            bool          sti:1;     /* Was blocked-by-STI, and not cancelled */
+> +            bool          swint:1;   /* Was a SYSCALL/SYSENTER/INT $N */
+> +            bool          nmi:1;     /* Was an NMI. */
+> +            unsigned long :13;
+> +
+> +            /*
+> +             * Bits 32 thru 63 are ignored by ERET{U,S} and are informative
+> +             * only.
+> +             */
+> +            uint8_t       vector;
+> +            unsigned long :8;
+> +            unsigned int  type:4;    /* X86_ET_* */
+> +            unsigned long :4;
+> +            bool          enclave:1; /* Event taken in SGX mode */
+> +            bool          lm:1;      /* Was in Long Mode */
+
+The bit indicates 64-bit mode aiui, not long mode (without which FRED isn't even
+available).
+
+> --- a/xen/arch/x86/include/asm/current.h
+> +++ b/xen/arch/x86/include/asm/current.h
+> @@ -38,6 +38,8 @@ struct vcpu;
+>  
+>  struct cpu_info {
+>      struct cpu_user_regs guest_cpu_user_regs;
+> +    struct fred_info _fred; /* Only used when FRED is active. */
+
+Any particular need for the leading underscore?
+
+Jan
 
