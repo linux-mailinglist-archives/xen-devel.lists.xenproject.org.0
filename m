@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30C0CB25D00
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 09:22:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1080885.1441058 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD2BDB25D2E
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 09:27:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1080898.1441068 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umSHf-0006tJ-Id; Thu, 14 Aug 2025 07:21:59 +0000
+	id 1umSMU-0007pK-6E; Thu, 14 Aug 2025 07:26:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1080885.1441058; Thu, 14 Aug 2025 07:21:59 +0000
+Received: by outflank-mailman (output) from mailman id 1080898.1441068; Thu, 14 Aug 2025 07:26:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umSHf-0006rS-F8; Thu, 14 Aug 2025 07:21:59 +0000
-Received: by outflank-mailman (input) for mailman id 1080885;
- Thu, 14 Aug 2025 07:21:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1umSMU-0007n0-3Q; Thu, 14 Aug 2025 07:26:58 +0000
+Received: by outflank-mailman (input) for mailman id 1080898;
+ Thu, 14 Aug 2025 07:26:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xqZt=22=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1umSHd-0006rK-PZ
- for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 07:21:57 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5b6fd404-78df-11f0-b898-0df219b8e170;
- Thu, 14 Aug 2025 09:21:55 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-afcb7a8dd3dso100873566b.3
- for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 00:21:55 -0700 (PDT)
+ id 1umSMS-0007mt-Tf
+ for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 07:26:56 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0e41c85f-78e0-11f0-a328-13f23c93f187;
+ Thu, 14 Aug 2025 09:26:55 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-afcb78da8a7so101200066b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 00:26:55 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a1e833dsm2531294866b.64.2025.08.14.00.21.54
+ a640c23a62f3a-af91a21c076sm2513275466b.102.2025.08.14.00.26.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Aug 2025 00:21:54 -0700 (PDT)
+ Thu, 14 Aug 2025 00:26:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b6fd404-78df-11f0-b898-0df219b8e170
+X-Inumbo-ID: 0e41c85f-78e0-11f0-a328-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755156115; x=1755760915; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755156415; x=1755761215; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6zCWVr8YlARbhp8eihqlcOGDcXnchmGSpuufd4e86MQ=;
-        b=ML4kmQTzQg9cac1pKlxSaWDHhbzuMp7zCG0zNgA5vrArQMrNyw4tR/mVQKQOx+fkxJ
-         w5XNpL/rt1OMZfBvoKcBr+BUeTJhmkhv5UeOdINkEOZctK/HLX7I4yuaryBNr9k2/Bmi
-         n5i+uRm7E8nTNdy/vIveCTa8c0RSRFJLwzs4JlODUS4emJHiuJIYie5HcNdHmjS+6JFJ
-         zv/I3krEgzk9brhICuDeuuFCvxtFivolBQAINRn9N4Sez/lrjILG8p+Bq1kDgFlVpGR1
-         nL3v7m12+qsC3yyz8kkgvwKn28B9ePctC2DfwNnnxQVoOr71DHJQCYWRYl6pvnQdNHre
-         2MxQ==
+        bh=EWklxH0cXy9GUis6gE8FtNwQT8EjVlYxc++UJH65nHE=;
+        b=YMvs9/rBgyL3Jvq25ur5h6iRm0uXSIg1eltr3NbE6JhtWEzQ8witzV9VlYeLkrX6S1
+         NoXvAGrpSf1hiXFSsPb2DomjjsyjOHNn5mHa+r9aUOGB7KaF3inbSbhPDMD7jb4udFL6
+         x/9Z5ktpy/5RyQHNEtmSnsnFgOTMriTIIJUA9p4dwlm9imuT9aZfp0aMJhUiZJsKJK16
+         k0O4cQTh1Ayd7149+5PZop2p28hdk9ruW3efUKK1MKQ53UPFEKj37EQYtxikEdEG46R8
+         +6IJ/RJAIvI1B6zc/h8VHIYYSSQGkHHyUgP/PuOrgq6RAeSLKwEbc245fvv+WgOtL4mA
+         +jpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755156115; x=1755760915;
+        d=1e100.net; s=20230601; t=1755156415; x=1755761215;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6zCWVr8YlARbhp8eihqlcOGDcXnchmGSpuufd4e86MQ=;
-        b=Sf++GuWjTFcdeTsuOgfTeqBcVvNv5Vae+q+U8MQmSdAya1dvb20/GRYESS8kSr1nFw
-         PGOoYswQMzfu8XE3JHxycjGUgfLb48Umfy7sTbLCRBYuKpjGiy+UfiMfLlumOCo5aebO
-         eKKk4xwtF58REtpFCaUzuNW5cunnq7FqExRZGbo/JlwIFT2sBtGu67PDn44hMtuCxCKW
-         z1KdcsTboNpa06BRAf5xLciZzaxux9s95qdgQyVG9fUe0kU+R3nVDrXNZqGQUdq9j6+w
-         +GigBoPTMobpMp30VIPsA9RhroZamnXiP01s+x/DS6o5/CtJxYEHZyvI+hiHc+tXtAmB
-         GC/g==
-X-Forwarded-Encrypted: i=1; AJvYcCVWsKVmGHNBveDFhhTPmy8+uZs3N4GQ+sLtBzWEbK9soliwe13ynqC+r4JsYgVH5fenrO9RsAwVN6E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzl7xR9PU0ILLK/Ur3IgQLsZCW7uoKHnTm8XRHT+dZmhIZXIyxt
-	lWAbNuW4n5I5sCuLPzGiBWpEY+mDT/JhZ2wD21+BD3ZmrHGwmPOyJ9SsFid1cljfKg==
-X-Gm-Gg: ASbGncuO+JqaG9/vjCW+DtUfmTQ92EdXzTzzDg9tm+zny9oR7i7SLAxJNaokaoLB+dL
-	J02/Rwyur8K23iN1Zx/4/IZq2tzM/sMzmjb1tA8iJO0/toZH6x7aOCQu53w+vNqyDGG4zABNJPs
-	mFeoi+CNPUeQJmQtQI0Dw22IMztu+V6kbDHOp2odcEgnX83VCOWugfMu5HquJCRPCA5zlAaN1jM
-	9cEhbmhT86xZ4enidR8sCBGDUzzzqMWUUKYHdswSDEIPFuVAdNprbn00pVGub9n/3zb3KvLKIeF
-	/xDyMixAR+FVWCoHfMWK1EF/V6e6ca5GJ2qwRwAAI/jSKdKpjCz9f1pWL6IgPlmOa8kzBRdVQJN
-	lhC4XeeCsYjDPVR46LvZ1BD5MvEx1Ucw/p//jsGSBOZlCcE9dazEt6e2qNqW3RGLHDh4NmpZ1KM
-	hVXUStrMw=
-X-Google-Smtp-Source: AGHT+IEw3b8l3on29kufgt3w8WiPHuvpUL4fEFDI+V0sPBtBffNmNP1pG8ezhjgHZAWUnxlvW+YXYw==
-X-Received: by 2002:a17:907:3e91:b0:af9:a486:412e with SMTP id a640c23a62f3a-afcb97d76b6mr180501166b.26.1755156115129;
-        Thu, 14 Aug 2025 00:21:55 -0700 (PDT)
-Message-ID: <becdc624-7bff-4b78-94c2-2999bad114fb@suse.com>
-Date: Thu, 14 Aug 2025 09:21:53 +0200
+        bh=EWklxH0cXy9GUis6gE8FtNwQT8EjVlYxc++UJH65nHE=;
+        b=VH9tM1VOfDJrt2JGuLBYMTGus+YpF+aJsljOLL5G1uWMrRgFW+vHFcSXZ/ee8LHmwZ
+         bbSdAodbEdOWe1SpKudcDR6RrAtitBKyfyck4Ba/lA0zeVqnWdPuMcBddozQ9BNb2AC6
+         XFbJJhBM1SdLDdNhN2zYXtDmL740tb5Y9tjMRGS8k/HLHA/ybsx7vPANqwRzrRx84Imv
+         kPuPfN5dscBXD3X8dwi8nvp6RPcaCzw1wWRHGxT7iPQcw2SjPRZmkb0e3Xd9NHADuUY7
+         UCmMRZBpoJskK5jAcGjl6dUR6bFqZObLBZPx92gWiMKC/jhzF18bew7WRGnzAYoR4rhM
+         66LA==
+X-Gm-Message-State: AOJu0YwiVhUnO7omYqYtji+7tYSOkJqHBbm/HT4ejeVKol2YRq1obpXr
+	2fGTrnzds6I9sP9UN6a3nXckdMUsnVkwXXDBxLexa+4vbFiU18F9sW0Ib29OJ1fMm4DmS35j37z
+	JO0g=
+X-Gm-Gg: ASbGnctTD1pugVeTZiBi1dNYrHjUpmjFfb94tpo1TaYRNnAF4nl/Lfy6JE9lCOknbgS
+	Qe6X6G7Ja5oypZKVnSZvxIzfN7wd6q1guTtCzi8Zlgr8eXEWUaL9/r16GeZyy3g/hfPSSmkPaKL
+	THnlVb1/kjF4x2O08gTpVcOuJuCrOzU27lSeq65NIFE47F3ORWajZdoESJH2YBB7hUwU0t+r47Q
+	zEqomkmB20MXPAFPdyGtKEr1HHi391ZvX/3PEa3thByeIjH8Ve5J28brEiBCZrYToFxWLngKKwo
+	E6ihkrooVNzQLdLJA4K79jjT+Nbrl8fEiQqZ7U0N20P9GNrlIu6YsQ1YymRwmrv3mwEUY/Y5b0W
+	vyEiYL1zztk880flh8Fj8dFRrc7lFfOXR5fdA0Y59l2gOB5CowJypZlxqv8v5G3wl+9btsP9CcX
+	6ttZCSoKYCQSqP6fOVnw==
+X-Google-Smtp-Source: AGHT+IHf+chiCYCdjn0poyjloX8Gq248Zkt78egNnsQeH93Scmtr8FzICzQdujpnMvVahoHBKfsQ3Q==
+X-Received: by 2002:a17:907:6d0c:b0:af9:d705:9f19 with SMTP id a640c23a62f3a-afcb979b5cdmr180721766b.17.1755156415043;
+        Thu, 14 Aug 2025 00:26:55 -0700 (PDT)
+Message-ID: <aab37ec2-33bf-403b-978a-dc3c4bc282f7@suse.com>
+Date: Thu, 14 Aug 2025 09:26:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/pvh: update "Host ACPI" support status
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250813093220.76030-1-roger.pau@citrix.com>
+Subject: Re: [PATCH 09/22] x86/traps: Move load_system_tables() into
+ traps-setup.c
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
+ <20250808202314.1045968-10-andrew.cooper3@citrix.com>
+ <80285a06f5d4fb3bd3e378317cca61ca@bugseng.com>
+ <7e906964-b07d-4205-a683-e665f19d5edc@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,17 +123,68 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250813093220.76030-1-roger.pau@citrix.com>
+In-Reply-To: <7e906964-b07d-4205-a683-e665f19d5edc@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13.08.2025 11:32, Roger Pau Monne wrote:
-> For x86 PVH dom0 makes uses of the host ACPI tables, and hence the status
-> of Host ACPI entry should have been updated to reflect that PVH dom0 is now
-> supported, and Host ACPI support is not one of the caveats.
+On 13.08.2025 13:36, Andrew Cooper wrote:
+> On 12/08/2025 10:43 am, Nicola Vetrini wrote:
+>> On 2025-08-08 22:23, Andrew Cooper wrote:
+>>> diff --git a/xen/arch/x86/traps-setup.c b/xen/arch/x86/traps-setup.c
+>>> index 8ca379c9e4cb..13b8fcf0ba51 100644
+>>> --- a/xen/arch/x86/traps-setup.c
+>>> +++ b/xen/arch/x86/traps-setup.c
+>>> @@ -19,6 +20,124 @@ boolean_param("ler", opt_ler);
+>>>
+>>>  void nocall entry_PF(void);
+>>>
+>>> +/*
+>>> + * Sets up system tables and descriptors for IDT devliery.
+>>> + *
+>>> + * - Sets up TSS with stack pointers, including ISTs
+>>> + * - Inserts TSS selector into regular and compat GDTs
+>>> + * - Loads GDT, IDT, TR then null LDT
+>>> + * - Sets up IST references in the IDT
+>>> + */
+>>> +static void load_system_tables(void)
+>>> +{
+>>> +    unsigned int i, cpu = smp_processor_id();
+>>> +    unsigned long stack_bottom = get_stack_bottom(),
+>>> +        stack_top = stack_bottom & ~(STACK_SIZE - 1);
+>>> +    /*
+>>> +     * NB: define tss_page as a local variable because clang 3.5
+>>> doesn't
+>>> +     * support using ARRAY_SIZE against per-cpu variables.
+>>> +     */
+>>> +    struct tss_page *tss_page = &this_cpu(tss_page);
+>>> +    idt_entry_t *idt = this_cpu(idt);
+>>> +
+>>
+>> Given the clang baseline this might not be needed anymore?
+> 
+> Hmm.  While true, looking at 51461114e26, the code is definitely better
+> written with the tss_page variable and we wouldn't want to go back to
+> the old form.
+> 
+> I think that I'll simply drop the comment.
+> 
+> ~Andrew
+> 
+> P.S.
+> 
+> Generally speaking, because of the RELOC_HIDE() in this_cpu(), any time
+> you ever want two accesses to a variable, it's better (code gen wise) to
+> construct a pointer to it and use the point multiple times.
+> 
+> I don't understand why there's a RELOC_HIDE() in this_cpu().  The
+> justification doesn't make sense, but I've not had time to explore what
+> happens if we take it out.
 
-Well, not explicitly, but seeing changes like 6378909b41c4 ("x86/PVH: expose
-OEMx ACPI tables to Dom0") I'm not convinced we're there yet.
+There's no justification in xen/percpu.h?
+
+My understanding is that we simply may not expose any accesses to per_cpu_*
+variables directly to the compiler, or there's a risk that it might access
+the "master" variable (i.e. CPU0's on at least x86).
 
 Jan
 
