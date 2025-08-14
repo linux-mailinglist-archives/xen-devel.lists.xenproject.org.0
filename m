@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D71A0B2668B
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 15:13:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1081686.1441701 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02C8CB266AE
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 15:15:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1081696.1441711 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umXlH-0001nX-Tq; Thu, 14 Aug 2025 13:12:55 +0000
+	id 1umXno-0002Ip-9w; Thu, 14 Aug 2025 13:15:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1081686.1441701; Thu, 14 Aug 2025 13:12:55 +0000
+Received: by outflank-mailman (output) from mailman id 1081696.1441711; Thu, 14 Aug 2025 13:15:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umXlH-0001lb-R7; Thu, 14 Aug 2025 13:12:55 +0000
-Received: by outflank-mailman (input) for mailman id 1081686;
- Thu, 14 Aug 2025 13:12:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1umXno-0002Gq-6v; Thu, 14 Aug 2025 13:15:32 +0000
+Received: by outflank-mailman (input) for mailman id 1081696;
+ Thu, 14 Aug 2025 13:15:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xqZt=22=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1umXlG-0001lV-Gu
- for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 13:12:54 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6225cba7-7910-11f0-b898-0df219b8e170;
- Thu, 14 Aug 2025 15:12:52 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-afcb7a3b3a9so133174766b.2
- for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 06:12:52 -0700 (PDT)
+ id 1umXnm-0002Gh-Bw
+ for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 13:15:30 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bfc75241-7910-11f0-a328-13f23c93f187;
+ Thu, 14 Aug 2025 15:15:29 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-6188b733bbaso1774506a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 06:15:29 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a0a396fsm2602355866b.42.2025.08.14.06.12.51
+ 4fb4d7f45d1cf-6188837fd10sm1932644a12.14.2025.08.14.06.15.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Aug 2025 06:12:51 -0700 (PDT)
+ Thu, 14 Aug 2025 06:15:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6225cba7-7910-11f0-b898-0df219b8e170
+X-Inumbo-ID: bfc75241-7910-11f0-a328-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755177172; x=1755781972; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755177329; x=1755782129; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QrH0g3z8vfq5qfd1P0V6MRrlXghDtoggjXJky0P56oM=;
-        b=auFLkPlxpAoBv18+whPnRjaRMOG3xK20nyizVGSu/b6e9Y1iakEMFv835QHL6I8Dnk
-         +VnIbEJmFQEP0kf2YDMWaVRipk0z2GzZBSBq5SRnGMqCr8Endj1IjjykHQJCZCS+i/4h
-         UwWJs8DWI9MGL/CxmixkP03VQE2kGTD1sHF2woM8BldR5yy0xDEOi1xn6HGiGIikf88y
-         DD/ZU7uYzqZLYUL/uDkgHABGXZ2nA1W45lb45BcD0izavOL/SF4YHeuOlb7i2btPPZgH
-         vKk3j0/vFx4BEt8sLvDDhw8funOHj25WmDajz677Y0mYDIcRwjdKKx1TfIK493wB8hj6
-         pXzw==
+        bh=W0gRqDnYXQqvEFikVN77LAnV99f3gklCrW52SFXBwNo=;
+        b=LQG9Ite0jYpeYCtQ5uSN6vd/whDm+wd1WweYWtCDVGR871uD4A380WZZFqiG1aRZkh
+         VDBBda+DCKe0XXPMCbt3Phga9RpMh9r9bYjBnGsGxEESz98hMmy5Cx8sWy7r3TWS2O5B
+         g+hQZOo+fE+kzvzQzQujC9c8L0lPH05/QpOATxyUpL5UT5MUpW6yQ7YRWZp+80JQXm4s
+         sukjloZMj5Fb4NztmGMMnhm0OdqCHsqlDHh2devvYjytoEyubjGMORrZLV3CCwQG50GW
+         jPUS0ODUTZhVkPaGC2ibokKllWw1jyHpRwcsXvspZKEjjwJh+7RK+jTw0qCB68tUshCR
+         gwDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755177172; x=1755781972;
+        d=1e100.net; s=20230601; t=1755177329; x=1755782129;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QrH0g3z8vfq5qfd1P0V6MRrlXghDtoggjXJky0P56oM=;
-        b=EiHtbLPraeCzj+tlpNqkc2JY1Bne5EX+Yjrd/BHyCIAo5vDuUm1g7VVRFSnFLbSGYr
-         QFeG9a3VoWZXR3gBXryynRdYoqh6CuVKSPFsZ6Q1dfN94ZOZ4XD6y2SPQOcbPYez1ShW
-         +/7+MYOJk0V8+ks72fIN055AJgqYIT4ZJFjgAumIIMHTA/nD3MFXB3VGJyN7Mt25Ckul
-         Z/hibbC/dJ2Gz9TdkXT09G9TTend2gZjzyfDKTfaAbxeJt0QRcKMh5qfhkSLesmNZH1O
-         l7oj1ndGLXUyfzUVvno2pdP9pls1dhJbdsFA1fMPiqgj1YNYGwUfQhzmPqnAuGOGeLTt
-         pzAg==
-X-Forwarded-Encrypted: i=1; AJvYcCWIHC9Pv9hRH0OPeKd0WQsHcUa5G8E1wD/tLFqX9TwlUkq60/VlDzpu+J19OHm2qxfL4rsObH0NEIs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzqHzBAPNXuX0wuVgxPzgNNvQEJn0SI5GICyZiiw7Dv1U7xHoCU
-	R5VybDyRJyKq8k4P5dC4U1kRDSmsv/ZeayJPFOZkTjYAvHq/wmhlmVSE77IGTtOzqQ==
-X-Gm-Gg: ASbGncvrKq00O9tkyTYtM4mTz17TZu5TrJndjSgXVYPEbwpnbZV28g2liG3sk75A8HX
-	hD0Wht+V4I0JrF+uQZw78ER1PK54j0zyqaPwwk2GyhBBW9b7/S7kU92wPj+gUauSmOgfUesG/td
-	qOepZprDR91BYWKyUsv6TR/JPxNb/A0dIbapfX3ysGBNIoYQ2cH8yrfh+jYgAMo4v3JKBkf9l8P
-	v3Opiyw7l/HAKSLPg/qK0T5v36ZJbQEhlPiJDGDHGJC4s2nau6ZsFp1Eo1uuy9qR967dxLn/c4v
-	TYD+W72fsOoXPbJI14vs7iILG5USd1kDZUtaSmZU8wPXXaHFvzmiaao4dSucMFURNH4Uu3O+sBa
-	tXR2749yNRHWo/E0IvIb5HosbUsKlnhh8rQiNDdhSLbaXsekW8ZdoeFLoILZgSrTCmDupHpx1TW
-	IX1lyDIbw=
-X-Google-Smtp-Source: AGHT+IGYaE95PZBOPtszuyJ22ZjFRT2+OS5/v7tXpsRSI9qxpARDXDOQmoZ/R1B+n56hnnFHAEY40A==
-X-Received: by 2002:a17:907:94c1:b0:af9:116c:61cf with SMTP id a640c23a62f3a-afcb98e90a0mr290064666b.43.1755177171570;
-        Thu, 14 Aug 2025 06:12:51 -0700 (PDT)
-Message-ID: <a16deee1-de3b-4850-852a-f45aeaa982f2@suse.com>
-Date: Thu, 14 Aug 2025 15:12:49 +0200
+        bh=W0gRqDnYXQqvEFikVN77LAnV99f3gklCrW52SFXBwNo=;
+        b=twiytATNRoUHJf9lTTYYLW5+Tfpl2RQRuvBHYD/vgJol6khfAZpQENgfm0CQr/Cs5j
+         xo2yS7+yjspzpqU31Arr6ooF+c8iXxZbZ8upzBdSDTofMMgPcCzkQoeQ/9FiWiCr7c3Y
+         OAMUpEeBnFrYXbwjqPVlNdwLxiGKLjimo+ZCuP07MdyTeRW8NFQi6CYA8DEARykinfeR
+         6t5MjYsDjZkd7ST8c1ePOq5+j/q5rOtR6CKD8DMdYOn4hHY77ArTVJfrEoVZOU7mFR99
+         n1+oVv89rDtksBaXWR/5cE9w4px/HqAvupCWaHqA/HUEoJsvFlfddJGJBHzdvh5mB7Qk
+         o34A==
+X-Forwarded-Encrypted: i=1; AJvYcCWv2WFgyPrWxCdfOVTczvrOrOukzm2NS/SVO2J+nRK0AUyhb4syrGtrJ+h7Dz5aGqBKItuugmAjvy0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw/IxR26ODM66Vlk8Ub/SOFLRWFZu2WCTM+9dJ7WjU6OuhIt5jK
+	F2jQRJlle4+y16CV37QVjmeOgUCrYioQiCMYdtn39J+/THXh55J9fc9XvpWX+r4ASw==
+X-Gm-Gg: ASbGncv1SslbzjgxEc+9Sla3RIYn48hgopomhTQ+QSlhl0LMfUyGrbih+4bVEjB9hGW
+	+msLoHsA5sMYpMYWJqpticlQEZxJ4Ur4JqEtJ3tfZFp4ucZ6mG8BuIqe5PIXmp2H8cU24AVLu1r
+	so7XTdN6SZwUJrtwRNcg9jT45rzzwZPeAH7pGqm5UCbStjhlJpLBtf4XYzJokwMtxGqWyrNQqzF
+	0agQ5ojQc/tKeg4Wo23YGncQajdC1z0JAIgFEm2PQ/1/kZvXKfYIc9WAmn9EnB4JzsRIZdpsHFz
+	OheF2sSNMfcYw3yiBUGG7+Q2Uq8+mlAWXxjYL3IKzmt055eJyWGgnalrqsgusRvuycVsPI24ulb
+	TOHisrMQV+zwHp/rb/9MB1zt6Qr5dHiIQKoCsIbVKyulKxqcFHxD+GiDbbwNcc/NZ968ZRtZyXr
+	ezyP+VwRc=
+X-Google-Smtp-Source: AGHT+IHiobKkY7fCBuQitA2RiQnqTF7KXWMAZACMNdx2dLRUsD0vNB9JSe0pH+0g6+SDNuyzD2qnEA==
+X-Received: by 2002:a05:6402:51c6:b0:617:cd9d:e1b1 with SMTP id 4fb4d7f45d1cf-6188c21c4abmr2558160a12.30.1755177328757;
+        Thu, 14 Aug 2025 06:15:28 -0700 (PDT)
+Message-ID: <f707d57e-73f3-43c4-a005-f2b93ad3d1cf@suse.com>
+Date: Thu, 14 Aug 2025 15:15:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 14/22] x86/traps: Extend struct cpu_user_regs/cpu_info
- with FRED fields
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
- <20250808202314.1045968-15-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] pdx: cast PAGE_SIZE value ahead of shifting
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250813125538.78174-1-roger.pau@citrix.com>
+ <e644c968-ab68-49f4-801e-0f161fd85f2e@suse.com>
+ <aJ26UmemwxyyTioE@macbook.local>
+ <3fbdd1fc-e739-42cf-892b-a561910a5693@suse.com>
+ <aJ3eRFc7CCwVi5WE@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,84 +124,73 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250808202314.1045968-15-andrew.cooper3@citrix.com>
+In-Reply-To: <aJ3eRFc7CCwVi5WE@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08.08.2025 22:23, Andrew Cooper wrote:
-> @@ -42,17 +46,76 @@ struct cpu_user_regs
->       */
->  
->      union { uint64_t rip;    uint32_t eip;    uint16_t ip; };
-> -    uint16_t cs, _pad0[1];
-> -    uint8_t  saved_upcall_mask; /* PV (v)rflags.IF == !saved_upcall_mask */
-> -    uint8_t  _pad1[3];
-> +    union {
-> +        struct {
-> +            uint16_t      cs;
-> +            unsigned long :16;
-> +            uint8_t       saved_upcall_mask; /* PV (v)rflags.IF == !saved_upcall_mask */
+On 14.08.2025 15:01, Roger Pau Monné wrote:
+> On Thu, Aug 14, 2025 at 12:45:40PM +0200, Jan Beulich wrote:
+>> On 14.08.2025 12:28, Roger Pau Monné wrote:
+>>> On Thu, Aug 14, 2025 at 09:18:45AM +0200, Jan Beulich wrote:
+>>>> On 13.08.2025 14:55, Roger Pau Monne wrote:
+>>>>> --- a/xen/common/pdx.c
+>>>>> +++ b/xen/common/pdx.c
+>>>>> @@ -288,7 +288,7 @@ bool __init pfn_pdx_compression_setup(paddr_t base)
+>>>>>  
+>>>>>      pfn_pdx_hole_shift  = hole_shift;
+>>>>>      pfn_pdx_bottom_mask = (1UL << bottom_shift) - 1;
+>>>>> -    ma_va_bottom_mask   = (PAGE_SIZE << bottom_shift) - 1;
+>>>>> +    ma_va_bottom_mask   = ((paddr_t)PAGE_SIZE << bottom_shift) - 1;
+>>>>
+>>>> Given
+>>>>
+>>>> #define PAGE_SIZE           (_AC(1,L) << PAGE_SHIFT)
+>>>>
+>>>> this shouldn't be needed, except maybe for Arm32. There, however, ...
+>>>>
+>>>>>      pfn_hole_mask       = ((1UL << hole_shift) - 1) << bottom_shift;
+>>>>
+>>>> ... this and the shift immediately ahead would also be a problem afaict,
+>>>> which makes me conclude this isn't what Coverity has looked at. I expect
+>>>> the problem is with the toolstack side definition of PAGE_SIZE, which imo
+>>>> would rather be addressed there. (And yes, I'm pretty averse to arbitrary
+>>>> casts like this being introduced.)
+>>>
+>>> As I've realized while looking at this, wouldn't ma_va_bottom_mask
+>>> also better be of type paddr_t, since it's not operating on pfns, but
+>>> physical addresses.  I didn't adjust the type of ma_va_bottom_mask,
+>>> but I would be happy to do it if you agree.
+>>
+>> No, as its name says it's also used on virtual addresses (really: offsets
+>> into the direct map). It hence would better not have any bits set outside
+>> of the range that VAs can cover.
+> 
+> It's confusing that it's sometimes used against a paddr_t or an
+> unsigned long type.  The logic itself already limits the shift so it's
+> below the width of unsigned long AFAICT.
 
-Would this better be reproduced ...
+Well, the variable simply doesn't need to be wider than the narrowest type
+it's used with.
 
-> +        };
-> +        unsigned long     csx;
-> +        struct {
-> +            /*
-> +             * Bits 0 thru 31 control ERET{U,S} behaviour, and is state of the
-> +             * interrupted context.
-> +             */
-> +            uint16_t      cs;
-> +            unsigned int  sl:2;      /* Stack Level */
-> +            bool          wfe:1;     /* Wait-for-ENDBRANCH state */
+>> With that, imo the cast (if any) also
+>> should have been to unsigned long, not paddr_t. Yet as said, im the cast
+>> would better not be there in the first place. Just that meanwhile I've
+>> learned that this was committed already.
+> 
+> Sorry, I should have waited for your opinion.
+> 
+> I think you would prefer the patch below.
 
-... here as well, just like you reproduce "cs"?
+Yes.
 
-> +        } fred_cs;
-> +    };
->      union { uint64_t rflags; uint32_t eflags; uint16_t flags; };
->      union { uint64_t rsp;    uint32_t esp;    uint16_t sp;    uint8_t spl; };
-> -    uint16_t ss, _pad2[3];
-> +    union {
-> +        uint16_t          ss;
-> +        unsigned long     ssx;
+>  I can send this formally,
+> not sure whether you would prefer a formal revert of the previous
+> patch, plus the new fix applied, or doing the revert in the new patc
+> (like below) is fine.
 
-What use do you foresee for this and "csx"?
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> +        struct {
-> +            /*
-> +             * Bits 0 thru 31 control ERET{U,S} behaviour, and is state about
-> +             * the event which occured.
-> +             */
-> +            uint16_t      ss;
-> +            bool          sti:1;     /* Was blocked-by-STI, and not cancelled */
-> +            bool          swint:1;   /* Was a SYSCALL/SYSENTER/INT $N */
-> +            bool          nmi:1;     /* Was an NMI. */
-> +            unsigned long :13;
-> +
-> +            /*
-> +             * Bits 32 thru 63 are ignored by ERET{U,S} and are informative
-> +             * only.
-> +             */
-> +            uint8_t       vector;
-> +            unsigned long :8;
-> +            unsigned int  type:4;    /* X86_ET_* */
-> +            unsigned long :4;
-> +            bool          enclave:1; /* Event taken in SGX mode */
-> +            bool          lm:1;      /* Was in Long Mode */
-
-The bit indicates 64-bit mode aiui, not long mode (without which FRED isn't even
-available).
-
-> --- a/xen/arch/x86/include/asm/current.h
-> +++ b/xen/arch/x86/include/asm/current.h
-> @@ -38,6 +38,8 @@ struct vcpu;
->  
->  struct cpu_info {
->      struct cpu_user_regs guest_cpu_user_regs;
-> +    struct fred_info _fred; /* Only used when FRED is active. */
-
-Any particular need for the leading underscore?
+I don't see a strong need for an outright revert.
 
 Jan
 
