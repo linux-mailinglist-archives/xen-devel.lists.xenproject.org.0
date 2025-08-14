@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD2BDB25D2E
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 09:27:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1080898.1441068 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F6D2B25D5D
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 09:31:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1080909.1441078 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umSMU-0007pK-6E; Thu, 14 Aug 2025 07:26:58 +0000
+	id 1umSQA-0000tX-MF; Thu, 14 Aug 2025 07:30:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1080898.1441068; Thu, 14 Aug 2025 07:26:58 +0000
+Received: by outflank-mailman (output) from mailman id 1080909.1441078; Thu, 14 Aug 2025 07:30:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umSMU-0007n0-3Q; Thu, 14 Aug 2025 07:26:58 +0000
-Received: by outflank-mailman (input) for mailman id 1080898;
- Thu, 14 Aug 2025 07:26:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xqZt=22=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1umSMS-0007mt-Tf
- for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 07:26:56 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0e41c85f-78e0-11f0-a328-13f23c93f187;
- Thu, 14 Aug 2025 09:26:55 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-afcb78da8a7so101200066b.1
- for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 00:26:55 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-af91a21c076sm2513275466b.102.2025.08.14.00.26.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Aug 2025 00:26:54 -0700 (PDT)
+	id 1umSQA-0000s1-JA; Thu, 14 Aug 2025 07:30:46 +0000
+Received: by outflank-mailman (input) for mailman id 1080909;
+ Thu, 14 Aug 2025 07:30:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qGif=22=gmail.com=florian.heigl@srs-se1.protection.inumbo.net>)
+ id 1umSQ8-0000rj-Oh
+ for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 07:30:44 +0000
+Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
+ [2607:f8b0:4864:20::82d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 938788e1-78e0-11f0-b898-0df219b8e170;
+ Thu, 14 Aug 2025 09:30:40 +0200 (CEST)
+Received: by mail-qt1-x82d.google.com with SMTP id
+ d75a77b69052e-4b109912545so7601891cf.0; 
+ Thu, 14 Aug 2025 00:30:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,146 +40,320 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e41c85f-78e0-11f0-a328-13f23c93f187
+X-Inumbo-ID: 938788e1-78e0-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755156415; x=1755761215; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EWklxH0cXy9GUis6gE8FtNwQT8EjVlYxc++UJH65nHE=;
-        b=YMvs9/rBgyL3Jvq25ur5h6iRm0uXSIg1eltr3NbE6JhtWEzQ8witzV9VlYeLkrX6S1
-         NoXvAGrpSf1hiXFSsPb2DomjjsyjOHNn5mHa+r9aUOGB7KaF3inbSbhPDMD7jb4udFL6
-         x/9Z5ktpy/5RyQHNEtmSnsnFgOTMriTIIJUA9p4dwlm9imuT9aZfp0aMJhUiZJsKJK16
-         k0O4cQTh1Ayd7149+5PZop2p28hdk9ruW3efUKK1MKQ53UPFEKj37EQYtxikEdEG46R8
-         +6IJ/RJAIvI1B6zc/h8VHIYYSSQGkHHyUgP/PuOrgq6RAeSLKwEbc245fvv+WgOtL4mA
-         +jpw==
+        d=gmail.com; s=20230601; t=1755156638; x=1755761438; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=EjPfvm8P8nhJ3Rz6Mq1SB0p4rDkQmHdsC2mJIbarucc=;
+        b=UAJopP7sKmS1otZiEc7U+yFhbpvreskwLYwcpHVPXAotadl3b73FWtr5l+oCZXyixY
+         q6pd5QxzNebilZ2JfHH3X9fp4dYlQkSrdW+F84ovsBRtTdvFfRdquet83znjI34REseY
+         1M/AZcTnmndfFNzzyA+LR3MLSjfQi7kGu3syeqIYyArZtFlHVE81s3W+uYdrk8A+luOw
+         AJ6UT5LnbxclidP50IuV5/b9dUNw4f0iJDMqY3PvIyMDqRnux6Tvc6H7cxC2zyTZSnjL
+         6XrsXai2GTxrCSj0ifVAZlBDPqtJy5ktiLkGcNmPFglYaW/2XK8hhsBNT3N+YT9BoNvZ
+         GGLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755156415; x=1755761215;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=EWklxH0cXy9GUis6gE8FtNwQT8EjVlYxc++UJH65nHE=;
-        b=VH9tM1VOfDJrt2JGuLBYMTGus+YpF+aJsljOLL5G1uWMrRgFW+vHFcSXZ/ee8LHmwZ
-         bbSdAodbEdOWe1SpKudcDR6RrAtitBKyfyck4Ba/lA0zeVqnWdPuMcBddozQ9BNb2AC6
-         XFbJJhBM1SdLDdNhN2zYXtDmL740tb5Y9tjMRGS8k/HLHA/ybsx7vPANqwRzrRx84Imv
-         kPuPfN5dscBXD3X8dwi8nvp6RPcaCzw1wWRHGxT7iPQcw2SjPRZmkb0e3Xd9NHADuUY7
-         UCmMRZBpoJskK5jAcGjl6dUR6bFqZObLBZPx92gWiMKC/jhzF18bew7WRGnzAYoR4rhM
-         66LA==
-X-Gm-Message-State: AOJu0YwiVhUnO7omYqYtji+7tYSOkJqHBbm/HT4ejeVKol2YRq1obpXr
-	2fGTrnzds6I9sP9UN6a3nXckdMUsnVkwXXDBxLexa+4vbFiU18F9sW0Ib29OJ1fMm4DmS35j37z
-	JO0g=
-X-Gm-Gg: ASbGnctTD1pugVeTZiBi1dNYrHjUpmjFfb94tpo1TaYRNnAF4nl/Lfy6JE9lCOknbgS
-	Qe6X6G7Ja5oypZKVnSZvxIzfN7wd6q1guTtCzi8Zlgr8eXEWUaL9/r16GeZyy3g/hfPSSmkPaKL
-	THnlVb1/kjF4x2O08gTpVcOuJuCrOzU27lSeq65NIFE47F3ORWajZdoESJH2YBB7hUwU0t+r47Q
-	zEqomkmB20MXPAFPdyGtKEr1HHi391ZvX/3PEa3thByeIjH8Ve5J28brEiBCZrYToFxWLngKKwo
-	E6ihkrooVNzQLdLJA4K79jjT+Nbrl8fEiQqZ7U0N20P9GNrlIu6YsQ1YymRwmrv3mwEUY/Y5b0W
-	vyEiYL1zztk880flh8Fj8dFRrc7lFfOXR5fdA0Y59l2gOB5CowJypZlxqv8v5G3wl+9btsP9CcX
-	6ttZCSoKYCQSqP6fOVnw==
-X-Google-Smtp-Source: AGHT+IHf+chiCYCdjn0poyjloX8Gq248Zkt78egNnsQeH93Scmtr8FzICzQdujpnMvVahoHBKfsQ3Q==
-X-Received: by 2002:a17:907:6d0c:b0:af9:d705:9f19 with SMTP id a640c23a62f3a-afcb979b5cdmr180721766b.17.1755156415043;
-        Thu, 14 Aug 2025 00:26:55 -0700 (PDT)
-Message-ID: <aab37ec2-33bf-403b-978a-dc3c4bc282f7@suse.com>
-Date: Thu, 14 Aug 2025 09:26:53 +0200
+        d=1e100.net; s=20230601; t=1755156638; x=1755761438;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=EjPfvm8P8nhJ3Rz6Mq1SB0p4rDkQmHdsC2mJIbarucc=;
+        b=CYtR+PTONDSJmicAlGr9iqPeaJrt/i1eqAXJ42+HaenstvrXfUMswhBLY0XMwC/otW
+         jPa2c1ctxn/maLVTJtcr7XN5FN2vmkYAnvEfKSC3wr0pmeaOFAGpTqBD50nuoqYzgCJQ
+         sGJjgaakDPdEs5MqMo8MHVrs12i867YHkgps/3p0N9WZhTCguj+u8Q06S2hv2kFlyfQ9
+         l91dc1X9DGAt7XbXO5hR8F4hz+hjUooAUMlNfQqp0Cf4DF5lv3LhWZgPMWEDHPaEUnwT
+         A5faJWj5oOln39g4ZItb47lIiNTqzaGgN4vJsByHL5lU4cO/ErUSbqCQPK9n8QpPf/P1
+         mpuA==
+X-Forwarded-Encrypted: i=1; AJvYcCVL9WcE1N4T7ZZBdiAIuPI0j/QljzflXqBO6ZO1nPkrre0vVVeRl9Swumf8VsuOlcghAIo6DAkztb57@lists.xenproject.org, AJvYcCWNO6NqGTRlZuw/BhP49chzozsszcYyNtq7Z+Yb6qLYHlaZ71OdWqpO0ilCYVLVlf1SpOojGaxMqC4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YztOwBv8pG5HxMkBWpefaO2QV1SPGMWLk7g45K/twjLKr4Tt+ts
+	X+7SBxtfnTvIXsFAkweOZpLWRFlttYrJ2MsZ1FjTDZJ1hWGOWv7OijGfKt0kJIe8q9IWlEKMUuo
+	Rg07sUf4Sz3FN0tb4uJAre/UgUi1qfFE=
+X-Gm-Gg: ASbGncsi425VyvXlHQqaLUhEYHjEGM6l17FXRARZr2+msA+REVHvyU09fbDZiZpiJmB
+	t/LFCe1Rjk7ei4z8OyfKtG9RDIj0Vhnq0Y0jfU/k9iIs2QKYICzewFMk+vIp+S7WGe86HeJsJC+
+	hD1EftwRq0WN5eh45vSKdTm6zHi2OnVY3U5O5TcSYWOsknzFK+dtrPNkWkVNYv+/dBAoFXccsf6
+	f2EPZo09u8U/HaHc0zxUCtu9cTGZ6btAXDmX85h
+X-Google-Smtp-Source: AGHT+IEOOnIR5xh0H/YVGTrI3HJpTxvCb14vAQo5pTVhgzJxEVqD1OVsD2nxr8wdBGwNBqGlu8P1r2AVJSVusyQtrTo=
+X-Received: by 2002:a05:622a:cf:b0:4ab:9335:7af4 with SMTP id
+ d75a77b69052e-4b10a9199admr25469131cf.2.1755156638478; Thu, 14 Aug 2025
+ 00:30:38 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/22] x86/traps: Move load_system_tables() into
- traps-setup.c
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>
-References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
- <20250808202314.1045968-10-andrew.cooper3@citrix.com>
- <80285a06f5d4fb3bd3e378317cca61ca@bugseng.com>
- <7e906964-b07d-4205-a683-e665f19d5edc@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7e906964-b07d-4205-a683-e665f19d5edc@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <CAO_48GG1Tg0d3ATnNAYNr0cg7Ty_zsnzT29=dpkk99DxyTWcmg@mail.gmail.com>
+ <fceb5df8-d628-479d-acb3-d1d26409fbac@onlineschubla.de> <aJLae1Nl0pyOZgyh@mattapan.m5p.com>
+ <1b96f2f3-55a2-4b33-84b1-a7c18d38d10c@suse.com>
+In-Reply-To: <1b96f2f3-55a2-4b33-84b1-a7c18d38d10c@suse.com>
+From: Florian Heigl <florian.heigl@gmail.com>
+Date: Thu, 14 Aug 2025 09:30:26 +0200
+X-Gm-Features: Ac12FXw8v4wTQerYESma1v7aAuTHK6ARn31LZ-Lgjkv5RqFJq2mVFrE4hIu-kYU
+Message-ID: <CAFivhPnfoDvZVh6i-=HOJCU6PwLEFyzAsdRJfqmzPq-L79hUEw@mail.gmail.com>
+Subject: Re: Consider changing CONFIG_ACPI default on ARM?
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Elliott Mitchell <ehem+xen@m5p.com>, Xen-users <xen-users@lists.xenproject.org>, 
+	xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	Paul Leiber <paul@onlineschubla.de>
+Content-Type: multipart/alternative; boundary="000000000000f63b05063c4e3f20"
 
-On 13.08.2025 13:36, Andrew Cooper wrote:
-> On 12/08/2025 10:43 am, Nicola Vetrini wrote:
->> On 2025-08-08 22:23, Andrew Cooper wrote:
->>> diff --git a/xen/arch/x86/traps-setup.c b/xen/arch/x86/traps-setup.c
->>> index 8ca379c9e4cb..13b8fcf0ba51 100644
->>> --- a/xen/arch/x86/traps-setup.c
->>> +++ b/xen/arch/x86/traps-setup.c
->>> @@ -19,6 +20,124 @@ boolean_param("ler", opt_ler);
->>>
->>>  void nocall entry_PF(void);
->>>
->>> +/*
->>> + * Sets up system tables and descriptors for IDT devliery.
->>> + *
->>> + * - Sets up TSS with stack pointers, including ISTs
->>> + * - Inserts TSS selector into regular and compat GDTs
->>> + * - Loads GDT, IDT, TR then null LDT
->>> + * - Sets up IST references in the IDT
->>> + */
->>> +static void load_system_tables(void)
->>> +{
->>> +    unsigned int i, cpu = smp_processor_id();
->>> +    unsigned long stack_bottom = get_stack_bottom(),
->>> +        stack_top = stack_bottom & ~(STACK_SIZE - 1);
->>> +    /*
->>> +     * NB: define tss_page as a local variable because clang 3.5
->>> doesn't
->>> +     * support using ARRAY_SIZE against per-cpu variables.
->>> +     */
->>> +    struct tss_page *tss_page = &this_cpu(tss_page);
->>> +    idt_entry_t *idt = this_cpu(idt);
->>> +
->>
->> Given the clang baseline this might not be needed anymore?
-> 
-> Hmm.  While true, looking at 51461114e26, the code is definitely better
-> written with the tss_page variable and we wouldn't want to go back to
-> the old form.
-> 
-> I think that I'll simply drop the comment.
-> 
-> ~Andrew
-> 
-> P.S.
-> 
-> Generally speaking, because of the RELOC_HIDE() in this_cpu(), any time
-> you ever want two accesses to a variable, it's better (code gen wise) to
-> construct a pointer to it and use the point multiple times.
-> 
-> I don't understand why there's a RELOC_HIDE() in this_cpu().  The
-> justification doesn't make sense, but I've not had time to explore what
-> happens if we take it out.
+--000000000000f63b05063c4e3f20
+Content-Type: text/plain; charset="UTF-8"
 
-There's no justification in xen/percpu.h?
+Jan Beulich <jbeulich@suse.com> schrieb am Do., 14. Aug. 2025, 08:55:
 
-My understanding is that we simply may not expose any accesses to per_cpu_*
-variables directly to the compiler, or there's a risk that it might access
-the "master" variable (i.e. CPU0's on at least x86).
+> On 06.08.2025 06:30, Elliott Mitchell wrote:
+> > On Tue, Jul 01, 2025 at 10:01:13PM +0200, Paul Leiber wrote:
+> >>
+> >> Unfortunately, I don't have a direct answer to the question (as is so
+> often
+> >> the case, due to my limited knowledge and experience). However, I am
+> >> successfully running Xen on a RPi 4 (mostly, except for some VLAN
+> related
+> >> networking issues).
+> >>
+> >> I used instructions in [1] to install vanilla Debian on the RPi,
+> including
+> >> UEFI boot and grub. I then compiled Xen with expert options and ACPI
+> >> enabled.
+> >>
+> >> I don't know if there are better solutions. For example, I suffer from
+> the
+> >> fact that I2C doesn't work when using UEFI boot on a RPi.
+>
 
-Jan
+Snipped:
+Xen panicking on a $100 platform that is the planet wide reference for
+commodity/community SBC.
+Reported by someone with just questions and an obvious suggestion to maybe
+move things forward.
+
+>>> I'm certain I'm missing something, but before I delve deeper, I just
+> >>> wanted to ask if this is a known issue, and if so, are there any
+> >>> workarounds or solutions available for this?
+> >>>
+> >>> Any help about this is highly appreciated!
+> >>>
+> >>> Thanks and Best regards,
+> >>> Sumit.
+> >>>
+> >>> [1]:  https://github.com/raspberrypi/linux rpi-6.12.y branch
+> >>> [2]: git://xenbits.xen.org/xen.git - main branch
+> >>> [3] xen-troops https://github.com/xen-troops/xen - rpi5_dev branch
+> >>> [4]: https://github.com/u-boot/u-boot.git master branch
+> >
+> > Ultimately Debian is choosing to leave most defaults alone.  So far
+>
+[...]
+
+> > I'm unsure of the likelihood of getting the Debian maintainers to
+> > override the default.  Yet due being by far the simplest way to install
+> > Debian and Xen on a very common ARM64 platform, perhaps the Xen
+> > developers should consider changing?
+>
+> In an open source project everyone is a developer. There is a
+> significant amount of work someone needs to pick up to change this
+> SUPPORT.md entry:
+>
+> ### Host ACPI (via Domain 0)
+>
+>     Status, x86 PV: Supported
+>     Status, ARM: Experimental
+>
+> Parties interested in changing the support status of any component are the
+> primary candidates to actually carry out the necessary work.
+>
+> Jan
+>
+
+The wording matters, experimental tells a different story of status and
+ownership and activity.
+It implies someone has brought it that far and wishes for experimenting and
+feedback.
+It implies that the experiment is ongoing.
+It implies that good results would be noted and then it's likely that its
+brought to a supported state.
+It implies someone is looking at the results.
+
+It's not sufficient to just tell someone "yeah if you care you're in the
+best position to change that support status".
+That status was written there and summarised based on certain criteria
+which are historically a problem. How many xen/arm versions were there?
+Mips? How many IB implementations, how many FT clones, how many versions of
+whatever piece in the project.
+Many parties have cared and contributed stuff that didn't ever get anywhere
+because they were never told what other steps they need to take or that
+there's simply not enough people around to review those 100k lines of
+whatever.
+
+As long as theres no better insight than experimental no experimenting
+party can know if someone else is working on their issue other than them
+asking here.
+Telling them hey, actually that's YOU and your BEST approach is to be or
+wait for someone with the resources to change this, oh BTW, really massive
+tasks situation.
+
+Some examples for what we could have named things over the last 20 years
+Experimental with no HCL or near term roadmap. Experimental drop with no
+current activity
+Experimental, stale
+Experimental with assumption to later integrate
+Experimental and tentative, will be proceed only with other partes
+involvement
+Experimental, waiting for feedback
+Experimental, lacking hw support
+
+Be honest and be kind to people that try to fix one little piece when
+you're sitting on a pile of broken castles. If everyone is a developer we
+ought to enable everyone to help.
+
+I'm gonna unsubscribe at last. I'm old and it gets too repetitive.
+
+Flo
+
+
+--
+
+>
+
+
+the purpose of libvirt is to provide an abstraction layer hiding all xen
+features added since 2006 until they were finally understood and copied by
+the kvm devs.
+
+>
+
+--000000000000f63b05063c4e3f20
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><div><br></div><div><br></div><div data-smartmail=3D=
+"gmail_signature"><br></div><br><div class=3D"gmail_quote gmail_quote_conta=
+iner"><div dir=3D"ltr" class=3D"gmail_attr">Jan Beulich &lt;<a href=3D"mail=
+to:jbeulich@suse.com">jbeulich@suse.com</a>&gt; schrieb am Do., 14. Aug. 20=
+25, 08:55:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
+px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On 06=
+.08.2025 06:30, Elliott Mitchell wrote:<br>
+&gt; On Tue, Jul 01, 2025 at 10:01:13PM +0200, Paul Leiber wrote:<br>
+&gt;&gt;<br>
+&gt;&gt; Unfortunately, I don&#39;t have a direct answer to the question (a=
+s is so often<br>
+&gt;&gt; the case, due to my limited knowledge and experience). However, I =
+am<br>
+&gt;&gt; successfully running Xen on a RPi 4 (mostly, except for some VLAN =
+related<br>
+&gt;&gt; networking issues).<br>
+&gt;&gt;<br>
+&gt;&gt; I used instructions in [1] to install vanilla Debian on the RPi, i=
+ncluding<br>
+&gt;&gt; UEFI boot and grub. I then compiled Xen with expert options and AC=
+PI<br>
+&gt;&gt; enabled.<br>
+&gt;&gt;<br>
+&gt;&gt; I don&#39;t know if there are better solutions. For example, I suf=
+fer from the<br>
+&gt;&gt; fact that I2C doesn&#39;t work when using UEFI boot on a RPi.=C2=
+=A0<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"aut=
+o">Snipped:</div><div dir=3D"auto"></div><div dir=3D"auto">Xen panicking on=
+ a $100 platform that is the planet wide reference for commodity/community =
+SBC.</div><div dir=3D"auto">Reported by someone with just questions and an =
+obvious suggestion to maybe move things forward.</div><div dir=3D"auto"><br=
+></div><div dir=3D"auto"><div class=3D"gmail_quote gmail_quote_container"><=
+blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
+eft:1px solid rgb(204,204,204);padding-left:1ex">
+&gt;&gt;&gt; I&#39;m certain I&#39;m missing something, but before I delve =
+deeper, I just<br>
+&gt;&gt;&gt; wanted to ask if this is a known issue, and if so, are there a=
+ny<br>
+&gt;&gt;&gt; workarounds or solutions available for this?<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Any help about this is highly appreciated!<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Thanks and Best regards,<br>
+&gt;&gt;&gt; Sumit.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; [1]:=C2=A0 <a href=3D"https://github.com/raspberrypi/linux" re=
+l=3D"noreferrer noreferrer" target=3D"_blank">https://github.com/raspberryp=
+i/linux</a> rpi-6.12.y branch<br>
+&gt;&gt;&gt; [2]: git://<a href=3D"http://xenbits.xen.org/xen.git" rel=3D"n=
+oreferrer noreferrer" target=3D"_blank">xenbits.xen.org/xen.git</a> - main =
+branch<br>
+&gt;&gt;&gt; [3] xen-troops <a href=3D"https://github.com/xen-troops/xen" r=
+el=3D"noreferrer noreferrer" target=3D"_blank">https://github.com/xen-troop=
+s/xen</a> - rpi5_dev branch<br>
+&gt;&gt;&gt; [4]: <a href=3D"https://github.com/u-boot/u-boot.git" rel=3D"n=
+oreferrer noreferrer" target=3D"_blank">https://github.com/u-boot/u-boot.gi=
+t</a> master branch<br>
+&gt; <br>
+&gt; Ultimately Debian is choosing to leave most defaults alone.=C2=A0 So f=
+ar=C2=A0<br></blockquote></div></div><div dir=3D"auto">[...]</div><div dir=
+=3D"auto"><div class=3D"gmail_quote gmail_quote_container"><blockquote clas=
+s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid r=
+gb(204,204,204);padding-left:1ex">
+&gt; I&#39;m unsure of the likelihood of getting the Debian maintainers to<=
+br>
+&gt; override the default.=C2=A0 Yet due being by far the simplest way to i=
+nstall<br>
+&gt; Debian and Xen on a very common ARM64 platform, perhaps the Xen<br>
+&gt; developers should consider changing?<br>
+<br>
+In an open source project everyone is a developer. There is a<br>
+significant amount of work someone needs to pick up to change this<br>
+SUPPORT.md entry:<br>
+<br>
+### Host ACPI (via Domain 0)<br>
+<br>
+=C2=A0 =C2=A0 Status, x86 PV: Supported<br>
+=C2=A0 =C2=A0 Status, ARM: Experimental<br>
+<br>
+Parties interested in changing the support status of any component are the<=
+br>
+primary candidates to actually carry out the necessary work.<br>
+<br>
+Jan<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"aut=
+o">The wording matters, experimental tells a different story of status and =
+ownership and activity.</div><div dir=3D"auto">It implies someone has broug=
+ht it that far and wishes for experimenting and feedback.</div><div dir=3D"=
+auto">It implies that the experiment is ongoing.</div><div dir=3D"auto">It =
+implies that good results would be noted and then it&#39;s likely that its =
+brought to a supported state.</div><div dir=3D"auto">It implies someone is =
+looking at the results.</div><div dir=3D"auto"><br></div><div dir=3D"auto">=
+It&#39;s not sufficient to just tell someone &quot;yeah if you care you&#39=
+;re in the best position to change that support status&quot;.</div><div dir=
+=3D"auto">That status was written there and summarised based on certain cri=
+teria which are historically a problem. How many xen/arm versions were ther=
+e? Mips? How many IB implementations, how many FT clones, how many versions=
+ of whatever piece in the project.</div><div dir=3D"auto">Many parties have=
+ cared and contributed stuff that didn&#39;t ever get anywhere because they=
+ were never told what other steps they need to take or that there&#39;s sim=
+ply not enough people around to review those 100k lines of whatever.</div><=
+div dir=3D"auto"><br></div><div dir=3D"auto">As long as theres no better in=
+sight than experimental no experimenting party can know if someone else is =
+working on their issue other than them asking here.</div><div dir=3D"auto">=
+Telling them hey, actually that&#39;s YOU and your BEST approach is to be o=
+r wait for someone with the resources to change this, oh BTW, really massiv=
+e tasks situation.=C2=A0</div><div dir=3D"auto"><br></div><div dir=3D"auto"=
+>Some examples for what we could have named things over the last 20 years</=
+div><div dir=3D"auto">Experimental with no HCL or near term roadmap. Experi=
+mental drop with no current activity=C2=A0</div><div dir=3D"auto">Experimen=
+tal, stale</div><div dir=3D"auto">Experimental with assumption to later int=
+egrate</div><div dir=3D"auto">Experimental and tentative, will be proceed o=
+nly with other partes involvement=C2=A0</div><div dir=3D"auto">Experimental=
+, waiting for feedback</div><div dir=3D"auto">Experimental, lacking hw supp=
+ort</div><div dir=3D"auto"><br></div><div dir=3D"auto">Be honest and be kin=
+d to people that try to fix one little piece when you&#39;re sitting on a p=
+ile of broken castles. If everyone is a developer we ought to enable everyo=
+ne to help.</div><div dir=3D"auto"><br></div><div dir=3D"auto">I&#39;m gonn=
+a unsubscribe at last. I&#39;m old and it gets too repetitive.</div><div di=
+r=3D"auto"><br></div><div dir=3D"auto">Flo</div><div dir=3D"auto"><br></div=
+><div dir=3D"auto"><br></div><div dir=3D"auto">--</div><div dir=3D"auto"><d=
+iv class=3D"gmail_quote gmail_quote_container"><blockquote class=3D"gmail_q=
+uote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,2=
+04);padding-left:1ex"></blockquote></div></div><div dir=3D"auto"><br></div>=
+<div dir=3D"auto"><br></div><div dir=3D"auto"><br></div><div dir=3D"auto">t=
+he purpose of libvirt is to provide an abstraction layer hiding all xen fea=
+tures added since 2006 until they were finally understood and copied by the=
+ kvm devs.</div><div dir=3D"auto"><div class=3D"gmail_quote gmail_quote_con=
+tainer"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
+;border-left:1px solid rgb(204,204,204);padding-left:1ex"></blockquote></di=
+v></div></div>
+
+--000000000000f63b05063c4e3f20--
 
