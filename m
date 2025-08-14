@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A10AB25C4A
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 08:55:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1080760.1440973 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84974B25C7E
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 09:03:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1080815.1440998 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umRrl-0006cp-Ro; Thu, 14 Aug 2025 06:55:13 +0000
+	id 1umRyz-0001Ag-Ur; Thu, 14 Aug 2025 07:02:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1080760.1440973; Thu, 14 Aug 2025 06:55:13 +0000
+Received: by outflank-mailman (output) from mailman id 1080815.1440998; Thu, 14 Aug 2025 07:02:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umRrl-0006aS-NZ; Thu, 14 Aug 2025 06:55:13 +0000
-Received: by outflank-mailman (input) for mailman id 1080760;
- Thu, 14 Aug 2025 06:55:12 +0000
+	id 1umRyz-00017x-Rr; Thu, 14 Aug 2025 07:02:41 +0000
+Received: by outflank-mailman (input) for mailman id 1080815;
+ Thu, 14 Aug 2025 07:02:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xqZt=22=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1umRrk-0006aL-H1
- for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 06:55:12 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ id 1umRyy-00017q-IG
+ for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 07:02:40 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9eae632c-78db-11f0-b898-0df219b8e170;
- Thu, 14 Aug 2025 08:55:10 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-6188b6548adso1130496a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 13 Aug 2025 23:55:10 -0700 (PDT)
+ id a9b83c7d-78dc-11f0-b898-0df219b8e170;
+ Thu, 14 Aug 2025 09:02:38 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-6188b6548adso1140086a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 00:02:38 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-618200a0159sm7596088a12.6.2025.08.13.23.55.09
+ 4fb4d7f45d1cf-6178b074a38sm15106320a12.32.2025.08.14.00.02.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Aug 2025 23:55:09 -0700 (PDT)
+ Thu, 14 Aug 2025 00:02:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9eae632c-78db-11f0-b898-0df219b8e170
+X-Inumbo-ID: a9b83c7d-78dc-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755154510; x=1755759310; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755154958; x=1755759758; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4qXG+bIbgMiOJBFJxeVw/3rcYc8u/FkUq2D1f9zpciI=;
-        b=JXRNOFcFh3qSONe/9a+f9bU+kODwxYSJLJS3NMpqfIgrhzRob4XTPrzsPVRkZ3Z3Lb
-         yig9C1eJ6iJk9mKg4BcvDTxUwDE1pqlfE0WnpgLj+H2IF7ZWDI/t3ep/PO2qMdCcoIpC
-         kJNa72Y+MNCLpx20adsqIne7ED7XF6r7or880rKHH/XSTMW6/odx4gNu6f0WaisJBY84
-         n0wM9Zuxpnl9ruII2AqMm3cynIaKlGPh1oYFSi1/vnHlH7hHNtfNJanOIv4IcKCRg4IB
-         Vn1i2EGrjNQWPqvkV44LSNedOuWWVB91jMlGxS5vO5ouYJFlscVxuXY1r+DdS3MUo0Uh
-         MO6A==
+        bh=3lv3T5HNPgiLT9IcKhsojimiDCgnEUq7jA3psdpdsTA=;
+        b=Q5Oosqu9UBau0odPwxsMxx16MMPO+v0S0M04Mcx09O+STtk8CMV59kgEX+wPKyoGln
+         c9T2nJ04vvaMQzGmb8oGllhcjLDAd0lc9mrveOAjMh6xD1bfJ3j4ElEPiTQJ18Jj+v+4
+         /HPVrER+mVtqCi40rgwdnbEq3tABmbfqarxeH0fUinj1dNECaMc9MYinBO0o1FTol1dn
+         IqKyHzZ2W6MaPqz32gIIEnzPsMKahp/BWm1U+0OGKE/YbCc8SBBIJL4z2tE5vjwWOcig
+         EF/f0huxgyEkVxVCAYyDAV1F3YOaHFcviVKR7omYiEcEdeXS9nf7MGmEb95JuQbcvTNj
+         qUEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755154510; x=1755759310;
+        d=1e100.net; s=20230601; t=1755154958; x=1755759758;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4qXG+bIbgMiOJBFJxeVw/3rcYc8u/FkUq2D1f9zpciI=;
-        b=mAaUUMtynTFb0rYDNjliRCnPGL4KDNFNzwi1s8QxMqO5lMChQl4G75e922ScM1SsO5
-         U32EnuicMRiZ430Ya9alzM2fCMWi4/h+5ifcsKS0wlxKxEN+Q8kC0USDsskigKAOvt/Z
-         fikOzOStwkGMEvVCwz74DdTaEGaylLMpdSHLWMeAdzBua17tPowP0CSz1oCQUxm3gZYn
-         aRW7MAwfFT9T+JJMD+xf/ikkycL/O9+ZklqTr6s8bqKozEMSIfuGDpbF5KAN7W+4EBQI
-         1uC9VXp8e2v7+4gaw3dsWQQgle0R9VX+WIDz//5EQi5jpZq4FHx5i2+tZjkIwRiBvSfe
-         e02Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUvS4BFz5QixLoRT8heUAzxYoxjB7rrBEUHN+1LU4nkwjg35OYMPtxqeKONjrFs1Aap7Zu44ZeTLx0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw3mrTT01ch6TOIPXhJaLfVx42N/JFF4nxkAet1MiK+I9zwA9HC
-	ofompq6gXOb8W+w/qnszOFjFy2UiXj63/Cp1u/03x/NTTZ9+5bCymfQUR1nGJ0CERA==
-X-Gm-Gg: ASbGncvlr+63cltwGKmGgqjFQYNCUsm6YOC9AEk+PxsThQhC1mW7hvm55Eh33oY+GDA
-	mkJFcnjp1lblUDiGC/hvxvmSfIof/jpKlf3U2+BRReVFE7w7TtzOPHKixyKIaaL/57ZPmtXh463
-	SPZwJKCA5DTYnj2K/mn1PiX3Lp4eJbnk3zoxkghKof5j3d4nWjg24SfoAwgiRk9135dFNNSBokX
-	9wBz1K0l5cIVd1ywSmQNe2OrhTvdkeJ2iFVop4bfPIR0AkyUO13M/LGmNQnyrsLrlcGV3Uu7yBy
-	z56rfhHb0fhekgVCJyOT82zC4xkhLfy+WGkvECmS35d4PM7ygdARPN8/5co00nuk7rAvskDMbeO
-	e0XzZjByv5fDoJhdB7k3nAa82CNya+tfw7BHkgInGccwCUQFWLXqjwiaupo4WKsantbDYKXRYGz
-	eqUbcRFYQi+5NAKq29Uw==
-X-Google-Smtp-Source: AGHT+IEXYdI1phRO3EGwPKyO6oMR88V7KMDHVaLkVvF5pLKcpSdwuh60P6MV9XUL6wrobDFX3R6WWQ==
-X-Received: by 2002:a05:6402:3596:b0:617:cd9d:e2a4 with SMTP id 4fb4d7f45d1cf-6188b934575mr1478509a12.2.1755154509723;
-        Wed, 13 Aug 2025 23:55:09 -0700 (PDT)
-Message-ID: <1b96f2f3-55a2-4b33-84b1-a7c18d38d10c@suse.com>
-Date: Thu, 14 Aug 2025 08:55:07 +0200
+        bh=3lv3T5HNPgiLT9IcKhsojimiDCgnEUq7jA3psdpdsTA=;
+        b=RD39z9JCjDm2M+mRbm4XGLZUcKGwLYST9peuM2ZRzHG80Q9eq8Qu+lWdLbxm1DsUJy
+         ISbHjx8otfm72VgCRG5dz/caNfXTWfbwBsWh1QEVOMBsUjgv+oR6MrriHXZT6lirywPC
+         Cy9p3nw7l2oePyXwIWCZCQBNLIkpnQKjWF44Ab1tkmqEg9YIxdQM2WO4sttQB+W7lz2C
+         DIvEaxUCerqJgutAmKZ9zgoZGEqExS1UqtTAh5Sx9L4c8GElGzcUt1uizLvNAkTrA2ry
+         BEaId7YysyeuK3tyFc48uCJzzEBm1ktr9wMUUD+siwsciakATAAMD0LCHRkwLeSuONTa
+         kHWg==
+X-Gm-Message-State: AOJu0YxWmjf5cdoZOG0nSs4gbezYG6lK20veMCSXwB+LoW1AAHGeuY9p
+	hT90eTGd1W7dTU2ZGLu6eK1lNfZqqqRqvu5169L/TroNJ64Mup4xD+/PtDqlSGu/9A==
+X-Gm-Gg: ASbGncuREo5DvxnphfLVPhQbZziXutTarYvYFsMI21D0G/4cq+UAVKlThEKwrYp+742
+	i4U7Cve5zKV+txGV5dX9PbFr8Qtmg5jcrWsMeJmaayIVxkp32ja66sekKeBzYfWtcYxDB4wNir1
+	kGfvgQaw7XPyvQ8nJswHE/keHNUfXo0u4RyeDDNK8/fqQcHcXn97zruPLkQup3RHub2lMjBIrGv
+	P7hBOSxzc37FHq3k6JFIkd8bzs2qPOzZSbAwyWtyM8fFr8ZXRpwkz6+o250FBQKVlBcrR67C7fI
+	1M2a0MqGsVp4kboMA6HZyPWJqa7NyEJnLTTZiyQvF+p6EohZmPOPwxBryQd9O/fFSSXDRCraeR2
+	t+JDLGN6GtI9cV0CGCm/tMYYvvumwTUb0hfvfM4enGAqoHTwt7rAmecdOIIlHDWXI78O0nX4VCi
+	QdO2RDKps=
+X-Google-Smtp-Source: AGHT+IHNzH4RUMSnmMAZxLRJGY/4+VTgSe2jLal1EnlwtQKyDarCXCf6HSp8pdcLe71PJzfFGZI9bA==
+X-Received: by 2002:a05:6402:3507:b0:615:78c6:7b18 with SMTP id 4fb4d7f45d1cf-6188c1f5cadmr1468307a12.23.1755154957884;
+        Thu, 14 Aug 2025 00:02:37 -0700 (PDT)
+Message-ID: <38430fbf-a6e4-4ba9-bbff-2279108721e6@suse.com>
+Date: Thu, 14 Aug 2025 09:02:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Consider changing CONFIG_ACPI default on ARM?
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: xen-users@lists.xenproject.org, xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Paul Leiber <paul@onlineschubla.de>
-References: <CAO_48GG1Tg0d3ATnNAYNr0cg7Ty_zsnzT29=dpkk99DxyTWcmg@mail.gmail.com>
- <fceb5df8-d628-479d-acb3-d1d26409fbac@onlineschubla.de>
- <aJLae1Nl0pyOZgyh@mattapan.m5p.com>
+Subject: Re: [PATCH v2 1/2] x86/mkelf32: pad load segment to 2Mb boundary
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <ddfd86ad-19b3-495b-930c-1770dd92fa99@suse.com>
+ <6e295921-0432-435e-9efe-51caa106f203@suse.com>
+ <aJtpXOM2AERnOCrH@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,111 +119,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aJLae1Nl0pyOZgyh@mattapan.m5p.com>
+In-Reply-To: <aJtpXOM2AERnOCrH@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 06.08.2025 06:30, Elliott Mitchell wrote:
-> On Tue, Jul 01, 2025 at 10:01:13PM +0200, Paul Leiber wrote:
->>
->> Unfortunately, I don't have a direct answer to the question (as is so often
->> the case, due to my limited knowledge and experience). However, I am
->> successfully running Xen on a RPi 4 (mostly, except for some VLAN related
->> networking issues).
->>
->> I used instructions in [1] to install vanilla Debian on the RPi, including
->> UEFI boot and grub. I then compiled Xen with expert options and ACPI
->> enabled.
->>
->> I don't know if there are better solutions. For example, I suffer from the
->> fact that I2C doesn't work when using UEFI boot on a RPi. Nowadays, Debian
->> provides their own vanilla Debian images for RPi and with working I2C, but
->> these images are using a different boot method that I didn't know how to use
->> with Xen.  So far, the procedure described above seems to be the easiest
->> solution for me.
+On 12.08.2025 18:18, Roger Pau Monné wrote:
+> On Mon, Aug 11, 2025 at 12:49:57PM +0200, Jan Beulich wrote:
+>> @@ -339,9 +340,12 @@ int main(int argc, char **argv)
+>>      (void)lseek(infd, in64_phdr.p_offset, SEEK_SET);
+>>      dat_siz = (uint32_t)in64_phdr.p_filesz;
+>>  
+>> -    /* Do not use p_memsz: it does not include BSS alignment padding. */
+>> -    /*mem_siz = (uint32_t)in64_phdr.p_memsz;*/
+>> -    mem_siz = (uint32_t)(final_exec_addr - in64_phdr.p_vaddr);
+>> +    /*
+>> +     * We don't pad .bss in the linker script, but during early boot we map
+>> +     * the Xen image using 2M pages.  To avoid running into adjacent non-RAM
+>> +     * regions, pad the segment to the next 2M boundary.
 > 
-> 
->> [1] https://forums.raspberrypi.com/viewtopic.php?t=282839
->>
->> Am 30.06.2025 um 12:35 schrieb Sumit Semwal:
->>>
->>> I've just begun to experiment with the Raspberry Pi 5, trying to run a
->>> simple xen + Dom0 setup, using uBoot, and the bookworm based Rpi
->>> distro.
->>>
->>> I've tried combinations of the following setup:
->>>
->>> 1. prebuilt Rpi5 kernel + dtbs, and have also tried to build them from
->>> source [1]
->>> 2. Xen from upstream [2] and xen-troops [3]
->>> 3. upstream uBoot from [4]
->>>
->>> but with the same result: [short log below; I can provide a fuller log
->>> if needed]
->>>
->>> (XEN) DT: ** translation for device /axi/msi-controller@1000130000 **
->>> (XEN) DT: bus is default (na=2, ns=2) on /axi
->>> (XEN) DT: translating address:<3> 000000ff<3> fffff000<3>
->>> (XEN) DT: parent bus is default (na=2, ns=1) on /
->>> (XEN) DT: walking ranges...
->>> (XEN) DT: default map, cp=0, s=1000000000, da=fffffff000
->>> (XEN) DT: default map, cp=1000000000, s=100000000, da=fffffff000
->>> (XEN) DT: default map, cp=1400000000, s=400000000, da=fffffff000
->>> (XEN) DT: default map, cp=1800000000, s=400000000, da=fffffff000
->>> (XEN) DT: default map, cp=1c00000000, s=400000000, da=fffffff000
->>> (XEN) DT: not found !
->>> (XEN) Unable to retrieve address 1 for /axi/msi-controller@1000130000
->>> (XEN) Device tree generation failed (-22).
->>> (XEN) debugtrace_dump() global buffer starting
->>> 1 cpupool_create(pool=0,sched=6)
->>> 2 Created cpupool 0 with scheduler SMP Credit Scheduler rev2 (credit2)
->>> 3 cpupool_add_domain(dom=0,pool=0) n_dom 1 rc 0
->>> (XEN) wrap: 0
->>> (XEN) debugtrace_dump() global buffer finished
->>> (XEN)
->>> (XEN) ****************************************
->>> (XEN) Panic on CPU 0:
->>> (XEN) Could not set up DOM0 guest OS (rc = -22)
->>> (XEN) ****************************************
->>>
->>>
->>> I'm certain I'm missing something, but before I delve deeper, I just
->>> wanted to ask if this is a known issue, and if so, are there any
->>> workarounds or solutions available for this?
->>>
->>> Any help about this is highly appreciated!
->>>
->>> Thanks and Best regards,
->>> Sumit.
->>>
->>> [1]:  https://github.com/raspberrypi/linux rpi-6.12.y branch
->>> [2]: git://xenbits.xen.org/xen.git - main branch
->>> [3] xen-troops https://github.com/xen-troops/xen - rpi5_dev branch
->>> [4]: https://github.com/u-boot/u-boot.git master branch
-> 
-> Ultimately Debian is choosing to leave most defaults alone.  So far the
-> Xen developers have left CONFIG_ACPI defaulting to off on ARM*.  The
-> Debian project doesn't have paid people to support Raspberry PI hardware,
-> despite being rather common.  As a result there aren't any official
-> Raspberry PI images, but people associated with Tianocore have gotten
-> generic images to boot on Raspberry PI hardware.
-> 
-> I'm unsure of the likelihood of getting the Debian maintainers to
-> override the default.  Yet due being by far the simplest way to install
-> Debian and Xen on a very common ARM64 platform, perhaps the Xen
-> developers should consider changing?
+> Won't it be easier to pad in the linker script?  We could still have
+> __bss_end before the padding, so that initialization isn't done to the
+> extra padding area.  Otherwise it would be helpful to mention why the
+> padding must be done here (opposed to being done in the linker
+> script).
 
-In an open source project everyone is a developer. There is a
-significant amount of work someone needs to pick up to change this
-SUPPORT.md entry:
+The way the linker script currently is written doesn't lend itself to do
+the padding there: It would either mean to introduce an artificial
+padding section (which I'd dislike), or it would result in _end[] and
+__2M_rwdata_end[] also moving, which pretty clearly we don't want. Maybe
+there are other options that I simply don't see.
 
-### Host ACPI (via Domain 0)
-
-    Status, x86 PV: Supported
-    Status, ARM: Experimental
-
-Parties interested in changing the support status of any component are the
-primary candidates to actually carry out the necessary work.
+A further complication would be xen.efi's .reloc, which we don't want to
+needlessly move either. That may be coverable by pr-processor
+conditionals, but I wanted to mention the aspect nevertheless.
 
 Jan
 
