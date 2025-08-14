@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C017EB26F91
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 21:16:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1082403.1442254 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9480B26FAA
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 21:23:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1082424.1442274 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umdQz-0001DL-0Y; Thu, 14 Aug 2025 19:16:21 +0000
+	id 1umdXN-0004ov-0G; Thu, 14 Aug 2025 19:22:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1082403.1442254; Thu, 14 Aug 2025 19:16:20 +0000
+Received: by outflank-mailman (output) from mailman id 1082424.1442274; Thu, 14 Aug 2025 19:22:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umdQy-0001Ar-Tf; Thu, 14 Aug 2025 19:16:20 +0000
-Received: by outflank-mailman (input) for mailman id 1082403;
- Thu, 14 Aug 2025 19:16:20 +0000
+	id 1umdXM-0004mm-TJ; Thu, 14 Aug 2025 19:22:56 +0000
+Received: by outflank-mailman (input) for mailman id 1082424;
+ Thu, 14 Aug 2025 19:22:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mOIo=22=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1umdQx-0001Al-Tz
- for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 19:16:19 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1umdXL-0004k2-1J
+ for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 19:22:55 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 254eb874-7943-11f0-b898-0df219b8e170;
- Thu, 14 Aug 2025 21:16:14 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-45a20c51c40so440485e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 12:16:14 -0700 (PDT)
+ id 12d3f335-7944-11f0-b898-0df219b8e170;
+ Thu, 14 Aug 2025 21:22:53 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3b9d41baedeso743505f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 12:22:53 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45a1c71068csm30438435e9.29.2025.08.14.12.16.13
+ 5b1f17b1804b1-45a1c70cb83sm31261025e9.27.2025.08.14.12.22.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Aug 2025 12:16:13 -0700 (PDT)
+ Thu, 14 Aug 2025 12:22:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 254eb874-7943-11f0-b898-0df219b8e170
+X-Inumbo-ID: 12d3f335-7944-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755198974; x=1755803774; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1755199372; x=1755804172; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fvSxKhl9hrp5VRKuGPAXqBCjiWHN7luQcrTvacgPQqY=;
-        b=qHhXRRR/X7TSkMsT4Gv8nFEBjS+jsgccK8ROb19nfuX+VtxE5GaJcvyZ7R8FjVunoL
-         pzlUjPnJyqpW6dU4LO6UmXkelGqWYHny7xTXLdbQYf2Nn7ShDKZpD8TFApb82KExsL5B
-         FzhP8rTUqa7+9SoFaVhKSUOAG0a99b4LIhaso=
+        bh=X8psSapV7C1ENqgkkCPKgquvOZX0QY9OZ5KZkH3TqcU=;
+        b=t2H1tJFHicbkAXruqWu4SIthsYrryTvt2px0qnPIL39G2ZRfpu6P1BTLOacPLG3UWM
+         7mYcvwZVHv2d2CmngZGKCxhtQxUoYi0RGQEpZypBVl8g3IArqR81lH4W+zTh6WWyPHKG
+         VcTgUBdgndYJeFzUrm25BiXxiA4mU1GJeAciE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755198974; x=1755803774;
+        d=1e100.net; s=20230601; t=1755199372; x=1755804172;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fvSxKhl9hrp5VRKuGPAXqBCjiWHN7luQcrTvacgPQqY=;
-        b=Z2y9dJIsy0bnk5dgGXXQP39HUpoZAuI/khUikeUvevyXPbD/xTgWKk9uTgoyrcVltD
-         LMnXyt/zsWHPdbUuZk5QJhrY6ehUbx222QsBnY/sznkOq2SRYszVx6f8TVrfudr4QC3N
-         LZ4Mw5AqNtHUAHdVfC9MrHQjvKdmZND/4h51msFWQvess8OMfhEudGbtAm9wVQuSIdbu
-         uRopHZD2nLAGSmT/biE0xK5gPDGF/c+b6MhM1IubDuVAiFPacShXhoO5BaFUCXwsq0mb
-         JdTpipJIkHMt8v57yV68NpYtXnQLvfhT5cMRMxq2F+P10bbbE3VUv/Qiz4bUXy5Utrqu
-         3v9g==
-X-Gm-Message-State: AOJu0YwTA4yIQ0yqqeyeUDO++WIeUPQh+p7W2ucns8uUA3BjXHh3fkML
-	WSJBtSx7KYWulGcrvGUyxHZHPLmdL/j8lBwk8LBAtSzkdLMlHHZzsZWOtGWoFb2Zc5g=
-X-Gm-Gg: ASbGncu0gADb+yuGLv/qOBxeZLy2+qLX6tnB0E72qUm03viiqMtoGBbBDMMXonyT5e9
-	D1B2RmljcWkkKbP9eehjeW08kBpKpVt5ro60VcBb8V40GEMJjnT7SB6rcDvP/fqYPSmUlgfjCpK
-	nzovF9/MvWiH37DSdknT5BazFKoSdsR1HHjAVEydKe6H0ILmPEE8+6d2US23ubB63S3Sh31blhb
-	eWuSOxcXHX9S0ijs0iTxI3XZFPUTMdPYRjabi/gXx18M9pvRlRcqQjoiCZh0CzD64y7YI1yQT6i
-	qOWhAKb8DPH4ZEPuj8ZdPL3yZcC4G321zMX9zGuA/Vrt31aBMdsuv20RsgRyAULzmKk+nIWsXXq
-	2Nm36Uw2WXDE1bN3aIENvXYsQVj/774C2MEExkaFVvgHunX9yfL0dldm90JLNZWFplMw6
-X-Google-Smtp-Source: AGHT+IFjg6gAE/jKm3eUDld0/P6lacsCR5feUoRad8CD8Rd0VzZlYm3En+Itr4OhbZgOrMT/QRseKQ==
-X-Received: by 2002:a05:600c:4fc7:b0:455:f59e:fdaa with SMTP id 5b1f17b1804b1-45a20c11693mr1182905e9.21.1755198973894;
-        Thu, 14 Aug 2025 12:16:13 -0700 (PDT)
-Message-ID: <8adbd032-9da2-481d-8d98-30c9a605ec46@citrix.com>
-Date: Thu, 14 Aug 2025 20:16:12 +0100
+        bh=X8psSapV7C1ENqgkkCPKgquvOZX0QY9OZ5KZkH3TqcU=;
+        b=PMIjm8AIonBfexxAQpGFnhTUrxJld/NsuXxeIl75FZO7k9ZDGl5poZXWycznLVTNJ/
+         uigg6AWyDlY8DzE2rPhxOB0JSooCvNUrZMi7ucua41M7Bn9bdF3ov5T/+bG27VEmVjXy
+         aAgOSuSOyjPsL2AUpaMn+h6NqvbfAb4S4B1DDtytpm6jzfApgyy+o/uqi0p2PjIeGrxD
+         DjLIOVsFPa2b/w9r+BdNc1qRjVTd817joQ3zinTjkldK05jGrocERP3qo33jPV8SnvLt
+         aKUkRrCFfI1CKKaPSyf0EHfwqM9cxpNDXqIDCzg1+ozvU3BbIAalrD1UIjIIc6X3hIfx
+         JFsQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXqRBXEOgKS2ed20lLK96GmKZcCtreoe8j85x+sD6NYV67gFCgUUbNO3+0gekfjj58tnQMZaV6gjjQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzgIKzHjXOfvAQLVJZ6y2b/Jg5RG/8wYbDfJtP+NshWHr+drX36
+	P2tC0ewZz8GaHGtCxfEcXSHedx0eR4Fxc9B3TXnKFi2mNKRwDznQn9PDvU1DltGY1q4=
+X-Gm-Gg: ASbGnctNwGz1djPw6q5wiH++fHHhxSnuEFIqqnjBYX3n0cnHkuahnA6BNt+o/1lBXPP
+	rWv+Mt+uD6pbMtrtz+W73RrOoUUO71aQxgOC6xlOfNyqeVLF5Ydp3L2NhBBRFyifovdWeRaGFZX
+	q7xm9JIwo6CxDOKN/i19JlSW05kB/SbC58+7FwHL2kP/AwoP12AygKDVmHshnNI0jo/DAL5rDYs
+	0qUSdUyHFjOY3XcW6yRGY3NE/hPDD5XUidKPIbc7Ulzfwgtf7AN/HlR4yScbRdFylBJ3M74jiKI
+	CLzCXzbXPkFDl30xRX+nmVgJlMd4TJFps+ABj/gc41uN8Z19Q5jNfKSY9ES2HcgZ3UryXPs/GUh
+	to1SfGEkPr1fOG5AK62jPuGZhFtU5NJOwzeRtmUCtBW4sss1okHp9NAeXFEqO3sPx4RPQ
+X-Google-Smtp-Source: AGHT+IEX8JhrveqNbHIrD32CDXIweyb9ZuOkJGOwK234Jr8q/qkavNlEJWO3T7WR+VXeT5aN31fDpw==
+X-Received: by 2002:a05:6000:401f:b0:3a4:f50b:ca2 with SMTP id ffacd0b85a97d-3b9edf903e9mr4028619f8f.8.1755199372429;
+        Thu, 14 Aug 2025 12:22:52 -0700 (PDT)
+Message-ID: <17e90568-36f0-439a-aa8e-00779d07de49@citrix.com>
+Date: Thu, 14 Aug 2025 20:22:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 15/22] x86/traps: Introduce opt_fred
+Subject: Re: [PATCH 16/22] x86/boot: Adjust CR4 handling around
+ ap_early_traps_init()
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
- <20250808202314.1045968-16-andrew.cooper3@citrix.com>
- <0a6b6fce-2cc8-4933-8703-399e4a4fdad6@suse.com>
+ <20250808202314.1045968-17-andrew.cooper3@citrix.com>
+ <270b2ad1-fb8a-4a0a-8733-a8f3f8f25a94@suse.com>
+ <64dc9f62-b48e-400b-8840-feff2f688913@citrix.com>
+ <b4315516-289f-4495-a0c7-f504f92ec5cd@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -135,84 +139,51 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <0a6b6fce-2cc8-4933-8703-399e4a4fdad6@suse.com>
+In-Reply-To: <b4315516-289f-4495-a0c7-f504f92ec5cd@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 14/08/2025 2:30 pm, Jan Beulich wrote:
-> On 08.08.2025 22:23, Andrew Cooper wrote:
->> ... disabled by default.  There is a lot of work before FRED can be enabled by
->> default.
+On 14/08/2025 3:56 pm, Jan Beulich wrote:
+> On 14.08.2025 16:54, Andrew Cooper wrote:
+>> On 14/08/2025 3:47 pm, Jan Beulich wrote:
+>>> On 08.08.2025 22:23, Andrew Cooper wrote:
+>>>> --- a/xen/arch/x86/boot/x86_64.S
+>>>> +++ b/xen/arch/x86/boot/x86_64.S
+>>>> @@ -11,16 +11,19 @@ ENTRY(__high_start)
+>>>>          mov     %ecx,%gs
+>>>>          mov     %ecx,%ss
+>>>>  
+>>>> -        /* Enable minimal CR4 features. */
+>>>> -        mov     $XEN_MINIMAL_CR4,%rcx
+>>>> -        mov     %rcx,%cr4
+>>>> -
+>>>>          mov     stack_start(%rip),%rsp
+>>>>  
+>>>>          /* Reset EFLAGS (subsumes CLI and CLD). */
+>>>>          pushq   $0
+>>>>          popf
+>>>>  
+>>>> +        GET_STACK_END(15)
+>>>> +
+>>>> +        /* Enable minimal CR4 features. */
+>>>> +        mov     $XEN_MINIMAL_CR4, %eax
+>>>> +        mov     %rax, STACK_CPUINFO_FIELD(cr4)(%r15)
+>>> ... this could be 32-bit stores, even in the longer run.
+>> ... no, they can't.
 >>
->> One part of FRED, the LKGS (Load Kernel GS) instruction, is enumerated
->> separately but is mandatory as FRED disallows the SWAPGS instruction.
->> Therefore, both CPUID bits must be checked.
-> See my (further) reply to patch 13 - I think FRED simply ought to depend on
-> LKGS.
->
->> @@ -20,6 +22,9 @@ unsigned int __ro_after_init ler_msr;
->>  static bool __initdata opt_ler;
->>  boolean_param("ler", opt_ler);
->>  
->> +int8_t __ro_after_init opt_fred = 0; /* -1 when supported. */
-> I'm a little puzzled by the comment? DYM "once default-enabled"?
+>> The store also serves to clear out stale X86_CR4_FRED, prior to FRED
+>> getting reconfigured again.
+>>
+>> fatal_trap() uses info->cr4 to decide whether it's safe to look at the
+>> extended FRED metadata.  Strictly speaking I probably ought to read the
+>> real CR4 (in read_registers too), but using a 32bit store here would
+>> extend a 1-instruction window into quite a larger window where exception
+>> handling would not work quite right.
+> Oh, I see. Mind me asking to add brief comments there to this effect?
 
-Well, I have this temporary patch
-https://gitlab.com/xen-project/hardware/xen-staging/-/commit/70ef6a1178a411a29b7b1745a1112e267ffb6245
-that will turn into a real patch when we enable FRED by default.
+I've changed it to:
 
-As much as anything else, it was just a TODO.
-
-
->  Then ...
->
->> @@ -305,6 +310,32 @@ void __init traps_init(void)
->>      /* Replace early pagefault with real pagefault handler. */
->>      _update_gate_addr_lower(&bsp_idt[X86_EXC_PF], entry_PF);
->>  
->> +    if ( !cpu_has_fred || !cpu_has_lkgs )
->> +    {
->> +        if ( opt_fred )
-> ... this won't work anymore once the initializer is changed.
-
-Hmm yes.  That wants to be an == 1 check.  Fixed.
-
->
->> +            printk(XENLOG_WARNING "FRED not available, ignoring\n");
->> +        opt_fred = false;
-> Better use 0 here?
->
->> +    }
->> +
->> +    if ( opt_fred == -1 )
->> +        opt_fred = !pv_shim;
-> Imo it would be better to have the initializer be -1 right away, and comment
-> out the "!pv_shim" here, until we mean it to be default-enabled.
-
-It cannot be -1, or Xen will fail spectacularly on any FRED capable
-hardware.  Setting to -1 is the point at which FRED becomes security
-supported.
-
->
->> +    if ( opt_fred )
->> +    {
->> +#ifdef CONFIG_PV32
->> +        if ( opt_pv32 )
->> +        {
->> +            opt_pv32 = 0;
->> +            printk(XENLOG_INFO "Disabling PV32 due to FRED\n");
->> +        }
->> +#endif
->> +        printk("Using FRED event delivery\n");
->> +    }
->> +    else
->> +    {
->> +        printk("Using IDT event delivery\n");
->> +    }
-> Could I talk you into omitting the figure braces here? Hmm, or perhaps you
-> mean to later move code here.
-
-Indeed, patch 22.
+/* Enable minimal CR4 features, sync cached state. */
 
 ~Andrew
 
