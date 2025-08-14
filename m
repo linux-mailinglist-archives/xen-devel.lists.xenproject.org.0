@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2342B270D5
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 23:28:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1082594.1442399 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58048B27196
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Aug 2025 00:26:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1082604.1442410 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umfUV-0003C3-Dt; Thu, 14 Aug 2025 21:28:07 +0000
+	id 1umgO2-0004qw-LK; Thu, 14 Aug 2025 22:25:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1082594.1442399; Thu, 14 Aug 2025 21:28:07 +0000
+Received: by outflank-mailman (output) from mailman id 1082604.1442410; Thu, 14 Aug 2025 22:25:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umfUV-0003AT-Av; Thu, 14 Aug 2025 21:28:07 +0000
-Received: by outflank-mailman (input) for mailman id 1082594;
- Thu, 14 Aug 2025 21:28:05 +0000
+	id 1umgO2-0004oh-Hu; Thu, 14 Aug 2025 22:25:30 +0000
+Received: by outflank-mailman (input) for mailman id 1082604;
+ Thu, 14 Aug 2025 22:25:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0PP2=22=gmail.com=demiobenour@srs-se1.protection.inumbo.net>)
- id 1umfUT-00033g-Pk
- for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 21:28:05 +0000
-Received: from mail-yb1-xb35.google.com (mail-yb1-xb35.google.com
- [2607:f8b0:4864:20::b35])
+ <SRS0=mOIo=22=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1umgO1-0004ob-7f
+ for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 22:25:29 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8f359134-7955-11f0-a328-13f23c93f187;
- Thu, 14 Aug 2025 23:28:03 +0200 (CEST)
-Received: by mail-yb1-xb35.google.com with SMTP id
- 3f1490d57ef6-e931cdc2e4bso1492733276.3; 
- Thu, 14 Aug 2025 14:28:03 -0700 (PDT)
-Received: from [10.138.34.110]
- (h96-60-249-169.cncrtn.broadband.dynamic.tds.net. [96.60.249.169])
- by smtp.gmail.com with ESMTPSA id
- 3f1490d57ef6-e931d56d5d1sm948928276.24.2025.08.14.14.28.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Aug 2025 14:28:01 -0700 (PDT)
+ id 940f68b2-795d-11f0-a328-13f23c93f187;
+ Fri, 15 Aug 2025 00:25:27 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-45a1b04f8b5so7291405e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 15:25:27 -0700 (PDT)
+Received: from localhost.localdomain (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45a1c6cec65sm37122845e9.11.2025.08.14.15.25.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Aug 2025 15:25:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,414 +45,247 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f359134-7955-11f0-a328-13f23c93f187
+X-Inumbo-ID: 940f68b2-795d-11f0-a328-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1755206882; x=1755811682; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=vKknwY18N/K2FGPwPyQZboArmT0hjN3VpRYltczYsV0=;
-        b=bFVrAX6Ek8ufzkbpt/dR/HJaS39Y0VlC61D4IDa+aco1K/4J21DVydEYTznZuYjYeY
-         S94iUKI5rXUPyED0Oy/H28UO4DqovbqgHWSqBANTfI8FGwkfWKpsBTYS4WYdz0iGh3ey
-         DUR2trITVtiOGpN3w+Xmf/vafhvEl41uMq4I9C1kIkc/hxJKF+QlE9z8VrYTNGXZ5LCd
-         KyQNJiXF2bU78cFkm3kw8C2ZWzUl0gI01/qrN8j/obqToAVxRp0UAg3KWjc6sL8pJV+4
-         jJdlKBvo5yQZlfq9yzA2P/7yq0eVJQxFsPsIJ594qBQe5t8mk9Df+D8CuGP06LqFh5if
-         +KQg==
+        d=citrix.com; s=google; t=1755210326; x=1755815126; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=FKVFUdCKTfX+XVpvbvYWLH9RGVLOaxaOH7QOH70/CtY=;
+        b=WCbwWr6Q58/w5JZ1TC5XNNwYrPaNlrnBmo5jTy4/gQn/xuQ/iQ4SfkOWglb5/SUqf1
+         BmkSxWP3gSFBjEwlmN1rr/xxBni/Lu3anmLe/ZSMEUlNA7VWsToRNAowsU8jXB0UuuTg
+         kMn8lrbjxtn+sPSpOVJgvCm4Zk/3eS6SDC/Mo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755206882; x=1755811682;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=vKknwY18N/K2FGPwPyQZboArmT0hjN3VpRYltczYsV0=;
-        b=AA+qi7OvbATWM84w/oqYwYQukwmVvEyd5CInz0extvKZAZZa/C9cF/z+klALy0UZR5
-         YZ95S14vIX3UR5FBvsxQJvPughR6LJC/+pUTNlcZ9cH4CFou7C8IpdBxQvuNDXxg84Oq
-         L91UN20fyQYHl5OzTpSQJphRehcCnjFlOK72oG3l/j+bJ/r+Kh3hBk+zCEHMNWMZ8PK4
-         hdLjmnqVDp6xx8hdtCug+W4ZMNlO4FlUpGuW8rn0IEcOJFb0l4cKE6j5VH5/iWXmkBIR
-         P7hBEKOpyL29KUtXlFRLauYOsL3UCyyJ9gdu/l28DCWZZeh25Eftrc1Y8DN/EUC0KXvx
-         bJsw==
-X-Forwarded-Encrypted: i=1; AJvYcCXjiu6TtctaR3OeGQEfhxvtci1Js82bG185bD4JtI0jeU0tKsR7YMZlKLFU0dADHsjUYwimaukjcRk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx0bShQFG5VOeK1z5MESy37ij/hit2C294hIq9GiVjM1jEq5aZa
-	0CTSwH4tiBahgw1igIuueb7Fv89rts7q+0EI+nP2bd3Wv1DOuCfI61Ek
-X-Gm-Gg: ASbGnctxn7hDueMARvLrtwQMGq+53lSH4GYbwz80qPkaYYHHSUkS4oi/NSPzXg2z5sd
-	cPkIjSVdz0z1lFeti+LCKLFPWPwsr3JFwwhTelIMAHPydW9+Ig4pmSrDkTaWCqxuRyDZjiAQUjJ
-	qi7PYYXBrd8tQ2TwtN/uIebpoECNe2vgXer80PFxP0afp+XeACAsS2wF3hozxaYONDFOyDSHf0O
-	ru69Ciw4f9Tuyly+nQJwnXHAUanmLtv5mocZzOb7xolqJSIwTFI1w2NEB4Cm6xusjRw8o3mmOKs
-	CA2RhJ7lGeNUGkj/nlGYlBrPVyPBBT6Mmp5zT3b7ecw4jq/5lZSI6H/oUuEsqVV8vhQdGGpTmw6
-	SDb1TlfL8ep9eBbO6a98AFEacJJWuZ3I0I2uEdRYbUWodaExDQkLI+U10+WLhYEYOsh60A1Oved
-	ZLEQeXLqdjf+D3yGLd9eKukRUopr3bFaiCWqY=
-X-Google-Smtp-Source: AGHT+IEQmm+qCpC7as5m3UlanJZi+peuM4cw8wYRx5uwxZf9y/9/w/zyNZOWEhVlom3RIFbobkLGkQ==
-X-Received: by 2002:a05:6902:20c2:b0:e90:69a1:17a6 with SMTP id 3f1490d57ef6-e932ee8f541mr466748276.46.1755206882244;
-        Thu, 14 Aug 2025 14:28:02 -0700 (PDT)
-Message-ID: <6e9b5265-7a3b-4fd5-b14e-0e60a8b49833@gmail.com>
-Date: Thu, 14 Aug 2025 17:27:56 -0400
+        d=1e100.net; s=20230601; t=1755210326; x=1755815126;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=FKVFUdCKTfX+XVpvbvYWLH9RGVLOaxaOH7QOH70/CtY=;
+        b=kk3ZmnxwN4Y3h/vuCYvXPDuTKYM4SgwNu6BQAqeLxVuiOiYf6dB1qG2joxcHajaWzN
+         Egt7RH0070RJY7jbkDTmSSbbAre6Vrk+lrdHFQXw+CAEWcY+Fyx5WcJJfzfTi59GWVPo
+         ESc90LrUFypFvd8xjqw3AGLuCxATm18QDXJ1MBJg1BrklP9cMw1gbZMrDqXclOdbqhfj
+         MqIxJh5h3QJxz4Vm2RXME4N6nevfuMWMrRqSfqSQ0iRy9heVP4qxnb5V6joD18sZ8rTn
+         EXGvkymIUTDkyAywJ6A6pD+MkiU59QP1GRos6ges7+bshA5tgpyltdoVUnJhbjRKwqMu
+         ot3A==
+X-Gm-Message-State: AOJu0YzEi4ica7NA6NhMcHPiBhwVFQJ5HVbf9fKBvRmv04+7240N4E3f
+	o/qWbKnGP4/qQemDmyE0l2th+CpFpLxQAG5/36+P+cDLDHTVugRbyrPAcO0znTBNYnp05NX3Y5o
+	YKw4T
+X-Gm-Gg: ASbGncs9EIBYEXrbdA080ZAb0NCy67hDFbFl4pBRcc9kfdJQuSjWAeaKSBHhHMkZejg
+	+aj7lslUlrp6KOz3lHQcsFGcR5z+zu0GR1wghDD7X4BKTkgAq2CstL8SkmYrQYau24EMB+SD3TV
+	CxJHBS6d5jIpDoLPYbLqtHLQFVwDXhmNzTFHSXy0GuodJcCT1mnVVAQDpQJY8hRKIYJL2K5Deu5
+	m20cg2q1PnhLObUGGrkIKF8aWpcW/iub3c5JQnYzpHp7Iv+EG01UEXarFbfZEBtAGD7M+eZZ36T
+	Q3xVlb1FkixNQ5IffHqJnGV4DDf0Bp8oceBXE16Y/2MN+tDzbINCDq40kcrntZgB8tjcUW10HR4
+	1D0e3Tu9yyRa0N5mR7plbHpZGt0CrmhJYbdgoIpGMPxcT8TYaswDJW3CjytVAYnIhdODlL4AM+f
+	GD
+X-Google-Smtp-Source: AGHT+IGsz8sayD1aehoqLqII8CiRc7etrgUdKkOyoFbLyfBbTsOCNjeLIRRFQD/UxTOyScimHI+raA==
+X-Received: by 2002:a05:600c:8010:b0:459:e3f8:92ec with SMTP id 5b1f17b1804b1-45a217ecb09mr215125e9.10.1755210326392;
+        Thu, 14 Aug 2025 15:25:26 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Roberto Bagnara <roberto.bagnara@bugseng.com>,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	"consulting @ bugseng . com" <consulting@bugseng.com>
+Subject: [PATCH v2] xen: Use auto as per C23
+Date: Thu, 14 Aug 2025 23:25:24 +0100
+Message-Id: <20250814222524.2638883-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Consider changing CONFIG_ACPI default on ARM?
-To: Jan Beulich <jbeulich@suse.com>, Elliott Mitchell <ehem+xen@m5p.com>
-Cc: xen-users@lists.xenproject.org, xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Paul Leiber <paul@onlineschubla.de>
-References: <CAO_48GG1Tg0d3ATnNAYNr0cg7Ty_zsnzT29=dpkk99DxyTWcmg@mail.gmail.com>
- <fceb5df8-d628-479d-acb3-d1d26409fbac@onlineschubla.de>
- <aJLae1Nl0pyOZgyh@mattapan.m5p.com>
- <1b96f2f3-55a2-4b33-84b1-a7c18d38d10c@suse.com>
-Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <1b96f2f3-55a2-4b33-84b1-a7c18d38d10c@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------rO4lIfK0tgeR13JMNehk2AP9"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------rO4lIfK0tgeR13JMNehk2AP9
-Content-Type: multipart/mixed; boundary="------------y9mx4z91nTxlghyMIEal9H0H";
- protected-headers="v1"
-From: Demi Marie Obenour <demiobenour@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>, Elliott Mitchell <ehem+xen@m5p.com>
-Cc: xen-users@lists.xenproject.org, xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Paul Leiber <paul@onlineschubla.de>
-Message-ID: <6e9b5265-7a3b-4fd5-b14e-0e60a8b49833@gmail.com>
-Subject: Re: Consider changing CONFIG_ACPI default on ARM?
-References: <CAO_48GG1Tg0d3ATnNAYNr0cg7Ty_zsnzT29=dpkk99DxyTWcmg@mail.gmail.com>
- <fceb5df8-d628-479d-acb3-d1d26409fbac@onlineschubla.de>
- <aJLae1Nl0pyOZgyh@mattapan.m5p.com>
- <1b96f2f3-55a2-4b33-84b1-a7c18d38d10c@suse.com>
-In-Reply-To: <1b96f2f3-55a2-4b33-84b1-a7c18d38d10c@suse.com>
-
---------------y9mx4z91nTxlghyMIEal9H0H
-Content-Type: multipart/mixed; boundary="------------We07yydANd6nJvOL0FG40k0P"
-
---------------We07yydANd6nJvOL0FG40k0P
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On 8/14/25 02:55, Jan Beulich wrote:
-> On 06.08.2025 06:30, Elliott Mitchell wrote:
->> On Tue, Jul 01, 2025 at 10:01:13PM +0200, Paul Leiber wrote:
->>>
->>> Unfortunately, I don't have a direct answer to the question (as is so=
- often
->>> the case, due to my limited knowledge and experience). However, I am
->>> successfully running Xen on a RPi 4 (mostly, except for some VLAN rel=
-ated
->>> networking issues).
->>>
->>> I used instructions in [1] to install vanilla Debian on the RPi, incl=
-uding
->>> UEFI boot and grub. I then compiled Xen with expert options and ACPI
->>> enabled.
->>>
->>> I don't know if there are better solutions. For example, I suffer fro=
-m the
->>> fact that I2C doesn't work when using UEFI boot on a RPi. Nowadays, D=
-ebian
->>> provides their own vanilla Debian images for RPi and with working I2C=
-, but
->>> these images are using a different boot method that I didn't know how=
- to use
->>> with Xen.  So far, the procedure described above seems to be the easi=
-est
->>> solution for me.
->>
->>
->>> [1] https://forums.raspberrypi.com/viewtopic.php?t=3D282839
->>>
->>> Am 30.06.2025 um 12:35 schrieb Sumit Semwal:
->>>>
->>>> I've just begun to experiment with the Raspberry Pi 5, trying to run=
- a
->>>> simple xen + Dom0 setup, using uBoot, and the bookworm based Rpi
->>>> distro.
->>>>
->>>> I've tried combinations of the following setup:
->>>>
->>>> 1. prebuilt Rpi5 kernel + dtbs, and have also tried to build them fr=
-om
->>>> source [1]
->>>> 2. Xen from upstream [2] and xen-troops [3]
->>>> 3. upstream uBoot from [4]
->>>>
->>>> but with the same result: [short log below; I can provide a fuller l=
-og
->>>> if needed]
->>>>
->>>> (XEN) DT: ** translation for device /axi/msi-controller@1000130000 *=
-*
->>>> (XEN) DT: bus is default (na=3D2, ns=3D2) on /axi
->>>> (XEN) DT: translating address:<3> 000000ff<3> fffff000<3>
->>>> (XEN) DT: parent bus is default (na=3D2, ns=3D1) on /
->>>> (XEN) DT: walking ranges...
->>>> (XEN) DT: default map, cp=3D0, s=3D1000000000, da=3Dfffffff000
->>>> (XEN) DT: default map, cp=3D1000000000, s=3D100000000, da=3Dfffffff0=
-00
->>>> (XEN) DT: default map, cp=3D1400000000, s=3D400000000, da=3Dfffffff0=
-00
->>>> (XEN) DT: default map, cp=3D1800000000, s=3D400000000, da=3Dfffffff0=
-00
->>>> (XEN) DT: default map, cp=3D1c00000000, s=3D400000000, da=3Dfffffff0=
-00
->>>> (XEN) DT: not found !
->>>> (XEN) Unable to retrieve address 1 for /axi/msi-controller@100013000=
-0
->>>> (XEN) Device tree generation failed (-22).
->>>> (XEN) debugtrace_dump() global buffer starting
->>>> 1 cpupool_create(pool=3D0,sched=3D6)
->>>> 2 Created cpupool 0 with scheduler SMP Credit Scheduler rev2 (credit=
-2)
->>>> 3 cpupool_add_domain(dom=3D0,pool=3D0) n_dom 1 rc 0
->>>> (XEN) wrap: 0
->>>> (XEN) debugtrace_dump() global buffer finished
->>>> (XEN)
->>>> (XEN) ****************************************
->>>> (XEN) Panic on CPU 0:
->>>> (XEN) Could not set up DOM0 guest OS (rc =3D -22)
->>>> (XEN) ****************************************
->>>>
->>>>
->>>> I'm certain I'm missing something, but before I delve deeper, I just=
+In macros it is common to declare local variables using typeof(param) in order
+to ensure that side effects are only evaluated once.  A consequence of this is
+double textural expansion of the parameter, which can get out of hand very
+quickly with nested macros.
 
->>>> wanted to ask if this is a known issue, and if so, are there any
->>>> workarounds or solutions available for this?
->>>>
->>>> Any help about this is highly appreciated!
->>>>
->>>> Thanks and Best regards,
->>>> Sumit.
->>>>
->>>> [1]:  https://github.com/raspberrypi/linux rpi-6.12.y branch
->>>> [2]: git://xenbits.xen.org/xen.git - main branch
->>>> [3] xen-troops https://github.com/xen-troops/xen - rpi5_dev branch
->>>> [4]: https://github.com/u-boot/u-boot.git master branch
->>
->> Ultimately Debian is choosing to leave most defaults alone.  So far th=
-e
->> Xen developers have left CONFIG_ACPI defaulting to off on ARM*.  The
->> Debian project doesn't have paid people to support Raspberry PI hardwa=
-re,
->> despite being rather common.  As a result there aren't any official
->> Raspberry PI images, but people associated with Tianocore have gotten
->> generic images to boot on Raspberry PI hardware.
->>
->> I'm unsure of the likelihood of getting the Debian maintainers to
->> override the default.  Yet due being by far the simplest way to instal=
-l
->> Debian and Xen on a very common ARM64 platform, perhaps the Xen
->> developers should consider changing?
->=20
-> In an open source project everyone is a developer. There is a
-> significant amount of work someone needs to pick up to change this
-> SUPPORT.md entry:
->=20
-> ### Host ACPI (via Domain 0)
->=20
->     Status, x86 PV: Supported
->     Status, ARM: Experimental
->=20
-> Parties interested in changing the support status of any component are =
-the
-> primary candidates to actually carry out the necessary work.
->=20
-> Jan
+In C23, the auto keyword has been repurposed to perform type inference.
 
-What is that work?
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
---------------We07yydANd6nJvOL0FG40k0P
-Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+A GCC extension, __auto_type, is now avaialble in the new toolchain baseline
+and avoids the double textural expansion.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Julien Grall <julien@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Roberto Bagnara <roberto.bagnara@bugseng.com>
+CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+CC: consulting@bugseng.com <consulting@bugseng.com>
 
-xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49y
-B+l2nipdaq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYf
-bWpr/si88QKgyGSVZ7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/
-UorR+FaSuVwT7rqzGrTlscnTDlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7M
-MPCJwI8JpPlBedRpe9tfVyfu3euTPLPxwcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9H
-zx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR6h3nBc3eyuZ+q62HS1pJ5EvU
-T1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl5FMWo8TCniHynNXs
-BtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2Bkg1b//r
-6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
-9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nS
-m9BBff0Nm0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQAB
-zTxEZW1pIE9iZW5vdXIgKElUTCBFbWFpbCBLZXkpIDxhdGhlbmFAaW52aXNpYmxl
-dGhpbmdzbGFiLmNvbT7CwY4EEwEIADgWIQR2h02fEza6IlkHHHGyiLVf/5wiwQUC
-X6YJvQIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCyiLVf/5wiwWRhD/0Y
-R+YYC5Kduv/2LBgQJIygMsFiRHbR4+tWXuTFqgrxxFSlMktZ6gQrQCWe38WnOXkB
-oY6n/5lSJdfnuGd2UagZ/9dkaGMUkqt+5WshLFly4BnP7pSsWReKgMP7etRTwn3S
-zk1OwFx2lzY1EnnconPLfPBc6rWG2moA6l0WX+3WNR1B1ndqpl2hPSjT2jUCBWDV
-rGOUSX7r5f1WgtBeNYnEXPBCUUM51pFGESmfHIXQrqFDA7nBNiIVFDJTmQzuEqIy
-Jl67pKNgooij5mKzRhFKHfjLRAH4mmWZlB9UjDStAfFBAoDFHwd1HL5VQCNQdqEc
-/9lZDApqWuCPadZN+pGouqLysesIYsNxUhJ7dtWOWHl0vs7/3qkWmWun/2uOJMQh
-ra2u8nA9g91FbOobWqjrDd6x3ZJoGQf4zLqjmn/P514gb697788e573WN/MpQ5XI
-Fl7aM2d6/GJiq6LC9T2gSUW4rbPBiqOCeiUx7Kd/sVm41p9TOA7fEG4bYddCfDsN
-xaQJH6VRK3NOuBUGeL+iQEVF5Xs6Yp+U+jwvv2M5Lel3EqAYo5xXTx4ls0xaxDCu
-fudcAh8CMMqx3fguSb7Mi31WlnZpk0fDuWQVNKyDP7lYpwc4nCCGNKCj622ZSocH
-AcQmX28L8pJdLYacv9pU3jPy4fHcQYvmTavTqowGnM08RGVtaSBNYXJpZSBPYmVu
-b3VyIChsb3ZlciBvZiBjb2RpbmcpIDxkZW1pb2Jlbm91ckBnbWFpbC5jb20+wsF4
-BBMBAgAiBQJafgNKAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCyiLVf
-/5wiwYa/EACv8a2+MMou9cSCNoZBQaU+fTmyzft9hUE+0d5W2UY1RY3OsjFIzm9R
-/4SVccfsqOYLEo+S0vQMIIIqFEq3FCpXXwPzyimotps05VA8U3Bd7yseojFygOgK
-sAMOAee2RCaDDOnoJue01dfZMzzHPO/TVdp3OvnpWipfv5G1Xg96rwbhMLE3tg6N
-xwAHa31Bv4/Xq8CJOoIWvx6fcmZQpz01/lSvsYn0KrfEbTKkuUf0vM9JrCTCP2oz
-VNN5BYzqaq2M4r+jmSyeXLim922VOWqGkUEQ85BSEemqrRS06IU6NtEMsF8EWt/b
-hWjk/9GDKTcnpdJHTrMxTspExBiNrvpI2t+YPU5B/dJJAUxvmhFrbSIbdB8umBZs
-I3AMYrEmpAbh5x7jEjoskUC7uN3o9vpg1oCLS2ePDLtAtyBtbHnkA4xGD7ar8mem
-xpH9lY/i+sC6CyyIUWcUDnnagKyJP0m9ks0GLsTeOCA0bft2XA6rD6aaCnMUsndT
-ctrab42CV5XypjmC4U1rPJ8JQJUh1/3P48/8sMH+3krxpJ06KNWNFaUbaMTGiltZ
-7x9DngklSYrX0T+2G4kVXNmjaljwkoLahwLla2gUWwBSyofXdqyhQdwZsp01KXNQ
-UCyT/Pg+aDcm/E7OMV3d4lf7g/CSxiX2GSEe6BlhSz+Lmd7ZJ3g32M1ARGVtaSBN
-YXJpZSBPYmVub3VyIChJVEwgRW1haWwgS2V5KSA8ZGVtaUBpbnZpc2libGV0aGlu
-Z3NsYWIuY29tPsLBjgQTAQgAOBYhBHaHTZ8TNroiWQcccbKItV//nCLBBQJgOEV+
-AhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJELKItV//nCLBKwoP/1WSnFdv
-SAD0g7fD0WlF+oi7ISFT7oqJnchFLOwVHK4Jg0e4hGn1ekWsF3Ha5tFLh4V/7UUu
-obYJpTfBAA2CckspYBqLtKGjFxcaqjjpO1I2W/jeNELVtSYuCOZICjdNGw2Hl9yH
-KRZiBkqc9u8lQcHDZKq4LIpVJj6ZQV/nxttDX90ax2No1nLLQXFbr5wb465LAPpU
-lXwunYDij7xJGye+VUASQh9datye6orZYuJvNo8Tr3mAQxxkfR46LzWgxFCPEAZJ
-5P56Nc0IMHdJZj0Uc9+1jxERhOGppp5jlLgYGK7faGB/jTV6LaRQ4Ad+xiqokDWp
-mUOZsmA+bMbtPfYjDZBz5mlyHcIRKIFpE1l3Y8F7PhJuzzMUKkJi90CYakCV4x/a
-Zs4pzk5E96c2VQx01RIEJ7fzHF7lwFdtfTS4YsLtAbQFsKayqwkGcVv2B1AHeqdo
-TMX+cgDvjd1ZganGlWA8Sv9RkNSMchn1hMuTwERTyFTr2dKPnQdA1F480+jUap41
-ClXgn227WkCIMrNhQGNyJsnwyzi5wS8rBVRQ3BOTMyvGM07j3axUOYaejEpg7wKi
-wTPZGLGH1sz5GljD/916v5+v2xLbOo5606j9dWf5/tAhbPuqrQgWv41wuKDi+dDD
-EKkODF7DHes8No+QcHTDyETMn1RYm7t0RKR4zsFNBFp+A0oBEAC9ynZI9LU+uJkM
-eEJeJyQ/8VFkCJQPQZEsIGzOTlPnwvVna0AS86n2Z+rK7R/usYs5iJCZ55/JISWd
-8xD57ue0eB47bcJvVqGlObI2DEG8TwaW0O0duRhDgzMEL4t1KdRAepIESBEA/iPp
-I4gfUbVEIEQuqdqQyO4GAe+MkD0Hy5JH/0qgFmbaSegNTdQg5iqYjRZ3ttiswalq
-l1/iSyv1WYeC1OAs+2BLOAT2NEggSiVOtxEfgewsQtCWi8H1SoirakIfo45Hz0tk
-/Ad9ZWh2PvOGt97Ka85o4TLJxgJJqGEnqcFUZnJJriwoaRIS8N2C8/nEM53jb1sH
-0gYddMU3QxY7dYNLIUrRKQeNkF30dK7V6JRH7pleRlf+wQcNfRAIUrNlatj9Txwi
-vQrKnC9aIFFHEy/0mAgtrQShcMRmMgVlRoOA5B8RTulRLCmkafvwuhs6dCxN0GNA
-ORIVVFxjx9Vn7OqYPgwiofZ6SbEl0hgPyWBQvE85klFLZLoj7p+joDY1XNQztmfA
-rnJ9x+YV4igjWImINAZSlmEcYtd+xy3Li/8oeYDAqrsnrOjb+WvGhCykJk4urBog
-2LNtcyCjkTs7F+WeXGUo0NDhbd3Z6AyFfqeF7uJ3D5hlpX2nI9no/ugPrrTVoVZA
-grrnNz0iZG2DVx46x913pVKHl5mlYQARAQABwsFfBBgBAgAJBQJafgNKAhsMAAoJ
-ELKItV//nCLBwNIP/AiIHE8boIqReFQyaMzxq6lE4YZCZNj65B/nkDOvodSiwfwj
-jVVE2V3iEzxMHbgyTCGA67+Bo/d5aQGjgn0TPtsGzelyQHipaUzEyrsceUGWYoKX
-YyVWKEfyh0cDfnd9diAm3VeNqchtcMpoehETH8frRHnJdBcjf112PzQSdKC6kqU0
-Q196c4Vp5HDOQfNiDnTf7gZSj0BraHOByy9LEDCLhQiCmr+2E0rW4tBtDAn2HkT9
-uf32ZGqJCn1O+2uVfFhGu6vPE5qkqrbSE8TG+03H8ecU2q50zgHWPdHMOBvy3Ehz
-fAh2VmOSTcRK+tSUe/u3wdLRDPwv/DTzGI36Kgky9MsDC5gpIwNbOJP2G/q1wT1o
-Gkw4IXfWv2ufWiXqJ+k7HEi2N1sree7Dy9KBCqb+ca1vFhYPDJfhP75I/VnzHVss
-Z/rYZ9+51yDoUABoNdJNSGUYl+Yh9Pw9pE3Kt4EFzUlFZWbE4xKL/NPno+z4J9aW
-emLLszcYz/u3XnbOvUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPt
-hZlDnTnOT+C+OTsh8+m5tos8HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj
-6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E+MYSfkEjBz0E8CLOcAw7JIwAaeBTzsFN
-BGbyLVgBEACqClxh50hmBepTSVlan6EBq3OAoxhrAhWZYEwN78k+ENhK68KhqC5R
-IsHzlL7QHW1gmfVBQZ63GnWiraM6wOJqFTL4ZWvRslga9u28FJ5XyK860mZLgYhK
-9BzoUk4s+dat9jVUbq6LpQ1Ot5I9vrdzo2p1jtQ8h9WCIiFxSYy8s8pZ3hHh5T64
-GIj1m/kY7lG3VIdUgoNiREGf/iOMjUFjwwE9ZoJ26j9p7p1U+TkKeF6wgswEB1T3
-J8KCAtvmRtqJDq558IU5jhg5fgN+xHB8cgvUWulgK9FIF9oFxcuxtaf/juhHWKMO
-RtL0bHfNdXoBdpUDZE+mLBUAxF6KSsRrvx6AQyJs7VjgXJDtQVWvH0PUmTrEswgb
-49nNU+dLLZQAZagxqnZ9Dp5l6GqaGZCHERJcLmdY/EmMzSf5YazJ6c0vO8rdW27M
-kn73qcWAplQn5mOXaqbfzWkAUPyUXppuRHfrjxTDz3GyJJVOeMmMrTxH4uCaGpOX
-Z8tN6829J1roGw4oKDRUQsaBAeEDqizXMPRc+6U9vI5FXzbAsb+8lKW65G7JWHym
-YPOGUt2hK4DdTA1PmVo0DxH00eWWeKxqvmGyX+Dhcg+5e191rPsMRGsDlH6KihI6
-+3JIuc0y6ngdjcp6aalbuvPIGFrCRx3tnRtNc7He6cBWQoH9RPwluwARAQABwsOs
-BBgBCgAgFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmbyLVgCGwICQAkQsoi1X/+c
-IsHBdCAEGQEKAB0WIQSilC2pUlbVp66j3+yzNoc6synyUwUCZvItWAAKCRCzNoc6
-synyU85gD/0T1QDtPhovkGwoqv4jUbEMMvpeYQf+oWgm/TjWPeLwdjl7AtY0G9Ml
-ZoyGniYkoHi37Gnn/ShLT3B5vtyI58ap2+SSa8SnGftdAKRLiWFWCiAEklm9FRk8
-N3hwxhmSFF1KR/AIDS4g+HIsZn7YEMubBSgLlZZ9zHl4O4vwuXlREBEW97iL/FSt
-VownU2V39t7PtFvGZNk+DJH7eLO3jmNRYB0PL4JOyyda3NH/J92iwrFmjFWWmmWb
-/Xz8l9DIs+Z59pRCVTTwbBEZhcUc7rVMCcIYL+q1WxBG2e6lMn15OQJ5WfiE6E0I
-sGirAEDnXWx92JNGx5l+mMpdpsWhBZ5iGTtttZesibNkQfd48/eCgFi4cxJUC4PT
-UQwfD9AMgzwSTGJrkI5XGy+XqxwOjL8UA0iIrtTpMh49zw46uV6kwFQCgkf32jZM
-OLwLTNSzclbnA7GRd8tKwezQ/XqeK3dal2n+cOr+o+Eka7yGmGWNUqFbIe8cjj9T
-JeF3mgOCmZOwMI+wIcQYRSf+e5VTMO6TNWH5BI3vqeHSt7HkYuPlHT0pGum88d4a
-pWqhulH4rUhEMtirX1hYx8Q4HlUOQqLtxzmwOYWkhl1C+yPObAvUDNiHCLf9w28n
-uihgEkzHt9J4VKYulyJM9fe3ENcyU6rpXD7iANQqcr87ogKXFxknZ97uEACvSucc
-RbnnAgRqZ7GDzgoBerJ2zrmhLkeREZ08iz1zze1JgyW3HEwdr2UbyAuqvSADCSUU
-GN0vtQHsPzWl8onRc7lOPqPDF8OO+UfN9NAfA4wl3QyChD1GXl9rwKQOkbvdlYFV
-UFx9u86LNi4ssTmU8p9NtHIGpz1SYMVYNoYy9NU7EVqypGMguDCL7gJt6GUmA0sw
-p+YCroXiwL2BJ7RwRqTpgQuFL1gShkA17D5jK4mDPEetq1d8kz9rQYvAR/sTKBsR
-ImC3xSfn8zpWoNTTB6lnwyP5Ng1bu6esS7+SpYprFTe7ZqGZF6xhvBPf1Ldi9UAm
-U2xPN1/eeWxEa2kusidmFKPmN8lcT4miiAvwGxEnY7Oww9CgZlUB+LP4dl5VPjEt
-sFeAhrgxLdpVTjPRRwTd9VQF3/XYl83j5wySIQKIPXgT3sG3ngAhDhC8I8GpM36r
-8WJJ3x2yVzyJUbBPO0GBhWE2xPNIfhxVoU4cGGhpFqz7dPKSTRDGq++MrFgKKGpI
-ZwT3CPTSSKc7ySndEXWkOYArDIdtyxdE1p5/c3aoz4utzUU7NDHQ+vVIwlnZSMiZ
-jek2IJP3SZ+COOIHCVxpUaZ4lnzWT4eDqABhMLpIzw6NmGfg+kLBJhouqz81WITr
-EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
-=3Dx94R
------END PGP PUBLIC KEY BLOCK-----
+The resulting build is identical.
 
---------------We07yydANd6nJvOL0FG40k0P--
+v2:
+ * Use auto directly
+ * Eclair configuration
 
---------------y9mx4z91nTxlghyMIEal9H0H--
+https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1985289434
+---
+ automation/eclair_analysis/ECLAIR/toolchain.ecl | 11 +++++++++--
+ docs/misra/C-language-toolchain.rst             |  2 ++
+ xen/include/xen/compiler.h                      | 14 ++++++++++++++
+ xen/include/xen/macros.h                        | 14 +++++++-------
+ 4 files changed, 32 insertions(+), 9 deletions(-)
 
---------------rO4lIfK0tgeR13JMNehk2AP9
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+diff --git a/automation/eclair_analysis/ECLAIR/toolchain.ecl b/automation/eclair_analysis/ECLAIR/toolchain.ecl
+index 842f8377e561..125f99a06583 100644
+--- a/automation/eclair_analysis/ECLAIR/toolchain.ecl
++++ b/automation/eclair_analysis/ECLAIR/toolchain.ecl
+@@ -15,6 +15,7 @@
+     __alignof__, __alignof: see Sections \"6.48 Alternate Keywords\" and \"6.44 Determining the Alignment of Functions, Types or Variables\" of "GCC_MANUAL".
+     asm, __asm__: see Sections \"6.48 Alternate Keywords\" and \"6.47 How to Use Inline Assembly Language in C Code\" of "GCC_MANUAL".
+     __attribute__: see Section \"6.39 Attribute Syntax\" of "GCC_MANUAL".
++    __auto_type: see Section \"6.7 Referring to a Type with typeof\" of "GCC_MANUAL".
+     __builtin_offsetof: see Section \"6.53 Support for offsetof\" of "GCC_MANUAL".
+     __builtin_types_compatible_p: see Section \"6.59 Other Built-in Functions Provided by GCC\" of "GCC_MANUAL".
+     __builtin_va_arg: non-documented GCC extension.
+@@ -26,6 +27,7 @@
+ -name_selector+={alignof, "^(__alignof__|__alignof)$"}
+ -name_selector+={asm, "^(__asm__|asm)$"}
+ -name_selector+={attribute, "^__attribute__$"}
++-name_selector+={auto_type, "^__auto_type$"}
+ -name_selector+={builtin_offsetof, "^__builtin_offsetof$"}
+ -name_selector+={builtin_types_p, "^__builtin_types_compatible_p$"}
+ -name_selector+={builtin_va_arg, "^__builtin_va_arg$"}
+@@ -39,6 +41,7 @@
+ "alignof||
+ asm||
+ attribute||
++auto_type||
+ builtin_offsetof||
+ builtin_types_p||
+ builtin_va_arg||
+@@ -114,6 +117,7 @@ volatile"
+ -doc_end
+ 
+ -doc_begin="
++    ext_auto_type: see Section \"6.7 Referring to a Type with typeof\" of "GCC_MANUAL".
+     ext_c_missing_varargs_arg: see Section \"6.21 Macros with a Variable Number of Arguments\" of "GCC_MANUAL".
+     ext_enum_value_not_int: non-documented GCC extension.
+     ext_flexible_array_in_array: see Section \"6.18 Arrays of Length Zero\" of "GCC_MANUAL".
+@@ -126,6 +130,7 @@ volatile"
+     ext_return_has_void_expr: see the documentation for -Wreturn-type in Section \"3.8 Options to Request or Suppress Warnings\" of "GCC_MANUAL".
+     ext_sizeof_alignof_void_type: see Section \"6.24 Arithmetic on void- and Function-Pointers\" of "GCC_MANUAL".
+ "
++-name_selector+={ext_auto_type, "^ext_auto_type$"}
+ -name_selector+={ext_c_missing_varargs_arg, "^ext_c_missing_varargs_arg$"}
+ -name_selector+={ext_enum_value_not_int, "^ext_enum_value_not_int$"}
+ -name_selector+={ext_flexible_array_in_array, "^ext_flexible_array_in_array$"}
+@@ -139,7 +144,8 @@ volatile"
+ -name_selector+={ext_sizeof_alignof_void_type, "^ext_sizeof_alignof_void_type$"}
+ 
+ -config=STD.diag,behavior+={c99,GCC_ARM64,
+-"ext_c_missing_varargs_arg||
++"ext_auto_type||
++ext_c_missing_varargs_arg||
+ ext_forward_ref_enum_def||
+ ext_gnu_array_range||
+ ext_gnu_statement_expr_macro||
+@@ -149,7 +155,8 @@ ext_return_has_void_expr||
+ ext_sizeof_alignof_void_type"
+ }
+ -config=STD.diag,behavior+={c99,GCC_X86_64,
+-"ext_c_missing_varargs_arg||
++"ext_auto_type||
++ext_c_missing_varargs_arg||
+ ext_enum_value_not_int||
+ ext_flexible_array_in_array||
+ ext_flexible_array_in_struct||
+diff --git a/docs/misra/C-language-toolchain.rst b/docs/misra/C-language-toolchain.rst
+index cb81f5c09872..635936004554 100644
+--- a/docs/misra/C-language-toolchain.rst
++++ b/docs/misra/C-language-toolchain.rst
+@@ -94,6 +94,8 @@ The table columns are as follows:
+           see Sections "6.48 Alternate Keywords" and "6.44 Determining the Alignment of Functions, Types or Variables" of GCC_MANUAL.
+        __attribute__:
+           see Section "6.39 Attribute Syntax" of GCC_MANUAL.
++       __auto_type:
++          see Section "6.7 Referring to a Type with typeof" of GCC_MANUAL.
+        __builtin_types_compatible_p:
+           see Section "6.59 Other Built-in Functions Provided by GCC" of GCC_MANUAL.
+        __builtin_va_arg:
+diff --git a/xen/include/xen/compiler.h b/xen/include/xen/compiler.h
+index 88bf26bc5109..38ef5d82ad95 100644
+--- a/xen/include/xen/compiler.h
++++ b/xen/include/xen/compiler.h
+@@ -64,6 +64,20 @@
+ # define asm_inline asm
+ #endif
+ 
++/*
++ * In C23, the auto keyword has been repurposed to perform type inference.
++ *
++ * This behaviour is available via the __auto_type extension in supported
++ * toolchains.
++ *
++ * https://www.gnu.org/software/c-intro-and-ref/manual/html_node/Auto-Type.html
++ * https://clang.llvm.org/docs/LanguageExtensions.html#auto-type
++ */
++#if !defined(__STDC_VERSION__) || __STDC_VERSION__ < 202311L
++/* SAF-3-safe MISRA C Rule 20.4: Giving the keyword it's C23 meaning. */
++#define auto __auto_type
++#endif
++
+ /*
+  * Add the pseudo keyword 'fallthrough' so case statement blocks
+  * must end with any of these keywords:
+diff --git a/xen/include/xen/macros.h b/xen/include/xen/macros.h
+index f9ccde86fb23..ceca2e4a1bf1 100644
+--- a/xen/include/xen/macros.h
++++ b/xen/include/xen/macros.h
+@@ -63,18 +63,18 @@
+ /* Hide a value from the optimiser. */
+ #define HIDE(x)                                 \
+     ({                                          \
+-        typeof(x) _x = (x);                     \
++        auto _x = (x);                          \
+         asm volatile ( "" : "+r" (_x) );        \
+         _x;                                     \
+     })
+ 
+ #define ABS(x) ({                              \
+-    typeof(x) x_ = (x);                        \
++    auto x_ = (x);                             \
+     (x_ < 0) ? -x_ : x_;                       \
+ })
+ 
+ #define SWAP(a, b) \
+-   do { typeof(a) t_ = (a); (a) = (b); (b) = t_; } while ( 0 )
++   do { auto t_ = (a); (a) = (b); (b) = t_; } while ( 0 )
+ 
+ #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]) + __must_be_array(x))
+ 
+@@ -102,15 +102,15 @@
+  */
+ #define min(x, y)                               \
+     ({                                          \
+-        const typeof(x) _x = (x);               \
+-        const typeof(y) _y = (y);               \
++        const auto _x = (x);                    \
++        const auto _y = (y);                    \
+         (void)(&_x == &_y); /* typecheck */     \
+         _x < _y ? _x : _y;                      \
+     })
+ #define max(x, y)                               \
+     ({                                          \
+-        const typeof(x) _x = (x);               \
+-        const typeof(y) _y = (y);               \
++        const auto _x = (x);                    \
++        const auto _y = (y);                    \
+         (void)(&_x == &_y); /* typecheck */     \
+         _x > _y ? _x : _y;                      \
+     })
 
------BEGIN PGP SIGNATURE-----
+base-commit: b2c0dc44b37516b758c38de04c61ad295ac0dff2
+-- 
+2.39.5
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmieVN0ACgkQszaHOrMp
-8lOe2BAAntXcZvrYJ1RmED1c1oKGYMULWNTj5p7Z737zBfk3MJp/SMa4SKDcBm0o
-+Fvs358E+3XaOorKVTqD/Rx49zhCeVwttYjE9DVFPpTXiEtJRy7BTEx119k4PpIc
-E9o7waaGPmmB0vIK5Yi5BdYLOshSFaAVwz9os8MGlowmujC27J8Xd+P+i46Vjc+3
-uySzyW5PCSIOeIRGTjY5765vxYA2MJ8etezVx6w3rWwsqbOJ2agrjC5+U6Z0BOnN
-S0fCCwIsTnlAC9hB37p+Vijjyol9nSJg8Cp8Y7U1g+/l175WvzDC4zscK0LabdVT
-3fRKuFHGYXTEBBGTopYnpsqg2cOZ1q8Sjd1OyDKgpuLf1l2HR2zGqAwcDT1Hg3Cw
-xuZkRhUM1Ud8Drftb/nT+AGjT/lkQCUgUBcLnzGkl/7ZDa3+2K2+TybtmL5myYly
-ETb3z03nZ6PHton0/iM0mg2glO/kuG8HsE9oaKk7KXkhsRChj7ruCH001iBbxLNq
-kE0dEb7G7P0DQQxJjeNlpdV+0cCfL93s7VPmk7N8WuDbK7TjM+jAE8Kw3qBLFf8p
-sj7xwGn4Y8prsDLFPadv3s02yumMQATPIWG7yUnI04AS1WiWlaNzRr9KUCnOp0tF
-1a0sakW3Jne4hsEBjL9mB/D+Lu4NmFwDO27cSkvKAIVcAkomYnw=
-=np9y
------END PGP SIGNATURE-----
-
---------------rO4lIfK0tgeR13JMNehk2AP9--
 
