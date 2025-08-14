@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F34BBB2592E
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 03:37:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1080524.1440911 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71162B259BC
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 05:14:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1080615.1440922 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umMu0-0007gu-T3; Thu, 14 Aug 2025 01:37:12 +0000
+	id 1umOP2-0004FG-U1; Thu, 14 Aug 2025 03:13:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1080524.1440911; Thu, 14 Aug 2025 01:37:12 +0000
+Received: by outflank-mailman (output) from mailman id 1080615.1440922; Thu, 14 Aug 2025 03:13:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umMu0-0007eG-PW; Thu, 14 Aug 2025 01:37:12 +0000
-Received: by outflank-mailman (input) for mailman id 1080524;
- Thu, 14 Aug 2025 01:37:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1umOP2-0004Cl-Q1; Thu, 14 Aug 2025 03:13:20 +0000
+Received: by outflank-mailman (input) for mailman id 1080615;
+ Thu, 14 Aug 2025 03:13:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=r7ku=22=gmail.com=arraybolt3@srs-se1.protection.inumbo.net>)
- id 1umMtz-0006vN-6m
- for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 01:37:11 +0000
-Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
- [2607:f8b0:4864:20::d2c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 317619b0-78af-11f0-a328-13f23c93f187;
- Thu, 14 Aug 2025 03:37:10 +0200 (CEST)
-Received: by mail-io1-xd2c.google.com with SMTP id
- ca18e2360f4ac-88432d99304so500939f.1
- for <xen-devel@lists.xenproject.org>; Wed, 13 Aug 2025 18:37:10 -0700 (PDT)
-Received: from kf-m2g5.. ([2607:fb91:1183:972:ee53:76c5:e875:9619])
- by smtp.gmail.com with ESMTPSA id
- ca18e2360f4ac-883f198db02sm467297239f.16.2025.08.13.18.37.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Aug 2025 18:37:08 -0700 (PDT)
+ <SRS0=Ppuf=22=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
+ id 1umOP1-0004Cf-CU
+ for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 03:13:19 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20612.outbound.protection.outlook.com
+ [2a01:111:f403:2412::612])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9e583138-78bc-11f0-b898-0df219b8e170;
+ Thu, 14 Aug 2025 05:13:17 +0200 (CEST)
+Received: from DM4PR12MB8451.namprd12.prod.outlook.com (2603:10b6:8:182::7) by
+ MN2PR12MB4142.namprd12.prod.outlook.com (2603:10b6:208:1dd::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.21; Thu, 14 Aug
+ 2025 03:13:12 +0000
+Received: from DM4PR12MB8451.namprd12.prod.outlook.com
+ ([fe80::b04e:2da5:7189:4c4d]) by DM4PR12MB8451.namprd12.prod.outlook.com
+ ([fe80::b04e:2da5:7189:4c4d%7]) with mapi id 15.20.9031.012; Thu, 14 Aug 2025
+ 03:13:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,589 +47,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 317619b0-78af-11f0-a328-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1755135429; x=1755740229; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jYjrOnp/98fI4shqR2qZGODzcHFvJmoqS2F7odknl14=;
-        b=A5erXSIdSZV9bP/fCQS3DKmWcziIo8AGZySVjkG0Osz6gJYGdOaRUqrIQeQCHjxr4S
-         yOos5e//m0lqWuTELmFc0XSvrf8aup0N/xMsGxBTv0YrxUJzBROChjAJeuq7ci8K0gpx
-         m5UL4nXY9J4Gwm35fkClPsIuA9JC1UXduMr8IBnu/k3J9U+kOOxJ4BJiWf5B1PegJwHH
-         8k7UFi3/9H/ky57mu5MwWVB+M3yR63DAns9hsBJ6mjRyaz5kgeWan6tMnG3RcAJ/Oye9
-         6vJ1nMD1Jf8JlKf9goenx93oS88jRIWZbEk0d/+wSH0FMgyNriwnH560Nz0hFkBmQZkP
-         mJ2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755135429; x=1755740229;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=jYjrOnp/98fI4shqR2qZGODzcHFvJmoqS2F7odknl14=;
-        b=qfben4jSfMdfQ9yhbUwaemJ4c5WFmTDEdF8eOnYo1rlC7d3dpO4KkfQAJymn4tAcca
-         iiXEtRZQR86fYwKNvmWmVb/syCm9vg3fNtkZFYSKCDScL1I+66MBEHzjV+X4HQwRvhII
-         HFgL4qrRE/HO67v1plIYCM1jCFm9Dgxih9mxKbtzBxfq0AmnOUMRVYhLMXtj1tbbcAvM
-         yTRaaTBq3Vxtzmh5yZFK4HJdlsRfoTtnJ8k5xEm/t8k+frXJV7W3ShsOD538He99cHbl
-         2/9A8WfZ6I36+0gVSGW/ILQ871OJlIepGTdlhy/FGU+Bj22sFnO4b9B2Zb5eMPIa8d+z
-         ZNfA==
-X-Forwarded-Encrypted: i=1; AJvYcCX+nyGSGF0VmZ6j6Pf477XdMK14eEO9VQ5RHjBXes4043BIykdEdKXreJfQUfYu6xyWkAVij1uj/to=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzUbm/wmsIdSI3O3gyoXR3vHipLKmnXFl7WjONPA38RPge4LFua
-	ONpFHs4HdmaM1EdXPCiD/JrqYRGXNnTznpAJD5v+CVNsBcauLmIz9OB2
-X-Gm-Gg: ASbGncuTwm0eCuhwu/xNpG/4yOdee0iAfp2tkviR98BsZSMaqeaEBx9tA8YWKSIHT+O
-	DKk158pOY9/zNyPIOymRsXFBdwMO/3xqdroYQxOJ+WJx4eQswjUxTVsObaied7N5RRD6JlxfCCx
-	K9VuR0Yd/LU1K1HvR3b7zWjpiXdDqZXqaO7gR9k4pqXJ1T7wdSZFmcfxyYpDhSQS23CuWROH6Lp
-	Ty97u9e+Jy89E3J2rBexYM/wurRoNoJElJK8rQUuXLaWKgmmCXB3GURy9NFLunLaUbj7DP4tEPb
-	njOKRUIouRaEyL2z901fE2cZ45aDyy0xJgziBuRQMoWSjIjKP2Zq8o+YkVjSplN0tVbwE1ngtCg
-	iNOne9Wi2zW/4hCnMN1P82MoPOe+pFIkH
-X-Google-Smtp-Source: AGHT+IHoWdWVHYfsNfkHl6TNhXloRZxAVR1T8eFqwX+ooSg0nIZDMOVQaMkmROyH5boiVh3HNDm0RA==
-X-Received: by 2002:a05:6602:6011:b0:881:8274:c398 with SMTP id ca18e2360f4ac-884339c2238mr70250039f.4.1755135428621;
-        Wed, 13 Aug 2025 18:37:08 -0700 (PDT)
-From: arraybolt3@gmail.com
-To: grub-devel@gnu.org,
-	xen-devel@lists.xenproject.org
-Cc: Aaron Rainbolt <arraybolt3@gmail.com>
-Subject: [PATCH v5 3/3] kern/xen: Add Xen command line parsing
-Date: Wed, 13 Aug 2025 20:36:45 -0500
-Message-ID: <20250814013645.2488043-4-arraybolt3@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250814013645.2488043-1-arraybolt3@gmail.com>
-References: <20250814013645.2488043-1-arraybolt3@gmail.com>
+X-Inumbo-ID: 9e583138-78bc-11f0-b898-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QJTXOaFoQEFUsAnqWx1mdqCHFftnfoBDHqeWauYTuupvyeYC4ii1Z4sFACJ4zcKcV0ZBoo0AZ0rGFXlDI+ALf8QcmSqxqQ/PUdvuzfHGvqhyF3360beiZNlykK6w0RGtG4SpSZKuw/5svWslT+c+If+6MVD+aV6iLxgjnPcaMBFNCs24iZ/MqT5H4ezuRR9KVR1vwHoQ/jwwyHW1o6/tgduGem23r5oR3rxpct03MnbE/Hogh5KAKDGXW7i4kCSbDWCAUHUmyjvCq/jZzP8cAXfS3plCGcuiMc/iJNzIOT/ADx372Fl2SaJwXeVzHFV2a0fVgQl5ZkBYh7vheYq66w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ubZMbdr4PUHDB7jBLe6yqtwgS6zNBrz+/3WKcqZRQIA=;
+ b=sAwS4tQH8Ryie6UfVnnS+IyZS80r0fJbh3zoO0aTwREArG9QBwbBI3iAuozAUutCdyo+JCz1pEdvQKGPBGXGb6upIFPeUuIC2B1wGzUyJN/jJJ/lEueFi2QVLfmF2TUYrjEcgM6YMFYcpsJN+xUZTW/T/2m3y1WSJPQ0pAY7jRyWIGhgZ/zW5sbTIlcmX985JO23jebqlVEnuBKR5uSvhrcwenxDN6lPKmz0rUU9yojTtb7pEMqLG63+oEs7/iTcZlKKkFiKlRzHAOwa0OxpJCe7rsODY7JjN5B4GbWG7hSjQxuqXtmlLDsc1Psff9X7pkKI1yllisKOAkH5QTHqXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ubZMbdr4PUHDB7jBLe6yqtwgS6zNBrz+/3WKcqZRQIA=;
+ b=c+neqlkjaKy/sAYZ+EoK6lQ9h5gzg3kAfRnoueFq8xRl1nLhVUZDCnmxyPjkzwE/GAvS5Z+W3pN+IW3MlMJO4UOLg6D6jWHIQFOn+w4e3CFUvC7csODfXBkvj/CY9RNBFD2m0d87eD7UATwCZV+BZTzsbDPAk4B2AVwuwDdJrJw=
+From: "Penny, Zheng" <penny.zheng@amd.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "Huang, Ray" <Ray.Huang@amd.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	"Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+Subject: RE: [PATCH v6 19/19] xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC
+ xen_sysctl_pm_op for amd-cppc driver
+Thread-Topic: [PATCH v6 19/19] xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC
+ xen_sysctl_pm_op for amd-cppc driver
+Thread-Index: AQHb8hcuzjUv9QY8PkCazI2v8DQHmbRBbryAgCA3tFA=
+Date: Thu, 14 Aug 2025 03:13:11 +0000
+Message-ID:
+ <DM4PR12MB845131A7E81BD54B0334E3B2E135A@DM4PR12MB8451.namprd12.prod.outlook.com>
+References: <20250711035106.2540522-1-Penny.Zheng@amd.com>
+ <20250711035106.2540522-20-Penny.Zheng@amd.com>
+ <796a9251-8b4f-4266-a31e-828d4da29f54@suse.com>
+In-Reply-To: <796a9251-8b4f-4266-a31e-828d4da29f54@suse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-08-14T03:13:04.0000000Z;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB8451:EE_|MN2PR12MB4142:EE_
+x-ms-office365-filtering-correlation-id: 618fb6e4-183f-4e3c-8dfb-08dddae0806a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|366016|38070700018;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?TFBSREVEbmZxSTJzWmlXNEdmSXh3bXJtbUs0MFVJQys2TEpmQUN1N3oyMVVv?=
+ =?utf-8?B?dEJvZnplUlN2MVpqT1hRWERsanRFdkFMdmZ5YXEvb2FndlQ3MHAySjZONXha?=
+ =?utf-8?B?bTdxM1EzcTJlNllzaWk2VDJIRDVBbW1mYi9jbS9kY0l4aWVlUDZMNnNCeW9t?=
+ =?utf-8?B?MmFuZjhSZXhtRUV6MWpyRk05aDFsWlhXZUV3Ynh5eFVLcHNNNmh2RklXeWpW?=
+ =?utf-8?B?ODlHd2FVZXVncXNmOURnT05xYURwTzFnWkdoc2NGYzljUm1GaDdBaUgwTDdi?=
+ =?utf-8?B?eTdPWUU3NklRai9FVXpJR3NXamplWlZlQnRKaEg4VDRMVTFiSzRGKzBtTmM3?=
+ =?utf-8?B?Qks4b2VPY2x6cUZuaHpVMURmdlhpV256S1hOYWxjTXlPZk0vclpZZzNvTjBQ?=
+ =?utf-8?B?WTQ1bkNzUlZrcEFsT3pVTno1Y0xMOWJsTWFVRGVYU0orMm8rSGlwTFVMQnlM?=
+ =?utf-8?B?RWFuc2k5d0FYd2FoUk1xSy8vVjZ5dGJvZjF2YVl2MG5NenpxWEtWRkFqSHA1?=
+ =?utf-8?B?Zk9pb3docWQ2ajJDM1pWNWxQOFUzOTE2cTV6YzJ6aEhkeldIWnFWU1pJcllr?=
+ =?utf-8?B?VUNNd1VxeUZrK1JYSlpwYkhVaXZKUTJGVWtLdzZjaklXNVgzVDRId0lGVkRN?=
+ =?utf-8?B?cWRPV2o2WXdKeWZQVHR0Z1FvcldXZFNTTG55UmFNYUhJdE1RMlJ6NDMrckdN?=
+ =?utf-8?B?SzBnWFVMN1YwcXB1UTRpNys5T1gzWk1BWUdXK3V0TVBoQVZ4NktsVVUvbWdE?=
+ =?utf-8?B?QmNQWFVOMEZuOHF1dW1qMS8zMVdDMDZ2cE1lSU9va3E5UmZSOWRHTG1lSHZh?=
+ =?utf-8?B?ZVZRdlB3QkxmckFGOVlvTTAzWHZFSi9hM20veFZjTDZ5MkFvRU1xUGFnYWZm?=
+ =?utf-8?B?OVFBdVNnYTJuMC9Rb2xiR3BEVDFzNkxNNVR1RzF4b2tDSXQ1TGF6eUVaeVl5?=
+ =?utf-8?B?UkJCMUNWcDZlblBqWjA5TXRNZUJaSlJRWDFtVXJSOU5LWm1ObU5XTUFLLzI1?=
+ =?utf-8?B?Z0txd29LakRud3J5VzluRUxJeHBQc1RjQ0ZlWTlPMVBWWnVCYlBkb0tnejU0?=
+ =?utf-8?B?bkFYUmdINC82bEJobjJ4RTZpTWpZYnBaeC9IT2pCLzVQUHdGTXJ6TUl1OFJl?=
+ =?utf-8?B?YW95cUtiMCtrZFdqdHVvdnV1b05TVVlXQTh3aWUwU2VOOHRveU1yNGNWMG84?=
+ =?utf-8?B?b1l4Qjc1VHF6REhWbmJtQVhnOWNPNUxqNkNNNXFMb2VjQzI1VUJSbk5vMWhp?=
+ =?utf-8?B?S2JIc05xVVhNVGdFQWtPb3dhZ1NsVWdGaVEwYXpoTzhxTjRTeS9QbVNFelhj?=
+ =?utf-8?B?TzVDaitpeFBSSWFNcGFPY3RoVFRlWU5BYXhYM25uNGVmZ3lVYndoeFl2RTZt?=
+ =?utf-8?B?MDVKVWtab3NRMGY2RG5aSE9QZVZCMUxUUFU3dUVGQVFRQ1JMWEJwY1RBNGlv?=
+ =?utf-8?B?c2JadmxsVzhMZXAxZDZWSDFEMVFOaUNlV256Z2ZLQWhVL1F5eXFBSVNQeTZN?=
+ =?utf-8?B?QUVGQTRkZ2QxbUk0L1NZNHpyT3daZUgwSDI5K3l3YjFhZklHU09XTDM0ZDJp?=
+ =?utf-8?B?ckdWN0EvSXI0d0g2M3RNbmkzcVJqR0VRZ1ZUMjdYbzBmWFIyczNMVE1odENj?=
+ =?utf-8?B?SjhpTGtRNmY3QXdmWFc1cm5QVis3MFdLU2RYcVdNZk1YS3FUOHg5bTNMTDBF?=
+ =?utf-8?B?a1FDbHlxNGsvNkcyVUNnN01GRUFKQ29SOWVKS0FBSXFhWWhZWWlVRmxSSi9z?=
+ =?utf-8?B?TWt1RkE0VFRjdWdFMGc3NHdNKzByMVBZRlFXYmRpbTg2UFZncXRDSHp3bWFW?=
+ =?utf-8?B?dU5pTUNPWDB0UFY3SE5NeU5lZi90ZVRpQzBPT0gzbFJmUTFQM0lKSy9VZUE3?=
+ =?utf-8?B?c1NMamxiWVRkYVIzR01MU1pucG5icUZ3eGRFK1NHZVFWTFBqWnVReVNXdjh5?=
+ =?utf-8?B?R2dKbG1DYWZjSkhmQ3I0ejY5WlRjQ3JQNXNCR1RoNngvc2tkb0IvUHpuV2RQ?=
+ =?utf-8?Q?EieQCAKLzAu21SfjJ1roBGvUeU2n7A=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB8451.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?dVcyOGdiLzQ4Qmh4QllLVUFEOHZLT2xqMDhqbU1jdGx5OUMxZW9hWE9LMktK?=
+ =?utf-8?B?UDJuUnRiSkkzL0c1VW1TYzBuZTBvcHVWWjFsZGsrZDVWR216SHJqVk92MmJJ?=
+ =?utf-8?B?NUxWVkN3Vno1UlRWblZMWU5LN0J0VEFjZ2dDVXpETEZpaWVYbWRkT0Nua0ND?=
+ =?utf-8?B?d00xTVVoOEVjd3QzMmVSU09Wc3hxZ1BWY0NHMFFjTEg2V2NKdXVpMitEWlVN?=
+ =?utf-8?B?dFhxa0JaNm1FQWgyb1ZPaTVrRlJqOG5FTjRXWjFxWmR0NkdlTGJoaXhQek5k?=
+ =?utf-8?B?VWw3bHNZem16R2FaTG1RQ3VnQnRQRk9GcnNaanoyNysrUDdpSW14akFPUUsy?=
+ =?utf-8?B?MWFPTFJQdzZ6Q2o3elU5WkV0am1KWXB1S0hNQ1RoSWJqSERaWU8xQlVDOHpO?=
+ =?utf-8?B?SnZ2RE9pc0RoUEhGL1Q4aFJsNUdwUm1yZEFhUnlkN2NkQmMwUUFyTldINlBM?=
+ =?utf-8?B?ZWg5RkVKaDhlZWtEWStIUURwZ05nRThCeDNQWWduL0ZsVkZYYm1rT2lOWE50?=
+ =?utf-8?B?UkhDSDI3c1hNOWF2UlFkeXhDci9TOW8vQUJJbUUwTit5ZzlMMUgzZHczdkFn?=
+ =?utf-8?B?YWZVT29obEpwbmh1YmE1QktPdWJYczRZck0vVVRSSkpWNWpWT1JsdDJOTjNZ?=
+ =?utf-8?B?UXA5MldQbVk3YkUxTFJad1MvYmk3czM0WW9kTVRBbTMybHFSc1lKaURrNFlj?=
+ =?utf-8?B?VExML00wWWNFeS96N1NBQW5KY3djOEpLZUQzbGRFQ29udGE0aEhLUmgzS1ZL?=
+ =?utf-8?B?VkRuUGZzSVZNT2w1L2U3L2hHVmt6b2dmU3ByMk1QK1dkWjZ2YktlNXJJMnNp?=
+ =?utf-8?B?emJMdjgyKytDKy9YdS9mVDZPaGxaUWV0MnFkeWc2a3ZweVQ5V1F3UkM0MDR6?=
+ =?utf-8?B?SGRuUjFjSk9aS0lvcVd0cnZOTFJnZmYwZE5QeGNUV0JKTytUcWIxUlNDdDFl?=
+ =?utf-8?B?Y21sVllML2FiNDd0ZGRCa1NPeEF3bGNSM3I1NHhmZkFCSS9hV1A2dzZzRDBR?=
+ =?utf-8?B?NmxhaGNWa05xV1B6OVg5b3hpSFpMMDMwQ0s3bXpobVlDaFlkVkg2WnlER0VO?=
+ =?utf-8?B?cFZwQzJuTU5UQ00rb05NVlNRdDRoWXVYRlRXMnJQajBoNFVvQVJnRzB1QWV3?=
+ =?utf-8?B?TDUyeE5DTGxFSmx4Z0tNZlFCK016UkV5RTRvVmFxVGYzbngzTUoySTR3Z1la?=
+ =?utf-8?B?bVZNNWhtTG9UMVRUcUI1LzUvMmRPZm56SU9nandPSXZSSUkxSkdTZ21tcHFO?=
+ =?utf-8?B?MnljTzVuTU4wd1BrdkUydi9qbUVXTGRVd1hKWjBHVlZlQmhhN09hS211NWpT?=
+ =?utf-8?B?bjFMNjBJbElBQWV4ak1rdWoxSW5sbHBRK0cwL1ZrWEdzYklZZ1BFTDdXaklh?=
+ =?utf-8?B?cHBpTWlVQXIzOXN4dHFSSmw4Sks2UkZER3BqV0ZxUE1nM2gxVnVTVmF3NDNJ?=
+ =?utf-8?B?V1RmUU9rSWxxVkRMY1VpeGpzdzdUNHV1cW84ZWJhRlFTc3BUSFNlTnU1NGVQ?=
+ =?utf-8?B?NUFRNzgyYUttT2M5YkR5MkV4aXhFdlEvU1ExcW9SWlVPZktIcUdnbVBzbGhm?=
+ =?utf-8?B?dGdMb3NhcjJNS1l2VzZPakF1Mi9XVGxHUEo1UFljQ3dpTVBKbHprejU2OU1L?=
+ =?utf-8?B?ZTFQQkpaTS9iOTZjZGdDcWUweTF2QmJsY2FtMG83RGNCVWgybVQ4eWh6cEc5?=
+ =?utf-8?B?akNKZTZaeHBqUUtpZkNTdDIrbGh2UUlzU0tJWkZrQWZYeUVXeXlPQ1ZJZjM3?=
+ =?utf-8?B?VHBpeVN5SWpnOEZod3ZTS2NyWUtsYnFiay9QcEx4dnc3T1Z3ZnUzc1poTENC?=
+ =?utf-8?B?QlFtTkFkNUE5a2VtVVVkalIrbloyODVXV2NCVUdaS2pJaHBvaGRBaWFJUHp6?=
+ =?utf-8?B?MmY0aVBacEZBUmRCRUNrRFR6YUlzRTliUXVJdWFUSTU0YjEveWpBL3F5VXhY?=
+ =?utf-8?B?L2hrakwxYTZUMHNFT3B6enh6bHkvdG9ocXIvT3Nvbk5UQlcrQU1XWXpNblJH?=
+ =?utf-8?B?KzdkdVJnVkszdTlLNTJ5MFQ4d2ZRbk5yQkgzbkJlTjhBZWt3WUFGZXNFQnlT?=
+ =?utf-8?B?ZjQ4OE5uVXV6M3gyQmNCV2VYc2loMkRCMVVIcDlRdkdVanJ4NVNmRS9iK1FI?=
+ =?utf-8?Q?adcQ=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8451.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 618fb6e4-183f-4e3c-8dfb-08dddae0806a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Aug 2025 03:13:11.7990
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: py1QPwDQLcvoHcc0Tz+VjaZaylsnqNQrhxCkyWOpyLuW8NAOaDjPbg0P6/s7VLPVsTcUiLmWda+Q0FfLV4vvyg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4142
 
-From: Aaron Rainbolt <arraybolt3@gmail.com>
-
-Xen traditionally allows customizing guest behavior by passing arguments
-to the VM kernel via the kernel command line. This is no longer possible
-when using GRUB with Xen, as the kernel command line is decided by the
-GRUB configuration file within the guest, not data passed to the guest
-by Xen.
-
-To work around this limitation, enable GRUB to parse a command line
-passed to it by Xen, and expose data from the command line to the GRUB
-configuration as environment variables. These variables can be used in
-the GRUB configuration for any desired purpose, such as extending the
-kernel command line passed to the guest. The command line format is
-inspired by the Linux kernel's command line format.
-
-To reduce the risk of misuse, abuse, or accidents in production, the
-command line will only be parsed if it consists entirely of 7-bit ASCII
-characters, only alphabetical characters and underscores are permitted
-in variable names, and all variable names must start with the string
-"xen_grub_env_". This also allows room for expanding the command line
-arguments accepted by GRUB in the future, should other arguments end up
-becoming desirable in the future.
-
-Signed-off-by: Aaron Rainbolt <arraybolt3@gmail.com>
----
- docs/grub.texi                |  52 +++++
- grub-core/Makefile.core.def   |   2 +
- grub-core/kern/i386/xen/pvh.c |   4 +
- grub-core/kern/xen/cmdline.c  | 361 ++++++++++++++++++++++++++++++++++
- grub-core/kern/xen/init.c     |   2 +
- include/grub/xen.h            |   2 +
- 6 files changed, 423 insertions(+)
- create mode 100644 grub-core/kern/xen/cmdline.c
-
-diff --git a/docs/grub.texi b/docs/grub.texi
-index 34b3484..cd4e539 100644
---- a/docs/grub.texi
-+++ b/docs/grub.texi
-@@ -3271,6 +3271,7 @@ GRUB.  Others may be used freely in GRUB configuration files.
- @menu
- * Special environment variables::
- * Environment block::
-+* Passing environment variables through Xen::
- @end menu
- 
- 
-@@ -3871,6 +3872,57 @@ using BIOS or EFI functions (no ATA, USB or IEEE1275).
- @command{grub-mkconfig} uses this facility to implement
- @samp{GRUB_SAVEDEFAULT} (@pxref{Simple configuration}).
- 
-+@node Passing environment variables through Xen
-+@section Passing environment variables through Xen
-+
-+If you are using a GRUB image as the kernel for a PV or PVH Xen virtual
-+machine, you can pass environment variables from Xen's dom0 to the VM through
-+the Xen-provided kernel command line. When combined with a properly configured
-+guest, this can be used to customize the guest's behavior on bootup via the
-+VM's Xen configuration file.
-+
-+GRUB will parse the kernel command line passed to it by Xen during bootup.
-+The command line will be split into space-delimited words. Single and
-+double quotes may be used to quote words or portions of words that contain
-+spaces. Single quotes will be considered part of a word if inside double
-+quotes, and vice versa. Arbitrary characters may be backslash-escaped to make
-+them a literal component of a word rather than being parsed as quotes or word
-+separators. The command line must consist entirely of printable 7-bit ASCII
-+characters and spaces. If a non-printing ASCII character is found anywhere in
-+the command line, the entire command line will be ignored by GRUB. (This
-+splitter algorithm is meant to behave somewhat like Bash's word splitting.)
-+
-+Each word should be a variable assignment in the format ``variable'' or
-+``variable=value''. Variable names must contain only the characters A-Z, a-z,
-+and underscore (``_''). Variable names must begin with the string
-+``xen_grub_env_''. Variable values can contain arbitrary printable 7-bit
-+ASCII characters and space. If any variable contains an illegal name, that
-+variable will be ignored.
-+
-+If a variable name and value are both specified, the variable will be set to
-+the specified value. If only a variable name is specified, the variable's
-+value will be set to ``1''.
-+
-+The following is a simple example of how to use this functionality to append
-+arbitrary variables to a guest's kernel command line:
-+
-+@example
-+# In the Xen configuration file for the guest
-+name = "linux_vm"
-+type = "pvh"
-+kernel = "/path/to/grub-i386-xen_pvh.bin"
-+extra = "xen_grub_env_linux_append='loglevel=3'"
-+memory = 1024
-+disk = [ "file:/srv/vms/linux_vm.img,sda,w" ]
-+
-+# In the guest's GRUB configuration file
-+menuentry "Linux VM with dom0-specified kernel parameters" @{
-+    search --set=root --label linux_vm --hint hd0,msdos1
-+    linux /boot/vmlinuz root=LABEL=linux_vm $@{xen_grub_env_linux_append@}
-+    initrd /boot/initrd.img
-+@}
-+@end example
-+
- @node Modules
- @chapter Modules
- 
-diff --git a/grub-core/Makefile.core.def b/grub-core/Makefile.core.def
-index b3f7119..df0f266 100644
---- a/grub-core/Makefile.core.def
-+++ b/grub-core/Makefile.core.def
-@@ -248,6 +248,7 @@ kernel = {
-   xen = term/xen/console.c;
-   xen = disk/xen/xendisk.c;
-   xen = commands/boot.c;
-+  xen = kern/xen/cmdline.c;
- 
-   i386_xen_pvh = commands/boot.c;
-   i386_xen_pvh = disk/xen/xendisk.c;
-@@ -255,6 +256,7 @@ kernel = {
-   i386_xen_pvh = kern/i386/xen/tsc.c;
-   i386_xen_pvh = kern/i386/xen/pvh.c;
-   i386_xen_pvh = kern/xen/init.c;
-+  i386_xen_pvh = kern/xen/cmdline.c;
-   i386_xen_pvh = term/xen/console.c;
- 
-   ia64_efi = kern/ia64/efi/startup.S;
-diff --git a/grub-core/kern/i386/xen/pvh.c b/grub-core/kern/i386/xen/pvh.c
-index 91fbca8..52020b7 100644
---- a/grub-core/kern/i386/xen/pvh.c
-+++ b/grub-core/kern/i386/xen/pvh.c
-@@ -352,6 +352,10 @@ grub_xen_setup_pvh (void)
-   grub_xen_mm_init_regions ();
- 
-   grub_rsdp_addr = pvh_start_info->rsdp_paddr;
-+
-+  grub_strncpy ((char *) grub_xen_start_page_addr->cmd_line,
-+		(const char *) pvh_start_info->cmdline_paddr,
-+		GRUB_XEN_MAX_GUEST_CMDLINE);
- }
- 
- grub_err_t
-diff --git a/grub-core/kern/xen/cmdline.c b/grub-core/kern/xen/cmdline.c
-new file mode 100644
-index 0000000..8021bf8
---- /dev/null
-+++ b/grub-core/kern/xen/cmdline.c
-@@ -0,0 +1,361 @@
-+/*
-+ *  GRUB  --  GRand Unified Bootloader
-+ *  Copyright (C) 2025  Free Software Foundation, Inc.
-+ *
-+ *  GRUB is free software: you can redistribute it and/or modify
-+ *  it under the terms of the GNU General Public License as published by
-+ *  the Free Software Foundation, either version 3 of the License, or
-+ *  (at your option) any later version.
-+ *
-+ *  GRUB is distributed in the hope that it will be useful,
-+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ *  GNU General Public License for more details.
-+ *
-+ *  You should have received a copy of the GNU General Public License
-+ *  along with GRUB.  If not, see <http://www.gnu.org/licenses/>.
-+ */
-+
-+#include <grub/env.h>
-+#include <grub/misc.h>
-+#include <grub/mm.h>
-+#include <grub/xen.h>
-+#include <grub/err.h>
-+
-+enum splitter_state
-+{
-+  SPLITTER_NORMAL = 0x0,
-+  SPLITTER_HIT_BACKSLASH = 0x1,
-+  SPLITTER_IN_SINGLE_QUOTES = 0x2,
-+  SPLITTER_IN_DOUBLE_QUOTES = 0x4,
-+};
-+typedef enum splitter_state splitter_state_t;
-+
-+/*
-+ * The initial size of the current_word buffer. The buffer may be resized as
-+ * needed.
-+ */
-+#define PARSER_BASE_WORD_SIZE 32
-+
-+struct parser_state
-+{
-+  char **words;
-+  grub_size_t words_count;
-+  char *current_word;
-+  grub_size_t current_word_len;
-+  grub_size_t current_word_pos;
-+};
-+typedef struct parser_state parser_state_t;
-+
-+static grub_err_t
-+append_char_to_word (parser_state_t *ps, char c, bool allow_null)
-+{
-+  /*
-+   * We ban any chars that are not in the ASCII printable range. If
-+   * allow_null == true, we make an exception for NUL. (This is needed so that
-+   * append_word_to_list can add a NUL terminator to the word).
-+   */
-+  if (!grub_isprint (c) && allow_null == false)
-+    return GRUB_ERR_BAD_ARGUMENT;
-+  else if (allow_null == true && c != '\0')
-+    return GRUB_ERR_BAD_ARGUMENT;
-+
-+  if (ps->current_word_pos == ps->current_word_len)
-+    {
-+      ps->current_word = grub_realloc (ps->current_word, ps->current_word_len *= 2);
-+      if (ps->current_word == NULL)
-+        {
-+          ps->current_word_len /= 2;
-+          return grub_errno;
-+        }
-+    }
-+
-+  ps->current_word[ps->current_word_pos++] = c;
-+  return GRUB_ERR_NONE;
-+}
-+
-+static grub_err_t
-+append_word_to_list (parser_state_t *ps)
-+{
-+  /* No-op on empty words. */
-+  if (ps->current_word_pos == 0)
-+    return GRUB_ERR_NONE;
-+
-+  if (append_char_to_word (ps, '\0', true) != GRUB_ERR_NONE)
-+    grub_fatal ("couldn't append NUL terminator to word during Xen cmdline parsing");
-+
-+  ps->current_word_len = grub_strlen (ps->current_word) + 1;
-+  ps->current_word = grub_realloc (ps->current_word, ps->current_word_len);
-+  if (ps->current_word == NULL)
-+    return grub_errno;
-+  ps->words = grub_realloc (ps->words, ++ps->words_count * sizeof (char *));
-+  if (ps->words == NULL)
-+    return grub_errno;
-+  ps->words[ps->words_count - 1] = ps->current_word;
-+
-+  ps->current_word_len = PARSER_BASE_WORD_SIZE;
-+  ps->current_word_pos = 0;
-+  ps->current_word = grub_malloc (ps->current_word_len);
-+  if (ps->current_word == NULL)
-+    return grub_errno;
-+
-+  return GRUB_ERR_NONE;
-+}
-+
-+static bool
-+is_key_safe (char *key, grub_size_t len)
-+{
-+  grub_size_t i;
-+
-+  for (i = 0; i < len; i++)
-+    if (!grub_isalpha (key[i]) && key[i] != '_')
-+      return false;
-+
-+  return true;
-+}
-+
-+void
-+grub_parse_xen_cmdline (void)
-+{
-+  parser_state_t ps = {0};
-+  splitter_state_t ss = SPLITTER_NORMAL;
-+
-+  const char *cmdline = (const char *) grub_xen_start_page_addr->cmd_line;
-+  grub_size_t cmdline_len;
-+  bool cmdline_valid = false;
-+  char **param_keys = NULL;
-+  char **param_vals = NULL;
-+  grub_size_t param_dict_len = 0;
-+  grub_size_t param_dict_pos = 0;
-+  char current_char = '\0';
-+  grub_size_t i = 0;
-+
-+  /*
-+   * The following algorithm is used to parse the Xen command line:
-+   *
-+   * - The command line is split into space-separated words.
-+   *   - Single and double quotes may be used to suppress the splitting
-+   *     behavior of spaces.
-+   *   - Double quotes are appended to the current word verbatim if they
-+   *     appear within a single-quoted string portion, and vice versa.
-+   *   - Backslashes may be used to cause the next character to be
-+   *     appended to the current word verbatim. This is only useful when
-+   *     used to escape quotes, spaces, and backslashes, but for simplicity
-+   *     we allow backslash-escaping anything.
-+   * - After splitting the command line into words, each word is checked to
-+   *   see if it contains an equals sign.
-+   *   - If it does, it is split on the equals sign into a key-value pair. The
-+   *     key is then treated as an variable name, and the value is treated as
-+   *     the variable's value.
-+   *   - If it does not, the entire word is treated as a variable name. The
-+   *     variable's value is implicitly considered to be `1`.
-+   * - All variables detected on the command line are checked to see if their
-+   *   names begin with the string `xen_grub_env_`. Variables that do not pass
-+   *   this check are discarded, variables that do pass this check are
-+   *   exported so they are available to the GRUB configuration.
-+   *
-+   * This behavior is intended to somewhat mimic the splitter behavior in Bash
-+   * and in GRUB's config file parser.
-+   */
-+
-+  ps.current_word_len = PARSER_BASE_WORD_SIZE;
-+  ps.current_word = grub_malloc (ps.current_word_len);
-+  if (ps.current_word == NULL)
-+    goto cleanup_main;
-+
-+  for (i = 0; i < GRUB_XEN_MAX_GUEST_CMDLINE; i++)
-+    {
-+      if (cmdline[i] == '\0')
-+        {
-+          cmdline_valid = true;
-+          break;
-+        }
-+    }
-+
-+  if (cmdline_valid == false)
-+    {
-+      grub_error (GRUB_ERR_BAD_ARGUMENT,
-+		  "command line from Xen is not NUL-terminated");
-+      grub_print_error ();
-+      goto cleanup_main;
-+    }
-+
-+  cmdline_len = grub_strlen (cmdline);
-+  for (i = 0; i < cmdline_len; i++)
-+    {
-+      current_char = cmdline[i];
-+
-+      /*
-+       * If the previous character was a backslash, append the current
-+       * character to the word verbatim
-+       */
-+      if (ss & SPLITTER_HIT_BACKSLASH)
-+        {
-+          ss &= ~SPLITTER_HIT_BACKSLASH;
-+          if (append_char_to_word (&ps, current_char, false) != GRUB_ERR_NONE)
-+            goto cleanup_main;
-+          continue;
-+        }
-+
-+      switch (current_char)
-+        {
-+        case '\\':
-+          /* Backslashes escape arbitrary characters. */
-+          ss |= SPLITTER_HIT_BACKSLASH;
-+          break;
-+
-+        case '\'':
-+          /*
-+           * Single quotes suppress word splitting and double quoting until
-+           * the next single quote is encountered.
-+           */
-+          if (ss & SPLITTER_IN_DOUBLE_QUOTES)
-+            {
-+              if (append_char_to_word (&ps, current_char, false) != GRUB_ERR_NONE)
-+                goto cleanup_main;
-+              break;
-+            }
-+
-+          ss ^= SPLITTER_IN_SINGLE_QUOTES;
-+          break;
-+
-+        case '"':
-+          /*
-+           * Double quotes suppress word splitting and single quoting until
-+           * the next double quote is encountered.
-+           */
-+          if (ss & SPLITTER_IN_SINGLE_QUOTES)
-+            {
-+              if (append_char_to_word (&ps, current_char, false) != GRUB_ERR_NONE)
-+                goto cleanup_main;
-+              break;
-+            }
-+
-+          ss ^= SPLITTER_IN_DOUBLE_QUOTES;
-+          break;
-+
-+        case ' ':
-+          /* Spaces separate words in the command line from each other. */
-+          if (ss & SPLITTER_IN_SINGLE_QUOTES ||
-+              ss & SPLITTER_IN_DOUBLE_QUOTES)
-+            {
-+              if (append_char_to_word (&ps, current_char, false) != GRUB_ERR_NONE)
-+                goto cleanup_main;
-+              break;
-+            }
-+
-+          if (append_word_to_list (&ps) != GRUB_ERR_NONE)
-+            goto cleanup_main;
-+          break;
-+
-+        default:
-+          if (append_char_to_word (&ps, current_char, false) != GRUB_ERR_NONE)
-+            goto cleanup_main;
-+        }
-+    }
-+
-+  if (append_word_to_list (&ps) != GRUB_ERR_NONE)
-+    goto cleanup_main;
-+
-+  param_keys = grub_malloc (ps.words_count * sizeof (char *));
-+  if (param_keys == NULL)
-+    goto cleanup_main;
-+  param_vals = grub_malloc (ps.words_count * sizeof (char *));
-+  if (param_vals == NULL)
-+    goto cleanup_main;
-+
-+  for (i = 0; i < ps.words_count; i++)
-+    {
-+      char *eq_pos;
-+
-+      ps.current_word = ps.words[i];
-+      ps.current_word_len = grub_strlen (ps.current_word) + 1;
-+      eq_pos = grub_strchr (ps.current_word, '=');
-+
-+      if (eq_pos != NULL)
-+        {
-+          /*
-+           * Both pre_eq_len and post_eq_len represent substring lengths
-+           * without a NUL terminator.
-+           */
-+          grub_size_t pre_eq_len = (grub_size_t) (eq_pos - ps.current_word);
-+          /*
-+           * ps.current_word_len includes the NUL terminator, so we subtract
-+           * one to get rid of the terminator, and one more to get rid of the
-+           * equals sign.
-+           */
-+          grub_size_t post_eq_len = (ps.current_word_len - 2) - pre_eq_len;
-+
-+          if (is_key_safe (ps.current_word, pre_eq_len) == true)
-+            {
-+              param_dict_pos = param_dict_len++;
-+              param_keys[param_dict_pos] = grub_malloc (pre_eq_len + 1);
-+              if (param_keys == NULL)
-+                goto cleanup_main;
-+              param_vals[param_dict_pos] = grub_malloc (post_eq_len + 1);
-+              if (param_vals == NULL)
-+                goto cleanup_main;
-+
-+              grub_strncpy (param_keys[param_dict_pos], ps.current_word, pre_eq_len);
-+              grub_strncpy (param_vals[param_dict_pos],
-+			    ps.current_word + pre_eq_len + 1, post_eq_len);
-+              param_keys[param_dict_pos][pre_eq_len] = '\0';
-+              param_vals[param_dict_pos][post_eq_len] = '\0';
-+            }
-+        }
-+      else if (is_key_safe (ps.current_word, ps.current_word_len - 1) == true)
-+        {
-+          param_dict_pos = param_dict_len++;
-+          param_keys[param_dict_pos] = grub_malloc (ps.current_word_len);
-+          if (param_keys == NULL)
-+            goto cleanup_main;
-+          param_vals[param_dict_pos] = grub_malloc (2);
-+          if (param_vals == NULL)
-+            goto cleanup_main;
-+
-+          grub_strncpy (param_keys[param_dict_pos], ps.current_word,
-+			ps.current_word_len);
-+          if (param_keys[param_dict_pos][ps.current_word_len - 1] != '\0' )
-+            grub_fatal ("NUL terminator missing from key during Xen cmdline parsing");
-+          grub_strcpy (param_vals[param_dict_pos], "1");
-+        }
-+     
-+    }
-+
-+  for (i = 0; i < param_dict_len; i++)
-+    {
-+      /*
-+       * Find keys that start with "xen_grub_env_" and export them
-+       * as environment variables.
-+       */
-+      if (grub_strncmp (param_keys[i],
-+			"xen_grub_env_",
-+			sizeof ("xen_grub_env_") - 1) != 0)
-+        continue;
-+
-+      if (grub_env_set (param_keys[i], param_vals[i]) != GRUB_ERR_NONE)
-+        {
-+          grub_printf ("warning: could not set environment variable `%s' to value `%s'\n",
-+		       param_keys[i], param_vals[i]);
-+          continue;
-+        }
-+
-+      if (grub_env_export (param_keys[i]) != GRUB_ERR_NONE)
-+        grub_printf ("warning: could not export environment variable `%s'",
-+		     param_keys[i]);
-+    }
-+
-+ cleanup_main:
-+  for (i = 0; i < ps.words_count; i++)
-+    grub_free (ps.words[i]);
-+
-+  for (i = 0; i < param_dict_len; i++)
-+    {
-+      grub_free (param_keys[i]);
-+      grub_free (param_vals[i]);
-+    }
-+
-+  grub_free (param_keys);
-+  grub_free (param_vals);
-+  grub_free (ps.words);
-+}
-diff --git a/grub-core/kern/xen/init.c b/grub-core/kern/xen/init.c
-index 782ca72..69cf59f 100644
---- a/grub-core/kern/xen/init.c
-+++ b/grub-core/kern/xen/init.c
-@@ -581,6 +581,8 @@ grub_machine_init (void)
-   grub_xendisk_init ();
- 
-   grub_boot_init ();
-+
-+  grub_parse_xen_cmdline ();
- }
- 
- void
-diff --git a/include/grub/xen.h b/include/grub/xen.h
-index 91cb7cf..7f9efee 100644
---- a/include/grub/xen.h
-+++ b/include/grub/xen.h
-@@ -89,6 +89,8 @@ void grub_console_init (void);
- void grub_xendisk_fini (void);
- void grub_xendisk_init (void);
- 
-+void grub_parse_xen_cmdline (void);
-+
- #ifdef __x86_64__
- typedef grub_uint64_t grub_xen_mfn_t;
- #else
--- 
-2.50.1
-
+W1B1YmxpY10NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBKYW4gQmV1
+bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQo+IFNlbnQ6IFRodXJzZGF5LCBKdWx5IDI0LCAyMDI1
+IDEwOjQ0IFBNDQo+IFRvOiBQZW5ueSwgWmhlbmcgPHBlbm55LnpoZW5nQGFtZC5jb20+DQo+IENj
+OiBIdWFuZywgUmF5IDxSYXkuSHVhbmdAYW1kLmNvbT47IEFudGhvbnkgUEVSQVJEDQo+IDxhbnRo
+b255LnBlcmFyZEB2YXRlcy50ZWNoPjsgQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0
+cml4LmNvbT47DQo+IE9yemVsLCBNaWNoYWwgPE1pY2hhbC5PcnplbEBhbWQuY29tPjsgSnVsaWVu
+IEdyYWxsIDxqdWxpZW5AeGVuLm9yZz47IFJvZ2VyIFBhdQ0KPiBNb25uw6kgPHJvZ2VyLnBhdUBj
+aXRyaXguY29tPjsgU3RlZmFubyBTdGFiZWxsaW5pIDxzc3RhYmVsbGluaUBrZXJuZWwub3JnPjsg
+eGVuLQ0KPiBkZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZw0KPiBTdWJqZWN0OiBSZTogW1BBVENI
+IHY2IDE5LzE5XSB4ZW4vY3B1ZnJlcTogQWRhcHQgU0VUL0dFVF9DUFVGUkVRX0NQUEMNCj4geGVu
+X3N5c2N0bF9wbV9vcCBmb3IgYW1kLWNwcGMgZHJpdmVyDQo+DQo+IE9uIDExLjA3LjIwMjUgMDU6
+NTEsIFBlbm55IFpoZW5nIHdyb3RlOg0KPiA+IEludHJvZHVjZSBoZWxwZXIgc2V0X2FtZF9jcHBj
+X3BhcmEoKSBhbmQgZ2V0X2FtZF9jcHBjX3BhcmEoKSB0bw0KPiA+IFNFVC9HRVQgQ1BQQy1yZWxh
+dGVkIHBhcmEgZm9yIGFtZC1jcHBjL2FtZC1jcHBjLWVwcCBkcml2ZXIuDQo+ID4NCj4gPiBJbiBn
+ZXRfY3B1ZnJlcV9jcHBjKCkvc2V0X2NwdWZyZXFfY3BwYygpLCB3ZSBpbmNsdWRlDQo+ID4gInBy
+b2Nlc3Nvcl9wbWluZm9bY3B1aWRdLT5pbml0ICYgWEVOX0NQUENfSU5JVCIgY29uZGl0aW9uIGNo
+ZWNrIHRvDQo+ID4gZGVhbCB3aXRoIGNwdWZyZXEgZHJpdmVyIGluIGFtZC1jcHBjLg0KPiA+DQo+
+ID4gQWxzbywgYSBuZXcgZmllbGQgInBvbGljeSIgaGFzIGFsc28gYmVlbiBhZGRlZCBpbiAic3Ry
+dWN0IHhlbl9nZXRfY3BwY19wYXJhIg0KPiA+IHRvIGRlc2NyaWJlIHBlcmZvcm1hbmNlIHBvbGlj
+eSBpbiBhY3RpdmUgbW9kZS4gSXQgZ2V0cyBwcmludGVkIHdpdGgNCj4gPiBvdGhlciBjcHBjIHBh
+cmFzLiBNb3ZlIG1hbmlmZXN0IGNvbnN0YW50cyAiWEVOX0NQVUZSRVFfUE9MSUNZX3h4eCIgdG8N
+Cj4gPiBwdWJsaWMgaGVhZGVyIHRvIGxldCBpdCBiZSB1c2VkIGluIHVzZXIgc3BhY2UgdG9vbHMu
+IEFsc28gYWRkIGEgbmV3DQo+ID4gYW5jaG9yICJYRU5fQ1BVRlJFUV9QT0xJQ1lfeHh4IiBmb3Ig
+YXJyYXkgb3ZlcnJ1biBjaGVjay4NCj4NCj4gSWYgb25seSB0aGV5IGluZGVlZCBoYWQgWEVOXyBw
+cmVmaXhlcy4NCj4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBQZW5ueSBaaGVuZyA8UGVubnkuWmhlbmdA
+YW1kLmNvbT4NCj4gPiAtLS0NCj4gPiB2MSAtPiB2MjoNCj4gPiAtIEdpdmUgdGhlIHZhcmlhYmxl
+IGRlc19wZXJmIGFuIGluaXRpYWxpemVyIG9mIDANCj4gPiAtIFVzZSB0aGUgc3RybmNtcCgpcyBk
+aXJlY3RseSBpbiB0aGUgaWYoKQ0KPiA+IC0tLQ0KPiA+IHYzIC0+IHY0DQo+ID4gLSByZWZhY3Rv
+ciBjb21tZW50cw0KPiA+IC0gcmVtb3ZlIGRvdWJsZSBibGFuayBsaW5lcw0KPiA+IC0gcmVwbGFj
+ZSBhbWRfY3BwY19pbl91c2UgZmxhZyB3aXRoIFhFTl9QUk9DRVNTT1JfUE1fQ1BQQw0KPiA+IC0t
+LQ0KPiA+IHY0IC0+IHY1Og0KPiA+IC0gYWRkIG5ldyBmaWVsZCAicG9saWN5IiBpbiAic3RydWN0
+IHhlbl9jcHBjX3BhcmEiDQo+ID4gLSBhZGQgbmV3IHBlcmZvcm1hbWNlIHBvbGljeSBYRU5fQ1BV
+RlJFUV9QT0xJQ1lfQkFMQU5DRQ0KPiA+IC0gZHJvcCBzdHJpbmcgY29tcGFyaXNvbnMgd2l0aCAi
+cHJvY2Vzc29yX3BtaW5mb1tjcHVpZF0tPmluaXQgJg0KPiBYRU5fQ1BQQ19JTklUIg0KPiA+IGFu
+ZCAiY3B1ZnJlcS5zZXRwb2xpY3kgPT0gTlVMTCINCj4gPiAtIEJsYW5rIGxpbmUgYWhlYWQgb2Yg
+dGhlIG1haW4gInJldHVybiIgb2YgYSBmdW5jdGlvbg0KPiA+IC0gcmVmYWN0b3IgY29tbWVudHMs
+IGNvbW1pdCBtZXNzYWdlIGFuZCB0aXRsZQ0KPiA+IC0tLQ0KPiA+IHY1IC0+IHY2Og0KPiA+IC0g
+cmVtb3ZlIGR1cGxpY2F0ZWQgbWFuaWZlc3QgY29uc3RhbnRzLCBhbmQganVzdCBtb3ZlIGl0IHRv
+IHB1YmxpYw0KPiA+IGhlYWRlcg0KPiA+IC0gdXNlICJlbHNlIGlmIiB0byBhdm9pZCBjb25mdXNp
+b24gdGhhdCBpdCBsb29rcyBhcyBpZiBib3RoIHBhdGhzDQo+ID4gY291bGQgYmUgdGFrZW4NCj4g
+PiAtIGFkZCBjaGVjayBmb3IgbGVnaXRpbWF0ZSBwZXJmIHZhbHVlcw0KPiA+IC0gdXNlICJ1bmtu
+b3duIiBpbnN0ZWFkIG9mICJub25lIg0KPiA+IC0gaW50cm9kdWNlICJDUFVGUkVRX1BPTElDWV9F
+TkQiIGZvciBhcnJheSBvdmVycnVuIGNoZWNrIGluIHVzZXIgc3BhY2UNCj4gPiB0b29scw0KPiA+
+ICsgICAgICAgICAoc2V0X2NwcGMtPm1heGltdW0gPiBkYXRhLT5jYXBzLmhpZ2hlc3RfcGVyZiB8
+fA0KPiA+ICsgICAgICAgICAgc2V0X2NwcGMtPm1heGltdW0gPCBkYXRhLT5jYXBzLmxvd2VzdF9u
+b25saW5lYXJfcGVyZikgKQ0KPiA+ICsgICAgICAgIHJldHVybiAtRUlOVkFMOw0KPiA+ICsgICAg
+LyoNCj4gPiArICAgICAqIE1pbmltdW0gcGVyZm9ybWFuY2UgbWF5IGJlIHNldCB0byBhbnkgcGVy
+Zm9ybWFuY2UgdmFsdWUgaW4gdGhlIHJhbmdlDQo+ID4gKyAgICAgKiBbTm9ubGluZWFyIExvd2Vz
+dCBQZXJmb3JtYW5jZSwgSGlnaGVzdCBQZXJmb3JtYW5jZV0sIGluY2x1c2l2ZSBidXQgbXVzdA0K
+PiA+ICsgICAgICogYmUgc2V0IHRvIGEgdmFsdWUgdGhhdCBpcyBsZXNzIHRoYW4gb3IgZXF1YWwg
+dG8gTWF4aW11bSBQZXJmb3JtYW5jZS4NCj4gPiArICAgICAqLw0KPiA+ICsgICAgaWYgKCBzZXRf
+Y3BwYy0+c2V0X3BhcmFtcyAmIFhFTl9TWVNDVExfQ1BQQ19TRVRfTUlOSU1VTSAmJg0KPiA+ICsg
+ICAgICAgICAoc2V0X2NwcGMtPm1pbmltdW0gPCBkYXRhLT5jYXBzLmxvd2VzdF9ub25saW5lYXJf
+cGVyZiB8fA0KPiA+ICsgICAgICAgICAgKHNldF9jcHBjLT5zZXRfcGFyYW1zICYgWEVOX1NZU0NU
+TF9DUFBDX1NFVF9NQVhJTVVNICYmDQo+ID4gKyAgICAgICAgICAgc2V0X2NwcGMtPm1pbmltdW0g
+PiBzZXRfY3BwYy0+bWF4aW11bSkgfHwNCj4gPiArICAgICAgICAgICghKHNldF9jcHBjLT5zZXRf
+cGFyYW1zICYgWEVOX1NZU0NUTF9DUFBDX1NFVF9NQVhJTVVNKSAmJg0KPg0KPiBIbW0sIEkgZmlu
+ZCB0aGlzIGNvbmZ1c2luZyB0byByZWFkLCBhbmQgd2FzIGZpcnN0IHRoaW5raW5nIHRoZSAhIHdh
+cyB3cm9uZyBoZXJlLiBJbW8NCj4gc3VjaCBpcyBiZXR0ZXIgZXhwcmVzc2VkIHdpdGggdGhlIGNv
+bmRpdGlvbmFsIG9wZXJhdG9yOg0KPg0KPg0KPiAgICAgICAgICAgc2V0X2NwcGMtPm1pbmltdW0g
+PiAoc2V0X2NwcGMtPnNldF9wYXJhbXMgJg0KPiBYRU5fU1lTQ1RMX0NQUENfU0VUX01BWElNVU0N
+Cj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgID8gc2V0X2NwcGMtPm1heGltdW0NCj4g
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDogZGF0YS0+cmVxLm1heF9wZXJmKQ0KPg0K
+DQpUaHgsIHVuZGVyc3Rvb2QhDQoNCj4gV2hpY2ggYWxzbyBtYWtlcyBpdCBlYXNpZXIgdG8gc3Bv
+dCB0aGF0IGhlcmUgeW91IHVzZSBkYXRhLT5yZXEsIHdoZW4gaW4gdGhlDQo+IG1pbmltdW0gY2hl
+Y2sgeW91IHVzZSBkYXRhLT5jYXBzLiBXaHkgdGhpcyBkaWZmZXJlbmNlPw0KPg0KDQogbWluaW11
+bSBjaGVjayBoYXMgdHdvIGJvdW5kYXJ5IGNoZWNrLA0KbGVmdCBib3VuZGFyeSBjaGVjayBpcyBh
+Z2FpbnN0IGRhdGEtPmNhcHMubG93ZXN0X25vbmxpbmVhcl9wZXJmLiBBbmQgcmlnaHQgYm91bmRh
+cnkgY2hlY2sgaXMgYWdhaW5zdCBkYXRhLT5yZXEubWF4X3BlcmYuIEFzIGl0IHNoYWxsIG5vdCBv
+bmx5IG5vdCBsYXJnZXIgdGhhbiBjYXBzLmhpZ2hlc3RfcGVyZiAsIGJ1dCBhbHNvIHJlcS5tYXhf
+cGVyZi4gVGhlIHJlbGF0aW9uIGJldHdlZW4gbWF4X3BlcmYgYW5kIGhpZ2hlc3RfcGVyZiBpcyB2
+YWxpZGF0ZWQgaW4gdGhlIG1heGltdW0gY2hlY2suIFNvIGhlcmUsIHdlIGFyZSBvbmx5IGNvbnNp
+ZGVyaW5nIG1heF9wZXJmDQoNCj4gSmFuDQo=
 
