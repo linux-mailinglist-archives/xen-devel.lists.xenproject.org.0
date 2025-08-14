@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84974B25C7E
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 09:03:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1080815.1440998 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2473EB25C97
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 09:05:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1080823.1441008 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umRyz-0001Ag-Ur; Thu, 14 Aug 2025 07:02:41 +0000
+	id 1umS1H-0001gH-9I; Thu, 14 Aug 2025 07:05:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1080815.1440998; Thu, 14 Aug 2025 07:02:41 +0000
+Received: by outflank-mailman (output) from mailman id 1080823.1441008; Thu, 14 Aug 2025 07:05:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umRyz-00017x-Rr; Thu, 14 Aug 2025 07:02:41 +0000
-Received: by outflank-mailman (input) for mailman id 1080815;
- Thu, 14 Aug 2025 07:02:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1umS1H-0001e5-6i; Thu, 14 Aug 2025 07:05:03 +0000
+Received: by outflank-mailman (input) for mailman id 1080823;
+ Thu, 14 Aug 2025 07:05:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xqZt=22=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1umRyy-00017q-IG
- for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 07:02:40 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a9b83c7d-78dc-11f0-b898-0df219b8e170;
- Thu, 14 Aug 2025 09:02:38 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-6188b6548adso1140086a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 00:02:38 -0700 (PDT)
+ id 1umS1F-0001du-JR
+ for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 07:05:01 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fe674e97-78dc-11f0-a328-13f23c93f187;
+ Thu, 14 Aug 2025 09:05:00 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-6188b5ad4f0so879202a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Aug 2025 00:05:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6178b074a38sm15106320a12.32.2025.08.14.00.02.37
+ 4fb4d7f45d1cf-615a8fe7995sm22632601a12.36.2025.08.14.00.04.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Aug 2025 00:02:37 -0700 (PDT)
+ Thu, 14 Aug 2025 00:04:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a9b83c7d-78dc-11f0-b898-0df219b8e170
+X-Inumbo-ID: fe674e97-78dc-11f0-a328-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755154958; x=1755759758; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755155100; x=1755759900; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3lv3T5HNPgiLT9IcKhsojimiDCgnEUq7jA3psdpdsTA=;
-        b=Q5Oosqu9UBau0odPwxsMxx16MMPO+v0S0M04Mcx09O+STtk8CMV59kgEX+wPKyoGln
-         c9T2nJ04vvaMQzGmb8oGllhcjLDAd0lc9mrveOAjMh6xD1bfJ3j4ElEPiTQJ18Jj+v+4
-         /HPVrER+mVtqCi40rgwdnbEq3tABmbfqarxeH0fUinj1dNECaMc9MYinBO0o1FTol1dn
-         IqKyHzZ2W6MaPqz32gIIEnzPsMKahp/BWm1U+0OGKE/YbCc8SBBIJL4z2tE5vjwWOcig
-         EF/f0huxgyEkVxVCAYyDAV1F3YOaHFcviVKR7omYiEcEdeXS9nf7MGmEb95JuQbcvTNj
-         qUEA==
+        bh=IfqcScLHgxuY2Zi+5prkCmWDnGGxsY4YG2ECvTGJSdM=;
+        b=AQCV26nEps/VKRCukm7D5asQmCV/JrOlo2vSb1J01ZDVrXSTsJtTqQ2uq2GxQVHysP
+         ivBn1B3Rn3ykmQ8vvnm8Btslok50UKKPtN7Y4lrs4S7XCDcSpn9NPRitvakVq7vAyKpM
+         J9bD2l7JElA0AMY/ySt5wBziYB34KqUcoRAhVXa7sebBWZCubFLcE6SwKflu/f8ZEqIE
+         iZGKyqcZQf1vykVjxux0Y9LYoKuzZ+nZ3L9LubmKcIRdTsGS8akOm35Flh4384Y7cToG
+         qOphMkRPZGV4dF9pNB1rh9bkWg7yHXKtrnx58vpbz8DGEVDS5LbTV5k1o7XJVZ8E6eaC
+         Tsjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755154958; x=1755759758;
+        d=1e100.net; s=20230601; t=1755155100; x=1755759900;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3lv3T5HNPgiLT9IcKhsojimiDCgnEUq7jA3psdpdsTA=;
-        b=RD39z9JCjDm2M+mRbm4XGLZUcKGwLYST9peuM2ZRzHG80Q9eq8Qu+lWdLbxm1DsUJy
-         ISbHjx8otfm72VgCRG5dz/caNfXTWfbwBsWh1QEVOMBsUjgv+oR6MrriHXZT6lirywPC
-         Cy9p3nw7l2oePyXwIWCZCQBNLIkpnQKjWF44Ab1tkmqEg9YIxdQM2WO4sttQB+W7lz2C
-         DIvEaxUCerqJgutAmKZ9zgoZGEqExS1UqtTAh5Sx9L4c8GElGzcUt1uizLvNAkTrA2ry
-         BEaId7YysyeuK3tyFc48uCJzzEBm1ktr9wMUUD+siwsciakATAAMD0LCHRkwLeSuONTa
-         kHWg==
-X-Gm-Message-State: AOJu0YxWmjf5cdoZOG0nSs4gbezYG6lK20veMCSXwB+LoW1AAHGeuY9p
-	hT90eTGd1W7dTU2ZGLu6eK1lNfZqqqRqvu5169L/TroNJ64Mup4xD+/PtDqlSGu/9A==
-X-Gm-Gg: ASbGncuREo5DvxnphfLVPhQbZziXutTarYvYFsMI21D0G/4cq+UAVKlThEKwrYp+742
-	i4U7Cve5zKV+txGV5dX9PbFr8Qtmg5jcrWsMeJmaayIVxkp32ja66sekKeBzYfWtcYxDB4wNir1
-	kGfvgQaw7XPyvQ8nJswHE/keHNUfXo0u4RyeDDNK8/fqQcHcXn97zruPLkQup3RHub2lMjBIrGv
-	P7hBOSxzc37FHq3k6JFIkd8bzs2qPOzZSbAwyWtyM8fFr8ZXRpwkz6+o250FBQKVlBcrR67C7fI
-	1M2a0MqGsVp4kboMA6HZyPWJqa7NyEJnLTTZiyQvF+p6EohZmPOPwxBryQd9O/fFSSXDRCraeR2
-	t+JDLGN6GtI9cV0CGCm/tMYYvvumwTUb0hfvfM4enGAqoHTwt7rAmecdOIIlHDWXI78O0nX4VCi
-	QdO2RDKps=
-X-Google-Smtp-Source: AGHT+IHNzH4RUMSnmMAZxLRJGY/4+VTgSe2jLal1EnlwtQKyDarCXCf6HSp8pdcLe71PJzfFGZI9bA==
-X-Received: by 2002:a05:6402:3507:b0:615:78c6:7b18 with SMTP id 4fb4d7f45d1cf-6188c1f5cadmr1468307a12.23.1755154957884;
-        Thu, 14 Aug 2025 00:02:37 -0700 (PDT)
-Message-ID: <38430fbf-a6e4-4ba9-bbff-2279108721e6@suse.com>
-Date: Thu, 14 Aug 2025 09:02:35 +0200
+        bh=IfqcScLHgxuY2Zi+5prkCmWDnGGxsY4YG2ECvTGJSdM=;
+        b=H9Zprxe/pv0ve9Kphe/eWafUc+5t537CHDyMWUcDEjRzHV/WD8AiE9p5VpJP4Ujpjq
+         ipVZJkw0Ro9RpZbLK8bxDFrzV3eNdIPWwW4Bq+VAzrrxJJGl3OcWCjHgd2kZMk4jSAmt
+         FYQMUF6sEKFcxxzXKAhctpTuEl6NrVClxCL2KxCcgmQGHH2cinun5LJYNVJTpgtXcm0o
+         tq0Wkh/RbiXXFjRUUnVehVBbCUUmmxllxJfzOdPd+azpW+NsgCaq7/90mnQXhVxxKYoj
+         wzlQa7LG2/udJCcneEZnYoOVozEMy7mkqoodPk8FhTeoeitIOME1yL/8wdrQRhen5IfK
+         oGZQ==
+X-Gm-Message-State: AOJu0YxaN1H7SB58/unO+Qa0KlMAmh1IYCpmXWkMPdL7p+yk/YXsVF79
+	ARNpqqNQwkQJLQpDwnP0O3W/znevvBf9YillqbYMwaQbNbzDIr8uI0Q0f/cavFMrLw==
+X-Gm-Gg: ASbGncse+HEckBRXkH5c85B2eQp1/Xw4NEz8VNKnyTHgLIlKDMqfGozEM0/zAV3h0sG
+	GgtUgW9D95HByMht8ZQNb4HPznRFwWSHIRqbl1f0TcImh8MrvJKTQ28FtyCUCJxwAm1RK8+/nUs
+	b2PLJTAF1vq4bBzrjm5xXmsujRSUUzS7dfAfXo4xFKCAgqbsOiFZfbDWEsv0QvHyq049j5QyaJI
+	pDM3UTM5hRc7uLMbPzRsnUMo4TX3Jk1HTec4AGqi1OdU10DVC5mWvgLpOK8jyxAFFj2DfZDIjHB
+	Nd4bAjDAdthpV8q12NyMm6IOdxC12iwDvzHTt1fTjuA7aoSYvTUrGxHNZSoU1SuTrVLq96JHJs2
+	Mq4RBWIBlD6U7GUmUeLL7s5zG8QhDb+U0lcDhS0zz5rv3LKTZPVUzwjDbp0f09dV0AQxaiUvi9r
+	hGerhjFlNYHkNmPtycuQ==
+X-Google-Smtp-Source: AGHT+IEsBTzjyNzOyinqNOg9TyQ5fpOH1TglryLnYWFLGw4zexSr7fjPQD+JlKZan0Syp99elAUEgw==
+X-Received: by 2002:a05:6402:a0d1:b0:618:3521:6866 with SMTP id 4fb4d7f45d1cf-6188b9a65d6mr1620746a12.15.1755155100028;
+        Thu, 14 Aug 2025 00:05:00 -0700 (PDT)
+Message-ID: <2fdde11b-4830-41e7-b099-225447435efb@suse.com>
+Date: Thu, 14 Aug 2025 09:04:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] x86/mkelf32: pad load segment to 2Mb boundary
+Subject: Re: [PATCH v2 2/2] x86/mm: drop unmapping from marking-as-I/O in
+ arch_init_memory()
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>
 References: <ddfd86ad-19b3-495b-930c-1770dd92fa99@suse.com>
- <6e295921-0432-435e-9efe-51caa106f203@suse.com>
- <aJtpXOM2AERnOCrH@macbook.local>
+ <5a862787-40d8-4c9f-bd89-01d866648120@suse.com>
+ <aJtsIxI4y-UspLKg@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,39 +120,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aJtpXOM2AERnOCrH@macbook.local>
+In-Reply-To: <aJtsIxI4y-UspLKg@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 12.08.2025 18:18, Roger Pau Monné wrote:
-> On Mon, Aug 11, 2025 at 12:49:57PM +0200, Jan Beulich wrote:
->> @@ -339,9 +340,12 @@ int main(int argc, char **argv)
->>      (void)lseek(infd, in64_phdr.p_offset, SEEK_SET);
->>      dat_siz = (uint32_t)in64_phdr.p_filesz;
->>  
->> -    /* Do not use p_memsz: it does not include BSS alignment padding. */
->> -    /*mem_siz = (uint32_t)in64_phdr.p_memsz;*/
->> -    mem_siz = (uint32_t)(final_exec_addr - in64_phdr.p_vaddr);
->> +    /*
->> +     * We don't pad .bss in the linker script, but during early boot we map
->> +     * the Xen image using 2M pages.  To avoid running into adjacent non-RAM
->> +     * regions, pad the segment to the next 2M boundary.
+On 12.08.2025 18:30, Roger Pau Monné wrote:
+> On Mon, Aug 11, 2025 at 12:50:23PM +0200, Jan Beulich wrote:
+>> The unmapping part would have wanted to cover UNUSABLE regions as well,
+>> and it would now have been necessary for space outside the low 16Mb
+>> (wherever Xen is placed). However, with everything up to the next 2Mb
+>> boundary now properly backed by RAM, we don't need to unmap anything
+>> anymore: Space up to __2M_rwdata_end[] is properly reserved, whereas
+>> space past that mark (up to the next 2Mb boundary) is ordinary RAM.
 > 
-> Won't it be easier to pad in the linker script?  We could still have
-> __bss_end before the padding, so that initialization isn't done to the
-> extra padding area.  Otherwise it would be helpful to mention why the
-> padding must be done here (opposed to being done in the linker
-> script).
+> Oh, I see, so this was done to unmap trailing space when the Xen image
+> region is mapped using 2M pages.
+> 
+>> While there, limit the scopes of involved variables.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-The way the linker script currently is written doesn't lend itself to do
-the padding there: It would either mean to introduce an artificial
-padding section (which I'd dislike), or it would result in _end[] and
-__2M_rwdata_end[] also moving, which pretty clearly we don't want. Maybe
-there are other options that I simply don't see.
+Thanks.
 
-A further complication would be xen.efi's .reloc, which we don't want to
-needlessly move either. That may be coverable by pr-processor
-conditionals, but I wanted to mention the aspect nevertheless.
+>> @@ -292,12 +290,17 @@ void __init arch_init_memory(void)
+>>       * case the low 1MB.
+>>       */
+>>      BUG_ON(pvh_boot && trampoline_phys != 0x1000);
+>> -    for ( i = 0; i < 0x100; i++ )
+>> +    for ( unsigned int i = 0; i < MB(1) >> PAGE_SHIFT; i++ )
+> 
+> I would use PFN_DOWN() rather than the shift, but that's just my
+> preference.
+
+Oh, yes, fine with me.
 
 Jan
 
