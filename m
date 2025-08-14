@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD89BB26282
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 12:24:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1081403.1441516 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 062FFB2627B
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Aug 2025 12:23:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1081361.1441475 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umV87-0006Eo-BO; Thu, 14 Aug 2025 10:24:19 +0000
+	id 1umV7K-0004HV-6Z; Thu, 14 Aug 2025 10:23:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1081403.1441516; Thu, 14 Aug 2025 10:24:19 +0000
+Received: by outflank-mailman (output) from mailman id 1081361.1441475; Thu, 14 Aug 2025 10:23:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umV87-0006BM-8G; Thu, 14 Aug 2025 10:24:19 +0000
-Received: by outflank-mailman (input) for mailman id 1081403;
- Thu, 14 Aug 2025 10:24:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1umV7K-0004EP-3c; Thu, 14 Aug 2025 10:23:30 +0000
+Received: by outflank-mailman (input) for mailman id 1081361;
+ Thu, 14 Aug 2025 10:23:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Hncw=22=kernel.org=leon@srs-se1.protection.inumbo.net>)
- id 1umUyt-0003Sq-TM
- for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 10:14:47 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 80213518-78f7-11f0-b898-0df219b8e170;
- Thu, 14 Aug 2025 12:14:46 +0200 (CEST)
+ id 1umUyw-0003F8-UE
+ for xen-devel@lists.xenproject.org; Thu, 14 Aug 2025 10:14:50 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 82fccee8-78f7-11f0-a328-13f23c93f187;
+ Thu, 14 Aug 2025 12:14:50 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B7C19435C3;
- Thu, 14 Aug 2025 10:14:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE2CAC4CEED;
- Thu, 14 Aug 2025 10:14:43 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8F9236020A;
+ Thu, 14 Aug 2025 10:14:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BB3EC4CEED;
+ Thu, 14 Aug 2025 10:14:48 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80213518-78f7-11f0-b898-0df219b8e170
+X-Inumbo-ID: 82fccee8-78f7-11f0-a328-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1755166484;
-	bh=5GnXky7X8jRP4E4M761xyU7kxSqR5w3y9HvcAnisW/0=;
+	s=k20201202; t=1755166489;
+	bh=stLVV7BdINySQbyeqCDmRbXyWeQEecbuIkQ/rhX45FU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=GOIGZTALgEXO1yJmRnIppoU7sVnE9nGcbMZQVycIMrFkUkEsvGws6NRdpGbZwCPTD
-	 EH5S4PsSjJiEFaVyEY/9QvsuOFrfrIM2jr1fwUPJMIPtWlonZgQ18Xyj8zfPOT0GQO
-	 B+9AQ0omHzJngdLANyllOrFgvdhVO4L1z8Dmj1SkfIiVF4KS7xlgY6Wgp9XvUszA1i
-	 GznzVHXHeBog8qvfnoLOoVf4oOMHY3auY/kzpXBELjlpw7gyiSs+6eMYW3loBSbwpm
-	 bYNaIlcJU9Cdf+jNl6zgiiNsou0al6+23/rIuESPqXov8EgRibqQkm0IVOUThOkMc5
-	 RHJ2gapPlrz5A==
+	b=Yjr61GWrMpZlZVsXr5trn6jduj7CwGSyfxXeA06jORzsuA8yWJLjGdU0E33cfjQh3
+	 Hmx937j1Z95EXTMOUcTvwDAO3vhf7bMaKYV/TFQIyfc9mvSdYnQef9iZHXZNqE0oto
+	 jcvZA8NK73HDjVgX/hAwi/xQMDOAaVmOkY66NF2PR1cDhVoVMkjKM0ZK4TRAmvUgWx
+	 xqpsC9wxH1QmETO7S0kHdNpKw2xEF/nOFmPE3YzJHCVYhyuyfoPUg+dVNC7Gx475X0
+	 rMcX3zG9znpLtrX/5YzuL4HwLR540SE+s9lhJRS4wAN2T/i4QuJ6U2hv8YLNA/kK+q
+	 abKechpUNU6VA==
 From: Leon Romanovsky <leon@kernel.org>
 To: Marek Szyprowski <m.szyprowski@samsung.com>
 Cc: Leon Romanovsky <leonro@nvidia.com>,
@@ -90,9 +90,9 @@ Cc: Leon Romanovsky <leonro@nvidia.com>,
 	virtualization@lists.linux.dev,
 	Will Deacon <will@kernel.org>,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH v2 13/16] mm/hmm: properly take MMIO path
-Date: Thu, 14 Aug 2025 13:13:31 +0300
-Message-ID: <1c5a07cc7b40e956b2d75328fc95e45e82d2da5d.1755153054.git.leon@kernel.org>
+Subject: [PATCH v2 14/16] block-dma: migrate to dma_map_phys instead of map_page
+Date: Thu, 14 Aug 2025 13:13:32 +0300
+Message-ID: <a48cbbc074bf11c92b29b547e44f495a4504ae9f.1755153054.git.leon@kernel.org>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <cover.1755153054.git.leon@kernel.org>
 References: <cover.1755153054.git.leon@kernel.org>
@@ -101,67 +101,30 @@ Content-Transfer-Encoding: 8bit
 
 From: Leon Romanovsky <leonro@nvidia.com>
 
-In case peer-to-peer transaction traverses through host bridge,
-the IOMMU needs to have IOMMU_MMIO flag, together with skip of
-CPU sync.
+After introduction of dma_map_phys(), there is no need to convert
+from physical address to struct page in order to map page. So let's
+use it directly.
 
-The latter was handled by provided DMA_ATTR_SKIP_CPU_SYNC flag,
-but IOMMU flag was missed, due to assumption that such memory
-can be treated as regular one.
-
-Reuse newly introduced DMA attribute to properly take MMIO path.
-
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 ---
- mm/hmm.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+ block/blk-mq-dma.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/mm/hmm.c b/mm/hmm.c
-index 015ab243f081..6556c0e074ba 100644
---- a/mm/hmm.c
-+++ b/mm/hmm.c
-@@ -746,7 +746,7 @@ dma_addr_t hmm_dma_map_pfn(struct device *dev, struct hmm_dma_map *map,
- 	case PCI_P2PDMA_MAP_NONE:
- 		break;
- 	case PCI_P2PDMA_MAP_THRU_HOST_BRIDGE:
--		attrs |= DMA_ATTR_SKIP_CPU_SYNC;
-+		attrs |= DMA_ATTR_MMIO;
- 		pfns[idx] |= HMM_PFN_P2PDMA;
- 		break;
- 	case PCI_P2PDMA_MAP_BUS_ADDR:
-@@ -776,7 +776,7 @@ dma_addr_t hmm_dma_map_pfn(struct device *dev, struct hmm_dma_map *map,
- 			goto error;
- 
- 		dma_addr = dma_map_phys(dev, paddr, map->dma_entry_size,
--					DMA_BIDIRECTIONAL, 0);
-+					DMA_BIDIRECTIONAL, attrs);
- 		if (dma_mapping_error(dev, dma_addr))
- 			goto error;
- 
-@@ -811,16 +811,17 @@ bool hmm_dma_unmap_pfn(struct device *dev, struct hmm_dma_map *map, size_t idx)
- 	if ((pfns[idx] & valid_dma) != valid_dma)
+diff --git a/block/blk-mq-dma.c b/block/blk-mq-dma.c
+index ad283017caef..37e2142be4f7 100644
+--- a/block/blk-mq-dma.c
++++ b/block/blk-mq-dma.c
+@@ -87,8 +87,8 @@ static bool blk_dma_map_bus(struct blk_dma_iter *iter, struct phys_vec *vec)
+ static bool blk_dma_map_direct(struct request *req, struct device *dma_dev,
+ 		struct blk_dma_iter *iter, struct phys_vec *vec)
+ {
+-	iter->addr = dma_map_page(dma_dev, phys_to_page(vec->paddr),
+-			offset_in_page(vec->paddr), vec->len, rq_dma_dir(req));
++	iter->addr = dma_map_phys(dma_dev, vec->paddr, vec->len,
++			rq_dma_dir(req), 0);
+ 	if (dma_mapping_error(dma_dev, iter->addr)) {
+ 		iter->status = BLK_STS_RESOURCE;
  		return false;
- 
-+	if (pfns[idx] & HMM_PFN_P2PDMA)
-+		attrs |= DMA_ATTR_MMIO;
-+
- 	if (pfns[idx] & HMM_PFN_P2PDMA_BUS)
- 		; /* no need to unmap bus address P2P mappings */
--	else if (dma_use_iova(state)) {
--		if (pfns[idx] & HMM_PFN_P2PDMA)
--			attrs |= DMA_ATTR_SKIP_CPU_SYNC;
-+	else if (dma_use_iova(state))
- 		dma_iova_unlink(dev, state, idx * map->dma_entry_size,
- 				map->dma_entry_size, DMA_BIDIRECTIONAL, attrs);
--	} else if (dma_need_unmap(dev))
-+	else if (dma_need_unmap(dev))
- 		dma_unmap_phys(dev, dma_addrs[idx], map->dma_entry_size,
--			       DMA_BIDIRECTIONAL, 0);
-+			       DMA_BIDIRECTIONAL, attrs);
- 
- 	pfns[idx] &=
- 		~(HMM_PFN_DMA_MAPPED | HMM_PFN_P2PDMA | HMM_PFN_P2PDMA_BUS);
 -- 
 2.50.1
 
