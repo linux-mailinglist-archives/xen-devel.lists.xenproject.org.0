@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26B91B279B1
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Aug 2025 09:10:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1082843.1442550 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1355B279FE
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Aug 2025 09:21:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1082857.1442561 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umoZV-0005nQ-8Y; Fri, 15 Aug 2025 07:09:53 +0000
+	id 1umok8-0000C3-Ar; Fri, 15 Aug 2025 07:20:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1082843.1442550; Fri, 15 Aug 2025 07:09:53 +0000
+Received: by outflank-mailman (output) from mailman id 1082857.1442561; Fri, 15 Aug 2025 07:20:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umoZV-0005kD-5J; Fri, 15 Aug 2025 07:09:53 +0000
-Received: by outflank-mailman (input) for mailman id 1082843;
- Fri, 15 Aug 2025 07:09:52 +0000
+	id 1umok8-00009H-62; Fri, 15 Aug 2025 07:20:52 +0000
+Received: by outflank-mailman (input) for mailman id 1082857;
+ Fri, 15 Aug 2025 07:20:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZXrH=23=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1umoZU-0005jr-3W
- for xen-devel@lists.xenproject.org; Fri, 15 Aug 2025 07:09:52 +0000
+ id 1umok6-00006B-OD
+ for xen-devel@lists.xenproject.org; Fri, 15 Aug 2025 07:20:50 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d49be02e-79a6-11f0-a328-13f23c93f187;
- Fri, 15 Aug 2025 09:09:48 +0200 (CEST)
+ id 5d5d15e3-79a8-11f0-a328-13f23c93f187;
+ Fri, 15 Aug 2025 09:20:47 +0200 (CEST)
 Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
  (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id E0ED84EE0742;
- Fri, 15 Aug 2025 09:09:47 +0200 (CEST)
+ by support.bugseng.com (Postfix) with ESMTPA id D45BB4EE0742;
+ Fri, 15 Aug 2025 09:20:46 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,145 +40,315 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d49be02e-79a6-11f0-a328-13f23c93f187
+X-Inumbo-ID: 5d5d15e3-79a8-11f0-a328-13f23c93f187
 Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1755241788;
-	b=idRZ+J/Ymvkbav0qXAOUvaNWsUx2sHuBUz57PGFgcMp71uleFyVveQWS0+M5yFSMWBoF
-	 ztkniDOkAP+9mGdjLz5QyyBaDFr0oXupOmVj2qDvArYc1eJ3ffz6/N4+6LrSvVEQjgteO
-	 r2rqp0+LhshcAZQ+S8z66oUpZRb5hQ1WlrraJ/gUhCGFQnL9sxfEzz88p+QwAilJbxXkZ
-	 Ysajn8O3AHpl64yIZNkz5lEaye4L+XgOgCKhEPvwW6i9KV9+VZfFgxUezgNq/W+jdHl0v
-	 jJl/JpF0sxFHB5Sw/Plm61ZJ06h4Q+sE7mOlhLRI6Do2Nj403Wbrstzc1A5mgONXVidZd
-	 v0vxXcPFqR/VvIGy7xuC6q2ptswv+V+gQzDE+o9BacUr3Xpzk4+PcKmOGoDtbdX5RGfnk
-	 eAz0UWao1A+3+734ksMDN5gCnj3Re4uc9Esbctw+V7Mr0i4vzSMltwH2r1+ApBPWRnDC+
-	 1NNwprzumSDq9sU0O4610ImMced/aIpomOrt1Yby6sya4ml+IT6nKljYzd0PIfItLZXx6
-	 DNsIkyhX5PTGeMQmn07zzTgPYwrNKu+qe01eIeSK5ugdiQ1SZkJ91hjRGXU9/orexI/CQ
-	 bWHSjD2SG2dsgniIABvgZm7eLWVxYnNEvmixg7p1vVAi7i51DdbBu/UDkC4UHNg=
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1755242446;
+	b=bi6ly0sU3FUisvooVeqp0IYRtW3ev7CjBo6kcDbtEDzFbyI+HZsn2z2SDKyFY+HwoiOG
+	 S3tajlBHNyq5MrnmsxBpTjpt142OJc7KX0gTLW6uRzPbSruw9YHQPNqvL7Ag53+wD3Cgv
+	 gkiGXT7Dei0y/he5UreK4bA9FXPivyIWZQWJ+bXEwJIsclJ2ttYDldpmGy3CSfIZ33GRB
+	 EmjYdFZdEBxUzGYu5V76H5OT/Mmz2vArVWi4RF9S6JZVGYWSbWUdvhT6DYCEvBee2jBrD
+	 NBuQXhWxy9tc2W/2L7g5qLll9129VykEqkOv7Er5l1rQU2FCUZQ9g+H8jiXfvV6aofPU/
+	 T71zm0JdPAhl4lctr8sgi8hpGbnZ9up5RHxLnSiPv8ux2UoNuc6EeXNrqRsjVD4T6A9e2
+	 vvnV1bOqtJGAbNwwrrabCznWmEptKdQNMzs0D6nSSnyrLYwAi6PaoBW/nuulamKWhBAzI
+	 1ErnexPBHq3WhSK5J/j9iojMW9S7F4tSOQhbKRiYhyOOiNtdwDHQ/IXa3+TvxWZfTufVu
+	 T3iJj8P4Ifcl+skjEQLcjl2SSqSTj6kTKL+KNLFpPhi5EUoriWbtFJhKCqAbzqsVx8fEm
+	 nqBi2RdUmcgPecklLdFDEG4OshZCGatcvKZlFQp/Wv2/CFF/Q6ay64/VFZuAblY=
 ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1755241788;
+	c=relaxed/relaxed; t=1755242446;
 	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
 	 References:Message-ID:X-Sender:Organization:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=KFiRFFK7OFgSMVoQTACXyR8v6u0l5skmrJA/2+R6tUo=;
-	b=hPoiQZtspB6O70lvz9BzaMLYnYHeg0kSyR1QXs1yymbf63FkkvMlGmP6eznkYezyDZNr
-	 T+FtKkzgPhfOyPzCHTHI5WrRAHDWVmeqNz73koQTbvEjcEc71FaoVLVEfNrlmDWzJZ6fV
-	 9z8r0rAFy213TPbE+zU2HVdODNEEnZyUaiW2Cf5bBuI6xUlxrZC3wgFeRi+Xb9KH74gNl
-	 Ym6PqvubRSkXtxLCJUAfoGkMJSeXt2KjLTxpTS4QgLAVONTi7qsiSQajRe2n9Z5qCq0Ju
-	 xy7TXfYQODAZBwBKjHn6hmTC5en+H2cLr5vNGgRBg3IJDyCKdOSsRer7uUgldrf53YuL/
-	 jBbCENZGSuC8qDosV6Ox8akeM4NlESUQHlNO2Co0D6pJpuyTVrza54CT2Do7nf8aqoj4F
-	 GfUDQ+6CETy1oCsnrDKa134WA/sNICZKllUitpe2FA2geikPxLRW0P89uH4ebLylPgzbi
-	 2+OMBN+PeNMFUauPSju9j5z9C2qiB/4MARoGKweNm6FHjQsV8TsbuKvrJvIoGCFBc1pfO
-	 RWmYfqtBdmoU5C2XcLai0qR8ucO9bqN20+x8Y2Dljh+oCCehqsGKXPT7maZy3Hoi+NWvc
-	 nrmhm2oIDB+8PNLUw5xNvYMYTWN+FU5QlYGHAqRZxVIXNKHACoS9/vua8mTJ3ZI=
+	bh=Q7Y7H8c+F1DqZMzbG89vk7tX0P1WIMm2jykyWtYIrdk=;
+	b=oP/QNifGXTKsX7FbT/vLpfPgHt38KapDx9pfwYLAzP7jJDa1gry3OEoHw1QpQM+Jfu5J
+	 PHf0K91gbIvoM0vQNyT3bP01p+v8jLpZnxUT1u8nlutUCVmV7WZft9IQV3U+ZsKq15zuX
+	 +iax53P/BZICjkOF8rnr3EnILJtCloIbtf9IpeTE0hVp0nXuvzHJ82K3xVncpjb2uLoLk
+	 9vC0NIWOPJ0Wd/ZEAZf8PlfPA8r+4QCDEUHMbefAH24OyxrGVqp5QQYztz5zL6YFWOQOn
+	 DbfepoSTii4/XpL5i+IZbbFqzqRM0e0ykl5OVxhnn6lDUyCQWUV1dglpgNGdv487Vl0y/
+	 OV62qHt/Eyy7zcbZqDQ210jsyGlcODpeUhEIdeLiEPphPZJdm93OYOVuc3rGHK+sCt9r3
+	 xxe/Fl7Wl2TTP8tBGnvsYmj5QcBmbdt9RlXV/Eb+gA7kk+ATGbxoZYZLEx+ZF38lxnEZP
+	 sguEfT5X0LFZRM5iAfeGNoT5XvRNWjUyjjS2uFLUyEGj4JNHbbMtxu6VXUwdBUNROuyGh
+	 UiY78leo7HydYWmBaCcXQvL1FdSmZUk5nyyCDusCH15C7DtF1FaqylfZOcvci0Vr1Kyhj
+	 EW6Qeq9nHAugVZ1mNf1WsYWEj7gsE1ckAs1PDv1qKDfDy86uJV7zpEluRQouWw4=
 ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1755241788; bh=hgtYGugSWg0TBHG86mCkJsmhYi3+GD9ttE0Cwa5tG80=;
+	t=1755242446; bh=gqzTKs7uKnX+aOymgpnk0l7TG5zuKmwONeDcb2YAtHU=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=qh+bRco20XRD5YQhG3oKpt2CD65NEB81IUm7LvRzXUG00YHPBeFB1uryLXyDg5rVn
-	 MLxqEaXqJYcoGOQmrEFSiGeDj98wHXRLWA7nPEnik/SJTa2Js1Fzki96GfPAELaRNi
-	 gKAjEQs3LbsTPE3flz/2Gt1ZqZXqgIzYQ3yTZukOA9LS8hww1/YbXmjUbg+JWba0Ku
-	 lN2Xfdt6ooBuAiiNs6S5CTGaXhRh6sWLHJmiLBe635xkh1+B7aHop2ZMzqQYwLxQxk
-	 A90T1xM8HvZ3ltkHO/aFvFwGZQ/TRAql5KXYeD6mWys1IDbRIcdDsA4ys7QsNtCPE6
-	 085a5Com2AqRQ==
+	b=b1zVMIYnIC/pQMqAV+Y2Q7+WNEk4podEf1WkY2yag9mfq6fowXAqLmFFIdZgWtbgM
+	 FHN3+UbA0UuPRWi3LTVB2KmppYzTNCy0vmPbvwnn+YYnPCmHNe8dEmbku1j/CY3RUU
+	 X3MJrqHa/y4Kg3s5VOtr9qMIi9938ggcmss4Syn49YfOsCx/oFPTsCBFrrwpIQdGog
+	 xjy4bI0a4VjHCbKRu04EWV34LRC00rL8gDzdLXdjkObTwM8pquF269Qgi5736IcGDZ
+	 notydaEo1dgE91Yj2G5MZ5JY9gXIlXhbVyLg1xV9l9uDz4KW4WBvmJEBRf/IC6e+fw
+	 ZfqDO52+uVMEg==
 MIME-Version: 1.0
-Date: Fri, 15 Aug 2025 09:09:47 +0200
+Date: Fri, 15 Aug 2025 09:20:46 +0200
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
- Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] docs/misra: fix sphinx-build issues
-In-Reply-To: <fb809a94e8a50bd3a59aa47ee1832c61af8a9f40.1755241166.git.dmytro_prokopchuk1@epam.com>
-References: <fb809a94e8a50bd3a59aa47ee1832c61af8a9f40.1755241166.git.dmytro_prokopchuk1@epam.com>
-Message-ID: <c7d9513dfc7201c5d3c6e6cbd99db481@bugseng.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Anthony PERARD
+ <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan
+ Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Roberto Bagnara <roberto.bagnara@bugseng.com>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>
+Subject: Re: [PATCH v2] xen: Use auto as per C23
+In-Reply-To: <20250814222524.2638883-1-andrew.cooper3@citrix.com>
+References: <20250814222524.2638883-1-andrew.cooper3@citrix.com>
+Message-ID: <3056ed85948288639110e3cdd6b28c6e@bugseng.com>
 X-Sender: nicola.vetrini@bugseng.com
 Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
+Content-Type: text/plain; charset=UTF-8;
  format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 2025-08-15 09:00, Dmytro Prokopchuk1 wrote:
-> Fix the following issues:
-> 1. xen/docs/misra/deviations.rst:90: WARNING: Inline interpreted text 
-> or
-> phrase reference start-string without end-string. [docutils]
-> 2. xen/docs/misra/deviations.rst:54: ERROR: Error parsing content block
-> for the "list-table" directive: uniform two-level bullet list expected,
-> but row 6 does not contain the same number of items as row 1 (2 vs 3).
-> * - R2.1
->   - Calls to the `__builtin_unreachable()` function inside the 
-> expansion of
->     the `ASSERT_UNREACHABLE()` macro may cause a function to be marked 
-> as
->     non-returning. This behavior occurs only in configurations where
->     assertions are enabled. To address this, the `noreturn` property 
-> for
->     `__builtin_unreachable()` is overridden in these contexts, 
-> resulting in
->     the absence of reports that do not have an impact on safety, 
-> despite
->     being true positives.
->     Xen expects developers to ensure code remains safe and reliable in 
-> builds,
->     even when debug-only assertions like `ASSERT_UNREACHABLE() are 
-> removed.
-> 3. xen/docs/misra/rules.rst:127: WARNING: Inline interpreted text or 
-> phrase
-> reference start-string without end-string. [docutils]
+On 2025-08-15 00:25, Andrew Cooper wrote:
+> In macros it is common to declare local variables using typeof(param) 
+> in order
+> to ensure that side effects are only evaluated once.  A consequence of 
+> this is
+> double textural expansion of the parameter, which can get out of hand 
+> very
+> quickly with nested macros.
 > 
-> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+> In C23, the auto keyword has been repurposed to perform type inference.
+> 
+> A GCC extension, __auto_type, is now avaialble in the new toolchain 
+> baseline
+> and avoids the double textural expansion.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-I recall that Andrew wanted to add a doc build test to avoid introducing 
-warnings. On that front, with my Sphinx version I also see this build 
-warning:
-
-Running Sphinx v8.1.3
-WARNING: Calling get_html_theme_path is deprecated. If you are calling 
-it to define html_theme_path, you are safe to remove that code.
+with a nit below:
 
 > ---
->  docs/misra/deviations.rst | 3 ++-
->  docs/misra/rules.rst      | 2 +-
->  2 files changed, 3 insertions(+), 2 deletions(-)
+> CC: Anthony PERARD <anthony.perard@vates.tech>
+> CC: Michal Orzel <michal.orzel@amd.com>
+> CC: Jan Beulich <jbeulich@suse.com>
+> CC: Julien Grall <julien@xen.org>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Roberto Bagnara <roberto.bagnara@bugseng.com>
+> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> CC: consulting@bugseng.com <consulting@bugseng.com>
 > 
-> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-> index 3c46a1e47a..2be49076e1 100644
-> --- a/docs/misra/deviations.rst
-> +++ b/docs/misra/deviations.rst
-> @@ -95,7 +95,8 @@ Deviations related to MISRA C:2012 Rules:
->         the absence of reports that do not have an impact on safety, 
-> despite
->         being true positives.
->         Xen expects developers to ensure code remains safe and reliable 
-> in builds,
-> -       even when debug-only assertions like `ASSERT_UNREACHABLE() are 
-> removed.
-> +       even when debug-only assertions like `ASSERT_UNREACHABLE()` are 
-> removed.
-> +     - ECLAIR has been configured to ignore those statements.
+> The resulting build is identical.
 > 
->     * - R2.2
->       - Proving compliance with respect to Rule 2.2 is generally 
-> impossible:
-> diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-> index 6812eb7e8a..382331447e 100644
-> --- a/docs/misra/rules.rst
-> +++ b/docs/misra/rules.rst
-> @@ -124,7 +124,7 @@ maintainers if you want to suggest a change.
->             they are used to generate definitions for asm modules
->           - Declarations without initializer are safe, as they are not
->             executed
-> -         - Functions that are no-return due to calls to the 
-> `ASSERT_UNREACHABLE()'
-> +         - Functions that are no-return due to calls to the 
-> 'ASSERT_UNREACHABLE()'
->             macro in debug build configurations are not considered 
-> violations::
+> v2:
+>  * Use auto directly
+>  * Eclair configuration
 > 
->                static inline bool
+> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1985289434
+> ---
+>  automation/eclair_analysis/ECLAIR/toolchain.ecl | 11 +++++++++--
+>  docs/misra/C-language-toolchain.rst             |  2 ++
+>  xen/include/xen/compiler.h                      | 14 ++++++++++++++
+>  xen/include/xen/macros.h                        | 14 +++++++-------
+>  4 files changed, 32 insertions(+), 9 deletions(-)
+> 
+> diff --git a/automation/eclair_analysis/ECLAIR/toolchain.ecl 
+> b/automation/eclair_analysis/ECLAIR/toolchain.ecl
+> index 842f8377e561..125f99a06583 100644
+> --- a/automation/eclair_analysis/ECLAIR/toolchain.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/toolchain.ecl
+> @@ -15,6 +15,7 @@
+>      __alignof__, __alignof: see Sections \"6.48 Alternate Keywords\" 
+> and \"6.44 Determining the Alignment of Functions, Types or Variables\" 
+> of "GCC_MANUAL".
+>      asm, __asm__: see Sections \"6.48 Alternate Keywords\" and \"6.47 
+> How to Use Inline Assembly Language in C Code\" of "GCC_MANUAL".
+>      __attribute__: see Section \"6.39 Attribute Syntax\" of 
+> "GCC_MANUAL".
+> +    __auto_type: see Section \"6.7 Referring to a Type with typeof\" 
+> of "GCC_MANUAL".
+>      __builtin_offsetof: see Section \"6.53 Support for offsetof\" of 
+> "GCC_MANUAL".
+>      __builtin_types_compatible_p: see Section \"6.59 Other Built-in 
+> Functions Provided by GCC\" of "GCC_MANUAL".
+>      __builtin_va_arg: non-documented GCC extension.
+> @@ -26,6 +27,7 @@
+>  -name_selector+={alignof, "^(__alignof__|__alignof)$"}
+>  -name_selector+={asm, "^(__asm__|asm)$"}
+>  -name_selector+={attribute, "^__attribute__$"}
+> +-name_selector+={auto_type, "^__auto_type$"}
+>  -name_selector+={builtin_offsetof, "^__builtin_offsetof$"}
+>  -name_selector+={builtin_types_p, "^__builtin_types_compatible_p$"}
+>  -name_selector+={builtin_va_arg, "^__builtin_va_arg$"}
+> @@ -39,6 +41,7 @@
+>  "alignof||
+>  asm||
+>  attribute||
+> +auto_type||
+>  builtin_offsetof||
+>  builtin_types_p||
+>  builtin_va_arg||
+> @@ -114,6 +117,7 @@ volatile"
+>  -doc_end
+> 
+>  -doc_begin="
+> +    ext_auto_type: see Section \"6.7 Referring to a Type with typeof\" 
+> of "GCC_MANUAL".
+>      ext_c_missing_varargs_arg: see Section \"6.21 Macros with a 
+> Variable Number of Arguments\" of "GCC_MANUAL".
+>      ext_enum_value_not_int: non-documented GCC extension.
+>      ext_flexible_array_in_array: see Section \"6.18 Arrays of Length 
+> Zero\" of "GCC_MANUAL".
+> @@ -126,6 +130,7 @@ volatile"
+>      ext_return_has_void_expr: see the documentation for -Wreturn-type 
+> in Section \"3.8 Options to Request or Suppress Warnings\" of 
+> "GCC_MANUAL".
+>      ext_sizeof_alignof_void_type: see Section \"6.24 Arithmetic on 
+> void- and Function-Pointers\" of "GCC_MANUAL".
+>  "
+> +-name_selector+={ext_auto_type, "^ext_auto_type$"}
+>  -name_selector+={ext_c_missing_varargs_arg, 
+> "^ext_c_missing_varargs_arg$"}
+>  -name_selector+={ext_enum_value_not_int, "^ext_enum_value_not_int$"}
+>  -name_selector+={ext_flexible_array_in_array, 
+> "^ext_flexible_array_in_array$"}
+> @@ -139,7 +144,8 @@ volatile"
+>  -name_selector+={ext_sizeof_alignof_void_type, 
+> "^ext_sizeof_alignof_void_type$"}
+> 
+>  -config=STD.diag,behavior+={c99,GCC_ARM64,
+> -"ext_c_missing_varargs_arg||
+> +"ext_auto_type||
+> +ext_c_missing_varargs_arg||
+>  ext_forward_ref_enum_def||
+>  ext_gnu_array_range||
+>  ext_gnu_statement_expr_macro||
+> @@ -149,7 +155,8 @@ ext_return_has_void_expr||
+>  ext_sizeof_alignof_void_type"
+>  }
+>  -config=STD.diag,behavior+={c99,GCC_X86_64,
+> -"ext_c_missing_varargs_arg||
+> +"ext_auto_type||
+> +ext_c_missing_varargs_arg||
+>  ext_enum_value_not_int||
+>  ext_flexible_array_in_array||
+>  ext_flexible_array_in_struct||
+> diff --git a/docs/misra/C-language-toolchain.rst 
+> b/docs/misra/C-language-toolchain.rst
+> index cb81f5c09872..635936004554 100644
+> --- a/docs/misra/C-language-toolchain.rst
+> +++ b/docs/misra/C-language-toolchain.rst
+> @@ -94,6 +94,8 @@ The table columns are as follows:
+>            see Sections "6.48 Alternate Keywords" and "6.44 Determining 
+> the Alignment of Functions, Types or Variables" of GCC_MANUAL.
+>         __attribute__:
+>            see Section "6.39 Attribute Syntax" of GCC_MANUAL.
+> +       __auto_type:
+> +          see Section "6.7 Referring to a Type with typeof" of 
+> GCC_MANUAL.
+>         __builtin_types_compatible_p:
+>            see Section "6.59 Other Built-in Functions Provided by GCC" 
+> of GCC_MANUAL.
+>         __builtin_va_arg:
+> diff --git a/xen/include/xen/compiler.h b/xen/include/xen/compiler.h
+> index 88bf26bc5109..38ef5d82ad95 100644
+> --- a/xen/include/xen/compiler.h
+> +++ b/xen/include/xen/compiler.h
+> @@ -64,6 +64,20 @@
+>  # define asm_inline asm
+>  #endif
+> 
+> +/*
+> + * In C23, the auto keyword has been repurposed to perform type 
+> inference.
+> + *
+> + * This behaviour is available via the __auto_type extension in 
+> supported
+> + * toolchains.
+> + *
+> + * 
+> https://www.gnu.org/software/c-intro-and-ref/manual/html_node/Auto-Type.html
+> + * https://clang.llvm.org/docs/LanguageExtensions.html#auto-type
+> + */
+> +#if !defined(__STDC_VERSION__) || __STDC_VERSION__ < 202311L
+> +/* SAF-3-safe MISRA C Rule 20.4: Giving the keyword it's C23 meaning. 
+> */
+> +#define auto __auto_type
+> +#endif
+> +
+
+A more detailed explanation should live in deviations.rst under this 
+bullet point
+
+    * - R20.4
+      - The override of the keyword \"inline\" in xen/compiler.h is 
+present so
+        that section contents checks pass when the compiler chooses not 
+to
+        inline a particular function.
+      - Comment-based deviation.
+
+as described in the SAF entry:
+
+         {
+             "id": "SAF-3-safe",
+             "analyser": {
+                 "eclair": "MC3A2.R20.4"
+             },
+             "name": "MC3A2.R20.4: allow the definition of a macro with 
+the same name as a keyword in some special cases",
+             "text": "The definition of a macro with the same name as a 
+keyword can be useful in certain configurations to improve the 
+guarantees that can be provided by Xen. See docs/misra/deviations.rst 
+for a precise rationale for all such cases."
+         },
+
+
+>  /*
+>   * Add the pseudo keyword 'fallthrough' so case statement blocks
+>   * must end with any of these keywords:
+> diff --git a/xen/include/xen/macros.h b/xen/include/xen/macros.h
+> index f9ccde86fb23..ceca2e4a1bf1 100644
+> --- a/xen/include/xen/macros.h
+> +++ b/xen/include/xen/macros.h
+> @@ -63,18 +63,18 @@
+>  /* Hide a value from the optimiser. */
+>  #define HIDE(x)                                 \
+>      ({                                          \
+> -        typeof(x) _x = (x);                     \
+> +        auto _x = (x);                          \
+>          asm volatile ( "" : "+r" (_x) );        \
+>          _x;                                     \
+>      })
+> 
+>  #define ABS(x) ({                              \
+> -    typeof(x) x_ = (x);                        \
+> +    auto x_ = (x);                             \
+>      (x_ < 0) ? -x_ : x_;                       \
+>  })
+> 
+>  #define SWAP(a, b) \
+> -   do { typeof(a) t_ = (a); (a) = (b); (b) = t_; } while ( 0 )
+> +   do { auto t_ = (a); (a) = (b); (b) = t_; } while ( 0 )
+> 
+>  #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]) + 
+> __must_be_array(x))
+> 
+> @@ -102,15 +102,15 @@
+>   */
+>  #define min(x, y)                               \
+>      ({                                          \
+> -        const typeof(x) _x = (x);               \
+> -        const typeof(y) _y = (y);               \
+> +        const auto _x = (x);                    \
+> +        const auto _y = (y);                    \
+>          (void)(&_x == &_y); /* typecheck */     \
+>          _x < _y ? _x : _y;                      \
+>      })
+>  #define max(x, y)                               \
+>      ({                                          \
+> -        const typeof(x) _x = (x);               \
+> -        const typeof(y) _y = (y);               \
+> +        const auto _x = (x);                    \
+> +        const auto _y = (y);                    \
+>          (void)(&_x == &_y); /* typecheck */     \
+>          _x > _y ? _x : _y;                      \
+>      })
+> 
+> base-commit: b2c0dc44b37516b758c38de04c61ad295ac0dff2
 
 -- 
 Nicola Vetrini, B.Sc.
