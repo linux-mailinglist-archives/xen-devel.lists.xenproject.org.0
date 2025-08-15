@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04BAAB27AD8
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Aug 2025 10:22:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1082942.1442619 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08F44B27ADA
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Aug 2025 10:23:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1082952.1442630 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umphU-0002mO-V7; Fri, 15 Aug 2025 08:22:12 +0000
+	id 1umpis-0003Gf-8l; Fri, 15 Aug 2025 08:23:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1082942.1442619; Fri, 15 Aug 2025 08:22:12 +0000
+Received: by outflank-mailman (output) from mailman id 1082952.1442630; Fri, 15 Aug 2025 08:23:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umphU-0002jq-SQ; Fri, 15 Aug 2025 08:22:12 +0000
-Received: by outflank-mailman (input) for mailman id 1082942;
- Fri, 15 Aug 2025 08:22:11 +0000
+	id 1umpis-0003F4-5h; Fri, 15 Aug 2025 08:23:38 +0000
+Received: by outflank-mailman (input) for mailman id 1082952;
+ Fri, 15 Aug 2025 08:23:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5DW6=23=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1umphT-0002jk-SA
- for xen-devel@lists.xenproject.org; Fri, 15 Aug 2025 08:22:11 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=oFbR=23=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1umpiq-0003Ew-7x
+ for xen-devel@lists.xenproject.org; Fri, 15 Aug 2025 08:23:36 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ef1dc478-79b0-11f0-b898-0df219b8e170;
- Fri, 15 Aug 2025 10:22:08 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-6188b5b11b2so2221375a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 15 Aug 2025 01:22:08 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afcdcfcce74sm86771566b.70.2025.08.15.01.22.07
+ id 22526d4d-79b1-11f0-b898-0df219b8e170;
+ Fri, 15 Aug 2025 10:23:34 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3b9e413a219so1444141f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Aug 2025 01:23:34 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45a1c748a9esm49585255e9.19.2025.08.15.01.23.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Aug 2025 01:22:07 -0700 (PDT)
+ Fri, 15 Aug 2025 01:23:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,116 +45,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef1dc478-79b0-11f0-b898-0df219b8e170
+X-Inumbo-ID: 22526d4d-79b1-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755246128; x=1755850928; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1755246213; x=1755851013; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=FicuPYQ+5C0gzJB+7lhCWVOUMKux/rD98bas8hJhuOs=;
-        b=CQF/ANW0gCp5Vpe5KyCq3bJjpSBAVjE8ASzJOqGXTW0xZJYUc3eoqNH4i8QYxsjnDm
-         wyP448gELVGf7n3Ij0df5tdci3Rl0gE081vuqnjfwP6PDtHp15mXcBPFSSdROF9I3Onw
-         2QcfYvY4zMYHfn8CXAj+K6R/l7RMjfZODs6N3j09M1lRlTVWBT+EQP76uTHZr9rtdnOS
-         dHRwccrKnaX3VGca78GTQyLnUOHjhFiayxzlqaxgb2yp+SHR5avEFMhH/QpFqqS5qRKf
-         lwnl9zVPCgjlkvKvwdrRceYPFBpkih6LLkBJNux4XCBWF3IouSEjUqALYhfxJOqoaTRD
-         L02g==
+        bh=1KbG4WpTRqhtC6im1pjbQasRJ4zCXOuj0sRVv8P1oe4=;
+        b=Z1lV2MbYTThlfqx0tPjJyepcN5j88SIYceYfiikoMMO3D+19VpLgB+fbLK7ffwiJsy
+         wMrB5GabtUbgX7bVGy6Qyk2AHsxowGAe2CXy09/2n0E4rawr+I2Rh7TPstrDUAN5UrQB
+         ylaIx3NvcN4uhRxTESQr+W0w8javZJm9hiKj0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755246128; x=1755850928;
+        d=1e100.net; s=20230601; t=1755246213; x=1755851013;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FicuPYQ+5C0gzJB+7lhCWVOUMKux/rD98bas8hJhuOs=;
-        b=QORoL5NUYzJY/kAtIbF5vO5D8aAzmKt6YyIDDiCTFfoV7P1mYgLN3v/4rZw7hV80un
-         5FNvmErgFe4JIvr8j2/fUjhcyjW787BDmQq50HKRnS3AHKmL7Fj0EH8KZVfBor9JlaBW
-         CWxHNeb6/BXo/UvgcIurtDWOn3CcdvmOI/YoK6qOw4V47av1A0SWIt/aAvi0VvihwB1i
-         0CSsJ8PCXqe1Uij2ZOullb+BP5DKNw8BmRJekuffq6pcfBaainHg1j7Lg6FLSyjxy+4y
-         cNkHkdEeqApLujDNewgNNWHhknsTgfMQ87F63uV6OZwO7cFCZY90RgDitRcaIsRLA15H
-         w1Ag==
-X-Forwarded-Encrypted: i=1; AJvYcCUwuBG//LovLl0qTjRUXgO30s1mw/XAFH9WiCZ+4cM+YocpUpwoxq6d2K1S5pqElbfPzbMNLygLphc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxAVCR+jf0Bl32c4Ywj6BdYjIIOlKQzVJKl4IJbpYpyFIoDe1Nl
-	MFwFf8qn9nKbVLlRG9VRLUllgn47mYssSBVq5X7d1kivi1vKy38wwxU8shufYIY7ug==
-X-Gm-Gg: ASbGncurEJ9faZ00UwUpHmWeDzd21GCqG2be2MmdsmI0ToeC0xNTwj9Ra3w8Y1mBAIN
-	PCfz/NQb5w/Wu5+KxkZgUwzJBVvcsDndpfe5D4q2iDoXgGNM0o6HU16rZN56j7kQ6PTIWs+HZY3
-	vjTP0YNCM2DyDPw17PC8Le0ZfKTtio/IaONMM1nldDymtv8SoGDqCuHVcTBRh2Wqp05Ev/4ke5a
-	3ELTayYJ/y2abUqYSswvTynZ/B/tnAxkVcqWZjuEbLNX2K6tD1o7E5Q4t4Gf5EY02xPvfmvDkW5
-	Emg8O6r0OJiqFyVvKllYrFjCAKpM+guSBaHKALmzoHbVB1DLWVSgWpVFOtwBD08PArrazLx5Dt4
-	0dmRFSNF/B6ri7X31h4VH1k6WmIhwPDc7JAB87GnUc2rnv7DU45YltHN1S8Os3nEnqajCk1Tr+w
-	G1kmHHgXGPWqtRBMUd7g==
-X-Google-Smtp-Source: AGHT+IEEGzfvZlFG9jwdVm5SXpogJTGqn+2ywMgCSU+x22t3Sl8pmaFUrvDjCJoiPNLgVVL1Lqbm9A==
-X-Received: by 2002:a17:907:70c:b0:af2:4769:8917 with SMTP id a640c23a62f3a-afcdc24e050mr78524866b.37.1755246127676;
-        Fri, 15 Aug 2025 01:22:07 -0700 (PDT)
-Message-ID: <0e9878a9-fb0d-4d18-ab15-eb248629b192@suse.com>
-Date: Fri, 15 Aug 2025 10:22:06 +0200
+        bh=1KbG4WpTRqhtC6im1pjbQasRJ4zCXOuj0sRVv8P1oe4=;
+        b=AliNHldveT1a+aVAv+CqzLgGaVgC1yXLWmRYFv2OBGix/0ajniNEDsi6+e/e1NG2yo
+         BHTh1Euj5Qr3IO1mUMVpvHknAKSSnZ9UtBCp0TVxzWk8G6VxHG+zeYS2/hGfCAEEQeQs
+         uqqHWTaGnR4cOJcZxGjXxlplCb6HI1EIM0aVlzQzHTDYzBbsfWOeOEcwY/R71M1bslHE
+         G02JHuEsXYGwTXCmQdgpQfgRpO59rBYodRVQQO0pO92o1ConAyjkjkHN66M6B1Nr5dj6
+         bjm3KlEAvmsxqzQMpCwU36DFSmDZgxak/M8amZoGru/8/LUUYuDcKEuIILm9hbQTjSLr
+         9HUg==
+X-Gm-Message-State: AOJu0YziYN8mESFxeG9WRLUN+1xKdSX6y1P18LjwjcUwXemArr4ZUH5A
+	MtSbqE71j3fb6Om7GKkG8pwBOEAQWB0quZHrShumUTYFh+owl47NYQUfUk77gp6qkNY=
+X-Gm-Gg: ASbGncvlyM0fwC+q9Mv0dbqjVuod5b6NAC1MU4lv52Lp18w5bT3fOxVfrNekgyaDMvJ
+	nPmIP8tEeQb72oD1fysnrgJsSSDoLmP2MmzACfkDTVkOvS9bLLTdk2a1aNfJouBWQUDjmIRY3Gz
+	MAA5laOIpMzmYEKJ8294iQtFFi62aOwed5m1nDJUbYbjCJVdfGtcPT0KkIJUhGrfzvqS3/oqfn3
+	HxBtXCddfFzUEbJt63S8ALy8WeRNw1YKzD5PLjwlZImPtSq122WC9qB1B2t04oXjpPiGme390yV
+	WBZA9hYt9QErDyhYpaRpQLcmmSGIFxFxrFmo3zQSpnoiwXKwZaWEVTGg9Y66Yrg1fVeqLYAP+R1
+	oQe1choyRLK7aa1IYr+YjBGRL0F2P1givl8RlGXxZuDhNs9DevEHWX74UnoZQglGsrhkc
+X-Google-Smtp-Source: AGHT+IGxm0RZ6o1a/9yLO+N7zXkYQMf3GJmBb3oyOL0vnFlNCIxKIAmjWvdV/3zGR3qqY6MoJ7CxJQ==
+X-Received: by 2002:a5d:5f53:0:b0:3b8:d3ae:26e with SMTP id ffacd0b85a97d-3bb69b7d31emr661059f8f.53.1755246213536;
+        Fri, 15 Aug 2025 01:23:33 -0700 (PDT)
+Message-ID: <0a6576e2-183c-4411-8920-3930eb4ff6c9@citrix.com>
+Date: Fri, 15 Aug 2025 09:23:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/22] x86/traps: Move load_system_tables() into
- traps-setup.c
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
- <20250808202314.1045968-10-andrew.cooper3@citrix.com>
- <a4a88d7a-8c1f-4170-a1fe-afafcad0c8ea@suse.com>
- <9e955bff-c145-4a52-af4f-a7055fc9aa67@citrix.com>
- <8e0b4a82-3189-4446-96a8-921d8ae44a21@suse.com>
- <5def44a3-4139-4870-94f2-cb895078f968@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5def44a3-4139-4870-94f2-cb895078f968@citrix.com>
+Subject: Re: [PATCH] docs/misra: fix sphinx-build issues
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <fb809a94e8a50bd3a59aa47ee1832c61af8a9f40.1755241166.git.dmytro_prokopchuk1@epam.com>
+ <c7d9513dfc7201c5d3c6e6cbd99db481@bugseng.com>
+ <77912fca-8bf2-43f5-8049-de4cdc3ec82d@epam.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <77912fca-8bf2-43f5-8049-de4cdc3ec82d@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14.08.2025 20:09, Andrew Cooper wrote:
-> On 14/08/2025 9:55 am, Jan Beulich wrote:
->> On 13.08.2025 13:25, Andrew Cooper wrote:
->>> On 12/08/2025 10:19 am, Jan Beulich wrote:
->>>> On 08.08.2025 22:23, Andrew Cooper wrote:
->>>>> Since commit a35816b5cae8 ("x86/traps: Introduce early_traps_init() and
->>>>> simplify setup"), load_system_tables() is called later on the BSP, so the
->>>>> SYS_STATE_early_boot check can be dropped from the safety BUG_ON().
->>>>>
->>>>> Move the BUILD_BUG_ON() into build_assertions(),
->>>> I'm not quite convinced of this move - having the related BUILD_BUG_ON()
->>>> and BUG_ON() next to each other would seem better to me.
->>> I don't see a specific reason for them to be together, and the comment
->>> explains what's going on.
+On 15/08/2025 8:28 am, Dmytro Prokopchuk1 wrote:
+>
+> On 8/15/25 10:09, Nicola Vetrini wrote:
+>> On 2025-08-15 09:00, Dmytro Prokopchuk1 wrote:
+>>> Fix the following issues:
+>>> 1. xen/docs/misra/deviations.rst:90: WARNING: Inline interpreted text or
+>>> phrase reference start-string without end-string. [docutils]
+>>> 2. xen/docs/misra/deviations.rst:54: ERROR: Error parsing content block
+>>> for the "list-table" directive: uniform two-level bullet list expected,
+>>> but row 6 does not contain the same number of items as row 1 (2 vs 3).
+>>> * - R2.1
+>>>   - Calls to the `__builtin_unreachable()` function inside the 
+>>> expansion of
+>>>     the `ASSERT_UNREACHABLE()` macro may cause a function to be marked as
+>>>     non-returning. This behavior occurs only in configurations where
+>>>     assertions are enabled. To address this, the `noreturn` property for
+>>>     `__builtin_unreachable()` is overridden in these contexts, 
+>>> resulting in
+>>>     the absence of reports that do not have an impact on safety, despite
+>>>     being true positives.
+>>>     Xen expects developers to ensure code remains safe and reliable in 
+>>> builds,
+>>>     even when debug-only assertions like `ASSERT_UNREACHABLE() are 
+>>> removed.
+>>> 3. xen/docs/misra/rules.rst:127: WARNING: Inline interpreted text or 
+>>> phrase
+>>> reference start-string without end-string. [docutils]
 >>>
->>> With FRED, we want a related BUILD_BUG_ON(), but there's no equivalent
->>> BUG_ON() because MSR_RSP_SL0 will #GP on being misaligned.
->> That BUILD_BUG_ON() could then sit next to the MSR write? Unless of course
->> that ends up sitting in an assembly source.
-> 
-> It's the bottom hunk in patch 14, which you've looked at now.
-> 
-> Personally, I think both BUILD_BUG_ON()'s should be together, because
-> they are related.
+>>> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+>> Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-I don't really agree, but I also won't insist on my preference to be followed.
-IOW please keep as is.
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Jan
+>>
+>> I recall that Andrew wanted to add a doc build test to avoid introducing 
+>> warnings.
+
+Yes I do, but sadly still on my TODO list.
+
+>>  On that front, with my Sphinx version I also see this build 
+>> warning:
+>>
+>> Running Sphinx v8.1.3
+>> WARNING: Calling get_html_theme_path is deprecated. If you are calling 
+>> it to define html_theme_path, you are safe to remove that code.
+>>
+> Yes, I see the same warning on my end.
+> Need to address that in docs/conf.py as well.
+
+IIRC, this needs ignoring for now.  It is still required in the minimum
+Sphinx version we support.
+
+~Andrew
 
