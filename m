@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84672B27F1C
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Aug 2025 13:22:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1083311.1442926 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24E78B27F46
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Aug 2025 13:36:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1083330.1442960 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umsVa-0000lt-9V; Fri, 15 Aug 2025 11:22:06 +0000
+	id 1umsjC-0002pe-O7; Fri, 15 Aug 2025 11:36:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1083311.1442926; Fri, 15 Aug 2025 11:22:06 +0000
+Received: by outflank-mailman (output) from mailman id 1083330.1442960; Fri, 15 Aug 2025 11:36:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umsVa-0000jN-6Z; Fri, 15 Aug 2025 11:22:06 +0000
-Received: by outflank-mailman (input) for mailman id 1083311;
- Fri, 15 Aug 2025 11:22:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1umsjC-0002mY-Ku; Fri, 15 Aug 2025 11:36:10 +0000
+Received: by outflank-mailman (input) for mailman id 1083330;
+ Fri, 15 Aug 2025 11:36:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oFbR=23=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1umsVY-0000jA-8e
- for xen-devel@lists.xenproject.org; Fri, 15 Aug 2025 11:22:04 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0bfa693d-79ca-11f0-b898-0df219b8e170;
- Fri, 15 Aug 2025 13:21:54 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3b9d41bfa35so1559636f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 15 Aug 2025 04:21:54 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3bb7f02578dsm1511171f8f.62.2025.08.15.04.21.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Aug 2025 04:21:53 -0700 (PDT)
+ <SRS0=RDBg=23=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1umsjB-0002mS-PE
+ for xen-devel@lists.xenproject.org; Fri, 15 Aug 2025 11:36:09 +0000
+Received: from mail-oo1-xc2b.google.com (mail-oo1-xc2b.google.com
+ [2607:f8b0:4864:20::c2b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 078cd27f-79cc-11f0-a328-13f23c93f187;
+ Fri, 15 Aug 2025 13:36:06 +0200 (CEST)
+Received: by mail-oo1-xc2b.google.com with SMTP id
+ 006d021491bc7-61bd4ba9fafso597672eaf.0
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Aug 2025 04:36:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,127 +40,279 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0bfa693d-79ca-11f0-b898-0df219b8e170
+X-Inumbo-ID: 078cd27f-79cc-11f0-a328-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755256913; x=1755861713; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=g6YkzUBDYEfpcZ37KsMoLWm73oRdBRcB99+AtHrh2GU=;
-        b=wWm+CyPXYTq1Zjgnj4u0hnzqpmfzeIljNlRgJTOw4nxQGn8lp16iTyd4DGB8H4fZJV
-         GsmjbBXsiJr0wUAgXbWaap37yaV/SDqrdzgFnTp22vPl+l7dulb9vqxqgSmuesB0Xiu+
-         RKoEOW0JPHDRJccyzw7pa6Vj1l5zrJGUk4x68=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755256913; x=1755861713;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1755257765; x=1755862565; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=g6YkzUBDYEfpcZ37KsMoLWm73oRdBRcB99+AtHrh2GU=;
-        b=a3GA5HI3ewWWoeONX6S6rkMCI4KXuhb7xstRW3Ytia49Ke9XpEFMrINg56ZbvjWr38
-         xoAwNW/lXT4jm15fdf4SEA/M2E6E95ERV4tigHVJ+VR73D3JCuUR/0YYtsj+6hreRU4x
-         dlAco5zxz2plJk+3gjVbtYRPPuEsJufbHhzqL9IkTdelqlNU0b0LYTLaMFA+V4lg/SqE
-         2f6ADS4syEuQ1ibRwRQtBcoTnJNH0Xs/IWqgZ4II3yeXmNo0te60mYZZe3s+tvkwUITx
-         EVKmROUvr43cnTSYLZBFRi4ypjYO//aWY1cA569oXKbtc8ruKRdD9oai0gEWaVenCHLu
-         RBDQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXhogRsTMkQGEysCDM4ky/K9tRcUItjS0IzYvTN7w/mun2A5iSU4c6gudMDmDhxJUW89gnbsWUm97Q=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwtBMu3lq4XNgAQjyc9gW+F2c1u2f+EyyLdFWJF9bsY2SHbLVaU
-	i9onsJiP5xeR9NkvlIxqxlOmrEaYu8yPtob7JDbhrGxxPv7gosL5L7Sgo5TMaZdnaRc=
-X-Gm-Gg: ASbGnctdNp57OSY/nL9ZZAd4i3Uo7KsfFRt5Jf4qItvmV9J5Ha0IRW3069rWJ5SqnrR
-	DhxrPIDN0hi/qFEuG/SrsA7cSjGD3x1Tql2disAKsU+IzPglyVWppBi4hVBdUXXcJn+T4Q4xsOW
-	yPc61Bq3x40HXxDIFP6GEe62IW5W/nNVfAdbhJJx3ak+4SrMMr8oQFZpZFFNv6l2Y+Xziksg55O
-	76JXT+HYlbmAXKrRbIAu7C2e++KCCShbvWdse7P68YSoGDbt1hVni/nrbKyvqIjiPI9XurwwiAk
-	058vtJ6NdkiHXI0nBUstXcwmOAn8F6hEFWtZwlms8tgVxSKuB12m6q3///BXznIsz1J9ilpzWVb
-	LiygOiwzRnnyIAsDpichrpfMNJyI8YfEdV24IlWHhe528oU9nK2bbQqJRc6b863/nPQ8q
-X-Google-Smtp-Source: AGHT+IFfkdHY8BsuzhT300ypF3WNgHFlTSYk7vVtZDaxyOBKH2RTblyZteQXSU6sFewxVk2b0v+X7w==
-X-Received: by 2002:a05:600c:3513:b0:456:e39:ec1a with SMTP id 5b1f17b1804b1-45a21804c69mr12577105e9.14.1755256913434;
-        Fri, 15 Aug 2025 04:21:53 -0700 (PDT)
-Message-ID: <37206bd7-b455-499a-9632-f435ab87888e@citrix.com>
-Date: Fri, 15 Aug 2025 12:21:52 +0100
+        bh=88s+LwtH5M8MvWXP+YQs20eZKOWUrlWO3DOfhaSJxSo=;
+        b=B/aSC5AlJK4gUafsPd6bD5T8BvUdmGLHCQwil4cX18RhKaBga2RH3+saW6VitBchwh
+         tF3i3r9itpAOWoiPAotFKEa0RGa7QCwfoIfQME3nA47UejF4Jo1cI2wc2dCg2UQ+0SZK
+         X+3Yq3L3VjbMqI4voKx6JMRWPvcViDSbeZYnY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1755257765; x=1755862565;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=88s+LwtH5M8MvWXP+YQs20eZKOWUrlWO3DOfhaSJxSo=;
+        b=SyIaZXSOeMAp060k/0mFJUdMo/oF1dUXFGnNIy6eHOO0X9s0KjWup9m1ckWl9MgTls
+         OIPRaeKINiYics5fPvFJBMn24dZNIDdXbPPYZO7c5obk2YlTu58kmcQxRso5UmNYkh9p
+         4cMv2EEvEID/mtbpZ5XB8PEltSkl6VAKYiocqpwCDIzF9xilPJuSzEHTbJXYjRga0Y9L
+         5gHkPn6l3zFQFYC4laVSGfG1lWLgx7XTA2ty7HimLdGDl1zhmBlotwFj9y/qHgmnbl15
+         O+Ywrm7JZCCtJEjgbnmNsl4iJkBN907UXYw5m9cxZiyb2fCibTCoLC3OYC4bD+mI0UVA
+         aSyQ==
+X-Gm-Message-State: AOJu0YwvQs5Jo1qkrPGxRnOEhnXMug9fl7iOoW1uIa8bbfS4WqzKA5aw
+	6K/pMibjHnihbhHPZ6qk1Uz5r8yxmSp3libwLUbfOmeWb6AuH3SK7DDgVJQnCMKFCEPSOWgrza7
+	zMqShhuQDaLCmahHzA7wc5YX/PHyBKsf/2dLcYWrJCA==
+X-Gm-Gg: ASbGncsB0mVvjIG2eKnXUWh4YKDN7aB2ILrsLOzETrRUmlPUDha1bqVviTj4569ZV5H
+	Gwb1O3n2DzCHXfYsI5X7nAtP5lbL0Vn/1mvedSws0wL0dJKPZ89qS6UbvX72HOogwtP9hspMFRZ
+	GDuwQ8893TBHEsgWXZzZp8GscZ/hdgeBBo1TIoZaFyGHmT+rAr09Qg4+wyI2kyWwhJgqVkISvuA
+	oNLYRI=
+X-Google-Smtp-Source: AGHT+IEuoINvLaaUyfbos5t52MXcUB7aOp+Pe5YN7OAe7VOwYXMmTVg9v+DTOZG6pY4XLullwHxxPzEq8QTyoMk6Aus=
+X-Received: by 2002:a05:6820:228d:b0:61b:d93c:eb30 with SMTP id
+ 006d021491bc7-61beac2af48mr1006698eaf.7.1755257765144; Fri, 15 Aug 2025
+ 04:36:05 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] xsm/flask: add AVC pre-allocation boot parameter
-To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Stefano Stabellini <stefano.stabellini@amd.com>
-References: <20250815102330.778749-1-Sergiy_Kibrik@epam.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20250815102330.778749-1-Sergiy_Kibrik@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20250814222524.2638883-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20250814222524.2638883-1-andrew.cooper3@citrix.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Fri, 15 Aug 2025 12:35:54 +0100
+X-Gm-Features: Ac12FXzeqTLRUVPyFsJhJ7p1Y3OIqvB6iO0MHD6jYJtqRE7ObzkwnvR7CChn8ik
+Message-ID: <CACHz=ZhFgyy4GoZEge1wJahdq=F8bSiU+dNubqEMj6n_Myzydg@mail.gmail.com>
+Subject: Re: [PATCH v2] xen: Use auto as per C23
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Roberto Bagnara <roberto.bagnara@bugseng.com>, 
+	Nicola Vetrini <nicola.vetrini@bugseng.com>, 
+	"consulting @ bugseng . com" <consulting@bugseng.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 15/08/2025 11:23 am, Sergiy Kibrik wrote:
-> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-> index a75b6c9301..9044827e78 100644
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -238,6 +238,15 @@ loops for Queued Invalidation completions.**
->  Specify a maximum amount of available memory, to which Xen will clamp
->  the e820 table.
->  
-> +### avc_prealloc
-> +> `= <boolean>`
+On Thu, Aug 14, 2025 at 11:25=E2=80=AFPM Andrew Cooper
+<andrew.cooper3@citrix.com> wrote:
+>
+> In macros it is common to declare local variables using typeof(param) in =
+order
+> to ensure that side effects are only evaluated once.  A consequence of th=
+is is
+> double textural expansion of the parameter, which can get out of hand ver=
+y
+> quickly with nested macros.
+>
+> In C23, the auto keyword has been repurposed to perform type inference.
+>
+> A GCC extension, __auto_type, is now avaialble in the new toolchain basel=
+ine
+> and avoids the double textural expansion.
+>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Anthony PERARD <anthony.perard@vates.tech>
+> CC: Michal Orzel <michal.orzel@amd.com>
+> CC: Jan Beulich <jbeulich@suse.com>
+> CC: Julien Grall <julien@xen.org>
+> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Roberto Bagnara <roberto.bagnara@bugseng.com>
+> CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> CC: consulting@bugseng.com <consulting@bugseng.com>
+>
+> The resulting build is identical.
+>
+> v2:
+>  * Use auto directly
+>  * Eclair configuration
+>
+> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/198528943=
+4
+> ---
+>  automation/eclair_analysis/ECLAIR/toolchain.ecl | 11 +++++++++--
+>  docs/misra/C-language-toolchain.rst             |  2 ++
+>  xen/include/xen/compiler.h                      | 14 ++++++++++++++
+>  xen/include/xen/macros.h                        | 14 +++++++-------
+>  4 files changed, 32 insertions(+), 9 deletions(-)
+>
+> diff --git a/automation/eclair_analysis/ECLAIR/toolchain.ecl b/automation=
+/eclair_analysis/ECLAIR/toolchain.ecl
+> index 842f8377e561..125f99a06583 100644
+> --- a/automation/eclair_analysis/ECLAIR/toolchain.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/toolchain.ecl
+> @@ -15,6 +15,7 @@
+>      __alignof__, __alignof: see Sections \"6.48 Alternate Keywords\" and=
+ \"6.44 Determining the Alignment of Functions, Types or Variables\" of "GC=
+C_MANUAL".
+>      asm, __asm__: see Sections \"6.48 Alternate Keywords\" and \"6.47 Ho=
+w to Use Inline Assembly Language in C Code\" of "GCC_MANUAL".
+>      __attribute__: see Section \"6.39 Attribute Syntax\" of "GCC_MANUAL"=
+.
+> +    __auto_type: see Section \"6.7 Referring to a Type with typeof\" of =
+"GCC_MANUAL".
+>      __builtin_offsetof: see Section \"6.53 Support for offsetof\" of "GC=
+C_MANUAL".
+>      __builtin_types_compatible_p: see Section \"6.59 Other Built-in Func=
+tions Provided by GCC\" of "GCC_MANUAL".
+>      __builtin_va_arg: non-documented GCC extension.
+> @@ -26,6 +27,7 @@
+>  -name_selector+=3D{alignof, "^(__alignof__|__alignof)$"}
+>  -name_selector+=3D{asm, "^(__asm__|asm)$"}
+>  -name_selector+=3D{attribute, "^__attribute__$"}
+> +-name_selector+=3D{auto_type, "^__auto_type$"}
+>  -name_selector+=3D{builtin_offsetof, "^__builtin_offsetof$"}
+>  -name_selector+=3D{builtin_types_p, "^__builtin_types_compatible_p$"}
+>  -name_selector+=3D{builtin_va_arg, "^__builtin_va_arg$"}
+> @@ -39,6 +41,7 @@
+>  "alignof||
+>  asm||
+>  attribute||
+> +auto_type||
+>  builtin_offsetof||
+>  builtin_types_p||
+>  builtin_va_arg||
+> @@ -114,6 +117,7 @@ volatile"
+>  -doc_end
+>
+>  -doc_begin=3D"
+> +    ext_auto_type: see Section \"6.7 Referring to a Type with typeof\" o=
+f "GCC_MANUAL".
+>      ext_c_missing_varargs_arg: see Section \"6.21 Macros with a Variable=
+ Number of Arguments\" of "GCC_MANUAL".
+>      ext_enum_value_not_int: non-documented GCC extension.
+>      ext_flexible_array_in_array: see Section \"6.18 Arrays of Length Zer=
+o\" of "GCC_MANUAL".
+> @@ -126,6 +130,7 @@ volatile"
+>      ext_return_has_void_expr: see the documentation for -Wreturn-type in=
+ Section \"3.8 Options to Request or Suppress Warnings\" of "GCC_MANUAL".
+>      ext_sizeof_alignof_void_type: see Section \"6.24 Arithmetic on void-=
+ and Function-Pointers\" of "GCC_MANUAL".
+>  "
+> +-name_selector+=3D{ext_auto_type, "^ext_auto_type$"}
+>  -name_selector+=3D{ext_c_missing_varargs_arg, "^ext_c_missing_varargs_ar=
+g$"}
+>  -name_selector+=3D{ext_enum_value_not_int, "^ext_enum_value_not_int$"}
+>  -name_selector+=3D{ext_flexible_array_in_array, "^ext_flexible_array_in_=
+array$"}
+> @@ -139,7 +144,8 @@ volatile"
+>  -name_selector+=3D{ext_sizeof_alignof_void_type, "^ext_sizeof_alignof_vo=
+id_type$"}
+>
+>  -config=3DSTD.diag,behavior+=3D{c99,GCC_ARM64,
+> -"ext_c_missing_varargs_arg||
+> +"ext_auto_type||
+> +ext_c_missing_varargs_arg||
+>  ext_forward_ref_enum_def||
+>  ext_gnu_array_range||
+>  ext_gnu_statement_expr_macro||
+> @@ -149,7 +155,8 @@ ext_return_has_void_expr||
+>  ext_sizeof_alignof_void_type"
+>  }
+>  -config=3DSTD.diag,behavior+=3D{c99,GCC_X86_64,
+> -"ext_c_missing_varargs_arg||
+> +"ext_auto_type||
+> +ext_c_missing_varargs_arg||
+>  ext_enum_value_not_int||
+>  ext_flexible_array_in_array||
+>  ext_flexible_array_in_struct||
+> diff --git a/docs/misra/C-language-toolchain.rst b/docs/misra/C-language-=
+toolchain.rst
+> index cb81f5c09872..635936004554 100644
+> --- a/docs/misra/C-language-toolchain.rst
+> +++ b/docs/misra/C-language-toolchain.rst
+> @@ -94,6 +94,8 @@ The table columns are as follows:
+>            see Sections "6.48 Alternate Keywords" and "6.44 Determining t=
+he Alignment of Functions, Types or Variables" of GCC_MANUAL.
+>         __attribute__:
+>            see Section "6.39 Attribute Syntax" of GCC_MANUAL.
+> +       __auto_type:
+> +          see Section "6.7 Referring to a Type with typeof" of GCC_MANUA=
+L.
+>         __builtin_types_compatible_p:
+>            see Section "6.59 Other Built-in Functions Provided by GCC" of=
+ GCC_MANUAL.
+>         __builtin_va_arg:
+> diff --git a/xen/include/xen/compiler.h b/xen/include/xen/compiler.h
+> index 88bf26bc5109..38ef5d82ad95 100644
+> --- a/xen/include/xen/compiler.h
+> +++ b/xen/include/xen/compiler.h
+> @@ -64,6 +64,20 @@
+>  # define asm_inline asm
+>  #endif
+>
+> +/*
+> + * In C23, the auto keyword has been repurposed to perform type inferenc=
+e.
+> + *
+> + * This behaviour is available via the __auto_type extension in supporte=
+d
+> + * toolchains.
+> + *
+> + * https://www.gnu.org/software/c-intro-and-ref/manual/html_node/Auto-Ty=
+pe.html
+> + * https://clang.llvm.org/docs/LanguageExtensions.html#auto-type
+> + */
+> +#if !defined(__STDC_VERSION__) || __STDC_VERSION__ < 202311L
+> +/* SAF-3-safe MISRA C Rule 20.4: Giving the keyword it's C23 meaning. */
+> +#define auto __auto_type
+> +#endif
 > +
-> +> Default: `false`
-> +
-> +Allocate XSM Access Vector Cache at boot. This forbids runtime dynamic
-> +allocation of AVC nodes from Xen heap and changing AVC size via
-> +FLASK_SETAVC_THRESHOLD hypercall.
+>  /*
+>   * Add the pseudo keyword 'fallthrough' so case statement blocks
+>   * must end with any of these keywords:
+> diff --git a/xen/include/xen/macros.h b/xen/include/xen/macros.h
+> index f9ccde86fb23..ceca2e4a1bf1 100644
+> --- a/xen/include/xen/macros.h
+> +++ b/xen/include/xen/macros.h
+> @@ -63,18 +63,18 @@
+>  /* Hide a value from the optimiser. */
+>  #define HIDE(x)                                 \
+>      ({                                          \
+> -        typeof(x) _x =3D (x);                     \
+> +        auto _x =3D (x);                          \
+>          asm volatile ( "" : "+r" (_x) );        \
+>          _x;                                     \
+>      })
+>
+>  #define ABS(x) ({                              \
+> -    typeof(x) x_ =3D (x);                        \
+> +    auto x_ =3D (x);                             \
+>      (x_ < 0) ? -x_ : x_;                       \
+>  })
+>
+>  #define SWAP(a, b) \
+> -   do { typeof(a) t_ =3D (a); (a) =3D (b); (b) =3D t_; } while ( 0 )
+> +   do { auto t_ =3D (a); (a) =3D (b); (b) =3D t_; } while ( 0 )
+>
+>  #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]) + __must_be_array(x))
+>
+> @@ -102,15 +102,15 @@
+>   */
+>  #define min(x, y)                               \
+>      ({                                          \
+> -        const typeof(x) _x =3D (x);               \
+> -        const typeof(y) _y =3D (y);               \
+> +        const auto _x =3D (x);                    \
+> +        const auto _y =3D (y);                    \
+>          (void)(&_x =3D=3D &_y); /* typecheck */     \
+>          _x < _y ? _x : _y;                      \
+>      })
+>  #define max(x, y)                               \
+>      ({                                          \
+> -        const typeof(x) _x =3D (x);               \
+> -        const typeof(y) _y =3D (y);               \
+> +        const auto _x =3D (x);                    \
+> +        const auto _y =3D (y);                    \
+>          (void)(&_x =3D=3D &_y); /* typecheck */     \
+>          _x > _y ? _x : _y;                      \
+>      })
+>
+> base-commit: b2c0dc44b37516b758c38de04c61ad295ac0dff2
 
-I don't have any input on memory allocation side of things, but this
-needs to be a sub-option under the existing flask=, and it looks like
-you're going to need to turn it into a comma separated list.
+Thanks for the change, nice to have it.
 
-Also, if you actually want to use Flask in a safety system, Flask needs
-to become security supported in Xen.
+Reviewed-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 
-~Andrew
+Frediano
 
