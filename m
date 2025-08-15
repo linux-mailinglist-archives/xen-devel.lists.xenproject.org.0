@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08F44B27ADA
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Aug 2025 10:23:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1082952.1442630 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 720FAB27AF3
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Aug 2025 10:28:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1082962.1442640 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umpis-0003Gf-8l; Fri, 15 Aug 2025 08:23:38 +0000
+	id 1umpnZ-0003qR-PD; Fri, 15 Aug 2025 08:28:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1082952.1442630; Fri, 15 Aug 2025 08:23:38 +0000
+Received: by outflank-mailman (output) from mailman id 1082962.1442640; Fri, 15 Aug 2025 08:28:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umpis-0003F4-5h; Fri, 15 Aug 2025 08:23:38 +0000
-Received: by outflank-mailman (input) for mailman id 1082952;
- Fri, 15 Aug 2025 08:23:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1umpnZ-0003ou-MK; Fri, 15 Aug 2025 08:28:29 +0000
+Received: by outflank-mailman (input) for mailman id 1082962;
+ Fri, 15 Aug 2025 08:28:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=oFbR=23=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1umpiq-0003Ew-7x
- for xen-devel@lists.xenproject.org; Fri, 15 Aug 2025 08:23:36 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 22526d4d-79b1-11f0-b898-0df219b8e170;
- Fri, 15 Aug 2025 10:23:34 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3b9e413a219so1444141f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 15 Aug 2025 01:23:34 -0700 (PDT)
+ id 1umpnY-0003oo-95
+ for xen-devel@lists.xenproject.org; Fri, 15 Aug 2025 08:28:28 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d1032b6a-79b1-11f0-a328-13f23c93f187;
+ Fri, 15 Aug 2025 10:28:27 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-45a1b05fe23so9468945e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Aug 2025 01:28:27 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45a1c748a9esm49585255e9.19.2025.08.15.01.23.32
+ 5b1f17b1804b1-45a1cda0021sm47814355e9.13.2025.08.15.01.28.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Aug 2025 01:23:33 -0700 (PDT)
+ Fri, 15 Aug 2025 01:28:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22526d4d-79b1-11f0-b898-0df219b8e170
+X-Inumbo-ID: d1032b6a-79b1-11f0-a328-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755246213; x=1755851013; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1755246507; x=1755851307; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1KbG4WpTRqhtC6im1pjbQasRJ4zCXOuj0sRVv8P1oe4=;
-        b=Z1lV2MbYTThlfqx0tPjJyepcN5j88SIYceYfiikoMMO3D+19VpLgB+fbLK7ffwiJsy
-         wMrB5GabtUbgX7bVGy6Qyk2AHsxowGAe2CXy09/2n0E4rawr+I2Rh7TPstrDUAN5UrQB
-         ylaIx3NvcN4uhRxTESQr+W0w8javZJm9hiKj0=
+        bh=MqJ92Se36d2J1W6EeVLUW+3FLWK0HcX3Of0xKvlV+zU=;
+        b=BBd8Vg1w4p1ZyQ6hz9n8zo/PsAtJ9r8h8X0RB7Rz6II6WqP+AseJfQP1ZV3sMNrUJl
+         NG0OXdTS1sE/YI0b99ken2F3NSK7zvRe8ErYEzH8Nu31xbyl08nrqrHZukQXeYYYIGjg
+         ipvCJFIR8EtvFg/d22dSCQcv1TAOzrB/Nwwn4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755246213; x=1755851013;
+        d=1e100.net; s=20230601; t=1755246507; x=1755851307;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1KbG4WpTRqhtC6im1pjbQasRJ4zCXOuj0sRVv8P1oe4=;
-        b=AliNHldveT1a+aVAv+CqzLgGaVgC1yXLWmRYFv2OBGix/0ajniNEDsi6+e/e1NG2yo
-         BHTh1Euj5Qr3IO1mUMVpvHknAKSSnZ9UtBCp0TVxzWk8G6VxHG+zeYS2/hGfCAEEQeQs
-         uqqHWTaGnR4cOJcZxGjXxlplCb6HI1EIM0aVlzQzHTDYzBbsfWOeOEcwY/R71M1bslHE
-         G02JHuEsXYGwTXCmQdgpQfgRpO59rBYodRVQQO0pO92o1ConAyjkjkHN66M6B1Nr5dj6
-         bjm3KlEAvmsxqzQMpCwU36DFSmDZgxak/M8amZoGru/8/LUUYuDcKEuIILm9hbQTjSLr
-         9HUg==
-X-Gm-Message-State: AOJu0YziYN8mESFxeG9WRLUN+1xKdSX6y1P18LjwjcUwXemArr4ZUH5A
-	MtSbqE71j3fb6Om7GKkG8pwBOEAQWB0quZHrShumUTYFh+owl47NYQUfUk77gp6qkNY=
-X-Gm-Gg: ASbGncvlyM0fwC+q9Mv0dbqjVuod5b6NAC1MU4lv52Lp18w5bT3fOxVfrNekgyaDMvJ
-	nPmIP8tEeQb72oD1fysnrgJsSSDoLmP2MmzACfkDTVkOvS9bLLTdk2a1aNfJouBWQUDjmIRY3Gz
-	MAA5laOIpMzmYEKJ8294iQtFFi62aOwed5m1nDJUbYbjCJVdfGtcPT0KkIJUhGrfzvqS3/oqfn3
-	HxBtXCddfFzUEbJt63S8ALy8WeRNw1YKzD5PLjwlZImPtSq122WC9qB1B2t04oXjpPiGme390yV
-	WBZA9hYt9QErDyhYpaRpQLcmmSGIFxFxrFmo3zQSpnoiwXKwZaWEVTGg9Y66Yrg1fVeqLYAP+R1
-	oQe1choyRLK7aa1IYr+YjBGRL0F2P1givl8RlGXxZuDhNs9DevEHWX74UnoZQglGsrhkc
-X-Google-Smtp-Source: AGHT+IGxm0RZ6o1a/9yLO+N7zXkYQMf3GJmBb3oyOL0vnFlNCIxKIAmjWvdV/3zGR3qqY6MoJ7CxJQ==
-X-Received: by 2002:a5d:5f53:0:b0:3b8:d3ae:26e with SMTP id ffacd0b85a97d-3bb69b7d31emr661059f8f.53.1755246213536;
-        Fri, 15 Aug 2025 01:23:33 -0700 (PDT)
-Message-ID: <0a6576e2-183c-4411-8920-3930eb4ff6c9@citrix.com>
-Date: Fri, 15 Aug 2025 09:23:32 +0100
+        bh=MqJ92Se36d2J1W6EeVLUW+3FLWK0HcX3Of0xKvlV+zU=;
+        b=t6+Q1YsJhj1rHsq0CsC4VyJ3W0EYjPyyLxfjDWl48v+f0L8wvBdagd6qg8Hi3y4F/Q
+         w1uMDRKpwNfTz+LFiel6na/Fb4E4yyYUPhSLcZZ8cieqfYYP90Qcb8TqDtu9poIiHnlo
+         dQnyCfNdaVN71AelchB1YKhlJa7lWdcQPMueg5imcwalw0zsvTqPG05M7yRgnEtvx1wJ
+         mP5mQO6cfOJREc2E5x+OaPwqjvdcGmnwbTQneEf46pbAyJZdFbq+qVqgqOSMgheCISw1
+         jgvcpbtK7/DYzfzhCALbtuIvdkgWoJGgcUuk5hljZZO690YTyBhaq+JNdnENcP4Q6mqx
+         g9kw==
+X-Forwarded-Encrypted: i=1; AJvYcCXZvX85d6VR8tJIRRz7XchBGGhoC/n4m2/YeBQLou3xwzO+rOQWe93m4t4cce9xTobmp+cSMH4LH9o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyNhc92gEzbpSVdwNgz5szOhwSPilWBsH+9QLOb79BoLBoMfFp/
+	D3vmsdgCALvxnMsTTboYRV7dRgr8csNOmifkcgkWyN8x//4/yqrFPuupkUQETg0kSvg=
+X-Gm-Gg: ASbGnctZZr7CyHXG8KHpKXPqcYAujNQFzyTQqw4RcXiAEkHYWGz4q2aMGTSY8sCLzKP
+	vzGX8T1uc91xS6wCrv8umavUFjUm9eTaV6XM5MJatCkCBtlPAjK/3HNuW9aChTBAlxn0zYJFm6o
+	kEBw+W8eiKBQ5uoM3XFI6ecU2w8it8yuyfpLDAcDGutaGZJjRzrmuqQ6EyaATu0LqW3BI/v6BG1
+	TSk6f8QAazIbe/nG7ctvCYJiTNp1mjMYmRUukHO9KJjanNSsdzF9P57kSNcN7tjq9ZcI6QyXimV
+	GNK7caSNs28g/TZGLQwH35kl/yqT4V22ppWnljJ6ldsd5vlrz/r0FUi0BiwursRfWOuVwckQ2H+
+	YndKMi0dXTPMdF4MTem/zITydMsiMlqvbP+xc44jsQOTat2H8aAaB0DlO/nu2DZ01VsPO
+X-Google-Smtp-Source: AGHT+IHPuMZYxjC/HdTcb66xNNpob0t8AiqzTTbqVpsL8iCJwZibAM378k6sNxiFtXl7WXikg2ckMA==
+X-Received: by 2002:a05:600c:3b84:b0:458:7005:2ac3 with SMTP id 5b1f17b1804b1-45a230f5c66mr6648925e9.21.1755246506753;
+        Fri, 15 Aug 2025 01:28:26 -0700 (PDT)
+Message-ID: <a2f8167b-cfcc-4729-892b-d2994aa77f84@citrix.com>
+Date: Fri, 15 Aug 2025 09:28:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs/misra: fix sphinx-build issues
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-References: <fb809a94e8a50bd3a59aa47ee1832c61af8a9f40.1755241166.git.dmytro_prokopchuk1@epam.com>
- <c7d9513dfc7201c5d3c6e6cbd99db481@bugseng.com>
- <77912fca-8bf2-43f5-8049-de4cdc3ec82d@epam.com>
+Subject: Re: [PATCH 09/22] x86/traps: Move load_system_tables() into
+ traps-setup.c
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
+ <20250808202314.1045968-10-andrew.cooper3@citrix.com>
+ <a4a88d7a-8c1f-4170-a1fe-afafcad0c8ea@suse.com>
+ <9e955bff-c145-4a52-af4f-a7055fc9aa67@citrix.com>
+ <8e0b4a82-3189-4446-96a8-921d8ae44a21@suse.com>
+ <5def44a3-4139-4870-94f2-cb895078f968@citrix.com>
+ <0e9878a9-fb0d-4d18-ab15-eb248629b192@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -139,61 +141,41 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <77912fca-8bf2-43f5-8049-de4cdc3ec82d@epam.com>
+In-Reply-To: <0e9878a9-fb0d-4d18-ab15-eb248629b192@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 15/08/2025 8:28 am, Dmytro Prokopchuk1 wrote:
->
-> On 8/15/25 10:09, Nicola Vetrini wrote:
->> On 2025-08-15 09:00, Dmytro Prokopchuk1 wrote:
->>> Fix the following issues:
->>> 1. xen/docs/misra/deviations.rst:90: WARNING: Inline interpreted text or
->>> phrase reference start-string without end-string. [docutils]
->>> 2. xen/docs/misra/deviations.rst:54: ERROR: Error parsing content block
->>> for the "list-table" directive: uniform two-level bullet list expected,
->>> but row 6 does not contain the same number of items as row 1 (2 vs 3).
->>> * - R2.1
->>>   - Calls to the `__builtin_unreachable()` function inside the 
->>> expansion of
->>>     the `ASSERT_UNREACHABLE()` macro may cause a function to be marked as
->>>     non-returning. This behavior occurs only in configurations where
->>>     assertions are enabled. To address this, the `noreturn` property for
->>>     `__builtin_unreachable()` is overridden in these contexts, 
->>> resulting in
->>>     the absence of reports that do not have an impact on safety, despite
->>>     being true positives.
->>>     Xen expects developers to ensure code remains safe and reliable in 
->>> builds,
->>>     even when debug-only assertions like `ASSERT_UNREACHABLE() are 
->>> removed.
->>> 3. xen/docs/misra/rules.rst:127: WARNING: Inline interpreted text or 
->>> phrase
->>> reference start-string without end-string. [docutils]
->>>
->>> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
->> Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
+On 15/08/2025 9:22 am, Jan Beulich wrote:
+> On 14.08.2025 20:09, Andrew Cooper wrote:
+>> On 14/08/2025 9:55 am, Jan Beulich wrote:
+>>> On 13.08.2025 13:25, Andrew Cooper wrote:
+>>>> On 12/08/2025 10:19 am, Jan Beulich wrote:
+>>>>> On 08.08.2025 22:23, Andrew Cooper wrote:
+>>>>>> Since commit a35816b5cae8 ("x86/traps: Introduce early_traps_init() and
+>>>>>> simplify setup"), load_system_tables() is called later on the BSP, so the
+>>>>>> SYS_STATE_early_boot check can be dropped from the safety BUG_ON().
+>>>>>>
+>>>>>> Move the BUILD_BUG_ON() into build_assertions(),
+>>>>> I'm not quite convinced of this move - having the related BUILD_BUG_ON()
+>>>>> and BUG_ON() next to each other would seem better to me.
+>>>> I don't see a specific reason for them to be together, and the comment
+>>>> explains what's going on.
+>>>>
+>>>> With FRED, we want a related BUILD_BUG_ON(), but there's no equivalent
+>>>> BUG_ON() because MSR_RSP_SL0 will #GP on being misaligned.
+>>> That BUILD_BUG_ON() could then sit next to the MSR write? Unless of course
+>>> that ends up sitting in an assembly source.
+>> It's the bottom hunk in patch 14, which you've looked at now.
 >>
->> I recall that Andrew wanted to add a doc build test to avoid introducing 
->> warnings.
+>> Personally, I think both BUILD_BUG_ON()'s should be together, because
+>> they are related.
+> I don't really agree, but I also won't insist on my preference to be followed.
+> IOW please keep as is.
 
-Yes I do, but sadly still on my TODO list.
-
->>  On that front, with my Sphinx version I also see this build 
->> warning:
->>
->> Running Sphinx v8.1.3
->> WARNING: Calling get_html_theme_path is deprecated. If you are calling 
->> it to define html_theme_path, you are safe to remove that code.
->>
-> Yes, I see the same warning on my end.
-> Need to address that in docs/conf.py as well.
-
-IIRC, this needs ignoring for now.  It is still required in the minimum
-Sphinx version we support.
+Thankyou.  Can I consider this to be A-by then?  (This, and the rename
+to percpu_early_traps_init() are the only two remaining items in the
+entire first half of the series.)
 
 ~Andrew
+
 
