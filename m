@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EE22B27EB9
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Aug 2025 12:53:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1083291.1442916 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84672B27F1C
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Aug 2025 13:22:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1083311.1442926 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ums3l-0004nl-0q; Fri, 15 Aug 2025 10:53:21 +0000
+	id 1umsVa-0000lt-9V; Fri, 15 Aug 2025 11:22:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1083291.1442916; Fri, 15 Aug 2025 10:53:20 +0000
+Received: by outflank-mailman (output) from mailman id 1083311.1442926; Fri, 15 Aug 2025 11:22:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ums3k-0004lp-TK; Fri, 15 Aug 2025 10:53:20 +0000
-Received: by outflank-mailman (input) for mailman id 1083291;
- Fri, 15 Aug 2025 10:53:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1umsVa-0000jN-6Z; Fri, 15 Aug 2025 11:22:06 +0000
+Received: by outflank-mailman (input) for mailman id 1083311;
+ Fri, 15 Aug 2025 11:22:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=oFbR=23=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ums3k-0004lj-1J
- for xen-devel@lists.xenproject.org; Fri, 15 Aug 2025 10:53:20 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0d70c377-79c6-11f0-a328-13f23c93f187;
- Fri, 15 Aug 2025 12:53:18 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-45a1b0becf5so8722225e9.2
- for <xen-devel@lists.xenproject.org>; Fri, 15 Aug 2025 03:53:19 -0700 (PDT)
+ id 1umsVY-0000jA-8e
+ for xen-devel@lists.xenproject.org; Fri, 15 Aug 2025 11:22:04 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0bfa693d-79ca-11f0-b898-0df219b8e170;
+ Fri, 15 Aug 2025 13:21:54 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3b9d41bfa35so1559636f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Aug 2025 04:21:54 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3bb676c9a72sm1474683f8f.34.2025.08.15.03.53.17
+ ffacd0b85a97d-3bb7f02578dsm1511171f8f.62.2025.08.15.04.21.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Aug 2025 03:53:17 -0700 (PDT)
+ Fri, 15 Aug 2025 04:21:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d70c377-79c6-11f0-a328-13f23c93f187
+X-Inumbo-ID: 0bfa693d-79ca-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755255198; x=1755859998; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1755256913; x=1755861713; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PpLsbdrATSiDM+RZFfiNUwYqvZ8vpT7n+8yyslF3u8E=;
-        b=lcrSpo+GJCrp0YNlHl8n8E93lD8Zm1id6zJv0i15Gp8rlrr+DLyX7XuDsM85Gny7je
-         X1Hftt/DS7hgQ8uAsVTzVmc2FEzaWSOJCdm3/z44vdqRmmpRnbpLGn9D13pFSiM6MUD2
-         hQ+zIsb7OXWyUY8cJBlm3ka/qo8nFWqyNIUEw=
+        bh=g6YkzUBDYEfpcZ37KsMoLWm73oRdBRcB99+AtHrh2GU=;
+        b=wWm+CyPXYTq1Zjgnj4u0hnzqpmfzeIljNlRgJTOw4nxQGn8lp16iTyd4DGB8H4fZJV
+         GsmjbBXsiJr0wUAgXbWaap37yaV/SDqrdzgFnTp22vPl+l7dulb9vqxqgSmuesB0Xiu+
+         RKoEOW0JPHDRJccyzw7pa6Vj1l5zrJGUk4x68=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755255198; x=1755859998;
+        d=1e100.net; s=20230601; t=1755256913; x=1755861713;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PpLsbdrATSiDM+RZFfiNUwYqvZ8vpT7n+8yyslF3u8E=;
-        b=TuLmHjE23O4TtKiHBxDrDWNHrjfsSyW7W5Er76UJvCtT1OrfBN139IvnfUUHhhqVMi
-         M8YgP/UjFLebvMr7dVk0RQTnCbjieeUeb4MLIPXGZlDcPPTpHxkUD53LLSHG8r6lzFin
-         hhdyrdHOH/yVdElN+z3MGGmfSJxJjZ0VgMOJsjGJI9BfkhIreCUSc63s/shzJFy7Bk2/
-         TtdIZAWqZI3iaji9POebBo7MvZXEzNmdQdL17c4h33xeo0Jid0fwNqb860vcChIjI8AA
-         0ViEeF81WTKUSNEuwdxo8d4HSwZQm4/z6eqFIBbzrphiQEdt9hceNCSC2GTaB5eHf+3+
-         LBbg==
-X-Gm-Message-State: AOJu0Ywu7IgZPiIiDUZM77qwvfjINTZraIasPcs/yqCgFiHsTZbFeQ4R
-	nL9E4A5jvk6rLM9PmtDwoY61zgicLPm0OIMEryV9ReSwTDswY/fZ6jeUX75Pyh9TXA0=
-X-Gm-Gg: ASbGncuJJ23Xlm7P528b1j1vbBrJau+b0off0qeCARVmimeZTkOJQmVkNwPEqXnOmUw
-	8JiC+C5ZqxLUEh3f9qrPPb2m23me5RyEh5xYcSc9+vGlfyGgRlnePQjZWn0D1NJfAK8qCLY0gHI
-	vDUPe+fVq8v5AE8ggXK4mq/Idw6U0+hCgHEXTv0cwr45OKQGOB5Jf4Y7hxYKml4pzZJ3EIsDFtG
-	AStQBheQsbKRXKBFFwvygFzfmmeRYb7OBZlIk5GfcGKuDGmbMOwWB5B7dAByhZnxZjVQAuSRYgc
-	qlU/4+2lALtL2XWK3U7yTggmAoSYDozIcQYPPRdOi5B2CFqdmMOPrkx2WasxV94eTZwcgHUV2gU
-	mYOVUjSFbV5uKeXzB4pPPYO32Td3BFu03+sYqeKhI8AllGG+9Ckwc1Q/NcetWX7jdfUxM
-X-Google-Smtp-Source: AGHT+IHqGODLtox0MwY/WdEm3XC8GJsvdI24QnQQy0uxgOmjVstANnnP+HpqnH9M6F84uJR4N+9Rcg==
-X-Received: by 2002:a05:600c:354c:b0:459:d6a6:792 with SMTP id 5b1f17b1804b1-45a218580e4mr14756605e9.29.1755255198172;
-        Fri, 15 Aug 2025 03:53:18 -0700 (PDT)
-Message-ID: <aad0db65-06cd-4631-a6e8-de36fa6af85d@citrix.com>
-Date: Fri, 15 Aug 2025 11:53:17 +0100
+        bh=g6YkzUBDYEfpcZ37KsMoLWm73oRdBRcB99+AtHrh2GU=;
+        b=a3GA5HI3ewWWoeONX6S6rkMCI4KXuhb7xstRW3Ytia49Ke9XpEFMrINg56ZbvjWr38
+         xoAwNW/lXT4jm15fdf4SEA/M2E6E95ERV4tigHVJ+VR73D3JCuUR/0YYtsj+6hreRU4x
+         dlAco5zxz2plJk+3gjVbtYRPPuEsJufbHhzqL9IkTdelqlNU0b0LYTLaMFA+V4lg/SqE
+         2f6ADS4syEuQ1ibRwRQtBcoTnJNH0Xs/IWqgZ4II3yeXmNo0te60mYZZe3s+tvkwUITx
+         EVKmROUvr43cnTSYLZBFRi4ypjYO//aWY1cA569oXKbtc8ruKRdD9oai0gEWaVenCHLu
+         RBDQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXhogRsTMkQGEysCDM4ky/K9tRcUItjS0IzYvTN7w/mun2A5iSU4c6gudMDmDhxJUW89gnbsWUm97Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwtBMu3lq4XNgAQjyc9gW+F2c1u2f+EyyLdFWJF9bsY2SHbLVaU
+	i9onsJiP5xeR9NkvlIxqxlOmrEaYu8yPtob7JDbhrGxxPv7gosL5L7Sgo5TMaZdnaRc=
+X-Gm-Gg: ASbGnctdNp57OSY/nL9ZZAd4i3Uo7KsfFRt5Jf4qItvmV9J5Ha0IRW3069rWJ5SqnrR
+	DhxrPIDN0hi/qFEuG/SrsA7cSjGD3x1Tql2disAKsU+IzPglyVWppBi4hVBdUXXcJn+T4Q4xsOW
+	yPc61Bq3x40HXxDIFP6GEe62IW5W/nNVfAdbhJJx3ak+4SrMMr8oQFZpZFFNv6l2Y+Xziksg55O
+	76JXT+HYlbmAXKrRbIAu7C2e++KCCShbvWdse7P68YSoGDbt1hVni/nrbKyvqIjiPI9XurwwiAk
+	058vtJ6NdkiHXI0nBUstXcwmOAn8F6hEFWtZwlms8tgVxSKuB12m6q3///BXznIsz1J9ilpzWVb
+	LiygOiwzRnnyIAsDpichrpfMNJyI8YfEdV24IlWHhe528oU9nK2bbQqJRc6b863/nPQ8q
+X-Google-Smtp-Source: AGHT+IFfkdHY8BsuzhT300ypF3WNgHFlTSYk7vVtZDaxyOBKH2RTblyZteQXSU6sFewxVk2b0v+X7w==
+X-Received: by 2002:a05:600c:3513:b0:456:e39:ec1a with SMTP id 5b1f17b1804b1-45a21804c69mr12577105e9.14.1755256913434;
+        Fri, 15 Aug 2025 04:21:53 -0700 (PDT)
+Message-ID: <37206bd7-b455-499a-9632-f435ab87888e@citrix.com>
+Date: Fri, 15 Aug 2025 12:21:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen: Use auto as per C23
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Roberto Bagnara <roberto.bagnara@bugseng.com>,
- "consulting @ bugseng . com" <consulting@bugseng.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>
-References: <20250814222524.2638883-1-andrew.cooper3@citrix.com>
- <3056ed85948288639110e3cdd6b28c6e@bugseng.com>
- <f3ff5b2d-8077-4591-bf1f-bd658d705242@citrix.com>
- <7fc93aeef27153f1d6caa786bd44420f@bugseng.com>
- <caf19e2b-046e-495f-b425-9cb3a0053006@suse.com>
- <bd3f9c28-aaf4-479d-b56e-48838442f7a3@citrix.com>
- <5ff1e337-9ec5-466b-b21f-cf29274b007b@suse.com>
+Subject: Re: [RFC PATCH] xsm/flask: add AVC pre-allocation boot parameter
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>
+References: <20250815102330.778749-1-Sergiy_Kibrik@epam.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -145,124 +138,34 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <5ff1e337-9ec5-466b-b21f-cf29274b007b@suse.com>
+In-Reply-To: <20250815102330.778749-1-Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 15/08/2025 11:25 am, Jan Beulich wrote:
-> On 15.08.2025 11:51, Andrew Cooper wrote:
->> On 15/08/2025 10:36 am, Jan Beulich wrote:
->>> On 15.08.2025 10:33, Nicola Vetrini wrote:
->>>> On 2025-08-15 10:17, Andrew Cooper wrote:
->>>>> On 15/08/2025 8:20 am, Nicola Vetrini wrote:
->>>>>> On 2025-08-15 00:25, Andrew Cooper wrote:
->>>>>>> In macros it is common to declare local variables using typeof(param)
->>>>>>> in order
->>>>>>> to ensure that side effects are only evaluated once.  A consequence
->>>>>>> of this is
->>>>>>> double textural expansion of the parameter, which can get out of hand
->>>>>>> very
->>>>>>> quickly with nested macros.
->>>>>>>
->>>>>>> In C23, the auto keyword has been repurposed to perform type 
->>>>>>> inference.
->>>>>>>
->>>>>>> A GCC extension, __auto_type, is now avaialble in the new toolchain
->>>>>>> baseline
->>>>>>> and avoids the double textural expansion.
->>>>>>>
->>>>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>>>> Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->>>>> Thankyou.
->>>>>
->>>>>>> diff --git a/xen/include/xen/compiler.h b/xen/include/xen/compiler.h
->>>>>>> index 88bf26bc5109..38ef5d82ad95 100644
->>>>>>> --- a/xen/include/xen/compiler.h
->>>>>>> +++ b/xen/include/xen/compiler.h
->>>>>>> @@ -64,6 +64,20 @@
->>>>>>>  # define asm_inline asm
->>>>>>>  #endif
->>>>>>>
->>>>>>> +/*
->>>>>>> + * In C23, the auto keyword has been repurposed to perform type
->>>>>>> inference.
->>>>>>> + *
->>>>>>> + * This behaviour is available via the __auto_type extension in
->>>>>>> supported
->>>>>>> + * toolchains.
->>>>>>> + *
->>>>>>> + *
->>>>>>> https://www.gnu.org/software/c-intro-and-ref/manual/html_node/Auto-Type.html
->>>>>>> + * https://clang.llvm.org/docs/LanguageExtensions.html#auto-type
->>>>>>> + */
->>>>>>> +#if !defined(__STDC_VERSION__) || __STDC_VERSION__ < 202311L
->>>>>>> +/* SAF-3-safe MISRA C Rule 20.4: Giving the keyword it's C23
->>>>>>> meaning. */
->>>>>>> +#define auto __auto_type
->>>>>>> +#endif
->>>>>>> +
->>>>>> A more detailed explanation should live in deviations.rst under this
->>>>>> bullet point
->>>>>>
->>>>>>    * - R20.4
->>>>>>      - The override of the keyword \"inline\" in xen/compiler.h is
->>>>>> present so
->>>>>>        that section contents checks pass when the compiler chooses not 
->>>>>> to
->>>>>>        inline a particular function.
->>>>>>      - Comment-based deviation.
->>>>>>
->>>>>> as described in the SAF entry:
->>>>>>
->>>>>>         {
->>>>>>             "id": "SAF-3-safe",
->>>>>>             "analyser": {
->>>>>>                 "eclair": "MC3A2.R20.4"
->>>>>>             },
->>>>>>             "name": "MC3A2.R20.4: allow the definition of a macro with
->>>>>> the same name as a keyword in some special cases",
->>>>>>             "text": "The definition of a macro with the same name as a
->>>>>> keyword can be useful in certain configurations to improve the
->>>>>> guarantees that can be provided by Xen. See docs/misra/deviations.rst
->>>>>> for a precise rationale for all such cases."
->>>>>>         },
->>>>> Ah right.  What about this:
->>>>>
->>>>> "Xen does not use the \"auto\" keyword as a storage qualifier.  The
->>>>> override of the keyword \"auto\" in xen/compiler.h is to give it it's
->>>>> C23 behaviour of type inference."
->>>>>
->>>>> ?
->>>> Seems good to me. Maybe this should be spelled out in ./CODING_STYLE as 
->>>> well, so that newcomers don't trip over this?
->>> I'm not sure newcomers would look there, but in the absence of any better
->>> place that's perhaps indeed where to mention this.
->> How about this:
->>
->> diff --git a/CODING_STYLE b/CODING_STYLE
->> index 7bf3848444ad..e33b9d1170cf 100644
->> --- a/CODING_STYLE
->> +++ b/CODING_STYLE
->> @@ -129,6 +129,10 @@ Fixed width types should only be used when a fixed width quantity is
->>  meant (which for example may be a value read from or to be written to a
->>  register).
->>  
->> +Macros which otherwise would use "typeof(arg) newarg =" to avoid double
->> +evaluation of side effects should use "auto newarg =" per it's C23 behaviour,
->> +to also avoid double textural expansion.
->> +
->>  Especially with pointer types, whenever the pointed to object is not
->>  (supposed to be) modified, qualify the pointed to type with "const".
-> That doesn't focus on the pitfall though, in that people shouldn't be using
-> the "auto" keyword (except in said cases).
+On 15/08/2025 11:23 am, Sergiy Kibrik wrote:
+> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+> index a75b6c9301..9044827e78 100644
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -238,6 +238,15 @@ loops for Queued Invalidation completions.**
+>  Specify a maximum amount of available memory, to which Xen will clamp
+>  the e820 table.
+>  
+> +### avc_prealloc
+> +> `= <boolean>`
+> +
+> +> Default: `false`
+> +
+> +Allocate XSM Access Vector Cache at boot. This forbids runtime dynamic
+> +allocation of AVC nodes from Xen heap and changing AVC size via
+> +FLASK_SETAVC_THRESHOLD hypercall.
 
-/sigh, this is why noone does patches to CODING_STYLE.
+I don't have any input on memory allocation side of things, but this
+needs to be a sub-option under the existing flask=, and it looks like
+you're going to need to turn it into a comma separated list.
 
-If you don't like the wording, propose some wording that you do like.
-
-Or I will commit the patch without this hunk, because I'm not going to
-get drawn into the cycle of blind guessing that every change to
-CODING_STYLE seems to get caught in.
+Also, if you actually want to use Flask in a safety system, Flask needs
+to become security supported in Xen.
 
 ~Andrew
 
