@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED3CFB27CF1
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Aug 2025 11:24:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1083121.1442770 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3815B27D3C
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Aug 2025 11:36:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1083133.1442779 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umqfZ-0002Go-OB; Fri, 15 Aug 2025 09:24:17 +0000
+	id 1umqr9-0004IX-NV; Fri, 15 Aug 2025 09:36:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1083121.1442770; Fri, 15 Aug 2025 09:24:17 +0000
+Received: by outflank-mailman (output) from mailman id 1083133.1442779; Fri, 15 Aug 2025 09:36:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umqfZ-0002EH-Kk; Fri, 15 Aug 2025 09:24:17 +0000
-Received: by outflank-mailman (input) for mailman id 1083121;
- Fri, 15 Aug 2025 09:24:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1umqr9-0004GO-Kv; Fri, 15 Aug 2025 09:36:15 +0000
+Received: by outflank-mailman (input) for mailman id 1083133;
+ Fri, 15 Aug 2025 09:36:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5DW6=23=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1umqfX-0002E7-Ta
- for xen-devel@lists.xenproject.org; Fri, 15 Aug 2025 09:24:15 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9a4bb857-79b9-11f0-b898-0df219b8e170;
- Fri, 15 Aug 2025 11:24:11 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-61868d83059so4838155a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 15 Aug 2025 02:24:11 -0700 (PDT)
+ id 1umqr7-0004Ek-FV
+ for xen-devel@lists.xenproject.org; Fri, 15 Aug 2025 09:36:13 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 47687d3a-79bb-11f0-a328-13f23c93f187;
+ Fri, 15 Aug 2025 11:36:11 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-6188b5b113eso2556506a12.0
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Aug 2025 02:36:11 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afcdd016c61sm98269166b.96.2025.08.15.02.24.10
+ 4fb4d7f45d1cf-618af9e0156sm1129573a12.25.2025.08.15.02.36.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Aug 2025 02:24:10 -0700 (PDT)
+ Fri, 15 Aug 2025 02:36:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a4bb857-79b9-11f0-b898-0df219b8e170
+X-Inumbo-ID: 47687d3a-79bb-11f0-a328-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755249851; x=1755854651; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755250571; x=1755855371; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=auio8x0l2qflv9y4/XQOWSDdEvCz7ayC7OM05wHgoTY=;
-        b=MNDJojiS2u07CiHpJsE0sB4R4fSuZ+YYiMPzIuI0znxZDGj8phWNGcc91B9/EegEvs
-         diTsLoRrYgtdR42SkEiL6IG+vw+oiJRn52JNTib86aCsqoSUXnYp1mGdajgxMCfleLz1
-         Wy6XM6rZ5/xvWNk62x9fjzou8Kw0+RV3JZ7GWeE+w399qMe7N3MeolF5aq488nf3QOLB
-         PPg7h0HwArQTS78iYf8HK+HL7Lg+P2X5cY7OPE9yjOzxMSij595l2uELPXQTvOWs9DyC
-         utt8YXHYGzr7FC8ZEWghKA499F+2lSksXwQLtt1KXhJxYocikLkBUloeid2sc+kvoA7C
-         C1Hw==
+        bh=6612q3TaD0wbHG2zsWzab6k3N6lA7slpYvrXGGQ8J0E=;
+        b=PPK0mQnQlO8ilk/Sf5J022pfVVnStKnPTUkH3+y5yvP6TqfXn9WwvJGFePZieDQJbA
+         EW9ZbKnvYseHUK7zmTAtL4Lv+JPQxAi07Jzac6GF6DaBz3DWzBMxKK/eVTBNx9L+PMQl
+         0l/Xl0KAEoO+pcZ9qebPU8OxEtyp8/i1jnknUWw90SNEKr+9a+shS3+7mIbzVPlNi8Wv
+         v1d7y5gkOt58fNBh6MrD3sjb/lC4h6W8q5HxlPmKmUC5Z0iWGYnL01IWnr1VDU5QJixD
+         gtXaMJPxZmpQVydFNcOxezhVXTbnV68KSTfUw81TMLrzXuHsFIgjUShsGuD3RuFHl2cQ
+         T1fQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755249851; x=1755854651;
+        d=1e100.net; s=20230601; t=1755250571; x=1755855371;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=auio8x0l2qflv9y4/XQOWSDdEvCz7ayC7OM05wHgoTY=;
-        b=CdhFdZl9zeBklv3+QRaCH+rz0p3Vvpu5JbVnPZMb2A0ipmMdiCosS/XbtV0i2ee28z
-         oekPoHKP3otINkFGG7E414QlKejhPCvC3rqJOxiWgQYakw/Dzar74Na3mG0Dwx8z3nLB
-         pSaBZaPN/GQptfiAKfWBbkU4FtLHY1f5dCVgu7HWFc0uL/NfSEKfBVAqgmu4WLexZ2rd
-         4su7fBGkNkhY3eSWKLdoIaBAeXTjOiJypopl5hdKo2t0EjYOgxVQFENZpGcOs71tYtxv
-         70VvY/oc6sIgzpQ9DOysQDT/8hHW4anYFrlbSWvGhWg2zKjkuev17hJTFprjF4tAX0mc
-         uJiQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV+TtoqtaCyNBFrVPraBa8HruYY+NC5QOhwMYsgizsKgkjyAMl6Mk5FWAFNLtLLAWMkH4cCFCTKU6g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzUokwbVX8XRBgXSj6ZlwSnAfK2kdfriWubqcqcWwteUAQtl2Rh
-	L0m/uqlCwTT9P2mSb6BYXFVYXrQxx5jE4dHufq5A6UbwBh6yQOz9/TQeu1oCVc4bPA==
-X-Gm-Gg: ASbGncsKZygfW6YED89zAreE5ah+io+s+DUF+wk73bp7g21WS3xbkIe5cFoMaoVdlEA
-	bDcWFoDwWgkJpQLvt7L5JWY9S1RMldDOqtOTPNOP3+NlTxUhZGooClsQxJiRYUMFaLz1jWx9aHu
-	5Yj/SoNi7nsfjwl9ykpITqzpIRmaFQvz662XhahpkvPPXXbr/7YYXxw37twBX2KEMeMEIeaaw1y
-	p1RbZJGaCwlZ9r6mC1GUmz3rmo3Rkd2o72avutYGNYkFMTekboEsnTLscB147VFXuZvoLf6AS82
-	C6VKMBmdAWOoJkg+Z5udGgNMu45zO09UESjyNOoCNvkksZt+udp+oV08w2Iijbr74TcT1ODI9Su
-	gu0an+MEZMX5Tg1LRoUS9BPLcTiPUO0ertvB2BHtldswjlBhWJ97uyOQZJuitWmfXjkOqQg31+I
-	ht8T5JluQ=
-X-Google-Smtp-Source: AGHT+IEvKQ/5Szj400mffy58CMu459NDjMQ1FuawO4FDKvL5tKGCdGTbsLDHGjx2mEbvrurPqAv85w==
-X-Received: by 2002:a17:906:7316:b0:afc:b3c2:82eb with SMTP id a640c23a62f3a-afcbd67aec3mr607189866b.13.1755249850856;
-        Fri, 15 Aug 2025 02:24:10 -0700 (PDT)
-Message-ID: <efb23ae1-564b-4336-bba9-7147dc5ed9f0@suse.com>
-Date: Fri, 15 Aug 2025 11:24:09 +0200
+        bh=6612q3TaD0wbHG2zsWzab6k3N6lA7slpYvrXGGQ8J0E=;
+        b=qkT/4IjWWVQd8YCqIyvTaWMCUQek1Pd4DS18teDqlMsQG2VVBvlMJYHifMvBdf1HSi
+         +7/26kkPG7pne6S7sgBAS151YxUTLO5lvGN1mIfgDGsFmFe5sqVHXRH8U8KQZWwtMCbX
+         yA2aXNMeM7p4fv4ypLli6eSnebPMOhQDfQt8KYc6Jwf+gCaucJHy3UvTscy7jC4UGp86
+         5e8AZ4wuS8slWVnyMXaM9suIaXkqtndTIweKqNshe6LXsGRHq9Cx5UqhrpqZd3k5Ep1t
+         7cXYIBbRm4YwSdBxmdY4Df95Y4iBzCQeLgY7LbY3Fy6r5YeDRrASMOncttl1+cxKYax6
+         wECg==
+X-Gm-Message-State: AOJu0YwaInuYbRAKFZMi+zXG3ZGYjhLWTq60Q+ckTYA8K2HgAEFjNlcp
+	5J6U9CcGUxHe7P/RLf4s5T1VgPzwb/D0ZsirOyOGgn+GPDgJ6rrQqK84S7pYIkGZww==
+X-Gm-Gg: ASbGncscqW2swdNFvv9txy+XEccDEDE+I5R9zWb81ssxhRAYn3Tf2mmlPaPetPwKtLG
+	baAnwXp+IcaMdP+7+Im6w68c4CF5XJU/kS1lb4rpGbCifp5mDVdc7eI1RudxaTwgZLFa37EMm5m
+	i2uH6G+o0t6tuMXQUGMEPfzF5cV4NbLNST3IOL7gAGCycdQcabGUe8V2YOJ7rzNSiOiqVQv/7EV
+	MHrUf9TKMOqvHdppMFBW7/eKt03lmwj25laAo2iGWFrcJIYq+eOwzwC1HVtH0/DCXpxCSboW0oq
+	Y/HIR9Lm2l+xN0X4JhEAl7J8XQDKd+gke9HuRzcBWkC+o5Fv76yOknMLn+4Pu3jTYdNwydd+Shw
+	2FFahhyXqOnxROkTQRhNt1/GY0sxGnCSpUE+Wk9YGjWrxFxm5gzL3TSvwnG8p9YrXTcnJYPmYt2
+	muqtCLEDI=
+X-Google-Smtp-Source: AGHT+IEexVo7lmeSUMu/qNm7ecSdcIK6lwWUcvHbdjxs7VTtlrHeZasiqCOxYn0Rg6+XYUN5MOzxYA==
+X-Received: by 2002:a05:6402:3509:b0:618:8964:bdda with SMTP id 4fb4d7f45d1cf-618b065baf6mr971764a12.23.1755250570870;
+        Fri, 15 Aug 2025 02:36:10 -0700 (PDT)
+Message-ID: <caf19e2b-046e-495f-b425-9cb3a0053006@suse.com>
+Date: Fri, 15 Aug 2025 11:36:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1.1 08/22] x86/traps: Introduce percpu_early_traps_init()
- and set up exception handling earlier
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250808202314.1045968-9-andrew.cooper3@citrix.com>
- <20250814180748.2532533-1-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v2] xen: Use auto as per C23
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Roberto Bagnara <roberto.bagnara@bugseng.com>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>
+References: <20250814222524.2638883-1-andrew.cooper3@citrix.com>
+ <3056ed85948288639110e3cdd6b28c6e@bugseng.com>
+ <f3ff5b2d-8077-4591-bf1f-bd658d705242@citrix.com>
+ <7fc93aeef27153f1d6caa786bd44420f@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,29 +126,107 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250814180748.2532533-1-andrew.cooper3@citrix.com>
+In-Reply-To: <7fc93aeef27153f1d6caa786bd44420f@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14.08.2025 20:07, Andrew Cooper wrote:
-> As things stand, we set up AP/S3 exception handling marginally after the
-> fragile activity of setting up shadow stacks.  Shadow stack setup is going to
-> get more complicated under FRED.
+On 15.08.2025 10:33, Nicola Vetrini wrote:
+> On 2025-08-15 10:17, Andrew Cooper wrote:
+>> On 15/08/2025 8:20 am, Nicola Vetrini wrote:
+>>> On 2025-08-15 00:25, Andrew Cooper wrote:
+>>>> In macros it is common to declare local variables using typeof(param)
+>>>> in order
+>>>> to ensure that side effects are only evaluated once.  A consequence
+>>>> of this is
+>>>> double textural expansion of the parameter, which can get out of hand
+>>>> very
+>>>> quickly with nested macros.
+>>>>
+>>>> In C23, the auto keyword has been repurposed to perform type 
+>>>> inference.
+>>>>
+>>>> A GCC extension, __auto_type, is now avaialble in the new toolchain
+>>>> baseline
+>>>> and avoids the double textural expansion.
+>>>>
+>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>
+>>> Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>
+>> Thankyou.
+>>
+>>>>
+>>>> diff --git a/xen/include/xen/compiler.h b/xen/include/xen/compiler.h
+>>>> index 88bf26bc5109..38ef5d82ad95 100644
+>>>> --- a/xen/include/xen/compiler.h
+>>>> +++ b/xen/include/xen/compiler.h
+>>>> @@ -64,6 +64,20 @@
+>>>>  # define asm_inline asm
+>>>>  #endif
+>>>>
+>>>> +/*
+>>>> + * In C23, the auto keyword has been repurposed to perform type
+>>>> inference.
+>>>> + *
+>>>> + * This behaviour is available via the __auto_type extension in
+>>>> supported
+>>>> + * toolchains.
+>>>> + *
+>>>> + *
+>>>> https://www.gnu.org/software/c-intro-and-ref/manual/html_node/Auto-Type.html
+>>>> + * https://clang.llvm.org/docs/LanguageExtensions.html#auto-type
+>>>> + */
+>>>> +#if !defined(__STDC_VERSION__) || __STDC_VERSION__ < 202311L
+>>>> +/* SAF-3-safe MISRA C Rule 20.4: Giving the keyword it's C23
+>>>> meaning. */
+>>>> +#define auto __auto_type
+>>>> +#endif
+>>>> +
+>>>
+>>> A more detailed explanation should live in deviations.rst under this
+>>> bullet point
+>>>
+>>>    * - R20.4
+>>>      - The override of the keyword \"inline\" in xen/compiler.h is
+>>> present so
+>>>        that section contents checks pass when the compiler chooses not 
+>>> to
+>>>        inline a particular function.
+>>>      - Comment-based deviation.
+>>>
+>>> as described in the SAF entry:
+>>>
+>>>         {
+>>>             "id": "SAF-3-safe",
+>>>             "analyser": {
+>>>                 "eclair": "MC3A2.R20.4"
+>>>             },
+>>>             "name": "MC3A2.R20.4: allow the definition of a macro with
+>>> the same name as a keyword in some special cases",
+>>>             "text": "The definition of a macro with the same name as a
+>>> keyword can be useful in certain configurations to improve the
+>>> guarantees that can be provided by Xen. See docs/misra/deviations.rst
+>>> for a precise rationale for all such cases."
+>>>         },
+>>
+>> Ah right.  What about this:
+>>
+>> "Xen does not use the \"auto\" keyword as a storage qualifier.  The
+>> override of the keyword \"auto\" in xen/compiler.h is to give it it's
+>> C23 behaviour of type inference."
+>>
+>> ?
 > 
-> Introduce percpu_early_traps_init() and call it ahead of setting up shadow
-> stacks.  To start with, call load_system_tables() which is sufficient to set
-> up full exception handling.
-> 
-> In order to handle exceptions, current and the speculation controls needs to
-> work.  cpu_smpboot_alloc() already constructs some of the AP's top-of-stack
-> block, so have it set up a little more.  Zero the whole structure to subsume
-> other misc setup.
-> 
-> This gets us complete exception coverage of setting up shadow stacks, rather
-> than dying with a triple fault.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Seems good to me. Maybe this should be spelled out in ./CODING_STYLE as 
+> well, so that newcomers don't trip over this?
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+I'm not sure newcomers would look there, but in the absence of any better
+place that's perhaps indeed where to mention this.
 
+I am, however, still not quite sure if we're doing ourselves a favor with
+the re-purposing of auto (while not using C23 in general). It'll certainly
+hit me as unexpected, for some time, to see uses of the keyword. It simply
+has been for too long that it had its earlier meaning (of very limited use).
+
+Jan
 
