@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEDAEB27BA1
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Aug 2025 10:49:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1083056.1442719 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 271D4B27BB2
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Aug 2025 10:53:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1083066.1442729 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umq7e-0002Q2-3U; Fri, 15 Aug 2025 08:49:14 +0000
+	id 1umqBL-0004Ht-Iy; Fri, 15 Aug 2025 08:53:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1083056.1442719; Fri, 15 Aug 2025 08:49:14 +0000
+Received: by outflank-mailman (output) from mailman id 1083066.1442729; Fri, 15 Aug 2025 08:53:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umq7e-0002Nn-0G; Fri, 15 Aug 2025 08:49:14 +0000
-Received: by outflank-mailman (input) for mailman id 1083056;
- Fri, 15 Aug 2025 08:49:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1umqBL-0004F3-GB; Fri, 15 Aug 2025 08:53:03 +0000
+Received: by outflank-mailman (input) for mailman id 1083066;
+ Fri, 15 Aug 2025 08:53:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5DW6=23=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1umq7c-0002Nh-Kd
- for xen-devel@lists.xenproject.org; Fri, 15 Aug 2025 08:49:12 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b65ae3aa-79b4-11f0-a328-13f23c93f187;
- Fri, 15 Aug 2025 10:49:11 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-afcb72d5409so289069566b.0
- for <xen-devel@lists.xenproject.org>; Fri, 15 Aug 2025 01:49:11 -0700 (PDT)
+ id 1umqBJ-0004Ex-Kl
+ for xen-devel@lists.xenproject.org; Fri, 15 Aug 2025 08:53:01 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3e8ac98a-79b5-11f0-b898-0df219b8e170;
+ Fri, 15 Aug 2025 10:52:59 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-afcb78d5e74so283704066b.1
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Aug 2025 01:52:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afcdce72db0sm95083366b.38.2025.08.15.01.49.09
+ a640c23a62f3a-afcdce53c26sm93938966b.17.2025.08.15.01.52.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Aug 2025 01:49:10 -0700 (PDT)
+ Fri, 15 Aug 2025 01:52:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b65ae3aa-79b4-11f0-a328-13f23c93f187
+X-Inumbo-ID: 3e8ac98a-79b5-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755247750; x=1755852550; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755247979; x=1755852779; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NDKn85YhVQuiGAXpeIem42zh5VYz9mxqsRhW3y92ScM=;
-        b=OfwWenzxNPmqesHLg8jHV9wHKW5iPBRVE42hj1d+wz24lROefWN/63O9QLxyPs9vnS
-         +rHxfIJd60vn39CNPGz6jLcFW1jhy3wXSIu8IYzTtA4RSm2i2+ArezefptVhLqAWIkr7
-         7X4xAwOebLB+ngavANf4MoUT+p5G1kiYHQmqAep5RTx/mllB+dxggCCSr/70J7mCBTkh
-         9mDNnPMvl5+pETsHpqnF6PCzoVDbCuvEHB8cdMBpVlS6smdJlvY/zyn2mBdPdAE9KjHB
-         VcadajTwAHlT359jAlVhdONzIvwO6IcOxrTdImxtb3e/bauwP0582lZnFR7+cvE5j3zp
-         aOPQ==
+        bh=+KlIxOv/DM19//SJ3J/e/fsCOHMbI95nDUME0qVtWWg=;
+        b=MMEpRnQjt8x+f+j3tKgX1h9VWe7gnFinR+71IQi0rR25BZ14q0uyh0TGj+nQDBMbwE
+         TXau5uhfViA7JZCvr7HZWRuvsoO0eUYToQDb6MsNNOXyf3xyh5w4cijq8La8AZqsUhxB
+         nZrZ5x0jb3uRZzC/z+DTljCe0DxryHFV5/hWEzgYyQmvLRL/koItQjkrw4mUERvdCLl/
+         sN5k2donf4aLEqm6niJW/Rs0/8K1keO8+XjsxP+WpxHaLHhcPJe4ac1q3/2HGbIZQj60
+         q/38t3jO3K1XjjFX1hXLMh9TWRw9Awoqhrry+ZwbQepru6OH1fETNKx2oYLKOoxCh4fP
+         18Vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755247750; x=1755852550;
+        d=1e100.net; s=20230601; t=1755247979; x=1755852779;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NDKn85YhVQuiGAXpeIem42zh5VYz9mxqsRhW3y92ScM=;
-        b=VVOCnhjFxFcLgiHOJvTeY9DE4y+dDU4JhOUgaN0ES3dXw804iur3S7fpnMRMd9PY3Q
-         eHs9i4kvpi+T/i6nqXluHmQGrAuDgv3jHhDXqytaebsRCO3HwuTXm097MPQ9PJKYETr4
-         Lebwm9y3NEIAvqhwb3Y4q8NujL660W/ny/PAR4DCJdR8dTD1R4IBNLWn/Dt9kgbIsujP
-         yAtZF0eeN8RfKapORprmWlRbpqMxsdUwluooyLggOAxkahLbBLWU/K5UHm9dQtNkjNhK
-         vV5Ayhh4xm3wTnbTcFT/PoY4tnuQu7+cWtgQtiP9wh9IgSMkPdqGF1RhBfI23+2TfNnP
-         UFkw==
-X-Forwarded-Encrypted: i=1; AJvYcCW9sot7yaP3gA6AR0BFsNbPRNeKZT0TKD3VwSapw1fTP1cGAf3qgvCEYVnvd2h9cHJwTGmp3HtfSXg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwRfhYZaGl4ZAbwxqI68nvf+AWSOIQM95eDNVL0qOd/n5IeN9oy
-	lJ8E7hoUnUGmIOKMSWZ7bykANUo/8mnp4wRDWtaZTx7lD1qngLTC1l3SbNcT3qbiNg==
-X-Gm-Gg: ASbGnctN9bjU72GjI0b4F5s/fVVtFs5YKOvJZC7V0XlM59npOeManmVKXVzOipuol5j
-	061xqMdkxUDTOoZjFf9oQOv9aqxo2OCCq2Ojj2btCdzki953AyXP4yNoopRduMHqzxnkuv1UW+q
-	/FamlADQ5ZT+a/uDQFs4KVWu9pExsFPnKftp9c2orZnkyek7jEB2jfkbG4F2htteBfM9N+WuBF+
-	RuEAmrY4COTO8ebD/kOAozXcL8AivZjR4QyL8LoTyMAzuvKKqDpf37H6tBkwpmimfHSk+CJ87bl
-	AvCp9BmMkTvOj4NqwFP3gqm2NTk3p+pRrUY0whM1b5uz6wGJdlmkKk1NREWSySjq+G5v99qWKi1
-	skOuUkMIoGg5udTfJxl8t1ejE/NhXx80O8QIYuzpxum3l/dX2/lOrmqxbJZAzIIU9zN7PjDqiGy
-	Hu26DplK8=
-X-Google-Smtp-Source: AGHT+IHeKjanxpUaltsw27FVqlgNaD492Y7MtGoNdHs4hW9D2TDx9y9MywM8iH1XM2Ye16C52YFVlQ==
-X-Received: by 2002:a17:907:3c95:b0:afc:b61a:df8 with SMTP id a640c23a62f3a-afcdc32a5aemr100033666b.34.1755247750502;
-        Fri, 15 Aug 2025 01:49:10 -0700 (PDT)
-Message-ID: <d04ff22a-59e6-47f4-817e-c26ff2a98505@suse.com>
-Date: Fri, 15 Aug 2025 10:49:09 +0200
+        bh=+KlIxOv/DM19//SJ3J/e/fsCOHMbI95nDUME0qVtWWg=;
+        b=Xpr7zOcUhWvQh+PcK6be6y/MUrJRUATnMfGbRWfZkz8v+L4+MFJDiKcsmrh0zyOo7F
+         vW/gCqtPBMvsoODa/rjg5uxhxqUnGY1p4UIqWGnawOIkdtQ9XIfs+LRy1pzmRz4YX7vv
+         TUBcLsw7jPCP7MiYN4WnVNGVOZUN339pAnerz/0tO53rgTTMB/r13FoRFBsZRzMS56CQ
+         Ua9j0YN9D2D+SHFZsbjn16apJXRRNK/dZtMjFyIoziq5IRGIOkXbr8mDMJ1Tex9Bf820
+         zs+NKHtmddOT9J7nL9dn+UcZov9JAwhxkHG5KNXWwEXtx7oSa4soP8kOCN4dJl4OkyYw
+         C+8w==
+X-Forwarded-Encrypted: i=1; AJvYcCXnwBMIc+zUzb0norCL0AWL37osErwGKHPXmbiR6w1ms0xF+fZX73ueoRClhzBlanLWAU+MoF6TGe4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx3lcHnLWc1SD9R8AQKlZeUgzIk8DjzchiVcuxWQBka059hWa+0
+	ZY3mYAKLY4CUvSRD3xJQz0FnEyBXdSk4A9U94rQHdcOovorLwJmv4qqbEDWkx9xlbA==
+X-Gm-Gg: ASbGncvbcl/f8Hvr66lewSOcdlUC8YEsDKxhwPjKscfgchOO31OPDI9OkZEQSKTOJii
+	tnX0WsyQf/pY9A/2L+KXUOPyV0oHPqwomiIZEVy1XT5cAU7sxfEJthKcicn17LlsMnPRbTqhgBR
+	jy1TVH6FFssjrVhz3uB4iTYDeNkcK/QOV2N8lG9i5biBJwAEEPKsI4CF58Ww49HYrExwvH1WTKX
+	JYXs1un/1Gnhk9iE+e/jaYMhXp7rl7c8JIh90TPL7zk1dt5y71yfogmGOlGl+dugvRvnR1vk2Ni
+	Pn9h77LAVrNoH5Zq1c5oZFuBtfYJG0moSn+EtmRcdeSU+Fu5VmUqzlL3rNC41qeAIh9mt1MDGVI
+	2HmeweY7nnUwM03BM508PMPM3OUXxeFRtNQhOr5Zmxzb2Myl1kEv5KplTtSu5YQtm7mn2XqlhHM
+	QbJL552h8=
+X-Google-Smtp-Source: AGHT+IHYGk5XgkPv5ka2vG5rSNtjWiJOJpW+ftjRmHXJ9D8w5+iG/5nzkQygwpLJCkAI163vLSDxvw==
+X-Received: by 2002:a17:907:1b0c:b0:ae1:5db8:b78f with SMTP id a640c23a62f3a-afcdc35d96fmr105970366b.34.1755247978914;
+        Fri, 15 Aug 2025 01:52:58 -0700 (PDT)
+Message-ID: <2377fe95-2c04-4b71-8bdd-ea61996c82a4@suse.com>
+Date: Fri, 15 Aug 2025 10:52:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/22] x86/traps: Move load_system_tables() into
- traps-setup.c
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH 18/22] x86/traps: Set MSR_PL0_SSP in load_system_tables()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
- <20250808202314.1045968-10-andrew.cooper3@citrix.com>
- <80285a06f5d4fb3bd3e378317cca61ca@bugseng.com>
- <7e906964-b07d-4205-a683-e665f19d5edc@citrix.com>
- <aab37ec2-33bf-403b-978a-dc3c4bc282f7@suse.com>
- <0af415c5-df96-4715-a7e6-0d645e2e3a96@citrix.com>
- <75886e26-29b3-4aab-9780-7301330b4bb1@suse.com>
- <219ecea713dd9dac4c788d91c727f401@bugseng.com>
+ <20250808202314.1045968-19-andrew.cooper3@citrix.com>
+ <74a76087-e45e-4d7a-8df3-2711f77eea2a@suse.com>
+ <abfd11c9-db7b-4922-aeb5-381b5284fb22@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,110 +121,44 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <219ecea713dd9dac4c788d91c727f401@bugseng.com>
+In-Reply-To: <abfd11c9-db7b-4922-aeb5-381b5284fb22@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 15.08.2025 10:40, Nicola Vetrini wrote:
-> On 2025-08-15 10:30, Jan Beulich wrote:
->> On 14.08.2025 20:20, Andrew Cooper wrote:
->>> On 14/08/2025 8:26 am, Jan Beulich wrote:
->>>> On 13.08.2025 13:36, Andrew Cooper wrote:
->>>>> On 12/08/2025 10:43 am, Nicola Vetrini wrote:
->>>>>> On 2025-08-08 22:23, Andrew Cooper wrote:
->>>>>>> diff --git a/xen/arch/x86/traps-setup.c 
->>>>>>> b/xen/arch/x86/traps-setup.c
->>>>>>> index 8ca379c9e4cb..13b8fcf0ba51 100644
->>>>>>> --- a/xen/arch/x86/traps-setup.c
->>>>>>> +++ b/xen/arch/x86/traps-setup.c
->>>>>>> @@ -19,6 +20,124 @@ boolean_param("ler", opt_ler);
->>>>>>>
->>>>>>>  void nocall entry_PF(void);
->>>>>>>
->>>>>>> +/*
->>>>>>> + * Sets up system tables and descriptors for IDT devliery.
->>>>>>> + *
->>>>>>> + * - Sets up TSS with stack pointers, including ISTs
->>>>>>> + * - Inserts TSS selector into regular and compat GDTs
->>>>>>> + * - Loads GDT, IDT, TR then null LDT
->>>>>>> + * - Sets up IST references in the IDT
->>>>>>> + */
->>>>>>> +static void load_system_tables(void)
->>>>>>> +{
->>>>>>> +    unsigned int i, cpu = smp_processor_id();
->>>>>>> +    unsigned long stack_bottom = get_stack_bottom(),
->>>>>>> +        stack_top = stack_bottom & ~(STACK_SIZE - 1);
->>>>>>> +    /*
->>>>>>> +     * NB: define tss_page as a local variable because clang 3.5
->>>>>>> doesn't
->>>>>>> +     * support using ARRAY_SIZE against per-cpu variables.
->>>>>>> +     */
->>>>>>> +    struct tss_page *tss_page = &this_cpu(tss_page);
->>>>>>> +    idt_entry_t *idt = this_cpu(idt);
->>>>>>> +
->>>>>> Given the clang baseline this might not be needed anymore?
->>>>> Hmm.  While true, looking at 51461114e26, the code is definitely 
->>>>> better
->>>>> written with the tss_page variable and we wouldn't want to go back 
->>>>> to
->>>>> the old form.
->>>>>
->>>>> I think that I'll simply drop the comment.
->>>>>
->>>>> ~Andrew
->>>>>
->>>>> P.S.
->>>>>
->>>>> Generally speaking, because of the RELOC_HIDE() in this_cpu(), any 
->>>>> time
->>>>> you ever want two accesses to a variable, it's better (code gen 
->>>>> wise) to
->>>>> construct a pointer to it and use the point multiple times.
->>>>>
->>>>> I don't understand why there's a RELOC_HIDE() in this_cpu().  The
->>>>> justification doesn't make sense, but I've not had time to explore 
->>>>> what
->>>>> happens if we take it out.
->>>> There's no justification in xen/percpu.h?
->>>
->>> Well, it's given in compiler.h by RELOC_HIDE().
->>>
->>> /* This macro obfuscates arithmetic on a variable address so that gcc
->>>    shouldn't recognize the original var, and make assumptions about it 
->>> */
->>>
->>>
->>> But this is far from convincing.
->>>
->>>>
->>>> My understanding is that we simply may not expose any accesses to 
->>>> per_cpu_*
->>>> variables directly to the compiler, or there's a risk that it might 
->>>> access
->>>> the "master" variable (i.e. CPU0's on at least x86).
->>>
->>> RELOC_HIDE() doesn't do anything about the correctness of the pointer
->>> arithmetic expression to make the access work.
->>>
->>> I don't see how a correct expression can ever access CPU0's data by
->>> accident.
->>
->> Hmm, upon another look I agree. I wonder whether we inherited this from
->> Linux, where in turn it may have been merely a workaround to deal with
->> preemptible code not correctly accessing per-CPU data (i.e. not
->> accounting for get_per_cpu_offset() not being stable across 
->> preemption).
->> Yet then per_cpu() would have been of similar concern when "cpu" isn't
->> properly re-fetched after any possible preemption point ...
+On 14.08.2025 21:37, Andrew Cooper wrote:
+> On 14/08/2025 4:00 pm, Jan Beulich wrote:
+>> On 08.08.2025 22:23, Andrew Cooper wrote:
+>>> --- a/xen/arch/x86/boot/x86_64.S
+>>> +++ b/xen/arch/x86/boot/x86_64.S
+>>> @@ -65,17 +65,11 @@ ENTRY(__high_start)
+>>>          or      $(PRIMARY_SHSTK_SLOT + 1) * PAGE_SIZE - 8, %rdx
+>>>  
+>>>          /*
+>>> -         * Write a new supervisor token.  Doesn't matter on boot, but for S3
+>>> -         * resume this clears the busy bit.
+>>> +         * Write a new Supervisor Token.  It doesn't matter the first time a
+>>> +         * CPU boots, but for S3 resume or CPU hot re-add, this clears the
+>>> +         * busy bit.
+>>>           */
+>>>          wrssq   %rdx, (%rdx)
+>>> -
+>>> -        /* Point MSR_PL0_SSP at the token. */
+>>> -        mov     $MSR_PL0_SSP, %ecx
+>>> -        mov     %edx, %eax
+>>> -        shr     $32, %rdx
+>>> -        wrmsr
+>>> -
+>>>          setssbsy
+>> This is ending up a little odd: The comment says the write is to clear the
+>> busy bit, when that's re-set immediately afterwards.
 > 
-> Probably inherited with a stripped-down comment on top of RELOC_HIDE, 
-> see [1]. In a way it does make sense that the compiler may decide to 
-> optimize based on this assumption, though I don't know whether wrapping 
-> is meant to happen with per-CPU variables.
+> That comment is about the wrssq.  I suppose what isn't said is that
+> setssbsy will fault if not.  How about ", so SETSSBSY can set it again" ?
 
-I wouldn't call it "meant to", but wrapping certainly is possible. This
-is arch-independent code, and hence whether any wrapping would occur
-depends on the VA layout of the individual architectures.
+That would improve things, but then it's still unclear to me why we need to
+go through this. If the busy bit is already set, why clear it just to set
+it again. Or perhaps asked differently: Wouldn't we be better off if we
+cleared the busy bit when a CPU went offline?
 
 Jan
 
