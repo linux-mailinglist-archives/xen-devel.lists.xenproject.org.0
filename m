@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F05A8B27AB1
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Aug 2025 10:14:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1082909.1442600 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB621B27ABD
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Aug 2025 10:18:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1082921.1442609 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umpaI-0000T2-TY; Fri, 15 Aug 2025 08:14:46 +0000
+	id 1umpdF-00012O-Bw; Fri, 15 Aug 2025 08:17:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1082909.1442600; Fri, 15 Aug 2025 08:14:46 +0000
+Received: by outflank-mailman (output) from mailman id 1082921.1442609; Fri, 15 Aug 2025 08:17:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umpaI-0000R7-Qd; Fri, 15 Aug 2025 08:14:46 +0000
-Received: by outflank-mailman (input) for mailman id 1082909;
- Fri, 15 Aug 2025 08:14:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5DW6=23=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1umpaI-0000Qz-8h
- for xen-devel@lists.xenproject.org; Fri, 15 Aug 2025 08:14:46 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e669c9a9-79af-11f0-b898-0df219b8e170;
- Fri, 15 Aug 2025 10:14:44 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-6188b72b7caso2062534a12.2
- for <xen-devel@lists.xenproject.org>; Fri, 15 Aug 2025 01:14:44 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-618b01b5f14sm923645a12.40.2025.08.15.01.14.42
+	id 1umpdF-000108-9H; Fri, 15 Aug 2025 08:17:49 +0000
+Received: by outflank-mailman (input) for mailman id 1082921;
+ Fri, 15 Aug 2025 08:17:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=oFbR=23=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1umpdE-000102-Co
+ for xen-devel@lists.xenproject.org; Fri, 15 Aug 2025 08:17:48 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 539a91fb-79b0-11f0-a328-13f23c93f187;
+ Fri, 15 Aug 2025 10:17:47 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3b9e4148134so900093f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Aug 2025 01:17:47 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3bb67d86755sm1015229f8f.48.2025.08.15.01.17.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Aug 2025 01:14:43 -0700 (PDT)
+ Fri, 15 Aug 2025 01:17:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,199 +45,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e669c9a9-79af-11f0-b898-0df219b8e170
+X-Inumbo-ID: 539a91fb-79b0-11f0-a328-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755245683; x=1755850483; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1755245867; x=1755850667; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=G88eqCYTto50nyzB0kT3fBFYvRF+HnYjHzuaSVpQ15Q=;
-        b=FDuTqNKBJWUzfsPxngQI3OKiv5t38gURhp6Swl+4AZP1ZYubwS79kJQHAWPQMHIgKc
-         UWee8KmN4DXHfgIFz6WeiCpTCXKVPJJHp3jZVOoy9v+kqpEvv83LyQo2c4Mipa9j8SE9
-         MY08ngQqZWBxG2T1ToOkH2UUNcbBN4I7tbEF1t0HytV9SjTo0xl5gY5nauby23yWGHmQ
-         r2sF/xVCBjpMG+N4KOzSUGQ1MNAbJ+KOLqyA0bPJEWPYo0aQMorWu4C5NL9vW7gr5CzF
-         v2qkOKTxdvV1qucPed+n5fHnGGxtWONNUqtc815erORn7zJO85uEApG7XuL873FU3fhh
-         g4ww==
+        bh=BSD2pbMUBebq8bYeGE877yWQHhdSd05nNNyJHMAA7Uc=;
+        b=YYsSHO6QEmvVxifMafnaK5AY9cKNUZce76rpfUPz2KowYxFO8IIAmrmYyGuSz8adNg
+         aP0aK1Uj5ANdBWEJGxELxc7w6Gg6xLy1QkaTzjkpb5OTSi7cO4GMp9MvDlw9oo5sisLL
+         nWc0n+1gp0eFAp2vrPbS7C7ep5BNzf/oEPwz0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755245683; x=1755850483;
+        d=1e100.net; s=20230601; t=1755245867; x=1755850667;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=G88eqCYTto50nyzB0kT3fBFYvRF+HnYjHzuaSVpQ15Q=;
-        b=E7OfloOJTnDK4u/gSbiN8QzzGDodZDQstxuL5bQdfbN/s+cMTsGiZhKfQu7kvGCcPC
-         gAMTMfzLwtWrb7J6ttt0H8BqEcPvpayfftYlHvFPT1/3CMYAajAx5DiIw6IHYZ3HesMr
-         0TEneTyIOPEBE7xYC90RCA6nXbsQjC19QDLVABgeJAwTzot4zj+a+MUYwUgPdRCL2CMn
-         rwz9gzi/tkO7FzRztnx74TmkpC9AMXBbhmndcfYi7eK7uPe2AdU3dL88sCIyLBb85d/v
-         ub1k0KuJKy82FZpwJPXXd+wH1FXvyxkzoXWSW2CDbJVIa591HBW1rEqeZTnZ44wxMKUh
-         Ncfg==
-X-Forwarded-Encrypted: i=1; AJvYcCUkMq1OdhHgnaAtVwwy9xtbBxbFoJPUE7u1d4bMDHEHYRDwB4/2yzffsCsOJv1yxxgT0D7t73+t/Vs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwQP25XpA1ViNlgs7qQovuzIjKFCsQxHPzt75DJ1ARH+bpj/ItN
-	H+HTolj43BThw0hPuJT0L+UOPNyWfxVLkGKv7Oi8JHh7NM9Dd1vqvOwfkFFP1rh8wg==
-X-Gm-Gg: ASbGncv/F4HHCU10njPPrFbsverEH27D0fhMmXCGis8Xq4JE+J3/M5anoC5ghMUYFC6
-	eTtekMBpSFE2uHLOJG2EQ7eUhKbMff18U3cMhWS1enGHzVlpO/WjiqhUfJbt/BGBNUTtxvpdtGE
-	KfVOvPO/VO4FLrQjRUYIHJKjmYkpJrm7NEZQ8p6Yn9i7cKnxQ5u5FONwZrMFxmYPIcklW8Hq7ah
-	4oHQOOUPMxg2vdY9TC/F3BrzNDX6bL6onABStUNvCd18uhucL8hInyZHXDREN82EPC9Hx/6M6mu
-	OQe1XsIRjzpKYoHya6QqNAELIj9m9Kat1//RWsaPGb2LKAatGGDMm21t6Cpmr/chYqK3aaeSpzh
-	ExkiZsC7zK5j2DNlAU7/vFpbgFUxkDTSuwjEGPOPObiiPsEsPPedVUhn5xDDiN1dFHQ56THAgtq
-	UaJ6GpM8LfdOQIFhSkbw==
-X-Google-Smtp-Source: AGHT+IFtPzpXjYMAKcvl9d5L3FVP/b3gNasxzDxZ/0uItiGO7RJ5Lf+VzLef/Ss/aL5ikBzmHKr0Vw==
-X-Received: by 2002:a05:6402:84d:b0:615:a847:c179 with SMTP id 4fb4d7f45d1cf-618b054b8e0mr894951a12.18.1755245683500;
-        Fri, 15 Aug 2025 01:14:43 -0700 (PDT)
-Message-ID: <a3092ae1-d836-4403-8fb5-30593fcd2fb8@suse.com>
-Date: Fri, 15 Aug 2025 10:14:42 +0200
+        bh=BSD2pbMUBebq8bYeGE877yWQHhdSd05nNNyJHMAA7Uc=;
+        b=jalAL0jsKONGiV5VgxQwd5V3f+JrqdqIAPvEaOakX3j86qGhdmsHGwP0anj7XRV7bg
+         hBLjkRlX1gvuzchu9/WyrAfDYa8Rm4Rqq/EF73TcxwyQKkx+cgyzxmKw0Ln2hS7Aravf
+         OmHdEL5U6vGR0Hfhwfrghs7wCSaucxp1vHHtGjosmLregzL6g2XkT3CjnTIwYu8sqfDc
+         kFvP+INp5/TCI6Nr+154clLPPY6whSbwjgYUhy7LEzvEa3WgL/VNxL7OP3JY8zCn8nc3
+         I2IDJOsye+xj05jRMmRzoU6lJZUcvvEn90rvfcFhS/ZOYT4q5Fi9QIDBSZOJgFdNWohW
+         dNcg==
+X-Gm-Message-State: AOJu0Yzu4tFRQHYvniD2yZOJNRO/cuxrKW34VjGySuhvTeL3Ob/6r7cp
+	YKoNqaVB8aQu9H1yKPP7sE/UNVNwy65YYea7fO/ck2JtyYuFwQhndGD3/cmz1+SrKK4=
+X-Gm-Gg: ASbGncsrYQ+32AY31dS888upVDbuJ1Nd0cfws5qkhZYRtA74ovKNA69WqhmT0XZX6RL
+	EXPZQoWCZ/1wlSbqA65WA9wrVqMjgvtc43KuT0FrPP6Ygn1azDK/x7+Zz/AqNOMPdXbUvP7266r
+	Z/FEsvg/PYJUAO/0AFZwn4QRkoxuI5nofve6JLhjmABHzehhtr07Jeevm9lh55SYI7h8vXNFsnT
+	V5vLJzCOjnk3vVT32qC2TITmtdGFsQWZluGEhHZ4snWoxHliGKxxLu/k0a9RcHt5iQj/ySV1QtG
+	VeryYqwPdTRrO70/sSZdGXCbqzALHNn1BlEe9KmRNHiOCyCVuvjijvWtLF72um4K4yxj4dDgnZr
+	YLPLufXyCUvh+pDaNmgrCoil+GJc2R6kMSfsYRwqSNFAhfrDWfe0TaHMh0Y8Wk5gxDKTMtMRFey
+	Qchrs=
+X-Google-Smtp-Source: AGHT+IHg+viKjf6cq6sYPDHu/sWzWXU+eRm++UntVqWP2X6PEMGK1wObFGgG/qQcp4WQFPvuw0a1RA==
+X-Received: by 2002:a05:6000:2893:b0:3b9:48f:1960 with SMTP id ffacd0b85a97d-3bb692bcf88mr908009f8f.49.1755245866873;
+        Fri, 15 Aug 2025 01:17:46 -0700 (PDT)
+Message-ID: <f3ff5b2d-8077-4591-bf1f-bd658d705242@citrix.com>
+Date: Fri, 15 Aug 2025 09:17:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Consider changing CONFIG_ACPI default on ARM?
-To: Demi Marie Obenour <demiobenour@gmail.com>
-Cc: xen-users@lists.xenproject.org, xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Paul Leiber <paul@onlineschubla.de>, Elliott Mitchell <ehem+xen@m5p.com>
-References: <CAO_48GG1Tg0d3ATnNAYNr0cg7Ty_zsnzT29=dpkk99DxyTWcmg@mail.gmail.com>
- <fceb5df8-d628-479d-acb3-d1d26409fbac@onlineschubla.de>
- <aJLae1Nl0pyOZgyh@mattapan.m5p.com>
- <1b96f2f3-55a2-4b33-84b1-a7c18d38d10c@suse.com>
- <6e9b5265-7a3b-4fd5-b14e-0e60a8b49833@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6e9b5265-7a3b-4fd5-b14e-0e60a8b49833@gmail.com>
+Subject: Re: [PATCH v2] xen: Use auto as per C23
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Roberto Bagnara <roberto.bagnara@bugseng.com>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>
+References: <20250814222524.2638883-1-andrew.cooper3@citrix.com>
+ <3056ed85948288639110e3cdd6b28c6e@bugseng.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <3056ed85948288639110e3cdd6b28c6e@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14.08.2025 23:27, Demi Marie Obenour wrote:
-> On 8/14/25 02:55, Jan Beulich wrote:
->> On 06.08.2025 06:30, Elliott Mitchell wrote:
->>> On Tue, Jul 01, 2025 at 10:01:13PM +0200, Paul Leiber wrote:
->>>>
->>>> Unfortunately, I don't have a direct answer to the question (as is so often
->>>> the case, due to my limited knowledge and experience). However, I am
->>>> successfully running Xen on a RPi 4 (mostly, except for some VLAN related
->>>> networking issues).
->>>>
->>>> I used instructions in [1] to install vanilla Debian on the RPi, including
->>>> UEFI boot and grub. I then compiled Xen with expert options and ACPI
->>>> enabled.
->>>>
->>>> I don't know if there are better solutions. For example, I suffer from the
->>>> fact that I2C doesn't work when using UEFI boot on a RPi. Nowadays, Debian
->>>> provides their own vanilla Debian images for RPi and with working I2C, but
->>>> these images are using a different boot method that I didn't know how to use
->>>> with Xen.  So far, the procedure described above seems to be the easiest
->>>> solution for me.
->>>
->>>
->>>> [1] https://forums.raspberrypi.com/viewtopic.php?t=282839
->>>>
->>>> Am 30.06.2025 um 12:35 schrieb Sumit Semwal:
->>>>>
->>>>> I've just begun to experiment with the Raspberry Pi 5, trying to run a
->>>>> simple xen + Dom0 setup, using uBoot, and the bookworm based Rpi
->>>>> distro.
->>>>>
->>>>> I've tried combinations of the following setup:
->>>>>
->>>>> 1. prebuilt Rpi5 kernel + dtbs, and have also tried to build them from
->>>>> source [1]
->>>>> 2. Xen from upstream [2] and xen-troops [3]
->>>>> 3. upstream uBoot from [4]
->>>>>
->>>>> but with the same result: [short log below; I can provide a fuller log
->>>>> if needed]
->>>>>
->>>>> (XEN) DT: ** translation for device /axi/msi-controller@1000130000 **
->>>>> (XEN) DT: bus is default (na=2, ns=2) on /axi
->>>>> (XEN) DT: translating address:<3> 000000ff<3> fffff000<3>
->>>>> (XEN) DT: parent bus is default (na=2, ns=1) on /
->>>>> (XEN) DT: walking ranges...
->>>>> (XEN) DT: default map, cp=0, s=1000000000, da=fffffff000
->>>>> (XEN) DT: default map, cp=1000000000, s=100000000, da=fffffff000
->>>>> (XEN) DT: default map, cp=1400000000, s=400000000, da=fffffff000
->>>>> (XEN) DT: default map, cp=1800000000, s=400000000, da=fffffff000
->>>>> (XEN) DT: default map, cp=1c00000000, s=400000000, da=fffffff000
->>>>> (XEN) DT: not found !
->>>>> (XEN) Unable to retrieve address 1 for /axi/msi-controller@1000130000
->>>>> (XEN) Device tree generation failed (-22).
->>>>> (XEN) debugtrace_dump() global buffer starting
->>>>> 1 cpupool_create(pool=0,sched=6)
->>>>> 2 Created cpupool 0 with scheduler SMP Credit Scheduler rev2 (credit2)
->>>>> 3 cpupool_add_domain(dom=0,pool=0) n_dom 1 rc 0
->>>>> (XEN) wrap: 0
->>>>> (XEN) debugtrace_dump() global buffer finished
->>>>> (XEN)
->>>>> (XEN) ****************************************
->>>>> (XEN) Panic on CPU 0:
->>>>> (XEN) Could not set up DOM0 guest OS (rc = -22)
->>>>> (XEN) ****************************************
->>>>>
->>>>>
->>>>> I'm certain I'm missing something, but before I delve deeper, I just
->>>>> wanted to ask if this is a known issue, and if so, are there any
->>>>> workarounds or solutions available for this?
->>>>>
->>>>> Any help about this is highly appreciated!
->>>>>
->>>>> Thanks and Best regards,
->>>>> Sumit.
->>>>>
->>>>> [1]:  https://github.com/raspberrypi/linux rpi-6.12.y branch
->>>>> [2]: git://xenbits.xen.org/xen.git - main branch
->>>>> [3] xen-troops https://github.com/xen-troops/xen - rpi5_dev branch
->>>>> [4]: https://github.com/u-boot/u-boot.git master branch
->>>
->>> Ultimately Debian is choosing to leave most defaults alone.  So far the
->>> Xen developers have left CONFIG_ACPI defaulting to off on ARM*.  The
->>> Debian project doesn't have paid people to support Raspberry PI hardware,
->>> despite being rather common.  As a result there aren't any official
->>> Raspberry PI images, but people associated with Tianocore have gotten
->>> generic images to boot on Raspberry PI hardware.
->>>
->>> I'm unsure of the likelihood of getting the Debian maintainers to
->>> override the default.  Yet due being by far the simplest way to install
->>> Debian and Xen on a very common ARM64 platform, perhaps the Xen
->>> developers should consider changing?
+On 15/08/2025 8:20 am, Nicola Vetrini wrote:
+> On 2025-08-15 00:25, Andrew Cooper wrote:
+>> In macros it is common to declare local variables using typeof(param)
+>> in order
+>> to ensure that side effects are only evaluated once.  A consequence
+>> of this is
+>> double textural expansion of the parameter, which can get out of hand
+>> very
+>> quickly with nested macros.
 >>
->> In an open source project everyone is a developer. There is a
->> significant amount of work someone needs to pick up to change this
->> SUPPORT.md entry:
+>> In C23, the auto keyword has been repurposed to perform type inference.
 >>
->> ### Host ACPI (via Domain 0)
+>> A GCC extension, __auto_type, is now avaialble in the new toolchain
+>> baseline
+>> and avoids the double textural expansion.
 >>
->>     Status, x86 PV: Supported
->>     Status, ARM: Experimental
->>
->> Parties interested in changing the support status of any component are the
->> primary candidates to actually carry out the necessary work.
-> 
-> What is that work?
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>
+> Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-To determine what exactly needs doing is part of the exercise. I, for one, am
-unaware of a concrete written down set of things which need doing.
+Thankyou.
 
-Jan
+>>
+>> diff --git a/xen/include/xen/compiler.h b/xen/include/xen/compiler.h
+>> index 88bf26bc5109..38ef5d82ad95 100644
+>> --- a/xen/include/xen/compiler.h
+>> +++ b/xen/include/xen/compiler.h
+>> @@ -64,6 +64,20 @@
+>>  # define asm_inline asm
+>>  #endif
+>>
+>> +/*
+>> + * In C23, the auto keyword has been repurposed to perform type
+>> inference.
+>> + *
+>> + * This behaviour is available via the __auto_type extension in
+>> supported
+>> + * toolchains.
+>> + *
+>> + *
+>> https://www.gnu.org/software/c-intro-and-ref/manual/html_node/Auto-Type.html
+>> + * https://clang.llvm.org/docs/LanguageExtensions.html#auto-type
+>> + */
+>> +#if !defined(__STDC_VERSION__) || __STDC_VERSION__ < 202311L
+>> +/* SAF-3-safe MISRA C Rule 20.4: Giving the keyword it's C23
+>> meaning. */
+>> +#define auto __auto_type
+>> +#endif
+>> +
+>
+> A more detailed explanation should live in deviations.rst under this
+> bullet point
+>
+>    * - R20.4
+>      - The override of the keyword \"inline\" in xen/compiler.h is
+> present so
+>        that section contents checks pass when the compiler chooses not to
+>        inline a particular function.
+>      - Comment-based deviation.
+>
+> as described in the SAF entry:
+>
+>         {
+>             "id": "SAF-3-safe",
+>             "analyser": {
+>                 "eclair": "MC3A2.R20.4"
+>             },
+>             "name": "MC3A2.R20.4: allow the definition of a macro with
+> the same name as a keyword in some special cases",
+>             "text": "The definition of a macro with the same name as a
+> keyword can be useful in certain configurations to improve the
+> guarantees that can be provided by Xen. See docs/misra/deviations.rst
+> for a precise rationale for all such cases."
+>         },
+
+Ah right.  What about this:
+
+"Xen does not use the \"auto\" keyword as a storage qualifier.  The
+override of the keyword \"auto\" in xen/compiler.h is to give it it's
+C23 behaviour of type inference."
+
+?
+
+~Andrew
+
+P.S. I thought that final fix was too easy.  Your instructions for the
+main config were spot on and worked first time, except for getting the
+R20.4 violation too.
 
