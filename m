@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D69C5B27B13
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Aug 2025 10:32:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1082986.1442660 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F213EB27B1B
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Aug 2025 10:34:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1082996.1442671 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umprI-0006BY-K0; Fri, 15 Aug 2025 08:32:20 +0000
+	id 1umpsl-0006hl-Ue; Fri, 15 Aug 2025 08:33:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1082986.1442660; Fri, 15 Aug 2025 08:32:20 +0000
+Received: by outflank-mailman (output) from mailman id 1082996.1442671; Fri, 15 Aug 2025 08:33:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umprI-00068T-Gk; Fri, 15 Aug 2025 08:32:20 +0000
-Received: by outflank-mailman (input) for mailman id 1082986;
- Fri, 15 Aug 2025 08:32:18 +0000
+	id 1umpsl-0006ee-Rk; Fri, 15 Aug 2025 08:33:51 +0000
+Received: by outflank-mailman (input) for mailman id 1082996;
+ Fri, 15 Aug 2025 08:33:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5DW6=23=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1umprG-00068H-T9
- for xen-devel@lists.xenproject.org; Fri, 15 Aug 2025 08:32:18 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ZXrH=23=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1umpsj-0006eT-FK
+ for xen-devel@lists.xenproject.org; Fri, 15 Aug 2025 08:33:50 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5a649d59-79b2-11f0-a328-13f23c93f187;
- Fri, 15 Aug 2025 10:32:17 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-6188b794743so2937027a12.3
- for <xen-devel@lists.xenproject.org>; Fri, 15 Aug 2025 01:32:17 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-618b02b1cfasm947756a12.54.2025.08.15.01.32.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Aug 2025 01:32:17 -0700 (PDT)
+ id 8f1f98ad-79b2-11f0-a328-13f23c93f187;
+ Fri, 15 Aug 2025 10:33:46 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id 59ADE4EE0742;
+ Fri, 15 Aug 2025 10:33:45 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,125 +40,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5a649d59-79b2-11f0-a328-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755246737; x=1755851537; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Muea7NkvBYsveiar0A5vnkTQBnnL+3DlrW5SeB8DAi4=;
-        b=eGdvO7o3t5mRNhAEzNosyiaEHBVIJXXZLBc7EwEHTyWhLBh+NUfk3U8+4kHmNP1M1l
-         iiV/EPzrpowl2y6G3twZUZNVKQnBusmEWUseUBV2cjd1coWVfvKzNo5WZENWdjcMiG+C
-         1uiL+yzgF1jFBd80DnUZHT7TBKv60ehpy2gj4CVSdxTjAWgFfAsdwq2IBEbZX4JUzyao
-         45VFDBbKyUipPKqTHw46d+tsb/XLbGS7WVmA7WAulzzmRdud4mVMPumLvYwtPsxTTBOB
-         GdAz3RQIjugizocrk2xTklIO5Mb7EFeAd0qS843i2l9+JB12lGrecwTrIA7aWFxaSXVW
-         i6HA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755246737; x=1755851537;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Muea7NkvBYsveiar0A5vnkTQBnnL+3DlrW5SeB8DAi4=;
-        b=prGKqICqTb1Ycvbgbns4Qfkg/mLPa/9NUY696FhJJJPuNZ8oEqE9CModtgTzCk29ub
-         isdG44DE/0s2xp0maTpFQ9fkZayNMUBoL3EFa2sWTALEoa7juS/hXsEjjg3FsVqDwOfp
-         qTzim5AhRNq0cugodSxH2h+QwQo+HPpp+b8jt9qkIbrQuZoiiDcKs0xgmPd8oxtm3a7f
-         kTRm0Uuof4ioy8lyzAtvgjDptBa/0s+LfPJIzQwj4TJpqwLv2X5yFZwohasBpR5+oCgh
-         pws3Bom5NfCHcA8lenuPfwjs/wi7Y1LSRorC+BknSxyJhPDkt8l/XVinpr2NLDq5ZEzq
-         bjjA==
-X-Forwarded-Encrypted: i=1; AJvYcCWbtVpeNzwEbHsBGeH9bG7pUO7e9h5d0pCongYEYZeZ7z1RoZXI/Uvnl1Dpo/fnxnQ1Oye23HySl/g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzDql7JSxhGwLWc7FcS+X+Q62C9I3qgge8VUGCoDKC+viT1KHaM
-	sgvSZPD090mhtxa0tJ7CvtRnd0QQTuex3KB2nuwUbV7ZgvmQheNqQQ7XdmKbsa8uog==
-X-Gm-Gg: ASbGncuaoKbfSqKrFFob4oWCRjkI+qO98vf2C/zKA75AkdcO25b3AwRvKwGs8Iw54zv
-	6CFIBEFUfBmES794s5gUecn/KIoL5XTIp0kJDm9EGA+G8fSyU/XDOVQdvNZBcNW1x0FbTWDpMKn
-	8PwN0K7YoHN/sLOOybRSaHvARtwBumJ/ezKpegL4xH4Q9hitPn4rpqScZGwRFdMvL99ddNur07I
-	FTGtEr3Py6fbhDqvva92qM8Z1+itn2bMejqA9S5UpkO69keJdxwc3EqwRet6owWxtA5uqNpX/Yw
-	MFrcHF2IqOowRwM1m1QGN5kna9dJral0d4mHbEmKSfYc3HQ6x8koKvInFCOIiLEDCAIK1y9OX4n
-	3hGQE3+s1kJ+TBXZ8nmY7eQuNw/2fZ0q+kV9KO/MALCBmsMht57BF7oOFujhiVAyBH34DZymVH5
-	FOISKZZC8xIcYx+NeVeA==
-X-Google-Smtp-Source: AGHT+IETDH/5x9eLB6pmwslbllCgVgCyw7FlssXa8LyyjLnAXUkY0j7ix9kieViSNmDcsJI3Duf6uQ==
-X-Received: by 2002:a05:6402:35cb:b0:615:cc03:e6ab with SMTP id 4fb4d7f45d1cf-618b052b625mr879378a12.2.1755246737300;
-        Fri, 15 Aug 2025 01:32:17 -0700 (PDT)
-Message-ID: <25794508-f262-4aed-819b-3c32ad4c2a86@suse.com>
-Date: Fri, 15 Aug 2025 10:32:16 +0200
+X-Inumbo-ID: 8f1f98ad-79b2-11f0-a328-13f23c93f187
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1755246825;
+	b=1tzPg5EpoQZvLYDDg1IgCgbcxJAFZL0uo37bFP7e7/h95Yg7DgUsYKAlUZUm67mcC68M
+	 SAhZWY2zB0UqKCV8YW700j1OYzN7DCGn5YXoxjuv65JJHh6PR3mCul6Hx1ET7ccd0GzrI
+	 umktG5r/9JMCrDEPeGk6Ka/p1qkYOOisfBS4LttOlsi/SKA5G5F9b50Zu+D0q/xeDqa39
+	 lxsxlc7c1DJGER1z9jkjF3UmUp6bbrRs2ozsP5xrOiCJ8SEr5aeUcWksYe9BtwZc0eOsO
+	 LCXG+09upXSNm3XMKzUeYZh6gfOLMSIGXNsGtYfx2xxSBne0Mdt859XFsBeKbG7lZkoOk
+	 FLqDR78+6cSPS5Hm3AIG7SJOGAyTpN1EA42+6+wBUyTd3/hp02xKjeJSnQYk+ba+utrJL
+	 XXO25EPSDyahX0HdLE1gA3eT9gS5oaS1Vh8SIBU8pzu84JfR9Fng4udAit8UTQOdRSR1y
+	 K0CnJ6fZujgjgSWZH5273EhA6aAaKUYVirREnszz+k9ifhUHDUlCXYSV4WSzxmlxzfq8e
+	 cTWk+yOh4dBtF8K032fbnEA5p+UG/0HgF7PIkB2yo9M0jtCgbQ0N54TZqW4Xh3KR69xD6
+	 0Q08YxCxhSXyx4onMxQ/mR+4tHCU3TDtyrYH07nX5nuYXWLtd0kwSUlt9pswZRk=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1755246825;
+	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=8UX0rF92ich/Uj9FEpDrVgAcvFZxbLo++qCmo3WlKiY=;
+	b=kUSdh+4UCl5CL+mW4xLKiptWeQKhZQXIDtLCIDHgsTm+0TDqAsnpyqJqsOrJIBbV4GHn
+	 KlB+1UgcnUQgM41SnYWbWBgDbwNPOuvtnZTTJNy+mpRXMU98mHMjpwLgve++dckFB8Pur
+	 bwCsyfCCTYOiUdJjIg52Llz1Ey8azUPl/KX7pou4dMHXneSjNrfIxW4xBz/L/zpRbX+qJ
+	 pQ1UrQ/EpiZ2MEqRJOjnCRBLVGxNWVsOBoXY4SEUQwEac9ZOUbWrTPGqfheYPTxEZg+Ut
+	 kCE3jzLu9jVrRPkq2GHdnNgXTP+tq+dqXZZFVeGDu6XU5gR7DdkUCO1KzvKfWpHHwbHa6
+	 2oP55peO4hVBOOi9cYTvtd2baMq6eiqMb2TAUH0LVnDEfiLUvJGWuJKvxwgcglqnvuX0c
+	 Gm+mgE9ctQIsSBWM0zSv0MKQGIrRoPxUj+zKgoZ1Ti6wmzoE339etg/hUfIJ0W/yLMZ5+
+	 bVs79b7rsWu/vvqmfCGFrz/DMO1F7vzserCYOYBuOcpRUqsl+PUth0BlJD3vVjXXyXl+h
+	 CFL0TAWygVRd2y72TxfjoBBcWExBEgxImQPQeSkVTh+M9AGJzMD13E8EJjqRAq3GykstY
+	 fYt3M0+AhECzRuIELz/9ki7LBXg7ZabPYy3LHNeXcBMmfT/EmOsQxFYEgizEaJA=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1755246825; bh=0nRO27FFoVsRsivnfkAhF9FHD4VCkeUdH4EspsCm0Zg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=jA1ImJNIGxogOPwJ49vI7WiVO9bvjNPFBxLTmxiL46eoNucj1aO2RsX5cwAEaeeEx
+	 2eXX3bKUVH7KanzWZO00ANb3zhS0dpTY15ZyG2GPVlt+ox0kjK8p+s3mgzNSEb9KaM
+	 NQKIEKk3R6QkdrYL8tzqUrgiwnyt4BLjphba3KQBvDknOE5Bwh7DtA0YSw9CHxLhid
+	 JYAomDsemxVRilOrZyacUpJRZUSoyrHYPiAVxGJH9N9tIQUTU8J0dg92S0N8Oo3h5O
+	 eKS2K/iu65Q+sODPx2dqSKUTQX3+qFi1JsSOUBsb0jCUPv9PIv2sgIONH8w5SoPtxy
+	 O+1V3n78aPX+w==
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/22] x86/traps: Move load_system_tables() into
- traps-setup.c
+Date: Fri, 15 Aug 2025 10:33:45 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
- <20250808202314.1045968-10-andrew.cooper3@citrix.com>
- <a4a88d7a-8c1f-4170-a1fe-afafcad0c8ea@suse.com>
- <9e955bff-c145-4a52-af4f-a7055fc9aa67@citrix.com>
- <8e0b4a82-3189-4446-96a8-921d8ae44a21@suse.com>
- <5def44a3-4139-4870-94f2-cb895078f968@citrix.com>
- <0e9878a9-fb0d-4d18-ab15-eb248629b192@suse.com>
- <a2f8167b-cfcc-4729-892b-d2994aa77f84@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a2f8167b-cfcc-4729-892b-d2994aa77f84@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Anthony PERARD
+ <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan
+ Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Roberto Bagnara <roberto.bagnara@bugseng.com>,
+ "consulting @ bugseng . com" <consulting@bugseng.com>
+Subject: Re: [PATCH v2] xen: Use auto as per C23
+In-Reply-To: <f3ff5b2d-8077-4591-bf1f-bd658d705242@citrix.com>
+References: <20250814222524.2638883-1-andrew.cooper3@citrix.com>
+ <3056ed85948288639110e3cdd6b28c6e@bugseng.com>
+ <f3ff5b2d-8077-4591-bf1f-bd658d705242@citrix.com>
+Message-ID: <7fc93aeef27153f1d6caa786bd44420f@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 15.08.2025 10:28, Andrew Cooper wrote:
-> On 15/08/2025 9:22 am, Jan Beulich wrote:
->> On 14.08.2025 20:09, Andrew Cooper wrote:
->>> On 14/08/2025 9:55 am, Jan Beulich wrote:
->>>> On 13.08.2025 13:25, Andrew Cooper wrote:
->>>>> On 12/08/2025 10:19 am, Jan Beulich wrote:
->>>>>> On 08.08.2025 22:23, Andrew Cooper wrote:
->>>>>>> Since commit a35816b5cae8 ("x86/traps: Introduce early_traps_init() and
->>>>>>> simplify setup"), load_system_tables() is called later on the BSP, so the
->>>>>>> SYS_STATE_early_boot check can be dropped from the safety BUG_ON().
->>>>>>>
->>>>>>> Move the BUILD_BUG_ON() into build_assertions(),
->>>>>> I'm not quite convinced of this move - having the related BUILD_BUG_ON()
->>>>>> and BUG_ON() next to each other would seem better to me.
->>>>> I don't see a specific reason for them to be together, and the comment
->>>>> explains what's going on.
->>>>>
->>>>> With FRED, we want a related BUILD_BUG_ON(), but there's no equivalent
->>>>> BUG_ON() because MSR_RSP_SL0 will #GP on being misaligned.
->>>> That BUILD_BUG_ON() could then sit next to the MSR write? Unless of course
->>>> that ends up sitting in an assembly source.
->>> It's the bottom hunk in patch 14, which you've looked at now.
->>>
->>> Personally, I think both BUILD_BUG_ON()'s should be together, because
->>> they are related.
->> I don't really agree, but I also won't insist on my preference to be followed.
->> IOW please keep as is.
+On 2025-08-15 10:17, Andrew Cooper wrote:
+> On 15/08/2025 8:20 am, Nicola Vetrini wrote:
+>> On 2025-08-15 00:25, Andrew Cooper wrote:
+>>> In macros it is common to declare local variables using typeof(param)
+>>> in order
+>>> to ensure that side effects are only evaluated once.  A consequence
+>>> of this is
+>>> double textural expansion of the parameter, which can get out of hand
+>>> very
+>>> quickly with nested macros.
+>>> 
+>>> In C23, the auto keyword has been repurposed to perform type 
+>>> inference.
+>>> 
+>>> A GCC extension, __auto_type, is now avaialble in the new toolchain
+>>> baseline
+>>> and avoids the double textural expansion.
+>>> 
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> 
+>> Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 > 
-> Thankyou.  Can I consider this to be A-by then?  (This, and the rename
-> to percpu_early_traps_init() are the only two remaining items in the
-> entire first half of the series.)
+> Thankyou.
+> 
+>>> 
+>>> diff --git a/xen/include/xen/compiler.h b/xen/include/xen/compiler.h
+>>> index 88bf26bc5109..38ef5d82ad95 100644
+>>> --- a/xen/include/xen/compiler.h
+>>> +++ b/xen/include/xen/compiler.h
+>>> @@ -64,6 +64,20 @@
+>>>  # define asm_inline asm
+>>>  #endif
+>>> 
+>>> +/*
+>>> + * In C23, the auto keyword has been repurposed to perform type
+>>> inference.
+>>> + *
+>>> + * This behaviour is available via the __auto_type extension in
+>>> supported
+>>> + * toolchains.
+>>> + *
+>>> + *
+>>> https://www.gnu.org/software/c-intro-and-ref/manual/html_node/Auto-Type.html
+>>> + * https://clang.llvm.org/docs/LanguageExtensions.html#auto-type
+>>> + */
+>>> +#if !defined(__STDC_VERSION__) || __STDC_VERSION__ < 202311L
+>>> +/* SAF-3-safe MISRA C Rule 20.4: Giving the keyword it's C23
+>>> meaning. */
+>>> +#define auto __auto_type
+>>> +#endif
+>>> +
+>> 
+>> A more detailed explanation should live in deviations.rst under this
+>> bullet point
+>> 
+>>    * - R20.4
+>>      - The override of the keyword \"inline\" in xen/compiler.h is
+>> present so
+>>        that section contents checks pass when the compiler chooses not 
+>> to
+>>        inline a particular function.
+>>      - Comment-based deviation.
+>> 
+>> as described in the SAF entry:
+>> 
+>>         {
+>>             "id": "SAF-3-safe",
+>>             "analyser": {
+>>                 "eclair": "MC3A2.R20.4"
+>>             },
+>>             "name": "MC3A2.R20.4: allow the definition of a macro with
+>> the same name as a keyword in some special cases",
+>>             "text": "The definition of a macro with the same name as a
+>> keyword can be useful in certain configurations to improve the
+>> guarantees that can be provided by Xen. See docs/misra/deviations.rst
+>> for a precise rationale for all such cases."
+>>         },
+> 
+> Ah right.  What about this:
+> 
+> "Xen does not use the \"auto\" keyword as a storage qualifier.  The
+> override of the keyword \"auto\" in xen/compiler.h is to give it it's
+> C23 behaviour of type inference."
+> 
+> ?
+> 
 
-Yes:
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Seems good to me. Maybe this should be spelled out in ./CODING_STYLE as 
+well, so that newcomers don't trip over this?
 
-Jan
+> ~Andrew
+> 
+> P.S. I thought that final fix was too easy.  Your instructions for the
+> main config were spot on and worked first time, except for getting the
+> R20.4 violation too.
+
+Yeah, forgot about that one; it's not so common to override keywords.
+
+-- 
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
