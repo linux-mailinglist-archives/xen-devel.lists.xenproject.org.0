@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3188B27B09
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Aug 2025 10:30:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1082972.1442651 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D69C5B27B13
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Aug 2025 10:32:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1082986.1442660 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umpps-0005RB-6d; Fri, 15 Aug 2025 08:30:52 +0000
+	id 1umprI-0006BY-K0; Fri, 15 Aug 2025 08:32:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1082972.1442651; Fri, 15 Aug 2025 08:30:52 +0000
+Received: by outflank-mailman (output) from mailman id 1082986.1442660; Fri, 15 Aug 2025 08:32:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1umpps-0005OC-2n; Fri, 15 Aug 2025 08:30:52 +0000
-Received: by outflank-mailman (input) for mailman id 1082972;
- Fri, 15 Aug 2025 08:30:50 +0000
+	id 1umprI-00068T-Gk; Fri, 15 Aug 2025 08:32:20 +0000
+Received: by outflank-mailman (input) for mailman id 1082986;
+ Fri, 15 Aug 2025 08:32:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5DW6=23=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1umppq-0005Mb-9U
- for xen-devel@lists.xenproject.org; Fri, 15 Aug 2025 08:30:50 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ id 1umprG-00068H-T9
+ for xen-devel@lists.xenproject.org; Fri, 15 Aug 2025 08:32:18 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 25809729-79b2-11f0-a328-13f23c93f187;
- Fri, 15 Aug 2025 10:30:49 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-afcb731ca8eso283997466b.0
- for <xen-devel@lists.xenproject.org>; Fri, 15 Aug 2025 01:30:49 -0700 (PDT)
+ id 5a649d59-79b2-11f0-a328-13f23c93f187;
+ Fri, 15 Aug 2025 10:32:17 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-6188b794743so2937027a12.3
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Aug 2025 01:32:17 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afcdce53f49sm93900266b.7.2025.08.15.01.30.47
+ 4fb4d7f45d1cf-618b02b1cfasm947756a12.54.2025.08.15.01.32.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Aug 2025 01:30:48 -0700 (PDT)
+ Fri, 15 Aug 2025 01:32:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 25809729-79b2-11f0-a328-13f23c93f187
+X-Inumbo-ID: 5a649d59-79b2-11f0-a328-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755246648; x=1755851448; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755246737; x=1755851537; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=b8KdAPqjUc62YbZbRyUmVI1Fj7/jzssYQ+5o+G0d1u4=;
-        b=Tc5i1jbi5pb3tLF7eXhcw2JSn3Snof6TzEQpDybcLEFbXf2hKJ4qK7fiZXZA52pa5U
-         /LNeKNrTuXB5K86WVmBaODYkKhcidCZzuxO3DJQfoSwW6GmjyRLhGXYJOY2gDfJUTh0g
-         mSOZOzYl3aWkBBxJxCQ7srHzAmCRdPABhtnMOJOafKz2Gncw62dAb8kIQR8tnyCAbpnS
-         TmY/T43mOdxiHD148lT1NWH39vonElAmG3dV69U6Y+o/RM2ZIPcXxG994qNAvLC/JAkv
-         bRbbTqKEUopq+IAF02qLpkVVPFXoZGcv8qIFLDF+nk0Sfp76gDXMy1AKD0pBrQpaHlqK
-         1h/w==
+        bh=Muea7NkvBYsveiar0A5vnkTQBnnL+3DlrW5SeB8DAi4=;
+        b=eGdvO7o3t5mRNhAEzNosyiaEHBVIJXXZLBc7EwEHTyWhLBh+NUfk3U8+4kHmNP1M1l
+         iiV/EPzrpowl2y6G3twZUZNVKQnBusmEWUseUBV2cjd1coWVfvKzNo5WZENWdjcMiG+C
+         1uiL+yzgF1jFBd80DnUZHT7TBKv60ehpy2gj4CVSdxTjAWgFfAsdwq2IBEbZX4JUzyao
+         45VFDBbKyUipPKqTHw46d+tsb/XLbGS7WVmA7WAulzzmRdud4mVMPumLvYwtPsxTTBOB
+         GdAz3RQIjugizocrk2xTklIO5Mb7EFeAd0qS843i2l9+JB12lGrecwTrIA7aWFxaSXVW
+         i6HA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755246648; x=1755851448;
+        d=1e100.net; s=20230601; t=1755246737; x=1755851537;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=b8KdAPqjUc62YbZbRyUmVI1Fj7/jzssYQ+5o+G0d1u4=;
-        b=o/tO1Q4RBDCXizE1SoZTFUuBeFfqeiEWzUs2672HHfuiW8j8JRSczVd/wZYuWyoSxg
-         ZPETDY3W/yTvUg/+0wSuDQekm26NKHyrlIwpGfJIz1+CHmctUHZxFBHxXHksSBljikjK
-         SV54GmvPPGa7UEZtkZxryooXtznheOVT2yB+mw6KbiQ8uTQ24jlgejzGtvU7GuBJdQyO
-         OLq5TSYUNhI0xo8M3RSNSrfqIrVIKiIgJO3rHvtrr7e3kmMi8ooRgz6X2CWDVfuCpUx3
-         RuU6Fc0G0bGaBS4/K4ENGNBaFg6ULJwqFoent2Ma1VflVryqVOYvZccVtNpgcX57QZwi
-         fI5g==
-X-Gm-Message-State: AOJu0YwYjidQi4/t/xqtjGHw3GxIEfCSBH1viec102jtYzxBP+xi4TU4
-	h9PSInF1F8CwcVqNNcvJ94A8pXL8tQweKFPNsfifOdVaLiG7djHujBexapkPVDmLCA==
-X-Gm-Gg: ASbGncvE26IxYsAZPT/iU7ys7JBniqu16JYMvXQih8KU4DNLk8GMHp9qCRNKMTKsL5K
-	4QZSUj2/E8WYWrO8V8ri+CY1g+2ntkcpGm9qfGh600ZLCPPjLEiLheD3XZLOxLA2oxJFSI5XqYf
-	D505QOQrkb+RPXRjed6KePPOxwBLmiXQWiO3cNSL7pgh2bqTdX+Z+qpW0cVJyZmtFSwhhXtFiAg
-	hdhZNxFTO9ZCELmZA+yZ7Np+M3MCcBlTQ0ehK630E8Q2RFALMh2LTJ0ZIDbCp9BAdtGt7x/BcO5
-	6z++gBIqmWJtVJRxhGMjPWS3QxuTUG2z5DIhsJ1sIgx0fyqsd33gqy655mv+RuGfVDd8JAF9wSO
-	okOfX9C9DbwMRWKmT2PefOgqsHCci4Jht971yKFMJIyGOFL6A7vJ4Q7YblZRoED8mr4QYrEwS/v
-	TDrBCx9jc=
-X-Google-Smtp-Source: AGHT+IFLdKx3RnmVUyVNLLMWTlDtpsJgjZ95X8+/E3fGx2IYIqo3pw8fYGG1XPOQQhMZVF7dqvshFg==
-X-Received: by 2002:a17:907:788:b0:ad5:74cd:1824 with SMTP id a640c23a62f3a-afcdc35dff2mr103672466b.38.1755246648451;
-        Fri, 15 Aug 2025 01:30:48 -0700 (PDT)
-Message-ID: <75886e26-29b3-4aab-9780-7301330b4bb1@suse.com>
-Date: Fri, 15 Aug 2025 10:30:47 +0200
+        bh=Muea7NkvBYsveiar0A5vnkTQBnnL+3DlrW5SeB8DAi4=;
+        b=prGKqICqTb1Ycvbgbns4Qfkg/mLPa/9NUY696FhJJJPuNZ8oEqE9CModtgTzCk29ub
+         isdG44DE/0s2xp0maTpFQ9fkZayNMUBoL3EFa2sWTALEoa7juS/hXsEjjg3FsVqDwOfp
+         qTzim5AhRNq0cugodSxH2h+QwQo+HPpp+b8jt9qkIbrQuZoiiDcKs0xgmPd8oxtm3a7f
+         kTRm0Uuof4ioy8lyzAtvgjDptBa/0s+LfPJIzQwj4TJpqwLv2X5yFZwohasBpR5+oCgh
+         pws3Bom5NfCHcA8lenuPfwjs/wi7Y1LSRorC+BknSxyJhPDkt8l/XVinpr2NLDq5ZEzq
+         bjjA==
+X-Forwarded-Encrypted: i=1; AJvYcCWbtVpeNzwEbHsBGeH9bG7pUO7e9h5d0pCongYEYZeZ7z1RoZXI/Uvnl1Dpo/fnxnQ1Oye23HySl/g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzDql7JSxhGwLWc7FcS+X+Q62C9I3qgge8VUGCoDKC+viT1KHaM
+	sgvSZPD090mhtxa0tJ7CvtRnd0QQTuex3KB2nuwUbV7ZgvmQheNqQQ7XdmKbsa8uog==
+X-Gm-Gg: ASbGncuaoKbfSqKrFFob4oWCRjkI+qO98vf2C/zKA75AkdcO25b3AwRvKwGs8Iw54zv
+	6CFIBEFUfBmES794s5gUecn/KIoL5XTIp0kJDm9EGA+G8fSyU/XDOVQdvNZBcNW1x0FbTWDpMKn
+	8PwN0K7YoHN/sLOOybRSaHvARtwBumJ/ezKpegL4xH4Q9hitPn4rpqScZGwRFdMvL99ddNur07I
+	FTGtEr3Py6fbhDqvva92qM8Z1+itn2bMejqA9S5UpkO69keJdxwc3EqwRet6owWxtA5uqNpX/Yw
+	MFrcHF2IqOowRwM1m1QGN5kna9dJral0d4mHbEmKSfYc3HQ6x8koKvInFCOIiLEDCAIK1y9OX4n
+	3hGQE3+s1kJ+TBXZ8nmY7eQuNw/2fZ0q+kV9KO/MALCBmsMht57BF7oOFujhiVAyBH34DZymVH5
+	FOISKZZC8xIcYx+NeVeA==
+X-Google-Smtp-Source: AGHT+IETDH/5x9eLB6pmwslbllCgVgCyw7FlssXa8LyyjLnAXUkY0j7ix9kieViSNmDcsJI3Duf6uQ==
+X-Received: by 2002:a05:6402:35cb:b0:615:cc03:e6ab with SMTP id 4fb4d7f45d1cf-618b052b625mr879378a12.2.1755246737300;
+        Fri, 15 Aug 2025 01:32:17 -0700 (PDT)
+Message-ID: <25794508-f262-4aed-819b-3c32ad4c2a86@suse.com>
+Date: Fri, 15 Aug 2025 10:32:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 09/22] x86/traps: Move load_system_tables() into
  traps-setup.c
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
  <20250808202314.1045968-10-andrew.cooper3@citrix.com>
- <80285a06f5d4fb3bd3e378317cca61ca@bugseng.com>
- <7e906964-b07d-4205-a683-e665f19d5edc@citrix.com>
- <aab37ec2-33bf-403b-978a-dc3c4bc282f7@suse.com>
- <0af415c5-df96-4715-a7e6-0d645e2e3a96@citrix.com>
+ <a4a88d7a-8c1f-4170-a1fe-afafcad0c8ea@suse.com>
+ <9e955bff-c145-4a52-af4f-a7055fc9aa67@citrix.com>
+ <8e0b4a82-3189-4446-96a8-921d8ae44a21@suse.com>
+ <5def44a3-4139-4870-94f2-cb895078f968@citrix.com>
+ <0e9878a9-fb0d-4d18-ab15-eb248629b192@suse.com>
+ <a2f8167b-cfcc-4729-892b-d2994aa77f84@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,89 +126,44 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0af415c5-df96-4715-a7e6-0d645e2e3a96@citrix.com>
+In-Reply-To: <a2f8167b-cfcc-4729-892b-d2994aa77f84@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 14.08.2025 20:20, Andrew Cooper wrote:
-> On 14/08/2025 8:26 am, Jan Beulich wrote:
->> On 13.08.2025 13:36, Andrew Cooper wrote:
->>> On 12/08/2025 10:43 am, Nicola Vetrini wrote:
->>>> On 2025-08-08 22:23, Andrew Cooper wrote:
->>>>> diff --git a/xen/arch/x86/traps-setup.c b/xen/arch/x86/traps-setup.c
->>>>> index 8ca379c9e4cb..13b8fcf0ba51 100644
->>>>> --- a/xen/arch/x86/traps-setup.c
->>>>> +++ b/xen/arch/x86/traps-setup.c
->>>>> @@ -19,6 +20,124 @@ boolean_param("ler", opt_ler);
+On 15.08.2025 10:28, Andrew Cooper wrote:
+> On 15/08/2025 9:22 am, Jan Beulich wrote:
+>> On 14.08.2025 20:09, Andrew Cooper wrote:
+>>> On 14/08/2025 9:55 am, Jan Beulich wrote:
+>>>> On 13.08.2025 13:25, Andrew Cooper wrote:
+>>>>> On 12/08/2025 10:19 am, Jan Beulich wrote:
+>>>>>> On 08.08.2025 22:23, Andrew Cooper wrote:
+>>>>>>> Since commit a35816b5cae8 ("x86/traps: Introduce early_traps_init() and
+>>>>>>> simplify setup"), load_system_tables() is called later on the BSP, so the
+>>>>>>> SYS_STATE_early_boot check can be dropped from the safety BUG_ON().
+>>>>>>>
+>>>>>>> Move the BUILD_BUG_ON() into build_assertions(),
+>>>>>> I'm not quite convinced of this move - having the related BUILD_BUG_ON()
+>>>>>> and BUG_ON() next to each other would seem better to me.
+>>>>> I don't see a specific reason for them to be together, and the comment
+>>>>> explains what's going on.
 >>>>>
->>>>>  void nocall entry_PF(void);
->>>>>
->>>>> +/*
->>>>> + * Sets up system tables and descriptors for IDT devliery.
->>>>> + *
->>>>> + * - Sets up TSS with stack pointers, including ISTs
->>>>> + * - Inserts TSS selector into regular and compat GDTs
->>>>> + * - Loads GDT, IDT, TR then null LDT
->>>>> + * - Sets up IST references in the IDT
->>>>> + */
->>>>> +static void load_system_tables(void)
->>>>> +{
->>>>> +    unsigned int i, cpu = smp_processor_id();
->>>>> +    unsigned long stack_bottom = get_stack_bottom(),
->>>>> +        stack_top = stack_bottom & ~(STACK_SIZE - 1);
->>>>> +    /*
->>>>> +     * NB: define tss_page as a local variable because clang 3.5
->>>>> doesn't
->>>>> +     * support using ARRAY_SIZE against per-cpu variables.
->>>>> +     */
->>>>> +    struct tss_page *tss_page = &this_cpu(tss_page);
->>>>> +    idt_entry_t *idt = this_cpu(idt);
->>>>> +
->>>> Given the clang baseline this might not be needed anymore?
->>> Hmm.  While true, looking at 51461114e26, the code is definitely better
->>> written with the tss_page variable and we wouldn't want to go back to
->>> the old form.
+>>>>> With FRED, we want a related BUILD_BUG_ON(), but there's no equivalent
+>>>>> BUG_ON() because MSR_RSP_SL0 will #GP on being misaligned.
+>>>> That BUILD_BUG_ON() could then sit next to the MSR write? Unless of course
+>>>> that ends up sitting in an assembly source.
+>>> It's the bottom hunk in patch 14, which you've looked at now.
 >>>
->>> I think that I'll simply drop the comment.
->>>
->>> ~Andrew
->>>
->>> P.S.
->>>
->>> Generally speaking, because of the RELOC_HIDE() in this_cpu(), any time
->>> you ever want two accesses to a variable, it's better (code gen wise) to
->>> construct a pointer to it and use the point multiple times.
->>>
->>> I don't understand why there's a RELOC_HIDE() in this_cpu().  The
->>> justification doesn't make sense, but I've not had time to explore what
->>> happens if we take it out.
->> There's no justification in xen/percpu.h?
+>>> Personally, I think both BUILD_BUG_ON()'s should be together, because
+>>> they are related.
+>> I don't really agree, but I also won't insist on my preference to be followed.
+>> IOW please keep as is.
 > 
-> Well, it's given in compiler.h by RELOC_HIDE().
-> 
-> /* This macro obfuscates arithmetic on a variable address so that gcc
->    shouldn't recognize the original var, and make assumptions about it */
-> 
-> 
-> But this is far from convincing.
-> 
->>
->> My understanding is that we simply may not expose any accesses to per_cpu_*
->> variables directly to the compiler, or there's a risk that it might access
->> the "master" variable (i.e. CPU0's on at least x86).
-> 
-> RELOC_HIDE() doesn't do anything about the correctness of the pointer
-> arithmetic expression to make the access work.
-> 
-> I don't see how a correct expression can ever access CPU0's data by
-> accident.
+> Thankyou.  Can I consider this to be A-by then?  (This, and the rename
+> to percpu_early_traps_init() are the only two remaining items in the
+> entire first half of the series.)
 
-Hmm, upon another look I agree. I wonder whether we inherited this from
-Linux, where in turn it may have been merely a workaround to deal with
-preemptible code not correctly accessing per-CPU data (i.e. not
-accounting for get_per_cpu_offset() not being stable across preemption).
-Yet then per_cpu() would have been of similar concern when "cpu" isn't
-properly re-fetched after any possible preemption point ...
+Yes:
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
