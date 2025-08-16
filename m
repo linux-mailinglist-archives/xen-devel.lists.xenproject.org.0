@@ -2,39 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FE31B28D6E
-	for <lists+xen-devel@lfdr.de>; Sat, 16 Aug 2025 13:31:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1084500.1443647 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E20BB28F7D
+	for <lists+xen-devel@lfdr.de>; Sat, 16 Aug 2025 18:32:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1084666.1443668 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1unF7f-0001r8-Cm; Sat, 16 Aug 2025 11:30:55 +0000
+	id 1unJoq-0004PI-2v; Sat, 16 Aug 2025 16:31:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1084500.1443647; Sat, 16 Aug 2025 11:30:55 +0000
+Received: by outflank-mailman (output) from mailman id 1084666.1443668; Sat, 16 Aug 2025 16:31:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1unF7f-0001of-A7; Sat, 16 Aug 2025 11:30:55 +0000
-Received: by outflank-mailman (input) for mailman id 1084500;
- Sat, 16 Aug 2025 11:30:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1unJop-0004NA-UX; Sat, 16 Aug 2025 16:31:47 +0000
+Received: by outflank-mailman (input) for mailman id 1084666;
+ Sat, 16 Aug 2025 16:31:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UO4R=24=cloud.com=bernhard.kaindl@srs-se1.protection.inumbo.net>)
- id 1unF1b-0008R6-0x
- for xen-devel@lists.xenproject.org; Sat, 16 Aug 2025 11:24:39 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9792924d-7a93-11f0-b898-0df219b8e170;
- Sat, 16 Aug 2025 13:24:37 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-45a1b00a65fso12970895e9.0
- for <xen-devel@lists.xenproject.org>; Sat, 16 Aug 2025 04:24:37 -0700 (PDT)
-Received: from MinisforumBD795m.citrite.net
- ([2a02:1748:f7df:8cb1:3992:b1e9:da8a:3f30])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45a27ec6b71sm13852325e9.10.2025.08.16.04.24.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 16 Aug 2025 04:24:35 -0700 (PDT)
+ <SRS0=EH88=24=epam.com=dmytro_prokopchuk1@srs-se1.protection.inumbo.net>)
+ id 1unJoo-0004N4-N2
+ for xen-devel@lists.xenproject.org; Sat, 16 Aug 2025 16:31:46 +0000
+Received: from DB3PR0202CU003.outbound.protection.outlook.com
+ (mail-northeuropeazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c200::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7e10ab1d-7abe-11f0-a328-13f23c93f187;
+ Sat, 16 Aug 2025 18:31:44 +0200 (CEST)
+Received: from GV2PR03MB9572.eurprd03.prod.outlook.com (2603:10a6:150:da::5)
+ by VI1PR03MB6382.eurprd03.prod.outlook.com (2603:10a6:800:195::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.21; Sat, 16 Aug
+ 2025 16:31:40 +0000
+Received: from GV2PR03MB9572.eurprd03.prod.outlook.com
+ ([fe80::edd1:842f:9b14:509e]) by GV2PR03MB9572.eurprd03.prod.outlook.com
+ ([fe80::edd1:842f:9b14:509e%3]) with mapi id 15.20.9031.019; Sat, 16 Aug 2025
+ 16:31:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,395 +47,271 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9792924d-7a93-11f0-b898-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1755343476; x=1755948276; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Wt3Ep5ObVZ9RSrrf4fRGSI8+1rgfl6o5cNaA3eQGhXk=;
-        b=g1nekSbXX9b6SbxlLRKch3bi1y8sj2M60B6HKXQS5Cny3dgT1I4moic1OAzn4NXl+2
-         RYS90EsPUfNoXVqvSGV1jyLCrlW7yCAm2DKgwdMhqtSuiR8xv9qEScMh5EJv3VfKJHb1
-         P0tnrzcYNxJzA3vw7Q6DXmiR8OgFu87yKLC9E=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755343476; x=1755948276;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Wt3Ep5ObVZ9RSrrf4fRGSI8+1rgfl6o5cNaA3eQGhXk=;
-        b=WMug1XEMNNEs00zY1w7ioj7QogON+8C/USHNyTNhdEqBK019fqwQiFdHiWjXJbQaFI
-         atAqXuIqh4lOg+Jh8foY3sak2zmNw0k/2BoC7Sz2eaiRdFbgs8p65MRW1yK3PleQSB4C
-         09GHXLFnMXvkfrxmYfwEt0EnpVTbaxmNEaENXsAOulovR/9R1vX2A5fOMbFTE2MNViEz
-         bDomJHHpTYun7CbVcVl1Nba4RJspb47wqcSN3/rTKBp0DQYsAtnKtI9IucCnJsqCFSmn
-         EPFBILijADmia/i3XQM/8jYaBvaFu8InmfLGhsy3cuSgV4Gj0vAS9FOsXU0sCnTxhn2o
-         iqFA==
-X-Gm-Message-State: AOJu0Yx1svJPV1mprcbF9pOaAhiMWOR+2XLGE6TklK7STMsXxYLPVUGP
-	/1x3cQDCPmuT8DdzRYywH9cC+InJPHmYa3QSMSLxWyqGZVhp30wz5jZug565gDCDHaIZDzYJ/uD
-	v5vlyYKQ=
-X-Gm-Gg: ASbGncu/glfkXjt7POIxwRMt4+f0YxDhHP2QnImxcJctQnh9LEAZVDKuiJzocKPawlm
-	NGkW9OWe/jc39Ebou4Ctc9pwiQwodywXFIqLyEldBrMVj2aaRiYd+tq9R5q5Un+QCeG4ykBR2CV
-	PTDW8dfkJUVrX/WmS4U05dDSTjJTdagqV3oSDuae8ortZLUmQ2S0pJrtUcWBzw2CulFfE7VHgNt
-	ILUln1KytEa++cUvQSL+Oq5mkRP+yC7Nd2qwDu6wpPtMBYBKAGjnw+xxqHjPw9BI5NyH8ypeQeP
-	dSW9Fgv4zORlWIdxAYtySYD31usZ+VNKoO6wiUMqQG2RhtPcfC4ulE/39WegfcYhQzMhif9u4TJ
-	Yck3kKhoQHiwDFnZd3rwaD29/T130ClYGLBLXEsCJ6NlEvERGueBQ6qw=
-X-Google-Smtp-Source: AGHT+IFgURo8r1ge/HnYI3T0kx/VEtXSw1AoZBylv9ZwyhZqA6n1wDRJZ6lnLl7S0mPy4UCT+3KL/w==
-X-Received: by 2002:a05:600c:198d:b0:459:e094:92cb with SMTP id 5b1f17b1804b1-45a218095eemr45110205e9.12.1755343476320;
-        Sat, 16 Aug 2025 04:24:36 -0700 (PDT)
-From: Bernhard Kaindl <bernhard.kaindl@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Bernhard Kaindl <bernhard.kaindl@cloud.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
-	Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-Subject: [PATCH v2 7/7] xen: New API to claim memory for a domain using XEN_DOMCTL_claim_memory
-Date: Sat, 16 Aug 2025 13:19:33 +0200
-Message-ID: <cc9119869fb87f02b287250d9bb33962a6d35961.1755341947.git.bernhard.kaindl@cloud.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1755341947.git.bernhard.kaindl@cloud.com>
-References: <cover.1755341947.git.bernhard.kaindl@cloud.com>
+X-Inumbo-ID: 7e10ab1d-7abe-11f0-a328-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=d8GQvwO8vET1IVEymfRIZGwhiZfCoPcmmmkr+K9pM1nq07LW4r6rpSdlVyk3xFYGH3BrLwGUYDJnG3nQFTgxE+8z3VppdsD6E4wleCjGlMf3dx4kuVxashTwhsfcxQ3Q540rT0qJap0IVgyD/81SQNho8w+cKsLHqGibh53+bU6Foq11ZLyDfzttRClfX0+lG1VioWQK5Yl0kfsrKEJIwlh46jyKtAplVPW75bn+6iT+QeNlm9JJhQE7tZcQcd6ibRPt7ADJkZSBXunugTBp+r5r1S6XeNCtyfy/tskiqRYMwtpgUZV1VoUhAmmyvohmmhyAgdpK8Ey2lGJSGNZWDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=U0ZrfAgBW0bObJ4ykVGDTR7PpltnCDCau9ENjvHx484=;
+ b=CAkMCJYZA6tkr32W2idKnh96lHV97EUnG6QPKSFSd2ylJYRuyWlZhjTRfyCqJRxveHrxoXDx24ob1gCRi86XoiSoZ+fggtsV3wIDg/z/P8AMpO+JpYjtfkefdcaoxfRZzW4J8HKEpHM0wPAwgyyO9o6yIF59AMhyroUw9TBDdHIgNaxzJdFv+OrnZ27Tb3D9SH+gjYnqJRlpT695TVj1j0A0lXxO2jutN6LUMhDJsHvYlOiMqR0dJUIzswer9KW78u5OOFpRu837Q8OOyiGrplFVRQlSux5EzMwTmIrcm5204HXmeH9FLPzqMOCTg9W8HJwkH8QRx0SWXtujYchywA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=U0ZrfAgBW0bObJ4ykVGDTR7PpltnCDCau9ENjvHx484=;
+ b=YnmRvu4308Od5RYAqcTVvJJ6Qr2NECVNb1IO3cPnNGAfMwSl8CGOiaR6crzgtp11tD6YeJDzR1ma8fi3rwnOdJ6kWzP6Lc6wBZBJpaVKJ2tQfCNZcvMmOCB6sxEx3Ce/uUUpkbT+Dx9eY3ugkjwNmI/Bvd2OaGz5dR4CYWdWb66Wm5h1hNXfUd6g/kyJX6BfZf8IcAfanewQ9fCUvqWcHuCu/Zq2rnZD3wDL7ycIAZhRsmXy18pLOW5vwqCdtTpITGxrDFPjS/+fCUbQMRCoqdGvzV7Z+fn0B/x4rK6aRJb/OlZuNkWYp/2q852n17Ykejjun1em8tqT/th2eGMoFw==
+From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<jbeulich@suse.com>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, Michal
+ Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Dmytro Prokopchuk1
+	<dmytro_prokopchuk1@epam.com>
+Subject: [PATCH v2] xen/irq: Delete the pirq_cleanup_check() macro
+Thread-Topic: [PATCH v2] xen/irq: Delete the pirq_cleanup_check() macro
+Thread-Index: AQHcDss9HzeZqtz/Tk6XtiCEDCCXBQ==
+Date: Sat, 16 Aug 2025 16:31:38 +0000
+Message-ID:
+ <ce37bdf7b5189d314c0f41628dbfb3281358bcf4.1755361782.git.dmytro_prokopchuk1@epam.com>
+Accept-Language: en-US, uk-UA, ru-RU
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV2PR03MB9572:EE_|VI1PR03MB6382:EE_
+x-ms-office365-filtering-correlation-id: 05453e3d-e296-435e-e55f-08dddce26018
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|42112799006|366016|376014|38070700018;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?1ojuMz78veiAXqG8hLV+nUgL1s7++qyG0I6pD0W3fzLUVcSNCHTHK4H3Gd?=
+ =?iso-8859-1?Q?M1RnNXvqdwhsOWk6kwmcrfPIeM4YvDhHhwY6K160g/c4FjlW0L6ii+YSC+?=
+ =?iso-8859-1?Q?4Xle7SB0b8c+4SftmV7mD2zLsswFK8+osKkXWIzGSBc1dsmcdPfj/66+cg?=
+ =?iso-8859-1?Q?yf4trMNLUnB1lwi0SWiQ6uuZaiHSDu7ftE/B+Iu7Cv/EXb36lkOMXrcNTP?=
+ =?iso-8859-1?Q?xXzYJ/AEt9MoKG3XKAy7WXdJAGkSeMMWw3+SF4/e2NneL6moZAAN/BIoKz?=
+ =?iso-8859-1?Q?is3ilb5Lwxv65tWvT+6ibyfk55MSsXVCVI7FNdatIseNMA7du1hGfUoS9Y?=
+ =?iso-8859-1?Q?ilcXjQ5b/jloLp9mQv3YLwNnMHE0SaxvBp7DpNuom0pqNNkX+b4/R+GYnm?=
+ =?iso-8859-1?Q?Da65HfzFEIR1XnfGSY68QHlDi01H56GXdXbZFsgRnc4zyKFzwrXKPwkkXy?=
+ =?iso-8859-1?Q?TxslJ7AQHSiLVY2oe6ocsuM/mtGh2HvCaB8YFBxyojWRYNbpDqZWh4OiV3?=
+ =?iso-8859-1?Q?R5yUFpUE0Xfu5D9YcYsLEwGvIz+EhyUcGIzaugirC34HVd9Es0XsMfh2w/?=
+ =?iso-8859-1?Q?Xke1nrX9udQZdzYTUw0FIj2LoxdSF1UQslKC87uSlFyXtOw2/6aky8yVk/?=
+ =?iso-8859-1?Q?aDmuvy4WCASpx5sV7zWan9MfriHwXlFI8PsiC6O01+VsXbSxqDBZEGuS2n?=
+ =?iso-8859-1?Q?b3Um41SigPYltqor7olAUBjo22Fg0SKz9e0FTVIEzTJ6HHXAuRi5llzKJZ?=
+ =?iso-8859-1?Q?GzCADeUPAG2tJUrtwvfpu3sC3CPJC1OKr02VVeWKMWnMn/P8AkS0RoCOHX?=
+ =?iso-8859-1?Q?TTHkmvmjoml2ak6ogvKIi5QI/VZwsS/kd7CZCnqsL7q7ZlrzuoROp8cYJ/?=
+ =?iso-8859-1?Q?jwPsOjR3N6xieXxiJfOgRW7eVpFVZtfcwBH3nQaiA9KiZv9LxXtLLHKJwG?=
+ =?iso-8859-1?Q?myMGm/BNPi1WJMVRzij+QX1P+0VU0Qr4POPRzOjevJqMNN/uxPh8XitCpg?=
+ =?iso-8859-1?Q?06J7e9IQDEj+IcsxoUoYi4BihEHfgsafNaKo9FYNeOR3ll6p2DlJDtEhAZ?=
+ =?iso-8859-1?Q?KdVTR8XVh7m6ClEWFxX5iasMMBv5n3Ft9hIZ0zm7a32DmsEa5q8V+zXFw2?=
+ =?iso-8859-1?Q?3eBZey35v8Pt9L8HJqJyMJvnED8V+z2jR+j0uvDNrqYxs/R1aDvi4rTOV6?=
+ =?iso-8859-1?Q?d2FWuYwuVfD1pPdE36xQhAV74xk2PZ7fhz23k0kN+16Uahg2BLjaL6XOkJ?=
+ =?iso-8859-1?Q?6Tijlz9/3EphqC/155fEwWvH0BjBym++SvRTlYlBAoEYKI7TQlQWg9ibRj?=
+ =?iso-8859-1?Q?m29rHjo3I8DQv81XRhMEBSCqMzuzNwxiKUWc81oVKuodf+1aYZGKpqx7dm?=
+ =?iso-8859-1?Q?imtvQZ2d3JdcyvHOzIgAW2y9j4vHptrmtLSDP1kHwTBll+Z5DqiVU7SuDf?=
+ =?iso-8859-1?Q?xv0wKOxb/cbrBE6C+JdjZQDL5MmpzKvh8562OQs2a3bDj2YkRE+A8CVYxE?=
+ =?iso-8859-1?Q?g=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB9572.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(42112799006)(366016)(376014)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?x3PahXTsLC7QUpsla9QadG8PkYOuz7OpNhHYITqCSDnNW6RBL1PgvkOj6h?=
+ =?iso-8859-1?Q?zgQtc3tikXZX8bE6F3ZVd1S9BJrP5q3FDgnyTEkymGhDCRhqP5vKCKryRt?=
+ =?iso-8859-1?Q?ftoU4UGmDjluaS56xLFpr4u213v6rdBwE1MgU9fl7kwh4YTbkSBI3UmIvy?=
+ =?iso-8859-1?Q?beoWvYMJxqAX6gsixcC404oMGjtZ+X1LQjH4vxfOQivrUFAnhAQ4dcx5ov?=
+ =?iso-8859-1?Q?c5AGkMGCKIimkSIwdU1sixT1j1vRwOT/6Zck/yckZYTznebHpXKNjfNq6B?=
+ =?iso-8859-1?Q?d7ZXgKNZSGkBZckTZwgWoihpe6fUhDtK1DYdWgGEoh04mqjpitzFEJOwyX?=
+ =?iso-8859-1?Q?YotXMm/cyVoh5MD/uXJmsenSoLf+coyg+ts3v0BKZurJAGQyI4SrcDyMhF?=
+ =?iso-8859-1?Q?KGCc0pFh4LQ07vfJsUV5LwFCVLrXdJ0/QUt2BpVqNDFaD5daAJc3KQ8ymo?=
+ =?iso-8859-1?Q?3BPfz6hozKpRWwEiQuj3/wNBUU7qfz/6b55c1MpHqQMseNremHUXzgr3gC?=
+ =?iso-8859-1?Q?hrwifurdzEzq3LL0NM+KbjdQeg5lKj0HMROI1sbGGNLquBIqMeey3OEg0s?=
+ =?iso-8859-1?Q?Ri9PXkj9Sz5VBAshBHTLfipEjuCrYs9d39jKOKt0CyoZFGXLE4WK6ls4lv?=
+ =?iso-8859-1?Q?FhDjY8okOhF10ed0j6d9vJAx2L9uTZ7E5y4BE39sTEr6KQugvJovdBJbau?=
+ =?iso-8859-1?Q?9Meug+vOjq9wdp6Iz4Gcq5TdlT4TakOZLgVVWPyaY38grOSBuhOKz4KXkw?=
+ =?iso-8859-1?Q?VNFy6opG3C+XELibQwv3PVuOnxMOT4O4oAPJjLO0KS4vSQ+lyXsSlzTzsg?=
+ =?iso-8859-1?Q?At4/iQyQPnconH4+oTWBEP/Ytd4ToPYfccZcQR8OfPZ1Y+wBM5tYcY/Ks5?=
+ =?iso-8859-1?Q?llNviHz3A55MgpmCoMv+wxhPWb+6VcUUZ9fgQWbPfMDEQrpbo7PtO9UhKe?=
+ =?iso-8859-1?Q?agCtdFsbrSZSBiYmklm+rvZYzM897pjP76yFax3XFH2VNv7YQ3XtNKtvf+?=
+ =?iso-8859-1?Q?4Uk0qrvHdYIuVY6zspdaIu1uW1mpZJpE/6ECoTzwaOY5Rpz4smiVm66kn6?=
+ =?iso-8859-1?Q?lIJnTW6yDKWpSFIBLEshnaPuSscLwCHvlLY7Jbdlv74EAqc8oETRIiGPqG?=
+ =?iso-8859-1?Q?NSxkpinq4daeQlUa/kWL9hPCCNU9wznqUOboW1IvEPJ1Cj3ymbR5c/Ubjk?=
+ =?iso-8859-1?Q?YLAKegdHqPIcJ0p3ZAES8LQn7H9MX/As2pjok4ZgF53r7t50/qsoUuu9K6?=
+ =?iso-8859-1?Q?r1y9fZZ75FFU/PHFV4UidfkyMzxM67RcIGPk9HrZT6CqGqevRqMuvgziet?=
+ =?iso-8859-1?Q?6v+8SSwJZBRO78xWssNxcyjQN+qNvrOz5aw7BxNLw3enyat3b9qTYspekM?=
+ =?iso-8859-1?Q?2yFmLE0g99Sc60KvSozvRc+tb1MCo+/FhXI2bTobA9NYrDBPy5rz9JWQms?=
+ =?iso-8859-1?Q?oQpW+ZCc3oxLuCZpJY+6RUf6zr1x1OLq4auCFV+7PI3TbfDF1tbqo57MxU?=
+ =?iso-8859-1?Q?OejR4asGPYy1+ZQlgIxQxTnLixAMc5JEFtIksWIKIWrcPiD0QT8T4YaZx1?=
+ =?iso-8859-1?Q?Ckie4ixR3k1hlYhHhH3xMYavDymTG4CpfOqiKZu24OdbT8jTECaEkIILgF?=
+ =?iso-8859-1?Q?U3qhdfeyU/PD8i+joXkrXR4UJMA3eQKCyxb4FwdEUUAQkV61/zP3AAGg?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB9572.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05453e3d-e296-435e-e55f-08dddce26018
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Aug 2025 16:31:38.8989
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: urwweigUNShy2t3Cx0MIeq8aHFWcQtWCG+n5JPXTqUgiE7VjYkHAzTqqSC/9687duELQi7axcgWbRddaS4YPTeBm+qygPEeBpArfuaczMp8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR03MB6382
 
-Add the new hypercall requested during the review of the v1 series
-do not require changing the API for multi-node claims.
+From: Andrew Cooper <andrew.cooper3@citrix.com>
 
-The hypercall receives a number of claims, intented to be one claim per
-NUMA node, and limited to one claim for now. The changes to update the
-NUMA claims management to handle updating the claims for multiple
-NUMA nodes of a domain at once are deferred to the next series.
+MISRA Rule 5.5 objects to a macro aliasing a function, which is what
+pirq_cleanup_check() does. The macro was originally intended to ensure
+the condition 'if (!pirq->evtchn)' is always checked before invoking
+the function, avoiding errors across call sites.
 
-Signed-off-by: Bernhard Kaindl <bernhard.kaindl@cloud.com>
-Cc: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+To achieve MISRA compliance, the condition is expanded inline at all
+call sites, using plain C constructs. This ensures clarity while
+retaining the original behavior. While this complies with MISRA, it
+shifts the responsibility to developers to check 'if (!pirq->evtchn)'
+at call sites.
+
+No functional changes.
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
 ---
- tools/flask/policy/modules/dom0.te  |  1 +
- tools/flask/policy/modules/xen.if   |  1 +
- tools/include/xenctrl.h             |  4 +++
- tools/libs/ctrl/xc_domain.c         | 42 +++++++++++++++++++++++++++++
- tools/ocaml/libs/xc/xenctrl.ml      |  9 +++++++
- tools/ocaml/libs/xc/xenctrl.mli     |  9 +++++++
- tools/ocaml/libs/xc/xenctrl_stubs.c | 21 +++++++++++++++
- xen/common/domain.c                 | 30 +++++++++++++++++++++
- xen/common/domctl.c                 |  8 ++++++
- xen/include/public/domctl.h         | 17 ++++++++++++
- xen/include/xen/domain.h            |  2 ++
- xen/xsm/flask/hooks.c               |  3 +++
- xen/xsm/flask/policy/access_vectors |  2 ++
- 13 files changed, 149 insertions(+)
+Link to v1:
+https://patchew.org/Xen/20250729223110.3404441-1-andrew.cooper3@citrix.com/
 
-diff --git a/tools/flask/policy/modules/dom0.te b/tools/flask/policy/modules/dom0.te
-index ad2b4f9ea7..8801cb24f2 100644
---- a/tools/flask/policy/modules/dom0.te
-+++ b/tools/flask/policy/modules/dom0.te
-@@ -105,6 +105,7 @@ allow dom0_t dom0_t:domain2 {
- 	get_cpu_policy
- 	dt_overlay
- 	get_domain_state
-+	claim_memory
- };
- allow dom0_t dom0_t:resource {
- 	add
-diff --git a/tools/flask/policy/modules/xen.if b/tools/flask/policy/modules/xen.if
-index ef7d8f438c..8e2dceb505 100644
---- a/tools/flask/policy/modules/xen.if
-+++ b/tools/flask/policy/modules/xen.if
-@@ -98,6 +98,7 @@ define(`create_domain_common', `
- 		vuart_op
- 		set_llc_colors
- 		get_domain_state
-+		claim_memory
- 	};
- 	allow $1 $2:security check_context;
- 	allow $1 $2:shadow enable;
-diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index 4955981231..1059629d94 100644
---- a/tools/include/xenctrl.h
-+++ b/tools/include/xenctrl.h
-@@ -2660,6 +2660,10 @@ int xc_domain_set_llc_colors(xc_interface *xch, uint32_t domid,
-                              const uint32_t *llc_colors,
-                              uint32_t num_llc_colors);
- 
-+int xc_domain_claim_memory(xc_interface *xch, uint32_t domid,
-+                           uint32_t nr_claims,
-+                           const memory_claim_t *claims);
-+
- #if defined(__arm__) || defined(__aarch64__)
- int xc_dt_overlay(xc_interface *xch, void *overlay_fdt,
-                   uint32_t overlay_fdt_size, uint8_t overlay_op);
-diff --git a/tools/libs/ctrl/xc_domain.c b/tools/libs/ctrl/xc_domain.c
-index 2ddc3f4f42..370917d877 100644
---- a/tools/libs/ctrl/xc_domain.c
-+++ b/tools/libs/ctrl/xc_domain.c
-@@ -2229,6 +2229,48 @@ out:
- 
-     return ret;
- }
-+
-+/*
-+ * Claim memory for a domain. A Domain can only have one type of claim:
-+ *
-+ * If the number of claims is 0, existing claims are cancelled.
-+ * Updating claims is not supported, cancel the existing claim first.
-+ *
-+ * Memory allocations consume the outstanding claim and if not enough memory is
-+ * free, the allocation must be satisfied from the remaining outstanding claim.
-+ */
-+int xc_domain_claim_memory(xc_interface *xch, uint32_t domid,
-+                           uint32_t nr_claims,
-+                           const memory_claim_t *claims)
-+{
-+    struct xen_domctl domctl = {
-+        .cmd = XEN_DOMCTL_claim_memory,
-+        .domain = domid,
-+        .u.claim_memory.nr_claims = nr_claims,
-+    };
-+    int ret;
-+    DECLARE_HYPERCALL_BUFFER(struct xen_domctl_claim_memory, buffer);
-+
-+    /* Use an array to not need changes for multi-node claims in the future */
-+    if ( nr_claims )
-+    {
-+        size_t bytes = sizeof(memory_claim_t) * nr_claims;
-+
-+        buffer = xc_hypercall_buffer_alloc(xch, buffer, bytes);
-+        if ( buffer == NULL )
-+        {
-+            PERROR("Could not allocate memory for xc_domain_claim_memory");
-+            return -1;
-+        }
-+        memcpy(buffer, claims, bytes);
-+        set_xen_guest_handle(domctl.u.claim_memory.claims, buffer);
-+    }
-+
-+    ret = do_domctl(xch, &domctl);
-+    xc_hypercall_buffer_free(xch, buffer);
-+    return ret;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.ml
-index 7e1aabad6c..cb1c18481b 100644
---- a/tools/ocaml/libs/xc/xenctrl.ml
-+++ b/tools/ocaml/libs/xc/xenctrl.ml
-@@ -369,6 +369,15 @@ external domain_deassign_device: handle -> domid -> (int * int * int * int) -> u
- external domain_test_assign_device: handle -> domid -> (int * int * int * int) -> bool
-   = "stub_xc_domain_test_assign_device"
- 
-+type claim =
-+  {
-+    node: int;
-+    nr_pages: int64;
-+  }
-+
-+external domain_claim_memory: handle -> domid -> int -> claim array -> unit
-+  = "stub_xc_domain_claim_memory"
-+
- external version: handle -> version = "stub_xc_version_version"
- external version_compile_info: handle -> compile_info
-   = "stub_xc_version_compile_info"
-diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.mli
-index f44dba61ae..32786a5f7f 100644
---- a/tools/ocaml/libs/xc/xenctrl.mli
-+++ b/tools/ocaml/libs/xc/xenctrl.mli
-@@ -296,6 +296,15 @@ external domain_deassign_device: handle -> domid -> (int * int * int * int) -> u
- external domain_test_assign_device: handle -> domid -> (int * int * int * int) -> bool
-   = "stub_xc_domain_test_assign_device"
- 
-+type claim =
-+  {
-+    node: int;
-+    nr_pages: int64;
-+  }
-+
-+external domain_claim_memory: handle -> domid -> int -> claim array -> unit
-+  = "stub_xc_domain_claim_memory"
-+
- external version : handle -> version = "stub_xc_version_version"
- external version_compile_info : handle -> compile_info
-   = "stub_xc_version_compile_info"
-diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c b/tools/ocaml/libs/xc/xenctrl_stubs.c
-index b51fd66788..c27e6c4683 100644
---- a/tools/ocaml/libs/xc/xenctrl_stubs.c
-+++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
-@@ -1424,6 +1424,27 @@ CAMLprim value stub_xc_watchdog(value xch_val, value domid, value timeout)
- 	CAMLreturn(Val_int(ret));
- }
- 
-+/* Claim memory for a domain. See xc_domain_claim_memory() for details. */
-+CAMLprim value stub_xc_domain_claim_memory(value xch_val, value domid,
-+                                           value num_claims, value desc)
-+{
-+	CAMLparam4(xch_val, domid, num_claims, desc);
-+	xc_interface *xch = xch_of_val(xch_val);
-+	int i, retval, nr_claims = Int_val(num_claims);
-+	memory_claim_t claim[nr_claims];
-+
-+	for (i = 0; i < nr_claims; i++) {
-+		claim[i].node = Int_val(Field(desc, i*2));
-+		claim[i].nr_pages = Int64_val(Field(desc, i*2 + 1));
-+	}
-+
-+	retval = xc_domain_claim_memory(xch, Int_val(domid), nr_claims, claim);
-+	if (retval < 0)
-+		failwith_xc(xch);
-+
-+	CAMLreturn(Val_unit);
-+}
-+
- /*
-  * Local variables:
-  *  indent-tabs-mode: t
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 1beadb05e1..dcfad4ab15 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -267,6 +267,36 @@ int get_domain_state(struct xen_domctl_get_domain_state *info, struct domain *d,
-     return rc;
- }
- 
-+/* XEN_DOMCTL_claim_memory: Claim an amount of memory for a domain */
-+int claim_memory(struct domain *d, const struct xen_domctl_claim_memory *uinfo)
-+{
-+    memory_claim_t claim;
-+    int rc;
-+
-+    switch ( uinfo->nr_claims )
-+    {
-+        case 0:
-+            /* Cancel existing claim. */
-+            rc = domain_set_outstanding_pages(d, 0, 0);
-+            break;
-+
-+        case 1:
-+            /* Only single node claims supported at the moment. */
-+            if ( copy_from_guest(&claim, uinfo->claims, 1) )
-+                return -EFAULT;
-+
-+            rc = domain_set_outstanding_pages(d, claim.node,
-+                                              claim.nr_pages);
-+            break;
-+
-+        default:
-+            rc = -EOPNOTSUPP;
-+            break;
-+    }
-+
-+    return rc;
-+}
-+
- static void __domain_finalise_shutdown(struct domain *d)
+Changes in v2:
+- updated commit message
+---
+ xen/arch/x86/irq.c                | 11 +++++++----
+ xen/common/event_channel.c        |  5 ++++-
+ xen/drivers/passthrough/x86/hvm.c |  9 ++++++---
+ xen/include/xen/irq.h             |  3 ---
+ 4 files changed, 17 insertions(+), 11 deletions(-)
+
+diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
+index 556134f85a..1ed85c0c11 100644
+--- a/xen/arch/x86/irq.c
++++ b/xen/arch/x86/irq.c
+@@ -1325,7 +1325,8 @@ static void clear_domain_irq_pirq(struct domain *d, i=
+nt irq, struct pirq *pirq)
+ static void cleanup_domain_irq_pirq(struct domain *d, int irq,
+                                     struct pirq *pirq)
  {
-     struct vcpu *v;
-diff --git a/xen/common/domctl.c b/xen/common/domctl.c
-index f2a7caaf85..e7576ae00b 100644
---- a/xen/common/domctl.c
-+++ b/xen/common/domctl.c
-@@ -894,6 +894,14 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-         ret = get_domain_state(&op->u.get_domain_state, d, &op->domain);
-         break;
- 
-+    case XEN_DOMCTL_claim_memory:
-+        ret = xsm_claim_pages(XSM_PRIV, d);
-+        if ( ret )
-+            break;
-+
-+        ret = claim_memory(d, &op->u.claim_memory);
-+        break;
-+
-     default:
-         ret = arch_do_domctl(op, d, u_domctl);
-         break;
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index 0c75d9d27f..5e924abd85 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -1273,6 +1273,21 @@ struct xen_domctl_get_domain_state {
-     uint64_t unique_id;      /* Unique domain identifier. */
- };
- 
-+struct xen_memory_claim {
-+    unsigned int node;      /* NUMA node, XC_NUMA_NO_NODE for a host claim */
-+    unsigned long nr_pages; /* Number of pages to claim */
-+};
-+typedef struct xen_memory_claim memory_claim_t;
-+DEFINE_XEN_GUEST_HANDLE(memory_claim_t);
-+
-+/* XEN_DOMCTL_claim_memory: Claim an amount of memory for a domain */
-+struct xen_domctl_claim_memory {
-+    /* IN: array of memory claims */
-+    XEN_GUEST_HANDLE_64(memory_claim_t) claims;
-+    /* IN: number of claims */
-+    unsigned int nr_claims;
-+};
-+
- struct xen_domctl {
- /* Stable domctl ops: interface_version is required to be 0.  */
-     uint32_t cmd;
-@@ -1365,6 +1380,7 @@ struct xen_domctl {
- #define XEN_DOMCTL_gsi_permission                88
- #define XEN_DOMCTL_set_llc_colors                89
- #define XEN_DOMCTL_get_domain_state              90 /* stable interface */
-+#define XEN_DOMCTL_claim_memory                  91
- #define XEN_DOMCTL_gdbsx_guestmemio            1000
- #define XEN_DOMCTL_gdbsx_pausevcpu             1001
- #define XEN_DOMCTL_gdbsx_unpausevcpu           1002
-@@ -1433,6 +1449,7 @@ struct xen_domctl {
- #endif
-         struct xen_domctl_set_llc_colors    set_llc_colors;
-         struct xen_domctl_get_domain_state  get_domain_state;
-+        struct xen_domctl_claim_memory      claim_memory;
-         uint8_t                             pad[128];
-     } u;
- };
-diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
-index e10baf2615..bd5f37bd64 100644
---- a/xen/include/xen/domain.h
-+++ b/xen/include/xen/domain.h
-@@ -192,4 +192,6 @@ extern bool vmtrace_available;
- 
- extern bool vpmu_is_available;
- 
-+int claim_memory(struct domain *d, const struct xen_domctl_claim_memory *uinfo);
-+
- #endif /* __XEN_DOMAIN_H__ */
-diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
-index b0308e1b26..6b2535b666 100644
---- a/xen/xsm/flask/hooks.c
-+++ b/xen/xsm/flask/hooks.c
-@@ -853,6 +853,9 @@ static int cf_check flask_domctl(struct domain *d, unsigned int cmd,
-     case XEN_DOMCTL_set_llc_colors:
-         return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__SET_LLC_COLORS);
- 
-+    case XEN_DOMCTL_claim_memory:
-+        return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__CLAIM_MEMORY);
-+
-     default:
-         return avc_unknown_permission("domctl", cmd);
-     }
-diff --git a/xen/xsm/flask/policy/access_vectors b/xen/xsm/flask/policy/access_vectors
-index 51a1577a66..87338b5c2a 100644
---- a/xen/xsm/flask/policy/access_vectors
-+++ b/xen/xsm/flask/policy/access_vectors
-@@ -259,6 +259,8 @@ class domain2
-     set_llc_colors
- # XEN_DOMCTL_get_domain_state
-     get_domain_state
-+# XEN_DOMCTL_claim_memory
-+    claim_memory
+-    pirq_cleanup_check(pirq, d);
++    if ( !pirq->evtchn )
++        pirq_cleanup_check(pirq, d);
+     radix_tree_delete(&d->arch.irq_pirq, irq);
  }
- 
- # Similar to class domain, but primarily contains domctls related to HVM domains
--- 
+=20
+@@ -1383,7 +1384,7 @@ struct pirq *alloc_pirq_struct(struct domain *d)
+     return pirq;
+ }
+=20
+-void (pirq_cleanup_check)(struct pirq *pirq, struct domain *d)
++void pirq_cleanup_check(struct pirq *pirq, struct domain *d)
+ {
+     /*
+      * Check whether all fields have their default values, and delete
+@@ -2823,7 +2824,8 @@ int map_domain_emuirq_pirq(struct domain *d, int pirq=
+, int emuirq)
+                 radix_tree_int_to_ptr(pirq));
+             break;
+         default:
+-            pirq_cleanup_check(info, d);
++            if ( !info->evtchn )
++                pirq_cleanup_check(info, d);
+             return err;
+         }
+     }
+@@ -2858,7 +2860,8 @@ int unmap_domain_pirq_emuirq(struct domain *d, int pi=
+rq)
+     if ( info )
+     {
+         info->arch.hvm.emuirq =3D IRQ_UNBOUND;
+-        pirq_cleanup_check(info, d);
++        if ( !info->evtchn )
++            pirq_cleanup_check(info, d);
+     }
+     if ( emuirq !=3D IRQ_PT )
+         radix_tree_delete(&d->arch.hvm.emuirq_pirq, emuirq);
+diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
+index 67700b050a..a3d18bc464 100644
+--- a/xen/common/event_channel.c
++++ b/xen/common/event_channel.c
+@@ -741,11 +741,14 @@ int evtchn_close(struct domain *d1, int port1, bool g=
+uest)
+             if ( !is_hvm_domain(d1) ||
+                  domain_pirq_to_irq(d1, pirq->pirq) <=3D 0 ||
+                  unmap_domain_pirq_emuirq(d1, pirq->pirq) < 0 )
++            {
+                 /*
+                  * The successful path of unmap_domain_pirq_emuirq() will =
+have
+                  * called pirq_cleanup_check() already.
+                  */
+-                pirq_cleanup_check(pirq, d1);
++                if ( !pirq->evtchn )
++                    pirq_cleanup_check(pirq, d1);
++            }
+         }
+         unlink_pirq_port(chn1, d1->vcpu[chn1->notify_vcpu_id]);
+         break;
+diff --git a/xen/drivers/passthrough/x86/hvm.c b/xen/drivers/passthrough/x8=
+6/hvm.c
+index a2ca7e0e57..b73bb55055 100644
+--- a/xen/drivers/passthrough/x86/hvm.c
++++ b/xen/drivers/passthrough/x86/hvm.c
+@@ -329,7 +329,8 @@ int pt_irq_create_bind(
+                 pirq_dpci->gmsi.gvec =3D 0;
+                 pirq_dpci->dom =3D NULL;
+                 pirq_dpci->flags =3D 0;
+-                pirq_cleanup_check(info, d);
++                if ( !info->evtchn )
++                    pirq_cleanup_check(info, d);
+                 write_unlock(&d->event_lock);
+                 return rc;
+             }
+@@ -536,7 +537,8 @@ int pt_irq_create_bind(
+                     hvm_irq_dpci->link_cnt[link]--;
+                 }
+                 pirq_dpci->flags =3D 0;
+-                pirq_cleanup_check(info, d);
++                if ( !info->evtchn )
++                    pirq_cleanup_check(info, d);
+                 write_unlock(&d->event_lock);
+                 xfree(girq);
+                 xfree(digl);
+@@ -693,7 +695,8 @@ int pt_irq_destroy_bind(
+          */
+         pt_pirq_softirq_reset(pirq_dpci);
+=20
+-        pirq_cleanup_check(pirq, d);
++        if ( !pirq->evtchn )
++            pirq_cleanup_check(pirq, d);
+     }
+=20
+     write_unlock(&d->event_lock);
+diff --git a/xen/include/xen/irq.h b/xen/include/xen/irq.h
+index 95034c0d6b..6071b00f62 100644
+--- a/xen/include/xen/irq.h
++++ b/xen/include/xen/irq.h
+@@ -185,9 +185,6 @@ extern struct pirq *pirq_get_info(struct domain *d, int=
+ pirq);
+=20
+ void pirq_cleanup_check(struct pirq *pirq, struct domain *d);
+=20
+-#define pirq_cleanup_check(pirq, d) \
+-    (!(pirq)->evtchn ? pirq_cleanup_check(pirq, d) : (void)0)
+-
+ extern void pirq_guest_eoi(struct pirq *pirq);
+ extern void desc_guest_eoi(struct irq_desc *desc, struct pirq *pirq);
+ extern int pirq_guest_unmask(struct domain *d);
+--=20
 2.43.0
-
 
