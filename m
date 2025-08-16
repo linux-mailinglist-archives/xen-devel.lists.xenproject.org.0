@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55D45B28D5A
+	by mail.lfdr.de (Postfix) with ESMTPS id 524FDB28D59
 	for <lists+xen-devel@lfdr.de>; Sat, 16 Aug 2025 13:21:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1084442.1443587 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1084446.1443597 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1unExY-0005wR-4P; Sat, 16 Aug 2025 11:20:28 +0000
+	id 1unExx-0006Mh-Dv; Sat, 16 Aug 2025 11:20:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1084442.1443587; Sat, 16 Aug 2025 11:20:28 +0000
+Received: by outflank-mailman (output) from mailman id 1084446.1443597; Sat, 16 Aug 2025 11:20:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1unExX-0005tQ-UC; Sat, 16 Aug 2025 11:20:27 +0000
-Received: by outflank-mailman (input) for mailman id 1084442;
- Sat, 16 Aug 2025 11:20:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1unExx-0006K6-As; Sat, 16 Aug 2025 11:20:53 +0000
+Received: by outflank-mailman (input) for mailman id 1084446;
+ Sat, 16 Aug 2025 11:20:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UO4R=24=cloud.com=bernhard.kaindl@srs-se1.protection.inumbo.net>)
- id 1unExW-0005tK-7w
- for xen-devel@lists.xenproject.org; Sat, 16 Aug 2025 11:20:26 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f9b560af-7a92-11f0-b898-0df219b8e170;
- Sat, 16 Aug 2025 13:20:12 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-45a1b0becf5so12543965e9.2
- for <xen-devel@lists.xenproject.org>; Sat, 16 Aug 2025 04:20:12 -0700 (PDT)
+ id 1unExw-0006Jf-6x
+ for xen-devel@lists.xenproject.org; Sat, 16 Aug 2025 11:20:52 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1113acd7-7a93-11f0-a328-13f23c93f187;
+ Sat, 16 Aug 2025 13:20:51 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-45a1abf5466so14764555e9.0
+ for <xen-devel@lists.xenproject.org>; Sat, 16 Aug 2025 04:20:51 -0700 (PDT)
 Received: from MinisforumBD795m.citrite.net
  ([2a02:1748:f7df:8cb1:3992:b1e9:da8a:3f30])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45a27ec6b71sm13852325e9.10.2025.08.16.04.20.10
+ 5b1f17b1804b1-45a27ec6b71sm13852325e9.10.2025.08.16.04.20.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 16 Aug 2025 04:20:10 -0700 (PDT)
+ Sat, 16 Aug 2025 04:20:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,39 +46,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f9b560af-7a92-11f0-b898-0df219b8e170
+X-Inumbo-ID: 1113acd7-7a93-11f0-a328-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1755343211; x=1755948011; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=q8NrHUv/BZP21PfU22f6r7e6G7TP0L/hOZLojm9nBfI=;
-        b=PM1YrptOkJhYTZb7+t4XARnci1vOwSfKVpHcKrm28FhUw8Aly9pd9zRHoIbrk25PYE
-         7uTIS23Fzcrk3I+2su7qEPrPPdHMfDsGTNruG+2pVs1BrPdT2FmuEo1CliSbYRPSHUHA
-         LB0kNZsJAn8D06Z9hz/VZqQOyN41cQxLNWwMs=
+        d=cloud.com; s=cloud; t=1755343251; x=1755948051; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5WfLnf5/kvCLxvLOEfumWxUHPhaPlVs8I4oO2kdVd+M=;
+        b=LLQThDwUqjnplM/TESg62YCQZHjTwCzdqLtdNiKRmPVtDRIXhpWlOPEmtlqyTVpB/L
+         CrNy6dZJcpjTD3nc8A+2efqgeoFyZ6psZglYAaCDZbo3dgQO0z4eOfJlJ/S18+eD/bgT
+         VqhavyxEgG9Q9j/+UjPz0zWTMbFdfumse41Dg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755343211; x=1755948011;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=q8NrHUv/BZP21PfU22f6r7e6G7TP0L/hOZLojm9nBfI=;
-        b=QCFYE2IuM3wYa3rZdFp33xeyhwUaiKp0v0SG2iRv7wlpPrNjfxSbGqXWyckwgHZMv5
-         CPZt6IYW5X1Sh5/LRbxl8ML2s8RZnu11dp5QEHXkxUPXXtlXRwphhyCZVjZi9dD+7+9X
-         5JA+aDuBArL2S3EmGBz3WZELTuufmyBvot68cMSSRqEB6D9CMR/+PWguo3qdlIawGppw
-         MLWIQj07RlLBR9D3SPDJk06+AjAqwz66F/hqzMWd5fAEX6/MBeiRBMxaOnjADAHcyRf4
-         hz32yvtOcrFMzr2TYAVF4ViWtPaC+uZuXVVfAk40oqh+xc7boxWNk09Vmy+zR3PKFl+x
-         cvQw==
-X-Gm-Message-State: AOJu0YzTIau6+oawaxZjEmlnlajpH+V1ZgoTS24G7JY0t9bXZKpf4M77
-	JWZF64DtAZJ2sK9gbtHAaW9FwhLKxNgcQNDujL62KoARxtFqpOS8nIEHKueyQMTveIzRruhsz4x
-	e/GiCVxs=
-X-Gm-Gg: ASbGncuSrsL+13MN+O3Ik8Q6CKkZMMSJePH6azXSSDYaYebdf4adBLVQN7zkokPQ1lZ
-	maTcqNds6iENSpDHx0MBkxpXAt8CAGuUFQr3p6kKkLXZohHww1Bp+A88/ppMcjNQZWLz2HbtYc/
-	PD43M/WgjsnftcOZTyDYgbYkY8P2xfRtssiVFK7qcrIkgeT3fB8zH+8OPaEwFVgL4I8vQcVGYRP
-	bYnPkC3q+cq3mqxqXRfq2M1hlZoy4SZoaHApnddr2ieAsMQji1hCQG1hDWLSj/1KUhE9FzAYs+m
-	xIGomAnTbuvuwAhGBo5Ogg5TnePkXJBHh1Du5/0moPlRftmUhiSNV9Yz+1lEivSysoyZbSZqB5m
-	TYbeagQKWls6M9epRC8JsrlZu+JeQp6wLdowkkt4Up/LSmoV4X2v2jbs=
-X-Google-Smtp-Source: AGHT+IFX564gLQPEOUgvLYI74WyqS4tKzgJfE9H32sZKtKBWH3G9XY/WuERP5uJM9AejRRboqoqZ2A==
-X-Received: by 2002:a05:600c:3149:b0:456:1d61:b0f2 with SMTP id 5b1f17b1804b1-45a218676b5mr51582025e9.30.1755343211384;
-        Sat, 16 Aug 2025 04:20:11 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1755343251; x=1755948051;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=5WfLnf5/kvCLxvLOEfumWxUHPhaPlVs8I4oO2kdVd+M=;
+        b=M/P0ptWKFNRKcVJjUPzDEKSX7xsnIvEH+Va4IBMa/aRoFK0qsMzESi2+le6wa3HKQ/
+         rxKv4C1S7FMj2+GX3uySYrDRbwq9Mb3CBY52Ytz1nXO885dD5l8P9H7VusQ/BUP3/IH8
+         irrqYIj684vO70mK/u424YEo8c5/YP+1MOT6mr5Als9r0Eg16mwpgCtajzmQ3i0NVoZP
+         SAJrcMiXntlUBh/YpA7nbyN8WG3V/+0PB+BiWlp+f13en6eJrTX+nDMNjg0BO9Vye5Cg
+         c3NUPh+p6XTN4iBo/q6NcquQnDwUYaMFUePc5cve5Vox7EgucmuGPXw+ea3zYr/UF4bg
+         LqNA==
+X-Gm-Message-State: AOJu0YxvqMCyTBEqbDHpNwZRHenTo/wulEUpvYioGcW4ULP6UlTqSJA5
+	zgBnc3rQoEPsaa0UqARHyT5OvSikaAczYQRMxIkN2YL5bDc4BnAp6cEgcaNoHuzYhMenL9ebmHl
+	JeFhMf+c=
+X-Gm-Gg: ASbGncs429WUsPzqvlpMLTpif8xOKbtXkgMDnwr/TiMvpUpbhsMaN2eIoP/kNfOJSz1
+	Uzjyb7NEWFCvsKSjGP+QSPeh6xTUppomSaQLt5qgPQ3/DN5TN++TOrqcFgnBS72W9d6fbyH6o1d
+	WN7NxgTH1idijEpmjWIaHR7CFRrSxQqEam4nz7Dfqoj9QUPfTCPVZNNUIvPX7WODM38u3O17g77
+	zkjl6ClW2ZJNqBlpQGMdmuQtRa9fy+FubzIJYyaqk60EbkrgaErarvRIZbi7kpTILI8fc7pwTCo
+	9pOvDhSU4DokahAS54zYANup7aFkwz2fGaeoUWK3xCGesoHvvSexMQcJrPHHQC3grOfJSz3FwlH
+	KO76CkzeBhBhtsvokVN/zfqAdP2gWN5XE6q96lh8tjU/LyNlW+Kx6XicHFZ9NE99mpg==
+X-Google-Smtp-Source: AGHT+IEzPs9FkQ63BOLIzEufxuBLYDjBbOgrJbqFTH4gdP1GhoFRqjout6kGca2aCgD/lZWY9mSK7Q==
+X-Received: by 2002:a05:600c:8b05:b0:459:eeee:2759 with SMTP id 5b1f17b1804b1-45a1b6c7e20mr80482885e9.14.1755343250703;
+        Sat, 16 Aug 2025 04:20:50 -0700 (PDT)
 From: Bernhard Kaindl <bernhard.kaindl@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: Bernhard Kaindl <bernhard.kaindl@cloud.com>,
@@ -89,68 +90,88 @@ Cc: Bernhard Kaindl <bernhard.kaindl@cloud.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Tamas K Lengyel <tamas@tklengyel.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Juergen Gross <jgross@suse.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
 	Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-Subject: [PATCH v2 0/7] xen/page_alloc: Add NUMA-node specific memory claims
-Date: Sat, 16 Aug 2025 13:19:26 +0200
-Message-ID: <cover.1755341947.git.bernhard.kaindl@cloud.com>
+Subject: [PATCH v2 1/7] xen/page_alloc: Simplify domain_adjust_tot_pages for future changes
+Date: Sat, 16 Aug 2025 13:19:27 +0200
+Message-ID: <5f417fea5ca8e4da0d4b9679103c3eff4bc92900.1755341947.git.bernhard.kaindl@cloud.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1755341947.git.bernhard.kaindl@cloud.com>
+References: <cover.1755341947.git.bernhard.kaindl@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Xen supports claiming an amount of memory ahead of allocating it to
-ensure that the memory for the domain is available for allocation.
+domain_adjust_tot_pages() is used to update the domain's total pages
+after allocating and freeing memory.
 
-On NUMA hosts, the same assurance is needed on a per-NUMA-node basis
-to ensure optimal placement of domain memory on the correct NUMA node:
+Simplify the design for updating it for single and even more so
+for multi-node claims regarding the case where we could have
+allocated more memory than we had claims left.
 
-Add per-NUMA-node claims and add a new Hypercall to claim memory for
-a domain using XEN_DOMCTL_claim_memory and xc_domain_claim_memory().
+Replace it with min() to avoid reducing the outstadings claims
+by more than we had left to claim:
 
-As we will implement multi-node claims as well, we updated the design
-to be flexible for multi-node claims, so that a 2nd series can build
-upon it without changing the hypercall API.
+When domain memory is freed, we skip changing the claim. Thus, this
+only handles reducing the claims after allocating. So, min() is fine.
 
-Bernhard Kaindl (6):
-  xen/page_alloc: Simplify domain_adjust_tot_pages for future changes
-  xen: New API to claim memory for a domain using XEN_DOMCTL_claim_memory
+Signed-off-by: Bernhard Kaindl <bernhard.kaindl@cloud.com>
+Cc: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+---
+ xen/common/page_alloc.c | 27 ++++++++++++++++-----------
+ 1 file changed, 16 insertions(+), 11 deletions(-)
 
-Alejandro Vallejo (1):
-  xen/page_alloc: Remove `claim` from domain_set_outstanding_pages()
-
-Alejandro Vallejo and Bernhard Kaindl (5):
-  xen/page_alloc: Add static per-NUMA-node counts of free pages
-  xen: Add node argument to
-    domain_{adjust_tot_pages,set_outstanding_pages}()
-  xen/page_alloc.c: Create per-node outstanding claims
-  xen/page_alloc: Check per-node claims in alloc_heap_pages()
-
- tools/flask/policy/modules/dom0.te  |   1 +
- tools/flask/policy/modules/xen.if   |   1 +
- tools/include/xenctrl.h             |   4 +
- tools/libs/ctrl/xc_domain.c         |  42 ++++++++
- tools/ocaml/libs/xc/xenctrl.ml      |   9 ++
- tools/ocaml/libs/xc/xenctrl.mli     |   9 ++
- tools/ocaml/libs/xc/xenctrl_stubs.c |  21 ++++
- xen/arch/x86/mm.c                   |   3 +-
- xen/arch/x86/mm/mem_sharing.c       |   4 +-
- xen/common/domain.c                 |  32 +++++-
- xen/common/domctl.c                 |   8 ++
- xen/common/grant_table.c            |   4 +-
- xen/common/memory.c                 |   6 +-
- xen/common/page_alloc.c             | 154 ++++++++++++++++++++++------
- xen/include/public/domctl.h         |  17 +++
- xen/include/xen/domain.h            |   2 +
- xen/include/xen/mm.h                |   6 +-
- xen/include/xen/sched.h             |   1 +
- xen/xsm/flask/hooks.c               |   3 +
- xen/xsm/flask/policy/access_vectors |   2 +
- 20 files changed, 285 insertions(+), 44 deletions(-)
-
+diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+index ec9dec365e..e1ac22b9ed 100644
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -510,8 +510,14 @@ static unsigned long avail_heap_pages(
+     return free_pages;
+ }
+ 
++/*
++ * Update the total number of pages and outstanding claims of a domain.
++ * - When pages were freed, we do not increase outstanding claims.
++ */
+ unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
+ {
++    unsigned long adjustment;
++
+     ASSERT(rspin_is_locked(&d->page_alloc_lock));
+     d->tot_pages += pages;
+ 
+@@ -519,23 +525,22 @@ unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
+      * can test d->outstanding_pages race-free because it can only change
+      * if d->page_alloc_lock and heap_lock are both held, see also
+      * domain_set_outstanding_pages below
++     *
++     * If the domain has no outstanding claims (or we freed pages instead),
++     * we don't update outstanding claims and skip the claims adjustment.
+      */
+     if ( !d->outstanding_pages || pages <= 0 )
+         goto out;
+ 
+     spin_lock(&heap_lock);
+     BUG_ON(outstanding_claims < d->outstanding_pages);
+-    if ( d->outstanding_pages < pages )
+-    {
+-        /* `pages` exceeds the domain's outstanding count. Zero it out. */
+-        outstanding_claims -= d->outstanding_pages;
+-        d->outstanding_pages = 0;
+-    }
+-    else
+-    {
+-        outstanding_claims -= pages;
+-        d->outstanding_pages -= pages;
+-    }
++    /*
++     * Reduce claims by outstanding claims or pages (whichever is smaller):
++     * If allocated > outstanding, reduce the claims only by outstanding pages.
++     */
++    adjustment = min(d->outstanding_pages, (unsigned int)pages);
++    d->outstanding_pages -= adjustment;
++    outstanding_claims -= adjustment;
+     spin_unlock(&heap_lock);
+ 
+ out:
 -- 
 2.43.0
 
