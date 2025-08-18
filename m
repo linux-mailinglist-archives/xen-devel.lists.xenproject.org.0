@@ -2,40 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E20BB28F7D
-	for <lists+xen-devel@lfdr.de>; Sat, 16 Aug 2025 18:32:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1084666.1443668 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B948CB29A24
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Aug 2025 08:51:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1085371.1443693 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1unJoq-0004PI-2v; Sat, 16 Aug 2025 16:31:48 +0000
+	id 1untgh-0002eT-5V; Mon, 18 Aug 2025 06:49:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1084666.1443668; Sat, 16 Aug 2025 16:31:48 +0000
+Received: by outflank-mailman (output) from mailman id 1085371.1443693; Mon, 18 Aug 2025 06:49:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1unJop-0004NA-UX; Sat, 16 Aug 2025 16:31:47 +0000
-Received: by outflank-mailman (input) for mailman id 1084666;
- Sat, 16 Aug 2025 16:31:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1untgg-0002cC-W9; Mon, 18 Aug 2025 06:49:46 +0000
+Received: by outflank-mailman (input) for mailman id 1085371;
+ Mon, 18 Aug 2025 06:42:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EH88=24=epam.com=dmytro_prokopchuk1@srs-se1.protection.inumbo.net>)
- id 1unJoo-0004N4-N2
- for xen-devel@lists.xenproject.org; Sat, 16 Aug 2025 16:31:46 +0000
-Received: from DB3PR0202CU003.outbound.protection.outlook.com
- (mail-northeuropeazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c200::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7e10ab1d-7abe-11f0-a328-13f23c93f187;
- Sat, 16 Aug 2025 18:31:44 +0200 (CEST)
-Received: from GV2PR03MB9572.eurprd03.prod.outlook.com (2603:10a6:150:da::5)
- by VI1PR03MB6382.eurprd03.prod.outlook.com (2603:10a6:800:195::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9009.21; Sat, 16 Aug
- 2025 16:31:40 +0000
-Received: from GV2PR03MB9572.eurprd03.prod.outlook.com
- ([fe80::edd1:842f:9b14:509e]) by GV2PR03MB9572.eurprd03.prod.outlook.com
- ([fe80::edd1:842f:9b14:509e%3]) with mapi id 15.20.9031.019; Sat, 16 Aug 2025
- 16:31:39 +0000
+ <SRS0=HKqL=26=oss.qualcomm.com=pratyush.brahma@srs-se1.protection.inumbo.net>)
+ id 1untZB-0002Vt-1D
+ for xen-devel@lists.xenproject.org; Mon, 18 Aug 2025 06:42:01 +0000
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6cb710d3-7bfe-11f0-b898-0df219b8e170;
+ Mon, 18 Aug 2025 08:41:53 +0200 (CEST)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57HKWZQR021804
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 06:41:52 GMT
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48jhjybjrw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 06:41:51 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-2445806eab4so38021815ad.1
+ for <xen-devel@lists.xenproject.org>; Sun, 17 Aug 2025 23:41:51 -0700 (PDT)
+Received: from hu-pbrahma-hyd.qualcomm.com ([202.46.22.19])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2446d53bf5dsm70069295ad.114.2025.08.17.23.41.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 17 Aug 2025 23:41:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,271 +52,420 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e10ab1d-7abe-11f0-a328-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d8GQvwO8vET1IVEymfRIZGwhiZfCoPcmmmkr+K9pM1nq07LW4r6rpSdlVyk3xFYGH3BrLwGUYDJnG3nQFTgxE+8z3VppdsD6E4wleCjGlMf3dx4kuVxashTwhsfcxQ3Q540rT0qJap0IVgyD/81SQNho8w+cKsLHqGibh53+bU6Foq11ZLyDfzttRClfX0+lG1VioWQK5Yl0kfsrKEJIwlh46jyKtAplVPW75bn+6iT+QeNlm9JJhQE7tZcQcd6ibRPt7ADJkZSBXunugTBp+r5r1S6XeNCtyfy/tskiqRYMwtpgUZV1VoUhAmmyvohmmhyAgdpK8Ey2lGJSGNZWDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=U0ZrfAgBW0bObJ4ykVGDTR7PpltnCDCau9ENjvHx484=;
- b=CAkMCJYZA6tkr32W2idKnh96lHV97EUnG6QPKSFSd2ylJYRuyWlZhjTRfyCqJRxveHrxoXDx24ob1gCRi86XoiSoZ+fggtsV3wIDg/z/P8AMpO+JpYjtfkefdcaoxfRZzW4J8HKEpHM0wPAwgyyO9o6yIF59AMhyroUw9TBDdHIgNaxzJdFv+OrnZ27Tb3D9SH+gjYnqJRlpT695TVj1j0A0lXxO2jutN6LUMhDJsHvYlOiMqR0dJUIzswer9KW78u5OOFpRu837Q8OOyiGrplFVRQlSux5EzMwTmIrcm5204HXmeH9FLPzqMOCTg9W8HJwkH8QRx0SWXtujYchywA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U0ZrfAgBW0bObJ4ykVGDTR7PpltnCDCau9ENjvHx484=;
- b=YnmRvu4308Od5RYAqcTVvJJ6Qr2NECVNb1IO3cPnNGAfMwSl8CGOiaR6crzgtp11tD6YeJDzR1ma8fi3rwnOdJ6kWzP6Lc6wBZBJpaVKJ2tQfCNZcvMmOCB6sxEx3Ce/uUUpkbT+Dx9eY3ugkjwNmI/Bvd2OaGz5dR4CYWdWb66Wm5h1hNXfUd6g/kyJX6BfZf8IcAfanewQ9fCUvqWcHuCu/Zq2rnZD3wDL7ycIAZhRsmXy18pLOW5vwqCdtTpITGxrDFPjS/+fCUbQMRCoqdGvzV7Z+fn0B/x4rK6aRJb/OlZuNkWYp/2q852n17Ykejjun1em8tqT/th2eGMoFw==
-From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<jbeulich@suse.com>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
-	<roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, Michal
- Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Dmytro Prokopchuk1
-	<dmytro_prokopchuk1@epam.com>
-Subject: [PATCH v2] xen/irq: Delete the pirq_cleanup_check() macro
-Thread-Topic: [PATCH v2] xen/irq: Delete the pirq_cleanup_check() macro
-Thread-Index: AQHcDss9HzeZqtz/Tk6XtiCEDCCXBQ==
-Date: Sat, 16 Aug 2025 16:31:38 +0000
-Message-ID:
- <ce37bdf7b5189d314c0f41628dbfb3281358bcf4.1755361782.git.dmytro_prokopchuk1@epam.com>
-Accept-Language: en-US, uk-UA, ru-RU
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR03MB9572:EE_|VI1PR03MB6382:EE_
-x-ms-office365-filtering-correlation-id: 05453e3d-e296-435e-e55f-08dddce26018
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|42112799006|366016|376014|38070700018;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?1ojuMz78veiAXqG8hLV+nUgL1s7++qyG0I6pD0W3fzLUVcSNCHTHK4H3Gd?=
- =?iso-8859-1?Q?M1RnNXvqdwhsOWk6kwmcrfPIeM4YvDhHhwY6K160g/c4FjlW0L6ii+YSC+?=
- =?iso-8859-1?Q?4Xle7SB0b8c+4SftmV7mD2zLsswFK8+osKkXWIzGSBc1dsmcdPfj/66+cg?=
- =?iso-8859-1?Q?yf4trMNLUnB1lwi0SWiQ6uuZaiHSDu7ftE/B+Iu7Cv/EXb36lkOMXrcNTP?=
- =?iso-8859-1?Q?xXzYJ/AEt9MoKG3XKAy7WXdJAGkSeMMWw3+SF4/e2NneL6moZAAN/BIoKz?=
- =?iso-8859-1?Q?is3ilb5Lwxv65tWvT+6ibyfk55MSsXVCVI7FNdatIseNMA7du1hGfUoS9Y?=
- =?iso-8859-1?Q?ilcXjQ5b/jloLp9mQv3YLwNnMHE0SaxvBp7DpNuom0pqNNkX+b4/R+GYnm?=
- =?iso-8859-1?Q?Da65HfzFEIR1XnfGSY68QHlDi01H56GXdXbZFsgRnc4zyKFzwrXKPwkkXy?=
- =?iso-8859-1?Q?TxslJ7AQHSiLVY2oe6ocsuM/mtGh2HvCaB8YFBxyojWRYNbpDqZWh4OiV3?=
- =?iso-8859-1?Q?R5yUFpUE0Xfu5D9YcYsLEwGvIz+EhyUcGIzaugirC34HVd9Es0XsMfh2w/?=
- =?iso-8859-1?Q?Xke1nrX9udQZdzYTUw0FIj2LoxdSF1UQslKC87uSlFyXtOw2/6aky8yVk/?=
- =?iso-8859-1?Q?aDmuvy4WCASpx5sV7zWan9MfriHwXlFI8PsiC6O01+VsXbSxqDBZEGuS2n?=
- =?iso-8859-1?Q?b3Um41SigPYltqor7olAUBjo22Fg0SKz9e0FTVIEzTJ6HHXAuRi5llzKJZ?=
- =?iso-8859-1?Q?GzCADeUPAG2tJUrtwvfpu3sC3CPJC1OKr02VVeWKMWnMn/P8AkS0RoCOHX?=
- =?iso-8859-1?Q?TTHkmvmjoml2ak6ogvKIi5QI/VZwsS/kd7CZCnqsL7q7ZlrzuoROp8cYJ/?=
- =?iso-8859-1?Q?jwPsOjR3N6xieXxiJfOgRW7eVpFVZtfcwBH3nQaiA9KiZv9LxXtLLHKJwG?=
- =?iso-8859-1?Q?myMGm/BNPi1WJMVRzij+QX1P+0VU0Qr4POPRzOjevJqMNN/uxPh8XitCpg?=
- =?iso-8859-1?Q?06J7e9IQDEj+IcsxoUoYi4BihEHfgsafNaKo9FYNeOR3ll6p2DlJDtEhAZ?=
- =?iso-8859-1?Q?KdVTR8XVh7m6ClEWFxX5iasMMBv5n3Ft9hIZ0zm7a32DmsEa5q8V+zXFw2?=
- =?iso-8859-1?Q?3eBZey35v8Pt9L8HJqJyMJvnED8V+z2jR+j0uvDNrqYxs/R1aDvi4rTOV6?=
- =?iso-8859-1?Q?d2FWuYwuVfD1pPdE36xQhAV74xk2PZ7fhz23k0kN+16Uahg2BLjaL6XOkJ?=
- =?iso-8859-1?Q?6Tijlz9/3EphqC/155fEwWvH0BjBym++SvRTlYlBAoEYKI7TQlQWg9ibRj?=
- =?iso-8859-1?Q?m29rHjo3I8DQv81XRhMEBSCqMzuzNwxiKUWc81oVKuodf+1aYZGKpqx7dm?=
- =?iso-8859-1?Q?imtvQZ2d3JdcyvHOzIgAW2y9j4vHptrmtLSDP1kHwTBll+Z5DqiVU7SuDf?=
- =?iso-8859-1?Q?xv0wKOxb/cbrBE6C+JdjZQDL5MmpzKvh8562OQs2a3bDj2YkRE+A8CVYxE?=
- =?iso-8859-1?Q?g=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB9572.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(42112799006)(366016)(376014)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?x3PahXTsLC7QUpsla9QadG8PkYOuz7OpNhHYITqCSDnNW6RBL1PgvkOj6h?=
- =?iso-8859-1?Q?zgQtc3tikXZX8bE6F3ZVd1S9BJrP5q3FDgnyTEkymGhDCRhqP5vKCKryRt?=
- =?iso-8859-1?Q?ftoU4UGmDjluaS56xLFpr4u213v6rdBwE1MgU9fl7kwh4YTbkSBI3UmIvy?=
- =?iso-8859-1?Q?beoWvYMJxqAX6gsixcC404oMGjtZ+X1LQjH4vxfOQivrUFAnhAQ4dcx5ov?=
- =?iso-8859-1?Q?c5AGkMGCKIimkSIwdU1sixT1j1vRwOT/6Zck/yckZYTznebHpXKNjfNq6B?=
- =?iso-8859-1?Q?d7ZXgKNZSGkBZckTZwgWoihpe6fUhDtK1DYdWgGEoh04mqjpitzFEJOwyX?=
- =?iso-8859-1?Q?YotXMm/cyVoh5MD/uXJmsenSoLf+coyg+ts3v0BKZurJAGQyI4SrcDyMhF?=
- =?iso-8859-1?Q?KGCc0pFh4LQ07vfJsUV5LwFCVLrXdJ0/QUt2BpVqNDFaD5daAJc3KQ8ymo?=
- =?iso-8859-1?Q?3BPfz6hozKpRWwEiQuj3/wNBUU7qfz/6b55c1MpHqQMseNremHUXzgr3gC?=
- =?iso-8859-1?Q?hrwifurdzEzq3LL0NM+KbjdQeg5lKj0HMROI1sbGGNLquBIqMeey3OEg0s?=
- =?iso-8859-1?Q?Ri9PXkj9Sz5VBAshBHTLfipEjuCrYs9d39jKOKt0CyoZFGXLE4WK6ls4lv?=
- =?iso-8859-1?Q?FhDjY8okOhF10ed0j6d9vJAx2L9uTZ7E5y4BE39sTEr6KQugvJovdBJbau?=
- =?iso-8859-1?Q?9Meug+vOjq9wdp6Iz4Gcq5TdlT4TakOZLgVVWPyaY38grOSBuhOKz4KXkw?=
- =?iso-8859-1?Q?VNFy6opG3C+XELibQwv3PVuOnxMOT4O4oAPJjLO0KS4vSQ+lyXsSlzTzsg?=
- =?iso-8859-1?Q?At4/iQyQPnconH4+oTWBEP/Ytd4ToPYfccZcQR8OfPZ1Y+wBM5tYcY/Ks5?=
- =?iso-8859-1?Q?llNviHz3A55MgpmCoMv+wxhPWb+6VcUUZ9fgQWbPfMDEQrpbo7PtO9UhKe?=
- =?iso-8859-1?Q?agCtdFsbrSZSBiYmklm+rvZYzM897pjP76yFax3XFH2VNv7YQ3XtNKtvf+?=
- =?iso-8859-1?Q?4Uk0qrvHdYIuVY6zspdaIu1uW1mpZJpE/6ECoTzwaOY5Rpz4smiVm66kn6?=
- =?iso-8859-1?Q?lIJnTW6yDKWpSFIBLEshnaPuSscLwCHvlLY7Jbdlv74EAqc8oETRIiGPqG?=
- =?iso-8859-1?Q?NSxkpinq4daeQlUa/kWL9hPCCNU9wznqUOboW1IvEPJ1Cj3ymbR5c/Ubjk?=
- =?iso-8859-1?Q?YLAKegdHqPIcJ0p3ZAES8LQn7H9MX/As2pjok4ZgF53r7t50/qsoUuu9K6?=
- =?iso-8859-1?Q?r1y9fZZ75FFU/PHFV4UidfkyMzxM67RcIGPk9HrZT6CqGqevRqMuvgziet?=
- =?iso-8859-1?Q?6v+8SSwJZBRO78xWssNxcyjQN+qNvrOz5aw7BxNLw3enyat3b9qTYspekM?=
- =?iso-8859-1?Q?2yFmLE0g99Sc60KvSozvRc+tb1MCo+/FhXI2bTobA9NYrDBPy5rz9JWQms?=
- =?iso-8859-1?Q?oQpW+ZCc3oxLuCZpJY+6RUf6zr1x1OLq4auCFV+7PI3TbfDF1tbqo57MxU?=
- =?iso-8859-1?Q?OejR4asGPYy1+ZQlgIxQxTnLixAMc5JEFtIksWIKIWrcPiD0QT8T4YaZx1?=
- =?iso-8859-1?Q?Ckie4ixR3k1hlYhHhH3xMYavDymTG4CpfOqiKZu24OdbT8jTECaEkIILgF?=
- =?iso-8859-1?Q?U3qhdfeyU/PD8i+joXkrXR4UJMA3eQKCyxb4FwdEUUAQkV61/zP3AAGg?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 6cb710d3-7bfe-11f0-b898-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=l8N9ttvKyCBAcyEDvuaLoM
+	1BSXehm0oCXcCPSraNLCM=; b=S1ofeuAZEvausPNcfPdvnKZWbPTOWDSn/I7BEC
+	fEzcKChFEREcdnUgDUZ0liwYbWKPM8rZPt1QO6jTgcF7psCTS7i5PGkOE6QI5JZ+
+	KHyXq3fCcqVTX2TNJW8aE6hSDVQ07wo13XXPL6m308u3dn1gS4TZLJGYH+UVZxaP
+	N5c049QcgEAx92YW7CGLG4srnZufUn6OZjs+cmknhQDuglZbtyx7y+zif+BWwBD5
+	rLKoMV37K5sMLFRlSxJZfA3l9dBzOODYODOqjuY6k3pCnQT61mXkUULbWa5h5/21
+	Fb+5mmW8neh+DKoOx0rQ8WtgQ3aJv0kjv4N5E7mgkhK3nJmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1755499310; x=1756104110;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=l8N9ttvKyCBAcyEDvuaLoM1BSXehm0oCXcCPSraNLCM=;
+        b=IkDQjNZiN4NnZAyHLVFP1sgAbvn6TeCYjjOvOdMehW1ojI75aIWNpwBV0OyLP712NL
+         I5umoNmbdcq9uEibEm1aTetVHv6pIEmYl7ilD2wOmY2a+2CdFJeph7J+h5S5LG2Flw9K
+         Zz4EG1XwqS1OBfq69TAB83OSTeMlgdseEFVT2OEryFRkQ/kKvQ4+0LKUwDD82YpO4Qz/
+         tcbN7oJ8JiPJ8ZPumWVV/m1BsZya2Hav1v1JISXTJnPyAll1ZYxO+bb7ocHZCRpvfPqy
+         6t+9Fcznhrice45inuPcD8aRq+ZK0HvA0sh4gayhVqWyPqtdnrAjU1rDgkJl88CYzxj4
+         FBKQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVYTBaCunKrl8y/0dsCLuPE6R15HfPUeTVxW1L+RPthE02itC2RayTX6YXPtyYNnG1Iyd6+UKtmmtw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzq08PiqL6eKlaq213/F/PrCbE5+HtSChjp01A9wcMmex4FT3ay
+	RZGOwD9kI+geg81ZNZEeqNA/wajbAKGbMRlcPgzLp5Qj6cZnluLsqw2eohWRPFDap8ZqC7hO8lX
+	ShmSQdhyq5N3pg8AvXvZ16+gNplem8Gu0wmlUONGXo6CopvX4HhWlD6xl1TXNd+6DNejUpg==
+X-Gm-Gg: ASbGnctS1t0rP0ALpvDIesFYHNttK4FSWW88ZvGVPMATR4QqaYdew5DVK1X+yVhMBPT
+	qDZo3rFemUKsGbyH5X8B1Lj/ugKNkU0faY/0qT0ApQPPwjq61fz4yFQccH+Eg7C1+DuUBqlt8y/
+	jakKqjrrgFzOTy7NU6zlldgCIgvbz+Qy4kHXBjrD9lrfmb+020rnjes0xPBhU7z4owR23jGwLfx
+	J7ap6CNPqxBWBdfMOgJOHQYqoVFHNpAegns/F/GFaK50D/5CZgQCqW9KtvhGNjfLqDdpIT5/lrw
+	PpIBZ66j3Hc3aWU09KeSEqqHpTAVcQSbj+A2Lsj3iD0=
+X-Received: by 2002:a17:902:c951:b0:240:22af:91c7 with SMTP id d9443c01a7336-2446d71db3fmr134372785ad.14.1755499310170;
+        Sun, 17 Aug 2025 23:41:50 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGmF5KBA9eIDDl75sJwjMQCpOEjZ8TR6DA+JYR6yCjrU7iJmsnLTLQaYA9/NFl8UsVIfaN9mw==
+X-Received: by 2002:a17:902:c951:b0:240:22af:91c7 with SMTP id d9443c01a7336-2446d71db3fmr134372375ad.14.1755499309632;
+        Sun, 17 Aug 2025 23:41:49 -0700 (PDT)
+From: pratyush.brahma@oss.qualcomm.com
+X-Google-Original-From: Pratyush
+Date: Mon, 18 Aug 2025 12:11:15 +0530
+Subject: [PATCH] mm/numa: Rename memory_add_physaddr_to_nid to
+ memory_get_phys_to_nid
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB9572.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 05453e3d-e296-435e-e55f-08dddce26018
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Aug 2025 16:31:38.8989
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: urwweigUNShy2t3Cx0MIeq8aHFWcQtWCG+n5JPXTqUgiE7VjYkHAzTqqSC/9687duELQi7axcgWbRddaS4YPTeBm+qygPEeBpArfuaczMp8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR03MB6382
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20250818-numa_memblks-v1-1-9eb29ade560a@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAArLomgC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDI1MDC0MT3bzS3MT43NTcpJzsYt0kU5NEC3MLCyODlFQloJaCotS0zAqwcdG
+ xQH5GZnFJflElyPTa2loAgXpdgW0AAAA=
+X-Change-ID: 20250814-numa_memblks-b54a878820de
+To: Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Christophe Leroy <christophe.leroy@csgroup.eu>,
+        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+        Dan Williams <dan.j.williams@intel.com>,
+        Vishal Verma <vishal.l.verma@intel.com>,
+        Dave Jiang <dave.jiang@intel.com>, Ira Weiny <ira.weiny@intel.com>,
+        David Hildenbrand <david@redhat.com>,
+        Oscar Salvador <osalvador@suse.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Davidlohr Bueso <dave@stgolabs.net>,
+        Jonathan Cameron <jonathan.cameron@huawei.com>,
+        Alison Schofield <alison.schofield@intel.com>,
+        "K. Y. Srinivasan" <kys@microsoft.com>,
+        Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+        Dexuan Cui <decui@microsoft.com>,
+        Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
+        "Michael S. Tsirkin" <mst@redhat.com>,
+        Jason Wang <jasowang@redhat.com>,
+        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+        =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
+        Juergen Gross <jgross@suse.com>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Mike Rapoport <rppt@kernel.org>
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+        linux-s390@vger.kernel.org, linux-acpi@vger.kernel.org,
+        nvdimm@lists.linux.dev, linux-mm@kvack.org, linux-cxl@vger.kernel.org,
+        linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
+        xen-devel@lists.xenproject.org,
+        Pratyush Brahma <pratyush.brahma@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1755499297; l=12122;
+ i=pratyush.brahma@oss.qualcomm.com; s=20250808; h=from:subject:message-id;
+ bh=//n/Cd8/21p2TwuLHbKJjrZr/VX2C3LDE0HHjeHcn3A=;
+ b=YhwC5Lk4afAnAuPN/u4jW8oYab0ctCO2cz+geSxr4bRuihGdwIV2yM1kuCXBVrnF+tdcuoDdH
+ v7S65fFa5CkAcFfEgaPVnJ6mv1qtlUNsSBr4p0Efj25v9textGh8WHy
+X-Developer-Key: i=pratyush.brahma@oss.qualcomm.com; a=ed25519;
+ pk=ZeXF1N8hxU6j3G/ajMI+du/TVXMZQaXDwnJyznB69ms=
+X-Proofpoint-ORIG-GUID: 3C4GU4mDUEzHrdlpIRyDUQkBIOAB7Sew
+X-Authority-Analysis: v=2.4 cv=ZJHXmW7b c=1 sm=1 tr=0 ts=68a2cb2f cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10 a=EUspDBNiAAAA:8 a=qb4DzySmTAYQGscL8MYA:9
+ a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-GUID: 3C4GU4mDUEzHrdlpIRyDUQkBIOAB7Sew
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODE2MDAyOCBTYWx0ZWRfX0ixZWnkSQJUH
+ t83shXTR9mGEsPdAtSBite8cXy05U7679/0mzgLJz0XGOsfPTJxah9BqDRSLXQUe17mqbaTi/kb
+ RncjxOU4i3JVcblRRNaaSVbU5QELtSLUiuq2liSNlkqbcy4uPQ3AdjZDUqAKtc49MEK8vBzwnMf
+ m+z8lEQ/wmOA8lS+EDsQ9aQmtYwePUnawKH4R3F5qV7oRJw91RTu27mFgNCH8HDBILb3KdNBYwn
+ Pe9E8JicXWptsE1sLZKhUkWd7EaA9dAoomuUlhbM17DAwwW8n8UVONUMPAwEqgJsDcYL4ZUOhQo
+ AdIfoXB6ExcFtmH/3f+7C1JMeoRXYXunZ8CfEeOcsuMiE7mEvUTEa0zM9Asgu2oazlNFIczpzbD
+ xr6QqxgW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-18_03,2025-08-14_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 phishscore=0 suspectscore=0 clxscore=1011
+ bulkscore=0 spamscore=0 impostorscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508160028
 
-From: Andrew Cooper <andrew.cooper3@citrix.com>
+From: Pratyush Brahma <pratyush.brahma@oss.qualcomm.com>
 
-MISRA Rule 5.5 objects to a macro aliasing a function, which is what
-pirq_cleanup_check() does. The macro was originally intended to ensure
-the condition 'if (!pirq->evtchn)' is always checked before invoking
-the function, avoiding errors across call sites.
+The function `memory_add_physaddr_to_nid` seems a misnomer.
+It does not to "add" a physical address to a NID mapping,
+but rather it gets the NID associated with a given physical address.
 
-To achieve MISRA compliance, the condition is expanded inline at all
-call sites, using plain C constructs. This ensures clarity while
-retaining the original behavior. While this complies with MISRA, it
-shifts the responsibility to developers to check 'if (!pirq->evtchn)'
-at call sites.
+Improve the semantic clarity of the API by renaming to a more
+descriptive name.
 
-No functional changes.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+Signed-off-by: Pratyush Brahma <pratyush.brahma@oss.qualcomm.com>
 ---
-Link to v1:
-https://patchew.org/Xen/20250729223110.3404441-1-andrew.cooper3@citrix.com/
+ arch/powerpc/include/asm/sparsemem.h | 4 ++--
+ arch/powerpc/mm/mem.c                | 4 ++--
+ arch/s390/include/asm/sparsemem.h    | 4 ++--
+ drivers/acpi/acpi_memhotplug.c       | 2 +-
+ drivers/acpi/nfit/core.c             | 2 +-
+ drivers/base/memory.c                | 2 +-
+ drivers/cxl/pmem.c                   | 2 +-
+ drivers/dax/cxl.c                    | 2 +-
+ drivers/hv/hv_balloon.c              | 6 +++---
+ drivers/nvdimm/virtio_pmem.c         | 2 +-
+ drivers/virtio/virtio_mem.c          | 2 +-
+ drivers/xen/balloon.c                | 2 +-
+ include/linux/numa.h                 | 6 +++---
+ include/linux/numa_memblks.h         | 4 ++--
+ mm/numa.c                            | 6 +++---
+ mm/numa_memblks.c                    | 4 ++--
+ 16 files changed, 27 insertions(+), 27 deletions(-)
 
-Changes in v2:
-- updated commit message
+diff --git a/arch/powerpc/include/asm/sparsemem.h b/arch/powerpc/include/asm/sparsemem.h
+index d072866842e4229159fcb6635745fd19a2788413..cdb5594616c8e32ab8ae3d209d0b2df20f3564f6 100644
+--- a/arch/powerpc/include/asm/sparsemem.h
++++ b/arch/powerpc/include/asm/sparsemem.h
+@@ -14,8 +14,8 @@
+ 
+ #ifdef CONFIG_MEMORY_HOTPLUG
+ extern int remove_section_mapping(unsigned long start, unsigned long end);
+-extern int memory_add_physaddr_to_nid(u64 start);
+-#define memory_add_physaddr_to_nid memory_add_physaddr_to_nid
++extern int memory_get_phys_to_nid(u64 start);
++#define memory_get_phys_to_nid memory_get_phys_to_nid
+ 
+ #ifdef CONFIG_NUMA
+ extern int hot_add_scn_to_nid(unsigned long scn_addr);
+diff --git a/arch/powerpc/mm/mem.c b/arch/powerpc/mm/mem.c
+index 3ddbfdbfa9413a17d8321885724ce432d967005a..5665b2e2fc68df8634613c11706e1a9158a3a616 100644
+--- a/arch/powerpc/mm/mem.c
++++ b/arch/powerpc/mm/mem.c
+@@ -54,11 +54,11 @@ EXPORT_SYMBOL(__phys_mem_access_prot);
+ static DEFINE_MUTEX(linear_mapping_mutex);
+ 
+ #ifdef CONFIG_NUMA
+-int memory_add_physaddr_to_nid(u64 start)
++int memory_get_phys_to_nid(u64 start)
+ {
+ 	return hot_add_scn_to_nid(start);
+ }
+-EXPORT_SYMBOL_GPL(memory_add_physaddr_to_nid);
++EXPORT_SYMBOL_GPL(memory_get_phys_to_nid);
+ #endif
+ 
+ int __weak create_section_mapping(unsigned long start, unsigned long end,
+diff --git a/arch/s390/include/asm/sparsemem.h b/arch/s390/include/asm/sparsemem.h
+index 668dfc5de538742269af1b25151372506105fd4d..744c67dce4c106d063cb5436b37412045da0fd2a 100644
+--- a/arch/s390/include/asm/sparsemem.h
++++ b/arch/s390/include/asm/sparsemem.h
+@@ -7,11 +7,11 @@
+ 
+ #ifdef CONFIG_NUMA
+ 
+-static inline int memory_add_physaddr_to_nid(u64 addr)
++static inline int memory_get_phys_to_nid(u64 addr)
+ {
+ 	return 0;
+ }
+-#define memory_add_physaddr_to_nid memory_add_physaddr_to_nid
++#define memory_get_phys_to_nid memory_get_phys_to_nid
+ 
+ static inline int phys_to_target_node(u64 start)
+ {
+diff --git a/drivers/acpi/acpi_memhotplug.c b/drivers/acpi/acpi_memhotplug.c
+index d0c1a71007d0a3054608bec8fddc8e86bdffb78b..6f968243ffc3cc5864e73b914d1bf67748e30e66 100644
+--- a/drivers/acpi/acpi_memhotplug.c
++++ b/drivers/acpi/acpi_memhotplug.c
+@@ -183,7 +183,7 @@ static int acpi_memory_enable_device(struct acpi_memory_device *mem_device)
+ 			continue;
+ 		/* We want a single node for the whole memory group */
+ 		if (node < 0)
+-			node = memory_add_physaddr_to_nid(info->start_addr);
++			node = memory_get_phys_to_nid(info->start_addr);
+ 		total_length += info->length;
+ 	}
+ 
+diff --git a/drivers/acpi/nfit/core.c b/drivers/acpi/nfit/core.c
+index ae035b93da087812dee6ec47d9ef4aa97dc8e7bc..04c3ab311e4d5923aef50252efabd193c5fb7850 100644
+--- a/drivers/acpi/nfit/core.c
++++ b/drivers/acpi/nfit/core.c
+@@ -2630,7 +2630,7 @@ static int acpi_nfit_register_region(struct acpi_nfit_desc *acpi_desc,
+ 
+ 	/* Fallback to address based numa information if node lookup failed */
+ 	if (ndr_desc->numa_node == NUMA_NO_NODE) {
+-		ndr_desc->numa_node = memory_add_physaddr_to_nid(spa->address);
++		ndr_desc->numa_node = memory_get_phys_to_nid(spa->address);
+ 		dev_info(acpi_desc->dev, "changing numa node from %d to %d for nfit region [%pa-%pa]",
+ 			NUMA_NO_NODE, ndr_desc->numa_node, &res.start, &res.end);
+ 	}
+diff --git a/drivers/base/memory.c b/drivers/base/memory.c
+index 5c6c1d6bb59f1241a5f42a3396be1a8e2058c965..f657520855408804761afec379e3c0b2a238b239 100644
+--- a/drivers/base/memory.c
++++ b/drivers/base/memory.c
+@@ -599,7 +599,7 @@ static ssize_t probe_store(struct device *dev, struct device_attribute *attr,
+ 	if (ret)
+ 		return ret;
+ 
+-	nid = memory_add_physaddr_to_nid(phys_addr);
++	nid = memory_get_phys_to_nid(phys_addr);
+ 	ret = __add_memory(nid, phys_addr,
+ 			   MIN_MEMORY_BLOCK_SIZE * sections_per_block,
+ 			   MHP_NONE);
+diff --git a/drivers/cxl/pmem.c b/drivers/cxl/pmem.c
+index e197883690efc11f60c31bd56aeb5695665d422b..471aed4e11241948e994d0b9d53600c147e38fb0 100644
+--- a/drivers/cxl/pmem.c
++++ b/drivers/cxl/pmem.c
+@@ -410,7 +410,7 @@ static int cxl_pmem_region_probe(struct device *dev)
+ 	ndr_desc.res = res;
+ 	ndr_desc.provider_data = cxlr_pmem;
+ 
+-	ndr_desc.numa_node = memory_add_physaddr_to_nid(res->start);
++	ndr_desc.numa_node = memory_get_phys_to_nid(res->start);
+ 	ndr_desc.target_node = phys_to_target_node(res->start);
+ 	if (ndr_desc.target_node == NUMA_NO_NODE) {
+ 		ndr_desc.target_node = ndr_desc.numa_node;
+diff --git a/drivers/dax/cxl.c b/drivers/dax/cxl.c
+index 13cd94d32ff7a1d70af7821c1aecd7490302149d..35843791872ba466f571c022e1484816368a1198 100644
+--- a/drivers/dax/cxl.c
++++ b/drivers/dax/cxl.c
+@@ -15,7 +15,7 @@ static int cxl_dax_region_probe(struct device *dev)
+ 	struct dev_dax_data data;
+ 
+ 	if (nid == NUMA_NO_NODE)
+-		nid = memory_add_physaddr_to_nid(cxlr_dax->hpa_range.start);
++		nid = memory_get_phys_to_nid(cxlr_dax->hpa_range.start);
+ 
+ 	dax_region = alloc_dax_region(dev, cxlr->id, &cxlr_dax->hpa_range, nid,
+ 				      PMD_SIZE, IORESOURCE_DAX_KMEM);
+diff --git a/drivers/hv/hv_balloon.c b/drivers/hv/hv_balloon.c
+index 2b4080e51f97c30e7adb06faa56b1403bc08b53c..8878aac6da9cd3bd6f499eae2588e989b7219af3 100644
+--- a/drivers/hv/hv_balloon.c
++++ b/drivers/hv/hv_balloon.c
+@@ -725,7 +725,7 @@ static void hv_mem_hot_add(unsigned long start, unsigned long size,
+ 
+ 		reinit_completion(&dm_device.ol_waitevent);
+ 
+-		nid = memory_add_physaddr_to_nid(PFN_PHYS(start_pfn));
++		nid = memory_get_phys_to_nid(PFN_PHYS(start_pfn));
+ 		ret = add_memory(nid, PFN_PHYS((start_pfn)),
+ 				 HA_BYTES_IN_CHUNK, MHP_MERGE_RESOURCE);
+ 
+@@ -1701,8 +1701,8 @@ static int hot_add_enabled(void)
+ {
+ 	/*
+ 	 * Disable hot add on ARM64, because we currently rely on
+-	 * memory_add_physaddr_to_nid() to get a node id of a hot add range,
+-	 * however ARM64's memory_add_physaddr_to_nid() always return 0 and
++	 * memory_get_phys_to_nid() to get a node id of a hot add range,
++	 * however ARM64's memory_get_phys_to_nid() always return 0 and
+ 	 * DM_MEM_HOT_ADD_REQUEST doesn't have the NUMA node information for
+ 	 * add_memory().
+ 	 */
+diff --git a/drivers/nvdimm/virtio_pmem.c b/drivers/nvdimm/virtio_pmem.c
+index 2396d19ce5496974f8b93b54cc8c95e48dda103d..df6a3fd552d11a577d85708f80e7558ea83839d2 100644
+--- a/drivers/nvdimm/virtio_pmem.c
++++ b/drivers/nvdimm/virtio_pmem.c
+@@ -100,7 +100,7 @@ static int virtio_pmem_probe(struct virtio_device *vdev)
+ 
+ 	ndr_desc.res = &res;
+ 
+-	ndr_desc.numa_node = memory_add_physaddr_to_nid(res.start);
++	ndr_desc.numa_node = memory_get_phys_to_nid(res.start);
+ 	ndr_desc.target_node = phys_to_target_node(res.start);
+ 	if (ndr_desc.target_node == NUMA_NO_NODE) {
+ 		ndr_desc.target_node = ndr_desc.numa_node;
+diff --git a/drivers/virtio/virtio_mem.c b/drivers/virtio/virtio_mem.c
+index 1688ecd69a0445d5c21d108a9a1d60577f96d7ac..6154f03a12c3efa65728f626e43b6270245d439c 100644
+--- a/drivers/virtio/virtio_mem.c
++++ b/drivers/virtio/virtio_mem.c
+@@ -2858,7 +2858,7 @@ static int virtio_mem_init(struct virtio_mem *vm)
+ 
+ 	/* Determine the nid for the device based on the lowest address. */
+ 	if (vm->nid == NUMA_NO_NODE)
+-		vm->nid = memory_add_physaddr_to_nid(vm->addr);
++		vm->nid = memory_get_phys_to_nid(vm->addr);
+ 
+ 	dev_info(&vm->vdev->dev, "start address: 0x%llx", vm->addr);
+ 	dev_info(&vm->vdev->dev, "region size: 0x%llx", vm->region_size);
+diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
+index 2de37dcd75566fc1a03b75232cbe17fc0f53909d..93ca270ddd516ec11bc3f096eb518b9789d92664 100644
+--- a/drivers/xen/balloon.c
++++ b/drivers/xen/balloon.c
+@@ -284,7 +284,7 @@ static enum bp_state reserve_additional_memory(void)
+ 	if (!resource)
+ 		goto err;
+ 
+-	nid = memory_add_physaddr_to_nid(resource->start);
++	nid = memory_get_phys_to_nid(resource->start);
+ 
+ #ifdef CONFIG_XEN_HAVE_PVMMU
+ 	/*
+diff --git a/include/linux/numa.h b/include/linux/numa.h
+index e6baaf6051bcff6c23308d3b67f790053fbd29dc..ed65a20f39718a5a3157f6f9db60561f4418b000 100644
+--- a/include/linux/numa.h
++++ b/include/linux/numa.h
+@@ -33,8 +33,8 @@ int numa_nearest_node(int node, unsigned int state);
+ 
+ int nearest_node_nodemask(int node, nodemask_t *mask);
+ 
+-#ifndef memory_add_physaddr_to_nid
+-int memory_add_physaddr_to_nid(u64 start);
++#ifndef memory_get_phys_to_nid
++int memory_get_phys_to_nid(u64 start);
+ #endif
+ 
+ #ifndef phys_to_target_node
+@@ -54,7 +54,7 @@ static inline int nearest_node_nodemask(int node, nodemask_t *mask)
+ 	return NUMA_NO_NODE;
+ }
+ 
+-static inline int memory_add_physaddr_to_nid(u64 start)
++static inline int memory_get_phys_to_nid(u64 start)
+ {
+ 	return 0;
+ }
+diff --git a/include/linux/numa_memblks.h b/include/linux/numa_memblks.h
+index 991076cba7c5016d845eb40a2f9887f73fa83862..37cc0987e738f8aa2eb5c8f1ca2c94394def4780 100644
+--- a/include/linux/numa_memblks.h
++++ b/include/linux/numa_memblks.h
+@@ -53,8 +53,8 @@ static inline int numa_emu_cmdline(char *str)
+ #ifdef CONFIG_NUMA_KEEP_MEMINFO
+ extern int phys_to_target_node(u64 start);
+ #define phys_to_target_node phys_to_target_node
+-extern int memory_add_physaddr_to_nid(u64 start);
+-#define memory_add_physaddr_to_nid memory_add_physaddr_to_nid
++extern int memory_get_phys_to_nid(u64 start);
++#define memory_get_phys_to_nid memory_get_phys_to_nid
+ #endif /* CONFIG_NUMA_KEEP_MEMINFO */
+ 
+ #endif /* CONFIG_NUMA_MEMBLKS */
+diff --git a/mm/numa.c b/mm/numa.c
+index 7d5e06fe5bd4a2790b83dd7dbe646617f6476d8c..f7b5ac8aea608368b75c606970187eb147ddf427 100644
+--- a/mm/numa.c
++++ b/mm/numa.c
+@@ -40,14 +40,14 @@ void __init alloc_offline_node_data(int nid)
+ 
+ /* Stub functions: */
+ 
+-#ifndef memory_add_physaddr_to_nid
+-int memory_add_physaddr_to_nid(u64 start)
++#ifndef memory_get_phys_to_nid
++int memory_get_phys_to_nid(u64 start)
+ {
+ 	pr_info_once("Unknown online node for memory at 0x%llx, assuming node 0\n",
+ 			start);
+ 	return 0;
+ }
+-EXPORT_SYMBOL_GPL(memory_add_physaddr_to_nid);
++EXPORT_SYMBOL_GPL(memory_get_phys_to_nid);
+ #endif
+ 
+ #ifndef phys_to_target_node
+diff --git a/mm/numa_memblks.c b/mm/numa_memblks.c
+index 541a99c4071a67e5b0ef66f4136dee268a880003..346039bd933390fb014931fc61ccd2f96a773c37 100644
+--- a/mm/numa_memblks.c
++++ b/mm/numa_memblks.c
+@@ -580,7 +580,7 @@ int phys_to_target_node(u64 start)
+ }
+ EXPORT_SYMBOL_GPL(phys_to_target_node);
+ 
+-int memory_add_physaddr_to_nid(u64 start)
++int memory_get_phys_to_nid(u64 start)
+ {
+ 	int nid = meminfo_to_nid(&numa_meminfo, start);
+ 
+@@ -588,6 +588,6 @@ int memory_add_physaddr_to_nid(u64 start)
+ 		nid = numa_meminfo.blk[0].nid;
+ 	return nid;
+ }
+-EXPORT_SYMBOL_GPL(memory_add_physaddr_to_nid);
++EXPORT_SYMBOL_GPL(memory_get_phys_to_nid);
+ 
+ #endif /* CONFIG_NUMA_KEEP_MEMINFO */
+
 ---
- xen/arch/x86/irq.c                | 11 +++++++----
- xen/common/event_channel.c        |  5 ++++-
- xen/drivers/passthrough/x86/hvm.c |  9 ++++++---
- xen/include/xen/irq.h             |  3 ---
- 4 files changed, 17 insertions(+), 11 deletions(-)
+base-commit: 479058002c32b77acac43e883b92174e22c4be2d
+change-id: 20250814-numa_memblks-b54a878820de
 
-diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
-index 556134f85a..1ed85c0c11 100644
---- a/xen/arch/x86/irq.c
-+++ b/xen/arch/x86/irq.c
-@@ -1325,7 +1325,8 @@ static void clear_domain_irq_pirq(struct domain *d, i=
-nt irq, struct pirq *pirq)
- static void cleanup_domain_irq_pirq(struct domain *d, int irq,
-                                     struct pirq *pirq)
- {
--    pirq_cleanup_check(pirq, d);
-+    if ( !pirq->evtchn )
-+        pirq_cleanup_check(pirq, d);
-     radix_tree_delete(&d->arch.irq_pirq, irq);
- }
-=20
-@@ -1383,7 +1384,7 @@ struct pirq *alloc_pirq_struct(struct domain *d)
-     return pirq;
- }
-=20
--void (pirq_cleanup_check)(struct pirq *pirq, struct domain *d)
-+void pirq_cleanup_check(struct pirq *pirq, struct domain *d)
- {
-     /*
-      * Check whether all fields have their default values, and delete
-@@ -2823,7 +2824,8 @@ int map_domain_emuirq_pirq(struct domain *d, int pirq=
-, int emuirq)
-                 radix_tree_int_to_ptr(pirq));
-             break;
-         default:
--            pirq_cleanup_check(info, d);
-+            if ( !info->evtchn )
-+                pirq_cleanup_check(info, d);
-             return err;
-         }
-     }
-@@ -2858,7 +2860,8 @@ int unmap_domain_pirq_emuirq(struct domain *d, int pi=
-rq)
-     if ( info )
-     {
-         info->arch.hvm.emuirq =3D IRQ_UNBOUND;
--        pirq_cleanup_check(info, d);
-+        if ( !info->evtchn )
-+            pirq_cleanup_check(info, d);
-     }
-     if ( emuirq !=3D IRQ_PT )
-         radix_tree_delete(&d->arch.hvm.emuirq_pirq, emuirq);
-diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
-index 67700b050a..a3d18bc464 100644
---- a/xen/common/event_channel.c
-+++ b/xen/common/event_channel.c
-@@ -741,11 +741,14 @@ int evtchn_close(struct domain *d1, int port1, bool g=
-uest)
-             if ( !is_hvm_domain(d1) ||
-                  domain_pirq_to_irq(d1, pirq->pirq) <=3D 0 ||
-                  unmap_domain_pirq_emuirq(d1, pirq->pirq) < 0 )
-+            {
-                 /*
-                  * The successful path of unmap_domain_pirq_emuirq() will =
-have
-                  * called pirq_cleanup_check() already.
-                  */
--                pirq_cleanup_check(pirq, d1);
-+                if ( !pirq->evtchn )
-+                    pirq_cleanup_check(pirq, d1);
-+            }
-         }
-         unlink_pirq_port(chn1, d1->vcpu[chn1->notify_vcpu_id]);
-         break;
-diff --git a/xen/drivers/passthrough/x86/hvm.c b/xen/drivers/passthrough/x8=
-6/hvm.c
-index a2ca7e0e57..b73bb55055 100644
---- a/xen/drivers/passthrough/x86/hvm.c
-+++ b/xen/drivers/passthrough/x86/hvm.c
-@@ -329,7 +329,8 @@ int pt_irq_create_bind(
-                 pirq_dpci->gmsi.gvec =3D 0;
-                 pirq_dpci->dom =3D NULL;
-                 pirq_dpci->flags =3D 0;
--                pirq_cleanup_check(info, d);
-+                if ( !info->evtchn )
-+                    pirq_cleanup_check(info, d);
-                 write_unlock(&d->event_lock);
-                 return rc;
-             }
-@@ -536,7 +537,8 @@ int pt_irq_create_bind(
-                     hvm_irq_dpci->link_cnt[link]--;
-                 }
-                 pirq_dpci->flags =3D 0;
--                pirq_cleanup_check(info, d);
-+                if ( !info->evtchn )
-+                    pirq_cleanup_check(info, d);
-                 write_unlock(&d->event_lock);
-                 xfree(girq);
-                 xfree(digl);
-@@ -693,7 +695,8 @@ int pt_irq_destroy_bind(
-          */
-         pt_pirq_softirq_reset(pirq_dpci);
-=20
--        pirq_cleanup_check(pirq, d);
-+        if ( !pirq->evtchn )
-+            pirq_cleanup_check(pirq, d);
-     }
-=20
-     write_unlock(&d->event_lock);
-diff --git a/xen/include/xen/irq.h b/xen/include/xen/irq.h
-index 95034c0d6b..6071b00f62 100644
---- a/xen/include/xen/irq.h
-+++ b/xen/include/xen/irq.h
-@@ -185,9 +185,6 @@ extern struct pirq *pirq_get_info(struct domain *d, int=
- pirq);
-=20
- void pirq_cleanup_check(struct pirq *pirq, struct domain *d);
-=20
--#define pirq_cleanup_check(pirq, d) \
--    (!(pirq)->evtchn ? pirq_cleanup_check(pirq, d) : (void)0)
--
- extern void pirq_guest_eoi(struct pirq *pirq);
- extern void desc_guest_eoi(struct irq_desc *desc, struct pirq *pirq);
- extern int pirq_guest_unmask(struct domain *d);
---=20
-2.43.0
+Best regards,
+-- 
+Pratyush Brahma <pratyush.brahma@oss.qualcomm.com>
+
 
