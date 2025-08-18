@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25F8BB2AE4B
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Aug 2025 18:36:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1086198.1444403 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D607B2AF37
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Aug 2025 19:19:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1086213.1444414 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uo2pV-0004xd-O3; Mon, 18 Aug 2025 16:35:29 +0000
+	id 1uo3Ve-0001ZR-Mp; Mon, 18 Aug 2025 17:19:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1086198.1444403; Mon, 18 Aug 2025 16:35:29 +0000
+Received: by outflank-mailman (output) from mailman id 1086213.1444414; Mon, 18 Aug 2025 17:19:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uo2pV-0004vY-LL; Mon, 18 Aug 2025 16:35:29 +0000
-Received: by outflank-mailman (input) for mailman id 1086198;
- Mon, 18 Aug 2025 16:35:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uo3Ve-0001Xy-Jd; Mon, 18 Aug 2025 17:19:02 +0000
+Received: by outflank-mailman (input) for mailman id 1086213;
+ Mon, 18 Aug 2025 17:19:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2jcs=26=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1uo2pU-0004vS-0z
- for xen-devel@lists.xenproject.org; Mon, 18 Aug 2025 16:35:28 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20627.outbound.protection.outlook.com
- [2a01:111:f403:2415::627])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5531994b-7c51-11f0-b898-0df219b8e170;
- Mon, 18 Aug 2025 18:35:22 +0200 (CEST)
-Received: from DM6PR02CA0156.namprd02.prod.outlook.com (2603:10b6:5:332::23)
- by DS0PR12MB8018.namprd12.prod.outlook.com (2603:10b6:8:149::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.24; Mon, 18 Aug
- 2025 16:35:17 +0000
-Received: from DS3PEPF000099DF.namprd04.prod.outlook.com
- (2603:10b6:5:332:cafe::7f) by DM6PR02CA0156.outlook.office365.com
- (2603:10b6:5:332::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9031.19 via Frontend Transport; Mon,
- 18 Aug 2025 16:35:17 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS3PEPF000099DF.mail.protection.outlook.com (10.167.17.202) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9052.8 via Frontend Transport; Mon, 18 Aug 2025 16:35:17 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 18 Aug
- 2025 11:35:16 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1748.10; Mon, 18 Aug
- 2025 09:35:16 -0700
-Received: from [172.28.207.84] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 18 Aug 2025 11:35:15 -0500
+ <SRS0=GLF1=26=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uo3Vd-0001Xs-Hg
+ for xen-devel@lists.xenproject.org; Mon, 18 Aug 2025 17:19:01 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6e33ebb8-7c57-11f0-a32a-13f23c93f187;
+ Mon, 18 Aug 2025 19:19:00 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-45a1b05fe23so26263755e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 10:19:00 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45b42a84417sm6984635e9.13.2025.08.18.10.18.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 18 Aug 2025 10:18:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,217 +45,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5531994b-7c51-11f0-b898-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=w672Rkwg/MCUQBHNWjxRZ9l6H5uqOSQFJgHYCqUC1iomIdkm+Tr/8S+Wy/1fbYf5Xra2Bf0v2nsjvuPi5UJsNebsipTU7Rk1I9/akMjdaKwhb6UStqlQkfd8M8wbv1kKtd2WQl4LwPcVwawJSns8fzs/I5prZBn39cD+U3e0GvMOTZzn5hbTOu5yaK6itFy47jwr69VkFvyIO3LMpa4uAvf05gV6mbVbW+AvmxoB77m9iGYkTQBShmyz9tKhRhOUjZA3QwPQxFa9yV55BTp5/nyxKSIaPeuAfCZtZCb13IugxOkmrv2RFxpMBTTPnZotZ8+QAU5ivvzwXCDL3gZNjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kWpSyxHNYwQx62CGBbVD6f3nPwEYF6Sx7plO0XOibH0=;
- b=sBclYwuGbcw7WXCGPXxDGc1sglWJAj1ySFBT5pM0LZG+/qe7xl4etzxxcb09y6AiUzfoXR+XzFpvi9MhTXPS8Dk9JHti4EKklWuMNubTKJ9op7lRbzGiN7g/pI8d1l7EPek1nbPrOZ8WfV4F4hdmNLVhwnG9LWIknuLIQDsQ2QroecK6UwTO99e/g5I4gr5s74WzjFLZe5RMekz8o+yD3PSX2fQ3cAPlc/SS+resGCzCV77xC0u4t8wf037XlDyb0V/O4ZvlAlSfqyQUm604hhJOpVOUt/gkmfJxsXw46JP+Vvjc/IcaG1S0qe3KoYrioX3Cc3ccYscRN2XvnAXBpg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kWpSyxHNYwQx62CGBbVD6f3nPwEYF6Sx7plO0XOibH0=;
- b=tgY12RKrkBjtt4rooZyC+i2MYfmcyvXgg1Y5LrsTOq/8Rc/z6Xa6PlUKsT5NHZ9iqcgMxbiIhpsI7EQaTfkjsuO1zmDnPXCNNseR1xABcA5OMLs5SdVYXJ8Noj+67jf55iyz8P/YEbLUT28glGLtm8C9TmliIaOTCTebyw/+vHs=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <8e1efc16-2d82-4d7b-8fad-6af223d1fb6f@amd.com>
-Date: Mon, 18 Aug 2025 12:35:16 -0400
+X-Inumbo-ID: 6e33ebb8-7c57-11f0-a32a-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1755537540; x=1756142340; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=dWRYqud6Lb4cUDIwuvnzoqgDZEUinYxens6/Ehw6Yfg=;
+        b=RMcRLhSscNr41a+A4JTm1gt1KGONWXwnIuse5QXZ2RlTyY1noMi5gJDmYxurYnwaNt
+         CIl0gfchqGLGc9Kq5OzIXr2LoVmJzD71eWu4OskCucA422NxELRdeb1ctglywQLps6wd
+         r88xM5SiVXBP+rjxSbwnefxCIF/U4wQqH1ZiM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1755537540; x=1756142340;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dWRYqud6Lb4cUDIwuvnzoqgDZEUinYxens6/Ehw6Yfg=;
+        b=YtMJIBkapNRoapiwojbWj0UA0ElsDEzYQUDOGXWECfgewH9LCfnHzE6ZKhi5Exgvxp
+         1YRCBF7PqFjNaMcVLXsgMt+KYqkTNS/qIHFTcmerUxD4D23zfOjhxjyAwiUsY9qACeG5
+         6AHLvo5lPHGfaDDh27H7y+8b3WrXAToFKz8wN+SQM48ijBJmEPJ4wMtiJ962DJkwWtJz
+         s+NZM4bK1/JhMu6BZTwxH2ypULk8LHwgAbv/j/YnmyOyIFk06znY2d8pKK8Ktn/avT5U
+         Ez7XWAJw8hDwEjTeDq2WONo6lRPJ5yD25CQA8/OgjDULP69moZwgYGApbDE0dC0+Plkb
+         feQA==
+X-Forwarded-Encrypted: i=1; AJvYcCXUpEfqINGduNKX30QDXJIaL5xyFddk8K2T6dZHhxyrAkrQfBggXqlGZyPG6ghMbVV9RqFH8Taoef0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzXnksrmFIhjO/GvbhjC7gdBK8LVFZoFBhvKP3UJLdHpWYXpPz2
+	8dvfmUslH3WSRoBhMlYA9Si2kwqfTBKRRlfcQOzrHWOmKE85m6P0/LiOHyE+gTvPr00=
+X-Gm-Gg: ASbGncvdakiEoDoN3fHakEkEErN08rM9hDAw66VsFW69I+wVQpi1dOAx6JhBdhIzL9B
+	Okfi/dvYm/ZOMGexb1EGn7a4CHdYGWoXVjQ/pJnu1+gcdSgsWn+xNFOFyrfAHwkxdXGWvT+ND2y
+	jZvc2P1HeFZi/bErqG8Gr3qPzCfaBzn+yXhAYWxNUMiP+yKhDwb+ZHCuqw67NyxQg4wdvfFPfR4
+	AR4eA70APqBNZn0HPErBVlhhvmVHkpwA7SHNL0z+dTSnOqDt2/2wetMuzIJ3XmH4YaVlZWCzt1z
+	N8OTAoksR4cVdTvCZ0URxPIBJqQ1wu+BYF/+eXCJOQqGcU0OW6cSU5NiJcVWlu2DckmnUpQO9Fz
+	4CF85VDsHgLrWkLoJ4uHY/UA59WjV/gihS2SKMGV2l3ST9xe8m0+D+h0V+iwUoGdmevCG
+X-Google-Smtp-Source: AGHT+IHzzkl6vrQtNGNhdjbA8oz36nj+jXJ/KY9YhKjKlz/e0vzCD3dUUQoWokQ2ohP5OX5BTxKe1A==
+X-Received: by 2002:a05:600c:470d:b0:458:a7fa:211d with SMTP id 5b1f17b1804b1-45a21868bd2mr103764485e9.29.1755537539610;
+        Mon, 18 Aug 2025 10:18:59 -0700 (PDT)
+Message-ID: <9657758b-6f10-46c6-84cb-14f425f412b8@citrix.com>
+Date: Mon, 18 Aug 2025 18:18:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] xenconsole: Add connected flag
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	<xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@vates.tech>,
-	"Alejandro.GarciaVallejo@amd.com" <Alejandro.GarciaVallejo@amd.com>
-References: <20250807015606.4427-1-jason.andryuk@amd.com>
- <25745d45-d506-4277-8ccd-302cd1316707@suse.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <25745d45-d506-4277-8ccd-302cd1316707@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Subject: Re: [PATCH 23/22] x86/vmx: Adjust NMI handling for FRED
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
+ <20250808234920.1214924-1-andrew.cooper3@citrix.com>
+ <d1a49f35-250a-4db5-88f7-fd0b8e6d1a1c@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <d1a49f35-250a-4db5-88f7-fd0b8e6d1a1c@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099DF:EE_|DS0PR12MB8018:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3191ca6c-be64-465b-bcd9-08ddde753714
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|36860700013|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?bHl1ZEJyazZadmFnemoxdlZQdGMzNlNZZjR1RkNyY0p5OGxaMjg3RkpReTRT?=
- =?utf-8?B?aVFXWXNWeTBqZk5uanlqSzd6WG5Da3FJanRuSXlvemxjNjJRV1pRVDMrUm5l?=
- =?utf-8?B?YXNVOHcxU2w2UjlXRlJkNHVvcW1DQndGQXkwUHBqczE1Nm5JSi9NS05hajJz?=
- =?utf-8?B?UU1XV1Yvcit5SVlHWjB3M2Q2MnMvaHhxaTRja1dRLzNBNFR1ZUxLend1U0dX?=
- =?utf-8?B?ZG1IdnJOVTlSVVBiYUo2V2g1cENQZjd1N3RKK0pQSElySWhhWllVdEw0bFVq?=
- =?utf-8?B?dWgyeWlSYXBPcFd6VzVlMlFpN2RDaWpUakh4UUdBOEh2MldCQk53Y0RseEVK?=
- =?utf-8?B?NGRmeEliM0Q5dEdKdU90djk1Y1FuSncvbENPb1pHb0RBbHJ6SlhCSzVFQWl2?=
- =?utf-8?B?ZDRYaUVjUkp3cVo4K3Z5ZUFHeGZjMlp2Yk5MeE1pbjRaQVhQL0Z6VUlEMnh6?=
- =?utf-8?B?RmdFd0lhYm00ZWJ3R1JJMTMxVm5BbFpjRm5HaEMrbFkvK2l0RWhMZ1hRTzBX?=
- =?utf-8?B?clduUHB3cDMzYmU1dUU5aEVsQ3V4QlBTcTkzYSswREtGZjVEbzhTY1Rqanl1?=
- =?utf-8?B?TDF0bHN6Y2RRMnlNeUF1WWhzVEVaaUVEYWZIVEJ5TnBWaE4reHU5NzFoajB1?=
- =?utf-8?B?KzBlbFhYTVhYQkk0cjhHMFNjN0FOdkUvQ2ZaVmR2VUhRNi9TenBUZFRZOWJk?=
- =?utf-8?B?TlVub3VzVlU0cmtzcWFYNFdBdjIxcTJYMmo3U2kxWnY1bjNwSjVSK0FNL0JE?=
- =?utf-8?B?MkErL0EyUVZxNlZ3dTE4TEI2UFFQcnJndUdVMWZrZlZoTHZ0aGNydGRnSFha?=
- =?utf-8?B?NkVpV0w4TStMNUdQajFXeWd3SnpwdnMyaGNoZE9kSUFETmZtWk45cVpXeUJp?=
- =?utf-8?B?NlQxdlZUUFVvK2tNYlF6Qm52QlBIakFLNjB4NURSdEEzSXZQQ2JXRklhQzhJ?=
- =?utf-8?B?c2R2TG5YVkxScCsrU3ZObTI0bnAxNDV0dVMxaUFtMlIrUksyaytOZWJRb2tn?=
- =?utf-8?B?Q2ZNbHFEdTU5d0QrQ0hjNUFZZDVSOVZrM0FlNUVockNMUDR2QXNRT2xGTWdn?=
- =?utf-8?B?V2t1QUZ1RXlLN1RCVW42alJVaVhzL0lMalVibnlGRWlaakZ1ZFJVYWt2MmpP?=
- =?utf-8?B?elZZSUxEQWpZNHcrc2drMEdyb0Fmc2pRajVWUEtOSjJTczVIMGhzQVJ0cm4z?=
- =?utf-8?B?ZktOMGFPMzFNTnhxejFHTWpKLzJSUjhISllYWGgzZnowMTNqVG1rU3BNb05u?=
- =?utf-8?B?U2tKZ05SajQ3YXlucHNKL2xobTZSYmVOWTZLVnF4M2lwc1dOalNLM0JLYXBK?=
- =?utf-8?B?TncxbTJ4MkxzRWFuZFBPSS9SR2VzK1l2NkxoOHlKUXI5dUJIb3pkbjEvTWdL?=
- =?utf-8?B?WW9BVVNzdWRaT2V0czh6aGh0dXRtL21qcm5KNVIrelJFZnQ4Q0tvU2VXT2FN?=
- =?utf-8?B?QW1QWnpEWTFpYU9TQzV0eW9ZdjhDMmQ2dmRDK0VYeitOa1M2VTBBNmdpdita?=
- =?utf-8?B?VVR4M3ViNGJUN0YvcmxzVEN4VTJSWmN0S0hZYk5rR0gvdnRjWUh5RkxKSmVT?=
- =?utf-8?B?NGR3cWNTbmdFanN0UkJFcjdpRlZCSFZ3UHc1Vmgvd2F2VHpIMlJxNlB3QmZ4?=
- =?utf-8?B?OXkxOW5ISzZ1YTE1QmgreWROQXB3eW1iWFdMTlFxWitYdTVFTEREUGJPdE0y?=
- =?utf-8?B?aGc5MnNoUkptYlNKRUFBbDBpeFFDNkc5am5RTVBqeHBFZDNuSmVEVm9RMGpP?=
- =?utf-8?B?MTQ2ZDg0NEZUM1RlZHpia05FYkVYVVRjbHdQQU5maVhlaUlaT0d0Tlh0eEZi?=
- =?utf-8?B?VFZKMnljUFcvT1hSeWtHaWhiUVEwYkNwaEhFNlBaZGFxM1JLUnBZSmlTTXdD?=
- =?utf-8?B?dTB6WHN6TFgxUEdyZmVLWDJOMThLdUlUbHdEbzFwK0laTVYzbklzZVJVL2Ft?=
- =?utf-8?B?VnFUNGhvUUJIb21DNXl6QVF1TGJRd0FidXJVK3ZwZWU4MmxoV0hKUGtQdS82?=
- =?utf-8?B?dDhQSWhBdG1tNzRWRmNYYVJObGNBdTJuRmZVZlRQZ2hXTHF6RUlPb0ZEc052?=
- =?utf-8?Q?roEB/K?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2025 16:35:17.2301
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3191ca6c-be64-465b-bcd9-08ddde753714
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF000099DF.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8018
 
-On 2025-08-07 03:00, Jürgen Groß wrote:
-> On 07.08.25 03:56, Jason Andryuk wrote:
->> With hyperlaunch, a domU can start before its console ring is connected
->> by xenconsoled.  With nothing emptying the ring, it can quickly fill
->> during boot.  In domU_write_console(), __write_console() returns 0 when
->> the ring is full.  This loops spins until xenconsoled starts emptying
->> the ring:
->>
->>          while (len) {
->>                  ssize_t sent = __write_console(cons, data, len);
->>
->>                  if (sent < 0)
->>                          return sent;
->>
->>                  data += sent;
->>                  len -= sent;
->>
->>                  if (unlikely(len))
->>                          HYPERVISOR_sched_op(SCHEDOP_yield, NULL);
->>          }
->>
->> The goal of this patch is to add a way for the frontend to know when a
->> console is connected.  This patch adds a new flag to the end of the
->> console ring structure.  It is used for the backend to indicate that it
->> has connected and started servicing the page.
->>
->> The two values are
->> XENCONSOLE_DISCONNECTED 1
->> XENCONSOLE_CONNECTED    0
->>
->> XENCONSOLE_DISCONNECTED indicates to the guest that ring is
->> disconnected, so it will not be serviced.  The guest can avoid writing
->> into it in that case.  A domU can use console hypercalls and only
->> transition to the ring when it is connected and won't fill and block.
->>
->> Once the backend (xenconsoled) maps and starts servicing the
->> console, the flag will be set to XENCONSOLE_CONNECTED (0) to indicate
->> the backend state to the frontend.
->>
->> The connected value as 0 will be match the default of a zero-ed console
->> page.  Hyperlaunch can set the flag to XENCONSOLE_DISCONNECTED and let
->> xenconsoled set to XENCONSOLE_CONNECTED.
-> 
-> I think libxenguest should set XENCONSOLE_DISCONNECTED as well (see below).
-> 
->>
->> Old domU hvc_xen drivers won't check the flag.
->> New domU hvc_xen running on a new xen/xenconsoled will work properly.
->> New domU hvc_xen on old xen/xenconsoled should only see a 0 for the flag
->> and behave as if connected.
->>
->> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> 
-> Adapt the title of the patch?
-> 
->> ---
->> v1:
->> Remove evtchn notify call
->> Set connected later when there is no error
->>
->> RFC v3:
->> Flip flag values so 0 is connected.
->>
->> The other option would be to add:
->> uint32_t features
->> uint32_t connected
->>
->> New domUs would check features for a magic value and/or flag to know
->> they can rely on connected transitioning.
->>
->> I think making XENCONSOLE_CONNECTED == 0 side steps the need for
->> an additional features field.  As long as assuming zero-ed memory is
->> acceptable.  However, this only matters for a hyperlaunched guest -
->> xenconsoled will normally readily connect the console and set the value.
-> 
-> I'd like to consider other cases as well, e.g. a console driver domain.
-> So any instance creating a domain with a console ring page should set the
-> flag initially to "disconnected".
+On 18/08/2025 11:02 am, Jan Beulich wrote:
+> On 09.08.2025 01:49, Andrew Cooper wrote:
+>> --- a/xen/arch/x86/hvm/vmx/vmx.c
+>> +++ b/xen/arch/x86/hvm/vmx/vmx.c
+>> @@ -4209,8 +4209,18 @@ void asmlinkage vmx_vmexit_handler(struct cpu_user_regs *regs)
+>>               ((intr_info & INTR_INFO_INTR_TYPE_MASK) ==
+>>                MASK_INSR(X86_ET_NMI, INTR_INFO_INTR_TYPE_MASK)) )
+>>          {
+>> -            do_nmi(regs);
+>> -            enable_nmis();
+>> +            /*
+>> +             * If we exited because of an NMI, NMIs are blocked in hardware,
+>> +             * but software is expected to invoke the handler.
+>> +             *
+>> +             * Use INT $2.  Combined with the current state, it is the correct
+>> +             * architectural state for the NMI handler,
+> Not quite, I would say: For profiling (and anything else which may want to
+> look at the outer context's register state from within the handler) we'd
+> always appear to have been in Xen when the NMI "occurred".
 
-Setting disconnected for domain creation is fine.  Looking at 
-libxenguest, there is also domain restore.  There the console could be 
-set to disconnected again before domain restore.  Again, this should 
-work and xenconsoled would set it connected again.  I originally 
-intended for a single one way transition disconnected -> connected.
+We are always inside Xen when the NMI "occurred".
 
-Alternatively, restore could skip setting disconnected and just assume 
-xenconsoled will promptly attach.  Restore implies a toolstack is 
-running, so there isn't the indefinite time period that is involved with 
-hyperlaunch/dom0less.  But I guess an actively changing flag accurately 
-shows the state, so that is preferable.
+In fact there's a latent bug I didn't spot before.  Nothing appears to,
+but if anything in do_nmi() were to to look at regs->entry_vector, it
+will see stack rubble (release build) or poison (debug build).
 
->> This assumes that existing frontends are not using the flag space for
->> some other use.
->>
->> Removed idea:
->> Send an event channel notification to let the domU know that xenconsoled
->> is connected.  Xenstored does similar, but for xenstore, the xenstore
->> driver owns the event channel/irq and can rebind it.  For hvc_xen, the
->> hvc subsystem owns the irq, so it isn't readily available for rebinding.
->> This is not implemented.
->>
->> I had the idea for the kernel to use a static key and switch writing
->> from the hypercall to the PV ring once connected.  It didn't actually
->> work in my short attempt - I think changing the static key from within
->> an interupt was wrong.  I fell back to just checking the flag directly
-> 
-> You'd need to do the static key changing from a worker thread instead.
+Having gone searching, it's only the watchdog and oprofile which
+configure perf counters with NMIs.  vPMU uses fixed interrupts, which
+further calls into question it's utility.
 
-My static key idea has an issue.  The flag needs to be per-instance, 
-primary console and any additional PV consoles, but the kernel has only 
-a single function to handle all of them.  Either the primary console 
-needs dedicated ops, or the the flag would need to be checked in the 
-function.  If the flag will toggle back and forth, then a static key may 
-not be appropriate.
+>
+>> and the IRET on the
+>> +             * way back out will unblock NMIs.
+>> +             *
+>> +             * In FRED mode, we can spot this trick and cause the ERETS to
+>> +             * unblock NMIs too.
+>> +             */
+>> +            asm ("int $2");
+>>          }
+>>          break;
+>>      case EXIT_REASON_MCE_DURING_VMENTRY:
+>> --- a/xen/arch/x86/traps.c
+>> +++ b/xen/arch/x86/traps.c
+>> @@ -2285,8 +2285,22 @@ void asmlinkage entry_from_xen(struct cpu_user_regs *regs)
+>>          do_nmi(regs);
+>>          break;
+>>  
+>> -    case X86_ET_HW_EXC:
+>>      case X86_ET_SW_INT:
+>> +        if ( regs->fred_ss.vector == 2 )
+>> +        {
+>> +            /*
+>> +             * Explicit request from the the VMExit handler.  Rewrite the FRED
+>> +             * frame to look like it was a real NMI, and go around again.
+>> +             */
+>> +            regs->fred_ss.swint = false;
+>> +            regs->fred_ss.nmi = true;
+>> +            regs->fred_ss.type = X86_ET_NMI;
+>> +            regs->fred_ss.insnlen = 0;
+>> +
+>> +            return entry_from_xen(regs);
+> Any particular reason to use recursion here (which the compiler may or may
+> not transform)? In fact I'm having trouble seeing why you couldn't invoke
+> do_nmi() here directly.
 
-Regards,
-Jason
+The first way I had entry_from_xen(), this was necessary to get the
+right behaviour.  GCC did manage to transform it into a call to do_nmi().
+
+But this has changed somewhat now so I think I can do it with a fallthrough.
+
+~Andrew
 
