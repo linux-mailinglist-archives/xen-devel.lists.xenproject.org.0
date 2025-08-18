@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 299F5B29C4A
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Aug 2025 10:31:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1085626.1443944 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA357B29C55
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Aug 2025 10:34:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1085649.1443953 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1unvH9-0002Ep-Si; Mon, 18 Aug 2025 08:31:31 +0000
+	id 1unvKA-00036y-C4; Mon, 18 Aug 2025 08:34:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1085626.1443944; Mon, 18 Aug 2025 08:31:31 +0000
+Received: by outflank-mailman (output) from mailman id 1085649.1443953; Mon, 18 Aug 2025 08:34:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1unvH9-0002BW-OE; Mon, 18 Aug 2025 08:31:31 +0000
-Received: by outflank-mailman (input) for mailman id 1085626;
- Mon, 18 Aug 2025 08:31:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=q+DX=26=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1unvH7-0001ku-UU
- for xen-devel@lists.xenproject.org; Mon, 18 Aug 2025 08:31:29 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bc1987b0-7c0d-11f0-b898-0df219b8e170;
- Mon, 18 Aug 2025 10:31:28 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-afcb7a16441so591039666b.2
- for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 01:31:28 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afcdce53eccsm758883766b.19.2025.08.18.01.31.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Aug 2025 01:31:27 -0700 (PDT)
+	id 1unvKA-00035V-9R; Mon, 18 Aug 2025 08:34:38 +0000
+Received: by outflank-mailman (input) for mailman id 1085649;
+ Mon, 18 Aug 2025 08:34:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=HKqL=26=oss.qualcomm.com=pratyush.brahma@srs-se1.protection.inumbo.net>)
+ id 1unvK9-00035J-2A
+ for xen-devel@lists.xenproject.org; Mon, 18 Aug 2025 08:34:37 +0000
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2b76ee86-7c0e-11f0-a329-13f23c93f187;
+ Mon, 18 Aug 2025 10:34:35 +0200 (CEST)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 57I7V4w9026361
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 08:34:34 GMT
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 48kyunr5m9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 08:34:34 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-2445805d386so41155905ad.1
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 01:34:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,118 +47,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc1987b0-7c0d-11f0-b898-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755505887; x=1756110687; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ufTV9yb7EWwTifzkKQGotfy3d0T3We0zou2B9TTj27w=;
-        b=ZcyEexFjNzm5wRKEUYO8OM4c2noBJRRnZI/29h+HqFzMpXqj5eXg1Acsythu4eX2/j
-         RWW04/fsXdn85eSiWRJOxOvwui2PG9sh/eCmyRkx5LPFRL7DuKY0wrHSj92wAfiRRHpM
-         IKnN3R5JPaDVDUb+JxR7BMNaHuMFnG2bodUEgCrmri6vy4DDuNvx7PfS2VWAefBQD2L2
-         OMKReKoXb43z5PHoZZEPZbUgMyA3dOM1rmWrhm0TcOgjENHgViI6OZHzy1nn6clGHJah
-         3lGKmgJVOh+CD72MIZEEwDlTFYtNEt+Vf+K9ehxdXCLqXuMlVYb9zZWS0BcXyWPgUL6s
-         DeaQ==
+X-Inumbo-ID: 2b76ee86-7c0e-11f0-a329-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	YKnYr324eUUhj+QvrdVq/1e4Gz0w8e7EzwXqGsvWiSk=; b=Aze4Y5K8XQlzwnRF
+	KS2Vkdxd7n2qp5VewK8A0a6hxTVqbzMOozD5we+cTVDCFI/JgzI4KiILotlO/UDT
+	5nep91KwnnHHqgiAzY1H8M3CWe1zTEmZYyWHunj4Ox0D6WSd5grZgkLGRwPg1VDC
+	AV7KF5nJZeWoctIPiE0ufDcHdCnyV7xMUGfrwbXbmIslahVPylvI9zmR1/9esOJY
+	AFEx5vpmQjcRyyhWxPm+CoJZ5aqsnT0c5D/yh/yGTOu1npeEZWylk1LpzGMfAn+L
+	zrROeF6fcgqEzADtHMgH4NoIVLArFoA6z69DOF0yue7AxwnGRTjpFvxh/tfVJGe1
+	wi1rZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755505888; x=1756110688;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ufTV9yb7EWwTifzkKQGotfy3d0T3We0zou2B9TTj27w=;
-        b=XHqEv5/PtxpUxNiAn8Y1wWZ/+VF8/WWUH66c40OIkDNC4UOdDT345bDK9p80+7Ardf
-         iMIoetliItH7STXKEfglCNGavN3vBwgV0sIOlo5hd7xShiVCLewsEHX+PU/TFaOSL4Yh
-         ZMSCt45A9m9siwQq2RWWckUSpN1RQLK6awFwwT3MeMCq0vagfEVy4B/ZlWwY2wOJVM6N
-         0JkjoHG8mkjPB+EUdvrN22SWCRkmN1F2vc1CO5u9anNI6lnQRhcHbD7fiDR1Rgmw07oM
-         tkFgEWNHNsDW8ZSCnXvpvbJh+mRuPLyYU0FvvgH6GWteyEa9GBB3f/Bx9IgUXbsD088M
-         UTZA==
-X-Forwarded-Encrypted: i=1; AJvYcCUImUnt3i6QJuib/acHotpQAp0GvMdOgf0X4W1OLuma2mZhwZmRpKs9NFBSyLVbBkEuYEM4E+nzIFc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxam4FItq/XtE0upltKuYoqE9id2gZYTERWl66f4MFSh2AYyACU
-	j/oHXFMADDm4LqmBjPX2h05m+lNd+zj3ARq1R5uMJN24mFa3NIm8HRGKR6YgB3sF7g==
-X-Gm-Gg: ASbGncskYEaGMPQQ+uVmD/j0UlOG5yFEN79s56oZzb6SnNZ4VHbgaI4TVwIDiQSzZ+z
-	2xcPMSwglV5CIeXa/GQiy3tCdGhzmibM5qyVPh1NcHFHDg7YMcKfaukKRTnm7yvI840Nqdrx/33
-	KR/WWrsNoETv8FTZCCaWoDh14wyZ0p14BqB75WPla0bhhJfiheSU7RRPj5FQvZJEvgeEYuv3aaC
-	WWWHcAJu8eK4Gu20vDI+cusOTev4nHQshTylaYiKgWFiQcmZuFA6Hsy6pfgfgw40VAXeNhGzIP1
-	Lz7VFw8SRG0lNkHBqP9zXOeaNOHlbFSUBpZ/e6bj61rhgVByd4esLKBfG0djZEm0VXgOsG7eJiW
-	+BdaL3GCFXhodWmsu+p9Nv3hBuK+3te7kosE86Q6rcQpAZADFH7FPOcxzZJUr9dtQ/eyn9N0CEw
-	OhHEqrprI=
-X-Google-Smtp-Source: AGHT+IGGNdpqZtCrSiKl7h+/rKglrRsKPfqLFVI3z+wkQRl2W6nNtVFJCW/OJD8tcdJNgotSRMdx0Q==
-X-Received: by 2002:a17:907:7ea8:b0:af9:38ed:5b49 with SMTP id a640c23a62f3a-afcdc2062c1mr1027390966b.5.1755505887483;
-        Mon, 18 Aug 2025 01:31:27 -0700 (PDT)
-Message-ID: <fb6f559a-b2aa-4b25-a6d3-401ecc4b4bd5@suse.com>
-Date: Mon, 18 Aug 2025 10:31:26 +0200
+        d=1e100.net; s=20230601; t=1755506073; x=1756110873;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=YKnYr324eUUhj+QvrdVq/1e4Gz0w8e7EzwXqGsvWiSk=;
+        b=rAefTKdjgLQpoAiwDbLvyHZBhwJkfiHkaYAjEvIlVmqDZ1H2kh66aQQ00JiGH+bIzx
+         ZUXYG25nV20/rT+IQHLOiUVAg/v83HLa0rg050JN/+Kb6Ba7z9bkA8RvBgKEfElDLk0h
+         KUFoFm5JQgTW4/9nANAlttGV8eso226ms3XFna9bNZNf4InwkJ9QuqOrXRGLtWiAl5h1
+         zxUZKDUM/fSjXENSeEK7kqkBPI3uuuUy4BRqqP6LjCV6PIDe83M3u83slpyA0w5Vs4cD
+         3U32HLev1sjxBDcO4unOR5dSSCo7Iv31ziRpReZZmQHLBoMYYvI8inaUPwArwBXIMfct
+         4mJg==
+X-Forwarded-Encrypted: i=1; AJvYcCX21Wv0cX/RdgxtuYpU5w8O21SvmWTExBuSL0rbyE+HqNwCoYW4BfG041mDhNvDg9nFdmJM2Lxomk0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxwsOMJxpqRnsaKUcVd96LDvaCmka7XQCyYbESqCpfU7y9wBZ0u
+	SLn4JRTyhzX1B3Ekmf2ITI/ySL/saElShII9A4VgZddvQIjJhT1ITvSdS/AzC2NOaSZ8ObJoqQl
+	jX0rgDFy+fZianZJ/cBEx0MelQz+gT9r25Ne9KwwUuX08AhxM+cEI+oMR5IDXNKDno3ZlBv5hST
+	L4HmQhXayJq1sOrFWQh08W5KpUvVv3gUAJ6SNh1SSzlKI1
+X-Gm-Gg: ASbGnctNuvE6Xh0NMBxVaLmv+kxTK1LN7cM318BgTIbPU2/mi4YeJFYNl4Qz8H4V0KK
+	43FcuYS8T8Dwp4ruuRgfPb6wkfqJK5adSai2ssoJP3/zGuLEWFeD1kgdyEDraLduspk8z5ctZPD
+	dw0yLmC2yuYjpk0EjXZXxoeA==
+X-Received: by 2002:a17:903:b07:b0:23d:fa76:5c3b with SMTP id d9443c01a7336-2446d745130mr162002055ad.22.1755506072928;
+        Mon, 18 Aug 2025 01:34:32 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IF0iaKkOx5HF+G/2fDa+4Vn+rw7qYZXEvgZcGmIZ96t7UkZ4Y6iVl499qKwZ/lWHVbWQiw75ZkO9MQbjWLb6hM=
+X-Received: by 2002:a17:903:b07:b0:23d:fa76:5c3b with SMTP id
+ d9443c01a7336-2446d745130mr162001485ad.22.1755506072460; Mon, 18 Aug 2025
+ 01:34:32 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE
-To: Penny Zheng <Penny.Zheng@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250815102728.1340505-1-Penny.Zheng@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250815102728.1340505-1-Penny.Zheng@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20250818-numa_memblks-v1-1-9eb29ade560a@oss.qualcomm.com>
+ <d7cdb65d-c241-478c-aa01-bc1a5f188e4f@redhat.com> <CALzOmR0C8BFY+-u-_aprVeAhq4uPOQa+f2L5m+yZH+=XZ2cv_w@mail.gmail.com>
+ <63082884-1fe2-4740-8e6a-e1d06aa5e239@redhat.com>
+In-Reply-To: <63082884-1fe2-4740-8e6a-e1d06aa5e239@redhat.com>
+From: Pratyush Brahma <pratyush.brahma@oss.qualcomm.com>
+Date: Mon, 18 Aug 2025 14:04:20 +0530
+X-Gm-Features: Ac12FXzX5PzSlv6roYThUOo89xclaREe5qOUHnsYKt7fIrY-t8kJ9YEJL5m2flQ
+Message-ID: <CALzOmR0MJv8EgPiFTvvbdkk8H_0BEDA4QQXKyqRPOCwwzGwjsw@mail.gmail.com>
+Subject: Re: [PATCH] mm/numa: Rename memory_add_physaddr_to_nid to memory_get_phys_to_nid
+To: David Hildenbrand <david@redhat.com>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Christophe Leroy <christophe.leroy@csgroup.eu>,
+        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+        Dan Williams <dan.j.williams@intel.com>,
+        Vishal Verma <vishal.l.verma@intel.com>,
+        Dave Jiang <dave.jiang@intel.com>, Ira Weiny <ira.weiny@intel.com>,
+        Oscar Salvador <osalvador@suse.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Davidlohr Bueso <dave@stgolabs.net>,
+        Jonathan Cameron <jonathan.cameron@huawei.com>,
+        Alison Schofield <alison.schofield@intel.com>,
+        "K. Y. Srinivasan" <kys@microsoft.com>,
+        Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+        Dexuan Cui <decui@microsoft.com>,
+        Pankaj Gupta <pankaj.gupta.linux@gmail.com>,
+        "Michael S. Tsirkin" <mst@redhat.com>,
+        Jason Wang <jasowang@redhat.com>,
+        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+        =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
+        Juergen Gross <jgross@suse.com>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Mike Rapoport <rppt@kernel.org>, linuxppc-dev@lists.ozlabs.org,
+        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
+        linux-acpi@vger.kernel.org, nvdimm@lists.linux.dev, linux-mm@kvack.org,
+        linux-cxl@vger.kernel.org, linux-hyperv@vger.kernel.org,
+        virtualization@lists.linux.dev, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: 0PggYd9rQg3QLmqxpyannjEkKd6qeAQE
+X-Authority-Analysis: v=2.4 cv=N6UpF39B c=1 sm=1 tr=0 ts=68a2e59a cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=IkcTkHD0fZMA:10 a=2OwXVqhp2XgA:10
+ a=20KFwNOVAAAA:8 a=EUspDBNiAAAA:8 a=AFlVVsuRyXfiT6IdkpsA:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwODE4MDA3MSBTYWx0ZWRfX78rLrxAKSq8Y
+ RkafkVqFGrLquNuumVXP5X3mi4jphYuYdWa/m3DAOCOZsqyBkXXGn13EuhePGf31CzOd+8qWP5p
+ DqwDNFBJtXlo0yP+9qZKhartkfpuA20e0RjsXg9oF7ptj7r3mWAmbfJ33316gPUlWfyhR2i167C
+ p31DhRQtDgcChHrdHnedHUj2qZBSEkiHWJCka/adlfJuXFQFycUs07z4P8sKWaC0Epg9vS5M8Dq
+ vd4r1wIU93E9Da8tXsfkkwWc1+y7j2Ehw7kdQvZXW2ElxNNszvumzAy7nima3j0k647ZryicsJG
+ t0MZA547Wkdvf/AndItGt7Ap7he4zwHu5uJc7gxTMKGm6QpK6NVBc15alVeN/OlUVIAuEWbTXSQ
+ U1A5Vo77
+X-Proofpoint-ORIG-GUID: 0PggYd9rQg3QLmqxpyannjEkKd6qeAQE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-08-18_03,2025-08-14_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 clxscore=1015 malwarescore=0 impostorscore=0
+ suspectscore=0 phishscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2508180071
 
-On 15.08.2025 12:27, Penny Zheng wrote:
-> In order to fix CI error of a randconfig picking both PV_SHIM_EXCLUSIVE=y and
-> HVM=y results in hvm.c being built, but domctl.c not being built, which leaves
-> a few functions, like domctl_lock_acquire/release() undefined, causing linking
-> to fail.
-> To fix that, we intend to move domctl.o out of the PV_SHIM_EXCLUSIVE Makefile
-> /hypercall-defs section, with this adjustment, we also need to release
-> redundant vnuma_destroy() stub definition from PV_SHIM_EXCLUSIVE guardian,
-> to not break compilation
-> Above change will leave dead code in the shim binary temporarily and will be
-> fixed with the introduction of domctl-op wrapping.
-
-Well, "temporarily" is now getting interesting. While v1 of "Introduce
-CONFIG_DOMCTL" was submitted in time to still be eligible for taking into
-4.21, that - as indicated elsewhere - is moving us further in an unwanted
-direction. Hence I'm not sure this can even be counted as an in-time
-submission. Plus it looks to be pretty extensive re-work in some areas.
-Hence I'm somewhat weary as to 4.21 here. IOW question, mainly to Oleksii,
-is whether to
-1) strive to complete that work in time (and hence take the patch here),
-2) take the patch here, accepting the size regression for the shim, or
-3) revert what has caused the randconfig issues, and retry the effort in
-   4.22.
-
-> Fixes: 568f806cba4c ("xen/x86: remove "depends on !PV_SHIM_EXCLUSIVE"")
-> Reported-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
-
-My earlier question (when the patch still was part of a series) sadly has
-remained unanswered: You've run this through a full round of testing this
-time?
-
-Jan
+On Mon, Aug 18, 2025 at 2:01=E2=80=AFPM David Hildenbrand <david@redhat.com=
+> wrote:
+>
+> On 18.08.25 10:27, Pratyush Brahma wrote:
+> > On Mon, Aug 18, 2025 at 12:29=E2=80=AFPM David Hildenbrand <david@redha=
+t.com> wrote:
+> >>
+> >> On 18.08.25 08:41, pratyush.brahma@oss.qualcomm.com wrote:
+> >>> From: Pratyush Brahma <pratyush.brahma@oss.qualcomm.com>
+> >>>
+> >>> The function `memory_add_physaddr_to_nid` seems a misnomer.
+> >>> It does not to "add" a physical address to a NID mapping,
+> >>> but rather it gets the NID associated with a given physical address.
+> >>
+> >> You probably misunderstood what the function is used for: memory hotpl=
+ug
+> >> aka "memory_add".
+> > Thanks for your feedback. I get the part about memory hotplug here but
+> > using memory_add still seems a little odd as it doesn't truly reflect
+> > what this api is doing.
+> > However, I agree that my current suggestion
+> > may not be the perfect choice for the name, so I'm open to suggestions.
+> >
+> > Perhaps, something like "memory_add_get_nid_by_phys" may work here?
+>
+> I don't think this name is really any better and worth the churn :(
+>
+Sure. Thanks for taking a look. Will drop this.
+> --
+> Cheers
+>
+> David / dhildenb
+>
+Thanks & Regards
+Pratyush
 
