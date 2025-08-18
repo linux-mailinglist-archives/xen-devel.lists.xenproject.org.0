@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62CA1B29A5B
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Aug 2025 08:59:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1085392.1443704 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F42AB29AF0
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Aug 2025 09:38:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1085430.1443713 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1untpl-0004Mg-VI; Mon, 18 Aug 2025 06:59:09 +0000
+	id 1unuRk-0001gE-RF; Mon, 18 Aug 2025 07:38:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1085392.1443704; Mon, 18 Aug 2025 06:59:09 +0000
+Received: by outflank-mailman (output) from mailman id 1085430.1443713; Mon, 18 Aug 2025 07:38:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1untpl-0004K0-S7; Mon, 18 Aug 2025 06:59:09 +0000
-Received: by outflank-mailman (input) for mailman id 1085392;
- Mon, 18 Aug 2025 06:59:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1unuRk-0001dy-OV; Mon, 18 Aug 2025 07:38:24 +0000
+Received: by outflank-mailman (input) for mailman id 1085430;
+ Mon, 18 Aug 2025 07:38:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rFjA=26=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1untpk-0004Ju-OJ
- for xen-devel@lists.xenproject.org; Mon, 18 Aug 2025 06:59:08 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d4885741-7c00-11f0-a329-13f23c93f187;
- Mon, 18 Aug 2025 08:59:06 +0200 (CEST)
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-271-de82_TqLPDe1pTVrsCi2wA-1; Mon, 18 Aug 2025 02:59:03 -0400
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-45a1b0b6466so19905155e9.2
- for <xen-devel@lists.xenproject.org>; Sun, 17 Aug 2025 23:59:03 -0700 (PDT)
-Received: from ?IPV6:2003:d8:2f22:600:53c7:df43:7dc3:ae39?
- (p200300d82f22060053c7df437dc3ae39.dip0.t-ipconnect.de.
- [2003:d8:2f22:600:53c7:df43:7dc3:ae39])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3bb676c9a72sm11554512f8f.34.2025.08.17.23.58.59
+ (envelope-from <SRS0=q+DX=26=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1unuRi-0001ds-GR
+ for xen-devel@lists.xenproject.org; Mon, 18 Aug 2025 07:38:22 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4e3da4c1-7c06-11f0-b898-0df219b8e170;
+ Mon, 18 Aug 2025 09:38:17 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-618aea78f23so3276675a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 00:38:17 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-618af9da4bdsm6633733a12.17.2025.08.18.00.38.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 17 Aug 2025 23:59:01 -0700 (PDT)
+ Mon, 18 Aug 2025 00:38:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,154 +45,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d4885741-7c00-11f0-a329-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1755500345;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=tPhHppo9Id9H3Mf+xNXwTczb/fY9tmDFofhTHWpEmEI=;
-	b=LRCUF7pX9oBGT+Cbdyw6S2hNEICrsJlS8hwR5s5YYZ74GAxy4RFnQKydbSdiY3H9yw6/b0
-	a2uwfFlJMYtCwAYmzbiETxJj8DJqwlJGcNnrpLuA88N4rqLaZ0vh/H1yPWBJhtbgH4978U
-	1XJGmP90jSJ2jejobUQLd64276p8md8=
-X-MC-Unique: de82_TqLPDe1pTVrsCi2wA-1
-X-Mimecast-MFC-AGG-ID: de82_TqLPDe1pTVrsCi2wA_1755500343
+X-Inumbo-ID: 4e3da4c1-7c06-11f0-b898-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1755502697; x=1756107497; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=bem4tcqZ6fgCy6luMAU3MbQM+UTYmudC9/uPsrxA6eE=;
+        b=VkwSVX2YPM8S/ZP6C+UUkis9cVyUJstXLAUBKVqg+1reYTmjkd6fzPgnYJfxe1gn1x
+         5Iv3T7ckhCf74TT4vDMCMEJ9oi+bMeV6D3YvVQILGJVJBJYU1/SEctvCZsgG8e5S+mlw
+         4JtCJVLyNpR8voseKd6ppjFpla1oKiBpWuT4Jm+T46f/Ip2vLbIs0YGkZa01GnwzbZxm
+         7JQPZKld/QMRuquVNGpn2HIz0LjW3HlwDv24RoMkXffEM2MAQmQ91BJnV7BInb5LxyiX
+         krqOZSO/2vOuCVHwWkVLbjegyEVmhPsZMkBE06HdDfLUeje9Z+GR5TAkGtxNecPegEm8
+         0e0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755500342; x=1756105142;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=tPhHppo9Id9H3Mf+xNXwTczb/fY9tmDFofhTHWpEmEI=;
-        b=Ce5TTDh9BMT++mGVZkxWEkKDdmx5m18DwtQSuGHjRS7+9isQM3+ouE803WyLamrGbn
-         SHpex0zNg+EVoachoSxYmBYAg35sAJPYDWUa+NXCCMxselVow13FZJsFKTHgkyae0kp1
-         fCkkpN5PWu4/7+Q74TAbvEg16MAMcsRuFbKHG276gTJC9O7TBLALhdw+7wU9owovzw56
-         HBMC25rbDhW0qnRpa52IAAlEi3cIZUkIMCzQBEF149AqO+k91eID8QuM3JSH/OSB3/78
-         GIkHH3UpNVWTK8BPu3am1YOVgIcHKfkNhFWQLXFBFIyShnx5dMPowmCcrBEVnJi81ny4
-         H9Jw==
-X-Forwarded-Encrypted: i=1; AJvYcCWAp1YMy1+aibOxvU78LhdaTlMYLyCrOuFb8HTXhsx3PFcqLtU86Yy97DSeB1rzAB+DmvOoJuZD0cQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyJ723CoAesmJaL76VZqRl7+UgamPVR/3LCG7yYvyGDWdJFNiET
-	U6AaI1I/50SwMFpUUsBV63VeOoCNDoUUWUE61xGDfEqbvH/aeVd3YJZNob8rSy0+ldb4xRO6aWL
-	aEFrqvnUMaP9GdDg0aUO5iavO2/2V9lld8sSDrhuX/5s2K7qkpLOVN8QyiLVU/nk/xPeQ
-X-Gm-Gg: ASbGncv7HvoLA+RSfkveqDGj+7WCh+TJScFq/wyFtrhnyz5+Q2+GZO4Ildf/WxkkDjb
-	EYJhbcahzwzGDJy4yU0TFutucsPPryxj4f8CW1vmzgEq3FlWR+vwcfftDKoYgt8awv8qsVgqfRT
-	P871NNRcOLfSHtBpdlE69srE98sKkEpnqLkfNCtFBJ4vgf8bKZVAqOsLn0Gvg6bjqzTAYN18bWI
-	jBa9Q85Cfi0OVN3sTKN+9VNiudcHP8hG1do38YyiUjPybQX013le95wbDv2j1VG5Bop6ekjcTMB
-	9OyEhROZcvNC+3IPl4YyXbt6dVc7ti5VD6WXtihw8zTqWEocJQZpXW8oO9E+BLx2Hqxwn4Wdui1
-	0mF9qdPQQJgHewx0Ky3mq+/ugD+0mZIrLAdXxNlerZFma8qITC+fmrFnHuVGVNXAp
-X-Received: by 2002:a05:600c:3b0e:b0:458:aed1:f82c with SMTP id 5b1f17b1804b1-45a21844ae1mr69168855e9.22.1755500342388;
-        Sun, 17 Aug 2025 23:59:02 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFRjJq0XIQ1oLnzV4tapEXxp+CDryL3RteLWPsUBJ810j9eh5EZSzNq0LPGyZErkVrGEekgEg==
-X-Received: by 2002:a05:600c:3b0e:b0:458:aed1:f82c with SMTP id 5b1f17b1804b1-45a21844ae1mr69168235e9.22.1755500341938;
-        Sun, 17 Aug 2025 23:59:01 -0700 (PDT)
-Message-ID: <d7cdb65d-c241-478c-aa01-bc1a5f188e4f@redhat.com>
-Date: Mon, 18 Aug 2025 08:58:59 +0200
+        d=1e100.net; s=20230601; t=1755502697; x=1756107497;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bem4tcqZ6fgCy6luMAU3MbQM+UTYmudC9/uPsrxA6eE=;
+        b=L5Z6/vYMJEwGKiGl/AbhH1dIkNK8+45Pf2z3qdoIJRKCMcCYfmwwkFA8P/xtHIBSCQ
+         vwvKyifenSNH0gyUSuxdAzzNQnoMgPBHlmDAZnNF0cl3u+D+PoztNLGkXVbOz/+soy2v
+         UXCD5AwOXqECHLPvfFdzrY9cbxMbmFCghnldA+dJAROdailFN9D59KFAoHzQbdzJ0hPM
+         YXi39j5br8YTp+mcGZg7rYzFU3M9HyDgfb3fMs9dBBhztlbpQbrV4ce6P21+PFVYroHZ
+         zhGuGls8XTk8miWq1p/JcUaFPB30n6V3qWo2TbryqLDOYDbr92irsEMUVGOavXijZ4/A
+         LmlQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVVSj1Vl6k5H04EVPVMq1DUHxA2kBOYbJIMcIj1PwP0UtpYdirzTsNl8I3v9XVHvFgHzptDkJAOrXk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxStk28K5rCmrH6a1M1/dDHTKZFnf/KYYXZfV2cHy07uV/ZgSVv
+	qAAUp2TGfCG1c3DsG+E1KCIezeb8OncJqcpekeJoJiRTrA89xHNJPIoBHdEVWy+PzQ==
+X-Gm-Gg: ASbGncvA4zim9YlcT5XeAlfGSs8N6YuNf2AIDT1xeapHm/KJ7u7fpq0ATfzHSfUTnby
+	k3fPSEPrrW8Wy/ruePVhfpXhIF21WjL7s6SDt1QgkTzHHwdGp/6Xs7HR5EMRoYcPSO4svj8j26L
+	65iiItQnTSVVO9cNmXWMf33Mx9Ygwt826QRuOGbqWyGYCq8Xk9kQAoqlifj1p93RDfW2toHxU5Y
+	rDFAavGtCfcD6U2gyyOl2ywZ3iAEMSSVNwCokbKynPQv+42dljvy71ROgLbchAhSyuR+uc+aULM
+	gtr9WU6ZSaiJsPt9R0RGGr/hFlm9O8dRnUMbpdlmY/s8GPLbhq8NdCodblMV+MElLiz2jUzeh4F
+	TkddRnI4Go3GfhG/ZtpstuCTdpuXnkSUsdFiw9BxMlUTOQcHd9HTJV7kTYgwG8ACCpaXJ91wERW
+	X7pejMFWw=
+X-Google-Smtp-Source: AGHT+IEQlIrEbOyUZPI/mZsm6GdT/7oVV4fKU8PXxvDT9cGKY+5egHnf0ZwPeH2imCp0n29l424p8g==
+X-Received: by 2002:a05:6402:1e8a:b0:618:7585:be40 with SMTP id 4fb4d7f45d1cf-618b054b91fmr8712353a12.17.1755502696294;
+        Mon, 18 Aug 2025 00:38:16 -0700 (PDT)
+Message-ID: <17ab13e4-1fba-4c43-ba32-be512e66621e@suse.com>
+Date: Mon, 18 Aug 2025 09:38:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/numa: Rename memory_add_physaddr_to_nid to
- memory_get_phys_to_nid
-To: pratyush.brahma@oss.qualcomm.com,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- Dan Williams <dan.j.williams@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>,
- Ira Weiny <ira.weiny@intel.com>, Oscar Salvador <osalvador@suse.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Danilo Krummrich <dakr@kernel.org>, Davidlohr Bueso <dave@stgolabs.net>,
- Jonathan Cameron <jonathan.cameron@huawei.com>,
- Alison Schofield <alison.schofield@intel.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Pankaj Gupta
- <pankaj.gupta.linux@gmail.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
- Juergen Gross <jgross@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-acpi@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-mm@kvack.org, linux-cxl@vger.kernel.org,
- linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
- xen-devel@lists.xenproject.org
-References: <20250818-numa_memblks-v1-1-9eb29ade560a@oss.qualcomm.com>
-From: David Hildenbrand <david@redhat.com>
-Autocrypt: addr=david@redhat.com; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20250818-numa_memblks-v1-1-9eb29ade560a@oss.qualcomm.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: g85hwN_bX86_dqEsJMzW16nlPriRvPIanBacnid7uE8_1755500343
-X-Mimecast-Originator: redhat.com
+Subject: Re: [PATCH v2] docs/misra: fix sphinx-build issues
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <f31b8d62f16bd272114276f53db842101cd53e52.1755266805.git.dmytro_prokopchuk1@epam.com>
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <f31b8d62f16bd272114276f53db842101cd53e52.1755266805.git.dmytro_prokopchuk1@epam.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.08.25 08:41, pratyush.brahma@oss.qualcomm.com wrote:
-> From: Pratyush Brahma <pratyush.brahma@oss.qualcomm.com>
-> 
-> The function `memory_add_physaddr_to_nid` seems a misnomer.
-> It does not to "add" a physical address to a NID mapping,
-> but rather it gets the NID associated with a given physical address.
+On 15.08.2025 16:15, Dmytro Prokopchuk1 wrote:
+> Fix the following issues:
+> 1. xen/docs/misra/deviations.rst:90: WARNING: Inline interpreted text or
+> phrase reference start-string without end-string. [docutils]
+> 2. xen/docs/misra/deviations.rst:54: ERROR: Error parsing content block
+> for the "list-table" directive: uniform two-level bullet list expected,
+> but row 6 does not contain the same number of items as row 1 (2 vs 3).
+> * - R2.1
+>   - Calls to the `__builtin_unreachable()` function inside the expansion of
+>     the `ASSERT_UNREACHABLE()` macro may cause a function to be marked as
+>     non-returning. This behavior occurs only in configurations where
+>     assertions are enabled. To address this, the `noreturn` property for
+>     `__builtin_unreachable()` is overridden in these contexts, resulting in
+>     the absence of reports that do not have an impact on safety, despite
+>     being true positives.
+>     Xen expects developers to ensure code remains safe and reliable in builds,
+>     even when debug-only assertions like `ASSERT_UNREACHABLE() are removed.
+> 3. xen/docs/misra/rules.rst:127: WARNING: Inline interpreted text or phrase
+> reference start-string without end-string. [docutils]
+> 4. remove backticks from references to source code in the file rules.rst
+> to have a consistent style in this file
 
-You probably misunderstood what the function is used for: memory hotplug 
-aka "memory_add".
+I don't understand this: For one, why remove quotation? Personally I
+consider such quoting useful. And then ...
 
-This patch is making matters worse by stripping that detail, unfortunately.
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -95,7 +95,8 @@ Deviations related to MISRA C:2012 Rules:
+>         the absence of reports that do not have an impact on safety, despite
+>         being true positives.
+>         Xen expects developers to ensure code remains safe and reliable in builds,
+> -       even when debug-only assertions like `ASSERT_UNREACHABLE() are removed.
+> +       even when debug-only assertions like `ASSERT_UNREACHABLE()` are removed.
+> +     - ECLAIR has been configured to ignore those statements.
 
+... backticks are still kept here (kind of in line with what you say in
+4, but still somewhat puzzling). Whereas what you remove ...
 
--- 
-Cheers
+> --- a/docs/misra/rules.rst
+> +++ b/docs/misra/rules.rst
+> @@ -119,12 +119,12 @@ maintainers if you want to suggest a change.
+>           - Switch with a controlling value statically determined not to
+>             match one or more case statements
+>           - Functions that are intended to be referenced only from
+> -           assembly code (e.g. 'do_trap_fiq')
+> +           assembly code (e.g. do_trap_fiq)
 
-David / dhildenb
+... e.g. here are single quotes.
 
+Jan
 
