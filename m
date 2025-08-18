@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 426DCB2A5D0
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Aug 2025 15:38:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1086121.1444354 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A00C2B2A5EB
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Aug 2025 15:39:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1086134.1444363 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uo03n-0006V7-Pp; Mon, 18 Aug 2025 13:38:03 +0000
+	id 1uo04r-00072A-5v; Mon, 18 Aug 2025 13:39:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1086121.1444354; Mon, 18 Aug 2025 13:38:03 +0000
+Received: by outflank-mailman (output) from mailman id 1086134.1444363; Mon, 18 Aug 2025 13:39:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uo03n-0006Ry-Mf; Mon, 18 Aug 2025 13:38:03 +0000
-Received: by outflank-mailman (input) for mailman id 1086121;
- Mon, 18 Aug 2025 13:38:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uo04r-00070h-2o; Mon, 18 Aug 2025 13:39:09 +0000
+Received: by outflank-mailman (input) for mailman id 1086134;
+ Mon, 18 Aug 2025 13:39:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YQjc=26=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uo03m-0006Rs-7c
- for xen-devel@lists.xenproject.org; Mon, 18 Aug 2025 13:38:02 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8eefac4b-7c38-11f0-a32a-13f23c93f187;
- Mon, 18 Aug 2025 15:38:00 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-afcb731ca8eso685372966b.0
- for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 06:38:00 -0700 (PDT)
+ id 1uo04p-0006nx-GW
+ for xen-devel@lists.xenproject.org; Mon, 18 Aug 2025 13:39:07 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b5b57923-7c38-11f0-b898-0df219b8e170;
+ Mon, 18 Aug 2025 15:39:05 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-afcb78d5e74so701817666b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 06:39:05 -0700 (PDT)
 Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
  [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afcdce53f19sm807253566b.26.2025.08.18.06.37.58
+ a640c23a62f3a-afcdd010d4csm790828366b.85.2025.08.18.06.39.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Aug 2025 06:37:59 -0700 (PDT)
+ Mon, 18 Aug 2025 06:39:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,172 +45,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8eefac4b-7c38-11f0-a32a-13f23c93f187
+X-Inumbo-ID: b5b57923-7c38-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1755524280; x=1756129080; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1755524345; x=1756129145; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=aU6WsleQrH2ihQNXjsgn5kb3s440pPqiiKUIoE9B/8E=;
-        b=aRSnpCvE+vuuiiSj4zdTOOho7YfTIf+ke1dWpXFhxXD3n0iX3EXEa0T+69X1S/4vu8
-         MgqaO0PEIETwZscuGu/5uanrVVpGiygMMtUf9H64HWgAKB4MvFiHNSY/kTe1f4+ehjyj
-         38sgJfp0CQkh4QoFkm/yUsGEm58Mc43y2ZYciD93IQ23FqVvbJYKeJ6cHcWzjNTMFceV
-         WRp57ouso7OlaPgwCkkXLFYHXDxR0cABTYtl0oV5jdqClIE/jtxU2Bk/IC9Iw3tX78TI
-         cX8wXQtJFpKosGGLgXpBzJzd91yX5dIKvXJnHP1Q1SeyyS9DW1Hd5nNNU+4ohe9g9Wnk
-         bk/Q==
+        bh=TC2/844wfRxMJ18+GlAvLJqaXFcGO14qdcOCaL4dm6Y=;
+        b=DIcucqp0u0Sow0EIi8ukxw/wD+Ql+968DItqcgc3WVWDL7Btw6TzKuRDr4VBN8ouLx
+         IzWth4bwi58H4AHdDESu7hlfES1bTOJ5aDTy6DfL/1wESjK/dMECTqfYovk0LF5p0L6c
+         Refv8iOMJv2EbmQD8CgeDEoOYXgSPQc5RfguONsWr+q5vt0y6Pczy3gtEy1rAefRof0g
+         o6d4lGa3CtP4cL+GisE5Prj5AUYDPSiOT1YuS1ozjXTgQtTi+NLPuRjIfvV8h400iESi
+         A1RRyEe7nKLV/hpslKWuaKVd2Yb963elnK4xKSsqtZ/2aq42FZL+I+Ngdfh4BmvM7RHV
+         hEBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755524280; x=1756129080;
+        d=1e100.net; s=20230601; t=1755524345; x=1756129145;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=aU6WsleQrH2ihQNXjsgn5kb3s440pPqiiKUIoE9B/8E=;
-        b=qqfsPUstDy9pnnnKB/HPxKJwRA3+xGQIhwUFGydY/3gUkHMp1a1OIA+ZC66qPTXBAL
-         rvXiHjqkMi3peYkUrl+yShsPPt4IOUqkaN2akdZXcO8F9XrQmN+8J98lvoMqj5S1os4W
-         j7AlbF7D3K00bJFkJG3rj8GvehJxRR8xVQ6l2UMGAuroDaHZnQIxXPHzQVU4UhGCD0mO
-         rgAu+8j1x5RDJcQmMhg1008z5R9PK/7/rEc5MXJrT11g1Yf3uLk0K8hNbxVO0gbPFdE2
-         n6MRgJ9aEYBlbUHzptySWAPqjw7PUzsf1/gnhRBHZXIXMlzJ7uSoD8yzG0lgUzKJ3mUk
-         nJGw==
-X-Forwarded-Encrypted: i=1; AJvYcCWVC8zf+MaA6+rt3VWnIQyw55PuNtGQADYmmI6nqkyJTfK+LX/3xBUPt16TqD+jEtI9uUksWesVGIE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwnNg6xqumclH/kFgm6dQ5kDyjnXrtsIk/jegE3tlb9QNaIqfLe
-	oaH1IGAqVTBPTUSm1KdJOc5MN7u+QBdgml6VfQJjkqHfgoH8Ps16ZU3Y
-X-Gm-Gg: ASbGncuUMCauzbKJhKldiJg5wauJfg5s3UtXQvBuXhHtyUQrkn6ZCCYHJMmU/4qZsNM
-	VtO9IV+5jal6MBeC3/FTBC9BqkRlwPEk7R5aeCpQcVFAxtYUTAoTjsQAOMDFEDD0FQ8SKBOu7Cb
-	WqgMm44/eutF7Tt1zpIgM+qoFck35V+GrA7gX2PYIxzJKPv5/xrhAHSmegjph7IYJep2XO9fPqE
-	hcSqGIxyrnR2R5JLUSm4jghCBTCwCTQi/J0LYrDDZimmMNm1mL3sQjpuyhM78LD0KOF02MQRShK
-	bphvL+1/KFmsRskt+pZE/483P+bcXl3jpxp316NNCdcw+rsy5RXLutXH2eSbulN0JwG0DJyAnJ6
-	ftWJlpM0zjjq/3ZMTB7YpSHrXmUnfc152eLD87uCNqV9f+vBfPBTMRok6X9C+iAFnNM8/V6SrxE
-	DELmBsCA==
-X-Google-Smtp-Source: AGHT+IEX7UgxuBSUYDk8vU5NmzFX871vMHKJWg7x8U/4UtMWZ9ztxrGltPz2kEZcRIP2sFy3fq+gaQ==
-X-Received: by 2002:a17:907:9344:b0:af8:f187:3222 with SMTP id a640c23a62f3a-afcdc35e589mr1098387166b.33.1755524279877;
-        Mon, 18 Aug 2025 06:37:59 -0700 (PDT)
+        bh=TC2/844wfRxMJ18+GlAvLJqaXFcGO14qdcOCaL4dm6Y=;
+        b=b/eo9yBMORHQbjSfCvd8luNsRB25Lo6IRLsduUdTfpOpV2tgh2rAkCF9Hf3+jpEOcA
+         FIcbJ10o05yD/yZqfoLNGzV9yH1YKuu2+SuEiqRSu3GoiPknlGMFbbPZbbdLnbw1gK7G
+         v/chGizvpK6r5KHcqgfBZGH6bC5ucQPBsn+taoXkM8dH7d32/KdIqbP7317ScnVFHrqu
+         aknxOe0QBIXSKi29oflTngT3QWWt+RPuoJpN17wu7tGrgMulykkiO5snaTkArKcQEwhF
+         PFHRuyjC33u0WwR3/OQ1Uf5vTUIEvnVd2U/rHOTGv7MXVEzIN/jxU6cNv1Ch9Nl/0eKS
+         agMQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX/2kFURJq1uy8ChWGxZLIg0PhNQUtkKBI9rZ1oxOWW5sU34rfgiopdzTPDTNfX6Rmghm48TcW/gHc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwRFmWwWDSZ/smlCgb6Chq3OPK9MNhYbN1NyI7PJbWeP52CKWd9
+	F0WbByN7qRY5CptMQt/N5GeS1o6ZlDx7fk9GQK3Ial2bhdP/hQTsH15Y
+X-Gm-Gg: ASbGnct2IIeXiur8V58GxANAMwtlSSAE+fY+5TlcaubrKM8cMTlmB5+yxDJtAjQTWXY
+	zPZw97NHZl94DKt1HB/NXDYTmy3xOzIb38a4ouP/y/BouNxsn8a7eLr3+IZpMoAhqZYHAONaqu9
+	hMosM+cwi+yBsT1rrBqJJfnoRKwR+WjJZVTWpQtx+hWT8/Nibgw9a6DwWZ5mvfPjywgpVWlOBM4
+	6p4hhbG2Jtv+0zrbQUNEwUoV5r+SzL54+0vMO1OCXKSRBiEEyBN5yrrQnBrvDcRQyqg219hLXyW
+	+3Fo6GvpdgJXZ5HGxZpjLtm2CHDPSKpML7yr/NpdTIFbfZnqZJd2C7/zc2TyGTvAzNpV1YiIiPp
+	FwX5+YHXUvNWuaahzQzueRLoM9+gnpJCs4MkZ1vyJ1NgzsQZmwTVO82LykRqo6qU2Ai/kvKo=
+X-Google-Smtp-Source: AGHT+IHjm0rZMpYZjl0ZYPm12EwnfvJq0+bNg2Vyh2b25408ZBszyLz6hGWudlmy9fN8cPvRJtmF1Q==
+X-Received: by 2002:a17:907:2dac:b0:afa:1b05:69c3 with SMTP id a640c23a62f3a-afcdc3ab862mr1013590466b.47.1755524345060;
+        Mon, 18 Aug 2025 06:39:05 -0700 (PDT)
 Content-Type: multipart/alternative;
- boundary="------------FX5uLnqQvBBN0CgrzLqcHXju"
-Message-ID: <dcea6cee-7f8d-4f98-a72f-0969b818ffe0@gmail.com>
-Date: Mon, 18 Aug 2025 15:37:58 +0200
+ boundary="------------9bLFxSR9aZ0wdvA79F6IpIYB"
+Message-ID: <da5aae89-2a8a-4c29-aaa1-16af43f43785@gmail.com>
+Date: Mon, 18 Aug 2025 15:39:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] Arm: drop assertion from page_is_ram_type()
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <a2dc40a8-908a-44a7-b443-90f492a775cc@suse.com>
- <753ce2a1-8d9c-41ba-a066-abf6f625cb60@suse.com>
+Subject: Re: [PATCH] tools/xl: hide xenstore-features behind option
+To: Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20250815143236.27641-1-jgross@suse.com>
+ <115eca26-32a3-403f-9bf6-553c6b20940c@suse.com>
+ <6330d03a-b228-4946-bb5e-c0142d0df6c8@suse.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <753ce2a1-8d9c-41ba-a066-abf6f625cb60@suse.com>
+In-Reply-To: <6330d03a-b228-4946-bb5e-c0142d0df6c8@suse.com>
 
 This is a multi-part message in MIME format.
---------------FX5uLnqQvBBN0CgrzLqcHXju
+--------------9bLFxSR9aZ0wdvA79F6IpIYB
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
-On 8/18/25 9:55 AM, Jan Beulich wrote:
-> Its uses in offline_page() and query_page_offline() make it reachable on
-> Arm, as long as XEN_SYSCTL_page_offline_op doesn't have any Arm-specific
-> code added. It being reachable was even mentioned in the commit
-> introducing it, claiming it "clearly shouldn't be called on ARM just
-> yet".
->
-> However, dropping the assertion from a function of this name is deemed
-> problematic. Rename it to better reflect its sole purpose outside of
-> x86-specific code.
->
-> Fixes: 214c4cd94a80 ("xen: arm: stub page_is_ram_type")
-> Signed-off-by: Jan Beulich<jbeulich@suse.com>
-> ---
-> v2: Rename the function used in common code.
-> ---
-> The new name is chosen such that, down the road, offlining of non-RAM
-> could in principle also become possible.
+On 8/18/25 9:42 AM, Jan Beulich wrote:
+> On 15.08.2025 16:35, Juergen Gross wrote:
+>> + Release Manager
+> While this surely doesn't hurt, my understanding is that bug fixes don't
+> require release-acks just yet.
 
-I think it could be useful to put in commit message.
+Yes, your understanding is correct.
 
-LGTM: Reviewed-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
 ~ Oleksii
 
->
-> --- a/xen/arch/arm/mm.c
-> +++ b/xen/arch/arm/mm.c
-> @@ -64,10 +64,9 @@ int steal_page(
->       return -EOPNOTSUPP;
->   }
->   
-> -int page_is_ram_type(unsigned long mfn, unsigned long mem_type)
-> +bool page_is_offlinable(mfn_t mfn)
->   {
-> -    ASSERT_UNREACHABLE();
-> -    return 0;
-> +    return false;
->   }
->   
->   unsigned long domain_get_maximum_gpfn(struct domain *d)
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -425,6 +425,11 @@ int page_is_ram_type(unsigned long mfn,
->       return 0;
->   }
->   
-> +bool page_is_offlinable(mfn_t mfn)
-> +{
-> +    return page_is_ram_type(mfn_x(mfn), RAM_TYPE_CONVENTIONAL);
-> +}
-> +
->   unsigned int page_get_ram_type(mfn_t mfn)
->   {
->       uint64_t last = 0, maddr = mfn_to_maddr(mfn);
-> --- a/xen/common/page_alloc.c
-> +++ b/xen/common/page_alloc.c
-> @@ -1635,7 +1635,7 @@ static unsigned long mark_page_offline(s
->   {
->       unsigned long nx, x, y = pg->count_info;
->   
-> -    ASSERT(page_is_ram_type(mfn_x(page_to_mfn(pg)), RAM_TYPE_CONVENTIONAL));
-> +    ASSERT(page_is_offlinable(page_to_mfn(pg)));
->       ASSERT(spin_is_locked(&heap_lock));
->   
->       do {
-> @@ -1711,7 +1711,7 @@ int offline_page(mfn_t mfn, int broken,
->        * N.B. xen's txt in x86_64 is marked reserved and handled already.
->        * Also kexec range is reserved.
->        */
-> -    if ( !page_is_ram_type(mfn_x(mfn), RAM_TYPE_CONVENTIONAL) )
-> +    if ( !page_is_offlinable(mfn) )
->       {
->           *status = PG_OFFLINE_FAILED | PG_OFFLINE_NOT_CONV_RAM;
->           return -EINVAL;
-> @@ -1851,7 +1851,7 @@ int query_page_offline(mfn_t mfn, uint32
->   {
->       struct page_info *pg;
->   
-> -    if ( !mfn_valid(mfn) || !page_is_ram_type(mfn_x(mfn), RAM_TYPE_CONVENTIONAL) )
-> +    if ( !mfn_valid(mfn) || !page_is_offlinable(mfn) )
->       {
->           dprintk(XENLOG_WARNING, "call expand_pages() first\n");
->           return -EINVAL;
-> --- a/xen/include/xen/mm.h
-> +++ b/xen/include/xen/mm.h
-> @@ -144,9 +144,11 @@ unsigned long avail_domheap_pages_region
->   unsigned long avail_node_heap_pages(unsigned int nodeid);
->   #define alloc_domheap_page(d,f) (alloc_domheap_pages(d,0,f))
->   #define free_domheap_page(p)  (free_domheap_pages(p,0))
-> +
->   int online_page(mfn_t mfn, uint32_t *status);
->   int offline_page(mfn_t mfn, int broken, uint32_t *status);
->   int query_page_offline(mfn_t mfn, uint32_t *status);
-> +bool page_is_offlinable(mfn_t mfn);
->   
->   void heap_init_late(void);
->   
->
---------------FX5uLnqQvBBN0CgrzLqcHXju
+>> On 15.08.25 16:32, Juergen Gross wrote:
+>>> In order to be able to use "xl info" before Xenstore has been started
+>>> or after it has crashed, hide obtaining the available Xenstore features
+>>> behind the new option "-x".
+>>>
+>>> Fixes: ecce7970cfe7 ("tools/xl: add available Xenstore features to xl info output")
+>>> Reported-by: Andrew Cooper<andrew.cooper3@citrix.com>
+>>> Signed-off-by: Juergen Gross<jgross@suse.com>
+>>> ---
+>>>    docs/man/xl.1.pod.in     |  4 ++++
+>>>    docs/man/xl.cfg.5.pod.in |  2 +-
+>>>    tools/xl/xl_info.c       | 14 ++++++++++----
+>>>    3 files changed, 15 insertions(+), 5 deletions(-)
+>>>
+>>> diff --git a/docs/man/xl.1.pod.in b/docs/man/xl.1.pod.in
+>>> index fe38724b2b..88ccf7ad82 100644
+>>> --- a/docs/man/xl.1.pod.in
+>>> +++ b/docs/man/xl.1.pod.in
+>>> @@ -996,6 +996,10 @@ B<OPTIONS>
+>>>    
+>>>    List host NUMA topology information
+>>>    
+>>> +=item B<-x>, B<--xenstore>
+>>> +
+>>> +Show Xenstore features available.
+>>> +
+>>>    =back
+>>>    
+>>>    =item B<top>
+>>> diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+>>> index f0c920b39d..acff45d308 100644
+>>> --- a/docs/man/xl.cfg.5.pod.in
+>>> +++ b/docs/man/xl.cfg.5.pod.in
+>>> @@ -743,7 +743,7 @@ condition.
+>>>    =back
+>>>    
+>>>    The features supported by the running Xenstore instance can be retrieved
+>>> -via the B<xl info> command in dom0.
+>>> +via the B<xl info -x> command in dom0.
+>>>    
+>>>    The default value is B<0xffffffff>, meaning that all possible Xenstore
+>>>    features are visible by the guest.
+>>> diff --git a/tools/xl/xl_info.c b/tools/xl/xl_info.c
+>>> index eb019e3ee9..d3583cbf8f 100644
+>>> --- a/tools/xl/xl_info.c
+>>> +++ b/tools/xl/xl_info.c
+>>> @@ -353,7 +353,7 @@ static void output_xenstore_info(void)
+>>>        xs_close(xsh);
+>>>    }
+>>>    
+>>> -static void print_info(int numa)
+>>> +static void print_info(int numa, bool xs)
+>>>    {
+>>>        output_nodeinfo();
+>>>    
+>>> @@ -365,7 +365,8 @@ static void print_info(int numa)
+>>>        }
+>>>        output_xeninfo();
+>>>    
+>>> -    output_xenstore_info();
+>>> +    if (xs)
+>>> +        output_xenstore_info();
+>>>    
+>>>        maybe_printf("xend_config_format     : 4\n");
+>>>    
+>>> @@ -631,14 +632,19 @@ int main_info(int argc, char **argv)
+>>>        int opt;
+>>>        static struct option opts[] = {
+>>>            {"numa", 0, 0, 'n'},
+>>> +        {"xenstore", 0, 0, 'x'},
+>>>            COMMON_LONG_OPTS
+>>>        };
+>>>        int numa = 0;
+>>> +    bool xs = false;
+>>>    
+>>> -    SWITCH_FOREACH_OPT(opt, "n", opts, "info", 0) {
+>>> +    SWITCH_FOREACH_OPT(opt, "nx", opts, "info", 0) {
+>>>        case 'n':
+>>>            numa = 1;
+>>>            break;
+>>> +    case 'x':
+>>> +        xs = true;
+>>> +        break;
+>>>        }
+>>>    
+>>>        /*
+>>> @@ -648,7 +654,7 @@ int main_info(int argc, char **argv)
+>>>        if (numa == 0 && argc > optind)
+>>>            info_name = argv[optind];
+>>>    
+>>> -    print_info(numa);
+>>> +    print_info(numa, xs);
+>>>        return 0;
+>>>    }
+>>>    
+--------------9bLFxSR9aZ0wdvA79F6IpIYB
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
@@ -222,115 +223,134 @@ Content-Transfer-Encoding: 7bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 8/18/25 9:55 AM, Jan Beulich wrote:<br>
+    <div class="moz-cite-prefix">On 8/18/25 9:42 AM, Jan Beulich wrote:<br>
     </div>
     <blockquote type="cite"
-      cite="mid:753ce2a1-8d9c-41ba-a066-abf6f625cb60@suse.com">
-      <pre wrap="" class="moz-quote-pre">Its uses in offline_page() and query_page_offline() make it reachable on
-Arm, as long as XEN_SYSCTL_page_offline_op doesn't have any Arm-specific
-code added. It being reachable was even mentioned in the commit
-introducing it, claiming it "clearly shouldn't be called on ARM just
-yet".
-
-However, dropping the assertion from a function of this name is deemed
-problematic. Rename it to better reflect its sole purpose outside of
-x86-specific code.
-
-Fixes: 214c4cd94a80 ("xen: arm: stub page_is_ram_type")
-Signed-off-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
----
-v2: Rename the function used in common code.
----
-The new name is chosen such that, down the road, offlining of non-RAM
-could in principle also become possible.</pre>
-    </blockquote>
-    <pre>I think it could be useful to put in commit message.
-
-LGTM: Reviewed-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-
-~ Oleksii
+      cite="mid:6330d03a-b228-4946-bb5e-c0142d0df6c8@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 15.08.2025 16:35, Juergen Gross wrote:
 </pre>
-    <blockquote type="cite"
-      cite="mid:753ce2a1-8d9c-41ba-a066-abf6f625cb60@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+ Release Manager
+</pre>
+      </blockquote>
       <pre wrap="" class="moz-quote-pre">
+While this surely doesn't hurt, my understanding is that bug fixes don't
+require release-acks just yet.</pre>
+    </blockquote>
+    <pre>Yes, your understanding is correct.
 
---- a/xen/arch/arm/mm.c
-+++ b/xen/arch/arm/mm.c
-@@ -64,10 +64,9 @@ int steal_page(
-     return -EOPNOTSUPP;
- }
- 
--int page_is_ram_type(unsigned long mfn, unsigned long mem_type)
-+bool page_is_offlinable(mfn_t mfn)
- {
--    ASSERT_UNREACHABLE();
--    return 0;
-+    return false;
- }
- 
- unsigned long domain_get_maximum_gpfn(struct domain *d)
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -425,6 +425,11 @@ int page_is_ram_type(unsigned long mfn,
-     return 0;
- }
- 
-+bool page_is_offlinable(mfn_t mfn)
-+{
-+    return page_is_ram_type(mfn_x(mfn), RAM_TYPE_CONVENTIONAL);
-+}
-+
- unsigned int page_get_ram_type(mfn_t mfn)
- {
-     uint64_t last = 0, maddr = mfn_to_maddr(mfn);
---- a/xen/common/page_alloc.c
-+++ b/xen/common/page_alloc.c
-@@ -1635,7 +1635,7 @@ static unsigned long mark_page_offline(s
- {
-     unsigned long nx, x, y = pg-&gt;count_info;
- 
--    ASSERT(page_is_ram_type(mfn_x(page_to_mfn(pg)), RAM_TYPE_CONVENTIONAL));
-+    ASSERT(page_is_offlinable(page_to_mfn(pg)));
-     ASSERT(spin_is_locked(&amp;heap_lock));
- 
-     do {
-@@ -1711,7 +1711,7 @@ int offline_page(mfn_t mfn, int broken,
-      * N.B. xen's txt in x86_64 is marked reserved and handled already.
-      * Also kexec range is reserved.
-      */
--    if ( !page_is_ram_type(mfn_x(mfn), RAM_TYPE_CONVENTIONAL) )
-+    if ( !page_is_offlinable(mfn) )
-     {
-         *status = PG_OFFLINE_FAILED | PG_OFFLINE_NOT_CONV_RAM;
-         return -EINVAL;
-@@ -1851,7 +1851,7 @@ int query_page_offline(mfn_t mfn, uint32
- {
-     struct page_info *pg;
- 
--    if ( !mfn_valid(mfn) || !page_is_ram_type(mfn_x(mfn), RAM_TYPE_CONVENTIONAL) )
-+    if ( !mfn_valid(mfn) || !page_is_offlinable(mfn) )
-     {
-         dprintk(XENLOG_WARNING, "call expand_pages() first\n");
-         return -EINVAL;
---- a/xen/include/xen/mm.h
-+++ b/xen/include/xen/mm.h
-@@ -144,9 +144,11 @@ unsigned long avail_domheap_pages_region
- unsigned long avail_node_heap_pages(unsigned int nodeid);
- #define alloc_domheap_page(d,f) (alloc_domheap_pages(d,0,f))
- #define free_domheap_page(p)  (free_domheap_pages(p,0))
-+
- int online_page(mfn_t mfn, uint32_t *status);
- int offline_page(mfn_t mfn, int broken, uint32_t *status);
- int query_page_offline(mfn_t mfn, uint32_t *status);
-+bool page_is_offlinable(mfn_t mfn);
- 
- void heap_init_late(void);
- 
 
+~ Oleksii</pre>
+    <blockquote type="cite"
+      cite="mid:6330d03a-b228-4946-bb5e-c0142d0df6c8@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On 15.08.25 16:32, Juergen Gross wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">In order to be able to use "xl info" before Xenstore has been started
+or after it has crashed, hide obtaining the available Xenstore features
+behind the new option "-x".
+
+Fixes: ecce7970cfe7 ("tools/xl: add available Xenstore features to xl info output")
+Reported-by: Andrew Cooper <a class="moz-txt-link-rfc2396E" href="mailto:andrew.cooper3@citrix.com">&lt;andrew.cooper3@citrix.com&gt;</a>
+Signed-off-by: Juergen Gross <a class="moz-txt-link-rfc2396E" href="mailto:jgross@suse.com">&lt;jgross@suse.com&gt;</a>
+---
+  docs/man/xl.1.pod.in     |  4 ++++
+  docs/man/xl.cfg.5.pod.in |  2 +-
+  tools/xl/xl_info.c       | 14 ++++++++++----
+  3 files changed, 15 insertions(+), 5 deletions(-)
+
+diff --git a/docs/man/xl.1.pod.in b/docs/man/xl.1.pod.in
+index fe38724b2b..88ccf7ad82 100644
+--- a/docs/man/xl.1.pod.in
++++ b/docs/man/xl.1.pod.in
+@@ -996,6 +996,10 @@ B&lt;OPTIONS&gt;
+  
+  List host NUMA topology information
+  
++=item B&lt;-x&gt;, B&lt;--xenstore&gt;
++
++Show Xenstore features available.
++
+  =back
+  
+  =item B&lt;top&gt;
+diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+index f0c920b39d..acff45d308 100644
+--- a/docs/man/xl.cfg.5.pod.in
++++ b/docs/man/xl.cfg.5.pod.in
+@@ -743,7 +743,7 @@ condition.
+  =back
+  
+  The features supported by the running Xenstore instance can be retrieved
+-via the B&lt;xl info&gt; command in dom0.
++via the B&lt;xl info -x&gt; command in dom0.
+  
+  The default value is B&lt;0xffffffff&gt;, meaning that all possible Xenstore
+  features are visible by the guest.
+diff --git a/tools/xl/xl_info.c b/tools/xl/xl_info.c
+index eb019e3ee9..d3583cbf8f 100644
+--- a/tools/xl/xl_info.c
++++ b/tools/xl/xl_info.c
+@@ -353,7 +353,7 @@ static void output_xenstore_info(void)
+      xs_close(xsh);
+  }
+  
+-static void print_info(int numa)
++static void print_info(int numa, bool xs)
+  {
+      output_nodeinfo();
+  
+@@ -365,7 +365,8 @@ static void print_info(int numa)
+      }
+      output_xeninfo();
+  
+-    output_xenstore_info();
++    if (xs)
++        output_xenstore_info();
+  
+      maybe_printf("xend_config_format     : 4\n");
+  
+@@ -631,14 +632,19 @@ int main_info(int argc, char **argv)
+      int opt;
+      static struct option opts[] = {
+          {"numa", 0, 0, 'n'},
++        {"xenstore", 0, 0, 'x'},
+          COMMON_LONG_OPTS
+      };
+      int numa = 0;
++    bool xs = false;
+  
+-    SWITCH_FOREACH_OPT(opt, "n", opts, "info", 0) {
++    SWITCH_FOREACH_OPT(opt, "nx", opts, "info", 0) {
+      case 'n':
+          numa = 1;
+          break;
++    case 'x':
++        xs = true;
++        break;
+      }
+  
+      /*
+@@ -648,7 +654,7 @@ int main_info(int argc, char **argv)
+      if (numa == 0 &amp;&amp; argc &gt; optind)
+          info_name = argv[optind];
+  
+-    print_info(numa);
++    print_info(numa, xs);
+      return 0;
+  }
+  
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
 </pre>
     </blockquote>
   </body>
 </html>
 
---------------FX5uLnqQvBBN0CgrzLqcHXju--
+--------------9bLFxSR9aZ0wdvA79F6IpIYB--
 
