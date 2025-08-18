@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF0BDB29EE0
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Aug 2025 12:10:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1085866.1444135 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D540B29EE6
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Aug 2025 12:15:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1085876.1444146 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1unwoa-0002rO-GO; Mon, 18 Aug 2025 10:10:08 +0000
+	id 1unwtY-0003u6-3c; Mon, 18 Aug 2025 10:15:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1085866.1444135; Mon, 18 Aug 2025 10:10:08 +0000
+Received: by outflank-mailman (output) from mailman id 1085876.1444146; Mon, 18 Aug 2025 10:15:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1unwoa-0002p4-Df; Mon, 18 Aug 2025 10:10:08 +0000
-Received: by outflank-mailman (input) for mailman id 1085866;
- Mon, 18 Aug 2025 10:10:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GLF1=26=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1unwoY-0002jN-Bj
- for xen-devel@lists.xenproject.org; Mon, 18 Aug 2025 10:10:06 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8085e428-7c1b-11f0-b898-0df219b8e170;
- Mon, 18 Aug 2025 12:10:01 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-45a1b05fe23so23027135e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 03:10:01 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45a223206c7sm126725655e9.16.2025.08.18.03.09.59
+	id 1unwtX-0003rp-W3; Mon, 18 Aug 2025 10:15:15 +0000
+Received: by outflank-mailman (input) for mailman id 1085876;
+ Mon, 18 Aug 2025 10:15:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=q+DX=26=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1unwtX-0003rj-Gn
+ for xen-devel@lists.xenproject.org; Mon, 18 Aug 2025 10:15:15 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3a164860-7c1c-11f0-a32a-13f23c93f187;
+ Mon, 18 Aug 2025 12:15:12 +0200 (CEST)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-6188b5ad681so5549097a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 03:15:12 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-618b01ae59esm6834537a12.28.2025.08.18.03.15.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Aug 2025 03:10:00 -0700 (PDT)
+ Mon, 18 Aug 2025 03:15:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,153 +45,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8085e428-7c1b-11f0-b898-0df219b8e170
+X-Inumbo-ID: 3a164860-7c1c-11f0-a32a-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755511800; x=1756116600; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755512112; x=1756116912; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ydxr98DfLf1NMz2ktFXD5VRVZNzuMMeQc8N7CP6g5dU=;
-        b=aGAKjtNLi/kAP9Df7m5B5p46y1fHSGCH8TQHRB7haBwO5YiMVKTHHj5/WqmgGCgNoZ
-         yuAYU21kWkpaY2675MMW/kwo3H3rmrJ6VUzVnhNwe7rEwlgFRWXhlvKKaCIG8U1RLJNx
-         JgzqiWAQJz5hZgBnfv1vjPK/BYYqM6t1lPDXE=
+        bh=VKQj/6TgXb7or6K2qBxCrUpoOiR7kEXd+6VoPBUfrLg=;
+        b=RKJLpGLGNQJ/dKEw5LJZOepge27PMxblL0s4mysqfZDY76mNW8CqIyv9kUWchDSgK0
+         bN5XoiCxEyLJhlY3mcYPDB2HIhm41WL1hL9tNmhPG6dT0tSoyu6XifQrptLtwx4RoRAn
+         6+VhvB6zVfpYcoo7RGQPCHsmBBRjQGUFMRFtwBIzOD0+QE+Ax7i3hCBnl09RhRK7v10H
+         2PUVu5alc835fmLwDvtioTFxSrIe2Bb6QgHtt7dieSAKcR+F5DYdav/9EOMn6wMrskif
+         i7fCg53TyiJpd4rZXn5/IeKf6c/nqBBhofzJKmyN2gM+W1lC8b+iI9wFIyHcBl1omCY5
+         XZmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755511800; x=1756116600;
+        d=1e100.net; s=20230601; t=1755512112; x=1756116912;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ydxr98DfLf1NMz2ktFXD5VRVZNzuMMeQc8N7CP6g5dU=;
-        b=WGQE+LsOM5VAq+/+T8XW5k4ArN5mdiewrUZc7I+TMVkbbtK1tERZe+nh9voYV2sDnA
-         iAaTryrdBUevp3VEeE66MvYlV6zJObtNluR9IQ4JxAFQgV3S8QyOLjWXI2Aixt51gTy7
-         +mY2WyLvBHL21vVwdKnPggSgEKJWWDot8ZNMv94HTCSdeyrwWHi9UpuAAJUMmCTDrv7w
-         U2BN9f0icax7PeJwvcaErOu07QWLmRDB5uQn1YDhai9+VbXUWXCcU9igqgQHoJlXsoAE
-         ypC/7eOItElpVolpk2ci6ll20Tr+YFmwwMJ7s3cnEx9nAefXiDtI1S4hznc2Y7FDriZf
-         BONg==
-X-Forwarded-Encrypted: i=1; AJvYcCUH2KpfApSbMFAsq6kI2BCvomtwMKmKfYIeC+dz4u4wYprn5esWT/ye0myrTQVib+uKxdBip5epGOQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yygl4az7f0C4XYEhsDxcC+6VxOIh6xKuWG5tPhsqjSBZ3QdF9pT
-	6aExlfE+hA6lTSS1mmk5tyDE+DTdrn/GJ54AYFNZX8pqr8qwU6Fxjy0JpCUDsp1krd0=
-X-Gm-Gg: ASbGncs2UIbI+QSJ+j6igSwDyw2Pqtcej09K8YkWfbEogCgL4XK8vnQrhQ6O07fuuiA
-	tuY1kjG2YbjzQffClsgeIGaAudUqM5Uq1hMriJ2Y8614cUJGKgx+7sh5liM635MVFGCVbDIw667
-	ICmg7HPPimv3Dsizw3aiF1Y7ivJ59O0HygoXsa59SaOSNDyiS5BGmIjZHwrn5VZROFLjNRxm6VZ
-	Uv8vDsTAMiF1KBeE5UZFgWqloY6JsW6GHhVuLURjmxxTi61P0uE0wtay07BkatdVGT0M/cnKVm6
-	m8DNoeNCY0vNp/9B6cWFQ9VZg85klZGDkOq4bMmghLsd2xFaRK76Lpf/ghQjTTKh3B32kmEYYa0
-	vHmb2Eh8Wh1D+VmD/axnWc4LeTRh/oM+U87Ib+i46iFive7soEDc2C99+cUDIENe718GraUjH7c
-	313JM=
-X-Google-Smtp-Source: AGHT+IFQO44CWLdFSq3sG2kl/inSkgevpGtr90RZgIoctuXJVxMWpfxQMiNe8cpq9yovVkCgmF8zsQ==
-X-Received: by 2002:a05:600c:4451:b0:456:1a87:a6cb with SMTP id 5b1f17b1804b1-45a218590c8mr101219625e9.19.1755511800526;
-        Mon, 18 Aug 2025 03:10:00 -0700 (PDT)
-Message-ID: <0047fe59-b95e-44c5-b26e-dd37b4c2bc9b@citrix.com>
-Date: Mon, 18 Aug 2025 11:09:59 +0100
+        bh=VKQj/6TgXb7or6K2qBxCrUpoOiR7kEXd+6VoPBUfrLg=;
+        b=O2Dj5M7E8sF2xPW3Z/MIyCmYacHbuvD7Hpi2iXIP7pwVhsuGT9pM3LHDvhwPxpN2xR
+         gYyIQ8phE5SEOQQpf+h7rTqFse0/su6yJ57Rf4iWiYGDtap1SyAklgmAtS8b+Hs96RVz
+         tCVyfAPM84kQUrCRhwVQQZJjC9/qt+piCybDAk5N0jsYgGr/ulTfR31+8t9hvs1NcIcc
+         KZsFknSQlKsvopK2KuN2DwZs37oN8ZA3VrtOMGr4YxMCfKf/YgQNSNfgZNPC4T+qkEN+
+         3rsBU9/PSBLqLvT74JWUCnQrwWO3MJ5QvxvEZCHn9hq5TpuxYQuICYfTR83FMd0/5BNB
+         WUTg==
+X-Forwarded-Encrypted: i=1; AJvYcCUJjcDqWl6BkQ5oxm1w2Ghjex/F1ANAyIxkz1uWOvqNFpFzdBYvWW6fkoFJPqMXyfolQnwxe4rYdRA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxI8kb8JgfiSOT1cxGiIddjIaYwT1yrww87N1aEPHNquU0qhhZ7
+	/izoM3LemNHJtUSRFkqMzO8h05Xa3ljquZFTiwBeXttJBo+sNjtzJ4dg0kCzCL5IHg==
+X-Gm-Gg: ASbGnctMhD0/shoewb4rmMRPvvSGJ/4eEoPSakcU+mwnH9BU8GhkTrNwW/JdVANQIxM
+	PY0Y+zpRjdpBWEuunOdbs4S7c4O2/DEZZdYIbcOVCbC+wz+hPVRJPPiPyLt7J1fiRrPDbCeyFrR
+	FpUAD6d8SUV8AIjACuOrZNEvJxKAGbPE1SbXELXH0zpLi2dOz4hUFrxnLuPZh1Aq+9H7ib5drhf
+	ODqtRiL+bNGfOULzFtMGCtLZdu/C3nkdD4v1TThVS6zZXsY/ms/DlwCaTghBSXzWbcdc8MtAIu5
+	G1yvump4bt5hzpfG1JMU++cHO7eBje06Mt9YLnpGaV2Caf/6nkqF/2ynxwD28ziJQ73Bb7BMpLD
+	0WBrsu5fbHpQA8GRMQ5UAEjg8qwmHp3eErdwC7yMO9j9iTOIuQ2fxUhC+yqnCjy5GkgjtKHmLBF
+	JPW8GaAyP6X1eO4GiENg==
+X-Google-Smtp-Source: AGHT+IF/7TPyYT9hXHqYx3LHSLvhY7h19SzI5N7vFKnPB3A4XDN3NU9+6sZyBZ5zPbZ9eGrn0d7WSg==
+X-Received: by 2002:a05:6402:274b:b0:618:bc4:5777 with SMTP id 4fb4d7f45d1cf-619b707c46emr6799188a12.9.1755512111911;
+        Mon, 18 Aug 2025 03:15:11 -0700 (PDT)
+Message-ID: <5bf9b184-70fb-4698-a01e-e8cbcb05935f@suse.com>
+Date: Mon, 18 Aug 2025 12:15:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 21/22] x86/traps: Introduce FRED entrypoints
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
- <20250808202314.1045968-22-andrew.cooper3@citrix.com>
- <d1635022-c386-4665-be07-e66afc8f3330@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <d1635022-c386-4665-be07-e66afc8f3330@suse.com>
+Subject: Re: [PATCH v9 1/4] xen/arm: Implement PSCI SYSTEM_SUSPEND call for
+ guests
+To: Mykola Kvach <xakep.amatop@gmail.com>
+Cc: Mykola Kvach <mykola_kvach@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1755506449.git.mykola_kvach@epam.com>
+ <205b2b354ff1d34d0e9ec4777ca3c94492f6d9d1.1755506449.git.mykola_kvach@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <205b2b354ff1d34d0e9ec4777ca3c94492f6d9d1.1755506449.git.mykola_kvach@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 18/08/2025 11:03 am, Jan Beulich wrote:
-> On 08.08.2025 22:23, Andrew Cooper wrote:
->> diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
->> index 270b93ed623e..e67a428e4362 100644
->> --- a/xen/arch/x86/traps.c
->> +++ b/xen/arch/x86/traps.c
->> @@ -2181,6 +2240,94 @@ void asmlinkage check_ist_exit(const struct cpu_user_regs *regs, bool ist_exit)
->>  }
->>  #endif
->>  
->> +void asmlinkage entry_from_pv(struct cpu_user_regs *regs)
->> +{
->> +    /* Copy fred_ss.vector into entry_vector as IDT delivery would have done. */
->> +    regs->entry_vector = regs->fred_ss.vector;
->> +
->> +    switch ( regs->fred_ss.type )
->> +    {
->> +    case X86_ET_EXT_INTR:
->> +        do_IRQ(regs);
->> +        break;
->> +
->> +    case X86_ET_NMI:
->> +        do_nmi(regs);
->> +        break;
->> +
->> +    case X86_ET_HW_EXC:
->> +    case X86_ET_SW_INT:
->> +    case X86_ET_PRIV_SW_EXC:
->> +    case X86_ET_SW_EXC:
->> +        goto fatal;
->> +
->> +    default:
->> +        goto fatal;
->> +    }
->> +
->> +    return;
->> +
->> + fatal:
->> +    fatal_trap(regs, false);
->> +}
-> Noticed only now: Shouldn't this be surrounded with #ifdef CONFIG_PV (with
-> knock-on effects elsewhere)?
+On 18.08.2025 10:49, Mykola Kvach wrote:
+> --- a/xen/arch/arm/domain.c
+> +++ b/xen/arch/arm/domain.c
+> @@ -90,6 +90,16 @@ static void ctxt_switch_from(struct vcpu *p)
+>      if ( is_idle_vcpu(p) )
+>          return;
+>  
+> +    /* Arch timer */
+> +    p->arch.cntkctl = READ_SYSREG(CNTKCTL_EL1);
+> +    virt_timer_save(p);
+> +
+> +    /* VGIC */
+> +    gic_save_state(p);
+> +
+> +    if ( test_bit(_VPF_suspended, &p->pause_flags) )
+> +        return;
 
-Randconfig had a fun time with CONFIG_PV.
+As I had to look at the Arm side uses of the new bit to at least try to
+follow the comment further down, I came across this. And now I wonder:
+Why would one of the pause flags need special casing here?
 
-I've got an early "if ( IS_ENABLED(CONFIG_PV) ) goto fatal;" but there's
-a bit of extra complexity in the ASM.  entry_FRED_R3() needs to exist
-even outside of CONFIG_PV, despite things like test_all_events being
-conditional.
+> @@ -1360,13 +1357,33 @@ void domain_resume(struct domain *d)
+>  
+>      for_each_vcpu ( d, v )
+>      {
+> +        /*
+> +         * No need to conditionally clear _VPF_suspended here:
+> +         * - This bit is only set on Arm64, and only after a successful suspend.
+> +         * - domain_resume_nopause() may also be called from paths other than
+> +         *   the suspend/resume flow, such as "soft-reset" actions (e.g.,
+> +         *   on_poweroff), as part of the Xenstore control/shutdown protocol.
+> +         *   These require guest acknowledgement to complete the operation.
+> +         * So clearing the bit unconditionally is safe.
+> +         */
+> +        clear_bit(_VPF_suspended, &v->pause_flags);
 
-Also, this is changing a bit as part of getting PV support working.
+Seeing that you set this bit for a single vCPU in a domain only, I wonder why
+it needs to be a per-vCPU flag.
 
-~Andrew
+Apart from this, with the comment I still fear I wouldn't feel capable of
+ack-ing this, as there's too much Arm-only interaction in here. It's not even
+clear whether this could easily be re-used by another port.
+
+Jan
 
