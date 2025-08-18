@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8724B2A57F
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Aug 2025 15:34:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1086111.1444343 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 426DCB2A5D0
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Aug 2025 15:38:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1086121.1444354 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uo00F-0005um-99; Mon, 18 Aug 2025 13:34:23 +0000
+	id 1uo03n-0006V7-Pp; Mon, 18 Aug 2025 13:38:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1086111.1444343; Mon, 18 Aug 2025 13:34:23 +0000
+Received: by outflank-mailman (output) from mailman id 1086121.1444354; Mon, 18 Aug 2025 13:38:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uo00F-0005se-6X; Mon, 18 Aug 2025 13:34:23 +0000
-Received: by outflank-mailman (input) for mailman id 1086111;
- Mon, 18 Aug 2025 13:34:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=q+DX=26=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uo00E-0005sY-FC
- for xen-devel@lists.xenproject.org; Mon, 18 Aug 2025 13:34:22 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0b9b63d0-7c38-11f0-b898-0df219b8e170;
- Mon, 18 Aug 2025 15:34:20 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-618b62dba21so3508068a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 06:34:20 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afcdce53e52sm802605166b.25.2025.08.18.06.34.19
+	id 1uo03n-0006Ry-Mf; Mon, 18 Aug 2025 13:38:03 +0000
+Received: by outflank-mailman (input) for mailman id 1086121;
+ Mon, 18 Aug 2025 13:38:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YQjc=26=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uo03m-0006Rs-7c
+ for xen-devel@lists.xenproject.org; Mon, 18 Aug 2025 13:38:02 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8eefac4b-7c38-11f0-a32a-13f23c93f187;
+ Mon, 18 Aug 2025 15:38:00 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-afcb731ca8eso685372966b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 06:38:00 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-afcdce53f19sm807253566b.26.2025.08.18.06.37.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Aug 2025 06:34:19 -0700 (PDT)
+ Mon, 18 Aug 2025 06:37:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,126 +45,292 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b9b63d0-7c38-11f0-b898-0df219b8e170
+X-Inumbo-ID: 8eefac4b-7c38-11f0-a32a-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755524060; x=1756128860; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ziJV7uvnC+kKtjjhxQiMo5MJuHMGdaQJ22bUrgjwyEU=;
-        b=OjcMgorcZ7W4oihDtkyofLgU4KRjKGuI+LKJaNg7sRoU8+sP/NZVeLt9S7WnfEWsK7
-         kWu0QAb6bTIQbtc0kocBKIxTB1751LtbTCKkDXpqeDyJKiBjG+ClCFve2OeLBocD6nmc
-         3SQUkbv82Ze79KQQfyOFPhyDuQM8ttC0Crcy+8WeReKSHfG44/R78jdggFCTFBabBjRf
-         hftWVK2zuIdaKtn4z/0q+tYX9H/QYac2MqKhadMwrxNjG7lEVqmNhD+lTPnxyM6STvwO
-         ngNxoKpROeNNhLCc2OpO3nkm5hWJHBRjEwr38miqDiMAhCsZClc5Io5tiB9T8/jVOs3Q
-         O62w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755524060; x=1756128860;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1755524280; x=1756129080; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ziJV7uvnC+kKtjjhxQiMo5MJuHMGdaQJ22bUrgjwyEU=;
-        b=ltNcW6slXHTEf3bB5N7f30x2S6sypug2z2632ssbwGLD+tfH7zrQ5ie8RJD6VFVyrU
-         IEloG2N992Kh0afOfGuIciQisgU/x4HtyPFW6K8LRgJVEThX1Lm6+K8nuDgCnC+bS292
-         AqOy+wT7C9HTuu8LlZeGa/BnHzYBxMidqlnbF18d+NjtdM/CuMOs9Fay2NjZFeO9NyOv
-         w9pFILvh9LjhlWi7buQodtb7+SrLKl7k+n9uhdr+AeKdLIdLP8D3+BmaWfSPAv6JNEbe
-         0xQgUhXfZnljWVxF1x0+YqYlwsBMaZP3sMYhLreNIAKlzk+cd3sLtt4QfPnkDpmww6At
-         2oIQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVAvSLaywUt3vn4ny7we6S0X2V7G6BX3uKbHHFJ4m5XKzv2kbSunzRimO182MkBdXFzMUeTZrnD/Gs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw4zqtcjMhrzwJHMuts5inHRwwK5ty+XpKuKCmY66jSeVwg5hD3
-	jxYjGeiC/oOlSpWfj8WCGpa+CizaBVjs7A97n7PDWTKfVTVZXD5HYg4cLj3s3McmIw==
-X-Gm-Gg: ASbGncsHLFoytu9tTAW9eFMh/8o+2H4I83w3Ft79ILCp8TJms2ogUVEq+3qFXdwApHf
-	fruKZgkGLjyy0lbrLtMxhKEVyZ8JZ2HYsnsxd107+/zrD6GrvG1xKfM8RIUlmt1u7grBpkXv9QQ
-	TAwGvKkw1UO9Ot+XnENinEAIdLJC0lBRNbJ3mxrZ47u41CKKN+Td4iZOC9vu7PIU2p+k8fbezHL
-	BqSQO5xcI5t4fkqQhGjZNhNcdnHbTHOwY1K5a1Ish40ED+9kYP08Q6lrcKLYuBS+5S7Dm1N7pjH
-	JEQcAf5/6PGl9ivIwmJUQU/IFK1LtLRyT3tLVQtjH61qNd/iiT/C6A/1Zi+74GiUstXrjbsaaoD
-	EEHNf+cibpW3hRJRl2/iUecKUQhXaYQXjyIZS+XEn1P610GQcZHporcPx4IrA2hF8Lr8lYngkc0
-	fQW/zQSh03xzq1rgxwBg==
-X-Google-Smtp-Source: AGHT+IFG+miXy84MAkmSESonFdJyyR6+0pgOf9dKc1ZpoCX1mpIyq6XAL72MTWidfaxU04nInh2vCw==
-X-Received: by 2002:a17:906:f587:b0:afc:a331:ba2e with SMTP id a640c23a62f3a-afceacd90d8mr871673766b.24.1755524059794;
-        Mon, 18 Aug 2025 06:34:19 -0700 (PDT)
-Message-ID: <2035b14e-3836-4e80-9dad-8a49ca90864a@suse.com>
-Date: Mon, 18 Aug 2025 15:34:18 +0200
+        bh=aU6WsleQrH2ihQNXjsgn5kb3s440pPqiiKUIoE9B/8E=;
+        b=aRSnpCvE+vuuiiSj4zdTOOho7YfTIf+ke1dWpXFhxXD3n0iX3EXEa0T+69X1S/4vu8
+         MgqaO0PEIETwZscuGu/5uanrVVpGiygMMtUf9H64HWgAKB4MvFiHNSY/kTe1f4+ehjyj
+         38sgJfp0CQkh4QoFkm/yUsGEm58Mc43y2ZYciD93IQ23FqVvbJYKeJ6cHcWzjNTMFceV
+         WRp57ouso7OlaPgwCkkXLFYHXDxR0cABTYtl0oV5jdqClIE/jtxU2Bk/IC9Iw3tX78TI
+         cX8wXQtJFpKosGGLgXpBzJzd91yX5dIKvXJnHP1Q1SeyyS9DW1Hd5nNNU+4ohe9g9Wnk
+         bk/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1755524280; x=1756129080;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=aU6WsleQrH2ihQNXjsgn5kb3s440pPqiiKUIoE9B/8E=;
+        b=qqfsPUstDy9pnnnKB/HPxKJwRA3+xGQIhwUFGydY/3gUkHMp1a1OIA+ZC66qPTXBAL
+         rvXiHjqkMi3peYkUrl+yShsPPt4IOUqkaN2akdZXcO8F9XrQmN+8J98lvoMqj5S1os4W
+         j7AlbF7D3K00bJFkJG3rj8GvehJxRR8xVQ6l2UMGAuroDaHZnQIxXPHzQVU4UhGCD0mO
+         rgAu+8j1x5RDJcQmMhg1008z5R9PK/7/rEc5MXJrT11g1Yf3uLk0K8hNbxVO0gbPFdE2
+         n6MRgJ9aEYBlbUHzptySWAPqjw7PUzsf1/gnhRBHZXIXMlzJ7uSoD8yzG0lgUzKJ3mUk
+         nJGw==
+X-Forwarded-Encrypted: i=1; AJvYcCWVC8zf+MaA6+rt3VWnIQyw55PuNtGQADYmmI6nqkyJTfK+LX/3xBUPt16TqD+jEtI9uUksWesVGIE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwnNg6xqumclH/kFgm6dQ5kDyjnXrtsIk/jegE3tlb9QNaIqfLe
+	oaH1IGAqVTBPTUSm1KdJOc5MN7u+QBdgml6VfQJjkqHfgoH8Ps16ZU3Y
+X-Gm-Gg: ASbGncuUMCauzbKJhKldiJg5wauJfg5s3UtXQvBuXhHtyUQrkn6ZCCYHJMmU/4qZsNM
+	VtO9IV+5jal6MBeC3/FTBC9BqkRlwPEk7R5aeCpQcVFAxtYUTAoTjsQAOMDFEDD0FQ8SKBOu7Cb
+	WqgMm44/eutF7Tt1zpIgM+qoFck35V+GrA7gX2PYIxzJKPv5/xrhAHSmegjph7IYJep2XO9fPqE
+	hcSqGIxyrnR2R5JLUSm4jghCBTCwCTQi/J0LYrDDZimmMNm1mL3sQjpuyhM78LD0KOF02MQRShK
+	bphvL+1/KFmsRskt+pZE/483P+bcXl3jpxp316NNCdcw+rsy5RXLutXH2eSbulN0JwG0DJyAnJ6
+	ftWJlpM0zjjq/3ZMTB7YpSHrXmUnfc152eLD87uCNqV9f+vBfPBTMRok6X9C+iAFnNM8/V6SrxE
+	DELmBsCA==
+X-Google-Smtp-Source: AGHT+IEX7UgxuBSUYDk8vU5NmzFX871vMHKJWg7x8U/4UtMWZ9ztxrGltPz2kEZcRIP2sFy3fq+gaQ==
+X-Received: by 2002:a17:907:9344:b0:af8:f187:3222 with SMTP id a640c23a62f3a-afcdc35e589mr1098387166b.33.1755524279877;
+        Mon, 18 Aug 2025 06:37:59 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------FX5uLnqQvBBN0CgrzLqcHXju"
+Message-ID: <dcea6cee-7f8d-4f98-a72f-0969b818ffe0@gmail.com>
+Date: Mon, 18 Aug 2025 15:37:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH v2 1/2] Arm: drop assertion from page_is_ram_type()
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- Penny Zheng <Penny.Zheng@amd.com>
-References: <20250815102728.1340505-1-Penny.Zheng@amd.com>
- <fb6f559a-b2aa-4b25-a6d3-401ecc4b4bd5@suse.com>
- <d6046b53-9317-43d6-bfda-e30d42c09320@gmail.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <a2dc40a8-908a-44a7-b443-90f492a775cc@suse.com>
+ <753ce2a1-8d9c-41ba-a066-abf6f625cb60@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d6046b53-9317-43d6-bfda-e30d42c09320@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <753ce2a1-8d9c-41ba-a066-abf6f625cb60@suse.com>
+
+This is a multi-part message in MIME format.
+--------------FX5uLnqQvBBN0CgrzLqcHXju
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 18.08.2025 15:28, Oleksii Kurochko wrote:
-> On 8/18/25 10:31 AM, Jan Beulich wrote:
->> On 15.08.2025 12:27, Penny Zheng wrote:
->>> In order to fix CI error of a randconfig picking both PV_SHIM_EXCLUSIVE=y and
->>> HVM=y results in hvm.c being built, but domctl.c not being built, which leaves
->>> a few functions, like domctl_lock_acquire/release() undefined, causing linking
->>> to fail.
->>> To fix that, we intend to move domctl.o out of the PV_SHIM_EXCLUSIVE Makefile
->>> /hypercall-defs section, with this adjustment, we also need to release
->>> redundant vnuma_destroy() stub definition from PV_SHIM_EXCLUSIVE guardian,
->>> to not break compilation
->>> Above change will leave dead code in the shim binary temporarily and will be
->>> fixed with the introduction of domctl-op wrapping.
->> Well, "temporarily" is now getting interesting. While v1 of "Introduce
->> CONFIG_DOMCTL" was submitted in time to still be eligible for taking into
->> 4.21, that - as indicated elsewhere - is moving us further in an unwanted
->> direction.
-> 
-> Do you mean that specifically this patch or the whole patch series is moving us
-> in unwanted direction? (1)
 
-That series. We said we don't want individual CONFIG_SYSCTL, CONFIG_DOMCTL, etc.
-Instead a single umbrella option wants introducing. Which means there series
-doesn't need re-doing from scratch, but it may end up being a significant re-
-work, especially considering that CONFIG_SYSCTL is already in the codebase and
-hence now also needs replacing.
+On 8/18/25 9:55 AM, Jan Beulich wrote:
+> Its uses in offline_page() and query_page_offline() make it reachable on
+> Arm, as long as XEN_SYSCTL_page_offline_op doesn't have any Arm-specific
+> code added. It being reachable was even mentioned in the commit
+> introducing it, claiming it "clearly shouldn't be called on ARM just
+> yet".
+>
+> However, dropping the assertion from a function of this name is deemed
+> problematic. Rename it to better reflect its sole purpose outside of
+> x86-specific code.
+>
+> Fixes: 214c4cd94a80 ("xen: arm: stub page_is_ram_type")
+> Signed-off-by: Jan Beulich<jbeulich@suse.com>
+> ---
+> v2: Rename the function used in common code.
+> ---
+> The new name is chosen such that, down the road, offlining of non-RAM
+> could in principle also become possible.
 
->>   Hence I'm not sure this can even be counted as an in-time
->> submission. Plus it looks to be pretty extensive re-work in some areas.
-> 
-> It doesn't clear based on change log why this patch is sent outside "Introduce
-> CONFIG_DOMCTL" (2) as it looks the same as in (2) and it was reverted once with
-> the reason "for breaking the x86 build". (I haven't checked what was changed so
-> it won't lead to build issue again.)
+I think it could be useful to put in commit message.
 
-Before we can even consider further work in the intended direction, the present
-randconfig build issue wants sorting. Which supposedly this patch alone does.
+LGTM: Reviewed-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
 
-Jan
+~ Oleksii
+
+>
+> --- a/xen/arch/arm/mm.c
+> +++ b/xen/arch/arm/mm.c
+> @@ -64,10 +64,9 @@ int steal_page(
+>       return -EOPNOTSUPP;
+>   }
+>   
+> -int page_is_ram_type(unsigned long mfn, unsigned long mem_type)
+> +bool page_is_offlinable(mfn_t mfn)
+>   {
+> -    ASSERT_UNREACHABLE();
+> -    return 0;
+> +    return false;
+>   }
+>   
+>   unsigned long domain_get_maximum_gpfn(struct domain *d)
+> --- a/xen/arch/x86/mm.c
+> +++ b/xen/arch/x86/mm.c
+> @@ -425,6 +425,11 @@ int page_is_ram_type(unsigned long mfn,
+>       return 0;
+>   }
+>   
+> +bool page_is_offlinable(mfn_t mfn)
+> +{
+> +    return page_is_ram_type(mfn_x(mfn), RAM_TYPE_CONVENTIONAL);
+> +}
+> +
+>   unsigned int page_get_ram_type(mfn_t mfn)
+>   {
+>       uint64_t last = 0, maddr = mfn_to_maddr(mfn);
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -1635,7 +1635,7 @@ static unsigned long mark_page_offline(s
+>   {
+>       unsigned long nx, x, y = pg->count_info;
+>   
+> -    ASSERT(page_is_ram_type(mfn_x(page_to_mfn(pg)), RAM_TYPE_CONVENTIONAL));
+> +    ASSERT(page_is_offlinable(page_to_mfn(pg)));
+>       ASSERT(spin_is_locked(&heap_lock));
+>   
+>       do {
+> @@ -1711,7 +1711,7 @@ int offline_page(mfn_t mfn, int broken,
+>        * N.B. xen's txt in x86_64 is marked reserved and handled already.
+>        * Also kexec range is reserved.
+>        */
+> -    if ( !page_is_ram_type(mfn_x(mfn), RAM_TYPE_CONVENTIONAL) )
+> +    if ( !page_is_offlinable(mfn) )
+>       {
+>           *status = PG_OFFLINE_FAILED | PG_OFFLINE_NOT_CONV_RAM;
+>           return -EINVAL;
+> @@ -1851,7 +1851,7 @@ int query_page_offline(mfn_t mfn, uint32
+>   {
+>       struct page_info *pg;
+>   
+> -    if ( !mfn_valid(mfn) || !page_is_ram_type(mfn_x(mfn), RAM_TYPE_CONVENTIONAL) )
+> +    if ( !mfn_valid(mfn) || !page_is_offlinable(mfn) )
+>       {
+>           dprintk(XENLOG_WARNING, "call expand_pages() first\n");
+>           return -EINVAL;
+> --- a/xen/include/xen/mm.h
+> +++ b/xen/include/xen/mm.h
+> @@ -144,9 +144,11 @@ unsigned long avail_domheap_pages_region
+>   unsigned long avail_node_heap_pages(unsigned int nodeid);
+>   #define alloc_domheap_page(d,f) (alloc_domheap_pages(d,0,f))
+>   #define free_domheap_page(p)  (free_domheap_pages(p,0))
+> +
+>   int online_page(mfn_t mfn, uint32_t *status);
+>   int offline_page(mfn_t mfn, int broken, uint32_t *status);
+>   int query_page_offline(mfn_t mfn, uint32_t *status);
+> +bool page_is_offlinable(mfn_t mfn);
+>   
+>   void heap_init_late(void);
+>   
+>
+--------------FX5uLnqQvBBN0CgrzLqcHXju
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 8/18/25 9:55 AM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:753ce2a1-8d9c-41ba-a066-abf6f625cb60@suse.com">
+      <pre wrap="" class="moz-quote-pre">Its uses in offline_page() and query_page_offline() make it reachable on
+Arm, as long as XEN_SYSCTL_page_offline_op doesn't have any Arm-specific
+code added. It being reachable was even mentioned in the commit
+introducing it, claiming it "clearly shouldn't be called on ARM just
+yet".
+
+However, dropping the assertion from a function of this name is deemed
+problematic. Rename it to better reflect its sole purpose outside of
+x86-specific code.
+
+Fixes: 214c4cd94a80 ("xen: arm: stub page_is_ram_type")
+Signed-off-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
+---
+v2: Rename the function used in common code.
+---
+The new name is chosen such that, down the road, offlining of non-RAM
+could in principle also become possible.</pre>
+    </blockquote>
+    <pre>I think it could be useful to put in commit message.
+
+LGTM: Reviewed-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+
+~ Oleksii
+</pre>
+    <blockquote type="cite"
+      cite="mid:753ce2a1-8d9c-41ba-a066-abf6f625cb60@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+--- a/xen/arch/arm/mm.c
++++ b/xen/arch/arm/mm.c
+@@ -64,10 +64,9 @@ int steal_page(
+     return -EOPNOTSUPP;
+ }
+ 
+-int page_is_ram_type(unsigned long mfn, unsigned long mem_type)
++bool page_is_offlinable(mfn_t mfn)
+ {
+-    ASSERT_UNREACHABLE();
+-    return 0;
++    return false;
+ }
+ 
+ unsigned long domain_get_maximum_gpfn(struct domain *d)
+--- a/xen/arch/x86/mm.c
++++ b/xen/arch/x86/mm.c
+@@ -425,6 +425,11 @@ int page_is_ram_type(unsigned long mfn,
+     return 0;
+ }
+ 
++bool page_is_offlinable(mfn_t mfn)
++{
++    return page_is_ram_type(mfn_x(mfn), RAM_TYPE_CONVENTIONAL);
++}
++
+ unsigned int page_get_ram_type(mfn_t mfn)
+ {
+     uint64_t last = 0, maddr = mfn_to_maddr(mfn);
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -1635,7 +1635,7 @@ static unsigned long mark_page_offline(s
+ {
+     unsigned long nx, x, y = pg-&gt;count_info;
+ 
+-    ASSERT(page_is_ram_type(mfn_x(page_to_mfn(pg)), RAM_TYPE_CONVENTIONAL));
++    ASSERT(page_is_offlinable(page_to_mfn(pg)));
+     ASSERT(spin_is_locked(&amp;heap_lock));
+ 
+     do {
+@@ -1711,7 +1711,7 @@ int offline_page(mfn_t mfn, int broken,
+      * N.B. xen's txt in x86_64 is marked reserved and handled already.
+      * Also kexec range is reserved.
+      */
+-    if ( !page_is_ram_type(mfn_x(mfn), RAM_TYPE_CONVENTIONAL) )
++    if ( !page_is_offlinable(mfn) )
+     {
+         *status = PG_OFFLINE_FAILED | PG_OFFLINE_NOT_CONV_RAM;
+         return -EINVAL;
+@@ -1851,7 +1851,7 @@ int query_page_offline(mfn_t mfn, uint32
+ {
+     struct page_info *pg;
+ 
+-    if ( !mfn_valid(mfn) || !page_is_ram_type(mfn_x(mfn), RAM_TYPE_CONVENTIONAL) )
++    if ( !mfn_valid(mfn) || !page_is_offlinable(mfn) )
+     {
+         dprintk(XENLOG_WARNING, "call expand_pages() first\n");
+         return -EINVAL;
+--- a/xen/include/xen/mm.h
++++ b/xen/include/xen/mm.h
+@@ -144,9 +144,11 @@ unsigned long avail_domheap_pages_region
+ unsigned long avail_node_heap_pages(unsigned int nodeid);
+ #define alloc_domheap_page(d,f) (alloc_domheap_pages(d,0,f))
+ #define free_domheap_page(p)  (free_domheap_pages(p,0))
++
+ int online_page(mfn_t mfn, uint32_t *status);
+ int offline_page(mfn_t mfn, int broken, uint32_t *status);
+ int query_page_offline(mfn_t mfn, uint32_t *status);
++bool page_is_offlinable(mfn_t mfn);
+ 
+ void heap_init_late(void);
+ 
+
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------FX5uLnqQvBBN0CgrzLqcHXju--
 
