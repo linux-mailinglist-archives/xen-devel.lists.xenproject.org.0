@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4543EB29C47
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Aug 2025 10:31:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1085622.1443933 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 299F5B29C4A
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Aug 2025 10:31:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1085626.1443944 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1unvH3-0001rT-J8; Mon, 18 Aug 2025 08:31:25 +0000
+	id 1unvH9-0002Ep-Si; Mon, 18 Aug 2025 08:31:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1085622.1443933; Mon, 18 Aug 2025 08:31:25 +0000
+Received: by outflank-mailman (output) from mailman id 1085626.1443944; Mon, 18 Aug 2025 08:31:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1unvH3-0001pl-Fy; Mon, 18 Aug 2025 08:31:25 +0000
-Received: by outflank-mailman (input) for mailman id 1085622;
- Mon, 18 Aug 2025 08:31:24 +0000
+	id 1unvH9-0002BW-OE; Mon, 18 Aug 2025 08:31:31 +0000
+Received: by outflank-mailman (input) for mailman id 1085626;
+ Mon, 18 Aug 2025 08:31:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rFjA=26=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1unvH2-0001ku-L3
- for xen-devel@lists.xenproject.org; Mon, 18 Aug 2025 08:31:24 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (envelope-from <SRS0=q+DX=26=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1unvH7-0001ku-UU
+ for xen-devel@lists.xenproject.org; Mon, 18 Aug 2025 08:31:29 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b62fc47b-7c0d-11f0-b898-0df219b8e170;
- Mon, 18 Aug 2025 10:31:19 +0200 (CEST)
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-163-lLf9u_weMcqOXGfoFG1xEg-1; Mon, 18 Aug 2025 04:31:16 -0400
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-45a1b0cfbafso23520285e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 01:31:16 -0700 (PDT)
-Received: from ?IPV6:2003:d8:2f22:600:53c7:df43:7dc3:ae39?
- (p200300d82f22060053c7df437dc3ae39.dip0.t-ipconnect.de.
- [2003:d8:2f22:600:53c7:df43:7dc3:ae39])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3bb64a40c3asm12015938f8f.14.2025.08.18.01.31.12
+ id bc1987b0-7c0d-11f0-b898-0df219b8e170;
+ Mon, 18 Aug 2025 10:31:28 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-afcb7a16441so591039666b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 01:31:28 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-afcdce53eccsm758883766b.19.2025.08.18.01.31.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Aug 2025 01:31:14 -0700 (PDT)
+ Mon, 18 Aug 2025 01:31:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,165 +45,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b62fc47b-7c0d-11f0-b898-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1755505877;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=IrBtZYA5Z28bn60ohedxv6GlFgI1zXS/Odi0JqkPxhE=;
-	b=MviD3leTV9mFV5GVUcRmCDtj7YbQ2Zrab1eIgTFQ598L7Ze1PxD6VmaTkpucex2lfQiRCn
-	RwEbjSUhqGeJj7G052DGLh3E54EgbHMAZeEytCAcA0O6vlQihz0MyanHq1DhpP9Mdye2gr
-	GG3ZCcTx3TSw9vmpL8rV1xF5FhAZCFc=
-X-MC-Unique: lLf9u_weMcqOXGfoFG1xEg-1
-X-Mimecast-MFC-AGG-ID: lLf9u_weMcqOXGfoFG1xEg_1755505875
+X-Inumbo-ID: bc1987b0-7c0d-11f0-b898-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1755505887; x=1756110687; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ufTV9yb7EWwTifzkKQGotfy3d0T3We0zou2B9TTj27w=;
+        b=ZcyEexFjNzm5wRKEUYO8OM4c2noBJRRnZI/29h+HqFzMpXqj5eXg1Acsythu4eX2/j
+         RWW04/fsXdn85eSiWRJOxOvwui2PG9sh/eCmyRkx5LPFRL7DuKY0wrHSj92wAfiRRHpM
+         IKnN3R5JPaDVDUb+JxR7BMNaHuMFnG2bodUEgCrmri6vy4DDuNvx7PfS2VWAefBQD2L2
+         OMKReKoXb43z5PHoZZEPZbUgMyA3dOM1rmWrhm0TcOgjENHgViI6OZHzy1nn6clGHJah
+         3lGKmgJVOh+CD72MIZEEwDlTFYtNEt+Vf+K9ehxdXCLqXuMlVYb9zZWS0BcXyWPgUL6s
+         DeaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755505875; x=1756110675;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=IrBtZYA5Z28bn60ohedxv6GlFgI1zXS/Odi0JqkPxhE=;
-        b=aj+C02tJx1wQnCqAL48tVlZQ8wFVhmeq+RBKOmF9VcteJjp9vnJgmc5tvUS+fl6Dxu
-         SZC76apum75UPo55DORmLOWulhbw8ajvEzkUxfj4m3foF1UC4CNEDZX1j29erbDcM8pN
-         GqflzOEVFMpBo4rrHWsDu8vvVXJmdOp5DycFw2OaYuRRGzr5CE5HH3y3fweDHX0tdku2
-         /cEa8/cKc79M/meJ3S4shEGmneT7Va9o6ROouR3aVY9T8qAdmowMu1c5CI7//RQKyhCx
-         y0n5cfF09OtZ+9LO3Ouqz3PwiP/XM+r9giYgLQ9gRPulrno0gys41xiB8IJ4SD+HcTPw
-         1euw==
-X-Forwarded-Encrypted: i=1; AJvYcCWb8TFlhN94L+A/7zBuzaoEsPj2gZJ1GVWIBQk6bc6uSz0m4EteoC2eekylUjaJD4CU18g9CHOC0PE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxwXUaiqXwubAbdFnnQCvZqdPaxbEHLwPkTfcv/vphADMVvzMAS
-	3ex/vbd5/L3eLvP3PbsEMmjIRpqoZUh1Ot2iKhquO42GMbBbugVmR1vJ0i+TPZZeYxqoFPkjfQI
-	YcSTS9VgpUD4vOweYHjVxL/Xtjf/+Kmd7FU6OXwzdaRw+Me58fnfNSUnjvKXdel1dX0lw
-X-Gm-Gg: ASbGncuCym/pdMOzMbBIgxl6xN7/mDxlC2EqS/AtYczzNSpLc3ZyFY+svjm22sjXU0S
-	A2JIW4A8I8S79hUzyjvMolIJ5NVge7CNfj4ghQtDojbFkoddAmI54bxoLb8FcFW7dqq6SJfZLie
-	6DWrPQCOTaKj7JeHk9zSa2F4G5gjcfMJ52Lbh/gayQkYvary9J9SiywrhxPFKHeeoNKvKWnUSIk
-	I6+v6N1BJiL4mYlpiJAs9OFnJPffxpCxxH+wJu7PLw+UUZn5Iz025wGIrlhvwFJELnmWvr2foFX
-	2gXFfsgIou9Exj68rTzq6lIJuPA6NN8pB3IazgpVdRC6JJTLRG5xy3PeHPZqO6Jzwq0EW5H5BAm
-	zDyHYnwDksyZMrVonG8cTsHO/pozy6MZb0UBX4PRk0TLsMGZg+RsZl7SnaQiMmJO5
-X-Received: by 2002:a05:600c:a43:b0:459:a1c7:99ad with SMTP id 5b1f17b1804b1-45a21839edbmr81793175e9.22.1755505875232;
-        Mon, 18 Aug 2025 01:31:15 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFUJ0JHZagWj9XCwRsqfc1oqsDUPxyV3bXjzLuhESOGbYeY8B2myjjJBUZ0Oh+caqJMAY5Uow==
-X-Received: by 2002:a05:600c:a43:b0:459:a1c7:99ad with SMTP id 5b1f17b1804b1-45a21839edbmr81792535e9.22.1755505874765;
-        Mon, 18 Aug 2025 01:31:14 -0700 (PDT)
-Message-ID: <63082884-1fe2-4740-8e6a-e1d06aa5e239@redhat.com>
-Date: Mon, 18 Aug 2025 10:31:12 +0200
+        d=1e100.net; s=20230601; t=1755505888; x=1756110688;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ufTV9yb7EWwTifzkKQGotfy3d0T3We0zou2B9TTj27w=;
+        b=XHqEv5/PtxpUxNiAn8Y1wWZ/+VF8/WWUH66c40OIkDNC4UOdDT345bDK9p80+7Ardf
+         iMIoetliItH7STXKEfglCNGavN3vBwgV0sIOlo5hd7xShiVCLewsEHX+PU/TFaOSL4Yh
+         ZMSCt45A9m9siwQq2RWWckUSpN1RQLK6awFwwT3MeMCq0vagfEVy4B/ZlWwY2wOJVM6N
+         0JkjoHG8mkjPB+EUdvrN22SWCRkmN1F2vc1CO5u9anNI6lnQRhcHbD7fiDR1Rgmw07oM
+         tkFgEWNHNsDW8ZSCnXvpvbJh+mRuPLyYU0FvvgH6GWteyEa9GBB3f/Bx9IgUXbsD088M
+         UTZA==
+X-Forwarded-Encrypted: i=1; AJvYcCUImUnt3i6QJuib/acHotpQAp0GvMdOgf0X4W1OLuma2mZhwZmRpKs9NFBSyLVbBkEuYEM4E+nzIFc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxam4FItq/XtE0upltKuYoqE9id2gZYTERWl66f4MFSh2AYyACU
+	j/oHXFMADDm4LqmBjPX2h05m+lNd+zj3ARq1R5uMJN24mFa3NIm8HRGKR6YgB3sF7g==
+X-Gm-Gg: ASbGncskYEaGMPQQ+uVmD/j0UlOG5yFEN79s56oZzb6SnNZ4VHbgaI4TVwIDiQSzZ+z
+	2xcPMSwglV5CIeXa/GQiy3tCdGhzmibM5qyVPh1NcHFHDg7YMcKfaukKRTnm7yvI840Nqdrx/33
+	KR/WWrsNoETv8FTZCCaWoDh14wyZ0p14BqB75WPla0bhhJfiheSU7RRPj5FQvZJEvgeEYuv3aaC
+	WWWHcAJu8eK4Gu20vDI+cusOTev4nHQshTylaYiKgWFiQcmZuFA6Hsy6pfgfgw40VAXeNhGzIP1
+	Lz7VFw8SRG0lNkHBqP9zXOeaNOHlbFSUBpZ/e6bj61rhgVByd4esLKBfG0djZEm0VXgOsG7eJiW
+	+BdaL3GCFXhodWmsu+p9Nv3hBuK+3te7kosE86Q6rcQpAZADFH7FPOcxzZJUr9dtQ/eyn9N0CEw
+	OhHEqrprI=
+X-Google-Smtp-Source: AGHT+IGGNdpqZtCrSiKl7h+/rKglrRsKPfqLFVI3z+wkQRl2W6nNtVFJCW/OJD8tcdJNgotSRMdx0Q==
+X-Received: by 2002:a17:907:7ea8:b0:af9:38ed:5b49 with SMTP id a640c23a62f3a-afcdc2062c1mr1027390966b.5.1755505887483;
+        Mon, 18 Aug 2025 01:31:27 -0700 (PDT)
+Message-ID: <fb6f559a-b2aa-4b25-a6d3-401ecc4b4bd5@suse.com>
+Date: Mon, 18 Aug 2025 10:31:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/numa: Rename memory_add_physaddr_to_nid to
- memory_get_phys_to_nid
-To: Pratyush Brahma <pratyush.brahma@oss.qualcomm.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- Dan Williams <dan.j.williams@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>,
- Ira Weiny <ira.weiny@intel.com>, Oscar Salvador <osalvador@suse.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Danilo Krummrich <dakr@kernel.org>, Davidlohr Bueso <dave@stgolabs.net>,
- Jonathan Cameron <jonathan.cameron@huawei.com>,
- Alison Schofield <alison.schofield@intel.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Pankaj Gupta
- <pankaj.gupta.linux@gmail.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
- Juergen Gross <jgross@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-acpi@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-mm@kvack.org, linux-cxl@vger.kernel.org,
- linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
- xen-devel@lists.xenproject.org
-References: <20250818-numa_memblks-v1-1-9eb29ade560a@oss.qualcomm.com>
- <d7cdb65d-c241-478c-aa01-bc1a5f188e4f@redhat.com>
- <CALzOmR0C8BFY+-u-_aprVeAhq4uPOQa+f2L5m+yZH+=XZ2cv_w@mail.gmail.com>
-From: David Hildenbrand <david@redhat.com>
-Autocrypt: addr=david@redhat.com; keydata=
- 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
- qIws/H2t
-In-Reply-To: <CALzOmR0C8BFY+-u-_aprVeAhq4uPOQa+f2L5m+yZH+=XZ2cv_w@mail.gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: aodvscB1_8z9ffOoRuWR7eWfiTL8WUgUT7DcjY5pziE_1755505875
-X-Mimecast-Originator: redhat.com
+Subject: Re: [PATCH] xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE
+To: Penny Zheng <Penny.Zheng@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250815102728.1340505-1-Penny.Zheng@amd.com>
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250815102728.1340505-1-Penny.Zheng@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 18.08.25 10:27, Pratyush Brahma wrote:
-> On Mon, Aug 18, 2025 at 12:29 PM David Hildenbrand <david@redhat.com> wrote:
->>
->> On 18.08.25 08:41, pratyush.brahma@oss.qualcomm.com wrote:
->>> From: Pratyush Brahma <pratyush.brahma@oss.qualcomm.com>
->>>
->>> The function `memory_add_physaddr_to_nid` seems a misnomer.
->>> It does not to "add" a physical address to a NID mapping,
->>> but rather it gets the NID associated with a given physical address.
->>
->> You probably misunderstood what the function is used for: memory hotplug
->> aka "memory_add".
-> Thanks for your feedback. I get the part about memory hotplug here but
-> using memory_add still seems a little odd as it doesn't truly reflect
-> what this api is doing.
-> However, I agree that my current suggestion
-> may not be the perfect choice for the name, so I'm open to suggestions.
-> 
-> Perhaps, something like "memory_add_get_nid_by_phys" may work here?
+On 15.08.2025 12:27, Penny Zheng wrote:
+> In order to fix CI error of a randconfig picking both PV_SHIM_EXCLUSIVE=y and
+> HVM=y results in hvm.c being built, but domctl.c not being built, which leaves
+> a few functions, like domctl_lock_acquire/release() undefined, causing linking
+> to fail.
+> To fix that, we intend to move domctl.o out of the PV_SHIM_EXCLUSIVE Makefile
+> /hypercall-defs section, with this adjustment, we also need to release
+> redundant vnuma_destroy() stub definition from PV_SHIM_EXCLUSIVE guardian,
+> to not break compilation
+> Above change will leave dead code in the shim binary temporarily and will be
+> fixed with the introduction of domctl-op wrapping.
 
-I don't think this name is really any better and worth the churn :(
+Well, "temporarily" is now getting interesting. While v1 of "Introduce
+CONFIG_DOMCTL" was submitted in time to still be eligible for taking into
+4.21, that - as indicated elsewhere - is moving us further in an unwanted
+direction. Hence I'm not sure this can even be counted as an in-time
+submission. Plus it looks to be pretty extensive re-work in some areas.
+Hence I'm somewhat weary as to 4.21 here. IOW question, mainly to Oleksii,
+is whether to
+1) strive to complete that work in time (and hence take the patch here),
+2) take the patch here, accepting the size regression for the shim, or
+3) revert what has caused the randconfig issues, and retry the effort in
+   4.22.
 
--- 
-Cheers
+> Fixes: 568f806cba4c ("xen/x86: remove "depends on !PV_SHIM_EXCLUSIVE"")
+> Reported-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 
-David / dhildenb
+My earlier question (when the patch still was part of a series) sadly has
+remained unanswered: You've run this through a full round of testing this
+time?
 
+Jan
 
