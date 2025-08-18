@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 415DFB29BDE
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Aug 2025 10:19:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1085571.1443884 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E1C7B29BE9
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Aug 2025 10:23:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1085581.1443895 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1unv59-0004xk-IF; Mon, 18 Aug 2025 08:19:07 +0000
+	id 1unv8V-0006tH-0h; Mon, 18 Aug 2025 08:22:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1085571.1443884; Mon, 18 Aug 2025 08:19:07 +0000
+Received: by outflank-mailman (output) from mailman id 1085581.1443895; Mon, 18 Aug 2025 08:22:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1unv59-0004vR-EZ; Mon, 18 Aug 2025 08:19:07 +0000
-Received: by outflank-mailman (input) for mailman id 1085571;
- Mon, 18 Aug 2025 08:19:06 +0000
+	id 1unv8U-0006q9-UC; Mon, 18 Aug 2025 08:22:34 +0000
+Received: by outflank-mailman (input) for mailman id 1085581;
+ Mon, 18 Aug 2025 08:22:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=q+DX=26=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1unv57-0004of-V2
- for xen-devel@lists.xenproject.org; Mon, 18 Aug 2025 08:19:05 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YQjc=26=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1unv8T-0006q3-20
+ for xen-devel@lists.xenproject.org; Mon, 18 Aug 2025 08:22:33 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0158e744-7c0c-11f0-a329-13f23c93f187;
- Mon, 18 Aug 2025 10:19:05 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-afcb78c77ebso612656366b.1
- for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 01:19:05 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afcdce78d2esm752119666b.52.2025.08.18.01.19.03
+ id 7c8e38fc-7c0c-11f0-a329-13f23c93f187;
+ Mon, 18 Aug 2025 10:22:32 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-afcb78c77ebso613063466b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 01:22:32 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-afcdcfccbb7sm759512366b.79.2025.08.18.01.22.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Aug 2025 01:19:04 -0700 (PDT)
+ Mon, 18 Aug 2025 01:22:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,101 +45,330 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0158e744-7c0c-11f0-a329-13f23c93f187
+X-Inumbo-ID: 7c8e38fc-7c0c-11f0-a329-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755505145; x=1756109945; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=sFY94uChyClg0+a0a/YvsDr5HY1piMcnGgbaNPokLow=;
-        b=YFcEnU0lA/NSRJurlDB0ujpXO9k6PLBM2dsu89JJw0MQMI4J+NE+rs2UWGHZzOx8iD
-         SmWJ/3qeJ/RWN4Sw38GFgM3AHssnu+iflsKr7TElX7pWsZmbv/LiXG2ZHXKllmeMRsRz
-         ft7CJrz3I9c88ecPFUkwKiBeGX5CPr3ThU/UqKS1aANlwHided/p+XsUD2B/u5MDxKeJ
-         1t9ofJGtAVc1ivrN5NVPqWwYMrr7en1AmYDrjHaJyd8uH/ihvNNY6ubhiofqnUcztzLl
-         yckhCdh9eoJa7EReGNfwGjJ5lP+lsn3siKna3sl+VZ39xIj6GG9pDLll9F6PhPncnXNN
-         KUng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755505145; x=1756109945;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1755505351; x=1756110151; darn=lists.xenproject.org;
+        h=in-reply-to:content-language:references:cc:to:subject:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sFY94uChyClg0+a0a/YvsDr5HY1piMcnGgbaNPokLow=;
-        b=RSf17QFKdJOmG4pEtdO0KrYU7N1SuQPqwq/J8GQce4cOtMou/wVaHuQVqac3oSRpvC
-         bA+ahe6FABUgqwUDgBwAyKB2CDvAI0mGc70q2ZhdG5URMyt+fo5hmHs801cBV8Kru+Se
-         WsAAY/pL6NHheMbs4ejsYKnBtQzqIrbD6OMHXg85ft0NGvSt/WrGKwfvWCRQm4fxpjYj
-         4wVXR581cr0vujPKHwovokxGFvPSUHurM+wEjiZu789ufhJsFQWC+YtT3wUhuYKDI9QL
-         zzjQ4sDYpydKnZ4bAXZ/LOrzD35Ap7M2oM0zZbfKIuoQKl7auY8gA/ghN5/IEW5Yg+SP
-         /9Jg==
-X-Forwarded-Encrypted: i=1; AJvYcCXcrZ58CaQntB1d862UdjpDGI+2rl2zrZmUZ+T0IUd24Suu4BtfAwcYvNLtF6SdyoecfxNY0aJPx08=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx6+i2dln4VWBG8nvTimdtBpJogV5+CBvj1U6aYyi6wGt53stPE
-	cHyjnXgwfmT/dWvdmL0PurRk5C2BoHPecA/u1R1lD/jabsbOFy5HhZrEcIAHt4R8HQ==
-X-Gm-Gg: ASbGncv1qYMB+cumke83V1ReriaZAYiGonMTXT4v7LMS8VHjlRpWzLGWum5tQyqPfkO
-	nFDyugrJwm0wpGs0E0/wCO26FowSfFfDuEc2E34Xznr8b+Khuf0wxImUO5TpQITEaSdqa5JMmhz
-	vzQvY1gLfSy7uuQSMzOE/LrkorjOWay1j+hU5aTm3yr48nefWY2xnkbp0Rpo9mqXsO7SVPZIdeU
-	eK6pVpsxv/ZdWc17u1IMjASh1tdKxmnj5v7MYLS721lN0YAO3Ge0mFNhB43BXEFyQMXplIqCzqB
-	Zr6NB/ztFnOf0GFY+X+638KtzGPuVEafdWWTIATnT67zdgES+8rcXqIbJsmjwWqtDH8ehOMHmN2
-	x7nsGxUn5VkMBVU7cOUNxNYOBJeXAqcNu9JEoJgtZEqFxDCDQ1wa/j1PRmobg/4RyQhVnFXblfX
-	MGlnL/QdxMOT+VU5oooA==
-X-Google-Smtp-Source: AGHT+IHNNb6YOA/LW0siZbnkTY39xA+HxDf0E8keY6qGqfmq9zsavAiBDWgNME2Odf0ra0vBtxNxsA==
-X-Received: by 2002:a17:907:3f12:b0:af9:414d:9c2 with SMTP id a640c23a62f3a-afcdc1c2477mr1064902866b.3.1755505144372;
-        Mon, 18 Aug 2025 01:19:04 -0700 (PDT)
-Message-ID: <717ab7f1-7ec4-4319-bf33-d7b430e04760@suse.com>
-Date: Mon, 18 Aug 2025 10:19:03 +0200
+        bh=RRtB3XWqryub4ZyYPikWvB3iVIfbkwlh8Xkj2D4+MJw=;
+        b=nLEAD+tu0Kt+G9Y8FwK1B3I12PTyqxTSlBzk7A88xK9o49m/0dgysN2+JAn4RMkKQR
+         eBnsYqsOqi6XU0o+I5adeiYdgB3sJijKeDnlRQrde5GIdBJAmfvLxWymQc1xGxoVYvwd
+         XfSlKzZYjkGqvjeciVtYX39FEnL/43/rfnLOsXJd4+DR9e7UyZMX5Gn/+kCL08oGk4dh
+         AahBYuIbQ+CsKsL6oZI4x36IIxu96CaIwU4YHmM4ApTLMRp5/put0I67NkXQV6ZIOY5+
+         vFwhYZuRvXZpRdgvc7z343ra0gIZIhjV3mZzliEvV+9/CHELw6GXC3nyydmE3QkS1hy9
+         +LOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1755505351; x=1756110151;
+        h=in-reply-to:content-language:references:cc:to:subject:from
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=RRtB3XWqryub4ZyYPikWvB3iVIfbkwlh8Xkj2D4+MJw=;
+        b=Yh5kOVB6kRzXDPY/s9c3S91gmpLYypJIrnrQmaTdORktaZvpru4H0rcOduJB2fZ7bb
+         S4k5sY4m+Pw2bXXTT5z7gOUDBKdgB/ii6GgFY5kiSndepeoxkaTHlXv/BFS+Ad8qWIE6
+         Eil3IHHD5F314ovaZoZnYnRvVbkP4330VfQorWDD2Yh73IhB3MTvz/G27QekA4LIBA4R
+         3ze35w+1ekfVgOUCbX1ReEE27dCJ8TrrGlpidsJTFcoBmgKDn23jTqSZHCXFssnCZqRa
+         NMxcYOYoD17RPp71EK1muuASGuGP4PihQ1YnLT4cf8ZFOjV9zZ4OFMmSpenJSCJTXrZe
+         nSIg==
+X-Forwarded-Encrypted: i=1; AJvYcCVt+2fcWfOVTWXB3ECfmIWfjfGIR874wfmmAjSzsE7y9J1dWEPOfw5Lngg7y6XxXIQxMDotlnzFdKs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzxOMKzsqjjemv/rw/zkILe+nY0B+cNZ5qxIBuG6qNeC1YD3+de
+	QCuIQGC0MrTHPppMdHNdpPQ9wJkPzicDOX1pfbeo5/Vwx3IHFARFI3qE
+X-Gm-Gg: ASbGncv4yWGA/7lcHSLkrZHOb+dAN8bZzzvIvukKlwYdyOwdk6l0ChOThE9/QBVJS0d
+	lFyehGZWQ1FWcLJIEXr7MLvit+UbWB+umSOEHqgyFwCZFaScnUjqgDog0Dog5+TC4zwRRTszL+W
+	4L/q0Z8O9ALcMh4jfoFsE+b1fxbeWrjgz9evX3Qh7caNPgW7Ce0mbjp0h5qkTyCDrty0c5q6tec
+	2pIlAHAOY7S+r7mqis83824erZXFsrTn42t34oRwdaV+tBf8ycWFb1D7/l+utdRbaH01IDjFIoE
+	ve7Y1bOmeMFzSTxP3yKjLXBqY0c9crJPT0ADWHqngBXOEwfA8sp+7ObaMQjt2PKG2ZXVZykEIYK
+	ystDTJLhzXgjHWPA9TTBwxC3BPy835FNLv92Lv0kvLuFXYL1HuWKaim2tv3+lBfa7O9AJViA=
+X-Google-Smtp-Source: AGHT+IGJV9ajKmwgyV00Kv1J/nWojG6fFn8XBu+j8FlEHR1eDFahOpm9PnJMOQxMnNYT+XStLi+qPg==
+X-Received: by 2002:a17:907:d92:b0:af9:3019:6aef with SMTP id a640c23a62f3a-afcdc1c0a4fmr1125457666b.10.1755505351103;
+        Mon, 18 Aug 2025 01:22:31 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------FknOeCGiPYNNZXbR6X29R0Mx"
+Message-ID: <3fc9f081-e358-4972-a39b-fab0494433c4@gmail.com>
+Date: Mon, 18 Aug 2025 10:22:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] xen/llvm.c: udpate LLVM profile raw format from v4 to
- v10
-To: Erkai Yu <si1krow@outlook.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v3 13/20] xen/riscv: Implement p2m_free_subtree() and
+ related helpers
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <1e44e2b9009fe8d2dad5fb31c2a4ac4114e0b892.1755478573.git.si1krow@outlook.com>
+References: <cover.1753973161.git.oleksii.kurochko@gmail.com>
+ <41845723a7b0e3efd09095d13e57aace6f7747ef.1753973161.git.oleksii.kurochko@gmail.com>
+ <98dc796e-bb14-435e-8c19-53e5de60cc43@suse.com>
+ <c8a07c48-b79b-4136-a265-91c14bb96c81@gmail.com>
+ <117e35e0-d23e-4527-964a-82fa2bed57fd@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1e44e2b9009fe8d2dad5fb31c2a4ac4114e0b892.1755478573.git.si1krow@outlook.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <117e35e0-d23e-4527-964a-82fa2bed57fd@suse.com>
+
+This is a multi-part message in MIME format.
+--------------FknOeCGiPYNNZXbR6X29R0Mx
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 18.08.2025 03:06, "Erkai Yu failedtofindaname"@gmail.com wrote:
-> From: Erkai Yu <si1krow@outlook.com>
-> 
-> Update LLVM profile raw format version from 4 to 10, supporting
-> LLVM 19 and LLVM 20. Only the file xen/common/coverage/llvm.c is 
-> changed.
-> 
-> I’m not sure whether maintainers want to update this version, since
-> version 4 is already a bit outdated. My patch currently supports LLVM
-> 19 and 20; it’s unclear if maintainers would prefer support for all
-> format versions from 4 to 10.
 
-This shouldn't be part of the commit message imo, but yes - we can't
-very well support just one version when it constantly changes.
+On 8/14/25 5:17 PM, Jan Beulich wrote:
+> On 14.08.2025 17:09, Oleksii Kurochko wrote:
+>> On 8/6/25 5:55 PM, Jan Beulich wrote:
+>>> On 31.07.2025 17:58, Oleksii Kurochko wrote:
+>>>> +/* Put any references on the page referenced by pte. */
+>>>> +static void p2m_put_page(const pte_t pte, unsigned int level)
+>>>> +{
+>>>> +    mfn_t mfn = pte_get_mfn(pte);
+>>>> +    p2m_type_t p2m_type = p2m_get_type(pte);
+>>>> +
+>>>> +    ASSERT(pte_is_valid(pte));
+>>>> +
+>>>> +    /*
+>>>> +     * TODO: Currently we don't handle level 2 super-page, Xen is not
+>>>> +     * preemptible and therefore some work is needed to handle such
+>>>> +     * superpages, for which at some point Xen might end up freeing memory
+>>>> +     * and therefore for such a big mapping it could end up in a very long
+>>>> +     * operation.
+>>>> +     */
+>>>> +    switch ( level )
+>>>> +    {
+>>>> +    case 1:
+>>>> +        return p2m_put_2m_superpage(mfn, p2m_type);
+>>>> +
+>>>> +    case 0:
+>>>> +        return p2m_put_4k_page(mfn, p2m_type);
+>>>> +    }
+>>> Yet despite the comment not even an assertion for level 2 and up?
+>> Not sure that an ASSERT() is needed here as a reference(s) for such page(s)
+>> will be put during domain_relinquish_resources() as there we could do preemption.
+>> Something like Arm does here:
+>>     https://gitlab.com/xen-project/people/olkur/xen/-/blob/staging/xen/arch/arm/mmu/p2m.c?ref_type=heads#L1587
+>>
+>> I'm thinking that probably it makes sense to put only 4k page(s) and
+>> all other cases postpone until domain_relinquish_resources() is called.
+> How can you defer to domain cleanup? How would handling of foreign mappings
+> (or e.g. ballooning? not sure) work when you don't drop references as
+> necessary?
 
-Jan
+I was confused by the code in|relinquish_p2m_mapping()|, since it removes
+foreign mappings from the P2M. My current understanding is that it is called
+for foreign mappings that weren’t explicitly unmapped, in order to drop the
+page reference taken when the mapping was created. Initially, I thought it
+would be enough to just perform the (un)map in the P2M page tables to have
+foreign mapping working, but that could result in a page never being fully
+released, which would in turn break or confuse other logic.
+
+So, yes, I agree that your initial suggestion to add ASSERT() is useful to
+be sure that no one is using level 2 super-pages for foreign mapping.
+
+>>>>    /* Free pte sub-tree behind an entry */
+>>>>    static void p2m_free_subtree(struct p2m_domain *p2m,
+>>>>                                 pte_t entry, unsigned int level)
+>>>>    {
+>>>> -    panic("%s: hasn't been implemented yet\n", __func__);
+>>>> +    unsigned int i;
+>>>> +    pte_t *table;
+>>>> +    mfn_t mfn;
+>>>> +    struct page_info *pg;
+>>>> +
+>>>> +    /* Nothing to do if the entry is invalid. */
+>>>> +    if ( !pte_is_valid(entry) )
+>>>> +        return;
+>>>> +
+>>>> +    if ( pte_is_superpage(entry, level) || (level == 0) )
+>>> Perhaps swap the two conditions around?
+>>>
+>>>> +    {
+>>>> +#ifdef CONFIG_IOREQ_SERVER
+>>>> +        /*
+>>>> +         * If this gets called then either the entry was replaced by an entry
+>>>> +         * with a different base (valid case) or the shattering of a superpage
+>>>> +         * has failed (error case).
+>>>> +         * So, at worst, the spurious mapcache invalidation might be sent.
+>>>> +         */
+>>>> +        if ( p2m_is_ram(p2m_get_type(p2m, entry)) &&
+>>>> +             domain_has_ioreq_server(p2m->domain) )
+>>>> +            ioreq_request_mapcache_invalidate(p2m->domain);
+>>>> +#endif
+>>>> +
+>>>> +        p2m_put_page(entry, level);
+>>>> +
+>>>> +        return;
+>>>> +    }
+>>>> +
+>>>> +    table = map_domain_page(pte_get_mfn(entry));
+>>>> +    for ( i = 0; i < XEN_PT_ENTRIES; i++ )
+>>>> +        p2m_free_subtree(p2m, table[i], level - 1);
+>>> In p2m_put_page() you comment towards concerns for level >= 2; no similar
+>>> concerns for the resulting recursion here?
+>> This function is generic enough to handle any level.
+>>
+>> Except that it is possible that it will be needed, for example, to split 1G mapping
+>> into something smaller then p2m_free_subtree() could be called for freeing a subtree
+>> of 1gb mapping.
+> The question wasn't about it being generic enough, but it possibly taking
+> too much time for level >= 2.
+
+In this terms it makes sense to add such an assertion which will check that we are
+working with levels <= 2.
+
+Thanks.
+
+~ Oleksii
+
+--------------FknOeCGiPYNNZXbR6X29R0Mx
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 8/14/25 5:17 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:117e35e0-d23e-4527-964a-82fa2bed57fd@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 14.08.2025 17:09, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On 8/6/25 5:55 PM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 31.07.2025 17:58, Oleksii Kurochko wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">+/* Put any references on the page referenced by pte. */
++static void p2m_put_page(const pte_t pte, unsigned int level)
++{
++    mfn_t mfn = pte_get_mfn(pte);
++    p2m_type_t p2m_type = p2m_get_type(pte);
++
++    ASSERT(pte_is_valid(pte));
++
++    /*
++     * TODO: Currently we don't handle level 2 super-page, Xen is not
++     * preemptible and therefore some work is needed to handle such
++     * superpages, for which at some point Xen might end up freeing memory
++     * and therefore for such a big mapping it could end up in a very long
++     * operation.
++     */
++    switch ( level )
++    {
++    case 1:
++        return p2m_put_2m_superpage(mfn, p2m_type);
++
++    case 0:
++        return p2m_put_4k_page(mfn, p2m_type);
++    }
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Yet despite the comment not even an assertion for level 2 and up?
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">Not sure that an ASSERT() is needed here as a reference(s) for such page(s)
+will be put during domain_relinquish_resources() as there we could do preemption.
+Something like Arm does here:
+   <a class="moz-txt-link-freetext"
+href="https://gitlab.com/xen-project/people/olkur/xen/-/blob/staging/xen/arch/arm/mmu/p2m.c?ref_type=heads#L1587">https://gitlab.com/xen-project/people/olkur/xen/-/blob/staging/xen/arch/arm/mmu/p2m.c?ref_type=heads#L1587</a>
+
+I'm thinking that probably it makes sense to put only 4k page(s) and
+all other cases postpone until domain_relinquish_resources() is called.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">How can you defer to domain cleanup? How would handling of foreign mappings
+(or e.g. ballooning? not sure) work when you don't drop references as
+necessary?</pre>
+    </blockquote>
+    <pre>I was confused by the code in <code data-start="79"
+    data-end="105">relinquish_p2m_mapping()</code>, since it removes
+foreign mappings from the P2M. My current understanding is that it is called
+for foreign mappings that weren’t explicitly unmapped, in order to drop the
+page reference taken when the mapping was created. Initially, I thought it
+would be enough to just perform the (un)map in the P2M page tables to have
+foreign mapping working, but that could result in a page never being fully
+released, which would in turn break or confuse other logic.
+
+So, yes, I agree that your initial suggestion to add ASSERT() is useful to
+be sure that no one is using level 2 super-pages for foreign mapping.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:117e35e0-d23e-4527-964a-82fa2bed57fd@suse.com">
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">  /* Free pte sub-tree behind an entry */
+  static void p2m_free_subtree(struct p2m_domain *p2m,
+                               pte_t entry, unsigned int level)
+  {
+-    panic("%s: hasn't been implemented yet\n", __func__);
++    unsigned int i;
++    pte_t *table;
++    mfn_t mfn;
++    struct page_info *pg;
++
++    /* Nothing to do if the entry is invalid. */
++    if ( !pte_is_valid(entry) )
++        return;
++
++    if ( pte_is_superpage(entry, level) || (level == 0) )
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Perhaps swap the two conditions around?
+
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">+    {
++#ifdef CONFIG_IOREQ_SERVER
++        /*
++         * If this gets called then either the entry was replaced by an entry
++         * with a different base (valid case) or the shattering of a superpage
++         * has failed (error case).
++         * So, at worst, the spurious mapcache invalidation might be sent.
++         */
++        if ( p2m_is_ram(p2m_get_type(p2m, entry)) &amp;&amp;
++             domain_has_ioreq_server(p2m-&gt;domain) )
++            ioreq_request_mapcache_invalidate(p2m-&gt;domain);
++#endif
++
++        p2m_put_page(entry, level);
++
++        return;
++    }
++
++    table = map_domain_page(pte_get_mfn(entry));
++    for ( i = 0; i &lt; XEN_PT_ENTRIES; i++ )
++        p2m_free_subtree(p2m, table[i], level - 1);
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">In p2m_put_page() you comment towards concerns for level &gt;= 2; no similar
+concerns for the resulting recursion here?
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">This function is generic enough to handle any level.
+
+Except that it is possible that it will be needed, for example, to split 1G mapping
+into something smaller then p2m_free_subtree() could be called for freeing a subtree
+of 1gb mapping.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">The question wasn't about it being generic enough, but it possibly taking
+too much time for level &gt;= 2.</pre>
+    </blockquote>
+    <pre>In this terms it makes sense to add such an assertion which will check that we are
+working with levels &lt;= 2.
+
+Thanks.</pre>
+    <pre>~ Oleksii
+</pre>
+  </body>
+</html>
+
+--------------FknOeCGiPYNNZXbR6X29R0Mx--
 
