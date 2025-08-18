@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0D11B29CEA
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Aug 2025 10:59:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1085728.1444036 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 061EEB29D00
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Aug 2025 11:02:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1085757.1444056 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1unvhy-0001xG-AL; Mon, 18 Aug 2025 08:59:14 +0000
+	id 1unvkt-0004EZ-5M; Mon, 18 Aug 2025 09:02:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1085728.1444036; Mon, 18 Aug 2025 08:59:14 +0000
+Received: by outflank-mailman (output) from mailman id 1085757.1444056; Mon, 18 Aug 2025 09:02:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1unvhy-0001uN-6u; Mon, 18 Aug 2025 08:59:14 +0000
-Received: by outflank-mailman (input) for mailman id 1085728;
- Mon, 18 Aug 2025 08:59:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1unvkt-0004C0-1p; Mon, 18 Aug 2025 09:02:15 +0000
+Received: by outflank-mailman (input) for mailman id 1085757;
+ Mon, 18 Aug 2025 09:02:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=q+DX=26=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1unvhw-0001uG-My
- for xen-devel@lists.xenproject.org; Mon, 18 Aug 2025 08:59:12 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9b13b2c4-7c11-11f0-b898-0df219b8e170;
- Mon, 18 Aug 2025 10:59:10 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-afcb7a2befdso537863166b.2
- for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 01:59:10 -0700 (PDT)
+ id 1unvks-0004AL-39
+ for xen-devel@lists.xenproject.org; Mon, 18 Aug 2025 09:02:14 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 07852c3b-7c12-11f0-a32a-13f23c93f187;
+ Mon, 18 Aug 2025 11:02:12 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-afcb78fb04cso567755066b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 02:02:12 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afcdd010e1bsm746978466b.93.2025.08.18.01.59.09
+ a640c23a62f3a-afcdce53eccsm764041366b.19.2025.08.18.02.02.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Aug 2025 01:59:09 -0700 (PDT)
+ Mon, 18 Aug 2025 02:02:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b13b2c4-7c11-11f0-b898-0df219b8e170
+X-Inumbo-ID: 07852c3b-7c12-11f0-a32a-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755507550; x=1756112350; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755507732; x=1756112532; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ESvtTKqs9XTV0Z7+EGDQllbc1lEaYKmH66i2SmFq+4Y=;
-        b=bG6DGFOmnZvQevB7cLWtAUrdE8bp/Lnnx0XLFH28Uu18pSZjsXVm9nN09MJvbj6ct7
-         DYC1KVocL3mrAGhGm/+iFpkY6HWmaW+tNPL4Bntmdn7fw69iR0PHLb9qVgFqy4J/xPjZ
-         rIBR4B+JHddpXKb2ORHtSmCUzLhTPxZJHWyCGDyFOKKqExiMjvpi9qKkaGUtDVO2dLCj
-         uszjMPcVCasfZxEplHbZT7o63xgXcxWaUc6t26TZgMQTOj1AGN2wkcRiJJa/J/X2U7il
-         PZN0IRKRZmtv0o6oupk5LHW7bDDeco+lSMUfWYPkNSaj31Pf6LRoHtwJB6aymJ7rV6vP
-         J7fw==
+        bh=ZWIZvwksGpTbzlC31RYEcXxtuKNXSor3vPDnyOLtS9g=;
+        b=caKMuppSpaMuEYlvCDM7Ekps0u4w4reZsk+Ly/2sXBvd2OohTFcc0IVSxh5Z8IS9pJ
+         ixGBF2E7XO6nXoyYkKY/AO4LzT1Y19sBnlAmDwCZaCHeI6GfypnYppN2u4v2pkjYBeYa
+         HqfaRyTnnFKBernJCHQxe4l3XDZ3CeWIPkY5HaY9ApkzocQG92SRzLRuoPRKlA/M+4U1
+         evwINiuVoD8aMo9EcbR4IBVV5rytlsX7DaFmWHctCmEc5AZsVTTBw69LqqOL4Yna6t9j
+         d1XBjH2aS7Tp0dQ6oi6UxphT6h7NyRlrm9zo/TVs7iDZu3JeM2zu51vLpjExSFFYxIdn
+         wXqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755507550; x=1756112350;
+        d=1e100.net; s=20230601; t=1755507732; x=1756112532;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ESvtTKqs9XTV0Z7+EGDQllbc1lEaYKmH66i2SmFq+4Y=;
-        b=XQvruuUxK0YUGV3z8kXJHqj7R9Dm/rviK3Nr+ijTmlHEauHpCK9Jnb1I42grx5ZMZy
-         ot9Vpedapko78kFys+gaELCV9UNYKWDIcaHDN4bMQVRq5dmUWFOtli/pYWSwhxLatv3o
-         SFxNcruNUcavXIOXziKntYRedFM3VEsHv8smAFB9epm2bq3gEt/bUW3J4Zl2rQVsUgoC
-         hKFEVaXwGe0TNL0k3fsZXYjUkCpM1VHZJMQviZZojhmTMQ5i8q4FX2sfEYS5KuS8C16N
-         kPc2AI7wUG91eTa5P9wQSsq6OUtYtlIy8KB3TSO34SY8L6SV7Jpb3nQZgs+R7vNsZBMT
-         ir6g==
-X-Forwarded-Encrypted: i=1; AJvYcCUl4UFFDOPet/hScEIV9Dx+0JLxzQOen2cB1xWpSrh/BbJq77B7eJjeXyD9hlGTXutIJLeuRR/kpxM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzqn7F4elHJtf4kEH19SYfT6MnirUbpzgO1argTCol2kAgsDq1Z
-	bFw1Fw1cuQ2dfy3vy7sCK6BN+2bpbCDfc9Xxn9SC7nqgLBqj2tVhxxJ1T2g7huu1aw==
-X-Gm-Gg: ASbGncs6RLOn1kl2Uw5im5AHSvaVVXFuAMRadbGNoYDso42OjLUy1hdbPZh7BeEwBIM
-	WeRWKk3UPkMitp2FW8L2a7nwJv0aeCk8edj2x0q+WHMKnCx3tlyuUlQUv34BJd9ir8b/qvc4SAm
-	55eXTxrtJl+VopSjjETZXuosmOXklq9MZKp+RZ9z/J6FWBiChHoRHu2WX7g/KrOGZlzi5uKy266
-	1LsgUHWD5ay7hOB/gGMyQEy4qJylUHngv6D0EEQSd/He6K79COoSP1WpDszXjglI/PoLIc2fC4L
-	qgF3dvP0dN3sUPLCUHDmbVuObsazyE5upSIK3PujP3siM2ukFwsJqLuMZYQQ3bReO0myCRvS57J
-	bpkSCgnO7COq55aTGwuMs9kz0jN0LkApMPGobbjH9hiT0HV6l3eJ+TiOowqm1X4Q1fXamLHlaV3
-	LxfDawOXeENuhwz07OdQ==
-X-Google-Smtp-Source: AGHT+IHz5aGhbXgBuCyqpfVtSBeKGhJyL/Mk5qQ8GDHnUm0mSN/kJrQRhKq/YEnPH56o6HI+qI1Agw==
-X-Received: by 2002:a17:906:f59f:b0:af1:8be4:768 with SMTP id a640c23a62f3a-afceaca84cbmr765357466b.5.1755507550102;
-        Mon, 18 Aug 2025 01:59:10 -0700 (PDT)
-Message-ID: <2c767cac-ce62-4e31-9a5b-224cfb2a9492@suse.com>
-Date: Mon, 18 Aug 2025 10:59:09 +0200
+        bh=ZWIZvwksGpTbzlC31RYEcXxtuKNXSor3vPDnyOLtS9g=;
+        b=EeMtZZfAmTEkXenDmntEoinRszl15ys1nmkhvbp2SQ9BGMqBXZuRMnYV289GVVd4FA
+         XeBVLK0m0Fgi1PdR9hxb3si9bao0H3hkMX0YhGioKMbAXi7NqgyQm36AoS7Px0yaN7Yl
+         T4hrK+eCMJg1OdzDFQAHbE5oU9k3CGhlHt2nPMLKuCjyhvdLOX3zLuG/dLZo0befb83a
+         hokfX844MEJ4BkYoJMYqbQwJkbCE+AETiLE7hEbs+aMFaBwX7ebnFUqxllId0ENZwddF
+         GZGto72FB5V/4x4opF/GLojjSCYfxE6sv8tIVSsCLYu1QR/APGCiomzqVg5b/Jcp08dB
+         XHcA==
+X-Forwarded-Encrypted: i=1; AJvYcCUnmSn8cPBVgp80JNDG0adN2Ms2XmB2sjZHC3vqII8hVBKqxWP4r+sEVfcQHMjUbP6m+IgIDdV6tJc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywu6i+GKbiHtcVuVnhbOftHFR/OjYIcdt4PKNZAkSpn931og0go
+	08D8m3AoYHLFkLXkGEoF5pTQCJLXp7JLBLjYBvgx2EpoJEaLC2/Txb6eQ5PvcGi5kR3dR4NrHNR
+	Ta1E=
+X-Gm-Gg: ASbGncuVry0/Fe5K/yHxF34z61TlBXbQeJIkClE0IYQo3Xb1nl+qPt4AbYKOr7JPBux
+	kpAEH1puS4LQK8Yk/wmBImB5FmgPGAxh2hvbZzMJkoKYmoWCzk3jlV0kFy1lbVYCXBrPsBfOe2R
+	9Jdlm4WgmHMc0rs65Y3ZVKl/aiSPfWvOdeef+0Jr+6vrI/LnBc76YI4l0X9WRCZvzWHUCYJh242
+	hZ2tpn1xy4Cq9RB+TEvckgV8nP+dhJ0WTfO4zD2YDCCtyRaLojREnwK0GpaTQFURJwx4aA5vjGY
+	TtDE/YHi6C+R64UV2iyKcFLPLur/bjSJJEvHWqT1uHavh6lVFvVtOermVH82vvD25/bz5oBGLhJ
+	tSm9mTd2IT6FnyT8MzkV7qa99+A8qyJi9PKfoNDI6e3QxQo7Xe4hL5PQu8qc4ip1fFjq8amclfj
+	9qRFXCK8g=
+X-Google-Smtp-Source: AGHT+IFkYhQggqXKliwBnzROKb1RbmBZrXRs/gII7woUsLohPSgMn1axJDnBYSjLEzj0/BdLhJMYnw==
+X-Received: by 2002:a17:907:3d86:b0:ade:3bec:ea30 with SMTP id a640c23a62f3a-afcdc03ed57mr31608866b.1.1755507731972;
+        Mon, 18 Aug 2025 02:02:11 -0700 (PDT)
+Message-ID: <a875b95b-32a1-4971-9004-b78c24747fc5@suse.com>
+Date: Mon, 18 Aug 2025 11:02:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 21/22] x86/traps: Introduce FRED entrypoints
+Subject: Re: [PATCH 13/22] x86: FRED enumerations
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
- <20250808202314.1045968-22-andrew.cooper3@citrix.com>
- <53028a31-e07d-43f1-b320-2775c5560a09@suse.com>
- <37cb95df-520e-45b3-9003-b638296d1001@citrix.com>
+ <20250808202314.1045968-14-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,53 +120,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <37cb95df-520e-45b3-9003-b638296d1001@citrix.com>
+In-Reply-To: <20250808202314.1045968-14-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 14.08.2025 22:40, Andrew Cooper wrote:
-> On 14/08/2025 4:57 pm, Jan Beulich wrote:
->> On 08.08.2025 22:23, Andrew Cooper wrote:
->>> --- /dev/null
->>> +++ b/xen/arch/x86/x86_64/entry-fred.S
->>> @@ -0,0 +1,35 @@
->>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->>> +
->>> +        .file "x86_64/entry-fred.S"
->>> +
->>> +#include <asm/asm_defns.h>
->>> +#include <asm/page.h>
->>> +
->>> +        .section .text.entry, "ax", @progbits
->>> +
->>> +        /* The Ring3 entry point is required to be 4k aligned. */
->>> +
->>> +FUNC(entry_FRED_R3, 4096)
->> ... doesn't this 4k-alignment requirement suggest we want to put
->> entry-fred.o first?
+On 08.08.2025 22:23, Andrew Cooper wrote:
+> Of note, CR4.FRED is bit 32 and cannot enabled outside of 64bit mode.
 > 
-> Perhaps, but that is quite subtle.  I did also consider a
-> .text.entry.page_aligned section, but .text.entry only matters for XPTI
-> which (as agreed), I'm not intending to implement in FRED mode unless it
-> proves to be necessary.
+> Most supported toolchains don't understand the FRED instructions yet.  ERETU
+> and ERETS are easy to wrap (they encoded as REPZ/REPNE CLAC), while LKGS is
+> more complicated and deferred for now.
 > 
-> Also IIRC there's still a symbol bug where _sentrytext takes priority
-> over entry_FRED_R3, so the backtrace is effectively wrong.
-> 
-> (These are all bad excuses, but some parts of this series are rather old.)
-> 
->>  Also, might it be more natural to use PAGE_SIZE
->> here?
-> 
-> I did debate that, but the spec uses 0xfff, not pages, even if the
-> pipline surely does have an optimisation for chopping 12 metadata bits
-> off the bottom of a pointer.
+> I have intentionally named the FRED MSRs differently to the spec.  In the
+> spec, the stack pointer names alias the TSS fields of the same name, despite
+> very different semantics.
 
-I found this, though:
-
-"Bits 63:12 contain the upper bits of the linear address of a page in memory
- containing event handlers. FRED event delivery will load RIP to refer to an
- entry point on this page. See Section 5.1.1."
+Hmm, looking at this again I'm not entirely convinced: Staying in sync with
+the spec also has its merits, and the FRED infix is sufficiently distinguishing
+imo.
 
 Jan
 
