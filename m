@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8AE7B2C8AC
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 17:43:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1086680.1444867 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DDD3B2C95A
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 18:20:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1086700.1444880 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoOU4-0008HN-FX; Tue, 19 Aug 2025 15:42:48 +0000
+	id 1uoP45-0004Q8-Cq; Tue, 19 Aug 2025 16:20:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1086680.1444867; Tue, 19 Aug 2025 15:42:48 +0000
+Received: by outflank-mailman (output) from mailman id 1086700.1444880; Tue, 19 Aug 2025 16:20:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoOU4-0008Ea-Bj; Tue, 19 Aug 2025 15:42:48 +0000
-Received: by outflank-mailman (input) for mailman id 1086680;
- Tue, 19 Aug 2025 15:42:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uoP45-0004Oc-9s; Tue, 19 Aug 2025 16:20:01 +0000
+Received: by outflank-mailman (input) for mailman id 1086700;
+ Tue, 19 Aug 2025 16:20:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xm9j=27=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uoOU2-0008EU-Gc
- for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 15:42:46 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 25e959a1-7d13-11f0-a32a-13f23c93f187;
- Tue, 19 Aug 2025 17:42:44 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-afcb731ca8eso869250266b.0
- for <xen-devel@lists.xenproject.org>; Tue, 19 Aug 2025 08:42:44 -0700 (PDT)
+ id 1uoP44-0004O9-RW
+ for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 16:20:00 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 59a052dd-7d18-11f0-b898-0df219b8e170;
+ Tue, 19 Aug 2025 18:19:58 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-afcb7a16441so853412866b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Aug 2025 09:19:58 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61a755d99bbsm2043621a12.3.2025.08.19.08.42.42
+ a640c23a62f3a-afded530ecbsm8446666b.102.2025.08.19.09.19.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Aug 2025 08:42:43 -0700 (PDT)
+ Tue, 19 Aug 2025 09:19:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 25e959a1-7d13-11f0-a32a-13f23c93f187
+X-Inumbo-ID: 59a052dd-7d18-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755618164; x=1756222964; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755620398; x=1756225198; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Byu7bXIVb45Oov0sVagEHTxO8RckbisdzWS29pw9r5w=;
-        b=A27M5lttvfyFvV77ekZTucduP74hS6udidmyRwtSeJQUNNe4OXk8tj1aFBgfwxshs0
-         jQNIKNrjfe6dXkpHj5URaLRccrzXqr1rUgMRjS2/ynmhdLzIADspedSPzIpAbFJGDmzI
-         EQ2wWgY03LJ6SQq0bGrnyNI/4afnUpyXiKlv2MUD0+Tgygk1ifXdxa8RGTlDePtMa32+
-         MDpWF87tyZIVl1iXUJZloSXG7yozcFGhmajT5U6BXUsMBaPbjgS3jaN18QugnY2TBmS7
-         p4slD3s9HIkBcM0pVsCb2hnh36ahMis36658w1wU30Z5dvkAdFw9a/WFXeO6rEBP+Y5b
-         8Sdw==
+        bh=D4XkkX6dw6jJEpGtQSkad40L9aUzB61QSIrr3o6QIV0=;
+        b=CiBUeMMonFVrs7huzEfkqXZjns89deU9s5XlDJf4Q2248p1/i+6DGitsWHaEV6eFbS
+         mD+cVufcP/S871s3uG8q9WlbA9DBwXvh1QVuHPiChXz97UBTiTp60Qb/1tZa92epOZ11
+         Po29IH4XO/jEUynoRbGNF0NrffiCs82teoaS/Yzcd9bqYoGhDmpkdsxYDTtI74Fs9N09
+         KyVZm3OolugXY0/599trpCvqjMlRdCeGjexEtf+J4iHqaaffSHOgA9PImEUuK6Rbm/JT
+         Wcofyy4eMMy5PANQDqsMiIxYMEd8DD3tr166J+dXrDSSuZZpB/LIkit6bCaV34BATFc8
+         NAQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755618164; x=1756222964;
+        d=1e100.net; s=20230601; t=1755620398; x=1756225198;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Byu7bXIVb45Oov0sVagEHTxO8RckbisdzWS29pw9r5w=;
-        b=iWCvt41LDnVTIg+Q5icMpcZrXb1B/SN0JgPsXjHWQZiBaO7PPnsvUVPAqGu6iHmiwh
-         3d9SKEuZ4DFoD8WYO10P6VLYpD52jh+7cg+i73pRaVG9v57MES2ROU0kz6N8tYdzsl/C
-         RCY6ay0vc49DwPw1Ifu3PkyelrRtuO16fkJD0xKkSstCqqctKSyVVNFshl5w8OjyeZDA
-         VTOJme7jwS9yfGCj7YsUxPpzO7lSLg87z6sKrqhbpxqsExXEuB4DLlYY9UXBwZaLQtxS
-         AUb/9HyiA3x1jqnJs5iJLT01cSCs5LVOPYaIuRr6WylnIufH0mYzuurF09lfKoWG8EAI
-         JsIw==
-X-Forwarded-Encrypted: i=1; AJvYcCW7ZEAVXYC7gtxlFx9ZHMZMdbKqce2mX+gPUhHNdEfp6vRo8NklUZDRyzLuxhKCyZSm/Q41Q/pAODA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwazRXqV0elrSIMd8DOYBh4FtACvt7GJiqFN5ZRHGuXgM2YdrZS
-	oKcKtLlRn73U6O49NfCmkyLeLBEHsmAExO6FTdIIzo6/nVpSnk8gJnPynyzimFnTdA==
-X-Gm-Gg: ASbGncsoO6BSMVPQEFi7HnBWiJuy2QQmMc6ZPJYUHOkth/ei3kKjBMFkhest7jkbDzn
-	aLGM9NH7Qz60I+vx4otGCLRGAbFGpJvZyyVVsX7DYlsmr/b2Dlkys/B563iT7Jlam/EXdzsqwE3
-	D8MncAybP4EOiDNcx2V5F1HGy6VG0XTQZv1G9FczsrQfnm8qe0wvFRvf79s5wO4yoR8laOZhf6s
-	hhUykLbG+jGpjOWIsUs/cFbvkuOSolHobNIKY0+5B+oI1Gst7bR7gUemK52JqzBpX6bl4aFn3rD
-	WrNb42MhGgbxDAK5xvYCsZSM+w1k7EcGfwG/u2VGZ7hfilS9N9rm2ik67OsAkzpKYj+lmsDINvN
-	rt5axa58JpLD2P62tCa3uvm8sEFLm5rFfmdUjM7fedMBFBNcS7UMQzHJg/+6WNZqwR95yuIReDX
-	XcSJ/20s+gHOIr18qugA==
-X-Google-Smtp-Source: AGHT+IGZg26R3xyBU7LPujOPH6B/e7Kq8IPxL6kcr+o99Xyci5c4ZpG39uGW8Mg4AGhS0sMpIakaZg==
-X-Received: by 2002:a17:907:7e92:b0:af9:709f:970b with SMTP id a640c23a62f3a-afddd1e8dffmr307819166b.46.1755618163726;
-        Tue, 19 Aug 2025 08:42:43 -0700 (PDT)
-Message-ID: <195b9a3b-c15a-4bf8-a0e4-2255ede95310@suse.com>
-Date: Tue, 19 Aug 2025 17:42:42 +0200
+        bh=D4XkkX6dw6jJEpGtQSkad40L9aUzB61QSIrr3o6QIV0=;
+        b=jbiECN1aeH8cGXg+ISzmGa0NoTx9X9KU3cba4EQAoi8QENPVGIG19P9k2FKs831VRy
+         cddy3NlTpr9lvOJTqObedJ60PPovzDuDuHuzGGBGqEZ6P5z5z2dsh9TPBWcWBajQiWgz
+         m+Zdpg86Guc78v5q1MHx/jUfu/lJqhMw5mmrlvD/ek56Aa6cy4qRey2XfGLfIntDl4n/
+         cRjnN3nNkdsWLyF265iu1krPQXwt0YoMMYyAE1klrOSSgTBVEbOxUd5sOg2TxE/UkHwS
+         HYgXBx9+CbPParSrMMfFdP5V56V8putyB3Ltv35t6m3myh6aer8To5AqaO+X2lSAq12F
+         qbNg==
+X-Forwarded-Encrypted: i=1; AJvYcCXys8aptiDRoGgQ2boZqq59WMbNwb/du+uNhMouCLISRKhbtKNntkA/Tvvk0ja4xula4RDLXk9mvds=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz2ijlLrwIzzghoauhwZ7tpdUmKyMQydTSue6F8v22JWZww6fMt
+	d4C1uC/aDDvnn10hlAm+U+Jy1n9yfn+oUaHhjUtfd0xmDEWrQaY2CfaSYkmWbGoy2A==
+X-Gm-Gg: ASbGncsjpMGzS0czaieFGy1Z+NUe3HKzKYqdYnuK4TWK7DBwBPyt50t121VfCCQqpxb
+	SQ9N5y8aMavZq1CQ7ZRjRkFQ4jbmwwlXh48aCxpfvF/EAZbmdkX5cNqz1F+egOOIPBgpC+fMHet
+	KlE4+OE5JTZ4lbrELjOgs/ArkqDkjOh1DeFITinrv1tJE7pVk2zTOuy7v9R4iVdA6w133BWJule
+	GWdEs/Hx0fPmFq9idhs6xHZXLf0gKHrB77JSE23mlqoCAKe3HXRBVzFhzeN3PqZ8lrONz0iTB1g
+	aVe5uyINPfujFk6wgBspRYQx5arvvTrpBp3OYokyWkmdWvg/pxXSySRc9XuHuOQBlxzGnRt2Vbl
+	r7WOK8s65+Jz2/P0E80PGOANVbBnawJFdOqQBQmLsWQKLKRAnw0Iv2ZCzAWx6USjAYS5XkV76Ob
+	Nbf3XW9ErRUdCpBdIktw==
+X-Google-Smtp-Source: AGHT+IFaHAZnOOcY5rl8MEdogFUZt6c2V7/ThmbRH+OrlQgqUct90fjDkshOEy7zneZMkEyHjW4cmw==
+X-Received: by 2002:a17:907:9486:b0:af9:8c20:145b with SMTP id a640c23a62f3a-afddc96119cmr325111466b.10.1755620398039;
+        Tue, 19 Aug 2025 09:19:58 -0700 (PDT)
+Message-ID: <a51426f6-a2c5-4f81-af77-1b6483eb84d7@suse.com>
+Date: Tue, 19 Aug 2025 18:19:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] misra: add deviation for PrintErrMesg() function
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <5944d87aae330246b7dab6eebd04d5d71a7d7e8f.1755608417.git.dmytro_prokopchuk1@epam.com>
- <37c61f78-b723-4611-b9d5-f915f72f36e8@suse.com>
- <7bd11401-bd8d-417b-90d5-e52a501211ed@epam.com>
+Subject: Re: [PATCH v2 01/16] x86/msr: Implement rdmsr_safe() in C
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250815204117.3312742-1-andrew.cooper3@citrix.com>
+ <20250815204117.3312742-2-andrew.cooper3@citrix.com>
+ <e3b37ba8-72df-403b-816d-3be9011b8203@suse.com>
+ <341a61df-fde2-40a4-bab3-31a0d66a3d0a@citrix.com>
+ <a29ecb41-1581-4102-a9ad-6768380484bc@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,65 +122,60 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7bd11401-bd8d-417b-90d5-e52a501211ed@epam.com>
+In-Reply-To: <a29ecb41-1581-4102-a9ad-6768380484bc@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 19.08.2025 16:32, Dmytro Prokopchuk1 wrote:
-> On 8/19/25 16:25, Jan Beulich wrote:
->> On 19.08.2025 15:12, Dmytro Prokopchuk1 wrote:
->>> MISRA C Rule 2.1 states: "A project shall not contain unreachable code."
+On 19.08.2025 15:35, Andrew Cooper wrote:
+> On 19/08/2025 2:28 pm, Andrew Cooper wrote:
+>> On 18/08/2025 12:23 pm, Jan Beulich wrote:
+>>> On 15.08.2025 22:41, Andrew Cooper wrote:
+>>>> ... in preparation to be able to use asm goto.
+>>>>
+>>>> Notably this mean that the value parameter must be taken by pointer rather
+>>>> than by value.
+>>>>
+>>>> No functional change.
+>>>>
+>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> In principle
+>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>> Thanks.
+>>
+>>> However, having looked at patch 2 first, ...
 >>>
->>> The function 'PrintErrMesg()' is implemented to never return control to
->>> its caller. At the end of its execution, it calls 'blexit()', which, in
->>> turn, invokes '__builtin_unreachable()'. This makes the 'return false;'
->>> statement in 'read_file()' function unreachable.
+>>>> @@ -879,14 +879,14 @@ static void intel_init_ppin(const struct cpuinfo_x86 *c)
+>>>>      case 0x8f: /* Sapphire Rapids X */
+>>>>  
+>>>>          if ( (c != &boot_cpu_data && !ppin_msr) ||
+>>>> -             rdmsr_safe(MSR_PPIN_CTL, val) )
+>>>> +             rdmsr_safe(MSR_PPIN_CTL, &val) )
+>>>>              return;
+>>> ... with this, wouldn't we be better off using ...
+>>>
+>>>>          /* If PPIN is disabled, but not locked, try to enable. */
+>>>>          if ( !(val & (PPIN_ENABLE | PPIN_LOCKOUT)) )
+>>>>          {
+>>>>              wrmsr_safe(MSR_PPIN_CTL, val | PPIN_ENABLE);
+>>>> -            rdmsr_safe(MSR_PPIN_CTL, val);
+>>>> +            rdmsr_safe(MSR_PPIN_CTL, &val);
+>>> ... plain rdmsr() here, thus not leaving it open to the behavioral change
+>>> patch 2 comes with?
+>> Yeah, probably.  At the point we've read it once, and written to it, a
+>> subsequent read is not going fail.
 >>
->> I'm disappointed. In earlier review comments I pointed out that there are
->> two. Yet you say "the", without further disambiguation.
->>
->>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
->>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
->>> @@ -41,6 +41,10 @@ not executable, and therefore it is safe for them to be unreachable."
->>>   -call_properties+={"name(__builtin_unreachable)&&stmt(begin(any_exp(macro(name(ASSERT_UNREACHABLE)))))", {"noreturn(false)"}}
->>>   -doc_end
->>>   
->>> +-doc_begin="Unreachability caused by the call to the 'PrintErrMesg()' function is deliberate, as it terminates execution, ensuring no control flow continues past this point."
->>> +-config=MC3A2.R2.1,reports+={deliberate, "any_area(^.*PrintErrMesg.*$ && any_loc(file(^xen/common/efi/boot\\.c$)))"}
->>> +-doc_end
->>
->> I don't understand the description here, nor ...
->>
->>> --- a/docs/misra/deviations.rst
->>> +++ b/docs/misra/deviations.rst
->>> @@ -97,6 +97,13 @@ Deviations related to MISRA C:2012 Rules:
->>>          Xen expects developers to ensure code remains safe and reliable in builds,
->>>          even when debug-only assertions like `ASSERT_UNREACHABLE() are removed.
->>>   
->>> +   * - R2.1
->>> +     - Function `PrintErrMesg()` terminates execution (at the end it calls
->>> +       `blexit()`, which, in turn, invokes `__builtin_unreachable()`), ensuring
->>> +       no code beyond this point is ever reached. This guarantees that execution
->>> +       won't incorrectly proceed or introduce unwanted behavior.
->>> +     - Tagged as `deliberate` for ECLAIR.
->>
->> .. the text here. PrintErrMesg() is noreturn. Why would anything need saying about
->> it? Isn't the problem here solely with the tail of read_file(), while other uses
->> of PrintErrMesg() are okay?
+>> I'll adjust, although it will have to be a rdmsrl().
 > 
-> I'm a little bit confused.
-> 
-> As I understood you proposed to insert the SAF comment before the 
-> 'return' statement (with proper justification).
-> 
-> And current Eclair configuration & descriptions are not good at all.
+> No.  That would introduce a bug, because this path ignores a write error
+> too.
 
-Not sure how that's related, but apart from this, ...
+Why would there be a bug? Irrespective of the WRMSR, we know the earlier
+RDMSR worked.
 
-> Am I right?
+> There isn't actually a problem even with patch 2, because of the how the
+> logic is currently laid out.
 
-... yes. Yet how is what you submitted here related to the issue in read_file(),
-which may be addressable by a simple SAF comment (as you say in your reply)?
+Yes, the logic would still be correct, just less obviously so.
 
 Jan
 
