@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 233D9B2C528
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 15:20:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1086606.1444803 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A870B2C572
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 15:25:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1086615.1444814 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoMFq-0003cr-VP; Tue, 19 Aug 2025 13:19:58 +0000
+	id 1uoMLR-0005Ny-IB; Tue, 19 Aug 2025 13:25:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1086606.1444803; Tue, 19 Aug 2025 13:19:58 +0000
+Received: by outflank-mailman (output) from mailman id 1086615.1444814; Tue, 19 Aug 2025 13:25:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoMFq-0003ae-SY; Tue, 19 Aug 2025 13:19:58 +0000
-Received: by outflank-mailman (input) for mailman id 1086606;
- Tue, 19 Aug 2025 13:19:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uoMLR-0005LY-Em; Tue, 19 Aug 2025 13:25:45 +0000
+Received: by outflank-mailman (input) for mailman id 1086615;
+ Tue, 19 Aug 2025 13:25:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xm9j=27=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uoMFp-0003aV-BB
- for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 13:19:57 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 324d25d4-7cff-11f0-b898-0df219b8e170;
- Tue, 19 Aug 2025 15:19:55 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-afcb73394b4so792837266b.0
- for <xen-devel@lists.xenproject.org>; Tue, 19 Aug 2025 06:19:55 -0700 (PDT)
+ id 1uoMLP-0005LS-Il
+ for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 13:25:43 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 01295666-7d00-11f0-a32a-13f23c93f187;
+ Tue, 19 Aug 2025 15:25:42 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-61a2a5b06cdso4695115a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Aug 2025 06:25:42 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afcdce53eccsm1016832866b.19.2025.08.19.06.19.54
+ a640c23a62f3a-afcdce71e1asm1022209666b.27.2025.08.19.06.25.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Aug 2025 06:19:54 -0700 (PDT)
+ Tue, 19 Aug 2025 06:25:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 324d25d4-7cff-11f0-b898-0df219b8e170
+X-Inumbo-ID: 01295666-7d00-11f0-a32a-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755609594; x=1756214394; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755609942; x=1756214742; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=a1wieFv2ae7gx6tGdoWuGagcm2RFtJCxUoP67zyobt4=;
-        b=aEK4aBw26oJNc+Ak8Ise/aYcHUEvRuiXsiTZTH9z9JgVHE2Sm0o3NeR/Z95Qy+kwhp
-         keofnlmLzYNSimRxSYOOgMKfcEsQC1EJB+DRMljFWOC/mKg3k1zKuqlCXu0TsIaZcH79
-         6AK7gYirTjufoJlnP5Y2GXnUpx1CC5vqdxfSsXcMCesiMwQArpTIO2Dhwr09+06A7Ynf
-         zV6l670I83r8vBBkzGPepauX1QjCEYFQ+6Y71+/iEutC556RiMjmU4pbVqFvLbp0M0ov
-         kXtm3J/IVgZaZ0HSW1TtfLX+k7GNdlDCJDeOKmcHOrD/j5LGMSaNUmKmlH7Q7ULeUaVJ
-         zBsQ==
+        bh=QG2PAxqFiSIzAAFN+iliKunpx1bwRMMvuHedKf70fZs=;
+        b=JYrMlS1jTzUIFWbsQVhZbkDyo6Ck+GUjDHNb7W9mQVs0DzzutU6UanXwHu9v3YS9nG
+         Q21I1VFZ9GH3yCv2KSjRAjINxPxsxMK35vbPcDqOyeuRD5tM3X88YjirRSudzQf8I/go
+         WdHssliJI6SE1j7EDrhoEonJyWjQUon64x+d8dSmcnx11aB0IOIuPu5y4snn4fG+kfiU
+         njPUzEGSLHY5a9ZcEoP7RIMJW1YHS0SI8RUTmxqE1LguOLykOyVTQ5MWUvjlEkdPjzDx
+         wsv5OCIwBu9qsKjLZ/tvKH5oCptAm+NkygQC+8Hv47AkPaSIbVZz2WLCo/Zm/rmVoeFG
+         rVKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755609594; x=1756214394;
+        d=1e100.net; s=20230601; t=1755609942; x=1756214742;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=a1wieFv2ae7gx6tGdoWuGagcm2RFtJCxUoP67zyobt4=;
-        b=wtSXuFCVbXa2f1FU3Fdp1X2zO3wkxbeOmKVpwbCB7d/7Aa4/Yv5996JZZtY7Aeh8XS
-         voi/Km9wqP7xNrXGhGtGhxQkQqEAciSLVMsASlpjp7qm/gJIe0arAP7wiWUwAH27/vZM
-         PDuGx52DGg0OQ1W6at+HXiRRpKmcDC2rmDyFXOz2sHqkI2wacKoqiHjukBaHaMPcKtuP
-         L5lsloTwkheptLXX0laHZ9RBXYRRMfINSqO26xFSr1GdB8h5R4zf5/p9OqEFYvPfdO6h
-         dz21/Z09SH6fK85aNDTCpCY3peJsdGejsDpzFrhsUIPHjzrduIhi7dPAWke6YJfVfPQz
-         4fZQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW292LpTOvaut+beeSH8BLDAi2RNd4nepMIBSQJ2cP82/g7FWa4M3IQTsS7p4Csg2WAkc/LvJOnm/w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwbNwe5IeLOWFZPrwsBtM6QqzDxsBc0vvFempebpdIF1scrd8m/
-	KTaP+NCEwZJd6N7JmVqGTqww1ctVuS2rS7PTFQtkDo8a4RWZivrUy7IzjE6Wt1dx/Q==
-X-Gm-Gg: ASbGncuy9IR6+Ft9/FGrQd1qDpJVJ6uFUv7lAkAjYyoRzViJGtTf6GlENDKDKdTw0RV
-	oe/cSg17vax/3XSq1i7ksEfeBIxH2v51Pk3zgAshGKvn+C8Zjmrmi6ilCFV/+MCQHLX1XM8+Sod
-	0nLuR9xSzMafcX6hBn8Rju4PYBVbYp8jJ8pnKkjwuGNXUZqXVo9Xsj28chnZQIRtw7Z2Sec53d5
-	dT5alozERhm+0xz0ocUDsDo/6IVwLb5/ikFcaBtwY6ELF7xmPKpaudA1JU+iu3Rwd+I5n266MQN
-	E99FwDwMX6GyqcQvBjf9IbxgKDs7uAEG7OXFwIElzCwmqS4cMSPBhe+MBUUB194WsmMaaep45n1
-	vteq5gtFgiSyfPVA54pAbuVMEbEKeXYmfXI2fxM3H+7dGtlFhUhx4zWf5ehzNTRSAiiy1bPyh2e
-	Z4iAqs2Zs=
-X-Google-Smtp-Source: AGHT+IH+He7ZniET3r1N5Z7U6+BXezpL7aLqBfUyeLzFBA5DCof21NZpjhWC8LOFUn6apeCXZwPKhw==
-X-Received: by 2002:a17:907:7e91:b0:ae3:6f35:36fe with SMTP id a640c23a62f3a-afddd1fb2eamr207831166b.47.1755609594531;
-        Tue, 19 Aug 2025 06:19:54 -0700 (PDT)
-Message-ID: <e1444bbf-89b8-4685-ada6-3092d65fb9c6@suse.com>
-Date: Tue, 19 Aug 2025 15:19:53 +0200
+        bh=QG2PAxqFiSIzAAFN+iliKunpx1bwRMMvuHedKf70fZs=;
+        b=sF8TgjWU4mOIGgblSSzg+0MzByHk/Ryypqe/6JB6eI3LteI4OCABK6650xt0sMcFNP
+         Vaf+aKJ/a+PcS4tXzBf4DRj2IsFkXuig3MLyMYCkl2nINtr/Lc5rFZeOobFzs9O/p5fZ
+         LRbPVGL0dnu4emD/pdvtEHoo4w2ng9J9w3R8zQvyy3NbV7FCvkLQNcS9jXpWezNgH4AW
+         SvT6peAy+il6cU7vuBGRUufQ4pcn9A6ljNNo1b7ivOIFrakRQzXwmMV3nPAgW0pXMRzI
+         OUKrdw/9bun8FIVn46H0w0qtPllg+Zb6Sk5CmzazyFjiOOadRgDZoMZ4VW4s+o0i7oty
+         E5EQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX26DneSVrNQzwbjL8A2IcbVP/S+jPr7tbM2krtN3H3w/0G4r/rXPamCJ+Knni70ebgeVSSPscDp0Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy2i1JyETkRF7dFGkCZdahjzk2luKCG5icbb7QKmU5zBJOCmfA0
+	vhw8AbDPFIar4WtCxRqkoYf+x92Ls2Wdhs/TVTOw+76fqzICWnWydy/LTP5w3xmLVw==
+X-Gm-Gg: ASbGncvm/TPSYuQ66PZwdVgF7p/LwhUvDPiXvgwYAg7X+VBakXzB6W5apidb1qkFDDK
+	gn4lL1vo3tDe/tmRDwfsezTsymvuguXGSuCY48R08NwHYj+zSNh2NWQYYcSPGc/AzrUEzSyA+UZ
+	aVMqM4xPJhdDPT48FwosmwDo4bPfB7K61w7/rlmkc+rM56Ky9iFauFpWsNpbhUu1OFS+tewPDTs
+	Qw8FH1tDsaAA8ryGbwcURwPFFD89fSrYOpATDByHKy7qo8BZLnndFgrlpooRB7gVKxNrHqhxwcT
+	m9SGa9m7QpCqIk/RJlYjvmJUD8z/8sEHqGujUd+qXRmBfuIpufbrMAD0L1EbjeP7ka3o7wEaceD
+	ZzaHJrr7iClEbVkTrbF7/CT6DAQCS0OOuW2hoFkn+eUqOdM8MCBLP1nUMAqC+2XbnuWdG10g21K
+	wDMehp/DiMJ975Z+Mr/Q==
+X-Google-Smtp-Source: AGHT+IHOEoEl+wOoO6pR7gEfeYXWQI3PcnC+jIodNYKlmUSp/7oKx12sOz+KL9RYY+AB9n1vY8W7GQ==
+X-Received: by 2002:a17:907:3d8c:b0:ad8:9997:aa76 with SMTP id a640c23a62f3a-afddd0cfeadmr257341466b.37.1755609941627;
+        Tue, 19 Aug 2025 06:25:41 -0700 (PDT)
+Message-ID: <37c61f78-b723-4611-b9d5-f915f72f36e8@suse.com>
+Date: Tue, 19 Aug 2025 15:25:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 16/16] x86/fsgsbase: Improve code generation in
- read_registers()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250815204117.3312742-1-andrew.cooper3@citrix.com>
- <20250815204117.3312742-17-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] misra: add deviation for PrintErrMesg() function
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <5944d87aae330246b7dab6eebd04d5d71a7d7e8f.1755608417.git.dmytro_prokopchuk1@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,43 +124,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250815204117.3312742-17-andrew.cooper3@citrix.com>
+In-Reply-To: <5944d87aae330246b7dab6eebd04d5d71a7d7e8f.1755608417.git.dmytro_prokopchuk1@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.08.2025 22:41, Andrew Cooper wrote:
-> It turns out that using the higher level helpers adjacent like this leads to
-> terrible code generation.  Due to -fno-strict-alising, the store into state->
-> invalidates the read_cr4() address calculation (which is really cpu_info->cr4
-> under the hood), meaning that it can't be hoisted.
+On 19.08.2025 15:12, Dmytro Prokopchuk1 wrote:
+> MISRA C Rule 2.1 states: "A project shall not contain unreachable code."
 > 
-> As a result we get "locate the top of stack block, get cr4, and see if
-> FSGSBASE is set" repeated 3 times, and an unreasoanble number of basic blocks.
-> 
-> Hoist the calculation manually, which results in two basic blocks.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> The function 'PrintErrMesg()' is implemented to never return control to
+> its caller. At the end of its execution, it calls 'blexit()', which, in
+> turn, invokes '__builtin_unreachable()'. This makes the 'return false;'
+> statement in 'read_file()' function unreachable.
 
-Otoh the function here isn't really performance or size critical. I'm undecided
-whether the undesirable open-coding or the bad code gen are the lesser evil.
+I'm disappointed. In earlier review comments I pointed out that there are
+two. Yet you say "the", without further disambiguation.
 
-> --- a/xen/arch/x86/traps.c
-> +++ b/xen/arch/x86/traps.c
-> @@ -118,9 +118,18 @@ static void read_registers(struct extra_state *state)
->      state->cr3 = read_cr3();
->      state->cr4 = read_cr4();
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -41,6 +41,10 @@ not executable, and therefore it is safe for them to be unreachable."
+>  -call_properties+={"name(__builtin_unreachable)&&stmt(begin(any_exp(macro(name(ASSERT_UNREACHABLE)))))", {"noreturn(false)"}}
+>  -doc_end
 >  
-> -    state->fsb = read_fs_base();
-> -    state->gsb = read_gs_base();
-> -    state->gss = read_gs_shadow();
-> +    if ( state->cr4 & X86_CR4_FSGSBASE )
-> +    {
-> +        state->fsb = __rdfsbase();
-> +        state->gsb = __rdgsbase();
-> +        state->gss = __rdgskern();
+> +-doc_begin="Unreachability caused by the call to the 'PrintErrMesg()' function is deliberate, as it terminates execution, ensuring no control flow continues past this point."
+> +-config=MC3A2.R2.1,reports+={deliberate, "any_area(^.*PrintErrMesg.*$ && any_loc(file(^xen/common/efi/boot\\.c$)))"}
+> +-doc_end
 
-This, btw, supports my desire to not use "kern" but "shadow" in the new helper's
-name.
+I don't understand the description here, nor ...
+
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -97,6 +97,13 @@ Deviations related to MISRA C:2012 Rules:
+>         Xen expects developers to ensure code remains safe and reliable in builds,
+>         even when debug-only assertions like `ASSERT_UNREACHABLE() are removed.
+>  
+> +   * - R2.1
+> +     - Function `PrintErrMesg()` terminates execution (at the end it calls
+> +       `blexit()`, which, in turn, invokes `__builtin_unreachable()`), ensuring
+> +       no code beyond this point is ever reached. This guarantees that execution
+> +       won't incorrectly proceed or introduce unwanted behavior.
+> +     - Tagged as `deliberate` for ECLAIR.
+
+.. the text here. PrintErrMesg() is noreturn. Why would anything need saying about
+it? Isn't the problem here solely with the tail of read_file(), while other uses
+of PrintErrMesg() are okay?
 
 Jan
 
