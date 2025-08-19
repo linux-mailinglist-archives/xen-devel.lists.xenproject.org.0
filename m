@@ -2,34 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81891B2CEB0
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 23:44:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1087079.1445264 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFFBCB2D08A
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Aug 2025 02:00:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1087109.1445274 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoU7N-000842-Ey; Tue, 19 Aug 2025 21:43:45 +0000
+	id 1uoWDx-0000ks-Q9; Tue, 19 Aug 2025 23:58:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1087079.1445264; Tue, 19 Aug 2025 21:43:45 +0000
+Received: by outflank-mailman (output) from mailman id 1087109.1445274; Tue, 19 Aug 2025 23:58:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoU7N-00081k-B2; Tue, 19 Aug 2025 21:43:45 +0000
-Received: by outflank-mailman (input) for mailman id 1087079;
- Tue, 19 Aug 2025 21:43:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oc5E=27=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uoU7L-00081e-9V
- for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 21:43:43 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 91c21f64-7d45-11f0-b898-0df219b8e170;
- Tue, 19 Aug 2025 23:43:40 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 0BD1460209;
- Tue, 19 Aug 2025 21:43:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD231C4CEF1;
- Tue, 19 Aug 2025 21:43:37 +0000 (UTC)
+	id 1uoWDx-0000ih-Mm; Tue, 19 Aug 2025 23:58:41 +0000
+Received: by outflank-mailman (input) for mailman id 1087109;
+ Tue, 19 Aug 2025 23:58:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=x5vT=27=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1uoWDv-0000ib-8m
+ for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 23:58:40 +0000
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6bb88661-7d58-11f0-a32a-13f23c93f187;
+ Wed, 20 Aug 2025 01:58:37 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,96 +36,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 91c21f64-7d45-11f0-b898-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1755639818;
-	bh=oOfay5dwD9ZFMFUsLZRmSG17fsGVmFo2sFzv0Tchehc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=mmOsgT9yDzJ9sB6cAQqOpJcNgzk0PTGHArRfje7KfcJwX7PSH93gbExLG7Wvap3Zi
-	 uMY0B6M7gDFXUGXrmxD2WhXb86RtDfQZpzcHr/fvUyAVNTQlxegAicyYjZcYDyh3UW
-	 8C+lTYb1/mtYd74O9FDescL0Aedkygj6dsy0m7SB/aoVrbaoLed7Tha/N1uIkBlZQK
-	 svkRn+jABbsIcuY4yOGIPhTOl1xBeL9NPUSnWVga7/nkLbnN70VLsTcf1I2sRcO5cS
-	 FI2E9sJVW8cWZMGKjYogK9W/UZzmV0zb7/HWCvsTDp39Zr7pWywGacx7OQXIHKey3V
-	 b2B94O5RsQ8dQ==
-Date: Tue, 19 Aug 2025 14:43:36 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+X-Inumbo-ID: 6bb88661-7d58-11f0-a32a-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1755647915; x=1755907115;
+	bh=bZsMPkcP7LjUClKF5IPD7dJJ3czft31iCTSRqwIQk90=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=l2TGHs17hV8+nhPihxnyEhYAysuV1iqT9WpEG696v0UOn/JD5LxZjNZYOm+XgVZKc
+	 q47p5MUKGjuHvL9/E/VproQ5iZnuLslS2DtIMUZ9WUQeGUO7ZDiB/212wEWhK73zod
+	 7RoKBVcGmbZduJ7l8n3Mwy2DchEmEzgyg1Nqr8xArpkLeXbdmDSUbpZlPRKrE4773f
+	 zZPy5akrArOujpd7nhRtpzrWMfHw5iNZ7CQ7puIpOzsn/wXTwiL+xmD64SRtC/hXSL
+	 5Xb6HklvwgDDetx2Ju6odATPDMiSIjOlm0eFIIqRVOr5H5IxmnQXx0pVjg/kPL3vop
+	 tQYLsw5Ckzd4Q==
+Date: Tue, 19 Aug 2025 23:58:31 +0000
 To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Nicola Vetrini <nicola.vetrini@bugseng.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Subject: Re: [RFC] Next steps for MISRA C Rule 17.7 in XEN
-In-Reply-To: <9a267d90-496c-496a-ab61-6b775204b594@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2508191443200.923618@ubuntu-linux-20-04-desktop>
-References: <6d622813-1617-4af3-876e-52a551518f68@epam.com> <9d71cc11-884d-4924-9de9-e3396801158a@suse.com> <c3bb91c6-ca74-4fab-8ca8-cd5ffed3f954@epam.com> <alpine.DEB.2.22.394.2508181642140.923618@ubuntu-linux-20-04-desktop>
- <9a267d90-496c-496a-ab61-6b775204b594@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+From: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, Julien Grall <jgrall@amazon.com>, Alejandro Vallejo <alejandro.garciavallejo@amd.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v16 1/4] xen/domain: unify domain ID allocation
+Message-ID: <aKUPo+hRdfGlg+S8@kraken>
+In-Reply-To: <f85ae718-0243-4426-a555-327afffe7148@suse.com>
+References: <20250812223024.2364749-1-dmukhin@ford.com> <20250812223024.2364749-2-dmukhin@ford.com> <f85ae718-0243-4426-a555-327afffe7148@suse.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 39544987c90e5a39a71aae442a481c81e501bb1b
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 18 Aug 2025, Jan Beulich wrote:
-> On 19.08.2025 01:45, Stefano Stabellini wrote:
-> > On Mon, 18 Aug 2025, Dmytro Prokopchuk1 wrote:
-> >> On 8/4/25 11:02, Jan Beulich wrote:
-> >>> On 02.08.2025 19:48, Dmytro Prokopchuk1 wrote:
-> >>>> There are a lot of MISRA C R17.7 violations in the XEN.
-> >>>> This rule states: "The value returned by a function having non-void
-> >>>> return type shall be used".
-> >>>>
-> >>>> Actually, need to decide how to deal with these violations.
-> >>>> Quick analyze shown that there are different cases in XEN code base.
-> >>>
-> >>> Long ago, when we discussed the rules in a mainly abstract way, there already
-> >>> was quite a bit of discussion around this. Stefano - I wonder if you had
-> >>> taken (and have kept) notes back at the time?
-> >>>
-> >>> Jan
-> >>
-> >> Hi Stefano.
-> >>
-> >> This is a kind reminder.
-> > 
-> > Yes, I am appending below the unmodified notes which I took when we
-> > discussed R17.7. It looks like the decision was to accept the rule and
-> > use a mix of deviations and void casts to reach compliance.
-> > 
-> > 
-> > MISRA 17.7 Use expressions' results
-> > -----------------------------------
-> > 
-> > ACCEPT 17.7
-> > 
-> > Returning void when appropriate
-> > 
-> > When function results are used on some of the times. Use a comment to
-> > explain why the return value is ignored and a void cast so that the
-> > warning doesn't trigger (there is also a gcc warning).
-> > 
-> > Some functions are returning a value just for convenience (e.g. memcpy).
-> > They need to be deviated.
-> > 
-> > Add must_check to all functions by default somehow? So that developers
-> > will get automatic feedback when they do develpment without having to
-> > wait for ECLAIR
-> 
-> Isn't doing this "by default" equivalent to enabling the compiler warning?
-> If doing this by default (one way or another), it'll need to be clear how
-> to mark functions as "exceptions" (like memcpy() that you mention).
+On Thu, Aug 14, 2025 at 09:11:11AM +0200, Jan Beulich wrote:
+> On 13.08.2025 00:30, dmkhn@proton.me wrote:
+> > From: Denis Mukhin <dmukhin@ford.com>
+> >
+> > Currently, there are two different domain ID allocation implementations=
+:
+> >
+> >   1) Sequential IDs allocation in dom0less Arm code based on max_init_d=
+omid;
+> >
+> >   2) Sequential IDs allocation in XEN_DOMCTL_createdomain; does not use
+> >      max_init_domid (both Arm and x86).
+> >
+> > The domain ID allocation covers dom0 or late hwdom, predefined domains,
+> > post-boot domains, excluding Xen system domains (domid >=3D
+> > DOMID_FIRST_RESERVED).
+> >
+> > It makes sense to have a common helper code for such task across archit=
+ectures
+> > (Arm and x86) and between dom0less / toolstack domU allocation.
+> >
+> > Note, fixing dependency on max_init_domid is out of scope of this patch=
+.
+> >
+> > Wrap the domain ID allocation as an arch-independent function domid_all=
+oc() in
+> > new common/domid.c based on the bitmap.
+> >
+> > Allocation algorithm:
+> > - If an explicit domain ID is provided, verify its availability and use=
+ it if
+> >   ID is not used;
+> > - If DOMID_INVALID is provided, search the range [1..DOMID_FIRST_RESERV=
+ED-1],
+> >   starting from the last used ID.
+> >   Implementation guarantees that two consecutive calls will never retur=
+n the
+> >   same ID. ID#0 is reserved for the first boot domain (currently, dom0)=
+ and
+> >   excluded from the allocation range.
+> >
+> > Remove is_free_domid() helper as it is not needed now.
+> >
+> > No functional change intended.
+> >
+> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> > Reviewed-by: Julien Grall <jgrall@amazon.com>
+> > Reviewed-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+> > ---
+> > Changes since v15:
+> > - fixup for check after the first pass in the bitarray in domid_alloc()
+> > - trivial renaming for the local variable in domid_alloc()
+> > - kept Julien's R-b, added Alejandro's R-b
+>=20
+> Just to mention: My take is that this kind of a fix ought to invalidate a=
+ll
+> earlier R-b. It's not just a cosmetic change, after all.
 
-Indeed, that is the problem.
+Sorry for the hiccup here, did not mean to overrule the review process.
 
-I think the idea was to employ a different strategy depending on
-whether the function returns an error or simply provides optional
-information.
+My bold assumption was that in case of small fixups like this it is
+satisfactory to carry over previous acks.
 
-For functions that return errors, we would use explicit (void) casts.
-For functions that return optional information, we would apply global
-deviations.
+I asked (matrix) both Julien and Alejandro to re-review and confirm.
 
-Of course, these are only general guidelines. If a function that returns
-errors has thousands of violations, making it impractical to address
-each one individually, we would likely opt for a global deviation in
-that case as well.
+>=20
+> Jan
 
 
