@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F529B2C58C
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 15:28:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1086624.1444823 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBCDAB2C5B1
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 15:35:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1086635.1444833 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoMNz-0005wL-U8; Tue, 19 Aug 2025 13:28:23 +0000
+	id 1uoMUZ-0007no-JD; Tue, 19 Aug 2025 13:35:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1086624.1444823; Tue, 19 Aug 2025 13:28:23 +0000
+Received: by outflank-mailman (output) from mailman id 1086635.1444833; Tue, 19 Aug 2025 13:35:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoMNz-0005u7-R6; Tue, 19 Aug 2025 13:28:23 +0000
-Received: by outflank-mailman (input) for mailman id 1086624;
- Tue, 19 Aug 2025 13:28:22 +0000
+	id 1uoMUZ-0007mI-GR; Tue, 19 Aug 2025 13:35:11 +0000
+Received: by outflank-mailman (input) for mailman id 1086635;
+ Tue, 19 Aug 2025 13:35:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=h/XH=27=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uoMNy-0005tx-Jp
- for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 13:28:22 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1uoMUY-0007mC-Oz
+ for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 13:35:10 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5da13151-7d00-11f0-b898-0df219b8e170;
- Tue, 19 Aug 2025 15:28:17 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-45a1b0bd237so42620125e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 19 Aug 2025 06:28:17 -0700 (PDT)
+ id 52d5db63-7d01-11f0-b898-0df219b8e170;
+ Tue, 19 Aug 2025 15:35:08 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-45a1b00797dso35759575e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Aug 2025 06:35:08 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45a1c78b33csm222651485e9.25.2025.08.19.06.28.15
+ ffacd0b85a97d-3c074d43987sm3781997f8f.16.2025.08.19.06.35.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Aug 2025 06:28:16 -0700 (PDT)
+ Tue, 19 Aug 2025 06:35:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5da13151-7d00-11f0-b898-0df219b8e170
+X-Inumbo-ID: 52d5db63-7d01-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755610097; x=1756214897; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ke7os2fu9TtFHTuGPp/COdq8HM+tR2KBR6lKg9OnZxw=;
-        b=rWXFBFohmNNpW94EB+NR2BSCjQv1r5WTb+HgREV7LNYw54p+UrXMuo0Uh07sCwByfn
-         19aikgg8wiF10ZQczT3IndGnYu+MEIGBE2n4+wZybNAyKq5iIOFbI0jXWtPsjg81k9sO
-         LYZxTh6XUuqCIB4TkkEDKsPfgN3TQ3oxbxPO8=
+        d=citrix.com; s=google; t=1755610508; x=1756215308; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=9EgTcG7/uKM2WDnvAcInXhfpZXjhAedZwGtEHy2kLgY=;
+        b=AA0EK+CnrMrZ1nyG8pCIguul73K+4+zdC0d3o1sHhiQ04GbvTTpHfJwTWTJ8NA3rCI
+         6XhtYTBqMrA2x8V18aIuKvPNr6bj3nB9fD9tlEz6r0j3LVT230Tec/yTHnULR9ZULibc
+         +XRtxkYiyF9mfNqqUq5WL/6fAK2a+SAVg/yf8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755610097; x=1756214897;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ke7os2fu9TtFHTuGPp/COdq8HM+tR2KBR6lKg9OnZxw=;
-        b=EhW+NNlFZ/QLuR/jFQEjcHnK8rGEPaO37ci4+Cq0apQZMizBR+Kzpx04U/V4oXer1W
-         jAdiQxsq21fH9KQajmNbpvKCnHUvHhTyLcOSLCesvlirVY0HccxZYrlwrbMzN8Xd2e+G
-         7MSACYjDxSZmv6sBnG0bBKtbXNzF5X7zhlH15quYwDc0sJqEmOVLhVj6Q8BJa4D8THDA
-         ac6Pxtan1VqSkMqWmDkRd0Lat4RxI9/Y7XbmvnGncn9BGt+WXfjQP09YkGHXhy6wDXf+
-         p1gk396gVRzy/JtMntKldEszAZazXYb3H/HKlleSJVC/um1n+CEp8FJQraGgOlmKCNGO
-         3Jsg==
-X-Forwarded-Encrypted: i=1; AJvYcCUAqoJK1w+cyBtaK7RzxVfDr1QKLyNnzUaZFzXsSn3GVXdoTBiEXtONewcdi3MfFvd72PRRkPPamPY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxGvHzvZtmE89IK0PPCm7AjgVE3WJ6jvRwLl3wpAThktCLbzKjb
-	QpVxC5oSYXohUm5VYqvz4GsIS5GJScZQ1IrRGE3C+SCLIrX5kORymZLu7Dr1tAi8VQ8=
-X-Gm-Gg: ASbGncutawSS2ozvvan6WayWIu/K3XX7vp2PFsI06zXrVh4tNvOQKqciUcVNFqFp2q4
-	qHX5vv//aDiyGJiseRPJzgri7X4UgIZNnNatISPrVcXqTJrzW7B6LE01tB1bGhgdfROxICo5LcH
-	vTqdrTq9FWR6bLyvA2OmvvWw2n9tJBvuD3LfDibaZyEDVRFcg8bIKFUGnu35yJJLP2dhfc9bJCE
-	BQRNw6Uir9A3MSLqzlecNTEiLuuQwG0hltxZTocsuebp3PpWBW7GcJHBW9IyPm0J7j9L+fL8z+y
-	Gt+vCR8EG8UeAaVV6DlFBFS4E0gH/L7GQ8So5OjocHOqXodIUhK9xKU+MrU5ipWtTXHq30oghcn
-	ctp9pKeXVOrsl4oNdIb+RSEaN7GD5U/ggYsOZkbVDGrvBrxxHyRrubV62KP/8XU5k8MVV
-X-Google-Smtp-Source: AGHT+IFXwbE5IwDr8z6wLUwKXiPpH5pgo2pXlaox9fMhhcM4lSDzdoIEufxjyuC2H8wJ6IRkW20LcQ==
-X-Received: by 2002:a05:6000:18a8:b0:3b9:55a:9d0c with SMTP id ffacd0b85a97d-3c0e00a1623mr1916338f8f.3.1755610096649;
-        Tue, 19 Aug 2025 06:28:16 -0700 (PDT)
-Message-ID: <341a61df-fde2-40a4-bab3-31a0d66a3d0a@citrix.com>
-Date: Tue, 19 Aug 2025 14:28:15 +0100
+        d=1e100.net; s=20230601; t=1755610508; x=1756215308;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=9EgTcG7/uKM2WDnvAcInXhfpZXjhAedZwGtEHy2kLgY=;
+        b=uJXVmUN05Vzg4MjJGJStiL6Vwv6Mlr4gxuO8/Q8zNLFu2RUPmK1HnWnBYOk/Y/oYuY
+         olk69/wZHyc74fVA3j8EFEUpsFm9IVL7pJniv5X3yhz+vrjOWrb2ueCSVik0o/eJIJ3t
+         zkEpnViI5bcAm7zJwqfI+o3PQw1B7TxTr/c7Nv+EuMn9UnDRn+7K1BiVBJiTxrNJ6VBX
+         c7i7+WB3Vao02HxCZPPD4y/jlyVsQS9InSz3prfIfWILYIoRcVZMA3eRP4CFvsCYU4cC
+         UESgHBOSqAWdxUdX0LZrtSH4fL7cdqElhBbVfrdyhNuu5IVH60TrXhAhxwC+fsxmV288
+         l9jw==
+X-Forwarded-Encrypted: i=1; AJvYcCWfchG4TECVlHseFEcarDiajhIJb4bVZUvXfhElmRwcCW4BblhEtyEdtv3+qmHev8+TmZeVpia5YSg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzQvQkxVuQ3Bc0xHJMY0MMLxCs3gisZzt620OYfCf8OCLHMfVng
+	vw2hBLL45kz8EKFm73e53wlJy2JDBU57caW8bntbRDJvW3LlGjhvFASBtTDDyo47wWeowTv8eEo
+	SKUOr
+X-Gm-Gg: ASbGnctDmZJW3DTa94TK9A56MS3FNdmx0Rr65ktqvjBGkuc43a5GMhWS3YstXPv9MhU
+	MbSQWgb5u1b891tGaUZ2CF11MZ0bfDqZGThjUs3NhkDHncjIpzv4UPmLwPlnXnCNX76gbQDdGmS
+	3FjTbZMMAqWuvcSGkZ1eOxEsbpR3r5nBMiaVx/RDYk7vjwyMYBeUafMucFhzPk3ogxKPh7of2Zw
+	538FbndTQXTPTRCRPr65LizjRGwkj73c808Kn55KY0XjX1aoGQsaeSgSokBvilj49ErYdi4YnBZ
+	QOB1w+IJl4hsgp9zKiBMO1KcOQ9STg/1qurpXOQdmS8sKgjO/LWyTaadHcF06KPi6WZWC20N3He
+	LmUngeiNNCeU7aghjmutRmL0OPgcdFHBCjyJQRicNZK3u7yLye7dp77d1K3Y/lQ2xT4Sc
+X-Google-Smtp-Source: AGHT+IEgdSFCVnKWbi8Axj4yu+flJjG0+4b8qZiHARMN6Jm8+3+UQn+9PBz74KniJhqRbIebtBEjDg==
+X-Received: by 2002:a05:600c:1909:b0:456:1d93:4365 with SMTP id 5b1f17b1804b1-45b43db65afmr23680345e9.5.1755610508024;
+        Tue, 19 Aug 2025 06:35:08 -0700 (PDT)
+Message-ID: <a29ecb41-1581-4102-a9ad-6768380484bc@citrix.com>
+Date: Tue, 19 Aug 2025 14:35:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 01/16] x86/msr: Implement rdmsr_safe() in C
+From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250815204117.3312742-1-andrew.cooper3@citrix.com>
  <20250815204117.3312742-2-andrew.cooper3@citrix.com>
  <e3b37ba8-72df-403b-816d-3be9011b8203@suse.com>
+ <341a61df-fde2-40a4-bab3-31a0d66a3d0a@citrix.com>
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -136,49 +138,54 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <e3b37ba8-72df-403b-816d-3be9011b8203@suse.com>
+In-Reply-To: <341a61df-fde2-40a4-bab3-31a0d66a3d0a@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 18/08/2025 12:23 pm, Jan Beulich wrote:
-> On 15.08.2025 22:41, Andrew Cooper wrote:
->> ... in preparation to be able to use asm goto.
->>
->> Notably this mean that the value parameter must be taken by pointer rather
->> than by value.
->>
->> No functional change.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> In principle
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Thanks.
-
-> However, having looked at patch 2 first, ...
+On 19/08/2025 2:28 pm, Andrew Cooper wrote:
+> On 18/08/2025 12:23 pm, Jan Beulich wrote:
+>> On 15.08.2025 22:41, Andrew Cooper wrote:
+>>> ... in preparation to be able to use asm goto.
+>>>
+>>> Notably this mean that the value parameter must be taken by pointer rather
+>>> than by value.
+>>>
+>>> No functional change.
+>>>
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> In principle
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> Thanks.
 >
->> @@ -879,14 +879,14 @@ static void intel_init_ppin(const struct cpuinfo_x86 *c)
->>      case 0x8f: /* Sapphire Rapids X */
->>  
->>          if ( (c != &boot_cpu_data && !ppin_msr) ||
->> -             rdmsr_safe(MSR_PPIN_CTL, val) )
->> +             rdmsr_safe(MSR_PPIN_CTL, &val) )
->>              return;
-> ... with this, wouldn't we be better off using ...
+>> However, having looked at patch 2 first, ...
+>>
+>>> @@ -879,14 +879,14 @@ static void intel_init_ppin(const struct cpuinfo_x86 *c)
+>>>      case 0x8f: /* Sapphire Rapids X */
+>>>  
+>>>          if ( (c != &boot_cpu_data && !ppin_msr) ||
+>>> -             rdmsr_safe(MSR_PPIN_CTL, val) )
+>>> +             rdmsr_safe(MSR_PPIN_CTL, &val) )
+>>>              return;
+>> ... with this, wouldn't we be better off using ...
+>>
+>>>          /* If PPIN is disabled, but not locked, try to enable. */
+>>>          if ( !(val & (PPIN_ENABLE | PPIN_LOCKOUT)) )
+>>>          {
+>>>              wrmsr_safe(MSR_PPIN_CTL, val | PPIN_ENABLE);
+>>> -            rdmsr_safe(MSR_PPIN_CTL, val);
+>>> +            rdmsr_safe(MSR_PPIN_CTL, &val);
+>> ... plain rdmsr() here, thus not leaving it open to the behavioral change
+>> patch 2 comes with?
+> Yeah, probably.  At the point we've read it once, and written to it, a
+> subsequent read is not going fail.
 >
->>          /* If PPIN is disabled, but not locked, try to enable. */
->>          if ( !(val & (PPIN_ENABLE | PPIN_LOCKOUT)) )
->>          {
->>              wrmsr_safe(MSR_PPIN_CTL, val | PPIN_ENABLE);
->> -            rdmsr_safe(MSR_PPIN_CTL, val);
->> +            rdmsr_safe(MSR_PPIN_CTL, &val);
-> ... plain rdmsr() here, thus not leaving it open to the behavioral change
-> patch 2 comes with?
+> I'll adjust, although it will have to be a rdmsrl().
 
-Yeah, probably.  At the point we've read it once, and written to it, a
-subsequent read is not going fail.
+No.  That would introduce a bug, because this path ignores a write error
+too.
 
-I'll adjust, although it will have to be a rdmsrl().
+There isn't actually a problem even with patch 2, because of the how the
+logic is currently laid out.
 
 ~Andrew
 
