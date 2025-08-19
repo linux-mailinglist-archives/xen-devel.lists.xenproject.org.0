@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80F33B2CACD
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 19:37:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1086741.1444911 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5801CB2CAD2
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 19:37:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1086745.1444939 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoQH8-0006gs-7a; Tue, 19 Aug 2025 17:37:34 +0000
+	id 1uoQHK-0007UT-4U; Tue, 19 Aug 2025 17:37:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1086741.1444911; Tue, 19 Aug 2025 17:37:34 +0000
+Received: by outflank-mailman (output) from mailman id 1086745.1444939; Tue, 19 Aug 2025 17:37:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoQH8-0006di-2s; Tue, 19 Aug 2025 17:37:34 +0000
-Received: by outflank-mailman (input) for mailman id 1086741;
- Tue, 19 Aug 2025 17:37:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uoQHK-0007RI-0b; Tue, 19 Aug 2025 17:37:46 +0000
+Received: by outflank-mailman (input) for mailman id 1086745;
+ Tue, 19 Aug 2025 17:37:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ve3E=27=kernel.org=leon@srs-se1.protection.inumbo.net>)
- id 1uoQH6-0006dc-Or
- for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 17:37:32 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2db96085-7d23-11f0-b898-0df219b8e170;
- Tue, 19 Aug 2025 19:37:30 +0200 (CEST)
+ id 1uoQHJ-0007Pa-1b
+ for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 17:37:45 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 356d4b61-7d23-11f0-a32a-13f23c93f187;
+ Tue, 19 Aug 2025 19:37:43 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 85E345C6338;
- Tue, 19 Aug 2025 17:37:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24115C4CEF4;
- Tue, 19 Aug 2025 17:37:27 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 7C8405C64F0;
+ Tue, 19 Aug 2025 17:37:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53FEBC116B1;
+ Tue, 19 Aug 2025 17:37:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +42,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2db96085-7d23-11f0-b898-0df219b8e170
+X-Inumbo-ID: 356d4b61-7d23-11f0-a32a-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1755625048;
-	bh=EWgy5B4A+Akm79sn7jh5YTuSXsOOCp8mk7trqVaPDEQ=;
+	s=k20201202; t=1755625061;
+	bh=mXPBKGOTAXMaA8YnIACrT4VeK6ColaZH6f/lOi0T5+M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=kgbi4w2Q8/qLfemYkqYCTlJubr4ZTtFUa79DQsgoMOtMnK9XVQtew1W9zkl8AXPTg
-	 5ouT8pZzyp7JtqBQN0iNERXAu/MVItkWE26bNq7tt2PQ51Vb3N7FOZu1tV27k+WDxS
-	 rDNXY9cVEdCtmprq96Y70alxWNTWqmdzaHB5D3PY10GcJh034Yri4T9esFwQ2SYYGH
-	 50WIZ3BWvYJhFJMsduRI2K8tz2LgY4zFEmijzvGKJlrZ1fVmLXd1pygDhMYan/xzfr
-	 ol/8IHtSLtS1VL0XNmH5RkFrbie3BoNUHMXdpMX5FRAvuLWuKe1gYX4KTtkiPKAqnI
-	 c3Ipp+NxzvqvA==
+	b=ZcfXQzEMtP4+AZ86jo3dtO0Oekoz5PxnIpxVGiM0bP5sSs9WMxZsIT5kYk/VnUi3R
+	 /kc0Vzr2i3fBfcwwoPTgAmdyvW5ST0B2y1uv9wp+i8hWG5QgN6gN0jrKDriRJyNDRP
+	 26rMrCRUHHKb1TjV3vj8pKsHfYCF8VeZXtu9+b4Vsvi65u3DslqBcB4jsQub3Gt2qD
+	 KJFY83CBFYAED4nL0OxEGnoJhmf5HiiRJ0eyTbwf76fL/xpbF4kq0K7Xr5ssJRHfaG
+	 Znxa2J61vk0Pu5GfNVrDFyX+mri+BrC7qwdiENTcRxzxBPp/BwoEirtjDV08OZLE7g
+	 87wPEgWDV7Xzg==
 From: Leon Romanovsky <leon@kernel.org>
 To: Marek Szyprowski <m.szyprowski@samsung.com>
 Cc: Leon Romanovsky <leonro@nvidia.com>,
@@ -90,9 +91,9 @@ Cc: Leon Romanovsky <leonro@nvidia.com>,
 	virtualization@lists.linux.dev,
 	Will Deacon <will@kernel.org>,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH v4 01/16] dma-mapping: introduce new DMA attribute to indicate MMIO memory
-Date: Tue, 19 Aug 2025 20:36:45 +0300
-Message-ID: <08e044a00a872932e106f7e27449a8eab2690dbc.1755624249.git.leon@kernel.org>
+Subject: [PATCH v4 02/16] iommu/dma: implement DMA_ATTR_MMIO for dma_iova_link().
+Date: Tue, 19 Aug 2025 20:36:46 +0300
+Message-ID: <62d9a6c3ca03037631f6d0640ebec5fbac41d547.1755624249.git.leon@kernel.org>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <cover.1755624249.git.leon@kernel.org>
 References: <cover.1755624249.git.leon@kernel.org>
@@ -101,112 +102,68 @@ Content-Transfer-Encoding: 8bit
 
 From: Leon Romanovsky <leonro@nvidia.com>
 
-This patch introduces the DMA_ATTR_MMIO attribute to mark DMA buffers
-that reside in memory-mapped I/O (MMIO) regions, such as device BARs
-exposed through the host bridge, which are accessible for peer-to-peer
-(P2P) DMA.
+This will replace the hacky use of DMA_ATTR_SKIP_CPU_SYNC to avoid
+touching the possibly non-KVA MMIO memory.
 
-This attribute is especially useful for exporting device memory to other
-devices for DMA without CPU involvement, and avoids unnecessary or
-potentially detrimental CPU cache maintenance calls.
+Also correct the incorrect caching attribute for the IOMMU, MMIO
+memory should not be cachable inside the IOMMU mapping or it can
+possibly create system problems. Set IOMMU_MMIO for DMA_ATTR_MMIO.
 
-DMA_ATTR_MMIO is supposed to provide dma_map_resource() functionality
-without need to call to special function and perform branching by
-the callers.
-
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 ---
- Documentation/core-api/dma-attributes.rst | 18 ++++++++++++++++++
- include/linux/dma-mapping.h               | 20 ++++++++++++++++++++
- include/trace/events/dma.h                |  3 ++-
- rust/kernel/dma.rs                        |  3 +++
- 4 files changed, 43 insertions(+), 1 deletion(-)
+ drivers/iommu/dma-iommu.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/core-api/dma-attributes.rst b/Documentation/core-api/dma-attributes.rst
-index 1887d92e8e92..0bdc2be65e57 100644
---- a/Documentation/core-api/dma-attributes.rst
-+++ b/Documentation/core-api/dma-attributes.rst
-@@ -130,3 +130,21 @@ accesses to DMA buffers in both privileged "supervisor" and unprivileged
- subsystem that the buffer is fully accessible at the elevated privilege
- level (and ideally inaccessible or at least read-only at the
- lesser-privileged levels).
+diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+index ea2ef53bd4fe..e1185ba73e23 100644
+--- a/drivers/iommu/dma-iommu.c
++++ b/drivers/iommu/dma-iommu.c
+@@ -724,7 +724,12 @@ static int iommu_dma_init_domain(struct iommu_domain *domain, struct device *dev
+ static int dma_info_to_prot(enum dma_data_direction dir, bool coherent,
+ 		     unsigned long attrs)
+ {
+-	int prot = coherent ? IOMMU_CACHE : 0;
++	int prot;
 +
-+DMA_ATTR_MMIO
-+-------------
-+
-+This attribute indicates the physical address is not normal system
-+memory. It may not be used with kmap*()/phys_to_virt()/phys_to_page()
-+functions, it may not be cacheable, and access using CPU load/store
-+instructions may not be allowed.
-+
-+Usually this will be used to describe MMIO addresses, or other non-cacheable
-+register addresses. When DMA mapping this sort of address we call
-+the operation Peer to Peer as a one device is DMA'ing to another device.
-+For PCI devices the p2pdma APIs must be used to determine if
-+DMA_ATTR_MMIO is appropriate.
-+
-+For architectures that require cache flushing for DMA coherence
-+DMA_ATTR_MMIO will not perform any cache flushing. The address
-+provided must never be mapped cacheable into the CPU.
-diff --git a/include/linux/dma-mapping.h b/include/linux/dma-mapping.h
-index 55c03e5fe8cb..4254fd9bdf5d 100644
---- a/include/linux/dma-mapping.h
-+++ b/include/linux/dma-mapping.h
-@@ -58,6 +58,26 @@
-  */
- #define DMA_ATTR_PRIVILEGED		(1UL << 9)
++	if (attrs & DMA_ATTR_MMIO)
++		prot = IOMMU_MMIO;
++	else
++		prot = coherent ? IOMMU_CACHE : 0;
  
-+/*
-+ * DMA_ATTR_MMIO - Indicates memory-mapped I/O (MMIO) region for DMA mapping
-+ *
-+ * This attribute indicates the physical address is not normal system
-+ * memory. It may not be used with kmap*()/phys_to_virt()/phys_to_page()
-+ * functions, it may not be cacheable, and access using CPU load/store
-+ * instructions may not be allowed.
-+ *
-+ * Usually this will be used to describe MMIO addresses, or other non-cacheable
-+ * register addresses. When DMA mapping this sort of address we call
-+ * the operation Peer to Peer as a one device is DMA'ing to another device.
-+ * For PCI devices the p2pdma APIs must be used to determine if DMA_ATTR_MMIO
-+ * is appropriate.
-+ *
-+ * For architectures that require cache flushing for DMA coherence
-+ * DMA_ATTR_MMIO will not perform any cache flushing. The address
-+ * provided must never be mapped cacheable into the CPU.
-+ */
-+#define DMA_ATTR_MMIO		(1UL << 10)
-+
- /*
-  * A dma_addr_t can hold any valid DMA or bus address for the platform.  It can
-  * be given to a device to use as a DMA source or target.  It is specific to a
-diff --git a/include/trace/events/dma.h b/include/trace/events/dma.h
-index d8ddc27b6a7c..ee90d6f1dcf3 100644
---- a/include/trace/events/dma.h
-+++ b/include/trace/events/dma.h
-@@ -31,7 +31,8 @@ TRACE_DEFINE_ENUM(DMA_NONE);
- 		{ DMA_ATTR_FORCE_CONTIGUOUS, "FORCE_CONTIGUOUS" }, \
- 		{ DMA_ATTR_ALLOC_SINGLE_PAGES, "ALLOC_SINGLE_PAGES" }, \
- 		{ DMA_ATTR_NO_WARN, "NO_WARN" }, \
--		{ DMA_ATTR_PRIVILEGED, "PRIVILEGED" })
-+		{ DMA_ATTR_PRIVILEGED, "PRIVILEGED" }, \
-+		{ DMA_ATTR_MMIO, "MMIO" })
+ 	if (attrs & DMA_ATTR_PRIVILEGED)
+ 		prot |= IOMMU_PRIV;
+@@ -1838,12 +1843,13 @@ static int __dma_iova_link(struct device *dev, dma_addr_t addr,
+ 		unsigned long attrs)
+ {
+ 	bool coherent = dev_is_dma_coherent(dev);
++	int prot = dma_info_to_prot(dir, coherent, attrs);
  
- DECLARE_EVENT_CLASS(dma_map,
- 	TP_PROTO(struct device *dev, phys_addr_t phys_addr, dma_addr_t dma_addr,
-diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs
-index 2bc8ab51ec28..61d9eed7a786 100644
---- a/rust/kernel/dma.rs
-+++ b/rust/kernel/dma.rs
-@@ -242,6 +242,9 @@ pub mod attrs {
-     /// Indicates that the buffer is fully accessible at an elevated privilege level (and
-     /// ideally inaccessible or at least read-only at lesser-privileged levels).
-     pub const DMA_ATTR_PRIVILEGED: Attrs = Attrs(bindings::DMA_ATTR_PRIVILEGED);
-+
-+    /// Indicates that the buffer is MMIO memory.
-+    pub const DMA_ATTR_MMIO: Attrs = Attrs(bindings::DMA_ATTR_MMIO);
+-	if (!coherent && !(attrs & DMA_ATTR_SKIP_CPU_SYNC))
++	if (!coherent && !(attrs & (DMA_ATTR_SKIP_CPU_SYNC | DMA_ATTR_MMIO)))
+ 		arch_sync_dma_for_device(phys, size, dir);
+ 
+ 	return iommu_map_nosync(iommu_get_dma_domain(dev), addr, phys, size,
+-			dma_info_to_prot(dir, coherent, attrs), GFP_ATOMIC);
++			prot, GFP_ATOMIC);
  }
  
- /// An abstraction of the `dma_alloc_coherent` API.
+ static int iommu_dma_iova_bounce_and_link(struct device *dev, dma_addr_t addr,
+@@ -1949,9 +1955,13 @@ int dma_iova_link(struct device *dev, struct dma_iova_state *state,
+ 		return -EIO;
+ 
+ 	if (dev_use_swiotlb(dev, size, dir) &&
+-	    iova_unaligned(iovad, phys, size))
++	    iova_unaligned(iovad, phys, size)) {
++		if (attrs & DMA_ATTR_MMIO)
++			return -EPERM;
++
+ 		return iommu_dma_iova_link_swiotlb(dev, state, phys, offset,
+ 				size, dir, attrs);
++	}
+ 
+ 	return __dma_iova_link(dev, state->addr + offset - iova_start_pad,
+ 			phys - iova_start_pad,
 -- 
 2.50.1
 
