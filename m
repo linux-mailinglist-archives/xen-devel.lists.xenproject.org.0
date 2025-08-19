@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 918DCB2CA66
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 19:19:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1086726.1444899 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20840B2CACF
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 19:37:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1086742.1444919 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoPyo-0003ls-MV; Tue, 19 Aug 2025 17:18:38 +0000
+	id 1uoQHD-0006uN-Io; Tue, 19 Aug 2025 17:37:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1086726.1444899; Tue, 19 Aug 2025 17:18:38 +0000
+Received: by outflank-mailman (output) from mailman id 1086742.1444919; Tue, 19 Aug 2025 17:37:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoPyo-0003kP-Js; Tue, 19 Aug 2025 17:18:38 +0000
-Received: by outflank-mailman (input) for mailman id 1086726;
- Tue, 19 Aug 2025 17:18:37 +0000
+	id 1uoQHD-0006sl-FT; Tue, 19 Aug 2025 17:37:39 +0000
+Received: by outflank-mailman (input) for mailman id 1086742;
+ Tue, 19 Aug 2025 17:37:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9H+3=27=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uoPym-0003kJ-Vv
- for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 17:18:37 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ve3E=27=kernel.org=leon@srs-se1.protection.inumbo.net>)
+ id 1uoQHB-0006dc-NM
+ for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 17:37:37 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 878fc7db-7d20-11f0-b898-0df219b8e170;
- Tue, 19 Aug 2025 19:18:31 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-45a1b097037so31571485e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 19 Aug 2025 10:18:31 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3c074879859sm4371615f8f.3.2025.08.19.10.18.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Aug 2025 10:18:30 -0700 (PDT)
+ id 30cbc678-7d23-11f0-b898-0df219b8e170;
+ Tue, 19 Aug 2025 19:37:35 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 176855C64A7;
+ Tue, 19 Aug 2025 17:37:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C7B6C113D0;
+ Tue, 19 Aug 2025 17:37:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,162 +42,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 878fc7db-7d20-11f0-b898-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755623911; x=1756228711; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=plhE2oARVW1biycRxwi0J8Qr/Qq0NXG+SsA73OEzfFI=;
-        b=T4Gj7bsXshj2wm17nw+jLha/zzXflhzJ6hXnputn2YCXXWi2s9rjNMiwvwd7/SNbqb
-         JJ8Yv6PCCWG0UXIRzMUmoOWWfaOgmLKHjbH2pK4whN7XfG7sDSLs2GKBZnFiAPcO7xet
-         KdGljXQUxGaeoCd47CW60L4G7x2gH3n0tB80o=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755623911; x=1756228711;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=plhE2oARVW1biycRxwi0J8Qr/Qq0NXG+SsA73OEzfFI=;
-        b=rMSs0x6utFOFg/yHkPGKpUJlkSd2thT7QxaJvfxMUnoIa3mMF0lzNuOxa8MK4Q8PLF
-         718atfnjPRGxS/PmePcQoMPezyNSecnsoCHMZDtmXzd81SmiIcVjkpRm0/xTzqZ7M/5p
-         rUF4/6Lsn1VNTSRnhrtYIjHFLr/EYGDjVQDMYI529u7SaEFArIeLoSNs75V66AdsGj5e
-         cyzBW/dbIW4YFayemmVBatQS10zSnr5yYwAd9UtmFuUTjqBCIMu6H7NEBm7IegxiJE72
-         EyC4iqNjh82QT1ZSq9Ayxje/dvq/Vt8MGWMmfzdl0jM6HowIw77hcRB/zEtvnadli8ow
-         /i8w==
-X-Gm-Message-State: AOJu0YzVNhz+Q3gMRCjJ4JY9Eq9ONMjGRttA34ch5XDrCqUnXY5z2+Ts
-	4Udg0KWKXBzYzHCQbhsDzSwNJ8t6gro+TW+g6v+92c0kKyMRA7T8t2jXIiP0XTiFVHJAd40M5Py
-	Tnad3
-X-Gm-Gg: ASbGnct1BbpCGBCoyX2s3UwPW9UVonsIVMzgkPs930ikUP99zWrcch85g/fPzLUvwI9
-	ZK4rIbrAU+6EMdzGpYaDV3vGF1DPDG9wMnn2GetmmThhDbBTU9do0JEDiZ107l/5h3ANFCBL4iV
-	QmfSjAamnmFRat64nWYCNVzoZm0mrtOQfNhnBpJ+KCe3RC6kacUVVzPqzr8UtpwJOZm/F4xxFK0
-	4eX9Z9A3BsFpI81BpU2sfRx5bWK0zqloJDVG9FswgSSS4O10K8ORoaCrlVufnkzpERSh6wdXpHi
-	UvOD9nn1rNxPM/zNohQpSbZoHppxJaZnQIcpf8fKY3q0dN7baoLGE0zqvazAx2JWH8GL83yB/cj
-	PW7WiGFQ5CtAX3LK6jSD1qazdwHY/m1v7ddvRirIDzGY1PnedNNSnXx/tzZSV9eIhkxBZRtGYVF
-	Ac
-X-Google-Smtp-Source: AGHT+IG23CtaPSekZ6jsN8U8SwAfMunksdT8XIiiAGIEvzFpNKuM2q2b3dYxOQE3bINYqJioUWGrqA==
-X-Received: by 2002:a05:600c:524b:b0:456:285b:db29 with SMTP id 5b1f17b1804b1-45b43e13947mr29878195e9.29.1755623910752;
-        Tue, 19 Aug 2025 10:18:30 -0700 (PDT)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH] x86/iommu: setup MMCFG ahead of IOMMU
-Date: Tue, 19 Aug 2025 19:18:26 +0200
-Message-ID: <20250819171826.60700-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.49.0
+X-Inumbo-ID: 30cbc678-7d23-11f0-b898-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1755625042;
+	bh=PY9smWWJ4JNRFUAjSvtMNJOBqFCsxBLYO5QlYdxwbLE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=nt8pdRowHseoXvExKasdI0tEDbHSrgizbMB2qlH1aCU/xuu2CZSaOV8+REt27f9GO
+	 87AyElpEj/wX92YaeYkB2ZUeSYzFX7ugQoGONRfzj6gLwHZfXjbZvX+XecnRMSzKxt
+	 XWFXqQ7FRrUCmWN75OAdzO2Bw50CvLG0hQxnk0yj1TPViX5VQGWTcqYi++OUdBQ/MI
+	 77ZymbBVIJT1fBt6mwrJPXADDaD1SHQ2OEMF2BgRWv5a+KqnO7FRcxsxJl834mNp8D
+	 2IaJ0ZC7YC5w/kVg1P0H0R1EvS8ZJSRiF91vJogJyrKxdQR7Akp5/4TKu+iWzc343Q
+	 0jqutLlV5YsRQ==
+From: Leon Romanovsky <leon@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>,
+	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Alex Gaynor <alex.gaynor@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Danilo Krummrich <dakr@kernel.org>,
+	iommu@lists.linux.dev,
+	Jason Wang <jasowang@redhat.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Joerg Roedel <joro@8bytes.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Juergen Gross <jgross@suse.com>,
+	kasan-dev@googlegroups.com,
+	Keith Busch <kbusch@kernel.org>,
+	linux-block@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-nvme@lists.infradead.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-trace-kernel@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	rust-for-linux@vger.kernel.org,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	virtualization@lists.linux.dev,
+	Will Deacon <will@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v4 00/16] dma-mapping: migrate to physical address-based API
+Date: Tue, 19 Aug 2025 20:36:44 +0300
+Message-ID: <cover.1755624249.git.leon@kernel.org>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Otherwise the PCI accesses to segments different than the first one done by
-the IOMMU initialization code would silently fail by returning all ones.
+Changelog:
+v4:
+ * Fixed kbuild error with mismatch in kmsan function declaration due to
+   rebase error.
+v3: https://lore.kernel.org/all/cover.1755193625.git.leon@kernel.org
+ * Fixed typo in "cacheable" word
+ * Simplified kmsan patch a lot to be simple argument refactoring
+v2: https://lore.kernel.org/all/cover.1755153054.git.leon@kernel.org
+ * Used commit messages and cover letter from Jason
+ * Moved setting IOMMU_MMIO flag to dma_info_to_prot function
+ * Micro-optimized the code
+ * Rebased code on v6.17-rc1
+v1: https://lore.kernel.org/all/cover.1754292567.git.leon@kernel.org
+ * Added new DMA_ATTR_MMIO attribute to indicate
+   PCI_P2PDMA_MAP_THRU_HOST_BRIDGE path.
+ * Rewrote dma_map_* functions to use thus new attribute
+v0: https://lore.kernel.org/all/cover.1750854543.git.leon@kernel.org/
+------------------------------------------------------------------------
 
-Introduce a new helper, called pci_setup(), and move both the creation of
-PCI segment 0 internal data structures, plus the parsing of ACPI MMCFG
-table to it.
+This series refactors the DMA mapping to use physical addresses
+as the primary interface instead of page+offset parameters. This
+change aligns the DMA API with the underlying hardware reality where
+DMA operations work with physical addresses, not page structures.
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/acpi/boot.c              |  2 --
- xen/arch/x86/include/asm/pci.h        |  2 ++
- xen/arch/x86/pci.c                    | 16 ++++++++++++++++
- xen/arch/x86/setup.c                  |  7 +++----
- xen/arch/x86/x86_64/mmconfig-shared.c |  3 +++
- 5 files changed, 24 insertions(+), 6 deletions(-)
+The series maintains export symbol backward compatibility by keeping
+the old page-based API as wrapper functions around the new physical
+address-based implementations.
 
-diff --git a/xen/arch/x86/acpi/boot.c b/xen/arch/x86/acpi/boot.c
-index 3901f9d9825b..1ca2360e0065 100644
---- a/xen/arch/x86/acpi/boot.c
-+++ b/xen/arch/x86/acpi/boot.c
-@@ -748,8 +748,6 @@ int __init acpi_boot_init(void)
- 
- 	acpi_table_parse(ACPI_SIG_HPET, acpi_parse_hpet);
- 
--	acpi_mmcfg_init();
--
- 	erst_init();
- 
- 	acpi_hest_init();
-diff --git a/xen/arch/x86/include/asm/pci.h b/xen/arch/x86/include/asm/pci.h
-index 665b32116521..0b98081aeaa4 100644
---- a/xen/arch/x86/include/asm/pci.h
-+++ b/xen/arch/x86/include/asm/pci.h
-@@ -74,4 +74,6 @@ bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end);
- struct rangeset;
- int pci_sanitize_bar_memory(struct rangeset *r);
- 
-+void pci_setup(void);
-+
- #endif /* __X86_PCI_H__ */
-diff --git a/xen/arch/x86/pci.c b/xen/arch/x86/pci.c
-index 26bb7f6a3c3a..e75a29e851a7 100644
---- a/xen/arch/x86/pci.c
-+++ b/xen/arch/x86/pci.c
-@@ -6,7 +6,10 @@
- 
- #include <xen/spinlock.h>
- #include <xen/pci.h>
-+
-+#include <asm/acpi.h>
- #include <asm/io.h>
-+
- #include <xsm/xsm.h>
- 
- static DEFINE_SPINLOCK(pci_config_lock);
-@@ -139,6 +142,19 @@ int pci_sanitize_bar_memory(struct rangeset *r)
-     return 0;
- }
- 
-+void __init pci_setup(void)
-+{
-+    /*
-+     * Ahead of any ACPI table parsing make sure we have control structures
-+     * for PCI segment 0.
-+     */
-+    if ( pci_add_segment(0) )
-+        panic("Could not initialize PCI segment 0\n");
-+
-+    /* Parse ACPI MMCFG ahead of IOMMU, so accesses to segments > 0 is setup. */
-+    acpi_mmcfg_init();
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 6fb42c5a5f95..bd648323bfed 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -1938,11 +1938,10 @@ void asmlinkage __init noreturn __start_xen(void)
-     setup_system_domains();
- 
-     /*
--     * Ahead of any ACPI table parsing make sure we have control structures
--     * for PCI segment 0.
-+     * Initialize PCI (create segment 0, setup MMCFG access) ahead of IOMMU
-+     * setup, as it requires access to the PCI config space.
-      */
--    if ( pci_add_segment(0) )
--        panic("Could not initialize PCI segment 0\n");
-+    pci_setup();
- 
-     /*
-      * IOMMU-related ACPI table parsing has to happen before APIC probing, for
-diff --git a/xen/arch/x86/x86_64/mmconfig-shared.c b/xen/arch/x86/x86_64/mmconfig-shared.c
-index f1a3d42c5b21..fbe2676f8636 100644
---- a/xen/arch/x86/x86_64/mmconfig-shared.c
-+++ b/xen/arch/x86/x86_64/mmconfig-shared.c
-@@ -402,6 +402,9 @@ void __init acpi_mmcfg_init(void)
- {
-     bool valid = true;
- 
-+    if ( acpi_disabled )
-+        return;
-+
-     /* MMCONFIG disabled */
-     if ((pci_probe & PCI_PROBE_MMCONF) == 0)
-         return;
+This series refactors the DMA mapping API to provide a phys_addr_t
+based, and struct-page free, external API that can handle all the
+mapping cases we want in modern systems:
+
+ - struct page based cachable DRAM
+ - struct page MEMORY_DEVICE_PCI_P2PDMA PCI peer to peer non-cachable
+   MMIO
+ - struct page-less PCI peer to peer non-cachable MMIO
+ - struct page-less "resource" MMIO
+
+Overall this gets much closer to Matthew's long term wish for
+struct-pageless IO to cachable DRAM. The remaining primary work would
+be in the mm side to allow kmap_local_pfn()/phys_to_virt() to work on
+phys_addr_t without a struct page.
+
+The general design is to remove struct page usage entirely from the
+DMA API inner layers. For flows that need to have a KVA for the
+physical address they can use kmap_local_pfn() or phys_to_virt(). This
+isolates the struct page requirements to MM code only. Long term all
+removals of struct page usage are supporting Matthew's memdesc
+project which seeks to substantially transform how struct page works.
+
+Instead make the DMA API internals work on phys_addr_t. Internally
+there are still dedicated 'page' and 'resource' flows, except they are
+now distinguished by a new DMA_ATTR_MMIO instead of by callchain. Both
+flows use the same phys_addr_t.
+
+When DMA_ATTR_MMIO is specified things work similar to the existing
+'resource' flow. kmap_local_pfn(), phys_to_virt(), phys_to_page(),
+pfn_valid(), etc are never called on the phys_addr_t. This requires
+rejecting any configuration that would need swiotlb. CPU cache
+flushing is not required, and avoided, as ATTR_MMIO also indicates the
+address have no cachable mappings. This effectively removes any
+DMA API side requirement to have struct page when DMA_ATTR_MMIO is
+used.
+
+In the !DMA_ATTR_MMIO mode things work similarly to the 'page' flow,
+except on the common path of no cache flush, no swiotlb it never
+touches a struct page. When cache flushing or swiotlb copying
+kmap_local_pfn()/phys_to_virt() are used to get a KVA for CPU
+usage. This was already the case on the unmap side, now the map side
+is symmetric.
+
+Callers are adjusted to set DMA_ATTR_MMIO. Existing 'resource' users
+must set it. The existing struct page based MEMORY_DEVICE_PCI_P2PDMA
+path must also set it. This corrects some existing bugs where iommu
+mappings for P2P MMIO were improperly marked IOMMU_CACHE.
+
+Since ATTR_MMIO is made to work with all the existing DMA map entry
+points, particularly dma_iova_link(), this finally allows a way to use
+the new DMA API to map PCI P2P MMIO without creating struct page. The
+VFIO DMABUF series demonstrates how this works. This is intended to
+replace the incorrect driver use of dma_map_resource() on PCI BAR
+addresses.
+
+This series does the core code and modern flows. A followup series
+will give the same treatment to the legacy dma_ops implementation.
+
+Thanks
+
+Leon Romanovsky (16):
+  dma-mapping: introduce new DMA attribute to indicate MMIO memory
+  iommu/dma: implement DMA_ATTR_MMIO for dma_iova_link().
+  dma-debug: refactor to use physical addresses for page mapping
+  dma-mapping: rename trace_dma_*map_page to trace_dma_*map_phys
+  iommu/dma: rename iommu_dma_*map_page to iommu_dma_*map_phys
+  iommu/dma: extend iommu_dma_*map_phys API to handle MMIO memory
+  dma-mapping: convert dma_direct_*map_page to be phys_addr_t based
+  kmsan: convert kmsan_handle_dma to use physical addresses
+  dma-mapping: handle MMIO flow in dma_map|unmap_page
+  xen: swiotlb: Open code map_resource callback
+  dma-mapping: export new dma_*map_phys() interface
+  mm/hmm: migrate to physical address-based DMA mapping API
+  mm/hmm: properly take MMIO path
+  block-dma: migrate to dma_map_phys instead of map_page
+  block-dma: properly take MMIO path
+  nvme-pci: unmap MMIO pages with appropriate interface
+
+ Documentation/core-api/dma-api.rst        |   4 +-
+ Documentation/core-api/dma-attributes.rst |  18 ++++
+ arch/powerpc/kernel/dma-iommu.c           |   4 +-
+ block/blk-mq-dma.c                        |  15 ++-
+ drivers/iommu/dma-iommu.c                 |  61 +++++------
+ drivers/nvme/host/pci.c                   |  18 +++-
+ drivers/virtio/virtio_ring.c              |   4 +-
+ drivers/xen/swiotlb-xen.c                 |  21 +++-
+ include/linux/blk-mq-dma.h                |   6 +-
+ include/linux/blk_types.h                 |   2 +
+ include/linux/dma-direct.h                |   2 -
+ include/linux/dma-map-ops.h               |   8 +-
+ include/linux/dma-mapping.h               |  33 ++++++
+ include/linux/iommu-dma.h                 |  11 +-
+ include/linux/kmsan.h                     |   9 +-
+ include/trace/events/dma.h                |   9 +-
+ kernel/dma/debug.c                        |  71 ++++---------
+ kernel/dma/debug.h                        |  37 ++-----
+ kernel/dma/direct.c                       |  22 +---
+ kernel/dma/direct.h                       |  52 ++++++----
+ kernel/dma/mapping.c                      | 117 +++++++++++++---------
+ kernel/dma/ops_helpers.c                  |   6 +-
+ mm/hmm.c                                  |  19 ++--
+ mm/kmsan/hooks.c                          |   5 +-
+ rust/kernel/dma.rs                        |   3 +
+ tools/virtio/linux/kmsan.h                |   2 +-
+ 26 files changed, 305 insertions(+), 254 deletions(-)
+
 -- 
-2.49.0
+2.50.1
 
 
