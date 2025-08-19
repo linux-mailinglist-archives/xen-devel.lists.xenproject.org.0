@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A10D5B2BF21
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 12:40:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1086431.1444625 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74E56B2BF31
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 12:43:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1086442.1444636 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoJlA-0002lm-CN; Tue, 19 Aug 2025 10:40:08 +0000
+	id 1uoJnl-0003VB-Qc; Tue, 19 Aug 2025 10:42:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1086431.1444625; Tue, 19 Aug 2025 10:40:08 +0000
+Received: by outflank-mailman (output) from mailman id 1086442.1444636; Tue, 19 Aug 2025 10:42:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoJlA-0002jF-9R; Tue, 19 Aug 2025 10:40:08 +0000
-Received: by outflank-mailman (input) for mailman id 1086431;
- Tue, 19 Aug 2025 10:40:06 +0000
+	id 1uoJnl-0003TY-Lx; Tue, 19 Aug 2025 10:42:49 +0000
+Received: by outflank-mailman (input) for mailman id 1086442;
+ Tue, 19 Aug 2025 10:42:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xm9j=27=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uoJl8-0002dZ-KL
- for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 10:40:06 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
+ id 1uoJnj-0003TQ-M2
+ for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 10:42:47 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dda1ec49-7ce8-11f0-b898-0df219b8e170;
- Tue, 19 Aug 2025 12:40:04 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-6188b7949f6so9531670a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 19 Aug 2025 03:40:04 -0700 (PDT)
+ id 3ded0c83-7ce9-11f0-b898-0df219b8e170;
+ Tue, 19 Aug 2025 12:42:45 +0200 (CEST)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-6188b5f620dso5696662a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Aug 2025 03:42:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61a75794ccbsm1565987a12.39.2025.08.19.03.40.03
+ 4fb4d7f45d1cf-61a7560a0f8sm1496434a12.24.2025.08.19.03.42.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Aug 2025 03:40:03 -0700 (PDT)
+ Tue, 19 Aug 2025 03:42:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dda1ec49-7ce8-11f0-b898-0df219b8e170
+X-Inumbo-ID: 3ded0c83-7ce9-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755600004; x=1756204804; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755600165; x=1756204965; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=L2HfJE50R2xX3LKs3bv68gJhZRqOK54gsd8NsS9sVNY=;
-        b=fBmW/FR+ZeX2E16jbuUO2mbMxGZ+1aF21t2b3Za66Z2OBVh8aav+pW8TfFrOZrmru9
-         6ITluaGTrhlf1C0iu79J3ey1dT67kQDmY53IUEIMYkesopYqBStibUuzHbcJOU+j+Mr1
-         5OpMPi4pCpgWaIhISniZyRAchfXAksldSBgES6c/EBBUfYOjq91TlUtX7tsSwX/lSji1
-         PKKknLs7lf9/bmije+Pu2pPatV+LG3j+oLWQ5+87DVYaTf5aXvrZeDNySurUZpIKLxIt
-         ssNsEg1Pv+ek4S442k5FaVd5pFTYOxK37t0g3eFaGzq7gSgdwdYvq+ZoVwUZbYx7y9zG
-         fHww==
+        bh=WIsV9Vd3k3FZNRz6LQtn1B+cKcmfD9qtcjJc7rx23qg=;
+        b=YtTKRuQ4y8pPNECsRjfkm3njXhVcFltNen2Pr6dqThytlHVIrew9otTIi3BoAdQoNM
+         dDUy2beGLX+DLBf1pmrYalvHKen9b9QvdArLuu4bE83NdtWcoCXAZQGZI0NaRAMKM0qz
+         EvwnlXZpmJzCbvYPVBZyWxGxFR6YUrHabGxnwP9IWVCg7F+waBXxzjmulZ1wXT/tyajE
+         SmyqU9ZyDLExQRrbjO1+Z867pqjRGNSKnzduypAgshjYJ3JeyFvTKj3wfJOBwx0UK4CT
+         ANBRQiu4fdMu8EfdfTRSJpukht7DB8TzSLcdSmZga53QTqd0J7tXgcVobMYWL5lDBJa1
+         nr6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755600004; x=1756204804;
+        d=1e100.net; s=20230601; t=1755600165; x=1756204965;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=L2HfJE50R2xX3LKs3bv68gJhZRqOK54gsd8NsS9sVNY=;
-        b=GTk3eVC68pF7HctxYo4pyDN01z1qd/o6h4sNqGEuiVgmZFC9UbRkyKA4OSquA4baf2
-         01DTH0VtubAUIIX9p4XQk9Zr2Mnt/NoNOMFJbSM3n5NGXpsEItgZOotphSCmLPH7Qxxb
-         kDtokUvrfwIwSUyHSTT9szy/VvxDgsij6Uf3ILAU54HwQ9JZA1xekDTOQ6zBbIU5bB6P
-         CH7KvTugPwVM/XHZ1Kra6GaW4DU78HK4lIziO+efdkcfURouifLrTQ2j9N04MV2uP+ST
-         l+sv2b2MobfUC4RUUm5/dAavepijUf0cOlkhkfD3LLU2WjngDgFdoGawfdIcrap0JQqF
-         kVcg==
-X-Forwarded-Encrypted: i=1; AJvYcCUXo7AouaNZGxj50sJ1zx9TV7kLLw+478Jm6B97QqJ09X3hRd5eC+m/7sdin9QCOjnmAs1o0nhsuAM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzl1AiH0VNo9xt9Vha+2RkKjE8upc6uDTKuULAs+pCXdIfxjbOm
-	xX3MoRNOf5HQaEBaIWrzAj4or6YiQm7qh574xjZBk1j8jOkdLBBgc4hCb3WeZpK7+g==
-X-Gm-Gg: ASbGncvbHbbsIgdxMJpl3VSRnf0J8dXWiaxpAWT3VXmSpDd/eC/bXIL6blkmhrgGRpt
-	i9UERTBAP79fFWPr8hfQjuTYeycG8WIeofNsd7Jf5esBKeknU1t2obDvWjz2R6gJn1v7k+slqPT
-	0pKm5QctKmsCEjDWie2ZQvoY9Bvv/jtO8Eeb0c5DyhZQm9PLYgsB47srZEvKfWhBMbwZ7YIaA0Y
-	gPe8mRzNZaQLbroCtUdnKf29PNm3bj1MYL38UAT90mb7YN+ClqUsP7KXnU+nULXpzxmeFzcVQjm
-	M/Rthkw1mwBg4fnu13y7KMCXPIgQFfHcwhQ5WEoMOrJ5DBqH1plP4FqeWlQfCrrZi0FtV6hgZmF
-	ntWGsB11n7lREDiJPf/wQkf1hyBSdV9jc9NWtAFfEtDUae84xGzc+7oh32K6Z3Ivwi4IOT0+dd8
-	XPEwdSfTQ=
-X-Google-Smtp-Source: AGHT+IHXp/SCz+UK5HfkXt3qyPpRM+fgVa/Ksmd0I86OXMUvMvbBX7SdMIN5TbP4gXZVq++96GRaYg==
-X-Received: by 2002:a05:6402:3596:b0:618:20c1:7e74 with SMTP id 4fb4d7f45d1cf-61a7e756b98mr1549722a12.25.1755600003657;
-        Tue, 19 Aug 2025 03:40:03 -0700 (PDT)
-Message-ID: <85c5fbe6-48f4-4e4e-9752-5d4ef34fb8a5@suse.com>
-Date: Tue, 19 Aug 2025 12:40:02 +0200
+        bh=WIsV9Vd3k3FZNRz6LQtn1B+cKcmfD9qtcjJc7rx23qg=;
+        b=BRIxQpE7PRC41nXBrtYvWXaLx9BV8InhmP9eWxlvtS50uLk1AzZp/CSfb0hY4nrJOE
+         Vf3XOZur+cP3guwaZ7sAuZQatnyLCXW6OE8ae0RR8K/fBQYyIj2KT5alhmUrdB5IdqRk
+         hixkRj47RB/lNUPP6BGilJ/wG0aw9VDBKETonRUSOpGy29HQibLs+yZRHvoTAp7ZTKHQ
+         SR6jtYVdZoNztLvuw8/nfcTuy61bSJdJVhSTQ8wUSnBZVgwmmwWI6oUlYd05ZEDPnJvy
+         3Lw4XcDmUjIkz0Rrnf/ZPSTFbNE5iaSTcVcWYWPxU/rM5GG8HgwZ8PC1DcePtf93XCvW
+         i6bw==
+X-Forwarded-Encrypted: i=1; AJvYcCXeilO8X7zwu/OGEezlvbQH1RWmBPIdw/a1jzqfQZAU1c+VnbIrZRPVggMCpqotRrSefs+U7F7nSBY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzqeUuTSlZwlO/5YFzTplCO44O+yB6XuhciSNYUkSyQFgERG4YB
+	0Rg1jd/joSe4AN3iN0PIqunds/QnFGIo0/2oJyjc8cjeoaH+B0Gy9o5IGJSUFnePmA==
+X-Gm-Gg: ASbGncuBnGXp3TQu3OGnsc053BaZxwO9QhpS6zvSi8nZbQ2wIUPhHA5NYYO3io29ojW
+	sHTFLKkVEPYCdJGeJt2aXtg/xn13I0/0npIWKpSwa8o76YJIz6b4a/C69F+qL19Y6g17Lxdq1ZC
+	xzduwgYbQqNHRhDwiAyQm0yEOfSG5sTfbH6LV/5xhEY1EC9gRIxT86QbWXAo5ikgVDY0xyYcTw+
+	b13G96CxPUd9B1wnnZILctMaAxwHgVa54hV7AUnjk18qwVUD/T1Sl5WoElM34fZiFUL6JheAe1T
+	SyGoy2u/L0Eyi4+ztHeuiI/scMZyUbxbEMhXrm1SbnysBu5JH+SlijJk0lIirBZ53SnN1vS0pW+
+	lKtTjebdEEoaWhrHZ5Pd12uildQEZa+H4ml57nE8+xPdtGTT81fXD+rE8hcjFWMccm0TMY+zeYN
+	bXE3wgO/tLv8I/u+L+EFkPlQipcAfF
+X-Google-Smtp-Source: AGHT+IFYDHtQunNVz01Hu0Tc98USIMYgaa7L0hngKjqy1sx9mSmwDNLqpF7kDcMZaHzM4KkgV6Q5Xg==
+X-Received: by 2002:a05:6402:274d:b0:618:4ab5:e85c with SMTP id 4fb4d7f45d1cf-61a7e76c67cmr1559481a12.34.1755600165244;
+        Tue, 19 Aug 2025 03:42:45 -0700 (PDT)
+Message-ID: <9c1808fa-1865-40b6-91c2-d6e2cabd8ddc@suse.com>
+Date: Tue, 19 Aug 2025 12:42:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 08/16] x86: Clean up asm/time.h
+Subject: Re: [PATCH v2 09/16] x86: Clean up asm/msr.h
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250815204117.3312742-1-andrew.cooper3@citrix.com>
- <20250815204117.3312742-9-andrew.cooper3@citrix.com>
+ <20250815204117.3312742-10-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,17 +119,14 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250815204117.3312742-9-andrew.cooper3@citrix.com>
+In-Reply-To: <20250815204117.3312742-10-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 15.08.2025 22:41, Andrew Cooper wrote:
-> With asm/tsc.h split out, asm/time.h shouldn't be including asm/msr.h, but it
-> turns out that an outrageous number of files (even some headers) are pulling
-> their dependentices transitively through asm/time.h -> asm/msr.h
-> 
-> Most are asm/msr{,-index}.h, but in some cases it's printk(), va_args, and
-> even PRIxxx macros.
+> Now that content has been split out, minimise the header files as msr.h is
+> included by many translation units.  A few more TUs were pulling dependencies
+> in transitively, so fix them up.
 > 
 > Give asm/time.h an SPDX tag, and strip trailing whitespace.
 > 
@@ -138,41 +135,47 @@ On 15.08.2025 22:41, Andrew Cooper wrote:
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 Acked-by: Jan Beulich <jbeulich@suse.com>
-preferably ...
 
-> --- a/xen/arch/x86/include/asm/time.h
-> +++ b/xen/arch/x86/include/asm/time.h
-> @@ -1,8 +1,7 @@
+I think though that ...
+
+> --- a/xen/arch/x86/include/asm/msr.h
+> +++ b/xen/arch/x86/include/asm/msr.h
+> @@ -1,18 +1,13 @@
+> -#ifndef __ASM_MSR_H
+> -#define __ASM_MSR_H
 > +/* SPDX-License-Identifier: GPL-2.0-only */
-> +#ifndef X86_TIME_H
-> +#define X86_TIME_H
+> +#ifndef X86_MSR_H
+> +#define X86_MSR_H
 >  
-> -#ifndef __X86_TIME_H__
-> -#define __X86_TIME_H__
+> -#include "msr-index.h"
 > -
-> -#include <asm/msr.h>
->  #include <asm/tsc.h>
+> -#include <xen/types.h>
+>  #include <xen/percpu.h>
+>  #include <xen/errno.h>
+> -#include <xen/kernel.h>
+> -
+> -#include <xen/lib/x86/cpu-policy.h>
 >  
->  typedef u64 cycles_t;
-> @@ -38,6 +37,7 @@ uint64_t cf_check acpi_pm_tick_to_ns(uint64_t ticks);
+> +#include <asm/alternative.h>
+>  #include <asm/asm_defns.h>
+> -#include <asm/cpufeature.h>
+> -#include <asm/processor.h>
+> +#include <asm/msr-index.h>
 >  
->  uint64_t tsc_ticks2ns(uint64_t ticks);
+>  #define rdmsr(msr,val1,val2) \
+>       __asm__ __volatile__("rdmsr" \
+> @@ -113,11 +108,6 @@ static inline int wrmsr_safe(unsigned int msr, uint64_t val)
+>      return -EFAULT;
+>  }
 >  
-> +struct cpu_user_regs;
->  uint64_t pv_soft_rdtsc(const struct vcpu *v, const struct cpu_user_regs *regs);
->  uint64_t gtime_to_gtsc(const struct domain *d, uint64_t time);
->  uint64_t gtsc_to_gtime(const struct domain *d, uint64_t tsc);
-> @@ -47,7 +47,7 @@ int tsc_set_info(struct domain *d, uint32_t tsc_mode, uint64_t elapsed_nsec,
->  
->  void tsc_get_info(struct domain *d, uint32_t *tsc_mode, uint64_t *elapsed_nsec,
->                    uint32_t *gtsc_khz, uint32_t *incarnation);
-> -   
-> +
->  
->  void force_update_vcpu_system_time(struct vcpu *v);
+> -#define rdpmc(counter,low,high) \
+> -     __asm__ __volatile__("rdpmc" \
+> -			  : "=a" (low), "=d" (high) \
+> -			  : "c" (counter))
+> -
 
-... with that one line dropped rather than just pruned of trailing blanks, so
-we no longer have a double blank line here.
+... this removal wants mentioning in the description. I'm actually surprised this
+is unused - how does vPMU get away?
 
 Jan
 
