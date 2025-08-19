@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB087B2CC82
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 20:56:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1087013.1445170 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEB53B2CD35
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 21:46:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1087027.1445180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoRV2-0007YN-KA; Tue, 19 Aug 2025 18:56:00 +0000
+	id 1uoSGr-0006DE-4L; Tue, 19 Aug 2025 19:45:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1087013.1445170; Tue, 19 Aug 2025 18:56:00 +0000
+Received: by outflank-mailman (output) from mailman id 1087027.1445180; Tue, 19 Aug 2025 19:45:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoRV2-0007Wu-Gw; Tue, 19 Aug 2025 18:56:00 +0000
-Received: by outflank-mailman (input) for mailman id 1087013;
- Tue, 19 Aug 2025 18:55:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uoSGr-0006Ac-1M; Tue, 19 Aug 2025 19:45:25 +0000
+Received: by outflank-mailman (input) for mailman id 1087027;
+ Tue, 19 Aug 2025 19:45:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1y2Z=27=epam.com=dmytro_prokopchuk1@srs-se1.protection.inumbo.net>)
- id 1uoRV1-0007Vb-Ia
- for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 18:55:59 +0000
-Received: from AM0PR83CU005.outbound.protection.outlook.com
- (mail-westeuropeazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c201::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2132b0c1-7d2e-11f0-b898-0df219b8e170;
- Tue, 19 Aug 2025 20:55:53 +0200 (CEST)
-Received: from GV2PR03MB9572.eurprd03.prod.outlook.com (2603:10a6:150:da::5)
- by DU0PR03MB8164.eurprd03.prod.outlook.com (2603:10a6:10:353::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.24; Tue, 19 Aug
- 2025 18:55:49 +0000
-Received: from GV2PR03MB9572.eurprd03.prod.outlook.com
- ([fe80::edd1:842f:9b14:509e]) by GV2PR03MB9572.eurprd03.prod.outlook.com
- ([fe80::edd1:842f:9b14:509e%3]) with mapi id 15.20.9031.023; Tue, 19 Aug 2025
- 18:55:49 +0000
+ <SRS0=h/XH=27=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uoSGp-0006AW-Qc
+ for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 19:45:23 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0abf117f-7d35-11f0-a32a-13f23c93f187;
+ Tue, 19 Aug 2025 21:45:21 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-3b9d41bea3cso5984533f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Aug 2025 12:45:21 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3c077c5767fsm4728251f8f.62.2025.08.19.12.45.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 19 Aug 2025 12:45:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,249 +45,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2132b0c1-7d2e-11f0-b898-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YhxYQUUV4qGavwCsOV5IsS2Xq4LbIa8WgxiNDKkIuBVeCAXBIHLwDEu1RrJnLNoDr8+xOtx5kkxsf1BAlUUhGz2252aWfsKp4KDssnvpsEienTCsFSyf+wNsfpv0BnMkBHCmBq+C6YGJpUNa2Jle14j/nc+RmXFhiLMjWg08m9FcF64upJyQgo79fkR21NELiJvk11z4WYBPsSgWJFMFwfh68qq88BnnMU5Jw7pjMjjZM+9wEoneMGU8u3VL5qCmw9XufJxLdtIuQq6WBpe/AlD5eKbw4E3lOJUT6gPBMSHlETZDsB9gzpnyqU0BWjG0D4shHZ4BTUm5Ay2GmRc4nw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FrrMBmiNRzQVInQl48AnTqOiLI6PzPO8kbTE5N2xFE0=;
- b=u5wZ89sHT5EXsrkadmFUSVqt9j2gfnSZ/rQExigarQ4GHBIoCEW2Vuz5EJQrBwbZkoDQsEoraj+LJM3eV2wyVy6Xb2Zlvev+i/inK3XrH/kKZXb3Ah/NxpMvjnmbsPJ5l7ZjcfJ5qkZ0XUXo28BQ6Bn5WKic6wC8UobvVQ544vfoFYBDuux73qfeWPQnJCqMU9zbILIhhnJh5qBcstcULOqN4TXlzrDaWJ3RNDg6VkYZb71TMfl4/iSEFgS6nNHQcUJLvEi/lissXczEca2sMo9VaAQupY5Fh6+WLUXzwT1+AGpmyq3YiCaBqP6bizMtUg3gNIbIbMVoavvG5TnyYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FrrMBmiNRzQVInQl48AnTqOiLI6PzPO8kbTE5N2xFE0=;
- b=Ra3jUm0jomYRnwV2Psg5BpatNxTmsRON2rId/F2+mdfzXIiPLOqZdNMa3Tr51FvPbeaNwZZ20WookbohHXBlVZ8miR0slfd5M7w+wubNFn/ReWaA2mxL0VikWxveosIxV8XiwHC/yGsiG/GwMsIsL4g+SgpBgXYesg4az8Ew3LLhhIQf1snBxQFdoqjH9oOhMnjNVZuChjqZtPl5xiUSiXN05eocGvsE18ueGTuIgPjSzbmp9HGHvuLyv+jbd4vbdUfDZ9r704hV4yV2FTWbWIRv/rh/U/cJCE8biwuDyWjy7i3iMRoX0meoc+QLYl+gCHMnN73lml5Sg/xizObMhA==
-From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>, Nicola Vetrini
-	<nicola.vetrini@bugseng.com>, Doug Goldstein <cardoe@cardoe.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
- Grall <julien@xen.org>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
-	<roger.pau@citrix.com>
-Subject: [PATCH] misra: consider conversion from UL or (void*) to function
- pointer as safe
-Thread-Topic: [PATCH] misra: consider conversion from UL or (void*) to
- function pointer as safe
-Thread-Index: AQHcETrg9Y9S2hDXvUqVfYmm522krQ==
-Date: Tue, 19 Aug 2025 18:55:48 +0000
-Message-ID:
- <9e5e4ff2c7ba0a90a6ac403e2de9318e18949274.1755628705.git.dmytro_prokopchuk1@epam.com>
-Accept-Language: en-US, uk-UA, ru-RU
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR03MB9572:EE_|DU0PR03MB8164:EE_
-x-ms-office365-filtering-correlation-id: 6cb5b868-4444-4146-8c09-08dddf520331
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|376014|42112799006|7416014|38070700018;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?/DFcpcJfsRbOwomQslB1cAy06k8H0wlDLmZ7q/eCbS/KYhlf9fzTkh+eNh?=
- =?iso-8859-1?Q?EaOB5pNjrfhslf1xqKeKOJxjsa/hCwM1GLTO/dpfO51d61Ad++dTu1PIbo?=
- =?iso-8859-1?Q?mNXS9qkDZNIr66o888zJN943cobp+IT38mlXve2IjvQxad+VLFKVenCwDs?=
- =?iso-8859-1?Q?hZNQo9/gODB7RZEz0IXQNiYgtWysOFI43F9smdur3L99v6WKevRvUFvG8P?=
- =?iso-8859-1?Q?C8xakbtHUdyEob/UvIdnUbvzdCwkYKGUXYvEI78KDuSQfDqb0fwK9Fx+E+?=
- =?iso-8859-1?Q?AdmX+WfVgNRU2hxkFhB3b1TWsigwHjHsj2FMZElzuMObB4IHhxs0NmV+Eq?=
- =?iso-8859-1?Q?D7fH+FWNRZQEn2rcqjY/0jDZF4RdibNDjvs1WicZTopeADw8TlJMRvT4qA?=
- =?iso-8859-1?Q?aMqO523worVFtVrSWWJbJepcqo7yjIoTKimmLhl7rnZtDRWHOkgFtmkDgi?=
- =?iso-8859-1?Q?yv8ytqtHV/l/FU4uVkU4sz+N0weSCaV9P/GKKLotn7qjlJgyUUSpbZ4AU+?=
- =?iso-8859-1?Q?kFxAd7D4zVwX37dTfuroE/0PvujfTDo7s+Kwlb7P742cg+TgU8cdisjIbl?=
- =?iso-8859-1?Q?9O/9BDxipfl+t0k2MpGgi7qk5wcFb52XY15ujU7vbxLTOUwelKUHDtM0tu?=
- =?iso-8859-1?Q?AMGjL9d6+OQKs9W/W+domegp5daxOtGvpUbWTB3cDZmayacQ4ZXBBbzobP?=
- =?iso-8859-1?Q?rvupEPOki8mJG7tRPnTmK6iLnpsKIhQ+SAh47E6M7AEgZi7vXE5GA2wy9W?=
- =?iso-8859-1?Q?5gU5IEgvs+R+Z6ER2cRUrQi1/RWsHM/gqJ9UZ2Im7pZP1ocjhie/I7B7D+?=
- =?iso-8859-1?Q?fJlTMD1506S3vDdOZ+3DPLBQA+r7Lz4xIMYAVONJsf8XkN1JNH1dPL4dc/?=
- =?iso-8859-1?Q?9o9W6m9veUhj1+zr9PegmoRXDdYb3zJ4Q+uxwmfCq8Jr3dfCUEqf/QzOAu?=
- =?iso-8859-1?Q?7QzF2QjtNWSjPao4OFFKqhSdgttggAj5SnTNuLTMbLYkHjQFox5nv668Of?=
- =?iso-8859-1?Q?/LAE5i9BYvs/EqQBmV63Jc1ixR5dnfhlR+un/Xt8qj4DyypXSiS12lAJdz?=
- =?iso-8859-1?Q?uor827Q574nHZei74imq6toweFq0d1VShz1hpwkf2KCGAusBL9N+48qzRC?=
- =?iso-8859-1?Q?LI69MZEYMIvAnuStEehDSBn9xDNNs4gKhOqe98xob+5doMFz6cqpWER3hy?=
- =?iso-8859-1?Q?/nwN5sQhH/Lyp9RdLGQJnydVrJG6y7/Ga3TCawRoHA4h93amjGzYQxSoFD?=
- =?iso-8859-1?Q?b5KMfi2qwCYTuqjf9KXba8IG47wMnANj0Z7nvpj4kNWR/i2aV9v4LGCTsj?=
- =?iso-8859-1?Q?yZRvrxr208qT4B+ce8QDXeUxj+q/LBkipngP3ubArJnJfMoeRdxw+s2sJy?=
- =?iso-8859-1?Q?UhN1glPX3U2DYU06HvQ0dGeza4sfeWcBqUSOoaT/eZFuJ16q3Vejxr7yWb?=
- =?iso-8859-1?Q?SzGAB3y5fmFVw8olJJCHHM12kiXZcRB6IgHGtt7VltZ06jVnZ9kH6YhDZ7?=
- =?iso-8859-1?Q?o=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB9572.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(42112799006)(7416014)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?TX3zEJuV7czUoRsYS5DAMwvEUggKwXBey/z2p45DaFMl6cESUAZTY8+vdV?=
- =?iso-8859-1?Q?Ae/7wDz9OJGk+4GoOFANUkOC73Uau+ZIJeAd+HN7QRtyQMKf1gk7FlCSN1?=
- =?iso-8859-1?Q?ug2uR1abz7kL40BwRPcOjHwHqd2ZMjrjXH3Qw3AxyS+yxJqLLIo9lyiVK7?=
- =?iso-8859-1?Q?JyMhxxPwzrzLiqn0aNOW2skmNaj9Ii+v5O5NlXQatf5nMas7Y9dQAQ1dhO?=
- =?iso-8859-1?Q?ps27LnImuoeqWo5meo+wJVyHSbpUyYQhbyI27oo9g0WgBzyQQX8cGnTMkV?=
- =?iso-8859-1?Q?+s2ZCa1oCeJrux9vQ7GTAQgFCrFWT6ACVwu/oL0Znt3IJ1aOybwBqG33z/?=
- =?iso-8859-1?Q?ArxgWPhqdmH4AgPGEqMl+l5rx08FJ0/gvVJJalEbtcNXca+tjEmfTe+7k6?=
- =?iso-8859-1?Q?r/KTBH1ZI1llkZ2a+Bg12NcUFyvlW7ZcasfwH5l2Xq7431m8FLRN6oe8k1?=
- =?iso-8859-1?Q?MTIzF9DILg+8K1YTAPsSO+BnTFL5Jwv4A8ecFKPxrldjmMRyEbIhYIQeEa?=
- =?iso-8859-1?Q?39CzYgJRIULHK+aBvzfltoom7cHnSxMk7sIG/d4juLwTkRoTPsYl1kvhII?=
- =?iso-8859-1?Q?azLREGJ6WVqUzBfSSc3sRglg7gCvY1V3TTwyZn7htskzpEOuPCEUD4wwf6?=
- =?iso-8859-1?Q?1lqmYHvlZjIEQQdYXWiaU8dJ+0etFT0AIeqijsYALHzH3lP1YHrQ55T2jm?=
- =?iso-8859-1?Q?BbKoQUpMNWMpMBL6yfaVMCoPPdlJ1okKgDA4v5u7DAsCZZhvcD4wlsGvXt?=
- =?iso-8859-1?Q?g2m8W/dmbKxwhmo6nUQEte603lMCAJOO2t8iU87v2u4jZiKlz4FrYEPOxu?=
- =?iso-8859-1?Q?dQvZ+QUQ8E2fgDklmVe8rcETL1ozw3Y0E+55/UJVaM7nnQ0iX5JhezdHwI?=
- =?iso-8859-1?Q?b1EhzPhy2NgjA4f8A5G80cThrNn28Rur2HJGTBkTgi0QGxCLXQdmP+AowG?=
- =?iso-8859-1?Q?542oFemRZfQlC//uSnkR+xYuus5wQAaB8XrKCFRJX0sDceyIXWKCz1PhYp?=
- =?iso-8859-1?Q?SzpGR3Sx4qtzhsft3YiESfyRM3s4VCLbjZmDwvKSsnX8NdKCHGzwiW/qHH?=
- =?iso-8859-1?Q?U4qcAD8zKVtqIcgnmqmzBM+nWu9WteMh5ijhd4m8Z8Lr/rdD/Z1d5mfhQ1?=
- =?iso-8859-1?Q?KYsxvA93hTHczm0YHShlNmRkM/qkKwtZoeKvKTaoTnTItM2rUGhmbvbo8p?=
- =?iso-8859-1?Q?GH9WF462i1UKGsguUWTWg+zmH7WeIlmBNM2I9xoyUvSeBu3fzMtZIntFR1?=
- =?iso-8859-1?Q?9UNlUGv4lOjdxQocwmzJcMO54Fxhfuq6cJchOB53m4+2BhDeCCedeihyRE?=
- =?iso-8859-1?Q?ZWThxccQp9h02ECitSWNKKFqzVvxlqrkt2XKNyZuy1w7mq3c+Yh/x1UtE1?=
- =?iso-8859-1?Q?o0OyG5lYpLY53z02buzmmszjqj7LPT0TtKTzHhplTiiIwrxOJNF/AzZLId?=
- =?iso-8859-1?Q?K39YpnHQLMhmRVX9tG+5dEm1Nn6hj0bl0XVvx4OS27jG/MmY9005u42G6L?=
- =?iso-8859-1?Q?s3y5Rvzaukb5Zkd8mr8l7ev+BeoPzvy++WhUV8mzPWXKedzdWPSju6Mkfk?=
- =?iso-8859-1?Q?GVbNqsm9xBcQnSaxvEr1GR2nh4iz91Kiko4vpPC5rz6dxxvsSz40Jtt0VT?=
- =?iso-8859-1?Q?wN1lzmYV2KeED3TKcj09+HpGbQNyzXVXwgIPLQO/psLNIQ1DscUHbK5g?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 0abf117f-7d35-11f0-a32a-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1755632721; x=1756237521; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=z5DClGb7SROt07W/Ktgq3F9Lcjr5IAxjD2sOWP7WqH8=;
+        b=uUQOTb3p2Z1/rH4B5N5aHuE4zkssrZ6K16HU0GtSaOp4vz139I06ptxK+7viIaYlc8
+         E16wibclWEGPNaRX9s/gKtWeUY4ujMF8ezp9vRkMnPh622DT65oA4Ns6udXBd+AFusGf
+         Eq8XAmqZISv+4vBc7Out4iTupc7B+qlul7rrg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1755632721; x=1756237521;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=z5DClGb7SROt07W/Ktgq3F9Lcjr5IAxjD2sOWP7WqH8=;
+        b=hpBWwCqhmCNGCFurlnYtRkUEbXNFJehANyQGA+I87Dev+HyLZSD/nwH2IQBzzj9rCV
+         NAe2mO9vHnNjbBJul5+QJQKdWsF7W7cKt4iMDOFJJ7XHk3nhTK+wB9Ad9oxeB0uVeyzz
+         xtgKJNpSc09SV62htAdWuQ0WvII3T5shydWMF8xahOvWP86sve044H0pJ0jNi24kagHV
+         4IIrOEanWG7xYBggdYHMvtjx2Fkkd5Nh6Dfhjj0QyWRLT5hcKh5DfwwRdKmGc7TVRohX
+         a5gsQDKNISZ7qdR7m1MwR52vMb70/ruwffJ4aWBh5vmBG5gTTGEeSJNP2M9JT5NK95j/
+         MdKQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW2tBWxVgvDQkShefsVLgiyODPPSdtlvPimOhfUN8tAjtaSRdQOmuES6X652W1r9chJDMDa35lniww=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwQoZ2JfLdd1P0s96gloE0uUfRBDMBOg1gs77Cnyt/0mFJwyKEM
+	wVGCPKwRb17Gm5wPK0BL1InLewRA9EGx8hLbhmEHWfIHP5ydeXpvENvX33mMX9FhoF4=
+X-Gm-Gg: ASbGncsS2zUz8/ElHirSI31TUDbsJgFEq3GwGq3elp+c8z7tvVoyGBFBogKRuCnYdyi
+	7Yo5lm05JrJAkOv1pX8goVWnrjvn1dK78WUgUoNtu5ikbTnICCqUMYBe7S41yMzO1990rZCEAGm
+	5jxLtCca6cZJh++/kAQyaYd9770ra3QQ6G+3nX9yAZ/K3j15lIMXbeos1zbgh4CvY+Vu+CFAB87
+	w/w9Q3o2WCT0+ph43GT4zoC3CiKeDQcJPNKr9BTaUyu3nUdBIAoeKY8ViE6Ii+14Xg5GV3VF/zI
+	m6rmwaapYgPSUIy41oyCatU+0qOZWJ72r/zhCZLlbIt0IA5PX5aN4iPQrDpnyObV73CSnliKq0S
+	pHTNWgWDVoQbQw96v6CQHgZCei8p3WTTi3nngnvu1h+b5ojv/4/7aMqbqosdXyJrU20ea
+X-Google-Smtp-Source: AGHT+IHn6ItZ/55KdJjFIlqpp1Vqr+n+RQcvcMCo6Y+dMB7k9WYscwcNwqwPwtL4K5RBGJTqfuyeOQ==
+X-Received: by 2002:a05:6000:420a:b0:3b9:48f:4967 with SMTP id ffacd0b85a97d-3c32ecce49bmr164415f8f.56.1755632720979;
+        Tue, 19 Aug 2025 12:45:20 -0700 (PDT)
+Message-ID: <7f737ca3-5aba-4ae9-820a-448824174f2e@citrix.com>
+Date: Tue, 19 Aug 2025 20:45:19 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB9572.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6cb5b868-4444-4146-8c09-08dddf520331
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Aug 2025 18:55:49.0023
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Pyh9sdKt0C8D0V7tOZA4NzLE6QE2pSuhB3q4Q1iwdd6CIq0AJ/048Ymt/PzFN8SlwGa6Uj/NFybwfk9pNaGTHWEAoeHtkdPQ028NVX1F9qk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR03MB8164
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 11/16] x86/msr: Change rdmsr() to have normal API
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250815204117.3312742-1-andrew.cooper3@citrix.com>
+ <20250815204117.3312742-12-andrew.cooper3@citrix.com>
+ <493d4580-62b7-4ff7-9159-4079b4b98f61@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <493d4580-62b7-4ff7-9159-4079b4b98f61@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Rule 11.1 states as following: "Conversions shall not be performed
-between a pointer to a function and any other type."
+On 19/08/2025 1:04 pm, Jan Beulich wrote:
+> On 15.08.2025 22:41, Andrew Cooper wrote:
+>> We want a consistent MSR API, and these want to be named rdmsr() and wrmsr(),
+>> but not with their current APIs.  The current rdmsr() flavours writing to
+>> their parameters by name makes code that reads like invalid C, and is
+>> unergonomic to use in lots of cases.
+>>
+>> Change the API, and update the callers all in one go.  Where appropriate,
+>> update the write side to wrmsrns() as per the recommendation.
+>>
+>> No functional change.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>
+>> I do have a more creative solution if this patch is considered to be too
+>> large.  https://gitlab.com/xen-project/hardware/xen-staging/-/commit/e13cf25d06d08481e2c138daa1fd902cf36d757b
+> I'm not concerned by the size of this patch.
+>
+>> --- a/xen/arch/x86/cpu/intel.c
+>> +++ b/xen/arch/x86/cpu/intel.c
+>> @@ -23,17 +23,17 @@ static uint32_t __ro_after_init mcu_opt_ctrl_val;
+>>  
+>>  void update_mcu_opt_ctrl(void)
+>>  {
+>> -    uint32_t mask = mcu_opt_ctrl_mask, lo, hi;
+>> +    uint32_t mask = mcu_opt_ctrl_mask, val;
+>>  
+>>      if ( !mask )
+>>          return;
+>>  
+>> -    rdmsr(MSR_MCU_OPT_CTRL, lo, hi);
+>> +    val = rdmsr(MSR_MCU_OPT_CTRL);
+>>  
+>> -    lo &= ~mask;
+>> -    lo |= mcu_opt_ctrl_val;
+>> +    val &= ~mask;
+>> +    val |= mcu_opt_ctrl_val;
+>>  
+>> -    wrmsr(MSR_MCU_OPT_CTRL, lo, hi);
+>> +    wrmsrns(MSR_MCU_OPT_CTRL, val);
+>>  }
+> I don't consider it a good idea to suddenly clear the upper half of this
+> MSR, and ...
+>
+>> @@ -51,17 +51,17 @@ static uint32_t __ro_after_init pb_opt_ctrl_val;
+>>  
+>>  void update_pb_opt_ctrl(void)
+>>  {
+>> -    uint32_t mask = pb_opt_ctrl_mask, lo, hi;
+>> +    uint32_t mask = pb_opt_ctrl_mask, val;
+>>  
+>>      if ( !mask )
+>>          return;
+>>  
+>> -    rdmsr(MSR_PB_OPT_CTRL, lo, hi);
+>> +    val = rdmsr(MSR_PB_OPT_CTRL);
+>>  
+>> -    lo &= ~mask;
+>> -    lo |= pb_opt_ctrl_val;
+>> +    val &= ~mask;
+>> +    val |= pb_opt_ctrl_val;
+>>  
+>> -    wrmsr(MSR_PB_OPT_CTRL, lo, hi);
+>> +    wrmsrns(MSR_PB_OPT_CTRL, val);
+>>  }
+> ... this one.
 
-The conversion from unsigned long or (void *) to a function pointer
-is safe in Xen because the architectures it supports (e.g., x86 and
-ARM) guarantee compatible representations between these types.
+Yeah, both the local variables need turning into uint64_t here.
 
-Configure Eclair to avoid reporting violations for conversions from
-unsigned long or (void *) to a function pointer.
+>
+>> @@ -456,15 +456,15 @@ static void __init probe_mwait_errata(void)
+>>   */
+>>  static void Intel_errata_workarounds(struct cpuinfo_x86 *c)
+>>  {
+>> -	unsigned long lo, hi;
+>> +	uint64_t val;
+>>  
+>>  	if ((c->x86 == 15) && (c->x86_model == 1) && (c->x86_mask == 1)) {
+>> -		rdmsr (MSR_IA32_MISC_ENABLE, lo, hi);
+>> -		if ((lo & (1<<9)) == 0) {
+>> +		val = rdmsr(MSR_IA32_MISC_ENABLE);
+>> +		if ((val & (1 << 9)) == 0) {
+>>  			printk (KERN_INFO "CPU: C0 stepping P4 Xeon detected.\n");
+>>  			printk (KERN_INFO "CPU: Disabling hardware prefetching (Errata 037)\n");
+>> -			lo |= (1<<9);	/* Disable hw prefetching */
+>> -			wrmsr (MSR_IA32_MISC_ENABLE, lo, hi);
+>> +			val |= (1 << 9); /* Disable hw prefetching */
+>> +			wrmsrns(MSR_IA32_MISC_ENABLE, val);
+>>  		}
+>>  	}
+> Move val into the more narrow scope at the same time?
 
-Add a compile-time assertion to the file 'xen/common/version.c' to
-confirm this conversion compatibility across all target platforms
-(assuming this file is common for all platforms).
+No, not based on the history of this function.
 
-Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
----
-Test CI pipeline:
-https://gitlab.com/xen-project/people/dimaprkp4k/xen/-/pipelines/1991940822
+>
+>> @@ -699,7 +715,7 @@ void cf_check vmx_cpu_dead(unsigned int cpu)
+>>  
+>>  static int _vmx_cpu_up(bool bsp)
+>>  {
+>> -    u32 eax, edx;
+>> +    u32 eax;
+> Like you do elsewhere, switch to uint32_t at the same time?
 
-RFC thread:
-https://patchew.org/Xen/8cbc9e6d881661d0d7a1055cbcef5a65e20522be.1755109168=
-.git.dmytro._5Fprokopchuk1@epam.com/
----
- automation/eclair_analysis/ECLAIR/deviations.ecl |  8 ++++++++
- docs/misra/deviations.rst                        | 10 ++++++++++
- docs/misra/rules.rst                             |  8 +++++++-
- xen/common/version.c                             | 11 +++++++++++
- 4 files changed, 36 insertions(+), 1 deletion(-)
+Will do.
 
-diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/=
-eclair_analysis/ECLAIR/deviations.ecl
-index 7f3fd35a33..0083c9c505 100644
---- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-+++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-@@ -375,6 +375,14 @@ constant expressions are required.\""
- }
- -doc_end
-=20
-+-doc_begin=3D"The conversion from unsigned long or (void *) to a function =
-pointer is safe because the architectures Xen supports (e.g., x86 and ARM) =
-guarantee compatible representations between these types."
-+-config=3DMC3A2.R11.1,casts+=3D{safe,
-+  "from(type(canonical(builtin(unsigned long)||pointer(builtin(void)))))
-+   &&to(type(canonical(__function_pointer_types)))
-+   &&relation(definitely_preserves_value)"
-+}
-+-doc_end
-+
- -doc_begin=3D"The conversion from a function pointer to a boolean has a we=
-ll-known semantics that do not lead to unexpected behaviour."
- -config=3DMC3A2.R11.1,casts+=3D{safe,
-   "from(type(canonical(__function_pointer_types)))
-diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-index 2119066531..74540e0565 100644
---- a/docs/misra/deviations.rst
-+++ b/docs/misra/deviations.rst
-@@ -370,6 +370,16 @@ Deviations related to MISRA C:2012 Rules:
-        to store it.
-      - Tagged as `safe` for ECLAIR.
-=20
-+   * - R11.1
-+     - The conversion from unsigned long or (void \*) to a function pointe=
-r does
-+       not lose any information or violate type safety assumptions if unsi=
-gned
-+       long or (void \*) type is guaranteed to be the same bit size as a
-+       function pointer. This ensures that the function pointer can be ful=
-ly
-+       represented without truncation or corruption. The macro BUILD_BUG_O=
-N is
-+       integrated into xen/common/version.c to confirm conversion compatib=
-ility
-+       across all target platforms.
-+     - Tagged as `safe` for ECLAIR.
-+
-    * - R11.1
-      - The conversion from a function pointer to a boolean has a well-know=
-n
-        semantics that do not lead to unexpected behaviour.
-diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-index a2e4e9f4ff..ff48a90963 100644
---- a/docs/misra/rules.rst
-+++ b/docs/misra/rules.rst
-@@ -431,7 +431,13 @@ maintainers if you want to suggest a change.
-      - All conversions to integer types are permitted if the destination
-        type has enough bits to hold the entire value. Conversions to bool
-        and void* are permitted. Conversions from 'void noreturn (*)(...)'
--       to 'void (*)(...)' are permitted.
-+       to 'void (*)(...)' are permitted. Conversions from unsigned long or
-+       (void \*) to a function pointer are permitted if the source type ha=
-s
-+       enough bits to restore function pointer without truncation or corru=
-ption.
-+       Example::
-+
-+           unsigned long func_addr =3D (unsigned long)&some_function;
-+           void (*restored_func)(void) =3D (void (*)(void))func_addr;
-=20
-    * - `Rule 11.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-S=
-uite/-/blob/master/R_11_02.c>`_
-      - Required
-diff --git a/xen/common/version.c b/xen/common/version.c
-index 553b97ba9b..7091a6d440 100644
---- a/xen/common/version.c
-+++ b/xen/common/version.c
-@@ -217,6 +217,17 @@ void __init xen_build_init(void)
- #endif /* CONFIG_X86 */
- }
- #endif /* BUILD_ID */
-+
-+static void __init __maybe_unused build_assertions(void)
-+{
-+    /*
-+     * To confirm conversion compatibility between unsigned long, (void *)
-+     * and function pointers for all supported architectures.
-+     */
-+    BUILD_BUG_ON(sizeof(unsigned long) !=3D sizeof(void (*)(void)));
-+    BUILD_BUG_ON(sizeof(void *) !=3D sizeof(void (*)(void)));
-+}
-+
- /*
-  * Local variables:
-  * mode: C
---=20
-2.43.0
+>
+>> --- a/xen/arch/x86/tsx.c
+>> +++ b/xen/arch/x86/tsx.c
+>> @@ -42,6 +42,8 @@ void tsx_init(void)
+>>  {
+>>      static bool __read_mostly once;
+>>  
+>> +    uint64_t val;
+>> +
+>>      /*
+> No real need for yet another newline, I would say.
+
+Where?  Before?  that's separation of static and not.  After? that's
+separation of variables and code.  All as we do elsewhere.
+
+~Andrew
 
