@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31DA6B2CBC4
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 20:21:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1086941.1445099 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B62CB2CBC7
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 20:22:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1086950.1445109 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoQwb-0002PZ-IW; Tue, 19 Aug 2025 18:20:25 +0000
+	id 1uoQyk-0003du-TJ; Tue, 19 Aug 2025 18:22:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1086941.1445099; Tue, 19 Aug 2025 18:20:25 +0000
+Received: by outflank-mailman (output) from mailman id 1086950.1445109; Tue, 19 Aug 2025 18:22:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoQwb-0002Ny-Fm; Tue, 19 Aug 2025 18:20:25 +0000
-Received: by outflank-mailman (input) for mailman id 1086941;
- Tue, 19 Aug 2025 18:20:23 +0000
+	id 1uoQyk-0003cH-QV; Tue, 19 Aug 2025 18:22:38 +0000
+Received: by outflank-mailman (input) for mailman id 1086950;
+ Tue, 19 Aug 2025 18:22:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fNib=27=kernel.org=kbusch@srs-se1.protection.inumbo.net>)
- id 1uoQwZ-0002Ns-Eg
- for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 18:20:23 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org
- [2600:3c0a:e001:78e:0:1991:8:25])
+ id 1uoQyj-0003c9-3D
+ for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 18:22:37 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org
+ [2600:3c04:e001:324:0:1991:8:25])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2a59c39c-7d29-11f0-a32a-13f23c93f187;
- Tue, 19 Aug 2025 20:20:21 +0200 (CEST)
+ id 7abc0eb4-7d29-11f0-a32a-13f23c93f187;
+ Tue, 19 Aug 2025 20:22:36 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C14C74588D;
- Tue, 19 Aug 2025 18:20:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E0BDC4CEF1;
- Tue, 19 Aug 2025 18:20:06 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 594E960209;
+ Tue, 19 Aug 2025 18:22:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8557CC4CEF1;
+ Tue, 19 Aug 2025 18:22:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,18 +42,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2a59c39c-7d29-11f0-a32a-13f23c93f187
+X-Inumbo-ID: 7abc0eb4-7d29-11f0-a32a-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1755627608;
-	bh=vJQ95/awDQN15gMxlaXB+Tcfic806+eL4EX36Buoiiw=;
+	s=k20201202; t=1755627754;
+	bh=VSqn6WSqLVd/XpfzgudXSJRo0uPOQ5wyv2bWmCBBnJg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jXjytkUFHZiUoUGI84YdHLEqkOvvneMczP1tcgM6yHssC3PZa14NlekO8OwnhQkoH
-	 1tKFJyNzeoXibR5866EB9AlD853dT6hX/BHgsXNW4sH7pbBGpZs3bWwj08oPN1sJoj
-	 hWrw/W8bx/Ed7fmJOvpwVh//YcUPC4H4piBW1ARVWVGtVpPRrRKbwDEj6sLZPN6zpp
-	 WYxb2QFL4WZg9ljpPs9MR4UmpIcWbSmNlEaUUOSNEz9VaSvb+A8MMAVV0hqzSSr9AT
-	 hd29ClRf6ZWgUwXusfUehQO9rXf61PDcTKf5hXEkAaN2POaxHzJVqre4wL9NW9YYur
-	 pp6mAS1uKCUqA==
-Date: Tue, 19 Aug 2025 12:20:04 -0600
+	b=alN6/hwHpvzthoP/KrllDuyPfF9f8yAYQER8+ba4p7ZAaMRpwoXt8rvK6QE3L0ekl
+	 bNm+CTndacGb+nR2BKXPNUnvE9okK+nJN6vWKLBypTEbMKpjdWZnobeyYbTdlJBwG3
+	 eQhAlRfAJUiGmqIDHRjbObolLDa17Te4yFQpGASd/eKfIFxPevya5z3Kg7b9O2j2pW
+	 xGJZckYIQxAQDMxUtnVFWJEEUia3gPTM6PRono+D9/zC602CQuuuu0N45uS/29jmmO
+	 kxle5BpRno+jkLFSoQGxLhrpEA9gCkuIidPS0ZJ3bdNRJ1LR7RUOVZQkLijjuMZ2fZ
+	 kFmTbvgXjx5hQ==
+Date: Tue, 19 Aug 2025 12:22:30 -0600
 From: Keith Busch <kbusch@kernel.org>
 To: Leon Romanovsky <leon@kernel.org>
 Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
@@ -82,31 +82,39 @@ Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
 	Steven Rostedt <rostedt@goodmis.org>,
 	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
 	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v4 14/16] block-dma: migrate to dma_map_phys instead of
- map_page
-Message-ID: <aKTAVOBp0u6ZSC4w@kbusch-mbp>
+Subject: Re: [PATCH v4 11/16] dma-mapping: export new dma_*map_phys()
+ interface
+Message-ID: <aKTA5i1IZquRBolf@kbusch-mbp>
 References: <cover.1755624249.git.leon@kernel.org>
- <22b824931bc8ba090979ab902e4c1c2ec8327b65.1755624249.git.leon@kernel.org>
+ <bb979e4620b3bdf2878e29b998d982185beefee0.1755624249.git.leon@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <22b824931bc8ba090979ab902e4c1c2ec8327b65.1755624249.git.leon@kernel.org>
+In-Reply-To: <bb979e4620b3bdf2878e29b998d982185beefee0.1755624249.git.leon@kernel.org>
 
-On Tue, Aug 19, 2025 at 08:36:58PM +0300, Leon Romanovsky wrote:
->  static bool blk_dma_map_direct(struct request *req, struct device *dma_dev,
->  		struct blk_dma_iter *iter, struct phys_vec *vec)
->  {
-> -	iter->addr = dma_map_page(dma_dev, phys_to_page(vec->paddr),
-> -			offset_in_page(vec->paddr), vec->len, rq_dma_dir(req));
-> +	iter->addr = dma_map_phys(dma_dev, vec->paddr, vec->len,
-> +			rq_dma_dir(req), 0);
+On Tue, Aug 19, 2025 at 08:36:55PM +0300, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
+> 
+> Introduce new DMA mapping functions dma_map_phys() and dma_unmap_phys()
+> that operate directly on physical addresses instead of page+offset
+> parameters. This provides a more efficient interface for drivers that
+> already have physical addresses available.
+> 
+> The new functions are implemented as the primary mapping layer, with
+> the existing dma_map_page_attrs()/dma_map_resource() and
+> dma_unmap_page_attrs()/dma_unmap_resource() functions converted to simple
+> wrappers around the phys-based implementations.
+> 
+> In case dma_map_page_attrs(), the struct page is converted to physical
+> address with help of page_to_phys() function and dma_map_resource()
+> provides physical address as is together with addition of DMA_ATTR_MMIO
+> attribute.
+> 
+> The old page-based API is preserved in mapping.c to ensure that existing
+> code won't be affected by changing EXPORT_SYMBOL to EXPORT_SYMBOL_GPL
+> variant for dma_*map_phys().
 
 Looks good.
 
 Reviewed-by: Keith Busch <kbusch@kernel.org>
-
-Just a random thought when I had to double back to check what the "0"
-means: many dma_ api's have a default macro without an "attrs" argument,
-then an _attrs() version for when you need it. Not sure if you want to
-strictly follow that pattern, but merely a suggestion.
 
