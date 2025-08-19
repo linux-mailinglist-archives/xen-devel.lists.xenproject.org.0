@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F9EAB2C0E8
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 13:48:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1086485.1444669 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5039FB2C2A1
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 14:05:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1086510.1444724 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoKox-0004KE-Ub; Tue, 19 Aug 2025 11:48:07 +0000
+	id 1uoL53-0007gk-RW; Tue, 19 Aug 2025 12:04:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1086485.1444669; Tue, 19 Aug 2025 11:48:07 +0000
+Received: by outflank-mailman (output) from mailman id 1086510.1444724; Tue, 19 Aug 2025 12:04:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoKox-0004Ho-RU; Tue, 19 Aug 2025 11:48:07 +0000
-Received: by outflank-mailman (input) for mailman id 1086485;
- Tue, 19 Aug 2025 11:48:06 +0000
+	id 1uoL53-0007em-Oq; Tue, 19 Aug 2025 12:04:45 +0000
+Received: by outflank-mailman (input) for mailman id 1086510;
+ Tue, 19 Aug 2025 12:04:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xm9j=27=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uoKow-0004Hg-9E
- for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 11:48:06 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ id 1uoL51-0007ee-Gk
+ for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 12:04:43 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5d5e1916-7cf2-11f0-b898-0df219b8e170;
- Tue, 19 Aug 2025 13:48:04 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-afcb731ca8eso831848166b.0
- for <xen-devel@lists.xenproject.org>; Tue, 19 Aug 2025 04:48:04 -0700 (PDT)
+ id afa8072f-7cf4-11f0-b898-0df219b8e170;
+ Tue, 19 Aug 2025 14:04:41 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-afcb72d51dcso733417666b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Aug 2025 05:04:41 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afcdcfccd2csm995431066b.64.2025.08.19.04.48.02
+ a640c23a62f3a-afcdcfcb2d1sm1002963966b.62.2025.08.19.05.04.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Aug 2025 04:48:02 -0700 (PDT)
+ Tue, 19 Aug 2025 05:04:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d5e1916-7cf2-11f0-b898-0df219b8e170
+X-Inumbo-ID: afa8072f-7cf4-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755604083; x=1756208883; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755605080; x=1756209880; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=My2ElW1CsGaUg2rzbVlSnaqbwMsFuvhdNanh+sAhnxA=;
-        b=dhy+5rb7jEGozIZdU08zYlmNriykoDNDb8ALsWbWVpOYbpW7PG60cQ7CkXeQtfNaul
-         039/ASmbaYqZrdvzoFrnSBackkDZ8NValfVx25tf9t2cMtp4sDeA7hvrZ00TM5emXcQW
-         NiaLSFUXG1tOmTYsCJaXVfU2NO+HJkjpvpEau88Eq4EWG+aABiG9x7n+KPaAtvN52hPX
-         2pDm6N3NHPgvpLQCJOEULWAB3ATMl0AC1MpHouph8FtpeOG1wTLcN3jFld/03PUQEj6P
-         jrvdjWVDm5rs5n0KYrVt2oSniAlZLZsdMzQaLXQxDb+JbiycKfoz24hX3MPWIF/5Nyl8
-         ditA==
+        bh=mAycf0BcbE8EVd3TEHzIwYGGPS4T5wc1eHsd7l+5SQE=;
+        b=NcGJdi3teWXIJa5/8omMfcGu6qD/kYcAfkBVuXXK9t2rdkThWpznZsGMlti43vGT9/
+         LBXYMCsCRaLUu93R1ZxCrm9tw/hJ5rQcdlCNJs3L12HVsRTA8sLpNQWOS0InFkGckbz1
+         6c/i5VrELLipSTPDGR4XB8ZwBf/NwBYGofF9/TePrOossoekZXzxj3U/YKSNzEvYgU6i
+         quynt3OyMc/yEJHPC9U0OMq2GZYbOw5mDNXyFu70xJo4Jq+8onrcKPvUltOm9CmDtMmy
+         IUDAVMiqSCsWYGJuK9aBJNyE1PwuL0ktYttBzuCzamWgRMMvX4Ka1CpM9tewFzCXbHEd
+         Le9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755604083; x=1756208883;
+        d=1e100.net; s=20230601; t=1755605080; x=1756209880;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=My2ElW1CsGaUg2rzbVlSnaqbwMsFuvhdNanh+sAhnxA=;
-        b=AiJmXibDdUeCGQqK5/h+UgPUCZoLvwiWTzgiK72v5qBQRkjSCgiTb0vT2uww7ngkPZ
-         ZsyT4FixWJsK5KzHTn5I53YnTNuTTGnVDWsKj9jcKsIplJzwOLQUNCSVU0nkotTGz3Vy
-         WOGXfI4sOTmRCJU43FBHlzQ8XAuWAvo1AMdaDWTzJPlyMZlZPK2UQ60kekqRKJdzZcCh
-         g9umQ9Nexx4m11SGCQfi4azvzL/LvzV9svh+6baSFm4Sq8i1A3aCGGN/1obUT1TFBvIl
-         Irni/FXp8yxT683186+ahKJKVwrN2xZCBcfd49p9PNwhkbiabadxk+JKY9mBA+yuuAxL
-         F3GA==
-X-Forwarded-Encrypted: i=1; AJvYcCXnoJQn1WhJjYcB9gzfwM0ZdOP3qmtit41mc67sXb/Smafbg8eBEFQsJY2Nk3IemFa7ul9ffjel0jE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzpOjNJhgLSSuZBAFBGkvtjVLhGef1TcQjosfTFsnglw4UhmKae
-	ZvAJZNDkAKqAzhdML3AGCfuU2jjfPv8mcl0CnQ77FHa6E9BetQ8+YvMBEVzhi8LTzQ==
-X-Gm-Gg: ASbGncs2csZ8ugSCIUCuTSlw/ZUfkz+y805MJPLNjqMSVTBPRg3HbicgV5nwbHabdpm
-	85xCT3HcbxJF9KCYsq5cywqkD+qFEEWRi25NyhKsBwvzvGCtt4uSa7kPza2KDM4G2NpdrU6BtVq
-	bHimCgNiMmjS/RVAFq/lNSREVKSFdxsJJkKIsMkmuYu1orl2quOC/iu6YSrqvrCJ3AwPB4mPIoo
-	gIjcyuO43Np809bPBXoHB8codK2pqnCCU4VoVJtyQHMZK1CSJPZ138MkI+7PcOCbwlgxwqmu/mG
-	4Z+dRz+ZlRzoPwXqhy9k26UTlQH5Rd7Nsh1Fx1YHnyC/B7e/xxPBD0qNWFR+FUY43h19tcwrL54
-	QszURdQkMe7hNwX+S8HF5opVAdTg38vmhmQY7CIZUcQ3J9Gp2S7chzm86yoj8x+vndwtqHYPu3B
-	ElpAW1PwI=
-X-Google-Smtp-Source: AGHT+IFJ7Qt+cEYGPN1crwlMkRDH8kRKy/cPG5jbUN8CgyxuspUjzGm24MXleu0wtEdhdSUGeF8KbA==
-X-Received: by 2002:a17:907:969e:b0:afa:1b05:69c3 with SMTP id a640c23a62f3a-afddd1e905amr179355366b.47.1755604082776;
-        Tue, 19 Aug 2025 04:48:02 -0700 (PDT)
-Message-ID: <718dda6c-120f-443c-ac9e-de948bcd6ce4@suse.com>
-Date: Tue, 19 Aug 2025 13:48:01 +0200
+        bh=mAycf0BcbE8EVd3TEHzIwYGGPS4T5wc1eHsd7l+5SQE=;
+        b=qWxzku8FdKmfGXUvy9mcbYhE17lfXxoB2tYUP4xJkaxaxD2oKvG0NCRCqIRdbyGCq3
+         zbIYHg4wi61wjRRbGNxP03/wSoUhI23M6jacqTi8VhryIxYq13FdhaL0xHlNbtWdWIji
+         dL9ft9WD6pzAkH1P2oRfkFKX6th5ojJ8Xtjvr5B2f7AG7zdIRdjsIZp7eIsB2jI97amT
+         nrteQ53ez7AxHKfm59uB8NiHaMe0/FKrkFSUIQU5iH0g9BCSrFJDqZUR60K+21hJzMm0
+         pZrCsCy+9moCPYlFRuUM0oIUsPGLtxLW1hPgqlIBlWfudIjkf+Ze4XjGl4R5vZtPG7jy
+         YNmA==
+X-Forwarded-Encrypted: i=1; AJvYcCUT3vsCCfJlWj/uXOixKtczJHg8SF0mD0ivZASedIuAtdSPe4z59JBefm5O6WvI0HldfuxglUZiNAM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyv4z9akvzWt3+KIFYaorYIcsZY97MwIQak64rk/CmBi6hDqnn4
+	p7Di4DqT10IG58uuA8S8spoCFfRytZWbTEOdeTXsgQNlu9N4CDRuqgTr0ZWBC6bcEQ==
+X-Gm-Gg: ASbGncty4GTHzrg1omYqMl6hTQmm8tYmNCW8+YUAymXADSxYHrQpKZP6U1XaxNWjIhx
+	HRFihPeuomDnaXE+rCsvlSFHXgwMVgg8fCuT9ROujmxV9EhWxBWg4EWdNLkPgUtJgNIg9ZMtt3u
+	BHS0kPd1UEAgY/WCVqwSFYQGeu9CfxUm7StqR+j6RBoVWBA2mzrU/rTqUPu35SAOa2hEsNuUBjA
+	ybQT+4huCtT6Qj6spUiW7xpq2Gte2ESUudFkN5YQ4bBLkIs0UjSYy+BhD/Fn17udzbvqyO19Ogu
+	/ipKXfydPJDCDzdvm92gQVNWFQIzdF4jiz9I9SkjKTg1kVxXHgYmYgVPQ3ZLLDEgRLgLYrmm3yH
+	18n7f1zuYdASXoAb0TiA0dOH4YABEXestT3J8Z5r9uGylUerNiW8MfdB0rIMmkVH1BS8feN50Mu
+	J2bIxpEhlilcCr+h+pxw==
+X-Google-Smtp-Source: AGHT+IFNN4OAQOuEYS4bIvPGA+DU7fwbl54h3debynjurF/SJyklRLzcw6sKoXIRUJGEpkuhkh7ovw==
+X-Received: by 2002:a17:906:c113:b0:af9:5ca0:e4fe with SMTP id a640c23a62f3a-afddd200e55mr201851166b.56.1755605080021;
+        Tue, 19 Aug 2025 05:04:40 -0700 (PDT)
+Message-ID: <493d4580-62b7-4ff7-9159-4079b4b98f61@suse.com>
+Date: Tue, 19 Aug 2025 14:04:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/16] x86/svm: Rename variable in
- svm_msr_write_intercept()
+Subject: Re: [PATCH v2 11/16] x86/msr: Change rdmsr() to have normal API
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250815204117.3312742-1-andrew.cooper3@citrix.com>
- <20250815204117.3312742-11-andrew.cooper3@citrix.com>
+ <20250815204117.3312742-12-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,48 +119,125 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250815204117.3312742-11-andrew.cooper3@citrix.com>
+In-Reply-To: <20250815204117.3312742-12-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 15.08.2025 22:41, Andrew Cooper wrote:
-> We're about to turn the rdmsr() macro into a real function, at which point
-> Eclair complains that we're now shadowing an identifer.
+> We want a consistent MSR API, and these want to be named rdmsr() and wrmsr(),
+> but not with their current APIs.  The current rdmsr() flavours writing to
+> their parameters by name makes code that reads like invalid C, and is
+> unergonomic to use in lots of cases.
 > 
-> Rename rdmsr to is_rdmsr.
+> Change the API, and update the callers all in one go.  Where appropriate,
+> update the write side to wrmsrns() as per the recommendation.
 > 
 > No functional change.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> I do have a more creative solution if this patch is considered to be too
+> large.  https://gitlab.com/xen-project/hardware/xen-staging/-/commit/e13cf25d06d08481e2c138daa1fd902cf36d757b
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+I'm not concerned by the size of this patch.
 
-
-> --- a/xen/arch/x86/hvm/svm/svm.c
-> +++ b/xen/arch/x86/hvm/svm/svm.c
-> @@ -2087,14 +2087,14 @@ static int cf_check svm_msr_write_intercept(
->  static void svm_do_msr_access(struct cpu_user_regs *regs)
->  {
->      struct vcpu *curr = current;
-> -    bool rdmsr = curr->arch.hvm.svm.vmcb->exitinfo1 == 0;
-> -    int rc, inst_len = svm_get_insn_len(curr, rdmsr ? INSTR_RDMSR
-> -                                                    : INSTR_WRMSR);
-> +    bool is_rdmsr = curr->arch.hvm.svm.vmcb->exitinfo1 == 0;
-
-Could also have used the shorter "read" or "rd" instead.
-
-Jan
-
-> +    int rc, inst_len = svm_get_insn_len(curr, is_rdmsr ? INSTR_RDMSR
-> +                                                       : INSTR_WRMSR);
+> --- a/xen/arch/x86/cpu/intel.c
+> +++ b/xen/arch/x86/cpu/intel.c
+> @@ -23,17 +23,17 @@ static uint32_t __ro_after_init mcu_opt_ctrl_val;
 >  
->      if ( inst_len == 0 )
+>  void update_mcu_opt_ctrl(void)
+>  {
+> -    uint32_t mask = mcu_opt_ctrl_mask, lo, hi;
+> +    uint32_t mask = mcu_opt_ctrl_mask, val;
+>  
+>      if ( !mask )
 >          return;
 >  
-> -    if ( rdmsr )
-> +    if ( is_rdmsr )
->      {
->          uint64_t msr_content = 0;
+> -    rdmsr(MSR_MCU_OPT_CTRL, lo, hi);
+> +    val = rdmsr(MSR_MCU_OPT_CTRL);
 >  
+> -    lo &= ~mask;
+> -    lo |= mcu_opt_ctrl_val;
+> +    val &= ~mask;
+> +    val |= mcu_opt_ctrl_val;
+>  
+> -    wrmsr(MSR_MCU_OPT_CTRL, lo, hi);
+> +    wrmsrns(MSR_MCU_OPT_CTRL, val);
+>  }
 
+I don't consider it a good idea to suddenly clear the upper half of this
+MSR, and ...
+
+> @@ -51,17 +51,17 @@ static uint32_t __ro_after_init pb_opt_ctrl_val;
+>  
+>  void update_pb_opt_ctrl(void)
+>  {
+> -    uint32_t mask = pb_opt_ctrl_mask, lo, hi;
+> +    uint32_t mask = pb_opt_ctrl_mask, val;
+>  
+>      if ( !mask )
+>          return;
+>  
+> -    rdmsr(MSR_PB_OPT_CTRL, lo, hi);
+> +    val = rdmsr(MSR_PB_OPT_CTRL);
+>  
+> -    lo &= ~mask;
+> -    lo |= pb_opt_ctrl_val;
+> +    val &= ~mask;
+> +    val |= pb_opt_ctrl_val;
+>  
+> -    wrmsr(MSR_PB_OPT_CTRL, lo, hi);
+> +    wrmsrns(MSR_PB_OPT_CTRL, val);
+>  }
+
+... this one.
+
+> @@ -456,15 +456,15 @@ static void __init probe_mwait_errata(void)
+>   */
+>  static void Intel_errata_workarounds(struct cpuinfo_x86 *c)
+>  {
+> -	unsigned long lo, hi;
+> +	uint64_t val;
+>  
+>  	if ((c->x86 == 15) && (c->x86_model == 1) && (c->x86_mask == 1)) {
+> -		rdmsr (MSR_IA32_MISC_ENABLE, lo, hi);
+> -		if ((lo & (1<<9)) == 0) {
+> +		val = rdmsr(MSR_IA32_MISC_ENABLE);
+> +		if ((val & (1 << 9)) == 0) {
+>  			printk (KERN_INFO "CPU: C0 stepping P4 Xeon detected.\n");
+>  			printk (KERN_INFO "CPU: Disabling hardware prefetching (Errata 037)\n");
+> -			lo |= (1<<9);	/* Disable hw prefetching */
+> -			wrmsr (MSR_IA32_MISC_ENABLE, lo, hi);
+> +			val |= (1 << 9); /* Disable hw prefetching */
+> +			wrmsrns(MSR_IA32_MISC_ENABLE, val);
+>  		}
+>  	}
+
+Move val into the more narrow scope at the same time?
+
+> @@ -699,7 +715,7 @@ void cf_check vmx_cpu_dead(unsigned int cpu)
+>  
+>  static int _vmx_cpu_up(bool bsp)
+>  {
+> -    u32 eax, edx;
+> +    u32 eax;
+
+Like you do elsewhere, switch to uint32_t at the same time?
+
+> --- a/xen/arch/x86/tsx.c
+> +++ b/xen/arch/x86/tsx.c
+> @@ -42,6 +42,8 @@ void tsx_init(void)
+>  {
+>      static bool __read_mostly once;
+>  
+> +    uint64_t val;
+> +
+>      /*
+
+No real need for yet another newline, I would say.
+
+Jan
 
