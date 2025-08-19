@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E9BEB2C470
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 15:01:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1086570.1444774 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26379B2C4B8
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 15:09:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1086583.1444784 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoLxa-0000dB-SO; Tue, 19 Aug 2025 13:01:06 +0000
+	id 1uoM5g-0001JK-MQ; Tue, 19 Aug 2025 13:09:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1086570.1444774; Tue, 19 Aug 2025 13:01:06 +0000
+Received: by outflank-mailman (output) from mailman id 1086583.1444784; Tue, 19 Aug 2025 13:09:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoLxa-0000bi-PI; Tue, 19 Aug 2025 13:01:06 +0000
-Received: by outflank-mailman (input) for mailman id 1086570;
- Tue, 19 Aug 2025 13:01:05 +0000
+	id 1uoM5g-0001GM-JH; Tue, 19 Aug 2025 13:09:28 +0000
+Received: by outflank-mailman (input) for mailman id 1086583;
+ Tue, 19 Aug 2025 13:09:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xm9j=27=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uoLxZ-0000aL-Ia
- for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 13:01:05 +0000
+ id 1uoM5f-0001GG-4H
+ for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 13:09:27 +0000
 Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
  [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8f9cb34a-7cfc-11f0-a32a-13f23c93f187;
- Tue, 19 Aug 2025 15:01:03 +0200 (CEST)
+ id bb21470a-7cfd-11f0-a32a-13f23c93f187;
+ Tue, 19 Aug 2025 15:09:25 +0200 (CEST)
 Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-afcb7a2befdso710798366b.2
- for <xen-devel@lists.xenproject.org>; Tue, 19 Aug 2025 06:01:03 -0700 (PDT)
+ a640c23a62f3a-afcb79db329so718517366b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Aug 2025 06:09:25 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afcdce53e04sm989342966b.14.2025.08.19.06.01.01
+ 4fb4d7f45d1cf-61a758b8efesm1683289a12.50.2025.08.19.06.09.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Aug 2025 06:01:02 -0700 (PDT)
+ Tue, 19 Aug 2025 06:09:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f9cb34a-7cfc-11f0-a32a-13f23c93f187
+X-Inumbo-ID: bb21470a-7cfd-11f0-a32a-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755608463; x=1756213263; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755608965; x=1756213765; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Nu8ovCptOWQM0oj5TnuZHtwoUS/8jrhVrBMfhE7I0hQ=;
-        b=GWM0Cq0pOcaCbcfnV31zJ68Wh5VWQpdDSDURUK0tumfXfdzFzMeU3WaPoXgtyeXgYc
-         AxvgP27R04P429N2Yqjgt0V6/nr4v8SkqkCgviGDe085Lql+sXD/wxFTfQOSibyNN8RA
-         orM017cDqvzervCvAqRJa+JFFRhI3r9od+6TceVOek2MwElJQbN4EPB/0Vj4Wzdyhrue
-         QNez01MaCr9ac1MROmUlC5h3teAn3w5c692QRAwPZi3v/YXWFmmrUsKbksHTiO7Dhgwc
-         BPQlOyfGWjwUqeD9WmUePWdQ972BNpACkiQXFGCZyObVJ77OI96B/+JKug0vuX0SzPRH
-         pzyg==
+        bh=X1lkhk08FQM22QPp21nEhLJClfw5J+nQdf8CMWaFBvs=;
+        b=FQJUt+0y/ahOQ9ojkWFKPuzYveMFh3twKSmWzvUT9I4Sk9wnGz3xPLN3L8qcGu//+n
+         gcQ+EPtSc3yQxjjhSa/Ol08dnDtpmwrMLynGa+u3tMyUirR5s4E7d2YSnCYoWeVqsl/K
+         SnZ9nhdCs5432XjiHL8A3M9kpIFnYzWVp6Pac36myqhL9xQzILSQFgjP/E/NwuTrOFZZ
+         oJyEHcC1bTGBrZWfcnCiP6buWxvKKOAUUJyAMsCi1EoUuABhGSksF7cNPt7+wGVZmy7j
+         SDen7lbh73AnerM4W+yzmk20amLSzKRhVZwgxst2Z7V/sFCpng5aKpJ6wZ6ntiTnLkVu
+         J44g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755608463; x=1756213263;
+        d=1e100.net; s=20230601; t=1755608965; x=1756213765;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Nu8ovCptOWQM0oj5TnuZHtwoUS/8jrhVrBMfhE7I0hQ=;
-        b=CKgJzDl49wxvkYmVyNmdbdJDI6g8in2fzHbx975MFHGKIQIqN9V3JLVXQNjPvEjQNZ
-         qGTS7Xmm9X7mxLslbvr+3NMCgvPNa+rpJgYVJCBTKmEx3bRTOVgWNu8QLbP/JSVukpIa
-         sUo/BbelWXcRbTK/0a2O5uwZ/CTwIw8iJVfQEXcKaaBb2Ho25yEOuvmOwBlTHxApSjdM
-         XePuKRABkB5X9XtuZig9SE33Y1d33GGnwo2VYf1idLcN1wgTu2PVjTMpBMEoKn7PfY22
-         a+oSR2TeAPLIw978qShbNOhT2Hi3pUTJw8RxH2lDJ7+M6fQOWMUr7oS8s0PltIKBZ16F
-         07tQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX08LhOyf1u4zMdzDuOxgKGouL1UUNAMolzqz5F03qTXl5xzrhkebVY9ebhtXwCjWjOat7KK1OpXxU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxLXBbS+YonE/axgbS233ZxqUOD38vwIgbl88zZXCnrTDcDv+rw
-	XIdTcXneGEwrA3mPjwtmtq1Alr3yekPiQsgXwfaDR5+cIUoI2Qf6VMTeN3JVc1zGDw==
-X-Gm-Gg: ASbGncsotm8Ok1TlU1cS5qgxpxDDuoFwbehnCPnMVFgYFQHcpNOpAgNw2nWd+LWvxzm
-	V8qlj9ThJmBO3GfGM3QQPGJYyb1bL3xNMhE+Rz2ELFLVEPfquijcW9Ch+3BKFL6nLRTe3LVnjZ7
-	UAa6ql/bsW+Tv9vh6/u/TSAIHvteVVjI3+c9jBls1Mfsq2qDdxB6c46pkRFD+7AtKCOEJYI3CGU
-	2QFTcFuBhn1/xg9GToDr3f1xPwop8Spy0D48ylk9oCSO+pewFy7L0eeqsIInh2uVFb1z3whfKuW
-	aF94gvdNdtFf1AvFtKzOgD/dbUSRKKU/c9EOQ5P90ItcIZ+q/3kmUpvCchHikHbGvY8F0LGhCxt
-	3jEpXVbyS1mLDDerpZTsRnFUgOX1tPoEH+EmVkOfzC8N0lqqSr4j7y3pujiQwjhuZpV3mCb4ihM
-	BogglLsITsBtIbxTGhYQ==
-X-Google-Smtp-Source: AGHT+IEEB5MH7hry23BIaJ4yahi2+heHXFLa8C2d7BT7UV0FYQKCLhK/Pko1cRKq7kq9p3sXvCaU1A==
-X-Received: by 2002:a17:907:9810:b0:afd:d994:cac with SMTP id a640c23a62f3a-afddd23d1bfmr237174466b.62.1755608462525;
-        Tue, 19 Aug 2025 06:01:02 -0700 (PDT)
-Message-ID: <740ce507-de96-41e0-a5ae-999b5b6d8726@suse.com>
-Date: Tue, 19 Aug 2025 15:01:01 +0200
+        bh=X1lkhk08FQM22QPp21nEhLJClfw5J+nQdf8CMWaFBvs=;
+        b=GsNV2quGu7x5PemcsgP5yg20xxykydQ69yLpHS+NjfxPpW3jeAAIh+++GUh1tA92rm
+         ktDeL0RHOIEJYbU+j9dnCQSkS6hf58sIH3nMrd231MjcxM8icFefnITDYdjwhrgoifZb
+         upJwGIqNsQwOFEDWeKJmswi4SBlsSJed1dChWdZds8lA8JZRtjid8rl69rCoUNotVLyv
+         cvFhW5yHOjvDBheZGiZxXs+QW/71ZN2wCz695UEADy64YjmLMepcWHiEpENeIWkz92lR
+         yYAp5ErRi19LnY1cfC4iuxlH+bJLMmO1/3l14Ngh1qGUyeX03zhVFB/z5BCd2CmTbNnm
+         uc0A==
+X-Forwarded-Encrypted: i=1; AJvYcCUT5QsxcVUERXb8lb5ADj2Jv0EoRC+Xy/+26WUKPnYjNC3al1R1rfuT5Q0+H8LE228fyQAHXTUUMWk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwMPFK9twftRX63e0uNSz//TSxs5wd+Cp61rnzbCFvJwNl6mIyk
+	JmFF995SiTfcdVPYMMF5DAUEMmnp0k4+MFn4/WT/l+BcPy12nR9TYXPAyNC3B0+S1w==
+X-Gm-Gg: ASbGncun5RsRIBDTXLHlDJMTGLu7Znz44/XFqkfYL269TTpr69DvNZk2hhNa+aETxJW
+	s8GjDBF9NVOoky7P5mqrn+cRPNebd/WZIs0RPVKwXVNQRBrSMt+VwXklVMed48JrCpMSk3UbLoJ
+	1sPJCv9Gz+NrxTLw5PGo45OyXp3BRTWPXhynhxjQamJJFfIU8AojGRUalyNEX/3ATDfpXRPG9bJ
+	F252MPevxcTckeZeJXrdPlseGTMUZLCQG4EW7PbNB2wYGjazDiYzj3CykMFpDffq5JEStR36dzE
+	mtvFiXX0jYMuyV4hzhKU9Bu+qwa5fJgHcNmqKiwvbxRdJtf49OTfRMWal8nA8f5WLt4pmTuI8W+
+	k+83HdizNCdkdnKD3D+L2QlumFFkoM3OrGunr0OlqxCFmJFW8z7EBtZ2rxv6uABsBckxBwg/C93
+	zkkiFXEsw=
+X-Google-Smtp-Source: AGHT+IGcCGVB2A62UC58OhtpaaXaVCzLnhChXFctFGhD5tDm+yMt2bbM+JBRBi6IpsU1jbGNN1PcoA==
+X-Received: by 2002:a17:907:1c92:b0:afd:d94b:830f with SMTP id a640c23a62f3a-afddd211e15mr232290066b.64.1755608965129;
+        Tue, 19 Aug 2025 06:09:25 -0700 (PDT)
+Message-ID: <ae2e8b69-8251-4f60-a5ae-f6bfe413aafb@suse.com>
+Date: Tue, 19 Aug 2025 15:09:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 14/16] x86/fsgsbase: Split out __{rd,wr}gskern()
- helpers
+Subject: Re: [PATCH v2 15/16] x86/fsgsbase: Update fs/gs helpers to use
+ wrmsrns()
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250815204117.3312742-1-andrew.cooper3@citrix.com>
- <20250815204117.3312742-15-andrew.cooper3@citrix.com>
+ <20250815204117.3312742-16-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,36 +120,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250815204117.3312742-15-andrew.cooper3@citrix.com>
+In-Reply-To: <20250815204117.3312742-16-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 15.08.2025 22:41, Andrew Cooper wrote:
-> Right now they're inline in {read,write}_gs_shadow(), but we're going to need
-> to use these elsewhere to support FRED.
+> --- a/xen/arch/x86/hvm/vmx/vmx.c
+> +++ b/xen/arch/x86/hvm/vmx/vmx.c
+> @@ -2733,8 +2733,8 @@ static uint64_t cf_check vmx_get_reg(struct vcpu *v, unsigned int reg)
+>      case MSR_SHADOW_GS_BASE:
+>          if ( v != curr )
+>              return v->arch.hvm.vmx.shadow_gs;
+> -        rdmsrl(MSR_SHADOW_GS_BASE, val);
+> -        return val;
+> +        else
+> +            return rdmsr(MSR_SHADOW_GS_BASE);
+>      }
 
-But why "kern"? We're not dealing with GS in kernel / user terms, but in
-real / shadow ones. I'm also not quite happy with the double leading
-underscores, fwiw.
-
-As to using them elsewhere to support FRED: How can we when they use SWAPGS,
-which isn't available under FRED?
-
-> --- a/xen/arch/x86/include/asm/fsgsbase.h
-> +++ b/xen/arch/x86/include/asm/fsgsbase.h
-> @@ -32,6 +32,17 @@ static inline unsigned long __rdgsbase(void)
->      return base;
->  }
->  
-> +static inline unsigned long __rdgskern(void)
-> +{
-> +    unsigned long base;
-> +
-> +    asm_inline volatile ( "swapgs\n\t"
-> +                          "rdgsbase %0\n\t"
-> +                          "swapgs" : "=r" (base) );
-
-Again strictly speaking "=&r", if already you open-code rdgsbase() now.
+Here and below, can we please do without the pointless "else"? Strictly
+speaking in Misra's terms that's "dead code" (things working identically
+without), and I'm quite happy that I can now use this argument to
+support my personal antipathy to this style of coding. Or else use the
+conditional operator in such cases (where applicable).
 
 Jan
 
