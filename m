@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE2A3B2CD6D
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 21:58:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1087045.1445222 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81891B2CEB0
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 23:44:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1087079.1445264 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoSTc-0001EW-Jh; Tue, 19 Aug 2025 19:58:36 +0000
+	id 1uoU7N-000842-Ey; Tue, 19 Aug 2025 21:43:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1087045.1445222; Tue, 19 Aug 2025 19:58:36 +0000
+Received: by outflank-mailman (output) from mailman id 1087079.1445264; Tue, 19 Aug 2025 21:43:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoSTc-0001C4-Gi; Tue, 19 Aug 2025 19:58:36 +0000
-Received: by outflank-mailman (input) for mailman id 1087045;
- Tue, 19 Aug 2025 19:58:35 +0000
+	id 1uoU7N-00081k-B2; Tue, 19 Aug 2025 21:43:45 +0000
+Received: by outflank-mailman (input) for mailman id 1087079;
+ Tue, 19 Aug 2025 21:43:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fNib=27=kernel.org=kbusch@srs-se1.protection.inumbo.net>)
- id 1uoSTb-0001Bx-45
- for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 19:58:35 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=oc5E=27=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1uoU7L-00081e-9V
+ for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 21:43:43 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dee519ff-7d36-11f0-b898-0df219b8e170;
- Tue, 19 Aug 2025 21:58:28 +0200 (CEST)
+ id 91c21f64-7d45-11f0-b898-0df219b8e170;
+ Tue, 19 Aug 2025 23:43:40 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1DCD345455;
- Tue, 19 Aug 2025 19:58:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63D9EC4CEF1;
- Tue, 19 Aug 2025 19:58:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0BD1460209;
+ Tue, 19 Aug 2025 21:43:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD231C4CEF1;
+ Tue, 19 Aug 2025 21:43:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,66 +41,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dee519ff-7d36-11f0-b898-0df219b8e170
+X-Inumbo-ID: 91c21f64-7d45-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1755633506;
-	bh=nA9A0H3LrJ78fHP6AI7J40nKWuK6fskQEP9rQ9tJOXc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Z3cV0SxjdjsbyAxLQAHXL9YQoVkd3oE/w0tg8f+/28wYPFIcCuOtf+n31sKJ+LyN1
-	 6N7biz9o/yCuPtFBnn8ELyTNlP5RA151eN7wKi8pNSNB92o83ezmb7znz1ImNM7cWr
-	 xClDJ2+EAIi/fyYTQNzUsM/2eAKArOgzFRoBwUKtf83SqZF5p6itYTMDZFBizPzyOj
-	 cmndtkVjtFJFxZFPGtELV1/fpgrqmBEwX35+EsRatiowr0CXr7OcQuw39qyPoRCSeg
-	 uQXDSW9Z/GPeI4IjUnpByoqXUrISGom24QKuNeZMIoK+/Modr6dLR2faOTSocU7qPz
-	 FiaHtir3WFZ4Q==
-Date: Tue, 19 Aug 2025 13:58:22 -0600
-From: Keith Busch <kbusch@kernel.org>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
-	Leon Romanovsky <leonro@nvidia.com>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
-	Alexander Potapenko <glider@google.com>,
-	Alex Gaynor <alex.gaynor@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
-	iommu@lists.linux.dev, Jason Wang <jasowang@redhat.com>,
-	Jens Axboe <axboe@kernel.dk>, Joerg Roedel <joro@8bytes.org>,
-	Jonathan Corbet <corbet@lwn.net>, Juergen Gross <jgross@suse.com>,
-	kasan-dev@googlegroups.com, linux-block@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, linux-nvme@lists.infradead.org,
-	linuxppc-dev@lists.ozlabs.org, linux-trace-kernel@vger.kernel.org,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v4 16/16] nvme-pci: unmap MMIO pages with appropriate
- interface
-Message-ID: <aKTXXv7kE0pGGn_8@kbusch-mbp>
-References: <cover.1755624249.git.leon@kernel.org>
- <545fffb8c364f36102919a5a1d57137731409f3c.1755624249.git.leon@kernel.org>
+	s=k20201202; t=1755639818;
+	bh=oOfay5dwD9ZFMFUsLZRmSG17fsGVmFo2sFzv0Tchehc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=mmOsgT9yDzJ9sB6cAQqOpJcNgzk0PTGHArRfje7KfcJwX7PSH93gbExLG7Wvap3Zi
+	 uMY0B6M7gDFXUGXrmxD2WhXb86RtDfQZpzcHr/fvUyAVNTQlxegAicyYjZcYDyh3UW
+	 8C+lTYb1/mtYd74O9FDescL0Aedkygj6dsy0m7SB/aoVrbaoLed7Tha/N1uIkBlZQK
+	 svkRn+jABbsIcuY4yOGIPhTOl1xBeL9NPUSnWVga7/nkLbnN70VLsTcf1I2sRcO5cS
+	 FI2E9sJVW8cWZMGKjYogK9W/UZzmV0zb7/HWCvsTDp39Zr7pWywGacx7OQXIHKey3V
+	 b2B94O5RsQ8dQ==
+Date: Tue, 19 Aug 2025 14:43:36 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Nicola Vetrini <nicola.vetrini@bugseng.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Subject: Re: [RFC] Next steps for MISRA C Rule 17.7 in XEN
+In-Reply-To: <9a267d90-496c-496a-ab61-6b775204b594@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2508191443200.923618@ubuntu-linux-20-04-desktop>
+References: <6d622813-1617-4af3-876e-52a551518f68@epam.com> <9d71cc11-884d-4924-9de9-e3396801158a@suse.com> <c3bb91c6-ca74-4fab-8ca8-cd5ffed3f954@epam.com> <alpine.DEB.2.22.394.2508181642140.923618@ubuntu-linux-20-04-desktop>
+ <9a267d90-496c-496a-ab61-6b775204b594@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <545fffb8c364f36102919a5a1d57137731409f3c.1755624249.git.leon@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
 
-On Tue, Aug 19, 2025 at 08:37:00PM +0300, Leon Romanovsky wrote:
-> From: Leon Romanovsky <leonro@nvidia.com>
+On Tue, 18 Aug 2025, Jan Beulich wrote:
+> On 19.08.2025 01:45, Stefano Stabellini wrote:
+> > On Mon, 18 Aug 2025, Dmytro Prokopchuk1 wrote:
+> >> On 8/4/25 11:02, Jan Beulich wrote:
+> >>> On 02.08.2025 19:48, Dmytro Prokopchuk1 wrote:
+> >>>> There are a lot of MISRA C R17.7 violations in the XEN.
+> >>>> This rule states: "The value returned by a function having non-void
+> >>>> return type shall be used".
+> >>>>
+> >>>> Actually, need to decide how to deal with these violations.
+> >>>> Quick analyze shown that there are different cases in XEN code base.
+> >>>
+> >>> Long ago, when we discussed the rules in a mainly abstract way, there already
+> >>> was quite a bit of discussion around this. Stefano - I wonder if you had
+> >>> taken (and have kept) notes back at the time?
+> >>>
+> >>> Jan
+> >>
+> >> Hi Stefano.
+> >>
+> >> This is a kind reminder.
+> > 
+> > Yes, I am appending below the unmodified notes which I took when we
+> > discussed R17.7. It looks like the decision was to accept the rule and
+> > use a mix of deviations and void casts to reach compliance.
+> > 
+> > 
+> > MISRA 17.7 Use expressions' results
+> > -----------------------------------
+> > 
+> > ACCEPT 17.7
+> > 
+> > Returning void when appropriate
+> > 
+> > When function results are used on some of the times. Use a comment to
+> > explain why the return value is ignored and a void cast so that the
+> > warning doesn't trigger (there is also a gcc warning).
+> > 
+> > Some functions are returning a value just for convenience (e.g. memcpy).
+> > They need to be deviated.
+> > 
+> > Add must_check to all functions by default somehow? So that developers
+> > will get automatic feedback when they do develpment without having to
+> > wait for ECLAIR
 > 
-> Block layer maps MMIO memory through dma_map_phys() interface
-> with help of DMA_ATTR_MMIO attribute. There is a need to unmap
-> that memory with the appropriate unmap function, something which
-> wasn't possible before adding new REQ attribute to block layer in
-> previous patch.
+> Isn't doing this "by default" equivalent to enabling the compiler warning?
+> If doing this by default (one way or another), it'll need to be clear how
+> to mark functions as "exceptions" (like memcpy() that you mention).
 
-Looks good.
+Indeed, that is the problem.
 
-Reviewed-by: Keith Busch <kbusch@kernel.org>
+I think the idea was to employ a different strategy depending on
+whether the function returns an error or simply provides optional
+information.
+
+For functions that return errors, we would use explicit (void) casts.
+For functions that return optional information, we would apply global
+deviations.
+
+Of course, these are only general guidelines. If a function that returns
+errors has thousands of violations, making it impractical to address
+each one individually, we would likely opt for a global deviation in
+that case as well.
+
 
