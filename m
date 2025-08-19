@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08C2BB2C2AC
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 14:05:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1086519.1444734 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C2CBB2C3DB
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 14:39:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1086533.1444744 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoL5y-0008Ak-4f; Tue, 19 Aug 2025 12:05:42 +0000
+	id 1uoLbZ-0003tG-Gw; Tue, 19 Aug 2025 12:38:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1086519.1444734; Tue, 19 Aug 2025 12:05:42 +0000
+Received: by outflank-mailman (output) from mailman id 1086533.1444744; Tue, 19 Aug 2025 12:38:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoL5y-00088h-1M; Tue, 19 Aug 2025 12:05:42 +0000
-Received: by outflank-mailman (input) for mailman id 1086519;
- Tue, 19 Aug 2025 12:05:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uoLbZ-0003qy-Dm; Tue, 19 Aug 2025 12:38:21 +0000
+Received: by outflank-mailman (input) for mailman id 1086533;
+ Tue, 19 Aug 2025 12:38:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xm9j=27=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uoL5w-0007ee-JB
- for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 12:05:40 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d234d566-7cf4-11f0-b898-0df219b8e170;
- Tue, 19 Aug 2025 14:05:39 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-61a2a5b0689so4465459a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 19 Aug 2025 05:05:39 -0700 (PDT)
+ id 1uoLbX-0003qs-QD
+ for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 12:38:19 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 61902f3a-7cf9-11f0-a32a-13f23c93f187;
+ Tue, 19 Aug 2025 14:38:17 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-afcb7347e09so853170966b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Aug 2025 05:38:17 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61a75794d0bsm1652041a12.46.2025.08.19.05.05.37
+ a640c23a62f3a-afcdd04e4d9sm1004208166b.113.2025.08.19.05.38.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Aug 2025 05:05:38 -0700 (PDT)
+ Tue, 19 Aug 2025 05:38:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d234d566-7cf4-11f0-b898-0df219b8e170
+X-Inumbo-ID: 61902f3a-7cf9-11f0-a32a-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755605138; x=1756209938; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755607097; x=1756211897; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6tUjbnmMZ3UkNPAGkCOxAbOQU1toPCYtKtBi4s+xdrk=;
-        b=HB5KuHJt54MJQXXoAaUKiivxEhb4NSHpMzBFIowuxV6b09hauZD2cp8KvDwmiMH9j+
-         jdb9wa0l91ei92J9uHAPygipRzgOlikXn6vp6DqV9WLSDQth21Dya4j7v7aoDPwWj9Ox
-         3YDNBTt72XAD9KpVCGctLkAQb1ST8CSKoHZbPCLHK1jZMGBdhppDyfRbr5ihtX4YdT0d
-         LvcEgPRLZv6HREwFUs3XozmeMruj9QtlUpJCwQrRBQv5OK0eUAaE/Pr+GyM0HFn0q9vH
-         4KOKB6gm92zIKa+J6hVabuEragS1lPUOkFcAXIoIrAIkpys0A/Y4NzE5P8qF7wMqJ8XY
-         jtxA==
+        bh=7go6Ug4EJDI1PHHDSplUTJAc4Cu+u+fNuTxHp06eBI4=;
+        b=YJS1k1d6RHNFA8rbPiQYIndpOmCsG6ObYd1GR6oDWnz4Lk3J5M7GVSMa0Q9RDPJwJp
+         0PyJqqfAXjd/ZUAoN5N6ZAZe2xEpVhQTWkdfriplicHYhLhrD+v6hYksTXosU05RQwJW
+         kC+IjA1Wr73SyCpQ0UeKuVlTIejCK8DsKXfBbPaip/Db9cYGjXKZ4+jeXJG4rUECyp7Y
+         rnoeW1uZr+Wuyn+QaDjOrGtuQGYMP/rpECVVc132RiarKz7Uzs6Duu8YIpP/YbJfh3AW
+         p7CjofE60w92iopjVjMIEsGi92Ta6XJQ0j/F1Hw3iHjVla8VpkJR6FFB60roAkuhKlY7
+         AkZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755605138; x=1756209938;
+        d=1e100.net; s=20230601; t=1755607097; x=1756211897;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6tUjbnmMZ3UkNPAGkCOxAbOQU1toPCYtKtBi4s+xdrk=;
-        b=ZVtQkbJ18DgJCn59LfagHIJA/YsI4e9hGLON+Ke6qpQ2rApdXqX7kMkLMu5c+S/vAF
-         a03+dQEphQUhfmLSLfZ24zWq7j/h7YNzv/tkaMAVRXzK7oQ4v+HFeNa+QjWa07qAgeVC
-         xprAog+DdLE9FDzKLTocmgqhyuBdKblcOIgOj5w49RrLaalliSVxda4Rw7LfqoXawezt
-         PK/5Ru+ukbWMTQRBFJwetHO0K+KKVSbqglaUsmOskHGyjqFNe5iIeMEDmWzzhlyXsa49
-         JpYC7k8zm6hei37ISGtzIVVfnQWSdKTG3U+cBG19lxXmt4ia6xIvjophw0et+rFtPwZK
-         PMxw==
-X-Forwarded-Encrypted: i=1; AJvYcCXYDbyJM1avKVBM/EOIn+as11tJpDuOwUYGCPm+Mm61OTHPIj/OPCFe6dpgiv+bEsUHgl5LyX2ZQIU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxCiHV85aF3ASB+K1fI2v46myXClJg8Ucqi+zgMbSyObTjBxRD9
-	rxRTODrZAH70ARisuk561LC/jUj9OLWHjbXA7nReIKNh9CfJ+nTap0o+cYS04U1bTQ==
-X-Gm-Gg: ASbGncucD6fdWTXryVKhhdMwtdbGD62yf7erEPmDtN8dKg8qyVF9uEjfePRIbFKa8K0
-	rFWSlSU3UTCTf8QU8EbAXj0gofagCgefOEZe0NjK6A6HDgBOAOcuZukemhgLZpmh9ejxQinmwSh
-	0UpqIS3P9Qv5kQwLZ7/6iwO4bhcVMWTsdXkfp55D289n4NyrJK/WLax7Hv3wCh5cOp4VbENYhW+
-	ETN1l4z8SRHR2cZv9Q8cNmABEuetHFg4jjtbpkAmrJL1Em/cnkE/qUo1rz3nqZdqdRK20tkCyCH
-	e942YG6okqj7yR64XTyq4SEfCvDPlsee1q/uwoK/wxlEXcdTXZ1FrDkY5OJnvWGiSVM2xFOII7X
-	kqkdZAVE7RB/yLpbEkh1GgZiZmpnu6N7ygh4zI1fVgQRTXR/ZjAL3SvjddmLnSsz4wthZjkhRk9
-	gXOtSjsok=
-X-Google-Smtp-Source: AGHT+IFSt7tpPGgP4kKUFBPZqDyDdmOteydi6DAW2pXH3ktBqIWlzKFILkPU3WKomTiMRgZmJjaOTg==
-X-Received: by 2002:a05:6402:208a:b0:604:e602:779a with SMTP id 4fb4d7f45d1cf-61a7e7498abmr1716882a12.28.1755605138365;
-        Tue, 19 Aug 2025 05:05:38 -0700 (PDT)
-Message-ID: <ce37f096-3ff5-4f95-b20d-4b8da5600460@suse.com>
-Date: Tue, 19 Aug 2025 14:05:37 +0200
+        bh=7go6Ug4EJDI1PHHDSplUTJAc4Cu+u+fNuTxHp06eBI4=;
+        b=Jx2tFn6qRiFfpNQjMB/xvbXdevYZwKEbf6Uv4vkgJPTx0HZldOOMFqBd2uzCIynLZE
+         Lcl9B7itPwk7em6KMnwDfUf2sT6jpXFY6fP3+FEPuCzoGjbSN741Pa/0a2cNbSZWsuNS
+         LjqPOgIXqXWWc5v4FUIp9aBZ+SqZ8PJwwTNaJSDKz1nV3flgbuoRbgQaGZr+8GjG7M9G
+         qMKRG423275F7MU8N+f32SasRDD8fltHJHPWC7OzLrP7rCZV/+PtFChOhRDUPwgQOpty
+         FIJ+txbvtARCfidvsIQVB1XargrRzKOawCCrsHnIRslYlz/9/wM67mQFcH9r+Xyw2W3q
+         tBGw==
+X-Forwarded-Encrypted: i=1; AJvYcCWsX8DKyEdhQMcwJU+txcjCTMPsL3mFW9i9Cr6kRPXQIlnmFqVJ/gguUdMNAaouFEgNrYLd1kTdo2g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyQlK3wfV+z40lANR2OBBX5DJILUrame/cZrJFiegw5pEr0vY4c
+	OJSAHJa7ts0ihjjQxW8oS0zF8QxEFL1v+xxOZ5pNP6vpqMWw7Jpwo3l5vBeFwfDEQw==
+X-Gm-Gg: ASbGncvS9XZYAcb8NnR8Iy4FyXMQ0LN3BwBUJW4lfGHniv4Q+Z97NLXBv3UWZA1dctz
+	K+msnciFbM9IKEPjrSmEvJwPj0Da6fTPvmD8KcPMaHPp7F5fZ1wa4My4T8aWgk/lfDXracI/6hP
+	9YmNI55RLtSc6rpcGJUVsbYZOWxFVW/joBP3n7+cP51WYZDf7cI+VzeYsfFqEBNRmcX5wXk+MJ+
+	uusMAd42meYYMmCetXXQsM31yoPrOvfkjCjHkqr31A7IO00Hd6iO6TTZ3PEflgcZG2v28zaijv9
+	0sRIFaWpCXN5cSwm4JH4DdJ7NhmNEzFTFEVUyvc1KJGWhpbramOA80DEFGWCo4jO1M6csMmEtxf
+	Ugrx0C22qtFAcq1oCMJNu0Ab+b42U9myICrW0+7xEBtQ6+JqnZ4yEh79MLSBFb9NczhxJZR1hCc
+	vP9z9y87weDtpu5UFktg==
+X-Google-Smtp-Source: AGHT+IGk8Uh5UQQGo+pOsfMjsYj1TeMjhtyBSe8ImrIK9i0edj99zfqLy16F78Y+uAQNMEa9OeGFPA==
+X-Received: by 2002:a17:907:72c5:b0:ae3:bb4a:91fb with SMTP id a640c23a62f3a-afddd235196mr267231366b.59.1755607097116;
+        Tue, 19 Aug 2025 05:38:17 -0700 (PDT)
+Message-ID: <3511e3dc-0c9b-412b-9cb3-e4b726088297@suse.com>
+Date: Tue, 19 Aug 2025 14:38:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/16] x86/msr: Change rdmsr() to have normal API
+Subject: Re: [PATCH v2 12/16] x86/msr: Change wrmsr() to take a single
+ parameter
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250815204117.3312742-1-andrew.cooper3@citrix.com>
- <20250815204117.3312742-12-andrew.cooper3@citrix.com>
- <356c3daa-f532-4450-a634-3ecfbdedff91@citrix.com>
+ <20250815204117.3312742-13-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,40 +120,51 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <356c3daa-f532-4450-a634-3ecfbdedff91@citrix.com>
+In-Reply-To: <20250815204117.3312742-13-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 18.08.2025 13:34, Andrew Cooper wrote:
-> On 15/08/2025 9:41 pm, Andrew Cooper wrote:
->> diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
->> index 530b9eb39abc..9c6b8c291d6e 100644
->> --- a/xen/arch/x86/cpu/common.c
->> +++ b/xen/arch/x86/cpu/common.c
->> @@ -329,6 +329,7 @@ static inline u32 phys_pkg_id(u32 cpuid_apic, int index_msb)
->>  void __init early_cpu_init(bool verbose)
->>  {
->>  	struct cpuinfo_x86 *c = &boot_cpu_data;
->> +	uint64_t val;
->>  	u32 eax, ebx, ecx, edx;
->>  
->>  	c->x86_cache_alignment = 32;
->> @@ -412,10 +413,11 @@ void __init early_cpu_init(bool verbose)
->>  			    &c->x86_capability[FEATURESET_7c0],
->>  			    &c->x86_capability[FEATURESET_7d0]);
->>  
->> -		if (test_bit(X86_FEATURE_ARCH_CAPS, c->x86_capability))
->> -			rdmsr(MSR_ARCH_CAPABILITIES,
->> -			      c->x86_capability[FEATURESET_m10Al],
->> -			      c->x86_capability[FEATURESET_m10Ah]);
->> +		if (test_bit(X86_FEATURE_ARCH_CAPS, c->x86_capability)) {
->> +			val = rdmsr(MSR_ARCH_CAPABILITIES);
->> +			c->x86_capability[FEATURESET_m10Al] = val;
->> +			c->x86_capability[FEATURESET_m10Al] = val >> 32;
-> 
-> This is a typo.  Fixed locally.
+On 15.08.2025 22:41, Andrew Cooper wrote:
+> --- a/xen/arch/x86/nmi.c
+> +++ b/xen/arch/x86/nmi.c
+> @@ -218,16 +218,16 @@ void disable_lapic_nmi_watchdog(void)
+>          return;
+>      switch (boot_cpu_data.x86_vendor) {
+>      case X86_VENDOR_AMD:
+> -        wrmsr(MSR_K7_EVNTSEL0, 0, 0);
+> +        wrmsrns(MSR_K7_EVNTSEL0, 0);
 
-Both of them, I expect.
+Since you switch to non-serializing here, ...
+
+> @@ -308,11 +308,11 @@ static void setup_k7_watchdog(void)
+>          | K7_EVNTSEL_USR
+>          | K7_NMI_EVENT;
+>  
+> -    wrmsr(MSR_K7_EVNTSEL0, evntsel, 0);
+> +    wrmsr(MSR_K7_EVNTSEL0, evntsel);
+>      write_watchdog_counter("K7_PERFCTR0");
+>      apic_write(APIC_LVTPC, APIC_DM_NMI);
+>      evntsel |= K7_EVNTSEL_ENABLE;
+> -    wrmsr(MSR_K7_EVNTSEL0, evntsel, 0);
+> +    wrmsr(MSR_K7_EVNTSEL0, evntsel);
+>  }
+
+... why not also here?
+
+> --- a/xen/arch/x86/oprofile/op_model_athlon.c
+> +++ b/xen/arch/x86/oprofile/op_model_athlon.c
+> @@ -34,7 +34,7 @@
+>  #define MAX_COUNTERS FAM15H_NUM_COUNTERS
+>  
+>  #define CTR_READ(msr_content,msrs,c) do {rdmsrl(msrs->counters[(c)].addr, (msr_content));} while (0)
+> -#define CTR_WRITE(l,msrs,c) do {wrmsr(msrs->counters[(c)].addr, -(unsigned int)(l), -1);} while (0)
+> +#define CTR_WRITE(l,msrs,c) do { wrmsr(msrs->counters[(c)].addr, -l); } while (0)
+
+This isn't obviously correct (as in: no functional change): The macro is,
+for example, passed reset_value[] contents, which is of type unsigned long.
+Quite possible that the original code was wrong, though.
+
+In any event l wants parenthesizing.
 
 Jan
 
