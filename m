@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AFEAB2B9CF
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 08:46:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1086342.1444524 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18EFFB2B9D5
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 08:49:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1086350.1444534 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoG6P-00058e-2j; Tue, 19 Aug 2025 06:45:49 +0000
+	id 1uoG9k-0005ha-H2; Tue, 19 Aug 2025 06:49:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1086342.1444524; Tue, 19 Aug 2025 06:45:49 +0000
+Received: by outflank-mailman (output) from mailman id 1086350.1444534; Tue, 19 Aug 2025 06:49:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoG6O-00056q-Vp; Tue, 19 Aug 2025 06:45:48 +0000
-Received: by outflank-mailman (input) for mailman id 1086342;
- Tue, 19 Aug 2025 06:45:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uoG9k-0005g4-Dq; Tue, 19 Aug 2025 06:49:16 +0000
+Received: by outflank-mailman (input) for mailman id 1086350;
+ Tue, 19 Aug 2025 06:49:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xm9j=27=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uoG6O-00056k-4Q
- for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 06:45:48 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 22cbed28-7cc8-11f0-a32a-13f23c93f187;
- Tue, 19 Aug 2025 08:45:46 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-6188b654241so8782206a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 23:45:46 -0700 (PDT)
+ id 1uoG9j-0005fy-N8
+ for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 06:49:15 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9dd75710-7cc8-11f0-b898-0df219b8e170;
+ Tue, 19 Aug 2025 08:49:13 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-afcb78c77ebso797153166b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Aug 2025 23:49:13 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61a75794c43sm1154145a12.41.2025.08.18.23.45.45
+ a640c23a62f3a-afcdd016c61sm933938966b.96.2025.08.18.23.49.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Aug 2025 23:45:45 -0700 (PDT)
+ Mon, 18 Aug 2025 23:49:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22cbed28-7cc8-11f0-a32a-13f23c93f187
+X-Inumbo-ID: 9dd75710-7cc8-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755585946; x=1756190746; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755586153; x=1756190953; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=C2aq9uMo50s2x7Xrw+cJw7jisf8TN/Q5YG5pZubXpVA=;
-        b=Nda7EaEamk4WkmBVxl7Zf4rpGrhUrfOdm/RiY0Tks/sBjMgzy2/vQQrNqT5LGtG1X1
-         qop/Ura4DeBLvZvjZnvydmQhPfTUb59Rv0Gz0GvojBF0+VLs10uXdIXwelerWz+QWSmf
-         30qPTyjmTfdYwZiS50EQ7BvGofhunlnx2YocO06GAxGQCraZVPeffiFqWapc69Al2tDM
-         yRBfrcMOHPuHFdxp0y8P/f8uEbrOZRUY/iW0WDnDVttvSAAZzFtaLP6Tv3a3lc1U1W7W
-         nkKtBVtExuTKO1LBN/Sx80k3c61gKYU1X+ZrVQdSt6vzxwXDAaU1dWbWYvzMdw+bBSdW
-         xplQ==
+        bh=wBarrgEMrR/IqomEAJ4wp9bD4p+lvnS/sY/pWdD/wpQ=;
+        b=Tbc3AbBKXE2Kv8obFaPwldAEyFIFgAbvfJ4ayWNX+pAA2xEXu0W4jwFrPs5h+WridC
+         th7Q9xioOkVTOF0wEE9/dbO+SWKt/jXfUHyoNSBD4zsag0i1HDJr30P0l1pqsB0G16dq
+         tBDQ9oU1Xhx1Uo7u5kh6qHNKYVkGqW9xZ7GeNqJFVtqsDCbdVJ2Jy2bDRVI5sYCNc2GW
+         PIfdrSKw6/OkQtRrD2uFDKLACZG8zjGz3J5v5YsVFPZPNCWmxv6gI2boNx/KJ/3+naXv
+         CbVpv90fW64iXZYkw1okYU+btP5tRLGhIAJYi13MoKE6XgvsWMTwBcu6FMdiCmMYZnq3
+         kQ7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755585946; x=1756190746;
+        d=1e100.net; s=20230601; t=1755586153; x=1756190953;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=C2aq9uMo50s2x7Xrw+cJw7jisf8TN/Q5YG5pZubXpVA=;
-        b=YEjyNBxTwjnpPqRkDPO++uys5+tL5wTvbTy6olN3ksX+S7VP0xtQCDKdgSscQ3ADEL
-         ruQvDG8fQFPqHlaC4H218i3hNvlCtgNAAUZMN7BjoEJKg5lkrrGZIvz85QK8npzntcX/
-         bPzxIe1ZEaQjIkhhzmwTQUjD1HO2E0lHrztp9dBmHC7wBc4cbZwSAiSaEuiJFX0OF7GB
-         eaWtyMvH7WaZWr8GsVl2UdVlmUobQqNu0oIFR8BDnMgOTUMNL3b0pO1uc7mD6f5V5W/p
-         mvF3XxBSqCCcIdRItKbblM9733J+yO/k5XuEvYgzJHB++hrNfx5xXLeUbs4IlgSEtliP
-         X9sA==
-X-Forwarded-Encrypted: i=1; AJvYcCW1aRYxl0pP+18qEC6KN8ddmmAxWCLj8QfsE6PFp0vc7HUKiK6Q5P418ekv9qPorEp5k+lRvubzNb4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxqyPLtoLXNya3tr8S7+BQMZPNr311OePU5EaXrYNZa+aXpgAyx
-	Y1rVrZOabQgF/dyYtOqzKxFd3pneJ8/Rs20SBKjsxvyt290Dpk29mSG6jL2JLR3unA==
-X-Gm-Gg: ASbGnctRUDnQsrIhW2zS+7qSHJdVlBYIh6rEkwvqPGJO6akiE6f9UZKUABfGcF3LKV+
-	2m0hNrTh2x9rglKXpwMvawYWBKfrjAcnV9dxWo2/q7Ook/qGyDl3wLS0wP7kV7P3CpIgbn9Xpn4
-	nriml9CuBcmE7fWlXeDIAQMwB9ap47zTMfw/6NPy69Q5ywEvvegGZMW+3gQNEjR7ipu6VOs44ul
-	ZcWmB+McFla0EG4OpDUeV85aPIjc/VQVwdhNgWaIHYb1aDt6JHwQOefBSS5Km9KpMTvJ0QASufv
-	C5Y54l3YHTCptRUFpYwSOBX8vfMMN3vdab0nkLH5OoGsxQrgaQttD03Qgwptu3riUe/u7c5b3BA
-	NZT0lV2mzlCjjwTspmbnTUv1b8OmFVSKBL0TUIZiN3izUnE7mTYaSEmaSPoRpMuif1mipkFeZ26
-	K/QrVj/qtK9b2Fe4xYZA==
-X-Google-Smtp-Source: AGHT+IF4KSp6gE9NaYsmKLOVHCe0Oc0wjLmpDt6dtlJsm8nzt2pCdSEgbd/B8ZDgM8eNkLDhrLlgFA==
-X-Received: by 2002:a05:6402:13d5:b0:618:1250:ac62 with SMTP id 4fb4d7f45d1cf-61a7e6fa42fmr1191950a12.10.1755585946314;
-        Mon, 18 Aug 2025 23:45:46 -0700 (PDT)
-Message-ID: <cdd28b4f-34fa-42d4-a4b2-602fab2416b9@suse.com>
-Date: Tue, 19 Aug 2025 08:45:45 +0200
+        bh=wBarrgEMrR/IqomEAJ4wp9bD4p+lvnS/sY/pWdD/wpQ=;
+        b=tfHdf2eMhCdvAZmIfSTDwwMAxNL/UmHM+twHuiaSyYc8soIqQz/VnE/3Sue8AsPZcg
+         tis+9+WlYazgnddsP9D9fwnWvFdU5fhnovp1Lb9TKcZrRoTtf3AH4IXSSUdl3bIbYBie
+         AZwZiskkQric8kA5hPnV84rgm/Fk2/jnxmpr00b2FzV1+oyyOR1VCuu7PBe8L2TkLXwH
+         1Qf5g+rCQ84QbsRmEJLYaHGi0G7iqslkwQ2WX1JV5BuOAfWIcL444EcrMqYOrRW3GkvE
+         ShYqKr9ML9nHcSreAWbfhh0t/UYyAhrAaK4IZUhizkaYGuJiYIwXpZQD5eUAtC6yN0JI
+         c3hw==
+X-Forwarded-Encrypted: i=1; AJvYcCXyISIH5VOdRK7gWDmT1fkqcydycBAncc1WnSgAQ20VTNCJoJexPq0POH1ctLr7zOEreI1zVTeiklQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxdFsdGCY+6FOt0HQv3s1B7g7ivdrdNRFm256toHaWZpTJluFxe
+	1tNp/PwrNusx/YjTXHw6yBuDaQi9NrpDixOHKavvp7Ovpd15RVjDvswPVoTdvM/Upg==
+X-Gm-Gg: ASbGncv6JnorD1PLnA2LpWkZq91YztkpRXPhE2RQwTK6WhHRKeOPGLwq5MKbRc+rsWQ
+	rGLuatHcIKYLLdC5ACCptwFd5m1DuyCCvdr4frs0lPNC/4QzOcd/SMnf+9NO53oYU5nyocTExl8
+	KfAjN9MdpswPNiEZulH6LAB912LIx7JUWmZ9GOWv/qFCkEcsNzp659Q0RYnGFBYQxhRbctXpACs
+	u19VNAwbezmFCJHh3AiA08kpl2vMit0ixT+YYwYxzuM4isE/P4nKz6IRWxrj6IyLWVIzqf1VVSA
+	YI1xOS8oKzFMbLIAb3k36BakhfLUPmagTbxelwUBTbeMOH7BTYV19Bf7RnJ0Pl0KbAdeak1Zo1W
+	TerMY6AqQySqI4nFHiT2p2TE68dPY0Fj28NVsiw+ditvvqcHVaO4cys7c8zBuxSFKOHWqZJF2T9
+	Lw6WHl+NIQdz/dqjVbvw==
+X-Google-Smtp-Source: AGHT+IHg5PmFJlc10kRTD1WrGwXnd5LdCRlW0m4E0i2E20B1MhOcBe6xzqFE9Qa7Xtso7egOuqb61A==
+X-Received: by 2002:a17:906:c113:b0:af1:d32f:3e89 with SMTP id a640c23a62f3a-afddd0d276emr122218966b.31.1755586152891;
+        Mon, 18 Aug 2025 23:49:12 -0700 (PDT)
+Message-ID: <9a267d90-496c-496a-ab61-6b775204b594@suse.com>
+Date: Tue, 19 Aug 2025 08:49:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/3] hvmloader: add new SMBIOS tables (7,8,9,26,27,28)
-To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1753869323.git.w1benny@gmail.com>
+Subject: Re: [RFC] Next steps for MISRA C Rule 17.7 in XEN
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+References: <6d622813-1617-4af3-876e-52a551518f68@epam.com>
+ <9d71cc11-884d-4924-9de9-e3396801158a@suse.com>
+ <c3bb91c6-ca74-4fab-8ca8-cd5ffed3f954@epam.com>
+ <alpine.DEB.2.22.394.2508181642140.923618@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,24 +122,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cover.1753869323.git.w1benny@gmail.com>
+In-Reply-To: <alpine.DEB.2.22.394.2508181642140.923618@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 30.07.2025 11:56, Petr Beneš wrote:
-> Petr Beneš (3):
->   tools: add sizeof_field and offsetof_end macros
->   hvmloader: fix SMBIOS table length checks
->   hvmloader: add new SMBIOS tables (7, 8, 9, 26, 27, 28)
+On 19.08.2025 01:45, Stefano Stabellini wrote:
+> On Mon, 18 Aug 2025, Dmytro Prokopchuk1 wrote:
+>> On 8/4/25 11:02, Jan Beulich wrote:
+>>> On 02.08.2025 19:48, Dmytro Prokopchuk1 wrote:
+>>>> There are a lot of MISRA C R17.7 violations in the XEN.
+>>>> This rule states: "The value returned by a function having non-void
+>>>> return type shall be used".
+>>>>
+>>>> Actually, need to decide how to deal with these violations.
+>>>> Quick analyze shown that there are different cases in XEN code base.
+>>>
+>>> Long ago, when we discussed the rules in a mainly abstract way, there already
+>>> was quite a bit of discussion around this. Stefano - I wonder if you had
+>>> taken (and have kept) notes back at the time?
+>>>
+>>> Jan
+>>
+>> Hi Stefano.
+>>
+>> This is a kind reminder.
 > 
->  tools/firmware/hvmloader/smbios.c       | 290 ++++++++++++++++++------
->  tools/firmware/hvmloader/smbios_types.h | 109 +++++++--
->  tools/include/xen-tools/common-macros.h |   5 +
->  3 files changed, 317 insertions(+), 87 deletions(-)
+> Yes, I am appending below the unmodified notes which I took when we
+> discussed R17.7. It looks like the decision was to accept the rule and
+> use a mix of deviations and void casts to reach compliance.
+> 
+> 
+> MISRA 17.7 Use expressions' results
+> -----------------------------------
+> 
+> ACCEPT 17.7
+> 
+> Returning void when appropriate
+> 
+> When function results are used on some of the times. Use a comment to
+> explain why the return value is ignored and a void cast so that the
+> warning doesn't trigger (there is also a gcc warning).
+> 
+> Some functions are returning a value just for convenience (e.g. memcpy).
+> They need to be deviated.
+> 
+> Add must_check to all functions by default somehow? So that developers
+> will get automatic feedback when they do develpment without having to
+> wait for ECLAIR
 
-Just to mention, also affecting your MAX_ALTP2M series: It is on you to chase
-missing acks. It would of course be nice for this work of yours to not go in
-only at the last minute, or even miss 4.21.
+Isn't doing this "by default" equivalent to enabling the compiler warning?
+If doing this by default (one way or another), it'll need to be clear how
+to mark functions as "exceptions" (like memcpy() that you mention).
 
 Jan
 
