@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5039FB2C2A1
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 14:05:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1086510.1444724 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08C2BB2C2AC
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Aug 2025 14:05:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1086519.1444734 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoL53-0007gk-RW; Tue, 19 Aug 2025 12:04:45 +0000
+	id 1uoL5y-0008Ak-4f; Tue, 19 Aug 2025 12:05:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1086510.1444724; Tue, 19 Aug 2025 12:04:45 +0000
+Received: by outflank-mailman (output) from mailman id 1086519.1444734; Tue, 19 Aug 2025 12:05:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoL53-0007em-Oq; Tue, 19 Aug 2025 12:04:45 +0000
-Received: by outflank-mailman (input) for mailman id 1086510;
- Tue, 19 Aug 2025 12:04:43 +0000
+	id 1uoL5y-00088h-1M; Tue, 19 Aug 2025 12:05:42 +0000
+Received: by outflank-mailman (input) for mailman id 1086519;
+ Tue, 19 Aug 2025 12:05:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xm9j=27=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uoL51-0007ee-Gk
- for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 12:04:43 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ id 1uoL5w-0007ee-JB
+ for xen-devel@lists.xenproject.org; Tue, 19 Aug 2025 12:05:40 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id afa8072f-7cf4-11f0-b898-0df219b8e170;
- Tue, 19 Aug 2025 14:04:41 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-afcb72d51dcso733417666b.0
- for <xen-devel@lists.xenproject.org>; Tue, 19 Aug 2025 05:04:41 -0700 (PDT)
+ id d234d566-7cf4-11f0-b898-0df219b8e170;
+ Tue, 19 Aug 2025 14:05:39 +0200 (CEST)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-61a2a5b0689so4465459a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Aug 2025 05:05:39 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afcdcfcb2d1sm1002963966b.62.2025.08.19.05.04.39
+ 4fb4d7f45d1cf-61a75794d0bsm1652041a12.46.2025.08.19.05.05.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Aug 2025 05:04:39 -0700 (PDT)
+ Tue, 19 Aug 2025 05:05:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: afa8072f-7cf4-11f0-b898-0df219b8e170
+X-Inumbo-ID: d234d566-7cf4-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755605080; x=1756209880; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755605138; x=1756209938; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=mAycf0BcbE8EVd3TEHzIwYGGPS4T5wc1eHsd7l+5SQE=;
-        b=NcGJdi3teWXIJa5/8omMfcGu6qD/kYcAfkBVuXXK9t2rdkThWpznZsGMlti43vGT9/
-         LBXYMCsCRaLUu93R1ZxCrm9tw/hJ5rQcdlCNJs3L12HVsRTA8sLpNQWOS0InFkGckbz1
-         6c/i5VrELLipSTPDGR4XB8ZwBf/NwBYGofF9/TePrOossoekZXzxj3U/YKSNzEvYgU6i
-         quynt3OyMc/yEJHPC9U0OMq2GZYbOw5mDNXyFu70xJo4Jq+8onrcKPvUltOm9CmDtMmy
-         IUDAVMiqSCsWYGJuK9aBJNyE1PwuL0ktYttBzuCzamWgRMMvX4Ka1CpM9tewFzCXbHEd
-         Le9A==
+        bh=6tUjbnmMZ3UkNPAGkCOxAbOQU1toPCYtKtBi4s+xdrk=;
+        b=HB5KuHJt54MJQXXoAaUKiivxEhb4NSHpMzBFIowuxV6b09hauZD2cp8KvDwmiMH9j+
+         jdb9wa0l91ei92J9uHAPygipRzgOlikXn6vp6DqV9WLSDQth21Dya4j7v7aoDPwWj9Ox
+         3YDNBTt72XAD9KpVCGctLkAQb1ST8CSKoHZbPCLHK1jZMGBdhppDyfRbr5ihtX4YdT0d
+         LvcEgPRLZv6HREwFUs3XozmeMruj9QtlUpJCwQrRBQv5OK0eUAaE/Pr+GyM0HFn0q9vH
+         4KOKB6gm92zIKa+J6hVabuEragS1lPUOkFcAXIoIrAIkpys0A/Y4NzE5P8qF7wMqJ8XY
+         jtxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755605080; x=1756209880;
+        d=1e100.net; s=20230601; t=1755605138; x=1756209938;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mAycf0BcbE8EVd3TEHzIwYGGPS4T5wc1eHsd7l+5SQE=;
-        b=qWxzku8FdKmfGXUvy9mcbYhE17lfXxoB2tYUP4xJkaxaxD2oKvG0NCRCqIRdbyGCq3
-         zbIYHg4wi61wjRRbGNxP03/wSoUhI23M6jacqTi8VhryIxYq13FdhaL0xHlNbtWdWIji
-         dL9ft9WD6pzAkH1P2oRfkFKX6th5ojJ8Xtjvr5B2f7AG7zdIRdjsIZp7eIsB2jI97amT
-         nrteQ53ez7AxHKfm59uB8NiHaMe0/FKrkFSUIQU5iH0g9BCSrFJDqZUR60K+21hJzMm0
-         pZrCsCy+9moCPYlFRuUM0oIUsPGLtxLW1hPgqlIBlWfudIjkf+Ze4XjGl4R5vZtPG7jy
-         YNmA==
-X-Forwarded-Encrypted: i=1; AJvYcCUT3vsCCfJlWj/uXOixKtczJHg8SF0mD0ivZASedIuAtdSPe4z59JBefm5O6WvI0HldfuxglUZiNAM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyv4z9akvzWt3+KIFYaorYIcsZY97MwIQak64rk/CmBi6hDqnn4
-	p7Di4DqT10IG58uuA8S8spoCFfRytZWbTEOdeTXsgQNlu9N4CDRuqgTr0ZWBC6bcEQ==
-X-Gm-Gg: ASbGncty4GTHzrg1omYqMl6hTQmm8tYmNCW8+YUAymXADSxYHrQpKZP6U1XaxNWjIhx
-	HRFihPeuomDnaXE+rCsvlSFHXgwMVgg8fCuT9ROujmxV9EhWxBWg4EWdNLkPgUtJgNIg9ZMtt3u
-	BHS0kPd1UEAgY/WCVqwSFYQGeu9CfxUm7StqR+j6RBoVWBA2mzrU/rTqUPu35SAOa2hEsNuUBjA
-	ybQT+4huCtT6Qj6spUiW7xpq2Gte2ESUudFkN5YQ4bBLkIs0UjSYy+BhD/Fn17udzbvqyO19Ogu
-	/ipKXfydPJDCDzdvm92gQVNWFQIzdF4jiz9I9SkjKTg1kVxXHgYmYgVPQ3ZLLDEgRLgLYrmm3yH
-	18n7f1zuYdASXoAb0TiA0dOH4YABEXestT3J8Z5r9uGylUerNiW8MfdB0rIMmkVH1BS8feN50Mu
-	J2bIxpEhlilcCr+h+pxw==
-X-Google-Smtp-Source: AGHT+IFNN4OAQOuEYS4bIvPGA+DU7fwbl54h3debynjurF/SJyklRLzcw6sKoXIRUJGEpkuhkh7ovw==
-X-Received: by 2002:a17:906:c113:b0:af9:5ca0:e4fe with SMTP id a640c23a62f3a-afddd200e55mr201851166b.56.1755605080021;
-        Tue, 19 Aug 2025 05:04:40 -0700 (PDT)
-Message-ID: <493d4580-62b7-4ff7-9159-4079b4b98f61@suse.com>
-Date: Tue, 19 Aug 2025 14:04:38 +0200
+        bh=6tUjbnmMZ3UkNPAGkCOxAbOQU1toPCYtKtBi4s+xdrk=;
+        b=ZVtQkbJ18DgJCn59LfagHIJA/YsI4e9hGLON+Ke6qpQ2rApdXqX7kMkLMu5c+S/vAF
+         a03+dQEphQUhfmLSLfZ24zWq7j/h7YNzv/tkaMAVRXzK7oQ4v+HFeNa+QjWa07qAgeVC
+         xprAog+DdLE9FDzKLTocmgqhyuBdKblcOIgOj5w49RrLaalliSVxda4Rw7LfqoXawezt
+         PK/5Ru+ukbWMTQRBFJwetHO0K+KKVSbqglaUsmOskHGyjqFNe5iIeMEDmWzzhlyXsa49
+         JpYC7k8zm6hei37ISGtzIVVfnQWSdKTG3U+cBG19lxXmt4ia6xIvjophw0et+rFtPwZK
+         PMxw==
+X-Forwarded-Encrypted: i=1; AJvYcCXYDbyJM1avKVBM/EOIn+as11tJpDuOwUYGCPm+Mm61OTHPIj/OPCFe6dpgiv+bEsUHgl5LyX2ZQIU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxCiHV85aF3ASB+K1fI2v46myXClJg8Ucqi+zgMbSyObTjBxRD9
+	rxRTODrZAH70ARisuk561LC/jUj9OLWHjbXA7nReIKNh9CfJ+nTap0o+cYS04U1bTQ==
+X-Gm-Gg: ASbGncucD6fdWTXryVKhhdMwtdbGD62yf7erEPmDtN8dKg8qyVF9uEjfePRIbFKa8K0
+	rFWSlSU3UTCTf8QU8EbAXj0gofagCgefOEZe0NjK6A6HDgBOAOcuZukemhgLZpmh9ejxQinmwSh
+	0UpqIS3P9Qv5kQwLZ7/6iwO4bhcVMWTsdXkfp55D289n4NyrJK/WLax7Hv3wCh5cOp4VbENYhW+
+	ETN1l4z8SRHR2cZv9Q8cNmABEuetHFg4jjtbpkAmrJL1Em/cnkE/qUo1rz3nqZdqdRK20tkCyCH
+	e942YG6okqj7yR64XTyq4SEfCvDPlsee1q/uwoK/wxlEXcdTXZ1FrDkY5OJnvWGiSVM2xFOII7X
+	kqkdZAVE7RB/yLpbEkh1GgZiZmpnu6N7ygh4zI1fVgQRTXR/ZjAL3SvjddmLnSsz4wthZjkhRk9
+	gXOtSjsok=
+X-Google-Smtp-Source: AGHT+IFSt7tpPGgP4kKUFBPZqDyDdmOteydi6DAW2pXH3ktBqIWlzKFILkPU3WKomTiMRgZmJjaOTg==
+X-Received: by 2002:a05:6402:208a:b0:604:e602:779a with SMTP id 4fb4d7f45d1cf-61a7e7498abmr1716882a12.28.1755605138365;
+        Tue, 19 Aug 2025 05:05:38 -0700 (PDT)
+Message-ID: <ce37f096-3ff5-4f95-b20d-4b8da5600460@suse.com>
+Date: Tue, 19 Aug 2025 14:05:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 11/16] x86/msr: Change rdmsr() to have normal API
@@ -94,6 +94,7 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250815204117.3312742-1-andrew.cooper3@citrix.com>
  <20250815204117.3312742-12-andrew.cooper3@citrix.com>
+ <356c3daa-f532-4450-a634-3ecfbdedff91@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,125 +120,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250815204117.3312742-12-andrew.cooper3@citrix.com>
+In-Reply-To: <356c3daa-f532-4450-a634-3ecfbdedff91@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 15.08.2025 22:41, Andrew Cooper wrote:
-> We want a consistent MSR API, and these want to be named rdmsr() and wrmsr(),
-> but not with their current APIs.  The current rdmsr() flavours writing to
-> their parameters by name makes code that reads like invalid C, and is
-> unergonomic to use in lots of cases.
+On 18.08.2025 13:34, Andrew Cooper wrote:
+> On 15/08/2025 9:41 pm, Andrew Cooper wrote:
+>> diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
+>> index 530b9eb39abc..9c6b8c291d6e 100644
+>> --- a/xen/arch/x86/cpu/common.c
+>> +++ b/xen/arch/x86/cpu/common.c
+>> @@ -329,6 +329,7 @@ static inline u32 phys_pkg_id(u32 cpuid_apic, int index_msb)
+>>  void __init early_cpu_init(bool verbose)
+>>  {
+>>  	struct cpuinfo_x86 *c = &boot_cpu_data;
+>> +	uint64_t val;
+>>  	u32 eax, ebx, ecx, edx;
+>>  
+>>  	c->x86_cache_alignment = 32;
+>> @@ -412,10 +413,11 @@ void __init early_cpu_init(bool verbose)
+>>  			    &c->x86_capability[FEATURESET_7c0],
+>>  			    &c->x86_capability[FEATURESET_7d0]);
+>>  
+>> -		if (test_bit(X86_FEATURE_ARCH_CAPS, c->x86_capability))
+>> -			rdmsr(MSR_ARCH_CAPABILITIES,
+>> -			      c->x86_capability[FEATURESET_m10Al],
+>> -			      c->x86_capability[FEATURESET_m10Ah]);
+>> +		if (test_bit(X86_FEATURE_ARCH_CAPS, c->x86_capability)) {
+>> +			val = rdmsr(MSR_ARCH_CAPABILITIES);
+>> +			c->x86_capability[FEATURESET_m10Al] = val;
+>> +			c->x86_capability[FEATURESET_m10Al] = val >> 32;
 > 
-> Change the API, and update the callers all in one go.  Where appropriate,
-> update the write side to wrmsrns() as per the recommendation.
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> I do have a more creative solution if this patch is considered to be too
-> large.  https://gitlab.com/xen-project/hardware/xen-staging/-/commit/e13cf25d06d08481e2c138daa1fd902cf36d757b
+> This is a typo.  Fixed locally.
 
-I'm not concerned by the size of this patch.
-
-> --- a/xen/arch/x86/cpu/intel.c
-> +++ b/xen/arch/x86/cpu/intel.c
-> @@ -23,17 +23,17 @@ static uint32_t __ro_after_init mcu_opt_ctrl_val;
->  
->  void update_mcu_opt_ctrl(void)
->  {
-> -    uint32_t mask = mcu_opt_ctrl_mask, lo, hi;
-> +    uint32_t mask = mcu_opt_ctrl_mask, val;
->  
->      if ( !mask )
->          return;
->  
-> -    rdmsr(MSR_MCU_OPT_CTRL, lo, hi);
-> +    val = rdmsr(MSR_MCU_OPT_CTRL);
->  
-> -    lo &= ~mask;
-> -    lo |= mcu_opt_ctrl_val;
-> +    val &= ~mask;
-> +    val |= mcu_opt_ctrl_val;
->  
-> -    wrmsr(MSR_MCU_OPT_CTRL, lo, hi);
-> +    wrmsrns(MSR_MCU_OPT_CTRL, val);
->  }
-
-I don't consider it a good idea to suddenly clear the upper half of this
-MSR, and ...
-
-> @@ -51,17 +51,17 @@ static uint32_t __ro_after_init pb_opt_ctrl_val;
->  
->  void update_pb_opt_ctrl(void)
->  {
-> -    uint32_t mask = pb_opt_ctrl_mask, lo, hi;
-> +    uint32_t mask = pb_opt_ctrl_mask, val;
->  
->      if ( !mask )
->          return;
->  
-> -    rdmsr(MSR_PB_OPT_CTRL, lo, hi);
-> +    val = rdmsr(MSR_PB_OPT_CTRL);
->  
-> -    lo &= ~mask;
-> -    lo |= pb_opt_ctrl_val;
-> +    val &= ~mask;
-> +    val |= pb_opt_ctrl_val;
->  
-> -    wrmsr(MSR_PB_OPT_CTRL, lo, hi);
-> +    wrmsrns(MSR_PB_OPT_CTRL, val);
->  }
-
-... this one.
-
-> @@ -456,15 +456,15 @@ static void __init probe_mwait_errata(void)
->   */
->  static void Intel_errata_workarounds(struct cpuinfo_x86 *c)
->  {
-> -	unsigned long lo, hi;
-> +	uint64_t val;
->  
->  	if ((c->x86 == 15) && (c->x86_model == 1) && (c->x86_mask == 1)) {
-> -		rdmsr (MSR_IA32_MISC_ENABLE, lo, hi);
-> -		if ((lo & (1<<9)) == 0) {
-> +		val = rdmsr(MSR_IA32_MISC_ENABLE);
-> +		if ((val & (1 << 9)) == 0) {
->  			printk (KERN_INFO "CPU: C0 stepping P4 Xeon detected.\n");
->  			printk (KERN_INFO "CPU: Disabling hardware prefetching (Errata 037)\n");
-> -			lo |= (1<<9);	/* Disable hw prefetching */
-> -			wrmsr (MSR_IA32_MISC_ENABLE, lo, hi);
-> +			val |= (1 << 9); /* Disable hw prefetching */
-> +			wrmsrns(MSR_IA32_MISC_ENABLE, val);
->  		}
->  	}
-
-Move val into the more narrow scope at the same time?
-
-> @@ -699,7 +715,7 @@ void cf_check vmx_cpu_dead(unsigned int cpu)
->  
->  static int _vmx_cpu_up(bool bsp)
->  {
-> -    u32 eax, edx;
-> +    u32 eax;
-
-Like you do elsewhere, switch to uint32_t at the same time?
-
-> --- a/xen/arch/x86/tsx.c
-> +++ b/xen/arch/x86/tsx.c
-> @@ -42,6 +42,8 @@ void tsx_init(void)
->  {
->      static bool __read_mostly once;
->  
-> +    uint64_t val;
-> +
->      /*
-
-No real need for yet another newline, I would say.
+Both of them, I expect.
 
 Jan
 
