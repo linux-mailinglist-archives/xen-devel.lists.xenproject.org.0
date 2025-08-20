@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C1BAB2DC37
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Aug 2025 14:16:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1087368.1445428 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9107EB2DC69
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Aug 2025 14:28:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1087378.1445437 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uohim-0001Qk-8f; Wed, 20 Aug 2025 12:15:16 +0000
+	id 1uohvO-00039e-Bh; Wed, 20 Aug 2025 12:28:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1087368.1445428; Wed, 20 Aug 2025 12:15:16 +0000
+Received: by outflank-mailman (output) from mailman id 1087378.1445437; Wed, 20 Aug 2025 12:28:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uohim-0001PA-5v; Wed, 20 Aug 2025 12:15:16 +0000
-Received: by outflank-mailman (input) for mailman id 1087368;
- Wed, 20 Aug 2025 12:15:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uohvO-000385-8w; Wed, 20 Aug 2025 12:28:18 +0000
+Received: by outflank-mailman (input) for mailman id 1087378;
+ Wed, 20 Aug 2025 12:28:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=P/AY=3A=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uohik-0001P4-MC
- for xen-devel@lists.xenproject.org; Wed, 20 Aug 2025 12:15:14 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 52647be9-7dbf-11f0-b898-0df219b8e170;
- Wed, 20 Aug 2025 14:15:12 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3b9d41bea3cso6526473f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 20 Aug 2025 05:15:12 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3c0777892basm7434090f8f.56.2025.08.20.05.15.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Aug 2025 05:15:11 -0700 (PDT)
+ <SRS0=rUzz=3A=epam.com=Mykyta_Poturai@srs-se1.protection.inumbo.net>)
+ id 1uohvM-00037u-UT
+ for xen-devel@lists.xenproject.org; Wed, 20 Aug 2025 12:28:17 +0000
+Received: from AS8PR04CU009.outbound.protection.outlook.com
+ (mail-westeuropeazlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c201::3])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 257d0e09-7dc1-11f0-a32b-13f23c93f187;
+ Wed, 20 Aug 2025 14:28:16 +0200 (CEST)
+Received: from DU0PR03MB10116.eurprd03.prod.outlook.com (2603:10a6:10:417::7)
+ by VI2PR03MB10594.eurprd03.prod.outlook.com (2603:10a6:800:27f::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.24; Wed, 20 Aug
+ 2025 12:28:13 +0000
+Received: from DU0PR03MB10116.eurprd03.prod.outlook.com
+ ([fe80::7866:f529:f351:d5db]) by DU0PR03MB10116.eurprd03.prod.outlook.com
+ ([fe80::7866:f529:f351:d5db%4]) with mapi id 15.20.9031.023; Wed, 20 Aug 2025
+ 12:28:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,196 +47,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 52647be9-7dbf-11f0-b898-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755692112; x=1756296912; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KdTpd0xC9bZO8pMljVY4p/HrOIrDchM9WABXRf7m9k4=;
-        b=Va9cW18ihf/JVk0cTL1Dwu4Nrc+GC05gLTYUH4c2k+3JvHG+jJkmXY1m89nYaqS/F5
-         bez4RvhrX7qZQZwDl/XNZQZ/zl3JrsohDvlHtdzBAGIiDuXJXJb/c39VEM4XlUj6SdC0
-         lnOEEl0y9IG90BKDjxwXsaiBCyh1tTC7eHZQQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755692112; x=1756296912;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KdTpd0xC9bZO8pMljVY4p/HrOIrDchM9WABXRf7m9k4=;
-        b=HJnJ8Mpaf57KhuCnB8rImbnD7rZK1yS9ED9VEJvMBTZKprB807EEXqWR1qQG/qX3Xg
-         3+opqF9l8YULMU1dwezTd3CJuNO/koBF9vRZK7NuBVEoeqX5GXnuSNkdEppptFahPjR8
-         bZdtUa/ZmJ6VHoakGI/EWUikMn9nPD/fUQO/NgICqUGkiItEuMyheWY74GJyVLN6XGdx
-         /QldZ585h0Jia0578ZySV/pRk4InSIMpvRB3U0Z+V2lNDkb5RJxVRse0XFpNuo/YtVkr
-         QYTGedTtAzGg3hwlZgoOiw9t32O+mwXQKhqGoOccIbZVaqQqdY0W7PrG9rtyILf8snkB
-         fobA==
-X-Forwarded-Encrypted: i=1; AJvYcCWLTVE3kUvVm12qHDdXyPpaO1SPF6GQxGMSS9vlJnDkGu11L3cDuvmPx74pYqDOYfs3NljCxdiU8b4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwMR35OZvcQL4Piv4Q9t/7ukaPTLLH/PVTABpEywYFu8qlOXu4e
-	hyiaulUPYBpFbcFvz8cpR9y7gAFbSIO48Bi2MevJEOzIMy2sJuvL20OunQL4zbud+/k=
-X-Gm-Gg: ASbGncuhazR38U1mkkBP+KqLWiXtup2zkJbTWHoXNOycJg5E4j2UKj0LNN/r4rgqECi
-	DmEDUGFDb/HaNf15I5PIQ+L9p2xjnNgBAx7MvgkJXOPwRFxiNHb8eB6oSKhgqZ48gP/3Eyi/+fc
-	TFQ5+CRSEnT7fCSr/56SjWH6+wAeSNa+d/1xVqDacbWv3Gu5rZyBme9blMgS2ToZMWyvh75hyZ2
-	PKrmwISK1hAAL3MCrs1lDnzLzQ/AOpSniDrW29rSdNKFhWZDht2wu+gqD9KKwlDIEpSx6BCHjQF
-	45pEmrotRO1w8T3Tt2C+BBfU3rRdHVWqML6dWTunizLzmredAKqVSSyQBcUn9+i6erJ18f5GzRu
-	IhZkzj9edt8sc2JskWPFtQu8PViwIfUWIpQIfn7/0nCIK2unJlvwJuqz/dJkW5FyFK7Eq
-X-Google-Smtp-Source: AGHT+IGmmwD8h5lpcuVFh3hHoKewPV1m0J5GXZOy8SMRQPII96arNnEhd0yAlW4qF55iyN5tMZYw4Q==
-X-Received: by 2002:a5d:5d0a:0:b0:3b7:9c35:bb7 with SMTP id ffacd0b85a97d-3c32e6fe9f0mr1780572f8f.46.1755692111616;
-        Wed, 20 Aug 2025 05:15:11 -0700 (PDT)
-Message-ID: <f2105411-ac78-4283-a7d7-45f5b1bc0bfe@citrix.com>
-Date: Wed, 20 Aug 2025 13:15:10 +0100
+X-Inumbo-ID: 257d0e09-7dc1-11f0-a32b-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AjV/4ZOEPv0MS4WOxN/5UpnKeSUCbXIMnrUnp9gDD/UL4/9FVp4a15xbu+ptu7GXdvp9XT65mtVT/8eNJVLebqHnqo+5uTQpzuLqCXWJSQwsOI2bNvENEVuum6etxDgx0j7H1/7o6a8qgOTgnHCs2F6FMMKaB26rVSbDV6e4mSk+wdOGzyBs0YO+aSopOXvIreKAalmOvpnaOrusSJHf7U/7ZJCMl52qsHyNvgr8pgPvT0od3tKjL7AnPj9qeZ3CXzLNTm5E8Lzjy3eQUZHDymhpw+BsdjkeuF2O5jqg3O1hTK9O0VooomWzGz8aazurNhE4AWHcqcQTmFcQ5m5PwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZlK9vQ1x9DEPaXsIm+wocJ3MuFEkfXWYqxqii5rJYOE=;
+ b=TRZkHsOErBp9I5Nuuw9X4qSUM1A2H5F/EGBaEl/5h65jft1EGXAoLfjKXgjTy0WRQQ8lESuZILwgPHs6Yg3W0EF/13k/7XjTyIEFLel73RF1YWjWf3LJDc3ZY0uohp+BIKItfi3r9SqeMmg71Of9fcdQNx3FD+DrCELCxhZpSCKQP4GaW9OROAaWNe8f0BX7JCs2xhH3abXl5W3IqftYhTKo7uJ5xIEqODWJXYb2sHRQfYBbhDNbsY8fu6HfGhJkQGK68PrQsZLrZKVHnNUmjESHYAX35A/q57nrIGU1uN004+JAEXpUUwwNBTcLTvv9pRVME1DWwsdqoJoz7z8eHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZlK9vQ1x9DEPaXsIm+wocJ3MuFEkfXWYqxqii5rJYOE=;
+ b=uJRz3IhGrFJE+jcLGKfBFaHjLQfazdcqOYx7B7dyUDxLviIDrScBTcC19ctB7vvB/Pso1UF0fpnF86OZT+rBGfBWVPPgsxgW9+RxtGl8rMsL+il5ZV6z8+BoDCn0C1GUC2Px9TVGeO1Elz9WOlgwld83BeL/jd3N9guYfP2XNkQKD2x8XQ/XOkxmt/slBkHV0PbTS1CPHmqxBEQb5YICb4CH9R2bSMonTVRih1XwPT7qGS5rziMC3DB7hqIiDWlQjy3IVu95PYyyvCgKnLeVnPVJ/Gkt8dJX4FXgvUPHrFseMegX+r9YgM6Bej7drbi91+5DiSIboGKSAqeDuYFftQ==
+From: Mykyta Poturai <Mykyta_Poturai@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Mykyta Poturai <Mykyta_Poturai@epam.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
+ Grall <julien@xen.org>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, Bertrand
+ Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, "Daniel P. Smith"
+	<dpsmith@apertussolutions.com>
+Subject: [PATCH v2 0/3] dom0less pci passthrough support on Arm part 1
+Thread-Topic: [PATCH v2 0/3] dom0less pci passthrough support on Arm part 1
+Thread-Index: AQHcEc3l0kakLkpnsEOjM6uaMaa5Mw==
+Date: Wed, 20 Aug 2025 12:28:13 +0000
+Message-ID: <cover.1755683961.git.mykyta_poturai@epam.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DU0PR03MB10116:EE_|VI2PR03MB10594:EE_
+x-ms-office365-filtering-correlation-id: 3ee32ffb-faba-4f22-65ad-08dddfe50854
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|376014|7416014|38070700018;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?Gji0xWH9EIHTEsB57A4PN6pBLgGAaAwLY8PNpPrK78f0CdO8tTnM8jpt/W?=
+ =?iso-8859-1?Q?+BrcGgHuz7BN07cWvqqTkRI13iCB79h+DZzqAyCd6Gn33KurANDvZgseZt?=
+ =?iso-8859-1?Q?1gPQqMVFitJctLzjlnl44LOqAWAyve4nHT4SpIEsAtRVtQhuCwVhMG0u80?=
+ =?iso-8859-1?Q?EHp2fU75jbIeoPeb+3FdtFCw7orIMJnDa/4WYvv7nix6MhbiOZAa01Sl6z?=
+ =?iso-8859-1?Q?lKoSg9PMzWk0Zx2AlYRcwlUNITAFktiDPqpH1cPjvUuJ7wwk9vDDkWO+/m?=
+ =?iso-8859-1?Q?2CgKIW7q9B1NGhtzMYSAwVyoewytWiOuiKbSgmhUQ4cjWBF+0LcHwtGo9I?=
+ =?iso-8859-1?Q?udl9BXPpIo8Xph5ZgdSvjaJolzZrJ0rYou2JFwkC2UxBxfbOmAC1P+ZyMm?=
+ =?iso-8859-1?Q?8z2HrEBXW2bXw9eT1x7BLQfYiBBmXc6iY7yMz14nwlW3Q2XZDioqw4uMqt?=
+ =?iso-8859-1?Q?4s2FJbAsQF7kgPzs7W2cYS25bvKuLsfuOWavs1iKggwL7YIqS+rhQKQizs?=
+ =?iso-8859-1?Q?645tckUSzc9FFYdLJ9++XS1T0fcmNfMKO7DnHjhepzqonzemrvHUtNPYff?=
+ =?iso-8859-1?Q?iK/vqAuqvDFdsDlad2Y7p8p87Kx+8cZmHxse+7TVQpBmgCgCTp2/iYyPyV?=
+ =?iso-8859-1?Q?zKwHcrhxox8r/OPSGeo9PMjzLnrhDQz9pM0uPqAUOt868lCpnqVDWGBW1e?=
+ =?iso-8859-1?Q?bEfhx3Itqy7ttfnZ5ph3zGxpunEyff84OlgUCgpWS7usYZWNa8KA4ewyjH?=
+ =?iso-8859-1?Q?vk18T4C2tJKR+9R8n5c4nwdFinaDUYrN5iC8sGyfPQwADkMQVX7sx5Y4Jr?=
+ =?iso-8859-1?Q?Wz8y7auh/L7Jwhs8w83dtzTdfyFRMxCtrEzrh79MNNd2yWPK2m+4jukPCc?=
+ =?iso-8859-1?Q?sEURgPK50M1HK91dF4Z8m6ejRThXGtrikHJPqkZ4qWE7CDT/NXFAq50ddt?=
+ =?iso-8859-1?Q?NhPnH/HR63/ottMUHOC7MQ+RWD67hkc+8cTncVs8AXXP09LONDCIT30IVH?=
+ =?iso-8859-1?Q?w8hThJtEK/8KD9F7mgdb3TMJOxFsYongmCR0TmyetIRy0k7DuaERjsoUVy?=
+ =?iso-8859-1?Q?t33iOa/hN9vxASNR3/NySRxKQhqH1C0h81evClB5ftzDTK8Zn0xYNufLtx?=
+ =?iso-8859-1?Q?xrcX7gTiWXsCdUvWXqLbZAHqwOBHwoH7ZCs1LNrRy3dS1EiDc3fQIzfSf3?=
+ =?iso-8859-1?Q?6o1jxXDGueAc+vRE/SpoTZFL9Dc3WdYZc7Ufnf6iuFfR9ZR+w2UB0IpKxo?=
+ =?iso-8859-1?Q?zJnFEP7q6/Bfhy8l+bJJuf7Nf1o0mHn6ETilAdMrvoGIJoMD8dK6RrREiZ?=
+ =?iso-8859-1?Q?4hunp3VDvaFqccNTdPguWg6tr4d+qsudGriDj/Ydg0e7zoQi83vID0VlF4?=
+ =?iso-8859-1?Q?vTYLXL+mfhHg+QJmXEEGe5cDBH9wZre7hWIXyhonhdu0q0J/t/MZvXh+nP?=
+ =?iso-8859-1?Q?qtWg5IHHUD6nMESGKS0MW0Hz5XY41ShTx6zi43kvi7hz99yxSltJpgStRb?=
+ =?iso-8859-1?Q?Fo2oUgots7ZSeJR6n/tJCo2Sa8+JRbYXtqH3f8e52qoQ=3D=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0PR03MB10116.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?/COEU+Qb3FVarZHM3UagBb2vdUvoEj0/h332hgtmhuI9GkB4J7hIzrVC9d?=
+ =?iso-8859-1?Q?I1F5oAL5511sesHp46O7l0KqFENE5tc6VXIBcMj/33VkmSPEuN9sRi/8+U?=
+ =?iso-8859-1?Q?xnntv84X7Pc7vDcA+saPKnVq64t4Cj0L3zz9/Js8D5VXZDihSfJfxxKHn/?=
+ =?iso-8859-1?Q?KZOSKEOPGm7u1Nb39t+GFAz08jAgTHJ8DitDvrcaupfFctUwpG7S9TZoSb?=
+ =?iso-8859-1?Q?MjLbrM0ST8cWt267nkCMaRBAJyunqUQrlLlIqfCdNcp8NaoZZH0jDdV4Qp?=
+ =?iso-8859-1?Q?wnwry1hTQJD+stvXze5zUz8Di4gy/lKHKJUADE61yvo3XAEKQDtyU8Fo6i?=
+ =?iso-8859-1?Q?NRxFk3Ls1dp3+OJeqSXqO5iZRuU4Z7fRv2nXSnsEbiPeuV4+aVejFWYh7H?=
+ =?iso-8859-1?Q?tNE4EP4dmrHqgfAFZzXHk0M1GwFVf9TEnuxGmWq2d6L/5QY/sGAIzvVF3f?=
+ =?iso-8859-1?Q?Wncz46tZ9W30l3NKHqBQ+m6fT6PFnsQEnlBGdFF9qGvCQmSGG2U/BMZ2WT?=
+ =?iso-8859-1?Q?QqSzvKYO/3cO7LLQNUC4lLZFjddpafbsz5e2P4WCIVitgyCsyiWLcZY8in?=
+ =?iso-8859-1?Q?7z03XJvCBD5gqJzihPJX3Zc2/jUrDUfts+/nCGBeG45pvzXyEc7dHR49xs?=
+ =?iso-8859-1?Q?IeQKFOjYBf5cAtoAysMfDz++ogDEuW06MXIKwM/u+D31GQCUreT/cCbBDB?=
+ =?iso-8859-1?Q?bbCNBDJtx1Q/wwY90SDxwtrH+sm3zopKxDcUhaVOdwL2aInumCl8Qzl1co?=
+ =?iso-8859-1?Q?IYtNgbmzBbW9cre2ss4wQ2tW4s8YH9p9VrCCeuQWVnL6L/rS0Ok2d4YwxW?=
+ =?iso-8859-1?Q?zX/41PVUfJ010JlcVGaL/THYAuCO2G6VG00MVI3xvzMbUFs5I01scZU4aa?=
+ =?iso-8859-1?Q?aOC4dD0WB3pqzyx7N+sp1rZWH/pTLKK7r+vqIsE7MLIoMvlMbNW8nCyf0u?=
+ =?iso-8859-1?Q?lBPu8/F0y1AtqHF8BBU2o9rT10SgrbvvV9J9p7i/T58+Ecqea/DTT69YY7?=
+ =?iso-8859-1?Q?aimH7j2O+c5Kt87MmqleZefrb8ubqh/VZLhNX32jqwbUnRgf3f0I1Aw+ml?=
+ =?iso-8859-1?Q?/jf/8ml85sLKn0tmOHY7JOlcE0oNwRfSXqsMPx1IGYrkKabyNMDBCmpCf6?=
+ =?iso-8859-1?Q?hFAaNBfDganpaGVc92Cxz1/E6yi1eAxD3SAvppfDG19PUS2rx5oYGMz33x?=
+ =?iso-8859-1?Q?xpLlXcueZSbSElYWHmx4kjxJqg94wUaHfwIB1ppWPGB4VrUXA2pn6Ke2gy?=
+ =?iso-8859-1?Q?eR7/BnFmMQgMPnsjt/RvQb/MWClmbRifZtFyJfm3U/jbK/r/rWiAvVmZ0q?=
+ =?iso-8859-1?Q?s4f4DqiZIih6XN+EVnW18XrlPynqpMRiOjYpr+nfn0hadPIT0R8QZ8KnDF?=
+ =?iso-8859-1?Q?+8kokuuX5qUk4Q0G7+MS5rtdog7Jey//+lofxzuiq8JTMAA+KLWbMSqhBT?=
+ =?iso-8859-1?Q?+WhVJql+LPy1FBI2JcfqERPsS79b7rN41dD+C6mcRj6vz7nNLujtHYDMhS?=
+ =?iso-8859-1?Q?wj/s+TIOFV0RgknDxgeqOTf7V5IvSoYM8vP+fIriuVVWujXF4ljRlYkZj1?=
+ =?iso-8859-1?Q?hzPcBtzQTxv3xQEpMOGxOOXfBRMf7vSIYrtKmb3MOPe1W9XE8qVQRVHm3u?=
+ =?iso-8859-1?Q?1pZHZ2aj9vWVArKTU5rsHUr0dyOY9UocgQeqWGS81wgpJp217pF8kMNg?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] releases: use newer compression methods for tarballs
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <fdd60576-c852-4ce9-921d-9e77a86a3e66@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <fdd60576-c852-4ce9-921d-9e77a86a3e66@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DU0PR03MB10116.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3ee32ffb-faba-4f22-65ad-08dddfe50854
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Aug 2025 12:28:13.6389
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: J8Hw+/sr8TAWJ1kHwBxP3K+dXb07IelG1jsv+gxgOIsIqkKJV28Vb8JY9rTTlcWkAq46ml+C5NoZdU/zYuQGVw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR03MB10594
 
-On 15/07/2025 7:33 am, Jan Beulich wrote:
-> Other projects have long switched to xz and/or lzip.
->
-> In the mktarball script, don't rely on the tar used supporting the -J
-> (xz) or --lzip (lzip) options.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> Question (to the release technicians) is whether this would be adding
-> undue overhead, primarily as a result of anything done outside of the
-> build system.
+This series adds basic PCI device enumeration in Xen. This will allow us to=
+ not
+rely on Dom0 enumeration for supported controllers, which will enable PCI
+passthrough for dom0less setups.
 
-I'm happy with this.
+Enumeration is disabled by default and can be enabled with "pci-scan" cmdli=
+ne
+option. Discovered devices are added to Xen and assigned to dom_io by defau=
+lt.
 
->
-> It's unclear to me why we have git create a tarball, extract that, just
-> to then make a tarball again (without any special options, like to
-> override owner or timestamps;
+Edward Pickup (1):
+  arm/pci: Add pci-scan boot argument
 
-That's because in c5be91eb8140 you deleted the intermediate step of
-merging qemus
+Luca Fancellu (2):
+  xen/pci: modify pci_add_device to handle device add by Xen
+  xen/pci: add discovered PCI device at boot
 
+ docs/misc/xen-command-line.pandoc           |  7 ++
+ xen/arch/arm/include/asm/pci.h              |  3 +
+ xen/arch/arm/pci/pci-host-common.c          |  1 +
+ xen/arch/arm/pci/pci.c                      | 25 +++++++-
+ xen/arch/x86/physdev.c                      |  9 ++-
+ xen/drivers/passthrough/amd/pci_amd_iommu.c |  2 +-
+ xen/drivers/passthrough/pci.c               | 71 ++++++++++++++-------
+ xen/drivers/passthrough/vtd/iommu.c         |  2 +-
+ xen/drivers/pci/physdev.c                   |  3 +-
+ xen/include/xen/pci.h                       | 10 +--
+ 10 files changed, 94 insertions(+), 39 deletions(-)
 
-> in this context I notice that tarballs
-> created by Andrew have file ownership of andrew/andrew, while ones made
-> by Julien use root/root).
-
-Ownership where exactly?  the tarball itself (which will be down to
-accounts on downloads.xenproject.org) or the tarball contents itself?
-
->
-> Without passing -9, I observe lzip to compress worse than xz; the win
-> of passing -9 to xz isn't overly big anyway (about 100k, compared to
-> about 250k with lzip).
-
-As these are created once and downloaded many times, we should always do
-max compression.  Even if it takes minutes extra to create, that's still
-a win overall.
-
->
-> lzip, unlike the other two tools, doesn't really show a progress
-> indicator with -v. Merely having final statistics may make the use of
-> the option here questionable.
-
-I can't say I find any of the stats relevant.
-
-> --- a/docs/process/xen-release-management.pandoc
-> +++ b/docs/process/xen-release-management.pandoc
-> @@ -274,10 +274,10 @@ Xen X.Y rcZ is tagged. You can check tha
->  https://xenbits.xen.org/git-http/xen.git X.Y.0-rcZ
->  
->  For your convenience there is also a tarball at:
-> -https://downloads.xenproject.org/release/xen/X.Y.0-rcZ/xen-X.Y.0-rcZ.tar.gz
-> +https://downloads.xenproject.org/release/xen/X.Y.0-rcZ/xen-X.Y.0-rcZ.tar.[glx]z
->  
->  And the signature is at:
-> -https://downloads.xenproject.org/release/xen/X.Y.0-rcZ/xen-X.Y.0-rcZ.tar.gz.sig
-> +https://downloads.xenproject.org/release/xen/X.Y.0-rcZ/xen-X.Y.0-rcZ.tar.[glx]z.sig
->  
->  Please send bug reports and test reports to xen-devel@lists.xenproject.org.
->  When sending bug reports, please CC relevant maintainers and me
-> --- a/tools/misc/mktarball
-> +++ b/tools/misc/mktarball
-> @@ -31,4 +31,14 @@ git_archive_into $xen_root $tdir/xen-$de
->  
->  GZIP=-9v tar cz -f $xen_root/dist/xen-$desc.tar.gz -C $tdir xen-$desc
->  
-> -echo "Source tarball in $xen_root/dist/xen-$desc.tar.gz"
-> +if [ -n "$(command -v xz)" ]
-> +then
-> +  tar c -C $tdir xen-$desc | $(command -v xz) -v -9 >$xen_root/dist/xen-$desc.tar.xz
-> +fi
-> +
-> +if [ -n "$(command -v lzip)" ]
-> +then
-> +  tar c -C $tdir xen-$desc | $(command -v lzip) -v -9 >$xen_root/dist/xen-$desc.tar.lz
-> +fi
-> +
-> +echo "Source tarball in $xen_root/dist/xen-$desc".tar.[glx]z
-
-If we're deciding to use multiple compressions, they want to not be
-optional here.  I'd far rather have a reminder to install the package,
-than for it to simply be omitted.
-
-We don't want to be re-tar-ing now that the qemu's are gone, so I think
-the structure wants to end up as:
-
-git archive --format=tar HEAD > tmp.tar
-gzip -9 < tmp.tar > $xen_root/dist/xen-$desc.tar.gz &
-zx -9 < tmp.tar > $xen_root/dist/xen-$desc.tar.xz &
-lzip -9 < tmp.tar > $xen_root/dist/xen-$desc.tar.lz &
-wait
-
-Might as well use the multiple cores better...
-
-~Andrew
+--=20
+2.34.1
 
