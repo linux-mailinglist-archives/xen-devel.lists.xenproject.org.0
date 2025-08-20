@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6682CB2DB11
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Aug 2025 13:34:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1087328.1445408 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E64A8B2DB32
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Aug 2025 13:38:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1087341.1445417 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoh4Z-0003rO-Vw; Wed, 20 Aug 2025 11:33:43 +0000
+	id 1uoh8d-0004Zo-JZ; Wed, 20 Aug 2025 11:37:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1087328.1445408; Wed, 20 Aug 2025 11:33:43 +0000
+Received: by outflank-mailman (output) from mailman id 1087341.1445417; Wed, 20 Aug 2025 11:37:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoh4Z-0003oN-SF; Wed, 20 Aug 2025 11:33:43 +0000
-Received: by outflank-mailman (input) for mailman id 1087328;
- Wed, 20 Aug 2025 11:33:42 +0000
+	id 1uoh8d-0004Wr-GL; Wed, 20 Aug 2025 11:37:55 +0000
+Received: by outflank-mailman (input) for mailman id 1087341;
+ Wed, 20 Aug 2025 11:37:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=C0ee=3A=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uoh4Y-0003oG-Ld
- for xen-devel@lists.xenproject.org; Wed, 20 Aug 2025 11:33:42 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ <SRS0=P/AY=3A=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uoh8c-0004Wl-NO
+ for xen-devel@lists.xenproject.org; Wed, 20 Aug 2025 11:37:54 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 854703a1-7db9-11f0-a32b-13f23c93f187;
- Wed, 20 Aug 2025 13:33:41 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-45b49f7aaf5so3270055e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 20 Aug 2025 04:33:40 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-45b47c33203sm29157125e9.9.2025.08.20.04.33.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Aug 2025 04:33:39 -0700 (PDT)
+ id 1c3ef12e-7dba-11f0-a32b-13f23c93f187;
+ Wed, 20 Aug 2025 13:37:54 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-6188b70abdfso8973850a12.2
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Aug 2025 04:37:54 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-61a755d9ce4sm3398466a12.6.2025.08.20.04.37.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 20 Aug 2025 04:37:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,132 +45,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 854703a1-7db9-11f0-a32b-13f23c93f187
+X-Inumbo-ID: 1c3ef12e-7dba-11f0-a32b-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755689620; x=1756294420; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=tC8+aRMrrdmdk2eWWpjubkkQKUHljiGEkwEiL+azZFY=;
-        b=rvEaiVK6XDJ2VnhepRRTAZlS4TDXz4pwVSoL9jNRsoZIe1nwNqumQTdd8+fpiKGPj4
-         +yoeMmWSqDWLfZQo7MUA5zDF5Sx10VeDdBE3XEtCHRZt2qefCV0lcgBs9DhdQME4pOR7
-         CcS05d/DC6DYcVKf4Qt3LOpfG6tijV7PV4gVk=
+        d=citrix.com; s=google; t=1755689873; x=1756294673; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=5Na775JZCweqxBHo+jNhsiZKbEVxY5tkS1r0pImbLaE=;
+        b=XwFH8Mfge6ZELSMjeOnu6ZTwlx8eAEkS1KM8aX0MAr4d2HsDHu5/WE2z0/he/wPlsi
+         ShEzjV14bFfud2OUgLpxyHy3ORgwGUkprM9jgJXAYGGJrfJkb1aQSCeSmEvrBQxPCXRQ
+         C2uKQ1stzfJYI1Pn22BJMzcNSrT7xMV/Jz2V0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755689620; x=1756294420;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=tC8+aRMrrdmdk2eWWpjubkkQKUHljiGEkwEiL+azZFY=;
-        b=gMDQ5dGDctb9DeB427PQn+TXEmIKuO66Uq+apDN8Mt6fpKXkHzLJMBkQlITm8u3VxB
-         eHE3kqPhONVhpkEYTNKp4/NpgLgPq8hQczM/zOcAfuMmo1ppR0f4JFVspuKpQCLONjVM
-         O3qOutho7rnAQ5nkut6/OuTBoUffxXTSWKtoS8mlQO7hGX+lIDRiapLSiv79E9n0kvmc
-         btt3HLqigw0TxszkfaZMtv8YUIneNrThqsTrvvTDNiuOAVvdIoNq2l8eH4y91cFh0EqB
-         SsU8FiJlN1gxeWRnIhSPamzS3ExagLt0B7YwPqs9jIbEyZXULM7AowbVxqLNKJ8/fEVX
-         V78A==
-X-Gm-Message-State: AOJu0Yy7hGlTRC3y6SEirNGr3CL3ntBKS1yykQzSnBZK5cAPJMw/Gfiw
-	nGGvlb2kyJmPIt2emePqnkaoDx2qf1bjsbIhd9oVSrpJShF6Yu57aMaALdfKO8IyRv8=
-X-Gm-Gg: ASbGncskTBE84zByVuitwAIr0+JKep2rAt6gUXYL8fnoYn3FKJaS6aOBsmV86n56JF/
-	4v4s7n94NYpHMYgnTcv3kkfFSqMBhWdqEL8ajvvVqgIKQbLmQE0WPNP2JfiHn7OT0Yzjtc9cPMt
-	NbaKajUy6dC7wvncTyjDO0ThD6lsklhDVCLvFRpnq7Gmd3vRDy50nLW8EYOoSVamRNFrZhPygnC
-	GIHNdYg9JdxXuI8FhxYiWmk2vve7/mZIM2JO7JGttO+YRysYNL45B5XBRT+6jqQ1UT5tF7nvPta
-	rfk/rCUPLTGsFLph165nk/kRqCVvTelUpbvJFep5hbva0PEjBtRKp+tlM88WIXljHLKZ01jxGgf
-	BWuFPmmCqsispshVvHc/DGTrMvDIv9ld6ChvR70FTlp0nTtgl5c7QH04nqbwsH4deLw==
-X-Google-Smtp-Source: AGHT+IEWev61tPtuvQ50SeYMZqYDKBYyQtR3eNer8bT7EXIIKDd0uKOYlH6SjSOKWS2NUtdYC0eF5g==
-X-Received: by 2002:a05:600c:310f:b0:459:d616:25c5 with SMTP id 5b1f17b1804b1-45b479b6b95mr21730725e9.12.1755689620038;
-        Wed, 20 Aug 2025 04:33:40 -0700 (PDT)
-Date: Wed, 20 Aug 2025 13:33:38 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
+        d=1e100.net; s=20230601; t=1755689873; x=1756294673;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5Na775JZCweqxBHo+jNhsiZKbEVxY5tkS1r0pImbLaE=;
+        b=Z8DKwmlbOlTl3lwGu2ruqZIMXVlFf5XGub/vKTlHGQdMOR9RpXjNQMOVHAosWJB4iS
+         voKj6Ebbenvj8mFqN9BGFnbDauq7fiuoGUi8iQejDd9JwvEKtdfV6sBbMgjDvthMroSO
+         O3N3staKRtZjMbEpE7a73oBP8IwxRK6DMSf6R0yOflOerU42sE/Jmt+l4VSNEsXcg19D
+         ieyzIp/4V8C0QSon8r8KEqZJ9UleS74dkJd+QsFaBjDBXJ6t9Oc05k9USfCnCqzbdK1z
+         xIYXrrotaXIqXUfDpU4SXyt46r2Jcyz7e1ckWBBgyMO3vKKJ2GFE9YmcsYPapHF0Fhn8
+         80Lg==
+X-Gm-Message-State: AOJu0YxJU7bHa9+6fEyQA71GxrkwNPiNRJO04HEPiIHtPPDaqHQQiTDF
+	j3QbSI2MptOBi/CdKTGAU+av/zaONqV9EywhOQGRLe9ugK3EKUs/kjY5hkdOIzi1z2c=
+X-Gm-Gg: ASbGncskGdcYn9NQT4e9cWo2gzeithVZvG7gj+C+2JByUHi3EbpPMVY6nJ83rMPIWmx
+	YIywiJuinoCU9VaDnPszw0Y3wZEFOe8U/bPs0bmXUfomdvWJ7rkSq8YRoOJBMHwDLER3pmoT9RO
+	hE5L+2zcmyJlR5mfYQkSc8uGA0rdEoMrNiANZpCAoxUHf5bWE8EzX6kzc6ztjCJ2HTZ3D/qfrpt
+	em0dyAF53oLQFxQ8iof/R1A24hdeOM+a3vmQe3jPhv+KebNGolrwwT+YyXNFeAlHlRh/RKWUTWt
+	A2KUOSoGp5NsjwXlbSqPnjpGxknAvZP3pSNPJFHI66b4Rpez7rOw85hBtS/zjJ2rx3sdpzomWTO
+	87z2Yc1/mOV3FyW4SFeBu/8E9zeNvPpbFuNz3KT2xiMR7c+Ghb+vod6U6K8LpBWHyYWp9
+X-Google-Smtp-Source: AGHT+IFcqru/iRJyHSno2sINPBWu1AySBZmYIjNAxG3zaxLn9wufclvWOI6gX7Rtr2/LoJlZRv0j5w==
+X-Received: by 2002:a05:6402:504f:b0:617:be1d:4a48 with SMTP id 4fb4d7f45d1cf-61a97542fa3mr2065921a12.5.1755689873337;
+        Wed, 20 Aug 2025 04:37:53 -0700 (PDT)
+Message-ID: <541c8586-b77b-478a-9dae-cde7884ee57d@citrix.com>
+Date: Wed, 20 Aug 2025 12:37:51 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] x86/iommu: setup MMCFG ahead of IOMMU
-Message-ID: <aKWykl7UiTZmtGYW@macbook.local>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
 References: <20250819171826.60700-1-roger.pau@citrix.com>
  <6852c430-155c-4530-8aa6-67a6e97ef6b3@citrix.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+ <aKWykl7UiTZmtGYW@macbook.local>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <aKWykl7UiTZmtGYW@macbook.local>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <6852c430-155c-4530-8aa6-67a6e97ef6b3@citrix.com>
 
-On Tue, Aug 19, 2025 at 07:23:57PM +0100, Andrew Cooper wrote:
-> On 19/08/2025 6:18 pm, Roger Pau Monne wrote:
-> > Otherwise the PCI accesses to segments different than the first one done by
-> > the IOMMU initialization code would silently fail by returning all ones.
-> >
-> > Introduce a new helper, called pci_setup(), and move both the creation of
-> > PCI segment 0 internal data structures, plus the parsing of ACPI MMCFG
-> > table to it.
-> >
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> And moving acpi_mmcfg_init() slightly earlier from acpi_boot_init() into
-> pci_setup().
-> 
-> > diff --git a/xen/arch/x86/pci.c b/xen/arch/x86/pci.c
-> > index 26bb7f6a3c3a..e75a29e851a7 100644
-> > --- a/xen/arch/x86/pci.c
-> > +++ b/xen/arch/x86/pci.c
-> > @@ -139,6 +142,19 @@ int pci_sanitize_bar_memory(struct rangeset *r)
-> >      return 0;
-> >  }
-> >  
-> > +void __init pci_setup(void)
-> > +{
-> > +    /*
-> > +     * Ahead of any ACPI table parsing make sure we have control structures
-> > +     * for PCI segment 0.
-> > +     */
-> > +    if ( pci_add_segment(0) )
-> > +        panic("Could not initialize PCI segment 0\n");
-> > +
-> > +    /* Parse ACPI MMCFG ahead of IOMMU, so accesses to segments > 0 is setup. */
-> 
-> "ahead of IOMMU" isn't helpful here because the relevant context is in
-> the caller.  Instead, I'd just say:
-> 
-> /* Parse ACPI MMCFG to see if other segments are available. */
+On 20/08/2025 12:33 pm, Roger Pau Monné wrote:
+> On Tue, Aug 19, 2025 at 07:23:57PM +0100, Andrew Cooper wrote:
+>> On 19/08/2025 6:18 pm, Roger Pau Monne wrote:
+>>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+>>> index 6fb42c5a5f95..bd648323bfed 100644
+>>> --- a/xen/arch/x86/setup.c
+>>> +++ b/xen/arch/x86/setup.c
+>>> @@ -1938,11 +1938,10 @@ void asmlinkage __init noreturn __start_xen(void)
+>>>      setup_system_domains();
+>>>  
+>>>      /*
+>>> -     * Ahead of any ACPI table parsing make sure we have control structures
+>>> -     * for PCI segment 0.
+>>> +     * Initialize PCI (create segment 0, setup MMCFG access) ahead of IOMMU
+>>> +     * setup, as it requires access to the PCI config space.
+>>>       */
+>> Again, this isn't terribly clear IMO.
+>>
+>> "ahead of IOMMU setup, as the IOMMUs might not all live on segment 0." ?
+> It's not just IOMMUs, but for example on VT-d we also need to poke at
+> the config space of bridges, and when such bridges live in segment > 0
+> that results in garbage being returned.
+>
+> I'm not sure acpi_iommu_init() accesses the IOMMU PCI device config
+> space, but it does at least access the config space of bridges in
+> order to detect hierarchy.  See how acpi_parse_dev_scope() performs
+> PCI reads.
+>
+> What about using:
+>
+> /*
+>  * Initialize PCI (create segment 0, setup MMCFG access) ahead of IOMMU
+>  * setup, as devices in segment > 0 must also be discoverable.
+>  */
 
-Sure.
+Yeah, that works.
 
-> > +    acpi_mmcfg_init();
-> > +}
-> > +
-> >  /*
-> >   * Local variables:
-> >   * mode: C
-> > diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> > index 6fb42c5a5f95..bd648323bfed 100644
-> > --- a/xen/arch/x86/setup.c
-> > +++ b/xen/arch/x86/setup.c
-> > @@ -1938,11 +1938,10 @@ void asmlinkage __init noreturn __start_xen(void)
-> >      setup_system_domains();
-> >  
-> >      /*
-> > -     * Ahead of any ACPI table parsing make sure we have control structures
-> > -     * for PCI segment 0.
-> > +     * Initialize PCI (create segment 0, setup MMCFG access) ahead of IOMMU
-> > +     * setup, as it requires access to the PCI config space.
-> >       */
-> 
-> Again, this isn't terribly clear IMO.
-> 
-> "ahead of IOMMU setup, as the IOMMUs might not all live on segment 0." ?
-
-It's not just IOMMUs, but for example on VT-d we also need to poke at
-the config space of bridges, and when such bridges live in segment > 0
-that results in garbage being returned.
-
-I'm not sure acpi_iommu_init() accesses the IOMMU PCI device config
-space, but it does at least access the config space of bridges in
-order to detect hierarchy.  See how acpi_parse_dev_scope() performs
-PCI reads.
-
-What about using:
-
-/*
- * Initialize PCI (create segment 0, setup MMCFG access) ahead of IOMMU
- * setup, as devices in segment > 0 must also be discoverable.
- */
-
-Thanks, Roger.
+With those comment adjustments, Reviewed-by: Andrew Cooper
+<andrew.cooper3@citrix.com>
 
