@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 588E8B2DA51
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Aug 2025 12:48:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1087310.1445398 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6682CB2DB11
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Aug 2025 13:34:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1087328.1445408 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uogMS-0005fX-OV; Wed, 20 Aug 2025 10:48:08 +0000
+	id 1uoh4Z-0003rO-Vw; Wed, 20 Aug 2025 11:33:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1087310.1445398; Wed, 20 Aug 2025 10:48:08 +0000
+Received: by outflank-mailman (output) from mailman id 1087328.1445408; Wed, 20 Aug 2025 11:33:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uogMS-0005dH-LD; Wed, 20 Aug 2025 10:48:08 +0000
-Received: by outflank-mailman (input) for mailman id 1087310;
- Wed, 20 Aug 2025 10:48:06 +0000
+	id 1uoh4Z-0003oN-SF; Wed, 20 Aug 2025 11:33:43 +0000
+Received: by outflank-mailman (input) for mailman id 1087328;
+ Wed, 20 Aug 2025 11:33:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qmnz=3A=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
- id 1uogMQ-00052a-J5
- for xen-devel@lists.xenproject.org; Wed, 20 Aug 2025 10:48:06 +0000
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [2001:4860:4864:20::2f])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=C0ee=3A=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uoh4Y-0003oG-Ld
+ for xen-devel@lists.xenproject.org; Wed, 20 Aug 2025 11:33:42 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 26df0903-7db3-11f0-a32b-13f23c93f187;
- Wed, 20 Aug 2025 12:48:06 +0200 (CEST)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-310c2f193b0so571986fac.1
- for <xen-devel@lists.xenproject.org>; Wed, 20 Aug 2025 03:48:06 -0700 (PDT)
+ id 854703a1-7db9-11f0-a32b-13f23c93f187;
+ Wed, 20 Aug 2025 13:33:41 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-45b49f7aaf5so3270055e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Aug 2025 04:33:40 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-45b47c33203sm29157125e9.9.2025.08.20.04.33.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Aug 2025 04:33:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,122 +45,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26df0903-7db3-11f0-a32b-13f23c93f187
+X-Inumbo-ID: 854703a1-7db9-11f0-a32b-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1755686884; x=1756291684; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=mE5n/uYoEfT/Ac//khvU235+HiqMMoUZP4tTrzR4Nhw=;
-        b=ib5fvxmb1wKUAMGtWpNToklPpUFvs+tPBP9jC3qM2bM8j3vtazNUkTVKVh4V+cOEdh
-         PfMehXlNGwrPxuKXqC3jFFBO8J6OPGpEOLqjX+WM3S3AueQKtnIzoIoHMUv+48HdChPo
-         qAasTr4Z2IaYZl2DVkZlot9DlGljVPKQ08zVvk6r2m5h28koEHLOQwRktTBcVdVdumy+
-         JRxq4qZnycOJs/GU80IBzyHtX0ifmP+IkLQzqemGD5nSBsvWvOKEZuZZzTmfJEEan1aq
-         kQSlJdUUhFv/U0662HZ9JBwo0ag/8j2x4YeAbpjRKb0OF5JxUygJg8OzJiXD+Inqqkcp
-         JQsA==
+        d=citrix.com; s=google; t=1755689620; x=1756294420; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=tC8+aRMrrdmdk2eWWpjubkkQKUHljiGEkwEiL+azZFY=;
+        b=rvEaiVK6XDJ2VnhepRRTAZlS4TDXz4pwVSoL9jNRsoZIe1nwNqumQTdd8+fpiKGPj4
+         +yoeMmWSqDWLfZQo7MUA5zDF5Sx10VeDdBE3XEtCHRZt2qefCV0lcgBs9DhdQME4pOR7
+         CcS05d/DC6DYcVKf4Qt3LOpfG6tijV7PV4gVk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755686884; x=1756291684;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=mE5n/uYoEfT/Ac//khvU235+HiqMMoUZP4tTrzR4Nhw=;
-        b=N8lKTP+xF5N6YRIUDHFqHGBEU0dZDywn1h8LrJ/JNrMDCjqPsEjNHsJXLzbOX3wYXS
-         YOmX8nttPB1NNOQQlPH7jvTFocIY3ipyI0zPl7ksMBMdPLtjgyGb2cMsSJzNruIGHPeU
-         jFPz0nxC29JSCYsWSGi6nkbz3OTtLGP7+QbjLXNtNuocPEZZy2Ux4ij6WNDy/ZoVEWs3
-         U03G6MA1mGqWgvn7DD6TfBPJBemeHyj87hz6WDibVrLq3d16CxPLsx0jJ3Blct5DU7ZO
-         6RWl97Bo3SkbPlBCc9IIofL9jmb/Q8KjdO810fcBT85qyXiUREtgql3Ax3Nevp2+hl8S
-         SrYQ==
-X-Gm-Message-State: AOJu0YwZaMIOeMeD5S21YAtRDMtKkah3Bws8wmRIevBgGPN4iQU2nRZ2
-	pmv2AUvXR12cst+dh2suNn8WopMuGaAvKGCUYC/jsYKtDWpeNHpF66Xj3glnBqafJTkAqafwvAw
-	GMKRFHGNr5+p/H1kgsu6Iv8XyAY4AgNSO1g==
-X-Gm-Gg: ASbGncs/Vn/BC0ntreTG94WkGjXShZYzGJKc20vsI6w2uRctaY6UCDSl6BizLplSnlW
-	p4gB82TYWu3YG5b1s6CcUMDxfeJNhYh+JDUYIXg6fdPYFlsvIOZZN3ldZc2kXoTBO5QsMQy6p2U
-	EqRRUW/Ju/4LkdAgssMlrJCBYNe+OegYjHjEM7v/7WtSlx81i6FqF1R5yrDIFDELiIOlcTfbat0
-	GhZiEP7+omm/pf2yxoPXTHQgAG2v+4n+dPBf8Vt
-X-Google-Smtp-Source: AGHT+IEHTCYjB4JshHsUtIQ6SPuIqiE8OvBvKmf7UMEkYhT2MnLCLN5fk/Qi4hkXLGA5RimhjClPXk8W3UaFYYxt1wE=
-X-Received: by 2002:a05:6808:6d81:b0:404:a28c:ca53 with SMTP id
- 5614622812f47-43771f10d15mr639568b6e.0.1755686884520; Wed, 20 Aug 2025
- 03:48:04 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1755689620; x=1756294420;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=tC8+aRMrrdmdk2eWWpjubkkQKUHljiGEkwEiL+azZFY=;
+        b=gMDQ5dGDctb9DeB427PQn+TXEmIKuO66Uq+apDN8Mt6fpKXkHzLJMBkQlITm8u3VxB
+         eHE3kqPhONVhpkEYTNKp4/NpgLgPq8hQczM/zOcAfuMmo1ppR0f4JFVspuKpQCLONjVM
+         O3qOutho7rnAQ5nkut6/OuTBoUffxXTSWKtoS8mlQO7hGX+lIDRiapLSiv79E9n0kvmc
+         btt3HLqigw0TxszkfaZMtv8YUIneNrThqsTrvvTDNiuOAVvdIoNq2l8eH4y91cFh0EqB
+         SsU8FiJlN1gxeWRnIhSPamzS3ExagLt0B7YwPqs9jIbEyZXULM7AowbVxqLNKJ8/fEVX
+         V78A==
+X-Gm-Message-State: AOJu0Yy7hGlTRC3y6SEirNGr3CL3ntBKS1yykQzSnBZK5cAPJMw/Gfiw
+	nGGvlb2kyJmPIt2emePqnkaoDx2qf1bjsbIhd9oVSrpJShF6Yu57aMaALdfKO8IyRv8=
+X-Gm-Gg: ASbGncskTBE84zByVuitwAIr0+JKep2rAt6gUXYL8fnoYn3FKJaS6aOBsmV86n56JF/
+	4v4s7n94NYpHMYgnTcv3kkfFSqMBhWdqEL8ajvvVqgIKQbLmQE0WPNP2JfiHn7OT0Yzjtc9cPMt
+	NbaKajUy6dC7wvncTyjDO0ThD6lsklhDVCLvFRpnq7Gmd3vRDy50nLW8EYOoSVamRNFrZhPygnC
+	GIHNdYg9JdxXuI8FhxYiWmk2vve7/mZIM2JO7JGttO+YRysYNL45B5XBRT+6jqQ1UT5tF7nvPta
+	rfk/rCUPLTGsFLph165nk/kRqCVvTelUpbvJFep5hbva0PEjBtRKp+tlM88WIXljHLKZ01jxGgf
+	BWuFPmmCqsispshVvHc/DGTrMvDIv9ld6ChvR70FTlp0nTtgl5c7QH04nqbwsH4deLw==
+X-Google-Smtp-Source: AGHT+IEWev61tPtuvQ50SeYMZqYDKBYyQtR3eNer8bT7EXIIKDd0uKOYlH6SjSOKWS2NUtdYC0eF5g==
+X-Received: by 2002:a05:600c:310f:b0:459:d616:25c5 with SMTP id 5b1f17b1804b1-45b479b6b95mr21730725e9.12.1755689620038;
+        Wed, 20 Aug 2025 04:33:40 -0700 (PDT)
+Date: Wed, 20 Aug 2025 13:33:38 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH] x86/iommu: setup MMCFG ahead of IOMMU
+Message-ID: <aKWykl7UiTZmtGYW@macbook.local>
+References: <20250819171826.60700-1-roger.pau@citrix.com>
+ <6852c430-155c-4530-8aa6-67a6e97ef6b3@citrix.com>
 MIME-Version: 1.0
-References: <cover.1753869323.git.w1benny@gmail.com>
-In-Reply-To: <cover.1753869323.git.w1benny@gmail.com>
-From: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Date: Wed, 20 Aug 2025 12:47:53 +0200
-X-Gm-Features: Ac12FXyh236mPiqIbqgnmqUrqbFNV0g_JmmSkQTTqzG6o2YskmoDd233FPGgpCU
-Message-ID: <CAKBKdXjmhBHOMpK0DFqDr78KfX4hMMn-sUT5431V3xdZQief1A@mail.gmail.com>
-Subject: Ping: [PATCH v4 0/3] hvmloader: add new SMBIOS tables (7,8,9,26,27,28)
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6852c430-155c-4530-8aa6-67a6e97ef6b3@citrix.com>
 
-On Wed, Jul 30, 2025 at 11:56=E2=80=AFAM Petr Bene=C5=A1 <w1benny@gmail.com=
-> wrote:
->
-> From: Petr Bene=C5=A1 <w1benny@gmail.com>
->
-> Changes since v3:
-> - Renamed offsetofend macro to offsetof_end.
->
-> Changes since v2:
-> - Added sizeof_field and offsetofend macros to common-macros.h.
-> - Used offsetofend macro everywhere to make semantically sense.
-> - Added BUILD_BUG_ON to ensure offsets are correct based on the SMBIOS
->   specification (with explanation in the comments).
-> - Fixed commit message of the second patch to mention the new smbios_pt_c=
-opy
->   function.
-> - Fixed nits (empty lines, misplaced *).
-> - Retained the original comment "Only present when passed in" + added it =
-to
->   the new tables where applicable.
-> - Replaced hardcoded offset for chassis_handle in smbios_type_2_init.
->
-> Changes since v1:
-> - Swapped the order of S-o-b in the last commit message.
->
-> Resubmitting patch from Anton Belousov and addressing review comments
-> from Jan: https://old-list-archives.xen.org/archives/html/xen-devel/2022-=
-01/msg00725.html
->
-> Original message:
-> > SMBIOS tables like 7,8,9,26,27,28 are neccessary to prevent sandbox det=
-ection
-> > by malware using WMI-queries. New tables can be mapped to memory from b=
-inary
-> > file specified in "smbios_firmware" parameter of domain configuration.
-> > If particular table is absent in binary file, then it will not be mappe=
-d to
-> > memory. This method works for Windows domains as tables 7,8,9,26,27,28 =
-are not
-> > critical for OS boot and runtime. Also if "smbios_firmware" parameter i=
-s not
-> > provided, these tables will be skipped in write_smbios_tables function.
->
-> Further explanation:
-> Some malware samples are known to check presence of various hardware comp=
-onents
-> (like CPU fan, CPU temperature sensor, etc.) by WMI queries. If these com=
-ponents
-> are not present, then malware can assume that it is running in a sandbox =
-and
-> will not execute its payload.
->
-> This patch will allow security researchers to create a custom SMBIOS
-> firmware binary file that contains these tables.
->
-> Petr Bene=C5=A1 (3):
->   tools: add sizeof_field and offsetof_end macros
->   hvmloader: fix SMBIOS table length checks
->   hvmloader: add new SMBIOS tables (7, 8, 9, 26, 27, 28)
->
->  tools/firmware/hvmloader/smbios.c       | 290 ++++++++++++++++++------
->  tools/firmware/hvmloader/smbios_types.h | 109 +++++++--
->  tools/include/xen-tools/common-macros.h |   5 +
->  3 files changed, 317 insertions(+), 87 deletions(-)
->
-> --
-> 2.34.1
->
+On Tue, Aug 19, 2025 at 07:23:57PM +0100, Andrew Cooper wrote:
+> On 19/08/2025 6:18 pm, Roger Pau Monne wrote:
+> > Otherwise the PCI accesses to segments different than the first one done by
+> > the IOMMU initialization code would silently fail by returning all ones.
+> >
+> > Introduce a new helper, called pci_setup(), and move both the creation of
+> > PCI segment 0 internal data structures, plus the parsing of ACPI MMCFG
+> > table to it.
+> >
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> And moving acpi_mmcfg_init() slightly earlier from acpi_boot_init() into
+> pci_setup().
+> 
+> > diff --git a/xen/arch/x86/pci.c b/xen/arch/x86/pci.c
+> > index 26bb7f6a3c3a..e75a29e851a7 100644
+> > --- a/xen/arch/x86/pci.c
+> > +++ b/xen/arch/x86/pci.c
+> > @@ -139,6 +142,19 @@ int pci_sanitize_bar_memory(struct rangeset *r)
+> >      return 0;
+> >  }
+> >  
+> > +void __init pci_setup(void)
+> > +{
+> > +    /*
+> > +     * Ahead of any ACPI table parsing make sure we have control structures
+> > +     * for PCI segment 0.
+> > +     */
+> > +    if ( pci_add_segment(0) )
+> > +        panic("Could not initialize PCI segment 0\n");
+> > +
+> > +    /* Parse ACPI MMCFG ahead of IOMMU, so accesses to segments > 0 is setup. */
+> 
+> "ahead of IOMMU" isn't helpful here because the relevant context is in
+> the caller.  Instead, I'd just say:
+> 
+> /* Parse ACPI MMCFG to see if other segments are available. */
+
+Sure.
+
+> > +    acpi_mmcfg_init();
+> > +}
+> > +
+> >  /*
+> >   * Local variables:
+> >   * mode: C
+> > diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+> > index 6fb42c5a5f95..bd648323bfed 100644
+> > --- a/xen/arch/x86/setup.c
+> > +++ b/xen/arch/x86/setup.c
+> > @@ -1938,11 +1938,10 @@ void asmlinkage __init noreturn __start_xen(void)
+> >      setup_system_domains();
+> >  
+> >      /*
+> > -     * Ahead of any ACPI table parsing make sure we have control structures
+> > -     * for PCI segment 0.
+> > +     * Initialize PCI (create segment 0, setup MMCFG access) ahead of IOMMU
+> > +     * setup, as it requires access to the PCI config space.
+> >       */
+> 
+> Again, this isn't terribly clear IMO.
+> 
+> "ahead of IOMMU setup, as the IOMMUs might not all live on segment 0." ?
+
+It's not just IOMMUs, but for example on VT-d we also need to poke at
+the config space of bridges, and when such bridges live in segment > 0
+that results in garbage being returned.
+
+I'm not sure acpi_iommu_init() accesses the IOMMU PCI device config
+space, but it does at least access the config space of bridges in
+order to detect hierarchy.  See how acpi_parse_dev_scope() performs
+PCI reads.
+
+What about using:
+
+/*
+ * Initialize PCI (create segment 0, setup MMCFG access) ahead of IOMMU
+ * setup, as devices in segment > 0 must also be discoverable.
+ */
+
+Thanks, Roger.
 
