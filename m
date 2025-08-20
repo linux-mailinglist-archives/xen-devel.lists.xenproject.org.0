@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44635B2DD40
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Aug 2025 15:03:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1087453.1445499 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E3E7B2DDAC
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Aug 2025 15:24:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1087468.1445507 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoiTG-0003IE-GB; Wed, 20 Aug 2025 13:03:18 +0000
+	id 1uoimX-0006Oz-42; Wed, 20 Aug 2025 13:23:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1087453.1445499; Wed, 20 Aug 2025 13:03:18 +0000
+Received: by outflank-mailman (output) from mailman id 1087468.1445507; Wed, 20 Aug 2025 13:23:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoiTG-0003Fe-Cb; Wed, 20 Aug 2025 13:03:18 +0000
-Received: by outflank-mailman (input) for mailman id 1087453;
- Wed, 20 Aug 2025 13:03:17 +0000
+	id 1uoimX-0006Mi-1P; Wed, 20 Aug 2025 13:23:13 +0000
+Received: by outflank-mailman (input) for mailman id 1087468;
+ Wed, 20 Aug 2025 13:23:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZNac=3A=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1uoiTE-0003FY-16
- for xen-devel@lists.xenproject.org; Wed, 20 Aug 2025 13:03:17 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=C0ee=3A=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uoimV-0006Mc-G6
+ for xen-devel@lists.xenproject.org; Wed, 20 Aug 2025 13:23:11 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 078a1e9e-7dc6-11f0-a32b-13f23c93f187;
- Wed, 20 Aug 2025 15:03:13 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id DFBFE4EE3C0D;
- Wed, 20 Aug 2025 15:03:11 +0200 (CEST)
+ id d120d3c4-7dc8-11f0-a32b-13f23c93f187;
+ Wed, 20 Aug 2025 15:23:10 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-45a1b066b5eso34461365e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Aug 2025 06:23:10 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-45b47c29be6sm35098825e9.5.2025.08.20.06.23.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Aug 2025 06:23:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,159 +45,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 078a1e9e-7dc6-11f0-a32b-13f23c93f187
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1755694992;
-	b=W7IhvnnCyIhs82IWL9liElbtNUPiUnb/46KO462GDmUz94T9JIJrr90FciJVm7G6Lx53
-	 ctGv4m5Bt6eZQMPo201UFnh7cbGHbHjviPft404lWMUiBY3oEgGkd7JTc5NMxtIdrlFw2
-	 aQ9t/us5SA6w24DYcfTySe7brcCmErwYPpjIllj/4918WnmG3NOfSteTzb6sDqUNJcYwo
-	 5ySe9X+6iaMRM4SUzz+9lEbCuUPmLKY3umWOe65RQD7ik88UIuOnrVdS5XlVRjp9japik
-	 1Kw8ftU8n/+L8rP2j6OQXDum6M43NAC9MECDPRlOrtoUtR0AEZoyeJ2CniVhR7IZZ/sYJ
-	 gcwP510VgiMyIAHOjr2ugi50LXYywfuuFsB4LH1GDslCnumbs/p5QBvK07QQsL8pkLK1H
-	 koiV+oi7AJxajeNwuivQYWCQytFP827OaocDEHaXC8nGCZKg/uuA4+v/3rVwm92ubCAUO
-	 CNhdnotQCBzs4DZiYYcJ6CRl/srkL5bJm4o3GpBRY9o7nTRgdQx2rTHCOs7/C4tV1B5qU
-	 BSOKh5Qv5PPAQ5MwE4u4KJzSPfIHx05ekXNGTn2TMZmAAc270tTwD9Gf6KfHnm7cx+VcF
-	 2iLpleBiUCBkWVaL8hjeKKXW8shWCjtIMSTWPv3cE18d8e4//6xpEgcn5eJhJ3Q=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1755694992;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=CB/q5y7FPjAryA9XHIdlKTQPQlU5KjrEPv8xlhx/Jp0=;
-	b=OMiYFol4Atxhea15OJR/cCWNvlL2GnQXt0gfF18fSdXMfzkAJoe36vFUVPEoZL7Widgx
-	 wBAzhL31DkjCQVFHu57SyehWxc+aCA5LBpfjx37c7i1A92E+prZ8DvkxxHKaK+KKuz5Ew
-	 RCfu6AbRig9CTNLijX66tZ2SK+M9LDmnYKJbn6hLWnLzixBalBGsWbQ9ahYWlufVm0X+C
-	 0AkVHBWATxq56GK8dR1bElL//yoGUXRk2v+GvoZlFbTPvjmWluro6dwR3zHRY3uhLSiqs
-	 fgz26bpWiQ38tXk28b4idaOc1lmIwpvbE4VseUng9LEhb5MrrrmHACQZINKlalkVfK9tS
-	 7eE7pVG0+hjetcBGg3gBdB1yD1gvWyBmTdgj+CGc7TOK4FOOj5G8tXIw1dIjcsg0ImF+Z
-	 6U3fCLFKvDd9cS1CZIioElJkhnyVm5dfltSZ39EpKjTMcXqVIOvXkL/5tgKTAKHHnLQ9y
-	 5lxPN4FscA40iuTtuXncG9WfUirk6+9LtQJEYHO/Yob1p4AhITTfbNGAtn4lFBa7V7Z3Z
-	 DCdjBh6VTyixVK7JzP09rEKarfRCRuM0nGSyj76M5IOd7BeHp5ya9x6KgWJgpiYvfqTrX
-	 cqrjmdDsB8tha/ZEOZQkGB7YAod2eNucEfQpGaVfH6Xd58ZT42x/WXmUFA10H1I=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1755694992; bh=THbq3nhrfitahUJ/far0AZs1qme5UUHJVMgR8xdpiSU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=qSK9Q/40sNaQGw790SdGQozMYW/emlCWRYU9e1BX2wcski7ttgYE143sXP7QGJfg5
-	 Bq/dTPiRkbMUue9AiqYXh5YTZ/R2KX6H7mw2O/uy/Q3srn1cX35UbeJg0d1Bu8Jc6V
-	 a9OMgeR0s+tONJVfhOSf9W74mLiO7798KyQSOxVtEEZyPESsB+wjoGs7dtGzakYTsd
-	 ozMm6Sp3GR/m9/Aa1Oe/ka2fuxs45j40LwQ3lpYGJT80JSdJicaeVF6jDyvyerWf0j
-	 ZGMAmmWEChCjmug/HIZDDTJK4QZlqWIE+BkAkQdZeKqXqOeAjgOh6aZR0mmiswtJel
-	 UvLhNqcAw0m8A==
+X-Inumbo-ID: d120d3c4-7dc8-11f0-a32b-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1755696190; x=1756300990; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=nca8j07YWORlafoQu2r/Sn7ocEyEHy7i27QbrcQ4Xqk=;
+        b=Ih0LG7aqphzy/6dKbnIuvpa7ujpWdbnvdjOAGzBqCUCXHM+rHNbnVYMjjtLZhUA/X9
+         Uh2LqCPoKqgeJ3HjfoFxeZ1NZYSOYe7/9jyXRJfPYD5dOUbGB+O2CaGJz0xccl5U85rZ
+         +oidlSxRR0r2JRo1ZmoKVTDMSTECSRYkJAHho=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1755696190; x=1756300990;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=nca8j07YWORlafoQu2r/Sn7ocEyEHy7i27QbrcQ4Xqk=;
+        b=j8+H2o3GaJq9Fe+ABtWmP3uWKr+MiM5xhgesZrhxlEzJKFVVAx/zL+jKE1wMAv3iH3
+         jkogaWMYb7WT7h+6drSK+nyX6z2PgzrGS7CjanaT+MaP+2hN29gOgsBplDDjLUtq9dKE
+         bN9bvAEdP4zMX3UzeXCrAgEotuLFzbc0raOI+3QH0nWWq3jdjNbGoRrtvO4n7uI57vVa
+         WyJEvesgWKdZGztjR+GTh7EVzJIMdu9HPjXZa/ZlKxohZCr+ft2VUol/IQxreYdFj9rF
+         EeGdtlOFPK50Da7A4qnsJMxdQG39RSvjyCSjTVpCj0d2qpGmiXVAMrqq3BPq4V5T15u/
+         r3Wg==
+X-Gm-Message-State: AOJu0Yw8pCajiAaG7bXXnLtmeqI3puPrZMKzLx0A+KdaEUy5fdZoks/M
+	OvXDzARNGRfdrvOLn17IWgeKdsB7+rqlWTCP16AV2u65imT9KWzzLCRABxhcv/oc+tc=
+X-Gm-Gg: ASbGncsQkO0Nf5gczA45/poc8HzAXKyhAotkL23pE7quCn3DmfbsWnhZf8Drj07U2R5
+	yeKNH0iUlpYF53IYtPsp/Q9+r4bY1357DvxoWFgmcTEBjkj1knhEcuNO2gg1rwMPKP2/en4KZCL
+	bcXspzQtZ9KqdTBQ0LS5YGIAwydYyZQdOaziGn0q3uoqitLWcAv5kIN34dgIdy70jnTlR2fB/WM
+	Q7dO0PSeImaF9A4YiKV7rDXQqzNvZHrG7yk19Mxo5+RrW6uQUjH6aPr7KOBo7IAD4xsFBFm8Yb5
+	GEDeJO05TW0Cvi80UbsGz5W4WWYTW6LdBfPskQ1xcZyFD0hZ+XkCelcMoWCTFPDFC0DDIZbSixX
+	vmuyllS4/3UuBVW4t1geXKlU6Q5vAOSoku69/yrvcDVQjlcAkD50Jfbd0D5chE5kwRA==
+X-Google-Smtp-Source: AGHT+IHP+zriFXjutB2mI8oVKEHUc2pA9Hh9UjUikzJzyLg3DTrprEjkuLf6M54PVwfCeJfG7QJNjA==
+X-Received: by 2002:a05:600c:354c:b0:459:aa0a:db2d with SMTP id 5b1f17b1804b1-45b47a0ec9bmr21572465e9.28.1755696189621;
+        Wed, 20 Aug 2025 06:23:09 -0700 (PDT)
+Date: Wed, 20 Aug 2025 15:23:08 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH] x86/iommu: setup MMCFG ahead of IOMMU
+Message-ID: <aKXMPFjxuS0bpr8e@macbook.local>
+References: <20250819171826.60700-1-roger.pau@citrix.com>
+ <6852c430-155c-4530-8aa6-67a6e97ef6b3@citrix.com>
+ <aKWykl7UiTZmtGYW@macbook.local>
+ <541c8586-b77b-478a-9dae-cde7884ee57d@citrix.com>
 MIME-Version: 1.0
-Date: Wed, 20 Aug 2025 15:03:11 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
- Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-Subject: Re: [PATCH] misra: add deviation for MISRA C Rule 18.3
-In-Reply-To: <901917945f704643e95842a773be9e8676f76d10.1755690681.git.dmytro_prokopchuk1@epam.com>
-References: <901917945f704643e95842a773be9e8676f76d10.1755690681.git.dmytro_prokopchuk1@epam.com>
-Message-ID: <ff2543e8fe894fbbc1a0b015c80c6d75@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <541c8586-b77b-478a-9dae-cde7884ee57d@citrix.com>
 
-On 2025-08-20 14:44, Dmytro Prokopchuk1 wrote:
-> MISRA C Rule 18.3 states:"The relational operators >, >=, < and <= 
-> shall
-> not be applied to objects of pointer type except where they point into
-> the same object."
+On Wed, Aug 20, 2025 at 12:37:51PM +0100, Andrew Cooper wrote:
+> On 20/08/2025 12:33 pm, Roger Pau Monné wrote:
+> > On Tue, Aug 19, 2025 at 07:23:57PM +0100, Andrew Cooper wrote:
+> >> On 19/08/2025 6:18 pm, Roger Pau Monne wrote:
+> >>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+> >>> index 6fb42c5a5f95..bd648323bfed 100644
+> >>> --- a/xen/arch/x86/setup.c
+> >>> +++ b/xen/arch/x86/setup.c
+> >>> @@ -1938,11 +1938,10 @@ void asmlinkage __init noreturn __start_xen(void)
+> >>>      setup_system_domains();
+> >>>  
+> >>>      /*
+> >>> -     * Ahead of any ACPI table parsing make sure we have control structures
+> >>> -     * for PCI segment 0.
+> >>> +     * Initialize PCI (create segment 0, setup MMCFG access) ahead of IOMMU
+> >>> +     * setup, as it requires access to the PCI config space.
+> >>>       */
+> >> Again, this isn't terribly clear IMO.
+> >>
+> >> "ahead of IOMMU setup, as the IOMMUs might not all live on segment 0." ?
+> > It's not just IOMMUs, but for example on VT-d we also need to poke at
+> > the config space of bridges, and when such bridges live in segment > 0
+> > that results in garbage being returned.
+> >
+> > I'm not sure acpi_iommu_init() accesses the IOMMU PCI device config
+> > space, but it does at least access the config space of bridges in
+> > order to detect hierarchy.  See how acpi_parse_dev_scope() performs
+> > PCI reads.
+> >
+> > What about using:
+> >
+> > /*
+> >  * Initialize PCI (create segment 0, setup MMCFG access) ahead of IOMMU
+> >  * setup, as devices in segment > 0 must also be discoverable.
+> >  */
 > 
-> Comparisons in the 'find_text_region()' function are safe because 
-> linker
-> symbols '_stext' and '_etext' represent fixed virtual addresses within
-> the same '.text' region, and the function 'addr' argument is explicitly
-> compared to known valid memory bounds ('text_start' and 'text_end')
-> derived from these linker symbols:
->     if ( (void *)addr >= iter->text_start &&
->          (void *)addr <  iter->text_end )
+> Yeah, that works.
 > 
-> Configure Eclair to suppress violation reports occured in the function
-> 'find_text_region()'. Update 'deviations.rst' file accordingly.
-> No functional changes.
-> 
-> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+> With those comment adjustments, Reviewed-by: Andrew Cooper
+> <andrew.cooper3@citrix.com>
 
-Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Forgot to add it, this patch should have:
 
-with two NITs below:
+Fixes: 3950f2485bbc ('x86/x2APIC: defer probe until after IOMMU ACPI table parsing')
 
-> ---
-> Test CI pipeline:
-> https://gitlab.com/xen-project/people/dimaprkp4k/xen/-/pipelines/1993673043
-> ---
->  automation/eclair_analysis/ECLAIR/deviations.ecl | 6 ++++++
->  docs/misra/deviations.rst                        | 8 ++++++++
->  2 files changed, 14 insertions(+)
-> 
-> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl 
-> b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> index 7f3fd35a33..32b596c9da 100644
-> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> @@ -590,6 +590,12 @@ C99 Undefined Behaviour 45: Pointers that do not 
-> point into, or just beyond, the
->  -config=MC3A2.R18.2,reports+={safe, 
-> "any_area(any_loc(any_exp(macro(^page_to_mfn$))))"}
->  -doc_end
-> 
-> +-doc_begin="Comparisons in the 'find_text_region()' function are safe 
-> because linker symbols '_stext' and '_etext' represent fixed
-> +virtual addresses within the same '.text' region, and the function 
-> 'addr' argument is explicitly compared to known valid memory
-> +bounds ('text_start' and 'text_end') derived from these linker 
-> symbols."
+In the commit message.
 
-Maybe ['text_start', 'text_end') here and below to emphasize that this 
-is a range?
-
-> +-config=MC3A2.R18.3,reports+={safe, 
-> "any_area(any_loc(file(^xen/common/virtual_region\\.c$))&&context(name(find_text_region)))"}
-> +-doc_end
-> +
->  -doc_begin="Flexible array members are deliberately used and XEN 
-> developers are aware of the dangers related to them:
->  unexpected result when the structure is given as argument to a 
-> sizeof() operator and the truncation in assignment between structures."
->  -config=MC3A2.R18.7,reports+={deliberate, "any()"}
-> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-> index 2119066531..a726fb22a8 100644
-> --- a/docs/misra/deviations.rst
-> +++ b/docs/misra/deviations.rst
-> @@ -586,6 +586,14 @@ Deviations related to MISRA C:2012 Rules:
->         are safe.
->       - Tagged as `safe` for ECLAIR.
-> 
-> +   * - R18.3
-> +     - Comparisons in the 'find_text_region()' function are safe 
-> because
-> +       linker symbols '_stext' and '_etext' represent fixed virtual
-> +       addresses within the same '.text' region, and the function 
-> 'addr'
-
-s/function 'addr' argument/function parameter 'addr'/
-
-> +       argument is explicitly compared to known valid memory bounds
-> +       ('text_start' and 'text_end') derived from these linker 
-> symbols.
-> +     - Tagged as `safe` for ECLAIR.
-> +
->     * - R20.4
->       - The override of the keyword \"inline\" in xen/compiler.h is 
-> present so
->         that section contents checks pass when the compiler chooses not 
-> to
-
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+Thanks, Roger.
 
