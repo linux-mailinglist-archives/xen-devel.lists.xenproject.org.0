@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3158B308A8
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 23:53:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1089332.1446952 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2B34B308ED
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Aug 2025 00:09:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1089345.1446970 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upDDW-00081c-RA; Thu, 21 Aug 2025 21:53:06 +0000
+	id 1upDTJ-0001bI-4y; Thu, 21 Aug 2025 22:09:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1089332.1446952; Thu, 21 Aug 2025 21:53:06 +0000
+Received: by outflank-mailman (output) from mailman id 1089345.1446970; Thu, 21 Aug 2025 22:09:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upDDW-0007ym-O7; Thu, 21 Aug 2025 21:53:06 +0000
-Received: by outflank-mailman (input) for mailman id 1089332;
- Thu, 21 Aug 2025 21:53:04 +0000
+	id 1upDTJ-0001Ye-1E; Thu, 21 Aug 2025 22:09:25 +0000
+Received: by outflank-mailman (input) for mailman id 1089345;
+ Thu, 21 Aug 2025 22:09:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=O+vP=3B=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1upDDU-0007yf-Rp
- for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 21:53:04 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ id 1upDTH-0001YY-C9
+ for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 22:09:23 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 33ff9a5d-7ed9-11f0-b898-0df219b8e170;
- Thu, 21 Aug 2025 23:52:59 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-45b4d8921f2so8333775e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 14:52:59 -0700 (PDT)
+ id 7d12c18b-7edb-11f0-b898-0df219b8e170;
+ Fri, 22 Aug 2025 00:09:21 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-45a1b0d224dso7251395e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 15:09:21 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b50e4241dsm12239985e9.24.2025.08.21.14.52.58
+ 5b1f17b1804b1-45b506bdd9csm10473625e9.3.2025.08.21.15.09.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Aug 2025 14:52:58 -0700 (PDT)
+ Thu, 21 Aug 2025 15:09:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33ff9a5d-7ed9-11f0-b898-0df219b8e170
+X-Inumbo-ID: 7d12c18b-7edb-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755813179; x=1756417979; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1755814160; x=1756418960; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cFwY+Eepr69i0ymn9QSccPsvsxkR0EDL71EjIPU9EGs=;
-        b=c2G1lJmndwCbvcU9EKWg1RKv0ogrD2UkhSPSGhM3v73JgCTvFJHYQgVBTeowVq5B1l
-         mb5d25wButir/0YfzSaKlJpuhZt3YZCl7Dz68TjVFji8xlXKLsV5YX6YgfHiEGKCPgR4
-         7mJxWyG325InqeRQKXCG2oCB9wHb9RLKbfuIs=
+        bh=F13gbUi7lwhM91iCKsCE7081tAwOWe8eZS1YXYamcE0=;
+        b=DUP7C4Ipk9TRfzcGdcnqRgdKTFqDs1usuM+gv17KB8W/0QvWuweu96B/xNHvDlIKOq
+         ikPRUOZOeWyUn8A6pgG2FDR7MmeOretk3AjnMlzWFeopIVeCpEe0lUr6TW/91cnmoF0I
+         QCj0EXbVRfAmddrT+zpkQ0ZWLkxrnTTEotS9s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755813179; x=1756417979;
+        d=1e100.net; s=20230601; t=1755814160; x=1756418960;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cFwY+Eepr69i0ymn9QSccPsvsxkR0EDL71EjIPU9EGs=;
-        b=T5RLmnNLB1L+iAI5a4YOjOi0Yq/XclqMuxLDiRFXUaq8DQsObGn18TIaI5YTx4QLSr
-         ovnZbsvyjyv2p0j679NIXyxc4MjaVvTWPuvFzyPtUA1gSifBcS7Gf9oIwkN14KzT1vCw
-         /4E8yuZlsZ+Pt+f06bbGcVaH1NqcsZJgJ8P3yQmID/q1cGpHYZXUNLKYa1PsMiKPPm0K
-         GDIv7nN+gMCXYcl2lYpmXde3UCdHIHvsnZlbN1nWzXmaGCvUeQbVKWHPpALFhWHgyVHy
-         fhdQ64Zb0IGkK2z+bmzXnwjvuy1sItTbH7DH3CQ8yWnjtXbBRHMcBrTqG1sZNrrj2JOV
-         XD5g==
-X-Gm-Message-State: AOJu0YwWRPEZ8juKPzOVTl9Re19bvSQvuZxti0RM6xnQVdfyzAWLR/Yu
-	N0n38GoGh97X5nw0Lu3nuFK4Usx+Sxclck1e6jvKKjpDQCwHb0qV4zs167+Rhkin33wNYptYo4Y
-	V7hQ+
-X-Gm-Gg: ASbGncso7eSsY3jTGO8kX0p0nPw/rkqNeBlUFuK5B8ndwtNDroOA44GDGPPd+YaelsY
-	e2P6K6wey69lMJYu4ohH92MxBt/apCMQ7GZpv8t6VfciKxvOz33KGWD1XKUIX+tMRL4zaE7rQSG
-	OrWT0+g1t2OK7gPYJhkMgJywzMzds2HbvU8+bX/vBLzI9zBOdman7k6IeYU5NpKwLY/vm9fkGKZ
-	B4NTODVvU0qOJQffrP5vs9RD+0UWlgt/K6jkOn3CBNCamknplQDZOMXQVelNK07IMbUgICqSjx9
-	dWaFHWSf3syL5sqJATTM1HSx4/EX3nq+XOVbN7SjO6nYso9JwpG708OpbisQwM0UCKR5iCoGMs5
-	0V2EqsuyeflkRIL/otfqD0VZ+aNRnZjK1Ml/pkysNebMrTTgrK2Nybwq0C/CC4on/GuDISisG2l
-	Pzb7U=
-X-Google-Smtp-Source: AGHT+IEZTHurz+DydVVRAjMfG9xVYm0rI9QMKceOXJe7SyLIpj6wFfHxtVcjdVJ3T+4wmiaqXVm3Zw==
-X-Received: by 2002:a05:600c:458a:b0:459:da76:d7aa with SMTP id 5b1f17b1804b1-45b517dc897mr4230315e9.25.1755813178837;
-        Thu, 21 Aug 2025 14:52:58 -0700 (PDT)
-Message-ID: <56532672-d28e-4c3c-9b4b-e038c9a5e341@citrix.com>
-Date: Thu, 21 Aug 2025 22:52:57 +0100
+        bh=F13gbUi7lwhM91iCKsCE7081tAwOWe8eZS1YXYamcE0=;
+        b=Hw/O31gXKYCm0oHl3An6KDqeedAIY/xXKDaNidLkd0CxS6pwwW3+WLhpEEytPid7r9
+         jZFy+GT2W86M3MDM4zhUnMoVOqwbYKGzBznw0t9isf/qzJUOeRR04lt6dfpNQgLEkccX
+         Vt5ln4JPG0Y1FRq4QLRRGLvY2Kg5newf50Wnh3WdeUq79dRd1I5GYbw1s+4ji1AcT573
+         DrFOIG/fPVHu3HW+VhTA3xv1/aW7wnxGPfKSJpO10E6bY5KcHUjdRJQHDc54cCZjLo4b
+         JZQOy0GSr19LybMgRB1OfYl+lbSwcCD8LWxNIqOlF5jLkP0grcaMtebQGiiNEJmXN3Sm
+         XtEg==
+X-Forwarded-Encrypted: i=1; AJvYcCUv2FP/pzvcNpSgHlT6YpXsPE/LGOQAmYdfZn8lvsEr5QF+iFHrC0wR0RbR/rh9pPZidWOHn7GBFlY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzKc87wdfb77Mq14x4/YhuTc6t4bvl8dggooDeXd4Yq2tXflptC
+	8eSHPXPQjnPMsW8AXV6aVEjhAwS+bVcAw3GE0KzZl23nfUGHLGTsIySlj3ltx8fUh7g=
+X-Gm-Gg: ASbGnctdXO7nWs8k8K4TcbXS7VKFe1/DVCYFTlujbyTiBiuanC8Ztp1OC4Mj2lNzccz
+	cBTJPc0mYuaet6OZf6WIq46AzF7w5iTfH70Bvua9ZCT0H7VuUgMHo5NbSXwQEk/caj48RRdTM89
+	m04ofM1hmVyN4PcCyk+PWhR33LTdUHuASM+ZPCrRk96kwSBxt2MfvTtWx5on/+plrBFhzi5MKON
+	g6efGhg/cVgsY46UUij4AD6nCJsSjLuXs//2CI7U7O50BLggvUc5oAxHm/khgzlF79tFwHTjTHb
+	DYrvHfK5WbZTu0YZbfPVORRkqlAyk3KG31+2C8R5JiIad1nMf3cgCVS18/oTqsSEm1j44l5n1cL
+	oPg4YNDyTPlrC2M1aH/4Ym3rvmr5OiyGAtvxP/xUeXUKOcor9qJ4fK1mJXlde8x6Uw5SZKWzJ4F
+	9cGbA=
+X-Google-Smtp-Source: AGHT+IHezUj68i85eCk26DoVLXNNGANV/m4SLthUCjmaSJrfI6d+ZwL9dE5BfRf1Kxo5sZDOA7MUGw==
+X-Received: by 2002:a05:600c:b8d:b0:456:496:2100 with SMTP id 5b1f17b1804b1-45b517c2e4emr5519655e9.31.1755814160484;
+        Thu, 21 Aug 2025 15:09:20 -0700 (PDT)
+Message-ID: <536cce8a-46f2-4a90-837b-09ed8f1a9ef2@citrix.com>
+Date: Thu, 21 Aug 2025 23:09:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 15/22] x86/traps: Introduce opt_fred
+Subject: Re: [PATCH 19/22] x86/boot: Use RSTORSSP to establish SSP
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
- <20250808202314.1045968-16-andrew.cooper3@citrix.com>
- <0a6b6fce-2cc8-4933-8703-399e4a4fdad6@suse.com>
- <8adbd032-9da2-481d-8d98-30c9a605ec46@citrix.com>
- <5c608ebc-e9c2-47ea-a98f-246f7a3d4c30@suse.com>
+ <20250808202314.1045968-20-andrew.cooper3@citrix.com>
+ <5ad64534-514c-412a-b2a2-23adaf835f60@suse.com>
+ <757e3b87-bb4f-410a-84b7-cf3607bf3eb3@citrix.com>
+ <1576d28d-bdd9-488e-a374-29695fca4ca5@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -139,71 +139,52 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <5c608ebc-e9c2-47ea-a98f-246f7a3d4c30@suse.com>
+In-Reply-To: <1576d28d-bdd9-488e-a374-29695fca4ca5@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 15/08/2025 9:37 am, Jan Beulich wrote:
-> On 14.08.2025 21:16, Andrew Cooper wrote:
->> On 14/08/2025 2:30 pm, Jan Beulich wrote:
+On 15/08/2025 10:03 am, Jan Beulich wrote:
+> On 14.08.2025 22:09, Andrew Cooper wrote:
+>> On 14/08/2025 4:11 pm, Jan Beulich wrote:
 >>> On 08.08.2025 22:23, Andrew Cooper wrote:
->>>> ... disabled by default.  There is a lot of work before FRED can be enabled by
->>>> default.
+>>>> Under FRED, SETSSBSY is unavailable, and we want to be setting up FRED prior
+>>>> to setting up shadow stacks.  As we still need Supervisor Tokens in IDT mode,
+>>>> we need mode-specific logic to establish SSP.
 >>>>
->>>> One part of FRED, the LKGS (Load Kernel GS) instruction, is enumerated
->>>> separately but is mandatory as FRED disallows the SWAPGS instruction.
->>>> Therefore, both CPUID bits must be checked.
->>> See my (further) reply to patch 13 - I think FRED simply ought to depend on
->>> LKGS.
->>>
->>>> @@ -20,6 +22,9 @@ unsigned int __ro_after_init ler_msr;
->>>>  static bool __initdata opt_ler;
->>>>  boolean_param("ler", opt_ler);
->>>>  
->>>> +int8_t __ro_after_init opt_fred = 0; /* -1 when supported. */
->>> I'm a little puzzled by the comment? DYM "once default-enabled"?
->> Well, I have this temporary patch
->> https://gitlab.com/xen-project/hardware/xen-staging/-/commit/70ef6a1178a411a29b7b1745a1112e267ffb6245
->> that will turn into a real patch when we enable FRED by default.
+>>>> In FRED mode, write a Restore Token, RSTORSSP it, and discard the resulting
+>>>> Previous-SSP token.
+>>>>
+>>>> No change outside of FRED mode.
+>>>>
+>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> Why is it that in patch 17 you could use identical code, but here you can't?
+>> This caught me out at first too.
 >>
->> As much as anything else, it was just a TODO.
+>> For S3, we're going from "no shadow stack" to "back to where we were on
+>> an active shadow stack".  All we need to do is get saved_ssp back into
+>> the SSP register.
 >>
+>> Here, we're going from "no shadow stack" to "on a good, empty, shadow
+>> stack".  For FRED we only need to load a value into SSP, but in IDT mode
+>> we must also arrange to create a busy Supervisor Token on the base of
+>> the stack.
 >>
->>>  Then ...
->>>
->>>> @@ -305,6 +310,32 @@ void __init traps_init(void)
->>>>      /* Replace early pagefault with real pagefault handler. */
->>>>      _update_gate_addr_lower(&bsp_idt[X86_EXC_PF], entry_PF);
->>>>  
->>>> +    if ( !cpu_has_fred || !cpu_has_lkgs )
->>>> +    {
->>>> +        if ( opt_fred )
->>> ... this won't work anymore once the initializer is changed.
->> Hmm yes.  That wants to be an == 1 check.  Fixed.
->>
->>>> +            printk(XENLOG_WARNING "FRED not available, ignoring\n");
->>>> +        opt_fred = false;
->>> Better use 0 here?
->>>
->>>> +    }
->>>> +
->>>> +    if ( opt_fred == -1 )
->>>> +        opt_fred = !pv_shim;
->>> Imo it would be better to have the initializer be -1 right away, and comment
->>> out the "!pv_shim" here, until we mean it to be default-enabled.
->> It cannot be -1, or Xen will fail spectacularly on any FRED capable
->> hardware.  Setting to -1 is the point at which FRED becomes security
->> supported.
-> I guess I'm not following: If it was -1, and if the code here was
->
->     if ( opt_fred < 0 )
->         opt_fred = 0 /* !pv_shim */;
->
-> why would things "fail spectacularly" unless someone passed "fred" on
-> the command line?
+>> We could in principle conditionally write a busy supervisor token, then
+>> unconditionally RSTORSSP, but that's even more complicated to follow IMO.
+> Why would the write need to be conditional?
 
-Oh, that would work, but why bother?  It's simply a less readable form
-of mine, and if we're going to nitpick, it's commented out code.
+Because the tokens are different.  One has the value &addr, and one has
+&addr + 9.
+
+The Supervisor Shadow Stack Token for IDT needs to survive for the
+lifetime of Xen, while the Restore Token for FRED is temporary and
+discarded by the logic added in this patch.
+
+>  Can't we write what effectively
+> is already there? Or is it more a safety measure to avoid the write when
+> it's supposed to be unnecessary, to avoid papering over bugs?
+
+I genuinely don't understand what you're trying to suggest here.
 
 ~Andrew
 
