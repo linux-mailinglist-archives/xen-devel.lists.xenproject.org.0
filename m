@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5EA1B2F3FB
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 11:32:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1088280.1446044 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4A7AB2F40E
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 11:36:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1088296.1446054 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1up1do-0001hW-Nw; Thu, 21 Aug 2025 09:31:28 +0000
+	id 1up1i5-0003Pb-D1; Thu, 21 Aug 2025 09:35:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1088280.1446044; Thu, 21 Aug 2025 09:31:28 +0000
+Received: by outflank-mailman (output) from mailman id 1088296.1446054; Thu, 21 Aug 2025 09:35:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1up1do-0001g4-Kf; Thu, 21 Aug 2025 09:31:28 +0000
-Received: by outflank-mailman (input) for mailman id 1088280;
- Thu, 21 Aug 2025 09:31:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=O+vP=3B=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1up1dm-0001ff-PP
- for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 09:31:26 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9b81d3b9-7e71-11f0-a32b-13f23c93f187;
- Thu, 21 Aug 2025 11:31:25 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3b9edf4cf6cso561793f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 02:31:25 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3c4f77e968esm1132018f8f.21.2025.08.21.02.31.23
+	id 1up1i5-0003NJ-9Y; Thu, 21 Aug 2025 09:35:53 +0000
+Received: by outflank-mailman (input) for mailman id 1088296;
+ Thu, 21 Aug 2025 09:35:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5Hha=3B=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1up1i4-0003Jz-3Q
+ for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 09:35:52 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3955a7d9-7e72-11f0-b898-0df219b8e170;
+ Thu, 21 Aug 2025 11:35:50 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-afcb6856dfbso148846266b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 02:35:50 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-afded479868sm356327766b.58.2025.08.21.02.35.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Aug 2025 02:31:24 -0700 (PDT)
+ Thu, 21 Aug 2025 02:35:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,165 +45,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b81d3b9-7e71-11f0-a32b-13f23c93f187
+X-Inumbo-ID: 3955a7d9-7e72-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755768685; x=1756373485; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755768950; x=1756373750; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7UUzI5xEraTbBLRyDZmYidZa6/vhfjYBua1iJJI3no8=;
-        b=caUm7fERrvb4k3Uqo719bY6nxEZJCji5X7lQDwpAuFKHZzq2eqvXBk5U95gK2YoqAh
-         4bjM1XTyA9GQOqZ46dUY5bv0QIAhpvKnZND3xgW6oZ3eIIm0Z+64fYKmv6xCDRL4qKBm
-         l754+xEMftdwnLq4E/wG48oLMRaXYQAHEiKF0=
+        bh=RbYrYvSmDJU5K4UC2r7hitotey+GrqoypZRKUkZHyuY=;
+        b=O9Uh/Eb6TjgzYp0yriGZLcMiQbP/yr25A3xSlUJgEyrohKhKgyi2tN5Xt5RH3M+4fH
+         kM3Grqx4tEGfaL/aBtqfNbvobmFTjcwUPhq/h5Xm5fUW6BqUQ6ZFVJvw+KwehVuGQT9l
+         CL1lytUEPT/LOhpw5gWtrwwbEdwV8komdpxsQvxOZBejxb60j7JK38BKPTNSnDuQcY9d
+         5+EYFmFvxzo4JVKIbTbtONxXOZUOZQyXupYZcwuPXWeACA/JA8j3gJm9qMJNpqB+Urui
+         kHO6w5jdWjzIUDSAAiU3KVN74ec62vNq8HqMIgjKe3dL11/fcSSTnRBM272nZhrmJhbN
+         lXig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755768685; x=1756373485;
+        d=1e100.net; s=20230601; t=1755768950; x=1756373750;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7UUzI5xEraTbBLRyDZmYidZa6/vhfjYBua1iJJI3no8=;
-        b=GJ7z3QX78SLnZBAuysWEPyFSEQX65ZXrw4/biE2V17yPvVpCNgIfDoOZ71gqkQGha5
-         0PWuZUAjeFeSNhoAT40JMm/wTRVjWHcQNK72xW56KCimJEp4DBnTeD1lbCSrSAylzyNL
-         asElJ0cY3hXUt1n/lUFFVS18n63PGm6vM3Obuomt7McTg/wE9y5wDWi6lsxYWIMfvwTY
-         Yd6mOiBGGPPkewCBCi9Mrjbge5uT/1n/WGJcz4X/XgSltnkIu+3oUht8JtObZ1HWR1Qa
-         DVsGme5PErW82kNky66Ctf+1VjZgyxewuCy8FoHbaKZjW/plZQJtu8crh7CHQv1wuw4o
-         srCg==
-X-Forwarded-Encrypted: i=1; AJvYcCU6S8bw1DU6HK+va91O1/w3xVUDsy/G8k1OxMML1vtOsFFwc4nNAxHjktSwoLCrxTgCsyDza2QrPWw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxAsX0LugD9GBYblFY0qrBYtAXWiI7pOwpaWP76sB9A7+ke4HJh
-	8mKTAXqT4k7bdkdLhzbtVFwlk+6eC7BWSIz9EugWGQKce3ERsS31RbVmg3X4hyvqmcw=
-X-Gm-Gg: ASbGncvWBKGP/yzvxZjrMgcN6VA8So6qJD7BRPCnt/8/qWqK/jTo22ombvERLG2J+5D
-	mNiLDqQ0zLzmUZa+BtUcppaI8TCVDq7/SJvFDnhaKgE/IXjpF9s3niDVcajU8yW6fNzqgh7gZrP
-	mpoOnE7ONhoGuUX/T+BkS1obPwwpysfXNiTLNPl8D3gSMqEhhSAJRCAs+vPnH/Bv/Bo6Pj+C3ci
-	scPpLfa0P7t1VHarWu663DbHJ4+H+ZyUiLcBAkaa/9uGikC2FBVTpvNGcr3OdE2OE4kSLC82/K1
-	y9tdYX7sLcLWyquR2aKd+0TxaUbVl8zbniCgkqfT50ukzYzP7B6dpxh1BKsDK4MxMyL1mxHsdpo
-	TrO7bo/NeaepzA4IpQlhHja6atV3cVBhf2BnX9PX+PgP+JcS99hDaN5rVfm1MRCbiAQZT
-X-Google-Smtp-Source: AGHT+IG5yRHb4bghgS9XvZ8KlDpoBE+3aKKsD2whqGUrsAgR9vpzKOMYGS0kTz1v4w/gza9piLtviA==
-X-Received: by 2002:a05:6000:4210:b0:3c0:7e02:8676 with SMTP id ffacd0b85a97d-3c4978390fbmr1362296f8f.61.1755768684671;
-        Thu, 21 Aug 2025 02:31:24 -0700 (PDT)
-Message-ID: <5b87bb85-3e52-453e-82ab-6d4f9b7eec28@citrix.com>
-Date: Thu, 21 Aug 2025 10:31:23 +0100
+        bh=RbYrYvSmDJU5K4UC2r7hitotey+GrqoypZRKUkZHyuY=;
+        b=Rv+8t8Rw9AFzG2yUSNul7dYQC/2ZrzS5043G6XvLW1rW53XeXnUnrafHBi0rLF/IjP
+         D7+hQmwbS8gdJcApiXXbbzxq/BV9a/FQJjJUnrvNZ556mEZPRdqT+YCLNrQj+glF9axe
+         E7of8XtPsM/z+dBmw7mA5Y0stPp/Kt2FeqY71XcRxryQda4NONxbIHYlAnxEeMSWw1H+
+         silZFmfnprrPTMRItG390MwjzPnf/WPMF17Eaj8N3VquaJrme2cmnCJ4om9d36v2Lt0g
+         frvEd5rWM+d96p8ETXq6V5FsuZu95W0R2i30QJe4x8cySum8GqWDA/OAKiMBoWxGuIti
+         mxgg==
+X-Forwarded-Encrypted: i=1; AJvYcCUygBIyfflKWVJ1m4ViDR0nts8iHitLsJYmeHjNM8YFDNfe0vrWh+ElGKwsM1jz7ifwKDgKv3qrFpE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzstY88wsKojy6GI/IWdpH/lYAXwOkDjK6f56sSMBar4dxYasXX
+	18AFjhFOYVAnDqDl96VPp9je/KL4lCgoJ5CLoZCColFlUfleIXPdIvygTr0HQmUzAA==
+X-Gm-Gg: ASbGncvYsyHEb3qgHhHW99G+cZcn0ZGpRToy7bEWKYSj2MpgAuft7kk5fa3Nu5dG3aJ
+	I7uCsELN0mPPgfOFD7zecuGuvw5wJwe8ZwHe8MKMnMzey0pqWhCitT5mE2YzlJ0SX7dRoJBIy1i
+	lgS6ykP18s+DyfdPwYvbYLz5grKNxpY5Z859ANsYemh0o5fATvHbLLxFotgXx+IFcuqDT1oxfr+
+	igVPfJF/JoJ2ePMi2427+j0P4zxSuP9UxF1sP+QlQaRmHoN+cVn1Sr65dSZk0Ol1cMtT8/s8MmF
+	qMJaAWB+ck91pJAWa+c+lQOTJ1jmCHV6EfK2pAqKTMrOwQ+3jo5Y0eUH7Xkn+IjhW+nlCGlex4m
+	zekJenHEGkqyNsCkT4ejMrtpCm/VepGEFz3LZuegG/A0sS2bOxjRBh8aP9eYmTXGtmm2OtLxFow
+	h0lcZMmvjgxYJA16laiQ==
+X-Google-Smtp-Source: AGHT+IE2A+Mb8/ORucK97YKaEfK+9uQPcVYwU7VADy7wqTjiAcm4zPwO9yWXBDcQ+93T9Fuiawm0PA==
+X-Received: by 2002:a17:907:7e84:b0:afc:d7ee:282d with SMTP id a640c23a62f3a-afe0ba8d568mr165366366b.20.1755768949721;
+        Thu, 21 Aug 2025 02:35:49 -0700 (PDT)
+Message-ID: <79663681-466b-43d9-9845-3f16f8a33cb5@suse.com>
+Date: Thu, 21 Aug 2025 11:35:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] releases: use newer compression methods for tarballs
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
+Subject: Re: [PATCH] misra: fix Rule 11.3 violation in
+ 'vcpu_mark_events_pending'
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <fdd60576-c852-4ce9-921d-9e77a86a3e66@suse.com>
- <f2105411-ac78-4283-a7d7-45f5b1bc0bfe@citrix.com>
- <eac220b7-d5e9-4710-a0fd-e69a0162df7d@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <eac220b7-d5e9-4710-a0fd-e69a0162df7d@suse.com>
+References: <7210337994620b60ed123ec6fc73e469c287adf6.1755676142.git.dmytro_prokopchuk1@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <7210337994620b60ed123ec6fc73e469c287adf6.1755676142.git.dmytro_prokopchuk1@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 21/08/2025 8:26 am, Jan Beulich wrote:
-> On 20.08.2025 14:15, Andrew Cooper wrote:
->> On 15/07/2025 7:33 am, Jan Beulich wrote:
->>> It's unclear to me why we have git create a tarball, extract that, just
->>> to then make a tarball again (without any special options, like to
->>> override owner or timestamps;
->> That's because in c5be91eb8140 you deleted the intermediate step of
->> merging qemus
-> Hmm, perhaps - I'm generally trying to keep the size of such changes down,
-> when working in an area I'm not overly familiar with.
->
->>> in this context I notice that tarballs
->>> created by Andrew have file ownership of andrew/andrew, while ones made
->>> by Julien use root/root).
->> Ownership where exactly?  the tarball itself (which will be down to
->> accounts on downloads.xenproject.org) or the tarball contents itself?
-> tarball contents.
->
->>> lzip, unlike the other two tools, doesn't really show a progress
->>> indicator with -v. Merely having final statistics may make the use of
->>> the option here questionable.
->> I can't say I find any of the stats relevant.
-> Happy to drop the v options.
->
->>> --- a/tools/misc/mktarball
->>> +++ b/tools/misc/mktarball
->>> @@ -31,4 +31,14 @@ git_archive_into $xen_root $tdir/xen-$de
->>>  
->>>  GZIP=-9v tar cz -f $xen_root/dist/xen-$desc.tar.gz -C $tdir xen-$desc
->>>  
->>> -echo "Source tarball in $xen_root/dist/xen-$desc.tar.gz"
->>> +if [ -n "$(command -v xz)" ]
->>> +then
->>> +  tar c -C $tdir xen-$desc | $(command -v xz) -v -9 >$xen_root/dist/xen-$desc.tar.xz
->>> +fi
->>> +
->>> +if [ -n "$(command -v lzip)" ]
->>> +then
->>> +  tar c -C $tdir xen-$desc | $(command -v lzip) -v -9 >$xen_root/dist/xen-$desc.tar.lz
->>> +fi
->>> +
->>> +echo "Source tarball in $xen_root/dist/xen-$desc".tar.[glx]z
->> If we're deciding to use multiple compressions, they want to not be
->> optional here.  I'd far rather have a reminder to install the package,
->> than for it to simply be omitted.
->>
->> We don't want to be re-tar-ing now that the qemu's are gone, so I think
->> the structure wants to end up as:
->>
->> git archive --format=tar HEAD > tmp.tar
->> gzip -9 < tmp.tar > $xen_root/dist/xen-$desc.tar.gz &
->> zx -9 < tmp.tar > $xen_root/dist/xen-$desc.tar.xz &
->> lzip -9 < tmp.tar > $xen_root/dist/xen-$desc.tar.lz &
->> wait
->>
->> Might as well use the multiple cores better...
-> I, too, was thinking of that. Yet as per above, when fiddling with code I'm
-> not overly familiar with, I try to limit the amount of change done. As you
-> ask for a bigger change, I can certainly do so.
+On 20.08.2025 10:00, Dmytro Prokopchuk1 wrote:
+> MISRA C:2012 Rule 11.3 states: "A cast shall not be performed between
+> a pointer to object type and a pointer to a different object type."
+> 
+> The function 'vcpu_mark_events_pending' contains a non-compliant cast
+> to (unsigned long*). Remove the explicit cast and pass the compatible
+> pointer type to the 'guest_test_and_set_bit' macro.
 
-Would you like me to do the patch then?
+No-where up to here (incl the subject) it is said that this is an Arm-
+only issue. Hence why I ended up looking in the first place.
 
-~Andrew
+> Fixes: c626aa1a5a (arm: implement event injection, 2012-06-01)
+> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+> ---
+> Test CI pipeline:
+> https://gitlab.com/xen-project/people/dimaprkp4k/xen/-/pipelines/1993054203
+> ---
+>  xen/arch/arm/domain.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+> index 310c578909..6371e68cc7 100644
+> --- a/xen/arch/arm/domain.c
+> +++ b/xen/arch/arm/domain.c
+> @@ -1166,7 +1166,7 @@ void arch_dump_vcpu_info(struct vcpu *v)
+>  void vcpu_mark_events_pending(struct vcpu *v)
+>  {
+>      bool already_pending = guest_test_and_set_bit(v->domain,
+> -        0, (unsigned long *)&vcpu_info(v, evtchn_upcall_pending));
+> +        0, &vcpu_info(v, evtchn_upcall_pending));
+
+It'll be Arm maintainers to judge, but my take is that the previously
+questionable construct better wouldn't be made yet more questionable.
+What's missing, at least for Arm32 aiui, is a (build-time) check that
+the field actually lives at a 32-bit boundary and that read-modify-
+write operations carried out on it at 32-bit width (this is true even
+for Arm64) won't have an impact on what follows (this may be possible
+to cover by just a comment, as you can't really check for the absence
+of struct fields).
+
+Jan
 
