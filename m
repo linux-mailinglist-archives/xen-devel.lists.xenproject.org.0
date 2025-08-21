@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44F9AB2F7DC
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 14:25:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1088626.1446360 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6117FB2F809
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 14:31:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1088640.1446370 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1up4Ls-000199-7n; Thu, 21 Aug 2025 12:25:08 +0000
+	id 1up4RX-0003GH-S3; Thu, 21 Aug 2025 12:30:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1088626.1446360; Thu, 21 Aug 2025 12:25:08 +0000
+Received: by outflank-mailman (output) from mailman id 1088640.1446370; Thu, 21 Aug 2025 12:30:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1up4Ls-000160-4q; Thu, 21 Aug 2025 12:25:08 +0000
-Received: by outflank-mailman (input) for mailman id 1088626;
- Thu, 21 Aug 2025 12:25:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=O+vP=3B=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1up4Lr-00014a-0v
- for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 12:25:07 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id de6ff5fd-7e89-11f0-a32b-13f23c93f187;
- Thu, 21 Aug 2025 14:25:05 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3b9e41669d6so751759f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 05:25:05 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3c07778939bsm10994365f8f.46.2025.08.21.05.25.03
+	id 1up4RX-0003Db-Og; Thu, 21 Aug 2025 12:30:59 +0000
+Received: by outflank-mailman (input) for mailman id 1088640;
+ Thu, 21 Aug 2025 12:30:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5Hha=3B=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1up4RV-00031X-VC
+ for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 12:30:57 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id af503609-7e8a-11f0-b898-0df219b8e170;
+ Thu, 21 Aug 2025 14:30:56 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-61a8c134533so1965468a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 05:30:56 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-afded539ebbsm386134466b.111.2025.08.21.05.30.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Aug 2025 05:25:04 -0700 (PDT)
+ Thu, 21 Aug 2025 05:30:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,119 +45,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de6ff5fd-7e89-11f0-a32b-13f23c93f187
+X-Inumbo-ID: af503609-7e8a-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755779105; x=1756383905; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755779455; x=1756384255; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iHpgV8l84GfDrObZ+854z4EHYYT49r7YRN/XIy5sKU8=;
-        b=KW8rRES1baeV/FrIDwSpy0OL8dqe5pQrx5Hv6bvJ2Wv9sJBFIfVdbKduHuFTBUAtbc
-         3X2kKceS24/shc8qFwsMNT4cbbr/a3fOsPLrr0Q3Pk1lb5nUvA1pYbKavGPI8kjrWjcy
-         6hetygXt9CXWuq6cb00d+g/R3WNZLm5xtfDy0=
+        bh=X2zm1c0WhDKUDA/RtUDXmIr5olRl3yU07m4XPIOp/po=;
+        b=MWA2iSjepD2Gz8X6TIDhHAGptf1ebKQxJPUnNL6u1I0JkkIe9Xj9nl2kSmo51KHJHb
+         lkKIF59i4ixYQ25um9yWIQFXERuzjzRKPqvi4NdpcCBG+Q/z71/vvG7U/G+CvwpUyDs7
+         3Xs9xPOAIEo3WJNJLeYzmB7BpEFL0PmE2aKvTCEVe/wnaC7IFyeOxlbGR7IumPBPS8zb
+         Ng2/CgWoIz5ewjT9J7hf4DPve6Ag/JlAGvolzrUB87Jv7mN2A/gXrpxqpHM1pWG7nOb0
+         0eKzOAHkmxKTGZbMjOKqRCBXTE80mQd2tjrzazPvJ9PcgfA0XbryJD6G1I7JrP0XonSs
+         X8ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755779105; x=1756383905;
+        d=1e100.net; s=20230601; t=1755779455; x=1756384255;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iHpgV8l84GfDrObZ+854z4EHYYT49r7YRN/XIy5sKU8=;
-        b=he+wAKadNptvixjxgNEDatSBuht+/QJn/ODdCb9mjKhlYbz3DWCzys/yKl5yLbod5f
-         mTzRh8o94xyGvJxQyzkQbPZ0pNr/7pZaNg+bSV45ldBPBTjon3oqFxgTMCdjcXoB39fh
-         KLv9w+DOAZy9D19Evcqk18ZEZFmdnKgfeCQpc+V2HwJz0dsqRDUywIas8fcDF7d1nBTn
-         OPsquqja6x/q7k6O5hk17qmg7FD6SJYhktJTh3EJPzYauL0mCnlLUoZYYPtuGpoRjC+J
-         XCj8mYhXSHl+PkUhe5pigEBISK7mRJ4s2Xc6Ukva1qnOZfB7PxOEpyyyCwO0ufJMgsYf
-         vm/g==
-X-Gm-Message-State: AOJu0YxUIBCwwtfx1kSDaG9zy2uuJihLn7OcBSCg/UVkwJJbo/DXsQIt
-	bHmn+qJ1lWuVywQVX7OdAY6+InqeHfOamzcwU2B+m3KI/ByHYTzB79aUHUoOeHbxlkY=
-X-Gm-Gg: ASbGncufmItfC2ZSUHbZXYCpRvrwwsUL4IG5tXQuq9N3WSqykM+/2+EPRuXA6gTfiZm
-	4Lpv8x6CK6AQAgk68l6oXMTavEHv+oysAikXFinXQYpPMpEY6hjCbDfAn6tgDLSY1KQfj9ubnvu
-	+Ny8DWT7kQ/niRzBQuzr2B/kRUSgPllhUoeeUjnruednfDdPBkBOnuwO1m1cJv2fjuyJsToXlQI
-	/O7JJEyog3vB6+wy0MpKhN01V+8kuYHgW35XAoCjonBbM6fXl5eLAHf9Ib7U+f7OXWxQ9iHB4Zw
-	mCWgRmXjT+vNQoRayy61S5KW6maO6XIdOJm9Q3RqotEgjtK0WesHrNwHZU9IaIU93Pl29W4XER+
-	x2Umq7kCQMz+TFjRR0ijnP9VhT/wcTvs6FCY7YgAgDPl8jIfWcNltmIJJs+MZux8fQ9KMezPAp4
-	oQdPk=
-X-Google-Smtp-Source: AGHT+IGx6uaqqKqbWdlecin79VLbug4GmWVn0YcaPPrsIb6bmLfhbipirpbzZaOtr0uiMgWS/AJd1g==
-X-Received: by 2002:a05:6000:40df:b0:3b7:6828:5f71 with SMTP id ffacd0b85a97d-3c494ed18eemr1582072f8f.9.1755779104742;
-        Thu, 21 Aug 2025 05:25:04 -0700 (PDT)
-Message-ID: <f7a0800e-b494-4b58-8f6c-80efd721d0b5@citrix.com>
-Date: Thu, 21 Aug 2025 13:25:03 +0100
+        bh=X2zm1c0WhDKUDA/RtUDXmIr5olRl3yU07m4XPIOp/po=;
+        b=CrfeHUVBrAyORni944o8ghzXfS8AWJRAtfUXNfSdUspy/1CNafVQg9g4YS74RxQSgr
+         m4CapJhfvnsmrKxK7GD8mg/xuju3zIbpBWVWiYQwODpR2oXP3HjrHbcU/15ZCq/FZxpI
+         5585nqeui8RogbOw4lOLDAHglfHLHFNCS1H0bWmuuFnuBkgXagZ0a0ETD1//d2lTjM1a
+         uFjvJyq579eZzP1yEj1f9RvGkbTPvVxId8x7TTXiVpOZER14qoZmaz3VmdzaE+RuM5Sr
+         BfGqiisbmc9tBrgEalE4ZB56WjycqzyKGXnNwRKuqoknQwXtM7oQ70yoqeC237xv6uNM
+         rrCQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWtYKsJnCGkxOyG7Ovc/LKhLhbI43JhbpS85HqDvt2qPc1DRKnvt9JHfAHUoBoBlnVuPbF8MZ6Kn3w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyGcsq4UqdbxPEoPj1gOlPOEAew7tZtmDaenjl51Jhx3ME4VduO
+	g+h0iV4VbZdirWQdzBgo/i1zFlb8N4G/r5poOusa6t+1P0TcegUqgsFQoklYD+L+eg==
+X-Gm-Gg: ASbGncuRa5zPsVoaHUwupvjqkk2qYWiWDfsG74li2SrQ4hr7L94R8dVowrbydjrVsGX
+	uPqbytGfTV/xGStQ3c75YgOis/enmRQCRlu+2H5TF4FQmjZBv3sXKaCLcewbNLMHYyTD4ZRa/x2
+	loRe134aWtlB43rojvA6kQqMR0jhLRN8tX9SRHV/NFVZ47mEln4sc5nMVvqy1+oCaFoSxvkJXND
+	oYCPaLTAcJWZJ2H7jwl2CoJy0hKuOQKxQx/0gwH4w6LZbseQfsxxW4U2V9YFLCKG04fQFxwLfK3
+	5EOVqVhHUDKjxrXq6tzSsCJ5R2XaxU5rw9iTRbopspVT91B7p02AKPMDe1GCcWEsS4rtwWz3F8v
+	UlVwZVnj5pZSPbW5zVw/pDqKbmM6p+ZlLhOBVZpnmW6UBo3fRhodQfVyysgWTEqzfzfDhgGLyaq
+	EamRFD0Er6LX56KoEfCg==
+X-Google-Smtp-Source: AGHT+IGtyWtAvTOJOVxYadEsrW33Dxqc6eLTfDV2pJbLyKbrWRarcGcJwVDombrHf2Z2lmCthCjpSg==
+X-Received: by 2002:a17:906:f5a5:b0:ae0:e065:ddfb with SMTP id a640c23a62f3a-afe07a08b0fmr239082466b.18.1755779455589;
+        Thu, 21 Aug 2025 05:30:55 -0700 (PDT)
+Message-ID: <267bd33a-70d4-417f-b26f-32de863f1d2d@suse.com>
+Date: Thu, 21 Aug 2025 14:30:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] CI: Use 'watchdog' for x86 hardware
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <JBeulich@suse.com>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20250821120652.3910926-1-andrew.cooper3@citrix.com>
- <aKcPVSFVxKJJFHrF@mail-itl>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <aKcPVSFVxKJJFHrF@mail-itl>
+Subject: Re: [PATCH v2] iommu/ipmmu-vmsa: Fix build with HAS_PCI=n
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <5ecb3da69ba1581971197388c6b9062b46900cff.1755775255.git.mykyta_poturai@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <5ecb3da69ba1581971197388c6b9062b46900cff.1755775255.git.mykyta_poturai@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 21/08/2025 1:21 pm, Marek Marczykowski-Górecki wrote:
-> On Thu, Aug 21, 2025 at 01:06:52PM +0100, Andrew Cooper wrote:
->> This detects various hangs and turns them into a crash with backtrace.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Should it also apply to in-QEMU tests?
+On 21.08.2025 13:23, Mykyta Poturai wrote:
+> With PCI disabled the build fails due to undefined struct
+> pci_host_bridge.
+> 
+> Add ifdef guard to pci-host-rcar4.h to not require the stuct being
+> defined when PCI support is disabled. All call sites are already covered
+> by HAS_PCI check, so no dummy implementations are needed.
+> 
+> Also move includes under the header guard to not break MISRA rules.
+> 
+> Reported-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 
-I doubt QEMU can emulate performance counters.  I certainly wouldn't
-trust an emulation which claims to be able to.
+Along with the Reported-by I thought a Fixes: tag would go without saying.
+Can likely be added while committing.
 
->
-> Anyway:
->
-> Reviewed-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-
-Thanks.
-
-~Andrew
+Jan
 
