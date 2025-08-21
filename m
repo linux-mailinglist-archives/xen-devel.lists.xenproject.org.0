@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA37EB2EFA4
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 09:30:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1087881.1445684 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CA86B2EFEB
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 09:42:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1087891.1445693 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uozkd-0001Iv-3f; Thu, 21 Aug 2025 07:30:23 +0000
+	id 1uozw6-0003SS-3M; Thu, 21 Aug 2025 07:42:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1087881.1445684; Thu, 21 Aug 2025 07:30:23 +0000
+Received: by outflank-mailman (output) from mailman id 1087891.1445693; Thu, 21 Aug 2025 07:42:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uozkc-0001Gs-Vi; Thu, 21 Aug 2025 07:30:22 +0000
-Received: by outflank-mailman (input) for mailman id 1087881;
- Thu, 21 Aug 2025 07:30:21 +0000
+	id 1uozw6-0003PU-0a; Thu, 21 Aug 2025 07:42:14 +0000
+Received: by outflank-mailman (input) for mailman id 1087891;
+ Thu, 21 Aug 2025 07:42:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5gj1=3B=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uozkb-0001Gm-8K
- for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 07:30:21 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5Hha=3B=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uozw4-0003PO-ES
+ for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 07:42:12 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b1181962-7e60-11f0-a32b-13f23c93f187;
- Thu, 21 Aug 2025 09:30:20 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-afcb7a8dd3dso104114166b.3
- for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 00:30:20 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afdf593d0fesm251093866b.59.2025.08.21.00.30.18
+ id 57bb8e76-7e62-11f0-a32b-13f23c93f187;
+ Thu, 21 Aug 2025 09:42:09 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-618aea78f23so1078308a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 00:42:09 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-61a7560a0f8sm4726847a12.24.2025.08.21.00.42.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Aug 2025 00:30:19 -0700 (PDT)
+ Thu, 21 Aug 2025 00:42:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,175 +45,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1181962-7e60-11f0-a32b-13f23c93f187
+X-Inumbo-ID: 57bb8e76-7e62-11f0-a32b-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1755761420; x=1756366220; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MZYQT49HHS59lIm8CUrhBbA8Fmjd1uIe9ccAcD8aR2Q=;
-        b=l9c3qMgwBkTFYjnXhOm5JT2uccsCKVl35R/sCcikUp7rVIeyaRuCy6QSGXW0nzzPFe
-         tk/5Ki2fLzTAH/JrmTrGLF/qtIZ6hVL2/4RsotPTQvkcc4iMzk/nfEhUeeU6T9oohLR5
-         I+pOR1u9oAL3f5hjRQ2d7TeGoagIFBHir6+IhJhrYzIxLpCV9Gl/XYLOo9+LIrurUITt
-         xV/9SixbuP35vGrKWoRX79feccflLACy37CawJREY6/mKsvV1lGMLzbLNBd9xgYPgvOd
-         6GCkYBSw4U1cJAue4j9PTc7y2+ouxGpJn3YSMcI9Sgs9CNbdYw3LqGrzk+c7wQH3CPqc
-         YmQw==
+        d=suse.com; s=google; t=1755762129; x=1756366929; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=BCNbnjLP9T8ruRaSS77dcvfOpkR4qihrkU9R2gfcIas=;
+        b=Xc3pihcYCKP9/VaogUQGT6Rm7/1OPSBOrIX5bfbnvIzVJ9V4HBroKadGwtCNnUjwtB
+         jhrITfB2M4pXRlSqcKbSnw705DxgfEZO2e2UIjMw2WTDb87+AO12hlXyFGk8BnxMYwmS
+         onuk1ZmBIRBliQK7zuc1mK+ATVMHYtbj/m5Pi15b4qmeSmUZRLBBwvlovRPhjOWYXbsx
+         3O7mCTFa9RF/udcpaeZKQyipg46U9ipHYFskPOYZyy4ntLAEg0uHu+pzkdUUR7eNQ8w8
+         UgTZeEEv7wfkmh1QBemURAMJOs5LXgJXDJG0tuC8B1Xh687CZcxxaQ1qgJAkTQ56bdMO
+         Dyzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755761420; x=1756366220;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=MZYQT49HHS59lIm8CUrhBbA8Fmjd1uIe9ccAcD8aR2Q=;
-        b=UgCQnbEGCuKl9fGUMzZKFpvobr4n/zSF+x3ZJ3G/uFEWK/DqYB0pS1Es0+XyV8R9fs
-         f0R7jcw7yU7ZeBMfr1uo24fDiRh55UPmuQU/uGfA1AZDWhZwKdbV7smbrQzehJnnctSi
-         NEKmL6siM689RMw4gA99crYvnc4havz3TiL8OkOgcpiT66uhI26dPM2V6ML+OkueKJ/R
-         MsewhGxxItZv4JfnKNmGtOLB+PYo1dxT5YXAOZrvbszj5KTqxOrKTTieLbESizHVWryM
-         kqkRo1n1gBCHyEPk1l9cxhuGvBiOk23RwzhuHpV+dFTO0SFN9yPDWOIQUOreL4LpnCaX
-         6TlA==
-X-Forwarded-Encrypted: i=1; AJvYcCWHikbti7MbyrHyG0qLIpjDjUdajz/yhQx3PoL8kV2pBe/WwfI6Vd9/ODI6xbLY7nVWiZtJtBmIBWI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxy/mCeh5YY2wr3H9N0/jCrEFA2/znn1MXbs2xkgjLLSEdqZMHZ
-	wKwiyYGWeF8KJzhHW3E0CPISeSqZ9WGAa1u+kX2cX9L+qlXoIgNH82lg4MjNgg==
-X-Gm-Gg: ASbGncvkovoKJTuukTwTJkr0P3ADYd07LN0JLDnvV0sAyBokClPzL0LQdqUXuVA+48P
-	Q068qTI8FsHTixpZJKda9zDmxUEtaIHDNLSdW6lsK16+RCDuGWasJAONH+cJ86FxSVqG89xxxTq
-	ClqctQtcxTdZgGBp7G/zaihzBAa7wrRO8eA3+APUHDBuLJVPbh/MPrtqxPQm/jUVRgOrZsmNZtd
-	wp0rievlsjPasTzPuzBFmOdSXZWygiTjATPXpaxZy9rCCpyC6PsMSI1OtBtLTf+WRJRJRsuHC61
-	KGwNOCwwsZFnY2EmN03vsaQa0U1EhmS/UNPHyRkulfrTsPJDhdbJ5YhE1Wsgi7p2blEbAN6el+P
-	1q9vY8dZ0HSYem+18FmHmK1ZX/IVFzG0dTuB9bFj6Ut30m366EQtGrYEGF5F4/1XiSucBGokC41
-	IkuiuRtQ==
-X-Google-Smtp-Source: AGHT+IGseQJ4xA0q5cG9LCIAnNiOM87WFeVFofOp41IT8EakNl7CfBxC7GHbEGBgDMKyxiIznkHxXw==
-X-Received: by 2002:a17:907:7245:b0:ae0:ce59:5952 with SMTP id a640c23a62f3a-afe07e8ad85mr141140366b.60.1755761419423;
-        Thu, 21 Aug 2025 00:30:19 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------uR5ghdodlNzVWntO1WGvf6e0"
-Message-ID: <5f560505-78df-4f2c-8f6b-387099e54230@gmail.com>
-Date: Thu, 21 Aug 2025 09:30:18 +0200
+        d=1e100.net; s=20230601; t=1755762129; x=1756366929;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BCNbnjLP9T8ruRaSS77dcvfOpkR4qihrkU9R2gfcIas=;
+        b=p7gMdu4zMUkYMfp/ANy29/4tM8kfDSwsLjgmxvAx6Lg5O8L+JeTgOmmyMJmR/yI9Zs
+         64miCmEkOTVVgOF5lPdv6L0Rb0RFQNzU6tWdkDelmRwgdEz68oFv3TTlldz8IXitFeoB
+         2UdRq9vOy537AF03kqBDaRyVkeD4WUTmTqafBoSEbdGgJbz/zoWG6V5rYoTq2QvrI4lq
+         PYcM3E3WXQc13v8uvF6YwsU8AlWdwuJVv8U73FMc33BzhEzUHNCc8p77hbZ1h66TCk5B
+         lR9MOUt1bGTYyL0Sm+FANZlChu6yGrrfnF2QjxFzcejusOmw5+T33V1Hghj5JNT8lltM
+         VTkA==
+X-Forwarded-Encrypted: i=1; AJvYcCW3S9yYrXvobx1a4Si2ZOP8vCaFTJZET0I2sZGCXI6CFjMxp1s7VSrfWiLhO0MeNBBFVD6X3kZtSlQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx6/Wy+tcpDpvwzJaV2lwpBfHyPQEtXXVoZZASB5ypL7dhET9mf
+	adG2xy+Mq3xe2tiCkh0fQ0ArtdvWtW4zMnppPeMK69Ka3atQu8eGZrQXzzuFW4XeOg==
+X-Gm-Gg: ASbGnct+ZSojrHEr2zzk310DwalmKibEebPtSjgADYaw0KpDAZ5pynDr2owGXddqo9A
+	vzZV+evkq9LC7KsmDJTbz/oZrjr+RrQtPfS/CNl888Z5yWJWKoePlBSyg9CbHoG5It1NSOGvEnm
+	e7qyHUJpHnfWrL5E7yDtrtN9SI6fVw8P/pQlnGuxv9L63IqPKpeu5t9XD8FKdt3I9lP07iPkV96
+	3DOemUwX035Ke/J6Cmiik/Us3PApyIOaCr3TXDjJTZDnVQagpbuHcfPjmQo4I0uTsflgvJNshpr
+	seWELAiN6iwWt8U/Q9NZ2hF8OdTo9HB65XQkqOCn/kzq0lKMhaURuJcaxhW19X3vxLMH81ynNRF
+	8Vv48la2HMALqFKF4+jD7z+1vhglPxFx37i3zMXyCbPgOHgTTK/IKyIjmUGA65GhKvIN9YW8QP7
+	DpBrKg3Sk=
+X-Google-Smtp-Source: AGHT+IFq8ZhaHA8NJxJTsixuMg05YlJAQA/HRQYqyLhg2tPaPkSwtfsYR+jQjcDeUFE7no55R4LZRw==
+X-Received: by 2002:a05:6402:21d0:b0:618:20c1:7e61 with SMTP id 4fb4d7f45d1cf-61bf873472amr1338979a12.27.1755762128906;
+        Thu, 21 Aug 2025 00:42:08 -0700 (PDT)
+Message-ID: <07b2dae6-c380-4f30-a5d4-1ae67979d872@suse.com>
+Date: Thu, 21 Aug 2025 09:42:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 9/9] CHANGELOG.md: add xenstorepvh-stubdom live update
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Community Manager <community.manager@xenproject.org>
-References: <20250730122305.4050-1-jgross@suse.com>
- <20250730122305.4050-10-jgross@suse.com>
- <09819192-cdeb-441f-9bdf-d334e076c833@suse.com>
+Subject: Re: Ping: [PATCH v12 0/6] x86: Make MAX_ALTP2M configurable
+To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>, Juergen Gross
+ <jgross@suse.com>, Christian Lindig <christian.lindig@citrix.com>,
+ David Scott <dave@recoil.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <cover.1753953832.git.w1benny@gmail.com>
+ <CAKBKdXiKpsmmcGR6A3jEfHSPBE4eG=9uyBzZTW21seGUuzzi0A@mail.gmail.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <09819192-cdeb-441f-9bdf-d334e076c833@suse.com>
-
-This is a multi-part message in MIME format.
---------------uR5ghdodlNzVWntO1WGvf6e0
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <CAKBKdXiKpsmmcGR6A3jEfHSPBE4eG=9uyBzZTW21seGUuzzi0A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-
-On 8/20/25 8:06 AM, Juergen Gross wrote:
-> Ping?
->
-> On 30.07.25 14:23, Juergen Gross wrote:
->> Signed-off-by: Juergen Gross <jgross@suse.com>
->> ---
->> V2:
->> - new patch
->> ---
->>   CHANGELOG.md | 1 +
->>   1 file changed, 1 insertion(+)
+On 20.08.2025 12:47, Petr Beneš wrote:
+> On Thu, Jul 31, 2025 at 11:28 AM Petr Beneš <w1benny@gmail.com> wrote:
 >>
->> diff --git a/CHANGELOG.md b/CHANGELOG.md
->> index 5f31ca08fe..d118bb1c8c 100644
->> --- a/CHANGELOG.md
->> +++ b/CHANGELOG.md
->> @@ -26,6 +26,7 @@ The format is based on [Keep a 
->> Changelog](https://keepachangelog.com/en/1.0.0/)
->>      - Support PCI passthrough for HVM domUs when dom0 is PVH (note 
->> SR-IOV
->>        capability usage is not yet supported on PVH dom0).
->>      - Smoke tests for the FreeBSD Xen builds in Cirrus CI.
->> +   - PVH xenstore-stubdom now supports Live Update.
+>> From: Petr Beneš <w1benny@gmail.com>
+>>
+>> This series introduces the ability to configure the maximum number of altp2m
+>> tables during domain creation. Previously, the limits were hardcoded to a
+>> maximum of 10. This change allows for greater flexibility in environments that
+>> require more or fewer altp2m views.
+>>
+>> This enhancement is particularly relevant for users leveraging Xen's features
+>> for virtual machine introspection.
 
-LGTM: Acked-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+One remark: Besides having added the Ping: prefix in the subject, there's no
+new content here. You also sent the email To: the list. It thus remains
+unclear what your pinging for, as you have collected some tag(s) already. It
+generally helps if you make clear whom you're addressing with what expectation.
+(Things may be different if for a patch / series you didn't have any response
+at all.)
 
-Thanks.
-
-~ Oleksii
-
->>      - On Arm:
->>       - Ability to enable stack protector
->
---------------uR5ghdodlNzVWntO1WGvf6e0
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 8/20/25 8:06 AM, Juergen Gross
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:09819192-cdeb-441f-9bdf-d334e076c833@suse.com">Ping?
-      <br>
-      <br>
-      On 30.07.25 14:23, Juergen Gross wrote:
-      <br>
-      <blockquote type="cite">Signed-off-by: Juergen Gross
-        <a class="moz-txt-link-rfc2396E" href="mailto:jgross@suse.com">&lt;jgross@suse.com&gt;</a>
-        <br>
-        ---
-        <br>
-        V2:
-        <br>
-        - new patch
-        <br>
-        ---
-        <br>
-          CHANGELOG.md | 1 +
-        <br>
-          1 file changed, 1 insertion(+)
-        <br>
-        <br>
-        diff --git a/CHANGELOG.md b/CHANGELOG.md
-        <br>
-        index 5f31ca08fe..d118bb1c8c 100644
-        <br>
-        --- a/CHANGELOG.md
-        <br>
-        +++ b/CHANGELOG.md
-        <br>
-        @@ -26,6 +26,7 @@ The format is based on [Keep a
-        Changelog](<a class="moz-txt-link-freetext" href="https://keepachangelog.com/en/1.0.0/">https://keepachangelog.com/en/1.0.0/</a>)
-        <br>
-             - Support PCI passthrough for HVM domUs when dom0 is PVH
-        (note SR-IOV
-        <br>
-               capability usage is not yet supported on PVH dom0).
-        <br>
-             - Smoke tests for the FreeBSD Xen builds in Cirrus CI.
-        <br>
-        +   - PVH xenstore-stubdom now supports Live Update.
-        <br>
-      </blockquote>
-    </blockquote>
-    <pre>LGTM: Acked-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
-
-Thanks.
-
-~ Oleksii
-</pre>
-    <blockquote type="cite"
-      cite="mid:09819192-cdeb-441f-9bdf-d334e076c833@suse.com">
-      <blockquote type="cite">     - On Arm:
-        <br>
-              - Ability to enable stack protector
-        <br>
-      </blockquote>
-      <br>
-    </blockquote>
-  </body>
-</html>
-
---------------uR5ghdodlNzVWntO1WGvf6e0--
+Jan
 
