@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FBEDB30287
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 20:59:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1089203.1446854 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DDA3B302F6
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 21:34:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1089222.1446864 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upAVK-0004w9-VS; Thu, 21 Aug 2025 18:59:18 +0000
+	id 1upB3D-0002K3-KD; Thu, 21 Aug 2025 19:34:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1089203.1446854; Thu, 21 Aug 2025 18:59:18 +0000
+Received: by outflank-mailman (output) from mailman id 1089222.1446864; Thu, 21 Aug 2025 19:34:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upAVK-0004tt-SI; Thu, 21 Aug 2025 18:59:18 +0000
-Received: by outflank-mailman (input) for mailman id 1089203;
- Thu, 21 Aug 2025 18:59:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1upB3D-0002IX-HA; Thu, 21 Aug 2025 19:34:19 +0000
+Received: by outflank-mailman (input) for mailman id 1089222;
+ Thu, 21 Aug 2025 19:34:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=O+vP=3B=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1upAVJ-0004tg-QR
- for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 18:59:17 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ef070a53-7ec0-11f0-b898-0df219b8e170;
- Thu, 21 Aug 2025 20:59:15 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3b9e411c820so875168f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 11:59:15 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3c0771c1a12sm12330607f8f.34.2025.08.21.11.59.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Aug 2025 11:59:14 -0700 (PDT)
+ <SRS0=ZwFA=3B=intel.com=sohil.mehta@srs-se1.protection.inumbo.net>)
+ id 1upB3A-0002IN-PT
+ for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 19:34:17 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cfeb0c36-7ec5-11f0-a32b-13f23c93f187;
+ Thu, 21 Aug 2025 21:34:13 +0200 (CEST)
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Aug 2025 12:34:10 -0700
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Aug 2025 12:34:10 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Thu, 21 Aug 2025 12:34:09 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17 via Frontend Transport; Thu, 21 Aug 2025 12:34:09 -0700
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (40.107.92.45) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Thu, 21 Aug 2025 12:34:09 -0700
+Received: from DS0PR11MB7997.namprd11.prod.outlook.com (2603:10b6:8:125::14)
+ by SJ2PR11MB7575.namprd11.prod.outlook.com (2603:10b6:a03:4ce::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.14; Thu, 21 Aug
+ 2025 19:34:05 +0000
+Received: from DS0PR11MB7997.namprd11.prod.outlook.com
+ ([fe80::9105:2b7c:b256:7a6c]) by DS0PR11MB7997.namprd11.prod.outlook.com
+ ([fe80::9105:2b7c:b256:7a6c%6]) with mapi id 15.20.9052.012; Thu, 21 Aug 2025
+ 19:34:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,263 +63,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef070a53-7ec0-11f0-b898-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755802755; x=1756407555; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3tuiRnKSy2Dzo7kRbhkh8BsaXVSlMYN8qP+iZe3KkTQ=;
-        b=SZ5VPjtRgA0/W0GsMLy9UA1fkgqZT9e3HzxV85iFoQ9BegnVEqvubyS8rn3/i7MRVc
-         jrD0AqimDduXrJLevChx4yoxQTTNyZmsu2HaNAyCnhQoldNbji3Wx3yqlXUazlWPMYml
-         fadEKtMAc2p+02hloXjA0NColmhfYLuN4n6+c=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755802755; x=1756407555;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3tuiRnKSy2Dzo7kRbhkh8BsaXVSlMYN8qP+iZe3KkTQ=;
-        b=Aq6BSFzlpqteGesutCFlwPKSE1hTwIIFGpH2xFMTXjfZRkMJB4DaG5NWQNF4Q1GtRn
-         vd4uCGK+jybDGtR59u11PeEXTuRlqYEVXDr5kSZXwGKiUQr8p7cvRqqlD0BkVXxwvz42
-         JxRE7gKOvlkRwQ3HjItaeVswjLndrfpe59DiNQ5eFPWeVks63vXL/CO2q9Lop6of4Nph
-         v8vQd459fW8g/JZzNoiOfv9Krts5M0N10JLb/wpfsAXx1fiYn8Tez+7Dn+050s2hlOhC
-         JKpJnGpZH4QpoZ6Fcey2k1JHyqQdQOn/BwUpsIK9P3Rl0M/ChNzoBt3i6X+EQOuqrvX7
-         Rdnw==
-X-Forwarded-Encrypted: i=1; AJvYcCW6Feku2bu+w1t31wLHMstsD8oJmaaxF4CRrCk0gXPfYDTICcCwea82J45l27q+VKO42KthGC1u/1g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyLvdMwWf6zz7mhG215phXt7gn7jH2HUm7Sos497GxGb/4G1lRT
-	WFXVJ4X3ShZYB3vUG9Ek6egpyAL/9b5mcwlsp85j70JSQPC9yg+zkJUo7Z3wUeG8oV4=
-X-Gm-Gg: ASbGnctlrqNyNPW8RnjH2QHioGYe/BRrgxQsMKKbIT50rW7YeWYen8droixSC/sNWWg
-	yHOhhpEQLrRpfK4KEA9vI2qRsF1lRWjHmj6Qjpz71TR7PiU8hk/xKDDiWVOtSyk3MsNbqRtxQFC
-	B76D8jetvUsUiXxmv6v+MUnAy4hLvbb8Xc1CfMU8OokoM4aiePjk+t/5cj9wp+DkVm9O3O+lAPu
-	+tVaSd+UCpncN4prvKfddGSk+71Ld2FiLuNZ2uFNFs72PwuzofuSFq3KCU2dKVsCVMWQ3vjw/7w
-	Pdac/FGIb6NvWkycZMgbwmOnU7hRSC2HT0Go36iPu74hkLiaamntrlphLi6afMBkiQiqasuhepP
-	Y7r+6X9F3C0+WuY9HkA9iAIafcyRV4ZTiG6TK/aB3Y0pCnEOYO1Zni6xqIf/S9fK7Pw4zT2xpZc
-	epW48=
-X-Google-Smtp-Source: AGHT+IHtcwMCORvJOVGr6ksPewwPcvE740ftCSMTgZbIh+/nAGCtuyqUNYHlgV4CgYUDexwRQSQajA==
-X-Received: by 2002:a05:6000:2384:b0:3b7:942c:5450 with SMTP id ffacd0b85a97d-3c5db8ab0a2mr62198f8f.9.1755802755031;
-        Thu, 21 Aug 2025 11:59:15 -0700 (PDT)
-Message-ID: <92abee8e-108a-4d2f-8f05-fb9397b64fca@citrix.com>
-Date: Thu, 21 Aug 2025 19:59:13 +0100
-MIME-Version: 1.0
+X-Inumbo-ID: cfeb0c36-7ec5-11f0-a32b-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1755804854; x=1787340854;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=yRg9LpYrjKZbM34HCtFrRl8J7IMCEwl6TBruPu1lvKA=;
+  b=QyzFseErPlsRAmMta4IwrDJJDh1OD3eorQz1VTbclbDinQ69+FBW7KAO
+   4wmGzR+TfFj0mOIKRuxFdKSoBgrCrIWfebvmtAzqejW3E9gbuEME7G7zm
+   5bdMwWU/xuTCQ7peNDx8aSIzIvt12JihLXIqU7mPQjFbeZoqmJ1WRScPR
+   tq1Buv7Rz2SgSk/xXm3IE/a4PnexIWdDabhxLmTZ8VHARpDPFpXfMDiMt
+   bHacsHyip01wAb2YVT9CUO8x8VM/+IO+vAvQZOWhsqMhYN/8tDXQ73Yn2
+   jq6AjPLQ3KfVxwylVclBUlJNVC8lAgipXmzojXK6Ni4t6u7/cgvIipBXQ
+   A==;
+X-CSE-ConnectionGUID: 26VK+jW6S6GfWWSEBGzRJA==
+X-CSE-MsgGUID: 3kWoi46lSveK6enl8ZzpjQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11529"; a="58032321"
+X-IronPort-AV: E=Sophos;i="6.17,309,1747724400"; 
+   d="scan'208";a="58032321"
+X-CSE-ConnectionGUID: VOZOI1m1Q/aInIPsIkOjKQ==
+X-CSE-MsgGUID: g8JEIWcRQGudHI3yvor55w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.17,309,1747724400"; 
+   d="scan'208";a="172709187"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ty8XmjKdBKpz+/GAsB0bJz+dg8b5GYuLMQo2+pDbk3+FyR81vwUV2OZZLmtFcGNIo4uDl62Qd6V1dXuX5PNC4yuth50UKge+DaHczjJ/BVUHJpUV6+kQgltKK5SsL+yeWAwPd4ab42WOHFE45G8immnHUPZwr+7S2U1WWp708C6lTofZVNxRfas2ieihUFKRvbR7U8dgkMEVUq1vaazpjkr61RS+d4eyy5HMr4DWuOTMHhcq3dyrEZpmbEaG8z1RMNofBMtxorUjUj3JDri+TXhaAidTl2ez4El2vUlXEh+rX24AKav6ocr/J7bOc9+dsH8vXV4DaDz9k1NHpq0Bjg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=g4XN3AovvR0H2OmCvTRcqrch2e6ZTY9StMlmWKNg2J4=;
+ b=sKD7SSwM1xJuFilu4isKKtt3+f1TBt1CssRg/vXL1svWbr9V9wni+3U18Cghb2NEGAVB1iaehnbHe015ueg8k/JBSECQItwJ1kMiR9d4CznCUhC+yj38j0IbRQlLIBLs08PZCGHcTTWD66YLd4d0OotwHPCx1VWHeOJ+ko4Pf972jMFxaCswfDuHyDwzNEZVStJFGEp5pHcarwkkE8vrmHbadk/04GGqr+HmxsZg9yKqoKJQSzeHJuqiMm8QF90vNiAHbraQc4e3PDoG5FXZhzs3tfHuAr1PfeKNXDS629hh9Oy59UMxqU3q+lMN7gl03HfyfWxcY86MgK/soHLmcg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Message-ID: <968a179f-3da7-4c69-b798-357ea8d759eb@intel.com>
+Date: Thu, 21 Aug 2025 12:34:01 -0700
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 13/16] x86/msr: Use MSR_IMM when available
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250815204117.3312742-1-andrew.cooper3@citrix.com>
- <20250815204117.3312742-14-andrew.cooper3@citrix.com>
- <3b367c39-4c4a-4bdd-91cd-7cb8ba18c2c9@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <3b367c39-4c4a-4bdd-91cd-7cb8ba18c2c9@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v3 13/15] x86/cpu/intel: Bound the non-architectural
+ constant_tsc model checks
+To: David Woodhouse <dwmw2@infradead.org>, <x86@kernel.org>, Dave Hansen
+	<dave.hansen@linux.intel.com>, Tony Luck <tony.luck@intel.com>,
+	=?UTF-8?Q?J=C3=BCrgen_Gross?= <jgross@suse.com>, Boris Ostrovsky
+	<boris.ostrovsky@oracle.com>, xen-devel <xen-devel@lists.xenproject.org>
+CC: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
+	<namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, "Alexander
+ Shishkin" <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
+	"Kan Liang" <kan.liang@linux.intel.com>, Thomas Gleixner
+	<tglx@linutronix.de>, Borislav Petkov <bp@alien8.de>, "H . Peter Anvin"
+	<hpa@zytor.com>, "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown
+	<lenb@kernel.org>, Andy Lutomirski <luto@kernel.org>, Viresh Kumar
+	<viresh.kumar@linaro.org>, Jean Delvare <jdelvare@suse.com>, Guenter Roeck
+	<linux@roeck-us.net>, Zhang Rui <rui.zhang@intel.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, "David Laight" <david.laight.linux@gmail.com>,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>, <linux-perf-users@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-acpi@vger.kernel.org>,
+	<linux-pm@vger.kernel.org>, <kvm@vger.kernel.org>, <xiaoyao.li@intel.com>,
+	Xin Li <xin@zytor.com>
+References: <20250219184133.816753-1-sohil.mehta@intel.com>
+ <20250219184133.816753-14-sohil.mehta@intel.com>
+ <6f05a6849fb7b22db35216dcf12bf537f8a43a92.camel@infradead.org>
+Content-Language: en-US
+From: Sohil Mehta <sohil.mehta@intel.com>
+In-Reply-To: <6f05a6849fb7b22db35216dcf12bf537f8a43a92.camel@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR03CA0340.namprd03.prod.outlook.com
+ (2603:10b6:a03:39c::15) To DS0PR11MB7997.namprd11.prod.outlook.com
+ (2603:10b6:8:125::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7997:EE_|SJ2PR11MB7575:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7b8f1f03-90c9-4c2d-9b8d-08dde0e9b08d
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|7416014|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?bEpZNVNqRFlKelQ4ekRGNkFjclg4cThvaHV1Um9WaFhEWm1FWnpMaVU1YTNV?=
+ =?utf-8?B?M0lKMUtXemhPY3V3MVlOaTFEbjhNTzFHaEc0eUxJSFo5c0Rqdzc4YnB3aEM5?=
+ =?utf-8?B?Y05lc3JZZE5tWktSVXZFVFF5a0ZEdGtBYXhhUVNUL0FITDZrdHV4ay95SGlH?=
+ =?utf-8?B?aWJUZGQrSkM4VmtHVkVMN09MSkpvbEF6Rkxjc2QrYit6T0k4N25jNkkyTFl0?=
+ =?utf-8?B?MkNJWTdUWTlYTlNOYUFEUUM4UUhUZGRQRkNFVlRpMXBHM2VidVBLL0pySDhn?=
+ =?utf-8?B?em05L0lldjduVHdzNnB0dFh6ek53ODVKbTRwK1I4dHJLVFZZK1RSYUxVRkN5?=
+ =?utf-8?B?QjlKN2NtTUp2OGF1dmtGVVpEUnljTk0xQzQ3dzcwSnBiaVoxQzJFcVZwOC9L?=
+ =?utf-8?B?WGVCbE4xLzV5Q2VhRGxNR2FvOEtHL0oxRWdWMytSZjNWQjdYWFhtSXd2QVpz?=
+ =?utf-8?B?K1I4ZitJV0c0V1pnd3BFeDM1K3lDbE5IVnpyQmYvam56dDI1MmNNYm1qUU5m?=
+ =?utf-8?B?UHJoRXM4RXpZeWFkZDlQc3MvS0gxa2tIQlVhOStsRFJyZTJTaURRcXNHNjky?=
+ =?utf-8?B?QVN3aWpWWkd2YVdibklIQ1NOSTFEUG9kZkNvT3VlMjBDRHlxOUI5ZU9wd3h2?=
+ =?utf-8?B?emxuQlYvNVk4OXc2Q1E3dDU5TVIxUElod05TeGJUYlUwV0txQkpmZktKNUxJ?=
+ =?utf-8?B?NDZEU1Z5bUFTaXk0UWp5VHlWcVVTanNpZlZjZXJ1ZCtOdVN2OUVyWG9YTXFC?=
+ =?utf-8?B?T21LMjJ4cUlZSi96bVpTd2FBNm9WVUNZWlA5RnQ1SjBtOVlWV1liL0t2MFQ4?=
+ =?utf-8?B?dXNCeFVqbTE4Nk92SDkyNGRvTEg5WU1IVS9idTVmYlQzVFM3RS8rUDQ1TThS?=
+ =?utf-8?B?Q0tWbXkrQjZLcDZhK2NaZkJSSWU3TFJmSVRVb0tvVk45Uy9MZmJKUVAreENI?=
+ =?utf-8?B?bXR5OWlOSWN1Tzk4ZXZON25lbURMZW8yaVBGQW9Bc3R0UitkUDYxRnNaaUJ3?=
+ =?utf-8?B?SEtEMHZRUXFDVGNpeUljaTIyQ2p3WGZ4ZmlSd2ZQbzRsdHo3cXJ6UEhBQzIz?=
+ =?utf-8?B?Lzh4dG9CNXM4VzR5SXA3STVqRUtrQnJlTkxoWEJ0cnVsUzFzMXpVRTh4MEVE?=
+ =?utf-8?B?RUlxZUN4WnJMZGpjK28xZXBGanVYWE9CdHdGZnQrb3NZUnBPZmhZQ3ZRRW1k?=
+ =?utf-8?B?WXVvNFRjWGJMZThrYWNmbGZzMGlMUElycUVNTDJ1WVJEWG12OFBkMjZMRks3?=
+ =?utf-8?B?aFA3ZDB5L0s0QU9ZUjJpcEtPVFk3VjVBZUZGN2tseWtRYy9FOHJzVk5HR1dx?=
+ =?utf-8?B?Z1hBSUkyKzVld1gwWC9wYzdyeklTUFlaaFc3SzdWdml2L2V0VmFBWGp2ZmF5?=
+ =?utf-8?B?YkFoRUVhNVo2TFpWV0VjQW9SaFFUb0daODR0dGZSRzdrbko3MTJoMnFvRGtG?=
+ =?utf-8?B?SzNhWkFVckhBTzdXcndjQ1ZXUEJPSW5rSlBST0lHMldiNWRyRzRtQXpnajND?=
+ =?utf-8?B?RGhUQk02RlhzM0NseE95UHZ1VjFkeCtYWUdFSVYrbEZtbVA1UDlseEcxbW8y?=
+ =?utf-8?B?NndnbDZrczl5MVNlYm9BVURPaENhUTBaWmJmbytpRFBZUXJsZUpHVEhUN01j?=
+ =?utf-8?B?Sm5MS08zMW9XMnBBRWU0dE9aUk1OalViV2pzSTdOcmsvU0tJRUlubjNuZjZa?=
+ =?utf-8?B?VGZUSHhXVmpRUDJrdW93Ylh5aXpKUExKbC83a1NRYVpHdVcxWVVTYWZ0cEZz?=
+ =?utf-8?B?bXkrL2JSaktMd0Q0eHlGMmJYMG5MaEpBNnBDamhHWEJMeEQyNzBGWHRGbEpm?=
+ =?utf-8?B?MFpYRE1WbnpldU5wNGtZZGxkN0J4bER5T0hHSldsL1NQazdWTlFJbzYzUTlO?=
+ =?utf-8?B?dzdlSjU1bVFWY0x4VTJ0RXVvWWFMWmxSbWgyTkVBLzVoREE9PQ==?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7997.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eXo4NmJYZ3h1dEkzc3Fpd1JlRXVGaWMvV1FTRmlySXBxWjhyOVlEMGFqZzJq?=
+ =?utf-8?B?SXdMUFl5U3VJVFpTamZNY0RrVER5MTRaTmRqRG9TYWozVmlBWjhlN1ZQR2dO?=
+ =?utf-8?B?ZGVGQkFsVEFrRkdwWnM5cWNQZXVSaUxhdzRNZXVuTEhISVVsV2lQSXdHR0Za?=
+ =?utf-8?B?TWg1Y0drWDVmZG5oelVDVngzZTdMbEwvbzlyaHZuMWRuSHEzdm5VWCsrRzht?=
+ =?utf-8?B?U0RJKzRWRGtma0tCOE51RkFxME0wNDZzMnZqTGRONHp6dklCdGhPdEhMQ2Qz?=
+ =?utf-8?B?WU1ZUldGd2l5c2NkQWwxKysrRFFhanBjTTZkbXczZGF6NE51ZlFJT0QvdCtJ?=
+ =?utf-8?B?YUh4enFwVDZFM2RLNUhHVHBHaHIyemRtTkNLRW9BMUVqT092MUZ0aEQ5VjJC?=
+ =?utf-8?B?VEwwZC9UNElOMGdqekxrUjBXeWMyV09yS3BFb1ducm5tNWlxUXpzbFhLTXFq?=
+ =?utf-8?B?OFlIOW9RS043c2tCdkxzNU4wejZyY0E0TXVoV3RtZVJ3TldVcGZqTTlBRVFm?=
+ =?utf-8?B?bXRrZjUzZnBoREpHNkk0RHRlcm9KWUVCNXlKVFpsZWg1RllINVBOVERvSTBn?=
+ =?utf-8?B?SGNkNEkyODVZYnpFMkpvdTM4aVBLZ3Y1MStXaFZDcm1XRjRpcTZBRlVrOGhr?=
+ =?utf-8?B?Y2ZtUnFudm9GeWhJdE1FMTVFR1FKZllsKzVnTEkvcWx6OERmQWU1N0VNb2x6?=
+ =?utf-8?B?MHFqMXBaV3FLQlhhT1h2RkhuamdrUWxiRlJwZHVoK29CSWRwWmdFeDJwd0VS?=
+ =?utf-8?B?OFNBS0laTkFEOW9UTS81Q3kzSDE4c1orRlQ2Q1NrVEZMVHFqTlBXMmx3eWFo?=
+ =?utf-8?B?bzVQUTVrMC9Pc3V6U2twWlIxTnNNOGtCU3NGQldkdWpKNUFHZkhrcC9ucStU?=
+ =?utf-8?B?Vy96OCtiSXpnVXFxeUZlRTZUWmZFY29HZWdVdE02c0ZUWktFbndTUGhiajRr?=
+ =?utf-8?B?d1hMVU1rZXZhZE5ZVHA2eXY3MHdTTVpiMGlxZEk2VXdVQ1h1elZ2N0J1WVNO?=
+ =?utf-8?B?L3hVNFhFS3diOFdZanRmWWY5VFdZREluZXBTVnN5WGU4eXgwRHNGazg4OXgx?=
+ =?utf-8?B?THZHZXhzNFExVTh5V001S0FUQmNmclBCZUdKU3JOU0ZmeGpTQzVVU2ZNTkRy?=
+ =?utf-8?B?RmYxUFFZWFFsSk1JSGtZRDdKQ01BSUhkN0NnVkhHTFBTU2lHOWV1cGhWRUpW?=
+ =?utf-8?B?cnZMaVd3bFY4R0NtSXRUK0tqVE9aOWJPbUJjdFBYNEZOZjBhV0FvbDY4VElN?=
+ =?utf-8?B?ZzNzM3RPN1plS0x1OEJUQU1NcUxlQWR3YzBvOUtjSmd1aUQvVmhYWUlpL2F3?=
+ =?utf-8?B?dlUvakFuMTg3NE82THJDTUR4THRMSXcwam1ZdTlkaDErZVdud2F1c21UUVlV?=
+ =?utf-8?B?cTI4TTJWMC9Xbk5IN0lra3NDbFA4R21BVG1zbzBNeUE5U0ZhQ1pFaUErZVFp?=
+ =?utf-8?B?UWY2b2lPL29SZ01PSm9uSklKNWdpb3R0R2NGRkFTMjFsVlR2SVV1TTFNWkhu?=
+ =?utf-8?B?WmlnWi9uQnUvdjhINTFDSEJCN2pMMk9Rbng3RjZ4RkRZNVJTN25mMjFTL2Zt?=
+ =?utf-8?B?KzFxcnNwYlV4M2UxNlRCU1RlK0FDdjdNUEtHdjBKd1k5MWRkWk85S1JsUWdX?=
+ =?utf-8?B?RTZCV09NaU1OS2JVRE4vSVpXaktLcVlKbnRWYVZCSEJNMkxodWoxUTVBSU43?=
+ =?utf-8?B?N3F5dmhCWHBTZUhjV0M1Qys1Q0hJZHZKWkdXWTRwRDRLVnVsUVFuYkpxMUEv?=
+ =?utf-8?B?eldpNndZZXUxdk1Ob2luMUpkNTdqNHBQMkZxa0VWUkY5VElQZ3NoZFd5bDFo?=
+ =?utf-8?B?QU85c0JLOFVaRjRweXp3MHRnbi9qc0ZUdDloaTZBYzdIVHljVVM1VzB0SkIz?=
+ =?utf-8?B?NnpwYzJ6cTU2UHVNRE1ER2Jxbi8xNnM4VXJ6cGVaWmZqdmRnRit1ZnhwWWc5?=
+ =?utf-8?B?azZPejBWR3BSWHdtMDQrU3E2SDByb0ZsZzJhOU5OVzltZjlwV05lRTcvVStB?=
+ =?utf-8?B?NGxUcDdMaXBxb0Vmc2R2ZXQ2SEVpT254U0lGZFJXYzRDRGRTb0ROdWl0RkxX?=
+ =?utf-8?B?NUp1T01HSHhmRUNRRUtiNXlZOUFudUJVWFNSVkkvc016VVdYMWVya1Z4WTIr?=
+ =?utf-8?Q?qhL6myZcjpZBot35jop5r7LSH?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b8f1f03-90c9-4c2d-9b8d-08dde0e9b08d
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7997.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2025 19:34:05.2696
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: H59O1WMrs/4YHel4d2gIFWipF2XGi3Eo8YVCelDNPdjdQwL1aUmr/ucaZnN7/bsBzxWAMgnf4adJ24FVDrkQLA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR11MB7575
+X-OriginatorOrg: intel.com
 
-On 19/08/2025 1:55 pm, Jan Beulich wrote:
-> On 15.08.2025 22:41, Andrew Cooper wrote:
->> Most MSR accesses have compile time constant indexes.  By using the immediate
->> form when available, the decoder can start issuing uops directly for the
->> relevant MSR, rather than having to issue uops to implement "switch (%ecx)".
->> Modern CPUs have tens of thousands of MSRs, so that's quite an if/else chain.
->>
->> Create __{rdmsr,wrmsrns}_imm() helpers and use them from {rdmsr,wrmsrns}()
->> when the compiler can determine that the msr index is known at compile time.
->>
->> At the instruction level, the combined ABI is awkward.  Explain our choices in
->> detail.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Jan Beulich <JBeulich@suse.com>
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->>
->> The expression wrmsrns(MSR_STAR, rdmsr(MSR_STAR)) now yields:
->>
->>   <test_star>:
->>       b9 81 00 00 c0          mov    $0xc0000081,%ecx
->>       0f 32                   rdmsr
->>       48 c1 e2 20             shl    $0x20,%rdx
->>       48 09 d0                or     %rdx,%rax
->>       48 89 c2                mov    %rax,%rdx
->>       48 c1 ea 20             shr    $0x20,%rdx
->>       2e 0f 30                cs wrmsr
->>       e9 a3 84 e8 ff          jmp    ffff82d040204260 <__x86_return_thunk>
->>
->> which is as good as we can manage.  The alternative form of this looks like:
->>
->>   <test_star>:
->>       b9 81 00 00 c0          mov    $0xc0000081,%ecx
->>       c4 e7 7b f6 c0 81 00    rdmsr  $0xc0000081,%rax
->>       00 c0
->>       2e c4 e7 7a f6 c0 81    cs wrmsrns %rax,$0xc0000081
->>       00 00 c0
->>       e9 xx xx xx xx          jmp    ffff82d040204260 <__x86_return_thunk>
->>
->> Still TBD.  We ought to update the *_safe() forms too.  rdmsr_safe() is easier
->> because the potential #GP locations line up, but there need to be two variants
->> because of
-> Because of ...?
+On 8/21/2025 6:15 AM, David Woodhouse wrote:
 
-Oh.  I guess I didn't finish that.  Because of asm goto with outputs.
+> Hm. My test host is INTEL_HASWELL_X (0x63f). For reasons which are
+> unclear to me, QEMU doesn't set bit 8 of 0x80000007 EDX unless I
+> explicitly append ',+invtsc' to the existing '-cpu host' on its command
+> line. So now my guest doesn't think it has X86_FEATURE_CONSTANT_TSC.
+> 
 
-The WRMSR side is harder because there are two different fault locations.
+Haswell should have X86_FEATURE_CONSTANT_TSC, so I would have expected
+the guest bit to be set. Until now, X86_FEATURE_CONSTANT_TSC was set
+based on the Family-model instead of the CPUID enumeration which may
+have hid the issue.
 
->
->> --- a/xen/arch/x86/include/asm/alternative.h
->> +++ b/xen/arch/x86/include/asm/alternative.h
->> @@ -151,6 +151,13 @@ extern void alternative_instructions(void);
->>          ALTERNATIVE(oldinstr, newinstr, feature)                        \
->>          :: input )
->>  
->> +#define alternative_input_2(oldinstr, newinstr1, feature1,              \
->> +                            newinstr2, feature2, input...)              \
->> +    asm_inline volatile (                                               \
->> +        ALTERNATIVE_2(oldinstr, newinstr1, feature1,                    \
->> +                      newinstr2, feature2)                              \
->> +        :: input )
->> +
->>  /* Like alternative_input, but with a single output argument */
->>  #define alternative_io(oldinstr, newinstr, feature, output, input...)   \
->>      asm_inline volatile (                                               \
->> diff --git a/xen/arch/x86/include/asm/msr.h b/xen/arch/x86/include/asm/msr.h
->> index 1bd27b989a4d..2ceff6cca8bb 100644
->> --- a/xen/arch/x86/include/asm/msr.h
->> +++ b/xen/arch/x86/include/asm/msr.h
->> @@ -29,10 +29,52 @@
->>   *  wrmsrl(MSR_FOO, val);
->>   */
->>  
->> -static inline uint64_t rdmsr(unsigned int msr)
->> +/*
->> + * RDMSR with a compile-time constant index, when available.  Falls back to
->> + * plain RDMSR.
->> + */
->> +static always_inline uint64_t __rdmsr_imm(uint32_t msr)
->> +{
->> +    uint64_t val;
->> +
->> +    /*
->> +     * For best performance, RDMSR $msr, %r64 is recommended.  For
->> +     * compatibility, we need to fall back to plain RDMSR.
->> +     *
->> +     * The combined ABI is awkward, because RDMSR $imm produces an r64,
->> +     * whereas WRMSR{,NS} produces a split edx:eax pair.
->> +     *
->> +     * Always use RDMSR $imm, %rax, because it has the most in common with the
->> +     * legacy form.  When MSR_IMM isn't available, emit logic to fold %edx
->> +     * back into %rax.
->> +     *
->> +     * Let the compiler do %ecx setup.  This does mean there's a useless `mov
->> +     * $imm, %ecx` in the instruction stream in the MSR_IMM case, but it means
->> +     * the compiler can de-duplicate the setup in the common case of reading
->> +     * and writing the same MSR.
->> +     */
->> +    alternative_io(
->> +        "rdmsr\n\t"
->> +        "shl $32, %%rdx\n\t"
->> +        "or %%rdx, %%rax\n\t",
->> +
->> +        /* RDMSR $msr, %rax */
->> +        ".byte 0xc4,0xe7,0x7b,0xf6,0xc0; .long %c[msr]", X86_FEATURE_MSR_IMM,
->> +
->> +        "=a" (val),
-> Strictly speaking "=&a". Not that it matters much here; just to not
-> set a bad precedent.
+From my initial look at the QEMU implementation, this seems intentional.
 
-Why?  A is not written to until after all inputs are consumed.
+QEMU considers Invariant TSC as un-migratable which prevents it from
+being exposed to migratable guests (default).
+target/i386/cpu.c:
+[FEAT_8000_0007_EDX]
+         .unmigratable_flags = CPUID_APM_INVTSC,
 
-I don't see how it can qualify for being early-clobber.
-
->
->> @@ -55,11 +97,51 @@ static inline void wrmsr(unsigned int msr, uint64_t val)
->>  }
->>  #define wrmsrl(msr, val) wrmsr(msr, val)
->>  
->> +/*
->> + * Non-serialising WRMSR with a compile-time constant index, when available.
->> + * Falls back to plain WRMSRNS, or to a serialising WRMSR.
->> + */
->> +static always_inline void __wrmsrns_imm(uint32_t msr, uint64_t val)
->> +{
->> +    /*
->> +     * For best performance, WRMSRNS %r64, $msr is recommended.  For
->> +     * compatibility, we need to fall back to plain WRMSRNS, or to WRMSR.
->> +     *
->> +     * The combined ABI is awkward, because WRMSRNS $imm takes a single r64,
->> +     * whereas WRMSR{,NS} takes a split edx:eax pair.
->> +     *
->> +     * Always use WRMSRNS %rax, $imm, because it has the most in common with
->> +     * the legacy forms.  When MSR_IMM isn't available, emit setup logic for
->> +     * %edx.
->> +     *
->> +     * Let the compiler do %ecx setup.  This does mean there's a useless `mov
->> +     * $imm, %ecx` in the instruction stream in the MSR_IMM case, but it means
->> +     * the compiler can de-duplicate the setup in the common case of reading
->> +     * and writing the same MSR.
->> +     */
->> +    alternative_input_2(
->> +        "mov %%rax, %%rdx\n\t"
->> +        "shr $32, %%rdx\n\t"
->> +        ".byte 0x2e; wrmsr",
->> +
->> +        /* CS WRMSRNS %rax, $msr */
->> +        ".byte 0x2e,0xc4,0xe7,0x7a,0xf6,0xc0; .long %c[msr]", X86_FEATURE_MSR_IMM,
->> +
->> +        "mov %%rax, %%rdx\n\t"
->> +        "shr $32, %%rdx\n\t"
->> +        ".byte 0x0f,0x01,0xc6", X86_FEATURE_WRMSRNS,
-> Isn't this the wrong way round for hardware which has both features? The
-> last active alternative wins, iirc.
-
-Bah - fooled once again by the nop optimisation.  I'll reorder.
-
-But, we really should swap the order.  Especially now that you've
-inserted serialisation, it's an expensive waste of time patching the
-same site multiple times.
-
-~Andrew
+Can you please try '-cpu host,migratable=off'?
 
