@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BD29B2E786
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Aug 2025 23:33:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1087636.1445571 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E114B2EA40
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 03:14:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1087706.1445581 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoqQt-0000P8-Ib; Wed, 20 Aug 2025 21:33:23 +0000
+	id 1uotrc-0001NQ-8M; Thu, 21 Aug 2025 01:13:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1087636.1445571; Wed, 20 Aug 2025 21:33:23 +0000
+Received: by outflank-mailman (output) from mailman id 1087706.1445581; Thu, 21 Aug 2025 01:13:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uoqQt-0000MZ-G0; Wed, 20 Aug 2025 21:33:23 +0000
-Received: by outflank-mailman (input) for mailman id 1087636;
- Wed, 20 Aug 2025 21:33:21 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1uoqQr-0000MT-PE
- for xen-devel@lists.xenproject.org; Wed, 20 Aug 2025 21:33:21 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uoqQq-00FEWP-2P;
- Wed, 20 Aug 2025 21:33:20 +0000
-Received: from [2a02:8012:3a1:0:d81d:920:5c70:442f]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uoqQq-00AeVQ-24;
- Wed, 20 Aug 2025 21:33:20 +0000
+	id 1uotrc-0001Kd-20; Thu, 21 Aug 2025 01:13:12 +0000
+Received: by outflank-mailman (input) for mailman id 1087706;
+ Thu, 21 Aug 2025 01:13:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=JTf3=3B=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1uotra-0001KX-G7
+ for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 01:13:10 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fea78aa4-7e2b-11f0-b898-0df219b8e170;
+ Thu, 21 Aug 2025 03:13:07 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 45F8561446;
+ Thu, 21 Aug 2025 01:13:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0DB5C4CEE7;
+ Thu, 21 Aug 2025 01:13:04 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,80 +41,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=fdJpON6ZcjwjfhRGu6cRmoP1KoEainZH+ZkZYlDTWaQ=; b=SwhDypONDS3tghlv+ZoV8Y64jX
-	6EWmCRVSgBy1sCIbaCOCoA4QWE+YSjjFobOIcayhBp48EHzH4PnvbA6KefN2Y0PldMaxkuOFgp83v
-	uFNUcHO4L5P8JNcQBwrGrKAEg0Eqa2hIdDa1Ir1p+JYyPUN496iLjfSQwvfYubnJJu+w=;
-Message-ID: <304cffd8-498d-447f-a8b0-cda694393ec8@xen.org>
-Date: Wed, 20 Aug 2025 22:33:16 +0100
+X-Inumbo-ID: fea78aa4-7e2b-11f0-b898-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1755738786;
+	bh=0lsMR/auYfp0PZak8kqYkmhybqftIu9gTSwQiWM9MNI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=JKyEUgf2BkUtuPdfcq36EDwxTpPqMEzBZolORugGPEbCrb65rvYs5LBjr2rQssfA1
+	 QNLwxQihCiPOZQ8sZPbEIdm5k8mS6oGCl3M325//iXb5aS+YCQHtiuLyuLta454/8R
+	 3PI+Meh1umdxOd2KHj8c0HidH4xbpdL20KyMiv1txMOCOZ94HO5sRLCm3kAB4m17Y7
+	 fO87bf7zA+lBZgtEUhC0uAFOWzMBsm70eaIWk+A7bbAm+mapyr5N1SmwAvLfcLapcz
+	 PqzgrESp4lzhGhL7iMbStnjofcGIhSey85jSyqj8kEvTWlQR2YaxjBHJmvGKdrRSQE
+	 vX7FD0Md5NgPA==
+Date: Wed, 20 Aug 2025 18:12:43 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>
+cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v2 3/3] iommu/ipmmu-vmsa: Implement basic PCIE-IPMMU OSID
+ support
+In-Reply-To: <8d0e16b6cb439000571ab6771a6c0e61627825ce.1752482857.git.mykyta_poturai@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2508201812370.2743087@ubuntu-linux-20-04-desktop>
+References: <cover.1752482857.git.mykyta_poturai@epam.com> <8d0e16b6cb439000571ab6771a6c0e61627825ce.1752482857.git.mykyta_poturai@epam.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 1/4] xen/domain: unify domain ID allocation
-Content-Language: en-GB
-To: dmkhn@proton.me, xen-devel@lists.xenproject.org
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com, Julien Grall <jgrall@amazon.com>,
- Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-References: <20250812223024.2364749-1-dmukhin@ford.com>
- <20250812223024.2364749-2-dmukhin@ford.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20250812223024.2364749-2-dmukhin@ford.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-Hi Denis,
+On Mon, 14 Jul 2025, Mykyta Poturai wrote:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> 
+> Program PCIE BDF-OSID assignment according to the S4_PCIe_IPMMU-OSID
+> when adding PCI device to the IOMMU in ipmmu_add_device callback.
+> This is needed for being able to assign PCI devices to different
+> domains at the same time. Programmed OSID is emmited as sideband data on
+> the AXI bus during PCI DMA transactions and then used by IPMMU to match
+> the transaction to the corresponding uTLB.
+> 
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 
-On 12/08/2025 23:30, dmkhn@proton.me wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
-> 
-> Currently, there are two different domain ID allocation implementations:
-> 
->    1) Sequential IDs allocation in dom0less Arm code based on max_init_domid;
-> 
->    2) Sequential IDs allocation in XEN_DOMCTL_createdomain; does not use
->       max_init_domid (both Arm and x86).
-> 
-> The domain ID allocation covers dom0 or late hwdom, predefined domains,
-> post-boot domains, excluding Xen system domains (domid >=
-> DOMID_FIRST_RESERVED).
-> 
-> It makes sense to have a common helper code for such task across architectures
-> (Arm and x86) and between dom0less / toolstack domU allocation.
-> 
-> Note, fixing dependency on max_init_domid is out of scope of this patch.
-> 
-> Wrap the domain ID allocation as an arch-independent function domid_alloc() in
-> new common/domid.c based on the bitmap.
-> 
-> Allocation algorithm:
-> - If an explicit domain ID is provided, verify its availability and use it if
->    ID is not used;
-> - If DOMID_INVALID is provided, search the range [1..DOMID_FIRST_RESERVED-1],
->    starting from the last used ID.
->    Implementation guarantees that two consecutive calls will never return the
->    same ID. ID#0 is reserved for the first boot domain (currently, dom0) and
->    excluded from the allocation range.
-> 
-> Remove is_free_domid() helper as it is not needed now.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> Reviewed-by: Julien Grall <jgrall@amazon.com>
- > Reviewed-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
- > ---> Changes since v15:
-> - fixup for check after the first pass in the bitarray in domid_alloc()
-
-This was a good catch from Jan. Has a unit-test been added for this issue?
-
-Anyway, my reviewed-by holds.
-
-Cheers,
-
--- 
-Julien Grall
-
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
