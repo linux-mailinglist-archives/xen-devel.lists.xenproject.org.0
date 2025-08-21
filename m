@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AE35B30244
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 20:48:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1089186.1446844 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FBEDB30287
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 20:59:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1089203.1446854 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upAJv-00035h-08; Thu, 21 Aug 2025 18:47:31 +0000
+	id 1upAVK-0004w9-VS; Thu, 21 Aug 2025 18:59:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1089186.1446844; Thu, 21 Aug 2025 18:47:30 +0000
+Received: by outflank-mailman (output) from mailman id 1089203.1446854; Thu, 21 Aug 2025 18:59:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upAJu-00033a-Sz; Thu, 21 Aug 2025 18:47:30 +0000
-Received: by outflank-mailman (input) for mailman id 1089186;
- Thu, 21 Aug 2025 18:47:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1upAVK-0004tt-SI; Thu, 21 Aug 2025 18:59:18 +0000
+Received: by outflank-mailman (input) for mailman id 1089203;
+ Thu, 21 Aug 2025 18:59:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=O+vP=3B=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1upAJt-00033U-S1
- for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 18:47:29 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 495011d0-7ebf-11f0-a32b-13f23c93f187;
- Thu, 21 Aug 2025 20:47:28 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3c4e9efb88aso655854f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 11:47:28 -0700 (PDT)
+ id 1upAVJ-0004tg-QR
+ for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 18:59:17 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ef070a53-7ec0-11f0-b898-0df219b8e170;
+ Thu, 21 Aug 2025 20:59:15 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3b9e411c820so875168f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 11:59:15 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3c074d43ba5sm12686851f8f.22.2025.08.21.11.47.27
+ ffacd0b85a97d-3c0771c1a12sm12330607f8f.34.2025.08.21.11.59.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Aug 2025 11:47:27 -0700 (PDT)
+ Thu, 21 Aug 2025 11:59:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 495011d0-7ebf-11f0-a32b-13f23c93f187
+X-Inumbo-ID: ef070a53-7ec0-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755802048; x=1756406848; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1755802755; x=1756407555; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XK6bQI4sv2e8rUB/d9Y+5ny0SLwm0w22NW2DONNrLsM=;
-        b=dtnbe22YN94J8hx2BcHa7Vf1tku/rhlU+rKM28CZmya6dKaKDAlJz+CcPcvdiAdmh5
-         O+tBC2ZT8wzsCerohsRa6idhttS7rD9TRGTDVrrgcR6GeSy6Q9O8XeqA+zRg9Pk25tFt
-         GRswsudXrqE0hd3c3i9UDwwMIybmdRVdsVjyA=
+        bh=3tuiRnKSy2Dzo7kRbhkh8BsaXVSlMYN8qP+iZe3KkTQ=;
+        b=SZ5VPjtRgA0/W0GsMLy9UA1fkgqZT9e3HzxV85iFoQ9BegnVEqvubyS8rn3/i7MRVc
+         jrD0AqimDduXrJLevChx4yoxQTTNyZmsu2HaNAyCnhQoldNbji3Wx3yqlXUazlWPMYml
+         fadEKtMAc2p+02hloXjA0NColmhfYLuN4n6+c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755802048; x=1756406848;
+        d=1e100.net; s=20230601; t=1755802755; x=1756407555;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XK6bQI4sv2e8rUB/d9Y+5ny0SLwm0w22NW2DONNrLsM=;
-        b=oc2reVrd0deVaczxCziqv3FMbrQ1caMZNz5Wf0Kg3uVbby6XDw1L74z8+pZrOs8Z/q
-         MIFWx24hxu/XYffEGOINtqP+VLTwsQvtdwG152t5pyEnJ7+uHpAtRdu8IC82fjV8/oCg
-         T5KoBST7jqu9eTMViWKujY0yebP8rPUadwaAMOv9nLMCTb5gL3recD0jtRsJVX9ZadcS
-         nXTtNv16nz90496vuqGbvhyOb4cjkTFU7moC58kLGs7Ry9rAntXUXJvaZsF9jcR3O4Fb
-         NDKZf4ks4S7yOKYIng0oHgq8dCAw06zotgGIb6KZYbbRtZhzvht15ibt72A0vF87XXC5
-         8qAw==
-X-Forwarded-Encrypted: i=1; AJvYcCWrQY18tOvLwM1FoWH3Qw1Xq7CIjaa05Y7PLVV7o5/4TDOKu31Aoy5QSJtDmg1Kc9LNI2DachLtbJY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyrywlpoFAPRodxE+wElL+EXpA0KwEjM+aulSz40bdRPC+TeYwt
-	+auZ07paVORuPGdykv2VFbzZkkTjGCid4FDbQ+g+qUINdhWqA4ghFOAX7M53D98ztGM=
-X-Gm-Gg: ASbGnctfvBP9aNaeG8cOLKBi/HNcMrJdwcQjftR81IhQAWLn1OZlKF89AkLwmtYbY/E
-	2CV+o5NxL5SR0DqNXKhY+Jyo+K2YYbdod8fp/i9vhXAGZvTqCTLUT8oRQEiseV5HYp9fq7Qenfe
-	VjiZ5XXm53F+TVy25YHU7c7ZUPhgUmaMexMSHhlW/fNJqSx0SJzb177eT5JjHAD4dtwjy+JGldh
-	+hqkRosn2krMzik5I4Tud7J7VuBayN7yixx3oVk7dn5rmNs0ZmGFctDmtELwmYRgqhTdYRLJEXK
-	3CQVkeg0g9epFVvtWueAxdAT0qGZKX9SNmQFJXvpUOFHL4sWBNX6jhQRx6nOGXByMTdGBDAkhrw
-	14p1YKqVFi9bwW1IeKpi8HFIqvpoVo6RIdm+SkQIAb4Py5sBFXspr/r++eOUJICbIdw2u
-X-Google-Smtp-Source: AGHT+IFYvEc0+60yrN62majQkv8aBoQi9VXYa0A2BnS2Uypl3rBgC3m+t9hh13pAUjG68ZWDCREXGw==
-X-Received: by 2002:a05:6000:400e:b0:3b7:9c79:32ac with SMTP id ffacd0b85a97d-3c5ddd7f89amr32416f8f.52.1755802047724;
-        Thu, 21 Aug 2025 11:47:27 -0700 (PDT)
-Message-ID: <ee126e0c-4381-40a8-bbec-544e3286498f@citrix.com>
-Date: Thu, 21 Aug 2025 19:47:26 +0100
+        bh=3tuiRnKSy2Dzo7kRbhkh8BsaXVSlMYN8qP+iZe3KkTQ=;
+        b=Aq6BSFzlpqteGesutCFlwPKSE1hTwIIFGpH2xFMTXjfZRkMJB4DaG5NWQNF4Q1GtRn
+         vd4uCGK+jybDGtR59u11PeEXTuRlqYEVXDr5kSZXwGKiUQr8p7cvRqqlD0BkVXxwvz42
+         JxRE7gKOvlkRwQ3HjItaeVswjLndrfpe59DiNQ5eFPWeVks63vXL/CO2q9Lop6of4Nph
+         v8vQd459fW8g/JZzNoiOfv9Krts5M0N10JLb/wpfsAXx1fiYn8Tez+7Dn+050s2hlOhC
+         JKpJnGpZH4QpoZ6Fcey2k1JHyqQdQOn/BwUpsIK9P3Rl0M/ChNzoBt3i6X+EQOuqrvX7
+         Rdnw==
+X-Forwarded-Encrypted: i=1; AJvYcCW6Feku2bu+w1t31wLHMstsD8oJmaaxF4CRrCk0gXPfYDTICcCwea82J45l27q+VKO42KthGC1u/1g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyLvdMwWf6zz7mhG215phXt7gn7jH2HUm7Sos497GxGb/4G1lRT
+	WFXVJ4X3ShZYB3vUG9Ek6egpyAL/9b5mcwlsp85j70JSQPC9yg+zkJUo7Z3wUeG8oV4=
+X-Gm-Gg: ASbGnctlrqNyNPW8RnjH2QHioGYe/BRrgxQsMKKbIT50rW7YeWYen8droixSC/sNWWg
+	yHOhhpEQLrRpfK4KEA9vI2qRsF1lRWjHmj6Qjpz71TR7PiU8hk/xKDDiWVOtSyk3MsNbqRtxQFC
+	B76D8jetvUsUiXxmv6v+MUnAy4hLvbb8Xc1CfMU8OokoM4aiePjk+t/5cj9wp+DkVm9O3O+lAPu
+	+tVaSd+UCpncN4prvKfddGSk+71Ld2FiLuNZ2uFNFs72PwuzofuSFq3KCU2dKVsCVMWQ3vjw/7w
+	Pdac/FGIb6NvWkycZMgbwmOnU7hRSC2HT0Go36iPu74hkLiaamntrlphLi6afMBkiQiqasuhepP
+	Y7r+6X9F3C0+WuY9HkA9iAIafcyRV4ZTiG6TK/aB3Y0pCnEOYO1Zni6xqIf/S9fK7Pw4zT2xpZc
+	epW48=
+X-Google-Smtp-Source: AGHT+IHtcwMCORvJOVGr6ksPewwPcvE740ftCSMTgZbIh+/nAGCtuyqUNYHlgV4CgYUDexwRQSQajA==
+X-Received: by 2002:a05:6000:2384:b0:3b7:942c:5450 with SMTP id ffacd0b85a97d-3c5db8ab0a2mr62198f8f.9.1755802755031;
+        Thu, 21 Aug 2025 11:59:15 -0700 (PDT)
+Message-ID: <92abee8e-108a-4d2f-8f05-fb9397b64fca@citrix.com>
+Date: Thu, 21 Aug 2025 19:59:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 12/16] x86/msr: Change wrmsr() to take a single
- parameter
+Subject: Re: [PATCH v2 13/16] x86/msr: Use MSR_IMM when available
 To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250815204117.3312742-1-andrew.cooper3@citrix.com>
- <20250815204117.3312742-13-andrew.cooper3@citrix.com>
- <3511e3dc-0c9b-412b-9cb3-e4b726088297@suse.com>
+ <20250815204117.3312742-14-andrew.cooper3@citrix.com>
+ <3b367c39-4c4a-4bdd-91cd-7cb8ba18c2c9@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -137,73 +137,171 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <3511e3dc-0c9b-412b-9cb3-e4b726088297@suse.com>
+In-Reply-To: <3b367c39-4c4a-4bdd-91cd-7cb8ba18c2c9@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 19/08/2025 1:38 pm, Jan Beulich wrote:
+On 19/08/2025 1:55 pm, Jan Beulich wrote:
 > On 15.08.2025 22:41, Andrew Cooper wrote:
->> --- a/xen/arch/x86/nmi.c
->> +++ b/xen/arch/x86/nmi.c
->> @@ -218,16 +218,16 @@ void disable_lapic_nmi_watchdog(void)
->>          return;
->>      switch (boot_cpu_data.x86_vendor) {
->>      case X86_VENDOR_AMD:
->> -        wrmsr(MSR_K7_EVNTSEL0, 0, 0);
->> +        wrmsrns(MSR_K7_EVNTSEL0, 0);
-> Since you switch to non-serializing here, ...
+>> Most MSR accesses have compile time constant indexes.  By using the immediate
+>> form when available, the decoder can start issuing uops directly for the
+>> relevant MSR, rather than having to issue uops to implement "switch (%ecx)".
+>> Modern CPUs have tens of thousands of MSRs, so that's quite an if/else chain.
+>>
+>> Create __{rdmsr,wrmsrns}_imm() helpers and use them from {rdmsr,wrmsrns}()
+>> when the compiler can determine that the msr index is known at compile time.
+>>
+>> At the instruction level, the combined ABI is awkward.  Explain our choices in
+>> detail.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>
+>> The expression wrmsrns(MSR_STAR, rdmsr(MSR_STAR)) now yields:
+>>
+>>   <test_star>:
+>>       b9 81 00 00 c0          mov    $0xc0000081,%ecx
+>>       0f 32                   rdmsr
+>>       48 c1 e2 20             shl    $0x20,%rdx
+>>       48 09 d0                or     %rdx,%rax
+>>       48 89 c2                mov    %rax,%rdx
+>>       48 c1 ea 20             shr    $0x20,%rdx
+>>       2e 0f 30                cs wrmsr
+>>       e9 a3 84 e8 ff          jmp    ffff82d040204260 <__x86_return_thunk>
+>>
+>> which is as good as we can manage.  The alternative form of this looks like:
+>>
+>>   <test_star>:
+>>       b9 81 00 00 c0          mov    $0xc0000081,%ecx
+>>       c4 e7 7b f6 c0 81 00    rdmsr  $0xc0000081,%rax
+>>       00 c0
+>>       2e c4 e7 7a f6 c0 81    cs wrmsrns %rax,$0xc0000081
+>>       00 00 c0
+>>       e9 xx xx xx xx          jmp    ffff82d040204260 <__x86_return_thunk>
+>>
+>> Still TBD.  We ought to update the *_safe() forms too.  rdmsr_safe() is easier
+>> because the potential #GP locations line up, but there need to be two variants
+>> because of
+> Because of ...?
+
+Oh.  I guess I didn't finish that.  Because of asm goto with outputs.
+
+The WRMSR side is harder because there are two different fault locations.
+
 >
->> @@ -308,11 +308,11 @@ static void setup_k7_watchdog(void)
->>          | K7_EVNTSEL_USR
->>          | K7_NMI_EVENT;
+>> --- a/xen/arch/x86/include/asm/alternative.h
+>> +++ b/xen/arch/x86/include/asm/alternative.h
+>> @@ -151,6 +151,13 @@ extern void alternative_instructions(void);
+>>          ALTERNATIVE(oldinstr, newinstr, feature)                        \
+>>          :: input )
 >>  
->> -    wrmsr(MSR_K7_EVNTSEL0, evntsel, 0);
->> +    wrmsr(MSR_K7_EVNTSEL0, evntsel);
->>      write_watchdog_counter("K7_PERFCTR0");
->>      apic_write(APIC_LVTPC, APIC_DM_NMI);
->>      evntsel |= K7_EVNTSEL_ENABLE;
->> -    wrmsr(MSR_K7_EVNTSEL0, evntsel, 0);
->> +    wrmsr(MSR_K7_EVNTSEL0, evntsel);
+>> +#define alternative_input_2(oldinstr, newinstr1, feature1,              \
+>> +                            newinstr2, feature2, input...)              \
+>> +    asm_inline volatile (                                               \
+>> +        ALTERNATIVE_2(oldinstr, newinstr1, feature1,                    \
+>> +                      newinstr2, feature2)                              \
+>> +        :: input )
+>> +
+>>  /* Like alternative_input, but with a single output argument */
+>>  #define alternative_io(oldinstr, newinstr, feature, output, input...)   \
+>>      asm_inline volatile (                                               \
+>> diff --git a/xen/arch/x86/include/asm/msr.h b/xen/arch/x86/include/asm/msr.h
+>> index 1bd27b989a4d..2ceff6cca8bb 100644
+>> --- a/xen/arch/x86/include/asm/msr.h
+>> +++ b/xen/arch/x86/include/asm/msr.h
+>> @@ -29,10 +29,52 @@
+>>   *  wrmsrl(MSR_FOO, val);
+>>   */
+>>  
+>> -static inline uint64_t rdmsr(unsigned int msr)
+>> +/*
+>> + * RDMSR with a compile-time constant index, when available.  Falls back to
+>> + * plain RDMSR.
+>> + */
+>> +static always_inline uint64_t __rdmsr_imm(uint32_t msr)
+>> +{
+>> +    uint64_t val;
+>> +
+>> +    /*
+>> +     * For best performance, RDMSR $msr, %r64 is recommended.  For
+>> +     * compatibility, we need to fall back to plain RDMSR.
+>> +     *
+>> +     * The combined ABI is awkward, because RDMSR $imm produces an r64,
+>> +     * whereas WRMSR{,NS} produces a split edx:eax pair.
+>> +     *
+>> +     * Always use RDMSR $imm, %rax, because it has the most in common with the
+>> +     * legacy form.  When MSR_IMM isn't available, emit logic to fold %edx
+>> +     * back into %rax.
+>> +     *
+>> +     * Let the compiler do %ecx setup.  This does mean there's a useless `mov
+>> +     * $imm, %ecx` in the instruction stream in the MSR_IMM case, but it means
+>> +     * the compiler can de-duplicate the setup in the common case of reading
+>> +     * and writing the same MSR.
+>> +     */
+>> +    alternative_io(
+>> +        "rdmsr\n\t"
+>> +        "shl $32, %%rdx\n\t"
+>> +        "or %%rdx, %%rax\n\t",
+>> +
+>> +        /* RDMSR $msr, %rax */
+>> +        ".byte 0xc4,0xe7,0x7b,0xf6,0xc0; .long %c[msr]", X86_FEATURE_MSR_IMM,
+>> +
+>> +        "=a" (val),
+> Strictly speaking "=&a". Not that it matters much here; just to not
+> set a bad precedent.
+
+Why?  A is not written to until after all inputs are consumed.
+
+I don't see how it can qualify for being early-clobber.
+
+>
+>> @@ -55,11 +97,51 @@ static inline void wrmsr(unsigned int msr, uint64_t val)
 >>  }
-> ... why not also here?
-
-An oversight.  Fixed.
-
->
->> --- a/xen/arch/x86/oprofile/op_model_athlon.c
->> +++ b/xen/arch/x86/oprofile/op_model_athlon.c
->> @@ -34,7 +34,7 @@
->>  #define MAX_COUNTERS FAM15H_NUM_COUNTERS
+>>  #define wrmsrl(msr, val) wrmsr(msr, val)
 >>  
->>  #define CTR_READ(msr_content,msrs,c) do {rdmsrl(msrs->counters[(c)].addr, (msr_content));} while (0)
->> -#define CTR_WRITE(l,msrs,c) do {wrmsr(msrs->counters[(c)].addr, -(unsigned int)(l), -1);} while (0)
->> +#define CTR_WRITE(l,msrs,c) do { wrmsr(msrs->counters[(c)].addr, -l); } while (0)
-> This isn't obviously correct (as in: no functional change): The macro is,
-> for example, passed reset_value[] contents, which is of type unsigned long.
-> Quite possible that the original code was wrong, though.
+>> +/*
+>> + * Non-serialising WRMSR with a compile-time constant index, when available.
+>> + * Falls back to plain WRMSRNS, or to a serialising WRMSR.
+>> + */
+>> +static always_inline void __wrmsrns_imm(uint32_t msr, uint64_t val)
+>> +{
+>> +    /*
+>> +     * For best performance, WRMSRNS %r64, $msr is recommended.  For
+>> +     * compatibility, we need to fall back to plain WRMSRNS, or to WRMSR.
+>> +     *
+>> +     * The combined ABI is awkward, because WRMSRNS $imm takes a single r64,
+>> +     * whereas WRMSR{,NS} takes a split edx:eax pair.
+>> +     *
+>> +     * Always use WRMSRNS %rax, $imm, because it has the most in common with
+>> +     * the legacy forms.  When MSR_IMM isn't available, emit setup logic for
+>> +     * %edx.
+>> +     *
+>> +     * Let the compiler do %ecx setup.  This does mean there's a useless `mov
+>> +     * $imm, %ecx` in the instruction stream in the MSR_IMM case, but it means
+>> +     * the compiler can de-duplicate the setup in the common case of reading
+>> +     * and writing the same MSR.
+>> +     */
+>> +    alternative_input_2(
+>> +        "mov %%rax, %%rdx\n\t"
+>> +        "shr $32, %%rdx\n\t"
+>> +        ".byte 0x2e; wrmsr",
+>> +
+>> +        /* CS WRMSRNS %rax, $msr */
+>> +        ".byte 0x2e,0xc4,0xe7,0x7a,0xf6,0xc0; .long %c[msr]", X86_FEATURE_MSR_IMM,
+>> +
+>> +        "mov %%rax, %%rdx\n\t"
+>> +        "shr $32, %%rdx\n\t"
+>> +        ".byte 0x0f,0x01,0xc6", X86_FEATURE_WRMSRNS,
+> Isn't this the wrong way round for hardware which has both features? The
+> last active alternative wins, iirc.
 
-I'm pretty sure the change is correct.
+Bah - fooled once again by the nop optimisation.  I'll reorder.
 
-Perf counters get programmed to -(count), as they generate an interrupt
-when they overflow.  The K8 is the oldest BKDG I can easily access, and
-the counters are 48 bits wide.  The same is true of Intel systems of of
-the same age.
-
-Interestingly, it is the singular omission from b5103d692aa7 which
-converts everything including the Intel version of CTR_WRITE() of this
-to use wrmsrl().
-
-While looking at the mail list archives for b5103d692aa7, I found
-https://lists.xenproject.org/archives/html/xen-devel/2010-06/msg01660.html
-which shows that it was Christoph's attempt to turn rdmsr() and wrmsr()
-into a real C functions, so I'm pretty certain that CTR_WRITE() was an
-omission in b5103d692aa7.
-
-Only 15 years late on that todo...
-
-> In any event l wants parenthesizing.
-
-Oh, so it does.  Fixed.
+But, we really should swap the order.  Especially now that you've
+inserted serialisation, it's an expensive waste of time patching the
+same site multiple times.
 
 ~Andrew
 
