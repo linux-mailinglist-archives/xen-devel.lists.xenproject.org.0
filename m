@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D343B303F8
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 22:10:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1089243.1446892 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 503CDB304B9
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 22:20:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1089256.1446902 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upBbJ-0007bN-Ex; Thu, 21 Aug 2025 20:09:33 +0000
+	id 1upBls-0001xL-EW; Thu, 21 Aug 2025 20:20:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1089243.1446892; Thu, 21 Aug 2025 20:09:33 +0000
+Received: by outflank-mailman (output) from mailman id 1089256.1446902; Thu, 21 Aug 2025 20:20:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upBbJ-0007ZP-BX; Thu, 21 Aug 2025 20:09:33 +0000
-Received: by outflank-mailman (input) for mailman id 1089243;
- Thu, 21 Aug 2025 20:09:32 +0000
+	id 1upBls-0001vr-Bn; Thu, 21 Aug 2025 20:20:28 +0000
+Received: by outflank-mailman (input) for mailman id 1089256;
+ Thu, 21 Aug 2025 20:20:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SZDk=3B=casper.srs.infradead.org=BATV+dd657eb3d837cdb05fc0+8033+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1upBbH-0007ZJ-1q
- for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 20:09:32 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
+ <SRS0=O+vP=3B=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1upBlq-0001vl-IR
+ for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 20:20:26 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bde4461d-7eca-11f0-a32b-13f23c93f187;
- Thu, 21 Aug 2025 22:09:29 +0200 (CEST)
-Received: from 54-240-197-233.amazon.com ([54.240.197.233]
- helo=freeip.amazon.com)
- by casper.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1upBb4-0000000D3Ny-06yh; Thu, 21 Aug 2025 20:09:18 +0000
+ id 455266a4-7ecc-11f0-a32b-13f23c93f187;
+ Thu, 21 Aug 2025 22:20:25 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-45a1b0c52f3so8801875e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 13:20:25 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45b4e2ba619sm19626135e9.4.2025.08.21.13.20.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 21 Aug 2025 13:20:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,244 +45,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bde4461d-7eca-11f0-a32b-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=CgsKh6PQ2X7sbamc7uSGEeb01yrHIxNuVCtONrzWHJ4=; b=SBUt5/3fPfGOxjDH2W0WkNNlty
-	lG5n7wiKp3WNjkgfokRxgNzX2PaVFggPxkUrCZ++JwrzldPBu8i8bgV3uKCyNTD5NnjahLz5/qp0c
-	mO0Ax0VwMDeW9jNE/N5mZO4wHkWVmpH/DkBFZgSpJFB2rFAYCoT++BmvZ2aCuGHAU8c3XJVfwUnFb
-	P/P3dtD7Ow26SexGKkPXbR7LvMGf96N8kkqfx6qvCGKhigdat8o1wWbNrNKpvYjjiA9OnjMBS6FqV
-	/H8lfLguR7VVfAqVvKR16nBwEEQELBmpP+nsgUMUp5HHtxTZ9VfLD/7WDO4Wc7CUIDllJFCCLh4Bu
-	ML5NPnhA==;
-Message-ID: <5b905902c99e13d65ea0810b0885fca97cffc74d.camel@infradead.org>
-Subject: Re: [PATCH v3 13/15] x86/cpu/intel: Bound the non-architectural
- constant_tsc model checks
-From: David Woodhouse <dwmw2@infradead.org>
-To: Sohil Mehta <sohil.mehta@intel.com>, x86@kernel.org, Dave Hansen
-	 <dave.hansen@linux.intel.com>, Tony Luck <tony.luck@intel.com>, 
- =?ISO-8859-1?Q?J=FCrgen?= Gross
-	 <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, xen-devel
-	 <xen-devel@lists.xenproject.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
- <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Alexander
- Shishkin <alexander.shishkin@linux.intel.com>,  Jiri Olsa
- <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, Adrian Hunter
- <adrian.hunter@intel.com>,  Kan Liang <kan.liang@linux.intel.com>, Thomas
- Gleixner <tglx@linutronix.de>, Borislav Petkov <bp@alien8.de>, "H . Peter
- Anvin" <hpa@zytor.com>, "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown
- <lenb@kernel.org>, Andy Lutomirski <luto@kernel.org>, Viresh Kumar
- <viresh.kumar@linaro.org>, Jean Delvare <jdelvare@suse.com>, Guenter Roeck
- <linux@roeck-us.net>, Zhang Rui <rui.zhang@intel.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, David Laight <david.laight.linux@gmail.com>,
- Dapeng Mi <dapeng1.mi@linux.intel.com>,  linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org,  linux-acpi@vger.kernel.org,
- linux-pm@vger.kernel.org, kvm@vger.kernel.org,  xiaoyao.li@intel.com, Xin
- Li <xin@zytor.com>
-Date: Thu, 21 Aug 2025 21:09:16 +0100
-In-Reply-To: <5f5f1230-f373-469c-b0d9-abc80199886e@intel.com>
-References: <20250219184133.816753-1-sohil.mehta@intel.com>
-	 <20250219184133.816753-14-sohil.mehta@intel.com>
-	 <6f05a6849fb7b22db35216dcf12bf537f8a43a92.camel@infradead.org>
-	 <968a179f-3da7-4c69-b798-357ea8d759eb@intel.com>
-	 <5f5f1230-f373-469c-b0d9-abc80199886e@intel.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-OQYT5kBmShxkyhQquOGw"
-User-Agent: Evolution 3.52.3-0ubuntu1 
+X-Inumbo-ID: 455266a4-7ecc-11f0-a32b-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1755807624; x=1756412424; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=cZmlsXXr7MMKjZkwN+neQ4WEGzqzDzNyCksWjHidiDk=;
+        b=XSoce/E1CZ3Ybl+hzsaYjZdBEGb7LLDtYova/0TXj0Di8q1N3Dkd6G+9D8UXTUq9pQ
+         uEfDjOHu+u6n6KQ8uFI0lYMhUtSXOIEtfOAQcPy8m2PTRiWiaLvwusLRpIIX19vsszLx
+         y43EXnBSgLqCs0RfzDsz8wECyjr2NNvTQnoPU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1755807624; x=1756412424;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cZmlsXXr7MMKjZkwN+neQ4WEGzqzDzNyCksWjHidiDk=;
+        b=A/6I8q0sGipBBfl+qjRaUheIkwrDXYfhQHKrWcjVK0PtxTB2X0mlzdiI+hEMFkf6pR
+         2QLyMnFuFrqAQbPw6XCOZ142Cp7vxuSqqiCbrvsT4VH13YCKuqMGf17V3OkKFya6RMFK
+         grH1cUFSWyXaYErigoepaF18jnkNo3xwt3H6ToCMtdksczY3GQx5Uy0FKqv8H+7QtwrH
+         Cp+fxXx2eJrB+4WkTl7mjOZdjDGHkls9fFDNJ2YpmqpYAIaGWNqOdrxJUsdfPiu8gWh0
+         GPxJXP9dAV9ea1qLYXYdWs9/TjqFa0SCXo3XAxFT16lgHDgM8cGonjGg+iTtIEUPesGD
+         QeSw==
+X-Forwarded-Encrypted: i=1; AJvYcCXJBieC/6zEEcQ5qm5ujgck00S42npn5QP+Ao+5i+a771cTNl8J6oIXscKiszUYfo/ux0jGUTKSibY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxM/hrPx/uQEAmgtgiQjlvG2/BL+qOde6xfq/Fesw404h+H0lkv
+	C7+hoDdvaQl5j/0CuYx/R6w5iIv2POmuJkMjuOIWSXMau89fO93peWWCf95zX8A12rxKuRRyMFt
+	BixKs
+X-Gm-Gg: ASbGncsQIUaUVjihE9AhRUspUegQNvTH3DCqxPinmYeOqs36VACvnLUT07JJzvo1gFF
+	eTNOBt2+TyL0T09AM5ziqjuX57meEev1KMxXa9VMSEyUUiFIqt2QVzQJG4XatDeEohtMMcY+uIr
+	HfKP3A2i5+tHoAP56fxzi80sVNeXLjdNm20vZlBl61UR24N8EtSHJsLHopmtRycjeZ3lGX3I8Ea
+	JsDIRd91W/33mvxzspYXQXR17GBWDMQjRZjsnAfmffAWJlM9ob0ALl/JZT79kCxbfSoWlZlEMYa
+	1EhfortaUrXBGd77kESrRjoLcfCSxWvjelYXGhBHKg7FfbNmLY/zW36g8fhQSFj/Zc/o+ya6c5Z
+	qvt9PowfzEnNw80oCdycQtqOer+9MoVha3qITXO6/2e2Y0qLvAan/GPxummFqGxf83h0TDJhKzZ
+	0OBCI=
+X-Google-Smtp-Source: AGHT+IENnqootj7VGAvKt+n4syzu92a45LYVrJltE6hUAvO/C4YSUPo+Pe/6OJu8QzKyPEJUvEyzJA==
+X-Received: by 2002:a05:6000:2211:b0:3b8:f318:dc61 with SMTP id ffacd0b85a97d-3c5dc73523bmr191389f8f.40.1755807624452;
+        Thu, 21 Aug 2025 13:20:24 -0700 (PDT)
+Message-ID: <4d07f29b-006a-46ea-845a-3f21ce246f44@citrix.com>
+Date: Thu, 21 Aug 2025 21:20:23 +0100
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 14/16] x86/fsgsbase: Split out __{rd,wr}gskern()
+ helpers
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250815204117.3312742-1-andrew.cooper3@citrix.com>
+ <20250815204117.3312742-15-andrew.cooper3@citrix.com>
+ <740ce507-de96-41e0-a5ae-999b5b6d8726@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <740ce507-de96-41e0-a5ae-999b5b6d8726@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On 19/08/2025 2:01 pm, Jan Beulich wrote:
+> On 15.08.2025 22:41, Andrew Cooper wrote:
+>> Right now they're inline in {read,write}_gs_shadow(), but we're going to need
+>> to use these elsewhere to support FRED.
+> But why "kern"? We're not dealing with GS in kernel / user terms, but in
+> real / shadow ones.
 
---=-OQYT5kBmShxkyhQquOGw
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Because it's a common name that also has the property of aligning nicely
+when used beside GS_BASE.
 
-On Thu, 2025-08-21 at 12:43 -0700, Sohil Mehta wrote:
-> On 8/21/2025 12:34 PM, Sohil Mehta wrote:
-> > On 8/21/2025 6:15 AM, David Woodhouse wrote:
-> >=20
-> > > Hm. My test host is INTEL_HASWELL_X (0x63f). For reasons which are
-> > > unclear to me, QEMU doesn't set bit 8 of 0x80000007 EDX unless I
-> > > explicitly append ',+invtsc' to the existing '-cpu host' on its comma=
-nd
-> > > line. So now my guest doesn't think it has X86_FEATURE_CONSTANT_TSC.
-> > >=20
-> >=20
-> > Haswell should have X86_FEATURE_CONSTANT_TSC, so I would have expected
-> > the guest bit to be set. Until now, X86_FEATURE_CONSTANT_TSC was set
-> > based on the Family-model instead of the CPUID enumeration which may
-> > have hid the issue.
-> >=20
->=20
-> Correction:
-> s/instead/as well as
->=20
-> > From my initial look at the QEMU implementation, this seems intentional=
-.
-> >=20
-> > QEMU considers Invariant TSC as un-migratable which prevents it from
-> > being exposed to migratable guests (default).
-> > target/i386/cpu.c:
-> > [FEAT_8000_0007_EDX]
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .unmigratable_flags =
-=3D CPUID_APM_INVTSC,
-> >=20
-> > Can you please try '-cpu host,migratable=3Doff'?
->=20
-> This is mainly to verify. If confirmed, I am not sure what the long term
-> solution should be.
+But fine, I'll rename it.
 
-Yes, explicitly turning it on with -cpu host,+invtsc does work.
+>  I'm also not quite happy with the double leading
+> underscores, fwiw.
 
-I've been looking into why it takes a Xen guest four seconds per vCPU
-in this case, but not a KVM guest.
+Consistency with the similar logic.
 
-When running as a KVM guest, Linux will infer the TSC frequency from
-the KVM clock =E2=80=94 or better still, from CPUID; see
-https://lore.kernel.org/all/20250816101308.2594298-1-dwmw2@infradead.org
-and/or
-https://lore.kernel.org/all/20250227021855.3257188-36-seanjc@google.com
+>
+>> --- a/xen/arch/x86/include/asm/fsgsbase.h
+>> +++ b/xen/arch/x86/include/asm/fsgsbase.h
+>> @@ -32,6 +32,17 @@ static inline unsigned long __rdgsbase(void)
+>>      return base;
+>>  }
+>>  
+>> +static inline unsigned long __rdgskern(void)
+>> +{
+>> +    unsigned long base;
+>> +
+>> +    asm_inline volatile ( "swapgs\n\t"
+>> +                          "rdgsbase %0\n\t"
+>> +                          "swapgs" : "=r" (base) );
+> Again strictly speaking "=&r", if already you open-code rdgsbase() now.
 
-As a Xen guest though, Linux doesn't do that. This patch in the guest
-should make it work without recalibrating the TSC for each vCPU...
+As before, why?   There are no inputs to be clobbered, early or otherwise.
 
---- a/arch/x86/xen/time.c
-+++ b/arch/x86/xen/time.c
-@@ -489,7 +489,15 @@ static void xen_setup_vsyscall_time_info(void)
-  */
- static int __init xen_tsc_safe_clocksource(void)
- {
--       u32 eax, ebx, ecx, edx;
-+       u32 eax, ebx, ecx, edx;
-+       u64 lpj;
-+
-+       /* Leaf 4, sub-leaf 0 (0x40000x03) */
-+       cpuid_count(xen_cpuid_base() + 3, 0, &eax, &ebx, &ecx, &edx);
-+
-+       lpj =3D ((u64)ecx * 1000);
-+       do_div(lpj, HZ);
-+       preset_lpj =3D lpj;
-=20
-        if (!(boot_cpu_has(X86_FEATURE_CONSTANT_TSC)))
-                return 0;
-@@ -500,9 +508,6 @@ static int __init xen_tsc_safe_clocksource(void)
-        if (check_tsc_unstable())
-                return 0;
-=20
--       /* Leaf 4, sub-leaf 0 (0x40000x03) */
--       cpuid_count(xen_cpuid_base() + 3, 0, &eax, &ebx, &ecx, &edx);
--
-        return ebx =3D=3D XEN_CPUID_TSC_MODE_NEVER_EMULATE;
- }
-=20
-
-... but then I got slightly distracted by the question of why I was
-getting *nonsense* in those values, and why KVM is 'correcting' EAX in
-subleaf 2 which is supposed to be the *host* TSC, not ECX in subleaf
-zero...
-
-Under the Fedora 6.13.8-200 kernel I'm fairly sure the guest was seeing
-values in subleaf 0 ECX/EDX that *should* have been in subleaf 1
-ECX/EDX, and that problem went away when I rebooted the host into a
-mainline kernel. Will have to go back and retest that part...
-
---=-OQYT5kBmShxkyhQquOGw
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCD9Aw
-ggSOMIIDdqADAgECAhAOmiw0ECVD4cWj5DqVrT9PMA0GCSqGSIb3DQEBCwUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBDQTAeFw0yNDAxMzAwMDAwMDBaFw0zMTEx
-MDkyMzU5NTlaMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYDVQQDExdWZXJv
-a2V5IFNlY3VyZSBFbWFpbCBHMjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMjvgLKj
-jfhCFqxYyRiW8g3cNFAvltDbK5AzcOaR7yVzVGadr4YcCVxjKrEJOgi7WEOH8rUgCNB5cTD8N/Et
-GfZI+LGqSv0YtNa54T9D1AWJy08ZKkWvfGGIXN9UFAPMJ6OLLH/UUEgFa+7KlrEvMUupDFGnnR06
-aDJAwtycb8yXtILj+TvfhLFhafxroXrflspavejQkEiHjNjtHnwbZ+o43g0/yxjwnarGI3kgcak7
-nnI9/8Lqpq79tLHYwLajotwLiGTB71AGN5xK+tzB+D4eN9lXayrjcszgbOv2ZCgzExQUAIt98mre
-8EggKs9mwtEuKAhYBIP/0K6WsoMnQCcCAwEAAaOCAVwwggFYMBIGA1UdEwEB/wQIMAYBAf8CAQAw
-HQYDVR0OBBYEFIlICOogTndrhuWByNfhjWSEf/xwMB8GA1UdIwQYMBaAFEXroq/0ksuCMS1Ri6en
-IZ3zbcgPMA4GA1UdDwEB/wQEAwIBhjAdBgNVHSUEFjAUBggrBgEFBQcDBAYIKwYBBQUHAwIweQYI
-KwYBBQUHAQEEbTBrMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQwYIKwYB
-BQUHMAKGN2h0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRJRFJvb3RD
-QS5jcnQwRQYDVR0fBD4wPDA6oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0
-QXNzdXJlZElEUm9vdENBLmNybDARBgNVHSAECjAIMAYGBFUdIAAwDQYJKoZIhvcNAQELBQADggEB
-ACiagCqvNVxOfSd0uYfJMiZsOEBXAKIR/kpqRp2YCfrP4Tz7fJogYN4fxNAw7iy/bPZcvpVCfe/H
-/CCcp3alXL0I8M/rnEnRlv8ItY4MEF+2T/MkdXI3u1vHy3ua8SxBM8eT9LBQokHZxGUX51cE0kwa
-uEOZ+PonVIOnMjuLp29kcNOVnzf8DGKiek+cT51FvGRjV6LbaxXOm2P47/aiaXrDD5O0RF5SiPo6
-xD1/ClkCETyyEAE5LRJlXtx288R598koyFcwCSXijeVcRvBB1cNOLEbg7RMSw1AGq14fNe2cH1HG
-W7xyduY/ydQt6gv5r21mDOQ5SaZSWC/ZRfLDuEYwggWbMIIEg6ADAgECAhAH5JEPagNRXYDiRPdl
-c1vgMA0GCSqGSIb3DQEBCwUAMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYD
-VQQDExdWZXJva2V5IFNlY3VyZSBFbWFpbCBHMjAeFw0yNDEyMzAwMDAwMDBaFw0yODAxMDQyMzU5
-NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqGSIb3DQEBAQUAA4IC
-DwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZeYAS/SRV6zmfXlXaZ
-sNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2zkC9S7/yHDYnqegqt
-w4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qGpgFdZEk2/c//ZvUN
-i12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41vav1RhZJzYan4a1gU0
-kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0cvnO8FM6PTqsnSbcc
-0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PWPU6zfQTOMZ9uLQRR
-ci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXtREF5lLXxp+CJ6KKS
-blPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQrlR0gO3lBzuyPPArV
-hvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7IqaAovAX0d+f1YjbmC
-VsAwjhLmveFjNwIDAQABo4IBsDCCAawwHwYDVR0jBBgwFoAUiUgI6iBOd2uG5YHI1+GNZIR//HAw
-HQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3bXcyQGluZnJhZGVh
-ZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEBMA4GA1UdDwEB/wQE
-AwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwewYDVR0fBHQwcjA3oDWgM4YxaHR0
-cDovL2NybDMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDA3oDWgM4YxaHR0
-cDovL2NybDQuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDB2BggrBgEFBQcB
-AQRqMGgwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBABggrBgEFBQcwAoY0
-aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNydDANBgkq
-hkiG9w0BAQsFAAOCAQEAQXc4FPiPLRnTDvmOABEzkIumojfZAe5SlnuQoeFUfi+LsWCKiB8Uextv
-iBAvboKhLuN6eG/NC6WOzOCppn4mkQxRkOdLNThwMHW0d19jrZFEKtEG/epZ/hw/DdScTuZ2m7im
-8ppItAT6GXD3aPhXkXnJpC/zTs85uNSQR64cEcBFjjoQDuSsTeJ5DAWf8EMyhMuD8pcbqx5kRvyt
-JPsWBQzv1Dsdv2LDPLNd/JUKhHSgr7nbUr4+aAP2PHTXGcEBh8lTeYea9p4d5k969pe0OHYMV5aL
-xERqTagmSetuIwolkAuBCzA9vulg8Y49Nz2zrpUGfKGOD0FMqenYxdJHgDCCBZswggSDoAMCAQIC
-EAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQELBQAwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoT
-B1Zlcm9rZXkxIDAeBgNVBAMTF1Zlcm9rZXkgU2VjdXJlIEVtYWlsIEcyMB4XDTI0MTIzMDAwMDAw
-MFoXDTI4MDEwNDIzNTk1OVowHjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJ
-KoZIhvcNAQEBBQADggIPADCCAgoCggIBANqWLse95HW2F7FhfH9bugyT/danKmmXrbMnz5GZNAfj
-Jl5gBL9JFXrOZ9eVdpmw04Tp6aDxZctFLoEDvSWKi367Q7Sg+ci+fH4KwwfQ8Pi0IpIKx2n5emEg
-nbOQL1Lv/IcNiep6Cq3DiyaSpSp/RZf+CAfUNySHS8eWmhLU6jGpSD6hxTpYKye7PmrmvMWwfGEP
-WoamAV1kSTb9z/9m9Q2LXa89aKmTxNwnAfD3Ohn9mtU3JukwILRMewn9QRXK7KzM+01h5hkCE4nj
-W9q/VGFknNhqfhrWBTSQoE9CSVylASGrjzCgS7XmKy/BaH3/7mOOHQv5g1o3Qj/+cdKnpT0I5Qb1
-nRy+c7wUzo9OqydJtxzSP4ZyHA4dELto/a3m/ay1XHcpum1pgTOLgxAfGb/T4dCkwRUstSKLMmpL
-g9Y9TrN9BM4xn24tBFFyL5znGG0wQGzOVAM68RBzIQb6Fz758fjsr4yZnPbVsU1+gHEs/puNHrG0
-9e1EQXmUtfGn4InoopJuU8p5VGD9S3Ikd4UoBlc7xl5yjtNlQxUeYrRlnUSmdlucCEoTX1n4UmtA
-9CuVHSA7eUHO7I88CtWG9bGOU7tLgOZoSEvNqtaL/N7sQbBZK4jZ4Rr/zNTQg1SwYjjLB7u96lDP
-sipoCi8BfR35/ViNuYJWwDCOEua94WM3AgMBAAGjggGwMIIBrDAfBgNVHSMEGDAWgBSJSAjqIE53
-a4blgcjX4Y1khH/8cDAdBgNVHQ4EFgQUXGIam3Bs59Y60yTmWgfDu6pZQ6cwMAYDVR0RBCkwJ4ET
-ZHdtdzJAaW5mcmFkZWFkLm9yZ4EQZGF2aWRAd29vZGhvdS5zZTAUBgNVHSAEDTALMAkGB2eBDAEF
-AQEwDgYDVR0PAQH/BAQDAgXgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDB7BgNVHR8E
-dDByMDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
-Y3JsMDegNaAzhjFodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
-Y3JsMHYGCCsGAQUFBwEBBGowaDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29t
-MEAGCCsGAQUFBzAChjRodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVt
-YWlsRzIuY3J0MA0GCSqGSIb3DQEBCwUAA4IBAQBBdzgU+I8tGdMO+Y4AETOQi6aiN9kB7lKWe5Ch
-4VR+L4uxYIqIHxR7G2+IEC9ugqEu43p4b80LpY7M4KmmfiaRDFGQ50s1OHAwdbR3X2OtkUQq0Qb9
-6ln+HD8N1JxO5nabuKbymki0BPoZcPdo+FeRecmkL/NOzzm41JBHrhwRwEWOOhAO5KxN4nkMBZ/w
-QzKEy4PylxurHmRG/K0k+xYFDO/UOx2/YsM8s138lQqEdKCvudtSvj5oA/Y8dNcZwQGHyVN5h5r2
-nh3mT3r2l7Q4dgxXlovERGpNqCZJ624jCiWQC4ELMD2+6WDxjj03PbOulQZ8oY4PQUyp6djF0keA
-MYIDuzCCA7cCAQEwVTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMX
-VmVyb2tleSBTZWN1cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJYIZIAWUDBAIBBQCg
-ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI1MDgyMTIwMDkx
-NlowLwYJKoZIhvcNAQkEMSIEIAG0b8QSR+4yVgfKGJpqXbAWAJsAGD9WcicVj0v2UrnXMGQGCSsG
-AQQBgjcQBDFXMFUwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoTB1Zlcm9rZXkxIDAeBgNVBAMTF1Zl
-cm9rZXkgU2VjdXJlIEVtYWlsIEcyAhAH5JEPagNRXYDiRPdlc1vgMGYGCyqGSIb3DQEJEAILMVeg
-VTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMXVmVyb2tleSBTZWN1
-cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIAYAQXjfrRF6Aw
-wkpiAGwlYVrJMDq3pZmKkRo2O2oX9KsV+UEaSYYYl0R2Jh6oFZQuOc/MA/jL9S2L178LxZyr4D/b
-XAoE5piPTdNFJs3zLrDWEjk40yIQLu7LGcPxTyH1FLGT6pzu9CVr9YEqwEJX8Mbp+fBI4dVWmMg7
-ATVf6QBOkkHcXdYcd+jhU8nva6romlpgY8xuFJlkEogy1C+r7N8U4VP+eHNwGkDBVI7iszM68kq/
-u8+Hj3FkpUconyKWZVCbcPC3W4XFM1cPkIbvUjoeZw4P/yIOwXWtOWR6gi6Q4iedRHdjR7GiPaaP
-ob7gMTqMzyrC/Xtp9xypLdtnIgUQDnfjNrAft1c7QYuOtnWFgceL67Ag2vWOebxhfZCOblCzRwLN
-jnDc5c0Zo6/RvoGu0SPhTnrxHkw4EjWES3V+3f7FNBZJPY8HrTjuLNJYl3+hI/cutjqR04UyDRHZ
-4jGwFpXkjWq28MCWPVCdxzvU9CeJPlnzkqfR3C3WHSWu6r78l2jd/es3WAnbbuI44vVwpG2y/Eeb
-+zLdmD1NXD1tPkx4CiYLXu3MvjLWQzYI17pFDNF+a7hJvfKA7g0urkca2QSa9E6Pq/B3bI/sGAaf
-X4ZZUqqwCd8TRHVBgXrxXWfniABNpl6s7rUDTfMy0SQcUnMvw7miAmnGEqFkSVwAAAAAAAA=
-
-
---=-OQYT5kBmShxkyhQquOGw--
+~Andrew
 
