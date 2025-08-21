@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CA86B2EFEB
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 09:42:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1087891.1445693 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBC72B2F062
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 10:02:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1087906.1445704 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uozw6-0003SS-3M; Thu, 21 Aug 2025 07:42:14 +0000
+	id 1up0Eo-0007Ap-P4; Thu, 21 Aug 2025 08:01:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1087891.1445693; Thu, 21 Aug 2025 07:42:14 +0000
+Received: by outflank-mailman (output) from mailman id 1087906.1445704; Thu, 21 Aug 2025 08:01:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uozw6-0003PU-0a; Thu, 21 Aug 2025 07:42:14 +0000
-Received: by outflank-mailman (input) for mailman id 1087891;
- Thu, 21 Aug 2025 07:42:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1up0Eo-00079L-MA; Thu, 21 Aug 2025 08:01:34 +0000
+Received: by outflank-mailman (input) for mailman id 1087906;
+ Thu, 21 Aug 2025 08:01:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5Hha=3B=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uozw4-0003PO-ES
- for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 07:42:12 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 57bb8e76-7e62-11f0-a32b-13f23c93f187;
- Thu, 21 Aug 2025 09:42:09 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-618aea78f23so1078308a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 00:42:09 -0700 (PDT)
+ id 1up0Em-00077Y-LR
+ for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 08:01:32 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0bd0d09a-7e65-11f0-b898-0df219b8e170;
+ Thu, 21 Aug 2025 10:01:30 +0200 (CEST)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-61a1c6a5338so1140670a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 01:01:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61a7560a0f8sm4726847a12.24.2025.08.21.00.42.08
+ 4fb4d7f45d1cf-61a75794d3asm4829557a12.44.2025.08.21.01.01.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Aug 2025 00:42:08 -0700 (PDT)
+ Thu, 21 Aug 2025 01:01:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,69 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 57bb8e76-7e62-11f0-a32b-13f23c93f187
+X-Inumbo-ID: 0bd0d09a-7e65-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755762129; x=1756366929; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755763290; x=1756368090; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BCNbnjLP9T8ruRaSS77dcvfOpkR4qihrkU9R2gfcIas=;
-        b=Xc3pihcYCKP9/VaogUQGT6Rm7/1OPSBOrIX5bfbnvIzVJ9V4HBroKadGwtCNnUjwtB
-         jhrITfB2M4pXRlSqcKbSnw705DxgfEZO2e2UIjMw2WTDb87+AO12hlXyFGk8BnxMYwmS
-         onuk1ZmBIRBliQK7zuc1mK+ATVMHYtbj/m5Pi15b4qmeSmUZRLBBwvlovRPhjOWYXbsx
-         3O7mCTFa9RF/udcpaeZKQyipg46U9ipHYFskPOYZyy4ntLAEg0uHu+pzkdUUR7eNQ8w8
-         UgTZeEEv7wfkmh1QBemURAMJOs5LXgJXDJG0tuC8B1Xh687CZcxxaQ1qgJAkTQ56bdMO
-         Dyzw==
+        bh=fCrQ0wnvCaBIw94/YWBi9AxgWOcuL/KkE3qo3S7QI1Q=;
+        b=DW+UbqzMEd/fIRookIAewZhDtjt34cpxkO14/b7/4Fzbfz2pKECWgp4tP1BCCJ8+7a
+         VQoHMPHM4j0oeHtEraiMJsk0UGgacCDBWalKTKqRq2It3ST62UdSNGDEjc5vt+KbC7MA
+         QTi05O+Zcn/VlEhh+hTFhdNUAiX+g7gAY9vyMibks7dWmfQZGWPrN2RS1A2rpz201Od6
+         vOM3u8aMr/ZDDYc5OKjqKZqnzQ07ObqNqliG1SPijEEp2aztZq1mV0qCVNFjKUGmiFqK
+         8dhbnhdyfZyiuVXzprFcPTolHr20H+yszn71tuFsVHEHpe0k9EOnVkjLrW5BePfDaeTC
+         iGwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755762129; x=1756366929;
+        d=1e100.net; s=20230601; t=1755763290; x=1756368090;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BCNbnjLP9T8ruRaSS77dcvfOpkR4qihrkU9R2gfcIas=;
-        b=p7gMdu4zMUkYMfp/ANy29/4tM8kfDSwsLjgmxvAx6Lg5O8L+JeTgOmmyMJmR/yI9Zs
-         64miCmEkOTVVgOF5lPdv6L0Rb0RFQNzU6tWdkDelmRwgdEz68oFv3TTlldz8IXitFeoB
-         2UdRq9vOy537AF03kqBDaRyVkeD4WUTmTqafBoSEbdGgJbz/zoWG6V5rYoTq2QvrI4lq
-         PYcM3E3WXQc13v8uvF6YwsU8AlWdwuJVv8U73FMc33BzhEzUHNCc8p77hbZ1h66TCk5B
-         lR9MOUt1bGTYyL0Sm+FANZlChu6yGrrfnF2QjxFzcejusOmw5+T33V1Hghj5JNT8lltM
-         VTkA==
-X-Forwarded-Encrypted: i=1; AJvYcCW3S9yYrXvobx1a4Si2ZOP8vCaFTJZET0I2sZGCXI6CFjMxp1s7VSrfWiLhO0MeNBBFVD6X3kZtSlQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx6/Wy+tcpDpvwzJaV2lwpBfHyPQEtXXVoZZASB5ypL7dhET9mf
-	adG2xy+Mq3xe2tiCkh0fQ0ArtdvWtW4zMnppPeMK69Ka3atQu8eGZrQXzzuFW4XeOg==
-X-Gm-Gg: ASbGnct+ZSojrHEr2zzk310DwalmKibEebPtSjgADYaw0KpDAZ5pynDr2owGXddqo9A
-	vzZV+evkq9LC7KsmDJTbz/oZrjr+RrQtPfS/CNl888Z5yWJWKoePlBSyg9CbHoG5It1NSOGvEnm
-	e7qyHUJpHnfWrL5E7yDtrtN9SI6fVw8P/pQlnGuxv9L63IqPKpeu5t9XD8FKdt3I9lP07iPkV96
-	3DOemUwX035Ke/J6Cmiik/Us3PApyIOaCr3TXDjJTZDnVQagpbuHcfPjmQo4I0uTsflgvJNshpr
-	seWELAiN6iwWt8U/Q9NZ2hF8OdTo9HB65XQkqOCn/kzq0lKMhaURuJcaxhW19X3vxLMH81ynNRF
-	8Vv48la2HMALqFKF4+jD7z+1vhglPxFx37i3zMXyCbPgOHgTTK/IKyIjmUGA65GhKvIN9YW8QP7
-	DpBrKg3Sk=
-X-Google-Smtp-Source: AGHT+IFq8ZhaHA8NJxJTsixuMg05YlJAQA/HRQYqyLhg2tPaPkSwtfsYR+jQjcDeUFE7no55R4LZRw==
-X-Received: by 2002:a05:6402:21d0:b0:618:20c1:7e61 with SMTP id 4fb4d7f45d1cf-61bf873472amr1338979a12.27.1755762128906;
-        Thu, 21 Aug 2025 00:42:08 -0700 (PDT)
-Message-ID: <07b2dae6-c380-4f30-a5d4-1ae67979d872@suse.com>
-Date: Thu, 21 Aug 2025 09:42:07 +0200
+        bh=fCrQ0wnvCaBIw94/YWBi9AxgWOcuL/KkE3qo3S7QI1Q=;
+        b=pcbHFYNM8G6D2t74cLTQPCPlWy7FejcDb6EvOTMJlBc3sEpGG9ut+o2hSzCZeqswQ5
+         mxTyZA9Rhb732QqfFNSshEB6e52EgsIZyNeBLR4XiaQJ5LEhYaEusdJ+j7JTBHPolZb7
+         UTu/IQ4IBjetfyQLEF7TGPcEr07E0lUVOp7CznCGLu3GY/sP5N+h2+GHuFn2fQGxApiK
+         Pwjpib3cXOAR6e32mGfWEzVP7stv5+VaDUOx1SALXDL+h1fvCLb2ypw3GGAXaNNXMI5i
+         T+ySgO33RYzpHAgTEBBAp7URCyBeqSZJzwzIzmwlAhLUocMDh4SOYUy3srBkkKf3AKZE
+         CcIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWK0xrrHHtT5hwqWbacd3J+d2Es0+kGQ0aWsG2b/fmv59IS/JjVvrNVKe5tYGeZtt0Bp8mrsZCdq3U=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YycItozhSypeP/p5dEpZKMGo2oBE9RZwG+wbtDUDp0vnvmL+HXy
+	+IbYaAf1n0V9AJdhS92/9wrcic990rKZrZYu7lOOhdIhLAX/ILBJJF9PGKibJi72Kw==
+X-Gm-Gg: ASbGncsLUemh4v1C/XkD6Zhe6TDCS8elZayU6wWYr9hSqU4eJt/sk26hAB3ENGTEQHF
+	pZ9yIoRhKpdwhafbtThdJUOEIO3KtBxMdwhraQWw97IgWc77NzkVaIOc9xY9EDgzKa202B5dVb1
+	XcHaKboYc18qLhiUegzaxHqgVIDwXvRB2xIgqXnGXAou/rISXO9L6VZGnVdDM7OLKyg6JGqrwMU
+	vccdTTKu8Z+m7b0IOxfIa4nSS2jx7J0A6UA6NozAb6vGQXdqbuz5hdLQKAf+nrzl5Z65L0R1RLd
+	6fNoDFsHD9FIsrBESJuWN5tW9Zd0tOy93shvlpdNZ+InS3jXNmj220BGMmUCmMebn/GMdcGY5Qv
+	kX2UNIfrlG7gTShbXMA1Dm4y9xHPTHAm7z4mv8ITLRmzhTr0flK/NAcb1wzUfcotqzcMtadmduJ
+	EV0ZI26EHmSsgNLpMxow==
+X-Google-Smtp-Source: AGHT+IEcsqyi4MHJnK1vwtFzV/ACQfY4vUjFo+AmagG8Tw8KawzEPDz8VzTuaIelPDMBaPwCnMuUNA==
+X-Received: by 2002:a05:6402:50d3:b0:619:d0f3:3005 with SMTP id 4fb4d7f45d1cf-61bf87357d8mr1108380a12.28.1755763289474;
+        Thu, 21 Aug 2025 01:01:29 -0700 (PDT)
+Message-ID: <90fb95a3-4b32-4785-a77c-373e5b9da6ed@suse.com>
+Date: Thu, 21 Aug 2025 10:01:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Ping: [PATCH v12 0/6] x86: Make MAX_ALTP2M configurable
-To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+Subject: Re: [PATCH] misra: consider conversion from UL or (void*) to function
+ pointer as safe
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>, Juergen Gross
- <jgross@suse.com>, Christian Lindig <christian.lindig@citrix.com>,
- David Scott <dave@recoil.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <cover.1753953832.git.w1benny@gmail.com>
- <CAKBKdXiKpsmmcGR6A3jEfHSPBE4eG=9uyBzZTW21seGUuzzi0A@mail.gmail.com>
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <9e5e4ff2c7ba0a90a6ac403e2de9318e18949274.1755628705.git.dmytro_prokopchuk1@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -133,29 +125,59 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAKBKdXiKpsmmcGR6A3jEfHSPBE4eG=9uyBzZTW21seGUuzzi0A@mail.gmail.com>
+In-Reply-To: <9e5e4ff2c7ba0a90a6ac403e2de9318e18949274.1755628705.git.dmytro_prokopchuk1@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 20.08.2025 12:47, Petr Beneš wrote:
-> On Thu, Jul 31, 2025 at 11:28 AM Petr Beneš <w1benny@gmail.com> wrote:
->>
->> From: Petr Beneš <w1benny@gmail.com>
->>
->> This series introduces the ability to configure the maximum number of altp2m
->> tables during domain creation. Previously, the limits were hardcoded to a
->> maximum of 10. This change allows for greater flexibility in environments that
->> require more or fewer altp2m views.
->>
->> This enhancement is particularly relevant for users leveraging Xen's features
->> for virtual machine introspection.
+On 19.08.2025 20:55, Dmytro Prokopchuk1 wrote:
+> Rule 11.1 states as following: "Conversions shall not be performed
+> between a pointer to a function and any other type."
+> 
+> The conversion from unsigned long or (void *) to a function pointer
+> is safe in Xen because the architectures it supports (e.g., x86 and
+> ARM) guarantee compatible representations between these types.
 
-One remark: Besides having added the Ping: prefix in the subject, there's no
-new content here. You also sent the email To: the list. It thus remains
-unclear what your pinging for, as you have collected some tag(s) already. It
-generally helps if you make clear whom you're addressing with what expectation.
-(Things may be different if for a patch / series you didn't have any response
-at all.)
+I think we need to be as precise as possible here. The architectures
+guarantee nothing, they only offer necessary fundamentals. In the
+Windows x86 ABI, for example, you can't convert pointers to/from longs
+without losing data. What we build upon is what respective ABIs say,
+possibly in combination of implementation specifics left to compilers.
+
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -370,6 +370,16 @@ Deviations related to MISRA C:2012 Rules:
+>         to store it.
+>       - Tagged as `safe` for ECLAIR.
+>  
+> +   * - R11.1
+> +     - The conversion from unsigned long or (void \*) to a function pointer does
+> +       not lose any information or violate type safety assumptions if unsigned
+> +       long or (void \*) type is guaranteed to be the same bit size as a
+> +       function pointer. This ensures that the function pointer can be fully
+> +       represented without truncation or corruption. The macro BUILD_BUG_ON is
+> +       integrated into xen/common/version.c to confirm conversion compatibility
+> +       across all target platforms.
+> +     - Tagged as `safe` for ECLAIR.
+
+Why the escaping of * here, when ...
+
+> --- a/docs/misra/rules.rst
+> +++ b/docs/misra/rules.rst
+> @@ -431,7 +431,13 @@ maintainers if you want to suggest a change.
+>       - All conversions to integer types are permitted if the destination
+>         type has enough bits to hold the entire value. Conversions to bool
+>         and void* are permitted. Conversions from 'void noreturn (*)(...)'
+> -       to 'void (*)(...)' are permitted.
+> +       to 'void (*)(...)' are permitted. Conversions from unsigned long or
+> +       (void \*) to a function pointer are permitted if the source type has
+> +       enough bits to restore function pointer without truncation or corruption.
+> +       Example::
+> +
+> +           unsigned long func_addr = (unsigned long)&some_function;
+> +           void (*restored_func)(void) = (void (*)(void))func_addr;
+
+... context here suggests they work fine un-escaped, and you even add some un-
+escaped instances as well. Perhaps I'm simply unaware of some peculiarity?
 
 Jan
 
