@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89734B2F355
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 11:08:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1088262.1446025 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30EC0B2F3A3
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 11:19:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1088271.1446035 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1up1HG-0006dt-O8; Thu, 21 Aug 2025 09:08:10 +0000
+	id 1up1Rg-00040i-M8; Thu, 21 Aug 2025 09:18:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1088262.1446025; Thu, 21 Aug 2025 09:08:10 +0000
+Received: by outflank-mailman (output) from mailman id 1088271.1446035; Thu, 21 Aug 2025 09:18:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1up1HG-0006al-Km; Thu, 21 Aug 2025 09:08:10 +0000
-Received: by outflank-mailman (input) for mailman id 1088262;
- Thu, 21 Aug 2025 09:08:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1up1Rg-0003xa-JI; Thu, 21 Aug 2025 09:18:56 +0000
+Received: by outflank-mailman (input) for mailman id 1088271;
+ Thu, 21 Aug 2025 09:18:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5Hha=3B=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1up1HF-0006af-28
- for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 09:08:09 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5a646c38-7e6e-11f0-a32b-13f23c93f187;
- Thu, 21 Aug 2025 11:08:07 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-6188b7550c0so1146173a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 02:08:07 -0700 (PDT)
+ id 1up1Re-0003wM-Qe
+ for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 09:18:54 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dabbe609-7e6f-11f0-b898-0df219b8e170;
+ Thu, 21 Aug 2025 11:18:52 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-afcb79f659aso126187166b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 02:18:52 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61a758bedf1sm4756282a12.52.2025.08.21.02.08.06
+ a640c23a62f3a-afded2fc541sm352266066b.26.2025.08.21.02.18.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Aug 2025 02:08:06 -0700 (PDT)
+ Thu, 21 Aug 2025 02:18:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5a646c38-7e6e-11f0-a32b-13f23c93f187
+X-Inumbo-ID: dabbe609-7e6f-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755767287; x=1756372087; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755767932; x=1756372732; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=hSAGfWHiSTq6a2buNbs69CsavGFojiL0rmGC11x6+cg=;
-        b=UwXAEkeCAlgfqbPM++iAvESGCf/JbAx++nU+SuFa2I/1+EIo9nOd+KUOA4Pmvflo3g
-         ktP2baNhxemqrQbL2a+5wIoGbZo/QIeJyya1+HXJndH8h+fIi7Qkn8fjC1TtC71Rrlbb
-         Bt35sA21Bdy9fgQznnnx/5A/auGIs+EaH0jNVPvXKneo73QgDR1oVcEfeCOe1Hamhodd
-         +9FESHm1xYmZXtPjVryLxOI7koBltQsRchTAWJ6o86swT5sami2OWXp+sjczx89eZU+t
-         TOnH2jBmpTbApi/5XDRZ8wGg90T7g1Ikq2KYibq5VwZlD6D8Y2cCc1eik5zU1kivSO+4
-         P+1w==
+        bh=b6/aG7zOORt47TtTgpDNhbpehE6McyGOIen27g6zISg=;
+        b=HTLZSVWELxlchi5ZnzY9gOrbPyaVm0BlrQ4dU+jUhiq9POvs/Bmnjfh+h5KwYv1EJZ
+         k2nnVMls/EKQQXwZqK2J6jDKXZwNPOqxuj1YNGR+usLAKbyEN3PKFJoJqevVtrwFy0O3
+         LXCvM4iI0FDMIPBAkysng512DPOwqLlN3ybbN9nY/H9CgKSbDC9jYrOEKfBkCD2TwEK8
+         oajCy4X/12sF3/WKKqbcQRzaTYz34L7LXl0+wRZFRK32IoEwJ1JZJB/PbNe1QE05X2ft
+         3Zx0OZiI/iNijaHdejDlEM+t7uUpSW2KO9vOTJKD4NxVH0kxzYWRYENorYEFd3lc6ZJg
+         Qfdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755767287; x=1756372087;
+        d=1e100.net; s=20230601; t=1755767932; x=1756372732;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hSAGfWHiSTq6a2buNbs69CsavGFojiL0rmGC11x6+cg=;
-        b=fxEP0BDpxCGlZEGml+8vNjr1og6orUqtKQ0+uinhXURdcNhSF+VZfofWISZS2OufPP
-         MsVVeG+IjWEIk7wek98jsaOfDFp0eRoe9P1nJ1fcermdVKkNt54uhtNGma1UcMYo4X9W
-         4wtGnqJI5gMHFZKyvyuSNiW6lg8DUFy+LT9QG215y4Fu/s8QehT4PHOdIbNbLdNtXnJp
-         QHfRfbwLa0L0D+SrqSeDhIwCQjLjPgfl4WZflhnPm07aneYc9P77lvdm6FlwZ6N8TXUZ
-         fhI9X9fInwVtRj7hgGXTXqyzhfMnk2sW8PwyglI0tPZERDzSZHYVRJUd4FShWh19SmM8
-         o5/w==
-X-Forwarded-Encrypted: i=1; AJvYcCVuBB/iNzde0LVdAagq12Gw6PPTSQNlH9zqdSgwjIcHLC2cHMDtFr9EMpTZv113Ytgn12ZMS4B+Dvw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyBGzY/viWatVX/hBj3eqO5RRlSaO7zDDf4GZ3OSbvJ+u/doAUe
-	gEIgkevsPSkeE2BmNDBhhF1E4tBu1+cTPriG5eINyJvUf2H5StWCV8LI5jrNBZobsg==
-X-Gm-Gg: ASbGncu6zVuhufvXMoqmw3nxwJYNNmQ0at+Ryt9l8WoZfKSqtm4OVODUTFRvesxNFFI
-	CKlJon1Qr+T0fDELrDWdzG9bQfAaGZYYaymYcLVvWCfguf0kZmb1caz4eGoFuhLnSOJuegL+LpN
-	qCnBg7Bv/jUoQqzwG1ufzERKi5AJQg5XHIdj+f5wUmsyGP2+jPLjQFZrjXcR8NDca1A/MT4oFNP
-	jMmeCMy2ROUlgVJnC/gQnuW+mSYd4dA+XcQdWOEzepYe8IoS1PDQRNX9o8B+2b7xk114s07g5cg
-	p73McFzvNFYsUcSmjJNu2Xi+q+MbBfczln6buys6KM8GwyGXWvckARPXEblJJVUNO3a0TIj582b
-	GnPhetOH/WYn7ZDVaWfTzVDH/VZtc0IuHfoWVcywKe9OJuMqErNWheQl9gDwuN4enGthReroYeu
-	MNs4u0SCYXd+DvZdMVwSxaT4mmEylk
-X-Google-Smtp-Source: AGHT+IGM/hm3s9vS1+Hszm9PhpkIJIY/xzFTS/1zS6ETSaY+Exdg4sahhw8IVA5hszSye6IAmfdrBw==
-X-Received: by 2002:a05:6402:3590:b0:617:b2aa:576a with SMTP id 4fb4d7f45d1cf-61bf86deb27mr1524852a12.3.1755767287116;
-        Thu, 21 Aug 2025 02:08:07 -0700 (PDT)
-Message-ID: <26bad9fb-3c4b-4423-a443-3406d07d56e0@suse.com>
-Date: Thu, 21 Aug 2025 11:08:05 +0200
+        bh=b6/aG7zOORt47TtTgpDNhbpehE6McyGOIen27g6zISg=;
+        b=tfsJQG7jn6p1nbdwpsA9Us2LUG9uGIYpJNJKSa4DVDq1eDitD4LX0FL2WZAJLNtonS
+         S7DToysm87GZdlIm6Mg8MXKpKE/UbVLHaTKG0P3lwzwg4ZJap+BAodCPLCAUAor5t0mt
+         5a1VXXIjgNlyFnRKWXroq9QpcD2QguVCDAidlXq7JBKzFzE0U8sg+ySZqG1pUNPbj16l
+         TgZQv9YKvoNPOzQQdiJsBJABNPM8R8E7Qt7DtGLlYO9KBVZOrBp3IxNIm26jx6DiOb/X
+         4ut+Um9HpXUmfUzoQuqnU0Ob9Vux7fhlZkCMIlQo4x0VMmbdsTJjH2d/XP8w9N7JJBEX
+         Mh0w==
+X-Forwarded-Encrypted: i=1; AJvYcCWqku8GdFOO/7KXOoxJjQlwgjLXxwD3r7DLZnu+CY9Ay10h0Aex4v1rGNtGclTonji33W6uGfsVlVQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwWhay3qiLtCBjjUlTJmLQQlK1PoFAyqeW9cpqKlTbkepZiAOLN
+	og4zMP7tXnyuUn976ZpjDxtxZdjLrZ5dDZ3JudP6ds0Dv0YU7ilijn6c1zTxaoKUVg==
+X-Gm-Gg: ASbGnctKLmeJ0xNah4ZJVBIv96btcIjaqP1bSU6aK/akj61PQ+tn8Feud/wFatXK0L+
+	critzRdO8/YSIw5idIZTqFkpuKOnhZ79Sd1fpfyzz/PDxiZvaOdtIkM+09ZAB/WnCFfDPii687V
+	wpiMaEF9PzfJjdmN8xQE/FPg+MOa/aUVEZjzLwuynOQzzbgBrxN3ZOFOAOLkXNYkEGjlgMMb7fN
+	xnfh+DtUfBZtIoDwUKolXP0aBlvn0U5608vcMWkBcf68+V6ZEgJmSvpk19bBxUTV+hjgyzCVl5e
+	qzYLOLPzWww4CM0QF1mqnWoBf4M8Zme0ESERdKPL1vbItWA0YHIGTONwtzQ9W2VchQ1vhOQ1JSy
+	y3t3OD6rbSo0vsEiudkwAYAR+g0K6SwhVK/dj4A7uWejz0CPymd2oRLCNy0drKzngPm95b/EuyZ
+	tW3yqB4to=
+X-Google-Smtp-Source: AGHT+IE2TjfJ90Tll2mveg5doi1Agb9W68Yj/glcn6ylD+TR4S3Je32FJt+2jpJvZRkOabwEbIQQ4w==
+X-Received: by 2002:a17:907:5ca:b0:ae0:ad8c:a559 with SMTP id a640c23a62f3a-afe07abd710mr163112266b.4.1755767931805;
+        Thu, 21 Aug 2025 02:18:51 -0700 (PDT)
+Message-ID: <5199396a-685c-4839-b7cb-d32e3f4a0b48@suse.com>
+Date: Thu, 21 Aug 2025 11:18:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] xen/pci: add discovered PCI device at boot
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: Luca Fancellu <luca.fancellu@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+Subject: Re: [PATCH] misra: add deviation for MISRA C Rule 11.3
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1755683961.git.mykyta_poturai@epam.com>
- <bb2589996131b0e7e645c0af281b9862e2e0f4cb.1755683961.git.mykyta_poturai@epam.com>
+References: <d6a8682c98880d66ea99f882520b3defda0e3fe0.1755672275.git.dmytro_prokopchuk1@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,122 +124,69 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <bb2589996131b0e7e645c0af281b9862e2e0f4cb.1755683961.git.mykyta_poturai@epam.com>
+In-Reply-To: <d6a8682c98880d66ea99f882520b3defda0e3fe0.1755672275.git.dmytro_prokopchuk1@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20.08.2025 14:28, Mykyta Poturai wrote:
-> From: Luca Fancellu <luca.fancellu@arm.com>
+On 20.08.2025 09:17, Dmytro Prokopchuk1 wrote:
+> MISRA C Rule 11.3 states: "A cast shall not be performed between a pointer
+> to object type and a pointer to a different object type."
 > 
-> In dom0less mode, there is no dom0 that can call PCI physdev ops to
-> register PCI devices to iommu, so it needs to be done by Xen.
-> pci_add_device requires some default domain, we don't have hwdom, and
-> the guests are not yet created during the PCI init phase, so use dom_io
-> as a temporary sentinel before devices are assigned to their target
-> domains.
+> Violations of this rule arise due to the 'container_of' macro, which casts
+> a member of a structure to its containing structure:
+>     container_of(ptr, type, member) ({                             \
+>            typeof_field(type, member) *__mptr = (ptr);             \
+>            (type *)( (char *)__mptr - offsetof(type,member) );})
 > 
-> Rename setup_hwdom_pci_devices to setup_pci_devices and add dom0less
-> handling to it.
+> The 'container_of' macro is safe because it relies on the standardized and
+> well-defined 'offsetof' macro to calculate the memory address of the
+> containing structure, while assuming proper alignment and ensuring no
+> undefined behavior, provided that the input pointer is valid and points to
+> the specified member.
 > 
-> In pci_add_device there is a call to xsm that doesn't consider the
-> requester of the function to be Xen itself, so add a check to skip
-> the call if the owner domain is dom_io, since it means the call is
-> coming directly from Xen.
+> Configure Eclair to suppress violation reports related to 'container_of
+> macro. Update 'deviations.rst' file accordingly. Add Rule 11.3 to the
+> monitored list.
+> No functional changes.
 > 
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
-> ---
-> (cherry picked from commit eff51e50021b75f5a50533f7de681b2ce044f5bd from
->  the downstream branch poc/pci-passthrough from
->  https://gitlab.com/xen-project/people/bmarquis/xen-arm-poc.git)
-> 
-> v1->v2:
-> * integrate add_discovered_pci_devices into existing routines
-> * better explain the need for dom_io
+> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
 
-What I continue to miss is an explanation of why devices can't go to their
-ultimate "destination" domain right away (once those have been created),
-i.e. why the dom_io intermediary is necessary in the first place.
+Looks largely okay; just one nit and a question:
 
-> --- a/xen/drivers/passthrough/pci.c
-> +++ b/xen/drivers/passthrough/pci.c
-> @@ -35,6 +35,7 @@
->  #include <xen/msi.h>
->  #include <xsm/xsm.h>
->  #include "ats.h"
-> +#include "xen/dom0less-build.h"
-
-No, please don't, at the very least not this way (using quotes rather than
-angle brackets). I may guess that it's for is_dom0less_mode(), but even
-then I wonder whether that declaration wouldn't better move elsewhere. It
-simply feels somewhat wrong to include this header here.
-
-> @@ -1181,19 +1185,21 @@ int __init scan_pci_devices(void)
->      return ret;
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -403,6 +403,14 @@ because the semantics of the 'noreturn' attribute do not alter the calling conve
 >  }
+>  -doc_end
 >  
-> -struct setup_hwdom {
-> +struct setup_ctxt {
->      struct domain *d;
->      int (*handler)(uint8_t devfn, struct pci_dev *pdev);
->  };
+> +-doc_begin="Convesions in the 'container_of' macro are safe because it relies on
+
+"Conversions" (also in deviations.rst)
+
+> --- a/automation/eclair_analysis/ECLAIR/monitored.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/monitored.ecl
+> @@ -45,6 +45,7 @@
+>  -enable=MC3A2.R10.2
+>  -enable=MC3A2.R11.1
+>  -enable=MC3A2.R11.2
+> +-enable=MC3A2.R11.3
+
+While the description mentions this change, it doesn't say why (e.g. "no
+violations left" or "only this and that violation left" or some such).
+
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -393,6 +393,14 @@ Deviations related to MISRA C:2012 Rules:
+>         (i.e., less strict) alignment requirement are safe.
+>       - Tagged as `safe` for ECLAIR.
 >  
-> -static void __hwdom_init setup_one_hwdom_device(const struct setup_hwdom *ctxt,
-> +static void __hwdom_init setup_one_pci_device(const struct setup_ctxt *ctxt,
->                                                  struct pci_dev *pdev)
+> +   * - R11.3
+> +     - Convesions in the 'container_of' macro are safe because it relies on
+> +       the standardized and well-defined 'offsetof' macro to calculate the memory
 
-Nit: Indentation then also needds to change on this following line.
-
->  {
->      u8 devfn = pdev->devfn;
-> -    int err;
-> +    int err = 0;
-
-This doesn't suffice, as ...
-
->      do {
-> -        err = ctxt->handler(devfn, pdev);
-> +        if ( ctxt->handler )
-> +            err = ctxt->handler(devfn, pdev);
-> +
->          if ( err )
->          {
->              printk(XENLOG_ERR "setup %pp for d%d failed (%d)\n",
-
-... below here we may continue the loop even if we got an error. "err"
-needs setting unconditionally in the loop body, and hence maybe better
-with a conditional expression.
-
-> @@ -1229,18 +1235,26 @@ static int __hwdom_init cf_check _setup_hwdom_pci_devices(
->              if ( !pdev )
->                  continue;
->  
-> +            if ( is_dom0less_mode() ) {
-
-We're in a __hwdom_init function. You can't call an __init one from here.
-
-Also nit (style): Brace placement.
-
-> +                int ret = pci_add_device(pdev->seg, pdev->bus, pdev->devfn, NULL,
-> +                                         NUMA_NO_NODE, ctxt->d);
-> +                if (ret)
-
-Nit (style): Missing blanks.
-
-> --- a/xen/include/xen/pci.h
-> +++ b/xen/include/xen/pci.h
-> @@ -220,9 +220,8 @@ int scan_pci_devices(void);
->  enum pdev_type pdev_type(u16 seg, u8 bus, u8 devfn);
->  int find_upstream_bridge(u16 seg, u8 *bus, u8 *devfn, u8 *secbus);
->  
-> -void setup_hwdom_pci_devices(struct domain *d,
-> -                             int (*handler)(uint8_t devfn,
-> -                                            struct pci_dev *pdev));
-> +void setup_pci_devices(struct domain *d, int (*handler)(uint8_t devfn,
-> +                                                        struct pci_dev *pdev));
-
-I think in this case the 2nd parameter would better remain on the following
-line, to limit overall indentation.
+Actually another nit: Here as well as in the description, it would be nice
+to add parentheses, so indicate the function-ness of both macros (i.e.
+container_of() and offsetof()).
 
 Jan
 
