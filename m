@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B963B2FE49
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 17:26:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1088815.1446534 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75E0DB2FE42
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 17:26:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1088817.1446545 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1up7As-00062P-Aa; Thu, 21 Aug 2025 15:25:58 +0000
+	id 1up7As-0006CP-Rr; Thu, 21 Aug 2025 15:25:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1088815.1446534; Thu, 21 Aug 2025 15:25:58 +0000
+Received: by outflank-mailman (output) from mailman id 1088817.1446545; Thu, 21 Aug 2025 15:25:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1up7As-00061K-57; Thu, 21 Aug 2025 15:25:58 +0000
-Received: by outflank-mailman (input) for mailman id 1088815;
- Thu, 21 Aug 2025 15:25:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1up7As-00066t-MA; Thu, 21 Aug 2025 15:25:58 +0000
+Received: by outflank-mailman (input) for mailman id 1088817;
+ Thu, 21 Aug 2025 15:25:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oAtF=3B=bounce.vates.tech=bounce-md_30504962.68a73a7d.v1-8a92cbcbf28e4ec8835df8665a8d7231@srs-se1.protection.inumbo.net>)
- id 1up7Ap-0005na-SG
- for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 15:25:55 +0000
+ <SRS0=BQjA=3B=bounce.vates.tech=bounce-md_30504962.68a73a7e.v1-3f408629188242329ca2147b15758713@srs-se1.protection.inumbo.net>)
+ id 1up7Ar-0005nU-CD
+ for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 15:25:57 +0000
 Received: from mail137-3.atl71.mandrillapp.com
  (mail137-3.atl71.mandrillapp.com [198.2.137.3])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1dee1c3e-7ea3-11f0-b898-0df219b8e170;
- Thu, 21 Aug 2025 17:25:50 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1eb23df8-7ea3-11f0-a32b-13f23c93f187;
+ Thu, 21 Aug 2025 17:25:51 +0200 (CEST)
 Received: from pmta07.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail137-3.atl71.mandrillapp.com (Mailchimp) with ESMTP id 4c76bK0sgzzBsVBZ7
- for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 15:25:49 +0000 (GMT)
+ by mail137-3.atl71.mandrillapp.com (Mailchimp) with ESMTP id 4c76bL40mbzBsVD7B
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 15:25:50 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- 8a92cbcbf28e4ec8835df8665a8d7231; Thu, 21 Aug 2025 15:25:49 +0000
+ 3f408629188242329ca2147b15758713; Thu, 21 Aug 2025 15:25:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,168 +42,288 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1dee1c3e-7ea3-11f0-b898-0df219b8e170
+X-Inumbo-ID: 1eb23df8-7ea3-11f0-a32b-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1755789949; x=1756059949;
-	bh=f+MVIfI7tSP+OiiCs9By3b93AN5lW1SGwr6uGwBsgGw=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=KL8ME3Ul070FOn29lID2q7aqwedYjff6Z2oAclj8NHWzxPMpvh64tv9jMbdph4+Ge
-	 k5/NJwX7qMXhokz/LxDHv9/AIeG5WWZjVA9fernW9p+IZSI8vXx0n/RRxOc/ggJXPE
-	 TyaQIvVLyW+xdhpS3Nts+ZNEsDbOFMiCD0jvMV6udTrTceDo0WgeBgNeJP2a5IOcQ9
-	 FsuP0mhqsx2H25Bglo4RlMxZNUhrmO232jO6UfI5EnH77eR0+GEqXLe1OWJ1SnI6d8
-	 hx6lprxwS8ZV68aJpeYmiJLp3IXRVf4iF4yaHZWhYcw8EbW8VKBJK3q8AK4c5X+KMT
-	 vdXbA6vFGKHew==
+	s=mte1; t=1755789950; x=1756059950;
+	bh=SbIlPsyNgTEwgIzXTJ1Jn4RTs8uee0L3+cFAML8sLR8=;
+	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=RrEDColLv3XLiy+Pvl2N0Rkll4OwKpU9CDzpuliBKDNj0dP/muYjABsxULNGI2PeH
+	 Tw1PIIy0Evg6Og3RYWkVSnvOLZqBkz0BzD3v3ogYXZorZm/abMLKYsbnHmpRZu2Obn
+	 VX5QApBlilJEm/9thqD0gmVW76Oar4QNjr8ukBruQjeqFw9oVlQWzVuO/aHeo2TDjU
+	 uRUdGmBZzCI+xl/p3BogKOp0vH7OIn5BTYpo50IWfYqaJv0z+G/S2gqaSuJTzr58C5
+	 ZoWL61+MplY/3PPkq76cQpfiT8y6jcS0mFD74aKCzDCab4jTgYgJWO8jQe4qzuEiWs
+	 LDKFj4Ck04HcA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1755789949; x=1756050449; i=teddy.astie@vates.tech;
-	bh=f+MVIfI7tSP+OiiCs9By3b93AN5lW1SGwr6uGwBsgGw=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=ouVkk7UnfZgeqSDR7NSs0DaZKpQxyo8BfPoTlL/kFK0biayylxu9KjlQdYBEuD1Nw
-	 h2/oZ3NbeOqgJEk4BukqpA5nLl73mmtx48zivEzf0HLCwE6d0HYZwx/aBLNMQuK581
-	 jXk1BSuRhAnZSLXiogRidS0gPFZT/GltAcQhMpIeWp1spynPIrkrfRvVUQKjNKH+ez
-	 55R3MDToc7rfaM1zA6Sqej/1nwtOa70G/Yb9z8nKEaAhHW2s3kuWKgGxK9OjEN0yki
-	 X4MX3Y75gyfO2DCNIPNXZ5Fjj8NBe7Y7Xp9Bw6ZcLgA83HSQzx6/2xYO8o4bqFQRi+
-	 p/ekELGyY/WeA==
+	t=1755789950; x=1756050450; i=teddy.astie@vates.tech;
+	bh=SbIlPsyNgTEwgIzXTJ1Jn4RTs8uee0L3+cFAML8sLR8=;
+	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=buf6aQGC7jf864Xe0EzUrya0YgB08xs1kCH9qIHZ3T9fuFJTI86NIGWDEHRjDQLhs
+	 ppY8Qa88CBvW/CUVc/LgKw7mWjCih/AiHaLuTU4fe40FUxGzTc6vEn4Ms0KKat457X
+	 yeFhTbXsYv6NGumt34ve8fAIHZHpV0VTPFrd9zOFUnKOtxvobXEP/wgMVt9WJdzmD1
+	 xkNp+bTgvdxDJmLZ6aK7TUDRUWSlXv3kB2/Drg/TL1q1h8dtHrYEAOdem5bvx7tDIb
+	 wGeA3ptW/YQvnx51n4peEl6ju1Zdu47X2IwnSYPMdnZor3OCLHzHS5oy0/ZhLT2Pka
+	 KoQtTC5cUKJew==
 From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[RFC=20PATCH=200/9]=20x86/hvm:=20New=20Xen=20HVM=20ABI=20proposal=20("HVMv2"=20part=201)?=
+Subject: =?utf-8?Q?[RFC=20PATCH=201/9]=20x86/hvm:=20Use=20direct=20structures=20instead=20of=20guest=20handles?=
 X-Mailer: git-send-email 2.50.1
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1755789947659
+X-Bm-Transport-Timestamp: 1755789949800
 To: xen-devel@lists.xenproject.org
-Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Julien Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, "Juergen Gross" <jgross@suse.com>, "Dario Faggioli" <dfaggioli@suse.com>, "George Dunlap" <gwd@xenproject.org>, "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Message-Id: <cover.1755785258.git.teddy.astie@vates.tech>
+Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
+Message-Id: <de595114d532e0fa6c885c47cf2b3551ad495525.1755785258.git.teddy.astie@vates.tech>
+In-Reply-To: <cover.1755785258.git.teddy.astie@vates.tech>
+References: <cover.1755785258.git.teddy.astie@vates.tech>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.8a92cbcbf28e4ec8835df8665a8d7231?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.3f408629188242329ca2147b15758713?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20250821:md
-Date: Thu, 21 Aug 2025 15:25:49 +0000
+Date: Thu, 21 Aug 2025 15:25:50 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-Hello, this series introduce a new hypercall ABI proposal (x86 only for now).
+Make these functions work with hypervisor-owned pointer rather than
+guest handles, so the function parameters don't have to live in guest memory.
 
-The current Xen ABI has some shortcommings :
+No functional changes intended.
 
-First, the hypercall parameters are usually pointers that point to a structure
-in guest memory, this pointer is usually a virtual address. 
-It causes various issues as :
- - you need to define a format for these structures which is currently C
-   structures, but it complicates support with non LP64 platforms (e.g Windows)
-   or other programming languages (e.g Rust, where solutions are hard to come with)
- - the translation from virtual address to machine physical address is very expensive
-   as you need to translate the GVA to GPA, and then GPA to HPA each time you want to
-   access a virtual address
- - such virtual addresses are not readable under confidential computing guests which
-   makes such new ABI required.
+Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+---
+ xen/arch/x86/hvm/hvm.c | 126 +++++++++++++++++++++++------------------
+ 1 file changed, 70 insertions(+), 56 deletions(-)
 
-Another issue is that all possible Xen hypercalls are exposed through this
-single interface, it makes hardening the hypervisor more complicated as you
-need to permission check on a per-hypercall basis (e.g through XSM) instead
-of having a minimal strict safe-for-guest-use set of operations.
-
-The current ABI allows the guest to modify its physmap; this is notably used for
-mapping the shared info, grant table and ballooning. While we could make that work
-for confidential guests. It comes with its own set of problems, and in order to
-simplify the memory management, this series come with a proposal for mapping these
-specific pages in advance and telling the guest the location. That helps reducing
-the scope of this new ABI. Ballooning implementation hasn't been fully considered yet.
-
-This series propose a new hypercall interface designed for use by guests kernels
-with high performance (low hypercall overhead) and confidential computing environments
-(notably AMD SEV) compatibility in mind. It currently only supports x86 long mode
-(64-bits) due to specific register requirements.
-
-It doesn't aim to entirely replace the current ABI, but to propose a alternative
-one that could be used by guests as a fast-path ABI or for confidential computing
-guests.
-
-This new ABI maps into current many operations (with some limitations), a tool is
-provided to generate C stubs using the yaml specification.
-These C stubs reuse the existing hypercall structures to ease adding support
-for this ABI in guests.
-
-You can find some example generated headers in Linux SEV WIP branch [1].
-
-[1] https://github.com/xcp-ng/linux/tree/xen-sev-6.14/include/xen/interface/fastabi
-
-Teddy Astie (9):
-  x86/hvm: Use direct structures instead of guest handles
-  common: Isolate XENVER_get_features into a separate function
-  common/grant_table: Use direct structures instead of guest handles
-  hvm: Introduce "fixed memory layout" feature
-  docs/x86: Introduce FastABI
-  sched: Extract do_poll main logic into vcpu_poll
-  x86/hvm: Introduce FastABI implementation
-  hvm: Introduce XEN_HVM_MEMMAP_TYPE_HOTPLUG_ZONE
-  tools: Introduce abi-tool
-
- docs/guest-guide/x86/fastabi.pandoc           |  50 +++++
- .../x86/fixed-memory-layout.pandoc            |  24 ++
- docs/guest-guide/x86/index.rst                |   2 +
- tools/include/xen-tools/common-macros.h       |   4 +
- tools/libs/guest/xg_dom_x86.c                 |  84 +++++++
- tools/libs/light/libxl_create.c               |   1 +
- tools/libs/light/libxl_types.idl              |   1 +
- tools/libs/light/libxl_x86.c                  |  71 ++++++
- tools/xl/xl_parse.c                           |   1 +
- xen/abi/event_channel.yml                     | 130 +++++++++++
- xen/abi/grant_table.yml                       |  46 ++++
- xen/abi/hvm.yml                               |  50 +++++
- xen/abi/memory.yml                            |  11 +
- xen/abi/sched.yml                             |  48 ++++
- xen/abi/vcpu.yml                              | 139 ++++++++++++
- xen/abi/version.yml                           |  15 ++
- xen/arch/x86/cpuid.c                          |   3 +
- xen/arch/x86/domain.c                         |  71 ++++++
- xen/arch/x86/hvm/hvm.c                        | 205 +++++++++++++-----
- xen/arch/x86/hvm/hypercall.c                  |  22 ++
- xen/arch/x86/include/asm/fastabi.h            |  17 ++
- xen/common/Kconfig                            |   6 +
- xen/common/Makefile                           |   1 +
- xen/common/domain.c                           | 179 +++++++++++++++
- xen/common/event_channel.c                    | 199 +++++++++++++++++
- xen/common/fastabi.c                          |  49 +++++
- xen/common/grant_table.c                      | 112 +++++++---
- xen/common/kernel.c                           | 117 ++++++----
- xen/common/memory.c                           | 110 ++++++++++
- xen/common/sched/core.c                       | 149 +++++++++++--
- xen/include/public/arch-x86/cpuid.h           |   4 +
- xen/include/public/arch-x86/hvm/start_info.h  |   8 +
- xen/include/public/event_channel.h            |   7 +
- xen/include/public/fastabi.h                  |  20 ++
- xen/include/xen/fastabi.h                     |  21 ++
- xen/tools/abi-tool/.gitignore                 |   1 +
- xen/tools/abi-tool/Cargo.lock                 | 145 +++++++++++++
- xen/tools/abi-tool/Cargo.toml                 |  11 +
- xen/tools/abi-tool/src/abi.rs                 |  23 ++
- xen/tools/abi-tool/src/c_lang.rs              | 173 +++++++++++++++
- xen/tools/abi-tool/src/main.rs                |  17 ++
- xen/tools/abi-tool/src/spec.rs                |  61 ++++++
- 42 files changed, 2265 insertions(+), 143 deletions(-)
- create mode 100644 docs/guest-guide/x86/fastabi.pandoc
- create mode 100644 docs/guest-guide/x86/fixed-memory-layout.pandoc
- create mode 100644 xen/abi/event_channel.yml
- create mode 100644 xen/abi/grant_table.yml
- create mode 100644 xen/abi/hvm.yml
- create mode 100644 xen/abi/memory.yml
- create mode 100644 xen/abi/sched.yml
- create mode 100644 xen/abi/vcpu.yml
- create mode 100644 xen/abi/version.yml
- create mode 100644 xen/arch/x86/include/asm/fastabi.h
- create mode 100644 xen/common/fastabi.c
- create mode 100644 xen/include/public/fastabi.h
- create mode 100644 xen/include/xen/fastabi.h
- create mode 100644 xen/tools/abi-tool/.gitignore
- create mode 100644 xen/tools/abi-tool/Cargo.lock
- create mode 100644 xen/tools/abi-tool/Cargo.toml
- create mode 100644 xen/tools/abi-tool/src/abi.rs
- create mode 100644 xen/tools/abi-tool/src/c_lang.rs
- create mode 100644 xen/tools/abi-tool/src/main.rs
- create mode 100644 xen/tools/abi-tool/src/spec.rs
-
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+index 56c7de3977..8bf59c63fe 100644
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -4142,19 +4142,14 @@ static int hvmop_flush_tlb_all(void)
+     return paging_flush_tlb(NULL) ? 0 : -ERESTART;
+ }
+ 
+-static int hvmop_set_evtchn_upcall_vector(
+-    XEN_GUEST_HANDLE_PARAM(xen_hvm_evtchn_upcall_vector_t) uop)
++static int hvmop_set_evtchn_upcall_vector(xen_hvm_evtchn_upcall_vector_t op)
+ {
+-    xen_hvm_evtchn_upcall_vector_t op;
+     struct domain *d = current->domain;
+     struct vcpu *v;
+ 
+     if ( !is_hvm_domain(d) )
+         return -EINVAL;
+ 
+-    if ( copy_from_guest(&op, uop, 1) )
+-        return -EFAULT;
+-
+     if ( op.vector < 0x10 )
+         return -EINVAL;
+ 
+@@ -4434,26 +4429,21 @@ static int hvm_set_param(struct domain *d, uint32_t index, uint64_t value)
+     return rc;
+ }
+ 
+-static int hvmop_set_param(
+-    XEN_GUEST_HANDLE_PARAM(xen_hvm_param_t) arg)
++static int hvmop_set_param(struct xen_hvm_param op)
+ {
+-    struct xen_hvm_param a;
+     struct domain *d;
+     int rc;
+ 
+-    if ( copy_from_guest(&a, arg, 1) )
+-        return -EFAULT;
+-
+-    if ( a.index >= HVM_NR_PARAMS )
++    if ( op.index >= HVM_NR_PARAMS )
+         return -EINVAL;
+ 
+-    d = rcu_lock_domain_by_any_id(a.domid);
++    d = rcu_lock_domain_by_any_id(op.domid);
+     if ( d == NULL )
+         return -ESRCH;
+ 
+     rc = -EINVAL;
+     if ( is_hvm_domain(d) )
+-        rc = hvm_set_param(d, a.index, a.value);
++        rc = hvm_set_param(d, op.index, op.value);
+ 
+     rcu_unlock_domain(d);
+     return rc;
+@@ -4544,31 +4534,21 @@ int hvm_get_param(struct domain *d, uint32_t index, uint64_t *value)
+     return 0;
+ };
+ 
+-static int hvmop_get_param(
+-    XEN_GUEST_HANDLE_PARAM(xen_hvm_param_t) arg)
++static int hvmop_get_param(struct xen_hvm_param *op)
+ {
+-    struct xen_hvm_param a;
+     struct domain *d;
+     int rc;
+ 
+-    if ( copy_from_guest(&a, arg, 1) )
+-        return -EFAULT;
+-
+-    if ( a.index >= HVM_NR_PARAMS )
++    if ( op->index >= HVM_NR_PARAMS )
+         return -EINVAL;
+ 
+-    d = rcu_lock_domain_by_any_id(a.domid);
++    d = rcu_lock_domain_by_any_id(op->domid);
+     if ( d == NULL )
+         return -ESRCH;
+ 
+     rc = -EINVAL;
+-    if ( is_hvm_domain(d) && !(rc = hvm_get_param(d, a.index, &a.value)) )
+-    {
+-        rc = __copy_to_guest(arg, &a, 1) ? -EFAULT : 0;
+-
+-        HVM_DBG_LOG(DBG_LEVEL_HCALL, "get param %u = %"PRIx64,
+-                    a.index, a.value);
+-    }
++    if ( is_hvm_domain(d) && !(rc = hvm_get_param(d, op->index, &op->value)) )
++        HVM_DBG_LOG(DBG_LEVEL_HCALL, "get param %u = %"PRIx64, a.index, a.value);
+ 
+     rcu_unlock_domain(d);
+     return rc;
+@@ -5046,18 +5026,13 @@ static int compat_altp2m_op(
+     return rc;
+ }
+ 
+-static int hvmop_get_mem_type(
+-    XEN_GUEST_HANDLE_PARAM(xen_hvm_get_mem_type_t) arg)
++static int hvmop_get_mem_type(struct xen_hvm_get_mem_type *op)
+ {
+-    struct xen_hvm_get_mem_type a;
+     struct domain *d;
+     p2m_type_t t;
+     int rc;
+ 
+-    if ( copy_from_guest(&a, arg, 1) )
+-        return -EFAULT;
+-
+-    d = rcu_lock_domain_by_any_id(a.domid);
++    d = rcu_lock_domain_by_any_id(op->domid);
+     if ( d == NULL )
+         return -ESRCH;
+ 
+@@ -5074,25 +5049,22 @@ static int hvmop_get_mem_type(
+      * type, not in allocating or unsharing. That'll happen
+      * on access.
+      */
+-    get_gfn_query_unlocked(d, a.pfn, &t);
++    get_gfn_query_unlocked(d, op->pfn, &t);
+     if ( p2m_is_mmio(t) )
+-        a.mem_type =  HVMMEM_mmio_dm;
++        op->mem_type =  HVMMEM_mmio_dm;
+     else if ( t == p2m_ioreq_server )
+-        a.mem_type = HVMMEM_ioreq_server;
++        op->mem_type = HVMMEM_ioreq_server;
+     else if ( p2m_is_readonly(t) )
+-        a.mem_type =  HVMMEM_ram_ro;
++        op->mem_type =  HVMMEM_ram_ro;
+     else if ( p2m_is_ram(t) )
+-        a.mem_type =  HVMMEM_ram_rw;
++        op->mem_type =  HVMMEM_ram_rw;
+     else if ( p2m_is_pod(t) )
+-        a.mem_type =  HVMMEM_ram_rw;
++        op->mem_type =  HVMMEM_ram_rw;
+     else if ( p2m_is_grant(t) )
+-        a.mem_type =  HVMMEM_ram_rw;
++        op->mem_type =  HVMMEM_ram_rw;
+     else
+-        a.mem_type =  HVMMEM_mmio_dm;
++        op->mem_type =  HVMMEM_mmio_dm;
+ 
+-    rc = -EFAULT;
+-    if ( __copy_to_guest(arg, &a, 1) )
+-        goto out;
+     rc = 0;
+ 
+  out:
+@@ -5115,28 +5087,70 @@ long do_hvm_op(unsigned long op, XEN_GUEST_HANDLE_PARAM(void) arg)
+     switch ( op )
+     {
+     case HVMOP_set_evtchn_upcall_vector:
+-        rc = hvmop_set_evtchn_upcall_vector(
+-            guest_handle_cast(arg, xen_hvm_evtchn_upcall_vector_t));
++    {
++        struct xen_hvm_evtchn_upcall_vector op;
++
++        if ( copy_from_guest(&op, arg, 1) )
++        {
++            rc = -EFAULT;
++            break;
++        }
++
++        rc = hvmop_set_evtchn_upcall_vector(op);
+         break;
++    }
+     
+     case HVMOP_set_param:
+-        rc = hvmop_set_param(
+-            guest_handle_cast(arg, xen_hvm_param_t));
++    {
++        struct xen_hvm_param op;
++        
++        if ( copy_from_guest(&op, arg, 1) )
++        {
++            rc = -EFAULT;
++            break;
++        }
++
++        rc = hvmop_set_param(op);
+         break;
++    }
+ 
+     case HVMOP_get_param:
+-        rc = hvmop_get_param(
+-            guest_handle_cast(arg, xen_hvm_param_t));
++    {
++        struct xen_hvm_param op;
++        
++        if ( copy_from_guest(&op, arg, 1) )
++        {
++            rc = -EFAULT;
++            break;
++        }
++
++        rc = hvmop_get_param(&op);
++
++        if ( !rc && copy_to_guest(arg, &op, 1) )
++            rc = -EFAULT;
+         break;
++    }
+ 
+     case HVMOP_flush_tlbs:
+         rc = guest_handle_is_null(arg) ? hvmop_flush_tlb_all() : -EINVAL;
+         break;
+ 
+     case HVMOP_get_mem_type:
+-        rc = hvmop_get_mem_type(
+-            guest_handle_cast(arg, xen_hvm_get_mem_type_t));
++    {
++        struct xen_hvm_get_mem_type op;
++
++        if ( copy_from_guest(&op, arg, 1) )
++        {
++            rc = -EFAULT;
++            break;
++        }
++        
++        rc = hvmop_get_mem_type(&op);
++
++        if ( !rc && copy_to_guest(arg, &op, 1) )
++            rc = -EFAULT;
+         break;
++    }
+ 
+     case HVMOP_pagetable_dying:
+     {
 -- 
 2.50.1
 
