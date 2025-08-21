@@ -2,45 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85772B2F748
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 13:57:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1088566.1446310 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74AEDB2F771
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 14:03:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1088579.1446319 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1up3tx-0005SW-1E; Thu, 21 Aug 2025 11:56:17 +0000
+	id 1up412-0000bP-Qq; Thu, 21 Aug 2025 12:03:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1088566.1446310; Thu, 21 Aug 2025 11:56:17 +0000
+Received: by outflank-mailman (output) from mailman id 1088579.1446319; Thu, 21 Aug 2025 12:03:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1up3tw-0005QD-Ty; Thu, 21 Aug 2025 11:56:16 +0000
-Received: by outflank-mailman (input) for mailman id 1088566;
- Thu, 21 Aug 2025 11:56:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1up412-0000ZA-O4; Thu, 21 Aug 2025 12:03:36 +0000
+Received: by outflank-mailman (input) for mailman id 1088579;
+ Thu, 21 Aug 2025 12:03:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+F7x=3B=suse.de=tzimmermann@srs-se1.protection.inumbo.net>)
- id 1up3tv-0005Q5-FF
- for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 11:56:15 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cf6bd556-7e85-11f0-b898-0df219b8e170;
- Thu, 21 Aug 2025 13:56:02 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E8C1D223BF;
- Thu, 21 Aug 2025 11:56:00 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 30D9513867;
- Thu, 21 Aug 2025 11:56:00 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Ozw5ClAJp2j0UAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 21 Aug 2025 11:56:00 +0000
+ <SRS0=z7HC=3B=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1up411-0000Xs-53
+ for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 12:03:35 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dcc149b1-7e86-11f0-a32b-13f23c93f187;
+ Thu, 21 Aug 2025 14:03:34 +0200 (CEST)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-55cf526f6b5so640918e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 05:03:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,177 +40,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cf6bd556-7e85-11f0-b898-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1755777361; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=sfJDevyhbJHQ4pRUZzGgDUzFw8/hjC9NL73k+UbtfNI=;
-	b=NJDFrpGJO5iUNdKMkobo3gxiDs3KVSoOo+c0Kx7YFvkYIlgx7bnpDXIsS/c0P0cQgrh+OM
-	dExS90hja4MkiIhNcN5ACrES3HoMUaxtBTvpFmwjVxAsz+p2OyiAVBW8rAxUPAhgsnlwwj
-	CZwQn8osw/hfaBvpa9NaTEKf6lTT/M4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1755777361;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=sfJDevyhbJHQ4pRUZzGgDUzFw8/hjC9NL73k+UbtfNI=;
-	b=Gj5tANSUdM5J9dvfsooU4xEjtijJBFnr7I7ne0BmLL2IbI4EPgjzdAm3py48jgBwCGMxQT
-	boIwMwnxQsGrzgBw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Tnc6NDIT;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=uTGuQaRo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1755777360; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=sfJDevyhbJHQ4pRUZzGgDUzFw8/hjC9NL73k+UbtfNI=;
-	b=Tnc6NDIT4e91MUk3u/uv4DBnosFc2L+6LZYV25zaGB1PKdcEVuIh/llq9RiUXqkK4mkPMk
-	PfJV61ySMLhVweEIcriS3pU6Ueb/KxgiopzgPBhPws1+a3mjWGyK16+rO3Zyq+/M8wuFE7
-	qfdE97vz5rt+BUFGKinpdAml62Ot91s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1755777360;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=sfJDevyhbJHQ4pRUZzGgDUzFw8/hjC9NL73k+UbtfNI=;
-	b=uTGuQaRowDi9JsJ2CDS0TXWPegM6sn88iHyhpAFbnDit/r3KkSK5wNpUCdTeRnRo1G9Xoi
-	pAPRiwf+LpsK+VAA==
-Message-ID: <7918ea7e-8914-4c0f-97be-d660043a4aab@suse.de>
-Date: Thu, 21 Aug 2025 13:55:59 +0200
+X-Inumbo-ID: dcc149b1-7e86-11f0-a32b-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1755777814; x=1756382614; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=OpcPNaZFfG+GWbMmu9ekUiC9dR7j3JT6d/C7aJcxbPY=;
+        b=OCn861Qxyt76Fk4qTCwUkEP44nczPtYDUDTt86znNg240EYbVjDsBymRonpeegKWqm
+         OPkV+SEzIcdIQEWeLT4LdG1tTEYo8Iwr33797JKxsrAbUi1ex05/g59xdZ2zRN142YCH
+         rqdzB8qs5+K8h0ScXCywBCroScdWLPN0MK+qXsno985sjYle4JdQeiLHMv7Elw1sFmmF
+         g3pzpLGGaZ0mIX6kinMj2eiC2lv0isbzNWQKAUvpd4E9lgiSxbTSyUXPg0/ZjuPiDDku
+         6kk5o/9hjcQKQDQa3nKOVhVfjMPPgJsZZDl3yeKIkGFT37hj/j2aizLAxIJnqkA2QyVX
+         QmOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1755777814; x=1756382614;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=OpcPNaZFfG+GWbMmu9ekUiC9dR7j3JT6d/C7aJcxbPY=;
+        b=J23U9lazQRjcHKGr3ly3dhpcSJdBN78l2eEZ+VwB6iZ2LyvpEIiAd/mJzmlPwDTSJ4
+         zXyUV5TkFJlQXIH3vUJ8/+r3p0PQ8D/eKYPP4zKNBAGzZyIiI2KgMqyjBYpIrGJsArBR
+         wK0RtFwZCDERK8ZD7MAGut3j99lHxofVWqOUMSEEz6y5GxkuzM0dcJ4WQVZnEZ4RFb4F
+         XVe3Y6QGySWl7vbkTss1Pzh9y/zDp9yS6HK0w4A4mtOcPPyXv1CjeKoAmefhGLkrHlvX
+         nLZs3kGxUUhWuffHAyd5IWRgZppu/8TVDBeR35SYHElgScCrOlyM1wMN5+i4eTBpvlyb
+         Km7g==
+X-Gm-Message-State: AOJu0YyisPb1I3P5gZOLFLib2cKuY/6DwnWi9kDrrjTqlysECLJZR9/7
+	uR2EewEhtEdzNgS98Ssvw2jEGf5UPGBu1SIFYZ0K8KkqHdcGhBVPQGlMbsgzF0nwLIpnBUjbK0J
+	krxfkgD3jkLVWfvHQIWVTh+TVw6UIE1I=
+X-Gm-Gg: ASbGncsWt7glmY60uHVEcLPbCUoAyUkfzmtIa+2/BgvjKSScL/+rZzpH8KpXJSo+KuH
+	SL6KiL5GtbWbjA+plsc8psuJn7riEVDtTKszKb3fkpmDSoccA+YSWVXHn0fgy9Sv9fmiSphfJI3
+	2POBtp6iCSe4EjB5yR6gX4TNf6SlJ401nfrymt9SE+v238aL62I+isVoV8+M4Nh5/ggFmpANDxx
+	YJh9aC2Ps9suuML
+X-Google-Smtp-Source: AGHT+IFRoSQ78Mw3CqZOMBTcphmwiftjaKFnfiNP8LjzymUZnCzaImk6468iXiUe6nzua8yDPJpXAJ8jdgcZ3jypk5c=
+X-Received: by 2002:a05:6512:3096:b0:55e:a69:f4a2 with SMTP id
+ 2adb3069b0e04-55e0d5487camr799094e87.14.1755777813340; Thu, 21 Aug 2025
+ 05:03:33 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 18/25] drm/renesas/rz-du: Compute dumb-buffer sizes
- with drm_mode_size_dumb()
-To: Biju Das <biju.das.jz@bp.renesas.com>, "simona@ffwll.ch"
- <simona@ffwll.ch>, "airlied@gmail.com" <airlied@gmail.com>,
- "mripard@kernel.org" <mripard@kernel.org>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- geert <geert@linux-m68k.org>,
- "tomi.valkeinen" <tomi.valkeinen@ideasonboard.com>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "imx@lists.linux.dev" <imx@lists.linux.dev>,
- "linux-samsung-soc@vger.kernel.org" <linux-samsung-soc@vger.kernel.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- "virtualization@lists.linux.dev" <virtualization@lists.linux.dev>,
- "spice-devel@lists.freedesktop.org" <spice-devel@lists.freedesktop.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250821081918.79786-1-tzimmermann@suse.de>
- <20250821081918.79786-19-tzimmermann@suse.de>
- <TY3PR01MB11346A4F40CE555D24C093F278632A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <TY3PR01MB11346A4F40CE555D24C093F278632A@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spam-Level: 
-X-Spam-Flag: NO
-X-Rspamd-Queue-Id: E8C1D223BF
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_TO(0.00)[bp.renesas.com,ffwll.ch,gmail.com,kernel.org,linux.intel.com,linux-m68k.org,ideasonboard.com];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[21];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,suse.de:email]
-X-Spam-Score: -3.01
+References: <f6a8095483ba54e1eabeca5e4b08138312fa822b.1755773176.git.mykyta_poturai@epam.com>
+In-Reply-To: <f6a8095483ba54e1eabeca5e4b08138312fa822b.1755773176.git.mykyta_poturai@epam.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Thu, 21 Aug 2025 15:03:21 +0300
+X-Gm-Features: Ac12FXyizrVcc8K7g3kS8auo0OzE09kEo0TMmvyL7IYzBQDSJwvmCgfiA0El_f4
+Message-ID: <CAGeoDV8UBv9g3x_AunwoyZg5eQDWNkCHoXNz2_tJKrJYWeYAWg@mail.gmail.com>
+Subject: Re: [PATCH v1] iommu/ipmmu-vmsa: Fix build with HAS_PCI=n
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi
+Hi Mykyta,
 
-Am 21.08.25 um 13:28 schrieb Biju Das:
-> Hi Thomas Zimmermann,
+On Thu, Aug 21, 2025 at 1:51=E2=80=AFPM Mykyta Poturai <Mykyta_Poturai@epam=
+.com> wrote:
 >
-> Thanks for the patch.
+> With PCI disabled the build fails due to undefined struct
+> pci_host_bridge.
 >
->> -----Original Message-----
->> From: Thomas Zimmermann <tzimmermann@suse.de>
->> Sent: 21 August 2025 09:17
->> Subject: [PATCH v6 18/25] drm/renesas/rz-du: Compute dumb-buffer sizes with drm_mode_size_dumb()
->>
->> Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch and buffer size. Align the pitch
->> according to hardware requirements.
->>
->> v5:
->> - include dumb-buffers header for drm_mode_size_dumb() (kernel test robot)
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Cc: Biju Das <biju.das.jz@bp.renesas.com>
-> Tested-by: Biju Das <biju.das.jz@bp.renesas.com>
+> Add ifdef guard around pci-host-rcar4.h to not include it when PCI
+> support is disabled.
+>
+> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> ---
+> This patch can be squashed with iommu/ipmmu-vmsa: Implement basic PCIE-IP=
+MMU OSID support
+> ---
+>  xen/drivers/passthrough/arm/ipmmu-vmsa.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/xen/drivers/passthrough/arm/ipmmu-vmsa.c b/xen/drivers/passt=
+hrough/arm/ipmmu-vmsa.c
+> index ea9fa9ddf3..49f149e222 100644
+> --- a/xen/drivers/passthrough/arm/ipmmu-vmsa.c
+> +++ b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
+> @@ -51,7 +51,9 @@
+>  #include <asm/device.h>
+>  #include <asm/io.h>
+>  #include <asm/iommu_fwspec.h>
+> +#ifdef CONFIG_HAS_PCI
+>  #include "../arch/arm/pci/pci-host-rcar4.h"
+> +#endif
 
-Thanks for testing. Could you also review the patch, please?
+As far as I know, the IPMMU VMSA driver can also be used on other
+R-Car platforms. Is there a chance we could have HAS_PCI enabled
+together with IPMMU VMSA, but not be on an R-Car Gen4 platform,
+for example, on R-Car3 or possibly some future R-Car variants?
 
-Best regards
-Thomas
+Wouldn't it be better to use:
+#ifdef CONFIG_RCAR4
+?
 
 >
-> Cheers,
-> Biju
+>  #define dev_name(dev) dt_node_full_name(dev_to_dt(dev))
+>
+> --
+> 2.34.1
+>
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
-
-
+Best regards,
+Mykola
 
