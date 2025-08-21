@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EC78B2F17C
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 10:25:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1087976.1445844 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3ED7B2F184
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 10:27:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1087985.1445853 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1up0c9-0008Kv-6B; Thu, 21 Aug 2025 08:25:41 +0000
+	id 1up0dK-0000QW-Ep; Thu, 21 Aug 2025 08:26:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1087976.1445844; Thu, 21 Aug 2025 08:25:41 +0000
+Received: by outflank-mailman (output) from mailman id 1087985.1445853; Thu, 21 Aug 2025 08:26:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1up0c9-0008JJ-3F; Thu, 21 Aug 2025 08:25:41 +0000
-Received: by outflank-mailman (input) for mailman id 1087976;
- Thu, 21 Aug 2025 08:25:40 +0000
+	id 1up0dK-0000P3-Bu; Thu, 21 Aug 2025 08:26:54 +0000
+Received: by outflank-mailman (input) for mailman id 1087985;
+ Thu, 21 Aug 2025 08:26:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uBnp=3B=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1up0c7-0008J8-4s
- for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 08:25:40 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5Hha=3B=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1up0dI-0000Ot-AA
+ for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 08:26:52 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 69626cf0-7e68-11f0-a32b-13f23c93f187;
- Thu, 21 Aug 2025 10:25:36 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id C7D114EE3C0D;
- Thu, 21 Aug 2025 10:25:34 +0200 (CEST)
+ id 9620442f-7e68-11f0-a32b-13f23c93f187;
+ Thu, 21 Aug 2025 10:26:51 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-afcb78d5dcbso106116166b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 01:26:51 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-afded4790bbsm349217566b.56.2025.08.21.01.26.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 21 Aug 2025 01:26:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,145 +45,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69626cf0-7e68-11f0-a32b-13f23c93f187
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1755764734;
-	b=z0ScJLQ2rorO/RMlHDUb5gkNN3yY0byb2HbylteeoO6j5vF5eMXUI9RpyRCiQT8XBOgz
-	 He2j/2fqu7qvo4tmDYd765apobjmKSXeYViXmX8OYgnjx2AYZlx69oGlNFDzWdehIQy1o
-	 iUZ2vLhGvy5BStYLiCpd7WFy1AYMIwmT4LLqQezie/n2xx1vwhwg5heAVJBALRapWXCpu
-	 OZ+nhWz6gU40+KcQb3Mqsf2Nv9aymK2l4gt8tVVo4VEooX4iIWZzVD6C011PnX5ToA4J5
-	 34sFLWOertOy4DLAgLjBX/1HIVwPjQJfCmR0ZIXxFkMEaPgcUDJ1y2Z1UCBm30PlzpxTg
-	 vs4lm0uPqiPjrGNK6IlcKG9+2uHJdXIJO0lQaJ58JgTwZ7PlvAZRAP2+q3NRntcNdn2Vh
-	 JM8PIZMsyE4Z23GgcX8YLyzoNwuauRRCtlbzY2om92a27uEJjDXWqEKbvMgg2OJrf6san
-	 6PFWc6xqlo8vCwRX0OXU787tjPqTbG3faL0kXfBfduhWizwpPFXbcZeApg4Qo/PKpz7Rv
-	 C1XHSGTu2LtfvDOvVQTJyQS040LKik1WPDd5zK3aF6YZnKKOaonQZsRY8pMh1WaGQ6hrl
-	 a87fcEzebFN7g4D1FOuzlhwiPnPpoVzxtpsPih297pDLfYQNeLHO5/qQuHAQE5Q=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1755764734;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=iHzFbEZvEeJsSvh3JJ41FaQH9+W0dmD64PMJY0k9kDY=;
-	b=qQlmvJvYCmXb9XDvfQro/xlDYzBXoYrEV9ADEqQT+HbE00EyTcIQuRR/PHZl3y3bHsY5
-	 LTfwfdM3eTQfo8lMMoTvVivoAxhrO7QL9KWGtnWgTfc5V3j3zzg3D3a12vwVd2bgaUlVG
-	 TqdfsKuQWH05JtpbIEVvexVXoSx0XKt+JxlNKAneBIgHnF1QoBG5YtrJ517XkPUrLb7Hq
-	 ZLeiqtzLyTfg5zfBDXF3ktnYt7PINFE9kODl4M7vTjb4gwDT5sZ5YGDvVHyPqTFjicjWy
-	 SGmUQIEo8O/pH4KIleiFidRadnyZVeJT6B4z2+I5FWRMgW4V7v3JhzLp56G2OGQlkB05L
-	 F51VyZPku5sGtL0RFK8nHy+mlOzh5/J4IMLt10hpI/v63C4/FkzbHi5Sg9saYwOdKoSna
-	 mzl8gfWJl+FUwuj9F78bIpIWOQQw+HjbZ6Oa+Vi5Uj5icqzSv9jqvNYYVLHs7YHpoZpDO
-	 gndbPw7NPpTqBVVsf4VabbTSPmVHnrE5kUeJM7JisnqBamywenLp5336HmYgESfUof6t6
-	 SIhF61K+kVfhFAYqM2iH/RscDzqHeTdb17YsPVKBPSedMe3nt5+xxUNKHY1hFc+goxNDR
-	 OimKi7U5S+LK7g9eyskWwWkzZBTpLF+fL6ZEcsL9p9934HbEdhzK03QNDYGUZDs=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1755764734; bh=T+Hk05tWBBg2F9Gq0ArWKo5vC+FV4QP+5pzigD/+Sqo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=vKrKJDtyW0S2Ke4q5leIY7BvQHzpGb5Bd+3tBbGJL5al5QOymHlAvLcZ9WZRVjcko
-	 Ezh2r3/JUp4a82r6VUzYfL4/YoegR88N4HlDP/6mDC2YwkxECYJ5wIetV4NHRHyfCZ
-	 oBPTjparqPxJRNrXmwZF1bFjLLkFEUnidgw8fDbwII78m3AOFLY1brxOOygY/vGwG1
-	 ZYqWiL+bvF1KjwSbwlIqmcGlWi+9jwJcpciMZutZHRlJmRXxg7nH2EQzj/sZk2F9LO
-	 mIwKauFDyIUMdM7JoP0iMyUnKbdpoAeFUZheHH8x3WjnUsWuh3mL3w5zRi6QFUdtsV
-	 WgXQZwmO/Q1Bw==
+X-Inumbo-ID: 9620442f-7e68-11f0-a32b-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1755764810; x=1756369610; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=0lWE24kU4jNhTwSigocXctoFrQCO2MCM1AssF2iUCj0=;
+        b=VskbHI+OS7X5AjckIFXB9Ji8eVbUPJjGJ+UEsHXS9mPZsEZKSKTiHf3ZVYjuBaFsDi
+         QlDpvTa/wGPGJlpWy3Fr2q+BueHme/Z8tqWx25MKs1JsS3arhQ8XtP31TYi1uQGVApdm
+         tschkQzIUC1VHDKw23IVv+YVF3bkfTnwYUMC1atuAD8lm3A9Xy7ATpOd0K/DLQ50EnHd
+         5rdoEgXFvdiZBD56i1DmGcUDW2DmEva4EyYg58t8AvaOybX7ZsnPx5YVS0e4TIWD0/8l
+         UUw8LrOAekuQid8iMi7MEcLM1V/pveFrr/oDcjgphoFix4FveMkGX8Mxh82FKekvuFue
+         s4vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1755764810; x=1756369610;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=0lWE24kU4jNhTwSigocXctoFrQCO2MCM1AssF2iUCj0=;
+        b=ATX0iTQJC94+5ToImBbEcTpw1RnKvzVMqeI08qJc7fQOHJ8RhlFhxnc4DUmk2OKMsx
+         nDM3u27YdYp4/crpkgCGsXIzTq8patuylpC3RBuU4wuVcM1RgIyTdVglmyipFQSvxNLa
+         ZvvdnjHmabNOI3LTVIrmVtQetOXPWsDD+Cwe5ylynayVdpmapSt7o68B6PO+1NO3ABN9
+         GY4pusDx1niXzArI1C26HkHYWXo9HtqMXRAKJA/HDJfSNgIwDN/ja2h5mqv/GbLTnkD9
+         o6E049wY9I2Es7MDbvTbCkcI659630kgEeKEoepiXmDkT02dx4MvVS/WQaTQD4HeFfw5
+         0FiQ==
+X-Gm-Message-State: AOJu0YxDWRajPbBNFA9KILiAaDbzMTzrWdoN68fXyNDdLZYn9rToVgFr
+	KJpEjNkZGhg0RLIT/APL2i/rubNKw6IGEJ9EcrCjCXQQ0VKxvwdUxYSDBwpboV27EQ==
+X-Gm-Gg: ASbGncv/O9cl7Y1fMMmNof3E2/HD2VgDdi2PJlxzSFFXtkKa8cRx0hZz0cB/yTGdGat
+	bf0e2rdgaPldhF6e/CMjsxzy85H2GFAUyyZZm3A4DLvbEfSZ0ocY7Tabl2tyUAoGoFrr3Px1LHW
+	fLgKyB4OLGAJarulQdkeBBkjoS4XGxQuQ9kq7MGbl1eBQLdglFDSzAZWzfJ5mOTwWyQosaTTclh
+	NGpw5oNlMn07KUgDVaY1IpBLE0LNqOkKlzokIXXq+z21py7hZHlJJbVgXtOmUpfSxa74+zsibcM
+	8xp5tcR9Ti3l08sS90KqLD9ckg0gqmUaA8ITdNYWvMs97weU7U/rt1d2/y2JiU5vldIRwjPVitS
+	zRcMMKbSNudmRu3/J6JHKSWbtT/6cVCSyhWJG0MnqsHtBLHwi21BhcXjuTx8Xx/EfkzJqpNhppA
+	IpQom8CA4=
+X-Google-Smtp-Source: AGHT+IFhml7crmfz+RjhfADhyzd4xaAwo2+TLB0VPS2VHr+AMSihzIdgsPSf1858/Brwo3se76Yyzg==
+X-Received: by 2002:a17:907:983:b0:add:fb01:c64a with SMTP id a640c23a62f3a-afe07c153d1mr158481466b.43.1755764810321;
+        Thu, 21 Aug 2025 01:26:50 -0700 (PDT)
+Message-ID: <312c4802-0c15-4d2b-a98c-13d1ed75bcaa@suse.com>
+Date: Thu, 21 Aug 2025 10:26:49 +0200
 MIME-Version: 1.0
-Date: Thu, 21 Aug 2025 10:25:34 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>, Doug Goldstein
- <cardoe@cardoe.com>, Stefano Stabellini <sstabellini@kernel.org>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
- <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Julien
- Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] misra: consider conversion from UL or (void*) to function
- pointer as safe
-In-Reply-To: <90fb95a3-4b32-4785-a77c-373e5b9da6ed@suse.com>
-References: <9e5e4ff2c7ba0a90a6ac403e2de9318e18949274.1755628705.git.dmytro_prokopchuk1@epam.com>
- <90fb95a3-4b32-4785-a77c-373e5b9da6ed@suse.com>
-Message-ID: <e1e2abdf0ef8708097aa78440eeb7147@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v2 2/3] pci/rcar: implement OSID configuration for Renesas
+ RCar Gen4 PCIe host
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 2025-08-21 10:01, Jan Beulich wrote:
-> On 19.08.2025 20:55, Dmytro Prokopchuk1 wrote:
->> Rule 11.1 states as following: "Conversions shall not be performed
->> between a pointer to a function and any other type."
->> 
->> The conversion from unsigned long or (void *) to a function pointer
->> is safe in Xen because the architectures it supports (e.g., x86 and
->> ARM) guarantee compatible representations between these types.
-> 
-> I think we need to be as precise as possible here. The architectures
-> guarantee nothing, they only offer necessary fundamentals. In the
-> Windows x86 ABI, for example, you can't convert pointers to/from longs
-> without losing data. What we build upon is what respective ABIs say,
-> possibly in combination of implementation specifics left to compilers.
-> 
+(sorry, original patch already gone from my mailbox)
 
-+1, a mention of the compilers and targets this deviation relies upon is 
-needed.
+This looks to have introduced a new randconfig failure, as per CI [1]:
 
->> --- a/docs/misra/deviations.rst
->> +++ b/docs/misra/deviations.rst
->> @@ -370,6 +370,16 @@ Deviations related to MISRA C:2012 Rules:
->>         to store it.
->>       - Tagged as `safe` for ECLAIR.
->> 
->> +   * - R11.1
->> +     - The conversion from unsigned long or (void \*) to a function 
->> pointer does
->> +       not lose any information or violate type safety assumptions if 
->> unsigned
->> +       long or (void \*) type is guaranteed to be the same bit size 
->> as a
->> +       function pointer. This ensures that the function pointer can 
->> be fully
->> +       represented without truncation or corruption. The macro 
->> BUILD_BUG_ON is
->> +       integrated into xen/common/version.c to confirm conversion 
->> compatibility
->> +       across all target platforms.
->> +     - Tagged as `safe` for ECLAIR.
-> 
-> Why the escaping of * here, when ...
-> 
->> --- a/docs/misra/rules.rst
->> +++ b/docs/misra/rules.rst
->> @@ -431,7 +431,13 @@ maintainers if you want to suggest a change.
->>       - All conversions to integer types are permitted if the 
->> destination
->>         type has enough bits to hold the entire value. Conversions to 
->> bool
->>         and void* are permitted. Conversions from 'void noreturn 
->> (*)(...)'
->> -       to 'void (*)(...)' are permitted.
->> +       to 'void (*)(...)' are permitted. Conversions from unsigned 
->> long or
->> +       (void \*) to a function pointer are permitted if the source 
->> type has
->> +       enough bits to restore function pointer without truncation or 
->> corruption.
->> +       Example::
->> +
->> +           unsigned long func_addr = (unsigned long)&some_function;
->> +           void (*restored_func)(void) = (void (*)(void))func_addr;
-> 
-> ... context here suggests they work fine un-escaped, and you even add 
-> some un-
-> escaped instances as well. Perhaps I'm simply unaware of some 
-> peculiarity?
-> 
+In file included from drivers/passthrough/arm/ipmmu-vmsa.c:54:
+./include/../arch/arm/pci/pci-host-rcar4.h:7:37: error: 'struct pci_host_bridge' declared inside parameter list will not be visible outside of this definition or declaration [-Werror]
+    7 | void rcar4_pcie_osid_bdf_set(struct pci_host_bridge *bridge,
+      |                                     ^~~~~~~~~~~~~~~
+./include/../arch/arm/pci/pci-host-rcar4.h:9:39: error: 'struct pci_host_bridge' declared inside parameter list will not be visible outside of this definition or declaration [-Werror]
+    9 | void rcar4_pcie_osid_bdf_clear(struct pci_host_bridge *bridge,
+      |                                       ^~~~~~~~~~~~~~~
+./include/../arch/arm/pci/pci-host-rcar4.h:11:36: error: 'struct pci_host_bridge' declared inside parameter list will not be visible outside of this definition or declaration [-Werror]
+   11 | void rcar4_pcie_bdf_msk_set(struct pci_host_bridge *bridge, unsigned int reg_id,
+      |                                    ^~~~~~~~~~~~~~~
+./include/../arch/arm/pci/pci-host-rcar4.h:13:38: error: 'struct pci_host_bridge' declared inside parameter list will not be visible outside of this definition or declaration [-Werror]
+   13 | int rcar4_pcie_osid_reg_alloc(struct pci_host_bridge *bridge);
+      |                                      ^~~~~~~~~~~~~~~
+./include/../arch/arm/pci/pci-host-rcar4.h:14:38: error: 'struct pci_host_bridge' declared inside parameter list will not be visible outside of this definition or declaration [-Werror]
+   14 | void rcar4_pcie_osid_reg_free(struct pci_host_bridge *bridge,
+      |                                      ^~~~~~~~~~~~~~~
+./include/../arch/arm/pci/pci-host-rcar4.h:16:38: error: 'struct pci_host_bridge' declared inside parameter list will not be visible outside of this definition or declaration [-Werror]
+   16 | int rcar4_pcie_osid_regs_init(struct pci_host_bridge *bridge);
+      |                                      ^~~~~~~~~~~~~~~
 
-This is a literal rst block, while the other is not (* acts as a bullet 
-point in rst iirc)
+We either need a quick correction, or this may need reverting.
 
-> Jan
+Jan
 
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+[1] https://gitlab.com/xen-project/hardware/xen/-/jobs/11087233227
 
