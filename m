@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B614AB2F1B7
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 10:32:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1088022.1445864 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA84AB2F221
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 10:35:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1088105.1445913 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1up0iO-0002Ru-7K; Thu, 21 Aug 2025 08:32:08 +0000
+	id 1up0l6-0005p7-K6; Thu, 21 Aug 2025 08:34:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1088022.1445864; Thu, 21 Aug 2025 08:32:08 +0000
+Received: by outflank-mailman (output) from mailman id 1088105.1445913; Thu, 21 Aug 2025 08:34:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1up0iO-0002Po-2H; Thu, 21 Aug 2025 08:32:08 +0000
-Received: by outflank-mailman (input) for mailman id 1088022;
- Thu, 21 Aug 2025 08:32:07 +0000
+	id 1up0l6-0005nc-HF; Thu, 21 Aug 2025 08:34:56 +0000
+Received: by outflank-mailman (input) for mailman id 1088105;
+ Thu, 21 Aug 2025 08:34:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+F7x=3B=suse.de=tzimmermann@srs-se1.protection.inumbo.net>)
- id 1up0ZI-0001aB-TZ
- for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 08:22:44 +0000
+ id 1up0ZO-0001aB-Um
+ for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 08:22:50 +0000
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 00dab7d9-7e68-11f0-b898-0df219b8e170;
- Thu, 21 Aug 2025 10:22:40 +0200 (CEST)
+ id 0328ed1c-7e68-11f0-b898-0df219b8e170;
+ Thu, 21 Aug 2025 10:22:44 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 729EE1F7EE;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id F3BC71F846;
  Thu, 21 Aug 2025 08:22:20 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D505913867;
- Thu, 21 Aug 2025 08:22:19 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 79266139A8;
+ Thu, 21 Aug 2025 08:22:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id WO6QMjvXpmhzEwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 21 Aug 2025 08:22:19 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id OGFjHDzXpmhzEwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 21 Aug 2025 08:22:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,45 +51,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00dab7d9-7e68-11f0-b898-0df219b8e170
+X-Inumbo-ID: 0328ed1c-7e68-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1755764540; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1755764541; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=98wiGs2+EnErfdkGDAxUiBR4iD/UWra2StCl2zMlfWQ=;
-	b=YfYAQaIfa3irYZmzA0AMdQCruI4KXV+TQ6UP9yGC/tY25ZKEOEp6Q7V9rz381vEhLcs1/8
-	lq/ENNP8LqbL4v95DGMwb6fpOj2lwJ7aQVSW23cOF6dj5kksFigYjYE5NbESInJ9+ytpZZ
-	s6u+MdfYFznr9SkM8C9MZ/opQXwJt1E=
+	bh=GLGhV+XaUo5vIwcaERE5vtMc0qiqKVdW6Sd6WsUuyCY=;
+	b=Spc54SMXqWsCRPExIv8+LK+ZaQrTbQddcIU9iPXKJ0Wvj1DWyBCpOs+dV3qR8bh3daPbuZ
+	bkqsSHIY0D4e8P1TRqoOkKh1P+TCKqTglc1UvzsQ29n3DGukYtkfZwD+8Is0OmvW9S8u9m
+	7lfACwke8TyoV7TiPIzDXmPlAif+y+4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1755764540;
+	s=susede2_ed25519; t=1755764541;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=98wiGs2+EnErfdkGDAxUiBR4iD/UWra2StCl2zMlfWQ=;
-	b=xj7wK/JSo8Xl36/yZTRk5/0NbjDslKeJly48F7fFVxuPisgQjM8itRqereqVK4butrPzV8
-	UglzAStAY3zYXzBg==
+	bh=GLGhV+XaUo5vIwcaERE5vtMc0qiqKVdW6Sd6WsUuyCY=;
+	b=Kk54utJ3p+S/vf5VwVIjNq0tKVEOsmXLYGFM+7foWe1Wl5UAXUJuBdbVRN/i8u/LYDaFye
+	R9sWNs1EoG2NF/AQ==
 Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1755764540; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1755764541; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=98wiGs2+EnErfdkGDAxUiBR4iD/UWra2StCl2zMlfWQ=;
-	b=YfYAQaIfa3irYZmzA0AMdQCruI4KXV+TQ6UP9yGC/tY25ZKEOEp6Q7V9rz381vEhLcs1/8
-	lq/ENNP8LqbL4v95DGMwb6fpOj2lwJ7aQVSW23cOF6dj5kksFigYjYE5NbESInJ9+ytpZZ
-	s6u+MdfYFznr9SkM8C9MZ/opQXwJt1E=
+	bh=GLGhV+XaUo5vIwcaERE5vtMc0qiqKVdW6Sd6WsUuyCY=;
+	b=Spc54SMXqWsCRPExIv8+LK+ZaQrTbQddcIU9iPXKJ0Wvj1DWyBCpOs+dV3qR8bh3daPbuZ
+	bkqsSHIY0D4e8P1TRqoOkKh1P+TCKqTglc1UvzsQ29n3DGukYtkfZwD+8Is0OmvW9S8u9m
+	7lfACwke8TyoV7TiPIzDXmPlAif+y+4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1755764540;
+	s=susede2_ed25519; t=1755764541;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=98wiGs2+EnErfdkGDAxUiBR4iD/UWra2StCl2zMlfWQ=;
-	b=xj7wK/JSo8Xl36/yZTRk5/0NbjDslKeJly48F7fFVxuPisgQjM8itRqereqVK4butrPzV8
-	UglzAStAY3zYXzBg==
+	bh=GLGhV+XaUo5vIwcaERE5vtMc0qiqKVdW6Sd6WsUuyCY=;
+	b=Kk54utJ3p+S/vf5VwVIjNq0tKVEOsmXLYGFM+7foWe1Wl5UAXUJuBdbVRN/i8u/LYDaFye
+	R9sWNs1EoG2NF/AQ==
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: simona@ffwll.ch,
 	airlied@gmail.com,
@@ -111,13 +111,10 @@ Cc: dri-devel@lists.freedesktop.org,
 	linux-tegra@vger.kernel.org,
 	intel-xe@lists.freedesktop.org,
 	xen-devel@lists.xenproject.org,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Lyude Paul <lyude@redhat.com>,
-	Karol Herbst <kherbst@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>
-Subject: [PATCH v6 14/25] drm/nouveau: Compute dumb-buffer sizes with drm_mode_size_dumb()
-Date: Thu, 21 Aug 2025 10:17:21 +0200
-Message-ID: <20250821081918.79786-15-tzimmermann@suse.de>
+	Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v6 15/25] drm/omapdrm: Compute dumb-buffer sizes with drm_mode_size_dumb()
+Date: Thu, 21 Aug 2025 10:17:22 +0200
+Message-ID: <20250821081918.79786-16-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20250821081918.79786-1-tzimmermann@suse.de>
 References: <20250821081918.79786-1-tzimmermann@suse.de>
@@ -137,14 +134,14 @@ X-Spamd-Result: default: False [-1.30 / 50.00];
 	FUZZY_RATELIMITED(0.00)[rspamd.com];
 	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[24];
+	RCPT_COUNT_TWELVE(0.00)[21];
 	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_EQ_ENVFROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
-	R_RATELIMIT(0.00)[to(RLbwen1niosrcqbxsafh1),to_ip_from(RLqirfcw6gnbcr9a9yhi49fhi6)];
+	R_RATELIMIT(0.00)[to_ip_from(RLqirfcw6gnbcr9a9yhi49fhi6),to(RLbwen1niosrcqbxsafh1)];
 	TO_DN_SOME(0.00)[];
 	RCVD_TLS_ALL(0.00)[];
 	FREEMAIL_ENVRCPT(0.00)[gmail.com]
@@ -152,42 +149,49 @@ X-Spam-Flag: NO
 X-Spam-Score: -1.30
 
 Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch and
-buffer size. Align the pitch to a multiple of 256.
+buffer size. Align the pitch to a multiple of 8.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Cc: Karol Herbst <kherbst@redhat.com>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: Danilo Krummrich <dakr@kernel.org>
+Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_display.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/omapdrm/omap_gem.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
-index 805d0a87aa54..54aed3656a4c 100644
---- a/drivers/gpu/drm/nouveau/nouveau_display.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_display.c
-@@ -30,6 +30,7 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_client_event.h>
- #include <drm/drm_crtc_helper.h>
-+#include <drm/drm_dumb_buffers.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_probe_helper.h>
-@@ -807,9 +808,9 @@ nouveau_display_dumb_create(struct drm_file *file_priv, struct drm_device *dev,
- 	uint32_t domain;
- 	int ret;
+diff --git a/drivers/gpu/drm/omapdrm/omap_gem.c b/drivers/gpu/drm/omapdrm/omap_gem.c
+index 381552bfb409..78563a8d8732 100644
+--- a/drivers/gpu/drm/omapdrm/omap_gem.c
++++ b/drivers/gpu/drm/omapdrm/omap_gem.c
+@@ -10,6 +10,7 @@
+ #include <linux/spinlock.h>
+ #include <linux/vmalloc.h>
  
--	args->pitch = roundup(args->width * (args->bpp / 8), 256);
--	args->size = args->pitch * args->height;
--	args->size = roundup(args->size, PAGE_SIZE);
-+	ret = drm_mode_size_dumb(dev, args, SZ_256, 0);
++#include <drm/drm_dumb_buffers.h>
+ #include <drm/drm_prime.h>
+ #include <drm/drm_vma_manager.h>
+ 
+@@ -580,15 +581,13 @@ static int omap_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_struc
+ int omap_gem_dumb_create(struct drm_file *file, struct drm_device *dev,
+ 		struct drm_mode_create_dumb *args)
+ {
+-	union omap_gem_size gsize;
+-
+-	args->pitch = DIV_ROUND_UP(args->width * args->bpp, 8);
+-
+-	args->size = PAGE_ALIGN(args->pitch * args->height);
++	union omap_gem_size gsize = { };
++	int ret;
+ 
+-	gsize = (union omap_gem_size){
+-		.bytes = args->size,
+-	};
++	ret = drm_mode_size_dumb(dev, args, SZ_8, 0);
 +	if (ret)
 +		return ret;
++	gsize.bytes = args->size;
  
- 	/* Use VRAM if there is any ; otherwise fallback to system memory */
- 	if (nouveau_drm(dev)->client.device.info.ram_size != 0)
+ 	return omap_gem_new_handle(dev, file, gsize,
+ 			OMAP_BO_SCANOUT | OMAP_BO_WC, &args->handle);
 -- 
 2.50.1
 
