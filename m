@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3C0BB2EF22
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 09:12:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1087842.1445643 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DD48B2EF34
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 09:16:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1087850.1445653 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uozTM-0005Ki-Tp; Thu, 21 Aug 2025 07:12:32 +0000
+	id 1uozX4-0005sT-D6; Thu, 21 Aug 2025 07:16:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1087842.1445643; Thu, 21 Aug 2025 07:12:32 +0000
+Received: by outflank-mailman (output) from mailman id 1087850.1445653; Thu, 21 Aug 2025 07:16:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uozTM-0005IR-Qy; Thu, 21 Aug 2025 07:12:32 +0000
-Received: by outflank-mailman (input) for mailman id 1087842;
- Thu, 21 Aug 2025 07:12:31 +0000
+	id 1uozX4-0005qJ-9p; Thu, 21 Aug 2025 07:16:22 +0000
+Received: by outflank-mailman (input) for mailman id 1087850;
+ Thu, 21 Aug 2025 07:16:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5Hha=3B=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uozTL-0005IJ-GB
- for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 07:12:31 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ id 1uozX3-0005qD-6E
+ for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 07:16:21 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 32f0c60f-7e5e-11f0-b898-0df219b8e170;
- Thu, 21 Aug 2025 09:12:29 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-6188b5ad4f0so1041374a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 00:12:29 -0700 (PDT)
+ id bbb15537-7e5e-11f0-b898-0df219b8e170;
+ Thu, 21 Aug 2025 09:16:19 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-61aa702c9ebso1530335a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 00:16:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afdf9be51fdsm220931166b.43.2025.08.21.00.12.28
+ a640c23a62f3a-afded4cb4c5sm330336966b.88.2025.08.21.00.16.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Aug 2025 00:12:28 -0700 (PDT)
+ Thu, 21 Aug 2025 00:16:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32f0c60f-7e5e-11f0-b898-0df219b8e170
+X-Inumbo-ID: bbb15537-7e5e-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755760349; x=1756365149; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755760578; x=1756365378; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UkFXBSrPc5deef/aRZ8okRkeMDIVqRrubNrQj0sW7VQ=;
-        b=QMKB25Y7nRb2p1DlHgl5choCKEulLYOhCHPlduc3lsF1r1abusPTt/rNc3LEbjOebO
-         XxDu9mFh0HMMaoZHdO8JtbIUIKVSPxgMlrwyFwu7R7RuHz8INkKSJLvSYQZQVl/vckzW
-         zr18s1f8LItNN3/33aRnotzNf+OaqtRBquccjeWeDj/c5yodl8w6ax8KC0z68cX77rVW
-         KQT0aFD6sNUeRjNXm/DeH7SWtL/3HPER/aeA9wq4qtvFGbk3eiJoHRYk/Dn10Al1du/K
-         UifHyQAl7maUjNWH8oZsVNw2nU89ohO1GsDj3gRYJqbDd4EqigiSrm6nmJSTLJ/t5tH/
-         Iaug==
+        bh=RSBaZdKqIDR+DpHfZRDVdb8oW+a/R3SGa/0ehYQUfHQ=;
+        b=Buz2i7j13EfSk+9ybRRpXX1IaUgoIOfQTGqO3qLtI/3kJQOfx3UYfXitMSwXKVK/sa
+         uYbmZiH4uxmr4SjxZuUU1ZOhABUWf/IROYxA/81OM9Xr9iHRvhXUT+1kU9Qv51YVHlOZ
+         VLj8B+1OwISOJKbq7LJHwV0Dm8zH2Mhds6TsbKCl+sGjViqQo6IocXUs69NEg/9oHc2N
+         NQ/C8Pr/GAIyN/o7/Xpb7E/zIhtJBiMBcHMIct7297HXNrznnq/XoI02L6m4w6XNsZU1
+         rV4AxaX2KW3bBXCW83fopUjrQLGraW/ULE9vqi+hi4CeBhFedIGba6fytVqLL6kvko+A
+         TUog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755760349; x=1756365149;
+        d=1e100.net; s=20230601; t=1755760578; x=1756365378;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UkFXBSrPc5deef/aRZ8okRkeMDIVqRrubNrQj0sW7VQ=;
-        b=PsxXKpqDVt92pJfNUVmjNN9xiHNOD6oEbx0RxZfTC9DZwd+aN/am3hZLGfQQfEG3NE
-         RNQR2YKRrWg1b4H8L1Z4hKBv97Etrd2X/GjaSSz5gfyH9oQOcxRf4Z8PqsG68NYKUR7n
-         fHT9fD+f6f5xv53fTRDINcTpBZWthYNxS+1y1Dc/EU/PlGGciqARZTleJ/kmKwVtwhJ/
-         lPP0q/mhAiKnHtRHig2hEt6klnqwh+3zQRjGibJYVthdkY+1YoESyPnhdmkENgIfrdtB
-         kyrpOMX8MwMYXN0i/Am6lmypPDbsZmwjDM+tGgbqxVrPdHB9V1VMfNuldm1wO0MFyuct
-         3Dpw==
-X-Forwarded-Encrypted: i=1; AJvYcCWIjqwRjwTmhyf/2NK52+sfB8+dk5T6l7xn83fJfG/CCqW5UdPKyXq28Gg8G7FkOZEJJo5gb6NUYWM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyOgfeHoAsD3u34OvMqokodoJlvOHd1lxsQK+EF/4ZvIS87YaDU
-	PRFrni/KTS5K9/qdfPgXs4cADMgnjRgNbJz3MFfVwAhXN2nlTIi5bJoVK7/rHtfMHA==
-X-Gm-Gg: ASbGncsb6TxjjfTjOUAj+WAI46h72dFjWJzSh3PTelWw1CIsndEFawAhEWiaMyzra8f
-	LfgG3EKXgmAPKHAzPTbF/qiSFFVGRTd0FIU39wHfUIvWazzzPlg6q6Pr/PSnor1kvGHeICdWw81
-	84ASgnMjiM+NAaVksQCSf+YGRF3CCHwQS5BhUq/RBi5TbjSIJoTWLK7d9fWbY0eOXLkrOaST+Gu
-	qRpjDde2Q9atLs+gt1OXcguhUoP/590rsQfS2p34TRV0YGq6K0k+vOGZfjPUKqu5oaAPo2NjnPW
-	dmd77gsJhFS73Jy6kWLLovSMKGv9tbmFb4Bwb4BHgGbiepITEuu2BjweSlVinN6nQKI91Qyslta
-	aq/E9V6ubcUx50vhmlXY1dpLlP0agNM+BP6mMNEDiaQhv5L59jc7G7Rpcfy3QZG7cYCR/sAadih
-	8JmRDsTLQ=
-X-Google-Smtp-Source: AGHT+IGeVGUbt/u18CcoUbQ7mjGGzatj9TDLjcOpuTs5B8cZJt4aDYeuIFyd2jD15WXvET0g2wTV1g==
-X-Received: by 2002:a17:907:70c:b0:ad5:1c28:3c4b with SMTP id a640c23a62f3a-afe07e1d5b0mr133292466b.52.1755760349066;
-        Thu, 21 Aug 2025 00:12:29 -0700 (PDT)
-Message-ID: <56aa9b08-6f82-4c91-9398-fb08746ff76f@suse.com>
-Date: Thu, 21 Aug 2025 09:12:27 +0200
+        bh=RSBaZdKqIDR+DpHfZRDVdb8oW+a/R3SGa/0ehYQUfHQ=;
+        b=ZpCGEzoeTuo+dTxULlIpHlG7QIpejUOZtlPP3Dkz6cQ5Qw5KGKpm0Wk2N7Bz3EUZyI
+         SJE5yOX4ZcpRIEF+h6Irzk8qPcjj5RwKcg+GQNSBBSn4zGbiZ32VQXUa1tbiNS/bnTah
+         xJCIjpXRztvrNNNsiQflJDjesbZA6aOck0ycFbQhiG7sfBKpRKrm0cxKBNIsKHr3Okz+
+         Oz/t8tSrBtTzxRkdIBcYW8DGaY6se+vtkI4yXYQ8nt33p0+Y/ApVQyQuKAD408q9t545
+         Y/i+y69cUlCtE62RT27HE/ZTNWX02DAI9PthTniHENJQy39omZwwDSK2qJ7dxmjQB0vf
+         DsIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVTA2Dn71C/DL/ytJWiYjmPQqpRsEOAmxKVxdBzpiO+eDX1lbUZL1/kxMmHWxZO43/pyrMfM+HgxVU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwedzwWEBqGOf0CGk9eH4Nnl6Inq6Xh+ZUQWcntwrz+S0BwWput
+	DFqhoreVlE6h7esVosldylNz9FSyghJGnHqX2YYHjivuLw7IrztR3n57jTy5pNSfVA==
+X-Gm-Gg: ASbGncsfj9uUs6XlbvQCyTrArLjvgzku1imKa4zk4l01RXcK8H1grVUvclrF7CUw9yn
+	vaRgSKtiClbNr7bpaJZT08tMQ0FFSikULco/sKKEIZoWwJq0eBI/CfeyYD4ESFQSvJ+IlXLn9Z7
+	E1dVN+es0hgcNw5vb3IQ8wqu9ia/HXGmAgM4HtySmrMhWR5vkUc8kTl+q8C16RVk2/Wy4oj+uK6
+	4M9705rllQYgelz6KOtpdYa38w8efNPQ+/po9wyk8y+PYM6qrYcQa4/3Fk/HaSvPdCzN3YMIvc0
+	MBe7yjTDrzyVKjCbmSWH+LxqKO62gRNH4d+Av7ohvV91sNl+MNMYWkuF0fZCsx1UOYHOqfgb3a6
+	hw1rHQ099WMmxbLSgBNmWpdbwcfCWcVkq1/BcOF7ofk9Czy7Z5+iQQNlM584fGkSTSkhN2qF3a6
+	xKMEFFfilXOs3ep5pTSA==
+X-Google-Smtp-Source: AGHT+IF4EuhNeGoxrZ6BJKX9hfgp17wrxdhDWcoIxzG5T3U03UWBztb4VLueQ7rpdI2OopswyK58dg==
+X-Received: by 2002:a17:906:4fd6:b0:ad8:a04e:dbd9 with SMTP id a640c23a62f3a-afe07bff069mr147393566b.31.1755760578316;
+        Thu, 21 Aug 2025 00:16:18 -0700 (PDT)
+Message-ID: <a5d91a6d-cde6-42fc-8497-f2c822e98174@suse.com>
+Date: Thu, 21 Aug 2025 09:16:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/16] x86/msr: Change rdmsr() to have normal API
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250815204117.3312742-1-andrew.cooper3@citrix.com>
- <20250815204117.3312742-12-andrew.cooper3@citrix.com>
- <493d4580-62b7-4ff7-9159-4079b4b98f61@suse.com>
- <7f737ca3-5aba-4ae9-820a-448824174f2e@citrix.com>
+Subject: Re: [PATCH v16 1/4] xen/domain: unify domain ID allocation
+To: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, Julien Grall <jgrall@amazon.com>,
+ Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+ xen-devel@lists.xenproject.org
+References: <20250812223024.2364749-1-dmukhin@ford.com>
+ <20250812223024.2364749-2-dmukhin@ford.com>
+ <f85ae718-0243-4426-a555-327afffe7148@suse.com> <aKUPo+hRdfGlg+S8@kraken>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,30 +123,73 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7f737ca3-5aba-4ae9-820a-448824174f2e@citrix.com>
+In-Reply-To: <aKUPo+hRdfGlg+S8@kraken>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 19.08.2025 21:45, Andrew Cooper wrote:
-> On 19/08/2025 1:04 pm, Jan Beulich wrote:
->> On 15.08.2025 22:41, Andrew Cooper wrote:
->>> --- a/xen/arch/x86/tsx.c
->>> +++ b/xen/arch/x86/tsx.c
->>> @@ -42,6 +42,8 @@ void tsx_init(void)
->>>  {
->>>      static bool __read_mostly once;
->>>  
->>> +    uint64_t val;
->>> +
->>>      /*
->> No real need for yet another newline, I would say.
+On 20.08.2025 01:58, dmkhn@proton.me wrote:
+> On Thu, Aug 14, 2025 at 09:11:11AM +0200, Jan Beulich wrote:
+>> On 13.08.2025 00:30, dmkhn@proton.me wrote:
+>>> From: Denis Mukhin <dmukhin@ford.com>
+>>>
+>>> Currently, there are two different domain ID allocation implementations:
+>>>
+>>>   1) Sequential IDs allocation in dom0less Arm code based on max_init_domid;
+>>>
+>>>   2) Sequential IDs allocation in XEN_DOMCTL_createdomain; does not use
+>>>      max_init_domid (both Arm and x86).
+>>>
+>>> The domain ID allocation covers dom0 or late hwdom, predefined domains,
+>>> post-boot domains, excluding Xen system domains (domid >=
+>>> DOMID_FIRST_RESERVED).
+>>>
+>>> It makes sense to have a common helper code for such task across architectures
+>>> (Arm and x86) and between dom0less / toolstack domU allocation.
+>>>
+>>> Note, fixing dependency on max_init_domid is out of scope of this patch.
+>>>
+>>> Wrap the domain ID allocation as an arch-independent function domid_alloc() in
+>>> new common/domid.c based on the bitmap.
+>>>
+>>> Allocation algorithm:
+>>> - If an explicit domain ID is provided, verify its availability and use it if
+>>>   ID is not used;
+>>> - If DOMID_INVALID is provided, search the range [1..DOMID_FIRST_RESERVED-1],
+>>>   starting from the last used ID.
+>>>   Implementation guarantees that two consecutive calls will never return the
+>>>   same ID. ID#0 is reserved for the first boot domain (currently, dom0) and
+>>>   excluded from the allocation range.
+>>>
+>>> Remove is_free_domid() helper as it is not needed now.
+>>>
+>>> No functional change intended.
+>>>
+>>> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+>>> Reviewed-by: Julien Grall <jgrall@amazon.com>
+>>> Reviewed-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+>>> ---
+>>> Changes since v15:
+>>> - fixup for check after the first pass in the bitarray in domid_alloc()
+>>> - trivial renaming for the local variable in domid_alloc()
+>>> - kept Julien's R-b, added Alejandro's R-b
+>>
+>> Just to mention: My take is that this kind of a fix ought to invalidate all
+>> earlier R-b. It's not just a cosmetic change, after all.
 > 
-> Where?  Before?  that's separation of static and not.  After? that's
-> separation of variables and code.  All as we do elsewhere.
+> Sorry for the hiccup here, did not mean to overrule the review process.
+> 
+> My bold assumption was that in case of small fixups like this it is
+> satisfactory to carry over previous acks.
 
-The latter we do elsewhere too, sure. But separating statics from auto
-variables we don't normally do, unless the set of declarations is rather
-large.
+Acks may be okay to keep, but imo R-b need dropping when an actual bug was
+fixed. Irrespective of how severe the bug was.
+
+> I asked (matrix) both Julien and Alejandro to re-review and confirm.
+
+While good to ask, that's of limited use. It'll be impossible later on to
+figure whether such a confirmation was given. Decisions (and acks and alike
+effectively fall into that category) need to be on the list, to be able to
+locate them later on.
 
 Jan
 
