@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2B34B308ED
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Aug 2025 00:09:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1089345.1446970 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03ED8B309AF
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Aug 2025 00:57:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1089363.1446980 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upDTJ-0001bI-4y; Thu, 21 Aug 2025 22:09:25 +0000
+	id 1upECi-00009B-EU; Thu, 21 Aug 2025 22:56:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1089345.1446970; Thu, 21 Aug 2025 22:09:25 +0000
+Received: by outflank-mailman (output) from mailman id 1089363.1446980; Thu, 21 Aug 2025 22:56:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upDTJ-0001Ye-1E; Thu, 21 Aug 2025 22:09:25 +0000
-Received: by outflank-mailman (input) for mailman id 1089345;
- Thu, 21 Aug 2025 22:09:23 +0000
+	id 1upECi-00007X-AL; Thu, 21 Aug 2025 22:56:20 +0000
+Received: by outflank-mailman (input) for mailman id 1089363;
+ Thu, 21 Aug 2025 22:56:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=O+vP=3B=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1upDTH-0001YY-C9
- for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 22:09:23 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1upECg-00007R-72
+ for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 22:56:18 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7d12c18b-7edb-11f0-b898-0df219b8e170;
- Fri, 22 Aug 2025 00:09:21 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-45a1b0d224dso7251395e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 15:09:21 -0700 (PDT)
+ id 0799b442-7ee2-11f0-b898-0df219b8e170;
+ Fri, 22 Aug 2025 00:56:10 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3b9d41c1149so950347f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 15:56:10 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b506bdd9csm10473625e9.3.2025.08.21.15.09.19
+ ffacd0b85a97d-3c4f77e968esm3279948f8f.21.2025.08.21.15.56.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Aug 2025 15:09:20 -0700 (PDT)
+ Thu, 21 Aug 2025 15:56:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7d12c18b-7edb-11f0-b898-0df219b8e170
+X-Inumbo-ID: 0799b442-7ee2-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1755814160; x=1756418960; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1755816970; x=1756421770; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=F13gbUi7lwhM91iCKsCE7081tAwOWe8eZS1YXYamcE0=;
-        b=DUP7C4Ipk9TRfzcGdcnqRgdKTFqDs1usuM+gv17KB8W/0QvWuweu96B/xNHvDlIKOq
-         ikPRUOZOeWyUn8A6pgG2FDR7MmeOretk3AjnMlzWFeopIVeCpEe0lUr6TW/91cnmoF0I
-         QCj0EXbVRfAmddrT+zpkQ0ZWLkxrnTTEotS9s=
+        bh=Q02/zmpwsUw8xCB2GgkIAiyaB0TLWxVPmQ27ujjnWRU=;
+        b=R8msdzIxNAA8DirYplIbZoBXgbcHn6TXrLocv0rVJGuIK8DaefWbwHT1bFOHVjioG7
+         q+DruLgtFenbJ28eEuZfE13FuOnw2EfBU3F2SwXPWMcecayc/nqIFY2BdtmK25QyZEvM
+         z+MDFYKxhvi92TgQPyNdxid+dsPE1LvV7Wvh4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755814160; x=1756418960;
+        d=1e100.net; s=20230601; t=1755816970; x=1756421770;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=F13gbUi7lwhM91iCKsCE7081tAwOWe8eZS1YXYamcE0=;
-        b=Hw/O31gXKYCm0oHl3An6KDqeedAIY/xXKDaNidLkd0CxS6pwwW3+WLhpEEytPid7r9
-         jZFy+GT2W86M3MDM4zhUnMoVOqwbYKGzBznw0t9isf/qzJUOeRR04lt6dfpNQgLEkccX
-         Vt5ln4JPG0Y1FRq4QLRRGLvY2Kg5newf50Wnh3WdeUq79dRd1I5GYbw1s+4ji1AcT573
-         DrFOIG/fPVHu3HW+VhTA3xv1/aW7wnxGPfKSJpO10E6bY5KcHUjdRJQHDc54cCZjLo4b
-         JZQOy0GSr19LybMgRB1OfYl+lbSwcCD8LWxNIqOlF5jLkP0grcaMtebQGiiNEJmXN3Sm
-         XtEg==
-X-Forwarded-Encrypted: i=1; AJvYcCUv2FP/pzvcNpSgHlT6YpXsPE/LGOQAmYdfZn8lvsEr5QF+iFHrC0wR0RbR/rh9pPZidWOHn7GBFlY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzKc87wdfb77Mq14x4/YhuTc6t4bvl8dggooDeXd4Yq2tXflptC
-	8eSHPXPQjnPMsW8AXV6aVEjhAwS+bVcAw3GE0KzZl23nfUGHLGTsIySlj3ltx8fUh7g=
-X-Gm-Gg: ASbGnctdXO7nWs8k8K4TcbXS7VKFe1/DVCYFTlujbyTiBiuanC8Ztp1OC4Mj2lNzccz
-	cBTJPc0mYuaet6OZf6WIq46AzF7w5iTfH70Bvua9ZCT0H7VuUgMHo5NbSXwQEk/caj48RRdTM89
-	m04ofM1hmVyN4PcCyk+PWhR33LTdUHuASM+ZPCrRk96kwSBxt2MfvTtWx5on/+plrBFhzi5MKON
-	g6efGhg/cVgsY46UUij4AD6nCJsSjLuXs//2CI7U7O50BLggvUc5oAxHm/khgzlF79tFwHTjTHb
-	DYrvHfK5WbZTu0YZbfPVORRkqlAyk3KG31+2C8R5JiIad1nMf3cgCVS18/oTqsSEm1j44l5n1cL
-	oPg4YNDyTPlrC2M1aH/4Ym3rvmr5OiyGAtvxP/xUeXUKOcor9qJ4fK1mJXlde8x6Uw5SZKWzJ4F
-	9cGbA=
-X-Google-Smtp-Source: AGHT+IHezUj68i85eCk26DoVLXNNGANV/m4SLthUCjmaSJrfI6d+ZwL9dE5BfRf1Kxo5sZDOA7MUGw==
-X-Received: by 2002:a05:600c:b8d:b0:456:496:2100 with SMTP id 5b1f17b1804b1-45b517c2e4emr5519655e9.31.1755814160484;
-        Thu, 21 Aug 2025 15:09:20 -0700 (PDT)
-Message-ID: <536cce8a-46f2-4a90-837b-09ed8f1a9ef2@citrix.com>
-Date: Thu, 21 Aug 2025 23:09:19 +0100
+        bh=Q02/zmpwsUw8xCB2GgkIAiyaB0TLWxVPmQ27ujjnWRU=;
+        b=xKuojkZkShPF8RZ6gTOnbwGuOhjs3CW162iMWGMdyMt2zNx02EATO9US8gMtXBxToc
+         TxrcFzgX6nyN/Y1dVkk2YcP0Mf0FOCbpEN4UBOMZt8GyaQhIu+wWVKX+6p52aFuj0yff
+         AHA/DrMHeMZG4S8Yndsj86TxV3euyeAglu4ynTxEWHWyTkFdXdNxotkepz2Pa9y0Iuxw
+         tmQrogbchUzYZS0ibq9jSlDHO7hOtV2MNl3YgTBFXj4Pcx9mqmeqH9co+N05aAW0iG/h
+         ulmRiwNdcpElqVWfvLED9F4fga7PHaS9XnnAw7F6jtQK8JTqgg5TsUSn1fe31McAbZFj
+         0hzg==
+X-Forwarded-Encrypted: i=1; AJvYcCXHYWznWH05eUc+MrWvqh7Tj5MvYPA48Rc9uLTfrfFfq0zR4zjHToiyG6QHFS3J9bGyyL+ZXPEgsHA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxqLhUOr+cdy5xZfWcHCBgniknHqMSTiRXY2itR6poUIN171apC
+	oDABkQm04qPUV/JRfmehFjr2Dn/XT3oIErPKI/+TI/y5cLjovcSExZ/xZcPOnsQcXgQ=
+X-Gm-Gg: ASbGncsNhK9i1/R4eq+tijWCs9Jm81mfEHYA9CjldHPLEAkrjii7HX4cmdh66KfJ+k2
+	PR+JOMxDo0CGL4ywtD3z2iPvlc82Ut8yAYGhhms9uzUTcuZ0UxKT/HuDkadRnNp+Q5Y5zQuOcVz
+	z6/XavHalUOupKwRHbyFGvbpyChJFeRlyrtnli2+SuEr957mXtAYxAqqQ7zMksXhsxHD5+9n/cV
+	voIdJvn0zN+wikDYaV0reUhwQMDbzs6cWX59Mi1mR1LD4DhQeB3u/6ci4+C9dsEYWrjvnifrbR9
+	rAKVDq9spTreYeK7M0ZHgbjF1WP1eEAOLqig/GIu1bdRbQlAeMwncEYC4t6pUB/QCxxDNbtaIlS
+	mWT7XBxUzsFfs7ob+Mr0tu6U5EM1rJ537bsY11pUDB22b+vBXm8OiRW3pBVOnYyr+gEd4xrDbGL
+	34UIk=
+X-Google-Smtp-Source: AGHT+IGPuisHrENc4eWwCCVEqXB/BWGAGjrwxLAuVPgxhlpnmHvYj9b/D11HS0CizRoQUZoYTlW7Tw==
+X-Received: by 2002:a05:6000:2c12:b0:3b7:9929:871c with SMTP id ffacd0b85a97d-3c5dc5408c9mr356630f8f.37.1755816969818;
+        Thu, 21 Aug 2025 15:56:09 -0700 (PDT)
+Message-ID: <8229c4f7-e1ca-4d79-9131-df5d74e464bc@citrix.com>
+Date: Thu, 21 Aug 2025 23:56:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 19/22] x86/boot: Use RSTORSSP to establish SSP
+Subject: Re: [PATCH 20/22] x86/traps: Alter switch_stack_and_jump() for FRED
+ mode
 To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250808202314.1045968-1-andrew.cooper3@citrix.com>
- <20250808202314.1045968-20-andrew.cooper3@citrix.com>
- <5ad64534-514c-412a-b2a2-23adaf835f60@suse.com>
- <757e3b87-bb4f-410a-84b7-cf3607bf3eb3@citrix.com>
- <1576d28d-bdd9-488e-a374-29695fca4ca5@suse.com>
+ <20250808202314.1045968-21-andrew.cooper3@citrix.com>
+ <7b46de92-d7b6-462f-8469-0f334d9e70bb@suse.com>
+ <17498f02-0603-489c-bbc9-2207ffef8029@citrix.com>
+ <0fdea579-7100-43d8-b5ec-0c9d34476aea@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -139,52 +140,112 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <1576d28d-bdd9-488e-a374-29695fca4ca5@suse.com>
+In-Reply-To: <0fdea579-7100-43d8-b5ec-0c9d34476aea@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 15/08/2025 10:03 am, Jan Beulich wrote:
-> On 14.08.2025 22:09, Andrew Cooper wrote:
->> On 14/08/2025 4:11 pm, Jan Beulich wrote:
+On 15/08/2025 10:10 am, Jan Beulich wrote:
+> On 14.08.2025 22:55, Andrew Cooper wrote:
+>> On 14/08/2025 4:35 pm, Jan Beulich wrote:
 >>> On 08.08.2025 22:23, Andrew Cooper wrote:
->>>> Under FRED, SETSSBSY is unavailable, and we want to be setting up FRED prior
->>>> to setting up shadow stacks.  As we still need Supervisor Tokens in IDT mode,
->>>> we need mode-specific logic to establish SSP.
->>>>
->>>> In FRED mode, write a Restore Token, RSTORSSP it, and discard the resulting
->>>> Previous-SSP token.
->>>>
->>>> No change outside of FRED mode.
+>>>> FRED and IDT differ by a Supervisor Token on the base of the shstk.  This
+>>>> means that switch_stack_and_jump() needs to discard one extra word when FRED
+>>>> is active.
 >>>>
 >>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> Why is it that in patch 17 you could use identical code, but here you can't?
->> This caught me out at first too.
+>>>> ---
+>>>> CC: Jan Beulich <JBeulich@suse.com>
+>>>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>>>
+>>>> RFC.  I don't like this, but it does work.
+>>>>
+>>>> This emits opt_fred logic outside of CONFIG_XEN_SHSTK.
+>>> opt_fred and XEN_SHSTK are orthogonal, so that's fine anyway. What I guess
+>>> you may mean is that you now have a shstk-related calculation outside of
+>>> a respective #ifdef.
+>> I really mean "outside of the path where shadow stacks are known to be
+>> active", i.e. inside the middle of SHADOW_STACK_WORK
 >>
->> For S3, we're going from "no shadow stack" to "back to where we were on
->> an active shadow stack".  All we need to do is get saved_ssp back into
->> the SSP register.
+>>>  Given the simplicity of the calculation, ...
+>>>
+>>>>  But frankly, the
+>>>> construct is already too unweildly, and all options I can think of make it
+>>>> moreso.
+>>> ... I agree having it like this is okay.
+>> Yes, but it is a read of a global even when it's not used.
 >>
->> Here, we're going from "no shadow stack" to "on a good, empty, shadow
->> stack".  For FRED we only need to load a value into SSP, but in IDT mode
->> we must also arrange to create a busy Supervisor Token on the base of
->> the stack.
->>
->> We could in principle conditionally write a busy supervisor token, then
->> unconditionally RSTORSSP, but that's even more complicated to follow IMO.
-> Why would the write need to be conditional?
+>> And as a tangent, we probably want __ro_after_init_read_mostly too.  The
+>> read mostly is about cache locality, and is applicable even to the
+>> __ro_after_init section.
+> Not really: __read_mostly is to keep stuff rarely written apart from stuff
+> more frequently written (cache locality, yes). There's not going to be any
+> frequently written data next to a __ro_after_init item; it's all r/o post-
+> boot. And I don't think we care much during boot.
 
-Because the tokens are different.  One has the value &addr, and one has
-&addr + 9.
+It's not about boot, but hot variables do need grouping.  opt_fred is
+read on fastpaths, whereas trampoline_phys is not.
 
-The Supervisor Shadow Stack Token for IDT needs to survive for the
-lifetime of Xen, while the Restore Token for FRED is temporary and
-discarded by the logic added in this patch.
+>
+>>>> @@ -154,7 +155,6 @@ unsigned long get_stack_dump_bottom (unsigned long sp);
+>>>>      "rdsspd %[ssp];"                                            \
+>>>>      "cmp $1, %[ssp];"                                           \
+>>>>      "je .L_shstk_done.%=;" /* CET not active?  Skip. */         \
+>>>> -    "mov $%c[skstk_base], %[val];"                              \
+>>>>      "and $%c[stack_mask], %[ssp];"                              \
+>>>>      "sub %[ssp], %[val];"                                       \
+>>>>      "shr $3, %[val];"                                           \
+>>> With the latter two insns here, ...
+>>>
+>>>> @@ -177,6 +177,8 @@ unsigned long get_stack_dump_bottom (unsigned long sp);
+>>>>  
+>>>>  #define switch_stack_and_jump(fn, instr, constr)                        \
+>>>>      ({                                                                  \
+>>>> +        unsigned int token_offset =                                     \
+>>>> +            (PRIMARY_SHSTK_SLOT + 1) * PAGE_SIZE - (opt_fred ? 0 : 8);  \
+>>>>          unsigned int tmp;                                               \
+>>>>          BUILD_BUG_ON(!ssaj_has_attr_noreturn(fn));                      \
+>>>>          __asm__ __volatile__ (                                          \
+>>>> @@ -184,12 +186,11 @@ unsigned long get_stack_dump_bottom (unsigned long sp);
+>>>>              "mov %[stk], %%rsp;"                                        \
+>>>>              CHECK_FOR_LIVEPATCH_WORK                                    \
+>>>>              instr "[fun]"                                               \
+>>>> -            : [val] "=&r" (tmp),                                        \
+>>>> +            : [val] "=r" (tmp),                                         \
+>>> ... I don't think you can legitimately drop the & from here? With it
+>>> retained:
+>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>> You chopped the bit which has an explicit input for "[val]", making the
+>> earlyclobber incorrect.
+> I was wondering whether there was a connection there, but ...
+>
+>> IIRC, one version of Clang complained.
+> ... that's not good. Without the early-clobber the asm() isn't quite
+> correct imo. If the same value appeared as another input, the compiler
+> may validly tie both together, assuming the register stays intact until
+> the very last insn (and hence even that last insn could still use the
+> register as an input). IOW if there's a Clang issue here, I think it
+> may need working around explicitly.
 
->  Can't we write what effectively
-> is already there? Or is it more a safety measure to avoid the write when
-> it's supposed to be unnecessary, to avoid papering over bugs?
+Given that I need an alternative anyway, this becomes much easier, and
+shrinks to this single hunk:
 
-I genuinely don't understand what you're trying to suggest here.
+diff --git a/xen/arch/x86/include/asm/current.h b/xen/arch/x86/include/asm/current.h
+index c1eb27b1c4c2..35cc61fa88e7 100644
+--- a/xen/arch/x86/include/asm/current.h
++++ b/xen/arch/x86/include/asm/current.h
+@@ -154,7 +154,9 @@ unsigned long get_stack_dump_bottom (unsigned long sp);
+     "rdsspd %[ssp];"                                            \
+     "cmp $1, %[ssp];"                                           \
+     "je .L_shstk_done.%=;" /* CET not active?  Skip. */         \
+-    "mov $%c[skstk_base], %[val];"                              \
++    ALTERNATIVE("mov $%c[skstk_base], %[val];",                 \
++                "mov $%c[skstk_base] + 8, %[val];",             \
++                X86_FEATURE_XEN_FRED)                           \
+     "and $%c[stack_mask], %[ssp];"                              \
+     "sub %[ssp], %[val];"                                       \
+     "shr $3, %[val];"                                           \
+
+
 
 ~Andrew
 
