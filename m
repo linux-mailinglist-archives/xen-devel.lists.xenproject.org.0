@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0CC9B2F46C
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 11:46:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1088315.1446074 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37621B2F49B
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 11:52:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1088324.1446083 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1up1s5-0000Qa-HG; Thu, 21 Aug 2025 09:46:13 +0000
+	id 1up1y8-0003vy-5Z; Thu, 21 Aug 2025 09:52:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1088315.1446074; Thu, 21 Aug 2025 09:46:13 +0000
+Received: by outflank-mailman (output) from mailman id 1088324.1446083; Thu, 21 Aug 2025 09:52:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1up1s5-0000NW-ET; Thu, 21 Aug 2025 09:46:13 +0000
-Received: by outflank-mailman (input) for mailman id 1088315;
- Thu, 21 Aug 2025 09:46:12 +0000
+	id 1up1y8-0003tP-2P; Thu, 21 Aug 2025 09:52:28 +0000
+Received: by outflank-mailman (input) for mailman id 1088324;
+ Thu, 21 Aug 2025 09:52:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5Hha=3B=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1up1s4-0000NQ-EH
- for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 09:46:12 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ id 1up1y6-0003s3-46
+ for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 09:52:26 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ab19d051-7e73-11f0-a32b-13f23c93f187;
- Thu, 21 Aug 2025 11:46:10 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-6188b7550c0so1192165a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 02:46:10 -0700 (PDT)
+ id 8a4dc3bd-7e74-11f0-a32b-13f23c93f187;
+ Thu, 21 Aug 2025 11:52:25 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-afcb79db329so113683966b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 02:52:25 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61a8c1afaa0sm3450986a12.25.2025.08.21.02.46.09
+ a640c23a62f3a-afded479868sm358933966b.58.2025.08.21.02.52.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Aug 2025 02:46:09 -0700 (PDT)
+ Thu, 21 Aug 2025 02:52:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab19d051-7e73-11f0-a32b-13f23c93f187
+X-Inumbo-ID: 8a4dc3bd-7e74-11f0-a32b-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755769570; x=1756374370; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755769944; x=1756374744; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=deloDzXxMgTQ54PJsdinO80QshYKSD6lzaguSnvcy1Q=;
-        b=Yi8pyQba1w+Y85ScJekA7grnDiDey6m6cNoknnZc1WD2NpceFxMB+WHN3sLFuQ0vbo
-         mZEi0OYM+gF/WBzU+ZptThdj1Q48TFFwhMBpDVASzcRX1BU0Kkf50AkMvN/M0ha9Tk3m
-         ZDFtvUSQhxGJLHUvKCqkxI+m8QN7JROvQddGa3ZMJc2Q1oI80sZSFy9SORprVtjt9N/J
-         36QrYUoSuckTfhtThEwmCbF+yN3rO2rRoy+wxPxnpG5zyTKVry/fnHjc6udc/wH0ZgPQ
-         a6GiKFZAQGhNS7oUX5B+mJIMnK8zYVH3tIEfjjAfgt6xEpKhibUuuY5HWPcRW/jnb5Zi
-         3gsQ==
+        bh=DGvzAJ5la8F34sMYmVBXoIu/QJlwI8wttBjk8XB0yFg=;
+        b=QAEbcQ/sVpMU1ncT5x/Wy7w0mzTsYhYWHEGVhN0T2T+nIN0yHNcWVIJ4l4g7/bu5e3
+         SzmUB0u9DwapAHn7C18dXFbOBGd9mN9e67uWjAT1B8va6LZ8wuDwLlQN8+KITDRdKynk
+         GliRX9ETqA728/dDF5c3U9qAUGHRsFyKmty26q9OfDMgMCBWxH/ydbzQCMzKcSJDrsov
+         dzNmrCuBxKAZn5OC/+sTYtxGzvfZpT/HMDM2JfErwq1T3dX2180erirnMXc+JcPpJgFi
+         10IHQ15B6PUU3ZCrHm9E5diCh2zed7y38mJmR3NwSt77mRQDISP1sSZmBF6xfyUi8h37
+         ZAEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755769570; x=1756374370;
+        d=1e100.net; s=20230601; t=1755769944; x=1756374744;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=deloDzXxMgTQ54PJsdinO80QshYKSD6lzaguSnvcy1Q=;
-        b=v5EQnd5tpZxsoSwb4qt28rSgBwDf1DjrNmDxzXcGjVz2o8X9xwvQORTN8tyGuIVsGv
-         UuhFhtiUflfuAZoOxf/gbtgGNK5jMjunceqkNLxW4gi+p7oz2KHOQyCLDPIPXGoj2zFo
-         8fNDf7rhRD0GZhbkW4lE6sOGIGqCm6eDQo443w21hbNMDLgaE6pgfC2VJwvX025kj1lM
-         1n4iUXF7tqHLUQZa2gbzAmGTSar+WyPbe3bGSWgvFuN+9gO73Jd3KIBDQ7/jx+As7RSB
-         S2EL8N0mu/CMoZaeC64PM/MSOnJJ+cth51ZlArTW8ZPtrvvM0JPa0MNkXcZY8fl0bSiK
-         fBww==
-X-Forwarded-Encrypted: i=1; AJvYcCVcK7a9KG8LpGd74QIXWwMTr/nGQ3reD7dKq/0M1BcUAPxgax0my2zcAKklPV8+CPb3IPqbv/S45yU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyS3YzDQBYcJeBBZkS6xvvmq2pQFDKunK8x0AQOzRgu109glfDM
-	Y2GPrc5H70hKO4VRO7XzKf9Gp9mExe1E6ACO2hi+8Fy2FZdHR+EHw6mbDOtHLX7a4A==
-X-Gm-Gg: ASbGncsNsRW4J7JiFwKAAkTxP0BTEcaEC9s7lFxTHqhPVRT1U6P7am6rs63XxW+tn32
-	vpa4uexrhu2w4wHfMsPGqeaUeXRybjUxj6OO+BeSQ70hxKtI4rlOgq0NnnAt0AXbNmP8RxaMIe6
-	8YlMSnypV6eNZj3Bt5Xy/Jq6ZyuXOKuEhMfyBS0e5o8xqYKB9F54PxDcvudLaz/0GuZk2r4a76S
-	P0V+NyEC+S7pgP23dy5vduj4djWCCxnyhijiYNOn5eyj4/vAZ6enOokFl1jqoF/960c7CEeMuXm
-	eme1o2y9HerlwEnTexKhvEvn37vggQPiv+oO5oJ1fgQL/zKWuYtnYA9qzvpq4zD6nxVw7V/tYHX
-	6EiYcHNxiPine6Zejckb+W9EkL2nbKqQFUPIuzn6t1M0xlysI0KSXE7fzq+xopivUWhS3/aqWke
-	wSGy5lf0qxpuZw6ZTD7A==
-X-Google-Smtp-Source: AGHT+IHVZpUBl7XZ5nkG3XZ6SKleepgDDY1ZWFNh+PY2ZPwa6tWc+CnEkwG0en0FRPky9E7nDKDHqg==
-X-Received: by 2002:a05:6402:3496:b0:618:986:7ab5 with SMTP id 4fb4d7f45d1cf-61bf874ef7cmr1462889a12.31.1755769569979;
-        Thu, 21 Aug 2025 02:46:09 -0700 (PDT)
-Message-ID: <7ca88d87-70b5-4871-827e-308941a739eb@suse.com>
-Date: Thu, 21 Aug 2025 11:46:08 +0200
+        bh=DGvzAJ5la8F34sMYmVBXoIu/QJlwI8wttBjk8XB0yFg=;
+        b=BIZ7PGgeJ7LVKdSzXQMX1trG3Bx7MIwOzHhRw3trWEa9raV5XYXbAujZo9IpuSeKrm
+         AzipQallmfyLGs942Pa/i4uV5bEZnYSt+jc8GhgkYzwd6j652bpOoIQUz2KGN4jkAXMN
+         At+WVSznvcT4aKKvg4ITWR4Aio8Hu/g1SRtPTLzvB4bgbSZrxbHqSFQzqRFgE0m43g7C
+         ZaMtgcISafqSdbp3/vXam2Ci6Kdl7dWdx6BUdnawnB8VGMfoyV4acPlR4SkbsaoCTcDA
+         yswdVDY6gpsEkrKjYU46eu41zAOgg6p6J/OTBuABHGOXTszpS18RUVUfdOJqUxekH6GM
+         GYUA==
+X-Forwarded-Encrypted: i=1; AJvYcCWU4mIUWK4GYnand1Ap+ivJEQC3chC97Co13RmkxdwHNqXqcg+Sst7x+33Uvqp7/TB72+jXuq047oc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwwCSP8+g7bMgbgnpXY/KwcpQxRJFGKuRwnm9e5uSF7vGmCArzD
+	J2ctzer71v1YAWVzfexDFiFZg5n3T5BE32Ud/q4FkjhMlnHs/Oes3Oh2xEPDHLD4jA==
+X-Gm-Gg: ASbGnctMofqudVdmXcgeSKbfBmKefaio8Qw0Q5QGonzOSmZ9JI23CMxTg9tQCg9w7Ol
+	S6CsjuZixCQmrpzT9gVzfE4rbhDOJeNAqhFxzNhG8jMK1HOFGmPPayH0TdRq8ef0Gzi8+lOL548
+	0FaXNHhPf+/nCtTuRQXOsoqhh5/sT394TlnbnlFyQ6g1cBa/JwBaQ1yLYuAOJG+1zUUAHKQIJ8R
+	O7L2/5/m/Ja7DgMuT3OQExkPpQsIoUPdsNNLCbGAwstam1ZC9DrDdCcaQbmtZ/z32goHUofUbad
+	cyOIpmT0VDsTvc9TsWwEYgsdo4hkDGGaM+ApW7SG/YtSC0hhRKQNl39WV+a9Lqjh4aJA3PL3pVG
+	MEFmL3baUFTOUfU72HY7b6mmYo5+XdHDuqS9hQZbvrlsnoU5fPu+NhgsIrM6fMk8dXeVPhxixdV
+	pK018naCUyjcoNcBIBAXx5IdXn4VQe
+X-Google-Smtp-Source: AGHT+IHzt+tfDNgcndzcUZjq9e6tShbd3AdlAZy8mP9q1Nj7bCTSTTgqns/9VDmge6mQo+q2t3+ZrA==
+X-Received: by 2002:a17:907:9287:b0:afc:a190:848b with SMTP id a640c23a62f3a-afe07b3905fmr198568566b.39.1755769944377;
+        Thu, 21 Aug 2025 02:52:24 -0700 (PDT)
+Message-ID: <b4677d1f-436b-4afe-ab51-dbd1b874b926@suse.com>
+Date: Thu, 21 Aug 2025 11:52:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] misra: add deviation for MISRA C Rule 18.3
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH] releases: use newer compression methods for tarballs
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <901917945f704643e95842a773be9e8676f76d10.1755690681.git.dmytro_prokopchuk1@epam.com>
+References: <fdd60576-c852-4ce9-921d-9e77a86a3e66@suse.com>
+ <f2105411-ac78-4283-a7d7-45f5b1bc0bfe@citrix.com>
+ <eac220b7-d5e9-4710-a0fd-e69a0162df7d@suse.com>
+ <5b87bb85-3e52-453e-82ab-6d4f9b7eec28@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,33 +124,76 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <901917945f704643e95842a773be9e8676f76d10.1755690681.git.dmytro_prokopchuk1@epam.com>
+In-Reply-To: <5b87bb85-3e52-453e-82ab-6d4f9b7eec28@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 20.08.2025 14:44, Dmytro Prokopchuk1 wrote:
-> MISRA C Rule 18.3 states:"The relational operators >, >=, < and <= shall
-> not be applied to objects of pointer type except where they point into
-> the same object."
+On 21.08.2025 11:31, Andrew Cooper wrote:
+> On 21/08/2025 8:26 am, Jan Beulich wrote:
+>> On 20.08.2025 14:15, Andrew Cooper wrote:
+>>> On 15/07/2025 7:33 am, Jan Beulich wrote:
+>>>> It's unclear to me why we have git create a tarball, extract that, just
+>>>> to then make a tarball again (without any special options, like to
+>>>> override owner or timestamps;
+>>> That's because in c5be91eb8140 you deleted the intermediate step of
+>>> merging qemus
+>> Hmm, perhaps - I'm generally trying to keep the size of such changes down,
+>> when working in an area I'm not overly familiar with.
+>>
+>>>> in this context I notice that tarballs
+>>>> created by Andrew have file ownership of andrew/andrew, while ones made
+>>>> by Julien use root/root).
+>>> Ownership where exactly?  the tarball itself (which will be down to
+>>> accounts on downloads.xenproject.org) or the tarball contents itself?
+>> tarball contents.
+>>
+>>>> lzip, unlike the other two tools, doesn't really show a progress
+>>>> indicator with -v. Merely having final statistics may make the use of
+>>>> the option here questionable.
+>>> I can't say I find any of the stats relevant.
+>> Happy to drop the v options.
+>>
+>>>> --- a/tools/misc/mktarball
+>>>> +++ b/tools/misc/mktarball
+>>>> @@ -31,4 +31,14 @@ git_archive_into $xen_root $tdir/xen-$de
+>>>>  
+>>>>  GZIP=-9v tar cz -f $xen_root/dist/xen-$desc.tar.gz -C $tdir xen-$desc
+>>>>  
+>>>> -echo "Source tarball in $xen_root/dist/xen-$desc.tar.gz"
+>>>> +if [ -n "$(command -v xz)" ]
+>>>> +then
+>>>> +  tar c -C $tdir xen-$desc | $(command -v xz) -v -9 >$xen_root/dist/xen-$desc.tar.xz
+>>>> +fi
+>>>> +
+>>>> +if [ -n "$(command -v lzip)" ]
+>>>> +then
+>>>> +  tar c -C $tdir xen-$desc | $(command -v lzip) -v -9 >$xen_root/dist/xen-$desc.tar.lz
+>>>> +fi
+>>>> +
+>>>> +echo "Source tarball in $xen_root/dist/xen-$desc".tar.[glx]z
+>>> If we're deciding to use multiple compressions, they want to not be
+>>> optional here.  I'd far rather have a reminder to install the package,
+>>> than for it to simply be omitted.
+>>>
+>>> We don't want to be re-tar-ing now that the qemu's are gone, so I think
+>>> the structure wants to end up as:
+>>>
+>>> git archive --format=tar HEAD > tmp.tar
+>>> gzip -9 < tmp.tar > $xen_root/dist/xen-$desc.tar.gz &
+>>> zx -9 < tmp.tar > $xen_root/dist/xen-$desc.tar.xz &
+>>> lzip -9 < tmp.tar > $xen_root/dist/xen-$desc.tar.lz &
+>>> wait
+>>>
+>>> Might as well use the multiple cores better...
+>> I, too, was thinking of that. Yet as per above, when fiddling with code I'm
+>> not overly familiar with, I try to limit the amount of change done. As you
+>> ask for a bigger change, I can certainly do so.
 > 
-> Comparisons in the 'find_text_region()' function are safe because linker
-> symbols '_stext' and '_etext' represent fixed virtual addresses within
+> Would you like me to do the patch then?
 
-All symbols, after linking, "represent fixed virtual addresses". Not sure
-what you're actually meaning to get across here.
-
-> the same '.text' region, and the function 'addr' argument is explicitly
-> compared to known valid memory bounds ('text_start' and 'text_end')
-> derived from these linker symbols:
->     if ( (void *)addr >= iter->text_start &&
->          (void *)addr <  iter->text_end )
-
-Overall I don't think the deviation can be justified this way. Or else
-the same could be said about other similar checks, which may not be
-valid to deviate. One particularly important aspect that imo needs
-discussing is the safety of the logic with code transformations in mind
-that a compiler may in principle do (leveraging UB for optimization
-purposes).
+No worries, I'll make a v2. It's just that in some cases I'm asked to limit changes
+to what's strictly necessary, yet then (when I try to from the start) in others I'm
+asked to make a bigger change.
 
 Jan
 
