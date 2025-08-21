@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38235B2F295
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 10:44:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1088200.1446004 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAC6AB2F2DF
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 10:53:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1088251.1446013 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1up0tz-0004mk-G7; Thu, 21 Aug 2025 08:44:07 +0000
+	id 1up12M-0000qF-DN; Thu, 21 Aug 2025 08:52:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1088200.1446004; Thu, 21 Aug 2025 08:44:07 +0000
+Received: by outflank-mailman (output) from mailman id 1088251.1446013; Thu, 21 Aug 2025 08:52:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1up0tz-0004lK-D9; Thu, 21 Aug 2025 08:44:07 +0000
-Received: by outflank-mailman (input) for mailman id 1088200;
- Thu, 21 Aug 2025 08:44:05 +0000
+	id 1up12M-0000oV-Ae; Thu, 21 Aug 2025 08:52:46 +0000
+Received: by outflank-mailman (input) for mailman id 1088251;
+ Thu, 21 Aug 2025 08:52:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5Hha=3B=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1up0tx-0004lE-MU
- for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 08:44:05 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ id 1up12L-0000ZZ-Ku
+ for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 08:52:45 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fb60859f-7e6a-11f0-b898-0df219b8e170;
- Thu, 21 Aug 2025 10:43:59 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-6188b7550c0so1117216a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 01:43:59 -0700 (PDT)
+ id 33c894a0-7e6c-11f0-b898-0df219b8e170;
+ Thu, 21 Aug 2025 10:52:44 +0200 (CEST)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-618b83e5b27so909144a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 01:52:44 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afded2bc310sm346538966b.5.2025.08.21.01.43.58
+ 4fb4d7f45d1cf-61a92678f45sm3330159a12.18.2025.08.21.01.52.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Aug 2025 01:43:58 -0700 (PDT)
+ Thu, 21 Aug 2025 01:52:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb60859f-7e6a-11f0-b898-0df219b8e170
+X-Inumbo-ID: 33c894a0-7e6c-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755765839; x=1756370639; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755766363; x=1756371163; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=HvcuYgXjK6airQth5Akct7/Vr+xine1eiyg9x2GPsf8=;
-        b=Qxpuh6EWYwa6VDBenxGUVhk7MEN28x1qDJANRE7ODNXBEqOMiFqgJBkJwANe/qqWpa
-         ZzNW4KMem4oM5gYscVUyQ+GhE7I5Sx+oMV3/fqymCK1Hxv2oXxWNcSxo+uX7twAO+bRF
-         lisi6kViQuiQGVVjgBVixFwUoRzrXt+yPHomHwbFIeGMVBVEg2487ry5e3WsucFcGn0x
-         7K66ym/W0PWv38phJhCmWOZeaCSs5FteqNmrfQSimVpiyQKfloX6O+nYhOJedcGsMxVg
-         Eijc5fvo+hvkdvgWVw70u7eygXbWwvRbgso5PWtc9RgXLkdWAoJVTsL7r/NIUiwDl+Ia
-         apeg==
+        bh=1EUL3qG1NEOtTui0EP6TOD0gafplJiEMMtQ5leoiCPQ=;
+        b=NG5XbS+13PPheRclj6ys+tOYjk2KdQ9tn69U26rLANhndXrqXTkQQa8go2h1Rfi8fL
+         kHXF0M3tBvt+F6XbMAh5U4Zcl8l/zCO//WUxipqmxVaDAnAO72W2IlDkKViphp+zDtCT
+         zG6Nsr9jyPjRl62Xxy1zt7IfvGq6/LoXdSoRarjAJeb8pocTGiwU14ekUszXDY1XZlnm
+         ZJqyHqeYOd3WLcJl07hmgLmChBcGEPR+pLJlENrsIP52PzCIjG8AX/RFOEzd7X3SB6NU
+         9Dk89LzQ/y2fixMmiKGCCkVaPOaOxMdzScXEJy2+CrVmaazV/SbZNFwpcQc9GIvBeEhu
+         AAjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755765839; x=1756370639;
+        d=1e100.net; s=20230601; t=1755766363; x=1756371163;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=HvcuYgXjK6airQth5Akct7/Vr+xine1eiyg9x2GPsf8=;
-        b=IWPc06nzaeHbq3YTrAe37vQhHnZUM4n4Eg3777ZePhphbFbRSsCUMi4Iw1ii3p6r6l
-         ABZBoa3lYbxCrV3BqPpm8I5j7HUKz0J1ku0OiqxS4YFM3Emx6eSiGroXMRHuj1WlEVrA
-         5Q0ZMvK66fd+XwmEQWgBiDUMa+OoBFXv9kpJHtf4JF0fvIr+cTOH//OT5mJ9NFJYvoKJ
-         nx1wghEncHU71yfK2dG2s9VtMp6MpQ4/un2fsapmRUIeuIyIumSXajlNAxlzbsn+nEm2
-         rob2v6pBHQGev9p7FJxNRCvxJR6B2hsxiiANOwfq0viUTYrLXn3SrnVgTtkP6kzmReRa
-         SpuA==
-X-Forwarded-Encrypted: i=1; AJvYcCV7yeWI8hl4J1CxbUsySONDQ+zNNuclMk9obfNzSiJOqG0neU90ePl00HAJPaCBaO9AujdP0FHTrnI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyYVr+TXe0hUPHSBOCO+aJZIKBTe3n4Z054Mfrm6MqN6FGlemXx
-	NQWMbBOFmoQ99vUUMiJ9pJKrdDsWMkoEi8JhJG8oOKiHkEZkC5eIjuagaiPebAUduQ==
-X-Gm-Gg: ASbGncseVtqWSTL1LFnk5mLyZjr+LYzfiVHN3UKfcf7fZ3l3ibXaEd648lhY8s0Njha
-	UUZme97GU05hNmr8uKMW3LHXzxeATaNJrHeYKn7imFui42/h7HrKC64bJYTlGGzyIR92z83g5Hx
-	OAaCuJgNuOHRIGXY+Kh0UyLXSZ5SMsnZLU4Oa0xobXSDzZlPL99JAuRjp2/mtGzLHw+WqEUimb0
-	t/+Ugc1nGKi9GRlFSNROJtslU5pxl8u7th46RAW8e8TmCQBWIrHX/dXKOdJKQW+MHX1f5Eo7tcH
-	UsdjgOhqhlhAHgWfO9VNdm6SazE772U3fxFuaTbG7KtMEi2TGLYfeFpuHAkyUXan+MUbVItUnhu
-	vv0A7VhbVtxq0LprtNgnVsRoZm+beDe+jLsPLq8hQHHq+4EMN0t85aRHmfYjXoe1k8jmMLuW034
-	nbPI/9sryqeLT13ISXzw==
-X-Google-Smtp-Source: AGHT+IGCjPT1xyNwuZCR3Jg0OFLrxYx6Jor6bxa/5AM7KD7tHLXEJV8y83wMDOr4DW9pz1pr2jiY8g==
-X-Received: by 2002:a17:907:3f86:b0:ae0:da2f:dcf3 with SMTP id a640c23a62f3a-afe07d695e5mr142047666b.59.1755765839062;
-        Thu, 21 Aug 2025 01:43:59 -0700 (PDT)
-Message-ID: <06e2b225-fe82-4c69-a8a1-affdecdc195c@suse.com>
-Date: Thu, 21 Aug 2025 10:43:57 +0200
+        bh=1EUL3qG1NEOtTui0EP6TOD0gafplJiEMMtQ5leoiCPQ=;
+        b=IUUkKs8xAi74WjY1Q5cYFkioZ6y1zMKJvl9/x/ER2EUkLCPr3qZil8YGUfrrI6wvZD
+         cqgEi/6vklQjPOwc6u7H+t+4k5y7PPq5eGN+5rw5N4bGL/+zTWSDFF4mHFUfI3b+3kdp
+         03mLVum4m78Zo2DNL0fwl9RMyOV2jowd2oN34mM+UVPB0UNZPFY4DYiFLehCtGiDHDF9
+         BdPFG8/hWLFtRqzu51R92BqRG4Y00+F/cx8QEaAYihw/19SHvUV0+4pxZObVXmCn+EKQ
+         A7Dezwk3ggyK6BnOIi0KMaI9OLYaBZTlJt8HkEAH32g5ndpsaEJdogVKMSxzw3em+Tjf
+         D0hQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUkAzjh0rqVaU4sXiPV5DF35Waofb5IZY2P6RSwlf6919swMdEG+vB5PHRSrnLmP1gZITp3EDTPBAA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyovb0OQkRCawSIpHs0Kzu0P2izYKkI85gYrWSgMRTJKHAMa78/
+	YfH5GYkvTm3KivWvpQjLcYi6VRx6RreccWRyG5OEZ2XgSWaSyVFfNuZIuB+JNQCbnA==
+X-Gm-Gg: ASbGncv3zRxFl4iwmk9UIenJdK/AtMKbRzEy4xgVn6u8i7Wplo17B3CnbxMjkCxbDS+
+	vH8uIZzqSnuqkhQQqLUJDvfxfwsH/Ld4jN3ymaTOqzm15nJtpJMFOKuNTr9pilqmqluCFQouJr6
+	XPIwD8/XoRx+pwzMkjFz/NFNvitmWwq1kqw9uDf38jLOyjefuiI3vN71lKpJK+U2GKQroj7a+Ew
+	WFyKOnI7DXFUSAhYkW/5TX7pxguEI4E/WaZ+Nh6zCMgcBjlgZLk0QxxoslB8z2MbxneX+EJXYRF
+	7Z8QJdsNbB+d7JOCy08XUBfi5fFYv8hKQBnT/sZL7O4fv/m38OEVDH97jDc/uStC8+KegME9U2o
+	w6cdjiTvzCJhY2eq7bV35yhT3jtMp3i0rGncskR4n5dWi0zCAlc3hPwoNg7zwQnqGUJoCysKDBt
+	Jdnv1nkDw=
+X-Google-Smtp-Source: AGHT+IFhkyYXlEnYL/cecI7LQVIFUzXvLYNMZYEWpaApzXUk91J7/wB8WIaXwi+vDUbPscpbHS53fg==
+X-Received: by 2002:a05:6402:34c5:b0:61b:fb76:a244 with SMTP id 4fb4d7f45d1cf-61bfb76a530mr1044320a12.10.1755766363348;
+        Thu, 21 Aug 2025 01:52:43 -0700 (PDT)
+Message-ID: <de9b2f08-b16c-4d9b-a720-00a27fe81661@suse.com>
+Date: Thu, 21 Aug 2025 10:52:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] misra: consider conversion from UL or (void*) to function
- pointer as safe
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [PATCH v2 2/3] xen/pci: modify pci_add_device to handle device
+ add by Xen
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>
+Cc: Luca Fancellu <luca.fancellu@arm.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <9e5e4ff2c7ba0a90a6ac403e2de9318e18949274.1755628705.git.dmytro_prokopchuk1@epam.com>
- <90fb95a3-4b32-4785-a77c-373e5b9da6ed@suse.com>
- <e1e2abdf0ef8708097aa78440eeb7147@bugseng.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Daniel Smith <dpsmith@apertussolutions.com>
+References: <cover.1755683961.git.mykyta_poturai@epam.com>
+ <e0da037322b978d427d23a1af50406598a08b378.1755683961.git.mykyta_poturai@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,84 +126,80 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e1e2abdf0ef8708097aa78440eeb7147@bugseng.com>
+In-Reply-To: <e0da037322b978d427d23a1af50406598a08b378.1755683961.git.mykyta_poturai@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21.08.2025 10:25, Nicola Vetrini wrote:
-> On 2025-08-21 10:01, Jan Beulich wrote:
->> On 19.08.2025 20:55, Dmytro Prokopchuk1 wrote:
->>> Rule 11.1 states as following: "Conversions shall not be performed
->>> between a pointer to a function and any other type."
->>>
->>> The conversion from unsigned long or (void *) to a function pointer
->>> is safe in Xen because the architectures it supports (e.g., x86 and
->>> ARM) guarantee compatible representations between these types.
->>
->> I think we need to be as precise as possible here. The architectures
->> guarantee nothing, they only offer necessary fundamentals. In the
->> Windows x86 ABI, for example, you can't convert pointers to/from longs
->> without losing data. What we build upon is what respective ABIs say,
->> possibly in combination of implementation specifics left to compilers.
->>
+On 20.08.2025 14:28, Mykyta Poturai wrote:
+> From: Luca Fancellu <luca.fancellu@arm.com>
 > 
-> +1, a mention of the compilers and targets this deviation relies upon is 
-> needed.
+> Currently pci_add_device is called from hypercalls requested by Dom0
+> to add pci devices and when the device has no domain associated with
+> it, it is assumed that hardware_domain is the owner.
 > 
->>> --- a/docs/misra/deviations.rst
->>> +++ b/docs/misra/deviations.rst
->>> @@ -370,6 +370,16 @@ Deviations related to MISRA C:2012 Rules:
->>>         to store it.
->>>       - Tagged as `safe` for ECLAIR.
->>>
->>> +   * - R11.1
->>> +     - The conversion from unsigned long or (void \*) to a function 
->>> pointer does
->>> +       not lose any information or violate type safety assumptions if 
->>> unsigned
->>> +       long or (void \*) type is guaranteed to be the same bit size 
->>> as a
->>> +       function pointer. This ensures that the function pointer can 
->>> be fully
->>> +       represented without truncation or corruption. The macro 
->>> BUILD_BUG_ON is
->>> +       integrated into xen/common/version.c to confirm conversion 
->>> compatibility
->>> +       across all target platforms.
->>> +     - Tagged as `safe` for ECLAIR.
->>
->> Why the escaping of * here, when ...
->>
->>> --- a/docs/misra/rules.rst
->>> +++ b/docs/misra/rules.rst
->>> @@ -431,7 +431,13 @@ maintainers if you want to suggest a change.
->>>       - All conversions to integer types are permitted if the 
->>> destination
->>>         type has enough bits to hold the entire value. Conversions to 
->>> bool
->>>         and void* are permitted. Conversions from 'void noreturn 
->>> (*)(...)'
->>> -       to 'void (*)(...)' are permitted.
->>> +       to 'void (*)(...)' are permitted. Conversions from unsigned 
->>> long or
->>> +       (void \*) to a function pointer are permitted if the source 
->>> type has
->>> +       enough bits to restore function pointer without truncation or 
->>> corruption.
->>> +       Example::
->>> +
->>> +           unsigned long func_addr = (unsigned long)&some_function;
->>> +           void (*restored_func)(void) = (void (*)(void))func_addr;
->>
->> ... context here suggests they work fine un-escaped, and you even add 
->> some un-
->> escaped instances as well. Perhaps I'm simply unaware of some 
->> peculiarity?
+> On the dom0less scenario, the enumeration is performed by the
+> firmware and Xen at boot time might want to assign some pci devices
+> to guests, so it has to firstly add the device and then assign it to
+> the final guest.
 > 
-> This is a literal rst block, while the other is not (* acts as a bullet 
-> point in rst iirc)
+> Modify pci_add_device to have the owner domain passed as a parameter
+> to the function, so that when it is called from the hypercall the
+> owner would be the caller domain, otherwise when Xen is calling it,
+> it would be another domain since hw domain could not be there
+> (dom0less guests without Dom0 use case).
+> 
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> ---
+> (cherry picked from commit f0c85d9043f7c9402e85b73361c8a13c683428ca from
+>  the downstream branch poc/pci-passthrough from
+>  https://gitlab.com/xen-project/people/bmarquis/xen-arm-poc.git)
+> 
+> v1->v2:
+> * remove dom_io check
+> * fixup pci_add_device parameters
+> * use current->domain instead of hardware_domain
 
-But everything here is bullet-pointed (with at least two levels)?
+What I'm missing (as per my v1 comment) is discussion of the hardware_domain
+-> current->domain change, including the XSM aspect. Because of the XSM aspect,
+please also Cc the XSM maintainer going forward (I'm adding him here as well).
+
+> --- a/xen/drivers/passthrough/pci.c
+> +++ b/xen/drivers/passthrough/pci.c
+> @@ -654,8 +654,9 @@ unsigned int pci_size_mem_bar(pci_sbdf_t sbdf, unsigned int pos,
+>      return is64bits ? 2 : 1;
+>  }
+>  
+> -int pci_add_device(u16 seg, u8 bus, u8 devfn,
+> -                   const struct pci_dev_info *info, nodeid_t node)
+> +int pci_add_device(uint16_t seg, uint8_t bus, uint8_t devfn,
+> +                   const struct pci_dev_info *info, nodeid_t node,
+> +                   struct domain *d)
+>  {
+>      struct pci_seg *pseg;
+>      struct pci_dev *pdev;
+> @@ -663,6 +664,9 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+>      const char *type;
+>      int ret;
+>  
+> +    if ( !d )
+> +        return -EINVAL;
+
+This should't be needed. Very remotely ASSERT(d) could be added here, but
+we don't normally do so elsewhere.
+
+> @@ -767,9 +771,9 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+>      ret = 0;
+>      if ( !pdev->domain )
+>      {
+> -        pdev->domain = hardware_domain;
+> -        write_lock(&hardware_domain->pci_lock);
+> -        list_add(&pdev->domain_list, &hardware_domain->pdev_list);
+> +        pdev->domain = d;
+> +        write_lock(&d->pci_lock);
+> +        list_add(&pdev->domain_list, &pdev->domain->pdev_list);
+
+Why pdev->domain instead of the shorter and more efficient d?
 
 Jan
 
