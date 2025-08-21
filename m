@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3355B2EF46
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 09:18:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1087862.1445664 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 592BEB2EF86
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 09:26:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1087872.1445674 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uozZ8-0006Tl-Rh; Thu, 21 Aug 2025 07:18:30 +0000
+	id 1uozgS-0008ER-JJ; Thu, 21 Aug 2025 07:26:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1087862.1445664; Thu, 21 Aug 2025 07:18:30 +0000
+Received: by outflank-mailman (output) from mailman id 1087872.1445674; Thu, 21 Aug 2025 07:26:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uozZ8-0006S8-Od; Thu, 21 Aug 2025 07:18:30 +0000
-Received: by outflank-mailman (input) for mailman id 1087862;
- Thu, 21 Aug 2025 07:18:28 +0000
+	id 1uozgS-0008Bm-Fv; Thu, 21 Aug 2025 07:26:04 +0000
+Received: by outflank-mailman (input) for mailman id 1087872;
+ Thu, 21 Aug 2025 07:26:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5Hha=3B=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uozZ6-0006S1-Ly
- for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 07:18:28 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ id 1uozgR-0008Bf-GS
+ for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 07:26:03 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 086457f3-7e5f-11f0-a32b-13f23c93f187;
- Thu, 21 Aug 2025 09:18:27 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-61a8c134609so887484a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 00:18:27 -0700 (PDT)
+ id 172b362e-7e60-11f0-a32b-13f23c93f187;
+ Thu, 21 Aug 2025 09:26:02 +0200 (CEST)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-6188b6f501cso893314a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 00:26:02 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61a758ba909sm4664987a12.54.2025.08.21.00.18.26
+ 4fb4d7f45d1cf-61a757a48e2sm4588866a12.40.2025.08.21.00.26.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Aug 2025 00:18:26 -0700 (PDT)
+ Thu, 21 Aug 2025 00:26:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 086457f3-7e5f-11f0-a32b-13f23c93f187
+X-Inumbo-ID: 172b362e-7e60-11f0-a32b-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755760707; x=1756365507; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755761161; x=1756365961; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kz+RuHL5NbWZDZeLRhEolggsKwd2SDrW5HcEjJlmTtk=;
-        b=c44ad2wbTARMGeOWIOr6CwpvFsd6gofwLdh++BE/jn3JFfSTeuXGEaw64/2jH8MPQ1
-         iJ5bc1Wdx3I7hi31VFci9bqR91jueOPMh5tO9eRfSDceo3VLkhK/pwaMQTdnOuzkRBVj
-         6D+73TK6HRZxxVhnP4xhuvDmYkeDdYKKgjsv2XbDYGNpEIe2eBzjxXVVhe7lpm+YVnmj
-         sPYW15n4xwmYNw32xj3vLh3IjpUTIwNa8RJyUE9hGpfoAB9BvXIcxIwMAsP57dJXqvYE
-         9i9NBH9TrfP+X1LwfnNmzJyDuKiY030zYDgWFRJKz9ZyMRIErOkbXrbtkvKAkJ3Po+kE
-         T2mw==
+        bh=bBq09f9kFg7RGpG/fvb2n8wMx0wExarpxgfmogGcM9g=;
+        b=TfdXVMtyCJSkBmuHuNLu9nsSGHT3b1WfD44MyPNAj+nljxBQIcey6QdOtk6cTZjeD9
+         zeXrdYU/9D6IPf8QxTtng5UW7Xh564hQazhYB2EuDx7B1NF2CmGYR7GE0exEj6EQXGj6
+         e15LfLFlkR9ERQ6sxPpIXKaE4VUkyBrG+xrErzGWBYAAKfh89AScxGur8posfkn3vcOV
+         Cm/O3sjjR9RA07MuF+PLbLA5GZj0tzwpMV5C9ENu2vJKjW8wsFmnYk67pttU1BPbvdsW
+         kYEh20KbpM10iJfOAmlC1lDN82zK5lWo0bTO5ex1VHJ+8eRfv0WYq43wSx887akLMNxL
+         4yfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755760707; x=1756365507;
+        d=1e100.net; s=20230601; t=1755761161; x=1756365961;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kz+RuHL5NbWZDZeLRhEolggsKwd2SDrW5HcEjJlmTtk=;
-        b=cCYGPG/0htvbmPTXKEk8ztK596pngm1ql4jIkB384Bx0q1F0oSu5RbT0PlWPU+lU6q
-         1AWdMM9eNRS/8OYUmnkKcYMlBf/EtrPzNt8lgLlEJSFBXZhwT+fwHNYo7rRjrgRiAgi5
-         OXeBjODUMVw3tjIWL6xjIjsbsTjnI8Ig0LhN0CzaUo2dboF98+q8wSO7UKoHHYAQ/1l5
-         ypBsvvLkEQrGgRjAHvzUY0Xz6UJOZJxVtJ36BavjOqQnRbQXgf6yGU9QLXlJF+TafGfs
-         sHXWmPC67YAmRh9TYjY8iWHhqi1HGC3MQmWsrq7Vk0L8K3u/ueaeoQA9cZZW/4LRUY+o
-         eNDQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWjrl9Cg9YH0JigLN0NDOA3AoDJq2FIES5WwQ496Eaw8CVesFzPomHmSIuvlnuYag5998ZpVbapYNg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyIV5yYNLcTOGNZsIE8XvQp3bct4Yd0OeZy8PdgYNTDGX6VQLmn
-	UeanSMlDiHklxVi2FJyo6VqoLnFWOkY0TjR1RfDi/qPbL22xWBF5NidyTYUXMqosEw==
-X-Gm-Gg: ASbGncuHhcE75noQcOp3sApWxdifVChb1QSWfArWDqKiTf8S3KLBEnN+3QllDz3SAxH
-	MIyFKby2SK+HPGJ9mRdi0J+oEWuwCVcnxfOFK/xUzmGhsGdaBWXf/3sKbXzxxbfV/JidI+03cev
-	z7bRzDS3Fe/VBqVZ3se6D59slgsKbPKLAlTjTDFJ6Yoe3zS/QVBJ8qxZzjGZyBG9YMw/5LSgwvC
-	kruq/aug1gMB1NieDHld5CwOj46fk6SdE0CLv1v8nPUjvW2AslrQz4nAD7VJoNxgTScaApjstXM
-	d0xDBBh+T7GNaqvtbHDEPAC9zzmYmfWZEEtwzYMBjeQHHNp2mILPSox4BmAOjgwvdjnTTRsQm1n
-	+hEPBLyBERginpDC5t+LaRtUOudR1Spj77aakD7A8hXB8uY01EVZg8ozOnXmlmDULvJ0eo0iKGm
-	vfr78r4z4wX4PVApnkfA==
-X-Google-Smtp-Source: AGHT+IFnhY6ipdZRyLg/W/m8tWp5tJc4E8cddE4qFes2yss5vL8xaq0O66xCBS7EtGaMtS022eQzkA==
-X-Received: by 2002:a17:907:3f8f:b0:afd:d94b:830f with SMTP id a640c23a62f3a-afe07d482d8mr113051366b.64.1755760707085;
-        Thu, 21 Aug 2025 00:18:27 -0700 (PDT)
-Message-ID: <43f0c9a6-a4f3-44e0-959f-a021ae3b0466@suse.com>
-Date: Thu, 21 Aug 2025 09:18:25 +0200
+        bh=bBq09f9kFg7RGpG/fvb2n8wMx0wExarpxgfmogGcM9g=;
+        b=TbrY1tvjqwMlLAfv8GSV6IYUQEW0jsnbbqw/Xl8/thg8RLwJJcCEmkZyKSQgeojj5Z
+         Y5i6S6nQZIG0PUsFRG+ZWUbVC7D7IxhrzG0lzR5Pq7wlLXF2x3TXBTQOU1rq1IPT3ZQD
+         dPs78sD+N3RxClM5v+ffjnDJz4i7DSpmM8N5ntvhT5v6FZNPvRzDEarx4D0L5d/NpPpz
+         utUwnBOUNQt7tSDoRUsi1IFfWFmm+EsaEeEOwfCtcPYLu53I+5137uVJdrmEDk4HgBvt
+         KgL6DZOjif7smXE4ovfDT83ijjunlhADHaU9UQ3WUHcs3AcjC1OUHREVlR9jsLRE22Ml
+         q8zA==
+X-Forwarded-Encrypted: i=1; AJvYcCUci2kMWzNkTBr63xHIy5abZMqJEadlH6rFo1JgiC8HWnGggyPqXP2QLFie77ZQItrAlT3Og4xqdXo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzNlbWs9Qgj8gLrIyAPTgLVjp5DHXQXkLkjB2iNDIu5XIBQr8aM
+	c5mwmwZRs/uB6A5EQkuSU6ozLJ9TwsjCx964Wsj8/GQ8M/yb6vxiT6NTjycJTyiqDQ==
+X-Gm-Gg: ASbGncvidwxe8akBiF+s8VvYNsHreXmQRepfOa4tX2vdxam+0/w/cnFgVRl5DC2AWPl
+	f8GRAFBsXVODuO7qRhzM1hjmnSe4RWpSZQg5RrEchdMvOYkf09pT1Mo5eF867ApCnT3IxDXXQj0
+	qtGKWUz0QfdnEfNYnEAr/oOg85/xx6F2S/P9gcfGW/mI5PtqN/c9zXvQKIpD1fORZ8v99SUKSl6
+	gCTWKSue2/CVSiI+UpeUCDsLS/dYv1lJY7/vgSPN9BjvxpWgs6iDjusukPOY7FYmsGDyLabAI0o
+	BNY2siG3gJxisTpvCo81UOeOTtVD6Gd+OhIU/Z4l+HI/2l1C7hPOuibPkhgH8s0lbZIYlJ91Q8B
+	9yjWxYOMS8uSPH3ytBHgzxDjc+Lzn8cAM7C8D5BETZAW7/0+1oFXnPv9p5ooo5zOctVQrd9xu7o
+	7vgvZxp1w=
+X-Google-Smtp-Source: AGHT+IEgObsfh055ty++CgfK9N/0T11igltGYlh/R8yWlWZftv/gHjCmD6BO6sVJ320AdApHyLZczg==
+X-Received: by 2002:a05:6402:5244:b0:618:1e1:c204 with SMTP id 4fb4d7f45d1cf-61bf86e9477mr1265723a12.12.1755761161490;
+        Thu, 21 Aug 2025 00:26:01 -0700 (PDT)
+Message-ID: <eac220b7-d5e9-4710-a0fd-e69a0162df7d@suse.com>
+Date: Thu, 21 Aug 2025 09:26:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE
-To: "Penny, Zheng" <penny.zheng@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <20250815102728.1340505-1-Penny.Zheng@amd.com>
- <fb6f559a-b2aa-4b25-a6d3-401ecc4b4bd5@suse.com>
- <DM4PR12MB84519FE74D66604440827EA9E133A@DM4PR12MB8451.namprd12.prod.outlook.com>
+Subject: Re: [PATCH] releases: use newer compression methods for tarballs
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <fdd60576-c852-4ce9-921d-9e77a86a3e66@suse.com>
+ <f2105411-ac78-4283-a7d7-45f5b1bc0bfe@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,62 +122,76 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB84519FE74D66604440827EA9E133A@DM4PR12MB8451.namprd12.prod.outlook.com>
+In-Reply-To: <f2105411-ac78-4283-a7d7-45f5b1bc0bfe@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 20.08.2025 05:12, Penny, Zheng wrote:
-> [Public]
+On 20.08.2025 14:15, Andrew Cooper wrote:
+> On 15/07/2025 7:33 am, Jan Beulich wrote:
+>> It's unclear to me why we have git create a tarball, extract that, just
+>> to then make a tarball again (without any special options, like to
+>> override owner or timestamps;
 > 
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Monday, August 18, 2025 4:31 PM
->> To: Penny, Zheng <penny.zheng@amd.com>; Oleksii Kurochko
->> <oleksii.kurochko@gmail.com>
->> Cc: Huang, Ray <Ray.Huang@amd.com>; Andrew Cooper
->> <andrew.cooper3@citrix.com>; Roger Pau Monné <roger.pau@citrix.com>;
->> Anthony PERARD <anthony.perard@vates.tech>; Orzel, Michal
->> <Michal.Orzel@amd.com>; Julien Grall <julien@xen.org>; Stefano Stabellini
->> <sstabellini@kernel.org>; xen-devel@lists.xenproject.org
->> Subject: Re: [PATCH] xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE
->>
->> On 15.08.2025 12:27, Penny Zheng wrote:
->>> In order to fix CI error of a randconfig picking both
->>> PV_SHIM_EXCLUSIVE=y and HVM=y results in hvm.c being built, but
->>> domctl.c not being built, which leaves a few functions, like
->>> domctl_lock_acquire/release() undefined, causing linking to fail.
->>> To fix that, we intend to move domctl.o out of the PV_SHIM_EXCLUSIVE
->>> Makefile /hypercall-defs section, with this adjustment, we also need
->>> to release redundant vnuma_destroy() stub definition from
->>> PV_SHIM_EXCLUSIVE guardian, to not break compilation Above change will
->>> leave dead code in the shim binary temporarily and will be fixed with
->>> the introduction of domctl-op wrapping.
->>
->> Well, "temporarily" is now getting interesting. While v1 of "Introduce
->> CONFIG_DOMCTL" was submitted in time to still be eligible for taking into 4.21,
->> that - as indicated elsewhere - is moving us further in an unwanted direction. Hence
->> I'm not sure this can even be counted as an in-time submission. Plus it looks to be
->> pretty extensive re-work in some areas.
->> Hence I'm somewhat weary as to 4.21 here. IOW question, mainly to Oleksii, is
->> whether to
->> 1) strive to complete that work in time (and hence take the patch here),
->> 2) take the patch here, accepting the size regression for the shim, or
->> 3) revert what has caused the randconfig issues, and retry the effort in
->>    4.22.
->>
->>> Fixes: 568f806cba4c ("xen/x86: remove "depends on
->>> !PV_SHIM_EXCLUSIVE"")
->>> Reported-by: Jan Beulich <jbeulich@suse.com>
->>> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
->>
->> My earlier question (when the patch still was part of a series) sadly has remained
->> unanswered: You've run this through a full round of testing this time?
-> 
-> Sorry, missed that, yes, it has been tested with both default defconfig and allyesconfig.
+> That's because in c5be91eb8140 you deleted the intermediate step of
+> merging qemus
 
-I'm sorry if my request was unclear, but with "full round of testing" I in particular
-meant a full CI pipeline, plus (given the issue that's being fixed) some extra
-randconfig testing.
+Hmm, perhaps - I'm generally trying to keep the size of such changes down,
+when working in an area I'm not overly familiar with.
+
+>> in this context I notice that tarballs
+>> created by Andrew have file ownership of andrew/andrew, while ones made
+>> by Julien use root/root).
+> 
+> Ownership where exactly?  the tarball itself (which will be down to
+> accounts on downloads.xenproject.org) or the tarball contents itself?
+
+tarball contents.
+
+>> lzip, unlike the other two tools, doesn't really show a progress
+>> indicator with -v. Merely having final statistics may make the use of
+>> the option here questionable.
+> 
+> I can't say I find any of the stats relevant.
+
+Happy to drop the v options.
+
+>> --- a/tools/misc/mktarball
+>> +++ b/tools/misc/mktarball
+>> @@ -31,4 +31,14 @@ git_archive_into $xen_root $tdir/xen-$de
+>>  
+>>  GZIP=-9v tar cz -f $xen_root/dist/xen-$desc.tar.gz -C $tdir xen-$desc
+>>  
+>> -echo "Source tarball in $xen_root/dist/xen-$desc.tar.gz"
+>> +if [ -n "$(command -v xz)" ]
+>> +then
+>> +  tar c -C $tdir xen-$desc | $(command -v xz) -v -9 >$xen_root/dist/xen-$desc.tar.xz
+>> +fi
+>> +
+>> +if [ -n "$(command -v lzip)" ]
+>> +then
+>> +  tar c -C $tdir xen-$desc | $(command -v lzip) -v -9 >$xen_root/dist/xen-$desc.tar.lz
+>> +fi
+>> +
+>> +echo "Source tarball in $xen_root/dist/xen-$desc".tar.[glx]z
+> 
+> If we're deciding to use multiple compressions, they want to not be
+> optional here.  I'd far rather have a reminder to install the package,
+> than for it to simply be omitted.
+> 
+> We don't want to be re-tar-ing now that the qemu's are gone, so I think
+> the structure wants to end up as:
+> 
+> git archive --format=tar HEAD > tmp.tar
+> gzip -9 < tmp.tar > $xen_root/dist/xen-$desc.tar.gz &
+> zx -9 < tmp.tar > $xen_root/dist/xen-$desc.tar.xz &
+> lzip -9 < tmp.tar > $xen_root/dist/xen-$desc.tar.lz &
+> wait
+> 
+> Might as well use the multiple cores better...
+
+I, too, was thinking of that. Yet as per above, when fiddling with code I'm
+not overly familiar with, I try to limit the amount of change done. As you
+ask for a bigger change, I can certainly do so.
 
 Jan
 
