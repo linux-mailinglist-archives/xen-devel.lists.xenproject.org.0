@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DD48B2EF34
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 09:16:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1087850.1445653 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3355B2EF46
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Aug 2025 09:18:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1087862.1445664 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uozX4-0005sT-D6; Thu, 21 Aug 2025 07:16:22 +0000
+	id 1uozZ8-0006Tl-Rh; Thu, 21 Aug 2025 07:18:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1087850.1445653; Thu, 21 Aug 2025 07:16:22 +0000
+Received: by outflank-mailman (output) from mailman id 1087862.1445664; Thu, 21 Aug 2025 07:18:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uozX4-0005qJ-9p; Thu, 21 Aug 2025 07:16:22 +0000
-Received: by outflank-mailman (input) for mailman id 1087850;
- Thu, 21 Aug 2025 07:16:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uozZ8-0006S8-Od; Thu, 21 Aug 2025 07:18:30 +0000
+Received: by outflank-mailman (input) for mailman id 1087862;
+ Thu, 21 Aug 2025 07:18:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5Hha=3B=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uozX3-0005qD-6E
- for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 07:16:21 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bbb15537-7e5e-11f0-b898-0df219b8e170;
- Thu, 21 Aug 2025 09:16:19 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-61aa702c9ebso1530335a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 00:16:19 -0700 (PDT)
+ id 1uozZ6-0006S1-Ly
+ for xen-devel@lists.xenproject.org; Thu, 21 Aug 2025 07:18:28 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 086457f3-7e5f-11f0-a32b-13f23c93f187;
+ Thu, 21 Aug 2025 09:18:27 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-61a8c134609so887484a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 00:18:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afded4cb4c5sm330336966b.88.2025.08.21.00.16.17
+ 4fb4d7f45d1cf-61a758ba909sm4664987a12.54.2025.08.21.00.18.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Aug 2025 00:16:18 -0700 (PDT)
+ Thu, 21 Aug 2025 00:18:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bbb15537-7e5e-11f0-b898-0df219b8e170
+X-Inumbo-ID: 086457f3-7e5f-11f0-a32b-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755760578; x=1756365378; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755760707; x=1756365507; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RSBaZdKqIDR+DpHfZRDVdb8oW+a/R3SGa/0ehYQUfHQ=;
-        b=Buz2i7j13EfSk+9ybRRpXX1IaUgoIOfQTGqO3qLtI/3kJQOfx3UYfXitMSwXKVK/sa
-         uYbmZiH4uxmr4SjxZuUU1ZOhABUWf/IROYxA/81OM9Xr9iHRvhXUT+1kU9Qv51YVHlOZ
-         VLj8B+1OwISOJKbq7LJHwV0Dm8zH2Mhds6TsbKCl+sGjViqQo6IocXUs69NEg/9oHc2N
-         NQ/C8Pr/GAIyN/o7/Xpb7E/zIhtJBiMBcHMIct7297HXNrznnq/XoI02L6m4w6XNsZU1
-         rV4AxaX2KW3bBXCW83fopUjrQLGraW/ULE9vqi+hi4CeBhFedIGba6fytVqLL6kvko+A
-         TUog==
+        bh=kz+RuHL5NbWZDZeLRhEolggsKwd2SDrW5HcEjJlmTtk=;
+        b=c44ad2wbTARMGeOWIOr6CwpvFsd6gofwLdh++BE/jn3JFfSTeuXGEaw64/2jH8MPQ1
+         iJ5bc1Wdx3I7hi31VFci9bqR91jueOPMh5tO9eRfSDceo3VLkhK/pwaMQTdnOuzkRBVj
+         6D+73TK6HRZxxVhnP4xhuvDmYkeDdYKKgjsv2XbDYGNpEIe2eBzjxXVVhe7lpm+YVnmj
+         sPYW15n4xwmYNw32xj3vLh3IjpUTIwNa8RJyUE9hGpfoAB9BvXIcxIwMAsP57dJXqvYE
+         9i9NBH9TrfP+X1LwfnNmzJyDuKiY030zYDgWFRJKz9ZyMRIErOkbXrbtkvKAkJ3Po+kE
+         T2mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755760578; x=1756365378;
+        d=1e100.net; s=20230601; t=1755760707; x=1756365507;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RSBaZdKqIDR+DpHfZRDVdb8oW+a/R3SGa/0ehYQUfHQ=;
-        b=ZpCGEzoeTuo+dTxULlIpHlG7QIpejUOZtlPP3Dkz6cQ5Qw5KGKpm0Wk2N7Bz3EUZyI
-         SJE5yOX4ZcpRIEF+h6Irzk8qPcjj5RwKcg+GQNSBBSn4zGbiZ32VQXUa1tbiNS/bnTah
-         xJCIjpXRztvrNNNsiQflJDjesbZA6aOck0ycFbQhiG7sfBKpRKrm0cxKBNIsKHr3Okz+
-         Oz/t8tSrBtTzxRkdIBcYW8DGaY6se+vtkI4yXYQ8nt33p0+Y/ApVQyQuKAD408q9t545
-         Y/i+y69cUlCtE62RT27HE/ZTNWX02DAI9PthTniHENJQy39omZwwDSK2qJ7dxmjQB0vf
-         DsIQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVTA2Dn71C/DL/ytJWiYjmPQqpRsEOAmxKVxdBzpiO+eDX1lbUZL1/kxMmHWxZO43/pyrMfM+HgxVU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwedzwWEBqGOf0CGk9eH4Nnl6Inq6Xh+ZUQWcntwrz+S0BwWput
-	DFqhoreVlE6h7esVosldylNz9FSyghJGnHqX2YYHjivuLw7IrztR3n57jTy5pNSfVA==
-X-Gm-Gg: ASbGncsfj9uUs6XlbvQCyTrArLjvgzku1imKa4zk4l01RXcK8H1grVUvclrF7CUw9yn
-	vaRgSKtiClbNr7bpaJZT08tMQ0FFSikULco/sKKEIZoWwJq0eBI/CfeyYD4ESFQSvJ+IlXLn9Z7
-	E1dVN+es0hgcNw5vb3IQ8wqu9ia/HXGmAgM4HtySmrMhWR5vkUc8kTl+q8C16RVk2/Wy4oj+uK6
-	4M9705rllQYgelz6KOtpdYa38w8efNPQ+/po9wyk8y+PYM6qrYcQa4/3Fk/HaSvPdCzN3YMIvc0
-	MBe7yjTDrzyVKjCbmSWH+LxqKO62gRNH4d+Av7ohvV91sNl+MNMYWkuF0fZCsx1UOYHOqfgb3a6
-	hw1rHQ099WMmxbLSgBNmWpdbwcfCWcVkq1/BcOF7ofk9Czy7Z5+iQQNlM584fGkSTSkhN2qF3a6
-	xKMEFFfilXOs3ep5pTSA==
-X-Google-Smtp-Source: AGHT+IF4EuhNeGoxrZ6BJKX9hfgp17wrxdhDWcoIxzG5T3U03UWBztb4VLueQ7rpdI2OopswyK58dg==
-X-Received: by 2002:a17:906:4fd6:b0:ad8:a04e:dbd9 with SMTP id a640c23a62f3a-afe07bff069mr147393566b.31.1755760578316;
-        Thu, 21 Aug 2025 00:16:18 -0700 (PDT)
-Message-ID: <a5d91a6d-cde6-42fc-8497-f2c822e98174@suse.com>
-Date: Thu, 21 Aug 2025 09:16:16 +0200
+        bh=kz+RuHL5NbWZDZeLRhEolggsKwd2SDrW5HcEjJlmTtk=;
+        b=cCYGPG/0htvbmPTXKEk8ztK596pngm1ql4jIkB384Bx0q1F0oSu5RbT0PlWPU+lU6q
+         1AWdMM9eNRS/8OYUmnkKcYMlBf/EtrPzNt8lgLlEJSFBXZhwT+fwHNYo7rRjrgRiAgi5
+         OXeBjODUMVw3tjIWL6xjIjsbsTjnI8Ig0LhN0CzaUo2dboF98+q8wSO7UKoHHYAQ/1l5
+         ypBsvvLkEQrGgRjAHvzUY0Xz6UJOZJxVtJ36BavjOqQnRbQXgf6yGU9QLXlJF+TafGfs
+         sHXWmPC67YAmRh9TYjY8iWHhqi1HGC3MQmWsrq7Vk0L8K3u/ueaeoQA9cZZW/4LRUY+o
+         eNDQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWjrl9Cg9YH0JigLN0NDOA3AoDJq2FIES5WwQ496Eaw8CVesFzPomHmSIuvlnuYag5998ZpVbapYNg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyIV5yYNLcTOGNZsIE8XvQp3bct4Yd0OeZy8PdgYNTDGX6VQLmn
+	UeanSMlDiHklxVi2FJyo6VqoLnFWOkY0TjR1RfDi/qPbL22xWBF5NidyTYUXMqosEw==
+X-Gm-Gg: ASbGncuHhcE75noQcOp3sApWxdifVChb1QSWfArWDqKiTf8S3KLBEnN+3QllDz3SAxH
+	MIyFKby2SK+HPGJ9mRdi0J+oEWuwCVcnxfOFK/xUzmGhsGdaBWXf/3sKbXzxxbfV/JidI+03cev
+	z7bRzDS3Fe/VBqVZ3se6D59slgsKbPKLAlTjTDFJ6Yoe3zS/QVBJ8qxZzjGZyBG9YMw/5LSgwvC
+	kruq/aug1gMB1NieDHld5CwOj46fk6SdE0CLv1v8nPUjvW2AslrQz4nAD7VJoNxgTScaApjstXM
+	d0xDBBh+T7GNaqvtbHDEPAC9zzmYmfWZEEtwzYMBjeQHHNp2mILPSox4BmAOjgwvdjnTTRsQm1n
+	+hEPBLyBERginpDC5t+LaRtUOudR1Spj77aakD7A8hXB8uY01EVZg8ozOnXmlmDULvJ0eo0iKGm
+	vfr78r4z4wX4PVApnkfA==
+X-Google-Smtp-Source: AGHT+IFnhY6ipdZRyLg/W/m8tWp5tJc4E8cddE4qFes2yss5vL8xaq0O66xCBS7EtGaMtS022eQzkA==
+X-Received: by 2002:a17:907:3f8f:b0:afd:d94b:830f with SMTP id a640c23a62f3a-afe07d482d8mr113051366b.64.1755760707085;
+        Thu, 21 Aug 2025 00:18:27 -0700 (PDT)
+Message-ID: <43f0c9a6-a4f3-44e0-959f-a021ae3b0466@suse.com>
+Date: Thu, 21 Aug 2025 09:18:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 1/4] xen/domain: unify domain ID allocation
-To: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com, Julien Grall <jgrall@amazon.com>,
- Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- xen-devel@lists.xenproject.org
-References: <20250812223024.2364749-1-dmukhin@ford.com>
- <20250812223024.2364749-2-dmukhin@ford.com>
- <f85ae718-0243-4426-a555-327afffe7148@suse.com> <aKUPo+hRdfGlg+S8@kraken>
+Subject: Re: [PATCH] xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <20250815102728.1340505-1-Penny.Zheng@amd.com>
+ <fb6f559a-b2aa-4b25-a6d3-401ecc4b4bd5@suse.com>
+ <DM4PR12MB84519FE74D66604440827EA9E133A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,73 +126,62 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aKUPo+hRdfGlg+S8@kraken>
+In-Reply-To: <DM4PR12MB84519FE74D66604440827EA9E133A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 20.08.2025 01:58, dmkhn@proton.me wrote:
-> On Thu, Aug 14, 2025 at 09:11:11AM +0200, Jan Beulich wrote:
->> On 13.08.2025 00:30, dmkhn@proton.me wrote:
->>> From: Denis Mukhin <dmukhin@ford.com>
->>>
->>> Currently, there are two different domain ID allocation implementations:
->>>
->>>   1) Sequential IDs allocation in dom0less Arm code based on max_init_domid;
->>>
->>>   2) Sequential IDs allocation in XEN_DOMCTL_createdomain; does not use
->>>      max_init_domid (both Arm and x86).
->>>
->>> The domain ID allocation covers dom0 or late hwdom, predefined domains,
->>> post-boot domains, excluding Xen system domains (domid >=
->>> DOMID_FIRST_RESERVED).
->>>
->>> It makes sense to have a common helper code for such task across architectures
->>> (Arm and x86) and between dom0less / toolstack domU allocation.
->>>
->>> Note, fixing dependency on max_init_domid is out of scope of this patch.
->>>
->>> Wrap the domain ID allocation as an arch-independent function domid_alloc() in
->>> new common/domid.c based on the bitmap.
->>>
->>> Allocation algorithm:
->>> - If an explicit domain ID is provided, verify its availability and use it if
->>>   ID is not used;
->>> - If DOMID_INVALID is provided, search the range [1..DOMID_FIRST_RESERVED-1],
->>>   starting from the last used ID.
->>>   Implementation guarantees that two consecutive calls will never return the
->>>   same ID. ID#0 is reserved for the first boot domain (currently, dom0) and
->>>   excluded from the allocation range.
->>>
->>> Remove is_free_domid() helper as it is not needed now.
->>>
->>> No functional change intended.
->>>
->>> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
->>> Reviewed-by: Julien Grall <jgrall@amazon.com>
->>> Reviewed-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
->>> ---
->>> Changes since v15:
->>> - fixup for check after the first pass in the bitarray in domid_alloc()
->>> - trivial renaming for the local variable in domid_alloc()
->>> - kept Julien's R-b, added Alejandro's R-b
+On 20.08.2025 05:12, Penny, Zheng wrote:
+> [Public]
+> 
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Monday, August 18, 2025 4:31 PM
+>> To: Penny, Zheng <penny.zheng@amd.com>; Oleksii Kurochko
+>> <oleksii.kurochko@gmail.com>
+>> Cc: Huang, Ray <Ray.Huang@amd.com>; Andrew Cooper
+>> <andrew.cooper3@citrix.com>; Roger Pau Monné <roger.pau@citrix.com>;
+>> Anthony PERARD <anthony.perard@vates.tech>; Orzel, Michal
+>> <Michal.Orzel@amd.com>; Julien Grall <julien@xen.org>; Stefano Stabellini
+>> <sstabellini@kernel.org>; xen-devel@lists.xenproject.org
+>> Subject: Re: [PATCH] xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE
 >>
->> Just to mention: My take is that this kind of a fix ought to invalidate all
->> earlier R-b. It's not just a cosmetic change, after all.
+>> On 15.08.2025 12:27, Penny Zheng wrote:
+>>> In order to fix CI error of a randconfig picking both
+>>> PV_SHIM_EXCLUSIVE=y and HVM=y results in hvm.c being built, but
+>>> domctl.c not being built, which leaves a few functions, like
+>>> domctl_lock_acquire/release() undefined, causing linking to fail.
+>>> To fix that, we intend to move domctl.o out of the PV_SHIM_EXCLUSIVE
+>>> Makefile /hypercall-defs section, with this adjustment, we also need
+>>> to release redundant vnuma_destroy() stub definition from
+>>> PV_SHIM_EXCLUSIVE guardian, to not break compilation Above change will
+>>> leave dead code in the shim binary temporarily and will be fixed with
+>>> the introduction of domctl-op wrapping.
+>>
+>> Well, "temporarily" is now getting interesting. While v1 of "Introduce
+>> CONFIG_DOMCTL" was submitted in time to still be eligible for taking into 4.21,
+>> that - as indicated elsewhere - is moving us further in an unwanted direction. Hence
+>> I'm not sure this can even be counted as an in-time submission. Plus it looks to be
+>> pretty extensive re-work in some areas.
+>> Hence I'm somewhat weary as to 4.21 here. IOW question, mainly to Oleksii, is
+>> whether to
+>> 1) strive to complete that work in time (and hence take the patch here),
+>> 2) take the patch here, accepting the size regression for the shim, or
+>> 3) revert what has caused the randconfig issues, and retry the effort in
+>>    4.22.
+>>
+>>> Fixes: 568f806cba4c ("xen/x86: remove "depends on
+>>> !PV_SHIM_EXCLUSIVE"")
+>>> Reported-by: Jan Beulich <jbeulich@suse.com>
+>>> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+>>
+>> My earlier question (when the patch still was part of a series) sadly has remained
+>> unanswered: You've run this through a full round of testing this time?
 > 
-> Sorry for the hiccup here, did not mean to overrule the review process.
-> 
-> My bold assumption was that in case of small fixups like this it is
-> satisfactory to carry over previous acks.
+> Sorry, missed that, yes, it has been tested with both default defconfig and allyesconfig.
 
-Acks may be okay to keep, but imo R-b need dropping when an actual bug was
-fixed. Irrespective of how severe the bug was.
-
-> I asked (matrix) both Julien and Alejandro to re-review and confirm.
-
-While good to ask, that's of limited use. It'll be impossible later on to
-figure whether such a confirmation was given. Decisions (and acks and alike
-effectively fall into that category) need to be on the list, to be able to
-locate them later on.
+I'm sorry if my request was unclear, but with "full round of testing" I in particular
+meant a full CI pipeline, plus (given the issue that's being fixed) some extra
+randconfig testing.
 
 Jan
 
