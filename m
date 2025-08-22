@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5801B31C33
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Aug 2025 16:42:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1090244.1447586 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45DC7B31C36
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Aug 2025 16:42:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1090249.1447596 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upSxn-0000mM-6N; Fri, 22 Aug 2025 14:41:55 +0000
+	id 1upSy6-0001BX-Fk; Fri, 22 Aug 2025 14:42:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1090244.1447586; Fri, 22 Aug 2025 14:41:55 +0000
+Received: by outflank-mailman (output) from mailman id 1090249.1447596; Fri, 22 Aug 2025 14:42:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upSxn-0000kG-3A; Fri, 22 Aug 2025 14:41:55 +0000
-Received: by outflank-mailman (input) for mailman id 1090244;
- Fri, 22 Aug 2025 14:41:54 +0000
+	id 1upSy6-00018f-Aj; Fri, 22 Aug 2025 14:42:14 +0000
+Received: by outflank-mailman (input) for mailman id 1090249;
+ Fri, 22 Aug 2025 14:42:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=R3KH=3C=bounce.vates.tech=bounce-md_30504962.68a881ae.v1-30e51eda28ee45148822aae41c14ec7b@srs-se1.protection.inumbo.net>)
- id 1upSxm-0000k8-8F
- for xen-devel@lists.xenproject.org; Fri, 22 Aug 2025 14:41:54 +0000
-Received: from mail179-29.suw41.mandrillapp.com
- (mail179-29.suw41.mandrillapp.com [198.2.179.29])
+ <SRS0=RLTp=3C=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1upSy5-0000k8-6S
+ for xen-devel@lists.xenproject.org; Fri, 22 Aug 2025 14:42:13 +0000
+Received: from fout-b7-smtp.messagingengine.com
+ (fout-b7-smtp.messagingengine.com [202.12.124.150])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 24039d68-7f66-11f0-a32b-13f23c93f187;
- Fri, 22 Aug 2025 16:41:52 +0200 (CEST)
-Received: from pmta12.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail179-29.suw41.mandrillapp.com (Mailchimp) with ESMTP id
- 4c7jZ66hf9z7lmQ7b
- for <xen-devel@lists.xenproject.org>; Fri, 22 Aug 2025 14:41:50 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 30e51eda28ee45148822aae41c14ec7b; Fri, 22 Aug 2025 14:41:50 +0000
+ id 2fcdb944-7f66-11f0-a32b-13f23c93f187;
+ Fri, 22 Aug 2025 16:42:12 +0200 (CEST)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfout.stl.internal (Postfix) with ESMTP id 0A8F11D0022E;
+ Fri, 22 Aug 2025 10:42:11 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-06.internal (MEProxy); Fri, 22 Aug 2025 10:42:11 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 22 Aug 2025 10:42:09 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,318 +44,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24039d68-7f66-11f0-a32b-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1755873710; x=1756143710;
-	bh=NRYzlEOPNrDb3NoHUCe7/NvFmhhJoEj/CrGc45K0Xug=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=YP+EcQY5aNce3WRkVFsI8/rOa7etVx/oquwvVfo0s67jDp6/C7a1VUhvhx6pTSxMC
-	 vV1rAkPXkAbc5LDTkQIQCeHm/CL1bvk3Ug3/L0s4OHgenGBkUcivoxp/zIVvb4boVa
-	 xq6QIhpVaNzojwRxiITaBDwe/ClxmXyPOjD2sT5FureizSnqeBYmxqs21Sjkr/WzaW
-	 lx1hmc0l8O5J1nWgJBFH/aZ+2TIKy94vTrxnAUkK4WH8MtFUb8chc17WVQ/n7NLNGH
-	 7b3fwwkD/ab2nAgIMrU5F2f1LowtgzSji2xHI+7QYvdZxP4OAAlhh/+B0vqFgNWq1U
-	 LnVs/Lfh0e3QA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1755873710; x=1756134210; i=teddy.astie@vates.tech;
-	bh=NRYzlEOPNrDb3NoHUCe7/NvFmhhJoEj/CrGc45K0Xug=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=SEkWMFFTb1QZ6Id8uaaAElsVlqXhImMp4dCFwgpQ/4jLMopuEZPfU9rOlw1cc938+
-	 mmn1NMkZaMZ0kBOgfc3CIjGJIvVibV5T+GKEZdAs/5xDFI8pDinCTCPHJDicc6zHdM
-	 LTZqroW99c9miLOXIlLv/eLl2Z+QiJmmde6tZ1I2Nhkomfm9/Ocyl9R1jprg5KohOt
-	 fCZWEqYN5GBph/8Ygv//TcwAwg62Fu2YUFc9Y5ddLdFMSRylirk6t3F+2ghXm7wWRs
-	 iQbb2IMsnCA+rNda6J2Y0PhW9YT2poZgutYI/Vm5Kg9TS3lA/KSZh32z4iJKeUOBi3
-	 FJTlhCnyroM2g==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v1]=20tools:=20make=20"opengl"=20generic?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1755873708081
-Message-Id: <e95fff95-c0f6-4c7b-94ef-dc6a13f21453@vates.tech>
-To: "Penny Zheng" <Penny.Zheng@amd.com>, xen-devel@lists.xenproject.org
-Cc: ray.huang@amd.com, Edgar.Iglesias@amd.com, "Anthony PERARD" <anthony.perard@vates.tech>, "Juergen Gross" <jgross@suse.com>
-References: <20250728044007.4026420-1-Penny.Zheng@amd.com>
-In-Reply-To: <20250728044007.4026420-1-Penny.Zheng@amd.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.30e51eda28ee45148822aae41c14ec7b?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250822:md
-Date: Fri, 22 Aug 2025 14:41:50 +0000
+X-Inumbo-ID: 2fcdb944-7f66-11f0-a32b-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1755873730;
+	 x=1755960130; bh=jYHN8OO0m+mwe/TF93sSSPHNfUHgf4leS3FzqTm3H2o=; b=
+	PesU9phwOvGOrgq7WtuZaT+r3cB+LyA2zeVW9iz05o5aG3HGbr7qqHG52zuFuYWh
+	a6hSpCwHCIInrQnTKMushZlMYUOC9lru+pnsDe/hk9tIhOX4zulSOsKWS5VAlcmy
+	Hl/wfIYrsajjO78glHksB2s+bcGdHV1Jt7DMzlWXZEVCpKKN3+7IY1uth/XVBopF
+	RIxYMsXBo4z7D26WsBy0tiZiQuih2S1IfubAajRaN+xTEOjl4UaJrA8WxpKd8+gq
+	No+gSwm0k+k9wNqKDzaFvzq8m2/P5h7vUgErdWf+hrjpZ6hpsm3cZ4MmzDPQCvBx
+	SAwUtsDPCtKMMOuQVb4OUA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1755873730; x=1755960130; bh=jYHN8OO0m+mwe/TF93sSSPHNfUHgf4leS3F
+	zqTm3H2o=; b=F0w/PLozxPyhVA+28oBzdZn4gStbIjfydFEykLP0XP+z5OS1g3t
+	+swPKtmoFVr2+0s8UUoyrcA9ZKhXWfhs2M+UwWzm+33lgZXY8SWAMkBkMKjqxlMC
+	05amULMYsQcaTkz7Yc7UVCXWScor8h6GCOaGInGcO1gRmkcYFF66NqF/Ev0muCKs
+	sIG/o29ayiNqKwcWfvhlvo18c7gq6nJv2qh+M0Vu0vsOlFi0EFwC9CEwiA4KCLf/
+	mVOX1TT/d1ja2G5pMmd4lohMWUDAiYHP3wptB2JJcd2DIwvoYSRblMJpWNWEPSyL
+	AAGCXt27rGIW9DR292e2yKb0q6itZ68vG5g==
+X-ME-Sender: <xms:woGoaH7s0IFEiOBuks5KCT_Ve_ZFJ3m6z3MSdum0Xoi6pJsSzs8qBQ>
+    <xme:woGoaOYPN8hjE5Sp3x8A79J9GwLodw6Q3SJDEKafHa8iiyXF-vrtgMn52CXVABd7D
+    od2GuSxmAl1-w>
+X-ME-Received: <xmr:woGoaOgl2AhtFYPk8pzL_Xa3M2Z-rpbNc2-U8-3oZ8Zt5ePDdnMErwmopnC9PIjMj8lfP-GR0opj7Os17DJ_Pqyn43TZeppEOHE>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgdduieegtddvucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
+    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepueekteet
+    gefggfekudehteegieeljeejieeihfejgeevhfetgffgteeuteetueetnecuffhomhgrih
+    hnpehgihhthhhusgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhep
+    mhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrg
+    gsrdgtohhmpdhnsggprhgtphhtthhopeehpdhmohguvgepshhmthhpohhuthdprhgtphht
+    thhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprh
+    gtphhtthhopehjghhrohhsshesshhushgvrdgtohhmpdhrtghpthhtohepshhsthgrsggv
+    lhhlihhniheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepohhlvghkshgrnhgurhgpth
+    ihshhhtghhvghnkhhosegvphgrmhdrtghomhdprhgtphhtthhopegsohhrihhsrdhoshht
+    rhhovhhskhihsehorhgrtghlvgdrtghomh
+X-ME-Proxy: <xmx:woGoaH_t8hvKo-zBtbGjc57L0qV-3seOHIHSO-Mm9z0KwFngdOv9qQ>
+    <xmx:woGoaBqBHJFoDuy7M1-CfWvr6Pkcxq4jFasWqAO-yvrp7putDHy0KA>
+    <xmx:woGoaHWViewGl6abm7LYUk56oFUOThk2sXKMrmpydhC8tjib4BIzpA>
+    <xmx:woGoaIAbe9nBNnsecffW1nL1gTarZFf_gnpOj4HvmpB0ViWe_zrX5Q>
+    <xmx:woGoaH2KVBz29jqvOkEWI7aHrMoNK4BUFzsy724dWAFEPFmGv6KZeE89>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 22 Aug 2025 16:42:08 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Subject: Re: domU suspend issue - freeze processes failed - Linux 6.16
+Message-ID: <aKiBwEsogK420kwo@mail-itl>
+References: <aKiBJeqsYx_4Top5@mail-itl>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="clAqg1t6X9s2sdLz"
+Content-Disposition: inline
+In-Reply-To: <aKiBJeqsYx_4Top5@mail-itl>
+
+
+--clAqg1t6X9s2sdLz
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Fri, 22 Aug 2025 16:42:08 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Subject: Re: domU suspend issue - freeze processes failed - Linux 6.16
 
-Hello,
+On Fri, Aug 22, 2025 at 04:39:33PM +0200, Marek Marczykowski-G=C3=B3recki w=
+rote:
+> Hi,
+>=20
+> When suspending domU I get the following issue:
+>=20
+>     Freezing user space processes
+>     Freezing user space processes failed after 20.004 seconds (1 tasks re=
+fusing to freeze, wq_busy=3D0):
+>     task:xl              state:D stack:0     pid:466   tgid:466   ppid:1 =
+     task_flags:0x400040 flags:0x00004006
+>     Call Trace:
+>      <TASK>
+>      __schedule+0x2f3/0x780
+>      schedule+0x27/0x80
+>      schedule_preempt_disabled+0x15/0x30
+>      __mutex_lock.constprop.0+0x49f/0x880
+>      unregister_xenbus_watch+0x216/0x230
+>      xenbus_write_watch+0xb9/0x220
+>      xenbus_file_write+0x131/0x1b0
+>      vfs_writev+0x26c/0x3d0
+>      ? do_writev+0xeb/0x110
+>      do_writev+0xeb/0x110
+>      do_syscall_64+0x84/0x2c0
+>      ? do_syscall_64+0x200/0x2c0
+>      ? generic_handle_irq+0x3f/0x60
+>      ? syscall_exit_work+0x108/0x140
+>      ? do_syscall_64+0x200/0x2c0
+>      ? __irq_exit_rcu+0x4c/0xe0
+>      entry_SYSCALL_64_after_hwframe+0x76/0x7e
+>     RIP: 0033:0x79b618138642
+>     RSP: 002b:00007fff9a192fc8 EFLAGS: 00000246 ORIG_RAX: 0000000000000014
+>     RAX: ffffffffffffffda RBX: 00000000024fd490 RCX: 000079b618138642
+>     RDX: 0000000000000003 RSI: 00007fff9a193120 RDI: 0000000000000014
+>     RBP: 00007fff9a193000 R08: 0000000000000000 R09: 0000000000000000
+>     R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000014
+>     R13: 00007fff9a193120 R14: 0000000000000003 R15: 0000000000000000
+>      </TASK>
+>     OOM killer enabled.
+>     Restarting tasks: Starting
+>     Restarting tasks: Done
+>     xen:manage: do_suspend: freeze processes failed -16
+>=20
+> The process in question is `xl devd` daemon. It's a domU serving a
+> xenvif backend.
+>=20
+> I noticed it on 6.16.1, but looking at earlier test logs I see it with
+> 6.16-rc6 already (but interestingly, not 6.16-rc2 yet? feels weird given
+> seemingly no relevant changes between rc2 and rc6).
 
-Le 28/07/2025 =C3=A0 06:45, Penny Zheng a =C3=A9crit=C2=A0:
-> Display option, like vnc, sdl, etc, will be checked against in latest QEM=
-U
-> whether it is compatile with opengl context. And vnc is incompatible with=
- GL
-> context.
-> Now, when running hvm domain with gl context on, such as
-> "device_model_args_hvm =3D ["-display", "sdl,gl=3Don"]", we will fail wit=
-h
-> the error of "qemu-system-i386: -vnc 127.0.0.1:0,to=3D99: Display vnc is
-> incompatible with the GL context", as vnc is set enabled on default
-> for HVM domain.
-> 
-> We shall move "opengl" option out of specifc sdl display, to make it
-> generic. Then when users explicitly set "opengl =3D 1", default values fo=
-r
-> vnc shall be changed to disabled and libxl__dm_vnc() needs to return NULL
-> indicating vnc being disabled.
-> 
-> If users select both vnc and opengl in xl configuration, creation
-> will fail and error out incompatible info.
-> To keep consistency, we also make "opengl" generic for vfb[] options
-> 
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+I forgot to include link for (a little) more details:
+https://github.com/QubesOS/qubes-linux-kernel/pull/1157
 
-There is a way to make vnc work with opengl by using the egl-headless 
-display (-display egl-headless,gl=3Don), which can coexist along vnc. So 
-that we could avoid having "opengl" as a sdl-specific option.
+Especially, there is another call trace with panic_on_warn enabled -
+slightly different, but looks related.
 
-> ---
->   tools/libs/light/libxl_console.c |  4 ++--
->   tools/libs/light/libxl_create.c  | 10 ++++++----
->   tools/libs/light/libxl_dm.c      |  7 ++++++-
->   tools/libs/light/libxl_types.idl |  3 ++-
->   tools/xl/xl_parse.c              | 17 +++++++++--------
->   tools/xl/xl_sxp.c                |  6 +++---
->   6 files changed, 28 insertions(+), 19 deletions(-)
-> 
-> diff --git a/tools/libs/light/libxl_console.c b/tools/libs/light/libxl_co=
-nsole.c
-> index 044ca64676..fc3dfddc4d 100644
-> --- a/tools/libs/light/libxl_console.c
-> +++ b/tools/libs/light/libxl_console.c
-> @@ -694,7 +694,7 @@ static int libxl__device_vfb_setdefault(libxl__gc *gc=
-, uint32_t domid,
->       }
->   
->       libxl_defbool_setdefault(&vfb->sdl.enable, false);
-> -    libxl_defbool_setdefault(&vfb->sdl.opengl, false);
-> +    libxl_defbool_setdefault(&vfb->opengl, false);
->   
->       rc =3D libxl__resolve_domid(gc, vfb->backend_domname, &vfb->backend=
-_domid);
->       return rc;
-> @@ -733,7 +733,7 @@ static int libxl__set_xenstore_vfb(libxl__gc *gc, uin=
-t32_t domid,
->       flexarray_append_pair(back, "sdl",
->                             libxl_defbool_val(vfb->sdl.enable) ? "1" : "0=
-");
->       flexarray_append_pair(back, "opengl",
-> -                          libxl_defbool_val(vfb->sdl.opengl) ? "1" : "0"=
-);
-> +                          libxl_defbool_val(vfb->opengl) ? "1" : "0");
->       if (vfb->sdl.xauthority) {
->           flexarray_append_pair(back, "xauthority", vfb->sdl.xauthority);
->       }
-> diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_cre=
-ate.c
-> index 4301f17f90..7bbd1ff9b4 100644
-> --- a/tools/libs/light/libxl_create.c
-> +++ b/tools/libs/light/libxl_create.c
-> @@ -339,7 +339,12 @@ int libxl__domain_build_info_setdefault(libxl__gc *g=
-c,
->           if (!b_info->u.hvm.boot)
->               b_info->u.hvm.boot =3D libxl__strdup(NOGC, "cda");
->   
-> -        libxl_defbool_setdefault(&b_info->u.hvm.vnc.enable, true);
-> +        libxl_defbool_setdefault(&b_info->u.hvm.opengl, false);
-> +
-> +        if (libxl_defbool_val(b_info->u.hvm.opengl))
-> +            libxl_defbool_setdefault(&b_info->u.hvm.vnc.enable, false);
-> +        else
-> +            libxl_defbool_setdefault(&b_info->u.hvm.vnc.enable, true);
->           if (libxl_defbool_val(b_info->u.hvm.vnc.enable)) {
->               libxl_defbool_setdefault(&b_info->u.hvm.vnc.findunused, tru=
-e);
->               if (!b_info->u.hvm.vnc.listen)
-> @@ -347,9 +352,6 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc=
-,
->           }
->   
->           libxl_defbool_setdefault(&b_info->u.hvm.sdl.enable, false);
-> -        if (libxl_defbool_val(b_info->u.hvm.sdl.enable)) {
-> -            libxl_defbool_setdefault(&b_info->u.hvm.sdl.opengl, false);
-> -        }
->   
->           if (libxl_defbool_val(b_info->u.hvm.spice.enable)) {
->               libxl_defbool_setdefault(&b_info->u.hvm.spice.disable_ticke=
-ting,
-> diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
-> index 511ec76a65..7adf473c81 100644
-> --- a/tools/libs/light/libxl_dm.c
-> +++ b/tools/libs/light/libxl_dm.c
-> @@ -672,6 +672,10 @@ int libxl__domain_device_construct_rdm(libxl__gc *gc=
-,
->   const libxl_vnc_info *libxl__dm_vnc(const libxl_domain_config *guest_co=
-nfig)
->   {
->       const libxl_vnc_info *vnc =3D NULL;
-> +
-> +    if (libxl_defbool_val(guest_config->b_info.u.hvm.opengl))
-> +        return NULL;
-> +
->       if (guest_config->b_info.type =3D=3D LIBXL_DOMAIN_TYPE_HVM) {
->           vnc =3D &guest_config->b_info.u.hvm.vnc;
->       } else if (guest_config->num_vfbs > 0) {
-> @@ -955,6 +959,7 @@ static int libxl__build_device_model_args_new(libxl__=
-gc *gc,
->       const char *path, *chardev;
->       bool is_stubdom =3D libxl_defbool_val(b_info->device_model_stubdoma=
-in);
->       int rc;
-> +    bool has_opengl =3D libxl_defbool_val(b_info->u.hvm.opengl);
->   
->       dm_args =3D flexarray_make(gc, 16, 1);
->       dm_envs =3D flexarray_make(gc, 16, 1);
-> @@ -1084,7 +1089,7 @@ static int libxl__build_device_model_args_new(libxl=
-__gc *gc,
->           }
->   
->           flexarray_append(dm_args, vncarg);
-> -    } else if (!is_stubdom) {
-> +    } else if (!is_stubdom && !has_opengl) {
->           /*
->            * Ensure that by default no vnc server is created.
->            */
-> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_ty=
-pes.idl
-> index fe251649f3..ab768381ce 100644
-> --- a/tools/libs/light/libxl_types.idl
-> +++ b/tools/libs/light/libxl_types.idl
-> @@ -349,7 +349,6 @@ libxl_spice_info =3D Struct("spice_info", [
->   
->   libxl_sdl_info =3D Struct("sdl_info", [
->       ("enable",        libxl_defbool),
-> -    ("opengl",        libxl_defbool),
->       ("display",       string),
->       ("xauthority",    string),
->       ])
-> @@ -670,6 +669,7 @@ libxl_domain_build_info =3D Struct("domain_build_info=
-",[
->                                          ("acpi_firmware",    string),
->                                          ("hdtype",           libxl_hdtyp=
-e),
->                                          ("nographic",        libxl_defbo=
-ol),
-> +                                       ("opengl",           libxl_defboo=
-l),
->                                          ("vga",              libxl_vga_i=
-nterface_info),
->                                          ("vnc",              libxl_vnc_i=
-nfo),
->                                          # keyboard layout, default is en=
--us keyboard
-> @@ -748,6 +748,7 @@ libxl_device_vfb =3D Struct("device_vfb", [
->       ("backend_domid", libxl_domid),
->       ("backend_domname",string),
->       ("devid",         libxl_devid),
-> +    ("opengl",        libxl_defbool),
->       ("vnc",           libxl_vnc_info),
->       ("sdl",           libxl_sdl_info),
->       # set keyboard layout, default is en-us keyboard
-> diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-> index 28cdbf07c2..9e9adcec77 100644
-> --- a/tools/xl/xl_parse.c
-> +++ b/tools/xl/xl_parse.c
-> @@ -272,7 +272,6 @@ static void parse_top_level_sdl_options(XLU_Config *c=
-onfig,
->                                           libxl_sdl_info *sdl)
->   {
->       xlu_cfg_get_defbool(config, "sdl", &sdl->enable, 0);
-> -    xlu_cfg_get_defbool(config, "opengl", &sdl->opengl, 0);
->       xlu_cfg_replace_string (config, "display", &sdl->display, 0);
->       xlu_cfg_replace_string (config, "xauthority", &sdl->xauthority, 0);
->   }
-> @@ -1291,7 +1290,7 @@ void parse_config_data(const char *config_source,
->   {
->       libxl_physinfo physinfo;
->       const char *buf;
-> -    long l, vcpus =3D 0;
-> +    long l, vcpus =3D 0, vnc_enabled =3D 0;
->       XLU_Config *config;
->       XLU_ConfigList *cpus, *vbds, *nics, *pcis, *cvfbs, *cpuids, *vtpms,
->                      *usbctrls, *usbdevs, *p9devs, *vdispls, *pvcallsifs_=
-devs;
-> @@ -2572,7 +2571,7 @@ skip_nic:
->                   } else if (!strcmp(p, "sdl")) {
->                       libxl_defbool_set(&vfb->sdl.enable, atoi(p2 + 1));
->                   } else if (!strcmp(p, "opengl")) {
-> -                    libxl_defbool_set(&vfb->sdl.opengl, atoi(p2 + 1));
-> +                    libxl_defbool_set(&vfb->opengl, atoi(p2 + 1));
->                   } else if (!strcmp(p, "display")) {
->                       free(vfb->sdl.display);
->                       vfb->sdl.display =3D strdup(p2 + 1);
-> @@ -2791,14 +2790,16 @@ skip_usbdev:
->   
->   #undef parse_extra_args
->   
-> +    if (!xlu_cfg_get_long (config, "vnc", &l, 0))
-> +        vnc_enabled =3D l;
-> +    xlu_cfg_get_defbool(config, "opengl", &b_info->u.hvm.opengl, 0);
-> +    if (vnc_enabled && libxl_defbool_val(b_info->u.hvm.opengl)) {
-> +        fprintf(stderr, "vnc is incompatible with opengl\n");
-> +        exit(1);
-> +    }
->       /* If we've already got vfb=3D[] for PV guest then ignore top level
->        * VNC config. */
->       if (c_info->type =3D=3D LIBXL_DOMAIN_TYPE_PV && !d_config->num_vfbs=
-) {
-> -        long vnc_enabled =3D 0;
-> -
-> -        if (!xlu_cfg_get_long (config, "vnc", &l, 0))
-> -            vnc_enabled =3D l;
-> -
->           if (vnc_enabled) {
->               libxl_device_vfb *vfb;
->               libxl_device_vkb *vkb;
-> diff --git a/tools/xl/xl_sxp.c b/tools/xl/xl_sxp.c
-> index 4383ad177a..62a1d012c6 100644
-> --- a/tools/xl/xl_sxp.c
-> +++ b/tools/xl/xl_sxp.c
-> @@ -120,7 +120,7 @@ void printf_info_sexp(int domid, libxl_domain_config =
-*d_config, FILE *fh)
->           fprintf(fh, "\t\t\t(sdl %s)\n",
->                  libxl_defbool_to_string(b_info->u.hvm.sdl.enable));
->           fprintf(fh, "\t\t\t(opengl %s)\n",
-> -               libxl_defbool_to_string(b_info->u.hvm.sdl.opengl));
-> +               libxl_defbool_to_string(b_info->u.hvm.opengl));
->           fprintf(fh, "\t\t\t(nographic %s)\n",
->                  libxl_defbool_to_string(b_info->u.hvm.nographic));
->           fprintf(fh, "\t\t\t(spice %s)\n",
-> @@ -219,10 +219,10 @@ void printf_info_sexp(int domid, libxl_domain_confi=
-g *d_config, FILE *fh)
->           fprintf(fh, "\t\t\t(vncunused %s)\n",
->                  libxl_defbool_to_string(d_config->vfbs[i].vnc.findunused=
-));
->           fprintf(fh, "\t\t\t(keymap %s)\n", d_config->vfbs[i].keymap);
-> +        fprintf(fh, "\t\t\t(opengl %s)\n",
-> +               libxl_defbool_to_string(d_config->vfbs[i].opengl));
->           fprintf(fh, "\t\t\t(sdl %s)\n",
->                  libxl_defbool_to_string(d_config->vfbs[i].sdl.enable));
-> -        fprintf(fh, "\t\t\t(opengl %s)\n",
-> -               libxl_defbool_to_string(d_config->vfbs[i].sdl.opengl));
->           fprintf(fh, "\t\t\t(display %s)\n", d_config->vfbs[i].sdl.displ=
-ay);
->           fprintf(fh, "\t\t\t(xauthority %s)\n", d_config->vfbs[i].sdl.xa=
-uthority);
->           fprintf(fh, "\t\t)\n");
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
+--clAqg1t6X9s2sdLz
+Content-Type: application/pgp-signature; name=signature.asc
 
+-----BEGIN PGP SIGNATURE-----
 
-Teddy Astie | Vates XCP-ng Developer
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmiogcAACgkQ24/THMrX
+1ywkGwgAghYvaKickGgpl6GwVjbZnYATV9BBbgLx1Pf0uZUFjrh8E1lQMyF0cWPq
+EwkIDeJFP7lP5WThSxziHqwYVFuvoE1KvAe9Lt6Zu99dKPKK+0+dt/1uJSWCN5vK
+6VilS9BT5+ykZAXg6W+l0n1I0Xkh6tH+APvmLKONo5CLRr9kpIbluOv+8uXcvntN
+5VL+MPxJoPFd5tfzeJxVrptBpvh9YY79ttVgCxUvy1AzPblVorReGGbP5/NedDJW
+J0AhQ1XNFHOv4ohmh07H66kIvK+Wub+SFZ4ejpW2WUGqOBSVM2dKzVWwOCxEEEgZ
+4WIkFjDK/R1W7KyLt145NH+dF1oLOA==
+=SaV5
+-----END PGP SIGNATURE-----
 
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
-
+--clAqg1t6X9s2sdLz--
 
