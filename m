@@ -2,40 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05E4BB31C24
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Aug 2025 16:40:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1090222.1447571 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5801B31C33
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Aug 2025 16:42:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1090244.1447586 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upSvr-0007HR-Lw; Fri, 22 Aug 2025 14:39:55 +0000
+	id 1upSxn-0000mM-6N; Fri, 22 Aug 2025 14:41:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1090222.1447571; Fri, 22 Aug 2025 14:39:55 +0000
+Received: by outflank-mailman (output) from mailman id 1090244.1447586; Fri, 22 Aug 2025 14:41:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upSvr-0007En-Hy; Fri, 22 Aug 2025 14:39:55 +0000
-Received: by outflank-mailman (input) for mailman id 1090222;
- Fri, 22 Aug 2025 14:39:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1upSxn-0000kG-3A; Fri, 22 Aug 2025 14:41:55 +0000
+Received: by outflank-mailman (input) for mailman id 1090244;
+ Fri, 22 Aug 2025 14:41:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1jNg=3C=epam.com=Leonid_Komarianskyi@srs-se1.protection.inumbo.net>)
- id 1upSvp-0007EE-VB
- for xen-devel@lists.xenproject.org; Fri, 22 Aug 2025 14:39:54 +0000
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c20f::7])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dca22887-7f65-11f0-b898-0df219b8e170;
- Fri, 22 Aug 2025 16:39:52 +0200 (CEST)
-Received: from GV2PR03MB8678.eurprd03.prod.outlook.com (2603:10a6:150:7d::13)
- by GV1PR03MB10332.eurprd03.prod.outlook.com (2603:10a6:150:160::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.14; Fri, 22 Aug
- 2025 14:39:46 +0000
-Received: from GV2PR03MB8678.eurprd03.prod.outlook.com
- ([fe80::4eb:3e7b:1ffa:25f9]) by GV2PR03MB8678.eurprd03.prod.outlook.com
- ([fe80::4eb:3e7b:1ffa:25f9%6]) with mapi id 15.20.9052.014; Fri, 22 Aug 2025
- 14:39:46 +0000
+ <SRS0=R3KH=3C=bounce.vates.tech=bounce-md_30504962.68a881ae.v1-30e51eda28ee45148822aae41c14ec7b@srs-se1.protection.inumbo.net>)
+ id 1upSxm-0000k8-8F
+ for xen-devel@lists.xenproject.org; Fri, 22 Aug 2025 14:41:54 +0000
+Received: from mail179-29.suw41.mandrillapp.com
+ (mail179-29.suw41.mandrillapp.com [198.2.179.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 24039d68-7f66-11f0-a32b-13f23c93f187;
+ Fri, 22 Aug 2025 16:41:52 +0200 (CEST)
+Received: from pmta12.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail179-29.suw41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4c7jZ66hf9z7lmQ7b
+ for <xen-devel@lists.xenproject.org>; Fri, 22 Aug 2025 14:41:50 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 30e51eda28ee45148822aae41c14ec7b; Fri, 22 Aug 2025 14:41:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,314 +43,318 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dca22887-7f65-11f0-b898-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AhGdWd9ugy6cQz5VsSkHPfD9jg32GWja0KV+AF22vCz2bfsy53ypOCpZN8XKxlyd8GcbCunjgLY/QVnSO+G/nAbvH1mQIA3YaDxRq6v5ji8V8qK2V+laXHGMtgnlwKQGwEAgURhTegqo22J2eEaBWQHo/GCOswjWU2RrJ9iVyyvwn9zM3KAYtpSEBS65/HMpvAnE5QSjnuUza7aKVmVOVt9saEt8rhC4tpaA0PTZ7aZ6wgF9PbtWx9h+0ga52oCIbPPVFs4ORUCAdVD824HaK6KdRKWsbakxbhaOKjV3VBpmcv/fUNQ0Rj+yfn1TOrTU2f8HZKz4G9Slntxl+3A/0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8dPHhcA+Yib2poo9chr7+GYda73ueVNMQzsWDtnKJ1s=;
- b=tW28yxk4bGcBOoB+ZKitVVlFN4DuTqv8lZ5DJoRBSBVaURE9qEK3iENq6ofx/+LvUJbzDRfEGlA2WHLnzjlXrTywvtng3udJOSxMcK8KcpG9MCM6JwjxrTFRPqBqU/XwBP2ymk12UidMnO2Xl+f3ifaQkcjsZnA7Zdw2mu6IIdVbbmnaywibdyBMxxfRgfI5XEnG+foP83xTjSZgzndvG+CMLHDbZ4c4u26rzw3ciXp+wtVl+5EMaZ0hhzaogC2aHJTmmOUIUS+Fbher8Y6JqwsCgmXw78otxM0V64CSTEa5EtowOvZOjUGvfcUNZrIvW/3qn4VtuqwbWr7lYpf2XQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8dPHhcA+Yib2poo9chr7+GYda73ueVNMQzsWDtnKJ1s=;
- b=tkE0GEYTG7VZY71rVgUPsJR4dmiMsJnL6iKfnqKP/+J/Xx2yVxwqjluryE6ZaRS95F2hYrclRFNVKSDrB3R8lCIBkRIjj1HIAsgUHfvH8aG1FgAqdfAogrCGCkZnC4mqOZ1cfPD20RPtGeUWdqEl0RcKLIMYr573cWtxNiwa13iI5/akiiBbnawzU6PerDbhV+yZaVeZ/SIscBQKQxuzgt+pS12L1n8Fd9EZRsSjXXf6MQrNm4h8y4r6LLsH3exTdxrmVr9DBynxMdj3ZojDSHdxH1kfxT04ORQKmoQiXC9+IQjNAT/2fL0Q0Di7A+vU5Ur4PAYh0WfNnAxV4QcLBw==
-From: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand
- Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [PATCH v2 05/10] xen/arm: gicv3: implement handling of GICv3.1
- eSPI
-Thread-Topic: [PATCH v2 05/10] xen/arm: gicv3: implement handling of GICv3.1
- eSPI
-Thread-Index: AQHcB5d8tjpgMfEXfkClUacVz54EpbRu1gWA
-Date: Fri, 22 Aug 2025 14:39:45 +0000
-Message-ID: <3fffaa8e-3a4b-45d1-8d09-e0261322a8ab@epam.com>
-References:
- <7e6477a83ab65220ef1c5dd22f4ef3536fbbdd5c.1754568795.git.leonid_komarianskyi@epam.com>
- <2491bee7441f13a3c1a01fd77ece1749e7276352.1754568795.git.leonid_komarianskyi@epam.com>
- <878qjcejkv.fsf@epam.com>
-In-Reply-To: <878qjcejkv.fsf@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR03MB8678:EE_|GV1PR03MB10332:EE_
-x-ms-office365-filtering-correlation-id: cebe603c-d9c8-4d73-4130-08dde189bd63
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|376014|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?MVozUjdGdVJXUHpSOFJhL2k1M3JSditCREZnZ2pobGNIMnJkeHpCS3RRUkd1?=
- =?utf-8?B?WkVMUGtwc1VSdTBsK2ZCS3ViUncrTTRnQVdrVVR6RHVTeE9yeTFrZ0lkRTZR?=
- =?utf-8?B?M0cydWp0L3k4Z0pOUTFxWWU5emRMM1FQSWNxUHIzUmQvZ3VvUmh6LzNlTnlr?=
- =?utf-8?B?SUV4ZEJIQlV4elR2dXp4QTBnaHJ5LzdOaVZ4UHZNTkt5UjdkT29JZnpNWWYw?=
- =?utf-8?B?OGppQlpxQVp1ek40YzRmZXM2cGgxNWhGQkRjNWxqY3E1TGxrbk8wT3hvWUw1?=
- =?utf-8?B?WGhqa2hhSXdNZFJmTG5icUhsZi93RVh2UTBNZ2p5Z2xucmtlblBQSWR4SGdv?=
- =?utf-8?B?bXJWK3hsS2tQMnh6R3loenJoa2lSY3hqazFuRnVUS0I5aUJDbXJiVlpFTHdG?=
- =?utf-8?B?Sk1OaGlORVhqVnBGcUlNaEFxaVNMQlFrY1Z6ODhnTWl4NEYycjk2KytkMkMx?=
- =?utf-8?B?RzZCSGZBOFhDdDJiTlFxUzRhOW8zQmNEN005OUJmb0cxWU1BVXZBRkthSEJt?=
- =?utf-8?B?SGFWK2NTV01RbFFLUGtXZXd1WkhEck5MVnk4Ny9ITWJTenFQdnJtSm5RSGRP?=
- =?utf-8?B?RG1hVTlJY1N6em9KR2NZeE5ydzVKQUZhMjZ2bjRJS3llTVRWNitKMkttdUha?=
- =?utf-8?B?cHRpWFZUdi8vQmxHVXV1bHEzcVE0R0l0TW9VVGNRMUxBR3BnZ042ZzJXVXF3?=
- =?utf-8?B?aldyRCtrT3E4OElnc1ROZHNBaWczMW1qTjUwYy9CREE4aDRmQ1pzQ1V5bVQ5?=
- =?utf-8?B?SEVjMTBVMVRsNVpUMm9CM0d1QkwyMGFBcVRhc3pjWDRqK1A0WFJBTElrMkhV?=
- =?utf-8?B?aGVOazBwV2tJWHh3QXFiMUZpUVlYL0NHUVI3SjRHeitUdEJTbHFGUlk0VVVp?=
- =?utf-8?B?ZktXU1lTTC8yeW1nUkxBUlkvcUxNSmJKZml6TVd5NmI5S2FLcnUvK0p0ajV0?=
- =?utf-8?B?azg1VnB6NjJVOWszT0lUeDg4TitCY3kxOWczMTZLYUFLL0NqZHo3VVB3RTdm?=
- =?utf-8?B?bjVTeVU3dzI4QVdOMzNBQWIzYTMwNWlWbEt1MkNzZUpZQks2YUJZOXVjU2Z2?=
- =?utf-8?B?WXRVVDZiMGhESlYrRGoxVzRuSTVuV3ZNTVFncFZ5OHRSV1VLS3d6K3Mvcldn?=
- =?utf-8?B?UklWV0ladVZlMkV3a3R5S0JBWkdrUk1sOXZoRnE4WHA1bTF6RFJwVzBMaVE2?=
- =?utf-8?B?d3MyRkc1NExtZjhtU0dXUEhVQ21tekorTUx3blZSb2YxWEhCTGNpaWtvNFM3?=
- =?utf-8?B?MkJHbjR6OUhLMVo2WlBJc0ZoYWxQNTRNTG1nanA4SlpFVWVTUkRHaXNYNjZR?=
- =?utf-8?B?a243czFLQ2JPckZSdEtHWGRsUkNMOEJjWUdCeXd2YXpYalNycXBSeUVKcHJW?=
- =?utf-8?B?ajJsSjU1b1hFWDErR2IzNmRaTE9Dc1FPOXREc3EyNXJ4NE51ZzRHVW9aNzhl?=
- =?utf-8?B?UzczZGI3UEx6MUt1aWwyR1A5OVlHZFFhU3JhTko2cUtFSCtFdHdFeHN0c25T?=
- =?utf-8?B?MnE5VHA2bXRHRjYyUkQ0MjdKQUNWblcyT2VIZHVCNzMxeTVKWkp4TkNCYVV1?=
- =?utf-8?B?bTNTQU81WnlQM202UUh3N25YWjkwWTVmMWIxa3ZvUEY3M1hDeXFMejBPbHVW?=
- =?utf-8?B?M2lwYjFCVVdpaWlXbWtHZUZpVlMzVHl4UTRFRXMyRWIwM3BVSzhKcVpvRDFh?=
- =?utf-8?B?bExoRUY0cWh5NGR2NXg2Z0Vrcmk4UHVDQ1NSaVF4TkJybUVIMGE1d0FkZW5G?=
- =?utf-8?B?aGdpR3ZUWnZndlRCaG1LTDRtcHVBazY2UUk3NHFaYkliYnA2TXU4S1lWOG54?=
- =?utf-8?B?RmxyTGFWQk9USjlCUmVkSDFMUFFuejlGcmFqWnk2NFBtYWVlOWJuZUh0bk03?=
- =?utf-8?B?eks3RFQ4NXpJL0czaDVmT2h4Ry9rdXhpTlo3ODJxVndjRG96YUlHQXYvRFNU?=
- =?utf-8?B?ZzlnT1hYN3dlNmFoYmZSREExTDZvVDNySUI3c1hnMHNhTWU2cG9lMkJKWFBq?=
- =?utf-8?B?aVJYZnZ3TVN3PT0=?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB8678.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?ZFlBY05PUkl2emV4N0ovMWNhai9IR1owQk1PSGNZcXZWd2VQVWVua1JCSnZS?=
- =?utf-8?B?UWxUS2x2T3pQM294b0FXMDIvaTEwSk9zakpVS3pjT0hwWXBra1FPWGorODVs?=
- =?utf-8?B?ZFJBQTB4dXZOdDAxWW9icnpFOUhyMzVXMzlkZDBUVEYwYlNPZkxGVmYzaWdi?=
- =?utf-8?B?K1RVWmk4QytCODFQYStIc2plYVpaTXA5bFNIZ1hWbXFkdTl0emt4RU9Vblpz?=
- =?utf-8?B?aUZqREtBciszczRjNzg1UU1zaEF5QlFKQnlpR3ZPaFN3SE5hcnpxM1RmTGtI?=
- =?utf-8?B?TUZrc2VpYzkxUWhiYnJuWVNWU2MzQllEc3hQUG5vbUJSQWNhWnQzRkEvb0ZD?=
- =?utf-8?B?VEIyZDRmTTlxd2FTNllvQmRnSC9KeC9RbGc1OXdTQXoyL1dWZXdNdnRaQy8w?=
- =?utf-8?B?Wm9FV2VzSEswVnpNaTRXZlZqU0hOejdwa3RoTFRiT1l2SFY3bjdCMEpUdUph?=
- =?utf-8?B?L082ZFR4NkxmRHZweGpKL2FKQnNlU1NEc2dPZ2ZxRnFFTng1YjFOKzdteUw0?=
- =?utf-8?B?Q3NNZEp0amFsbzRZY3hOYlQwL0I3KzJrZFdxRmZWUStwYStERTFYSnBGWW05?=
- =?utf-8?B?elNNV2lsZFVGQUp5MGlZNDdhMGgvUmtENmcrUmNOaG5DdmNiaERJaDVEeGZP?=
- =?utf-8?B?eXpjNTY1Q2lWUEp6VVFkQVpYMGprSjdKRUdRbUVxUzlEQ01Cdk10MWxkZkpE?=
- =?utf-8?B?blBRU2crMzQ1eXVhQi9DcWRWUTdIVFkxL28vZmNGb2xlRUN4VFFvV1R5Ly8w?=
- =?utf-8?B?VmxKWlltWEVGMUZDSEZiUy9ObkkramM5cGtNUGwzdit6d1p6cEg0RzdBb0Vp?=
- =?utf-8?B?MktOV2NpcEhPbDdpTGdvQStsbGdSRkFxSkFIUkpPeEVEWVU0c3J0aUlCWk93?=
- =?utf-8?B?UllDd2l1TU1aMDIwU0EwSU5JMUxjUnJUdG40eHlyQUdrdjdpODhCTm1hdWhx?=
- =?utf-8?B?MWc1Zi95L1B4OTB3bFhhTEJ1M0xISyttRTA5dkpKS3FKWEMrdHovUDRhbE5o?=
- =?utf-8?B?aExxMDVqOVF2Rmd6UmlBdkI4YXJjQVNZbVBsRGNBSWljWVZnbUdVeG9NR2pU?=
- =?utf-8?B?WlJrVlpJUGltWlgxbjdQcDR4Qkx2d2kxS1R5dXRMQW9IK1RGNlRQQ0taa0Zm?=
- =?utf-8?B?N291NUlmbHRJL2FZcmNCdVhwbGIvM05FNFh3SG9KcmdYTzRodGZBR1NtMUd5?=
- =?utf-8?B?NVdhUE82TW8xQkJOL3RYM2RKQ2ZQQWFMTTl4dWFXOVpNTzBWZ3BNVGNhRXd6?=
- =?utf-8?B?VUhkekgzZkJPZ2VJTWJKeWwwbFNNQTVmUHJJZVBHM3NBRmgwT0dsR05sUjRV?=
- =?utf-8?B?eHRqTmM3dkxYbDRLWTZzbXNTVERZVnJDclhpUjZuUHhyWmRSTGNHOWpKendl?=
- =?utf-8?B?enVPYjQ1UEVuMitHUHhnTXFtaXNMVnJGY3ZkUVo0SXJUcEZmZHA0Y05pYkFa?=
- =?utf-8?B?MjV1NzhDK1hHTi9Ja09wSjdqZmRiblhNdXhSdDdFeXlIMjFDeWdxaExERUhu?=
- =?utf-8?B?NWpzRW9mOVNzL0sreGIweUR2djB5WnJDV0lzeTZLVFY4TFVqSWxLS0kvN2FU?=
- =?utf-8?B?NmU0NHJ3NXVFZGZJS1dGMW9KK253QU5KNFRWT0F5S3VoRmtaRnIvSTFVVERL?=
- =?utf-8?B?Z3J1U1pSQm00a3ZaUERCT1ZDRG5aa3ZYaFQ2VXd4ZmJicmQwdEhPZmV2SFNZ?=
- =?utf-8?B?QWxzUVh3SENmbXdtTGN4aEJaV1MyTUFoQWVWMXlRRlFEM2dxYzJjZmEveFRq?=
- =?utf-8?B?YkZuWkJBY3FXL3MxSFBzVktCdW5OV3BJNHk1eWh5ZFRqSUtRbXJWREJ6YS8r?=
- =?utf-8?B?OUp3VE1ySmgycE10eE9zSzFzTW1VNVFkS3VqU2lZZExnZGpIajRmeDNHeG81?=
- =?utf-8?B?d2dtNnU5MHl1Ry9KWDRXdTdrdk1FU3NyMnVxK05FcmpiMkoxMW5Wc2hzNG5x?=
- =?utf-8?B?Rm1NY0ZZSzA0dy9CSHdUS1BwUStrMW9RTUJJNVR4S1dadHB5b3R0SVVURks3?=
- =?utf-8?B?YWh3bi9BRlNkbHhmcStHUDdXRVRvdlc0YUNGTXdWY2lQQWdId2szTzFKeXRV?=
- =?utf-8?B?QklvRjl1N3BRSStqT3ZiWi9XOG1UTUp1UURDeE1sRzN2anNuTm4rOWJMZm5Y?=
- =?utf-8?B?RFB4NVY5cnBzZ1dsbW1jTVcxSUoycWJ3WEMydVM5dElhbThyY0lNK1R1b2V0?=
- =?utf-8?Q?g5YPeyjfqTnxJwAbiUmED2g=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <DBBF06C17A1A5E41804AD0A762E920C5@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 24039d68-7f66-11f0-a32b-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1755873710; x=1756143710;
+	bh=NRYzlEOPNrDb3NoHUCe7/NvFmhhJoEj/CrGc45K0Xug=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=YP+EcQY5aNce3WRkVFsI8/rOa7etVx/oquwvVfo0s67jDp6/C7a1VUhvhx6pTSxMC
+	 vV1rAkPXkAbc5LDTkQIQCeHm/CL1bvk3Ug3/L0s4OHgenGBkUcivoxp/zIVvb4boVa
+	 xq6QIhpVaNzojwRxiITaBDwe/ClxmXyPOjD2sT5FureizSnqeBYmxqs21Sjkr/WzaW
+	 lx1hmc0l8O5J1nWgJBFH/aZ+2TIKy94vTrxnAUkK4WH8MtFUb8chc17WVQ/n7NLNGH
+	 7b3fwwkD/ab2nAgIMrU5F2f1LowtgzSji2xHI+7QYvdZxP4OAAlhh/+B0vqFgNWq1U
+	 LnVs/Lfh0e3QA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1755873710; x=1756134210; i=teddy.astie@vates.tech;
+	bh=NRYzlEOPNrDb3NoHUCe7/NvFmhhJoEj/CrGc45K0Xug=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=SEkWMFFTb1QZ6Id8uaaAElsVlqXhImMp4dCFwgpQ/4jLMopuEZPfU9rOlw1cc938+
+	 mmn1NMkZaMZ0kBOgfc3CIjGJIvVibV5T+GKEZdAs/5xDFI8pDinCTCPHJDicc6zHdM
+	 LTZqroW99c9miLOXIlLv/eLl2Z+QiJmmde6tZ1I2Nhkomfm9/Ocyl9R1jprg5KohOt
+	 fCZWEqYN5GBph/8Ygv//TcwAwg62Fu2YUFc9Y5ddLdFMSRylirk6t3F+2ghXm7wWRs
+	 iQbb2IMsnCA+rNda6J2Y0PhW9YT2poZgutYI/Vm5Kg9TS3lA/KSZh32z4iJKeUOBi3
+	 FJTlhCnyroM2g==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v1]=20tools:=20make=20"opengl"=20generic?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1755873708081
+Message-Id: <e95fff95-c0f6-4c7b-94ef-dc6a13f21453@vates.tech>
+To: "Penny Zheng" <Penny.Zheng@amd.com>, xen-devel@lists.xenproject.org
+Cc: ray.huang@amd.com, Edgar.Iglesias@amd.com, "Anthony PERARD" <anthony.perard@vates.tech>, "Juergen Gross" <jgross@suse.com>
+References: <20250728044007.4026420-1-Penny.Zheng@amd.com>
+In-Reply-To: <20250728044007.4026420-1-Penny.Zheng@amd.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.30e51eda28ee45148822aae41c14ec7b?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250822:md
+Date: Fri, 22 Aug 2025 14:41:50 +0000
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB8678.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cebe603c-d9c8-4d73-4130-08dde189bd63
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Aug 2025 14:39:46.0022
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: XHVJK5zyyHzo1MrLK4JzheE4/WTMe8iIlSsBxMsLoc4ghnP9qIe/Hi95hbyYbD1smS7J7J8vqYWt5/yjVemagqftA7qJM6rBG2lfnYgpAZ0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR03MB10332
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-SGkgVm9sb2R5bXlyLA0KDQpUaGFuayB5b3UgZm9yIHlvdXIgY2xvc2UgcmV2aWV3Lg0KDQpPbiAy
-MS4wOC4yNSAxOToxNiwgVm9sb2R5bXlyIEJhYmNodWsgd3JvdGU6DQo+IA0KPiBIaSwNCj4gDQo+
-IExlb25pZCBLb21hcmlhbnNreWkgPExlb25pZF9Lb21hcmlhbnNreWlAZXBhbS5jb20+IHdyaXRl
-czoNCj4gDQo+PiBJbnRyb2R1Y2VkIGFwcHJvcHJpYXRlIHJlZ2lzdGVyIGRlZmluaXRpb25zLCBo
-ZWxwZXIgbWFjcm9zLA0KPj4gYW5kIGluaXRpYWxpemF0aW9uIG9mIHJlcXVpcmVkIEdJQ3YzLjEg
-ZGlzdHJpYnV0b3IgcmVnaXN0ZXJzDQo+PiB0byBzdXBwb3J0IGVTUEkuIFRoaXMgdHlwZSBvZiBp
-bnRlcnJ1cHQgaXMgaGFuZGxlZCBpbiB0aGUNCj4+IHNhbWUgd2F5IGFzIHJlZ3VsYXIgU1BJIGlu
-dGVycnVwdHMsIHdpdGggdGhlIGZvbGxvd2luZw0KPj4gZGlmZmVyZW5jZXM6DQo+Pg0KPj4gMSkg
-ZVNQSXMgY2FuIGhhdmUgdXAgdG8gMTAyNCBpbnRlcnJ1cHRzLCBzdGFydGluZyBmcm9tIHRoZQ0K
-Pj4gYmVnaW5uaW5nIG9mIHRoZSByYW5nZSwgd2hlcmVhcyByZWd1bGFyIFNQSXMgdXNlIElOVElE
-cyBmcm9tDQo+PiAzMiB0byAxMDE5LCB0b3RhbGluZyA5ODggaW50ZXJydXB0czsNCj4+IDIpIGVT
-UElzIHN0YXJ0IGF0IElOVElEIDQwOTYsIG5lY2Vzc2l0YXRpbmcgYWRkaXRpb25hbCBpbnRlcnJ1
-cHQNCj4+IGluZGV4IGNvbnZlcnNpb24gZHVyaW5nIHJlZ2lzdGVyIG9wZXJhdGlvbnMuDQo+Pg0K
-Pj4gSW4gY2FzZSBpZiBhcHByb3ByaWF0ZSBjb25maWcgaXMgZGlzYWJsZWQsIG9yIEdJQyBIVyBk
-b2Vzbid0DQo+PiBzdXBwb3J0IGVTUEksIHRoZSBleGlzdGluZyBmdW5jdGlvbmFsaXR5IHdpbGwg
-cmVtYWluIHRoZSBzYW1lLg0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IExlb25pZCBLb21hcmlhbnNr
-eWkgPGxlb25pZF9rb21hcmlhbnNreWlAZXBhbS5jb20+DQo+Pg0KPj4gLS0tDQo+PiBDaGFuZ2Vz
-IGluIFYyOg0KPj4gLSBtb3ZlIGdpY19udW1iZXJfZXNwaXMgZnVuY3Rpb24gZnJvbQ0KPj4gICAg
-W1BBVENIIDA4LzEwXSB4ZW4vYXJtOiB2Z2ljOiBhZGQgcmVzb3VyY2UgbWFuYWdlbWVudCBmb3Ig
-ZXh0ZW5kZWQgU1BJcw0KPj4gICAgdG8gdXNlIGl0IGluIHRoZSBuZXdseSBpbnRyb2R1Y2VkIGdp
-Y19pc192YWxpZF9lc3BpDQo+PiAtIGFkZCBnaWNfaXNfdmFsaWRfZXNwaSB3aGljaCBjaGVja3Mg
-aWYgSVJRIG51bWJlciBpcyBpbiBzdXBwb3J0ZWQNCj4+ICAgIGJ5IEhXIGVTUEkgcmFuZ2UNCj4+
-IC0gdXBkYXRlIGdpY19pc192YWxpZF9pcnEgY29uZGl0aW9ucyB0byBhbGxvdyBvcGVyYXRpb25z
-IHdpdGggZVNQSXMNCj4+IC0tLQ0KPj4gICB4ZW4vYXJjaC9hcm0vZ2ljLXYzLmMgICAgICAgICAg
-ICAgICAgICB8IDczICsrKysrKysrKysrKysrKysrKysrKysrKysrDQo+PiAgIHhlbi9hcmNoL2Fy
-bS9pbmNsdWRlL2FzbS9naWMuaCAgICAgICAgIHwgMTcgKysrKysrDQo+PiAgIHhlbi9hcmNoL2Fy
-bS9pbmNsdWRlL2FzbS9naWNfdjNfZGVmcy5oIHwgMzMgKysrKysrKysrKysrDQo+PiAgIDMgZmls
-ZXMgY2hhbmdlZCwgMTIzIGluc2VydGlvbnMoKykNCj4+DQo+PiBkaWZmIC0tZ2l0IGEveGVuL2Fy
-Y2gvYXJtL2dpYy12My5jIGIveGVuL2FyY2gvYXJtL2dpYy12My5jDQo+PiBpbmRleCA4ZmQ3OGFi
-YTQ0Li5hMGU4ZWUxYTFlIDEwMDY0NA0KPj4gLS0tIGEveGVuL2FyY2gvYXJtL2dpYy12My5jDQo+
-PiArKysgYi94ZW4vYXJjaC9hcm0vZ2ljLXYzLmMNCj4+IEBAIC00ODUsNiArNDg1LDM2IEBAIHN0
-YXRpYyB2b2lkIF9faW9tZW0gKmdldF9hZGRyX2J5X29mZnNldChzdHJ1Y3QgaXJxX2Rlc2MgKmly
-cWQsIHUzMiBvZmZzZXQpDQo+PiAgICAgICAgICAgZGVmYXVsdDoNCj4+ICAgICAgICAgICAgICAg
-YnJlYWs7DQo+PiAgICAgICAgICAgfQ0KPj4gKyNpZmRlZiBDT05GSUdfR0lDVjNfRVNQSQ0KPj4g
-KyAgICBjYXNlIEVTUElfQkFTRV9JTlRJRCAuLi4gRVNQSV9NQVhfSU5USUQ6DQo+PiArICAgIHsN
-Cj4+ICsgICAgICAgIHUzMiBpcnFfaW5kZXggPSBFU1BJX0lOVElEMklEWChpcnFkLT5pcnEpOw0K
-Pj4gKw0KPj4gKyAgICAgICAgc3dpdGNoICggb2Zmc2V0ICkNCj4+ICsgICAgICAgIHsNCj4+ICsg
-ICAgICAgIGNhc2UgR0lDRF9JU0VOQUJMRVI6DQo+PiArICAgICAgICAgICAgcmV0dXJuIChHSUNE
-ICsgR0lDRF9JU0VOQUJMRVJuRSArIChpcnFfaW5kZXggLyAzMikgKiA0KTsNCj4+ICsgICAgICAg
-IGNhc2UgR0lDRF9JQ0VOQUJMRVI6DQo+PiArICAgICAgICAgICAgcmV0dXJuIChHSUNEICsgR0lD
-RF9JQ0VOQUJMRVJuRSArIChpcnFfaW5kZXggLyAzMikgKiA0KTsNCj4+ICsgICAgICAgIGNhc2Ug
-R0lDRF9JU1BFTkRSOg0KPj4gKyAgICAgICAgICAgIHJldHVybiAoR0lDRCArIEdJQ0RfSVNQRU5E
-Um5FICsgKGlycV9pbmRleCAvIDMyKSAqIDQpOw0KPj4gKyAgICAgICAgY2FzZSBHSUNEX0lDUEVO
-RFI6DQo+PiArICAgICAgICAgICAgcmV0dXJuIChHSUNEICsgR0lDRF9JQ1BFTkRSbkUgKyAoaXJx
-X2luZGV4IC8gMzIpICogNCk7DQo+PiArICAgICAgICBjYXNlIEdJQ0RfSVNBQ1RJVkVSOg0KPj4g
-KyAgICAgICAgICAgIHJldHVybiAoR0lDRCArIEdJQ0RfSVNBQ1RJVkVSbkUgKyAoaXJxX2luZGV4
-IC8gMzIpICogNCk7DQo+PiArICAgICAgICBjYXNlIEdJQ0RfSUNBQ1RJVkVSOg0KPj4gKyAgICAg
-ICAgICAgIHJldHVybiAoR0lDRCArIEdJQ0RfSUNBQ1RJVkVSbkUgKyAoaXJxX2luZGV4IC8gMzIp
-ICogNCk7DQo+PiArICAgICAgICBjYXNlIEdJQ0RfSUNGR1I6DQo+PiArICAgICAgICAgICAgcmV0
-dXJuIChHSUNEICsgR0lDRF9JQ0ZHUm5FICsgKGlycV9pbmRleCAvIDE2KSAqIDQpOw0KPj4gKyAg
-ICAgICAgY2FzZSBHSUNEX0lST1VURVI6DQo+PiArICAgICAgICAgICAgcmV0dXJuIChHSUNEICsg
-R0lDRF9JUk9VVEVSbkUgKyBpcnFfaW5kZXggKiA4KTsNCj4+ICsgICAgICAgIGNhc2UgR0lDRF9J
-UFJJT1JJVFlSOg0KPj4gKyAgICAgICAgICAgIHJldHVybiAoR0lDRCArIEdJQ0RfSVBSSU9SSVRZ
-Um5FICsgaXJxX2luZGV4KTsNCj4+ICsgICAgICAgIGRlZmF1bHQ6DQo+PiArICAgICAgICAgICAg
-YnJlYWs7DQo+PiArICAgICAgICB9DQo+PiArICAgIH0NCj4+ICsjZW5kaWYNCj4+ICAgICAgIGRl
-ZmF1bHQ6DQo+PiAgICAgICAgICAgYnJlYWs7DQo+PiAgICAgICB9DQo+PiBAQCAtNjQ1LDYgKzY3
-NSw0MCBAQCBzdGF0aWMgdm9pZCBnaWN2M19zZXRfaXJxX3ByaW9yaXR5KHN0cnVjdCBpcnFfZGVz
-YyAqZGVzYywNCj4+ICAgICAgIHNwaW5fdW5sb2NrKCZnaWN2My5sb2NrKTsNCj4+ICAgfQ0KPj4g
-ICANCj4+ICsjaWZkZWYgQ09ORklHX0dJQ1YzX0VTUEkNCj4+ICt1bnNpZ25lZCBpbnQgZ2ljX251
-bWJlcl9lc3Bpcyh2b2lkKQ0KPj4gK3sNCj4+ICsgICAgcmV0dXJuIGdpY19od19vcHMtPmluZm8t
-Pm5yX2VzcGk7DQo+PiArfQ0KPj4gKw0KPj4gK3N0YXRpYyB2b2lkIGdpY3YzX2Rpc3RfZXNwaV9j
-b21tb25faW5pdCh1aW50MzJfdCB0eXBlKQ0KPj4gK3sNCj4+ICsgICAgdW5zaWduZWQgaW50IGVz
-cGlfbnI7DQo+PiArICAgIGludCBpOw0KPj4gKw0KPj4gKyAgICBlc3BpX25yID0gbWluKDEwMjRV
-LCBHSUNEX1RZUEVSX0VTUElTX05VTSh0eXBlKSk7DQo+PiArICAgIGdpY3YzX2luZm8ubnJfZXNw
-aSA9IGVzcGlfbnI7DQo+PiArICAgIC8qIFRoZSBHSUMgSFcgZG9lc24ndCBzdXBwb3J0IGVTUEks
-IHNvIHdlIGNhbiBsZWF2ZSBmcm9tIGhlcmUgKi8NCj4+ICsgICAgaWYgKCBnaWN2M19pbmZvLm5y
-X2VzcGkgPT0gMCApDQo+PiArICAgICAgICByZXR1cm47DQo+PiArDQo+PiArICAgIGZvciAoIGkg
-PSAwOyBpIDwgZXNwaV9ucjsgaSArPSAxNiApDQo+PiArICAgICAgICB3cml0ZWxfcmVsYXhlZCgw
-LCBHSUNEICsgR0lDRF9JQ0ZHUm5FICsgKGkgLyAxNikgKiA0KTsNCj4+ICsNCj4+ICsgICAgZm9y
-ICggaSA9IDA7IGkgPCBlc3BpX25yOyBpICs9IDQgKQ0KPj4gKyAgICAgICAgd3JpdGVsX3JlbGF4
-ZWQoR0lDX1BSSV9JUlFfQUxMLCBHSUNEICsgR0lDRF9JUFJJT1JJVFlSbkUgKyAoaSAvIDQpICog
-NCk7DQo+PiArDQo+PiArICAgIGZvciAoIGkgPSAwOyBpIDwgZXNwaV9ucjsgaSArPSAzMiApDQo+
-PiArICAgIHsNCj4+ICsgICAgICAgIHdyaXRlbF9yZWxheGVkKDB4ZmZmZmZmZmZVLCBHSUNEICsg
-R0lDRF9JQ0VOQUJMRVJuRSArIChpIC8gMzIpICogNCk7DQo+IA0KPiBJcyB0aGVyZSBhcmUgcGFy
-dGljdWxhciByZWFzb24gd2h5IHlvdSB1c2UgR0VOTUFTSygzMSwwKSBiZWxvdywgYnV0DQo+IG9w
-ZW4tY29kZWQgMHhmZmZmZmZmZiBoZXJlPw0KPiANCj4+ICsgICAgICAgIHdyaXRlbF9yZWxheGVk
-KDB4ZmZmZmZmZmZVLCBHSUNEICsgR0lDRF9JQ0FDVElWRVJuRSArIChpIC8gMzIpICogNCk7DQo+
-IA0KPiAuLi4gYW5kIGhlcmU/DQo+IA0KDQpObywgdGhlcmUgaXMgbm8gcGFydGljdWxhciByZWFz
-b24gdG8gdXNlIG9wZW4tY29kZSBoZXJlLiBJdCBpcyBqdXN0IGEgDQpjb3B5LXBhc3RlIGZyb20g
-dGhlIGNvZGUgZm9yIHJlZ3VsYXIgU1BJIGluaXRpYWxpemF0aW9uLiBUaHVzLCBJIGFncmVlIA0K
-aXQgaXMgbXVjaCBiZXR0ZXIgdG8gdXNlIEdFTk1BU0soMzEsIDApLiBJIHdpbGwgY2hhbmdlIHRo
-aXMgaW4gVjMuDQoNCj4+ICsgICAgfQ0KPj4gKw0KPj4gKyAgICBmb3IgKCBpID0gMDsgaSA8IGVz
-cGlfbnI7IGkgKz0gMzIgKQ0KPj4gKyAgICAgICAgd3JpdGVsX3JlbGF4ZWQoR0VOTUFTSygzMSwg
-MCksIEdJQ0QgKyBHSUNEX0lHUk9VUFJuRSArIChpIC8gMzIpICogNCk7DQo+PiArfQ0KPj4gKyNl
-bmRpZg0KPj4gKw0KPj4gICBzdGF0aWMgdm9pZCBfX2luaXQgZ2ljdjNfZGlzdF9pbml0KHZvaWQp
-DQo+PiAgIHsNCj4+ICAgICAgIHVpbnQzMl90IHR5cGU7DQo+PiBAQCAtNjkwLDYgKzc1NCwxMCBA
-QCBzdGF0aWMgdm9pZCBfX2luaXQgZ2ljdjNfZGlzdF9pbml0KHZvaWQpDQo+PiAgICAgICBmb3Ig
-KCBpID0gTlJfR0lDX0xPQ0FMX0lSUVM7IGkgPCBucl9saW5lczsgaSArPSAzMiApDQo+PiAgICAg
-ICAgICAgd3JpdGVsX3JlbGF4ZWQoR0VOTUFTSygzMSwgMCksIEdJQ0QgKyBHSUNEX0lHUk9VUFIg
-KyAoaSAvIDMyKSAqIDQpOw0KPj4gICANCj4+ICsjaWZkZWYgQ09ORklHX0dJQ1YzX0VTUEkNCj4+
-ICsgICAgZ2ljdjNfZGlzdF9lc3BpX2NvbW1vbl9pbml0KHR5cGUpOw0KPj4gKyNlbmRpZg0KPj4g
-Kw0KPj4gICAgICAgZ2ljdjNfZGlzdF93YWl0X2Zvcl9yd3AoKTsNCj4+ICAgDQo+PiAgICAgICAv
-KiBUdXJuIG9uIHRoZSBkaXN0cmlidXRvciAqLw0KPj4gQEAgLTcwMyw2ICs3NzEsMTEgQEAgc3Rh
-dGljIHZvaWQgX19pbml0IGdpY3YzX2Rpc3RfaW5pdCh2b2lkKQ0KPj4gICANCj4+ICAgICAgIGZv
-ciAoIGkgPSBOUl9HSUNfTE9DQUxfSVJRUzsgaSA8IG5yX2xpbmVzOyBpKysgKQ0KPj4gICAgICAg
-ICAgIHdyaXRlcV9yZWxheGVkX25vbl9hdG9taWMoYWZmaW5pdHksIEdJQ0QgKyBHSUNEX0lST1VU
-RVIgKyBpICogOCk7DQo+PiArDQo+PiArI2lmZGVmIENPTkZJR19HSUNWM19FU1BJDQo+PiArICAg
-IGZvciAoIGkgPSAwOyBpIDwgZ2ljdjNfaW5mby5ucl9lc3BpOyBpKysgKQ0KPj4gKyAgICAgICAg
-d3JpdGVxX3JlbGF4ZWRfbm9uX2F0b21pYyhhZmZpbml0eSwgR0lDRCArIEdJQ0RfSVJPVVRFUm5F
-ICsgaSAqIDgpOw0KPj4gKyNlbmRpZg0KPj4gICB9DQo+PiAgIA0KPj4gICBzdGF0aWMgaW50IGdp
-Y3YzX2VuYWJsZV9yZWRpc3Qodm9pZCkNCj4+IGRpZmYgLS1naXQgYS94ZW4vYXJjaC9hcm0vaW5j
-bHVkZS9hc20vZ2ljLmggYi94ZW4vYXJjaC9hcm0vaW5jbHVkZS9hc20vZ2ljLmgNCj4+IGluZGV4
-IGFjMGI3Yjc4M2UuLjJmNTcwYWJmNzAgMTAwNjQ0DQo+PiAtLS0gYS94ZW4vYXJjaC9hcm0vaW5j
-bHVkZS9hc20vZ2ljLmgNCj4+ICsrKyBiL3hlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9naWMuaA0K
-Pj4gQEAgLTMwNiw4ICszMDYsMjEgQEAgZXh0ZXJuIHZvaWQgZ2ljX2R1bXBfdmdpY19pbmZvKHN0
-cnVjdCB2Y3B1ICp2KTsNCj4+ICAgDQo+PiAgIC8qIE51bWJlciBvZiBpbnRlcnJ1cHQgbGluZXMg
-Ki8NCj4+ICAgZXh0ZXJuIHVuc2lnbmVkIGludCBnaWNfbnVtYmVyX2xpbmVzKHZvaWQpOw0KPj4g
-KyNpZmRlZiBDT05GSUdfR0lDVjNfRVNQSQ0KPj4gK2V4dGVybiB1bnNpZ25lZCBpbnQgZ2ljX251
-bWJlcl9lc3Bpcyh2b2lkKTsNCj4+ICsNCj4+ICtzdGF0aWMgaW5saW5lIGJvb2wgZ2ljX2lzX3Zh
-bGlkX2VzcGkodW5zaWduZWQgaW50IGlycSkNCj4+ICt7DQo+PiArICAgIHJldHVybiAoaXJxID49
-IEVTUElfQkFTRV9JTlRJRCAmJiBpcnEgPCBFU1BJX0lEWDJJTlRJRChnaWNfbnVtYmVyX2VzcGlz
-KCkpKTsNCj4+ICt9DQo+PiArI2VuZGlmDQo+PiArDQo+PiAgIHN0YXRpYyBpbmxpbmUgYm9vbCBn
-aWNfaXNfdmFsaWRfaXJxKHVuc2lnbmVkIGludCBpcnEpDQo+PiAgIHsNCj4+ICsjaWZkZWYgQ09O
-RklHX0dJQ1YzX0VTUEkNCj4+ICsgICAgaWYgKCBnaWNfaXNfdmFsaWRfZXNwaShpcnEpICkNCj4+
-ICsgICAgICAgIHJldHVybiB0cnVlOw0KPj4gKyNlbmRpZg0KPj4gICAgICAgcmV0dXJuIGlycSA8
-IGdpY19udW1iZXJfbGluZXMoKTsNCj4+ICAgfQ0KPj4gICANCj4+IEBAIC0zMjUsNiArMzM4LDEw
-IEBAIHN0cnVjdCBnaWNfaW5mbyB7DQo+PiAgICAgICBlbnVtIGdpY192ZXJzaW9uIGh3X3ZlcnNp
-b247DQo+PiAgICAgICAvKiBOdW1iZXIgb2YgR0lDIGxpbmVzIHN1cHBvcnRlZCAqLw0KPj4gICAg
-ICAgdW5zaWduZWQgaW50IG5yX2xpbmVzOw0KPj4gKyNpZmRlZiBDT05GSUdfR0lDVjNfRVNQSQ0K
-Pj4gKyAgICAvKiBOdW1iZXIgb2YgR0lDIGVTUEkgc3VwcG9ydGVkICovDQo+PiArICAgIHVuc2ln
-bmVkIGludCBucl9lc3BpOw0KPj4gKyNlbmRpZg0KPj4gICAgICAgLyogTnVtYmVyIG9mIExSIHJl
-Z2lzdGVycyAqLw0KPj4gICAgICAgdWludDhfdCBucl9scnM7DQo+PiAgICAgICAvKiBNYWludGVu
-YW5jZSBpcnEgbnVtYmVyICovDQo+PiBkaWZmIC0tZ2l0IGEveGVuL2FyY2gvYXJtL2luY2x1ZGUv
-YXNtL2dpY192M19kZWZzLmggYi94ZW4vYXJjaC9hcm0vaW5jbHVkZS9hc20vZ2ljX3YzX2RlZnMu
-aA0KPj4gaW5kZXggMmFmMDkzZTc3NC4uN2Y3NjliMzhlMyAxMDA2NDQNCj4+IC0tLSBhL3hlbi9h
-cmNoL2FybS9pbmNsdWRlL2FzbS9naWNfdjNfZGVmcy5oDQo+PiArKysgYi94ZW4vYXJjaC9hcm0v
-aW5jbHVkZS9hc20vZ2ljX3YzX2RlZnMuaA0KPj4gQEAgLTM3LDYgKzM3LDM5IEBADQo+PiAgICNk
-ZWZpbmUgR0lDRF9JUk9VVEVSMTAxOSAgICAgICAgICAgICAoMHg3RkQ4KQ0KPj4gICAjZGVmaW5l
-IEdJQ0RfUElEUjIgICAgICAgICAgICAgICAgICAgKDB4RkZFOCkNCj4+ICAgDQo+PiArI2lmZGVm
-IENPTkZJR19HSUNWM19FU1BJDQo+PiArLyogQWRkaXRpb25hbCByZWdpc3RlcnMgZm9yIEdJQ3Yz
-LjEgKi8NCj4+ICsjZGVmaW5lIEdJQ0RfSUdST1VQUm5FICAgICAgICAgICAgICAgKDB4MTAwMCkN
-Cj4+ICsjZGVmaW5lIEdJQ0RfSUdST1VQUm5FTiAgICAgICAgICAgICAgKDB4MTA3QykNCj4+ICsj
-ZGVmaW5lIEdJQ0RfSVNFTkFCTEVSbkUgICAgICAgICAgICAgKDB4MTIwMCkNCj4+ICsjZGVmaW5l
-IEdJQ0RfSVNFTkFCTEVSbkVOICAgICAgICAgICAgKDB4MTI3QykNCj4+ICsjZGVmaW5lIEdJQ0Rf
-SUNFTkFCTEVSbkUgICAgICAgICAgICAgKDB4MTQwMCkNCj4+ICsjZGVmaW5lIEdJQ0RfSUNFTkFC
-TEVSbkVOICAgICAgICAgICAgKDB4MTQ3QykNCj4+ICsjZGVmaW5lIEdJQ0RfSVNQRU5EUm5FICAg
-ICAgICAgICAgICAgKDB4MTYwMCkNCj4+ICsjZGVmaW5lIEdJQ0RfSVNQRU5EUm5FTiAgICAgICAg
-ICAgICAgKDB4MTY3QykNCj4+ICsjZGVmaW5lIEdJQ0RfSUNQRU5EUm5FICAgICAgICAgICAgICAg
-KDB4MTgwMCkNCj4+ICsjZGVmaW5lIEdJQ0RfSUNQRU5EUm5FTiAgICAgICAgICAgICAgKDB4MTg3
-QykNCj4+ICsjZGVmaW5lIEdJQ0RfSVNBQ1RJVkVSbkUgICAgICAgICAgICAgKDB4MUEwMCkNCj4+
-ICsjZGVmaW5lIEdJQ0RfSVNBQ1RJVkVSbkVOICAgICAgICAgICAgKDB4MUE3QykNCj4+ICsjZGVm
-aW5lIEdJQ0RfSUNBQ1RJVkVSbkUgICAgICAgICAgICAgKDB4MUMwMCkNCj4+ICsjZGVmaW5lIEdJ
-Q0RfSUNBQ1RJVkVSbkVOICAgICAgICAgICAgKDB4MUM3QykNCj4+ICsjZGVmaW5lIEdJQ0RfSVBS
-SU9SSVRZUm5FICAgICAgICAgICAgKDB4MjAwMCkNCj4+ICsjZGVmaW5lIEdJQ0RfSVBSSU9SSVRZ
-Um5FTiAgICAgICAgICAgKDB4MjNGQykNCj4+ICsjZGVmaW5lIEdJQ0RfSUNGR1JuRSAgICAgICAg
-ICAgICAgICAgKDB4MzAwMCkNCj4+ICsjZGVmaW5lIEdJQ0RfSUNGR1JuRU4gICAgICAgICAgICAg
-ICAgKDB4MzBGQykNCj4+ICsjZGVmaW5lIEdJQ0RfSVJPVVRFUm5FICAgICAgICAgICAgICAgKDB4
-ODAwMCkNCj4+ICsjZGVmaW5lIEdJQ0RfSVJPVVRFUm5FTiAgICAgICAgICAgICAgKDB4OUZGQykN
-Cj4+ICsNCj4+ICsjZGVmaW5lIEdJQ0RfVFlQRVJfRVNQSV9TSElGVCAgICAgICAgOA0KPj4gKyNk
-ZWZpbmUgR0lDRF9UWVBFUl9FU1BJX1JBTkdFX1NISUZUICAyNw0KPj4gKyNkZWZpbmUgR0lDRF9U
-WVBFUl9FU1BJX1JBTkdFX01BU0sgICAoMHgxRikNCj4+ICsjZGVmaW5lIEdJQ0RfVFlQRVJfRVNQ
-SSAgICAgICAgICAgICAgKDFVIDw8IEdJQ0RfVFlQRVJfRVNQSV9TSElGVCkNCj4+ICsjZGVmaW5l
-IEdJQ0RfVFlQRVJfRVNQSV9SQU5HRSh0eXBlcikgKCgoKHR5cGVyKSAmIEdJQ0RfVFlQRVJfRVNQ
-SV9SQU5HRV9NQVNLKSArIDEpICogMzIpDQo+IA0KPiBJc24ndCB0aGlzIGxpbmUgYSBiaXQgbG9u
-Zz8NCj4gDQoNClllcywgSSB3aWxsIHJldmlzZSBhbGwgcGF0Y2hlcyBpbiB0aGUgc2VyaWVzIHdp
-dGggc3VjaCBsb25nIGxpbmVzIGFuZCANCmZpeCB0aGVtIGluIFYzLg0KDQo+PiArI2RlZmluZSBH
-SUNEX1RZUEVSX0VTUElTX05VTSh0eXBlcikgICAgXA0KPj4gKyAgICAgICAgKCgodHlwZXIpICYg
-R0lDRF9UWVBFUl9FU1BJKSA/IFwNCj4+ICsgICAgICAgIEdJQ0RfVFlQRVJfRVNQSV9SQU5HRSgo
-dHlwZXIpID4+IEdJQ0RfVFlQRVJfRVNQSV9SQU5HRV9TSElGVCkgOiAwKQ0KPiANCj4gSSBhbSBu
-b3Qgc3VyZSB0aGF0IHRoaXMgaXMgY29ycmVjdC4NCj4gDQo+IFByb2JhYmx5IHlvdSB3YW50ZWQg
-dG8gd3JpdGUNCj4gKyAgICAgICAgR0lDRF9UWVBFUl9FU1BJX1JBTkdFKCh0eXBlciA+PiBHSUNE
-X1RZUEVSX0VTUElfUkFOR0VfU0hJRlQpKSA6IDApDQo+IA0KPiANCg0KSSBkb3VibGUgY2hlY2tl
-ZCAtIGl0IHNlZW1zIGxpa2UgZXZlcnl0aGluZyBpcyBjb3JyZWN0IC0gdGhlIHR5cGVyIA0KcGFy
-YW1ldGVyIHNob3VsZCBiZSBzdXJyb3VuZGVkIGJ5IHBhcmVudGhlc2VzLCBhbmQgR0lDRF9UWVBF
-Ul9FU1BJX1JBTkdFIA0Kc2hvdWxkIG9wZXJhdGUgd2l0aCB0aGUgYWxyZWFkeSBzaGlmdGVkIHZh
-bHVlLiBIb3dldmVyLCBJIHdyb3RlIGEgDQpzbGlnaHRseSBjb25mdXNpbmcgbWFjcm8uIEF0IHRo
-ZSB2ZXJ5IGxlYXN0LCBpdCB3b3VsZCBiZSBiZXR0ZXIgdG8gDQpyZW5hbWUgaW4gVjMgdGhlIHR5
-cGVyIHBhcmFtZXRlciBpbiBHSUNEX1RZUEVSX0VTUElfUkFOR0UsIGJlY2F1c2UgaXQgDQp0YWtl
-cyB0aGUgdmFsdWUgb2YgR0lDRF9UWVBFUiB0aGF0IGlzIGFscmVhZHkgc2hpZnRlZCBieSAyNywg
-aW5zdGVhZCBvZiANCnRoZSByYXcgcmVnaXN0ZXIgdmFsdWUuIFdvdWxkIHRoYXQgYmUgYWNjZXB0
-YWJsZT8NCg0KPj4gKyNlbmRpZg0KPj4gKw0KPj4gICAvKiBDb21tb24gYmV0d2VlbiBHSUNEX1BJ
-RFIyIGFuZCBHSUNSX1BJRFIyICovDQo+PiAgICNkZWZpbmUgR0lDX1BJRFIyX0FSQ0hfTUFTSyAg
-ICAgICAgICgweGYwKQ0KPj4gICAjZGVmaW5lIEdJQ19QSURSMl9BUkNIX0dJQ3YzICAgICAgICAo
-MHgzMCkNCj4gDQoNCkJlc3QgcmVnYXJkcywNCkxlb25pZA0K
+Hello,
+
+Le 28/07/2025 =C3=A0 06:45, Penny Zheng a =C3=A9crit=C2=A0:
+> Display option, like vnc, sdl, etc, will be checked against in latest QEM=
+U
+> whether it is compatile with opengl context. And vnc is incompatible with=
+ GL
+> context.
+> Now, when running hvm domain with gl context on, such as
+> "device_model_args_hvm =3D ["-display", "sdl,gl=3Don"]", we will fail wit=
+h
+> the error of "qemu-system-i386: -vnc 127.0.0.1:0,to=3D99: Display vnc is
+> incompatible with the GL context", as vnc is set enabled on default
+> for HVM domain.
+> 
+> We shall move "opengl" option out of specifc sdl display, to make it
+> generic. Then when users explicitly set "opengl =3D 1", default values fo=
+r
+> vnc shall be changed to disabled and libxl__dm_vnc() needs to return NULL
+> indicating vnc being disabled.
+> 
+> If users select both vnc and opengl in xl configuration, creation
+> will fail and error out incompatible info.
+> To keep consistency, we also make "opengl" generic for vfb[] options
+> 
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+
+There is a way to make vnc work with opengl by using the egl-headless 
+display (-display egl-headless,gl=3Don), which can coexist along vnc. So 
+that we could avoid having "opengl" as a sdl-specific option.
+
+> ---
+>   tools/libs/light/libxl_console.c |  4 ++--
+>   tools/libs/light/libxl_create.c  | 10 ++++++----
+>   tools/libs/light/libxl_dm.c      |  7 ++++++-
+>   tools/libs/light/libxl_types.idl |  3 ++-
+>   tools/xl/xl_parse.c              | 17 +++++++++--------
+>   tools/xl/xl_sxp.c                |  6 +++---
+>   6 files changed, 28 insertions(+), 19 deletions(-)
+> 
+> diff --git a/tools/libs/light/libxl_console.c b/tools/libs/light/libxl_co=
+nsole.c
+> index 044ca64676..fc3dfddc4d 100644
+> --- a/tools/libs/light/libxl_console.c
+> +++ b/tools/libs/light/libxl_console.c
+> @@ -694,7 +694,7 @@ static int libxl__device_vfb_setdefault(libxl__gc *gc=
+, uint32_t domid,
+>       }
+>   
+>       libxl_defbool_setdefault(&vfb->sdl.enable, false);
+> -    libxl_defbool_setdefault(&vfb->sdl.opengl, false);
+> +    libxl_defbool_setdefault(&vfb->opengl, false);
+>   
+>       rc =3D libxl__resolve_domid(gc, vfb->backend_domname, &vfb->backend=
+_domid);
+>       return rc;
+> @@ -733,7 +733,7 @@ static int libxl__set_xenstore_vfb(libxl__gc *gc, uin=
+t32_t domid,
+>       flexarray_append_pair(back, "sdl",
+>                             libxl_defbool_val(vfb->sdl.enable) ? "1" : "0=
+");
+>       flexarray_append_pair(back, "opengl",
+> -                          libxl_defbool_val(vfb->sdl.opengl) ? "1" : "0"=
+);
+> +                          libxl_defbool_val(vfb->opengl) ? "1" : "0");
+>       if (vfb->sdl.xauthority) {
+>           flexarray_append_pair(back, "xauthority", vfb->sdl.xauthority);
+>       }
+> diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_cre=
+ate.c
+> index 4301f17f90..7bbd1ff9b4 100644
+> --- a/tools/libs/light/libxl_create.c
+> +++ b/tools/libs/light/libxl_create.c
+> @@ -339,7 +339,12 @@ int libxl__domain_build_info_setdefault(libxl__gc *g=
+c,
+>           if (!b_info->u.hvm.boot)
+>               b_info->u.hvm.boot =3D libxl__strdup(NOGC, "cda");
+>   
+> -        libxl_defbool_setdefault(&b_info->u.hvm.vnc.enable, true);
+> +        libxl_defbool_setdefault(&b_info->u.hvm.opengl, false);
+> +
+> +        if (libxl_defbool_val(b_info->u.hvm.opengl))
+> +            libxl_defbool_setdefault(&b_info->u.hvm.vnc.enable, false);
+> +        else
+> +            libxl_defbool_setdefault(&b_info->u.hvm.vnc.enable, true);
+>           if (libxl_defbool_val(b_info->u.hvm.vnc.enable)) {
+>               libxl_defbool_setdefault(&b_info->u.hvm.vnc.findunused, tru=
+e);
+>               if (!b_info->u.hvm.vnc.listen)
+> @@ -347,9 +352,6 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc=
+,
+>           }
+>   
+>           libxl_defbool_setdefault(&b_info->u.hvm.sdl.enable, false);
+> -        if (libxl_defbool_val(b_info->u.hvm.sdl.enable)) {
+> -            libxl_defbool_setdefault(&b_info->u.hvm.sdl.opengl, false);
+> -        }
+>   
+>           if (libxl_defbool_val(b_info->u.hvm.spice.enable)) {
+>               libxl_defbool_setdefault(&b_info->u.hvm.spice.disable_ticke=
+ting,
+> diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
+> index 511ec76a65..7adf473c81 100644
+> --- a/tools/libs/light/libxl_dm.c
+> +++ b/tools/libs/light/libxl_dm.c
+> @@ -672,6 +672,10 @@ int libxl__domain_device_construct_rdm(libxl__gc *gc=
+,
+>   const libxl_vnc_info *libxl__dm_vnc(const libxl_domain_config *guest_co=
+nfig)
+>   {
+>       const libxl_vnc_info *vnc =3D NULL;
+> +
+> +    if (libxl_defbool_val(guest_config->b_info.u.hvm.opengl))
+> +        return NULL;
+> +
+>       if (guest_config->b_info.type =3D=3D LIBXL_DOMAIN_TYPE_HVM) {
+>           vnc =3D &guest_config->b_info.u.hvm.vnc;
+>       } else if (guest_config->num_vfbs > 0) {
+> @@ -955,6 +959,7 @@ static int libxl__build_device_model_args_new(libxl__=
+gc *gc,
+>       const char *path, *chardev;
+>       bool is_stubdom =3D libxl_defbool_val(b_info->device_model_stubdoma=
+in);
+>       int rc;
+> +    bool has_opengl =3D libxl_defbool_val(b_info->u.hvm.opengl);
+>   
+>       dm_args =3D flexarray_make(gc, 16, 1);
+>       dm_envs =3D flexarray_make(gc, 16, 1);
+> @@ -1084,7 +1089,7 @@ static int libxl__build_device_model_args_new(libxl=
+__gc *gc,
+>           }
+>   
+>           flexarray_append(dm_args, vncarg);
+> -    } else if (!is_stubdom) {
+> +    } else if (!is_stubdom && !has_opengl) {
+>           /*
+>            * Ensure that by default no vnc server is created.
+>            */
+> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_ty=
+pes.idl
+> index fe251649f3..ab768381ce 100644
+> --- a/tools/libs/light/libxl_types.idl
+> +++ b/tools/libs/light/libxl_types.idl
+> @@ -349,7 +349,6 @@ libxl_spice_info =3D Struct("spice_info", [
+>   
+>   libxl_sdl_info =3D Struct("sdl_info", [
+>       ("enable",        libxl_defbool),
+> -    ("opengl",        libxl_defbool),
+>       ("display",       string),
+>       ("xauthority",    string),
+>       ])
+> @@ -670,6 +669,7 @@ libxl_domain_build_info =3D Struct("domain_build_info=
+",[
+>                                          ("acpi_firmware",    string),
+>                                          ("hdtype",           libxl_hdtyp=
+e),
+>                                          ("nographic",        libxl_defbo=
+ol),
+> +                                       ("opengl",           libxl_defboo=
+l),
+>                                          ("vga",              libxl_vga_i=
+nterface_info),
+>                                          ("vnc",              libxl_vnc_i=
+nfo),
+>                                          # keyboard layout, default is en=
+-us keyboard
+> @@ -748,6 +748,7 @@ libxl_device_vfb =3D Struct("device_vfb", [
+>       ("backend_domid", libxl_domid),
+>       ("backend_domname",string),
+>       ("devid",         libxl_devid),
+> +    ("opengl",        libxl_defbool),
+>       ("vnc",           libxl_vnc_info),
+>       ("sdl",           libxl_sdl_info),
+>       # set keyboard layout, default is en-us keyboard
+> diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+> index 28cdbf07c2..9e9adcec77 100644
+> --- a/tools/xl/xl_parse.c
+> +++ b/tools/xl/xl_parse.c
+> @@ -272,7 +272,6 @@ static void parse_top_level_sdl_options(XLU_Config *c=
+onfig,
+>                                           libxl_sdl_info *sdl)
+>   {
+>       xlu_cfg_get_defbool(config, "sdl", &sdl->enable, 0);
+> -    xlu_cfg_get_defbool(config, "opengl", &sdl->opengl, 0);
+>       xlu_cfg_replace_string (config, "display", &sdl->display, 0);
+>       xlu_cfg_replace_string (config, "xauthority", &sdl->xauthority, 0);
+>   }
+> @@ -1291,7 +1290,7 @@ void parse_config_data(const char *config_source,
+>   {
+>       libxl_physinfo physinfo;
+>       const char *buf;
+> -    long l, vcpus =3D 0;
+> +    long l, vcpus =3D 0, vnc_enabled =3D 0;
+>       XLU_Config *config;
+>       XLU_ConfigList *cpus, *vbds, *nics, *pcis, *cvfbs, *cpuids, *vtpms,
+>                      *usbctrls, *usbdevs, *p9devs, *vdispls, *pvcallsifs_=
+devs;
+> @@ -2572,7 +2571,7 @@ skip_nic:
+>                   } else if (!strcmp(p, "sdl")) {
+>                       libxl_defbool_set(&vfb->sdl.enable, atoi(p2 + 1));
+>                   } else if (!strcmp(p, "opengl")) {
+> -                    libxl_defbool_set(&vfb->sdl.opengl, atoi(p2 + 1));
+> +                    libxl_defbool_set(&vfb->opengl, atoi(p2 + 1));
+>                   } else if (!strcmp(p, "display")) {
+>                       free(vfb->sdl.display);
+>                       vfb->sdl.display =3D strdup(p2 + 1);
+> @@ -2791,14 +2790,16 @@ skip_usbdev:
+>   
+>   #undef parse_extra_args
+>   
+> +    if (!xlu_cfg_get_long (config, "vnc", &l, 0))
+> +        vnc_enabled =3D l;
+> +    xlu_cfg_get_defbool(config, "opengl", &b_info->u.hvm.opengl, 0);
+> +    if (vnc_enabled && libxl_defbool_val(b_info->u.hvm.opengl)) {
+> +        fprintf(stderr, "vnc is incompatible with opengl\n");
+> +        exit(1);
+> +    }
+>       /* If we've already got vfb=3D[] for PV guest then ignore top level
+>        * VNC config. */
+>       if (c_info->type =3D=3D LIBXL_DOMAIN_TYPE_PV && !d_config->num_vfbs=
+) {
+> -        long vnc_enabled =3D 0;
+> -
+> -        if (!xlu_cfg_get_long (config, "vnc", &l, 0))
+> -            vnc_enabled =3D l;
+> -
+>           if (vnc_enabled) {
+>               libxl_device_vfb *vfb;
+>               libxl_device_vkb *vkb;
+> diff --git a/tools/xl/xl_sxp.c b/tools/xl/xl_sxp.c
+> index 4383ad177a..62a1d012c6 100644
+> --- a/tools/xl/xl_sxp.c
+> +++ b/tools/xl/xl_sxp.c
+> @@ -120,7 +120,7 @@ void printf_info_sexp(int domid, libxl_domain_config =
+*d_config, FILE *fh)
+>           fprintf(fh, "\t\t\t(sdl %s)\n",
+>                  libxl_defbool_to_string(b_info->u.hvm.sdl.enable));
+>           fprintf(fh, "\t\t\t(opengl %s)\n",
+> -               libxl_defbool_to_string(b_info->u.hvm.sdl.opengl));
+> +               libxl_defbool_to_string(b_info->u.hvm.opengl));
+>           fprintf(fh, "\t\t\t(nographic %s)\n",
+>                  libxl_defbool_to_string(b_info->u.hvm.nographic));
+>           fprintf(fh, "\t\t\t(spice %s)\n",
+> @@ -219,10 +219,10 @@ void printf_info_sexp(int domid, libxl_domain_confi=
+g *d_config, FILE *fh)
+>           fprintf(fh, "\t\t\t(vncunused %s)\n",
+>                  libxl_defbool_to_string(d_config->vfbs[i].vnc.findunused=
+));
+>           fprintf(fh, "\t\t\t(keymap %s)\n", d_config->vfbs[i].keymap);
+> +        fprintf(fh, "\t\t\t(opengl %s)\n",
+> +               libxl_defbool_to_string(d_config->vfbs[i].opengl));
+>           fprintf(fh, "\t\t\t(sdl %s)\n",
+>                  libxl_defbool_to_string(d_config->vfbs[i].sdl.enable));
+> -        fprintf(fh, "\t\t\t(opengl %s)\n",
+> -               libxl_defbool_to_string(d_config->vfbs[i].sdl.opengl));
+>           fprintf(fh, "\t\t\t(display %s)\n", d_config->vfbs[i].sdl.displ=
+ay);
+>           fprintf(fh, "\t\t\t(xauthority %s)\n", d_config->vfbs[i].sdl.xa=
+uthority);
+>           fprintf(fh, "\t\t)\n");
+
+
+
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
 
