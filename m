@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36E9AB30E48
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Aug 2025 07:51:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1089511.1447040 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25184B30E8C
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Aug 2025 08:11:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1089520.1447050 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upKgE-0007NV-TR; Fri, 22 Aug 2025 05:51:14 +0000
+	id 1upKzO-0001my-DE; Fri, 22 Aug 2025 06:11:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1089511.1447040; Fri, 22 Aug 2025 05:51:14 +0000
+Received: by outflank-mailman (output) from mailman id 1089520.1447050; Fri, 22 Aug 2025 06:11:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upKgE-0007LD-QU; Fri, 22 Aug 2025 05:51:14 +0000
-Received: by outflank-mailman (input) for mailman id 1089511;
- Fri, 22 Aug 2025 05:51:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1upKzO-0001lM-9T; Fri, 22 Aug 2025 06:11:02 +0000
+Received: by outflank-mailman (input) for mailman id 1089520;
+ Fri, 22 Aug 2025 06:11:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RDWw=3C=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1upKgE-0007L7-1W
- for xen-devel@lists.xenproject.org; Fri, 22 Aug 2025 05:51:14 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fd1da2d2-7f1b-11f0-b898-0df219b8e170;
- Fri, 22 Aug 2025 07:51:03 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-afdf4c4a2beso368023566b.1
- for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 22:51:03 -0700 (PDT)
+ id 1upKzM-0001lG-IF
+ for xen-devel@lists.xenproject.org; Fri, 22 Aug 2025 06:11:00 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c5a00b3d-7f1e-11f0-a32b-13f23c93f187;
+ Fri, 22 Aug 2025 08:10:59 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-afcb732eee6so284028266b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 23:10:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afded309f55sm532730966b.47.2025.08.21.22.51.02
+ a640c23a62f3a-afdf63c85efsm452003366b.10.2025.08.21.23.10.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Aug 2025 22:51:02 -0700 (PDT)
+ Thu, 21 Aug 2025 23:10:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd1da2d2-7f1b-11f0-b898-0df219b8e170
+X-Inumbo-ID: c5a00b3d-7f1e-11f0-a32b-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755841863; x=1756446663; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755843058; x=1756447858; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=X15MvuFxe7jtC3+HifH+voBQAhtHjBn3jbdHgH3CiZU=;
-        b=VHzcKfnKNZ3O9ZKq6OhmsezRM3Z1c3EGIwVeg4r31TpMvA7cM853tTIZ+Sc0cudaNT
-         w3kLIX/crRyDKg5Zp+NgsWa+hX9dQBZsJNIXY9V52g+jLeVm+Xfx6+182uD5Eyr7LqDw
-         v8/yKWuLlepBX+9+QZLSM59GEpv5mPOL3r4PTu8goEIQZmMnds0QS4Y4qKgzthTTXhqB
-         KP/uVTTUQ/Rf60CuDM5CAVaS5QldJJYQGpD2Rq5unjZn85giqIjzhMeAV1BK+OLHmDrw
-         X1dQaS3D0NkIYsmydjxASHeZeb9HXJy/SjI/7ib4PeY0isxqwgJdjMfjHkjAJDj6gyDY
-         3eUw==
+        bh=NxhrtaM48Eha+8pwXYiw+DRlJmG2Xq8UwkyvehuSeIw=;
+        b=hCSGbOKd9sSXtNZ7C/miMODGrH3dHPAMeq0gY6VsfNoimOX6GLzKYJQcGPSJDPvd5O
+         VEZypL+19XOGVNqpQyLtw8/xjF1yiO0DfzGOXCp+5C0v+aEWCwGdJsN4odAMvieR0t+x
+         98PVQbesf0crgLLWLYfzdCDzlkUYJR5F/c62aTdfh5A6HaKjk2VeLXFQZYziTfd0/lJM
+         2iNOlJGJI4z1ZBu5HIka/B3WPyMjT29rmQ0zTDwX1pAXTdLxsqmJDQySmB6zGR6X/qCi
+         +Xa6gtQ8p818Qv3M1dKWjXZS7Z2GGS+XZQ/tBcciABXrr2FpSuAtsPCPRy563q1EZDAd
+         ECDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755841863; x=1756446663;
+        d=1e100.net; s=20230601; t=1755843058; x=1756447858;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=X15MvuFxe7jtC3+HifH+voBQAhtHjBn3jbdHgH3CiZU=;
-        b=No5GSt0Tsbr6D9FVBzA3dHbq7Vw9F6nmnNI7k5vMZb5qf/wRE5Cy2eH/ausScWhRxT
-         gUin74GZ7NGt6vD2HEkMl9UWgf67dH29Dwp5d03nm30NneJapd2QjdITHIkEc9tcM3GD
-         ip7wH3G1Xx+2omHSzBxlsEyXXBpJkDBLUgJxbfn5+7wA7QVlUt66W8Qohpixohnj5iyk
-         EevPdQFWzX6Ciyi4VxWkgnmtEdf7a8/W/09vUrROU45LncK9t9k71PicdEy3/rqEJW+6
-         Tm7l1pDygY+GfP4PeBo4uSsWSiCcST0ltqh6lYjqYmHf9vmYJyTxBL0FA6pz1ahL54hN
-         3S4Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXrtGWPakh8doWj7crq8PAXmHOXWJW4CTtL8oUhQ/cyPUc78xdrXJfx5Aqs8IF1D4FWOpIErJO4R7M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwWv1WMa2kpdL41qATE69HWCFHYcJSg0LsMm53uIWUYQ+tDZ1A6
-	OCfazj8gCF0aZ/Y37ZYl8D7mf54i5JlrrezR1X7lbQr9l4FiV1Z4PAfEHtD0tK3pGg==
-X-Gm-Gg: ASbGncsrA0d2DcrXcpEKbSHoag3OcxPyKwk0xDaPgEFugYAFH3ys7yEv9+AhReGiFeC
-	G63RwLiQeukTLFMTKFQhzm3CN3Ia1JpP+64GBAmI6e6OXpDR/7MvWv/hMmOJX4H+CemrJoNvbUG
-	KQhA5/8DtuhR5930rkY0dxDWIXIxT3suZLnmg6RQTsZCQfnahYYkbX36RuaYGkI1dDvGLJl5WMt
-	M9ClB3g39auJY0WcbrX3SrVir03qs4zAQQghsh1Hy1qIHo4xvqhhrl9lEB3BiUHOdAtV/hJeDXl
-	7fZpvQwzmLnhMha9lu1sMm6htKBuBh4o2yIJkauYQGhXmbP0oXp9fjWotY0C5cmkm1+IIvZtPLE
-	ooFU1pfQWCLhnAANyOMDigGsbidyhu2+OxsdZg67+jr01+GyuW/xMHGup2+vDxBaZSH4/EOgSsD
-	6i4TsTMjI=
-X-Google-Smtp-Source: AGHT+IEPfR0/n/G1Xf0/7G9WphMob771Zrkm2xjWm84DgidBBFt5Ey/HVdS1NuOqBjvVYYx+ub+yvQ==
-X-Received: by 2002:a17:907:7e8d:b0:ae1:a69c:ea76 with SMTP id a640c23a62f3a-afe0b458e51mr424454766b.23.1755841863027;
-        Thu, 21 Aug 2025 22:51:03 -0700 (PDT)
-Message-ID: <e93eab09-0467-4fff-875b-c6cf2cf754a6@suse.com>
-Date: Fri, 22 Aug 2025 07:51:01 +0200
+        bh=NxhrtaM48Eha+8pwXYiw+DRlJmG2Xq8UwkyvehuSeIw=;
+        b=B1Jsnj3GZPESYHCS7Wa2aw68QO1wR/H4PmEFYHWQDdMUEZKSgMLIoqgRJE1o7ztdKl
+         I67NFod5GshyogrW535Ygtki9QfUTvhnmuYOBn9W/oIF/SueCpelLRf83AbBPqjR+ufI
+         deAkVBia0DWImQoqEqSsQYVWBWHAkmm5+U+fignttHr/Ok+8SNF+2nvrhjJB6/a8Pr9Q
+         cOKk71BT1R+ZJ5YXpjNh3xRkxzxJ0NSLSzFOGuBOOwQsawrxduTexnb3g94SfpB5w8sA
+         AF6VmIHELGXAyM9Xtki6TCeVvMnX3D4k2zrV0HzJCZYJXEsNAkJemYMW4ErfCkjP0ykz
+         a9gA==
+X-Forwarded-Encrypted: i=1; AJvYcCWWUrROejE4mp5hX2q+N7N7deFgTbGH5s7C4JoMl6PCrs/3ifALK7nrKikXvooLgj+RHcUzDA1lrCE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxmzRa5SDkq7NpbDagK/kIoDG1T95g+EmtZa7YINkVZbiBLjUnt
+	88E+SPl46SW9a4TMF2EsLvYfyxnWmwtMbk80dLx5DVsdVIsFsz3/aIFkd23CjjVCHw==
+X-Gm-Gg: ASbGncu9Si6KwdCbozJjmkE4u/lHXw2PiIvkWWzgKIse/GnOVGfvwCAoq8PHmt6RkkB
+	0M7EQHvY1OGsVU0BINpUndDRbtk8N/0TsyYAn/NYOEA1NCpBt8POq2gaYZp+Ex2paTB+19KpLYW
+	aFKLrlp4H0PEmUrWNVXwZPHiUXlF0G4cctSeUGjdwFUN96ZKKOvIM7mf1t5/mg9C38vjfLWtFJk
+	TTLUHGctTTRPbB54F76TCMh2thPGNLZK/kwXIPsbEkLQd/fKdhW9oYSL3H+cfxWfUoS43zECpQ1
+	rHUbJ8rrg++UB7I1j3KwZxj2AGvsfECSzji2fdf4Orj0gnqQsmSUHYltNwaZuSUxWUMmbmyK6Jy
+	nkdy18DuNBdBq/4kQLNMudepWUgmsxuoCt9GAXJaKZ79838sBGeQrgIAVJPjR0YovYEOxdLI5k0
+	3H/2/OmrMpLnKpRT+bZQ==
+X-Google-Smtp-Source: AGHT+IECGevi2FLPt+tT2fMOicBYwOG2rftt9rfArE9IpPLdOgsOLPsyMZIeL65giqgHMTlBIiFsog==
+X-Received: by 2002:a17:906:3c4c:b0:af9:7b49:c0 with SMTP id a640c23a62f3a-afe29527227mr117818966b.29.1755843058499;
+        Thu, 21 Aug 2025 23:10:58 -0700 (PDT)
+Message-ID: <9983e3e2-1436-43ca-9e98-57fa23d31885@suse.com>
+Date: Fri, 22 Aug 2025 08:10:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: "Penny, Zheng" <penny.zheng@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <20250815102728.1340505-1-Penny.Zheng@amd.com>
- <fb6f559a-b2aa-4b25-a6d3-401ecc4b4bd5@suse.com>
- <DM4PR12MB84519FE74D66604440827EA9E133A@DM4PR12MB8451.namprd12.prod.outlook.com>
- <43f0c9a6-a4f3-44e0-959f-a021ae3b0466@suse.com>
- <alpine.DEB.2.22.394.2508211710060.2743087@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v2 02/16] x86/msr: Rework rdmsr_safe() using asm goto()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250815204117.3312742-1-andrew.cooper3@citrix.com>
+ <20250815204117.3312742-3-andrew.cooper3@citrix.com>
+ <aa57cc7c-c659-4949-aaed-4484ead54ffc@suse.com>
+ <7b836f06-74ab-4588-8aeb-d0105b54be91@citrix.com>
+ <01ece885-1363-4aac-99ce-205354419400@suse.com>
+ <885c3544-1a4b-492b-bd3c-dd2e818d7eff@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,71 +123,100 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2508211710060.2743087@ubuntu-linux-20-04-desktop>
+In-Reply-To: <885c3544-1a4b-492b-bd3c-dd2e818d7eff@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 22.08.2025 02:10, Stefano Stabellini wrote:
-> On Thu, 21 Aug 2025, Jan Beulich wrote:
->> On 20.08.2025 05:12, Penny, Zheng wrote:
->>> [Public]
+On 21.08.2025 18:20, Andrew Cooper wrote:
+> On 19/08/2025 5:23 pm, Jan Beulich wrote:
+>> On 19.08.2025 15:52, Andrew Cooper wrote:
+>>> On 18/08/2025 12:27 pm, Jan Beulich wrote:
+>>>> On 15.08.2025 22:41, Andrew Cooper wrote:
+>>>>> ... on capable toolchains.
+>>>>>
+>>>>> This avoids needing to hold rc in a register across the RDMSR, and in most
+>>>>> cases removes direct testing and branching based on rc, as the fault label can
+>>>>> be rearranged to directly land on the out-of-line block.
+>>>>>
+>>>>> There is a subtle difference in behaviour.  The old behaviour would, on fault,
+>>>>> still produce 0's and write to val.
+>>>>>
+>>>>> The new behaviour only writes val on success, and write_msr() is the only
+>>>>> place where this matters.  Move temp out of switch() scope and initialise it
+>>>>> to 0.
+>>>> But what's the motivation behind making this behavioral change? At least in
+>>>> the cases where the return value isn't checked, it would feel safer if we
+>>>> continued clearing the value. Even if in all cases where this could matter
+>>>> (besides the one you cover here) one can prove correctness by looking at
+>>>> surrounding code.
+>>> I didn't realise I'd made a change at first, but it's a consequence of
+>>> the compiler's ability to rearrange basic blocks.
 >>>
->>>> -----Original Message-----
->>>> From: Jan Beulich <jbeulich@suse.com>
->>>> Sent: Monday, August 18, 2025 4:31 PM
->>>> To: Penny, Zheng <penny.zheng@amd.com>; Oleksii Kurochko
->>>> <oleksii.kurochko@gmail.com>
->>>> Cc: Huang, Ray <Ray.Huang@amd.com>; Andrew Cooper
->>>> <andrew.cooper3@citrix.com>; Roger Pau Monné <roger.pau@citrix.com>;
->>>> Anthony PERARD <anthony.perard@vates.tech>; Orzel, Michal
->>>> <Michal.Orzel@amd.com>; Julien Grall <julien@xen.org>; Stefano Stabellini
->>>> <sstabellini@kernel.org>; xen-devel@lists.xenproject.org
->>>> Subject: Re: [PATCH] xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE
->>>>
->>>> On 15.08.2025 12:27, Penny Zheng wrote:
->>>>> In order to fix CI error of a randconfig picking both
->>>>> PV_SHIM_EXCLUSIVE=y and HVM=y results in hvm.c being built, but
->>>>> domctl.c not being built, which leaves a few functions, like
->>>>> domctl_lock_acquire/release() undefined, causing linking to fail.
->>>>> To fix that, we intend to move domctl.o out of the PV_SHIM_EXCLUSIVE
->>>>> Makefile /hypercall-defs section, with this adjustment, we also need
->>>>> to release redundant vnuma_destroy() stub definition from
->>>>> PV_SHIM_EXCLUSIVE guardian, to not break compilation Above change will
->>>>> leave dead code in the shim binary temporarily and will be fixed with
->>>>> the introduction of domctl-op wrapping.
->>>>
->>>> Well, "temporarily" is now getting interesting. While v1 of "Introduce
->>>> CONFIG_DOMCTL" was submitted in time to still be eligible for taking into 4.21,
->>>> that - as indicated elsewhere - is moving us further in an unwanted direction. Hence
->>>> I'm not sure this can even be counted as an in-time submission. Plus it looks to be
->>>> pretty extensive re-work in some areas.
->>>> Hence I'm somewhat weary as to 4.21 here. IOW question, mainly to Oleksii, is
->>>> whether to
->>>> 1) strive to complete that work in time (and hence take the patch here),
->>>> 2) take the patch here, accepting the size regression for the shim, or
->>>> 3) revert what has caused the randconfig issues, and retry the effort in
->>>>    4.22.
->>>>
->>>>> Fixes: 568f806cba4c ("xen/x86: remove "depends on
->>>>> !PV_SHIM_EXCLUSIVE"")
->>>>> Reported-by: Jan Beulich <jbeulich@suse.com>
->>>>> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
->>>>
->>>> My earlier question (when the patch still was part of a series) sadly has remained
->>>> unanswered: You've run this through a full round of testing this time?
+>>> It can be fixed with ...
 >>>
->>> Sorry, missed that, yes, it has been tested with both default defconfig and allyesconfig.
+>>>>> --- a/xen/arch/x86/include/asm/msr.h
+>>>>> +++ b/xen/arch/x86/include/asm/msr.h
+>>>>> @@ -55,6 +55,24 @@ static inline void wrmsrns(uint32_t msr, uint64_t val)
+>>>>>  /* rdmsr with exception handling */
+>>>>>  static inline int rdmsr_safe(unsigned int msr, uint64_t *val)
+>>>>>  {
+>>>>> +#ifdef CONFIG_CC_HAS_ASM_GOTO_OUTPUT
+>>>>> +    uint64_t lo, hi;
+>>>>> +    asm_inline goto (
+>>>>> +        "1: rdmsr\n\t"
+>>>>> +        _ASM_EXTABLE(1b, %l[fault])
+>>>>> +        : "=a" (lo), "=d" (hi)
+>>>>> +        : "c" (msr)
+>>>>> +        :
+>>>>> +        : fault );
+>>>>> +
+>>>>> +    *val = lo | (hi << 32);
+>>>>> +
+>>>>> +    return 0;
+>>>>> +
+>>>>> + fault:
+>>>     *val = 0;
+>>>
+>>> here, but I don't want to do this.  Because val is by pointer and
+>>> generally spilled to the stack, the compiler can't optimise away the store.
+>> But the compiler is dealing with such indirection in inline functions just
+>> fine. I don't expect it would typically spill val to the stack. Is there
+>> anything specific here that you think would make this more likely?
+> 
+> Yes.  The design of the functions they're used in.  Adding this line
+> results in:
+> 
+> add/remove: 0/0 grow/shrink: 7/2 up/down: 109/-36 (73)
+> Function                                     old     new   delta
+> read_msr                                    1243    1307     +64
+> resource_access                              326     341     +15
+> hwp_init_msrs.cold                           297     308     +11
+> probe_cpuid_faulting                         168     175      +7
+> svm_msr_read_intercept                      1034    1039      +5
+> hwp_write_request                            113     117      +4
+> hwp_init_msrs                                371     374      +3
+> amd_log_freq                                 844     828     -16
+> guest_rdmsr                                 2168    2148     -20
+> 
+> Taking read_msr() as a concrete example, this is because it's a store
+> into a parent functions variable, not into a local variable, and cannot
+> be elided.
+> 
+> 
 >>
->> I'm sorry if my request was unclear, but with "full round of testing" I in particular
->> meant a full CI pipeline, plus (given the issue that's being fixed) some extra
->> randconfig testing.
+>>> I'd far rather get a real compiler error, than to have logic relying on
+>>> the result of a faulting MSR read.
+>> A compiler error? (Hmm, perhaps you think of uninitialized variable
+>> diagnostics. That may or may not trigger, depending on how else the
+>> caller's variable is used.)
 > 
-> https://gitlab.com/xen-project/people/sstabellini/xen/-/pipelines/1997431361
-> 
-> I ran a few tests myself changing config options on purpose trying to
-> break it, and so far they were all successful.
+> Yes I was referring to the uninitialised variable diagnostic.  *_safe()
+> are fairly rare, and we've got plenty of coverage in CI.
 
-Should I translate this to Tested-by: then?
+Well, okay, slightly hesitantly
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+preferably with the paragraph in the description that I commented on
+slightly expanded to cover the "why" aspect.
 
 Jan
 
