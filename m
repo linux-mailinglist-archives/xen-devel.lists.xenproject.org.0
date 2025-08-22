@@ -2,52 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF7F1B324AF
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Aug 2025 23:43:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1090520.1447710 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 772E3B32543
+	for <lists+xen-devel@lfdr.de>; Sat, 23 Aug 2025 01:03:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1090596.1447740 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upZXM-0004P2-4P; Fri, 22 Aug 2025 21:43:04 +0000
+	id 1upam5-0006wk-JX; Fri, 22 Aug 2025 23:02:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1090520.1447710; Fri, 22 Aug 2025 21:43:04 +0000
+Received: by outflank-mailman (output) from mailman id 1090596.1447740; Fri, 22 Aug 2025 23:02:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upZXM-0004MB-0Q; Fri, 22 Aug 2025 21:43:04 +0000
-Received: by outflank-mailman (input) for mailman id 1090520;
- Fri, 22 Aug 2025 21:43:02 +0000
+	id 1upam5-0006ua-GT; Fri, 22 Aug 2025 23:02:21 +0000
+Received: by outflank-mailman (input) for mailman id 1090596;
+ Fri, 22 Aug 2025 23:02:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=21kD=3C=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1upZXJ-0003pV-W2
- for xen-devel@lists.xenproject.org; Fri, 22 Aug 2025 21:43:01 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20612.outbound.protection.outlook.com
- [2a01:111:f403:2415::612])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f93d803d-7fa0-11f0-a32b-13f23c93f187;
- Fri, 22 Aug 2025 23:43:01 +0200 (CEST)
-Received: from BN8PR16CA0033.namprd16.prod.outlook.com (2603:10b6:408:4c::46)
- by MN2PR12MB4423.namprd12.prod.outlook.com (2603:10b6:208:24f::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.16; Fri, 22 Aug
- 2025 21:42:56 +0000
-Received: from MN1PEPF0000ECD9.namprd02.prod.outlook.com
- (2603:10b6:408:4c:cafe::d) by BN8PR16CA0033.outlook.office365.com
- (2603:10b6:408:4c::46) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9052.16 via Frontend Transport; Fri,
- 22 Aug 2025 21:42:56 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000ECD9.mail.protection.outlook.com (10.167.242.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9052.8 via Frontend Transport; Fri, 22 Aug 2025 21:42:55 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 22 Aug
- 2025 16:42:55 -0500
-Received: from fedora.mshome.net (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Fri, 22 Aug 2025 16:42:54 -0500
+ <SRS0=b3U+=3C=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
+ id 1upam4-0006uU-MQ
+ for xen-devel@lists.xenproject.org; Fri, 22 Aug 2025 23:02:20 +0000
+Received: from sender4-op-o16.zoho.com (sender4-op-o16.zoho.com
+ [136.143.188.16]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0b9772bd-7fac-11f0-a32b-13f23c93f187;
+ Sat, 23 Aug 2025 01:02:17 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1755903732182430.24189239395855;
+ Fri, 22 Aug 2025 16:02:12 -0700 (PDT)
+Received: by mail-oi1-f175.google.com with SMTP id
+ 5614622812f47-43601c9fb61so1553768b6e.1
+ for <xen-devel@lists.xenproject.org>; Fri, 22 Aug 2025 16:02:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,201 +41,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f93d803d-7fa0-11f0-a32b-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HDyctpuzeIiqxU5e4vZT4iJRtYNAAgi6RtgxYibmke2uCxMP3qVXlBIamKE4Or4N8Ip/sX9QloUQt1bNFeffOPLmg0lFlWHHms+qi0bMIMHT+rcwBkk000pxlD+c00Rc3QBNdWwz5CnR2DV1pvGs2qbpwt+FIEzw2GMSjpkOygowE3I4Jt271cIN+7caguek4RQcuWw+A8ly+qE+V6243cSk7BMClNX/aX+Ks4XE6SEi4vfbHgJzTRzQiK5dwkGcHZjNVQKf4S46UbiJl7u06jpHBjKj6PzFRwvVIppSM12v3V095frR67eBlDkUaVc0cyd45b/uPVowiv0ZnDmfHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=19cplcKMnFgiawUGNbnlhakIWSLzp3vbDklKXu2XH0Y=;
- b=Nxi9H3XZ4MTZyVLy3bI2C57ewHkxFmmtik7hGhNf5jNq2En/6aXbJEXulomP1DHEl2gsbM2StAd3uBx0ARbqlnh1kLdAvw6NRMukYRP3qRRCg3FrlCTC6IxzW8guNLJe84aZlRLCj4A1aT/oK71aABlJIgBiKcuJm/aLM5q7PaLLHqawupkYE70dT+BiQbtUnCHEkfkjX/6lmltcJQ8VVL43FwGDcjJAUj5xtwcOawFq0V9mo81eBuGt4MWZTUW6SydLyV2EdgINjXhEuWcGOPD6pad0hbcpilcVmpcxaYpLQN/empTx+euw7TxyY0igks60hiJbjQCnVoLP4bfk2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=19cplcKMnFgiawUGNbnlhakIWSLzp3vbDklKXu2XH0Y=;
- b=zCSZVj/aTGHR7T001loCiG4E3WTF4FhaXlm4q1V3dXq90tHKE+axQhuVTL5ZLkmHjvg3UlEvcgrviQG00eh9sIdjqrcD5+LiM6pBdmEe/mbgDjty8SZXdeimEqB4SQhT5ge3g03psFr79oR+CSy0PAA8nkvlxMoeKFn0th64xfY=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Jason Andryuk <jason.andryuk@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Alejandro Vallejo <alejandro.garciavallejo@amd.com>, Jason Andryuk
-	<jason.andryuk@amd.com>, Anthony PERARD <anthony.perard@vates.tech>, "Juergen
- Gross" <jgross@suse.com>
-Subject: [PATCH v2 3/3] libs/guest: Set console as disconnected on resume
-Date: Fri, 22 Aug 2025 17:39:45 -0400
-Message-ID: <20250822213946.245307-4-jason.andryuk@amd.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20250822213946.245307-1-jason.andryuk@amd.com>
-References: <20250822213946.245307-1-jason.andryuk@amd.com>
+X-Inumbo-ID: 0b9772bd-7fac-11f0-a32b-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; t=1755903733; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=bj3TBd5SHvdzTWrRtNiuo9dKCWMaJ1HSVaZYROx9DBCjG0qd+RGf2l8mGL5e1ooGxnzh3D7ZUSsuxN/ys6pnbx+zngXFc/XNZ1c8k7NAkVkT7da9L7WvAkM/3j/rnhxXsiyMk9M0gu4BpDIQwzAnY5E0kcG0TheO50RTalnpzsM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1755903733; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Cvwk5vsCAJavQOCGfAxBnQH0MMNtw9Z4c5BKExmtyrw=; 
+	b=lkAUVi7hh39k9KWmhrjO807DSguYM72Bnresz4QydOHUNHqN5lzVzP9Z9UqytxLP8+oVxDO3iGUCWq2sL2rW82FN/1SRHQkwZF/o3IHUrP0qLP2I8+aaO94Bx2gWfMfjWCY/8QPkMQX65T9qsT50C7uYm+Kpu3b/BntSCReUQUU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=tklengyel.com;
+	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
+	dmarc=pass header.from=<tamas@tklengyel.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1755903733;
+	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
+	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=Cvwk5vsCAJavQOCGfAxBnQH0MMNtw9Z4c5BKExmtyrw=;
+	b=QM6uiM1u5s3GkykAFCxBsgXSqwhryLp/fcqHgbqazyHf0iUVciw/eQB7NqZ1oRnk
+	RLrVXS1ki0Fnzdk1W5l+zA59nHrbXh+Osxv20cMDbciGFjUtOMz7ft+/hunnkWaU7k8
+	rvOQBi584E0MxgB8fi9+CuWaJD1hOqDmKjdzgfYw=
+X-Gm-Message-State: AOJu0Yx+ke+gbh2H63hQnv3XDJwV7pLz9W7nQZNZ7T6rWwX+910RS7he
+	/BGwvX77ijRXoUH+BhadasEl2AX61qg4WJ+of3rSj0u4TfdLDlTmdxRDaCqdX0lTe8Eaenx55Dn
+	uceZytAV8LOZ2Pzai1fyHDnCoM7bmfFI=
+X-Google-Smtp-Source: AGHT+IEPAUIUh9j1paz4AjewQCxcbIFBQjfHBQDJbW2WTe2F5tzuIz388iZFXnp4hpOpbIutrmk0I7oYbi5ERLqkFGI=
+X-Received: by 2002:a05:6808:180c:b0:41c:7cb1:fb47 with SMTP id
+ 5614622812f47-43785182210mr2124516b6e.8.1755903731366; Fri, 22 Aug 2025
+ 16:02:11 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD9:EE_|MN2PR12MB4423:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33f82a79-9729-4bd1-6c77-08dde1c4daed
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?WpnTmZq8+bC9CVnfcmk8u1EdI6pZGvFOMWv1ZAhTKsZMKnG+C2c32rGnjuYb?=
- =?us-ascii?Q?nVffjGs+A2BkR2HCfc16BTAEiSKbTmuLtdofIgn8BgY7xNH78hIgZnbad9jt?=
- =?us-ascii?Q?JsQbAlFsKtoD+oLo0YAJ0ROZdc9eCYaJWH2SPep+81wwF6RMC1H/SxPv1o3V?=
- =?us-ascii?Q?TsmwEdmsJ0j4pz7wd0FVf25vK+Rn9V/JRN8A/63FP6kPWtanZ4/1FoQkH4Ja?=
- =?us-ascii?Q?5lqgoyUq24BMjR9PTDf+ZVFZGCEYZAMSfe4UUmPA844LSYoUK1raSNUDl6i9?=
- =?us-ascii?Q?/IRlD9WkOf7jKDC6wUVpjgLBb5Azf6BZVUXD/S+ETPJg4qQvcEnwV/XPj5Km?=
- =?us-ascii?Q?PBjNa8wMheTkrx0ZvsVYgCAWxQWr8DYDz1JRVeipXBu9n1jxKeDv4j+FjjxC?=
- =?us-ascii?Q?P6xnj36aZOc/zMN8s4RoFl6WvW4AXtFiaaxolkbhwbcjdzLF5dmRA1UxhY+4?=
- =?us-ascii?Q?zyZlWNMpqOaDj/Q91Yj+/RDK9X+P+oAzWYimlKoZDTB6Ps+2R3Pcr30+OED4?=
- =?us-ascii?Q?XisbuFEIFfszaroJH1t5jT0zGAcdOBVyTbBtKFUTWh2Q38F6ulFDW7b3xahG?=
- =?us-ascii?Q?UTHzMTFHBqNbY+CouR5DTbi81HUoWUH+DQBuNbNaqqgmae9V7Xcl6D+yBtiW?=
- =?us-ascii?Q?9KvOPRjy3vbmm2tApXAByO6duJBdtqRzGi0BMUi89IQN166sesYeb1BYRWps?=
- =?us-ascii?Q?9jTXFGQ9ojdTlyWywrP7J1PSNZ7X3MvVMMHdvsCB85zjRF2/yAGeVIOT9Jz2?=
- =?us-ascii?Q?YXhlSsBBs9MdOKy/w8JChwb5TiCcGFk5iBKHH/FR/znaJYeF9WFhrduikMia?=
- =?us-ascii?Q?KVz3bPNVFU5URWkm7H5aYsHlhz6c5cwBnlTdpTxfcU/bAzLz1CXsglAadPCU?=
- =?us-ascii?Q?3S4MHYTZK0Q79ut1gWLjr9xIceYVJo4yBjzWJQH2JQbJUmehhN73hIgounsV?=
- =?us-ascii?Q?FR9Yjg9FwnqGrnnmuNiVYYgYqLDi7Z9ShOXBdl+Bm/izJgy9yHstSWDYragW?=
- =?us-ascii?Q?j6H+xcn9FkH7lATUbwmd/jJYoXos/3srqe/A+hIN+2onasj0TVipxVkr3Q1I?=
- =?us-ascii?Q?c9kUQ5A9s4HHg6qOugtI2A/M8zVhAI2aykhpL8W0V5K/XC9zTenNyZmu/uBc?=
- =?us-ascii?Q?XkROmrYbKUfLSChOkTcDvMiXgqE+2GxQUTl5uODjMnWyCKbnVv/xuppYomNI?=
- =?us-ascii?Q?U0QRFR40KSnzXAxjdutZiKuWvkeVAEUhDRSL12Y8HsNgvkE4XNKqLihvW66f?=
- =?us-ascii?Q?+f6gKExespGy7IWaTBQWYZaEQ6EFEz46dFSPs5eNbL6df7gO5Tx54h2WKaaE?=
- =?us-ascii?Q?e1tW5gEhKZZ3owbExu5AcCfdUy8lETNdMEv37PY1dVP4rcVOLN9RQJhPYt9H?=
- =?us-ascii?Q?+Ds7OM0AjyzTUhSx/GZpyqHmtBLnkaoCLnRT9uimgofWx9qm26AwBHSGu5FP?=
- =?us-ascii?Q?A5x1h2EbNYJu4MCY5R1W4pREWWZyzAtAFieJflE9jxs2nQWyFYLaoe8zoa2w?=
- =?us-ascii?Q?2XkPIomE+DJbjSnebcA1/Q3Zo5U8B8POVAbq?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Aug 2025 21:42:55.8874
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33f82a79-9729-4bd1-6c77-08dde1c4daed
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECD9.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4423
+References: <cover.1753953832.git.w1benny@gmail.com> <44b4b60854cd7db6d529ff23bb228e9ac19a2a75.1753953832.git.w1benny@gmail.com>
+In-Reply-To: <44b4b60854cd7db6d529ff23bb228e9ac19a2a75.1753953832.git.w1benny@gmail.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Fri, 22 Aug 2025 19:01:35 -0400
+X-Gmail-Original-Message-ID: <CABfawhkYYwfnp7nVC4D1G8bmbaJZ7pDKpeT-hpYGEfq=BtteSw@mail.gmail.com>
+X-Gm-Features: Ac12FXyGtsJ_porJ4vRgCLbF2l1dDWQ-BZ504vkHuSSdU2GvbDj8mrn68ZSmttA
+Message-ID: <CABfawhkYYwfnp7nVC4D1G8bmbaJZ7pDKpeT-hpYGEfq=BtteSw@mail.gmail.com>
+Subject: Re: [PATCH v12 1/6] altp2m: Drop p2m_altp2m_check() stubs on non-x86,
+ move prototype, and guard uses
+To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Shawn Anastasio <sanastasio@raptorengineering.com>, 
+	Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, 
+	Connor Davis <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
+	Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-There is currently an asymmetry between HVM where the page is cleared
-and PV where the contents are restored.
+On Thu, Jul 31, 2025 at 5:28=E2=80=AFAM Petr Bene=C5=A1 <w1benny@gmail.com>=
+ wrote:
+>
+> From: Petr Bene=C5=A1 <w1benny@gmail.com>
+>
+> Remove the no=E2=80=91op stubs from the ARM, PPC, and RISC=E2=80=91V p2m =
+headers and stop
+> providing a stub in arch/x86/include/asm/p2m.h.
+>
+> Declare p2m_altp2m_check() in xen/include/xen/p2m-common.h and gate all
+> call sites with CONFIG_ALTP2M:
+>  - wrap the fast_single_step block in hvm/monitor.c with #ifdef CONFIG_AL=
+TP2M
+>    (IS_ENABLED(CONFIG_ALTP2M) is not used here, because in the subsequent=
+ commit
+>    hvm_vcpu::fast_single_step will be guarded by CONFIG_ALTP2M)
+>  - make the vm_event.c path conditional via IS_ENABLED(CONFIG_ALTP2M)
+>
+> No functional change intended: on builds without ALTP2M the calls are
+> compiled out; on builds with ALTP2M behavior is unchanged.
+>
+> Signed-off-by: Petr Bene=C5=A1 <w1benny@gmail.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Add xc_dom_console_set_disconnected() to only set the connection flag
-for PV guests.
-
-xenconsoled is responsible for setting the console connected when it
-attaches.
-
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
----
-v2:
-New
----
- tools/include/xenguest.h                 |  2 ++
- tools/libs/guest/xg_dom_boot.c           | 24 ++++++++++++++++++++----
- tools/libs/guest/xg_sr_restore_x86_hvm.c |  2 +-
- tools/libs/guest/xg_sr_restore_x86_pv.c  |  1 +
- 4 files changed, 24 insertions(+), 5 deletions(-)
-
-diff --git a/tools/include/xenguest.h b/tools/include/xenguest.h
-index 1d5a6d3509..c88958faa9 100644
---- a/tools/include/xenguest.h
-+++ b/tools/include/xenguest.h
-@@ -337,6 +337,8 @@ int xc_dom_boot_image(struct xc_dom_image *dom);
- int xc_dom_compat_check(struct xc_dom_image *dom);
- int xc_dom_console_init(xc_interface *xch, uint32_t guest_domid,
-                         xen_pfn_t console_gfn);
-+int xc_dom_console_set_disconnected(xc_interface *xch, uint32_t guest_domid,
-+                                    xen_pfn_t console_gfn);
- int xc_dom_gnttab_init(struct xc_dom_image *dom);
- int xc_dom_gnttab_seed(xc_interface *xch, uint32_t guest_domid,
-                        bool is_hvm,
-diff --git a/tools/libs/guest/xg_dom_boot.c b/tools/libs/guest/xg_dom_boot.c
-index b5f248e642..f51b6a78c8 100644
---- a/tools/libs/guest/xg_dom_boot.c
-+++ b/tools/libs/guest/xg_dom_boot.c
-@@ -428,9 +428,10 @@ int xc_dom_gnttab_init(struct xc_dom_image *dom)
-                               dom->console_domid, dom->xenstore_domid);
- }
- 
--int xc_dom_console_init(xc_interface *xch,
--                        uint32_t domid,
--                        unsigned long dst_pfn)
-+static int dom_console_init(xc_interface *xch,
-+                            uint32_t domid,
-+                            unsigned long dst_pfn,
-+                            bool clear)
- {
-     const size_t size = PAGE_SIZE;
-     struct xencons_interface *xencons = xc_map_foreign_range(
-@@ -439,7 +440,8 @@ int xc_dom_console_init(xc_interface *xch,
-     if ( xencons == NULL )
-         return -1;
- 
--    memset(xencons, 0, size);
-+    if (clear)
-+        memset(xencons, 0, size);
-     xencons->connection = XENCONSOLE_DISCONNECTED;
- 
-     munmap(xencons, size);
-@@ -447,6 +449,20 @@ int xc_dom_console_init(xc_interface *xch,
-     return 0;
- }
- 
-+int xc_dom_console_init(xc_interface *xch,
-+                        uint32_t domid,
-+                        unsigned long dst_pfn)
-+{
-+    return dom_console_init(xch, domid, dst_pfn, true);
-+}
-+
-+int xc_dom_console_set_disconnected(xc_interface *xch,
-+                                    uint32_t domid,
-+                                    unsigned long dst_pfn)
-+{
-+    return dom_console_init(xch, domid, dst_pfn, false);
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/tools/libs/guest/xg_sr_restore_x86_hvm.c b/tools/libs/guest/xg_sr_restore_x86_hvm.c
-index d6ea6f3012..a5d1511fde 100644
---- a/tools/libs/guest/xg_sr_restore_x86_hvm.c
-+++ b/tools/libs/guest/xg_sr_restore_x86_hvm.c
-@@ -62,7 +62,7 @@ static int handle_hvm_params(struct xc_sr_context *ctx,
-         {
-         case HVM_PARAM_CONSOLE_PFN:
-             ctx->restore.console_gfn = entry->value;
--            xc_clear_domain_page(xch, ctx->domid, entry->value);
-+            xc_dom_console_init(xch, ctx->domid, entry->value);
-             break;
-         case HVM_PARAM_STORE_PFN:
-             ctx->restore.xenstore_gfn = entry->value;
-diff --git a/tools/libs/guest/xg_sr_restore_x86_pv.c b/tools/libs/guest/xg_sr_restore_x86_pv.c
-index 9cd6a88022..876748c11e 100644
---- a/tools/libs/guest/xg_sr_restore_x86_pv.c
-+++ b/tools/libs/guest/xg_sr_restore_x86_pv.c
-@@ -208,6 +208,7 @@ static int process_start_info(struct xc_sr_context *ctx,
-         goto err;
-     }
- 
-+    xc_dom_console_set_disconnected(xch, ctx->domid, mfn);
-     ctx->restore.console_gfn = mfn;
-     SET_FIELD(guest_start_info, console.domU.mfn, mfn, ctx->x86.pv.width);
-     SET_FIELD(guest_start_info, console.domU.evtchn,
--- 
-2.50.1
-
+vm_event/monitor bits:
+Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
 
