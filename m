@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82705B30EEB
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Aug 2025 08:28:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1089560.1447090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5D26B30EFD
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Aug 2025 08:33:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1089569.1447100 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upLGM-0005Dt-Ey; Fri, 22 Aug 2025 06:28:34 +0000
+	id 1upLKC-0006xf-Ut; Fri, 22 Aug 2025 06:32:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1089560.1447090; Fri, 22 Aug 2025 06:28:34 +0000
+Received: by outflank-mailman (output) from mailman id 1089569.1447100; Fri, 22 Aug 2025 06:32:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upLGM-0005Bp-Bm; Fri, 22 Aug 2025 06:28:34 +0000
-Received: by outflank-mailman (input) for mailman id 1089560;
- Fri, 22 Aug 2025 06:28:32 +0000
+	id 1upLKC-0006vP-RT; Fri, 22 Aug 2025 06:32:32 +0000
+Received: by outflank-mailman (input) for mailman id 1089569;
+ Fri, 22 Aug 2025 06:32:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RDWw=3C=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1upLGK-0005Bj-UP
- for xen-devel@lists.xenproject.org; Fri, 22 Aug 2025 06:28:32 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ id 1upLKB-0006vJ-Hl
+ for xen-devel@lists.xenproject.org; Fri, 22 Aug 2025 06:32:31 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 38d1a5be-7f21-11f0-a32b-13f23c93f187;
- Fri, 22 Aug 2025 08:28:31 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-afcb7347e09so291035866b.0
- for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 23:28:31 -0700 (PDT)
+ id c6f69fec-7f21-11f0-a32b-13f23c93f187;
+ Fri, 22 Aug 2025 08:32:29 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-afcb7a8dd3dso257265566b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Aug 2025 23:32:29 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afded4c90c8sm548283366b.79.2025.08.21.23.28.30
+ a640c23a62f3a-afded35547esm540832166b.50.2025.08.21.23.32.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Aug 2025 23:28:30 -0700 (PDT)
+ Thu, 21 Aug 2025 23:32:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38d1a5be-7f21-11f0-a32b-13f23c93f187
+X-Inumbo-ID: c6f69fec-7f21-11f0-a32b-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1755844111; x=1756448911; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1755844349; x=1756449149; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rx1LD1Ve98xpG5ENa3YojPpGg7PhKM87yn+Tz69EtDQ=;
-        b=Gao1LhLBhy0qAkmPXclcx7beBrmwLJFPsrzYKgOtmthjJ/wQyVDIX3QP1X1La9iTS2
-         d2BR+RQQCpO0pqn3kNcHhWTk4woi338idiOUL6HM1o2YGPl2cFCpw5eNjCfHWxmZnzIL
-         HjtoDDvowWaj+KEX9EOANF9pseJAfYPkb6hOt536rKh4vfyYlE2Q9r432O5/L+gAlquQ
-         egwuBgCu2VelR89SFE8fH7aEtTJym11/oknSHXK+nqDD+sVGkJX7dN9Ns5zrhg16SMJW
-         bFhKy8U0+L4bHmjyDlGcQOej5NJu3HjB551PZsERH385pRHV9Xb7kJW9WSxDG+uHFz0J
-         R6nA==
+        bh=sbWtywPyRVbOYriWTI/NOHCQnU/KatYA0nzQ5cWfK5k=;
+        b=Mg4qUKmzQNYHMqvQdzt7Em71Xps8B7gV2PZb3IjEg+a7kh/Z2syWecmAiYxNwVuJdT
+         uhZeUv9u1EFnU6wtqMK1ge1brWzdXpxNPU/zzdVNF6xtldgKQjVL6MqOOuWvbZhl+2oS
+         5ygmNaLodBVuSME1usiYydzQZ58cuiVR9uqvccw4NyAQY63TI4zA0NIRvYnDXfrAXgzI
+         xKGGHBTTmdcGKg+LwoFN530bkxo1BoawCZO78M5mUnpQ4xYDOibDZL0PyhNE2npSTkmW
+         4SobiNmshtnCJRyprnQkkCI2y+WL9u1UE00bRpK9lmlIwu/fnZWVnsv5qsSE8+B63oBl
+         aHig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755844111; x=1756448911;
+        d=1e100.net; s=20230601; t=1755844349; x=1756449149;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rx1LD1Ve98xpG5ENa3YojPpGg7PhKM87yn+Tz69EtDQ=;
-        b=Iio62LMxvYV3P6R2VaxKXnz5vDr0lK/ZFZhub8De8GMA+j0drIQs1mUjRO0KN18yyi
-         Uhm8QUT4+7m2UF6lXQPnE9SCjG/X9l3CSQHA9uXIz9RCTHgTTlkm5yr+Wq0R44hPcmfp
-         VnLazO6SDO7lNQ8o8Mq6pQuAZDBPc5T1ZYAzE1SLShJzLOIPTe6a3aDXvrD2FVs2EL/f
-         Ky0fttvaaKfknHuEBFiK4e9fjxH4NLNaF92mXALa7OqegESriUqy5HRYVu26wm7Xawao
-         fKBALi+CVR9JwSwQDEIUZ0Ud0IIXtqfwwXa7Q1bjzkDg+RKTffPJTXLrSKhV++K1rk5T
-         7qfQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVOc3VlBxOtBX0q3Zo6H+LPFd47FfUictLeFhDlBie2AkaBjdStXfyiq82jy5N3RRklnbvSQj45jiU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyx6vSKxKGYYzOVoAFYPofvpIXZjf6FCR7RdzsiN2bK+n4luE1a
-	HEhUQaMYUEeS1+VI6vCGXwEDeHsejKdPtrgDN1i0fNcsnKiRHssglqrkKJF7MYxf5w==
-X-Gm-Gg: ASbGncsHFcqT5Ry299VLIU7imy4ejRTKkxG2xh0Y93qc9a94SFtaIOSnMtTdndoQiVJ
-	iUFvdH5fGuTNQLjZ4C9TZVgCa2rqSJjJLSYCGQgVtbG/wIhxToGRssMzdqMkTiboHfQ8JJEQu0V
-	3H8o3xJ4Nz6Gw2VE8362F34JOj6hPwxKMqaLyPtH1j/7/3XChTD84Cg02aMJ8QUUhTfFBKLNJur
-	f8x6fVP+h2+pMH8ikw5NcyxW7830xnJyPJGgMSixz8E9i24PmvShc3lHUw1boaSti/0vnw8RGf1
-	M8epKuxsNn84mX1PZ0rTL5MhyPSQLDV6dOxWnTOLKJfcYn1osBUSxmyLrKZj+g55fDiDvODoWCO
-	WhhdmPnwx9Sd3likqQ+QOq0e3kcAzW6t5OzkKJ+z3FuYWXUScJFF+PcY0JnJVEkaa8xPTf8kRO+
-	le7MEu78+3MgBYhXgGKA==
-X-Google-Smtp-Source: AGHT+IHAgu4kTQlt7J3KNPI/XBAaVMJqapBJRxt9I1yVCuaC9Qtwj3nKzgZBeRe8tQL2mN5xedTN1A==
-X-Received: by 2002:a17:907:868d:b0:af9:7a90:6750 with SMTP id a640c23a62f3a-afe28f8369fmr174051966b.3.1755844110781;
-        Thu, 21 Aug 2025 23:28:30 -0700 (PDT)
-Message-ID: <d82e4e73-0a01-4c43-be6f-aefc3655ea6b@suse.com>
-Date: Fri, 22 Aug 2025 08:28:29 +0200
+        bh=sbWtywPyRVbOYriWTI/NOHCQnU/KatYA0nzQ5cWfK5k=;
+        b=U6elQyRP1KfujmnjZX11HCs2wG8PNPyo/AbIuZRdgsGVFItRMRDSEjfODj5kj/cHii
+         4drU1DAx5sfRQN7IrbDnlHUS2xzO/CoLdRdmwj2sHX2oM3a8LtDLJ4QFMiu3/wWS3AoR
+         WUOiMiCewlBnY+kGnc+EGECWdbNPIAVDTZ/9DQJtHikplUAZJAebH6hxF4XkhT6s/d4g
+         V1F0sfwdxgniJMFW5Dkg6SRAQKO92xLQI71Yu9aBOZ5II2gWa/vWRu8O9eexS85M36Aq
+         UYJU3CuxGSy8dbAtaFUjaCTMWxUbek2oeCQKNUscoZw03i9/jbsXquV2X3pxi2GIZhwZ
+         ZXZg==
+X-Forwarded-Encrypted: i=1; AJvYcCUSAUT0YLe+TIT0LsNODg+HOoXeZkr3S6ufCY/wdCj+zR/bmI8w26zUAAcr2f0yIHueXmWea/wgH0o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywzj3Z3DFaeti9vCwLJyMz7unk5NYeNdZ0LM1uACBQXohEduG/Q
+	AzjlC7CX0K99pTxNC1nPqUZxbChsRqL3bTduNF1kn7LpxOXba0Gwg2vp7Rt3BtKS9awH4cjiTvs
+	2ZVo=
+X-Gm-Gg: ASbGncvIBeNazwIjA5glFDOJrp5Z0CTlnOymVM0UXzcQG/O3/fqeamWTgp8sr/jF7yV
+	eRZK2EqP9cvMDNoXB5WtPCAmNfSbuUCbRYjvDqeCTUeYcOzQZNiEPVpBRvwDzWdvZpZVUvnGg4X
+	ndr/dElbB6JtSZIzP43OyuqYA4BhC9i4MHrJ0kYykjmnfRr+hALEuPyH9avxLXkdysuICNaTsHL
+	Y97wUpirNb8NDjIm1xvERdGDpvC/JVmlmWmjFlFKUTpT/TRqFQjtC2+guFMKa08OTWNwpP9P30j
+	ET1c5XvnzVzridzANGxTt5jl1niMTAHXyo0pOApnXjldolt19ImSDQD725Zl+b6HBNN+6pHZUNx
+	12Jz5GP89c36fUb+t75mEfx4TR8aEWuafZtE8SZK/1H+m7awHyPzVQjV7Qf9l29/ffYV7HMeLuX
+	SXN01WKE0=
+X-Google-Smtp-Source: AGHT+IFk9mT8zSxhTt9GoAIHBV4FYmVKc542Sby8cZ1gju+k1IZ1i+qcgw0ywMr5QxfKoKeoB/D2HQ==
+X-Received: by 2002:a17:907:2688:b0:afd:d9e4:51e9 with SMTP id a640c23a62f3a-afe297078bbmr137576266b.65.1755844349206;
+        Thu, 21 Aug 2025 23:32:29 -0700 (PDT)
+Message-ID: <2228c2cf-1cf3-48e3-bf53-b182e34b1a04@suse.com>
+Date: Fri, 22 Aug 2025 08:32:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 15/16] x86/fsgsbase: Update fs/gs helpers to use
- wrmsrns()
+Subject: Re: [PATCH v2 16/16] x86/fsgsbase: Improve code generation in
+ read_registers()
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250815204117.3312742-1-andrew.cooper3@citrix.com>
- <20250815204117.3312742-16-andrew.cooper3@citrix.com>
- <ae2e8b69-8251-4f60-a5ae-f6bfe413aafb@suse.com>
- <3a980515-564a-4fb2-85e8-9ee9afd93375@citrix.com>
+ <20250815204117.3312742-17-andrew.cooper3@citrix.com>
+ <e1444bbf-89b8-4685-ada6-3092d65fb9c6@suse.com>
+ <da892c2b-272d-4aa0-8eea-9e57f414bb5e@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,40 +123,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3a980515-564a-4fb2-85e8-9ee9afd93375@citrix.com>
+In-Reply-To: <da892c2b-272d-4aa0-8eea-9e57f414bb5e@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 21.08.2025 22:49, Andrew Cooper wrote:
-> On 19/08/2025 2:09 pm, Jan Beulich wrote:
+On 21.08.2025 22:52, Andrew Cooper wrote:
+> On 19/08/2025 2:19 pm, Jan Beulich wrote:
 >> On 15.08.2025 22:41, Andrew Cooper wrote:
->>> --- a/xen/arch/x86/hvm/vmx/vmx.c
->>> +++ b/xen/arch/x86/hvm/vmx/vmx.c
->>> @@ -2733,8 +2733,8 @@ static uint64_t cf_check vmx_get_reg(struct vcpu *v, unsigned int reg)
->>>      case MSR_SHADOW_GS_BASE:
->>>          if ( v != curr )
->>>              return v->arch.hvm.vmx.shadow_gs;
->>> -        rdmsrl(MSR_SHADOW_GS_BASE, val);
->>> -        return val;
->>> +        else
->>> +            return rdmsr(MSR_SHADOW_GS_BASE);
->>>      }
->> Here and below, can we please do without the pointless "else"? Strictly
->> speaking in Misra's terms that's "dead code" (things working identically
->> without), and I'm quite happy that I can now use this argument to
->> support my personal antipathy to this style of coding. Or else use the
->> conditional operator in such cases (where applicable).
+>>> It turns out that using the higher level helpers adjacent like this leads to
+>>> terrible code generation.  Due to -fno-strict-alising, the store into state->
+>>> invalidates the read_cr4() address calculation (which is really cpu_info->cr4
+>>> under the hood), meaning that it can't be hoisted.
+>>>
+>>> As a result we get "locate the top of stack block, get cr4, and see if
+>>> FSGSBASE is set" repeated 3 times, and an unreasoanble number of basic blocks.
+>>>
+>>> Hoist the calculation manually, which results in two basic blocks.
+>>>
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Otoh the function here isn't really performance or size critical. I'm undecided
+>> whether the undesirable open-coding or the bad code gen are the lesser evil.
 > 
-> No.  I have always, and will always prioritise readability first and
-> foremost.
+> This function no, but every other place touching FS and GS is
+> performance critical.  They're all messy to start with, and get worse
+> under FRED.
 
-But my preference is precisely because of readability. The excess "else"
-gives a wrong impression to the reader, when not looking closely enough.
-(And I [now] expect you might say the opposite.)
-
-> I do not agree with your interpretation of MISRA in this case.
-
-Something to discuss in a broader group then, I suppose.
+Is there any (further) bad effect to the function here by the time all of the
+FRED bits are in?
 
 Jan
 
