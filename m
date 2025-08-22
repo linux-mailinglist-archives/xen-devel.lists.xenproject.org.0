@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45DC7B31C36
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Aug 2025 16:42:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1090249.1447596 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EE92B31CCF
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Aug 2025 16:54:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1090270.1447606 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upSy6-0001BX-Fk; Fri, 22 Aug 2025 14:42:14 +0000
+	id 1upT9b-00038b-Db; Fri, 22 Aug 2025 14:54:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1090249.1447596; Fri, 22 Aug 2025 14:42:14 +0000
+Received: by outflank-mailman (output) from mailman id 1090270.1447606; Fri, 22 Aug 2025 14:54:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upSy6-00018f-Aj; Fri, 22 Aug 2025 14:42:14 +0000
-Received: by outflank-mailman (input) for mailman id 1090249;
- Fri, 22 Aug 2025 14:42:13 +0000
+	id 1upT9b-000378-Ai; Fri, 22 Aug 2025 14:54:07 +0000
+Received: by outflank-mailman (input) for mailman id 1090270;
+ Fri, 22 Aug 2025 14:54:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RLTp=3C=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1upSy5-0000k8-6S
- for xen-devel@lists.xenproject.org; Fri, 22 Aug 2025 14:42:13 +0000
-Received: from fout-b7-smtp.messagingengine.com
- (fout-b7-smtp.messagingengine.com [202.12.124.150])
+ <SRS0=aMUB=3C=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1upT9Z-000372-LR
+ for xen-devel@lists.xenproject.org; Fri, 22 Aug 2025 14:54:05 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2fcdb944-7f66-11f0-a32b-13f23c93f187;
- Fri, 22 Aug 2025 16:42:12 +0200 (CEST)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailfout.stl.internal (Postfix) with ESMTP id 0A8F11D0022E;
- Fri, 22 Aug 2025 10:42:11 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-06.internal (MEProxy); Fri, 22 Aug 2025 10:42:11 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 22 Aug 2025 10:42:09 -0400 (EDT)
+ id d82dda1c-7f67-11f0-a32b-13f23c93f187;
+ Fri, 22 Aug 2025 16:54:04 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 9B46D5C6AB0;
+ Fri, 22 Aug 2025 14:54:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C352C4CEED;
+ Fri, 22 Aug 2025 14:54:00 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,160 +42,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2fcdb944-7f66-11f0-a32b-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1755873730;
-	 x=1755960130; bh=jYHN8OO0m+mwe/TF93sSSPHNfUHgf4leS3FzqTm3H2o=; b=
-	PesU9phwOvGOrgq7WtuZaT+r3cB+LyA2zeVW9iz05o5aG3HGbr7qqHG52zuFuYWh
-	a6hSpCwHCIInrQnTKMushZlMYUOC9lru+pnsDe/hk9tIhOX4zulSOsKWS5VAlcmy
-	Hl/wfIYrsajjO78glHksB2s+bcGdHV1Jt7DMzlWXZEVCpKKN3+7IY1uth/XVBopF
-	RIxYMsXBo4z7D26WsBy0tiZiQuih2S1IfubAajRaN+xTEOjl4UaJrA8WxpKd8+gq
-	No+gSwm0k+k9wNqKDzaFvzq8m2/P5h7vUgErdWf+hrjpZ6hpsm3cZ4MmzDPQCvBx
-	SAwUtsDPCtKMMOuQVb4OUA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1755873730; x=1755960130; bh=jYHN8OO0m+mwe/TF93sSSPHNfUHgf4leS3F
-	zqTm3H2o=; b=F0w/PLozxPyhVA+28oBzdZn4gStbIjfydFEykLP0XP+z5OS1g3t
-	+swPKtmoFVr2+0s8UUoyrcA9ZKhXWfhs2M+UwWzm+33lgZXY8SWAMkBkMKjqxlMC
-	05amULMYsQcaTkz7Yc7UVCXWScor8h6GCOaGInGcO1gRmkcYFF66NqF/Ev0muCKs
-	sIG/o29ayiNqKwcWfvhlvo18c7gq6nJv2qh+M0Vu0vsOlFi0EFwC9CEwiA4KCLf/
-	mVOX1TT/d1ja2G5pMmd4lohMWUDAiYHP3wptB2JJcd2DIwvoYSRblMJpWNWEPSyL
-	AAGCXt27rGIW9DR292e2yKb0q6itZ68vG5g==
-X-ME-Sender: <xms:woGoaH7s0IFEiOBuks5KCT_Ve_ZFJ3m6z3MSdum0Xoi6pJsSzs8qBQ>
-    <xme:woGoaOYPN8hjE5Sp3x8A79J9GwLodw6Q3SJDEKafHa8iiyXF-vrtgMn52CXVABd7D
-    od2GuSxmAl1-w>
-X-ME-Received: <xmr:woGoaOgl2AhtFYPk8pzL_Xa3M2Z-rpbNc2-U8-3oZ8Zt5ePDdnMErwmopnC9PIjMj8lfP-GR0opj7Os17DJ_Pqyn43TZeppEOHE>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgdduieegtddvucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
-    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepueekteet
-    gefggfekudehteegieeljeejieeihfejgeevhfetgffgteeuteetueetnecuffhomhgrih
-    hnpehgihhthhhusgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhep
-    mhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrg
-    gsrdgtohhmpdhnsggprhgtphhtthhopeehpdhmohguvgepshhmthhpohhuthdprhgtphht
-    thhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprh
-    gtphhtthhopehjghhrohhsshesshhushgvrdgtohhmpdhrtghpthhtohepshhsthgrsggv
-    lhhlihhniheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepohhlvghkshgrnhgurhgpth
-    ihshhhtghhvghnkhhosegvphgrmhdrtghomhdprhgtphhtthhopegsohhrihhsrdhoshht
-    rhhovhhskhihsehorhgrtghlvgdrtghomh
-X-ME-Proxy: <xmx:woGoaH_t8hvKo-zBtbGjc57L0qV-3seOHIHSO-Mm9z0KwFngdOv9qQ>
-    <xmx:woGoaBqBHJFoDuy7M1-CfWvr6Pkcxq4jFasWqAO-yvrp7putDHy0KA>
-    <xmx:woGoaHWViewGl6abm7LYUk56oFUOThk2sXKMrmpydhC8tjib4BIzpA>
-    <xmx:woGoaIAbe9nBNnsecffW1nL1gTarZFf_gnpOj4HvmpB0ViWe_zrX5Q>
-    <xmx:woGoaH2KVBz29jqvOkEWI7aHrMoNK4BUFzsy724dWAFEPFmGv6KZeE89>
-Feedback-ID: i1568416f:Fastmail
-Date: Fri, 22 Aug 2025 16:42:08 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Cc: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Subject: Re: domU suspend issue - freeze processes failed - Linux 6.16
-Message-ID: <aKiBwEsogK420kwo@mail-itl>
-References: <aKiBJeqsYx_4Top5@mail-itl>
+X-Inumbo-ID: d82dda1c-7f67-11f0-a32b-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1755874442;
+	bh=PGUtv7joyI3NcEGG7DwKAzX2OlG/Z4dlVaDk/uPYiuQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=Tpr6ICPkpdFXRhvJyuT9ON7sRIiMiwwPI5TeRKAhUc7td3Kvve8wRi3nITf/ddF3Y
+	 fUzNJafUblNb4oC4vxrscX22WjQlOQO1QQjYKO5rl6b3kwsCKHbX8rFLBjYIY1urMs
+	 2bKoNfApadCXo/mDrhp2v0w6gQN3jHNDvnntHGY1um+ZqcDCMfstD1UqB/IMCVkNuh
+	 CvwjrXtYN2U3KfCzA0J3gDLFmGU8kBA1+YkEtoTYT/xJfEuw3vDQ7YeRRAMCAwmuCd
+	 g3OmeSN4OdoVLX/2uyfEeT67UXzYb7PtPSm5iksP51OAxGUvyhO5CohS6qQbrREFIZ
+	 wEzLCHC2s7YtA==
+Date: Fri, 22 Aug 2025 07:53:59 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    "Penny, Zheng" <penny.zheng@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH] xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE
+In-Reply-To: <e93eab09-0467-4fff-875b-c6cf2cf754a6@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2508220753540.2743087@ubuntu-linux-20-04-desktop>
+References: <20250815102728.1340505-1-Penny.Zheng@amd.com> <fb6f559a-b2aa-4b25-a6d3-401ecc4b4bd5@suse.com> <DM4PR12MB84519FE74D66604440827EA9E133A@DM4PR12MB8451.namprd12.prod.outlook.com> <43f0c9a6-a4f3-44e0-959f-a021ae3b0466@suse.com>
+ <alpine.DEB.2.22.394.2508211710060.2743087@ubuntu-linux-20-04-desktop> <e93eab09-0467-4fff-875b-c6cf2cf754a6@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="clAqg1t6X9s2sdLz"
-Content-Disposition: inline
-In-Reply-To: <aKiBJeqsYx_4Top5@mail-itl>
+Content-Type: text/plain; charset=US-ASCII
 
+On Fri, 22 Aug 2025, Jan Beulich wrote:
+> >> I'm sorry if my request was unclear, but with "full round of testing" I in particular
+> >> meant a full CI pipeline, plus (given the issue that's being fixed) some extra
+> >> randconfig testing.
+> > 
+> > https://gitlab.com/xen-project/people/sstabellini/xen/-/pipelines/1997431361
+> > 
+> > I ran a few tests myself changing config options on purpose trying to
+> > break it, and so far they were all successful.
+> 
+> Should I translate this to Tested-by: then?
 
---clAqg1t6X9s2sdLz
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 22 Aug 2025 16:42:08 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Cc: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Subject: Re: domU suspend issue - freeze processes failed - Linux 6.16
-
-On Fri, Aug 22, 2025 at 04:39:33PM +0200, Marek Marczykowski-G=C3=B3recki w=
-rote:
-> Hi,
->=20
-> When suspending domU I get the following issue:
->=20
->     Freezing user space processes
->     Freezing user space processes failed after 20.004 seconds (1 tasks re=
-fusing to freeze, wq_busy=3D0):
->     task:xl              state:D stack:0     pid:466   tgid:466   ppid:1 =
-     task_flags:0x400040 flags:0x00004006
->     Call Trace:
->      <TASK>
->      __schedule+0x2f3/0x780
->      schedule+0x27/0x80
->      schedule_preempt_disabled+0x15/0x30
->      __mutex_lock.constprop.0+0x49f/0x880
->      unregister_xenbus_watch+0x216/0x230
->      xenbus_write_watch+0xb9/0x220
->      xenbus_file_write+0x131/0x1b0
->      vfs_writev+0x26c/0x3d0
->      ? do_writev+0xeb/0x110
->      do_writev+0xeb/0x110
->      do_syscall_64+0x84/0x2c0
->      ? do_syscall_64+0x200/0x2c0
->      ? generic_handle_irq+0x3f/0x60
->      ? syscall_exit_work+0x108/0x140
->      ? do_syscall_64+0x200/0x2c0
->      ? __irq_exit_rcu+0x4c/0xe0
->      entry_SYSCALL_64_after_hwframe+0x76/0x7e
->     RIP: 0033:0x79b618138642
->     RSP: 002b:00007fff9a192fc8 EFLAGS: 00000246 ORIG_RAX: 0000000000000014
->     RAX: ffffffffffffffda RBX: 00000000024fd490 RCX: 000079b618138642
->     RDX: 0000000000000003 RSI: 00007fff9a193120 RDI: 0000000000000014
->     RBP: 00007fff9a193000 R08: 0000000000000000 R09: 0000000000000000
->     R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000014
->     R13: 00007fff9a193120 R14: 0000000000000003 R15: 0000000000000000
->      </TASK>
->     OOM killer enabled.
->     Restarting tasks: Starting
->     Restarting tasks: Done
->     xen:manage: do_suspend: freeze processes failed -16
->=20
-> The process in question is `xl devd` daemon. It's a domU serving a
-> xenvif backend.
->=20
-> I noticed it on 6.16.1, but looking at earlier test logs I see it with
-> 6.16-rc6 already (but interestingly, not 6.16-rc2 yet? feels weird given
-> seemingly no relevant changes between rc2 and rc6).
-
-I forgot to include link for (a little) more details:
-https://github.com/QubesOS/qubes-linux-kernel/pull/1157
-
-Especially, there is another call trace with panic_on_warn enabled -
-slightly different, but looks related.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---clAqg1t6X9s2sdLz
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmiogcAACgkQ24/THMrX
-1ywkGwgAghYvaKickGgpl6GwVjbZnYATV9BBbgLx1Pf0uZUFjrh8E1lQMyF0cWPq
-EwkIDeJFP7lP5WThSxziHqwYVFuvoE1KvAe9Lt6Zu99dKPKK+0+dt/1uJSWCN5vK
-6VilS9BT5+ykZAXg6W+l0n1I0Xkh6tH+APvmLKONo5CLRr9kpIbluOv+8uXcvntN
-5VL+MPxJoPFd5tfzeJxVrptBpvh9YY79ttVgCxUvy1AzPblVorReGGbP5/NedDJW
-J0AhQ1XNFHOv4ohmh07H66kIvK+Wub+SFZ4ejpW2WUGqOBSVM2dKzVWwOCxEEEgZ
-4WIkFjDK/R1W7KyLt145NH+dF1oLOA==
-=SaV5
------END PGP SIGNATURE-----
-
---clAqg1t6X9s2sdLz--
+Yes
 
