@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 436B1B30A82
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Aug 2025 02:54:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1089417.1447010 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8412B30AF4
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Aug 2025 03:48:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1089441.1447020 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upG2R-00014U-I6; Fri, 22 Aug 2025 00:53:51 +0000
+	id 1upGs2-0007eP-B3; Fri, 22 Aug 2025 01:47:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1089417.1447010; Fri, 22 Aug 2025 00:53:51 +0000
+Received: by outflank-mailman (output) from mailman id 1089441.1447020; Fri, 22 Aug 2025 01:47:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upG2R-00011L-FK; Fri, 22 Aug 2025 00:53:51 +0000
-Received: by outflank-mailman (input) for mailman id 1089417;
- Fri, 22 Aug 2025 00:53:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1upGs2-0007cR-7l; Fri, 22 Aug 2025 01:47:10 +0000
+Received: by outflank-mailman (input) for mailman id 1089441;
+ Fri, 22 Aug 2025 01:47:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RLTp=3C=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1upG2Q-00011F-A8
- for xen-devel@lists.xenproject.org; Fri, 22 Aug 2025 00:53:50 +0000
-Received: from fout-a7-smtp.messagingengine.com
- (fout-a7-smtp.messagingengine.com [103.168.172.150])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 75cb0c8c-7ef2-11f0-a32b-13f23c93f187;
- Fri, 22 Aug 2025 02:53:48 +0200 (CEST)
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
- by mailfout.phl.internal (Postfix) with ESMTP id 9D44FEC085D;
- Thu, 21 Aug 2025 20:53:46 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-03.internal (MEProxy); Thu, 21 Aug 2025 20:53:46 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 21 Aug 2025 20:53:45 -0400 (EDT)
+ <SRS0=l7VN=3C=intel.com=xiaoyao.li@srs-se1.protection.inumbo.net>)
+ id 1upGs0-0007cL-JY
+ for xen-devel@lists.xenproject.org; Fri, 22 Aug 2025 01:47:08 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e4ca0861-7ef9-11f0-b898-0df219b8e170;
+ Fri, 22 Aug 2025 03:47:01 +0200 (CEST)
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Aug 2025 18:46:59 -0700
+Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.124.238.14])
+ ([10.124.238.14])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Aug 2025 18:46:51 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,215 +43,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75cb0c8c-7ef2-11f0-a32b-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1755824026;
-	 x=1755910426; bh=xiR7dnO12e//LZ6ciVJEt7B13MyFzf4nwxTto02TC5E=; b=
-	gEIKn3zWO+4a8GmjG6zWCWv1XjfI1kxDizUDC8KQxcdOiME8oJQPJcGFAzeU/TBY
-	K24lLKulgnQHVlZkMUzPdbgbymzX2CrQwHCbHuAQeso0On53+8CLVUvA3Wp9ddG3
-	EcDFmPy7DTSNBwlBwwtQ0KhBzg7lgZE3jhZktJt4z837rWg0dHMoo7SQhfwHH+Jx
-	ESUkXcWzPnjba9uRYhOZT3EqUQ8VcO/c2kg6ARdWyl8DedLQ+2KDnCvHXaxxa/Aa
-	dSxVofT+ufTB/qPMxuUHHpzyp/T+Jzw7UuEznS9hzGe/NTl62YId1K8ICMbk7dk1
-	/hCYZ2S69dUUIceixIGN8g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1755824026; x=1755910426; bh=xiR7dnO12e//LZ6ciVJEt7B13MyFzf4nwxT
-	to02TC5E=; b=kSZRpcbUcn3WQNsropDDfe2tjZkKnQVtiWP8SEROEPZ0d+Kekca
-	mRZBq/T1UGAxegr8Qo7gZIaszxHMoteNHrSkiyfU3HcJ+39BurcMdz5ctdDHcmNA
-	t5dw8Or2AFkU04KyiKnfU+vz7bKrMdVTwU1BJkG0sv++mGkVL1q6zzn9bRm0YqlQ
-	CnryZZ2UC1s8Rrk+9GhmF9OqeRqBQevvBjpbTBize5fS3FedEdwYZdVxsgoyZQnv
-	/jeHfWgMenRns+pFZMJvsHXcyfe+c2InNZnDpiWNlb7PJKFKlrMwgajf6gmQAou9
-	0i4A609q4OLAEtSy+mQg6iLb5IUh+RSqnWA==
-X-ME-Sender: <xms:mr-naPEkEe0HCFuX_Uud5XND9xItEDEE6v3BY-YY70kxIhFZk-sDZg>
-    <xme:mr-naG5Ok9GHaPQG-VUH3u5-E6E6e8y-hM5ZE_fanzzqe-B6k21JKN1R5u4JVyyfd
-    pLAr8iKpcjuMA>
-X-ME-Received: <xmr:mr-naNtGtx4_0lHBgTM9xWXorGw1RewbKLXgmn6w23sRWNcJtda0U_aGjcvfgmfnnDhjQ7vlP_BGe5PNTfydAFfhPkRYGzwtoso>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgdduiedvheduucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
-    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepueekteet
-    gefggfekudehteegieeljeejieeihfejgeevhfetgffgteeuteetueetnecuffhomhgrih
-    hnpehgihhthhhusgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhep
-    mhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrg
-    gsrdgtohhmpdhnsggprhgtphhtthhopeegpdhmohguvgepshhmthhpohhuthdprhgtphht
-    thhopehrohhgvghrrdhprghusegtihhtrhhigidrtghomhdprhgtphhtthhopegrnhgurh
-    gvfidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhrtghpthhtohepjhgsvghulhhi
-    tghhsehsuhhsvgdrtghomhdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrd
-    igvghnphhrohhjvggtthdrohhrgh
-X-ME-Proxy: <xmx:mr-naP4i16ZU6Y5OZ5X_5yyW0SICgZKg460Qsr5kzWB2XsUMptKZRg>
-    <xmx:mr-naAVoyCd91m23-BfqDgWueqLQEf6Q0SBpPorPqq5rWqL2UsAZuA>
-    <xmx:mr-naJ_bT8DJ_C-ZbrCXEkxv87J_iglyCTdBv56MWuFbjWn5YXyGbQ>
-    <xmx:mr-naElDEhXYJTlGiT2kMPwD1yjUCaOZ0S4TipxsZDudcM5Fhv9CDg>
-    <xmx:mr-naCIWEQEQoM-uRFSvykt7PAK7rhKmpKCU0ykKcz87WwOPfMjeD0wA>
-Feedback-ID: i1568416f:Fastmail
-Date: Fri, 22 Aug 2025 02:53:33 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: S3 regression related to XSA-471 patches
-Message-ID: <aKe_jgWBiwqPqt7i@mail-itl>
-References: <aJMtPLNqQFbGg5cs@mail-itl>
- <f971f8a8-487e-4b9f-8c75-80ebfe70c3b6@suse.com>
- <aJMyjYfeTL5uPRtk@mail-itl>
- <aJTilUXpchmRq2Ng@mail-itl>
- <4fb544d7-fede-46b8-950e-f9c4af1cb04f@citrix.com>
- <B667172D-84FA-488D-98F9-0D7D34402EF7@invisiblethingslab.com>
- <aJw98srxJKZ2msct@macbook.local>
+X-Inumbo-ID: e4ca0861-7ef9-11f0-b898-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1755827221; x=1787363221;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=dlNqS8GuyaD0jRtHmWGKX6D3RkxY5DYdizCYX+dXy5s=;
+  b=VbfN1LETeItv2KlzF6kuX3Dl1CORmhA3BEWxOX4P4cWbhSdSMcHRvJf+
+   Kgu4H+a5sZyapIaNzSBwcPtEQjWk0QoBGlGwIRkuzlej7xxjwhYvZNRxu
+   FiysVlB4GUzCMvI4wpx8gEUuabNotwPY9fTYjH0T03gavDqiJhi6JqR4B
+   QQdHevPtahCHcSqWWBp+BBW6exgoM23+SmeC1AG+y+LGv9dCt87m0bOJG
+   Mt0+QGL3lp/nMlnxYXlPoLn66StCVSExglcRvrqE17h1/gH3Rx1VBNGDP
+   gNIv/4KQBv/QtmB9fV2qffqWSLxlBplh2AktUcGJDKRvgoQzp7Nb9o6MO
+   g==;
+X-CSE-ConnectionGUID: LNuXx2NuTHeAxLebtQG40g==
+X-CSE-MsgGUID: Kwqm8b8ITE6gTLn+PZstfA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11529"; a="58199905"
+X-IronPort-AV: E=Sophos;i="6.17,309,1747724400"; 
+   d="scan'208";a="58199905"
+X-CSE-ConnectionGUID: AZFJ9i6pRCaPCV9OGTd+yQ==
+X-CSE-MsgGUID: COxnV628RZWhh4q30kM6AA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.17,309,1747724400"; 
+   d="scan'208";a="173843816"
+Message-ID: <03ac8bac-c8d1-4a3b-a07f-2bbf04e726b6@intel.com>
+Date: Fri, 22 Aug 2025 09:46:48 +0800
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="+YUKd5AKKhh94ji1"
-Content-Disposition: inline
-In-Reply-To: <aJw98srxJKZ2msct@macbook.local>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 13/15] x86/cpu/intel: Bound the non-architectural
+ constant_tsc model checks
+To: Sohil Mehta <sohil.mehta@intel.com>, David Woodhouse
+ <dwmw2@infradead.org>, x86@kernel.org,
+ Dave Hansen <dave.hansen@linux.intel.com>, Tony Luck <tony.luck@intel.com>,
+ =?UTF-8?Q?J=C3=BCrgen_Gross?= <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Kan Liang <kan.liang@linux.intel.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Borislav Petkov <bp@alien8.de>, "H . Peter Anvin" <hpa@zytor.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ Andy Lutomirski <luto@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
+ Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
+ Zhang Rui <rui.zhang@intel.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ David Laight <david.laight.linux@gmail.com>,
+ Dapeng Mi <dapeng1.mi@linux.intel.com>, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-pm@vger.kernel.org, kvm@vger.kernel.org, Xin Li <xin@zytor.com>
+References: <20250219184133.816753-1-sohil.mehta@intel.com>
+ <20250219184133.816753-14-sohil.mehta@intel.com>
+ <6f05a6849fb7b22db35216dcf12bf537f8a43a92.camel@infradead.org>
+ <968a179f-3da7-4c69-b798-357ea8d759eb@intel.com>
+ <5f5f1230-f373-469c-b0d9-abc80199886e@intel.com>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <5f5f1230-f373-469c-b0d9-abc80199886e@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 8/22/2025 3:43 AM, Sohil Mehta wrote:
+> On 8/21/2025 12:34 PM, Sohil Mehta wrote:
+>> On 8/21/2025 6:15 AM, David Woodhouse wrote:
+>>
+>>> Hm. My test host is INTEL_HASWELL_X (0x63f). For reasons which are
+>>> unclear to me, QEMU doesn't set bit 8 of 0x80000007 EDX unless I
+>>> explicitly append ',+invtsc' to the existing '-cpu host' on its command
+>>> line. So now my guest doesn't think it has X86_FEATURE_CONSTANT_TSC.
+>>>
+>>
+>> Haswell should have X86_FEATURE_CONSTANT_TSC, so I would have expected
+>> the guest bit to be set. Until now, X86_FEATURE_CONSTANT_TSC was set
+>> based on the Family-model instead of the CPUID enumeration which may
+>> have hid the issue.
+>>
+> 
+> Correction:
+> s/instead/as well as
+> 
+>>  From my initial look at the QEMU implementation, this seems intentional.
+>>
+>> QEMU considers Invariant TSC as un-migratable which prevents it from
+>> being exposed to migratable guests (default).
+>> target/i386/cpu.c:
+>> [FEAT_8000_0007_EDX]
+>>           .unmigratable_flags = CPUID_APM_INVTSC,
+>>
+>> Can you please try '-cpu host,migratable=off'?
+> 
+> This is mainly to verify. If confirmed, I am not sure what the long term
+> solution should be.
 
---+YUKd5AKKhh94ji1
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 22 Aug 2025 02:53:33 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: S3 regression related to XSA-471 patches
+yeah. It's the intentional behavior of QEMU.
 
-On Wed, Aug 13, 2025 at 09:26:09AM +0200, Roger Pau Monn=C3=A9 wrote:
-> On Wed, Aug 13, 2025 at 04:53:53AM +0200, Marek Marczykowski-G=C3=B3recki=
- wrote:
-> >=20
-> >=20
-> > On August 11, 2025 3:16:46 PM GMT+02:00, Andrew Cooper <andrew.cooper3@=
-citrix.com> wrote:
-> > >On 07/08/2025 6:29 pm, Marek Marczykowski-G=C3=B3recki wrote:
-> > >> On Wed, Aug 06, 2025 at 12:46:36PM +0200, Marek Marczykowski-G=C3=B3=
-recki wrote:
-> > >>> On Wed, Aug 06, 2025 at 12:36:56PM +0200, Jan Beulich wrote:
-> > >>>> On 06.08.2025 12:23, Marek Marczykowski-G=C3=B3recki wrote:
-> > >>>>> We've got several reports that S3 reliability recently regressed.=
- We
-> > >>>>> identified it's definitely related to XSA-471 patches, and bisect=
-ion
-> > >>>>> points at "x86/idle: Remove broken MWAIT implementation". I don't=
- have
-> > >>>>> reliable reproduction steps, so I'm not 100% sure if it's really =
-this
-> > >>>>> patch, or maybe an earlier one - but it's definitely already brok=
-en at
-> > >>>>> this point in the series. Most reports are about Xen 4.17 (as tha=
-t's
-> > >>>>> what stable Qubes OS version currently use), but I think I've seen
-> > >>>>> somebody reporting the issue on 4.19 too (but I don't have clear
-> > >>>>> evidence, especially if it's the same issue).
-> > >>>> At the time we've been discussing the explicit raising of TIMER_SO=
-FTIRQ
-> > >>>> in mwait_idle_with_hints() a lot. If it was now truly missing, tha=
-t imo
-> > >>>> shouldn't cause problems only after resume, but then it may have c=
-overed
-> > >>>> for some omission during resume. As a far-fetched experiment, coul=
-d you
-> > >>>> try putting that back (including the calculation of the "expires" =
-local
-> > >>>> variable)?
-> > >>> Sure, I'll try.
-> > >> It appears this fixes the issue, at least in ~10 attempts so far
-> > >> (usually I could reproduce the issue after 2-3 attempts).
-> > >>
-> > >
-> > >Can you show the exact code which seems to have made this stable?
-> >=20
-> > This patch: https://github.com/marmarek/qubes-vmm-xen/blob/7c9e9e312948=
-c772d9a68090109964121c1d16fe/0001-DEBUG-S3.patch
->=20
-> Hello,
->=20
-> Can you test if the patch below in isolation makes any difference?
+Invariant TSC is ummigratable unless users explicitly configures the TSC 
+frequency, e.g., "-cpu host,tsc-frequency=xxx". Because the TSC 
+frequency is by default the host's frequency if no "tsc-frequency" 
+specified, and it will change when the VM is migrated to a host with a 
+different TSC frequency.
 
-Seems to help too. At least a test similar as before did not hit the
-issue anymore.
-
-> Thanks, Roger.
-> ---
-> diff --git a/xen/arch/x86/acpi/power.c b/xen/arch/x86/acpi/power.c
-> index 2ac162c997fe..27d672ad5dbb 100644
-> --- a/xen/arch/x86/acpi/power.c
-> +++ b/xen/arch/x86/acpi/power.c
-> @@ -19,6 +19,7 @@
->  #include <xen/iommu.h>
->  #include <xen/param.h>
->  #include <xen/sched.h>
-> +#include <xen/softirq.h>
->  #include <xen/spinlock.h>
->  #include <xen/watchdog.h>
-> =20
-> @@ -310,6 +311,7 @@ static int enter_state(u32 state)
->      thaw_domains();
->      system_state =3D SYS_STATE_active;
->      spin_unlock(&pm_lock);
-> +    raise_softirq(TIMER_SOFTIRQ);
->      return error;
->  }
-> =20
-> diff --git a/xen/arch/x86/apic.c b/xen/arch/x86/apic.c
-> index 0fd8bdba7067..9d66db861b74 100644
-> --- a/xen/arch/x86/apic.c
-> +++ b/xen/arch/x86/apic.c
-> @@ -65,7 +65,6 @@ static struct {
->      unsigned int apic_lvt0;
->      unsigned int apic_lvt1;
->      unsigned int apic_lvterr;
-> -    unsigned int apic_tmict;
->      unsigned int apic_tdcr;
->      unsigned int apic_thmr;
->  } apic_pm_state;
-> @@ -658,7 +657,6 @@ int lapic_suspend(void)
->      apic_pm_state.apic_lvt0 =3D apic_read(APIC_LVT0);
->      apic_pm_state.apic_lvt1 =3D apic_read(APIC_LVT1);
->      apic_pm_state.apic_lvterr =3D apic_read(APIC_LVTERR);
-> -    apic_pm_state.apic_tmict =3D apic_read(APIC_TMICT);
->      apic_pm_state.apic_tdcr =3D apic_read(APIC_TDCR);
->      if (maxlvt >=3D 5)
->          apic_pm_state.apic_thmr =3D apic_read(APIC_LVTTHMR);
-> @@ -718,7 +716,7 @@ int lapic_resume(void)
->          apic_write(APIC_LVTPC, apic_pm_state.apic_lvtpc);
->      apic_write(APIC_LVTT, apic_pm_state.apic_lvtt);
->      apic_write(APIC_TDCR, apic_pm_state.apic_tdcr);
-> -    apic_write(APIC_TMICT, apic_pm_state.apic_tmict);
-> +    apic_write(APIC_TMICT, 0);
->      apic_write(APIC_ESR, 0);
->      apic_read(APIC_ESR);
->      apic_write(APIC_LVTERR, apic_pm_state.apic_lvterr);
->=20
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---+YUKd5AKKhh94ji1
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAminv44ACgkQ24/THMrX
-1yyseQf9HRRygCMKb1QbMpEg9cCdBsgdMqPc+tedaVvTNfIJa7HrtqNZnBVFf3X5
-l250+Cp37M+frqbgw2FVNxUSC31Xb5EivFjath5+d5l1BDKEXRa13kYRNxz4t3Ze
-t65Ft0ENoWiA1+pgOEm6dnO5tUH8uJ8XwvUP7/sXhPxfO/ekJGTMULEri9MjJj5f
-ZFvinVwXRyJ/C2vHDVjHhSVcau12Mw+UOBoJBw+aRUdkNDgmsYMDZiiLuiJGzyhV
-gAWkUtXjoPgTQ4d5Ut8hba48r3Yv0VoDvu9V+3vOqNbcgMi9eVjb9SkOg/3wIssi
-hRa4qNCBGQC7MxKRf1C3ILuBHoaM8Q==
-=PgF0
------END PGP SIGNATURE-----
-
---+YUKd5AKKhh94ji1--
+It's the specific behavior/rule of QEMU. We just need to keep it in 
+mind. If we want to expose invariant TSC to the guest with QEMU's "-cpu 
+host", we can either:
+1) explicitly configure the "tsc-frequency", or
+2) explicitly turn off "migratable"
 
