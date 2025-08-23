@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89105B325DC
-	for <lists+xen-devel@lfdr.de>; Sat, 23 Aug 2025 02:33:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1090764.1447870 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 746E7B325DF
+	for <lists+xen-devel@lfdr.de>; Sat, 23 Aug 2025 02:34:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1090773.1447880 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upcC6-0007j2-FO; Sat, 23 Aug 2025 00:33:18 +0000
+	id 1upcD0-0008Ds-PJ; Sat, 23 Aug 2025 00:34:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1090764.1447870; Sat, 23 Aug 2025 00:33:18 +0000
+Received: by outflank-mailman (output) from mailman id 1090773.1447880; Sat, 23 Aug 2025 00:34:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upcC6-0007hZ-Cn; Sat, 23 Aug 2025 00:33:18 +0000
-Received: by outflank-mailman (input) for mailman id 1090764;
- Sat, 23 Aug 2025 00:33:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1upcD0-0008Be-Ld; Sat, 23 Aug 2025 00:34:14 +0000
+Received: by outflank-mailman (input) for mailman id 1090773;
+ Sat, 23 Aug 2025 00:34:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=MmA+=3D=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1upcC4-0007hT-TT
- for xen-devel@lists.xenproject.org; Sat, 23 Aug 2025 00:33:16 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c133e1b5-7fb8-11f0-a32b-13f23c93f187;
- Sat, 23 Aug 2025 02:33:15 +0200 (CEST)
+ id 1upcCz-00083M-Gk
+ for xen-devel@lists.xenproject.org; Sat, 23 Aug 2025 00:34:13 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org
+ [2600:3c0a:e001:78e:0:1991:8:25])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e2bdc436-7fb8-11f0-b898-0df219b8e170;
+ Sat, 23 Aug 2025 02:34:11 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 958714505E;
- Sat, 23 Aug 2025 00:33:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4693C116B1;
- Sat, 23 Aug 2025 00:33:11 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1406F44566;
+ Sat, 23 Aug 2025 00:34:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F5FBC4CEED;
+ Sat, 23 Aug 2025 00:34:08 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +42,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c133e1b5-7fb8-11f0-a32b-13f23c93f187
+X-Inumbo-ID: e2bdc436-7fb8-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1755909193;
-	bh=Et7pM4ONrIna1yXquXcmW2exth2Ygi8i25y+inXVp3E=;
+	s=k20201202; t=1755909249;
+	bh=qBBMwyef0ei4xFgNsKtCM8osAJywscMe6758OtKS7po=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=FdmBjXhYBTWJQwn4QlSsgZorLLJ3An+gdMSNCmuMx+paP9HFPKH2BgLTy/V699qAk
-	 JO+rdpqrrWDdNZIE18FELT9lbaOr1ROVTwxsFZ9SCaIijBtTRzjt5zSfqul5BAF8vq
-	 cFYZ+oWptpnFSQ99Lb1X3Yy6F6VDicLZWlDlxPGmKWfivek7nJSzGTeUiPWOO1U2sm
-	 WEMjzysercLt9B3zSQnIi6fXzT4/ALmMq3JDWZKRV5FMcaN+BNmnlAz/sGfsXGS8/H
-	 rwy6CcDhLiizA/7p3vX8TEzw6yXTcH85hGv/W1Phg+yu7tUnCe/EaKdU0s4b01DhJk
-	 oVaEoVaXTGsMQ==
-Date: Fri, 22 Aug 2025 17:33:10 -0700 (PDT)
+	b=dth8v993rHTSpUVC8nCpUR3otVSb/BcGhQZowPNp8h7B+hxBOhn/XqSRa65S3kES9
+	 WH6nV7IJBdNCzoznQn0wzmCeQ/FsJPyf1PKQjuH8n2ktBav1NXbaJHitraVyq/nNEi
+	 8Isx6LoqIAgESu9CBDTtdhUs7Pgf8ZiucB+DQtwqmLeRD/btbe55bQWkq/QwXfqipc
+	 t+9NwpLxhfjCV2Y5QMewHiGG1gMpZFWDdVgwPUz71sodwXNewy/J04MtciebtBEqXS
+	 9zMtYymFsZe0oG4BkDKx1KGsCyjw4oa39BcKwdVwqXjEZh+83+mNN+lSx6ejI3G98k
+	 kFOld6pV84V8w==
+Date: Fri, 22 Aug 2025 17:34:07 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
@@ -66,46 +67,257 @@ cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
     Stefano Stabellini <sstabellini@kernel.org>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
     Grygorii Strashko <grygorii_strashko@epam.com>
-Subject: Re: [RFC PATCH v5 07/10] xen: arm: smccc: add INVALID_PARAMETER
- error code
-In-Reply-To: <f763b85857c7b97c427c1bb4f80e66b45eebbac3.1753184487.git.oleksii_moisieiev@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2508221733030.2743087@ubuntu-linux-20-04-desktop>
-References: <cover.1753184487.git.oleksii_moisieiev@epam.com> <f763b85857c7b97c427c1bb4f80e66b45eebbac3.1753184487.git.oleksii_moisieiev@epam.com>
+Subject: Re: [RFC PATCH v5 00/10] xen/arm: scmi: introduce SCI SCMI SMC
+ multi-agent support
+In-Reply-To: <cover.1753184487.git.oleksii_moisieiev@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2508221733410.2743087@ubuntu-linux-20-04-desktop>
+References: <cover.1753184487.git.oleksii_moisieiev@epam.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
+I think it should be feasible to commit at least patches 1-4 in time for
+the release
+
 On Tue, 22 Jul 2025, Oleksii Moisieiev wrote:
-> According to the "7.1 Return Codes" section of DEN0028 [1]
-> INVALID_PARAMETER code (-3) is returned when one of the call
-> parameters has a non-supported value.
-> Adding this error code to the common smccc header file.
+> Inroducing V4 RFC patch series  on top of the Xen version 4.20-rc2
+> which includes implementation of the SCI SCMI SMC multi-agent support.
 > 
-> [1]: https://documentation-service.arm.com/static/5f8edaeff86e16515cdbe4c6
+> Patch 1 "xen/arm: add generic SCI subsystem"
+> - rebased and refactored
+> - introduced DEVICE_ARM_SCI DT device class and used for SCI drivers probing
+> instead of custom,
+>   linker sections based implementation.
+> - added SCI API for Dom0 DT handling, instead of manipulating with ARM arch
+> dom0 code directly.
+> - RFC changes in XEN_DOMCTL_assign_device OP processing
+> - Introduce arch_handle_passthrough_prop call to handle arm specific
+> nodes
 > 
-> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
-
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-
-> ---
+> Patch 2 "xen/arm: scmi-smc: update to be used under sci subsystem"
+> - update driver introduced by commit 3e322bef8bc0 ("xen/arm: firmware: Add SCMI
+> over SMC calls
+> handling layer") be used under sci subsystem.
+> - no functional changes in general
 > 
+> Patch 3 "xen/arm: scmi-smc: passthrough SCMI SMC to guest domain
+> This is new change which allows passthrough SCMI SMC, single agent interface to
+> guest domain
+> cover use case "thin Dom0 with guest domain, which serves as Driver domain".
+> See patch commit message for full description.
 > 
+> Patch 4 - docs: arm: add docs for SCMI over SMC calls forwarding
+> driver
+> - add documentation section for Simple Arm SCMI over SMC/HVC calls
+> forwarding driver.
 > 
->  xen/arch/arm/include/asm/smccc.h | 1 +
->  1 file changed, 1 insertion(+)
+> Patch 6 - xen/domctl: extend XEN_DOMCTL_assign_device to handle not
+> only iommu
+> - add chainged handling of assigned DT devices to support
+> access-controller functionality through SCI framework.
+> Change was done in two parts:
+>  - update iommu_do_dt_domctl() to check for dt_device_is_protected()
+>  and not fail if DT device is not protected by IOMMU
+>  -add chained call to sci_do_domctl() to do_domctl()
 > 
-> diff --git a/xen/arch/arm/include/asm/smccc.h b/xen/arch/arm/include/asm/smccc.h
-> index a289c48b7f..dc6af94db1 100644
-> --- a/xen/arch/arm/include/asm/smccc.h
-> +++ b/xen/arch/arm/include/asm/smccc.h
-> @@ -381,6 +381,7 @@ void arm_smccc_1_2_smc(const struct arm_smccc_1_2_regs *args,
->                         0x3FFF)
->  
->  /* SMCCC error codes */
-> +#define ARM_SMCCC_INVALID_PARAMETER     (-3)
->  #define ARM_SMCCC_NOT_REQUIRED          (-2)
->  #define ARM_SMCCC_ERR_UNKNOWN_FUNCTION  (-1)
->  #define ARM_SMCCC_NOT_SUPPORTED         (-1)
+> Patch 9 - xen/arm: scmi: introduce SCI SCMI SMC multi-agent driver
+> - added "scmi-secondary-agents" and "#scmi-secondary-agent-cells"
+>   property to "xen,config" node in "chosen" to inform SCI SCMI
+>   multi-agent driver about available agents and their
+>   configuration. It defines <agent_id> to <smc-id,scmi_shm> map.
+>   This option is Xen specific as Xen is the only one entry in the
+>   system which need to know about SCMI multi-agent support and configuration.
+> - each guest using SCMI should be configured with SCMI agent_id, so SCMI
+>   FW can implement Agent-specific permission policy.
+>   -- dom0: dom0_scmi_agent_id=<agent_id> in Xen command line option
+>   -- toolstack: arm_sci = "type=scmi_smc_multiagent,agent_id=<agent_id>"
+>   -- dom0less: "xen,sci_type", "xen,sci_agent_id" properties in
+> "xen,domain" nodes.
+> - factored out SCMI generic definitions (re-usable)
+> - factored out SCMI shmem code (re-usable)
+> - the SCMI passthrough configuration for guest domains is similar to any other
+> HW passthrough cfg.
+> 
+> Patch 10 - docs: arm: add SCI SCMI SMC multi-agent driver docs
+> - add SCI SCMI SMC multi-agent driver documentation.
+> 
+> Add separate SCMI DT node for Xen management agent under "xen,config"
+> node under chosen.
+> 
+> All Xen-specific configuration provided under "/chosen" node. This
+> approach allows to isolate modifications to Host DT only under
+> "/chosen" node.
+> 
+> This approach provides the following device tree (DT)
+> parameters (placed under xen,config node):
+> 
+> - "scmi-secondary-agents": A Xen-specific parameter under the
+>   "/chosen" node, which describes the SCMI agent configuration for
+>   the domains.
+> - the SCMI configuration for Xen (privileged agent) and the shared
+>   memory configuration for all agents are provided under the "/chosen"
+>   node and are used strictly by Xen for its initial configuration.
+> - the scmi_shm and SCMI configuration for Dom0 are placed in the
+>   "/firmware/scmi" node so that they can be moved to Dom0 without
+>   any changes.
+> 
+> This configuration allows the use of Xen-specific nodes to provide
+> information strictly needed by Xen while using the default SCMI
+> configuration for Dom0 and other domains. As a result, no additional
+> bindings need to be introduced to the device tree.
+> This simplifies the Xen SCMI multi-agent configuration and utilizes
+> generic device tree bindings for the domains.
+> 
+> NOTE: Haven't added RB tags for patch 1 and 2 because rebase and some
+> minor changes were done.
+> 
+> Code can be found at:
+> https://github.com/oleksiimoisieiev/xen/tree/scmi_upstrv5
+> 
+> [1] RFC v2:
+> http://patchwork.kernel.org/project/xen-devel/cover/cover.1644341635.git.oleksii_moisieiev@epam.com/
+> [2] RFC v3:
+> https://patchwork.kernel.org/project/xen-devel/patch/20250311111618.1850927-1-grygorii_strashko@epam.com
+> SCMI spec:
+> https://developer.arm.com/documentation/den0056/e/?lang=en
+> 
+> SCMI bindings:
+> https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
+> https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/access-controllers/access-controllers.yaml
+> 
+> Reference EL3 FW:
+> RPI5: https://github.com/xen-troops/arm-trusted-firmware/commits/rpi5_dev/
+> Renesas v4h:
+> https://github.com/GrygiriiS/arm-trusted-firmware/commits/rcar_gen4_v2.7_v4x-scmi_upd/
+> 
+> base-commit: dbe60f244c (Update Xen to 4.21, 2025-02-21)
+> 
+> Changes in v5:
+> - update Maintainers file. Set role as a Reviewer
+> - rebased on the latest master branch
+> - Introduce arch_handle_passthrough_prop call to handle arm specific nodes
+> - rename dom0_scmi_smc_passthrough to scmi_smc_passthrough
+> - rename dom0_scmi_smc_passthrough in documentation
+> - set error code to -ENXIO when iommu is disabled
+> - return -EINVAL if mediator without assign_dt_device was provided
+> - invert return code check for iommu_do_domctl in
+> XEN_DOMCTL_assign_device domctl processing to make cleaner code
+> - change -ENOTSUPP error code to -ENXIO in sci_do_domctl
+> - handle -ENXIO return comde of iommu_do_domctl
+> - leave !dt_device_is_protected check in iommu_do_dt_domctl to make
+> code work the same way it's done in "handle_device" call while
+> creating hwdom(dom0) and "handle_passthrough_prop" call for dom0less
+> creation
+> - drop return check from sci_assign_dt_device call as not needed
+> - do not return EINVAL when addign_dt_device is not set. That is
+> because this callback is optional and not implemented in single-agent driver
+> - move memcpy_toio/fromio to the generic place
+> - fix device-tree example format in booting.txt, added ";" after "}".
+> - update define in scmi-proto.h
+> - update define in scmi-shmem.h file
+> - scmi_assign_device - do not ignore -EOPNOTSUPP return
+> code of the do_smc_xfer
+> - remove overwriting agent_channel->agent_id after
+> SCMI_BASE_DISCOVER_AGENT call
+> - add multi-agent files to the MAINTAINERS
+> - add SCMI multi-agent description to the SUPPORT.md
+> - handle ARM_SMCCC_INVALID_PARAMETER return code and return -EINVAL
+> for smc call
+> - updated collect_agents function. Set agent_id parameter as optional
+> in scmi-secondary-agents device-tree property
+> - introduce "#scmi-secondary-agents-cells" parameter to set if
+> agent_id was provided
+> - reanme xen,scmi-secondary-agents property to scmi-secondary-agents
+> - move memcpu_toio/fromio for the generic place
+> - update Xen to get management channel from /chosen/xen,config node
+> - get hypervisor channnel from node instead of using hardcoded
+> - update handling scmi and shmem nodes for the domain
+> - Set multi-agent driver to support only Arm64
+> - rework multi-agent driver to leave Host Device-tree unmodified
+> 
+> Changes in v4:
+> - fix SPDX-License
+> - rename DEVICE_ARM_SCI DT device class to FIRMWARE_DEVICE
+> - move XEN_DOMCTL_assign_device code in separate patch
+> - Add documentation for SCI SCMI drivers
+> - xl.cfg doc
+> - fix comments from Stefano Stabellini
+> - fix toolstack code as sugested by Anthony PERARD
+>   - use MATCH_OPTION()
+>   - move arm_sci struct and cfg params in "arch_arm"
+> - add SCMI passthrough for dom0less case
+> - toolstack comments from Anthony PERARD
+> - added dom0less support
+> - added doc for "xen,scmi-secondary-agents"
+> 
+> Grygorii Strashko (5):
+>   xen/arm: scmi-smc: update to be used under sci subsystem
+>   xen/arm: scmi-smc: passthrough SCMI SMC to domain, single agent
+>   docs: arm: add docs for SCMI over SMC calls forwarding driver
+>   xen/domctl: extend XEN_DOMCTL_assign_device to handle not only iommu
+>   docs: arm: add SCI SCMI SMC multi-agent driver docs
+> 
+> Oleksii Moisieiev (5):
+>   xen/arm: add generic SCI subsystem
+>   drivers: iommu: change error code when iommu is disabled
+>   xen: arm: smccc: add INVALID_PARAMETER error code
+>   lib/arm: Add I/O memory copy helpers
+>   xen/arm: scmi: introduce SCI SCMI SMC multi-agent driver
+> 
+>  MAINTAINERS                                   |  10 +
+>  SUPPORT.md                                    |  11 +
+>  .../arm/firmware/arm-scmi.rst                 | 516 +++++++++++
+>  docs/hypervisor-guide/arm/index.rst           |   9 +
+>  docs/hypervisor-guide/index.rst               |   1 +
+>  docs/man/xl.cfg.5.pod.in                      |  47 +
+>  docs/misc/arm/device-tree/booting.txt         | 103 +++
+>  docs/misc/xen-command-line.pandoc             |  18 +
+>  tools/include/libxl.h                         |   5 +
+>  tools/libs/light/libxl_arm.c                  |  18 +
+>  tools/libs/light/libxl_types.idl              |  12 +
+>  tools/xl/xl_parse.c                           |  48 ++
+>  xen/arch/arm/device.c                         |   5 +
+>  xen/arch/arm/dom0less-build.c                 |  51 ++
+>  xen/arch/arm/domain.c                         |  12 +-
+>  xen/arch/arm/domain_build.c                   |  11 +-
+>  xen/arch/arm/firmware/Kconfig                 |  37 +-
+>  xen/arch/arm/firmware/Makefile                |   2 +
+>  xen/arch/arm/firmware/sci.c                   | 189 +++++
+>  xen/arch/arm/firmware/scmi-proto.h            | 164 ++++
+>  xen/arch/arm/firmware/scmi-shmem.c            | 112 +++
+>  xen/arch/arm/firmware/scmi-shmem.h            |  45 +
+>  xen/arch/arm/firmware/scmi-smc-multiagent.c   | 803 ++++++++++++++++++
+>  xen/arch/arm/firmware/scmi-smc.c              | 191 ++++-
+>  xen/arch/arm/include/asm/domain.h             |   5 +
+>  xen/arch/arm/include/asm/firmware/sci.h       | 214 +++++
+>  xen/arch/arm/include/asm/firmware/scmi-smc.h  |  41 -
+>  xen/arch/arm/include/asm/smccc.h              |   1 +
+>  xen/arch/arm/vsmc.c                           |   4 +-
+>  xen/common/device-tree/dom0less-build.c       |   4 +
+>  xen/common/domctl.c                           |  19 +
+>  xen/drivers/passthrough/device_tree.c         |   6 +
+>  xen/drivers/passthrough/iommu.c               |   2 +-
+>  xen/include/asm-generic/device.h              |   1 +
+>  xen/include/asm-generic/dom0less-build.h      |   9 +
+>  xen/include/public/arch-arm.h                 |   8 +
+>  xen/include/xen/lib/arm/io.h                  |  15 +
+>  xen/lib/Makefile                              |   1 +
+>  xen/lib/arm/Makefile                          |   1 +
+>  xen/lib/arm/io.c                              |  80 ++
+>  40 files changed, 2744 insertions(+), 87 deletions(-)
+>  create mode 100644 docs/hypervisor-guide/arm/firmware/arm-scmi.rst
+>  create mode 100644 docs/hypervisor-guide/arm/index.rst
+>  create mode 100644 xen/arch/arm/firmware/sci.c
+>  create mode 100644 xen/arch/arm/firmware/scmi-proto.h
+>  create mode 100644 xen/arch/arm/firmware/scmi-shmem.c
+>  create mode 100644 xen/arch/arm/firmware/scmi-shmem.h
+>  create mode 100644 xen/arch/arm/firmware/scmi-smc-multiagent.c
+>  create mode 100644 xen/arch/arm/include/asm/firmware/sci.h
+>  delete mode 100644 xen/arch/arm/include/asm/firmware/scmi-smc.h
+>  create mode 100644 xen/include/xen/lib/arm/io.h
+>  create mode 100644 xen/lib/arm/Makefile
+>  create mode 100644 xen/lib/arm/io.c
+> 
 > -- 
 > 2.34.1
 > 
