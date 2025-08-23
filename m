@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3084CB328AD
-	for <lists+xen-devel@lfdr.de>; Sat, 23 Aug 2025 15:02:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1091231.1447996 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A79AB3291E
+	for <lists+xen-devel@lfdr.de>; Sat, 23 Aug 2025 16:24:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1091274.1448005 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upnsw-0000BE-M1; Sat, 23 Aug 2025 13:02:18 +0000
+	id 1upp9a-0001Kz-6w; Sat, 23 Aug 2025 14:23:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1091231.1447996; Sat, 23 Aug 2025 13:02:18 +0000
+Received: by outflank-mailman (output) from mailman id 1091274.1448005; Sat, 23 Aug 2025 14:23:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upnsw-00008G-Ir; Sat, 23 Aug 2025 13:02:18 +0000
-Received: by outflank-mailman (input) for mailman id 1091231;
- Sat, 23 Aug 2025 13:02:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1upp9a-0001Ir-45; Sat, 23 Aug 2025 14:23:34 +0000
+Received: by outflank-mailman (input) for mailman id 1091274;
+ Sat, 23 Aug 2025 14:23:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LOa+=3D=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1upnsu-00008A-Tu
- for xen-devel@lists.xenproject.org; Sat, 23 Aug 2025 13:02:16 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 643ff131-8021-11f0-a32b-13f23c93f187;
- Sat, 23 Aug 2025 15:02:15 +0200 (CEST)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-55ce5097493so2684258e87.0
- for <xen-devel@lists.xenproject.org>; Sat, 23 Aug 2025 06:02:15 -0700 (PDT)
+ id 1upp9Y-0001Ic-Ct
+ for xen-devel@lists.xenproject.org; Sat, 23 Aug 2025 14:23:32 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id be45201b-802c-11f0-b898-0df219b8e170;
+ Sat, 23 Aug 2025 16:23:30 +0200 (CEST)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-55ce5253adcso3122933e87.2
+ for <xen-devel@lists.xenproject.org>; Sat, 23 Aug 2025 07:23:30 -0700 (PDT)
 Received: from [192.168.0.110] ([91.123.151.69])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55f35bffab4sm502267e87.9.2025.08.23.06.02.11
+ 2adb3069b0e04-55f3db23af2sm230150e87.55.2025.08.23.07.23.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 23 Aug 2025 06:02:12 -0700 (PDT)
+ Sat, 23 Aug 2025 07:23:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 643ff131-8021-11f0-a32b-13f23c93f187
+X-Inumbo-ID: be45201b-802c-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1755954134; x=1756558934; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1755959010; x=1756563810; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:to:subject:user-agent:mime-version:date:message-id:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=IoU26xKHPeY9hUXQ9gUpNVV7cWVumIngLl3l0tskYZI=;
-        b=GjoAIlSSRsOlNSWQMY7rW1VYRK+mIxW8fgNubuhiWDe94GVw1vuu2aN+AnLdzoALf4
-         wDjzCkYL1YFxIS2h/ZvtAXQvUBmzzpn6DAdmlZJDzIQUOJxujEgbP3e993QdJYZUqZXy
-         zQbEc3OqzHWceL32XSEtT0GBz79tb4rbfgi8dFP9jcrd188XAO7iIMIgabmeFIFc3b/E
-         fWc7y+tMyXQSv78ka5RV+vsMBbtTOVkUbHdanoREnpnIF4vV39+wId8wjHroFaHqWGW2
-         23AMBbK2CjjfMqhvl8HCID3ehQBseMcAv3WP5E34n5p/mmbtfDC8LlvOlVAWCo2Ci6O6
-         pxFw==
+        bh=jxafceqXQ3sqq5LJ9WvUErToiUGz649vQj9CWWcV1Gs=;
+        b=K+7le6PPCofAbzj1rAyidFeX5Pkn0arB7db+KVi5RseVymH/NojoIu3kjXavaNCyW9
+         6IIN5PooF0MoAaLhPAOd7noMstLcIT9GEWd7ovDA151X/241nARPyKh9SsKcDV6s7u/9
+         eJOaftXp5zwDpkJJ/bQSOoXlTPjvT82gnNibN7yXeCP01tOH7U5WPshbI42sLJGfPxxq
+         6sHEWlNfBOaXsHE22RAGBVp7VNgu8oRiVNn6JKQSrKU7KXjfDRgHiKq1ibF5OB2aRDbH
+         Vl1GkTUTCJgqg+yBG7S63UMueFXUB90SlnUT/EqCCbDVVgouiPIOOXW5hz3y8Q8LAuiH
+         IDlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1755954134; x=1756558934;
+        d=1e100.net; s=20230601; t=1755959010; x=1756563810;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=IoU26xKHPeY9hUXQ9gUpNVV7cWVumIngLl3l0tskYZI=;
-        b=VS0ngXJ942i/6xmT/zrAxlOuDmf1ZveYWUY74f/teQ6DmcTSZ1XCdvGQr41imOIkQa
-         v3cfNDjjhlG2xsIlhhAxxdk/lDgv0fAW+3FAc3n3CuT6OZ0u+Xit8kpqbbkMvvlmiou4
-         YY6hOSfhCl5PlRqzFEYHz9MmvJkKF67Yke7Xj1BLY+hI+B68NJJSS95mwqrLurOv0HmQ
-         wwXBI53EiVcz6FujpvXxirSScJ1u/c+MA84tthw6q9sx2r2StpK/rVaisBTFIC5vD2r7
-         MXsxTdTv2RXmEaAlhda76XrBqDphoy8JEVO0zuzrnEh+dpGURQw9oC4KGXHNxPnAVNGp
-         B6hQ==
-X-Gm-Message-State: AOJu0YywVeiwVl15ytMMmmjFeS3i0//JB8rYciOAo9gRVa7mJX0Kxboe
-	eNezQGbY2/1RPv6RYCRWpdLZzhlD0jSL5R6wik/cQLw5+ZFL9dIIOOx3JOFR7A==
-X-Gm-Gg: ASbGnctUygfmqF87fgX2p6KWfjFAK0l0HE48+kQgl5Ynnc8XL0mN7DyoIVskT0VDiyN
-	IAVLBNzxBJ7svLvnrXS09pG2VGvuHAXe/iaKOhmM8aZEh0fwLWRSUf/vAIbrpZz8bm4JfHfyCGP
-	bl6PeXZvcS7DNvAp4gI8vNDp+RDbmD9cfecsTdBawyY8t26xtssfb5ZTHhYpWY9GFmQBlGT1SgP
-	q3lDKhBr7q0EQnel6aW3Vlppo+XkJ5t+ug5MN/PllqXs5RcRLuIBOj3SUwDvQuuIW35DrC7pr7Z
-	87BsnPWyXCy2I1jmHk118FfXdf1j1YWFEae+RVQTMfBVgDWCxq9DNOvu5EjS2oOO+PCFnep9sMr
-	Qu1X0YpQbgja3GATtsQdCkaMP2w==
-X-Google-Smtp-Source: AGHT+IGjA4bJH2rb+EZDxueiE5sFViqUJr7b3umUOK40C1VLW2vX0j0umeQXrY7s63HWWTPYipgB/w==
-X-Received: by 2002:a05:6512:3b86:b0:55b:922b:f626 with SMTP id 2adb3069b0e04-55f0d396a5amr1898859e87.45.1755954133846;
-        Sat, 23 Aug 2025 06:02:13 -0700 (PDT)
-Message-ID: <543c8010-bc73-4da8-be9a-f1774ec8b963@gmail.com>
-Date: Sat, 23 Aug 2025 16:02:11 +0300
+        bh=jxafceqXQ3sqq5LJ9WvUErToiUGz649vQj9CWWcV1Gs=;
+        b=HF+6nWnsV+qSFKOmz+FmO1oLHeUBha4c8ExM4tyC4y4Tb+6iEQv0xTYtAkD0ARPWCM
+         +bfev86K/wLPge2ttpaD05ZQycWZamoch9NwhSuDh4GXxLS3zxMN5D7ESlaycrWv3v+f
+         3WEWbxc+Kod0hXM+tNDXMSkvKpkGM9fdYVBng7EfsE7CGSGDAdykjISKRDRYJNdYyrv/
+         oZDfSRtUxzP9cLG5nz1nGSVmyR3AFyO/WSf6zdPakAz+VWM5H5C5wIJL/7vr8XgRENXc
+         ZWgtTFswBvGooFkB76SkN6yQdo17OlmGY9r3m+Dwb5aB5g1H0w/3UNUKP1UF6g+ysK7E
+         EfOQ==
+X-Gm-Message-State: AOJu0YxLDwFqIO1eaoDCbrvpA7gyku2csG90tjdy00Dpv+CbVBX0J0qg
+	28vT/Vu1TJImD6rYHNm6lQgd+/N8agiRA4BQo+mNUIafl6x3krfMnhXVO4kZyg==
+X-Gm-Gg: ASbGncuc0vc6F60FxjpF2rH2e/aULXioRYA5HbTxtUBO2b/riEJ5wPKw4548FIIey1M
+	obHys+murLuWAHFsdxFMOMYo+8R7HRhqWeJv6cIb6pe2KXNah2/EHCPeLjQ71Dd41wWWH2Xn5th
+	wTr75RNxMaOZFQybm2WofhN0QAUEaAEePF9dwIauHZItdd25uXNH0lCfSWIGMnWDMMDRqS80YSL
+	zGCiI7EdRxElrQXlTpviktW65jchqfcM6gevvJB6unfiy6VFarqYBxipWJqvCWX8tlSM9Oe3vMf
+	a0Z32qOVHLFexn716mxt5g41DaGQ1jfCC6CaaD3JS/dfZ2GZNwOiGgpKLdic1ykYafUEM3zctZT
+	qVuehqs+S6nfUZuXwmLh6IykO87/8Jl7BWydU
+X-Google-Smtp-Source: AGHT+IFhmZSZx4Ywb0a8sPkfBHESkTu7fIfcdajDPDV5q/89NoI5rC/4wxS1iG4UcNwK5ZMbiK4EQg==
+X-Received: by 2002:a05:6512:6095:b0:55c:e752:e9c3 with SMTP id 2adb3069b0e04-55f0cce11ffmr2010149e87.8.1755959009454;
+        Sat, 23 Aug 2025 07:23:29 -0700 (PDT)
+Message-ID: <b2870d5f-cf54-41f4-9cfe-b83161c157df@gmail.com>
+Date: Sat, 23 Aug 2025 17:23:27 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/10] xen/arm: domain_build: adjust Dom0 IRQ handling
- to support eSPIs
+Subject: Re: [PATCH v2 05/10] xen/arm: gicv3: implement handling of GICv3.1
+ eSPI
 To: xen-devel@lists.xenproject.org,
  Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>
 References: <7e6477a83ab65220ef1c5dd22f4ef3536fbbdd5c.1754568795.git.leonid_komarianskyi@epam.com>
- <abba685916e6637eedbd831352bed2e968eeb7dc.1754568795.git.leonid_komarianskyi@epam.com>
+ <2491bee7441f13a3c1a01fd77ece1749e7276352.1754568795.git.leonid_komarianskyi@epam.com>
 Content-Language: en-US
 From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-In-Reply-To: <abba685916e6637eedbd831352bed2e968eeb7dc.1754568795.git.leonid_komarianskyi@epam.com>
+In-Reply-To: <2491bee7441f13a3c1a01fd77ece1749e7276352.1754568795.git.leonid_komarianskyi@epam.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
@@ -103,56 +103,151 @@ On 07.08.25 15:33, Leonid Komarianskyi wrote:
 
 Hello Leonid
 
-> The Dom0 configuration logic in create_dom0() has been updated
-> to account for extended SPIs when supported by the hardware and
-> enabled with CONFIG_GICV3_ESPI. These changes ensure the proper
-> calculation of the maximum number of SPIs and eSPIs available for Dom0.
+
+> Introduced appropriate register definitions, helper macros,
+> and initialization of required GICv3.1 distributor registers
+> to support eSPI. This type of interrupt is handled in the
+> same way as regular SPI interrupts, with the following
+> differences:
 > 
-> When eSPIs are supported by the hardware and CONFIG_GICV3_ESPI is
-> enabled, the maximum number of eSPI interrupts is calculated using
-> the ESPI_BASE_INTID offset (4096) and limited at 1024, with 32 IRQs
-> subtracted. To ensure compatibility with non-Dom0 domains, this
-> adjustment is applied by the toolstack during domain creation, while
-> for Dom0 it is handled directly during VGIC initialization. If eSPIs
-> are not supported, the calculation defaults to using the standard SPI
-> range, with a maximum value of 992 interrupt lines as it works now.
+> 1) eSPIs can have up to 1024 interrupts, starting from the
+> beginning of the range, whereas regular SPIs use INTIDs from
+> 32 to 1019, totaling 988 interrupts;
+> 2) eSPIs start at INTID 4096, necessitating additional interrupt
+> index conversion during register operations.
+> 
+> In case if appropriate config is disabled, or GIC HW doesn't
+> support eSPI, the existing functionality will remain the same.
 > 
 > Signed-off-by: Leonid Komarianskyi <leonid_komarianskyi@epam.com>
 > 
 > ---
 > Changes in V2:
-> - no changes
+> - move gic_number_espis function from
+>    [PATCH 08/10] xen/arm: vgic: add resource management for extended SPIs
+>    to use it in the newly introduced gic_is_valid_espi
+> - add gic_is_valid_espi which checks if IRQ number is in supported
+>    by HW eSPI range
+> - update gic_is_valid_irq conditions to allow operations with eSPIs
 > ---
->   xen/arch/arm/domain_build.c     | 10 ++++++++++
->   xen/arch/arm/include/asm/vgic.h | 11 +++++++++++
->   2 files changed, 21 insertions(+)
+>   xen/arch/arm/gic-v3.c                  | 73 ++++++++++++++++++++++++++
+>   xen/arch/arm/include/asm/gic.h         | 17 ++++++
+>   xen/arch/arm/include/asm/gic_v3_defs.h | 33 ++++++++++++
+>   3 files changed, 123 insertions(+)
 > 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index d91a71acfd..fa5abf2dfb 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -2055,6 +2055,16 @@ void __init create_dom0(void)
->       /* The vGIC for DOM0 is exactly emulating the hardware GIC */
->       dom0_cfg.arch.gic_version = XEN_DOMCTL_CONFIG_GIC_NATIVE;
->       dom0_cfg.arch.nr_spis = VGIC_DEF_NR_SPIS;
+> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+> index 8fd78aba44..a0e8ee1a1e 100644
+> --- a/xen/arch/arm/gic-v3.c
+> +++ b/xen/arch/arm/gic-v3.c
+> @@ -485,6 +485,36 @@ static void __iomem *get_addr_by_offset(struct irq_desc *irqd, u32 offset)
+>           default:
+>               break;
+>           }
 > +#ifdef CONFIG_GICV3_ESPI
-> +    /*
-> +     * Check if the hardware supports extended SPIs (even if the appropriate config is set).
-> +     * If not, the common SPI range will be used. Otherwise overwrite the nr_spis with the
-> +     * maximum available INTID from eSPI range. In that case, the number of regular SPIs will
-> +     * be adjusted to the maximum value during vGIC initialization.
-> +     */
-> +    if ( gic_number_espis() > 0 )
-> +        dom0_cfg.arch.nr_spis = VGIC_DEF_NR_ESPIS;
+> +    case ESPI_BASE_INTID ... ESPI_MAX_INTID:
+> +    {
+> +        u32 irq_index = ESPI_INTID2IDX(irqd->irq);
+> +
+> +        switch ( offset )
+> +        {
+> +        case GICD_ISENABLER:
+> +            return (GICD + GICD_ISENABLERnE + (irq_index / 32) * 4);
+> +        case GICD_ICENABLER:
+> +            return (GICD + GICD_ICENABLERnE + (irq_index / 32) * 4);
+> +        case GICD_ISPENDR:
+> +            return (GICD + GICD_ISPENDRnE + (irq_index / 32) * 4);
+> +        case GICD_ICPENDR:
+> +            return (GICD + GICD_ICPENDRnE + (irq_index / 32) * 4);
+> +        case GICD_ISACTIVER:
+> +            return (GICD + GICD_ISACTIVERnE + (irq_index / 32) * 4);
+> +        case GICD_ICACTIVER:
+> +            return (GICD + GICD_ICACTIVERnE + (irq_index / 32) * 4);
+> +        case GICD_ICFGR:
+> +            return (GICD + GICD_ICFGRnE + (irq_index / 16) * 4);
+> +        case GICD_IROUTER:
+> +            return (GICD + GICD_IROUTERnE + irq_index * 8);
+> +        case GICD_IPRIORITYR:
+> +            return (GICD + GICD_IPRIORITYRnE + irq_index);
+> +        default:
+> +            break;
+> +        }
+> +    }
 > +#endif
-
-I might miss something, but within the whole series, you seem not to 
-update "nr_spis" field for dom0less DomUs (in dom0less-build.c). Please 
-clarify the reason?
-
->       dom0_cfg.arch.tee_type = tee_get_type();
->       dom0_cfg.max_vcpus = dom0_max_vcpus();
+>       default:
+>           break;
+>       }
+> @@ -645,6 +675,40 @@ static void gicv3_set_irq_priority(struct irq_desc *desc,
+>       spin_unlock(&gicv3.lock);
+>   }
 >   
+> +#ifdef CONFIG_GICV3_ESPI
+> +unsigned int gic_number_espis(void)
+> +{
+> +    return gic_hw_ops->info->nr_espi;
+> +}
+> +
+> +static void gicv3_dist_espi_common_init(uint32_t type)
+
+missing __init ?
+
+> +{
+> +    unsigned int espi_nr;
+> +    int i;
+
+please use unsigned int if "i" cannot be negative
+
+> +
+> +    espi_nr = min(1024U, GICD_TYPER_ESPIS_NUM(type));
+> +    gicv3_info.nr_espi = espi_nr;
+> +    /* The GIC HW doesn't support eSPI, so we can leave from here */
+> +    if ( gicv3_info.nr_espi == 0 )
+> +        return;
+> +
+> +    for ( i = 0; i < espi_nr; i += 16 )
+> +        writel_relaxed(0, GICD + GICD_ICFGRnE + (i / 16) * 4);
+> +
+> +    for ( i = 0; i < espi_nr; i += 4 )
+> +        writel_relaxed(GIC_PRI_IRQ_ALL, GICD + GICD_IPRIORITYRnE + (i / 4) * 4);
+> +
+> +    for ( i = 0; i < espi_nr; i += 32 )
+> +    {
+> +        writel_relaxed(0xffffffffU, GICD + GICD_ICENABLERnE + (i / 32) * 4);
+> +        writel_relaxed(0xffffffffU, GICD + GICD_ICACTIVERnE + (i / 32) * 4);
+> +    }
+> +
+> +    for ( i = 0; i < espi_nr; i += 32 )
+> +        writel_relaxed(GENMASK(31, 0), GICD + GICD_IGROUPRnE + (i / 32) * 4);
+> +}
+> +#endif
+> +
+>   static void __init gicv3_dist_init(void)
+>   {
+>       uint32_t type;
+> @@ -690,6 +754,10 @@ static void __init gicv3_dist_init(void)
+>       for ( i = NR_GIC_LOCAL_IRQS; i < nr_lines; i += 32 )
+>           writel_relaxed(GENMASK(31, 0), GICD + GICD_IGROUPR + (i / 32) * 4);
+>   
+> +#ifdef CONFIG_GICV3_ESPI
+> +    gicv3_dist_espi_common_init(type);
+> +#endif
+> +
+>       gicv3_dist_wait_for_rwp();
+>   
+>       /* Turn on the distributor */
+> @@ -703,6 +771,11 @@ static void __init gicv3_dist_init(void)
+>   
+>       for ( i = NR_GIC_LOCAL_IRQS; i < nr_lines; i++ )
+>           writeq_relaxed_non_atomic(affinity, GICD + GICD_IROUTER + i * 8);
+> +
+> +#ifdef CONFIG_GICV3_ESPI
+> +    for ( i = 0; i < gicv3_info.nr_espi; i++ )
+> +        writeq_relaxed_non_atomic(affinity, GICD + GICD_IROUTERnE + i * 8);
+> +#endif
+>   }
+>   
+>   static int gicv3_enable_redist(void)
+
 
 [snip]
+
 
