@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 156CAB32785
-	for <lists+xen-devel@lfdr.de>; Sat, 23 Aug 2025 10:00:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1091011.1447959 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D098AB3288B
+	for <lists+xen-devel@lfdr.de>; Sat, 23 Aug 2025 14:31:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1091202.1447985 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upj9i-0003ty-W6; Sat, 23 Aug 2025 07:59:18 +0000
+	id 1upnNq-0004VQ-Js; Sat, 23 Aug 2025 12:30:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1091011.1447959; Sat, 23 Aug 2025 07:59:18 +0000
+Received: by outflank-mailman (output) from mailman id 1091202.1447985; Sat, 23 Aug 2025 12:30:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1upj9i-0003sX-TD; Sat, 23 Aug 2025 07:59:18 +0000
-Received: by outflank-mailman (input) for mailman id 1091011;
- Sat, 23 Aug 2025 07:59:18 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1upj9i-0003sK-27; Sat, 23 Aug 2025 07:59:18 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1upj9f-002OaF-1B;
- Sat, 23 Aug 2025 07:59:15 +0000
-Received: from [2a02:8012:3a1:0:7444:6df7:db1a:3c76]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1upj9f-00EMdN-0z;
- Sat, 23 Aug 2025 07:59:15 +0000
+	id 1upnNq-0004Sh-F9; Sat, 23 Aug 2025 12:30:10 +0000
+Received: by outflank-mailman (input) for mailman id 1091202;
+ Sat, 23 Aug 2025 12:30:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LOa+=3D=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1upnNp-0004Sb-0s
+ for xen-devel@lists.xenproject.org; Sat, 23 Aug 2025 12:30:09 +0000
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [2a00:1450:4864:20::131])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e44c75de-801c-11f0-b898-0df219b8e170;
+ Sat, 23 Aug 2025 14:30:03 +0200 (CEST)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-55ce52b01caso3081403e87.3
+ for <xen-devel@lists.xenproject.org>; Sat, 23 Aug 2025 05:30:02 -0700 (PDT)
+Received: from [192.168.0.110] ([91.123.151.69])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-55f35c8bc67sm494109e87.80.2025.08.23.05.29.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 23 Aug 2025 05:29:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,90 +45,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=UkPgs6bE6QfgDaM8sbWFjKUvjpYPya6Nvd7QeYLMKkI=; b=sWdumOKOZv/GaZJ3+JY1Vid8YU
-	60MByZieTPIyn1trrwn28mDi1m8/W1lDhW2AxqvrJ3WyxbekrCBA1tpEvLozGAIz83G2bY0Lb+EXg
-	WKLd70yU+T0YvQE5c1aPJsJHfCaWj/iXDoy8M0itKLu5HX+tMKHTfzZDJcDDpI9/HemM=;
-Message-ID: <2f11b8ea-a386-4c2a-afe6-c7e57d1d7f75@xen.org>
-Date: Sat, 23 Aug 2025 08:59:13 +0100
+X-Inumbo-ID: e44c75de-801c-11f0-b898-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1755952202; x=1756557002; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:to:subject:user-agent:mime-version:date:message-id:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=6DFCyfN/Wm0CNWe+vsagMdd5V//03/sTzPpoKrQ6J/Q=;
+        b=d5KzvdLOlZor6gUaaoMy9yxQvZ8E1AOnllKR6/Y0zNnOYj7aQ0YM5+l6KtFKQ6uPtg
+         7woR52B0VZjydEY0IuPjy/SQAvG0EsibaA+MeNfHddWwKiLj0y3sIjUzfLRvPLQYPvR2
+         q4gZHXhqSrAP4WADqI/X0/6wb60Cxbz91WPsHJceJq/UIzxdSyKPwmIQ/Jd/XJCjtkHP
+         JA7BduaURLGZdF9UuxceNJ2lomDA2tx2qHlsnbhfd80Q1vxwQK23OO4VZEbKXGh/YiuQ
+         R8Cqpv0GYQWhUAxUY9c9RqiHV8FTHlMpYhPztT+2quGoZeQunfNC5U4gaJ8/A5U8C0Q3
+         b4pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1755952202; x=1756557002;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=6DFCyfN/Wm0CNWe+vsagMdd5V//03/sTzPpoKrQ6J/Q=;
+        b=XK8jhBprfqUXY+x4o96eK3IV8GF6GwYrxjfikUOrVK39aZ6VpH6hS1zXPXSX5fwTiz
+         7okS2L80SPbmxMVixmVOHn98Vyt0uDvxDkq3oxqEmTh7FpBw00f6pFQXBXLlPYRMiV7O
+         iRhplIgHsGoH3AcCPMG57iaWhItq/ma8SFWOKu6ka4hdjYUcOL7lt8FOe/7KyhnlpPcq
+         XlF8Rr68L2E60jDJ4UpsJH3K7+61Nw+FomAIFK+T7y9KhufAVgFtLvGN2rZMQiSr9W8f
+         Mxib0Qi06CIyE+pAhnfAyVRrEEKRsFNsdwHswn4i4jg59v7AJ+ijdw0M4tn3ydYr8HOZ
+         gesg==
+X-Gm-Message-State: AOJu0Ywz6JNbpesBYnkI4e9YxJ8FNykq2fZ4MROk8sf9sjicOT3uQZhT
+	rfvd4J02kAWpNl7pUaZDtSpnrgvBnJs5Rcanq/Yw2uFo10ulx7ZKLoftOiBEyA==
+X-Gm-Gg: ASbGncvYX/egcMoK5elHivKMtX4wY3+5nVHwHAn/1Jr8YZoSXUNDsdDCDwO53Zh6Wz0
+	1rQ46hF8JN8hnUngdSmox2ZIB1KIRMoevmje0nkltf/d0LzoRXmf86lASVa2kTqD8C11MDaCtNE
+	ko/RbbnGYucOQpMeoteo8lHT+bqGomuJZaKLjK7RhAXZVl8cNWq0q6D7tQDKdgMVs8i8m6nXu9k
+	OLZIDIB0+zX3WDJqhPDVN0GSq8z9IGPD5IK65y+EF8JxJvbbghfW2FY0cNKpvfoCUSnbHxm0Q4R
+	aPz3HhvrjULrnroBTDRg5qfnRL5Ij5RngTebqZFHP46wuTO8EVPrhblOppB/VmLNwmcO5NKbKtB
+	+N2fJ+5ShgRPaYjqG+eg4yw+5ew==
+X-Google-Smtp-Source: AGHT+IHlFAKA4Ghw/3NVgWqFZ5Zw9Cx+YBDGBkznSW6w/xSCiAZg45vtgza2Zz66CxYxhjVfa61X+Q==
+X-Received: by 2002:a05:6512:6284:b0:55b:8a07:7917 with SMTP id 2adb3069b0e04-55f0d370fa7mr2067891e87.30.1755952201271;
+        Sat, 23 Aug 2025 05:30:01 -0700 (PDT)
+Message-ID: <29d0e5ed-78b3-45ad-9543-e47731c41c3f@gmail.com>
+Date: Sat, 23 Aug 2025 15:29:57 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Consider changing CONFIG_ACPI default on ARM?
-Content-Language: en-GB
-To: Elliott Mitchell <ehem+xen@m5p.com>, Jan Beulich <jbeulich@suse.com>
-Cc: Demi Marie Obenour <demiobenour@gmail.com>,
- xen-users@lists.xenproject.org, xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Paul Leiber <paul@onlineschubla.de>
-References: <CAO_48GG1Tg0d3ATnNAYNr0cg7Ty_zsnzT29=dpkk99DxyTWcmg@mail.gmail.com>
- <fceb5df8-d628-479d-acb3-d1d26409fbac@onlineschubla.de>
- <aJLae1Nl0pyOZgyh@mattapan.m5p.com>
- <1b96f2f3-55a2-4b33-84b1-a7c18d38d10c@suse.com>
- <6e9b5265-7a3b-4fd5-b14e-0e60a8b49833@gmail.com>
- <a3092ae1-d836-4403-8fb5-30593fcd2fb8@suse.com>
- <aKjOaT-P74Yh4-bi@mattapan.m5p.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <aKjOaT-P74Yh4-bi@mattapan.m5p.com>
+Subject: Re: [PATCH v2 03/10] xen/arm: vgic: implement helper functions for
+ virq checks
+To: xen-devel@lists.xenproject.org,
+ Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>
+References: <7e6477a83ab65220ef1c5dd22f4ef3536fbbdd5c.1754568795.git.leonid_komarianskyi@epam.com>
+ <f029f88411e816846d13aaf33d4ef703f95d1bb8.1754568795.git.leonid_komarianskyi@epam.com>
+Content-Language: en-US
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+In-Reply-To: <f029f88411e816846d13aaf33d4ef703f95d1bb8.1754568795.git.leonid_komarianskyi@epam.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Elliott,
 
-On 22/08/2025 21:09, Elliott Mitchell wrote:
-> Since you're not pointing to anything definite, could it be everything
-> has been resolved?
 
-Unfortunately, the situation has not changed since your last thread 
-about enabling CONFIG_ACPI=y a couple of years ago. The main feature we 
-are lacking is the parsing the IORT (used to discover SMMUs and MSI 
-controllers). Without this...
+On 07.08.25 15:33, Leonid Komarianskyi wrote:
 
->  We've got at least two people for whom ACPI on ARM
-> works pretty well.
+Hello Leonid
 
-... Xen will only properly boot on "simple" case like the Raspberry PI. 
-Also, IIRC Xen would use ACPI rather than Device-Tree by default.
 
-> There may be many more using it.  Perhaps this
-> should even be done on the 4.20 branch given how long this has been
-> working?
-
-I am guessing you mean 4.21 which will be released in a couple of months 
-time, correct?
-
-We have been discussing among the committers on whether we are ok to 
-enable ACPI despite the fact it is still not feature complete (see 
-above). The discussion is not fully finalized but if we were to enable 
-CONFIG_ACPI=y by default then I think we would need the following:
-
-  * Select device-tree by default rather than ACPI
-  * Go through SUPPORT.MD and check what features we marked as 
-SUPPORTED.md but doesn't work on ACPI.
-
-Maybe you can help with that?
-
-Out of interest, sorry if this was already mentioned before, is there 
-any reason ACPI is used on the Raspberry PI over Device-Tree? Is there 
-any issue with the latter on Xen?
-
+> Introduced two new helper functions for vGIC: vgic_is_valid_irq and
+> vgic_is_shared_irq. The functions are similar to the newly introduced
+> gic_is_valid_irq and gic_is_shared_irq, but they verify whether a vIRQ
+> is available for a specific domain, while GIC-specific functions
+> validate INTIDs for the real GIC hardware. For example, the GIC may
+> support all 992 SPI lines, but the domain may use only some part of them
+> (e.g., 640), depending on the highest IRQ number defined in the domain
+> configuration. Therefore, for vGIC-related code and checks, the
+> appropriate functions should be used. Also, updated the appropriate
+> checks to use these new helper functions.
 > 
-> The one remaining major issue was the state of EFI-FB support.  There
-> was a patch which had that working for Linux kernel 5.10, but that might
-> need more work for a proper solution.
+> The purpose of introducing new helper functions for vGIC is essentially
+> the same as for GIC: to avoid potential confusion with GIC-related
+> checks and to consolidate similar code into separate functions, which
+> can be more easily extended by additional conditions, e.g., when
+> implementing extended SPI interrupts.
+> 
+> Only the validation change in vgic_inject_irq may affect existing
+> functionality, as it currently checks whether the vIRQ is less than or
+> equal to vgic_num_irqs. Since IRQ indexes start from 0 (where 32 is the
+> first SPI), the check should behave consistently with similar logic in
+> other places and should check if the vIRQ number is less than
+> vgic_num_irqs. The remaining changes, which replace open-coded checks
+> with the use of these new helper functions, do not introduce any
+> functional changes, as the helper functions follow the current vIRQ
+> index verification logic.
+> 
+> Signed-off-by: Leonid Komarianskyi <leonid_komarianskyi@epam.com>
+> 
+> ---
+> Changes in V2:
+> - introduced this patch
+> ---
+>   xen/arch/arm/gic.c              |  3 +--
+>   xen/arch/arm/include/asm/vgic.h |  7 +++++++
+>   xen/arch/arm/irq.c              |  4 ++--
+>   xen/arch/arm/vgic.c             | 10 ++++++++--
+>   4 files changed, 18 insertions(+), 6 deletions(-)
+> 
+> diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
+> index eb0346a898..47fccf21d8 100644
+> --- a/xen/arch/arm/gic.c
+> +++ b/xen/arch/arm/gic.c
+> @@ -133,8 +133,7 @@ int gic_route_irq_to_guest(struct domain *d, unsigned int virq,
+>   
+>       ASSERT(spin_is_locked(&desc->lock));
+>       /* Caller has already checked that the IRQ is an SPI */
+> -    ASSERT(virq >= 32);
+> -    ASSERT(virq < vgic_num_irqs(d));
+> +    ASSERT(vgic_is_shared_irq(d, virq));
+>       ASSERT(!is_lpi(virq));
+>   
+>       ret = vgic_connect_hw_irq(d, NULL, virq, desc, true);
+> diff --git a/xen/arch/arm/include/asm/vgic.h b/xen/arch/arm/include/asm/vgic.h
+> index 35c0c6a8b0..45201f4ca5 100644
+> --- a/xen/arch/arm/include/asm/vgic.h
+> +++ b/xen/arch/arm/include/asm/vgic.h
+> @@ -335,6 +335,13 @@ extern void vgic_check_inflight_irqs_pending(struct vcpu *v,
+>   /* Default number of vGIC SPIs. 32 are substracted to cover local IRQs. */
+>   #define VGIC_DEF_NR_SPIS (min(gic_number_lines(), VGIC_MAX_IRQS) - 32)
+>   
+> +extern bool vgic_is_valid_irq(struct domain *d, unsigned int virq);
+> +
+> +static inline bool vgic_is_shared_irq(struct domain *d, unsigned int virq)
+> +{
+> +    return (virq >= NR_LOCAL_IRQS && vgic_is_valid_irq(d, virq));
+> +}
+> +
+>   /*
+>    * Allocate a guest VIRQ
+>    *  - spi == 0 => allocate a PPI. It will be the same on every vCPU
+> diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
+> index 12c70d02cc..50e57aaea7 100644
+> --- a/xen/arch/arm/irq.c
+> +++ b/xen/arch/arm/irq.c
+> @@ -442,7 +442,7 @@ int route_irq_to_guest(struct domain *d, unsigned int virq,
+>       unsigned long flags;
+>       int retval = 0;
+>   
+> -    if ( virq >= vgic_num_irqs(d) )
+> +    if ( !vgic_is_valid_irq(d, virq) )
 
-Yes. And there was no interest from the other members to fix it 
-properly. So I gave up that on that work as I don't have a particular 
-interest of using FrameBuffer on the raspberry PI. Feel free to revive 
-it and I would be happy to review them.
 
-Cheers,
+This file is common for all VGIC implementations, so 
+route_irq_to_guest() is used with CONFIG_NEW_VGIC=y as well.
 
--- 
-Julien Grall
+If your series is built with CONFIG_NEW_VGIC=y (I know, that NEW_VGIC 
+does not support GICV3 HW) I have got the following error:
 
+
+aarch64-poky-linux-ld: prelink.o: in function `route_irq_to_guest':
+/usr/src/debug/xen/4.18.0+gitAUTOINC+ce58f56108-r0/git/xen/arch/arm/irq.c:445: 
+undefined reference to `vgic_is_valid_irq'
+/usr/src/debug/xen/4.18.0+gitAUTOINC+ce58f56108-r0/git/xen/arch/arm/irq.c:445:(.text+0x5e2f8): 
+relocation truncated to fit: R_AARCH64_CALL26 against undefined symbol 
+`vgic_is_valid_irq'
+...
+
+ From the quick look, vgic_is_valid_irq() needs a stub (or NEW_VGIC's 
+counterpart).
+
+[snip]
 
