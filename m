@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2B42B33338
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 00:39:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1092351.1448266 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8261CB3333C
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 00:46:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1092361.1448275 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqJNF-0005u4-H8; Sun, 24 Aug 2025 22:39:41 +0000
+	id 1uqJTH-0007cW-64; Sun, 24 Aug 2025 22:45:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1092351.1448266; Sun, 24 Aug 2025 22:39:41 +0000
+Received: by outflank-mailman (output) from mailman id 1092361.1448275; Sun, 24 Aug 2025 22:45:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqJNF-0005sc-Do; Sun, 24 Aug 2025 22:39:41 +0000
-Received: by outflank-mailman (input) for mailman id 1092351;
- Sun, 24 Aug 2025 22:39:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uqJTH-0007ZO-2Y; Sun, 24 Aug 2025 22:45:55 +0000
+Received: by outflank-mailman (input) for mailman id 1092361;
+ Sun, 24 Aug 2025 22:45:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/oRm=3E=gmail.com=demiobenour@srs-se1.protection.inumbo.net>)
- id 1uqJND-0005sW-QQ
- for xen-devel@lists.xenproject.org; Sun, 24 Aug 2025 22:39:39 +0000
-Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
- [2607:f8b0:4864:20::112f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 347a5f23-813b-11f0-b898-0df219b8e170;
- Mon, 25 Aug 2025 00:39:33 +0200 (CEST)
-Received: by mail-yw1-x112f.google.com with SMTP id
- 00721157ae682-71d6059f490so32363307b3.3
- for <xen-devel@lists.xenproject.org>; Sun, 24 Aug 2025 15:39:34 -0700 (PDT)
+ id 1uqJTF-0007ZD-63
+ for xen-devel@lists.xenproject.org; Sun, 24 Aug 2025 22:45:53 +0000
+Received: from mail-yw1-x1134.google.com (mail-yw1-x1134.google.com
+ [2607:f8b0:4864:20::1134])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 15b21bb9-813c-11f0-a32c-13f23c93f187;
+ Mon, 25 Aug 2025 00:45:52 +0200 (CEST)
+Received: by mail-yw1-x1134.google.com with SMTP id
+ 00721157ae682-71d6083cc69so30131637b3.2; 
+ Sun, 24 Aug 2025 15:45:51 -0700 (PDT)
 Received: from [10.138.34.110]
  (h96-60-249-169.cncrtn.broadband.dynamic.tds.net. [96.60.249.169])
  by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-5f65afbaf1esm1451633d50.9.2025.08.24.15.39.11
+ 00721157ae682-71ffd8ef450sm9964177b3.71.2025.08.24.15.45.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 24 Aug 2025 15:39:31 -0700 (PDT)
+ Sun, 24 Aug 2025 15:45:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,78 +46,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 347a5f23-813b-11f0-b898-0df219b8e170
+X-Inumbo-ID: 15b21bb9-813c-11f0-a32c-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756075173; x=1756679973; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1756075550; x=1756680350; darn=lists.xenproject.org;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=oMbQIfJKYSoGc/NO7VkeX8r0AyWhrg2eAd5PQBDEokc=;
-        b=GYIMMwFOXmvF98xqfXNGYN+M+iJqeERxQN/RO/XX3TXnkVdL1lTzql5wwDo2TPSO4M
-         yZ6PwU9eWk1IC5MqeAHylQyPsyeiHuAoZYWqKZ81obSgXfjR8Dz+uvh3sZLXnjAeiL2W
-         tIcaVoSUuDou2OQGw58Oaqq6PRPJI4U2P045nkIJR1Y1a1sWCJw7ft3hsOitgJE8bpi7
-         3ako7sPxy8n7xsuB6MbvmaCiFNJC+rGLT1R/eMWSWSRbj/j8cVGAg7y1sJ+lgp49Y4qC
-         dfPBKc+5d5mKLp78muspP5Xggls/17dIuAK9+9FMDYBwXXRH9+VVT0fyb4MKndpiXSsi
-         y00g==
+        bh=7GrOiQ5LBRM2OG2jXjSf3cnG6Dj9j4mlYfmhqpWrcR4=;
+        b=huxUcIV4DZWJx7OsW4UgzPey+qlKzq6l2Po2ABIvtHeLxMVvofDxGv0GSizhLquiNL
+         LI3E09W8KoMS3hWGK60zBGy57kQNNDXakJSJjdgqq1sqHzXt8OFPzQZcvrmidJLefFxa
+         ilodKhbxWshUTPChgcoG1NlLVRaPac/e3qJW3cESCsGfa7yCRhNF0zuevWXIeW97GWi6
+         1P5tT7p9L6BqKMPfbpTu5XpY1ECmRt/y/IJxBJ72o5Y0Iz9r4Om5GWjoyJ8LQRERQmWA
+         ZlDzZLq0Bv9dEGp065d6tAxAJLfvwmyuD8WjNFybWkWO1+8e68vOOc+fB0h96WSAOy4W
+         Qdxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756075173; x=1756679973;
+        d=1e100.net; s=20230601; t=1756075550; x=1756680350;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=oMbQIfJKYSoGc/NO7VkeX8r0AyWhrg2eAd5PQBDEokc=;
-        b=Zm4Xk9rGjZ98d+QtG9lR+vzadoDMATEIhTV7nvSZl6tZclLSiooMTblFQk7iNhBVUj
-         qQ+8A1oRX9MV+mfl0PNAQkCVETZq/LjyyvQqF/wTS0K/T9wbynAdIQ8tZmvSTswmNXFk
-         m4Z/rMw1NNQMye52xtqmTadub2LTXLk0qIhVuNMHBUTMvIMX1cM6A/mNcKLJlwHwgmiZ
-         g65uSdKrvYMqL6IzX1zqCHCX4CuHdT6JOXQmGvyANmh07EwVEeu0RTw8SYIaipvZ2j1G
-         jRPcEe6bPBhYzFjvJLGDSxEWPrSuLU4zn0fJggQiG/Oamb9cdnJsQ+rU/zJBqcekrTVU
-         1Z8w==
-X-Forwarded-Encrypted: i=1; AJvYcCWhgTkI1D4npTbEEEhU8AcWz46QPz6dAjPgouBK13l7uPzbnhASdMdYLluTD2HFprDIfOz+sK9xLE8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwGEDM4d2PJDy/2Dy/gao0OpRvwouGkLD8lap6yGhZZoM1r0BxK
-	vH70SaBKGyfidMjf1GMq0knx5u9hhidaYBI+mM1ctP9OTv12Giuonn9F
-X-Gm-Gg: ASbGncu9PzT0qVq2hVK8Ps4znKXhmWCdC3f7Rs4ChukEU6JvDhBFn3WNo1Qzm8alqRj
-	r2rEuUHUf+w7gV2ErCaCKbQiaqe3xO3MeCaKAoq+bAlSZWicP7REiJ4j92sxWbi5DKFt5fP1MT6
-	ZLUtWJTdKbxXc2f2xRtYIll5LKbOONbD3IHJjr1SgeGQjxfTYmmYg1taoPGfSRmEaO/b/zagONZ
-	3Y+z4udwVtXYeySgoNY+u5N5XyijSv9X1jBGiJAPR8PU1Pmlp6gycfMxdy8h9AKZTZUYRsaAwns
-	8JPxBKVRfjHFlHkhE8Ha42t2KaW5YUZ2e+J2AJ6V+XQdRmIOVAIOTuUGZwikN3J3BZgg/TaF15v
-	hvXUbMT6TTbElZkS5GLD+buEbWtdHcwaIgxXB1VYsUO++0SFxUWOIUbQ9JrJJz5qE1B9hkoz6k8
-	6DTmEdwdb4AUNOWeAFn9Ht02TNB6Fc/bGsw4s=
-X-Google-Smtp-Source: AGHT+IF7L7t9iyFo8PEEPeNTxggSKoAmMAPwEJL/hRdK18Dwa4nmvojL7aEh4438B6cIi5yWkr83tQ==
-X-Received: by 2002:a05:690c:8693:10b0:71f:e5c5:514d with SMTP id 00721157ae682-71fe5c5816amr76450967b3.26.1756075172781;
-        Sun, 24 Aug 2025 15:39:32 -0700 (PDT)
-Message-ID: <a57a9878-893c-41ab-8380-a0ac9e736752@gmail.com>
-Date: Sun, 24 Aug 2025 18:39:05 -0400
+        bh=7GrOiQ5LBRM2OG2jXjSf3cnG6Dj9j4mlYfmhqpWrcR4=;
+        b=oJHUs/ETjW66ZfPZBDn2XFmAUvbPPyHDPQqRCS2n0Z/mD06v5znkw3bZUtnMgNaljo
+         umAEAWq/7nBCdfLtOXAadZq5lFHet1rWbTr4KVd/6WtmrW4gwagB/CJp+AYxmbf6TTVg
+         YYHszswnECvUo2PfZQGSyVtiISfLtPZpV2WNSaCi9Ta8EGuxGECH1KpYXdB1xmbwwMLX
+         UeGtZWoAUiws8UB9C8+DoYFR39YlpB0MtTArLAW4VXorRcR43ZYXwJrjeNcdltPQmUid
+         1KwO7jExI5is2yPVJwfX5qQmB4zVKY56Z/Vr6+CPMNcKWPtAhhBKuzOpUeHeTnKs2I+P
+         oS0g==
+X-Forwarded-Encrypted: i=1; AJvYcCVG53MtYhmJcc4ydW2F240XGPxrDLFpf0nOL4CLssUNTWz6DmRqO1MjJAYv59tHEVoptXprFSLnpyI=@lists.xenproject.org, AJvYcCVtWofK1DtiSqDOKEdyFGCNh9AThpuEhqO0TouXthOBhH8wfw3JlYXdvvjyTQiOZRwUzQejnZTz15Ai@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzIJra3yJdOdTqww4XLM+D7CXKZoZKrCPHD3MW242vCaDBzJ2ZJ
+	Hy9IlUcz1o9qBaR55OwVY9+hM4zBlf2HyCRccau0wmUu9Grm79b5DiYo
+X-Gm-Gg: ASbGnctYqpzYPfWBzzTlIlE2NO9BPs2IOBrSyZNwN7DemY93t72g5BwBpsvzlg7Emmi
+	7tem15xBaHbn/BAusirbJdhvAyL54vgBrkg/8K5lVji1jWB2zWRBAh6Xmj1x5z7taSe3t23lS5a
+	DAQcivB4UEFpAX/8Cj6yH01ceKBb9bne0tNzOFzJGA2zJjni0p6L8y+/vBvO/pJN88ekIMt3L/8
+	1G2OFzD/wHR4xE5hEY23yIvUccPS3z8JvZfoIi14tEafGeQJ/kwv6AZZHP/pPv7rphMLl12iQp0
+	wzViTX7V+UBvES/FQKMBeZOksZvDNv45Dagm12ve5zHAW5+yiRu2mMwGuTWW0eOAdL5+wDrVaG5
+	MNrqfKa6oCptPCJoqkjHpX7BBOw/ZqRAXnT7kyCzJ6gb/t6hREThyDR+1UpKETOZ8W501P9XtIF
+	iRwPRNQKIOIoA/CXgDLaqy1NBqYnmtSm5JlbI=
+X-Google-Smtp-Source: AGHT+IEmm9hUbRUU2Ka+sHCYKyK7tq5N2YOR27oYD2DFXNHrIm5emOr33ovCbpW7VcJuGbYLrCh/Dg==
+X-Received: by 2002:a05:690c:4c90:b0:720:79a:b09b with SMTP id 00721157ae682-720079ab767mr32347697b3.12.1756075550274;
+        Sun, 24 Aug 2025 15:45:50 -0700 (PDT)
+Message-ID: <15024e7a-f5e2-43df-8de8-e4da200e7ee6@gmail.com>
+Date: Sun, 24 Aug 2025 18:45:45 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 13/15] x86/cpu/intel: Bound the non-architectural
- constant_tsc model checks
-To: Xiaoyao Li <xiaoyao.li@intel.com>, Sohil Mehta <sohil.mehta@intel.com>,
- David Woodhouse <dwmw2@infradead.org>, x86@kernel.org,
- Dave Hansen <dave.hansen@linux.intel.com>, Tony Luck <tony.luck@intel.com>,
- =?UTF-8?Q?J=C3=BCrgen_Gross?= <jgross@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- Kan Liang <kan.liang@linux.intel.com>, Thomas Gleixner <tglx@linutronix.de>,
- Borislav Petkov <bp@alien8.de>, "H . Peter Anvin" <hpa@zytor.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- Andy Lutomirski <luto@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
- Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
- Zhang Rui <rui.zhang@intel.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- David Laight <david.laight.linux@gmail.com>,
- Dapeng Mi <dapeng1.mi@linux.intel.com>, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-pm@vger.kernel.org, kvm@vger.kernel.org, Xin Li <xin@zytor.com>
-References: <20250219184133.816753-1-sohil.mehta@intel.com>
- <20250219184133.816753-14-sohil.mehta@intel.com>
- <6f05a6849fb7b22db35216dcf12bf537f8a43a92.camel@infradead.org>
- <968a179f-3da7-4c69-b798-357ea8d759eb@intel.com>
- <5f5f1230-f373-469c-b0d9-abc80199886e@intel.com>
- <03ac8bac-c8d1-4a3b-a07f-2bbf04e726b6@intel.com>
+Subject: Re: Consider changing CONFIG_ACPI default on ARM?
+To: Elliott Mitchell <ehem+xen@m5p.com>, Julien Grall <julien@xen.org>
+Cc: Jan Beulich <jbeulich@suse.com>, xen-users@lists.xenproject.org,
+ xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Paul Leiber <paul@onlineschubla.de>
+References: <CAO_48GG1Tg0d3ATnNAYNr0cg7Ty_zsnzT29=dpkk99DxyTWcmg@mail.gmail.com>
+ <fceb5df8-d628-479d-acb3-d1d26409fbac@onlineschubla.de>
+ <aJLae1Nl0pyOZgyh@mattapan.m5p.com>
+ <1b96f2f3-55a2-4b33-84b1-a7c18d38d10c@suse.com>
+ <6e9b5265-7a3b-4fd5-b14e-0e60a8b49833@gmail.com>
+ <a3092ae1-d836-4403-8fb5-30593fcd2fb8@suse.com>
+ <aKjOaT-P74Yh4-bi@mattapan.m5p.com>
+ <2f11b8ea-a386-4c2a-afe6-c7e57d1d7f75@xen.org>
+ <aKpzjMnNzxJCoIXb@mattapan.m5p.com>
 Content-Language: en-US
 From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
@@ -163,139 +150,176 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <03ac8bac-c8d1-4a3b-a07f-2bbf04e726b6@intel.com>
+In-Reply-To: <aKpzjMnNzxJCoIXb@mattapan.m5p.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------nzm2Wxf46MXXnMPF7VllXzs2"
+ boundary="------------bhY5DSzf495VIr8O8A6zutvS"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------nzm2Wxf46MXXnMPF7VllXzs2
-Content-Type: multipart/mixed; boundary="------------4aUnYrlTs60uvM0eqrIjZiJR";
+--------------bhY5DSzf495VIr8O8A6zutvS
+Content-Type: multipart/mixed; boundary="------------t00hXkO0rFL9WCPjRbNmoM76";
  protected-headers="v1"
 From: Demi Marie Obenour <demiobenour@gmail.com>
-To: Xiaoyao Li <xiaoyao.li@intel.com>, Sohil Mehta <sohil.mehta@intel.com>,
- David Woodhouse <dwmw2@infradead.org>, x86@kernel.org,
- Dave Hansen <dave.hansen@linux.intel.com>, Tony Luck <tony.luck@intel.com>,
- =?UTF-8?Q?J=C3=BCrgen_Gross?= <jgross@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- Kan Liang <kan.liang@linux.intel.com>, Thomas Gleixner <tglx@linutronix.de>,
- Borislav Petkov <bp@alien8.de>, "H . Peter Anvin" <hpa@zytor.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- Andy Lutomirski <luto@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
- Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
- Zhang Rui <rui.zhang@intel.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- David Laight <david.laight.linux@gmail.com>,
- Dapeng Mi <dapeng1.mi@linux.intel.com>, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-pm@vger.kernel.org, kvm@vger.kernel.org, Xin Li <xin@zytor.com>
-Message-ID: <a57a9878-893c-41ab-8380-a0ac9e736752@gmail.com>
-Subject: Re: [PATCH v3 13/15] x86/cpu/intel: Bound the non-architectural
- constant_tsc model checks
-References: <20250219184133.816753-1-sohil.mehta@intel.com>
- <20250219184133.816753-14-sohil.mehta@intel.com>
- <6f05a6849fb7b22db35216dcf12bf537f8a43a92.camel@infradead.org>
- <968a179f-3da7-4c69-b798-357ea8d759eb@intel.com>
- <5f5f1230-f373-469c-b0d9-abc80199886e@intel.com>
- <03ac8bac-c8d1-4a3b-a07f-2bbf04e726b6@intel.com>
-In-Reply-To: <03ac8bac-c8d1-4a3b-a07f-2bbf04e726b6@intel.com>
-Autocrypt-Gossip: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+To: Elliott Mitchell <ehem+xen@m5p.com>, Julien Grall <julien@xen.org>
+Cc: Jan Beulich <jbeulich@suse.com>, xen-users@lists.xenproject.org,
+ xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Paul Leiber <paul@onlineschubla.de>
+Message-ID: <15024e7a-f5e2-43df-8de8-e4da200e7ee6@gmail.com>
+Subject: Re: Consider changing CONFIG_ACPI default on ARM?
+References: <CAO_48GG1Tg0d3ATnNAYNr0cg7Ty_zsnzT29=dpkk99DxyTWcmg@mail.gmail.com>
+ <fceb5df8-d628-479d-acb3-d1d26409fbac@onlineschubla.de>
+ <aJLae1Nl0pyOZgyh@mattapan.m5p.com>
+ <1b96f2f3-55a2-4b33-84b1-a7c18d38d10c@suse.com>
+ <6e9b5265-7a3b-4fd5-b14e-0e60a8b49833@gmail.com>
+ <a3092ae1-d836-4403-8fb5-30593fcd2fb8@suse.com>
+ <aKjOaT-P74Yh4-bi@mattapan.m5p.com>
+ <2f11b8ea-a386-4c2a-afe6-c7e57d1d7f75@xen.org>
+ <aKpzjMnNzxJCoIXb@mattapan.m5p.com>
+In-Reply-To: <aKpzjMnNzxJCoIXb@mattapan.m5p.com>
 
---------------4aUnYrlTs60uvM0eqrIjZiJR
-Content-Type: multipart/mixed; boundary="------------Q0RD0CwTExGqdyoNDz8Egccl"
+--------------t00hXkO0rFL9WCPjRbNmoM76
+Content-Type: multipart/mixed; boundary="------------7dN8ZYe6aEr0MI5TuvZc0AMK"
 
---------------Q0RD0CwTExGqdyoNDz8Egccl
+--------------7dN8ZYe6aEr0MI5TuvZc0AMK
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 8/21/25 21:46, Xiaoyao Li wrote:
-> On 8/22/2025 3:43 AM, Sohil Mehta wrote:
->> On 8/21/2025 12:34 PM, Sohil Mehta wrote:
->>> On 8/21/2025 6:15 AM, David Woodhouse wrote:
->>>
->>>> Hm. My test host is INTEL_HASWELL_X (0x63f). For reasons which are
->>>> unclear to me, QEMU doesn't set bit 8 of 0x80000007 EDX unless I
->>>> explicitly append ',+invtsc' to the existing '-cpu host' on its comm=
-and
->>>> line. So now my guest doesn't think it has X86_FEATURE_CONSTANT_TSC.=
-
->>>>
->>>
->>> Haswell should have X86_FEATURE_CONSTANT_TSC, so I would have expecte=
+On 8/23/25 22:06, Elliott Mitchell wrote:
+> On Sat, Aug 23, 2025 at 08:59:13AM +0100, Julien Grall wrote:
+>>
+>> On 22/08/2025 21:09, Elliott Mitchell wrote:
+>>> Since you're not pointing to anything definite, could it be everythin=
+g
+>>> has been resolved?
+>>
+>> Unfortunately, the situation has not changed since your last thread ab=
+out
+>> enabling CONFIG_ACPI=3Dy a couple of years ago. The main feature we ar=
+e
+>> lacking is the parsing the IORT (used to discover SMMUs and MSI
+>> controllers). Without this...
+>=20
+> No one to sponsor this work?  Disappointing with how far ACPI support h=
+ad
+> gotten.  Surprising the funding ended here.
+>=20
+>>>  We've got at least two people for whom ACPI on ARM
+>>> works pretty well.
+>>
+>> ... Xen will only properly boot on "simple" case like the Raspberry PI=
+=2E
+>> Also, IIRC Xen would use ACPI rather than Device-Tree by default.
+>=20
+> What is the "improper" booting on non-simple cases like?  panic()?
+> Domain 0 boots, but the system isn't properly protected by the SMMU?
+> Ideally it would be runtime configurable with the former being the
+> default, but the panic message indicating how to override to produce th=
+e
+> latter.  Perhaps even accompanied by an invitation for sponsorship.
+>=20
+> Yet handling those simple cases would help many people.  For a long tim=
+e
+> IO-MMUs were rare, yet the world did not end.
+>=20
+>>> There may be many more using it.  Perhaps this
+>>> should even be done on the 4.20 branch given how long this has been
+>>> working?
+>>
+>> I am guessing you mean 4.21 which will be released in a couple of mont=
+hs
+>> time, correct?
+>=20
+> As it is very simple to flip the default, I was thinking it might be
+> worthwhile to change it on earlier versions too.  After all it has
+> actually been known to work for kind of a long time.
+>=20
+>> We have been discussing among the committers on whether we are ok to e=
+nable
+>> ACPI despite the fact it is still not feature complete (see above). Th=
+e
+>> discussion is not fully finalized but if we were to enable CONFIG_ACPI=
+=3Dy by
+>> default then I think we would need the following:
+>>
+>>  * Select device-tree by default rather than ACPI
+>>  * Go through SUPPORT.MD and check what features we marked as SUPPORTE=
+D.md
+>> but doesn't work on ACPI.
+>>
+>> Maybe you can help with that?
+>=20
+> I'm not sure this is a good role for me.  I suppose I could do a first
+> pass marking everything as non-ACPI.  Problem is most recently I've bee=
+n
+> focussing on another aspect and I would mostly be guessing about things=
+=2E
+>=20
+>> Out of interest, sorry if this was already mentioned before, is there =
+any
+>> reason ACPI is used on the Raspberry PI over Device-Tree? Is there any=
+ issue
+>> with the latter on Xen?
+>=20
+> Issue is various Linux distributions have differing levels of support f=
+or
+> various targets.  Nearly everyone has some degree of support for
+> Raspberry PI (even Tianocore!), but the quality does vary from
+> distribution to distribution.
+>=20
+> My favored distribution is rather limited in what it does for !x86.
+> Everything gets built for !x86, but things such as booting hasn't been
+> heavily looked at.  There is agreement using U-Boot/UEFI =3D> GRUB woul=
 d
->>> the guest bit to be set. Until now, X86_FEATURE_CONSTANT_TSC was set
->>> based on the Family-model instead of the CPUID enumeration which may
->>> have hid the issue.
->>>
->>
->> Correction:
->> s/instead/as well as
->>
->>>  From my initial look at the QEMU implementation, this seems intentio=
-nal.
->>>
->>> QEMU considers Invariant TSC as un-migratable which prevents it from
->>> being exposed to migratable guests (default).
->>> target/i386/cpu.c:
->>> [FEAT_8000_0007_EDX]
->>>           .unmigratable_flags =3D CPUID_APM_INVTSC,
->>>
->>> Can you please try '-cpu host,migratable=3Doff'?
->>
->> This is mainly to verify. If confirmed, I am not sure what the long te=
-rm
->> solution should be.
->=20
-> yeah. It's the intentional behavior of QEMU.
->=20
-> Invariant TSC is ummigratable unless users explicitly configures the TS=
-C=20
-> frequency, e.g., "-cpu host,tsc-frequency=3Dxxx". Because the TSC=20
-> frequency is by default the host's frequency if no "tsc-frequency"=20
-> specified, and it will change when the VM is migrated to a host with a =
+> likely be a Good Thing, but there is a shortage of people with the righ=
+t
+> expertise to get that working.  As a result booting Xen is troublesome.=
 
-> different TSC frequency.
 >=20
-> It's the specific behavior/rule of QEMU. We just need to keep it in=20
-> mind. If we want to expose invariant TSC to the guest with QEMU's "-cpu=
-=20
-> host", we can either:
-> 1) explicitly configure the "tsc-frequency", or
-> 2) explicitly turn off "migratable"
+> Whereas copying the Tianocore firmware into place and getting it bootin=
+g
+> is *extremely* simple.  Further this has very few restrictions (GPT and=
 
-Could the TSC frequency be included in the migration stream?
+> a ~200MB FAT filesystem).  Better yet once in place this is extremely
+> robust.
+>=20
+> The only argument in favor of device-trees I've seen is that they're ea=
+sy
+> to deal with.  Certainly they need little runtime processing.  Yet they=
+
+> come with a major weakness that they're really part of the kernel.  Whe=
+n
+> the Linux kernel is replaced (even patch-level differences) you pretty
+> well always need to replace the device-trees.  Once you've done that it=
+
+> is quite difficult to go back to the earlier kernel.
+>=20
+> New device-trees often cause older kernels to panic or malfunction.  If=
+
+> storage is on USB you can unplug and adjust on a nearby desktop, but th=
+is
+> means you need to keep another system handy.  Whereas due to being well=
+
+> isolated from the OS, the same set of ACPI tables works for many OSes a=
+nd
+> nearly all versions of Linux.
+>=20
+> The instances of ACPI tables which worked with Windows, but failed for
+> other operating systems are quite famous.  The instances where a given
+> set of device-trees work with Linux, but then fail with other OSes
+> (or even merely different version of Linux) are not notable.  In fact
+> instances where device-trees *don't* change drastically between kernel
+> minor versions are newsworthy.
+
+I think one proper answer is to bundle the device trees with the kernel,
+and to make sure Xen uses the same code to handle it as Linux does.
+Both are GPLv2 so it is fine to move code back and forth between them.
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
---------------Q0RD0CwTExGqdyoNDz8Egccl
+--------------7dN8ZYe6aEr0MI5TuvZc0AMK
 Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Description: OpenPGP public key
@@ -415,31 +439,31 @@ EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
 =3Dx94R
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------Q0RD0CwTExGqdyoNDz8Egccl--
+--------------7dN8ZYe6aEr0MI5TuvZc0AMK--
 
---------------4aUnYrlTs60uvM0eqrIjZiJR--
+--------------t00hXkO0rFL9WCPjRbNmoM76--
 
---------------nzm2Wxf46MXXnMPF7VllXzs2
+--------------bhY5DSzf495VIr8O8A6zutvS
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmirlIoACgkQszaHOrMp
-8lMb0g/+KmGmAPmoyTf/mJVQH7z6gf9zteNQQMetxE+LvXjJ1Q1Dxs195jCCsbRd
-JEVRWwp7ti2a4GT3GEO+c0xMOsd4exoVnyXKxEGxEOTuiOk/8ZW0MKAC5puKyK4D
-OZiJsPzKbBR0LtVsaW7fNCP7LUDIoFuATK0rdjDINtca3QirHE5Uqhgc20lf80jw
-XojTnfql4iUeHqcotD7t6nyWEOy+/53+a3bNnZ1G50YwIR1FAFIRsmKfhh3S4xLH
-Ao3RT9N1gJOgFgX1StUWJ/qbtX5gSG9kaDaeThpBUJQIaDIX6lZrYS6bZ3i3gX4v
-5HIhozbHQgKgurp7FYklqMpXgmxfTptK2fLXraUMbLh5BHYz/1e95q2SQ+u+bifo
-7z0FtiaulZU5I1FqkNdcg2lbInb6pcSj7UsHi9bsGKzvnSmLcJBrTLq6Njm1wNQO
-YMNWmR4HPJf2oJodH1iqyIpymy4ohhUCeq4Xta5Dc/9doKVtj7jKHUvShPtmVTp9
-jgT/yOSKNvreGJXb1JlkcV/pdYrDvLK+kGVazXNrxKC0UHmxBh1reha/VQ4bTg+p
-yY0IdpQ6f4Hq/cEwjIf6d9w1O6/6uF0jrVjBqd5eF2wlIeG4buTqYltqYqszekS5
-zbVi8J/bCavtiIg6uthEt5R4fSihQDy3N636ApzmNup2/4+jXRo=
-=8231
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmirlhoACgkQszaHOrMp
+8lMabxAAidNE1MkZhI7a8HeOEDj6voJr+37OXxJxGRHlPiniSbH9/3hz2FBkqLuz
+LOobmL9gSNc4RQ6nDnuO6RW+zsn1CkOmMfs5fa6aTmBZVcbSq4vDmlyCIySxN4X7
+q/tY/8kz0ZN52+gKbIy5CqvB6a9NaSxvcZBBODSOpUog0ZOZxgtWcfoWJPsoQE03
+eKIF8jDlzxUXPpBut7DqVDmy6FDjHRRa7P2fvXmJegKMTj++JhrqMc+YuTF/aL1z
+ZOlUUySMgQfuRdJhTdcIgA3CETRkPZO+VpypMzAL6y81rWe6c8nV+NlLlGWzEvt/
+k3YlUPDC+iRoy2QEcQrs2HB9j3edZQ6Cbygq37gCSXFW19jh8KHXwYH1zYeeEPEo
+ij+twZUbLTIO8O3SncredUZkAKQvnQd4e2DBfFwJetdcKgUTdAMJWrgE3CNqK/wn
+aT2foLPnSzQ5RYvB3r7ldB1dOeEMX77Drb2WelIrEeH4LHNDjFbwdXvV16rmv4aH
+WuqUg3bueF+0G1sPf6YnI3qYzQQXSw+a6M7S2c+SQUBp9iETode8+LB9lw+o8a0m
+LGk9hqzmLjsoknMaJrs3d8A9/S14xmY2Qyja4HxEYuWZCQhb4kEFxpwDtWf+Qcsw
+jRIueASHtxe2LDks5II7pTwqOzyy4jHJaAtvP917rRtDnNUnBw8=
+=katF
 -----END PGP SIGNATURE-----
 
---------------nzm2Wxf46MXXnMPF7VllXzs2--
+--------------bhY5DSzf495VIr8O8A6zutvS--
 
