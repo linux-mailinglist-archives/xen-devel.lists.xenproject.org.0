@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CF85B33334
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 00:37:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1092338.1448255 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2B42B33338
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 00:39:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1092351.1448266 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqJKX-0005KG-3V; Sun, 24 Aug 2025 22:36:53 +0000
+	id 1uqJNF-0005u4-H8; Sun, 24 Aug 2025 22:39:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1092338.1448255; Sun, 24 Aug 2025 22:36:53 +0000
+Received: by outflank-mailman (output) from mailman id 1092351.1448266; Sun, 24 Aug 2025 22:39:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqJKW-0005IC-TP; Sun, 24 Aug 2025 22:36:52 +0000
-Received: by outflank-mailman (input) for mailman id 1092338;
- Sun, 24 Aug 2025 22:36:52 +0000
+	id 1uqJNF-0005sc-Do; Sun, 24 Aug 2025 22:39:41 +0000
+Received: by outflank-mailman (input) for mailman id 1092351;
+ Sun, 24 Aug 2025 22:39:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/oRm=3E=gmail.com=demiobenour@srs-se1.protection.inumbo.net>)
- id 1uqJKW-0005I6-15
- for xen-devel@lists.xenproject.org; Sun, 24 Aug 2025 22:36:52 +0000
-Received: from mail-yw1-x112d.google.com (mail-yw1-x112d.google.com
- [2607:f8b0:4864:20::112d])
+ id 1uqJND-0005sW-QQ
+ for xen-devel@lists.xenproject.org; Sun, 24 Aug 2025 22:39:39 +0000
+Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
+ [2607:f8b0:4864:20::112f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d2912152-813a-11f0-b898-0df219b8e170;
- Mon, 25 Aug 2025 00:36:49 +0200 (CEST)
-Received: by mail-yw1-x112d.google.com with SMTP id
- 00721157ae682-71d603b62adso31936417b3.1
- for <xen-devel@lists.xenproject.org>; Sun, 24 Aug 2025 15:36:49 -0700 (PDT)
+ id 347a5f23-813b-11f0-b898-0df219b8e170;
+ Mon, 25 Aug 2025 00:39:33 +0200 (CEST)
+Received: by mail-yw1-x112f.google.com with SMTP id
+ 00721157ae682-71d6059f490so32363307b3.3
+ for <xen-devel@lists.xenproject.org>; Sun, 24 Aug 2025 15:39:34 -0700 (PDT)
 Received: from [10.138.34.110]
  (h96-60-249-169.cncrtn.broadband.dynamic.tds.net. [96.60.249.169])
  by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-5f65afbae8fsm1503531d50.8.2025.08.24.15.36.47
+ 956f58d0204a3-5f65afbaf1esm1451633d50.9.2025.08.24.15.39.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 24 Aug 2025 15:36:47 -0700 (PDT)
+ Sun, 24 Aug 2025 15:39:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,57 +46,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2912152-813a-11f0-b898-0df219b8e170
+X-Inumbo-ID: 347a5f23-813b-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756075008; x=1756679808; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1756075173; x=1756679973; darn=lists.xenproject.org;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=E5lr/AQtLAqZq3v1ZR7nVSiFDCC1+Q5yhcPqfaLEw/U=;
-        b=fQ5jhilcEbpnFkSXNhVt5J+5igdjuMcp8WugGftTgvgUYS47VOUYEaaTDuzkSm4Rfx
-         /vQo7pecH0EjgR0+oHGgVwlNdGXLy1tI5LXg7S4dhVHCloxDea56OXdzfSi0+G1m5ma+
-         NHwagcodWPZ6uvUK8mIt3SxNjj389W22IQxxQLeEjqOH8UqZfP6x+C7R8nWIulsJFfEO
-         3XN7faDt2xTNVVAdeweTGbmPfX5cevcB5LwcFH7DN43OyJKMOMSqUI7C3W9aqphc38mm
-         /tUM1Vp+tlWhnmV1Dwqwip88SSiilEp0MmijjNDZR0hkEard8y03xn1CWIJjnxTN9skm
-         4VNw==
+        bh=oMbQIfJKYSoGc/NO7VkeX8r0AyWhrg2eAd5PQBDEokc=;
+        b=GYIMMwFOXmvF98xqfXNGYN+M+iJqeERxQN/RO/XX3TXnkVdL1lTzql5wwDo2TPSO4M
+         yZ6PwU9eWk1IC5MqeAHylQyPsyeiHuAoZYWqKZ81obSgXfjR8Dz+uvh3sZLXnjAeiL2W
+         tIcaVoSUuDou2OQGw58Oaqq6PRPJI4U2P045nkIJR1Y1a1sWCJw7ft3hsOitgJE8bpi7
+         3ako7sPxy8n7xsuB6MbvmaCiFNJC+rGLT1R/eMWSWSRbj/j8cVGAg7y1sJ+lgp49Y4qC
+         dfPBKc+5d5mKLp78muspP5Xggls/17dIuAK9+9FMDYBwXXRH9+VVT0fyb4MKndpiXSsi
+         y00g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756075008; x=1756679808;
+        d=1e100.net; s=20230601; t=1756075173; x=1756679973;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=E5lr/AQtLAqZq3v1ZR7nVSiFDCC1+Q5yhcPqfaLEw/U=;
-        b=Pw1rj0ltXG5uEIlXFSL4MRLWnU7efBTDSoc0uo7kBjwgDFhCaTshg2tgvmPn/5n4QG
-         RqW+q1yyc717P9Zu1s1AOxAe07EdPekCBgvr6uLbS+sILGSVri265+OiWsQLF4X+Fz0u
-         uJuKHPIljg8DHie2dWG5CqyEs9gfhALgQTz4ClSBTeUKPwq5TKhOHcRVE7rdzJMDIlmz
-         vqAuthIyXWVCXUFg2GuPjubdx6GOv9jPOt+p0LDkjQUzceY/1VEQGO2Lu7cmD91wt5C4
-         uuDaACf8lmeLv3KEAQUGwu1+0uK389H1j2QuKeVfP4NbisdaFYgb+vlmDwEXgr5pttfh
-         0d9w==
-X-Forwarded-Encrypted: i=1; AJvYcCWwAgf90wrzK4TfvC7AP4AWZtt8aShrS8xvSEzyCTkNhjJNPR6iFFuAMwyUzIaSjDLQ03yXZb03e94=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz1XnRFs6Si/9U0/gumg87S7b6Fsxkb5Ee3/VgjGgB5+zZmr9Jn
-	9S7ZaSq6nVxblJDs0+KTem/ZF6TNw0fvPFuacf8NtFBBF5Ho2Zs6mUJ9
-X-Gm-Gg: ASbGncsUSzX8W2JeziIR7Og36Xc4YU7zNRI0C7bdOJNYECfKvP35acNedw6SS3R2Ztb
-	8SMgu3fl9es2s9L7YDidirGL7QJxbZv9FZW0tG3uAo2dSM1DtIEaabuD2+jw9J3oDqhLHuyslF2
-	/ej0gXIS7gTzeglmcrN3MZqeSjMlaYGau/CWkXSyBuUL55jrpX3AnJ2ntuMki2GdI0WMN5ST44d
-	AmvW9T5eR4uJy29vMlXIdyCprOdDD0vDXGDHCsy5FV8L9+/iO+kOiaUO0OcVAnl0apQ5Wj1xuGX
-	V16tg7DgNklB5uF1odwassTvzD75LkzpvdxrGFsyZeqPmTE9uUFM6Hbc5lZU8hJVdwHeDjOKydD
-	g41HhsZ3F5OGr11u11fEdHgn9XYVWCHcwVltALU6IT64dbUJtbehHkwWW7WWTGMnkT/5IIp0IB+
-	Fuy11wZZOioLgy3wxlUnqD2vN1zmoFxnzgzkQ=
-X-Google-Smtp-Source: AGHT+IHH6NXbX8d7p4iZNKBtg0n11VzeNNNTAANQiMVQwJVuZjMiSifjk0XJsUKxU8lbT4J30p1UNQ==
-X-Received: by 2002:a05:690c:4983:b0:71c:b49:4886 with SMTP id 00721157ae682-71fdc3e8e88mr115308897b3.29.1756075008559;
-        Sun, 24 Aug 2025 15:36:48 -0700 (PDT)
-Message-ID: <66e689fd-53b1-4f8a-bd1c-2c91738f8d74@gmail.com>
-Date: Sun, 24 Aug 2025 18:36:33 -0400
+        bh=oMbQIfJKYSoGc/NO7VkeX8r0AyWhrg2eAd5PQBDEokc=;
+        b=Zm4Xk9rGjZ98d+QtG9lR+vzadoDMATEIhTV7nvSZl6tZclLSiooMTblFQk7iNhBVUj
+         qQ+8A1oRX9MV+mfl0PNAQkCVETZq/LjyyvQqF/wTS0K/T9wbynAdIQ8tZmvSTswmNXFk
+         m4Z/rMw1NNQMye52xtqmTadub2LTXLk0qIhVuNMHBUTMvIMX1cM6A/mNcKLJlwHwgmiZ
+         g65uSdKrvYMqL6IzX1zqCHCX4CuHdT6JOXQmGvyANmh07EwVEeu0RTw8SYIaipvZ2j1G
+         jRPcEe6bPBhYzFjvJLGDSxEWPrSuLU4zn0fJggQiG/Oamb9cdnJsQ+rU/zJBqcekrTVU
+         1Z8w==
+X-Forwarded-Encrypted: i=1; AJvYcCWhgTkI1D4npTbEEEhU8AcWz46QPz6dAjPgouBK13l7uPzbnhASdMdYLluTD2HFprDIfOz+sK9xLE8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwGEDM4d2PJDy/2Dy/gao0OpRvwouGkLD8lap6yGhZZoM1r0BxK
+	vH70SaBKGyfidMjf1GMq0knx5u9hhidaYBI+mM1ctP9OTv12Giuonn9F
+X-Gm-Gg: ASbGncu9PzT0qVq2hVK8Ps4znKXhmWCdC3f7Rs4ChukEU6JvDhBFn3WNo1Qzm8alqRj
+	r2rEuUHUf+w7gV2ErCaCKbQiaqe3xO3MeCaKAoq+bAlSZWicP7REiJ4j92sxWbi5DKFt5fP1MT6
+	ZLUtWJTdKbxXc2f2xRtYIll5LKbOONbD3IHJjr1SgeGQjxfTYmmYg1taoPGfSRmEaO/b/zagONZ
+	3Y+z4udwVtXYeySgoNY+u5N5XyijSv9X1jBGiJAPR8PU1Pmlp6gycfMxdy8h9AKZTZUYRsaAwns
+	8JPxBKVRfjHFlHkhE8Ha42t2KaW5YUZ2e+J2AJ6V+XQdRmIOVAIOTuUGZwikN3J3BZgg/TaF15v
+	hvXUbMT6TTbElZkS5GLD+buEbWtdHcwaIgxXB1VYsUO++0SFxUWOIUbQ9JrJJz5qE1B9hkoz6k8
+	6DTmEdwdb4AUNOWeAFn9Ht02TNB6Fc/bGsw4s=
+X-Google-Smtp-Source: AGHT+IF7L7t9iyFo8PEEPeNTxggSKoAmMAPwEJL/hRdK18Dwa4nmvojL7aEh4438B6cIi5yWkr83tQ==
+X-Received: by 2002:a05:690c:8693:10b0:71f:e5c5:514d with SMTP id 00721157ae682-71fe5c5816amr76450967b3.26.1756075172781;
+        Sun, 24 Aug 2025 15:39:32 -0700 (PDT)
+Message-ID: <a57a9878-893c-41ab-8380-a0ac9e736752@gmail.com>
+Date: Sun, 24 Aug 2025 18:39:05 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 9/9] tools: Introduce abi-tool
-To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1755785258.git.teddy.astie@vates.tech>
- <20b01deb2f53351103fce2e36a586a6a996a841b.1755785258.git.teddy.astie@vates.tech>
+Subject: Re: [PATCH v3 13/15] x86/cpu/intel: Bound the non-architectural
+ constant_tsc model checks
+To: Xiaoyao Li <xiaoyao.li@intel.com>, Sohil Mehta <sohil.mehta@intel.com>,
+ David Woodhouse <dwmw2@infradead.org>, x86@kernel.org,
+ Dave Hansen <dave.hansen@linux.intel.com>, Tony Luck <tony.luck@intel.com>,
+ =?UTF-8?Q?J=C3=BCrgen_Gross?= <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Kan Liang <kan.liang@linux.intel.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Borislav Petkov <bp@alien8.de>, "H . Peter Anvin" <hpa@zytor.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ Andy Lutomirski <luto@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
+ Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
+ Zhang Rui <rui.zhang@intel.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ David Laight <david.laight.linux@gmail.com>,
+ Dapeng Mi <dapeng1.mi@linux.intel.com>, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-pm@vger.kernel.org, kvm@vger.kernel.org, Xin Li <xin@zytor.com>
+References: <20250219184133.816753-1-sohil.mehta@intel.com>
+ <20250219184133.816753-14-sohil.mehta@intel.com>
+ <6f05a6849fb7b22db35216dcf12bf537f8a43a92.camel@infradead.org>
+ <968a179f-3da7-4c69-b798-357ea8d759eb@intel.com>
+ <5f5f1230-f373-469c-b0d9-abc80199886e@intel.com>
+ <03ac8bac-c8d1-4a3b-a07f-2bbf04e726b6@intel.com>
 Content-Language: en-US
 From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
@@ -142,46 +163,139 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <20b01deb2f53351103fce2e36a586a6a996a841b.1755785258.git.teddy.astie@vates.tech>
+In-Reply-To: <03ac8bac-c8d1-4a3b-a07f-2bbf04e726b6@intel.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------feW2SFrGnDVdMdAm5bboP9Jf"
+ boundary="------------nzm2Wxf46MXXnMPF7VllXzs2"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------feW2SFrGnDVdMdAm5bboP9Jf
-Content-Type: multipart/mixed; boundary="------------V3O1bMKqyTNGzFAPn771Phe0";
+--------------nzm2Wxf46MXXnMPF7VllXzs2
+Content-Type: multipart/mixed; boundary="------------4aUnYrlTs60uvM0eqrIjZiJR";
  protected-headers="v1"
 From: Demi Marie Obenour <demiobenour@gmail.com>
-To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-Message-ID: <66e689fd-53b1-4f8a-bd1c-2c91738f8d74@gmail.com>
-Subject: Re: [RFC PATCH 9/9] tools: Introduce abi-tool
-References: <cover.1755785258.git.teddy.astie@vates.tech>
- <20b01deb2f53351103fce2e36a586a6a996a841b.1755785258.git.teddy.astie@vates.tech>
-In-Reply-To: <20b01deb2f53351103fce2e36a586a6a996a841b.1755785258.git.teddy.astie@vates.tech>
+To: Xiaoyao Li <xiaoyao.li@intel.com>, Sohil Mehta <sohil.mehta@intel.com>,
+ David Woodhouse <dwmw2@infradead.org>, x86@kernel.org,
+ Dave Hansen <dave.hansen@linux.intel.com>, Tony Luck <tony.luck@intel.com>,
+ =?UTF-8?Q?J=C3=BCrgen_Gross?= <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Kan Liang <kan.liang@linux.intel.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Borislav Petkov <bp@alien8.de>, "H . Peter Anvin" <hpa@zytor.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ Andy Lutomirski <luto@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
+ Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
+ Zhang Rui <rui.zhang@intel.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ David Laight <david.laight.linux@gmail.com>,
+ Dapeng Mi <dapeng1.mi@linux.intel.com>, linux-perf-users@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-pm@vger.kernel.org, kvm@vger.kernel.org, Xin Li <xin@zytor.com>
+Message-ID: <a57a9878-893c-41ab-8380-a0ac9e736752@gmail.com>
+Subject: Re: [PATCH v3 13/15] x86/cpu/intel: Bound the non-architectural
+ constant_tsc model checks
+References: <20250219184133.816753-1-sohil.mehta@intel.com>
+ <20250219184133.816753-14-sohil.mehta@intel.com>
+ <6f05a6849fb7b22db35216dcf12bf537f8a43a92.camel@infradead.org>
+ <968a179f-3da7-4c69-b798-357ea8d759eb@intel.com>
+ <5f5f1230-f373-469c-b0d9-abc80199886e@intel.com>
+ <03ac8bac-c8d1-4a3b-a07f-2bbf04e726b6@intel.com>
+In-Reply-To: <03ac8bac-c8d1-4a3b-a07f-2bbf04e726b6@intel.com>
+Autocrypt-Gossip: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
 
---------------V3O1bMKqyTNGzFAPn771Phe0
-Content-Type: multipart/mixed; boundary="------------Vb0IvtBjAfR9Q6kISq8xoBoE"
+--------------4aUnYrlTs60uvM0eqrIjZiJR
+Content-Type: multipart/mixed; boundary="------------Q0RD0CwTExGqdyoNDz8Egccl"
 
---------------Vb0IvtBjAfR9Q6kISq8xoBoE
+--------------Q0RD0CwTExGqdyoNDz8Egccl
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 8/21/25 11:25, Teddy Astie wrote:
-> abi-tool is a small Rust tool that is able to parse ABI yaml
-> files and generate C stubs for performing hypercalls.
+On 8/21/25 21:46, Xiaoyao Li wrote:
+> On 8/22/2025 3:43 AM, Sohil Mehta wrote:
+>> On 8/21/2025 12:34 PM, Sohil Mehta wrote:
+>>> On 8/21/2025 6:15 AM, David Woodhouse wrote:
+>>>
+>>>> Hm. My test host is INTEL_HASWELL_X (0x63f). For reasons which are
+>>>> unclear to me, QEMU doesn't set bit 8 of 0x80000007 EDX unless I
+>>>> explicitly append ',+invtsc' to the existing '-cpu host' on its comm=
+and
+>>>> line. So now my guest doesn't think it has X86_FEATURE_CONSTANT_TSC.=
+
+>>>>
+>>>
+>>> Haswell should have X86_FEATURE_CONSTANT_TSC, so I would have expecte=
+d
+>>> the guest bit to be set. Until now, X86_FEATURE_CONSTANT_TSC was set
+>>> based on the Family-model instead of the CPUID enumeration which may
+>>> have hid the issue.
+>>>
+>>
+>> Correction:
+>> s/instead/as well as
+>>
+>>>  From my initial look at the QEMU implementation, this seems intentio=
+nal.
+>>>
+>>> QEMU considers Invariant TSC as un-migratable which prevents it from
+>>> being exposed to migratable guests (default).
+>>> target/i386/cpu.c:
+>>> [FEAT_8000_0007_EDX]
+>>>           .unmigratable_flags =3D CPUID_APM_INVTSC,
+>>>
+>>> Can you please try '-cpu host,migratable=3Doff'?
+>>
+>> This is mainly to verify. If confirmed, I am not sure what the long te=
+rm
+>> solution should be.
 >=20
-> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
-Would it make sense to generate the hypervisor side of the
-interface in this way as well?
+> yeah. It's the intentional behavior of QEMU.
+>=20
+> Invariant TSC is ummigratable unless users explicitly configures the TS=
+C=20
+> frequency, e.g., "-cpu host,tsc-frequency=3Dxxx". Because the TSC=20
+> frequency is by default the host's frequency if no "tsc-frequency"=20
+> specified, and it will change when the VM is migrated to a host with a =
+
+> different TSC frequency.
+>=20
+> It's the specific behavior/rule of QEMU. We just need to keep it in=20
+> mind. If we want to expose invariant TSC to the guest with QEMU's "-cpu=
+=20
+> host", we can either:
+> 1) explicitly configure the "tsc-frequency", or
+> 2) explicitly turn off "migratable"
+
+Could the TSC frequency be included in the migration stream?
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
---------------Vb0IvtBjAfR9Q6kISq8xoBoE
+--------------Q0RD0CwTExGqdyoNDz8Egccl
 Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Description: OpenPGP public key
@@ -301,31 +415,31 @@ EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
 =3Dx94R
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------Vb0IvtBjAfR9Q6kISq8xoBoE--
+--------------Q0RD0CwTExGqdyoNDz8Egccl--
 
---------------V3O1bMKqyTNGzFAPn771Phe0--
+--------------4aUnYrlTs60uvM0eqrIjZiJR--
 
---------------feW2SFrGnDVdMdAm5bboP9Jf
+--------------nzm2Wxf46MXXnMPF7VllXzs2
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmirk/oACgkQszaHOrMp
-8lPsTQ/+MvgRtn7mrHOpnHO86kSRT/Soov35QnwIFN5MzHlPzH4J5z0gsKvD7BiG
-sCGd6UiWvZ2kTByDgaRglOHlgtjSVL4ta7H3wpjzZpK/UtjywE3uwi0Cad9aGRUM
-/qcyA4tVRqhzpYQnTVifV2/Hx8JkX7R3WORAG/9Hx6u3YKSYT5SahGqs3WDWK0vK
-7WkTq7Xfy05G81tsCqkX7oywsKh9XcRnxi52PBI1xAT8R+NJP4T4rY5Uswi5AeMm
-zESovWe5MY9j8FSQkud3lWXCkMr0OqJ+nwQOgFr4BA7ni4t5MeVPk12ZyK6OX2HU
-kUkilUh1w2qqcsO3tY0B/IRiIMIDvETARgnrbvzCGbaDj9TuHLIP7xU3qFdG+Lim
-aVhlQudQ9OfzN3aW8ZkE1YleNLZTb/6pECGTOm/C60uAWtKaEeFDBxV+Vf/JT2xn
-dNs7CkpScJCt0QWpwB0gVARZUNpz3MHS7fEkyEkX3J7E8QvBbqSjXje0+sJLv25v
-gZEd30pqQxQEM48Q+6RnBVnH6Hf3F4atd53HrDHDj96KW5xXOjqvx4ZBZ3A29hRV
-vjJvspUgM/Wp3rumCQVEogmo4B0z4fck5VlpmLqJt6LpI9JFqm7VULxW+2jyDk+c
-neIQ5zLkzCtfdFAQ7pwZAdRbqFrkCsXNnNb1NBBpFFkWENSVs1M=
-=FJoK
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmirlIoACgkQszaHOrMp
+8lMb0g/+KmGmAPmoyTf/mJVQH7z6gf9zteNQQMetxE+LvXjJ1Q1Dxs195jCCsbRd
+JEVRWwp7ti2a4GT3GEO+c0xMOsd4exoVnyXKxEGxEOTuiOk/8ZW0MKAC5puKyK4D
+OZiJsPzKbBR0LtVsaW7fNCP7LUDIoFuATK0rdjDINtca3QirHE5Uqhgc20lf80jw
+XojTnfql4iUeHqcotD7t6nyWEOy+/53+a3bNnZ1G50YwIR1FAFIRsmKfhh3S4xLH
+Ao3RT9N1gJOgFgX1StUWJ/qbtX5gSG9kaDaeThpBUJQIaDIX6lZrYS6bZ3i3gX4v
+5HIhozbHQgKgurp7FYklqMpXgmxfTptK2fLXraUMbLh5BHYz/1e95q2SQ+u+bifo
+7z0FtiaulZU5I1FqkNdcg2lbInb6pcSj7UsHi9bsGKzvnSmLcJBrTLq6Njm1wNQO
+YMNWmR4HPJf2oJodH1iqyIpymy4ohhUCeq4Xta5Dc/9doKVtj7jKHUvShPtmVTp9
+jgT/yOSKNvreGJXb1JlkcV/pdYrDvLK+kGVazXNrxKC0UHmxBh1reha/VQ4bTg+p
+yY0IdpQ6f4Hq/cEwjIf6d9w1O6/6uF0jrVjBqd5eF2wlIeG4buTqYltqYqszekS5
+zbVi8J/bCavtiIg6uthEt5R4fSihQDy3N636ApzmNup2/4+jXRo=
+=8231
 -----END PGP SIGNATURE-----
 
---------------feW2SFrGnDVdMdAm5bboP9Jf--
+--------------nzm2Wxf46MXXnMPF7VllXzs2--
 
