@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17DD4B33DAE
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 13:07:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1092989.1448581 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 718BEB33DB6
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 13:09:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1092999.1448590 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqV2r-00075v-AA; Mon, 25 Aug 2025 11:07:25 +0000
+	id 1uqV43-0007c4-Jo; Mon, 25 Aug 2025 11:08:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1092989.1448581; Mon, 25 Aug 2025 11:07:25 +0000
+Received: by outflank-mailman (output) from mailman id 1092999.1448590; Mon, 25 Aug 2025 11:08:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqV2r-00072f-74; Mon, 25 Aug 2025 11:07:25 +0000
-Received: by outflank-mailman (input) for mailman id 1092989;
- Mon, 25 Aug 2025 11:07:24 +0000
+	id 1uqV43-0007Zf-GP; Mon, 25 Aug 2025 11:08:39 +0000
+Received: by outflank-mailman (input) for mailman id 1092999;
+ Mon, 25 Aug 2025 11:08:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J9Dq=3F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uqV2q-0006iB-8s
- for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 11:07:24 +0000
+ id 1uqV41-0007Yq-Lu
+ for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 11:08:37 +0000
 Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
  [2a00:1450:4864:20::636])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ac1bdd86-81a3-11f0-a32c-13f23c93f187;
- Mon, 25 Aug 2025 13:07:21 +0200 (CEST)
+ id d8a2d05f-81a3-11f0-a32c-13f23c93f187;
+ Mon, 25 Aug 2025 13:08:36 +0200 (CEST)
 Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-afcb72d51dcso567261366b.0
- for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 04:07:21 -0700 (PDT)
+ a640c23a62f3a-afcb72d5409so700248566b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 04:08:36 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afe7e3f63e9sm201305266b.98.2025.08.25.04.07.20
+ a640c23a62f3a-afe8b5fbc8dsm100593766b.1.2025.08.25.04.08.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Aug 2025 04:07:20 -0700 (PDT)
+ Mon, 25 Aug 2025 04:08:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac1bdd86-81a3-11f0-a32c-13f23c93f187
+X-Inumbo-ID: d8a2d05f-81a3-11f0-a32c-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756120041; x=1756724841; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756120116; x=1756724916; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SgB/N2sMY7qym9l+rJsMZNVOkfFLhyKIprjaYse0czU=;
-        b=SIq+d+4y5hB9k7RdQLBI+z8HcAms6HbMAuVLHJ/Fv7T0N9ndnL2wS5liK7vzvvqDZW
-         VCjf1P/xT/mniWaKdfU1qy0IE50f/71GJBL7hpjRLkQWQ7WDlFcQJUsUDWOS3lJL+ayo
-         2P1bxEBOEj8fhIheRwWNw8tT7+rosuvFDlCd9TsEJX8U9CPusrc07zFt7XXtNOXeJhXn
-         AvHG7ApC9k9niR+6ki4lPlm/fdZYdK9tL+NkKtWknoND3IcmBhcTjDJITiMR4mVjTf/2
-         7DAbfdFmMFf9xK7FLAefwGBCu5RxfD4cNqb+QqtrUmL/dUOUtVpMP7EWFzgDFBskTrH1
-         +bqw==
+        bh=HE/JNop0V6II04o4kHwc4Fhg0v3FXXK1lCfxwieM7Fc=;
+        b=C/yPMdtvVRFsvpDcqUueahAp7w9fgB6+iLC9vKObp/C8kG+ah6ew/R6ZduHRzBatRH
+         IrgF3No6zZXMb0BOV+22IWIpA8fmBJh9x+FU5Q7OjsCr+ey9GRpPYdEl1G/fgDK1Y/Nk
+         TMT7zCOIFRkdltHbiwWju2oW5TBE4pyw0T1e+WMlJkfhldEtPHqG/IV75NtN8/5YYdhz
+         yEZUSJ/U4JECdTXTo7sChgNxCrsbOedMAeAK/bIa69olqGwxWjdi04ksBCz3KF9KYzpD
+         Yn6T3oSFAZOE0wjxSO8v0j62vozSah361wwvWJieHxCU3GvcImwRLLoA0EfZgMA/Eq1F
+         aB6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756120041; x=1756724841;
+        d=1e100.net; s=20230601; t=1756120116; x=1756724916;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SgB/N2sMY7qym9l+rJsMZNVOkfFLhyKIprjaYse0czU=;
-        b=oQ+8K9QYhbn9+i8c1UQQ9ysNb8vXKIz2RxPYKJCAuqOOHglpFbF86cN4HAYniB2gik
-         gu82EmuHsKEa5daS+5UVkw0OhWojOyfgtxAXxxyWwhgPlnORA/+SJccDj4B5fX12rQuj
-         YQ76T1kTV/l19yOSyzXJQ2VgJSsxS36+IsIjbq5Z6HdqXJ0D3+Ky46fFFAYoahvCt4MP
-         5YOxet2I6dY71hWZeAvgftnni3K2c/zxVSiUe5M0/vlO9W7oJZK2J/bKat5F6i59x35L
-         YldgE0hcgl6HN8o85ObkW8f7umsmsPbWznv+bI34itBgUXpQZnzk3Dy95RQfmiuLaxHi
-         C1OQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW/XfIDeT8rIyq9/J43E0sOSnpCWj8JmeR6EbnaNapcN1x4Tc0wVQPMRjK1Qcaqj7siIZmIeghdHp4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzJ1bIT7P8MA9vCxtMZfQEyZb0oA+LO7fNHc0BZvivJCorxp97Z
-	otVoLl7QiCsu9RNcfk5gS1w6qz2lsX+CDsTcYAv058gTJuRMbvO5UjB3KL3UI6yJww==
-X-Gm-Gg: ASbGncsTuTiBWRvUnTU+LGhm+0p8c15G0quoI2A4plxuC83iYnPQjIZcP9Izhf1TeCv
-	57WC2pA6aUgAkxti0PfJaVwuSP9BZRWrRk81qeIhL4zWTI2/G4RK/UIjdMD0EI3UYe1EJNXc1Qv
-	8oSX64uh/fW79rcJ9kchpsgRmA0hPNplvDlJE3CfWvRqDDCDsq1QMNPPHLzG3d7eDrgKUwZKKOM
-	ooCVDJVpkySyHDkRBr243Fuc1oTI6WzGs1lm3fXy/zGXZRbK1BQ/ViBom+9dtiw/TOFbbfzZl5f
-	fANPICev78vEb2/pLTQdjjFAhUv627BFHO7goJ8C96RAkjESnEGpgkAgUJB7rE7tP1n2Bk16094
-	S0R1dk7MdVBxA+VPta+GusZmQeA7tpYGe487JTzKQj+h9AynDipS4dsEFNeEHoQWlBBffgbH0Bo
-	rRIdd8e4F5Q3WaWv/8Yw==
-X-Google-Smtp-Source: AGHT+IGjvrUHDNlOpdlr8ReSt87JAwxvyoFyEYyLgM4sTm3Vy0e6A9IPzYdtagTXXyplyVmvN8QQnQ==
-X-Received: by 2002:a17:907:3f86:b0:afc:b38f:5d72 with SMTP id a640c23a62f3a-afe290469fbmr1086411766b.38.1756120041104;
-        Mon, 25 Aug 2025 04:07:21 -0700 (PDT)
-Message-ID: <330f8ee8-9fcd-40e4-96c0-ac126b047070@suse.com>
-Date: Mon, 25 Aug 2025 13:07:20 +0200
+        bh=HE/JNop0V6II04o4kHwc4Fhg0v3FXXK1lCfxwieM7Fc=;
+        b=uStz0nTmdjAHEh/ruITMJIsnTOptVD2mA2OstiJC9k+7dPAq2gCGInGaKf/sPeBrtz
+         nmjYmhbu7+VkqgRhsh6g6BVTNJHMpcc7KVcDXPS3LNAsYnW341tzARywz9EhM13pDaNm
+         +HTHO1iI8l6MHb/CLwtAvqG3ShfQL8PKahl+HlVwrEHUFNohP3r3TD92x/HF4q4qi4zT
+         jrbKtcCsozhxDJmTZREQEd21QbTsyVQ+U5xcC0vWQRJO6oTpItupjqpZAolXD6D3CUPB
+         rmBbr8/VuI0shCfzSdERegA/xNKIaxpPtHuTIxzcMK7r2QUNaQeDXTmew2QTHjF5am3i
+         mPSA==
+X-Forwarded-Encrypted: i=1; AJvYcCWpO3X+R3eNujbiKNCDYfXjq0+IyuYqmxlEIor2vNhGpE5yO9H3pjSqtLYtNAgokfk5VXNqxv3o75Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyS7dNpgGMpoiaJyec48Dc7O7O7Q7SIICS8gWYJCVMiVmD6hOQn
+	S7AY+69mWrjr2HKqlEfNxZi558NP7MBlugZFpK9MZSsqD8RM0KwhhkbONIME47ph4w==
+X-Gm-Gg: ASbGncuatkh6Ro3FBVuB9MJTuttfoPSH8E4G4kAPjRmf5Ss/yh2zXoL3JEJbmcEe/66
+	N+uMDZHTh3VmHqcCgyYhi5zcYA41SmOm6w84ytmnExPpRR4SLNlwKb3K0y42hHcT0P8MaOnhz24
+	VjCVkSzJTDDWWUEsrfcNwr1E1+fqR2BSROZSvH+UO3E6Uqn12QyXYah0H28ivV/EVFemCj6BNfL
+	KHw/64KJAOi9mJw1cwyPbK/4MNTT1WsextpHZ37334IWiS0Fv0IovmOUfF4ZxFm9bPbLPx2lvBf
+	DH78nw2K/62rKLq/+FBMcDA2Db79JbIv7TpA2PN4Y9hgaXc0dsF8YC6QGxHZYEbw2EosBGGdvum
+	CNvc64cjd4lsD8ifcHHxgPs+2I0aTWXiECm0YU0y782moaUuKOK+Gz0CNsaedKlQvUpD1+/uKG8
+	PBTGOHBhK+O3UfpRg1Dg==
+X-Google-Smtp-Source: AGHT+IGpRSp3j0YTOIi2SL3CvwgyQKO3UyNdIbmEaqJa0NLPvdY1E8H2D6HBuFg72vscijvLhudBnQ==
+X-Received: by 2002:a17:907:2d8c:b0:af9:8688:42de with SMTP id a640c23a62f3a-afe2958acebmr907608266b.41.1756120115808;
+        Mon, 25 Aug 2025 04:08:35 -0700 (PDT)
+Message-ID: <ea354e99-34f7-4483-b300-4cb96a755419@suse.com>
+Date: Mon, 25 Aug 2025 13:08:34 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] misra: add deviation of Rule 17.7
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH v5 3/4] hvmloader: add new SMBIOS tables (7, 8, 9, 26, 27,
+ 28)
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <ad15582787e675fadf92502f85041c3232749a99.1756112701.git.dmytro_prokopchuk1@epam.com>
- <53d5cee3-9001-49a2-9da2-e56950a77683@suse.com>
- <83267937-938d-43d8-ba2c-a07d6adb93a9@epam.com>
+ Anthony PERARD <anthony.perard@vates.tech>, =?UTF-8?Q?Petr_Bene=C5=A1?=
+ <w1benny@gmail.com>, xen-devel@lists.xenproject.org
+References: <cover.1755987697.git.w1benny@gmail.com>
+ <4ecd33acd8bdf629e9103e97ff271150541e7415.1755987697.git.w1benny@gmail.com>
+ <5bc3f55c-ccfe-4dcb-9efa-a0d94d0fe92e@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,33 +123,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <83267937-938d-43d8-ba2c-a07d6adb93a9@epam.com>
+In-Reply-To: <5bc3f55c-ccfe-4dcb-9efa-a0d94d0fe92e@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 25.08.2025 12:58, Dmytro Prokopchuk1 wrote:
-> On 8/25/25 13:30, Jan Beulich wrote:
->> On 25.08.2025 11:05, Dmytro Prokopchuk1 wrote:
->>> MISRA C Rule 17.7 states: "The value returned by a function having
->>> non-void return type shall be used."
->>>
->>> Deviate functions like 'memcpy()', 'memset()', 'memmove()', 'snprintf()',
->>> 'strlcpy()', 'strlcat()', as they return a value purely for convenience,
->>> their primary functionality (e.g., memory or string operations) remains
->>> unaffected, and their return values are generally non-critical and seldom
->>> relied upon. Update 'deviations.rst' file accordingly.
->>
->> How come snprintf() is among this set? Its return value isn't quite just
->> for convenience, imo.
+On 25.08.2025 13:04, Teddy Astie wrote:
+> Le 24/08/2025 à 00:29, Petr Beneš a écrit :
+>> +/* Type 7 -- Cache Information */
+>> +static void *
+>> +smbios_type_7_init(void *start)
+>> +{
+>> +    /* Specification says Type 7 table has length of 13h for v2.1+. */
+>> +    BUILD_BUG_ON(sizeof(struct smbios_type_7) != 19);
+>> +
 > 
-> Yes, snprintf()'s return value isn't just for convenience. The deviation 
-> justification is primarily based on the fact that its return value is 
-> rarely used in the Xen source base. Most callers of snprintf() don't 
-> care about return value. So, snprintf() is in this list.
+> I would prefer having hex constants (so that it matches the number 
+> format the specification gives).
 > 
-> Maybe separate wording is required for the snprintf() ?
+> e.g
+> BUILD_BUG_ON(sizeof(struct smbios_type_7) != 0x13);
+> 
+> (same for other checks)
 
-Minimally. Personally I don't think it should be deviated globally.
+While reviewing I was first inclined to ask the same, but then though that
+with the hex values stated in comments it would be fine either way.
 
 Jan
 
