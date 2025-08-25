@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF1DFB344ED
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 17:02:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1093331.1448858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B55CEB344FD
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 17:03:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1093345.1448868 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqYhs-0008KV-8B; Mon, 25 Aug 2025 15:02:00 +0000
+	id 1uqYjZ-0000ZU-Mt; Mon, 25 Aug 2025 15:03:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1093331.1448858; Mon, 25 Aug 2025 15:02:00 +0000
+Received: by outflank-mailman (output) from mailman id 1093345.1448868; Mon, 25 Aug 2025 15:03:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqYhs-0008I5-4L; Mon, 25 Aug 2025 15:02:00 +0000
-Received: by outflank-mailman (input) for mailman id 1093331;
- Mon, 25 Aug 2025 15:01:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uqYjZ-0000Wg-JB; Mon, 25 Aug 2025 15:03:45 +0000
+Received: by outflank-mailman (input) for mailman id 1093345;
+ Mon, 25 Aug 2025 15:03:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J9Dq=3F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uqYhq-0008Hz-Cy
- for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 15:01:58 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 719f8a0b-81c4-11f0-a32c-13f23c93f187;
- Mon, 25 Aug 2025 17:01:56 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-afcb731caaaso674047466b.0
- for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 08:01:57 -0700 (PDT)
+ id 1uqYjX-0000H7-Vw
+ for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 15:03:43 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b0680799-81c4-11f0-b898-0df219b8e170;
+ Mon, 25 Aug 2025 17:03:42 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-618aea78f23so6475887a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 08:03:42 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afe52735cc2sm539507066b.9.2025.08.25.08.01.55
+ 4fb4d7f45d1cf-61c3174f806sm5171339a12.52.2025.08.25.08.03.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Aug 2025 08:01:56 -0700 (PDT)
+ Mon, 25 Aug 2025 08:03:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 719f8a0b-81c4-11f0-a32c-13f23c93f187
+X-Inumbo-ID: b0680799-81c4-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756134116; x=1756738916; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756134222; x=1756739022; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=E6BvmjzjJDtR2JS+28z200e2vqxB+N8nZljEb+w34KQ=;
-        b=GDbJDEJSF0hgcl0fIe/BMkGECs83rTf9ZZ9wjOiKJmKYD7/BgK6m5Yu4/459ULI7qC
-         0S10ORR1jYnvugO7RwCvM3EnYvQvrAiqM0sg3z4ieekyz6uzElv2pUcZkhFkpCB84GcY
-         /XevhZGPexR7+0znlP4UOHo6VjOMa27t0GIftFvK+NMzit0imFN7BWz3ZV+yUqQOd0KH
-         FVHYF7xRcjR7EddZImmvUiOy4H3p7iaTPk4N+nFy5wX6KdkwBShN0aeulxaeW8PnuvvO
-         zCVV9oSdP+e5VLdDkkbunL2K1Aq+Ys9VEyXyab+TouTGvcajkkthRsG4uEpUMgHZSpxv
-         NLrA==
+        bh=qyEoTm5YvpNJtiraHV9LxtKc7H2dI5ZUZHzdTXfgO9Y=;
+        b=XVgupvcv60MPt6S+x29+P94i+WAsGIksV8dHbvIXRh3VEUrj6V9UukI8//Ics/pJfO
+         oSTwk3Rd8ybohfMTuBrkyYLrhE8IFxQCrzcCVSbfCR9Aq3KIFJCyu2JTmBpKvs4lYGW8
+         dH6kqFAecoej0ANVYLgJb3rLDmPpMU/oekuS66bcCYkAdsyOrBClUfdV35HKaemkAg3r
+         A07uwZJElnhJUXrRG3+7mR8RQPd/atWSmDZLynUo5BZ6lIqyqtMOsJ5tLTmm5euM85b2
+         N+SFd01R9XgNUxp6HZsREEIlszEXuQYBDydSR8ll1SZIE8vlpx4c6vylWKXL1wh1pnsE
+         1YnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756134116; x=1756738916;
+        d=1e100.net; s=20230601; t=1756134222; x=1756739022;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=E6BvmjzjJDtR2JS+28z200e2vqxB+N8nZljEb+w34KQ=;
-        b=Gkmdj20BsaXfufWMVl7ROa51eHyL/B6O+xT27t58gFjsI+GgKSLfaXCpXj/LljtKqY
-         VOT2QzmMDXPObxFpDx0fBPC3+/BJR/iw3ujZCbzLQUlb2VQm6bvHyLlilEUQ9j8jWBU0
-         Rlk/vLxTFIK+JdPH1BOeHAeLOyAOabkMx6IUo8V1W2NpSSkz51Cl63smu3G0XCIWAcFC
-         NCEeYCyut0lWFNWM8I/nICdvvtGnUCtBIifdrIHJM56T+WIz/mSD1zY9lwpfNeVDSELS
-         Lwf0/6qTcCncz0reDS0byXJsaFKzrcXszVQqaDLWu6hcLO4b+MEfQ0aMfB5kAROjy1+7
-         g53A==
-X-Forwarded-Encrypted: i=1; AJvYcCV0vwHqeGgTczL/EvDlaV8YDy364txJo3tE0teCCiV/jUGdZ4WXi15XBASiq9Y830SlYicKHZ8xBAI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyYzFnqW++veEE99QkTi3ScsjYS3HZ6PdnTK2tLkEr5LzutvEca
-	nxbNQb3BtjE5IfM8AD+pwvA8XW4B88dQpF8+fv64uYICqDlaOWvHPXBtfFYYTNlf0w==
-X-Gm-Gg: ASbGncsikY312qnCxGqWBxPfOjCKddjBWh+4zCWNScY6SyHyf41d595t14byXiGBQgt
-	hwW2HTx88wI5ADr7t9Q2JcZgGS2vzJAf4ia+JfhLJO0aq5mQpZZ5plCLjQpHk0C7MlI4Vo0WU0O
-	upUqKdZcFuIe1vWhdTijs3VxwaUg53CQKx+89AucsiMEJjCsztNnS0dmnVSe3nrVMpSDr+5RG4F
-	RPSlqRluSG1+H3/r1pyxZt7GJ9xWenlS/xvS9lQnBeHJlYchk1JeG094247D2qDL7NKDdV4Md8t
-	diL+cN4H7kM4l1rr/fAZwHrv292h6W9iX6KpjTfKg7DdKSXhINBBsyb2y7JdS3tpxQCbNxgCMlm
-	gLJVApgyzvkXJFU++6Tw6Z05bdtPUPH2N1/r02mGG2+kK+hm41zDcME6C6jUIoLNixQGayH0iz9
-	3vJeqnN9s=
-X-Google-Smtp-Source: AGHT+IEPuiC5sLdYudgIzrbHX9M3LZIhaD7gIQSuL8svTecCCC3dVDEl6GR6AxPCllaaU6Ays84KdA==
-X-Received: by 2002:a17:907:d58f:b0:afe:54f6:6d2c with SMTP id a640c23a62f3a-afe54f6a340mr678796366b.60.1756134116360;
-        Mon, 25 Aug 2025 08:01:56 -0700 (PDT)
-Message-ID: <a4c5e149-828f-4ea9-83e2-79ecc8c56033@suse.com>
-Date: Mon, 25 Aug 2025 17:01:55 +0200
+        bh=qyEoTm5YvpNJtiraHV9LxtKc7H2dI5ZUZHzdTXfgO9Y=;
+        b=oHJ1AqcjltUFMhD7ezo5xlDWJVhHCyqnFmF7v77V6Ji5q5tJkjTK2lhZz0BJdII7xR
+         OVphAuSAW1uHLW7F+Mp6AW951/6KS5vNO1VysxxSA8zdP9j/HsTtFUHgVaHJKpUGMZwL
+         RsVy6uT+n16cdbGWW2xGWX2Ix85m0FdxrfBo75uv4GKB82y+gAlzXTVylvBSGSLha8Kf
+         iskwNeQi7HG0TlYsa8CpLhghwf/1RKKsqksf+cRmGoAij1VRRb678T7AEUVEGrWegV1A
+         gFfijfTPzlc8JdIDa2cTF0RWz7c7A4Etcrt9avxntHigW1nMkKGyo04vRMhvQUUoO72y
+         tgWQ==
+X-Gm-Message-State: AOJu0YwVqtOSvwjBOGZ5M9B4+813dXCN7YLhGI/GVSJYwoOZEDIIfqVP
+	mrXlxqr3bmdSWjHcEnGV6oDjWSzd7RmaMW17qss+oX6AP+qimo2bZUpiwp0zeO0ECg==
+X-Gm-Gg: ASbGncs/6D+yKVGod8Ay5sWjouyA7qnxXt+yWciMIsI2NQ9l55+wKHZvpFSkztheUXf
+	/lN0ZtrZ/Pe5MUZBJcl/4UVWe3NTpQP28gEGgAuKrW1Trk0VQMx/wm7VUc9qFZ1FffJiz1f7l2P
+	IkqSa4UsHadwfnBbjCoV1wEtq1EdUdEEAjUC/w3fu2t+SyGEqYYJ2rTVV2e6jXGXOhOfDZBJYjB
+	m0mkf0e/ufGbLkXuI3JAmdFIySazEzAtFiClJDj/Os7H1Yj2/2eWPUGFcnEEnLlRyKs3osVcOcm
+	bt7KK7cXYYPftngPhMqCgjcqZiuQDZJAzmJmJvIH+g5ZtAJUkU2L4oCxPlnNrktSDj7H6JNIgY5
+	gEx34FqPa9ysScUsqN1YRHDrIiYEWl/qIEDJ3El/X2QXHrpAZ/idlpqOEKJI5VTLoSSti3YDPVa
+	MgQqDJ+Fc=
+X-Google-Smtp-Source: AGHT+IGDiPfszjsNbpUWt3Nwl0VOaYS56tEVU4A324uROnvfGex11Q5R42UGHR8iWJDxgpK9+/fOJg==
+X-Received: by 2002:a05:6402:35cd:b0:61c:7090:c7de with SMTP id 4fb4d7f45d1cf-61c7090d6b8mr2357674a12.13.1756134221675;
+        Mon, 25 Aug 2025 08:03:41 -0700 (PDT)
+Message-ID: <844bb7f7-2e56-41e0-b304-77e9e9650eb1@suse.com>
+Date: Mon, 25 Aug 2025 17:03:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 06/13] xen/cpufreq: introduce new sub-hypercall to
- propagate CPPC data
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250822105218.3601273-1-Penny.Zheng@amd.com>
- <20250822105218.3601273-7-Penny.Zheng@amd.com>
+Subject: Re: [PATCH v4 6/8] tools/xl: enable NS16550-compatible UART emulator
+ for HVM (x86)
+To: Anthony PERARD <anthony@xenproject.org>, dmkhn@proton.me
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
+ anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com,
+ roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
+References: <20250731192130.3948419-1-dmukhin@ford.com>
+ <20250731192130.3948419-7-dmukhin@ford.com> <aKx4FtlhAbXxtZlB@l14>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,110 +120,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250822105218.3601273-7-Penny.Zheng@amd.com>
+In-Reply-To: <aKx4FtlhAbXxtZlB@l14>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 22.08.2025 12:52, Penny Zheng wrote:
-> --- a/xen/arch/x86/x86_64/cpufreq.c
-> +++ b/xen/arch/x86/x86_64/cpufreq.c
-> @@ -54,3 +54,22 @@ int compat_set_px_pminfo(uint32_t acpi_id,
->  
->      return set_px_pminfo(acpi_id, xen_perf);
->  }
-> +
-> +int compat_set_cppc_pminfo(unsigned int acpi_id,
-> +                           const struct compat_processor_cppc *cppc_data)
-> +
-> +{
-> +    struct xen_processor_cppc *xen_cppc;
-> +    unsigned long xlat_page_current;
-> +
-> +    xlat_malloc_init(xlat_page_current);
-> +
-> +    xen_cppc = xlat_malloc_array(xlat_page_current,
-> +                                 struct xen_processor_cppc, 1);
-> +    if ( unlikely(xen_cppc == NULL) )
-> +        return -EFAULT;
+On 25.08.2025 16:49, Anthony PERARD wrote:
+> On Thu, Jul 31, 2025 at 07:22:12PM +0000, dmkhn@proton.me wrote:
+>> diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+>> index 5362fb0e9a6f..e1d012274eaf 100644
+>> --- a/docs/man/xl.cfg.5.pod.in
+>> +++ b/docs/man/xl.cfg.5.pod.in
+>> @@ -3032,14 +3032,17 @@ the domain was created.
+>>  This requires hardware compatibility with the requested version, either
+>>  natively or via hardware backwards compatibility support.
+>>  
+>> -=item B<vuart="uart">
+>> +=item B<vuart=[ "sbsa_uart", "ns16550" ]>
+> 
+> This syntax here would inditace that `vuart` takes a list of items. You
+> could write instead:
+> 
+>     vuart="UART"
+> 
+> which seems more in line with the rest of the man page. Then you can add
+> some thing like "with UART been one of "sbsa_uart" or "ns16550". It's
+> possible to also have a sublist, like the `tee` option have.
 
-I think we want to avoid repeating the earlier mistake with using a wrong
-error code. It's ENOMEM or ENOSPC or some such.
-
-> --- a/xen/drivers/acpi/pm-op.c
-> +++ b/xen/drivers/acpi/pm-op.c
-> @@ -91,7 +91,9 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
->      pmpt = processor_pminfo[op->cpuid];
->      policy = per_cpu(cpufreq_cpu_policy, op->cpuid);
->  
-> -    if ( !pmpt || !pmpt->perf.states ||
-> +    if ( !pmpt ||
-> +         ((pmpt->init & XEN_PX_INIT) && !pmpt->perf.states) ||
-> +         ((pmpt->init & XEN_CPPC_INIT) && pmpt->perf.state_count) ||
-
-I fear I don't understand this: In the PX case we check whether necessary
-data is lacking. In the CPPC case you check that some data was provided
-that we don't want to use? Why not similarly check that data we need was
-provided?
-
-> @@ -693,6 +699,120 @@ int acpi_set_pdc_bits(unsigned int acpi_id, XEN_GUEST_HANDLE(uint32) pdc)
->      return ret;
->  }
->  
-> +static void print_CPPC(const struct xen_processor_cppc *cppc_data)
-> +{
-> +    printk("\t_CPC: highest_perf=%u, lowest_perf=%u, "
-> +           "nominal_perf=%u, lowest_nonlinear_perf=%u, "
-> +           "nominal_mhz=%uMHz, lowest_mhz=%uMHz\n",
-> +           cppc_data->cpc.highest_perf, cppc_data->cpc.lowest_perf,
-> +           cppc_data->cpc.nominal_perf, cppc_data->cpc.lowest_nonlinear_perf,
-> +           cppc_data->cpc.nominal_mhz, cppc_data->cpc.lowest_mhz);
-> +}
-> +
-> +int set_cppc_pminfo(unsigned int acpi_id,
-> +                    const struct xen_processor_cppc *cppc_data)
-> +{
-> +    int ret = 0, cpuid;
-> +    struct processor_pminfo *pm_info;
-> +
-> +    cpuid = get_cpu_id(acpi_id);
-> +    if ( cpuid < 0 )
-> +    {
-> +        ret = -EINVAL;
-> +        goto out;
-> +    }
-> +
-> +    if ( cppc_data->pad[0] || cppc_data->pad[1] || cppc_data->pad[2] )
-> +    {
-> +        ret = -EINVAL;
-> +        goto out;
-> +    }
-> +
-> +    if ( cpufreq_verbose )
-> +        printk("Set CPU%d (ACPI ID %u) CPPC state info:\n",
-> +               cpuid, acpi_id);
-> +
-> +    pm_info = processor_pminfo[cpuid];
-> +    if ( !pm_info )
-> +    {
-> +        pm_info = xvzalloc(struct processor_pminfo);
-> +        if ( !pm_info )
-> +        {
-> +            ret = -ENOMEM;
-> +            goto out;
-> +        }
-> +        processor_pminfo[cpuid] = pm_info;
-> +    }
-> +    pm_info->acpi_id = acpi_id;
-> +    pm_info->id = cpuid;
-> +    pm_info->cppc_data = *cppc_data;
-> +
-> +    if ( (cppc_data->flags & XEN_CPPC_PSD) &&
-> +         !check_psd_pminfo(cppc_data->shared_type) )
-> +    {
-> +            ret = -EINVAL;
-> +            goto out;
-
-Indentation.
+But shouldn't the syntax already now allow for multiple items? Possibly
+even multiple ones of the same kind?
 
 Jan
 
