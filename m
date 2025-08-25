@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1BE1B33AE9
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 11:26:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1092802.1448430 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50C1CB33B21
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 11:30:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1092812.1448440 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqTT5-0002db-L1; Mon, 25 Aug 2025 09:26:23 +0000
+	id 1uqTWO-0003Bl-3g; Mon, 25 Aug 2025 09:29:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1092802.1448430; Mon, 25 Aug 2025 09:26:23 +0000
+Received: by outflank-mailman (output) from mailman id 1092812.1448440; Mon, 25 Aug 2025 09:29:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqTT5-0002bf-ID; Mon, 25 Aug 2025 09:26:23 +0000
-Received: by outflank-mailman (input) for mailman id 1092802;
- Mon, 25 Aug 2025 09:26:23 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1uqTWO-0003AJ-08; Mon, 25 Aug 2025 09:29:48 +0000
+Received: by outflank-mailman (input) for mailman id 1092812;
+ Mon, 25 Aug 2025 09:29:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1uqTT5-0002bZ-08
- for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 09:26:23 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uqTT3-005nj2-2e;
- Mon, 25 Aug 2025 09:26:22 +0000
-Received: from [2a02:8012:3a1:0:7981:7aa1:9b9b:8488]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uqTT3-0009oK-2K;
- Mon, 25 Aug 2025 09:26:21 +0000
+ (envelope-from <SRS0=J9Dq=3F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uqTWM-0003AD-R9
+ for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 09:29:46 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 07621be6-8196-11f0-b898-0df219b8e170;
+ Mon, 25 Aug 2025 11:29:41 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-afcb78f5df4so704567366b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 02:29:41 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-afe49314fa6sm532716866b.92.2025.08.25.02.29.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 25 Aug 2025 02:29:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,83 +45,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=4NXcscV5TTGwpg1wUZFHfeGWe7vtzzOq6F5Jhr809mA=; b=CYWdQlkDzDz0x0KPuz7aAGkFYL
-	Kp4wNQp2r22hpofTLRWypv1MvnKfRsu0rb+yZ81ST0h+7YS3zNHfaol/uliLttKk6BNu5nAbnX/aU
-	16iCzAU2YjCtQdwVqJRs5NUH3GVe1007cbTOMokyjVeD3X+VZEM0nudBwUlf9E+eOdIk=;
-Message-ID: <0e0c9d9b-87ee-47e2-a2ac-42f183c674dd@xen.org>
-Date: Mon, 25 Aug 2025 10:26:18 +0100
+X-Inumbo-ID: 07621be6-8196-11f0-b898-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1756114181; x=1756718981; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=JJOlBlqbLwApiCRizJwy92bRQ/SdjqLeHuTXS4BG8bw=;
+        b=AVR3/HmmGbi2hai1aOSAhZGtRkUdMPftCLjJp/vZGURjzAyxGv8tREYhzc5GlEg93x
+         8gYMQFx0uf4XFTV5tbIiJ0rAUGNFS2Hl6sbDqsYK2310TMuUa5mJsmfchaTmLnG2FDwU
+         cmwIkf6XJ8BzSq4nPpdy1fxE8DRbF39BmNFnAP2XJfh62Se+wJY5n7Y5hxAnvYBrVjsk
+         9HoHtMBYdfcM7pDaSfG9Hyv68R0pK1N8WXHr3jfGJGBxsSMpgVHGJCxlOCEYViNhtNjF
+         X94cE86g2BpDgEuKHnxEhv+gy6vIFlyUN/zh7tLYe0AHbGRTAyxXCSS80f8Rm4tqRJtQ
+         zbjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756114181; x=1756718981;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JJOlBlqbLwApiCRizJwy92bRQ/SdjqLeHuTXS4BG8bw=;
+        b=mrht6nXTTxGo0R3iotfgRFdPF0ovvHYOjjSM7Yakf+glqAlP9ZJ3hEwCtubxwT/8xy
+         QsMSpeWHCO/UyXbKWe8yfeoA7v2xNf2X18nt5oZCWqdOKA1CWkz/8gfYnkX0CMpjIeDh
+         5upPCQOmTOX92frmYZJw3NVLMBO5djOB9bZsLpNtl6A7hxn9EQ/Q/GYl8HRXIAl0QKxG
+         pVIu8X6doQ//awTMYvRTiLvMBAd4F6cZ0TTNtHcIPJmtYpxhilErDoDLqTRVWsShPKjl
+         4BnDJZo1qnVjpfxkPcY4AhsOpeSHRdJJWhkNInbDBVGilCkoXXOog6UGDu1ASPhrojOj
+         Dkfw==
+X-Forwarded-Encrypted: i=1; AJvYcCVWMdHSXoj38zmrWY5hZ/oUkFcBIa5cxeCI6oBWnupI/crMdqxv82H83WfDq3UGIB4TLueO1IGPltY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxW3VU0/PUbMquV9mDkm14wr+ILmwBM/C0sJ8ZHm0i0uyIH8GHp
+	jS4ntzar+jJ8Ac6pudOkLnPrRs3iTN26ztxEqcnX5IveVhLJLY7RUXF3AOSsKofDjQ==
+X-Gm-Gg: ASbGnctNZVnzwg6poJS0xupyo/Msi7kKa+wcPmmT9CT79alo71H/3p5T0w+PpLcjRvn
+	17YHXFwX3xxFXj9tPH9VoSNlkIknMgD6QZ3Tb/oqJ6xj8psacu32a6xui9OkyeS2gWbT+fkev4C
+	Ka7no4n7BdVxE8k0bOJPwFZCHsUCfUkg/MEw2G/9qtMQ9wTIt8HxWR0ay7B36+emivNVIWdXbf/
+	8IbS83idYvSpzo9izMndAXr6PzxNcYPm4hMIGAdGuhHO0rTp/FL9GdvhmLx0XfopGHTXxz1eP/K
+	97CtXK4FICJnVi4ofIbYpJ1YyYmZ8sFUxKTFWYBFc7MlYcDe/Uxrvs0+stw4sHBX8K0fiRdkDtj
+	IAQY4gohaNMFg8aWCmfTR2YXKVIYVJDV5olIfqcLJ4QmPlMicrTyEK7bTlFOQSFpthw8locOD1m
+	8QXhr1tNO1xtXpxG4ivQ==
+X-Google-Smtp-Source: AGHT+IHqw97XgEZVaDnSC3ExO8QfTB8yMqbRP+WQzn+OCBUcfEApKh2RFGzIyT6q96TNlvYf5gVEZw==
+X-Received: by 2002:a17:906:9f87:b0:af9:c31c:eeca with SMTP id a640c23a62f3a-afe295c0d8bmr1116149266b.48.1756114181220;
+        Mon, 25 Aug 2025 02:29:41 -0700 (PDT)
+Message-ID: <86765d49-d4c9-46a9-b4b0-d0aa19c5921b@suse.com>
+Date: Mon, 25 Aug 2025 11:29:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 3/6] xen: Make the maximum number of altp2m views
- configurable for x86
-Content-Language: en-GB
-To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>,
+Subject: Re: [PATCH v5 4/4] CHANGELOG.md: add new SMBIOS tables (7, 8, 9, 26,
+ 27, 28)
+To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Community Manager <community.manager@xenproject.org>,
  xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>
-References: <cover.1753953832.git.w1benny@gmail.com>
- <d8ce4bd614e240aebc2dd09930af0c2c474acf50.1753953832.git.w1benny@gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <d8ce4bd614e240aebc2dd09930af0c2c474acf50.1753953832.git.w1benny@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+References: <cover.1755987697.git.w1benny@gmail.com>
+ <3c9c7c48c9d8633b4c36bb0bb91fab88c03ae279.1755987697.git.w1benny@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <3c9c7c48c9d8633b4c36bb0bb91fab88c03ae279.1755987697.git.w1benny@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-
-
-On 31/07/2025 10:27, Petr Beneš wrote:
+On 24.08.2025 00:26, Petr Beneš wrote:
 > From: Petr Beneš <w1benny@gmail.com>
 > 
-> This commit introduces the ability to configure the maximum number of altp2m
-> views for the domain during its creation. Previously, the limits were hardcoded
-> to a maximum of 10. This change allows for greater flexibility in environments
-> that require more or fewer altp2m views.
-> 
-> The maximum configurable limit for nr_altp2m on x86 is now set to
-> MAX_NR_ALTP2M (which currently holds the MAX_EPTP value - 512). This cap is
-> linked to the architectural limit of the EPTP-switching VMFUNC, which supports
-> up to 512 entries. Despite there being no inherent need for limiting nr_altp2m
-> in scenarios not utilizing VMFUNC, decoupling these components would necessitate
-> substantial code changes.
-> 
-> xen_domctl_createdomain::altp2m is extended for a new field `nr`, that will
-> configure this limit for a domain. Additionally, previous altp2m.opts value
-> has been reduced from uint32_t to uint16_t so that both of these fields occupy
-> as little space as possible.
-> 
-> Accesses to the altp2m_p2m array are modified to respect the new nr_altp2m
-> value. Accesses to the altp2m_(visible_)eptp arrays are unmodified, since
-> these arrays always have fixed size of MAX_EPTP.
-> 
-> Additional sanitization is introduced in the x86/arch_sanitise_domain_config
-> to fix the altp2m.nr value to 10 if it is previously set to 0. This behavior
-> is only temporary and immediately removed in the upcoming commit (which will
-> disallow creating a domain with enabled altp2m with zero nr_altp2m).
-> 
-> The reason for this temporary workaround is to retain the legacy behavior
-> until the feature is fully activated in libxl.
-> 
-> Also, arm/arch_sanitise_domain_config is extended to not allow requesting
-> non-zero altp2ms.
-> 
 > Signed-off-by: Petr Beneš <w1benny@gmail.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
+> ---
+>  CHANGELOG.md | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/CHANGELOG.md b/CHANGELOG.md
+> index 271ac73a0a..2fd65b90a9 100644
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -32,6 +32,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>       capability usage is not yet supported on PVH dom0).
+>     - Smoke tests for the FreeBSD Xen builds in Cirrus CI.
+>     - PVH xenstore-stubdom now supports Live Update.
+> +   - Support for new SMBIOS tables: 7, 8, 9, 26, 27, 28.
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+This way it reads as if you mean in Xen, when the change is entirely
+contained to hvmloader (and hence affecting only HVM guests). In
+something (imo) not primarily targeted at developers I also wonder
+whether identifying the tables by number is going to be useful.
 
-Cheers,
-
--- 
-Julien Grall
-
+Jan
 
