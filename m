@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58800B33DA5
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 13:06:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1092971.1448570 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17DD4B33DAE
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 13:07:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1092989.1448581 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqV21-0006TV-TC; Mon, 25 Aug 2025 11:06:33 +0000
+	id 1uqV2r-00075v-AA; Mon, 25 Aug 2025 11:07:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1092971.1448570; Mon, 25 Aug 2025 11:06:33 +0000
+Received: by outflank-mailman (output) from mailman id 1092989.1448581; Mon, 25 Aug 2025 11:07:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqV21-0006Rq-P1; Mon, 25 Aug 2025 11:06:33 +0000
-Received: by outflank-mailman (input) for mailman id 1092971;
- Mon, 25 Aug 2025 11:06:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uqV2r-00072f-74; Mon, 25 Aug 2025 11:07:25 +0000
+Received: by outflank-mailman (input) for mailman id 1092989;
+ Mon, 25 Aug 2025 11:07:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J9Dq=3F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uqV20-0006RS-Fs
- for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 11:06:32 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8d74ab40-81a3-11f0-b898-0df219b8e170;
- Mon, 25 Aug 2025 13:06:30 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-afcb73394b4so599183066b.0
- for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 04:06:30 -0700 (PDT)
+ id 1uqV2q-0006iB-8s
+ for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 11:07:24 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ac1bdd86-81a3-11f0-a32c-13f23c93f187;
+ Mon, 25 Aug 2025 13:07:21 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-afcb72d51dcso567261366b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 04:07:21 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61c311a767bsm4763224a12.2.2025.08.25.04.06.29
+ a640c23a62f3a-afe7e3f63e9sm201305266b.98.2025.08.25.04.07.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Aug 2025 04:06:29 -0700 (PDT)
+ Mon, 25 Aug 2025 04:07:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d74ab40-81a3-11f0-b898-0df219b8e170
+X-Inumbo-ID: ac1bdd86-81a3-11f0-a32c-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756119990; x=1756724790; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=J+rIITZGrZCtgU+05XVTyRVqsCzlMwy9FXnHzC1Ekz8=;
-        b=GlD3uGSu40HvtKN5l6fwRACrWt6Q03Wam5UYKbCoQY/dFBXp95c6Fn3BR41JtYDpi8
-         36kWn1c0m/dbx6xlG1KqE2zxPxN1bSsUCUu0uaPSEOXqtcTOltPSA6fup0hfA3WwER8J
-         pXSoRFTtMe84ZW1CjeVq1Dt+gudKvqMzuEOLjNJdtUVVmuO09VjeD3c0u2j/8R17Ubbw
-         qffBujcHgntHe9bY4c9xEFxMlf2GAiRY3qVUmKOhYXBGyUI/Ajkf9MbB9tWeALXobWEJ
-         4BUIE8Gzn9bVTKz368acuB9mqlMIbyw7IXIwECJry+fFhFcQ3HCV5V1PljuZAiOi90GM
-         IJ1A==
+        d=suse.com; s=google; t=1756120041; x=1756724841; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=SgB/N2sMY7qym9l+rJsMZNVOkfFLhyKIprjaYse0czU=;
+        b=SIq+d+4y5hB9k7RdQLBI+z8HcAms6HbMAuVLHJ/Fv7T0N9ndnL2wS5liK7vzvvqDZW
+         VCjf1P/xT/mniWaKdfU1qy0IE50f/71GJBL7hpjRLkQWQ7WDlFcQJUsUDWOS3lJL+ayo
+         2P1bxEBOEj8fhIheRwWNw8tT7+rosuvFDlCd9TsEJX8U9CPusrc07zFt7XXtNOXeJhXn
+         AvHG7ApC9k9niR+6ki4lPlm/fdZYdK9tL+NkKtWknoND3IcmBhcTjDJITiMR4mVjTf/2
+         7DAbfdFmMFf9xK7FLAefwGBCu5RxfD4cNqb+QqtrUmL/dUOUtVpMP7EWFzgDFBskTrH1
+         +bqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756119990; x=1756724790;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=J+rIITZGrZCtgU+05XVTyRVqsCzlMwy9FXnHzC1Ekz8=;
-        b=dosXnlWNbK2C1MQ5OdQoFlkrbBFFjw2Ee8O7TQhkIIeb5+cQ/EXmhGj1aWfmN6dXZ6
-         4b6ajscykk9/w0gIw/NYl6r4C0AD2gf20/dcSs7/Ml+Wv0AszD/FGkKyNQI3AVkNSw4P
-         KPjxwdsxTnCsHsHs9P3yyGWV5Xv6dDhvwMmHb0UWB1llmTBuhvtgIQu9WKXoIdmMKWhO
-         Exenj+dU6OqdQDomVqaTBpMV4P3lvQ4f6lmRS/mN0jm+YfImnH6kdNP0LU0f5Ze6tcgB
-         PDSO6JvG0DRycDTu3eAqO23Vy4HPa6r3S4cX5WgRfQ0ZvgNz72U6FuFAKD9ObXIeUaBm
-         eB4g==
-X-Forwarded-Encrypted: i=1; AJvYcCVfGr5q59CDYJeIKY/Bx7EdBICF30AXjr1OJMmhhIrD+yUPbYoJLIY7eTRsueJ6IyhdEU9pTZpkuFY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzgZ9gmu54yP7v2+UhasEEmvon8DIZ90L3NDltxJyDYd4uNYe6+
-	hxSf3PRDl7XjLiyqlQP7G8pxBpanCJtiJNSIMxBBdrT5w+oEMfrEuWFmcZev6f7gEg==
-X-Gm-Gg: ASbGncup6kGDon2PDOUORY0cc1z/BRNfc+Oy2QNQMiQx0uJL3732hLJBu4tjulheM6c
-	Y2gcQnKKj3VfpUs8Dvk6GxxW0WI1gCVtM7p4TUbz2cuSEl0gP2Bds1Xn7bon9ZSaLPSfi/ZOuaS
-	a8sAMfXbvr1X09SF5IU19qWtXQjwh3wKUzEu8k9BrBvRlqD7DG6FTkK8ZFeQV6IqdvY4mhQYjHL
-	PFNY/wkZEzhynGbRKGjmMrzvGoifON9/duhUCbEQXbOzaLyxSKIKWNvoBn8hbhNj+HrFXV9iUgk
-	IVP1SCZBm2DbeeKQAz/IXMEYQ7Vfa0vc6YN2GeCcx6sYIeDHtrXqQ2sK2pXwFfu4DI1VMB+FKVm
-	DMS+nD8WVics6q4evPeskLMC6bet83N0PW8ThBJd0ObCXpVQyvTbMBFxQMUNrmAuhvHI5Aj1LIy
-	k57r+XrF8=
-X-Google-Smtp-Source: AGHT+IFv4u2FFgxPvLNoTSyKkS2UtF898EtKaRo5wc0+pMyhY89j1xUg6DJRBj4gz3rtM+DML3xUlA==
-X-Received: by 2002:a17:906:f583:b0:af8:f9e8:6fae with SMTP id a640c23a62f3a-afe2944693dmr1082913766b.46.1756119989570;
-        Mon, 25 Aug 2025 04:06:29 -0700 (PDT)
-Message-ID: <052e7926-f114-4b16-b197-8a4303f6b5d1@suse.com>
-Date: Mon, 25 Aug 2025 13:06:28 +0200
+        d=1e100.net; s=20230601; t=1756120041; x=1756724841;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=SgB/N2sMY7qym9l+rJsMZNVOkfFLhyKIprjaYse0czU=;
+        b=oQ+8K9QYhbn9+i8c1UQQ9ysNb8vXKIz2RxPYKJCAuqOOHglpFbF86cN4HAYniB2gik
+         gu82EmuHsKEa5daS+5UVkw0OhWojOyfgtxAXxxyWwhgPlnORA/+SJccDj4B5fX12rQuj
+         YQ76T1kTV/l19yOSyzXJQ2VgJSsxS36+IsIjbq5Z6HdqXJ0D3+Ky46fFFAYoahvCt4MP
+         5YOxet2I6dY71hWZeAvgftnni3K2c/zxVSiUe5M0/vlO9W7oJZK2J/bKat5F6i59x35L
+         YldgE0hcgl6HN8o85ObkW8f7umsmsPbWznv+bI34itBgUXpQZnzk3Dy95RQfmiuLaxHi
+         C1OQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW/XfIDeT8rIyq9/J43E0sOSnpCWj8JmeR6EbnaNapcN1x4Tc0wVQPMRjK1Qcaqj7siIZmIeghdHp4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzJ1bIT7P8MA9vCxtMZfQEyZb0oA+LO7fNHc0BZvivJCorxp97Z
+	otVoLl7QiCsu9RNcfk5gS1w6qz2lsX+CDsTcYAv058gTJuRMbvO5UjB3KL3UI6yJww==
+X-Gm-Gg: ASbGncsTuTiBWRvUnTU+LGhm+0p8c15G0quoI2A4plxuC83iYnPQjIZcP9Izhf1TeCv
+	57WC2pA6aUgAkxti0PfJaVwuSP9BZRWrRk81qeIhL4zWTI2/G4RK/UIjdMD0EI3UYe1EJNXc1Qv
+	8oSX64uh/fW79rcJ9kchpsgRmA0hPNplvDlJE3CfWvRqDDCDsq1QMNPPHLzG3d7eDrgKUwZKKOM
+	ooCVDJVpkySyHDkRBr243Fuc1oTI6WzGs1lm3fXy/zGXZRbK1BQ/ViBom+9dtiw/TOFbbfzZl5f
+	fANPICev78vEb2/pLTQdjjFAhUv627BFHO7goJ8C96RAkjESnEGpgkAgUJB7rE7tP1n2Bk16094
+	S0R1dk7MdVBxA+VPta+GusZmQeA7tpYGe487JTzKQj+h9AynDipS4dsEFNeEHoQWlBBffgbH0Bo
+	rRIdd8e4F5Q3WaWv/8Yw==
+X-Google-Smtp-Source: AGHT+IGjvrUHDNlOpdlr8ReSt87JAwxvyoFyEYyLgM4sTm3Vy0e6A9IPzYdtagTXXyplyVmvN8QQnQ==
+X-Received: by 2002:a17:907:3f86:b0:afc:b38f:5d72 with SMTP id a640c23a62f3a-afe290469fbmr1086411766b.38.1756120041104;
+        Mon, 25 Aug 2025 04:07:21 -0700 (PDT)
+Message-ID: <330f8ee8-9fcd-40e4-96c0-ac126b047070@suse.com>
+Date: Mon, 25 Aug 2025 13:07:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] EFI/runtime: switch to xv[mz]alloc_array()
-From: Jan Beulich <jbeulich@suse.com>
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: Marek Marczykowski <marmarek@invisiblethingslab.com>,
+Subject: Re: [PATCH] misra: add deviation of Rule 17.7
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <41b7e14c-59ef-40f5-8c43-69bdc5fb4531@suse.com>
- <761b584a-51fb-403d-948e-3366501cea50@apertussolutions.com>
- <755dd957-514b-4316-82f5-3619c19cbb15@suse.com>
- <9f9f24f0-c16a-4f55-b3c2-a3f4b485c403@apertussolutions.com>
- <2d93e9a7-abef-4ef6-bcbc-9081661edb58@suse.com>
+References: <ad15582787e675fadf92502f85041c3232749a99.1756112701.git.dmytro_prokopchuk1@epam.com>
+ <53d5cee3-9001-49a2-9da2-e56950a77683@suse.com>
+ <83267937-938d-43d8-ba2c-a07d6adb93a9@epam.com>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -122,80 +126,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2d93e9a7-abef-4ef6-bcbc-9081661edb58@suse.com>
+In-Reply-To: <83267937-938d-43d8-ba2c-a07d6adb93a9@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.08.2025 08:46, Jan Beulich wrote:
-> On 14.08.2025 02:29, Daniel P. Smith wrote:
->> On 8/12/25 02:12, Jan Beulich wrote:
->>> On 12.08.2025 02:19, Daniel P. Smith wrote:
->>>> On 7/23/25 09:39, Jan Beulich wrote:
->>>>> Use the more "modern" form, thus doing away with effectively open-coding
->>>>> xmalloc_array() at the same time. While there is a difference in
->>>>> generated code, as xmalloc_bytes() forces SMP_CACHE_BYTES alignment, if
->>>>> code really cared about such higher than default alignment, it should
->>>>> request so explicitly.
->>>>
->>>> While I don't object to the change itself, I think this description is a
->>>> bit over simplification of the change. If the allocation is under
->>>> PAGE_SIZE, then they are equivalent, but if it is over the page size
->>>> there are a few more differences than just cache alignment. It
->>>> completely changes the underlying allocator. I personally also find it a
->>>> bit of a stretch to call xmalloc_bytes(size) an open coded version of
->>>> xmalloc_array(char, size).
+On 25.08.2025 12:58, Dmytro Prokopchuk1 wrote:
+> On 8/25/25 13:30, Jan Beulich wrote:
+>> On 25.08.2025 11:05, Dmytro Prokopchuk1 wrote:
+>>> MISRA C Rule 17.7 states: "The value returned by a function having
+>>> non-void return type shall be used."
 >>>
->>> My take is that xmalloc_bytes() should never have existed. Hence why I
->>> didn't add xzmalloc_bytes() when introducing that family of interfaces.
+>>> Deviate functions like 'memcpy()', 'memset()', 'memmove()', 'snprintf()',
+>>> 'strlcpy()', 'strlcat()', as they return a value purely for convenience,
+>>> their primary functionality (e.g., memory or string operations) remains
+>>> unaffected, and their return values are generally non-critical and seldom
+>>> relied upon. Update 'deviations.rst' file accordingly.
 >>
->> Right, which would be a valid argument for replacing it with 
->> xmalloc_array(). Though, I would note that there is an xzalloc_bytes(). 
->> My concern was that you stated there was an open coding, which had me 
->> expecting there was a line of the form, xmanlloc_bytes(count * 
->> size_of_something bigger), being replaced by 
->> xvmalloc_arryay(something_bigger, count).
+>> How come snprintf() is among this set? Its return value isn't quite just
+>> for convenience, imo.
 > 
-> Both fir this and ...
+> Yes, snprintf()'s return value isn't just for convenience. The deviation 
+> justification is primarily based on the fact that its return value is 
+> rarely used in the Xen source base. Most callers of snprintf() don't 
+> care about return value. So, snprintf() is in this list.
 > 
->> IMHO, while the C spec does specify char as 1 byte and thus 
->> interchangeable, I would agree that from a contextual perspective, 
->> xmalloc_array() is the more appropriate call. The use of the allocation 
->> is a character array and not a chunk of bytes for an arbitrary buffer.
-> 
-> ... for this: Hence my wording using "effectively".
-> 
->>>> With a stronger description of the change,
->>>
->>> So what exactly do you mean by "stronger"? I can add that in the unlikely
->>> event that one of the allocations is (near) PAGE_SIZE or larger, we now
->>> wouldn't require contiguous memory anymore. Yet based on your comment at
->>> the top I'm not quite sure if that's what you're after and/or enough to
->>> satisfy your request.
->>
->> The phrasing stronger was meant to be more clear on the change/effect, 
->> specifically that the underlying allocator is being changed when the 
->> allocation is greater than a PAGE_SIZE. Not necessarily a long 
->> explanation, just the fact that the allocation will be coming from the 
->> dom heap allocator as opposed to the xen heap allocator. There are 
->> implications to changing the allocater, e.g.,  at a minimum the 
->> allocation order and nonphysical vs. physically contiguous effects. 
->> Having it noted in the commit makes it more obvious what this change is 
->> actually doing. Which may not be obvious when seeing the simple line 
->> changes occurring in the diff. Later, if there is an unexpected 
->> consequence caused by this change, a stronger commit will be helpful 
->> with the bisection investigations.
-> 
-> First: I don't think each and every such change (there are going to be many)
-> should re-explain the switch to the xvmalloc() family of functions. This is
-> already stated clearly at the top of xvmalloc.h: Over time, the entire code
-> base is meant to be switched.
-> 
-> Beyond that, to achieve the stronger wording you're after, would it perhaps
-> suffice to have the first sentence say "..., thus also doing away ..."?
-> Otherwise, may I ask that you please make a more concrete suggestion?
+> Maybe separate wording is required for the snprintf() ?
 
-Ping. I'd like to get this in, yet I still don't know how exactly to satisfy
-your request for a stronger description.
+Minimally. Personally I don't think it should be deviated globally.
 
 Jan
 
