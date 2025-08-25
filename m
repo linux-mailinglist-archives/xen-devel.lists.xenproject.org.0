@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D296B342D6
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 16:12:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1093238.1448778 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8E7DB34318
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 16:18:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1093256.1448788 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqXw2-000651-Uo; Mon, 25 Aug 2025 14:12:34 +0000
+	id 1uqY1D-0006je-LH; Mon, 25 Aug 2025 14:17:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1093238.1448778; Mon, 25 Aug 2025 14:12:34 +0000
+Received: by outflank-mailman (output) from mailman id 1093256.1448788; Mon, 25 Aug 2025 14:17:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqXw2-000632-Rx; Mon, 25 Aug 2025 14:12:34 +0000
-Received: by outflank-mailman (input) for mailman id 1093238;
- Mon, 25 Aug 2025 14:12:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=J9Dq=3F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uqXw1-00062v-7e
- for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 14:12:33 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8a3ad55d-81bd-11f0-a32c-13f23c93f187;
- Mon, 25 Aug 2025 16:12:31 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-afcb78fb04cso602199066b.1
- for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 07:12:31 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afe7b335581sm258668466b.17.2025.08.25.07.12.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Aug 2025 07:12:30 -0700 (PDT)
+	id 1uqY1D-0006iB-I1; Mon, 25 Aug 2025 14:17:55 +0000
+Received: by outflank-mailman (input) for mailman id 1093256;
+ Mon, 25 Aug 2025 14:17:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=TV44=3F=bounce.vates.tech=bounce-md_30504962.68ac708a.v1-95060c73b2f3405eb407bfe676b0d907@srs-se1.protection.inumbo.net>)
+ id 1uqY1B-0006i4-Pq
+ for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 14:17:54 +0000
+Received: from mail179-29.suw41.mandrillapp.com
+ (mail179-29.suw41.mandrillapp.com [198.2.179.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4685835a-81be-11f0-b898-0df219b8e170;
+ Mon, 25 Aug 2025 16:17:48 +0200 (CEST)
+Received: from pmta12.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail179-29.suw41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4c9Xty5tCNz7lmLbl
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 14:17:46 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 95060c73b2f3405eb407bfe676b0d907; Mon, 25 Aug 2025 14:17:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,130 +43,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a3ad55d-81bd-11f0-a32c-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756131151; x=1756735951; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kUH2slKBIRhphnlQeJMXpIsIwJxWlNkUwdCiB6Zd0hk=;
-        b=Bp8Z8bz3UlL3KutZLfM/P6ufudNjiAuE8OviJN0oCVXdJTfaUG7XRLTtJ7WFpbwecd
-         s3wQ5et8y7YKsvrtJke0cM8WkGceGmrOe2gghYl2ZEzLFYgH9DVoQzIWT6455xlfGdK2
-         Xtaas1cSIBhohBglsVohPdLDV2rYi/IW+ximCRGNya/XaFXLkAsFTQ9LnPv4SAjcIr0R
-         lfjyMsW60D1RZKmBMefCoLaryZ1jGuj7pOomNSGKflTd5VMYfaJMs+T/oyGyLpgEP+Df
-         q7zR2eyld2mP9wDdfR2RgM3Qm3q2W71WEVOZvFu6Ab7zqkKDD2wqMvJS8ECyAb2rAtyi
-         SpxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756131151; x=1756735951;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kUH2slKBIRhphnlQeJMXpIsIwJxWlNkUwdCiB6Zd0hk=;
-        b=hlekkePU2PdQnhnjCwtIJrNXsDRn0rO36/IwAA9dT75vODmBaP17ps0QRV+gMdcnSY
-         jFHl3bKTmRJRcFyZOrxHLp5ufCsO8IapwBKI0iX3yuwDx1TT4xXI0db9mKzzQGxEE0Wz
-         or+UYu5OY/1mYZrU8S37Hc60RymtvTOPnQe5minblJsN44eWVvRt//lqljvToohvaHfK
-         mv0Q8G55GVyHjOVh2+XiRJk/QxwnTUB2a2D44tkEUNUvQaCe9KHtfFj3ETF7Ij/76pns
-         QarZRDDyTtA7sJgcBLkF4RYDPrY9L1kI2ESIIlPwApeorJ3yKDgcJu+qK3LRWJuIS1rI
-         L0Yg==
-X-Forwarded-Encrypted: i=1; AJvYcCXV5PAAGFWz1TO5+HUWvEMi50h6A1FW5lxXSswkajAQt4cfatrk4byaU66nyr9+WKv9CxB5kpe58xQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzbli2cf0qcKPPNY7ae3Bk6V/v8HMPFHPd+T8zArw6Gfpcw8BqK
-	NFW5J6SoB3NAemAxtsdDFzwLK3sN8bKt2SCtAbSfaHjPuTdR+UMIT9ACP2yqSomtyQ==
-X-Gm-Gg: ASbGncs3JnIFhU45j9MGa0uPcqtsTkd0P+qXW8L6BYuKWdbXBt8250PfuqRz2c0/R6W
-	PD5DtLzQwkeGwqteSOeXsycymgNKcmVLOlJBWkmuij58kQkbCX8PX/NLprtkqlpPjH5hlBD/usP
-	Ncv9mWprXCOsr41VVAEx1J2SzhaOcn7twgKoccEmRVqqGZuvZPmGj31Z1HSOMsBPS9SlY/D2OOF
-	sV2lmszK4yEOOU2gZ61+Njkuek19sIPIhQJlsJAUe7mv6ZYc/kbBJbwpDGSDgggxf97GkF5XaAz
-	ojbOS/GpMWVo1yoE17xgi/c4LpZhGCmLWKY3O9Rj03ZsTqL3tGooIbIGi4SPxUi7WNmVrudpFEt
-	BynbnNE4iqM+W1h5g4lNAnjsmZvrHVnuBs4HoINqX3ShvBLBawUJbsLu9KPrERIBq7J8YfalTxS
-	k760dI88E=
-X-Google-Smtp-Source: AGHT+IE9k2+36ccuCuPBYePG0JwIFeuKI0sv0zV/RXXddqgqhKa5aDra3jzXT7F/Hbi2/9lBdopJPA==
-X-Received: by 2002:a17:907:98d:b0:afe:9880:8a9b with SMTP id a640c23a62f3a-afe9880aa30mr54288666b.2.1756131151192;
-        Mon, 25 Aug 2025 07:12:31 -0700 (PDT)
-Message-ID: <bd88b7d0-92aa-45c9-8b8e-730bc7edc7b3@suse.com>
-Date: Mon, 25 Aug 2025 16:12:30 +0200
+X-Inumbo-ID: 4685835a-81be-11f0-b898-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1756131466; x=1756401466;
+	bh=QASk0HcGEBujikYeiePjBRzLxGvgR19KtV66TpItfyQ=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=VZokLCoyXVg1qDTo8n8W897WVsEBFRd+8oHz8tCqLuW5MHKQxSsnYK8CMSq4CRAh/
+	 d/TY5u8L/y0KDiJvjULy7U4KSmfPnHC5WYZL4IcBST+ApAwMwDe61PLCTPcxA9sVEr
+	 VH9/trGOijoKkeVogJlfto3OOwruSFM009OWxz9HoBMOUKhDe9lqLeMLELfGaVin3x
+	 b3cs3/4yMuI1zON/CCKQ5UXvbW74+ufIjesmk9cMcYP4p2u1zloLd3S6m3islFv6B0
+	 wZVJyvED2xiNXdiiEOlajMtr+10FJiGbU95DDkoW/oANhRdAWF26yiudhJ0+kaQQhp
+	 s7M6gfQ33Ndsg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1756131466; x=1756391966; i=yann.sionneau@vates.tech;
+	bh=QASk0HcGEBujikYeiePjBRzLxGvgR19KtV66TpItfyQ=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=hY4fpLSGRphFuxRWv1gVhRtUYQZdepDe7IaYxYnaCO5XEMqbIFRIRg5eiPP8KVa3J
+	 8iMlNjuJ0iIu1OJvjce5QOLmlxARieZTmzphf7h6qd705VcBAwGiefTRD6FxTdOfID
+	 kZABuy2zuS/8ee3c0lhuPkzrrTM71jKIGOxVLMUyVAkGLBLOwYTyf66ot35aNwfvUR
+	 xfGFUnALzHm+VeZxjB2n6ZuhBApabEWNc3veG4JgqKM9QR9Ucp+VPN8kuLckb8HRXa
+	 ynrgRUtULaE7FzjpVPo4j2AmGUI/74b6IFxYYCr6rvj5IyaQqrnaD0u0TQPXdjUp5X
+	 m+QfuYi7HXeVA==
+From: "Yann Sionneau" <yann.sionneau@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v2]=20xen/x86:=20fix=20xen.efi=20boot=20crash=20from=20some=20bootloaders?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1756131465594
+Message-Id: <4936cb0d-0898-4171-b8e1-ed3a57bcfc0a@vates.tech>
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Julien Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250724140731.1502774-1-yann.sionneau@vates.tech> <4ceb64fa-d7cb-4c77-8a60-1526046c037c@suse.com>
+In-Reply-To: <4ceb64fa-d7cb-4c77-8a60-1526046c037c@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.95060c73b2f3405eb407bfe676b0d907?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250825:md
+Date: Mon, 25 Aug 2025 14:17:46 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] misra: add deviation of Rule 17.7
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <ad15582787e675fadf92502f85041c3232749a99.1756112701.git.dmytro_prokopchuk1@epam.com>
- <53d5cee3-9001-49a2-9da2-e56950a77683@suse.com>
- <83267937-938d-43d8-ba2c-a07d6adb93a9@epam.com>
- <330f8ee8-9fcd-40e4-96c0-ac126b047070@suse.com>
- <37bb8530-c9e4-4ad4-8959-d1f13316a0fd@epam.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <37bb8530-c9e4-4ad4-8959-d1f13316a0fd@epam.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-On 25.08.2025 15:27, Dmytro Prokopchuk1 wrote:
-> 
-> 
-> On 8/25/25 14:07, Jan Beulich wrote:
->> On 25.08.2025 12:58, Dmytro Prokopchuk1 wrote:
->>> On 8/25/25 13:30, Jan Beulich wrote:
->>>> On 25.08.2025 11:05, Dmytro Prokopchuk1 wrote:
->>>>> MISRA C Rule 17.7 states: "The value returned by a function having
->>>>> non-void return type shall be used."
->>>>>
->>>>> Deviate functions like 'memcpy()', 'memset()', 'memmove()', 'snprintf()',
->>>>> 'strlcpy()', 'strlcat()', as they return a value purely for convenience,
->>>>> their primary functionality (e.g., memory or string operations) remains
->>>>> unaffected, and their return values are generally non-critical and seldom
->>>>> relied upon. Update 'deviations.rst' file accordingly.
->>>>
->>>> How come snprintf() is among this set? Its return value isn't quite just
->>>> for convenience, imo.
->>>
->>> Yes, snprintf()'s return value isn't just for convenience. The deviation
->>> justification is primarily based on the fact that its return value is
->>> rarely used in the Xen source base. Most callers of snprintf() don't
->>> care about return value. So, snprintf() is in this list.
->>>
->>> Maybe separate wording is required for the snprintf() ?
+On 8/4/25 11:34, Jan Beulich wrote:
+> On 24.07.2025 16:07, Yann Sionneau wrote:
+>> xen.efi PE does not boot when loaded from shim or some patched
+>> downstream grub2.
 >>
->> Minimally. Personally I don't think it should be deviated globally.
+>> What happens is the bootloader would honour the MEM_DISCARDABLE
+>> flag of the .reloc section meaning it would not load its content
+>> into memory.
+>>
+>> But Xen is parsing the .reloc section content twice at boot:
+>> * https://elixir.bootlin.com/xen/v4.20.1/source/xen/common/efi/boot.c#L1362
+>> * https://elixir.bootlin.com/xen/v4.20.1/source/xen/arch/x86/efi/efi-boot.h#L237
+>>
+>> Therefore it would crash with the following message:
+>> "Unsupported relocation type" as reported there:
+>>
+>> * https://github.com/QubesOS/qubes-issues/issues/8206#issuecomment-2619048838
+>> * https://lore.kernel.org/xen-devel/7e039262-1f54-46e1-8f70-ac3f03607d5a@suse.com/T/#me122b9e6c27cd98db917da2c9f67e74a2c6ad7a5
+>>
+>> This commit adds a small C host tool named keeprelocs
+>> that is called after xen.efi is produced by the build system
+>> in order to remove this bit from its .reloc section header.
+>>
+>> Signed-off-by: Yann Sionneau <yann.sionneau@vates.tech>
 > 
-> There are approximately 230 instances of snprintf() being used without 
-> checking its return value (across ARM and x86) in around 20 different 
-> source files. Deviation each of them could be complicated.
+> So I found a way to deal with this at the linker side, without any new command
+> line options. Behavior is solely driven by the attributes of any incoming .reloc
+> sections (of which there would be none by default, retaining original behavior).
+> The important patch is [1], but at least the first patch of the series [2] would
+> in most cases also be wanted/needed (patch 04 is obviously a mechanical prereq
+> for the main patch). Need for other of the prereqs there depends on the scope
+> and purpose of one's binutils build(s).
+> 
+> Jan
+> 
+> [1] https://sourceware.org/pipermail/binutils/2025-August/143153.html
+> [2] https://sourceware.org/pipermail/binutils/2025-August/143141.html
 
-My grep yields somewhere between 50 and 60 hits in xen/, among them about 15
-in xen/tools/kconfig/, which I expect we can ignore. I also didn't mean to
-suggest to deviate them all individually. Some may actually want to use the
-return value, and I wouldn't be surprised if this ended up fixing a bug or
-two.
+That sounds great!
+It's clearly better to fix the issue by changing/improving binutils.
+Let's drop my patch in Xen if this gets accepted in binutils!
+It would be nice if you could keep us posted in xen-devel of the 
+status/progress of the binutils patches.
 
-Jan
+By the number of patches needed for binutils it seems you opened a can 
+of worms/pandora box with this issue ^^
+
+Also, in patch 12/17, you state that the logic would be that if .reloc 
+is generated partly by the code itself instead of solely by the linker 
+this means we want to use the section at runtime.
+While I kind of understand this idea, it also feels a bit as a hack, 
+doesn't it?
+One could argue that even if .reloc is just generated by the linker, the
+program could still want to access it at runtime.
+I've looked at Xen code to see if it does put something in .reloc itself 
+and it seems so: 
+https://elixir.bootlin.com/xen/v4.20.1/source/xen/arch/x86/efi/relocs-dummy.S
+The "code puts data in .reloc section" would just serve as a "hint" for 
+the linker if I understand your patch well, just as well as a 
+`--keep-reloc` command line option would.
+
+Anyway, I won't comment much further on the binutils patchset since I'm 
+not well versed in linker black magic.
+
+Thanks for the patchset!
+
+Yann
+
+-- 
+
+
+Yann Sionneau | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
 
