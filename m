@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09AFFB343B7
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 16:29:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1093277.1448809 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D1BCB343C2
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 16:30:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1093287.1448818 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqYC3-0000du-Tj; Mon, 25 Aug 2025 14:29:07 +0000
+	id 1uqYDQ-00024E-6W; Mon, 25 Aug 2025 14:30:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1093277.1448809; Mon, 25 Aug 2025 14:29:07 +0000
+Received: by outflank-mailman (output) from mailman id 1093287.1448818; Mon, 25 Aug 2025 14:30:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqYC3-0000am-Pd; Mon, 25 Aug 2025 14:29:07 +0000
-Received: by outflank-mailman (input) for mailman id 1093277;
- Mon, 25 Aug 2025 14:29:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uqYDQ-000222-36; Mon, 25 Aug 2025 14:30:32 +0000
+Received: by outflank-mailman (input) for mailman id 1093287;
+ Mon, 25 Aug 2025 14:30:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J9Dq=3F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uqYC1-0000ag-MA
- for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 14:29:05 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d953fb07-81bf-11f0-b898-0df219b8e170;
- Mon, 25 Aug 2025 16:29:03 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-afcb7a3ee3cso643650566b.2
- for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 07:29:03 -0700 (PDT)
+ id 1uqYDP-00021w-31
+ for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 14:30:31 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0cdf02ec-81c0-11f0-a32c-13f23c93f187;
+ Mon, 25 Aug 2025 16:30:30 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-61c266e81caso3168920a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 07:30:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afe48fbdb52sm570110366b.33.2025.08.25.07.29.01
+ 4fb4d7f45d1cf-61c312a5821sm4949001a12.13.2025.08.25.07.30.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Aug 2025 07:29:02 -0700 (PDT)
+ Mon, 25 Aug 2025 07:30:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d953fb07-81bf-11f0-b898-0df219b8e170
+X-Inumbo-ID: 0cdf02ec-81c0-11f0-a32c-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756132143; x=1756736943; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756132229; x=1756737029; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CaYZYHMc8nvfaAWYv+35eikwH2vUQc5t2kU+haPS6Lk=;
-        b=WGrItcFFZDbPc+wF2s7c5bCUZ/ERbKP47+31kgyzkdeAz11S1g7JLtgDGtEmo6Rcz5
-         hr2foMvILg3nit7XLEolSBO07FZKRmbJLdtjV8qGoZTk+dapGMZIMBWM77VRM0GnKdqt
-         mu7XV/BQe1DOsPmb31/LxD19HLtkD10qir44crmP1eL3szg+RLfhKkW8XPpyycAjvR6N
-         S0bbl78UpheanC9+/pe3Z9MBjtpAFA49UujTe8geK//mpOuEeU2IxoojdBGK1rLEefcF
-         vlYdO1oYVQNfVLzt9WBS3Fg1kl4RQjzVqqNcqm8m1a7yt412UcWONvxr5iLS0JvI/a8m
-         /iCQ==
+        bh=zqJ6hL2c4mfNRMdVhDhnwOoK8oBtxOpq7vtcK6QdqUk=;
+        b=NmT3n59DRdkALxeJUK4/wIMHSz4RP4WXluFYM0NSwkwiHTnb2ruyD6kN+OGvL7EM+E
+         VgZwF0BUWHBg4CZ8elRsIDYtoqBpHzSZYsD77DrSpHNCEISwJQQj2BTKtJe2WBotRaTs
+         YTev0GN5GncHG4HXezkhVHTStrs12u2eZxwMev5h62fLGkWiaTRqUmdXCzh/38xT4Ol0
+         8m/XnKtsC22qbfgjk9Ue7LvH0v+ZxzqbTCGO9fGCQbUZz5jC91cwKmg8C3rRNmMQFTG9
+         ny5xd1Xpcg7xT8ICCblw8eV2dIAzHXHUwwKvkBNcsipiV5XiikmEoCVQt9SDSYOVywSl
+         VS/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756132143; x=1756736943;
+        d=1e100.net; s=20230601; t=1756132229; x=1756737029;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CaYZYHMc8nvfaAWYv+35eikwH2vUQc5t2kU+haPS6Lk=;
-        b=X7arTLu3JJe1OpcgG8GVcyzGRAcNLMiJgTD9duNs77IFIXbPojdL4UvPN5e301moZB
-         0BxHpfKtr3UvDUgEiwXxV2lXeUcFzUR7fQ7zcoYIqki9wMcsXjbIjSN3QlShMrwUZpgw
-         dzglnXjM2DCBghyFCOOKak25IjQGlxZ9TXSpoCAGnsR8gtMfqkTA4pfdXUJrn/Ro14IO
-         hXNIfbSkrqqYgtwpRK7d679A/Kl7lVSM3R6tZk0n9q8OS1pACMzGjB6B5AMF1p/FGuiY
-         GYg8BvLhvbuFMG6vEOF/s1J3mO9EPIlcDFH0BaCe/cTiO2wq9F/0Z8RFw7ZY4FqYdOAM
-         kt0A==
-X-Forwarded-Encrypted: i=1; AJvYcCWe4Ox2ywT7xO1pO9QVBml/1+JBUdkN0McmAUWh/HkMJ34+9YyteUKVeXOnVVPmPNz8o3G8jJheNIU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz54Sa8X7GK0AGuEACk5gf5Om0aNsewtn9YbqN9l+lOlx0P9a0E
-	7vif+gpslRmXRSWh7W0A61t1Z2+j80OLa8B5/OjtB5suqcZ/BTny5nQcnbDJnaQz8w==
-X-Gm-Gg: ASbGncu/4V1s/qp+ckXCMMZp8dY+TMBLEV9WHA3WcHLuj0oHr6bvrEKRU2vMIxMx6hh
-	c+nDOsJ3mUl3ftFqL3LTCpAEEXom7XzWjxo4H/pq+19fPdCS0YvbhNZCHFWWxVWFyopLPhgQGur
-	zwLP3WUYswrZuquOxfTKyowMrMgVe9mo/un6R2PqnnK//dvKs6H2JExZYDCrq+UXNzDmC5Xek3m
-	cXaXPdAOeDnx8kvMORzPV9SHX2AJ5FW/wOm9Wt38Mn97P3G/FgctUPteqFDwL7dZ1DBsK4sZqEX
-	ydNlYVMbq6G1k8bINjJvbq+gw/ge6qeI6jjp7Fvk71sg2Aja2csGdmpPnCIWEFY18H02oyi3uWs
-	YoUndl0XGbQNsW5jZ5Zpq9WQpcVsttLbTpjCT7EsDldWYpekbYBPV2Y9qsxut3Wx55rdtewNaxo
-	RhKtjLDys=
-X-Google-Smtp-Source: AGHT+IHDWIK2NchTCtUEpsB4nzY1RWuCe87k6OPT1krRbC64uQ1EpKwO4K6BGR+S/nytJPwlyB9RAw==
-X-Received: by 2002:a17:906:3717:b0:afe:764d:6b31 with SMTP id a640c23a62f3a-afe764d736dmr464579266b.4.1756132142791;
-        Mon, 25 Aug 2025 07:29:02 -0700 (PDT)
-Message-ID: <9b7b70e5-9b1b-446e-9dcc-310f1c1f4b47@suse.com>
-Date: Mon, 25 Aug 2025 16:29:01 +0200
+        bh=zqJ6hL2c4mfNRMdVhDhnwOoK8oBtxOpq7vtcK6QdqUk=;
+        b=C4+zASZt1wOhxuNDy4rTGhrDiJTbFx03PdWz93U3PGaU6B86s8eEU64I+hggr01BjY
+         OV080jpf0TUqZuZEr6jJURYZZUBKOsURulWZvnwkYiAjwSeep48VJ5fSmQsp1VV9nX9+
+         46i5LrtgU6r4zbng6TAqlYHPPGNpGNtn9DaGM4HTYtlSOjw4KBd+sk5rkPKtMwhThWHp
+         Ab5ttf+tU5I59M5NH7aM3QoK7ZyPHL8bZiNzkYdz2A0svljTy9WpRsqGEn8sczy6sf+6
+         FcME6iTwvBh8rSpN0AyauAlxi+F9V5/3IOKqdjIK32ZVvw/YYXWYxTmdxxcGleqr+KmG
+         2iww==
+X-Forwarded-Encrypted: i=1; AJvYcCV54cEgJzeGOZuWYKgCRiT9OVCU0WwzxbD7weBV7XrN6Om5//yUzn02BWy/KiiubHJQwGFqO+YQoHs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxX2gqNtNszFQ+IT4/GOaHsxEqoaGr2gEpv8yurD0gepmQEUX6h
+	FTOUqRNDpC5myWveocAhhQ/BQganhDxncR7KPRuBbGKdCeWOYL0xdxP5iVGJ2EHMkQ==
+X-Gm-Gg: ASbGncunTI0WEeeXtriEYi1OB6nV9asgjG0CTz38aPFwiMSSi+hs5ZdcPCTig7o+5Dd
+	KMEarrL2o9om+vOcUY0XFagaFVtmrs8Rsfbgw2PKZbtFEyX1K+CtOHPUFWxx0zrrmjz4/QQtTX3
+	OoztKBIkcfI33nns0ljhOjxWfNsbVVFLJtJibQ+noJkrLqDxkwkR6CF8zl3l4VReFTrpUR9Rkz2
+	mLD9MOKFBnGgPz4qh0B0t2rlSqLbDJEAucCV42R9ohJt3pPfIiA/7k4KvmlcKxUTq0J8gM7du7L
+	dwUUl2vffe3PsbD4a3UQskfGCfQaVXh3I8Z8YMBsTMrtRzXOCdmKF8hC68WCpYAI4EaVHx5WzfQ
+	1X5BjMOK6FBOg3MIAHzuqLDfDMdGl4XXMG+ZwMHoVCQlTA+yL4NUUyRUz27xllJjqaNsJCgfVY1
+	toAmR6PT4=
+X-Google-Smtp-Source: AGHT+IHD43aOoU88HGrM4sx8GW94U3jJteSg/j3xRtl2u5+jKJujOuO0InkbCN8WKKFzAYLySXf5cw==
+X-Received: by 2002:a05:6402:210b:b0:61c:4034:e414 with SMTP id 4fb4d7f45d1cf-61c4034e604mr6428275a12.7.1756132229428;
+        Mon, 25 Aug 2025 07:30:29 -0700 (PDT)
+Message-ID: <42b2163e-1cb0-4f15-a1a5-4d7eaad6bf30@suse.com>
+Date: Mon, 25 Aug 2025 16:30:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/x86: fix xen.efi boot crash from some bootloaders
-To: Yann Sionneau <yann.sionneau@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250724140731.1502774-1-yann.sionneau@vates.tech>
- <4ceb64fa-d7cb-4c77-8a60-1526046c037c@suse.com>
- <4936cb0d-0898-4171-b8e1-ed3a57bcfc0a@vates.tech>
+Subject: Re: [PATCH v7 03/13] tools: fix help info for "xenpm
+ set-cpufreq-cppc"
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Anthony PERARD <anthony.perard@vates.tech>,
+ xen-devel@lists.xenproject.org
+References: <20250822105218.3601273-1-Penny.Zheng@amd.com>
+ <20250822105218.3601273-4-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,94 +120,16 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4936cb0d-0898-4171-b8e1-ed3a57bcfc0a@vates.tech>
+In-Reply-To: <20250822105218.3601273-4-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 25.08.2025 16:17, Yann Sionneau wrote:
-> On 8/4/25 11:34, Jan Beulich wrote:
->> On 24.07.2025 16:07, Yann Sionneau wrote:
->>> xen.efi PE does not boot when loaded from shim or some patched
->>> downstream grub2.
->>>
->>> What happens is the bootloader would honour the MEM_DISCARDABLE
->>> flag of the .reloc section meaning it would not load its content
->>> into memory.
->>>
->>> But Xen is parsing the .reloc section content twice at boot:
->>> * https://elixir.bootlin.com/xen/v4.20.1/source/xen/common/efi/boot.c#L1362
->>> * https://elixir.bootlin.com/xen/v4.20.1/source/xen/arch/x86/efi/efi-boot.h#L237
->>>
->>> Therefore it would crash with the following message:
->>> "Unsupported relocation type" as reported there:
->>>
->>> * https://github.com/QubesOS/qubes-issues/issues/8206#issuecomment-2619048838
->>> * https://lore.kernel.org/xen-devel/7e039262-1f54-46e1-8f70-ac3f03607d5a@suse.com/T/#me122b9e6c27cd98db917da2c9f67e74a2c6ad7a5
->>>
->>> This commit adds a small C host tool named keeprelocs
->>> that is called after xen.efi is produced by the build system
->>> in order to remove this bit from its .reloc section header.
->>>
->>> Signed-off-by: Yann Sionneau <yann.sionneau@vates.tech>
->>
->> So I found a way to deal with this at the linker side, without any new command
->> line options. Behavior is solely driven by the attributes of any incoming .reloc
->> sections (of which there would be none by default, retaining original behavior).
->> The important patch is [1], but at least the first patch of the series [2] would
->> in most cases also be wanted/needed (patch 04 is obviously a mechanical prereq
->> for the main patch). Need for other of the prereqs there depends on the scope
->> and purpose of one's binutils build(s).
->>
->> [1] https://sourceware.org/pipermail/binutils/2025-August/143153.html
->> [2] https://sourceware.org/pipermail/binutils/2025-August/143141.html
+On 22.08.2025 12:52, Penny Zheng wrote:
+> Change "balance" to "ondemand" in help info for "xenpm set-cpufreq-cppc"
 > 
-> That sounds great!
-> It's clearly better to fix the issue by changing/improving binutils.
-> Let's drop my patch in Xen if this gets accepted in binutils!
+> Fixes: 81ce87fc5e36 (xen/cpufreq: rename cppc preset name to "XEN_SYSCTL_CPPC_SET_PRESET_ONDEMAND")
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 
-Luckily I'm in a position where I don't need "acceptance", but merely
-"absence of objections". The sole reason for the present delay is with
-a colliding MIPS patch, which I'd rather see go in first.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> It would be nice if you could keep us posted in xen-devel of the 
-> status/progress of the binutils patches.
-
-I'll try to remember.
-
-> By the number of patches needed for binutils it seems you opened a can 
-> of worms/pandora box with this issue ^^
-
-Well, that's been only one of the tinier cans.
-
-> Also, in patch 12/17, you state that the logic would be that if .reloc 
-> is generated partly by the code itself instead of solely by the linker 
-> this means we want to use the section at runtime.
-> While I kind of understand this idea, it also feels a bit as a hack, 
-> doesn't it?
-
-Yes and no. Assigning purpose to sections merely from their names is
-already a hack. Yet since we need to live with that concept on PE/COFF
-(and even ELF is quite far from being free of such), making this small
-extra distinction feels quite acceptable to me.
-
-> One could argue that even if .reloc is just generated by the linker, the
-> program could still want to access it at runtime.
-
-Not really, no. Ordinary programs hardly have a need to access their
-own .reloc. And if so, having a simple, command-line-option-less way
-to distinguish both intentions is probably the best we can have for
-both worlds.
-
-> I've looked at Xen code to see if it does put something in .reloc itself 
-> and it seems so: 
-> https://elixir.bootlin.com/xen/v4.20.1/source/xen/arch/x86/efi/relocs-dummy.S
-> The "code puts data in .reloc section" would just serve as a "hint" for 
-> the linker if I understand your patch well, just as well as a 
-> `--keep-reloc` command line option would.
-
-And something similar would then be needed for the other two linking
-steps, just that there would be no actual data in that .reloc section
-"contribution".
-
-Jan
 
