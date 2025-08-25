@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4D36B345B0
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 17:26:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1093456.1448965 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 352DEB345BE
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 17:27:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1093474.1448974 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqZ5g-0008Gh-ES; Mon, 25 Aug 2025 15:26:36 +0000
+	id 1uqZ6n-0000UC-RU; Mon, 25 Aug 2025 15:27:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1093456.1448965; Mon, 25 Aug 2025 15:26:36 +0000
+Received: by outflank-mailman (output) from mailman id 1093474.1448974; Mon, 25 Aug 2025 15:27:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqZ5g-0008E7-9p; Mon, 25 Aug 2025 15:26:36 +0000
-Received: by outflank-mailman (input) for mailman id 1093456;
- Mon, 25 Aug 2025 15:26:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=paQ2=3F=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1uqZ5f-0007h0-EU
- for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 15:26:35 +0000
-Received: from fhigh-b7-smtp.messagingengine.com
- (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e1678031-81c7-11f0-a32c-13f23c93f187;
- Mon, 25 Aug 2025 17:26:33 +0200 (CEST)
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 54F3E7A0103;
- Mon, 25 Aug 2025 11:26:32 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-10.internal (MEProxy); Mon, 25 Aug 2025 11:26:32 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 25 Aug 2025 11:26:31 -0400 (EDT)
+	id 1uqZ6n-0000SH-Nv; Mon, 25 Aug 2025 15:27:45 +0000
+Received: by outflank-mailman (input) for mailman id 1093474;
+ Mon, 25 Aug 2025 15:27:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=J9Dq=3F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uqZ6m-0008VJ-P1
+ for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 15:27:44 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0b42f6dd-81c8-11f0-b898-0df219b8e170;
+ Mon, 25 Aug 2025 17:27:43 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-afcb7acfde3so669387166b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 08:27:43 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-afe895baff6sm156706166b.52.2025.08.25.08.27.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 25 Aug 2025 08:27:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,192 +45,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1678031-81c7-11f0-a32c-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1756135592;
-	 x=1756221992; bh=np5vJpyy7lDldFFcl5Vkfbhrix7UygfNpb87aMYXdMo=; b=
-	ozkGZPmksdwqnN1Q3Cx0WqXg7kwWaYpvhTUqZoia19c6FbQMrakOokx4Z/PvZRao
-	RErOI04YqTYbj4wWtxXyZRuzXFlWj3+B5SlGK+/4oQQWWYrRWECTHrXFaXufd62z
-	Lc36PO6j+AVM/64QuhvMpNUUnpaXo/Vz9y3DKIpZqlzoX2yEJ7DOka4MXHvFA0jM
-	RcXgmIsD2EtN6EQ/nDhMXorBEGlvdmDBPxIwdGU0zRzCaPPlxae3pDSNb5yu0L9R
-	DClX8X8qnauYMmjVUnmSpFxGBKjdti5ZgpVYICms7Il4RvC2ybFE8WUQDVpEpyvr
-	qTe20L+nieJMtcYJZOI6vQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1756135592; x=1756221992; bh=np5vJpyy7lDldFFcl5Vkfbhrix7UygfNpb8
-	7aMYXdMo=; b=ELoQY7kboQdK8H59/9yQ9RJpSWu4pyR979niwhL7AiRYOgIKfjx
-	vFKfUo686oqTcCVj0zMEprtDXCTlrXVEDi5HYJhElWn59ryHdrryKHGLtn1/cFu3
-	j+Ligcjz9Lq9U9M+VqmOedVKGihdzcPyRscWK1X2N1lGODawYPczGu9xNqpzOlgt
-	kqoORrOq0dVMttp3bPj9TxEA97FOqcUM0pcoc0BTEs3BySv7UEj0D8NttEc7kKal
-	iXb4NuDpeXKwp/QjBlEO2vxvc8QNPn921gGRqEF613jSo7el6R+4CpaIBXNGaF6v
-	GEUZ8I0KNo0uoIk1D4nXSzOnc/5ux1kVsdg==
-X-ME-Sender: <xms:p4CsaJvynvCIhLEwYs6rXaYuekV5-D7YMld-5BYoL9tu4XA8i-UOJA>
-    <xme:p4CsaNCbcsA9eZDIn5aOkil4dm4xZ1vgGZN-z_J4ViF4a0AZEnicS7JV0qpVl45cX
-    8oVF52B0_a75Q>
-X-ME-Received: <xmr:p4CsaJVFqcXKTQk5bn1uEHw6o2FQBFBdCNP6vJ7YOHjr05HzsJxqauepWHTCMJc2zQIdCqDUFYj88yJBEGMM7TDFkPya5Y8RI8E>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgddujedvjeegucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
-    gurhepfffhvfevuffkfhggtggujgesghdtroertddtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnheptdetvdfh
-    kedutedvleffgeeutdektefhtefhfffhfeetgefhieegledvtddtkedtnecuvehluhhsth
-    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
-    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepgedpmh
-    houggvpehsmhhtphhouhhtpdhrtghpthhtoheprhhoghgvrhdrphgruhestghithhrihig
-    rdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojh
-    gvtghtrdhorhhgpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdprhgt
-    phhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghithhrihigrdgtohhm
-X-ME-Proxy: <xmx:p4CsaDC0M0aziRQwd9-6PqFV24DaxitKyvlG3nWQ-I_HuxqEXNXSog>
-    <xmx:p4CsaE8mvWLHyVsBmNN-L3NTegD1XKYduHk2lCkD74qT-qMg6ZkVng>
-    <xmx:p4CsaCFds1WCqASemlrBh4aD9RjTXr898SNpxwO-D7yBzrTMI8B3NQ>
-    <xmx:p4CsaKMzozZIrJid5PPxhp7-pVCg2w4SBs3RTMsKCrdviH2UIOw0HA>
-    <xmx:qICsaPw6dspi-VPkOQ2-VtQb_h6Dd2bKPtJsAMwqkeJ0-4SxNk0I7dXr>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 25 Aug 2025 17:26:28 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH] x86/suspend: unconditionally raise a timer softirq on
- resume
-Message-ID: <aKyApbxEHQcaKbYc@mail-itl>
-References: <20250825151515.39177-1-roger.pau@citrix.com>
+X-Inumbo-ID: 0b42f6dd-81c8-11f0-b898-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1756135663; x=1756740463; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=fryvEF3CETd5NA4lGbhpvLDHtuds2z4oYB2agZ4677Q=;
+        b=Dryo0laGc9Es2m7B/AivcPWDP6iEUgZMtpdClIt/6oJ4No5kcHgoI/MysMRTAHWaj8
+         Jtrkft5QNs4gE1bEIzPbrb1PWyzJXb4oNvNYXn3BbpPwvKxrKXLFx2GiDEkWndJG5B2X
+         kwC3UX5lChgoNk5ncgIdxjI3x4S9GMyJBQvxiJM0qBfM3aqXEW7x+o5UGHaGxvAch80S
+         xCrKy2Y6dQ9NUkaDGVbYp3jax2WsmhWIg7USVj3QbN9OCWaGV2dxhLRjO6QHPpWvv9Nj
+         URiF+wRF8m5nUinmr9FhK7PrifAlWVtFNFRmXvwH2CgptCxW9wPWSwUe+MUkBjYyxPXm
+         mVRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756135663; x=1756740463;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fryvEF3CETd5NA4lGbhpvLDHtuds2z4oYB2agZ4677Q=;
+        b=H/r66EP1QAAGIYS1209sZiRP8tnJwX3kSDQvnWfHj0OGPSJqAy68yOrwBhCz+iOJJ2
+         jiBbfBsT31iEzrEOjkfqnZvSY/yLUmLZ4d5bGWDpVbxzfEgiWeRvWdsIp8cPSE0c4lVj
+         3qWD2/l9BWXaPLRgnco932GQDelh9zSnvRqGTiS3X+jovYksMmnNLsaXuM/HUwZN4iEq
+         C504LKMNjh4Wz7MwbjPswq4W03BfXYKzaPjEPqbtbgHDOTKLRT7yTE8Hl7bG5BhrK/Bg
+         MQGmOhh2SGJHOjkkyH1ejumU2EUxHQ55jckDlAjd8xPVSwjgoRMSExuYBrLg3Y5zGwMa
+         ZhrQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWqs4uv8A1OlzZYu4xXnkzqY2/ziU6Gg4ePY2pnKwYNhhUOh+RTVkWZHB61EkFFJ/l34O7xAJJjTfg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxiQoS27S/Z82ECrsiOEVXDe5wJ3LhexGliU6eqfS8qb/qy12Mk
+	awAqrHN21CP0Kk0EpV0HDmLFJMeS1jBCjjU9Hmh3NPvJN4c2rr5eBXh0m7udFKZcjg==
+X-Gm-Gg: ASbGncuFaXgy6N9M+YmmFY0eVWgLyEJuvKVyZ/bOq8Di+/emP4b+UPR0GkkP7erc3NM
+	gDm1RubSZpno7wTl0zlA90/nkyFWeWKFj5A7X1MSnyF9Vto9jTeKvcE3HoFIJ6RjlYfOA8pT3F5
+	6YFzQRqTMyMiY5RQtaJlXIcf5Tb+ebow0w0eNY22NlHSxlEy/vIYRdsgtNs5tExgkrtExuGKGmP
+	W6yViJTkiEA1+EVWvKdU5TvDZcQdiQcLbxguW5BFa3KkRbpJ4VLZPKoaJNUEwJ/vWXp40Rin6kh
+	tR75bfJlINcB93gPNkgeXn/4NL5Sed6+sUE4wMNNikVAGBVszCfu4NllE6pVKtldjmm8vT68VrN
+	8go/f8F6jRAK/d3VghLh6SpnfCOQIj36gd6a2ZGFYi/hZeMsI/FH8GdVXTE2fo6XhzZbveK+UOe
+	3+9qBCaPY=
+X-Google-Smtp-Source: AGHT+IH8pEj+OuSESXbMFWaXYXibKeGkTf/6TLT5rU9TOC/YQt4vqh1F7OzvbXYBYg1WScKbL9eBkQ==
+X-Received: by 2002:a17:907:1b29:b0:af9:611d:8d06 with SMTP id a640c23a62f3a-afe2965b625mr1254418066b.54.1756135662602;
+        Mon, 25 Aug 2025 08:27:42 -0700 (PDT)
+Message-ID: <48f72997-ba07-4a9c-998e-76b02f2863f0@suse.com>
+Date: Mon, 25 Aug 2025 17:27:41 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="dhaSqA7pHatNiyyD"
-Content-Disposition: inline
-In-Reply-To: <20250825151515.39177-1-roger.pau@citrix.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 6/8] tools/xl: enable NS16550-compatible UART emulator
+ for HVM (x86)
+To: Anthony PERARD <anthony@xenproject.org>
+Cc: dmkhn@proton.me, xen-devel@lists.xenproject.org,
+ andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com
+References: <20250731192130.3948419-1-dmukhin@ford.com>
+ <20250731192130.3948419-7-dmukhin@ford.com> <aKx4FtlhAbXxtZlB@l14>
+ <844bb7f7-2e56-41e0-b304-77e9e9650eb1@suse.com> <aKx9ihn4i0LCq0Bn@l14>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <aKx9ihn4i0LCq0Bn@l14>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 25.08.2025 17:13, Anthony PERARD wrote:
+> On Mon, Aug 25, 2025 at 05:03:40PM +0200, Jan Beulich wrote:
+>> On 25.08.2025 16:49, Anthony PERARD wrote:
+>>> On Thu, Jul 31, 2025 at 07:22:12PM +0000, dmkhn@proton.me wrote:
+>>>> -=item B<vuart="uart">
+>>>> +=item B<vuart=[ "sbsa_uart", "ns16550" ]>
+>>>
+>>> This syntax here would inditace that `vuart` takes a list of items. You
+>>> could write instead:
+>>>
+>>>     vuart="UART"
+>>>
+>>> which seems more in line with the rest of the man page. Then you can add
+>>> some thing like "with UART been one of "sbsa_uart" or "ns16550". It's
+>>> possible to also have a sublist, like the `tee` option have.
+>>
+>> But shouldn't the syntax already now allow for multiple items? Possibly
+>> even multiple ones of the same kind?
+> 
+> How does `vuart="uart"` allow for multiple items?
 
---dhaSqA7pHatNiyyD
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 Aug 2025 17:26:28 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH] x86/suspend: unconditionally raise a timer softirq on
- resume
+Precisely. I would have expected it to be e.g.
 
-On Mon, Aug 25, 2025 at 05:15:15PM +0200, Roger Pau Monne wrote:
-> The current code to restore the timer state on resume is incomplete.  Whi=
-le
-> the local APIC Initial Count Register is saved and restored across
-> suspension (even if possibly no longer accurate since it's not adjusted to
-> account for the time spent in suspension), the TSC deadline MSR is not
-> saved and restored, hence hosts using the TSC deadline timer will likely
-> get stuck when resuming from suspension.
->=20
-> The lack of restoring of the TSC deadline MSR was mitigated by the raising
-> of a timer softirq in mwait_idle_with_hints() if the timer had expired,
-> previous to commit 3faf0866a33070b926ab78e6298290403f85e76c, which removed
-> that logic.
->=20
-> This patch fixes the usage of the TSC deadline timer with suspension, by
-> unconditionally raising a timer softirq on resume, that will take care of
-> rearming the hardware timer.  Given that a timer softirq will be
-> unconditionally risen, there's no need to save and restore the APIC Initi=
-al
-> Count Register anymore either.
->=20
-> Note that secondary processors don't need this special treatment when
-> resuming, since they are offlined before suspension and brought back up
-> during resume, the first timer that gets setup will trigger a timer softi=
-rq
-> unconditionally, for example from sched_migrate_timers() that gets called
-> for each secondary processor.
->=20
-> Reported-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab=
-=2Ecom>
-> Fixes: fd1291a826e1 ('X86: Prefer TSC-deadline timer in Xen')
-> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+vuart = [ "ns16550", "ns16550", "sbsa-uart" ]
 
-Tested-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+(i.e. the square brackets are part of the necessary syntax).
 
-> ---
->  xen/arch/x86/acpi/power.c | 2 ++
->  xen/arch/x86/apic.c       | 3 ---
->  2 files changed, 2 insertions(+), 3 deletions(-)
->=20
-> diff --git a/xen/arch/x86/acpi/power.c b/xen/arch/x86/acpi/power.c
-> index 2ac162c997fe..27d672ad5dbb 100644
-> --- a/xen/arch/x86/acpi/power.c
-> +++ b/xen/arch/x86/acpi/power.c
-> @@ -19,6 +19,7 @@
->  #include <xen/iommu.h>
->  #include <xen/param.h>
->  #include <xen/sched.h>
-> +#include <xen/softirq.h>
->  #include <xen/spinlock.h>
->  #include <xen/watchdog.h>
-> =20
-> @@ -310,6 +311,7 @@ static int enter_state(u32 state)
->      thaw_domains();
->      system_state =3D SYS_STATE_active;
->      spin_unlock(&pm_lock);
-> +    raise_softirq(TIMER_SOFTIRQ);
->      return error;
->  }
-> =20
-> diff --git a/xen/arch/x86/apic.c b/xen/arch/x86/apic.c
-> index cac5ba39e615..e3a2b84f1aae 100644
-> --- a/xen/arch/x86/apic.c
-> +++ b/xen/arch/x86/apic.c
-> @@ -65,7 +65,6 @@ static struct {
->      unsigned int apic_lvt0;
->      unsigned int apic_lvt1;
->      unsigned int apic_lvterr;
-> -    unsigned int apic_tmict;
->      unsigned int apic_tdcr;
->      unsigned int apic_thmr;
->  } apic_pm_state;
-> @@ -658,7 +657,6 @@ int lapic_suspend(void)
->      apic_pm_state.apic_lvt0 =3D apic_read(APIC_LVT0);
->      apic_pm_state.apic_lvt1 =3D apic_read(APIC_LVT1);
->      apic_pm_state.apic_lvterr =3D apic_read(APIC_LVTERR);
-> -    apic_pm_state.apic_tmict =3D apic_read(APIC_TMICT);
->      apic_pm_state.apic_tdcr =3D apic_read(APIC_TDCR);
->      if (maxlvt >=3D 5)
->          apic_pm_state.apic_thmr =3D apic_read(APIC_LVTTHMR);
-> @@ -718,7 +716,6 @@ int lapic_resume(void)
->          apic_write(APIC_LVTPC, apic_pm_state.apic_lvtpc);
->      apic_write(APIC_LVTT, apic_pm_state.apic_lvtt);
->      apic_write(APIC_TDCR, apic_pm_state.apic_tdcr);
-> -    apic_write(APIC_TMICT, apic_pm_state.apic_tmict);
->      apic_write(APIC_ESR, 0);
->      apic_read(APIC_ESR);
->      apic_write(APIC_LVTERR, apic_pm_state.apic_lvterr);
-> --=20
-> 2.49.0
->=20
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---dhaSqA7pHatNiyyD
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmisgKUACgkQ24/THMrX
-1yxXLggAh/QGcZFt3gD5+dvWVvFQ6hgcfWSEXtZQg+7Fz90+6M//WyI0Hce1YubS
-+iQewEatx7V0uR/g4gJBckINOhyvPIUKzxMzVWg9Kl2C7afgtc+yZcItE6hI+Ri8
-fx465Ey5WOQ85C7L8BHnRZbv6PRbMi5OHDm/cmGfn/Dm6Gqq2W/Y8T6OIskiLnkd
-6Gbk2YRyfMwQBFaOi2LYc5wCv+4luOud/ZMPi90gI8jRZiMt6qxFwl0VoojRiQVp
-LR/hq+Ov/ZWNs2pi7ixpmlSIs5WrUwnCK5LgJ72MoQY6P9zWXOu1Uufqy4Yk/DiQ
-IrlANsnukMYGn2jYe7zSxqNLwZYg9g==
-=kAU8
------END PGP SIGNATURE-----
-
---dhaSqA7pHatNiyyD--
+Jan
 
