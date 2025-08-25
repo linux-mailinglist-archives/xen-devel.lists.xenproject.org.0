@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18015B34364
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 16:20:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1093265.1448798 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09AFFB343B7
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 16:29:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1093277.1448809 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqY3Z-0008DZ-0y; Mon, 25 Aug 2025 14:20:21 +0000
+	id 1uqYC3-0000du-Tj; Mon, 25 Aug 2025 14:29:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1093265.1448798; Mon, 25 Aug 2025 14:20:20 +0000
+Received: by outflank-mailman (output) from mailman id 1093277.1448809; Mon, 25 Aug 2025 14:29:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqY3Y-0008BN-UH; Mon, 25 Aug 2025 14:20:20 +0000
-Received: by outflank-mailman (input) for mailman id 1093265;
- Mon, 25 Aug 2025 14:20:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uqYC3-0000am-Pd; Mon, 25 Aug 2025 14:29:07 +0000
+Received: by outflank-mailman (input) for mailman id 1093277;
+ Mon, 25 Aug 2025 14:29:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J9Dq=3F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uqY3X-0008BG-AV
- for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 14:20:19 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a04836ef-81be-11f0-a32c-13f23c93f187;
- Mon, 25 Aug 2025 16:20:18 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-afcb7ace3baso800641566b.3
- for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 07:20:18 -0700 (PDT)
+ id 1uqYC1-0000ag-MA
+ for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 14:29:05 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d953fb07-81bf-11f0-b898-0df219b8e170;
+ Mon, 25 Aug 2025 16:29:03 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-afcb7a3ee3cso643650566b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 07:29:03 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afe7aad5d61sm259882966b.105.2025.08.25.07.20.16
+ a640c23a62f3a-afe48fbdb52sm570110366b.33.2025.08.25.07.29.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Aug 2025 07:20:17 -0700 (PDT)
+ Mon, 25 Aug 2025 07:29:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a04836ef-81be-11f0-a32c-13f23c93f187
+X-Inumbo-ID: d953fb07-81bf-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756131618; x=1756736418; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756132143; x=1756736943; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kMmdUAg9dKT+h1W/k9SXvDTXrfIiRdp5JxVpR+SFhFI=;
-        b=fKkr2jUiSM2F+JUbh0iHGIZ8mfnBJxgI8KGisIOx00QbbqolewdvxFixzRaClxSp9G
-         Zv3Ctq5YGq6kyw5lTk20DalXM+DvlTmSAYWX+t48jhrkMN9BpVvUNJhtP3RLg/gSGsrr
-         JOtBDssuitEpIzRCSbyWwuRdA93cknytAWdFSUDg9I5lH96PnzLKgLyIq3PqlAFQZ/ac
-         s8mTy1eWs2dGxXSHQnbEefIcuKhupHqfu5T8BGu3OIByImPdNU3YfZZqR/dlpmsAmFdS
-         znlNAxsZMv9kn4ix/6fmfuMS4fzQCg+6x7fYax2mNqe826nCYOddFDteTYj4l2ZLriFr
-         VsKg==
+        bh=CaYZYHMc8nvfaAWYv+35eikwH2vUQc5t2kU+haPS6Lk=;
+        b=WGrItcFFZDbPc+wF2s7c5bCUZ/ERbKP47+31kgyzkdeAz11S1g7JLtgDGtEmo6Rcz5
+         hr2foMvILg3nit7XLEolSBO07FZKRmbJLdtjV8qGoZTk+dapGMZIMBWM77VRM0GnKdqt
+         mu7XV/BQe1DOsPmb31/LxD19HLtkD10qir44crmP1eL3szg+RLfhKkW8XPpyycAjvR6N
+         S0bbl78UpheanC9+/pe3Z9MBjtpAFA49UujTe8geK//mpOuEeU2IxoojdBGK1rLEefcF
+         vlYdO1oYVQNfVLzt9WBS3Fg1kl4RQjzVqqNcqm8m1a7yt412UcWONvxr5iLS0JvI/a8m
+         /iCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756131618; x=1756736418;
+        d=1e100.net; s=20230601; t=1756132143; x=1756736943;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kMmdUAg9dKT+h1W/k9SXvDTXrfIiRdp5JxVpR+SFhFI=;
-        b=MBPK8FhCYpQe8ShwlpFHWntN/BlMDoTdx2MWnbE7bGmpZLTz/ndW662a51QXgXrgyb
-         IOEhs5eeFvAd6BJivMFINgWkC/j8y4RjyUvtJypF2BPUgamNKqvju0yxXpmcE1KsJ1eC
-         FzUAS4GJeAJPQiHu4V9hGm+/g3R1GYJXDcBPuRYEcXHGxxEO5BrAy1B6AUPEGRniFJMM
-         gumjsY2fpGDo+hmJKzUT6rKXF0Y0Y8mq7w618HE+avj/2O7QZUQe+lxN9mCzRaOHSWwS
-         cS7fKDDX/X9loMxBCY16z1jYxc9aYH99Rb2/7BPju6hBVvEeSeDqvBdmLpxGLzeFZj61
-         6gOA==
-X-Forwarded-Encrypted: i=1; AJvYcCUjjIbt2w2E8nxCZ0mS/KEchfzA5UdsathSyEBguXJqYxMDD0wAIjKiRt/MqCeT0nrThhkfqySxHMw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzXQmz/P5D6H6ktQIphGVspwHSkXcMGmnPKL0hzHrdn+iHP23o7
-	ueAITKEfbtKiWRn1sS+lmyMp5W8aORfqh5XbVsXkz7yTG4ne8FZZcTFWHyw1AJpf1Q==
-X-Gm-Gg: ASbGnctr43zYcEFQYcWKqjxjMEnu/AF1oBYub6YLjuPqU3MdEZQolZsN5gXaTzB4SOx
-	fDBdTXXm5yXk2BJBW3P2VDLu70le0AB0JV+5KYtJTG++TH4LYZ5hhkqKnK0i7qzE34sUZ/ijLjU
-	WZakEjHlJDcle1JZOUZBEHJw9HhmQ99GMeCDaYJWLGSr4XHdXplAZ94/TlUIeFW3KIBaea5wbPg
-	xqlGiHuh9z2Z8gH0duZxqLlLnPJpTq06YMEiQX7iNk3dOo1YTBsrYWg4FcEIqu8GotXiyxj51P7
-	7rFtyjYmlINX8KpPvS7rI6pZ2kL9n+uUmlcXDwXn1shGWvzDTUtk0izNY+ckuhAyi6co1Q19RHb
-	jGq1ups1rDdEpm6jIV4oJ3IaOX5f6ew3FfkxZPUCRhN5f5HJJcEl8Yp94ht4epoXPjShPxzdzZR
-	hhzmWiYqijrvg2/s+wFA==
-X-Google-Smtp-Source: AGHT+IFUoFhjBSK6UMvgppIid5Sf2Zj3AHBTCmuv5DDvkJlC24Yl++t83W2IBJfDwJxwU40bdT1DRQ==
-X-Received: by 2002:a17:906:4784:b0:af9:8c1f:c2b9 with SMTP id a640c23a62f3a-afe28f767bdmr1066510366b.8.1756131617623;
-        Mon, 25 Aug 2025 07:20:17 -0700 (PDT)
-Message-ID: <49416df6-83c8-4fa3-bf81-2d1e504ef31b@suse.com>
-Date: Mon, 25 Aug 2025 16:20:16 +0200
+        bh=CaYZYHMc8nvfaAWYv+35eikwH2vUQc5t2kU+haPS6Lk=;
+        b=X7arTLu3JJe1OpcgG8GVcyzGRAcNLMiJgTD9duNs77IFIXbPojdL4UvPN5e301moZB
+         0BxHpfKtr3UvDUgEiwXxV2lXeUcFzUR7fQ7zcoYIqki9wMcsXjbIjSN3QlShMrwUZpgw
+         dzglnXjM2DCBghyFCOOKak25IjQGlxZ9TXSpoCAGnsR8gtMfqkTA4pfdXUJrn/Ro14IO
+         hXNIfbSkrqqYgtwpRK7d679A/Kl7lVSM3R6tZk0n9q8OS1pACMzGjB6B5AMF1p/FGuiY
+         GYg8BvLhvbuFMG6vEOF/s1J3mO9EPIlcDFH0BaCe/cTiO2wq9F/0Z8RFw7ZY4FqYdOAM
+         kt0A==
+X-Forwarded-Encrypted: i=1; AJvYcCWe4Ox2ywT7xO1pO9QVBml/1+JBUdkN0McmAUWh/HkMJ34+9YyteUKVeXOnVVPmPNz8o3G8jJheNIU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz54Sa8X7GK0AGuEACk5gf5Om0aNsewtn9YbqN9l+lOlx0P9a0E
+	7vif+gpslRmXRSWh7W0A61t1Z2+j80OLa8B5/OjtB5suqcZ/BTny5nQcnbDJnaQz8w==
+X-Gm-Gg: ASbGncu/4V1s/qp+ckXCMMZp8dY+TMBLEV9WHA3WcHLuj0oHr6bvrEKRU2vMIxMx6hh
+	c+nDOsJ3mUl3ftFqL3LTCpAEEXom7XzWjxo4H/pq+19fPdCS0YvbhNZCHFWWxVWFyopLPhgQGur
+	zwLP3WUYswrZuquOxfTKyowMrMgVe9mo/un6R2PqnnK//dvKs6H2JExZYDCrq+UXNzDmC5Xek3m
+	cXaXPdAOeDnx8kvMORzPV9SHX2AJ5FW/wOm9Wt38Mn97P3G/FgctUPteqFDwL7dZ1DBsK4sZqEX
+	ydNlYVMbq6G1k8bINjJvbq+gw/ge6qeI6jjp7Fvk71sg2Aja2csGdmpPnCIWEFY18H02oyi3uWs
+	YoUndl0XGbQNsW5jZ5Zpq9WQpcVsttLbTpjCT7EsDldWYpekbYBPV2Y9qsxut3Wx55rdtewNaxo
+	RhKtjLDys=
+X-Google-Smtp-Source: AGHT+IHDWIK2NchTCtUEpsB4nzY1RWuCe87k6OPT1krRbC64uQ1EpKwO4K6BGR+S/nytJPwlyB9RAw==
+X-Received: by 2002:a17:906:3717:b0:afe:764d:6b31 with SMTP id a640c23a62f3a-afe764d736dmr464579266b.4.1756132142791;
+        Mon, 25 Aug 2025 07:29:02 -0700 (PDT)
+Message-ID: <9b7b70e5-9b1b-446e-9dcc-310f1c1f4b47@suse.com>
+Date: Mon, 25 Aug 2025 16:29:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>, ray.huang@amd.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v2] xen/x86: fix xen.efi boot crash from some bootloaders
+To: Yann Sionneau <yann.sionneau@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org, Penny Zheng <Penny.Zheng@amd.com>
-References: <20250815102728.1340505-1-Penny.Zheng@amd.com>
- <fb6f559a-b2aa-4b25-a6d3-401ecc4b4bd5@suse.com>
- <d6046b53-9317-43d6-bfda-e30d42c09320@gmail.com>
- <2035b14e-3836-4e80-9dad-8a49ca90864a@suse.com>
- <alpine.DEB.2.22.394.2508181646220.923618@ubuntu-linux-20-04-desktop>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250724140731.1502774-1-yann.sionneau@vates.tech>
+ <4ceb64fa-d7cb-4c77-8a60-1526046c037c@suse.com>
+ <4936cb0d-0898-4171-b8e1-ed3a57bcfc0a@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,53 +123,94 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2508181646220.923618@ubuntu-linux-20-04-desktop>
+In-Reply-To: <4936cb0d-0898-4171-b8e1-ed3a57bcfc0a@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19.08.2025 01:51, Stefano Stabellini wrote:
-> On Mon, 18 Aug 2025, Jan Beulich wrote:
->> On 18.08.2025 15:28, Oleksii Kurochko wrote:
->>> On 8/18/25 10:31 AM, Jan Beulich wrote:
->>>> On 15.08.2025 12:27, Penny Zheng wrote:
->>>>> In order to fix CI error of a randconfig picking both PV_SHIM_EXCLUSIVE=y and
->>>>> HVM=y results in hvm.c being built, but domctl.c not being built, which leaves
->>>>> a few functions, like domctl_lock_acquire/release() undefined, causing linking
->>>>> to fail.
->>>>> To fix that, we intend to move domctl.o out of the PV_SHIM_EXCLUSIVE Makefile
->>>>> /hypercall-defs section, with this adjustment, we also need to release
->>>>> redundant vnuma_destroy() stub definition from PV_SHIM_EXCLUSIVE guardian,
->>>>> to not break compilation
->>>>> Above change will leave dead code in the shim binary temporarily and will be
->>>>> fixed with the introduction of domctl-op wrapping.
->>>> Well, "temporarily" is now getting interesting. While v1 of "Introduce
->>>> CONFIG_DOMCTL" was submitted in time to still be eligible for taking into
->>>> 4.21, that - as indicated elsewhere - is moving us further in an unwanted
->>>> direction.
+On 25.08.2025 16:17, Yann Sionneau wrote:
+> On 8/4/25 11:34, Jan Beulich wrote:
+>> On 24.07.2025 16:07, Yann Sionneau wrote:
+>>> xen.efi PE does not boot when loaded from shim or some patched
+>>> downstream grub2.
 >>>
->>> Do you mean that specifically this patch or the whole patch series is moving us
->>> in unwanted direction? (1)
+>>> What happens is the bootloader would honour the MEM_DISCARDABLE
+>>> flag of the .reloc section meaning it would not load its content
+>>> into memory.
+>>>
+>>> But Xen is parsing the .reloc section content twice at boot:
+>>> * https://elixir.bootlin.com/xen/v4.20.1/source/xen/common/efi/boot.c#L1362
+>>> * https://elixir.bootlin.com/xen/v4.20.1/source/xen/arch/x86/efi/efi-boot.h#L237
+>>>
+>>> Therefore it would crash with the following message:
+>>> "Unsupported relocation type" as reported there:
+>>>
+>>> * https://github.com/QubesOS/qubes-issues/issues/8206#issuecomment-2619048838
+>>> * https://lore.kernel.org/xen-devel/7e039262-1f54-46e1-8f70-ac3f03607d5a@suse.com/T/#me122b9e6c27cd98db917da2c9f67e74a2c6ad7a5
+>>>
+>>> This commit adds a small C host tool named keeprelocs
+>>> that is called after xen.efi is produced by the build system
+>>> in order to remove this bit from its .reloc section header.
+>>>
+>>> Signed-off-by: Yann Sionneau <yann.sionneau@vates.tech>
 >>
->> That series. We said we don't want individual CONFIG_SYSCTL, CONFIG_DOMCTL, etc.
->> Instead a single umbrella option wants introducing. Which means there series
->> doesn't need re-doing from scratch, but it may end up being a significant re-
->> work, especially considering that CONFIG_SYSCTL is already in the codebase and
->> hence now also needs replacing.
+>> So I found a way to deal with this at the linker side, without any new command
+>> line options. Behavior is solely driven by the attributes of any incoming .reloc
+>> sections (of which there would be none by default, retaining original behavior).
+>> The important patch is [1], but at least the first patch of the series [2] would
+>> in most cases also be wanted/needed (patch 04 is obviously a mechanical prereq
+>> for the main patch). Need for other of the prereqs there depends on the scope
+>> and purpose of one's binutils build(s).
+>>
+>> [1] https://sourceware.org/pipermail/binutils/2025-August/143153.html
+>> [2] https://sourceware.org/pipermail/binutils/2025-August/143141.html
 > 
-> I would not characterize this series as "moving us in an unwanted
-> direction". Yes, it introduces a separate CONFIG_DOMCTL, which we
-> agreed we do not want. However, simplifying it to reuse a single
-> CONFIG is a minor improvement that can be addressed in v2. The main
-> challenge in this series is adding the #ifdef in the appropriate
-> places, and using a single CONFIG for domctl and sysctl would
-> actually help.
+> That sounds great!
+> It's clearly better to fix the issue by changing/improving binutils.
+> Let's drop my patch in Xen if this gets accepted in binutils!
 
-Well, when are we going to see a v2 then which does this? Of the three
-options I mentioned in the earlier reply, Oleksii favored the revert
-path, leaving open the get-everything-in one. For the latter, however,
-we need to see relatively constant progress now, or else time will run
-out. Whether to commit the patch here really depends on what route we
-settle on for 4.21.
+Luckily I'm in a position where I don't need "acceptance", but merely
+"absence of objections". The sole reason for the present delay is with
+a colliding MIPS patch, which I'd rather see go in first.
+
+> It would be nice if you could keep us posted in xen-devel of the 
+> status/progress of the binutils patches.
+
+I'll try to remember.
+
+> By the number of patches needed for binutils it seems you opened a can 
+> of worms/pandora box with this issue ^^
+
+Well, that's been only one of the tinier cans.
+
+> Also, in patch 12/17, you state that the logic would be that if .reloc 
+> is generated partly by the code itself instead of solely by the linker 
+> this means we want to use the section at runtime.
+> While I kind of understand this idea, it also feels a bit as a hack, 
+> doesn't it?
+
+Yes and no. Assigning purpose to sections merely from their names is
+already a hack. Yet since we need to live with that concept on PE/COFF
+(and even ELF is quite far from being free of such), making this small
+extra distinction feels quite acceptable to me.
+
+> One could argue that even if .reloc is just generated by the linker, the
+> program could still want to access it at runtime.
+
+Not really, no. Ordinary programs hardly have a need to access their
+own .reloc. And if so, having a simple, command-line-option-less way
+to distinguish both intentions is probably the best we can have for
+both worlds.
+
+> I've looked at Xen code to see if it does put something in .reloc itself 
+> and it seems so: 
+> https://elixir.bootlin.com/xen/v4.20.1/source/xen/arch/x86/efi/relocs-dummy.S
+> The "code puts data in .reloc section" would just serve as a "hint" for 
+> the linker if I understand your patch well, just as well as a 
+> `--keep-reloc` command line option would.
+
+And something similar would then be needed for the other two linking
+steps, just that there would be no actual data in that .reloc section
+"contribution".
 
 Jan
 
