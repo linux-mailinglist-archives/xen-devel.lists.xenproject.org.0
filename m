@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 087CFB345C4
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 17:29:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1093482.1448984 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A761B345FE
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 17:37:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1093510.1448994 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqZ7u-00010j-3K; Mon, 25 Aug 2025 15:28:54 +0000
+	id 1uqZFd-00037j-Sd; Mon, 25 Aug 2025 15:36:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1093482.1448984; Mon, 25 Aug 2025 15:28:54 +0000
+Received: by outflank-mailman (output) from mailman id 1093510.1448994; Mon, 25 Aug 2025 15:36:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqZ7u-0000zE-0Y; Mon, 25 Aug 2025 15:28:54 +0000
-Received: by outflank-mailman (input) for mailman id 1093482;
- Mon, 25 Aug 2025 15:28:52 +0000
+	id 1uqZFd-00034b-PX; Mon, 25 Aug 2025 15:36:53 +0000
+Received: by outflank-mailman (input) for mailman id 1093510;
+ Mon, 25 Aug 2025 15:36:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kKY8=3F=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uqZ7s-0000z8-C9
- for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 15:28:52 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=J9Dq=3F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uqZFc-00034V-Al
+ for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 15:36:52 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 31136c39-81c8-11f0-b898-0df219b8e170;
- Mon, 25 Aug 2025 17:28:46 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-45a1b066b5eso23609445e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 08:28:46 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-45b57449e72sm114391465e9.7.2025.08.25.08.28.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 Aug 2025 08:28:45 -0700 (PDT)
+ id 511a0bf2-81c9-11f0-b898-0df219b8e170;
+ Mon, 25 Aug 2025 17:36:49 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-afcb78d5dcbso653490666b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 08:36:49 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-afe87c2a0cesm169734366b.2.2025.08.25.08.36.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 25 Aug 2025 08:36:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,95 +45,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 31136c39-81c8-11f0-b898-0df219b8e170
+X-Inumbo-ID: 511a0bf2-81c9-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1756135726; x=1756740526; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=N49DMRXrnFBcfvFWW2Vx0+wgJjxpqPexPeoYupJ7Yfg=;
-        b=jKF0MF5ktTD1jTyO2kwCxj3dAubRqpxu37q2X7c/BIUhUDLMXRGRlcSBIcouKFB2sg
-         ygsljS82b6L1uKdzbp52+BUqFIBkfwVBuDeMouKJfo8SSYhfJvjE5/YkY7OVRLzVqbCs
-         YMJ4501qTPizCyZGcE0in66PDefrAZXUdBh/0=
+        d=suse.com; s=google; t=1756136209; x=1756741009; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=jEopt1Wpmkv1721yqfoYuZJ84BGTG4cTo2nGH31YnVI=;
+        b=WigKNdNVWR1AxrrVcL3mlIwux69ax+/4cyZ7Q2LF051wuGa+0gYoYxOeA3uWmjVbhR
+         4e2VANopL/CpDnrXsl2nlHoSqMj7KJuqeekhGUpeUBDAFt5VTeJ2bZVk2PYT5olX6tBs
+         oxPSnEZGPOSWa4zmrm5cOpq+jFgsZvfRmLLT0ZZJC6y6zJJhwZCOh6fQrVnzjOTwzqtN
+         szF36B0YnIcUAW22LlhQK4gTLeDZ2AYXEqDnr45hB8o+lCyFrTFFpGwqS2jbEBV467jC
+         uA6L6V5Gt2T1irvwsd2+xaFwwmwrfNK3dzYNHsoEBKnP3udgFev8MIXSeJvpJ5ao77BX
+         w0dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756135726; x=1756740526;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=N49DMRXrnFBcfvFWW2Vx0+wgJjxpqPexPeoYupJ7Yfg=;
-        b=gx8dwe5FU5Sf7ZEket9H6sLLH3oHaUjFbFvWO3qyQsqc5OQMtJ7GRj5KDeJjOv31bP
-         f814PuxkqVecxwcA+9N5SyId3xxxnqLhSh7zG0Auavf1a3hz8MffYF/kImWaRm64d6U/
-         MKPPZLaydcSFQGSGwAtFUUNAVQ5MU3ydZ9nlrVAtSDO2Q7wpZhk7vm966Ws3LdD/i6MQ
-         ftetLVApPLqVv2JER7Op71RU8Cin3TwhLa/YhasbCJkvFW40vQcO7g7SvakYw2RXA51R
-         Qi7U/LmdIezVO4GXJJELMo0FuYviFXuXuCOydDBsTAbPbwY1Czq+Lpa1HsNdmmun1P8z
-         W27A==
-X-Forwarded-Encrypted: i=1; AJvYcCVW+YCwaKQ1DEKjpOrmiVb02yyz9dPABPQQZVT9oOEUcsX04Y1EgmRiIkXp9Ag3j4fusrZFpZg3u98=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxzO3SAwz7ddmZYIoV3HsSjSjW/YawYj9JWDOTilgyS59hAOz4s
-	DBEeU5GuGDWsa36rQRK96FDtSg2Ucs/l+Pkf9IPseFUoJFT3/586zp4Ii4elPEbfNWA=
-X-Gm-Gg: ASbGncvrEvppMT+E7HKF2NrZN+7hgrjaJszhBqlYnNTLXfqKi4Fh1jlDmEIc5gOu4Zy
-	mk61kczEJHaE8c2n+d6tcIE4iyKAPEysv9tc/orN8PB/XZ0Dfc2ieGXsf1xDBhpfaa9I+ACbdZ+
-	NEfRpNAu2W2Km4zs7I265szCCG2ZQ1gWpK7wntZXTz1/TznSUFvSw+zkUks9IKEIGotrMHXaIIs
-	aQFbEt66oPiasCO2r7KmarIQ4r8MZRWvER+ZTndljX/ID+bozYY/5jZid+ECAQpddEHgu83OBKL
-	hFAJzfn4GNouThCUjJm3Qd1hqNetPGvSDoKKJ4orJYzVQoewyaJU/3EubhhV2jhFi8Yi3JkzVXm
-	KoQ2e3xcwO/d6L0yreLxHVJYS445fOVD25DgQom9jYLtxyqY5eu3KY18wyKz4PG06mfCZ+bMtvH
-	QH
-X-Google-Smtp-Source: AGHT+IFfbHOGJ9RPxmXRglsAK8UfPG3uLPVAan7hEClMKQV3JPexyaGh/zSY06H8HYz+gowEfiVIMw==
-X-Received: by 2002:a05:600c:4ca1:b0:45b:4ba0:da4 with SMTP id 5b1f17b1804b1-45b541d5401mr64483905e9.13.1756135725935;
-        Mon, 25 Aug 2025 08:28:45 -0700 (PDT)
-Date: Mon, 25 Aug 2025 17:28:44 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] x86/suspend: unconditionally raise a timer softirq on
- resume
-Message-ID: <aKyBLN0Y3arg1b76@macbook.local>
-References: <20250825151515.39177-1-roger.pau@citrix.com>
- <f5fc3210-2911-4b42-af8c-8a2f4bcbdfad@suse.com>
+        d=1e100.net; s=20230601; t=1756136209; x=1756741009;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jEopt1Wpmkv1721yqfoYuZJ84BGTG4cTo2nGH31YnVI=;
+        b=Fad4dfhQNuzGfoOZAxIrUF7F6GPQ4xZkpmOuFoJwUoLMwuz6AN8Q1HfJ5au+dirGWa
+         fYp+alccfRznecVCi9/Y9YBQdrfVgInkCYsVBQbKqTYzeM4MqEnLfaJSAEDpQ51yZYic
+         47xnHCm9KOrFG/DULliwCWF+qdFXLbSpE/RVhBt3/vwpjehJ6/ijTITXssP33Hw6KrUe
+         c+DeLITdnPkjQXT98ZF3aEzBmtz8i2bakRUK8tkRWJqiteYBUNhmYei+4XHlrHzGj02b
+         4sy3I9tq7+sH2OyvzE0JopBBt/7UwfrjgPNnoBBDljgsusb+ClpnMupWN8dBm9bU8sc4
+         XFBg==
+X-Forwarded-Encrypted: i=1; AJvYcCVwFw2eVYz9Nv2/y3pMhOiQ/pFjtDQeJYOQeHOc4DvjWsUY0WKx5r2/6xcZzaiFa+JXMoY8sXym+5U=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyl23Ljots3D+r71mYIXdZokw2WZEM7V+nCfxHyzIut2aOcjV+b
+	Hx5PnKmxeruW/1SquREowkWgg1jXe4y2988iVzYkM+gg4QDc4uKoEWGMR8v+1W65pg==
+X-Gm-Gg: ASbGnctBGjvPrihtTTbroWsC6/Krl4W7l3MA0t6C3Yrqy3NFArCevKfMdtUkFgCHy6V
+	t8d+dVmKe8B8nNRV6p37AYj1kM+05z35J6aVUvSM1dKuccsafrl0cK0FHWdJZeW50C3B/HNAHkU
+	2xPBzS1BVF0//dmVKoP+cnM0z2pVZAC+2uVFATjJkxydrj/46U+sFNIdmUXi7WPHlGYnsV1FW37
+	XIaze07qpQJMIOdeuFKGGKg9Uhqu46ORGT89hHO4DgzcfJmb3jnkqPva4cH40QDBB938pg1Pv2X
+	QiuqT9Wb2qS62PySBsAdCeLboLsOUQ5GVjbJYVp+CAu/PLO9LJyn0OSC1cijSsMCZF5WI6HYdIY
+	bZi5PdOwq/HUi78rQH2HepnV2ON7q4UxusGyL8JfEfqSIBre2BtglvZ83EdotgTebDicObGh/zj
+	dxRtVTe50=
+X-Google-Smtp-Source: AGHT+IFzGPOSuFX2OfzXY0icOmeYnGGVMZ2dCuyEFQmcDroND9sUa4kjYie1kf0+/LDg2Q3XrHRs7A==
+X-Received: by 2002:a17:906:f5a3:b0:ae6:e0a7:234c with SMTP id a640c23a62f3a-afe29538142mr1259387966b.33.1756136209282;
+        Mon, 25 Aug 2025 08:36:49 -0700 (PDT)
+Message-ID: <b54e3460-380b-41e4-b9e9-75ba5c6129fd@suse.com>
+Date: Mon, 25 Aug 2025 17:36:48 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <f5fc3210-2911-4b42-af8c-8a2f4bcbdfad@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 11/13] tools/cpufreq: extract CPPC para from cpufreq
+ para
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250822105218.3601273-1-Penny.Zheng@amd.com>
+ <20250822105218.3601273-12-Penny.Zheng@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250822105218.3601273-12-Penny.Zheng@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Aug 25, 2025 at 05:25:36PM +0200, Jan Beulich wrote:
-> On 25.08.2025 17:15, Roger Pau Monne wrote:
-> > The current code to restore the timer state on resume is incomplete.  While
-> > the local APIC Initial Count Register is saved and restored across
-> > suspension (even if possibly no longer accurate since it's not adjusted to
-> > account for the time spent in suspension), the TSC deadline MSR is not
-> > saved and restored, hence hosts using the TSC deadline timer will likely
-> > get stuck when resuming from suspension.
-> > 
-> > The lack of restoring of the TSC deadline MSR was mitigated by the raising
-> > of a timer softirq in mwait_idle_with_hints() if the timer had expired,
-> > previous to commit 3faf0866a33070b926ab78e6298290403f85e76c, which removed
-> > that logic.
-> > 
-> > This patch fixes the usage of the TSC deadline timer with suspension, by
-> > unconditionally raising a timer softirq on resume, that will take care of
-> > rearming the hardware timer.  Given that a timer softirq will be
-> > unconditionally risen, there's no need to save and restore the APIC Initial
-> > Count Register anymore either.
-> > 
-> > Note that secondary processors don't need this special treatment when
-> > resuming, since they are offlined before suspension and brought back up
-> > during resume, the first timer that gets setup will trigger a timer softirq
-> > unconditionally, for example from sched_migrate_timers() that gets called
-> > for each secondary processor.
-> > 
-> > Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> > Fixes: fd1291a826e1 ('X86: Prefer TSC-deadline timer in Xen')
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On 22.08.2025 12:52, Penny Zheng wrote:
+> We extract cppc info from "struct xen_get_cpufreq_para", where it acts as
+> a member of union, and share the space with governor info.
+> However, it may fail in amd-cppc passive mode, in which governor info and
+> CPPC info could co-exist, and both need to be printed together via xenpm tool.
+> If we tried to still put it in "struct xen_get_cpufreq_para" (e.g. just move
+> out of union), "struct xen_get_cpufreq_para" will enlarge too much to further
+> make xen_sysctl.u exceed 128 bytes.
 > 
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> So we introduce a new sub-field GET_CPUFREQ_CPPC to dedicatedly acquire
+> CPPC-related para, and make get-cpufreq-para invoke GET_CPUFREQ_CPPC
+> if available.
+> New helpers print_cppc_para() and get_cpufreq_cppc() are introduced to
+> extract CPPC-related parameters process from cpufreq para.
+> 
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 
-Thanks, I've also added:
+Acked-by: Jan Beulich <jbeulich@suse.com> # hypervisor
 
-Link: https://github.com/QubesOS/qubes-issues/issues/10110
+> --- a/tools/libs/ctrl/xc_pm.c
+> +++ b/tools/libs/ctrl/xc_pm.c
+> @@ -288,7 +288,6 @@ int xc_get_cpufreq_para(xc_interface *xch, int cpuid,
+>          CHK_FIELD(s.scaling_min_freq);
+>          CHK_FIELD(s.u.userspace);
+>          CHK_FIELD(s.u.ondemand);
+> -        CHK_FIELD(cppc_para);
+>  
+>  #undef CHK_FIELD
 
-To the tags.
+What is done here is already less than what could be done; I think ...
 
-Roger.
+> @@ -366,6 +365,33 @@ int xc_set_cpufreq_cppc(xc_interface *xch, int cpuid,
+>      return ret;
+>  }
+>  
+> +int xc_get_cppc_para(xc_interface *xch, unsigned int cpuid,
+> +                     xc_cppc_para_t *cppc_para)
+> +{
+> +    int ret;
+> +    struct xen_sysctl sysctl = {};
+> +    struct xen_get_cppc_para *sys_cppc_para = &sysctl.u.pm_op.u.get_cppc;
+> +
+> +    if ( !xch  || !cppc_para )
+> +    {
+> +        errno = EINVAL;
+> +        return -1;
+> +    }
+> +
+> +    sysctl.cmd = XEN_SYSCTL_pm_op;
+> +    sysctl.u.pm_op.cmd = GET_CPUFREQ_CPPC;
+> +    sysctl.u.pm_op.cpuid = cpuid;
+> +
+> +    ret = xc_sysctl(xch, &sysctl);
+> +    if ( ret )
+> +        return ret;
+> +
+> +    BUILD_BUG_ON(sizeof(*cppc_para) != sizeof(*sys_cppc_para));
+> +    memcpy(cppc_para, sys_cppc_para, sizeof(*sys_cppc_para));
+
+... you minimally want to apply as much checking here.
+
+Jan
 
