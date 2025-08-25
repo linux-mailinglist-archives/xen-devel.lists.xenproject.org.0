@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8998B3405E
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 15:08:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1093158.1448716 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67289B340AA
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 15:28:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1093176.1448738 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqWvr-0003K8-Ep; Mon, 25 Aug 2025 13:08:19 +0000
+	id 1uqXEp-0006PH-2e; Mon, 25 Aug 2025 13:27:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1093158.1448716; Mon, 25 Aug 2025 13:08:19 +0000
+Received: by outflank-mailman (output) from mailman id 1093176.1448738; Mon, 25 Aug 2025 13:27:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqWvr-0003Hg-BY; Mon, 25 Aug 2025 13:08:19 +0000
-Received: by outflank-mailman (input) for mailman id 1093158;
- Mon, 25 Aug 2025 13:08:17 +0000
+	id 1uqXEo-0006Mf-Vh; Mon, 25 Aug 2025 13:27:54 +0000
+Received: by outflank-mailman (input) for mailman id 1093176;
+ Mon, 25 Aug 2025 13:27:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KF0Q=3F=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1uqWvp-0003Ha-QN
- for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 13:08:17 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=/bS3=3F=epam.com=dmytro_prokopchuk1@srs-se1.protection.inumbo.net>)
+ id 1uqXEn-0006MZ-FD
+ for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 13:27:53 +0000
+Received: from GVXPR05CU001.outbound.protection.outlook.com
+ (mail-swedencentralazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c202::7])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8d334357-81b4-11f0-a32c-13f23c93f187;
- Mon, 25 Aug 2025 15:08:11 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 060CE4EEBC47;
- Mon, 25 Aug 2025 15:08:10 +0200 (CEST)
+ id 4a0aa0f8-81b7-11f0-a32c-13f23c93f187;
+ Mon, 25 Aug 2025 15:27:47 +0200 (CEST)
+Received: from GV2PR03MB9572.eurprd03.prod.outlook.com (2603:10a6:150:da::5)
+ by VI2PR03MB10858.eurprd03.prod.outlook.com (2603:10a6:800:27c::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.15; Mon, 25 Aug
+ 2025 13:27:44 +0000
+Received: from GV2PR03MB9572.eurprd03.prod.outlook.com
+ ([fe80::edd1:842f:9b14:509e]) by GV2PR03MB9572.eurprd03.prod.outlook.com
+ ([fe80::edd1:842f:9b14:509e%3]) with mapi id 15.20.9052.019; Mon, 25 Aug 2025
+ 13:27:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,202 +47,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d334357-81b4-11f0-a32c-13f23c93f187
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1756127290;
-	b=KoFYYTcftQ0p2lPjbjUJnRvSuqBwjN0jmIOiT+zbMzOLX27N4JO5ERewVTFK82N94DvK
-	 GNWodJ3ag5VaMzIYtJ8seJwEu2ll42OawhPxxgC0z7Fegq9wAC9plUdRTCC1p5qa3PIzs
-	 3HOwsF1AN4HNzUw7+uebkJohlivrGpNOtWwsZV/bn+zXFf6cPZYDeN3feP9oTx61zWImp
-	 yValnXuMrnVz1nox4zAr/jE6kkSxRJ+v7F7ozLAk92UxdHFb+N1qrcY3Ur3skTFrb27tA
-	 jHZtpSoy25JTDXROpVJZF+oO24FGza/M6UqMvvQiWdmO16sJ2l4EZi7+vERXa3AHF8RdI
-	 +7YIcfseHvqNAF94P6axaRfI8B7s/WtcWJt3yCo0cYoAZFKz1Wy7AuYinGyHN3NmIdMng
-	 ja/wnIJaZbe7Fdi9GY7YtUXaeYIl4Rm/JeAlGatNyIuxJLHVKqvO62OoTiu/fKekosoeb
-	 IhclqXD/d67rZoDrKZ7Xl2Y3y2VbquI8XgagmI0OqvHpC0DEgB3+RReN5mUipRvupGyKm
-	 wgsmFSZ4nEnQ1g2RSZKAanjlbXPjG8TLMdkMF9ivEZhKozAB5eLldi1Uqnk+Lebzezruw
-	 I/iKESQa1lGebQhD8GjOUBLwWhm3NT08Oo9HOWZk9yOGpmGGav2Hve9fQLQKw4c=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1756127290;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=XNdfXwJHTxh9Voyqx8P7Jkzf/DkyOueO4hluQeTx6KE=;
-	b=p/W7CW6ZFvpNnzdJdLnq8m6JpP23Zwt5kvl/6Tqzl9DbtQN8hZH0Oo34gBSSmIGjuhXg
-	 nzTNwCDhm3rPOulTWdfp2WwyNRBLahn10ZXLj6MmnTdUfQy3PJr9MxcJW7Z/p+EdEQ8Bp
-	 E1GVMG9J8mF9qSB45jubLfWOVWRYBRB6AB9ZC5MkLi43juq3usr/vwkSidUJtsSsPnAfD
-	 5/2dknhtD+q6LJ/6pOj4UxIO3XOhet5sYJL5NuiRALMaTlgVKun8xayTQK5FJ3dXyPsct
-	 B2Acfeq5MoOG7ZPs4j3Uo+Mq37lfKklTReFxBl5o9f29jjUHLstjgIlDDqG2aMaV6F6KT
-	 IoYa46tN8osk9p7Ee2u7fG5qY6K/7gxjYyKIkH4FnkOXqUroQ9LJ8TVsA/5G9MLBgmWpm
-	 48jxdTqp7Y2SNndGyU/Kp0WfwnjuCZLNQ4WlW/5BGX7nEUGmAwbOWhQjNuAMi+aX0x/u0
-	 kR/ceyNZKytPPZgj9w8GOOjMxL0Y+ldGKNSf6aqN+Xc//gid2PZCOP1D/vpCQe5pTCfzS
-	 WwA5sSp2d6ZiAvlu1hexcP7evPkZMNGPcPYl0byFKIktwyu9f3ziy7/1EAhRzsyKZ8rZY
-	 dBElSkerxHcNhqN/Ky+0NATHctBqlzdn4H42S4gGg62zdbq6eRD0eE8EY3tOKSU=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1756127290; bh=HU0bKkfhwCmUuMCLkY4a7YjEn+lGpZ+N9vx9OWsjVbI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=vMLa1xmwcmV0MNQxwvIHWni03mInA4sy9wpW3Y5ZMSL4aRWIWqdkpxDU93N/unW4B
-	 epL+dOyiMVSxzmzvjOzZiPO9ERpnKssfwDWfrIwpLuehDZG7jekGarnUU/5yyTuKjR
-	 DLoiMRXAMe2yURbD4+UdGRt6YNFfKFrouyfcZZ09II2guZReyvfq6KlHEBpX+jBOZL
-	 nUdj8TjCPWnsr1Fn4MULFL2bDTUetU4vDQOS0ypeySDFw8eDlo6LNMKg6b8M08imUh
-	 QziUmdWg1S/KP6O2UuDfIImNF4YxsHhmdW5wSIE05aVFlN6AZA3Aqroqz/btoxNj1X
-	 YXbY0Yc6mdzjw==
+X-Inumbo-ID: 4a0aa0f8-81b7-11f0-a32c-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zFCc2XU8NZnJmq71ded1bBaeAG888sRu5sT+aL2KMtFUVjW4rRXeVDMPv876nCtJdlqDGvql7mUfuV3sNOrn4zJjIiBexZMcBbr+5tRgvVomcaU+6azh6DFK6cLJI7r539yRUXPAh8BJl3zFQGG8f6/ZGQMb5rYlnbwF3ojBvgEef2n5vs5Cb34jTZlWDWI8MOfqlnM+tuOt7+qZP6Lo+aZK9owgJC+EJjaSTPJJTmLGDPb8VycY4D8X+QyvzPPSkYQlnMeNO9ey7dQqs6RxXTp7zmAOvIB+BUjpGLIm8mVrLcY+2u9KS+HbqZ0M8zeYJmUiGyGeVdcMCDXC+IrAAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+X5jyYQeGpg9rJyPL3XVX1P8S6+1/ZgUDi67/qI/grA=;
+ b=NlIc8cztIGenQfuqvxT2UEIRNAIZU2cIlpQzGHJxLFmaHqv04bXP1NzuFmUjQ1Tvog5exIQ6Msj5y5l/T0pAJw7DbokdPwWV+WY3NECGtVsUSQzACgc2Q9h1Om3IIvRFPbUr6/vHas95ESxA3Mbbo0GrMC1fQPgspoaGDSZBybMzwLd84vcjXQu9OpJlpUizDj6olMM+eEDbOvS3dEQHR3o1aua7c9uFUuLnhVhhMyaXDyVBZFrtKrOitiTEfYO0zcbS1VS+oo3/Kv1qppm3qh0qjwyit63TaCt4yHBGLFzGpeODoeqxBwOFQ6OdLHbRMSUUcb3wDqqNekf8t9hq4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+X5jyYQeGpg9rJyPL3XVX1P8S6+1/ZgUDi67/qI/grA=;
+ b=CbVn1eGfOLIrXxzOtImwLT46qXz0Z5dGrl+UCiwuYPlDkijOlluA08C207MKc+9aKQ1i6MDnE6dioSBCrCgq+IrKrfpDuZmKM3DoRQ8nsGodFGaxKp0rCRhOjbpvFnbxD6JXqPH7uG90mOe69vzlx0KUfYto8Sxl637+INeA+jtZWmghyjbBpLOr7SvTdGBdN8pF7OC0rJmEo1nJrzC5CTtwCnQjqoInjdR+MyLxgW6uO+sEwbsYFp5NVPJ8msE7r2WozM9aPOQRYFTyPBoPeJRjMBwwrp2jF0Rd13EaxJi4IBcnrNyncKnQvhu7RuHsbxtzyXTo06MlXPHkAzICzA==
+From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Nicola Vetrini <nicola.vetrini@bugseng.com>, Doug Goldstein
+	<cardoe@cardoe.com>, Stefano Stabellini <sstabellini@kernel.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Julien
+ Grall <julien@xen.org>, =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
+	<roger.pau@citrix.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] misra: add deviation of Rule 17.7
+Thread-Topic: [PATCH] misra: add deviation of Rule 17.7
+Thread-Index: AQHcFZ9zsboRH18vd0iLUvum4pfwBbRzK0qAgAAH1ACAAAJ8AIAAJzmA
+Date: Mon, 25 Aug 2025 13:27:44 +0000
+Message-ID: <37bb8530-c9e4-4ad4-8959-d1f13316a0fd@epam.com>
+References:
+ <ad15582787e675fadf92502f85041c3232749a99.1756112701.git.dmytro_prokopchuk1@epam.com>
+ <53d5cee3-9001-49a2-9da2-e56950a77683@suse.com>
+ <83267937-938d-43d8-ba2c-a07d6adb93a9@epam.com>
+ <330f8ee8-9fcd-40e4-96c0-ac126b047070@suse.com>
+In-Reply-To: <330f8ee8-9fcd-40e4-96c0-ac126b047070@suse.com>
+Accept-Language: en-US, uk-UA, ru-RU
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV2PR03MB9572:EE_|VI2PR03MB10858:EE_
+x-ms-office365-filtering-correlation-id: 14692636-1f8a-48b6-b78e-08dde3db2ce2
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|376014|7416014|366016|42112799006|38070700018;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?c0I4UWo3UUdpZVkyV05xUytYU3JReFZQcGhoNG1WS3Z1L2xQeDMwdWdUTjFl?=
+ =?utf-8?B?VTBhWjJURnoyUWxkZ09LQmcxUGtKWXRWTForQ0pVNW5WOS80Z0NCanoyWStN?=
+ =?utf-8?B?dHRtMGZ1WGpndnFSVXpGWERlcnRVTFBWbTdjb3VGZVhqUFVlazJ6NmVJcXFt?=
+ =?utf-8?B?Q1QzOUZOcm8yZHpiak96Sk1FdFM1SGNWQXRBaUxMTVpsdVFjTnR2Wk5vS1M0?=
+ =?utf-8?B?OEt1YUFWMFBrUzQ4WVZEQTN4dzJ1U1ZmV0R2REFZSUt1aGtzVDM4VDZwU0pM?=
+ =?utf-8?B?WVJRMlh1ajA3S1UrQmljcFR3cWxpaG1OZzd1Ly9JYVVubjlnZUhFR1V5b1Fh?=
+ =?utf-8?B?TnZxY3hWaXZTc2ZtMnhoVUhnejZhSVNFZG9RVTFDcVU5NXhac2wzemtmL0I0?=
+ =?utf-8?B?UHJMQmlNRElzM0JzZFFVTlQ4QlFHSWRGUjdxQlpTSmFIbmRxUFUzMEFYMWNI?=
+ =?utf-8?B?azhqRVZBclJOOWNkd1RtRndUdTV5M0lvSGFqTExyQTR5b0tpcW1SenJNMUo0?=
+ =?utf-8?B?N2YxU0JPVm5FUWVwS3dpOFFObVl1MkhmY0p0NTZUMitsTUt6dlNPVExUaWRt?=
+ =?utf-8?B?UGlSajhyRnZvcjJVNEx0L1JyNUVhY0NlL0V2R1RFalhSUzd4eS9lUGFINkRs?=
+ =?utf-8?B?NzE1Ti9qc3JmZXMrZWZuWmIrWmg4bzdUaEJQV2JSbDZhTTZXUytQektZNUE3?=
+ =?utf-8?B?R2hJZDQxNGNDRWg2eWs4VDIreDZOQStCMFlJalh6RlF6UEJIMWZhUE5rRHE1?=
+ =?utf-8?B?TFQ3QmlWVEQybW1FVWZpZzRiR09waGZYRmZ2UHdpUC9ONkdobjFhVnl5UDdm?=
+ =?utf-8?B?SUdVd3h1UlBhT1ZrLzlmbHYvSE1PRHM5bnhuSGhnU3Y0Z3JKR1VCTnhDemRO?=
+ =?utf-8?B?OTgxYmkycjBiTS9mTGIzWFBoaGd2bXVVQzRqaFVuRThOQk9Ka3ZrVmphdm5H?=
+ =?utf-8?B?Q0lqRGpYenZvb3pzRVI1QWV5UkttR2hialVtT080b3lUMVB6b0RoRS82bXhy?=
+ =?utf-8?B?NG9lK2ZPZkw0aHR3SEptYWxIOXgwd3pzSUIrVmE4YzB5L1E2NTdIYXI3d3hT?=
+ =?utf-8?B?d01namZkdG1YQlhvVEJZNkN1Q2ltR2xHSHY1VnB0UkRFQlRsd3VhT25wYi9m?=
+ =?utf-8?B?VEZTcXNwekZXQ2gxeU5UcFh2M2dPNnBuandSVFF2TVhoU0ExZEFDZDRrb2Zs?=
+ =?utf-8?B?YVU2K3dkb0NjRWhSUUZzTnBHRW5iT2d3SGtCb0Jhb3VRRW93N0dLeFp6OHpu?=
+ =?utf-8?B?RGZNU0tFQXA4TXBxVGJ1M3VLV29VckhJQ0V1REVCY0VweWFtMXBxUmpqTFp6?=
+ =?utf-8?B?aWlWREVkclAvRWxSRHVZbWx2MmYyMkxRWWVFNnE3ditIRUxxbVhmdGcrSFU4?=
+ =?utf-8?B?TVpIbW4yak81UU9pQm5rNlFWOHBIR1BPVEx4OEFUT0o0KzlvNEgxVWs4dnJX?=
+ =?utf-8?B?a290azdxMmo3aTRYaGdhZ25scXltNXVsTEN1bEZkb1N4THIwR21iSDVmcHVq?=
+ =?utf-8?B?TDE1eHlpdDZ2OVV6SjV1RXlZSnRmSTMxRXhHOWVZbDAxdGRkc0ZtN2ZjM25p?=
+ =?utf-8?B?QldmRHBPYkZ1ZHhjbXVlbWtsTDhSeE56MWFuTGVBMi90YXdPdXVQalNMN3k2?=
+ =?utf-8?B?Nzd5RnZEZDQ3bUpCZEVZNGp5c1hjVFRaVEh4R2hSelhGejRjS0dqZ29XdDRy?=
+ =?utf-8?B?VjJmWGtVaVdQU0JmUVRkVENjckpkNHVHaW1jQUwyeXlpTXI4ejVSVmJaeUYy?=
+ =?utf-8?B?SGR0M1plUnhyY0R3WmppaUcrZERuT0I5SkcvdVF3TEkwS3R2elAybGc2R0Yz?=
+ =?utf-8?B?eWNZbzluQUFBZFZuTGxKS1VyTnpFcmJqSUxpdmFUNXh2NTQ2UExJbVFHcSt5?=
+ =?utf-8?B?MzJzb2JLYnM1RzVQdWZpSG9JdDNGaitYUWNoQng1VTRleEdFVW1RN3E5K0Fi?=
+ =?utf-8?B?Z2dVdHg3dGoyRU5XRnpZc0dQc2h0aElyR0VWUUVnNS83b3kxRmlYTUs4cERj?=
+ =?utf-8?B?dFpwL0krU293PT0=?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB9572.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(42112799006)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?QXpUMGwzUVZNbXNyNWpsaUxqRE8wVnl4bkhWeGlSZ1VCV1RCeXUxN0tFTUZ4?=
+ =?utf-8?B?TWtPcGNUTTNWc3NLSTVTYTgzRjk0dkpsMStUcHROS0RvN1RxazR0Y0xJUlpo?=
+ =?utf-8?B?VTBTVzRaQkx1TytqVGcrbnl4MEsvVGRaTEdnNHhsZXUzUFkwbzBPY2RQdHgv?=
+ =?utf-8?B?bXRnTFBZL0x3bzVFK20wbzlaZnpUdDc2TXd5VnU4ZXp3YytHWHJmRkJ1K3ha?=
+ =?utf-8?B?RTRWVTFqdUNoT3B1alhuMkhZWkNRdUIwSkU3TWhsSEdDMW83THJnU3JxTWVW?=
+ =?utf-8?B?Snk5eUlST3JtVC9CL1lQcDI2N2lqcVcxRjFQMFEza2J6QVZ6TDB5bFBXeHM1?=
+ =?utf-8?B?QkdaVTZOWnNaWkF6Y2RYRVB1V0ppSm9ya3NPcUdIcDIyRGNHeDU1Wkk1VXhP?=
+ =?utf-8?B?RllOSk9EVExnSHZyU0w1M05XeTdIR1M3SFZSQ25KV1FvS2ViL0hzVm83akJM?=
+ =?utf-8?B?Q0cxQnJIWGt6REROTVZuTkF0ZVdhTlhWTm9wUEtwQUtBWTR6YjhXNzVjUFhw?=
+ =?utf-8?B?bDQ0M1diS2hHSzJ2em1td3EvcHhTMDNYR1N3Y2QwM3RuTzFBekRLMUNkMERR?=
+ =?utf-8?B?YUx1eWd2cmVic1JUaUI4eEw5WWpQY1I3aXBzSGRDT0dLL0FNcXp3KzN1MllN?=
+ =?utf-8?B?emxubmpTdXdoSk9aQjVPOUJ4b3ZNVkhmTVpGWW0vclNtb1NINWQ5UUZvUUZQ?=
+ =?utf-8?B?Sm5WVkxpcW5DQUtiSmVWajNvbWhtMDJYRER3bzNkQWdlSzFNYXJRSTlvODBB?=
+ =?utf-8?B?Yk5LaVRYcjdaSUJOa3RKSWVLQzdoM3lLbHdjblUzNHV6aDBsWUV5OU9ZWk9r?=
+ =?utf-8?B?WlBRTHQ1cTdQVjFGczl6SWxWSXRNajNyVU15UXFGK2t0L3ZsSHNYRm1nWkph?=
+ =?utf-8?B?QXdIT0c4OVE0LzNhS2VaSk9pQ0EwY2IwRWt3ZmRwSTllbzNZZUFuVDc5YzUy?=
+ =?utf-8?B?eFJCcjlVYmpQUGJVNmxVbWdWVEF3N3RPbFo2djRIVDc5bGZseWtDRGt0bTFr?=
+ =?utf-8?B?Z0VpNmxMdzFEWGQ4QU1hQmlvMGJiUHphalJ2amdhSjEvN1Q5YzRhWUZxZXVS?=
+ =?utf-8?B?TEpVWEVyMTg5ZkRLUy9LNXUrWnNJODdOSmpHVGI2U0hhWmRvS1BDbFEwZEpS?=
+ =?utf-8?B?OXlabkgyZXRWdjlwOTJZc28welVxQUZxL0NiZXBNbGhMYWxsZEo3VldrSlFL?=
+ =?utf-8?B?WVhtY01BWFFSYXpBakFhZkc0MDdMRW42RW1XUFNqWDV6bHZkUW5VUW1lT0hw?=
+ =?utf-8?B?TXBIY0pKcEUyY1RpaU4vTVdQVVVVcnV0eWpDTDZOZHkydk9VOGd2TnFmN1Vr?=
+ =?utf-8?B?NG5NOUhNR1RxanpndGVUUkNLanZUUDJWbklyZjRQbGw5d0xxWW9wUDFJMUxk?=
+ =?utf-8?B?MGVTUkZBQnZkUGhHRmsrakRteGIrWHhVRXkwVStyTXlqUVZreVpUblJKNDJ2?=
+ =?utf-8?B?eUNKaUlWNkY4aHpHNXdCRG1QcFB1RnhHb0pVRDA2b1BGYldwdkRMU0ZUUnpG?=
+ =?utf-8?B?ZW9TY2FUalZGcEI2S0UyVDBJKzBkaHJtcldXNzlqTGV6VElnL0RrZ25JaTNu?=
+ =?utf-8?B?S3hweWpjMEFNVmlhUG5xWloya3o4emFOWXNhbkpqcDU5SklNbmxJSGt0VVow?=
+ =?utf-8?B?Vjh5cWZjNGtZY3d6NHhwQjZlTlR0TWRtNE1mOGxMdGJ4cWZ3Z2xabmthY3Nq?=
+ =?utf-8?B?ZGlIQVJnNW15bE1BSU4zaURzWmI4S0FJa2lWUzFZVDRSeE1jOFMzT01oOWJw?=
+ =?utf-8?B?VDRvSkZkckVnb1pJVmFzNldOaEIvTmdWc2NyYlNTZjI5WndzUUd4d2xNSnB4?=
+ =?utf-8?B?N3A5Y2ZYNjVWMFR0Mk1OVnF6NHdXT2dTTlhieDVxcnlrWEMwMjV3N2JEbTJF?=
+ =?utf-8?B?MmRBZms4U0RySXN5UlROdERRQ1ZhWUlvcTdJSi9mUkY0Tjc0RVd4NmhrUmJF?=
+ =?utf-8?B?TzRWMW5zakZBWXFiUlNQZmEzU2srQklZTVNtYk8rQkZLcVpXaWFDWnlhR0xZ?=
+ =?utf-8?B?VTh5Wk1XMVhqak5GckJmM2JRKzk4eVhRZWYzbTl2d3hoODBRQVpZeXVSWWE1?=
+ =?utf-8?B?d2hydHlvS0lWMUZGd3FVYkhnRTJFL1RmZ2hHT042bXpXVFpQVlpkSHlaZmRX?=
+ =?utf-8?B?R0hxNEdMMlN5S01vbUJIT1NUb3pQUHM2VXdpcFV1YU9qY1lhR20xUi9VaVY0?=
+ =?utf-8?B?V3c9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <E27608956AB94E42B941B6E82747D1FD@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Date: Mon, 25 Aug 2025 15:08:10 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] misra: consider conversion from UL or (void*) to function
- pointer as safe
-In-Reply-To: <498f9629d2dda3f305c11512908b1325@bugseng.com>
-References: <9e5e4ff2c7ba0a90a6ac403e2de9318e18949274.1755628705.git.dmytro_prokopchuk1@epam.com>
- <90fb95a3-4b32-4785-a77c-373e5b9da6ed@suse.com>
- <e1e2abdf0ef8708097aa78440eeb7147@bugseng.com>
- <6b912698-b871-4819-ac30-14325d0be146@epam.com>
- <498f9629d2dda3f305c11512908b1325@bugseng.com>
-Message-ID: <d1fd1bbc474aad5a6a9841a8c109126a@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB9572.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 14692636-1f8a-48b6-b78e-08dde3db2ce2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Aug 2025 13:27:44.6827
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: SwZzZ17esmBXmcdG/lMSwEp3smtGgH/JhisoU+pJ9ONsB34s8WHErs0k0dsZLJwj6mL9I16HUBn/qNrLvXw3LivwkCqP8Hn60QmRAXkcyqs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR03MB10858
 
-On 2025-08-25 14:53, Nicola Vetrini wrote:
-> On 2025-08-22 18:34, Dmytro Prokopchuk1 wrote:
->> On 8/21/25 11:25, Nicola Vetrini wrote:
->>> On 2025-08-21 10:01, Jan Beulich wrote:
->>>> On 19.08.2025 20:55, Dmytro Prokopchuk1 wrote:
->>>>> Rule 11.1 states as following: "Conversions shall not be performed
->>>>> between a pointer to a function and any other type."
->>>>> 
->>>>> The conversion from unsigned long or (void *) to a function pointer
->>>>> is safe in Xen because the architectures it supports (e.g., x86 and
->>>>> ARM) guarantee compatible representations between these types.
->>>> 
->>>> I think we need to be as precise as possible here. The architectures
->>>> guarantee nothing, they only offer necessary fundamentals. In the
->>>> Windows x86 ABI, for example, you can't convert pointers to/from 
->>>> longs
->>>> without losing data. What we build upon is what respective ABIs say,
->>>> possibly in combination of implementation specifics left to 
->>>> compilers.
->>>> 
->>> 
->>> +1, a mention of the compilers and targets this deviation relies upon 
->>> is
->>> needed.
->> 
->> Maybe with this wording:
->> 
->> This deviation is based on the guarantees provided by the specific 
->> ABIs
->> (e.g., ARM AAPCS) and compilers (e.g., GCC) supported in Xen. These 
->> ABIs
-> 
-> s/supported in/supported by/
-> 
->> guarantee compatible representations for 'void *', 'unsigned long' and
->> function pointers for the supported target platforms. This behavior is
-> 
-> It's not just about the guarantees of the ABIs: it's the behavior of 
-> the compiler for those ABIs that makes this safe or unsafe. If present, 
-> such documentation should be included
-> 
-
-In any case, provided that the wording can be adjusted:
-
-Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-
->> architecture-specific and may not be portable outside of supported
->> environments.
->> 
->>> 
->>>>> --- a/docs/misra/deviations.rst
->>>>> +++ b/docs/misra/deviations.rst
->>>>> @@ -370,6 +370,16 @@ Deviations related to MISRA C:2012 Rules:
->>>>>         to store it.
->>>>>       - Tagged as `safe` for ECLAIR.
->>>>> 
->>>>> +   * - R11.1
->>>>> +     - The conversion from unsigned long or (void \*) to a 
->>>>> function
->>>>> pointer does
->>>>> +       not lose any information or violate type safety assumptions
->>>>> if unsigned
->>>>> +       long or (void \*) type is guaranteed to be the same bit 
->>>>> size
->>>>> as a
->>>>> +       function pointer. This ensures that the function pointer 
->>>>> can
->>>>> be fully
->>>>> +       represented without truncation or corruption. The macro
->>>>> BUILD_BUG_ON is
->>>>> +       integrated into xen/common/version.c to confirm conversion
->>>>> compatibility
->>>>> +       across all target platforms.
->>>>> +     - Tagged as `safe` for ECLAIR.
->>>> 
->>>> Why the escaping of * here, when ...
->>>> 
->>>>> --- a/docs/misra/rules.rst
->>>>> +++ b/docs/misra/rules.rst
->>>>> @@ -431,7 +431,13 @@ maintainers if you want to suggest a change.
->>>>>       - All conversions to integer types are permitted if the
->>>>> destination
->>>>>         type has enough bits to hold the entire value. Conversions 
->>>>> to
->>>>> bool
->>>>>         and void* are permitted. Conversions from 'void noreturn 
->>>>> (*)
->>>>> (...)'
->>>>> -       to 'void (*)(...)' are permitted.
->>>>> +       to 'void (*)(...)' are permitted. Conversions from unsigned
->>>>> long or
->>>>> +       (void \*) to a function pointer are permitted if the source
->>>>> type has
->>>>> +       enough bits to restore function pointer without truncation 
->>>>> or
->>>>> corruption.
->>>>> +       Example::
->>>>> +
->>>>> +           unsigned long func_addr = (unsigned 
->>>>> long)&some_function;
->>>>> +           void (*restored_func)(void) = (void 
->>>>> (*)(void))func_addr;
->>>> 
->>>> ... context here suggests they work fine un-escaped, and you even 
->>>> add
->>>> some un-
->>>> escaped instances as well. Perhaps I'm simply unaware of some
->>>> peculiarity?
->>>> 
->>> 
->>> This is a literal rst block, while the other is not (* acts as a 
->>> bullet
->>> point in rst iirc)
->> 
->> This is how "sphinx-build" tool interprets this.
->> 1. * inside single quotes '' -> looks normal, e.g. ‘void (*)(…)’
->> 2. * without quotes -> warning
->> deviations.rst:369: WARNING: Inline emphasis start-string without
->> end-string. [docutils]
->> 3. \* -> looks normal, e.g. (void *)
->> 
->> Because that we need such format: \*
->> 
->> Dmytro.
->> 
->>> 
->>>> Jan
->>> 
-
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+DQoNCk9uIDgvMjUvMjUgMTQ6MDcsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAyNS4wOC4yMDI1
+IDEyOjU4LCBEbXl0cm8gUHJva29wY2h1azEgd3JvdGU6DQo+PiBPbiA4LzI1LzI1IDEzOjMwLCBK
+YW4gQmV1bGljaCB3cm90ZToNCj4+PiBPbiAyNS4wOC4yMDI1IDExOjA1LCBEbXl0cm8gUHJva29w
+Y2h1azEgd3JvdGU6DQo+Pj4+IE1JU1JBIEMgUnVsZSAxNy43IHN0YXRlczogIlRoZSB2YWx1ZSBy
+ZXR1cm5lZCBieSBhIGZ1bmN0aW9uIGhhdmluZw0KPj4+PiBub24tdm9pZCByZXR1cm4gdHlwZSBz
+aGFsbCBiZSB1c2VkLiINCj4+Pj4NCj4+Pj4gRGV2aWF0ZSBmdW5jdGlvbnMgbGlrZSAnbWVtY3B5
+KCknLCAnbWVtc2V0KCknLCAnbWVtbW92ZSgpJywgJ3NucHJpbnRmKCknLA0KPj4+PiAnc3RybGNw
+eSgpJywgJ3N0cmxjYXQoKScsIGFzIHRoZXkgcmV0dXJuIGEgdmFsdWUgcHVyZWx5IGZvciBjb252
+ZW5pZW5jZSwNCj4+Pj4gdGhlaXIgcHJpbWFyeSBmdW5jdGlvbmFsaXR5IChlLmcuLCBtZW1vcnkg
+b3Igc3RyaW5nIG9wZXJhdGlvbnMpIHJlbWFpbnMNCj4+Pj4gdW5hZmZlY3RlZCwgYW5kIHRoZWly
+IHJldHVybiB2YWx1ZXMgYXJlIGdlbmVyYWxseSBub24tY3JpdGljYWwgYW5kIHNlbGRvbQ0KPj4+
+PiByZWxpZWQgdXBvbi4gVXBkYXRlICdkZXZpYXRpb25zLnJzdCcgZmlsZSBhY2NvcmRpbmdseS4N
+Cj4+Pg0KPj4+IEhvdyBjb21lIHNucHJpbnRmKCkgaXMgYW1vbmcgdGhpcyBzZXQ/IEl0cyByZXR1
+cm4gdmFsdWUgaXNuJ3QgcXVpdGUganVzdA0KPj4+IGZvciBjb252ZW5pZW5jZSwgaW1vLg0KPj4N
+Cj4+IFllcywgc25wcmludGYoKSdzIHJldHVybiB2YWx1ZSBpc24ndCBqdXN0IGZvciBjb252ZW5p
+ZW5jZS4gVGhlIGRldmlhdGlvbg0KPj4ganVzdGlmaWNhdGlvbiBpcyBwcmltYXJpbHkgYmFzZWQg
+b24gdGhlIGZhY3QgdGhhdCBpdHMgcmV0dXJuIHZhbHVlIGlzDQo+PiByYXJlbHkgdXNlZCBpbiB0
+aGUgWGVuIHNvdXJjZSBiYXNlLiBNb3N0IGNhbGxlcnMgb2Ygc25wcmludGYoKSBkb24ndA0KPj4g
+Y2FyZSBhYm91dCByZXR1cm4gdmFsdWUuIFNvLCBzbnByaW50ZigpIGlzIGluIHRoaXMgbGlzdC4N
+Cj4+DQo+PiBNYXliZSBzZXBhcmF0ZSB3b3JkaW5nIGlzIHJlcXVpcmVkIGZvciB0aGUgc25wcmlu
+dGYoKSA/DQo+IA0KPiBNaW5pbWFsbHkuIFBlcnNvbmFsbHkgSSBkb24ndCB0aGluayBpdCBzaG91
+bGQgYmUgZGV2aWF0ZWQgZ2xvYmFsbHkuDQo+IA0KPiBKYW4NCg0KVGhlcmUgYXJlIGFwcHJveGlt
+YXRlbHkgMjMwIGluc3RhbmNlcyBvZiBzbnByaW50ZigpIGJlaW5nIHVzZWQgd2l0aG91dCANCmNo
+ZWNraW5nIGl0cyByZXR1cm4gdmFsdWUgKGFjcm9zcyBBUk0gYW5kIHg4NikgaW4gYXJvdW5kIDIw
+IGRpZmZlcmVudCANCnNvdXJjZSBmaWxlcy4gRGV2aWF0aW9uIGVhY2ggb2YgdGhlbSBjb3VsZCBi
+ZSBjb21wbGljYXRlZC4NCg0KRG15dHJvLg0K
 
