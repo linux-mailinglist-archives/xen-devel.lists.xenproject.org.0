@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3916DB345AA
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 17:24:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1093419.1448943 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCB61B345AC
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 17:25:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1093444.1448953 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqZ3B-0006tp-RC; Mon, 25 Aug 2025 15:24:01 +0000
+	id 1uqZ4n-0007j5-3N; Mon, 25 Aug 2025 15:25:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1093419.1448943; Mon, 25 Aug 2025 15:24:01 +0000
+Received: by outflank-mailman (output) from mailman id 1093444.1448953; Mon, 25 Aug 2025 15:25:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqZ3B-0006qj-NK; Mon, 25 Aug 2025 15:24:01 +0000
-Received: by outflank-mailman (input) for mailman id 1093419;
- Mon, 25 Aug 2025 15:24:00 +0000
+	id 1uqZ4n-0007hQ-0k; Mon, 25 Aug 2025 15:25:41 +0000
+Received: by outflank-mailman (input) for mailman id 1093444;
+ Mon, 25 Aug 2025 15:25:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J9Dq=3F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uqZ3A-0006k2-BP
- for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 15:24:00 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ id 1uqZ4l-0007h0-IC
+ for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 15:25:39 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 85f9662d-81c7-11f0-a32c-13f23c93f187;
- Mon, 25 Aug 2025 17:23:59 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-61a8c134609so5593425a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 08:23:59 -0700 (PDT)
+ id c0cb4c79-81c7-11f0-a32c-13f23c93f187;
+ Mon, 25 Aug 2025 17:25:38 +0200 (CEST)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-afcb7a0550cso784262666b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 08:25:38 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61c312aecdbsm5184422a12.20.2025.08.25.08.23.58
+ a640c23a62f3a-afe8f8129f0sm100108566b.41.2025.08.25.08.25.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Aug 2025 08:23:58 -0700 (PDT)
+ Mon, 25 Aug 2025 08:25:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85f9662d-81c7-11f0-a32c-13f23c93f187
+X-Inumbo-ID: c0cb4c79-81c7-11f0-a32c-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756135439; x=1756740239; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756135538; x=1756740338; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=c9LJCtAqBNDA1jku0euT32N89xyi1sVZi7wQt6DNJo0=;
-        b=ax0AvrWJf6xlEdzmpFVdaPrRQzc8h3SNJUfsyn6xecaly7WOUSxHbvGSKdwtxTpPxL
-         VUxF01UqRUCY29G49O5qEX+w7Qzt27VGGTP2AYrgwIuLCJ/EIcXnTElaGQletiPjK4Vc
-         5UMpyHnoP5PiIRs/0Wu8f87ZLnXE+c6Z2HU7tFtvPv+9euCq9opijoGdEQNfSR4OfXEd
-         BaxCcL5nxQbAATWg00ton623/mBJXUtIwcjCUXu2A5uuftetwjZ+0Mi2pAvVZtV0lfBk
-         Bel1BOocamjSAAF1BWl+7tGK5be2mKGBw6i5kX7uAcy8vhGMGgY+0j5Tbi7Ss4lg+P+9
-         QdrQ==
+        bh=uJ93w5as36fBKPUaUUWemuifcDVw3sd4NJr5hbxKQMQ=;
+        b=VUcM4I/JuGMiX1+5/WSVDVFyw+UmaSRMZQ1aZIqOTWzp043k1G5xkq432OvAXhjVJ2
+         f1r8YEKDklI+EpZF/y5+JCKuQPjgjfvOpcb9DuuryIRuMnTAP0JH1i+yyzRzehHHNfwX
+         d1QnOAcWVP4CKVqSjy5p0inOzQvbfrBIVmI9cHWl+hyYSXZJ9R3/2ZExZHPaGAjjIuea
+         ZpEeexCz6XvAlWTVELwAx9n6wGMDawk9kMI8TNiISLY8mOPnJa34mHFP9itn0K+MN/2L
+         dIUDd+w+WO3xj5O6rbOZpHxZFbBzLhGlu2tYj+fAcXqA0ukU7Cznb86lDPndqLW1Xirf
+         rwOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756135439; x=1756740239;
+        d=1e100.net; s=20230601; t=1756135538; x=1756740338;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=c9LJCtAqBNDA1jku0euT32N89xyi1sVZi7wQt6DNJo0=;
-        b=OcHs75kvUSf3yfvqKRUB+68c+/gPToieGy011t9jF/5JUslJVmRsPSVGl4LchgyHpi
-         WdeLMxkCnWULAMg0nAFl59y2VB10Cj+AueRHVFx3VpzLjHvWQJP1LWPpxAOFY7Wmuz/h
-         YJo/34YIIkGujIqzuxiOOApaqMbC1/wlmAp0fNYllJCZ0BTJRG8T+Szi61qvvL9exN02
-         ws8zkSKWNAtMN5/lhpZ5o7U4gxqJdHUoKFJOeaaMJa7dep3vt9LKk4nA5dYvEur/+vlO
-         eV6DR1hQZa2rz8m+ElZNhEluChERxCVPASVBAuS9t5iS+H5kPuTmvon6jJR5Tty2gESz
-         mygw==
-X-Forwarded-Encrypted: i=1; AJvYcCUKnTcDv/bskJMsaZwVmb+FrEQpdtw/v8rlMzBv/PxKHjr5XNtlVo7POWFPfhShKKagqIkiiaTw3Yk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzgDtL2jBqy+szWuubWJFoz/MlpCLL3cRGQ0uVtnlwezqgcAVJN
-	9iL4TUDETDEk28N7MosHAbWkhOCpBKf7ESh4FndHL7E4tRx2p1YYanvJ8cRZhXjD5U+TFy8nzNX
-	HvQw=
-X-Gm-Gg: ASbGncsVEFBf0UcunMdKYyGlswHQlAvNd1/S9FoTkuRVmL9swnElphgDQqtBNLui73c
-	dJF9CShDHE5wJkhzaQX7YpNLev6fbNPOHadUTVtn1L6+5UKMdbszVI1UQkQ/AuNMnJa/iLbuWDl
-	3SmRaWryHetd48xVhrRfbO4QrIvB5ell2Qg+QC2Fdic22MEgDu7elj2pT1lEwb/Ap/RmpCb830c
-	LVOvbilW7whgX/Foh88hdODrsYCUWRlMA9A1BcJ+nz1tMyGxlgDqfICcoFtGZmh1//15BTYskp9
-	DRCnp8yTSYiozsCkq1Emklbb3BVHJA2eDlAbNFFbLeqv+dJ0hPvEjSc5kGJVLHDSOTrrNm3IsPN
-	8RgYBoypS/u0y8KYHnfJfelyRnwoL5xM4feRZIUUwtED1IoCoqveFRZ0T80tHMKKDsmjrtrDscD
-	CdvA4p7hM=
-X-Google-Smtp-Source: AGHT+IGtQW+pOtI2/Bc96XftUIh7geAz2XWSZPldN48U6MqtAazhFt4wIGi+RG4AqokpCYg0/DdrkQ==
-X-Received: by 2002:a05:6402:1d4b:b0:618:6a75:2d76 with SMTP id 4fb4d7f45d1cf-61c1b21df4dmr8883432a12.0.1756135439006;
-        Mon, 25 Aug 2025 08:23:59 -0700 (PDT)
-Message-ID: <385daefe-78bd-4c22-826a-836b61d12026@suse.com>
-Date: Mon, 25 Aug 2025 17:23:58 +0200
+        bh=uJ93w5as36fBKPUaUUWemuifcDVw3sd4NJr5hbxKQMQ=;
+        b=JuhgB6qU4mCactbZO2voVbUZTdMsl58SnDQqVI3T0m59bMEiorpXlw3DISE6XZgyeF
+         H/XYWg8rF3oSxSS8lWqsEvpG1QbCiPVpbQwh02DIRfDbqnUuzM+dVzdoBVo5Cd7s1SPH
+         1zoQfpR3YEAy+UVSMEc54MJVwBdwcNGGbmKVtvIow0gurGI+ripVz9hdRsJH+34mKugD
+         oqBUMwfYndc+ajyEiq6AkahQKcSIG4zM6dUGikD/CEpeFcHMThJi1f6EriKia8ucE2by
+         nNR/JPjPFegatLRtXmu7vVwQy0FgH995DuTub871qrP3WhYY/Xku53sEizyyCe7i0sji
+         wrRQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWSsL2mxNwlRkARTzD3XV94i9/MKpt+Wy9bMQV6CpC2fQ7vUh3zUBT1lIifGxQfJXl+6d6IQxU8UOQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy2rIwY70Lml9IPMEinDRUestM8ypjhsSPyPX8C8yO68rW7rYbN
+	m2b9wCM+IxvlUXxCyQJd6+l9tt38JD9FGUgtFtrfm0OZnEemsbmN+ZiUqggMhISs1A==
+X-Gm-Gg: ASbGncsnDILjyRgOLIwmi77/RPoHBvhjhTF3QyUOChPGjPl3I4uVm4sYaUPaqqRFw78
+	VYzfBUbbSap2cv41l1wjZQNKbEJvf5WY7T8mcgv9EAyQGfNBDJsp3F6ZHTrj52fuIyuLuRzi/Hw
+	Kr9Upo4PDlcWfVbtJvXsOaneTWEV0WkyygrSEIigeaJWPHuaqk8c4W+G7Xw5IvgLikvq2SvK/Z/
+	rC2y533Q25YlhCldoYZVIPmWMTajnmHwvYEwKnxRN29iTYRcMaynsxoXTHJtqFZBAzJsioNSk3V
+	/KRNZJ95AaYIMwMl4KCmuEZP8oApjyxfkGAhxopnkfXBrPROof0sLxL3Es7Z/k50zBUX9ntkrK5
+	tY+1dWbDshNBOQZrPmHvzyu5GHsFVx7sezL8mg+VbPXREylwAWcLw2Y/S51leQrgwnm9byhKdz1
+	sFvIBcx9FtM0zp4M2WNw==
+X-Google-Smtp-Source: AGHT+IHTU/h+YxTjXoaR6+Y1uzW4+uveYvkss4q07+0LGlKPlyb5aXcelH5soutVhPUD5Y6Qle3R5w==
+X-Received: by 2002:a17:907:1c8c:b0:afe:114f:11fb with SMTP id a640c23a62f3a-afe29631283mr1044924966b.64.1756135537752;
+        Mon, 25 Aug 2025 08:25:37 -0700 (PDT)
+Message-ID: <f5fc3210-2911-4b42-af8c-8a2f4bcbdfad@suse.com>
+Date: Mon, 25 Aug 2025 17:25:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 10/13] xen/cpufreq: get performance policy from
- governor set via xenpm
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, xen-devel@lists.xenproject.org
-References: <20250822105218.3601273-1-Penny.Zheng@amd.com>
- <20250822105218.3601273-11-Penny.Zheng@amd.com>
+Subject: Re: [PATCH] x86/suspend: unconditionally raise a timer softirq on
+ resume
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <20250825151515.39177-1-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,41 +120,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250822105218.3601273-11-Penny.Zheng@amd.com>
+In-Reply-To: <20250825151515.39177-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 22.08.2025 12:52, Penny Zheng wrote:
-> Even if Xen governor is not used in amd-cppc active mode, we could
-> somehow deduce which performance policy (CPUFREQ_POLICY_xxx) user wants to
-> apply through which governor they choose, such as:
-> If user chooses performance governor, they want maximum performance, then
-> the policy shall be CPUFREQ_POLICY_PERFORMANCE
-> If user chooses powersave governor, they want the least power consumption,
-> then the policy shall be CPUFREQ_POLICY_POWERSAVE
-> Function cpufreq_policy_from_governor() is responsible for above transition,
-> and it shall be also effective when users setting new governor through xenpm.
+On 25.08.2025 17:15, Roger Pau Monne wrote:
+> The current code to restore the timer state on resume is incomplete.  While
+> the local APIC Initial Count Register is saved and restored across
+> suspension (even if possibly no longer accurate since it's not adjusted to
+> account for the time spent in suspension), the TSC deadline MSR is not
+> saved and restored, hence hosts using the TSC deadline timer will likely
+> get stuck when resuming from suspension.
 > 
-> userspace are forbidden choices, and if users specify such options,
+> The lack of restoring of the TSC deadline MSR was mitigated by the raising
+> of a timer softirq in mwait_idle_with_hints() if the timer had expired,
+> previous to commit 3faf0866a33070b926ab78e6298290403f85e76c, which removed
+> that logic.
+> 
+> This patch fixes the usage of the TSC deadline timer with suspension, by
+> unconditionally raising a timer softirq on resume, that will take care of
+> rearming the hardware timer.  Given that a timer softirq will be
+> unconditionally risen, there's no need to save and restore the APIC Initial
+> Count Register anymore either.
+> 
+> Note that secondary processors don't need this special treatment when
+> resuming, since they are offlined before suspension and brought back up
+> during resume, the first timer that gets setup will trigger a timer softirq
+> unconditionally, for example from sched_migrate_timers() that gets called
+> for each secondary processor.
+> 
+> Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> Fixes: fd1291a826e1 ('X86: Prefer TSC-deadline timer in Xen')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Odd use of plural here, when only one bad variant is named.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/xen/drivers/acpi/pm-op.c
-> +++ b/xen/drivers/acpi/pm-op.c
-> @@ -206,6 +206,14 @@ static int set_cpufreq_gov(struct xen_sysctl_pm_op *op)
->      if ( new_policy.governor == NULL )
->          return -EINVAL;
->  
-> +    new_policy.policy = cpufreq_policy_from_governor(new_policy.governor);
-> +    if ( new_policy.policy == CPUFREQ_POLICY_UNKNOWN )
-> +    {
-> +        printk("Failed to get performance policy from %s, Try \"xenpm set-cpufreq-cppc\"\n",
-> +               new_policy.governor->name);
-> +        return -EINVAL;
-> +    }
-
-Don't you also need to check for CPPC mode, or else you reject "userspace" for
-other drivers as well?
-
-Jan
 
