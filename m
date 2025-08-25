@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 115EAB33DC0
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 13:14:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1093014.1448599 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E10DAB33E1B
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 13:32:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1093023.1448610 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqV9o-000103-6x; Mon, 25 Aug 2025 11:14:36 +0000
+	id 1uqVR5-0004Cz-Lp; Mon, 25 Aug 2025 11:32:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1093014.1448599; Mon, 25 Aug 2025 11:14:36 +0000
+Received: by outflank-mailman (output) from mailman id 1093023.1448610; Mon, 25 Aug 2025 11:32:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqV9o-0000xo-4F; Mon, 25 Aug 2025 11:14:36 +0000
-Received: by outflank-mailman (input) for mailman id 1093014;
- Mon, 25 Aug 2025 11:14:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uqVR5-0004Am-IP; Mon, 25 Aug 2025 11:32:27 +0000
+Received: by outflank-mailman (input) for mailman id 1093023;
+ Mon, 25 Aug 2025 11:32:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J9Dq=3F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uqV9m-0000xi-Oe
- for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 11:14:34 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ad6f2469-81a4-11f0-a32c-13f23c93f187;
- Mon, 25 Aug 2025 13:14:33 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-afcb7a7bad8so579809666b.3
- for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 04:14:33 -0700 (PDT)
+ id 1uqVR4-0004Ag-AL
+ for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 11:32:26 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2b8ab767-81a7-11f0-b898-0df219b8e170;
+ Mon, 25 Aug 2025 13:32:24 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-afcb731ca8eso672146866b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 04:32:24 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afe8d03f94asm87251666b.57.2025.08.25.04.14.32
+ a640c23a62f3a-afe74f5672esm281066866b.59.2025.08.25.04.32.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Aug 2025 04:14:32 -0700 (PDT)
+ Mon, 25 Aug 2025 04:32:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad6f2469-81a4-11f0-a32c-13f23c93f187
+X-Inumbo-ID: 2b8ab767-81a7-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756120473; x=1756725273; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=lbLRWEm1J5ANIdAtHNu87pWZc77qiIAqn0iKwi8Q95w=;
-        b=KATrIBPa7UAoosFXOPaAhe31Q7ZQ5UwQVnL2oBCN5NH8ddwYzPj+g8568h1MVfb1Tq
-         HfRCWM0Cu5CV1Dx4QOFsIh+PUbRkSRdRvJxg1+A9MZwx20vuqz19R6Lyuvtvt06cT4Ts
-         6b2yyDfLfCmUXv+q5UJn+5JScT82wuOmt7IJOC8oMTjgpvoxt1+6A2pXoOLhqN87Wr/g
-         KDlis0I1jNrt3c9sA517YCsoJzpH+tiapDfHQIpZJgMhmz0P7IaYgim+25H+7WzayN6j
-         zC1g+k5b/6opUJtcv07P32I7DxdFGBKXK5DcEXXjIJoJaq7XrZ89rxMrNRMSQdg124kJ
-         F6tQ==
+        d=suse.com; s=google; t=1756121543; x=1756726343; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Dy8sev0VqG6oWNs9lVAThVXzWNFsVRxxgPVBYijMH68=;
+        b=TG84VT0xA/FlbbYCK8cv9M1upXSg0oWhaM80JBl9FtvHH62PFRbivszQlIHrEhzZ6f
+         7dvsxoYbU1B9CzilLf48SNpZGLEdrcxD+sZDcq/RWQKsjZOeVcx/RqxGSdrywmym1Ur+
+         Yxf8YYxUpw8fzZXuLckjvBj80/XVxajz+Lw+wZQZNGU7okiDzi9PhECTX5QiDb9RYGPS
+         QZWmOKKD0UXpnsD4tyFmsrgIt4a/L+TH/lyWmLALB0ViCC6wdAEY7q5C40/QuhNMAWmL
+         43xrcHYPkPHLiytgdy44PL06TJPscxCSbpbaWzJU0aMzmgfa4QaYieddGCPMKjFxBuiT
+         Pkkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756120473; x=1756725273;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=lbLRWEm1J5ANIdAtHNu87pWZc77qiIAqn0iKwi8Q95w=;
-        b=f6u/nOpRldkKasaDqRoPiqaRdaWSxcBx3wgzzljhjwFbjfgRgARR7PNl6yz/VddlUK
-         SjLHgJhOByllGMqFwtyS3j/lwbIE37CVOBT0LuKFj7vyrhErs5dUiPSomQ+EVU3/zFFi
-         1CoXbmIWYkoHrr4ISU+PKUQpyapIIwOaaHqA3OA+RjIcQD60P5OtE+aep7BdHEcTXRjK
-         O9xLEC7Vit6oTSS0Ihx54w5yb+3kbzVEeO7Thj2XgurAtNK1iFqSzlTjkpR4nsvYKgNc
-         1WaqSqPZmnH3qaosvaOCHTNiLyLpP7hLmsJr3bjMTAaEJ6talXJ/d4Tc5AK3Pe0X2bBJ
-         rA1g==
-X-Gm-Message-State: AOJu0YylY90xxISYjpX84q7JimxtX3lOo9nwz/RkYpfqj3EOzhE1BDK8
-	hg70BUCEtFBYf6+4RLtUFuYWstCtkFKHcjbUq4BBEez5ix18xQKwbFsRY6TYkOJQJDUXLc4LRtB
-	GCRk=
-X-Gm-Gg: ASbGncuc/QZ3Im+IiMSGlLkS+pSc8wxByOkUfdmwaueWXA+NUDJS9kTrVVibdqVpC21
-	e18WzrIpmme9jOu/XZYTPAdngmGjqBFxdFJUXwOt0wx4kIlncOWTJFHk9GLC8X54b4InZn+382H
-	PhSdlj0jNwWT5ZY4Zl5zNGi6Z7LUhflPzCv8d4I1n+d5yj0GxpmZp1+ri3cgdVP4cNp18alvzCh
-	RCcQLXQCtL2Dwh88ZnAuQYw33Wo/hPR9htZHzH3POVAjYLRi3adwCavPVTOghXIxDIkHfthAFRT
-	VctvOopAPlbU2sfR8H5NLIrAM1wDuIkCp42AhYA5PGAkzUQ8LhSVyzk9yw2jmdiK5oTMn2cdHNW
-	0wcYK/c3Fk00Z8K8DzvKsWOPrRi+tZ0oO/TenAZUBrLhirPLEvpO9lNGhdUrOghOIweJapT3rwC
-	WFDDm+GwU=
-X-Google-Smtp-Source: AGHT+IFVemMjp6hJDSN3OseRfzkfVEKuLo4ppCBKTT1LRmIf3ZRaQofbqdmrfHNf+vJWoSxIvLxRnw==
-X-Received: by 2002:a17:907:7e85:b0:afe:94d7:775e with SMTP id a640c23a62f3a-afe94d7797dmr40979466b.18.1756120472751;
-        Mon, 25 Aug 2025 04:14:32 -0700 (PDT)
-Message-ID: <0ebb4f2d-31b6-4536-91fc-75b5a9aa7dfd@suse.com>
-Date: Mon, 25 Aug 2025 13:14:32 +0200
+        d=1e100.net; s=20230601; t=1756121543; x=1756726343;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Dy8sev0VqG6oWNs9lVAThVXzWNFsVRxxgPVBYijMH68=;
+        b=CNkPRy9Ayo9PrbJeVQfWTjzVu8FBI52P9Bg1q6oQdu4g4qtTKcZEqr22ZxyhoTXt0w
+         gS08gSPoSbI+4/y1iMbVcfRraFMilDq8KJBpNw06lrQHkhhvVVX4zKpJqlVcbGqQ9uUh
+         MlsU1RSmTZgCYXajBr8yEJ5xaIs8BEtMyHtll8KdOW0lI4d/sbL1YTmDYg4t8dN8JVHk
+         QUyrJACWb2bo4vx5dBou823Kx+LWKVaiE1lwk0Nb9jNT6UMwH/RTYNF8SFeZ0XAlDzjv
+         yZgqAVJYHdZGy3m891z9kQVdnkZbifoRV64MWfIStpfwzpaAtapAmvr5ZIqiQuit+KHK
+         OZvw==
+X-Forwarded-Encrypted: i=1; AJvYcCW+LuNC5Dv0wftX4K5ME095rRfTGhU9BwukxmjZJEunlQ+Q5zovvrdBHIl9i+WPuj4DMhdd12A1htc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyAo57uaMmO8rnzhDmWfIlpYqje7GeINndtt3+TPLfnYYPzb7iG
+	WfP1zfyUStBULuzfo7i8vKee8imUmcPZPtGrM/63qZzcARbUK+TZfq2wd9PwVa1+LA==
+X-Gm-Gg: ASbGncsgH+A/yT69YqBYtpaZ2t2i6JaWQuxO2GjwvMd5vDBuHmrr6tbNIQKwZUlvEr1
+	I+PVL7fuPjpfzgMVrDCBxgLL/QWzjqski6zIO9LJRL9185htkMRuKm4G3lkc8irJ3KyMaiJLNfW
+	Aq+P9dLJWQOFlCEQMHWBktuUc6McgwOciJ5uvxYIEyh+GpPb3IYPWJPnoFEOoYpqamaV9rZmkUb
+	vF7hYJz6xV6yqassLEDOmx4XbFEjHtthyHWmHUU4u2wupg/lpJtuuRscyk/3a/9eEn9YFIB5ZDz
+	gp+WJYFHBJIRNU75lJxXVhmMvTQAvPLTGOaKJ79nFeRDzYPIiL+nM1SRWdfF+BP8Qmc9NjDp0cm
+	9m1kT0/oTUUh37WBFIok+kf3va7u1z5jzMQk9v4TOzDVpyCUQv75A51BQv8858oX/97e30gvd/d
+	8ZYIn2+jo=
+X-Google-Smtp-Source: AGHT+IFMcRTzPpv5hPuYysRywvvfCgUpdxSMtiuwkyghCIvMFIv042+Rc2XmMKo4ce3ts5qYa+af+A==
+X-Received: by 2002:a17:907:97cd:b0:ad8:9b5d:2c1e with SMTP id a640c23a62f3a-afe28ff9049mr1026359266b.29.1756121543360;
+        Mon, 25 Aug 2025 04:32:23 -0700 (PDT)
+Message-ID: <e2c4944d-d089-490c-879d-b6baec5e4cae@suse.com>
+Date: Mon, 25 Aug 2025 13:32:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/5] vpci/msix: move MSI-X hole punching as a result of
+ memory decoding enable
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: stewart.hildebrand@amd.com, Jiqian.Chen@amd.com,
+ xen-devel@lists.xenproject.org
+References: <20250814160358.95543-1-roger.pau@citrix.com>
+ <20250814160358.95543-5-roger.pau@citrix.com>
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] Arm/platforms: fix build with gcc15
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -118,31 +120,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250814160358.95543-5-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-For two of the headers gcc15 complains "header guard ... followed by
-'#define' of a different macro". Misra certainly wouldn't have liked
-this either, if these headers were covered by a scan.
+On 14.08.2025 18:03, Roger Pau Monne wrote:
+> Deferring the p2m unpopulate of the MSI-X table region to after the BAR are
+> mapped in the p2m is not needed.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+For my own understanding: This is because we would never actively map such a
+region; we always subtract it out of what is going to be mapped. If so ...
 
---- a/xen/arch/arm/include/asm/platforms/midway.h
-+++ b/xen/arch/arm/include/asm/platforms/midway.h
-@@ -1,5 +1,5 @@
- #ifndef __ASM_ARM_PLATFORMS_MIDWAY_H
--#define __ASM_ASM_PLATFORMS_MIDWAY_H
-+#define __ASM_ARM_PLATFORMS_MIDWAY_H
- 
- /* addresses of SREG registers for resetting the SoC */
- #define MW_SREG_PWR_REQ             0xfff3cf00
---- a/xen/arch/arm/include/asm/platforms/omap5.h
-+++ b/xen/arch/arm/include/asm/platforms/omap5.h
-@@ -1,5 +1,5 @@
- #ifndef __ASM_ARM_PLATFORMS_OMAP5_H
--#define __ASM_ASM_PLATFORMS_OMAP5_H
-+#define __ASM_ARM_PLATFORMS_OMAP5_H
- 
- #define REALTIME_COUNTER_BASE                   0x48243200
- #define INCREMENTER_NUMERATOR_OFFSET            0x10
+>  The aim of vpci_make_msix_hole() is to
+> cope with the BAR containing the MSI-X table being positioned over a
+> reserved e820 region, by making sure the MSI-X table region is
+> unpopulated on the p2m. Note that reserved e820 regions are identity mapped
+> in the hardware domain p2m by default.
+> 
+> Doing it before or after the BAR p2m changes are done is irrelevant, hence
+> do it ahead of the p2m changes, as that's simpler.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+Jan
 
