@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91152B33873
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 10:07:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1092725.1448369 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96299B3397D
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Aug 2025 10:39:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1092736.1448379 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqSEb-0006gl-Tg; Mon, 25 Aug 2025 08:07:21 +0000
+	id 1uqSjJ-0002Ov-8J; Mon, 25 Aug 2025 08:39:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1092725.1448369; Mon, 25 Aug 2025 08:07:21 +0000
+Received: by outflank-mailman (output) from mailman id 1092736.1448379; Mon, 25 Aug 2025 08:39:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqSEb-0006ee-R1; Mon, 25 Aug 2025 08:07:21 +0000
-Received: by outflank-mailman (input) for mailman id 1092725;
- Mon, 25 Aug 2025 08:07:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uqSjJ-0002NP-5a; Mon, 25 Aug 2025 08:39:05 +0000
+Received: by outflank-mailman (input) for mailman id 1092736;
+ Mon, 25 Aug 2025 08:39:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J9Dq=3F=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uqSEa-0006cE-MV
- for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 08:07:20 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 84b6f708-818a-11f0-a32c-13f23c93f187;
- Mon, 25 Aug 2025 10:07:18 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-61c51e5e826so1885720a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 01:07:18 -0700 (PDT)
+ id 1uqSjH-0002NH-MW
+ for xen-devel@lists.xenproject.org; Mon, 25 Aug 2025 08:39:03 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f3262732-818e-11f0-b898-0df219b8e170;
+ Mon, 25 Aug 2025 10:39:01 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-61c4f73cf84so2111666a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 01:39:01 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afe4937a15asm509790666b.115.2025.08.25.01.07.16
+ 4fb4d7f45d1cf-61c316f4f45sm4588018a12.36.2025.08.25.01.38.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Aug 2025 01:07:17 -0700 (PDT)
+ Mon, 25 Aug 2025 01:39:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 84b6f708-818a-11f0-a32c-13f23c93f187
+X-Inumbo-ID: f3262732-818e-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756109237; x=1756714037; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756111141; x=1756715941; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=afnoc3bcK1Q1LYDCS8rReiGGMtksBdmp+lCB900+LBc=;
-        b=ZHGOiVZZshcL9uExTAXhmboCNWSTDRmm5wuucn+WSNDrVMjzfwjLdzoYi0l3RACt9L
-         yCoECE+BdrjHU5U0p+DSgtmdfFn7lKs4m+tltkMXyXEOcC404gTCN7TpBe9stpXPsyUk
-         3AlzU8N7aLXYTKUUs5aWp3MOdaxB1M7JBkzH9dBtSLmjlj66mAd94fblfbbY9gJ+Vk12
-         2e9Itl2dEY0pt6UZrI7CcUNp4Uyb+PVTAu3Tfv17mdoTSmQhn9fheAkw2cAzwRCwcP16
-         hZ09wgt+QBPo6eznl14C0LYfUMDWiwiSNHS/jhfIzmdXhaSSbAVEh3N2SRGctCfAFOZ6
-         WE9A==
+        bh=fzvK6wrszmbnhyuS1qJdcrD1psISCGdg3f6T+CqbnXo=;
+        b=KiOR2X+BqtCKIq0aNYIfYgx86C+5L1FiEG9Nxs9cfjWXAQLATWOUSCUf90Cjysmps6
+         kg5ERw/HUPSDDy566U4rC7wcHS29lSKIDu7ufVfvl4nOyWjO1V4FNE9l0LR9yolBmr4B
+         zrXpJwX5AvSEO5qk0xJTAbPZ8KurBkPCudTxkifwJNLMGt//Yg0fQ4wvm8YcilNCq1kN
+         4mxp+wAgEHgzlK+4J/wNlbzYdo4/h2HNanN9wZtgifNsepPVuffRx2grEOkbnKBD5jdS
+         tBh9aoQIYjMkeR88q08KsvN/iKGgEXHFFohoo/LdI1BLAcIjAHopyTEbwioKiqV5NK05
+         DxEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756109237; x=1756714037;
+        d=1e100.net; s=20230601; t=1756111141; x=1756715941;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=afnoc3bcK1Q1LYDCS8rReiGGMtksBdmp+lCB900+LBc=;
-        b=vbkZsM34aiCjQEtS13KeTWloSSu9QQ0v4eegTuni2NaNgjKUdJFCfiYst7NWFHupCL
-         XnTQDa96Vbn2Sao2CTxsqf6xtrGswtZKGLSJDae8KS0Sg+Y5AwqmPo425bgO4Lemax+U
-         lRYSdrr95odr9Z4mr/N+/mkK1yTrI0CnZshs+WRyow8Ab6H3pV86bLuhQoOq6GW3Qut+
-         QpMy3C/DFeKo9Kdk85pCsousqXviUTtHrZN1k+Lire5qEBwydFbfwLyWZ9MuUeqJ3P+h
-         HKITFKdIQ3Kazor7x6CFugRkOTtMyBQm47J4T9l6TTAgl98FhGjV2ORIhxc6Zu/zGIso
-         HYfQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWDTC6jtvHcsfHXmrTtquqEvuvAv7XoYmU0P82xJ6BafJfuMOMEuGq/KYiIIaW+wSlUQS7y1XXBokc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxRktZfUfYinfY0eiqo/LmzV9CVlzrTwPDlG8x+UxKDvmHoviQ1
-	bCvo+vDqBoEl4tESRuKrEPbb8wS5XG6scmGQY69or7fFP9cTEDnekI71BCs5Bqdrtg==
-X-Gm-Gg: ASbGnctgSiLNFwcdP+PE9TtsXcN1BR3WgKR1oVzT2He0ao+vI/y90nEdzwDlnLmfMeO
-	eHAM7Ht7W33B1fNY4wJtH69v0HAkNAnlssb1U+eMHgn9oAXf4GfQ+XVds1vFNPHS8hvw3PN7aiD
-	AZGJb5/rhYYeTTWpEVT+3x65icJe2XEZXqV6O9yM58frH+mRYmGEJveGCbQw4/1WFbgRBxvPZ8q
-	h7OTh6bgAsLOBcVYoy9wEBoZjgRLYIRmPZ7MwFAvuREoEE1S1/ciXi6jKTol7ei6sqshE7uKK78
-	Q6vfyvDBec/LlgGR/b0Ydfj2J4N5zIjpJU7yxMMU6jry/NivQ07aJdCBonZjveMKLB+6hDfHrpM
-	Z4KX7xZHWX9ve973GtG9hMDMTZaraKMrfBkNRenjhaQAEqJh7PJW0+txHNeT7vzumwUVwQyBHMr
-	gqvVBKJqs=
-X-Google-Smtp-Source: AGHT+IGM/tNgAQ4w6YeNT8fZuK3jMi/fNN0GWzvtOKl+OkRWLq6KR5StpLeGVL6otX7QLNJ3T73BjA==
-X-Received: by 2002:a17:907:3cc3:b0:af9:7f4f:775e with SMTP id a640c23a62f3a-afe295ca548mr1013799766b.51.1756109237424;
-        Mon, 25 Aug 2025 01:07:17 -0700 (PDT)
-Message-ID: <5b85b5da-dfa3-465a-9708-62fc55fe48bb@suse.com>
-Date: Mon, 25 Aug 2025 10:07:18 +0200
+        bh=fzvK6wrszmbnhyuS1qJdcrD1psISCGdg3f6T+CqbnXo=;
+        b=lm9GsnnGrF/WHncw/Jx9Zda/QwoDbFJANaAs0z7IlDPzJKJ3kvTFjzjD1I0iGpLg6l
+         luJds57PWPW/UTNNICOoa92HsC8zG2LdJkk2W7SmK4uxtndPQlZZTM7LEzBFo/9mrXhj
+         e4ITD6nW3p50DNda9maGM6ZsTGn8ZOVr9mLtmvw1nQaGTrOqEPiOWR84u410W0OCI+ww
+         N2f7DViY1jdRpyvOhtP4bN0l2J8ujS/v40nuAFerJE1HGmYgPKQgEXfsdBPmFUFIY6dl
+         NGEebNnEX5o8EGkyrTsXy23Wog1rDP3covF9ny1sINs+VSml1bY38iUQaqqAEFSU9Ehg
+         /8GA==
+X-Forwarded-Encrypted: i=1; AJvYcCUrSsORLpAijtEAHhA4ImhsuIpslj7wXZ/9+W4APBx5BEPgnv3oEEvDCtssljh1qCj7qwU5xyCmFzw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwnrP3oWIUH0lYTgeVv2jC87cyimOeoEO9ZobAyu0EUXSnStJrV
+	5GBhTm/yDz2gRuCBG0yXO+hKMzqK+Y1gP04d328dDWqLVK/1X19m6lwlAqkm5vE/Rw==
+X-Gm-Gg: ASbGncvw8WPEgKbI0imCjFF4Mt7R5F7vlhLpAyyrW22L7XUr/H5FTA+zM7w4jsUiaUx
+	RbKAEyq+KNXQKAkWdXpdcommRAiHT0Ewy15cxcVtXvM9IPnO38LR1nMatYJtDklNTmRFiCgraH2
+	xswDceIVbeIMmQsbpTurqUZNovBLWMMhEdDYugtsk6mrz4k4PoEuATLrkAHMhT6uOk7wevUzvoK
+	THBsGeZPy/6TwaJHf8WUE3eauj8IXgXH13NUyAlHcrjRkKR+BViiLKSZOAOnv0/bBvWEZhUhgXH
+	M1jK6f/DO8jagm+nkx1tcd74cstKJgWveYyGItAwUoEVC5D+HbMiCfiq+hy4xQZJgzohS/tKoMP
+	rswkqkNNNEhAKf5T5PPwnC9drpZ8w+T1TpaquWgpHtFZRRt4v6VJC8qWxbV77tjQHpr3E1U13/Z
+	csbWwQBLw=
+X-Google-Smtp-Source: AGHT+IF7ehPGMSsxNTAopIvjzRsU61KMBHt3DE66ExyFIWSf4kbx03z2UI7aOFp4jEvpk2+Bt3cCSQ==
+X-Received: by 2002:a05:6402:21c6:b0:61a:8966:ced6 with SMTP id 4fb4d7f45d1cf-61c1b717eb8mr10202195a12.35.1756111140693;
+        Mon, 25 Aug 2025 01:39:00 -0700 (PDT)
+Message-ID: <74c1fea2-72c7-4e9f-a7ca-13a9dae32002@suse.com>
+Date: Mon, 25 Aug 2025 10:39:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Consider changing CONFIG_ACPI default on ARM?
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: Demi Marie Obenour <demiobenour@gmail.com>,
- xen-users@lists.xenproject.org, xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Paul Leiber <paul@onlineschubla.de>
-References: <CAO_48GG1Tg0d3ATnNAYNr0cg7Ty_zsnzT29=dpkk99DxyTWcmg@mail.gmail.com>
- <fceb5df8-d628-479d-acb3-d1d26409fbac@onlineschubla.de>
- <aJLae1Nl0pyOZgyh@mattapan.m5p.com>
- <1b96f2f3-55a2-4b33-84b1-a7c18d38d10c@suse.com>
- <6e9b5265-7a3b-4fd5-b14e-0e60a8b49833@gmail.com>
- <a3092ae1-d836-4403-8fb5-30593fcd2fb8@suse.com>
- <aKjOaT-P74Yh4-bi@mattapan.m5p.com>
+Subject: Re: [PATCH] misra: consider conversion from UL or (void*) to function
+ pointer as safe
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+References: <9e5e4ff2c7ba0a90a6ac403e2de9318e18949274.1755628705.git.dmytro_prokopchuk1@epam.com>
+ <90fb95a3-4b32-4785-a77c-373e5b9da6ed@suse.com>
+ <e1e2abdf0ef8708097aa78440eeb7147@bugseng.com>
+ <6b912698-b871-4819-ac30-14325d0be146@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,127 +128,109 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aKjOaT-P74Yh4-bi@mattapan.m5p.com>
+In-Reply-To: <6b912698-b871-4819-ac30-14325d0be146@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 22.08.2025 22:09, Elliott Mitchell wrote:
-> On Fri, Aug 15, 2025 at 10:14:42AM +0200, Jan Beulich wrote:
->> On 14.08.2025 23:27, Demi Marie Obenour wrote:
->>> On 8/14/25 02:55, Jan Beulich wrote:
->>>> On 06.08.2025 06:30, Elliott Mitchell wrote:
->>>>> On Tue, Jul 01, 2025 at 10:01:13PM +0200, Paul Leiber wrote:
->>>>>>
->>>>>> Unfortunately, I don't have a direct answer to the question (as is so often
->>>>>> the case, due to my limited knowledge and experience). However, I am
->>>>>> successfully running Xen on a RPi 4 (mostly, except for some VLAN related
->>>>>> networking issues).
->>>>>>
->>>>>> I used instructions in [1] to install vanilla Debian on the RPi, including
->>>>>> UEFI boot and grub. I then compiled Xen with expert options and ACPI
->>>>>> enabled.
->>>>>>
->>>>>> I don't know if there are better solutions. For example, I suffer from the
->>>>>> fact that I2C doesn't work when using UEFI boot on a RPi. Nowadays, Debian
->>>>>> provides their own vanilla Debian images for RPi and with working I2C, but
->>>>>> these images are using a different boot method that I didn't know how to use
->>>>>> with Xen.  So far, the procedure described above seems to be the easiest
->>>>>> solution for me.
->>>>>
->>>>>
->>>>>> [1] https://forums.raspberrypi.com/viewtopic.php?t=282839
->>>>>>
->>>>>> Am 30.06.2025 um 12:35 schrieb Sumit Semwal:
->>>>>>>
->>>>>>> I've just begun to experiment with the Raspberry Pi 5, trying to run a
->>>>>>> simple xen + Dom0 setup, using uBoot, and the bookworm based Rpi
->>>>>>> distro.
->>>>>>>
->>>>>>> I've tried combinations of the following setup:
->>>>>>>
->>>>>>> 1. prebuilt Rpi5 kernel + dtbs, and have also tried to build them from
->>>>>>> source [1]
->>>>>>> 2. Xen from upstream [2] and xen-troops [3]
->>>>>>> 3. upstream uBoot from [4]
->>>>>>>
->>>>>>> but with the same result: [short log below; I can provide a fuller log
->>>>>>> if needed]
->>>>>>>
->>>>>>> (XEN) DT: ** translation for device /axi/msi-controller@1000130000 **
->>>>>>> (XEN) DT: bus is default (na=2, ns=2) on /axi
->>>>>>> (XEN) DT: translating address:<3> 000000ff<3> fffff000<3>
->>>>>>> (XEN) DT: parent bus is default (na=2, ns=1) on /
->>>>>>> (XEN) DT: walking ranges...
->>>>>>> (XEN) DT: default map, cp=0, s=1000000000, da=fffffff000
->>>>>>> (XEN) DT: default map, cp=1000000000, s=100000000, da=fffffff000
->>>>>>> (XEN) DT: default map, cp=1400000000, s=400000000, da=fffffff000
->>>>>>> (XEN) DT: default map, cp=1800000000, s=400000000, da=fffffff000
->>>>>>> (XEN) DT: default map, cp=1c00000000, s=400000000, da=fffffff000
->>>>>>> (XEN) DT: not found !
->>>>>>> (XEN) Unable to retrieve address 1 for /axi/msi-controller@1000130000
->>>>>>> (XEN) Device tree generation failed (-22).
->>>>>>> (XEN) debugtrace_dump() global buffer starting
->>>>>>> 1 cpupool_create(pool=0,sched=6)
->>>>>>> 2 Created cpupool 0 with scheduler SMP Credit Scheduler rev2 (credit2)
->>>>>>> 3 cpupool_add_domain(dom=0,pool=0) n_dom 1 rc 0
->>>>>>> (XEN) wrap: 0
->>>>>>> (XEN) debugtrace_dump() global buffer finished
->>>>>>> (XEN)
->>>>>>> (XEN) ****************************************
->>>>>>> (XEN) Panic on CPU 0:
->>>>>>> (XEN) Could not set up DOM0 guest OS (rc = -22)
->>>>>>> (XEN) ****************************************
->>>>>>>
->>>>>>>
->>>>>>> I'm certain I'm missing something, but before I delve deeper, I just
->>>>>>> wanted to ask if this is a known issue, and if so, are there any
->>>>>>> workarounds or solutions available for this?
->>>>>>>
->>>>>>> Any help about this is highly appreciated!
->>>>>>>
->>>>>>> Thanks and Best regards,
->>>>>>> Sumit.
->>>>>>>
->>>>>>> [1]:  https://github.com/raspberrypi/linux rpi-6.12.y branch
->>>>>>> [2]: git://xenbits.xen.org/xen.git - main branch
->>>>>>> [3] xen-troops https://github.com/xen-troops/xen - rpi5_dev branch
->>>>>>> [4]: https://github.com/u-boot/u-boot.git master branch
->>>>>
->>>>> Ultimately Debian is choosing to leave most defaults alone.  So far the
->>>>> Xen developers have left CONFIG_ACPI defaulting to off on ARM*.  The
->>>>> Debian project doesn't have paid people to support Raspberry PI hardware,
->>>>> despite being rather common.  As a result there aren't any official
->>>>> Raspberry PI images, but people associated with Tianocore have gotten
->>>>> generic images to boot on Raspberry PI hardware.
->>>>>
->>>>> I'm unsure of the likelihood of getting the Debian maintainers to
->>>>> override the default.  Yet due being by far the simplest way to install
->>>>> Debian and Xen on a very common ARM64 platform, perhaps the Xen
->>>>> developers should consider changing?
+On 22.08.2025 18:34, Dmytro Prokopchuk1 wrote:
+> On 8/21/25 11:25, Nicola Vetrini wrote:
+>> On 2025-08-21 10:01, Jan Beulich wrote:
+>>> On 19.08.2025 20:55, Dmytro Prokopchuk1 wrote:
+>>>> Rule 11.1 states as following: "Conversions shall not be performed
+>>>> between a pointer to a function and any other type."
 >>>>
->>>> In an open source project everyone is a developer. There is a
->>>> significant amount of work someone needs to pick up to change this
->>>> SUPPORT.md entry:
->>>>
->>>> ### Host ACPI (via Domain 0)
->>>>
->>>>     Status, x86 PV: Supported
->>>>     Status, ARM: Experimental
->>>>
->>>> Parties interested in changing the support status of any component are the
->>>> primary candidates to actually carry out the necessary work.
+>>>> The conversion from unsigned long or (void *) to a function pointer
+>>>> is safe in Xen because the architectures it supports (e.g., x86 and
+>>>> ARM) guarantee compatible representations between these types.
 >>>
->>> What is that work?
+>>> I think we need to be as precise as possible here. The architectures
+>>> guarantee nothing, they only offer necessary fundamentals. In the
+>>> Windows x86 ABI, for example, you can't convert pointers to/from longs
+>>> without losing data. What we build upon is what respective ABIs say,
+>>> possibly in combination of implementation specifics left to compilers.
+>>>
 >>
->> To determine what exactly needs doing is part of the exercise. I, for one, am
->> unaware of a concrete written down set of things which need doing.
+>> +1, a mention of the compilers and targets this deviation relies upon is 
+>> needed.
 > 
-> Since you're not pointing to anything definite, could it be everything
-> has been resolved?
+> Maybe with this wording:
+> 
+> This deviation is based on the guarantees provided by the specific ABIs
+> (e.g., ARM AAPCS) and compilers (e.g., GCC) supported in Xen. These ABIs
+> guarantee compatible representations for 'void *', 'unsigned long' and
+> function pointers for the supported target platforms. This behavior is
+> architecture-specific and may not be portable outside of supported
+> environments.
 
-Possible. Yet even then the state of things needs fully writing down, perhaps
-in a commit message for the patch changing the support status. That's likely
-still a time consuming job.
+Reads okay to me; for Arm64 I can only assume the psABI indeed makes this
+guarantee.
+
+>>>> --- a/docs/misra/deviations.rst
+>>>> +++ b/docs/misra/deviations.rst
+>>>> @@ -370,6 +370,16 @@ Deviations related to MISRA C:2012 Rules:
+>>>>         to store it.
+>>>>       - Tagged as `safe` for ECLAIR.
+>>>>
+>>>> +   * - R11.1
+>>>> +     - The conversion from unsigned long or (void \*) to a function 
+>>>> pointer does
+>>>> +       not lose any information or violate type safety assumptions 
+>>>> if unsigned
+>>>> +       long or (void \*) type is guaranteed to be the same bit size 
+>>>> as a
+>>>> +       function pointer. This ensures that the function pointer can 
+>>>> be fully
+>>>> +       represented without truncation or corruption. The macro 
+>>>> BUILD_BUG_ON is
+>>>> +       integrated into xen/common/version.c to confirm conversion 
+>>>> compatibility
+>>>> +       across all target platforms.
+>>>> +     - Tagged as `safe` for ECLAIR.
+>>>
+>>> Why the escaping of * here, when ...
+>>>
+>>>> --- a/docs/misra/rules.rst
+>>>> +++ b/docs/misra/rules.rst
+>>>> @@ -431,7 +431,13 @@ maintainers if you want to suggest a change.
+>>>>       - All conversions to integer types are permitted if the 
+>>>> destination
+>>>>         type has enough bits to hold the entire value. Conversions to 
+>>>> bool
+>>>>         and void* are permitted. Conversions from 'void noreturn (*) 
+>>>> (...)'
+>>>> -       to 'void (*)(...)' are permitted.
+>>>> +       to 'void (*)(...)' are permitted. Conversions from unsigned 
+>>>> long or
+>>>> +       (void \*) to a function pointer are permitted if the source 
+>>>> type has
+>>>> +       enough bits to restore function pointer without truncation or 
+>>>> corruption.
+>>>> +       Example::
+>>>> +
+>>>> +           unsigned long func_addr = (unsigned long)&some_function;
+>>>> +           void (*restored_func)(void) = (void (*)(void))func_addr;
+>>>
+>>> ... context here suggests they work fine un-escaped, and you even add 
+>>> some un-
+>>> escaped instances as well. Perhaps I'm simply unaware of some 
+>>> peculiarity?
+>>>
+>>
+>> This is a literal rst block, while the other is not (* acts as a bullet 
+>> point in rst iirc)
+> 
+> This is how "sphinx-build" tool interprets this.
+> 1. * inside single quotes '' -> looks normal, e.g. ‘void (*)(…)’
+> 2. * without quotes -> warning
+> deviations.rst:369: WARNING: Inline emphasis start-string without 
+> end-string. [docutils]
+> 3. \* -> looks normal, e.g. (void *)
+> 
+> Because that we need such format: \*
+
+Yet under "Example::" there's no quotation and no escaping. The one
+"(void \*)" earlier in the text I'd suggest to replace by a quoted
+form anyway, matching the rest of the text.
 
 Jan
 
