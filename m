@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 691C5B364DA
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 15:42:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1094416.1449738 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 324A1B364E3
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 15:42:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1094420.1449748 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqtwJ-000867-L9; Tue, 26 Aug 2025 13:42:19 +0000
+	id 1uqtwP-0008Ph-Tn; Tue, 26 Aug 2025 13:42:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1094416.1449738; Tue, 26 Aug 2025 13:42:19 +0000
+Received: by outflank-mailman (output) from mailman id 1094420.1449748; Tue, 26 Aug 2025 13:42:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqtwJ-00083M-Hm; Tue, 26 Aug 2025 13:42:19 +0000
-Received: by outflank-mailman (input) for mailman id 1094416;
- Tue, 26 Aug 2025 13:42:18 +0000
+	id 1uqtwP-0008Nt-PN; Tue, 26 Aug 2025 13:42:25 +0000
+Received: by outflank-mailman (input) for mailman id 1094420;
+ Tue, 26 Aug 2025 13:42:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+/mc=3G=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1uqtwI-0007MD-8P
- for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 13:42:18 +0000
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [2a00:1450:4864:20::236])
+ id 1uqtwO-0007MD-Kq
+ for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 13:42:24 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7ade9d84-8282-11f0-a32c-13f23c93f187;
- Tue, 26 Aug 2025 15:42:16 +0200 (CEST)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-3367144d196so21211171fa.3
- for <xen-devel@lists.xenproject.org>; Tue, 26 Aug 2025 06:42:16 -0700 (PDT)
+ id 7f336bdf-8282-11f0-a32c-13f23c93f187;
+ Tue, 26 Aug 2025 15:42:24 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-3367f35d129so14258181fa.1
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Aug 2025 06:42:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,52 +40,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ade9d84-8282-11f0-a32c-13f23c93f187
+X-Inumbo-ID: 7f336bdf-8282-11f0-a32c-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756215736; x=1756820536; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1756215743; x=1756820543; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qAdfRT3RfdTKzniVhm6L20d/MG9qOdM1V7J02o/Uq+E=;
-        b=A0h7SaBEDgkHCaiqvX0OeCrwt9XDwTRfG53JkaFsAHfhqEry/pVlyDbVitFUVqRCKy
-         BQsfRVM13sNOVhPKvryJVqWtY38fDW59ar8HzxHJUemjv7iIVxYeYC8mMogkl58lCpay
-         n/OaYwfejy+y9za0QI/vQhFWEj+dT1jnO4ClZNRTFfUWwb8l6FY1x6rriubbMUz+8eaF
-         /X6VoJL5XTpJSceSoZ1EcOZ6s8fU0nNuuug/ugLYw3e2Op0Z7b1vnqGBSFIMP8moXUTV
-         E6KiuU0Ig5f20CxVHKnlnwxUU5SWkKus35E/UCNs/NUpyB5S134f/HAl2l7/a1Zharvs
-         s4uQ==
+        bh=AnaOqRCWc8b654/XwwpXZoEHzRvpKDZrAMeumSj2xd8=;
+        b=LPXomDm4aSTwZP51YTETMpaKFglMNI8yXhQNBEmlNHhHA99ADtm1LeZof9XAyhRpGE
+         whT+hnTl+/T1Id+tvAGllk3St5PBMqzga3lJQa1Ek+eQYOd4z/ZzeDuVlUyVpfPVNkPo
+         DGLDPa7b/P9drfcjYrYKu2MuQIx5ouKmmOYlCBj6EcKMX4IAidR1zkMgjREHhazpQlN5
+         lKfU5Ky9p7R6lPZX9OmVRWbfid7wCguW28wZ8U4VyYa0kGrWuBeK/fDDTumCgL6xpm4t
+         nU6snZgFDSgHOUFKqzHeyWnGZmw1C8/IU8gbGaF/O6FhAEMxLUjPO09+o/nNZwccXTKr
+         iOag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756215736; x=1756820536;
+        d=1e100.net; s=20230601; t=1756215743; x=1756820543;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=qAdfRT3RfdTKzniVhm6L20d/MG9qOdM1V7J02o/Uq+E=;
-        b=mAhr75IIO8llBLS7N2vzhH6o3vlvVenuKj1wqsuUNB5fEWAsDDWkvpxgKaluvCxFxx
-         +UVpFfIKWF6ElUg3sJaTi9isABnLu7DdcGDsJuOsNrFjqDMyeXx7f4Y19jNu7fEl3lLi
-         N6DtheTWJ3SNbf5kdwRiPEe2JUbctN0KTse2UKGiqGO0KjWje9RJTGGNQfKaxvksNlRA
-         qGYbrgKBSQ20LgieZ64hJkDkH1zuZZVegaxz6VjxhxutWWV0Z6eQnBuOY1OU+b8EJUU2
-         BFcXmXjsDRtZD07Z9mmWYBgBxz0v4hIQ6k6xLcvKlqP7psF/aqdswH0JCxDW1SNe3Z59
-         YvXg==
-X-Gm-Message-State: AOJu0YzBAS75wKuSZYVI4cPGxCapCHep3M4QY9RNZaO61JK5WDZi5IRm
-	DTJHdc540I2iSQKfIGBdZSclcufrw7rsv2yxjVKPKiN0Un6t9drD+bmCIU7mEpGb4AINImCqmhH
-	+kf5Nj/pPoTtf8ajJhVcxlOrxZUE+UJo=
-X-Gm-Gg: ASbGncvivMXn2MYD6PIvJLdSBY6xNj1tmLSBmegzUKRTBUAFgxlUBDqRHaxdz6X2dFZ
-	RMeLa50wZusLlTXjw5bpTTdRCJBuHBsj+4kH3lZxNIXIS8o3QbCpWyRRPedMUZdkEqIAQTqbuws
-	FTOU4ri7twn0EdpJFliEgNXaQzU9zeasCuTcPpSuX75jNOiQuSsiOkEcbCKVZHl22Gtx4+ilaN2
-	C8VQX8DWEcgeQW73Ak8Cy/tjLA=
-X-Google-Smtp-Source: AGHT+IHuUomL3ajT2tg5sdchy83gSMB8mwCP/IHk4ei5CjZUS4JtqnoWmUjIgWL3WTnrOfM87pn2dBHc3Hrsf9un4wk=
-X-Received: by 2002:a2e:330d:0:b0:336:85e3:a95c with SMTP id
- 38308e7fff4ca-33685e3b284mr9034371fa.29.1756215735993; Tue, 26 Aug 2025
- 06:42:15 -0700 (PDT)
+        bh=AnaOqRCWc8b654/XwwpXZoEHzRvpKDZrAMeumSj2xd8=;
+        b=AwHYk6qd7Dpgm70ME0RoQ1yTu+iJ+0BkEpYe8BlO6gajik1ys9MOm3XfCySqSoHPsq
+         IaJyE70dwEBLFBn5TNvbuc1TjvoK4321WU1QILpu0XOpvveoDL7wLNlZclzBT9ICzB9Q
+         ym1+tVeXY3JEfq/KauFUleSA3RfI5G16L6BpJKeEewN2hMW10yHDK8+JogXbTBrcSqXT
+         I6mp862zpvxMhW1L6npHu/02y1isQOHp5JzW19gXm9HS334lk3K6X/0NAX2R/vGV/PcB
+         aDz6f7ZdQIPBd8hSSFd/TtBmJpQ+K0Yi41jGPko7Xnz+RRRGnas9ffLQ5rYhSkekPFCi
+         obTg==
+X-Gm-Message-State: AOJu0Yys6JPbud66ct4oALxKCVc8kt15eWR5siQvN6oYpvKnHLP0uNtj
+	YHH5ThK8BvUMIQJGc5f3PunL1XCq6LUcNgTp8BKjicmq9uDAf/2Amo2oZrDcg4LQb15QDzH39uv
+	PBcPTbSMKccm/EFU/OAG1gI8irM2KWcU=
+X-Gm-Gg: ASbGncuqVluhHTqBOSgzZqB/H+O0tGkiOiYMkdXTZyte+6wAMaF2Pvb0E95S3JTPVju
+	3UqOOfAqxAMfaG+mG2kyPF5dtgktJNaKcjsysqnvbUhxaBtybcGddmg8QcJ09HgYRzTnwrF+hsg
+	Rtf04iTho0OZDaFNviYyQmp9mZTbnusOvepWTjvGvqknmxgbEgmTn/ZmWVii8kKAiCA5SvnFRJZ
+	BHsLQ==
+X-Google-Smtp-Source: AGHT+IH//yRuM1FqfeXTKhILIlT9lcQnPijRfnb9hxuttzNT3+RGc28R0T8wMNb4j0+8FT/+zuKbsyQG/6BwJC3APR8=
+X-Received: by 2002:a05:651c:3247:10b0:32b:7614:5745 with SMTP id
+ 38308e7fff4ca-33650f647f2mr29916881fa.20.1756215742777; Tue, 26 Aug 2025
+ 06:42:22 -0700 (PDT)
 MIME-Version: 1.0
-References: <cover.1754943874.git.mykola_kvach@epam.com> <98957da5c5068ae8340a21a9aa15a962905a8a22.1754943874.git.mykola_kvach@epam.com>
- <87qzx2an6k.fsf@epam.com>
-In-Reply-To: <87qzx2an6k.fsf@epam.com>
+References: <cover.1754943874.git.mykola_kvach@epam.com> <779a90853f249f8d8c4973874baeee1f787e92e0.1754943875.git.mykola_kvach@epam.com>
+ <877byuamrm.fsf@epam.com>
+In-Reply-To: <877byuamrm.fsf@epam.com>
 From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Tue, 26 Aug 2025 16:42:04 +0300
-X-Gm-Features: Ac12FXyeB4PejrWzfWfljLrUb9Y_fm_JV2MODpRnUIP-XDhyl8R0FMQWBo5HqHM
-Message-ID: <CAGeoDV-NfadvNk1VOCBhLT_FCDDtPzkJkvwLvpaF0BsovGUQaw@mail.gmail.com>
-Subject: Re: [PATCH v5 04/12] xen/arm: Prevent crash during
- disable_nonboot_cpus on suspend
+Date: Tue, 26 Aug 2025 16:42:11 +0300
+X-Gm-Features: Ac12FXyr_bjT2cYCw1pEfeLkfmN0Ea2lDw9aoEZkPzZGs-2yObHBM9dNf0aOtSI
+Message-ID: <CAGeoDV-ge7L-=b8GoDnBSXG6aefAOo6VAmUvPvnKkSf48AjLcQ@mail.gmail.com>
+Subject: Re: [PATCH v5 06/12] xen/arm: irq: Restore state of local IRQs during
+ system resume
 To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola Kvach <Mykola_Kvach@epam.com>, 
 	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
@@ -95,183 +95,119 @@ Content-Transfer-Encoding: quoted-printable
 
 Hi Volodymyr,
 
-On Sat, Aug 23, 2025 at 3:36=E2=80=AFAM Volodymyr Babchuk
+On Sat, Aug 23, 2025 at 3:45=E2=80=AFAM Volodymyr Babchuk
 <Volodymyr_Babchuk@epam.com> wrote:
->
 >
 > Hi Mykola,
 >
 > Mykola Kvach <xakep.amatop@gmail.com> writes:
 >
-> While I approve the change, the commit message is somewhat
-> unclear. Maybe "Don't release IRQs on suspend" will be better?
-
-Do you mean commit message title ?
-
->
 > > From: Mykola Kvach <mykola_kvach@epam.com>
 > >
-> > If we call disable_nonboot_cpus on ARM64 with system_state set
-> > to SYS_STATE_suspend, the following assertion will be triggered:
+> > On ARM, the first 32 interrupts (SGIs and PPIs) are banked per-CPU
+> > and not restored by gic_resume (for secondary cpus).
 > >
-> > ```
-> > (XEN) [   25.582712] Disabling non-boot CPUs ...
-> > (XEN) [   25.587032] Assertion '!in_irq() && (local_irq_is_enabled() ||=
- num_online_cpus() <=3D 1)' failed at common/xmalloc_tlsf.c:714
-> > [...]
-> > (XEN) [   25.975069] Xen call trace:
-> > (XEN) [   25.978353]    [<00000a000022e098>] xfree+0x130/0x1a4 (PC)
-> > (XEN) [   25.984314]    [<00000a000022e08c>] xfree+0x124/0x1a4 (LR)
-> > (XEN) [   25.990276]    [<00000a00002747d4>] release_irq+0xe4/0xe8
-> > (XEN) [   25.996152]    [<00000a0000278588>] time.c#cpu_time_callback+0=
-x44/0x60
-> > (XEN) [   26.003150]    [<00000a000021d678>] notifier_call_chain+0x7c/0=
-xa0
-> > (XEN) [   26.009717]    [<00000a00002018e0>] cpu.c#cpu_notifier_call_ch=
-ain+0x24/0x48
-> > (XEN) [   26.017148]    [<00000a000020192c>] cpu.c#_take_cpu_down+0x28/=
-0x34
-> > (XEN) [   26.023801]    [<00000a0000201944>] cpu.c#take_cpu_down+0xc/0x=
-18
-> > (XEN) [   26.030281]    [<00000a0000225c5c>] stop_machine.c#stopmachine=
-_action+0xbc/0xe4
-> > (XEN) [   26.038057]    [<00000a00002264bc>] tasklet.c#do_tasklet_work+=
-0xb8/0x100
-> > (XEN) [   26.045229]    [<00000a00002268a4>] do_tasklet+0x68/0xb0
-> > (XEN) [   26.051018]    [<00000a000026e120>] domain.c#idle_loop+0x7c/0x=
-194
-> > (XEN) [   26.057585]    [<00000a0000277e30>] start_secondary+0x21c/0x22=
-0
-> > (XEN) [   26.063978]    [<00000a0000361258>] 00000a0000361258
-> > ```
+> > This patch introduces restore_local_irqs_on_resume, a function that
+> > restores the state of local interrupts on the target CPU during
+> > system resume.
 > >
-> > This happens because before invoking take_cpu_down via the stop_machine=
-_run
-> > function on the target CPU, stop_machine_run requests
-> > the STOPMACHINE_DISABLE_IRQ state on that CPU. Releasing memory in
-> > the release_irq function then triggers the assertion:
+> > It iterates over all local IRQs and re-enables those that were not
+> > disabled, reprogramming their routing and affinity accordingly.
 > >
-> > /*
-> >  * Heap allocations may need TLB flushes which may require IRQs to be
-> >  * enabled (except when only 1 PCPU is online).
-> >  */
-> >
-> > This patch adds system state checks to guard calls to request_irq
-> > and release_irq. These calls are now skipped when system_state is
-> > SYS_STATE_{resume,suspend}, preventing unsafe operations during
-> > suspend/resume handling.
->
-> If any call to release_irq() during suspend will trigger ASSERT, and it
-> is fine to leave IRQs as is during suspend, maybe it will be easier to
-> put
->
-> +        if ( system_state =3D=3D SYS_STATE_suspend )
-> +            return;
->
-> straight into release_irq() code? This will be easier than playing
-> whack-a-mole when some other patch will add another release_irq() call
-> somewhere.
-
-I=E2=80=99m fine with adding this check directly into release_irq(), as lon=
-g as
-the other maintainers agree with this approach.
-
->
->
+> > The function is invoked from start_secondary, ensuring that local IRQ
+> > state is restored early during CPU bring-up after suspend.
 > >
 > > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 > > ---
-> > Changes in V4:
-> >   - removed the prior tasklet-based workaround in favor of a more
-> >     straightforward and safer solution
-> >   - reworked the approach by adding explicit system state checks around
-> >     request_irq and release_irq calls, skips these calls during suspend
-> >     and resume states to avoid unsafe memory operations when IRQs are
-> >     disabled
-> > ---
-> >  xen/arch/arm/gic.c           |  6 ++++++
-> >  xen/arch/arm/tee/ffa_notif.c |  2 +-
-> >  xen/arch/arm/time.c          | 18 ++++++++++++------
-> >  3 files changed, 19 insertions(+), 7 deletions(-)
+> >  xen/arch/arm/irq.c | 44 ++++++++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 44 insertions(+)
 > >
-> > diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
-> > index a018bd7715..9856cb1592 100644
-> > --- a/xen/arch/arm/gic.c
-> > +++ b/xen/arch/arm/gic.c
-> > @@ -388,6 +388,9 @@ void gic_dump_info(struct vcpu *v)
-> >
-> >  void init_maintenance_interrupt(void)
-> >  {
-> > +    if ( system_state =3D=3D SYS_STATE_resume )
-> > +        return;
-> > +
-> >      request_irq(gic_hw_ops->info->maintenance_irq, 0, maintenance_inte=
-rrupt,
-> >                  "irq-maintenance", NULL);
+> > diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
+> > index 148f184f8b..b3ff38dc27 100644
+> > --- a/xen/arch/arm/irq.c
+> > +++ b/xen/arch/arm/irq.c
+> > @@ -113,6 +113,47 @@ static int init_local_irq_data(unsigned int cpu)
+> >      return 0;
 > >  }
-> > @@ -461,6 +464,9 @@ static int cpu_gic_callback(struct notifier_block *=
-nfb,
-> >      switch ( action )
-> >      {
-> >      case CPU_DYING:
-> > +        if ( system_state =3D=3D SYS_STATE_suspend )
-> > +            break;
+> >
+> > +/*
+> > + * The first 32 interrupts (PPIs and SGIs) are per-CPU,
+> > + * so call this function on the target CPU to restore them.
+> > + *
+> > + * SPIs are restored via gic_resume.
+> > + */
+> > +static void restore_local_irqs_on_resume(void)
+> > +{
+> > +    int irq;
 > > +
-> >          /* This is reverting the work done in init_maintenance_interru=
-pt */
-> >          release_irq(gic_hw_ops->info->maintenance_irq, NULL);
-> >          break;
-> > diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.=
-c
-> > index 00efaf8f73..06f715a82b 100644
-> > --- a/xen/arch/arm/tee/ffa_notif.c
-> > +++ b/xen/arch/arm/tee/ffa_notif.c
-> > @@ -347,7 +347,7 @@ void ffa_notif_init_interrupt(void)
-> >  {
-> >      int ret;
-> >
-> > -    if ( notif_enabled && notif_sri_irq < NR_GIC_SGI )
-> > +    if ( notif_enabled && notif_sri_irq < NR_GIC_SGI && system_state !=
-=3D SYS_STATE_resume )
-> >      {
-> >          /*
-> >           * An error here is unlikely since the primary CPU has already
-> > diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
-> > index ad984fdfdd..b2e07ade43 100644
-> > --- a/xen/arch/arm/time.c
-> > +++ b/xen/arch/arm/time.c
-> > @@ -320,10 +320,13 @@ void init_timer_interrupt(void)
-> >      WRITE_SYSREG(CNTHCTL_EL2_EL1PCTEN, CNTHCTL_EL2);
-> >      disable_physical_timers();
-> >
-> > -    request_irq(timer_irq[TIMER_HYP_PPI], 0, htimer_interrupt,
-> > -                "hyptimer", NULL);
-> > -    request_irq(timer_irq[TIMER_VIRT_PPI], 0, vtimer_interrupt,
-> > -                   "virtimer", NULL);
 > > +    if ( system_state !=3D SYS_STATE_resume )
+> > +        return;
+>
+> Maybe it is better to move this check to restore_local_irqs_on_resume()
+> caller? You can put ASSERT(system_state =3D=3D SYS_STATE_resume) there
+> instead.
+>
+> I am saying this because name of restore_local_irqs_on_resume() implies t=
+hat it
+> should be called only on resume.
+
+Not a problem.
+I'll move checking outside the function.
+
+>
+> > +
+> > +    spin_lock(&local_irqs_type_lock);
+> > +
+> > +    for ( irq =3D 0; irq < NR_LOCAL_IRQS; irq++ )
 > > +    {
-> > +        request_irq(timer_irq[TIMER_HYP_PPI], 0, htimer_interrupt,
-> > +                    "hyptimer", NULL);
-> > +        request_irq(timer_irq[TIMER_VIRT_PPI], 0, vtimer_interrupt,
-> > +                    "virtimer", NULL);
+> > +        struct irq_desc *desc =3D irq_to_desc(irq);
+> > +
+> > +        spin_lock(&desc->lock);
+> > +
+> > +        if ( test_bit(_IRQ_DISABLED, &desc->status) )
+> > +        {
+> > +            spin_unlock(&desc->lock);
+> > +            continue;
+> > +        }
+> > +
+> > +        /* it is needed to avoid asserts in below calls */
+> > +        set_bit(_IRQ_DISABLED, &desc->status);
+>
+> Assert in the call below isn't just because. You need to either call
+> desc->handler->disable() to properly disable the IRQ or justify why it
+> is fine to just set the bit.
+
+Got it. I=E2=80=99ll call the disable handler here instead.
+
+>
+> > +
+> > +        gic_route_irq_to_xen(desc, GIC_PRI_IRQ);
+> > +
+> > +        /* _IRQ_DISABLED is cleared by below call */
+> > +        desc->handler->startup(desc);
+> > +
+> > +        spin_unlock(&desc->lock);
 > > +    }
-> >
-> >      check_timer_irq_cfg(timer_irq[TIMER_HYP_PPI], "hypervisor");
-> >      check_timer_irq_cfg(timer_irq[TIMER_VIRT_PPI], "virtual");
-> > @@ -338,8 +341,11 @@ static void deinit_timer_interrupt(void)
+> > +
+> > +    spin_unlock(&local_irqs_type_lock);
+> > +}
+> > +
+> >  static int cpu_callback(struct notifier_block *nfb, unsigned long acti=
+on,
+> >                          void *hcpu)
 > >  {
-> >      disable_physical_timers();
+> > @@ -131,6 +172,9 @@ static int cpu_callback(struct notifier_block *nfb,=
+ unsigned long action,
+> >              printk(XENLOG_ERR "Unable to allocate local IRQ for CPU%u\=
+n",
+> >                     cpu);
+> >          break;
+> > +    case CPU_STARTING:
+> > +        restore_local_irqs_on_resume();
+> > +        break;
+> >      }
 > >
-> > -    release_irq(timer_irq[TIMER_HYP_PPI], NULL);
-> > -    release_irq(timer_irq[TIMER_VIRT_PPI], NULL);
-> > +    if ( system_state !=3D SYS_STATE_suspend )
-> > +    {
-> > +        release_irq(timer_irq[TIMER_HYP_PPI], NULL);
-> > +        release_irq(timer_irq[TIMER_VIRT_PPI], NULL);
-> > +    }
-> >  }
-> >
-> >  /* Wait a set number of microseconds */
+> >      return notifier_from_errno(rc);
 >
 > --
 > WBR, Volodymyr
