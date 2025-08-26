@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CF82B35963
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 11:52:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1094248.1449589 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B51D1B35968
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 11:53:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1094263.1449600 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqqLX-0006QZ-TF; Tue, 26 Aug 2025 09:52:07 +0000
+	id 1uqqMe-00073M-6X; Tue, 26 Aug 2025 09:53:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1094248.1449589; Tue, 26 Aug 2025 09:52:07 +0000
+Received: by outflank-mailman (output) from mailman id 1094263.1449600; Tue, 26 Aug 2025 09:53:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqqLX-0006Nj-QQ; Tue, 26 Aug 2025 09:52:07 +0000
-Received: by outflank-mailman (input) for mailman id 1094248;
- Tue, 26 Aug 2025 09:52:07 +0000
+	id 1uqqMe-00070z-3I; Tue, 26 Aug 2025 09:53:16 +0000
+Received: by outflank-mailman (input) for mailman id 1094263;
+ Tue, 26 Aug 2025 09:53:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vqZn=3G=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uqqLX-0006MN-36
- for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 09:52:07 +0000
-Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch
- [79.135.106.30]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5263d15d-8262-11f0-b898-0df219b8e170;
- Tue, 26 Aug 2025 11:52:05 +0200 (CEST)
+ id 1uqqMc-00070t-Vb
+ for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 09:53:14 +0000
+Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch
+ [79.135.106.29]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7acb4d31-8262-11f0-b898-0df219b8e170;
+ Tue, 26 Aug 2025 11:53:12 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,20 +36,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5263d15d-8262-11f0-b898-0df219b8e170
+X-Inumbo-ID: 7acb4d31-8262-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1756201923; x=1756461123;
+	s=protonmail; t=1756201991; x=1756461191;
 	bh=qlrjY5GnMadOaXSYmCF0DmY3GZ2EUT72mGX4VGyZIcA=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=dYcqGRO3oess9JVAx5Gpxl/EKh16q092+C1pAxPjHgGWzuyay6xcON7qpSkfEnd5w
-	 lRoTVSx3r0DPOnv0fu7NxvLNd9q67kQCpgYIowsp4eo4ssjtb5Vz6806unNoQX1sr5
-	 YScoVh/1i/8yGNDzRoxQqzwnkttgaDUR8yl97OEhFcxRnvMuzOjmDggdPl62ZlxIuT
-	 3UDCGsY7wD+1CVh3PwfWrOUYmTwFmJDnux0gc8TrAWer4fVjS9gPh1rMOvhikAyXji
-	 ltvfy8lK6DPcVH6JDQkyLm4NWnkFOym5QslVRgFBxL918Rd9mPoMeN+fyfnnmRttWD
-	 v+AQHzRYcfj7g==
-Date: Tue, 26 Aug 2025 09:52:00 +0000
+	b=NzVCnhQX2RAPPX22tRGXcvGqNrnEB+Sf0r5z9eGQztwsASTDtZj/M4r+94TgLbbeE
+	 9ITNdp1/KP61Dh+S+1nhczwnqV5f5Lu3mBPVKxwR2muwDoYDt6i6zhKRgUb6gRysmY
+	 t7LvluJxNJdpOVI98SnD92lE3PK6fFPoC88jQNyhQ3GF1YPcoHxq4OyPDy+9SAbAhs
+	 K5VVHfSBauPTP7N1arbIXK3Pgxd3iaT1TuaTgJHyWOE19YyStzbTcShefCamvOkrxQ
+	 2wwwesX49MTiNQfzCNuaCjIFY4qjkdkLU3oyiWPhKentLBY1wFXeD4muC2Ell/rn1I
+	 80RSgVvWMYXDA==
+Date: Tue, 26 Aug 2025 09:53:07 +0000
 To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 From: dmkhn@proton.me
 Cc: Jan Beulich <jbeulich@suse.com>, andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
@@ -58,7 +58,7 @@ Message-ID: <aK2Du/ANa1QnlY3g@kraken>
 In-Reply-To: <DC81ACV8TXQ1.17YID3PYUCKA5@amd.com>
 References: <20250812223024.2364749-1-dmukhin@ford.com> <20250812223024.2364749-2-dmukhin@ford.com> <f85ae718-0243-4426-a555-327afffe7148@suse.com> <aKUPo+hRdfGlg+S8@kraken> <a5d91a6d-cde6-42fc-8497-f2c822e98174@suse.com> <DC81ACV8TXQ1.17YID3PYUCKA5@amd.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: a4b37eb2f29a6726f2391d5ec2e65029c0a643d0
+X-Pm-Message-ID: eec7326ff2581e7e3c7c739584719eb6513f8b2d
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
