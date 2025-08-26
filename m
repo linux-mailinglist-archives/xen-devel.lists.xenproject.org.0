@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F56AB35955
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 11:48:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1094225.1449570 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D42BB35961
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 11:51:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1094241.1449580 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqqIL-0004CJ-8I; Tue, 26 Aug 2025 09:48:49 +0000
+	id 1uqqKq-0005un-K9; Tue, 26 Aug 2025 09:51:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1094225.1449570; Tue, 26 Aug 2025 09:48:49 +0000
+Received: by outflank-mailman (output) from mailman id 1094241.1449580; Tue, 26 Aug 2025 09:51:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqqIL-00049v-4f; Tue, 26 Aug 2025 09:48:49 +0000
-Received: by outflank-mailman (input) for mailman id 1094225;
- Tue, 26 Aug 2025 09:48:47 +0000
+	id 1uqqKq-0005sE-HE; Tue, 26 Aug 2025 09:51:24 +0000
+Received: by outflank-mailman (input) for mailman id 1094241;
+ Tue, 26 Aug 2025 09:51:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vqZn=3G=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uqqII-0003Hk-FV
- for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 09:48:47 +0000
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch
- [109.224.244.18]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id db0f3ea6-8261-11f0-a32c-13f23c93f187;
- Tue, 26 Aug 2025 11:48:45 +0200 (CEST)
+ id 1uqqKp-0005s8-Rf
+ for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 09:51:23 +0000
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch
+ [109.224.244.17]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 393df5bc-8262-11f0-a32c-13f23c93f187;
+ Tue, 26 Aug 2025 11:51:23 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,236 +36,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db0f3ea6-8261-11f0-a32c-13f23c93f187
+X-Inumbo-ID: 393df5bc-8262-11f0-a32c-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1756201723; x=1756460923;
-	bh=/WGfGDYzqJ/CZ4oEjMib200hZkVteXFK5ypqJ+mebiQ=;
+	s=protonmail; t=1756201881; x=1756461081;
+	bh=kJEcQS6+eU3bNX4bPJig/hf6cxnvjY9POdPDmJHOvUc=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=jK4p1INCnzZOgLQpy4gBy8ngWs/nU1zk7bwqf11HIEIOz7bajLPJ0jWDpa2mfibEO
-	 36kkdsU3Fw0NVvLu1u5PGOXyD6/nZqw6xA/SNFgtHIt6lnUDHdLdt0bdxxNaCg/gIL
-	 S5XNom5vG5uM1zp/HjqwJcE8X8KP1PxQqKF5OubzrLaH83qCrdcKc3c/6DPSNokVMM
-	 OjOhnbbQus3IMeIanX22aTmK8Y7PPDlBKhj2mWuL/k7i0uLoMcAk+HBeiLaFFYRC1N
-	 W3oH5Yf7nsIvML3Wp7Sd7qUad/20CrPFfbJk7JtuCOLPriI3th8IrQCDfMXmaKa57f
-	 /pyIUCg1vKtTA==
-Date: Tue, 26 Aug 2025 09:48:38 +0000
-To: Anthony PERARD <anthony@xenproject.org>
+	b=neBCetmMGgutRhPLgD0zHt3QZOW07KNYPMArdjLxnJ+JLCuvJcMytTOyf3F6Z4Yz3
+	 6blmXfxWOss4AKA72UbUtGF3yny3PMrld3veycHyxa3AzVe6TGyBryyMNAlw2mSxXJ
+	 pcH1E6m6TmF74DcwD29ge9qVCFl/pS1xPej3+DIvz7ox/oYU8DG0JazBenEJ2uvv9i
+	 WSDCmAHjEDpBaDyjHnaTx/dQgvc3zZI3aLiRwLBB2uiYpHB4C//JpMfSsr5jvNtB99
+	 VhT+fDaKXQRau97QjOn2zRf7lbrQCM2URJTCMVTDihmJozxxjsrx10MSeQrqSwJnrC
+	 b4k6GvPzXNgfA==
+Date: Tue, 26 Aug 2025 09:51:17 +0000
+To: Julien Grall <julien@xen.org>
 From: dmkhn@proton.me
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, Julien Grall <jgrall@amazon.com>
-Subject: Re: [PATCH v16 3/4] tools/tests: introduce unit tests for domain ID allocator
-Message-ID: <aK2C8iPRJAns2VLu@kraken>
-In-Reply-To: <aKxpe7OJ8B7Qif5c@l14>
-References: <20250812223024.2364749-1-dmukhin@ford.com> <20250812223024.2364749-4-dmukhin@ford.com> <aKxpe7OJ8B7Qif5c@l14>
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, Julien Grall <jgrall@amazon.com>, Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Subject: Re: [PATCH v16 1/4] xen/domain: unify domain ID allocation
+Message-ID: <aK2DT1tExIl5Ua7r@kraken>
+In-Reply-To: <304cffd8-498d-447f-a8b0-cda694393ec8@xen.org>
+References: <20250812223024.2364749-1-dmukhin@ford.com> <20250812223024.2364749-2-dmukhin@ford.com> <304cffd8-498d-447f-a8b0-cda694393ec8@xen.org>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 62e6d3400ba2ebac7b730de1bdfcb57985856d55
+X-Pm-Message-ID: 9c2045f5c48d4270e2a5dc7d0817f8faa1b6c2f7
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 25, 2025 at 03:47:39PM +0200, Anthony PERARD wrote:
-
-Thanks for review!
-
-Will address in the next revision.
-Please see some responses below.
-
-> On Tue, Aug 12, 2025 at 10:30:50PM +0000, dmkhn@proton.me wrote:
-> > diff --git a/tools/tests/domid/.gitignore b/tools/tests/domid/.gitignor=
+On Wed, Aug 20, 2025 at 10:33:16PM +0100, Julien Grall wrote:
+> Hi Denis,
+>=20
+> On 12/08/2025 23:30, dmkhn@proton.me wrote:
+> > From: Denis Mukhin <dmukhin@ford.com>
+> >
+> > Currently, there are two different domain ID allocation implementations=
+:
+> >
+> >    1) Sequential IDs allocation in dom0less Arm code based on max_init_=
+domid;
+> >
+> >    2) Sequential IDs allocation in XEN_DOMCTL_createdomain; does not us=
 e
-> > new file mode 100644
-> > index 000000000000..0e02715159c2
-> > --- /dev/null
-> > +++ b/tools/tests/domid/.gitignore
-> > @@ -0,0 +1,3 @@
-> > +*.o
+> >       max_init_domid (both Arm and x86).
+> >
+> > The domain ID allocation covers dom0 or late hwdom, predefined domains,
+> > post-boot domains, excluding Xen system domains (domid >=3D
+> > DOMID_FIRST_RESERVED).
+> >
+> > It makes sense to have a common helper code for such task across archit=
+ectures
+> > (Arm and x86) and between dom0less / toolstack domU allocation.
+> >
+> > Note, fixing dependency on max_init_domid is out of scope of this patch=
+.
+> >
+> > Wrap the domain ID allocation as an arch-independent function domid_all=
+oc() in
+> > new common/domid.c based on the bitmap.
+> >
+> > Allocation algorithm:
+> > - If an explicit domain ID is provided, verify its availability and use=
+ it if
+> >    ID is not used;
+> > - If DOMID_INVALID is provided, search the range [1..DOMID_FIRST_RESERV=
+ED-1],
+> >    starting from the last used ID.
+> >    Implementation guarantees that two consecutive calls will never retu=
+rn the
+> >    same ID. ID#0 is reserved for the first boot domain (currently, dom0=
+) and
+> >    excluded from the allocation range.
+> >
+> > Remove is_free_domid() helper as it is not needed now.
+> >
+> > No functional change intended.
+> >
+> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> > Reviewed-by: Julien Grall <jgrall@amazon.com>
+>  > Reviewed-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+>  > ---> Changes since v15:
+> > - fixup for check after the first pass in the bitarray in domid_alloc()
 >=20
-> "*.o" is already in the .gitignore at the root of the project. I don't
-> think it's useful here.
+> This was a good catch from Jan. Has a unit-test been added for this issue=
+?
 
-Ack.
-
->=20
-> > +generated
-> > +test-domid
-> > diff --git a/tools/tests/domid/Makefile b/tools/tests/domid/Makefile
-> > new file mode 100644
-> > index 000000000000..0a124a8bfc76
-> > --- /dev/null
-> > +++ b/tools/tests/domid/Makefile
-> > @@ -0,0 +1,84 @@
-> > +# SPDX-License-Identifier: GPL-2.0-only
-> > +#
-> > +# Unit tests for domain ID allocator.
-> > +#
-> > +# Copyright 2025 Ford Motor Company
-> > +
-> > +XEN_ROOT=3D$(CURDIR)/../../..
-> > +include $(XEN_ROOT)/tools/Rules.mk
-> > +
-> > +TESTS :=3D test-domid
-> > +
-> > +strip-list =3D $(sort $(strip $(foreach x,$(1),$(strip $(x)))))
->=20
-> What's that macro for? Also, what's a "list"?
->=20
-> > +define list-c-headers
-> > +$(shell sed -n -r \
->=20
-> Could you use "-E" instead of "-r"? (-r might not work on FreeBSD)
-
-re: FreeBSD: I've found there's a dedicated pipeline for Xen on FreeBSD
-(cirrus CI), but I did not figure how to trigger it, will appreciate help
-with that.
-
->=20
-> > +    's/^[ \t]*# *include[ \t]*[<"]([^">]+)[">].*/\1/p' $(1) 2>/dev/nul=
-l)
-> > +endef
-> > +
-> > +define emit-harness-nested-rule
-> > +$(1): $(CURDIR)/harness.h
-> > +=09mkdir -p $$(dir $$@)
->=20
-> You can use $(@D) instead of $(dir $@). The only difference is a /
-> not present at the end.
->=20
-> > +=09ln -sf $$^ $$@
->=20
-> This should use $<, I don't think the command is going to work if
-> there's multiple prerequisite.
->=20
-> > +endef
-> > +
-> > +define emit-harness-rules
-> > +ifneq ($(strip $(3)),)
->=20
-> How many time do you need to call $(strip) ?
-> Also, I think I would prefer to have $(if $(strip $(3)), [the rest])
-> rather than actually evaluating code and generating code that we already
-> know is isn't going to be executed.
->=20
-> > +$(foreach h,$(3),$(call emit-harness-nested-rule,$(CURDIR)/generated/$=
-(h)))
-> > +vpath $(1) $(2)
-> > +$(1:.c=3D.o): $(addprefix $(CURDIR)/generated/,$(3))
-> > +endif
-> > +endef
->=20
-> This macro fails if there's more than one "#include" in "domid.c".
->=20
-> And if there's no "#include" in "domid.c", then Make doesn't know how to
-> make "domid.o" for "test-domid".
->=20
-> > +
-> > +define vpath-with-harness-deps
-> > +$(call emit-harness-rules,$(1),$(2),\
-> > +    $(call strip-list,$(call list-c-headers,$(2)$(1))))
-> > +endef
-> > +
-> > +.PHONY: all
-> > +all: $(TESTS)
-> > +
-> > +.PHONY: run
-> > +run: $(TESTS)
-> > +=09$(foreach t,$(TESTS),./$(t);)
->=20
-> This recipe doesn't work as expected. You need `set -e` or only the last
-> tests count.
->=20
-> > +
-> > +.PHONY: clean
-> > +clean:
-> > +=09$(RM) -rf $(CURDIR)/generated
->=20
-> $(RM) already contain the '-f' option, no need to add it a second time.
->=20
-> Also, we expected Make to run all commands in recipe from $(CURDIR), so
-> adding $(CURDIR) is unnecessary, could potentially be an issue.
->=20
-> > +=09$(RM) -- *.o $(TESTS) $(DEPS_RM)
-> > +
-> > +.PHONY: distclean
-> > +distclean: clean
-> > +=09$(RM) -- *~
-> > +
-> > +.PHONY: install
-> > +install: all
-> > +=09$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC)/tests
-> > +=09$(INSTALL_PROG) test-domid $(DESTDIR)$(LIBEXEC)/tests
-> > +
-> > +.PHONY: uninstall
-> > +uninstall:
-> > +=09$(RM) -- $(DESTDIR)$(LIBEXEC)/tests/test-domid
-> > +
-> > +CFLAGS +=3D -D__XEN_TOOLS__
-> > +# find-next-bit.c
-> > +CFLAGS +=3D '-DEXPORT_SYMBOL(x)=3D' \
-> > +          -Dfind_first_bit \
-> > +          -Dfind_first_zero_bit \
-> > +          -Dfind_next_bit \
-> > +          -Dfind_next_bit_le \
-> > +          -Dfind_next_zero_bit_le
-> > +CFLAGS +=3D $(APPEND_CFLAGS)
-> > +CFLAGS +=3D $(CFLAGS_xeninclude)
-> > +CFLAGS +=3D -I./generated/
-> > +
-> > +LDFLAGS +=3D $(APPEND_LDFLAGS)
-> > +
-> > +vpath find-next-bit.c $(XEN_ROOT)/xen/lib/
-> > +# Ubuntu {16,18}.04 need single eval at the call site.
->=20
-> I'd rather see a comment about what's the macro is about rather that a
-> comment some Linux distribution. Our target is GNU Make 3.80, without
-> regards to a particular distribution. (Also I don't think it's useful to
-> point out that `eval` is needed for older version of Make, at least in
-> our project.)
-
-Ack.
+No, I did not update the test suite, will do.
 
 >=20
-> > +$(eval $(call vpath-with-harness-deps,domid.c,$(XEN_ROOT)/xen/common/)=
-)
-> > +
-> > +test-domid: domid.o find-next-bit.o test-domid.o
-> > +=09$(CC) $^ -o $@ $(LDFLAGS)
-> > +
-> > +-include $(DEPS_INCLUDE)
-> > diff --git a/tools/tests/domid/test-domid.c b/tools/tests/domid/test-do=
-mid.c
-> > new file mode 100644
-> > index 000000000000..51a88a6a9550
-> > --- /dev/null
-> > +++ b/tools/tests/domid/test-domid.c
-> > @@ -0,0 +1,93 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only */
-> > +/*
-> > + * Unit tests for domain ID allocator.
-> > + *
-> > + * Copyright 2025 Ford Motor Company
-> > + */
-> > +
-> > +#include "harness.h"
-> > +
-> > +#define verify(exp, fmt, args...) do { \
-> > +    if ( !(exp) ) \
-> > +        printf(fmt, ## args); \
-> > +    assert(exp); \
->=20
-> Relying on assert() for the test isn't wise. It's useful for developing
-> and debugging because it calls abort(), but they can easily be get rid of=
-,
-> by simply building with -DNDEBUG. Could you maybe replace it with exit()
-> since you already check the condition?
+> Anyway, my reviewed-by holds.
 
-Yep, will do.
+Thanks.
 
 >=20
->=20
-> Thanks,
+> Cheers,
 >=20
 > --
-> Anthony PERARD
+> Julien Grall
 >=20
 
 
