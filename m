@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B8F3B364D6
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 15:42:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1094412.1449728 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 691C5B364DA
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 15:42:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1094416.1449738 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqtwE-0007k6-E2; Tue, 26 Aug 2025 13:42:14 +0000
+	id 1uqtwJ-000867-L9; Tue, 26 Aug 2025 13:42:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1094412.1449728; Tue, 26 Aug 2025 13:42:14 +0000
+Received: by outflank-mailman (output) from mailman id 1094416.1449738; Tue, 26 Aug 2025 13:42:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqtwE-0007ht-Aa; Tue, 26 Aug 2025 13:42:14 +0000
-Received: by outflank-mailman (input) for mailman id 1094412;
- Tue, 26 Aug 2025 13:42:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uqtwJ-00083M-Hm; Tue, 26 Aug 2025 13:42:19 +0000
+Received: by outflank-mailman (input) for mailman id 1094416;
+ Tue, 26 Aug 2025 13:42:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+/mc=3G=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1uqtwC-0007ex-P5
- for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 13:42:12 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 774c437f-8282-11f0-b898-0df219b8e170;
- Tue, 26 Aug 2025 15:42:10 +0200 (CEST)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-55f3a3f2f60so2488963e87.2
- for <xen-devel@lists.xenproject.org>; Tue, 26 Aug 2025 06:42:10 -0700 (PDT)
+ id 1uqtwI-0007MD-8P
+ for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 13:42:18 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7ade9d84-8282-11f0-a32c-13f23c93f187;
+ Tue, 26 Aug 2025 15:42:16 +0200 (CEST)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-3367144d196so21211171fa.3
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Aug 2025 06:42:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,51 +40,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 774c437f-8282-11f0-b898-0df219b8e170
+X-Inumbo-ID: 7ade9d84-8282-11f0-a32c-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756215730; x=1756820530; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1756215736; x=1756820536; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=nPDZW4RtYOdvhdvtHbUMHTmwCLpttVwtYw2VpfuKeIo=;
-        b=G5zgCJJGH+bj/1YqdOcrmUKySLedYAhxyC4+jQCU3G5t+dJRXM0iX36JYIBqlTbxwV
-         XfbC04KGVqE5yylDjny5dhMCGmBdS8xnGMSfgB71Z3jf1aOpkkpRdjOeEDZJI+BxnXyW
-         uobn5Z7gjrgUIMwQbZYz3PoItamFGbqXULqTI2AmjWDE1WF3/jj3M8z7AqhBcON3fVjs
-         FIhnk3tg5S+LmD2caYugRc5d4reg3RAnGCCuYL00nXLc9oFeAoJ3fquIK1QU4TC3u4VP
-         npqTt+bSyjZqS9Mi2doZ4wtQ0aoWrghLIQ9W1tKnn/wqrzzMfQHUvsH7p5wMdWN9y9h3
-         Orkg==
+        bh=qAdfRT3RfdTKzniVhm6L20d/MG9qOdM1V7J02o/Uq+E=;
+        b=A0h7SaBEDgkHCaiqvX0OeCrwt9XDwTRfG53JkaFsAHfhqEry/pVlyDbVitFUVqRCKy
+         BQsfRVM13sNOVhPKvryJVqWtY38fDW59ar8HzxHJUemjv7iIVxYeYC8mMogkl58lCpay
+         n/OaYwfejy+y9za0QI/vQhFWEj+dT1jnO4ClZNRTFfUWwb8l6FY1x6rriubbMUz+8eaF
+         /X6VoJL5XTpJSceSoZ1EcOZ6s8fU0nNuuug/ugLYw3e2Op0Z7b1vnqGBSFIMP8moXUTV
+         E6KiuU0Ig5f20CxVHKnlnwxUU5SWkKus35E/UCNs/NUpyB5S134f/HAl2l7/a1Zharvs
+         s4uQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756215730; x=1756820530;
+        d=1e100.net; s=20230601; t=1756215736; x=1756820536;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=nPDZW4RtYOdvhdvtHbUMHTmwCLpttVwtYw2VpfuKeIo=;
-        b=JSXlmkZ8wI8H3Tq1avNQL4npUcVKfbVGUAkqDoRNkeLReXC35UbI8iR3Xg6tXytaXB
-         1eCkqbZ/FFU7cA8NQttQOsFsYMliWFFLLg1320oW3qcMCcq+BAsMPu39fToCfMInwim5
-         +hWFZdCBf4lwCb0TPBAwaNvm2sxtU57rfeAsJWHCtQVDGhbR5z/3jlq5nK7+U5xt6f83
-         NsCgGW/rYvKNW/mfrSjcXISIANctKbZTE5TsSwz/4JwQoucz4sp/98ALtP7H6ZLmR9cd
-         YCzAQIcTzwt65Ney8gxvLPDhOHkIV+GnowkK89PaViSTygWjbCbKW/QqKCDO8ChHh8E2
-         Vx7w==
-X-Gm-Message-State: AOJu0YzHjVeZXE3a09jjsdmmdnpTn70LK4B2y61jHwPCMG8VzCh6ELDu
-	i5gOoK5LC/ajwogF7A4+CVNi/EVbbFrUzrfTgWmXymbyR/f3p8swDZfB7g/5GBtW38G00ivfK9z
-	Bv6aeD5s57cvF1Hu/s4LXFZH7PvvnZYA=
-X-Gm-Gg: ASbGncuE0nn67C6Cv5OF87JC16nDDpKEoPpgTvor/1n7avYswrfkadQzOpqZT3PbwFC
-	oSNH0v8oI4V7g9nhh14klq43sk2EqNobXkcm2BaJAiQFWEspXy3kn4vnmIcuxaiom0LMl0I3aKc
-	2eKJRk9mjv89LQgi6+Al1J+cDaF+FUgszu7uCwX8Rr5i0ArC8iAXMN1SjUYe9zp35axDbuZVivY
-	xd2qA==
-X-Google-Smtp-Source: AGHT+IFUJsMj5iY2X9cKJZ8ig2gWP4ixaeiiUnAawSYp93If0IpVjFaaN7GSHPSgLGrh2z4z1/smwE9PG+vdEYRbGQQ=
-X-Received: by 2002:a05:6512:2212:b0:55f:3e26:2514 with SMTP id
- 2adb3069b0e04-55f3e262913mr3535437e87.33.1756215729919; Tue, 26 Aug 2025
- 06:42:09 -0700 (PDT)
+        bh=qAdfRT3RfdTKzniVhm6L20d/MG9qOdM1V7J02o/Uq+E=;
+        b=mAhr75IIO8llBLS7N2vzhH6o3vlvVenuKj1wqsuUNB5fEWAsDDWkvpxgKaluvCxFxx
+         +UVpFfIKWF6ElUg3sJaTi9isABnLu7DdcGDsJuOsNrFjqDMyeXx7f4Y19jNu7fEl3lLi
+         N6DtheTWJ3SNbf5kdwRiPEe2JUbctN0KTse2UKGiqGO0KjWje9RJTGGNQfKaxvksNlRA
+         qGYbrgKBSQ20LgieZ64hJkDkH1zuZZVegaxz6VjxhxutWWV0Z6eQnBuOY1OU+b8EJUU2
+         BFcXmXjsDRtZD07Z9mmWYBgBxz0v4hIQ6k6xLcvKlqP7psF/aqdswH0JCxDW1SNe3Z59
+         YvXg==
+X-Gm-Message-State: AOJu0YzBAS75wKuSZYVI4cPGxCapCHep3M4QY9RNZaO61JK5WDZi5IRm
+	DTJHdc540I2iSQKfIGBdZSclcufrw7rsv2yxjVKPKiN0Un6t9drD+bmCIU7mEpGb4AINImCqmhH
+	+kf5Nj/pPoTtf8ajJhVcxlOrxZUE+UJo=
+X-Gm-Gg: ASbGncvivMXn2MYD6PIvJLdSBY6xNj1tmLSBmegzUKRTBUAFgxlUBDqRHaxdz6X2dFZ
+	RMeLa50wZusLlTXjw5bpTTdRCJBuHBsj+4kH3lZxNIXIS8o3QbCpWyRRPedMUZdkEqIAQTqbuws
+	FTOU4ri7twn0EdpJFliEgNXaQzU9zeasCuTcPpSuX75jNOiQuSsiOkEcbCKVZHl22Gtx4+ilaN2
+	C8VQX8DWEcgeQW73Ak8Cy/tjLA=
+X-Google-Smtp-Source: AGHT+IHuUomL3ajT2tg5sdchy83gSMB8mwCP/IHk4ei5CjZUS4JtqnoWmUjIgWL3WTnrOfM87pn2dBHc3Hrsf9un4wk=
+X-Received: by 2002:a2e:330d:0:b0:336:85e3:a95c with SMTP id
+ 38308e7fff4ca-33685e3b284mr9034371fa.29.1756215735993; Tue, 26 Aug 2025
+ 06:42:15 -0700 (PDT)
 MIME-Version: 1.0
-References: <cover.1754943874.git.mykola_kvach@epam.com> <451b8a0527a6193b6687e1c85bd254b4dfda142d.1754943874.git.mykola_kvach@epam.com>
- <87zfbqanx5.fsf@epam.com>
-In-Reply-To: <87zfbqanx5.fsf@epam.com>
+References: <cover.1754943874.git.mykola_kvach@epam.com> <98957da5c5068ae8340a21a9aa15a962905a8a22.1754943874.git.mykola_kvach@epam.com>
+ <87qzx2an6k.fsf@epam.com>
+In-Reply-To: <87qzx2an6k.fsf@epam.com>
 From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Tue, 26 Aug 2025 16:41:58 +0300
-X-Gm-Features: Ac12FXzGb8_86ttSffJ3miSlk-AO546p63ktNLoUbzzYYfJk8g3Geptu4SqLRWU
-Message-ID: <CAGeoDV_J3vSTJapz2gz8wB5P0mCLGAeghhsQXoLu7cCNCYjEgA@mail.gmail.com>
-Subject: Re: [PATCH v5 03/12] xen/arm: gic-v3: Implement GICv3 suspend/resume functions
+Date: Tue, 26 Aug 2025 16:42:04 +0300
+X-Gm-Features: Ac12FXyeB4PejrWzfWfljLrUb9Y_fm_JV2MODpRnUIP-XDhyl8R0FMQWBo5HqHM
+Message-ID: <CAGeoDV-NfadvNk1VOCBhLT_FCDDtPzkJkvwLvpaF0BsovGUQaw@mail.gmail.com>
+Subject: Re: [PATCH v5 04/12] xen/arm: Prevent crash during
+ disable_nonboot_cpus on suspend
 To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola Kvach <Mykola_Kvach@epam.com>, 
 	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
@@ -94,350 +95,183 @@ Content-Transfer-Encoding: quoted-printable
 
 Hi Volodymyr,
 
-On Sat, Aug 23, 2025 at 3:20=E2=80=AFAM Volodymyr Babchuk
+On Sat, Aug 23, 2025 at 3:36=E2=80=AFAM Volodymyr Babchuk
 <Volodymyr_Babchuk@epam.com> wrote:
 >
 >
-> Hi,
+> Hi Mykola,
 >
 > Mykola Kvach <xakep.amatop@gmail.com> writes:
 >
+> While I approve the change, the commit message is somewhat
+> unclear. Maybe "Don't release IRQs on suspend" will be better?
+
+Do you mean commit message title ?
+
+>
 > > From: Mykola Kvach <mykola_kvach@epam.com>
 > >
-> > System suspend may lead to a state where GIC would be powered down.
-> > Therefore, Xen should save/restore the context of GIC on suspend/resume=
-.
+> > If we call disable_nonboot_cpus on ARM64 with system_state set
+> > to SYS_STATE_suspend, the following assertion will be triggered:
 > >
-> > Note that the context consists of states of registers which are
-> > controlled by the hypervisor. Other GIC registers which are accessible
-> > by guests are saved/restored on context switch.
+> > ```
+> > (XEN) [   25.582712] Disabling non-boot CPUs ...
+> > (XEN) [   25.587032] Assertion '!in_irq() && (local_irq_is_enabled() ||=
+ num_online_cpus() <=3D 1)' failed at common/xmalloc_tlsf.c:714
+> > [...]
+> > (XEN) [   25.975069] Xen call trace:
+> > (XEN) [   25.978353]    [<00000a000022e098>] xfree+0x130/0x1a4 (PC)
+> > (XEN) [   25.984314]    [<00000a000022e08c>] xfree+0x124/0x1a4 (LR)
+> > (XEN) [   25.990276]    [<00000a00002747d4>] release_irq+0xe4/0xe8
+> > (XEN) [   25.996152]    [<00000a0000278588>] time.c#cpu_time_callback+0=
+x44/0x60
+> > (XEN) [   26.003150]    [<00000a000021d678>] notifier_call_chain+0x7c/0=
+xa0
+> > (XEN) [   26.009717]    [<00000a00002018e0>] cpu.c#cpu_notifier_call_ch=
+ain+0x24/0x48
+> > (XEN) [   26.017148]    [<00000a000020192c>] cpu.c#_take_cpu_down+0x28/=
+0x34
+> > (XEN) [   26.023801]    [<00000a0000201944>] cpu.c#take_cpu_down+0xc/0x=
+18
+> > (XEN) [   26.030281]    [<00000a0000225c5c>] stop_machine.c#stopmachine=
+_action+0xbc/0xe4
+> > (XEN) [   26.038057]    [<00000a00002264bc>] tasklet.c#do_tasklet_work+=
+0xb8/0x100
+> > (XEN) [   26.045229]    [<00000a00002268a4>] do_tasklet+0x68/0xb0
+> > (XEN) [   26.051018]    [<00000a000026e120>] domain.c#idle_loop+0x7c/0x=
+194
+> > (XEN) [   26.057585]    [<00000a0000277e30>] start_secondary+0x21c/0x22=
+0
+> > (XEN) [   26.063978]    [<00000a0000361258>] 00000a0000361258
+> > ```
+> >
+> > This happens because before invoking take_cpu_down via the stop_machine=
+_run
+> > function on the target CPU, stop_machine_run requests
+> > the STOPMACHINE_DISABLE_IRQ state on that CPU. Releasing memory in
+> > the release_irq function then triggers the assertion:
+> >
+> > /*
+> >  * Heap allocations may need TLB flushes which may require IRQs to be
+> >  * enabled (except when only 1 PCPU is online).
+> >  */
+> >
+> > This patch adds system state checks to guard calls to request_irq
+> > and release_irq. These calls are now skipped when system_state is
+> > SYS_STATE_{resume,suspend}, preventing unsafe operations during
+> > suspend/resume handling.
+>
+> If any call to release_irq() during suspend will trigger ASSERT, and it
+> is fine to leave IRQs as is during suspend, maybe it will be easier to
+> put
+>
+> +        if ( system_state =3D=3D SYS_STATE_suspend )
+> +            return;
+>
+> straight into release_irq() code? This will be easier than playing
+> whack-a-mole when some other patch will add another release_irq() call
+> somewhere.
+
+I=E2=80=99m fine with adding this check directly into release_irq(), as lon=
+g as
+the other maintainers agree with this approach.
+
+>
+>
 > >
 > > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 > > ---
-> >  xen/arch/arm/gic-v3.c | 233 ++++++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 233 insertions(+)
+> > Changes in V4:
+> >   - removed the prior tasklet-based workaround in favor of a more
+> >     straightforward and safer solution
+> >   - reworked the approach by adding explicit system state checks around
+> >     request_irq and release_irq calls, skips these calls during suspend
+> >     and resume states to avoid unsafe memory operations when IRQs are
+> >     disabled
+> > ---
+> >  xen/arch/arm/gic.c           |  6 ++++++
+> >  xen/arch/arm/tee/ffa_notif.c |  2 +-
+> >  xen/arch/arm/time.c          | 18 ++++++++++++------
+> >  3 files changed, 19 insertions(+), 7 deletions(-)
 > >
-> > diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-> > index cd3e1acf79..a9b65ff5d4 100644
-> > --- a/xen/arch/arm/gic-v3.c
-> > +++ b/xen/arch/arm/gic-v3.c
-> > @@ -1776,6 +1776,231 @@ static bool gic_dist_supports_lpis(void)
-> >      return (readl_relaxed(GICD + GICD_TYPER) & GICD_TYPE_LPIS);
+> > diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
+> > index a018bd7715..9856cb1592 100644
+> > --- a/xen/arch/arm/gic.c
+> > +++ b/xen/arch/arm/gic.c
+> > @@ -388,6 +388,9 @@ void gic_dump_info(struct vcpu *v)
+> >
+> >  void init_maintenance_interrupt(void)
+> >  {
+> > +    if ( system_state =3D=3D SYS_STATE_resume )
+> > +        return;
+> > +
+> >      request_irq(gic_hw_ops->info->maintenance_irq, 0, maintenance_inte=
+rrupt,
+> >                  "irq-maintenance", NULL);
+> >  }
+> > @@ -461,6 +464,9 @@ static int cpu_gic_callback(struct notifier_block *=
+nfb,
+> >      switch ( action )
+> >      {
+> >      case CPU_DYING:
+> > +        if ( system_state =3D=3D SYS_STATE_suspend )
+> > +            break;
+> > +
+> >          /* This is reverting the work done in init_maintenance_interru=
+pt */
+> >          release_irq(gic_hw_ops->info->maintenance_irq, NULL);
+> >          break;
+> > diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.=
+c
+> > index 00efaf8f73..06f715a82b 100644
+> > --- a/xen/arch/arm/tee/ffa_notif.c
+> > +++ b/xen/arch/arm/tee/ffa_notif.c
+> > @@ -347,7 +347,7 @@ void ffa_notif_init_interrupt(void)
+> >  {
+> >      int ret;
+> >
+> > -    if ( notif_enabled && notif_sri_irq < NR_GIC_SGI )
+> > +    if ( notif_enabled && notif_sri_irq < NR_GIC_SGI && system_state !=
+=3D SYS_STATE_resume )
+> >      {
+> >          /*
+> >           * An error here is unlikely since the primary CPU has already
+> > diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
+> > index ad984fdfdd..b2e07ade43 100644
+> > --- a/xen/arch/arm/time.c
+> > +++ b/xen/arch/arm/time.c
+> > @@ -320,10 +320,13 @@ void init_timer_interrupt(void)
+> >      WRITE_SYSREG(CNTHCTL_EL2_EL1PCTEN, CNTHCTL_EL2);
+> >      disable_physical_timers();
+> >
+> > -    request_irq(timer_irq[TIMER_HYP_PPI], 0, htimer_interrupt,
+> > -                "hyptimer", NULL);
+> > -    request_irq(timer_irq[TIMER_VIRT_PPI], 0, vtimer_interrupt,
+> > -                   "virtimer", NULL);
+> > +    if ( system_state !=3D SYS_STATE_resume )
+> > +    {
+> > +        request_irq(timer_irq[TIMER_HYP_PPI], 0, htimer_interrupt,
+> > +                    "hyptimer", NULL);
+> > +        request_irq(timer_irq[TIMER_VIRT_PPI], 0, vtimer_interrupt,
+> > +                    "virtimer", NULL);
+> > +    }
+> >
+> >      check_timer_irq_cfg(timer_irq[TIMER_HYP_PPI], "hypervisor");
+> >      check_timer_irq_cfg(timer_irq[TIMER_VIRT_PPI], "virtual");
+> > @@ -338,8 +341,11 @@ static void deinit_timer_interrupt(void)
+> >  {
+> >      disable_physical_timers();
+> >
+> > -    release_irq(timer_irq[TIMER_HYP_PPI], NULL);
+> > -    release_irq(timer_irq[TIMER_VIRT_PPI], NULL);
+> > +    if ( system_state !=3D SYS_STATE_suspend )
+> > +    {
+> > +        release_irq(timer_irq[TIMER_HYP_PPI], NULL);
+> > +        release_irq(timer_irq[TIMER_VIRT_PPI], NULL);
+> > +    }
 > >  }
 > >
-> > +#ifdef CONFIG_SYSTEM_SUSPEND
-> > +
-> > +/* GICv3 registers to be saved/restored on system suspend/resume */
-> > +struct gicv3_ctx {
-> > +    struct dist_ctx {
-> > +        uint32_t ctlr;
-> > +        /*
-> > +         * This struct represent block of 32 IRQs
-> > +         * TODO: store extended SPI configuration (GICv3.1+)
-> > +         */
-> > +        struct irq_regs {
-> > +            uint32_t icfgr[2];
-> > +            uint32_t ipriorityr[8];
-> > +            uint64_t irouter[32];
-> > +            uint32_t isactiver;
-> > +            uint32_t isenabler;
-> > +        } *irqs;
-> > +    } dist;
-> > +
-> > +    /* have only one rdist structure for last running CPU during suspe=
-nd */
-> > +    struct redist_ctx {
-> > +        uint32_t ctlr;
-> > +        /* TODO: handle case when we have more than 16 PPIs (GICv3.1+)=
- */
-> > +        uint32_t icfgr[2];
-> > +        uint32_t igroupr;
-> > +        uint32_t ipriorityr[8];
-> > +        uint32_t isactiver;
-> > +        uint32_t isenabler;
-> > +    } rdist;
-> > +
-> > +    struct cpu_ctx {
-> > +        uint32_t ctlr;
-> > +        uint32_t pmr;
-> > +        uint32_t bpr;
-> > +        uint32_t sre_el2;
-> > +        uint32_t grpen;
-> > +    } cpu;
-> > +};
-> > +
-> > +static struct gicv3_ctx gicv3_ctx;
-> > +
-> > +static void __init gicv3_alloc_context(void)
-> > +{
-> > +    uint32_t blocks =3D DIV_ROUND_UP(gicv3_info.nr_lines, 32);
-> > +
-> > +    if ( gicv3_its_host_has_its() )
-> > +        return;
->
-> I think this needs a comment at least. And/or printk() message. Because
-> for it is unclear why we are doing nothing if host has ITS
-
-Got it, I'll add log message
-
->
-> > +
-> > +    /* according to spec it is possible don't have SPIs */
-> > +    if ( blocks =3D=3D 1 )
-> > +        return;
-> > +
-> > +    gicv3_ctx.dist.irqs =3D xzalloc_array(typeof(*gicv3_ctx.dist.irqs)=
-, blocks - 1);
-> > +    if ( !gicv3_ctx.dist.irqs )
-> > +        dprintk(XENLOG_ERR,
-> > +                "%s:%d: failed to allocate memory for GICv3 suspend co=
-ntext\n",
-> > +                __func__, __LINE__);
->
-> dprintk() already prints function and line. Here and everywhere in this
-> patch.
-
-Thanks for noticing this. I=E2=80=99ll update the code accordingly.
-
->
-> > +}
-> > +
-> > +static void gicv3_disable_redist(void)
-> > +{
-> > +    void __iomem* waker =3D GICD_RDIST_BASE + GICR_WAKER;
-> > +
-> > +    writel_relaxed(readl_relaxed(waker) | GICR_WAKER_ProcessorSleep, w=
-aker);
-> > +    while ( (readl_relaxed(waker) & GICR_WAKER_ChildrenAsleep) =3D=3D =
-0 );
-> > +}
-> > +
-> > +static int gicv3_suspend(void)
-> > +{
-> > +    unsigned int i;
-> > +    void __iomem *base;
-> > +    typeof(gicv3_ctx.rdist)* rdist =3D &gicv3_ctx.rdist;
-> > +
-> > +    /* TODO: implement support for ITS */
-> > +    if ( gicv3_its_host_has_its() )
-> > +        return -EOPNOTSUPP;
-> > +
-> > +    if ( !gicv3_ctx.dist.irqs && gicv3_info.nr_lines > NR_GIC_LOCAL_IR=
-QS )
-> > +    {
-> > +        dprintk(XENLOG_WARNING,
-> > +                "%s:%d: GICv3 suspend context is not allocated!\n",
-> > +                __func__, __LINE__);
-> > +        return -ENOMEM;
-> > +    }
-> > +
-> > +    gicv3_save_state(current);
-> > +
-> > +    /* Save GICC configuration */
-> > +    gicv3_ctx.cpu.ctlr     =3D READ_SYSREG(ICC_CTLR_EL1);
-> > +    gicv3_ctx.cpu.pmr      =3D READ_SYSREG(ICC_PMR_EL1);
-> > +    gicv3_ctx.cpu.bpr      =3D READ_SYSREG(ICC_BPR1_EL1);
-> > +    gicv3_ctx.cpu.sre_el2  =3D READ_SYSREG(ICC_SRE_EL2);
-> > +    gicv3_ctx.cpu.grpen    =3D READ_SYSREG(ICC_IGRPEN1_EL1);
-> > +
-> > +    gicv3_disable_interface();
-> > +    gicv3_disable_redist();
-> > +
-> > +    /* Save GICR configuration */
-> > +    gicv3_redist_wait_for_rwp();
-> > +
-> > +    base =3D GICD_RDIST_SGI_BASE;
-> > +
-> > +    rdist->ctlr =3D readl_relaxed(base + GICR_CTLR);
-> > +
-> > +    /* Set priority on PPI and SGI interrupts */
->
-> Probably you wanted to say "Save priority..."
-
-Yes, thank you!
-I forgot to change it after copy-pasting.
-
->
-> > +    for (i =3D 0; i < NR_GIC_LOCAL_IRQS / 4; i +=3D 4)
-> > +        rdist->ipriorityr[i] =3D readl_relaxed(base + GICR_IPRIORITYR0=
- + 4 * i);
->
-> Is this correct? You are writing to every 4th rdist->ipriorityr and
-> reading every 4th GICR_IPRIORITYR<n>
-
-Definitely not -- thank you for catching this!
-
->
-> > +
-> > +    rdist->isactiver =3D readl_relaxed(base + GICR_ISACTIVER0);
-> > +    rdist->isenabler =3D readl_relaxed(base + GICR_ISENABLER0);
-> > +    rdist->igroupr   =3D readl_relaxed(base + GICR_IGROUPR0);
-> > +    rdist->icfgr[0]  =3D readl_relaxed(base + GICR_ICFGR0);
-> > +    rdist->icfgr[1]  =3D readl_relaxed(base + GICR_ICFGR1);
-> > +
-> > +    /* Save GICD configuration */
-> > +    gicv3_dist_wait_for_rwp();
-> > +    gicv3_ctx.dist.ctlr =3D readl_relaxed(GICD + GICD_CTLR);
-> > +
-> > +    for ( i =3D 1; i < DIV_ROUND_UP(gicv3_info.nr_lines, 32); i++ )
-> > +    {
-> > +        typeof(gicv3_ctx.dist.irqs) irqs =3D gicv3_ctx.dist.irqs + i -=
- 1;
-> > +        unsigned int irq;
-> > +
-> > +        base =3D GICD + GICD_ICFGR + 8 * i;
-> > +        irqs->icfgr[0] =3D readl_relaxed(base);
-> > +        irqs->icfgr[1] =3D readl_relaxed(base + 4);
-> > +
-> > +        base =3D GICD + GICD_IPRIORITYR + 32 * i;
-> > +        for ( irq =3D 0; irq < 8; irq++ )
-> > +            irqs->ipriorityr[irq] =3D readl_relaxed(base + 4 * irq);
-> > +
-> > +        base =3D GICD + GICD_IROUTER + 32 * i;
-> > +        for ( irq =3D 0; irq < 32; irq++ )
-> > +            irqs->irouter[irq] =3D readq_relaxed_non_atomic(base + 8 *=
- irq);
-> > +
-> > +        irqs->isactiver =3D readl_relaxed(GICD + GICD_ISACTIVER + 4 * =
-i);
-> > +        irqs->isenabler =3D readl_relaxed(GICD + GICD_ISENABLER + 4 * =
-i);
-> > +    }
-> > +
-> > +    return 0;
-> > +}
-> > +
-> > +static void gicv3_resume(void)
-> > +{
-> > +    unsigned int i;
-> > +    void __iomem *base;
-> > +    typeof(gicv3_ctx.rdist)* rdist =3D &gicv3_ctx.rdist;
-> > +
-> > +    if ( !gicv3_ctx.dist.irqs && gicv3_info.nr_lines > NR_GIC_LOCAL_IR=
-QS )
-> > +    {
-> > +        dprintk(XENLOG_WARNING, "%s:%d: GICv3 suspend context not allo=
-cated!\n",
-> > +            __func__, __LINE__);
-> > +        return;
-> > +    }
-> > +
-> > +    writel_relaxed(0, GICD + GICD_CTLR);
-> > +
-> > +    for ( i =3D NR_GIC_LOCAL_IRQS; i < gicv3_info.nr_lines; i +=3D 32 =
-)
-> > +        writel_relaxed(GENMASK(31, 0), GICD + GICD_IGROUPR + (i / 32) =
-* 4);
-> > +
-> > +    for ( i =3D 1; i < DIV_ROUND_UP(gicv3_info.nr_lines, 32); i++ )
-> > +    {
-> > +        typeof(gicv3_ctx.dist.irqs) irqs =3D gicv3_ctx.dist.irqs + i -=
- 1;
-> > +        unsigned int irq;
-> > +
-> > +        base =3D GICD + GICD_ICFGR + 8 * i;
-> > +        writel_relaxed(irqs->icfgr[0], base);
-> > +        writel_relaxed(irqs->icfgr[1], base + 4);
-> > +
-> > +        base =3D GICD + GICD_IPRIORITYR + 32 * i;
-> > +        for ( irq =3D 0; irq < 8; irq++ )
-> > +            writel_relaxed(irqs->ipriorityr[irq], base + 4 * irq );
->
-> style: space before )
-
-I'll fix it, thank you
-
->
-> > +
-> > +        base =3D GICD + GICD_IROUTER + 32 * i;
-> > +        for ( irq =3D 0; irq < 32; irq++ )
-> > +            writeq_relaxed_non_atomic(irqs->irouter[irq], base + 8 * i=
-rq);
-> > +
-> > +        writel_relaxed(irqs->isenabler, GICD + GICD_ISENABLER + i * 4)=
-;
-> > +        writel_relaxed(irqs->isactiver, GICD + GICD_ISACTIVER + i * 4)=
-;
-> > +    }
-> > +
-> > +    writel_relaxed(gicv3_ctx.dist.ctlr, GICD + GICD_CTLR);
-> > +    gicv3_dist_wait_for_rwp();
-> > +
-> > +    /* Restore GICR (Redistributor) configuration */
-> > +    gicv3_enable_redist();
-> > +
-> > +    base =3D GICD_RDIST_SGI_BASE;
-> > +
-> > +    writel_relaxed(0xffffffff, base + GICR_ICENABLER0);
-> > +    gicv3_redist_wait_for_rwp();
-> > +
-> > +    for (i =3D 0; i < NR_GIC_LOCAL_IRQS / 4; i +=3D 4)
-> > +        writel_relaxed(rdist->ipriorityr[i], base + GICR_IPRIORITYR0 +=
- i * 4);
->
-> Is this correct? You are writing to every 4th GICR_IPRIORITYR<n>
-
-Definitely not -- thank you for catching this!
-
->
-> > +
-> > +    writel_relaxed(rdist->isactiver, base + GICR_ISACTIVER0);
-> > +
-> > +    writel_relaxed(rdist->igroupr,  base + GICR_IGROUPR0);
-> > +    writel_relaxed(rdist->icfgr[0], base + GICR_ICFGR0);
-> > +    writel_relaxed(rdist->icfgr[1], base + GICR_ICFGR1);
-> > +
-> > +    gicv3_redist_wait_for_rwp();
-> > +
-> > +    writel_relaxed(rdist->isenabler, base + GICR_ISENABLER0);
-> > +    writel_relaxed(rdist->ctlr, GICD_RDIST_BASE + GICR_CTLR);
-> > +
-> > +    gicv3_redist_wait_for_rwp();
-> > +
-> > +    WRITE_SYSREG(gicv3_ctx.cpu.sre_el2, ICC_SRE_EL2);
-> > +    isb();
-> > +
-> > +    /* Restore CPU interface (System registers) */
-> > +    WRITE_SYSREG(gicv3_ctx.cpu.pmr,   ICC_PMR_EL1);
-> > +    WRITE_SYSREG(gicv3_ctx.cpu.bpr,   ICC_BPR1_EL1);
-> > +    WRITE_SYSREG(gicv3_ctx.cpu.ctlr,  ICC_CTLR_EL1);
-> > +    WRITE_SYSREG(gicv3_ctx.cpu.grpen, ICC_IGRPEN1_EL1);
-> > +    isb();
-> > +
-> > +    gicv3_hyp_init();
-> > +
-> > +    gicv3_restore_state(current);
-> > +}
-> > +
-> > +#endif /* CONFIG_SYSTEM_SUSPEND */
-> > +
-> >  /* Set up the GIC */
-> >  static int __init gicv3_init(void)
-> >  {
-> > @@ -1850,6 +2075,10 @@ static int __init gicv3_init(void)
-> >
-> >      gicv3_hyp_init();
-> >
-> > +#ifdef CONFIG_SYSTEM_SUSPEND
-> > +    gicv3_alloc_context();
-> > +#endif
-> > +
-> >  out:
-> >      spin_unlock(&gicv3.lock);
-> >
-> > @@ -1889,6 +2118,10 @@ static const struct gic_hw_operations gicv3_ops =
-=3D {
-> >  #endif
-> >      .iomem_deny_access   =3D gicv3_iomem_deny_access,
-> >      .do_LPI              =3D gicv3_do_LPI,
-> > +#ifdef CONFIG_SYSTEM_SUSPEND
-> > +    .suspend             =3D gicv3_suspend,
-> > +    .resume              =3D gicv3_resume,
-> > +#endif
-> >  };
-> >
-> >  static int __init gicv3_dt_preinit(struct dt_device_node *node, const =
-void *data)
+> >  /* Wait a set number of microseconds */
 >
 > --
 > WBR, Volodymyr
