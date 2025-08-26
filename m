@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62DA2B3539C
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 07:55:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1093880.1449252 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1F23B353A9
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 07:59:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1093890.1449261 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqmeD-0008OH-ER; Tue, 26 Aug 2025 05:55:09 +0000
+	id 1uqmht-0000YN-Sw; Tue, 26 Aug 2025 05:58:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1093880.1449252; Tue, 26 Aug 2025 05:55:09 +0000
+Received: by outflank-mailman (output) from mailman id 1093890.1449261; Tue, 26 Aug 2025 05:58:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqmeD-0008Ls-Az; Tue, 26 Aug 2025 05:55:09 +0000
-Received: by outflank-mailman (input) for mailman id 1093880;
- Tue, 26 Aug 2025 05:55:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uqmht-0000Wa-QJ; Tue, 26 Aug 2025 05:58:57 +0000
+Received: by outflank-mailman (input) for mailman id 1093890;
+ Tue, 26 Aug 2025 05:58:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=n+o/=3G=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uqmeC-00089E-1e
- for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 05:55:08 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 37da7e60-8241-11f0-a32c-13f23c93f187;
- Tue, 26 Aug 2025 07:55:07 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-61c74fc408bso2626315a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 22:55:07 -0700 (PDT)
+ id 1uqmhs-0000WT-Qu
+ for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 05:58:56 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bf9973b0-8241-11f0-b898-0df219b8e170;
+ Tue, 26 Aug 2025 07:58:54 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-6188b72b7caso6964800a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 22:58:54 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61c78e49ca4sm2268079a12.47.2025.08.25.22.55.06
+ 4fb4d7f45d1cf-61c316f4e42sm6274935a12.28.2025.08.25.22.58.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Aug 2025 22:55:06 -0700 (PDT)
+ Mon, 25 Aug 2025 22:58:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37da7e60-8241-11f0-a32c-13f23c93f187
+X-Inumbo-ID: bf9973b0-8241-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756187706; x=1756792506; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=bf0IrJTm2ybitjzYhaXX3ohuiWGKtvalB20dqkLHQbs=;
-        b=OzQo+/sl2B64zD6mCntMTrRra9EIbX0jk2Rl6RZlBXWQ1XHhYvHtQZ2EnVQFTj6UpK
-         G5B9n0YAAQZBltUgQnHoum43IpwA8jX1kwHYRMc0BjUZRZxDTYQlIHpvU6PZSeJWxGjo
-         Xxd+u3x1YtRGYO1XGEQII1Csz5r7J7MzA/TXWOlE776aNZpKL0HhAzcLgpp2MXTOcxr6
-         Q3Tg1CPcdxHz02m3f1SPu8eKTKJaSRjQqEZIF/1nPX474MLHAr0iW75iIG1piDJKJmE9
-         6Mfs6NEh/SSFpSkbRKLRGXr3mNxebTpuKa8Io6OPrdLaXPWy2ZcjZPw07fNlq/aXucVQ
-         PnCA==
+        d=suse.com; s=google; t=1756187934; x=1756792734; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=wt3/dzT3rgtyFBF1/8cIv/VlLMj9U6X3hDTyouxVFpk=;
+        b=CD4wGEhTsmiAt11SjYjPxLMjwINQ0opz/kQTrLSOgSDWEgUvABrgHs+9n3Y7Sc3NL8
+         TgjHAuo1Wi45LfcbqoX1CzlKSsxqikd12cfLWwyKT0HjS7QGWeuxtLhe1xD2zcB7YIwG
+         2p7J+s2oJwxz2N5WLsuWxEVx8EIHWxR9dBx6TgIVsbpckeF6GZBdXmZZsCnhqtE6DCe3
+         9/9cRpo3kOM1TMNCDx0+2SN+D0hOqD/mzfjRwbfEQK7zW3CCvgiHlV5gOnzS/0/JRNEt
+         UN1dHN7f4OS7cdzsgEVD0OW1vTF/oo29GlUqT7bg7jDVpvttduTShXO8fbRE0a9bUg94
+         SIEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756187706; x=1756792506;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=bf0IrJTm2ybitjzYhaXX3ohuiWGKtvalB20dqkLHQbs=;
-        b=vJ3FSCnYZfS9NXlYVcd0zo5YVqwBsQKB469lvWtcYioryy6a3Mu5bGo92wimxqzwMa
-         yxFpgcd/320bRvOS5TBesxLsTKs45Gfu0bvw2enIgLAmPRQ/GBDQ8baICxPDltBy+wQg
-         6QAJsxZByFG6Pu8pqINPFR4zBCnhRjS44J4+UQ0mlllo2wUMQVBnHat5rTefEkrwHs/h
-         odSnfkCRxGTOoRrhXTLwNc66baLgIBWlgB8Lof3ygkLwfhgmrGAPum53FV1ud8FdFlzV
-         lv/70judr47hG+TTkRHDIAlmXYCn9IlA0vtES8zMbfg1loeGsiswaXRrv0Tg6hHJnpxB
-         5mKQ==
-X-Gm-Message-State: AOJu0Yxj3YqPjSNFUjzeaNkZTchoZ0eaILQlRkXVzk18RB66BVrNdVae
-	pPq7PLBizYPzcPNYMn630DDKYMe7YE/YyiWs7VH9cIYpQzJ8EMhEa9FMm1Rx3w336w==
-X-Gm-Gg: ASbGncunL1gWntrz6yWYYjIg6hekamA/QTYB/LHSaz9WMHbAbNvAVbrIT9Tyr+AtmHa
-	EreiEpaX0wj/cabQYy5c3J+ZZbyOl5OpN1qF7f1HeUgBB/HMKh1beK5nfMFjinNzJ4UU40kJYiq
-	5uhFsKhyhZkX/Y6wMCPN8aEpxRv15DYZoH8wu8daXGMjUBWmFLSoJtJHOKZYAdEfe3OU1BwiauV
-	LKeB4Ir2GvK6rPDIF5T3PV1xlXA4L6WY3PimouSmD9/CISTSIf/Mx6hgH6Ex8Qb2iV7NMFxtpCQ
-	twajT7rVOmoSxrg8MxcT3OiuhG2BhAJczt5F9WlGhec+aiIUgHlxpyTWt7upXOP+ppO54xWyf1A
-	xgZpzieCcOUi7vnhTME9CooaIl/1fHLrWBOe9qxT7anpSWrOWtzY34ZPluCOrqmabTqp4AbYixZ
-	bRowI+xynrYwoVx7Y8Xw==
-X-Google-Smtp-Source: AGHT+IHa1Cle6qKYAj8T+fk7nRkSxLn1UrWvOaKdox9Q0HFOoNX4ZjJAUn5J/xFLjhEp3eHf0pDviQ==
-X-Received: by 2002:a05:6402:4413:b0:618:4044:67a7 with SMTP id 4fb4d7f45d1cf-61c1b453362mr12183643a12.5.1756187706521;
-        Mon, 25 Aug 2025 22:55:06 -0700 (PDT)
-Message-ID: <c243d9b1-385f-49a3-9c50-507250f7bb68@suse.com>
-Date: Tue, 26 Aug 2025 07:55:05 +0200
+        d=1e100.net; s=20230601; t=1756187934; x=1756792734;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wt3/dzT3rgtyFBF1/8cIv/VlLMj9U6X3hDTyouxVFpk=;
+        b=ptOdkh1lnPZuHSddxDkztRFSmoMLfvbIwYxwX/HQJTWbx8r8VmsTrrlItknSGpCZfu
+         K2cXXmaTCQigXxKsuG6kbXcYgTv2sRb5tRispS+BOvgJhWy7ri+WP0lJ3YLfddKxnvz6
+         jPIXzl26IA5qeD6U7JaIIaGgNe5NUoybG4aeU/QaAlLIioYgt7+FVR/kNiUHlNIFFrXW
+         Xy0jpdJkKGbEhguK6zpG5Ycn0M/mW0Km32LE9BLOKEY5vqW6mOsSET15u2jAo71hst7b
+         AwB5BALTb6N8e3eQDvRCk75P821DQvheS59AImqWBy4HRY0vCDzOvXYzbKCs+BvYFsxw
+         Sn5w==
+X-Forwarded-Encrypted: i=1; AJvYcCUB5TPrF1Du22GcWVl47HsSjUG/CisAHwEyIzSnqqFktww4UB+HSTth7dRcwdm45Tuxfm2B4tXl8m8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwZiRMhg0eVklJ6hpjtYCEiaA/JWitAMgsLYSpZD4ViVsovWgFf
+	syN3wHw9CzXveMbnKtNoM0y5zUgD6gvxken6mnR5qX3bcildXyiqqkQK520UO/JiNg==
+X-Gm-Gg: ASbGncuydMnuta4KPt2Ckx1rbvXlL8IyozAdQL61UPLA94ALYUf8nJYpETelnqM2P35
+	url2AWhZfX4kIvK/yQBk/GAE4II/Srf0EduE1r9Xx89+ctpQbx3t23YRH0aZj0GW84bcS7T+pBA
+	2wPV8GbGjuPP4uEFSQ18cRQ7Jz7NwxOGQx9M1cIMwI/uruajWN2J3vVJYqGS0UgEZdMeJL2gP38
+	q5vzRqgFUvhfMxQIMNeH0A0gYbRH4a8aHrlg6t6obHoHWiX0sAXc5grigRDYSu9VRcslZolVRFC
+	y9xAzBPEqdVrGpR4pdAC5rGNxxwsJxJJYqR1t7dDPwxXYZ2A7aqbLBkSD5T14THsuFpHyfBxgix
+	q/WJUBDv+l+jtX3xfTGJ4CzgCyDpJRrZt8x5/0N9Uh63/zTZ6SdHl8W2z3ci0RBD7SAUrr7JcK0
+	6/g3Wn6Pw=
+X-Google-Smtp-Source: AGHT+IEH/RIt0o7c7WjgbjbQ45O8W2DsGs3eyxlzdPhSRqai7z8a8S2QPwNVBTVXlBd4H7lZLySTBQ==
+X-Received: by 2002:a05:6402:13d2:b0:61c:6fd2:9700 with SMTP id 4fb4d7f45d1cf-61c6fd29962mr4639327a12.24.1756187934257;
+        Mon, 25 Aug 2025 22:58:54 -0700 (PDT)
+Message-ID: <927867b4-0cda-4600-b880-e5b1d9c2fbbf@suse.com>
+Date: Tue, 26 Aug 2025 07:58:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [Reminder] Feature Freeze is Fri Aug 29, 2025
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <07fc7122-d0ac-4dbe-800d-89086a07005b@gmail.com>
+Subject: Re: [PATCH v7 06/13] xen/cpufreq: introduce new sub-hypercall to
+ propagate CPPC data
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250822105218.3601273-1-Penny.Zheng@amd.com>
+ <20250822105218.3601273-7-Penny.Zheng@amd.com>
+ <a4c5e149-828f-4ea9-83e2-79ecc8c56033@suse.com>
+ <DM4PR12MB845136B4B4FA756EC654FE31E139A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Community Manager <community.manager@xenproject.org>,
- "committers@xenproject.org" <committers@xenproject.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,29 +127,81 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <07fc7122-d0ac-4dbe-800d-89086a07005b@gmail.com>
+In-Reply-To: <DM4PR12MB845136B4B4FA756EC654FE31E139A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 25.08.2025 17:50, Oleksii Kurochko wrote:
-> Hello community,
+On 26.08.2025 07:53, Penny, Zheng wrote:
+> [Public]
 > 
-> I’d like to remind everyone that the Feature Freeze deadline is approaching,
-> and we still have some outstanding requests from the community for patch series
-> to be merged into 4.21:
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Monday, August 25, 2025 11:02 PM
+>> To: Penny, Zheng <penny.zheng@amd.com>
+>> Cc: Huang, Ray <Ray.Huang@amd.com>; Andrew Cooper
+>> <andrew.cooper3@citrix.com>; Roger Pau Monné <roger.pau@citrix.com>;
+>> Anthony PERARD <anthony.perard@vates.tech>; Orzel, Michal
+>> <Michal.Orzel@amd.com>; Julien Grall <julien@xen.org>; Stefano Stabellini
+>> <sstabellini@kernel.org>; xen-devel@lists.xenproject.org
+>> Subject: Re: [PATCH v7 06/13] xen/cpufreq: introduce new sub-hypercall to
+>> propagate CPPC data
+>>
+>> On 22.08.2025 12:52, Penny Zheng wrote:
+>>> --- a/xen/arch/x86/x86_64/cpufreq.c
+>>> +++ b/xen/arch/x86/x86_64/cpufreq.c
+>>> @@ -54,3 +54,22 @@ int compat_set_px_pminfo(uint32_t acpi_id,
+>>>
+>>>      return set_px_pminfo(acpi_id, xen_perf);  }
+>>> +
+>>> +int compat_set_cppc_pminfo(unsigned int acpi_id,
+>>> +                           const struct compat_processor_cppc
+>>> +*cppc_data)
+>>> +
+>>> +{
+>>> +    struct xen_processor_cppc *xen_cppc;
+>>> +    unsigned long xlat_page_current;
+>>> +
+>>> +    xlat_malloc_init(xlat_page_current);
+>>> +
+>>> +    xen_cppc = xlat_malloc_array(xlat_page_current,
+>>> +                                 struct xen_processor_cppc, 1);
+>>> +    if ( unlikely(xen_cppc == NULL) )
+>>> +        return -EFAULT;
+>>
+>> I think we want to avoid repeating the earlier mistake with using a wrong error code.
+>> It's ENOMEM or ENOSPC or some such.
+>>
 > 
-> 1. Enable guest suspend/resume support on ARM via vPSCI [1]
-> 2. Introduce SCI SCMI SMC multi-agent support [2]
-> 3. Introduce eSPI support [3]
-> 4. FRED work: [4], [5], possibly others (?)
-> 5. Introduce CONFIG_DOMCTL [6]
-> 6. xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE [7]
-> 7. Some other patch series I missed.
+> Understood, I'll change it to -ENOMEM
+> 
+>>> --- a/xen/drivers/acpi/pm-op.c
+>>> +++ b/xen/drivers/acpi/pm-op.c
+>>> @@ -91,7 +91,9 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
+>>>      pmpt = processor_pminfo[op->cpuid];
+>>>      policy = per_cpu(cpufreq_cpu_policy, op->cpuid);
+>>>
+>>> -    if ( !pmpt || !pmpt->perf.states ||
+>>> +    if ( !pmpt ||
+>>> +         ((pmpt->init & XEN_PX_INIT) && !pmpt->perf.states) ||
+>>> +         ((pmpt->init & XEN_CPPC_INIT) && pmpt->perf.state_count) ||
+>>
+>> I fear I don't understand this: In the PX case we check whether necessary data is
+>> lacking. In the CPPC case you check that some data was provided that we don't
+>> want to use? Why not similarly check that data we need was provided?
+>>
+> 
+> We are introducing another checking line for CPPC is actually to avoid NULL deref of state[i]:
+> ```
+>         for ( i = 0; i < op->u.get_para.freq_num; i++ )
+>                 data[i] = pmpt->perf.states[i].core_frequency * 1000;
+> ```
+> We want to ensure "op->u.get_para.freq_num" is always zero in CPPC mode, which is validated against pmpt->perf.state_count.
+> We have similar discussion in here https://old-list-archives.xen.org/archives/html/xen-devel/2025-06/msg01160.html
 
-"amd-cppc CPU Performance Scaling Driver" has been pending for quite a while,
-and really ought to make it imo. I'm inclined to say even if an exception was
-needed. Parts have gone in, I'm about to commit more parts, but whether
-everything would be in by Friday I can't predict.
+Indeed I was thinking that we would have touched this before. As to your reply:
+This explains the .state_count check (which imo wants a comment). It doesn't,
+however, explain the absence of a "have we got the data we need" part. Unless
+of course there simply isn't anything to check for.
 
 Jan
 
