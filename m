@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45B27B35A66
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 12:48:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1094304.1449630 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72E5EB35A7A
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 12:55:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1094314.1449640 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqrDw-0007eV-No; Tue, 26 Aug 2025 10:48:20 +0000
+	id 1uqrKg-0000wc-DC; Tue, 26 Aug 2025 10:55:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1094304.1449630; Tue, 26 Aug 2025 10:48:20 +0000
+Received: by outflank-mailman (output) from mailman id 1094314.1449640; Tue, 26 Aug 2025 10:55:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqrDw-0007bS-KT; Tue, 26 Aug 2025 10:48:20 +0000
-Received: by outflank-mailman (input) for mailman id 1094304;
- Tue, 26 Aug 2025 10:48:19 +0000
+	id 1uqrKg-0000uS-9e; Tue, 26 Aug 2025 10:55:18 +0000
+Received: by outflank-mailman (input) for mailman id 1094314;
+ Tue, 26 Aug 2025 10:55:16 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1uqrDv-0007bM-IP
- for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 10:48:19 +0000
+ (envelope-from <julien@xen.org>) id 1uqrKe-0000uM-Fl
+ for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 10:55:16 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uqrDu-007Vtz-17;
- Tue, 26 Aug 2025 10:48:18 +0000
+ (envelope-from <julien@xen.org>) id 1uqrKd-007W4e-1r;
+ Tue, 26 Aug 2025 10:55:15 +0000
 Received: from [2a02:8012:3a1:0:7d60:da5a:46e8:4212]
  by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uqrDu-0027Pw-11;
- Tue, 26 Aug 2025 10:48:18 +0000
+ (envelope-from <julien@xen.org>) id 1uqrKd-0028Gv-1W;
+ Tue, 26 Aug 2025 10:55:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,38 +42,32 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=8w2k09WhH2MGPfovKxIjn6fYFeFFdwOXs5p2fuTz7w0=; b=yrl8lEmNBMhYoJiCFfa10u4h7c
-	jgpf91yD+KFs3yaYXpPVL90SrFzTAWxYCoNrNCsuvk/KmSlWiMZM/AGjsRVLLwE0USQIoqKB12ELy
-	PCh8vyqAOhcXVMejq1PtEFHYZs+KfRY3tTUtR6Sw0R+tmbqeUIyzKPfVF2Iyau5r8Jwk=;
-Message-ID: <e0c2b06e-947a-4d1d-864f-5785cfe00b1c@xen.org>
-Date: Tue, 26 Aug 2025 11:48:15 +0100
+	bh=HxYW62Vfz2rbRKN2q+MD6Uq1lqfy7aaAGmdyZRzDWUE=; b=hyQecZpqdrUU3w0QqlV6kmprcs
+	a+cs77jTMh7RelGeWvZSkUGJfKF4SxGsonjj1xFxs8smOU+7ypL7/21Ha+aPDWvwsulksXG7F8bA4
+	YRwXICBLyM6U0SIePJ4eOKfHDuXT1ywTi4FAJ0ip1X14GtQ5DokYIUmGdoFuUbaWL8EQ=;
+Message-ID: <20c20f54-565e-4f59-9b13-218e0958c46b@xen.org>
+Date: Tue, 26 Aug 2025 11:55:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] xen/arm: smmuv3: Add cache maintenance for non-coherent
  SMMU queues
 Content-Language: en-GB
 To: Dmytro Firsov <Dmytro_Firsov@epam.com>,
- "Orzel, Michal" <michal.orzel@amd.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
  Rahul Singh <rahul.singh@arm.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <24567cc1630b1577c33939ff71d67fb2ebe5572f.1754491424.git.dmytro_firsov@epam.com>
- <cff3e94c-4476-4103-ae7e-19656703e755@amd.com>
- <5d48d927-7e1e-4b11-b429-0b94259154ab@epam.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <5d48d927-7e1e-4b11-b429-0b94259154ab@epam.com>
+In-Reply-To: <24567cc1630b1577c33939ff71d67fb2ebe5572f.1754491424.git.dmytro_firsov@epam.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hi,
 
-On 26/08/2025 10:47, Dmytro Firsov wrote:
-> On 22.08.25 11:12, Orzel, Michal wrote:
-> On 06/08/2025 16:58, Dmytro Firsov wrote:
-> 
-> 
+On 06/08/2025 15:58, Dmytro Firsov wrote:
 > According to the Arm SMMUv3 spec (ARM IHI 0070), a system may have
 > SMMU(s) that is/are non-coherent to the PE (processing element). In such
 > cases, memory accesses from the PE should be either non-cached or be
@@ -101,29 +95,42 @@ On 26/08/2025 10:47, Dmytro Firsov wrote:
 > and simplify the patch (smmu->features, which contains the required flag,
 > are not available in code parts that require cache maintenance).
 > 
-> 
-> There are already a few places advertising the SMMU coherency:
-> 1) smmu->features
-> 2) d->iommu->features
-> 3) platform_features
-> 
-> All of them are better places than queue struct (that as you pointed out is not
-> specific to coherency). I'd suggest maybe to use 3) and removing ro_after_init
-> if you don't have access to 1) and 2). All in all, providing yet another place
-> for coherency flag seems a bit too much.
- > >
-> First of all, thank you very much for review! I will consider using
-> "platform_features" in next patch version, it looks more appropriate and
-> should be available within the whole driver. Also, I believe "ro_after_init"
-> is also OK, since I have no need to change it (only check if cache
-> maintenance should be performed).
+> Signed-off-by: Dmytro Firsov <dmytro_firsov@epam.com>
 
-I have to disagree with using "platform_features". Flushing the queue is 
-a per-SMMU decision. But looking at the code, I think passing the SMMU 
-to the caller would look wrong (what if you mistakenly pass the wrong 
-SMMU?). So I think a boolean per queue is the right appraoch.
+
+With one remark below:
+
+Reviewed-by: Julien Grall <jgrall@amazon.com>
+
+
+> diff --git a/xen/drivers/passthrough/arm/smmu-v3.h b/xen/drivers/passthrough/arm/smmu-v3.h
+> index f09048812c..db936b9bd4 100644
+> --- a/xen/drivers/passthrough/arm/smmu-v3.h
+> +++ b/xen/drivers/passthrough/arm/smmu-v3.h
+> @@ -522,6 +522,13 @@ struct arm_smmu_queue {
+>   
+>   	u32 __iomem			*prod_reg;
+>   	u32 __iomem			*cons_reg;
+> +
+> +	/*
+> +	 * According to SMMU spec section 3.16, some systems may have
+> +	 * SMMUs, that are non-coherent to PE (processing elements).
+> +	 * In such case manual cache management is needed.
+> +	 */
+
+Please mention the specification version because section numbers are not 
+stable. That said, I am not sure I see the value to mention the spec 
+here. I think it would be sufficient to say:
+
+"Is the memory access coherent?"
+
 
 Cheers,
+
+> +	bool				non_coherent;
+>   };
+>   
+>   struct arm_smmu_cmdq {
 
 -- 
 Julien Grall
