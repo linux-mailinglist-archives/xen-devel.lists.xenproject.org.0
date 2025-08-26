@@ -2,33 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45B9AB36FE2
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 18:18:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1094850.1450067 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CBBFB3702A
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 18:25:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1094864.1450077 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqwMv-00052D-Cw; Tue, 26 Aug 2025 16:17:57 +0000
+	id 1uqwTu-0006g5-2c; Tue, 26 Aug 2025 16:25:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1094850.1450067; Tue, 26 Aug 2025 16:17:57 +0000
+Received: by outflank-mailman (output) from mailman id 1094864.1450077; Tue, 26 Aug 2025 16:25:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqwMv-0004zO-AB; Tue, 26 Aug 2025 16:17:57 +0000
-Received: by outflank-mailman (input) for mailman id 1094850;
- Tue, 26 Aug 2025 16:17:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uqwTt-0006ed-W3; Tue, 26 Aug 2025 16:25:09 +0000
+Received: by outflank-mailman (input) for mailman id 1094864;
+ Tue, 26 Aug 2025 16:25:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+/mc=3G=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1uqwMt-0004yn-LC
- for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 16:17:55 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 38ca5dc9-8298-11f0-a32c-13f23c93f187;
- Tue, 26 Aug 2025 18:17:54 +0200 (CEST)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-55f42523658so2784273e87.0
- for <xen-devel@lists.xenproject.org>; Tue, 26 Aug 2025 09:17:54 -0700 (PDT)
+ <SRS0=etY1=3G=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1uqwTs-0006eX-26
+ for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 16:25:08 +0000
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on20607.outbound.protection.outlook.com
+ [2a01:111:f403:2405::607])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 37178964-8299-11f0-b898-0df219b8e170;
+ Tue, 26 Aug 2025 18:25:02 +0200 (CEST)
+Received: from SJ0PR03CA0114.namprd03.prod.outlook.com (2603:10b6:a03:333::29)
+ by CH2PR12MB4327.namprd12.prod.outlook.com (2603:10b6:610:7d::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.21; Tue, 26 Aug
+ 2025 16:24:58 +0000
+Received: from BY1PEPF0001AE16.namprd04.prod.outlook.com
+ (2603:10b6:a03:333:cafe::6b) by SJ0PR03CA0114.outlook.office365.com
+ (2603:10b6:a03:333::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9052.21 via Frontend Transport; Tue,
+ 26 Aug 2025 16:24:58 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BY1PEPF0001AE16.mail.protection.outlook.com (10.167.242.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9073.11 via Frontend Transport; Tue, 26 Aug 2025 16:24:58 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 26 Aug
+ 2025 11:24:57 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1748.10; Tue, 26 Aug
+ 2025 09:24:57 -0700
+Received: from [172.31.63.243] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Tue, 26 Aug 2025 11:24:54 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,216 +63,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38ca5dc9-8298-11f0-a32c-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756225074; x=1756829874; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SAcvPVSkSqtErIqieITcAtFbJ2W1vczHq24oF4CqUME=;
-        b=lKvcC89vvf5vfW80dgS//xr4BzEq57y4k1gySaY+SCriHYlnFOx2QyPQMMDfkUjimV
-         ptrRKqu/7wRoeszl0GO0uANrtFIVbQTnkbcj353aB7FJCNnK1tmeObYPMJ+2B0gu07lT
-         gjiP7aMJbG8FViIdxvtAR6zg+80DV+ycOR4hte40s1VPNGLuqFwEOc3iLz8LcnIU6glY
-         KntK0CN97Qs8HcX/qQyumnuRUh0azoew2+R0aQhIqinngooCM8aX7KvmV/TiW3aqTUh6
-         eriqDpLchvOyy+V/MbQYVE/7va05yVtkSo1G9MzylEq88vVbBG3h2jtvb0gPIYNEL5Dq
-         V6nA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756225074; x=1756829874;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=SAcvPVSkSqtErIqieITcAtFbJ2W1vczHq24oF4CqUME=;
-        b=n1tD5g68GEbLIkBNuEv4twBSZAcDdaTLX1DIHFmq3gno3vXZ5HCqfLnCmcXSx7XYbd
-         vZREKa0R1apwDweMWUVlFPI3HslFy5dIvhd2vGnSL5GZLE9xZEFCitMe4a5O+uPBJLiW
-         sskx62/R82jtAsGJsbWIaw1KjuLSiH6gFaxFrHKWB22NgVcLUTcdSxJSC9+85JRaxd8a
-         YaDMGdQ9LTuBwU7Vcn4Se1Bi5wkfvmkv00PQKUqi1aSWD65Q+sT9TLtBrPRFPKrcJCxH
-         EOv8a5QkEDf6buXDBo4AAHaBliLL/IAh/rtiD9H/7jK1CDUkHQx7l1FgfksRt5CtolOy
-         qkoA==
-X-Forwarded-Encrypted: i=1; AJvYcCWGzViTZV7xzIyi1S6gs+asLPAfAXCK10jHPczRHkZXpWm8dVP7skvuX0QGEaCAxFYQEorzFOySMck=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyotiLpxLWkcpKpHw9B8IZvi910eXEb2kGktHqQKcUbeC9vN8fB
-	0fvLBUyre1D5thFCIQUGqxkQMHuUvizn81xEr/Aej5jxUFuptoz0gC4QVW+QEspFGnWkU1K2HZe
-	sS3g/yiF3fbH3Mz0pLBqikUjiDdyyhoA=
-X-Gm-Gg: ASbGncu7lUyPDQXlJXKm/v38aVug8AKlmw1Yb7W3fEr/Fi+LDCSEg3YBomKTdzKiAnn
-	cKuRncseI/ElIDvq+9gGOL9XfTJ1vbm9luehNmmk4KtyWuAgajGCETeVrWw87ITwVR5cwdAMCxN
-	S1vdFM3PGwWuhTGXHktQCG+fsluYcvo1d/sQCfgK2xRgUU2A4jyTtnpiIiNlszXsKFx/qMtpm3a
-	1XPlvAEz5NrOFUXskWFAmNrL50=
-X-Google-Smtp-Source: AGHT+IGpKxX60oRhL52egjrFIE8Pa/p7MtFYckPF999x0rCSghR65ST15CBs7gAeibc0E24KA1NboJYSDezbTQqvMm4=
-X-Received: by 2002:a05:6512:2908:b0:553:3422:c39d with SMTP id
- 2adb3069b0e04-55f0d3a567bmr3778437e87.37.1756225073953; Tue, 26 Aug 2025
- 09:17:53 -0700 (PDT)
+X-Inumbo-ID: 37178964-8299-11f0-b898-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nI1hH+3lm+73J++2c2H3WOW13dTeqf3WVaZHib0IBwr674/1ciuumti16pLprAwXL96PIxNLSskSk7nmOLCdhFqt89qC4SAiU+eDyGNinYu+ktk1JKD4+djYjcH7bc5FNA5ab8z08imhyqg76lRCKmOj7M9RAF0DBJcpgJcYSvxAwOQcgupSrojSqQiN0aMspxp3DWVq/+Sm+FszPbpvV3ohP4EQS24COEmv3xMktrAa+BOxZwZUFh9MwWH1Ft7iFLkIVKTL+ZxxJfnKjWscHSswI+lu5yNNvXTYXffvWp2aQlVyA4vKve5bL2f/oYKs8v77cr6gQKdsbn4WpbyBqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HLXeinFT1xaw5pFlXUQRWDhjTbuSk6PW/GX7bc1L+2M=;
+ b=KbkWcFHGuBrEaZ6ycS1MjAbA6iVS5glj7edE1uKGGntxJ8/X9YfhM5w2rxwXMm5zLebdSFLaQ66b4QT69lrwZySGi12HST3zqgZs252U8Vglj1Ex3OCetqFZ1GzRAdbL/bQlaiCmcoQox8lhLeWvUzl5V4ZoYcfxXOBeWM8zZLAMY7vxdJWridiHDarvNZztasSsGfgFK8sR7iYTArOcSifBCdImojNKDota3sJ2oxsKMIFP+nAxDYrTrF0vxD3WQbZRnj0ZTnYiTthlvGr9TzncSS/LTfnxbHeE9D6b8qWqkxdlVABP3yh1qjZ3arnIRfkC21P84NjjjZWF9TKSKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HLXeinFT1xaw5pFlXUQRWDhjTbuSk6PW/GX7bc1L+2M=;
+ b=CgZ0L3gRcKxLYmgEwpt9lJ7S8BZ+x4dMZXJecOdRadVWo7jOm3b9D9Gx/iDoQx1vQsOhaKwau3L9kwm69lUtzGHOxO1/4x5J5gI8FQvrTzYsKStFYmrhmSklqReGmZn1aGAB4Io4dz/9+SXSEdUgYQ5lFSJzqATU+J3pie/XA6E=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <74dced99-e48c-4b74-8383-afc353d58dae@amd.com>
+Date: Tue, 26 Aug 2025 12:24:49 -0400
 MIME-Version: 1.0
-References: <cover.1754943874.git.mykola_kvach@epam.com> <821e0762f64c8b33260a59c672eabf1da5fb4dd4.1754943875.git.mykola_kvach@epam.com>
- <87frdh7wk0.fsf@epam.com> <CAGeoDV9ftF_hihWJHqEV8R8X6ddbbZ_GCe7pgftD+S1u+FCr8g@mail.gmail.com>
- <f42d9f13-3817-4922-b112-3cc807c0e4d7@gmail.com>
-In-Reply-To: <f42d9f13-3817-4922-b112-3cc807c0e4d7@gmail.com>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Tue, 26 Aug 2025 19:17:42 +0300
-X-Gm-Features: Ac12FXxHknqA53E7z_u6ppadShEkTb6W003dJQXa0BuhHGah5lbDoxJwJpaaXeE
-Message-ID: <CAGeoDV9RbAeTHw4xBqtGL0bRgyNa6cur3f+Oj0+7fwnAhJrz+A@mail.gmail.com>
-Subject: Re: [PATCH v5 12/12] xen/arm: Suspend/resume IOMMU on Xen suspend/resume
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-	Michal Orzel <michal.orzel@amd.com>, Mykola Kvach <Mykola_Kvach@epam.com>, 
-	Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 00/11] xenstored patches from split hardware control
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
+ Grall" <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, "Juergen
+ Gross" <jgross@suse.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	<xen-devel@lists.xenproject.org>
+References: <20250725235858.666813-1-jason.andryuk@amd.com>
+ <698b0944-0be3-4c04-ba97-a8ef55ebd826@suse.com>
+Content-Language: en-US
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <698b0944-0be3-4c04-ba97-a8ef55ebd826@suse.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE16:EE_|CH2PR12MB4327:EE_
+X-MS-Office365-Filtering-Correlation-Id: 66d236b5-2f89-487c-25c7-08dde4bd19ad
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?ek9CZXl4U2swY3VLVGgxYW9mZnEzYjlQWnpJNFM0eXY3WkNRMUYyd3lWTHF2?=
+ =?utf-8?B?eU1JTUVmNWdqdWU2Vkh3WEZNbzBma04wT3hIbUg3NFNKMkk4d0FuSklJKytX?=
+ =?utf-8?B?b2FzWnEyYzd4a1ZaeEFSNmFiRDRBRUxZS1gvYjllSHNCMWp5c2xPZEZFMzVv?=
+ =?utf-8?B?S05ZdUhXUDFtNXpwM1pLODV1OHErMzVMNnppMTc4NmJUTDkvUXVzMEJlQVdo?=
+ =?utf-8?B?VWZDTm9GT0ZKQ1hnVEplN0FmbEFlSU5SeHZFdTNEaWxodXh2VHpwa2NETkdR?=
+ =?utf-8?B?TU9aK3E5OGx4cXZtR2hRMi9MQXVycUhwOFJaV0tRb0cyV1dsZ2wwYnVhNEM0?=
+ =?utf-8?B?TkFvODZqMkNIbjBCTzNlaFNzUDJ1OTFJaE93ZkI5TkFseFRYZFNScXJKWXhQ?=
+ =?utf-8?B?ZDJRR29tREZ3dHlmMW1zT1B4RTd3Rm45UHF5VGF6OXR4RUtGak1pMVB1Y2RH?=
+ =?utf-8?B?U0Job3cwc0o3eUpKSjJuUm8vV1VUMDNQUWhkZktOaE1kZzR0NGR4bVVZejIy?=
+ =?utf-8?B?QlhrM3RjSzQzTmZNMEorK1RPM3pjODZFb0pNV0Y0Wmp3S2Q1UWZwTDUyRFc5?=
+ =?utf-8?B?L1I2bElXa2l5eHVLcGllM0lKNGxuTkJoOURlQld0UnM4NFhROUM5WHplVVA4?=
+ =?utf-8?B?YVZuUTJuS29zZW5Uem8wblcyVTdCY0pVS2lWNmo4RUJqbG9hcGlERi90bE9r?=
+ =?utf-8?B?VjBkTDZoNzFkZW52Ym5lQmlHOFFUN2Eza3hqNEFKT05GN2hoeFBtMEdYSlpT?=
+ =?utf-8?B?RjhYd21GT0V0Y1d0RHg4TW5MalB1ZFVxN3lsenlLdGIwQTVMY292OTJlQVcr?=
+ =?utf-8?B?ekJnQm5sTUJpOEkrMlFaRGhMYUI1OXFZMWVwRjN4ci92ZVdXM2dLQ3ZUNFFV?=
+ =?utf-8?B?RFgzYUtkTGUydmFwUVJqZWlvUU1ub2tyQUJXaHgvRHNGR0RKRktLNjREaENI?=
+ =?utf-8?B?NzhmVnpkYVhYc3FQcDhCZm5KYy9iYlhCTjFDanZVQW5jcnJ0Und6Z3JmYVh3?=
+ =?utf-8?B?L25RZSttTUxTSlVSVE9SN1E3RnZlSUV2eEFqemtUU0dlK0NMaXJ2M2hnNnFC?=
+ =?utf-8?B?NmpReXFRSnc2QUpnaTJEYm5TVnJmK3E3a2FYckFFSEhaODRDaTQzS0JndHNt?=
+ =?utf-8?B?QUU2ZktJRlM0NUcwcFpHQ3Y0eWlCdVVBQ0c5ako3M2xGc0hzS1lJTWhDUWRB?=
+ =?utf-8?B?YUQzOWN1TysybFI3VmQ2aWFuSDE3S2paUzRnQU8zMFMzY3Y3d2Jrakt4VG9s?=
+ =?utf-8?B?a0hycEZja0NLeDBiWWNBNjJaUVQ5NlJ0dW5kOE5TUEFpa3UxOHE1Yk14Q3c4?=
+ =?utf-8?B?WmN0Yzg4dmpTdDNhbWNNc01iN1dEN1FrVjRpc1JPVnVvTU5VQ3BRTGdoaWFQ?=
+ =?utf-8?B?UVlGY3VwbzR4RHNpYm9USFdPblVtZDdrazZDbnk3QzBLT1JBK2ZnWGdJSkUx?=
+ =?utf-8?B?eTUvY05HWmptQk85Y01kcGtFNEFrTCt2TjNZR2IrWWcyZEcxVlJHSFZGTmJ1?=
+ =?utf-8?B?TnhJK28wa3VCNWpDVHpjY0t0cUQ4d3crT2tQTGZjNzdOVTk2VHdHaUIzSkdW?=
+ =?utf-8?B?VXhVR0pOYjE4bC82OS9JdDZiaEIvRWxVRE1ZL3NJa1pSOUtaOWVHWERHUUUy?=
+ =?utf-8?B?M0laSDMyM0hSZTRkbTBiSGNEUU9vamEwNUMwK2w5eGtFN2Y3c2xOTzZmSUJq?=
+ =?utf-8?B?Wm1XLzVWaVhpUU1BeHdVSXJUcWlEVks4VExtdjhZTjdFK2xLb3BPMmdXa2RZ?=
+ =?utf-8?B?cG1zMDJMVFRNMUxyTUNQdVF4dGpiWlRROC83ai9mUVVnc1hteGxBczVWNDJJ?=
+ =?utf-8?B?LzcwY0xZNnlSdzVicUhXbG9YU1NGdDF6dGJmT01XNTdxSjJDT052WTJTQkYr?=
+ =?utf-8?B?UnNiV2JCYlpNd05XanQ2Wnd3TU5QQUdpaHVwUGtNeTlhc0ZsaUJoVGQ5Nncy?=
+ =?utf-8?B?SkZNWVY3M0tzUHJIVlY3aTV5SG5icnNBNG81VFlnb0g4ZXp0My9WWmE3YVdl?=
+ =?utf-8?B?KzhnR1R2VmxiRG5zc2dXZE1tVm5FeUpFektlOE5RaWJTOWd5a21wVlBIeXBi?=
+ =?utf-8?Q?Fyj5vM?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2025 16:24:58.5832
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66d236b5-2f89-487c-25c7-08dde4bd19ad
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF0001AE16.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4327
 
-Hi Oleksandr,
+On 2025-08-26 11:53, Jan Beulich wrote:
+> On 26.07.2025 01:58, Jason Andryuk wrote:
+>> This is a subset of patches focusing on xenstored changes from my split
+>> hardware control domain series.
+>>
+>> It should address the stubdom breakage from the previous series.
+>> stubdom was tested in gitlab-ci - xl list shows Domain-0 and Xenstore.
+>>
+>> "tools/xenstored: Use priv_domid for manual nodes and permission" is an
+>> interesting result of looking to rename some internal variables to
+>> better align their purpose.
+>>
+>> Any review or guidance on the approach is appreciated.
+>>
+>> Jason Andryuk (11):
+>>    xen: Add capabilities to get_domain_state
+>>    tools/manage: Expose domain capabilities
+>>    public/io: xs_wire: Include event channel in interface page
+>>    xen/dom0less: store xenstore event channel in page
+>>    tools/xenstored: Read event channel from xenstored page
+>>    tools/xenstored: Add get_domain_evtchn() to find evtchn
+>>    tools/xenstored: Auto-introduce domains
+>>    tools/xenstored: Use priv_domid for manual nodes and permission
+>>    tools/xenstored: Rename dom0_domid to store_domid
+>>    tools/xenstored: Remove stubdom special casing
+>>    tools/xenstored: Remove hardcoded implicit path
+> 
+> To allow more of this to go in, you'll need to chase an ack for patch 4.
+> Of course you could also indicate if committing any later changes ahead
+> of patch 4 would be possible / sensible.
 
-On Tue, Aug 26, 2025 at 6:01=E2=80=AFPM Oleksandr Tyshchenko
-<olekstysh@gmail.com> wrote:
->
->
->
-> On 26.08.25 16:42, Mykola Kvach wrote:
->
-> Hello Mykola, Volodymyr
->
->
-> > Hi Volodymyr,
-> >
-> > On Sat, Aug 23, 2025 at 8:55=E2=80=AFPM Volodymyr Babchuk
-> > <Volodymyr_Babchuk@epam.com> wrote:
-> >>
-> >> Hi,
-> >>
-> >> Mykola Kvach <xakep.amatop@gmail.com> writes:
-> >>
-> >>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> >>>
-> >>> This is done using generic iommu_suspend/resume functions that cause
-> >>> IOMMU driver specific suspend/resume handlers to be called for enable=
-d
-> >>> IOMMU (if one has suspend/resume driver handlers implemented).
-> >>>
-> >>> These handlers work only when IPMMU-VMSA is used; otherwise,
-> >>> we return an error during system suspend requests.
-> >>>
-> >>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> >>> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-> >>> Tested-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->
-> I think, the Tested-by here should be dropped. A lot of time has passed
-> since Oleksandr provided the tag, and the code has changed a bit (I am
-> afraid, the tag is now stale).
+I re-posted the xenstored changes separately and they have gone in, 
+thanks.  Yes, I need to follow up on patch 4.
 
-Got it, I=E2=80=99ll drop the Tested-by tag in the next version.
-
->
->
-> >>> ---
-> >>>   xen/arch/arm/suspend.c | 21 +++++++++++++++++++++
-> >>>   1 file changed, 21 insertions(+)
-> >>>
-> >>> diff --git a/xen/arch/arm/suspend.c b/xen/arch/arm/suspend.c
-> >>> index b5398e5ca6..cb86426ebd 100644
-> >>> --- a/xen/arch/arm/suspend.c
-> >>> +++ b/xen/arch/arm/suspend.c
-> >>> @@ -4,6 +4,7 @@
-> >>>   #include <asm/suspend.h>
-> >>>   #include <xen/console.h>
-> >>>   #include <xen/cpu.h>
-> >>> +#include <xen/iommu.h>
-> >>>   #include <xen/llc-coloring.h>
-> >>>   #include <xen/sched.h>
-> >>>
-> >>> @@ -49,6 +50,13 @@ static long system_suspend(void *data)
-> >>>
-> >>>       time_suspend();
-> >>>
-> >>> +    status =3D iommu_suspend();
-> >>> +    if ( status )
-> >>> +    {
-> >>> +        system_state =3D SYS_STATE_resume;
-> >>> +        goto resume_time;
-> >>> +    }
-> >>> +
-> >>>       local_irq_save(flags);
-> >>>       status =3D gic_suspend();
-> >>>       if ( status )
-> >>> @@ -105,6 +113,10 @@ static long system_suspend(void *data)
-> >>>
-> >>>    resume_irqs:
-> >>>       local_irq_restore(flags);
-> >>> +
-> >>> +    iommu_resume();
-> >>> +
-> >>> + resume_time:
-> >>>       time_resume();
-> >>>
-> >>>    resume_nonboot_cpus:
-> >>> @@ -140,6 +152,15 @@ int host_system_suspend(void)
-> >>>           return -ENOSYS;
-> >>>       }
-> >>>
-> >>> +    /* TODO: drop check once suspend/resume support for SMMU is impl=
-emented */
-> >>> +#ifndef CONFIG_IPMMU_VMSA
->
-> The original patch did not seem to have this check...
->
-> >>
-> >> This check is meaningless, as you can have CONFIG_IPMMU_VMSA enabled
-> >> along with CONFIG_ARM_SMMU on a system with SMMU. I think it is enough
-> >> that iommu_suspend() will fail during system_suspend(), isn't it?
-> >
-> > Not exactly. In the case of SMMU, we don=E2=80=99t have valid iommu_sus=
-pend/iommu_resume
-> > handlers. So it=E2=80=99s possible to have CONFIG_ARM_SMMU enabled and =
-iommu_enabled
-> > set, but without the appropriate suspend handlers. This could lead to
-> > a crash during
-> > system_suspend().
->
->   ... I also have doubts whether this check is needed (at least in its
-> current shape). Xen has 2 SMMU drivers at the moment. Lets imagine that
-> S2R for SMMUv3 is implemented, so we will need to extend #ifndef above
-> to cover CONFIG_ARM_SMMU_V3 as well, right (otherwise an attempt to
-> suspend SMMUv2-powered system will lead to crash)? Or there is a plan to
-> implement S2R for both SMMU implementations?
->
-> ***
->
-> If we care for possible crash because iommu_suspend is NULL for
-> SMMUv2/SMMUv3, maybe we should consider adding stub callbacks to the
-> both SMMU drivers, just returning -ENOSYS?
-
-I=E2=80=99m fine with that proposal, adding stub callbacks sounds like a cl=
-ean
-solution.
-
->
-> Let's see what other people's opinions are.
->
-> >
-> >
-> >>
-> >>
-> >>> +    if ( iommu_enabled )
-> >>> +    {
-> >>> +        dprintk(XENLOG_ERR, "IOMMU is enabled, suspend not supported=
- yet\n");
-> >>> +        return -ENOSYS;
-> >>> +    }
-> >>> +#endif
-> >>> +
-> >>>       /*
-> >>>        * system_suspend should be called when Dom0 finalizes the susp=
-end
-> >>>        * procedure from its boot core (VCPU#0). However, Dom0's VCPU#=
-0 could
-> >>
-> >> --
-> >> WBR, Volodymyr
-> >
-> > Best regards,
-> > Mykola
-> >
->
-
-Best regards,
-Mykola
+Thanks,
+Jason
 
