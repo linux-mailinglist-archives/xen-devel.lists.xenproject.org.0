@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBC80B36643
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 15:55:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1094514.1449807 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94CB6B3675A
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 16:05:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1094531.1449825 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqu8n-00054t-9N; Tue, 26 Aug 2025 13:55:13 +0000
+	id 1uquIy-0007Bz-LE; Tue, 26 Aug 2025 14:05:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1094514.1449807; Tue, 26 Aug 2025 13:55:13 +0000
+Received: by outflank-mailman (output) from mailman id 1094531.1449825; Tue, 26 Aug 2025 14:05:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqu8n-00052j-6o; Tue, 26 Aug 2025 13:55:13 +0000
-Received: by outflank-mailman (input) for mailman id 1094514;
- Tue, 26 Aug 2025 13:55:12 +0000
+	id 1uquIy-00076A-Fz; Tue, 26 Aug 2025 14:05:44 +0000
+Received: by outflank-mailman (input) for mailman id 1094531;
+ Tue, 26 Aug 2025 14:05:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EpqW=3G=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1uqu8m-00052d-5p
- for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 13:55:12 +0000
-Received: from fout-a2-smtp.messagingengine.com
- (fout-a2-smtp.messagingengine.com [103.168.172.145])
+ <SRS0=kqrf=3G=epam.com=Leonid_Komarianskyi@srs-se1.protection.inumbo.net>)
+ id 1uquIx-00072q-1h
+ for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 14:05:43 +0000
+Received: from AM0PR83CU005.outbound.protection.outlook.com
+ (mail-westeuropeazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c201::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 471b5845-8284-11f0-a32c-13f23c93f187;
- Tue, 26 Aug 2025 15:55:09 +0200 (CEST)
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailfout.phl.internal (Postfix) with ESMTP id 71658EC0495;
- Tue, 26 Aug 2025 09:55:08 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-04.internal (MEProxy); Tue, 26 Aug 2025 09:55:08 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 26 Aug 2025 09:55:07 -0400 (EDT)
+ id c04f14b2-8285-11f0-a32c-13f23c93f187;
+ Tue, 26 Aug 2025 16:05:41 +0200 (CEST)
+Received: from GV2PR03MB8678.eurprd03.prod.outlook.com (2603:10a6:150:7d::13)
+ by GV1PR03MB8590.eurprd03.prod.outlook.com (2603:10a6:150:9a::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.21; Tue, 26 Aug
+ 2025 14:05:36 +0000
+Received: from GV2PR03MB8678.eurprd03.prod.outlook.com
+ ([fe80::4eb:3e7b:1ffa:25f9]) by GV2PR03MB8678.eurprd03.prod.outlook.com
+ ([fe80::4eb:3e7b:1ffa:25f9%6]) with mapi id 15.20.9052.014; Tue, 26 Aug 2025
+ 14:05:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,456 +47,241 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 471b5845-8284-11f0-a32c-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1756216508;
-	 x=1756302908; bh=K8WQCwSehiom9QczQ6FIl2QN0kQnpXkCGstJKkpJdxA=; b=
-	deiiDOzJjdswrFCerYyFahErntKyIh8x6Isy92/DqbmfhiCDtsPao+QeOVI8UyJ0
-	OZlXFI4kgxuWzUeNsUW/qPk1gwhB2LzuDrLGackkqQn4rdhYx238JHWAZ6mluCDx
-	YmTc9sjYzY/2TUP11bDC39zi7Koxi93zr8B1Dfp+HnELh/osGl8RQHuuknIVUgHk
-	aG0WWRSeB+q7SMjqxbwDvx8VIcc8e0H41dMpjrz3OaMTLq55pgekn/FsGdLAg3Ca
-	asJPbhZNwzgqjHuTTBRb1GkuPk6rHW4TYfcGsalRCKJMz6d6Wu0/LTicCB0fWh+J
-	ACala883X1/GXrQ0ClzNlQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1756216508; x=1756302908; bh=K8WQCwSehiom9QczQ6FIl2QN0kQnpXkCGst
-	JKkpJdxA=; b=oJ7PA3E+XDYKdQUEyRAxpyMmkn598EDy39DRwlLJYktUweaNR+d
-	jZxruHEtkvdiSk2wS731x8LSC1poW7M8PP2s5aNLaXZSSHMz3AnYU357vTGEpliU
-	z4cdyGG0+I/euUBqa7ajVmhwj9qydFeWaAzKFbvDVRBSQagaKGlbwIbzrf6aAh8e
-	PSfgsYIz8Ht86Hb9PI4xQLYm29wRhXRcy3NllydZkgjqxrFX5Ep8sUGWp9Q671Xb
-	nDEjkScU+TkUs01X5I+e0J/D/vqosBRmHn8Mr49ORGOQoPz/szUVDGnumuLwUBe7
-	nbROU+cLqZwXxmigYtsEhW8l0D01IeoHZWQ==
-X-ME-Sender: <xms:vLytaOnYnQANvovqHABr7Q0VH3L4TVr6eGZezxUZt8eSQTboRz3v7w>
-    <xme:vLytaJG5YE1O70oBjRi8uuPg47MIGS1nS6OdWtcqgD18N1o5tPmzXcDhetDY-hjhY
-    ETiMHvVvMmCaQ>
-X-ME-Received: <xmr:vLytaGHMXZGclwbgz7P-ovvXaMw8qMe2az6S3Dg30fMo4HrfJKvR6R5bpAy_z1rlfuB1o84uECKaXPImVDjKlVWW_sruGXiI44E>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgddujeehgeegucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
-    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepueekteet
-    gefggfekudehteegieeljeejieeihfejgeevhfetgffgteeuteetueetnecuffhomhgrih
-    hnpehgihhthhhusgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhep
-    mhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrg
-    gsrdgtohhmpdhnsggprhgtphhtthhopeefpdhmohguvgepshhmthhpohhuthdprhgtphht
-    thhopehrohhgvghrrdhprghusegtihhtrhhigidrtghomhdprhgtphhtthhopehjsggvuh
-    hlihgthhesshhushgvrdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishht
-    shdrgigvnhhprhhojhgvtghtrdhorhhg
-X-ME-Proxy: <xmx:vLytaOOmXBz1At0ywJ8Ibf6jUrikqGVZ5MWxXNPZy-zlH92ZUB8ZzQ>
-    <xmx:vLytaNGBOA-WmfG53s09C0HlQPav7yL4mozXVbkQ0sBeR9LSxx-CwA>
-    <xmx:vLytaNMVMJhP7zi3mCgOcsoBDT0_nIR3ZCqigvCrWSVBeOO6YzZfpQ>
-    <xmx:vLytaG-dx3vlYH0uRmsweI-E3Nly59TYbQOWkygXzB8LZceb5DnsRQ>
-    <xmx:vLytaNPpRmSy8AWKA6NFCeaqK-arcgKV2UKeMFdW45zuLQMiHyzuKYaW>
-Feedback-ID: i1568416f:Fastmail
-Date: Tue, 26 Aug 2025 15:55:05 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
-	xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: MSI-X cleanup(?) issue with passthrough after domU restart
-Message-ID: <aK28ubf5F3x-of3X@mail-itl>
-References: <aK0St0oUkJzR9lO0@mail-itl>
- <2aafbace-3aa2-4f58-8f6c-2815cd2315ad@suse.com>
- <aK1wSKTg5LcuzBDc@macbook.local>
- <aK2TLuB_yKlWjFgM@mail-itl>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="SPDx3WFh/ytkDTPC"
-Content-Disposition: inline
-In-Reply-To: <aK2TLuB_yKlWjFgM@mail-itl>
-
-
---SPDx3WFh/ytkDTPC
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+X-Inumbo-ID: c04f14b2-8285-11f0-a32c-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=G3EaZT/jQdTmvlolmEYx/2yyA33Gj191foOE9sEbmnoe+arjolJMwDGblxZbOITjN2+W/wa9tVWWfwMcQZO7a+SZLT7cdgS8zK0vMdpiQUWX2Ewqaz+CFaGk4ry/MKTLHEDSb7+nNnp3/+vmHeKr1LR+673WW53R9na1K0x13XgAaplBu0I8In4R7fcP7mydICRVm8IzoNTUdjgn7zbVi6azPGRw7jX7JXeb+7deQqjwYXLjc/XyKq7PZ+DpkHgHbwJXR8SOP3YW4wjI2XFa4J1KkFqlr5pxEp8raWRX09xktnSutTXcxNXvh0+JrRWAMMLHsJCCyfCRBFBj0RdfZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uxiR68BT9E9bUNcTc39AlV4WhoNXMfyWIZeI8b9FTbU=;
+ b=L/qok1OF5v1sEDOvSRcfZXcXPSd+LgtYvRzRd+bCl7NJJUx1Xz7tqwbtqd9V4hrVGkI9V1FvtVCvHO7IKRoVKZ+nJoO6E9D9B/EsGNAaAaGgRwuSC+mgsCKdsyVExv/LWDV7WT8KbbSMoKDsa5bUvGsT8KOgF+e/tWkxX071eLxpXjxAJdGgtoP0V+ZWzx6G00JO/rX5nvqiaz4oG+plnUiQIPvfhUZDgUgNBIIrnnsahAFBN/Z8cETsgroCoBdWv5gH/IuIKRIx98hRCduCDgYIegBN9FOce2aD78Q0/aax8hV+W9M/coNhXCSVPPR8dakHT/NM++Ux43m8xjAtww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uxiR68BT9E9bUNcTc39AlV4WhoNXMfyWIZeI8b9FTbU=;
+ b=BwN1S+4tWW5Ph94BBoFobpbyP8rp3MLvaY9YnqBiTyrEEpbqMh4Lbe+/O6dHfyiQ2ZCJDdmPRq0+05RyHIxPvA2JLOLb8WZWkEqoKJyUgXPwhWF5SbQnl2G8NYHud7cJ+HaMyuSR5VTK0ilfLMozuLr335Rd31W3CnmpJkwx47fnUgwYbvq/CTL3lO3JrfnEIwyau+WGoT/BxNMROW7jgYb0+KgfhFp7Rxy6WflGAvhiZiUm849h62u4YlSYM9I0E6/+Aj/sjxLPU05xzR+Qtrk1CG+8/ksAEmX+Z9EwB2coNQ8auzIJaztcbc73/6nhODenrAGSE504zvakksgAMw==
+From: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: "olekstysh@gmail.com" <olekstysh@gmail.com>, Leonid Komarianskyi
+	<Leonid_Komarianskyi@epam.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Community Manager <community.manager@xenproject.org>
+Subject: [PATCH v3 00/11] Subject: [PATCH v3 00/11] Introduce eSPI support
+Thread-Topic: [PATCH v3 00/11] Subject: [PATCH v3 00/11] Introduce eSPI
+ support
+Thread-Index: AQHcFpJ+lDNT/UIVbEmkb1HdVv/B7Q==
+Date: Tue, 26 Aug 2025 14:05:35 +0000
+Message-ID: <cover.1756216942.git.leonid_komarianskyi@epam.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV2PR03MB8678:EE_|GV1PR03MB8590:EE_
+x-ms-office365-filtering-correlation-id: 15e0f3bf-7275-4204-9da3-08dde4a9a127
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|366016|38070700018;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?WtslI/uW+FPo6BclI7H0lNBiVBLpsD963VkVlUKw6Wrxv8hlLibOO7CLiu?=
+ =?iso-8859-1?Q?RveFuIz2EJ/Qkr9OktSHVVarRFFlBsrvf6LnBsOf9rOMQpYxZ81I/rxZeL?=
+ =?iso-8859-1?Q?3Cn9TzDX2P7+H0AmLlnYUODD4ShGaiWfOjBsWBri4wjCSa1p4G/JSX2rWP?=
+ =?iso-8859-1?Q?0AOmQHceqrz87FaOAAtaZTmja2SQTfxMb3BATsh9l68GQeuc5hFNd/YCnQ?=
+ =?iso-8859-1?Q?/V16vrrZNP7U1GRev2w0YRNETdfQXx3PC1d0d3LHa/VY0PbDI1jBcqCN08?=
+ =?iso-8859-1?Q?kD3r1WdTMN+92QgA/wuM6TkC9JqQCu7YsfCOTJ59MCu5I/EgL0FzQaLH++?=
+ =?iso-8859-1?Q?2aHnTiz/elGiJeQiFcgWFUnAqEaFXXqb4UB91GOFgigB4uW2ReQ6iVfZq0?=
+ =?iso-8859-1?Q?HJqWtZBGIyO8JfUHWwlKE+kj2cgdXbLOfGTZ6KyU3YzZpeLgsanZNf+Jdd?=
+ =?iso-8859-1?Q?AYyZNhe3lADZ8iAcovtpMlxHyVfUyhUdQA8jI/WJlqrsXX02bbYCF99ocu?=
+ =?iso-8859-1?Q?FkXosXku8rHdGsQv6Clj4PrNAM7dxQE/cKk3jO8XZIovJ/hTlt5PSpn7UJ?=
+ =?iso-8859-1?Q?tYwK/c+NLX0Px7v7ZN8D9KrWDaGrJY4SUYAhAV3ufUqryfKia85kjuSTDa?=
+ =?iso-8859-1?Q?Hn5zltRumqZ47Y9Gc7Ou01rAiKVHUBqs0eDeYj7fhztHwQYBdA4R7dOI+Q?=
+ =?iso-8859-1?Q?rdrqgfZ9I1FA1TWXcFiCEhNN0iD/kIVGXpP7Yli137/tx9t5vjav4FyTcm?=
+ =?iso-8859-1?Q?9Uj+7M5YcvYFbytiXjZbNEl66njhenzBe38n3cA3/D2v5ZBcBo2Nnwp3RI?=
+ =?iso-8859-1?Q?R0yty/9XJfmrJMlHen5cydGcfH/4sFeWtbqT3ZI05dYmRr8FmIKfNAWjdP?=
+ =?iso-8859-1?Q?suzFZPWkLhqiFXf0iOUrLux9jCD4xR01ubw/+v34MDLMujas6lYmNquOKD?=
+ =?iso-8859-1?Q?gYRx8s8eUKSDoe4eZSpIMvtJ8ptRVz9VBZk2sEkP91qu8ca43m2ztQ6ojs?=
+ =?iso-8859-1?Q?Y2uq5fbm8VO04bWEnYMVajIE91sWfgkRH1qnzI7FwJMEG+Z8DBm2vDFJK3?=
+ =?iso-8859-1?Q?VPyBtRgrMePN2VtV4UakafYW3lpwtHCjVTIMALd7U9pk4sEOvwGPeMDgTY?=
+ =?iso-8859-1?Q?mxlGSUpSVAhCsNctbkZUv4ej49qlUu2NovuJWzu9GrPBbcvsi6aGVEPmkG?=
+ =?iso-8859-1?Q?hWE8ed9VKcLskCOw8dNwshi/xZDKKJPqGQc5QfE1ELaManJSAPCg6Di1Dj?=
+ =?iso-8859-1?Q?LrMxywyYupTp/RDAs8pkXlq3AGfJjBlPiU/ljG/lLyo6lSZHYhh1Rb9TXb?=
+ =?iso-8859-1?Q?bTAm1aNugENgngYyYSz5e6E+P19COSgm/P0w2f2mmSK94ZuC9PsZ4/van9?=
+ =?iso-8859-1?Q?wUxXmma+dakFuHFCb/SX3hzFIASgLLe8tmaseCXcJqcOH1RtOvG0p9N/F7?=
+ =?iso-8859-1?Q?wjT/C5TI9mOodIinqqbvzu6dr+FI7k/P6ZN7zaT8OhaAEjOWX9HCusiQT4?=
+ =?iso-8859-1?Q?8=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB8678.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?I61jysiL1Czz6lCWW6ACk7gTK4bIrSbA8kKh/+u4v0Bdz35i+drp9vqyCl?=
+ =?iso-8859-1?Q?BqUCQoaL889wZUfzkcb3dJcBCA+lJtKfUSyVxLVhJqDltsoqlKGiaMCdgx?=
+ =?iso-8859-1?Q?618vsoDNPjwcFiBo/2GkAte7xarh6Ztm3hTmv1xaU9U1jcdkJpgSaBpR9c?=
+ =?iso-8859-1?Q?AJv0GwavcGW2go0HVb0WdVsEpdspJn9x0svwRaNlt/E3oDQnb9sr/T4W37?=
+ =?iso-8859-1?Q?ZFOKpqTho0cXpOG6zhDJXtOWG26x+A/SJxk34/C/XLz219WBl3J3U5TAVZ?=
+ =?iso-8859-1?Q?szO8moX+6CKvrtT9sFqbzWFxYmwZd9bKwzAiw8MUSw1EhkVskfcNKzbGNC?=
+ =?iso-8859-1?Q?44D210//BlJZSJ+7J9HlTDFK3EBSD+vMs2Thx3T6u4PepX/g18XFzBiWTa?=
+ =?iso-8859-1?Q?rIbN865PFrfT05gh85K/7ROLIM8Eqgf3hqTtP1Y5qdhOGEd/qsJMG9vLho?=
+ =?iso-8859-1?Q?+ESGfcPKlWfyttA198pjeoNmqTUVMCNrAvdKm32Eww8eFyZX5BIobVbeUq?=
+ =?iso-8859-1?Q?XhZ0isnTni9uZnJBDMgEXfLl6lVfJQzQ/0s0cEkH65bSCSUf1b55iM0Gmk?=
+ =?iso-8859-1?Q?a4P9iD/pww/EcPvXr/o+jf6gtwbJLL4xwsVhjtH5NcW2lofbE529Kaifm2?=
+ =?iso-8859-1?Q?6JNaVQFwZGbBATo0i9FNhoFYbwCpGTPeq6GYSswvv5myQB6zL+ogfKq73T?=
+ =?iso-8859-1?Q?RMMTtGQJMV/VtPFO7jw7oNw0iZwJ+kcvmHv3ENmDWs7Q6ZdtjfudYaTpGF?=
+ =?iso-8859-1?Q?sbFq6k2zKUa3Vzk5MUHWMJ7qzbJae32R8ngZUkptOZTIs7zS/IKlvDbcw0?=
+ =?iso-8859-1?Q?6npAU2j6zEeI/geZ+6avecXyAAW3nQwdLOucy0IRVJbjs3JKYcoxdHloz/?=
+ =?iso-8859-1?Q?R6sC1Ls9GoZZEEJGst60bDGym0dXg7BIjU0lRRCe+w0Yio1FHGZqcPakgH?=
+ =?iso-8859-1?Q?5ZhYsCZsOMj3+2BTDGS7XLYj6+LufF54d+OPGUGavXbqBuT+7r6Tr7PIF6?=
+ =?iso-8859-1?Q?VM/n1t6TdBpHNkjxzI2nCdrCFvi9K3FmS9HtfwR0iDyMW9DDLsJUIO0B45?=
+ =?iso-8859-1?Q?A+Ymp5JwU/rGNVJjg3aSLzIYMQd5pb5vkUnGJAD6WEdeBxQsTrmBw7vT0i?=
+ =?iso-8859-1?Q?kuca70OqglD0jurtX0umPdQu+a42XdWBFRmNq7Cyr8T4qobpq7ewk1RUpr?=
+ =?iso-8859-1?Q?WH42/UM6MxqtbCcybrPM+u6vEo5xFaJtp/+lZOzwRexFp/rTf28vPrPBrV?=
+ =?iso-8859-1?Q?coHY3Qy0yohCzn5jvNQK6CVGiPMe6VG3pJWw3escErJazKQlCtLpt1zbql?=
+ =?iso-8859-1?Q?VK8pdloZALw3Go5TVL1ajSOfAzbCnJAANQBTgSupx/x9kXkgZ0C667eZML?=
+ =?iso-8859-1?Q?4sYLI8GYX2y7J0E8V3mnN3SA7cmZf+foIR8ZtayhlvLlNt9/dOeQLZnoWD?=
+ =?iso-8859-1?Q?brPRK9oMN8Fk6y5KYfLqsna94h47CE347/HK2i6rQnjjee7eSW4iZlVIoB?=
+ =?iso-8859-1?Q?NX5vVhZ4B4W/bZHHo6XK7G/52a4598j7M93/JAlBeXPKzrHGroSLKutz1D?=
+ =?iso-8859-1?Q?i7MQnWUbkGwEgR+IZYMWfXN/pl0E7IOfP04EROaVs7m+5oW4rA9ROtVWn9?=
+ =?iso-8859-1?Q?2GKD78/GXC0J/r2BRqRfcdxZslVt1AAfEr5TxNOinz2rW9K6WNOvDNWMsX?=
+ =?iso-8859-1?Q?X8QEGzO6YwxoY2RyBy8=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 26 Aug 2025 15:55:05 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
-	xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: MSI-X cleanup(?) issue with passthrough after domU restart
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB8678.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 15e0f3bf-7275-4204-9da3-08dde4a9a127
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Aug 2025 14:05:36.0549
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: N/ykwgYou/GT/wAbfWEMX3zAbGbJZggnaDHA3O/HJg/7IXTaLL0hEVVVaJO/TpvDBPONgnTrm3I1Y45RANYEbzZAq4gVqJaavycRn24Nak4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR03MB8590
 
-On Tue, Aug 26, 2025 at 12:57:50PM +0200, Marek Marczykowski-G=C3=B3recki w=
-rote:
-> On Tue, Aug 26, 2025 at 10:28:56AM +0200, Roger Pau Monn=C3=A9 wrote:
-> > On Tue, Aug 26, 2025 at 08:16:56AM +0200, Jan Beulich wrote:
-> > > On 26.08.2025 03:49, Marek Marczykowski-G=C3=B3recki wrote:
-> > > > Hi,
-> > > >=20
-> > > > I'm hitting an MSI-X issue after rebooting the domU. The symptoms a=
-re
-> > > > rather boring: on initial domU start the device (realtek eth card) =
-works
-> > > > fine, but after domU restart, the link doesn't come up (there is no
-> > > > "Link is Up" message anymore). No errors from domU driver or Xen. I
-> > > > tracked it down to MSI-X - if I force INTx (via pci=3Dnomsi on domU
-> > > > cmdline) it works fine. Convincing the driver to poll instead of wa=
-iting
-> > > > for an interrupt also workarounds the issue.
-> > > >=20
-> > > > I noticed also some interrupts are not cleaned up on restart. The l=
-ist
-> > > > of MSIs in 'Q' debug key output grows:
-> > > >=20
-> > > >     (XEN) 0000:03:00.0 - d22 - node -1  - MSIs < 41 42 43 44 45 46 =
-47 >
-> > > >     restart sys-net domU
-> > > >     (XEN) 0000:03:00.0 - d24 - node -1  - MSIs < 41 42 43 44 45 46 =
-47 48 >
-> > > >     restart sys-net domU
-> > > >     (XEN) 0000:03:00.0 - d26 - node -1  - MSIs < 41 42 43 44 45 46 =
-47 48 49 >
-> > > >=20
-> > > > and 'M' output is:
-> > > >=20
-> > > >     (XEN)  MSI-X   41 vec=3Db1 lowest  edge   assert  log lowest de=
-st=3D00000001 mask=3D1/H /1
-> > > >     (XEN)  MSI-X   42 vec=3Db9 lowest  edge   assert  log lowest de=
-st=3D00000004 mask=3D1/HG/1
-> > > >     (XEN)  MSI-X   43 vec=3Dc1 lowest  edge   assert  log lowest de=
-st=3D00000010 mask=3D1/HG/1
-> > > >     (XEN)  MSI-X   44 vec=3Dd9 lowest  edge   assert  log lowest de=
-st=3D00000001 mask=3D1/HG/1
-> > > >     (XEN)  MSI-X   45 vec=3De1 lowest  edge   assert  log lowest de=
-st=3D00000001 mask=3D1/HG/1
-> > > >     (XEN)  MSI-X   46 vec=3De9 lowest  edge   assert  log lowest de=
-st=3D00000040 mask=3D1/HG/1
-> > > >     (XEN)  MSI-X   47 vec=3D32 lowest  edge   assert  log lowest de=
-st=3D00000004 mask=3D1/HG/1
-> > > >     (XEN)  MSI-X   48 vec=3D3a lowest  edge   assert  log lowest de=
-st=3D00000040 mask=3D1/HG/1
-> > > >     (XEN)  MSI-X   49 vec=3D42 lowest  edge   assert  log lowest de=
-st=3D00000010 mask=3D1/ G/1
-> > > >=20
-> > > > And also, after starting and stopping the domU, `xl pci-assignable-=
-remove 03:00.0`
-> > > > makes pciback to complain:
-> > > >=20
-> > > >     [ 1180.919874] pciback 0000:03:00.0: xen_pciback: MSI-X release=
- failed (-16)
-> > > >=20
-> > > > This is all running on Xen 4.19.3, but I don't see much changes in =
-this
-> > > > area since then.
-> > > >=20
-> > > > Some more info collected at https://github.com/QubesOS/qubes-issues=
-/issues/9335
-> > > >=20
-> > > > My question is: what should be responsible for this cleanup on doma=
-in
-> > > > destroy? Xen, or maybe device model (which is QEMU in stubdomain he=
-re)?
-> > >=20
-> > > The expectation is that qemu invokes the necessary cleanup, but of co=
-urse ...
-> > >=20
-> > > > I see some cleanup (apparently not enough) happening via QEMU when =
-the
-> > > > domU driver is unloaded, but logically correct cleanup shouldn't de=
-pend
-> > > > on correct domU operation...
-> > >=20
-> > > ... Xen may not make itself dependent upon either DomU or QEMU.
-> >=20
-> > AFAICT free_domain_pirqs() called by arch_domain_destroy() should take
-> > care of unbinding and freeing pirqs (but obviously not in this case).
-> > Can you repeat the test with a debug=3Dy hypervisor and post the
-> > resulting serial or dmesg here?  Some of the errors on those paths are
-> > printed with dprintk() and won't be visible unless using a Xen debug
-> > build.
->=20
-> Sure, will do.
+Hello everyone!
 
-Output collected during domU shutdown and subsequent startup (dom0 logs
-to Xen console here too):
-https://gist.github.com/marmarek/6dc3ac14d3ba840482e6361fcbd37c30
+Dear Julien and Volodymyr,
 
-I don't see any errors there...
+Thank you for your review and suggestions in V2.
 
-As for the domU-triggered cleanup, I just checked - if I unload the
-driver in domU before restarting, it works fine on subsequent startup.
+Following our discussion about memory overhead when eSPI support is
+enabled by default, I have changed the default value to 'n' in Kconfig.
+Since implementing dynamic allocation for the IRQ descriptors array may
+require more time, I decided to go with this solution for now and plan
+to prepare the next patch series with dynamic allocation later.
 
-Relevant QEMU/stubdomain log parts (initial startup + shutdown, when
-device still works):
+Additionally, I have added stubs for non-eSPI builds where possible and
+reorganized some code to reduce the number of #ifdefs.
 
-1. Without unloading the driver:
+Dear Oleksandr,
 
-[2025-08-26 12:57:42] [00:06.0] xen_pt_realize: Assigning real physical dev=
-ice 03:00.0 to devfn 0x30
-[2025-08-26 12:57:42] [00:06.0] xen_pt_register_regions: IO region 0 regist=
-ered (size=3D0x00000100 base_addr=3D0x0000e000 type: 0x1)
-[2025-08-26 12:57:42] [00:06.0] xen_pt_register_regions: IO region 2 regist=
-ered (size=3D0x00001000 base_addr=3D0xf7c00000 type: 0x4)
-[2025-08-26 12:57:42] [00:06.0] xen_pt_register_regions: IO region 4 regist=
-ered (size=3D0x00004000 base_addr=3D0xf0000000 type: 0x4)
-[2025-08-26 12:57:42] [00:06.0] xen_pt_config_reg_init: Offset 0x0010 misma=
-tch! Emulated=3D0x0000, host=3D0xe001, syncing to 0xe001.
-[2025-08-26 12:57:42] [00:06.0] xen_pt_config_reg_init: Offset 0x0018 misma=
-tch! Emulated=3D0x0000, host=3D0xf7c00004, syncing to 0xf7c00004.
-[2025-08-26 12:57:42] [00:06.0] xen_pt_config_reg_init: Offset 0x0020 misma=
-tch! Emulated=3D0x0000, host=3D0xf000000c, syncing to 0xf000000c.
-[2025-08-26 12:57:42] [00:06.0] xen_pt_config_reg_init: Offset 0x0042 misma=
-tch! Emulated=3D0x0000, host=3D0x07c3, syncing to 0x0603.
-[2025-08-26 12:57:42] [00:06.0] xen_pt_pm_ctrl_reg_init_on: PCI power manag=
-ement control passthrough is on
-[2025-08-26 12:57:42] [00:06.0] xen_pt_config_reg_init: Offset 0x0052 misma=
-tch! Emulated=3D0x0000, host=3D0x0080, syncing to 0x0080.
-[2025-08-26 12:57:42] [00:06.0] xen_pt_config_reg_init: Offset 0x0074 misma=
-tch! Emulated=3D0x0000, host=3D0x5908cc0, syncing to 0x5908cc0.
-[2025-08-26 12:57:42] [00:06.0] xen_pt_config_reg_init: Offset 0x007a misma=
-tch! Emulated=3D0x0000, host=3D0x0010, syncing to 0x0010.
-[2025-08-26 12:57:42] [00:06.0] xen_pt_config_reg_init: Offset 0x0082 misma=
-tch! Emulated=3D0x0000, host=3D0x1011, syncing to 0x1011.
-[2025-08-26 12:57:42] [00:06.0] xen_pt_msix_init: get MSI-X table BAR base =
-0xf0000000
-[2025-08-26 12:57:42] [00:06.0] xen_pt_config_reg_init: Offset 0x00b2 misma=
-tch! Emulated=3D0x0000, host=3D0x0003, syncing to 0x0003.
-[2025-08-26 12:57:42] [00:06.0] xen_pt_pci_intx: intx=3D1
-[2025-08-26 12:57:42] [00:06.0] xen_pt_realize: Real physical device 03:00.=
-0 registered successfully
-[2025-08-26 12:57:42] from-unix: {"return": {}, "id": 2020372736}
-[2025-08-26 12:57:42]=20
-[2025-08-26 12:57:42] wrote 34 bytes to vchan
-[2025-08-26 12:57:42] from-vchan: {"execute":"query-pci","id":2020372738}
-[2025-08-26 12:57:42]=20
-[2025-08-26 12:57:42] from-unix: {"return": [{"bus": 0, "devices": [{"irq_p=
-in": 0, "bus": 0, "qdev_id": "", "slot": 0, "class_info": {"class": 1536, "=
-desc": "Host bridge"}, "id": {"device": 4663, "subsystem-vendor": 6900, "ve=
-ndor": 32902, "subsystem": 4352}, "function": 0, "regions": []}, {"irq_pin"=
-: 0, "bus": 0, "qdev_id": "", "slot": 1, "class_info": {"class": 1537, "des=
-c": "ISA bridge"}, "id": {"device": 28672, "subsystem-vendor": 6900, "vendo=
-r": 32902, "subsystem": 4352}, "function": 0, "regions": []}, {"irq_pin": 0=
-, "bus": 0, "qdev_id": "", "slot": 1, "class_info": {"class": 257, "desc": =
-"IDE controller"}, "id": {"device": 28688, "subsystem-vendor": 6900, "vendo=
-r": 32902, "subsystem": 4352}, "function": 1, "regions": [{"bar": 4, "size"=
-: 16, "address": -1, "type": "io"}]}, {"irq_pin": 1, "bus": 0, "qdev_id": "=
-", "irq": 0, "slot": 1, "class_info": {"class": 1664, "desc": "Bridge"}, "i=
-d": {"device": 28947, "subsystem-vendor": 6900, "vendor": 32902, "subsystem=
-": 4352}, "function": 3, "regions": []}, {"irq_pin": 1, "bus": 0, "qdev_id"=
-: "", "irq": 0, "slot": 2, "class_info": {"class": 65408}, "id": {"device":=
- 1, "subsystem-vendor": 22611, "vendor": 22611, "subsystem": 1}, "function"=
-: 0, "regions": [{"bar": 0, "size": 256, "address": -1, "type": "io"}, {"pr=
-efetch": true, "mem_type_64": false, "bar": 1, "size": 16777216, "address":=
- -1, "type": "memory"}]}, {"irq_pin": 1, "bus": 0, "qdev_id": "", "irq": 0,=
- "slot": 3, "class_info": {"class": 256, "desc": "SCSI controller"}, "id": =
-{"device": 18, "subsystem-vendor": 0, "vendor": 4096, "subsystem": 4096}, "=
-function": 0, "regions": [{"bar": 0, "size": 256, "address": -1, "type": "i=
-o"}, {"prefetch": false, "mem_type_64": false, "bar": 1, "size": 1024, "add=
-ress": -1, "type": "memory"}, {"prefetch": false, "mem_type_64": false, "ba=
-r": 2, "size": 8192, "address": -1, "type": "memory"}]}, {"irq_pin": 0, "bu=
-s": 0, "qdev_id": "", "slot": 4, "class_info": {"class": 768, "desc": "VGA =
-controller"}, "id": {"device": 4369, "subsystem-vendor": 6900, "vendor": 46=
-60, "subsystem": 4352}, "function": 0, "regions": [{"prefetch": true, "mem_=
-type_64": false, "bar": 0, "size": 16777216, "address": -1, "type": "memory=
-"}, {"prefetch": false, "mem_type_64": false, "bar": 2, "size": 4096, "addr=
-ess": -1, "type": "memory"}, {"prefetch": false, "mem_type_64": false, "bar=
-": 6, "size": 65536, "address": -1, "type": "memory"}]}, {"irq_pin": 4, "bu=
-s": 0, "qdev_id": "ehci", "irq": 0, "slot": 5, "class_info": {"class": 3075=
-, "desc": "USB controller"}, "id": {"device": 9421, "subsystem-vendor": 690=
-0, "vendor": 32902, "subsystem": 4352}, "function": 0, "regions": [{"prefet=
-ch": false, "mem_type_64": false, "bar": 0, "size": 4096, "address": -1, "t=
-ype": "memory"}]}, {"irq_pin": 1, "bus": 0, "qdev_id": "pci-pt-03_00.0", "i=
-rq": 0, "slot": 6, "class_info": {"class": 0}, "id": {"device": 33128, "sub=
-system-vendor": 0, "vendor": 4332, "subsystem": 0}, "function": 0, "regions=
-": [{"bar": 0, "size": 256, "address": -1, "type": "io"}, {"prefetch": fals=
-e, "mem_type_64": true, "bar": 2, "size": 4096, "address": -1, "type": "mem=
-ory"}, {"prefetch": false, "mem_type_64": true, "bar": 4, "size": 16384, "a=
-ddress": -1, "type": "memory"}]}]}], "id": 2020372738}
-[2025-08-26 12:57:42]=20
-[2025-08-26 12:57:42] wrote 2048 bytes to vchan
-[2025-08-26 12:57:42] wrote 1125 bytes to vchan
-[2025-08-26 12:57:42] vchan client disconnected
-[2025-08-26 12:57:42] [00:06.0] xen_pt_check_bar_overlap: Warning: Overlapp=
-ed to device [00:02.0] Region: 1 (addr: 0xf0000000, len: 0x1000000)
-[2025-08-26 12:57:42] [00:06.0] xen_pt_region_update: Warning: Region: 4 (a=
-ddr: 0xf0001000, len: 0x3000) is overlapped.
-[2025-08-26 12:57:44] {"timestamp": {"seconds": 1756213064, "microseconds":=
- 412107}, "event": "DEVICE_DELETED", "data": {"path": "/machine/unattached/=
-device[8]"}}
-[2025-08-26 12:57:44] {"timestamp": {"seconds": 1756213064, "microseconds":=
- 416176}, "event": "DEVICE_DELETED", "data": {"path": "/machine/unattached/=
-device[7]"}}
-[2025-08-26 12:57:44] {"timestamp": {"seconds": 1756213064, "microseconds":=
- 416244}, "event": "DEVICE_DELETED", "data": {"path": "/machine/unattached/=
-device[6]"}}
-[2025-08-26 12:57:44] {"timestamp": {"seconds": 1756213064, "microseconds":=
- 416653}, "event": "DEVICE_DELETED", "data": {"path": "/machine/peripheral-=
-anon/device[3]"}}
-[2025-08-26 12:57:44] {"timestamp": {"seconds": 1756213064, "microseconds":=
- 416694}, "event": "DEVICE_DELETED", "data": {"path": "/machine/peripheral-=
-anon/device[0]"}}
-[2025-08-26 12:57:48] [00:06.0] xen_pt_msixctrl_reg_write: enable MSI-X
-[2025-08-26 12:57:48] [00:06.0] msi_msix_update: Updating MSI-X with pirq 5=
-5 gvec 0xef gflags 0x0 (entry: 0x0)
-[2025-08-26 12:57:49] [00:06.0] msi_msix_update: Updating MSI-X with pirq 5=
-5 gvec 0x23 gflags 0x0 (entry: 0x0)
-[2025-08-26 13:21:03] {"timestamp": {"seconds": 1756214457, "microseconds":=
- 588341}, "event": "SHUTDOWN", "data": {"guest": true, "reason": "guest-shu=
-tdown"}}
-[2025-08-26 13:21:03] {"timestamp": {"seconds": 1756214457, "microseconds":=
- 588579}, "event": "STOP"}
-[2025-08-26 13:21:03] pcifront pci-0: Rescanning PCI Frontend Bus 0000:00
-[2025-08-26 13:21:03] pci_bus 0000:00: busn_res: [bus 00-ff] is released
-[2025-08-26 13:21:03] ------------[ cut here ]------------
-[2025-08-26 13:21:03] sysfs group 'power' not found for kobject '0000:00'
-[2025-08-26 13:21:03] WARNING: CPU: 0 PID: 13 at fs/sysfs/group.c:282 sysfs=
-_remove_group+0x3a/0x6f
+First of all, thank you for your review and for verifying the build on
+the dom0less setup. I rechecked the dom0less code and added the
+necessary changes to support eSPI in these setups as well.
+
+I also want to mention that I verified the build with Dom0 and DomUs and
+checked eSPI functionality on real hardware (e.g., passthrough devices,
+changing IRQ affinity in DomU, etc.). Everything works as expected for
+devices with eSPIs and regular SPIs. Unfortunately, I don't have setup
+with Dom0less + eSPI to check it quickly, but Oleksandr has confirmed
+that at least regular SPIs work fine with and without eSPI enabled on a
+non-eSPI Dom0less setup (with V2):
+
+> I have lightly re-checked the simple Arm64 Xen environment (dom0less=20
+> DomU under QEMU) with your series applied. To be clear, I did not really=
+=20
+> test the eSPI support (the underlying GICv3 HW does support it); I just=20
+> wanted to ensure that your series would not break anything. So, in both=20
+> cases (CONFIG_GICV3_ESPI=3Dy and CONFIG_GICV3_ESPI=3Dn), I did not notice=
+=20
+> any issues (at least obvious) related to GICv3 emulation and SPI=20
+> injection for the passed-through device.
+
+Summarized description:
+This patch series adds support for the extended shared peripheral
+interrupt (eSPI) range (INTIDs 4096-5119 [2](ranges of INTIDs)) for Xen
+and guest domains. The implementation uses a generic approach to handle
+eSPIs, similar to regular SPIs, while maintaining compatibility with the
+existing SPI range. Functionality remains unchanged for setups that do
+not require eSPIs.
+
+The series includes:
+1) General refactoring of common IRQ operations with GIC registers to
+improve code readability, simplify further maintenance and prepare the
+key functions for eSPI implementation.
+2) Introducing a new Kconfig option (default n) to enable or disable
+eSPI support. Disabling this option prevents unnecessary resource
+allocation for setups that do not require eSPIs.
+3) Adding additional resources to store required information and operate
+with up to 1024 interrupts from eSPI range.
+4) Adjusting assertions and checks to pass verification for INTIDs in
+the eSPI range.
+5) Configuration of eSPI-specific registers during GIC initialization
+for systems with GICv3.1+ hardware.
+6) Enables eSPI MMIO emulation for vGIC, allowing guest domains to
+access and operate within the eSPI's INTIDs.
 
 
-2. With unloading the driver before shutdown:
-[2025-08-26 13:21:07] [00:06.0] xen_pt_realize: Assigning real physical dev=
-ice 03:00.0 to devfn 0x30
-[2025-08-26 13:21:07] [00:06.0] xen_pt_register_regions: IO region 0 regist=
-ered (size=3D0x00000100 base_addr=3D0x0000e000 type: 0x1)
-[2025-08-26 13:21:07] [00:06.0] xen_pt_register_regions: IO region 2 regist=
-ered (size=3D0x00001000 base_addr=3D0xf7c00000 type: 0x4)
-[2025-08-26 13:21:07] [00:06.0] xen_pt_register_regions: IO region 4 regist=
-ered (size=3D0x00004000 base_addr=3D0xf0000000 type: 0x4)
-[2025-08-26 13:21:07] [00:06.0] xen_pt_config_reg_init: Offset 0x0010 misma=
-tch! Emulated=3D0x0000, host=3D0xe001, syncing to 0xe001.
-[2025-08-26 13:21:07] [00:06.0] xen_pt_config_reg_init: Offset 0x0018 misma=
-tch! Emulated=3D0x0000, host=3D0xf7c00004, syncing to 0xf7c00004.
-[2025-08-26 13:21:07] [00:06.0] xen_pt_config_reg_init: Offset 0x0020 misma=
-tch! Emulated=3D0x0000, host=3D0xf000000c, syncing to 0xf000000c.
-[2025-08-26 13:21:07] [00:06.0] xen_pt_config_reg_init: Offset 0x0042 misma=
-tch! Emulated=3D0x0000, host=3D0x07c3, syncing to 0x0603.
-[2025-08-26 13:21:07] [00:06.0] xen_pt_pm_ctrl_reg_init_on: PCI power manag=
-ement control passthrough is on
-[2025-08-26 13:21:07] [00:06.0] xen_pt_config_reg_init: Offset 0x0052 misma=
-tch! Emulated=3D0x0000, host=3D0x0080, syncing to 0x0080.
-[2025-08-26 13:21:07] [00:06.0] xen_pt_config_reg_init: Offset 0x0074 misma=
-tch! Emulated=3D0x0000, host=3D0x5908cc0, syncing to 0x5908cc0.
-[2025-08-26 13:21:07] [00:06.0] xen_pt_config_reg_init: Offset 0x007a misma=
-tch! Emulated=3D0x0000, host=3D0x0010, syncing to 0x0010.
-[2025-08-26 13:21:07] [00:06.0] xen_pt_config_reg_init: Offset 0x0082 misma=
-tch! Emulated=3D0x0000, host=3D0x1011, syncing to 0x1011.
-[2025-08-26 13:21:07] [00:06.0] xen_pt_msix_init: get MSI-X table BAR base =
-0xf0000000
-[2025-08-26 13:21:07] [00:06.0] xen_pt_config_reg_init: Offset 0x00b2 misma=
-tch! Emulated=3D0x0000, host=3D0x0003, syncing to 0x0003.
-[2025-08-26 13:21:07] [00:06.0] xen_pt_pci_intx: intx=3D1
-[2025-08-26 13:21:07] [00:06.0] xen_pt_realize: Real physical device 03:00.=
-0 registered successfully
-[2025-08-26 13:21:07] from-unix: {"return": {}, "id": 2020372736}
-[2025-08-26 13:21:07]=20
-[2025-08-26 13:21:07] wrote 34 bytes to vchan
-[2025-08-26 13:21:07] from-vchan: {"execute":"query-pci","id":2020372738}
-[2025-08-26 13:21:07]=20
-[2025-08-26 13:21:07] from-unix: {"return": [{"bus": 0, "devices": [{"irq_p=
-in": 0, "bus": 0, "qdev_id": "", "slot": 0, "class_info": {"class": 1536, "=
-desc": "Host bridge"}, "id": {"device": 4663, "subsystem-vendor": 6900, "ve=
-ndor": 32902, "subsystem": 4352}, "function": 0, "regions": []}, {"irq_pin"=
-: 0, "bus": 0, "qdev_id": "", "slot": 1, "class_info": {"class": 1537, "des=
-c": "ISA bridge"}, "id": {"device": 28672, "subsystem-vendor": 6900, "vendo=
-r": 32902, "subsystem": 4352}, "function": 0, "regions": []}, {"irq_pin": 0=
-, "bus": 0, "qdev_id": "", "slot": 1, "class_info": {"class": 257, "desc": =
-"IDE controller"}, "id": {"device": 28688, "subsystem-vendor": 6900, "vendo=
-r": 32902, "subsystem": 4352}, "function": 1, "regions": [{"bar": 4, "size"=
-: 16, "address": -1, "type": "io"}]}, {"irq_pin": 1, "bus": 0, "qdev_id": "=
-", "irq": 0, "slot": 1, "class_info": {"class": 1664, "desc": "Bridge"}, "i=
-d": {"device": 28947, "subsystem-vendor": 6900, "vendor": 32902, "subsystem=
-": 4352}, "function": 3, "regions": []}, {"irq_pin": 1, "bus": 0, "qdev_id"=
-: "", "irq": 0, "slot": 2, "class_info": {"class": 65408}, "id": {"device":=
- 1, "subsystem-vendor": 22611, "vendor": 22611, "subsystem": 1}, "function"=
-: 0, "regions": [{"bar": 0, "size": 256, "address": -1, "type": "io"}, {"pr=
-efetch": true, "mem_type_64": false, "bar": 1, "size": 16777216, "address":=
- -1, "type": "memory"}]}, {"irq_pin": 1, "bus": 0, "qdev_id": "", "irq": 0,=
- "slot": 3, "class_info": {"class": 256, "desc": "SCSI controller"}, "id": =
-{"device": 18, "subsystem-vendor": 0, "vendor": 4096, "subsystem": 4096}, "=
-function": 0, "regions": [{"bar": 0, "size": 256, "address": -1, "type": "i=
-o"}, {"prefetch": false, "mem_type_64": false, "bar": 1, "size": 1024, "add=
-ress": -1, "type": "memory"}, {"prefetch": false, "mem_type_64": false, "ba=
-r": 2, "size": 8192, "address": -1, "type": "memory"}]}, {"irq_pin": 0, "bu=
-s": 0, "qdev_id": "", "slot": 4, "class_info": {"class": 768, "desc": "VGA =
-controller"}, "id": {"device": 4369, "subsystem-vendor": 6900, "vendor": 46=
-60, "subsystem": 4352}, "function": 0, "regions": [{"prefetch": true, "mem_=
-type_64": false, "bar": 0, "size": 16777216, "address": -1, "type": "memory=
-"}, {"prefetch": false, "mem_type_64": false, "bar": 2, "size": 4096, "addr=
-ess": -1, "type": "memory"}, {"prefetch": false, "mem_type_64": false, "bar=
-": 6, "size": 65536, "address": -1, "type": "memory"}]}, {"irq_pin": 4, "bu=
-s": 0, "qdev_id": "ehci", "irq": 0, "slot": 5, "class_info": {"class": 3075=
-, "desc": "USB controller"}, "id": {"device": 9421, "subsystem-vendor": 690=
-0, "vendor": 32902, "subsystem": 4352}, "function": 0, "regions": [{"prefet=
-ch": false, "mem_type_64": false, "bar": 0, "size": 4096, "address": -1, "t=
-ype": "memory"}]}, {"irq_pin": 1, "bus": 0, "qdev_id": "pci-pt-03_00.0", "i=
-rq": 0, "slot": 6, "class_info": {"class": 0}, "id": {"device": 33128, "sub=
-system-vendor": 0, "vendor": 4332, "subsystem": 0}, "function": 0, "regions=
-": [{"bar": 0, "size": 256, "address": -1, "type": "io"}, {"prefetch": fals=
-e, "mem_type_64": true, "bar": 2, "size": 4096, "address": -1, "type": "mem=
-ory"}, {"prefetch": false, "mem_type_64": true, "bar": 4, "size": 16384, "a=
-ddress": -1, "type": "memory"}]}]}], "id": 2020372738}
-[2025-08-26 13:21:07]=20
-[2025-08-26 13:21:07] wrote 2048 bytes to vchan
-[2025-08-26 13:21:07] wrote 1125 bytes to vchan
-[2025-08-26 13:21:07] vchan client disconnected
-[2025-08-26 13:21:07] [00:06.0] xen_pt_check_bar_overlap: Warning: Overlapp=
-ed to device [00:02.0] Region: 1 (addr: 0xf0000000, len: 0x1000000)
-[2025-08-26 13:21:07] [00:06.0] xen_pt_region_update: Warning: Region: 4 (a=
-ddr: 0xf0001000, len: 0x3000) is overlapped.
-[2025-08-26 13:21:09] {"timestamp": {"seconds": 1756214469, "microseconds":=
- 28994}, "event": "DEVICE_DELETED", "data": {"path": "/machine/unattached/d=
-evice[8]"}}
-[2025-08-26 13:21:09] {"timestamp": {"seconds": 1756214469, "microseconds":=
- 32958}, "event": "DEVICE_DELETED", "data": {"path": "/machine/unattached/d=
-evice[7]"}}
-[2025-08-26 13:21:09] {"timestamp": {"seconds": 1756214469, "microseconds":=
- 33004}, "event": "DEVICE_DELETED", "data": {"path": "/machine/unattached/d=
-evice[6]"}}
-[2025-08-26 13:21:09] {"timestamp": {"seconds": 1756214469, "microseconds":=
- 33261}, "event": "DEVICE_DELETED", "data": {"path": "/machine/peripheral-a=
-non/device[3]"}}
-[2025-08-26 13:21:09] {"timestamp": {"seconds": 1756214469, "microseconds":=
- 33296}, "event": "DEVICE_DELETED", "data": {"path": "/machine/peripheral-a=
-non/device[0]"}}
-[2025-08-26 13:21:12] [00:06.0] xen_pt_msixctrl_reg_write: enable MSI-X
-[2025-08-26 13:21:12] [00:06.0] msi_msix_update: Updating MSI-X with pirq 5=
-5 gvec 0xef gflags 0x0 (entry: 0x0)
-[2025-08-26 13:21:13] [00:06.0] msi_msix_update: Updating MSI-X with pirq 5=
-5 gvec 0x23 gflags 0x0 (entry: 0x0)
-[2025-08-26 13:41:45] [00:06.0] msix_set_enable: disabling MSI-X.
-[2025-08-26 13:41:45] [00:06.0] msi_msix_disable: Unbind MSI-X with pirq 55=
-, gvec 0x23
-[2025-08-26 13:41:45] [00:06.0] msi_msix_disable: Unmap MSI-X pirq 55
-[2025-08-26 13:41:45] [00:06.0] xen_pt_msixctrl_reg_write: disable MSI-X
-{"timestamp": {"seconds": 1756215718, "microseconds": 455554}, "event": "SH=
-UTDOWN", "data": {"guest": true, "reason": "guest-shutdown"}}
-[2025-08-26 13:41:58] {"timestamp": {"seconds": 1756215718, "microseconds":=
- 456438}, "event": "STOP"}
-[2025-08-26 13:41:58] pcifront pci-0: Rescanning PCI Frontend Bus 0000:00
-[2025-08-26 13:41:58] pci_bus 0000:00: busn_res: [bus 00-ff] is released
-[2025-08-26 13:41:58] ------------[ cut here ]------------
-[2025-08-26 13:41:58] sysfs group 'power' not found for kobject '0000:00'
-[2025-08-26 13:41:58] WARNING: CPU: 0 PID: 13 at fs/sysfs/group.c:282 sysfs=
-_remove_group+0x3a/0x6f
+Changes in V2:
+- added 2 more patches to implement helper
+  functions for gic/vgic:
+  xen/arm: gic: implement helper functions for INTID checks
+  xen/arm: vgic: implement helper functions for virq checks
+- removed 2 patches:
+  xen/arm/irq: allow assignment/releasing of eSPI interrupts
+  xen/arm: gic/irq: permit routing of eSPI interrupts to Xen and domains
+  since their functionality can be moved to appropriate patches after
+  introducing patches with helper functions
+- individual changes in patches
+
+Link on V1:
+- https://lists.xenproject.org/archives/html/xen-devel/2025-07/msg01809.htm=
+l
 
 
+Changes in V3:
+- added a patch to update CHANGELOG.md
+- individual changes in patches
+
+Link on V2:
+- https://lists.xenproject.org/archives/html/xen-devel/2025-08/msg00372.htm=
+l
+
+Leonid Komarianskyi (11):
+  xen/arm: gicv3: refactor obtaining GIC addresses for common operations
+  xen/arm: gic: implement helper functions for INTID checks
+  xen/arm: vgic: implement helper functions for virq checks
+  xen/arm/irq: add handling for IRQs in the eSPI range
+  xen/arm: gicv3: implement handling of GICv3.1 eSPI
+  xen/arm/irq: allow eSPI processing in the do_IRQ function
+  xen/arm: gicv3: modify ICH_LR_PHYSICAL_MASK to allow eSPI processing
+  xen/arm: vgic: add resource management for extended SPIs
+  xen/arm: domain_build/dom0less-build: adjust domains config to support
+    eSPIs
+  xen/arm: vgic-v3: add emulation of GICv3.1 eSPI registers
+  CHANGELOG.md: add mention of GICv3.1 eSPI support
+
+ CHANGELOG.md                           |   1 +
+ xen/arch/arm/Kconfig                   |   9 +
+ xen/arch/arm/dom0less-build.c          |  12 ++
+ xen/arch/arm/domain_build.c            |  11 +
+ xen/arch/arm/gic-v3.c                  | 192 ++++++++++++++---
+ xen/arch/arm/gic.c                     |   7 +-
+ xen/arch/arm/include/asm/gic.h         |  30 +++
+ xen/arch/arm/include/asm/gic_v3_defs.h |  36 +++-
+ xen/arch/arm/include/asm/irq.h         |  27 +++
+ xen/arch/arm/include/asm/vgic.h        |  39 ++++
+ xen/arch/arm/irq.c                     |  58 +++++-
+ xen/arch/arm/vgic-v3.c                 | 275 ++++++++++++++++++++++++-
+ xen/arch/arm/vgic.c                    | 222 +++++++++++++++++++-
+ xen/arch/arm/vgic/vgic.c               |   5 +
+ 14 files changed, 868 insertions(+), 56 deletions(-)
 
 --=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---SPDx3WFh/ytkDTPC
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmitvLkACgkQ24/THMrX
-1yzxhQf/SPchJGKg/iL88KTK8uNyyAjEVayxB2NWUEBQek/pyVVwsFrRmgEcXamZ
-kbn5oQX2mAUVIbHjC0wMMN9ahOrY/9bwLKW9IKkXl8JT0lS0zN+CBil0F/y0n+t9
-e/AWOx9Vo6mB2xyD4rXfa+EFwjoOLAx3NJvQ04/GAoXfNgmvQHCcElMk9oS+i7GK
-f/O8fFZ26b36BTB9HgtNxu55zUTyUeI/znf6J5/4CwCqJ1zubA/D+9gx+ixL8T3w
-sWYMs+2i5QWfXbwedSfH9qjafiuWPGnv6xm6Gtlu7UaFbKwqDIktFxGKiSkK+2BN
-L7eldYel22qIZ3wp7GtaHvJbpctPmQ==
-=jhao
------END PGP SIGNATURE-----
-
---SPDx3WFh/ytkDTPC--
+2.34.1
 
