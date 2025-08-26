@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52686B365D3
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 15:51:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1094453.1449778 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1AB6B365E3
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 15:51:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1094491.1449798 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqu4R-0003Ay-8R; Tue, 26 Aug 2025 13:50:43 +0000
+	id 1uqu58-0004CO-SQ; Tue, 26 Aug 2025 13:51:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1094453.1449778; Tue, 26 Aug 2025 13:50:43 +0000
+Received: by outflank-mailman (output) from mailman id 1094491.1449798; Tue, 26 Aug 2025 13:51:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqu4R-00038f-51; Tue, 26 Aug 2025 13:50:43 +0000
-Received: by outflank-mailman (input) for mailman id 1094453;
- Tue, 26 Aug 2025 13:50:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uqu58-00049c-Oe; Tue, 26 Aug 2025 13:51:26 +0000
+Received: by outflank-mailman (input) for mailman id 1094491;
+ Tue, 26 Aug 2025 13:51:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+/mc=3G=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1uqtwd-0007ex-Ro
- for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 13:42:39 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 87814bc8-8282-11f0-b898-0df219b8e170;
- Tue, 26 Aug 2025 15:42:38 +0200 (CEST)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-333f901b229so47540481fa.2
- for <xen-devel@lists.xenproject.org>; Tue, 26 Aug 2025 06:42:38 -0700 (PDT)
+ id 1uqtwi-0007MD-8H
+ for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 13:42:44 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8acf5dd6-8282-11f0-a32c-13f23c93f187;
+ Tue, 26 Aug 2025 15:42:43 +0200 (CEST)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-55f4cf36c00so1095073e87.1
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Aug 2025 06:42:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,63 +40,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87814bc8-8282-11f0-b898-0df219b8e170
+X-Inumbo-ID: 8acf5dd6-8282-11f0-a32c-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756215757; x=1756820557; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1756215763; x=1756820563; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=X3mTZzxPEC6M2r+tcymIjxamvl7XaPs1g5xTLEY4cuQ=;
-        b=mHSTxOFvupMB0RzvzQ5rh8clN+r8B/2jf+LrnwFooS5Kn2Pzo8y0pDyr6iYckGV/If
-         LGr4s5hhxbfJ82XCL2IuzDkw57F7EXrj5Ln3pwrTpl78na8V5Q9/OyGE+nnzewX6BsmK
-         gt8al4IjStfOuJaw8+p+acGg1fQSxpPL+c81SIvLitOiRdW2KZorxgVGcw2r6gmIjKD4
-         JtAiAVQZEY6XxxETeIrkhez/bO/9hFSxzZnHahjX/Kr1/u/iKR/3tNnzSX1yQL3TxMDx
-         H2Ci43k0yIdPr7+qjOp1nbETowR2d2r3X8JUvu+7TdsI9McTetDZ6Dvau53NYIvi4ICB
-         y4pA==
+        bh=yDszcKlB1VrGnElLTrFUBb/kLsyskQGsR6/f+F1Ka7Q=;
+        b=WOjmc133QbNIw+poHyzzUbC5vyO1JQ3xE2GkcnzVzX7+K09CHsuvz2/GfbQCilGSqL
+         LREa4xWIOGV7NwV1zkQCo/JWEhjzm9yzZvraG+cskhoyQMl3L0hDnuKl8a+ypa7AU7mP
+         9njUB/+W9Hy9qdVJWwy6vXPfQxD6xK2Wmg50jrUVe6D4acLnMPXTat0ReuCBb7Z1dp6m
+         DEexiJSzHwu4DOFF+pbx6eRqm46G5KC6RXEC8e4ayftJwN9WmeDtgvrMUcyNFNAAdnZs
+         to+jSp1ScXVHX8qDZLYr6BRBJzAAL+NadXbSYaibODO+c9cQvVZMxUa6eTAL92nwEe7V
+         rRqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756215757; x=1756820557;
+        d=1e100.net; s=20230601; t=1756215763; x=1756820563;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=X3mTZzxPEC6M2r+tcymIjxamvl7XaPs1g5xTLEY4cuQ=;
-        b=na9mEf6NFiRpn8p3VBreOHKiof8boV9NuMA3XqoZfk39NLJjmzubVJ2qVfBO7FdPE/
-         /qsqHxEpHfkLg8s1t5v8uDrbVlE95zXClu0rIoTYaTcWc3MLCNsTnicuXvv7eboRN4Bi
-         LL7pKxNhxzVOyZhZOPlPbIlOyDZsRV7qbDz6TXbpocKae0twukwCmQ2WAp85dyoEWpjm
-         PxpK2Y9Wmr+XRqvvHF8Fj9M2Aca9eBGA8mxF2UCl4CRpAlIzwKqg5I5fYPTG9GNHrNzF
-         SSOw3FK9jTEWTj6zPiyENqUDdUM+ssenXqqxT+QDi4tOGo1pVuyj52KXRV9oJ8Cqnfdg
-         mz2w==
-X-Gm-Message-State: AOJu0YzE8KxZ1/oq5eQIaDVwWMZt0dxiwDNAulc/lToE/Yn+W0kFYZQ6
-	odbhCAK55q4lC6klVM8o+YV6fJ+TDGZFEgGG+XcS3I02Em2hn/rKRH+WcoilyDe9mWt8WJqL6Et
-	KtD0Ktcpn2cB7fBksC4fR80GvCko8BtN3WA==
-X-Gm-Gg: ASbGnct3RaTEYRarmtcuRL7NMNSQjJ7rrzKpwPZt9RwKxLGOOka95jqZiPcvR/7sPyK
-	R746Kzao7Q0iV0KlYAEKqiqFCrt2u9Va4wXvAQr5kAZRHJ2iDl3BMexR0OKlGElTXhE127BzEZk
-	WURDqeJbrdaGJCprCQfUvfo+Nf9SdBWGdzlz+2GtVNCnqDKX2KD61cvS/n+5zqVXViyOn5A+aIl
-	Xmz8HMxurTyGdr5
-X-Google-Smtp-Source: AGHT+IFNT5FdckSNdP0Kov8JO3J8KcIqxZ9S7CqKr+p8rYkw78gMUvHQXsSrxo7Fw6OGk7RKrUg3Zo2ndrDNnbXcwew=
-X-Received: by 2002:a05:651c:410f:b0:32a:6eea:5c35 with SMTP id
- 38308e7fff4ca-33650ea5991mr24506411fa.15.1756215757182; Tue, 26 Aug 2025
- 06:42:37 -0700 (PDT)
+        bh=yDszcKlB1VrGnElLTrFUBb/kLsyskQGsR6/f+F1Ka7Q=;
+        b=GEvShAMe6bSEqWevffKr6UBY46A5br9dzVFevoh+2cVAZDMKQHEswQj1ShoOWCKvbr
+         esHTwB25ZJTBpAMfNBA59HE3Jo+3PufZD0yiJd2mNnlGwqAtXCrk/i11x/jgp5iunadd
+         yoyNzzGGVc+YooiD+SdY3QHqUp3Na3p/ZRspkvpbefeRLCVL7YKs3N6T8Nid9VgA8CKU
+         +s6XB1CaqEmYIwyz2QNDjBRv5tXzdaDXI77N0LDkOTCF6agGvEmx48akJM26eT2d3iaM
+         mw19kPm7BH0oZ/w1ql0h7fkINWQR5JfR+jGwkKZHiNpqu6xeJXlmpeS2zDCVsJd/Bg7Q
+         SuEA==
+X-Gm-Message-State: AOJu0YzlaWsRz1PEiJoLoD8XNGW49fvolVrBq7Z+5HvnazBm6kcuXL8C
+	5og90AS7o0+FEJVksg4lZBvkgC/UfyJWS2CyCsazBBYqs0cs3rx7idcUaYJF3uEP6JeHTz9NtmR
+	jTco2uOMwcQHeXXiDUq3yskzJAfJCi0U=
+X-Gm-Gg: ASbGncsmhKFBqfBioZ7xi4B6CRpspdX8nskPhajPJiJjifRcs7Mwo6DVB0DPW7S03GA
+	y65h6hjS1Ymbo+rgiJqv/W8V1LhdM88G2KzsCszuGZxtG+EOrz80QQdLyI/eLoimf87HEZ4xTUJ
+	9/1/7TgBBdBftJ78POYY7rW/rN/KobU5LdGgAYrwerOYemw5bH9I93SNjeNmd2k076UTrM7xXCM
+	mCbQw==
+X-Google-Smtp-Source: AGHT+IF83bnN+Rn6SETMprNxLDqYn3Oa32n/emHN7L11kFTD4jAa5jXEfiASWrm1+/EhdAUC2x3w1NlDeDUyug49x/U=
+X-Received: by 2002:a05:6512:1518:10b0:55f:3bab:f205 with SMTP id
+ 2adb3069b0e04-55f3babf38dmr2216301e87.42.1756215762615; Tue, 26 Aug 2025
+ 06:42:42 -0700 (PDT)
 MIME-Version: 1.0
-References: <cover.1754943874.git.mykola_kvach@epam.com> <5441d6712a4ca0e61fd066606b9a96414123aaad.1754943875.git.mykola_kvach@epam.com>
- <87zfbq6iy5.fsf@epam.com>
-In-Reply-To: <87zfbq6iy5.fsf@epam.com>
+References: <cover.1754943874.git.mykola_kvach@epam.com> <1689d707b930b1ea4f63cc150810e548962cda81.1754943875.git.mykola_kvach@epam.com>
+ <87ldna6ia8.fsf@epam.com>
+In-Reply-To: <87ldna6ia8.fsf@epam.com>
 From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Tue, 26 Aug 2025 16:42:26 +0300
-X-Gm-Features: Ac12FXxAQr2EJ7XehoQi9FOuDJtUc5RnERU_qJIukh3-QJhBi5Pc2dGQ-7_3NAk
-Message-ID: <CAGeoDV9tA0Op2kiqgq=89SRW_Q_fVRRsS+oAzZJWhaJAxXspbA@mail.gmail.com>
-Subject: Re: [PATCH v5 10/12] xen/arm: Save/restore context on suspend/resume
+Date: Tue, 26 Aug 2025 16:42:31 +0300
+X-Gm-Features: Ac12FXzNhdmUhbvV1XvV6pj2kKFbIMTFDkvyORALk8YOcGEFPk6Mq_WP57ikkqA
+Message-ID: <CAGeoDV9Hv02gO=7pcMf_k3XQc=Stp76hEmiDfT1wc5M1NNSmOQ@mail.gmail.com>
+Subject: Re: [PATCH v5 11/12] iommu/ipmmu-vmsa: Implement suspend/resume callbacks
 To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Mirela Simonovic <mirela.simonovic@aggios.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
 	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-	Michal Orzel <michal.orzel@amd.com>, Saeed Nowshadi <saeed.nowshadi@xilinx.com>, 
-	Mykyta Poturai <Mykyta_Poturai@epam.com>, Mykola Kvach <Mykola_Kvach@epam.com>
+	Michal Orzel <michal.orzel@amd.com>, Mykola Kvach <Mykola_Kvach@epam.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 Hi Volodymyr,
 
-On Sat, Aug 23, 2025 at 8:34=E2=80=AFPM Volodymyr Babchuk
+On Sat, Aug 23, 2025 at 8:48=E2=80=AFPM Volodymyr Babchuk
 <Volodymyr_Babchuk@epam.com> wrote:
 >
 >
@@ -104,282 +103,397 @@ On Sat, Aug 23, 2025 at 8:34=E2=80=AFPM Volodymyr Babchuk
 >
 > Mykola Kvach <xakep.amatop@gmail.com> writes:
 >
-> > From: Mirela Simonovic <mirela.simonovic@aggios.com>
+> > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > >
-> > The context of CPU general purpose and system control registers
-> > has to be saved on suspend and restored on resume. This is
-> > implemented in hyp_suspend and before the return from hyp_resume
-> > function. The hyp_suspend is invoked just before the PSCI system
-> > suspend call is issued to the ATF. The hyp_suspend has to return a
-> > non-zero value so that the calling 'if' statement evaluates to true,
-> > causing the system suspend to be invoked. Upon the resume, context
-> > saved on suspend will be restored, including the link register.
-> > Therefore, after restoring the context the control flow will
-> > return to the address pointed by the saved link register, which
-> > is the place from which the hyp_suspend was called. To ensure
-> > that the calling 'if' statement doesn't again evaluate to true
-> > and initiate system suspend, hyp_resume has to return a zero value
-> > after restoring the context.
+> > Store and restore active context and micro-TLB registers.
 > >
-> > Note that the order of saving register context into cpu_context
-> > structure has to match the order of restoring.
+> > Tested on R-Car H3 Starter Kit.
 > >
-> > Support for ARM32 is not implemented. Instead, compilation fails with a
-> > build-time error if suspend is enabled for ARM32.
-> >
-> > Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
-> > Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
-> > Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 > > ---
-> > Changes in v4:
-> > - produce build-time error for ARM32 when CONFIG_SYSTEM_SUSPEND is enab=
-led
-> > - use register_t instead of uint64_t in cpu_context structure
-> > ---
-> >  xen/arch/arm/arm64/head.S          | 91 +++++++++++++++++++++++++++++-
-> >  xen/arch/arm/include/asm/suspend.h | 20 +++++++
-> >  xen/arch/arm/suspend.c             | 23 +++++++-
-> >  3 files changed, 130 insertions(+), 4 deletions(-)
+> >  xen/drivers/passthrough/arm/ipmmu-vmsa.c | 269 +++++++++++++++++++++++
+> >  1 file changed, 269 insertions(+)
 > >
-> > diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
-> > index 596e960152..ad8b48de3a 100644
-> > --- a/xen/arch/arm/arm64/head.S
-> > +++ b/xen/arch/arm/arm64/head.S
-> > @@ -562,6 +562,52 @@ END(efi_xen_start)
-> >  #endif /* CONFIG_ARM_EFI */
+> > diff --git a/xen/drivers/passthrough/arm/ipmmu-vmsa.c b/xen/drivers/pas=
+sthrough/arm/ipmmu-vmsa.c
+> > index dac0dd6d46..ced762657a 100644
+> > --- a/xen/drivers/passthrough/arm/ipmmu-vmsa.c
+> > +++ b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
+> > @@ -58,6 +58,8 @@
+> >  #define dev_print(dev, lvl, fmt, ...)    \
+> >      printk(lvl "ipmmu: %s: " fmt, dev_name(dev), ## __VA_ARGS__)
 > >
-> >  #ifdef CONFIG_SYSTEM_SUSPEND
-> > +/*
-> > + * int hyp_suspend(struct cpu_context *ptr)
-> > + *
-> > + * x0 - pointer to the storage where callee's context will be saved
-> > + *
-> > + * CPU context saved here will be restored on resume in hyp_resume fun=
-ction.
-> > + * hyp_suspend shall return a non-zero value. Upon restoring context
-> > + * hyp_resume shall return value zero instead. From C code that invoke=
-s
-> > + * hyp_suspend, the return value is interpreted to determine whether t=
-he context
-> > + * is saved (hyp_suspend) or restored (hyp_resume).
-> > + */
-> > +FUNC(hyp_suspend)
+> > +#define dev_dbg(dev, fmt, ...)    \
+> > +    dev_print(dev, XENLOG_DEBUG, fmt, ## __VA_ARGS__)
+> >  #define dev_info(dev, fmt, ...)    \
+> >      dev_print(dev, XENLOG_INFO, fmt, ## __VA_ARGS__)
+> >  #define dev_warn(dev, fmt, ...)    \
+> > @@ -117,6 +119,23 @@ struct ipmmu_features {
+> >      unsigned int imuctr_ttsel_mask;
+> >  };
+> >
+> > +#ifdef CONFIG_SYSTEM_SUSPEND
+> > +
+> > +struct hw_register {
+> > +    const char *reg_name;
 >
-> I don't think that hyp_suspend is the correct name, as this function in
-> fact suspend_nothing. Maybe "prepare_resume_ctx" will be better?
+> Do you really need to store register name? It is not used anywhere.
 
-Not a problem to rename it.
+No, it=E2=80=99s not needed. We can remove it.
+Thank you for catching that.
 
 >
-> > +        /* Store callee-saved registers */
-> > +        stp     x19, x20, [x0], #16
->
-> If you have struct cpu_context defined, then you probably should use
-> define provided by <asm-offsets.h> to access struct fields. Otherwise,
-> it will be really easy to get desync between struct definition and this
-> asm code.
->
-> > +        stp     x21, x22, [x0], #16
-> > +        stp     x23, x24, [x0], #16
-> > +        stp     x25, x26, [x0], #16
-> > +        stp     x27, x28, [x0], #16
-> > +        stp     x29, lr, [x0], #16
+> > +    unsigned int reg_offset;
+> > +    unsigned int reg_data;
+> > +};
 > > +
-> > +        /* Store stack-pointer */
-> > +        mov     x2, sp
-> > +        str     x2, [x0], #8
+> > +struct ipmmu_vmsa_backup {
+> > +    struct device *dev;
+> > +    unsigned int *utlbs_val;
+> > +    unsigned int *asids_val;
+> > +    struct list_head list;
+> > +};
 > > +
-> > +        /* Store system control registers */
-> > +        mrs     x2, VBAR_EL2
-> > +        str     x2, [x0], #8
-> > +        mrs     x2, VTCR_EL2
-> > +        str     x2, [x0], #8
-> > +        mrs     x2, VTTBR_EL2
-> > +        str     x2, [x0], #8
-> > +        mrs     x2, TPIDR_EL2
-> > +        str     x2, [x0], #8
-> > +        mrs     x2, MDCR_EL2
-> > +        str     x2, [x0], #8
-> > +        mrs     x2, HSTR_EL2
-> > +        str     x2, [x0], #8
-> > +        mrs     x2, CPTR_EL2
-> > +        str     x2, [x0], #8
-> > +        mrs     x2, HCR_EL2
-> > +        str     x2, [x0], #8
-> > +
-> > +        /* hyp_suspend must return a non-zero value */
-> > +        mov     x0, #1
-> > +        ret
-> > +END(hyp_suspend)
-> >
-> >  FUNC(hyp_resume)
-> >          /* Initialize the UART if earlyprintk has been enabled. */
-> > @@ -580,7 +626,50 @@ FUNC(hyp_resume)
-> >          b     enable_secondary_cpu_mm
-> >
-> >  mmu_resumed:
-> > -        b .
-> > +        /*
-> > +         * Now we can access the cpu_context, so restore the context h=
-ere
-> > +         * TODO: can we reuse __context_switch and saved_context struc=
-t here ?
-> > +         */
->
-> This is a great idea and I like it very much, but sadly saved_context
-> struct has no fields for system _EL2 registers.
->
-> > +        ldr     x0, =3Dcpu_context
-> > +
-> > +        /* Restore callee-saved registers */
-> > +        ldp     x19, x20, [x0], #16
-> > +        ldp     x21, x22, [x0], #16
-> > +        ldp     x23, x24, [x0], #16
-> > +        ldp     x25, x26, [x0], #16
-> > +        ldp     x27, x28, [x0], #16
-> > +        ldp     x29, lr, [x0], #16
-> > +
-> > +        /* Restore stack pointer */
-> > +        ldr     x2, [x0], #8
-> > +        mov     sp, x2
-> > +
-> > +        /* Restore system control registers */
-> > +        ldr     x2, [x0], #8
-> > +        msr     VBAR_EL2, x2
-> > +        ldr     x2, [x0], #8
-> > +        msr     VTCR_EL2, x2
-> > +        ldr     x2, [x0], #8
-> > +        msr     VTTBR_EL2, x2
-> > +        ldr     x2, [x0], #8
-> > +        msr     TPIDR_EL2, x2
-> > +        ldr     x2, [x0], #8
-> > +        msr     MDCR_EL2, x2
-> > +        ldr     x2, [x0], #8
-> > +        msr     HSTR_EL2, x2
-> > +        ldr     x2, [x0], #8
-> > +        msr     CPTR_EL2, x2
-> > +        ldr     x2, [x0], #8
-> > +        msr     HCR_EL2, x2
-> > +        isb
-> > +
-> > +        /* Since context is restored return from this function will ap=
-pear as
-> > +         * return from hyp_suspend. To distinguish a return from hyp_s=
-uspend
-> > +         * which is called upon finalizing the suspend, as opposed to =
-return
-> > +         * from this function which executes on resume, we need to ret=
-urn zero
-> > +         * value here. */
-> > +        mov x0, #0
-> > +        ret
-> >  END(hyp_resume)
-> >
-> >  #endif /* CONFIG_SYSTEM_SUSPEND */
-> > diff --git a/xen/arch/arm/include/asm/suspend.h b/xen/arch/arm/include/=
-asm/suspend.h
-> > index 55041a5d06..ae71ccb87b 100644
-> > --- a/xen/arch/arm/include/asm/suspend.h
-> > +++ b/xen/arch/arm/include/asm/suspend.h
-> > @@ -5,9 +5,29 @@
-> >
-> >  #ifdef CONFIG_SYSTEM_SUSPEND
-> >
-> > +#ifdef CONFIG_ARM_64
-> > +struct cpu_context {
-> > +    register_t callee_regs[12];
-> > +    register_t sp;
-> > +    register_t vbar_el2;
-> > +    register_t vtcr_el2;
-> > +    register_t vttbr_el2;
-> > +    register_t tpidr_el2;
-> > +    register_t mdcr_el2;
-> > +    register_t hstr_el2;
-> > +    register_t cptr_el2;
-> > +    register_t hcr_el2;
-> > +} __aligned(16);
-> > +#else
-> > +#error "Define cpu_context structure for arm32"
 > > +#endif
 > > +
-> > +extern struct cpu_context cpu_context;
+> >  /* Root/Cache IPMMU device's information */
+> >  struct ipmmu_vmsa_device {
+> >      struct device *dev;
+> > @@ -129,6 +148,9 @@ struct ipmmu_vmsa_device {
+> >      struct ipmmu_vmsa_domain *domains[IPMMU_CTX_MAX];
+> >      unsigned int utlb_refcount[IPMMU_UTLB_MAX];
+> >      const struct ipmmu_features *features;
+> > +#ifdef CONFIG_SYSTEM_SUSPEND
+> > +    struct hw_register *reg_backup[IPMMU_CTX_MAX];
+> > +#endif
+> >  };
+> >
+> >  /*
+> > @@ -534,6 +556,235 @@ static void ipmmu_domain_free_context(struct ipmm=
+u_vmsa_device *mmu,
+> >      spin_unlock_irqrestore(&mmu->lock, flags);
+> >  }
+> >
+> > +#ifdef CONFIG_SYSTEM_SUSPEND
 > > +
-> >  int host_system_suspend(void);
-> >
-> >  void hyp_resume(void);
-> > +int hyp_suspend(struct cpu_context *ptr);
-> >
-> >  #endif /* CONFIG_SYSTEM_SUSPEND */
-> >
-> > diff --git a/xen/arch/arm/suspend.c b/xen/arch/arm/suspend.c
-> > index 08b6acaede..b5398e5ca6 100644
-> > --- a/xen/arch/arm/suspend.c
-> > +++ b/xen/arch/arm/suspend.c
-> > @@ -1,6 +1,7 @@
-> >  /* SPDX-License-Identifier: GPL-2.0-only */
-> >
-> >  #include <asm/psci.h>
-> > +#include <asm/suspend.h>
-> >  #include <xen/console.h>
-> >  #include <xen/cpu.h>
-> >  #include <xen/llc-coloring.h>
-> > @@ -17,6 +18,8 @@
-> >   *  - Investigate feasibility and need for implementing system suspend=
- on ARM32
-> >   */
-> >
-> > +struct cpu_context cpu_context;
+> > +static DEFINE_SPINLOCK(ipmmu_devices_backup_lock);
+> > +static LIST_HEAD(ipmmu_devices_backup);
 > > +
-> >  /* Xen suspend. Note: data is not used (suspend is the suspend to RAM)=
- */
-> >  static long system_suspend(void *data)
-> >  {
-> > @@ -73,9 +76,23 @@ static long system_suspend(void *data)
-> >       */
-> >      update_boot_mapping(true);
-> >
-> > -    status =3D call_psci_system_suspend();
-> > -    if ( status )
-> > -        dprintk(XENLOG_WARNING, "PSCI system suspend failed, err=3D%d\=
-n", status);
-> > +    if ( hyp_suspend(&cpu_context) )
-> > +    {
-> > +        status =3D call_psci_system_suspend();
-> > +        /*
-> > +         * If suspend is finalized properly by above system suspend PS=
-CI call,
-> > +         * the code below in this 'if' branch will never execute. Exec=
-ution
-> > +         * will continue from hyp_resume which is the hypervisor's res=
-ume point.
-> > +         * In hyp_resume CPU context will be restored and since link-r=
-egister is
-> > +         * restored as well, it will appear to return from hyp_suspend=
-. The
-> > +         * difference in returning from hyp_suspend on system suspend =
-versus
-> > +         * resume is in function's return value: on suspend, the retur=
-n value is
-> > +         * a non-zero value, on resume it is zero. That is why the con=
-trol flow
-> > +         * will not re-enter this 'if' branch on resume.
-> > +         */
+> > +#define HW_REGISTER_BACKUP_SIZE 4
+> > +
+> > +static struct hw_register root_pgtable[IPMMU_CTX_MAX][HW_REGISTER_BACK=
+UP_SIZE] =3D {
+> > +    [0 ... (IPMMU_CTX_MAX - 1)] =3D {
+> > +        {"IMTTLBR0", IMTTLBR0, 0},
+> > +        {"IMTTUBR0", IMTTUBR0, 0},
+> > +        {"IMTTBCR",  IMTTBCR,  0},
+> > +        {"IMCTR",    IMCTR,    0},
 >
-> Looks like this comment is misplaced. It should be before "if (
-> hyp_suspend() )", right?
+> Taking into account that only 4 registers needs to be saved, will it be
+> easier and more efficient to have a hardcoded struct like this?
+>
+> struct ipmmu_reg_ctx {
+>     unsigned int imttlbr0;
+>     unsigned int imttubr0;
+>     unsigned int imttbcr;
+>     unsigned int imctr;
+> }
+>
+> instead of hw_register[] ?
+>
+> Especially taking into account that struct ipmmu_vmsa_backup{} does
+> exactly this.
 
-Actually, the comment is correctly placed here and does not need to be move=
-d.
+I see no problem with doing that.
 
 >
-> > +        if ( status )
-> > +            dprintk(XENLOG_WARNING, "PSCI system suspend failed, err=
-=3D%d\n", status);
+>
 > > +    }
+> > +};
+> > +
+> > +static uint32_t ipmmu_imuasid_read(struct ipmmu_vmsa_device *mmu,
+> > +                                   unsigned int utlb)
+> > +{
+> > +    return ipmmu_read(mmu, ipmmu_utlb_reg(mmu, IMUASID(utlb)));
+> > +}
+> > +
+> > +static void ipmmu_utlbs_backup(struct ipmmu_vmsa_device *mmu)
+> > +{
+> > +    struct ipmmu_vmsa_backup *backup_data;
+> > +
+> > +    dev_dbg(mmu->dev, "Handle micro-TLBs backup\n");
+> > +
+> > +    spin_lock(&ipmmu_devices_backup_lock);
+> > +
+> > +    list_for_each_entry( backup_data, &ipmmu_devices_backup, list )
+> > +    {
+> > +        struct iommu_fwspec *fwspec =3D dev_iommu_fwspec_get(backup_da=
+ta->dev);
+> > +        unsigned int i;
+> > +
+> > +        if ( to_ipmmu(backup_data->dev) !=3D mmu )
+> > +            continue;
+> > +
+> > +        for ( i =3D 0; i < fwspec->num_ids; i++ )
+> > +        {
+> > +            unsigned int utlb =3D fwspec->ids[i];
+> > +
+> > +            backup_data->asids_val[i] =3D ipmmu_imuasid_read(mmu, utlb=
+);
+> > +            backup_data->utlbs_val[i] =3D ipmmu_imuctr_read(mmu, utlb)=
+;
+> > +        }
+> > +    }
+> > +
+> > +    spin_unlock(&ipmmu_devices_backup_lock);
+> > +}
+> > +
+> > +static void ipmmu_utlbs_restore(struct ipmmu_vmsa_device *mmu)
+> > +{
+> > +    struct ipmmu_vmsa_backup *backup_data;
+> > +
+> > +    dev_dbg(mmu->dev, "Handle micro-TLBs restore\n");
+> > +
+> > +    spin_lock(&ipmmu_devices_backup_lock);
+> > +
+> > +    list_for_each_entry( backup_data, &ipmmu_devices_backup, list )
+> > +    {
+> > +        struct iommu_fwspec *fwspec =3D dev_iommu_fwspec_get(backup_da=
+ta->dev);
+> > +        unsigned int i;
+> > +
+> > +        if ( to_ipmmu(backup_data->dev) !=3D mmu )
+> > +            continue;
+> > +
+> > +        for ( i =3D 0; i < fwspec->num_ids; i++ )
+> > +        {
+> > +            unsigned int utlb =3D fwspec->ids[i];
+> > +
+> > +            ipmmu_imuasid_write(mmu, utlb, backup_data->asids_val[i]);
+> > +            ipmmu_imuctr_write(mmu, utlb, backup_data->utlbs_val[i]);
+> > +        }
+> > +    }
+> > +
+> > +    spin_unlock(&ipmmu_devices_backup_lock);
+> > +}
+> > +
+> > +static void ipmmu_domain_backup_context(struct ipmmu_vmsa_domain *doma=
+in)
+> > +{
+> > +    struct ipmmu_vmsa_device *mmu =3D domain->mmu->root;
+> > +    struct hw_register *reg =3D mmu->reg_backup[domain->context_id];
+> > +    unsigned int i;
+> > +
+> > +    dev_dbg(mmu->dev, "Handle domain context %u backup\n", domain->con=
+text_id);
+> > +
+> > +    for ( i =3D 0; i < HW_REGISTER_BACKUP_SIZE; i++ )
+> > +        reg[i].reg_data =3D ipmmu_ctx_read_root(domain, reg[i].reg_off=
+set);
+> > +}
+> > +
+> > +static void ipmmu_domain_restore_context(struct ipmmu_vmsa_domain *dom=
+ain)
+> > +{
+> > +    struct ipmmu_vmsa_device *mmu =3D domain->mmu->root;
+> > +    struct hw_register *reg =3D mmu->reg_backup[domain->context_id];
+> > +    unsigned int i;
+> > +
+> > +    dev_dbg(mmu->dev, "Handle domain context %u restore\n", domain->co=
+ntext_id);
+> > +
+> > +    for ( i =3D 0; i < HW_REGISTER_BACKUP_SIZE; i++ )
+> > +    {
+> > +        if ( reg[i].reg_offset !=3D IMCTR )
+> > +            ipmmu_ctx_write_root(domain, reg[i].reg_offset, reg[i].reg=
+_data);
+> > +        else
+> > +            ipmmu_ctx_write_all(domain, reg[i].reg_offset,
+> > +                                reg[i].reg_data | IMCTR_FLUSH);
+> > +    }
+> > +}
+> > +
+> > +/*
+> > + * Xen: Unlike Linux implementation, Xen uses a single driver instance
+> > + * for handling all IPMMUs. There is no framework for ipmmu_suspend/re=
+sume
+> > + * callbacks to be invoked for each IPMMU device. So, we need to itera=
+te
+> > + * through all registered IPMMUs performing required actions.
+> > + *
+> > + * Also take care of restoring special settings, such as translation
+> > + * table format, etc.
+> > + */
+> > +static int __must_check ipmmu_suspend(void)
+> > +{
+> > +    struct ipmmu_vmsa_device *mmu;
+> > +
+> > +    if ( !iommu_enabled )
+> > +        return 0;
+> > +
+> > +    printk(XENLOG_DEBUG "ipmmu: Suspending ...\n");
+> > +
+> > +    spin_lock(&ipmmu_devices_lock);
+> > +
+> > +    list_for_each_entry( mmu, &ipmmu_devices, list )
+> > +    {
+> > +        if ( ipmmu_is_root(mmu) )
+> > +        {
+> > +            unsigned int i;
+> > +
+> > +            for ( i =3D 0; i < mmu->num_ctx; i++ )
+> > +            {
+> > +                if ( !mmu->domains[i] )
+> > +                    continue;
+> > +                ipmmu_domain_backup_context(mmu->domains[i]);
+> > +            }
+> > +        }
+> > +        else
+> > +            ipmmu_utlbs_backup(mmu);
+> > +    }
+> > +
+> > +    spin_unlock(&ipmmu_devices_lock);
+> > +
+> > +    return 0;
+> > +}
+> > +
+> > +static void ipmmu_resume(void)
+> > +{
+> > +    struct ipmmu_vmsa_device *mmu;
+> > +
+> > +    if ( !iommu_enabled )
+> > +        return;
+> > +
+> > +    printk(XENLOG_DEBUG "ipmmu: Resuming ...\n");
+> > +
+> > +    spin_lock(&ipmmu_devices_lock);
+> > +
+> > +    list_for_each_entry( mmu, &ipmmu_devices, list )
+> > +    {
+> > +        uint32_t reg;
+> > +
+> > +        /* Do not use security group function */
+> > +        reg =3D IMSCTLR + mmu->features->control_offset_base;
+> > +        ipmmu_write(mmu, reg, ipmmu_read(mmu, reg) & ~IMSCTLR_USE_SECG=
+RP);
+> > +
+> > +        if ( ipmmu_is_root(mmu) )
+> > +        {
+> > +            unsigned int i;
+> > +
+> > +            /* Use stage 2 translation table format */
+> > +            reg =3D IMSAUXCTLR + mmu->features->control_offset_base;
+> > +            ipmmu_write(mmu, reg, ipmmu_read(mmu, reg) | IMSAUXCTLR_S2=
+PTE);
+> > +
+> > +            for ( i =3D 0; i < mmu->num_ctx; i++ )
+> > +            {
+> > +                if ( !mmu->domains[i] )
+> > +                    continue;
+> > +                ipmmu_domain_restore_context(mmu->domains[i]);
+> > +            }
+> > +        }
+> > +        else
+> > +            ipmmu_utlbs_restore(mmu);
+> > +    }
+> > +
+> > +    spin_unlock(&ipmmu_devices_lock);
+> > +}
+> > +
+> > +static int ipmmu_alloc_ctx_suspend(struct device *dev)
+> > +{
+> > +    struct ipmmu_vmsa_backup *backup_data;
+> > +    unsigned int *utlbs_val, *asids_val;
+> > +    struct iommu_fwspec *fwspec =3D dev_iommu_fwspec_get(dev);
+> > +
+> > +    utlbs_val =3D xzalloc_array(unsigned int, fwspec->num_ids);
+> > +    if ( !utlbs_val )
+> > +        return -ENOMEM;
+> > +
+> > +    asids_val =3D xzalloc_array(unsigned int, fwspec->num_ids);
+> > +    if ( !asids_val )
+> > +    {
+> > +        xfree(utlbs_val);
+> > +        return -ENOMEM;
+> > +    }
+> > +
+> > +    backup_data =3D xzalloc(struct ipmmu_vmsa_backup);
+> > +    if ( !backup_data )
+> > +    {
+> > +        xfree(utlbs_val);
+> > +        xfree(asids_val);
+> > +        return -ENOMEM;
+> > +    }
+> > +
+> > +    backup_data->dev =3D dev;
+> > +    backup_data->utlbs_val =3D utlbs_val;
+> > +    backup_data->asids_val =3D asids_val;
+> > +
+> > +    spin_lock(&ipmmu_devices_backup_lock);
+> > +    list_add(&backup_data->list, &ipmmu_devices_backup);
+> > +    spin_unlock(&ipmmu_devices_backup_lock);
+> > +
+> > +    return 0;
+> > +}
+> > +
+> > +#endif /* CONFIG_SYSTEM_SUSPEND */
+> > +
+> >  static int ipmmu_domain_init_context(struct ipmmu_vmsa_domain *domain)
+> >  {
+> >      uint64_t ttbr;
+> > @@ -546,6 +797,9 @@ static int ipmmu_domain_init_context(struct ipmmu_v=
+msa_domain *domain)
+> >          return ret;
 > >
-> >      system_state =3D SYS_STATE_resume;
-> >      update_boot_mapping(false);
+> >      domain->context_id =3D ret;
+> > +#ifdef CONFIG_SYSTEM_SUSPEND
+> > +    domain->mmu->root->reg_backup[ret] =3D root_pgtable[ret];
+> > +#endif
+> >
+> >      /*
+> >       * TTBR0
+> > @@ -602,6 +856,9 @@ static void ipmmu_domain_destroy_context(struct ipm=
+mu_vmsa_domain *domain)
+> >      ipmmu_ctx_write_root(domain, IMCTR, IMCTR_FLUSH);
+> >      ipmmu_tlb_sync(domain);
+> >
+> > +#ifdef CONFIG_SYSTEM_SUSPEND
+> > +    domain->mmu->root->reg_backup[domain->context_id] =3D NULL;
+> > +#endif
+> >      ipmmu_domain_free_context(domain->mmu->root, domain->context_id);
+> >  }
+> >
+> > @@ -1307,6 +1564,14 @@ static int ipmmu_add_device(u8 devfn, struct dev=
+ice *dev)
+> >      /* Let Xen know that the master device is protected by an IOMMU. *=
+/
+> >      dt_device_set_protected(dev_to_dt(dev));
+> >
+> > +#ifdef CONFIG_SYSTEM_SUSPEND
+> > +    if ( ipmmu_alloc_ctx_suspend(dev) )
+> > +    {
+> > +        dev_err(dev, "Failed to allocate context for suspend\n");
+> > +        return -ENOMEM;
+> > +    }
+> > +#endif
+> > +
+> >      dev_info(dev, "Added master device (IPMMU %s micro-TLBs %u)\n",
+> >               dev_name(fwspec->iommu_dev), fwspec->num_ids);
+> >
+> > @@ -1372,6 +1637,10 @@ static const struct iommu_ops ipmmu_iommu_ops =
+=3D
+> >      .unmap_page      =3D arm_iommu_unmap_page,
+> >      .dt_xlate        =3D ipmmu_dt_xlate,
+> >      .add_device      =3D ipmmu_add_device,
+> > +#ifdef CONFIG_SYSTEM_SUSPEND
+> > +    .suspend         =3D ipmmu_suspend,
+> > +    .resume          =3D ipmmu_resume,
+> > +#endif
+> >  };
+> >
+> >  static __init int ipmmu_init(struct dt_device_node *node, const void *=
+data)
 >
 > --
 > WBR, Volodymyr
