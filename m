@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C416B36CF4
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 17:03:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1094774.1450018 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 096C0B36DB6
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 17:29:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1094794.1450027 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqvCn-0001AY-5e; Tue, 26 Aug 2025 15:03:25 +0000
+	id 1uqvbA-0004jC-2G; Tue, 26 Aug 2025 15:28:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1094774.1450018; Tue, 26 Aug 2025 15:03:25 +0000
+Received: by outflank-mailman (output) from mailman id 1094794.1450027; Tue, 26 Aug 2025 15:28:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqvCn-00017X-2a; Tue, 26 Aug 2025 15:03:25 +0000
-Received: by outflank-mailman (input) for mailman id 1094774;
- Tue, 26 Aug 2025 15:03:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=etY1=3G=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1uqvCm-00017K-2r
- for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 15:03:24 +0000
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2061d.outbound.protection.outlook.com
- [2a01:111:f403:2405::61d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ce7299c4-828d-11f0-a32c-13f23c93f187;
- Tue, 26 Aug 2025 17:03:22 +0200 (CEST)
-Received: from BL1PR13CA0087.namprd13.prod.outlook.com (2603:10b6:208:2b8::32)
- by IA1PR12MB8408.namprd12.prod.outlook.com (2603:10b6:208:3db::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.21; Tue, 26 Aug
- 2025 15:03:18 +0000
-Received: from BL02EPF0001A0FF.namprd03.prod.outlook.com
- (2603:10b6:208:2b8:cafe::ee) by BL1PR13CA0087.outlook.office365.com
- (2603:10b6:208:2b8::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9073.13 via Frontend Transport; Tue,
- 26 Aug 2025 15:03:17 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A0FF.mail.protection.outlook.com (10.167.242.106) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9073.11 via Frontend Transport; Tue, 26 Aug 2025 15:03:17 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 26 Aug
- 2025 10:03:17 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1748.10; Tue, 26 Aug
- 2025 08:03:16 -0700
-Received: from [172.31.63.243] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 26 Aug 2025 10:03:15 -0500
+	id 1uqvb9-0004hS-Vv; Tue, 26 Aug 2025 15:28:35 +0000
+Received: by outflank-mailman (input) for mailman id 1094794;
+ Tue, 26 Aug 2025 15:28:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=n+o/=3G=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uqvb8-0004hM-EP
+ for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 15:28:34 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 52cd78e3-8291-11f0-b898-0df219b8e170;
+ Tue, 26 Aug 2025 17:28:32 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-afcb78ead12so800468766b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Aug 2025 08:28:32 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-afe48fbdb52sm803559866b.33.2025.08.26.08.28.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 26 Aug 2025 08:28:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,151 +45,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce7299c4-828d-11f0-a32c-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OjxEtNVqTw17pU47dmKbiN7g3tfKVeUFXmedezvpuS4+ZcL1p6wdjYju8Up9wEEO6pgxgAW0WCnPtHiN0e5B0FSoSBOpwU20kGsJjRC0U5UZBMVEuNIPGCC4ZmNrQCK/nN51Mj5PK+ctKN97+GwrvbFGljh7n5GjOz7MB8H6IzuTeEwDBkLb6VKs3WxfYblrUQ9T/UbfzP3MQfUkyPmxfA2ERD1beGdoQN/wM6gag8Y+mDhFJyh6v/8qo6NoGMa7XfMa6bvhT1treTyFI6JKkMDI3sOHE5yI905yg9cxn1AmjeO4/ZvThzUl0/Rh1I8EHmwqapmERrBc/ePN+qD0/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ydX4oJBliobBALOoMAF/ClAPXYhPK9SrhaA7+tJNJp8=;
- b=koxOt6999WYSsOLbQPGueRaN6ua/QoK013VIEdNYYr84PsyJnyvXkHU5hSS7NLqY3LOzMDYrWVrBCsRUFDFtpi4AVCXeKnC/PAAwt7+C8SsUO+E6IXGEtL5uXDANP3UJ2C5STEByEq8PsNkLKSXkalF50B0T0ZzoH3TLPI6Vpz1OsULPHS/uHvh881306A0NPf730l1smKDGgS/nDYMYf7sX30fyAV3kikFpO8dqNQ9zEeG4Up580yZY4wzRipfabUyYTB501GrnaQ6H0Ss3SNEkYZMT1SBpBpOUARkmHpBxtJWd+FIy0mt6bCH/1Gs6wDhnBhip/xFUDQRHrxElyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ydX4oJBliobBALOoMAF/ClAPXYhPK9SrhaA7+tJNJp8=;
- b=kvgbG/f2X1e3671hUvae1UuM3re7G0dsAue43rvz7qb639gxlBZG09H4HqagR/L2q9zQ7iUiu/ZFY98gxqdgd+xAIYqkh/7Foa/SQ3WQNSx/zOgxJVkf9q7SOZCWfzEnK4FlfTbn2wBZyQ0vOVvWMZQ+dq1Fz0c6ML+iJTU4qPA=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <cdbd3849-c366-4d25-bf72-23587d79ab6e@amd.com>
-Date: Tue, 26 Aug 2025 11:03:12 -0400
+X-Inumbo-ID: 52cd78e3-8291-11f0-b898-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1756222111; x=1756826911; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Ikk0ogt2jTSOrk7dckJntQN+OhY/THsc82QdKbhEgE0=;
+        b=DnFfqGY7ifrO3a4O5z3u+wj4By9shtDulk0ZW9a9BJPP7VGLbKx+CKcPkoBSBI1aOW
+         szBB1o9P/oOFxSKgSw9SDI+DeFp6POpIXPGdi4rfdYIMoPmDODgl4SFKhRTrPawuheT+
+         769/ULEAAcSbUblA/gzlYGMZ5eXLfWS0NZ2oME1Y6WLket7MIy/9iuHVOeQ8SFmbQErM
+         bNr7rXPFNqdaQzP70v7TPmPZURUp9ks5Remg33kcYive3sRDd4GjO6NHU+k/TdDJuQiM
+         2JcwkMBuIsJIo662CrAy+eKv0eQJfRPXCF1f65tmcBChIrSnSlT2/2J8m6ne6hsqYODL
+         hmEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756222111; x=1756826911;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ikk0ogt2jTSOrk7dckJntQN+OhY/THsc82QdKbhEgE0=;
+        b=a/5ia85qrgA9WKoFyy5/ZqGGYzimPDNweUh3lKEk+Si9+lyT9iwFCxAjyeyWnHTWHg
+         WBoft5hxNJYy9Ni/ehsmoLTCUJM2dpbHzFao+quXmaXQVQX5Uy/v/U8UuweBwe+RZiIr
+         iBpFEhJHEcT0mxWpiQRaZqkSqlLufajNr5d2cg/+nGvrOQyTAIT8AkEi0yUf0kTgM47y
+         y+ZNENWh/dQADlT9Cv/4Uqq7DgsqF6WEzaBykEqTu/7edz6oBu1V8XhWVQOFlHYewYhK
+         QIjs49t/kThupCtwZD6ZZADRBpWIWxYiwzAdFIKY8sFPMrZs9PgIt+mcDPhpLsiJfffZ
+         gZuw==
+X-Gm-Message-State: AOJu0Yx7YAT3ZLNOkD/wUZiBDeVZkZJtVItWG3Ka3v/469nsTfFmHBmg
+	nJ7UqEG3aPTrXFwCkdmjLjKwtOufOZlKPmm+XZo6NYn6R62KK1Zh/AZHSKbB0xF9ckpE0SIFYfm
+	mKV4=
+X-Gm-Gg: ASbGncvXuAl1VK7Ll/XOjd4sdx38fTpYoL2J6P337sZN9DwVwH24522BPbkq5GJ3U8F
+	5IuzOdWcJV+FLn+b6WjaYN3avIn2YSUdFaxs9n7mJdkwDleOvnRYse+qQ5Mru/alPMOetb7l7bJ
+	m4vSj1UAHk4PIxKrVXmyGmVMKOJUE1lfx1ReZtTEPN1vRyNZAJmfPQJvoDm0uIwAM349S91vcWL
+	79iP7vUYnAeuACZ4Z0slTmKYK/Nb0IY3S6wID51jvgci2yr0Dz5PgoLHlfCcD9Bt39UFVijLABV
+	LdKARfY47EfbyNcm/UZiIhbP2xWrXdgMb1Gu3KYR1+J2T1geB9lvy3y01RgKJutOFW9otvxx5tp
+	TxvPMdd5zSXMrBtChwxM8LSKJsjyY2Aha4CnDtoKSA4MC5nCeKDVphzoEXMCVqNVMbmQZ3StKIO
+	IcfibYrBs=
+X-Google-Smtp-Source: AGHT+IHSkPHVNEPS7kqKJFqij0tFpk4h2Pc+5SctWIQV6OxpzLubJWhcGiKNjomMpnmhsUfBmh5N8Q==
+X-Received: by 2002:a17:907:7f94:b0:ade:43e8:8fa4 with SMTP id a640c23a62f3a-afe28f154dcmr1593728066b.18.1756222110973;
+        Tue, 26 Aug 2025 08:28:30 -0700 (PDT)
+Message-ID: <a8a61b98-0798-44c1-8426-0fb18a77a6ca@suse.com>
+Date: Tue, 26 Aug 2025 17:28:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] xen/events: Cleanup find_virq() return codes
-To: Jan Beulich <jbeulich@suse.com>
-CC: <xen-devel@lists.xenproject.org>, <linux-kernel@vger.kernel.org>, "Juergen
- Gross" <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-References: <20250826005517.41547-1-jason.andryuk@amd.com>
- <20250826005517.41547-2-jason.andryuk@amd.com>
- <de9005bf-c858-4e7e-bea8-33e5ea2424fc@suse.com>
 Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <de9005bf-c858-4e7e-bea8-33e5ea2424fc@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: (auto-)ballooning issue
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FF:EE_|IA1PR12MB8408:EE_
-X-MS-Office365-Filtering-Correlation-Id: 05456d1a-5624-4f90-169e-08dde4b1b082
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?OHU2RER6eDU2cnNLN0V0V2VxODFycmdwOXRWSmZuaTFGWVhYdUU5akpQd3pk?=
- =?utf-8?B?RlJjNFRTaDc2Zy9PSDRUVW44LzJ0OTV0ZzZwc21KY1d2MEZsUmwyb3pYRVVI?=
- =?utf-8?B?c3VYdlpTVm1jaFduSFh1RldEMDBRdVdLKzZqM05rVFRjWjlQSDBES3B0ZU02?=
- =?utf-8?B?M2hGcTdRQnF6OU8vOFRtTVRVc0NURG1admQ1RXB4cll4Qkl4bG9FVWZCWTI4?=
- =?utf-8?B?aW9ub1VudmVJZmVBMmtGL1NWbGViWUtDQ2FWMWkyVE8wVUZyRS9ldlFSVVND?=
- =?utf-8?B?UDJnckVKeDZyN2VxVCtETnpzT2NXamRFRFI3dHhyWGswR09taDNDQmE5SHZT?=
- =?utf-8?B?djFHYndzM2dnanF1R040MUtqRVpBWVV5OU5QYk9Ha05KeTZqVEZKbnJFY1U4?=
- =?utf-8?B?OS9SQW0yeEdFR3VZeEFPOEdwTkVGcXNwZ3diY3hQalU0dDhEcEN5cktmUEdB?=
- =?utf-8?B?cUFvdGFTeS9SZjJaVXhOek10RjhYaHlZSmhtNXYvV1N2bmI0bmRUbkoxTktm?=
- =?utf-8?B?QVE1Y053czVFa203OExMWVRvODB6aTRlYm9NbzFBTkovSTZXd0w2UlNQaUR1?=
- =?utf-8?B?UnFvbGxYVGZKcUtxM2RyNlNjV3BZenR3aXpPeTVDL2k2Z0dYdnVuWFRYTTVk?=
- =?utf-8?B?ZEZRamFNb293S0NYb3VscFQ4OEtOOUVDQTZTeGpsWHlydXpFMjA1VDJ5cjlp?=
- =?utf-8?B?bjM1VVJLNWV1K2N3dlk0cmFmKzgyZExjMndBUXVmMzhVTzRHY0tUYWR2VUVK?=
- =?utf-8?B?aHdPdUNjM0JUUWtQRTY4WG42bE9YVWcxelRrTmV0amhxaDZKUXBTT1h4UnVG?=
- =?utf-8?B?SWhlODFVQnJLTU9FOXMvcHpiSG1lOXZyeHpLTzlCeFVoZjVrK3dzeERjYUdW?=
- =?utf-8?B?cldGRnQ1L3Jzb0UrTFFpWlZ2dG1wNHpNMTVrM1RvMm40Z3RzTFlDZkkyUk1I?=
- =?utf-8?B?ZzFHQS9mTHVUR1M3MExOOXRka3hNOTVJTzJmTlpiT2ZkQVhLL01WZ0FtRjk4?=
- =?utf-8?B?cU5SR2RoQTJlT2s3QmVDQktxQnNycVZTV0VNNU83OUZ2d1UvaTN2TjMveEp2?=
- =?utf-8?B?SXFlSVFXVGxOaW1FZ2M0VWd0azZyZmJSUlZhMnB1d292TzliOTBSVk1Edm0z?=
- =?utf-8?B?alJXaWNxUjB3bnlocmYvRnJpSzNXZU95KzcySDI4YzVsOTVQdUJIVW1FMDRH?=
- =?utf-8?B?bkt2R1JiM2F3K0o2QUovV0JHbHhHeHlYUTlRdUNQNDdaN0J1Y3hmZ0xYc0ZO?=
- =?utf-8?B?eFRON0k1WjU5Tzl2ZkNFcDViMDMyQmFkQVBJUHhyUi9IRmRjRUdtdm5obXBw?=
- =?utf-8?B?WnRPSk9UaXRhazJ5b2s3SThXdENCOHdTMVZ5UHp2T3VNL2NqV281TmNVajNn?=
- =?utf-8?B?ZDN2Wnp5RytFb2tpY3phMXdWZDVVWUFvQjhEbHBaSVRxcXZEZDQvZDQ0bElI?=
- =?utf-8?B?dE9mblVIcHRiV0YxME1WVFBqTTRPa2dLeG5CcGhuaHZMMURkZFZnbC9EbEYw?=
- =?utf-8?B?aFNzb2dpS2xqNTJkdkhtWXdIRWpQZnRlSE43RTcxQ1VHeWNPQWpad251bkNp?=
- =?utf-8?B?WFRBcDByK1RpTHc0Skh4VDloWEZvMjRKN0ExUnpEcll2ZUs5ZmpOTFh6K2ht?=
- =?utf-8?B?eVZ4bUNHWDRhSmZyaWtHaytuNTJudTg4Z3h3NFFDTkN5b01Jbkdzamd4ekxX?=
- =?utf-8?B?RmswSWxFVlhrbUhOZ3g5WVV2bzU1bUJjNTJqaXlHM1lVVTd3VDhObnZzWWxh?=
- =?utf-8?B?S0Mxb295ZC9XRHlJam1MTDA4ZkFNbGEvR2pUK25oRXI0OGp0WWRGbDdxcGxt?=
- =?utf-8?B?UDlBbTVqQ256OW15SkhLSCthc3RGWFZxZzY0a21DTXltQmxaU29FUjdidHRC?=
- =?utf-8?B?SU5IQTRSRk9zTmJEd0NRQ2NiVUZvL2ZiT3FDVDYwM25GNFQ4UW5Da3R2S1I0?=
- =?utf-8?B?d0ltQlBrblhscWttRWJoSlJlSEtQWS9hNytsTnExR0NQWjRXUGlCUnFMVHlr?=
- =?utf-8?B?RXU3Q3lpbWowUk15MnNEd1oxZ0FRU1kxUTFGSGl6QXU5dmpZeWVNZVhHWjV6?=
- =?utf-8?Q?fIo/VI?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014)(7053199007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2025 15:03:17.7695
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 05456d1a-5624-4f90-169e-08dde4b1b082
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0001A0FF.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8408
 
-On 2025-08-26 03:22, Jan Beulich wrote:
-> On 26.08.2025 02:55, Jason Andryuk wrote:
->> rc is overwritten by the evtchn_status hypercall in each iteration, so
->> the return value will be whatever the last iteration is.
-> 
-> Which may even be a false "success". Especially for that it feels like ...
+Hello,
 
-I'll state that here...
+the other day I observed a strange issue with XTF's selftest failing to
+have its VMs created, when running all flavors in a group. (Other tests
+look to be similarly affected, it's just the selftest that I run most
+frequently.) Originally I suspected a PVH-specific issue, but the
+problem surfacing only there is because with PVH Dom0 I have less free
+memory left after boot than with PV Dom0. Beyond that, both
+configurations use the same hypervisor, with built-in DOM0_MEM="-255M".
 
-> 
->>   Change to an
->> explicit -ENOENT for an un-found virq and return 0 on a successful
->> match.
->>
->> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> 
-> ... this also wants a Fixes: tag and perhaps a Cc: to stable@.
+The issue looks to be further affected (but not caused) by domain
+cleanup being quite a bit slower under PVH Dom0, compared to PV. I.e.
+by the time the 2nd test is started, memory from the 1st one still
+wasn't completely freed. The result is that randomly one of the latter
+(batched) tests fails at domain creation ("failed to free memory for
+the domain").
 
-and add these.
+xl's freemem() calls libxl_set_memory_target() followed by
+libxl_wait_for_memory_target(). The latter function expects the domain
+to balloon down enough for its ->tot_pages (in the hypervisor) to be
+at or below the previously set target. However, already immediately
+after boot "xl list -l" and "xs ls /" show target values which are 1
+page below the hypervisor's record. With libxl_set_memory_target()
+requesting relative adjustment, the Dom0 kernel will balloon out the
+requested number of pages, but ->tot_pages going down by as many pages
+isn't enough to please libxl_wait_for_memory_target().
 
-> 
->> --- a/drivers/xen/events/events_base.c
->> +++ b/drivers/xen/events/events_base.c
->> @@ -1318,7 +1318,7 @@ static int find_virq(unsigned int virq, unsigned int cpu, evtchn_port_t *evtchn)
->>   {
->>   	struct evtchn_status status;
->>   	evtchn_port_t port;
->> -	int rc = -ENOENT;
->> +	int rc;
-> 
-> Maybe best to also move this into the more narrow scope (loop body)?
+I'm not even close to having an opinion as to where the problem is: It
+could be that the kernel's balloon driver is off by a page. I'm more
+inclined though to think that it is entirely unrealistic to expect the
+kernel's balloon driver and Xen to have an exactly matching view of
+the memory owned by the domain. Yet then it is simply invalid to
+compare values taken from Xenstore against values taken from Xen. While
+problematic for absolute requests, for relative ones it should be
+possible apply the decrement to the source later used to compare
+against while waiting.
 
-Sounds good.
-
-> Either way:
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Thanks.
-
-> 
->>   	memset(&status, 0, sizeof(status));
-> 
-> Having this outside of the loop is a little odd, too: It makes assumptions
-> on the behavior of the hypervisor (like not altering the structure upon
-> error). Yet likely not something to deal with right here.
-
-Agreed.
-
-Thanks,
-Jason
+Jan
 
