@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA410B36ECF
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 17:53:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1094822.1450048 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9F65B36F0C
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 17:57:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1094829.1450059 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqvyu-0000xJ-8j; Tue, 26 Aug 2025 15:53:08 +0000
+	id 1uqw2b-0001YL-P4; Tue, 26 Aug 2025 15:56:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1094822.1450048; Tue, 26 Aug 2025 15:53:08 +0000
+Received: by outflank-mailman (output) from mailman id 1094829.1450059; Tue, 26 Aug 2025 15:56:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqvyu-0000vq-5m; Tue, 26 Aug 2025 15:53:08 +0000
-Received: by outflank-mailman (input) for mailman id 1094822;
- Tue, 26 Aug 2025 15:53:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=n+o/=3G=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uqvyt-0000uy-J1
- for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 15:53:07 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bf81defd-8294-11f0-b898-0df219b8e170;
- Tue, 26 Aug 2025 17:53:02 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-afcb7a0550cso1008932066b.2
- for <xen-devel@lists.xenproject.org>; Tue, 26 Aug 2025 08:53:02 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afeb7fa311bsm48218266b.69.2025.08.26.08.53.01
+	id 1uqw2b-0001VD-Lo; Tue, 26 Aug 2025 15:56:57 +0000
+Received: by outflank-mailman (input) for mailman id 1094829;
+ Tue, 26 Aug 2025 15:56:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=GyYq=3G=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uqw2a-0001V7-Oc
+ for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 15:56:56 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 49ad4536-8295-11f0-a32c-13f23c93f187;
+ Tue, 26 Aug 2025 17:56:54 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-afcb7aea37cso761558966b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Aug 2025 08:56:54 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-afe8c25ceafsm358613966b.87.2025.08.26.08.56.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Aug 2025 08:53:01 -0700 (PDT)
+ Tue, 26 Aug 2025 08:56:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,117 +45,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf81defd-8294-11f0-b898-0df219b8e170
+X-Inumbo-ID: 49ad4536-8295-11f0-a32c-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756223582; x=1756828382; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=u8VU0tp2VRnLvyS7OuxyLw5eF+NulQWZz+wNWXFxsRY=;
-        b=JG31mGjMCXOMWExXoPrVaz1KiFRubo5a3Q08I8cspN2ynPNl698vO+1BRy47TuBBcC
-         2ZeIoz89c8NBRghLySDCzp1drjlUs7FFOr+83gAPBEfNGOEeKR25ZvzazThp4LrvU61i
-         CY24iDEgNyp59C6QG0yo/fO+Sb5nj13IsSBmfgbrx95ZRiJG3x66OGDLYQFNhogsOO9u
-         yTSQQxoeonRc0ByeFB29ZoIEfQtYlJPV/yvnDiAUVDnNhHKdONHq+IR/gxuV2gsDbcrJ
-         e0aDvFTt1AGQomIWMlBp2S/1ZrIr8qLykTuiHEFv1nJg9ydtzJ1nBBcP1/Xatp5Tex3D
-         U1Qg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756223582; x=1756828382;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1756223814; x=1756828614; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=u8VU0tp2VRnLvyS7OuxyLw5eF+NulQWZz+wNWXFxsRY=;
-        b=jSpWgf5t4bBjHfJBsons7KxEKxCKlzxskQIVM+/aQjlNDSgSKqmx0lfUiqRUQmYT9e
-         VfoOWF/cStOJ4j7G3EdAN92s4Z82+5Ja9AR1eG5ecuybmqzRPFPq5h3Sz0lfKHgOdOtN
-         0kuGiNSsyMMt2POP8tFnNBMBOFslm2AZ/YxFlgJZKp6cxm4SHtQIE3o1L4Uff13yO2RL
-         SqzcNZ+PHCXGGJCd3Mk7DMKqHv/VDaZklYhAsOpPSkY/Ftj2BdeTe8fung3R6/CUAYCj
-         TiRagwpZU9ixtmamStFWttCZBgJ7pQ2shB6OvwKKl5mVp55C18dAqdF1L4uiVHn+0wj9
-         DbxQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXdtgngPn0eSF88IfuXMxtKonBDAX64hs1L5Sll29w/z1gpB1g2MuPbToaR0F6V3cQ0xkUhV+7OEyc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx9Downc9NnxuVgS6PjjlKbZGFsPseeDT32WwPQHOfdcpPYubg/
-	80L/vK914wvP2SY6FrcJtcDWu46f+ENEGUzWOAT8cuHWrkN2CZIz4my3ryGCqJZWRQ==
-X-Gm-Gg: ASbGncvGvikkaKR0BnR/eTdbWw9LcED+9kDVBvtVdP6+H16Hkz88W55/dZ9RP9dxgfF
-	WYxZNzmWgugUV6FVy2P0kAxkluNA6qLve9ZEgYMnGDDXts+jDr0SAqPKUsunWg2j0rnQ0e+sUYp
-	nXK8QcIeAZSrfbqXGXDw8LyTMXNRE+EUBx/PIrx0vecjvEin1/mO18Nku6DEZgmV8+lePyVe76N
-	XUEJ1i4y1By4s75zmUBH7v1kTdY7UVhgA8cQ2L4mjFMMcgY3M9gDKdktfc7/xxCNi+Vwi47PY3M
-	kMoroo0OlFy+Cbq8y0yv02+8AA7PwhjamNjOI+TC8SgU27GVviy09wZteK+NuUWU7ifDgz1hTrq
-	uxuaI4tRRLpWT83/8VG2Lu39OpqxRitmLD5mKOiL8THNQ7ug1dczPPWrA7KjR2mRH+o5J1g5tH/
-	wXF5Ov/E0+mvn1G4QoSg==
-X-Google-Smtp-Source: AGHT+IEcnBCfbfOuVbMiwtNZs8qtn/h6aeS2FBMgOOGRybPBdP8+Rni6QxqzM4BCkZyOzUdHRpd7DA==
-X-Received: by 2002:a17:907:7242:b0:afe:9f26:5819 with SMTP id a640c23a62f3a-afe9f265912mr333180566b.28.1756223582344;
-        Tue, 26 Aug 2025 08:53:02 -0700 (PDT)
-Message-ID: <698b0944-0be3-4c04-ba97-a8ef55ebd826@suse.com>
-Date: Tue, 26 Aug 2025 17:53:01 +0200
+        bh=v/OoEh1spNdErWKUH9/YcK6iBUBhd4On/KhJJmMIAMQ=;
+        b=R71iq0KB1YQj5QR/MU8Mz4XZPEc3oAw1V4sy8bmXdJO73BV3jONB9AzUHOg3dLb/hW
+         +jYh+NJiQ2u3Z/FHyP3WqHlFDvDjgJXTKr//nVF7JWMYFFqxN6bslnxIQAqinbw4xZq7
+         igh4rX9OB2K3EzOymih7v3/GyD6uY0CkbARpVgIUpuzgtKncDhsuMggxjbuBdwpzyNc+
+         qfl2MkMQoj9NowbQa+brcoeqM8pLUsfzin6mqAloyBYOqMu3N+4DtxOfBtfK1hRtbUZJ
+         Fr9vKXLJ2HWeJfvPR6OO0WSfh9jFrdbAv9UFT5AEVaG1oF2c2aQ00e+ACQ/i1T1G1hSR
+         66ZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756223814; x=1756828614;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=v/OoEh1spNdErWKUH9/YcK6iBUBhd4On/KhJJmMIAMQ=;
+        b=M6iAYKQ+5Ym8/dlleMnQyTGLpMlJAGhG65DeWrtVvmcpuYXPJa+esqWwM8kyAdJ2DK
+         PprUUr6PPYQBfT7664YvpdkkdCjheB6vyjggTZO4hv8/m87AJqaqzVuIrOr5I+rgESWn
+         C+/MA1M+mWxgasAJpvgcStddtrEDp1eEtEqveqrxqKNhBZQddOj5dTq+SN6dA8IWCIZ7
+         Kikw/kwtdB8NL3zosc6jCY1/xgm3eYtVJg1G1U4X0J5tfZ/689OjDjO0PXDVWl371BRQ
+         5PZMYfsGFj72R8p3bYlb7a0oTSKMOaQTPSdiXclVQX4R7uIAXgRjJ7Bnj7vwHaycReoj
+         UWew==
+X-Gm-Message-State: AOJu0YzsivWPbI/WESE3h3biDF4EjrKZWLSyecRpyftXq84KCYsO4Yur
+	tsdYjhfPF+mS7FaOFY0CZdq2e3wZJwJrkP+eu13wi0iUO9oMlK+HyhfRuC0EVg==
+X-Gm-Gg: ASbGncvsEEMFa6e1/prYmCdrLhdO7GR2g4fqIzh6BpsBfCR3H2VpKVa83y7slvQVHva
+	nnQkxQoGwxztX1E0UWn99z7hK/St5Muo6+PvGLg9jpzmxXnsPdkwWfSW2afj9ZNamtVdiK8syRw
+	3oQhG7aAKXjqayUXkreeehlfB57XONyqpAI2UZm7fq52CZ4k2FDGVRECEBUtBfhGLiLowwGtFEb
+	YangGQceCakwZsvGVndK0dMn6EXtF+PDNR675M9apfgN8q0P6LtHJqWeTzmrzRwbNfVgz6Fj+Z3
+	8yzLk3ZzTMonImjiiMTu9WAbaeSa+KoT66N+jqOidJfeYcV1rgUiTlpJ6atc0dyNrrc0+znRMVz
+	3y477pMIGm7iVZhrB31NUgjLw8xB48wMM4JNbkRiLzW8o5w4ixe3v5CQNl17802viYropz5smcO
+	7PF2urYg==
+X-Google-Smtp-Source: AGHT+IHp8mAJUaw8qIohEgGuqYVSEhRozUMCSsa5zl8GLHz7kFWzBgu0n6v9C1j3r/AFw182mWT6MA==
+X-Received: by 2002:a17:906:d54e:b0:af9:36b3:d695 with SMTP id a640c23a62f3a-afe29637bfbmr1563243466b.43.1756223813922;
+        Tue, 26 Aug 2025 08:56:53 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------sgoe41cxqyZJkWMG0C15P3z8"
+Message-ID: <614030ab-2dca-49b9-8256-f19bf848638b@gmail.com>
+Date: Tue, 26 Aug 2025 17:56:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 00/11] xenstored patches from split hardware control
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
- <jgross@suse.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- xen-devel@lists.xenproject.org
-References: <20250725235858.666813-1-jason.andryuk@amd.com>
+Subject: Re: [Reminder] Feature Freeze is Fri Aug 29, 2025
+To: Jan Beulich <jbeulich@suse.com>, Penny Zheng <Penny.Zheng@amd.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Community Manager <community.manager@xenproject.org>,
+ "committers@xenproject.org" <committers@xenproject.org>
+References: <07fc7122-d0ac-4dbe-800d-89086a07005b@gmail.com>
+ <c243d9b1-385f-49a3-9c50-507250f7bb68@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250725235858.666813-1-jason.andryuk@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <c243d9b1-385f-49a3-9c50-507250f7bb68@suse.com>
 
-On 26.07.2025 01:58, Jason Andryuk wrote:
-> This is a subset of patches focusing on xenstored changes from my split
-> hardware control domain series.
-> 
-> It should address the stubdom breakage from the previous series.
-> stubdom was tested in gitlab-ci - xl list shows Domain-0 and Xenstore.
-> 
-> "tools/xenstored: Use priv_domid for manual nodes and permission" is an
-> interesting result of looking to rename some internal variables to
-> better align their purpose.
-> 
-> Any review or guidance on the approach is appreciated.
-> 
-> Jason Andryuk (11):
->   xen: Add capabilities to get_domain_state
->   tools/manage: Expose domain capabilities
->   public/io: xs_wire: Include event channel in interface page
->   xen/dom0less: store xenstore event channel in page
->   tools/xenstored: Read event channel from xenstored page
->   tools/xenstored: Add get_domain_evtchn() to find evtchn
->   tools/xenstored: Auto-introduce domains
->   tools/xenstored: Use priv_domid for manual nodes and permission
->   tools/xenstored: Rename dom0_domid to store_domid
->   tools/xenstored: Remove stubdom special casing
->   tools/xenstored: Remove hardcoded implicit path
+This is a multi-part message in MIME format.
+--------------sgoe41cxqyZJkWMG0C15P3z8
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-To allow more of this to go in, you'll need to chase an ack for patch 4.
-Of course you could also indicate if committing any later changes ahead
-of patch 4 would be possible / sensible.
++ Penny Zheng
 
-Jan
+On 8/26/25 7:55 AM, Jan Beulich wrote:
+> On 25.08.2025 17:50, Oleksii Kurochko wrote:
+>> Hello community,
+>>
+>> I’d like to remind everyone that the Feature Freeze deadline is approaching,
+>> and we still have some outstanding requests from the community for patch series
+>> to be merged into 4.21:
+>>
+>> 1. Enable guest suspend/resume support on ARM via vPSCI [1]
+>> 2. Introduce SCI SCMI SMC multi-agent support [2]
+>> 3. Introduce eSPI support [3]
+>> 4. FRED work: [4], [5], possibly others (?)
+>> 5. Introduce CONFIG_DOMCTL [6]
+>> 6. xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE [7]
+>> 7. Some other patch series I missed.
+> "amd-cppc CPU Performance Scaling Driver" has been pending for quite a while,
+> and really ought to make it imo. I'm inclined to say even if an exception was
+> needed. Parts have gone in, I'm about to commit more parts, but whether
+> everything would be in by Friday I can't predict.
+
+Considering that only a few patches are required to receive Ack/Reviewed-by,
+this could be considered for inclusion in 4.21.
+
+Penny, do you have some time to provide a new version of the "amd-cppc CPU
+Performance Scaling Driver" patch series?
+
+~ Oleksii
+
+--------------sgoe41cxqyZJkWMG0C15P3z8
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p>+ Penny Zheng<br>
+    </p>
+    <div class="moz-cite-prefix">On 8/26/25 7:55 AM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:c243d9b1-385f-49a3-9c50-507250f7bb68@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 25.08.2025 17:50, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">Hello community,
+
+I’d like to remind everyone that the Feature Freeze deadline is approaching,
+and we still have some outstanding requests from the community for patch series
+to be merged into 4.21:
+
+1. Enable guest suspend/resume support on ARM via vPSCI [1]
+2. Introduce SCI SCMI SMC multi-agent support [2]
+3. Introduce eSPI support [3]
+4. FRED work: [4], [5], possibly others (?)
+5. Introduce CONFIG_DOMCTL [6]
+6. xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE [7]
+7. Some other patch series I missed.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+"amd-cppc CPU Performance Scaling Driver" has been pending for quite a while,
+and really ought to make it imo. I'm inclined to say even if an exception was
+needed. Parts have gone in, I'm about to commit more parts, but whether
+everything would be in by Friday I can't predict.</pre>
+    </blockquote>
+    <pre data-start="48" data-end="174">Considering that only a few patches are required to receive Ack/Reviewed-by,
+this could be considered for inclusion in 4.21.</pre>
+    <pre data-start="176" data-end="294">Penny, do you have some time to provide a new version of the "amd-cppc CPU
+Performance Scaling Driver" patch series?</pre>
+    <pre>~ Oleksii
+</pre>
+  </body>
+</html>
+
+--------------sgoe41cxqyZJkWMG0C15P3z8--
 
