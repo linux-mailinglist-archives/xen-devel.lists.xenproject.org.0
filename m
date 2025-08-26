@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 673DEB371FC
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 20:13:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1094880.1450107 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63332B3717D
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 19:42:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1094898.1450088 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqyA5-0004Q8-WC; Tue, 26 Aug 2025 18:12:49 +0000
+	id 1uqxg3-0008Lb-Hx; Tue, 26 Aug 2025 17:41:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1094880.1450107; Tue, 26 Aug 2025 18:12:49 +0000
+Received: by outflank-mailman (output) from mailman id 1094898.1450088; Tue, 26 Aug 2025 17:41:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqyA5-0004Ne-Sw; Tue, 26 Aug 2025 18:12:49 +0000
-Received: by outflank-mailman (input) for mailman id 1094880;
- Tue, 26 Aug 2025 16:37:44 +0000
+	id 1uqxg3-0008JN-EL; Tue, 26 Aug 2025 17:41:47 +0000
+Received: by outflank-mailman (input) for mailman id 1094898;
+ Tue, 26 Aug 2025 17:41:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=beyi=3G=gmail.com=ritesh.list@srs-se1.protection.inumbo.net>)
- id 1uqwg4-000075-EH
- for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 16:37:44 +0000
-Received: from mail-pg1-x531.google.com (mail-pg1-x531.google.com
- [2607:f8b0:4864:20::531])
+ <SRS0=Xnf3=3G=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uqxg1-0008JG-2c
+ for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 17:41:45 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fc00d15d-829a-11f0-b898-0df219b8e170;
- Tue, 26 Aug 2025 18:37:42 +0200 (CEST)
-Received: by mail-pg1-x531.google.com with SMTP id
- 41be03b00d2f7-b47174c8e45so5627449a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 26 Aug 2025 09:37:42 -0700 (PDT)
-Received: from dw-tp ([171.76.82.15]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-248681adacdsm21450705ad.10.2025.08.26.09.37.30
+ id eb875f65-82a3-11f0-b898-0df219b8e170;
+ Tue, 26 Aug 2025 19:41:39 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-45b6278893eso7294765e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Aug 2025 10:41:39 -0700 (PDT)
+Received: from localhost.localdomain (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45b6c5ab181sm1701275e9.20.2025.08.26.10.41.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Aug 2025 09:37:39 -0700 (PDT)
+ Tue, 26 Aug 2025 10:41:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,157 +45,241 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc00d15d-829a-11f0-b898-0df219b8e170
+X-Inumbo-ID: eb875f65-82a3-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756226260; x=1756831060; darn=lists.xenproject.org;
-        h=mime-version:references:message-id:date:in-reply-to:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=jyPF/dL+2YqZRv98PVCshXGneATY8Fvhth5O4vhMkWc=;
-        b=RWf3kQcX6YzKYTR9970XgbgkZ6zwh4cAo3riZ2fvDnR6N6YYb165G0fO75pYdUDzpL
-         dCOXdL+o42DEOkx6x2xrHcdAzZKOSc25RliuXiHQcCmfem8IOpPD+JYfGpJSfAfwhhBd
-         24bqMQCbui4YwkMijCJ4m/4Sla7N8AzhhzL67D0b0b5kEsOjISBfeWPwRuP/ITERpRuk
-         nA8AMopdJV5LVn/aq9TGJCEED0uHDZ3RSPhTpIG/fPCz8QZRei6g7ilbGyzAPDY2kdl6
-         hMdJ4Fl6nSOZhDHgQ4XxHmUI659jqYOacB3f6wlEYDlbsAWrdg7J8im+JggyFzfpQ45S
-         8tEQ==
+        d=citrix.com; s=google; t=1756230098; x=1756834898; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hzPowjWPzHz/JW3GlPL+G8vbG/xpjBZLpn8wPMsgIwk=;
+        b=KRnrDATBJiEATBTeYtXL3W+lAHjDSwDr6YRjX/7Li/vCEIKdRLuN2RrZ1A8ItfajVr
+         z3mMMxWjyl1SCjuiX8rtuCSWAUjTSEdAJNxcQdEwjeUStbygu0ZgFuxp1SjNuoksG3t0
+         EjgbmgG5ZeTsUlvNlDFhy7WdeFejEGSb0Rqbw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756226260; x=1756831060;
-        h=mime-version:references:message-id:date:in-reply-to:subject:cc:to
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jyPF/dL+2YqZRv98PVCshXGneATY8Fvhth5O4vhMkWc=;
-        b=RG7S51gzQxa/y0pGWiZfdoe1SQG8QBSCvyQQdvnsgnIKRibAUahuWjnk843W3Gwk9d
-         cTKFje6qDOOJO97E+QvM5sE1K9LdrVzFhclyaVb7h9enc9fmrKAEnL6mKdHt1ctOmOcH
-         x6w+Cqot7x/n5wm7pud4zFE9SxifV7Q2puatUWt1WlZdF47T7rcQ28rbwg/0vOgtE/oJ
-         zboibRtuZUSM5KwqfrM8tcEhwnj7SPmvLjVN5xm4j/WAcyd8ePy+a0czbPxuxY11eMiN
-         D1mLD861ijBdXtc/eAHIAWPiGjjLnt9GMZTG4ZctUs4PuUpk8o+AVAaRnbKmwfy4Hwht
-         pfIQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVBdjmZtICOMM3c6kByFhniPwXUul5VCHZdAi4QWRqvB+Xj3SaqGI6tYhEQxnGw35rrNVqXtVRkbAI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzqOJQFF/WATj0MiNvfeGCiXVjNRZ87gNn3JHl3LHhZp/dNogxp
-	gPUiu5PhlbvSHFtS/Q2/wZTOum7Bsx00taonYf2v9uHhr/RVx+cpDVIqeJTgz17N
-X-Gm-Gg: ASbGncslhDDMD3L+FyAYpLfCriRoTfQwU0TiraE1QcehF2c7umgBKVNjg/qquAvAaMG
-	qcwrqkeVQuyC/8EglVjo69vGQBrUYMRjZHkT6+TRwGrUSLCWdhu4Pn6x+fZeajquv8ffe2aRYig
-	TNZSThKcPvh8ZMLLgBgn349pKke97RcHXiGNoWN1aWdespetBjjkonQUEGLFBqZH5F8fNGHlJbZ
-	Nq8KAEyq0/YvenVHykjin2BbBNqgOSRX6O477TSt73b5j9Nv//QFF3Sb2DV1/V2x3db0AmDJySX
-	r274ZVGaNfcsS8OofyAiH9FYXCdqc4K+NeRiem1pwac1a2rH+5Hvq6v8fU4+O7szDwUTHSzPaX7
-	Pmib4GtW+9hONzQ==
-X-Google-Smtp-Source: AGHT+IHkpBzdMdA7eE7qfwfc1lxqW0m87+LkJnM6/YhAHtUnIYSPMtiSiZLKGMu2nLQJcFkeNv4YGw==
-X-Received: by 2002:a17:903:32c8:b0:248:79d4:939b with SMTP id d9443c01a7336-24879d4978cmr26372675ad.54.1756226260428;
-        Tue, 26 Aug 2025 09:37:40 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: David Hildenbrand <david@redhat.com>, linux-kernel@vger.kernel.org
-Cc: linux-mm@kvack.org, xen-devel@lists.xenproject.org, 
-	linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, 
-	linuxppc-dev@lists.ozlabs.org, David Hildenbrand <david@redhat.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
-	Christophe Leroy <christophe.leroy@csgroup.eu>, Juergen Gross <jgross@suse.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Dan Williams <dan.j.williams@intel.com>, 
-	Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
-	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
-	Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
-	Oscar Salvador <osalvador@suse.de>, Lance Yang <lance.yang@linux.dev>
-Subject: Re: [PATCH v3 06/11] powerpc/ptdump: rename "struct pgtable_level" to "struct ptdump_pglevel"
-In-Reply-To: <20250811112631.759341-7-david@redhat.com>
-Date: Tue, 26 Aug 2025 21:58:09 +0530
-Message-ID: <87a53mqc86.fsf@gmail.com>
-References: <20250811112631.759341-1-david@redhat.com> <20250811112631.759341-7-david@redhat.com>
+        d=1e100.net; s=20230601; t=1756230098; x=1756834898;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=hzPowjWPzHz/JW3GlPL+G8vbG/xpjBZLpn8wPMsgIwk=;
+        b=lvO/zOJjEfL1gVxo7BeojZ1Q6ESyTJ3/Qj/U4p0BZURF8RGbaiRy9SNGDgcAyQPF18
+         HmT9vhWtcBVJWKt/cWH2uKdDlxQBi3ZGudokm+AH+ud9iUCZbF0EV3u7boSYfzOVs8JY
+         JbB3+LlLVk6enB19qwQBpjxe4wHqQmr1tXuBK3ueNNfZ0c4Tvp6OsmsdbrlKW4RPLAeI
+         aq4U5ODdlHmVqiTxZxzSvpwo5/MlP2q5lw/NxUD9vD8R/YGem/clIdRPMtuFvbqPxdWS
+         0yh7oBYiNvuOntiAsy2UtQLwGWnq9QvA7EcsGE95GqNA2LWhIerN/TKTlVniQyvbJodV
+         +EKA==
+X-Gm-Message-State: AOJu0YzpgVQyna69EllAo/DaGVxIcFSQ1QKnry2vwD5GFCorQNBUt1qL
+	lmJL4OQ3u01iQgJsksYyZyGbgqt8aQ+ZxY5P9d42WZWH1ywHE0+6P8OcBbUglzJT3DkUAtWpPJ4
+	NfNty
+X-Gm-Gg: ASbGncvtt5MvXb3RD7+tV/dov/7iR0oOA5E3/agLtggxfdk0eozjaL3Sj2FB1qcA3gl
+	WJkTapCReBNKbgmaZrs3vXsAvRc6WAYBi0pCIxuNxFAmnr9WqA0w2R/ivEzwzgfUMWVcsut/yYy
+	E+y+rydF9x8nhUAsCfd4wJI4Da/rW4t+0/Pe337FaUQz3CbP0+QXPgxceG9cE2B8DOzLRfEjAgE
+	ASE+174eQKPk0OuJOcHsud+ezrSJCE91JFgvxknwXt2JdTTnl06NRbQzW4eh8mlHYMYak0JYs6F
+	3vQ0WV2h80kAwWx3m5bpGGOdqu6GlOc9mwjX4mWogzu8wtcOjD0mivAGv4C5EPGy+1yycsBNM/P
+	iTvNyIWfK4migR7a7nFP0MgeIrLwxRXwDH0HWgG7qE2hOBkD7ljWTn+Zp3FB0mKzMhSXpv0sfEf
+	kl0bF0ZCp8+Hk=
+X-Google-Smtp-Source: AGHT+IEfTIn2hUlhIz0VxIEUhUNibh7JsTH1+JJJmsl+8YO0uWhy6aJfGHQS+T+d9nu1rL0z6V6nMQ==
+X-Received: by 2002:a05:600c:1e8b:b0:45b:47e1:ef6f with SMTP id 5b1f17b1804b1-45b517fabfbmr125965045e9.34.1756230098232;
+        Tue, 26 Aug 2025 10:41:38 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v2] x86/bitops: Optimise arch_ffs{,l}() some more on AMD
+Date: Tue, 26 Aug 2025 18:41:35 +0100
+Message-Id: <20250826174135.605220-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20250527222930.1452674-1-andrew.cooper3@citrix.com>
+References: <20250527222930.1452674-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-David Hildenbrand <david@redhat.com> writes:
+One aspect of the old ffs() infrastructure was the use of TZCNT without a
+CPUID check.  Given no obvious justification, I dropped it during the cleanup.
 
-> We want to make use of "pgtable_level" for an enum in core-mm. Other
-> architectures seem to call "struct pgtable_level" either:
-> * "struct pg_level" when not exposed in a header (riscv, arm)
-> * "struct ptdump_pg_level" when expose in a header (arm64)
->
-> So let's follow what arm64 does.
->
-> Signed-off-by: David Hildenbrand <david@redhat.com>
-> ---
->  arch/powerpc/mm/ptdump/8xx.c      | 2 +-
->  arch/powerpc/mm/ptdump/book3s64.c | 2 +-
->  arch/powerpc/mm/ptdump/ptdump.h   | 4 ++--
->  arch/powerpc/mm/ptdump/shared.c   | 2 +-
->  4 files changed, 5 insertions(+), 5 deletions(-)
+It turns out there is a good reason, on all but the most recent AMD CPUs.
 
+Reinstate the use of "blind" TZCNT when safe to do so.  This happens to be
+preferentially in loops where a repeated saving of 5-6 uops becomes far more
+relevant than a one-off scenario.  Leave an explanation of why.
 
-As mentioned in commit msg mostly a mechanical change to convert 
-"struct pgtable_level" to "struct ptdump_pg_level" for aforementioned purpose.. 
+It is not safe to perform this transformation for BSR and LZCNT, because they
+count from opposite ends of the input operand.  Furthermore, this incorrect
+transform was not caught by the selftests.
 
-The patch looks ok and compiles fine on my book3s64 and ppc32 platform. 
+Extend the selftests with test_for_each_set_bit_reverse() as that exercises
+the "x known non-zero" optimsiation path in x86's helpers.  Adjust the
+existing test_for_each_set_bit() to intentionally use an asymmetric input bit
+pattern, otherwise "counting from the wrong end" bugs continue to slip by.
 
-I think we should fix the subject line.. s/ptdump_pglevel/ptdump_pg_level
+No functional change.
 
-Otherwise the changes looks good to me. So please feel free to add - 
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Fixes: 989e5f08d33e ("x86/bitops: Improve arch_ffs() in the general case")
+Fixes: 5ed26fc0768d ("xen/bitops: Implement ffsl() in common logic")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
 
+v2:
+ * Use TZCNT mnemonic given the updated toolchain baseline
+ * Do not convert LZCNT.
+ * Extend selftests.
 
+https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2004918013
 
->
-> diff --git a/arch/powerpc/mm/ptdump/8xx.c b/arch/powerpc/mm/ptdump/8xx.c
-> index b5c79b11ea3c2..4ca9cf7a90c9e 100644
-> --- a/arch/powerpc/mm/ptdump/8xx.c
-> +++ b/arch/powerpc/mm/ptdump/8xx.c
-> @@ -69,7 +69,7 @@ static const struct flag_info flag_array[] = {
->  	}
->  };
->  
-> -struct pgtable_level pg_level[5] = {
-> +struct ptdump_pg_level pg_level[5] = {
->  	{ /* pgd */
->  		.flag	= flag_array,
->  		.num	= ARRAY_SIZE(flag_array),
-> diff --git a/arch/powerpc/mm/ptdump/book3s64.c b/arch/powerpc/mm/ptdump/book3s64.c
-> index 5ad92d9dc5d10..6b2da9241d4c4 100644
-> --- a/arch/powerpc/mm/ptdump/book3s64.c
-> +++ b/arch/powerpc/mm/ptdump/book3s64.c
-> @@ -102,7 +102,7 @@ static const struct flag_info flag_array[] = {
->  	}
->  };
->  
-> -struct pgtable_level pg_level[5] = {
-> +struct ptdump_pg_level pg_level[5] = {
->  	{ /* pgd */
->  		.flag	= flag_array,
->  		.num	= ARRAY_SIZE(flag_array),
-> diff --git a/arch/powerpc/mm/ptdump/ptdump.h b/arch/powerpc/mm/ptdump/ptdump.h
-> index 154efae96ae09..4232aa4b57eae 100644
-> --- a/arch/powerpc/mm/ptdump/ptdump.h
-> +++ b/arch/powerpc/mm/ptdump/ptdump.h
-> @@ -11,12 +11,12 @@ struct flag_info {
->  	int		shift;
->  };
->  
-> -struct pgtable_level {
-> +struct ptdump_pg_level {
->  	const struct flag_info *flag;
->  	size_t num;
->  	u64 mask;
->  };
->  
-> -extern struct pgtable_level pg_level[5];
-> +extern struct ptdump_pg_level pg_level[5];
->  
->  void pt_dump_size(struct seq_file *m, unsigned long delta);
-> diff --git a/arch/powerpc/mm/ptdump/shared.c b/arch/powerpc/mm/ptdump/shared.c
-> index 39c30c62b7ea7..58998960eb9a4 100644
-> --- a/arch/powerpc/mm/ptdump/shared.c
-> +++ b/arch/powerpc/mm/ptdump/shared.c
-> @@ -67,7 +67,7 @@ static const struct flag_info flag_array[] = {
->  	}
->  };
->  
-> -struct pgtable_level pg_level[5] = {
-> +struct ptdump_pg_level pg_level[5] = {
->  	{ /* pgd */
->  		.flag	= flag_array,
->  		.num	= ARRAY_SIZE(flag_array),
-> -- 
-> 2.50.1
+I've kept Jan's R-by as this is a subset of what was previously reviewed, but
+I'm posting it for clarity as there are a lot of selftest changes.
+---
+ xen/arch/x86/include/asm/bitops.h | 13 ++++--
+ xen/common/bitops.c               | 78 ++++++++++++++++++++++++++++++-
+ 2 files changed, 86 insertions(+), 5 deletions(-)
+
+diff --git a/xen/arch/x86/include/asm/bitops.h b/xen/arch/x86/include/asm/bitops.h
+index 87eac7782f10..b17d67e8ca61 100644
+--- a/xen/arch/x86/include/asm/bitops.h
++++ b/xen/arch/x86/include/asm/bitops.h
+@@ -399,9 +399,16 @@ static always_inline unsigned int arch_ffs(unsigned int x)
+          *
+          * and the optimiser really can work with the knowledge of x being
+          * non-zero without knowing it's exact value, in which case we don't
+-         * need to compensate for BSF's corner cases.  Otherwise...
++         * need to compensate for BSF's corner cases.
++         *
++         * That said, we intentionally use TZCNT on capable hardware when the
++         * behaviour for the 0 case doesn't matter.  On AMD CPUs prior to
++         * Zen4, TZCNT is 1-2 uops while BSF is 6-8 with a latency to match.
++         * Intel CPUs don't suffer this discrepancy.
++         *
++         * Otherwise...
+          */
+-        asm ( "bsf %[val], %[res]"
++        asm ( "tzcnt %[val], %[res]"
+               : [res] "=r" (r)
+               : [val] "rm" (x) );
+     }
+@@ -428,7 +435,7 @@ static always_inline unsigned int arch_ffsl(unsigned long x)
+ 
+     /* See arch_ffs() for safety discussions. */
+     if ( __builtin_constant_p(x > 0) && x > 0 )
+-        asm ( "bsf %[val], %q[res]"
++        asm ( "tzcnt %[val], %q[res]"
+               : [res] "=r" (r)
+               : [val] "rm" (x) );
+     else
+diff --git a/xen/common/bitops.c b/xen/common/bitops.c
+index bd17ddef5700..14e6265037f1 100644
+--- a/xen/common/bitops.c
++++ b/xen/common/bitops.c
+@@ -97,14 +97,14 @@ static void __init test_for_each_set_bit(void)
+     if ( ui != ui_res )
+         panic("for_each_set_bit(uint) expected %#x, got %#x\n", ui, ui_res);
+ 
+-    ul = HIDE(1UL << (BITS_PER_LONG - 1) | 1);
++    ul = HIDE(1UL << (BITS_PER_LONG - 1) | 0x11);
+     for_each_set_bit ( i, ul )
+         ul_res |= 1UL << i;
+ 
+     if ( ul != ul_res )
+         panic("for_each_set_bit(ulong) expected %#lx, got %#lx\n", ul, ul_res);
+ 
+-    ull = HIDE(0x8000000180000001ULL);
++    ull = HIDE(0x8000000180000011ULL);
+     for_each_set_bit ( i, ull )
+         ull_res |= 1ULL << i;
+ 
+@@ -127,6 +127,79 @@ static void __init test_for_each_set_bit(void)
+         panic("for_each_set_bit(break) expected 0x1008, got %#x\n", ui_res);
+ }
+ 
++/*
++ * A type-generic fls() which picks the appropriate fls{,l,64}() based on it's
++ * argument.
++ */
++#define fls_g(x)                                        \
++    (sizeof(x) <= sizeof(int)      ? fls(x) :           \
++     sizeof(x) <= sizeof(long)     ? flsl(x) :          \
++     sizeof(x) <= sizeof(uint64_t) ? fls64(x) :         \
++     ({ BUILD_ERROR("fls_g() Bad input type"); 0; }))
++
++/*
++ * for_each_set_bit_reverse() - Iterate over all set bits in a scalar value,
++ * from MSB to LSB.
++ *
++ * @iter An iterator name.  Scoped is within the loop only.
++ * @val  A scalar value to iterate over.
++ *
++ * A copy of @val is taken internally.
++ */
++#define for_each_set_bit_reverse(iter, val)             \
++    for ( typeof(val) __v = (val); __v; __v = 0 )       \
++        for ( unsigned int (iter);                      \
++              __v && ((iter) = fls_g(__v) - 1, true);   \
++              __clear_bit(iter, &__v) )
++
++/*
++ * Xen doesn't have need of for_each_set_bit_reverse() at present, but the
++ * construct does exercise a case of arch_fls*() not covered anywhere else by
++ * these tests.
++ */
++static void __init test_for_each_set_bit_reverse(void)
++{
++    unsigned int  ui,  ui_res = 0, tmp;
++    unsigned long ul,  ul_res = 0;
++    uint64_t      ull, ull_res = 0;
++
++    ui = HIDE(0x80008001U);
++    for_each_set_bit_reverse ( i, ui )
++        ui_res |= 1U << i;
++
++    if ( ui != ui_res )
++        panic("for_each_set_bit_reverse(uint) expected %#x, got %#x\n", ui, ui_res);
++
++    ul = HIDE(1UL << (BITS_PER_LONG - 1) | 0x11);
++    for_each_set_bit_reverse ( i, ul )
++        ul_res |= 1UL << i;
++
++    if ( ul != ul_res )
++        panic("for_each_set_bit_reverse(ulong) expected %#lx, got %#lx\n", ul, ul_res);
++
++    ull = HIDE(0x8000000180000011ULL);
++    for_each_set_bit_reverse ( i, ull )
++        ull_res |= 1ULL << i;
++
++    if ( ull != ull_res )
++        panic("for_each_set_bit_reverse(uint64) expected %#"PRIx64", got %#"PRIx64"\n", ull, ull_res);
++
++    /* Check that we can break from the middle of the loop. */
++    ui = HIDE(0x80001008U);
++    tmp = 0;
++    ui_res = 0;
++    for_each_set_bit_reverse ( i, ui )
++    {
++        if ( tmp++ > 1 )
++            break;
++
++        ui_res |= 1U << i;
++    }
++
++    if ( ui_res != 0x80001000U )
++        panic("for_each_set_bit_reverse(break) expected 0x80001000, got %#x\n", ui_res);
++}
++
+ static void __init test_multiple_bits_set(void)
+ {
+     /*
+@@ -169,6 +242,7 @@ static void __init __constructor test_bitops(void)
+     test_ffs();
+     test_fls();
+     test_for_each_set_bit();
++    test_for_each_set_bit_reverse();
+ 
+     test_multiple_bits_set();
+     test_hweight();
+-- 
+2.39.5
+
 
