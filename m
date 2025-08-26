@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95116B372E3
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 21:13:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1094969.1450128 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5E89B372E6
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 21:15:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1094978.1450138 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqz5t-0004Lp-J1; Tue, 26 Aug 2025 19:12:33 +0000
+	id 1uqz8r-0004tn-0z; Tue, 26 Aug 2025 19:15:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1094969.1450128; Tue, 26 Aug 2025 19:12:33 +0000
+Received: by outflank-mailman (output) from mailman id 1094978.1450138; Tue, 26 Aug 2025 19:15:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqz5t-0004JI-GI; Tue, 26 Aug 2025 19:12:33 +0000
-Received: by outflank-mailman (input) for mailman id 1094969;
- Tue, 26 Aug 2025 19:12:32 +0000
+	id 1uqz8q-0004qg-UI; Tue, 26 Aug 2025 19:15:36 +0000
+Received: by outflank-mailman (input) for mailman id 1094978;
+ Tue, 26 Aug 2025 19:15:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Xnf3=3G=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uqz5s-0004JC-7K
- for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 19:12:32 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ <SRS0=dnfn=3G=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1uqz8p-0004q8-U1
+ for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 19:15:36 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9bc10260-82b0-11f0-a32c-13f23c93f187;
- Tue, 26 Aug 2025 21:12:29 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3c7ba0f6983so131362f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 26 Aug 2025 12:12:28 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b6c4e9078sm5397995e9.9.2025.08.26.12.12.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Aug 2025 12:12:27 -0700 (PDT)
+ id 0a2364b8-82b1-11f0-a32c-13f23c93f187;
+ Tue, 26 Aug 2025 21:15:34 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id 8BDA84EE3C0D;
+ Tue, 26 Aug 2025 21:15:32 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,126 +40,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9bc10260-82b0-11f0-a32c-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1756235548; x=1756840348; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=34Eal4dX6AMRvLG2+vt1TA4usx6f7FZtYJdKjHzuQ5g=;
-        b=HPu+pFYzfMLnm4rfJw+kIT5FmpanxgWuQZYwldwmq7/OPAqeUuz18bwRK4ccJOwiNX
-         MOwAUbLztqBFFmmzkmS/4Tk1NbdevOWutTAa1CNeypqCqfrasi1EwC98NBEW7O3nCCh3
-         dCVcGlNUuAoyydYGmwOg8R1Klddl06n0X58Is=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756235548; x=1756840348;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=34Eal4dX6AMRvLG2+vt1TA4usx6f7FZtYJdKjHzuQ5g=;
-        b=C3MaEZDsO4YMEKa2qu17d/fk/CdV3XB+2093YtHeEwExZLGBP8qDz6ULI4R7+yuAlW
-         9FzGOlP2hIqlcZyYwgqf3Qrf6FXPKie4+BA1D0xv7EdYafM4F9Id7sio0MhJoqCW2XTK
-         q1pjmclaRi5/zsQsuKPKZjHtKwGbA5I2nZx9jywdmzv2BEkrK8ctLEbPlPEOw9yyHMxN
-         q6UjH2svYuHVJmS4z5rCzDSxSUSompHkRhdwJyeapUc2SGUUt99ZPT5PhdfpvjeGsEX/
-         dUsXUlK7G4rpq/FEypoheBF4R4sndzzkKJUfsq8uOK1gvcCyPspVk5MtZDAZcYRK475+
-         bKRg==
-X-Forwarded-Encrypted: i=1; AJvYcCWQN7fCHLW5z944/NFmlzhHoqYBRpQpTKeSNVcXWQEK4roJ90WrnGRZKL9J0u6d2tnMK2nwV6GjrJc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxD9hvcZKLho/j6eqjGYf0TzE0FMIGpc2k5zrSYCHW7bRnKv4wh
-	zA00xaR1bGD3Alyi+6li2u7TI/jdjr5S0vA5LY0muTwTPW1vEgioI/JIE6G3NBhRsgotBoUOJWW
-	gbnNp
-X-Gm-Gg: ASbGnctQbpPb7aIoZfKtF9izV+wHdGOxYaYE619X3L0LSERJMZWd0eh88VQSN9CpxQo
-	WxNSTKNEtOoHVfcNPmUaFFobHXPLVPPaIaXUpaaTTZF4FifhQeUa+5rpJsKq+AOzP5ekuvw8pHz
-	7xeyUQr9scixCOO4vra5+TkZ/mQDm4L1t/14+YJ3gMcto0sJ3PFh97xBP4e9cn9E6WTU0U81g4+
-	sjyvxpWiUhP7QD4Oq3OkDG+mI2rHwM7dfJu5WDWLWLssezUmvZUUGZs3ee81YhdBksML7LvQ7NF
-	NLhjsZct9wQy0oZ6W39wVBNqhUjPHfF7jCJG7RhPk8SNtl61Y2KFQQroahq+gF0hx/UrOMLEBdc
-	vgFP8h0AbRJX7nmYEgO1BHxNy8M4N4s8NABMWj5YqM6XSWZkO1g4zAjjO6kiQrv3zBNu6E21I32
-	Qdeg8=
-X-Google-Smtp-Source: AGHT+IGX6xgKzfwqKz/dB20PKAAZhhlZHriXXTJkK1MAstOI1E01sfvmJT3Fz/vPmfWHG8vBTaBSaQ==
-X-Received: by 2002:a05:6000:188b:b0:3c4:9c59:52e2 with SMTP id ffacd0b85a97d-3cbb15ca24emr1911641f8f.7.1756235548127;
-        Tue, 26 Aug 2025 12:12:28 -0700 (PDT)
-Message-ID: <e31bcf2b-50f9-42ca-ad17-e746652c1dd2@citrix.com>
-Date: Tue, 26 Aug 2025 20:12:27 +0100
+X-Inumbo-ID: 0a2364b8-82b1-11f0-a32c-13f23c93f187
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1756235732;
+	b=OSMvDq+iQop8QmgtE2QwYacgeAQ8au8hnngdllHkZnTFamaG6JBwXpuWmelPaauvEFNk
+	 VrVXZYTnZ7f3ZrovVbN9z/k+5jNz/0d+JFs04BaAJQzxIDwA1CspQzIwuQTZNDG0Ey/vy
+	 OGenF3vsdBfxS3FtsPxhsS/eUiaYJnlXw1hXqXDdZte3beolpvqM8ujM0mbK8nZBoENOP
+	 56ZorLlt7PW/JmFfnAdfpCc0GFOIp5UZisMzuRde4YF7Kebf7REcT4fBRSElX+15cX45U
+	 QN37nDeAbYeKShu51Z0e8WeID0t7Y9S49SM1zFUyRQPPcKT++QKYrlUatqR40x1BwjKO8
+	 C31xGtN7mm7VT25SjZWN83hurQHCJOPOnC0yWQi2TkZ1DRoqA4PqhU6Xx5G39bPHdsGqG
+	 epFgf5+GgoTjnPXa6UiiTf2VdEMEPUh6CSGJ1wtCBgkecMZK6Gw7u7TRx0E0tU25OmcGl
+	 2COSEWYEyjGh27GIhEF77lYit31EzTTL+0+1GADS8WLwfPeEpgtJ+p8/o9S/cix8lQUwv
+	 POdbjJ0qO+iOpdip6qR4UgGTtk4RdIxpO/eAfsXiu+7U0e+OMDhg2TEHu3NRPvHeHOh3L
+	 rgluKSwhgXKPt63D9/fMvx1ANGPHgFsPjHeO1V1Z5TPhxirw0nJswUMgbsCLJwA=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1756235732;
+	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=AaIHmQqbHvgGLPp6UHHU6Lec4UMPyucpeDT3xDGnFYg=;
+	b=zx1zNefE8ocDn40AuGfskscVIt/7UkFacRrszldM4edoXbQCEJPaIGOQ08r8/rLoYP6H
+	 yYm9uiJfyEEPyhL9mR49J5KGV09QNhBqDeaKADi6XwQKJD3Vy4mQ25dpvhUm/1x49GMIA
+	 JcFxJy34GOsxmtP0xErsMHVBuL2AgkqRvUE/y09yQNqbBmqQfLIkn9Jp29vCUpxpPPN8Y
+	 54OiRlXI23Orc3jFfTmG/qSq0KHFPYKp9NQu4HanNe16+TrxwHcolfPLt4kSzDCaLIxxG
+	 AvluUoK3FjvOJoJbaBImS4KEVKYvCWzeDYkGYVLGkGO6byASXWtQFakcjiysHEJnw3YwD
+	 NanxvSwll6G+4WTkYk/kEziYUd0LeEVIV5ywjms3mdgf7ZjZX9hJaV4nIlAPoQFu/GD9S
+	 1CGE6mSnaSOB+W3bMdDero+i3O62PEYwggbBQVebiGKF48hoaMutTgS16GQoPPVe2OgMO
+	 uDwwonNVTT39UK6lGsYo/x2Wj6hnFhlQVdrgSIRlJm8ID7RASejITq6nO5m3kA3RE04Dy
+	 yk3X0pdlDskJ/EvHUN3eCGhAWQ/SOWnArVa/dtS0Z6L4fo1Eo8PE7qJAtGkgQiiLuMzRq
+	 OWmk2j582jyBdGkdGPMca3R3JfwPG2D/GlnyTimXtwfxIPetWLqkIoTAB267vds=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1756235732; bh=i5c5627eZghBiQ6BnSaC7lH2CtrKVXfm59nnThaOP90=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=ydLZRhhI8IY+2I81pgHiTkmjwmgWAisIfrwaocLOt4umB9Pk3Jlote3fY7t8xPn/S
+	 1qlM+2K6WtnSQdWL8r8ccMHzYmfyVLcQo2pCYMr3YMkL8m+MS6YIV1HNenw/8xWjSA
+	 6Nh9UmOxyta8d8yBgLODJdONRpchIiByhujqrmtycG6g4nozUMRyowVQ95bjBNszJb
+	 uYmLpMtHZmGSNxu6zF6JGZTUSWe2iUugq7NSWUvwmVsOCkcqYJrEU5xXJtEuuIxgia
+	 ZR3n1wpGOCmfEkSMY+rr5FjwMITIS1KeudapocuDJj62sz2jffy5Dkq9pLU69sQpoN
+	 RL43o9BGmWEPA==
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Reminder] Feature Freeze is Fri Aug 29, 2025
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Community Manager <community.manager@xenproject.org>,
- "committers@xenproject.org" <committers@xenproject.org>
-References: <07fc7122-d0ac-4dbe-800d-89086a07005b@gmail.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <07fc7122-d0ac-4dbe-800d-89086a07005b@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Tue, 26 Aug 2025 21:15:32 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Doug Goldstein <cardoe@cardoe.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] misra: add deviation of Rule 2.1 for BUG() macro
+In-Reply-To: <d9e9deaa-fa3e-4f4a-aa70-772af4bc1371@epam.com>
+References: <f7b4112aad84162c25f96a9d6db43a0c2ba85daa.1756046023.git.dmytro_prokopchuk1@epam.com>
+ <60022d5c-1a9f-4a6d-8df2-bca57cefcf59@suse.com>
+ <d9e9deaa-fa3e-4f4a-aa70-772af4bc1371@epam.com>
+Message-ID: <97fe4a398af94ee08a15a586ac4a6b4e@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 25/08/2025 4:50 pm, Oleksii Kurochko wrote:
-> Hello community,
->
-> I’d like to remind everyone that the Feature Freeze deadline is approaching,
-> and we still have some outstanding requests from the community for patch series
-> to be merged into 4.21:
->
-> 1. Enable guest suspend/resume support on ARM via vPSCI [1]
-> 2. Introduce SCI SCMI SMC multi-agent support [2]
-> 3. Introduce eSPI support [3]
-> 4. FRED work: [4], [5], possibly others (?)
+On 2025-08-26 20:07, Dmytro Prokopchuk1 wrote:
+> On 8/25/25 13:07, Jan Beulich wrote:
+>> On 24.08.2025 16:56, Dmytro Prokopchuk1 wrote:
+>>> --- a/docs/misra/deviations.rst
+>>> +++ b/docs/misra/deviations.rst
+>>> @@ -97,6 +97,19 @@ Deviations related to MISRA C:2012 Rules:
+>>>          Xen expects developers to ensure code remains safe and 
+>>> reliable in builds,
+>>>          even when debug-only assertions like `ASSERT_UNREACHABLE() 
+>>> are removed.
+>>> 
+>>> +   * - R2.1
+>>> +     - The 'BUG()' macro is intentionally used in the 
+>>> 'prepare_acpi()' function
+>>> +       in specific build configuration (when the config CONFIG_ACPI 
+>>> is not
+>>> +       defined) to trigger an error if ACPI-related features are 
+>>> used incorrectly.
+>>> +     - Tagged as `deliberate` for ECLAIR.
+>> 
+>> With
+>> 
+>> #define acpi_disabled true
+>> 
+>> in xen/acpi.h I don't see why we even have that inline stub. When it's 
+>> dropped
+>> and the declaration left in place without #ifdef CONFIG_ACPI around 
+>> it, the
+>> compiler will DCE the code (much like we arrange for in many other 
+>> places). No
+>> deviation needed then.
+>> 
+>> If such a deviation was to be added, it would need disambiguating. A 
+>> function
+>> of the given name could appear in x86 as well. That wouldn't be 
+>> covered by the
+>> Eclair config then, but it would be covered by the text here.
+>> 
+>>> +   * - R2.1
+>>> +     - The 'BUG()' macro is intentionally used in 'gicv3_do_LPI'() 
+>>> and
+>>> +       'gicv3_its_setup_collection()' functions in specific build 
+>>> configuration
+>>> +       (when the config CONFIG_HAS_ITS is not defined) to catch and 
+>>> prevent any
+>>> +       unintended execution of code that should only run when ITS is 
+>>> available.
+>>> +     - Tagged as `deliberate` for ECLAIR.
+>> 
+>> I didn't look at this, but I would very much hope that something 
+>> similar could
+>> be done there as well.
+>> 
+>> Jan
+> 
+> After small changes related to prepare_acpi() function, Misra R2.1
+> violation has gone. The compiler really does DCE:
+> 
+>      if ( acpi_disabled <<< this is TRUE )
+>      {
+>          rc = prepare_dtb_hwdom(d, kinfo);
+>          if ( rc < 0 )
+>              return rc;
+> #ifdef CONFIG_HAS_PCI
+>          rc = pci_host_bridge_mappings(d);
+> #endif
+>      }
+>      else
+>          rc = prepare_acpi(d, kinfo); <<< DCE
+> 
+> I will publish it as separate patch.
+> Thanks to Jan, I really appreciate his help.
+> 
+> 
+> The situation with functions gicv3_do_LPI(),
+> gicv3_its_setup_collection() and config CONFIG_HAS_ITS is little bit
+> different.
+> The compiler can do DCE in case when config CONFIG_HAS_ITS is "y", and
+> Misra R2.1 violation related to these functions also can be resolved.
+> Actually, no changes in source code need for that.
+> But Eclair detects these violations because config CONFIG_HAS_ITS is
+> "n", and source code is really compiled with inline stub functions 
+> (with
+> BUG() macro).
+> This is because config CONFIG_HAS_ITS is "experimental/unsupported"
+> 
+>      config HAS_ITS
+>              bool "GICv3 ITS MSI controller support (UNSUPPORTED)" if
+>   UNSUPPORTED
+>          depends on GICV3 && !NEW_VGIC && !ARM_32
+> 
+> and to enable it need to set additional config: "CONFIG_UNSUPPORTED=y".
+> 
+> I tried to test it (added "CONFIG_UNSUPPORTED=y" into
+> automation/gitlab-ci/analyze.yaml file). You can see my CI pipeline:
+> https://eclair-analysis-logs.xenproject.org/fs/var/local/eclair/xen-project.ecdf/xen-project/people/dimaprkp4k/xen/ECLAIR_normal/rule_2.1_gicv3_its_host_has_its_v2/ARM64/11144854092/PROJECT.ecd;/by_service.html#service&kind
+> 
+> Unfortunately, I observed +6 new violations with that additional config
+> "CONFIG_UNSUPPORTED=y".
+> 
+> I don't know how and why these EXTRA_XEN_CONFIG were selected in the
+> file 'automation/gitlab-ci/analyze.yaml'. And are we able to add new
+> configs here ?....
+> 
 
-For FRED, That's all that's out on the list.
+You'll have to ask Stefano about that, but I doubt at this stage. Those 
+set of configs for Arm and X86 has been selected ~2 years ago.
 
-I've got an update to 4 almost ready to post, this time getting to dev
-complete.
+> So, I see the next plan (just from my point of view):
+> 1. Add "CONFIG_UNSUPPORTED=y" and resolve new violations.
+> 2. Continue with proposed deviation
+> 3. ... ?
+> 
+> Thank you in advance.
+> Dmytro.
 
-Unfortunately, I've still not managed to get any time on real hardware
-yet, so FRED will still be experimental in my series.  (The timelines
-were originally compatible with Xen 4.21, but access to hardware has not
-been as forthcoming as hoped.)
-
-When I can test on real hardware, there may be bugfixes, and I may be
-able to upgrade the status if we're not too far into the RCs.
-
-~Andrew
+-- 
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
