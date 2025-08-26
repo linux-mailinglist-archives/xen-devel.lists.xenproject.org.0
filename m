@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB79DB36272
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 15:19:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1094398.1449709 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85522B364D4
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 15:42:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1094410.1449717 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqtZe-0003bG-B7; Tue, 26 Aug 2025 13:18:54 +0000
+	id 1uqtvx-0007OW-3O; Tue, 26 Aug 2025 13:41:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1094398.1449709; Tue, 26 Aug 2025 13:18:54 +0000
+Received: by outflank-mailman (output) from mailman id 1094410.1449717; Tue, 26 Aug 2025 13:41:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqtZe-0003Yk-7b; Tue, 26 Aug 2025 13:18:54 +0000
-Received: by outflank-mailman (input) for mailman id 1094398;
- Tue, 26 Aug 2025 13:18:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uqtvx-0007MJ-0O; Tue, 26 Aug 2025 13:41:57 +0000
+Received: by outflank-mailman (input) for mailman id 1094410;
+ Tue, 26 Aug 2025 13:41:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dnfn=3G=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1uqtZc-0003Ye-Hv
- for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 13:18:53 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 34118aa7-827f-11f0-b898-0df219b8e170;
- Tue, 26 Aug 2025 15:18:49 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 271134EE3C0D;
- Tue, 26 Aug 2025 15:18:48 +0200 (CEST)
+ <SRS0=+/mc=3G=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1uqtvv-0007MD-V4
+ for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 13:41:56 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6d601b86-8282-11f0-a32c-13f23c93f187;
+ Tue, 26 Aug 2025 15:41:54 +0200 (CEST)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-333f901b2d2so45618511fa.2
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Aug 2025 06:41:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,158 +40,316 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34118aa7-827f-11f0-b898-0df219b8e170
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1756214328;
-	b=DFrdtsKvb3qM7POoTeQ0ILGngfMVdO50sIsXtaFD1TNPN0oaNSXu2X6go3DQztp+kb4A
-	 O40WBrfzF65zr7R3yu4MmQT8Qatp92YMshZS/CC3buXJcZ9dSbhYywXDzAcbcCAMgeLwt
-	 nrDlzKcBhEp/YZ5tC9JiYL1gaIeLkiuZVh7h8BTpNDg945TllZyzhijU9Klhlr+I+sKha
-	 0NBSqvG6f/yXfMHgvYHNfySuhvvQf+5hwt+Wb3VrYGG2ckioBsB/sScTC+jqemzWKww/s
-	 mIpJOQQyt2isawVK3LDp95uXu+XAz3NvoO0cby467+ZGZ2lIUQ7R8aNiexikFDEAeoI1e
-	 ejd9jueVAZp6kkuwpohVl6wzCoX4+RekiI+eHimyKZY/3+4wSEg41Qko99/9Dx1NYt6Yv
-	 AaFcEJENeGmh/Wg8Lxyw1awdn6Ny2U/c4qQcrSW2+gcDO+jZN6750E9pSpcXoZw2c+fyH
-	 Lcw1/B9mv+nV/HD64FX3H4Wj67jQ3L7XDPVGZjQ8R34NJxOTjiisnBhQTZNbAzVqM3Htp
-	 ngY1c1rmk+KHIY1hHPZSl7Cp4e4QGlIZtMrfxCLI2n+SVAieG94qA5CkIQRjE0lAwbgFS
-	 aITZB10dCIsFvAi53lhBp+/ucupvRJ9wHRCsfmbiE/UlM56Jl00h6XRtZVigkJE=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1756214328;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=mvN2vKUuIhWjjpE/sSy78Bf6+wHBAQKLnC289fBo6vw=;
-	b=sjEGCPjWLsfl20k/tvwEX4FPdI02NqSWtwuKSjbhgW50AlgkCPQuZdr+uuypyDra/n8E
-	 nvxJZb3bt1C5O3Yg8e0ODd7oWjWtKEjNhSyUC/8doutcZu1+FdcAxwdsNTtn79pUeIrSN
-	 a5fyrU29CFZ20k3/DjmzwJra6UN2amzksp3JANYwOFBqPW6P+UT6luspQqFbDtCuODoZo
-	 rnTxZLRs61JuvOuMmx6603rnt/iAfL9MThF+fPxynsnNyz3GZ2CAl2yEXXhvZ3kY/ZFZr
-	 1cMEBYuCufAxSiVQEc9bx1TV5vtu4emckdgMFjmLafFxNA+PfTJPJQ2WnWBrVS8tjwvKa
-	 QouUNq/botCdWfzvIeBTnDK9N/mL8gGGGQp6lHVc9/dgQV0QRut2x0lCw1SeeL2lOFA4L
-	 cZxfuXYfsVUXLz5HfcEPXkTzUSCX5tE0XU+LHlAH9J6dPGCBdFUSV9hA6jegcarGU5+YF
-	 0oTMn+nJVzYCZmtR/PFQ72J9Yji+2AGzNzzu1HwXAuTFYwfx/qHWrmpb4IO03xEdcuuxc
-	 8OerEkCe+zYIKKbD6+LSjJnAwWvm6P0VGhFDFZJZMxrfJnoAtW3hufZWCP/q2MNg3zgd5
-	 IZI04QbfQ9EeT9sRsBgQcvdKGqJwI74Z3/lZCZ7WzkiHt6BVNTZi/mqx0vA6PwI=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1756214328; bh=xQHjhOJooiPiBCpe9Vmc/aeThbuYe8+70FQKBf69xkQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=e/WEJADT0eyvbwtSIqIcVYURdL5eH1fwdndno6T8rKhvzKM378Z8UeswCt4vtyj2d
-	 qieB13DJKejg34Ex7qu/KTl3fbP2AtDWU2SZ4MSUogmxS57LOmA9jJ2hWxdcfW/iaP
-	 VdCT7RYyvCuhF4sp29SO7Pq8Rev9lIfvOfd7P1RN+5FEWH/2NYppkLvWCBn2rcZQDY
-	 fIssG4DOJHLHPbzHo/QZs/3o9NuGXL+Kw1N3o8P6F/LErfigvo+nvlQChA/K4JhsVp
-	 oK25bQ+KSkGGYiqJIppLUpyBeuaLqsejqNcjXPWAKMiF/W13bdh5KINxhXn4Hgl+6I
-	 4R/ytQ5Tu87bw==
+X-Inumbo-ID: 6d601b86-8282-11f0-a32c-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1756215713; x=1756820513; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uaABR+zidYXjflvbFlucBVxL3yXOSA19cvQ9yVn/FvI=;
+        b=Ml5swrnWAia/+iohSRWTMMtozNCMnypP5cmMZQ7P8hhDRyyMSjRofsyCYFzci5YDsX
+         saxhfzRD6c5dArIg1D0wwSp9sN3UF/dE1g+QwV2b1IEe+YLBwaUBqyp+IT4GK/UrlRtj
+         iB+UXRPMmDZsUrSzG7hrVuIzw49ZsBnoPtB0TfUUuNPaXa6X9Mf9kdCYCWKJp+3ZCF7Z
+         XryKk+CPOWshBATjO5nzcud2R4672VqMZUJxmWA9BUjg8JsveyKd7rIK31UWqMzLtThc
+         HxyYI0p6sd2BuZ26DKNcFpFxLmTwtuFt+6dGRfNZOXPOBR+fmPsGHDZhtI7GggUA9WXf
+         5jxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756215713; x=1756820513;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=uaABR+zidYXjflvbFlucBVxL3yXOSA19cvQ9yVn/FvI=;
+        b=vrlJnZ9ObWkyXqGRAT+H7YPSkLF/hrTYu+yMXqo5UDgiYShy0jS74Et0E3N48TyhwB
+         LJUq7GOFm7d5DFOTROvtEQIQPvkr/hdKwILuK5rziTHt6007X6hZ4Jd25EbsmDjXq6jK
+         w1UToRu0U2TYqs6m8N/WldpwjKoLuEAaJzyBMs+FSwbIzIESEqaWqF2YfJe9Pbmr2PKX
+         SHzE5bgjM67PbcGCwxLaA/rfsjsh0KBYiaBxXX2Nc1+W85HPDOOwwPxGKxjpmMCqvN9W
+         S2uQZVoBdGc8uIq3Q/cBA4rnbYNRZsz5lQ7nbo8nPqnudpfq8zaH7guVse+HqXMC0dlE
+         zM2g==
+X-Gm-Message-State: AOJu0Yxms2B9dgT9Vp7JldZsxuVjeORrAfpBxW+tNZU8aeppNg0jho7C
+	JQV4O/QWtUqoY3Wc5GbVktoxGl6HnB+I0U5bm0ajHXGT6RcDLXOsMC7c+sTseLxaR3GT3ANrO25
+	J4vc/Aiy7XtDvXfywOTCvCka2zzj9emY=
+X-Gm-Gg: ASbGncsU+mHNTNt5P0e+BBqo/biZhWNUtdWIrxF3NzefNbehXJTUQbaY7wG5UTepeSP
+	yHN7X4BMEwUnNRmaNqkLpo3u+seATZTkyDYKlGm0lzzy2ekxU0lkBhibTTr9CaTT23/ehaBKNO9
+	tFW0dvV3IoZ7MCWNzR307Qf1M22EvIeGztkw6ayvV8g9ChsxzeKfrVvB5UG7WZaZi9PH+EKSfWh
+	a/nPA==
+X-Google-Smtp-Source: AGHT+IEAHNz9GyYuT/1kzbi5vPFnU5nHLntqBXki2ihK/H/rNfYnvgVAUoTw3jpjmIOBT21JWca1u0ZBIi9Do+kmbl0=
+X-Received: by 2002:a2e:b8d5:0:b0:336:7df1:7616 with SMTP id
+ 38308e7fff4ca-3367df1a4camr14695241fa.44.1756215713136; Tue, 26 Aug 2025
+ 06:41:53 -0700 (PDT)
 MIME-Version: 1.0
-Date: Tue, 26 Aug 2025 15:18:48 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2] misra: add deviation of Rule 17.7
-In-Reply-To: <dc6d7445-3abb-485b-9651-15e3aea9ca52@epam.com>
-References: <812b78119cee801662a31d39b556cb453aa69508.1756192362.git.dmytro_prokopchuk1@epam.com>
- <204a1526-7e3f-4b91-b1ee-95f3d89ff756@suse.com>
- <112a4ab83bf2abce09d4ff1b67671847@bugseng.com>
- <dc6d7445-3abb-485b-9651-15e3aea9ca52@epam.com>
-Message-ID: <134e8e34582445522e82584aff3b7229@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
+References: <cover.1754943874.git.mykola_kvach@epam.com> <db677462d1b5b698db417182c05c3a6c3a17c0d0.1754943874.git.mykola_kvach@epam.com>
+ <878qjac3ec.fsf@epam.com>
+In-Reply-To: <878qjac3ec.fsf@epam.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Tue, 26 Aug 2025 16:41:41 +0300
+X-Gm-Features: Ac12FXxCUunu6NI7tWVtjmd_51yYBkNoQlrYnUkn-l7uktYR4SkDHuycvnd2iKw
+Message-ID: <CAGeoDV-ApvduZ5vb_OgU+iSMh9rywxGrDBPUWV8pC+T-18shqg@mail.gmail.com>
+Subject: Re: [PATCH v5 02/12] xen/arm: gic-v2: Implement GIC suspend/resume functions
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Mirela Simonovic <mirela.simonovic@aggios.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Michal Orzel <michal.orzel@amd.com>, Saeed Nowshadi <saeed.nowshadi@xilinx.com>, 
+	Mykyta Poturai <Mykyta_Poturai@epam.com>, Mykola Kvach <Mykola_Kvach@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2025-08-26 15:14, Dmytro Prokopchuk1 wrote:
-> On 8/26/25 10:56, Nicola Vetrini wrote:
->> On 2025-08-26 09:45, Jan Beulich wrote:
->>> On 26.08.2025 09:36, Dmytro Prokopchuk1 wrote:
->>>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
->>>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
->>>> @@ -575,6 +575,11 @@ safe."
->>>>  -config=MC3A2.R17.7,calls+={safe, "any()",
->>>> "decl(name(__builtin_memcpy||__builtin_memmove||__builtin_memset||
->>>> cpumask_check))"}
->>>>  -doc_end
->>>> 
->>>> +-doc_begin="It is safe to deviate functions like 'memcpy()',
->>>> 'memset()', 'memmove()', as they return a value purely for 
->>>> convenience,
->>>> +their primary functionality (memory manipulation) remains
->>>> unaffected, and their return values are generally non-critical and
->>>> seldom relied upon."
->>>> +-config=MC3A2.R17.7,calls+={safe, "any()", "decl(name(memcpy||
->>>> memset||memmove))"}
->>>> +-doc_end
->>>> +
->>>>  #
->>>>  # Series 18.
->>>>  #
->>>> --- a/docs/misra/deviations.rst
->>>> +++ b/docs/misra/deviations.rst
->>>> @@ -576,6 +576,13 @@ Deviations related to MISRA C:2012 Rules:
->>>>           - __builtin_memset()
->>>>           - cpumask_check()
->>>> 
->>>> +   * - R17.7
->>>> +     - It is safe to deviate functions like 'memcpy()', 'memset()',
->>>> 'memmove()',
->>>> +       as they return a value purely for convenience, their primary
->>>> functionality
->>>> +       (memory manipulation) remains unaffected, and their return
->>>> values are
->>>> +       generally non-critical and seldom relied upon.
->>>> +     - Tagged as `safe` for ECLAIR.
->>> 
->>> I realize I may be overly nitpicky here, but in files named
->>> deviations.* I find it
->>> odd to read "It is safe to deviate ...". I further find the use of
->>> "like" odd when
->>> you enumerate the complete set anyway.
-> 
-> Updated wording (probably for the v3, if it's fine):
-> 
-> The functions 'memcpy()', 'memset()', and 'memmove()' return values
-> primarily for convenience.
-> The core functionality of these functions (memory manipulation) remains
-> unaffected, and their return values
-> are generally non-critical and seldom relied upon. Therefore, 
-> deviations
-> from this rule regarding their use
-> can be considered safe.
-> 
+Hi Volodymyr,
 
-The last sentence reads a little strangely. I would write: "Therefore, 
-violations of this rule due to these functions are deemed safe."
+On Sat, Aug 23, 2025 at 3:01=E2=80=AFAM Volodymyr Babchuk
+<Volodymyr_Babchuk@epam.com> wrote:
+>
+> Hi Mykola,
+>
+> Mykola Kvach <xakep.amatop@gmail.com> writes:
+>
+> > From: Mirela Simonovic <mirela.simonovic@aggios.com>
+> >
+> > System suspend may lead to a state where GIC would be powered down.
+> > Therefore, Xen should save/restore the context of GIC on suspend/resume=
+.
+> >
+> > Note that the context consists of states of registers which are
+> > controlled by the hypervisor. Other GIC registers which are accessible
+> > by guests are saved/restored on context switch.
+> >
+> > Tested on Xilinx Ultrascale+ MPSoC with (and without) powering down
+> > the GIC.
+>
+> I think you can drop this sentence, as I am pretty sure this patch
+> wasn't tested on Ultrascale+ for last five(?) years..
 
-> Dmytro.
-> 
->>> 
->>> I wonder whether the deviation wants generalizing anyway:
->>> Informational return
->>> values are generally okay to ignore. That is, the Eclair 
->>> configuration
->>> would be
->>> limited to the three functions for now, but the text / comment could
->>> already be
->>> broader. Then, for example, open-coded uses of the corresponding
->>> builtin functions
->>> would also be covered right away.
->>> 
->> 
->> While I understand the pragmatic reasoning, from a MISRA compliance
->> standpoint it would be better not to make the written justification 
->> and
->> the actual deviation diverge, and then wide both the ECLAIR
->> configuration and its justification suitably once new cases want to be
->> deviated. Other than that,
->> 
->> Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->> 
+Ok, I=E2=80=99ll drop that sentence.
 
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+>
+> >
+> > Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
+> > Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
+> > Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> > ---
+> > Changes in v4:
+> >   - Add error logging for allocation failures
+> >
+> > Changes in v3:
+> >   - Drop asserts and return error codes instead.
+> >   - Wrap code with CONFIG_SYSTEM_SUSPEND.
+> >
+> > Changes in v2:
+> >   - Minor fixes after review.
+> > ---
+> >  xen/arch/arm/gic-v2.c          | 154 +++++++++++++++++++++++++++++++++
+> >  xen/arch/arm/gic.c             |  29 +++++++
+> >  xen/arch/arm/include/asm/gic.h |  12 +++
+> >  3 files changed, 195 insertions(+)
+> >
+> > diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
+> > index b23e72a3d0..dce8f5e924 100644
+> > --- a/xen/arch/arm/gic-v2.c
+> > +++ b/xen/arch/arm/gic-v2.c
+> > @@ -1098,6 +1098,151 @@ static int gicv2_iomem_deny_access(struct domai=
+n *d)
+> >      return iomem_deny_access(d, mfn, mfn + nr);
+> >  }
+> >
+> > +#ifdef CONFIG_SYSTEM_SUSPEND
+> > +
+> > +/* GICv2 registers to be saved/restored on system suspend/resume */
+> > +struct gicv2_context {
+> > +    /* GICC context */
+> > +    uint32_t gicc_ctlr;
+> > +    uint32_t gicc_pmr;
+> > +    uint32_t gicc_bpr;
+> > +    /* GICD context */
+> > +    uint32_t gicd_ctlr;
+> > +    uint32_t *gicd_isenabler;
+> > +    uint32_t *gicd_isactiver;
+> > +    uint32_t *gicd_ipriorityr;
+> > +    uint32_t *gicd_itargetsr;
+> > +    uint32_t *gicd_icfgr;
+> > +};
+> > +
+> > +static struct gicv2_context gicv2_context;
+> > +
+> > +static int gicv2_suspend(void)
+> > +{
+> > +    unsigned int i;
+> > +
+> > +    if ( !gicv2_context.gicd_isenabler )
+> > +    {
+> > +        dprintk(XENLOG_WARNING, "%s:%d: GICv2 suspend context not allo=
+cated!\n",
+> > +            __func__, __LINE__);
+>
+> Should this be ASSERT(gicv2_context.gicd_isenabler) ? Or do we expect
+> that this can happen during normal runtime?
+>
+> Also, you don't need to print __func__ and __LINE__ as dprintk does this
+> for you already:
+>
+> #define dprintk(lvl, fmt, args...) \
+>     printk(lvl "%s:%d: " fmt, __FILE__, __LINE__, ## args)
+>
+>
+>
+> > +        return -ENOMEM;
+> > +    }
+> > +
+> > +    /* Save GICC configuration */
+> > +    gicv2_context.gicc_ctlr =3D readl_gicc(GICC_CTLR);
+> > +    gicv2_context.gicc_pmr =3D readl_gicc(GICC_PMR);
+> > +    gicv2_context.gicc_bpr =3D readl_gicc(GICC_BPR);
+> > +
+> > +    /* Save GICD configuration */
+> > +    gicv2_context.gicd_ctlr =3D readl_gicd(GICD_CTLR);
+> > +
+> > +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 32); i++ )
+> > +        gicv2_context.gicd_isenabler[i] =3D readl_gicd(GICD_ISENABLER =
++ i * 4);
+> > +
+> > +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 32); i++ )
+> > +        gicv2_context.gicd_isactiver[i] =3D readl_gicd(GICD_ISACTIVER =
++ i * 4);
+> > +
+>
+> I think you can merge this two loops
+
+Ok, I'll do it
+
+>
+> > +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 4); i++ )
+> > +        gicv2_context.gicd_ipriorityr[i] =3D readl_gicd(GICD_IPRIORITY=
+R + i * 4);
+> > +
+> > +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 4); i++ )
+> > +        gicv2_context.gicd_itargetsr[i] =3D readl_gicd(GICD_ITARGETSR =
++ i * 4);
+> > +
+>
+> And this two as well
+
+Ok
+
+>
+> > +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 16); i++ )
+> > +        gicv2_context.gicd_icfgr[i] =3D readl_gicd(GICD_ICFGR + i * 4)=
+;
+> > +
+> > +    return 0;
+> > +}
+> > +
+> > +static void gicv2_resume(void)
+> > +{
+> > +    unsigned int i;
+> > +
+> > +    if ( !gicv2_context.gicd_isenabler )
+> > +    {
+> > +        dprintk(XENLOG_WARNING, "%s:%d: GICv2 suspend context not allo=
+cated!\n",
+> > +            __func__, __LINE__);
+>
+> the same comment as for gicv2_suspend(). Actually, we should not reach
+> here in any case.
+
+You mean we should just drop the check, right?
+
+>
+> > +        return;
+> > +    }
+> > +
+> > +    gicv2_cpu_disable();
+> > +    /* Disable distributor */
+> > +    writel_gicd(0, GICD_CTLR);
+> > +
+> > +    /* Restore GICD configuration */
+> > +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 32); i++ ) {
+> > +        writel_gicd(0xffffffff, GICD_ICENABLER + i * 4);
+> > +        writel_gicd(gicv2_context.gicd_isenabler[i], GICD_ISENABLER + =
+i * 4);
+> > +    }
+> > +
+> > +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 32); i++ ) {
+> > +        writel_gicd(0xffffffff, GICD_ICACTIVER + i * 4);
+> > +        writel_gicd(gicv2_context.gicd_isactiver[i], GICD_ISACTIVER + =
+i * 4);
+> > +    }
+> > +
+> > +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 4); i++ )
+> > +        writel_gicd(gicv2_context.gicd_ipriorityr[i], GICD_IPRIORITYR =
++ i * 4);
+> > +
+> > +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 4); i++ )
+> > +        writel_gicd(gicv2_context.gicd_itargetsr[i], GICD_ITARGETSR + =
+i * 4);
+> > +
+> > +    for ( i =3D 0; i < DIV_ROUND_UP(gicv2_info.nr_lines, 16); i++ )
+> > +        writel_gicd(gicv2_context.gicd_icfgr[i], GICD_ICFGR + i * 4);
+> > +
+> > +    /* Make sure all registers are restored and enable distributor */
+> > +    writel_gicd(gicv2_context.gicd_ctlr | GICD_CTL_ENABLE, GICD_CTLR);
+> > +
+> > +    /* Restore GIC CPU interface configuration */
+> > +    writel_gicc(gicv2_context.gicc_pmr, GICC_PMR);
+> > +    writel_gicc(gicv2_context.gicc_bpr, GICC_BPR);
+> > +
+> > +    /* Enable GIC CPU interface */
+> > +    writel_gicc(gicv2_context.gicc_ctlr | GICC_CTL_ENABLE | GICC_CTL_E=
+OI,
+> > +                GICC_CTLR);
+> > +}
+> > +
+> > +static void gicv2_alloc_context(struct gicv2_context *gc)
+> > +{
+> > +    uint32_t n =3D gicv2_info.nr_lines;
+> > +
+> > +    gc->gicd_isenabler =3D xzalloc_array(uint32_t, DIV_ROUND_UP(n, 32)=
+);
+> > +    if ( !gc->gicd_isenabler )
+> > +        goto err_free;
+> > +
+> > +    gc->gicd_isactiver =3D xzalloc_array(uint32_t, DIV_ROUND_UP(n, 32)=
+);
+> > +    if ( !gc->gicd_isactiver )
+> > +        goto err_free;
+> > +
+> > +    gc->gicd_itargetsr =3D xzalloc_array(uint32_t, DIV_ROUND_UP(n, 4))=
+;
+> > +    if ( !gc->gicd_itargetsr )
+> > +        goto err_free;
+> > +
+> > +    gc->gicd_ipriorityr =3D xzalloc_array(uint32_t, DIV_ROUND_UP(n, 4)=
+);
+> > +    if ( !gc->gicd_ipriorityr )
+> > +        goto err_free;
+> > +
+> > +    gc->gicd_icfgr =3D xzalloc_array(uint32_t, DIV_ROUND_UP(n, 16));
+> > +    if ( !gc->gicd_icfgr )
+> > +        goto err_free;
+> > +
+> > +    return;
+> > +
+> > + err_free:
+> > +    dprintk(XENLOG_ERR,
+> > +            "%s:%d: failed to allocate memory for GICv2 suspend contex=
+t\n",
+> > +            __func__, __LINE__);
+>
+> Okay, this partially answers to my previous question about memory
+> allocation. So it is possible to have active system without space for
+> GIC context... But this basically renders system un-suspendable. I think
+> this warrants non-debug print to warn user that suspend will be not
+> available.
+
+Ok, I=E2=80=99ll add a regular print instead. So your comments about assert=
+s are
+irrelevant in this case, right?
+
+>
+> [...]
+>
+> --
+> WBR, Volodymyr
+
+Best regards,
+Mykola
 
