@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DD27B355BE
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 09:38:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1093989.1449342 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E218B355F7
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 09:46:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1094002.1449352 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqoGB-000157-IU; Tue, 26 Aug 2025 07:38:27 +0000
+	id 1uqoN8-0002oW-8g; Tue, 26 Aug 2025 07:45:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1093989.1449342; Tue, 26 Aug 2025 07:38:27 +0000
+Received: by outflank-mailman (output) from mailman id 1094002.1449352; Tue, 26 Aug 2025 07:45:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqoGB-00013e-Fg; Tue, 26 Aug 2025 07:38:27 +0000
-Received: by outflank-mailman (input) for mailman id 1093989;
- Tue, 26 Aug 2025 07:38:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uqoN8-0002mp-56; Tue, 26 Aug 2025 07:45:38 +0000
+Received: by outflank-mailman (input) for mailman id 1094002;
+ Tue, 26 Aug 2025 07:45:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=n+o/=3G=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uqoGA-00013Y-4E
- for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 07:38:26 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a628ef78-824f-11f0-a32c-13f23c93f187;
- Tue, 26 Aug 2025 09:38:25 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-afcb78fb04cso727610166b.1
- for <xen-devel@lists.xenproject.org>; Tue, 26 Aug 2025 00:38:25 -0700 (PDT)
+ id 1uqoN6-0002mj-O8
+ for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 07:45:36 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a5885e46-8250-11f0-b898-0df219b8e170;
+ Tue, 26 Aug 2025 09:45:33 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-afcb78ead12so723005866b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Aug 2025 00:45:33 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afe6edd3414sm505998066b.65.2025.08.26.00.38.24
+ a640c23a62f3a-afe6cdbd545sm512583166b.54.2025.08.26.00.45.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Aug 2025 00:38:24 -0700 (PDT)
+ Tue, 26 Aug 2025 00:45:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a628ef78-824f-11f0-a32c-13f23c93f187
+X-Inumbo-ID: a5885e46-8250-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756193904; x=1756798704; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756194333; x=1756799133; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UTUsE7oJP2EeVZhbS+YToiHaXwBeBUNSzgh2GyEiMp8=;
-        b=PiiF+HJHNCN2/8bky+1v4xKgqHNcPiQv86yO9AxaQwVKbU63PHtk0b5KofNbqZWgxn
-         8tPgtB6KFnGOqn8Cn+SNat9Fw1cV0+o9sN20nOkAe/BurfyGWoUyfGzJXCHFYRnbwHvO
-         FwwQgqQRv8vhwbQJGRJA/9jFz7+h8huTa4ctcpdnHmCqU7iQ+wZXPJk8Rat0sU6gYYE6
-         QfXWRuTyW2USr2f8h29lHZ37PIYKhdj7w4TR4jetMocSPBIWm4jLTvvViPOtjTnn4ddk
-         XJ8Yne+k7Wmi6CbMti1kB3s4zNOMTve0o7z4mPgHSgqhfK7beUUBxcgi1497n+mO5bT+
-         hKAg==
+        bh=ukXDWuhjcY3FOs1/kEGSrCJ30MbA5DJMBSeXSM/e964=;
+        b=ZLYmWbxLBpqVr0pw/zCuNSkM3uffL7hH6UVe4cYJvLca5Ma0M2xZB3iImYSH5iHCtQ
+         WIJ/LBQwx4vcyv44W5w29sxMntbOTBbdrKW/pM7CLQwSl+CPwCVyX0T4xQ0hxN4u9vsz
+         DpiHRLUy9hnHJfDVIZ6zF0SYqnb4IEqQDLl2Rb/MJe9gFIJz36eeJJojf6AknikkIgVE
+         vw6OgMBDCOPHP14cgNYQQCjzQUBxMsg8pPCEDkiWe0gpldwMnKI/y6t8b+OPV9uk0mSZ
+         3qzi56kVku8bWck4E6n2LR6iWROMG8tP0QEXuHqqcNvQFmG6dLYbPEa537tpVIR3vKGm
+         stNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756193904; x=1756798704;
+        d=1e100.net; s=20230601; t=1756194333; x=1756799133;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UTUsE7oJP2EeVZhbS+YToiHaXwBeBUNSzgh2GyEiMp8=;
-        b=fV1Mi3+ZmJxj3QQsGpw4XM3QLqYBPuCYZMWvNutPw8SX81nxwuyIgObFsVFiJ+dsEZ
-         LWuEUO+oZIo7Tddw1PuhL1l+KSztUcFG7w8k9cJ/g8iGwtd/Lw4OOp1mLl5yhbNXFyeT
-         GDsaqN2s52ykjw1k6QxRtCE0ueaS/pl0/vBccvgtYcz1qD7PTiK7q+iMkUhGt6BwXKfp
-         3jnNAvfCeJNfBU/slVrLaaVfes13STXL0CNFHlWm6tngvbJMnmdNBSE+h8N11T8UHDMf
-         l2Gq3REecSHvEIiGAXVwhLMJ0XZMoStLyEX6NGtEsoyhHZjD3Mc8M+p3mAGuS984ohFz
-         ejow==
-X-Forwarded-Encrypted: i=1; AJvYcCUxXe8VO2SyFO4OhtFSEi42JZeVTVsGBDcQY0qJDfGHdtl6/KYK7ggu/ZZq5X2krZYh3nGfzJIsvMk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywpkmkh7s3rDFmVHYRUoBQGmogkuJfKQMp1mDz0J+n4Jk9ocp7q
-	TRuqSSZtohEiCV/+NfoQyaVqExhjF3rxnVJZelboklhMlBnEomfbmzu9n30wzJzMHQ==
-X-Gm-Gg: ASbGncucqdpxJKAIT7/aZ8/d91dmDd3VZzFKntk4DloADJTDpFkwj5wKw7grjxsKi1b
-	Mq3zV6rjyJ2sd2cpHFWlqByH9VYTttNAoMLfCIhS29seTaODUPwRP9ki8dIYhr1oxeFhu8iYbF9
-	gwo8eKXZxJ8XRgh6Avr524X4r69oiqmm6fgD1jXeU3CcRvYos2X9vUYXGYnPop5PIFBvKUyyUZE
-	bObUxjzoLCQgHdbD6fDSgHCAXN63OhGu6REKEdSaRfIxuLwIHQ7ieYLSeLgIa8TT+54mrzLZq0G
-	wp7K+61tPGAShX6sInbDNTfER6f8kpLf37pHgW2aIdzE/l7jB9MU8iEo2d9m5nqfHfzvEHtOKNl
-	+4BwQrIOuPRM9jcFf5tGtKvD4SYtRb49Ph4qvp2JrIX5tvcOLEEDudYkBhpmDdRkuCRAsk4D1ui
-	MyQe+KyKHIB83kK3gFp8LAEQKiiQDi
-X-Google-Smtp-Source: AGHT+IFJLW8b1P5uaAbYAIZ+Csab4nTiXd7T+JlIfLdF4+vjzNnCVuBNPW2uW9+1AHZukv/Pp7fuLQ==
-X-Received: by 2002:a17:906:194d:b0:afe:7eb8:dcd4 with SMTP id a640c23a62f3a-afe7eb8e083mr455627666b.35.1756193904527;
-        Tue, 26 Aug 2025 00:38:24 -0700 (PDT)
-Message-ID: <b643d4b5-85d4-4053-93f7-ca6909c6e95b@suse.com>
-Date: Tue, 26 Aug 2025 09:38:23 +0200
+        bh=ukXDWuhjcY3FOs1/kEGSrCJ30MbA5DJMBSeXSM/e964=;
+        b=jeQIW+T1tyxq69wGEWaJABs8otFEfdKe8XWOtZ2LbACmHAQyZ+naslA3BY/J16Zd3a
+         Cjgg/XlfQMU5Sb0/P4lrg+I/TMSM/dd6jzzQiTibbCl4dtRew421lcEGMZS0LQcbmwU7
+         NgorlMx5fRpxLqkg62uGWyt6/vRLvtQGJEuh7yBbvyF4wF9JQjqKq2FABmOod+SSiWXY
+         jlPCf+18Q3FTJ5ADQlXsS0glV+8Mx25Z3QZkxrK8g7lIvvvJJ/8DKlKnzeKB0zao5qD0
+         2VIP+SoZlwY0aeTX7tzkHBesxXRKBvXKUN8oeQtKXAdrd4i82dpiuuXj/nWB6WHTxZ1W
+         0lTA==
+X-Forwarded-Encrypted: i=1; AJvYcCWTU03k3uzHH0DL8GAwIlVlUqkskT0B6Y3Y5yrRUBVGQ7+fgGZvkW0KEyo0re6luXmY476lGIDP0JU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzhRn43UAMbFmA5x3AlFkbBv9cc8w59fbsDSjFxOR+rJs4ia38R
+	P6lhwKa44i30vx+H/x+ZoMpTFRFDFKtFef5Tg7cdGBohfkCZ7omPEGuPHLtVuOKvLg==
+X-Gm-Gg: ASbGncvprkrmXCR+OUHqqEUjh+xRwPDVnFLCi2D/xAWFXoAc4mK7FtasRd7Dm/5WCzl
+	brRTD+9NP/vhMOVtunVBjtPSRyJQBKd7WpTrTUOOLoL60DXxd+Ver87+z8az4bTqYpjKCpjUKIY
+	We79OHpqbFcdHEU6FVECR9i3DaK/YGcIV4f8zhAIXJdqQDlC/a99f1Az2Sw+BmDWMJLBkjKNVrL
+	HVQPXNiM3PlX5nsCoPDsi3ozhtU/NpJemvKuEdnhagKGidP5XA5Bny9agM/P5Y8EexHutVBfC7G
+	ryRtyrrV+SfhARmQjf+IapTP3ZbE1CUrIFVwd+9oFNRbbvaysMMYTVNFzhju+0X2TRvNZJBUIzS
+	Q9OWfEZFPwMgVhdFbz3rA5SebVBM63OzssH6ku3e+MdHoxLttaMIeOommyrxpa1uDBgl/cpHZDO
+	lDCnA1UTaO05CMtpEIHg==
+X-Google-Smtp-Source: AGHT+IHlPJgDJDFxYnDlAnZtpR0P8sbgiiIbzyswY41xNDaQEz3VstT1wuOfHOwrbGUcycR5XPUzPg==
+X-Received: by 2002:a17:907:928b:b0:afe:7fc2:e383 with SMTP id a640c23a62f3a-afe7fc2f261mr553994966b.1.1756194332991;
+        Tue, 26 Aug 2025 00:45:32 -0700 (PDT)
+Message-ID: <204a1526-7e3f-4b91-b1ee-95f3d89ff756@suse.com>
+Date: Tue, 26 Aug 2025 09:45:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 05/13] xen/cpufreq: refactor cmdline "cpufreq=xxx"
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, xen-devel@lists.xenproject.org
-References: <20250822105218.3601273-1-Penny.Zheng@amd.com>
- <20250822105218.3601273-6-Penny.Zheng@amd.com>
+Subject: Re: [PATCH v2] misra: add deviation of Rule 17.7
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <812b78119cee801662a31d39b556cb453aa69508.1756192362.git.dmytro_prokopchuk1@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,24 +124,47 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250822105218.3601273-6-Penny.Zheng@amd.com>
+In-Reply-To: <812b78119cee801662a31d39b556cb453aa69508.1756192362.git.dmytro_prokopchuk1@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 22.08.2025 12:52, Penny Zheng wrote:
-> --- a/xen/drivers/cpufreq/cpufreq.c
-> +++ b/xen/drivers/cpufreq/cpufreq.c
-> @@ -64,12 +64,49 @@ LIST_HEAD_READ_MOSTLY(cpufreq_governor_list);
->  /* set xen as default cpufreq */
->  enum cpufreq_controller cpufreq_controller = FREQCTL_xen;
+On 26.08.2025 09:36, Dmytro Prokopchuk1 wrote:
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -575,6 +575,11 @@ safe."
+>  -config=MC3A2.R17.7,calls+={safe, "any()", "decl(name(__builtin_memcpy||__builtin_memmove||__builtin_memset||cpumask_check))"}
+>  -doc_end
 >  
-> -enum cpufreq_xen_opt __initdata cpufreq_xen_opts[2] = { CPUFREQ_xen,
-> -                                                        CPUFREQ_none };
-> +enum cpufreq_xen_opt __initdata cpufreq_xen_opts[2] = { CPUFREQ_xen };
+> +-doc_begin="It is safe to deviate functions like 'memcpy()', 'memset()', 'memmove()', as they return a value purely for convenience,
+> +their primary functionality (memory manipulation) remains unaffected, and their return values are generally non-critical and seldom relied upon."
+> +-config=MC3A2.R17.7,calls+={safe, "any()", "decl(name(memcpy||memset||memmove))"}
+> +-doc_end
+> +
+>  #
+>  # Series 18.
+>  #
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -576,6 +576,13 @@ Deviations related to MISRA C:2012 Rules:
+>           - __builtin_memset()
+>           - cpumask_check()
+>  
+> +   * - R17.7
+> +     - It is safe to deviate functions like 'memcpy()', 'memset()', 'memmove()',
+> +       as they return a value purely for convenience, their primary functionality
+> +       (memory manipulation) remains unaffected, and their return values are
+> +       generally non-critical and seldom relied upon.
+> +     - Tagged as `safe` for ECLAIR.
 
-The pre-push pipeline flagged a Misra rule 9.3 violation here: A dedicated
-initializer is needed to have the intended effect. I've fixed this up for
-you.
+I realize I may be overly nitpicky here, but in files named deviations.* I find it
+odd to read "It is safe to deviate ...". I further find the use of "like" odd when
+you enumerate the complete set anyway.
+
+I wonder whether the deviation wants generalizing anyway: Informational return
+values are generally okay to ignore. That is, the Eclair configuration would be
+limited to the three functions for now, but the text / comment could already be
+broader. Then, for example, open-coded uses of the corresponding builtin functions
+would also be covered right away.
 
 Jan
 
