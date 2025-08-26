@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7226B353AF
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 08:02:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1093902.1449272 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5704B353CE
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Aug 2025 08:08:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1093913.1449283 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqmlR-0002R7-Eq; Tue, 26 Aug 2025 06:02:37 +0000
+	id 1uqmqU-00033z-05; Tue, 26 Aug 2025 06:07:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1093902.1449272; Tue, 26 Aug 2025 06:02:37 +0000
+Received: by outflank-mailman (output) from mailman id 1093913.1449283; Tue, 26 Aug 2025 06:07:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uqmlR-0002Ot-Bz; Tue, 26 Aug 2025 06:02:37 +0000
-Received: by outflank-mailman (input) for mailman id 1093902;
- Tue, 26 Aug 2025 06:02:36 +0000
+	id 1uqmqT-00031G-Sk; Tue, 26 Aug 2025 06:07:49 +0000
+Received: by outflank-mailman (input) for mailman id 1093913;
+ Tue, 26 Aug 2025 06:07:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=n+o/=3G=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uqmlQ-0002On-67
- for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 06:02:36 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ id 1uqmqS-00031A-Bi
+ for xen-devel@lists.xenproject.org; Tue, 26 Aug 2025 06:07:48 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 42368b24-8242-11f0-b898-0df219b8e170;
- Tue, 26 Aug 2025 08:02:34 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-61c38da68ddso6233655a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 23:02:34 -0700 (PDT)
+ id fc4a5452-8242-11f0-b898-0df219b8e170;
+ Tue, 26 Aug 2025 08:07:46 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-afcb7322da8so837527466b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Aug 2025 23:07:46 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61c3119f79asm6234342a12.5.2025.08.25.23.02.32
+ a640c23a62f3a-afe97a4b200sm165447866b.72.2025.08.25.23.07.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 25 Aug 2025 23:02:32 -0700 (PDT)
+ Mon, 25 Aug 2025 23:07:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,67 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 42368b24-8242-11f0-b898-0df219b8e170
+X-Inumbo-ID: fc4a5452-8242-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756188153; x=1756792953; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756188465; x=1756793265; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=e2D3Ik8oeWKgtEBhd0j1kwXLHVZINI3+lCbAZDVuOBE=;
-        b=aMvY4yniQ6/XFmsw5WNuAv+Tnyxu6+I/++aLRklwAi38toH1iinn51sf8UzaP3tKwR
-         Sxb5XZ5YAfvuZiqQmfQk0KplIN9w6gN23uuDAXTFwY3Qn3Ip2BBMBXj7UmRNF2VLbKsH
-         u/bzVG8u1PTQJBdmjtNetin/VkwNGBbrEhm5lcdJm6wcdKER1zrYjXy+qm99IsvT7Nwc
-         od1Q8MX2YEEyDlz0Upj2PyEklz8Tq3MqFYmLNRrQixxh58OvOHNi44AL0mPvZCT0txJL
-         uGEqv3lQiD8+HJf+7dn4GNq/NwYwhrRbKhXXZUuc95tgsUlVWU7nsV+pB8BI7WdFKcPu
-         3Trg==
+        bh=k5kk1Tcr25CccVYYtAS7h+H6GJgs/bb1m0Ca0LaCQ+4=;
+        b=Of5DV53yIbZZAGIzfgNGTIS2N7hS3aFVchs4JadtWdE0oO8XthDmGgPZz2rm9g6df0
+         VEdxuchDx6fxlLPbPYy96bzPnHdeaeXMPfokx8twiaOordW1GNx+ktouw92ni0AfsQnx
+         RpBn//yRxEsSLfCveFlzSUUZzfePyCW3CJjc8ZGDlakvvELpJsRTJOYLuO0/JlUUbdkC
+         a2AAU6qbdAJjqjco9utJtVMbUfBk3FfnXOt0P9EhbCejHAiugjlIiWRevrsnez9SvUbK
+         XUzlwZzviLb20ItXibrs6fLezjynuZc2QfwK841iFuzHU35gRkcRFZaTFgldYCwuf2U4
+         cPLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756188153; x=1756792953;
+        d=1e100.net; s=20230601; t=1756188465; x=1756793265;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=e2D3Ik8oeWKgtEBhd0j1kwXLHVZINI3+lCbAZDVuOBE=;
-        b=ATJ2uXHVu/+/SBuO+JWODQQnS+92rx11b+8lV+6Y9X1CZD5iv8RERi5Vu8n38r7IXu
-         BPknBFM5HOZ/yGkiBumwjklHdmGJXK3dgWKWQK87vXm2qnq2tpw7jCdZ6Q/h81/58DOa
-         E1QGT4L1GpFnQh2FALL3xzgVlTNy0JK9FrgJEiJV8Hoj0A6j3F8foemvKbru8R8G+f38
-         rdA5C4nlXk5iXaSgh4me7NY+h893noLVP8YTGDAoeaLxzU51mC8dPfnFI5KAwRvpfU16
-         z2IYUtgJyd03Xu+APN8BdRV0ha+ek2mYddnk2X+UBNKZ9nKgDeteWVxoSwusQvm4Ri+o
-         8PsQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUvrseKA7NIE5KL2qyGE2EdNKdczBjF/hP5vXpb4aRKFLeyNZAluhSFcgAtyHm1SlPofc06SULtiVc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw0ITkcRQQhWjNrsZTxuzOlLN5RVLSilsuDI/N4w2WdPQyna8T7
-	926A7Nm4b2AoY/nin5xZeqF81hoaifZWNlvWI/hR7t7TumSjnNobB5hruyW2Cu+bKEUW1tE1/pI
-	Ec2k=
-X-Gm-Gg: ASbGncsXtPbrKTTDf1weilzQB+VUC39UNBSmXn2jiB5DKYknNROJRy4+CyE6DD/AvGL
-	mmqy2XKBY4+qH9KX+/UiiFMHs6B8gCnhMVubJ9E6nCsQ6153Mkr6TRXMIQal/Q8pIVs3o7gz1EO
-	ez7JBtCaYfDEHuWipcmbfX85Y9+xyDKwCGHnVvoWJqFsGhpshgL0UKO8PQ1/v9WScWU6Dh8OGb/
-	yRrlFvLLN9huz8skG3jrY3u5I3vDWC8xRDJRRlfwTihHp3rp0RNr7mPJY8oNS8WVu+90DkysjnX
-	t/bzZa6gM9JRtGBhHoq42MD4HFdV8+X1UGwTMIr8yPDN0duf4XKLo/DwxXEhqq97kNFyR6pdeZW
-	kOFHEqfURdDsR9+lDPtyDxAdGNbJPwcGTLVb9f4H84m1vtdlgkpeQc7IW1qfXWnnVd3/mMsx+ho
-	ItZt9mg2Y=
-X-Google-Smtp-Source: AGHT+IGD6meTPqZTHrXRIwqv3rUt2o/TCVrmAhPJg85LrqLaNR44o5bp84QEccgEdIGAUKtDr+JjRQ==
-X-Received: by 2002:a05:6402:350a:b0:61c:3847:680d with SMTP id 4fb4d7f45d1cf-61c38476a28mr7811552a12.31.1756188153271;
-        Mon, 25 Aug 2025 23:02:33 -0700 (PDT)
-Message-ID: <2d8f188f-f3b0-4906-85c8-835948fc6603@suse.com>
-Date: Tue, 26 Aug 2025 08:02:32 +0200
+        bh=k5kk1Tcr25CccVYYtAS7h+H6GJgs/bb1m0Ca0LaCQ+4=;
+        b=Rc7hj4xUw9o/x0TErFMI5OW5TEImA8i8vZVovMKWD/vkmIHyqowe0TkKkxDxzBh9ss
+         3MEmfZW6B0ouTCfv7tAXhNqdTGMvyIqP7sX0r0Ne05Sdrno7zpcMNmlRFS2v3pwkRJWB
+         jBUzoDjBr2x8edYBl5+gVlKZ0oJiA0j8gKyVZnigk3KvF5BD8CtRqLLB+M0jTURflxst
+         VNSalDaLHSR3gU6Caeprf2dcOWcAr63nFgGe1aNogA+X44uq/41Y+MjktYAXyEU9HJN+
+         10Cc029ed45+/g743lw2md7lHBvIIO4lCZ+nh7Zmo3+utPVUJ+aHzrd67tGhZpV3CG5t
+         r9Ew==
+X-Forwarded-Encrypted: i=1; AJvYcCXjnb0OBl24QDrwN9hSqSwhYTgvLIWzcVFUSH59PHsG7WFb1mbRhbqKf50icjIsBJAU1HICr43Ao/E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz/xXSIBUJTX0fhIc5/IWIFiIlD6UAjIHcaDye4/TbVUtv1YN1Q
+	bA4G10+iZBB/hdpMDhFBC0X9GxmJeI7FLOAzdF0/iauAT0RR0zkli4jr5yZmE9k0JA==
+X-Gm-Gg: ASbGncsS10KlZR3oE1wNI7d7o3vmYKdTCRupPZmejtX/ekU6Bwln+56eOiiLm340GIA
+	CHrxJnxYfSHRxn9a7ISq8h3DHa72T287PYOaNgvC+uBKXruw9kGJJIHVEnfXhqowc0Smbr5cOcT
+	2FSMTYChEBrgnziUtC5jrsFn0PJHA5oMEI3wmMLxOsIwlBuqB+uk3VOXtE2Kes31BNTPq4LoZCv
+	fkIt4V6QcXOtyyI7BylkL0pSP8Fwe8mjro+Xxn0UQCy8F/uUPEp23QgiTdoqthYeH+vOiCKMU5o
+	Y1lXZiLdQ/qb7lTVGYelXQ8j9BKQxQm96EsxyniEfkWexbsa93v9SxpQm6Ktp+Wy8qdT+B6twEn
+	2ohp69viT93Vcfru2hijjTog82E0ik+Ir8SUH4RERXpRoaf8WThtiVlAtwBZUKgKOnIDISAxMI1
+	O61wcTpOY=
+X-Google-Smtp-Source: AGHT+IHquKA9S+9W42S3myELSgaO3vFznzDkPt+TEXYVPFE2ieSRtbWzQ+SGSTYwRvuuy6HnGqhCtQ==
+X-Received: by 2002:a17:907:7203:b0:afe:ae1b:bf17 with SMTP id a640c23a62f3a-afeae1bd560mr64117166b.3.1756188465527;
+        Mon, 25 Aug 2025 23:07:45 -0700 (PDT)
+Message-ID: <1af4778e-8a2a-4fa5-a41d-0142947da137@suse.com>
+Date: Tue, 26 Aug 2025 08:07:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] misra: add deviation of Rule 17.7
+Subject: Re: [PATCH v3] xen/irq: Delete the pirq_cleanup_check() macro
 To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <ad15582787e675fadf92502f85041c3232749a99.1756112701.git.dmytro_prokopchuk1@epam.com>
- <53d5cee3-9001-49a2-9da2-e56950a77683@suse.com>
- <83267937-938d-43d8-ba2c-a07d6adb93a9@epam.com>
- <330f8ee8-9fcd-40e4-96c0-ac126b047070@suse.com>
- <37bb8530-c9e4-4ad4-8959-d1f13316a0fd@epam.com>
- <bd88b7d0-92aa-45c9-8b8e-730bc7edc7b3@suse.com>
- <7729c3cd-c1d6-4abf-8e44-293702f47545@epam.com>
+References: <0959802e4fa73b848b2b9e47c57c6daf062e9630.1756149543.git.dmytro_prokopchuk1@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,60 +122,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7729c3cd-c1d6-4abf-8e44-293702f47545@epam.com>
+In-Reply-To: <0959802e4fa73b848b2b9e47c57c6daf062e9630.1756149543.git.dmytro_prokopchuk1@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 25.08.2025 19:33, Dmytro Prokopchuk1 wrote:
+On 25.08.2025 21:22, Dmytro Prokopchuk1 wrote:
+> From: Andrew Cooper <andrew.cooper3@citrix.com>
 > 
+> MISRA Rule 5.5 objects to a macro aliasing a function, which is what
+> pirq_cleanup_check() does. The macro was originally intended to ensure
+> the condition 'if (!pirq->evtchn)' is always checked before invoking
+> the function, avoiding errors across call sites.
 > 
-> On 8/25/25 17:12, Jan Beulich wrote:
->> On 25.08.2025 15:27, Dmytro Prokopchuk1 wrote:
->>>
->>>
->>> On 8/25/25 14:07, Jan Beulich wrote:
->>>> On 25.08.2025 12:58, Dmytro Prokopchuk1 wrote:
->>>>> On 8/25/25 13:30, Jan Beulich wrote:
->>>>>> On 25.08.2025 11:05, Dmytro Prokopchuk1 wrote:
->>>>>>> MISRA C Rule 17.7 states: "The value returned by a function having
->>>>>>> non-void return type shall be used."
->>>>>>>
->>>>>>> Deviate functions like 'memcpy()', 'memset()', 'memmove()', 'snprintf()',
->>>>>>> 'strlcpy()', 'strlcat()', as they return a value purely for convenience,
->>>>>>> their primary functionality (e.g., memory or string operations) remains
->>>>>>> unaffected, and their return values are generally non-critical and seldom
->>>>>>> relied upon. Update 'deviations.rst' file accordingly.
->>>>>>
->>>>>> How come snprintf() is among this set? Its return value isn't quite just
->>>>>> for convenience, imo.
->>>>>
->>>>> Yes, snprintf()'s return value isn't just for convenience. The deviation
->>>>> justification is primarily based on the fact that its return value is
->>>>> rarely used in the Xen source base. Most callers of snprintf() don't
->>>>> care about return value. So, snprintf() is in this list.
->>>>>
->>>>> Maybe separate wording is required for the snprintf() ?
->>>>
->>>> Minimally. Personally I don't think it should be deviated globally.
->>>
->>> There are approximately 230 instances of snprintf() being used without
->>> checking its return value (across ARM and x86) in around 20 different
->>> source files. Deviation each of them could be complicated.
->>
->> My grep yields somewhere between 50 and 60 hits in xen/, among them about 15
->> in xen/tools/kconfig/, which I expect we can ignore. I also didn't mean to
->> suggest to deviate them all individually. Some may actually want to use the
->> return value, and I wouldn't be surprised if this ended up fixing a bug or
->> two.
+> There are only a handful of users, so expand it inline to be plain
+> regular C. Doing this shows one path now needing braces, and one path
+> in 'evtchn_bind_pirq()' where the expanded form simplies back to no
+> delta, as it follows an unconditional clear of 'info->evtchn'.
 > 
-> For memory-related functions (memcpy, memset, memmove), ignoring the 
-> return value is almost always safe, so I propose to leave these 
-> functions in the patch, remove snprintf, strlcpy, strlcat so far, and
-> precisely check usage of the last functions.
+> While this complies with MISRA, it shifts the responsibility to
+> developers to check 'if (!pirq->evtchn)' at call sites.
 > 
-> Is it OK?
+> No functional changes.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+> ---
+> Changes in v3:
+> - added back wording from v1, originally written by Andrew.
 
-Fine with me, yes.
+Thanks. Just to mention, though - you copied it verbatim, including the
+typo (simplifies). Can surely be adjusted while committing, if and when
+somebody acks this. (I think it has become sufficiently clear that I'm
+not going to.)
 
 Jan
 
