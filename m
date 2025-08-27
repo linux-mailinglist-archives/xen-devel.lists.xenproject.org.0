@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CFA8B37CF3
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 10:07:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1095686.1450599 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3A79B37D5F
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 10:17:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1095697.1450610 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urBBq-0003HW-9w; Wed, 27 Aug 2025 08:07:30 +0000
+	id 1urBKQ-00052U-2f; Wed, 27 Aug 2025 08:16:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1095686.1450599; Wed, 27 Aug 2025 08:07:30 +0000
+Received: by outflank-mailman (output) from mailman id 1095697.1450610; Wed, 27 Aug 2025 08:16:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urBBq-0003Fg-6v; Wed, 27 Aug 2025 08:07:30 +0000
-Received: by outflank-mailman (input) for mailman id 1095686;
- Wed, 27 Aug 2025 08:07:29 +0000
+	id 1urBKQ-0004zf-02; Wed, 27 Aug 2025 08:16:22 +0000
+Received: by outflank-mailman (input) for mailman id 1095697;
+ Wed, 27 Aug 2025 08:16:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Gy2E=3H=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1urBBp-0003FR-F9
- for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 08:07:29 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ id 1urBKO-0004zZ-FD
+ for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 08:16:20 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dfc80a1d-831c-11f0-a32c-13f23c93f187;
- Wed, 27 Aug 2025 10:07:28 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-afcb72d51dcso896387366b.0
- for <xen-devel@lists.xenproject.org>; Wed, 27 Aug 2025 01:07:28 -0700 (PDT)
+ id 1b5f7659-831e-11f0-a32c-13f23c93f187;
+ Wed, 27 Aug 2025 10:16:18 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-afcb7a8dd3dso985349266b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Aug 2025 01:16:18 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afe9c908414sm377451066b.97.2025.08.27.01.07.27
+ 4fb4d7f45d1cf-61caae5fc3fsm1518830a12.51.2025.08.27.01.16.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Aug 2025 01:07:27 -0700 (PDT)
+ Wed, 27 Aug 2025 01:16:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dfc80a1d-831c-11f0-a32c-13f23c93f187
+X-Inumbo-ID: 1b5f7659-831e-11f0-a32c-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756282048; x=1756886848; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+kla684A/tyInoa6A1iERRJr90N/NnwDl2EeOUgOAMI=;
-        b=WvGDa8qjO5A1g7J4AR3cTQViQCAZXdsmDsn53GAwN1cgzdr6rukOybmW05KDySYF1c
-         1+/9rp/wPyY8eJ9lgLK3Lvp5M0at4lpwQEv+uotBRkgww6DotE3q/zUIgj2o735mIyFJ
-         y+djAIOku7M4OkkB77rogf0GPI3QhsAnFlfCQxASInhBsgubFdiZwbxEufL7px3jAMZ5
-         +MCVyh5JQHsnCWcOgVHT3S+xuj1kLZZQv+l87nGn8SvebpjPlMCIz2yvhogoKimoha2t
-         pBhUuS4I4aghr1ruk8I/jqSOLpr7kYOYbGb+fOBHf1OWZBjYKw6+8hJyOQtFsqaSkcKd
-         ceJA==
+        d=suse.com; s=google; t=1756282578; x=1756887378; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=9IPvwzAlgN/8K1TiFg2f/TJ+g46pFRrkDrVWSadY49U=;
+        b=GqO5pHevxjziWucK15LKvp0Ztud/UOgcWnj188RJ116Xch3AgE++Kw6Rs0QJa87XyM
+         bYlkkFg0RC6eb1/xoszW/IGczSyO66djBUfCLZGkiqsJWgSh1OX0pGhGPrOkWipi726R
+         v3XGZiPf4g7O2m2d0Rz4HsSBH29BVRxaI7KQ27fZFs6Cp5yeuVN0LU+HDEObTKNy8nzB
+         hkrIStEWdS1b/SqgdGYAWK0xpwoZXdl5IXT+p+ZvGm0Qkve/UJ9pUAUmmkEU/2tes9Mm
+         Wtw6eoMGqn2vY7Bw5NiI+QbdyekW4vjRrj1TeP55pzxB7/DD7f3GRIVjTr0Vrwiv3j40
+         U9sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756282048; x=1756886848;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+kla684A/tyInoa6A1iERRJr90N/NnwDl2EeOUgOAMI=;
-        b=SVxlX2UQYV1aRA+mGgKvXCejOfUci1MiTVvTcKDphSWfbh8f/oiJCPoFZE0eh9DVC0
-         PDIhWuiSYqq78boks/O3taPKcfQ+TST0WbB4p0PAYLW+Bb44ylXDYQHy++L2Uj/DALo/
-         jT025jWZ1yneC5nfzgiWlaU/DKYWGqHo9Amx14GLOU403DFBdZGBsKH5ooTOGh37tw0x
-         +DkW/W+V53uf/q2JzvytSYUn0iLb+DoHzLJN8wwPDisP3PQpDJroYBXnoUBP8oZVaRg5
-         QKiUgXRTYpb+54gwg0zSLlPJjD6ENeFw60QZvnRAMHRpyxSOmD2i3x4ux9f5yvbCe7Ww
-         R83w==
-X-Forwarded-Encrypted: i=1; AJvYcCVb/3/krOLN2zlc2vO1XvHv/QN/3J5Nacubg6SzGUQN3hY+aRAlErQ338HNdSv1LKjfp635F3uLuTY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxAAhxXLLXzzM5ml2JqcyXJUDgzJzImyOv6/65m63elXnkQRsNp
-	ASh+9YQDdq77ObWZJ1okrlKakg7OsE9qDw6moslGnOHSJCNkp8EfwbqzYWMH8bUCSA==
-X-Gm-Gg: ASbGnctwXnhZkDL3RIajz9nyzIpKme+LIMH6bPRG1Zi1G8Et0SeX5oPMD2oxfjojFsx
-	n5G9fSmlPdZHrAo3R6nVJnpbDQYzBeDFiCzTbWqcue0OKzeNX4ni/6XptHT2q6aSVMIxSK0xtws
-	YbIkaZopIG2s5PAzAdHD1xq5nQhr31rpFosQwXKy3R2YiYM4ERFD1xnBGAiizf/HDNlyK6j9k0N
-	3q7QFT+QgkNkB0tS++Fo1i29uvpim5QKwXOx0tYtSZg7hBxB/0LWyhtpxGNSxvtz++HJH6TI3e4
-	B7lfCcpbNrJeoWGnwM1+BNYfMb7Q5pnH/SZzqZweFD6zBAx3uuq4DOHhVxNj71+ercl4rHRylY5
-	HvVxSL60hmgZUyBhCPbVD8vwicCxYfqbEuhPgorqUCXer7/w7a8h1mp6j1siOewAoYxCY5HVGke
-	k6OYCCSr2cjwYucimE8A==
-X-Google-Smtp-Source: AGHT+IHydO1abMKcIYCocZjbHUK8lfaFMfocNR5yfuL5vNsdliwz/DUI3XcuSRcMpBhwxyfHpuQbbw==
-X-Received: by 2002:a17:907:720f:b0:afe:b9e3:2a19 with SMTP id a640c23a62f3a-afeb9e337a9mr249184066b.19.1756282048025;
-        Wed, 27 Aug 2025 01:07:28 -0700 (PDT)
-Message-ID: <dadb4612-15ad-4e67-90fb-7df0067ec95e@suse.com>
-Date: Wed, 27 Aug 2025 10:07:26 +0200
+        d=1e100.net; s=20230601; t=1756282578; x=1756887378;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=9IPvwzAlgN/8K1TiFg2f/TJ+g46pFRrkDrVWSadY49U=;
+        b=t/ocNefz4rzYechWYEEN8SnyajkHuA16Xb54daiicHzCMPrd+f5ayxmukw9jUZ2Jh0
+         Pw9Xv9cte7NHrfQc8SprEHdQ+t8YKB3J2wD2Et35rUYilmhY+52kPJf9morPnbxHLL3x
+         QYe9cT1A9t1/iyMdg7v/UU5NL1SsTfaX9NeHLhaoyggTP/1R6Ib1hYMh2WxfLigKELB5
+         AnyZX1/Ec04QBwNd+CqlU7XFY60/g9/KI51V8aTdARvue2kQtFKM3+rIzIVj3rSD8kjg
+         ko5X21jmJFutj0uu4//xdO8HZx4QAb+5DEDqh9LXZ5FOBr6J9k5CI273/1Zb/qBXiDK5
+         ahGw==
+X-Gm-Message-State: AOJu0Yz2QJxC8bUgwrnKB34cw79TXhwdLo6O5A7yualV+fjHtH3WGbyC
+	Pa4I+HJssvW+SHHymwDwsPi/H+uxIGLCk9jPXf8vbJqTYTxCSTQEXI9kMS2J3OkFOVqeja4UV2x
+	H6/A=
+X-Gm-Gg: ASbGncthF501HSKbhVPHCFB5SRXnK16w7SX4zFMU5dWmauhUMAlJqJsExiFLcEK9cKB
+	bIq4jnIU7+CND3on999O7/KP9PbjSNtsDg/ODCT1tGtXlKaEDB2H70MpNUzIvSvDxg6+9KwwDKM
+	cnLmw+rXlY+IXzMs+Rxjp3XJkZ6y8nyhSRIXCdjfcWF7GxMG8JHQ3qxJr+JrN29FqwdvRn8Uqhu
+	5aYf6M+OrAA/6gFp8qHfd6TWErMrRrQ6rmd46R/8yujAxwPtJO9OHruT5h6DeQY6J6M9H8Ew5S7
+	NJRGRAqEFJ/CGPJZUTL6tGYwSxc0DcP7p48Db5nEABrdMKw4P/9YOIyiPD7zXhh+X1OVQUvESBt
+	q2/MpJKrcqRCYw6MHWJ4cBwN41ieUHfc+M0UEuVQNfJJzOGqmrglxmrAQyzgruCtH24jQdl9UVp
+	zJEv+XTv7l9kDFxolrog==
+X-Google-Smtp-Source: AGHT+IF7t0KTPA8xBG05FE6OTHMVEYCuQRHSgdRDG+cFr4a3vEPe0vAJD+HkBWc4H+CoC9STpSqxww==
+X-Received: by 2002:a17:906:fe48:b0:ae8:fd2d:44b8 with SMTP id a640c23a62f3a-afe2943d5bbmr1521890966b.29.1756282577632;
+        Wed, 27 Aug 2025 01:16:17 -0700 (PDT)
+Message-ID: <a3c768bc-c99f-484e-9e36-f8e03930496e@suse.com>
+Date: Wed, 27 Aug 2025 10:16:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] x86/vhpet: Add option to always fire hpet timer on
- resume
-To: Vyacheslav Legoshin <vyacheslav.legoshin@yandex.ru>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <faa5eee741a772eba95415ca26f0cdf304486fc3.1756272466.git.vyacheslav.legoshin@yandex.ru>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/PSR: move CPUID level check
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -122,94 +116,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <faa5eee741a772eba95415ca26f0cdf304486fc3.1756272466.git.vyacheslav.legoshin@yandex.ru>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27.08.2025 08:01, Vyacheslav Legoshin wrote:
-> The following issue was observed on Windows 10 21H2 x64+: when the domain state
-> is saved while all cores are executing the 'halt' instruction, and the memory
-> save takes a relatively long time (tens of seconds), the HPET counter may
-> overflow as follows:
-> counter  = 11243f3e4a
-> comparator = 910cb70f
-> 
-> In such cases, the fix implemented in commit
-> b144cf45d50b603c2909fc32c6abf7359f86f1aa does not work (because the 'diff' is
-> not negative), resulting in the guest VM becoming unresponsive for
-> approximately 30 seconds.
-> 
-> This patch adds an option to always adjust the HPET timer to fire immediately
-> after restore.
+At the first (and maybe second) glance the call to setup_clear_cpu_cap()
+(which is __init) from psr_cpu_init() (which isn't) looks wrong. The
+earlier cpu_has_pqe makes it safe, though. Nevertheless we can do better,
+by simply moving the check ahead of the BSP invocation of the function.
 
-Thanks for the patch, but issues already start here: There's no Signed-off-by:.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -1461,6 +1461,15 @@ HPET can be disabled by specifying `hpet=0`.
->  
->  Deprecated alternative of `hpet=broadcast`.
->  
-> +### hpet_drift_fix (x86)
-> +> `= <boolean>`
-> +
-> +> Default: `false`
-> +
-> +Always set HPET timer to fire immediately after domain restore.
-> +This option can be used to fix unresponsive snapshots with modern x64 Windows
-> +systems (21H2+) which use non-periodic timers.
-
-I'm not convinced making this a global option is appropriate. If an option is
-needed, it would better be a per-domain setting. Whether an option is needed
-in the first place is tbd.
-
-And then, if a global option was used, then please with dashes in favor of
-underscores in its name.
-
-> --- a/xen/arch/x86/hvm/hpet.c
-> +++ b/xen/arch/x86/hvm/hpet.c
-> @@ -11,6 +11,7 @@
->  #include <asm/current.h>
->  #include <asm/hpet.h>
->  #include <asm/mc146818rtc.h>
-> +#include <xen/param.h>
->  #include <xen/sched.h>
->  #include <xen/event.h>
->  #include <xen/trace.h>
-> @@ -222,6 +223,9 @@ static void cf_check hpet_timer_fired(struct vcpu *v, void *data)
->   * 1/(2^10) second, namely, 0.9765625 milliseconds */
->  #define  HPET_TINY_TIME_SPAN  ((h->stime_freq >> 10) / STIME_PER_HPET_TICK)
->  
-> +bool hpet_drift_fix;
-
-static and __ro_after_init.
-
-> @@ -268,11 +272,18 @@ static void hpet_set_timer(HPETState *h, unsigned int tn,
->       * are restoring after migrate, treat any wrap as past since the value
->       * is unlikely to be 'small'.
->       */
-> -    if ( (int64_t)diff < 0 )
-> -        diff = (timer_is_32bit(h, tn) &&
-> -                vhpet_domain(h)->creation_finished &&
-> -                (-diff > HPET_TINY_TIME_SPAN))
-> -            ? (uint32_t)diff : 0;
-> +    if (hpet_drift_fix && !vhpet_domain(h)->creation_finished)
-
-Nit (style): Missing blanks (see e.g. the other if() you're altering).
-
-> +    {
-> +        diff = 0;
-> +    }
-
-No real need for figure braces here.
-
-The comment ahead of the construct also wants amending / updating.
-
-> +    else
-> +    {
-> +        if ( (int64_t)diff < 0 )
-
-"else if()" please, reducing the diff quite a bit.
-
-Jan
+--- a/xen/arch/x86/psr.c
++++ b/xen/arch/x86/psr.c
+@@ -1583,12 +1583,6 @@ static void psr_cpu_init(void)
+     if ( !psr_alloc_feat_enabled() || !cpu_has_pqe )
+         goto assoc_init;
+ 
+-    if ( boot_cpu_data.cpuid_level < PSR_CPUID_LEVEL_CAT )
+-    {
+-        setup_clear_cpu_cap(X86_FEATURE_PQE);
+-        goto assoc_init;
+-    }
+-
+     socket = cpu_to_socket(cpu);
+     info = socket_info + socket;
+     if ( info->feat_init )
+@@ -1708,6 +1702,9 @@ static int __init cf_check psr_presmp_in
+     if ( psr_cpu_prepare() )
+         psr_free();
+ 
++    if ( boot_cpu_data.cpuid_level < PSR_CPUID_LEVEL_CAT )
++        setup_clear_cpu_cap(X86_FEATURE_PQE);
++
+     psr_cpu_init();
+     if ( psr_cmt_enabled() || psr_alloc_feat_enabled() )
+         register_cpu_notifier(&cpu_nfb);
 
