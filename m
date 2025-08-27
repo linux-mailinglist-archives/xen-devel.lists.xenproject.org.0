@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46AD8B37CD6
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 10:05:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1095674.1450591 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CFA8B37CF3
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 10:07:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1095686.1450599 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urB9d-0002hx-1K; Wed, 27 Aug 2025 08:05:13 +0000
+	id 1urBBq-0003HW-9w; Wed, 27 Aug 2025 08:07:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1095674.1450591; Wed, 27 Aug 2025 08:05:12 +0000
+Received: by outflank-mailman (output) from mailman id 1095686.1450599; Wed, 27 Aug 2025 08:07:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urB9c-0002fv-SQ; Wed, 27 Aug 2025 08:05:12 +0000
-Received: by outflank-mailman (input) for mailman id 1095674;
- Wed, 27 Aug 2025 08:05:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=E4uQ=3H=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1urB9b-0002eL-Rv
- for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 08:05:11 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8b5b7d06-831c-11f0-b898-0df219b8e170;
- Wed, 27 Aug 2025 10:05:07 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-45a1ac7c066so3521725e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 27 Aug 2025 01:05:07 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-45b6f2f3383sm18987575e9.26.2025.08.27.01.05.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Aug 2025 01:05:05 -0700 (PDT)
+	id 1urBBq-0003Fg-6v; Wed, 27 Aug 2025 08:07:30 +0000
+Received: by outflank-mailman (input) for mailman id 1095686;
+ Wed, 27 Aug 2025 08:07:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Gy2E=3H=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1urBBp-0003FR-F9
+ for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 08:07:29 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dfc80a1d-831c-11f0-a32c-13f23c93f187;
+ Wed, 27 Aug 2025 10:07:28 +0200 (CEST)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-afcb72d51dcso896387366b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Aug 2025 01:07:28 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-afe9c908414sm377451066b.97.2025.08.27.01.07.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 27 Aug 2025 01:07:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,126 +45,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b5b7d06-831c-11f0-b898-0df219b8e170
+X-Inumbo-ID: dfc80a1d-831c-11f0-a32c-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1756281906; x=1756886706; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=wafuybJDebB07gu6JwFrpSZX+c1NHwIRXVLshVeZQLQ=;
-        b=N/ym58aMtxjZDmXtxNZPT/eSvRlVNxbBaA99Eo3sF0hlTfsNFLPj9Kwx9CX6d/Vqkm
-         akuUWRlpjxOF30AEDdz61/aypBS1fqWQI25ytQTNNhRRsaoGpmCJJPaWhVbKzl925Rjw
-         wpZWtkKpIStNl2GEtk525NPF9wAp/zLxUF4ok=
+        d=suse.com; s=google; t=1756282048; x=1756886848; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=+kla684A/tyInoa6A1iERRJr90N/NnwDl2EeOUgOAMI=;
+        b=WvGDa8qjO5A1g7J4AR3cTQViQCAZXdsmDsn53GAwN1cgzdr6rukOybmW05KDySYF1c
+         1+/9rp/wPyY8eJ9lgLK3Lvp5M0at4lpwQEv+uotBRkgww6DotE3q/zUIgj2o735mIyFJ
+         y+djAIOku7M4OkkB77rogf0GPI3QhsAnFlfCQxASInhBsgubFdiZwbxEufL7px3jAMZ5
+         +MCVyh5JQHsnCWcOgVHT3S+xuj1kLZZQv+l87nGn8SvebpjPlMCIz2yvhogoKimoha2t
+         pBhUuS4I4aghr1ruk8I/jqSOLpr7kYOYbGb+fOBHf1OWZBjYKw6+8hJyOQtFsqaSkcKd
+         ceJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756281906; x=1756886706;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1756282048; x=1756886848;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wafuybJDebB07gu6JwFrpSZX+c1NHwIRXVLshVeZQLQ=;
-        b=WL/7YQ9dMjAwVKAzJlM4twW248FazCLIVJghB8c7wFrsgX5DxT1SQBCS26kqA1zykc
-         JncFWiu9J90hXQvOihR26J6xjJEyffdVdHJ+bX2UDGJ6K8FplIY5tyjudVI5gfRHILni
-         sKKBtqd1yIbQxWteXAGFhm5o8rG8/4aq+Vh7goW8d30jxlmsggIyFuF9J2PYvApHXpvh
-         +0fZYhJNvzbx9v+6UmyVIK6NPgBxCRNBM4V5vV+YAOkSrTIE9FKQB7ruDFZDxSgrj7rL
-         mffnRCl0hxgpACd9+zItpQRevFm1hIerLejd5PfXTxxoi12J9vKAajb2Z/pfIEv0ZXPU
-         XwSw==
-X-Gm-Message-State: AOJu0YyPrC6GgN+TU9IuYmaaNIk9qxkNwnKUDktGLBJhtbddz+sErBcA
-	l27YMauicvWxDAaMybnrEfP/LBgEl39zhSKRiyzKy3wbi5cMunawv9WaN1dRhpaOYAE=
-X-Gm-Gg: ASbGncuNXTF3cZhxdJOzfwIqxlJtLrIRaEHEKPyyd9QmDK1m7aXa2PsQ+62//btdDnY
-	PrVPpZFmZEuBWqX4KatctW/gL1YL7jnbLMFTaCL5ClFysNfBP9dLcxdqQEJ9H/K31vRKT7EXZKN
-	G1J3qQdYZziAtDSqEz+Jz6pi2egircvv9JepHd9p50GzH93bQboezj8mTASts0aQ1J3gWCqdENQ
-	9RuSMuoKm3i7NdRhthfbXRZ59jwo5gmUmKnlITtiaW6RGxmkS8ocLeVxHAOZq3dZ/vl208urAub
-	yLI9Sh1iEK5DCxs0wnd6SVUttREiYd3Bp3+lYSSCFPeE+OYZfP6VgRAq8Dw0Et6K+Tqkg8zAOfb
-	b095muw4SSLQG9OyzEJz0M8faZTeVRJSaIHHxPGuibFrWTBYNGd6ETgASHdBCr9pPWZyI7G09YF
-	4m
-X-Google-Smtp-Source: AGHT+IHEw5nnmQo3t1mgTg2mCT2uafzIhpPuJfy4aLF9W9s8w6/oCF2WbO4efanJbNz6ekE1yqmSaQ==
-X-Received: by 2002:a05:600c:3b95:b0:45b:62ea:c886 with SMTP id 5b1f17b1804b1-45b6d418c9dmr12700215e9.2.1756281906256;
-        Wed, 27 Aug 2025 01:05:06 -0700 (PDT)
-Date: Wed, 27 Aug 2025 10:05:04 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
-	anthony.perard@vates.tech, michal.orzel@amd.com, jbeulich@suse.com,
-	julien@xen.org
-Subject: Re: [PATCH v2] docs/sending-patches: add GitLab pipeline link
-Message-ID: <aK68MKAFh7q9M_uO@Mac.lan>
-References: <alpine.DEB.2.22.394.2508181558550.923618@ubuntu-linux-20-04-desktop>
+        bh=+kla684A/tyInoa6A1iERRJr90N/NnwDl2EeOUgOAMI=;
+        b=SVxlX2UQYV1aRA+mGgKvXCejOfUci1MiTVvTcKDphSWfbh8f/oiJCPoFZE0eh9DVC0
+         PDIhWuiSYqq78boks/O3taPKcfQ+TST0WbB4p0PAYLW+Bb44ylXDYQHy++L2Uj/DALo/
+         jT025jWZ1yneC5nfzgiWlaU/DKYWGqHo9Amx14GLOU403DFBdZGBsKH5ooTOGh37tw0x
+         +DkW/W+V53uf/q2JzvytSYUn0iLb+DoHzLJN8wwPDisP3PQpDJroYBXnoUBP8oZVaRg5
+         QKiUgXRTYpb+54gwg0zSLlPJjD6ENeFw60QZvnRAMHRpyxSOmD2i3x4ux9f5yvbCe7Ww
+         R83w==
+X-Forwarded-Encrypted: i=1; AJvYcCVb/3/krOLN2zlc2vO1XvHv/QN/3J5Nacubg6SzGUQN3hY+aRAlErQ338HNdSv1LKjfp635F3uLuTY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxAAhxXLLXzzM5ml2JqcyXJUDgzJzImyOv6/65m63elXnkQRsNp
+	ASh+9YQDdq77ObWZJ1okrlKakg7OsE9qDw6moslGnOHSJCNkp8EfwbqzYWMH8bUCSA==
+X-Gm-Gg: ASbGnctwXnhZkDL3RIajz9nyzIpKme+LIMH6bPRG1Zi1G8Et0SeX5oPMD2oxfjojFsx
+	n5G9fSmlPdZHrAo3R6nVJnpbDQYzBeDFiCzTbWqcue0OKzeNX4ni/6XptHT2q6aSVMIxSK0xtws
+	YbIkaZopIG2s5PAzAdHD1xq5nQhr31rpFosQwXKy3R2YiYM4ERFD1xnBGAiizf/HDNlyK6j9k0N
+	3q7QFT+QgkNkB0tS++Fo1i29uvpim5QKwXOx0tYtSZg7hBxB/0LWyhtpxGNSxvtz++HJH6TI3e4
+	B7lfCcpbNrJeoWGnwM1+BNYfMb7Q5pnH/SZzqZweFD6zBAx3uuq4DOHhVxNj71+ercl4rHRylY5
+	HvVxSL60hmgZUyBhCPbVD8vwicCxYfqbEuhPgorqUCXer7/w7a8h1mp6j1siOewAoYxCY5HVGke
+	k6OYCCSr2cjwYucimE8A==
+X-Google-Smtp-Source: AGHT+IHydO1abMKcIYCocZjbHUK8lfaFMfocNR5yfuL5vNsdliwz/DUI3XcuSRcMpBhwxyfHpuQbbw==
+X-Received: by 2002:a17:907:720f:b0:afe:b9e3:2a19 with SMTP id a640c23a62f3a-afeb9e337a9mr249184066b.19.1756282048025;
+        Wed, 27 Aug 2025 01:07:28 -0700 (PDT)
+Message-ID: <dadb4612-15ad-4e67-90fb-7df0067ec95e@suse.com>
+Date: Wed, 27 Aug 2025 10:07:26 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2508181558550.923618@ubuntu-linux-20-04-desktop>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH] x86/vhpet: Add option to always fire hpet timer on
+ resume
+To: Vyacheslav Legoshin <vyacheslav.legoshin@yandex.ru>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <faa5eee741a772eba95415ca26f0cdf304486fc3.1756272466.git.vyacheslav.legoshin@yandex.ru>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <faa5eee741a772eba95415ca26f0cdf304486fc3.1756272466.git.vyacheslav.legoshin@yandex.ru>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Aug 18, 2025 at 04:00:11PM -0700, Stefano Stabellini wrote:
-> When submitting patches to xen-devel, add a link to a successful
-> pipeline run.
+On 27.08.2025 08:01, Vyacheslav Legoshin wrote:
+> The following issue was observed on Windows 10 21H2 x64+: when the domain state
+> is saved while all cores are executing the 'halt' instruction, and the memory
+> save takes a relatively long time (tens of seconds), the HPET counter may
+> overflow as follows:
+> counter  = 11243f3e4a
+> comparator = 910cb70f
 > 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> ---
-> Changes in v2:
-> - address Julien's comments
+> In such cases, the fix implemented in commit
+> b144cf45d50b603c2909fc32c6abf7359f86f1aa does not work (because the 'diff' is
+> not negative), resulting in the guest VM becoming unresponsive for
+> approximately 30 seconds.
 > 
-> diff --git a/docs/process/sending-patches.pandoc b/docs/process/sending-patches.pandoc
-> index 1991932b68..13bb3bf47a 100644
-> --- a/docs/process/sending-patches.pandoc
-> +++ b/docs/process/sending-patches.pandoc
-> @@ -314,3 +314,38 @@ A patch should always be sent **to** the xen-devel mailing list
->  of all touched code areas should get a copy of the mail via **Cc**. In case
->  some other recipients are known to be interested in the patch, they can be
->  added via **Cc**, too.
+> This patch adds an option to always adjust the HPET timer to fire immediately
+> after restore.
+
+Thanks for the patch, but issues already start here: There's no Signed-off-by:.
+
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -1461,6 +1461,15 @@ HPET can be disabled by specifying `hpet=0`.
+>  
+>  Deprecated alternative of `hpet=broadcast`.
+>  
+> +### hpet_drift_fix (x86)
+> +> `= <boolean>`
 > +
-> +## Testing
-
-Should this be placed immediately after the "Patch version history
-(change log), further comments" section, so that the order of the
-document matches the order of the described elements in the patch
-itself?
-
+> +> Default: `false`
 > +
-> +Xen Project uses a GitLab-based CI infrastructure. You can request to
-> +have your GitLab account added to the Xen Project organization on GitLab
-> +(https://gitlab.com/xen-project) by reaching out to THE REST maintainers
-> +via xen-devel or Matrix. Once your account is added to the Xen Project
-> +organization on GitLab, also a personal Xen repository will be created
-> +for you under https://gitlab.com/xen-project/people/<your-username>/xen.
-> +You will be able to trigger a GitLab testing pipeline with a single git
-> +push to your personal Xen repository.
-> +
-> +When submitting a patch or patch series, please include a link to the
-> +successful GitLab pipeline run on your personal branch. The branch
-> +should be based on a recent version of the "master" branch, ideally not
-> +older than two days.
-> +
-> +This information can be added after the `---` line.  For example:
-> +
-> +    ---
-> +    Test CI pipeline:
-> +    https://gitlab.com/xen-project/people/your-username/xen/-/pipelines/1980129839
+> +Always set HPET timer to fire immediately after domain restore.
+> +This option can be used to fix unresponsive snapshots with modern x64 Windows
+> +systems (21H2+) which use non-periodic timers.
 
-FTAOD, should this also mention that for patch series the link should
-be added to the cover letter and without any dashes?
+I'm not convinced making this a global option is appropriate. If an option is
+needed, it would better be a per-domain setting. Whether an option is needed
+in the first place is tbd.
 
-Also FTAOD, should the link to the pipeline results be placed before
-or after the "Changes since vX:" entries?
+And then, if a global option was used, then please with dashes in favor of
+underscores in its name.
 
-I don't care much whether it's before or after TBH, but we should
-likely clarify that it either doesn't matter, or provide a suggested
-order.
+> --- a/xen/arch/x86/hvm/hpet.c
+> +++ b/xen/arch/x86/hvm/hpet.c
+> @@ -11,6 +11,7 @@
+>  #include <asm/current.h>
+>  #include <asm/hpet.h>
+>  #include <asm/mc146818rtc.h>
+> +#include <xen/param.h>
+>  #include <xen/sched.h>
+>  #include <xen/event.h>
+>  #include <xen/trace.h>
+> @@ -222,6 +223,9 @@ static void cf_check hpet_timer_fired(struct vcpu *v, void *data)
+>   * 1/(2^10) second, namely, 0.9765625 milliseconds */
+>  #define  HPET_TINY_TIME_SPAN  ((h->stime_freq >> 10) / STIME_PER_HPET_TICK)
+>  
+> +bool hpet_drift_fix;
 
-> +While it is technically possible to implement an automated system that
-> +picks up patches and patch series from xen-devel and runs the GitLab
-> +pipeline on them automatically, doing so would consume a significant
-> +amount of resources on the testing infrastructure. There is no reliable
-> +way to automatically determine whether a patch is close to being
-> +committed or still undergoing substantial review. By having users submit
-> +the link to the pipeline manually, we can manage testing resources much
-> +more efficiently.
-> +
-> +When submitting new features, please also consider whether you can add a
-> +GitLab test for the feature to ensure it continues to work correctly in
-> +the future.
+static and __ro_after_init.
 
-Not sure whether it's worth explicitly mentioning here, but it's not
-strictly needed to add a new GitLab test, just adding a test to
-tools/tests/ that's properly hooked up (like all test that reside
-there) will get it automatically executed by GitLab.
+> @@ -268,11 +272,18 @@ static void hpet_set_timer(HPETState *h, unsigned int tn,
+>       * are restoring after migrate, treat any wrap as past since the value
+>       * is unlikely to be 'small'.
+>       */
+> -    if ( (int64_t)diff < 0 )
+> -        diff = (timer_is_32bit(h, tn) &&
+> -                vhpet_domain(h)->creation_finished &&
+> -                (-diff > HPET_TINY_TIME_SPAN))
+> -            ? (uint32_t)diff : 0;
+> +    if (hpet_drift_fix && !vhpet_domain(h)->creation_finished)
 
-Thanks, Roger.
+Nit (style): Missing blanks (see e.g. the other if() you're altering).
+
+> +    {
+> +        diff = 0;
+> +    }
+
+No real need for figure braces here.
+
+The comment ahead of the construct also wants amending / updating.
+
+> +    else
+> +    {
+> +        if ( (int64_t)diff < 0 )
+
+"else if()" please, reducing the diff quite a bit.
+
+Jan
 
