@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19697B38A4E
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 21:39:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1096897.1451460 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E234AB38AF1
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 22:28:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1096943.1451470 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urLzH-0006o7-9F; Wed, 27 Aug 2025 19:39:15 +0000
+	id 1urMkR-0004nr-Mo; Wed, 27 Aug 2025 20:27:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1096897.1451460; Wed, 27 Aug 2025 19:39:15 +0000
+Received: by outflank-mailman (output) from mailman id 1096943.1451470; Wed, 27 Aug 2025 20:27:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urLzH-0006m5-6H; Wed, 27 Aug 2025 19:39:15 +0000
-Received: by outflank-mailman (input) for mailman id 1096897;
- Wed, 27 Aug 2025 19:39:14 +0000
+	id 1urMkR-0004lV-Jl; Wed, 27 Aug 2025 20:27:59 +0000
+Received: by outflank-mailman (input) for mailman id 1096943;
+ Wed, 27 Aug 2025 20:27:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=73cR=3H=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1urLzG-0006lY-6d
- for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 19:39:14 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org
- [2600:3c0a:e001:78e:0:1991:8:25])
+ <SRS0=USey=3H=bounce.vates.tech=bounce-md_30504962.68af6a4a.v1-2a0aed859c5345c9a2e0e2508231852f@srs-se1.protection.inumbo.net>)
+ id 1urMkQ-0004lP-DP
+ for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 20:27:58 +0000
+Received: from mail137-3.atl71.mandrillapp.com
+ (mail137-3.atl71.mandrillapp.com [198.2.137.3])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 80bd914d-837d-11f0-ae26-e363de0e7a9e;
- Wed, 27 Aug 2025 21:39:11 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 8B0164174A;
- Wed, 27 Aug 2025 19:39:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C606CC4CEF4;
- Wed, 27 Aug 2025 19:39:07 +0000 (UTC)
+ id 4ffe7c86-8384-11f0-ae26-e363de0e7a9e;
+ Wed, 27 Aug 2025 22:27:55 +0200 (CEST)
+Received: from pmta07.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail137-3.atl71.mandrillapp.com (Mailchimp) with ESMTP id 4cBx160pB8zBsV7Vb
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Aug 2025 20:27:54 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 2a0aed859c5345c9a2e0e2508231852f; Wed, 27 Aug 2025 20:27:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,171 +42,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80bd914d-837d-11f0-ae26-e363de0e7a9e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1756323549;
-	bh=7Y/0urpoyzwV3W43SVFyUKSuY0dlGUUH2UBFFsep3N4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=o754VcdPFrl/At3exWgpmM3ttP8fA68+r94whTjsUceJTBAuu82BxTove6Fs8almM
-	 9uiIQVkU1QTYr4+wL+R9sfSMhCfOiw6WzLp4jR/bohmrEOWzTJB5f8+F10qBUc3/RF
-	 CM25/bYqGGnlsT+XgmRH0FagbSAh4Bf4DMtml2wt0tSmRJa0leigJhQgeiuk1YdAWU
-	 KX5VtAg0xA6Kt2TpVA3D9ZimnDDaDHT6akEy9hVmBizWAaTc51eTUT1+mYdMf87kzs
-	 MP1xgIpIQvCYOEqJdDR0Zgt4xy5d2zFAySUmBWYdmm83ywwqK5RHdikm6Hk1vHvXwo
-	 ppXjSRSoWcmmQ==
-Date: Wed, 27 Aug 2025 12:39:06 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>, 
-    Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Grygorii Strashko <grygorii_strashko@epam.com>
-Subject: Re: [RFC PATCH v5 02/10] xen/arm: scmi-smc: update to be used under
- sci subsystem
-In-Reply-To: <1f64aa13-d9d3-4b58-9581-a45f7173430b@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2508271239020.3391208@ubuntu-linux-20-04-desktop>
-References: <cover.1753184487.git.oleksii_moisieiev@epam.com> <a6a538ca4c02483e745f18db4f74504dad525fe6.1753184487.git.oleksii_moisieiev@epam.com> <alpine.DEB.2.22.394.2508221709020.2743087@ubuntu-linux-20-04-desktop>
- <1f64aa13-d9d3-4b58-9581-a45f7173430b@epam.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 4ffe7c86-8384-11f0-ae26-e363de0e7a9e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1756326474; x=1756596474;
+	bh=uIgoLoFUdjWJAoXVFFkhpR8DJkcqbSwx4+izNdCQyQ8=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=jus6/bAkC3X98debskjGPHro05CG6oHvpekWgWzFEaj4XEMwH6s4xUx/DUdMX+b8+
+	 1sJtvSlPd3lXU3883vED0zuLNbr0AsG2Fi7pIRrN4OS4MgyI7lOezkKEvaEZSeQsmb
+	 ZQMjcBkO/nvx5z9CfQRXdTmI2bk7k3ps78j8U3sa2mtEW/yWJzrG1FU8RFSN1Y3nB3
+	 Ogl5Gv7D0lDwkTIb9AMv7a91eqgLc2b+rtPJC7RAGpzphX+O2pYipYoGQpIWDHbVEo
+	 zMLXSl7Wmydc+rlmfd/e4ZvE7FfenrYE6mQRkrahv2/KIKp/JCwowTqsTi5G2/tjiq
+	 y+BgH8KPBM1aA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1756326474; x=1756586974; i=teddy.astie@vates.tech;
+	bh=uIgoLoFUdjWJAoXVFFkhpR8DJkcqbSwx4+izNdCQyQ8=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=uE/isnkaO78k73bClge+mQuDYF0+KUEjjYDSZBb6fuTw/Mo9tfpJmO/Ovo0nY5Oj/
+	 X5Y0a9pzEXxGnoMeX41c1DVaxk8/JP9+xjGa8+v+3TPF4NAx0Y2SnIFyIjKf7N+6jS
+	 fROzVOYfKDXTChj57JLwBZR9+hWpqRsYZguYswsX/Cx2HNSZi3LbeHNHKyiN4aoE0H
+	 SdritnJFLQir1MJO88KXFYc7ij7FuLp3gMewKHovTZgCY6oO9j0DezgUUeOXFZXdk0
+	 XjW0xC/8XApoKk5lGbsV5WvwaNriuWMPhlwpZai3POoqTNS9l1uge714KomRYQDsbY
+	 Qlx+gzEjZpQ4A==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH]=20hvmloader:=20Update=20to=20SMBIOS=202.6?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1756326473096
+Message-Id: <74665857-3f0b-43e6-b31f-d498d9e7fdc3@vates.tech>
+To: "Andrew Cooper" <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: "Jan Beulich" <jbeulich@suse.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>
+References: <b569a298a6270ae04eaf433f7de9ce1f3e248e5f.1755870287.git.teddy.astie@vates.tech> <6e9b7b96-a506-40ed-95b6-6ad00ba9a27a@citrix.com>
+In-Reply-To: <6e9b7b96-a506-40ed-95b6-6ad00ba9a27a@citrix.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.2a0aed859c5345c9a2e0e2508231852f?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250827:md
+Date: Wed, 27 Aug 2025 20:27:54 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 27 Aug 2025, Oleksii Moisieiev wrote:
-> On 23/08/2025 03:26, Stefano Stabellini wrote:
-> > On Tue, 22 Jul 2025, Oleksii Moisieiev wrote:
-> >> From: Grygorii Strashko <grygorii_strashko@epam.com>
-> >>
-> >> The introduced SCI (System Control Interface) subsystem provides unified
-> >> interface to integrate in Xen SCI drivers which adds support for ARM
-> >> firmware (EL3, SCP) based software interfaces (like SCMI) that are used in
-> >> system management. The SCI subsystem allows to add drivers for different FW
-> >> interfaces or have different drivers for the same FW interface (for example,
-> >> SCMI with different transports).
-> >>
-> >> This patch updates SCMI over SMC calls handling layer, introduced by
-> >> commit 3e322bef8bc0 ("xen/arm: firmware: Add SCMI over SMC calls handling
-> >> layer"), to be SCI driver:
-> >> - convert to DT device;
-> >> - convert to SCI Xen interface.
-> >>
-> >> There are no functional changes in general, the driver is just adopted
-> >> to the SCI interface.
-> >>
-> >> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
-> >> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
-> >> ---
-> >>
-> >>
-> >>
-> >>   xen/arch/arm/firmware/Kconfig                | 13 ++-
-> >>   xen/arch/arm/firmware/scmi-smc.c             | 93 +++++++++++---------
-> >>   xen/arch/arm/include/asm/firmware/scmi-smc.h | 41 ---------
-> >>   xen/arch/arm/vsmc.c                          |  5 +-
-> >>   xen/include/public/arch-arm.h                |  1 +
-> >>   5 files changed, 64 insertions(+), 89 deletions(-)
-> >>   delete mode 100644 xen/arch/arm/include/asm/firmware/scmi-smc.h
-> >>
-> >> diff --git a/xen/arch/arm/firmware/Kconfig b/xen/arch/arm/firmware/Kconfig
-> >> index fc7918c7fc..bbf88fbb9a 100644
-> >> --- a/xen/arch/arm/firmware/Kconfig
-> >> +++ b/xen/arch/arm/firmware/Kconfig
-> >> @@ -8,9 +8,18 @@ config ARM_SCI
-> >>   
-> >>   menu "Firmware Drivers"
-> >>   
-> >> +choice
-> >> +	prompt "ARM SCI driver type"
-> >> +	default SCMI_SMC
-> >> +	help
-> >> +	Choose which ARM SCI driver to enable.
-> >> +
-> >> +config ARM_SCI_NONE
-> >> +	bool "none"
-> >> +
-> >>   config SCMI_SMC
-> >>   	bool "Forward SCMI over SMC calls from hwdom to EL3 firmware"
-> >> -	default y
-> >> +	select ARM_SCI
-> >>   	help
-> >>   	  This option enables basic awareness for SCMI calls using SMC as
-> >>   	  doorbell mechanism and Shared Memory for transport ("arm,scmi-smc"
-> >> @@ -18,4 +27,6 @@ config SCMI_SMC
-> >>   	  firmware node is used to trap and forward corresponding SCMI SMCs
-> >>   	  to firmware running at EL3, for calls coming from the hardware domain.
-> >>   
-> >> +endchoice
-> >> +
-> >>   endmenu
-> >> diff --git a/xen/arch/arm/firmware/scmi-smc.c b/xen/arch/arm/firmware/scmi-smc.c
-> >> index 33473c04b1..13d1137592 100644
-> >> --- a/xen/arch/arm/firmware/scmi-smc.c
-> >> +++ b/xen/arch/arm/firmware/scmi-smc.c
-> >> @@ -9,6 +9,7 @@
-> >>    * Copyright 2024 NXP
-> >>    */
-> >>   
-> >> +#include <asm/device.h>
-> >>   #include <xen/acpi.h>
-> >>   #include <xen/device_tree.h>
-> >>   #include <xen/errno.h>
-> >> @@ -16,12 +17,11 @@
-> >>   #include <xen/sched.h>
-> >>   #include <xen/types.h>
-> >>   
-> >> +#include <asm/firmware/sci.h>
-> >>   #include <asm/smccc.h>
-> >> -#include <asm/firmware/scmi-smc.h>
-> >>   
-> >>   #define SCMI_SMC_ID_PROP   "arm,smc-id"
-> >>   
-> >> -static bool __ro_after_init scmi_enabled;
-> >>   static uint32_t __ro_after_init scmi_smc_id;
-> >>   
-> >>   /*
-> >> @@ -41,14 +41,11 @@ static bool scmi_is_valid_smc_id(uint32_t fid)
-> >>    *
-> >>    * Returns true if SMC was handled (regardless of response), false otherwise.
-> >>    */
-> >> -bool scmi_handle_smc(struct cpu_user_regs *regs)
-> >> +static bool scmi_handle_smc(struct cpu_user_regs *regs)
-> >>   {
-> >>       uint32_t fid = (uint32_t)get_user_reg(regs, 0);
-> >>       struct arm_smccc_res res;
-> >>   
-> >> -    if ( !scmi_enabled )
-> >> -        return false;
-> >> -
-> >>       if ( !scmi_is_valid_smc_id(fid) )
-> >>           return false;
-> >>   
-> >> @@ -78,49 +75,45 @@ bool scmi_handle_smc(struct cpu_user_regs *regs)
-> >>       return true;
-> >>   }
-> >>   
-> >> -static int __init scmi_check_smccc_ver(void)
-> >> +static int scmi_smc_domain_init(struct domain *d,
-> >> +                                struct xen_domctl_createdomain *config)
-> >>   {
-> >> -    if ( smccc_ver < ARM_SMCCC_VERSION_1_1 )
-> >> -    {
-> >> -        printk(XENLOG_WARNING
-> >> -               "SCMI: No SMCCC 1.1 support, SCMI calls forwarding disabled\n");
-> >> -        return -ENOSYS;
-> >> -    }
-> >> +    if ( !is_hardware_domain(d) )
-> >> +        return 0;
-> > Should we also check for config->arch.sci_type ==
-> > XEN_DOMCTL_CONFIG_ARM_SCI_SCMI_SMC ?
-> >
-> Current changes assume that only SCMI_SMC is present. This check was 
-> added in the subsequent patch when multiagent was introduced.
+Le 27/08/2025 =C3=A0 19:49, Andrew Cooper a =C3=A9crit=C2=A0:
+> On 22/08/2025 2:47 pm, Teddy Astie wrote:
+>> Currently, hvmloader uses SMBIOS 2.4, however, when using OVMF, the
+>> SMBIOS is patched to 2.8, which has clarified the UUID format (as GUID).
+>>
+>> In Linux, if the SMBIOS version is >=3D 2.6, the GUID format is used, el=
+se
+>> (undefined as per SMBIOS spec), big endian is used (used by Xen). Theref=
+ore,
+>> you have a endian mismatch causing the UUIDs to mismatch in the guest.
+>>
+>> $ cat /sys/hypervisor/uuid
+>> e865e63f-3d30-4f0b-83e0-8fdfc1e30eb7
+>> $ cat /sys/devices/virtual/dmi/id/product_uuid
+>> 3fe665e8-303d-0b4f-83e0-8fdfc1e30eb7
+>> $ cat /sys/devices/virtual/dmi/id/product_serial
+>> e865e63f-3d30-4f0b-83e0-8fdfc1e30eb7
+>>
+>> This patch updates the SMBIOS version from 2.4 to 2.6 and fixup the UUID
+>> written in the table; which effectively fix this endianness mismatch wit=
+h
+>> OVMF; while the UUID displayed by Linux is still the same for SeaBIOS.
+>>
+>> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+>> ---
+>> This effectively changes the UUID seen with UEFI guests as it was
+>> actually inconsistent with SeaBIOS and SMBIOS expectations.
+>> ---
+> 
+> I agree this is a real bug and needs fixing.=C2=A0 However, ...
+> 
+> 
+>>   tools/firmware/hvmloader/smbios.c | 20 ++++++++++++++++++--
+>>   1 file changed, 18 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/tools/firmware/hvmloader/smbios.c b/tools/firmware/hvmloade=
+r/smbios.c
+>> index 6bcdcc233a..f4822ae6f8 100644
+>> --- a/tools/firmware/hvmloader/smbios.c
+>> +++ b/tools/firmware/hvmloader/smbios.c
+>> @@ -352,7 +352,7 @@ smbios_entry_point_init(void *start,
+>>       memcpy(ep->anchor_string, "_SM_", 4);
+>>       ep->length =3D 0x1f;
+>>       ep->smbios_major_version =3D 2;
+>> -    ep->smbios_minor_version =3D 4;
+>> +    ep->smbios_minor_version =3D 6;
+>>       ep->max_structure_size =3D max_structure_size;
+>>       ep->entry_point_revision =3D 0;
+>>       memcpy(ep->intermediate_anchor_string, "_DMI_", 5);
+>> @@ -462,7 +462,23 @@ smbios_type_1_init(void *start, const char *xen_ver=
+sion,
+>>       p->version_str =3D 3;
+>>       p->serial_number_str =3D 4;
+>>   
+>> -    memcpy(p->uuid, uuid, 16);
+>> +    /*
+>> +     * Xen uses OSF DCE UUIDs which is fully big endian, however,
+>> +     * GUIDs (which requirement is clarified by SMBIOS >=3D 2.6) has th=
+e
+>> +     * first 3 components appearing as being little endian and the rest
+>> +     * as still being big endian.
+> 
+> ... this is not an accurate statement.
+> 
+> Xen specifically tries to treat a xen_domain_handle_t as an opaque blob.
+> 
+> The only two areas I can see ascribing any structure are the 'q'
+> debugkey (not exactly a strong ABI statement), and the arinc635
+> scheduler whose use is buggy (uuids are not unique in Xen; it's the
+> domid which is).
+> 
+> It is an error that a format isn't stated, but the format comes from the
+> toolstack.=C2=A0 We'd better hope that all toolstacks use OSF DCE UUIDs, =
+or
+> this is going to badly wrong.
+> 
 
-In theory ARM_SCI_NONE is possible?
+I agree in principle. maybe OSF DCE UUID is not the proper definition 
+(even though it implies the same) but I should rather use RFC 9562 UUIDs 
+but refering to the string representation rather than the UUID meaning 
+itself.
+
+The RFC 9562 defines the UUID as being sequenced as big endian and 
+string represented as > UUID     =3D 4hexOctet "-"
+>            2hexOctet "-"
+>            2hexOctet "-"
+>            2hexOctet "-"
+>            6hexOctet
+> hexOctet =3D HEXDIG HEXDIG
+> DIGIT    =3D %x30-39
+> HEXDIG   =3D DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
+
+This matches the UUID encoding provided by XEN_DEFINE_UUID and is used 
+by libxl, libvirt and XAPI and considered by Linux when reading the 
+UUID. However, it may always not be a "valid" UUID strictly speaking but 
+it doesn't really matter since we only care about its binary/string 
+representation.
+
+> And on that note, the toolstacks are not the same.=C2=A0 Xapi for example
+> uses reads 16 bytes out of /dev/urandom.
+> 
+> Whatever we end up doing, the fix must include a change to
+> xen/include/public/version.h stating the format of the UUID.
+> 
+Something like
+
+diff --git a/xen/include/public/xen.h b/xen/include/public/xen.h
+index 04fc891353..3241e8dd2b 100644
+--- a/xen/include/public/xen.h
++++ b/xen/include/public/xen.h
+@@ -975,6 +975,10 @@ typedef struct dom0_vga_console_info {
+  #define xen_vga_console_info dom0_vga_console_info
+  #define xen_vga_console_info_t dom0_vga_console_info_t
+
++/*
++ * The guest handled provided by toolstack encoded as a UUID in
++ * big-endian order. Its string representation follows RFC 9562.
++ */
+  typedef uint8_t xen_domain_handle_t[16];
+
+  __DEFINE_XEN_GUEST_HANDLE(uint8,  uint8_t);
+
+?
+
+So that we're converting between big-endian encoded UUID (RFC 9562) and 
+Microsoft GUID (which doesn't care about its content but only about its 
+endianness regarding formatting).
+
+> ~Andrew
+> 
+
+Teddy
+
+
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
 
