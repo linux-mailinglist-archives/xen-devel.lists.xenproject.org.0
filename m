@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0CA0B37AC5
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 08:49:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1095580.1450536 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F27CDB37B56
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 09:14:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1095608.1450546 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ur9yW-0006PG-Eh; Wed, 27 Aug 2025 06:49:40 +0000
+	id 1urALd-0002RZ-B2; Wed, 27 Aug 2025 07:13:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1095580.1450536; Wed, 27 Aug 2025 06:49:40 +0000
+Received: by outflank-mailman (output) from mailman id 1095608.1450546; Wed, 27 Aug 2025 07:13:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ur9yW-0006NZ-By; Wed, 27 Aug 2025 06:49:40 +0000
-Received: by outflank-mailman (input) for mailman id 1095580;
- Wed, 27 Aug 2025 06:49:39 +0000
+	id 1urALd-0002Q7-8F; Wed, 27 Aug 2025 07:13:33 +0000
+Received: by outflank-mailman (input) for mailman id 1095608;
+ Wed, 27 Aug 2025 07:13:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Gy2E=3H=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ur9yU-0006NT-Vt
- for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 06:49:38 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ id 1urALb-0002Px-U0
+ for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 07:13:31 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ff191f98-8311-11f0-b898-0df219b8e170;
- Wed, 27 Aug 2025 08:49:36 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-afcb78ead12so895598666b.1
- for <xen-devel@lists.xenproject.org>; Tue, 26 Aug 2025 23:49:36 -0700 (PDT)
+ id 5386ae93-8315-11f0-b898-0df219b8e170;
+ Wed, 27 Aug 2025 09:13:26 +0200 (CEST)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-61caa266828so1707911a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Aug 2025 00:13:26 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afe76b4dd5fsm664376966b.102.2025.08.26.23.49.35
+ 4fb4d7f45d1cf-61caae5fc3fsm1430564a12.51.2025.08.27.00.13.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Aug 2025 23:49:35 -0700 (PDT)
+ Wed, 27 Aug 2025 00:13:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +45,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff191f98-8311-11f0-b898-0df219b8e170
+X-Inumbo-ID: 5386ae93-8315-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756277376; x=1756882176; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756278806; x=1756883606; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rcJMorFk2kd6b4msBMnKbHG6JUC4+XVrRfprzYQVQ0U=;
-        b=QjDEFe6VCIlECBpVZKWoXgXOurhHBVygBEDDrgcUyF4tmkUKyLPJEG2AU5W//OiyQX
-         V3wBdUPwdq9mktsFwDBHrT8NVLKczqTo0xgiTitfjceqq/ErnDAd98a6jhVlKn7m1+lS
-         6xR07nNgvMmdlWhY0ZTsIkzOOHQebbrnB+Rr9YTtfYFht4vgzN/8S1Pr3DS9Hnsme7iH
-         JSpggCuTkYQCGcAutxUaTW7kyHde68PX7BvoPPi7Z8EJhfUI6Pk5Oa3JIqLKlnmxlcpW
-         AU5UfIwdD7HplQsmas4vXePJ7v5edGTIIQe9DsfePvL1yybtlbGGBVQTtgevTFtpH0p9
-         9+cw==
+        bh=QZpPlf/fPJ7e1qsMCEmJzLy5X0G0I179INc0LnfULro=;
+        b=a494KSUT0ahTZ06aEVP47XmyC/rkYoTgr8CDV4Fea9Vq3xugX6nZZ5BvrTbvWetW7x
+         OXP28JAVGJBjPTkErdmpOPWQ8gcQlK/ReTN+ivG956ZNLJOVug4OoEQ/qpzo6q6QOK8P
+         xlJLsigeL4K/UOAVFJUrGZtuFZZOoSXXZkLL26fsGMOumS/SJmyrtf4V3AujVPYNxCuB
+         xLR07pgLPWXFKLGXAuRyHCWfrZyEbRmKE0rfVdMPSaOkhDiAS52d1FvA/yW0KQ59Bzwj
+         KMaIssrodXRoL6FttBUGF4D+GNHvzxXiBRGEfU5/97wO96NvV0IgYk9P9EBlEYjxfTkA
+         NpXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756277376; x=1756882176;
+        d=1e100.net; s=20230601; t=1756278806; x=1756883606;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rcJMorFk2kd6b4msBMnKbHG6JUC4+XVrRfprzYQVQ0U=;
-        b=Nt76p0tcDkeqQiCw36FKX3qy4aNl1hkNntCsvcJvJHUVDKQYyQ5aZowvc6ABlkRz7Z
-         r4jyaVZWwiZYJ1TwZz9qo5p6SJnEGvUn1QCeKgwFIH5uhOmidDUALIJ7N6aUgslfBy1O
-         swBljWhw9o+j4X439+0rUn3RWSDXE/ZQlvLEzU/omQ67R8XaEpLdwtHCZigQ4tey4ecb
-         bq4/MBvCPDyQwzkiNWO0pwEZtY1UmyrXE9Vpz774RV4mFxkL65FrBY3F8eReNYv4J3NJ
-         rV3islKEdfEu+HaP3nSSTCSwH/bOOdSAc0Dn5qbLFm9omv5U8duQWuPOYBsETODtL+1A
-         HqHQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWDBwUZmeRri1GjOUI2ETzNREc1aSFRmkgKejR+jByqJ0MxvxtoBGthyyo8oCBdj+LlhsD8sRr9KiQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw/I57T9FGJy+WO5mtf+YahEcwvImx7easTTT9HlwbZD8wulVYZ
-	Q/m6xeDV/vF+/68j/ryndJl1q5pvuVZa8JJYhcCdq+/VWghkUOVpWQ6QTSG2PZbb7A==
-X-Gm-Gg: ASbGncv/dK8sQQrqh5p2A2XX7rde51QY2rPrU5swUvbNp/CT13O6AQr8ZV0KvpJvmOv
-	xLN9us5mCfhFqIH6Xo7HJn8x8YSUrZpt0jxqj/w8eg3VBzG9zhwswT7Fin1D5nmMCb9trnrYjoW
-	xkg0RZTYOE8BQ2vdtXnSJWEjw8sbksd1ewQ4pXK2pIDZE4vW3adRxd6if2uuRog4I0La7d3sGTJ
-	MmwdS25+3rEApDZ4GM0lcmtOEHFanyAXA7wLK/SgfARrhL2gdaGK7+4Uk6OOt4GOBEOZwuOcPD8
-	LZNTA/Ge3teKgp4kYMuNfv6767tFvAyBd8F0L2dgDaYcHzM67j8vfP0+1Dmpc55//YwZOGFMCDO
-	Y0pPa89/y2QTIZ45biu+yWQs/LKy8jrUaSvAW72CXm+I/NGoXSRicUBWsBXP2NGpZYobsW2BIex
-	79Ap9fqR92Iiy6cY6XzA==
-X-Google-Smtp-Source: AGHT+IE8aRxAuz5UROSemss777nP3Mq4Wr/VsDKBN7UrHEHBGfPDNTehx4t7m+F+brGODXbF/45deQ==
-X-Received: by 2002:a17:906:6a0a:b0:ae3:a812:a780 with SMTP id a640c23a62f3a-afe294ce84cmr1764436066b.61.1756277376067;
-        Tue, 26 Aug 2025 23:49:36 -0700 (PDT)
-Message-ID: <87d3e637-cc74-422f-9711-dd42e93475a4@suse.com>
-Date: Wed, 27 Aug 2025 08:49:34 +0200
+        bh=QZpPlf/fPJ7e1qsMCEmJzLy5X0G0I179INc0LnfULro=;
+        b=nZsnaQEhHixwkAV7qq/znDA4P7pKvCha0+iMwq36c2UVT7ju/sQvV1CoK9zal2fm2B
+         tEjLH3xU55Z8/sjZH7OqiqjyN3wmlEY/mwMbH73ZTwX71SawykQISm24U09AQH7uxKKj
+         bXcM0P7Y+aqc1G80XeU6Y7VVAr/bCK9kW7EQZXU5ed7hkitaeRDOBfZWYEYhuuAIuuT3
+         GY3ZVmZfEaXFG+wpsVb2eUQNnPefReMg0ByQcMI027M8/It1M4mXHsH+k9a1Ml31X8Hv
+         OBtfWIGJm1A5j1gJrX1UQjX6iV5KdLA1Qu43cMrZCPWm01f8sl+ANLn5X+HEMbwanBDS
+         fDcA==
+X-Forwarded-Encrypted: i=1; AJvYcCVCg3Kah5sVM4YxglmeEhzeYZtZBCezooogvYMvHxmzD9bL31Da+r4esJ3yt2wzqxI+0O+ERl3T7fg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzDYg/UDbXP50Tbkxdq73uP5nqZ3eFy/qmHUuv81aOabjVTW+BZ
+	MUOIgtdKmG8yI5CS49l83cfTmGmzAUu9g9anKSmTdTfJFJxgXogJ0YqJUBOYnIDjpw==
+X-Gm-Gg: ASbGncshcpzRjpJFWIdm6nkXxKKxT5DoYyKvRV2AmWx2h+8VLmnDMjHjutsA1Iw/olF
+	1OeeyHL933nCXGp6HDB/ZVtmh7DoQm3nZ3N5S/ydaVKO4ikhdztTSCuEL+VnGOhMR2FeCJnIEGN
+	s4dWcvJpUqVKzXKilO1B4r0BgU6dEm6cNNHWQynJawPnsFFYxwOw/3D8F0hZdP4pUPH6jxTE/2p
+	mP7tmdEHwR/jEHF5cOfhU2I8bOh+EjagL4NQxjjLRmW8LuyutmlVBbGnjJQNA/kPdg7a3/kqmZJ
+	wU7PwCBaEBlBcyYOPo+E6gjQifcx7/rJ7a9hbklrVtUAIbQiE0q9kbwk0327WV0edHX2NBNRomS
+	kIDN3VGPRsCAiUzFqvZFzrnSli9pA/W6VgFp3RMjsaPheLn4mml2ORJ9BUq9MM1bw3FWRYuN8p6
+	nn8Y+p09w=
+X-Google-Smtp-Source: AGHT+IEs7QQQpQ+QHms7VvccdWHZkwsnmSezPFz0aWxK3R2PkC8Cqfo+oQCrK81SjJGHKmtq16OSBg==
+X-Received: by 2002:a05:6402:2790:b0:61c:96a1:da11 with SMTP id 4fb4d7f45d1cf-61c96a1e080mr4005235a12.27.1756278806249;
+        Wed, 27 Aug 2025 00:13:26 -0700 (PDT)
+Message-ID: <cc8724b6-bb31-4482-a459-156366b7b433@suse.com>
+Date: Wed, 27 Aug 2025 09:13:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Consider changing CONFIG_ACPI default on ARM?
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: Demi Marie Obenour <demiobenour@gmail.com>,
- xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Paul Leiber <paul@onlineschubla.de>
-References: <CAO_48GG1Tg0d3ATnNAYNr0cg7Ty_zsnzT29=dpkk99DxyTWcmg@mail.gmail.com>
- <fceb5df8-d628-479d-acb3-d1d26409fbac@onlineschubla.de>
- <aJLae1Nl0pyOZgyh@mattapan.m5p.com>
- <1b96f2f3-55a2-4b33-84b1-a7c18d38d10c@suse.com>
- <6e9b5265-7a3b-4fd5-b14e-0e60a8b49833@gmail.com>
- <a3092ae1-d836-4403-8fb5-30593fcd2fb8@suse.com>
- <aKjOaT-P74Yh4-bi@mattapan.m5p.com>
- <5b85b5da-dfa3-465a-9708-62fc55fe48bb@suse.com>
- <aK4Ztm8QE3O6Ifcc@mattapan.m5p.com>
+Subject: Re: [PATCH] xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>, ray.huang@amd.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ xen-devel@lists.xenproject.org, Penny Zheng <Penny.Zheng@amd.com>
+References: <20250815102728.1340505-1-Penny.Zheng@amd.com>
+ <fb6f559a-b2aa-4b25-a6d3-401ecc4b4bd5@suse.com>
+ <d6046b53-9317-43d6-bfda-e30d42c09320@gmail.com>
+ <2035b14e-3836-4e80-9dad-8a49ca90864a@suse.com>
+ <alpine.DEB.2.22.394.2508181646220.923618@ubuntu-linux-20-04-desktop>
+ <49416df6-83c8-4fa3-bf81-2d1e504ef31b@suse.com>
+ <alpine.DEB.2.22.394.2508251934200.3391208@ubuntu-linux-20-04-desktop>
+ <alpine.DEB.2.22.394.2508261728250.3391208@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,43 +129,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aK4Ztm8QE3O6Ifcc@mattapan.m5p.com>
+In-Reply-To: <alpine.DEB.2.22.394.2508261728250.3391208@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.08.2025 22:31, Elliott Mitchell wrote:
-> On Mon, Aug 25, 2025 at 10:07:18AM +0200, Jan Beulich wrote:
->> On 22.08.2025 22:09, Elliott Mitchell wrote:
->>> On Fri, Aug 15, 2025 at 10:14:42AM +0200, Jan Beulich wrote:
->>>> On 14.08.2025 23:27, Demi Marie Obenour wrote:
->>>>> On 8/14/25 02:55, Jan Beulich wrote:
->>>>>>
->>>>>> Parties interested in changing the support status of any component are the
->>>>>> primary candidates to actually carry out the necessary work.
->>>>>
->>>>> What is that work?
->>>>
->>>> To determine what exactly needs doing is part of the exercise. I, for one, am
->>>> unaware of a concrete written down set of things which need doing.
->>>
->>> Since you're not pointing to anything definite, could it be everything
->>> has been resolved?
->>
->> Possible. Yet even then the state of things needs fully writing down, perhaps
->> in a commit message for the patch changing the support status. That's likely
->> still a time consuming job.
+On 27.08.2025 02:33, Stefano Stabellini wrote:
+> So I ran a test and the appended change, which is based on [1] and
+> renaming CONFIG_DOMCTL to CONFIG_SYSCTL, is sufficient to resolve the
+> build issue.
 > 
-> Issue is much of this is better done by the people doing those projects.
-> Most of what I've done is checking a real hardware/software platform and
-> confirmed functionality.  Presently it boots, but the framebuffer doesn't
-> work.  VMs appear to work fine though.
+> For 4.21, I suggest we go with two patches:
+> 1) global rename of CONFIG_SYSCTL to CONFIG_MGMT_HYPERCALLS
+> 2) stub domctl_lock_acquire/release based on CONFIG_MGMT_HYPERCALLS
 > 
-> How does the attached patch look for enabling ACPI?
+> Jan, are you OK with this?
 
-The main (Arm) effect of it I can't judge on. I don't, however, think that
-an experimental option can be default-on. That would effectively make it
-(security-)supported. And of course there are a few formal issues with the
-patch.
+Naming if the option aside, no, I fear I dislike the stubbing. What's
+worse though, ...
+
+> --- a/xen/include/xen/domain.h
+> +++ b/xen/include/xen/domain.h
+> @@ -148,8 +148,17 @@ void arch_dump_domain_info(struct domain *d);
+>  
+>  int arch_vcpu_reset(struct vcpu *v);
+>  
+> +#ifdef CONFIG_SYSCTL
+>  bool domctl_lock_acquire(void);
+>  void domctl_lock_release(void);
+> +#else
+> +static inline bool domctl_lock_acquire(void)
+> +{
+> +    return false;
+
+... this will break x86'es HVM_PARAM_IDENT_PT handling. That is, in
+principle I would agree that returning false here is appropriate. But
+for the specific case there it's wrong.
+
+As said on the call yesterday, until what you call MGMT_HYPERCALLS is
+completely done, the option needs to be prompt-less, always-on. Adding
+a prompt was necessary to be the last thing on the SYSCTL series, and
+it'll need to be last on the follow-on one masking out further
+hypercalls. IOW my take is that 34317c508294 and 568f806cba4c will
+need reverting (the latter being what caused the regression, and the
+former depending on the latter), to allow to cleanly continue that
+work after the rename. If we don't do the reverts now (and take either
+Penny's patch or what you propose), imo we'll need to do them later.
+Else we're risking to introduce new randconfig breakages while the
+further conversion work is ongoing.
 
 Jan
 
