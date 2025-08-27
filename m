@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C574B37C40
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 09:53:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1095629.1450557 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50B25B37C9E
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 09:58:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1095645.1450570 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urAxN-0007nW-3Y; Wed, 27 Aug 2025 07:52:33 +0000
+	id 1urB3D-0008OY-O6; Wed, 27 Aug 2025 07:58:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1095629.1450557; Wed, 27 Aug 2025 07:52:33 +0000
+Received: by outflank-mailman (output) from mailman id 1095645.1450570; Wed, 27 Aug 2025 07:58:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urAxN-0007kg-0y; Wed, 27 Aug 2025 07:52:33 +0000
-Received: by outflank-mailman (input) for mailman id 1095629;
- Wed, 27 Aug 2025 07:52:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1urB3D-0008MK-Ky; Wed, 27 Aug 2025 07:58:35 +0000
+Received: by outflank-mailman (input) for mailman id 1095645;
+ Wed, 27 Aug 2025 07:58:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Gy2E=3H=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1urAxL-0007ka-DS
- for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 07:52:31 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c8170cb3-831a-11f0-a32c-13f23c93f187;
- Wed, 27 Aug 2025 09:52:30 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-afcb731ca8eso1025578466b.0
- for <xen-devel@lists.xenproject.org>; Wed, 27 Aug 2025 00:52:30 -0700 (PDT)
+ id 1urB3B-0008M5-Ue
+ for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 07:58:33 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9ff7fdd7-831b-11f0-b898-0df219b8e170;
+ Wed, 27 Aug 2025 09:58:32 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-afebb6d4093so146994866b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Aug 2025 00:58:32 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afe80daceb5sm590161366b.68.2025.08.27.00.52.28
+ a640c23a62f3a-afe7fd59b00sm601815466b.106.2025.08.27.00.58.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Aug 2025 00:52:29 -0700 (PDT)
+ Wed, 27 Aug 2025 00:58:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c8170cb3-831a-11f0-a32c-13f23c93f187
+X-Inumbo-ID: 9ff7fdd7-831b-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756281149; x=1756885949; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756281511; x=1756886311; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KfwZ9l5V2bAjpuYOBMDJ7zBCdjwTCyFDu0LrI6NWVBk=;
-        b=HkMfNyyaK10wHp2p3v30MKYzC4a5axC8Cs1AYrRRe7IGxjdqx+mqxN+Mxf2wngiEhy
-         N08Pdbc0BU7ogfyiws0o/HXYGzwMu/KKlDGzrIgW+PsBpLTYaZwvAoHdYC2T+fEt529d
-         KwuKK/VH4Y6rLjUNB4MFTcKt+0lKUruesxkWt6M6NqADPQj7e72YckjnXyAFgld/++nz
-         gedwHXsIsfoS19xT3llYPPZXSwYHh/63HDsoFiGiVVgLUj1aTfpupjST3Ov79L18+N1C
-         Uu/bn+NonhRjkSyUEiex4UKa1xGf09Ycc+RgCkf52Hf7AYfQVhaW/zv8DvNM/4SBbAAi
-         7h6w==
+        bh=P78y0ZAf9K2ANlf9uB4nNjETFBHLWK9P8L0nxlKFXN4=;
+        b=IKggm+3/S2/yJQDoG5nt1ynbgo5ubI+Xa2Qa4gcnzIStTEGvIM2YRiqWeHBzdZsSrm
+         IusLTXSfsOJu68Z7R0/ncmYkBW1q0RHscSyv/gEiyNOWs8P6UDovDKdpMNzRlflFyl5j
+         2CvQulIEg4pjDt+sJt8KuPKZVVfqbIFGsVOvb3LuapFrG2U2REIU7qegQtZwXu/T2yvK
+         oyhWxN5Ygx/DPqBAC4BeP2o4BWsfCfBzAE1OA6lSr22Z4ThbVD14pkkoajbNTTReKHGc
+         7/Yr+bh3AYTBdvEBgBtz2uK8XnZF/w9yLIUQLi+XSKXRAWNG/edNjZQNnk2sAn8rglUZ
+         RXyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756281149; x=1756885949;
+        d=1e100.net; s=20230601; t=1756281511; x=1756886311;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KfwZ9l5V2bAjpuYOBMDJ7zBCdjwTCyFDu0LrI6NWVBk=;
-        b=u7SywqC+h2O3lMLX7CB4Jw1E0TBEZRByvKFrcBnEdWn2OhFg+kH3u/3X7i19cDZrAX
-         NmhN0uKXMBBxoreNY8qDlHjBb2BqEldBxr2AzlfKEHyFmr26wP1niEUSuijqijlSa1rz
-         yRzzk9Xhxh+Buz5J3zligaUBoZ7CApJaCYaz2wYWyZYoW0UpqMNFxguPbjwAB4GktLUQ
-         CMU/OkZc7OUNRv3/EmOoc6YA1eYlgaBj88NYZcpK8NpHMRpmTNYLouJcedb6E41+ze08
-         3X0rLGacPpmFPD5fOph9RaEWUKKD5LTvPd3ZbGhb0SHDS+zohMQ6ZjVvlxkC5IFziQIq
-         6Yqw==
-X-Forwarded-Encrypted: i=1; AJvYcCUCwpTvPY1owHKww6B4Tk/2Drueak54hbfkNZUR4gyD2dOa9lLNBKd4g4lt3OQR2N+3kwj6cs0B/NM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwxN0fAV821tiQIzjrgJS+wW+5TTlhdvBorKuzgIj/7V6OaZJfb
-	dcJgxRww5Tce1XdR3MuplIPxbnP5Ri0SLGrFKJv+qfT0PHCGIV6vtxr6wnhfxNhMhw==
-X-Gm-Gg: ASbGncuc9Qi8tGGXzLhdjLLPc/7pzh6KW1bkyx7oIlIIuVQUY6ZIxmWOF21d6T6aKED
-	BtjDoR7NL3ww3v928cbNIoLgrn1TWnuYbyzNqCu6O4/IP628rGoGnamVJRR3PQPcjB8oY33Wmcd
-	pw9X4ZdTaGuvqQHCYUEP5NOliO5YNdvUXKpWvP6dCILVkPj56ba5md4XH7K3qcZmuWBD4Gokmqg
-	zcoiNrjveuIGzuYh8JG/9VAB/KS5gMxe3lwULk36s6e1Q3hHmzTG4Wnkx8RfKMSL4g+e3Sef3kU
-	RX85r2egRlGT3R5ILzQ+Vzv2QFk5FM8uY6hromvP+j+dTEzZE2CqxWw9DpxDrfFxudmpB5mVlfj
-	8CgiSyyEUyZx2h7Rnd2AVxyfRZcutJDxLOuQl2KyDL9s820EYhpr5YA0pBg7eB7fO8+Ogi+xQLY
-	vODpqDyrFRhIvyetHcmw==
-X-Google-Smtp-Source: AGHT+IFz6t0xh3WrMotafXWmuMTy6nRH5AkFrQ9WN8rtTxSXohdXoYDKiOYqYshcwNiA6yfGOJ15Xw==
-X-Received: by 2002:a17:907:86aa:b0:ae0:a483:7b29 with SMTP id a640c23a62f3a-afe29550672mr1723992666b.49.1756281149387;
-        Wed, 27 Aug 2025 00:52:29 -0700 (PDT)
-Message-ID: <3ec7b53e-aef6-4a00-acb3-19cbbe6543c9@suse.com>
-Date: Wed, 27 Aug 2025 09:52:28 +0200
+        bh=P78y0ZAf9K2ANlf9uB4nNjETFBHLWK9P8L0nxlKFXN4=;
+        b=blSnGNoIux8FRo7y7+6biXMD6qzpCxivJTVHlbH20SCBVRS/n/veogsLTKl+WVmmwR
+         R20vgXiVuSzVv6JbbqAWnCWbbangzRtyZHhpigRJyDlKGFIxvsn3722kGv7NtpjMFOmN
+         uDYazUsqEPLiGPGPVjZ3PYQV1A8FWgoO+mTtIdiOztChb0qTJdXo1hzINW6oKEQr50T6
+         62L44n4IvhjVmv5kOMOLYjtYdu6QMauFq/WdSBHYOVk7vMDZey+ct81X/bn3qhaCOL42
+         md5PMALUkpbDuFkdFkEYQno9F3QqIeTrDKxrjKGsm2UiJif9hZ1AgLMz3BSeEnyrgBf2
+         uO0g==
+X-Forwarded-Encrypted: i=1; AJvYcCWLsm72OcXGlIhBA+quOkFDiW7iFIdz5gsyRXQMgSjCQgXj89TI62FzRBhGhrZ40rPcJiz1J6gfmyY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzxM9bfcEdMHh7k79mfpnTzcmV93xmsu6zKNfxpegAlfYpt4xFk
+	78X2ZnLH8mTfC/nxSrYvLBVdZtX7NzcNlImy2zRsXqFRHLgK5yMalhkL2D/UvLuY9A==
+X-Gm-Gg: ASbGncsOIEI9uPu+n1nZIgFSeSe1Hijq6z9uWvgwssjp8FHICvkIWbviwt6b/UkVUgd
+	VV2L3tKuxR37eyO7mjs5Nz51xl98bPxpp3O/bnSb3aaX81zRNwxwmObeAaM2Cuesn53UBDchEPo
+	T5TLCIHpLSlHZ5Ufom9Mj/trDBZChholP8FKnDlFL1OI0l6R1djdqI0fs0QKOOZmKVRPcN/CAXk
+	A0C5NJTo2wjMMrSVYBk4UDaNFpoBi6EniOBH7TZEQ/SoGaidnb9qjUfwH4ukwzGstWHoVdZOXTI
+	HZjgI5DCBbZnFM0cyP9HlnwvqcWKZXBG7lqFxqFtKwSBadyAbaY1KRbRT1U8n8W7Pngm4x0k4bk
+	wuKBlhn8X+7mmFZpjlEvs6gbOckx+1LCdUjRwXNBuRJZseuXU90vhpkavm67PzA+/hFPUU60Rqz
+	yiBM3nkvQH98rGbv88KQ==
+X-Google-Smtp-Source: AGHT+IFd5sT8nD9z3rOyxDBvq5JhYfEQAgwBSHFNfNqUqTpjCKhGtD/UGuQC4wphqd2Ph/qfBdPD1A==
+X-Received: by 2002:a17:907:7203:b0:afe:ae1b:bf17 with SMTP id a640c23a62f3a-afeae1bd560mr443120266b.3.1756281511281;
+        Wed, 27 Aug 2025 00:58:31 -0700 (PDT)
+Message-ID: <609d686e-a41c-47f4-9e5d-3733e9ec7723@suse.com>
+Date: Wed, 27 Aug 2025 09:58:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/bitops: Optimise arch_ffs{,l}() some more on AMD
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250527222930.1452674-1-andrew.cooper3@citrix.com>
- <20250826174135.605220-1-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v3 8/8] xen/dom0less: store xenstore event channel in page
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+References: <20250826210847.126015-1-jason.andryuk@amd.com>
+ <20250826210847.126015-9-jason.andryuk@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,97 +120,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250826174135.605220-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20250826210847.126015-9-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.08.2025 19:41, Andrew Cooper wrote:
-> --- a/xen/common/bitops.c
-> +++ b/xen/common/bitops.c
-> @@ -97,14 +97,14 @@ static void __init test_for_each_set_bit(void)
->      if ( ui != ui_res )
->          panic("for_each_set_bit(uint) expected %#x, got %#x\n", ui, ui_res);
+On 26.08.2025 23:08, Jason Andryuk wrote:
+> --- a/xen/common/device-tree/dom0less-build.c
+> +++ b/xen/common/device-tree/dom0less-build.c
+> @@ -26,6 +26,7 @@
+>  #include <public/event_channel.h>
+>  #include <public/io/xs_wire.h>
 >  
-> -    ul = HIDE(1UL << (BITS_PER_LONG - 1) | 1);
-> +    ul = HIDE(1UL << (BITS_PER_LONG - 1) | 0x11);
->      for_each_set_bit ( i, ul )
->          ul_res |= 1UL << i;
+> +#include <asm/guest_access.h>
+>  #include <asm/setup.h>
 >  
->      if ( ul != ul_res )
->          panic("for_each_set_bit(ulong) expected %#lx, got %#lx\n", ul, ul_res);
+>  #include <xen/static-memory.h>
+> @@ -120,8 +121,14 @@ static void __init initialize_domU_xenstore(void)
 >  
-> -    ull = HIDE(0x8000000180000001ULL);
-> +    ull = HIDE(0x8000000180000011ULL);
->      for_each_set_bit ( i, ull )
->          ull_res |= 1ULL << i;
+>          if ( gfn != XENSTORE_PFN_LATE_ALLOC && IS_ENABLED(CONFIG_GRANT_TABLE) )
+>          {
+> +            evtchn_port_t port = d->arch.hvm.params[HVM_PARAM_STORE_EVTCHN];
+> +            paddr_t evtchn_gaddr = gfn_to_gaddr(_gfn(gfn)) +
+> +                offsetof(struct xenstore_domain_interface, evtchn_port);
+> +
+>              ASSERT(gfn < UINT32_MAX);
+>              gnttab_seed_entry(d, GNTTAB_RESERVED_XENSTORE, xs_domid, gfn);
+> +            access_guest_memory_by_gpa(d, evtchn_gaddr, &port, sizeof(port),
+> +                                       true /* is_write */);
 
-How do these changes make a difference? Apart from ffs() using TZCNT, ...
-
-> @@ -127,6 +127,79 @@ static void __init test_for_each_set_bit(void)
->          panic("for_each_set_bit(break) expected 0x1008, got %#x\n", ui_res);
->  }
->  
-> +/*
-> + * A type-generic fls() which picks the appropriate fls{,l,64}() based on it's
-> + * argument.
-> + */
-> +#define fls_g(x)                                        \
-> +    (sizeof(x) <= sizeof(int)      ? fls(x) :           \
-> +     sizeof(x) <= sizeof(long)     ? flsl(x) :          \
-> +     sizeof(x) <= sizeof(uint64_t) ? fls64(x) :         \
-> +     ({ BUILD_ERROR("fls_g() Bad input type"); 0; }))
-> +
-> +/*
-> + * for_each_set_bit_reverse() - Iterate over all set bits in a scalar value,
-> + * from MSB to LSB.
-> + *
-> + * @iter An iterator name.  Scoped is within the loop only.
-> + * @val  A scalar value to iterate over.
-> + *
-> + * A copy of @val is taken internally.
-> + */
-> +#define for_each_set_bit_reverse(iter, val)             \
-> +    for ( typeof(val) __v = (val); __v; __v = 0 )       \
-> +        for ( unsigned int (iter);                      \
-> +              __v && ((iter) = fls_g(__v) - 1, true);   \
-> +              __clear_bit(iter, &__v) )
-> +
-> +/*
-> + * Xen doesn't have need of for_each_set_bit_reverse() at present, but the
-> + * construct does exercise a case of arch_fls*() not covered anywhere else by
-> + * these tests.
-> + */
-> +static void __init test_for_each_set_bit_reverse(void)
-> +{
-> +    unsigned int  ui,  ui_res = 0, tmp;
-> +    unsigned long ul,  ul_res = 0;
-> +    uint64_t      ull, ull_res = 0;
-> +
-> +    ui = HIDE(0x80008001U);
-> +    for_each_set_bit_reverse ( i, ui )
-> +        ui_res |= 1U << i;
-> +
-> +    if ( ui != ui_res )
-> +        panic("for_each_set_bit_reverse(uint) expected %#x, got %#x\n", ui, ui_res);
-> +
-> +    ul = HIDE(1UL << (BITS_PER_LONG - 1) | 0x11);
-> +    for_each_set_bit_reverse ( i, ul )
-> +        ul_res |= 1UL << i;
-> +
-> +    if ( ul != ul_res )
-> +        panic("for_each_set_bit_reverse(ulong) expected %#lx, got %#lx\n", ul, ul_res);
-> +
-> +    ull = HIDE(0x8000000180000011ULL);
-> +    for_each_set_bit_reverse ( i, ull )
-> +        ull_res |= 1ULL << i;
-
-... even here the need for the extra setting of bit 4 remains unclear to
-me: The thing that was missing was the testing of the reverse for-each.
-You mention the need for an asymmetric input in the description, but isn't
-that covered already by the first test using 0x80008001U?
-
-That said, I certainly don't mind the change, it just isn't quite clear to
-me whether I'm missing something crucial.
+Isn't the use of an arch-specific function going to pose yet another issue
+for making this code usable on x86? Can't you use copy_to_guest_phys() here?
+Which may in turn need to be passed in by the caller, see e.g. dtb_load()
+and initrd_load() (i.e. cache flushing may also be necessary for Arm).
 
 Jan
 
