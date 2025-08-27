@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCC81B388ED
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 19:54:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1096654.1451291 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B83FEB38923
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 19:59:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1096664.1451300 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urKLl-0001VW-55; Wed, 27 Aug 2025 17:54:21 +0000
+	id 1urKQZ-00024R-Mu; Wed, 27 Aug 2025 17:59:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1096654.1451291; Wed, 27 Aug 2025 17:54:21 +0000
+Received: by outflank-mailman (output) from mailman id 1096664.1451300; Wed, 27 Aug 2025 17:59:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urKLl-0001Sr-14; Wed, 27 Aug 2025 17:54:21 +0000
-Received: by outflank-mailman (input) for mailman id 1096654;
- Wed, 27 Aug 2025 17:54:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1urKQZ-00022P-Ij; Wed, 27 Aug 2025 17:59:19 +0000
+Received: by outflank-mailman (input) for mailman id 1096664;
+ Wed, 27 Aug 2025 17:59:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=n4tM=3H=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1urKLj-0001Sl-SY
- for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 17:54:19 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20627.outbound.protection.outlook.com
- [2a01:111:f403:2009::627])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d9d9755a-836e-11f0-aeb2-fb57b961d000;
- Wed, 27 Aug 2025 19:54:18 +0200 (CEST)
-Received: from SJ0PR13CA0108.namprd13.prod.outlook.com (2603:10b6:a03:2c5::23)
- by SA5PPFE91247D15.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8e8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.14; Wed, 27 Aug
- 2025 17:54:14 +0000
-Received: from SJ1PEPF000023CB.namprd02.prod.outlook.com
- (2603:10b6:a03:2c5:cafe::a8) by SJ0PR13CA0108.outlook.office365.com
- (2603:10b6:a03:2c5::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9073.13 via Frontend Transport; Wed,
- 27 Aug 2025 17:54:14 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF000023CB.mail.protection.outlook.com (10.167.244.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9052.8 via Frontend Transport; Wed, 27 Aug 2025 17:54:13 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 27 Aug
- 2025 12:54:10 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1748.10; Wed, 27 Aug
- 2025 10:54:10 -0700
-Received: from [172.31.63.243] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 27 Aug 2025 12:54:10 -0500
+ <SRS0=9AuO=3H=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1urKQY-00022J-BW
+ for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 17:59:18 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8bf2480a-836f-11f0-ae26-e363de0e7a9e;
+ Wed, 27 Aug 2025 19:59:16 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-45a1b0bd237so467345e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Aug 2025 10:59:16 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3caf9b2190dsm9337215f8f.45.2025.08.27.10.59.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 27 Aug 2025 10:59:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,108 +45,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d9d9755a-836e-11f0-aeb2-fb57b961d000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ARAut7dQncewEtMgIwIz9XBck8UpppYZiTy1ko3mEAq2HHsLTliJ5fI0L0TIk2PNvKINpCpRiBYmZkFq0HVoNFxFKlTBTa+jw64DOwSXWB1FAUcFIYHTDIqB+jHOxn90IM65k6AoT7/edCwQRNN/Jfp5LSV2SYJYKMDAX0aoiYQt3j7K7o81v0ueUVvsPHL4mO8UWdvX+NGjV4JkN9P5KafmkxsVEfHjxMHuvVgrrhUgtQKrw9ECLPKJW8qYD/Q+2GKbWzueqgNA7XaT9xK02LN+sz9yLGg/aLSEvYqE/X+MqelktHW9IcdftvXSyJNrK7KBZ+q3yGihs4DuChLznw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nPeXV9WecEI1cPsKm6NwAWath1WDYBCeRo9RVpajFCs=;
- b=v2v9NKjTjAsGDgEbfexqsLaS3ulMSfgB6ccr7lFpk+LMa8CfgbDJIz9TW1q8+BF/qUIeFzA/PKrJnmEX2xObAfjbHFmwnBdG8tWc4gtWstU/woeZheWRcv0JxP2LdHtxKBt373BiMSIWdxGrlrg7nDTCkcsStx707cIc/75C8PADByVdEkZ4tV45fUro5JIuJdbGAnrVK3DWgTWKd6yGj6In/Ec+fVHg3DvdKjRe1kjLhzBOddQ6q3hJmw0PUfTnql9lsKw0WZ6RjZRXBaPTMCIJE3TcQiLoX5RvbMwsnlRH4sW5RmbclQkIJSSaBteSuKatAznb54pkpZx0Ry92zw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nPeXV9WecEI1cPsKm6NwAWath1WDYBCeRo9RVpajFCs=;
- b=OTGbFCDz9cAPidZNYV8MuuJ8naNIJeCwmvnDRiCX+tgrCgrUhkX8dTjFjkHxgazvUbECfJie6iRgsZ7z4VzmU+uzaYbTrOgXbe9DGH5g9dEssAKm5uO3OGNpp+gFFM86pQVheIco9Iut/FXAeATHlyzigGbf2FvPpVQXWu82Uc8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <aac8be7f-8eef-4c19-965b-d5cd9d7d97ce@amd.com>
-Date: Wed, 27 Aug 2025 13:54:37 -0400
+X-Inumbo-ID: 8bf2480a-836f-11f0-ae26-e363de0e7a9e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1756317556; x=1756922356; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=TSx0gLOeLI3OmpM0gOjKyE3N0RJITp6fwERr5jtp5VA=;
+        b=iLZAO7W0P2AMEHwoi6eNqJR5MicUx/kBIkroNVzidE552+zbmSQ/hhKSYAtr0vgZxu
+         pKoJfRW3YhFskhGMiZsaOVoUpb+s3RddInv4LihA4nv+Cjwv/WjR98XCZcmQ/qlqw6BY
+         +KL/6ZTkA7uyntgUU93EZ81yySKZMI5Zq+BpI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756317556; x=1756922356;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TSx0gLOeLI3OmpM0gOjKyE3N0RJITp6fwERr5jtp5VA=;
+        b=lfAxazKu2Uj2+p9uRomk+zLAAykrpPvNL0cX0r19z9Mram8RFBGtupAsxin4zNHowa
+         4C85dGy1v4EQKuFkxP6Gd2ZglVvp9as2tPzVUrgZV2ADkAk+9xxo2tsElKm/dnr4PJgL
+         bsxlU6tCth5S9zm3rsZiRLCPQEFbTD3wLe+52W5lLvkmwTQ9twFU0zYmXORkfoONd7/f
+         xRQTeCpVN95dinTOCLf4hPOKvWlKGM6XBBYPmeGLsP0nc5KDvH5a5zxmrB1zvkBWekTC
+         PGZwtuRJkR2G2VhHYpQZ4lOCoEdClN3LtqTXXd5G/6y7rYIsZJnwwDKlv8A4V7exaTdD
+         7Muw==
+X-Forwarded-Encrypted: i=1; AJvYcCWsN7+2k/e9Ke45AX5+ILZh+GTKrDdJekTlfpbeTuCyhiLUn7MnSwMhjdDQ0y0/tokJKNUGjSdAMnA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy1NDugkc/cWYEU7jnKQ8P3NtWuX/Evx7mqGWIQWl5UtiPWoU3U
+	yoLDucDSozz3IuzWxEEaPen+q/fUKDXGtklDJDazS/DAfGTCAoQWYRda0GIMN8Tg79s=
+X-Gm-Gg: ASbGncvtYmz76a9NmlJQwfDH66135cMcmUj+PQMEUq5hqZiTq02WhRCoPBXwfXeLy95
+	PF2hqzTVyrVKTZ9QOHO45UFcC97a8Uh+Cl42UuoFX9UMTy08aeTGHIW3io8oNTW4CkonC1fSEPs
+	HkQk+JsBYLCR6PEjO5iB9K+MLuUT/Ja9+IR2yXpEw4Zk9GWeBLhJQye2sUThoG9EKPURWYRMgQ/
+	94zArVi6kBZTX70y/58n92nTUX8kFeEDvZ56+sgT5kWAK33yM5GjVUYB5eAZPpnZnnb/JTDV5IM
+	gmbg7eiEoy0s5p8pbS4CSLVj5kPfAkBSeYdS82CZvFG3omOR5zR/Igk941+IljU3cVZsYZ73J6D
+	aV1SC12npZ3mtwlAuCG78ue85CXn3l0OzgC5wZfDIeSYfBxoRYlfCLQSpp0teX8q5c88lPpJf7Q
+	nSlhE=
+X-Google-Smtp-Source: AGHT+IGKmdlrraertGvlRZkPchDGUneti/cR6b6X7gyOPv7F/SrFWVkostS9gjgaeR1jrCEhDTo80g==
+X-Received: by 2002:a05:600c:5493:b0:459:dc81:b189 with SMTP id 5b1f17b1804b1-45b517d3998mr203579225e9.31.1756317555562;
+        Wed, 27 Aug 2025 10:59:15 -0700 (PDT)
+Message-ID: <eae86371-51f6-4df3-8ca3-723303864126@citrix.com>
+Date: Wed, 27 Aug 2025 18:59:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 08/11] libxl: convert libxl__json_object_to_json() to
- json_object
-To: Anthony PERARD <anthony@xenproject.org>, <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross
-	<jgross@suse.com>
+Subject: Re: [XEN PATCH 07/11] libxl: libxl__object_to_json() to json-c
+To: Jason Andryuk <jason.andryuk@amd.com>,
+ Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>
 References: <20250808145602.41716-1-anthony@xenproject.org>
- <20250808145602.41716-9-anthony@xenproject.org>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20250808145602.41716-9-anthony@xenproject.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023CB:EE_|SA5PPFE91247D15:EE_
-X-MS-Office365-Filtering-Correlation-Id: 81bbd66f-f87e-47f8-ceff-08dde592bc16
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?SlpiZ3RpemdDelNrdGx0N0VZdVZmaWx0ZGJNOGpLeEpKd091TmUyNmlNMnFM?=
- =?utf-8?B?NERTcm5MYnczZmt2SmdrQnJWcGZPcUJRZTNpWDR1M20rUG9KdzdWb2N0RGZq?=
- =?utf-8?B?WkV6NTZhd2NFbVo4b2NMdGFpVkNOKzZVWHFaYVZUcS9sblNQR2x2Mk12VWdX?=
- =?utf-8?B?SkpZak5xQUplWG9qUXJhNDhwUk55OEh0RDBheitma2lvalUrZ1ZSODl6LzNB?=
- =?utf-8?B?SGIwb1ZuMmhLb2FwbFI1SURNSUhLanl2SUNyVTk4ekRremFYLzVjRDRwWGNo?=
- =?utf-8?B?SmhmN1hUdmxKaUgrT1c1QnYwT2ZYQlBVdnhKN0JKSGNmSjV4VzRKcWlrVWl6?=
- =?utf-8?B?VUZ0ZklJTWNmUVlTUk80d29YK01zWDhFNTNiQnNJNU1lcHdyS09SYUxOZ0Zk?=
- =?utf-8?B?aXBLS3BVcHVtTG1kNDlGd05TVjcyTlhHOUJWcnBLdysrQ1pBTE5uWG14VW1G?=
- =?utf-8?B?L3FKSEFxUUxySEs0UWNEdWE0L3RDVmtqcmQ1ZFpDa2VzbDBXRHRRTmxpTU15?=
- =?utf-8?B?TE1ETlllekRGQnhDTFd6RW1FVnh4bzU5ZVVoVGJqUXdKNnl2ZDhnQ2JsZWNq?=
- =?utf-8?B?TS8vTVB6TWs5NkV1NVpyY0tpZlZjd2pMVG4wcGw3MDlPSHZkbDR0NG1NU2Nh?=
- =?utf-8?B?WXdmOEFiR3FuOGgzNjA0TXBGS3FrMEJqNkxLcTdkbmMxNGxZYThPclhIK3F0?=
- =?utf-8?B?R2ZFSFdQZnlQYkhtWEQrRE9qZkUxZk94dkltN2RxRFlialJ0Q29GYm5OZ0NE?=
- =?utf-8?B?YkRtajJ1VG9QdlNIVEM3YmFBZURYMHpVdWRZelpRa1JBWEdOZzlUYlZuRUtm?=
- =?utf-8?B?dmxaTkhyeTdPYWhyRG5LTVJIdnhlRjJQd1JHTUpSMGpYdmRKZVdkZ2diVmZP?=
- =?utf-8?B?TXBPdXdObHBPckhGODZadnZYejhlRXFXWGpvbGQ4K296YmwyMU9kUFpGYVc5?=
- =?utf-8?B?R2VVTm1yUS93SlUwckt0LzNtbDdxTVFZS1VySnNObDZ0U2RzdS84QXcyTE1O?=
- =?utf-8?B?ZHZkOFZ5czY1M1p1N3ZMOFlwWkJJTGE3TVBnWTJFNUFDbGlrMXEwdFZUOTFv?=
- =?utf-8?B?RWZldzNqeExKQVM3cWRxQXJWb3JJdGxwYTdsSTV4VkRYQTc0RzFqZHRiT0RH?=
- =?utf-8?B?aWFWV2pqS3puTjBPbjVQQWtLbkNsdTVzOWlYYUU5ZDBKRjlVT2U0MXZwZlln?=
- =?utf-8?B?K0xJOEU3YzhmeGlIV0FPbVJzNWtOdUZRSGxMMVlSRjZMWEdzSjE4UDRNdXRk?=
- =?utf-8?B?U2VLRVBUanJ4OUttZlZ1ZXU3dHFqSk4rRTBQM0xINTBkc1JsaGx3U1FEVU9V?=
- =?utf-8?B?aEFoY21udDNCR2oyaktwVTVrTFJ1NEkzS1lIK1g1cVZNSUQ3MlM0S0c0QTBR?=
- =?utf-8?B?M0s1aHdiUStGNFF0RCtiNEV4eDVFYTU4RU1KUE5pR012elFobDI4VGJlZzJ1?=
- =?utf-8?B?Nll5Mk5weWF6ekx6QVd0M0pUTXZvWk85MmVHOWROWDhaK0VLOWh3a0hlUjQv?=
- =?utf-8?B?NzFoTDN3eGwvQjY0Vk9WVWY5bHpmT1pDRTdya3pSZ295NXUwT3NoTno4NWZo?=
- =?utf-8?B?TXg5aDRUaEhpdWJ0L3NyaXd3YkQ2NDR4c1FtNWhBSG9TWTB6cHdkQ1o0NldX?=
- =?utf-8?B?aFFYVUk5WlptYk1EQ3JZdnlweEJXdEJqdUZ1d0duNm9USVhaUHFlZkhjNzZW?=
- =?utf-8?B?NndsQXZtZ0k0MnlMaXFpT3RjUGhsNnhrdTh2aWxLMWtTcHVFMm96Uy9BSUxz?=
- =?utf-8?B?SmExbXRwK3NvQWtKUzFjQk9ERlVybjZJZ0dYZnczcWlNTStOV0tMNXBHQStN?=
- =?utf-8?B?QzdocUhBeDUyclUvSjNRNXlXNmxFTko4SjN6UUoxNkFXZnBxWVc0aVFSaGNW?=
- =?utf-8?B?TzNvVFQ0S29yZ3RUaEZiZ0oxQ005QkY5RWIvNFdFeHlXTW1nbkVnL0FOaW85?=
- =?utf-8?B?Rnc1K1ZWYWtUeEhNbWFobDNoMW9oVkxVN0czVWltRFcrZVhoZTc1Q1EraE5H?=
- =?utf-8?B?Y1g1VXk0WWtiY0JCb3hJWVRrQnpUU3UzYlVLb2hGdXROSWhsUitCazMvL1Ra?=
- =?utf-8?Q?XY6WL9?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2025 17:54:13.8722
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 81bbd66f-f87e-47f8-ceff-08dde592bc16
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000023CB.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFE91247D15
+ <20250808145602.41716-8-anthony@xenproject.org>
+ <05c49cee-d783-40e3-a4ce-da724c308a21@amd.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <05c49cee-d783-40e3-a4ce-da724c308a21@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 2025-08-08 10:55, Anthony PERARD wrote:
-> From: Anthony PERARD <anthony.perard@vates.tech>
-> 
-> But keep the implementation done for YAJL.
-> 
-> Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
+On 27/08/2025 6:51 pm, Jason Andryuk wrote:
+> On 2025-08-08 10:55, Anthony PERARD wrote:
+>> From: Anthony PERARD <anthony.perard@vates.tech>
+>>
+>> - libxl changes:
+>>
+>> While doing so, we rename all "*_gen_json" function to "*_gen_jso" as
+>> they have different prototype. All the function pointer are been cast
+>> to (libxl__gen_json_callback) by "gentypes.py" when generating
+>> "*_to_json()" functions.
+>>
+>> We also introduce a few more "*_gen_jso" functions for "int" and
+>> "bool" because we can't use json_object_*() functions from json-c
+>> directly like it's done with yajl.
+>>
+>> To make the generation of _libxl_types*json.[ch] with both YAJL and
+>> json-c we add "--libjsonc" to gentypes.py so it can generate
+>> functions/types for both.
+>>
+>> Also introducing "jsonc_json_gen_fn" in the IDL, to be able to point
+>> to a different function when using json-c.
+>>
+>> Also, don't export any of the new *_gen_jso() function, at the cost of
+>> having "_hidden" macro in semi-public headers.
+>>
+>> - xl changes:
+>>
+>> Also, rework the implementation of printf_info() in `xl` to avoid
+>> using libxl_domain_config_gen_json() which isn't available without
+>> YAJL. The implementation using "json_object" call
+>> libxl_domain_config_to_json() which generate a plain string of JSON,
+>> which we parse to add it to our own json; this avoid a dependency on
+>> the json library used by libxl.
+>>
+>> Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
+>
+>> @@ -358,6 +535,36 @@ int libxl__mac_parse_json(libxl__gc *gc, const
+>> libxl__json_object *o,
+>>       return libxl__parse_mac(libxl__json_object_get_string(o), *p);
+>>   }
+>>   +#ifdef HAVE_LIBJSONC
+>> +int libxl_hwcap_gen_jso(json_object **jso_r, libxl_hwcap *p)
+>> +{
+>> +    json_object *jso;
+>> +    int i;
+>> +    int rc = ERROR_FAIL;
+>> +
+>> +    jso = json_object_new_array();
+>> +    if (!jso) goto out;
+>> +
+>> +    for(i=0; i<4; i++) {
+>
+> typedef uint32_t libxl_hwcap[8];
+>
+> I see this is the same as the yajl implementation, but should this be 8?
+>
+> The remainder looks good:
+>
+> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+A tangent, but physinfo.hw_cap (which libxl_hwcap wraps) is as good as
+stack rubble.  It's not exactly random data, but it is a view of an
+internal Xen structure which has been reformatted multiple times before
+we even realised it was exported, then continued being reformatting it
+because it's a gross laying violation that noone could possibly be using
+anyway.
+
+It needs purging from libxl and the sysctl interface, and if that makes
+JSON easier, then lets get it done.
+
+~Andrew
 
