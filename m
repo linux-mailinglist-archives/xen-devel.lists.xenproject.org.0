@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F374FB37A04
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 07:54:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1095502.1450467 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90D53B37A0C
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 07:56:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1095512.1450477 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ur95u-0004vT-7n; Wed, 27 Aug 2025 05:53:14 +0000
+	id 1ur98k-0005TJ-Kg; Wed, 27 Aug 2025 05:56:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1095502.1450467; Wed, 27 Aug 2025 05:53:14 +0000
+Received: by outflank-mailman (output) from mailman id 1095512.1450477; Wed, 27 Aug 2025 05:56:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ur95u-0004u2-4S; Wed, 27 Aug 2025 05:53:14 +0000
-Received: by outflank-mailman (input) for mailman id 1095502;
- Wed, 27 Aug 2025 05:53:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ur98k-0005R0-Gt; Wed, 27 Aug 2025 05:56:10 +0000
+Received: by outflank-mailman (input) for mailman id 1095512;
+ Wed, 27 Aug 2025 05:56:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Gy2E=3H=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ur95s-0004tQ-0f
- for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 05:53:12 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1d10aa07-830a-11f0-a32c-13f23c93f187;
- Wed, 27 Aug 2025 07:53:11 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-61caa266828so1592475a12.1
- for <xen-devel@lists.xenproject.org>; Tue, 26 Aug 2025 22:53:11 -0700 (PDT)
+ id 1ur98j-0005Qm-4S
+ for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 05:56:09 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 82e1620f-830a-11f0-b898-0df219b8e170;
+ Wed, 27 Aug 2025 07:56:01 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-afcb731caaaso951842666b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Aug 2025 22:56:01 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afe98cbf721sm383999366b.30.2025.08.26.22.53.09
+ a640c23a62f3a-afe79fba62dsm640757866b.100.2025.08.26.22.56.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Aug 2025 22:53:10 -0700 (PDT)
+ Tue, 26 Aug 2025 22:56:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1d10aa07-830a-11f0-a32c-13f23c93f187
+X-Inumbo-ID: 82e1620f-830a-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756273990; x=1756878790; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756274161; x=1756878961; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=3muMlO8x622GDRo7WNudqzE1HKg6WzyiPBRLiueUiWE=;
-        b=Gtc300q0MDRxJQ2/ZmYNVescEjgxNI+5de0qeXVmcKrqvLlYvbPc6oMB1sKLW6KR+x
-         OxxVVavBvWt1BjD985XggS92fedRrI/jjLOK/uVxnNvrtPVXadAu/DLEztVLsqyPDmU+
-         ICh/Sz7KDuPjIlfo9RoqQlDoTN79RZj8wiA1ZxZxXUni4FkrIZcWp0nH7KvsonyNjoiM
-         X142lHFpO1UEsTJqyFaAlq4ex3RXHJdSVvkxRy/Cs7z3AimQ5HJdqTvSHZSfUZXFVAVm
-         FUdYECX+lP4hWKghf8z3Gxr93ov7ptX0ByMXo8PNFn6aaXxGJ2AJb3PETDA4PC/6NtHd
-         CGNA==
+        bh=r/sRUv6By61dZfKrnfYyLwS1JPfsrQ60N+G2J8rf4SY=;
+        b=Rc46VaO39YeKFAuPCiRgqGsklUiqqvYP6+aLzWrgbY5A9VVttqnJGRQeJS9IpmxgxH
+         /YPR5VxevfGSLT9qy9V43uSfr5olil9/qHlNVE53bT1Ykqc998dAteQ8k4jiMFPPmQ9A
+         ye3j7yMn4RdRdDdZzGixFXAq0TaprUG6lMBX8yjGmjTPb5O5A3eGWPWaukrrUZb4uhJT
+         njZlmOB0kbFXsm/UVgTsnFoCgQidW7VpHmwbLnuUsPQAKaa2GThcMqQmHm4u4gB4Z//d
+         muwETsUmKjxqQHT7QB+jL6SzrUym63fE/6Klq02FNt3kvNKVKfc4CnqHtV7b1FSGhtk5
+         Ay1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756273990; x=1756878790;
+        d=1e100.net; s=20230601; t=1756274161; x=1756878961;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3muMlO8x622GDRo7WNudqzE1HKg6WzyiPBRLiueUiWE=;
-        b=NrtNJpJEP3VJXdD5Rqz+PXiKgvmBoekRtC4jKPHQFPG8yrklO9P4XTtY11/ROqApK2
-         F2jt1h37mQ+bl62OROFGXksHnDz3gaYmgt8GiJH/kAlr9wzuDp2ucP9yZG2b7S4dXgRw
-         CVCNBdZYNXUwkzsqVTgYfwElCTlREC+GFmKUkKGVodi53A2WJkwoR23VsrMMvGOXvMdp
-         HuhwLUNQglN2dioaOly5H0MTc2J2WiHHgEW5XSoCjjt0hstbCzsG5aks3P6THxYqtl2B
-         lZULswe+qQnB4IIIgJuhFv9hHcKb8InvjY0u4HxWiT12K+xAA9y57mS1EXmJp3zf9Rc8
-         T+yg==
-X-Gm-Message-State: AOJu0YxFCSpjDQuwJlGp+lVfYfUTRmBIi33lwmMXmo2iFMQSv1zzf/jX
-	s6JXSfARU3ODCyNqkErjgt518Pt0ovjkKpEstYZPEzK63kKRx0FoiHjV2tMHh7s2Jrw3IjwNgnm
-	fq+8=
-X-Gm-Gg: ASbGncut6tAD3IBuLyn6cgz0jVkmyw1c0zw+C1NEIBuLxQuP8abLQ4fhNeoipgl2DlT
-	HedO3tUc2hXN36mDOVrq+5uXoNgWTdZ720JgbcFWu47/MVYQqhdPRUtgXlXdb6KnJGxvn5h9QrT
-	wxdrqbivF0GEPjS++MDhkfZpiVQWsR2AF2bxIQz7TWoQ/uTOgyQDqAVZ2nEodGe5rMsOjs6r29w
-	X0hQpnsPprL4A5eSCB2p8srcaBN2VpbsKrIhuRHREH4cILPMnH/TpTm9qsto7SgwAaNF+Nzy6JC
-	CA5qWDmMQK47tTHZVdbAsGuPRw3/KjDbPAtHmx7aNOke9BxckPwraPw2PP/vAVtm541c8RACvsZ
-	sRgec/1d5KlG8xtZ1+K6vmAmNKtk+z1B2WJfwaO3yeykvL1ksvYG3qLv0ncAKiRcV9iSxajGmqW
-	Dq3IZQWIA=
-X-Google-Smtp-Source: AGHT+IHHgTrnRaeBbU1NK/JmtEOSB1uo+Ys7+IXFq2O0bkBuXywEcK10al8HJKrUtiZhBbnd1DZRvQ==
-X-Received: by 2002:a17:907:7f02:b0:afe:764d:6b24 with SMTP id a640c23a62f3a-afe764d737amr1006797966b.14.1756273990427;
-        Tue, 26 Aug 2025 22:53:10 -0700 (PDT)
-Message-ID: <c98069b7-ee38-4f06-bebd-25396f2a210a@suse.com>
-Date: Wed, 27 Aug 2025 07:53:09 +0200
+        bh=r/sRUv6By61dZfKrnfYyLwS1JPfsrQ60N+G2J8rf4SY=;
+        b=fLKTEZm2e9d/rsbBxCQH3PFYzmnOeUPxxI1oQjM0aav+sRmwDv3RS1pmnibRfv5geI
+         mFYZr6UJFhGtMFA+3YZ8CqF3CKElx/vorWIOizi0Ip280+4yD8CorRjiRwfPdaljQHSX
+         /QxJyrWmsT9pijC4CquV7VTiVnqZIF/zw2OvuzCiam38rnqSYgz2tJz9JZfoHMs8Hrvm
+         w1rFTwQ2XvpmTgPSYGnig/UsC1BVMdjv+GOO4d55Y91X02CRCNeObOIwwnxpsQhNZjkX
+         wqhQAA4+a/tNpYr0ziA4cYf7sHVC16cokOyUFap+kTtTohQ0k1y4hIzewEopcpKSe2YR
+         Lgug==
+X-Gm-Message-State: AOJu0Yz3lJbJAQeZ4vJM4jSaguku6qWNEumCN+CPNxf26CZeHwzEpikS
+	0/pxYr2ASfih4+dm0ipk5/FBBgwQ3PKWYmm1o5bXNGMNL4POcKNltVvz7Gs3OfftFydfv622b7K
+	QQAM=
+X-Gm-Gg: ASbGncvA/vcn0urxm0on8e25izyqAcbAmV/LqXdsl7K5POdVWKOyN6STY0HJ8ga3Psn
+	JcSLFPoDsEYP94ZRFgps3cyD04Y7eC5/QHR5lnZn0I8orgG5NM9RQgUIbmn+xCtHwukEvLwjqTx
+	+LmXwecr9KYX5hDgr47hb8l6UlIxSAngnNWet0kXaUgVrx8NzoMtIVhVaqXES9wbvk2NwFVJkWp
+	b1KdOpwbXVo22ZoigLRYLDshBHPgKnjFdvreLOch1nuj50MwNNVwsTRwyI5u1LwS8rOydLqWqSm
+	n1ZEyEHmVeGY+MFMUqQOVmgU7ARXFy2XsL0xXHx8Qgv3JXM2Ka8OkTx85k7SzEuBuQiCdTsLZdi
+	gdFbCDEoKtAhL4zxpT8QyfyAbnikNxrWsDskJDYTv+6/tp76CoGpilyRGCOLddwug/e5E4n7M4D
+	ZHw/MZq+8=
+X-Google-Smtp-Source: AGHT+IFcNn2GSa1AuikFpIYnj2ZfgN8+gOzmfv3WoYnw1tVrFPeNTtmpTZZWsZ4teuBHE9kHwMqPvQ==
+X-Received: by 2002:a17:907:7e92:b0:af9:3c4d:e978 with SMTP id a640c23a62f3a-afec348acb4mr98224166b.41.1756274161294;
+        Tue, 26 Aug 2025 22:56:01 -0700 (PDT)
+Message-ID: <719c456b-927d-41c3-b28d-135a895958dd@suse.com>
+Date: Wed, 27 Aug 2025 07:56:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] libxl: except Dom0 from setting PoD target
+Subject: [PATCH] libxl: respect unset video_memkb for Dom0
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -118,20 +119,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Dom0 is never started in PoD mode, and hence it can at "best" do harm if
-we try to set a PoD target for it.
+Without this, Dom0 will have have a curiously off-by-1 target_memkb
+value displayed by "xl list -l".
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+In retrieve_domain_configuration_end(), isn't it the wrong way round to
+set both ->b_info.target_memkb and ->b_info.max_memkb only after calling
+libxl__get_targetmem_fudge(), when that uses the two fields? This way we
+could as well use ->b_info->video_memkb directly there.
 
---- a/tools/libs/light/libxl_mem.c
-+++ b/tools/libs/light/libxl_mem.c
-@@ -306,7 +306,7 @@ retry_transaction:
-         }
-     }
+Of course this may point at a bigger problem, as other fields may
+similarly never be set for Dom0.
+
+--- a/tools/libs/light/libxl_internal.h
++++ b/tools/libs/light/libxl_internal.h
+@@ -4685,7 +4685,10 @@ uint64_t libxl__get_targetmem_fudge(libx
+                                 info->max_memkb > info->target_memkb)
+                                 ? LIBXL_MAXMEM_CONSTANT : 0;
  
--    if (d_config.c_info.type != LIBXL_DOMAIN_TYPE_PV) {
-+    if (domid && d_config.c_info.type != LIBXL_DOMAIN_TYPE_PV) {
-         r = xc_domain_set_pod_target(ctx->xch, domid,
-                 (new_target_memkb + size) / 4, NULL, NULL, NULL);
-         if (r != 0) {
+-    return info->video_memkb + mem_target_fudge;
++    if (info->video_memkb != LIBXL_MEMKB_DEFAULT)
++        mem_target_fudge += info->video_memkb;
++
++    return mem_target_fudge;
+ }
+ 
+ int libxl__get_memory_target(libxl__gc *gc, uint32_t domid,
 
