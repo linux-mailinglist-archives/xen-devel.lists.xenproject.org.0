@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97FE7B3887D
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 19:23:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1096614.1451260 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E91FDB388DE
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 19:47:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1096629.1451269 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urJra-0004u1-6A; Wed, 27 Aug 2025 17:23:10 +0000
+	id 1urKFA-0007i7-2B; Wed, 27 Aug 2025 17:47:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1096614.1451260; Wed, 27 Aug 2025 17:23:10 +0000
+Received: by outflank-mailman (output) from mailman id 1096629.1451269; Wed, 27 Aug 2025 17:47:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urJra-0004rm-35; Wed, 27 Aug 2025 17:23:10 +0000
-Received: by outflank-mailman (input) for mailman id 1096614;
- Wed, 27 Aug 2025 17:23:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1urKF9-0007fl-Vb; Wed, 27 Aug 2025 17:47:31 +0000
+Received: by outflank-mailman (input) for mailman id 1096629;
+ Wed, 27 Aug 2025 17:47:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=9AuO=3H=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1urJrY-0004rQ-FV
- for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 17:23:08 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7e54f0c8-836a-11f0-ae26-e363de0e7a9e;
- Wed, 27 Aug 2025 19:23:06 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3c6df24f128so37411f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 27 Aug 2025 10:23:05 -0700 (PDT)
+ id 1urKF8-0007ff-Lj
+ for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 17:47:30 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e6caca29-836d-11f0-aeb2-fb57b961d000;
+ Wed, 27 Aug 2025 19:47:29 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-45b4a25ccceso288915e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Aug 2025 10:47:29 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3cc56bde919sm4670503f8f.59.2025.08.27.10.23.04
+ 5b1f17b1804b1-45b73cf86f4sm19403145e9.6.2025.08.27.10.47.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Aug 2025 10:23:04 -0700 (PDT)
+ Wed, 27 Aug 2025 10:47:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e54f0c8-836a-11f0-ae26-e363de0e7a9e
+X-Inumbo-ID: e6caca29-836d-11f0-aeb2-fb57b961d000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1756315385; x=1756920185; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1756316849; x=1756921649; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rKUT6Bsr7rbUW+0PY7cmpxUarwaEtBGurh04w59gqvI=;
-        b=Tq3ZqB18PwB7Yp8jm2Ofgf1Dux95W/yD65PlgdtgE1HsPPbBBxost0i7OlMtvIfDcd
-         I0uL6bBX03tGIzoqh/v6Ps93s1eEcDB7AS1keAJMpiqHb4NJMxNDnLNQiNo0KYWeN8hM
-         4XHzDz2X55r/6wIoi0xEWkwnlqFtyGMzGAYR4=
+        bh=CJNT2vhJAFsF4KPZ7P2wzJVCIcO8VQrPLsgrkBfwmS8=;
+        b=tHuh5KQeydEP4P9IlIhi2c/BypkYK2RP7bga0I6FX4wkh7Yx/lkhvHucr4Jfza/Ut+
+         NIt5weqcwQ/c6xSII2ysweP0U95seBxSoMNoIAdpgxwfhxGL7/U+2HN9BscCA58NZEWf
+         SO9zyWKGR7/wBqlwcxZhJab91ygtfmm8/V948=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756315385; x=1756920185;
+        d=1e100.net; s=20230601; t=1756316849; x=1756921649;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rKUT6Bsr7rbUW+0PY7cmpxUarwaEtBGurh04w59gqvI=;
-        b=NDXjj1r+ZXWXr32vlg2E9/6/HJiwVoo9pzqtfu34oLIs/ImxEmXk5qiWTMsfYLHtXo
-         1H3OwV63rHH9kUgfGTJeENVpTE4x58OtVxaUREwDyVulSXK5josHAHnBA5a1lRjjnYfD
-         ZQoGLutp9R3FAHjCwZf6EAyHnvaaVABk/J4ftoSEWjtlV4xfGvQ3UO/DxjEomAb/4NSV
-         8M1Olh6blGAZPewcgXyhCBVw8un7cO3ITsUWqNYtlG5SRkhHCs5klduX4GNt+CGQ5O7j
-         kHqKbfh94SEPvbLKL4kg60fZVPcPY3s1ipNJQvuDppafa6D3EyVjxy5d2zS4rEmLtWqp
-         50Bg==
-X-Forwarded-Encrypted: i=1; AJvYcCUeLv/JspyL5uOm1laG+BW+1DrxU11dGI79rYHxGHiW754R5M/pvtYPHGydMS7IiY8qXxCBDl4TWdg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwPFLmnTuL3Y+m/O6uhqaqxGHPJY/n79dQs9OWL+1CwC2ntBeCE
-	1MT5FLjJhM4miJvRwTE7L/NgvgdC5EIEAzdEujXZE26tOu4qpjQ+PwUJvjfXQOaeNDk=
-X-Gm-Gg: ASbGncvu9acNMSNbT0a6Ru6D22GPDB3oSMnfXTLFlsBfTI/BPjG9TgzTYOyciZSYEmb
-	kqRtabyDzTHf8kgJXavbWMYC5onK1+JFFcet7jr6zBbQOzLnEWaGou8+gVWrdf0t685j9ASJioQ
-	z9RbFmcVllVgk64DDC3yvUn+km847OahWGbe2Veq2C1DP6+uTSLy2GXQmq4mItnlZNcDfagfhnW
-	ohbSWz4pGqdWKY7EZ5EQ6/9Puhp4Qey/ZKqvpH6YdSqgw0oheZBxXbP6LLt8Y7xO0Zx0DDhEfno
-	pSmR8n1j6UMJ+p3kShT3g0OIMB1hljD2goX38Z+p0PJqqqObm4cFkdVKZAqY6GnmHFXG+VFOeA1
-	gfYugRk45uJnfXForhAkG7pC+3BugAFj7TDYH1jhL7x4iiWHcr1DEuyG5hyL4gmi0Fs5l
-X-Google-Smtp-Source: AGHT+IHhernzVhe6h3RPoFwXft05IN1XxSemdib5lx6cZnMB5PULjziY8t4jCQ6nMXtQVt9QnqwnhQ==
-X-Received: by 2002:a05:6000:4382:b0:3c8:6200:338d with SMTP id ffacd0b85a97d-3c8620035d8mr10769535f8f.60.1756315385188;
-        Wed, 27 Aug 2025 10:23:05 -0700 (PDT)
-Message-ID: <3cf8eef1-04e6-44b9-ad41-144de9cbf1d7@citrix.com>
-Date: Wed, 27 Aug 2025 18:23:03 +0100
+        bh=CJNT2vhJAFsF4KPZ7P2wzJVCIcO8VQrPLsgrkBfwmS8=;
+        b=cj6ysTaKfvcfQ17qyp5SZH7imeIddpnUZN7YvGDzn2FxKSsvw5Pf/mp+b1HHFV3Tko
+         RS3CfuRcgHL33buGpgC8tiPlf9mHCoaAHxeldANntx3t9M0R2+uUw8+eHmRFQS0oypqn
+         HdahfWUutml+Mft0Uy+sIiJgDk7W7joVRR+eib3G8GOVtiU9TmtfoTBawfF9/vRxLhP8
+         ADuJ+7nw5gpi5FMc6583dAcIkEhj2+WtArkTIdip484xxEjRGur64UEaWZ652u11vhbo
+         ohzLehUMI4bxpR5h0PPKHmyd+TiFsIa59WCjqsIeh1a5k3ny/Cw306tA2M/zd9OOxilh
+         1WAQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWvVwxTSMgai+keMqxSVWjIqRPMDUeg4YnswM+hVJY7u/ZorP1yxYal8dK8y8OAYXty+zXcf2BBhUc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx/u3ddQqchXI8X3cvuFcpL8EXp9eIMXRpMSuJbREmxRb8KgNLP
+	zqk5fD4uTkbZXhZIeS5mQYniL3nWY5Cfoyi0hA1jFnoW8SO9O8ztzFp1BVGsHLeYts4=
+X-Gm-Gg: ASbGncu2uzVGPC7fYtr9QIsAA4bJ0fTUusFqD2waVbUbnqrCh1ZbTekF8mdC+rBGKwT
+	LwRLz4Mv7T4O5tcmANE2jrz7VX8/cORZDHLh9OdIIAf5flNM/Og7MZKtZBzXQB5LObP90L2Rpr+
+	25shkteWRB9jXnqzByXV9pJ1XV1Jj6hMfNzKCZpvbmJt56nFOkYRUFFFNjcfabGuML1189NEPQm
+	1vwj7gbdOobnRq4eis+v2w5mHO2vVE18lS8LRWi7TbgGV5yOkjwwsqrqfjLwosgyGYDo6qocRjw
+	igO//YGPIrlK81UrdWhLG+ZEhzc1hrTrFKzG3JQtvJ67HM3y7hoOl0Fty9bAZBGSqoGCIj0zUlo
+	IfMrXt3yR4KtmjEejhsPpabuucmX+BeEgZ5YX/ziiIl7HsMXljrrBCGo+4UYMSUr2gf4A
+X-Google-Smtp-Source: AGHT+IE437CduObjRgU4NO167hX6TfD+KN2bcx7DpCyvEhvVIVeJaXyLM4NZN8E6qytkYMBEkdBIuQ==
+X-Received: by 2002:a05:600c:1392:b0:453:5a04:b60e with SMTP id 5b1f17b1804b1-45b517d4e23mr164248025e9.26.1756316848975;
+        Wed, 27 Aug 2025 10:47:28 -0700 (PDT)
+Message-ID: <6e9b7b96-a506-40ed-95b6-6ad00ba9a27a@citrix.com>
+Date: Wed, 27 Aug 2025 18:47:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Optimise restore memory allocation
-To: Frediano Ziglio <frediano.ziglio@cloud.com>,
- xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <20250827123309.39699-1-frediano.ziglio@cloud.com>
+Subject: Re: [PATCH] hvmloader: Update to SMBIOS 2.6
+To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>
+References: <b569a298a6270ae04eaf433f7de9ce1f3e248e5f.1755870287.git.teddy.astie@vates.tech>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -136,154 +134,83 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250827123309.39699-1-frediano.ziglio@cloud.com>
+In-Reply-To: <b569a298a6270ae04eaf433f7de9ce1f3e248e5f.1755870287.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Subject wants to be at least tools/libxc, and probably "Use superpages
-where possible on migrate/resume"
-
-
-On 27/08/2025 1:33 pm, Frediano Ziglio wrote:
-> Try to allocate larger order pages.
-> With some test memory program stressing TLB (many small random
-> memory accesses) you can get 15% performance improves.
-> On the first memory iteration the sender is currently sending
-> memory in 4mb aligned chunks which allows the receiver to
-> allocate most pages as 2mb superpages instead of single 4kb pages.
-
-It's critical to say somewhere that this is applicable to HVM guests.
-
-You've eluded to it, but it's important to state clearly that, for HVM
-guests, PAGE_DATA records contain metadata about GFNs in aligned 4M
-blocks.  This is why we don't even need to buffer a second record.
-
-It's also worth stating that 1G superpages are left for later.
-
-
-CC-ing Oleksii as release manager.  This is a fix for a (mis)feature
-which has been known for a decade (since Xen 4.6), and for which two
-series have been posted but not managed to get in.  Unlike those series,
-this is a very surgical fix that gets the majority of the perf win back,
-without the complexity of trying to guess at 1G pages.
-
-Therefore I'd like to request that it be considered for 4.21 at this
-juncture.
-
+On 22/08/2025 2:47 pm, Teddy Astie wrote:
+> Currently, hvmloader uses SMBIOS 2.4, however, when using OVMF, the
+> SMBIOS is patched to 2.8, which has clarified the UUID format (as GUID).
 >
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> In Linux, if the SMBIOS version is >= 2.6, the GUID format is used, else
+> (undefined as per SMBIOS spec), big endian is used (used by Xen). Therefore,
+> you have a endian mismatch causing the UUIDs to mismatch in the guest.
+>
+> $ cat /sys/hypervisor/uuid
+> e865e63f-3d30-4f0b-83e0-8fdfc1e30eb7
+> $ cat /sys/devices/virtual/dmi/id/product_uuid
+> 3fe665e8-303d-0b4f-83e0-8fdfc1e30eb7
+> $ cat /sys/devices/virtual/dmi/id/product_serial
+> e865e63f-3d30-4f0b-83e0-8fdfc1e30eb7
+>
+> This patch updates the SMBIOS version from 2.4 to 2.6 and fixup the UUID
+> written in the table; which effectively fix this endianness mismatch with
+> OVMF; while the UUID displayed by Linux is still the same for SeaBIOS.
+>
+> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
 > ---
->  tools/libs/guest/xg_sr_restore.c | 39 ++++++++++++++++++++++++++++----
->  1 file changed, 35 insertions(+), 4 deletions(-)
+> This effectively changes the UUID seen with UEFI guests as it was
+> actually inconsistent with SeaBIOS and SMBIOS expectations.
+> ---
+
+I agree this is a real bug and needs fixing.  However, ...
+
+
+>  tools/firmware/hvmloader/smbios.c | 20 ++++++++++++++++++--
+>  1 file changed, 18 insertions(+), 2 deletions(-)
 >
-> diff --git a/tools/libs/guest/xg_sr_restore.c b/tools/libs/guest/xg_sr_restore.c
-> index 06231ca826..8dcb1b19c5 100644
-> --- a/tools/libs/guest/xg_sr_restore.c
-> +++ b/tools/libs/guest/xg_sr_restore.c
-> @@ -129,6 +129,8 @@ static int pfn_set_populated(struct xc_sr_context *ctx, xen_pfn_t pfn)
->      return 0;
->  }
+> diff --git a/tools/firmware/hvmloader/smbios.c b/tools/firmware/hvmloader/smbios.c
+> index 6bcdcc233a..f4822ae6f8 100644
+> --- a/tools/firmware/hvmloader/smbios.c
+> +++ b/tools/firmware/hvmloader/smbios.c
+> @@ -352,7 +352,7 @@ smbios_entry_point_init(void *start,
+>      memcpy(ep->anchor_string, "_SM_", 4);
+>      ep->length = 0x1f;
+>      ep->smbios_major_version = 2;
+> -    ep->smbios_minor_version = 4;
+> +    ep->smbios_minor_version = 6;
+>      ep->max_structure_size = max_structure_size;
+>      ep->entry_point_revision = 0;
+>      memcpy(ep->intermediate_anchor_string, "_DMI_", 5);
+> @@ -462,7 +462,23 @@ smbios_type_1_init(void *start, const char *xen_version,
+>      p->version_str = 3;
+>      p->serial_number_str = 4;
 >  
-> +#define IS_POWER_OF_2(n) (((n) & ((n) - 1)) == 0)
-> +
->  /*
->   * Given a set of pfns, obtain memory from Xen to fill the physmap for the
->   * unpopulated subset.  If types is NULL, no page type checking is performed
-> @@ -141,6 +143,7 @@ int populate_pfns(struct xc_sr_context *ctx, unsigned int count,
->      xen_pfn_t *mfns = malloc(count * sizeof(*mfns)),
->          *pfns = malloc(count * sizeof(*pfns));
->      unsigned int i, nr_pfns = 0;
-> +    bool contiguous = true;
->      int rc = -1;
->  
->      if ( !mfns || !pfns )
-> @@ -159,18 +162,46 @@ int populate_pfns(struct xc_sr_context *ctx, unsigned int count,
->              if ( rc )
->                  goto err;
->              pfns[nr_pfns] = mfns[nr_pfns] = original_pfns[i];
-> +            if ( pfns[nr_pfns] != pfns[0] + nr_pfns )
-> +                contiguous = false;
->              ++nr_pfns;
->          }
->      }
->  
->      if ( nr_pfns )
->      {
-> -        rc = xc_domain_populate_physmap_exact(
-> -            xch, ctx->domid, nr_pfns, 0, 0, mfns);
-> +        /* try optimizing using larger order */
-> +        rc = -1;
-> +        /*
-> +         * The "nr_pfns <= (1 << 18)" check is mainly for paranoia, it should
-> +         * never happen, the sender would have to send a really large packet.
-> +         */
-> +        if ( contiguous && nr_pfns <= (1 << 18) &&
+> -    memcpy(p->uuid, uuid, 16);
+> +    /*
+> +     * Xen uses OSF DCE UUIDs which is fully big endian, however,
+> +     * GUIDs (which requirement is clarified by SMBIOS >= 2.6) has the
+> +     * first 3 components appearing as being little endian and the rest
+> +     * as still being big endian.
 
-This is an arbitrary limit, and to contradict the prior feedback given
-in private, the domain's MAX_ORDER isn't relevant here.  It's the
-toolstack's choice how to lay out the guest in memory.
+... this is not an accurate statement.
 
-> +             IS_POWER_OF_2(nr_pfns) && (pfns[0] & (nr_pfns - 1)) == 0 )
-> +        {
-> +            const unsigned int extent_order = __builtin_ffs(nr_pfns) - 1;
+Xen specifically tries to treat a xen_domain_handle_t as an opaque blob.
 
-This (non-)loop isn't great.  You'll e.g. use 4k pages for the second 2M
-page of an HVM guest simply because the VGA hole exists in the first.
+The only two areas I can see ascribing any structure are the 'q'
+debugkey (not exactly a strong ABI statement), and the arinc635
+scheduler whose use is buggy (uuids are not unique in Xen; it's the
+domid which is).
 
-I think you probably want something like:
+It is an error that a format isn't stated, but the format comes from the
+toolstack.  We'd better hope that all toolstacks use OSF DCE UUIDs, or
+this is going to badly wrong.
 
-int populate_physmap_4k(ctx, nr, mfns);
-int populate_physmap_2M(ctx, nr, mfns);
+And on that note, the toolstacks are not the same.  Xapi for example
+uses reads 16 bytes out of /dev/urandom.
 
-as simple wrappers around the raw hypercalls including transforming back
-the mfns[] array, and:
-
-int populate_phymap(...);
-
-with logic of the form:
-
-    while ( nr )
-    {
-        if ( nr < 512 ) /* Can't be a superpage */
-        {
-            populate_physmap_4k(ctx, i, mfns);
-            mfns += i;
-            nr -= i;
-            continue;
-        }
-
-        if ( !ALIGNED_2M(mfn) ) /* Populate up until a point that could be a superpage */
-        {
-            while ( !ALIGNED_2M(mfn + i) )
-                i++;
-            populate_physmap_4k(ctx, i, mfns);
-            mfns += i;
-            nr -= i;
-        }
-
-        if ( nr >= 512 )
-        {
-            for ( i = 1; i < 512; ++i )
-                if ( mfns[i] != mfns[0] + i )
-                    break;
-            if ( i == 512 )
-                populate_physmap_2M(ctx, i, mfns);
-            else
-                populate_physmap_4k(...);
-
-            mfns += i;
-            nr -= i;
-        }
-    }
-
-
-
-Obviously with error handling, and whatever boundary conditions I've got
-wrong.
-
-2M is the only size that matters (ignoring 1G which we've excluded for
-now), and this form will reconstruct more superpages for the guest than
-trying to do 4M allocations will.
+Whatever we end up doing, the fix must include a change to
+xen/include/public/version.h stating the format of the UUID.
 
 ~Andrew
 
