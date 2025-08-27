@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F27CDB37B56
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 09:14:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1095608.1450546 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C574B37C40
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 09:53:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1095629.1450557 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urALd-0002RZ-B2; Wed, 27 Aug 2025 07:13:33 +0000
+	id 1urAxN-0007nW-3Y; Wed, 27 Aug 2025 07:52:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1095608.1450546; Wed, 27 Aug 2025 07:13:33 +0000
+Received: by outflank-mailman (output) from mailman id 1095629.1450557; Wed, 27 Aug 2025 07:52:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urALd-0002Q7-8F; Wed, 27 Aug 2025 07:13:33 +0000
-Received: by outflank-mailman (input) for mailman id 1095608;
- Wed, 27 Aug 2025 07:13:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1urAxN-0007kg-0y; Wed, 27 Aug 2025 07:52:33 +0000
+Received: by outflank-mailman (input) for mailman id 1095629;
+ Wed, 27 Aug 2025 07:52:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Gy2E=3H=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1urALb-0002Px-U0
- for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 07:13:31 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5386ae93-8315-11f0-b898-0df219b8e170;
- Wed, 27 Aug 2025 09:13:26 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-61caa266828so1707911a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 27 Aug 2025 00:13:26 -0700 (PDT)
+ id 1urAxL-0007ka-DS
+ for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 07:52:31 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c8170cb3-831a-11f0-a32c-13f23c93f187;
+ Wed, 27 Aug 2025 09:52:30 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-afcb731ca8eso1025578466b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Aug 2025 00:52:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61caae5fc3fsm1430564a12.51.2025.08.27.00.13.25
+ a640c23a62f3a-afe80daceb5sm590161366b.68.2025.08.27.00.52.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Aug 2025 00:13:25 -0700 (PDT)
+ Wed, 27 Aug 2025 00:52:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5386ae93-8315-11f0-b898-0df219b8e170
+X-Inumbo-ID: c8170cb3-831a-11f0-a32c-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756278806; x=1756883606; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756281149; x=1756885949; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QZpPlf/fPJ7e1qsMCEmJzLy5X0G0I179INc0LnfULro=;
-        b=a494KSUT0ahTZ06aEVP47XmyC/rkYoTgr8CDV4Fea9Vq3xugX6nZZ5BvrTbvWetW7x
-         OXP28JAVGJBjPTkErdmpOPWQ8gcQlK/ReTN+ivG956ZNLJOVug4OoEQ/qpzo6q6QOK8P
-         xlJLsigeL4K/UOAVFJUrGZtuFZZOoSXXZkLL26fsGMOumS/SJmyrtf4V3AujVPYNxCuB
-         xLR07pgLPWXFKLGXAuRyHCWfrZyEbRmKE0rfVdMPSaOkhDiAS52d1FvA/yW0KQ59Bzwj
-         KMaIssrodXRoL6FttBUGF4D+GNHvzxXiBRGEfU5/97wO96NvV0IgYk9P9EBlEYjxfTkA
-         NpXA==
+        bh=KfwZ9l5V2bAjpuYOBMDJ7zBCdjwTCyFDu0LrI6NWVBk=;
+        b=HkMfNyyaK10wHp2p3v30MKYzC4a5axC8Cs1AYrRRe7IGxjdqx+mqxN+Mxf2wngiEhy
+         N08Pdbc0BU7ogfyiws0o/HXYGzwMu/KKlDGzrIgW+PsBpLTYaZwvAoHdYC2T+fEt529d
+         KwuKK/VH4Y6rLjUNB4MFTcKt+0lKUruesxkWt6M6NqADPQj7e72YckjnXyAFgld/++nz
+         gedwHXsIsfoS19xT3llYPPZXSwYHh/63HDsoFiGiVVgLUj1aTfpupjST3Ov79L18+N1C
+         Uu/bn+NonhRjkSyUEiex4UKa1xGf09Ycc+RgCkf52Hf7AYfQVhaW/zv8DvNM/4SBbAAi
+         7h6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756278806; x=1756883606;
+        d=1e100.net; s=20230601; t=1756281149; x=1756885949;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QZpPlf/fPJ7e1qsMCEmJzLy5X0G0I179INc0LnfULro=;
-        b=nZsnaQEhHixwkAV7qq/znDA4P7pKvCha0+iMwq36c2UVT7ju/sQvV1CoK9zal2fm2B
-         tEjLH3xU55Z8/sjZH7OqiqjyN3wmlEY/mwMbH73ZTwX71SawykQISm24U09AQH7uxKKj
-         bXcM0P7Y+aqc1G80XeU6Y7VVAr/bCK9kW7EQZXU5ed7hkitaeRDOBfZWYEYhuuAIuuT3
-         GY3ZVmZfEaXFG+wpsVb2eUQNnPefReMg0ByQcMI027M8/It1M4mXHsH+k9a1Ml31X8Hv
-         OBtfWIGJm1A5j1gJrX1UQjX6iV5KdLA1Qu43cMrZCPWm01f8sl+ANLn5X+HEMbwanBDS
-         fDcA==
-X-Forwarded-Encrypted: i=1; AJvYcCVCg3Kah5sVM4YxglmeEhzeYZtZBCezooogvYMvHxmzD9bL31Da+r4esJ3yt2wzqxI+0O+ERl3T7fg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzDYg/UDbXP50Tbkxdq73uP5nqZ3eFy/qmHUuv81aOabjVTW+BZ
-	MUOIgtdKmG8yI5CS49l83cfTmGmzAUu9g9anKSmTdTfJFJxgXogJ0YqJUBOYnIDjpw==
-X-Gm-Gg: ASbGncshcpzRjpJFWIdm6nkXxKKxT5DoYyKvRV2AmWx2h+8VLmnDMjHjutsA1Iw/olF
-	1OeeyHL933nCXGp6HDB/ZVtmh7DoQm3nZ3N5S/ydaVKO4ikhdztTSCuEL+VnGOhMR2FeCJnIEGN
-	s4dWcvJpUqVKzXKilO1B4r0BgU6dEm6cNNHWQynJawPnsFFYxwOw/3D8F0hZdP4pUPH6jxTE/2p
-	mP7tmdEHwR/jEHF5cOfhU2I8bOh+EjagL4NQxjjLRmW8LuyutmlVBbGnjJQNA/kPdg7a3/kqmZJ
-	wU7PwCBaEBlBcyYOPo+E6gjQifcx7/rJ7a9hbklrVtUAIbQiE0q9kbwk0327WV0edHX2NBNRomS
-	kIDN3VGPRsCAiUzFqvZFzrnSli9pA/W6VgFp3RMjsaPheLn4mml2ORJ9BUq9MM1bw3FWRYuN8p6
-	nn8Y+p09w=
-X-Google-Smtp-Source: AGHT+IEs7QQQpQ+QHms7VvccdWHZkwsnmSezPFz0aWxK3R2PkC8Cqfo+oQCrK81SjJGHKmtq16OSBg==
-X-Received: by 2002:a05:6402:2790:b0:61c:96a1:da11 with SMTP id 4fb4d7f45d1cf-61c96a1e080mr4005235a12.27.1756278806249;
-        Wed, 27 Aug 2025 00:13:26 -0700 (PDT)
-Message-ID: <cc8724b6-bb31-4482-a459-156366b7b433@suse.com>
-Date: Wed, 27 Aug 2025 09:13:25 +0200
+        bh=KfwZ9l5V2bAjpuYOBMDJ7zBCdjwTCyFDu0LrI6NWVBk=;
+        b=u7SywqC+h2O3lMLX7CB4Jw1E0TBEZRByvKFrcBnEdWn2OhFg+kH3u/3X7i19cDZrAX
+         NmhN0uKXMBBxoreNY8qDlHjBb2BqEldBxr2AzlfKEHyFmr26wP1niEUSuijqijlSa1rz
+         yRzzk9Xhxh+Buz5J3zligaUBoZ7CApJaCYaz2wYWyZYoW0UpqMNFxguPbjwAB4GktLUQ
+         CMU/OkZc7OUNRv3/EmOoc6YA1eYlgaBj88NYZcpK8NpHMRpmTNYLouJcedb6E41+ze08
+         3X0rLGacPpmFPD5fOph9RaEWUKKD5LTvPd3ZbGhb0SHDS+zohMQ6ZjVvlxkC5IFziQIq
+         6Yqw==
+X-Forwarded-Encrypted: i=1; AJvYcCUCwpTvPY1owHKww6B4Tk/2Drueak54hbfkNZUR4gyD2dOa9lLNBKd4g4lt3OQR2N+3kwj6cs0B/NM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwxN0fAV821tiQIzjrgJS+wW+5TTlhdvBorKuzgIj/7V6OaZJfb
+	dcJgxRww5Tce1XdR3MuplIPxbnP5Ri0SLGrFKJv+qfT0PHCGIV6vtxr6wnhfxNhMhw==
+X-Gm-Gg: ASbGncuc9Qi8tGGXzLhdjLLPc/7pzh6KW1bkyx7oIlIIuVQUY6ZIxmWOF21d6T6aKED
+	BtjDoR7NL3ww3v928cbNIoLgrn1TWnuYbyzNqCu6O4/IP628rGoGnamVJRR3PQPcjB8oY33Wmcd
+	pw9X4ZdTaGuvqQHCYUEP5NOliO5YNdvUXKpWvP6dCILVkPj56ba5md4XH7K3qcZmuWBD4Gokmqg
+	zcoiNrjveuIGzuYh8JG/9VAB/KS5gMxe3lwULk36s6e1Q3hHmzTG4Wnkx8RfKMSL4g+e3Sef3kU
+	RX85r2egRlGT3R5ILzQ+Vzv2QFk5FM8uY6hromvP+j+dTEzZE2CqxWw9DpxDrfFxudmpB5mVlfj
+	8CgiSyyEUyZx2h7Rnd2AVxyfRZcutJDxLOuQl2KyDL9s820EYhpr5YA0pBg7eB7fO8+Ogi+xQLY
+	vODpqDyrFRhIvyetHcmw==
+X-Google-Smtp-Source: AGHT+IFz6t0xh3WrMotafXWmuMTy6nRH5AkFrQ9WN8rtTxSXohdXoYDKiOYqYshcwNiA6yfGOJ15Xw==
+X-Received: by 2002:a17:907:86aa:b0:ae0:a483:7b29 with SMTP id a640c23a62f3a-afe29550672mr1723992666b.49.1756281149387;
+        Wed, 27 Aug 2025 00:52:29 -0700 (PDT)
+Message-ID: <3ec7b53e-aef6-4a00-acb3-19cbbe6543c9@suse.com>
+Date: Wed, 27 Aug 2025 09:52:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>, ray.huang@amd.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org, Penny Zheng <Penny.Zheng@amd.com>
-References: <20250815102728.1340505-1-Penny.Zheng@amd.com>
- <fb6f559a-b2aa-4b25-a6d3-401ecc4b4bd5@suse.com>
- <d6046b53-9317-43d6-bfda-e30d42c09320@gmail.com>
- <2035b14e-3836-4e80-9dad-8a49ca90864a@suse.com>
- <alpine.DEB.2.22.394.2508181646220.923618@ubuntu-linux-20-04-desktop>
- <49416df6-83c8-4fa3-bf81-2d1e504ef31b@suse.com>
- <alpine.DEB.2.22.394.2508251934200.3391208@ubuntu-linux-20-04-desktop>
- <alpine.DEB.2.22.394.2508261728250.3391208@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v2] x86/bitops: Optimise arch_ffs{,l}() some more on AMD
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250527222930.1452674-1-andrew.cooper3@citrix.com>
+ <20250826174135.605220-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,53 +119,97 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2508261728250.3391208@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20250826174135.605220-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27.08.2025 02:33, Stefano Stabellini wrote:
-> So I ran a test and the appended change, which is based on [1] and
-> renaming CONFIG_DOMCTL to CONFIG_SYSCTL, is sufficient to resolve the
-> build issue.
-> 
-> For 4.21, I suggest we go with two patches:
-> 1) global rename of CONFIG_SYSCTL to CONFIG_MGMT_HYPERCALLS
-> 2) stub domctl_lock_acquire/release based on CONFIG_MGMT_HYPERCALLS
-> 
-> Jan, are you OK with this?
-
-Naming if the option aside, no, I fear I dislike the stubbing. What's
-worse though, ...
-
-> --- a/xen/include/xen/domain.h
-> +++ b/xen/include/xen/domain.h
-> @@ -148,8 +148,17 @@ void arch_dump_domain_info(struct domain *d);
+On 26.08.2025 19:41, Andrew Cooper wrote:
+> --- a/xen/common/bitops.c
+> +++ b/xen/common/bitops.c
+> @@ -97,14 +97,14 @@ static void __init test_for_each_set_bit(void)
+>      if ( ui != ui_res )
+>          panic("for_each_set_bit(uint) expected %#x, got %#x\n", ui, ui_res);
 >  
->  int arch_vcpu_reset(struct vcpu *v);
+> -    ul = HIDE(1UL << (BITS_PER_LONG - 1) | 1);
+> +    ul = HIDE(1UL << (BITS_PER_LONG - 1) | 0x11);
+>      for_each_set_bit ( i, ul )
+>          ul_res |= 1UL << i;
 >  
-> +#ifdef CONFIG_SYSCTL
->  bool domctl_lock_acquire(void);
->  void domctl_lock_release(void);
-> +#else
-> +static inline bool domctl_lock_acquire(void)
+>      if ( ul != ul_res )
+>          panic("for_each_set_bit(ulong) expected %#lx, got %#lx\n", ul, ul_res);
+>  
+> -    ull = HIDE(0x8000000180000001ULL);
+> +    ull = HIDE(0x8000000180000011ULL);
+>      for_each_set_bit ( i, ull )
+>          ull_res |= 1ULL << i;
+
+How do these changes make a difference? Apart from ffs() using TZCNT, ...
+
+> @@ -127,6 +127,79 @@ static void __init test_for_each_set_bit(void)
+>          panic("for_each_set_bit(break) expected 0x1008, got %#x\n", ui_res);
+>  }
+>  
+> +/*
+> + * A type-generic fls() which picks the appropriate fls{,l,64}() based on it's
+> + * argument.
+> + */
+> +#define fls_g(x)                                        \
+> +    (sizeof(x) <= sizeof(int)      ? fls(x) :           \
+> +     sizeof(x) <= sizeof(long)     ? flsl(x) :          \
+> +     sizeof(x) <= sizeof(uint64_t) ? fls64(x) :         \
+> +     ({ BUILD_ERROR("fls_g() Bad input type"); 0; }))
+> +
+> +/*
+> + * for_each_set_bit_reverse() - Iterate over all set bits in a scalar value,
+> + * from MSB to LSB.
+> + *
+> + * @iter An iterator name.  Scoped is within the loop only.
+> + * @val  A scalar value to iterate over.
+> + *
+> + * A copy of @val is taken internally.
+> + */
+> +#define for_each_set_bit_reverse(iter, val)             \
+> +    for ( typeof(val) __v = (val); __v; __v = 0 )       \
+> +        for ( unsigned int (iter);                      \
+> +              __v && ((iter) = fls_g(__v) - 1, true);   \
+> +              __clear_bit(iter, &__v) )
+> +
+> +/*
+> + * Xen doesn't have need of for_each_set_bit_reverse() at present, but the
+> + * construct does exercise a case of arch_fls*() not covered anywhere else by
+> + * these tests.
+> + */
+> +static void __init test_for_each_set_bit_reverse(void)
 > +{
-> +    return false;
+> +    unsigned int  ui,  ui_res = 0, tmp;
+> +    unsigned long ul,  ul_res = 0;
+> +    uint64_t      ull, ull_res = 0;
+> +
+> +    ui = HIDE(0x80008001U);
+> +    for_each_set_bit_reverse ( i, ui )
+> +        ui_res |= 1U << i;
+> +
+> +    if ( ui != ui_res )
+> +        panic("for_each_set_bit_reverse(uint) expected %#x, got %#x\n", ui, ui_res);
+> +
+> +    ul = HIDE(1UL << (BITS_PER_LONG - 1) | 0x11);
+> +    for_each_set_bit_reverse ( i, ul )
+> +        ul_res |= 1UL << i;
+> +
+> +    if ( ul != ul_res )
+> +        panic("for_each_set_bit_reverse(ulong) expected %#lx, got %#lx\n", ul, ul_res);
+> +
+> +    ull = HIDE(0x8000000180000011ULL);
+> +    for_each_set_bit_reverse ( i, ull )
+> +        ull_res |= 1ULL << i;
 
-... this will break x86'es HVM_PARAM_IDENT_PT handling. That is, in
-principle I would agree that returning false here is appropriate. But
-for the specific case there it's wrong.
+... even here the need for the extra setting of bit 4 remains unclear to
+me: The thing that was missing was the testing of the reverse for-each.
+You mention the need for an asymmetric input in the description, but isn't
+that covered already by the first test using 0x80008001U?
 
-As said on the call yesterday, until what you call MGMT_HYPERCALLS is
-completely done, the option needs to be prompt-less, always-on. Adding
-a prompt was necessary to be the last thing on the SYSCTL series, and
-it'll need to be last on the follow-on one masking out further
-hypercalls. IOW my take is that 34317c508294 and 568f806cba4c will
-need reverting (the latter being what caused the regression, and the
-former depending on the latter), to allow to cleanly continue that
-work after the rename. If we don't do the reverts now (and take either
-Penny's patch or what you propose), imo we'll need to do them later.
-Else we're risking to introduce new randconfig breakages while the
-further conversion work is ongoing.
+That said, I certainly don't mind the change, it just isn't quite clear to
+me whether I'm missing something crucial.
 
 Jan
 
