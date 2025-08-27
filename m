@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00DC2B383CD
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 15:39:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1096072.1450873 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6122EB383E6
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 15:44:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1096082.1450884 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urGMj-0005Dm-Fp; Wed, 27 Aug 2025 13:39:05 +0000
+	id 1urGRx-0006vp-3v; Wed, 27 Aug 2025 13:44:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1096072.1450873; Wed, 27 Aug 2025 13:39:05 +0000
+Received: by outflank-mailman (output) from mailman id 1096082.1450884; Wed, 27 Aug 2025 13:44:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urGMj-0005Bk-Cw; Wed, 27 Aug 2025 13:39:05 +0000
-Received: by outflank-mailman (input) for mailman id 1096072;
- Wed, 27 Aug 2025 13:39:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1urGRx-0006su-0l; Wed, 27 Aug 2025 13:44:29 +0000
+Received: by outflank-mailman (input) for mailman id 1096082;
+ Wed, 27 Aug 2025 13:44:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=x+iP=3H=epam.com=Leonid_Komarianskyi@srs-se1.protection.inumbo.net>)
- id 1urGMh-0005Be-3r
- for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 13:39:03 +0000
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c20a::7])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 304695bd-834b-11f0-ae26-e363de0e7a9e;
- Wed, 27 Aug 2025 15:39:00 +0200 (CEST)
-Received: from GV2PR03MB8678.eurprd03.prod.outlook.com (2603:10a6:150:7d::13)
- by AS2PR03MB9098.eurprd03.prod.outlook.com (2603:10a6:20b:5f9::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.20; Wed, 27 Aug
- 2025 13:38:57 +0000
-Received: from GV2PR03MB8678.eurprd03.prod.outlook.com
- ([fe80::4eb:3e7b:1ffa:25f9]) by GV2PR03MB8678.eurprd03.prod.outlook.com
- ([fe80::4eb:3e7b:1ffa:25f9%6]) with mapi id 15.20.9052.014; Wed, 27 Aug 2025
- 13:38:57 +0000
+ <SRS0=BCET=3H=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1urGRv-0006so-Op
+ for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 13:44:27 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f276479c-834b-11f0-aeb2-fb57b961d000;
+ Wed, 27 Aug 2025 15:44:26 +0200 (CEST)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-55ce5243f6dso7332173e87.2
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Aug 2025 06:44:26 -0700 (PDT)
+Received: from [192.168.0.110] ([91.123.151.69])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-55f35c20123sm2830243e87.68.2025.08.27.06.44.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 27 Aug 2025 06:44:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,275 +45,381 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 304695bd-834b-11f0-ae26-e363de0e7a9e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fnhboHYfuDaUCmTujOe61la1A9AbrIK9yzP6dwYlg0qwMMbGRvy2gOb8uVJBuPUWPWjjaZMxAz+iJPFvTb2Rfj5HrDGFkln5cExS1rREACrPAmTqS2Mp7JVgq36zZyyoE0FuINdnSRnP9yoDH7JeGLMVdPUpusRuf3vABzd9dfbyYzJcX2iq93pUleowNuUkHzTAgu2VDiCEksKMnjW6AYdW41cSiQ5QYXOYObNPiZU3ivo+2eR3UppL83fG3+Qbkpl5Dz7Ao3rdHcolc9b9IOzyHtI9/xPY6mA0bwPJJ/R9FirGCYTwoXZvMYXX8A0/WO04eL+c17uTTu8rRM7/3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jf/itPgkdiDrehnRkDorTFkAS/dBFmFwYFd1J0KAXQI=;
- b=l5x7Khi12VLQTOS/pv12lnpytzknS/b1cX6mCVKBcCOa7jmQPWnZIN6iwm/NkV9e6KCib2yKVXJ0f7KGuCmNS5TozS5GDSdLR3GxK9YPDKlHaQ0scWUwJOe1651utnm4CA9NpB+5koSifqkqlIxvARwjy2NWyufLsZxxRRwwOsqtxEeWIwEXkJQ+ek6HLIT+827NagCOitHYtyPwyi3OseCLnI8410njIut55DFA+dTbOAvHBhxvJoJVkssCNm4Iaw/ByE+dcyhAY7U4RmlMGJrce1P01zgJC2g67tygH9IA5FEMnPmZRqEZaRdu/31NNh1QIvMmXpWnk40ZRQbzgw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jf/itPgkdiDrehnRkDorTFkAS/dBFmFwYFd1J0KAXQI=;
- b=OPpPOJqWFWgYkZaBezN/8YqOSSMXCQalxATlwSiMLCOyHJsyj9RIif9+6D6rjbng9qnEAxDTnUaWuKd5LRcQTlGumb9uftKGUrkO0LzytzJnlLKtSYSDYy3R+K9VWK2t1qQaAqIYv8qExS+MGYIBFug+EfmPYk/5Q5otwaBBL991w0sB77P5fGxfAXAAkkHvnOEsRIZLVve4rMv1QYkzXMKo4P6K7rkIhxvucxODP8B+1TPVcLAZlpqwaorpmaMkKe5qyMlvVW9nABX5H2vsZV5JrgOJLQtBgAm4U+zWEPi9LbPHiPjs5AGVXJ8CAdQGORJ05KQhuk2xghEaDV5ruw==
-From: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
-	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v3 05/11] xen/arm: gicv3: implement handling of GICv3.1
- eSPI
-Thread-Topic: [PATCH v3 05/11] xen/arm: gicv3: implement handling of GICv3.1
- eSPI
-Thread-Index: AQHcFpJ/0RYrIev2JkmWYheOK3kVZ7R2TMyAgAA17oA=
-Date: Wed, 27 Aug 2025 13:38:57 +0000
-Message-ID: <bc850218-334b-407e-9008-3c1e8a61c7ba@epam.com>
-References: <cover.1756216942.git.leonid_komarianskyi@epam.com>
- <398ad09617f4f97d57d13fa9f3771bd2db83916b.1756216943.git.leonid_komarianskyi@epam.com>
- <c9ec5d69-6b2e-4226-aa8f-ee6062c84885@gmail.com>
-In-Reply-To: <c9ec5d69-6b2e-4226-aa8f-ee6062c84885@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR03MB8678:EE_|AS2PR03MB9098:EE_
-x-ms-office365-filtering-correlation-id: 65898e35-9beb-4a8c-013d-08dde56f12dd
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?Y1JNREFBR1U5UXljb1VWUWhneTlNbUJFZFJza2RIQUxsYm0yV1I5cllvRHJF?=
- =?utf-8?B?NFFHVkQ5RktKSDhzcmo0T0hGb08rcDRxY2oxUHNiYWRpM3BTS0pmRmFiZUFX?=
- =?utf-8?B?b21ROGVQaUVOL3BsSlZQS3lDUFJuVEEvanZTWm5OWCtnQmRla2lvTFg2SmJq?=
- =?utf-8?B?Ull2R0R1bjdRZGF5YkxDdFpkUktYaFR6VzFpSTBiNFJQSTlJOVgwY1FzQURD?=
- =?utf-8?B?ckNNQVhVTTZpZkJDNWJxVXhQVmMvQzBjaHR2dmpBRFlqeDFCL1hJcER3SnRJ?=
- =?utf-8?B?Ym9jaFFhVzF3MWxtMWtKa1pFOUhoOWtRUzhDbEJUUU9BbzEydzBZcUx3djJX?=
- =?utf-8?B?RXFpYVpFMitPeFUySHlRcGhxRHFaTmVLUDg3UHk3MzR4dHY2RjJBbEo3T0Na?=
- =?utf-8?B?b2p6QUhwWWxHUzZzOVRFNDloTFI0dUZ4alVnVW9pVDFNOHFPdy9SYi8vbEND?=
- =?utf-8?B?K1ZueTgzcDE4bmcvZ0JpOS8rOHZab280Q3kzUmo4emNFQnZnakR1MHNQM1Ex?=
- =?utf-8?B?a0Q2YkFWQnhQemNEcHhXTmRqOFVtOUJ6dUdZcmxNbXFIUFZINVNFalJQV1RS?=
- =?utf-8?B?bU81VGNsbEhPR21sQWpJRU9zRDQrY01HbmNuNnNSSzRvTStqOERkUTlLV0hO?=
- =?utf-8?B?VWdBYkdYck9YRzNSMk16cndRbHBGQjFSZmFHQlR4cnhyMWJPdHlxNVlsNE9w?=
- =?utf-8?B?Skk3RFdGVzh5M09uTXJIRjJFelBubEhMZURNWFpWS0hIZ0ExTm5WM2VXOHUz?=
- =?utf-8?B?bHZ0VVN5YmNrQTRsWWxmYXFLcFU1U0NZTFkwSWxRMVkwajJaVzl3ZmhFUEMw?=
- =?utf-8?B?ZXBLVUNhbEdIbVZJUlcrVkNhY0twSzlwazBuSE4rcWh3dWRZRm41aFhuMHdX?=
- =?utf-8?B?VnE4NThzSFQvOXp2Z0tBQzQvZWJ5MmlwVXU4MG40ZkxQc0dRZDBXSkl2bFdv?=
- =?utf-8?B?ZnByVXdtQkYvNzhwSk55UXRhNE9WRFRwblJpcmkxa3ZXMVk4ekljL0JFUkhH?=
- =?utf-8?B?dXhKVHUzcUdmT09iNXdMZzhESkxUOFBKQnRUdzBCaFE1YTJKTkVuS25CVUl6?=
- =?utf-8?B?cmhUZ2syZ1NERGpDV2paQ0JXYllPSEEvOHlDNEN3MnFFU2J5RHJUby9saGFH?=
- =?utf-8?B?WElrelJ4V0QxS1RlTXgxSXJJdmdkeUtwTVN2bEN5V3pXUUR4UXI4ZVdEa0t3?=
- =?utf-8?B?OFJrSDR1aG0vOGVvMjJPVFAvVnowbUpOdExEQklXMjhuRnF2cS9xK0RHMm5z?=
- =?utf-8?B?S3dweE1EeitCR040RTRjVzJJdTBoU3RQNFpoOWlOK0pJNDBsQ1lMUzVOKzhU?=
- =?utf-8?B?aERxdXN0WFEzeVpnUWduUlZRYnBBWkZ0QWhRbmhja0tJa1VFKzBIeUFyYzJP?=
- =?utf-8?B?bkIxNnhHT3N4WnhSV3NFNzFmVkI0bnNEY3lHVDFYWFJWM3YzcG0rcHBTZnkz?=
- =?utf-8?B?bmJXTTdZUVZMZkdrR2JRMVpIL2c4Z3VWTExtTzczWVNPV3dMVDB1ejA1T1lo?=
- =?utf-8?B?YjBVMkxxK3lYd2ZPRncwb1RwVStOa1hZbEZCZHBGNXlhQ3VNQnhMVWlQRVZK?=
- =?utf-8?B?VEd1SkQ4NVBhOTU4SGZhQWY5ckV3eUV4S21BV0RzQVN2RXZtM3Z4bFYxdW4y?=
- =?utf-8?B?c1RSb3lLaWdXeXRxZk12MlkxTlFZL2VHM2RVZnhJU0l3aERDK0VHaTZnUVFq?=
- =?utf-8?B?NFNjcWxWcmljOHNhbndCMXZWcnRtb3BXbytDajg4ZlZKa3gxNHlVeHRCNW4z?=
- =?utf-8?B?REVQek5PRTVKdnVObFNvTktkMUFRaHdmZHZ5M0pnK1RaakFrdnRqcEd6V2hC?=
- =?utf-8?B?QllRSXl6RzlXRXYrRDlNSnpuTFE1M0lDc3ZwdHNZa2VsMWZqaFRwNHBIZ3g1?=
- =?utf-8?B?K0VVL0tpczZMRlBUTEViZ2xtdnZ5YmNVUnlEb2lHOXdobFRPSXRFeFRXV2dG?=
- =?utf-8?B?NXEwWnZYQjRMa1hGUjViTnhXSjNNOEhNOXh2UnQ0MVp2RlR2ZFFCcUQrWnpw?=
- =?utf-8?B?elBscVhHN1J3PT0=?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB8678.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?QXl3SzR4NmdFbGp4b1lDaE5CdHhWUlY2SFpzeWgrSjM1eE9UcEpZSU5tV21N?=
- =?utf-8?B?RmFxSTFwekVRcmpiM3Z4VmUxV2pNdDVaNWtvc3Z3N2Vsanp5MHB0b1lONE5r?=
- =?utf-8?B?VmxwTDdPK2tqMk5ZUXh5ZWlkMmZSTHFjays1WStGa1g0QU1wWHRKdE9OVUxF?=
- =?utf-8?B?UWxTSG1TUWRkRmpxdzZDTTdFWGN0NVord0l4L1VjNVZ6N0lVNi9zSU12RDdx?=
- =?utf-8?B?L3R3b0dQL1ZTSkJqajZVTkp2VnBUTSsybEt6dkE2Wi9YU21FdUdRNExoVXVM?=
- =?utf-8?B?N3hBWUVidlhiNlFsekFFQmhQTkJ5UW8veGY2NkxUVjJ5UFU5V09WcUVpS3do?=
- =?utf-8?B?Q2V6cGFjM3lMOXFINVZuMTA4VjM5MjdZMzYzaHhjdUtaRkx2UnloM0M2ZkVH?=
- =?utf-8?B?SEpPSWxDaGxJMlo1S1hBbmpXTG9rUTV1RGJ3ZVBMQ2VsVGJWVit5MHhRWk1n?=
- =?utf-8?B?Tmd2SkJPRE5qVTBRNXRlcDNZS25ia25hbHZhZ1Mrdlc4TTFwckdRVUZXMGxP?=
- =?utf-8?B?Sit6Mk5PQVRjK1dLZzlxUU1teStubXdJNUdyNTk0OGg4R2dOL3ZoOUR2T1du?=
- =?utf-8?B?MSthUHI5VjV2TUpFWnIwZHhWeHpQT0xPdTNkeFVJcW5zaWZVSWZsMWVoWlpF?=
- =?utf-8?B?N0RjK2pOY3NtZkFXalJhOW1WK25WaWhvMEVjc2dVRUxZVFhjUzhaZmZLRGhQ?=
- =?utf-8?B?Nlg3R0RqcUxJZFVJcDZkY3FxNndsUXZtT1dzTTJ4aTFCcDFFZklnUlp1TXoy?=
- =?utf-8?B?d1QwNmp5YThPbUgxaVNkR2tmK2tDZ0FZS1ZFOVh1Y0RUTGlkampVWWV1MFNF?=
- =?utf-8?B?RTZ0NFV5VlFuL0d0R3Fzd1dUdDRTMk9KMVZqRnNVZGw2T1gxWERMbEJ5S2V6?=
- =?utf-8?B?ZVlKYzd4VGdZSWdUL2F6Ym9HSTNMeEIvQlJzVm5MaSthcllNVVF3aGdMSk1Q?=
- =?utf-8?B?eXp2RWhicWh4Vm1wWGk0OXBRaThsMjBiOVFOczVheGRrZGxHV0x4VzYzdHRW?=
- =?utf-8?B?ampWQndWL3RobzdVMjFjbno2cHhEOW42SXhSZEM3YUNhbklNdFlweWlVY2FP?=
- =?utf-8?B?UzBuSlNHMElvcjhqTTF5UTUwTWhXZkg3azhSVlNhMzN6TVFtTnU5b3pWeEo4?=
- =?utf-8?B?dlJ2T0NPNlBURmdLL1lwRm1IZEY5d1U2UDdWbDdyQVRleXBxaTdMSDM4NHJk?=
- =?utf-8?B?dklmeHIrSzBhcEJSbzcyaTF1VlNSZjVZdDlJOEFIOGhjY0pzamFKS2dxeTNj?=
- =?utf-8?B?OFRhOU1JSUFkQlEzVnR2UUd3K2hWZWo4QUlGMFpEVXF5WFBTendRWi9EeHlB?=
- =?utf-8?B?YXczdS9IT2Jnck1qTEJWMTA0ellZT1YzUDdpeVJWYjN3WDlKWkhvSHdWdmYz?=
- =?utf-8?B?aS9KbDZyT3lkMDJ3Qjl1YlMranArQzlXQ3NTSE9ORUU1VzJpVVJscExtRk9E?=
- =?utf-8?B?dUE0bzNJKy9WTTNnNGZxbkl2UTRkbTN6Y1Q2YkNlN1poYnI2bTA4bGxNVUU2?=
- =?utf-8?B?dDdsc0ZmVEttZnNxLzJINUROOVFOWUtrNVlsd3ZlR012b2YrTDd3dVo2eXlu?=
- =?utf-8?B?TW1KMTRvWVRzQzBkMHc1blU3cVFFTFBzUnlYMVlIRytMS08yeTFUVFFzdHVu?=
- =?utf-8?B?TkVCSHF3UUZyREdrclM4RGx6TDBTNEpTMkN3SUdEcjRKUkRocHBKYkV0eWhy?=
- =?utf-8?B?YVFEenpYejlhTlJtUDVRZU5KMEIvbFNLU1YxbTlTSWMvRU9KTjVWV2l6Tk5S?=
- =?utf-8?B?ajVQQTd1eFpTbzNoa0swOXJVM1Q3VE9RSEhsaUxuK2FJS1Uvbkt5elEzVUR4?=
- =?utf-8?B?WGdYenRSRHgySURCekwzYU1KVnV1aWYyVy9vbndUQmNGZERPTEFhcXBhQTJl?=
- =?utf-8?B?d1BPRTg0YmplbEdpSjdSKzFreEIweUd2MWNBdk43Y2FiUWFWU0duZWVMZlh0?=
- =?utf-8?B?d2hsR1JzbEhWTmt3MnRoeE9pM2hOZkp3amliZVNNQ3ZwRC9hK1VUYWpFQzdr?=
- =?utf-8?B?dTlWdnI0M2RJRGt2ZlhLNGY3aFpLK2QyZEt2YXZZWjZIZVFLS3loU2toTzVz?=
- =?utf-8?B?R2FFamg2NEJ5bG9DVDNzZEZFTkllZ1pXVkkwUk9NVXViZ0VBYWJpWjkwMHhn?=
- =?utf-8?B?UHZOMlROWWY5ZGhOWGJXRWtQWTUvQzYxYlNoU29FVSs4bC9aWGNua05hQ3Np?=
- =?utf-8?Q?aNapFlS27WguTPqY/XvUXJo=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <A4718AEF821F28499F8EC7CC3DC6F20E@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: f276479c-834b-11f0-aeb2-fb57b961d000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1756302266; x=1756907066; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=SQUYcwoWEyv3/kVUqRL3MNbyDx5dY8DehRbYIKGYuCs=;
+        b=IiaYVVA+83sZmecF08iW1rdjUxnROk4o564vpJNhIsoBJSSnRsXWD4RfrNRhNlvtq6
+         K1wagrW2+aFtyop3SG6dJ+/iuOIWREXJrQj6mHsbQgcyGuQ9YQsNJJ3ffMeZMGnD19W3
+         DYMFHGCxRvzDWAlZbR+ZSiO75ctwCMOA85tIvy5aLoHSjjznmFps55NeSoft3Dct+qc5
+         bIRRAA9P69RGwZ8f+Wfu1bsAe7iVrZl2+ztt7UywRX6Uoplo9Q1phEwiKEhI9h8ZIuJM
+         1p/R2grveJO5jnugT/5i8ouaw8dxkkHXIWjjqz50rRGtJQ8z4IgXN7GJa35nI9wuVx7g
+         SM7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756302266; x=1756907066;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=SQUYcwoWEyv3/kVUqRL3MNbyDx5dY8DehRbYIKGYuCs=;
+        b=NYLy3bwphR4bgfJicxhybURRBk+qRN2lbq28U0hHknYyN59oVLOpcH9fdeLPifnh15
+         Eh9PWyIm/z3eFLNhILgziQ0BtV+s13aJzzwPRPUemi+rExZqV//XwXa4QjxX3l/OyfSo
+         DFujeHrpfJU5GzpxVrUM4WMzKwHYK7ycx/C9SVLLQyto6ZWRhs5zG5AFEzUB8uMQxepq
+         qYo9beGkfH4JeFjSYNZ1m5ZENu83z7uqWEO17ZwoNUk8SMQ2gwnl9Ky1cHFVKt6FO8Lz
+         Y2NY18u7KXJhW4g2nhUZyY5pnNCu6ZdG0GC7wfU92lBA2Tn0s0cXPdJhc5nGyez4pjBg
+         3MqQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVNByoBatOR4GMQ/npeUt1kK/NKqsY5rH+710nFl6OmQ2yKJL5otSG+uPtq5rQrGt7rcEg7wQVfpec=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzzLwKOJK7os1xwIHGuIxX+ZnAs91dyiN6GE3bfc3LPicyCgiYu
+	LQsK5kMnrBAUaBLTJ/kKrXL9/y1b7oGpIJrKOlnW2WFmI02EssBKgYaX
+X-Gm-Gg: ASbGncupwsj7iVTU3moeYSYpUJ85s9bOkxCrO8Bruzw5AbeEGaR2gklYS2ZtbxO9DGy
+	2xjmS1cO8+hgIu9izCpSjfNKrjaUY4tYZ8+v+lYka0YXr8zOcVC/SN6bsH2Q793grFDHfTAr/fI
+	x+D8kiG0cAAhctyVn0ZM0mdRnzcyovSp2i6nW0aIpZUw5qaaKxt6JJBUIMsTLKt02GE060d7aC3
+	NNxAnUwdGyYBN/R8t1OqvRI5w5jayBWftglRbxyhjHa6IhRApcFiNFItIG5K5SIghqkbFbGxU4x
+	VOOpBmQJwnTcaoAIjsNnztKAJ6leLVZqoXB2sGEMz2KYLYUlPpZ0N1ojTt7W+yf8yNWKnKve1Ni
+	TjSoiFvk7PVQg1P/08vMMuuKEmz4sHGhPqHUNIERPniUiMQA=
+X-Google-Smtp-Source: AGHT+IF5OQfuHLS9bx2NxGVm44L1hzyeRBTseXmnUjPy8HHqQDvTnOdShtpnl/eJibjuWTbod1PdmA==
+X-Received: by 2002:a05:6512:3e13:b0:55c:e95e:cd63 with SMTP id 2adb3069b0e04-55f0ccce878mr5726122e87.30.1756302265317;
+        Wed, 27 Aug 2025 06:44:25 -0700 (PDT)
+Message-ID: <7b0e2df4-9666-4f7b-9ada-9f1000200fd3@gmail.com>
+Date: Wed, 27 Aug 2025 16:44:23 +0300
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB8678.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65898e35-9beb-4a8c-013d-08dde56f12dd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Aug 2025 13:38:57.6601
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 3tsHxV/CUqblKTIbHUHbsUQY05tfjES33I1Spe0r2oc9HKQ19hL4XI9yBO+x+kcSwhEMncnKyWO2i9zXLJUzgO8nPssDidtdIXAFLs965ao=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR03MB9098
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 10/11] xen/arm: vgic-v3: add emulation of GICv3.1 eSPI
+ registers
+To: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1756216942.git.leonid_komarianskyi@epam.com>
+ <642a994d712a8c9df7aed9dec22124564db83c7e.1756216943.git.leonid_komarianskyi@epam.com>
+ <5a84d20c-5136-4151-8801-b0fbccaf23d7@gmail.com>
+ <d71bd33e-ec09-47e5-af68-b8a79c78971d@epam.com>
+Content-Language: en-US
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+In-Reply-To: <d71bd33e-ec09-47e5-af68-b8a79c78971d@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-SGVsbG8gT2xla3NhbmRyLA0KDQpUaGFuayB5b3UgZm9yIHlvdXIgZ29vZCBxdWVzdGlvbiwgSSB3
-YXMgdGhpbmtpbmcgYWJvdXQgdGhhdCBhcyB3ZWxsLg0KDQpPbiAyNy4wOC4yNSAxMzoyNSwgT2xl
-a3NhbmRyIFR5c2hjaGVua28gd3JvdGU6DQo+IA0KPiANCj4gT24gMjYuMDguMjUgMTc6MDUsIExl
-b25pZCBLb21hcmlhbnNreWkgd3JvdGU6DQo+IA0KPiANCj4gSGVsbG8gTGVvbmlkLA0KPiANCj4g
-SW4gZ2VuZXJhbCBwYXRjaCBsb29rcyBnb29kIHRvIG1lLCBqdXN0IG9uZSBxdWVzdGlvbiBiZWxv
-dyAuLi4NCj4gDQo+PiBJbnRyb2R1Y2VkIGFwcHJvcHJpYXRlIHJlZ2lzdGVyIGRlZmluaXRpb25z
-LCBoZWxwZXIgbWFjcm9zLA0KPj4gYW5kIGluaXRpYWxpemF0aW9uIG9mIHJlcXVpcmVkIEdJQ3Yz
-LjEgZGlzdHJpYnV0b3IgcmVnaXN0ZXJzDQo+PiB0byBzdXBwb3J0IGVTUEkuIFRoaXMgdHlwZSBv
-ZiBpbnRlcnJ1cHQgaXMgaGFuZGxlZCBpbiB0aGUNCj4+IHNhbWUgd2F5IGFzIHJlZ3VsYXIgU1BJ
-IGludGVycnVwdHMsIHdpdGggdGhlIGZvbGxvd2luZw0KPj4gZGlmZmVyZW5jZXM6DQo+Pg0KPj4g
-MSkgZVNQSXMgY2FuIGhhdmUgdXAgdG8gMTAyNCBpbnRlcnJ1cHRzLCBzdGFydGluZyBmcm9tIHRo
-ZQ0KPj4gYmVnaW5uaW5nIG9mIHRoZSByYW5nZSwgd2hlcmVhcyByZWd1bGFyIFNQSXMgdXNlIElO
-VElEcyBmcm9tDQo+PiAzMiB0byAxMDE5LCB0b3RhbGluZyA5ODggaW50ZXJydXB0czsNCj4+IDIp
-IGVTUElzIHN0YXJ0IGF0IElOVElEIDQwOTYsIG5lY2Vzc2l0YXRpbmcgYWRkaXRpb25hbCBpbnRl
-cnJ1cHQNCj4+IGluZGV4IGNvbnZlcnNpb24gZHVyaW5nIHJlZ2lzdGVyIG9wZXJhdGlvbnMuDQo+
-Pg0KPj4gSW4gY2FzZSBpZiBhcHByb3ByaWF0ZSBjb25maWcgaXMgZGlzYWJsZWQsIG9yIEdJQyBI
-VyBkb2Vzbid0DQo+PiBzdXBwb3J0IGVTUEksIHRoZSBleGlzdGluZyBmdW5jdGlvbmFsaXR5IHdp
-bGwgcmVtYWluIHRoZSBzYW1lLg0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IExlb25pZCBLb21hcmlh
-bnNreWkgPGxlb25pZF9rb21hcmlhbnNreWlAZXBhbS5jb20+DQo+Pg0KPj4gLS0tDQo+PiBDaGFu
-Z2VzIGluIFYyOg0KPj4gLSBtb3ZlIGdpY19udW1iZXJfZXNwaXMgZnVuY3Rpb24gZnJvbQ0KPj4g
-wqDCoCBbUEFUQ0ggMDgvMTBdIHhlbi9hcm06IHZnaWM6IGFkZCByZXNvdXJjZSBtYW5hZ2VtZW50
-IGZvciBleHRlbmRlZCBTUElzDQo+PiDCoMKgIHRvIHVzZSBpdCBpbiB0aGUgbmV3bHkgaW50cm9k
-dWNlZCBnaWNfaXNfdmFsaWRfZXNwaQ0KPj4gLSBhZGQgZ2ljX2lzX3ZhbGlkX2VzcGkgd2hpY2gg
-Y2hlY2tzIGlmIElSUSBudW1iZXIgaXMgaW4gc3VwcG9ydGVkDQo+PiDCoMKgIGJ5IEhXIGVTUEkg
-cmFuZ2UNCj4+IC0gdXBkYXRlIGdpY19pc192YWxpZF9pcnEgY29uZGl0aW9ucyB0byBhbGxvdyBv
-cGVyYXRpb25zIHdpdGggZVNQSXMNCj4+DQo+PiBDaGFuZ2VzIGluIFYzOg0KPj4gLSBhZGQgX19p
-bml0IGF0dHJpYnV0ZSB0byBnaWN2M19kaXN0X2VzcGlfY29tbW9uX2luaXQNCj4+IC0gY2hhbmdl
-IG9wZW4tY29kZGVkIGVTUEkgcmVnaXN0ZXIgaW5pdGlhbGl6YXRpb24gdG8gdGhlIGFwcHJvcHJp
-YXRlDQo+PiDCoMKgIGdlbi1tYXNrIG1hY3JvDQo+PiAtIGZpeGVkIGZvcm1hdHRpbmcgZm9yIGxp
-bmVzIHdpdGggbW9yZSB0aGFuIDgwIHN5bWJvbHMNCj4+IC0gaW50cm9kdWNlZCBnaWN2M19kaXN0
-X2VzcGlfaW5pdF9hZmYgdG8gYmUgYWJsZSB0byB1c2Ugc3R1YnMgaW4gY2FzZSBvZg0KPj4gwqDC
-oCBDT05GSUdfR0lDVjNfRVNQSSBkaXNhYmxlZA0KPj4gLSByZW5hbWVkIHBhcmFtZXRlciBpbiB0
-aGUgR0lDRF9UWVBFUl9FU1BJX1JBTkdFIG1hY3JvIHRvIGVzcGlfcmFuZ2UNCj4+IMKgwqAgKG5h
-bWUgd2FzIHRha2VuIGZyb20gR0lDIHNwZWNpZmljYXRpb24pIHRvIGF2b2lkIGNvbmZ1c2lvbg0K
-Pj4gLSBjaGFuZ2VkIHR5cGUgZm9yIGkgdmFyaWFibGUgdG8gdW5zaWduZWQgaW50IHNpbmNlIGl0
-IGNhbm5vdCBiZQ0KPj4gwqDCoCBuZWdhdGl2ZQ0KPj4gLS0tDQo+PiDCoCB4ZW4vYXJjaC9hcm0v
-Z2ljLXYzLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHwgODAgKysrKysrKysr
-KysrKysrKysrKysrKysrKysNCj4+IMKgIHhlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9naWMuaMKg
-wqDCoMKgwqDCoMKgwqAgfCAyMSArKysrKysrDQo+PiDCoCB4ZW4vYXJjaC9hcm0vaW5jbHVkZS9h
-c20vZ2ljX3YzX2RlZnMuaCB8IDM0ICsrKysrKysrKysrDQo+PiDCoCAzIGZpbGVzIGNoYW5nZWQs
-IDEzNSBpbnNlcnRpb25zKCspDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL3hlbi9hcmNoL2FybS9naWMt
-djMuYyBiL3hlbi9hcmNoL2FybS9naWMtdjMuYw0KPj4gaW5kZXggYTk1OWZlZmViZS4uM2FhNWNj
-MTc2NSAxMDA2NDQNCj4+IC0tLSBhL3hlbi9hcmNoL2FybS9naWMtdjMuYw0KPj4gKysrIGIveGVu
-L2FyY2gvYXJtL2dpYy12My5jDQo+PiBAQCAtNDg1LDYgKzQ4NSwzNiBAQCBzdGF0aWMgdm9pZCBf
-X2lvbWVtICpnZXRfYWRkcl9ieV9vZmZzZXQoc3RydWN0IA0KPj4gaXJxX2Rlc2MgKmlycWQsIHUz
-MiBvZmZzZXQpDQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgZGVmYXVsdDoNCj4+IMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIGJyZWFrOw0KPj4gwqDCoMKgwqDCoMKgwqDCoMKgIH0NCj4+ICsjaWZk
-ZWYgQ09ORklHX0dJQ1YzX0VTUEkNCj4+ICvCoMKgwqAgY2FzZSBFU1BJX0JBU0VfSU5USUQgLi4u
-IEVTUElfTUFYX0lOVElEOg0KPj4gK8KgwqDCoCB7DQo+PiArwqDCoMKgwqDCoMKgwqAgdTMyIGly
-cV9pbmRleCA9IEVTUElfSU5USUQySURYKGlycWQtPmlycSk7DQo+PiArDQo+PiArwqDCoMKgwqDC
-oMKgwqAgc3dpdGNoICggb2Zmc2V0ICkNCj4+ICvCoMKgwqDCoMKgwqDCoCB7DQo+PiArwqDCoMKg
-wqDCoMKgwqAgY2FzZSBHSUNEX0lTRU5BQkxFUjoNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IHJldHVybiAoR0lDRCArIEdJQ0RfSVNFTkFCTEVSbkUgKyAoaXJxX2luZGV4IC8gMzIpICogNCk7
-DQo+PiArwqDCoMKgwqDCoMKgwqAgY2FzZSBHSUNEX0lDRU5BQkxFUjoNCj4+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIHJldHVybiAoR0lDRCArIEdJQ0RfSUNFTkFCTEVSbkUgKyAoaXJxX2luZGV4
-IC8gMzIpICogNCk7DQo+PiArwqDCoMKgwqDCoMKgwqAgY2FzZSBHSUNEX0lTUEVORFI6DQo+PiAr
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gKEdJQ0QgKyBHSUNEX0lTUEVORFJuRSArIChp
-cnFfaW5kZXggLyAzMikgKiA0KTsNCj4+ICvCoMKgwqDCoMKgwqDCoCBjYXNlIEdJQ0RfSUNQRU5E
-UjoNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAoR0lDRCArIEdJQ0RfSUNQRU5E
-Um5FICsgKGlycV9pbmRleCAvIDMyKSAqIDQpOw0KPj4gK8KgwqDCoMKgwqDCoMKgIGNhc2UgR0lD
-RF9JU0FDVElWRVI6DQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gKEdJQ0QgKyBH
-SUNEX0lTQUNUSVZFUm5FICsgKGlycV9pbmRleCAvIDMyKSAqIDQpOw0KPj4gK8KgwqDCoMKgwqDC
-oMKgIGNhc2UgR0lDRF9JQ0FDVElWRVI6DQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1
-cm4gKEdJQ0QgKyBHSUNEX0lDQUNUSVZFUm5FICsgKGlycV9pbmRleCAvIDMyKSAqIDQpOw0KPj4g
-K8KgwqDCoMKgwqDCoMKgIGNhc2UgR0lDRF9JQ0ZHUjoNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIHJldHVybiAoR0lDRCArIEdJQ0RfSUNGR1JuRSArIChpcnFfaW5kZXggLyAxNikgKiA0KTsN
-Cj4+ICvCoMKgwqDCoMKgwqDCoCBjYXNlIEdJQ0RfSVJPVVRFUjoNCj4+ICvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIHJldHVybiAoR0lDRCArIEdJQ0RfSVJPVVRFUm5FICsgaXJxX2luZGV4ICogOCk7
-DQo+PiArwqDCoMKgwqDCoMKgwqAgY2FzZSBHSUNEX0lQUklPUklUWVI6DQo+PiArwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCByZXR1cm4gKEdJQ0QgKyBHSUNEX0lQUklPUklUWVJuRSArIGlycV9pbmRl
-eCk7DQo+PiArwqDCoMKgwqDCoMKgwqAgZGVmYXVsdDoNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIGJyZWFrOw0KPj4gK8KgwqDCoMKgwqDCoMKgIH0NCj4+ICvCoMKgwqAgfQ0KPj4gKyNlbmRp
-Zg0KPj4gwqDCoMKgwqDCoCBkZWZhdWx0Og0KPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGJyZWFrOw0K
-Pj4gwqDCoMKgwqDCoCB9DQo+PiBAQCAtNjU1LDYgKzY4NSw1MiBAQCBzdGF0aWMgdm9pZCBnaWN2
-M19zZXRfaXJxX3ByaW9yaXR5KHN0cnVjdCANCj4+IGlycV9kZXNjICpkZXNjLA0KPj4gwqDCoMKg
-wqDCoCBzcGluX3VubG9jaygmZ2ljdjMubG9jayk7DQo+PiDCoCB9DQo+PiArI2lmZGVmIENPTkZJ
-R19HSUNWM19FU1BJDQo+PiArdW5zaWduZWQgaW50IGdpY19udW1iZXJfZXNwaXModm9pZCkNCj4+
-ICt7DQo+PiArwqDCoMKgIHJldHVybiBnaWNfaHdfb3BzLT5pbmZvLT5ucl9lc3BpOw0KPj4gK30N
-Cj4+ICsNCj4+ICtzdGF0aWMgdm9pZCBfX2luaXQgZ2ljdjNfZGlzdF9lc3BpX2NvbW1vbl9pbml0
-KHVpbnQzMl90IHR5cGUpDQo+PiArew0KPj4gK8KgwqDCoCB1bnNpZ25lZCBpbnQgZXNwaV9uciwg
-aTsNCj4+ICsNCj4+ICvCoMKgwqAgZXNwaV9uciA9IG1pbigxMDI0VSwgR0lDRF9UWVBFUl9FU1BJ
-U19OVU0odHlwZSkpOw0KPj4gK8KgwqDCoCBnaWN2M19pbmZvLm5yX2VzcGkgPSBlc3BpX25yOw0K
-Pj4gK8KgwqDCoCAvKiBUaGUgR0lDIEhXIGRvZXNuJ3Qgc3VwcG9ydCBlU1BJLCBzbyB3ZSBjYW4g
-bGVhdmUgZnJvbSBoZXJlICovDQo+PiArwqDCoMKgIGlmICggZ2ljdjNfaW5mby5ucl9lc3BpID09
-IDAgKQ0KPj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybjsNCj4+ICsNCj4+ICvCoMKgwqAgZm9yICgg
-aSA9IDA7IGkgPCBlc3BpX25yOyBpICs9IDE2ICkNCj4+ICvCoMKgwqDCoMKgwqDCoCB3cml0ZWxf
-cmVsYXhlZCgwLCBHSUNEICsgR0lDRF9JQ0ZHUm5FICsgKGkgLyAxNikgKiA0KTsNCj4+ICsNCj4+
-ICvCoMKgwqAgZm9yICggaSA9IDA7IGkgPCBlc3BpX25yOyBpICs9IDQgKQ0KPj4gK8KgwqDCoMKg
-wqDCoMKgIHdyaXRlbF9yZWxheGVkKEdJQ19QUklfSVJRX0FMTCwNCj4+ICvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBHSUNEICsgR0lDRF9JUFJJT1JJVFlSbkUg
-KyAoaSAvIDQpICogNCk7DQo+PiArDQo+PiArwqDCoMKgIGZvciAoIGkgPSAwOyBpIDwgZXNwaV9u
-cjsgaSArPSAzMiApDQo+PiArwqDCoMKgIHsNCj4+ICvCoMKgwqDCoMKgwqDCoCB3cml0ZWxfcmVs
-YXhlZChHRU5NQVNLKDMxLCAwKSwgR0lDRCArIEdJQ0RfSUNFTkFCTEVSbkUgKyAoaSAvIA0KPj4g
-MzIpICogNCk7DQo+PiArwqDCoMKgwqDCoMKgwqAgd3JpdGVsX3JlbGF4ZWQoR0VOTUFTSygzMSwg
-MCksIEdJQ0QgKyBHSUNEX0lDQUNUSVZFUm5FICsgKGkgLyANCj4+IDMyKSAqIDQpOw0KPj4gK8Kg
-wqDCoCB9DQo+PiArDQo+PiArwqDCoMKgIGZvciAoIGkgPSAwOyBpIDwgZXNwaV9ucjsgaSArPSAz
-MiApDQo+PiArwqDCoMKgwqDCoMKgwqAgd3JpdGVsX3JlbGF4ZWQoR0VOTUFTSygzMSwgMCksIEdJ
-Q0QgKyBHSUNEX0lHUk9VUFJuRSArIChpIC8gDQo+PiAzMikgKiA0KTsNCj4+ICt9DQo+PiArDQo+
-PiArc3RhdGljIHZvaWQgX19pbml0IGdpY3YzX2Rpc3RfZXNwaV9pbml0X2FmZih1aW50NjRfdCBh
-ZmZpbml0eSkNCj4+ICt7DQo+PiArwqDCoMKgIHVuc2lnbmVkIGludCBpOw0KPj4gKw0KPj4gK8Kg
-wqDCoCBmb3IgKCBpID0gMDsgaSA8IGdpY3YzX2luZm8ubnJfZXNwaTsgaSsrICkNCj4+ICvCoMKg
-wqDCoMKgwqDCoCB3cml0ZXFfcmVsYXhlZF9ub25fYXRvbWljKGFmZmluaXR5LCBHSUNEICsgR0lD
-RF9JUk9VVEVSbkUgKyBpIA0KPj4gKiA4KTsNCj4+ICt9DQo+PiArI2Vsc2UNCj4+ICtzdGF0aWMg
-dm9pZCBfX2luaXQgZ2ljdjNfZGlzdF9lc3BpX2NvbW1vbl9pbml0KHVpbnQzMl90IHR5cGUpIHsg
-fQ0KPj4gKw0KPj4gK3N0YXRpYyB2b2lkIF9faW5pdCBnaWN2M19kaXN0X2VzcGlfaW5pdF9hZmYo
-dWludDY0X3QgYWZmaW5pdHkpIHsgfQ0KPj4gKyNlbmRpZg0KPj4gKw0KPj4gwqAgc3RhdGljIHZv
-aWQgX19pbml0IGdpY3YzX2Rpc3RfaW5pdCh2b2lkKQ0KPj4gwqAgew0KPj4gwqDCoMKgwqDCoCB1
-aW50MzJfdCB0eXBlOw0KPj4gQEAgLTcwMCw2ICs3NzYsOCBAQCBzdGF0aWMgdm9pZCBfX2luaXQg
-Z2ljdjNfZGlzdF9pbml0KHZvaWQpDQo+PiDCoMKgwqDCoMKgIGZvciAoIGkgPSBOUl9HSUNfTE9D
-QUxfSVJRUzsgaSA8IG5yX2xpbmVzOyBpICs9IDMyICkNCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCB3
-cml0ZWxfcmVsYXhlZChHRU5NQVNLKDMxLCAwKSwgR0lDRCArIEdJQ0RfSUdST1VQUiArIChpIC8g
-DQo+PiAzMikgKiA0KTsNCj4gDQo+IA0KPiBUaGVyZSBpcyBhIGJhbm5lciBpbiB0aGlzIGZ1bmN0
-aW9uIChub3QgdmlzaWJsZSBmcm9tIHRoZSBwYXRjaCBjb250ZXh0KSwgDQo+IHRoYXQgcHJpbnRz
-IG5yX2xpbmVzLCBldGMuDQo+IA0KPiBFLmcuOg0KPiAoWEVOKSBHSUN2MzogMjg4IGxpbmVzLCAo
-SUlEIDAwMDAwNDNiKS4NCj4gDQo+IFdoYXQgZG8geW91IHRoaW5rLCB3b3VsZCBpdCBiZSBpbXBv
-cnRhbnQvdmFsdWFibGUgdG8gYWxzbyBwcmludCBucl9lc3BpIA0KPiBpZiBub24temVybyAoZXh0
-ZW5kZWQgU1BJIHJhbmdlIGlzIHN1cHBvcnRlZCk/DQo+IA0KPiANCg0KSSB0aGluayBzbywgaXQg
-d2lsbCBiZSB1c2VmdWwuIEJ5IHRoZSB3YXksIG5hdGl2ZSBMaW51eCBwcmludHMgdGhpcyANCmlu
-Zm9ybWF0aW9uLCBzbyBJIHdvdWxkIHByZWZlciB0byBhZGQgYSBtZXNzYWdlIHJpZ2h0IGFmdGVy
-IGNoZWNraW5nIGlmIA0KdGhlIGhhcmR3YXJlIHN1cHBvcnRzIGVTUEk6DQogICAgIC8qIFRoZSBH
-SUMgSFcgZG9lc24ndCBzdXBwb3J0IGVTUEksIHNvIHdlIGNhbiBsZWF2ZSBmcm9tIGhlcmUgKi8N
-CiAgICAgaWYgKCBnaWN2M19pbmZvLm5yX2VzcGkgPT0gMCApDQogICAgICAgICByZXR1cm47DQoN
-CiAgICAgcHJpbnRrKCJHSUN2MzogJWQgZVNQSSBsaW5lc1xuIiwgZ2ljdjNfaW5mby5ucl9lc3Bp
-KTsNCg0KVGhpcyBsb2cgd2lsbCBhcHBlYXIgcmlnaHQgYWZ0ZXIgdGhlIGNvbW1vbiBvbmUgYW5k
-IHdpbGwgbG9vayBsaWtlIHRoaXM6DQooWEVOKSBHSUN2MzogOTg4IGxpbmVzLCAoSUlEIDAwMDAw
-NDNiKQ0KKFhFTikgR0lDdjM6IDEwMjQgZVNQSSBsaW5lcw0KDQo+PiArwqDCoMKgIGdpY3YzX2Rp
-c3RfZXNwaV9jb21tb25faW5pdCh0eXBlKTsNCj4+ICsNCj4+IMKgwqDCoMKgwqAgZ2ljdjNfZGlz
-dF93YWl0X2Zvcl9yd3AoKTsNCj4+IMKgwqDCoMKgwqAgLyogVHVybiBvbiB0aGUgZGlzdHJpYnV0
-b3IgKg0KPj4gQEAgLTcxMyw2ICs3OTEsOCBAQCBzdGF0aWMgdm9pZCBfX2luaXQgZ2ljdjNfZGlz
-dF9pbml0KHZvaWQpDQo+PiDCoMKgwqDCoMKgIGZvciAoIGkgPSBOUl9HSUNfTE9DQUxfSVJRUzsg
-aSA8IG5yX2xpbmVzOyBpKysgKQ0KPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHdyaXRlcV9yZWxheGVk
-X25vbl9hdG9taWMoYWZmaW5pdHksIEdJQ0QgKyBHSUNEX0lST1VURVIgKyBpIA0KPj4gKiA4KTsN
-Cj4+ICsNCj4+ICvCoMKgwqAgZ2ljdjNfZGlzdF9lc3BpX2luaXRfYWZmKGFmZmluaXR5KTsNCj4+
-IMKgIH0NCj4+DQo+IA0KPiANCj4gW3NuaXBdDQo+IA0KPiANCj4gDQoNCkJlc3QgcmVnYXJkcywN
-Ckxlb25pZC4=
+
+
+On 27.08.25 14:13, Leonid Komarianskyi wrote:
+> Hello Oleksandr,
+
+Hello Leonid
+
+> 
+> Thank you for your close review.
+> 
+> On 26.08.25 22:57, Oleksandr Tyshchenko wrote:
+>>
+>>
+>> On 26.08.25 17:05, Leonid Komarianskyi wrote:
+>>
+>> Hello Leonid
+>>
+>>
+>>> Implemented support for GICv3.1 extended SPI registers for vGICv3,
+>>> allowing the emulation of eSPI-specific behavior for guest domains.
+>>> The implementation includes read and write emulation for eSPI-related
+>>> registers (e.g., GICD_ISENABLERnE, GICD_IROUTERnE, and others),
+>>> following a similar approach to the handling of regular SPIs.
+>>>
+>>> The eSPI registers, previously located in reserved address ranges,
+>>> are now adjusted to support MMIO read and write operations correctly
+>>> when CONFIG_GICV3_ESPI is enabled.
+>>>
+>>> The availability of eSPIs and the number of emulated extended SPIs
+>>> for guest domains is reported by setting the appropriate bits in the
+>>> GICD_TYPER register, based on the number of eSPIs requested by the
+>>> domain and supported by the hardware. In cases where the configuration
+>>> option is disabled, the hardware does not support eSPIs, or the domain
+>>> does not request such interrupts, the functionality remains unchanged.
+>>>
+>>> Signed-off-by: Leonid Komarianskyi <leonid_komarianskyi@epam.com>
+>>>
+>>> ---
+>>> Changes in V2:
+>>> - add missing rank index conversion for pending and inflight irqs
+>>>
+>>> Changes in V3:
+>>> - changed vgic_store_irouter parameters - instead of offset virq is
+>>>     used, to remove the additional bool espi parameter and simplify
+>>>     checks. Also, adjusted parameters for regular SPI. Since the offset
+>>>     parameter was used only for calculating virq number and then reused
+>>> for
+>>>     finding rank offset, it will not affect functionality.
+>>> - fixed formatting for goto lables - added newlines after condition
+>>> - fixed logs for GICD_ISACTIVERnE and GICD_ICACTIVERnE handlers
+>>> - removed #ifdefs in 2 places where they were adjacent and could be
+>>> merged
+>>> ---
+>>>    xen/arch/arm/vgic-v3.c | 275 +++++++++++++++++++++++++++++++++++++++--
+>>>    1 file changed, 266 insertions(+), 9 deletions(-)
+>>>
+>>> diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
+>>> index 4369c55177..56c539bb1b 100644
+>>> --- a/xen/arch/arm/vgic-v3.c
+>>> +++ b/xen/arch/arm/vgic-v3.c
+>>> @@ -111,13 +111,10 @@ static uint64_t vgic_fetch_irouter(struct
+>>> vgic_irq_rank *rank,
+>>>     * Note the offset will be aligned to the appropriate boundary.
+>>>     */
+>>>    static void vgic_store_irouter(struct domain *d, struct
+>>> vgic_irq_rank *rank,
+>>> -                               unsigned int offset, uint64_t irouter)
+>>> +                               unsigned int virq, uint64_t irouter)
+>>>    {
+>>>        struct vcpu *new_vcpu, *old_vcpu;
+>>> -    unsigned int virq;
+>>> -
+>>> -    /* There is 1 vIRQ per IROUTER */
+>>> -    virq = offset / NR_BYTES_PER_IROUTER;
+>>> +    unsigned int offset;
+>>>        /*
+>>>         * The IROUTER0-31, used for SGIs/PPIs, are reserved and should
+>>> @@ -685,6 +682,9 @@ static int __vgic_v3_distr_common_mmio_read(const
+>>> char *name, struct vcpu *v,
+>>>        {
+>>>        case VRANGE32(GICD_IGROUPR, GICD_IGROUPRN):
+>>>        case VRANGE32(GICD_IGRPMODR, GICD_IGRPMODRN):
+>>> +#ifdef CONFIG_GICV3_ESPI
+>>> +    case VRANGE32(GICD_IGROUPRnE, GICD_IGROUPRnEN):
+>>> +#endif
+>>>            /* We do not implement security extensions for guests, read
+>>> zero */
+>>>            if ( dabt.size != DABT_WORD ) goto bad_width;
+>>>            goto read_as_zero;
+>>> @@ -710,11 +710,19 @@ static int
+>>> __vgic_v3_distr_common_mmio_read(const char *name, struct vcpu *v,
+>>>        /* Read the pending status of an IRQ via GICD/GICR is not
+>>> supported */
+>>>        case VRANGE32(GICD_ISPENDR, GICD_ISPENDRN):
+>>>        case VRANGE32(GICD_ICPENDR, GICD_ICPENDRN):
+>>> +#ifdef CONFIG_GICV3_ESPI
+>>> +    case VRANGE32(GICD_ISPENDRnE, GICD_ISPENDRnEN):
+>>> +    case VRANGE32(GICD_ICPENDRnE, GICD_ICPENDRnEN):
+>>> +#endif
+>>>            goto read_as_zero;
+>>>        /* Read the active status of an IRQ via GICD/GICR is not
+>>> supported */
+>>>        case VRANGE32(GICD_ISACTIVER, GICD_ISACTIVERN):
+>>>        case VRANGE32(GICD_ICACTIVER, GICD_ICACTIVERN):
+>>> +#ifdef CONFIG_GICV3_ESPI
+>>> +    case VRANGE32(GICD_ISACTIVERnE, GICD_ISACTIVERnEN):
+>>> +    case VRANGE32(GICD_ICACTIVERnE, GICD_ICACTIVERnEN):
+>>> +#endif
+>>>            goto read_as_zero;
+>>>        case VRANGE32(GICD_IPRIORITYR, GICD_IPRIORITYRN):
+>>> @@ -752,6 +760,69 @@ static int __vgic_v3_distr_common_mmio_read(const
+>>> char *name, struct vcpu *v,
+>>>            return 1;
+>>>        }
+>>> +#ifdef CONFIG_GICV3_ESPI
+>>> +    case VRANGE32(GICD_ISENABLERnE, GICD_ISENABLERnEN):
+>>> +        if ( dabt.size != DABT_WORD )
+>>> +            goto bad_width;
+>>> +        rank = vgic_ext_rank_offset(v, 1, reg - GICD_ISENABLERnE,
+>>> DABT_WORD);
+>>> +        if ( rank == NULL )
+>>> +            goto read_as_zero;
+>>> +        vgic_lock_rank(v, rank, flags);
+>>> +        *r = vreg_reg32_extract(rank->ienable, info);
+>>> +        vgic_unlock_rank(v, rank, flags);
+>>> +        return 1;
+>>> +
+>>> +    case VRANGE32(GICD_ICENABLERnE, GICD_ICENABLERnEN):
+>>> +        if ( dabt.size != DABT_WORD )
+>>> +            goto bad_width;
+>>> +        rank = vgic_ext_rank_offset(v, 1, reg - GICD_ICENABLERnE,
+>>> DABT_WORD);
+>>> +        if ( rank == NULL )
+>>> +            goto read_as_zero;
+>>> +        vgic_lock_rank(v, rank, flags);
+>>> +        *r = vreg_reg32_extract(rank->ienable, info);
+>>> +        vgic_unlock_rank(v, rank, flags);
+>>> +        return 1;
+>>> +
+>>> +    case VRANGE32(GICD_IPRIORITYRnE, GICD_IPRIORITYRnEN):
+>>> +    {
+>>> +        uint32_t ipriorityr;
+>>> +        uint8_t rank_index;
+>>> +
+>>> +        if ( dabt.size != DABT_BYTE && dabt.size != DABT_WORD )
+>>> +            goto bad_width;
+>>> +        rank = vgic_ext_rank_offset(v, 8, reg - GICD_IPRIORITYRnE,
+>>> DABT_WORD);
+>>> +        if ( rank == NULL )
+>>> +            goto read_as_zero;
+>>> +        rank_index = REG_RANK_INDEX(8, reg - GICD_IPRIORITYRnE,
+>>> DABT_WORD);
+>>> +
+>>> +        vgic_lock_rank(v, rank, flags);
+>>> +        ipriorityr = ACCESS_ONCE(rank->ipriorityr[rank_index]);
+>>> +        vgic_unlock_rank(v, rank, flags);
+>>> +
+>>> +        *r = vreg_reg32_extract(ipriorityr, info);
+>>> +
+>>> +        return 1;
+>>> +    }
+>>> +
+>>> +    case VRANGE32(GICD_ICFGRnE, GICD_ICFGRnEN):
+>>> +    {
+>>> +        uint32_t icfgr;
+>>> +
+>>> +        if ( dabt.size != DABT_WORD )
+>>> +            goto bad_width;
+>>> +        rank = vgic_ext_rank_offset(v, 2, reg - GICD_ICFGRnE,
+>>> DABT_WORD);
+>>> +        if ( rank == NULL )
+>>> +            goto read_as_zero;
+>>> +        vgic_lock_rank(v, rank, flags);
+>>> +        icfgr = rank->icfg[REG_RANK_INDEX(2, reg - GICD_ICFGRnE,
+>>> DABT_WORD)];
+>>> +        vgic_unlock_rank(v, rank, flags);
+>>> +
+>>> +        *r = vreg_reg32_extract(icfgr, info);
+>>> +
+>>> +        return 1;
+>>> +    }
+>>> +#endif
+>>> +
+>>>        default:
+>>>            printk(XENLOG_G_ERR
+>>>                   "%pv: %s: unhandled read r%d offset %#08x\n",
+>>> @@ -782,6 +853,9 @@ static int __vgic_v3_distr_common_mmio_write(const
+>>> char *name, struct vcpu *v,
+>>>        {
+>>>        case VRANGE32(GICD_IGROUPR, GICD_IGROUPRN):
+>>>        case VRANGE32(GICD_IGRPMODR, GICD_IGRPMODRN):
+>>> +#ifdef CONFIG_GICV3_ESPI
+>>> +    case VRANGE32(GICD_IGROUPRnE, GICD_IGROUPRnEN):
+>>> +#endif
+>>>            /* We do not implement security extensions for guests, write
+>>> ignore */
+>>>            goto write_ignore_32;
+>>> @@ -871,6 +945,99 @@ static int
+>>> __vgic_v3_distr_common_mmio_write(const char *name, struct vcpu *v,
+>>>            vgic_unlock_rank(v, rank, flags);
+>>>            return 1;
+>>> +#ifdef CONFIG_GICV3_ESPI
+>>> +    case VRANGE32(GICD_ISENABLERnE, GICD_ISENABLERnEN):
+>>> +        if ( dabt.size != DABT_WORD )
+>>> +            goto bad_width;
+>>> +        rank = vgic_ext_rank_offset(v, 1, reg - GICD_ISENABLERnE,
+>>> DABT_WORD);
+>>> +        if ( rank == NULL )
+>>> +            goto write_ignore;
+>>> +        vgic_lock_rank(v, rank, flags);
+>>> +        tr = rank->ienable;
+>>> +        vreg_reg32_setbits(&rank->ienable, r, info);
+>>> +        vgic_enable_irqs(v, (rank->ienable) & (~tr),
+>>> EXT_RANK_IDX2NUM(rank->index));
+>>> +        vgic_unlock_rank(v, rank, flags);
+>>> +        return 1;
+>>> +
+>>> +    case VRANGE32(GICD_ICENABLERnE, GICD_ICENABLERnEN):
+>>> +        if ( dabt.size != DABT_WORD )
+>>> +            goto bad_width;
+>>> +        rank = vgic_ext_rank_offset(v, 1, reg - GICD_ICENABLERnE,
+>>> DABT_WORD);
+>>> +        if ( rank == NULL )
+>>> +            goto write_ignore;
+>>> +        vgic_lock_rank(v, rank, flags);
+>>> +        tr = rank->ienable;
+>>> +        vreg_reg32_clearbits(&rank->ienable, r, info);
+>>> +        vgic_disable_irqs(v, (~rank->ienable) & tr,
+>>> EXT_RANK_IDX2NUM(rank->index));
+>>> +        vgic_unlock_rank(v, rank, flags);
+>>> +        return 1;
+>>> +
+>>> +    case VRANGE32(GICD_ISPENDRnE, GICD_ISPENDRnEN):
+>>> +        if ( dabt.size != DABT_WORD )
+>>> +            goto bad_width;
+>>> +        rank = vgic_ext_rank_offset(v, 1, reg - GICD_ISPENDRnE,
+>>> DABT_WORD);
+>>> +        if ( rank == NULL )
+>>> +            goto write_ignore;
+>>> +
+>>> +        vgic_set_irqs_pending(v, r, EXT_RANK_IDX2NUM(rank->index));
+>>> +
+>>> +        return 1;
+>>> +
+>>> +    case VRANGE32(GICD_ICPENDRnE, GICD_ICPENDRnEN):
+>>> +        if ( dabt.size != DABT_WORD )
+>>> +            goto bad_width;
+>>> +        rank = vgic_ext_rank_offset(v, 1, reg - GICD_ICPENDRnE,
+>>> DABT_WORD);
+>>> +        if ( rank == NULL )
+>>> +            goto write_ignore;
+>>> +
+>>> +        vgic_check_inflight_irqs_pending(v, EXT_RANK_IDX2NUM(rank-
+>>>> index), r);
+>>> +
+>>> +        goto write_ignore;
+>>> +    case VRANGE32(GICD_ISACTIVERnE, GICD_ISACTIVERnEN):
+>>> +        if ( dabt.size != DABT_WORD )
+>>> +            goto bad_width;
+>>> +        printk(XENLOG_G_ERR
+>>> +               "%pv: %s: unhandled word write %#"PRIregister" to
+>>> ISACTIVER%dE\n",
+>>> +               v, name, r, reg - GICD_ISACTIVERnE);
+>>> +        return 0;
+>>
+>> Guest write access to GICD_ISACTIVER<n>E will lead to abort. But, I know
+>> you just repeated the logic for regular GICD_ISACTIVER<n>.
+>>
+>>
+> 
+> Could you please clarify the scenario in which it leads to an abort?
+> Since it is actually a stub case, it should just print an error message
+> and that's it..
+
+"return 0;" will lead to injecting a fault into the guest.
+
+  Do you mean that, in this case, we need to goto
+> write_ignore_32 label instead of returning 0?
+
+My comment was not a direct request to change anything, but rather 
+thinking out loud.
+
+Unfortunally, I cannot answer why regular GICD_ISACTIVER<n> is emulated
+in that way, but perhaps the injecting fault into the guest is the 
+lesser evil than emulating it incorrectly...
+
+Interestingly, for GICv2 we have a slighly relaxed version; it looks 
+like writing 0 will not cause an abort and will be WI.
+25f9e80201f3688e0c4d5c4e43e4b6143b441c52
+xen/arm: Ignore write to GICD_ISACTIVERn registers (vgic-v2)
+
+Now, with the introduction of extended GICD_ISACTIVER<n>E you retained 
+the logic. One thing that needs mentioning is that before your series,
+guest write access to extended GICD_ISACTIVER<n>E would be WI, but
+with your series and CONFIG_GICV3_ESPI=y it will be an abort even
+if running on GIC3 HW where eSPI is not supported.
+
+At least, I would mention that in the patch description.
+
+
+> 
+>>> +
+>>> +    case VRANGE32(GICD_ICACTIVERnE, GICD_ICACTIVERnEN):
+>>> +        printk(XENLOG_G_ERR
+>>> +               "%pv: %s: unhandled word write %#"PRIregister" to
+>>> ICACTIVER%dE\n",
+>>> +               v, name, r, reg - GICD_ICACTIVER);
+>>
+>> s/GICD_ICACTIVER/GICD_ICACTIVERnE
+>>
+>>
+> 
+> I will fix that in V4.
+> 
+>>> +        goto write_ignore_32;
+
+
+[snip]
 
