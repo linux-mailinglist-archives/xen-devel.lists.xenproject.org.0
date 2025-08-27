@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90D53B37A0C
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 07:56:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1095512.1450477 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FD3EB37A0E
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 07:57:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1095522.1450487 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ur98k-0005TJ-Kg; Wed, 27 Aug 2025 05:56:10 +0000
+	id 1ur99i-0005z8-Sg; Wed, 27 Aug 2025 05:57:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1095512.1450477; Wed, 27 Aug 2025 05:56:10 +0000
+Received: by outflank-mailman (output) from mailman id 1095522.1450487; Wed, 27 Aug 2025 05:57:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ur98k-0005R0-Gt; Wed, 27 Aug 2025 05:56:10 +0000
-Received: by outflank-mailman (input) for mailman id 1095512;
- Wed, 27 Aug 2025 05:56:09 +0000
+	id 1ur99i-0005xQ-Oz; Wed, 27 Aug 2025 05:57:10 +0000
+Received: by outflank-mailman (input) for mailman id 1095522;
+ Wed, 27 Aug 2025 05:57:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Gy2E=3H=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ur98j-0005Qm-4S
- for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 05:56:09 +0000
+ id 1ur99h-0005xI-CX
+ for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 05:57:09 +0000
 Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
  [2a00:1450:4864:20::629])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 82e1620f-830a-11f0-b898-0df219b8e170;
- Wed, 27 Aug 2025 07:56:01 +0200 (CEST)
+ id a9fe7d1b-830a-11f0-b898-0df219b8e170;
+ Wed, 27 Aug 2025 07:57:07 +0200 (CEST)
 Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-afcb731caaaso951842666b.0
- for <xen-devel@lists.xenproject.org>; Tue, 26 Aug 2025 22:56:01 -0700 (PDT)
+ a640c23a62f3a-afcb73394b4so910507666b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Aug 2025 22:57:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afe79fba62dsm640757866b.100.2025.08.26.22.56.00
+ a640c23a62f3a-afe9c908431sm354167666b.92.2025.08.26.22.57.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Aug 2025 22:56:01 -0700 (PDT)
+ Tue, 26 Aug 2025 22:57:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82e1620f-830a-11f0-b898-0df219b8e170
+X-Inumbo-ID: a9fe7d1b-830a-11f0-b898-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756274161; x=1756878961; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756274227; x=1756879027; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=r/sRUv6By61dZfKrnfYyLwS1JPfsrQ60N+G2J8rf4SY=;
-        b=Rc46VaO39YeKFAuPCiRgqGsklUiqqvYP6+aLzWrgbY5A9VVttqnJGRQeJS9IpmxgxH
-         /YPR5VxevfGSLT9qy9V43uSfr5olil9/qHlNVE53bT1Ykqc998dAteQ8k4jiMFPPmQ9A
-         ye3j7yMn4RdRdDdZzGixFXAq0TaprUG6lMBX8yjGmjTPb5O5A3eGWPWaukrrUZb4uhJT
-         njZlmOB0kbFXsm/UVgTsnFoCgQidW7VpHmwbLnuUsPQAKaa2GThcMqQmHm4u4gB4Z//d
-         muwETsUmKjxqQHT7QB+jL6SzrUym63fE/6Klq02FNt3kvNKVKfc4CnqHtV7b1FSGhtk5
-         Ay1Q==
+        bh=uxSd+napYPGy30Ljg8q5ThlKlaXeb0SXlCDtdIj8V6g=;
+        b=Mm2vR3iyrqrD9BQi+/6U5oPVplW4EQb7se6RXgOPeXMhpisg7qKqtSqK2uo185CkSU
+         Gv9OULTgJXKSFQV/FZRbZmTSSeDvsUaVr/GtLdjUQP98oL/saaMBsqYWj4egFq/FSZMN
+         WRWEcWdu7NoKwC39D0/Wza2GBPTGbUOrkUdjxDzQR8YTq4K2OxnZjA5WsMVp5csM2UhS
+         OXonyxPniPlLGZb04aV2taCIU3OxQCZT3prEoZkwbWvo+ZV6lt/IPu0gDuS7YWIZNNOE
+         8jVY/e21TJhNoEkQDhlWL5vN5dxOM5mdnfsP1fyDj7Ze7LR2E4MlzvXEjQlD2eAwyYki
+         Uq3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756274161; x=1756878961;
+        d=1e100.net; s=20230601; t=1756274227; x=1756879027;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=r/sRUv6By61dZfKrnfYyLwS1JPfsrQ60N+G2J8rf4SY=;
-        b=fLKTEZm2e9d/rsbBxCQH3PFYzmnOeUPxxI1oQjM0aav+sRmwDv3RS1pmnibRfv5geI
-         mFYZr6UJFhGtMFA+3YZ8CqF3CKElx/vorWIOizi0Ip280+4yD8CorRjiRwfPdaljQHSX
-         /QxJyrWmsT9pijC4CquV7VTiVnqZIF/zw2OvuzCiam38rnqSYgz2tJz9JZfoHMs8Hrvm
-         w1rFTwQ2XvpmTgPSYGnig/UsC1BVMdjv+GOO4d55Y91X02CRCNeObOIwwnxpsQhNZjkX
-         wqhQAA4+a/tNpYr0ziA4cYf7sHVC16cokOyUFap+kTtTohQ0k1y4hIzewEopcpKSe2YR
-         Lgug==
-X-Gm-Message-State: AOJu0Yz3lJbJAQeZ4vJM4jSaguku6qWNEumCN+CPNxf26CZeHwzEpikS
-	0/pxYr2ASfih4+dm0ipk5/FBBgwQ3PKWYmm1o5bXNGMNL4POcKNltVvz7Gs3OfftFydfv622b7K
-	QQAM=
-X-Gm-Gg: ASbGncvA/vcn0urxm0on8e25izyqAcbAmV/LqXdsl7K5POdVWKOyN6STY0HJ8ga3Psn
-	JcSLFPoDsEYP94ZRFgps3cyD04Y7eC5/QHR5lnZn0I8orgG5NM9RQgUIbmn+xCtHwukEvLwjqTx
-	+LmXwecr9KYX5hDgr47hb8l6UlIxSAngnNWet0kXaUgVrx8NzoMtIVhVaqXES9wbvk2NwFVJkWp
-	b1KdOpwbXVo22ZoigLRYLDshBHPgKnjFdvreLOch1nuj50MwNNVwsTRwyI5u1LwS8rOydLqWqSm
-	n1ZEyEHmVeGY+MFMUqQOVmgU7ARXFy2XsL0xXHx8Qgv3JXM2Ka8OkTx85k7SzEuBuQiCdTsLZdi
-	gdFbCDEoKtAhL4zxpT8QyfyAbnikNxrWsDskJDYTv+6/tp76CoGpilyRGCOLddwug/e5E4n7M4D
-	ZHw/MZq+8=
-X-Google-Smtp-Source: AGHT+IFcNn2GSa1AuikFpIYnj2ZfgN8+gOzmfv3WoYnw1tVrFPeNTtmpTZZWsZ4teuBHE9kHwMqPvQ==
-X-Received: by 2002:a17:907:7e92:b0:af9:3c4d:e978 with SMTP id a640c23a62f3a-afec348acb4mr98224166b.41.1756274161294;
-        Tue, 26 Aug 2025 22:56:01 -0700 (PDT)
-Message-ID: <719c456b-927d-41c3-b28d-135a895958dd@suse.com>
-Date: Wed, 27 Aug 2025 07:56:00 +0200
+        bh=uxSd+napYPGy30Ljg8q5ThlKlaXeb0SXlCDtdIj8V6g=;
+        b=S34YiwLN8v9EWpYcT1wFw93yfBe3OWvgpGVPwmlFsflGeMt8LeLok+ExY30Nm7yrXm
+         abOULlW6F0k9RVzwIMyk4Z51u/CQC/FPWC5Ry/PQ+T7FrMLKevCtyzPsmupJnOPpQl2X
+         OtaHtiXwWGSNsoBdRm4j6Y3KuC9C4uFt/bs+kh7tcSfm2jisnAQc4F+HvajPdC8fZGTA
+         9j1aORC4ea5rxwgUeqYRi2by77nHWHzjAfSESrNqwPy6s/OiDKlQXR4HEDjLv+7vkHaJ
+         0ovkw3r+Os6eVIiBdmbLyRkWcub2cpx00+5FCOfalXvlDPEhAAE5HTRK6RzSaiQ6vGXC
+         pF1Q==
+X-Gm-Message-State: AOJu0Yw6BPJAkxluKoKBgTBWvH9TM6z3HRJC/QTV72NxnnKXxSLZ0qjF
+	WV5RJ3/e6hWxOfKkHo367OjuI+ZlCRdVYUBgxZpEKzCdWkybvmphswcXmjvTk20QPT5eSR9AqEn
+	6v+E=
+X-Gm-Gg: ASbGncsPzxlTh6awXcCxTvOwC9C3p+xX7Kj9rzR6gwsFGU1fHRnx+SHLP+sGqOnJgst
+	uxLGcFwKfPqBZIG7xkicPD4rxyRz+hOLfVChmvjOPjQMfQZJYWy6BFfn0vieD8eACDP8ed4vcOV
+	alLRyOobBfpGUYZXrBvp7dEchFfQjcsqelmrecTkRgAAoJ9o0st5DVnYDx2cgbdICKqQuHnWYw3
+	E5ARzjYIENE3+rqZHxoqMnGsBEcuss1nt4qc2Qf23Ky6thCZvX2QZR9gOX3H1pc+q3Cuo7rd78h
+	hhsWIyZ8Mk5uhe+kkgMTsguehoWQHtwCfZ26N71UcH0rvS4N3Qm7y7ZmkIyfCjJQbJkANfctSee
+	7Ah3BHg9MuVKS7NQgW6mXPMa1TLW07/B0N7UR9SkeYLfv4k5nuM/LYBgFOzcbk6KqDoWwMDel8R
+	GJvPFlm48=
+X-Google-Smtp-Source: AGHT+IHoNwMtqgvjo7yNognA1mtpNilFqYn6bUqxN9qRLJ+5PfC3IY4ToJwhFlTzuM/amvfRCURkKA==
+X-Received: by 2002:a17:907:849:b0:afe:74f1:dbf2 with SMTP id a640c23a62f3a-afe74f1df73mr966017466b.30.1756274226926;
+        Tue, 26 Aug 2025 22:57:06 -0700 (PDT)
+Message-ID: <e567c234-473d-40c3-86dc-53317812baf7@suse.com>
+Date: Wed, 27 Aug 2025 07:57:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -92,7 +92,7 @@ To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Juergen Gross <jgross@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] libxl: respect unset video_memkb for Dom0
+Subject: [PATCH] libxl: preserve errno in libxl__xcinfo2xlinfo()
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -119,31 +119,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Without this, Dom0 will have have a curiously off-by-1 target_memkb
-value displayed by "xl list -l".
+Callers observing errors elsewhere may be confused by the ENOSYS that
+the Flask operation would yield on a Flask-disabled hypervisor.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-In retrieve_domain_configuration_end(), isn't it the wrong way round to
-set both ->b_info.target_memkb and ->b_info.max_memkb only after calling
-libxl__get_targetmem_fudge(), when that uses the two fields? This way we
-could as well use ->b_info->video_memkb directly there.
+Of course I don't know whether clobbering errno is perhaps deemed "fine"
+in libxl.
 
-Of course this may point at a bigger problem, as other fields may
-similarly never be set for Dom0.
-
---- a/tools/libs/light/libxl_internal.h
-+++ b/tools/libs/light/libxl_internal.h
-@@ -4685,7 +4685,10 @@ uint64_t libxl__get_targetmem_fudge(libx
-                                 info->max_memkb > info->target_memkb)
-                                 ? LIBXL_MAXMEM_CONSTANT : 0;
+--- a/tools/libs/light/libxl_domain.c
++++ b/tools/libs/light/libxl_domain.c
+@@ -277,6 +277,7 @@ void libxl__xcinfo2xlinfo(libxl_ctx *ctx
+                           libxl_dominfo *xlinfo)
+ {
+     size_t size;
++    int saved_errno = errno;
  
--    return info->video_memkb + mem_target_fudge;
-+    if (info->video_memkb != LIBXL_MEMKB_DEFAULT)
-+        mem_target_fudge += info->video_memkb;
-+
-+    return mem_target_fudge;
- }
+     memcpy(&(xlinfo->uuid), xcinfo->handle, sizeof(xen_domain_handle_t));
+     xlinfo->domid = xcinfo->domain;
+@@ -284,6 +285,7 @@ void libxl__xcinfo2xlinfo(libxl_ctx *ctx
+     if (libxl_flask_sid_to_context(ctx, xlinfo->ssidref,
+                                    &xlinfo->ssid_label, &size) < 0)
+         xlinfo->ssid_label = NULL;
++    errno = saved_errno;
  
- int libxl__get_memory_target(libxl__gc *gc, uint32_t domid,
+     xlinfo->dying      = !!(xcinfo->flags&XEN_DOMINF_dying);
+     xlinfo->shutdown   = !!(xcinfo->flags&XEN_DOMINF_shutdown);
 
