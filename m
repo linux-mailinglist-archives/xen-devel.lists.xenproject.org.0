@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E91FDB388DE
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 19:47:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1096629.1451269 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80CD5B388EA
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Aug 2025 19:51:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1096640.1451279 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urKFA-0007i7-2B; Wed, 27 Aug 2025 17:47:32 +0000
+	id 1urKIa-0000rd-G7; Wed, 27 Aug 2025 17:51:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1096629.1451269; Wed, 27 Aug 2025 17:47:32 +0000
+Received: by outflank-mailman (output) from mailman id 1096640.1451279; Wed, 27 Aug 2025 17:51:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urKF9-0007fl-Vb; Wed, 27 Aug 2025 17:47:31 +0000
-Received: by outflank-mailman (input) for mailman id 1096629;
- Wed, 27 Aug 2025 17:47:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1urKIa-0000ou-DG; Wed, 27 Aug 2025 17:51:04 +0000
+Received: by outflank-mailman (input) for mailman id 1096640;
+ Wed, 27 Aug 2025 17:51:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9AuO=3H=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1urKF8-0007ff-Lj
- for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 17:47:30 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e6caca29-836d-11f0-aeb2-fb57b961d000;
- Wed, 27 Aug 2025 19:47:29 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-45b4a25ccceso288915e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 27 Aug 2025 10:47:29 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b73cf86f4sm19403145e9.6.2025.08.27.10.47.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Aug 2025 10:47:28 -0700 (PDT)
+ <SRS0=n4tM=3H=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1urKIY-0000om-L4
+ for xen-devel@lists.xenproject.org; Wed, 27 Aug 2025 17:51:02 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2062e.outbound.protection.outlook.com
+ [2a01:111:f403:2418::62e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 63c6e8d5-836e-11f0-ae26-e363de0e7a9e;
+ Wed, 27 Aug 2025 19:51:00 +0200 (CEST)
+Received: from MN2PR01CA0052.prod.exchangelabs.com (2603:10b6:208:23f::21) by
+ LV2PR12MB5750.namprd12.prod.outlook.com (2603:10b6:408:17e::6) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9052.19; Wed, 27 Aug 2025 17:50:56 +0000
+Received: from BL6PEPF00020E63.namprd04.prod.outlook.com
+ (2603:10b6:208:23f:cafe::c7) by MN2PR01CA0052.outlook.office365.com
+ (2603:10b6:208:23f::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9052.21 via Frontend Transport; Wed,
+ 27 Aug 2025 17:51:23 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL6PEPF00020E63.mail.protection.outlook.com (10.167.249.24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9073.11 via Frontend Transport; Wed, 27 Aug 2025 17:50:54 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 27 Aug
+ 2025 12:50:53 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 27 Aug
+ 2025 12:50:53 -0500
+Received: from [172.31.63.243] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 27 Aug 2025 12:50:52 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,172 +63,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e6caca29-836d-11f0-aeb2-fb57b961d000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1756316849; x=1756921649; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CJNT2vhJAFsF4KPZ7P2wzJVCIcO8VQrPLsgrkBfwmS8=;
-        b=tHuh5KQeydEP4P9IlIhi2c/BypkYK2RP7bga0I6FX4wkh7Yx/lkhvHucr4Jfza/Ut+
-         NIt5weqcwQ/c6xSII2ysweP0U95seBxSoMNoIAdpgxwfhxGL7/U+2HN9BscCA58NZEWf
-         SO9zyWKGR7/wBqlwcxZhJab91ygtfmm8/V948=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756316849; x=1756921649;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=CJNT2vhJAFsF4KPZ7P2wzJVCIcO8VQrPLsgrkBfwmS8=;
-        b=cj6ysTaKfvcfQ17qyp5SZH7imeIddpnUZN7YvGDzn2FxKSsvw5Pf/mp+b1HHFV3Tko
-         RS3CfuRcgHL33buGpgC8tiPlf9mHCoaAHxeldANntx3t9M0R2+uUw8+eHmRFQS0oypqn
-         HdahfWUutml+Mft0Uy+sIiJgDk7W7joVRR+eib3G8GOVtiU9TmtfoTBawfF9/vRxLhP8
-         ADuJ+7nw5gpi5FMc6583dAcIkEhj2+WtArkTIdip484xxEjRGur64UEaWZ652u11vhbo
-         ohzLehUMI4bxpR5h0PPKHmyd+TiFsIa59WCjqsIeh1a5k3ny/Cw306tA2M/zd9OOxilh
-         1WAQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWvVwxTSMgai+keMqxSVWjIqRPMDUeg4YnswM+hVJY7u/ZorP1yxYal8dK8y8OAYXty+zXcf2BBhUc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx/u3ddQqchXI8X3cvuFcpL8EXp9eIMXRpMSuJbREmxRb8KgNLP
-	zqk5fD4uTkbZXhZIeS5mQYniL3nWY5Cfoyi0hA1jFnoW8SO9O8ztzFp1BVGsHLeYts4=
-X-Gm-Gg: ASbGncu2uzVGPC7fYtr9QIsAA4bJ0fTUusFqD2waVbUbnqrCh1ZbTekF8mdC+rBGKwT
-	LwRLz4Mv7T4O5tcmANE2jrz7VX8/cORZDHLh9OdIIAf5flNM/Og7MZKtZBzXQB5LObP90L2Rpr+
-	25shkteWRB9jXnqzByXV9pJ1XV1Jj6hMfNzKCZpvbmJt56nFOkYRUFFFNjcfabGuML1189NEPQm
-	1vwj7gbdOobnRq4eis+v2w5mHO2vVE18lS8LRWi7TbgGV5yOkjwwsqrqfjLwosgyGYDo6qocRjw
-	igO//YGPIrlK81UrdWhLG+ZEhzc1hrTrFKzG3JQtvJ67HM3y7hoOl0Fty9bAZBGSqoGCIj0zUlo
-	IfMrXt3yR4KtmjEejhsPpabuucmX+BeEgZ5YX/ziiIl7HsMXljrrBCGo+4UYMSUr2gf4A
-X-Google-Smtp-Source: AGHT+IE437CduObjRgU4NO167hX6TfD+KN2bcx7DpCyvEhvVIVeJaXyLM4NZN8E6qytkYMBEkdBIuQ==
-X-Received: by 2002:a05:600c:1392:b0:453:5a04:b60e with SMTP id 5b1f17b1804b1-45b517d4e23mr164248025e9.26.1756316848975;
-        Wed, 27 Aug 2025 10:47:28 -0700 (PDT)
-Message-ID: <6e9b7b96-a506-40ed-95b6-6ad00ba9a27a@citrix.com>
-Date: Wed, 27 Aug 2025 18:47:27 +0100
+X-Inumbo-ID: 63c6e8d5-836e-11f0-ae26-e363de0e7a9e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SJyu1M/TZ95mwRjFJlwnz/tGDir5tByXWtqge7hAMpIzFjgxZfbdm+9it0eDuJO36MkF+pFPanIeAS2tnhNxRh57+Y338CA9nA1bo0lQssTBDzsoIC3D518GJlTG9nt4i3mX9dQlCAkfF5l5Zq6qXk3IGh2Y18waoCzn9SDrlQt6MsN4+j2QsGXPSkP7WUP2BXTieZuO51Z09UHQ/rp3kpM5BEblaTTlKyDrqgn9q3n0hgoZZHisyl7BqGXyRENlKXBOy/nK5QFTRAdvgazMcyZpCokhnvdXeiqnSL9jricA3Ge0q9f/EA/xtJ8ZXh5Xr4xx7NpReQL+5rGZNAKzKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=stB7/Muskj3g62ltWLB8R0YUq3th1wmrseeiuYbxT2E=;
+ b=sE54pUpmw0i64ia2nfkEcnio7q4aXY9T8zZrVYa4QOCUOVCCh69KF3Db42ewVvbihsetRjfjHPrB71CMLrj4oL4oJad63pIrQaegTFBrM48MUYWozhhCY+EollBg4qQE0MHNaGWgJNS4RBHb6a1CeQszKGZSrA3o4Yk2m1CQj7Os8jhCN4Py4gC/TLByeSNjil5knEix0EPjJNY+dIcCoucbQ4sCbE1Jy3d8T7Jwo0GFJPBNdY9LSGezEW3mLeWfKGbJ8+6N6sSQtnb5kkULxM31b2DaqHTjSqUndGD69rNClWd+leZ3WuaaKQ58V6ECWdpcF+Ziiiiaze5HQ2CHsw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=stB7/Muskj3g62ltWLB8R0YUq3th1wmrseeiuYbxT2E=;
+ b=Yfz0gCGMx5ZmBoM6sBgn0L6itJ7mb58AA8mi9QVYK0Biac8fWmD2IH9sXUPjr4wBx0TWYi/EitcG/JDphNAa3i/xvBhb1zc4xrD/Xe6byoO/RidNoX/szQa0TFcMF7XSMg5rUMhutsja3f9ywfrvwDUCmBmEag6Vgn1H55kYJ6M=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <05c49cee-d783-40e3-a4ce-da724c308a21@amd.com>
+Date: Wed, 27 Aug 2025 13:51:25 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hvmloader: Update to SMBIOS 2.6
-To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>
-References: <b569a298a6270ae04eaf433f7de9ce1f3e248e5f.1755870287.git.teddy.astie@vates.tech>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <b569a298a6270ae04eaf433f7de9ce1f3e248e5f.1755870287.git.teddy.astie@vates.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [XEN PATCH 07/11] libxl: libxl__object_to_json() to json-c
+To: Anthony PERARD <anthony@xenproject.org>, <xen-devel@lists.xenproject.org>
+CC: Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross
+	<jgross@suse.com>
+References: <20250808145602.41716-1-anthony@xenproject.org>
+ <20250808145602.41716-8-anthony@xenproject.org>
+Content-Language: en-US
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <20250808145602.41716-8-anthony@xenproject.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E63:EE_|LV2PR12MB5750:EE_
+X-MS-Office365-Filtering-Correlation-Id: 94530674-1b51-44c9-adfe-08dde592450e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?cGtqdUNxMjFZM2pwMkVEUjUya0tCQ0hneEhXNG5ONExhSG9ldyt4SWljd0pR?=
+ =?utf-8?B?Ym93VVMyaFh6TVhlaGR0YWpQU1FWOGtra0p0Z2d3MjRCRUFHQmRmTzdHWGVL?=
+ =?utf-8?B?Z20wUnBtWkVOSzErbk0zclYrREhjaDRpTWkzMzhDUlpwZHE5Uk9ZSGJjd0JQ?=
+ =?utf-8?B?S1ZyUWFRR1FSVm9leFVqdEMrbDlZRllxNTBYbHVRN2QxY25FSFM4ajhOYVdw?=
+ =?utf-8?B?MDk0RnVSdTliczFjMythdjVBbGZ5VXFjZWpkUVRuMTJodklLZU41N2J3eUNa?=
+ =?utf-8?B?QzNobmlpemVUMFI0Qk9ZRzY2VHhhZCs3a2pScDZUbGo2Nk5hU1Ywdk9rQjAy?=
+ =?utf-8?B?eUk3ZE9zOUIwd2I3SXRzWG1pTGtCM1pCRi9VbHdzaWlhOXF3bEtaZXhJdzV1?=
+ =?utf-8?B?eUZ5RFA3NDh0M0MrN2xiR1RzU2ZIeWRnZWVsT2Q4Sk9XTjByaG91ZXFuRXRS?=
+ =?utf-8?B?cWw1R1hWMmRDRHlNNDQ5ODkwa1N2QjlRNlVweWxOZGdKZEFSWFdkbWVaSVVq?=
+ =?utf-8?B?eG9PUlJHTnFQaVBLZTZHVWp4aEtTcitGcHZYbFB4QkRIK1oyU2ViaGJBZ094?=
+ =?utf-8?B?eVNsZGs2N1ZjbnZ1aHBHY0tpK3ByTk92ZE0zbEp6aWlHeEhsOFRMYTQ2ZlZT?=
+ =?utf-8?B?bHE4M0JDVmFadm5adnllTVlWMVNEM1J5bmU5WC92YXpOc21jR0w4UCtxWk0w?=
+ =?utf-8?B?NGxIUGo5bkhzUEpJSTVybTFlZ0UvdHJZeU5xaVVVaFBjc21XZGx5THR2c2JF?=
+ =?utf-8?B?cFMrdkhRcXh3YkI2M0FDVzFVWXc2ZGZjMTJ2T0dwdkZ3ZFdDUDlBaXFNUEo5?=
+ =?utf-8?B?TkNNK2VJQXNTZlNmc2NwVHE0dEtYamNsMUJDcnZzWDlKL3hibFprK2ttWlRN?=
+ =?utf-8?B?VnpUd3pGYUVCd0NSM3ZVYWt6akthM1N2NHd0dHZ6R3pKOXlhVUV3WmZSTHlE?=
+ =?utf-8?B?TnRWbUlXUEF2ZmsvaS81eStsOXdrayt2NUZ2aE9EVFAzK0Y0WjlXZTMrQzBs?=
+ =?utf-8?B?dTcyYnIzaEJoTFVvdjZYNGJJeTBCQ3hSL21tU1RCUkhVL0VSVHdDczc0Z3Jh?=
+ =?utf-8?B?YWFjMWZZZmlCbXIvdG1xS0c4NHFjb2pXRkNuOFM3L1FwR2hHSDJDY0R0emdF?=
+ =?utf-8?B?dkhEZHBmaXh3ODh4cDVnQWVzeXVpMEVBN0kxYlVOb05jZDkxZzlibGJTR3U5?=
+ =?utf-8?B?OGwvY0Y4cWhZTWpwaUVaUk81TDE3c09wUDhUQU5oVDZCS2VGNEc1SHRuTEJr?=
+ =?utf-8?B?UE14Z0c2V2pNbUNpbGpYV3RCY0FzcGpSeG9Ha29yVmR3WFNCYTJlaGhaMk5L?=
+ =?utf-8?B?VTNhcnkwcEYzY1Z3OFhaZnRZTTNxejd5alN4VzhaRlR6aVpockYxTjBucEhX?=
+ =?utf-8?B?dE5BbXFBS3NiNzdXYzYrVitvM2d0VndSKzNWUENJdWhXY2tYdjc1U0h4ak04?=
+ =?utf-8?B?WUZqNFVlNnVZaGUvTHpFR0RNSGJyZUlJYVFCR0JUWHB0V0JkSjZoU3orTllP?=
+ =?utf-8?B?NlJMRFZWZ1EvL3dKL0VHaHZHZXZqaVZNSm5xc2x6bmFmdmV2Q0EwYUg4NFBG?=
+ =?utf-8?B?UGZWUGZ4YnprRmlnYlRMSE0xZnRHT3UzSWFYNEkxcHVtQjBmYUdhcWlNK0J2?=
+ =?utf-8?B?S0FPZTBNUEx1aEhmV3NKUTNLQnB5YkNIT2NLWVRlaXJacmVTdG5Vc0NkeUJq?=
+ =?utf-8?B?V0J0REE1WmJOZXplNkJpVS9rQ1ptemErQ3gvSFJnUldnK3preHdrM2ppbVhs?=
+ =?utf-8?B?NmcyNkdzYjFMWmVRdnpoZnBlZm5yY3h1UkVtUGpsOUtOOWlQOXhTb1kwTi84?=
+ =?utf-8?B?TTV0V0FlUmE1K09PaFZXRDk5bnpQakhmRHBLZHFNcVdRdnR2TXRRTXNFZVd0?=
+ =?utf-8?B?bHBrVVFsdlgxeHFTQzNjNHQvY2paNkxOWmUrbnVONG8wcHNDWks1SmozRzJN?=
+ =?utf-8?B?aHVJUFBqamJway9MbHBKU0RVV2lYbW5xempWS1BZdGRueVJ1OTVVLzR1TE9v?=
+ =?utf-8?B?MXpJcVlreWVLd0g5WWJOR01uaDBvS3J1aXUva2Q4QUtnMEtYcko2VVdnV2dU?=
+ =?utf-8?Q?FxrvTv?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2025 17:50:54.2610
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94530674-1b51-44c9-adfe-08dde592450e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF00020E63.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5750
 
-On 22/08/2025 2:47 pm, Teddy Astie wrote:
-> Currently, hvmloader uses SMBIOS 2.4, however, when using OVMF, the
-> SMBIOS is patched to 2.8, which has clarified the UUID format (as GUID).
->
-> In Linux, if the SMBIOS version is >= 2.6, the GUID format is used, else
-> (undefined as per SMBIOS spec), big endian is used (used by Xen). Therefore,
-> you have a endian mismatch causing the UUIDs to mismatch in the guest.
->
-> $ cat /sys/hypervisor/uuid
-> e865e63f-3d30-4f0b-83e0-8fdfc1e30eb7
-> $ cat /sys/devices/virtual/dmi/id/product_uuid
-> 3fe665e8-303d-0b4f-83e0-8fdfc1e30eb7
-> $ cat /sys/devices/virtual/dmi/id/product_serial
-> e865e63f-3d30-4f0b-83e0-8fdfc1e30eb7
->
-> This patch updates the SMBIOS version from 2.4 to 2.6 and fixup the UUID
-> written in the table; which effectively fix this endianness mismatch with
-> OVMF; while the UUID displayed by Linux is still the same for SeaBIOS.
->
-> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
-> ---
-> This effectively changes the UUID seen with UEFI guests as it was
-> actually inconsistent with SeaBIOS and SMBIOS expectations.
-> ---
+On 2025-08-08 10:55, Anthony PERARD wrote:
+> From: Anthony PERARD <anthony.perard@vates.tech>
+> 
+> - libxl changes:
+> 
+> While doing so, we rename all "*_gen_json" function to "*_gen_jso" as
+> they have different prototype. All the function pointer are been cast
+> to (libxl__gen_json_callback) by "gentypes.py" when generating
+> "*_to_json()" functions.
+> 
+> We also introduce a few more "*_gen_jso" functions for "int" and
+> "bool" because we can't use json_object_*() functions from json-c
+> directly like it's done with yajl.
+> 
+> To make the generation of _libxl_types*json.[ch] with both YAJL and
+> json-c we add "--libjsonc" to gentypes.py so it can generate
+> functions/types for both.
+> 
+> Also introducing "jsonc_json_gen_fn" in the IDL, to be able to point
+> to a different function when using json-c.
+> 
+> Also, don't export any of the new *_gen_jso() function, at the cost of
+> having "_hidden" macro in semi-public headers.
+> 
+> - xl changes:
+> 
+> Also, rework the implementation of printf_info() in `xl` to avoid
+> using libxl_domain_config_gen_json() which isn't available without
+> YAJL. The implementation using "json_object" call
+> libxl_domain_config_to_json() which generate a plain string of JSON,
+> which we parse to add it to our own json; this avoid a dependency on
+> the json library used by libxl.
+> 
+> Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
 
-I agree this is a real bug and needs fixing.  However, ...
+> @@ -358,6 +535,36 @@ int libxl__mac_parse_json(libxl__gc *gc, const libxl__json_object *o,
+>       return libxl__parse_mac(libxl__json_object_get_string(o), *p);
+>   }
+>   
+> +#ifdef HAVE_LIBJSONC
+> +int libxl_hwcap_gen_jso(json_object **jso_r, libxl_hwcap *p)
+> +{
+> +    json_object *jso;
+> +    int i;
+> +    int rc = ERROR_FAIL;
+> +
+> +    jso = json_object_new_array();
+> +    if (!jso) goto out;
+> +
+> +    for(i=0; i<4; i++) {
 
+typedef uint32_t libxl_hwcap[8];
 
->  tools/firmware/hvmloader/smbios.c | 20 ++++++++++++++++++--
->  1 file changed, 18 insertions(+), 2 deletions(-)
->
-> diff --git a/tools/firmware/hvmloader/smbios.c b/tools/firmware/hvmloader/smbios.c
-> index 6bcdcc233a..f4822ae6f8 100644
-> --- a/tools/firmware/hvmloader/smbios.c
-> +++ b/tools/firmware/hvmloader/smbios.c
-> @@ -352,7 +352,7 @@ smbios_entry_point_init(void *start,
->      memcpy(ep->anchor_string, "_SM_", 4);
->      ep->length = 0x1f;
->      ep->smbios_major_version = 2;
-> -    ep->smbios_minor_version = 4;
-> +    ep->smbios_minor_version = 6;
->      ep->max_structure_size = max_structure_size;
->      ep->entry_point_revision = 0;
->      memcpy(ep->intermediate_anchor_string, "_DMI_", 5);
-> @@ -462,7 +462,23 @@ smbios_type_1_init(void *start, const char *xen_version,
->      p->version_str = 3;
->      p->serial_number_str = 4;
->  
-> -    memcpy(p->uuid, uuid, 16);
-> +    /*
-> +     * Xen uses OSF DCE UUIDs which is fully big endian, however,
-> +     * GUIDs (which requirement is clarified by SMBIOS >= 2.6) has the
-> +     * first 3 components appearing as being little endian and the rest
-> +     * as still being big endian.
+I see this is the same as the yajl implementation, but should this be 8?
 
-... this is not an accurate statement.
+The remainder looks good:
 
-Xen specifically tries to treat a xen_domain_handle_t as an opaque blob.
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
-The only two areas I can see ascribing any structure are the 'q'
-debugkey (not exactly a strong ABI statement), and the arinc635
-scheduler whose use is buggy (uuids are not unique in Xen; it's the
-domid which is).
+Thanks,
+Jason
 
-It is an error that a format isn't stated, but the format comes from the
-toolstack.  We'd better hope that all toolstacks use OSF DCE UUIDs, or
-this is going to badly wrong.
-
-And on that note, the toolstacks are not the same.  Xapi for example
-uses reads 16 bytes out of /dev/urandom.
-
-Whatever we end up doing, the fix must include a change to
-xen/include/public/version.h stating the format of the UUID.
-
-~Andrew
+> +        json_object *jso_value = json_object_new_int((*p)[i]);
+> +        if (!jso_value)
+> +            goto out;
+> +        int r = json_object_array_add(jso, jso_value);
+> +        if (r) {
+> +            json_object_put(jso_value);
+> +            goto out;
+> +        }
+> +    }
+> +    *jso_r = jso;
+> +    jso = NULL;
+> +    rc = 0;
+> +out:
+> +    json_object_put(jso);
+> +    return rc;
+> +}
+> +#endif
+> +
+> +#ifdef HAVE_LIBYAJL
+>   yajl_gen_status libxl_hwcap_gen_json(yajl_gen hand,
+>                                        libxl_hwcap *p)
+>   {
 
