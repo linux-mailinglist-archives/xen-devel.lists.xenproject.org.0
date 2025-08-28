@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3E9AB39DC0
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 14:50:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1098728.1452715 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC5A6B39E02
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 15:03:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1098749.1452725 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urc5D-0003pH-0O; Thu, 28 Aug 2025 12:50:27 +0000
+	id 1urcH7-0005y4-Vs; Thu, 28 Aug 2025 13:02:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1098728.1452715; Thu, 28 Aug 2025 12:50:26 +0000
+Received: by outflank-mailman (output) from mailman id 1098749.1452725; Thu, 28 Aug 2025 13:02:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urc5C-0003nT-Tl; Thu, 28 Aug 2025 12:50:26 +0000
-Received: by outflank-mailman (input) for mailman id 1098728;
- Thu, 28 Aug 2025 12:50:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1urcH7-0005vX-TF; Thu, 28 Aug 2025 13:02:45 +0000
+Received: by outflank-mailman (input) for mailman id 1098749;
+ Thu, 28 Aug 2025 13:02:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=pYI3=3I=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1urc5B-0003nN-6N
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 12:50:25 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8faaa2d6-840d-11f0-8dd7-1b34d833f44b;
- Thu, 28 Aug 2025 14:50:22 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-6188b72b7caso938058a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 05:50:22 -0700 (PDT)
+ id 1urcH7-0005vR-B7
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 13:02:45 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 495b7dc3-840f-11f0-8adc-4578a1afcccb;
+ Thu, 28 Aug 2025 15:02:44 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-afcb7a8dd3dso58999366b.3
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 06:02:44 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afef701f173sm34772766b.16.2025.08.28.05.50.21
+ a640c23a62f3a-afebac31532sm443771766b.86.2025.08.28.06.02.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Aug 2025 05:50:22 -0700 (PDT)
+ Thu, 28 Aug 2025 06:02:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8faaa2d6-840d-11f0-8dd7-1b34d833f44b
+X-Inumbo-ID: 495b7dc3-840f-11f0-8adc-4578a1afcccb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756385422; x=1756990222; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756386163; x=1756990963; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KzNP+ayyNRAdeVR3KvAYoBn1/S6xf/6spDFJZf4N3Vg=;
-        b=I8GnTfGOijhQHaOVSKG9V5R2vSz5QKVLfhsr8I9Qcwlix+X1cw7P8U2f7Fo/YS7FDx
-         22q03f4wEQQ3byPnrM59DW8r/wz9mksYPk4I6Ztom/WGjzdMk0XzPzB8UjZ1u9mJHRko
-         BCdMwBnuFy/lGa5Im9V2IFKiKD4h9aBoeXmH9wq2HkcVwGdS/2JK04KEDYmb4GEw3JkO
-         5cwaSzebVijSALKwjAkexMHasvhTjswS//DndDUBehZ7LDZUC96PVKrxpjnaKtb+Fgkg
-         okcTXOfY2yxBonkljPIKFqTWoEMYvQW+ys+y1WCNdoUsUwemr2lvS1YMYoCmV5nkmbCV
-         0ovQ==
+        bh=2MHhUN7PYKt8aq7ePrzbS2Dv7+ER5OqQwu3bW3pKF1U=;
+        b=SEb/3FPg1kOQRegMdszFe3NtssV20OsntkLeRxZC9bvkDPEJoICcp5rtZQe5Xb5i6Y
+         SH8p96s2+95V7MNWBpu3pSsMltN0FVJ8FOedFAWmxD7Q9FAZ7aOdomrAPnI/zQhgAS2y
+         8QQpNdvI+6Yy0WoFGjpH0XVQaH/uodIZYuyUz/1KwFF0/3VckJ7tcRRpvQ3QtGiw+i1C
+         lX7mZtqV72yhELDfM7k0/0t2moezhSzCe3hrWH8i3iCof31i5MY1Fwimgbc0TVbhoVdD
+         6If1nhE0XeNOsio1S4F/wgY1nfuT0njy/LuvEIH9uX87jDGjMjbfWy8als/gmb4MFPqw
+         2ScQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756385422; x=1756990222;
+        d=1e100.net; s=20230601; t=1756386163; x=1756990963;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KzNP+ayyNRAdeVR3KvAYoBn1/S6xf/6spDFJZf4N3Vg=;
-        b=e26+ZkMXTh+lv2pGVLWJ09Ky9wiFGxL/QZV7fvlYHB1wMtwpJOGx6FcJIEA9dU3nkY
-         NmdkmJpmIOT7JjBayjk5fwmHWQKtH2IXmYiXgVWDw+md+2UVFwSjKNf1byyzUp2vXz6y
-         UcCPZ+FNAEz1D+ECbdTP9elcwciRkF974Rp95+pZq0vPWXRhpCusI3Un4Fwl0zqoIfcQ
-         hfuxlqxdPkJClT5gdz8JenjtLfsTNE/cLozYBBVWIlEVfQnDELgxPgLg2MqweyXI+e/K
-         8Qnf2nBW2/DdPbnngMvcBQm9OuJAdlYKeTDFmFUQ7Qp9vMVz/EKaud4Z6Soi+rPJB7It
-         6Hzw==
-X-Forwarded-Encrypted: i=1; AJvYcCUYOlCl0y//4cOyaU7h7eENjSDyFx9PILMPyueBUV+Cw2hXFxzjLSMlfPz2VRubr8aPKoawZNb5Lww=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyHkN0tOGsGZmwWa0s0SVOhowqIZmdd6YK7uM2ut+vM7SQGgnTb
-	J9L19bYKiorBfXFEnwlmOYNcmyFucZ+JiUMmkRWUIpGYsRPaffROAZh3rVPtVPv97A==
-X-Gm-Gg: ASbGncvKm5ExQNlIsaIzpGPYARROkWJJ+H1YVZpXH/PP1hmO6+VzRWfsaZDQkr/cPmY
-	fVva30n0wb4PiYkRKMKm4DqqCCqw8olRsuiooFk0aLYyw05wIugK9geb+48gQLxBTFfKxUwPT7r
-	VlXm5NBLfoVarBh3ykSlsrfi/eqDmA6+xlPiogdiYM6l6vwdYcuN74DklGxefJlOXdAIHiWJNvN
-	f0vY5BSyPeV88/OxdhHS6MuHKsjoISV/PzHCo5Q9InbZWovyvPLNxIQ76ksV1akm7SUlpG7GnGf
-	G0dVYy6Y8Rgx8hJtHFby/c09zcZPftV+xbiC5KMLu0+8I5nbQYZRKvWHVzOOQA/Vu4ZW4kiokXY
-	OZTszAPTtcVOj58TkVyMpDbEtMw6NGJnxQQPERHFiJWIQzzJIOyWyRB7wCbG7bKLjxR8RQ77r8K
-	eepFgUQNc7UpccXFztXw==
-X-Google-Smtp-Source: AGHT+IHf7WXzdBVxWf60pg65hh/irVJV2Vh8fcfvXbcvaxUG6hCCf9zTLjRXKXWNnzpDPLfS1hqncg==
-X-Received: by 2002:a17:907:c1f:b0:afe:e0f2:759 with SMTP id a640c23a62f3a-afee0f208f8mr253603066b.38.1756385422329;
-        Thu, 28 Aug 2025 05:50:22 -0700 (PDT)
-Message-ID: <00e4af60-6916-4a71-b797-757c1163579a@suse.com>
-Date: Thu, 28 Aug 2025 14:50:21 +0200
+        bh=2MHhUN7PYKt8aq7ePrzbS2Dv7+ER5OqQwu3bW3pKF1U=;
+        b=gsqJtXn6uL5k7FGna+jTauzC/hqIyUqt4FFLOqn5bcJDP7o3zUvSmjcy8kFP5SNLCx
+         iGkPgDAkjnmVwLwtTS/tvYmNaDkk1Uu0kzhedkNb8ZO5nKenveA7fSX4FvIs05yPv9Dj
+         dnJyPGf/lwE9o789c1uvz/liYj6sPDVgQofQFR/ZlQKa+qs38A0PelxQM5E+WJy+FqS0
+         ZlCzmp1uWGDw0oEJjEK/2IkP9TT8pUPZhpgRuFOGjt9DVVZObfM4ypU9yoSDMDkQzOfj
+         JvHhskf90ODIo1OQeUzh496zY9knhPRnFFiLCWnZyEYj4MlKZuHRwFpMpClekVq0NtHv
+         xcIg==
+X-Forwarded-Encrypted: i=1; AJvYcCV92NEX+6czq/diDo/mi17NOqpBO3G7dRmZkkRcD6XShEMs+PlR8BH8QrXafGUJ8W1/4qYC1sNXCqo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzjncmQ8sh0s0HDfssXV/trcnCS4LxnmiuUTEM4bKJXU5WzADB8
+	Tw//urU2wuRrt2Rjip/QGAZfT8v7eqfZMOOU81/qpRZaUq2pqysKx5UA48/x4l9VxA==
+X-Gm-Gg: ASbGncuq644sQtoddYqEg6E9l3F/zjoH37qkAowc6IAgOLmA7tRKWPZcgXqVpp/Ipkk
+	xwOagY1xBxVZz5ci5wh9qp7eDzmxb86TT3XO5LlPUZofP+4eLa7arsVU5IMKq/UNPghlptf1c7L
+	/6vhWaqvo+6ULvAUcbfwIvcGNxd13QU7BwANYMAAlGk66xj6jD/n3jXfGk9i3dgEzo19jvRBan7
+	uzGI4sv4W8EWN8woKwLLJyZg5ieKet7D5yOOh3URcG5gPWV+/wIxMcLn+jDUoE0dZ3kK0lDG/hh
+	1imRAxYTaiPdIlWFgczHkYtcncl6Bu60f2wmZ83Jdynpy9L/C6tV0C/NnyKM8m3h6ChHOSocG34
+	GK+RB70OK7EmcFMjp6oLbW/ro2WcAUSk50MjsfBZh7wUdhUXsUbGhEuMQeQce3Z4DfzeFUYgk2p
+	COvHSk+qE=
+X-Google-Smtp-Source: AGHT+IEpH9Zi8nsBgYONSHDUBQKf8jMM3Ga5LTyKP5sEyiChGi80bxc/rE4lz6HTkk4o6ESxVUU4fg==
+X-Received: by 2002:a17:907:1c28:b0:afe:d0c9:8f50 with SMTP id a640c23a62f3a-afed0c99961mr380213566b.44.1756386163251;
+        Thu, 28 Aug 2025 06:02:43 -0700 (PDT)
+Message-ID: <7d9fd72a-39b7-43b0-875f-859a7a45c4fb@suse.com>
+Date: Thu, 28 Aug 2025 15:02:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/8] xen/cpufreq: introduce new sub-hypercall to
- propagate CPPC data
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [RFC PATCH v3 3/3] x86/hvm: Introduce Xen-wide ASID allocator
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250828100306.1776031-1-Penny.Zheng@amd.com>
- <20250828100306.1776031-2-Penny.Zheng@amd.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Vaishali Thakkar <vaishali.thakkar@suse.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
+References: <cover.1750770621.git.teddy.astie@vates.tech>
+ <81169a40fdc8c124b1656e451ac2e81f4e8edd2d.1750770621.git.teddy.astie@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,44 +124,98 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250828100306.1776031-2-Penny.Zheng@amd.com>
+In-Reply-To: <81169a40fdc8c124b1656e451ac2e81f4e8edd2d.1750770621.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.08.2025 12:02, Penny Zheng wrote:
-> @@ -693,6 +699,120 @@ int acpi_set_pdc_bits(unsigned int acpi_id, XEN_GUEST_HANDLE(uint32) pdc)
->      return ret;
->  }
->  
-> +static void print_CPPC(const struct xen_processor_cppc *cppc_data)
-> +{
-> +    printk("\t_CPC: highest_perf=%u, lowest_perf=%u, "
-> +           "nominal_perf=%u, lowest_nonlinear_perf=%u, "
-> +           "nominal_mhz=%uMHz, lowest_mhz=%uMHz\n",
-> +           cppc_data->cpc.highest_perf, cppc_data->cpc.lowest_perf,
-> +           cppc_data->cpc.nominal_perf, cppc_data->cpc.lowest_nonlinear_perf,
-> +           cppc_data->cpc.nominal_mhz, cppc_data->cpc.lowest_mhz);
-> +}
-> +
-> +int set_cppc_pminfo(unsigned int acpi_id,
-> +                    const struct xen_processor_cppc *cppc_data)
-> +{
-> +    int ret = 0, cpuid;
+On 26.06.2025 16:01, Teddy Astie wrote:
+> From: Vaishali Thakkar <vaishali.thakkar@suse.com> (formely vates.tech)
+> 
+> Currently ASID generation and management is done per-PCPU. This
+> scheme is incompatible with SEV technologies as SEV VMs need to
+> have a fixed ASID associated with all vcpus of the VM throughout
+> it's lifetime.
+> 
+> This commit introduces a Xen-wide allocator which initializes
+> the asids at the start of xen and allows to have a fixed asids
+> throughout the lifecycle of all domains. Having a fixed asid
+> for non-SEV domains also presents us with the opportunity to
+> further take use of AMD instructions like TLBSYNC and INVLPGB
+> for broadcasting the TLB invalidations.
+> 
+> Introduce vcpu->needs_tlb_flush attribute to schedule a guest TLB
+> flush for the next VMRUN/VMENTER. This will be later be done using
+> either TLB_CONTROL field (AMD) or INVEPT (Intel). This flush method
+> is used in place of the current ASID swapping logic.
+> 
+> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+> Signed-off-by: Vaishali Thakkar <vaishali.thakkar@suse.com> (formely vates.tech)
 
-Eclair doesn't like this:
+Not sure whether you may legitimately alter pre-existing S-o-b. In
+any event the two S-o-b looks to be in the wrong order; like most
+other tags they want to be sorted chronologically.
 
-Reports for service MC3A2.R5.3
+> ---
+> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> 
+> Should the ASID/VPID/VMID management logic code being shared accross
+> x86/ARM/RISC-V ?
 
-service MC3A2.R5.3: (required) An identifier declared in an inner scope shall not hide an identifier declared in an outer scope (1 of 1 violation)
+If all present and future architectures agree on how exactly they want
+to use these IDs. Which I'm unsure of. RISC-V is now vaguely following
+the original x86 model.
 
- violation for MC3A2.R5.3 untagged
-xen/arch/x86/include/asm/processor.h:130.20-130.24:
-non-compliant function `cpuid(unsigned, unsigned*, unsigned*, unsigned*, unsigned*)' (unit `xen/drivers/cpufreq/cpufreq.c' with target `xen/drivers/cpufreq/.cpufreq.o.tmp'): there is another identifier `cpuid'
-xen/drivers/cpufreq/cpufreq.c:726.18-726.22:
-non-compliant local variable `cpuid': there is another identifier `cpuid'
+> Is it possible to have multiples vCPUs of a same domain simultaneously
+> scheduled on top of a single pCPU ? If so, it would need a special
+> consideration for this corner case, such as we don't miss a TLB flush
+> in such cases.
 
-I'm fixing this up for you, but I have to admit that I'm getting tired of
-doing such cleanups for supposedly-ready-to-commit patches.
+No, how would two entities be able to run on a single pCPU at any single
+point in time?
+
+> I get various stability when testing shadow paging in these patches, unsure
+> what's the exact root case. HAP works perfectly fine though.
+> 
+> TODO:
+> - Intel: Don't assign the VPID at each VMENTER, though we need
+>   to rethink how we manage VMCS with nested virtualization / altp2m
+>   for changing this behavior.
+> - AMD: Consider hot-plug of CPU with ERRATA_170. (is it possible ?)
+> - Consider cases where we don't have enough ASIDs (e.g Xen as nested guest)
+> - Nested virtualization ASID management
+
+For these last two points - maybe we really need a mixed model?
+
+> ---
+>  xen/arch/x86/flushtlb.c                |  31 +++---
+>  xen/arch/x86/hvm/asid.c                | 148 +++++++++----------------
+>  xen/arch/x86/hvm/emulate.c             |   2 +-
+>  xen/arch/x86/hvm/hvm.c                 |  14 ++-
+>  xen/arch/x86/hvm/nestedhvm.c           |   6 +-
+>  xen/arch/x86/hvm/svm/asid.c            |  77 ++++++++-----
+>  xen/arch/x86/hvm/svm/nestedsvm.c       |   1 -
+>  xen/arch/x86/hvm/svm/svm.c             |  36 +++---
+>  xen/arch/x86/hvm/svm/svm.h             |   4 -
+>  xen/arch/x86/hvm/vmx/vmcs.c            |   5 +-
+>  xen/arch/x86/hvm/vmx/vmx.c             |  68 ++++++------
+>  xen/arch/x86/hvm/vmx/vvmx.c            |   5 +-
+>  xen/arch/x86/include/asm/flushtlb.h    |   7 --
+>  xen/arch/x86/include/asm/hvm/asid.h    |  25 ++---
+>  xen/arch/x86/include/asm/hvm/domain.h  |   1 +
+>  xen/arch/x86/include/asm/hvm/hvm.h     |  15 +--
+>  xen/arch/x86/include/asm/hvm/svm/svm.h |   5 +
+>  xen/arch/x86/include/asm/hvm/vcpu.h    |  10 +-
+>  xen/arch/x86/include/asm/hvm/vmx/vmx.h |   4 +-
+>  xen/arch/x86/mm/hap/hap.c              |   6 +-
+>  xen/arch/x86/mm/p2m.c                  |   7 +-
+>  xen/arch/x86/mm/paging.c               |   2 +-
+>  xen/arch/x86/mm/shadow/hvm.c           |   1 +
+>  xen/arch/x86/mm/shadow/multi.c         |  12 +-
+>  xen/include/xen/sched.h                |   2 +
+>  25 files changed, 227 insertions(+), 267 deletions(-)
+
+I think I said this to Vaishali already: This really wants splitting up some,
+to become halfway reviewable.
 
 Jan
 
