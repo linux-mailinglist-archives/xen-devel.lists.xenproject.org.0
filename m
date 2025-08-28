@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40CDFB39991
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 12:23:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1098269.1452364 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40EBBB39992
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 12:23:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1098270.1452375 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urZmD-00069h-P6; Thu, 28 Aug 2025 10:22:41 +0000
+	id 1urZmS-0006VS-0s; Thu, 28 Aug 2025 10:22:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1098269.1452364; Thu, 28 Aug 2025 10:22:41 +0000
+Received: by outflank-mailman (output) from mailman id 1098270.1452375; Thu, 28 Aug 2025 10:22:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urZmD-00067M-MP; Thu, 28 Aug 2025 10:22:41 +0000
-Received: by outflank-mailman (input) for mailman id 1098269;
- Thu, 28 Aug 2025 10:22:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FrxM=3I=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1urZmB-00065w-QO
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 10:22:39 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ebbe72b0-83f8-11f0-aeb2-fb57b961d000;
- Thu, 28 Aug 2025 12:22:38 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3c7aa4ce85dso568480f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 03:22:38 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3ca6240b4ecsm13912713f8f.43.2025.08.28.03.22.36
+	id 1urZmR-0006Tm-U0; Thu, 28 Aug 2025 10:22:55 +0000
+Received: by outflank-mailman (input) for mailman id 1098270;
+ Thu, 28 Aug 2025 10:22:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=pYI3=3I=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1urZmR-0006T1-7M
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 10:22:55 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f3f77c8b-83f8-11f0-ae26-e363de0e7a9e;
+ Thu, 28 Aug 2025 12:22:51 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-afcb72d5409so124120266b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 03:22:51 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-afe48fae316sm1192724966b.28.2025.08.28.03.22.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Aug 2025 03:22:36 -0700 (PDT)
+ Thu, 28 Aug 2025 03:22:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,241 +45,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ebbe72b0-83f8-11f0-aeb2-fb57b961d000
+X-Inumbo-ID: f3f77c8b-83f8-11f0-ae26-e363de0e7a9e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1756376557; x=1756981357; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756376571; x=1756981371; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rLgtaLuwsQZE1xgf7YgtslFO7X/R3/bx7xuoEEzHVUU=;
-        b=nJsDRS7FlbWumQ3bY3g6XzH5xD2FCu3GQ/ByqFVqqsAxlZaMDJyrC0cuZ4iqINlT55
-         Foy01hrx7xT8ewDMO4bIJlG+sn6yvaJGaFadYyVLL6HtAzV6kfpQbpBh14rQVjkrYPL5
-         tSS5kW2+leL2IswtSryBjrS1ZxiCDsfpE8gr8=
+        bh=Vm6cv1gGUZ3A0uXurCraASbs5FzNHb1Xfq1F0okRa7o=;
+        b=Axr8NplIgku8yrjsmBWtEShZYsfMOChRP+0XoDpq4XBQhPRHQBcVQxUJiC1PprFpb3
+         ctM2ns9jlwa7bdVFtbelFN3g6YnQtLjumnejuBcM3U1J29hcuyRU1G23SxkmLhMPuhTF
+         CM2t1DgyLTbWON514AVqOQxuqHy9HPJmgbaDBxDwmzwi/XEldQjQPpBAGdsZBvZkM6ew
+         vGFDZRklGhKqjr1Zq+ZcPgENmGftcDZn3D1dst4kkMwWCmkatr6c5ALaAjyLcWjx+GZx
+         SQxz2Bmn5pFMQOnZs2PqaAGKEfOAsbSpqYCiDxaLwoDdP4Pmi9nOApQRQfMccpY1KDvD
+         bsaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756376557; x=1756981357;
+        d=1e100.net; s=20230601; t=1756376571; x=1756981371;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rLgtaLuwsQZE1xgf7YgtslFO7X/R3/bx7xuoEEzHVUU=;
-        b=qtTyfCxykyi36bvtcu5cHUZE7/jp+91QKRunWotdoxdAY72MMPUgBWpligwxZW5OI4
-         BLX0zd3C/wJHZyjicYo4a/BbtdwjIV5hj75aUD8Xn1izL6QMh2Fp3n3v0Im/Py/26kMG
-         FhJUwoF6Satox+32ThTt2Oo+C7YAHZF5g9Gp8SKxldFinheXK3rFOyjQ88QsDF40DW2v
-         hFn/Lj1iC1LG7ZsxL3e6oAiQFmAyoKumLurpdluhpHyp0pQs9PHo7RoHMU9YNhkEEyHE
-         Zgz14jebmo+puGqk5/aQRUOZs+fnvgxEZRCrBgWo6OvnD3nmWQb6VmyN/IOwTUSV8MW6
-         POWg==
-X-Forwarded-Encrypted: i=1; AJvYcCUwYRJRAJn7sMtrFEYzy6uixwYY2LKTwKX+0jKeyXd28NkUFdfIk8RKcSidBFcdCJa1PxmBdbc/CQU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyzmjo2NcxaLFfN5d71MOeMTqNiNWtcbnaszDo/rBsM3MZY8Wn/
-	BeaCQCZQhG2klojJPZsdYQ7aTVo/orJehEY4AduRVgIiNDbjvDPVMSOChsRG6WSpqkQ=
-X-Gm-Gg: ASbGncvpKaGxwFMUDlCHTUfQdbR4cRubtvtSHy/izG3CaxcJK01893p5SdownHtJ2uy
-	whSMap43hgUsC2hLv0B7LhOHoY9hcRXvamjkSY7FCgzWQbdYZN31TaSQSq66dEbVsE2/NvcSXny
-	tiM0yXBJCc2K/VfpzAcvBZdq+EED6nkfKBdFipoYGVbX+b4TQWcWiTHTdLYoZbLfHgwENiHoR3E
-	lbW7skGv2blGp3H62mLl03WgfbgWOdJfKjNyg6DuIQPPVbXKycIqxoI/i4OrZYCpj6uZiOpBg/k
-	SJt52+oHTxBmoF9sP+ujayw1G5tPbfRyaHd09A+MBkK8XEcvs6uaaY/nphaPfznDwXuAVTEk37R
-	AwnUqQlyzKuE8ITHE+hz043HXSB496yPg7xCg+d0zg8Nb7/3PnFNzmkF0jL01pI4O9cNjH8XxJ3
-	5U3sE=
-X-Google-Smtp-Source: AGHT+IG/UlaOaQoNYPhixBjUfCeqLXurU0SfylPOEP3Q+fCcAzLiRrnjH6Ja2u7krbT80MYFc8h0Wg==
-X-Received: by 2002:a05:6000:238a:b0:3b8:d79a:6a60 with SMTP id ffacd0b85a97d-3c5daa27b08mr17093996f8f.3.1756376557224;
-        Thu, 28 Aug 2025 03:22:37 -0700 (PDT)
-Message-ID: <8e126855-ed0b-4046-a018-8fca6d20db49@citrix.com>
-Date: Thu, 28 Aug 2025 11:22:35 +0100
+        bh=Vm6cv1gGUZ3A0uXurCraASbs5FzNHb1Xfq1F0okRa7o=;
+        b=uUjyq8jgJXxTO66A/hI7pQl6AXQ0SUL9gpTVxWiDdK+f0nNHsZp1ltxqzPFa+KX8l2
+         kwV8UEqMzYeGfuBCof5nRhXKVyqaKYAn+JXXPtcJJB5L+YAqJzzcAsSk6LyLGjD/n7h0
+         POdStHiuZdYCmfgmSfmxYYw3hc0E5wVMQOTLkp1CSyci/zlgEvMZF5qsdWWw+Zj1LheU
+         VfXMH0bRY9wtyTnAXericTFWW2O0EivBOoB13CEgAc2SreSK+ISzKAMzb7ys09CQCLw5
+         uj4KoFw4kS80vtKqdzcW4vbeC76XJIgu4xpFVLPXHT8Ik3z/AGVpGZYgtDXJ+Pw3Wo6e
+         2pRA==
+X-Forwarded-Encrypted: i=1; AJvYcCU66rOZn14rms5JuCKOO0UVC62LQZPvY0votal/1uPrwl3Hi5QBx04eyD/pj6VJedGOE5PVRXarqiI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyg+8T3BBwJeRlYkJi8Md7D05t3pkU92wnG1wNptUxgTgmVPVVe
+	eHwF2JLh3NSgnCK9zXjDG5swpR/ibZHJCPVL3WCsG0ijg5hLwuWdFXUZGcMt/ce93IFw0NxCmsF
+	DPow=
+X-Gm-Gg: ASbGncvhrhUvoHn87+EXqNFsLDmrh5qHqPJayvtci9mvdZiaJQlEsh/1CU8dHLUefTE
+	SfSML/i7+l+/1aLRimMoZXd/mb2tYA96DiCglTUy31B/JJcCC5CgoZoxHbRAHxEcZc/RvxzAg3T
+	IxDyFbkjBdXzKZwl+pavcwS+wuCAKeT4cEZ4G66hvJ8o3Z0Xf2adUIDX3VQlCXwb7Wrrv4nLlV7
+	cRvLLqQyrGbXY+KaOJHdotXslsgXCKtoWwVUTA72zCIGCRYlhJOD8mKrUAwl+8eeSpAwV+Nu9RD
+	M+kDk5TqJQ0+UV5ni6JqzdTzgol3R7lp7SaD1mlhphmxLw0cLL/Lvg7tNlNE/tv/KP7iBphr79H
+	SSiu+1+fTBQfLwaajNuUVt64boRjhuInxauEw5zRKX6Gl+49jc3FmXa4wiNFe3M5XimUUysdj3d
+	drRMduqcrH2JSPKolByg==
+X-Google-Smtp-Source: AGHT+IERrzQBpK8ysC/61spHwnCrLQtiiKyb97SpY5lU20V1pMXnWDfFEGOhSbuZixPomBJfXyCzyQ==
+X-Received: by 2002:a17:906:4ec3:b0:afe:74a3:f76d with SMTP id a640c23a62f3a-afe74a3fda1mr1194550166b.16.1756376571186;
+        Thu, 28 Aug 2025 03:22:51 -0700 (PDT)
+Message-ID: <e24606c1-3f54-44aa-a78c-6cb36be3d5f3@suse.com>
+Date: Thu, 28 Aug 2025 12:22:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] hvmloader: Update to SMBIOS 2.6
-To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
 References: <b569a298a6270ae04eaf433f7de9ce1f3e248e5f.1755870287.git.teddy.astie@vates.tech>
  <6e9b7b96-a506-40ed-95b6-6ad00ba9a27a@citrix.com>
- <74665857-3f0b-43e6-b31f-d498d9e7fdc3@vates.tech>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <74665857-3f0b-43e6-b31f-d498d9e7fdc3@vates.tech>
+ <1901e764-9725-4e9e-895a-54c704473510@suse.com>
+ <50c15166-b3b5-4e17-8bcc-cb37ad03f0ad@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <50c15166-b3b5-4e17-8bcc-cb37ad03f0ad@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 27/08/2025 9:27 pm, Teddy Astie wrote:
-> Le 27/08/2025 à 19:49, Andrew Cooper a écrit :
->> On 22/08/2025 2:47 pm, Teddy Astie wrote:
->>> Currently, hvmloader uses SMBIOS 2.4, however, when using OVMF, the
->>> SMBIOS is patched to 2.8, which has clarified the UUID format (as GUID).
->>>
->>> In Linux, if the SMBIOS version is >= 2.6, the GUID format is used, else
->>> (undefined as per SMBIOS spec), big endian is used (used by Xen). Therefore,
->>> you have a endian mismatch causing the UUIDs to mismatch in the guest.
->>>
->>> $ cat /sys/hypervisor/uuid
->>> e865e63f-3d30-4f0b-83e0-8fdfc1e30eb7
->>> $ cat /sys/devices/virtual/dmi/id/product_uuid
->>> 3fe665e8-303d-0b4f-83e0-8fdfc1e30eb7
->>> $ cat /sys/devices/virtual/dmi/id/product_serial
->>> e865e63f-3d30-4f0b-83e0-8fdfc1e30eb7
->>>
->>> This patch updates the SMBIOS version from 2.4 to 2.6 and fixup the UUID
->>> written in the table; which effectively fix this endianness mismatch with
->>> OVMF; while the UUID displayed by Linux is still the same for SeaBIOS.
->>>
->>> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
->>> ---
->>> This effectively changes the UUID seen with UEFI guests as it was
->>> actually inconsistent with SeaBIOS and SMBIOS expectations.
->>> ---
->> I agree this is a real bug and needs fixing.  However, ...
->>
->>
->>>   tools/firmware/hvmloader/smbios.c | 20 ++++++++++++++++++--
->>>   1 file changed, 18 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/tools/firmware/hvmloader/smbios.c b/tools/firmware/hvmloader/smbios.c
->>> index 6bcdcc233a..f4822ae6f8 100644
->>> --- a/tools/firmware/hvmloader/smbios.c
->>> +++ b/tools/firmware/hvmloader/smbios.c
->>> @@ -352,7 +352,7 @@ smbios_entry_point_init(void *start,
->>>       memcpy(ep->anchor_string, "_SM_", 4);
->>>       ep->length = 0x1f;
->>>       ep->smbios_major_version = 2;
->>> -    ep->smbios_minor_version = 4;
->>> +    ep->smbios_minor_version = 6;
->>>       ep->max_structure_size = max_structure_size;
->>>       ep->entry_point_revision = 0;
->>>       memcpy(ep->intermediate_anchor_string, "_DMI_", 5);
->>> @@ -462,7 +462,23 @@ smbios_type_1_init(void *start, const char *xen_version,
->>>       p->version_str = 3;
->>>       p->serial_number_str = 4;
->>>   
->>> -    memcpy(p->uuid, uuid, 16);
->>> +    /*
->>> +     * Xen uses OSF DCE UUIDs which is fully big endian, however,
->>> +     * GUIDs (which requirement is clarified by SMBIOS >= 2.6) has the
->>> +     * first 3 components appearing as being little endian and the rest
->>> +     * as still being big endian.
->> ... this is not an accurate statement.
->>
->> Xen specifically tries to treat a xen_domain_handle_t as an opaque blob.
->>
->> The only two areas I can see ascribing any structure are the 'q'
->> debugkey (not exactly a strong ABI statement), and the arinc635
->> scheduler whose use is buggy (uuids are not unique in Xen; it's the
->> domid which is).
->>
->> It is an error that a format isn't stated, but the format comes from the
->> toolstack.  We'd better hope that all toolstacks use OSF DCE UUIDs, or
->> this is going to badly wrong.
->>
-> I agree in principle. maybe OSF DCE UUID is not the proper definition 
-> (even though it implies the same) but I should rather use RFC 9562 UUIDs 
-> but refering to the string representation rather than the UUID meaning 
-> itself.
->
-> The RFC 9562 defines the UUID as being sequenced as big endian and 
-> string represented as > UUID     = 4hexOctet "-"
->>            2hexOctet "-"
->>            2hexOctet "-"
->>            2hexOctet "-"
->>            6hexOctet
->> hexOctet = HEXDIG HEXDIG
->> DIGIT    = %x30-39
->> HEXDIG   = DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
-> This matches the UUID encoding provided by XEN_DEFINE_UUID and is used 
-> by libxl, libvirt and XAPI and considered by Linux when reading the 
-> UUID. However, it may always not be a "valid" UUID strictly speaking but 
-> it doesn't really matter since we only care about its binary/string 
-> representation.
->
->> And on that note, the toolstacks are not the same.  Xapi for example
->> uses reads 16 bytes out of /dev/urandom.
->>
->> Whatever we end up doing, the fix must include a change to
->> xen/include/public/version.h stating the format of the UUID.
->>
-> Something like
->
-> diff --git a/xen/include/public/xen.h b/xen/include/public/xen.h
-> index 04fc891353..3241e8dd2b 100644
-> --- a/xen/include/public/xen.h
-> +++ b/xen/include/public/xen.h
-> @@ -975,6 +975,10 @@ typedef struct dom0_vga_console_info {
->   #define xen_vga_console_info dom0_vga_console_info
->   #define xen_vga_console_info_t dom0_vga_console_info_t
->
-> +/*
-> + * The guest handled provided by toolstack encoded as a UUID in
-> + * big-endian order. Its string representation follows RFC 9562.
-> + */
->   typedef uint8_t xen_domain_handle_t[16];
->
->   __DEFINE_XEN_GUEST_HANDLE(uint8,  uint8_t);
->
-> ?
->
-> So that we're converting between big-endian encoded UUID (RFC 9562) and 
-> Microsoft GUID (which doesn't care about its content but only about its 
-> endianness regarding formatting).
+On 28.08.2025 12:01, Andrew Cooper wrote:
+> On 28/08/2025 8:07 am, Jan Beulich wrote:
+>> On 27.08.2025 19:47, Andrew Cooper wrote:
+>>> On 22/08/2025 2:47 pm, Teddy Astie wrote:
+>>>> Currently, hvmloader uses SMBIOS 2.4, however, when using OVMF, the
+>>>> SMBIOS is patched to 2.8, which has clarified the UUID format (as GUID).
+>>>>
+>>>> In Linux, if the SMBIOS version is >= 2.6, the GUID format is used, else
+>>>> (undefined as per SMBIOS spec), big endian is used (used by Xen). Therefore,
+>>>> you have a endian mismatch causing the UUIDs to mismatch in the guest.
+>>>>
+>>>> $ cat /sys/hypervisor/uuid
+>>>> e865e63f-3d30-4f0b-83e0-8fdfc1e30eb7
+>>>> $ cat /sys/devices/virtual/dmi/id/product_uuid
+>>>> 3fe665e8-303d-0b4f-83e0-8fdfc1e30eb7
+>>>> $ cat /sys/devices/virtual/dmi/id/product_serial
+>>>> e865e63f-3d30-4f0b-83e0-8fdfc1e30eb7
+>>>>
+>>>> This patch updates the SMBIOS version from 2.4 to 2.6 and fixup the UUID
+>>>> written in the table; which effectively fix this endianness mismatch with
+>>>> OVMF; while the UUID displayed by Linux is still the same for SeaBIOS.
+>>>>
+>>>> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+>>>> ---
+>>>> This effectively changes the UUID seen with UEFI guests as it was
+>>>> actually inconsistent with SeaBIOS and SMBIOS expectations.
+>>>> ---
+>>> I agree this is a real bug and needs fixing.
+>> Hmm, I didn't realize this is a bug, and hence put the patch off as 4.22
+>> material. If there is a bug being fixed: Teddy, please add a Fixes: tag.
+> 
+> I'm not sure if this has a reasonable Fixes tag.
+> 
+> It's a combination of an ill-specified domain handle format, and using
+> an ill-specified version of the SMBios spec.
 
-I'd be tempted to be rather more explicit.
+But the problem was still introduced into the code base at some point. Afaict
+in c683914ef913 ("Add code to generate SMBIOS tables to hvmloader"), i.e. when
+smbios.c was first added.
 
-diff --git a/xen/include/public/xen.h b/xen/include/public/xen.h
-index 82b9c05a76b7..f1592dc059e2 100644
---- a/xen/include/public/xen.h
-+++ b/xen/include/public/xen.h
-@@ -973,6 +973,13 @@ typedef struct dom0_vga_console_info {
- #define xen_vga_console_info dom0_vga_console_info
- #define xen_vga_console_info_t dom0_vga_console_info_t
- 
-+/*
-+ * The domain handle is chosen by the toolstack, and intended to hold a UUID
-+ * conforming to RFC 9562 (i.e. big endian).
-+ *
-+ * Certain cases (e.g. SMBios) transform it to a Microsoft GUID (little
-+ * endian) for presentation to the guest.
-+ */
- typedef uint8_t xen_domain_handle_t[16];
- 
- __DEFINE_XEN_GUEST_HANDLE(uint8,  uint8_t);
-
-
-~Andrew
+Jan
 
