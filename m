@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A71FB398FB
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 12:01:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1098111.1452235 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45178B398FD
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 12:03:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1098122.1452245 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urZRg-0003gt-R1; Thu, 28 Aug 2025 10:01:28 +0000
+	id 1urZSh-0004O3-8l; Thu, 28 Aug 2025 10:02:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1098111.1452235; Thu, 28 Aug 2025 10:01:28 +0000
+Received: by outflank-mailman (output) from mailman id 1098122.1452245; Thu, 28 Aug 2025 10:02:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urZRg-0003eE-Mf; Thu, 28 Aug 2025 10:01:28 +0000
-Received: by outflank-mailman (input) for mailman id 1098111;
- Thu, 28 Aug 2025 10:01:26 +0000
+	id 1urZSh-0004MU-4W; Thu, 28 Aug 2025 10:02:31 +0000
+Received: by outflank-mailman (input) for mailman id 1098122;
+ Thu, 28 Aug 2025 10:02:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FrxM=3I=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1urZRe-0003e5-Fi
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 10:01:26 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ <SRS0=Ityt=3I=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
+ id 1urZSf-0003e5-Ba
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 10:02:29 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2062b.outbound.protection.outlook.com
+ [2a01:111:f403:2413::62b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f4510c6e-83f5-11f0-ae26-e363de0e7a9e;
- Thu, 28 Aug 2025 12:01:23 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-45a1b0c82eeso6103055e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 03:01:23 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b797ce2b8sm26527205e9.12.2025.08.28.03.01.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Aug 2025 03:01:22 -0700 (PDT)
+ id 1970d746-83f6-11f0-ae26-e363de0e7a9e;
+ Thu, 28 Aug 2025 12:02:27 +0200 (CEST)
+Received: from BL0PR01CA0026.prod.exchangelabs.com (2603:10b6:208:71::39) by
+ DS0PR12MB7971.namprd12.prod.outlook.com (2603:10b6:8:14e::5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9073.13; Thu, 28 Aug 2025 10:02:23 +0000
+Received: from BL02EPF0002992C.namprd02.prod.outlook.com
+ (2603:10b6:208:71:cafe::f9) by BL0PR01CA0026.outlook.office365.com
+ (2603:10b6:208:71::39) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9073.17 via Frontend Transport; Thu,
+ 28 Aug 2025 10:01:42 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL02EPF0002992C.mail.protection.outlook.com (10.167.249.57) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9052.8 via Frontend Transport; Thu, 28 Aug 2025 10:02:23 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 28 Aug
+ 2025 05:02:22 -0500
+Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
+ satlexmb09.amd.com (10.181.42.218) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.1748.10; Thu, 28 Aug 2025 03:02:19 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,136 +59,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4510c6e-83f5-11f0-ae26-e363de0e7a9e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1756375283; x=1756980083; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Pgzn98Bf9jvAbIg45OxQt97Bwj6IaTgN1vtbEO85Mkc=;
-        b=VwzirF+6t6HNiU6LxLyXa4to7WnYR2FpQJ7SUGoSjv/xn1hmI1uF5+GXo2OuXSwBQ4
-         iW/2A5oNoI0JW9YAfWsKJcH7R43f4gOHgYInwbneYOtP7iUIfBSGCUVseLdOXLRatN+n
-         gVS0axLBXQdEboTv6I6Uyzk4vSB3QpJc+wqGU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756375283; x=1756980083;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Pgzn98Bf9jvAbIg45OxQt97Bwj6IaTgN1vtbEO85Mkc=;
-        b=iG6jCGrqusbIw7o53n5sIPeJgGrJS9M8wnmECisy7tYCThtIrqiDojPUKspYBEZtvp
-         0kRgoWcnFj+wP7QGuhuRcf+qojKLRQsvfAdtwUrJaGXcVU5uCuliy0+Jiue4+KMCHjcX
-         UUk5qZmQQ0JZDIyAGClCilXfdvpWKnijzqMG2Zd7xo80CxYHOZ4Ph7If+dl8Phx8EERw
-         9+EoNZ3yzkuq2nKeWo76bJzQZLeIjrGQ7mZ113z/Ss5RJreoE0gdCWn+l2iPnB8kSG2x
-         rNnDw28Sq2eza5MHl9couIEMm+KGBfGL71ufj8ZwKR2orsIkzjwZuD7Y9/75/h6oFBNX
-         p35A==
-X-Forwarded-Encrypted: i=1; AJvYcCUf6OWVVDQg3TXiRN/jCgsdHu0l1zWBSLJF57rxlddv2Vc9DPTcTcwW5hOPWHGtSqKO4KGS1lCLlAQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwpZlyZiWaE2TtvzemaBa8LeBpe3apyhLEEIfnYJy22wvpOS8ok
-	fTynVccDIguUo/GP/Yknd0Y+3eBsyXo/PvS5vhBi0PdQeMQQ24CTB6Ckz5PiZ5Wx4RI=
-X-Gm-Gg: ASbGncvKQ2Hxa+HOecAeMJy2/FRWc+iWENzNCvx+PBJJVntCSpKCBMaQW7ZAxs0keIS
-	zDo20lKpH974rVz3m3tHH7UYK65HR9SNhWAciFmHoym1nXRT5GcnWVcCF1vfOAyZfJUDyKX96cy
-	Si262SJvg2+2IRpC5IxrrQnilTVBeUaK8+raPlL2JI+wpzbgtZBKT9uMdKmo9GkU+9P+4aJHKkI
-	GwVa2+iu4MgY4DOAhAkZoTz0xC1z+NZykZ5V4WiE5xu0AllrEa2L8DeWHGDxsgWL5iQcg/F7IMk
-	M5e19hv22XOADMM+V/Bi42TnqDvgxPuPgfZoLmFJ1u4cifrCvupJ/PpZSxXULNsdAXfiCgoN4hW
-	UrbAwt9mBghWqloMO3kH7cd8AchrUjNeO+mWQBXjG3JlJnKX6JzOX3pcrgzvodOZp8wzIRQF4fh
-	1fiHA=
-X-Google-Smtp-Source: AGHT+IHu8a9TqXqB+DhNZBig9Ly6oWd4Tjbn4YE5nha8xmVUDy3F8hSvIAPOvHSpAVRQEDXXpPfW1A==
-X-Received: by 2002:a05:600c:45d4:b0:459:e3a1:a0c4 with SMTP id 5b1f17b1804b1-45b517d27b2mr220906075e9.30.1756375283144;
-        Thu, 28 Aug 2025 03:01:23 -0700 (PDT)
-Message-ID: <50c15166-b3b5-4e17-8bcc-cb37ad03f0ad@citrix.com>
-Date: Thu, 28 Aug 2025 11:01:21 +0100
+X-Inumbo-ID: 1970d746-83f6-11f0-ae26-e363de0e7a9e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bQBDCkcSJsEpGyHvAlyl15EyIYWPzP/jmhGz9eEikQnDDuFXBpZWfheBBc7kf60C+4l1yn3DJ4pT4FaTbekafgAak93ahHT6UaVF5iPx+iyMp0rLEl6HBK5bQ/G2MIGtYDlB9cyJVRNYVIoh2Nr+zXNxGSyhKRlC9EsSW8tIZxiVj+eC0Gm9+B3Vat0eiDS7n/q5hDNmQy+fl5VK2cmUFtIAloywvl3/KbjVxZePFe2SZ4DwGEACJnloAW8MqB+a0Zwlf11UIdH+06MZaF+pt2sERUrSZ+sUileNqoaY8hzDQKLL8XB355STlc9B2Ng2xcZOjigY358xk0Bm0Bx0iA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BqftR8SVfaahbiyQTZJlgdrm2kmXnJFHb+pxdOaArlQ=;
+ b=LgWXH9Tdpt0MFjNYHwEKasPYnNDCIbzQUOalMXaJNpeUtA+EEa89x5HhnP3psaWIerGaEvMiyqbbGOLtx/uJeBc4yR+VJhhWYtltIAS0svzUqyiytoTXgw2hwnd6tenZ0cIGHpcrf7qEM65kjZXivRjHb0zwCrRd88LAEEg60g2IfxrSI6JDIfMcwLbXWKhGWpA58QZIkKnqizpDTNxEBcdsNDNpu9qD1y1rOmgdzMLu/vDzRmTahwkaa44y/htAWCPfZbMTPdVF2/7SpqFSOs8P6xW6zYsRa6loulATEfJNVEGMtu1Hvdo7og3qTjwiDI80ZqEZkr93AUmWE9ElCQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BqftR8SVfaahbiyQTZJlgdrm2kmXnJFHb+pxdOaArlQ=;
+ b=FmvSyIXpbGdrvQbElByVsiRTqWo6QXxqqlglpaKiF6c8oQkOQbfw4oH1LREi4DS1HNtzHLO4euwUG5+2KjqPHupI2jL7qcFQmVyAQIosLEJnM5RwyywBF2nmLCJwyJl0KJOstrFYVY7z81TLHjdnnWmeg7f8/P6AgoLQ53ZsztM=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Penny Zheng <Penny.Zheng@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <ray.huang@amd.com>, Penny Zheng <Penny.Zheng@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
+ Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Juergen
+ Gross <jgross@suse.com>
+Subject: [PATCH v8 0/8] amd-cppc CPU Performance Scaling Driver
+Date: Thu, 28 Aug 2025 18:01:57 +0800
+Message-ID: <20250828100205.1775636-1-Penny.Zheng@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hvmloader: Update to SMBIOS 2.6
-To: Jan Beulich <jbeulich@suse.com>, Teddy Astie <teddy.astie@vates.tech>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <b569a298a6270ae04eaf433f7de9ce1f3e248e5f.1755870287.git.teddy.astie@vates.tech>
- <6e9b7b96-a506-40ed-95b6-6ad00ba9a27a@citrix.com>
- <1901e764-9725-4e9e-895a-54c704473510@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <1901e764-9725-4e9e-895a-54c704473510@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To satlexmb09.amd.com
+ (10.181.42.218)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0002992C:EE_|DS0PR12MB7971:EE_
+X-MS-Office365-Filtering-Correlation-Id: 725d4809-ba04-4084-af9f-08dde619fbe3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?TanVG1VaUzehgEj5mEcJXaJOpdKejPRdzjlP6A6vcK5KGBuHachTZ5uRWZj5?=
+ =?us-ascii?Q?cFL8m/bwCtnNO8cvh5POxsamLuftACCm4+fKWb1qIZ9OpnEEgTWL7hRhPsih?=
+ =?us-ascii?Q?Odqt3NU1bUuJZGSoDJcDo9BNr0V0y9ewVUvd+GOsQfd1SdteNmEGqSaZfbgr?=
+ =?us-ascii?Q?Po71JFZHGaKMoQmkjPPTRQDgw9lhcmuJxe3BzCHkM/87qPU+UT7KEXYVcHl1?=
+ =?us-ascii?Q?dGOHAPbbKtR3P/FSBftz8iT3Z3YPSnxGcLT0vVBoAZx4h6R97GNRfebYssm2?=
+ =?us-ascii?Q?/tMfCBHV2OcmUjSCqqzeMssVxGf+6bwo9jQgfEhCQNGUOb2xBmm5jy4MzPkD?=
+ =?us-ascii?Q?+DaY6S44QYj5bV7w65Hq8PmWBJ5uvn7DHhrFIWusCeiPkxukA4qmizRZKuiC?=
+ =?us-ascii?Q?Gopf2NJEFtXQZb8I6wwRWvP26HTNY+GrTnBCwulUqR4AhzXr95L8mnbbM0na?=
+ =?us-ascii?Q?SckDG5lnVYYvPmWy0Ua9b4rxSbgBzh5MiKN5K+QdUpM7pH3/fiu7VhwIp33E?=
+ =?us-ascii?Q?kfhbuFRIBIsLvuOWuaJDCpf9Orp2KtpNIvWTygIG1/Y/dpe27VHeJcrLQhwG?=
+ =?us-ascii?Q?jqwVkm8CppLIq35BkrifVktu5D4I4ddm51NsJ+QaFBF089avtXqPLKOZ7/0x?=
+ =?us-ascii?Q?hmghUigeunMEUokUhPna1NRub8ZepyPLvgkImPoLSBxoUhh0bgsnSlsAo7I+?=
+ =?us-ascii?Q?nzpj9Ex0gjHOjrRAGR6QQC/HzcKoue836fdVAjrANUmhOx4ZX8GnKHCgPdCb?=
+ =?us-ascii?Q?6lZBVer5M3mS6fATHlYg3zETnVZxkovG+ZJTm1TnCObmpTOHYUwVPyORONWH?=
+ =?us-ascii?Q?iQkGA62OSsexl70K3QxyD1ekBsYvQvaFSGIEbGiRYrd/b7PZpfxMsHHUC4dP?=
+ =?us-ascii?Q?2j2DLpR4VnthNt5ErceQMNFTHcPCFVXGFfYbUFkRP30HSfsWq5cQxDnEVXVa?=
+ =?us-ascii?Q?gAJIxRGaht40Vb31pIDx0ygz0uWguXzN7caJKlGISwOh3hDCoJKpN7GePC8D?=
+ =?us-ascii?Q?WqHIkCdbMfjZZTWOddsQhIzzpZJjPT61rl4AC8WRepREYvo9RsuIryV04Pb4?=
+ =?us-ascii?Q?ELHiL2EjV/11rgFkdxDnBQlpEj4c4q6XYoHTgIxz6nDTI/ttVQq9uEad+ha4?=
+ =?us-ascii?Q?x2L8qaZJr3s4QsrIxt8jX6SDOjgzhRS/VVp+yPJXhvZLZKldN+eVYbhIfz7V?=
+ =?us-ascii?Q?reHWWfNzcdOum3qpodkzMRZwUsHvl7rcM68Bokp2eAh8qrbbAEVdiYBc1grq?=
+ =?us-ascii?Q?kxTf+5Y4Cx9iGPIy0RCOAQvU7Y7kSeWNnfWbT+rv3b0+E5hXVz+89iQFNXa5?=
+ =?us-ascii?Q?7Puiiww3f18uCBqADfQjEnKvdxSbgcNS/Tf+q7+h+psqbMTFc/tuft0C4BC+?=
+ =?us-ascii?Q?RBsdPVxjy/FQJrxoP9i7V6TusH4uXXPZMBcxhG9ETN02ACQRGKNwFRT9K/k9?=
+ =?us-ascii?Q?Ep/YRhOnBuz/BUOMCv9Gsm3zL/qybmbbp1c413FPOt9k7bmDZXWAdnBqCp3e?=
+ =?us-ascii?Q?uDCx+sMOLOPOEnb+CMhyxNBwiBYjOpgjgHdh?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2025 10:02:23.0609
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 725d4809-ba04-4084-af9f-08dde619fbe3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0002992C.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7971
 
-On 28/08/2025 8:07 am, Jan Beulich wrote:
-> On 27.08.2025 19:47, Andrew Cooper wrote:
->> On 22/08/2025 2:47 pm, Teddy Astie wrote:
->>> Currently, hvmloader uses SMBIOS 2.4, however, when using OVMF, the
->>> SMBIOS is patched to 2.8, which has clarified the UUID format (as GUID).
->>>
->>> In Linux, if the SMBIOS version is >= 2.6, the GUID format is used, else
->>> (undefined as per SMBIOS spec), big endian is used (used by Xen). Therefore,
->>> you have a endian mismatch causing the UUIDs to mismatch in the guest.
->>>
->>> $ cat /sys/hypervisor/uuid
->>> e865e63f-3d30-4f0b-83e0-8fdfc1e30eb7
->>> $ cat /sys/devices/virtual/dmi/id/product_uuid
->>> 3fe665e8-303d-0b4f-83e0-8fdfc1e30eb7
->>> $ cat /sys/devices/virtual/dmi/id/product_serial
->>> e865e63f-3d30-4f0b-83e0-8fdfc1e30eb7
->>>
->>> This patch updates the SMBIOS version from 2.4 to 2.6 and fixup the UUID
->>> written in the table; which effectively fix this endianness mismatch with
->>> OVMF; while the UUID displayed by Linux is still the same for SeaBIOS.
->>>
->>> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
->>> ---
->>> This effectively changes the UUID seen with UEFI guests as it was
->>> actually inconsistent with SeaBIOS and SMBIOS expectations.
->>> ---
->> I agree this is a real bug and needs fixing.
-> Hmm, I didn't realize this is a bug, and hence put the patch off as 4.22
-> material. If there is a bug being fixed: Teddy, please add a Fixes: tag.
+amd-cppc is the AMD CPU performance scaling driver that introduces a
+new CPU frequency control mechanism on modern AMD APU and CPU series in
+Xen. The new mechanism is based on Collaborative Processor Performance
+Control (CPPC) which provides finer grain frequency management than
+legacy ACPI hardware P-States. Current AMD CPU/APU platforms are using
+the ACPI P-states driver to manage CPU frequency and clocks with
+switching only in 3 P-states. CPPC replaces the ACPI P-states controls
+and allows a flexible, low-latency interface for Xen to directly
+communicate the performance hints to hardware.
 
-I'm not sure if this has a reasonable Fixes tag.
+amd_cppc driver has 2 operation modes: autonomous (active) mode,
+and non-autonomous (passive) mode. We register different CPUFreq driver
+for different modes, "amd-cppc" for passive mode and "amd-cppc-epp"
+for active mode.
 
-It's a combination of an ill-specified domain handle format, and using
-an ill-specified version of the SMBios spec.
+The passive mode leverages common governors such as *ondemand*,
+*performance*, etc, to manage the performance tuning. While the active mode
+uses epp to provides a hint to the hardware if software wants to bias
+toward performance (0x0) or energy efficiency (0xff). CPPC power algorithm
+in hardware will automatically calculate the runtime workload and adjust the
+realtime cpu cores frequency according to the power supply and thermal, core
+voltage and some other hardware conditions.
 
-~Andrew
+amd-cppc is enabled on passive mode with a top-level `cpufreq=amd-cppc` option,
+while users add extra `active` flag to select active mode.
+
+With `cpufreq=amd-cppc,active`, we did a 60s sampling test to see the CPU
+frequency change, through tweaking the energy_perf preference from
+`xenpm set-cpufreq-cppc powersave` to `xenpm set-cpufreq-cppc performance`.
+The outputs are as follows:
+```
+Setting CPU in powersave mode
+Sampling and Outputs:
+  Avg freq      580000 KHz
+  Avg freq      580000 KHz
+  Avg freq      580000 KHz
+Setting CPU in performance mode
+Sampling and Outputs:
+  Avg freq      4640000 KHz
+  Avg freq      4220000 KHz
+  Avg freq      4640000 KHz
+```
+
+Penny Zheng (8):
+  xen/cpufreq: introduce new sub-hypercall to propagate CPPC data
+  xen/cpufreq: introduce "cpufreq=amd-cppc" xen cmdline and amd-cppc
+    driver
+  xen/cpufreq: implement amd-cppc driver for CPPC in passive mode
+  xen/cpufreq: implement amd-cppc-epp driver for CPPC in active mode
+  xen/cpufreq: get performance policy from governor set via xenpm
+  tools/cpufreq: extract CPPC para from cpufreq para
+  xen/cpufreq: bypass governor-related para for amd-cppc-epp
+  xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC xen_sysctl_pm_op for amd-cppc
+    driver
+
+ docs/misc/xen-command-line.pandoc         |  14 +-
+ tools/include/xenctrl.h                   |   3 +-
+ tools/libs/ctrl/xc_pm.c                   |  25 +-
+ tools/misc/xenpm.c                        |  94 ++-
+ xen/arch/x86/acpi/cpufreq/Makefile        |   1 +
+ xen/arch/x86/acpi/cpufreq/amd-cppc.c      | 766 ++++++++++++++++++++++
+ xen/arch/x86/acpi/cpufreq/cpufreq.c       |  69 +-
+ xen/arch/x86/cpu/amd.c                    |   8 +-
+ xen/arch/x86/include/asm/amd.h            |   2 +
+ xen/arch/x86/include/asm/msr-index.h      |   6 +
+ xen/arch/x86/platform_hypercall.c         |  19 +
+ xen/arch/x86/x86_64/cpufreq.c             |  19 +
+ xen/arch/x86/x86_64/platform_hypercall.c  |   3 +
+ xen/drivers/acpi/pm-op.c                  |  68 +-
+ xen/drivers/acpi/pmstat.c                 |   4 +
+ xen/drivers/cpufreq/cpufreq.c             | 137 +++-
+ xen/drivers/cpufreq/utility.c             |  15 +
+ xen/include/acpi/cpufreq/cpufreq.h        |  40 +-
+ xen/include/acpi/cpufreq/processor_perf.h |  14 +-
+ xen/include/public/platform.h             |  26 +
+ xen/include/public/sysctl.h               |   5 +-
+ xen/include/xen/pmstat.h                  |   5 +
+ xen/include/xlat.lst                      |   1 +
+ 23 files changed, 1283 insertions(+), 61 deletions(-)
+ create mode 100644 xen/arch/x86/acpi/cpufreq/amd-cppc.c
+
+-- 
+2.34.1
+
 
