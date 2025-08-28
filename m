@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F00AEB3AC15
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 22:55:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1099964.1453592 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DC28B3ACBF
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 23:32:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1100001.1453602 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urjdu-0002sK-S7; Thu, 28 Aug 2025 20:54:46 +0000
+	id 1urkDo-0007sL-Ha; Thu, 28 Aug 2025 21:31:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1099964.1453592; Thu, 28 Aug 2025 20:54:46 +0000
+Received: by outflank-mailman (output) from mailman id 1100001.1453602; Thu, 28 Aug 2025 21:31:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urjdu-0002qq-OT; Thu, 28 Aug 2025 20:54:46 +0000
-Received: by outflank-mailman (input) for mailman id 1099964;
- Thu, 28 Aug 2025 20:54:45 +0000
+	id 1urkDo-0007q7-Ew; Thu, 28 Aug 2025 21:31:52 +0000
+Received: by outflank-mailman (input) for mailman id 1100001;
+ Thu, 28 Aug 2025 21:31:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=e5LM=3I=kernel.org=kbusch@srs-se1.protection.inumbo.net>)
- id 1urjdt-0002qk-I2
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 20:54:45 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YsNu=3I=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1urkDm-0007pW-JQ
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 21:31:50 +0000
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 38b1279d-8451-11f0-8adc-4578a1afcccb;
- Thu, 28 Aug 2025 22:54:43 +0200 (CEST)
+ id 674c9f2c-8456-11f0-8adc-4578a1afcccb;
+ Thu, 28 Aug 2025 23:31:49 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id CBC0C60139;
- Thu, 28 Aug 2025 20:54:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF632C4CEEB;
- Thu, 28 Aug 2025 20:54:39 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B6F7960139;
+ Thu, 28 Aug 2025 21:31:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBBF1C4CEEB;
+ Thu, 28 Aug 2025 21:31:45 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,106 +41,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38b1279d-8451-11f0-8adc-4578a1afcccb
+X-Inumbo-ID: 674c9f2c-8456-11f0-8adc-4578a1afcccb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1756414481;
-	bh=G+6sPUUIFuKNkRdpDGh7oyzJRLExx6mM3Rr0TsrNav4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sCjN9TPmsmkv2CErZmw7eY4jhfo/PPQcCij3sdHoAaturic23UjSbV5/eD841QBrO
-	 q5lqa5UXldETsQDMVxoOfW90mr401cd2aNU4qwzO6IO/5MHaurrX5r01OojjZShQEf
-	 15Kqtld44h3aDOleBeJLOpcwjkQTTYAEhyrx8SC3goTrfnxyjVjHpigzIsE/EQK5r7
-	 FqO3qkArHFFA2cKutZwYB5+zz+dbLtckQEfa3MaBKs+Sg/PNA0jXRALMJBXOlqNLWJ
-	 BYklmKx3JSZ1NevsWbUBFS2Jp771ITiW6KubcU3EOHWT7p/JyrZiu2Mj04cW80QHY7
-	 3fGPgcRndIPdQ==
-Date: Thu, 28 Aug 2025 14:54:35 -0600
-From: Keith Busch <kbusch@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Leon Romanovsky <leon@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
-	Alexander Potapenko <glider@google.com>,
-	Alex Gaynor <alex.gaynor@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
-	iommu@lists.linux.dev, Jason Wang <jasowang@redhat.com>,
-	Jens Axboe <axboe@kernel.dk>, Joerg Roedel <joro@8bytes.org>,
-	Jonathan Corbet <corbet@lwn.net>, Juergen Gross <jgross@suse.com>,
-	kasan-dev@googlegroups.com, linux-block@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, linux-nvme@lists.infradead.org,
-	linuxppc-dev@lists.ozlabs.org, linux-trace-kernel@vger.kernel.org,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v4 15/16] block-dma: properly take MMIO path
-Message-ID: <aLDCC4rXcIKF8sRg@kbusch-mbp>
-References: <cover.1755624249.git.leon@kernel.org>
- <642dbeb7aa94257eaea71ec63c06e3f939270023.1755624249.git.leon@kernel.org>
- <aLBzeMNT3WOrjprC@kbusch-mbp>
- <20250828165427.GB10073@unreal>
- <aLCOqIaoaKUEOdeh@kbusch-mbp>
- <20250828184115.GE7333@nvidia.com>
- <aLCpqI-VQ7KeB6DL@kbusch-mbp>
- <20250828191820.GH7333@nvidia.com>
+	s=k20201202; t=1756416707;
+	bh=HL/nKcZBZDDGgK8YyFpxLKAwLiv68V1rJ59jDqp6xYA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=GJuU/CUu4GksJvjdMSSBtIiLsLUHpxntomqwaEJgWXhW4C6VYlYCSEbRWttTN/RD0
+	 JM7f6t7i1CLipMEfuC/+KidYjMiwcLCIr0z9ONJ659Bt4VqLKNuPv/uJUy0TvI7RlL
+	 3N0niZhEfOoQ3iQDTgZJAS4bz748mMXW8D+ji9NA1V4VR5AJVO9JDl4F/icnUJGqd3
+	 8AeEiuvzdEtfR4H5EpQYEto1j7vs+qSfHdCHoU2uH48WgCadmilP5lPVeiBXwVCPUy
+	 1wjxg4zOlV2bAIORBmDDixJZwZnBNA/F+OLOF97+TWGgBAZpljctWdafVFRQCXXbqU
+	 il5Ea2TGBeF5w==
+Date: Thu, 28 Aug 2025 14:31:42 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>, 
+    Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Grygorii Strashko <grygorii_strashko@epam.com>
+Subject: Re: [PATCH v6 1/4] xen/arm: add generic SCI subsystem
+In-Reply-To: <ffe5a45efd34d92c9f2c7307ecd0e9efc5b0d57c.1756399156.git.oleksii_moisieiev@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2508281431180.8757@ubuntu-linux-20-04-desktop>
+References: <cover.1756399156.git.oleksii_moisieiev@epam.com> <ffe5a45efd34d92c9f2c7307ecd0e9efc5b0d57c.1756399156.git.oleksii_moisieiev@epam.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250828191820.GH7333@nvidia.com>
+Content-Type: text/plain; charset=US-ASCII
 
-On Thu, Aug 28, 2025 at 04:18:20PM -0300, Jason Gunthorpe wrote:
-> On Thu, Aug 28, 2025 at 01:10:32PM -0600, Keith Busch wrote:
-> > 
-> > Data and metadata are mapped as separate operations. They're just
-> > different parts of one blk-mq request.
+On Thu, 28 Aug 2025, Oleksii Moisieiev wrote:
+> This patch adds the basic framework for ARM SCI mediator. SCI is System
+> Control Interface, which is designed to redirect requests from the Domains
+> to ARM specific Firmware (for example SCMI). This will allow the devices,
+> passed-through to the different Domains, to access to the System resources
+> (such as clocks/resets etc) by sending requests to the firmware.
 > 
-> In that case the new bit leon proposes should only be used for the
-> unmap of the data pages and the metadata unmap should always be
-> unmapped as CPU?
+> ARM SCI subsystem allows to implement different SCI drivers to handle
+> specific ARM firmware interfaces (like ARM SCMI) and mediate requests
+> -between the Domains and the Firmware. Also it allows SCI drivers to perform
+> proper action during Domain creation/destruction which is vital for
+> handling use cases like Domain reboot.
+> 
+> This patch introduces new DEVICE_FIRMWARE device subclass for probing SCI
+> drivers basing on device tree, SCI drivers register itself with
+> DT_DEVICE_START/END macro. On init - the SCI drivers should register its
+> SCI ops with sci_register(). Only one SCI driver can be supported.
+> 
+> At run-time, the following SCI API calls are introduced:
+> 
+> - sci_domain_sanitise_config() called from arch_sanitise_domain_config()
+> - sci_domain_init() called from arch_domain_create()
+> - sci_relinquish_resources() called from domain_relinquish_resources()
+> - sci_domain_destroy() called from arch_domain_destroy()
+> - sci_handle_call() called from vsmccc_handle_call()
+> - sci_dt_handle_node()
+> - sci_dt_finalize() called from handle_node() (Dom0 DT)
+> 
+> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-The common path uses host allocated memory to attach integrity metadata,
-but that isn't the only path. A user can attach their own metadata with
-nvme passthrough or the recent io_uring application metadata, and that
-could have been allocated from anywhere.
-
-In truth though, I hadn't tried p2p metadata before today, and it looks
-like bio_integrity_map_user() is missing the P2P extraction flags to
-make that work. Just added this patch below, now I can set p2p or host
-memory independently for data and integrity payloads:
-
----
-diff --git a/block/bio-integrity.c b/block/bio-integrity.c
-index 6b077ca937f6b..cf45603e378d5 100644
---- a/block/bio-integrity.c
-+++ b/block/bio-integrity.c
-@@ -265,6 +265,7 @@ int bio_integrity_map_user(struct bio *bio, struct iov_iter *iter)
- 	unsigned int align = blk_lim_dma_alignment_and_pad(&q->limits);
- 	struct page *stack_pages[UIO_FASTIOV], **pages = stack_pages;
- 	struct bio_vec stack_vec[UIO_FASTIOV], *bvec = stack_vec;
-+	iov_iter_extraction_t extraction_flags = 0;
- 	size_t offset, bytes = iter->count;
- 	unsigned int nr_bvecs;
- 	int ret, nr_vecs;
-@@ -286,7 +287,12 @@ int bio_integrity_map_user(struct bio *bio, struct iov_iter *iter)
- 	}
- 
- 	copy = !iov_iter_is_aligned(iter, align, align);
--	ret = iov_iter_extract_pages(iter, &pages, bytes, nr_vecs, 0, &offset);
-+
-+	if (blk_queue_pci_p2pdma(q))
-+		extraction_flags |= ITER_ALLOW_P2PDMA;
-+
-+	ret = iov_iter_extract_pages(iter, &pages, bytes, nr_vecs,
-+					extraction_flags, &offset);
- 	if (unlikely(ret < 0))
- 		goto free_bvec;
- 
---
+I just want to say that R-b from me is OK
 
