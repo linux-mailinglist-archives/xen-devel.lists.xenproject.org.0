@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76F13B39AB0
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 12:52:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1098341.1452415 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 097ECB39AB8
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 12:57:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1098354.1452425 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uraEd-00052C-Vk; Thu, 28 Aug 2025 10:52:03 +0000
+	id 1uraJE-0005ge-Il; Thu, 28 Aug 2025 10:56:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1098341.1452415; Thu, 28 Aug 2025 10:52:03 +0000
+Received: by outflank-mailman (output) from mailman id 1098354.1452425; Thu, 28 Aug 2025 10:56:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uraEd-00050D-S0; Thu, 28 Aug 2025 10:52:03 +0000
-Received: by outflank-mailman (input) for mailman id 1098341;
- Thu, 28 Aug 2025 10:52:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uraJE-0005db-Fg; Thu, 28 Aug 2025 10:56:48 +0000
+Received: by outflank-mailman (input) for mailman id 1098354;
+ Thu, 28 Aug 2025 10:56:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=pYI3=3I=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uraEc-0004fh-Lk
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 10:52:02 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 067bbb5d-83fd-11f0-ae26-e363de0e7a9e;
- Thu, 28 Aug 2025 12:52:00 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-afcb7ae31caso137073266b.3
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 03:52:00 -0700 (PDT)
+ id 1uraJD-0005dV-Au
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 10:56:47 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b0ab542e-83fd-11f0-aeb2-fb57b961d000;
+ Thu, 28 Aug 2025 12:56:46 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-61caa266828so1651930a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 03:56:46 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afe90c8f85fsm722647266b.8.2025.08.28.03.51.59
+ 4fb4d7f45d1cf-61c78e49c90sm6982983a12.45.2025.08.28.03.56.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Aug 2025 03:51:59 -0700 (PDT)
+ Thu, 28 Aug 2025 03:56:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 067bbb5d-83fd-11f0-ae26-e363de0e7a9e
+X-Inumbo-ID: b0ab542e-83fd-11f0-aeb2-fb57b961d000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756378320; x=1756983120; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756378606; x=1756983406; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KeWcAesFxLhz0BEXlg3cbbcQKqFYzdCTHZlccJodaT8=;
-        b=a3H9i+tEW2OPFn26M04gHIoqoCtXaczpPV0Zz3RQ6eTKYQpPvl27hcbZmIWpmrnhQ+
-         zvetXp8jKuuEYwqjRQ+2IJo2AX6TSBfq1Ghnf0KuO9dIJXdou3kQAwd0rX1Ht/nOiSOr
-         W+cOVCVxzZ5i+pxe/hpMxIE4VAGdA/fHN7Xd6mdE5SZDpBb/k4ZbuVK52kuBTsT+9OzW
-         NlT7eel7w/5PZY1Q5Ee8iGe1tgSfmRAoEecbpYO8te5mm5Imu1yD3JkdmpQpcFHa6Mzy
-         z1w2A50q6nY3iKHxs0lHtfzg5VjzkbIdccsnXKrsYceTSI0A7q7lpgGCLenA4eyAWjog
-         qZdw==
+        bh=5KQGDpdyzpGsq3yrgJsk2OobwzHfCnLsR4h/xFJ1OAI=;
+        b=JmYierkZQfDFtyVM3ex5xMxHbK+TxhBxzHpg7xBuHeoSBDymfeB2zOI0LKHw80YfS+
+         WuizZBxMOx5s0HUctag2i9X/akeNLYI6WreuYqRjRB9bh3q00G+oJ1eHXf367mJreXJl
+         r6Z5jiDpCTSSdwD3n8cKWTzU8PLqYsfRGl42ZlFa4uSWnHq9//ahjbEWC/2l+ACn3GNd
+         +9aaf7oSm/zii4+ncmyUHjbow45Yrr4T2TEnBc8nlXMhUprSc9Cze5D12dbuHfFevXwf
+         O2pbXmcouN/sR8eO2bL1p86PsC+vAeTw8Ex/ZAnbVLjvOfwjF9IpYaBRpKk/aGmrQ7+5
+         uv2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756378320; x=1756983120;
+        d=1e100.net; s=20230601; t=1756378606; x=1756983406;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KeWcAesFxLhz0BEXlg3cbbcQKqFYzdCTHZlccJodaT8=;
-        b=pmJbJOGtsySE5fr5PYzKkqOP2eOjnHisfLtJM/21clcnWdcCh3l+Bdbr5iVMUyik3f
-         RTsgImne1N62D3casdJ8rEPm0mOGro7G7JJpgzNA465vneHuUuE/7dBjfZVJOcI+pP5x
-         jw9MtrpBe60fx2ierXKEGFSiVOGnTJ19NiX4LcTXVvGX4TPcmNA/iYFRfmucSTZCWoSF
-         tsNsDD7Ae9MR2gWztKsnyPvo2naU1YDo9FxQJJonE1wgoMawNFnvRw0wPcdoOpJHPGRt
-         TR5Uu84wpBKYKITeMpFfdLcirlB2NQMM+2U5IMzKnIStvg/XTHIjElYWfYQWkb9cJhi+
-         toPg==
-X-Forwarded-Encrypted: i=1; AJvYcCUJT/jE50SDZbdj1gbSPT1SlDSySm0M4gw0qypsRAXmg1KIMz+p+rlSsns/oqMmo539cUjn1sZrhtA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxIEnEg6prBirgSwekqTvfFXjpoSOaO9JvbacEZgwl8jLBvT/UC
-	JdjD4zHNaxwOHSzt3WpqZwdhg+1KHw42xvn1uk82RjZI7iPEqhqtAqQFiD2yMVzq6A==
-X-Gm-Gg: ASbGncvjCq7Z5/jOi5WXPAGqXTqfnTIaBeiGC2LaDS4cgOUL1/6KCbO0uYV1EZT13Rz
-	H2FPzufArPBR/BcuRdwGb4gln5sroYyZndYa0juP/lNO6nEwQ9GGglwWbNs7K7b3CLz57ablqzU
-	4USeqO/S2lgWOEkgRyeKGcbJhFb9R+HiF40YxbqvEJ36uKd26ON3zpVm84BhiukyWHeZf2++kyE
-	RnUgSdZQ2kCUlaxtXIoM75/inKn5lWhtM1Bf9O4PbajagutVqNX1mp7aeStja21KJltNLNCmVVz
-	ydOixnOKEWE/Njulem5sN6QY8YYhBiHVfIY8DWdlYP5z1/Ra3Me1hXSZeRdXvNHrMsruMfnInhM
-	vj1oMAxmC2xLPoBa5go1xbsUywOKLwvLQ6+FHsBYCV8x3X8kLbT5NHuDx6L7iCkd5/r33fruULG
-	5QLPrD4E4=
-X-Google-Smtp-Source: AGHT+IErYtjBzS3Vdo7NSSFjcHlzjNDmXdUMuGDNkS9dc3gyA9OE64/lln18l1tn3+dThnsmkvW9dQ==
-X-Received: by 2002:a17:906:7308:b0:afe:e1e3:36a2 with SMTP id a640c23a62f3a-afee1e33b4cmr228329466b.31.1756378320242;
-        Thu, 28 Aug 2025 03:52:00 -0700 (PDT)
-Message-ID: <c3d5b257-e9fc-476b-a025-67b2f7e70c9e@suse.com>
-Date: Thu, 28 Aug 2025 12:51:58 +0200
+        bh=5KQGDpdyzpGsq3yrgJsk2OobwzHfCnLsR4h/xFJ1OAI=;
+        b=RMp2HEwTcB/6BET2UGkqPUKRQjvREfTxH7J9Ap4wMPOBxHOVLcBeN0SwzHBjYuc8pZ
+         jlRtAFKyVGtq5l+joXC9f6EoQATmBW0EV3r5Emv4dqZ8n3WEe8dyYr6JdG7d9RhVnnPB
+         kLUeZY/VvUC97L87MaOQJTWZAuaJsKhCXhhEPQHjdN0AJKnBn0JjMzJF0lcVSm17IbfC
+         OuZHiiaRuhQ5fC62eZIPXWPLxZKZYpHDTiKP5qcFvsGdRZBLl7Ozj7DSjOoH7O+Jt9/z
+         7W++3JydrSEEUxrDgNwqTSKtFpOxCGUTLh+Lc9LZmS1TTdLXfnHGP4/3rJiXtZTCVBj7
+         jQ5w==
+X-Forwarded-Encrypted: i=1; AJvYcCX7CIq+DGc15HVKacjQOAUoO371Q9Ebk3TGTs2rwfUplsNB9CzI8hukhMuC2Ywpgv4OSUk8G4PNOGE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxQ6k2Nj2vwA6LBCtDZtW+A+94RpPy4nTKLw2Mz3vrpNVi3VnDg
+	/i4PVh5R2onP33DXDPYP1C1AkgsguUpB4gCEy78NMplU0KAm7q+P7V2Eqy5VLXAZ+w==
+X-Gm-Gg: ASbGnctt/QaN3xcLQimkVx+F58HEigXLdv/E6ozKcZZJAs/v4yLoSROXy2LsZKR7dLt
+	S4A1D+2kdENeBKQe8YK/j9wziBqS77jP+PPJvr9tAghgpS8/hr3BThAuQwMRIQxwKiHJKcx+/aO
+	cS4gCg7NWdiA68xaRRMNE1qFWFoifKXj0GiLAH6JsHx75tJ/6pGJaMY2l7DGQoiwsVcVArWtHCb
+	k/DP3UvbsfgbKNhSrCCxb2lr+H4H/K0F6xOYyrgBB9YROg8s1KZ9n4y4RDGo3BMdGcjHlFMOab2
+	iJfQynoXMGwyctNGWbqNSwHp0XT0ZItgdXCjNTtM6ioitdwAmnQS95fJsw/8TBnKRP2jzO8ea6g
+	QiYRv1Z9kwTFpw2KQvfXrEFDS+bZOoPdWTle0RcePDhfU/fys0mNVjYuT2PTY/CleFxOfANG4NM
+	QUs7VNbL0=
+X-Google-Smtp-Source: AGHT+IGre8su64e+qOiYVUnqCE7iWSPXaQC07YK0hn7/9R6c+CFydWljel0af6TTWheJ9UWlILEVUg==
+X-Received: by 2002:a05:6402:42cf:b0:618:bc4:5777 with SMTP id 4fb4d7f45d1cf-61c1b48f533mr19057785a12.9.1756378605766;
+        Thu, 28 Aug 2025 03:56:45 -0700 (PDT)
+Message-ID: <bc500e36-30fd-4231-ace9-697e5644e12d@suse.com>
+Date: Thu, 28 Aug 2025 12:56:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/8] xen/cpufreq: introduce new sub-hypercall to
- propagate CPPC data
+Subject: Re: [PATCH v8 5/8] xen/cpufreq: get performance policy from governor
+ set via xenpm
 To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250828100306.1776031-1-Penny.Zheng@amd.com>
- <20250828100306.1776031-2-Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, xen-devel@lists.xenproject.org
+References: <20250828100443.1776675-1-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,104 +118,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250828100306.1776031-2-Penny.Zheng@amd.com>
+In-Reply-To: <20250828100443.1776675-1-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.08.2025 12:02, Penny Zheng wrote:
-> In order to provide backward compatibility with existing governors
-> that represent performance as frequency, like ondemand, the _CPC
-> table can optionally provide processor frequency range values, Lowest
-> frequency and Nominal frequency, to let OS use Lowest Frequency/
-> Performance and Nominal Frequency/Performance as anchor points to
-> create linear mapping of CPPC performance to CPU frequency.
+On 28.08.2025 12:04, Penny Zheng wrote:
+> Even if Xen governor is not used in amd-cppc active mode, we could
+> somehow deduce which performance policy (CPUFREQ_POLICY_xxx) user wants to
+> apply through which governor they choose, such as:
+> If user chooses performance governor, they want maximum performance, then
+> the policy shall be CPUFREQ_POLICY_PERFORMANCE
+> If user chooses powersave governor, they want the least power consumption,
+> then the policy shall be CPUFREQ_POLICY_POWERSAVE
+> Function cpufreq_policy_from_governor() is responsible for above transition,
+> and it shall be also effective when users setting new governor through xenpm.
 > 
-> As Xen is uncapable of parsing the ACPI dynamic table, we'd like to
-> introduce a new sub-hypercall "XEN_PM_CPPC" to propagate required CPPC
-> data from dom0 kernel to Xen.
-> In the according handler set_cppc_pminfo(), we do _CPC and _PSD
-> sanitization check, as both _PSD and _CPC info are necessary for correctly
-> initializing cpufreq cores in CPPC mode.
-> Users shall be warned that if we failed at this point,
-> no fallback scheme, like legacy P-state could be switched to.
-> 
-> A new flag "XEN_CPPC_INIT" is also introduced for cpufreq core initialised in
-> CPPC mode. Then all .init flag checking shall be updated to
-> consider "XEN_CPPC_INIT" too.
-> 
-> We want to bypass construction of px statistic info in cpufreq_statistic_init()
-> for CPPC mode, while not bypassing cpufreq_statistic_lock initialization for a
-> good reason. The same check is unnecessary for cpufreq_statistic_exit(),
-> since it has already been covered by px statistic variable
-> "cpufreq_statistic_data" check
+> Userspace is a forbidden choice, and if users specify such option, we shall
+> not only give warning message to suggest using "xenpm set-cpufreq-cppc", but
+> also error out.
 > 
 > Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 
 Acked-by: Jan Beulich <jbeulich@suse.com>
-with two cosmetic issues taken care of (which I'll do while committing):
 
-> @@ -693,6 +699,120 @@ int acpi_set_pdc_bits(unsigned int acpi_id, XEN_GUEST_HANDLE(uint32) pdc)
->      return ret;
->  }
->  
-> +static void print_CPPC(const struct xen_processor_cppc *cppc_data)
-> +{
-> +    printk("\t_CPC: highest_perf=%u, lowest_perf=%u, "
-> +           "nominal_perf=%u, lowest_nonlinear_perf=%u, "
-> +           "nominal_mhz=%uMHz, lowest_mhz=%uMHz\n",
-> +           cppc_data->cpc.highest_perf, cppc_data->cpc.lowest_perf,
-> +           cppc_data->cpc.nominal_perf, cppc_data->cpc.lowest_nonlinear_perf,
-> +           cppc_data->cpc.nominal_mhz, cppc_data->cpc.lowest_mhz);
-> +}
-> +
-> +int set_cppc_pminfo(unsigned int acpi_id,
-> +                    const struct xen_processor_cppc *cppc_data)
-> +{
-> +    int ret = 0, cpuid;
-> +    struct processor_pminfo *pm_info;
-> +
-> +    cpuid = get_cpu_id(acpi_id);
-> +    if ( cpuid < 0 )
-> +    {
-> +        ret = -EINVAL;
-> +        goto out;
-> +    }
-> +
-> +    if ( cppc_data->pad[0] || cppc_data->pad[1] || cppc_data->pad[2] )
-> +    {
-> +        ret = -EINVAL;
-> +        goto out;
-> +    }
-> +
-> +    if ( cpufreq_verbose )
-> +        printk("Set CPU%d (ACPI ID %u) CPPC state info:\n",
-> +               cpuid, acpi_id);
-> +
-> +    pm_info = processor_pminfo[cpuid];
-> +    if ( !pm_info )
-> +    {
-> +        pm_info = xvzalloc(struct processor_pminfo);
-> +        if ( !pm_info )
-> +        {
-> +            ret = -ENOMEM;
-> +            goto out;
-> +        }
-> +        processor_pminfo[cpuid] = pm_info;
-> +    }
-> +    pm_info->acpi_id = acpi_id;
-> +    pm_info->id = cpuid;
-> +    pm_info->cppc_data = *cppc_data;
-> +
-> +    if ( (cppc_data->flags & XEN_CPPC_PSD) &&
-> +          !check_psd_pminfo(cppc_data->shared_type) )
-
-Nit: Indentation is off by 1.
-
-> +    {
-> +            ret = -EINVAL;
-> +            goto out;
-
-Indentation is still wrong here.
-
-Jan
 
