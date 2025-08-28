@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6342DB393A1
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 08:09:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1097504.1451790 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76B86B393A6
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 08:11:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1097513.1451800 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urVpA-0007Nh-Cu; Thu, 28 Aug 2025 06:09:28 +0000
+	id 1urVrJ-0000aL-PO; Thu, 28 Aug 2025 06:11:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1097504.1451790; Thu, 28 Aug 2025 06:09:28 +0000
+Received: by outflank-mailman (output) from mailman id 1097513.1451800; Thu, 28 Aug 2025 06:11:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urVpA-0007Kp-9g; Thu, 28 Aug 2025 06:09:28 +0000
-Received: by outflank-mailman (input) for mailman id 1097504;
- Thu, 28 Aug 2025 06:09:26 +0000
+	id 1urVrJ-0000XA-M3; Thu, 28 Aug 2025 06:11:41 +0000
+Received: by outflank-mailman (input) for mailman id 1097513;
+ Thu, 28 Aug 2025 06:11:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=pYI3=3I=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1urVp8-0007Kj-GZ
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 06:09:26 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1urVrH-0000X2-FT
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 06:11:39 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8b0adff1-83d5-11f0-ae26-e363de0e7a9e;
- Thu, 28 Aug 2025 08:09:23 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-afedbb49c26so83425466b.2
- for <xen-devel@lists.xenproject.org>; Wed, 27 Aug 2025 23:09:23 -0700 (PDT)
+ id daef6796-83d5-11f0-ae26-e363de0e7a9e;
+ Thu, 28 Aug 2025 08:11:37 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-afcb732eee6so88963966b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Aug 2025 23:11:37 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afe89bd7acesm743123066b.73.2025.08.27.23.09.21
+ a640c23a62f3a-afe77c2b758sm873434566b.84.2025.08.27.23.11.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Aug 2025 23:09:22 -0700 (PDT)
+ Wed, 27 Aug 2025 23:11:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b0adff1-83d5-11f0-ae26-e363de0e7a9e
+X-Inumbo-ID: daef6796-83d5-11f0-ae26-e363de0e7a9e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756361363; x=1756966163; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756361497; x=1756966297; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=smG5mKel4W0Oc6sJ0hqJJ7D/H5xsumVTrYUsbzTBZ7k=;
-        b=MriQ7ub7YLRbGSk+2gToMrhTCmUY0hTSJZ8XsoB1LcAwiEh+mpIHi3ANUHcgCyLuu8
-         yzSCJxcRUaLIEptFMJjfdXShQC19gbAQJS/rIWoCH/L3oY+BXXxEE19N/HysQGhG0tnw
-         BaO6CT6H4r+idNN9Re7+XhBYUV4JLXnVLK876P12DA9wuk69sY5k+RguDBf5Aegdz9gI
-         JTq0KhbTxgLJOHGfW7XPEKxxCGjV7PZqz81CLwsOcz9TQxwboDsHf/b56jeULIaBbQ6v
-         lSkbzqx3dTJ95mYcwyZ9Q17aRbS1q1IP99DJQQpt4DnzO5ipoo78i3NvgYYWskmkKoaB
-         QfpA==
+        bh=M8Sg9f2cGuFhekkWvLGQGRQLiQcEw8TzFl+k1pmOrl4=;
+        b=NAR38e0BiYCE/J+vE2Uz0kbEvYR6kmsyJq6oIGX3mEpqlIUU5kjLjWYzz0IpL7k+1h
+         YY2aSTlTMWDHs1FLMjlcgztvX1I1F/TM8bWFYPsvSVef4xgHZ7V1hVNtybfiuF6dDcbH
+         cJxTB1iZsml5l5jgaEe+d5cZIQfmtqvxrVXYRh9rVijtCCfxl4Sx5rGBWkspUmVAmIzy
+         sruBkNTkgI/dDj8/ZthAmXG+iZuUpHemwEOTZGVCFOwGKqaltSnHBOUJ2ud6Z88l8kMd
+         uzp9POvCYWlBSW/DvU5OFvwdbpcSmCuAE1AsecxfI6bkMJ/pf1beU5P8LifeMGNkigBI
+         fQlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756361363; x=1756966163;
+        d=1e100.net; s=20230601; t=1756361497; x=1756966297;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=smG5mKel4W0Oc6sJ0hqJJ7D/H5xsumVTrYUsbzTBZ7k=;
-        b=vMEA/6TK0OJ6C+oHoiut3MfOOLmPsi0H6XdKGAL0Wls5kyiXh5b2PaS+zd7qQnsy2x
-         ivAhicKp+93IS1kuyAPelAVyV/FuiETYLAhqPgoURGxXZtdGH5Esk0pyOrhTTYfS/D9K
-         KyDhfYzh2p+Hq4i6yNOOJzugZxZFVqyhfjOrmT3fq6yOMwY5zA8UMkXPELslQkiFaoXg
-         RKq+NczH3GYZ1H81veOxIjxa9DqmU0OEv+X/Nzu5Yk4H5bGw88A+O4Mkbpnr5TK7+uuX
-         MtE622vHLs6zcRHQXlo9t1WbmuiziiihFiGL8IyxwOYsBJuIMj060e3mY8RDgYOEKnpf
-         UK4Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUOaPXBoNk1Yq8pmP9m0kSz7yfMpjY3eLsAZwIxjTG1tiW1JG78500ogyEfreTTY4q//x1WzL6fM38=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxcubMMgwE4bC1MkOHxyYkiprzdmGnZclOT3ePnhnkLHRBJpAhh
-	nhgA5hQz8y3m4xCdRlSbQT/ADuAVkfDQTn7IygsiT2tzWpF/bFTiq04VYgm/sgHYb+rwEILevl3
-	oc00=
-X-Gm-Gg: ASbGncuRw5gG0T2leADgepIpzHhJkRHXFyyyajPJ5spG5iy7ktmZUwSoYXZsU/RmcMG
-	eBLK4tVVi+m12asG3txzByUsr5yaVAL9ym2He3BuDVjgFi8V3WwYghfH+LVjLZH+ZUrnD/rdYqR
-	gBgClMjoKs3weFpWg13QanNdjYV/11q+ed4KO0ZL+Ue7o+xwSIGH4UfYm8ll2KNg0YqvThi8BRI
-	0OoRCUJS+9RgNHKR7Ju1S2zjtsROlAggFVhaG9S9ndw8LLYQSYqmg/waxRQFZy7nHwLwS7liiX4
-	yBloVima+fA4VN4gjX8uKvv6ubId9aY6Pp9+8tZFqqcsBx9+sBhfDZWlezwvtqa8UI9LIOIxoZ6
-	5soVhzuUHXbEGDoQefOPSTJwbRegiI1whcwvKTH56Ek35/UgdM4uztz+2lyd1bJ7h30PjwFKtEN
-	1EPLFsx3E=
-X-Google-Smtp-Source: AGHT+IE4vUgJ57a8eXkc8+Aw1RtU4ZiqqQJOipVfRHCUEdMtWYTthBdLFNj5nxTeHNuuBvnhm/gp9w==
-X-Received: by 2002:a17:907:7f27:b0:afd:d994:cac with SMTP id a640c23a62f3a-afe29897202mr1831278266b.62.1756361362719;
-        Wed, 27 Aug 2025 23:09:22 -0700 (PDT)
-Message-ID: <20d686c7-aa86-4896-a392-947ad7e5838f@suse.com>
-Date: Thu, 28 Aug 2025 08:09:21 +0200
+        bh=M8Sg9f2cGuFhekkWvLGQGRQLiQcEw8TzFl+k1pmOrl4=;
+        b=WL6sd9tObYvGl1yihybWRRmGiqN8rEujRezsD0RpwLErGHoegYCvlmbYQ/x7HrcZ9T
+         oF3f+4rwr5RPbUCIoA9Lxm6IjcZGSGBzbC+kjO/2NiK9nR5qhYHO8gBuI5sL8VTlFJ+u
+         7HcuHQDhrnLpTTUtt/e001VGOvkIarZD2/OLfuJV+pVh/Lfmr5y+uzFKG+Ifi/oTK9dZ
+         7EJHecI809/c3jSMx3Sr2hbX6eqskIyJBJweA3vALFWq7bz0XcMtzQdS0POCiphFQypW
+         atnMKrANh1gFontfMae3yONgmyFum8lTnYKvnVwuP6anvRfFgcDW20I11PesJX3eM20N
+         wpZA==
+X-Forwarded-Encrypted: i=1; AJvYcCWucTsOSivlyKSN+8WzyjpWBtg0aekrlMeoIQr4JMv5rKXBWREhh1a1xQsKjSkg56XCusMV2oyx9yo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz5Et62aatmLYQvDCp7e0PjIRL7HAATOl4g+lLRfPArImtfbD7T
+	PYB1iJgMIYCOMLTCb57Lr1BsrkN5CaiSlG6BAjcfxdNDerKyaTk54mrgfK9EefEM/Q==
+X-Gm-Gg: ASbGncvxxYTXE6sOAKlNIxJxCRykR+1GgNjjav1234kOlcCw+C9c7zI7IFhwDYkg7pp
+	G72IwZ2Gnlt3L+eGe7iolaWD21zJfV1DVK2kqWT1P/TbVfbU7+RrOV21ejwTDqBEfCEtYG/u4/r
+	u0kfhp2Db7YRQCwaQ5o1h8+A+Slx/kfuGqc5j3gcFSTrkJb9MB5icr1M15hgyb0WMehdwgtmbDH
+	oNLBsQsNop9U8p/SPXLYaMEyj9cyf/AuFkEIf/R9+VkalS2W8moAbFcvnCnF6zgcuoaMFvGwbyW
+	LuCut6TomMbcyJ44CT/fMinItyb+39SFBAUA4wMHsMuiZSl31XtQGZln3i/vINIK+OkyhbQL+0f
+	5xHC6E+wce3x0wDxEpTBQj9CArly35Ke/QLJC7gfq/EDVIt1z9L+ZGLl1BgmSLc3vH74AGkBpVF
+	leMCDy/g0xX+ioqiXVtw==
+X-Google-Smtp-Source: AGHT+IGe3LBHOTwzorR9wCwKkvUQuE2xC5UllzOSjALNq5m7XKSvMKIHI6FUx/TVw6f9AwN09L9Cvw==
+X-Received: by 2002:a17:906:aeda:b0:afe:be04:5ce4 with SMTP id a640c23a62f3a-afebe13a7d2mr431300766b.38.1756361496810;
+        Wed, 27 Aug 2025 23:11:36 -0700 (PDT)
+Message-ID: <c16f3417-4af6-4214-9275-6d3806d29990@suse.com>
+Date: Thu, 28 Aug 2025 08:11:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] libxl: respect unset video_memkb for Dom0
+Subject: Re: [PATCH] libxl: preserve errno in libxl__xcinfo2xlinfo()
 To: Jason Andryuk <jason.andryuk@amd.com>
 Cc: Anthony PERARD <anthony.perard@vates.tech>,
  Juergen Gross <jgross@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <719c456b-927d-41c3-b28d-135a895958dd@suse.com>
- <01f134a0-46fb-40d8-924d-79ab864352e9@amd.com>
+References: <e567c234-473d-40c3-86dc-53317812baf7@suse.com>
+ <c4ce1651-3881-4af0-bfe4-294917c31c9d@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,46 +120,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <01f134a0-46fb-40d8-924d-79ab864352e9@amd.com>
+In-Reply-To: <c4ce1651-3881-4af0-bfe4-294917c31c9d@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.08.2025 03:12, Jason Andryuk wrote:
-> On 2025-08-27 01:56, Jan Beulich wrote:
->> Without this, Dom0 will have have a curiously off-by-1 target_memkb
->> value displayed by "xl list -l".
+On 28.08.2025 03:16, Jason Andryuk wrote:
+> On 2025-08-27 01:57, Jan Beulich wrote:
+>> Callers observing errors elsewhere may be confused by the ENOSYS that
+>> the Flask operation would yield on a Flask-disabled hypervisor.
 >>
 >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> Of course I don't know whether clobbering errno is perhaps deemed "fine"
+>> in libxl.
+> 
+> I wonder if it would be better to special case 
+> libxl_flask_sid_to_context() to preserve errno on ENOSYS.  flask 
+> returning ENOSYS is common, but libxl_flask_sid_to_context() can 
+> legitimately have error.
+
+But then libxl__xcinfo2xlinfo() also shouldn't (effectively) ignore such
+other errors? Question is what it should do in such an event.
+
+> I guess this is fine if we want to use this approach:
 > 
 > Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
 Thanks.
 
-> In theory, b_info->video_memkb should have been defaulted to 0.
-
-I don't think 0 would be a legitimate default; it might be for Dom0, but
-not generally.
-
->  In 
-> practice you found it isn't.  xen-init-dom0 could probably use some fixing.
-
-Right, kind of as per the latter of the two post-commit-message remarks.
-
->> ---
->> In retrieve_domain_configuration_end(), isn't it the wrong way round to
->> set both ->b_info.target_memkb and ->b_info.max_memkb only after calling
->> libxl__get_targetmem_fudge(), when that uses the two fields? This way we
->> could as well use ->b_info->video_memkb directly there.
-> 
-> I think it's attempting to read the current values from xenstore, in 
-> case they changed via xl mem-set, and then putting them into the d_config.
-
-That's my understanding too, yet it still makes little sense to me to
-invoke a function when data it consumes isn't set (yet).
-
 Jan
-
->> Of course this may point at a bigger problem, as other fields may
->> similarly never be set for Dom0.
-
 
