@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DC28B3ACBF
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 23:32:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1100001.1453602 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21A9FB3ACC2
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 23:33:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1100012.1453612 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urkDo-0007sL-Ha; Thu, 28 Aug 2025 21:31:52 +0000
+	id 1urkFL-0008NZ-S2; Thu, 28 Aug 2025 21:33:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1100001.1453602; Thu, 28 Aug 2025 21:31:52 +0000
+Received: by outflank-mailman (output) from mailman id 1100012.1453612; Thu, 28 Aug 2025 21:33:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urkDo-0007q7-Ew; Thu, 28 Aug 2025 21:31:52 +0000
-Received: by outflank-mailman (input) for mailman id 1100001;
- Thu, 28 Aug 2025 21:31:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1urkFL-0008Lb-OT; Thu, 28 Aug 2025 21:33:27 +0000
+Received: by outflank-mailman (input) for mailman id 1100012;
+ Thu, 28 Aug 2025 21:33:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YsNu=3I=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1urkDm-0007pW-JQ
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 21:31:50 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 674c9f2c-8456-11f0-8adc-4578a1afcccb;
- Thu, 28 Aug 2025 23:31:49 +0200 (CEST)
+ id 1urkFK-0008LD-LU
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 21:33:26 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a00f812c-8456-11f0-8dd7-1b34d833f44b;
+ Thu, 28 Aug 2025 23:33:24 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id B6F7960139;
- Thu, 28 Aug 2025 21:31:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBBF1C4CEEB;
- Thu, 28 Aug 2025 21:31:45 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C9D7F42CBF;
+ Thu, 28 Aug 2025 21:33:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 057E2C4CEEB;
+ Thu, 28 Aug 2025 21:33:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 674c9f2c-8456-11f0-8adc-4578a1afcccb
+X-Inumbo-ID: a00f812c-8456-11f0-8dd7-1b34d833f44b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1756416707;
-	bh=HL/nKcZBZDDGgK8YyFpxLKAwLiv68V1rJ59jDqp6xYA=;
+	s=k20201202; t=1756416802;
+	bh=wlrz4W9BDDtt5hU+pNgKNx4LHcRRYMmZY79WVrCjd3o=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=GJuU/CUu4GksJvjdMSSBtIiLsLUHpxntomqwaEJgWXhW4C6VYlYCSEbRWttTN/RD0
-	 JM7f6t7i1CLipMEfuC/+KidYjMiwcLCIr0z9ONJ659Bt4VqLKNuPv/uJUy0TvI7RlL
-	 3N0niZhEfOoQ3iQDTgZJAS4bz748mMXW8D+ji9NA1V4VR5AJVO9JDl4F/icnUJGqd3
-	 8AeEiuvzdEtfR4H5EpQYEto1j7vs+qSfHdCHoU2uH48WgCadmilP5lPVeiBXwVCPUy
-	 1wjxg4zOlV2bAIORBmDDixJZwZnBNA/F+OLOF97+TWGgBAZpljctWdafVFRQCXXbqU
-	 il5Ea2TGBeF5w==
-Date: Thu, 28 Aug 2025 14:31:42 -0700 (PDT)
+	b=cR/3KZ4dtfQpUOVdJqW8OJKU35Hvt/EC547WbG9VNwonTavJLPeR8HnHZQSz02f/a
+	 T/BVIkEg+SHQFFVqjbyyl+RTCqRmqTx7FQZhIc6fyTotVnAYrKk+3fivHZVsa1SdMm
+	 gjvjkkt0xM6MHw+crJ/8jOQOXVewJEwI6XK/m/bk5jHYC0ks3cfCFalHUCovehNuKH
+	 5Bjj61y2ACPqzRZshT9eJtzFKSQlIaMJ8MOk0Wx+P6w28dpG/3SdkLpGTxVT/tOlFc
+	 96u3Iwj0Ghn4fVabkAO+hmXL9ynk2vVLOZmDc5KCjg22kYgg/RY9iFtB5tCcxHR/2c
+	 EHPh5bvEzvWNA==
+Date: Thu, 28 Aug 2025 14:33:19 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
@@ -66,45 +66,36 @@ cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
     Stefano Stabellini <sstabellini@kernel.org>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
     Grygorii Strashko <grygorii_strashko@epam.com>
-Subject: Re: [PATCH v6 1/4] xen/arm: add generic SCI subsystem
-In-Reply-To: <ffe5a45efd34d92c9f2c7307ecd0e9efc5b0d57c.1756399156.git.oleksii_moisieiev@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2508281431180.8757@ubuntu-linux-20-04-desktop>
-References: <cover.1756399156.git.oleksii_moisieiev@epam.com> <ffe5a45efd34d92c9f2c7307ecd0e9efc5b0d57c.1756399156.git.oleksii_moisieiev@epam.com>
+Subject: Re: [PATCH v6 2/4] xen/arm: scmi-smc: update to be used under sci
+ subsystem
+In-Reply-To: <8e7e9dcdd643b6681a6127d56b68536b987141af.1756399156.git.oleksii_moisieiev@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2508281433020.8757@ubuntu-linux-20-04-desktop>
+References: <cover.1756399156.git.oleksii_moisieiev@epam.com> <8e7e9dcdd643b6681a6127d56b68536b987141af.1756399156.git.oleksii_moisieiev@epam.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Thu, 28 Aug 2025, Oleksii Moisieiev wrote:
-> This patch adds the basic framework for ARM SCI mediator. SCI is System
-> Control Interface, which is designed to redirect requests from the Domains
-> to ARM specific Firmware (for example SCMI). This will allow the devices,
-> passed-through to the different Domains, to access to the System resources
-> (such as clocks/resets etc) by sending requests to the firmware.
+> From: Grygorii Strashko <grygorii_strashko@epam.com>
 > 
-> ARM SCI subsystem allows to implement different SCI drivers to handle
-> specific ARM firmware interfaces (like ARM SCMI) and mediate requests
-> -between the Domains and the Firmware. Also it allows SCI drivers to perform
-> proper action during Domain creation/destruction which is vital for
-> handling use cases like Domain reboot.
+> The introduced SCI (System Control Interface) subsystem provides unified
+> interface to integrate in Xen SCI drivers which adds support for ARM
+> firmware (EL3, SCP) based software interfaces (like SCMI) that are used in
+> system management. The SCI subsystem allows to add drivers for different FW
+> interfaces or have different drivers for the same FW interface (for example,
+> SCMI with different transports).
 > 
-> This patch introduces new DEVICE_FIRMWARE device subclass for probing SCI
-> drivers basing on device tree, SCI drivers register itself with
-> DT_DEVICE_START/END macro. On init - the SCI drivers should register its
-> SCI ops with sci_register(). Only one SCI driver can be supported.
+> This patch updates SCMI over SMC calls handling layer, introduced by
+> commit 3e322bef8bc0 ("xen/arm: firmware: Add SCMI over SMC calls handling
+> layer"), to be SCI driver:
+> - convert to DT device;
+> - convert to SCI Xen interface.
 > 
-> At run-time, the following SCI API calls are introduced:
+> There are no functional changes in general, the driver is just adopted
+> to the SCI interface.
 > 
-> - sci_domain_sanitise_config() called from arch_sanitise_domain_config()
-> - sci_domain_init() called from arch_domain_create()
-> - sci_relinquish_resources() called from domain_relinquish_resources()
-> - sci_domain_destroy() called from arch_domain_destroy()
-> - sci_handle_call() called from vsmccc_handle_call()
-> - sci_dt_handle_node()
-> - sci_dt_finalize() called from handle_node() (Dom0 DT)
-> 
-> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
 > Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
 > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-I just want to say that R-b from me is OK
+Also I wanted to write down that the R-b is OK from me
 
