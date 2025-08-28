@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C68DB3AEA3
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 01:54:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1100175.1453759 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49704B3AEA0
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 01:54:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1100176.1453770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urmRe-0004bw-90; Thu, 28 Aug 2025 23:54:18 +0000
+	id 1urmRf-0004rx-Pk; Thu, 28 Aug 2025 23:54:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1100175.1453759; Thu, 28 Aug 2025 23:54:18 +0000
+Received: by outflank-mailman (output) from mailman id 1100176.1453770; Thu, 28 Aug 2025 23:54:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urmRe-0004Yb-5A; Thu, 28 Aug 2025 23:54:18 +0000
-Received: by outflank-mailman (input) for mailman id 1100175;
+	id 1urmRf-0004ps-L3; Thu, 28 Aug 2025 23:54:19 +0000
+Received: by outflank-mailman (input) for mailman id 1100176;
  Thu, 28 Aug 2025 23:54:17 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dmukhin@xen.org>) id 1urmRd-0004H2-3G
+ (envelope-from <dmukhin@xen.org>) id 1urmRd-0004YW-Qn
  for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 23:54:17 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <dmukhin@xen.org>) id 1urmRc-00B9sx-0m;
- Thu, 28 Aug 2025 23:54:16 +0000
+ (envelope-from <dmukhin@xen.org>) id 1urmRd-00B9tB-10;
+ Thu, 28 Aug 2025 23:54:17 +0000
 Received: from [19.12.91.86] (helo=localhost)
  by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <dmukhin@xen.org>) id 1urmRc-006h8P-0j;
- Thu, 28 Aug 2025 23:54:16 +0000
+ (envelope-from <dmukhin@xen.org>) id 1urmRd-006h8T-0w;
+ Thu, 28 Aug 2025 23:54:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,9 +42,9 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-ID:Date:Subject:Cc:To:From;
-	bh=kV2+nmwE+JHTTYsZOf5tG0vjn+zAyV6DLLw3E85gpnk=; b=qEtFkzRj0xEqsJKafxfYmU8out
-	eIt5cQVo010pHmfUyC8XSgWQAywRt5O/0DcWkzPL6Sf8vn0xmNXcYGn2SWc8eY2+FR+ZboZXbcXVH
-	fu2K44bLHptgicWK5LZagP+pPQS68A+eUGe8MaExbJp7Npx9jfDPdMPADgjfyG7eNAmA=;
+	bh=q+he8jaHBIjbD+9QqSf5FgcmIDrC1ZycrhsuDoL3FxQ=; b=AG7aziCTfiGxQWQDFCMvMNfjEB
+	MZfEATnT1aeu+2vq5b2FWDw7BjFv0Rsyib4suvcquzS1l7b68vAUbxWXw65KAoe4fUzsalV4QTXwm
+	dqUc/Y4zC/3CUn0pETjqnIwojp5YfmplsMPyLhwViiZQ2PbW5Z4HAqvudmsXpNnUUl/A=;
 From: dmukhin@xen.org
 To: xen-devel@lists.xenproject.org
 Cc: andrew.cooper3@citrix.com,
@@ -55,9 +55,9 @@ Cc: andrew.cooper3@citrix.com,
 	roger.pau@citrix.com,
 	sstabellini@kernel.org,
 	dmukhin@ford.com
-Subject: [PATCH v5 03/15] emul/ns16x50: implement emulator stub
-Date: Thu, 28 Aug 2025 16:53:57 -0700
-Message-ID: <20250828235409.2835815-4-dmukhin@ford.com>
+Subject: [PATCH v5 04/15] emul/ns16x50: implement DLL/DLM registers
+Date: Thu, 28 Aug 2025 16:53:58 -0700
+Message-ID: <20250828235409.2835815-5-dmukhin@ford.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20250828235409.2835815-1-dmukhin@ford.com>
 References: <20250828235409.2835815-1-dmukhin@ford.com>
@@ -66,508 +66,121 @@ Content-Transfer-Encoding: 8bit
 
 From: Denis Mukhin <dmukhin@ford.com> 
 
-The change is the first on the way on introducing minimally functional
-NS16550-compatible UART emulator.
+Add DLL/DLM registers emulation.
 
-Define UART state and a set of emulated registers.
+DLL/DLM registers report hardcoded 115200 baud rate to the guest OS.
 
-Implement alloc/free vUART hooks.
-
-Stub out I/O port handler.
-
-Add initialization of the NS16x50-compatible UART emulator state machine.
-
-Plumb debug logging.
+Add stub for ns16x50_dlab_get() helper.
 
 Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 ---
 Changes since v4:
-- new patch 
+- new patch
 ---
- xen/arch/x86/hvm/hvm.c          |  20 ++
- xen/common/emul/vuart/Kconfig   |  18 ++
- xen/common/emul/vuart/Makefile  |   1 +
- xen/common/emul/vuart/ns16x50.c | 362 ++++++++++++++++++++++++++++++++
- xen/include/xen/sched.h         |   4 +
- 5 files changed, 405 insertions(+)
- create mode 100644 xen/common/emul/vuart/ns16x50.c
+ xen/common/emul/vuart/ns16x50.c | 36 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 35 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 23bd7f078a1d..26760cf995df 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -28,6 +28,7 @@
- #include <xen/softirq.h>
- #include <xen/trace.h>
- #include <xen/vm_event.h>
-+#include <xen/vuart.h>
- #include <xen/vpci.h>
- #include <xen/wait.h>
- #include <xen/warning.h>
-@@ -689,6 +690,21 @@ int hvm_domain_initialise(struct domain *d,
-     if ( rc != 0 )
-         goto fail1;
- 
-+    if ( IS_ENABLED(CONFIG_VUART_NS16X50) )
-+    {
-+        struct vuart_info info = {
-+            .name       = "COM2",
-+            .compatible = "ns16550",
-+            .base_addr  = 0x2f8,
-+            .size       = 8,
-+            .irq        = 3,
-+        };
-+
-+        rc = vuart_init(d, &info);
-+        if ( rc )
-+            goto out_vioapic_deinit;
-+    }
-+
-     stdvga_init(d);
- 
-     rtc_init(d);
-@@ -712,6 +728,8 @@ int hvm_domain_initialise(struct domain *d,
-     return 0;
- 
-  fail2:
-+    vuart_deinit(d);
-+ out_vioapic_deinit:
-     vioapic_deinit(d);
-  fail1:
-     if ( is_hardware_domain(d) )
-@@ -774,6 +792,8 @@ void hvm_domain_destroy(struct domain *d)
-     if ( hvm_funcs.domain_destroy )
-         alternative_vcall(hvm_funcs.domain_destroy, d);
- 
-+    vuart_deinit(d);
-+
-     vioapic_deinit(d);
- 
-     XFREE(d->arch.hvm.pl_time);
-diff --git a/xen/common/emul/vuart/Kconfig b/xen/common/emul/vuart/Kconfig
-index ce1b976b7da7..539e6d5e4fc7 100644
---- a/xen/common/emul/vuart/Kconfig
-+++ b/xen/common/emul/vuart/Kconfig
-@@ -3,4 +3,22 @@ config VUART_FRAMEWORK
- 
- menu "UART Emulation"
- 
-+config VUART_NS16X50
-+	bool "NS16550-compatible UART Emulator" if EXPERT
-+	depends on X86 && HVM
-+	select VUART_FRAMEWORK
-+	help
-+	  In-hypervisor NS16x50 UART emulation.
-+
-+	  Only legacy PC COM2 port is emulated.
-+
-+	  This is strictly for testing purposes (such as early HVM guest console),
-+	  and not appropriate for use in production.
-+
-+config VUART_NS16X50_DEBUG
-+	bool "NS16550-compatible UART Emulator Debugging"
-+	depends on VUART_NS16X50 && DEBUG
-+	help
-+	  Enable development debugging.
-+
- endmenu
-diff --git a/xen/common/emul/vuart/Makefile b/xen/common/emul/vuart/Makefile
-index 97f792dc6641..fe904f6cb65d 100644
---- a/xen/common/emul/vuart/Makefile
-+++ b/xen/common/emul/vuart/Makefile
-@@ -1 +1,2 @@
- obj-y += vuart.o
-+obj-$(CONFIG_VUART_NS16X50) += ns16x50.o
 diff --git a/xen/common/emul/vuart/ns16x50.c b/xen/common/emul/vuart/ns16x50.c
-new file mode 100644
-index 000000000000..f0479e1022fb
---- /dev/null
+index f0479e1022fb..f9f307a4ad24 100644
+--- a/xen/common/emul/vuart/ns16x50.c
 +++ b/xen/common/emul/vuart/ns16x50.c
-@@ -0,0 +1,362 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * NS16550-compatible UART Emulator.
-+ *
-+ * See:
-+ * - Serial and UART Tutorial:
-+ *     https://download.freebsd.org/doc/en/articles/serial-uart/serial-uart_en.pdf
-+ * - UART w/ 16 byte FIFO:
-+ *     https://www.ti.com/lit/ds/symlink/tl16c550c.pdf
-+ * - UART w/ 64 byte FIFO:
-+ *     https://www.ti.com/lit/ds/symlink/tl16c750.pdf
-+ *
-+ * Limitations:
-+ * - Only x86;
-+ * - Only Xen console as a backend, no inter-domain communication (similar to
-+ *   vpl011 on Arm);
-+ * - Only 8n1 emulation (8-bit data, no parity, 1 stop bit);
-+ * - No baud rate emulation (reports 115200 baud to the guest OS);
-+ * - No FIFO-less mode emulation;
-+ * - No RX FIFO interrupt moderation (FCR) emulation;
-+ * - No integration w/ VM snapshotting (HVM_REGISTER_SAVE_RESTORE() and
-+ *   friends);
-+ * - No ISA IRQ sharing allowed;
-+ * - No MMIO-based UART emulation.
-+ */
-+
-+#define pr_prefix               "ns16x50"
-+#define pr_fmt(fmt)             pr_prefix ": " fmt
-+
-+#ifdef CONFIG_VUART_NS16X50_DEBUG
-+#define guest_prefix            "FROM GUEST "
-+#define ns16x50_log_level       2
-+#else
-+#define guest_prefix            ""
-+#define ns16x50_log_level       0
-+#endif
-+
-+#include <xen/8250-uart.h>
-+#include <xen/console.h>
-+#include <xen/err.h>
-+#include <xen/iocap.h>
-+#include <xen/vuart.h>
-+#include <xen/xvmalloc.h>
-+
-+#include <public/io/console.h>
-+
-+#define ns16x50_log(n, lvl, vdev, fmt, args...) do { \
-+    if ( ns16x50_log_level >= n) \
-+        gprintk(lvl, pr_fmt("%s: " fmt), (vdev)->name, ## args); \
-+} while (0)
-+
-+#define ns16x50_err(vdev, fmt, args...) \
-+    ns16x50_log(0, KERN_ERR, vdev, fmt, ## args)
-+#define ns16x50_warn(vdev, fmt, args...) \
-+    ns16x50_log(1, KERN_WARNING, vdev, fmt, ## args)
-+#define ns16x50_info(vdev, fmt, args...) \
-+    ns16x50_log(2, KERN_INFO, vdev, fmt, ## args)
-+#define ns16x50_debug(vdev, fmt, args...) \
-+    ns16x50_log(3, KERN_DEBUG, vdev, fmt, ## args)
-+
-+/*
-+ * Number of supported registers in the UART.
-+ */
-+#define NS16X50_REGS_NUM        (UART_SCR + 1)
-+
-+/*
-+ * Number of emulated registers.
-+ *
-+ * - Emulated registers [0..NS16X50_REGS_NUM] are R/W registers for DLAB=0.
-+ * - DLAB=1, R/W, DLL            = NS16X50_REGS_NUM + 0
-+ * - DLAB=1, R/W, DLM            = NS16X50_REGS_NUM + 1
-+ * -         R/O, IIR (IIR_THR)  = NS16X50_REGS_NUM + 2
-+ */
-+#define NS16X50_EMU_REGS_NUM    (NS16X50_REGS_NUM + 3)
-+
-+/*
-+ * Virtual ns16x50 device state.
-+ */
-+struct vuart_ns16x50 {
-+    struct xencons_interface cons;      /* Emulated RX/TX FIFOs */
-+    uint8_t regs[NS16X50_EMU_REGS_NUM]; /* Emulated registers */
-+    const char *name;                   /* Device name */
-+    struct domain *owner;               /* Owner domain */
-+    const struct vuart_info *info;      /* UART description */
-+    spinlock_t lock;                    /* Protection */
-+};
-+
-+/*
-+ * Emulate 8-bit write access to ns16x50 register.
-+ */
-+static int ns16x50_io_write8(
-+    struct vuart_ns16x50 *vdev, uint32_t reg, uint8_t *data)
+@@ -85,14 +85,24 @@ struct vuart_ns16x50 {
+     spinlock_t lock;                    /* Protection */
+ };
+ 
++static inline uint8_t cf_check ns16x50_dlab_get(const struct vuart_ns16x50 *vdev)
 +{
-+    int rc = 0;
-+
-+    return rc;
-+}
-+
-+/*
-+ * Emulate 16-bit write access to ns16x50 register.
-+ * NB: some guest OSes use outw() to access UART_DLL.
-+ */
-+static int ns16x50_io_write16(
-+    struct vuart_ns16x50 *vdev, uint32_t reg, uint16_t *data)
-+{
-+    int rc = -EINVAL;
-+
-+    return rc;
-+}
-+
-+/*
-+ * Emulate write access to ns16x50 register.
-+ */
-+static int ns16x50_io_write(
-+    struct vuart_ns16x50 *vdev, uint8_t reg, uint32_t size, uint32_t *data)
-+{
-+    int rc;
-+
-+    switch ( size )
-+    {
-+    case 1:
-+        rc = ns16x50_io_write8(vdev, reg, (uint8_t *)data);
-+        break;
-+
-+    case 2:
-+        rc = ns16x50_io_write16(vdev, reg, (uint16_t *)data);
-+        break;
-+
-+    default:
-+        rc = -EINVAL;
-+        break;
-+    }
-+
-+    return rc;
-+}
-+
-+/*
-+ * Emulate 8-bit read access to ns16x50 register.
-+ */
-+static int ns16x50_io_read8(
-+    struct vuart_ns16x50 *vdev, uint32_t reg, uint8_t *data)
-+{
-+    uint8_t val = 0xff;
-+    int rc = 0;
-+
-+    *data = val;
-+
-+    return rc;
-+}
-+
-+/*
-+ * Emulate 16-bit read access to ns16x50 register.
-+ */
-+static int ns16x50_io_read16(
-+    struct vuart_ns16x50 *vdev, uint32_t reg, uint16_t *data)
-+{
-+    uint16_t val = 0xffff;
-+    int rc = -EINVAL;
-+
-+    *data = val;
-+
-+    return rc;
-+}
-+
-+/*
-+ * Emulate read access to ns16x50 register.
-+ */
-+static int ns16x50_io_read(
-+    struct vuart_ns16x50 *vdev, uint8_t reg, uint32_t size, uint32_t *data)
-+{
-+    int rc;
-+
-+    switch ( size )
-+    {
-+    case 1:
-+        rc = ns16x50_io_read8(vdev, reg, (uint8_t *)data);
-+        break;
-+
-+    case 2:
-+        rc = ns16x50_io_read16(vdev, reg, (uint16_t *)data);
-+        break;
-+
-+    default:
-+        *data = 0xffffffff;
-+        rc = -EINVAL;
-+        break;
-+    }
-+
-+    return rc;
-+}
-+
-+/*
-+ * Emulate I/O access to ns16x50 register.
-+ * Note, emulation always returns X86EMUL_OKAY, once I/O port trap is enabled.
-+ */
-+static int cf_check ns16x50_io_handle(
-+    int dir, unsigned int addr, unsigned int size, uint32_t *data)
-+{
-+#define op(dir)     (((dir) == IOREQ_WRITE) ? 'W' : 'R')
-+    struct domain *d = rcu_lock_current_domain();
-+    struct vuart *vuart = vuart_find_by_io_range(d, addr, size);
-+    struct vuart_ns16x50 *vdev;
-+    const struct domain *owner;
-+    const struct vuart_info *info;
-+    uint32_t reg;
-+    unsigned dlab;
-+    int rc;
-+
-+    if ( !vuart || !vuart->vdev )
-+    {
-+        printk(KERN_ERR "%c io 0x%04x %d: not initialized\n",
-+               op(dir), addr, size);
-+
-+        ASSERT_UNREACHABLE();
-+        goto out;
-+    }
-+    vdev = vuart->vdev;
-+
-+    owner = vuart->owner;
-+    ASSERT(owner);
-+    if ( d != owner )
-+    {
-+        ns16x50_err(vdev, "%c io 0x%04x %d: does not match current domain %pv\n",
-+                    op(dir), addr, size, d);
-+
-+        ASSERT_UNREACHABLE();
-+        goto out;
-+    }
-+
-+    info = vuart->info;
-+    ASSERT(info);
-+    reg = addr - info->base_addr;
-+    if ( !IS_ALIGNED(reg, size) )
-+    {
-+        ns16x50_err(vdev, "%c 0x%04x %d: unaligned access\n",
-+                    op(dir), addr, size);
-+        goto out;
-+    }
-+
-+    dlab = 0;
-+    if ( reg >= NS16X50_REGS_NUM )
-+    {
-+        ns16x50_err(vdev, "%c io 0x%04x %d: DLAB=%d %02"PRIx32" 0x%08"PRIx32": not implemented\n",
-+                    op(dir), addr, size, dlab, reg, *data);
-+        goto out;
-+    }
-+
-+    spin_lock(&vdev->lock);
-+
-+    if ( dir == IOREQ_WRITE )
-+    {
-+        ns16x50_debug(vdev, "%c 0x%04x %d: DLAB=%d %02"PRIx32" 0x%08"PRIx32"\n",
-+                      op(dir), addr, size, dlab, reg, *data);
-+        rc = ns16x50_io_write(vdev, reg, size, data);
-+    }
-+    else
-+    {
-+        rc = ns16x50_io_read(vdev, reg, size, data);
-+        ns16x50_debug(vdev, "%c 0x%04x %d: DLAB=%d %02"PRIx32" 0x%08"PRIx32"\n",
-+                      op(dir), addr, size, dlab, reg, *data);
-+    }
-+    if ( rc < 0 )
-+        ns16x50_err(vdev, "%c 0x%04x %d: DLAB=%d %02"PRIx32" 0x%08"PRIx32": unsupported access\n",
-+                    op(dir), addr, size, dlab, reg, *data);
-+
-+    spin_unlock(&vdev->lock);
-+
-+out:
-+    rcu_unlock_domain(d);
-+
-+    return X86EMUL_OKAY;
-+#undef op
-+}
-+
-+static int ns16x50_init(void *arg)
-+{
-+    struct vuart_ns16x50 *vdev = arg;
-+    const struct vuart_info *info = vdev->info;
-+    struct domain *d = vdev->owner;
-+
-+    ASSERT(vdev);
-+
-+    register_portio_handler(d, info->base_addr, info->size, ns16x50_io_handle);
-+
 +    return 0;
 +}
 +
-+static void cf_check ns16x50_deinit(void *arg)
-+{
-+    struct vuart_ns16x50 *vdev = arg;
-+
-+    ASSERT(vdev);
-+}
-+
-+static void * cf_check ns16x50_alloc(struct domain *d, const struct vuart_info *info)
-+{
-+    struct vuart_ns16x50 *vdev;
-+    int rc;
-+
-+    if ( !info )
-+        return ERR_PTR(-EINVAL);
-+
-+    if ( vuart_find_by_io_range(d, info->base_addr, info->size) )
-+    {
-+        ns16x50_err(info, "already registered\n");
-+        return ERR_PTR(-EBUSY);
-+    }
-+
-+    if ( !is_hvm_domain(d) )
-+    {
-+        ns16x50_err(info, "not an HVM domain\n");
-+        return ERR_PTR(-ENOSYS);
-+    }
-+
-+    vdev = xvzalloc(typeof(*vdev));
-+    if ( !vdev )
-+    {
-+        ns16x50_err(info, "failed to allocate memory\n");
-+        return ERR_PTR(-ENOMEM);
-+    }
-+
-+    /* Save convenience pointer. */
-+    vdev->name = info->name;
-+    vdev->owner = d;
-+    vdev->info = info;
-+
-+    rc = ns16x50_init(vdev);
-+    if ( rc )
-+        return ERR_PTR(rc);
-+
-+    return vdev;
-+}
-+
-+static void cf_check ns16x50_free(void *arg)
-+{
-+    struct vuart_ns16x50 *vdev = arg;
-+
-+    if ( vdev )
-+        ns16x50_deinit(vdev);
-+
-+    XVFREE(vdev);
-+}
-+
-+#define ns16x50_emulator                \
-+{                                       \
-+    .compatible = "ns16550",            \
-+    .alloc      = ns16x50_alloc,        \
-+    .free       = ns16x50_free,         \
-+    .dump_state = NULL,                 \
-+    .put_rx     = NULL,                 \
-+}
-+
-+VUART_REGISTER(ns16x50, ns16x50_emulator);
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index 02bdc256ce37..613f4596e33d 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -23,6 +23,7 @@
- #include <asm/atomic.h>
- #include <asm/current.h>
- #include <xen/vpci.h>
-+#include <xen/vuart.h>
- #include <xen/wait.h>
- #include <public/xen.h>
- #include <public/domctl.h>
-@@ -660,6 +661,9 @@ struct domain
-     struct {
-         /* Permission to take ownership of the physical console input. */
-         bool input_allowed;
-+#ifdef CONFIG_VUART_FRAMEWORK
-+        struct vuart *vuart;
-+#endif
-     } console;
- } __aligned(PAGE_SIZE);
+ /*
+  * Emulate 8-bit write access to ns16x50 register.
+  */
+ static int ns16x50_io_write8(
+     struct vuart_ns16x50 *vdev, uint32_t reg, uint8_t *data)
+ {
++    uint8_t *regs = vdev->regs;
++    uint8_t val = *data;
+     int rc = 0;
  
++    if ( ns16x50_dlab_get(vdev) && (reg == UART_DLL || reg == UART_DLM) )
++        regs[NS16X50_REGS_NUM + reg] = val;
++
+     return rc;
+ }
+ 
+@@ -103,8 +113,16 @@ static int ns16x50_io_write8(
+ static int ns16x50_io_write16(
+     struct vuart_ns16x50 *vdev, uint32_t reg, uint16_t *data)
+ {
++    uint16_t val = *data;
+     int rc = -EINVAL;
+ 
++    if ( ns16x50_dlab_get(vdev) && reg == UART_DLL )
++    {
++        vdev->regs[NS16X50_REGS_NUM + UART_DLL] = val & 0xff;
++        vdev->regs[NS16X50_REGS_NUM + UART_DLM] = (val >> 8) & 0xff;
++        rc = 0;
++    }
++
+     return rc;
+ }
+ 
+@@ -140,9 +158,13 @@ static int ns16x50_io_write(
+ static int ns16x50_io_read8(
+     struct vuart_ns16x50 *vdev, uint32_t reg, uint8_t *data)
+ {
++    uint8_t *regs = vdev->regs;
+     uint8_t val = 0xff;
+     int rc = 0;
+ 
++    if ( ns16x50_dlab_get(vdev) && (reg == UART_DLL || reg == UART_DLM) )
++        val = regs[NS16X50_REGS_NUM + reg];
++
+     *data = val;
+ 
+     return rc;
+@@ -157,6 +179,13 @@ static int ns16x50_io_read16(
+     uint16_t val = 0xffff;
+     int rc = -EINVAL;
+ 
++    if ( ns16x50_dlab_get(vdev) && reg == UART_DLL )
++    {
++        val = vdev->regs[NS16X50_REGS_NUM + UART_DLM] << 8 |
++              vdev->regs[NS16X50_REGS_NUM + UART_DLL];
++        rc = 0;
++    }
++
+     *data = val;
+ 
+     return rc;
+@@ -237,7 +266,7 @@ static int cf_check ns16x50_io_handle(
+         goto out;
+     }
+ 
+-    dlab = 0;
++    dlab = ns16x50_dlab_get(vdev);
+     if ( reg >= NS16X50_REGS_NUM )
+     {
+         ns16x50_err(vdev, "%c io 0x%04x %d: DLAB=%d %02"PRIx32" 0x%08"PRIx32": not implemented\n",
+@@ -274,12 +303,17 @@ out:
+ 
+ static int ns16x50_init(void *arg)
+ {
++    const uint16_t divisor = (UART_CLOCK_HZ / 115200) >> 4;
+     struct vuart_ns16x50 *vdev = arg;
+     const struct vuart_info *info = vdev->info;
+     struct domain *d = vdev->owner;
+ 
+     ASSERT(vdev);
+ 
++    /* NB: report 115200 baud rate. */
++    vdev->regs[NS16X50_REGS_NUM + UART_DLL] = divisor & 0xff;
++    vdev->regs[NS16X50_REGS_NUM + UART_DLM] = (divisor >> 8) & 0xff;
++
+     register_portio_handler(d, info->base_addr, info->size, ns16x50_io_handle);
+ 
+     return 0;
 -- 
 2.51.0
 
