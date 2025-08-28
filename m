@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84F2AB393E8
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 08:37:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1097546.1451831 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E00C4B393EF
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 08:41:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1097561.1451840 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urWGQ-0004oN-AS; Thu, 28 Aug 2025 06:37:38 +0000
+	id 1urWJi-0006bn-QC; Thu, 28 Aug 2025 06:41:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1097546.1451831; Thu, 28 Aug 2025 06:37:38 +0000
+Received: by outflank-mailman (output) from mailman id 1097561.1451840; Thu, 28 Aug 2025 06:41:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urWGQ-0004lH-5q; Thu, 28 Aug 2025 06:37:38 +0000
-Received: by outflank-mailman (input) for mailman id 1097546;
- Thu, 28 Aug 2025 06:37:36 +0000
+	id 1urWJi-0006aJ-NK; Thu, 28 Aug 2025 06:41:02 +0000
+Received: by outflank-mailman (input) for mailman id 1097561;
+ Thu, 28 Aug 2025 06:41:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=pYI3=3I=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1urWGO-0004l9-Jq
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 06:37:36 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1urWJg-0006aD-TS
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 06:41:00 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7bc5b6b8-83d9-11f0-aeb2-fb57b961d000;
- Thu, 28 Aug 2025 08:37:35 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-afcb7322da8so101926466b.0
- for <xen-devel@lists.xenproject.org>; Wed, 27 Aug 2025 23:37:35 -0700 (PDT)
+ id f579d7e2-83d9-11f0-aeb2-fb57b961d000;
+ Thu, 28 Aug 2025 08:41:00 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-afcb78f5df4so89562266b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Aug 2025 23:40:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afec626692bsm286766066b.71.2025.08.27.23.37.34
+ 4fb4d7f45d1cf-61c5010e151sm8759012a12.4.2025.08.27.23.40.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Aug 2025 23:37:34 -0700 (PDT)
+ Wed, 27 Aug 2025 23:40:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +45,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7bc5b6b8-83d9-11f0-aeb2-fb57b961d000
+X-Inumbo-ID: f579d7e2-83d9-11f0-aeb2-fb57b961d000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756363055; x=1756967855; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=noMNMCXUwYiezOUmUNePyHUVBf/nop2qb7uSEobQyc4=;
-        b=F07RieGGBcXufjbFho0gCb9X7TsMmM2yF/8xeLq6VvRpyjpXDuMnZRYryBD8rt/Vzw
-         BzJHF3qKedCSDDsatnah0Pi945LYSDiNhNiiPioL7fg1dfHWavbK2Qd9p+AIOUN6AG2I
-         LEqH9Cl21j8SVXeHCdpTTlYVxMr5WNwT/s3mNNuB1OE1y+Y8/+eLurcae7/7FNXfmNQL
-         1bmiO2UK3Wn2v7EEyGg8tDCTcILZwfG3ghw9CWn0t/n9dfwOxJXhUc+3jvzy2NJIwOT7
-         GH+BtBlE8259/hpDqxwcrQ/05fjaRA1gKql3hQV/odlPcLe5dPqTa+cS5A4upf+OLQ/N
-         4J6g==
+        d=suse.com; s=google; t=1756363259; x=1756968059; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=OhZ1gZzf44P+/UtcAZrf7/k2gD8+KX3uQL6OE4lJuz8=;
+        b=Lc/59148t972J4Xpyl2vggHn+mAzJb4fKM5kmgusFL5v27xgHjXwG1fHUvHMtT3bfJ
+         +B50BNMWr0LiNelQMbbuSEa6T2Zic9R7triCvKVtw40P8IDuNJHVk+ZM4Yi12zQpokN7
+         g+gvN59cF+nWpTUjbt5W6hrVWs+wleOgbI9m9KgDcioxlmq+iEfcC/2YTJR9q1K+k015
+         gvtP6NuxNp6s+BjjSAtyqHFmnXgNRM+lz7fbc7uTu4SoeOXR2B3BXF4eOKmyr721EZT/
+         9Zyg9w9z/ROdOO7WqvLLStPy2rk8T3rDppCI1OgiUcnwvFs6PNRyzk8JuR3bPOfl46/L
+         Casg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756363055; x=1756967855;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=noMNMCXUwYiezOUmUNePyHUVBf/nop2qb7uSEobQyc4=;
-        b=wDW35CmXEtwyEh23FAKOD0RwjEvuFGObWMdKvw9MuUumQ9/65rEL+b6SVhUWw6GDyW
-         YSD33M6ptwRyH5CwLKQFnfObWjyXC5Iygoy3HUFG29u8X5LyGSH2Z2emxl3nwLsmwUHa
-         RMNHndPj1/yzZ5BesCMQzlSVzwsLxKIZRzsEcF8G3VqH2zT042XcJO0eydRnx22P+vIC
-         WjWT3PV5EpquESp4og9LgsCk/TCg56QYiIwOxtiM/TeIUO0PpaNSL5ktnMI1aA1uDQ0q
-         N4ouHmW+pMeOh9poQ8StoqbcZKCDXlWMHY9bponPYQMFcbCds527bFSgE9AwlWPpqlJ9
-         9IDQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV6M+N2/3VU5+Bakdb6gTJRt7kHNrnH4pvIgwNsXRga1bBiImaAqLmvtdWVvK21A/6yrJWHHe4oeJ8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxzpXPBAy9y6UghXU9gjuCoAW21ByYRG5HAE9UO/ggvWP+J8dBm
-	QbuCT18dCUu/N5q+cyQbYH2yk/iOa6Tc+QQhcG8/tIrxn4idrMIbbcB78UZlvilgLQ==
-X-Gm-Gg: ASbGncvFWVjybE9ANtle03PEgAF8ol8+knqH9NXC/dP+S04UxKc2Tg9YgfquV7pEaxG
-	zICPpqkZ7FvCthSLeHJxUuwlEYOvK5ROmzjGiRBp4El50Rq9QLYJGkCjT1n3q/BS94B2cNuvNyM
-	EK7DJw5z1NzsvepTpzx/MTGkmiqJUvhBX3d85WS9HIzhmMp0KkemV/ORAcAELrvD7cRLw7KL90b
-	MJKhA2uzmysxsl2LMheCmNKoVwfMsKGZbO8edh6cKXT8Q3TG9fcZEZa7o+o4VP6Xm1CPUgUMsXV
-	rSs0Nf6J/YIogmndMZB+J6eFNmNsEaLfcbnco45YG0ckbKr76IqrFvCoJ+VjK/Kt92NhJCoBPB3
-	aLMfH0Y1rldHWWt9wF8bHxpYzcNttkdmqCRxp3SH5vFpu0d0BoTVEM6I61FOwGpMhxr7i0/5mH8
-	6lq6WGgTXl4B5JX1rTDw==
-X-Google-Smtp-Source: AGHT+IFRN7x4zFPcvsfNfxuxISsT367kATawR16iWoBn4Hq0GrSeF6Ar4MTxW8fKRATVYkYudYJu6A==
-X-Received: by 2002:a17:906:c149:b0:afe:ec09:2a32 with SMTP id a640c23a62f3a-afeec0934f8mr71220166b.58.1756363055012;
-        Wed, 27 Aug 2025 23:37:35 -0700 (PDT)
-Message-ID: <fa8f951f-610c-484f-a9c4-9b76b8f399cc@suse.com>
-Date: Thu, 28 Aug 2025 08:37:33 +0200
+        d=1e100.net; s=20230601; t=1756363259; x=1756968059;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=OhZ1gZzf44P+/UtcAZrf7/k2gD8+KX3uQL6OE4lJuz8=;
+        b=imry9+Zm9qOmTXvcQTaGO7hlHGIQu3IImMcvszvTBaSfPLGmPW91l5c+Mltvzg8NYX
+         VGNu90eMidwApiHUKZy0po0RM7QDdC8Wc6EESQ5kgVfAMS5b+J24oYIQi07NExfnbNNH
+         zz3LVKEGXGO8gJbbYZjeGBJduzxCAB3IV0EhsZdZazAGn1nXRYEGlY1850JRgK938mRe
+         vBwwDY/+fs5KTAnX6ifXeEcf2VgBjtT2aFvHxJ92yq6fn26Oafr5aD3OfPRupNj9tWlm
+         SWxjjPkgMMwH61zUrbPU1gc6yhhvY58r1ulYL62qq1tKSHbrlYefOauZnVzpOWDcfBJL
+         BIsw==
+X-Forwarded-Encrypted: i=1; AJvYcCVDEpvyXVo9jMYT7hT8ZUitQ8PE7+Ag5gBETgemWU0FQ68pIdASQ6wf8GQELMq5LRFWCBNntnvWVj0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwwjGGYTjQhr90aTkPPMDmQRk0j2bvEQ9MK9Z3rl3afv4A14Qti
+	1akvK0qOwxFToDa5vjw1l3ivO2T/iutt8xBAbhQdQWCnCmpggRxIfFVvRKenWnPD7g==
+X-Gm-Gg: ASbGncsyrkZk/Ji5r3hbRKSMlHrxpNJDdHxR86MOwrfiMRuz4ulEc4pql+ewOLr7q00
+	JpzTWPDT1Uuf6nlWJyyWEkVl0WBRw3oeoNJOLrg4M/vkFaBIPEvZPtHgfqtSNCIXZAPQuJ5rL0D
+	1bDq7M3bK6GjmnMKgkV/4vbEmOnGTU/eU8jH9WxODUqOIsZLCcotrcZGltLrHgmM9XW601Fjij3
+	Dw1nrvXexjbutr8AXUmSLBsUbU8OG1vXuWF0Pl2cNlLLOlajEBSNgtBckl4AW91OJcuTEHt96cI
+	Iy7NcTeCh0aJji7ZzEPimk9KUIx4xGESID0AQsAfRHR+A8RFwzhk6crmCA7Zn5dcRpfPj6FONA8
+	LQ+b7YEyTo2mLT4NvoWbneUzEnlcgLGFaliVsWNUtcW/efrcsTiNRfbQqRYy52FaHEiGivQIXZ4
+	CR2N1ur53nyqx0IDSmuQ==
+X-Google-Smtp-Source: AGHT+IEFqQO3PhLF/h2v1d0h2I+U+0bR0oOe2pygS2ZMARBWOqcbIT8okxkUDFe4oR6tvGAHsHYQwg==
+X-Received: by 2002:a17:907:9725:b0:afe:c7a3:c6a5 with SMTP id a640c23a62f3a-afec7a3c889mr464493866b.26.1756363259257;
+        Wed, 27 Aug 2025 23:40:59 -0700 (PDT)
+Message-ID: <58b39f4b-51e2-49d9-938b-d8e6b4dbaf73@suse.com>
+Date: Thu, 28 Aug 2025 08:40:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 13/13] xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC
- xen_sysctl_pm_op for amd-cppc driver
-From: Jan Beulich <jbeulich@suse.com>
-To: "Penny, Zheng" <penny.zheng@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+Subject: Re: [RFC PATCH v5 06/10] xen/domctl: extend XEN_DOMCTL_assign_device
+ to handle not only iommu
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Juergen Gross
+ <jgross@suse.com>, Julien Grall <julien@xen.org>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250822105218.3601273-1-Penny.Zheng@amd.com>
- <20250822105218.3601273-14-Penny.Zheng@amd.com>
- <f27c17e6-8c88-42f3-b0e2-874aa02597c5@suse.com>
- <DM4PR12MB8451CFF93199B96578D96F88E13BA@DM4PR12MB8451.namprd12.prod.outlook.com>
- <a877ad1b-1628-465b-9b38-dce347ba8ba1@suse.com>
+References: <cover.1753184487.git.oleksii_moisieiev@epam.com>
+ <aa4bf9a069721ace3b9da7409923455eed2f6896.1753184487.git.oleksii_moisieiev@epam.com>
+ <3ff863d9-764c-4478-9bb9-b783ff850185@suse.com>
+ <e214b0b9-1cdb-43c7-a02f-a1b64b3bfb8a@epam.com>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -128,65 +129,51 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a877ad1b-1628-465b-9b38-dce347ba8ba1@suse.com>
+In-Reply-To: <e214b0b9-1cdb-43c7-a02f-a1b64b3bfb8a@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.08.2025 08:35, Jan Beulich wrote:
-> On 28.08.2025 06:06, Penny, Zheng wrote:
->>> -----Original Message-----
->>> From: Jan Beulich <jbeulich@suse.com>
->>> Sent: Tuesday, August 26, 2025 12:03 AM
->>>
->>> On 22.08.2025 12:52, Penny Zheng wrote:
->>>> --- a/xen/include/public/sysctl.h
->>>> +++ b/xen/include/public/sysctl.h
->>>> @@ -336,8 +336,14 @@ struct xen_ondemand {
->>>>      uint32_t up_threshold;
->>>>  };
->>>>
->>>> +#define CPUFREQ_POLICY_UNKNOWN      0
->>>> +#define CPUFREQ_POLICY_POWERSAVE    1
->>>> +#define CPUFREQ_POLICY_PERFORMANCE  2
->>>> +#define CPUFREQ_POLICY_ONDEMAND     3
->>>
->>> Without XEN_ prefixes they shouldn't appear in a public header. But do we
->>> need ...
->>>
->>>>  struct xen_get_cppc_para {
->>>>      /* OUT */
->>>> +    uint32_t policy; /* CPUFREQ_POLICY_xxx */
->>>
->>> ... the new field at all? Can't you synthesize the kind-of-governor into struct
->>> xen_get_cpufreq_para's respective field? You invoke both sub-ops from xenpm
->>> now anyway ...
->>>
->>
->> Maybe I could borrow governor field to indicate policy info, like the following in print_cpufreq_para(), then we don't need to add the new filed "policy"
->> ```
->> +    /* Translate governor info to policy info in CPPC active mode */
->> +    if ( is_cppc_active )
->> +    {
->> +        if ( !strncmp(p_cpufreq->u.s.scaling_governor,
->> +                      "ondemand", CPUFREQ_NAME_LEN) )
->> +            printf("cppc policy           : ondemand\n");
->> +        else if ( !strncmp(p_cpufreq->u.s.scaling_governor,
->> +                           "performance", CPUFREQ_NAME_LEN) )
->> +            printf("cppc policy           : performance\n");
->> +
->> +        else if ( !strncmp(p_cpufreq->u.s.scaling_governor,
->> +                           "powersave", CPUFREQ_NAME_LEN) )
->> +            printf("cppc policy           : powersave\n");
->> +        else
->> +            printf("cppc policy           : unknown\n");
->> +    }
->> +
->> ```
+On 28.08.2025 07:48, Oleksii Moisieiev wrote:
 > 
-> Something like this is what I was thinking of, yes.
+> 
+> On 22/07/2025 15:34, Jan Beulich wrote:
+>> On 22.07.2025 13:41, Oleksii Moisieiev wrote:
+>>> @@ -859,7 +860,25 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+>>>       case XEN_DOMCTL_test_assign_device:
+>>>       case XEN_DOMCTL_deassign_device:
+>>>       case XEN_DOMCTL_get_device_group:
+>>> +        int ret1;
+>>> +
+>>>           ret = iommu_do_domctl(op, d, u_domctl);
+>>> +        if ( ret < 0 && ret != -ENXIO )
+>>> +            return ret;
+>> If this is where you want the ENXIO for that the previous patch switched to,
+>> then I see no reason for that earlier change at all. Inside the hypervisor
+>> you can simply figure out what the right thing to do is; you could avoid
+>> calling iommu_do_domctl() altogether and call ...
+> 
+> My point was to leave the decision making to the calls themselves.
+> So iommu_do_domctl will make a decision whether to process the node or 
+> not, same for the scmi call.
+> I can figure out if there is a need to call iommu_do_domctl or 
+> sci_do_domctl here but this means moving
+> part of the logic from specific calls to the common code.
 
-Albeit - why the complicated if/else sequence? Why not simply print
-the field the hypercall returned?
+To avoid that, maybe it needs doing the other way around? I.e. try ...
+
+>>> +        /*
+>>> +         * Add chained handling of assigned DT devices to support
+>>> +         * access-controller functionality through SCI framework, so
+>>> +         * DT device assign request can be passed to FW for processing and
+>>> +         * enabling VM access to requested device.
+>>> +         * The access-controller DT device processing is chained after IOMMU
+>>> +         * processing and expected to be executed for any DT device
+>>> +         * regardless if DT device is protected by IOMMU or not (or IOMMU
+>>> +         * is disabled).
+>>> +         */
+>>> +        ret1 = sci_do_domctl(op, d, u_domctl);
+
+... this first?
 
 Jan
 
