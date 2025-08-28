@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9A42B3939D
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 08:06:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1097494.1451780 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6342DB393A1
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 08:09:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1097504.1451790 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urVlg-0006n6-Tt; Thu, 28 Aug 2025 06:05:52 +0000
+	id 1urVpA-0007Nh-Cu; Thu, 28 Aug 2025 06:09:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1097494.1451780; Thu, 28 Aug 2025 06:05:52 +0000
+Received: by outflank-mailman (output) from mailman id 1097504.1451790; Thu, 28 Aug 2025 06:09:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urVlg-0006kZ-Qx; Thu, 28 Aug 2025 06:05:52 +0000
-Received: by outflank-mailman (input) for mailman id 1097494;
- Thu, 28 Aug 2025 06:05:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1urVpA-0007Kp-9g; Thu, 28 Aug 2025 06:09:28 +0000
+Received: by outflank-mailman (input) for mailman id 1097504;
+ Thu, 28 Aug 2025 06:09:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=pYI3=3I=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1urVlf-0006kT-PA
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 06:05:51 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0c276459-83d5-11f0-aeb2-fb57b961d000;
- Thu, 28 Aug 2025 08:05:50 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-61c325a4d18so909690a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 27 Aug 2025 23:05:50 -0700 (PDT)
+ id 1urVp8-0007Kj-GZ
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 06:09:26 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8b0adff1-83d5-11f0-ae26-e363de0e7a9e;
+ Thu, 28 Aug 2025 08:09:23 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-afedbb49c26so83425466b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Aug 2025 23:09:23 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61cea8ff3dbsm10990a12.13.2025.08.27.23.05.49
+ a640c23a62f3a-afe89bd7acesm743123066b.73.2025.08.27.23.09.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Aug 2025 23:05:49 -0700 (PDT)
+ Wed, 27 Aug 2025 23:09:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c276459-83d5-11f0-aeb2-fb57b961d000
+X-Inumbo-ID: 8b0adff1-83d5-11f0-ae26-e363de0e7a9e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756361150; x=1756965950; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756361363; x=1756966163; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4AaCWcjcp6rpMsw1zo35NoV//+IQAapL68T04uuZTgc=;
-        b=JQXq26jFZJxXIB4sDmm03Nhr1MPTu3f++cMGjTq6O2q2G3YEuda1g0Xb0gLkUP7TSj
-         Fa4Dru2+ewSi9ZHI3YmbL67Q5Ef8Ms82taEcqz+/gpJRB7Pd7s/fqoQKrN/e+75TPSYs
-         fgDCjKDa9xUdjq8rFNLclpudWfkmsYIb91ZQrmaEoH+EMTnFQHbuYFBtcA4WJZBvfidL
-         C4nru2puroc8uC8wwADadBATw1thXb0Hgmjx1IuNY5atxIQKL8j2h51hqfVLSrZdgY9u
-         AVmKHeXCh+4EjmBqgGIkVycLrYkEkuaYp3iWskSq9Mj9vU4Ik+X00muXay2MzXi8tYwt
-         GV/Q==
+        bh=smG5mKel4W0Oc6sJ0hqJJ7D/H5xsumVTrYUsbzTBZ7k=;
+        b=MriQ7ub7YLRbGSk+2gToMrhTCmUY0hTSJZ8XsoB1LcAwiEh+mpIHi3ANUHcgCyLuu8
+         yzSCJxcRUaLIEptFMJjfdXShQC19gbAQJS/rIWoCH/L3oY+BXXxEE19N/HysQGhG0tnw
+         BaO6CT6H4r+idNN9Re7+XhBYUV4JLXnVLK876P12DA9wuk69sY5k+RguDBf5Aegdz9gI
+         JTq0KhbTxgLJOHGfW7XPEKxxCGjV7PZqz81CLwsOcz9TQxwboDsHf/b56jeULIaBbQ6v
+         lSkbzqx3dTJ95mYcwyZ9Q17aRbS1q1IP99DJQQpt4DnzO5ipoo78i3NvgYYWskmkKoaB
+         QfpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756361150; x=1756965950;
+        d=1e100.net; s=20230601; t=1756361363; x=1756966163;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4AaCWcjcp6rpMsw1zo35NoV//+IQAapL68T04uuZTgc=;
-        b=DozZ4dZ43xx7evJIVXBqbY2oU3F4DUxYtu2tSjxcRixiu4cVbO0S8bq268CIMvG/Bu
-         QV9gUwArKotfjR6c7qE6xkZxiFTyaWVvx6T6dspY/v7Fbp/RjlY8HtNY4/xW/MNm/3L5
-         jjSlTBx4OFTsUMvVKb2OFRZjMd25cEm+AxAtMN9hHHZmugqCKpJviP+VoRqYOMVjql0P
-         Q76S1GYfAivApJfjIxaiuhWbqKXusLsTIU5hoS51Zgja2wvsgot11tnOkRusXSmjjOjE
-         VmetIdSOYZpupIMIpB5X6c5PVH1gCP8iMd1uFgMm+jleQ3vihKQABdYQ5KqFmpN+IWlb
-         0xPw==
-X-Forwarded-Encrypted: i=1; AJvYcCUkfsp33r6iAJnvDTcu3V7j8NqRk0gEaMABAQ0Nlkfth8bvNrrfTKSAs+rOMamOmJilcHEQlzurE80=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy+b/IQzJVBvEW/E+FdCLqbevb1zq+4HdDtz68i1IKGg/WAUurw
-	rgZUG/1V/IM9eZ6vH7GWEbhmde11Z8rG3Jq2+fa0ht72T1xer55uDwt3Oq+r6Ygyhg==
-X-Gm-Gg: ASbGncsWpy34HJJMEO4Fdbwy1pzKgRrL91UMfyTtlf1wkBUgPiXuquwsTCFjZejHGwG
-	5Z5KGsAPmeDzgsBUJyOp5l/THuP4l+kniSoX/AofiwqzoQQQyayRZOYDOclMzWBAhMguMgnl7YT
-	tT8U9jseexHLTEsBASsFAkMDrLAP9R5r0F9VxIQtgT2Em9lUuqY8Yb1EhcH4MbuzIB9fIDLvNQV
-	Ea17Z7I61nDit9ldvRLSrTW852N/0NvBhY57/U7vswl5DyTNAQOUTwM5O4xlF4qkbPFLVP9WWg9
-	brO3aF1wGycWIyOXonTaMAJ+ldVLHdMyJNBfR4CalpItYgWCmVDFgMxR7Qd+sAAQvB893rl3ahS
-	DC9tLjsa04Cfe+5AyxQdk0uiHQewr4/V5OycF/NyKUWFooFYRyiz6xOSwDSpbNmJfMN9zoHS9df
-	tSwXbjwFIP7xoeyZQHA9SHEgFF7Itc
-X-Google-Smtp-Source: AGHT+IGuRz3RSQP3OlNGRCImrv/fhgzbXRllyn+LT3Tv1mgr/VWxzZlW0jIBWb+yd4lSJupZoOBPlA==
-X-Received: by 2002:a05:6402:84a:b0:61c:1a89:5d71 with SMTP id 4fb4d7f45d1cf-61c1b7056d2mr16386856a12.36.1756361149728;
-        Wed, 27 Aug 2025 23:05:49 -0700 (PDT)
-Message-ID: <ab9efe09-9e53-4ab0-8259-3e1eff4efa1b@suse.com>
-Date: Thu, 28 Aug 2025 08:05:48 +0200
+        bh=smG5mKel4W0Oc6sJ0hqJJ7D/H5xsumVTrYUsbzTBZ7k=;
+        b=vMEA/6TK0OJ6C+oHoiut3MfOOLmPsi0H6XdKGAL0Wls5kyiXh5b2PaS+zd7qQnsy2x
+         ivAhicKp+93IS1kuyAPelAVyV/FuiETYLAhqPgoURGxXZtdGH5Esk0pyOrhTTYfS/D9K
+         KyDhfYzh2p+Hq4i6yNOOJzugZxZFVqyhfjOrmT3fq6yOMwY5zA8UMkXPELslQkiFaoXg
+         RKq+NczH3GYZ1H81veOxIjxa9DqmU0OEv+X/Nzu5Yk4H5bGw88A+O4Mkbpnr5TK7+uuX
+         MtE622vHLs6zcRHQXlo9t1WbmuiziiihFiGL8IyxwOYsBJuIMj060e3mY8RDgYOEKnpf
+         UK4Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUOaPXBoNk1Yq8pmP9m0kSz7yfMpjY3eLsAZwIxjTG1tiW1JG78500ogyEfreTTY4q//x1WzL6fM38=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxcubMMgwE4bC1MkOHxyYkiprzdmGnZclOT3ePnhnkLHRBJpAhh
+	nhgA5hQz8y3m4xCdRlSbQT/ADuAVkfDQTn7IygsiT2tzWpF/bFTiq04VYgm/sgHYb+rwEILevl3
+	oc00=
+X-Gm-Gg: ASbGncuRw5gG0T2leADgepIpzHhJkRHXFyyyajPJ5spG5iy7ktmZUwSoYXZsU/RmcMG
+	eBLK4tVVi+m12asG3txzByUsr5yaVAL9ym2He3BuDVjgFi8V3WwYghfH+LVjLZH+ZUrnD/rdYqR
+	gBgClMjoKs3weFpWg13QanNdjYV/11q+ed4KO0ZL+Ue7o+xwSIGH4UfYm8ll2KNg0YqvThi8BRI
+	0OoRCUJS+9RgNHKR7Ju1S2zjtsROlAggFVhaG9S9ndw8LLYQSYqmg/waxRQFZy7nHwLwS7liiX4
+	yBloVima+fA4VN4gjX8uKvv6ubId9aY6Pp9+8tZFqqcsBx9+sBhfDZWlezwvtqa8UI9LIOIxoZ6
+	5soVhzuUHXbEGDoQefOPSTJwbRegiI1whcwvKTH56Ek35/UgdM4uztz+2lyd1bJ7h30PjwFKtEN
+	1EPLFsx3E=
+X-Google-Smtp-Source: AGHT+IE4vUgJ57a8eXkc8+Aw1RtU4ZiqqQJOipVfRHCUEdMtWYTthBdLFNj5nxTeHNuuBvnhm/gp9w==
+X-Received: by 2002:a17:907:7f27:b0:afd:d994:cac with SMTP id a640c23a62f3a-afe29897202mr1831278266b.62.1756361362719;
+        Wed, 27 Aug 2025 23:09:22 -0700 (PDT)
+Message-ID: <20d686c7-aa86-4896-a392-947ad7e5838f@suse.com>
+Date: Thu, 28 Aug 2025 08:09:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] libxl: except Dom0 from setting PoD target
+Subject: Re: [PATCH] libxl: respect unset video_memkb for Dom0
 To: Jason Andryuk <jason.andryuk@amd.com>
 Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <c98069b7-ee38-4f06-bebd-25396f2a210a@suse.com>
- <c170f613-c42a-47f7-aae2-3e5bf1238a1c@amd.com>
+References: <719c456b-927d-41c3-b28d-135a895958dd@suse.com>
+ <01f134a0-46fb-40d8-924d-79ab864352e9@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,14 +121,14 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c170f613-c42a-47f7-aae2-3e5bf1238a1c@amd.com>
+In-Reply-To: <01f134a0-46fb-40d8-924d-79ab864352e9@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.08.2025 03:08, Jason Andryuk wrote:
-> On 2025-08-27 01:53, Jan Beulich wrote:
->> Dom0 is never started in PoD mode, and hence it can at "best" do harm if
->> we try to set a PoD target for it.
+On 28.08.2025 03:12, Jason Andryuk wrote:
+> On 2025-08-27 01:56, Jan Beulich wrote:
+>> Without this, Dom0 will have have a curiously off-by-1 target_memkb
+>> value displayed by "xl list -l".
 >>
 >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
@@ -134,14 +136,31 @@ On 28.08.2025 03:08, Jason Andryuk wrote:
 
 Thanks.
 
-> Did you observe an issue, or just notice this when inspecting the code? 
+> In theory, b_info->video_memkb should have been defaulted to 0.
 
-It simply caught my eye while investigating the ballooning issue I sent
-a mail about.
+I don't think 0 would be a legitimate default; it might be for Dom0, but
+not generally.
 
-> If an issue, please add to the commit message.
+>  In 
+> practice you found it isn't.  xen-init-dom0 could probably use some fixing.
 
-I would have, sure.
+Right, kind of as per the latter of the two post-commit-message remarks.
+
+>> ---
+>> In retrieve_domain_configuration_end(), isn't it the wrong way round to
+>> set both ->b_info.target_memkb and ->b_info.max_memkb only after calling
+>> libxl__get_targetmem_fudge(), when that uses the two fields? This way we
+>> could as well use ->b_info->video_memkb directly there.
+> 
+> I think it's attempting to read the current values from xenstore, in 
+> case they changed via xl mem-set, and then putting them into the d_config.
+
+That's my understanding too, yet it still makes little sense to me to
+invoke a function when data it consumes isn't set (yet).
 
 Jan
+
+>> Of course this may point at a bigger problem, as other fields may
+>> similarly never be set for Dom0.
+
 
