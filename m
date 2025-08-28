@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79506B3983A
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 11:27:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1097966.1452135 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ADFDB39843
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 11:29:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1097977.1452145 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urYv3-0001Mt-4R; Thu, 28 Aug 2025 09:27:45 +0000
+	id 1urYwF-0001tU-ET; Thu, 28 Aug 2025 09:28:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1097966.1452135; Thu, 28 Aug 2025 09:27:45 +0000
+Received: by outflank-mailman (output) from mailman id 1097977.1452145; Thu, 28 Aug 2025 09:28:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urYv3-0001LG-1l; Thu, 28 Aug 2025 09:27:45 +0000
-Received: by outflank-mailman (input) for mailman id 1097966;
- Thu, 28 Aug 2025 09:27:43 +0000
+	id 1urYwF-0001qZ-Bg; Thu, 28 Aug 2025 09:28:59 +0000
+Received: by outflank-mailman (input) for mailman id 1097977;
+ Thu, 28 Aug 2025 09:28:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vzch=3I=bounce.vates.tech=bounce-md_30504962.68b0210a.v1-947482cc2ddd4de2adb74fda615c2dfb@srs-se1.protection.inumbo.net>)
- id 1urYv1-0001LA-4N
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 09:27:43 +0000
-Received: from mail137-3.atl71.mandrillapp.com
- (mail137-3.atl71.mandrillapp.com [198.2.137.3])
+ <SRS0=UDiq=3I=cloud.com=mark.syms@srs-se1.protection.inumbo.net>)
+ id 1urYwE-0001qT-9i
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 09:28:58 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3db32db5-83f1-11f0-ae26-e363de0e7a9e;
- Thu, 28 Aug 2025 11:27:40 +0200 (CEST)
-Received: from pmta07.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail137-3.atl71.mandrillapp.com (Mailchimp) with ESMTP id 4cCGJp4hxQzBsTy7V
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 09:27:38 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 947482cc2ddd4de2adb74fda615c2dfb; Thu, 28 Aug 2025 09:27:38 +0000
+ id 6b5d08f0-83f1-11f0-ae26-e363de0e7a9e;
+ Thu, 28 Aug 2025 11:28:56 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-afec5651966so120653766b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 02:28:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,92 +40,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3db32db5-83f1-11f0-ae26-e363de0e7a9e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1756373258; x=1756643258;
-	bh=I8D5/yrOObDbnAapnurzQSp9tBHvRWSwFBG3zm8syfw=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=MYE0Z6WgAg2+MOEl1M2DJFvq+EL3MGXh9K4v05z7HWmNv6kdrPhPdVg/0NdItPIu2
-	 G4LTq7eYpjMStcL6zh2KwacJu2oa+yanW8s+hb1LMUTo+afyFJnIIq/0QmkDyj9KC6
-	 Lgj4zg4tzdbOrTeOjeSVKYUVs2OtOnVTGsJW2LbjER7i3JAdRUHLKiHVmIwz+xJHza
-	 KBRzUVAO3UJGDzyd8fdASNOrJUXquqOtMq9xhBkAPPRxkjRwB9HjAkm8Wn/T6mRxwP
-	 HdniRJVYhOd9qAtZQC2BbYagxv9NtE4oMi2WDxBgTRI2LgFrPjyvLH6IOHjQw2xJV1
-	 fM6B4fIfRaqPg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1756373258; x=1756633758; i=teddy.astie@vates.tech;
-	bh=I8D5/yrOObDbnAapnurzQSp9tBHvRWSwFBG3zm8syfw=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=hz5fwKIQjsz/LFVchIETU3VPn3nC1cGrfuJH+ZH+cUP1biOCe5zfkJ+DZ7+GOSahl
-	 HJVaOf3u1dUUL6VqIuOUd8jPI3/fb/V81ugPVD+gXazKvGzHVPswg/wnVKj5OCpUUH
-	 8fpapZkBZg0usJnPdYhtA6pvt6zgNN4m0Te3E7lDnAFfV2o/YdDir6XBjh3kUmnxSQ
-	 y5Ta0l9qrp764WQA+qWKYgzHXeiPjTnYZ8XXoCJa1lU1MVBb9MY4XpodNpGpi4d3BA
-	 hNeWbZoBs+2pLB6FsuWMoBSJGGY+OmRzoJDJ572VX58r62GuQFmdcML+CgMu+ktcsf
-	 aq+APBWn3Blkg==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH]=20hvmloader:=20Update=20to=20SMBIOS=202.6?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1756373257509
-Message-Id: <64f08648-4ef2-457f-a81f-0c003e3e9601@vates.tech>
-To: "Jan Beulich" <jbeulich@suse.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <b569a298a6270ae04eaf433f7de9ce1f3e248e5f.1755870287.git.teddy.astie@vates.tech> <0e47cfed-75e6-4cd3-8ee2-ed8ea000a376@suse.com>
-In-Reply-To: <0e47cfed-75e6-4cd3-8ee2-ed8ea000a376@suse.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.947482cc2ddd4de2adb74fda615c2dfb?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250828:md
-Date: Thu, 28 Aug 2025 09:27:38 +0000
+X-Inumbo-ID: 6b5d08f0-83f1-11f0-ae26-e363de0e7a9e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1756373335; x=1756978135; darn=lists.xenproject.org;
+        h=cc:subject:message-id:date:from:in-reply-to:references:mime-version
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=AOdA+ChG2OJRi9GeaHFeK6eceIsji99wtnfgd+DpFZg=;
+        b=QGsGj0OIa2I1+RZUn2OujC/RfGE2azP/MpBzkgfvtNPrVF+13vKHtiOLqzZ07wlGhF
+         Z6eB5PQj05OLK/8yjUwvjEVu32X3PM0MLV6M7qNcvdt47ao8dELwUZ4MLNxTBWC1uohd
+         eAQx5RSiHhXvDV5CVUYVB5wt/mATrbSwltVZw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756373335; x=1756978135;
+        h=cc:subject:message-id:date:from:in-reply-to:references:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=AOdA+ChG2OJRi9GeaHFeK6eceIsji99wtnfgd+DpFZg=;
+        b=fw1NFPxcu44u/GR17gWVt3s+Dr1shTYDMxZFq3kz4zTshjcXGDBwWZF3PjKZSDOT9C
+         kSK5k32kOoSgbhGsLkDBfT2zfJQIhDKOdAWX04r/11TzFlsafLTX8f7qrfYKVhmFmNlh
+         3TwCTlZAGXecUmi8ohL/7nINXiZHYpdAoE+BshLfUKdW3b5JOqoGjL3KlIp+/NXJEEnf
+         mAaLhLqVOxmhHYTb1oGN++Ja9d/B/S01glAZGJ7i+D8iHWH/EjMktuQ9RxuKqZtZaq3R
+         EqA34zuHXwv0rlkYlYmASGsHHB7qvJL2tJPy627vuapgZKBljipr8pBGATRsv1XfSF4m
+         YnBg==
+X-Forwarded-Encrypted: i=1; AJvYcCU5q5ztSUYCAMzddxiyHA6FAqdlJn7PcIjxrQYd2qb8v80LnIYI6hKYxgCyW97JCQH7gY13+Mk3tjg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxyZgyXsCENR05Vfv/3606PZbFOpLbA8DtTZIXlHgUIvYUqFUVB
+	eJYzEXdhIGan6tA5KvY0XCQeWdm4lh5KJf14D3SDSlHH5S8AOLm/unxKmVonmS4R5ag43LfsSiP
+	VTRiTYK7flyqezRHUz2l39WehZE07hYM6Nww1A4LnYA==
+X-Gm-Gg: ASbGncv2qd06IwBnIOBeYcgWNu45pcmfvIMCK2UOyY1oQrEKv1B1ivvYOrTaIYvCiHw
+	PmFp+a7Isa2F4qHQQcTbSWSO6s4T05MpvoVr6WUbqe+QrHsl+s7LDPbpBrf3c1y0RbndtqkA8JN
+	qk3wxgB71DctlxwVqjZRwZPepFHaxvPl/yGyuyW8eW7A6Wo5WOoxRNiDgzlVHHI+KAM/z4fa6RL
+	coD6MjR
+X-Received: by 2002:a17:907:846:b0:ae0:c690:1bed with SMTP id
+ a640c23a62f3a-afe2954f636mt1705321166b.51.1756373335437; Thu, 28 Aug 2025
+ 02:28:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+References: <20250827160841.351707-1-mark.syms@cloud.com> <aLAHoR3BtBz9G9Q0@Mac.lan>
+In-Reply-To: <aLAHoR3BtBz9G9Q0@Mac.lan>
+From: Mark Syms <mark.syms@cloud.com>
+Date: Thu, 28 Aug 2025 10:28:44 +0100
+X-Gm-Features: Ac12FXymndS46AxopGxYj9mkgbXiK1MJvc3NVcHdjpqTRtoppZ-Zsa6da0bUJvI
+Message-ID: <CAPYKksW6df6cAf6fcH_gKj6+0tVADGtyKw-2weryr1pPfTqHsQ@mail.gmail.com>
+Subject: Re: [PATCH] [xen-block] Return BLKIF_RSP_EOPNOTSUPP for unknown operation
+Cc: qemu-devel@nongnu.org, xen-devel@lists.xenproject.org, 
+	sstabellini@kernel.org, anthony@xenproject.org, paul@xen.org
+Content-Type: text/plain; charset="UTF-8"
 
-Le 28/08/2025 =C3=A0 09:08, Jan Beulich a =C3=A9crit=C2=A0:
-> On 22.08.2025 15:47, Teddy Astie wrote:
->> Currently, hvmloader uses SMBIOS 2.4, however, when using OVMF, the
->> SMBIOS is patched to 2.8, which has clarified the UUID format (as GUID).
->>
->> In Linux, if the SMBIOS version is >=3D 2.6, the GUID format is used, el=
-se
->> (undefined as per SMBIOS spec), big endian is used (used by Xen). Theref=
-ore,
->> you have a endian mismatch causing the UUIDs to mismatch in the guest.
->>
->> $ cat /sys/hypervisor/uuid
->> e865e63f-3d30-4f0b-83e0-8fdfc1e30eb7
->> $ cat /sys/devices/virtual/dmi/id/product_uuid
->> 3fe665e8-303d-0b4f-83e0-8fdfc1e30eb7
->> $ cat /sys/devices/virtual/dmi/id/product_serial
->> e865e63f-3d30-4f0b-83e0-8fdfc1e30eb7
->>
->> This patch updates the SMBIOS version from 2.4 to 2.6 and fixup the UUID
->> written in the table; which effectively fix this endianness mismatch wit=
-h
->> OVMF; while the UUID displayed by Linux is still the same for SeaBIOS.
-> 
-> To update to 2.6, fields new in 2.6 (compared to 2.4) need adding to the
-> various structures. First example I ran into is type 4, gaining 5 new
-> fields in 2.5.
-> 
+> The comment in blkif.h contains:
+>
+>  /* Operation not supported (only happens on barrier writes). */
+> #define BLKIF_RSP_EOPNOTSUPP  -2
+>
+> So in principle BLKIF_RSP_EOPNOTSUPP is only to be used as a response
+> for BLKIF_OP_WRITE_BARRIER or BLKIF_OP_FLUSH_DISKCACHE requests,
+> however blkback already uses it as a response to unknown request
+> types (like you propose here).
+>
+> Would you mind also sending a patch to adjust blkif.h in Xen to remove
+> the "(only happens on barrier writes)" part of the comment?
 
-Yes, I add them in a new version along with 2.6 entries for the newly 
-introduced SMBIOS tables (notably type 9).
-
-> Jan
-> 
-
-Teddy
-
-
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
-
+Sure, no problem
 
