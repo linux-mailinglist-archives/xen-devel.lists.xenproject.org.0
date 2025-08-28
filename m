@@ -2,56 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED109B39030
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 02:41:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1097219.1451661 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02D96B3903D
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 02:53:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1097248.1451669 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urQhC-0003se-8R; Thu, 28 Aug 2025 00:40:54 +0000
+	id 1urQsF-00068d-5G; Thu, 28 Aug 2025 00:52:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1097219.1451661; Thu, 28 Aug 2025 00:40:54 +0000
+Received: by outflank-mailman (output) from mailman id 1097248.1451669; Thu, 28 Aug 2025 00:52:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urQhC-0003pR-3p; Thu, 28 Aug 2025 00:40:54 +0000
-Received: by outflank-mailman (input) for mailman id 1097219;
- Thu, 28 Aug 2025 00:40:52 +0000
+	id 1urQsF-00066i-2e; Thu, 28 Aug 2025 00:52:19 +0000
+Received: by outflank-mailman (input) for mailman id 1097248;
+ Thu, 28 Aug 2025 00:52:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Rla7=3I=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1urQbU-0000Ol-6Z
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 00:35:00 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2062f.outbound.protection.outlook.com
- [2a01:111:f403:2416::62f])
+ <SRS0=YsNu=3I=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1urQsD-00066c-G6
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 00:52:17 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d35669e0-83a6-11f0-aeb2-fb57b961d000;
- Thu, 28 Aug 2025 02:34:59 +0200 (CEST)
-Received: from SJ0PR03CA0216.namprd03.prod.outlook.com (2603:10b6:a03:39f::11)
- by MW5PR12MB5622.namprd12.prod.outlook.com (2603:10b6:303:198::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.13; Thu, 28 Aug
- 2025 00:34:54 +0000
-Received: from MWH0EPF000989EB.namprd02.prod.outlook.com
- (2603:10b6:a03:39f:cafe::af) by SJ0PR03CA0216.outlook.office365.com
- (2603:10b6:a03:39f::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9073.16 via Frontend Transport; Thu,
- 28 Aug 2025 00:34:54 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000989EB.mail.protection.outlook.com (10.167.241.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9052.8 via Frontend Transport; Thu, 28 Aug 2025 00:34:53 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 27 Aug
- 2025 19:34:49 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1748.10; Wed, 27 Aug
- 2025 17:34:49 -0700
-Received: from amd-BIRMANPLUS.mshome.net (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Wed, 27 Aug 2025 19:34:49 -0500
+ id 3d5f6dc3-83a9-11f0-aeb2-fb57b961d000;
+ Thu, 28 Aug 2025 02:52:15 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 470DE601D3;
+ Thu, 28 Aug 2025 00:52:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94406C4CEEB;
+ Thu, 28 Aug 2025 00:52:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,149 +41,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d35669e0-83a6-11f0-aeb2-fb57b961d000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MbN/RmRMHKOBmxDV83GN9CNkjF0OUIOHezWdTttaHjqmSoeGgBLmzGeEDd60XbfrYQVaCmQJUrsMh0ABXS1jgXbGhUZpi0oln1I2PBYPt3JuMzuj+kOXusis/KqP6FKtcnLUYjplf8Ki5pX6U+TeQaTzQqO3yZHwVGNnvVsiOCeOu4Od0SH1U311qaMp8jrgNTbLw3qdqNGlY41yoRALuAqdhq4NAgk4ez1EdyC7BD9pNv87YLDQEC/ZERcrTxeYWEcKnKYwJjm29AjsobQxPjMVsEf64uguTjPh+HXEfCOgu2M6prN+wAJ66nzGLTkc/7yUUpRkvZgZ77qdyTEcFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hI0Gbe2mYNcrDAAQZRVPaNZt72D2cNKzUHir1F+hsOI=;
- b=kkdkfnrEGsWTUgDYsBNytx2U/0ccVBsgigBxBsVclUx6Cy+aRO3sO3IY4ErLs5A5wEaUf9NnDBjKKulb8ebVjWfYYB2Pyi8XgItKBynNBFygwBGFIVNs5HUVwnRPix7HZzdPHvpby4K0nc1ss6dm8mtxyaxF+uKbBlDkBFgVsfSmKyzKs52cd9j2BUDcj2rq6bjKqSiBfqebJFp342hskF7Mxi13V9htKF/3UEZ3tMGeAnMXCRXo3acBFw8EMtQf2RAxbmmdml2lknNcKg5wIcSJxkFOdmSAxhhzryxUQYsVOoT5MUMUsZTr27tkHH3bNkOvHXJ6eHpEdle9yDWmgQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hI0Gbe2mYNcrDAAQZRVPaNZt72D2cNKzUHir1F+hsOI=;
- b=02kL7aHoIIrG89VGrorrae11yVpuDizvbzr1IcOVdnS0OdyZDssCBiwSUdoFkUb+6aOE/8+5GUDnfDmMaZLhxpZPgM1ouyU5l/gL+puo32k3qkHgXPVQospPIZBvjomCQaP5oHMUxuGEUTiicfddHRq7InvgWodYjSrl7yKa7lc=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Jason Andryuk <jason.andryuk@amd.com>
-To: Juergen Gross <jgross@suse.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Oleksandr Tyshchenko
-	<oleksandr_tyshchenko@epam.com>, Jeremy Fitzhardinge <jeremy@xensource.com>,
-	Chris Wright <chrisw@sous-sol.org>
-CC: Jason Andryuk <jason.andryuk@amd.com>, <stable@vger.kernel.org>,
-	<xen-devel@lists.xenproject.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 3/3] xen/events: Update virq_to_irq on migration
-Date: Wed, 27 Aug 2025 20:36:03 -0400
-Message-ID: <20250828003604.8949-4-jason.andryuk@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250828003604.8949-1-jason.andryuk@amd.com>
-References: <20250828003604.8949-1-jason.andryuk@amd.com>
+X-Inumbo-ID: 3d5f6dc3-83a9-11f0-aeb2-fb57b961d000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1756342334;
+	bh=OLfCwBee0WLdBrm71XuYIxR4JKqCPyL8S3FZVa2iVnc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=C4xB2BOFKx4Q3pjnJXNh0GzPT6fIWRlxpwdj1diL537c8AZpvdJeB2kT0Q/F/NMPI
+	 QVM4QC1jI0YoyVSEHvqBZnJpokV5BELyLmzSVTAuRMA1LyHfhcNRGqg7Lrk0hhfxE4
+	 mAOIKYsN/8OoT0xqwUy8WH4fXmv2S77dmeHtvy4E9THZwMB9Wgkbd0x6lnxt/vTaX0
+	 piuzna8RVqpf4vm5E7NeP7p8PpFS1D4I3dP4LZ94VS/Djjf0nNkgmlQHWpG6MCUa+d
+	 cH/cmRh2mRgQFkmiQcR5bCp6trlJ4roOvA+S4yZPXbS+mWp4x3hYozDpJc5V2CYGfZ
+	 W7XDuUvri4ifg==
+Date: Wed, 27 Aug 2025 17:52:09 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Oleksii Kurochko <oleksii.kurochko@gmail.com>, ray.huang@amd.com, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
+    xen-devel@lists.xenproject.org, Penny Zheng <Penny.Zheng@amd.com>
+Subject: Re: [PATCH] xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE
+In-Reply-To: <cc8724b6-bb31-4482-a459-156366b7b433@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2508271442410.580734@ubuntu-linux-20-04-desktop>
+References: <20250815102728.1340505-1-Penny.Zheng@amd.com> <fb6f559a-b2aa-4b25-a6d3-401ecc4b4bd5@suse.com> <d6046b53-9317-43d6-bfda-e30d42c09320@gmail.com> <2035b14e-3836-4e80-9dad-8a49ca90864a@suse.com> <alpine.DEB.2.22.394.2508181646220.923618@ubuntu-linux-20-04-desktop>
+ <49416df6-83c8-4fa3-bf81-2d1e504ef31b@suse.com> <alpine.DEB.2.22.394.2508251934200.3391208@ubuntu-linux-20-04-desktop> <alpine.DEB.2.22.394.2508261728250.3391208@ubuntu-linux-20-04-desktop> <cc8724b6-bb31-4482-a459-156366b7b433@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989EB:EE_|MW5PR12MB5622:EE_
-X-MS-Office365-Filtering-Correlation-Id: 83ebc60e-547d-40b1-5b18-08dde5cab4ec
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|36860700013|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?Lu8Q4JnOBk00vpR6OekIUJqMS+zv4Wm99SZ2tUtQ+bOqdd2Zc0jwTYWb/UjW?=
- =?us-ascii?Q?cJDhYHxcjy7EfbHlz7+5Gy/Mki0jkWedYkDGRX599Tuj2Fy79OjN/qoirtTQ?=
- =?us-ascii?Q?AqM0UPMOo3VJdyAjn4l2NjOy2lZr9OxENKk2FdI7KStFfu8yAuUbC8iH8xAx?=
- =?us-ascii?Q?SKexhB6CXdhzKrvCHOkVlG17jYTmSr5oU5IIq0QuiKACKfq3831hbvYaXgZK?=
- =?us-ascii?Q?leqZMuBsct9STkSItYG55xg/eCSzIx+J5NHBN57YNuyJzIqin0ewBF99qZqB?=
- =?us-ascii?Q?Z0dB8J2LaRJZUZ8uNrBXiJjeK0yqEb+y3skWn6zQUcb9EymXkIvAxdWqtfoU?=
- =?us-ascii?Q?eJH5G6fNrr79ZzfG00w0Rf/cXecwEAMr8hP+1DJ/VZQErbWQLCZh1qVzY8Ch?=
- =?us-ascii?Q?WXPOPk3sp2dne4OMDsSL7vd6ypmmFc2lA9l7qeWL2oossxvlimJLdDEzJM+j?=
- =?us-ascii?Q?o0+sOxuFmo8NJ8WDtN42NwDjhd9Rp2UPUaeVJ4sBSsbboRlFMQc02S7I4Yej?=
- =?us-ascii?Q?IW5/3ucGIRUYrNwhKN85wVCzjuKV0FpU9mT08AeZeXikbqQQvqdK19048ywr?=
- =?us-ascii?Q?FYHEop3V1E57DSwhPkdcG5iMIucCpbfRaxyaUhS8ZqOg4esJkiabFunZj7LQ?=
- =?us-ascii?Q?y02swfBo08+zGsuMUrnVrq6tLpj05HLCvpp5RnjD0msNHxT+r2PkkVDZGjRU?=
- =?us-ascii?Q?b85N9NVcjMyLIAxdlVDgglOk6z4Vszgou4HQjbhc+9ovGBq8e0F3P9NJZN0i?=
- =?us-ascii?Q?7ttgBsHjzfdvCaSIHVndcm3dpU198D1CWx00RDCJTglz4OiCsK5LhVGxfY/y?=
- =?us-ascii?Q?Ipr9eZmG4O/WI6JSsHswIwgh8xDdkKFSEBdz5RVk4ForkpzcQnnD2jmxzfcC?=
- =?us-ascii?Q?vfsbLXvqwH+AIRaprXiFoayDPzx9YXBMDteyTblgzWKQNhtKUaHlQxn2lFb0?=
- =?us-ascii?Q?YO0hAYOgBRA52JNyrEhh1LScGfRbY/ABG6sqoVcbz0wq6+/ZyGcCDE0e1239?=
- =?us-ascii?Q?gwHzmQO3halk7HqKTuFIM0FcIzIHbqkgnKAzvKvb/8Gsr/XemarapmxZQ0Oh?=
- =?us-ascii?Q?ZBviCdd2nibkr1M8sSidcHZPDOtuAgNOhIkRLRCe9xPMaCoS6eYJN7Sl2hvt?=
- =?us-ascii?Q?XFpYzcwrWywawcxHlZDySJYvjtyPBjBGOoOB5yUAzpIVS4SVJlWQIGO2XvyP?=
- =?us-ascii?Q?KJXTRL53s4bx6pH9ikiQv7hEt7A6zIonFStLr3YEjoQabkTtenyVBwcU71VU?=
- =?us-ascii?Q?Qt+rx4tIBoG1/9uq/6LIvuUame2wx6ySTUBz9s72gbaoFIGXacdoeCi+tpES?=
- =?us-ascii?Q?u4j2k19upQGSdS6BHd3cPyQgRX7F9jMh8cTF/ga+EFdR5eLCqaz/3ZrLrAxB?=
- =?us-ascii?Q?3oMMf/egIUZzcy8+065I5afMbv6dqMFv6XMbetQMfcLRi68s/XSEZOxKnWMJ?=
- =?us-ascii?Q?y0eF51T+uzyy/8Jn77m2fBA8+Uwl8HSEHxRVVn8xGs9BGLk71DlcGTeUu3gC?=
- =?us-ascii?Q?U2hwdHodjRHtS5YvjhdkpM+cYevloTy9oxy4?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2025 00:34:53.6683
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 83ebc60e-547d-40b1-5b18-08dde5cab4ec
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000989EB.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5622
+Content-Type: text/plain; charset=US-ASCII
 
-VIRQs come in 3 flavors, per-VPU, per-domain, and global, and the VIRQs
-are tracked in per-cpu virq_to_irq arrays.
+On Wed, 27 Aug 2025, Jan Beulich wrote:
+> On 27.08.2025 02:33, Stefano Stabellini wrote:
+> > So I ran a test and the appended change, which is based on [1] and
+> > renaming CONFIG_DOMCTL to CONFIG_SYSCTL, is sufficient to resolve the
+> > build issue.
+> > 
+> > For 4.21, I suggest we go with two patches:
+> > 1) global rename of CONFIG_SYSCTL to CONFIG_MGMT_HYPERCALLS
+> > 2) stub domctl_lock_acquire/release based on CONFIG_MGMT_HYPERCALLS
+> > 
+> > Jan, are you OK with this?
+> 
+> Naming if the option aside, no, I fear I dislike the stubbing. What's
+> worse though, ...
+> 
+> > --- a/xen/include/xen/domain.h
+> > +++ b/xen/include/xen/domain.h
+> > @@ -148,8 +148,17 @@ void arch_dump_domain_info(struct domain *d);
+> >  
+> >  int arch_vcpu_reset(struct vcpu *v);
+> >  
+> > +#ifdef CONFIG_SYSCTL
+> >  bool domctl_lock_acquire(void);
+> >  void domctl_lock_release(void);
+> > +#else
+> > +static inline bool domctl_lock_acquire(void)
+> > +{
+> > +    return false;
+> 
+> ... this will break x86'es HVM_PARAM_IDENT_PT handling. That is, in
+> principle I would agree that returning false here is appropriate. But
+> for the specific case there it's wrong.
 
-Per-domain and global VIRQs must be bound on CPU 0, and
-bind_virq_to_irq() sets the per_cpu virq_to_irq at registration time
-Later, the interrupt can migrate, and info->cpu is updated.  When
-calling __unbind_from_irq(), the per-cpu virq_to_irq is cleared for a
-different cpu.  If bind_virq_to_irq() is called again with CPU 0, the
-stale irq is returned.  There won't be any irq_info for the irq, so
-things break.
+Uhm, that is a good point actually. And while in principle "false"
+sounds appropriate, in practice there is no domctl.c to worry about
+concurrency so "true" is what we want.
 
-Make xen_rebind_evtchn_to_cpu() update the per_cpu virq_to_irq mappings
-to keep them update to date with the current cpu.  This ensures the
-correct virq_to_irq is cleared in __unbind_from_irq().
 
-Fixes: e46cdb66c8fc ("xen: event channels")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
----
-v3:
-Kernel style brace placement
-Delay setting old_cpu and tighten scope of variable
+> As said on the call yesterday, until what you call MGMT_HYPERCALLS is
+> completely done, the option needs to be prompt-less, always-on.
 
-v2:
-Different approach changing virq_to_irq
----
- drivers/xen/events/events_base.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+I do not think this is a good idea, because we would be unable to test
+the configuration. Although we have been accepting code without tests,
+that is not a good principle. At least with the current approach we can
+run manual tests if automated tests are not available. If we make it
+silent, we risk introducing broken code, or code soon-to-become broken.
 
-diff --git a/drivers/xen/events/events_base.c b/drivers/xen/events/events_base.c
-index b060b5a95f45..9478fae014e5 100644
---- a/drivers/xen/events/events_base.c
-+++ b/drivers/xen/events/events_base.c
-@@ -1797,9 +1797,20 @@ static int xen_rebind_evtchn_to_cpu(struct irq_info *info, unsigned int tcpu)
- 	 * virq or IPI channel, which don't actually need to be rebound. Ignore
- 	 * it, but don't do the xenlinux-level rebind in that case.
- 	 */
--	if (HYPERVISOR_event_channel_op(EVTCHNOP_bind_vcpu, &bind_vcpu) >= 0)
-+	if (HYPERVISOR_event_channel_op(EVTCHNOP_bind_vcpu, &bind_vcpu) >= 0) {
-+		int old_cpu = info->cpu;
-+
- 		bind_evtchn_to_cpu(info, tcpu, false);
- 
-+		if (info->type == IRQT_VIRQ) {
-+			int virq = info->u.virq;
-+			int irq = per_cpu(virq_to_irq, old_cpu)[virq];
-+
-+			per_cpu(virq_to_irq, old_cpu)[virq] = -1;
-+			per_cpu(virq_to_irq, tcpu)[virq] = irq;
-+		}
-+	}
-+
- 	do_unmask(info, EVT_MASK_REASON_TEMPORARY);
- 
- 	return 0;
--- 
-2.34.1
+In my view, we need to make gradual progress toward the goal. In this
+case, we should move incrementally toward compiling out all the
+"management" hypercalls. Also the alternative of waiting until all
+patches are ready before committing them is not feasible. An incremental
+approach reduces risk, preserves testability, and makes regressions
+easier to identify.
 
+An extreme example is that I could write:
+
+static inline bool domctl_lock_acquire(void)
+{
+    obviously broken
+}
+
+and no tests would catch it.
+
+So in short, I think we need to keep the prompt.
+
+
+> Adding
+> a prompt was necessary to be the last thing on the SYSCTL series, and
+> it'll need to be last on the follow-on one masking out further
+> hypercalls. IOW my take is that 34317c508294 and 568f806cba4c will
+> need reverting (the latter being what caused the regression, and the
+> former depending on the latter), to allow to cleanly continue that
+> work after the rename. If we don't do the reverts now (and take either
+> Penny's patch or what you propose), imo we'll need to do them later.
+> Else we're risking to introduce new randconfig breakages while the
+> further conversion work is ongoing.
+
+My suggestion remains to go forward with 2 patches:
+0) keep both 568f806cba4c and 34317c508294
+1) rename CONFIG_SYSCTL to CONFIG_MGMT_HYPERCALLS
+2) this patch with return true from domctl_lock_acquire
+
+I am open to reverting 568f806cba4c but I don't think it would improve
+things. I definitely don't think we should revert 34317c508294. We need
+34317c508294 otherwise this patch doesn't fix the build.
+
+This is why I think we need the prompt: otherwise we would not discover
+even very basic important build breakages.
 
