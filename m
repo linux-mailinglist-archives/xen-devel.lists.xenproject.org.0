@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFC82B394B8
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 09:09:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1097657.1451909 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD981B39528
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 09:29:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1097679.1451919 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urWkt-0004vW-Av; Thu, 28 Aug 2025 07:09:07 +0000
+	id 1urX43-0008Ci-SQ; Thu, 28 Aug 2025 07:28:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1097657.1451909; Thu, 28 Aug 2025 07:09:07 +0000
+Received: by outflank-mailman (output) from mailman id 1097679.1451919; Thu, 28 Aug 2025 07:28:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urWkt-0004tU-8A; Thu, 28 Aug 2025 07:09:07 +0000
-Received: by outflank-mailman (input) for mailman id 1097657;
- Thu, 28 Aug 2025 07:09:06 +0000
+	id 1urX43-0008Af-Pf; Thu, 28 Aug 2025 07:28:55 +0000
+Received: by outflank-mailman (input) for mailman id 1097679;
+ Thu, 28 Aug 2025 07:28:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=pYI3=3I=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1urWkr-0004tI-VP
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 07:09:05 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ id 1urX42-0008AZ-Rs
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 07:28:54 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e1f792dd-83dd-11f0-aeb2-fb57b961d000;
- Thu, 28 Aug 2025 09:09:05 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-6188b72b7caso667607a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 00:09:05 -0700 (PDT)
+ id a65e58af-83e0-11f0-aeb2-fb57b961d000;
+ Thu, 28 Aug 2025 09:28:53 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-61c4f73cf20so1115404a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 00:28:53 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61cbabf816dsm2296032a12.21.2025.08.28.00.09.03
+ 4fb4d7f45d1cf-61ceaf6ec7bsm90774a12.17.2025.08.28.00.28.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Aug 2025 00:09:04 -0700 (PDT)
+ Thu, 28 Aug 2025 00:28:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1f792dd-83dd-11f0-aeb2-fb57b961d000
+X-Inumbo-ID: a65e58af-83e0-11f0-aeb2-fb57b961d000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756364944; x=1756969744; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756366133; x=1756970933; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cV3Q76bXg7MihJiyAIy5mzVA4fG0oZeVyeuLPus4FRg=;
-        b=KMEqQB/0xe1VUEBGQtIZaWQrLt/DWZP9JCVPGhrisS5+Kt3AYR1KY5FKMxJaxWfAL0
-         KB/2FxSujFXzeDRpU30qGY8aRKIu6EjRyTd9DPABIoAZ5jE+fgv34MjzQykwk2U/9HAg
-         xTCB1wq06lSyI0WtNr003qVgh1I4HPMiioswIypeKxQrLjEXYIt6YnMCl6T6kZxt+qz7
-         Mi6IqWb44FdpdrXlhwNqg3DWo44ndVE/h6Cq5RSiWGHyIQOz1E68hFHPAPcg8yTnzd7C
-         p40+oipmZifZ3Y1xotmyo48j3PF8JCijZC0SC/ktFADZXoaP86d0tK0gl2TLwb6OL1P/
-         awVw==
+        bh=YzcA84XKtwet83OL92pxWRFd0zZdBBIDsiQhHJpx8iw=;
+        b=fohVFhYgJPznWUC9EyrlCLqjFlsd1dzY2ObryjyORw2hcgteSIGDaeZOSN1wumm+Wq
+         /ErQozSajzMsfdW5NWnSUzNF9DJZj0ctss8E3V004wftS8XwET76gx6hTNft09vs+hhz
+         1BMpkmWaQ/pr597aZuBBKDjrW3fs27dRrmPq+uLwO4Wh9x2iuoxz0zgKHmap3op0qhEE
+         eKNrUwpnvWanc7hcqz1ee475vz+42mNO34mvUolqqvgi12GJy4QRv1Yc8qjIjKReTpi0
+         0Od21nyU5ffwvbzN7Y3XWhHUvPWYcadUJEa0/Sj5T9nEz5LIJy9B9rSzhB5gkiravStK
+         g+Ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756364944; x=1756969744;
+        d=1e100.net; s=20230601; t=1756366133; x=1756970933;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cV3Q76bXg7MihJiyAIy5mzVA4fG0oZeVyeuLPus4FRg=;
-        b=bhHquESTw8HV+ww5FnUQklueVtPi2udZewK9ucQxltuGuSZzvAoGVSm/XnGhqRiWoJ
-         6CzZ3DOZmQJeMNQQpwvhjqQXpBqfjfvU/vrM0hxGnyWS889Bce7dhW0x6SEvlqx+9Owj
-         BnuX38+PAAi5EHJo5fJ5Mi636ok4F5AiV86JvAkfWRqiLd0CdA/F1qVuJwO1+zxqF3nn
-         DQw1TXI541BiM3tGqRFmy9R+RHzIWWOoxZG3t6vHCmG8X06HWCS9Y2XZxXYs6IKR7RMT
-         shCTwn2u6XYmDr6zk6eJZO9zSJwfCnuwcdc5JqDFvcuz0m2UMcW2vp7/xvGh8S1zMIOV
-         8cGw==
-X-Forwarded-Encrypted: i=1; AJvYcCX/W307le2+bvdzTetEeOvFLdxsiFejaD3mwS/1v0ofmJzULOC3CaUdFm5DLDWokMkw927ZRXSS+TU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzkJ3QbnnupXnBYFPDrrNA8pwJavLYKajwKqEke00lurQtEa+O2
-	pc5Us37J4vNz31xZUN2uCUykRhNNRKhZn9WiMm7q4nMxzYtMgJu2QiGS9kN2CSpflQ==
-X-Gm-Gg: ASbGncsO45X3OHfNH3VZ+9OraZ1oNd8mnYPvJgjHz2XFcs+QEfXjTi7aKBA2L6Yafkn
-	Xto/Rpj19d6ABzpUcKLAQo/zPtfcl65iayQ6sdfQOMypeF+DEOfksfemt6qownSS/vrIkh9QAmt
-	YvTX2D86V3RoDmAenNWntdFaG+Xu86A2qfqj6rGQ5I5Gd5Ah9VN+B55BJYq179CXsI5ON6rKSG0
-	pw/8cgLS4/NkTsgtlIPTHNXD/1mOvhFhC4b9DKyhF/74yDPzlD4JnSPfuJxJQWDygbUfZCNSlvG
-	D3MKEMvsyZJDqXm+FXelFE7DK1r8Qg8W8RjSfSsaCE6k8r/KIh0+l532zOF9wCxfEIwYe5u7y/k
-	Qj/dUyFpqYpfbY8VDNI+evI3Y0cjmNamYAuZqDgtBkL5ekJhZVPeD/dxlyadefjipwTv1B1CEjq
-	UnNjoKJBE=
-X-Google-Smtp-Source: AGHT+IFBOMhj8Vhaz4m6cMWDktDd2yqXSfqjKCtNLcF5MQ358B0jCJGZPJScWl6VlgDjRdBr2Ehcaw==
-X-Received: by 2002:a05:6402:1e96:b0:61c:b798:a14 with SMTP id 4fb4d7f45d1cf-61cb7980c01mr3709138a12.36.1756364944447;
-        Thu, 28 Aug 2025 00:09:04 -0700 (PDT)
-Message-ID: <8d591b74-5ff0-451a-b8ca-a8c71c0e2871@suse.com>
-Date: Thu, 28 Aug 2025 09:09:03 +0200
+        bh=YzcA84XKtwet83OL92pxWRFd0zZdBBIDsiQhHJpx8iw=;
+        b=Zvume2XOrC85sP8zlfImzglWsl6tFczJghMLb1vBIIqqEbBAS78Kel8XhAfUkvwsJo
+         HNYfoiDzwo6anMFAHeyqVcmoyDON1wVmSCYLyfZzthZREJOnsjTJvbIhnz0xgkyAA9ZV
+         JP2vXOem7jVXdKpu3hVpukfsx+pnwFXp5tYNFgM07Lm1NOFp6RpZBDGZxTRMMIvBaIL4
+         e3raRIf8UeYiRfgYrADICyyoJ4h3dBlHUpmvymRhROkxP6D2GyT4welRyQy33a4z8Sap
+         nyQGto9yz+dzATjc/SpG6HpekhTU1a0iYc3UB8jhGrCnJ4jmQzmh/fM/qPhJwbnLKFUg
+         wzXA==
+X-Forwarded-Encrypted: i=1; AJvYcCVdy9QvYx/jQSL2IqeD4PSuQUcKVVFHsCRSvq6bWssONSlP6SyXArJURQXN29tVipLEzhrIbnAuP5k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy+Vo5vGXRLNfYh7t6yGyU7STv1Dk2pD+vSA2tjKogSEsFIKWfz
+	2Ch1SHN4v5D62Eeu7MYU0VlOUnpSL21RahKzQxlk1q3rFLdAYRJKbWnWlt+3mCz62g==
+X-Gm-Gg: ASbGnctXZqz8wJpc1Y3bNKWGD6uTBaVf/MIaL/0vxqzmIxGMbcfH5D3Nj207siNlPBl
+	oEhZmLq+eKaN46bl3LCny7xUu6Q7la9SnmocKEnc5M96cTvyJVlxYYoHQcTsNg2Tzd4Z7oQgzL8
+	NwsS6VDo3Q1Wx5u7gV7PGGtLLAFM1AhiRI7cWtoWGcrir/dL8IL/F36GkzoYUSw9wjEN2lSKwsn
+	yeBPFC3qkvK7/bDQArnfvvgu6P3rCXOFVPQUuSlkanVTmY4N/WqoS7MCOVAo7ES1RTEc4fRl/SZ
+	dCjgZQPPVmgE5Cg5sNhjD+0ah/vsSTOxkPhwJKgTZb9FwLkGU8PSXZBtMaOuN+3niV7eQ0VevjZ
+	PAPLn4AA0ySHC+Gh4OXbuqFykU2ygInuyfl58BvAtsbjykzMyE9i2kkE523XXadUgeulsPJQ63g
+	+BG7/mzAmlVEShZtN/gA==
+X-Google-Smtp-Source: AGHT+IH+EZoAXuezwAHh9ufDa4xEsMpn2SA1rDjSdjLbdXaT708kPsGwDJ3ocatL65Ic0FwphF3Ehw==
+X-Received: by 2002:a05:6402:44d2:b0:618:19d2:7251 with SMTP id 4fb4d7f45d1cf-61c1b3d8dfdmr16021472a12.10.1756366132978;
+        Thu, 28 Aug 2025 00:28:52 -0700 (PDT)
+Message-ID: <d934d8a8-93c0-4cb6-baa4-f2aedb719f25@suse.com>
+Date: Thu, 28 Aug 2025 09:28:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 13/13] xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC
- xen_sysctl_pm_op for amd-cppc driver
-To: "Penny, Zheng" <penny.zheng@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH v2 3/5] symbols: arrange to know where functions end
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250822105218.3601273-1-Penny.Zheng@amd.com>
- <20250822105218.3601273-14-Penny.Zheng@amd.com>
- <f27c17e6-8c88-42f3-b0e2-874aa02597c5@suse.com>
- <DM4PR12MB8451CFF93199B96578D96F88E13BA@DM4PR12MB8451.namprd12.prod.outlook.com>
- <a877ad1b-1628-465b-9b38-dce347ba8ba1@suse.com>
- <fa8f951f-610c-484f-a9c4-9b76b8f399cc@suse.com>
- <DM4PR12MB8451BD022E0150D6D784CDBFE13BA@DM4PR12MB8451.namprd12.prod.outlook.com>
+References: <ceef1876-8759-465c-9a74-309b6b92f773@suse.com>
+ <10e116c5-5a62-4abc-a52a-e2ca12118cfe@suse.com>
+ <24fd00b5-3053-43ae-8342-887eee94869a@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,94 +124,59 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB8451BD022E0150D6D784CDBFE13BA@DM4PR12MB8451.namprd12.prod.outlook.com>
+In-Reply-To: <24fd00b5-3053-43ae-8342-887eee94869a@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 28.08.2025 08:54, Penny, Zheng wrote:
-> [Public]
-> 
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Thursday, August 28, 2025 2:38 PM
->> To: Penny, Zheng <penny.zheng@amd.com>
->> Cc: Huang, Ray <Ray.Huang@amd.com>; Anthony PERARD
->> <anthony.perard@vates.tech>; Andrew Cooper <andrew.cooper3@citrix.com>;
->> Orzel, Michal <Michal.Orzel@amd.com>; Julien Grall <julien@xen.org>; Roger Pau
->> Monné <roger.pau@citrix.com>; Stefano Stabellini <sstabellini@kernel.org>; xen-
->> devel@lists.xenproject.org
->> Subject: Re: [PATCH v7 13/13] xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC
->> xen_sysctl_pm_op for amd-cppc driver
+On 28.08.2025 03:03, Jason Andryuk wrote:
+> On 2025-04-02 09:58, Jan Beulich wrote:
+>> When determining the symbol for a given address (e.g. for the %pS
+>> logging format specifier), so far the size of a symbol (function) was
+>> assumed to be everything until the next symbol. There may be gaps
+>> though, which would better be recognizable in output (often suggesting
+>> something odd is going on).
 >>
->> On 28.08.2025 08:35, Jan Beulich wrote:
->>> On 28.08.2025 06:06, Penny, Zheng wrote:
->>>>> -----Original Message-----
->>>>> From: Jan Beulich <jbeulich@suse.com>
->>>>> Sent: Tuesday, August 26, 2025 12:03 AM
->>>>>
->>>>> On 22.08.2025 12:52, Penny Zheng wrote:
->>>>>> --- a/xen/include/public/sysctl.h
->>>>>> +++ b/xen/include/public/sysctl.h
->>>>>> @@ -336,8 +336,14 @@ struct xen_ondemand {
->>>>>>      uint32_t up_threshold;
->>>>>>  };
->>>>>>
->>>>>> +#define CPUFREQ_POLICY_UNKNOWN      0
->>>>>> +#define CPUFREQ_POLICY_POWERSAVE    1
->>>>>> +#define CPUFREQ_POLICY_PERFORMANCE  2
->>>>>> +#define CPUFREQ_POLICY_ONDEMAND     3
->>>>>
->>>>> Without XEN_ prefixes they shouldn't appear in a public header. But
->>>>> do we need ...
->>>>>
->>>>>>  struct xen_get_cppc_para {
->>>>>>      /* OUT */
->>>>>> +    uint32_t policy; /* CPUFREQ_POLICY_xxx */
->>>>>
->>>>> ... the new field at all? Can't you synthesize the kind-of-governor
->>>>> into struct xen_get_cpufreq_para's respective field? You invoke both
->>>>> sub-ops from xenpm now anyway ...
->>>>>
->>>>
->>>> Maybe I could borrow governor field to indicate policy info, like the following in
->> print_cpufreq_para(), then we don't need to add the new filed "policy"
->>>> ```
->>>> +    /* Translate governor info to policy info in CPPC active mode */
->>>> +    if ( is_cppc_active )
->>>> +    {
->>>> +        if ( !strncmp(p_cpufreq->u.s.scaling_governor,
->>>> +                      "ondemand", CPUFREQ_NAME_LEN) )
->>>> +            printf("cppc policy           : ondemand\n");
->>>> +        else if ( !strncmp(p_cpufreq->u.s.scaling_governor,
->>>> +                           "performance", CPUFREQ_NAME_LEN) )
->>>> +            printf("cppc policy           : performance\n");
->>>> +
->>>> +        else if ( !strncmp(p_cpufreq->u.s.scaling_governor,
->>>> +                           "powersave", CPUFREQ_NAME_LEN) )
->>>> +            printf("cppc policy           : powersave\n");
->>>> +        else
->>>> +            printf("cppc policy           : unknown\n");
->>>> +    }
->>>> +
->>>> ```
->>>
->>> Something like this is what I was thinking of, yes.
+>> Insert "fake" end symbols in the address table, accompanied by zero-
+>> length type/name entries (to keep lookup reasonably close to how it
+>> was).
 >>
->> Albeit - why the complicated if/else sequence? Why not simply print the field the
->> hypercall returned?
-> 
-> userspace governor doesn't have according policy. I could simplify it to
-> ```
->         if ( !strncmp(p_cpufreq->u.s.scaling_governor,
->              "userspace", CPUFREQ_NAME_LEN) )
->                 printf("policy               : unknown\n");
->         else
->                 printf("policy               : %s\n",
->                           p_cpufreq->u.s.scaling_governor);
-> ```
+>> Note however that this, with present GNU binutils, won't work for
 
-But the hypervisor shouldn't report back "userspace" when the CPPC driver
-is in use. ANd I think the tool is okay to trust the hypervisor.
+Btw, I've updated this to say "with GNU binutils prior to 2.45".
+
+>> --- a/xen/tools/symbols.c
+>> +++ b/xen/tools/symbols.c
+> 
+>> @@ -318,24 +334,42 @@ static void write_src(void)
+>>   	printf("#else\n");
+>>   	output_label("symbols_offsets");
+>>   	printf("#endif\n");
+>> -	for (i = 0; i < table_cnt; i++) {
+>> +	for (i = 0, ends = 0; i < table_cnt; i++) {
+>>   		printf("\tPTR\t%#llx - SYMBOLS_ORIGIN\n", table[i].addr);
+>> +
+>> +		table[i].addr_idx = i + ends;
+>> +
+>> +		if (!want_symbol_end(i)) {
+>> +			/* If there's another symbol at the same address,
+>> +			 * propagate this symbol's size if the next one has
+>> +			 * no size, or if the next one's size is larger. */
+> 
+> Why do we want to shrink the next symbol's size?
+
+First (see related post-commit-message remarks): In principle section symbols
+could come with a size, too. That would break everything as long as we don't
+strip those.
+
+The main reason though is that imo smallest granularity is what we want here,
+together with predictability. One symbol with a huge size could cover
+multiple other symbols with smaller sizes. We could omit that part of the
+change here, but then the processing in the hypervisor would need to change,
+to fish out the "best suitable" symbol when dealing with multiple ones at the
+same address. Other changes may then also be needed to the tool, to have such
+symbols come in a well-defined order (to keep the then-new code in the
+hypervisor as simple as possible). Look for "aliased symbol" in
+common/symbols.c to see how simplistic respective code is right now.
 
 Jan
 
