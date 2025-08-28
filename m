@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40EBBB39992
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 12:23:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1098270.1452375 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB18BB399CD
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 12:28:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1098294.1452385 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urZmS-0006VS-0s; Thu, 28 Aug 2025 10:22:56 +0000
+	id 1urZrI-0007Ml-N0; Thu, 28 Aug 2025 10:27:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1098270.1452375; Thu, 28 Aug 2025 10:22:55 +0000
+Received: by outflank-mailman (output) from mailman id 1098294.1452385; Thu, 28 Aug 2025 10:27:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urZmR-0006Tm-U0; Thu, 28 Aug 2025 10:22:55 +0000
-Received: by outflank-mailman (input) for mailman id 1098270;
- Thu, 28 Aug 2025 10:22:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1urZrI-0007KW-Jx; Thu, 28 Aug 2025 10:27:56 +0000
+Received: by outflank-mailman (input) for mailman id 1098294;
+ Thu, 28 Aug 2025 10:27:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=pYI3=3I=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1urZmR-0006T1-7M
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 10:22:55 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f3f77c8b-83f8-11f0-ae26-e363de0e7a9e;
- Thu, 28 Aug 2025 12:22:51 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-afcb72d5409so124120266b.0
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 03:22:51 -0700 (PDT)
+ id 1urZrG-0007KQ-UX
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 10:27:54 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a8007f21-83f9-11f0-aeb2-fb57b961d000;
+ Thu, 28 Aug 2025 12:27:53 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-6188b5ae1e8so807965a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 03:27:53 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afe48fae316sm1192724966b.28.2025.08.28.03.22.50
+ 4fb4d7f45d1cf-61c78e49ca4sm6885779a12.47.2025.08.28.03.27.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Aug 2025 03:22:50 -0700 (PDT)
+ Thu, 28 Aug 2025 03:27:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f3f77c8b-83f8-11f0-ae26-e363de0e7a9e
+X-Inumbo-ID: a8007f21-83f9-11f0-aeb2-fb57b961d000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756376571; x=1756981371; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756376873; x=1756981673; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Vm6cv1gGUZ3A0uXurCraASbs5FzNHb1Xfq1F0okRa7o=;
-        b=Axr8NplIgku8yrjsmBWtEShZYsfMOChRP+0XoDpq4XBQhPRHQBcVQxUJiC1PprFpb3
-         ctM2ns9jlwa7bdVFtbelFN3g6YnQtLjumnejuBcM3U1J29hcuyRU1G23SxkmLhMPuhTF
-         CM2t1DgyLTbWON514AVqOQxuqHy9HPJmgbaDBxDwmzwi/XEldQjQPpBAGdsZBvZkM6ew
-         vGFDZRklGhKqjr1Zq+ZcPgENmGftcDZn3D1dst4kkMwWCmkatr6c5ALaAjyLcWjx+GZx
-         SQxz2Bmn5pFMQOnZs2PqaAGKEfOAsbSpqYCiDxaLwoDdP4Pmi9nOApQRQfMccpY1KDvD
-         bsaA==
+        bh=HL94KxyFJYc9B8+8KlZ8ezNhRhzjF24IdvuCgVkbmxc=;
+        b=bH4ywbhh7GJ744sCxXLHermmI6OHJ1o3RKnAQy8ahCooZ05fj43pAfr7XLLq2U2BZp
+         fbN0EbHLG1Fze00Sx32jC3VH9HsePh66Q4qA6+P6hju35USJHC23y/ugkULJtMCGsWft
+         zblPBNkl5PprEvCLjrVOPtspkW98QyogPygt3DkQjvvhNSnTee+RlzUKZwr0uYxi8FZe
+         Z2dfrSDFQj/pYsuVV/OcgThy39J8cs1s0PNFGBw2sLcgSFlphFyKkPSvyRbT7bIS1rW9
+         bieboWiwxGg/fDIQ9pTZnj4IRo0xd2KHVCY85xReNDDLAkK/wlW1xnQesjh78nh0WqPG
+         7lrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756376571; x=1756981371;
+        d=1e100.net; s=20230601; t=1756376873; x=1756981673;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Vm6cv1gGUZ3A0uXurCraASbs5FzNHb1Xfq1F0okRa7o=;
-        b=uUjyq8jgJXxTO66A/hI7pQl6AXQ0SUL9gpTVxWiDdK+f0nNHsZp1ltxqzPFa+KX8l2
-         kwV8UEqMzYeGfuBCof5nRhXKVyqaKYAn+JXXPtcJJB5L+YAqJzzcAsSk6LyLGjD/n7h0
-         POdStHiuZdYCmfgmSfmxYYw3hc0E5wVMQOTLkp1CSyci/zlgEvMZF5qsdWWw+Zj1LheU
-         VfXMH0bRY9wtyTnAXericTFWW2O0EivBOoB13CEgAc2SreSK+ISzKAMzb7ys09CQCLw5
-         uj4KoFw4kS80vtKqdzcW4vbeC76XJIgu4xpFVLPXHT8Ik3z/AGVpGZYgtDXJ+Pw3Wo6e
-         2pRA==
-X-Forwarded-Encrypted: i=1; AJvYcCU66rOZn14rms5JuCKOO0UVC62LQZPvY0votal/1uPrwl3Hi5QBx04eyD/pj6VJedGOE5PVRXarqiI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyg+8T3BBwJeRlYkJi8Md7D05t3pkU92wnG1wNptUxgTgmVPVVe
-	eHwF2JLh3NSgnCK9zXjDG5swpR/ibZHJCPVL3WCsG0ijg5hLwuWdFXUZGcMt/ce93IFw0NxCmsF
-	DPow=
-X-Gm-Gg: ASbGncvhrhUvoHn87+EXqNFsLDmrh5qHqPJayvtci9mvdZiaJQlEsh/1CU8dHLUefTE
-	SfSML/i7+l+/1aLRimMoZXd/mb2tYA96DiCglTUy31B/JJcCC5CgoZoxHbRAHxEcZc/RvxzAg3T
-	IxDyFbkjBdXzKZwl+pavcwS+wuCAKeT4cEZ4G66hvJ8o3Z0Xf2adUIDX3VQlCXwb7Wrrv4nLlV7
-	cRvLLqQyrGbXY+KaOJHdotXslsgXCKtoWwVUTA72zCIGCRYlhJOD8mKrUAwl+8eeSpAwV+Nu9RD
-	M+kDk5TqJQ0+UV5ni6JqzdTzgol3R7lp7SaD1mlhphmxLw0cLL/Lvg7tNlNE/tv/KP7iBphr79H
-	SSiu+1+fTBQfLwaajNuUVt64boRjhuInxauEw5zRKX6Gl+49jc3FmXa4wiNFe3M5XimUUysdj3d
-	drRMduqcrH2JSPKolByg==
-X-Google-Smtp-Source: AGHT+IERrzQBpK8ysC/61spHwnCrLQtiiKyb97SpY5lU20V1pMXnWDfFEGOhSbuZixPomBJfXyCzyQ==
-X-Received: by 2002:a17:906:4ec3:b0:afe:74a3:f76d with SMTP id a640c23a62f3a-afe74a3fda1mr1194550166b.16.1756376571186;
-        Thu, 28 Aug 2025 03:22:51 -0700 (PDT)
-Message-ID: <e24606c1-3f54-44aa-a78c-6cb36be3d5f3@suse.com>
-Date: Thu, 28 Aug 2025 12:22:49 +0200
+        bh=HL94KxyFJYc9B8+8KlZ8ezNhRhzjF24IdvuCgVkbmxc=;
+        b=rsp+X1EZnLJrdARPi/6SsdwAlGqgHxBAxxTMVHX7UNb4F4DPsEVruULr2wZKAvIaRc
+         3t0hnh2MHrmdVdb2Y9hXfwmYIlrkIiiuHUY1Ur3xdDLK/iM+JFwtSOHjB11wAxoBLYe2
+         tvJBN6V6qguqeZb4vyswfhGutXGGQU01qRfB67NWBOqjTnk7UD0LoghT1thua4z46X+H
+         0YboW/Emd6C45qADBwYq+sT2EAjVwZYNE6g6RcGKbcKfYKH6veT7DeneiN4nLN9U9uEK
+         l9wE1m/O6moNFCD93ARrLdjPTGodaGMXSaLdc2qDoPcmmaFzOnjMVeSw0pLtO+ugMsiN
+         FJmQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVpEqC9yBbF4Tatmx+QDagb9PfgCAuQybRsqUXuYnfMJyYejrexI7y/INhwHkq80+BdsxEXKyczVmY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx2E8FJ3X7IvrgcMpBkkrvgr5qmqwbKZbs1XRMVIFX4PUdST0Rd
+	Ok3jEqw/cgEASTCF+MCAcawh1Q9QwPEG6s8PDygEMuWL2w/urgmDQtq1A+DzFx40pw==
+X-Gm-Gg: ASbGnct3re1CVvcIiWUN8xS1gmLwqHe56tOsgqih79GdKPHqQWcXlmmSErRkyi3IBuW
+	dwygIyG7jcA8eLm75MbdX61pjeON62TE97Xp7axLWLVhaUIglkcB9ZAAXYi4CWYb+ZfG5JSZpoI
+	AjxIc+ox8PyEleWtB6feqAgVqC+ZslMhqizrh6PxSyCMIGZr3q7mpppfQt/YnXbRjIr3NtKbHPc
+	Bdh3KaKt3F1awLeqCdkNzXTbG5r7FTxzFEiLGYCFf14DZfcXBEYXjL4BdrcU0ly5BC6Venvdxjh
+	8E7CyOJyDu1O+YWZYrYANeD5qzFwSQv/opei6Gmm1B6cxK1AURndAdhRM5HQmuXUT7inS3lEK1f
+	zFDCR/MpeAt1aZDxGz7RfBeoIzZsHLYG1CSsFqbfTbHZaF9158dIK6H3m3jU6uM8NwKmRfVvYPz
+	Vdi4nxX4Qyo/Rs7kxGew==
+X-Google-Smtp-Source: AGHT+IEM+N69YXN6xi84/RX4fUvBXZWNWGqUSFrfyzc1O3L2LlUM3na38seFYCGQ7+8XdsWVrrKi8g==
+X-Received: by 2002:a05:6402:34d6:b0:61c:6ca1:1a8c with SMTP id 4fb4d7f45d1cf-61c6ca1237fmr11306935a12.20.1756376873162;
+        Thu, 28 Aug 2025 03:27:53 -0700 (PDT)
+Message-ID: <255a5906-ffa8-4fb6-89b5-23605a17b38c@suse.com>
+Date: Thu, 28 Aug 2025 12:27:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hvmloader: Update to SMBIOS 2.6
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Teddy Astie <teddy.astie@vates.tech>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <b569a298a6270ae04eaf433f7de9ce1f3e248e5f.1755870287.git.teddy.astie@vates.tech>
- <6e9b7b96-a506-40ed-95b6-6ad00ba9a27a@citrix.com>
- <1901e764-9725-4e9e-895a-54c704473510@suse.com>
- <50c15166-b3b5-4e17-8bcc-cb37ad03f0ad@citrix.com>
+Subject: Re: [PATCH v8 0/8] amd-cppc CPU Performance Scaling Driver
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
+ <jgross@suse.com>, xen-devel@lists.xenproject.org
+References: <20250828100306.1776031-1-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,49 +122,70 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <50c15166-b3b5-4e17-8bcc-cb37ad03f0ad@citrix.com>
+In-Reply-To: <20250828100306.1776031-1-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.08.2025 12:01, Andrew Cooper wrote:
-> On 28/08/2025 8:07 am, Jan Beulich wrote:
->> On 27.08.2025 19:47, Andrew Cooper wrote:
->>> On 22/08/2025 2:47 pm, Teddy Astie wrote:
->>>> Currently, hvmloader uses SMBIOS 2.4, however, when using OVMF, the
->>>> SMBIOS is patched to 2.8, which has clarified the UUID format (as GUID).
->>>>
->>>> In Linux, if the SMBIOS version is >= 2.6, the GUID format is used, else
->>>> (undefined as per SMBIOS spec), big endian is used (used by Xen). Therefore,
->>>> you have a endian mismatch causing the UUIDs to mismatch in the guest.
->>>>
->>>> $ cat /sys/hypervisor/uuid
->>>> e865e63f-3d30-4f0b-83e0-8fdfc1e30eb7
->>>> $ cat /sys/devices/virtual/dmi/id/product_uuid
->>>> 3fe665e8-303d-0b4f-83e0-8fdfc1e30eb7
->>>> $ cat /sys/devices/virtual/dmi/id/product_serial
->>>> e865e63f-3d30-4f0b-83e0-8fdfc1e30eb7
->>>>
->>>> This patch updates the SMBIOS version from 2.4 to 2.6 and fixup the UUID
->>>> written in the table; which effectively fix this endianness mismatch with
->>>> OVMF; while the UUID displayed by Linux is still the same for SeaBIOS.
->>>>
->>>> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
->>>> ---
->>>> This effectively changes the UUID seen with UEFI guests as it was
->>>> actually inconsistent with SeaBIOS and SMBIOS expectations.
->>>> ---
->>> I agree this is a real bug and needs fixing.
->> Hmm, I didn't realize this is a bug, and hence put the patch off as 4.22
->> material. If there is a bug being fixed: Teddy, please add a Fixes: tag.
+On 28.08.2025 12:02, Penny Zheng wrote:
+> amd-cppc is the AMD CPU performance scaling driver that introduces a
+> new CPU frequency control mechanism on modern AMD APU and CPU series in
+> Xen. The new mechanism is based on Collaborative Processor Performance
+> Control (CPPC) which provides finer grain frequency management than
+> legacy ACPI hardware P-States. Current AMD CPU/APU platforms are using
+> the ACPI P-states driver to manage CPU frequency and clocks with
+> switching only in 3 P-states. CPPC replaces the ACPI P-states controls
+> and allows a flexible, low-latency interface for Xen to directly
+> communicate the performance hints to hardware.
 > 
-> I'm not sure if this has a reasonable Fixes tag.
+> amd_cppc driver has 2 operation modes: autonomous (active) mode,
+> and non-autonomous (passive) mode. We register different CPUFreq driver
+> for different modes, "amd-cppc" for passive mode and "amd-cppc-epp"
+> for active mode.
 > 
-> It's a combination of an ill-specified domain handle format, and using
-> an ill-specified version of the SMBios spec.
+> The passive mode leverages common governors such as *ondemand*,
+> *performance*, etc, to manage the performance tuning. While the active mode
+> uses epp to provides a hint to the hardware if software wants to bias
+> toward performance (0x0) or energy efficiency (0xff). CPPC power algorithm
+> in hardware will automatically calculate the runtime workload and adjust the
+> realtime cpu cores frequency according to the power supply and thermal, core
+> voltage and some other hardware conditions.
+> 
+> amd-cppc is enabled on passive mode with a top-level `cpufreq=amd-cppc` option,
+> while users add extra `active` flag to select active mode.
+> 
+> With `cpufreq=amd-cppc,active`, we did a 60s sampling test to see the CPU
+> frequency change, through tweaking the energy_perf preference from
+> `xenpm set-cpufreq-cppc powersave` to `xenpm set-cpufreq-cppc performance`.
+> The outputs are as follows:
+> ```
+> Setting CPU in powersave mode
+> Sampling and Outputs:
+>   Avg freq      580000 KHz
+>   Avg freq      580000 KHz
+>   Avg freq      580000 KHz
+> Setting CPU in performance mode
+> Sampling and Outputs:
+>   Avg freq      4640000 KHz
+>   Avg freq      4220000 KHz
+>   Avg freq      4640000 KHz
+> ```
+> 
+> Penny Zheng (8):
+>   xen/cpufreq: introduce new sub-hypercall to propagate CPPC data
+>   xen/cpufreq: introduce "cpufreq=amd-cppc" xen cmdline and amd-cppc
+>     driver
+>   xen/cpufreq: implement amd-cppc driver for CPPC in passive mode
+>   xen/cpufreq: implement amd-cppc-epp driver for CPPC in active mode
+>   xen/cpufreq: get performance policy from governor set via xenpm
+>   tools/cpufreq: extract CPPC para from cpufreq para
+>   xen/cpufreq: bypass governor-related para for amd-cppc-epp
+>   xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC xen_sysctl_pm_op for amd-cppc
+>     driver
 
-But the problem was still introduced into the code base at some point. Afaict
-in c683914ef913 ("Add code to generate SMBIOS tables to hvmloader"), i.e. when
-smbios.c was first added.
+I'm somewhat confused by the submission: Both my mailbox and
+https://lists.xen.org/archives/html/xen-devel/2025-08/threads.html agree that
+cover letter and patch 1 were submitted twice, while patches 4 through 8 came
+through un-threaded. I can only assume that the duplicates are identical.
 
 Jan
 
