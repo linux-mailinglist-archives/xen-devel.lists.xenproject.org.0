@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D688AB3ACCC
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 23:37:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1100041.1453641 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23ADBB3ACD0
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 23:38:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1100052.1453652 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urkIw-0001af-Oh; Thu, 28 Aug 2025 21:37:10 +0000
+	id 1urkKC-00025z-1z; Thu, 28 Aug 2025 21:38:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1100041.1453641; Thu, 28 Aug 2025 21:37:10 +0000
+Received: by outflank-mailman (output) from mailman id 1100052.1453652; Thu, 28 Aug 2025 21:38:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urkIw-0001Yd-MA; Thu, 28 Aug 2025 21:37:10 +0000
-Received: by outflank-mailman (input) for mailman id 1100041;
- Thu, 28 Aug 2025 21:37:09 +0000
+	id 1urkKB-00024D-VK; Thu, 28 Aug 2025 21:38:27 +0000
+Received: by outflank-mailman (input) for mailman id 1100052;
+ Thu, 28 Aug 2025 21:38:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Mimg=3I=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1urkIv-0001YX-GJ
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 21:37:09 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
+ <SRS0=YsNu=3I=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1urkKA-00023m-G7
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 21:38:26 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 25fa1c34-8457-11f0-8adc-4578a1afcccb;
- Thu, 28 Aug 2025 23:37:08 +0200 (CEST)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-55f42dcbf4aso1450645e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 14:37:08 -0700 (PDT)
+ id 53701622-8457-11f0-8adc-4578a1afcccb;
+ Thu, 28 Aug 2025 23:38:25 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1A51460139;
+ Thu, 28 Aug 2025 21:38:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A85BC4CEEB;
+ Thu, 28 Aug 2025 21:38:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,180 +41,283 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 25fa1c34-8457-11f0-8adc-4578a1afcccb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756417028; x=1757021828; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YPPzdITbHwXFm+n1YY5New0n5HM3nsOlC7W51sLt3q4=;
-        b=mBJXDLTlduWSIM9nroadRoFnuQDQ0+X5Bf8hSZ238Q2CYhEsa7pDcnTW4xIW+ctSZc
-         Fi9JE8jlPRG2MTD5Wfpmq8sRV91hq/HstP7mKOteRTMlnxfXmsQm8vevqi8wMxdGDGyf
-         Gh+Qimk/otjV8gVTZagdTx89sR751a8NvyKMXcstgl6xnMAYUDVaSwBc4U8nQJNQRmgS
-         t33hIyr6dwDCHAk38PGSBVXMRaGmsGXnNTT5Y0lJ6NaOrssqYt3XhS8ELjOsQEVlpYNp
-         RkMCqQp14Oe3ZFCC5GpRqHw9YjDwRYEt4IzB1/uxPicD7OgJQQN5R7XbgydTjMwHZzQW
-         dr3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756417028; x=1757021828;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=YPPzdITbHwXFm+n1YY5New0n5HM3nsOlC7W51sLt3q4=;
-        b=IMQEFMy2z0YqEwbRS0fa07QchKkEYkltn96KuMqoLWshdZFg0NtdS/Fgnv1qesvLFt
-         uOO3z68POxRcf+fTkmU6d66gn4+K3oNBMH95ByoXulFAhl/S7lnbZwX6ORhRlmSpmlF0
-         TvssK7QHR0FEzrj88Khdt0mahKBu69KcZ0z/lOwY1ZA6hz/XopPZl2QAhJT28ysjVnk/
-         HONz9ZoAVx271oobhJzAoufYxv7IErq1iq9PUpnFoZEVyG+5ZFMtE1XdFUWKT/kEgWuc
-         tQ5gV2uknQwJkHWOv9gRYyXrLy7LQGuEFEM/tE3v4YKoV2aWc8GwwsCMFVQ7kQ1bXkk3
-         iqZA==
-X-Gm-Message-State: AOJu0Yy2YvEu5x2nxumV6LhBmVGYny0pdHijQkoSzg8HN3HiD1CYco1y
-	Dq6e/iHP4nVu8M/+qZ1m7mc3qPsS9idCXySHBtK+Q05+gmWaOfJND7pu7hPqZ8F/KOSEnWvq3uW
-	vgn1u2m2pJDAGvsJjbLH7fvSS9V/B5zeKVXWe
-X-Gm-Gg: ASbGncvqyXJh3EJmSN1iGY8WQEILMnrcmCVIhfjnw/b7mLD4OMX1V6KoN/4ltuV042K
-	fcmJF/XIwgodL2BkJTwrb/GVsgk8/IBpsSbRq+1zIwpxff6ZV3/gd6Ts5td2SZYcSiJkMU0GT5c
-	Q1EBzNFbIJSxVknBCSFHmQA/ZM3oaT3otN/1tatWllCLUSbhRb8lGwNtpQOIqkGX2wI+yIaj8+Y
-	7jdce9Ia2MnApeh
-X-Google-Smtp-Source: AGHT+IFSk+3tLJwawpjU9WwEHuda/pfg+ijrtKkaL3/VApjzb0KSFryJY4Dc5LhmgjB+i+VcLPt6B2wkpfCbHbwaP3U=
-X-Received: by 2002:a05:6512:3b85:b0:55f:6881:980f with SMTP id
- 2adb3069b0e04-55f688199e2mr26707e87.11.1756417027580; Thu, 28 Aug 2025
- 14:37:07 -0700 (PDT)
+X-Inumbo-ID: 53701622-8457-11f0-8adc-4578a1afcccb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1756417103;
+	bh=gBJ2MLLjjmA3mYJqv41fPeWVBTVwZKt8grizIURQfx0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=T2x+L4qwBBWleTvo6UWpzTobz+uFJjna2BMEcReLxyNV1rhCdL7wCFGbQ7dRrT2Wb
+	 I3LgSU/i+KMm+DRVsagnmAh2+UmdnYB14zngUNYUrpbHTdXNIWjNdrDA1A8KvvS2do
+	 vGfXvgIHkgRwd2thoym38EyI5/Zonm9cZX2gGNBsxambecP4HdNXHIvWGEpXtCdaHj
+	 r8cd3Ub9dkEKxK1pPEPktdTf44Oy43CPzURJEH3PqZuXAR5JssiF8ioNBp9TrJ603h
+	 DUjELnTnAqkn4mTqJOEp5OtHtDju91D8H+bft4JrNsMLA2hrQUNNkO+wx76ww9U+RK
+	 vmLTKQiDfOsPA==
+Date: Thu, 28 Aug 2025 14:38:20 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>, 
+    Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Grygorii Strashko <grygorii_strashko@epam.com>
+Subject: Re: [PATCH v6 4/4] docs: arm: add docs for SCMI over SMC calls
+ forwarding driver
+In-Reply-To: <17e009a131e54ad68f0a182b1766d333cf1c63f8.1756399156.git.oleksii_moisieiev@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2508281436010.8757@ubuntu-linux-20-04-desktop>
+References: <cover.1756399156.git.oleksii_moisieiev@epam.com> <17e009a131e54ad68f0a182b1766d333cf1c63f8.1756399156.git.oleksii_moisieiev@epam.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-References: <e57133182b9bcecb519911c8b3f0d871955d6fef.1754540991.git.mykola_kvach@epam.com>
- <60c0b456-bfda-430d-a1e9-f64c9a49ac54@gmail.com>
-In-Reply-To: <60c0b456-bfda-430d-a1e9-f64c9a49ac54@gmail.com>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Fri, 29 Aug 2025 00:36:55 +0300
-X-Gm-Features: Ac12FXwMbO6W9yKPuh23ZJyWMSBbSzkO1Q88BDPdPPU64O7HKIA8_WdNL8dPVyM
-Message-ID: <CAGeoDV9ov_SfbOFVGZ25a=-g9tjus6Wg2-8cXQaJDWk3_QOg1Q@mail.gmail.com>
-Subject: Re: [PATCH v5] xen/char: implement suspend/resume calls for SCIF driver
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-	Michal Orzel <michal.orzel@amd.com>, 
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, Mykola Kvach <mykola_kvach@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 
-Hi Oleksandr,
+On Thu, 28 Aug 2025, Oleksii Moisieiev wrote:
+> From: Grygorii Strashko <grygorii_strashko@epam.com>
+> 
+> Add documentation section for Simple Arm SCMI over SMC calls forwarding
+> driver (EL3).
+> 
+> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
 
-Thank you for your review.
+We typically wrap lines at 80. It can be done on commit.
 
-On Tue, Aug 26, 2025 at 6:51=E2=80=AFPM Oleksandr Tyshchenko
-<olekstysh@gmail.com> wrote:
->
->
->
-> On 07.08.25 08:16, Mykola Kvach wrote:
->
->
-> Hello Mykola,
->
-> In general patch looks good to me, just one question below ...
->
-> > From: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-> >
-> > Implement suspend and resume callbacks for the SCIF UART driver,
-> > enabled when CONFIG_SYSTEM_SUSPEND is set. This allows proper
-> > handling of UART state across system suspend/resume cycles.
-> >
-> > Tested on Renesas R-Car H3 Starter Kit.
-> >
-> > Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-> > Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.co=
-m>
-> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-> > ---
-> > In patch v5, there are no changes at all;
-> > it was done just to trigger a review.
->
-> I think, you could ping on V4.
->
->
-> >
-> > In patch v4, enhance commit message, no functional changes
-> >
-> > In patch v2, I just added a CONFIG_SYSTEM_SUSPEND check around
-> > the suspend/resume functions in the SCIF driver.
-> > ---
-> >   xen/drivers/char/scif-uart.c | 40 ++++++++++++++++++++++++++++++++++-=
--
-> >   1 file changed, 38 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/xen/drivers/char/scif-uart.c b/xen/drivers/char/scif-uart.=
-c
-> > index 757793ca45..888821a3b8 100644
-> > --- a/xen/drivers/char/scif-uart.c
-> > +++ b/xen/drivers/char/scif-uart.c
-> > @@ -139,9 +139,8 @@ static void scif_uart_interrupt(int irq, void *data=
-)
-> >       }
-> >   }
-> >
-> > -static void __init scif_uart_init_preirq(struct serial_port *port)
-> > +static void scif_uart_disable(struct scif_uart *uart)
-> >   {
-> > -    struct scif_uart *uart =3D port->uart;
-> >       const struct port_params *params =3D uart->params;
-> >
-> >       /*
-> > @@ -155,6 +154,14 @@ static void __init scif_uart_init_preirq(struct se=
-rial_port *port)
-> >
-> >       /* Reset TX/RX FIFOs */
-> >       scif_writew(uart, SCIF_SCFCR, SCFCR_RFRST | SCFCR_TFRST);
-> > +}
-> > +
-> > +static void scif_uart_init_preirq(struct serial_port *port)
-> > +{
-> > +    struct scif_uart *uart =3D port->uart;
-> > +    const struct port_params *params =3D uart->params;
-> > +
-> > +    scif_uart_disable(uart);
-> >
-> >       /* Clear all errors and flags */
-> >       scif_readw(uart, params->status_reg);
-> > @@ -271,6 +278,31 @@ static void scif_uart_stop_tx(struct serial_port *=
-port)
-> >       scif_writew(uart, SCIF_SCSCR, scif_readw(uart, SCIF_SCSCR) & ~SCS=
-CR_TIE);
-> >   }
-> >
-> > +#ifdef CONFIG_SYSTEM_SUSPEND
-> > +
-> > +static void scif_uart_suspend(struct serial_port *port)
-> > +{
-> > +    struct scif_uart *uart =3D port->uart;
-> > +
-> > +    scif_uart_stop_tx(port);
->
->   ... I wonder, whether the call above (that disables Transmit
-> interrupt) is really needed as the call below disables all interrupts
-> anyway?
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-I have checked the relevant documentation and did not find any requirement
-to clear TIE before disabling the rest of the SCSCR bits, according to the
-R-Car Series, 3rd Generation User=E2=80=99s Manual: Hardware, Rev. 0.52.
 
-However, based on how the serial subsystem works, I believe this call is
-justified.
-
-Disabling TX IRQs before fully stopping the serial prevents new data
-from being added to the FIFO by the IRQ handler during suspend (see
-serial_tx_interrupt). This ensures the FIFO is flushed (loop inside
-scif_uart_disable) and no further transmissions occur.
-
-If a flush handler were implemented for this driver, we could avoid
-calling scif_uart_stop_tx and remove the loop inside scif_uart_disable,
-as the flush handler would ensure the FIFO is empty after any invocation
-of serial_tx_interrupt.
-
->
->
-> > +    scif_uart_disable(uart);
-> > +}
->
-> [snip]
-
-Best regards,
-Mykola
+> ---
+> 
+> Changes in v6:
+> - add link to the scmi bindings used in the doc
+> - remove mentions about HVC calls from doc
+> - rename cmdline parameter to scmi-smc-passthrough
+> 
+> Changes in v5:
+> - rename dom0_scmi_smc_passthrough in documentation
+> 
+>  .../arm/firmware/arm-scmi.rst                 | 180 ++++++++++++++++++
+>  docs/hypervisor-guide/arm/index.rst           |   9 +
+>  docs/hypervisor-guide/index.rst               |   1 +
+>  3 files changed, 190 insertions(+)
+>  create mode 100644 docs/hypervisor-guide/arm/firmware/arm-scmi.rst
+>  create mode 100644 docs/hypervisor-guide/arm/index.rst
+> 
+> diff --git a/docs/hypervisor-guide/arm/firmware/arm-scmi.rst b/docs/hypervisor-guide/arm/firmware/arm-scmi.rst
+> new file mode 100644
+> index 0000000000..4394c95431
+> --- /dev/null
+> +++ b/docs/hypervisor-guide/arm/firmware/arm-scmi.rst
+> @@ -0,0 +1,180 @@
+> +.. SPDX-License-Identifier: CC-BY-4.0
+> +
+> +ARM System Control and Management Interface (SCMI)
+> +==================================================
+> +
+> +The System Control and Management Interface (SCMI) [1], which is a set of operating
+> +system-independent software interfaces that are used in system management. SCMI currently
+> +provides interfaces for:
+> +
+> +- Discovery and self-description of the interfaces it supports
+> +- Power domain management
+> +- Clock management
+> +- Reset domain management
+> +- Voltage domain management
+> +- Sensor management
+> +- Performance management
+> +- Power capping and monitoring
+> +- Pin control protocol.
+> +
+> +The SCMI compliant firmware could run:
+> +
+> +- as part of EL3 secure world software (like Trusted Firmware-A) with
+> +  ARM SMC shared-memory transport;
+> +- on dedicated System Control Processor (SCP) with HW mailbox shared-memory transport
+> +
+> +The major purpose of enabling SCMI support in Xen is to enable guest domains access to the SCMI
+> +interfaces for performing management actions on passed-through devices (such as clocks/resets etc)
+> +without accessing directly to the System control HW (like clock controllers) which in most cases
+> +can't shared/split between domains. Or, at minimum, allow SCMI access for dom0/hwdom (or guest
+> +domain serving as Driver domain).
+> +
+> +The below sections describe SCMI support options available for Xen.
+> +
+> +| [1] `Arm SCMI <https://developer.arm.com/documentation/den0056/latest/>`_
+> +| [2] `System Control and Management Interface (SCMI) bindings <https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/firmware/arm,scmi.yaml>`_
+> +
+> +Simple SCMI over SMC calls forwarding driver (EL3)
+> +------------------------------------------------------
+> +
+> +The EL3 SCMI firmware (TF-A) with a single SCMI OSPM agent support is pretty generic case for
+> +the default vendors SDK and new platforms with SCMI support. Such EL3 SCMI firmware supports only
+> +single SCMI OSPM transport (agent) with Shared memory based transport and SMC calls as doorbell.
+> +
+> +The SCMI over SMC calls forwarding driver solves major problem for this case by allowing
+> +SMC calls to be forwarded form guest to the EL3 SCMI firmware.
+> +
+> +By default, the SCMI over SMC calls forwarding is enabled for Dom0/hwdom.
+> +
+> +::
+> +
+> +    +--------------------------+
+> +    |                          |
+> +    | EL3 SCMI FW (TF-A)       |
+> +    ++-------+--^--------------+
+> +     |shmem  |  | smc-id
+> +     +----^--+  |
+> +          |     |
+> +     +----|-+---+---+----------+
+> +     |    | |  FWD  |      Xen |
+> +     |    | +---^---+          |
+> +     +----|-----|--------------+
+> +          |     | smc-id
+> +     +----v-----+--+ +---------+
+> +     |             | |         |
+> +     | Dom0/hwdom  | | DomU    |
+> +     |             | |         |
+> +     |             | |         |
+> +     +-------------+ +---------+
+> +
+> +
+> +The SCMI messages are passed directly through SCMI shared-memory (zero-copy) and driver only
+> +forwards SMC calls.
+> +
+> +Compiling
+> +^^^^^^^^^
+> +
+> +To build with the SCMI over SMC calls forwarding enabled support, enable Kconfig option
+> +
+> +::
+> +
+> +    CONFIG_SCMI_SMC
+> +
+> +The ``CONFIG_SCMI_SMC`` is enabled by default.
+> +
+> +Pass-through SCMI SMC to domain which serves as Driver domain
+> +^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> +
+> +This section describes how to configure the SCMI over SMC calls forwarding driver to handle use
+> +case "thin Dom0 with guest domain, which serves as Driver domain". In this case HW need to be
+> +enabled in Driver domain and dom0 is performing only control functions (without accessing FW) and so,
+> +the SCMI need to be enabled in Driver domain.
+> +
+> +::
+> +
+> +     +--------------------------+
+> +     |EL3 SCMI FW (TF-A)        |
+> +     |                          |
+> +     +-------------^--+-------+-+
+> +             smc-id|  |shmem0 |
+> +                   |  +----^--+
+> +    +-------------++------+|----+
+> +    |Xen          |  FWD  ||    |
+> +    |             +--^----+|    |
+> +    +----------------|-----|----+
+> +              smc-id |     |
+> +    +-----------+ +--+-----v-----+
+> +    |           | |              |
+> +    | Dom0      | |    Driver    |
+> +    | Control   | |    domain    |
+> +    |           | |              |
+> +    +-----------+ +--------------+
+> +
+> +The SCMI can be enabled for one and only one guest domain.
+> +
+> +First. configure Dom0 to enable SCMI pass-through using Xen Command Line
+> +**"scmi-smc-passthrough"** option. This will disable SCMI for Dom0/hwdom and SCMI nodes will
+> +be removed from Dom0/hwdom device tree.
+> +
+> +**Configure SCMI pass-through for guest domain with toolstack**
+> +
+> +* In domain's xl.cfg file add **"arm_sci"** option as below
+> +
+> +::
+> +
+> +    arm_sci = "type=scmi_smc"
+> +
+> +* In domain's xl.cfg file enable access to the "arm,scmi-shmem"
+> +
+> +::
+> +
+> +    iomem = [
+> +        "47ff0,1@22001",
+> +    ]
+> +
+> +.. note:: It's up to the user to select guest IPA for mapping SCMI shared-memory.
+> +
+> +* Add SCMI nodes to the Driver domain partial device tree as in the below example:
+> +
+> +.. code::
+> +
+> +    passthrough {
+> +       scmi_shm_0: sram@22001000 {
+> +           compatible = "arm,scmi-shmem";
+> +           reg = <0x0 0x22001000 0x0 0x1000>;
+> +       };
+> +
+> +       firmware {
+> +            compatible = "simple-bus";
+> +                scmi: scmi {
+> +                    compatible = "arm,scmi-smc";
+> +                    shmem = <&scmi_shm_0>;
+> +                    ...
+> +                }
+> +        }
+> +    }
+> +
+> +Please refer to [2] for details of SCMI DT bindings.
+> +
+> +In general, the configuration is similar to any other HW pass-through, except explicitly
+> +enabling SCMI with "arm_sci" xl.cfg option.
+> +
+> +**Configure SCMI pass-through for predefined domain (dom0less)**
+> +
+> +* add "xen,sci_type" property for required DomU ("xen,domain") node
+> +
+> +::
+> +
+> +       xen,sci_type="scmi_smc"
+> +
+> +* add scmi nodes to the Driver domain partial device tree the same way as above and enable access
+> +  to the "arm,scmi-shmem" according to  dom0less documentation. For example:
+> +
+> +.. code::
+> +
+> +      scmi_shm_0: sram@22001000 {
+> +            compatible = "arm,scmi-shmem";
+> +            reg = <0x00 0x22001000 0x00 0x1000>;
+> +    ->        xen,reg = <0x0 0x47ff0000 0x0 0x1000 0x0 0x22001000>;
+> +    ->        xen,force-assign-without-iommu;
+> +      };
+> diff --git a/docs/hypervisor-guide/arm/index.rst b/docs/hypervisor-guide/arm/index.rst
+> new file mode 100644
+> index 0000000000..7aae4a0a03
+> --- /dev/null
+> +++ b/docs/hypervisor-guide/arm/index.rst
+> @@ -0,0 +1,9 @@
+> +.. SPDX-License-Identifier: CC-BY-4.0
+> +
+> +ARM
+> +===
+> +
+> +.. toctree::
+> +   :maxdepth: 2
+> +
+> +   firmware/arm-scmi
+> diff --git a/docs/hypervisor-guide/index.rst b/docs/hypervisor-guide/index.rst
+> index e4393b0697..520fe01554 100644
+> --- a/docs/hypervisor-guide/index.rst
+> +++ b/docs/hypervisor-guide/index.rst
+> @@ -9,3 +9,4 @@ Hypervisor documentation
+>     code-coverage
+>  
+>     x86/index
+> +   arm/index
+> \ No newline at end of file
+> -- 
+> 2.34.1
+> 
 
