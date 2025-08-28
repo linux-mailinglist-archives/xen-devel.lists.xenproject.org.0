@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 845D6B39D5A
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 14:33:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1098693.1452685 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FE11B39D69
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 14:36:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1098703.1452695 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urboL-00089z-5g; Thu, 28 Aug 2025 12:33:01 +0000
+	id 1urbrO-0000EE-Ji; Thu, 28 Aug 2025 12:36:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1098693.1452685; Thu, 28 Aug 2025 12:33:01 +0000
+Received: by outflank-mailman (output) from mailman id 1098703.1452695; Thu, 28 Aug 2025 12:36:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urboL-00086p-2M; Thu, 28 Aug 2025 12:33:01 +0000
-Received: by outflank-mailman (input) for mailman id 1098693;
- Thu, 28 Aug 2025 12:33:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1urbrO-0000DU-FV; Thu, 28 Aug 2025 12:36:10 +0000
+Received: by outflank-mailman (input) for mailman id 1098703;
+ Thu, 28 Aug 2025 12:36:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=pYI3=3I=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1urboK-00086j-4h
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 12:33:00 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 210f8c1c-840b-11f0-9491-8750323bac66;
- Thu, 28 Aug 2025 14:32:59 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-61c325a4d18so1472476a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 05:32:58 -0700 (PDT)
+ id 1urbrN-0000Cd-BM
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 12:36:09 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9129f939-840b-11f0-8dd7-1b34d833f44b;
+ Thu, 28 Aug 2025 14:36:06 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-61cbc8259fbso1334602a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 05:36:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61cb77ec864sm3170381a12.37.2025.08.28.05.32.57
+ 4fb4d7f45d1cf-61cb77ec864sm3175065a12.37.2025.08.28.05.36.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Aug 2025 05:32:57 -0700 (PDT)
+ Thu, 28 Aug 2025 05:36:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 210f8c1c-840b-11f0-9491-8750323bac66
+X-Inumbo-ID: 9129f939-840b-11f0-8dd7-1b34d833f44b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756384378; x=1756989178; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756384566; x=1756989366; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vqpQLK0KXFsen3u58tnxuWjnhzKAl1RM+ZSnXpY3+7o=;
-        b=MjBBSqT9xOeAjMBtqxcBrtwCT+9wiwkKdg2SiPb9XXJa2jQNsNzWO1RXWfFnVWlGaj
-         hjzwCvK/cOYkyhkIU+KNGjVv35WT5nUQ72LVKlbSNciTezZoasgwDzZo8doq1zc1dlGp
-         T5N5FzndqZpx/nmo9XCWhnkQmIGgfpoh7pNuuzB0E5Vsy2ad3oSzJ2ULsKwnl25CDF8U
-         8NkvCAl5Rhq8RRgZs2L2EbRnggP0RkLN7At8+OqiY8p8lfjz4zOKrTpf5qa1NTk2+kxb
-         Xblh4jhP1tlgcMr4odvWBPZSzKyJFRiVnzLdSd5WdoeB/JYGELtqAkQE6rAz0NOt5E4O
-         QFgA==
+        bh=tLCP8SA5dpRIIPjCzuLJhZmjGW4fmF8XmRZ+tuHCizs=;
+        b=BklZ9t8fCEBWqo2AFDbvc3bFOFo/MbcpsaGeg5Goo+PkreDcpReXic5ChNZdIV5XpD
+         2hVAvWOVamp/FCyitioh4UhQUGlfv6NfgvbCD0ivJE7vFli65yHNG5KNyTPHWIU0Vcb7
+         Naq17xyHnQzIBOZnMbRfcERDGiFf84pnMy2WSQD/rADiIkECg5GaixNz17w8+xUc2VL7
+         zBpWVSBTuG1wbDEAdqf9kXoJZrfjQ+xWiGO2J4yz6yUodv+luR9klskhtJVtBZIaFcKK
+         12jH8XdkpfoqwzurgfX7IMT4NEZNBW+tbit2jHY5bfB33d3wK+kAD9DbQyWRvRrOPDZY
+         TTug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756384378; x=1756989178;
+        d=1e100.net; s=20230601; t=1756384566; x=1756989366;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vqpQLK0KXFsen3u58tnxuWjnhzKAl1RM+ZSnXpY3+7o=;
-        b=plo9Rw3OB86KW3Fklyhtq353HfMCAvpSAXs41GVrxsLT4C7DF5refSZlyOhTVulm0j
-         0BI6iQcnzDbFjqqouG4rbeUGCCU8BBH1BWDEB4bqInr0WPZlVmvvIYssr8HmaTN4JJ+8
-         0p8qWatmGYlUC2tHarTMfGSoy1AVOkOhwCkcsTxT3ypgxBUIZY+3o75lWVF6k17orfAi
-         35pNAF1YgqamKBOVNrUdWSN+1PuzybDamdTGLt+bhpijxWojFaf2plWtW1UnbOxm1x4a
-         nL/pvHJ37LT/2NaE9AOyekSzUysO+5NGQiVtwd3+10wySjGgE/ecnf6e/PmKspJ7FwfZ
-         dWYw==
-X-Forwarded-Encrypted: i=1; AJvYcCX5XcaKFnsDto9xJ1V+wBZ/aBubdPvb8ttnZfaDTmeIbCsz9DpBDLuugMH25Q3/AsOARA3eRwn28i0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzHufLPvvFQhOBhlo4+6t1mzf5Dbo5L9TjaVKbeM/en1qs4QicM
-	F+4Zk7nyQZ+Axybgc8HPIJGt2/j7i7X8qrLGcC6E0Ao4zrjVikfyah5ucCc3mbZR8Q==
-X-Gm-Gg: ASbGncv190lqhivGp/L88Bt3vtvuhCplcCqkapTjiLiTZei9CsyVwc5wXiyB8/5fiwu
-	S3tcSlUihkolxFl4+FMQow9PoyxlwazhYTcKqwcxrsju9LiaAI0jLs/CfG4HMrN66rYt+1XvM5g
-	QKgfEp9QAhN6k/Vl8WSfq58sLcZ4oq32tIACRq3HWGJyFnTlr1HQmXuPmfIy19mk7H3/kIE3BSC
-	QjR14upIp8Z49ayEZCnacrTe6xGpQXp//+sF+sFdyi86X+vHatUWGMA0VLc4Xsd50h1QVe4+9UL
-	sWkVhM9l28/2wVh8jYSt5P0R6Rkird7aqqQaq0/ACuDO2xnPEfhs3rRfnv4k5+rJPv5U3dqqurq
-	yemfyY8yhaK03m4JVH2ENFzEfxAkBdGE1yehUl0wh+vnINpxLjZZXbqEZVPOXqOagjwcs16jwm6
-	o0lq/vWEAnlX5mxlbyGA==
-X-Google-Smtp-Source: AGHT+IF8t+njEW28EbojKSCWJ6XRIIGGTM05NZVz4ZayJs+svhSEYxn88F0A7ySqAEz+P/CT9v3Tow==
-X-Received: by 2002:a05:6402:26d3:b0:61c:7f7e:1e with SMTP id 4fb4d7f45d1cf-61c7f7e2182mr9985022a12.22.1756384377815;
-        Thu, 28 Aug 2025 05:32:57 -0700 (PDT)
-Message-ID: <2fcdb264-15a3-47f7-915d-83d1c1e06765@suse.com>
-Date: Thu, 28 Aug 2025 14:32:56 +0200
+        bh=tLCP8SA5dpRIIPjCzuLJhZmjGW4fmF8XmRZ+tuHCizs=;
+        b=nZZw1Au/VAyMQeRM1Qw/jTJXpCioPoQpLOxrFssWiIeSYHXlQY89oIn6MG9G4GYDbb
+         vSvcwHwN0h4RbCxzgejMZT9FRa2oFbpK9o3OkL8qSwMEbpSNi1WGSdGFFVvu8/iik3Jx
+         yuuzYk+Zny4acpAHZC6dGLwZ+jW1p5kKzzR527Krx6ftAWtAFT4t5h4byq0lQNt5lqtO
+         +jgCHEYCudSkWxRD34lh+hWcv9oTciIzvke0sdm9EeI9fOlsWtOm2J4KmGYUxusEv9RJ
+         iSDfRlbqb52x0v66t1pjDEm7e0t7xwb44+U8VPUZTSZ4UboIpqq/KPHYshUVaHONI25/
+         xcuQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWqu6r2xklQyTeEnFdHa3L/5B+4H4XDOdkxuo7liNpFLWpeDKxeV3hu3A9TFwpukA3DPiRhJPKhz70=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzRXrb9BiS947lReszJYtKzrIEHS7Czt445Hl4YWDGMrlsLvSrx
+	+HzqoqSYJQCQrtv6mvbZ3bomIurXCrgJlvG+Uh6IUKskpHLavmUsyDDXQLAjAuvAVeOVwofgNBu
+	/7zs=
+X-Gm-Gg: ASbGncvnwjDAWlXLEau3rYXXmHcW7wxt6d7or5Vr1Hh76uyBi04mcYCzcjCmq/Oxg1G
+	zQWhjM8cFUmHBauZ3o5wgehu3OAEFkJA3tv8YU8HKmNGSj8Xcu7c3wyaouPLkcbSKi/1Zw2yd35
+	Gfpsw8BXc9N7MxQM5h/++RT5nQ5jHApFC+IQhEla43O2R2wEJM3LzvC7f2VFKYqIv2SqfxVgIo4
+	yZnyhsE4afSWqAbr1DneL5yZdEXS3Y3utYDson/1SGMiz423SEuUVod/YyfBEdegcXzIix9zabk
+	ZkCxxD97DaDiXbqOkeSOmTjIrZettLDkIJWS1cKHvB/1BMt15z982/PeKEb07Prt0W4MfxKUjBA
+	68c0YB7NFZ1DujTXQBgglDwP0z1I5VMaRJf309ZtUKsaje54mg5komVkvt4BOYYpQaYnJLv+Ve7
+	7g4mIwwKo=
+X-Google-Smtp-Source: AGHT+IHtd1867US+I8nqSqJAAMzWsBtOABEERJ6Zl+aJI4yIJ8DJBJdKTq1FwRIdgayv1YJh+vlZNQ==
+X-Received: by 2002:a05:6402:3492:b0:61c:6b3a:ce88 with SMTP id 4fb4d7f45d1cf-61c6b3ad602mr11748404a12.8.1756384565344;
+        Thu, 28 Aug 2025 05:36:05 -0700 (PDT)
+Message-ID: <24124bb1-c03d-469f-b668-3945c35e05c1@suse.com>
+Date: Thu, 28 Aug 2025 14:36:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 5/9] docs/x86: Introduce FastABI
+Subject: Re: [RFC PATCH 6/9] sched: Extract do_poll main logic into vcpu_poll
 To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Cc: Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
+ George Dunlap <gwd@xenproject.org>, xen-devel@lists.xenproject.org
 References: <cover.1755785258.git.teddy.astie@vates.tech>
- <64800d22220f31bf052713ce61ecedeaa8a36b6f.1755785258.git.teddy.astie@vates.tech>
+ <812a818e263cb8287634cea5241fe076beacc39f.1755785258.git.teddy.astie@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,21 +120,44 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <64800d22220f31bf052713ce61ecedeaa8a36b6f.1755785258.git.teddy.astie@vates.tech>
+In-Reply-To: <812a818e263cb8287634cea5241fe076beacc39f.1755785258.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 21.08.2025 17:25, Teddy Astie wrote:
-> FastABI is a alternative ABI designed with performance and coco-enabled
-> guest in mind. It is register-oriented instead of refering to C structures
-> in the guest memory (through a virtual memory pointer).
-> 
-> It only focuses on kernel-side hypercalls, it doesn't aim to provide toolstack
-> operations.
+> do_poll takes sched_poll* as parameter, but that's actually in guest memory
+> (so it's more a guest handle).
 
-And even there it excludes certain pretty relevant ones, like many of the
-gnttabop sub-ops. As alluded to by a reply to an earlier patch, I don't
-think having an ABI for just a subset of the hypercalls is going to help.
+No, it's not, or else ...
+
+> --- a/xen/common/sched/core.c
+> +++ b/xen/common/sched/core.c
+> @@ -1437,21 +1437,13 @@ static void vcpu_block_enable_events(void)
+>      vcpu_block();
+>  }
+>  
+> -static long do_poll(const struct sched_poll *sched_poll)
+> +static long vcpu_poll(unsigned int nr_ports, uint64_t timeout, evtchn_port_t *ports)
+>  {
+>      struct vcpu   *v = current;
+>      struct domain *d = v->domain;
+> -    evtchn_port_t  port = 0;
+>      long           rc;
+>      unsigned int   i;
+>  
+> -    /* Fairly arbitrary limit. */
+> -    if ( sched_poll->nr_ports > 128 )
+
+... this access would be a security issue. The handle is ...
+
+> -        return -EINVAL;
+> -
+> -    if ( !guest_handle_okay(sched_poll->ports, sched_poll->nr_ports) )
+
+... seen here, the ->ports member.
+
+Here as well as for patch 1 and 3 what is entirely lacking from the description
+is the mentioning of why the change is actually going to be useful.
 
 Jan
 
