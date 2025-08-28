@@ -2,35 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89A56B3AE80
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 01:42:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1100129.1453689 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C6A9B3AE89
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 01:46:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1100152.1453720 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urmF9-0001X2-Q2; Thu, 28 Aug 2025 23:41:23 +0000
+	id 1urmJX-0002Gp-Hp; Thu, 28 Aug 2025 23:45:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1100129.1453689; Thu, 28 Aug 2025 23:41:23 +0000
+Received: by outflank-mailman (output) from mailman id 1100152.1453720; Thu, 28 Aug 2025 23:45:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urmF9-0001Uc-NE; Thu, 28 Aug 2025 23:41:23 +0000
-Received: by outflank-mailman (input) for mailman id 1100129;
- Thu, 28 Aug 2025 23:41:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YsNu=3I=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1urmF8-0001UW-AT
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 23:41:22 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org
- [2600:3c04:e001:324:0:1991:8:25])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7f11acfb-8468-11f0-8adc-4578a1afcccb;
- Fri, 29 Aug 2025 01:41:20 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 9D4C26013D;
- Thu, 28 Aug 2025 23:41:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2DDAC4CEEB;
- Thu, 28 Aug 2025 23:41:16 +0000 (UTC)
+	id 1urmJX-0002EC-Eu; Thu, 28 Aug 2025 23:45:55 +0000
+Received: by outflank-mailman (input) for mailman id 1100152;
+ Thu, 28 Aug 2025 23:45:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=AInb=3I=nvidia.com=jgg@srs-se1.protection.inumbo.net>)
+ id 1urmJV-0002E5-Dm
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 23:45:53 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2060b.outbound.protection.outlook.com
+ [2a01:111:f403:200a::60b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 202a935e-8469-11f0-8dd7-1b34d833f44b;
+ Fri, 29 Aug 2025 01:45:51 +0200 (CEST)
+Received: from CH3PR12MB8659.namprd12.prod.outlook.com (2603:10b6:610:17c::13)
+ by SA1PR12MB6776.namprd12.prod.outlook.com (2603:10b6:806:25b::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.13; Thu, 28 Aug
+ 2025 23:45:44 +0000
+Received: from CH3PR12MB8659.namprd12.prod.outlook.com
+ ([fe80::6eb6:7d37:7b4b:1732]) by CH3PR12MB8659.namprd12.prod.outlook.com
+ ([fe80::6eb6:7d37:7b4b:1732%4]) with mapi id 15.20.9073.010; Thu, 28 Aug 2025
+ 23:45:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,157 +47,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f11acfb-8468-11f0-8adc-4578a1afcccb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1756424478;
-	bh=ZzFkoIBsajEKn4LtJf6oMIx720rm9V2CYHjGdsL2htY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=JA9uitAmYJ3fTiCYkRIt9j9bbOH+THqwFEj7W0YK0aUlc9MPEwor7nfQBoi1vuib4
-	 VtQWEASFW7tnQYfhjl1q6nvHB/dmVXcdPKBbXr0KeU3Zia/b3rSTTo1VBv50YeF4kG
-	 hmyfTntN5xY7Hvec03u3ZVxeIlkGNbjd4pj2kmwqfuOvkQ/F9OcNDy5Hkmeb8TTNPI
-	 TQCI1oJOUNzwCGrqgPus1XkyexT1Gj45EDZ03ZvNcL5CFIYqwhzztOiKmKktKoqkry
-	 v0z5Tx0XZbCoxADPgYkido3u72dnDLYOg593DqvLZ5wl8u0oVTBvaLKNjdbuCRZWvP
-	 nZEH24VP68MAw==
-Date: Thu, 28 Aug 2025 16:41:15 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Oleksii Kurochko <oleksii.kurochko@gmail.com>, ray.huang@amd.com, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
-    xen-devel@lists.xenproject.org, Penny Zheng <Penny.Zheng@amd.com>
-Subject: Re: [PATCH] xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE
-In-Reply-To: <5f5ba1dd-1252-4740-8c64-e4fcd8a7ac32@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2508281632020.8757@ubuntu-linux-20-04-desktop>
-References: <20250815102728.1340505-1-Penny.Zheng@amd.com> <fb6f559a-b2aa-4b25-a6d3-401ecc4b4bd5@suse.com> <d6046b53-9317-43d6-bfda-e30d42c09320@gmail.com> <2035b14e-3836-4e80-9dad-8a49ca90864a@suse.com> <alpine.DEB.2.22.394.2508181646220.923618@ubuntu-linux-20-04-desktop>
- <49416df6-83c8-4fa3-bf81-2d1e504ef31b@suse.com> <alpine.DEB.2.22.394.2508251934200.3391208@ubuntu-linux-20-04-desktop> <alpine.DEB.2.22.394.2508261728250.3391208@ubuntu-linux-20-04-desktop> <cc8724b6-bb31-4482-a459-156366b7b433@suse.com>
- <alpine.DEB.2.22.394.2508271442410.580734@ubuntu-linux-20-04-desktop> <5f5ba1dd-1252-4740-8c64-e4fcd8a7ac32@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 202a935e-8469-11f0-8dd7-1b34d833f44b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BC0j4lwL4dAZkVK7ch7LF2nEtfdyfLuAA9ArPob3ntYclDYP9WUWF4lzLgBjVEWhKD5fzKCHCvGY5+ndBoRrUZwm7waYZhpSqAahKYwgQ4pjljsudSoVim6I1hb9ly7jMQqHnr44z2LJClAFi82An2v/KrYyR5ZeA70EU+uCXT/rleKxZWx+PAzM297baujTy8UZVntNmF6p7b2TJOYuME78pNxz1HsfZpzErVOVNYl6GiqZ5yRWCRCzttx+jBI51JngDmXcWelvtfVyFMvxw+62K7k2qBxCZ8Fc4e37K8Q+jGpjWdeifbVUhI00fggE7wEQP4jyhOoXizMoJ8tVEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1JzfVyfbWEkwcvRy5E87In4bJJ84qEkwC/j9O+RskB0=;
+ b=OuXuVM34IS1TM0+6lpGfRyQyiWbMArhtJHiPyAgIiz4AlR2A9iMHh2iJjDR5UK+PYaynzoJXM12KvSYb+IA2KB2fmTlbiAUz1r2mUfUeZHRKqxSwV0LmV2GkOPmgSzQ5MYzn1hZJFRWDqoYgBFtMNGuMPDBJVb8P/9jqwjbguKt+hkYnD+ht+QDLJRox2+wePM3TpqbrBPHyqOTkdOJZycEjFRPmJuUNApFbfzhw1d53g2o7cqRI0vZ+VJTqLbGS1YEEO/x5afwsJ/CT40bHaWRqBIKvugAMF2pDdPIOcs4D6WdXb0OSJy8SlnmEMFsA7TmpWwIyN/tzZN7HLbt84g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1JzfVyfbWEkwcvRy5E87In4bJJ84qEkwC/j9O+RskB0=;
+ b=VxRX8y7v26YTcy0pm0Eq8/JX3RyQj1mvosIjLgJoJ5Hf/erONZbAQ7UuB2aWAyT2Y9SvfMSp6863o2b0yAt8wB7s96NROj09PzDBubXJK6wCzBNuANpfqrfKDpKiEKHzCkFH0xFvnRPG2404BQrGZnqFLwXObqOS4VE5W5GBq72z+BFFaXecgJpi+GM4ZHGo7Z8QckOiiC3F4ZiRqFFGTyxlqPxg+w740BlwXy/nfyhOAsCIH96eFyZ52v7TOe86DZC3T7GEjM2WE5G5cjtR5BftO2oXcDldH+HDfD/hthN/IqlvNd32XXJQPecBtJF+qCipDVffTR+6xDrsOKEwUQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Date: Thu, 28 Aug 2025 20:45:42 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Keith Busch <kbusch@kernel.org>
+Cc: Leon Romanovsky <leon@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Alex Gaynor <alex.gaynor@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
+	iommu@lists.linux.dev, Jason Wang <jasowang@redhat.com>,
+	Jens Axboe <axboe@kernel.dk>, Joerg Roedel <joro@8bytes.org>,
+	Jonathan Corbet <corbet@lwn.net>, Juergen Gross <jgross@suse.com>,
+	kasan-dev@googlegroups.com, linux-block@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, linux-nvme@lists.infradead.org,
+	linuxppc-dev@lists.ozlabs.org, linux-trace-kernel@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v4 15/16] block-dma: properly take MMIO path
+Message-ID: <20250828234542.GK7333@nvidia.com>
+References: <cover.1755624249.git.leon@kernel.org>
+ <642dbeb7aa94257eaea71ec63c06e3f939270023.1755624249.git.leon@kernel.org>
+ <aLBzeMNT3WOrjprC@kbusch-mbp>
+ <20250828165427.GB10073@unreal>
+ <aLCOqIaoaKUEOdeh@kbusch-mbp>
+ <20250828184115.GE7333@nvidia.com>
+ <aLCpqI-VQ7KeB6DL@kbusch-mbp>
+ <20250828191820.GH7333@nvidia.com>
+ <aLDCC4rXcIKF8sRg@kbusch-mbp>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aLDCC4rXcIKF8sRg@kbusch-mbp>
+X-ClientProxiedBy: PH7PR13CA0003.namprd13.prod.outlook.com
+ (2603:10b6:510:174::14) To CH3PR12MB8659.namprd12.prod.outlook.com
+ (2603:10b6:610:17c::13)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR12MB8659:EE_|SA1PR12MB6776:EE_
+X-MS-Office365-Filtering-Correlation-Id: 753e419c-5ee5-49ef-69cc-08dde68d017e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7416014;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?BRmB+3sKM17VmapuvDAanENDABDoL5Vpjr28rLgku94+uoeQ47+jUimtSCp1?=
+ =?us-ascii?Q?u0ol1dYjEgBvhO+ruK3iz1KEP/hZe25IXKS3DBr3YL9i7oeUIybZm61bc1EK?=
+ =?us-ascii?Q?ySVKFefar6hxK0//rT6Je0GyXftJ2+WIKk+gQVSVNjs+Bkungz+C7gvV7FE9?=
+ =?us-ascii?Q?JWTCKInSOrbbaQQHrNsl6Z5VBvqOljwWpgr3qXQvyL+Pg+MscLmm6SArQcxY?=
+ =?us-ascii?Q?DhRw9/ZD8E7yHpahJ58uR5uiRAi4+XlAVS2evL/9AMATYhX1mkLmURS/z3jc?=
+ =?us-ascii?Q?1V8fE7B86lb2Ht8o66gydqV81PLbS1K7px3v2ku7KKgIc9spCDxux52V1e9X?=
+ =?us-ascii?Q?2498Hip1BaWsm1qRiLue87NQN9Z8AJishXg/2l29DTeQIEgx8BvWPqqlHtMI?=
+ =?us-ascii?Q?LZrzHSOQwD82enU0XZ4QvLY+EpJrrsG0aR8cPF6lU48eUz2Bwk19vFp5xmob?=
+ =?us-ascii?Q?FBLQcOaGyTp3p1DF5P/fDKAKIx3KFyk25UzYulT6OPKOJ8/nAaUAfoELdNwt?=
+ =?us-ascii?Q?gJJsBFxQ7TZfd+e5TwigthbjSdVMfwZu4ntQ3hbIPzZ3X8i+//nTBmsBv2P/?=
+ =?us-ascii?Q?9JHw7gf5BC5M7B79SHTbr3VxCjAxyblS+ecONyQ7+pV0UZdx4ZkJaEYtITXK?=
+ =?us-ascii?Q?/Ud/XTouTFMXZ5sLYqFF7qM81eEraAf2qP9fHpukUza4yBXVwCBf3mZem0Vf?=
+ =?us-ascii?Q?OJRavtRWTGaJ+pLqvA6Ou8HUKqW+yoROq9n9FY6r9a2ShUiGDeBHELGNMS9I?=
+ =?us-ascii?Q?dL7jH7kqZnUOoBBf3mGbE+UqUXxdaXpDchRzCfuEK4FnZ7zr4gN9ep/+4aJM?=
+ =?us-ascii?Q?sw6wi+XaEogKqqzViWPfuAemHi05HSfMS4MdRfkPchzCEfzJFlwSv+GLxzlD?=
+ =?us-ascii?Q?HCWlPg4s9cg/K3ly9v7KncbEKuyZo2TZaLSvdiK6wXEvmt5LLMxwqXZIWgFn?=
+ =?us-ascii?Q?xWdsfLj+2G7UfQCHxukuX2UQYJuI1WLdvSDOw0AGKcw+99YC77IRY+OL92/D?=
+ =?us-ascii?Q?21dNzr7nLqsmiYEFtY1EJio4JyFTMe3ec10oPKTUrkcsGkjr1/ks+6KSCtvn?=
+ =?us-ascii?Q?HA0+NJPHPPjzq4wQhCZDNTDtkDziamYMNAFgr0N+PteMCcAxrxhNkG5ZyPDo?=
+ =?us-ascii?Q?Ua1raoxaJ5NswslbugvyjHR0iXjibH3cEoK59tkDZ1f/uLlg+VQy3QNMGn7n?=
+ =?us-ascii?Q?HCK6PdEXVn7LemiRnfbB5fcOxtdaUEPFW5lJjVHBVf8vHD2B4Bo1bM3mIXwL?=
+ =?us-ascii?Q?I9Jn/tVJuGDOr+/G4UBoCVpEef7zxZjVhIs5r53tho0Sm441MIodgr3hTnDX?=
+ =?us-ascii?Q?65dDh/vJRvQ25+EgjhJh4yNobd1W8xoCF1IhGxQbiNrO49hN+w8dOg6USblN?=
+ =?us-ascii?Q?ZdfJit9b8mGe+lxErrCIkoNOdCD3aQ01k1hLoZQAmRwv/zUPd+uDvm7rBHth?=
+ =?us-ascii?Q?Cvvs6vcbnBU=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB8659.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7416014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Guohg76/pkR5ZgCdXgoXw1W3mQ00oIzJR+SdpQh5sfjJMXbMJ6diFn7nFxpV?=
+ =?us-ascii?Q?idifmlCDn6s8kevNE8Sf4gg9m8QK3+NtR2NSUeO9qNsfGDtGDFWFwjrJ5I5k?=
+ =?us-ascii?Q?Ox4PeX8sLOraVXU+a9YyVUbixgamtzWXtFVqTFjAYxe7tJjQRhfS2cBo+fi5?=
+ =?us-ascii?Q?kVVvQnY8kZ3FnBMRjUQZFrfMSc7Mi3mxfiW8w7B7GKRGTOIBn3rkqXeyvfl9?=
+ =?us-ascii?Q?D1Q7+0cmtHVDvXMJiug98HJ17TCVxynsb1SEjZxEdfB/d5l5f17QzUwpPnVN?=
+ =?us-ascii?Q?Gplf3AcoLO1AIGH+gwg6UqRp0s6sMkSKs0xwRZigys9wH5XBl9W2216ei6tY?=
+ =?us-ascii?Q?vvR5O4PxY3fkdAsxQQKZfY3GGooMAF5guVzbOllo+zUmGHGYzSN6di40Xba+?=
+ =?us-ascii?Q?ngFmkM1zsb8jSY87arByWlr7nB8uWwkhGYuLFNV0c8xY/D6x46jEvCrDrLzN?=
+ =?us-ascii?Q?QdaBljNNtZJQpa7uhXrdwcbQHLktyV87FIGiljAjlhL2tDE8GgdWmjQ9I07Q?=
+ =?us-ascii?Q?cpe0ZtsvokBQR0zYqw6t8PkI1eqMRH+E8s7b2oIPX61W4gxJPmeMgjkokkN4?=
+ =?us-ascii?Q?BePhnvjrhX+JARM1FdSryWeoCtJ3m77i7OSY+ZS+AyHeOn2IUYgxh0ArUlvq?=
+ =?us-ascii?Q?BvNDMGcSBFWJu4hdNZztzTi+5uLEGmsdU2p+6i9UE/XqPfDiTD88psrco+fb?=
+ =?us-ascii?Q?fY/xzqHaiCEj1rxu6vxJXwfiTL+iTcSA52Gl7mFQGOMgADdAjDbHTUSLIaQw?=
+ =?us-ascii?Q?cAixtwK5ed5SN/lVyfz4rS2BpfHcflIlkrhPN1NLFiXEJogyMcgIUlslIWfc?=
+ =?us-ascii?Q?N4SxOFYJprB/AeCcdUG9CkiCGanv1lbz4sFatvqfIBj/Cz07Fs7w5EHoVrsl?=
+ =?us-ascii?Q?BkitYeS6X6zNKItXzPlD0uehnMerAtpbspMmXMkfgDTxVQqDMRprgWSEZTs4?=
+ =?us-ascii?Q?3ceZRuolwKKM2lcKQL+tawp818fSy1l2N5KTgPhJGK3DAjHmnUPP+DExWgQ8?=
+ =?us-ascii?Q?62AcQmC0vE3imo5f6Axz3FQHoBp3zbuYc7CfhCuDOe+6hSguUTMHfZfnZyII?=
+ =?us-ascii?Q?7fnKE8QhQ6zMbXSZMUPCXIEWZRaSfB/x954fCwGQFhgCqxiCxkE4w5HzBMOh?=
+ =?us-ascii?Q?dLeCGlEaAsHoOcFROZCGOdisGP9Zlit0/k6rVQ+J9tO3D6iXu8tp/2c3Wk/L?=
+ =?us-ascii?Q?euhoY/rX47hr8ctR5Cp1zPCIL7Hk1EtfflIpOZwE4I88A1Tpiw/JVGWBpoK/?=
+ =?us-ascii?Q?wQGvzOztsizk77wdlm2KI4QYnPVWD3gZHYmFEVNhuf/cdumvV6iho52kDZbC?=
+ =?us-ascii?Q?urbjXb+V0k3ksRa5Yl6SkXgRGvaBvJVo8pShoQITY792C177/Qu1Kzp8TIGs?=
+ =?us-ascii?Q?jaby0wxn228VgUWgqaGu01nkxL96Q5xrnXO7hbCRmfyOPPyasuMfwZLX4EHU?=
+ =?us-ascii?Q?e9ljeB3zqOhiHYAVmIosgGuhi1Wif+QzpP/frMqCpXzb0vpi6c19NhWE3vG0?=
+ =?us-ascii?Q?wdimmMQp2Hr+zsdLF43kjsQZlHnbRGTNKGJW5xxYHTTjqo4bwYiXSm+YG9UX?=
+ =?us-ascii?Q?+1fyZ2DaYg9/ErkWntpBMRbOiJM/hdBX7nHaA03A?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 753e419c-5ee5-49ef-69cc-08dde68d017e
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB8659.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2025 23:45:44.7681
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: stKDrPdUYg+cKM6Zaii6EJX1iDXReQlwcCRvIIs2DW0PSsQcsndv+JR8Lnf1GfOk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6776
 
-On Thu, 28 Aug 2025, Jan Beulich wrote:
-> On 28.08.2025 02:52, Stefano Stabellini wrote:
-> > On Wed, 27 Aug 2025, Jan Beulich wrote:
-> >> On 27.08.2025 02:33, Stefano Stabellini wrote:
-> >>> So I ran a test and the appended change, which is based on [1] and
-> >>> renaming CONFIG_DOMCTL to CONFIG_SYSCTL, is sufficient to resolve the
-> >>> build issue.
-> >>>
-> >>> For 4.21, I suggest we go with two patches:
-> >>> 1) global rename of CONFIG_SYSCTL to CONFIG_MGMT_HYPERCALLS
-> >>> 2) stub domctl_lock_acquire/release based on CONFIG_MGMT_HYPERCALLS
-> >>>
-> >>> Jan, are you OK with this?
-> >>
-> >> Naming if the option aside, no, I fear I dislike the stubbing. What's
-> >> worse though, ...
-> >>
-> >>> --- a/xen/include/xen/domain.h
-> >>> +++ b/xen/include/xen/domain.h
-> >>> @@ -148,8 +148,17 @@ void arch_dump_domain_info(struct domain *d);
-> >>>  
-> >>>  int arch_vcpu_reset(struct vcpu *v);
-> >>>  
-> >>> +#ifdef CONFIG_SYSCTL
-> >>>  bool domctl_lock_acquire(void);
-> >>>  void domctl_lock_release(void);
-> >>> +#else
-> >>> +static inline bool domctl_lock_acquire(void)
-> >>> +{
-> >>> +    return false;
-> >>
-> >> ... this will break x86'es HVM_PARAM_IDENT_PT handling. That is, in
-> >> principle I would agree that returning false here is appropriate. But
-> >> for the specific case there it's wrong.
-> > 
-> > Uhm, that is a good point actually. And while in principle "false"
-> > sounds appropriate, in practice there is no domctl.c to worry about
-> > concurrency so "true" is what we want.
-> 
-> Except that, as said, conceptually "true" is the wrong value to use in
-> such a stub.
-> 
-> >> As said on the call yesterday, until what you call MGMT_HYPERCALLS is
-> >> completely done, the option needs to be prompt-less, always-on.
-> > 
-> > I do not think this is a good idea, because we would be unable to test
-> > the configuration. Although we have been accepting code without tests,
-> > that is not a good principle. At least with the current approach we can
-> > run manual tests if automated tests are not available. If we make it
-> > silent, we risk introducing broken code, or code soon-to-become broken.
-> > 
-> > In my view, we need to make gradual progress toward the goal. In this
-> > case, we should move incrementally toward compiling out all the
-> > "management" hypercalls. Also the alternative of waiting until all
-> > patches are ready before committing them is not feasible. An incremental
-> > approach reduces risk, preserves testability, and makes regressions
-> > easier to identify.
-> 
-> If that's your view, then why did you not comment on the SYSCTL series,
-> when I asked the prompt to appear last?
+On Thu, Aug 28, 2025 at 02:54:35PM -0600, Keith Busch wrote:
 
-I am not trying to be obtuse, but I am not sure what you mean by this.
-In any case, I do not recall reading a specific email on this topic. I
-try my best to follow other review comments, but I may have overlooked
-this one.
+> In truth though, I hadn't tried p2p metadata before today, and it looks
+> like bio_integrity_map_user() is missing the P2P extraction flags to
+> make that work. Just added this patch below, now I can set p2p or host
+> memory independently for data and integrity payloads:
 
+I think it is a bit more than that, you have to make sure all the meta
+data is the same, either all p2p or all cpu and then record this
+somehow so the DMA mapping knows what kind it is.
 
-> > An extreme example is that I could write:
-> > 
-> > static inline bool domctl_lock_acquire(void)
-> > {
-> >     obviously broken
-> > }
-> > 
-> > and no tests would catch it.
-> 
-> Tests would catch it at the point the prompt is added. Much like it was
-> with the SYSCTL series (and why, with the prompt removed, the rest of
-> the series can stay in).
+Once that is all done then the above should still be OK, the dma unmap
+of the data can follow Leon's new flag and the dma unmap of the
+integrity can follow however integrity kept track (in the
+bio_integrity_payload perhaps?) ??
 
-In my opinion, this is a no-go. The code must function correctly, and
-that is my top priority, certainly above conceptual issues, such as the
-return value of domctl_lock_acquire. With your suggestion, there is no
-guarantee the code works and there is no way to test it.
-
-
-> >> Adding
-> >> a prompt was necessary to be the last thing on the SYSCTL series, and
-> >> it'll need to be last on the follow-on one masking out further
-> >> hypercalls. IOW my take is that 34317c508294 and 568f806cba4c will
-> >> need reverting (the latter being what caused the regression, and the
-> >> former depending on the latter), to allow to cleanly continue that
-> >> work after the rename. If we don't do the reverts now (and take either
-> >> Penny's patch or what you propose), imo we'll need to do them later.
-> >> Else we're risking to introduce new randconfig breakages while the
-> >> further conversion work is ongoing.
-> > 
-> > My suggestion remains to go forward with 2 patches:
-> > 0) keep both 568f806cba4c and 34317c508294
-> > 1) rename CONFIG_SYSCTL to CONFIG_MGMT_HYPERCALLS
-> > 2) this patch with return true from domctl_lock_acquire
-> > 
-> > I am open to reverting 568f806cba4c but I don't think it would improve
-> > things. I definitely don't think we should revert 34317c508294. We need
-> > 34317c508294 otherwise this patch doesn't fix the build.
-> 
-> If "this patch" is the one outlined here, then with the reverts we wouldn't
-> need it at all. The reverts alone will fix the build issue, according to my
-> understanding.
-
-The reverts you are suggesting do not fix the issue; they only hide it.
-The Kconfig option can no longer be disabled, which renders the entire
-patch series ineffective. In fact, the #ifdef's could be completely
-incorrect, and the code would still build, as in my example:
-
-static inline bool domctl_lock_acquire(void)
-{
-    obviously broken
-}
-
-It looks like we'll need a third opinion to make forward progress.
+Jason
 
