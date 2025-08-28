@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86359B3A2C4
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 16:54:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1099031.1452951 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0174DB3A2C5
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 16:54:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1099034.1452981 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ure1A-00076z-Pe; Thu, 28 Aug 2025 14:54:24 +0000
+	id 1ure1C-0007pA-Su; Thu, 28 Aug 2025 14:54:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1099031.1452951; Thu, 28 Aug 2025 14:54:24 +0000
+Received: by outflank-mailman (output) from mailman id 1099034.1452981; Thu, 28 Aug 2025 14:54:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ure1A-00075P-K1; Thu, 28 Aug 2025 14:54:24 +0000
-Received: by outflank-mailman (input) for mailman id 1099031;
- Thu, 28 Aug 2025 14:54:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ure1C-0007mi-PD; Thu, 28 Aug 2025 14:54:26 +0000
+Received: by outflank-mailman (input) for mailman id 1099034;
+ Thu, 28 Aug 2025 14:54:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Mimg=3I=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1ure18-0006qt-SH
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 14:54:22 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e1fc3c3f-841e-11f0-8adc-4578a1afcccb;
- Thu, 28 Aug 2025 16:54:22 +0200 (CEST)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-55f39c0a22dso1183868e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 07:54:22 -0700 (PDT)
+ id 1ure1B-00074Y-Bu
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 14:54:25 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e2b3d3d1-841e-11f0-8dd7-1b34d833f44b;
+ Thu, 28 Aug 2025 16:54:23 +0200 (CEST)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-55f42e4c3ebso1107934e87.3
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 07:54:23 -0700 (PDT)
 Received: from yp-VivoBook-ASUSLaptop-M1503QA-M1503QA.. ([95.67.15.120])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55f42101509sm2635661e87.106.2025.08.28.07.54.20
+ 2adb3069b0e04-55f42101509sm2635661e87.106.2025.08.28.07.54.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Aug 2025 07:54:20 -0700 (PDT)
+ Thu, 28 Aug 2025 07:54:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1fc3c3f-841e-11f0-8adc-4578a1afcccb
+X-Inumbo-ID: e2b3d3d1-841e-11f0-8dd7-1b34d833f44b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756392862; x=1756997662; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1756392863; x=1756997663; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Xe9xi3DaBptNnLW1VEAJiUhAp27nm19FtXNKIdaX+1M=;
-        b=anHfLvhzUkFp3Cyr9/EWhwPzi65yWCNhY/jcHNq8MRsY9Ae5kaD0L4oUaOBa3jX7vU
-         IQTqbF/80Pu632oirdHBje2301NF9cxipf5MV/pZFWjnb6RRPL5QVvdg/Vn5BupiU1HG
-         zEznJjw5HyVC5OSZm1gzgiLo1XdfTMiJWs7V1Sw0LDaHE5NIBhiofE5k2zs4d0jWKJ8X
-         +/g2PcUFrTbnKkpbj3pU1VeKtrLD4pW9SeoCpnsQXNF8hkLTEBxJP7gUrBb6B2MBcOsB
-         kis/e6IRK2R7/Hg4B4JDaZ5w/QG/WqZkDyasgQhg9La2PBWUAKBSiEZR8a72vmmmmDq4
-         wf/w==
+        bh=hngrpYued6VRjNdXSCXsejFnZ9+NvVTFmNBYrfCV2Ms=;
+        b=ceYJLsAzje1QUHsMJBeLXUVxlnPLL2nAjl9WRViQIiT0J0ARGHuObrtoM7kPVJ1+9+
+         j+4agPiW/xrRrOh27GF9mDN9OFnauv/Qztc1Mxc1or8aksPABAz3w4uAh/5dp8iUSXgG
+         fumj72DjkiXxJu3Ns5L4fmRRXSuwhwUA6IykIFicvdYfoxnbueSr7MkPnr1IZ+kBZo9u
+         fKTocmjXcHW3sp/21sPe4XKxG3IobJs0zLfr1MQtRI0gWDGVtPjB6RfQOSpsd7gU0ZT8
+         WNkbARGcIfGK1ToBt4xJYuQcGV3vxGQZmKuVxvTwN6zo/5ErfHIYSIm95X2xiP7O55On
+         wxOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756392862; x=1756997662;
+        d=1e100.net; s=20230601; t=1756392863; x=1756997663;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Xe9xi3DaBptNnLW1VEAJiUhAp27nm19FtXNKIdaX+1M=;
-        b=W1zU+C1rtP8W4h3cO+D1vYNsmMeh0uyFnaV55aVWn2SOiuyYcnx0MnbbicExaTQ34z
-         rlPD+WwN6X9fwLtYzotsOsFO9ZeMZhhRJYc8ygfjn/fe2EQT42YQ9/tR8cox3lZknuwt
-         uJMzoOZBPakVx/AzsuooOttHbcAeYlbuBWn41ouyydiR2+i/qMosauF66coHumzNzoSZ
-         avpWWBxAnsUEU6YnBfsGIqVEEqVoIBgOLd25c93Jqgg40ml6Y3g0dpyxwIdD3djk5au/
-         XEJGQ9CG3D3IiDAMeBpW2GMqswwc0Bb0RXauFEhH6dzGogyfHM1GTUtCJrnK+AETxohc
-         SNww==
-X-Gm-Message-State: AOJu0Yzqa+CKhIDiextRmfKRB1OegZAAMiiDNP7TSCCvzMs2yiZmeGYe
-	sckLDhEanqHnCZLZISlqrEFPOVZVW5yg5IWA1p/j4FUEoiEgCJzWDw3MNiAc1w==
-X-Gm-Gg: ASbGnctbXsS9V+P4qM5nVkIaHTSMkMoiFV53KuLCuFWbG4jM5yFTdKsTOTsfaaacgzL
-	RPNNihcKPCAwHuPosEANWnbo0zvhUmr9EwFfFsGKm8JTEt4s8pTitHNC9yE4iLrWecwRM1wLRAK
-	tsPpwtpnlosXnUQ9vau0cHrfF6RqtQrm9UgRL1gDfysnVC1T7UA7hJ/XOp2mQ/PUKdHHA8Xj5SA
-	6je3ivx9DjTHW9UDC1xlUR1aCYgm8jkYglD228JU8t7Wo4oZXy1nheMUcXymSs9HIomYUu6vLJv
-	NKo9cwwLqvnuvn233fvgRWDBimsnQ22zqHuVC2jAcFU++pfSPRBnyCXKqEqpo2QaEMTEmaT3RDU
-	PhOOkqmzOpg0BHKP0mU0c1S31RntLD4C96mysNvE68a9z8N5wqlB/aKOLe4ZX0Q==
-X-Google-Smtp-Source: AGHT+IGVn3t8FI8KDXGmDy918ObNgpZToIWSeInq3sskv+8OmyDF6huIydUyHV112csuE+SHQHdo6w==
-X-Received: by 2002:ac2:4c53:0:b0:55f:595f:9a37 with SMTP id 2adb3069b0e04-55f595f9c84mr1409346e87.27.1756392861379;
-        Thu, 28 Aug 2025 07:54:21 -0700 (PDT)
+        bh=hngrpYued6VRjNdXSCXsejFnZ9+NvVTFmNBYrfCV2Ms=;
+        b=V/RY2uQQzo4tBpmZVz8PPJeew0EjDMJLXz+g/1rY8MgOTlO3DM0aCbo7wuNTsz/EpP
+         3rfh+OpQehHvwZlOrVhDmlrLJL3ezC1Y3ezLZlpvQj7l2gHFvQ7kkietVccSo+z1StRt
+         LEritl385qeiFVLc1vfYees+dvFM3AtAOzN0USL+APDEuv5HeT11x4eQV8rLxpCjJurR
+         ArWK3VGLVz28dKC+1HyoXEJgLbom6C1kZH8v2TDikpGf28qr2mv5kItQi1AVwtTYqSXV
+         cPV4Xv0dMHVy9FCHFeXEx/KfxnKN/dO0z5Zxbp0GD+Yk8f9tW/zI26VGhbZafc3xYZsK
+         PaKg==
+X-Gm-Message-State: AOJu0YxkxpWVi0Ev57fYKWQ8PsH+hWRMjtZ0Z+BXEEKVfwpIVXmLEKJR
+	Yd2Eg0RT4DqwJKjHJTG5dBw8UfUcXUzcfW+sKtfdQhvop/m2EgazCmhkZ4bjbg==
+X-Gm-Gg: ASbGncuabFKOajMQEbSbGcYU+h8yoX8UKaJ19KjhtrvpWJ0YIWtqwSjvQs5FablphIM
+	UCE6qCLE9No8OmIVSd+/kjX6xfxhcElF5DcKVfz/ueQZc0L6Zn4F7FpHw1wBNmoc+lZNQwbNN9K
+	1ZeuUxIZLIvf7XOdQ70SLZq++a7mcaet26Kpin08ox4X3gnQ4dZPbF2+awmmjrfwe0CG0kgeiKp
+	yj24kyJ33I4cYbnorVT3BhcAum5B3KF22mTxXpQv5yhoD+pb0P1RBc+rtbJm/A/HNj3Rrww8y95
+	Fh8mY5Ph34CjSrwGnogD+wf2IZ5Er230N1NLA+uZd0JTgtbOEiYRbx/t/PfRGER5/J3iMyuykMl
+	I3R2nbbhEojp34j6AL3MOrk7EDofgsP2ky3cXCrvB++SLtUoGSpgQDS1EJx02sBSUwmiC3YbG
+X-Google-Smtp-Source: AGHT+IF1HeaKj2cz2cnnr0EE+aGs2CLKOQzVrtI+RGDtiy5IgEELvtKlOaKXC3CZjCTvrGIn+BQwWQ==
+X-Received: by 2002:a05:6512:3181:b0:553:2c58:f96f with SMTP id 2adb3069b0e04-55f0c6a0f73mr6639899e87.1.1756392862710;
+        Thu, 28 Aug 2025 07:54:22 -0700 (PDT)
 From: Mykola Kvach <xakep.amatop@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Mykola Kvach <mykola_kvach@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v11 3/4] SUPPORT.md: Document PSCI SYSTEM_SUSPEND support for guests
-Date: Thu, 28 Aug 2025 17:54:06 +0300
-Message-ID: <9173ec351b88ad04e6ea13053dd785eb7f0e9b53.1756392094.git.mykola_kvach@epam.com>
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Community Manager <community.manager@xenproject.org>
+Subject: [PATCH v11 4/4] CHANGELOG: Document guest suspend/resume to RAM support on Arm
+Date: Thu, 28 Aug 2025 17:54:07 +0300
+Message-ID: <6fa6038c90109a2e9990a691fbcf2aceb5aa9694.1756392094.git.mykola_kvach@epam.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <cover.1756392094.git.mykola_kvach@epam.com>
 References: <cover.1756392094.git.mykola_kvach@epam.com>
@@ -102,50 +97,39 @@ Content-Transfer-Encoding: 8bit
 
 From: Mykola Kvach <mykola_kvach@epam.com>
 
-Add a new entry under the "Virtual Hardware, QEMU" section documenting
-support for the optional PSCI SYSTEM_SUSPEND function exposed to guests.
+Mention the newly added support for guest suspend and resume to/from
+RAM via vPSCI on Arm platforms.
 
-This function is available via the virtual PSCI (vPSCI) interface and
-allows guest domains (domUs) to initiate system suspend operations.
-
-The feature is currently marked as "Tech Preview".
+This support is limited to non-hardware domain guests.
 
 Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
-Changes in V10:
-- Status of vPSCI SYSTEM_SUSPEND changed from "Experimental" to
-  "Tech Preview"
-
-Changes in v6:
-- Dropped the generic guest PSCI support entry (merged in a separate patch)
-- This patch now documents only the SYSTEM_SUSPEND optional function
-- Reworded commit message to match the final form after rebase
+Chnages in v6:
+- removed reduntand explanation that thi support added for
+  both arm32 and arm64.
 
 Changes in v5:
-- Dropped ARM/PSCI entry: this refers to internal use of PSCI SMC calls,
-  which is not relevant for SUPPORT.md
-- Added a dedicated entry for PSCI SYSTEM_SUSPEND instead of generic guest
-  PSCI info; guest PSCI support was documented in a separate patch
+- adjustments to the commit title and message
+- expanded the changelog entry to include more context about
+  suspend/resume support introduced in this patch series
 ---
- SUPPORT.md | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ CHANGELOG.md | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/SUPPORT.md b/SUPPORT.md
-index 6a82a92189..0ce0903cb1 100644
---- a/SUPPORT.md
-+++ b/SUPPORT.md
-@@ -962,8 +962,9 @@ Emulated PSCI interface exposed to guests. We support all mandatory
- functions of PSCI 1.1. See below for the list of optional PSCI call
- implemented and their status.
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index cd34ea87b8..7a75bd37cb 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -36,6 +36,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
  
--   Status, Mandatory: Supported
--   Status, MIGRATE_INFO_TYPE: Supported
-+    Status, Mandatory: Supported
-+    Status, MIGRATE_INFO_TYPE: Supported
-+    Status, SYSTEM_SUSPEND: Tech Preview
+  - On Arm:
+     - Ability to enable stack protector
++    - Support for guest suspend and resume to/from RAM via vPSCI.
++      Applies only to non-hardware domain guests.
  
- ## Virtual Hardware, QEMU
- 
+ ### Removed
+  - On x86:
 -- 
 2.48.1
 
