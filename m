@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9818AB3A0C1
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 16:16:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1099004.1452921 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3C2DB3A12B
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 16:20:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1099018.1452930 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urdPr-0000hA-Bc; Thu, 28 Aug 2025 14:15:51 +0000
+	id 1urdU3-0002HF-Vh; Thu, 28 Aug 2025 14:20:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1099004.1452921; Thu, 28 Aug 2025 14:15:51 +0000
+Received: by outflank-mailman (output) from mailman id 1099018.1452930; Thu, 28 Aug 2025 14:20:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urdPr-0000ff-7l; Thu, 28 Aug 2025 14:15:51 +0000
-Received: by outflank-mailman (input) for mailman id 1099004;
- Thu, 28 Aug 2025 14:15:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LvL0=3I=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1urdPp-0000fZ-V4
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 14:15:49 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7f1af208-8419-11f0-8adc-4578a1afcccb;
- Thu, 28 Aug 2025 16:15:49 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-55f4cf36c00so1046215e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 07:15:49 -0700 (PDT)
-Received: from [192.168.0.110] ([91.123.151.69])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55f35bffaa6sm3325030e87.32.2025.08.28.07.15.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Aug 2025 07:15:47 -0700 (PDT)
+	id 1urdU3-0002EH-T3; Thu, 28 Aug 2025 14:20:11 +0000
+Received: by outflank-mailman (input) for mailman id 1099018;
+ Thu, 28 Aug 2025 14:20:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=AInb=3I=nvidia.com=jgg@srs-se1.protection.inumbo.net>)
+ id 1urdU3-0002EB-24
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 14:20:11 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20620.outbound.protection.outlook.com
+ [2a01:111:f403:2417::620])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 194ddeed-841a-11f0-8dd7-1b34d833f44b;
+ Thu, 28 Aug 2025 16:20:08 +0200 (CEST)
+Received: from CH3PR12MB8659.namprd12.prod.outlook.com (2603:10b6:610:17c::13)
+ by CH1PPF4C9628624.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::60d) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.13; Thu, 28 Aug
+ 2025 14:20:00 +0000
+Received: from CH3PR12MB8659.namprd12.prod.outlook.com
+ ([fe80::6eb6:7d37:7b4b:1732]) by CH3PR12MB8659.namprd12.prod.outlook.com
+ ([fe80::6eb6:7d37:7b4b:1732%4]) with mapi id 15.20.9073.010; Thu, 28 Aug 2025
+ 14:20:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,267 +47,209 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f1af208-8419-11f0-8adc-4578a1afcccb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756390548; x=1756995348; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=yn7QQsyNuU8SddtSSajSgw4g05yv92+Y7Z5YpM/sUsY=;
-        b=RQTF1wLLEEfRKHsg98Z+DUY/rTgrAlQkyUv6yij20v115MULlYTgxTJrjke7C5yhZD
-         3QFgGkpER92V0ZWd/E0FXo5nN71bYLZBKCf4tpiw3VAhe7i8v5E5wgeR8HFHaW9s/Y2a
-         7L+21thCsK3MXC/90yKijI3Kunf2VGY3ggwZeqKqRolEQrR7zhMxW5noe5YRvWwkMBsK
-         JFyzi1U9WlVG+xwSuu1QmGirIy9qyxPVRlv8aJ9rWgDXxnPZGKB/mKHYhfxtzBzk7yFK
-         FGs6GbVey5pc+Yj4cmGKV8Hnn4Hu14qnWQvBmdqOuTJTqX7FWCfrG3lymIX3dxTAJP7q
-         VcQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756390548; x=1756995348;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=yn7QQsyNuU8SddtSSajSgw4g05yv92+Y7Z5YpM/sUsY=;
-        b=OxFYRY9WzW+GlJZFppIoCTWxSYm+kfQjLWf136O4tuePXC8uaCZFIDMox0bM7gA9vy
-         /rS2BW4uHF/qEolIGmJHflVK6iGeXKKWJj1yTF7VjYwuIlpdLr/WzCp5Dfo0D8jf+qJS
-         5Gse65rrCTiyXmnu9Z7MUmeQwU37nwnBJXL0s9PTGvai/nWGqgEavtMvsVM6I3OGkhGB
-         ffL80zbrScWVuLic0zXMlZn804vC6c2VFN7rF1VTf+GQlL4zh8Z2xqKP1S7OnCNT53de
-         GJro5ua2W7gifQZS9Ke+0vkjkBouj4KihK23o/3ctXlA7lM1mQtNQH6CPnTbt5hMCldw
-         JCRg==
-X-Forwarded-Encrypted: i=1; AJvYcCW3hUpI4s2nLRJhoJ+VEvOTlUMwBZzvv+z8fkOkE6W8qG7n9NITFjJI0oVohIOzV+klmBi+Kmeur3E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwShsYRUgnJr2CR+NxlwTu+LZJ2EcZGWJPvS5TyGwN9xAxSqXh8
-	MSuHNqFh21AImvcLfMsupT/WGQWCkZ+Zvw5G1gG3V9VYcQM+aG60VI6woCe6tA==
-X-Gm-Gg: ASbGncu+uIpucOUooTEpYcy4QfHV2Z9hQ1k06RHVkFZmy2mNcRu8ENDc0bBQXWdGdtq
-	kjSzRkfPf9RaTPw+EhBwsK6ioKuq4XJGwP4Zsgd7LPM7VYbuDekCibG8xghvRmuCYvfgOvQHqQJ
-	dIUmRXUPIjKEff+Yuhgsialbh9+vU1C3PVfimJNi79vHhgzPngo9U5HLr+n47DUAUFuuC6RPYCz
-	DboDoN+zcGPpx2GrgDRs80SZ51p/5AQg6zAmqbUlhjcpS+N5Z7Q/nmsE11pWLZk7cO8cmQbad6l
-	5aahWcqpZa8tptXHBeUR2bVZIYRJcJKdauKgXWDMY7Mk/KqZ8kjNkrEf5GTQ1n98x91uaE5xNnV
-	6aSKNVadhxI2y4XUFEXxjaOJxaA==
-X-Google-Smtp-Source: AGHT+IEovbtRTjKgHTnCtsVwKqkJLut7pLL06xZzEMnbw18UYeV2Zh8/16RgpFQUV5Jy5bJm0DTpaA==
-X-Received: by 2002:a05:6512:4403:b0:55f:4d51:7ee8 with SMTP id 2adb3069b0e04-55f4d518088mr3210990e87.38.1756390547624;
-        Thu, 28 Aug 2025 07:15:47 -0700 (PDT)
-Message-ID: <a759fb03-002a-4de4-993e-ad7a7f86017a@gmail.com>
-Date: Thu, 28 Aug 2025 17:15:46 +0300
+X-Inumbo-ID: 194ddeed-841a-11f0-8dd7-1b34d833f44b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jXFlyb8zuu/paS1ZawJ1ZJ1MoYZI9MLnsy1iQRbHVJqVh0OMUxaG8sKXQ9gUCvAmgpV1v8+TxTBEvGBqt41EVUhZjJsJ8xQQf4+cQiifYq6e688dR1E4l+DbzpHWHGlXiFI6tQR39Fc3jFsrQZ0KQU0LXMUS8snCsy5VYFMbglCunUMqSDxqGG7B9qwHJtVHKzu/6qah8xlWSq1+dkTDwCpXovBkSPvriF9V+FcfL6oZyLZfJtx7AyfIu4mvXo+IZgyWbdaOd0nI/bbQiiM6e7X0p5Jx9sBWiUoQFwQt7jhbHb8Cuc4I6WhJxJ+Q++yK05JNtdpvxZ3HFsTR+d+T6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kQVNpin3YPzO6syYTrDj2tSQysPubw+YKna9LrX2ZNY=;
+ b=vqBL+8iwISAvFAQi32rutRIDaee8G4QXtxMQDjSV/DujYuKdVZjsiXFWkC/PUu74TXfCI8Rb7+6HXdyzo2KHR1HAwpznQ3qfgclNfOeZhrGkDnohJDxP2thouVnCLHhNd+K2rR/jix9XQE0sTVT4IcZXMNFUJJpAMXZ2PZsmAu4q6am5QzEG9sB8EOtKTxg/KzXO81htlhie6Uez48NGNf6/+dnvyrZknwh5ZuQPwn9Sk4xqdnvmWmKuq79H0f//30GCIg46/bNgouKf92uSSxCtvCTu/4gPKSpTKFTuodCXYQryGE42epJCswqNeumNoF74pBLYZLqdQWDrv55afQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kQVNpin3YPzO6syYTrDj2tSQysPubw+YKna9LrX2ZNY=;
+ b=SHVyRQqxbnE8x5sXZFHYgdSh9gMgMYhrg8yQEA1uYaWj/7/MaG0hgHqYAfEXft1qTfGjKhNsG7Vc51nfNJ1qsCz5HcprFeDpR8TPEvjWZzATxCR3HnoYyBeQKie+HIk73SdCxArm+8p4ib4+F1YWAKZyyc4FrwrGogPFWXSSjz+wWYG/dvpiyJNhKI8WQEITG2Tx1ZUxzKxKh0expT9vQt/t4XihBOW+YCXthtRY6Hp93yitlnQPfrAQUtx8pUqIarwd8oXWTZyshskuugEsv4RRZFzqy/Dvb8YAfAUsgVVlFIkf0lEmJkMLRsFI9zwy34B4f8Imx1asqF4v+lWOuQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Date: Thu, 28 Aug 2025 11:19:58 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Leon Romanovsky <leon@kernel.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Alexey Kardashevskiy <aik@amd.com>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
+	Leon Romanovsky <leonro@nvidia.com>,
+	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Alex Gaynor <alex.gaynor@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
+	iommu@lists.linux.dev, Jason Wang <jasowang@redhat.com>,
+	Jens Axboe <axboe@kernel.dk>, Joerg Roedel <joro@8bytes.org>,
+	Jonathan Corbet <corbet@lwn.net>, Juergen Gross <jgross@suse.com>,
+	kasan-dev@googlegroups.com, Keith Busch <kbusch@kernel.org>,
+	linux-block@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-nvme@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+	linux-trace-kernel@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v4 07/16] dma-mapping: convert dma_direct_*map_page to be
+ phys_addr_t based
+Message-ID: <20250828141958.GF9469@nvidia.com>
+References: <cover.1755624249.git.leon@kernel.org>
+ <3faa9c978e243a904ffe01496148c4563dc9274e.1755624249.git.leon@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3faa9c978e243a904ffe01496148c4563dc9274e.1755624249.git.leon@kernel.org>
+X-ClientProxiedBy: YT1PR01CA0055.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2e::24) To CH3PR12MB8659.namprd12.prod.outlook.com
+ (2603:10b6:610:17c::13)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 05/12] xen/arm: gicv3: implement handling of GICv3.1
- eSPI
-To: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1756317702.git.leonid_komarianskyi@epam.com>
- <864522724dd6058952cad8b505b0589750b7f8d7.1756317702.git.leonid_komarianskyi@epam.com>
-Content-Language: en-US
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-In-Reply-To: <864522724dd6058952cad8b505b0589750b7f8d7.1756317702.git.leonid_komarianskyi@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR12MB8659:EE_|CH1PPF4C9628624:EE_
+X-MS-Office365-Filtering-Correlation-Id: ee25c9d4-a894-4ec6-2322-08dde63df8ba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7416014;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?9ABT6QTC3/4LJlsORe9ECLURm5FPgYglzP4U8WaOSREO8cESJY67mpBgPEgf?=
+ =?us-ascii?Q?MkjBrlOeWvd+Wx5sAHlUUxAypsE3sfz8tRKkX9INneWs2ZUhCuiL+xViVKT/?=
+ =?us-ascii?Q?rfMpRQymx+irdvSIp4qZHv0it0sFIEnAypUowzkTqVzqCSgFEN9wpsDQUbug?=
+ =?us-ascii?Q?qCBBjuZxvzOKP1cE3SXz7NfTZkR7c2f/KeWbfYAVmhwF+JdwiEsfdIKiKGfu?=
+ =?us-ascii?Q?KFOGSgoJegWT/eiZ0MFRxjbwCG+FwEkg81Ukc1BsCPF+8jXdZtJVeXhv7+VW?=
+ =?us-ascii?Q?h698g2uohrUxw5kkLDmqSBPVhg8ilvnXIutPYKjCAt1bMWYT3SVpW+eR99yn?=
+ =?us-ascii?Q?V2hYNiLmkVaSAtGxDbv2FjU7DY4TWALSxOsgPymNrMjpcwvEPmg9iRhe/Kak?=
+ =?us-ascii?Q?emtDF8WNI0h8UDSBKFdP2kmXFiGT9OpfHXOUDXYc0EyyoNYemlSR/WNEP8fw?=
+ =?us-ascii?Q?iIxBcNn90ffR5b7+rVNjGlKo0XU81sqQRBi8X8mYq2jkXCEO/peYXNNRemHT?=
+ =?us-ascii?Q?42p6fIV0eogpg/mvjNqfDzp3ArXrvuenVv/BvlLC0kDzmZAIOPwN3QdIOuyi?=
+ =?us-ascii?Q?W5TJnKzgtNhmJnfCWp3jVysjCXd9dWeG7RuRghEbc2RH3Uy7bXU9SMn8dmf9?=
+ =?us-ascii?Q?gpARsIUsJQqV2u91jnjSMUrFMRwiOwFxNW/y14lTJM8Zm18iTTRBjdBArogn?=
+ =?us-ascii?Q?l32UDaIh3XzO+DR3xPn3Mja3Jzx3n01d+9vrDjvg/iV+yhn+FTJR9fY3oHV6?=
+ =?us-ascii?Q?DMkOurjB5PukWMJDHBEc7Wi/WC2myrLMwYL9/39GprTbNLrTUexGld9LH1qM?=
+ =?us-ascii?Q?rwGb7NwkfSSKgaz8lA0b45FLXa2uJCydXEhmG+J9Khp9uo0cnJ6Q+DBykbAO?=
+ =?us-ascii?Q?W+/IAB/HpcrmMyzu3DIe1rXsJEZWw68SSNF1TDZgDOTQJovBXejmtt4GBExT?=
+ =?us-ascii?Q?arBrV3XY04TZtmkEMb/4I8MSuMhMRiOd8CpHcvT/+tYP1p2QFOBQ1gIgGsPW?=
+ =?us-ascii?Q?P3ICz7+xrw2/1SWkrb+ev8szOepdpDazVU32e+meayOMKWf575XW3D3a0gxq?=
+ =?us-ascii?Q?Qfm5CLQQ0CT0QRq/f8LXBnRon+W9NZws9+kPQjiW4Y4ZZFuQVA1NXi9RXK2i?=
+ =?us-ascii?Q?7d109Wx8+biBFpwcU3HOHUEZ0TsZ/y610sjQ45jorO+034WU0/zvgFG06Jxf?=
+ =?us-ascii?Q?V2d72ZQL2rkiFbwKS0iOquz664r6LYn8VYdwO3xjMZ19nsn4SoO/cQQ7u1g6?=
+ =?us-ascii?Q?kdNWoNUZZHdwDj1fesG0YxnkIrkDOakzRSpKryPitAhtawRRPfI+hNpj9aWh?=
+ =?us-ascii?Q?ZS5rVojaCrIdUpbyZMPEv6trU4xPtIfIjmPI+hbXqgQadAMblXKCk6rKTX5S?=
+ =?us-ascii?Q?a1ybeGPwK4NZcscvfiQySo2DML0nC9zFVon4MrwW6ODFN3spzuJrWfsrMo/u?=
+ =?us-ascii?Q?4dmb68jk8Mk=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB8659.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(7416014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?0GKUUMy2Zjj7bShx559KxLONxcEVScGItWUxoqpIFyh6XEjUtYEUSckAJ+VS?=
+ =?us-ascii?Q?kRzeLOB37iyFXOukUG7mg8GSDXvLhCpRyfX2Oh2Fb45BNBhk2yEjnScpepNz?=
+ =?us-ascii?Q?860jrVAdoO7ibpqBpfTD7zWlzqL9z/qjFMO22UMNfFrKPDrgiAnj//751W0f?=
+ =?us-ascii?Q?WgWHubeAyDqwC5yntQuyj6PL5b2TYt2qobichzmcR75vrk+NM/omSaTnnokd?=
+ =?us-ascii?Q?Hpd1UapkTBcfXsLjl7nMedjcjweiDkFLayWNjFiWrakgqmPVW7dziEmj43Wk?=
+ =?us-ascii?Q?7ArwEpDKMyEo29afjiHg1veE1ewj9ao/+zS/WtDRHR1jDAwjoReLgRQDv+F0?=
+ =?us-ascii?Q?03Z6s0dGmQsGMrJf/HltN2mTRCQ6IwYE0bHRLWqs9WMzd3WYTc5uuEBjZP53?=
+ =?us-ascii?Q?0Enqlh+gVu673+0LDZ68ct+H3O6Unvf5NGCys5nRPF5LdDs/ahP6EB99/Sv3?=
+ =?us-ascii?Q?UFTwKOm1WhdIHaBjc1VXOw2aJRSVENv8PLKhMa//9GsecikRKp1NDpBOxs5R?=
+ =?us-ascii?Q?VPYBNKjffDK4iBHlfTrKx8n+pHYtwF/RsOlJTwF7Mpnktir+QiyPsxOBdldw?=
+ =?us-ascii?Q?vUqPHod1VFyNkRyEFzZ9eTFEE7l5VqNTzRnWvivcB3TE9LxmDNQEjYDF7nFM?=
+ =?us-ascii?Q?GP9LZ5v0U2yHhLn1RIXToR0xKkZ0BFh5+Y9ybZHAnURd4i104GJKlScvbreR?=
+ =?us-ascii?Q?Q9BMdB37xbvftod+QfrHsm0p9YOsqOyVEDjNYTvAWUyFia2Ey7evm4ywkYTx?=
+ =?us-ascii?Q?h+sIu07+uvh7racJKS/Z/xCUkTsr4GbLeZUv1lS4aPyxO96g0VfYbHgVQzcD?=
+ =?us-ascii?Q?k5c0Vl3y01qhuqDwv+Nsth7/Rzh+5Hqakc84qx1CzTkWbf7bqkXsOWx/2Hsh?=
+ =?us-ascii?Q?NN6DB6HizNh+TeKEGIgD42nteot86FM/EEGHVHo7x/qcGaj/but4TVQk/K1v?=
+ =?us-ascii?Q?vRMaWoZ5Tmk15q3Tp3aP1129Cnt+dMu5WSWbuAEwJnbnczgt4XViE/ZqKX5V?=
+ =?us-ascii?Q?nAApv4rOScsaCsker2ICS1EVqZ3/ze2jwu35ywe5GC/sKyuryKQx7p/CPCZW?=
+ =?us-ascii?Q?1FkX4ls0qo86wW9mXmendEiz8R5CBLzpFzYmyhMM0O4v5MSi+lhX1rjl576J?=
+ =?us-ascii?Q?UDlXc1RprnpiHUBQpT/3CTXFW0R4q/D1rdUPqFnFegBGw8wLZl1G9kZrzPjV?=
+ =?us-ascii?Q?kyIwSDxl+GlmU8WG9ODPPzMraHCdju/SEdV5nGXP+idSzYNyGyCRO16YHz+c?=
+ =?us-ascii?Q?sgsQzLW+SQbh3kOfIDKy7AnP8apjMad3QeUKs5Vbxiws6DJVnk+kC1U9aI6W?=
+ =?us-ascii?Q?bv+N+M2QWywysxu5/R5s9QqPWKcCLYpk9UwU6vOhXOGTx/8ehEeRZMTzpc95?=
+ =?us-ascii?Q?gXE9x0w7K4qqhLJQQoZNDRAdSzebrIqL+phygzWYqpV7kOpxvx9KOWMs5uNs?=
+ =?us-ascii?Q?XS1HhwwV9Kh2B/aqy05LWXl9uY8kXMVVN6K12dkxOz15Hc7B5X6BfCCDydhP?=
+ =?us-ascii?Q?fQxez10fHoATxU0Sj/6J8X7LHHevla7d3+DBz+Oze7OmFlVBqnJJsa2/UxPp?=
+ =?us-ascii?Q?uT3klxfrEJzyDMyljFs=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee25c9d4-a894-4ec6-2322-08dde63df8ba
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB8659.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2025 14:19:59.9859
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MleWSaT+fPMApu6hDDjuoGGeeHk6jrZi5TxdTZ3vJyLRcRpsAXuDhi0ZC+bhq47a
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF4C9628624
 
-
-
-On 27.08.25 21:24, Leonid Komarianskyi wrote:
-
-Hello Leonid
-
-
-> Introduced appropriate register definitions, helper macros,
-> and initialization of required GICv3.1 distributor registers
-> to support eSPI. This type of interrupt is handled in the
-> same way as regular SPI interrupts, with the following
-> differences:
-> 
-> 1) eSPIs can have up to 1024 interrupts, starting from the
-> beginning of the range, whereas regular SPIs use INTIDs from
-> 32 to 1019, totaling 988 interrupts;
-> 2) eSPIs start at INTID 4096, necessitating additional interrupt
-> index conversion during register operations.
-> 
-> In case if appropriate config is disabled, or GIC HW doesn't
-> support eSPI, the existing functionality will remain the same.
-> 
-> Signed-off-by: Leonid Komarianskyi <leonid_komarianskyi@epam.com>
-> Reviewed-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-> 
-> ---
-> Changes in V4:
-> - added offsets for GICD_IGRPMODRnE and GICD_NSACRnE that are required
->    for vGIC emulation
-> - added a log banner with eSPI information, similar to the one for
->    regular SPI
-> - added newline after ifdef and before gic_is_valid_line
-> - added reviewed-by from Volodymyr Babchuk
-
-only NITs below
-
-Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-
-> 
-> Changes in V3:
-> - add __init attribute to gicv3_dist_espi_common_init
-> - change open-codded eSPI register initialization to the appropriate
->    gen-mask macro
-> - fixed formatting for lines with more than 80 symbols
-> - introduced gicv3_dist_espi_init_aff to be able to use stubs in case of
->    CONFIG_GICV3_ESPI disabled
-> - renamed parameter in the GICD_TYPER_ESPI_RANGE macro to espi_range
->    (name was taken from GIC specification) to avoid confusion
-> - changed type for i variable to unsigned int since it cannot be
->    negative
-> 
-> Changes in V2:
-> - move gic_number_espis function from
->    [PATCH 08/10] xen/arm: vgic: add resource management for extended SPIs
->    to use it in the newly introduced gic_is_valid_espi
-> - add gic_is_valid_espi which checks if IRQ number is in supported
->    by HW eSPI range
-> - update gic_is_valid_irq conditions to allow operations with eSPIs
-> 
-> Changes for V4:
-> 
-> Changes in V4:
-> - added offsets for GICD_IGRPMODRnE and GICD_NSACRnE that are required
->    for vGIC emulation
-> - added newline after ifdef and before gic_is_valid_line
-> - added reviewed-by from Volodymyr Babchuk
-> - added a log banner with eSPI information, similar to the one for
->    regular SPI
-> ---
->   xen/arch/arm/gic-v3.c                  | 82 ++++++++++++++++++++++++++
->   xen/arch/arm/include/asm/gic.h         | 22 +++++++
->   xen/arch/arm/include/asm/gic_v3_defs.h | 38 ++++++++++++
->   3 files changed, 142 insertions(+)
-> 
-> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-> index a959fefebe..b939a1f490 100644
-> --- a/xen/arch/arm/gic-v3.c
-> +++ b/xen/arch/arm/gic-v3.c
-> @@ -485,6 +485,36 @@ static void __iomem *get_addr_by_offset(struct irq_desc *irqd, u32 offset)
->           default:
->               break;
->           }
-> +#ifdef CONFIG_GICV3_ESPI
-> +    case ESPI_BASE_INTID ... ESPI_MAX_INTID:
-> +    {
-> +        u32 irq_index = ESPI_INTID2IDX(irqd->irq);
-
-NIT: I have heard that no uN for new code, but uintN_t (sorry for didn't 
-spot this before), so I would use uint32_t
-
-
+On Tue, Aug 19, 2025 at 08:36:51PM +0300, Leon Romanovsky wrote:
+> +static inline dma_addr_t dma_direct_map_phys(struct device *dev,
+> +		phys_addr_t phys, size_t size, enum dma_data_direction dir,
+> +		unsigned long attrs)
+>  {
+> -	phys_addr_t phys = page_to_phys(page) + offset;
+> -	dma_addr_t dma_addr = phys_to_dma(dev, phys);
+> +	dma_addr_t dma_addr;
+> +	bool capable;
+>  
+>  	if (is_swiotlb_force_bounce(dev)) {
+> -		if (is_pci_p2pdma_page(page))
+> -			return DMA_MAPPING_ERROR;
+> +		if (attrs & DMA_ATTR_MMIO)
+> +			goto err_overflow;
 > +
-> +        switch ( offset )
-> +        {
-> +        case GICD_ISENABLER:
-> +            return (GICD + GICD_ISENABLERnE + (irq_index / 32) * 4);
-> +        case GICD_ICENABLER:
-> +            return (GICD + GICD_ICENABLERnE + (irq_index / 32) * 4);
-> +        case GICD_ISPENDR:
-> +            return (GICD + GICD_ISPENDRnE + (irq_index / 32) * 4);
-> +        case GICD_ICPENDR:
-> +            return (GICD + GICD_ICPENDRnE + (irq_index / 32) * 4);
-> +        case GICD_ISACTIVER:
-> +            return (GICD + GICD_ISACTIVERnE + (irq_index / 32) * 4);
-> +        case GICD_ICACTIVER:
-> +            return (GICD + GICD_ICACTIVERnE + (irq_index / 32) * 4);
-> +        case GICD_ICFGR:
-> +            return (GICD + GICD_ICFGRnE + (irq_index / 16) * 4);
-> +        case GICD_IROUTER:
-> +            return (GICD + GICD_IROUTERnE + irq_index * 8);
-> +        case GICD_IPRIORITYR:
-> +            return (GICD + GICD_IPRIORITYRnE + irq_index);
-> +        default:
-> +            break;
-> +        }
-> +    }
-> +#endif
->       default:
->           break;
->       }
-> @@ -655,6 +685,54 @@ static void gicv3_set_irq_priority(struct irq_desc *desc,
->       spin_unlock(&gicv3.lock);
->   }
->   
-> +#ifdef CONFIG_GICV3_ESPI
-> +unsigned int gic_number_espis(void)
-> +{
-> +    return gic_hw_ops->info->nr_espi;
-> +}
-> +
-> +static void __init gicv3_dist_espi_common_init(uint32_t type)
-> +{
-> +    unsigned int espi_nr, i;
-> +
-> +    espi_nr = min(1024U, GICD_TYPER_ESPIS_NUM(type));
-> +    gicv3_info.nr_espi = espi_nr;
-> +    /* The GIC HW doesn't support eSPI, so we can leave from here */
-> +    if ( gicv3_info.nr_espi == 0 )
-> +        return;
-> +
-> +    printk("GICv3: %d eSPI lines\n", gicv3_info.nr_espi);
-> +
-> +    for ( i = 0; i < espi_nr; i += 16 )
-> +        writel_relaxed(0, GICD + GICD_ICFGRnE + (i / 16) * 4);
-> +
-> +    for ( i = 0; i < espi_nr; i += 4 )
-> +        writel_relaxed(GIC_PRI_IRQ_ALL,
-> +                       GICD + GICD_IPRIORITYRnE + (i / 4) * 4);
-> +
-> +    for ( i = 0; i < espi_nr; i += 32 )
-> +    {
-> +        writel_relaxed(GENMASK(31, 0), GICD + GICD_ICENABLERnE + (i / 32) * 4);
-> +        writel_relaxed(GENMASK(31, 0), GICD + GICD_ICACTIVERnE + (i / 32) * 4);
-> +    }
-> +
-> +    for ( i = 0; i < espi_nr; i += 32 )
-> +        writel_relaxed(GENMASK(31, 0), GICD + GICD_IGROUPRnE + (i / 32) * 4);
+>  		return swiotlb_map(dev, phys, size, dir, attrs);
+>  	}
+>  
+> -	if (unlikely(!dma_capable(dev, dma_addr, size, true)) ||
+> -	    dma_kmalloc_needs_bounce(dev, size, dir)) {
+> -		if (is_pci_p2pdma_page(page))
+> -			return DMA_MAPPING_ERROR;
+> -		if (is_swiotlb_active(dev))
+> +	if (attrs & DMA_ATTR_MMIO)
+> +		dma_addr = phys;
+> +	else
+> +		dma_addr = phys_to_dma(dev, phys);
 
-NIT: From what I see, the eSPIs are configured exactly as regular SPIs 
-in gicv3_dist_init() (i.e. the eSPIs are level-triggered, disabled and 
-deactivated, belong to the same group, etc). In gicv3_dist_init() we 
-have comments clarying the actions, but here we do not. I would at least 
-write a sentence in patch description/in-code comment saying that eSPIs 
-configuration is the same as for regular SPIs.
+I've been trying to unpuzzle this CC related mess for a while and
+still am unsure what is right here... But judging from the comments I
+think this should always call phys_to_dma(). Though I understand the
+existing map_resource path didn't call it so it would also be fine to
+leave it like this..
 
+Alexey do you know?
 
-> +}
-> +
-> +static void __init gicv3_dist_espi_init_aff(uint64_t affinity)
-> +{
-> +    unsigned int i;
-> +
-> +    for ( i = 0; i < gicv3_info.nr_espi; i++ )
-> +        writeq_relaxed_non_atomic(affinity, GICD + GICD_IROUTERnE + i * 8);
-> +}
-> +#else
-> +static void __init gicv3_dist_espi_common_init(uint32_t type) { }
-> +
-> +static void __init gicv3_dist_espi_init_aff(uint64_t affinity) { }
-> +#endif
-> +
->   static void __init gicv3_dist_init(void)
->   {
->       uint32_t type;
-> @@ -700,6 +778,8 @@ static void __init gicv3_dist_init(void)
->       for ( i = NR_GIC_LOCAL_IRQS; i < nr_lines; i += 32 )
->           writel_relaxed(GENMASK(31, 0), GICD + GICD_IGROUPR + (i / 32) * 4);
->   
-> +    gicv3_dist_espi_common_init(type);
-> +
->       gicv3_dist_wait_for_rwp();
->   
->       /* Turn on the distributor */
-> @@ -713,6 +793,8 @@ static void __init gicv3_dist_init(void)
->   
->       for ( i = NR_GIC_LOCAL_IRQS; i < nr_lines; i++ )
->           writeq_relaxed_non_atomic(affinity, GICD + GICD_IROUTER + i * 8);
-> +
-> +    gicv3_dist_espi_init_aff(affinity);
->   }
->   
->   static int gicv3_enable_redist(void)
+The only time this seems to do anything is on AMD and I have no idea
+what AMD has done to their CC memory map with the iommu..
 
+On ARM at least I would expect the DMA API to be dealing only with
+canonical IPA, ie if the memory is encrpyted it is in the protect IPA
+region, if it is decrypted then it is in the unprotected IPA region.
 
-[snip]
+I think some of this 'dma encrypted' 'dma unencrypted' stuff is a bit
+confused, at least on ARM, as I would expect the caller to have a
+correct phys_addr_t with the correct IPA aliases already. Passing in
+an ambiguous struct page for DMA mapping and then magically fixing it
+seems really weird to me. I would expect that a correct phys_addr_t
+should just translate 1:1 to a dma_addr_t or an iopte. Suzuki is that
+the right idea for ARM?
 
+To that end this series seems like a big improvment for CCA as the
+caller can now specify either the protected or unprotected IPA
+directly instead of an ambiguous struct page.
+
+One of the things we are going to need for bounce buffering devices
+like RDMA is to be able to allocate unencrypted folios, mmap them to
+userspace, come back and then dma map them as unencrypted into a
+MR.
+
+So it looks to me like this series will be important for this use case
+as well.
+
+It looks OK though:
+
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+
+Jason
 
