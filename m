@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B37BB3993B
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 12:11:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1098226.1452335 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81447B39906
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 12:05:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1098177.1452305 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urZbH-0002dQ-AS; Thu, 28 Aug 2025 10:11:23 +0000
+	id 1urZVQ-0007tc-4R; Thu, 28 Aug 2025 10:05:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1098226.1452335; Thu, 28 Aug 2025 10:11:23 +0000
+Received: by outflank-mailman (output) from mailman id 1098177.1452305; Thu, 28 Aug 2025 10:05:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urZbH-0002aS-78; Thu, 28 Aug 2025 10:11:23 +0000
-Received: by outflank-mailman (input) for mailman id 1098226;
- Thu, 28 Aug 2025 10:11:21 +0000
+	id 1urZVQ-0007s8-1n; Thu, 28 Aug 2025 10:05:20 +0000
+Received: by outflank-mailman (input) for mailman id 1098177;
+ Thu, 28 Aug 2025 10:05:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Ityt=3I=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1urZUt-0005st-O7
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 10:04:47 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20624.outbound.protection.outlook.com
- [2a01:111:f403:2412::624])
+ id 1urZVO-0007re-Lj
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 10:05:18 +0000
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on20612.outbound.protection.outlook.com
+ [2a01:111:f403:2406::612])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6b63bb78-83f6-11f0-ae26-e363de0e7a9e;
- Thu, 28 Aug 2025 12:04:45 +0200 (CEST)
-Received: from BN0PR04CA0189.namprd04.prod.outlook.com (2603:10b6:408:e9::14)
- by SN7PR12MB8103.namprd12.prod.outlook.com (2603:10b6:806:355::5)
+ id 7e673ea6-83f6-11f0-ae26-e363de0e7a9e;
+ Thu, 28 Aug 2025 12:05:16 +0200 (CEST)
+Received: from CH0PR04CA0048.namprd04.prod.outlook.com (2603:10b6:610:77::23)
+ by SA0PR12MB4432.namprd12.prod.outlook.com (2603:10b6:806:98::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.21; Thu, 28 Aug
- 2025 10:04:35 +0000
-Received: from BL02EPF0002992B.namprd02.prod.outlook.com
- (2603:10b6:408:e9:cafe::ae) by BN0PR04CA0189.outlook.office365.com
- (2603:10b6:408:e9::14) with Microsoft SMTP Server (version=TLS1_3,
+ 2025 10:05:09 +0000
+Received: from CH1PEPF0000A34C.namprd04.prod.outlook.com
+ (2603:10b6:610:77:cafe::fd) by CH0PR04CA0048.outlook.office365.com
+ (2603:10b6:610:77::23) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9073.17 via Frontend Transport; Thu,
- 28 Aug 2025 10:04:35 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL02EPF0002992B.mail.protection.outlook.com (10.167.249.56) with Microsoft
+ 28 Aug 2025 10:05:09 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CH1PEPF0000A34C.mail.protection.outlook.com (10.167.244.6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9052.8 via Frontend Transport; Thu, 28 Aug 2025 10:04:35 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.9073.11 via Frontend Transport; Thu, 28 Aug 2025 10:05:09 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 28 Aug
- 2025 05:04:34 -0500
+ 2025 05:05:03 -0500
 Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
  satlexmb09.amd.com (10.181.42.218) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.1748.10; Thu, 28 Aug 2025 03:04:31 -0700
+ 15.2.1748.10; Thu, 28 Aug 2025 03:05:02 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,38 +60,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b63bb78-83f6-11f0-ae26-e363de0e7a9e
+X-Inumbo-ID: 7e673ea6-83f6-11f0-ae26-e363de0e7a9e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TrOgmmMyjEtzF8o/w4sULIM5LoVYOwBzdUwIAP677Txh3HHXxf6/0Vimq85CjahMS+eZ+wpPfCLupZhramdgiTtRLUpuUM+bGHNpGdZrGZdxXGqbSQLq+kTFcdKx3FmDDdgY0y28GYgPY1gicfWnsd/6F7uFOQlWbybi6k7zC7ycHuah3sEtjgC5ACOMuPJk2wh9kIbvaHS+51F8yHDYh1sZlHlg0rpUxJ73zwbfxbIl7Ln3hvYygWAJcX8CqznsfZmosVUu1fg6kkxe8z9O3wGnb4fETXYqILq3I6bgIZtYlCVzT12d73zGrbqhsG/l/muVhZ19hOdoiVP/PK5x4w==
+ b=tTuG5AONUt1+xtynw5AhCYGu/WoyI14yUehycG0SjLHyNIUXFcyMRhqmv+pvDzR7+eeTGhPUNDGw4QX7I2J4bx3T9bdLsWaeYyyyYxQeFKaFIQRF67wqgAyRwbVY85brXJOcnfqjxI7+9MzaGrAQKWKxOTcwczTOwXna8HM5hBSBIJdfBTOMZi8taPFp8vW3NtPsFHUhcwhv0g0zv2MXryvvWaWQlVlQ5hPJKuWln9O36NqxH20dWhTgVGOQjQyzRAugOPybgyR2NQQsYni60Qhy8AiyBygYCCQI79tLnVyCKmQ1r3M/GJtpCXzZU8L9y9ykLM3tZX2/+az6u8Udcg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=l3wJsdKEQ0/FfsHKNJUyknRMD5aaBJHflkJkUE966MY=;
- b=WV9K0O9PEMYrepGyJARM8KaOU6yDxar1bG6Gy0nnD+c5V6Hks+l1DtV3p5nortZDoUlq2C3K2nxJ/IktzZwq/9qvUjI/gFHVgyCk/W+lXKraydZGfiFaSmNc8LZtusfdUmlCaDOXDDGMK2Vt3BxK48dMbQ5NXJUHDLpSMrmyWjSq1aJ3Q88Ye6xQB7fWYX/Q2kmNHP3jaQLAHuMvRUZgXITxo7dAFNgGp3V49+joDEMWI2n0YkjBSFZKKNPv62wrr/Aq+sKl52NdJQr2YZVJFXVVZgAs1B3TuxMZbIme/sfUn+eApjw4GLg04Gr8Eky7Yg6jdnvkdSezBcxCWjS5Zw==
+ bh=SGXRU6OOlfIx4vW48sL+1I8w8ruvVFPQAhs++IqOvzU=;
+ b=B4VpCPAuVMdg64ShLt3jpMv/BjZgWUN8BxCRUkWzLG/BpH6v/3ZPbnZZLQeCsZXxgGc6hc5PNmFwKFBPn6+G9jiS7r56cByr9QKEbj78jnvJ1+bnbVrrnUtFAvUAcnxxNiTgpYbh5Bb/whLnpE6F/Av0AafIt8Bg9RmPT91dPS8aIWz94GTBhsjb5RNghixxZT3bvsel5/49XrDNkKmUVL8MwGIqIUxGHa9iXmlJql1M0ppNzser9NBSBrJ1lektiikzFIAA8VXp7nlzJmz6LUyvxeaXfBbl1k4OMCrhpgm0tNR93WVNwKNPXYOH5bX18UzK7ERLJ8oFZw3N4Kmtzw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l3wJsdKEQ0/FfsHKNJUyknRMD5aaBJHflkJkUE966MY=;
- b=30oyPPWhPrKIJD+kTjmiCwVEkVBKkvSzbYPGS1l1WSKlwVlb7FqJC1/GispbhEmNny85dNnbOvZqLEoDTONmz0pAi3tLTQY9YAF9wF9HJyCrNDon8/osl0bwaxcwwskssqnNI7IU0csF1SBKTT7KG75NtIzXudXZ5XqUMPAdGNI=
+ bh=SGXRU6OOlfIx4vW48sL+1I8w8ruvVFPQAhs++IqOvzU=;
+ b=y0+R/8862otG+WRloRPA+tyGWx1tdSWMP53lp4K4iQuoCI6wLZGyIexlFutkd6B3g8hhOuv77WhiUe1eAYZzAYeE5tfTjaGgg84QQNzCyuUmRjuwmZcyruTf8E2nHcwkDvVyIWp6bqdps7G9t9jnESF2shadDscVMWTQpupmh1Y=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Penny Zheng <Penny.Zheng@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: <ray.huang@amd.com>, Penny Zheng <Penny.Zheng@amd.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, "Julien
- Grall" <julien@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v8 4/8] xen/cpufreq: implement amd-cppc-epp driver for CPPC in active mode
-Date: Thu, 28 Aug 2025 18:04:16 +0800
-Message-ID: <20250828100416.1776501-1-Penny.Zheng@amd.com>
+CC: <ray.huang@amd.com>, Penny Zheng <Penny.Zheng@amd.com>, Jan Beulich
+	<jbeulich@suse.com>
+Subject: [PATCH v8 5/8] xen/cpufreq: get performance policy from governor set via xenpm
+Date: Thu, 28 Aug 2025 18:04:43 +0800
+Message-ID: <20250828100443.1776675-1-Penny.Zheng@amd.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -101,449 +98,107 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To satlexmb09.amd.com
  (10.181.42.218)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0002992B:EE_|SN7PR12MB8103:EE_
-X-MS-Office365-Filtering-Correlation-Id: e1068fec-f619-467c-5539-08dde61a4a8c
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A34C:EE_|SA0PR12MB4432:EE_
+X-MS-Office365-Filtering-Correlation-Id: e4117e5f-63db-49b1-5e63-08dde61a5ed2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700013;
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700013;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?VjQXIwgtyVs7bITMFRlRybko8u1OtZQZxtF5BtS4eHUA+T9V432f/2VGF98a?=
- =?us-ascii?Q?/p3FKyLZkAta/lTcEXlMhU6Zby9jAYHcb0zq2dGfPJvL+vd0Or4vEQpq51sy?=
- =?us-ascii?Q?Rx1ABD3PKfdH35VUGDTbtbLZ1jc4Nlgzx+15Y5YcnATzb7avbTCz6npqodLS?=
- =?us-ascii?Q?qzWQkaKr52Pn5Vu7QY+iPoiMUCoDQO51Jr8A7fRryzFkkBEueXI7oD3JbRWw?=
- =?us-ascii?Q?MN5WOGXkM5LBujeJvO2yC72m9mKbgmDBvf4Aw4NQfNkNG9ACMRJCbb+xaNj2?=
- =?us-ascii?Q?wsZBmWiCWaxeaYwlGGOJ7fdpEbf1czWE3OQ52T0ja5d57loew7p+RUQ1TBrV?=
- =?us-ascii?Q?EIyjcHMWmegc543kKRAUE27y1ViBl7iuhOm7fv8ZccXQjYBT6Z3bEBXMDwH6?=
- =?us-ascii?Q?cI/k4P69+87Ddl4/aL7nohgs+jijBDBMjka5e2qLF7VCi5zvC2vPpTTT+1gq?=
- =?us-ascii?Q?pW2e09WmlzJ6vJEdWABhUWrdRKO/5NYvJgkJUTWTZuPIZL168JlqbIkqiHr0?=
- =?us-ascii?Q?cGc+BckK5KcooytBIvJQIyzk/Cn2WTDecoMA3hUJhfStCDDp/oW/6ZBd3yyb?=
- =?us-ascii?Q?tGgBFK/fRwNwyEX7dkf+bKFdvukKmjnJpw/fNhHc9aVm8d6M+PpEK3GqJlVv?=
- =?us-ascii?Q?BF/VCadw1OfVGkJESpmin2HeP37noEFErawre/MHGSOxbt650849A0AWzDdc?=
- =?us-ascii?Q?J2L47FNxoOTE9aXDCFKr5rpKrFN7ai5AopyLX6XOGLBqmETBYpWrlE4oGFBH?=
- =?us-ascii?Q?bVo6phW8fazfutrcWBlN1tE7waDARoC4ylmWaQq5P0p3WPkucjTfl/O1cGQu?=
- =?us-ascii?Q?o4Ngsh5ZNukVRfe8wVqf/yFYfHmV+RYIp9J+j1OS0yqlcJPjJwDO3XSDdPos?=
- =?us-ascii?Q?1PfpUVqAtVmUdhO8UwhLqKaW3PhFLSmDolTulWM0YiCI0wEiv+VAI8mfmrYE?=
- =?us-ascii?Q?sAugHEzqSsqiAPINvUx2N7+SIPXIiPosq54CY9HKIyunLcbUdDFxBaaZVtwI?=
- =?us-ascii?Q?qa1kOnQV1te4CJW+T/bQpEBOJq6HCIFupvH5+5R4Bo5UFMIFDUDnz/ygQvKp?=
- =?us-ascii?Q?Jht3JrvBC8hG9JLc1Ec3kJbuu+dNTPBUj319B4XsCCkEGqFXID/vSuEExEjd?=
- =?us-ascii?Q?3B/BqZstiTw9rvALyEi5446jtju/esSO5d2UNyTOsy+moHw/By7LJjMPc24R?=
- =?us-ascii?Q?lOKAsZVxeoKyqUY6FP73NU6rEZe/cvPXWvib1fFVgsLfAW2RM5pAr3iXuT9f?=
- =?us-ascii?Q?4sue/hTD+4HA4VqGrKCKywu+JJYyeWdhFa6y9MGyepw0HITVFCFvnJT97vsT?=
- =?us-ascii?Q?9Rp93eyWCPkAgQDvZ0YKIgMjUBn33szwkydUF3b3OAZdsgrXWO/onCPb6GEv?=
- =?us-ascii?Q?VVaofSHlmtaNXVlf3+bOuU/Lyn+YQAgrEieGe/g84jq3vWFlVlDSviwRimOB?=
- =?us-ascii?Q?YBchS+bo0TT+rtD/HzxczDlbvWnwpO3BXEJQnbQSUNEtCE+SfDCPquwNWmB/?=
- =?us-ascii?Q?IJwEZVE4Rgn92IJUWurTp0psgU6m8a2TRa2C?=
+	=?us-ascii?Q?KPmU22SrPM3QidHzAZ8ikf9cAQeSRdw9zQPUWLGoHYW0azIEmcQ6FUsYJNmv?=
+ =?us-ascii?Q?UAz0+vNAxNYoAmGqqWUW/lLFQyHYIxRqs8H+iw5mIpKage8+ji2xHRRh5i/s?=
+ =?us-ascii?Q?ljnsPMNvQtn+Wy1Z6WgitcuQlF0LKLytEqnnJwXRkbSrDW8mCVB+DlvMMYls?=
+ =?us-ascii?Q?1FzdhCUntzPU1047ONDhcpCeILOhMJBzCME7jejni2SlBGEYyqTfEiu4xqMx?=
+ =?us-ascii?Q?vPBWmT/CeOMagUriIv1p+GspHKmcZETvXMzqcN0r1lFR8f61qAm/vEOr7ITa?=
+ =?us-ascii?Q?PBFPw28o+3cLAwxyMuLl6oUwQwpjV/bZQvCvo+5FRto7VRa95uNpXyv0FXXw?=
+ =?us-ascii?Q?ge1cz1DlVU4+REPpzG70+rASXfPMByDJxh2KmgWFRCfTrYexw2CcG1MZU33V?=
+ =?us-ascii?Q?T97cdCXfyBwsO5okkuqAP4zjTJbMDNX13PxGuyeFR0yubMv/YSG3EyX1spbG?=
+ =?us-ascii?Q?Q7LerZ4K8uUhqVlvhTDYjFAeW2PJp8QwZxVA50Roa0nTjLw/LYiTOpeF8Bk/?=
+ =?us-ascii?Q?QAbG4JMgwrI3MsSU1qkWpnqeeLouMF+RH6VYqlP/OXo9n4qXH2tM2tGInFn7?=
+ =?us-ascii?Q?T2P2KECNE0U9+m7lDh/Fm/C0MYtob+oD1Rh0W/1gSqtSywf0MQDZHk7UuNd/?=
+ =?us-ascii?Q?Ql3xXlF3ijINwIAUUO89qTXRMDlUebbqYu1r9KTYWyFQdsNPlrPCQjOrXRgC?=
+ =?us-ascii?Q?H4Rb1o/4DCfX2JbaGXbK0o3CpunAOI76c2gmYLs9LcXcOqpWyhGrXNQbePAG?=
+ =?us-ascii?Q?6snx/myBPfdQqGSwGZwe8lqWd0VrhO7h8Loc/W6IcVasIhS8KfIoi5jnB5eN?=
+ =?us-ascii?Q?cLBCYI674VKI3VfL3DG0pN0367j2M8g9gqWza4rXZxLdekGNwL4dyZbvEtZR?=
+ =?us-ascii?Q?KgjsijjzrWAZ8pYlSW+VbTm6ZowAB7U/X4fitJ4xMb+xFzl6VfaWVEO2in/S?=
+ =?us-ascii?Q?e0hdjLvJdo6NMQVSPXg/IPpgdaA0nEQi2opszYz5gQUc81rXOfbsoLrKV9sv?=
+ =?us-ascii?Q?A9Qi+uVNrIbCpL4BCyhBUHEns1Vy9i445x0paVc69wr+bWeUGpy5zqle7Zid?=
+ =?us-ascii?Q?ZIEGX9aLHt1twMXqKpuW0yj0z3pGzOh9xNV6Iy+n9hO/rfbsyZkZIX6kMnnx?=
+ =?us-ascii?Q?CKy0R6c77eMmYTgdX5IuWWgSECXTSY+Ncein5eKPieh5jIu+nQME7ligUzPU?=
+ =?us-ascii?Q?zJZJzTsZMCjvjDBlQo8Wx509WDmSm0q7TwOiy4heND8zAPt1G9MKJHhQNLR9?=
+ =?us-ascii?Q?WwwF+IRYD5fONKchePTSo7Kv/NDmUGhwNAGH8glQSqQWK8OGBGBw7zjfmluj?=
+ =?us-ascii?Q?/U/EBFKRU4kaLY6PvW8iF1E/JTiiIvKRHhdC92ph7z0tcSSzK6Gpn8aLyPLS?=
+ =?us-ascii?Q?T4oSAwXtJlJnEwA1Kd9TRo/CxX7HgaebRfuKfokGgr8EcQKZlCqvA/YTkwjW?=
+ =?us-ascii?Q?Q0V/cCe3x/HMOm4nZYnp/CHttR+nE3SyPyRE6V7aNNPWsOsXeBddVSF18/h1?=
+ =?us-ascii?Q?uN4/x5oBZ7ndsi5K8BDrEBA2N5vpl8/6GvKQ?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2025 10:04:35.0291
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2025 10:05:09.0314
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e1068fec-f619-467c-5539-08dde61a4a8c
+X-MS-Exchange-CrossTenant-Network-Message-Id: e4117e5f-63db-49b1-5e63-08dde61a5ed2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0002992B.namprd02.prod.outlook.com
+	CH1PEPF0000A34C.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8103
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4432
 
-amd-cppc has 2 operation modes: autonomous (active) mode and
-non-autonomous (passive) mode.
-In active mode, we don't need Xen governor to calculate and tune the cpu
-frequency, while hardware built-in CPPC power algorithm will calculate the
-runtime workload and adjust cores frequency automatically according to the
-power supply, thermal, core voltage and some other hardware conditions.
-In active mode, CPPC ignores requests done in the desired performance field,
-and takes into account only the values set to the minimum performance, maximum
-performance, and energy performance preference registers.
+Even if Xen governor is not used in amd-cppc active mode, we could
+somehow deduce which performance policy (CPUFREQ_POLICY_xxx) user wants to
+apply through which governor they choose, such as:
+If user chooses performance governor, they want maximum performance, then
+the policy shall be CPUFREQ_POLICY_PERFORMANCE
+If user chooses powersave governor, they want the least power consumption,
+then the policy shall be CPUFREQ_POLICY_POWERSAVE
+Function cpufreq_policy_from_governor() is responsible for above transition,
+and it shall be also effective when users setting new governor through xenpm.
 
-A new field EPP (energy performance preference), in CPPC request register, is
-introduced. It will be used in the CCLK DPM controller to drive the frequency
-that a core is going to operate during short periods of activity, called
-minimum active frequency, It could contatin a range of values from 0 to 0xff.
-An EPP of zero sets the min active frequency to maximum frequency, while
-an EPP of 0xff sets the min active frequency to approxiately Idle frequency.
-
-We implement a new AMD CPU frequency driver `amd-cppc-epp` for active mode.
-It requires `active` tag in Xen cmdline for users to explicitly select active
-mode.
-In driver `active-cppc-epp`, ->setpolicy() is hooked, not the ->target(), as
-it does not depend on xen governor to do performance tuning.
-
-We also introduce a new field "policy" (CPUFREQ_POLICY_xxx) to represent
-performance policy. Right now, it supports three values:
-CPUFREQ_POLICY_PERFORMANCE as maximum performance, CPUFREQ_POLICY_POWERSAVE
-as the least power consumption, and CPUFREQ_POLICY_ONDEMAND as no preference,
-just corresponding to "performance", "powersave" and "ondemand" Xen governor,
-which benefit users from re-using "governor" in Xen cmdline to deliver
-which performance policy they want to apply.
+Userspace is a forbidden choice, and if users specify such option, we shall
+not only give warning message to suggest using "xenpm set-cpufreq-cppc", but
+also error out.
 
 Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
----
-v1 -> v2:
-- Remove redundant epp_mode
-- Remove pointless initializer
-- Define sole caller read_epp_init_once and epp_init value to read
-pre-defined BIOS epp value only once
-- Combine the commit "xen/cpufreq: introduce policy type when
-cpufreq_driver->setpolicy exists"
----
-v2 -> v3:
-- Combined with commit "x86/cpufreq: add "cpufreq=amd-cppc,active" para"
-- Refactor doc about "active mode"
-- Change opt_cpufreq_active to opt_active_mode
-- Let caller pass epp_init when unspecified to allow the function parameter
-to be of uint8_t
-- Make epp_init per-cpu value
----
-v3 -> v4:
-- doc refinement
-- use MASK_EXTR() to get epp value
-- fix indentation
-- replace if-else() with switch()
-- combine successive comments and do refinement
-- no need to introduce amd_cppc_epp_update_limit() as a wrapper
-- rename cpufreq_parse_policy() with cpufreq_policy_from_governor()
-- no need to use case-insensitive comparison
 ---
 v4 -> v5:
-- refine doc to state what the default is for "active" sub-option and it's of
-boolean nature
-- excess blank after << for AMD_CPPC_EPP_MASK
-- set max_perf with lowest_perf to get utmost powersave
-- refine commit message to include description about relation between "policy"
-and "governor"
+- new commit
 ---
 v5 -> v6:
-- expand comment for "epp" field
-- let min_perf set with lowest_nonliner_perf, not lowest_perf, to constrain
-  performance tuning in P-states range
-- refactor doc and comments
-- blank lines between non-fall-through case blocks
-- introduce and add entry for "CPUFREQ_POLICY_ONDEMAND"
+- refactor warning message
 ---
-v6 -> v7
-- make opt_active_mode __initdata when NDEBUG=y
-- add assertion check for must-zero des_perf in active mode
-- use the local variable max_perf and min_perf
-- read_epp_init() doesn't worth a separate function
+v6 -> v7:
+- move policy->policy set where it firstly gets introduced
+- refactor commit message
 ---
 v7 -> v8:
-- use "ASSERT(!opt_active_mode || !des_perf);" to remove #ifndef NDEBUG
-- add a new helper amd_cppc_prepare_policy()
+- policy transition is only limited in CPPC mode
 ---
- docs/misc/xen-command-line.pandoc    |   9 +-
- xen/arch/x86/acpi/cpufreq/amd-cppc.c | 135 ++++++++++++++++++++++++++-
- xen/drivers/cpufreq/utility.c        |  15 +++
- xen/include/acpi/cpufreq/cpufreq.h   |  18 ++++
- xen/include/public/sysctl.h          |   1 +
- 5 files changed, 173 insertions(+), 5 deletions(-)
+ xen/drivers/acpi/pm-op.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index 3916cc81f6..c029a6e053 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -515,7 +515,7 @@ If set, force use of the performance counters for oprofile, rather than detectin
- available support.
+diff --git a/xen/drivers/acpi/pm-op.c b/xen/drivers/acpi/pm-op.c
+index 2f516e62b1..a7eaf29c31 100644
+--- a/xen/drivers/acpi/pm-op.c
++++ b/xen/drivers/acpi/pm-op.c
+@@ -207,6 +207,17 @@ static int set_cpufreq_gov(struct xen_sysctl_pm_op *op)
+     if ( new_policy.governor == NULL )
+         return -EINVAL;
  
- ### cpufreq
--> `= none | {{ <boolean> | xen } { [:[powersave|performance|ondemand|userspace][,[<maxfreq>]][,[<minfreq>]]] } [,verbose]} | dom0-kernel | hwp[:[<hdc>][,verbose]] | amd-cppc[:[verbose]]`
-+> `= none | {{ <boolean> | xen } { [:[powersave|performance|ondemand|userspace][,[<maxfreq>]][,[<minfreq>]]] } [,verbose]} | dom0-kernel | hwp[:[<hdc>][,verbose]] | amd-cppc[:[active][,verbose]]`
- 
- > Default: `xen`
- 
-@@ -537,6 +537,13 @@ choice of `dom0-kernel` is deprecated and not supported by all Dom0 kernels.
- * `amd-cppc` selects ACPI Collaborative Performance and Power Control (CPPC)
-   on supported AMD hardware to provide finer grained frequency control
-   mechanism. The default is disabled.
-+* `active` is a boolean to enable amd-cppc driver in active(autonomous) mode.
-+  In this mode, users don't rely on Xen governor to do performance monitoring
-+  and tuning. Hardware built-in CPPC power algorithm will calculate the runtime
-+  workload and adjust cores frequency automatically according to the power
-+  supply, thermal, core voltage and some other hardware conditions.
-+  The default is disabled, and the option only applies when `amd-cppc` is
-+  enabled.
- 
- There is also support for `;`-separated fallback options:
- `cpufreq=hwp;xen,verbose`.  This first tries `hwp` and falls back to `xen` if
-diff --git a/xen/arch/x86/acpi/cpufreq/amd-cppc.c b/xen/arch/x86/acpi/cpufreq/amd-cppc.c
-index 5b99b86fb7..bb7f4e4a9e 100644
---- a/xen/arch/x86/acpi/cpufreq/amd-cppc.c
-+++ b/xen/arch/x86/acpi/cpufreq/amd-cppc.c
-@@ -67,9 +67,14 @@
-  * max_perf.
-  * Field des_perf conveys performance level Xen governor is requesting. And it
-  * may be set to any performance value in the range [min_perf, max_perf],
-- * inclusive.
-+ * inclusive. In active mode, des_perf must be zero.
-  * Field epp represents energy performance preference, which only has meaning
-- * when active mode is enabled.
-+ * when active mode is enabled. The EPP is used in the CCLK DPM controller
-+ * to drive the frequency that a core is going to operate during short periods
-+ * of activity, called minimum active frequency, It could contatin a range of
-+ * values from 0 to 0xff. An EPP of zero sets the min active frequency to
-+ * maximum frequency, while an EPP of 0xff sets the min active frequency to
-+ * approxiately Idle frequency.
-  */
- struct amd_cppc_drv_data
- {
-@@ -106,6 +111,12 @@ static DEFINE_PER_CPU_READ_MOSTLY(struct amd_cppc_drv_data *,
-  */
- static DEFINE_PER_CPU_READ_MOSTLY(unsigned int, pxfreq_mhz);
- static DEFINE_PER_CPU_READ_MOSTLY(uint8_t, epp_init);
-+#ifndef NDEBUG
-+static bool __ro_after_init opt_active_mode;
-+#else
-+static bool __initdata opt_active_mode;
-+#endif
-+
- 
- static bool __init amd_cppc_handle_option(const char *s, const char *end)
- {
-@@ -118,6 +129,13 @@ static bool __init amd_cppc_handle_option(const char *s, const char *end)
-         return true;
-     }
- 
-+    ret = parse_boolean("active", s, end);
-+    if ( ret >= 0 )
++    if ( processor_pminfo[op->cpuid]->init & XEN_CPPC_INIT )
 +    {
-+        opt_active_mode = ret;
-+        return true;
++        new_policy.policy = cpufreq_policy_from_governor(new_policy.governor);
++        if ( new_policy.policy == CPUFREQ_POLICY_UNKNOWN )
++        {
++            printk("Failed to get performance policy from %s, Try \"xenpm set-cpufreq-cppc\"\n",
++                   new_policy.governor->name);
++            return -EINVAL;
++        }
 +    }
 +
-     return false;
+     return __cpufreq_set_policy(old_policy, &new_policy);
  }
  
-@@ -270,6 +288,7 @@ static void amd_cppc_write_request(unsigned int cpu, uint8_t min_perf,
- 
-     data->req.min_perf = min_perf;
-     data->req.max_perf = max_perf;
-+    ASSERT(!opt_active_mode || !des_perf);
-     data->req.des_perf = des_perf;
-     data->req.epp = epp;
- 
-@@ -417,7 +436,7 @@ static int cf_check amd_cppc_cpufreq_cpu_exit(struct cpufreq_policy *policy)
-     return 0;
- }
- 
--static int cf_check amd_cppc_cpufreq_cpu_init(struct cpufreq_policy *policy)
-+static int amd_cppc_cpufreq_init_perf(struct cpufreq_policy *policy)
- {
-     unsigned int cpu = policy->cpu;
-     struct amd_cppc_drv_data *data;
-@@ -450,12 +469,103 @@ static int cf_check amd_cppc_cpufreq_cpu_init(struct cpufreq_policy *policy)
- 
-     amd_cppc_boost_init(policy, data);
- 
-+    return 0;
-+}
-+
-+static int cf_check amd_cppc_cpufreq_cpu_init(struct cpufreq_policy *policy)
-+{
-+    int ret;
-+
-+    ret = amd_cppc_cpufreq_init_perf(policy);
-+    if ( ret )
-+        return ret;
-+
-     amd_cppc_verbose(policy->cpu,
-                      "CPU initialized with amd-cppc passive mode\n");
- 
-     return 0;
- }
- 
-+static int cf_check amd_cppc_epp_cpu_init(struct cpufreq_policy *policy)
-+{
-+    int ret;
-+
-+    ret = amd_cppc_cpufreq_init_perf(policy);
-+    if ( ret )
-+        return ret;
-+
-+    policy->policy = cpufreq_policy_from_governor(policy->governor);
-+
-+    amd_cppc_verbose(policy->cpu,
-+                     "CPU initialized with amd-cppc active mode\n");
-+
-+    return 0;
-+}
-+
-+static void amd_cppc_prepare_policy(struct cpufreq_policy *policy,
-+                                    uint8_t *max_perf, uint8_t *min_perf,
-+                                    uint8_t *epp)
-+{
-+    const struct amd_cppc_drv_data *data = per_cpu(amd_cppc_drv_data,
-+                                                   policy->cpu);
-+
-+    /*
-+     * On default, set min_perf with lowest_nonlinear_perf, and max_perf
-+     * with the highest, to ensure performance scaling in P-states range.
-+     */
-+    *max_perf = data->caps.highest_perf;
-+    *min_perf = data->caps.lowest_nonlinear_perf;
-+
-+    /*
-+     * In policy CPUFREQ_POLICY_PERFORMANCE, increase min_perf to
-+     * highest_perf to achieve ultmost performance.
-+     * In policy CPUFREQ_POLICY_POWERSAVE, decrease max_perf to
-+     * lowest_nonlinear_perf to achieve ultmost power saving.
-+     * Set governor only to help print proper policy info to users.
-+     */
-+    switch ( policy->policy )
-+    {
-+    case CPUFREQ_POLICY_PERFORMANCE:
-+        /* Force the epp value to be zero for performance policy */
-+        *epp = CPPC_ENERGY_PERF_MAX_PERFORMANCE;
-+        *min_perf = *max_perf;
-+        policy->governor = &cpufreq_gov_performance;
-+        break;
-+
-+    case CPUFREQ_POLICY_POWERSAVE:
-+        /* Force the epp value to be 0xff for powersave policy */
-+        *epp = CPPC_ENERGY_PERF_MAX_POWERSAVE;
-+        *max_perf = *min_perf;
-+        policy->governor = &cpufreq_gov_powersave;
-+        break;
-+
-+    case CPUFREQ_POLICY_ONDEMAND:
-+        /*
-+         * Set epp with medium value to show no preference over performance
-+         * or powersave
-+         */
-+        *epp = CPPC_ENERGY_PERF_BALANCE;
-+        policy->governor = &cpufreq_gov_dbs;
-+        break;
-+
-+    default:
-+        *epp = per_cpu(epp_init, policy->cpu);
-+        break;
-+    }
-+}
-+
-+static int cf_check amd_cppc_epp_set_policy(struct cpufreq_policy *policy)
-+{
-+    uint8_t max_perf, min_perf, epp;
-+
-+    amd_cppc_prepare_policy(policy, &max_perf, &min_perf, &epp);
-+
-+    amd_cppc_write_request(policy->cpu, min_perf,
-+                           0 /* no des_perf in active mode */,
-+                           max_perf, epp);
-+    return 0;
-+}
-+
- static const struct cpufreq_driver __initconst_cf_clobber
- amd_cppc_cpufreq_driver =
- {
-@@ -466,10 +576,27 @@ amd_cppc_cpufreq_driver =
-     .exit   = amd_cppc_cpufreq_cpu_exit,
- };
- 
-+static const struct cpufreq_driver __initconst_cf_clobber
-+amd_cppc_epp_driver =
-+{
-+    .name       = XEN_AMD_CPPC_EPP_DRIVER_NAME,
-+    .verify     = amd_cppc_cpufreq_verify,
-+    .setpolicy  = amd_cppc_epp_set_policy,
-+    .init       = amd_cppc_epp_cpu_init,
-+    .exit       = amd_cppc_cpufreq_cpu_exit,
-+};
-+
- int __init amd_cppc_register_driver(void)
- {
-+    int ret;
-+
-     if ( !cpu_has_cppc )
-         return -ENODEV;
- 
--    return cpufreq_register_driver(&amd_cppc_cpufreq_driver);
-+    if ( opt_active_mode )
-+        ret = cpufreq_register_driver(&amd_cppc_epp_driver);
-+    else
-+        ret = cpufreq_register_driver(&amd_cppc_cpufreq_driver);
-+
-+    return ret;
- }
-diff --git a/xen/drivers/cpufreq/utility.c b/xen/drivers/cpufreq/utility.c
-index 987c3b5929..e2cc9ff2af 100644
---- a/xen/drivers/cpufreq/utility.c
-+++ b/xen/drivers/cpufreq/utility.c
-@@ -250,6 +250,7 @@ int __cpufreq_set_policy(struct cpufreq_policy *data,
-     data->min = policy->min;
-     data->max = policy->max;
-     data->limits = policy->limits;
-+    data->policy = policy->policy;
-     if (cpufreq_driver.setpolicy)
-         return alternative_call(cpufreq_driver.setpolicy, data);
- 
-@@ -281,3 +282,17 @@ int __cpufreq_set_policy(struct cpufreq_policy *data,
- 
-     return __cpufreq_governor(data, CPUFREQ_GOV_LIMITS);
- }
-+
-+unsigned int cpufreq_policy_from_governor(const struct cpufreq_governor *gov)
-+{
-+    if ( !strncmp(gov->name, "performance", CPUFREQ_NAME_LEN) )
-+        return CPUFREQ_POLICY_PERFORMANCE;
-+
-+    if ( !strncmp(gov->name, "powersave", CPUFREQ_NAME_LEN) )
-+        return CPUFREQ_POLICY_POWERSAVE;
-+
-+    if ( !strncmp(gov->name, "ondemand", CPUFREQ_NAME_LEN) )
-+        return CPUFREQ_POLICY_ONDEMAND;
-+
-+    return CPUFREQ_POLICY_UNKNOWN;
-+}
-diff --git a/xen/include/acpi/cpufreq/cpufreq.h b/xen/include/acpi/cpufreq/cpufreq.h
-index 5d4881eea8..9ef7c4683a 100644
---- a/xen/include/acpi/cpufreq/cpufreq.h
-+++ b/xen/include/acpi/cpufreq/cpufreq.h
-@@ -81,6 +81,7 @@ struct cpufreq_policy {
-     int8_t              turbo;  /* tristate flag: 0 for unsupported
-                                  * -1 for disable, 1 for enabled
-                                  * See CPUFREQ_TURBO_* below for defines */
-+    unsigned int        policy; /* CPUFREQ_POLICY_* */
- };
- DECLARE_PER_CPU(struct cpufreq_policy *, cpufreq_cpu_policy);
- 
-@@ -131,6 +132,23 @@ extern int cpufreq_register_governor(struct cpufreq_governor *governor);
- extern struct cpufreq_governor *__find_governor(const char *governor);
- #define CPUFREQ_DEFAULT_GOVERNOR &cpufreq_gov_dbs
- 
-+/*
-+ * Performance Policy
-+ * If cpufreq_driver->target() exists, the ->governor decides what frequency
-+ * within the limits is used. If cpufreq_driver->setpolicy() exists, these
-+ * following policies are available:
-+ * CPUFREQ_POLICY_PERFORMANCE represents maximum performance
-+ * CPUFREQ_POLICY_POWERSAVE represents least power consumption
-+ * CPUFREQ_POLICY_ONDEMAND represents no preference over performance or
-+ * powersave
-+ */
-+#define CPUFREQ_POLICY_UNKNOWN      0
-+#define CPUFREQ_POLICY_POWERSAVE    1
-+#define CPUFREQ_POLICY_PERFORMANCE  2
-+#define CPUFREQ_POLICY_ONDEMAND     3
-+
-+unsigned int cpufreq_policy_from_governor(const struct cpufreq_governor *gov);
-+
- /* pass a target to the cpufreq driver */
- extern int __cpufreq_driver_target(struct cpufreq_policy *policy,
-                                    unsigned int target_freq,
-diff --git a/xen/include/public/sysctl.h b/xen/include/public/sysctl.h
-index aa29a5401c..eb3a23b038 100644
---- a/xen/include/public/sysctl.h
-+++ b/xen/include/public/sysctl.h
-@@ -454,6 +454,7 @@ struct xen_set_cppc_para {
- };
- 
- #define XEN_AMD_CPPC_DRIVER_NAME "amd-cppc"
-+#define XEN_AMD_CPPC_EPP_DRIVER_NAME "amd-cppc-epp"
- #define XEN_HWP_DRIVER_NAME "hwp"
- 
- /*
 -- 
 2.34.1
 
