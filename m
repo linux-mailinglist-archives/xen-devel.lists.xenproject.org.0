@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C09BB39907
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 12:05:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1098180.1452316 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99ADDB3990B
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 12:06:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1098194.1452324 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urZVg-0008Jx-DF; Thu, 28 Aug 2025 10:05:36 +0000
+	id 1urZW9-0000Q9-KV; Thu, 28 Aug 2025 10:06:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1098180.1452316; Thu, 28 Aug 2025 10:05:36 +0000
+Received: by outflank-mailman (output) from mailman id 1098194.1452324; Thu, 28 Aug 2025 10:06:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urZVg-0008Ge-A7; Thu, 28 Aug 2025 10:05:36 +0000
-Received: by outflank-mailman (input) for mailman id 1098180;
- Thu, 28 Aug 2025 10:05:34 +0000
+	id 1urZW9-0000Nf-Hr; Thu, 28 Aug 2025 10:06:05 +0000
+Received: by outflank-mailman (input) for mailman id 1098194;
+ Thu, 28 Aug 2025 10:06:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Ityt=3I=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1urZVe-0008DS-Ek
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 10:05:34 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2060b.outbound.protection.outlook.com
- [2a01:111:f403:2413::60b])
+ id 1urZW8-0008DS-Gh
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 10:06:04 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20629.outbound.protection.outlook.com
+ [2a01:111:f403:2415::629])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8854376e-83f6-11f0-aeb2-fb57b961d000;
- Thu, 28 Aug 2025 12:05:33 +0200 (CEST)
-Received: from CH0PR03CA0409.namprd03.prod.outlook.com (2603:10b6:610:11b::17)
- by DM6PR12MB4107.namprd12.prod.outlook.com (2603:10b6:5:218::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.14; Thu, 28 Aug
- 2025 10:05:28 +0000
-Received: from CH1PEPF0000A349.namprd04.prod.outlook.com
- (2603:10b6:610:11b:cafe::c4) by CH0PR03CA0409.outlook.office365.com
- (2603:10b6:610:11b::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9073.17 via Frontend Transport; Thu,
- 28 Aug 2025 10:05:28 +0000
+ id 9b32648c-83f6-11f0-aeb2-fb57b961d000;
+ Thu, 28 Aug 2025 12:06:03 +0200 (CEST)
+Received: from CH5P223CA0021.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:1f3::22)
+ by MN2PR12MB4470.namprd12.prod.outlook.com (2603:10b6:208:260::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.20; Thu, 28 Aug
+ 2025 10:05:55 +0000
+Received: from CH1PEPF0000A34A.namprd04.prod.outlook.com
+ (2603:10b6:610:1f3:cafe::b6) by CH5P223CA0021.outlook.office365.com
+ (2603:10b6:610:1f3::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9073.18 via Frontend Transport; Thu,
+ 28 Aug 2025 10:05:55 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH1PEPF0000A349.mail.protection.outlook.com (10.167.244.9) with Microsoft
+ CH1PEPF0000A34A.mail.protection.outlook.com (10.167.244.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.9073.11 via Frontend Transport; Thu, 28 Aug 2025 10:05:28 +0000
+ 15.20.9073.11 via Frontend Transport; Thu, 28 Aug 2025 10:05:55 +0000
 Received: from Satlexmb09.amd.com (10.181.42.218) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 28 Aug
- 2025 05:05:27 -0500
+ 2025 05:05:53 -0500
 Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
  satlexmb09.amd.com (10.181.42.218) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.1748.10; Thu, 28 Aug 2025 03:05:25 -0700
+ 15.2.1748.10; Thu, 28 Aug 2025 03:05:51 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,22 +60,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8854376e-83f6-11f0-aeb2-fb57b961d000
+X-Inumbo-ID: 9b32648c-83f6-11f0-aeb2-fb57b961d000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Vbf8McWGeW2dqLMQ2AtvO6vuWz6kM4KisNQyhW0y7j++fkw4W0i2TYeM8epA4qHqGLyJuEzZuoH5yjb1+p3IkpT+4p/YCF6n5kkIcN4mMDgQpdqs3zYvpSA4ddRrYz1uaJgDsep9PwSl0eHQten2k/byzUpglcPTWxKXw/YRsNEDTyin6HK0XcPMRMtse6H34VvwoEsvpsQm46VaCNoI6bfaVdPTVVIuW5S+VmEEiNnoUFewGvXgN1niGW63koRVnOwmXSQRObpl8r2G817ErOWRq8dPVZuad4GPPulJxQLygLBmxragGviKpTfwHYeKCBULvnwJemAEzh7/Eltp/A==
+ b=RsQT0rmiaABOmcohSWKiBAi2i2eEUuKJmizoFTALGjKue0+y/bex2PjTKxUhmoMyaLhqh7NKiXfAqibuniY5SLgozyCNE75zWr5aBYzFGt13lLznQlThlYzDvlscVjPggy0QUpyvgdMr+alRcKayR8EIlwk4APFQ3Kp4QEidQVD3NDQ3whBe689krAEHMyAawkcAmiLwhpo+98sPvk129ZUeaYP0wFLqieOYoAw2M7Y45JLzvlUueM/tWcyy3QJRZCrUskTkeQLum1TRvH/p/pzfcejIiEccn8Pbo6SuOkbNvzvFUEPfiaa+tX0d0/iDIHxgmoLldTNdp1Yxe8C0Yw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Toe6Isc8jD267iNGh3XLoNGxPPh/1SU1rDpbA94F4Os=;
- b=FroFL342Fi0V5rw4LAx1uOXHpAU5jq46Z6p7Gtdc2yQAYnumaMCrXb8+kjxNtiUKVhJ7+7ko5ysTAvJKm2YOEuycA6WjA2MY+olRlkZEAjUqqhchVEQMZYv2PIvBBIlUruaVVMLjK3g6I/JvU3jaLywaCglUMOr0puwZW3+EFhLw+haUIaADLrDV5SXM9ZljREBdpFVSpaOpmgMF76DfWZ7MutRIGeSTDvlVBcozWb8pDk4mB4m3jSdCSZQ6fB9RUdkR+NH3dW5wcVIOHiY++7Is4ltmZELlUjBFnkHgFBnNtQ7Sz7LvtNKpo84PqhQIBMuZ2bhK7bnjhsKSUZ/Kkw==
+ bh=Sr/8ELtfeheb63woL4g3CYLQa/Js9kgQh/H0SwSl4PE=;
+ b=uW+i6VXn4tqL/alVBLclQ2Ajk8mExcqzl9BZTkEk1xR6g7ngf7ZuA85yVhk7zGtI7utR1nqXwWkd3Q4pMTZaXQsK7KxLskxHUMTcHiiENdR3K6KE8PPtYR0frwNk0KBgJUUXRzQlx6wYUGD5ljQBf93HKHhcAvqmPFyx27wtCYJHE1BNyAy9g7XGDkno7rBJ3GCu68jmr6r+mwZ4FBSa1ILdqlb9qyULA+OIhMzgDMQu61VeHrJAp2hk2pu/nmEKrambDtfXSsYpJtQpJ29MDB3BQDmwohcRkzWcAUtV1xowFDf8pG6S9rpIelUyX+XhceSd4VT4/401LR7JTW5sPw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Toe6Isc8jD267iNGh3XLoNGxPPh/1SU1rDpbA94F4Os=;
- b=vwLFQFkLvymwFeavOKzRlAjvtorK9n3IwcneL1qQFAHInRrN9qMPJ7Yze/92ypJ1JmE80okqjzng2HFAEJ+Zd3BitFeXejyXeY8DJ+Q1JupDUKheMIKHGZclET4SF8siDsjDQFlTBas2NfT+9luvM8DVYyHBNKPG7sW/BVzyd4w=
+ bh=Sr/8ELtfeheb63woL4g3CYLQa/Js9kgQh/H0SwSl4PE=;
+ b=npKnH2wl8sPO/NP2dSmKqoCDL9ls/0DheOPXxm0NSYDXbGEN3g7UWncLDRP5q2+2OccEYZC5b6RRTQFgOoQggN8jqm0N8HQINOR5SewSCMrcDNdNZakgNK7qEZiOXb33PXJh43ZJ2PPEIZMr9KgAcHID5JDN1L7K/bRVG1E2Xfs=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -85,14 +85,10 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 From: Penny Zheng <Penny.Zheng@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <ray.huang@amd.com>, Penny Zheng <Penny.Zheng@amd.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>
-Subject: [PATCH v8 6/8] tools/cpufreq: extract CPPC para from cpufreq para
-Date: Thu, 28 Aug 2025 18:05:10 +0800
-Message-ID: <20250828100510.1776855-1-Penny.Zheng@amd.com>
+	<anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v8 7/8] xen/cpufreq: bypass governor-related para for amd-cppc-epp
+Date: Thu, 28 Aug 2025 18:05:34 +0800
+Message-ID: <20250828100534.1777023-1-Penny.Zheng@amd.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -102,339 +98,166 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To satlexmb09.amd.com
  (10.181.42.218)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000A349:EE_|DM6PR12MB4107:EE_
-X-MS-Office365-Filtering-Correlation-Id: 49bde12a-5deb-4fe6-898a-08dde61a6a74
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A34A:EE_|MN2PR12MB4470:EE_
+X-MS-Office365-Filtering-Correlation-Id: 66262697-d78f-4f78-8138-08dde61a7a40
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|376014;
+	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?mT4lIxnOwhitJNi1D9JaP0LqGREqvyoE/Ulo1OeCO7sFzaQuXPDj456Vm4JG?=
- =?us-ascii?Q?Ed0hCgvUgPvWdgjOrIVxo1SQgRMfdBd2aZgEo9PXFFbupFDHb3vCceR/7wCK?=
- =?us-ascii?Q?VzuiSogPke+Spi/U5NnqWPJ4YAgzyvW8W+41Z/yUuaNwC188HGMYPgeQzANE?=
- =?us-ascii?Q?CAXlaEkHFx4CwvGIaPVNH7u9xQJ6CCa+5h2u8/1ANMmdiyhKtIj2ZTbH/I+x?=
- =?us-ascii?Q?STweqdTG0Bsl3LnIduoRZ657nG3mhHE0mvoPq9xjFIUnADoI8bpm4+ZrXcKF?=
- =?us-ascii?Q?k6kMZzH93Td2Q/QEuF8K7Mj/UvJvCVFqR50xbDr04XK81UhyycO4Kc90pcQF?=
- =?us-ascii?Q?nu470ngf6agoirK5rnLLhoBAfQ8QSenRjwBlrw4D3Yc94w60vVRKLN13p2//?=
- =?us-ascii?Q?0paE/Ka9Ca4bFF7njGRk4oZO3HaQAB7VCVxo2YEB1Q7jSLYNPz/ZETF7fm5t?=
- =?us-ascii?Q?x1HBIW8KFwQJTRZNzC5FVSiGrF3jAtV8/Meq9dnZmM4HYH0pDwQFsc4b8sMk?=
- =?us-ascii?Q?Bbcq1XEXG2UdkGa0O/hqHjbuMtmzMGRCCUXyZbbB1dRN4jTJlUXquD6TSOjk?=
- =?us-ascii?Q?182W/aBSSNVg1ANO//D2h85/BsUsYcmB749N/20bKQNiyNOnsIX3oDzxWJPB?=
- =?us-ascii?Q?Sh8rdw9btklHXoQJaH+Y/M7lnTk2bDprz/nno7onC42XCE6J+kBjg0jjxBnD?=
- =?us-ascii?Q?0W4DNJU4bmnUrd280NZ4tABZ680Fljke3Nd5y8b7rlunFpHuCeRFWE6QUPlI?=
- =?us-ascii?Q?9NDK/gGhJWqemszlQmBOA1zDpnJCdh55dLkj3/O2dTJBlYu+7qMhI+/NQ/98?=
- =?us-ascii?Q?EcJUlfrUwzu4DZQsjCfQdatd6ck2sPW/JpESkBrXNVHeGnegbZv17WO2lY2n?=
- =?us-ascii?Q?WDKtGWy0RVIpvi+7Bbwj2npsRRyLVtjuH5hwe8UluN9N8Do1jujVn25tV0S3?=
- =?us-ascii?Q?2ssZV51lzSvcsb79O3hPq8vNr1zgy41s9OCN4nCwRk2WpzU2YnrircEvHoCZ?=
- =?us-ascii?Q?KyfT+7J+8FqIr3sGhLKiQxcqHJobpgXJdqZcGXnXyMk61ZUU9v/wJlP5eMZw?=
- =?us-ascii?Q?E+aBBjLt9wr2o/kcYUsjPnLJuMumfo60gpa2e8zrBdYnymSt2KBhLBwjtk87?=
- =?us-ascii?Q?nEA5ZUyrYPXnWKfXc2XRrVzECVsDX3VJYzqcNeXr1Y3jOCdcOe318HigChHL?=
- =?us-ascii?Q?0S10rpZMhYaGFwZLPMUQE9SkytkdZudQzvCcfN8DB2td6VpAT6aK9vaMfnw1?=
- =?us-ascii?Q?ruCRp7+PpIt2f3SW64RDIApdHy39iq1n71+nn1vgYRQ3dWqPfNLOc4Jb1OR3?=
- =?us-ascii?Q?D0EKtDjQSjKEDbbBEd0GPRPBBhjeCeiAPI2ygHPUtHGTYoFvscX8aw2Fa9f0?=
- =?us-ascii?Q?j2hDke1I/Ol2GE+t50xzCecel8o2/qPOKF5+8kICrJjRus96KSOzATC3j/wt?=
- =?us-ascii?Q?ijiGd1Ks4tZRi9ZzntMD4QWbE+Q/GhvnyzxYmaDfVenvhEouOI2NRfq3MALe?=
- =?us-ascii?Q?vKx/aXmSsZw5x02v2AQbCyQD0gHu0tvom1Nm?=
+	=?us-ascii?Q?RA7G4lmnZUk9FmEwgEwTvG4xou62pI7Y1Vrx5LUjnpQHRhZqG5E9X/T5jhnW?=
+ =?us-ascii?Q?XK/T/VeW5tWj2xwKsI1Du0UAmNVeSfAV9iabEh9zkTj150sndSFyPerSfSei?=
+ =?us-ascii?Q?Z0vYNNaf9xcSL4Zl9Bs2fxQr/vWZPCxPmugy8Fb+kKHnytAUgzlkY0ZHo2CA?=
+ =?us-ascii?Q?h9ackvL3YG7rMZEEZiWHEj0olrO0FtO7GuUeDbrAOk+qdn2bLLZdDxkS8TQX?=
+ =?us-ascii?Q?Z5vmc0ZH03tijBoBJ4Boj4XqcwWBLQJNhs1aMTM2gRQPFgAivxvXPlMo7qAZ?=
+ =?us-ascii?Q?Vm9MZ0dM/FszJPDugw5dvmxuOzr23BFctwudLAcxyA6PRFNTZ6FbU7eY7sn2?=
+ =?us-ascii?Q?KfTDw74fFHQ8TEUNlz0xoTwWPlrJTXapU6EWUaBKr6JVGkcHJKSOBKY8Zopj?=
+ =?us-ascii?Q?4+2UGOwNPi6m2WkNHk8nGBP6H7i0ut4mzv5CjnLrghhrmR+FWW6fQnAsqyY8?=
+ =?us-ascii?Q?5qln1xt088qCIvbeD8Tnv8R0XCg/vpRagml5iOJ/T9MWcStZlifvUELrLSMM?=
+ =?us-ascii?Q?S2RIFnp005qUL4OEMTleWBLkp2J/VzyDAqfyQRF9ml9TAWLtCAfE3Jhd2sQJ?=
+ =?us-ascii?Q?GzODsStjufNpEffSrIkiJYqnwV+wGADKyofMNdyRHkQFIwp9Lj0N0ETTF7ro?=
+ =?us-ascii?Q?pnblib85AASoS3BsfS14ACr6DwjtzoGmdlZhHp6T/0neKdhEgBmgthhNr08d?=
+ =?us-ascii?Q?HDukdu+M3178KrKF4HYXVrDAOBspEcCSWJDeKqAJrm4OEl+YqPwihO3y8K9t?=
+ =?us-ascii?Q?nwxR4SI2E8J7aMANlImq7ajlI/cjmtAV1q1KXPS44062rEBDydl9J+UJYlk5?=
+ =?us-ascii?Q?j9g5IC/qGLbj2ZNwfwAs1sQ7gkjOwhMV1yETsC5B2KSs+Nmn7OL7QJuBqvWC?=
+ =?us-ascii?Q?Qr9AJI+L9LhhVFCVHFiEWEyOFjjWYUnUFQUrgYkcPDb+niysznf/5cDQvlaf?=
+ =?us-ascii?Q?Q2nHp3+vuFYOjYwcENiuYfdHXUBXq8Rk5WQ2Kkbh9FdvczAr+sLfR4zt8YRh?=
+ =?us-ascii?Q?/5DCV8YL9mkpiMjtbEZN2/50IjzJxpVKkqv+7oA2MV0ImZYyAzDxQVcG+ilZ?=
+ =?us-ascii?Q?IqkO9c/xM8+s5kKXtG6LhJVps/HwR730AvVc4crXWGKWd6wxrNjtZ7hsT0xN?=
+ =?us-ascii?Q?tgONe0hZ9qGH205vXxWBF+PuhTVkDA004YWHsKVeIlqqxwWtRuEDTR8ywqqv?=
+ =?us-ascii?Q?HUbR+5ylD1E5L56QM+hYmgjZf8h8y6Bv6SYIRJLrpXK1dA5TNmHF861rFQpd?=
+ =?us-ascii?Q?5KNaUaVZVzUXToEtuV9rMyknyBS/g03BBuHBHQO9uR20O1Vkoi5i75X2f6JQ?=
+ =?us-ascii?Q?unbZ5Etwz2VMX0j0qtS6KhK1vJpJZyDc354X0DlCYhR3r4bN33Dy/xcCxh+T?=
+ =?us-ascii?Q?UIqSyIMcgbNRsmdPvJPD/tMDIZ8VC2ALsZmQWJb4E64tRbS+0eK3m1OdHxii?=
+ =?us-ascii?Q?k9zjsyrWWZ1+losA8EEAeSgF9JYtpqytZ1t1ZPV93HtPpMCpAh2IgkhjB5SE?=
+ =?us-ascii?Q?rP1k53bB5GhNBA0x1hfdl/nshR8OnEPgPzlD?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2025 10:05:28.5487
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2025 10:05:55.0530
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49bde12a-5deb-4fe6-898a-08dde61a6a74
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66262697-d78f-4f78-8138-08dde61a7a40
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000A349.namprd04.prod.outlook.com
+	CH1PEPF0000A34A.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4107
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4470
 
-We extract cppc info from "struct xen_get_cpufreq_para", where it acts as
-a member of union, and share the space with governor info.
-However, it may fail in amd-cppc passive mode, in which governor info and
-CPPC info could co-exist, and both need to be printed together via xenpm tool.
-If we tried to still put it in "struct xen_get_cpufreq_para" (e.g. just move
-out of union), "struct xen_get_cpufreq_para" will enlarge too much to further
-make xen_sysctl.u exceed 128 bytes.
-
-So we introduce a new sub-field GET_CPUFREQ_CPPC to dedicatedly acquire
-CPPC-related para, and make get-cpufreq-para invoke GET_CPUFREQ_CPPC
-if available.
-New helpers print_cppc_para() and get_cpufreq_cppc() are introduced to
-extract CPPC-related parameters process from cpufreq para.
+HWP and amd-cppc-epp are both governor-less driver, so we introduce
+"is_governor_less" flag and cpufreq_is_governorless() to help bypass
+governor-related info on dealing with cpufreq para.
 
 Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
-Acked-by: Jan Beulich <jbeulich@suse.com> # hypervisor
-Acked-by: Anthony PERARD <anthony.perard@vates.tech>
+---
+v3 -> v4:
+- Include validation check fix here
 ---
 v4 -> v5:
-- new commit
+- validation check has beem moved to where XEN_PROCESSOR_PM_CPPC and
+XEN_CPPC_INIT have been firstly introduced
+- adding "cpufreq_driver.setpolicy == NULL" check to exclude governor-related
+para for amd-cppc-epp driver in get/set_cpufreq_para()
 ---
 v5 -> v6:
-- remove the changes for get-cpufreq-para
+- add helper cpufreq_is_governorless() to tell whether cpufreq driver is
+governor-less
 ---
 v6 -> v7:
-- make get-cpufreq-para invoke GET_CPUFREQ_CPPC
+- change "hw_auto" to "is_goverless"
+- complement comment
+- wrap around with PM_OP to avoid violating Misra rule 2.1
 ---
 v7 -> v8:
-- use structure assignment as it is a alias
-- add errno info to the error print
+- change "is_goverless" to "is_governor_less"
+- make cpufreq_is_governorless() inline function
 ---
- tools/include/xenctrl.h     |  3 +-
- tools/libs/ctrl/xc_pm.c     | 25 +++++++++++-
- tools/misc/xenpm.c          | 79 ++++++++++++++++++++++++-------------
- xen/drivers/acpi/pm-op.c    | 19 +++++++--
- xen/include/public/sysctl.h |  3 +-
- 5 files changed, 96 insertions(+), 33 deletions(-)
+ tools/misc/xenpm.c                 | 10 +++++++---
+ xen/drivers/acpi/pm-op.c           |  4 ++--
+ xen/include/acpi/cpufreq/cpufreq.h | 12 ++++++++++++
+ 3 files changed, 21 insertions(+), 5 deletions(-)
 
-diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index 965d3b585a..e5103453a9 100644
---- a/tools/include/xenctrl.h
-+++ b/tools/include/xenctrl.h
-@@ -1938,7 +1938,6 @@ struct xc_get_cpufreq_para {
-                 xc_ondemand_t ondemand;
-             } u;
-         } s;
--        xc_cppc_para_t cppc_para;
-     } u;
- 
-     int32_t turbo_enabled;
-@@ -1953,6 +1952,8 @@ int xc_set_cpufreq_para(xc_interface *xch, int cpuid,
-                         int ctrl_type, int ctrl_value);
- int xc_set_cpufreq_cppc(xc_interface *xch, int cpuid,
-                         xc_set_cppc_para_t *set_cppc);
-+int xc_get_cppc_para(xc_interface *xch, unsigned int cpuid,
-+                     xc_cppc_para_t *cppc_para);
- int xc_get_cpufreq_avgfreq(xc_interface *xch, int cpuid, int *avg_freq);
- 
- int xc_set_sched_opt_smt(xc_interface *xch, uint32_t value);
-diff --git a/tools/libs/ctrl/xc_pm.c b/tools/libs/ctrl/xc_pm.c
-index 6fda973f1f..56e213018a 100644
---- a/tools/libs/ctrl/xc_pm.c
-+++ b/tools/libs/ctrl/xc_pm.c
-@@ -288,7 +288,6 @@ int xc_get_cpufreq_para(xc_interface *xch, int cpuid,
-         CHK_FIELD(s.scaling_min_freq);
-         CHK_FIELD(s.u.userspace);
-         CHK_FIELD(s.u.ondemand);
--        CHK_FIELD(cppc_para);
- 
- #undef CHK_FIELD
- 
-@@ -366,6 +365,30 @@ int xc_set_cpufreq_cppc(xc_interface *xch, int cpuid,
-     return ret;
- }
- 
-+int xc_get_cppc_para(xc_interface *xch, unsigned int cpuid,
-+                     xc_cppc_para_t *cppc_para)
-+{
-+    int ret;
-+    struct xen_sysctl sysctl = {};
-+
-+    if ( !xch  || !cppc_para )
-+    {
-+        errno = EINVAL;
-+        return -1;
-+    }
-+
-+    sysctl.cmd = XEN_SYSCTL_pm_op;
-+    sysctl.u.pm_op.cmd = GET_CPUFREQ_CPPC;
-+    sysctl.u.pm_op.cpuid = cpuid;
-+
-+    ret = xc_sysctl(xch, &sysctl);
-+    if ( ret )
-+        return ret;
-+
-+    *cppc_para = sysctl.u.pm_op.u.get_cppc;
-+    return ret;
-+}
-+
- int xc_get_cpufreq_avgfreq(xc_interface *xch, int cpuid, int *avg_freq)
- {
-     int ret = 0;
 diff --git a/tools/misc/xenpm.c b/tools/misc/xenpm.c
-index 6b054b10a4..e83dd0d80c 100644
+index e83dd0d80c..893a0afe11 100644
 --- a/tools/misc/xenpm.c
 +++ b/tools/misc/xenpm.c
-@@ -801,6 +801,34 @@ static unsigned int calculate_activity_window(const xc_cppc_para_t *cppc,
-     return mantissa * multiplier;
- }
- 
-+/* print out parameters about cpu cppc */
-+static void print_cppc_para(unsigned int cpuid,
-+                            const xc_cppc_para_t *cppc)
-+{
-+    printf("cppc variables       :\n");
-+    printf("  hardware limits    : lowest [%"PRIu32"] lowest nonlinear [%"PRIu32"]\n",
-+           cppc->lowest, cppc->lowest_nonlinear);
-+    printf("                     : nominal [%"PRIu32"] highest [%"PRIu32"]\n",
-+           cppc->nominal, cppc->highest);
-+    printf("  configured limits  : min [%"PRIu32"] max [%"PRIu32"] energy perf [%"PRIu32"]\n",
-+           cppc->minimum, cppc->maximum, cppc->energy_perf);
-+
-+    if ( cppc->features & XEN_SYSCTL_CPPC_FEAT_ACT_WINDOW )
-+    {
-+        unsigned int activity_window;
-+        const char *units;
-+
-+        activity_window = calculate_activity_window(cppc, &units);
-+        printf("                     : activity_window [%"PRIu32" %s]\n",
-+               activity_window, units);
-+    }
-+
-+    printf("                     : desired [%"PRIu32"%s]\n",
-+           cppc->desired,
-+           cppc->desired ? "" : " hw autonomous");
-+    printf("\n");
-+}
-+
+@@ -832,9 +832,13 @@ static void print_cppc_para(unsigned int cpuid,
  /* print out parameters about cpu frequency */
  static void print_cpufreq_para(int cpuid, struct xc_get_cpufreq_para *p_cpufreq)
  {
-@@ -826,33 +854,7 @@ static void print_cpufreq_para(int cpuid, struct xc_get_cpufreq_para *p_cpufreq)
+-    bool hwp = strcmp(p_cpufreq->scaling_driver, XEN_HWP_DRIVER_NAME) == 0;
++    bool is_governor_less = false;
+     int i;
+ 
++    if ( !strcmp(p_cpufreq->scaling_driver, XEN_HWP_DRIVER_NAME) ||
++         !strcmp(p_cpufreq->scaling_driver, XEN_AMD_CPPC_EPP_DRIVER_NAME) )
++        is_governor_less = true;
++
+     printf("cpu id               : %d\n", cpuid);
+ 
+     printf("affected_cpus        :");
+@@ -842,7 +846,7 @@ static void print_cpufreq_para(int cpuid, struct xc_get_cpufreq_para *p_cpufreq)
+         printf(" %d", p_cpufreq->affected_cpus[i]);
+     printf("\n");
+ 
+-    if ( hwp )
++    if ( is_governor_less )
+         printf("cpuinfo frequency    : base [%"PRIu32"] max [%"PRIu32"]\n",
+                p_cpufreq->cpuinfo_min_freq,
+                p_cpufreq->cpuinfo_max_freq);
+@@ -854,7 +858,7 @@ static void print_cpufreq_para(int cpuid, struct xc_get_cpufreq_para *p_cpufreq)
  
      printf("scaling_driver       : %s\n", p_cpufreq->scaling_driver);
  
--    if ( hwp )
--    {
--        const xc_cppc_para_t *cppc = &p_cpufreq->u.cppc_para;
--
--        printf("cppc variables       :\n");
--        printf("  hardware limits    : lowest [%"PRIu32"] lowest nonlinear [%"PRIu32"]\n",
--               cppc->lowest, cppc->lowest_nonlinear);
--        printf("                     : nominal [%"PRIu32"] highest [%"PRIu32"]\n",
--               cppc->nominal, cppc->highest);
--        printf("  configured limits  : min [%"PRIu32"] max [%"PRIu32"] energy perf [%"PRIu32"]\n",
--               cppc->minimum, cppc->maximum, cppc->energy_perf);
--
--        if ( cppc->features & XEN_SYSCTL_CPPC_FEAT_ACT_WINDOW )
--        {
--            unsigned int activity_window;
--            const char *units;
--
--            activity_window = calculate_activity_window(cppc, &units);
--            printf("                     : activity_window [%"PRIu32" %s]\n",
--                   activity_window, units);
--        }
--
--        printf("                     : desired [%"PRIu32"%s]\n",
--               cppc->desired,
--               cppc->desired ? "" : " hw autonomous");
--    }
--    else
-+    if ( !hwp )
+-    if ( !hwp )
++    if ( !is_governor_less )
      {
          if ( p_cpufreq->gov_num )
              printf("scaling_avail_gov    : %s\n",
-@@ -898,6 +900,24 @@ static void print_cpufreq_para(int cpuid, struct xc_get_cpufreq_para *p_cpufreq)
-     printf("\n");
- }
- 
-+/* show cpu cppc parameters information on CPU cpuid */
-+static int show_cppc_para_by_cpuid(xc_interface *xc_handle, unsigned int cpuid)
-+{
-+    int ret;
-+    xc_cppc_para_t cppc_para;
-+
-+    ret = xc_get_cppc_para(xc_handle, cpuid, &cppc_para);
-+    if ( !ret )
-+        print_cppc_para(cpuid, &cppc_para);
-+    else if ( errno == ENODEV )
-+        ret = 0; /* Ignore unsupported platform */
-+    else
-+        fprintf(stderr, "[CPU%u] failed to get cppc parameter: %s\n",
-+                cpuid, strerror(errno));
-+
-+    return ret;
-+}
-+
- /* show cpu frequency parameters information on CPU cpuid */
- static int show_cpufreq_para_by_cpuid(xc_interface *xc_handle, int cpuid)
- {
-@@ -957,7 +977,12 @@ static int show_cpufreq_para_by_cpuid(xc_interface *xc_handle, int cpuid)
-     } while ( ret && errno == EAGAIN );
- 
-     if ( ret == 0 )
-+    {
-         print_cpufreq_para(cpuid, p_cpufreq);
-+
-+        /* Show CPPC parameters if available */
-+        ret = show_cppc_para_by_cpuid(xc_handle, cpuid);
-+    }
-     else if ( errno == ENODEV )
-     {
-         ret = -ENODEV;
 diff --git a/xen/drivers/acpi/pm-op.c b/xen/drivers/acpi/pm-op.c
-index a7eaf29c31..19aedf6b0b 100644
+index 19aedf6b0b..371deaf678 100644
 --- a/xen/drivers/acpi/pm-op.c
 +++ b/xen/drivers/acpi/pm-op.c
-@@ -77,6 +77,17 @@ static int read_scaling_available_governors(char *scaling_available_governors,
-     return 0;
- }
- 
-+static int get_cpufreq_cppc(unsigned int cpu,
-+                            struct xen_get_cppc_para *cppc_para)
-+{
-+    int ret = -ENODEV;
-+
-+    if ( hwp_active() )
-+        ret = get_hwp_para(cpu, cppc_para);
-+
-+    return ret;
-+}
-+
- static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
- {
-     uint32_t ret = 0;
-@@ -143,9 +154,7 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
+@@ -154,7 +154,7 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
      else
          strlcpy(op->u.get_para.scaling_driver, "Unknown", CPUFREQ_NAME_LEN);
  
--    if ( hwp_active() )
--        ret = get_hwp_para(policy->cpu, &op->u.get_para.u.cppc_para);
--    else
-+    if ( !hwp_active() )
+-    if ( !hwp_active() )
++    if ( !cpufreq_is_governorless(op->cpuid) )
      {
          if ( !(scaling_available_governors =
                 xzalloc_array(char, gov_num * CPUFREQ_NAME_LEN)) )
-@@ -385,6 +394,10 @@ int do_pm_op(struct xen_sysctl_pm_op *op)
-         ret = set_cpufreq_para(op);
-         break;
+@@ -240,7 +240,7 @@ static int set_cpufreq_para(struct xen_sysctl_pm_op *op)
+     if ( !policy || !policy->governor )
+         return -EINVAL;
  
-+    case GET_CPUFREQ_CPPC:
-+        ret = get_cpufreq_cppc(op->cpuid, &op->u.get_cppc);
-+        break;
+-    if ( hwp_active() )
++    if ( cpufreq_is_governorless(op->cpuid) )
+         return -EOPNOTSUPP;
+ 
+     switch( op->u.set_para.ctrl_type )
+diff --git a/xen/include/acpi/cpufreq/cpufreq.h b/xen/include/acpi/cpufreq/cpufreq.h
+index 9ef7c4683a..7caeae26cf 100644
+--- a/xen/include/acpi/cpufreq/cpufreq.h
++++ b/xen/include/acpi/cpufreq/cpufreq.h
+@@ -294,4 +294,16 @@ int acpi_cpufreq_register(void);
+ int amd_cppc_cmdline_parse(const char *s, const char *e);
+ int amd_cppc_register_driver(void);
+ 
++/*
++ * Governor-less cpufreq driver indicates the driver doesn't rely on Xen
++ * governor to do performance tuning, mostly it has hardware built-in
++ * algorithm to calculate runtime workload and adjust cores frequency
++ * automatically, like Intel HWP, or CPPC in AMD.
++ */
++static inline bool cpufreq_is_governorless(unsigned int cpuid)
++{
++    return processor_pminfo[cpuid]->init && (hwp_active() ||
++                                             cpufreq_driver.setpolicy);
++}
 +
-     case SET_CPUFREQ_CPPC:
-         ret = set_cpufreq_cppc(op);
-         break;
-diff --git a/xen/include/public/sysctl.h b/xen/include/public/sysctl.h
-index eb3a23b038..3f654f98ab 100644
---- a/xen/include/public/sysctl.h
-+++ b/xen/include/public/sysctl.h
-@@ -492,7 +492,6 @@ struct xen_get_cpufreq_para {
-                 struct  xen_ondemand ondemand;
-             } u;
-         } s;
--        struct xen_get_cppc_para cppc_para;
-     } u;
- 
-     int32_t turbo_enabled;
-@@ -523,6 +522,7 @@ struct xen_sysctl_pm_op {
-     #define SET_CPUFREQ_PARA           (CPUFREQ_PARA | 0x03)
-     #define GET_CPUFREQ_AVGFREQ        (CPUFREQ_PARA | 0x04)
-     #define SET_CPUFREQ_CPPC           (CPUFREQ_PARA | 0x05)
-+    #define GET_CPUFREQ_CPPC           (CPUFREQ_PARA | 0x06)
- 
-     /* set/reset scheduler power saving option */
-     #define XEN_SYSCTL_pm_op_set_sched_opt_smt    0x21
-@@ -547,6 +547,7 @@ struct xen_sysctl_pm_op {
-     uint32_t cpuid;
-     union {
-         struct xen_get_cpufreq_para get_para;
-+        struct xen_get_cppc_para    get_cppc;
-         struct xen_set_cpufreq_gov  set_gov;
-         struct xen_set_cpufreq_para set_para;
-         struct xen_set_cppc_para    set_cppc;
+ #endif /* __XEN_CPUFREQ_PM_H__ */
 -- 
 2.34.1
 
