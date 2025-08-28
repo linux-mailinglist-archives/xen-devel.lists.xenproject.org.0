@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B77AB39749
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 10:42:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1097785.1451995 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9B90B39772
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 10:49:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1097795.1452005 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urYCr-0005VI-Iq; Thu, 28 Aug 2025 08:42:05 +0000
+	id 1urYJR-00066W-6l; Thu, 28 Aug 2025 08:48:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1097785.1451995; Thu, 28 Aug 2025 08:42:05 +0000
+Received: by outflank-mailman (output) from mailman id 1097795.1452005; Thu, 28 Aug 2025 08:48:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urYCr-0005Tp-F7; Thu, 28 Aug 2025 08:42:05 +0000
-Received: by outflank-mailman (input) for mailman id 1097785;
- Thu, 28 Aug 2025 08:42:03 +0000
+	id 1urYJR-00064L-46; Thu, 28 Aug 2025 08:48:53 +0000
+Received: by outflank-mailman (input) for mailman id 1097795;
+ Thu, 28 Aug 2025 08:48:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=pYI3=3I=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1urYCp-0005Tj-Te
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 08:42:03 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
+ id 1urYJQ-00064B-6g
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 08:48:52 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id de611f6d-83ea-11f0-aeb2-fb57b961d000;
- Thu, 28 Aug 2025 10:42:02 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-61cebce2f78so209689a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 01:42:02 -0700 (PDT)
+ id d1f4034d-83eb-11f0-aeb2-fb57b961d000;
+ Thu, 28 Aug 2025 10:48:51 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-61c7942597fso3653143a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 01:48:51 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61cbabf816dsm2454376a12.21.2025.08.28.01.42.01
+ 4fb4d7f45d1cf-61ceaf6ec7bsm209840a12.17.2025.08.28.01.48.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Aug 2025 01:42:01 -0700 (PDT)
+ Thu, 28 Aug 2025 01:48:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de611f6d-83ea-11f0-aeb2-fb57b961d000
+X-Inumbo-ID: d1f4034d-83eb-11f0-aeb2-fb57b961d000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756370522; x=1756975322; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4Wcpp0vQrg94lHJGRgm8P/44drSFfisXzKQaSwMvnVg=;
-        b=CiHxdEUk6xjoduP8lOkaMwULDxOldstiulQu+d2sXLdM/xFZ2VoSjyT1dhNBNsQJuS
-         bYG4W0fqiZ2I61Jva8OSYZPvtPnl0qknolQrHkQT7zDb2vSq9Fzb/C3VWtGai4QulRMv
-         +4Eo9xf7C+KxB0oVXcsx9v2XSK7mnCepZn3+32/oS8WjtK96fcg3cWYYDfEZQQqt/Gi0
-         FItb7OERumImp3A3I13SDdMVQss4IYSm9YWze9LDbhFvF2wG0l4zRZ4r5wsJ2St0entr
-         8W8JRqPaogzyZH9Ae0a68Cx2Oi3b1qVIr2vz/Gi7bjK/wfrZF8Brqwm5xZF2d1rna4M4
-         2pKQ==
+        d=suse.com; s=google; t=1756370930; x=1756975730; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=AUXfFX48DAEakyXfVCtOI1S9lZ6zGyuY1xECWIH7rRg=;
+        b=edCugN43TaDAhhSgp4nnFXDT0UqHqxv9R9+s1sQ2Mg8Jy3dokwqXvPw5dq4Ko/WnR6
+         cc5vhPS0HlH6WWUgXEInOhNfb8J7vsH4doLk24kjfDqnSux9ft2foYl5OWYVNQwu/AyH
+         LUz+TIcMn0auxGHn0Gus68p+vE9lKL7DrdoukhilN+22kwVlMoLQWF1/nBVc2tCy+WaY
+         RPBL2eF1dksDLj6MdDPyxYwpqMFho3j7cE0LWTybULchf5hfzUsQHmD5eqsdebNJajFX
+         VueTaYKF14pNlFvmq5IK7BNlI/WT3t66uaRWpQxOXYN47tsX0pxGK2tEraDJ//ANiOlM
+         sfrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756370522; x=1756975322;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4Wcpp0vQrg94lHJGRgm8P/44drSFfisXzKQaSwMvnVg=;
-        b=ou8b7MFJzxsUm7b34/Mqn2NPPScJbcQ/W873qtUCHLVM1xk3JXRzoL3NjlR4pgQR61
-         zaXsgPlVL/TvxP2V3ksTiCRONt5AoCjB5kP9WDaGw+F9qRoueHp8skZL3QnKgRoH5D0a
-         inQ5sbc86caNRW5MLrF3BS8TQnu7BSmsagpOw2pM5Z1RmbbJbKRzRdCZN84CYGkh4Mms
-         D70qToCiFigMt/MpZLXqcc/2fODEuygOW6JydQucladmzVNg7kqKvWFpV6pAsh0QisAB
-         oxQgOpxnXZ29gh5VftxCIvFy26YURlXzYMEaxD3/XqZs6LmBL4hj5eioKcsb7H7jGUA0
-         uJ6A==
-X-Forwarded-Encrypted: i=1; AJvYcCXP6+i2x/cxKfG9wNSVKyrTuUTbDIw3u77HH1bCsPIW1PNXXkHRse82AVG0Txb1uPUWv0Cdow5DyVw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxoSmpEJj3solggG5DIDrpe8QReuTOePuClXaM/OJmIOAVVM2UE
-	L4TkLcz8PIlWDGtp+0GqDdvQ9AzxGT3OOZ6jlXSEkrFXwwweTvC+BoDAE3GKMUbuLQ==
-X-Gm-Gg: ASbGncsNMrB5eVHSe755JndQ+gyIE/DSirXxW1wXkZs1vpfZkQBmemHdE27/1D6ek3y
-	A2tYmr9p3Jg03t/c2PL91d/jVJkD5eCbvFsZmpW5hgIhIAe1cLFQj2O1B/zoXbzynKyHupM8X3x
-	p1vpueM06nGfsqYyIvrcjtZ11PUE+Hjr6z4lpEtUv8qgUzTteUY4IO7SnWUQMUeGOSsItlPhciW
-	gpuC8JB+brLmyGNxmOg4mkoBvRioD0HkJVxgEfboDGN1kKoDvyCEMQ4rxRmz2xLP0PZIGhS9xcF
-	At8cSJs24TqyT3LhPmvUlS6h0aJ65EMda3HwRbiASpmMbIFESbxiCMkx81k966qhf68udYdg922
-	BR2cXEuwSrkEURlaF6qqZeqBVmUXuFLwkiLGcKrnDORLHq2rCddGHZLeGv65Fy5sA4Jhuh7+FBa
-	uTTVq59Ug=
-X-Google-Smtp-Source: AGHT+IG9V2/H1qp97Ban48596nKW2MJX8cuOPXDfodb0WGr2R7tZd8uqgZFZBRolR6ZddHlBzj9DTw==
-X-Received: by 2002:a05:6402:2549:b0:61c:9852:bbbd with SMTP id 4fb4d7f45d1cf-61c9852beb9mr6595245a12.34.1756370521970;
-        Thu, 28 Aug 2025 01:42:01 -0700 (PDT)
-Message-ID: <72b403be-bfaf-497f-90c8-d1cc9ff84ce8@suse.com>
-Date: Thu, 28 Aug 2025 10:42:00 +0200
+        d=1e100.net; s=20230601; t=1756370930; x=1756975730;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=AUXfFX48DAEakyXfVCtOI1S9lZ6zGyuY1xECWIH7rRg=;
+        b=V/Au21Fddak2dDWdr1HM/RUO5+GSdVCloux1nmNc1VYMVejLzjoNgAgDDJmAcfWPpv
+         oE0VmwK+akemsMnTMU65l7hIgVt8KzS9Iy3ynZG4mKxxGlGFwvyV0NffQZ1SZrqSokDg
+         cylLILD5y+sXJv9ZmNUM5VtkM4GUnynoW1pwSMXcsPzl7wrgoO6u5afAadxnf3CO/NG5
+         i3x4GaeAjAPRNXnpEv31jpCD9+sGipvgZJPFVp9U0XdrByXmqL8ojsEhrqt94fmac2re
+         COighjgj4SMyLj/VV45N84PqiD6BYxeSjmPqAmbzM4T9/qD+Aj0yhXlHIeSNOH2bJrbX
+         F83g==
+X-Gm-Message-State: AOJu0YxzTVL53tmQly1rJ9+tsBB23ZpxFEE76hN/aMsSCs+koby0fi81
+	IHc7YKyPuEkkZZGTNGo5yybVasGFobiTJ0jbg6IpoCxjVyVcd+NlBVV7gsK3ESFBKI0ZA5ga4cl
+	Yfp0=
+X-Gm-Gg: ASbGncudnHoUVawbxj653E147qWSyu6BGS7XWqPkYVFlJtAguOuyLQ3BK8auvln+BdH
+	Ex2BlCXpIh6jXW7qpXYuGrp81DIHu3UQi0en/ceF5MPNnu9yQVxfFv9xVdTwEKB0JL3Nj92kysV
+	pSZxzxu00wwfSiDEi+/ILsttcgE8TMVZdnIaHelE61SXDRua3vLxhMbU3LBwh2KmzsCzIAk4ENI
+	/FZSnKScaLl22x+OU3RwEtSw08TPUQxtMAZ8whL1HT8NvGyHqXfGSo6GQYjb3qml/DEPpjrSlDq
+	Bxbrf/xhZtJ5VAhbCsZHUG33VFcRJ4OIIQ5UFLTGYKsciZJDzSUoo9NfXLOE7dbQJsBnktZlpxR
+	BkUEjp/8KRvU9fa0ycO9kqwEnUQMbV03hme0ARU2EQc9L4EQ+xo2Q8449Smnk6SRJhi51mRPDZg
+	1RoPPrfvxzbNrmoZdaCw==
+X-Google-Smtp-Source: AGHT+IFi17hjAqIQtSfcvgHE49zU/tZKoGL/xD2ybCk39ZycbUkS55Xj2/0kgfCTQ+oXzDE2jEUiug==
+X-Received: by 2002:a05:6402:5247:b0:61c:bf9f:fefe with SMTP id 4fb4d7f45d1cf-61cbfa03e42mr3196921a12.10.1756370930549;
+        Thu, 28 Aug 2025 01:48:50 -0700 (PDT)
+Message-ID: <c011bc78-4ce0-4c43-9638-f03aee41816e@suse.com>
+Date: Thu, 28 Aug 2025 10:48:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] device-tree: fix infinite loop issue in
- 'assign_shared_memory()'
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <d7768394209c65cfef4006c3ffc0a0f5d82c4c18.1756368997.git.dmytro_prokopchuk1@epam.com>
+Subject: Re: MCA hypercall with PVH
+To: Jason Andryuk <jason.andryuk@amd.com>
+References: <318f8ef3-aa52-421b-b9cb-6cd6139e1dd1@amd.com>
 Content-Language: en-US
+Cc: Xen-devel <xen-devel@lists.xenproject.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -121,36 +117,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d7768394209c65cfef4006c3ffc0a0f5d82c4c18.1756368997.git.dmytro_prokopchuk1@epam.com>
+In-Reply-To: <318f8ef3-aa52-421b-b9cb-6cd6139e1dd1@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.08.2025 10:17, Dmytro Prokopchuk1 wrote:
-> Resolve infinite loop issue in the 'fail:' cleanup path of the function
-> 'assign_shared_memory()'. The issue was caused by an 'unsigned long' type
-> for the loop counter 'i', which could underflow and wrap around, violating
-> termination conditions.
-> Change 'i' to a signed data type ('long') to ensure safe termination of
-> the 'while (--i >= 0)' loop.
+On 28.08.2025 03:22, Jason Andryuk wrote:
+> The MCA hypercall, do_mca(), is only available for PV.  That is, it's 
+> only added to the hypercall table for PV.  Is there a particular reason 
+> it was omitted from PVH, or did PVH dom0 just not exist?
 
-If I was a maintainer of this code, I would strongly object to such a change.
-A signed type variable used as (effectively) an array index is almost always
-conceptually wrong. Plus i continues to be compared to nr_pages, which still
-is of an unsigned type.
-
-What imo wants changing instead is the use of the variable:
-
- fail:
-    while ( i-- > 0 )
-        put_page_nr(page + i, nr_borrowers);
-
-or yet more simply
-
- fail:
-    while ( i-- )
-        put_page_nr(page + i, nr_borrowers);
-
-See e.g. prepare_staticmem_pages() for a similar case.
+PVH Dom0 didn't exist back at the time, yes, but it's more than this. The
+hypercall, in some places, deals with MFNs, which aren't "visible" to PVH
+Dom0. IOW enabling it (perhaps just partly) would need to be done with
+extra care.
 
 Jan
 
