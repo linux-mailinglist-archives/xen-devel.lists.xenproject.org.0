@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBF7DB39F5E
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 15:50:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1098945.1452885 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B93B2B39F64
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 15:51:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1098963.1452896 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urd0a-0003Gj-1U; Thu, 28 Aug 2025 13:49:44 +0000
+	id 1urd1q-0004wy-CH; Thu, 28 Aug 2025 13:51:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1098945.1452885; Thu, 28 Aug 2025 13:49:44 +0000
+Received: by outflank-mailman (output) from mailman id 1098963.1452896; Thu, 28 Aug 2025 13:51:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urd0Z-0003Dx-UE; Thu, 28 Aug 2025 13:49:43 +0000
-Received: by outflank-mailman (input) for mailman id 1098945;
- Thu, 28 Aug 2025 13:49:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=AInb=3I=nvidia.com=jgg@srs-se1.protection.inumbo.net>)
- id 1urd0Z-0003Do-0j
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 13:49:43 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2062c.outbound.protection.outlook.com
- [2a01:111:f403:2412::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d8247a31-8415-11f0-8adc-4578a1afcccb;
- Thu, 28 Aug 2025 15:49:42 +0200 (CEST)
-Received: from CH3PR12MB8659.namprd12.prod.outlook.com (2603:10b6:610:17c::13)
- by LV8PR12MB9336.namprd12.prod.outlook.com (2603:10b6:408:208::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.13; Thu, 28 Aug
- 2025 13:49:29 +0000
-Received: from CH3PR12MB8659.namprd12.prod.outlook.com
- ([fe80::6eb6:7d37:7b4b:1732]) by CH3PR12MB8659.namprd12.prod.outlook.com
- ([fe80::6eb6:7d37:7b4b:1732%4]) with mapi id 15.20.9073.010; Thu, 28 Aug 2025
- 13:49:28 +0000
+	id 1urd1q-0004tq-8G; Thu, 28 Aug 2025 13:51:02 +0000
+Received: by outflank-mailman (input) for mailman id 1098963;
+ Thu, 28 Aug 2025 13:51:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Q4L6=3I=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1urd1o-0004tk-LU
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 13:51:00 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 06b3687b-8416-11f0-8dd7-1b34d833f44b;
+ Thu, 28 Aug 2025 15:50:58 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-afcb78ead12so153649566b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 06:50:58 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-afe91744c3asm756270766b.91.2025.08.28.06.50.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 28 Aug 2025 06:50:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,167 +45,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8247a31-8415-11f0-8adc-4578a1afcccb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mOyYTJbjsO9NCf8rOgy6Inz8ZGlaJmXwbgUjLmipwRKc9+8RwUUalO4/vmuNQn9F/I0tOlrhG67B/DZQndJn9k3oKOWnEz4rDTyQ23POEHnWbu8toQRA3Yd6DxHWksoIcjBBBsmnbXg7nmAcg/ClbSGZzfn6Ykx8D1tWNCYIgFb4n9BEfZRWMVvLmJR/z72ufCX5BDs7RFXlOyQK+zKvjzH2hELYS9KfN0QCuw5I5QtTsM1r2iohhAGeUgTJvRZQLHthlNlzB/FW8F2GZsIZxqMLww1+iH03v56Lqvg6kbMOP4lmQmbbLrRSnlDQU4ml63nfcn1Qb7X6yjvP3akG7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tmf5+3EpnHgeIhjFkX6hdDPoeYYCVpHZKSkOYrOxExM=;
- b=ZZlZTyrwHmzgwzgCSCYXcsv+D/spl2cxkcuiGgwqtUzBH4BxtzFl3cnN4cDOSIcjA4ZvP6QsG8kdu+w4w6DKqaZKbOUv/H6/UJ7a0Oe+R/gpbZLe2ZSD/TTyNZbtrEDB8u3SnoHHKuNklxx2Nj23e7oEXKdBDWcJQ9ZKhK51YgDDiozBHHFp9B7s1664Jb3+MWSQ7cDDYzulWoUElteLRPoOFwQrEUWmiJw7A6HW3X3Tt303cr8V5m6pq/NldilyHOdD91SYfszt+sMG8wlX0RvwOKqBlZ0Msr2b97VESpbo+ETWD//0TGKSzDYZN1EH0c0ZZbDpAYsBbIngEvX4RQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tmf5+3EpnHgeIhjFkX6hdDPoeYYCVpHZKSkOYrOxExM=;
- b=aykgNITyuWdx25Vhw+lXn6KBQYJ8yEmlrz5q69YYWlv4+2QIdxKW7xeYV9l4QVSZdJIYFYIfrJGG5x7AIDhTVisX21GRv/GAmAy5tjvtqFO8p/SFxHFxwurrg1WrZ5+21aUwNnek24kZTL5DOTvriaAkoxiQlbSXK0wJQe5NMPgfoo+hQetjZxQCl6szeGQDt0KD6U7dFoda/Me7dZ7dtrA9m7NNI2r2hU7qX6YmBhYxw/Q1OG6g9LsD9mwJns42nORjUYqnsQ3lylOGft1PjLuzTRQwmfJW9tWDmuXo+fzSpEanNt7K0Caq7X9ctkCaMR6m1GozrU/7daOhMbrwZQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Date: Thu, 28 Aug 2025 10:49:27 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
-	Leon Romanovsky <leonro@nvidia.com>,
-	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
-	Alexander Potapenko <glider@google.com>,
-	Alex Gaynor <alex.gaynor@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
-	iommu@lists.linux.dev, Jason Wang <jasowang@redhat.com>,
-	Jens Axboe <axboe@kernel.dk>, Joerg Roedel <joro@8bytes.org>,
-	Jonathan Corbet <corbet@lwn.net>, Juergen Gross <jgross@suse.com>,
-	kasan-dev@googlegroups.com, Keith Busch <kbusch@kernel.org>,
-	linux-block@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-nvme@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
-	linux-trace-kernel@vger.kernel.org,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v4 06/16] iommu/dma: extend iommu_dma_*map_phys API to
- handle MMIO memory
-Message-ID: <20250828134927.GE9469@nvidia.com>
-References: <cover.1755624249.git.leon@kernel.org>
- <4f84639baf6d5d0e107fd2001dff91b6538ff9ae.1755624249.git.leon@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4f84639baf6d5d0e107fd2001dff91b6538ff9ae.1755624249.git.leon@kernel.org>
-X-ClientProxiedBy: YT4PR01CA0489.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10c::8) To CH3PR12MB8659.namprd12.prod.outlook.com
- (2603:10b6:610:17c::13)
+X-Inumbo-ID: 06b3687b-8416-11f0-8dd7-1b34d833f44b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1756389058; x=1756993858; darn=lists.xenproject.org;
+        h=in-reply-to:content-language:references:to:from:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=owzOugVXmwrfQeOMKG+42O3kjCvc3VpLYb1xqovq5Z4=;
+        b=iB/vLfOjUF4qJpOtZBqoHsMDlo9fhrJ2f+3mHJLBvSiiauMn5pdRPBbkfYvTPcJhvM
+         +P06GR1MF67UlIxd3JocjLr/tNxkMlmMES4D918OC3/rEuKiH+Yz/7y9uqDsWed5/jz6
+         pKRs2ye1J4Vpkqz+mcYiRCAKZDVn79GEZxERwk9c1TNmN4iUt1XB49G/CQ+JzRoM30bW
+         MAGLSy1OIlRFEvtCdzWCTqsHsA5XQzvcp7DWDYhJHTRTdGxx6wtJiegvietdR2Q/4seP
+         K/R+k/i5nnkP+zGiunjRumyX+E8RgVV/LwHBPeGSCrTvCcNpKKPtDz1UtaaHfLS+uQ6n
+         FgDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756389058; x=1756993858;
+        h=in-reply-to:content-language:references:to:from:subject:user-agent
+         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=owzOugVXmwrfQeOMKG+42O3kjCvc3VpLYb1xqovq5Z4=;
+        b=aAk63vktl+jytag3dqXlVjimIWMV1tZ5O3MsOCnZSWq3qGGGUOGvcSFKcRl6Lkarbi
+         zYKxPxGOeFDjLa64UehWZx5y1/pkJjl3w52d9lij08xx4dj8btbj/qpekSOf+cEd79X2
+         fNBR0pR/baYXU9TQR1jCFEkdT2VAIlIZksmrntuhNAs3Va49yDxK/oq4FWKrbT68xEL0
+         5laG0J05XHb6sECejP3GQdBZ+VgjMxKB9XByIvzk4ybeQ225dd3zZ2UaNCfeiHi2qwTo
+         XpL1Ql2qsN/6JGER/qd+fwhKsVlaCQ+p/sol00X+ymUftdyUoLobtN4Mg3c4GrxAKmEY
+         AxgA==
+X-Gm-Message-State: AOJu0Yyv63CWCJE79OAbOLXZlQmPxZQRXbjdqt96KUs6qNT09qfeLl1a
+	xKq0wUvjwS+o+YKqPeACwOkxWM4r7zxrY1IcERHBynxXlT0gH2fzal1uqt5muQ==
+X-Gm-Gg: ASbGncs06BaW+Nj2NVvXvl/+OsvbZnGFbLCm9u35hgBszdJ28awcCxdejrmqPo/349j
+	ciNjbNKXzk9n3aLBw+T5NtzsZC7WuzONR9evIfw8ZfLCwXR5G8okQxVqEfZF52tAeM2rBa667U5
+	123zLovJo5LTzDQyFC/sJ2CES5HgY3q3uIySPsx7MxwFYNlUlAQ7OvL0IVcAbocYw6nWZvaGUrR
+	85icP4AatnvdKLQt4spdn38A4LYk0IQYEqJwNVON4Z3IcyDCv/T0+DxnXWhL8bkYLhbIy2IG7Vg
+	1rsKSh1NLSG/J2J/E/Ni44PSJzYDnALjL1BgVVhQurLrIBzqPeUXl4teO6t1SVLfwn9PiJY+mAg
+	hAi2/X1LaTr7w/rYlFfAFHaFQtG8zJjDPUXsaXpTHDMTobuys//YQvf0O5QrP7CQrurvWg5APe6
+	KdJgcB9OyvYH38ONKs
+X-Google-Smtp-Source: AGHT+IHa9BAqdTXTjlzmBe5Z8BI623r/z2VJ9BbFM3raGCXYSJYJj9UihVjokoDP/hrDCyXmPbCi+Q==
+X-Received: by 2002:a17:907:7e9c:b0:af9:8c1f:b290 with SMTP id a640c23a62f3a-afe28f6a866mr1843387466b.29.1756389057602;
+        Thu, 28 Aug 2025 06:50:57 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------lvBzz3KMKY0YXl6XLxXq5XHg"
+Message-ID: <01e3f4e6-696f-47f8-884c-0f90bf19aada@gmail.com>
+Date: Thu, 28 Aug 2025 15:50:56 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PR12MB8659:EE_|LV8PR12MB9336:EE_
-X-MS-Office365-Filtering-Correlation-Id: 10e3762c-9d9f-41d7-cb18-08dde639b556
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?ho/h4y0ux9joF8qU9L34AmpmcnS+9JVoSS3ehxuqmJIPmZ10QIBkBvTZAqvV?=
- =?us-ascii?Q?hIKq/J5YNFLUw3H5lBVc1B09vk5J2Ea+EYUUlwJ07CnvdIpjL3SDHj9iSBoq?=
- =?us-ascii?Q?eTkXoWwjU5DUHZtftR/yoCL2133rJ/U4CaAnFZio4Nc/yJwHTp6Yll1Ivofl?=
- =?us-ascii?Q?QCnqx8RsPNZnzlFJu/O3i9vziusVf5l5bAXjcRQ5DEbCGOBZZTLs75rNxYi6?=
- =?us-ascii?Q?D6U2hPpRb2ctl4vsYs3JZEa7eEs1oGWyk5dbtfbhdvCFUUFjVPGYQmci3hjb?=
- =?us-ascii?Q?Px4G2d15pjehZlDSFxm+65Tm2CX8kKotwIQdqEMbUFj/PofJ4tPvxbapucF5?=
- =?us-ascii?Q?KH3LLtmjZaASk8H1LsJD6/qOFEHHxdaDvjiZqzbj3wnpfREdjLaifSYOgDbr?=
- =?us-ascii?Q?JDcilP1Th7UoPeQGU+ALwb0+v+PcBTf1sJc5i/CGel/Gk//7BU1skEv0PmWT?=
- =?us-ascii?Q?JLX2UXhuV6Sbq3I9mkeb74f9YtIp5H6VhfjYYH4K5Oc3n7JCLa2vEJlI2sz3?=
- =?us-ascii?Q?Bp9LAgJX+VolivAYMuAgheKgmUakULCM6eXqSM9ByFTbB+RLklJwVwYPB7/Y?=
- =?us-ascii?Q?T5nv6qI16UzYfSKQOVOj3Q8pIrC84M+KvyNGUIlCdqWmXepCw6vk7udUkjC+?=
- =?us-ascii?Q?2sdfbzwfgQE0hlFn04Y/h2GiXKyu8LVQqTvxX/vum44/QcSNf/waq2nUgh9u?=
- =?us-ascii?Q?s4dIM/UKqQl1Wydk7+8dr52Fn29EF1aG9HtX6Kes6fRwQ+b/NbjQCFTaumzz?=
- =?us-ascii?Q?6kJwxa1sd1dapLYVsEpMEPYMla5I9LdBYfFt6g5r5vRg8JDye+edCgNO1ac5?=
- =?us-ascii?Q?qCrXbId6DMcb3kCCmEL63qlLBlbmRusaN9MC0GK4NbTAMK/geki4HiHqIhaX?=
- =?us-ascii?Q?ZYDIUxD9UxTV3/8N8jFy/3rLuwpxz/zaZgTBotm3Go5eHYf7N4Au3ScMvPyo?=
- =?us-ascii?Q?GJtOlyD8rTSMTq6ov/HU3KLtq9QTBdyYh+mo0c6k8yBstaMFkOVfjPgx+RTQ?=
- =?us-ascii?Q?T8rjtPShvqynrDx7cej+uOiGIKz/71BRjcqLc3m9VIqZQd8g31cVtlEJ9yKF?=
- =?us-ascii?Q?Shgpj6PyiDFXICPZ+lkM+N381jIDNvESQmJkT42+Xom2LCMxJk/vrZ6+nyuj?=
- =?us-ascii?Q?XNBAS3C5soC1enzLogesRYL0wxxSm+m0v0tLrEX2kBmpB9sZq6cd4c8D2Arw?=
- =?us-ascii?Q?jfwaOQJjW0a4uE8Ub3dpTuZoJlkox9Db0ENO+AEQzpjQICsEjvw2Cy26pBp/?=
- =?us-ascii?Q?6BEeKO8nkpajz8EO1ll52RC49xW/VL/xMInGx91anXKvTnumco0wbpP6z126?=
- =?us-ascii?Q?nBEFo89b4fT8t0r0XUqF0ZEt6akuBOG06yghEYZxpgbtb7Tn2v+fw7Ug461d?=
- =?us-ascii?Q?oiR/7FI/LdRACc3DUAd2+mt7DyMIaaAChZNtx9bz2NScH+q90qG7oTdC4eyp?=
- =?us-ascii?Q?mlRVDPFKoGU=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB8659.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?RnwI07pU9MhS3fcj6ZjxhKBugYZeOXHf7yczQcXDk5Kxm6tSkU2JFVdCQgSf?=
- =?us-ascii?Q?poBjKBrW54ONXTEgj5vJcSLdueLOBEgoHLDUbM8D092uLdIHdWjUy32VwSyp?=
- =?us-ascii?Q?lwqpffHv5JPwiFqYYdTJ/8bGBrAqhXLfkcIEVHOdY3T92WsyQZk2adqD/ZIz?=
- =?us-ascii?Q?siknKLCQDcUAsoMn6Hcu6mam/lMrbvIhL9Q3xV9jiYVVvPaT9WOkINbLSErr?=
- =?us-ascii?Q?DAn7cj6Ke3+ARrFp60MOhkyoMUE5Y31wm7/EKyGOWv4GNkms3tUi+L+kZ9du?=
- =?us-ascii?Q?28iT4kPOFvVOXjH8aPsfL9Vz0DqBKtIEmvW3JVWGjuDUcVUt/QA7Jwrsy6GK?=
- =?us-ascii?Q?/FFxGgRsPDluK/debsNuL86P3mvlhafZTim0nbfW3+eWjit1XUk72n7Hna2n?=
- =?us-ascii?Q?PMN/STHypoiTR1UsNqcts4esOtF4xvrFmlD8QJcvv/TXymNWZ+fxlXevmVBV?=
- =?us-ascii?Q?a0HtfN3wmILiWcfhCu7SepBuDI9pXKHaJ+qH2+zqtqBWb5tIGeXMqx3uT5ME?=
- =?us-ascii?Q?ipy1xI/DjxJXMQrBoicmp1lF6lBD7BHfqR14hXwXy3Y9F/FpqinD1DZ3n7iH?=
- =?us-ascii?Q?yfZkAT+fq/RaKLZPKAKa4wPxjyzPE1kdXUSs6ueFCml6w3Po89qDduHyZcS2?=
- =?us-ascii?Q?Eh5BpE2GHDnkMRyTJbt+G3aR5ksrDMGf45eUGZkeZZZlVzhghbaqFMU2qArk?=
- =?us-ascii?Q?MpCAA0bg8TdC8PFeVu6Q+2jYebMoL/D4IjiaboXIBf/IDkaJkfIxDzAo1K0n?=
- =?us-ascii?Q?uHpjjjWQeG39f45Y9rr2E07WFfrbTzJY1bDNUXm/PFaKTJkiSzwE8M2f1fQK?=
- =?us-ascii?Q?CXxYeiREeo1yMg0ktCcpkJaYMMAg7pngvccQW0xqDfwdv6omIul/ykfvoovh?=
- =?us-ascii?Q?2VuIJ5s5sm2hx50JFkstQ+y/ppnwN9OgFLxImLg8DFIddHC8Nk9j1fpbYHYz?=
- =?us-ascii?Q?XNtJAzUE2oK9+yD0+34wOEfzoG9/OcVv8tqEz5Nzw7vipUsQ+6OG0Hv3saBS?=
- =?us-ascii?Q?lER25hBAuYh1wSkE2TPBY67aaCtRqm3j34SgnFJZJ6ZWvxGkxPpbX9fRkfwD?=
- =?us-ascii?Q?ESkioC7HMJ3dnBC5e3hhmbcAU7vx14RcEVglsgs/wN9GHYhY4zt5nRcsPcfK?=
- =?us-ascii?Q?gqmd89a3WYDRl/Qb9AP2TIfsgrCv86HmsiLgh2JhktltINwAntOtuLmRZR0r?=
- =?us-ascii?Q?7b5T11hGwVCtx1sepX3Qui1af2VlYXNppiXQYfYaw8XL9QNExZgpwUBE4OKS?=
- =?us-ascii?Q?TVG1rBdAtxDmQsO0C9uiovD5O2y9qou2ZXDL0fzmofi0Nuc2DEtm4lAvGsvu?=
- =?us-ascii?Q?fpAv7PeWh4U+/RmGaNi1/97hfeuQg+nY84qgOiNmwX6IUo7YvXi+TQL09p2y?=
- =?us-ascii?Q?qd7e+Z5B8u9UXUvGmE+ELI6bu4CD1Y4Lf97N02RDxSbqlE+0/2Y3Nr2qoHgd?=
- =?us-ascii?Q?zjIyeI72fYtKuI8QrXiG0eTi/hpTt+k1rfiBFbBo9gMfnnaeECQyUZvm1aeR?=
- =?us-ascii?Q?fVrR4C7hcO1ffd2v8PMuhgCy39AOCVI82CZFCIdR1smzs2YCUVr9xpilMHSY?=
- =?us-ascii?Q?9vdGc6Gnanm4xzcJClM=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10e3762c-9d9f-41d7-cb18-08dde639b556
-X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB8659.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2025 13:49:28.8832
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TbARRk5NFlGpGAaiLFsgPVLVB+j1BOxQvd6Cpogz3hVgGWkgsHzBUyp4/HAjIla7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9336
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Reminder] Feature Freeze is Fri Aug 29, 2025
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>,
+ Community Manager <community.manager@xenproject.org>,
+ "committers@xenproject.org" <committers@xenproject.org>
+References: <07fc7122-d0ac-4dbe-800d-89086a07005b@gmail.com>
+Content-Language: en-US
+In-Reply-To: <07fc7122-d0ac-4dbe-800d-89086a07005b@gmail.com>
 
-On Tue, Aug 19, 2025 at 08:36:50PM +0300, Leon Romanovsky wrote:
-> From: Leon Romanovsky <leonro@nvidia.com>
-> 
-> Combine iommu_dma_*map_phys with iommu_dma_*map_resource interfaces in
-> order to allow single phys_addr_t flow.
-> 
-> In the following patches, the iommu_dma_map_resource() will be removed
-> in favour of iommu_dma_map_phys(..., attrs | DMA_ATTR_MMIO) flow.
+This is a multi-part message in MIME format.
+--------------lvBzz3KMKY0YXl6XLxXq5XHg
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-I would reword this a little bit
+Hello Community,
 
-iommu/dma: implement DMA_ATTR_MMIO for iommu_dma_(un)map_phys()
+Considering the number of requests in this mailing thread,
+I think it makes sense to extend the Feature Freeze period
+by at least one week, moving the deadline to September 5th.
 
-Make iommu_dma_map_phys() and iommu_dma_unmap_phys() respect
-DMA_ATTR_MMIO.
+I will send a separate e-mail with that information.
 
-DMA_ATTR_MMIO makes the functions behave the same as
-iommu_dma_(un)map_resource():
- - No swiotlb is possible
- - No cache flushing is done (ATTR_MMIO should not be cached memory)
- - prot for iommu_map() has IOMMU_MMIO not IOMMU_CACHE 
+Thanks, everyone, for your responses.
 
-This is preperation for replacing iommu_dma_map_resource() callers
-with iommu_dma_map_phys(DMA_ATTR_MMIO) and removing
-iommu_dma_(un)map_resource().
+~ Oleksii
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+On 8/25/25 5:50 PM, Oleksii Kurochko wrote:
+> Hello community,
+>
+> I’d like to remind everyone that the Feature Freeze deadline is approaching,
+> and we still have some outstanding requests from the community for patch series
+> to be merged into 4.21:
+>
+> 1. Enable guest suspend/resume support on ARM via vPSCI [1]
+> 2. Introduce SCI SCMI SMC multi-agent support [2]
+> 3. Introduce eSPI support [3]
+> 4. FRED work: [4], [5], possibly others (?)
+> 5. Introduce CONFIG_DOMCTL [6]
+> 6. xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE [7]
+> 7. Some other patch series I missed.
+>
+> It looks like some of these patch series still require additional work,
+> and I’m not sure there is enough time left before the end of this week.
+>
+> Could I kindly ask for an estimation of whether these tasks can be completed in time?
+>
+> [1]https://lore.kernel.org/xen-devel/87jz2vaq9h.fsf@epam.com/
+> [2]https://lore.kernel.org/xen-devel/cover.1753184487.git.oleksii_moisieiev@epam.com/
+> [3]https://lore.kernel.org/xen-devel/7e6477a83ab65220ef1c5dd22f4ef3536fbbdd5c.1754568795.git.leonid_komarianskyi@epam.com/
+>
+> [4]https://lore.kernel.org/xen-devel/20250808202314.1045968-1-andrew.cooper3@citrix.com/
+> [5]https://lore.kernel.org/xen-devel/20250815204117.3312742-1-andrew.cooper3@citrix.com/
+>
+> [6]https://lore.kernel.org/xen-devel/20250803094738.3625269-6-Penny.Zheng@amd.com/
+> [7]https://lore.kernel.org/xen-devel/20250815102728.1340505-1-Penny.Zheng@amd.com/
+>
+> Thanks in advance.
+>
+> Best regards,
+>    Oleksii
+--------------lvBzz3KMKY0YXl6XLxXq5XHg
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Jason
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <pre data-start="48" data-end="66">Hello Community,</pre>
+    <pre data-start="68" data-end="247">Considering the number of requests in this mailing thread,
+I think it makes sense to extend the Feature Freeze period
+by at least one week, moving the deadline to September 5th.</pre>
+    <pre data-start="249" data-end="303">I will send a separate e-mail with that information.</pre>
+    <pre data-start="305" data-end="344">Thanks, everyone, for your responses.</pre>
+    <pre data-start="346" data-end="357">~ Oleksii</pre>
+    <pre></pre>
+    <div class="moz-cite-prefix">On 8/25/25 5:50 PM, Oleksii Kurochko
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:07fc7122-d0ac-4dbe-800d-89086a07005b@gmail.com">
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      <pre>Hello community,
+
+I’d like to remind everyone that the Feature Freeze deadline is approaching,
+and we still have some outstanding requests from the community for patch series
+to be merged into 4.21:
+
+1. Enable guest suspend/resume support on ARM via vPSCI [1]
+2. Introduce SCI SCMI SMC multi-agent support [2]
+3. Introduce eSPI support [3]
+4. FRED work: [4], [5], possibly others (?)
+5. Introduce CONFIG_DOMCTL [6]
+6. xen/x86: move domctl.o out of PV_SHIM_EXCLUSIVE [7]
+7. Some other patch series I missed.
+
+It looks like some of these patch series still require additional work,
+and I’m not sure there is enough time left before the end of this week.
+
+Could I kindly ask for an estimation of whether these tasks can be completed in time?
+
+[1] <a class="moz-txt-link-freetext"
+      href="https://lore.kernel.org/xen-devel/87jz2vaq9h.fsf@epam.com/"
+      moz-do-not-send="true">https://lore.kernel.org/xen-devel/87jz2vaq9h.fsf@epam.com/</a>
+[2] <a class="moz-txt-link-freetext"
+href="https://lore.kernel.org/xen-devel/cover.1753184487.git.oleksii_moisieiev@epam.com/"
+      moz-do-not-send="true">https://lore.kernel.org/xen-devel/cover.1753184487.git.oleksii_moisieiev@epam.com/</a>
+[3] <a class="moz-txt-link-freetext"
+href="https://lore.kernel.org/xen-devel/7e6477a83ab65220ef1c5dd22f4ef3536fbbdd5c.1754568795.git.leonid_komarianskyi@epam.com/"
+      moz-do-not-send="true">https://lore.kernel.org/xen-devel/7e6477a83ab65220ef1c5dd22f4ef3536fbbdd5c.1754568795.git.leonid_komarianskyi@epam.com/</a>
+
+[4] <a class="moz-txt-link-freetext"
+href="https://lore.kernel.org/xen-devel/20250808202314.1045968-1-andrew.cooper3@citrix.com/"
+      moz-do-not-send="true">https://lore.kernel.org/xen-devel/20250808202314.1045968-1-andrew.cooper3@citrix.com/</a>
+[5] <a class="moz-txt-link-freetext"
+href="https://lore.kernel.org/xen-devel/20250815204117.3312742-1-andrew.cooper3@citrix.com/"
+      moz-do-not-send="true">https://lore.kernel.org/xen-devel/20250815204117.3312742-1-andrew.cooper3@citrix.com/</a>
+
+[6] <a class="moz-txt-link-freetext"
+href="https://lore.kernel.org/xen-devel/20250803094738.3625269-6-Penny.Zheng@amd.com/"
+      moz-do-not-send="true">https://lore.kernel.org/xen-devel/20250803094738.3625269-6-Penny.Zheng@amd.com/</a>
+[7] <a class="moz-txt-link-freetext"
+href="https://lore.kernel.org/xen-devel/20250815102728.1340505-1-Penny.Zheng@amd.com/"
+      moz-do-not-send="true">https://lore.kernel.org/xen-devel/20250815102728.1340505-1-Penny.Zheng@amd.com/</a>
+
+Thanks in advance.
+
+Best regards,
+  Oleksii
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------lvBzz3KMKY0YXl6XLxXq5XHg--
 
