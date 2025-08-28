@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16DA0B39B39
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 13:13:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1098395.1452496 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 827CFB39B3B
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 13:13:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1098399.1452505 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uraZg-0002hu-Ew; Thu, 28 Aug 2025 11:13:48 +0000
+	id 1uraZj-00032I-OG; Thu, 28 Aug 2025 11:13:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1098395.1452496; Thu, 28 Aug 2025 11:13:48 +0000
+Received: by outflank-mailman (output) from mailman id 1098399.1452505; Thu, 28 Aug 2025 11:13:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uraZg-0002ds-Ba; Thu, 28 Aug 2025 11:13:48 +0000
-Received: by outflank-mailman (input) for mailman id 1098395;
- Thu, 28 Aug 2025 11:13:46 +0000
+	id 1uraZj-0002zq-KF; Thu, 28 Aug 2025 11:13:51 +0000
+Received: by outflank-mailman (input) for mailman id 1098399;
+ Thu, 28 Aug 2025 11:13:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zjrZ=3I=arm.com=hari.limaye@srs-se1.protection.inumbo.net>)
- id 1uraZe-0001Z0-85
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 11:13:46 +0000
+ id 1uraZh-0001Z0-Nr
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 11:13:49 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 0ffe6a7e-8400-11f0-aeb2-fb57b961d000;
- Thu, 28 Aug 2025 13:13:45 +0200 (CEST)
+ id 12166935-8400-11f0-aeb2-fb57b961d000;
+ Thu, 28 Aug 2025 13:13:49 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6B77C2944;
- Thu, 28 Aug 2025 04:13:36 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E987E1688;
+ Thu, 28 Aug 2025 04:13:39 -0700 (PDT)
 Received: from PWQ0QT7DJ1.emea.arm.com (PWQ0QT7DJ1.cambridge.arm.com
  [10.1.33.71])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 72A483F694;
- Thu, 28 Aug 2025 04:13:43 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BDE5E3F694;
+ Thu, 28 Aug 2025 04:13:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,273 +43,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ffe6a7e-8400-11f0-aeb2-fb57b961d000
+X-Inumbo-ID: 12166935-8400-11f0-aeb2-fb57b961d000
 From: Hari Limaye <hari.limaye@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: luca.fancellu@arm.com,
+	Penny Zheng <Penny.Zheng@arm.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v3 4/5] arm/mpu: Implement ioremap_attr for MPU
-Date: Thu, 28 Aug 2025 12:12:06 +0100
-Message-ID: <53c6aa61bc0cefce369ffc3a9ff5a7060b5f4b20.1756379422.git.hari.limaye@arm.com>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Penny Zheng <penny.zheng@arm.com>,
+	Wei Chen <wei.chen@arm.com>
+Subject: [PATCH v3 5/5] xen/arm: map static memory on demand
+Date: Thu, 28 Aug 2025 12:12:07 +0100
+Message-ID: <30cbc79f765c21759d74377e55cc471210fc2575.1756379422.git.hari.limaye@arm.com>
 X-Mailer: git-send-email 2.42.1
 In-Reply-To: <cover.1756379422.git.hari.limaye@arm.com>
 References: <cover.1756379422.git.hari.limaye@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Luca Fancellu <luca.fancellu@arm.com>
+From: Penny Zheng <Penny.Zheng@arm.com>
 
-Introduce helpers (un)map_mm_range() in order to allow the transient
-mapping of a range of memory, and use these to implement the function
-`ioremap_attr` for MPU systems.
+In the function `init_staticmem_pages` we need to have mapped static
+memory banks for initialization. Unlike on an MMU system, we cannot map
+the entire RAM on an MPU system as we have a limited number of MPU
+memory regions. To solve this, transiently map the static memory banks
+for initialization.
 
+Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+Signed-off-by: Wei Chen <wei.chen@arm.com>
 Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 Signed-off-by: Hari Limaye <hari.limaye@arm.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 ---
 Changes from v2:
-- Propagate error to caller of is_mm_range_mapped, rather than panic
-
-Changes from v1:
-- Use transient instead of temporary, and improve wording of comments
-  regarding transient mapping
-- Rename start, end -> base, limit
+- Add Michal's R-b
 ---
- xen/arch/arm/include/asm/mpu/mm.h |  22 +++++
- xen/arch/arm/mpu/mm.c             | 157 ++++++++++++++++++++++++++++--
- 2 files changed, 170 insertions(+), 9 deletions(-)
+ xen/arch/arm/include/asm/mmu/mm.h |  3 +++
+ xen/arch/arm/include/asm/mpu/mm.h |  4 ++++
+ xen/arch/arm/mpu/setup.c          | 11 +++++++++++
+ xen/include/xen/static-memory.h   |  8 ++++++++
+ 4 files changed, 26 insertions(+)
 
+diff --git a/xen/arch/arm/include/asm/mmu/mm.h b/xen/arch/arm/include/asm/mmu/mm.h
+index 7f4d59137d..645a0ea3cb 100644
+--- a/xen/arch/arm/include/asm/mmu/mm.h
++++ b/xen/arch/arm/include/asm/mmu/mm.h
+@@ -110,6 +110,9 @@ void dump_pt_walk(paddr_t ttbr, paddr_t addr,
+ extern void switch_ttbr(uint64_t ttbr);
+ extern void relocate_and_switch_ttbr(uint64_t ttbr);
+ 
++static inline void map_staticmem_pages_to_xen(paddr_t start, paddr_t end) {}
++static inline void unmap_staticmem_pages_to_xen(paddr_t start, paddr_t end) {}
++
+ #endif /* __ARM_MMU_MM_H__ */
+ 
+ /*
 diff --git a/xen/arch/arm/include/asm/mpu/mm.h b/xen/arch/arm/include/asm/mpu/mm.h
-index 566d338986..efb0680e39 100644
+index efb0680e39..4cc769418e 100644
 --- a/xen/arch/arm/include/asm/mpu/mm.h
 +++ b/xen/arch/arm/include/asm/mpu/mm.h
-@@ -101,6 +101,28 @@ int xen_mpumap_update(paddr_t base, paddr_t limit, unsigned int flags,
+@@ -123,6 +123,10 @@ void *map_mm_range(paddr_t base, paddr_t limit, unsigned int flags);
   */
- pr_t pr_of_addr(paddr_t base, paddr_t limit, unsigned int flags);
+ void unmap_mm_range(paddr_t base);
  
-+/*
-+ * Maps transiently a range of memory with attributes `flags`; if the range is
-+ * already mapped with the same attributes, including an inclusive match, the
-+ * existing mapping is returned. This API is intended for mappings that exist
-+ * transiently for a short period between calls to this function and
-+ * `unmap_mm_range`.
-+ *
-+ * @param base      Base address of the range to map (inclusive).
-+ * @param limit     Limit address of the range to map (exclusive).
-+ * @param flags     Flags for the memory range to map.
-+ * @return          Pointer to base of region on success, NULL on error.
-+ */
-+void *map_mm_range(paddr_t base, paddr_t limit, unsigned int flags);
-+
-+/*
-+ * Unmaps a range of memory if it was previously mapped by map_mm_range,
-+ * otherwise it does not remove the mapping.
-+ *
-+ * @param base     Base address of the range to map (inclusive).
-+ */
-+void unmap_mm_range(paddr_t base);
++/* {un}map_staticmem_pages_to_xen used while initializing static memory banks */
++void map_staticmem_pages_to_xen(paddr_t start, paddr_t end);
++void unmap_staticmem_pages_to_xen(paddr_t start, paddr_t end);
 +
  /*
   * Checks whether a given memory range is present in the provided table of
   * MPU protection regions.
-diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
-index 33333181d5..337573f9d7 100644
---- a/xen/arch/arm/mpu/mm.c
-+++ b/xen/arch/arm/mpu/mm.c
-@@ -332,31 +332,39 @@ static int xen_mpumap_update_entry(paddr_t base, paddr_t limit,
-     return 0;
+diff --git a/xen/arch/arm/mpu/setup.c b/xen/arch/arm/mpu/setup.c
+index 163573b932..dbc3107333 100644
+--- a/xen/arch/arm/mpu/setup.c
++++ b/xen/arch/arm/mpu/setup.c
+@@ -83,6 +83,17 @@ void * __init early_fdt_map(paddr_t fdt_paddr)
+     return fdt_virt;
  }
  
--int xen_mpumap_update(paddr_t base, paddr_t limit, unsigned int flags,
--                      bool transient)
-+static bool check_mpu_mapping(paddr_t base, paddr_t limit, unsigned int flags)
- {
--    int rc;
--
-     if ( flags_has_rwx(flags) )
-     {
-         printk("Mappings should not be both Writeable and Executable\n");
--        return -EINVAL;
-+        return false;
-     }
- 
-     if ( base >= limit )
-     {
-         printk("Base address %#"PRIpaddr" must be smaller than limit address %#"PRIpaddr"\n",
-                base, limit);
--        return -EINVAL;
-+        return false;
-     }
- 
-     if ( !IS_ALIGNED(base, PAGE_SIZE) || !IS_ALIGNED(limit, PAGE_SIZE) )
-     {
-         printk("base address %#"PRIpaddr", or limit address %#"PRIpaddr" is not page aligned\n",
-                base, limit);
--        return -EINVAL;
-+        return false;
-     }
- 
-+    return true;
++void __init map_staticmem_pages_to_xen(paddr_t start, paddr_t end)
++{
++    if ( !map_mm_range(start, end, PAGE_HYPERVISOR) )
++        panic("Unable to map staticmem pages to Xen!");
 +}
 +
-+int xen_mpumap_update(paddr_t base, paddr_t limit, unsigned int flags,
-+                      bool transient)
++void __init unmap_staticmem_pages_to_xen(paddr_t start, paddr_t end)
 +{
-+    int rc;
-+
-+    if ( !check_mpu_mapping(base, limit, flags) )
-+        return -EINVAL;
-+
-     spin_lock(&xen_mpumap_lock);
- 
-     rc = xen_mpumap_update_entry(base, limit, flags, transient);
-@@ -465,10 +473,141 @@ void free_init_memory(void)
-     BUG_ON("unimplemented");
- }
- 
-+static int is_mm_range_mapped(paddr_t start, paddr_t end, uint8_t *idx)
-+{
-+    ASSERT(spin_is_locked(&xen_mpumap_lock));
-+
-+    /*
-+     * 'idx' will be INVALID_REGION_IDX for rc == MPUMAP_REGION_NOTFOUND and
-+     * it will be a proper region index when rc >= MPUMAP_REGION_FOUND.
-+     */
-+    return mpumap_contains_region(xen_mpumap, max_mpu_regions, start, end, idx);
++    unmap_mm_range(start);
 +}
 +
-+static bool is_mm_attr_match(pr_t *region, unsigned int attributes)
-+{
-+    bool ret = true;
-+
-+    if ( region->prbar.reg.ro != PAGE_RO_MASK(attributes) )
-+    {
-+        printk(XENLOG_WARNING
-+               "Mismatched Access Permission attributes (%#x0 instead of %#x0)\n",
-+               region->prbar.reg.ro, PAGE_RO_MASK(attributes));
-+        ret = false;
-+    }
-+
-+    if ( region->prbar.reg.xn != PAGE_XN_MASK(attributes) )
-+    {
-+        printk(XENLOG_WARNING
-+               "Mismatched Execute Never attributes (%#x instead of %#x)\n",
-+               region->prbar.reg.xn, PAGE_XN_MASK(attributes));
-+        ret = false;
-+    }
-+
-+    if ( region->prlar.reg.ai != PAGE_AI_MASK(attributes) )
-+    {
-+        printk(XENLOG_WARNING
-+               "Mismatched Memory Attribute Index (%#x instead of %#x)\n",
-+               region->prlar.reg.ai, PAGE_AI_MASK(attributes));
-+        ret = false;
-+    }
-+
-+    return ret;
-+}
-+
-+void *map_mm_range(paddr_t base, paddr_t limit, unsigned int flags)
-+{
-+    paddr_t start_pg = round_pgdown(base);
-+    paddr_t end_pg = round_pgup(limit);
-+    void *ret = NULL;
-+    uint8_t idx;
-+    int rc;
-+
-+    if ( !check_mpu_mapping(start_pg, end_pg, flags) )
-+        return NULL;
-+
-+    spin_lock(&xen_mpumap_lock);
-+
-+    rc = is_mm_range_mapped(start_pg, end_pg, &idx);
-+    if ( rc < 0 ) {
-+        printk(XENLOG_WARNING
-+               "Cannot handle overlapping MPU memory protection regions\n");
-+        goto out;
-+    }
-+
-+    if ( idx != INVALID_REGION_IDX )
-+    {
-+        /* Already mapped with different attributes */
-+        if ( !is_mm_attr_match(&xen_mpumap[idx], flags) )
-+        {
-+            printk(XENLOG_WARNING
-+                   "Range %#"PRIpaddr"-%#"PRIpaddr" already mapped with different flags\n",
-+                   start_pg, end_pg);
-+            goto out;
-+        }
-+
-+        /* Already mapped with same attributes */
-+        ret = maddr_to_virt(base);
-+        goto out;
-+    }
-+
-+    if ( !xen_mpumap_update_entry(start_pg, end_pg, flags, true) )
-+    {
-+        context_sync_mpu();
-+        ret = maddr_to_virt(base);
-+    }
-+
-+ out:
-+    spin_unlock(&xen_mpumap_lock);
-+
-+    return ret;
-+}
-+
-+void unmap_mm_range(paddr_t base)
-+{
-+    uint8_t idx;
-+    int rc;
-+
-+    spin_lock(&xen_mpumap_lock);
-+
-+    /*
-+     * Mappings created via map_mm_range are at least PAGE_SIZE. Find the idx
-+     * of the MPU memory region containing `start` mapped through map_mm_range.
-+     */
-+    rc = is_mm_range_mapped(base, base + PAGE_SIZE, &idx);
-+    if ( rc < 0 ) {
-+        printk(XENLOG_WARNING
-+               "Cannot handle overlapping MPU memory protection regions\n");
-+        goto out;
-+    }
-+
-+    if ( idx == INVALID_REGION_IDX )
-+    {
-+        printk(XENLOG_ERR
-+               "Failed to unmap_mm_range MPU memory region at %#"PRIpaddr"\n",
-+               base);
-+        goto out;
-+    }
-+
-+    /* This API is only meant to unmap transient regions */
-+    if ( !region_is_transient(&xen_mpumap[idx]) )
-+        goto out;
-+
-+    /* Disable MPU memory region and clear the associated entry in xen_mpumap */
-+    disable_mpu_region_from_index(idx);
-+    context_sync_mpu();
-+
-+ out:
-+    spin_unlock(&xen_mpumap_lock);
-+}
-+
- void __iomem *ioremap_attr(paddr_t start, size_t len, unsigned int flags)
- {
--    BUG_ON("unimplemented");
--    return NULL;
-+    if ( !map_mm_range(start, start + len, flags) )
-+        return NULL;
-+
-+    /* Mapped or already mapped */
-+    return maddr_to_virt(start);
- }
- 
  /*
+  * copy_from_paddr - copy data from a physical address
+  * @dst: destination virtual address
+diff --git a/xen/include/xen/static-memory.h b/xen/include/xen/static-memory.h
+index e445aa8057..d99abac113 100644
+--- a/xen/include/xen/static-memory.h
++++ b/xen/include/xen/static-memory.h
+@@ -18,7 +18,15 @@ static inline void init_staticmem_bank(const struct membank *bank)
+     if ( mfn_x(bank_end) <= mfn_x(bank_start) )
+         return;
+ 
++    /* Map temporarily before initialization */
++    map_staticmem_pages_to_xen(mfn_to_maddr(bank_start),
++                               mfn_to_maddr(bank_end));
++
+     unprepare_staticmem_pages(mfn_to_page(bank_start), bank_pages, false);
++
++    /* Unmap immediately after initialization */
++    unmap_staticmem_pages_to_xen(mfn_to_maddr(bank_start),
++                                 mfn_to_maddr(bank_end));
+ }
+ 
+ void allocate_static_memory(struct domain *d, struct kernel_info *kinfo,
 -- 
 2.34.1
 
