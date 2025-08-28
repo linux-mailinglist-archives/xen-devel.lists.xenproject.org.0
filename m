@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CF2FB39C1B
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 14:00:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1098532.1452555 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FD1DB39C20
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 14:01:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1098539.1452564 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urbIi-0004Vh-Tw; Thu, 28 Aug 2025 12:00:20 +0000
+	id 1urbJH-00050G-4R; Thu, 28 Aug 2025 12:00:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1098532.1452555; Thu, 28 Aug 2025 12:00:20 +0000
+Received: by outflank-mailman (output) from mailman id 1098539.1452564; Thu, 28 Aug 2025 12:00:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urbIi-0004TM-Pv; Thu, 28 Aug 2025 12:00:20 +0000
-Received: by outflank-mailman (input) for mailman id 1098532;
- Thu, 28 Aug 2025 12:00:19 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1urbIh-0004Se-1K
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 12:00:19 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1urbIf-00AuCj-3B;
- Thu, 28 Aug 2025 12:00:18 +0000
-Received: from [15.248.2.24] (helo=[10.24.67.148])
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1urbIf-005kd4-37;
- Thu, 28 Aug 2025 12:00:18 +0000
+	id 1urbJH-0004xj-1Q; Thu, 28 Aug 2025 12:00:55 +0000
+Received: by outflank-mailman (input) for mailman id 1098539;
+ Thu, 28 Aug 2025 12:00:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=SuvV=3I=bounce.vates.tech=bounce-md_30504962.68b044f1.v1-df3a85872148444bb6c948ffe100776a@srs-se1.protection.inumbo.net>)
+ id 1urbJE-0004wm-Rc
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 12:00:52 +0000
+Received: from mail137-3.atl71.mandrillapp.com
+ (mail137-3.atl71.mandrillapp.com [198.2.137.3])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a3edcf64-8406-11f0-ae26-e363de0e7a9e;
+ Thu, 28 Aug 2025 14:00:51 +0200 (CEST)
+Received: from pmta07.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail137-3.atl71.mandrillapp.com (Mailchimp) with ESMTP id 4cCKjY2wcDzBsV4FP
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 12:00:49 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ df3a85872148444bb6c948ffe100776a; Thu, 28 Aug 2025 12:00:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,137 +42,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=nvp+Xi3IhPq4YNQKaeTUffwnqur+Ykho8yU2oIlmhvY=; b=DWPRRkJ864QislcHvQWwcnRwWX
-	LYLjka5ajP1rwgINQwU9OoMb24B6zK/WTc431hWDoYBkwDY2n0mQIDERyPI0yc7NX7cgk5BemS4Pu
-	HMcLp6Ttk09+TfgdlAjyWqTD5odT2ixZPYkvmH2rIWod4aJ0zfpqyfoDGdKWZrchCO8s=;
-Message-ID: <69bdbdac-4876-47de-b8db-ce6f3e1b7a24@xen.org>
-Date: Thu, 28 Aug 2025 13:00:15 +0100
+X-Inumbo-ID: a3edcf64-8406-11f0-ae26-e363de0e7a9e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1756382449; x=1756652449;
+	bh=6pPB/ZeNPl1z+pjHy/cFU8hENtGb2xGrwEILtNQ4pDY=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=RsJQxCnKrYOJcWpHoTZgNA9csEdowu7d7ZQlD/1YeYO1Udy0AiDd4X86PHTh9O3c2
+	 15iczAVs6seRPgsX630AKHW43zpEGiOwpLyof7HzAyWatbNhB+FkHzcqtkoJPtvSBx
+	 5OwtuLHwSSPTWBUcmsleU1ThQfrxkBMgcGt8sx+DJqQY0ANR4+q+zUzgzFLca255Xs
+	 Piuq8eE1UegupM4f52zeYe3gPGUYc7c2N+xmyTjalFcyyzcXPjit8KN/7QK6jBAziw
+	 +qGT8fqNiApRijVkylrdtuaqT2wwyu5YCVfc2UOukuFULV05ykDcf7JtNPt53G7Jn0
+	 tkNMLragAq+xA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1756382449; x=1756642949; i=teddy.astie@vates.tech;
+	bh=6pPB/ZeNPl1z+pjHy/cFU8hENtGb2xGrwEILtNQ4pDY=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=yOwlcl7Sd9xMNWlwGjXJ79pIsAvCEOv+rDrSEhRsR/US+YQMKfYLStj76TWaAumVG
+	 YlbcZowNsBD9zBen7Bw6TAKW/n4oHc5k3uV2XkG2wtcPnOqbbGnZMrqg05GT9oPALX
+	 3l4UwIpRAZU1o3TZylwlGNVpvVpj2nRMdIrFVlWSW5EItNqHP/lmFsyLlstzOwwQhB
+	 AU84+zNAKbnypGvtdPLCYOAMXFLBHso+68D1kixljv0z7Yd9SPxyRyLhZKk5D6qA8c
+	 eD6Tn5YZQsqAW1CAufLew5ezz9ar+ab/3EY3zP7vC4MbqX964yNEhNpTlYvRlZF70l
+	 fwTsDj2aLIR7w==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH]=20hvmloader:=20Update=20to=20SMBIOS=202.6?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1756382448088
+Message-Id: <6e90b1af-57d6-4c3c-8e23-078309bef63c@vates.tech>
+To: "Andrew Cooper" <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: "Jan Beulich" <jbeulich@suse.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>
+References: <b569a298a6270ae04eaf433f7de9ce1f3e248e5f.1755870287.git.teddy.astie@vates.tech> <6e9b7b96-a506-40ed-95b6-6ad00ba9a27a@citrix.com> <74665857-3f0b-43e6-b31f-d498d9e7fdc3@vates.tech> <8e126855-ed0b-4046-a018-8fca6d20db49@citrix.com>
+In-Reply-To: <8e126855-ed0b-4046-a018-8fca6d20db49@citrix.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.df3a85872148444bb6c948ffe100776a?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250828:md
+Date: Thu, 28 Aug 2025 12:00:49 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/12] xen/arm: gicv3: refactor obtaining GIC addresses
- for common operations
-Content-Language: en-GB
-To: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: "olekstysh@gmail.com" <olekstysh@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1756317702.git.leonid_komarianskyi@epam.com>
- <5f511d386c7f20b09106aa0202e0989477eff498.1756317702.git.leonid_komarianskyi@epam.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <5f511d386c7f20b09106aa0202e0989477eff498.1756317702.git.leonid_komarianskyi@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Leonid,
-
-On 27/08/2025 19:24, Leonid Komarianskyi wrote:
-> Currently, many common functions perform the same operations to calculate
-> GIC register addresses. This patch consolidates the similar code into
-> a separate helper function to improve maintainability and reduce duplication.
-> This refactoring also simplifies the implementation of eSPI support in future
-> changes.
+Le 28/08/2025 =C3=A0 12:24, Andrew Cooper a =C3=A9crit=C2=A0:
+> I'd be tempted to be rather more explicit.
 > 
-> Signed-off-by: Leonid Komarianskyi <leonid_komarianskyi@epam.com>
-> Reviewed-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-> 
-> ---
-> Changes in V4:
-> - no changes
-> 
-> Changes in V3:
-> - changed panic() in get_addr_by_offset() to printing warning and
->    ASSERT_UNREACHABLE()
-> - added verification of return pointer from get_addr_by_offset() in the
->    callers
-> - moved invocation of get_addr_by_offset() from spinlock guards, since
->    it is not necessarry
-> - added RB from Volodymyr Babchuk
-
-Procces remark, here you said the Reviewed-by from Volodymyr was added 
-in v3. However, given the changes you made this should have been 
-invalidated (reviewed-by means the person read the code and confirmed it 
-is correct).
-
-I see Volodymyr confirmed his reviewed-by on v3. So no issue, but this 
-should have been clarified in the changelog.
-
-> 
-> Changes in V2:
-> - no changes
-> ---
->   xen/arch/arm/gic-v3.c          | 114 +++++++++++++++++++++++----------
->   xen/arch/arm/include/asm/irq.h |   1 +
->   2 files changed, 81 insertions(+), 34 deletions(-)
-> 
-> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-> index cd3e1acf79..a959fefebe 100644
-> --- a/xen/arch/arm/gic-v3.c
-> +++ b/xen/arch/arm/gic-v3.c
-> @@ -445,17 +445,67 @@ static void gicv3_dump_state(const struct vcpu *v)
->       }
->   }
+> diff --git a/xen/include/public/xen.h b/xen/include/public/xen.h
+> index 82b9c05a76b7..f1592dc059e2 100644
+> --- a/xen/include/public/xen.h
+> +++ b/xen/include/public/xen.h
+> @@ -973,6 +973,13 @@ typedef struct dom0_vga_console_info {
+>  =C2=A0#define xen_vga_console_info dom0_vga_console_info
+>  =C2=A0#define xen_vga_console_info_t dom0_vga_console_info_t
 >   
-> +static void __iomem *get_addr_by_offset(struct irq_desc *irqd, u32 offset)
-> +{
-> +    switch ( irqd->irq )
-> +    {
-> +    case 0 ... (NR_GIC_LOCAL_IRQS - 1):
-> +        switch ( offset )
-> +        {
-> +        case GICD_ISENABLER:
-> +        case GICD_ICENABLER:
-> +        case GICD_ISPENDR:
-> +        case GICD_ICPENDR:
-> +        case GICD_ISACTIVER:
-> +        case GICD_ICACTIVER:
-> +            return (GICD_RDIST_SGI_BASE + offset);
-> +        case GICD_ICFGR:
-> +            return (GICD_RDIST_SGI_BASE + GICR_ICFGR1);
-> +        case GICD_IPRIORITYR:
-> +            return (GICD_RDIST_SGI_BASE + GICR_IPRIORITYR0 + irqd->irq);
-> +        default:
-> +            break;
-> +        }
-> +    case NR_GIC_LOCAL_IRQS ... SPI_MAX_INTID:
-> +        switch ( offset )
-> +        {
-> +        case GICD_ISENABLER:
-> +        case GICD_ICENABLER:
-> +        case GICD_ISPENDR:
-> +        case GICD_ICPENDR:
-> +        case GICD_ISACTIVER:
-> +        case GICD_ICACTIVER:
-> +            return (GICD + offset + (irqd->irq / 32) * 4);
-> +        case GICD_ICFGR:
-> +            return (GICD + GICD_ICFGR + (irqd->irq / 16) * 4);
-> +        case GICD_IROUTER:
-> +            return (GICD + GICD_IROUTER + irqd->irq * 8);
-> +        case GICD_IPRIORITYR:
-> +            return (GICD + GICD_IPRIORITYR + irqd->irq);
-> +        default:
-> +            break;
-> +        }
-> +    default:
-> +        break;
-> +    }
-> +
-> +    /* Something went wrong, we shouldn't be able to reach here */
-> +    printk(XENLOG_WARNING "GICv3: WARNING: Invalid offset 0x%x for IRQ#%d",
+> +/*
+> + * The domain handle is chosen by the toolstack, and intended to hold a =
+UUID
+> + * conforming to RFC 9562 (i.e. big endian).
+> + *
+> + * Certain cases (e.g. SMBios) transform it to a Microsoft GUID (little
+> + * endian) for presentation to the guest.
+> + */
+>  =C2=A0typedef uint8_t xen_domain_handle_t[16];
+>   
+>  =C2=A0__DEFINE_XEN_GUEST_HANDLE(uint8,=C2=A0 uint8_t);
 
-NIT: I am not expecting the interrupt to be < 0. So it would be 
-preferable to use %u.
+I'm ok with it, although it sounds a bit like this UUID could be a 
+little endian GUID in some cases.
 
-Acked-by: Julien Grall <jgrall@amazon.com>
 
-Cheers,
+Teddy Astie | Vates XCP-ng Developer
 
--- 
-Julien Grall
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
 
