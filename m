@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CE18B3A3C6
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 17:12:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1099226.1453240 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E284FB3A3A5
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 17:11:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1099157.1453089 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ureI9-0006Pw-9N; Thu, 28 Aug 2025 15:11:57 +0000
+	id 1ureHI-0007CT-09; Thu, 28 Aug 2025 15:11:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1099226.1453240; Thu, 28 Aug 2025 15:11:57 +0000
+Received: by outflank-mailman (output) from mailman id 1099157.1453089; Thu, 28 Aug 2025 15:11:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ureI9-0006HD-12; Thu, 28 Aug 2025 15:11:57 +0000
-Received: by outflank-mailman (input) for mailman id 1099226;
- Thu, 28 Aug 2025 15:11:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ureHH-00074x-Pq; Thu, 28 Aug 2025 15:11:03 +0000
+Received: by outflank-mailman (input) for mailman id 1099157;
+ Thu, 28 Aug 2025 15:11:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FrxM=3I=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ureCB-00035A-HT
+ id 1ureCB-0003MD-7Z
  for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 15:05:47 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7912cd7a-8420-11f0-8dd7-1b34d833f44b;
- Thu, 28 Aug 2025 17:05:45 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-45a1b00f23eso7067165e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 08:05:45 -0700 (PDT)
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 79d61b1e-8420-11f0-8adc-4578a1afcccb;
+ Thu, 28 Aug 2025 17:05:46 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3c6743a10e3so571431f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 08:05:46 -0700 (PDT)
 Received: from localhost.localdomain (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b6f0c6fe5sm78394535e9.5.2025.08.28.08.05.43
+ 5b1f17b1804b1-45b6f0c6fe5sm78394535e9.5.2025.08.28.08.05.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Aug 2025 08:05:43 -0700 (PDT)
+ Thu, 28 Aug 2025 08:05:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7912cd7a-8420-11f0-8dd7-1b34d833f44b
+X-Inumbo-ID: 79d61b1e-8420-11f0-8adc-4578a1afcccb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1756393545; x=1756998345; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1756393546; x=1756998346; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wp5Ao2JF9SiNp1dV4sf74WMjn/dBY90/S0pUt68oOqo=;
-        b=wWhjJYUL6iUUbcAtllYVy7hIFH9WbgTmU+oul+ZUvHcRVtwz+GPbCJjEPn3PBjDwvt
-         MzPw/2Ty/6sZiYl+Qf4yPb5rI8l6LJTmBvdWcBTFW5AOM8pvdCLzTE563bRatWVjVzMc
-         YOGatqzncXML4hg7zOrMPX2B8J9o/4AnkLXHg=
+        bh=uyoRKmd85lnptHe4KkVk9SzU0cCZF0BFObgSAUexGuc=;
+        b=nRFWgBW9wZRysTPUVFb6XPMSUMrpM2uFH6RUjp4o8RaN0yopA7JOqE7xMvFM66rq0U
+         3NnxjB47YOBpB/MpXSLAYQA5FHYWMPIxpiwCBtu1FNyDe+s2GJjNZB0XuQ2ZyU36H1X8
+         Y4KZe5u3Z8WNf/6P+8GkOWZb6mf1zwLpNpFIA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756393545; x=1756998345;
+        d=1e100.net; s=20230601; t=1756393546; x=1756998346;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=wp5Ao2JF9SiNp1dV4sf74WMjn/dBY90/S0pUt68oOqo=;
-        b=Hsz84qSPzp6hqBbV6IjhI2c7L2+BskF6jKYPEjewGns3cdiz7MwWR4zS7ykeb3YBfw
-         xAVmM23iubR9F6Q6/KyAwEx4mwFlNoxfGwZ0lGyru5gAChJjFtkhszpc3V7dC4q8AdmF
-         yq5OokFSCNzfF1b896I4LRTQqCo7r1i1F3xYPy8wwe7+5zpfbdGbkNWj/865CTEobHuu
-         52EQPpv5EybapM/adV/f5hB0LxRhAOZQq0q+H31AzUaUoTlAuPIsFdfg4ilLnp93rDVH
-         sWdY0mXe5KqhH66JYHSoIsPAtWC0bc4EnoQgHvJXvuKM/PAnzMkgO+O6iU3poHeEnCix
-         KA1g==
-X-Gm-Message-State: AOJu0Yy+guPjvqxR/Bm6DhTcsAmXCt1312dOV4/I0KwPx+cuy424ga+p
-	runRFEENXHdoCCeah2PkV8A+sEEjhI/3C++7W8he+eFipSzqumZDLzZYAwih1MpbCUBOh7dBMyg
-	GV9hZ
-X-Gm-Gg: ASbGncvHaB9Zkb9zrUj+s6GcqcNyCtG5wePIpYtQLb4r4d9zVc+tOLGqrIcp7L9it/C
-	ZaaGLapwhD1S/zhvG2uo05cZACcYr+mSlRXDe6y3hUxUGaC6fphAGbnEHm46DbnwmDsl6rNaWjI
-	In9ekxso+Jp2j0nxXTpWFbY4a5o2VlzKr9wzLk9DywKaW/jAjnCJpngwgPT0BUE5A0mBEG+ZPVq
-	/9VfoX34odCMUBVW4Klh2v9wt+/7GunT8KvKtL6vHjJt6aN7CSk4ihfR/abWkW7KDcre1CXktCg
-	lCshM8jGk41ge3jXBaPb6nv7WN+3RQ9ZYek5GpgUViWp9D2j5QEP6sNUY78ANr2ckrzMQ8pSkO8
-	CxvMP9Ifk/mT/XkNHfAKjRWaQDNnTJndD/OY2fZXi9JLrKCnJrMJkRVWYVJEFbzZKL4AA7a2XC1
-	pTmm0dgzBDoGQ=
-X-Google-Smtp-Source: AGHT+IF7hXOcAj2k1kdTWbZDnHe2i2swNCPBNOS2g6Z9lsG3n/J6g13KEv6Z7zdBR196Rvr/1VVwlw==
-X-Received: by 2002:a05:600c:190a:b0:453:5c30:a1fd with SMTP id 5b1f17b1804b1-45b517954bfmr233867805e9.8.1756393544555;
-        Thu, 28 Aug 2025 08:05:44 -0700 (PDT)
+        bh=uyoRKmd85lnptHe4KkVk9SzU0cCZF0BFObgSAUexGuc=;
+        b=J+umaYijWECLcUC9cOSef5CWDns/Sh9gPF6gItv3eFvS0rLyqeB0+sDCQLC/2lp34C
+         2gRm97fqR944o4nTs+3a2iHS0v6EIQvMHr9QyAQh+PzwYmDWH1DqnAd/bafzGbduFr3L
+         R9D8tMw9K52+AXrzlVcADyLE3kMSmiOtaX+xvpeOVu82DF8Wp5y+aKqaVDl1rB2cCT6m
+         i5Z4S5sq6NmxClk7bLm/26eegrCCZElIPL2l9UemXgo6Nyj8ZVQXHrE6aT8r1rZ11rMh
+         PF7q51+k3CCZXocep/QKGhdFMpZ7chJsdVokNxplPU0588CwnuvQdMrOV6Bw5ZesvPCw
+         lkyg==
+X-Gm-Message-State: AOJu0YwWChoyq1J11kjWucS0yjJTBThZs3Lj19xKRfUYKccPZkwvEmfY
+	QXPtBGh+QYHeBZ5aTytrH5z/klUr1VLyV9cyKkPkgQ8WxA/Wv5lBGqT5PRP2Bg0pqh1LazeMR74
+	VRcW7
+X-Gm-Gg: ASbGncspW8CksPvDy02xbzVlWVOhLWiH7jGlClVH39e8BR7yFZ5vq/rSJzxY9B8JxwK
+	DDY3iO0wJj7eQbBj8dBRCLpnpDDAi9BzrGrLHPioVoSuST0/WetVxwXAK2pC+ekH9ujpTMzW+DX
+	n1CT/ljueKzV9OOoTREak+bNJtD3qxJlFFQBkv5Y/UV6THaxTbxZNMfUt1oMWNDYvlhLaLMgWG5
+	A41YUb3e3IGVH5iaN1evFMZ3m4z89S4sbTe/5Zu2E5x4YlbqVE4c30Mek8kiBJ81yhO6NRxSgGF
+	J65/xb9wtFSMQDxQJZW6lDH4SYwidmK6wS2BZ6ew9gvKVXz+NQJ6adJxxwAXtN3l+Ip4rFNMjbb
+	ADEDsOYRm4BJliXDoYpAX76TX6jPS7zXcesOx2F7cPYmdXmUeue6i77JkeaaBZKPjxHs+ANmoPs
+	zPQH2GHWwHSOAl95qv1b8sdg==
+X-Google-Smtp-Source: AGHT+IFnwmBxsqBYVYVLE7cVnGwKmyAM64jmOocrbPJsDrYMVP8sWXOmeLFkWvIym0QdfvkcIZEViQ==
+X-Received: by 2002:a05:6000:2892:b0:3ce:a06e:f248 with SMTP id ffacd0b85a97d-3cea06ef646mr1200453f8f.17.1756393545770;
+        Thu, 28 Aug 2025 08:05:45 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2 04/23] x86/boot: Adjust CR4 handling around percpu_early_traps_init()
-Date: Thu, 28 Aug 2025 16:03:50 +0100
-Message-Id: <20250828150409.901315-5-andrew.cooper3@citrix.com>
+Subject: [PATCH v2 05/23] x86/S3: Switch to using RSTORSSP to recover SSP on resume
+Date: Thu, 28 Aug 2025 16:03:51 +0100
+Message-Id: <20250828150409.901315-6-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250828150409.901315-1-andrew.cooper3@citrix.com>
 References: <20250828150409.901315-1-andrew.cooper3@citrix.com>
@@ -96,114 +96,86 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-percpu_early_traps_init() will shortly be setting CR4.FRED.  This requires that
-cpu_info->cr4 is already set up, and that the enablement of CET doesn't
-truncate X86_CR4_FRED back out because of 32bit logic.
+Under FRED, SETSSBSY is disallowed, and we want to be setting up FRED prior to
+setting up shadow stacks.  Luckily, RSTORSSP will also work in this case.
 
-For __high_start(), defer re-loading XEN_MINIMAL_CR4 until after %rsp is set
-up and we can store the result in the cr4 field too.
+This involves a new type of shadow stack token, the Restore Token, which is
+distinguished from the Supervisor Token by pointing to the adjacent slot on
+the shadow stack rather than pointing at itself.
 
-For s3_resume(), explicitly re-load XEN_MINIMAL_CR4.  Later when loading all
-features, use the mmu_cr4_features variable which is how the rest of Xen
-performs this operation.
+In the short term, this logic still needs to load MSR_PL0_SSP.
 
-No functional change, yet.
+No functional change.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
-
-v2:
- * Extend comments
 ---
- xen/arch/x86/acpi/wakeup_prot.S | 18 ++++++++++++++----
- xen/arch/x86/boot/x86_64.S      | 15 ++++++++++-----
- 2 files changed, 24 insertions(+), 9 deletions(-)
+ xen/arch/x86/acpi/wakeup_prot.S | 31 +++++++++++++++----------------
+ 1 file changed, 15 insertions(+), 16 deletions(-)
 
 diff --git a/xen/arch/x86/acpi/wakeup_prot.S b/xen/arch/x86/acpi/wakeup_prot.S
-index cc40fddc38d4..0f02ea7b4b9a 100644
+index 0f02ea7b4b9a..fceb4ca353f7 100644
 --- a/xen/arch/x86/acpi/wakeup_prot.S
 +++ b/xen/arch/x86/acpi/wakeup_prot.S
-@@ -63,6 +63,14 @@ LABEL(s3_resume)
-         pushq   %rax
-         lretq
- 1:
-+
-+        GET_STACK_END(15)
-+
-+        /* Enable minimal CR4 features, sync cached state. */
-+        mov     $XEN_MINIMAL_CR4, %eax
-+        mov     %rax, STACK_CPUINFO_FIELD(cr4)(%r15)
-+        mov     %rax, %cr4
-+
-         /* Set up early exceptions and CET before entering C properly. */
-         call    percpu_early_traps_init
- 
-@@ -77,7 +85,9 @@ LABEL(s3_resume)
-         wrmsr
- 
-         /* Enable CR4.CET. */
--        mov     $XEN_MINIMAL_CR4 | X86_CR4_CET, %ecx
-+        mov     $X86_CR4_CET, %ecx
-+        or      STACK_CPUINFO_FIELD(cr4)(%r15), %rcx
-+        mov     %rcx, STACK_CPUINFO_FIELD(cr4)(%r15)
+@@ -90,7 +90,7 @@ LABEL(s3_resume)
+         mov     %rcx, STACK_CPUINFO_FIELD(cr4)(%r15)
          mov     %rcx, %cr4
  
-         /* WARNING! call/ret now fatal (iff SHSTK) until SETSSBSY loads SSP */
-@@ -120,9 +130,9 @@ LABEL(s3_resume)
- .L_cet_done:
- #endif /* CONFIG_XEN_SHSTK || CONFIG_XEN_IBT */
+-        /* WARNING! call/ret now fatal (iff SHSTK) until SETSSBSY loads SSP */
++        /* WARNING! CALL/RET now fatal (iff SHSTK) until RSTORSSP loads SSP */
  
--        /* Restore CR4 from the cpuinfo block. */
--        GET_STACK_END(bx)
--        mov     STACK_CPUINFO_FIELD(cr4)(%rbx), %rax
-+        /* Load all CR4 settings. */
-+        mov     mmu_cr4_features(%rip), %rax
-+        mov     %rax, STACK_CPUINFO_FIELD(cr4)(%r15)
-         mov     %rax, %cr4
+ #if defined(CONFIG_XEN_SHSTK)
+         test    $CET_SHSTK_EN, %al
+@@ -98,32 +98,31 @@ LABEL(s3_resume)
  
-         call    mtrr_bp_restore
-diff --git a/xen/arch/x86/boot/x86_64.S b/xen/arch/x86/boot/x86_64.S
-index d0e7449a149f..3a5ad2764448 100644
---- a/xen/arch/x86/boot/x86_64.S
-+++ b/xen/arch/x86/boot/x86_64.S
-@@ -11,16 +11,19 @@ ENTRY(__high_start)
-         mov     %ecx,%gs
-         mov     %ecx,%ss
+         /*
+          * Restoring SSP is a little complicated, because we are intercepting
+-         * an in-use shadow stack.  Write a temporary token under the stack,
+-         * so SETSSBSY will successfully load a value useful for us, then
+-         * reset MSR_PL0_SSP to its usual value and pop the temporary token.
++         * an in-use shadow stack.  Write a Restore Token under the stack, and
++         * use RSTORSSP to load it.  RSTORSSP converts the token to a
++         * Previous-SSP Token, which we discard.
+          */
+         mov     saved_ssp(%rip), %rdi
  
--        /* Enable minimal CR4 features. */
--        mov     $XEN_MINIMAL_CR4,%rcx
--        mov     %rcx,%cr4
+-        /* Construct the temporary supervisor token under SSP. */
+-        sub     $8, %rdi
 -
-         mov     stack_start(%rip),%rsp
- 
-         /* Reset EFLAGS (subsumes CLI and CLD). */
-         pushq   $0
-         popf
- 
-+        GET_STACK_END(15)
-+
-+        /* Enable minimal CR4 features, sync cached state. */
-+        mov     $XEN_MINIMAL_CR4, %eax
-+        mov     %rax, STACK_CPUINFO_FIELD(cr4)(%r15)
-+        mov     %rax, %cr4
-+
-         /* Reload code selector. */
-         pushq   $__HYPERVISOR_CS
-         leaq    1f(%rip),%rax
-@@ -45,7 +48,9 @@ ENTRY(__high_start)
+-        /* Load it into MSR_PL0_SSP. */
++        /* Calculate MSR_PL0_SSP from SSP. */
+         mov     $MSR_PL0_SSP, %ecx
+         mov     %rdi, %rdx
+         shr     $32, %rdx
+         mov     %edi, %eax
+-        wrmsr
+-
+-        /* Write the temporary token onto the shadow stack, and activate it. */
+-        wrssq   %rdi, (%rdi)
+-        setssbsy
+-
+-        /* Reset MSR_PL0_SSP back to its normal value. */
+         and     $~(STACK_SIZE - 1), %eax
+         or      $(PRIMARY_SHSTK_SLOT + 1) * PAGE_SIZE - 8, %eax
          wrmsr
  
-         /* Enable CR4.CET. */
--        mov     $XEN_MINIMAL_CR4 | X86_CR4_CET, %ecx
-+        mov     $X86_CR4_CET, %ecx
-+        or      STACK_CPUINFO_FIELD(cr4)(%r15), %rcx
-+        mov     %rcx, STACK_CPUINFO_FIELD(cr4)(%r15)
-         mov     %rcx, %cr4
- 
-         /* WARNING! call/ret now fatal (iff SHSTK) until SETSSBSY loads SSP */
+-        /* Pop the temporary token off the stack. */
++        /*
++         * A Restore Token's value is &token + 8 + 64BIT (bit 0).
++         * We want to put this on the shstk at SSP - 8.
++         */
++        lea     1(%rdi), %rax
++        sub     $8, %rdi
++        wrssq   %rax, (%rdi)
++        rstorssp (%rdi)
++
++        /* Discard the Previous-SSP Token from the shstk. */
+         mov     $2, %eax
+         incsspd %eax
+ #endif /* CONFIG_XEN_SHSTK */
 -- 
 2.39.5
 
