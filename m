@@ -2,40 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8B6DB396A3
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 10:18:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1097761.1451975 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3022B3981E
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 11:22:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1097935.1452106 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urXpP-0000vg-FL; Thu, 28 Aug 2025 08:17:51 +0000
+	id 1urYq0-00082A-3L; Thu, 28 Aug 2025 09:22:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1097761.1451975; Thu, 28 Aug 2025 08:17:51 +0000
+Received: by outflank-mailman (output) from mailman id 1097935.1452106; Thu, 28 Aug 2025 09:22:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urXpP-0000tZ-BL; Thu, 28 Aug 2025 08:17:51 +0000
-Received: by outflank-mailman (input) for mailman id 1097761;
- Thu, 28 Aug 2025 08:17:49 +0000
+	id 1urYq0-0007yo-0D; Thu, 28 Aug 2025 09:22:32 +0000
+Received: by outflank-mailman (input) for mailman id 1097935;
+ Thu, 28 Aug 2025 09:22:30 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lRvb=3I=epam.com=dmytro_prokopchuk1@srs-se1.protection.inumbo.net>)
- id 1urXpN-0000tT-Jc
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 08:17:49 +0000
-Received: from MRWPR03CU001.outbound.protection.outlook.com
- (mail-francesouthazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c207::3])
+ <SRS0=V9g1=3I=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1urYpy-00075k-9h
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 09:22:30 +0000
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2062d.outbound.protection.outlook.com
+ [2a01:111:f403:2407::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 791e7e8e-83e7-11f0-ae26-e363de0e7a9e;
- Thu, 28 Aug 2025 10:17:45 +0200 (CEST)
-Received: from GV2PR03MB9572.eurprd03.prod.outlook.com (2603:10a6:150:da::5)
- by AS8PR03MB6901.eurprd03.prod.outlook.com (2603:10a6:20b:29e::8) with
+ id 83d5b6e2-83f0-11f0-ae26-e363de0e7a9e;
+ Thu, 28 Aug 2025 11:22:28 +0200 (CEST)
+Received: from BL0PR05CA0023.namprd05.prod.outlook.com (2603:10b6:208:91::33)
+ by DS7PR12MB6095.namprd12.prod.outlook.com (2603:10b6:8:9c::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.21; Thu, 28 Aug
- 2025 08:17:40 +0000
-Received: from GV2PR03MB9572.eurprd03.prod.outlook.com
- ([fe80::edd1:842f:9b14:509e]) by GV2PR03MB9572.eurprd03.prod.outlook.com
- ([fe80::edd1:842f:9b14:509e%3]) with mapi id 15.20.9052.019; Thu, 28 Aug 2025
- 08:17:40 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.24; Thu, 28 Aug
+ 2025 09:22:19 +0000
+Received: from BL6PEPF00020E63.namprd04.prod.outlook.com
+ (2603:10b6:208:91:cafe::60) by BL0PR05CA0023.outlook.office365.com
+ (2603:10b6:208:91::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9094.6 via Frontend Transport; Thu,
+ 28 Aug 2025 09:22:19 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BL6PEPF00020E63.mail.protection.outlook.com (10.167.249.24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9073.11 via Frontend Transport; Thu, 28 Aug 2025 09:22:18 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 28 Aug
+ 2025 03:20:49 -0500
+Received: from [10.252.147.171] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Thu, 28 Aug 2025 03:20:48 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,153 +59,207 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 791e7e8e-83e7-11f0-ae26-e363de0e7a9e
+X-Inumbo-ID: 83d5b6e2-83f0-11f0-ae26-e363de0e7a9e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yMECBYxrXNebxk3ni77NJ+V+jYvnwUbOa1yn1JhwKHmThV8wIGs3WSqxLI/QilN6nROt0a/3+sAQfqBHKA+bonTlYTB60qewLkgDdkDLsQZx3aRLTb2GBXBCytFejJPTlo9NKW5dG7DQbTkhAs/W0E2PT21fZNnx6t9NFHtdDljIZAgN3J5ClsZKwu92kC9BXSukKl5ZdaKThLadgRDWjL1OTuhNtwtSG7O/2PeBFVavkk9Dq3t3zL7J9iJM8+kXKpyWp+BE29tCywf2kYN4VHvqu0PfSEhMiv4vR9IaxLXo3LLrQz5JdMRWqWJPNq3TPb2kkQbZEdJcTi1VPhHvug==
+ b=j5054ixvzRJXYVLuTyyDN5UjMpXii+K3fY69Nux+3gYiNA4Su0YuIUFlUM21wmSWfwyDkNpih+OetknMDcOryiTsfBXul+YsW6Ukb3uvd1JT95yqmr02KJ7f4ESrY4klXDcnrcEO7I28qWggm6mso8PfBZaIApIVwKeBWx1+0T1OsFTX3JhTd5pIV5Gi1QKMGKGH+DvCsk8SgrzLKC9gmI3KV9YMA46LuLRFOsKjaroVg2X0tih+37xcJyAAbrmPyt6s2UE54uP9C+eRsRtTxQx5G93niWiUoVslNmvuawYtlzPI8ek+WGGKdZ4aIo84eEiRdvtA+AYD4Tr+7vv4lg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FjoIr7lFyfFpDbEr/04MtKkgMC5IM9Adq0/W0rKKUFE=;
- b=v/ZkOI+Mt9JYUPSe5C1ETYDOuofxVA7Wy569Q+GQup6r7GlSJJQuqaP0YVODpxxEi+dzBmE0o11maTWYKOlJgRsFIKoGeUTMw7G5dd8jcSFs7EAW5oSjywP3nAhJsnQxnjX+EXtGcxoYoWHPK3kZLlTUAWrFeN5yjPcTlPuCxZY8i9BUbbmpzeZr/VjoXGcJteRIbzD6foHvh/RtXVEul7WBZa0FZffrgzZ+hsLyiZuVfspu5jyaLGNa3QaiZuxiJR71rqsSil3MOCVhpmiWnbCiHUO1d4URpc2OIRy7xxsYkVzRpXlEgcu/3HnkVjryaFvvYKfNmre/xm/y+obegg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ bh=gN9WxuNeVeFM020pOXHfTK99mFiHauGuY5Rz0z1jXsc=;
+ b=xO1UFHrqo1LAaMi6wqM8/P4nL2VhtvxD6F7sRSBaKV1gcUIFy3fSSVCU4d13rlbS6KPLFhBGsOd/G3Ni9zI7GRB2QNsKvyUByjHZpoYq2K0t9wTtw0k9dqstnDZ+5Gbx1dUjSwTq4bQf4g1p0UZKO7c8nls2FT5cKgTXbfvLycZ8oFaT/8QpO0xYi4z1rZ9rW9mc6gSqStURrZBol2ZtBcrDtVvIfegIlKLNESCX895oN/MLEsHSV3NxhBVuyLdxuksp9xu3N9rnyMF8BnUBBZtL5OYwrjLqzjXDObkkunsDr3oWbLjM2zYDy7yKnUcgEZDCyLSBOOCRKZ0D4X4wrw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FjoIr7lFyfFpDbEr/04MtKkgMC5IM9Adq0/W0rKKUFE=;
- b=Y9CYhtQvrsfewMnabz7tTMhLi/Q0Ek2bKfgi61axCR9YG8VW7wbcZ11VNNCcnLpnrvwwwzgdqGyy2MZUmQKWOeRHuvckJjcBClIIbSKj+EwBcn7GYF+Lsr67Qz7UGbvsDZU8lEXvu9dXVU5i2lQHx2PIWysx+8zhuuJuFqAY1A/Gl5FEA5qSUszzLKw62DVATDXY2LuGDj2ggdG86Lpo1NjQI/gmq+IVBJdA398B5aHYFWUH7CvAAFAjnVGSjBYJ1L1Ex/HLl+1P3eMhd/bDVvYrJF5kORASMWI24+fitSMufZvxPpR8ER7CtaW26CwwzW5HYKGMBOfllQDY3gUpYQ==
-From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH] device-tree: fix infinite loop issue in
- 'assign_shared_memory()'
-Thread-Topic: [PATCH] device-tree: fix infinite loop issue in
- 'assign_shared_memory()'
-Thread-Index: AQHcF/Q482rbLahQD0qhywmRaenDcQ==
-Date: Thu, 28 Aug 2025 08:17:40 +0000
-Message-ID:
- <d7768394209c65cfef4006c3ffc0a0f5d82c4c18.1756368997.git.dmytro_prokopchuk1@epam.com>
-Accept-Language: en-US, uk-UA, ru-RU
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR03MB9572:EE_|AS8PR03MB6901:EE_
-x-ms-office365-filtering-correlation-id: c8b9da9f-a374-4f9e-3cba-08dde60b5b33
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|42112799006|376014|1800799024|38070700018;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?VeOxaq7kLxps/i/DtiD7qqIAqxon9ewJ4v3SKFXOEk618qrD9Ncg0RpT5y?=
- =?iso-8859-1?Q?gNvV6brx2Oaf/DF7Jktf2AQ5sHPzHyD/uqcsvwPS6abHyQRlXH2yTtpYTO?=
- =?iso-8859-1?Q?yF3JjLn+lWAvYmBpvwSZTtJD7I+5qpl1U+KUUe3p7iNxYvYvQQua4ZsxDO?=
- =?iso-8859-1?Q?DJUcbBk8zobeyCppV/hII7nI8DST+KgPksorDhDbJd7xV2Z1/SnLoj19sn?=
- =?iso-8859-1?Q?HL/J2BdDuGSFPN9uPNvJ3abD25cXLcocsynp2FbsMO6VsNfx5u4VuSipLv?=
- =?iso-8859-1?Q?JcfclRIaRievXQSPwGBpT/rkEOh/31a5NOMxaAIkidvCRQeH9KZe7rIPOq?=
- =?iso-8859-1?Q?f1YuC8HwuLU4Tbx7cv7S6v9BKvDTlBcHk/aSx9sfD7gXdD2Bh+5sKvIQj7?=
- =?iso-8859-1?Q?FjPKddKPxpHDb5akrdafbqMEY51DtYHngYvFbXHF5MiJ2dGJQw2LK0+TA4?=
- =?iso-8859-1?Q?PMp2UeFG+ZoIHDIbOSrWbGK4cblo83a8cinP3l8QQ7CSkrBmm4FkPXJF51?=
- =?iso-8859-1?Q?z8axAAqig2PH3jwRFl5o/qVfjDCNw02WK4GXhDyexfEsPkkESyP+dAk4I0?=
- =?iso-8859-1?Q?GWoC5UWffcGCg3AhOszfhQx8njHg0M502ytwMh9E6CC4oHkFutlwwCDt+h?=
- =?iso-8859-1?Q?T5jO7KAyx+vjTgUTmZrqgxI4MbwiTKv4kOlgRTZt6p/9s1+vLnV4rxDHe2?=
- =?iso-8859-1?Q?CyUJSW2mBbaoYAtl2DCt5FYUSequRgwOPj2ndxfic5eJ5Thc7bypKZGRPn?=
- =?iso-8859-1?Q?+0bf91iu66pOxTyn07zcuc3yZd8f/xXtzrz0ukTYjhtJsyyszwzNxG8nLo?=
- =?iso-8859-1?Q?QoiX8k04s3DyDnFL3hODghwCAAcpboYK8ccMPQJJkF0dXB/ttbHMTVbHaV?=
- =?iso-8859-1?Q?pso2i7tD0hSmY7T6E6i4NiUSn+27bX9PMP5hGuopf8pQJnHH/FV9DP3emQ?=
- =?iso-8859-1?Q?pwm603BEj2R74c70UY116gFj7x5oTdERXPIGkyz5YFYka4FMgwfqhHXzmn?=
- =?iso-8859-1?Q?0eSyRwDXEwlRQLA2R8lAu5tmjX3w+2RxRPm+JBcKxRn9TGDvzUQn99YoMa?=
- =?iso-8859-1?Q?wvoaYaRdgQmtnwc9r98wId5T/l9dXF5RRwY8EKPTr67f9pgJ66eepOL1XF?=
- =?iso-8859-1?Q?MkOOa2wrZf4ht46fhcOt5+/rEf/Lpm5NnANVIoRRq4SwfnAxGQQ+NwGUMq?=
- =?iso-8859-1?Q?v+FPh/EK0QTj5XZxDU5wIrXQZgNz0yDMT7bN58EbxNpjK1eB9m6KO132sE?=
- =?iso-8859-1?Q?jt+V+kyFfU2L4Td1Ov44rfHDLe7JyO8OX7u8PZtQ1YY2Q7Tt8AbET6RaS2?=
- =?iso-8859-1?Q?8a6VIsWpYdqd+4+hIATBB7Js+Rw+p053PGi320cE6k7QH9av+A2b7kxOfP?=
- =?iso-8859-1?Q?feSDqxT51oiLVkBCQ1tcfjZLM95bz/et1kDKJRM2D1iEuP/+W8VmYNnokO?=
- =?iso-8859-1?Q?0eoH30UJ56lV1vl0bzV+ju7sQvv4EPZ8TuNfI6Vcinj7aLp4h0/U7VeJwW?=
- =?iso-8859-1?Q?2vY7dW3epiEc8dSsPRv67IbnMeGOmG1D0iok8wGAX4WQ=3D=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR03MB9572.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(42112799006)(376014)(1800799024)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?UjfGqYX5HSOsDV9dcQIcrtiznfIhJVpf7M3DDJlo0g3CVUYUt/Jk/R8ibx?=
- =?iso-8859-1?Q?hguqd/hwuKz3qhjFrJb1CBh3UHUAigm+b/LUK48BCxuJ4F9b/oqENuZhU8?=
- =?iso-8859-1?Q?iDK4s4GEzdw9Pd5AsIA77Elng8pizcc+CW3EW47rJRzOW0fOqKy+IAq1f2?=
- =?iso-8859-1?Q?EFqw32Ydo+xbtBg7eE5qSJmXsVTiLWRo3IDGPkoQGHZQbxwzMl9nJ421x9?=
- =?iso-8859-1?Q?RWc+CYKBaqyQ/ts2xH3TKqFipGzZKjnv7m3fQZaK0RZPlZIGeEOQD5ts3J?=
- =?iso-8859-1?Q?8Z82LJJGl0j4AVydyZgoZakFclwJ4aT5nrCqNQtkppUoAuY+1WTwxwuN3J?=
- =?iso-8859-1?Q?3IJnU7SFcuxen5YxnS23XKqvvJJubhqsQcaUwgzQtcKdXMSnFlI2K+mIb6?=
- =?iso-8859-1?Q?Rq5QrhMsDUgpRH2DJkkGDdWWHDj9L6c/SQZdl2naiJNK+OMhjeRz6Dtf+V?=
- =?iso-8859-1?Q?2x7NIOt7qQQsOx/TCCVVWorKxnz4ren4JeYqLt68XO4JP2WdOnR0am1Cwv?=
- =?iso-8859-1?Q?0E+mSItI8OwshJrKtZNTA2JygNZNcMy6N2slkC0UYgfD4LSFEFbLUe9MVg?=
- =?iso-8859-1?Q?YPT9GM2i3AAjls72y7wiODuRyWvGhar2tAyeu/IMb8NZ9/FHe9h9XiOQxF?=
- =?iso-8859-1?Q?5WdDVzV4ZzM2BRaoiFPKABwzunHOZbF3hqaZFGpZasoZZ5UNfaABo2P3z/?=
- =?iso-8859-1?Q?YTu04NDS6Cv4en+PVKn5kIiM3jShI4UZXFwzXmp26QXsqonfBGuM1Y0l3y?=
- =?iso-8859-1?Q?Wpb5+WS52wTDn6TIMkt29DnLgG/BPgRCkyRu5AA2fJp6PKA3pQmI6vSADR?=
- =?iso-8859-1?Q?nBCI/CPSgBU2hXbMK9MNkONbK4WYEUGYSdFNd7nyGOBMqB3oO0s1/wQf+y?=
- =?iso-8859-1?Q?on+l0w+9SgHAwtBkC7wK8sSQvKhBm5JfXdLK1l0cDtiZyKcxTkMGbjJmAj?=
- =?iso-8859-1?Q?QX17t1hhS7IDnhgGK8ef+tTdkmtBs8JIyvlot9OHw7gWxvyUjnMsZgXhRL?=
- =?iso-8859-1?Q?ANX7vA7h13Zc1reTIOUaV7iZhyK86kngdmEkK1DqrEq7FlWXb8Yj3Rn9tv?=
- =?iso-8859-1?Q?NlzOFNIdT1S2epa5JrYXrcf1tek+1GC1ERo/5BVFuv+H423uX3SuePiLsR?=
- =?iso-8859-1?Q?WBOgMyR5R59RnUtAjnxdGe3Idljpd99xh4Wth3aqrKuMBqUUAEfXDIpWsf?=
- =?iso-8859-1?Q?jSlGeB+yX1UTfWsvDZjbDM+JfWmxH9nZ7X0YFhHPUhM0KX8yfBY5xnzNTO?=
- =?iso-8859-1?Q?Jv6Vk4fErYlgWA2871Ff67HjYPeY9V118dgedklkwYP/yU9RA/CAJMP0Xk?=
- =?iso-8859-1?Q?wTilwc4qsOiMtpqwiqC3PZfuH3ZISKurLaUbuLiEOdgiXkclax0X1g5MAw?=
- =?iso-8859-1?Q?27SNjvOo03/vo5HiueGZ8gjCHkVXFwEjP/zSySWKshz8U1TUxl46TIumNs?=
- =?iso-8859-1?Q?c9ntF8R/615BQbMcZaYFseqE/q/wxybxCAKO6DsjxQ06tR2tqbdHUICnhl?=
- =?iso-8859-1?Q?VhhzBse0KQBkQG6sZrSYmSXrQXakG7L3ovSJRJFgNSVjzJBAh+tHbwm7RU?=
- =?iso-8859-1?Q?ZbctysW8ol5llJ05z3gmGXTmCmkJBPWF+wJ+B+XJmPQtoL4Gp27E8Poblp?=
- =?iso-8859-1?Q?+JLymuWCLmtqQJrwUYqBuliQkeRJ5KW9q10gXR5zycuCtguSIyAle/ug?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ bh=gN9WxuNeVeFM020pOXHfTK99mFiHauGuY5Rz0z1jXsc=;
+ b=NExReYyY8pQbOhSpi6U69EWfCKnZyR7SJrrTP2lNY8JzZvEYTKKrG7Et0cYRj0QKUVEgu0hJk5ygLyjay/DaAg4MlygS9mb96iuj5QxTdx5v6b/Z02Cf1Da93UCr+XcnWjZ0dvBDn3oZnOMIF893jGYu352FPEiS2LkBMPuCeIQ=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <b9e9a44b-c718-468b-993b-419658c44667@amd.com>
+Date: Thu, 28 Aug 2025 10:20:47 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR03MB9572.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c8b9da9f-a374-4f9e-3cba-08dde60b5b33
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Aug 2025 08:17:40.5200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/5] arm/mpu: Implement transient mapping
+To: Hari Limaye <hari.limaye@arm.com>, <xen-devel@lists.xenproject.org>
+CC: <luca.fancellu@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1756312498.git.hari.limaye@arm.com>
+ <80b0b3f84ae73f7d92d1b1cfe057ffc438882725.1756312498.git.hari.limaye@arm.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
+Content-Language: en-US
+In-Reply-To: <80b0b3f84ae73f7d92d1b1cfe057ffc438882725.1756312498.git.hari.limaye@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB03.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E63:EE_|DS7PR12MB6095:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8f34ad4c-3f28-4ce1-6d9c-08dde61462ef
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|376014|82310400026|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?MEhBeTNOTUNNekVSdmRnR3kwUFByZ3hxSlU0TWt1ai9FbGNxZVROQjJVRHVQ?=
+ =?utf-8?B?QU5wRnZBTmFGc1hvRURkVlppSGVKNmJJdGN5eHZxZGFHYkpGT0w3c0RPeTZt?=
+ =?utf-8?B?MDh4RndLSGg4Wk0zOGFSSTFNL1NHR0kwUkJCMHBMbEh5NHdqNldKWDU5UHJ5?=
+ =?utf-8?B?bFZlRkVyWk5ncWNydml4ZUtxeXFWMWczb3B3RDB5VTdkblNidC9IVEU5UUV2?=
+ =?utf-8?B?RUMzQUJwS211ZkJmb0lxQUhocHNBN2k5RXRiTmNsajZHT2FnSnhGcUlSOURV?=
+ =?utf-8?B?TXlHS3h0dC82SlVoMjliVEhBWUExMzdjdmFWVmdPYU0wWU9GYXQ4OVkyVldI?=
+ =?utf-8?B?US9HTXZkckVSK3Q5a1ZpcFdoc20xYlZOKzR6WklUeEpRMEVYaDJOaEYyNTlr?=
+ =?utf-8?B?RHJIUzZDd3ZWdVlOQTZwa25oMEJMcEpjakt5SGl2TGhJbGM4T3U0QjZGZW01?=
+ =?utf-8?B?Vy9UQUJYVDFkRmtURWsraE56VFRHYnBMbUplLzRyTmNFcExNMUpzeHRTaTZu?=
+ =?utf-8?B?MUxTNE1HTzR5Y1VkL2pxRzUzMmRFU2M1Q1k5djlnd1JiTVY0ZnA2QUU5VEhi?=
+ =?utf-8?B?Qzkrdy9mN2pHaUdlcVBabkJRVzhJVENNTk1lZXlhYlduYWEyS3pKVTRYZDZE?=
+ =?utf-8?B?MzB2TnE4a3g2WEMwMUtsR2lhUm0vbzRmYnFMVmlXUDRiNlFaNUppVkRkempR?=
+ =?utf-8?B?SDNoRDQrSDdidStyRGNmNmlIZlVnYWQ3U2tBZ3IxOUo5RDZBR3hCdW0vVHox?=
+ =?utf-8?B?dmFYTUVBc3FQUTQ3ZWJpM25VNFQwaGp0SXB2c1JMUzRzYUd5eFNWZk8wQlE2?=
+ =?utf-8?B?MUZPOWM2L0RHVkx3eml2YU1Ha3JQcVVKTFo4L3duSHZUd0MxUG8vREpiUUp3?=
+ =?utf-8?B?emx3eWZTcTBCczN0WklYWXVTK1U5VkdnLzExbXpEbUtXMWI3SkJtT2VDcWVh?=
+ =?utf-8?B?Rk56K1YxLzRlNXVPMW8ybHV1emhvQmJHQXVRQ0NxNzE2WnppZllDM1ZCSWJW?=
+ =?utf-8?B?bnNYbHNKVXFzVGNrSnYzOXVCblZpb0VyMVRYOU0xMGZpSXVNai9rNmNKZ3g4?=
+ =?utf-8?B?U0p2QS9OQlBBMHhiMWtNOEJCcUR4ZDgrKzV5aGJNbzZTZ0VObFkwZmdEZWxq?=
+ =?utf-8?B?TkY1Nytod29pTDBpT0tjMkFycUJRNmo1TVNzT0ZOYnFVZWZkTWd0TktHZjdv?=
+ =?utf-8?B?Z0dlbHdXaEd5NjlnUjlEMGk4RXEzS2FhMlR4enU4NDAzekV3MzFsb0creEdL?=
+ =?utf-8?B?M1p2NW1OVjJxVzBjK3JRdXo5RTJQSUdhaDMxNEVraW9Wb2hYSTRoUVhGVFBL?=
+ =?utf-8?B?aUJQdm5ua3JYbXVMRU5sQXFrMytUYmVodGNQdUhhUzFYbTcydmRNYVVxSlVs?=
+ =?utf-8?B?aG4vYkowREZkMkMxemRpZXcrR3orSFFOWDJaaDhhTVJ1UWRKekNjOVhKYjN1?=
+ =?utf-8?B?K01tVUsvQlpKdFZkK2pZbmJRTHpCTFRGcnBSdkdKZWVuSTZRWEFvaDNQSldC?=
+ =?utf-8?B?Q1ZybUpXRFp4LzhSdnhCZWltaHJxeDlDRnl1WjZocWNybkd1MWRPMEpEY1RK?=
+ =?utf-8?B?b1BxSVpZTytvS20rRXpDUXZtTktyNDRVaGllVXRPcGZZam9xWlN4YUJzdVUy?=
+ =?utf-8?B?dVI1T0RPMERFa0ZhWHJtUU9jeEJJVjJ4dThmK0o1ekNYQWVyVG13elVTMEpz?=
+ =?utf-8?B?S2tjSHN3RXBoSHZOenpWM2JONjFtMTlOUzNidW04MVpuSU52VkQrRGVlVDRi?=
+ =?utf-8?B?VnZoeGhwNVZWOFBoZlcxL1poSFdieG43dUdqKzZGdkhSK2ZNblY1QWo1SllS?=
+ =?utf-8?B?eXhIaGZ5c005a3NLS1Z0T2hVYitEV3JlZGJhcmJ0ZXFLSUQ0Tm5pVWRxVDlT?=
+ =?utf-8?B?M2pTYytXdkpWWmJwQ01HanhwS1BoSzE2VTYxY2pXQjYxdjBkWVAyZ1dpV0dT?=
+ =?utf-8?B?WW85RkxUZk5VcVlLMlhLY2ZtU3k3TVVUaWU4UDloNEgzTlpwT01wZXpmNjFh?=
+ =?utf-8?B?QklKb3VOemdFa3dLYlJYMStINnpIRXJkaGJDUkoxamNHWWNDSksraURiZWFv?=
+ =?utf-8?Q?tbzmC7?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2025 09:22:18.9621
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: w+DJMZozOhr+pGWWs1JhanrktNyKQyjdRmB1f6b9PHyA9ud/lWfuni/G73h9ciKnb2DWK9GQdtFGEXjq6JtkDxDhX5qXsLtWrJy5gWjMUIk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB6901
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f34ad4c-3f28-4ce1-6d9c-08dde61462ef
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF00020E63.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6095
 
-Resolve infinite loop issue in the 'fail:' cleanup path of the function
-'assign_shared_memory()'. The issue was caused by an 'unsigned long' type
-for the loop counter 'i', which could underflow and wrap around, violating
-termination conditions.
-Change 'i' to a signed data type ('long') to ensure safe termination of
-the 'while (--i >=3D 0)' loop.
 
-This change adheres to MISRA Rule R14.3: "Controlling expressions shall
-not be invariant."
 
-Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
----
- xen/common/device-tree/static-shmem.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+On 27/08/2025 18:35, Hari Limaye wrote:
+> From: Luca Fancellu <luca.fancellu@arm.com>
+> 
+> Add a scheme to distinguish transient MPU regions, to identify MPU
+> regions which will be mapped for a short period of time. This is needed
+> for the functions which transiently map and unmap memory ranges on
+> demand which will be introduced in a future commit.
+> 
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> Signed-off-by: Hari Limaye <hari.limaye@arm.com>
+> ---
+> Changes from v1:
+> - Improve commit message
+> - Mark parameter in read helper as const
+> ---
+>  xen/arch/arm/include/asm/arm32/mpu.h     |  2 ++
+>  xen/arch/arm/include/asm/arm64/mpu.h     |  2 ++
+>  xen/arch/arm/include/asm/mpu/mm.h        | 14 +++++++++++++-
+>  xen/arch/arm/include/asm/mpu/regions.inc | 19 +++++++++++++++++--
+>  xen/arch/arm/mpu/mm.c                    | 23 ++++++++++++++---------
+>  5 files changed, 48 insertions(+), 12 deletions(-)
+> 
+> diff --git a/xen/arch/arm/include/asm/arm32/mpu.h b/xen/arch/arm/include/asm/arm32/mpu.h
+> index 0a6930b3a0..9906d98809 100644
+> --- a/xen/arch/arm/include/asm/arm32/mpu.h
+> +++ b/xen/arch/arm/include/asm/arm32/mpu.h
+> @@ -39,6 +39,8 @@ typedef union {
+>  typedef struct {
+>      prbar_t prbar;
+>      prlar_t prlar;
+> +    bool transient;
+Do we expect to have any other flags? If so, it could make sense to use a
+bitfield right away.
 
-diff --git a/xen/common/device-tree/static-shmem.c b/xen/common/device-tree=
-/static-shmem.c
-index 8023c0a484..b4c772466c 100644
---- a/xen/common/device-tree/static-shmem.c
-+++ b/xen/common/device-tree/static-shmem.c
-@@ -134,7 +134,8 @@ static int __init assign_shared_memory(struct domain *d=
-, paddr_t gbase,
- {
-     mfn_t smfn;
-     int ret =3D 0;
--    unsigned long nr_pages, nr_borrowers, i;
-+    unsigned long nr_pages, nr_borrowers;
-+    long i;
-     struct page_info *page;
-     paddr_t pbase, psize;
-=20
---=20
-2.43.0
+> +    uint8_t pad[7]; /* Pad structure to 16 Bytes */
+>  } pr_t;
+>  
+>  #endif /* __ASSEMBLY__ */
+> diff --git a/xen/arch/arm/include/asm/arm64/mpu.h b/xen/arch/arm/include/asm/arm64/mpu.h
+> index f0ce344e78..1d1843eda0 100644
+> --- a/xen/arch/arm/include/asm/arm64/mpu.h
+> +++ b/xen/arch/arm/include/asm/arm64/mpu.h
+> @@ -38,6 +38,8 @@ typedef union {
+>  typedef struct {
+>      prbar_t prbar;
+>      prlar_t prlar;
+> +    bool transient;
+> +    uint8_t pad[15]; /* Pad structure to 32 Bytes */
+>  } pr_t;
+>  
+>  #endif /* __ASSEMBLY__ */
+> diff --git a/xen/arch/arm/include/asm/mpu/mm.h b/xen/arch/arm/include/asm/mpu/mm.h
+> index e1ded6521d..566d338986 100644
+> --- a/xen/arch/arm/include/asm/mpu/mm.h
+> +++ b/xen/arch/arm/include/asm/mpu/mm.h
+> @@ -55,6 +55,16 @@ static inline void context_sync_mpu(void)
+>      isb();
+>  }
+>  
+> +static inline bool region_is_transient(const pr_t *pr)
+> +{
+> +    return pr->transient;
+> +}
+> +
+> +static inline void region_set_transient(pr_t *pr, bool transient)
+> +{
+> +    pr->transient = transient;
+> +}
+> +
+>  /*
+>   * The following API requires context_sync_mpu() after being used to modify MPU
+>   * regions:
+> @@ -75,9 +85,11 @@ void write_protection_region(const pr_t *pr_write, uint8_t sel);
+>   * @param base      Base address of the range to map (inclusive).
+>   * @param limit     Limit address of the range to map (exclusive).
+>   * @param flags     Flags for the memory range to map.
+> + * @param transient True for a transient mapping, otherwise False.
+>   * @return          0 on success, negative on error.
+>   */
+> -int xen_mpumap_update(paddr_t base, paddr_t limit, unsigned int flags);
+> +int xen_mpumap_update(paddr_t base, paddr_t limit, unsigned int flags,
+> +                      bool transient);
+>  
+>  /*
+>   * Creates a pr_t structure describing a protection region.
+> diff --git a/xen/arch/arm/include/asm/mpu/regions.inc b/xen/arch/arm/include/asm/mpu/regions.inc
+> index 23fead3b21..f9892fe3d8 100644
+> --- a/xen/arch/arm/include/asm/mpu/regions.inc
+> +++ b/xen/arch/arm/include/asm/mpu/regions.inc
+> @@ -14,19 +14,31 @@
+>  #define PRLAR_ELx_EN            0x1
+>  
+>  #ifdef CONFIG_ARM_64
+> -#define XEN_MPUMAP_ENTRY_SHIFT  0x4     /* 16 byte structure */
+> +#define XEN_MPUMAP_ENTRY_SHIFT        0x5   /* 32 byte structure */
+> +#define XEN_MPUMAP_ENTRY_ZERO_OFFSET  0x10  /* {PRBAR, PRLAR} is 16 bytes  */
+To avoid having to update this over and over again, maybe define a macro using
+OFFSET?
+
+Other than that:
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+
+~Michal
 
