@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4676BB39F3E
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 15:43:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1098883.1452824 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79B5FB39F41
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 15:44:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1098893.1452835 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urcuC-0008Rc-Vf; Thu, 28 Aug 2025 13:43:08 +0000
+	id 1urcv6-0000Vn-9A; Thu, 28 Aug 2025 13:44:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1098883.1452824; Thu, 28 Aug 2025 13:43:08 +0000
+Received: by outflank-mailman (output) from mailman id 1098893.1452835; Thu, 28 Aug 2025 13:44:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urcuC-0008Ox-Ss; Thu, 28 Aug 2025 13:43:08 +0000
-Received: by outflank-mailman (input) for mailman id 1098883;
- Thu, 28 Aug 2025 13:43:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1urcv6-0000SS-69; Thu, 28 Aug 2025 13:44:04 +0000
+Received: by outflank-mailman (input) for mailman id 1098893;
+ Thu, 28 Aug 2025 13:44:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Q4L6=3I=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1urcuA-0008Ok-J7
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 13:43:06 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ecd009c7-8414-11f0-8adc-4578a1afcccb;
- Thu, 28 Aug 2025 15:43:05 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-afcb78ead12so152057766b.1
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 06:43:05 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afe8a9f0c81sm796976866b.22.2025.08.28.06.43.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Aug 2025 06:43:04 -0700 (PDT)
+ <SRS0=eAWs=3I=bounce.vates.tech=bounce-md_30504962.68b05d1f.v1-0a5675d16cee438c9c6b712c18ac4b49@srs-se1.protection.inumbo.net>)
+ id 1urcv4-0000IL-N6
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 13:44:02 +0000
+Received: from mail187-26.suw11.mandrillapp.com
+ (mail187-26.suw11.mandrillapp.com [198.2.187.26])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0d61ceaf-8415-11f0-8dd7-1b34d833f44b;
+ Thu, 28 Aug 2025 15:44:00 +0200 (CEST)
+Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail187-26.suw11.mandrillapp.com (Mailchimp) with ESMTP id
+ 4cCN0b3W1bzKsbkbp
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 13:43:59 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 0a5675d16cee438c9c6b712c18ac4b49; Thu, 28 Aug 2025 13:43:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,162 +43,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ecd009c7-8414-11f0-8adc-4578a1afcccb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756388585; x=1756993385; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:to:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=p08cG2EJ9QuAUBqLPYqinbjdVcdwpL6KV8C8p+HyE8E=;
-        b=iSM8XOQJ2JG1PTFs6xrhHmx3Wp+zJiLIGR0UTEJYXggARYbMFUhjKkG7pFYR93RqpW
-         XPo1BexBjN0mTfJ4lCr8D2/m/3Y+PrROC2U8tRSKPx75/gjoiJsxD14d4EeQCXqjHC7F
-         ix+nnnbB1ui0JsIYcVptLR61sGTgpfzDbsTvSjSg1n25dj0iWE1XS1GItLRtv3993pDB
-         NI4RNAHf7c2sBFy7DFmSvXx2l7hf3MAWTjxrEcdLuam5RP7tn7z3jqiYss5l6NgDTkSC
-         zhsw+LbqXQpIffNrQMsmmUPcvsJyAxI6IebelSJ9E7f9byBgVoNw8gznDd30pobzVE1w
-         klrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756388585; x=1756993385;
-        h=in-reply-to:from:content-language:references:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=p08cG2EJ9QuAUBqLPYqinbjdVcdwpL6KV8C8p+HyE8E=;
-        b=GfNdXHQjHBU8j52Dthbfgl6ILmBCziv1/qb5Lf5+sgs++ezyRzSnYHo+769nX/Xskw
-         j4Me7ANPZ5cVvG9TXkhCJH6vx+A3eU60WLcAEDgl4tmL1oR15yq+lcOVPkUcYcCFJVvR
-         F3cjyEfdZnGufewj+JdfGBAujD/3K77KIclh6SRe6oVfB9QWItvNFZKdaQW7/pqC9ssO
-         WOgILd9f4fQ91kZwsGoG8OmxBLuP6Y/s9WnXKQ8b25Gt8FKYcbCYyiA3apgBcqdBT4xW
-         4iAvudncQ0NtQC7/sXmBxQu+4a2Y85frSB9sqgr5ODaGCODXTtldX1g/VPVLgL8w2act
-         7wRA==
-X-Forwarded-Encrypted: i=1; AJvYcCUaB7WZYUC6XZaZqfi9r46ok3n5nNwuFYPbM6UzPeJpYYtD80blexlfBWm5MopsIpRLRWJRiGUSRSg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx9EEy35A2u8V2W8qLH/MEtM1u/vigdmzbQZOGNWtfDFyIDPeay
-	GTIn3EDhiTYBdX+nqXy9ke17HD1NyQqFSPne3tOf1hN3dG0/jFjYVw54
-X-Gm-Gg: ASbGncsY7O/XOF0nbM7jH1yL8ewytY+DlY6GgZrgxfTq8MFoH3lP7L7fdy6c206x/bp
-	bbfivI3+QvVpFJEmZHTxy22DJzY+rQqNdD/KlL4EavDhnJhCOFzCu4hibb9tVLqXD1a7gndRBpT
-	17l6kwUwUWSKeypR16T+P5CEXksZtqlx6tgc0nvCokkndkti1kmUOosLdL0BpC4PwOHhqpsB4T3
-	Bwj19CgmDb4iYWvWmo2ezRGFd9FADHXrTvGqITAIrTMAPb+iX+aA7PzDWwZNlUEYjcumhJC7104
-	SvW6Iqx+YghInS8MEaDXbJ+CdT+FmAOaa1IQ0POL8dJSvJzZkfuQ6akrXUrlyIhiDAFN3yWzgBb
-	cqJ4Du4UC+F4Oqwf883cEDhkty/KY3ivJKHuz5fgk5yaNc8MNbv8ET1PAcLcqoMrXfSLaQxpbzl
-	LKstdwtQ==
-X-Google-Smtp-Source: AGHT+IHSScj9ulx10Lu/FIS90qteHxu4c2+3gEzyD8Axq8ts7HEgWw+75PKPfoK/kY9XQKi9WMwgpQ==
-X-Received: by 2002:a17:907:6096:b0:afe:8037:bc7d with SMTP id a640c23a62f3a-afe8037c1a3mr1368827766b.2.1756388584742;
-        Thu, 28 Aug 2025 06:43:04 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------mvC54Y60ARKGqTcDKCs3snMe"
-Message-ID: <3c365d64-939e-489f-ba78-ac9ea5311a6b@gmail.com>
-Date: Thu, 28 Aug 2025 15:43:03 +0200
+X-Inumbo-ID: 0d61ceaf-8415-11f0-8dd7-1b34d833f44b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1756388639; x=1756658639;
+	bh=my3luyqKo2dZnHOOYOj+LdonnR4q/KH6ynAakgWYZ8I=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=zDvxCdIec3aaPPDdt6kwOZ/KVkLBPI5vbUSPzTaPPswPIBRzcfC8CGz1nT0mShtV8
+	 HjlVw9E1Rx4r6ghMJoJP7AxsoX0Ohnpmjx/nfHqg2YzaM/743a0Bu/r8GJUm3kHISC
+	 J/mXeexqiz2A2YHJdXYSqKndPXcn1NZXZV1prtWu2KRezLILDDie7wH3inhtXH2ywE
+	 rayMvR0XDSCqFoci4lW/ktAJN7Cs26b9YG99d6ByNWtnXYV5m6GJ1TDgYflE9ZhHLO
+	 EM8qyXp1rxcs2/lhoIIpVvjlFkQmdFC/O/ud7HoZJZsqRf/4PW9/mVmJNOZ6LRWiXu
+	 q7kZnPpfY4caQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1756388639; x=1756649139; i=teddy.astie@vates.tech;
+	bh=my3luyqKo2dZnHOOYOj+LdonnR4q/KH6ynAakgWYZ8I=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=H8JdT3M7jl+nUX9YOQVPe5U3PqRSm1kh5dKYlaXWmZiXzggMLZgm1lCDhDLhagzZb
+	 DAF7xnhAdnqr4umqjAm7OXvnNbJwG13MeEkEqWH5sNvzQ0yORSBhJwyZ2tesqb8KBD
+	 xsdYPhPUnh9H54qG81t9hw+6Dp5V1Zce8i6xVANmRtB3aMtnnQPjwWNsbEAL0jxQDF
+	 6ZN9YB0s2a/gpOSO7omABMMoSqaZieMqtrXsMmFgZkZ07qUPwYZPqDMqriin7MotQ/
+	 DJ85ta/K1LeC6b0Ob3I/4uh8htIZNeFyaVd2Jwfvuuo5gIN3C1/Tj6u36D1+RwMrcS
+	 8LFeBTUFBtSOQ==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?[PATCH=20v2=200/3]=20Update=20to=20SMBIOS=202.6?=
+X-Mailer: git-send-email 2.50.1
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1756388637901
+To: xen-devel@lists.xenproject.org
+Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Oleksii Kurochko" <oleksii.kurochko@gmail.com>, "Community Manager" <community.manager@xenproject.org>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>
+Message-Id: <cover.1756388405.git.teddy.astie@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.0a5675d16cee438c9c6b712c18ac4b49?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250828:md
+Date: Thu, 28 Aug 2025 13:43:59 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Reminder] Feature Freeze is Fri Aug 29, 2025
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Community Manager <community.manager@xenproject.org>,
- "committers@xenproject.org" <committers@xenproject.org>
-References: <07fc7122-d0ac-4dbe-800d-89086a07005b@gmail.com>
- <e31bcf2b-50f9-42ca-ad17-e746652c1dd2@citrix.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <e31bcf2b-50f9-42ca-ad17-e746652c1dd2@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-This is a multi-part message in MIME format.
---------------mvC54Y60ARKGqTcDKCs3snMe
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+First patch clarify the Xen guest handle definition as being a big
+endian UUID. The second does update to SMBIOS 2.6, writing a proper
+UUID in the table.
+
+Teddy Astie (3):
+  xen: Define xen_domain_handle_t encoding and formatting
+  hvmloader: Update to SMBIOS 2.6
+  CHANGELOG.md: Add SMBIOS 2.6 update statement
+
+ CHANGELOG.md                            |  2 +
+ tools/firmware/hvmloader/smbios.c       | 50 ++++++++++++++++++++-----
+ tools/firmware/hvmloader/smbios_types.h |  9 +++++
+ xen/include/public/xen.h                |  7 ++++
+ 4 files changed, 59 insertions(+), 9 deletions(-)
+
+-- 
+2.50.1
 
 
-On 8/26/25 9:12 PM, Andrew Cooper wrote:
-> On 25/08/2025 4:50 pm, Oleksii Kurochko wrote:
->> Hello community,
->>
->> I’d like to remind everyone that the Feature Freeze deadline is approaching,
->> and we still have some outstanding requests from the community for patch series
->> to be merged into 4.21:
->>
->> 1. Enable guest suspend/resume support on ARM via vPSCI [1]
->> 2. Introduce SCI SCMI SMC multi-agent support [2]
->> 3. Introduce eSPI support [3]
->> 4. FRED work: [4], [5], possibly others (?)
-> For FRED, That's all that's out on the list.
->
-> I've got an update to 4 almost ready to post, this time getting to dev
-> complete.
->
-> Unfortunately, I've still not managed to get any time on real hardware
-> yet, so FRED will still be experimental in my series.  (The timelines
-> were originally compatible with Xen 4.21, but access to hardware has not
-> been as forthcoming as hoped.)
->
-> When I can test on real hardware, there may be bugfixes, and I may be
-> able to upgrade the status if we're not too far into the RCs.
 
-Sounds good to me. Let’s wait until you’re able to test it on real hardware.
-We’ll have some extra time during the Feature Freeze period, and the RCs
-will be moved as well. I’ll announce this a little later today.
+Teddy Astie | Vates XCP-ng Developer
 
-~ Oleksii
+XCP-ng & Xen Orchestra - Vates solutions
 
->
-> ~Andrew
---------------mvC54Y60ARKGqTcDKCs3snMe
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+web: https://vates.tech
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 8/26/25 9:12 PM, Andrew Cooper
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:e31bcf2b-50f9-42ca-ad17-e746652c1dd2@citrix.com">
-      <pre wrap="" class="moz-quote-pre">On 25/08/2025 4:50 pm, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Hello community,
-
-I’d like to remind everyone that the Feature Freeze deadline is approaching,
-and we still have some outstanding requests from the community for patch series
-to be merged into 4.21:
-
-1. Enable guest suspend/resume support on ARM via vPSCI [1]
-2. Introduce SCI SCMI SMC multi-agent support [2]
-3. Introduce eSPI support [3]
-4. FRED work: [4], [5], possibly others (?)
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-For FRED, That's all that's out on the list.
-
-I've got an update to 4 almost ready to post, this time getting to dev
-complete.
-
-Unfortunately, I've still not managed to get any time on real hardware
-yet, so FRED will still be experimental in my series.  (The timelines
-were originally compatible with Xen 4.21, but access to hardware has not
-been as forthcoming as hoped.)
-
-When I can test on real hardware, there may be bugfixes, and I may be
-able to upgrade the status if we're not too far into the RCs.</pre>
-    </blockquote>
-    <pre>Sounds good to me. Let’s wait until you’re able to test it on real hardware.
-We’ll have some extra time during the Feature Freeze period, and the RCs
-will be moved as well. I’ll announce this a little later today.
-
-~ Oleksii
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:e31bcf2b-50f9-42ca-ad17-e746652c1dd2@citrix.com">
-      <pre wrap="" class="moz-quote-pre">
-
-~Andrew
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------mvC54Y60ARKGqTcDKCs3snMe--
 
