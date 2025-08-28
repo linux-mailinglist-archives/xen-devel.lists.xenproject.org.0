@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CFFBB39B33
+	by mail.lfdr.de (Postfix) with ESMTPS id 17E0BB39B34
 	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 13:13:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1098391.1452454 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1098392.1452466 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uraZT-0001bm-9g; Thu, 28 Aug 2025 11:13:35 +0000
+	id 1uraZY-0001qr-IH; Thu, 28 Aug 2025 11:13:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1098391.1452454; Thu, 28 Aug 2025 11:13:35 +0000
+Received: by outflank-mailman (output) from mailman id 1098392.1452466; Thu, 28 Aug 2025 11:13:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uraZT-0001Z6-6y; Thu, 28 Aug 2025 11:13:35 +0000
-Received: by outflank-mailman (input) for mailman id 1098391;
- Thu, 28 Aug 2025 11:13:33 +0000
+	id 1uraZY-0001nj-EQ; Thu, 28 Aug 2025 11:13:40 +0000
+Received: by outflank-mailman (input) for mailman id 1098392;
+ Thu, 28 Aug 2025 11:13:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zjrZ=3I=arm.com=hari.limaye@srs-se1.protection.inumbo.net>)
- id 1uraZR-0001Z0-JS
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 11:13:33 +0000
+ id 1uraZW-0001Z0-RA
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 11:13:38 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 07ec0d55-8400-11f0-aeb2-fb57b961d000;
- Thu, 28 Aug 2025 13:13:32 +0200 (CEST)
+ id 0bb0fe47-8400-11f0-aeb2-fb57b961d000;
+ Thu, 28 Aug 2025 13:13:38 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CCC2D1688;
- Thu, 28 Aug 2025 04:13:22 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 29D4B1688;
+ Thu, 28 Aug 2025 04:13:29 -0700 (PDT)
 Received: from PWQ0QT7DJ1.emea.arm.com (PWQ0QT7DJ1.cambridge.arm.com
  [10.1.33.71])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1AE063F694;
- Thu, 28 Aug 2025 04:13:28 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0D7CE3F694;
+ Thu, 28 Aug 2025 04:13:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 07ec0d55-8400-11f0-aeb2-fb57b961d000
+X-Inumbo-ID: 0bb0fe47-8400-11f0-aeb2-fb57b961d000
 From: Hari Limaye <hari.limaye@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: luca.fancellu@arm.com,
@@ -51,53 +51,78 @@ Cc: luca.fancellu@arm.com,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v3 0/5] Third series for R82 MPU support
-Date: Thu, 28 Aug 2025 12:12:02 +0100
-Message-ID: <cover.1756379422.git.hari.limaye@arm.com>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v3 1/5] arm/mpu: Implement setup_frametable_mappings for MPU systems
+Date: Thu, 28 Aug 2025 12:12:03 +0100
+Message-ID: <99af1bac04c89a0c912f7f9c7e134ce79049e2a3.1756379422.git.hari.limaye@arm.com>
 X-Mailer: git-send-email 2.42.1
+In-Reply-To: <cover.1756379422.git.hari.limaye@arm.com>
+References: <cover.1756379422.git.hari.limaye@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi all,
+From: Luca Fancellu <luca.fancellu@arm.com>
 
-This series is the third set of patches in the ongoing work to
-introduce support for MPU systems and Cortex R82 in Xen.
+Implement the MPU variant of `setup_frametable_mappings`. This function
+will be called by `setup_mm` when an implementation for MPU systems is
+added in a follow up commit.
 
-The patches in this series implement the necessary logic to transiently
-map and unmap the static memory banks for initialization.
+Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+Signed-off-by: Hari Limaye <hari.limaye@arm.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+---
+Changes from v1:
+- Align ps and pe to page size
+- Add sanity checking for frametable size, as in MMU version
+- Add Michal's R-b
+---
+ xen/arch/arm/mpu/mm.c | 33 +++++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-Changes from v2:
-- Changes mentioned in individual patches
-
-Cheers,
-Hari
-
-Luca Fancellu (4):
-  arm/mpu: Implement setup_frametable_mappings for MPU systems
-  arm/mpu: Implement setup_mm for MPU systems
-  arm/mpu: Implement transient mapping
-  arm/mpu: Implement ioremap_attr for MPU
-
-Penny Zheng (1):
-  xen/arm: map static memory on demand
-
- xen/arch/arm/arm32/asm-offsets.c         |   3 +-
- xen/arch/arm/arm64/asm-offsets.c         |   2 +
- xen/arch/arm/include/asm/arm32/mpu.h     |   2 +
- xen/arch/arm/include/asm/arm64/mpu.h     |   2 +
- xen/arch/arm/include/asm/mmu/mm.h        |   3 +
- xen/arch/arm/include/asm/mpu/mm.h        |  40 +++-
- xen/arch/arm/include/asm/mpu/regions.inc |  17 +-
- xen/arch/arm/mpu/mm.c                    | 269 +++++++++++++++++++++--
- xen/arch/arm/mpu/setup.c                 |  11 +
- xen/include/xen/static-memory.h          |   8 +
- 10 files changed, 335 insertions(+), 22 deletions(-)
-
+diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
+index c6891607ec..3f155b7db2 100644
+--- a/xen/arch/arm/mpu/mm.c
++++ b/xen/arch/arm/mpu/mm.c
+@@ -168,6 +168,39 @@ int mpumap_contains_region(pr_t *table, uint8_t nr_regions, paddr_t base,
+     return MPUMAP_REGION_NOTFOUND;
+ }
+ 
++/* Map a frame table to cover physical addresses ps through pe */
++void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
++{
++    mfn_t base_mfn;
++    paddr_t aligned_ps = ROUNDUP(ps, PAGE_SIZE);
++    paddr_t aligned_pe = ROUNDDOWN(pe, PAGE_SIZE);
++
++    unsigned long nr_pdxs = mfn_to_pdx(mfn_add(maddr_to_mfn(aligned_pe), -1)) -
++                            mfn_to_pdx(maddr_to_mfn(aligned_ps)) + 1;
++    unsigned long frametable_size = nr_pdxs * sizeof(struct page_info);
++
++    /*
++     * The size of paddr_t should be sufficient for the complete range of
++     * physical address.
++     */
++    BUILD_BUG_ON((sizeof(paddr_t) * BITS_PER_BYTE) < PADDR_BITS);
++    BUILD_BUG_ON(sizeof(struct page_info) != PAGE_INFO_SIZE);
++
++    if ( frametable_size > FRAMETABLE_SIZE )
++        panic("The frametable cannot cover the physical region %#"PRIpaddr" - %#"PRIpaddr"\n",
++              ps, pe);
++
++    frametable_base_pdx = paddr_to_pdx(aligned_ps);
++    frametable_size = ROUNDUP(frametable_size, PAGE_SIZE);
++
++    base_mfn = alloc_boot_pages(frametable_size >> PAGE_SHIFT, 1);
++    frame_table = (struct page_info *)mfn_to_virt(mfn_x(base_mfn));
++
++    memset(&frame_table[0], 0, nr_pdxs * sizeof(struct page_info));
++    memset(&frame_table[nr_pdxs], -1,
++           frametable_size - (nr_pdxs * sizeof(struct page_info)));
++}
++
+ /*
+  * Allocate an entry for a new EL2 MPU region in the bitmap xen_mpumap_mask.
+  * @param idx   Set to the index of the allocated EL2 MPU region on success.
 -- 
 2.34.1
 
