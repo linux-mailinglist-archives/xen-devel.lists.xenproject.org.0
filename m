@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4CF7B3A335
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 17:01:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1099075.1453007 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02ACBB3A36A
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 17:04:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1099102.1453016 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ure7a-0002Gj-MU; Thu, 28 Aug 2025 15:01:02 +0000
+	id 1ureAr-000377-4X; Thu, 28 Aug 2025 15:04:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1099075.1453007; Thu, 28 Aug 2025 15:01:02 +0000
+Received: by outflank-mailman (output) from mailman id 1099102.1453016; Thu, 28 Aug 2025 15:04:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ure7a-0002FF-Jj; Thu, 28 Aug 2025 15:01:02 +0000
-Received: by outflank-mailman (input) for mailman id 1099075;
- Thu, 28 Aug 2025 15:01:01 +0000
+	id 1ureAr-00035G-1M; Thu, 28 Aug 2025 15:04:25 +0000
+Received: by outflank-mailman (input) for mailman id 1099102;
+ Thu, 28 Aug 2025 15:04:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=AInb=3I=nvidia.com=jgg@srs-se1.protection.inumbo.net>)
- id 1ure7Z-0002F9-Ex
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 15:01:01 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2062b.outbound.protection.outlook.com
- [2a01:111:f403:2414::62b])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FrxM=3I=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1ureAp-00035A-Lo
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 15:04:23 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cdd7a201-841f-11f0-8dd7-1b34d833f44b;
- Thu, 28 Aug 2025 17:00:59 +0200 (CEST)
-Received: from CH3PR12MB8659.namprd12.prod.outlook.com (2603:10b6:610:17c::13)
- by CH2PR12MB4312.namprd12.prod.outlook.com (2603:10b6:610:af::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.16; Thu, 28 Aug
- 2025 15:00:51 +0000
-Received: from CH3PR12MB8659.namprd12.prod.outlook.com
- ([fe80::6eb6:7d37:7b4b:1732]) by CH3PR12MB8659.namprd12.prod.outlook.com
- ([fe80::6eb6:7d37:7b4b:1732%4]) with mapi id 15.20.9073.010; Thu, 28 Aug 2025
- 15:00:51 +0000
+ id 46ec08b8-8420-11f0-8dd7-1b34d833f44b;
+ Thu, 28 Aug 2025 17:04:21 +0200 (CEST)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-45b7722ea37so3400495e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 08:04:21 -0700 (PDT)
+Received: from localhost.localdomain (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45b6f0c6fe5sm78394535e9.5.2025.08.28.08.04.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 Aug 2025 08:04:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,161 +45,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cdd7a201-841f-11f0-8dd7-1b34d833f44b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NS6QF9PmkhPSetggaII5CehTlNqOJP7vlZ3U1FhtbEJxV7OqYGAMEImFhkSEkVt8p4tMk12Kq+qkyt9hkXaA3hNTw0Q/M8JsOk89YCE34YUJMbwpcSbThpcPNb8wLgyaPwW6ZGVpAgcGi41Oc/cey8aZQgz7mbUCOQ7tc/sczz3afaA2QRRBbuXquufQAmJf9sL/A6SD/TF4rdhqnMo48S2K6UzD9pSyjxqV2sqNVzD6z6Ip+oi/OabsECcItshuq8tNhBlbjP1tEj2lLzx0DCeMCiupm+JXR4h6uE9VaT/OtZ88vfpoUxv15tHzMBQ9qGXmW0QvuV+wNoRl6Z0AFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YhYgIuXMPDyneIixgb3ayDngq33diPvUwzKhingnZUs=;
- b=L6kKIA+cyA334TB+HD6KAb0poZQRgfS+mi0YyYxUih9dP8c8uDGCwry1fq5E3IAs3r0+l134PJ+M+RHZ/x8HD7Yt+f0tP6ddNZ2aQLxcz/QkPJ+dRs7igP+u5glEEt8uY2/L+weMU5UCN+OPkEvsRWXhb/OIZ9rh4KubDEOvFUoAIj1k+4YBSjFfvNJLXgwILa1QnbgC65cHcHmZFKcKirSMgnxZcz9ybBWbtd1/tFdgT4E9kgmr5rYCWQyGWRJD+FZmq1hKglllDlaj100v7wtivgG8yRUcVXZh49dztnslaMANyvHcOUx+C7KrcwIl/VaOfumTn7GnMsKKVVxsHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YhYgIuXMPDyneIixgb3ayDngq33diPvUwzKhingnZUs=;
- b=qkezqVMzVT99jJQz5M/PGYi6BFwhFdorcFX4nk8XC3yr/uRWXxB6KzsAKoOE4GJgOzKfcnz3wm7ks69mL1QnYz6lWl6fGk2FqtTEsADsI9tDC0gBUny76ogXICGsiXeF4Tdm1k8iNvLwaRl2aSeMULoKHlkXhnk6VBhaR97BpE7FQljWxhk64RLUekpCMpzP6ZjvgbpSpgalw0RFZI6wBTTTCx+PjZqmqSes0JXPnN1R2rSbS3YoHbeswtL/3eG9cxNd9xQuVrhnMh5RRJFdZ2GqU0Yv5DWHI9tL0Sthc9UIMXJDdQlqYhdwIx2MHfr5sv+sg5Unmy4c+jKesWCk7g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Date: Thu, 28 Aug 2025 12:00:49 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
-	Leon Romanovsky <leonro@nvidia.com>,
-	Abdiel Janulgue <abdiel.janulgue@gmail.com>,
-	Alexander Potapenko <glider@google.com>,
-	Alex Gaynor <alex.gaynor@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Christoph Hellwig <hch@lst.de>, Danilo Krummrich <dakr@kernel.org>,
-	iommu@lists.linux.dev, Jason Wang <jasowang@redhat.com>,
-	Jens Axboe <axboe@kernel.dk>, Joerg Roedel <joro@8bytes.org>,
-	Jonathan Corbet <corbet@lwn.net>, Juergen Gross <jgross@suse.com>,
-	kasan-dev@googlegroups.com, Keith Busch <kbusch@kernel.org>,
-	linux-block@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-nvme@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
-	linux-trace-kernel@vger.kernel.org,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>, rust-for-linux@vger.kernel.org,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	virtualization@lists.linux.dev, Will Deacon <will@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v4 08/16] kmsan: convert kmsan_handle_dma to use physical
- addresses
-Message-ID: <20250828150049.GG9469@nvidia.com>
-References: <cover.1755624249.git.leon@kernel.org>
- <f52ab055c9ffa4da854afe47232c7d06d109d8ce.1755624249.git.leon@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f52ab055c9ffa4da854afe47232c7d06d109d8ce.1755624249.git.leon@kernel.org>
-X-ClientProxiedBy: YT3PR01CA0138.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:83::25) To CH3PR12MB8659.namprd12.prod.outlook.com
- (2603:10b6:610:17c::13)
+X-Inumbo-ID: 46ec08b8-8420-11f0-8dd7-1b34d833f44b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1756393460; x=1756998260; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=HXugFQ1kN97ZDaQOJM1fKNzcNCNTk1kE4o03Nu2zqzc=;
+        b=gyVlIvn0ZbMY+MNtcD7FmEIUAlVXO0+pyDG8tjoaH0ZSAos+Ek35ETqn9raQXcxlay
+         c4CU1i0AUxPmAEfoeXUfilXGYuaNU22nhScE3n0ZHb0PLn4uFaYu8+gLujaPbadSipEt
+         CCFD56kUq4RPSo5WwtdjmA+68enuyo3f8U1CE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756393460; x=1756998260;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=HXugFQ1kN97ZDaQOJM1fKNzcNCNTk1kE4o03Nu2zqzc=;
+        b=KBvFX2r8iqZHqByLutUbTYO8Zu/ShLzkXwsIXtn7B6qAgedGK8/Zxnortsz8nfCUWF
+         PUwG01NPPkzemS4+f5yjAaRsyYuTzmJIqPX/IvhxGk4nQw1R9vyqzcNVGHUyg8K46m9N
+         kBTezOusJL1Ib5E2JAMMo8+iSqY05dk/TVne7WkKDwGPYrUH604NRjJnkKO0/+AlU5p7
+         +kByTA5deDAwTveYFlgvwYIrNGvFgvrG7FUPzJs26tsTQh7WzRHPu/2MSOF2USK1dYnK
+         4VJLzn6wKFYo+IFrHcG+BCqrlWudVyX5bP/q6rWImb82fCf4uswO9ApiTlNhwgbOeexM
+         UgaA==
+X-Gm-Message-State: AOJu0YxAIELLfZUCr3KS28fEs9HfL1G7drYIttejov0X15WPycX8Q7V8
+	9xTKHb7OKjuPmAvaLiSPxb0QqAvcEXei9D3uBXfbeEL5v7+O/df9uoQ8Yl89+AHfguYyMTM4WoD
+	xhU4U
+X-Gm-Gg: ASbGnctvAAS0Czvw2ovXwLZeHw1rgPFHb9lssSwSXsWyTTfwieUWfsIWoBCHU1sv8HR
+	xhzSYKnXXneOUqEWlQMd4jRBti5Dz2qfZb4dVM+M+8mJJXmI/OSdKqiTanmM+i+RkLMc09neEW8
+	C2KOULsE9DOkwGDCXRs4Fipt+BDNAPWTBaTUnVTlx9Pi8qL1Ye0NhlYpdbOsgQ9pAzlDQPFQ5/S
+	PxaRpWsNLJswDjLC3RH/S2/IrUQ50XmHneOZ/irnncQ0tVg8z4Za3uFAFY85mK8CZORA8f1dShn
+	uFlWYGvNW1DNjJkD+Ve0Sb7mZknyNCftSFPMb/WAU3vAp1F+ab9z0J7ttGDJpwaP3RapJ35SkVy
+	xX58E6oqITmK0o74Qsrt8uhknXYFOpA3GQVSWWRV48x3IikZhJZ1Cn9ngpw0583ggwxFincBkBW
+	64ceNaxxybDtTgQeYCuw4Fcw==
+X-Google-Smtp-Source: AGHT+IGsdXrb+peDgu2F84j2mNK+m626Mp3bowMqBIz3fylH0WxOThKixTC1tLEmUUzT9WmOt42mGQ==
+X-Received: by 2002:a05:600c:a593:b0:45b:7580:6f34 with SMTP id 5b1f17b1804b1-45b75807d02mr26847625e9.12.1756393460388;
+        Thu, 28 Aug 2025 08:04:20 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v2 00/23] x86: FRED support
+Date: Thu, 28 Aug 2025 16:03:46 +0100
+Message-Id: <20250828150409.901315-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PR12MB8659:EE_|CH2PR12MB4312:EE_
-X-MS-Office365-Filtering-Correlation-Id: cd324a99-7b50-48f0-b0b3-08dde643ad87
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?F3t8pjxGuYiqQXVRHHoABfhe3+nJCLYfL6dfMX6OVHmrSntXdCx5WtVVMFHz?=
- =?us-ascii?Q?yIevAB0p9919JudsrpMU6LZXPwxOeB9F3UoThU3jOmE7GG9uxOE5qnMerxlg?=
- =?us-ascii?Q?AN/UIs/2Eg+OivcbbHEpPHCi39auQu/YZ8nvFxeTPjZk3Ada64JLqqgnkSht?=
- =?us-ascii?Q?543bGq64xQ4iKEYNxa2ok61AsVkpvnT+Uw7NMsRGYJRPYMAsP5PBjypPdUBf?=
- =?us-ascii?Q?81RH4ul4DOiq5i+njO8K39Sfezmnlh6jHSbM73vKdx78Kp2e/lXKQOCqkfKk?=
- =?us-ascii?Q?GqW+8ek12Sua17KiSbBLTYD6OHXBdB/KEbLwIUYy46n4iVYEXrek8Peoq5/7?=
- =?us-ascii?Q?K+OpIeuHCsarMY09f/7Ske6UqL3X2966rZkUOyW8bBJeXZF/5QntDeEXO5H4?=
- =?us-ascii?Q?XSu/AU+Smc0Gu9vuwbA7xN8mb7/fUJw4zfSDUaI1WXJhnh4aqcraj1hcO4O+?=
- =?us-ascii?Q?EDIwkRaibNorWjRo2KD1Xm308/+ExCCE+H5o+9DL6CvUSuvGuEjPZWHGWh1L?=
- =?us-ascii?Q?Qk88DLWsKxzmwnorlRypDjuSrRJbB5gLNQthol57IcMc3Cup1IIXsKyPmYSk?=
- =?us-ascii?Q?IWH2yF8gaH0SdOuca7KzzBqW+S4YE/EC12HojfMnvk09W6nqqb4fF7aaQ/Zu?=
- =?us-ascii?Q?Orj1BFeugwUPXkm2LQeGmgm0hEB3oh/qLZnJS4cA1KO9cp3oYLx+FJayhERl?=
- =?us-ascii?Q?sjLXgnd1db4hPQgzuFmeXwoGL7Iy+wcTnr2oP90fVeq+t38aAtCMB/BRHQjs?=
- =?us-ascii?Q?x9O83XsAWqorEs0kwmGsD/wWNCY3rfNgCxM3Jg6wm7FkAkUfXd8ZQV52+779?=
- =?us-ascii?Q?a5jofWus3cV8yAr4swvRu8HqzElhF00CvUSewWnDVPEETGebx85qNIZFxgS2?=
- =?us-ascii?Q?KYtd1Vqd+kAd8m/rG/y21hHXjwA8HyOBgkLV1oW/H3l+Q5F9Zj358PhlumsN?=
- =?us-ascii?Q?ZBkEOrfZg0VQFTj0dry4OGp4HYTN4KEMh+yianvgfkREmfLiYJNy0xLGrvfP?=
- =?us-ascii?Q?zRNYmHb1BhypYX+XMP4ZqHYhe5wqD9omzX6FhepSaws2mnbL6V/h0843bI7f?=
- =?us-ascii?Q?9J/g7OWg2AkezlH5prpTFen+dMQMWjPHAXqZuMW/hT5Bz4/etFPDwTgv/L7X?=
- =?us-ascii?Q?1NCwRIzvfKHFkhIYGOBODZrs8NLb5i8KHZ0YEMreb3KDZuZNRvRHMXnP2Il0?=
- =?us-ascii?Q?pGtu9m8/4F1vowQ4SUYg8H+QpznU8ztibiwxlnVAl9Y6dbfkoYvwnTb2kVxl?=
- =?us-ascii?Q?CGBs07j5ssRf0PygNTBsuIRc+MoGCDkoaxHNF41xLXDg1HMby8oaNi/d+Z+F?=
- =?us-ascii?Q?/jiqKkjDyWZSULX/+ZIfD5k5Z3aNv7sQTvoozJTNKQf+hutgN9PNPqMM3aps?=
- =?us-ascii?Q?QY+hwbAR76MfSkDtNGbY8H+YtiEZvOwrF73u/2Lko0T85eWLr9f3kbMsUy8S?=
- =?us-ascii?Q?1FKnLopyHwI=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB8659.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?uvpwli8oU8wOvJLyl3NwVP+TQsbxubD0QEkBmRvQ2Jh4ZZJP5qipOjZamH69?=
- =?us-ascii?Q?B+PbjhWcvbtpGKlhIxRiDqqYfHFPEPCBZqhYcM3T3ZJCwQw82zG9G2Rke9q4?=
- =?us-ascii?Q?CHgav7pRRa8j+o2jKanzZWaj+WSOMGZy5DY+0AHtPYJI0nJ5hOZvUn3SDpkt?=
- =?us-ascii?Q?0Lj6tDEn2MUr7dn/mRi5s+tS4G54SGWL1gmMMjbn3782+tcgUScunIc00GN0?=
- =?us-ascii?Q?3pRE8QnZ3QHE9tNZwhIa7y+X0nMffa4WSZUKiKe5KdNA8VOOl+TOtsOWaCd1?=
- =?us-ascii?Q?jcHChVqL0T/rslHr4WXAO0p+c3Z1RyNIMo03ObYJYsT182PvejTMDMYVcPW2?=
- =?us-ascii?Q?TxkEmh8HQJHQ4C1zp5n+5QiKUrbxiqY9ujbKvp0SZsFyrXRl0y9aGhqFKY7c?=
- =?us-ascii?Q?s4JSDoQbvQ6HGj3v7qDJDWH0FLS7fYF1+N6yLGUyrTyqzOSuJuDY+7aUoI2N?=
- =?us-ascii?Q?rOZahLnSaGGsH9jYN/jH2gyt3RIa/wpjbTeaGNfIaNMmv4ypGsc7LxZ4a5i4?=
- =?us-ascii?Q?qPt6RFV0Ln+5onDrvs+VTLORC18S6Tu2yzJcwprZV/lJEtiCP5kZ0uWmoXqs?=
- =?us-ascii?Q?Zu+lwyG4f1mD8rOfNV+DnPl4KlKRekyau5weSSnPlOVlVYPg/gRl8KLZCEJ4?=
- =?us-ascii?Q?qIbh1Rs8xBJ8wOG1jy8byWrqFGCUVvzZZROHHnuwjFw0P5z3CDGu9b1s1NRa?=
- =?us-ascii?Q?l0Hj1TmoiopLBTq6x8wbyh2ilDgffTBbrmu+042g58KDcRxv7nui3UD/+nJI?=
- =?us-ascii?Q?yOM9GnMdDPLDOgrfrL7iMO5SEjt83MxpwQoxdnZ0851+375n+sQrnKKouUza?=
- =?us-ascii?Q?5tdZqUIRyEgSx00YK7nwXErvHKgJfWsAsz0+vEnKoOPzwQuo/j+3VMvxzvLE?=
- =?us-ascii?Q?COndN5Wm1bXxccaF9kAf/g40DSjFJPH67o4ODthM9e12YFPj/IxsCaJUDVZg?=
- =?us-ascii?Q?GQhSbzT1xXF2YdalACMmlmSTrucAzSSmwfbiNfM6aElZNJ6NWZgO6ORB0u37?=
- =?us-ascii?Q?G9RgeLWXQ1bv9FUe0PmKyv4Q9COG32CMNhjHgqSML+tgId1eianjVIc3N0HU?=
- =?us-ascii?Q?dcf5rlhw0KvJ/WcSFLUrcXS4Hq10eLpBr9YnU3iGxkE/Z6mqccKBwxjAHxku?=
- =?us-ascii?Q?GTufKt69kT3PxhVdyKrwpZOER+7hmU7Tb6AOxxFAmRiGqOM9Y5JoMuQtA+gQ?=
- =?us-ascii?Q?TQs8oD7Ni9Msd5adVQqHsRdc0ni8RZkTR+IrDWPZiBkkABiDKLMRbpQR9dA5?=
- =?us-ascii?Q?7BSW1ESHp3r7W789bDbU8cdpRR5rKVroZ3TE3SsFAHi/jckiLl3IbxxKZt/d?=
- =?us-ascii?Q?IaISd75BGpc4lxeH8Achj5wt8e/8Q8Qxttl9cgpN9M0ijzLoSIx07nLAJkTy?=
- =?us-ascii?Q?FNG58ONb0+qKUHcGPeSkaO9cE8SCYUNrtCPXl6/aDaEFD2ZIhouLTLWqXE+3?=
- =?us-ascii?Q?cYw6VCnPhOlZhYR/jfb4PjNOvSOX6aokxBVUQa86yqNxMH4vzfOMMQZLHTUc?=
- =?us-ascii?Q?sV4Yc109BXOL/IFth93oiQUr8pcDxVyh5M3fp7VE3fHzDVMUx2C49eAGfDzY?=
- =?us-ascii?Q?u6BMG3n/8GgM7hjb++E=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd324a99-7b50-48f0-b0b3-08dde643ad87
-X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB8659.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2025 15:00:50.9010
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Z15O0VvpBrGAOGITkb5/Y05ckWmkWXcBfnra5oKm94y8bsDpfspUxCq/SnlW4BPn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4312
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 19, 2025 at 08:36:52PM +0300, Leon Romanovsky wrote:
->  /* Helper function to handle DMA data transfers. */
-> -void kmsan_handle_dma(struct page *page, size_t offset, size_t size,
-> +void kmsan_handle_dma(phys_addr_t phys, size_t size,
->  		      enum dma_data_direction dir)
->  {
-> +	struct page *page = phys_to_page(phys);
->  	u64 page_offset, to_go, addr;
->  
->  	if (PageHighMem(page))
->  		return;
-> -	addr = (u64)page_address(page) + offset;
-> +	addr = (u64)page_address(page) + offset_in_page(phys);
+This is now everything to get to tech preview, except for the caveat that it's
+still not been tried on real hardware yet, so is staying experimental for now.
 
-addr = phys_to_virt(phys);
+The first few patches have been seen before but the latter half of the series
+is new, adding support for running PV guests when Xen is using FRED.  Some
+work here has influenced earlier patches.
 
-And make addr a void *
+See patches for details.
 
-Otherwise looks fine
+https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2009286102
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+This series is still based on the MSR cleaup series posted previously.
 
-Jason
+Andrew Cooper (23):
+  x86: FRED enumerations
+  x86/traps: Extend struct cpu_user_regs/cpu_info with FRED fields
+  x86/traps: Introduce opt_fred
+  x86/boot: Adjust CR4 handling around percpu_early_traps_init()
+  x86/S3: Switch to using RSTORSSP to recover SSP on resume
+  x86/traps: Set MSR_PL0_SSP in load_system_tables()
+  x86/boot: Use RSTORSSP to establish SSP
+  x86/traps: Alter switch_stack_and_jump() for FRED mode
+  x86/traps: Skip Supervisor Shadow Stack tokens in FRED mode
+  x86/traps: Make an IDT-specific #DB helper
+  x86/traps: Make an IDT-specific #PF helper
+  x86/fsgsbase: Make gskern accesses safe under FRED
+  x86/traps: Introduce FRED entrypoints
+  x86/traps: Enable FRED when requested
+  x86/pv: Deduplicate is_canonical_address() in do_set_segment_base()
+  x86/entry: Alter how IRET faults are recognised
+  x86/entry: Drop the pre exception table infrastructure
+  x86/entry: Rework the comment about SYSCALL and DF
+  x86/pv: Adjust GS handling for FRED mode
+  x86/pv: Exception handling in FRED mode
+  x86/pv: ERETU error handling
+  x86/pv: System call handling in FRED mode
+  x86/pv: Adjust eflags handling for FRED mode
+
+ docs/misc/xen-command-line.pandoc           |  10 +
+ xen/arch/x86/acpi/wakeup_prot.S             |  52 +-
+ xen/arch/x86/boot/x86_64.S                  |  48 +-
+ xen/arch/x86/domain.c                       |  26 +-
+ xen/arch/x86/extable.c                      |  14 -
+ xen/arch/x86/hvm/domain.c                   |   4 +-
+ xen/arch/x86/include/asm/asm-defns.h        |   8 +
+ xen/arch/x86/include/asm/asm_defns.h        |  76 ++-
+ xen/arch/x86/include/asm/cpu-user-regs.h    |  71 ++-
+ xen/arch/x86/include/asm/cpufeature.h       |   3 +
+ xen/arch/x86/include/asm/cpufeatures.h      |   2 +-
+ xen/arch/x86/include/asm/current.h          |   9 +-
+ xen/arch/x86/include/asm/domain.h           |   5 +
+ xen/arch/x86/include/asm/fsgsbase.h         |   8 +-
+ xen/arch/x86/include/asm/hypercall.h        |   5 +
+ xen/arch/x86/include/asm/msr-index.h        |  11 +
+ xen/arch/x86/include/asm/traps.h            |   6 +
+ xen/arch/x86/include/asm/uaccess.h          |   2 -
+ xen/arch/x86/include/asm/x86-defns.h        |   8 +
+ xen/arch/x86/mm.c                           |  12 +-
+ xen/arch/x86/pv/dom0_build.c                |   2 +-
+ xen/arch/x86/pv/domain.c                    |  22 +-
+ xen/arch/x86/pv/iret.c                      |   8 +-
+ xen/arch/x86/pv/misc-hypercalls.c           |  42 +-
+ xen/arch/x86/pv/traps.c                     |  33 ++
+ xen/arch/x86/setup.c                        |  35 +-
+ xen/arch/x86/traps-setup.c                  | 127 ++++-
+ xen/arch/x86/traps.c                        | 511 ++++++++++++++++++--
+ xen/arch/x86/x86_64/Makefile                |   1 +
+ xen/arch/x86/x86_64/compat/entry.S          |   3 +-
+ xen/arch/x86/x86_64/entry-fred.S            |  57 +++
+ xen/arch/x86/x86_64/entry.S                 |  46 +-
+ xen/arch/x86/xen.lds.S                      |   5 -
+ xen/include/public/arch-x86/cpufeatureset.h |   3 +
+ 34 files changed, 1106 insertions(+), 169 deletions(-)
+ create mode 100644 xen/arch/x86/x86_64/entry-fred.S
+
+-- 
+2.39.5
+
 
