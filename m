@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AC3CB3A2C7
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 16:54:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1099032.1452957 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75EBFB3A2C3
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 16:54:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1099033.1452964 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ure1B-0007Cv-31; Thu, 28 Aug 2025 14:54:25 +0000
+	id 1ure1B-0007MV-Je; Thu, 28 Aug 2025 14:54:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1099032.1452957; Thu, 28 Aug 2025 14:54:25 +0000
+Received: by outflank-mailman (output) from mailman id 1099033.1452964; Thu, 28 Aug 2025 14:54:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ure1A-00077C-Ua; Thu, 28 Aug 2025 14:54:24 +0000
-Received: by outflank-mailman (input) for mailman id 1099032;
+	id 1ure1B-0007DZ-AJ; Thu, 28 Aug 2025 14:54:25 +0000
+Received: by outflank-mailman (input) for mailman id 1099033;
  Thu, 28 Aug 2025 14:54:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Mimg=3I=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1ure18-00074Y-V8
+ id 1ure19-00074Y-KN
  for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 14:54:23 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [2a00:1450:4864:20::131])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e0ef5779-841e-11f0-8dd7-1b34d833f44b;
- Thu, 28 Aug 2025 16:54:20 +0200 (CEST)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-55f53efe803so1299038e87.2
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 07:54:20 -0700 (PDT)
+ id e14836fd-841e-11f0-8dd7-1b34d833f44b;
+ Thu, 28 Aug 2025 16:54:21 +0200 (CEST)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-55f3fc15e09so1120092e87.3
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 07:54:21 -0700 (PDT)
 Received: from yp-VivoBook-ASUSLaptop-M1503QA-M1503QA.. ([95.67.15.120])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55f42101509sm2635661e87.106.2025.08.28.07.54.18
+ 2adb3069b0e04-55f42101509sm2635661e87.106.2025.08.28.07.54.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Aug 2025 07:54:18 -0700 (PDT)
+ Thu, 28 Aug 2025 07:54:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0ef5779-841e-11f0-8dd7-1b34d833f44b
+X-Inumbo-ID: e14836fd-841e-11f0-8dd7-1b34d833f44b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20230601; t=1756392860; x=1756997660; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=S4lER6DNHsySwTielX62U8g1kuJabDKfu70gF2FH154=;
-        b=QxshJCM6sEhi2A17ECx8ZlkdQeqoV/P2rR5vhvimhvfvozs5lSIsUh2v9ea/MsBUb4
-         pCZw3PVJch27ZdZ0y6EEImz0CFbgrNLxBQr+ByXCUDbte+T5TA1qyl0pps1YWe+8SQOZ
-         2BPL2lvYD63sP2poooEkozLdfhG2KCGxiugRBaZryqWdH9Cm7j2Ue2o8sN0Fld7qA7qp
-         WHGKCg3H0AGxUdrccjmtSXB9qtjbGRVNs79gIe1VKPyGR3LZf7gf5/NbWz11lzSP4ygm
-         GVM5PPYReoaxlFtFtiRrNYh/KsZCB/EixHvwxqZj2hnqgI5xZ8TX5knBzQ6c8oZOj53V
-         GvBw==
+        bh=iKQtb2yDXXgVIM20M/9ZKDqMqVSaENj70H3OApwPWOA=;
+        b=DlfdhW2hY/jl+/E7YN1CemCzvKyI8PiPPZT8Iy4tc6IE6SZKmf/KgfqECreNHr6OE9
+         daInHWuqgH8ozXF21JWu7T3ACmUiT2sz8U9EzHUrWUdlHuw333hVxVIkaF5hZuMbZjRr
+         ED7NZyPWIfukpco9rnPiyKWFeBBgP7nu4/V+E48BSbAQtt+de5TUGfgcPZDbpjIQVWIs
+         cw3dGnqB9ggIUy9RPlXto4P+mgNdSQfU5KXhFDnv2wBQnviXZLTSyjixp/oa97DuF+6p
+         yTMVDQhQ20tR63psAaChrqrq7mosYWMyThEUyKHOtXmYagIhnjQLhRpMnjYc5+XHZtqs
+         ZuRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1756392860; x=1756997660;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=S4lER6DNHsySwTielX62U8g1kuJabDKfu70gF2FH154=;
-        b=LQcq+hiICcIC6xkHJEV3D/cuRdEAL28TmOZb1MwIxswEJ6wdhk66wXXvfiyp5n3aBX
-         K8vP6bIelRgL/rS3PO895mtt8nDLIKmyg5q2FA7DW9hEomOa9fdUviVkXOY70zRQvHEH
-         bbfKkqORa80Me7MYmTKiuRdwRwIHkyGQEXZCgJI8JnulLAt3jTWGbxkTbL1nmZHO2hM6
-         SibLGSfuOcN2iYz1hHnmi3Tqcp/D8WALvJR4FarIis1XL5kYbOB7CHLMTfa8+ZPfAPBg
-         inOJhWiM7EZbwWHxmMOzyAbvMxonFJdXBOIbiGfWAgxikJQiuJ2Vbw1qQbxsr98xvwEN
-         A7Vg==
-X-Gm-Message-State: AOJu0YwBjWFgtk6oV+PSDhUZ1gcCM0cEwtQRgulLH2pVjHl8fRvRK31N
-	XI7Ypmo8oH/iOxAsjaQBAcCAXrDILuwgq7EhdifO07pzGshZfXEoxtk3nrvIoA==
-X-Gm-Gg: ASbGncuCG0Pl/zcPzy+ZfPIcz1uvP2XjrrHBkBdTL94pz4US9gp9ofHS4+cjhUaFvIM
-	rI2UV22wfQ3XpxS2JmwB232CSr4fS02+VGRDBvfJ41h0uSXSU+pTdk1XPBX1Ytkrw6cGdUjH2rh
-	Juv7Xp9EkKJz5NZLFj/BjkU1ilViyXs8mm4n63LlNxTxstWwRrTThH4ujjPshY78pyso2S0/GlV
-	nzgf3NLYLDJmQgn6tO0fiTMcBndQDe/yunqMszYCPCzEcPfuRhfw3jqfHHZfCM4EEcKXjXKzHfQ
-	vrDnRK77NyvQGUGe6RZ0LhzHqqu3kLNJBjBT0obzaDWSVSzaySZ8RelvsAVovjH0offt2HQZwOs
-	zrG1LDHOw2Gu+8oojQ1SmbS+kMyXv40NKQzIqe+wJF1vp6IV8IPx9vpRQLLCbjOEcFGdJcxox
-X-Google-Smtp-Source: AGHT+IHtUeIVd/8Nbo5GH96HIPV40RpO2yd2qVsB7lrX/xGBFur/Av92L5jW1fRdTQ/fydSa8/ibPA==
-X-Received: by 2002:a05:6512:3d87:b0:55f:3d7c:387b with SMTP id 2adb3069b0e04-55f3d7c3badmr5706905e87.12.1756392859434;
-        Thu, 28 Aug 2025 07:54:19 -0700 (PDT)
+        bh=iKQtb2yDXXgVIM20M/9ZKDqMqVSaENj70H3OApwPWOA=;
+        b=m/8Ovwv89IZrY6Ky7yk9uXlEU1Q6yO0FyHYNsRjQheEBXgzrvUbPyRm0DaKYORT1NQ
+         Rv6PdE45w4vjGaR3+1n8as1hRJUrSj6/Va5Sdo/k5hFbKb99Vozs5OjHR7GaochDhA+S
+         sUSofTkk8zULQnTv262zfvAiHJaBtR7sKTN1R8xGdBvujg/IFrP8ukavBcLLtujHa7vO
+         ZzvgGfLH+JKnafmFtsrkr9+LU8+9fMVnhyKXVnHhMWGtOZmeAguanp7+cGvGWSB0ML+i
+         sIUiofSK8dYAIywAtsox7/rWG0OCuQ2bL+VqEWCwUMmrPf6Uw6hDR4z2i8EiOcGuYEEk
+         mdYg==
+X-Gm-Message-State: AOJu0YwWyIAnTsgOzbvfAE7p17LBb7KpU6bsERzqWL4O0klk9VgDCoqt
+	CZ8e/FZxeDVYpkdFfyPBUjLGQGkod33gwnn0NQlf1geuMjqySPUSz6UMmjYYgw==
+X-Gm-Gg: ASbGncuPFwV4zxrtG7U9Dk+2xXLb7d6DulQoqtc01BOwVV19fAumPMDhtTQDO3pg2aO
+	C0y/+C7Z83y+JVwpMgqrQZFe8HulMMW1gfAetkkfvPtEB5BDnyRxdbHrVYmapq5pPA8ZeX9CFT1
+	PmFEZA1bHVNMt6gkVM5lu1+5Q6aDGQBGGNW4MdftIsu3+LbL2RZDlZr5WbS5sTGhVDlsK27H7iE
+	SaOcZA9fG2jQp9mQMTJ6gaAkz04/3CGbbo1czXoTPnhySkhVIMgPXJ5GhEdmLHV+8Jp6A+GVcHf
+	SKqADCEiiOwlclRbsjwM1u5wsKorerjfJsNUJmBf3OMVIAebwbQu3b4FI9064B2hn7bw4axDnrh
+	nTPuDA8DPQsoCalB7DuL37qxuJMzSHO723MIdXMOKjDqqX5NDuU0lKlc/1sPnhQ==
+X-Google-Smtp-Source: AGHT+IF0KzeE8Ug4viy9lY6uK85pKNO5bQ1smWxObDJalZkHecuTFyErGv1hdcu99okAdQfuqdIvwQ==
+X-Received: by 2002:a05:6512:438b:b0:55f:4bf6:efeb with SMTP id 2adb3069b0e04-55f4bf6f674mr4119534e87.43.1756392860229;
+        Thu, 28 Aug 2025 07:54:20 -0700 (PDT)
 From: Mykola Kvach <xakep.amatop@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Mykola Kvach <mykola_kvach@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
-	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH v11 1/4] xen/arm: Implement PSCI SYSTEM_SUSPEND call for guests
-Date: Thu, 28 Aug 2025 17:54:04 +0300
-Message-ID: <bb53d9911b00879c7b25f5258d0e3e48005671f9.1756392094.git.mykola_kvach@epam.com>
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v11 2/4] tools/xl: Allow compilation of 'xl resume' command on Arm
+Date: Thu, 28 Aug 2025 17:54:05 +0300
+Message-ID: <71189bf8f220b678829b8d58f4aa9a4877156eb4.1756392094.git.mykola_kvach@epam.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <cover.1756392094.git.mykola_kvach@epam.com>
 References: <cover.1756392094.git.mykola_kvach@epam.com>
@@ -109,485 +97,162 @@ Content-Transfer-Encoding: 8bit
 
 From: Mykola Kvach <mykola_kvach@epam.com>
 
-Add support for the PSCI SYSTEM_SUSPEND function in the vPSCI interface,
-allowing guests to request suspend via the PSCI v1.0 SYSTEM_SUSPEND call
-(both 32-bit and 64-bit variants).
+The "xl resume" command was previously excluded from Arm builds because
+system suspend/resume (e.g., SYSTEM_SUSPEND via vPSCI) was not
+implemented. On x86, this command is used for resume.
 
-Implementation details:
-- Add SYSTEM_SUSPEND function IDs to PSCI definitions
-- Trap and handle SYSTEM_SUSPEND in vPSCI
-- Allow only non-hardware domains to invoke SYSTEM_SUSPEND; return
-  PSCI_NOT_SUPPORTED for the hardware domain to avoid halting the system
-  in hwdom_shutdown() via domain_shutdown
-- Require all secondary VCPUs of the calling domain to be offline before
-  suspend, as mandated by the PSCI specification
+This change enables compilation of `xl resume` on Arm regardless of the
+underlying implementation status, making the tool available for testing
+and future feature support. The relevant libxl infrastructure and handler
+functions are already present and usable.
 
-The arch_domain_resume() function is an architecture-specific hook that is
-invoked during domain resume to perform any necessary setup or restoration
-steps required by the platform.
-
-The new vpsci_vcpu_up_prepare() helper is called on the resume path to set up
-the vCPU context (such as entry point, some system regs and context ID) before
-resuming a suspended guest. This keeps ARM/vPSCI-specific logic out of common
-code and avoids intrusive changes to the generic resume flow.
-
-Usage:
-
-For Linux-based guests, suspend can be initiated with:
-    echo mem > /sys/power/state
-or via:
-    systemctl suspend
-
-Resuming the guest is performed from control domain using:
-      xl resume <domain>
+Note: This does not imply full system suspend/resume support on Arm.
+      The `xl suspend` command still does not work on Arm platforms.
 
 Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+Acked-by: Anthony PERARD <anthony.perard@vates.tech>
 ---
-Changes in V11:
-- introduce arch_domain_resume() and vpsci_vcpu_up_prepare(), which are now
-called on the resume path to avoid extra modifications to common code.
-The vCPU context is now updated during domain resume.
+Changes in v7:
+- dropped renaming of LIBXL_HAVE_NO_SUSPEND_RESUME macro
 
-Changes in V10:
-- small changes to the commit message reflect updates introduced in this
-  version of the patch.
-- Comments are improved, clarified, and expanded, especially regarding PSCI
-  requirements and context handling.
-- An ARM-specific helper (domain_resume_nopause_helper)
-- gprintk() and PRIregister are used for logging in vPSCI code.
-- An isb() is added before p2m_save_state
-- The is_64bit_domain check is dropped when masking the upper part of entry
-  point and cid for SMC32 SYSTEM_SUSPEND PSCI calls
-
-Changes in V9:
-- no functional changes
-- cosmetic chnages after review
-- enhance commit message and add extra comment to the code after review
-
-Changes in V8:
-- GIC and virtual timer context must be saved when the domain suspends
-- rework locking
-- minor changes after code review
-
-Changes in V7:
-- add proper locking
-- minor changes after code review
-
-Changes in V6:
-- skip execution of ctxt_switch_from for vcpu that is in paused domain
-- add implementation of domain_resume without domain_pause
-- add helper function to determine if vcpu is suspended or not
-- ignore upper 32 bits of argument values when the domain is 64-bit
-  and calls the SMC32 SYSTEM_SUSPEND function
-- cosmetic changes after review
-
-Changes in V5:
-- don't use standby mode, restore execution in a provided by guest point
-- move checking that all CPUs, except current one, are offline to after
-  pausing the vCPUs
-- provide ret status from arch_domain_shutdown and handle it in
-  domain_shutdown
-- adjust VPSCI_NR_FUNCS to reflect the number of newly added PSCI functions
-
-Changes in V4:
-Dropped all changes related to watchdog, domain is marked as shutting
-down in domain_shutdown and watchdog timeout handler won't trigger
-because of it.
-
-Previous versions included code to manage Xen watchdog timers during suspend,
-but this was removed. When a guest OS starts the Xen watchdog (either via the
-kernel driver or xenwatchdogd), it is responsible for managing that state
-across suspend/resume. On Linux, the Xen kernel driver properly stops the
-watchdog during suspend. However, when xenwatchdogd is used instead, suspend
-handling is incomplete, potentially leading to watchdog-triggered resets on
-resume. Xen leaves watchdog handling to the guest OS and its services.
-
-Dropped all changes related to VCPU context, because instead domain_shutdown
-is used, so we don't need any extra changes for suspending domain.
-
-Changes in V3:
-Dropped all domain flags and related code (which touched common functions like
-vcpu_unblock), keeping only the necessary changes for Xen suspend/resume, i.e.
-suspend/resume is now fully supported only for the hardware domain.
-Proper support for domU suspend/resume will be added in a future patch.
-This patch does not yet include VCPU context reset or domain context
-restoration in VCPU.
+Changes in v6:
+- Renamed macro from LIBXL_HAVE_NO_SUSPEND_RESUME to LIBXL_HAVE_NO_SUSPEND
+  to better reflect the scope of this change
+- Applied cosmetic changes based on review feedback
 ---
- xen/arch/arm/domain.c                 |  22 +++++
- xen/arch/arm/include/asm/domain.h     |   6 ++
- xen/arch/arm/include/asm/perfc_defn.h |   1 +
- xen/arch/arm/include/asm/psci.h       |   2 +
- xen/arch/arm/include/asm/vpsci.h      |   5 +-
- xen/arch/arm/vpsci.c                  | 114 +++++++++++++++++++++-----
- xen/arch/ppc/stubs.c                  |   5 ++
- xen/arch/riscv/stubs.c                |   5 ++
- xen/arch/x86/domain.c                 |   5 ++
- xen/common/domain.c                   |   9 ++
- xen/include/xen/domain.h              |   2 +
- 11 files changed, 156 insertions(+), 20 deletions(-)
+ tools/include/libxl.h     |  1 -
+ tools/xl/xl.h             |  4 ++--
+ tools/xl/xl_cmdtable.c    |  4 ++--
+ tools/xl/xl_migrate.c     |  2 +-
+ tools/xl/xl_saverestore.c |  2 +-
+ tools/xl/xl_vmcontrol.c   | 12 ++++++------
+ 6 files changed, 12 insertions(+), 13 deletions(-)
 
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index 863ae18157..6fd73eedde 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -12,6 +12,8 @@
- #include <xen/softirq.h>
- #include <xen/wait.h>
+diff --git a/tools/include/libxl.h b/tools/include/libxl.h
+index 185f74d8a8..b204fc5e2e 100644
+--- a/tools/include/libxl.h
++++ b/tools/include/libxl.h
+@@ -1140,7 +1140,6 @@ typedef struct libxl__ctx libxl_ctx;
+  * restoring or migrating a domain. In this case the related functions
+  * should be expected to return failure. That is:
+  *  - libxl_domain_suspend
+- *  - libxl_domain_resume
+  *  - libxl_domain_remus_start
+  */
+ #if defined(__arm__) || defined(__aarch64__)
+diff --git a/tools/xl/xl.h b/tools/xl/xl.h
+index 45745f0dbb..9233b73f85 100644
+--- a/tools/xl/xl.h
++++ b/tools/xl/xl.h
+@@ -65,7 +65,7 @@ static const char migrate_permission_to_go[]=
+     "domain is yours, you are cleared to unpause";
+ static const char migrate_report[]=
+     "my copy unpause results are as follows";
+-#endif
++#endif /* !LIBXL_HAVE_NO_SUSPEND_RESUME */
  
-+#include <public/sched.h>
-+
- #include <asm/arm64/sve.h>
- #include <asm/cpuerrata.h>
- #include <asm/cpufeature.h>
-@@ -27,6 +29,7 @@
- #include <asm/tee/tee.h>
- #include <asm/vfp.h>
- #include <asm/vgic.h>
-+#include <asm/vpsci.h>
- #include <asm/vtimer.h>
- 
- #include "vpci.h"
-@@ -880,6 +883,25 @@ void arch_domain_creation_finished(struct domain *d)
-     p2m_domain_creation_finished(d);
+   /* followed by one byte:
+    *     0: everything went well, domain is running
+@@ -130,8 +130,8 @@ int main_migrate_receive(int argc, char **argv);
+ int main_save(int argc, char **argv);
+ int main_migrate(int argc, char **argv);
+ int main_suspend(int argc, char **argv);
++#endif /* !LIBXL_HAVE_NO_SUSPEND_RESUME */
+ int main_resume(int argc, char **argv);
+-#endif
+ int main_dump_core(int argc, char **argv);
+ int main_pause(int argc, char **argv);
+ int main_unpause(int argc, char **argv);
+diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
+index 06a0039718..bcb2d233cc 100644
+--- a/tools/xl/xl_cmdtable.c
++++ b/tools/xl/xl_cmdtable.c
+@@ -198,12 +198,12 @@ const struct cmd_spec cmd_table[] = {
+       "Suspend a domain to RAM",
+       "<Domain>",
+     },
++#endif /* !LIBXL_HAVE_NO_SUSPEND_RESUME */
+     { "resume",
+       &main_resume, 0, 1,
+       "Resume a domain from RAM",
+       "<Domain>",
+     },
+-#endif
+     { "dump-core",
+       &main_dump_core, 0, 1,
+       "Core dump a domain",
+@@ -548,7 +548,7 @@ const struct cmd_spec cmd_table[] = {
+       "                        checkpoint must be disabled.\n"
+       "-p                      Use COLO userspace proxy."
+     },
+-#endif
++#endif /* !LIBXL_HAVE_NO_SUSPEND_RESUME */
+     { "devd",
+       &main_devd, 0, 1,
+       "Daemon that listens for devices and launches backends",
+diff --git a/tools/xl/xl_migrate.c b/tools/xl/xl_migrate.c
+index b8594f44a5..4b4a379aa1 100644
+--- a/tools/xl/xl_migrate.c
++++ b/tools/xl/xl_migrate.c
+@@ -767,7 +767,7 @@ int main_remus(int argc, char **argv)
+     close(send_fd);
+     return EXIT_FAILURE;
  }
+-#endif
++#endif /* !LIBXL_HAVE_NO_SUSPEND_RESUME */
  
-+int arch_domain_resume(struct domain *d)
-+{
-+    int rc;
-+    typeof(d->arch.resume_ctx) *ctx = &d->arch.resume_ctx;
-+
-+    if ( !d->is_shutting_down || d->shutdown_code != SHUTDOWN_suspend )
-+    {
-+        dprintk(XENLOG_WARNING,
-+                "%pd: Invalid domain state for resume: is_shutting_down=%d, shutdown_code=%d\n",
-+                d, d->is_shutting_down, d->shutdown_code);
-+        return -EINVAL;
-+    }
-+
-+    rc = vpsci_vcpu_up_prepare(ctx->wake_cpu , ctx->ep, ctx->cid);
-+    memset(ctx, 0, sizeof(*ctx));
-+
-+    return rc;
-+}
-+
- static int is_guest_pv32_psr(uint32_t psr)
- {
-     switch (psr & PSR_MODE_MASK)
-diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
-index a3487ca713..68185fc4d6 100644
---- a/xen/arch/arm/include/asm/domain.h
-+++ b/xen/arch/arm/include/asm/domain.h
-@@ -121,6 +121,12 @@ struct arch_domain
-     void *tee;
- #endif
- 
-+    struct resume_info {
-+        register_t ep;
-+        register_t cid;
-+        struct vcpu *wake_cpu;
-+    } resume_ctx;
-+
- }  __cacheline_aligned;
- 
- struct arch_vcpu
-diff --git a/xen/arch/arm/include/asm/perfc_defn.h b/xen/arch/arm/include/asm/perfc_defn.h
-index effd25b69e..8dfcac7e3b 100644
---- a/xen/arch/arm/include/asm/perfc_defn.h
-+++ b/xen/arch/arm/include/asm/perfc_defn.h
-@@ -33,6 +33,7 @@ PERFCOUNTER(vpsci_system_reset,        "vpsci: system_reset")
- PERFCOUNTER(vpsci_cpu_suspend,         "vpsci: cpu_suspend")
- PERFCOUNTER(vpsci_cpu_affinity_info,   "vpsci: cpu_affinity_info")
- PERFCOUNTER(vpsci_features,            "vpsci: features")
-+PERFCOUNTER(vpsci_system_suspend,      "vpsci: system_suspend")
- 
- PERFCOUNTER(vcpu_kick,                 "vcpu: notify other vcpu")
- 
-diff --git a/xen/arch/arm/include/asm/psci.h b/xen/arch/arm/include/asm/psci.h
-index 4780972621..48a93e6b79 100644
---- a/xen/arch/arm/include/asm/psci.h
-+++ b/xen/arch/arm/include/asm/psci.h
-@@ -47,10 +47,12 @@ void call_psci_system_reset(void);
- #define PSCI_0_2_FN32_SYSTEM_OFF          PSCI_0_2_FN32(8)
- #define PSCI_0_2_FN32_SYSTEM_RESET        PSCI_0_2_FN32(9)
- #define PSCI_1_0_FN32_PSCI_FEATURES       PSCI_0_2_FN32(10)
-+#define PSCI_1_0_FN32_SYSTEM_SUSPEND      PSCI_0_2_FN32(14)
- 
- #define PSCI_0_2_FN64_CPU_SUSPEND         PSCI_0_2_FN64(1)
- #define PSCI_0_2_FN64_CPU_ON              PSCI_0_2_FN64(3)
- #define PSCI_0_2_FN64_AFFINITY_INFO       PSCI_0_2_FN64(4)
-+#define PSCI_1_0_FN64_SYSTEM_SUSPEND      PSCI_0_2_FN64(14)
- 
- /* PSCI v0.2 affinity level state returned by AFFINITY_INFO */
- #define PSCI_0_2_AFFINITY_LEVEL_ON      0
-diff --git a/xen/arch/arm/include/asm/vpsci.h b/xen/arch/arm/include/asm/vpsci.h
-index 0cca5e6830..d790ab3715 100644
---- a/xen/arch/arm/include/asm/vpsci.h
-+++ b/xen/arch/arm/include/asm/vpsci.h
-@@ -23,12 +23,15 @@
- #include <asm/psci.h>
- 
- /* Number of function implemented by virtual PSCI (only 0.2 or later) */
--#define VPSCI_NR_FUNCS  12
-+#define VPSCI_NR_FUNCS  14
- 
- /* Functions handle PSCI calls from the guests */
- bool do_vpsci_0_1_call(struct cpu_user_regs *regs, uint32_t fid);
- bool do_vpsci_0_2_call(struct cpu_user_regs *regs, uint32_t fid);
- 
-+int vpsci_vcpu_up_prepare(struct vcpu *v, register_t entry_point,
-+                          register_t context_id);
-+
- #endif /* __ASM_VPSCI_H__ */
  
  /*
-diff --git a/xen/arch/arm/vpsci.c b/xen/arch/arm/vpsci.c
-index 7ba9ccd94b..50cf5fd96c 100644
---- a/xen/arch/arm/vpsci.c
-+++ b/xen/arch/arm/vpsci.c
-@@ -10,30 +10,16 @@
- 
- #include <public/sched.h>
- 
--static int do_common_cpu_on(register_t target_cpu, register_t entry_point,
--                            register_t context_id)
-+int vpsci_vcpu_up_prepare(struct vcpu *v, register_t entry_point,
-+                   register_t context_id)
- {
--    struct vcpu *v;
--    struct domain *d = current->domain;
--    struct vcpu_guest_context *ctxt;
-     int rc;
-+    struct domain *d = current->domain;
-     bool is_thumb = entry_point & 1;
--    register_t vcpuid;
--
--    vcpuid = vaffinity_to_vcpuid(target_cpu);
--
--    if ( (v = domain_vcpu(d, vcpuid)) == NULL )
--        return PSCI_INVALID_PARAMETERS;
--
--    /* THUMB set is not allowed with 64-bit domain */
--    if ( is_64bit_domain(d) && is_thumb )
--        return PSCI_INVALID_ADDRESS;
--
--    if ( !test_bit(_VPF_down, &v->pause_flags) )
--        return PSCI_ALREADY_ON;
-+    struct vcpu_guest_context *ctxt;
- 
-     if ( (ctxt = alloc_vcpu_guest_context()) == NULL )
--        return PSCI_DENIED;
-+        return -ENOMEM;
- 
-     vgic_clear_pending_irqs(v);
- 
-@@ -76,8 +62,37 @@ static int do_common_cpu_on(register_t target_cpu, register_t entry_point,
-     free_vcpu_guest_context(ctxt);
- 
-     if ( rc < 0 )
-+        return rc;
-+
-+    return 0;
-+}
-+
-+static int do_common_cpu_on(register_t target_cpu, register_t entry_point,
-+                            register_t context_id)
-+{
-+    struct vcpu *v;
-+    struct domain *d = current->domain;
-+    int rc;
-+    bool is_thumb = entry_point & 1;
-+    register_t vcpuid;
-+
-+    vcpuid = vaffinity_to_vcpuid(target_cpu);
-+
-+    if ( (v = domain_vcpu(d, vcpuid)) == NULL )
-+        return PSCI_INVALID_PARAMETERS;
-+
-+    /* THUMB set is not allowed with 64-bit domain */
-+    if ( is_64bit_domain(d) && is_thumb )
-+        return PSCI_INVALID_ADDRESS;
-+
-+    if ( !test_bit(_VPF_down, &v->pause_flags) )
-+        return PSCI_ALREADY_ON;
-+
-+    rc = vpsci_vcpu_up_prepare(v, entry_point, context_id);
-+    if ( rc )
-         return PSCI_DENIED;
- 
-+    vgic_clear_pending_irqs(v);
-     vcpu_wake(v);
- 
-     return PSCI_SUCCESS;
-@@ -197,6 +212,48 @@ static void do_psci_0_2_system_reset(void)
-     domain_shutdown(d,SHUTDOWN_reboot);
+diff --git a/tools/xl/xl_saverestore.c b/tools/xl/xl_saverestore.c
+index 953d791d1a..747094ec7b 100644
+--- a/tools/xl/xl_saverestore.c
++++ b/tools/xl/xl_saverestore.c
+@@ -270,7 +270,7 @@ int main_save(int argc, char **argv)
+     return EXIT_SUCCESS;
  }
  
-+static int32_t do_psci_1_0_system_suspend(register_t epoint, register_t cid)
-+{
-+    int32_t rc;
-+    struct vcpu *v;
-+    struct domain *d = current->domain;
-+    bool is_thumb = epoint & 1;
-+
-+    /* THUMB set is not allowed with 64-bit domain */
-+    if ( is_64bit_domain(d) && is_thumb )
-+        return PSCI_INVALID_ADDRESS;
-+
-+    /* SYSTEM_SUSPEND is not supported for the hardware domain yet */
-+    if ( is_hardware_domain(d) )
-+        return PSCI_NOT_SUPPORTED;
-+
-+    /* Ensure that all CPUs other than the calling one are offline */
-+    domain_lock(d);
-+    for_each_vcpu ( d, v )
-+    {
-+        if ( v != current && is_vcpu_online(v) )
-+        {
-+            domain_unlock(d);
-+            return PSCI_DENIED;
-+        }
-+    }
-+    domain_unlock(d);
-+
-+    rc = domain_shutdown(d, SHUTDOWN_suspend);
-+    if ( rc )
-+        return PSCI_DENIED;
-+
-+    d->arch.resume_ctx.ep = epoint;
-+    d->arch.resume_ctx.cid = cid;
-+    d->arch.resume_ctx.wake_cpu = current;
-+
-+    gprintk(XENLOG_DEBUG,
-+            "SYSTEM_SUSPEND requested, epoint=0x%"PRIregister", cid=0x%"PRIregister,
-+            epoint, cid);
-+
-+    return rc;
-+}
-+
- static int32_t do_psci_1_0_features(uint32_t psci_func_id)
- {
-     /* /!\ Ordered by function ID and not name */
-@@ -214,6 +271,8 @@ static int32_t do_psci_1_0_features(uint32_t psci_func_id)
-     case PSCI_0_2_FN32_SYSTEM_OFF:
-     case PSCI_0_2_FN32_SYSTEM_RESET:
-     case PSCI_1_0_FN32_PSCI_FEATURES:
-+    case PSCI_1_0_FN32_SYSTEM_SUSPEND:
-+    case PSCI_1_0_FN64_SYSTEM_SUSPEND:
-     case ARM_SMCCC_VERSION_FID:
-         return 0;
-     default:
-@@ -344,6 +403,23 @@ bool do_vpsci_0_2_call(struct cpu_user_regs *regs, uint32_t fid)
-         return true;
-     }
+-#endif /* LIBXL_HAVE_NO_SUSPEND_RESUME */
++#endif /* !LIBXL_HAVE_NO_SUSPEND_RESUME */
  
-+    case PSCI_1_0_FN32_SYSTEM_SUSPEND:
-+    case PSCI_1_0_FN64_SYSTEM_SUSPEND:
-+    {
-+        register_t epoint = PSCI_ARG(regs, 1);
-+        register_t cid = PSCI_ARG(regs, 2);
-+
-+        if ( fid == PSCI_1_0_FN32_SYSTEM_SUSPEND )
-+        {
-+            epoint &= GENMASK(31, 0);
-+            cid &= GENMASK(31, 0);
-+        }
-+
-+        perfc_incr(vpsci_system_suspend);
-+        PSCI_SET_RESULT(regs, do_psci_1_0_system_suspend(epoint, cid));
-+        return true;
-+    }
-+
-     default:
-         return false;
-     }
-diff --git a/xen/arch/ppc/stubs.c b/xen/arch/ppc/stubs.c
-index bdaf474c5c..0db0627b5c 100644
---- a/xen/arch/ppc/stubs.c
-+++ b/xen/arch/ppc/stubs.c
-@@ -224,6 +224,11 @@ void arch_domain_creation_finished(struct domain *d)
-     BUG_ON("unimplemented");
+ 
+ 
+diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
+index c813732838..93766f631b 100644
+--- a/tools/xl/xl_vmcontrol.c
++++ b/tools/xl/xl_vmcontrol.c
+@@ -38,11 +38,6 @@ static void suspend_domain(uint32_t domid)
+     libxl_domain_suspend_only(ctx, domid, NULL);
  }
  
-+int arch_domain_resume(struct domain *d)
-+{
-+    return 0;
-+}
-+
- int arch_set_info_guest(struct vcpu *v, vcpu_guest_context_u c)
+-static void resume_domain(uint32_t domid)
+-{
+-    libxl_domain_resume(ctx, domid, 1, NULL);
+-}
+-
+ int main_suspend(int argc, char **argv)
  {
-     BUG_ON("unimplemented");
-diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
-index 1a8c86cd8d..52532ae14d 100644
---- a/xen/arch/riscv/stubs.c
-+++ b/xen/arch/riscv/stubs.c
-@@ -198,6 +198,11 @@ void arch_domain_creation_finished(struct domain *d)
-     BUG_ON("unimplemented");
+     int opt;
+@@ -55,6 +50,12 @@ int main_suspend(int argc, char **argv)
+ 
+     return EXIT_SUCCESS;
  }
- 
-+int arch_domain_resume(struct domain *d)
-+{
-+    return 0;
-+}
++#endif /* !LIBXL_HAVE_NO_SUSPEND_RESUME */
 +
- int arch_set_info_guest(struct vcpu *v, vcpu_guest_context_u c)
++static void resume_domain(uint32_t domid)
++{
++    libxl_domain_resume(ctx, domid, 1, NULL);
++}
+ 
+ int main_resume(int argc, char **argv)
  {
-     BUG_ON("unimplemented");
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index 19fd86ce88..94a06bc697 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -1138,6 +1138,11 @@ void arch_domain_creation_finished(struct domain *d)
-         hvm_domain_creation_finished(d);
+@@ -68,7 +69,6 @@ int main_resume(int argc, char **argv)
+ 
+     return EXIT_SUCCESS;
  }
+-#endif
  
-+int arch_domain_resume(struct domain *d)
-+{
-+    return 0;
-+}
-+
- #ifdef CONFIG_COMPAT
- #define xen_vcpu_guest_context vcpu_guest_context
- #define fpu_ctxt fpu_ctxt.x
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 104e917f07..d73a88ced5 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -1352,6 +1352,7 @@ int domain_shutdown(struct domain *d, u8 reason)
- void domain_resume(struct domain *d)
+ static void pause_domain(uint32_t domid)
  {
-     struct vcpu *v;
-+    int rc;
- 
-     /*
-      * Some code paths assume that shutdown status does not get reset under
-@@ -1359,6 +1360,14 @@ void domain_resume(struct domain *d)
-      */
-     domain_pause(d);
- 
-+    rc = arch_domain_resume(d);
-+    if ( rc )
-+    {
-+        domain_unpause(d);
-+        printk("%pd: Failed to resume domain (ret %d)\n", d, rc);
-+        return;
-+    }
-+
-     spin_lock(&d->shutdown_lock);
- 
-     d->is_shutting_down = d->is_shut_down = 0;
-diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
-index e10baf2615..5f77ffadf1 100644
---- a/xen/include/xen/domain.h
-+++ b/xen/include/xen/domain.h
-@@ -109,6 +109,8 @@ int arch_domain_soft_reset(struct domain *d);
- 
- void arch_domain_creation_finished(struct domain *d);
- 
-+int arch_domain_resume(struct domain *d);
-+
- void arch_p2m_set_access_required(struct domain *d, bool access_required);
- 
- int arch_set_info_guest(struct vcpu *v, vcpu_guest_context_u c);
 -- 
 2.48.1
 
