@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D79FB3957F
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 09:39:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1097708.1451935 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99A76B39590
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 09:40:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1097718.1451944 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urXE7-0001j9-Rm; Thu, 28 Aug 2025 07:39:19 +0000
+	id 1urXFJ-00039N-5B; Thu, 28 Aug 2025 07:40:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1097708.1451935; Thu, 28 Aug 2025 07:39:19 +0000
+Received: by outflank-mailman (output) from mailman id 1097718.1451944; Thu, 28 Aug 2025 07:40:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urXE7-0001gQ-Og; Thu, 28 Aug 2025 07:39:19 +0000
-Received: by outflank-mailman (input) for mailman id 1097708;
- Thu, 28 Aug 2025 07:39:18 +0000
+	id 1urXFJ-00036z-20; Thu, 28 Aug 2025 07:40:33 +0000
+Received: by outflank-mailman (input) for mailman id 1097718;
+ Thu, 28 Aug 2025 07:40:30 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tukF=3I=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1urXE6-0001g3-2s
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 07:39:18 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=pYI3=3I=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1urXFG-00036r-R9
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 07:40:30 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 190e55df-83e2-11f0-ae26-e363de0e7a9e;
- Thu, 28 Aug 2025 09:39:15 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-45a1b05a59fso4422125e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 00:39:15 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-45b66b6985bsm54411745e9.2.2025.08.28.00.39.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Aug 2025 00:39:14 -0700 (PDT)
+ id 44a5f33e-83e2-11f0-ae26-e363de0e7a9e;
+ Thu, 28 Aug 2025 09:40:28 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-61cb4370e7bso992549a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 00:40:28 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-61c877af155sm5826108a12.49.2025.08.28.00.40.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 28 Aug 2025 00:40:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,101 +45,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 190e55df-83e2-11f0-ae26-e363de0e7a9e
+X-Inumbo-ID: 44a5f33e-83e2-11f0-ae26-e363de0e7a9e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1756366755; x=1756971555; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=p7y1pXqs8Qboeyi6xLd7khLJJ/lz+M3UYVy7YPrYBQ8=;
-        b=lH8r4MHVsTZB13qhJfIYIa87A51fUnbvSfpaRjxd2H5PYjC7GJx0qEfF3kkMgPACjh
-         8F+s+JHoj1MRmt1xZQBf9LI3OQX5JjRaiWQvURc1C8yBivX0qL18pPN2/dCJ7sRLTMI7
-         q0ymWptH4RGQ2n5+OH2JHf4Ven4aDixc0JrDY=
+        d=suse.com; s=google; t=1756366828; x=1756971628; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=e9pt9kkdReGExvhV9Mq8jmKVRYRzcK3A97jhjVAoMNg=;
+        b=PllehoSLJuLoxMlPahEjc+W4ai1Gl7BGLbvpgb7EWWxJA0HTYc9pR6PAUljQgxaCVC
+         xv8n2moag6uS8fha27XsMMUV8EhVmQVCnXX9/HywgNTUTk8R6fgxwIXVVySGsPTREJXl
+         GazHRt80gecUXXQf7X1TRH+hYpK3J2A2PvSVp+trOF8yQ0X4nkhf4o0hY4kx2leg7npY
+         FXGlV2QMJyEUGEtYYkrCuAVkjuepqNiQnESF7nkbXTzQr1FF7f5ksTUhv/Db+jRjSWsM
+         Kanaxt6QgG9jzvt30aFJBJWLC4MyWc6J72LEKpXQxuiGamGzVuNkMUTDF8v6evpCW5KU
+         0a/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756366755; x=1756971555;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1756366828; x=1756971628;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=p7y1pXqs8Qboeyi6xLd7khLJJ/lz+M3UYVy7YPrYBQ8=;
-        b=TP9MZnUCFe4uNvaO+tDMbIa4WArVMi1D3YVpcnLlsk6NxkMFDApVeCrnhHPylFQqu9
-         mRr5pV6yXXmLsyDM0Mm2gLYIFuRqvWCgg7oiWvkAjpOQtmCv9PBKanZLiKGi71yuTJfi
-         /jmRk6/7RWwG2v0N7ohNmnuRqVVpIEci9SBxvzAE0k66ZYqV/j6/fVcFJt1rvvhZ70uX
-         ihmZyBhQj5VeC+ANJekOqBjkAeahqGN6DtLQZ6uhCkKJ6IMbluqHcYKV/yK+BQ22W6O8
-         6ziX/Yu7z1xVeH8vqc0UGyIrN/nHKv3PprYPs4rUauDDk/Q3eHPghvL82RVIdjx45lmD
-         CQ2g==
-X-Forwarded-Encrypted: i=1; AJvYcCXhJOVRBD0czzQeje5qHhJYsq+vwSc477EydlO8sdLsVSs2Jsy7M48IerHbsMVTKMxemKEziM4H8QE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw3LRVkfhRpOp3ZZVX/42o3v7+BzHAieOPfd6NmGoo1D98FTlpK
-	Cl18VnV3cFULYZV6baAbR0zxAT+lDNRiODJAxoheQz8DGylbrCX8Rrw6E/nIXWate1WFR9b4Qdx
-	wVcnM
-X-Gm-Gg: ASbGncsfgnrULVoAo5VDh9ot9Txmp2MDHYs5JE3wGj9G4HYUa3O00RetBiVU/u+TpAk
-	HrkgG+KyLpuDE9xthNCK178S/lXyouevW4lLS777wDLQpNwLfJw2WIxEIZ42EkQOnPeH+rw1Nbg
-	jovleZU5j224V6vHyLy0nQHKRCMnpoNfZ2/NTVwEYfW0Uymp7uOfZsmOBnSTrAwkFk5sjV2u1+Y
-	/vCUKJj2yFS+i9LSe8PztaoMjMkhmPa+8QHFGU+og7hkJ/xLdygKvM9xnJ0LWEPN0U5E8GoTFNW
-	+0eGjKgMsjytYFQ/P2IBmFAfom8WobAZ5ExitHUOZRbD6LvohaO+PDdLXS3xQJTqaotCUdBgk3Z
-	nUDSqecQ5+Q6JVaPYKsGeApn4e83eS4ZBrXA5Io6qUQD7AYjKcHCGV7sa+6jUNaHtRr2bAiYbgH
-	S1
-X-Google-Smtp-Source: AGHT+IF/qerpWkSJLtedLgTezRR9OurNxz0AUUbm/plI/17+q7CkqC5pjccRmdIn+bquSalrWAoNDA==
-X-Received: by 2002:a05:600c:1389:b0:455:f59e:fd9b with SMTP id 5b1f17b1804b1-45b517c584cmr219260515e9.24.1756366754927;
-        Thu, 28 Aug 2025 00:39:14 -0700 (PDT)
-Date: Thu, 28 Aug 2025 09:39:13 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Mark Syms <mark.syms@cloud.com>
-Cc: qemu-devel@nongnu.org, xen-devel@lists.xenproject.org,
-	sstabellini@kernel.org, anthony@xenproject.org, paul@xen.org
-Subject: Re: [PATCH] [xen-block] Return BLKIF_RSP_EOPNOTSUPP for unknown
- operation
-Message-ID: <aLAHoR3BtBz9G9Q0@Mac.lan>
-References: <20250827160841.351707-1-mark.syms@cloud.com>
+        bh=e9pt9kkdReGExvhV9Mq8jmKVRYRzcK3A97jhjVAoMNg=;
+        b=wliSeGK1wwVq9QKFjKYc3ovEJTa69cUUWPEuAoo9it8JSSjUztwijyHgY18ukVCN7Q
+         z0ttVBr7TY3tVk+BrFQjkcBlCTjeYiP1QJaIArcTRJpGZuTUL0cpXhOyh/Bh27AW3Vux
+         M5d1+pmGICoZRtjliPCbwW855gt7QIDysqhWQnWBbO3eqXZX1Ayt86xXyh4JDPZ+93Xc
+         QInqDKul5eqbmb9cCughbU4WhPM99uLYtFARbgujgMEU15ZrpRgthzEpDzRYygiY/BL+
+         2b9sLn3F5HoP86VEIBYruElQPVt+l+OmqoIx10ilKBKjsBEN3h4cWEq4QpwHajYynEng
+         rvsw==
+X-Forwarded-Encrypted: i=1; AJvYcCVBiE7WhKVMFI6dwf54qRxoC4Ly42YtyxPWdTj90al21RB7N/q8sF2F/sxdIhcgUwPY6S3vIxpKcPc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YytFXETBl/ruuZG2qvZXl1BWcExmL2RblMG0Ygx5AhSmpKYx0KG
+	i0cfR/rFPaLcowB9Pt+JH8NpJhrL86qHXmWbLk5nOF4QjYwylRYpx8tVpwJcujIROA==
+X-Gm-Gg: ASbGncvm/UQ4Lqy74obBQKgnpAhFpjg0OcTMGCKdrw2vf0vexZ2Yw5Ztg+e+SOIK8kv
+	bO9u2OFx/oWWliWK2OmGLvqSQXPJFE8G/cdQdtjaK+sdS0ofWfNa4KJun6cs09T304UxPzJcPgv
+	lsNWw2Fw8wOF8LsF/y+OPys9DBHsbs+L4ySWdu12HIa+WZqx+V+YGkgvNU4XYj1gFjh7/c1UgNt
+	sEOGBhySGt9rG0NliQS31/BagYoEIhlngAMAgRe/wjnrqp2Bnd4MSJe5LO1p/YSv0LxPm4p99FV
+	ul3sNHFcPlYV13JcfcKKd1eYNbv8uJg/xBEn1CnWVI64dj6ZUK3poV+bgJhXbnNpN3NkBrlNRF4
+	0TqkcgbhLo+tRLKecY8GtiC13Ut3Hms/S2HqOLBaMfcBh1X8USjubMpP9ES8k5yDpw5/Uh46ni9
+	SA+nqWquznkxbk/LoNYQ==
+X-Google-Smtp-Source: AGHT+IGWdNFwwBpkq+v/Gndzf0SxwMi1IyeAHvhT9iynrgAZu7Rc1eh1YBLIcNsnD7avvLQVzMKVcQ==
+X-Received: by 2002:a05:6402:280c:b0:618:4a41:80b2 with SMTP id 4fb4d7f45d1cf-61c1b70a459mr17840140a12.33.1756366828046;
+        Thu, 28 Aug 2025 00:40:28 -0700 (PDT)
+Message-ID: <a132f2fe-124b-45ec-9444-42c1840cc29c@suse.com>
+Date: Thu, 28 Aug 2025 09:40:26 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20250827160841.351707-1-mark.syms@cloud.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 1/4] xen/arm: Implement PSCI SYSTEM_SUSPEND call for
+ guests
+To: Mykola Kvach <xakep.amatop@gmail.com>
+Cc: Mykola Kvach <mykola_kvach@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1756329091.git.mykola_kvach@epam.com>
+ <55ff99acd69f9eaf20f077e6b453b54931b541d4.1756329091.git.mykola_kvach@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <55ff99acd69f9eaf20f077e6b453b54931b541d4.1756329091.git.mykola_kvach@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 27, 2025 at 05:08:41PM +0100, Mark Syms via wrote:
-> Returning BLKIF_RSP_ERROR if an operation is not supoprted does not
-> allow the frontend to exercise any discretion on how to handle the
-> response and may lead to an operating system crash. As different
-> backends may support different feature sets and we might, during a
-> migration, switch backends, an in-flight request might be issued (or
-> reissued) which is then not supported by this backend.
+On 27.08.2025 23:21, Mykola Kvach wrote:
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -1349,16 +1349,10 @@ int domain_shutdown(struct domain *d, u8 reason)
+>      return 0;
+>  }
+>  
+> -void domain_resume(struct domain *d)
+> +static void domain_resume_nopause(struct domain *d)
+>  {
+>      struct vcpu *v;
+>  
+> -    /*
+> -     * Some code paths assume that shutdown status does not get reset under
+> -     * their feet (e.g., some assertions make this assumption).
+> -     */
+> -    domain_pause(d);
+> -
+>      spin_lock(&d->shutdown_lock);
+>  
+>      d->is_shutting_down = d->is_shut_down = 0;
+> @@ -1366,13 +1360,40 @@ void domain_resume(struct domain *d)
+>  
+>      for_each_vcpu ( d, v )
+>      {
+> +        /*
+> +         * No need to conditionally clear _VPF_suspended here:
+> +         * - This bit is only set on Arm, and only after a successful suspend.
 
-Linux blkfront at least will empty the ring on resume, and re-process
-and queue the requests after having negotiated the (possibly) new set
-of features with the backend.  That however doesn't avoid finding
-flush requests that might not longer be supported by the new backend,
-in which case Linux blkfront will drop such requests.
+How likely do you think it is that, if e.g. RISC-V or PPC clone Arm's
+code, this comment would then be updated accordingly? IOW I don't think
+a justification like this one should be written in such terms.
 
-I assume the fixes done here are not targeted at dealing with a Linux
-blkfront?
+> +         * - domain_resume_nopause() may also be called from paths other than
+> +         *   the suspend/resume flow, such as "soft-reset" actions (e.g.,
+> +         *   on_poweroff), as part of the Xenstore control/shutdown protocol.
+> +         *   These require guest acknowledgement to complete the operation.
 
-> Signed-off-by: Mark Syms <mark.syms@cloud.com>
-> ---
->  hw/block/dataplane/xen-block.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/hw/block/dataplane/xen-block.c b/hw/block/dataplane/xen-block.c
-> index 48c2e315f3..32cf919a97 100644
-> --- a/hw/block/dataplane/xen-block.c
-> +++ b/hw/block/dataplane/xen-block.c
-> @@ -167,7 +167,8 @@ static int xen_block_parse_request(XenBlockRequest *request)
->          return 0;
->      default:
->          error_report("error: unknown operation (%d)", request->req.operation);
-> -        goto err;
-> +        request->status = BLKIF_RSP_EOPNOTSUPP;
-> +        return -1;
+I'm having trouble connecting "require guest acknowledgement" to ...
 
-The comment in blkif.h contains:
+> +         * So clearing the bit unconditionally is safe.
 
- /* Operation not supported (only happens on barrier writes). */
-#define BLKIF_RSP_EOPNOTSUPP  -2
+... the safety of the unconditional clearing.
 
-So in principle BLKIF_RSP_EOPNOTSUPP is only to be used as a response
-for BLKIF_OP_WRITE_BARRIER or BLKIF_OP_FLUSH_DISKCACHE requests,
-however blkback already uses it as a response to unknown request
-types (like you propose here).
+> +         */
+> +        clear_bit(_VPF_suspended, &v->pause_flags);
+> +
+>          if ( v->paused_for_shutdown )
+>              vcpu_unpause(v);
+>          v->paused_for_shutdown = 0;
+>      }
+>  
+>      spin_unlock(&d->shutdown_lock);
+> +}
+>  
+> +#ifdef CONFIG_ARM
+> +void domain_resume_nopause_helper(struct domain *d)
 
-Would you mind also sending a patch to adjust blkif.h in Xen to remove
-the "(only happens on barrier writes)" part of the comment?
+This is an odd name to use from code meaning to invoke domain_resume_nopause().
+Why isn't this called domain_resume_nopause(), and ...
 
-Thanks Roger.
+> +{
+> +    domain_resume_nopause(d);
+
+... the static function simply _domain_resume_nopause() (in full accordance
+to the C standard's naming rules)?
+
+> +}
+> +#endif
+> +
+> +void domain_resume(struct domain *d)
+> +{
+> +    /*
+> +     * Some code paths assume that shutdown status does not get reset under
+> +     * their feet (e.g., some assertions make this assumption).
+> +     */
+> +    domain_pause(d);
+
+As you move the comment - no such assumptions exist when the code path
+through domain_resume_nopause_helper() is taken?
+
+Jan
 
