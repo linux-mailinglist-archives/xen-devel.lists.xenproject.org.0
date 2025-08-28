@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C321B39971
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 12:18:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1098258.1452355 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40CDFB39991
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 12:23:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1098269.1452364 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urZhg-00041i-8s; Thu, 28 Aug 2025 10:18:00 +0000
+	id 1urZmD-00069h-P6; Thu, 28 Aug 2025 10:22:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1098258.1452355; Thu, 28 Aug 2025 10:18:00 +0000
+Received: by outflank-mailman (output) from mailman id 1098269.1452364; Thu, 28 Aug 2025 10:22:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urZhg-0003zo-67; Thu, 28 Aug 2025 10:18:00 +0000
-Received: by outflank-mailman (input) for mailman id 1098258;
- Thu, 28 Aug 2025 10:17:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=pYI3=3I=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1urZhe-0003zi-2x
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 10:17:58 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 43761dc2-83f8-11f0-ae26-e363de0e7a9e;
- Thu, 28 Aug 2025 12:17:55 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-afec56519c4so91248166b.0
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 03:17:55 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afef34bdc53sm41645866b.26.2025.08.28.03.17.54
+	id 1urZmD-00067M-MP; Thu, 28 Aug 2025 10:22:41 +0000
+Received: by outflank-mailman (input) for mailman id 1098269;
+ Thu, 28 Aug 2025 10:22:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FrxM=3I=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1urZmB-00065w-QO
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 10:22:39 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ebbe72b0-83f8-11f0-aeb2-fb57b961d000;
+ Thu, 28 Aug 2025 12:22:38 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3c7aa4ce85dso568480f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 03:22:38 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3ca6240b4ecsm13912713f8f.43.2025.08.28.03.22.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Aug 2025 03:17:54 -0700 (PDT)
+ Thu, 28 Aug 2025 03:22:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,133 +45,241 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43761dc2-83f8-11f0-ae26-e363de0e7a9e
+X-Inumbo-ID: ebbe72b0-83f8-11f0-aeb2-fb57b961d000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756376275; x=1756981075; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1756376557; x=1756981357; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=otpGHBbvUAq5mC7d429NbrV6+mzS05fO2sCUjHWLPXY=;
-        b=UWHseiE+tu1IsIB7oHGcb24Kr4UT1gpDRsLGomkSR9EsCdvWJRMvhDEs2a+Dck4BX8
-         dqpFAthhIHJSHDfLXn5q/UPR2McygBlRg5cnuZWGHMnyH68zhlavSl8laeS5xGzypnyf
-         wCMvIHABI+4EzQdOQribA8fmV5l1d1gCwXXwEhlQ3qNg1sTxaGf/s7bxTLSm+eYyb+Kh
-         PvofGBlZ55+/+Pzglrfsw+nIoh/c/c+FxaTBqkeJ5iMJ5Mr+GztqdKphsJrpMZMi5Rbm
-         T/a+SNg3fTOr34vyi2t1EjICzFLfRsP+z+6MgX7acjIXCAlH3NQW+c92LYF7WEOPrg9P
-         Lz+w==
+        bh=rLgtaLuwsQZE1xgf7YgtslFO7X/R3/bx7xuoEEzHVUU=;
+        b=nJsDRS7FlbWumQ3bY3g6XzH5xD2FCu3GQ/ByqFVqqsAxlZaMDJyrC0cuZ4iqINlT55
+         Foy01hrx7xT8ewDMO4bIJlG+sn6yvaJGaFadYyVLL6HtAzV6kfpQbpBh14rQVjkrYPL5
+         tSS5kW2+leL2IswtSryBjrS1ZxiCDsfpE8gr8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756376275; x=1756981075;
+        d=1e100.net; s=20230601; t=1756376557; x=1756981357;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=otpGHBbvUAq5mC7d429NbrV6+mzS05fO2sCUjHWLPXY=;
-        b=BuAr9WcMGzBURYweN5b2OVoFOxSRcDXqvpVu/5PId7ExYkc1aOvLCjHbsxCp3mfytu
-         7bX2Qykr3IszN3Ke/nSzid//8Jsohvw8rQfX3qY7NCdtG+Ney2rUU7xPqOuYkywToQKr
-         0AQiGStFJYEG1t+wQEXpGes4mFaSMZmbBx81GV6W90WqmfzkHknQxXCHWrNJfROf3G8H
-         iEhnmHzpJx2wcYj8svch5IhADB6U0DfL0NO1YFhGPoVhIZYIFkp5kPEPtJI5nR50UrhF
-         ZlIP+m1b1d9Q1ney4MaZ1hDaKEHOlBnqAN6HxxB7l2+w4jcuk4iXrzu0pkJc0SJdXO3F
-         hemw==
-X-Gm-Message-State: AOJu0Yzw0z03pNVEqtYqnYnxE+NRf86Z2Jj3BCJ2c2FHF0htrD2A7J+P
-	19qsRA+xihXHAFV2TC341KVRLxqSwf+4xqczM0tITHq6YpFc53fssfoPH14mSFu7tPW3mDhBvQY
-	sqr8=
-X-Gm-Gg: ASbGnctKNQCMm2ITbNg+5aLI62uwXO2zS/gWiyDRqbDR3TudvKPrVzUmh4HhruKWRw/
-	tyzNuJ/RS/G/brdCJL8IyBw8JlczrCQrd2axzJtitZKxq7Xf5RUr7ATHEneyb6VZcZQoVdfvxYr
-	LiIk2zdEmqCRfnY3Y010cSTH7cG3Dh+q8lP1ryg23qPWNFD8d1wEqaY6jUbpL9vBcC9nlXBu8I/
-	tjLvLjvhXuMWltE/BiFYyQ/VWo7eeBO12n2F/ni4hhMN9Y+ZXJI1Fvk0Rh3kkymf4679yn68gjl
-	aGx/krPsB6/OAQKegiEi/Iw07FKjVdPSFHuuzjZDc41C3oo/zVQT6MJA7KWvJqZziBsLuXh9KnH
-	h1MKYCBTZ3wVsINeEkOd4H0462pzYX3u8GW1cx4LlEiLhLpUUhaykDdB0NP4KpsZQpBM3aTGXuL
-	AxbVDnbk+m50sx2Ei+5g==
-X-Google-Smtp-Source: AGHT+IFdm4ctR1loWwODO43SldozgQ5l75xIYStqeZXDSJo5paZ4TbIjCWcdBe8kKZBKFjVeU3vlwQ==
-X-Received: by 2002:a17:907:3f94:b0:afe:caf7:6dea with SMTP id a640c23a62f3a-afecaf7724cmr451468666b.3.1756376275011;
-        Thu, 28 Aug 2025 03:17:55 -0700 (PDT)
-Message-ID: <7172dc7c-575c-45f0-9cd9-1aaf067e0e46@suse.com>
-Date: Thu, 28 Aug 2025 12:17:53 +0200
+        bh=rLgtaLuwsQZE1xgf7YgtslFO7X/R3/bx7xuoEEzHVUU=;
+        b=qtTyfCxykyi36bvtcu5cHUZE7/jp+91QKRunWotdoxdAY72MMPUgBWpligwxZW5OI4
+         BLX0zd3C/wJHZyjicYo4a/BbtdwjIV5hj75aUD8Xn1izL6QMh2Fp3n3v0Im/Py/26kMG
+         FhJUwoF6Satox+32ThTt2Oo+C7YAHZF5g9Gp8SKxldFinheXK3rFOyjQ88QsDF40DW2v
+         hFn/Lj1iC1LG7ZsxL3e6oAiQFmAyoKumLurpdluhpHyp0pQs9PHo7RoHMU9YNhkEEyHE
+         Zgz14jebmo+puGqk5/aQRUOZs+fnvgxEZRCrBgWo6OvnD3nmWQb6VmyN/IOwTUSV8MW6
+         POWg==
+X-Forwarded-Encrypted: i=1; AJvYcCUwYRJRAJn7sMtrFEYzy6uixwYY2LKTwKX+0jKeyXd28NkUFdfIk8RKcSidBFcdCJa1PxmBdbc/CQU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyzmjo2NcxaLFfN5d71MOeMTqNiNWtcbnaszDo/rBsM3MZY8Wn/
+	BeaCQCZQhG2klojJPZsdYQ7aTVo/orJehEY4AduRVgIiNDbjvDPVMSOChsRG6WSpqkQ=
+X-Gm-Gg: ASbGncvpKaGxwFMUDlCHTUfQdbR4cRubtvtSHy/izG3CaxcJK01893p5SdownHtJ2uy
+	whSMap43hgUsC2hLv0B7LhOHoY9hcRXvamjkSY7FCgzWQbdYZN31TaSQSq66dEbVsE2/NvcSXny
+	tiM0yXBJCc2K/VfpzAcvBZdq+EED6nkfKBdFipoYGVbX+b4TQWcWiTHTdLYoZbLfHgwENiHoR3E
+	lbW7skGv2blGp3H62mLl03WgfbgWOdJfKjNyg6DuIQPPVbXKycIqxoI/i4OrZYCpj6uZiOpBg/k
+	SJt52+oHTxBmoF9sP+ujayw1G5tPbfRyaHd09A+MBkK8XEcvs6uaaY/nphaPfznDwXuAVTEk37R
+	AwnUqQlyzKuE8ITHE+hz043HXSB496yPg7xCg+d0zg8Nb7/3PnFNzmkF0jL01pI4O9cNjH8XxJ3
+	5U3sE=
+X-Google-Smtp-Source: AGHT+IG/UlaOaQoNYPhixBjUfCeqLXurU0SfylPOEP3Q+fCcAzLiRrnjH6Ja2u7krbT80MYFc8h0Wg==
+X-Received: by 2002:a05:6000:238a:b0:3b8:d79a:6a60 with SMTP id ffacd0b85a97d-3c5daa27b08mr17093996f8f.3.1756376557224;
+        Thu, 28 Aug 2025 03:22:37 -0700 (PDT)
+Message-ID: <8e126855-ed0b-4046-a018-8fca6d20db49@citrix.com>
+Date: Thu, 28 Aug 2025 11:22:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: MCA hypercall with PVH
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Jason Andryuk <jason.andryuk@amd.com>
-References: <318f8ef3-aa52-421b-b9cb-6cd6139e1dd1@amd.com>
- <c011bc78-4ce0-4c43-9638-f03aee41816e@suse.com> <aLAmZGDn9QsBZWrb@Mac.lan>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aLAmZGDn9QsBZWrb@Mac.lan>
+Subject: Re: [PATCH] hvmloader: Update to SMBIOS 2.6
+To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>
+References: <b569a298a6270ae04eaf433f7de9ce1f3e248e5f.1755870287.git.teddy.astie@vates.tech>
+ <6e9b7b96-a506-40ed-95b6-6ad00ba9a27a@citrix.com>
+ <74665857-3f0b-43e6-b31f-d498d9e7fdc3@vates.tech>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <74665857-3f0b-43e6-b31f-d498d9e7fdc3@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 28.08.2025 11:50, Roger Pau Monné wrote:
-> On Thu, Aug 28, 2025 at 10:48:49AM +0200, Jan Beulich wrote:
->> On 28.08.2025 03:22, Jason Andryuk wrote:
->>> The MCA hypercall, do_mca(), is only available for PV.  That is, it's 
->>> only added to the hypercall table for PV.  Is there a particular reason 
->>> it was omitted from PVH, or did PVH dom0 just not exist?
+On 27/08/2025 9:27 pm, Teddy Astie wrote:
+> Le 27/08/2025 à 19:49, Andrew Cooper a écrit :
+>> On 22/08/2025 2:47 pm, Teddy Astie wrote:
+>>> Currently, hvmloader uses SMBIOS 2.4, however, when using OVMF, the
+>>> SMBIOS is patched to 2.8, which has clarified the UUID format (as GUID).
+>>>
+>>> In Linux, if the SMBIOS version is >= 2.6, the GUID format is used, else
+>>> (undefined as per SMBIOS spec), big endian is used (used by Xen). Therefore,
+>>> you have a endian mismatch causing the UUIDs to mismatch in the guest.
+>>>
+>>> $ cat /sys/hypervisor/uuid
+>>> e865e63f-3d30-4f0b-83e0-8fdfc1e30eb7
+>>> $ cat /sys/devices/virtual/dmi/id/product_uuid
+>>> 3fe665e8-303d-0b4f-83e0-8fdfc1e30eb7
+>>> $ cat /sys/devices/virtual/dmi/id/product_serial
+>>> e865e63f-3d30-4f0b-83e0-8fdfc1e30eb7
+>>>
+>>> This patch updates the SMBIOS version from 2.4 to 2.6 and fixup the UUID
+>>> written in the table; which effectively fix this endianness mismatch with
+>>> OVMF; while the UUID displayed by Linux is still the same for SeaBIOS.
+>>>
+>>> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+>>> ---
+>>> This effectively changes the UUID seen with UEFI guests as it was
+>>> actually inconsistent with SeaBIOS and SMBIOS expectations.
+>>> ---
+>> I agree this is a real bug and needs fixing.  However, ...
 >>
->> PVH Dom0 didn't exist back at the time, yes, but it's more than this. The
->> hypercall, in some places, deals with MFNs, which aren't "visible" to PVH
->> Dom0. IOW enabling it (perhaps just partly) would need to be done with
->> extra care.
-> 
-> I think there's also a question of whether we want to use a PV
-> interface here, or try for Xen to mediate between the hardware domain
-> and the native interface, possibly exposing some kind of partially
-> emulated view that matches the native interface, and thus avoids
-> having to use a PV driver in the hardware domain.
-> 
-> I've opened a GitLab ticket long ago about MCE:
-> 
-> https://gitlab.com/xen-project/xen/-/issues/101
-> 
-> But didn't look into it.  I think we need some prior investigation to
-> figure out whether it would be feasible to expose a native MCA
-> interface to the hardware domain, as that would be the preference for
-> PVH (rather than re-using the classic PV interfaces).
-> 
-> The main barrier here is the disassociation between the hardware
-> domain physical memory map versus the host one, as the MCE/MCA
-> drivers will need to operate based on the host memory map, not the
-> one used by the hardware domain.
+>>
+>>>   tools/firmware/hvmloader/smbios.c | 20 ++++++++++++++++++--
+>>>   1 file changed, 18 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/tools/firmware/hvmloader/smbios.c b/tools/firmware/hvmloader/smbios.c
+>>> index 6bcdcc233a..f4822ae6f8 100644
+>>> --- a/tools/firmware/hvmloader/smbios.c
+>>> +++ b/tools/firmware/hvmloader/smbios.c
+>>> @@ -352,7 +352,7 @@ smbios_entry_point_init(void *start,
+>>>       memcpy(ep->anchor_string, "_SM_", 4);
+>>>       ep->length = 0x1f;
+>>>       ep->smbios_major_version = 2;
+>>> -    ep->smbios_minor_version = 4;
+>>> +    ep->smbios_minor_version = 6;
+>>>       ep->max_structure_size = max_structure_size;
+>>>       ep->entry_point_revision = 0;
+>>>       memcpy(ep->intermediate_anchor_string, "_DMI_", 5);
+>>> @@ -462,7 +462,23 @@ smbios_type_1_init(void *start, const char *xen_version,
+>>>       p->version_str = 3;
+>>>       p->serial_number_str = 4;
+>>>   
+>>> -    memcpy(p->uuid, uuid, 16);
+>>> +    /*
+>>> +     * Xen uses OSF DCE UUIDs which is fully big endian, however,
+>>> +     * GUIDs (which requirement is clarified by SMBIOS >= 2.6) has the
+>>> +     * first 3 components appearing as being little endian and the rest
+>>> +     * as still being big endian.
+>> ... this is not an accurate statement.
+>>
+>> Xen specifically tries to treat a xen_domain_handle_t as an opaque blob.
+>>
+>> The only two areas I can see ascribing any structure are the 'q'
+>> debugkey (not exactly a strong ABI statement), and the arinc635
+>> scheduler whose use is buggy (uuids are not unique in Xen; it's the
+>> domid which is).
+>>
+>> It is an error that a format isn't stated, but the format comes from the
+>> toolstack.  We'd better hope that all toolstacks use OSF DCE UUIDs, or
+>> this is going to badly wrong.
+>>
+> I agree in principle. maybe OSF DCE UUID is not the proper definition 
+> (even though it implies the same) but I should rather use RFC 9562 UUIDs 
+> but refering to the string representation rather than the UUID meaning 
+> itself.
+>
+> The RFC 9562 defines the UUID as being sequenced as big endian and 
+> string represented as > UUID     = 4hexOctet "-"
+>>            2hexOctet "-"
+>>            2hexOctet "-"
+>>            2hexOctet "-"
+>>            6hexOctet
+>> hexOctet = HEXDIG HEXDIG
+>> DIGIT    = %x30-39
+>> HEXDIG   = DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
+> This matches the UUID encoding provided by XEN_DEFINE_UUID and is used 
+> by libxl, libvirt and XAPI and considered by Linux when reading the 
+> UUID. However, it may always not be a "valid" UUID strictly speaking but 
+> it doesn't really matter since we only care about its binary/string 
+> representation.
+>
+>> And on that note, the toolstacks are not the same.  Xapi for example
+>> uses reads 16 bytes out of /dev/urandom.
+>>
+>> Whatever we end up doing, the fix must include a change to
+>> xen/include/public/version.h stating the format of the UUID.
+>>
+> Something like
+>
+> diff --git a/xen/include/public/xen.h b/xen/include/public/xen.h
+> index 04fc891353..3241e8dd2b 100644
+> --- a/xen/include/public/xen.h
+> +++ b/xen/include/public/xen.h
+> @@ -975,6 +975,10 @@ typedef struct dom0_vga_console_info {
+>   #define xen_vga_console_info dom0_vga_console_info
+>   #define xen_vga_console_info_t dom0_vga_console_info_t
+>
+> +/*
+> + * The guest handled provided by toolstack encoded as a UUID in
+> + * big-endian order. Its string representation follows RFC 9562.
+> + */
+>   typedef uint8_t xen_domain_handle_t[16];
+>
+>   __DEFINE_XEN_GUEST_HANDLE(uint8,  uint8_t);
+>
+> ?
+>
+> So that we're converting between big-endian encoded UUID (RFC 9562) and 
+> Microsoft GUID (which doesn't care about its content but only about its 
+> endianness regarding formatting).
 
-Right. Obtaining the host memory map alone already requires some level
-of PV-ness. Associating memory addresses (necessarily surfaced as MFNs,
-as not all MFNs have an associated GFN in Dom0) back to Dom0's own
-memory would further require exposure of the M2P. That's getting pretty
-heavily PV already, imo. And we haven't arrived at DomU-owned pages,
-yet.
+I'd be tempted to be rather more explicit.
 
-Jan
+diff --git a/xen/include/public/xen.h b/xen/include/public/xen.h
+index 82b9c05a76b7..f1592dc059e2 100644
+--- a/xen/include/public/xen.h
++++ b/xen/include/public/xen.h
+@@ -973,6 +973,13 @@ typedef struct dom0_vga_console_info {
+ #define xen_vga_console_info dom0_vga_console_info
+ #define xen_vga_console_info_t dom0_vga_console_info_t
+ 
++/*
++ * The domain handle is chosen by the toolstack, and intended to hold a UUID
++ * conforming to RFC 9562 (i.e. big endian).
++ *
++ * Certain cases (e.g. SMBios) transform it to a Microsoft GUID (little
++ * endian) for presentation to the guest.
++ */
+ typedef uint8_t xen_domain_handle_t[16];
+ 
+ __DEFINE_XEN_GUEST_HANDLE(uint8,  uint8_t);
 
-> I think (some?) of the MSRs also contain CPU specific status/errors,
-> and hence using a native interface would require the hardware domain
-> vCPU count to be equal to the host pCPU count.
-> 
-> Nit: I've just taken a quick look at do_mca() but it looked like the
-> sharing of the data would be better done using acquire_resource if
-> possible, as to avoid repeated hypercalls.
-> 
-> Thanks, Roger.
 
+~Andrew
 
