@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A6C7B39CB7
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 14:17:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1098630.1452635 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B36BCB39CD0
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 14:19:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1098640.1452645 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urbYs-0002PD-Sl; Thu, 28 Aug 2025 12:17:02 +0000
+	id 1urbaj-0002uh-6m; Thu, 28 Aug 2025 12:18:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1098630.1452635; Thu, 28 Aug 2025 12:17:02 +0000
+Received: by outflank-mailman (output) from mailman id 1098640.1452645; Thu, 28 Aug 2025 12:18:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urbYs-0002Mk-PA; Thu, 28 Aug 2025 12:17:02 +0000
-Received: by outflank-mailman (input) for mailman id 1098630;
- Thu, 28 Aug 2025 12:17:01 +0000
+	id 1urbaj-0002tD-42; Thu, 28 Aug 2025 12:18:57 +0000
+Received: by outflank-mailman (input) for mailman id 1098640;
+ Thu, 28 Aug 2025 12:18:56 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=pYI3=3I=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1urbYr-0002Me-MH
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 12:17:01 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ id 1urbai-0002sx-2I
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 12:18:56 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e648a41d-8408-11f0-aeb2-fb57b961d000;
- Thu, 28 Aug 2025 14:17:00 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-6188b6f501cso1088347a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 05:17:00 -0700 (PDT)
+ id 2a8c9730-8409-11f0-aeb2-fb57b961d000;
+ Thu, 28 Aug 2025 14:18:55 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-61cb4370e7bso1382025a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 05:18:55 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61c311a02b5sm10810852a12.1.2025.08.28.05.16.54
+ 4fb4d7f45d1cf-61cbabf816dsm2846910a12.21.2025.08.28.05.18.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Aug 2025 05:16:54 -0700 (PDT)
+ Thu, 28 Aug 2025 05:18:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e648a41d-8408-11f0-aeb2-fb57b961d000
+X-Inumbo-ID: 2a8c9730-8409-11f0-aeb2-fb57b961d000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756383420; x=1756988220; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756383535; x=1756988335; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zQh2JZtFVRMc4Oq8/jNGlceVOcPkc1UDRC4lZ4c/vf0=;
-        b=CV0J0bdtcP5ZSVR04UvJRvTxHSsSi0KNsZB179JUlhLViTsM8ZLNEpHKTBSpkG9OXb
-         8dYTwQInl/EhyukyyI7aexL7diSc795SflO3jtJRhpZuJDrhBHBpKghwOgGtd1yd0uLC
-         NpyvwJdCNa8RTgoYnIFgEyhpXX6dRvz7ttpmZyDWfZSymp+J9/LBtOUVR0NwOWdwl0VO
-         0t+bGXEkEg31cZXkGr208+YHPYodalsbu7aPgb+vlYhihN2dcCRvLNK7Vxy5jt0xwe7/
-         UCe250Je8bjWvMhKvT501pJDFp2ZlYcrxLlJo9+syv00OgmZqcIEWglDayKfQaBG0j5H
-         MCWA==
+        bh=5/IgVI9LIXTuqwP0pjMkgoXDdOYNSaGQGfB3D+ISpG4=;
+        b=WQE1gUactPwCLCFD9yb4yofyxCSme+M+YfLpMeHc8q2F31ax5dQwND7UwrxaMigXgz
+         amWbfsGzsyCq2vRgT2hbwUx3R6lh4CrY3A4kPgoF6cNgNdyX2LYzcg1ar0RItZymNXRK
+         iMTVotleNKce7W0eTYK3tjuhmlZEG12f7nxMUbjVFgtO05BomYX4VmXfuUWqanOxesFB
+         iwYV5qMABCQvRstOeLvbi1HQpLlL6Olfgeip6z7puL9ajjKwKgOAnZeypsoKZ3gyh0cw
+         JZlrroBAw3jj0r0DDnOIAuBStBY7DdVZBbqtslL3I9NeIqWD3S8kp29xTcsJ6UQJvJwg
+         Tobg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756383420; x=1756988220;
+        d=1e100.net; s=20230601; t=1756383535; x=1756988335;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zQh2JZtFVRMc4Oq8/jNGlceVOcPkc1UDRC4lZ4c/vf0=;
-        b=pFQbc1ONXhZExjNvx5DksoUeiYMwqjM3JoVPppHuOpe1QsvUptET4BuOfr4YTkZwEB
-         cO92yr5maoBjbhmhDFXpqR9hP4121fv/qQ+amRPnAsuPb0KcNZiaeRRPprr/2qwJQO5Q
-         0O1HYgMSpBiKkCMUewZJpYASeiPpKmHnqVSEd21VkvFnhw28ckmxfqnqgpP8rT26KY0f
-         r8ejJiwms47LHxjubmvhMf1Q78ywuwOjwcK0vlK34T9WA2QYjRGeaZjxDeLeLB9tvVWV
-         Qy7706mrYERV/zrCYTQwDo9cwkRlbgfNCCrsdzoi+rvmWiH36+77zbiVt2AK3G3MiDot
-         Nm9g==
-X-Forwarded-Encrypted: i=1; AJvYcCWHBNCCHcGMX6pPHxqWn0EIqH4glFNcALJbeJ53z7y1JF3i6Qkbz8Kw4GHOhfan7bxEJ4Ag3uLmhrE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz1CNL0tb9oHk91UsZDObBP+cDHuxSgAe1s8I88Ksk9H5f3yo0x
-	oTeOLjzvP5rXJ+JaLIyxVED4DgQD/TjqLf4SQk4+s3ZQxNV03hdkrWW8aOQM1YZOlw==
-X-Gm-Gg: ASbGncupDN+xxO18hYB3zGUxOWxB+h9oHsSUNdDScupCwr7BWIRWIPoJKGMgEe+BETd
-	OpdR+o16KRfvNoXf9FObSKBpmqaVdMeimPF2zKVNgjNta7fh7M1JcbQAQZvNLkN8HqPt0Sv+w6V
-	nzeZc9oLAb7gBhNBlZWEjUYtpXAxwsxOUbv/8x4rxzm3Sj2fk9i+uMf8KmMKklwQcRlPe3875u0
-	x6mqf1xL+mjCogPh5Tuz1O2ZuT458KiUA3lESYG79KimxxBdkTLpcvzzHdsfpcERpjvW5wFKyYI
-	tQC2w2wrITGqBLRc6c45XThXZzs6HOZHsznYOCjLNzsMMOzbM05UFXSOt2b38epO/MTACvPdksS
-	HOnV8fyKlRftRHx2VkUocXGiotJTRTBuOlxQVd0dYvEpBtM2eKHUbEdHE4MiIVGSxwcs5LF9lXT
-	zQethoBmvzElvUoS+mLg==
-X-Google-Smtp-Source: AGHT+IGK7RJKGiiMDLf6hyY59X6poOsi//7aEb4tHPvsU08qcdA74qsJNtm9TL97s/a1HF4UgDK4NQ==
-X-Received: by 2002:a05:6402:52c4:b0:617:b662:2272 with SMTP id 4fb4d7f45d1cf-61c1b6f9d31mr19268044a12.33.1756383414766;
-        Thu, 28 Aug 2025 05:16:54 -0700 (PDT)
-Message-ID: <d934464e-03f5-4133-8b87-d5bb1b031d9b@suse.com>
-Date: Thu, 28 Aug 2025 14:16:53 +0200
+        bh=5/IgVI9LIXTuqwP0pjMkgoXDdOYNSaGQGfB3D+ISpG4=;
+        b=TjsOICR0KTspfAEvN6Smq4/xHD5NJZixFgEhv07Z1bNIIQz9Ys/dBnnRwdKRtwp939
+         yOkF+uWBGfDfM8lJV4Jgjcz5bTzkUDcxh7q88uKm0AuBJEqv+W9dHhEevsD7HNxFwEw+
+         hS3E0EsgJxPV1DM2XWlZK7Jol32y9MIqDW9+UIyLxNeXfxt13EKVgtjo4pnuzJl4shTC
+         +J5NQNWgtvZtqhCipvI4QQJGNIMaAe3SKTjUY2kaMtpDSK7RqOBpTMqXsd4khQhF8E8j
+         EaBv3uHsWGe+C3X4O3af6yi57eAWTwRWL9I4qEcIGMVfWZgnHPFfdcsCKyA4PH5kRFbX
+         2TuA==
+X-Forwarded-Encrypted: i=1; AJvYcCW5Ga4iNOxZ9HYVgCsQJSb+MBHy2Iq90bnPwZnwMsqO2VedxJdYBi0vUEgSGDP5XpUvCKFbfm5HXdw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxGugRZGyABA64iXixgARlSv9rEy3WNInOcQSocuf5b7B16XVqP
+	3SzKJ/BU0QN1jBz0+tFLkVlBlsXMDIVkd6JV7AhCal4+wtDF5RXAOG4G8GhFEgdFfw==
+X-Gm-Gg: ASbGncu3+Zm56YVWs96yeI2cBwEcOjuy1f2Jjl51BHbdgHktlUebNsoWVSScLvD4Gau
+	BuiMyas1Dz/JIT4H3YMzl3qyse1oGMOmzcTLK1VdttR+DiE8eYoMbs1rpFCepvFO/uy/KuaObsG
+	X8YwmGlO8oWJ/SlEReh+XZXaQpnysCEB5MnXfYVjlnAnF/C3R575cDKF0rNKnfezQjQi9cx0zCP
+	UFtDTjRO2KWOYYNrdT+uznug0+5WIT/6EnH2phsSI4CfGzwXgR6A9vf0PieO623jpcSns92kSPu
+	CZ2h9vABrPsW4qUpcT+2/2VVf36jsZiu2oypq7L78olCnz3hvkKEEyVkG4tL+wiaxuTp9T0ZeSn
+	5zKdbHBPIlYi1XI51AUV+OrPnRoOomGXcuNPZQCwwTYNgFzMKOI90B93D2vOinxEVNJPkvsrsVH
+	WpLnXza5TxmA1tWk2PLQ==
+X-Google-Smtp-Source: AGHT+IHJW0YcvbMS3ZjUUSmcnQX1eEVseNdd8tXdVSlhMaOjAYHhXPGEpo+eSyFg2OgYFi9YEBt5DA==
+X-Received: by 2002:a05:6402:358a:b0:61c:6fb9:c83d with SMTP id 4fb4d7f45d1cf-61c6fb9d0c6mr10762379a12.7.1756383534649;
+        Thu, 28 Aug 2025 05:18:54 -0700 (PDT)
+Message-ID: <0354ddce-6607-4921-bb16-809322f3792f@suse.com>
+Date: Thu, 28 Aug 2025 14:18:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 1/9] x86/hvm: Use direct structures instead of guest
- handles
+Subject: Re: [RFC PATCH 2/9] common: Isolate XENVER_get_features into a
+ separate function
 To: Teddy Astie <teddy.astie@vates.tech>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1755785258.git.teddy.astie@vates.tech>
- <de595114d532e0fa6c885c47cf2b3551ad495525.1755785258.git.teddy.astie@vates.tech>
+ <0bbc0f2df1853bb60f4e93c55d1a0953c6a72496.1755785258.git.teddy.astie@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,108 +123,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <de595114d532e0fa6c885c47cf2b3551ad495525.1755785258.git.teddy.astie@vates.tech>
+In-Reply-To: <0bbc0f2df1853bb60f4e93c55d1a0953c6a72496.1755785258.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 21.08.2025 17:25, Teddy Astie wrote:
-> Make these functions work with hypervisor-owned pointer rather than
-> guest handles, so the function parameters don't have to live in guest memory.
+> Make do_xen_version more readable by moving the main XENVER_get_features
+> into a separate function.
 
-This is odd to read - the function parameters (arguments) didn't live in
-guest memory before either.
+I can't spot much of a readability gain, to be honest.
 
-> No functional changes intended.
-> 
-> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
-> ---
->  xen/arch/x86/hvm/hvm.c | 126 +++++++++++++++++++++++------------------
->  1 file changed, 70 insertions(+), 56 deletions(-)
-> 
-> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-> index 56c7de3977..8bf59c63fe 100644
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -4142,19 +4142,14 @@ static int hvmop_flush_tlb_all(void)
->      return paging_flush_tlb(NULL) ? 0 : -ERESTART;
+> --- a/xen/common/kernel.c
+> +++ b/xen/common/kernel.c
+> @@ -569,6 +569,50 @@ static long xenver_varbuf_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>      return sz;
 >  }
 >  
-> -static int hvmop_set_evtchn_upcall_vector(
-> -    XEN_GUEST_HANDLE_PARAM(xen_hvm_evtchn_upcall_vector_t) uop)
-> +static int hvmop_set_evtchn_upcall_vector(xen_hvm_evtchn_upcall_vector_t op)
+> +static long xenver_get_features(struct domain *d, uint32_t submap_idx, uint32_t *submap)
 
-Please can we avoid passing structures by value?
+Why "long", when you only return "int" -errno values?
 
-More generally: This one-by-one adjustment is what I'd really like to avoid
-with any new interface. It would be far better if ...
-
->  {
-> -    xen_hvm_evtchn_upcall_vector_t op;
->      struct domain *d = current->domain;
->      struct vcpu *v;
->  
->      if ( !is_hvm_domain(d) )
->          return -EINVAL;
->  
-> -    if ( copy_from_guest(&op, uop, 1) )
-> -        return -EFAULT;
-
-... copy_from_guest() could transparantly handle both cases (virtual and
-physical addresses being used). And yes, this would exclude an "everying in
-registers" approach.
-
-> @@ -5115,28 +5087,70 @@ long do_hvm_op(unsigned long op, XEN_GUEST_HANDLE_PARAM(void) arg)
->      switch ( op )
->      {
->      case HVMOP_set_evtchn_upcall_vector:
-> -        rc = hvmop_set_evtchn_upcall_vector(
-> -            guest_handle_cast(arg, xen_hvm_evtchn_upcall_vector_t));
-> +    {
-> +        struct xen_hvm_evtchn_upcall_vector op;
-> +
-> +        if ( copy_from_guest(&op, arg, 1) )
-> +        {
-> +            rc = -EFAULT;
-> +            break;
-> +        }
-> +
-> +        rc = hvmop_set_evtchn_upcall_vector(op);
->          break;
-> +    }
->      
->      case HVMOP_set_param:
-> -        rc = hvmop_set_param(
-> -            guest_handle_cast(arg, xen_hvm_param_t));
-> +    {
-> +        struct xen_hvm_param op;
-> +        
-> +        if ( copy_from_guest(&op, arg, 1) )
-> +        {
-> +            rc = -EFAULT;
-> +            break;
-> +        }
-> +
-> +        rc = hvmop_set_param(op);
->          break;
-> +    }
->  
->      case HVMOP_get_param:
-> -        rc = hvmop_get_param(
-> -            guest_handle_cast(arg, xen_hvm_param_t));
-> +    {
-> +        struct xen_hvm_param op;
-> +        
-> +        if ( copy_from_guest(&op, arg, 1) )
-> +        {
-> +            rc = -EFAULT;
-> +            break;
-> +        }
-> +
-> +        rc = hvmop_get_param(&op);
-> +
-> +        if ( !rc && copy_to_guest(arg, &op, 1) )
-
-Why would the original __copy_to_guest() need to change to copy_to_guest()?
+Speaking of "long", why such long a line?
 
 Jan
 
