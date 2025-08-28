@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4E63B39819
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 11:22:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1097920.1452084 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 244E0B39829
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 11:24:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1097957.1452125 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urYpT-00078D-G4; Thu, 28 Aug 2025 09:21:59 +0000
+	id 1urYrm-0000pB-Nw; Thu, 28 Aug 2025 09:24:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1097920.1452084; Thu, 28 Aug 2025 09:21:59 +0000
+Received: by outflank-mailman (output) from mailman id 1097957.1452125; Thu, 28 Aug 2025 09:24:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urYpT-00075s-DR; Thu, 28 Aug 2025 09:21:59 +0000
-Received: by outflank-mailman (input) for mailman id 1097920;
- Thu, 28 Aug 2025 09:21:58 +0000
+	id 1urYrm-0000md-LD; Thu, 28 Aug 2025 09:24:22 +0000
+Received: by outflank-mailman (input) for mailman id 1097957;
+ Thu, 28 Aug 2025 09:24:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=pYI3=3I=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1urYpS-00075k-50
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 09:21:58 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FrxM=3I=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1urYrl-0000mP-9r
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 09:24:21 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 710952bc-83f0-11f0-ae26-e363de0e7a9e;
- Thu, 28 Aug 2025 11:21:56 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-afeee20b7c0so38829766b.3
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 02:21:56 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afe88c76f61sm767852266b.10.2025.08.28.02.21.55
+ id c65de450-83f0-11f0-ae26-e363de0e7a9e;
+ Thu, 28 Aug 2025 11:24:19 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-45b65469a5bso6642205e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 02:24:19 -0700 (PDT)
+Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
+ [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45b6f0d3073sm72564665e9.7.2025.08.28.02.24.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Aug 2025 02:21:55 -0700 (PDT)
+ Thu, 28 Aug 2025 02:24:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,107 +45,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 710952bc-83f0-11f0-ae26-e363de0e7a9e
+X-Inumbo-ID: c65de450-83f0-11f0-ae26-e363de0e7a9e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756372915; x=1756977715; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PhAETet/NUuM0sqs3tNFEUe+QcAOBFWiCNrKqtqFYx0=;
-        b=Mdbfd/BaYwjVmNoBAFxQqxiggMF6Sx5+k84rasdDH3EH7XvHUUcatc7ZzJGUpZiQJC
-         Uh37RwUIcgckTbQeY1t9cKnA93P51pIEpVztuGK1KV5x0+HLDuxLmXoFmQHv6p5JVVev
-         kTzs4lY8/N71nRlLXgeLyZ5ZeDH6l8yA6KYHXAp60aciNkiA45spbM2a+mxpItQ29UzD
-         oLi98eGD09BChdilZX8VvrZsCrPasAxlLbkivwlIuFDTPwbetxHRSdmEzcUL3XRgySrW
-         dG1usEtdTVMiCdeXJILBnQVaIJ+gguQGJ99pk5QpVjGM3H6uEWwKURAnsqZ4VX35aHgE
-         HXhg==
+        d=citrix.com; s=google; t=1756373059; x=1756977859; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=FZw2ZxIJ5DAXQzu7ckQMG1wjL3HXSja6gTGUzO3hL+0=;
+        b=E6fxw+Novtx8RWnr6G4YNbWs8qAjwETQmb7ob7tz3AI5CxlVLMNElfcmcBKbD3zs+4
+         fu3dMk+LTdKmCEg1UPnVRb15qlBVuWgr+p7c9h9El72jv24Ikwv6cKFcMfgOJgHdZqM0
+         pwaKJsWzWRbZQJbum3uvXfMlFY5R4FrVOfAUg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756372915; x=1756977715;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=PhAETet/NUuM0sqs3tNFEUe+QcAOBFWiCNrKqtqFYx0=;
-        b=JiESh66omOERBXi5nAHAUrceTTQbArbuEgNvrzxDttJxI7PWIPyLgF37NXpJZ+Gbv0
-         jQptL+Kik/WD8mkkhTSIb7Awv5CRfwfQ45LT6EZSaX/pDkXN8lDX8ebpZlfpvDpSviYH
-         fbnnuX9Z7qIrZqxd6lfB3MrDpPNwme3mTg65pIPRmgEL4elhpPTjzsMoT2QoKzydnBld
-         xuw64E47KU4b7bRMqje71iYaTtva3hHIhAZhppJ4i0hdgoXxudrinTP1Lpo5glgQKM5n
-         RF7uGhT/A+UrvCLeaqIL9nr+1T8oI9uJp0gFcalDm25DR40TPffMO2+vKVJSqikvuJ7X
-         ++5Q==
-X-Gm-Message-State: AOJu0YzhsF2fOjy1QRYY+PRKkad7xqQzPPhMvs4aJ2BGMzWyx3wFBrqz
-	eN/BVCtzwdSUZ5libLt+1YpVk7fnAs6DAyUHLjtg92KBlOPjnzOiple67aZzIZy4r42rx4jNO6F
-	d4ZE=
-X-Gm-Gg: ASbGnctFLoc1wR/diUZCCed3hcSMJqj4dCDwJwEhJrKfOVrL7BhYIFPdT9J58VWotWs
-	zGrwza0pUYYGn+7c4ipUaXu+jGW4D/3kftkFd7fJ9sVO5AtwD6OIUUKkwIKLCaw4QOluR+yeSId
-	QnLWNCJA3FqrNCuDwDLEN2GOxUzd5NTugDcs2F1j+1ojIn0LtxMv5c6nXjshVRzTU8rUY/ndNkV
-	3L2jwofVupaUNR++pbwtYvLKUWqaHuJCZ59AHZa7C/XLQvAMsGCLYGxwTxqQoDBaXSMLVx3X91p
-	/iUhikUM9h+v5p5QTvu6my5581YPnmtlAtJsMuzmlhCXShU/DHkaMk47NDiVNg5G1pGp4KI5vel
-	Cx1m9mufvlXKlbAnfDO6uYCLJZaWIUwT5OInh4ylgNXh/+a5CwRXZACEFE7wzbt1lxYwShirU5J
-	wMbN1w0iyBBrn2OqymAw==
-X-Google-Smtp-Source: AGHT+IFUwVxiNEz1zNG4BZUgHn+fQ+nnNoJpXOs5lXBwUaX0GUd2gePahm2ziEQwUsMAhWwQ7b4nHw==
-X-Received: by 2002:a17:907:7b8c:b0:ae0:cadc:e745 with SMTP id a640c23a62f3a-afe295c0671mr1825202466b.40.1756372915530;
-        Thu, 28 Aug 2025 02:21:55 -0700 (PDT)
-Message-ID: <8e4b3946-f132-464e-8974-7fd6cb2b6619@suse.com>
-Date: Thu, 28 Aug 2025 11:21:54 +0200
+        d=1e100.net; s=20230601; t=1756373059; x=1756977859;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FZw2ZxIJ5DAXQzu7ckQMG1wjL3HXSja6gTGUzO3hL+0=;
+        b=YmH4Nl5KdvdepgTYax9QlamhJT702AH2y/XXm+C/dRDoAHzfPQeGYZLCeI7i5WC6JQ
+         s7vvdMIZbA0R9OLXT/zVQFAgep2hnY78VE/PefWlLVTRaoETrmqCIbKmWOTBuoYURe0A
+         h6q6ddTdCNJ2qROopI1/RXC7Gh51G+a/v6NWvkY8cs/beOZlqkzs4cGTQ/1RNTNkUjjC
+         uhzatXx4aLR5r5ody5d9Jgr1q4dLsAQ+8tDxYeR4+MZk8vIHVLOCslx16Rq1Ir+kndtr
+         7GgKI/hRHiqrqRGoJDZNumD3/kptVeaikZmJUitwNNfZcK57pXEsrpJfTxZoupfDWAgo
+         joFA==
+X-Forwarded-Encrypted: i=1; AJvYcCVd6FLosxbz2+NnTzKYDjAwHgr4ejiK01w7YRsMyHZ4pfcmy9kaOAureci7gMrHcmERFD7kQusUQaw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxZ4ODlMXmgCZcdYa06xwXl0HcrdXR7e/Riim9j5ec1e355UhQq
+	nsB9YZj6743uhRydSJGUUfKm4iexMVQLbFSkGs2Fd690VBWFb7CSTVfl+gXEWkaGa+Q=
+X-Gm-Gg: ASbGncvN1V1ofsxxhypUJ1GXSxZU3m9UATbrd5IFZ0g01nY4R8UBqupEyApBYESjytD
+	99vQ2Yh8k57MireDMEdn15kgTNJuR5FKQ1zY3cQbDm8fzSIoTNwe6od2NwjEYK6kDwbg1MM1cHs
+	jhe7PrKa3nRkLe2dnfy/1Jld4GDXPf7YCrASkI18hV5hUt1SmWKNeJ+JQLK1lD3jR6Br7ev1zFz
+	UkjzjrpxlHvKavWbdtJhLQ6ZrADPf23HosDExkhlsFXomxRv/QjL2wbkDlcS940VVJNhExqbmem
+	5rZyfUidG5E9HuTP2R47T9QspAsXg8i8mtwN5n25C5lZKhwglnBf3TmpwCrqQBgYGydwkdrVvpk
+	EZhYTFO6QNpFa64nm0dGRsAEaHXuCZH44rQFnSNYvMrnDoizFWO3VENAuS6S2P+mKZchnPREe91
+	MCGeGV6G2i/Qzknw==
+X-Google-Smtp-Source: AGHT+IFDDOijsnN8SE+0T963JMJJQw5DOkjWTXJSF3x2ew99cUFaB5kskZvP3AuqPHWQVvlK7LEh1g==
+X-Received: by 2002:a05:600c:1d09:b0:45b:6b0f:caee with SMTP id 5b1f17b1804b1-45b6c58c26bmr54655055e9.6.1756373058703;
+        Thu, 28 Aug 2025 02:24:18 -0700 (PDT)
+Message-ID: <0bdc4472-8395-4110-a2c1-a7388472d9a6@citrix.com>
+Date: Thu, 28 Aug 2025 10:24:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: introduce "hot" and "cold" page copying functions
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <1b9e5d46-20a8-4b5f-b938-e28a0429c770@suse.com>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1b9e5d46-20a8-4b5f-b938-e28a0429c770@suse.com>
+Subject: Re: [PATCH] x86/PSR: move CPUID level check
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <a3c768bc-c99f-484e-9e36-f8e03930496e@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <a3c768bc-c99f-484e-9e36-f8e03930496e@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.08.2025 11:17, Jan Beulich wrote:
-> The present copy_page_sse2() is useful in case the destination page isn't
-> going to get touched again soon, or if we want to limit churn on the
-> caches. Just rename it, to fit the corresponding {clear,scrub}_page_*()
-> naming scheme.
-> 
-> For cases where latency is the most important aspect, or when it is
-> expected that sufficiently large parts of a destination page will get
-> accessed again soon after the copying, introduce a "hot" alternative.
-> Again use alternatives patching to select between a "legacy" and an ERMS
-> variant.
-> 
-> Don't switch any callers just yet - this will be the subject of subsequent
-> changes.
-> 
+On 27/08/2025 9:16 am, Jan Beulich wrote:
+> At the first (and maybe second) glance the call to setup_clear_cpu_cap()
+> (which is __init) from psr_cpu_init() (which isn't) looks wrong. The
+> earlier cpu_has_pqe makes it safe, though. Nevertheless we can do better,
+> by simply moving the check ahead of the BSP invocation of the function.
+>
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-The ERMS series had been pending for so long that I had forgotten that this
-further change was yet to be done. I think this patch should be considered
-part of that earlier series. Yet then it may of course require some more
-discussion to get it into final shape. Would be nice though to have a
-consistent set in 4.21 ...
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Jan
+This is still terribly convoluted code.
 
