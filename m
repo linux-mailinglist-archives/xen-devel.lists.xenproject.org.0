@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA8CFB398D5
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 11:52:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1098100.1452225 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A71FB398FB
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Aug 2025 12:01:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1098111.1452235 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urZIe-0001xp-Uk; Thu, 28 Aug 2025 09:52:08 +0000
+	id 1urZRg-0003gt-R1; Thu, 28 Aug 2025 10:01:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1098100.1452225; Thu, 28 Aug 2025 09:52:08 +0000
+Received: by outflank-mailman (output) from mailman id 1098111.1452235; Thu, 28 Aug 2025 10:01:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urZIe-0001vZ-S4; Thu, 28 Aug 2025 09:52:08 +0000
-Received: by outflank-mailman (input) for mailman id 1098100;
- Thu, 28 Aug 2025 09:52:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1urZRg-0003eE-Mf; Thu, 28 Aug 2025 10:01:28 +0000
+Received: by outflank-mailman (input) for mailman id 1098111;
+ Thu, 28 Aug 2025 10:01:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FrxM=3I=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1urZId-0001vO-2n
- for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 09:52:07 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a809c97c-83f4-11f0-aeb2-fb57b961d000;
- Thu, 28 Aug 2025 11:52:06 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-45a1b0c82eeso6022255e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 02:52:06 -0700 (PDT)
+ id 1urZRe-0003e5-Fi
+ for xen-devel@lists.xenproject.org; Thu, 28 Aug 2025 10:01:26 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f4510c6e-83f5-11f0-ae26-e363de0e7a9e;
+ Thu, 28 Aug 2025 12:01:23 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-45a1b0c82eeso6103055e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 03:01:23 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b7271cd01sm58257585e9.23.2025.08.28.02.52.04
+ 5b1f17b1804b1-45b797ce2b8sm26527205e9.12.2025.08.28.03.01.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Aug 2025 02:52:05 -0700 (PDT)
+ Thu, 28 Aug 2025 03:01:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a809c97c-83f4-11f0-aeb2-fb57b961d000
+X-Inumbo-ID: f4510c6e-83f5-11f0-ae26-e363de0e7a9e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1756374726; x=1756979526; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1756375283; x=1756980083; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=aAgP6HHVwZSc6aUEkqepqPH6CHzDsa0ey6wespW87DI=;
-        b=K9CX9v5E02ksszNmCRucY04YdVzI3eH+ZnFI+0x6p5LXo18a1um8SmZWcX/IAz4Co2
-         ze5yaHr1B8aYItrB/KoVaNH2uuXVuS8Nh78R+pu/A/kCxbnfxmaCzBzHppy08DtviCug
-         w7mOBnKCOH7XT+SazVy2nJV1mr3LSdHYUSBmg=
+        bh=Pgzn98Bf9jvAbIg45OxQt97Bwj6IaTgN1vtbEO85Mkc=;
+        b=VwzirF+6t6HNiU6LxLyXa4to7WnYR2FpQJ7SUGoSjv/xn1hmI1uF5+GXo2OuXSwBQ4
+         iW/2A5oNoI0JW9YAfWsKJcH7R43f4gOHgYInwbneYOtP7iUIfBSGCUVseLdOXLRatN+n
+         gVS0axLBXQdEboTv6I6Uyzk4vSB3QpJc+wqGU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756374726; x=1756979526;
+        d=1e100.net; s=20230601; t=1756375283; x=1756980083;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=aAgP6HHVwZSc6aUEkqepqPH6CHzDsa0ey6wespW87DI=;
-        b=N5qWc2GkkjvZmdWCsPK6QKoWnCT+ktkQhlQq3C3y9e+6j+ls9fUt+gpsbjCopjqSqJ
-         kal3IFRU1OcJjAuUU+BWidi7D8ceS2ds35t1HWSM6/htf1YL3/7LAg6KBVu6N2h0VFQa
-         TI8JgmaOw8RWkOjFFg8BBS98cx32Cgn3cFNB0XISkBDYCwEtnSKG+OgIY9ln9hwU4+TB
-         3F6Tnx0oVE40Liej3Scnz+JBEWhKJv346Kiw34ys3LGD9owR9YlKZOSZQtbWivT0xOPX
-         k3iAE+YfhN+KNtGyi3gMY7V4AElOQz5DUOj/7JYYqqT21dGSxHGU/uTJKzg84HDqzVnZ
-         6nIQ==
-X-Gm-Message-State: AOJu0Yw1GXanNl3fTYzptJnZ5BPoDog9SO16/C5dyLlgLAwuPnAm6Cmv
-	K8+ankA2/4nYH6bDiPbynHoavj7fzEp1jdGhnSAcB43zHWvP7HA5x185RZgEtMDIbYI=
-X-Gm-Gg: ASbGnct5q1dU9unD01PXsEEhBzr5AS2SHrF45d907iYfMJMjHYQhuiQ3ql5tF14tp0/
-	GmQcqeROilaHOhgN/N1LuWs0MjM/e+5gEG9A5F5bKb3AYi5GPzB/gxzqWBEaMlHN5NtlEhUAw8E
-	SfCG47lG8Im591xFhoBUhjWy2NuPXmfUiGtNjMu6sytBMv1M6vuxJMZ60Ex/UYykrdRIl5GegXS
-	41pa6Tm5VpXhbzsE2ErCmjSSzoNGfonz7q/ROHN6mKHKiZlfw7mNIOfWaK/pvYYzd8VwNzX2e5h
-	pviSLLLwBaF22n4UCGHXRqzSsdkd8EY7+bAZxi4hOAMFtDq/xfLiV7DjpDEOEgk7bUCKbmwJWh0
-	d903kQd+yRLIRrVo+C4pylX+lp7OX7VkEGKRZ/RfwcQ95tmLE4XOXXOmlM00umMBsHGwgDDtm2+
-	uGvoY676vcqKFR+w==
-X-Google-Smtp-Source: AGHT+IHSy+Nq5KvJcq+YF63WP67WFwav0t5DY8udfC//b4di1YLi4NxwNgxB1oywF244siCWrpP9IQ==
-X-Received: by 2002:a05:600c:4685:b0:458:bfe1:4a91 with SMTP id 5b1f17b1804b1-45b517c5551mr201936645e9.20.1756374725733;
-        Thu, 28 Aug 2025 02:52:05 -0700 (PDT)
-Message-ID: <8e476186-d78a-429d-ae1f-16907c3ec7b2@citrix.com>
-Date: Thu, 28 Aug 2025 10:52:04 +0100
+        bh=Pgzn98Bf9jvAbIg45OxQt97Bwj6IaTgN1vtbEO85Mkc=;
+        b=iG6jCGrqusbIw7o53n5sIPeJgGrJS9M8wnmECisy7tYCThtIrqiDojPUKspYBEZtvp
+         0kRgoWcnFj+wP7QGuhuRcf+qojKLRQsvfAdtwUrJaGXcVU5uCuliy0+Jiue4+KMCHjcX
+         UUk5qZmQQ0JZDIyAGClCilXfdvpWKnijzqMG2Zd7xo80CxYHOZ4Ph7If+dl8Phx8EERw
+         9+EoNZ3yzkuq2nKeWo76bJzQZLeIjrGQ7mZ113z/Ss5RJreoE0gdCWn+l2iPnB8kSG2x
+         rNnDw28Sq2eza5MHl9couIEMm+KGBfGL71ufj8ZwKR2orsIkzjwZuD7Y9/75/h6oFBNX
+         p35A==
+X-Forwarded-Encrypted: i=1; AJvYcCUf6OWVVDQg3TXiRN/jCgsdHu0l1zWBSLJF57rxlddv2Vc9DPTcTcwW5hOPWHGtSqKO4KGS1lCLlAQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwpZlyZiWaE2TtvzemaBa8LeBpe3apyhLEEIfnYJy22wvpOS8ok
+	fTynVccDIguUo/GP/Yknd0Y+3eBsyXo/PvS5vhBi0PdQeMQQ24CTB6Ckz5PiZ5Wx4RI=
+X-Gm-Gg: ASbGncvKQ2Hxa+HOecAeMJy2/FRWc+iWENzNCvx+PBJJVntCSpKCBMaQW7ZAxs0keIS
+	zDo20lKpH974rVz3m3tHH7UYK65HR9SNhWAciFmHoym1nXRT5GcnWVcCF1vfOAyZfJUDyKX96cy
+	Si262SJvg2+2IRpC5IxrrQnilTVBeUaK8+raPlL2JI+wpzbgtZBKT9uMdKmo9GkU+9P+4aJHKkI
+	GwVa2+iu4MgY4DOAhAkZoTz0xC1z+NZykZ5V4WiE5xu0AllrEa2L8DeWHGDxsgWL5iQcg/F7IMk
+	M5e19hv22XOADMM+V/Bi42TnqDvgxPuPgfZoLmFJ1u4cifrCvupJ/PpZSxXULNsdAXfiCgoN4hW
+	UrbAwt9mBghWqloMO3kH7cd8AchrUjNeO+mWQBXjG3JlJnKX6JzOX3pcrgzvodOZp8wzIRQF4fh
+	1fiHA=
+X-Google-Smtp-Source: AGHT+IHu8a9TqXqB+DhNZBig9Ly6oWd4Tjbn4YE5nha8xmVUDy3F8hSvIAPOvHSpAVRQEDXXpPfW1A==
+X-Received: by 2002:a05:600c:45d4:b0:459:e3a1:a0c4 with SMTP id 5b1f17b1804b1-45b517d27b2mr220906075e9.30.1756375283144;
+        Thu, 28 Aug 2025 03:01:23 -0700 (PDT)
+Message-ID: <50c15166-b3b5-4e17-8bcc-cb37ad03f0ad@citrix.com>
+Date: Thu, 28 Aug 2025 11:01:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] device-tree: fix infinite loop issue in
- 'assign_shared_memory()'
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
-References: <0e562f695e5db87ab80dde69cbcc0cfa14f94b21.1756373770.git.dmytro_prokopchuk1@epam.com>
- <861c88c005b041fa622310d6bef63c25@bugseng.com>
+Subject: Re: [PATCH] hvmloader: Update to SMBIOS 2.6
+To: Jan Beulich <jbeulich@suse.com>, Teddy Astie <teddy.astie@vates.tech>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <b569a298a6270ae04eaf433f7de9ce1f3e248e5f.1755870287.git.teddy.astie@vates.tech>
+ <6e9b7b96-a506-40ed-95b6-6ad00ba9a27a@citrix.com>
+ <1901e764-9725-4e9e-895a-54c704473510@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -139,35 +137,44 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <861c88c005b041fa622310d6bef63c25@bugseng.com>
+In-Reply-To: <1901e764-9725-4e9e-895a-54c704473510@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 28/08/2025 10:47 am, Nicola Vetrini wrote:
-> On 2025-08-28 11:39, Dmytro Prokopchuk1 wrote:
->> Fix an issue in the 'fail:' cleanup path of the 'assign_shared_memory()'
->> function where the use of an unsigned long 'i' with the condition
->> '--i >= 0' caused an infinite loop. Update the loop to use 'i--',
->> ensuring correct loop termination.
->>
->> This change adheres to MISRA C Rule 14.3: "Controlling expressions shall
->> not be invariant."
->>
->> Fixes: 72c5fa2208 (device-tree: Move Arm's static-shmem feature to
->> common, 2025-06-03)
->
-> The format should be
->
-> Fixes: 72c5fa220804 ("device-tree: Move Arm's static-shmem feature to
-> common")
->
-> can be fixed on commit probably
+On 28/08/2025 8:07 am, Jan Beulich wrote:
+> On 27.08.2025 19:47, Andrew Cooper wrote:
+>> On 22/08/2025 2:47 pm, Teddy Astie wrote:
+>>> Currently, hvmloader uses SMBIOS 2.4, however, when using OVMF, the
+>>> SMBIOS is patched to 2.8, which has clarified the UUID format (as GUID).
+>>>
+>>> In Linux, if the SMBIOS version is >= 2.6, the GUID format is used, else
+>>> (undefined as per SMBIOS spec), big endian is used (used by Xen). Therefore,
+>>> you have a endian mismatch causing the UUIDs to mismatch in the guest.
+>>>
+>>> $ cat /sys/hypervisor/uuid
+>>> e865e63f-3d30-4f0b-83e0-8fdfc1e30eb7
+>>> $ cat /sys/devices/virtual/dmi/id/product_uuid
+>>> 3fe665e8-303d-0b4f-83e0-8fdfc1e30eb7
+>>> $ cat /sys/devices/virtual/dmi/id/product_serial
+>>> e865e63f-3d30-4f0b-83e0-8fdfc1e30eb7
+>>>
+>>> This patch updates the SMBIOS version from 2.4 to 2.6 and fixup the UUID
+>>> written in the table; which effectively fix this endianness mismatch with
+>>> OVMF; while the UUID displayed by Linux is still the same for SeaBIOS.
+>>>
+>>> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+>>> ---
+>>> This effectively changes the UUID seen with UEFI guests as it was
+>>> actually inconsistent with SeaBIOS and SMBIOS expectations.
+>>> ---
+>> I agree this is a real bug and needs fixing.
+> Hmm, I didn't realize this is a bug, and hence put the patch off as 4.22
+> material. If there is a bug being fixed: Teddy, please add a Fixes: tag.
 
-It can, but that's the wrong Fixes tag.  That commit simply moved the
-bad logic.
+I'm not sure if this has a reasonable Fixes tag.
 
-Commit 041957bad382 ("xen/arm: Add additional reference to owner domain
-when the owner is allocated") is the one that introduced the bad expression.
+It's a combination of an ill-specified domain handle format, and using
+an ill-specified version of the SMBios spec.
 
 ~Andrew
 
