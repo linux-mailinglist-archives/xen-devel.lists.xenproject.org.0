@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 171BCB3C402
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 22:59:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1102206.1454926 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B582BB3C449
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 23:43:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1102232.1454936 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1us6Bb-0002uV-8o; Fri, 29 Aug 2025 20:59:03 +0000
+	id 1us6sZ-0001YM-JV; Fri, 29 Aug 2025 21:43:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1102206.1454926; Fri, 29 Aug 2025 20:59:03 +0000
+Received: by outflank-mailman (output) from mailman id 1102232.1454936; Fri, 29 Aug 2025 21:43:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1us6Bb-0002sb-63; Fri, 29 Aug 2025 20:59:03 +0000
-Received: by outflank-mailman (input) for mailman id 1102206;
- Fri, 29 Aug 2025 20:59:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1us6sZ-0001W8-Fa; Fri, 29 Aug 2025 21:43:27 +0000
+Received: by outflank-mailman (input) for mailman id 1102232;
+ Fri, 29 Aug 2025 21:43:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=b4pU=3J=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1us6BZ-0002sV-Rj
- for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 20:59:01 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fc0fd882-851a-11f0-8dd7-1b34d833f44b;
- Fri, 29 Aug 2025 22:58:59 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-45b82a21e6bso6302445e9.2
- for <xen-devel@lists.xenproject.org>; Fri, 29 Aug 2025 13:58:59 -0700 (PDT)
-Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b66c7f0d0sm86138025e9.3.2025.08.29.13.58.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 29 Aug 2025 13:58:58 -0700 (PDT)
+ <SRS0=7zkx=3J=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1us6sY-0001W2-Du
+ for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 21:43:26 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org
+ [2600:3c0a:e001:78e:0:1991:8:25])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2fe7fd49-8521-11f0-8adc-4578a1afcccb;
+ Fri, 29 Aug 2025 23:43:24 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 99AA044A21;
+ Fri, 29 Aug 2025 21:43:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37321C4CEF0;
+ Fri, 29 Aug 2025 21:43:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,202 +42,652 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc0fd882-851a-11f0-8dd7-1b34d833f44b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1756501139; x=1757105939; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=h8TyG9Vd8UOJ9yTcvN4sd9LcWR+g5/48sVvFQ+3BGFo=;
-        b=XFKgvhCCxZRdsFzvQI1Ent2IehS/KMzfqf8Oy5G5tmtOLTNMkkA5dOPGHD+/HrGwnV
-         KWX4WNWy8Wxd12Cs4eUkWadXXhAAu3ojuwLhNLlWPfhp7MA7H7mkIYHFndsU4Dh38PYx
-         0lQgbk4iO3KXQDlz4s6a4ekiwgguZRK7egJxQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756501139; x=1757105939;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=h8TyG9Vd8UOJ9yTcvN4sd9LcWR+g5/48sVvFQ+3BGFo=;
-        b=EMyuXaeMaicIwMpe7qNT0rG4c+EN1q62UfMIlw+tX+QP5mG8cQVR0BdBtmn8LK8Yan
-         SvnHnO87NJ/elJYjq7nJfuu4ROoXnHsFHE6zPDc3o2+ZLYPW+FjhB7PkjNFzWXsr4RI6
-         yxOiyTTog6A3/nPvQP5qNf9yhP0pZZL/is5Q9eLkGklRYDpgcZyy0QR33AlkS4kCEKgj
-         IgVrs4nGrnl6DJuQ7ac9/boXFNC7vJGJ10TcF+GqvGZBZ4L2QqA+vD554kqky5KK1hum
-         MijSSvvURkOBQxJV0nGO3TwimQsBnFQpv6kwY46twZf0LvuLwlokextDF5pT7GlGVbIL
-         BSAg==
-X-Forwarded-Encrypted: i=1; AJvYcCUlfNIHtVulODjtODHojXDxDLxbfhybo1zdiyThz7sGMo/o/J+T4g5zcZbejxiv2dm6SNP3nniTavQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw0odPDi/EYgt5rTguyD8L/Q9gZpgBZn9ANujCv0mPoJ7AhMtbu
-	JqclBeHLdnJproIeWxie9PkmpqxCpBLR0ZZkfGa3XGGq4A3ndcYOwr10KjQohbGPL/8=
-X-Gm-Gg: ASbGnctAwX1ohn13XhEDbjaGZVoEr3Owmbo/TwpM/o1BFdIDbSbkGGEk/ghA4BesOSw
-	O8yJeLe2F/5lHCaS3ZXX3QvqItoAaqU8sWjrO0POLpGoD8kix6RI5/weNmIWcUBgNzoObRPgzh1
-	feWWl96l5tWQe09GsYiYaaiL+3BLGZ5VDUtiMv798YN9Q/i06+54GZPQ5YkYBQ7YNnoPHd8zKDI
-	yQ2wneQGJOzaJec+4yVORO1HN1KjbgOGYX4R+BgRsyLgL4+hmdLlKH8IsZ2I0j86CByNdwvURO+
-	/TWwdPIJrF8mE/HDObyTay0WWHV6q4+mZOQlgW0D73veIDs/GLk/7KLHkiL9w2+8q5mDK19Y30b
-	u3nDmAPb5yKFf+GRRF8DeG1XEHx1TTZXDS+YbmdRLXACxU/4/2K7zZzASiH/6jBavGLjJ
-X-Google-Smtp-Source: AGHT+IEWUC3T+iAiR6xwtxuJSCopIWY8eL0Rpx6Aep/vsT/hQElzkEN+bC0+VIBTHTRSFwaOWNfLEA==
-X-Received: by 2002:a05:600c:4f12:b0:459:dde3:1a37 with SMTP id 5b1f17b1804b1-45b66343ea2mr131838745e9.25.1756501138620;
-        Fri, 29 Aug 2025 13:58:58 -0700 (PDT)
-Message-ID: <efac3768-b434-4f22-96f0-887540651b7e@citrix.com>
-Date: Fri, 29 Aug 2025 21:58:57 +0100
+X-Inumbo-ID: 2fe7fd49-8521-11f0-8adc-4578a1afcccb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1756503802;
+	bh=2uf2blFovqY8HQJrYtITKAAYgmjs/gqGV6IxKRWJsRE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=UsLALkWixVDxC14HzK0BkqwIynkIXdVTVzLX/NQ6utifgPgz/HrCfInLsCxAm1PtO
+	 ty8LWWaveb/hWRHeBkkdfVYoT3BLKrbKcI4d+IuDWO/No83CPmUEmQlu9aeDS7UNBa
+	 G4mSsgloOi9W6xXI6+LVgjAyeSdexY0FnaqROsfFJJKNWHSmflNFCSIiIx59VtF3k8
+	 B1AatJKbwp8Evu5XM242IG4p5O4quu6d+XnP8/V2XZkBorstiBsSRLT8ZPn/PadLOp
+	 fv4X5O+hBvUawZBN/jZkI9Cu3tqCqlRaraoK0TdnQaxY94jZ8OOVTlq+cT3DxtFbdQ
+	 SdnwUAbKs9QLw==
+Date: Fri, 29 Aug 2025 14:43:18 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: dmukhin@xen.org
+cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
+    anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, 
+    michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, 
+    dmukhin@ford.com
+Subject: Re: [PATCH v5 13/15] x86/domain: enable per-domain I/O port
+ bitmaps
+In-Reply-To: <20250828235409.2835815-14-dmukhin@ford.com>
+Message-ID: <alpine.DEB.2.22.394.2508291441220.341243@ubuntu-linux-20-04-desktop>
+References: <20250828235409.2835815-1-dmukhin@ford.com> <20250828235409.2835815-14-dmukhin@ford.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/gen-cpuid: correct cycle detection
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <73d725a9-4163-4dd8-a9ac-b1c234005ced@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <73d725a9-4163-4dd8-a9ac-b1c234005ced@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 16/07/2025 7:59 am, Jan Beulich wrote:
-> With the processing done linearly (rather than recursively), checking
-> whether any of the features was previously seen is wrong: That would
-> e.g. trigger for this simple set of dependencies
->
->     X: [A, B]
->     A: [C]
->     B: [C]
->
-> (observed in reality when making AMX-AVX512 dependent upon both
-> AMX-TILE and AVX512F, causing XSAVE to see AMX-AVX512 twice in its list
-> of dependents). But checking the whole accumulated set also isn't
-> necessary - just checking the feature we're processing dependents of is
-> sufficient. We may detect a cycle later that way, but we still will
-> detect it. What we need to avoid is adding a feature again when we've
-> already seen it.
->
-> As a result, seeding "seen[]" with "feat" isn't necessary anymore.
->
-> Fixes: fe4408d180f4 ("xen/x86: Generate deep dependencies of features")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Thu, 28 Aug 2025, dmukhin@xen.org wrote:
+> From: Denis Mukhin <dmukhin@ford.com> 
+> 
+> Current design enables all HVM domains share the same I/O port bitmap.
+> 
+> It is necessary for domains crafting its own I/O port address space depending
+> on the user configuration.
+> 
+> Ensure NS16550 emulator does not share I/O ports with the physical I/O ports,
+> which is essential for emulation in PVH hwdom case (dom0).
+> 
+> Not a functional change.
+> 
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 > ---
-> Doing AMX-AVX512's dependencies like mentioned above still isn't quite
-> right; we really need AVX512F || AVX10, which can't be expressed right
-> now.
->
-> This contextually collides with patch 2 of "x86/cpu-policy: minor
-> adjustments", posted almost 2 years ago and still pending (afair) any
-> kind of feedback.
->
-> I'd like to note that the commented out code in the loop (sitting
-> between the two hunks beklow) doesn't really work for ARCH_CAPS: The
-> first unused bit (between XAPIC_STATUS and OVRCLK_STATUS) triggers
->
-> Traceback (most recent call last):
->   File ".../xen/../xen/tools/gen-cpuid.py", line 608, in <module>
->     sys.exit(main())
->   File ".../xen/../xen/tools/gen-cpuid.py", line 602, in main
->     crunch_numbers(state)
->   File ".../xen/../xen/tools/gen-cpuid.py", line 382, in crunch_numbers
->     (state.names[feat], repl(seen)))
->   File ".../xen/../xen/tools/gen-cpuid.py", line 378, in repl
->     return "[" + ", ".join((state.names[x] for x in l)) + "]"
->   File ".../xen/../xen/tools/gen-cpuid.py", line 378, in <genexpr>
->     return "[" + ", ".join((state.names[x] for x in l)) + "]"
-> KeyError: 534
->
-> (line numbers slightly shifted due to other debugging code I had added).
-> My Python clearly isn't good enough to try to guess how to fix that.
-
-I've posted a fix for this.
-
-
->
-> --- a/xen/tools/gen-cpuid.py
-> +++ b/xen/tools/gen-cpuid.py
-> @@ -350,7 +350,7 @@ def crunch_numbers(state):
+> Changes since v4:
+> - new patch 
+> - Link tp v4: https://lore.kernel.org/xen-devel/20250731192130.3948419-4-dmukhin@ford.com/
+> ---
+>  xen/arch/x86/Makefile                    |   1 +
+>  xen/arch/x86/dom0_build.c                | 111 +--------------
+>  xen/arch/x86/hvm/hvm.c                   |  35 +----
+>  xen/arch/x86/hvm/nestedhvm.c             |   8 +-
+>  xen/arch/x86/hvm/quirks.c                |   3 -
+>  xen/arch/x86/hvm/svm/nestedsvm.c         |   2 +-
+>  xen/arch/x86/hvm/vmx/vvmx.c              |   4 +-
+>  xen/arch/x86/include/asm/hvm/nestedhvm.h |   3 +-
+>  xen/arch/x86/include/asm/hvm/support.h   |   2 -
+>  xen/arch/x86/include/asm/iocap.h         |   2 +
+>  xen/arch/x86/ioport.c                    | 163 +++++++++++++++++++++++
+>  xen/arch/x86/pv/dom0_build.c             |   4 +
+>  xen/common/emul/vuart/ns16x50.c          |  11 ++
+>  13 files changed, 200 insertions(+), 149 deletions(-)
+>  create mode 100644 xen/arch/x86/ioport.c
+> 
+> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+> index 9d67ea7cd4a8..5726ecc180eb 100644
+> --- a/xen/arch/x86/Makefile
+> +++ b/xen/arch/x86/Makefile
+> @@ -44,6 +44,7 @@ obj-y += msi.o
+>  obj-y += msr.o
+>  obj-$(CONFIG_INDIRECT_THUNK) += indirect-thunk.o
+>  obj-$(CONFIG_RETURN_THUNK) += indirect-thunk.o
+> +obj-y += ioport.o
+>  obj-$(CONFIG_PV) += ioport_emulate.o
+>  obj-y += irq.o
+>  obj-$(CONFIG_KEXEC) += machine_kexec.o
+> diff --git a/xen/arch/x86/dom0_build.c b/xen/arch/x86/dom0_build.c
+> index 0b467fd4a4fc..26202b33345c 100644
+> --- a/xen/arch/x86/dom0_build.c
+> +++ b/xen/arch/x86/dom0_build.c
+> @@ -298,9 +298,6 @@ int __init parse_arch_dom0_param(const char *s, const char *e)
+>      return 0;
+>  }
 >  
->      for feat in deep_features:
+> -static char __initdata opt_dom0_ioports_disable[200] = "";
+> -string_param("dom0_ioports_disable", opt_dom0_ioports_disable);
+> -
+>  static bool __initdata ro_hpet = true;
+>  boolean_param("ro-hpet", ro_hpet);
 >  
-> -        seen = [feat]
-> +        seen = []
->          to_process = list(deps[feat])
+> @@ -433,122 +430,20 @@ unsigned long __init dom0_compute_nr_pages(
+>      return nr_pages;
+>  }
 >  
->          while len(to_process):
-> @@ -363,14 +363,14 @@ def crunch_numbers(state):
+> -static void __init process_dom0_ioports_disable(struct domain *dom0)
+> -{
+> -    unsigned long io_from, io_to;
+> -    char *t, *s = opt_dom0_ioports_disable;
+> -    const char *u;
+> -
+> -    if ( *s == '\0' )
+> -        return;
+> -
+> -    while ( (t = strsep(&s, ",")) != NULL )
+> -    {
+> -        io_from = simple_strtoul(t, &u, 16);
+> -        if ( u == t )
+> -        {
+> -        parse_error:
+> -            printk("Invalid ioport range <%s> "
+> -                   "in dom0_ioports_disable, skipping\n", t);
+> -            continue;
+> -        }
+> -
+> -        if ( *u == '\0' )
+> -            io_to = io_from;
+> -        else if ( *u == '-' )
+> -            io_to = simple_strtoul(u + 1, &u, 16);
+> -        else
+> -            goto parse_error;
+> -
+> -        if ( (*u != '\0') || (io_to < io_from) || (io_to >= 65536) )
+> -            goto parse_error;
+> -
+> -        printk("Disabling dom0 access to ioport range %04lx-%04lx\n",
+> -            io_from, io_to);
+> -
+> -        if ( ioports_deny_access(dom0, io_from, io_to) != 0 )
+> -            BUG();
+> -    }
+> -}
+> -
+> +/* Modify I/O memory access permissions. */
+>  int __init dom0_setup_permissions(struct domain *d)
+>  {
+>      unsigned long mfn;
+> -    unsigned int i, offs;
+> -    int rc;
+> +    unsigned int i;
+> +    int rc = 0;
 >  
->              f = to_process.pop(0)
+>      if ( pv_shim )
+>          return 0;
 >  
-> -            if f in seen:
-> -                raise Fail("ERROR: Cycle found with %s when processing %s"
-> -                           % (state.names[f], state.names[feat]))
-> +            if f == feat:
-> +                raise Fail("ERROR: Cycle found with %s" % (state.names[f], ))
-
-Despite f and feat being the same now, I think this wants to keep the
-other part of the sentence.  i.e. "Cycle found when processing %s".
-
-It's a little awkward that there's no sensible way to reverse engineer
-the cycle and print it, but it's also been far too long since I last did
-graph theory.
-
+> -    /* The hardware domain is initially permitted full I/O capabilities. */
+> -    rc = ioports_permit_access(d, 0, 0xFFFF);
+>      rc |= iomem_permit_access(d, 0UL,
+>                                PFN_DOWN(1UL << domain_max_paddr_bits(d)) - 1);
+>      rc |= irqs_permit_access(d, 1, nr_irqs_gsi - 1);
 >  
-> -            seen.append(f)
-> -            to_process = list(set(to_process + deps.get(f, [])))
-> +            if not (f in seen):
-> +                seen.append(f)
-> +                to_process = list(set(to_process + deps.get(f, [])))
+> -    /* Modify I/O port access permissions. */
+> -
+> -    for ( offs = 0, i = ISOLATE_LSB(i8259A_alias_mask) ?: 2;
+> -          offs <= i8259A_alias_mask; offs += i )
+> -    {
+> -        if ( offs & ~i8259A_alias_mask )
+> -            continue;
+> -        /* Master Interrupt Controller (PIC). */
+> -        rc |= ioports_deny_access(d, 0x20 + offs, 0x21 + offs);
+> -        /* Slave Interrupt Controller (PIC). */
+> -        rc |= ioports_deny_access(d, 0xA0 + offs, 0xA1 + offs);
+> -    }
+> -
+> -    /* ELCR of both PICs. */
+> -    rc |= ioports_deny_access(d, 0x4D0, 0x4D1);
+> -
+> -    /* Interval Timer (PIT). */
+> -    for ( offs = 0, i = ISOLATE_LSB(pit_alias_mask) ?: 4;
+> -          offs <= pit_alias_mask; offs += i )
+> -        if ( !(offs & ~pit_alias_mask) )
+> -            rc |= ioports_deny_access(d, PIT_CH0 + offs, PIT_MODE + offs);
+> -
+> -    /* PIT Channel 2 / PC Speaker Control. */
+> -    rc |= ioports_deny_access(d, 0x61, 0x61);
+> -
+> -    /* INIT# and alternative A20M# control. */
+> -    rc |= ioports_deny_access(d, 0x92, 0x92);
+> -
+> -    /* IGNNE# control. */
+> -    rc |= ioports_deny_access(d, 0xF0, 0xF0);
+> -
+> -    /* ACPI PM Timer. */
+> -    if ( pmtmr_ioport )
+> -        rc |= ioports_deny_access(d, pmtmr_ioport, pmtmr_ioport + 3);
+> -
+> -    /* Reset control. */
+> -    rc |= ioports_deny_access(d, 0xCF9, 0xCF9);
+> -
+> -    /* PCI configuration space (NB. 0xCF8 has special treatment). */
+> -    rc |= ioports_deny_access(d, 0xCFC, 0xCFF);
+> -
+> -#ifdef CONFIG_HVM
+> -    if ( is_hvm_domain(d) )
+> -    {
+> -        /* ISA DMA controller, channels 0-3 (incl possible aliases). */
+> -        rc |= ioports_deny_access(d, 0x00, 0x1F);
+> -        /* ISA DMA controller, page registers (incl various reserved ones). */
+> -        rc |= ioports_deny_access(d, 0x80 + !!hvm_port80_allowed, 0x8F);
+> -        /* ISA DMA controller, channels 4-7 (incl usual aliases). */
+> -        rc |= ioports_deny_access(d, 0xC0, 0xDF);
+> -
+> -        /* HVM debug console IO port. */
+> -        rc |= ioports_deny_access(d, XEN_HVM_DEBUGCONS_IOPORT,
+> -                                  XEN_HVM_DEBUGCONS_IOPORT);
+> -        if ( amd_acpi_c1e_quirk )
+> -            rc |= ioports_deny_access(d, acpi_smi_cmd, acpi_smi_cmd);
+> -    }
+> -#endif
+> -    /* Command-line I/O ranges. */
+> -    process_dom0_ioports_disable(d);
+> -
+> -    /* Modify I/O memory access permissions. */
+> -
+>      /* Local APIC. */
+>      if ( mp_lapic_addr != 0 )
+>      {
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index 26760cf995df..12736fc61c11 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -51,6 +51,7 @@
+>  #include <asm/hvm/vm_event.h>
+>  #include <asm/hvm/vpt.h>
+>  #include <asm/i387.h>
+> +#include <asm/iocap.h>
+>  #include <asm/mc146818rtc.h>
+>  #include <asm/mce.h>
+>  #include <asm/monitor.h>
+> @@ -81,14 +82,6 @@ integer_param("hvm_debug", opt_hvm_debug_level);
+>  
+>  struct hvm_function_table __ro_after_init hvm_funcs;
+>  
+> -/*
+> - * The I/O permission bitmap is globally shared by all HVM guests except
+> - * the hardware domain which needs a more permissive one.
+> - */
+> -#define HVM_IOBITMAP_SIZE (3 * PAGE_SIZE)
+> -unsigned long __section(".bss.page_aligned") __aligned(PAGE_SIZE)
+> -    hvm_io_bitmap[HVM_IOBITMAP_SIZE / BYTES_PER_LONG];
+> -
+>  /* Xen command-line option to enable HAP */
+>  static bool __initdata opt_hap_enabled = true;
+>  boolean_param("hap", opt_hap_enabled);
+> @@ -205,15 +198,6 @@ static int __init cf_check hvm_enable(void)
+>      if ( opt_hvm_fep )
+>          warning_add(warning_hvm_fep);
+>  
+> -    /*
+> -     * Allow direct access to the PC debug ports 0x80 and 0xed (they are
+> -     * often used for I/O delays, but the vmexits simply slow things down).
+> -     */
+> -    memset(hvm_io_bitmap, ~0, sizeof(hvm_io_bitmap));
+> -    if ( hvm_port80_allowed )
+> -        __clear_bit(0x80, hvm_io_bitmap);
+> -    __clear_bit(0xed, hvm_io_bitmap);
+> -
+>      register_cpu_notifier(&cpu_nfb);
+>  
+>      return 0;
+> @@ -645,19 +629,12 @@ int hvm_domain_initialise(struct domain *d,
+>  
+>      rwlock_init(&d->arch.hvm.pl_time->pt_migrate);
+>  
+> -    /* Set the default IO Bitmap. */
+> -    if ( is_hardware_domain(d) )
+> +    rc = ioports_setup_access(d);
+> +    if ( rc )
+>      {
+> -        d->arch.hvm.io_bitmap = _xmalloc(HVM_IOBITMAP_SIZE, PAGE_SIZE);
+> -        if ( d->arch.hvm.io_bitmap == NULL )
+> -        {
+> -            rc = -ENOMEM;
+> -            goto fail1;
+> -        }
+> -        memset(d->arch.hvm.io_bitmap, ~0, HVM_IOBITMAP_SIZE);
+> +        printk("%pd failed to setup I/O bitmap: %d\n", d, rc);
+> +        goto fail1;
+>      }
+> -    else
+> -        d->arch.hvm.io_bitmap = hvm_io_bitmap;
+>  
+>      register_g2m_portio_handler(d);
+>      register_vpci_portio_handler(d);
+> @@ -684,6 +661,8 @@ int hvm_domain_initialise(struct domain *d,
+>          break;
+>      }
+>  
+> +    BUG_ON(!d->arch.ioport_caps);
+> +
+>      vpic_init(d);
+>  
+>      rc = vioapic_init(d);
+> diff --git a/xen/arch/x86/hvm/nestedhvm.c b/xen/arch/x86/hvm/nestedhvm.c
+> index bddd77d8109b..d4e03123d910 100644
+> --- a/xen/arch/x86/hvm/nestedhvm.c
+> +++ b/xen/arch/x86/hvm/nestedhvm.c
+> @@ -107,7 +107,7 @@ nestedhvm_vmcx_flushtlb(struct p2m_domain *p2m)
+>   * The users of the bitmap patterns are in SVM/VMX specific code.
+>   *
+>   * bitmap        port 0x80  port 0xed
+> - * hvm_io_bitmap cleared    cleared
+> + * hvm.io_bitmap cleared    cleared
+>   * iomap[0]      cleared    set
+>   * iomap[1]      set        cleared
+>   * iomap[2]      set        set
+> @@ -115,7 +115,7 @@ nestedhvm_vmcx_flushtlb(struct p2m_domain *p2m)
+>  
+>  static int __init cf_check nestedhvm_setup(void)
+>  {
+> -    /* Same format and size as hvm_io_bitmap (Intel needs only 2 pages). */
+> +    /* Same format and size as hvm.io_bitmap (Intel needs only 2 pages). */
+>      unsigned nr = cpu_has_vmx ? 2 : 3;
+>      unsigned int i, order = get_order_from_pages(nr);
+>  
+> @@ -165,7 +165,7 @@ static int __init cf_check nestedhvm_setup(void)
+>  __initcall(nestedhvm_setup);
+>  
+>  unsigned long *
+> -nestedhvm_vcpu_iomap_get(bool ioport_80, bool ioport_ed)
+> +nestedhvm_vcpu_iomap_get(struct vcpu *v, bool ioport_80, bool ioport_ed)
+>  {
+>      int i;
+>  
+> @@ -174,7 +174,7 @@ nestedhvm_vcpu_iomap_get(bool ioport_80, bool ioport_ed)
+>  
+>      if (ioport_80 == 0) {
+>          if (ioport_ed == 0)
+> -            return hvm_io_bitmap;
+> +            return v->domain->arch.hvm.io_bitmap;
+>          i = 0;
+>      } else {
+>          if (ioport_ed == 0)
+> diff --git a/xen/arch/x86/hvm/quirks.c b/xen/arch/x86/hvm/quirks.c
+> index 9202f5a47fe9..f4d95441fcff 100644
+> --- a/xen/arch/x86/hvm/quirks.c
+> +++ b/xen/arch/x86/hvm/quirks.c
+> @@ -73,9 +73,6 @@ static int __init cf_check check_port80(void)
+>  
+>      dmi_check_system(hvm_no_port80_dmi_table);
+>  
+> -    if ( !hvm_port80_allowed )
+> -        __set_bit(0x80, hvm_io_bitmap);
+> -
+>      return 0;
+>  }
+>  __initcall(check_port80);
+> diff --git a/xen/arch/x86/hvm/svm/nestedsvm.c b/xen/arch/x86/hvm/svm/nestedsvm.c
+> index dc2b6a42534a..cc8500b61665 100644
+> --- a/xen/arch/x86/hvm/svm/nestedsvm.c
+> +++ b/xen/arch/x86/hvm/svm/nestedsvm.c
+> @@ -381,7 +381,7 @@ static int nsvm_vmrun_permissionmap(struct vcpu *v, bool viopm)
+>          hvm_unmap_guest_frame(ns_viomap, 0);
+>      }
+>  
+> -    svm->ns_iomap = nestedhvm_vcpu_iomap_get(ioport_80, ioport_ed);
+> +    svm->ns_iomap = nestedhvm_vcpu_iomap_get(v, ioport_80, ioport_ed);
+>  
+>      nv->nv_ioport80 = ioport_80;
+>      nv->nv_ioportED = ioport_ed;
+> diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
+> index e4f3a5fe4c71..4da3e6e90e6c 100644
+> --- a/xen/arch/x86/hvm/vmx/vvmx.c
+> +++ b/xen/arch/x86/hvm/vmx/vvmx.c
+> @@ -554,7 +554,7 @@ unsigned long *_shadow_io_bitmap(struct vcpu *v)
+>      port80 = bitmap[0x80 >> 3] & (1 << (0x80 & 0x7)) ? 1 : 0;
+>      portED = bitmap[0xed >> 3] & (1 << (0xed & 0x7)) ? 1 : 0;
+>  
+> -    return nestedhvm_vcpu_iomap_get(port80, portED);
+> +    return nestedhvm_vcpu_iomap_get(v, port80, portED);
+>  }
+>  
+>  static void update_msrbitmap(struct vcpu *v, uint32_t shadow_ctrl)
+> @@ -622,7 +622,7 @@ void nvmx_update_exec_control(struct vcpu *v, u32 host_cntrl)
+>               * L1 VMM doesn't intercept IO instruction.
+>               * Use host configuration and reset IO_BITMAP
+>               */
+> -            bitmap = hvm_io_bitmap;
+> +            bitmap = v->domain->arch.hvm.io_bitmap;
+>          }
+>          else {
+>              /* use IO bitmap */
+> diff --git a/xen/arch/x86/include/asm/hvm/nestedhvm.h b/xen/arch/x86/include/asm/hvm/nestedhvm.h
+> index ea2c1bc328c7..d691ccb07dd6 100644
+> --- a/xen/arch/x86/include/asm/hvm/nestedhvm.h
+> +++ b/xen/arch/x86/include/asm/hvm/nestedhvm.h
+> @@ -50,7 +50,8 @@ int nestedhvm_hap_nested_page_fault(struct vcpu *v, paddr_t *L2_gpa,
+>                                      struct npfec npfec);
+>  
+>  /* IO permission map */
+> -unsigned long *nestedhvm_vcpu_iomap_get(bool ioport_80, bool ioport_ed);
+> +unsigned long *nestedhvm_vcpu_iomap_get(struct vcpu *v,
+> +                                        bool ioport_80, bool ioport_ed);
+>  
+>  /* Misc */
+>  #define nestedhvm_paging_mode_hap(v) (!!nhvm_vmcx_hap_enabled(v))
+> diff --git a/xen/arch/x86/include/asm/hvm/support.h b/xen/arch/x86/include/asm/hvm/support.h
+> index 2a7ba36af06f..7e36d00cc188 100644
+> --- a/xen/arch/x86/include/asm/hvm/support.h
+> +++ b/xen/arch/x86/include/asm/hvm/support.h
+> @@ -41,8 +41,6 @@ extern unsigned int opt_hvm_debug_level;
+>  #define HVM_DBG_LOG(level, _f, _a...) do {} while (0)
+>  #endif
+>  
+> -extern unsigned long hvm_io_bitmap[];
+> -
+>  enum hvm_translation_result {
+>      HVMTRANS_okay,
+>      HVMTRANS_bad_linear_to_gfn,
+> diff --git a/xen/arch/x86/include/asm/iocap.h b/xen/arch/x86/include/asm/iocap.h
+> index f948b7186e95..1083f6171cf7 100644
+> --- a/xen/arch/x86/include/asm/iocap.h
+> +++ b/xen/arch/x86/include/asm/iocap.h
+> @@ -22,6 +22,8 @@
+>  #define cache_flush_permitted(d) \
+>      (has_arch_io_resources(d) || has_arch_pdevs(d))
+>  
+> +int ioports_setup_access(struct domain *d);
+> +
+>  static inline int ioports_permit_access(struct domain *d, unsigned long s,
+>                                          unsigned long e)
+>  {
+> diff --git a/xen/arch/x86/ioport.c b/xen/arch/x86/ioport.c
+> new file mode 100644
+> index 000000000000..dbcd52d37a4f
+> --- /dev/null
+> +++ b/xen/arch/x86/ioport.c
+> @@ -0,0 +1,163 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Guest I/O port address space configuration.
+> + *
+> + * Copyright 2025 Ford Motor Company
+> + */
+> +
+> +#include <xen/domain.h>
+> +#include <xen/param.h>
+> +
+> +#include <asm/amd.h>
+> +#include <asm/acpi.h>
+> +#include <asm/io-ports.h>
+> +#include <asm/iocap.h>
+> +#include <asm/pv/shim.h>
+> +#include <asm/setup.h>
+> +
+> +static char __initdata opt_dom0_ioports_disable[200] = "";
+> +string_param("dom0_ioports_disable", opt_dom0_ioports_disable);
+> +
+> +/*
+> + * The I/O permission bitmap size.
+> + * See: comment in nestedhvm_setup()
+> + */
+> +#define HVM_IOBITMAP_SIZE (3 * PAGE_SIZE)
+> +
+> +/* Hide user-defined I/O ports from the guest OS. */
+> +static void process_dom0_ioports_disable(struct domain *dom0)
+> +{
+> +    unsigned long io_from, io_to;
+> +    char *t, *s = opt_dom0_ioports_disable;
+> +    const char *u;
+> +
+> +    if ( *s == '\0' )
+> +        return;
+> +
+> +    while ( (t = strsep(&s, ",")) != NULL )
+> +    {
+> +        io_from = simple_strtoul(t, &u, 16);
+> +        if ( u == t )
+> +        {
+> +        parse_error:
+> +            printk("Invalid ioport range <%s> "
+> +                   "in dom0_ioports_disable, skipping\n", t);
+> +            continue;
+> +        }
+> +
+> +        if ( *u == '\0' )
+> +            io_to = io_from;
+> +        else if ( *u == '-' )
+> +            io_to = simple_strtoul(u + 1, &u, 16);
+> +        else
+> +            goto parse_error;
+> +
+> +        if ( (*u != '\0') || (io_to < io_from) || (io_to >= 65536) )
+> +            goto parse_error;
+> +
+> +        printk("Disabling dom0 access to ioport range %04lx-%04lx\n",
+> +            io_from, io_to);
+> +
+> +        if ( ioports_deny_access(dom0, io_from, io_to) != 0 )
+> +            BUG();
+> +    }
+> +}
+> +
+> +/* Set the default IO Bitmap. */
+> +int ioports_setup_access(struct domain *d)
+> +{
+> +    unsigned int i, offs;
+> +    int rc;
+> +
+> +    if ( pv_shim )
+> +        return 0;
+> +
+> +#ifdef CONFIG_HVM
+> +    d->arch.hvm.io_bitmap = _xmalloc(HVM_IOBITMAP_SIZE, PAGE_SIZE);
+> +    if ( d->arch.hvm.io_bitmap == NULL )
+> +        return -ENOMEM;
+> +
+> +    memset(d->arch.hvm.io_bitmap, ~0, HVM_IOBITMAP_SIZE);
+> +
+> +    if ( !is_hardware_domain(d) )
+> +    {
+> +        /*
+> +         * Allow direct access to the PC debug ports 0x80 and 0xed (they are
+> +         * often used for I/O delays, but the vmexits simply slow things down).
+> +         */
+> +        if ( hvm_port80_allowed )
+> +            __clear_bit(0x80, d->arch.hvm.io_bitmap);
+> +
+> +        __clear_bit(0xed, d->arch.hvm.io_bitmap);
+> +
+> +        return 0;
+> +    }
+> +#endif
+> +
+> +    /* The hardware domain is initially permitted full I/O capabilities. */
+> +    rc = ioports_permit_access(d, 0, 0xFFFF);
+> +
+> +    /* Modify I/O port access permissions. */
+> +
+> +    for ( offs = 0, i = ISOLATE_LSB(i8259A_alias_mask) ?: 2;
+> +          offs <= i8259A_alias_mask; offs += i )
+> +    {
+> +        if ( offs & ~i8259A_alias_mask )
+> +            continue;
+> +        /* Master Interrupt Controller (PIC). */
+> +        rc |= ioports_deny_access(d, 0x20 + offs, 0x21 + offs);
+> +        /* Slave Interrupt Controller (PIC). */
+> +        rc |= ioports_deny_access(d, 0xA0 + offs, 0xA1 + offs);
+> +    }
+> +
+> +    /* ELCR of both PICs. */
+> +    rc |= ioports_deny_access(d, 0x4D0, 0x4D1);
+> +
+> +    /* Interval Timer (PIT). */
+> +    for ( offs = 0, i = ISOLATE_LSB(pit_alias_mask) ?: 4;
+> +          offs <= pit_alias_mask; offs += i )
+> +        if ( !(offs & ~pit_alias_mask) )
+> +            rc |= ioports_deny_access(d, PIT_CH0 + offs, PIT_MODE + offs);
+> +
+> +    /* PIT Channel 2 / PC Speaker Control. */
+> +    rc |= ioports_deny_access(d, 0x61, 0x61);
+> +
+> +    /* INIT# and alternative A20M# control. */
+> +    rc |= ioports_deny_access(d, 0x92, 0x92);
+> +
+> +    /* IGNNE# control. */
+> +    rc |= ioports_deny_access(d, 0xF0, 0xF0);
+> +
+> +    /* ACPI PM Timer. */
+> +    if ( pmtmr_ioport )
+> +        rc |= ioports_deny_access(d, pmtmr_ioport, pmtmr_ioport + 3);
+> +
+> +    /* Reset control. */
+> +    rc |= ioports_deny_access(d, 0xCF9, 0xCF9);
+> +
+> +    /* PCI configuration space (NB. 0xCF8 has special treatment). */
+> +    rc |= ioports_deny_access(d, 0xCFC, 0xCFF);
+> +
+> +#ifdef CONFIG_HVM
+> +    if ( is_hvm_domain(d) )
+> +    {
+> +        /* ISA DMA controller, channels 0-3 (incl possible aliases). */
+> +        rc |= ioports_deny_access(d, 0x00, 0x1F);
+> +        /* ISA DMA controller, page registers (incl various reserved ones). */
+> +        rc |= ioports_deny_access(d, 0x80 + !!hvm_port80_allowed, 0x8F);
+> +        /* ISA DMA controller, channels 4-7 (incl usual aliases). */
+> +        rc |= ioports_deny_access(d, 0xC0, 0xDF);
+> +
+> +        /* HVM debug console IO port. */
+> +        rc |= ioports_deny_access(d, XEN_HVM_DEBUGCONS_IOPORT,
+> +                                  XEN_HVM_DEBUGCONS_IOPORT);
+> +        if ( amd_acpi_c1e_quirk )
+> +            rc |= ioports_deny_access(d, acpi_smi_cmd, acpi_smi_cmd);
+> +    }
+> +#endif
+> +
+> +    /* Command-line I/O ranges. */
+> +    process_dom0_ioports_disable(d);
+> +
+> +    return rc;
+> +}
+> diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
+> index 21158ce1812e..2b8b4d869ee7 100644
+> --- a/xen/arch/x86/pv/dom0_build.c
+> +++ b/xen/arch/x86/pv/dom0_build.c
+> @@ -17,6 +17,7 @@
+>  #include <asm/bootinfo.h>
+>  #include <asm/bzimage.h>
+>  #include <asm/dom0_build.h>
+> +#include <asm/iocap.h>
+>  #include <asm/guest.h>
+>  #include <asm/page.h>
+>  #include <asm/pv/mm.h>
+> @@ -1033,6 +1034,9 @@ static int __init dom0_construct(const struct boot_domain *bd)
+>      if ( test_bit(XENFEAT_supervisor_mode_kernel, parms.f_required) )
+>          panic("Dom0 requires supervisor-mode execution\n");
+>  
+> +    rc = ioports_setup_access(d);
+> +    BUG_ON(rc != 0);
+> +
+>      rc = dom0_setup_permissions(d);
+>      BUG_ON(rc != 0);
+>  
+> diff --git a/xen/common/emul/vuart/ns16x50.c b/xen/common/emul/vuart/ns16x50.c
+> index 5c1be854b544..8860f25ffdeb 100644
+> --- a/xen/common/emul/vuart/ns16x50.c
+> +++ b/xen/common/emul/vuart/ns16x50.c
+> @@ -780,9 +780,20 @@ static int ns16x50_init(void *arg)
+>      struct vuart_ns16x50 *vdev = arg;
+>      const struct vuart_info *info = vdev->info;
+>      struct domain *d = vdev->owner;
+> +    int rc;
+>  
+>      ASSERT(vdev);
+>  
+> +    /* Disallow sharing physical I/O port */
+> +    rc = ioports_deny_access(d, info->base_addr,
+> +                             info->base_addr + info->size - 1);
 
-    if f not in seen:
+I would be tempted to move ioports_deny_access to hvm_domain_initialise
+before vuart_init
 
-But this will be a simpler patch if you do:
 
-    if f in seen:
-        continue
+> +    if ( rc )
+> +    {
+> +        ns16x50_err(info, " virtual I/O port range [0x%04lx"PRIx64"..0x%04lx"PRIx64"]: conflict w/ physical range\n",
+> +                    info->base_addr, info->base_addr + info->size - 1);
 
-and don't change the indentation of of seen.append()
+0x%04lx"PRIx64 seems wrong
 
-After this fix goes in, and now because the order is less relevant, I
-probably ought to rewrite this to use sets rather than lists.  I have a
-suspicion it can be done better than one-at-a-time; all that matters if
-we don't see a repeat feature in deps.  We don't need to check the
-feature bits outside of deps because they're (by definition) leaf values.
 
-~Andrew
+> +        return rc;
+> +    }
+> +
+>      /* NB: report 115200 baud rate. */
+>      vdev->regs[NS16X50_REGS_NUM + UART_DLL] = divisor & 0xff;
+>      vdev->regs[NS16X50_REGS_NUM + UART_DLM] = (divisor >> 8) & 0xff;
+> -- 
+> 2.51.0
+> 
 
