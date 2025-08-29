@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34172B3B9A7
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 13:05:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1101147.1454331 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26594B3B9AA
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 13:06:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1101157.1454342 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urwuV-00041A-Td; Fri, 29 Aug 2025 11:04:47 +0000
+	id 1urww3-0004Y0-7m; Fri, 29 Aug 2025 11:06:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1101147.1454331; Fri, 29 Aug 2025 11:04:47 +0000
+Received: by outflank-mailman (output) from mailman id 1101157.1454342; Fri, 29 Aug 2025 11:06:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urwuV-0003yT-Qo; Fri, 29 Aug 2025 11:04:47 +0000
-Received: by outflank-mailman (input) for mailman id 1101147;
- Fri, 29 Aug 2025 11:04:46 +0000
+	id 1urww3-0004VP-4h; Fri, 29 Aug 2025 11:06:23 +0000
+Received: by outflank-mailman (input) for mailman id 1101157;
+ Fri, 29 Aug 2025 11:06:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KOV5=3J=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1urwuU-0003yM-AM
- for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 11:04:46 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
+ <SRS0=oFyT=3J=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1urww1-0004VF-Ur
+ for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 11:06:21 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f80a6118-84c7-11f0-8dd7-1b34d833f44b;
- Fri, 29 Aug 2025 13:04:44 +0200 (CEST)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-55f6bb0a364so267032e87.1
- for <xen-devel@lists.xenproject.org>; Fri, 29 Aug 2025 04:04:44 -0700 (PDT)
+ id 306ef816-84c8-11f0-8dd7-1b34d833f44b;
+ Fri, 29 Aug 2025 13:06:19 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3b9edf4cf6cso1466301f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Aug 2025 04:06:19 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-3cf270fc496sm3019291f8f.1.2025.08.29.04.06.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 29 Aug 2025 04:06:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,113 +45,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f80a6118-84c7-11f0-8dd7-1b34d833f44b
+X-Inumbo-ID: 306ef816-84c8-11f0-8dd7-1b34d833f44b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756465484; x=1757070284; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WmrKHFuXUHrXn6eMcd/8iIVPBWBFay1HmzkMDB6h11g=;
-        b=W9Pbgb3R2ScOgjWBOi1Q/zuXo0pj34uyO+ub8SO6pON0JAP9mXOkyOQdRvhM/WfL0q
-         5pl1byv35//INOOVk5wiAYYldij6maQdmsnUNOMFrag5jb0dQ63CWYB8N/TEFluVZaA/
-         ooPgUvTe7QNqmSfOPAZPlGZ/evrHJImerPgHxIme9aQYtDYuqFgtVVcyk2qYFERWdI3c
-         GEf8LuKgVj7HN0pQlkTXRh2+mS4ZsKx6dxJUwUr2sVvhv+TQMenVQNKJHBPLW0IwsAG6
-         yRV3LTeVb+cCNDbJVQkm5DeZXKgPzj2kEYMkUwDWJ266CfUPXyOM9p0jkoN1RfSHlqkq
-         xtpQ==
+        d=citrix.com; s=google; t=1756465578; x=1757070378; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=hcwRWB/9BpbjD3X6u70BXXhc1Td4AaYAR/fiojSuyjM=;
+        b=p9z9L1LplN3Bv1sdmSPPKYJWGX9bbduGQ/5xDpVpgrfS8I50B77QGpvB44CaJLmBIq
+         maV2vjyc44zQspzjA6uIQXhstK2T+iixdLFAfwRyA2gsyQX0yGFnvgDKHtAyfmEUjYwE
+         FmE23cRqwxUfulI7xWkDsi4ZF7bBMPYFTkRoE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756465484; x=1757070284;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=WmrKHFuXUHrXn6eMcd/8iIVPBWBFay1HmzkMDB6h11g=;
-        b=Ch74E18le6OrYgf7fiS7pTKIlFQFn00HohwZa0GK26NBVP0L9TCvqQyT4MJVgROe2J
-         iUfT1wumX2JkCVwnZwqQLWCq213yVybgEhBtycOw0LQ9d1TXZYuMhQQptSgL3Ekec27U
-         6wgHMC7npojuTmasGxzlhmr/PXreoHXenDJ6Gw+AXZFp44XvMtIDUaRYXNJhfxHGSz6C
-         FO1zJfmwUwb6etcgh5vhW9oxZqRUvU9UlgSPcGxrktB2zM1v9IDMzAnjUl5vze9FlKK3
-         djT0dLL8hNqyWe5DMlSwg+U542A6TQoiNrbzvdsShAdT1ILCDB0pL5O20pw9/AmPTB3b
-         QSMg==
-X-Forwarded-Encrypted: i=1; AJvYcCX3pnaPm9lHjOAdHKOam2LPraBYtUXULefW/33KSUnwgv4+j3wYpwvZiQmnwG/kp5iXL99Ac2B9r9c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyvYSA5BBL0maXswXenmxBQgxSlqAALR6fQz2YHLU2h1ER07rBd
-	/aIHW6G9NyqRTcHyFNESflNT3PtBCr9A/+ni6mYUlLRC+EFhtcoJrE2XDY4LPeFJdtvC+YnmMYT
-	3EGvIYfaS9atyqpcScG9JSn6r7YybnaE=
-X-Gm-Gg: ASbGncuqstzGXKbXXCD3jd/hOnTeGaAQ3Wwv6M2mbGCOzzoTFq4RXkvlsF+GEnBFxNO
-	1CFRDJ+zexSa1v8U4rKStRjs9X4GRkxAPDSUgmdg/Qt8ZSaZ6zc0NBJSo0ivHn+XQHiIyefOdEM
-	RQuU1Yszw5Ofp3P12wvy+f/RVrWAaBNm6Aj8hd1Lqh3ilmEOGCq7ui/szo6DAVXMNh22otU6DOw
-	rEOYQVGbDjGIKkj
-X-Google-Smtp-Source: AGHT+IHrEGSheasBxSt4opdNQGrb7AmGzHLDA5dyw+a2+Qi16tW5Azo3tsedTJ7OCo2d0avT+p23VHjhUfZ+UuM4GGU=
-X-Received: by 2002:a05:6512:400b:b0:55f:4f39:3584 with SMTP id
- 2adb3069b0e04-55f4f39377bmr3737132e87.50.1756465483393; Fri, 29 Aug 2025
- 04:04:43 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1756465578; x=1757070378;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=hcwRWB/9BpbjD3X6u70BXXhc1Td4AaYAR/fiojSuyjM=;
+        b=VJCgwxOBqDSAbo2f5LQDHlhzgEelNCmCTcyrCXCtnTYnQDrvpr+AunlOjyrCN8v/OD
+         ELaHrcBLQ9BSz8dA0AuPDpCd9llxMOqKWXuKl3zcMx6NQnOlgs11KQiIeG4Z7POmeFSD
+         AHYIsFqNU4TN+1bLOyx1cjNWzlmI1Io/vEqty52lXDXhR2kzxjqyNYPXi7diayfHUJkk
+         HbA2NLQtzOPimNaFt3qYAYvQIBYOD47YBhp/tI2P6Oki7BCro1Cwy8UzosoIF37eLd0O
+         Xc5ouaJAfzADRFjDjZGab4nGCGMxN/F5qkPIjY0sTj/gHMgAfz3EzxAnrXqPrir3ZktQ
+         beYg==
+X-Gm-Message-State: AOJu0YyjoMwB+zytquLVfq2gI7T+/LxS4rz42Qkz9GexZwfgG8c0gXQh
+	V62eNqOK+iYnHIFU75lueUlo5vkch7iNENRCQnIj41kCegsoMWFDzvOCOULADM4aJrs=
+X-Gm-Gg: ASbGncvNAnE7Z6lB7U6wHwTVl9X0Z63WxBQptCd3guY0ZkmKe7iGAJX03Zc6Cf5Fdsm
+	GqOzswF0m16tMauQwPo6eA0cjnxQbq+9xSwfGX2+GzirKJa0EwzWDMAZcPcyqwoFSSt6AaVwH16
+	ZYEkcvGNu8bXfoUhMZ1sss+L9124Kx6oLAskpKZApKSzLNR9j+G6+UrWfht7H68B1mIjkhNv1J3
+	ar7bH/AGXSzy5pFUl+DPrmVKOeFcE5f6HwgnMTLqpIU6Whaje7U/xoyqPF/k9XXS6OJeaN5Z0Ea
+	YRa1yxm1Oip9EVRQADCqbjKWKhEmRtU3BTij0ygrZgntCQFTJy+8Qneqk/poOBwuA6PxOPPaNPq
+	T42IYMIxOvLwuazCAB2/IHsnfb60owKLHNlsT7xY1Neusp3O5fbs+BLjvOoylpUUeFbRBh639LI
+	rf
+X-Google-Smtp-Source: AGHT+IGDOufDl8b/sjhWJqkpdy+KtFmYucEpA/05rTVM3xxg3VK4XCfrZN/5a/QkSteT1Wxny3ph7g==
+X-Received: by 2002:adf:a155:0:b0:3ce:9872:fd3 with SMTP id ffacd0b85a97d-3ce987213dfmr2570104f8f.34.1756465578373;
+        Fri, 29 Aug 2025 04:06:18 -0700 (PDT)
+Date: Fri, 29 Aug 2025 13:06:16 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: xen-devel@lists.xenproject.org, Huang Rui <ray.huang@amd.com>
+Subject: Re: [PATCH v11 5/5] vpci/msix: Implement cleanup function for MSI-X
+Message-ID: <aLGJqMJH46neJYAy@Mac.lan>
+References: <20250808080337.28609-1-Jiqian.Chen@amd.com>
+ <20250808080337.28609-6-Jiqian.Chen@amd.com>
 MIME-Version: 1.0
-References: <cover.1756392094.git.mykola_kvach@epam.com> <bb53d9911b00879c7b25f5258d0e3e48005671f9.1756392094.git.mykola_kvach@epam.com>
- <87ecsvz9sx.fsf@epam.com> <a64cff9f-df5f-467b-a944-74e803c64ab9@suse.com>
-In-Reply-To: <a64cff9f-df5f-467b-a944-74e803c64ab9@suse.com>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Fri, 29 Aug 2025 14:04:32 +0300
-X-Gm-Features: Ac12FXwtlYWHFA-h73bt4nn9uJBhN8C2_ZlCFQPjSAIzvqWkzIg9mPXxEEQPlqc
-Message-ID: <CAGeoDV8Jz6gEh-uHuWb0sM_XNTOayAxqRW=Z4GajpP-eMRA4kw@mail.gmail.com>
-Subject: Re: [PATCH v11 1/4] xen/arm: Implement PSCI SYSTEM_SUSPEND call for guests
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Julien Grall <julien@xen.org>, Anthony PERARD <anthony.perard@vates.tech>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola Kvach <Mykola_Kvach@epam.com>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
-	Shawn Anastasio <sanastasio@raptorengineering.com>, 
-	Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, 
-	Connor Davis <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250808080337.28609-6-Jiqian.Chen@amd.com>
 
-Hi Jan,
+On Fri, Aug 08, 2025 at 04:03:37PM +0800, Jiqian Chen wrote:
+> When MSI-X initialization fails, vPCI hides the capability, but
+> removing handlers and datas won't be performed until the device is
+> deassigned. So, implement MSI-X cleanup hook that will be called
+> to cleanup MSI-X related handlers and free it's associated data when
+> initialization fails.
+> 
+> Since cleanup function of MSI-X is implemented, delete the open-code
+> in vpci_deassign_device().
+> 
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> ---
+> cc: "Roger Pau Monné" <roger.pau@citrix.com>
+> ---
+> v10->v11 changes:
+> * Move calling all cleanup hook in vpci_deassign_device() out of this patch.
+> * Add hide parameter to cleanup_msix().
+> * Check hide, if it is false, return directly instead of letting ctrl RO.
+> 
+> v9->v10 changes:
+> * Call all cleanup hook in vpci_deassign_device() instead of cleanup_msix().
+> 
+> v8->v9 changes:
+> * Modify commit message.
+> * Call cleanup_msix() in vpci_deassign_device() to remove the open-code to cleanup msix datas.
+> * In cleanup_msix(), move "list_del(&vpci->msix->next);" above for loop of iounmap msix tables.
+> 
+> v7->v8 changes:
+> * Given the code in vpci_remove_registers() an error in the removal of
+>   registers would likely imply memory corruption, at which point it's
+>   best to fully disable the device. So, Rollback the last two modifications of v7.
+> 
+> v6->v7 changes:
+> * Change the pointer parameter of cleanup_msix() to be const.
+> * When vpci_remove_registers() in cleanup_msix() fails, not to return
+>   directly, instead try to free msix and re-add ctrl handler.
+> * Pass pdev->vpci into vpci_add_register() instead of pdev->vpci->msix in
+>   init_msix() since we need that every handler realize that msix is NULL
+>   when msix is freed but handlers are still in there.
+> 
+> v5->v6 changes:
+> * Change the logic to add dummy handler when !vpci->msix in cleanup_msix().
+> 
+> v4->v5 changes:
+> * Change definition "static void cleanup_msix" to "static int cf_check cleanup_msix"
+>   since cleanup hook is changed to be int.
+> * Add a read-only register for MSIX Control Register in the end of cleanup_msix().
+> 
+> v3->v4 changes:
+> * Change function name from fini_msix() to cleanup_msix().
+> * Change to use XFREE to free vpci->msix.
+> * In cleanup function, change the sequence of check and remove action according to
+>   init_msix().
+> 
+> v2->v3 changes:
+> * Remove unnecessary clean operations in fini_msix().
+> 
+> v1->v2 changes:
+> new patch.
+> 
+> Best regards,
+> Jiqian Chen.
+> ---
+>  xen/drivers/vpci/msix.c | 47 ++++++++++++++++++++++++++++++++++++++++-
+>  xen/drivers/vpci/vpci.c |  8 -------
+>  2 files changed, 46 insertions(+), 9 deletions(-)
+> 
+> diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
+> index 54a5070733aa..287aafda9157 100644
+> --- a/xen/drivers/vpci/msix.c
+> +++ b/xen/drivers/vpci/msix.c
+> @@ -655,6 +655,51 @@ int vpci_make_msix_hole(const struct pci_dev *pdev)
+>      return 0;
+>  }
+>  
+> +static int cf_check cleanup_msix(const struct pci_dev *pdev, bool hide)
+> +{
+> +    int rc;
+> +    struct vpci *vpci = pdev->vpci;
+> +    const unsigned int msix_pos = pdev->msix_pos;
+> +
+> +    if ( !msix_pos )
+> +        return 0;
 
-On Fri, Aug 29, 2025 at 10:45=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wr=
-ote:
->
-> On 28.08.2025 18:32, Volodymyr Babchuk wrote:
-> > Mykola Kvach <xakep.amatop@gmail.com> writes:
-> >> @@ -880,6 +883,25 @@ void arch_domain_creation_finished(struct domain =
-*d)
-> >>      p2m_domain_creation_finished(d);
-> >>  }
-> >>
-> >> +int arch_domain_resume(struct domain *d)
-> >> +{
-> >> +    int rc;
-> >> +    typeof(d->arch.resume_ctx) *ctx =3D &d->arch.resume_ctx;
-> >> +
-> >> +    if ( !d->is_shutting_down || d->shutdown_code !=3D SHUTDOWN_suspe=
-nd )
-> >> +    {
-> >> +        dprintk(XENLOG_WARNING,
-> >> +                "%pd: Invalid domain state for resume: is_shutting_do=
-wn=3D%d, shutdown_code=3D%d\n",
-> >> +                d, d->is_shutting_down, d->shutdown_code);
-> >> +        return -EINVAL;
-> >> +    }
-> >
-> > This check probably can go into common domain_resume() function, as
-> > there is nothing arch-specific in here. Probably this can be done durin=
-g
-> > commit, to save us from v12? If commiters are okay with this.
->
-> Seeing this, I'm learning that ->is_shutting_down can actually go from
-> true to false. Which I think is a problem (not of this series, but a pre-
-> existing one, see [1]). Code elsewhere assumes this to not be possible,
-> see e.g. __domain_crash(), but I'm also unconvinced that e.g. the shutdow=
-n
-> deferral logic is prepared to deal with such a case.
+Like with the MSI capability, is it possible to get called and
+pdev->msix_pos be 0?
 
-Should I add an extra patch to this series just for fixing this issue,
-or can I do it within the scope of this one?
+I would also avoid the call to vpci_remove_registers() if !hide, I
+think you can change the order of the cleanup, so it's:
 
->
-> Jan
->
-> [1] e105919b0120 ("Add resumedomain domctl to resume a domain after check=
-point")
+if ( vpci->msix )
+{
+    list_del(&vpci->msix->next);
+    for ( unsigned int i = 0; i < ARRAY_SIZE(vpci->msix->table); i++ )
+        if ( vpci->msix->table[i] )
+            iounmap(vpci->msix->table[i]);
 
-Best regards,
-Mykola
+    XFREE(vpci->msix);
+}
+
+if ( !hide )
+    return 0;
+
+rc = vpci_remove_registers(vpci, msix_control_reg(msix_pos), 2);
+...
+
+Thanks, Roger.
 
