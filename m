@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26594B3B9AA
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 13:06:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1101157.1454342 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D75D2B3B9FB
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 13:34:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1101180.1454353 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urww3-0004Y0-7m; Fri, 29 Aug 2025 11:06:23 +0000
+	id 1urxMO-0000PP-Ai; Fri, 29 Aug 2025 11:33:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1101157.1454342; Fri, 29 Aug 2025 11:06:23 +0000
+Received: by outflank-mailman (output) from mailman id 1101180.1454353; Fri, 29 Aug 2025 11:33:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urww3-0004VP-4h; Fri, 29 Aug 2025 11:06:23 +0000
-Received: by outflank-mailman (input) for mailman id 1101157;
- Fri, 29 Aug 2025 11:06:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1urxMO-0000MF-6B; Fri, 29 Aug 2025 11:33:36 +0000
+Received: by outflank-mailman (input) for mailman id 1101180;
+ Fri, 29 Aug 2025 11:33:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oFyT=3J=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1urww1-0004VF-Ur
- for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 11:06:21 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 306ef816-84c8-11f0-8dd7-1b34d833f44b;
- Fri, 29 Aug 2025 13:06:19 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3b9edf4cf6cso1466301f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 29 Aug 2025 04:06:19 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3cf270fc496sm3019291f8f.1.2025.08.29.04.06.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 Aug 2025 04:06:17 -0700 (PDT)
+ <SRS0=oE33=3J=epam.com=Sergiy_Kibrik@srs-se1.protection.inumbo.net>)
+ id 1urxMM-0000M9-AS
+ for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 11:33:34 +0000
+Received: from AS8PR04CU009.outbound.protection.outlook.com
+ (mail-westeuropeazlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c201::3])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fe6bd54c-84cb-11f0-8adc-4578a1afcccb;
+ Fri, 29 Aug 2025 13:33:33 +0200 (CEST)
+Received: from AS8PR03MB9192.eurprd03.prod.outlook.com (2603:10a6:20b:5c0::11)
+ by DB9PR03MB7322.eurprd03.prod.outlook.com (2603:10a6:10:220::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.15; Fri, 29 Aug
+ 2025 11:33:31 +0000
+Received: from AS8PR03MB9192.eurprd03.prod.outlook.com
+ ([fe80::baa9:29b3:908:ed7d]) by AS8PR03MB9192.eurprd03.prod.outlook.com
+ ([fe80::baa9:29b3:908:ed7d%5]) with mapi id 15.20.9052.014; Fri, 29 Aug 2025
+ 11:33:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,159 +47,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 306ef816-84c8-11f0-8dd7-1b34d833f44b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1756465578; x=1757070378; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=hcwRWB/9BpbjD3X6u70BXXhc1Td4AaYAR/fiojSuyjM=;
-        b=p9z9L1LplN3Bv1sdmSPPKYJWGX9bbduGQ/5xDpVpgrfS8I50B77QGpvB44CaJLmBIq
-         maV2vjyc44zQspzjA6uIQXhstK2T+iixdLFAfwRyA2gsyQX0yGFnvgDKHtAyfmEUjYwE
-         FmE23cRqwxUfulI7xWkDsi4ZF7bBMPYFTkRoE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756465578; x=1757070378;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=hcwRWB/9BpbjD3X6u70BXXhc1Td4AaYAR/fiojSuyjM=;
-        b=VJCgwxOBqDSAbo2f5LQDHlhzgEelNCmCTcyrCXCtnTYnQDrvpr+AunlOjyrCN8v/OD
-         ELaHrcBLQ9BSz8dA0AuPDpCd9llxMOqKWXuKl3zcMx6NQnOlgs11KQiIeG4Z7POmeFSD
-         AHYIsFqNU4TN+1bLOyx1cjNWzlmI1Io/vEqty52lXDXhR2kzxjqyNYPXi7diayfHUJkk
-         HbA2NLQtzOPimNaFt3qYAYvQIBYOD47YBhp/tI2P6Oki7BCro1Cwy8UzosoIF37eLd0O
-         Xc5ouaJAfzADRFjDjZGab4nGCGMxN/F5qkPIjY0sTj/gHMgAfz3EzxAnrXqPrir3ZktQ
-         beYg==
-X-Gm-Message-State: AOJu0YyjoMwB+zytquLVfq2gI7T+/LxS4rz42Qkz9GexZwfgG8c0gXQh
-	V62eNqOK+iYnHIFU75lueUlo5vkch7iNENRCQnIj41kCegsoMWFDzvOCOULADM4aJrs=
-X-Gm-Gg: ASbGncvNAnE7Z6lB7U6wHwTVl9X0Z63WxBQptCd3guY0ZkmKe7iGAJX03Zc6Cf5Fdsm
-	GqOzswF0m16tMauQwPo6eA0cjnxQbq+9xSwfGX2+GzirKJa0EwzWDMAZcPcyqwoFSSt6AaVwH16
-	ZYEkcvGNu8bXfoUhMZ1sss+L9124Kx6oLAskpKZApKSzLNR9j+G6+UrWfht7H68B1mIjkhNv1J3
-	ar7bH/AGXSzy5pFUl+DPrmVKOeFcE5f6HwgnMTLqpIU6Whaje7U/xoyqPF/k9XXS6OJeaN5Z0Ea
-	YRa1yxm1Oip9EVRQADCqbjKWKhEmRtU3BTij0ygrZgntCQFTJy+8Qneqk/poOBwuA6PxOPPaNPq
-	T42IYMIxOvLwuazCAB2/IHsnfb60owKLHNlsT7xY1Neusp3O5fbs+BLjvOoylpUUeFbRBh639LI
-	rf
-X-Google-Smtp-Source: AGHT+IGDOufDl8b/sjhWJqkpdy+KtFmYucEpA/05rTVM3xxg3VK4XCfrZN/5a/QkSteT1Wxny3ph7g==
-X-Received: by 2002:adf:a155:0:b0:3ce:9872:fd3 with SMTP id ffacd0b85a97d-3ce987213dfmr2570104f8f.34.1756465578373;
-        Fri, 29 Aug 2025 04:06:18 -0700 (PDT)
-Date: Fri, 29 Aug 2025 13:06:16 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: xen-devel@lists.xenproject.org, Huang Rui <ray.huang@amd.com>
-Subject: Re: [PATCH v11 5/5] vpci/msix: Implement cleanup function for MSI-X
-Message-ID: <aLGJqMJH46neJYAy@Mac.lan>
-References: <20250808080337.28609-1-Jiqian.Chen@amd.com>
- <20250808080337.28609-6-Jiqian.Chen@amd.com>
+X-Inumbo-ID: fe6bd54c-84cb-11f0-8adc-4578a1afcccb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TUSMpMABNOFNYRECkpDCfWU6WuNbuDZvrl2HOXuGEjYP7wnKtlN2RyAAoe/XXsqKgYa89J8C5PSrUp9gIBd7QeaFPBo8z8ID5YuOH6KEtVDGPdrqLTtrcV3qexoRNKg7MD3RZFA/eoSWPbHsYpsMZFWxC9r/NmWx508ZTlRMJ9nZmNTNzj/iKxJA5fBzVQ8b5BmE+0uwRpam4n1Jg8Ygt75IMvit6/YELQWLK0Ra2FzZLS3Nqzqpoxw3c0EIjsV2XHyM50BlGyRbD/LpWd+OMIQe5R3BK1uUuNOS2kQWOOhwrFEX0bV9YciK3IsGqd4n2kE3XALVSQeaoUA56M2SkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Cu5gAfnYkpQbwWuB5nlZDeH0TzXsI0/gEp1DAt75ReI=;
+ b=cNa/sJ0GThWfWuRXC6zDyOodsu4TKeiUJI6t+vcLomj1ndSRtQQWuUiqzEOj3fXs/wILXGt8kPDbJg7rfG40/yEwYqY5FQt7R9WeIZF8ShCL1AfqCskzJs8Immug0uTrk6vULc7qC9lmTj/wH29ctA0rBD8s7MoWbYnmJLkwAv1BQvoSOV6RQlWRr6m6l+OCsoNMVsjXnnpQ/unHZoU3/K+OSTZ8c7bREviS6GJ/bsZYXL0U6u6rgesoYlJb3vHPxhcQc55ZBwMJkL2UbSkMBT8lztYXZToV17rDIfDXt0O3LoOtz922K9eR5GO6Quz+VK4A5xOk/3ZEISA0lrF2bA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Cu5gAfnYkpQbwWuB5nlZDeH0TzXsI0/gEp1DAt75ReI=;
+ b=PkeJcBuqUrQy9KhpHK6pUXXCLiCIgfwzAmMfwNsXCDUiadfZv6a/fY/zOIffwel+l3K6BPu58yHzOKeeB9RxvtbmKNnb5IFwVdR0nlW0dJN3rFdCUwGVlVLDXN7vUYlDnRPW+5A2girB2zUuOs4p8Hl0f5JIfN4YbzFmKgQEHgw/fMBL6Trc2S4QmIQiJicmQ+joc4bBrwZjUbfuJsXez6SrBmC3C+diAshhLmbfnfymyNgE0qX0syGNlBIX9ZtQBVti+XZm3dGoKEC2hIrHkF7CqTJjt/VNaOxPjReRsiM8rGQqba8KfpZ79rBNQ/EZhx09WEJyCISZWnUD6k7nsw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+Message-ID: <1d34d0ae-f3f3-4b25-ae67-6c4f6be2e2bb@epam.com>
+Date: Fri, 29 Aug 2025 14:33:28 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v1] xen/flask: limit sidtable size
+To: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20250822095123.998313-1-Sergiy_Kibrik@epam.com>
+ <1797679c-582f-4b75-a036-ad3bb00bad4d@suse.com>
+Content-Language: en-US
+From: Sergiy Kibrik <sergiy_kibrik@epam.com>
+In-Reply-To: <1797679c-582f-4b75-a036-ad3bb00bad4d@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: WA2P291CA0005.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d0:1e::11) To AS8PR03MB9192.eurprd03.prod.outlook.com
+ (2603:10a6:20b:5c0::11)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250808080337.28609-6-Jiqian.Chen@amd.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8PR03MB9192:EE_|DB9PR03MB7322:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0804c0d3-2612-483a-ef98-08dde6efe12a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?NVpJNkY5QjBlOHQ0eUNjNnNOelgwMElHaFhNU0ZFWVd0d1MzTGEzdDZQZjhI?=
+ =?utf-8?B?YUt4V1cxWE9CQUtjNkVNM1hBTVBlaFRua1dkSUpOT1lPbStJSlI3RFpwdnZM?=
+ =?utf-8?B?NGpkT21JZDBJOVRpcU5zdkFyRkdlVlQxYXJLWjMxZUdiZWh1SnBxMHVJQVl0?=
+ =?utf-8?B?bmJZZktzTUdGa1oranc0V2FGdFpKZ0NZWUVGZDBTVVJtS09JVDk5UDc3TXdv?=
+ =?utf-8?B?NGpPL1dHMG1wQ0NRNk5IWG9rUlE0azJrZzlBaGFmL25seVM2WlZOSTNiSC9X?=
+ =?utf-8?B?OGlOK0IvU0xScXZwU2lod1A4YzBHU2RScUpIb1NiaFkwR1NXb0VOa1RpSG1a?=
+ =?utf-8?B?ZDRFTjBNckJmYjNTNlRnSGlaUXZyUFRrLzN1UDhENDhmN1UrVWlCWmRkWFRp?=
+ =?utf-8?B?R1dIQjFIVkhCL01wVng5K2Iwcmp5eDFLODNDTUhCYktYeHNITmhjNExjWnJG?=
+ =?utf-8?B?czVsR3JJTlFsL1NFem1BNHhxL1NSdUFpTlV3VEdqME1Xalp6dXNTcjJ0N3FV?=
+ =?utf-8?B?YnE3dkU4dWJXcjBLcWpPbW9wbzdRR2tXSlcyR0dZMGJUWFp6ejNJUVBhQUhK?=
+ =?utf-8?B?Q1JscE9IeWl4V1lXSGl2RG04cjRzOXJKTkpPQWErbzJlWXpqYkZqdE5BMmNC?=
+ =?utf-8?B?TFVxMTBtSEk1eHlHZEZrU1Jqa25QTzBoeFdSWXIyTytBVmJVODRKRmFtaHpo?=
+ =?utf-8?B?aHJkZ2FEZmZ2RU9Wa1NKYm9leE82ZnUwdXpOdDIySlN1RXZTMnRYWjRYNjZE?=
+ =?utf-8?B?VmNIbmIvVEFSdENPRkVRVUQ5QURBZnJSZnVHcGtiSDNNSEFlby9Nc0N1b0tE?=
+ =?utf-8?B?MzMrZklWRjhycnA5SVpKcTg2L0tlRFg5NFBzZTVobStzc2RmUHpOUjJya3p5?=
+ =?utf-8?B?K0VOMlg2RDg5bS80bE5zS01WRFBXNC9YdGovN3Yzc3V1V2xLcTJuMm5OY3BX?=
+ =?utf-8?B?RmR3UXN0TGUzVFNjcUFxSkt5UzErN1FCRmlxVmx6L1FtLzNJSDZUbkFnZEFN?=
+ =?utf-8?B?a3JlVyt4TG1Hb3NJV3YzVjRjSnhMODVJMGdlWnhpQVordWsrb2Z1eTBjOVNz?=
+ =?utf-8?B?U2FQcXNNbnYwbE5mcTlZaWVEOTVyY0VpZ1NKT2xzTHBnRHRCYmMyS3RmMWlS?=
+ =?utf-8?B?Wm40aWpjd1lqYkUrUHJBNExhd1UzNXRsT05sQTczaE0xM2k0U3BBS2JROHZm?=
+ =?utf-8?B?cnZJdWg0SzMyWC9QeXBPUVl6czFST1A3dXJvRUtQR0RlcysvSHgvWGNGbnJt?=
+ =?utf-8?B?dnFDZmtydmxCeVdOR21NZFNlSWU4MlNRWGREbXhOUnVhUDlEc3JrTmJkVGxa?=
+ =?utf-8?B?c091SEhTNWw1WFhyMEExMkR0cUZHQUhNQ1lJaVVqUENEb1djc1FHWUU1VlFW?=
+ =?utf-8?B?cUpDd0QyY0N4NnFZRE5FN0J3bDJyaFRLTEI2S0Z4eXVtZm53N2EyQUJHVERU?=
+ =?utf-8?B?T2lGSm1uejFMV2Y1YmRkd3FEU0NHc0xCRU44eSttS21ORnB3V0xmbnF1WmNk?=
+ =?utf-8?B?cEN5dkgvUTdkYUR3N0xNYVJMMlVQTUtYQXVna3RlSFBvay9vT3hxdXB3OUFE?=
+ =?utf-8?B?SStRWVQwYVM3bFFQRjdwN0NzcHZiNnJTMmdkcFFqdStUVUpKZXBkNXJ3S2FY?=
+ =?utf-8?B?QlRoWjZCc2lybGdKMUQ5SkFmT1JMeE5FUld6eU5kTUFNRHdQK0QyaTVlNS9x?=
+ =?utf-8?B?M2JEZHVkN0NFK2tmdGRBTDBQaldiRHlHQUxQUUZHaGNBUWhuemVTSGtMUXNW?=
+ =?utf-8?B?dWM4Q3BkRUQwQVhhSC9yMGlJK05hVk1Tb0FwdW9mYzQrMUtPQ3ZSbllxYmt3?=
+ =?utf-8?B?VEN3SisxRTh0cHhVd21aVE9xeUw4Wk41dlJjSzVnU1VWZXRJTVB3OHpCZTQ2?=
+ =?utf-8?B?dnNDNnpSak83T1I1ZzduaVozUGZTdCtmbGNuUTNieHNuQndhNVpsblBQRDdH?=
+ =?utf-8?Q?t0nNru3CRnI=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR03MB9192.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZE1QMkx1aFZyakpQcXE4TzNKaWJ2NFJrcmV0RzV0TGkwWjJlUzdKOTd0TWJI?=
+ =?utf-8?B?a2xzNUtrcGs5enFDTFVYT0dUb3FRbFhyaDZpZWlKajJNVUxteUpKTkM1ZGcx?=
+ =?utf-8?B?V1UyeVhXTDhSbnAyNWJmazVEM1R1WXN6Q3c0ZWUwVDBERVFKTnFLTDRpUmpr?=
+ =?utf-8?B?Y2dIYk9qZjAwNGtpekpMV3VXelFaRE1Ha0UrK210bFdZQ1NaSkd5QVhEbDN6?=
+ =?utf-8?B?UXZnUTFBaXVhN2xweFZaY1kvSXFlaVNXRS9HdURHbDlrR2pTUWtSK2xsMkxw?=
+ =?utf-8?B?bkN3MUVzSUd2TEw5a2lUbnk0SFl1MVlOd003VitpZ21SNitqc1dzQ3lOVmFt?=
+ =?utf-8?B?OU1xcDJlT2xkQ2tJRW50RFhZTE1xeFVjUk9VN2hiY2xRU1l1L0ZwREFLcnpS?=
+ =?utf-8?B?T3g2UDNSSXZ0NlZzbHF5d1dwSGxFTlpmVEhJZGd1aVVhdFY0ZTVSb0F5UC9O?=
+ =?utf-8?B?ZzdlVXJXY2tjNmdmLy9FT2lpVVg2TjlSblJSWTlpeldTV25yT1E0K29vbklG?=
+ =?utf-8?B?bFdJSFltU3FXSVdBbmNVbDJwTG1Nd016OHFKanVaaVFsMDBIbGJ0blIxQnYy?=
+ =?utf-8?B?ajZ5WjVmY081c3ZPTFUyU2t6Q1p6V2tjL0M3bDlobWZzUktldTRtT3VvQVRO?=
+ =?utf-8?B?YlBhd3NOWWdPS21kVUI4cEdqWUNISVBHdGR2OEIxZHdGK3FrN2VodmhuZUNu?=
+ =?utf-8?B?Vzlkall6MTlobVlqU3YzaHEzOWZVcUxOMkl5T282TENJbVpUYTJXK3NBSDlN?=
+ =?utf-8?B?RldvRlRPejI2WjNRWVlnYldTWE1qNXdoM1BBNkhLN1MyUEkvUHRKUXQ0dEFU?=
+ =?utf-8?B?alg2bHlBZlB6MVhTaU5JY24zVnpVZ2ZZTTJVTldRdkh6bzBoaU00UkZUMlpO?=
+ =?utf-8?B?dnBwTjUwYUtIekduOGJBZ0tFTG1KUXhHSy84UCtkQmZxRXlpRzJLeE83eTMw?=
+ =?utf-8?B?d21mMFhZcVhrQ2NxS0RYMG1qUUJ2ck11RGZwTlBVV2YwZlZzdkNZSUxtNURW?=
+ =?utf-8?B?SzBWMDFlZHlqdlQzSGMzTjJiVHhOdDJpYlNwdGtldEFQejlWWmM1b1JKcW5n?=
+ =?utf-8?B?ZTMrd2VZZ0JOMmhUVWRUWFJQOERGZk5TYXh2Q2RZN3BzZ0lDVjlvbnhjemxr?=
+ =?utf-8?B?SXJUVURESkZyRERkaGZQZkc5b1JEbzFTaGRubitOUjRtMnMzRjlIazZqMm5t?=
+ =?utf-8?B?OHNkMnhrZForWkZ2UTJoazdtTy93VmU4amxzUmp6WGpNZlFvc1JVeVZkZ2J6?=
+ =?utf-8?B?QzIzc2pRRUhXc1h6QUpEaDE0cnZlT0t5VUlaWkl0anlBVWx0N1lNRE9pWG9s?=
+ =?utf-8?B?UFg3U0Y2NU5hZDNDU0ZXODd1QWJPUWozR2tLbVVhb3V4RVVkdUhQUG9mdHR4?=
+ =?utf-8?B?SEV4cWdBQ2NPcnBZZncrQkNOU2RQaWVMMDd2a2tlQVFtMlFFRVNPYkczMGZP?=
+ =?utf-8?B?MTBHTmxVaFYxTzJZUDZFUk1jRGYvYllRUHpSMmF1K001aGN4VFNWQUlsOFFH?=
+ =?utf-8?B?NkxXUzhmbWNJOGxCczA0RTIrVy9uU1VQaEE0TW85K0tBR3hScnYrYW5RQW9p?=
+ =?utf-8?B?SHNkMVlyczhlRnpJcXZmM2dyKy9yM09MNFJWK21LNXZXT0JSWndiazhuWTM4?=
+ =?utf-8?B?VitqSFZoZXNwTU9tTDZnSW9hb25oWjgydG54YUJ6RlB5THJpenk0NTZ2QmVP?=
+ =?utf-8?B?amNYb1d3aTJKOGlWbXltSlRaTzltcllrdGpGTFFvL2k3bVlLbWNjREliWlYx?=
+ =?utf-8?B?TmJwa3hwaDJlWFNMY3QzcE9zZlRwSE1QcTBkT3JwZTVINlBORUVGanlQaEto?=
+ =?utf-8?B?dzlYcWNaQjMvekNrbHNsV2VCZ1JuT0tDRGVETTRSZG9qcXBoOHZZcU5xOW5O?=
+ =?utf-8?B?K2RNcm5CVXgvd0VSTCtoVHpjQXZhNWtWS2dWWlVxMkxUeDRFaklRd3FRSjcz?=
+ =?utf-8?B?ZkV6ejBwWERxaXd4c1A3MjdoNTZpUklxNC9FOVZPS0pwTFlCN2dMd3ZxcjdP?=
+ =?utf-8?B?OGJkYURkRm93eCs4eXlrUzhhYzNkNkViZ1hrS3REZ1hpdm5hck5tUFMxRzJV?=
+ =?utf-8?B?clRDTGlGbCtMYksvWWpxYWtqNE80VDNycVYrQzRqQUVMWnBKalBZdkxrbit6?=
+ =?utf-8?B?TWJUYmZGYm1JQzR2RUFIM01oVmFPVk9DeHF2bEQzdWJYT0p5N01CUHVLWjE5?=
+ =?utf-8?B?dEE9PQ==?=
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0804c0d3-2612-483a-ef98-08dde6efe12a
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR03MB9192.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2025 11:33:30.9232
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: D+QcY1FqYE6klLnZXG7eQCnuyYYdoNCQ9agRipiR8g1MxBzFPZDyLhI9NkMFXQ4MNrixSMRK/m6Kb3FhtMbEfQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR03MB7322
 
-On Fri, Aug 08, 2025 at 04:03:37PM +0800, Jiqian Chen wrote:
-> When MSI-X initialization fails, vPCI hides the capability, but
-> removing handlers and datas won't be performed until the device is
-> deassigned. So, implement MSI-X cleanup hook that will be called
-> to cleanup MSI-X related handlers and free it's associated data when
-> initialization fails.
+25.08.25 15:00, Jan Beulich:
+> On 22.08.2025 11:51, Sergiy Kibrik wrote:
+>> --- a/xen/common/Kconfig
+>> +++ b/xen/common/Kconfig
 > 
-> Since cleanup function of MSI-X is implemented, delete the open-code
-> in vpci_deassign_device().
-> 
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> ---
-> cc: "Roger Pau Monné" <roger.pau@citrix.com>
-> ---
-> v10->v11 changes:
-> * Move calling all cleanup hook in vpci_deassign_device() out of this patch.
-> * Add hide parameter to cleanup_msix().
-> * Check hide, if it is false, return directly instead of letting ctrl RO.
-> 
-> v9->v10 changes:
-> * Call all cleanup hook in vpci_deassign_device() instead of cleanup_msix().
-> 
-> v8->v9 changes:
-> * Modify commit message.
-> * Call cleanup_msix() in vpci_deassign_device() to remove the open-code to cleanup msix datas.
-> * In cleanup_msix(), move "list_del(&vpci->msix->next);" above for loop of iounmap msix tables.
-> 
-> v7->v8 changes:
-> * Given the code in vpci_remove_registers() an error in the removal of
->   registers would likely imply memory corruption, at which point it's
->   best to fully disable the device. So, Rollback the last two modifications of v7.
-> 
-> v6->v7 changes:
-> * Change the pointer parameter of cleanup_msix() to be const.
-> * When vpci_remove_registers() in cleanup_msix() fails, not to return
->   directly, instead try to free msix and re-add ctrl handler.
-> * Pass pdev->vpci into vpci_add_register() instead of pdev->vpci->msix in
->   init_msix() since we need that every handler realize that msix is NULL
->   when msix is freed but handlers are still in there.
-> 
-> v5->v6 changes:
-> * Change the logic to add dummy handler when !vpci->msix in cleanup_msix().
-> 
-> v4->v5 changes:
-> * Change definition "static void cleanup_msix" to "static int cf_check cleanup_msix"
->   since cleanup hook is changed to be int.
-> * Add a read-only register for MSIX Control Register in the end of cleanup_msix().
-> 
-> v3->v4 changes:
-> * Change function name from fini_msix() to cleanup_msix().
-> * Change to use XFREE to free vpci->msix.
-> * In cleanup function, change the sequence of check and remove action according to
->   init_msix().
-> 
-> v2->v3 changes:
-> * Remove unnecessary clean operations in fini_msix().
-> 
-> v1->v2 changes:
-> new patch.
-> 
-> Best regards,
-> Jiqian Chen.
-> ---
->  xen/drivers/vpci/msix.c | 47 ++++++++++++++++++++++++++++++++++++++++-
->  xen/drivers/vpci/vpci.c |  8 -------
->  2 files changed, 46 insertions(+), 9 deletions(-)
-> 
-> diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
-> index 54a5070733aa..287aafda9157 100644
-> --- a/xen/drivers/vpci/msix.c
-> +++ b/xen/drivers/vpci/msix.c
-> @@ -655,6 +655,51 @@ int vpci_make_msix_hole(const struct pci_dev *pdev)
->      return 0;
->  }
->  
-> +static int cf_check cleanup_msix(const struct pci_dev *pdev, bool hide)
-> +{
-> +    int rc;
-> +    struct vpci *vpci = pdev->vpci;
-> +    const unsigned int msix_pos = pdev->msix_pos;
-> +
-> +    if ( !msix_pos )
-> +        return 0;
+> I wonder whether we wouldn't better move XSM's controls to a dedicated Kconfig
+> file there.
 
-Like with the MSI capability, is it possible to get called and
-pdev->msix_pos be 0?
+you mean something like Kconfig.xsm in the same common/ directory? Or 
+move this Kconfig out into xsm/ directory with the rest of flask code?
 
-I would also avoid the call to vpci_remove_registers() if !hide, I
-think you can change the order of the cleanup, so it's:
+> 
+>> @@ -418,6 +418,25 @@ config XSM_FLASK_AVC_STATS
+>>   
+>>   	  If unsure, say Y.
+>>   
+>> +config XSM_FLASK_SIDTABLE_LIMIT
+>> +	def_bool n
+> 
+> This makes little sense; just "bool" would have the same effect. Yet then
+> you can combine that with ...
+> 
+>> +	prompt "Limit the size of SID table" if EXPERT
+> 
+> ... this line.
+> 
+>> +	depends on XSM_FLASK
+>> +	---help---
+> 
+> No triple dashes around "help" anymore, please.
+> 
+>> +	  Limit the number of security identifiers allocated and operated by Xen.
+>> +	  This will limit the number of security contexts and heap memory
+>> +	  allocated for SID table entries.
+>> +
+>> +	  If unsure, say N.
+>> +
+>> +config XSM_FLASK_MAX_SID
+>> +	int "Max SID table size" if XSM_FLASK_SIDTABLE_LIMIT
+>> +	default 512
+> 
+> Hmm, wouldn't the default better be what we had so far? As per the justification
+> you aim at a special case (embedded) with this limit.
+> 
 
-if ( vpci->msix )
-{
-    list_del(&vpci->msix->next);
-    for ( unsigned int i = 0; i < ARRAY_SIZE(vpci->msix->table); i++ )
-        if ( vpci->msix->table[i] )
-            iounmap(vpci->msix->table[i]);
+yes, we can have a default value of UINT_MAX specified here if we'll use 
+base-2 exponent as a value. And get rid of second option.
 
-    XFREE(vpci->msix);
-}
 
-if ( !hide )
-    return 0;
-
-rc = vpci_remove_registers(vpci, msix_control_reg(msix_pos), 2);
-...
-
-Thanks, Roger.
+   -Sergiy
 
