@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E82DDB3C30A
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 21:29:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1102020.1454815 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1341B3C30D
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 21:33:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1102036.1454825 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1us4nC-00023z-Ia; Fri, 29 Aug 2025 19:29:46 +0000
+	id 1us4qb-0003oo-4l; Fri, 29 Aug 2025 19:33:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1102020.1454815; Fri, 29 Aug 2025 19:29:46 +0000
+Received: by outflank-mailman (output) from mailman id 1102036.1454825; Fri, 29 Aug 2025 19:33:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1us4nC-00021f-Fr; Fri, 29 Aug 2025 19:29:46 +0000
-Received: by outflank-mailman (input) for mailman id 1102020;
- Fri, 29 Aug 2025 19:29:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1us4qb-0003n7-1t; Fri, 29 Aug 2025 19:33:17 +0000
+Received: by outflank-mailman (input) for mailman id 1102036;
+ Fri, 29 Aug 2025 19:33:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=b4pU=3J=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1us4nB-00021Z-56
- for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 19:29:45 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 83fe1a0c-850e-11f0-8adc-4578a1afcccb;
- Fri, 29 Aug 2025 21:29:44 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3cdc54cabb1so960549f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 29 Aug 2025 12:29:44 -0700 (PDT)
-Received: from localhost.localdomain (host-195-149-20-212.as13285.net.
- [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3cf34491a65sm4324054f8f.56.2025.08.29.12.29.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 Aug 2025 12:29:41 -0700 (PDT)
+ <SRS0=7zkx=3J=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1us4qZ-0003n1-NT
+ for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 19:33:15 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ffe75c2a-850e-11f0-8dd7-1b34d833f44b;
+ Fri, 29 Aug 2025 21:33:13 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0EEB342B68;
+ Fri, 29 Aug 2025 19:33:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FE04C4CEF0;
+ Fri, 29 Aug 2025 19:33:09 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,129 +41,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83fe1a0c-850e-11f0-8adc-4578a1afcccb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1756495783; x=1757100583; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=kWB8Pv2sqAgv9Nea+D2JzgKMYzdAPnpLmqubRuhPgt8=;
-        b=SZ/Cf5gismCvddg6rw2HxHKF+XQNGQZ0oLVNr2pjeSSVVOy2PT/0Z+O4W/YqSaW2sV
-         wlvxOs8NAFfFjuQvzjCzXvWae24L+DoFgaF1nS0sv/ao/cWa0HFs3fMqHjNG0x6roF9l
-         V/0+DNDo8oei1QvKpJMK5s2O0DX0PdYLQKihw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756495783; x=1757100583;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=kWB8Pv2sqAgv9Nea+D2JzgKMYzdAPnpLmqubRuhPgt8=;
-        b=NS4titaKOH1licuksUXXggUIw7wMQ/O3RQAUEQYifiL6mOMvtcN1Gh4N1IuDILuLj1
-         BQtvakBzyOdYLZIhfvz2mS/4U9jfgwIO/sBigB22GOCCYez8UA61SFCtVcXTWK8i04SN
-         XBljc7ju0GwtvcrD1D0CoFnBiFWTbsdZIO9JXtKjhFw7QIlaM6Xb7OiEiWR0yUD5apay
-         SZy9K/UMVcF9EBYOCU/2cEMww7xhA72wkiuk68lqnXt3yaXprbqw81hPkJgeHtMSYUXT
-         bItfn4sSGkgF9XuL8qq20r/PDsqiMtuoGfBKdk0cfJSzZGqZVoBExNP/cQ4ENPPDuNoR
-         5bhw==
-X-Gm-Message-State: AOJu0Yy6lmfkayAol3iXWHMiRy57Tu5KETaUvcC8um58SpZLZ0mZLY35
-	6ZOlNRGNpNsM3kozfU+wZc8T0tTRlXkb/sMY104Y8E33fdgGOFIdy3SM5gH/aO2PdLryLs8OmTh
-	CptOU
-X-Gm-Gg: ASbGncvNXnLb3pqemBOf0Itz0u3FAvXg6CQQ+tbkv7EAYR9INRNeRo/qUn+CNopl4nx
-	vNxCX1Mlbjn5XVUF8xFVINkS00/RugRUMFhWVU8XNBT0Aj+MwVGoWNOVWpVrJP2ZULTy6N2KDw0
-	4WuiF/x6gpvnLbgREgUJX2v8oPMqcn68pqMiPQWrcsWiQJuiuAlcan40ozqTnDlwqVsrcitBJ1u
-	F2RJ4VRq1XATQQNEUaH/zBc81q5dNbCsXw0DtBmCwrCQCvDgGNIRfD0hyuhLNIOPL3sHur8MN6Q
-	2L4ua1eB+wREHZs+GUbX0ExnNYNo1926ZgRj/C1NxkvjaFc4FWo2q5U9IUqwE/+hZN9Z7+/LTK7
-	pyL1vU14VIErF4B7spnXWSyz71StVrHvyoFL6r07y6K6L6i3hRbaX/RzSvvaWfqTe0w2bhjBVta
-	0AlY/U4fVj8JI=
-X-Google-Smtp-Source: AGHT+IFVz0Q1xvsJTii6GiHVD1gt4bLIe1V4qPxG31Fi/gBSG6mI8P9dCXnVwwqgg2Fudo/3pRWdwA==
-X-Received: by 2002:a05:6000:18ad:b0:3b7:9c79:32bb with SMTP id ffacd0b85a97d-3c5dcdf9bd9mr25803363f8f.44.1756495783130;
-        Fri, 29 Aug 2025 12:29:43 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] x86/gen-cpuid: Fix debugging for cycle detection
-Date: Fri, 29 Aug 2025 20:29:39 +0100
-Message-Id: <20250829192939.1090358-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+X-Inumbo-ID: ffe75c2a-850e-11f0-8dd7-1b34d833f44b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1756495990;
+	bh=wZfe/SzRY3Hobe9zK6Ro2vXFfvDZ10+/C6YFXKhgA/s=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=dIUgLUNEP4zAE4P8tyDFgveVwcJyRhl2ucu1AtrYXWaCCiu0FmbPSYcf37UUk+oKJ
+	 3r87vZKC0/UxzZNJvRk0xdLazvVrMbyLPCab0fYPHJZAeIZ1AD27MyvNSf86yxXnIV
+	 Y7DpKaei+NlBue2ugkta2Jikv7iQVMi3hhbZKxxu3bJDKC/taU95WkpHcoomPG5mu5
+	 14JNkxq2HMAXciKLrDVBJwCIKnhMoNbQM+F8Ra6Y5QKsfQRgxysMaVNbgz9TAbwOD0
+	 uwoFy+6nEFlbN14AX555karhyIW2auewezuGtdZNX4pkoXX8lbS1ROjGVR3aHnqqmh
+	 7zTJfIi6LAfVg==
+Date: Fri, 29 Aug 2025 12:32:46 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: dmukhin@xen.org
+cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
+    anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, 
+    michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, 
+    dmukhin@ford.com
+Subject: Re: [PATCH v5 02/15] xen/8250-uart: update definitions
+In-Reply-To: <20250828235409.2835815-3-dmukhin@ford.com>
+Message-ID: <alpine.DEB.2.22.394.2508291232390.341243@ubuntu-linux-20-04-desktop>
+References: <20250828235409.2835815-1-dmukhin@ford.com> <20250828235409.2835815-3-dmukhin@ford.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-Jan reports the following exception when using the cycle debugging:
+On Thu, 27 Aug 2025, dmukhin@xen.org wrote:
+> From: Denis Mukhin <dmukhin@ford.com> 
+> 
+> Added missing definitions needed for NS16550 UART emulator.
+> 
+> Newly introduced MSR definitions re-used in the existing ns16550 driver.
+> 
+> Also, corrected FCR DMA definition bit#3 (0x08) as per:
+>   https://www.ti.com/lit/ds/symlink/tl16c550c.pdf
+> See "7.7.2 FIFO Control Register (FCR)".
+> 
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+> Changes since v4:
+> - reused newly introduced UART_IIR and UART_IER bits in ns16550 driver
+> - Link to v4: https://lore.kernel.org/xen-devel/20250731192130.3948419-5-dmukhin@ford.com/
+> ---
+>  xen/drivers/char/ns16550.c  | 16 ++++++------
+>  xen/include/xen/8250-uart.h | 50 ++++++++++++++++++++++++++++++-------
+>  2 files changed, 49 insertions(+), 17 deletions(-)
+> 
+> diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
+> index df7fff7f81df..0e80fadbb894 100644
+> --- a/xen/drivers/char/ns16550.c
+> +++ b/xen/drivers/char/ns16550.c
+> @@ -388,7 +388,7 @@ static void __init cf_check ns16550_init_preirq(struct serial_port *port)
+>  
+>      /* Check this really is a 16550+. Otherwise we have no FIFOs. */
+>      if ( uart->fifo_size <= 1 &&
+> -         ((ns_read_reg(uart, UART_IIR) & 0xc0) == 0xc0) &&
+> +         ((ns_read_reg(uart, UART_IIR) & UART_IIR_FE) == UART_IIR_FE) &&
+>           ((ns_read_reg(uart, UART_FCR) & UART_FCR_TRG14) == UART_FCR_TRG14) )
+>          uart->fifo_size = 16;
+>  }
+> @@ -728,20 +728,20 @@ static int __init check_existence(struct ns16550 *uart)
+>       * Mask out IER[7:4] bits for test as some UARTs (e.g. TL
+>       * 16C754B) allow only to modify them if an EFR bit is set.
+>       */
+> -    scratch2 = ns_read_reg(uart, UART_IER) & 0x0f;
+> -    ns_write_reg(uart,UART_IER, 0x0F);
+> -    scratch3 = ns_read_reg(uart, UART_IER) & 0x0f;
+> +    scratch2 = ns_read_reg(uart, UART_IER) & UART_IER_MASK;
+> +    ns_write_reg(uart, UART_IER, UART_IER_MASK);
+> +    scratch3 = ns_read_reg(uart, UART_IER) & UART_IER_MASK;
+>      ns_write_reg(uart, UART_IER, scratch);
+> -    if ( (scratch2 != 0) || (scratch3 != 0x0F) )
+> +    if ( (scratch2 != 0) || (scratch3 != UART_IER_MASK) )
+>          return 0;
+>  
+>      /*
+>       * Check to see if a UART is really there.
+>       * Use loopback test mode.
+>       */
+> -    ns_write_reg(uart, UART_MCR, UART_MCR_LOOP | 0x0A);
+> -    status = ns_read_reg(uart, UART_MSR) & 0xF0;
+> -    return (status == 0x90);
+> +    ns_write_reg(uart, UART_MCR, UART_MCR_LOOP | UART_MCR_RTS | UART_MCR_OUT2);
+> +    status = ns_read_reg(uart, UART_MSR) & UART_MSR_STATUS;
+> +    return (status == (UART_MSR_CTS | UART_MSR_DCD));
+>  }
+>  
+>  #ifdef CONFIG_HAS_PCI
+> diff --git a/xen/include/xen/8250-uart.h b/xen/include/xen/8250-uart.h
+> index d13352940c13..bc11cdc376c9 100644
+> --- a/xen/include/xen/8250-uart.h
+> +++ b/xen/include/xen/8250-uart.h
+> @@ -32,6 +32,7 @@
+>  #define UART_MCR          0x04    /* Modem control        */
+>  #define UART_LSR          0x05    /* line status          */
+>  #define UART_MSR          0x06    /* Modem status         */
+> +#define UART_SCR          0x07    /* Scratch pad          */
+>  #define UART_USR          0x1f    /* Status register (DW) */
+>  #define UART_DLL          0x00    /* divisor latch (ls) (DLAB=1) */
+>  #define UART_DLM          0x01    /* divisor latch (ms) (DLAB=1) */
+> @@ -42,6 +43,8 @@
+>  #define UART_IER_ETHREI   0x02    /* tx reg. empty        */
+>  #define UART_IER_ELSI     0x04    /* rx line status       */
+>  #define UART_IER_EMSI     0x08    /* MODEM status         */
+> +#define UART_IER_MASK \
+> +    (UART_IER_ERDAI | UART_IER_ETHREI | UART_IER_ELSI | UART_IER_EMSI)
+>  
+>  /* Interrupt Identification Register */
+>  #define UART_IIR_NOINT    0x01    /* no interrupt pending */
+> @@ -51,12 +54,19 @@
+>  #define UART_IIR_THR      0x02    /*  - tx reg. empty     */
+>  #define UART_IIR_MSI      0x00    /*  - MODEM status      */
+>  #define UART_IIR_BSY      0x07    /*  - busy detect (DW) */
+> +#define UART_IIR_FE       0xc0    /* FIFO enabled (2 bits) */
+>  
+>  /* FIFO Control Register */
+> -#define UART_FCR_ENABLE   0x01    /* enable FIFO          */
+> -#define UART_FCR_CLRX     0x02    /* clear Rx FIFO        */
+> -#define UART_FCR_CLTX     0x04    /* clear Tx FIFO        */
+> -#define UART_FCR_DMA      0x10    /* enter DMA mode       */
+> +#define UART_FCR_ENABLE     BIT(0, U)   /* enable FIFO          */
+> +#define UART_FCR_CLRX       BIT(1, U)   /* clear Rx FIFO        */
+> +#define UART_FCR_CLTX       BIT(2, U)   /* clear Tx FIFO        */
+> +#define UART_FCR_DMA        BIT(3, U)   /* enter DMA mode       */
+> +#define UART_FCR_RESERVED0  BIT(4, U)   /* reserved; always 0   */
+> +#define UART_FCR_RESERVED1  BIT(5, U)   /* reserved; always 0   */
+> +#define UART_FCR_RTB0       BIT(6, U)   /* receiver trigger bit #0 */
+> +#define UART_FCR_RTB1       BIT(7, U)   /* receiver trigger bit #1 */
+> +#define UART_FCR_TRG_MASK   (UART_FCR_RTB0 | UART_FCR_RTB1)
+> +
+>  #define UART_FCR_TRG1     0x00    /* Rx FIFO trig lev 1   */
+>  #define UART_FCR_TRG4     0x40    /* Rx FIFO trig lev 4   */
+>  #define UART_FCR_TRG8     0x80    /* Rx FIFO trig lev 8   */
+> @@ -96,11 +106,32 @@
+>  #define UART_LCR_CONF_MODE_B	0xBF		/* Configuration mode B */
+>  
+>  /* Modem Control Register */
+> -#define UART_MCR_DTR      0x01    /* Data Terminal Ready  */
+> -#define UART_MCR_RTS      0x02    /* Request to Send      */
+> -#define UART_MCR_OUT2     0x08    /* OUT2: interrupt mask */
+> -#define UART_MCR_LOOP     0x10    /* Enable loopback test mode */
+> -#define UART_MCR_TCRTLR   0x40    /* Access TCR/TLR (TI16C752, EFR[4]=1) */
+> +#define UART_MCR_DTR            BIT(0, U)   /* Data Terminal Ready  */
+> +#define UART_MCR_RTS            BIT(1, U)   /* Request to Send      */
+> +#define UART_MCR_OUT1           BIT(2, U)   /* OUT1: interrupt mask */
 
-  Feature IBRSB, seen [IBRSB, STIBP, INTEL_PSFD, EIBRS, IPRED_CTRL, RRSBA_CTRL, RRSBA, BHI_CTRL], to_process [SSBD]
-  Traceback (most recent call last):
-    File "/local/xen.git/xen/../xen/tools/gen-cpuid.py", line 594, in <module>
-      sys.exit(main())
-               ^^^^^^
-    File "/local/xen.git/xen/../xen/tools/gen-cpuid.py", line 588, in main
-      crunch_numbers(state)
-    File "/local/xen.git/xen/../xen/tools/gen-cpuid.py", line 366, in crunch_numbers
-      (state.names[feat], repl(seen), repl(to_process)))
-                                      ^^^^^^^^^^^^^^^^
-    File "/local/xen.git/xen/../xen/tools/gen-cpuid.py", line 364, in repl
-      return "[" + ", ".join((state.names[x] for x in l)) + "]"
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    File "/local/xen.git/xen/../xen/tools/gen-cpuid.py", line 364, in <genexpr>
-      return "[" + ", ".join((state.names[x] for x in l)) + "]"
-                              ~~~~~~~~~~~^^^
-  KeyError: 534
-  make[2]: *** [/local/xen.git/xen/include/xen/lib/x86/Makefile:9: cpuid-autogen.h] Error 1
+is OUT1 an interrupt mask actually?
 
-This is caused by commit ce8c930851a5 ("x86/cpu-policy: MSR_ARCH_CAPS feature
-names") being rather lazy and marking dependenices on unknown features.
 
-Introduce a helper to pick the known features in a range, and use it for
-ARCH_CAPS.
+> +#define UART_MCR_OUT2           BIT(3, U)   /* OUT2: interrupt mask */
+> +#define UART_MCR_LOOP           BIT(4, U)   /* Enable loopback test mode */
+> +#define UART_MCR_RESERVED0      BIT(5, U)   /* Reserved #0 */
+> +#define UART_MCR_TCRTLR         BIT(6, U)   /* Access TCR/TLR (TI16C752, EFR[4]=1) */
+> +#define UART_MCR_RESERVED1      BIT(7, U)   /* Reserved #1 */
+> +#define UART_MCR_MASK \
+> +    (UART_MCR_DTR | UART_MCR_RTS | \
+> +     UART_MCR_OUT1 | UART_MCR_OUT2 | \
+> +     UART_MCR_LOOP | UART_MCR_TCRTLR)
+> +
+> +/* Modem Status Register */
+> +#define UART_MSR_DCTS           BIT(0, U)   /* Change in CTS */
+> +#define UART_MSR_DDSR           BIT(1, U)   /* Change in DSR */
+> +#define UART_MSR_TERI           BIT(2, U)   /* Change in RI */
+> +#define UART_MSR_DDCD           BIT(3, U)   /* Change in CTS */
 
-Additionally, remove trailing whitepsace from the debug print.
+Changes in DCD, can be done on commit
 
-Reported-by: Jan Beulich <jbeulich@suse.com>
-Fixes: ce8c930851a5 ("x86/cpu-policy: MSR_ARCH_CAPS feature names")
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/tools/gen-cpuid.py | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/xen/tools/gen-cpuid.py b/xen/tools/gen-cpuid.py
-index 6f96d1368e9e..403369aedcd9 100755
---- a/xen/tools/gen-cpuid.py
-+++ b/xen/tools/gen-cpuid.py
-@@ -168,6 +168,10 @@ def crunch_numbers(state):
-     state.hvm_shadow_max = state.pv_max         | state.raw['S'] | state.raw['s']
-     state.hvm_hap_max =    state.hvm_shadow_max | state.raw['H'] | state.raw['h']
- 
-+    def feat_range(start, last):
-+        """ Select all known features in the given range """
-+        return [ x for x in state.names.keys() if start <= x <= last ]
-+
-     #
-     # Feature dependency information.
-     #
-@@ -338,7 +342,7 @@ def crunch_numbers(state):
-         PSFD: [EPSF],
- 
-         # The ARCH_CAPS CPUID bit enumerates the availability of the whole register.
--        ARCH_CAPS: list(range(RDCL_NO, RDCL_NO + 64)),
-+        ARCH_CAPS: feat_range(RDCL_NO, RDCL_NO + 63),
- 
-         # The behaviour described by RRSBA depend on eIBRS being active.
-         EIBRS: [RRSBA],
-@@ -362,7 +366,7 @@ def crunch_numbers(state):
-             # To debug, uncomment the following lines:
-             # def repl(l):
-             #     return "[" + ", ".join((state.names[x] for x in l)) + "]"
--            # sys.stderr.write("Feature %s, seen %s, to_process %s \n" % \
-+            # sys.stderr.write("Feature %s, seen %s, to_process %s\n" % \
-             #     (state.names[feat], repl(seen), repl(to_process)))
- 
-             f = to_process.pop(0)
-
-base-commit: e7c689a249ca6b8d14a077bb0f3311eaeda2ca19
--- 
-2.39.5
-
+> +#define UART_MSR_CTS            BIT(4, U)
+> +#define UART_MSR_DSR            BIT(5, U)
+> +#define UART_MSR_RI             BIT(6, U)
+> +#define UART_MSR_DCD            BIT(7, U)
+> +#define UART_MSR_CHANGE \
+> +    (UART_MSR_DCTS | UART_MSR_DDSR | UART_MSR_TERI | UART_MSR_DDCD)
+> +#define UART_MSR_STATUS \
+> +    (UART_MSR_CTS | UART_MSR_DSR | UART_MSR_RI | UART_MSR_DCD)
+>  
+>  /* Line Status Register */
+>  #define UART_LSR_DR       0x01    /* Data ready           */
+> @@ -111,6 +142,7 @@
+>  #define UART_LSR_THRE     0x20    /* Xmit hold reg empty  */
+>  #define UART_LSR_TEMT     0x40    /* Xmitter empty        */
+>  #define UART_LSR_ERR      0x80    /* Error                */
+> +#define UART_LSR_MASK     (UART_LSR_OE | UART_LSR_BI)
+>  
+>  /* These parity settings can be ORed directly into the LCR. */
+>  #define UART_PARITY_NONE  (0<<3)
+> -- 
+> 2.51.0
+> 
 
