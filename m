@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46F67B3BD1D
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 16:05:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1101480.1454536 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98FB1B3BD45
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 16:13:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1101500.1454546 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urzix-0003lW-SV; Fri, 29 Aug 2025 14:05:03 +0000
+	id 1urzqp-0005oF-KM; Fri, 29 Aug 2025 14:13:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1101480.1454536; Fri, 29 Aug 2025 14:05:03 +0000
+Received: by outflank-mailman (output) from mailman id 1101500.1454546; Fri, 29 Aug 2025 14:13:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urzix-0003iM-PV; Fri, 29 Aug 2025 14:05:03 +0000
-Received: by outflank-mailman (input) for mailman id 1101480;
- Fri, 29 Aug 2025 14:05:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1urzqp-0005lN-H7; Fri, 29 Aug 2025 14:13:11 +0000
+Received: by outflank-mailman (input) for mailman id 1101500;
+ Fri, 29 Aug 2025 14:13:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=400J=3J=casper.srs.infradead.org=BATV+dd1ac6718a2a76904583+8041+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1urziv-0003iF-Da
- for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 14:05:02 +0000
-Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 254d9831-84e1-11f0-8dd7-1b34d833f44b;
- Fri, 29 Aug 2025 16:04:59 +0200 (CEST)
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=u09cd745991455d.ant.amazon.com)
- by casper.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1urzip-0000000CtIW-3snb; Fri, 29 Aug 2025 14:04:56 +0000
+ <SRS0=Ygma=3J=bounce.vates.tech=bounce-md_30504962.68b1b571.v1-dd6999c02dca4e5a854cb5b08c11e3e1@srs-se1.protection.inumbo.net>)
+ id 1urzqn-0005lH-QL
+ for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 14:13:10 +0000
+Received: from mail180-6.suw31.mandrillapp.com
+ (mail180-6.suw31.mandrillapp.com [198.2.180.6])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 48867209-84e2-11f0-8adc-4578a1afcccb;
+ Fri, 29 Aug 2025 16:13:07 +0200 (CEST)
+Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail180-6.suw31.mandrillapp.com (Mailchimp) with ESMTP id 4cD0bj5tCBz2K23lM
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Aug 2025 14:13:05 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ dd6999c02dca4e5a854cb5b08c11e3e1; Fri, 29 Aug 2025 14:13:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,176 +42,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 254d9831-84e1-11f0-8dd7-1b34d833f44b
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:Date:Cc:To:
-	From:Subject:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=lAIUJUTzkAwuls3+jeEJSojGD/Rj6dhLVj3jUD0gqoQ=; b=vs4DMyMelavKmOBFB7100qq88H
-	IhPyGFkTajwjjlHz6Ae0OROeoU3Zv/QmGQbwnHGk+ILZwmxOK3TKShjPUIB2Gm9Gz491VayvuML09
-	OWbMahnfmnfjSERZautJaK4+cut1bHR6hhJT/14gZNcmQ0Y+mmRPSJUZnRDUGv8aYDogV7tRrzhUO
-	nDKwXr1jn2GtLcRo0qsl8sD9tPb4FLW0cddxSAR5zRZfbkm5hGtmIzJfZZ3oLWr9G1r9Hfd9RTnGv
-	PkQ0PatCsoiflV8lTpOFIxonXplSB/U8jugkTLKOu8G5aHmEKp00SCyuAmrBKd0GZt1d3cp8YjcOn
-	2BSTsgKA==;
-Message-ID: <9912a9c26aa322623b09ace7a01c7a86665e147a.camel@infradead.org>
-Subject: [PATCH] i386/xen: Advertise XEN_HVM_CPUID_EXT_DEST_ID for Xen
- guests where supported
-From: David Woodhouse <dwmw2@infradead.org>
-To: qemu-devel@nongnu.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Marcelo Tosatti
- <mtosatti@redhat.com>,  kvm@vger.kernel.org, xen-devel
- <xen-devel@lists.xenproject.org>, Roger Pau =?ISO-8859-1?Q?Monn=E9?=
- <roger.pau@citrix.com>, =?ISO-8859-1?Q?J=FCrgen?= Gross <jgross@suse.com>
-Date: Fri, 29 Aug 2025 15:04:55 +0100
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-zHLb1MPjvn559jOTiXef"
-User-Agent: Evolution 3.52.3-0ubuntu1 
+X-Inumbo-ID: 48867209-84e2-11f0-8adc-4578a1afcccb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1756476785; x=1756746785;
+	bh=kAEN+eWtgHOy6UQP9yE2az89wh+Dh7LQuiy7kOxQfGs=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=ogt4Q29aknVNxLiwUwP0tI/PlDX8NyP0YQg3R2z8tvhF8ZwiVJMT3iWxwRx7yb/rQ
+	 7t3to7/JK2naU+iCiOfkuE6okfizu0Fp73UWn413qPr411q2IsHRkHSh9w3JuiqwQh
+	 umawy/AeznZngixwjPM4p9pXYUuZWlkvKm4gaAcdCEz6jg7tVZeZe0toKRRWuggMqq
+	 kgrisLzsKnPpUSvGlEaoz0dPsP0iBZxC+zWGisL+haMHdKsjaGPXTzb/LGudCqBFbQ
+	 kEHQbYIEr5t9wOHiVFBsT+rBj2TIJ8J5+L//oH6JFuId40lI15413rpXVNSIbXvfxY
+	 57GtLnXVGTcOw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1756476785; x=1756737285; i=teddy.astie@vates.tech;
+	bh=kAEN+eWtgHOy6UQP9yE2az89wh+Dh7LQuiy7kOxQfGs=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=tDBzhBIXt1/IPYLLlBXPfIcmdAvMSXuMvNF6S5MkhZFNaSS1O1mQ0t2EWyFhBZNWF
+	 Mm6S3jFwqDJqpADhJITV1QrSsEbMmRBuOdiLfQZEzVvC9Opg6+xpG3t9akaRHJARfo
+	 S/lSwDoPlevL7HMTjY9VsJVgi61MOj6MQb6/nQdSJuXgMdNUZpA+AKdvDCxk7Yh6yw
+	 BooYiRDAtRSk6Yr1/jOM6jifGv/wDjfF2r0FbISWbROtvukq8tcwxPInQGS0dBXg73
+	 NOvxOvfFjWcbQvneD4i9zW5fbaQr7WxQ/rrY+fT2HA6YTeC2Lwm+z23vGU4tFRHXFO
+	 CO4Do/T6/LMjw==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20[RFC=20PATCH=20v3=203/3]=20x86/hvm:=20Introduce=20Xen-wide=20ASID=20allocator?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1756476784413
+Message-Id: <2c16b9f8-580e-4df2-9790-1c3e327b349d@vates.tech>
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Julien Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, "Vaishali Thakkar" <vaishali.thakkar@suse.com>, "Oleksii Kurochko" <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
+References: <cover.1750770621.git.teddy.astie@vates.tech> <81169a40fdc8c124b1656e451ac2e81f4e8edd2d.1750770621.git.teddy.astie@vates.tech> <7d9fd72a-39b7-43b0-875f-859a7a45c4fb@suse.com>
+In-Reply-To: <7d9fd72a-39b7-43b0-875f-859a7a45c4fb@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.dd6999c02dca4e5a854cb5b08c11e3e1?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250829:md
+Date: Fri, 29 Aug 2025 14:13:05 +0000
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-
-
---=-zHLb1MPjvn559jOTiXef
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-From: David Woodhouse <dwmw@amazon.co.uk>
+Le 28/08/2025 =C3=A0 15:05, Jan Beulich a =C3=A9crit=C2=A0:
+> On 26.06.2025 16:01, Teddy Astie wrote:
+>> From: Vaishali Thakkar <vaishali.thakkar@suse.com> (formely vates.tech)
+>>
+>> Currently ASID generation and management is done per-PCPU. This
+>> scheme is incompatible with SEV technologies as SEV VMs need to
+>> have a fixed ASID associated with all vcpus of the VM throughout
+>> it's lifetime.
+>>
+>> This commit introduces a Xen-wide allocator which initializes
+>> the asids at the start of xen and allows to have a fixed asids
+>> throughout the lifecycle of all domains. Having a fixed asid
+>> for non-SEV domains also presents us with the opportunity to
+>> further take use of AMD instructions like TLBSYNC and INVLPGB
+>> for broadcasting the TLB invalidations.
+>>
+>> Introduce vcpu->needs_tlb_flush attribute to schedule a guest TLB
+>> flush for the next VMRUN/VMENTER. This will be later be done using
+>> either TLB_CONTROL field (AMD) or INVEPT (Intel). This flush method
+>> is used in place of the current ASID swapping logic.
+>>
+>> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+>> Signed-off-by: Vaishali Thakkar <vaishali.thakkar@suse.com> (formely vat=
+es.tech)
+> 
+> Not sure whether you may legitimately alter pre-existing S-o-b. In
+> any event the two S-o-b looks to be in the wrong order; like most
+> other tags they want to be sorted chronologically.
+> 
 
-The 15-bit MSI enlightenment which allows for up to 32768 vCPUs without a
-virtual IOMMU is documented at http://david.woodhou.se/ExtDestId.pdf and
-has been supported for native KVM guests since QEMU v6.0.
+Yes, I misordered it, will fix it for the next version.
 
-Although Xen itself has only defined the CPUID bit and not yet implemented
-it because of complexity in the interface between QEMU and Xen for MSI
-handling, there's no reason why it can't work when QEMU/KVM is hosting Xen
-guests. Advertise it accordingly.
+>> ---
+>> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>
+>> Should the ASID/VPID/VMID management logic code being shared accross
+>> x86/ARM/RISC-V ?
+> 
+> If all present and future architectures agree on how exactly they want
+> to use these IDs. Which I'm unsure of. RISC-V is now vaguely following
+> the original x86 model.
+> 
+>> Is it possible to have multiples vCPUs of a same domain simultaneously
+>> scheduled on top of a single pCPU ? If so, it would need a special
+>> consideration for this corner case, such as we don't miss a TLB flush
+>> in such cases.
+> 
+> No, how would two entities be able to run on a single pCPU at any single
+> point in time?
+> 
 
-Tested with a standard Linux guest (which has supported this under Xen
-since v5.17) and QEMU command line including -M q35 -smp 4,maxcpus=3D288
- -device host-x86_64-cpu,socket-id=3D0,core-id=3D257,thread-id=3D0
- -cpu host,+xen-vapic
+It was more concerning regarding having 2 vCPUs of the same domain (thus 
+sharing the same ASID) running consecutively, e.g having on the same core
+   dom1.vcpu1 -> dom1.vcpu2
 
-We need +xen-vapic to test it properly, or the guest turns every MSI and
-I/O APIC interrupt into an event channel. Testing shows that both line
-interrupts and MSIs can be set affine to the fifth CPU and are delivered
-correctly.
+without a appropriate TLB flush; because the address space may not be 
+consistent between 2 vCPUs.
 
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
----
- target/i386/kvm/kvm.c | 1 +
- 1 file changed, 1 insertion(+)
+I found a approach to fix it by tracking per domain which vCPU last ran 
+on each pCPU so that in case of mismatch, we need to TLB flush. Along 
+with explictely flush the TLB when the vCPU is migrated, because in the 
+case too the TLB can be inconsistent for the ASID.
 
-diff --git a/target/i386/kvm/kvm.c b/target/i386/kvm/kvm.c
-index 369626f8c8..1401d7a903 100644
---- a/target/i386/kvm/kvm.c
-+++ b/target/i386/kvm/kvm.c
-@@ -2221,6 +2221,7 @@ int kvm_arch_init_vcpu(CPUState *cs)
-=20
-             if (cs->kvm_state->xen_version >=3D XEN_VERSION(4, 17)) {
-                 c->eax |=3D XEN_HVM_CPUID_UPCALL_VECTOR;
-+                c->eax |=3D XEN_HVM_CPUID_EXT_DEST_ID;
-             }
-         }
-=20
---=20
-2.49.0
+>> I get various stability when testing shadow paging in these patches, uns=
+ure
+>> what's the exact root case. HAP works perfectly fine though.
+>>
+>> TODO:
+>> - Intel: Don't assign the VPID at each VMENTER, though we need
+>>    to rethink how we manage VMCS with nested virtualization / altp2m
+>>    for changing this behavior.
+>> - AMD: Consider hot-plug of CPU with ERRATA_170. (is it possible ?)
+>> - Consider cases where we don't have enough ASIDs (e.g Xen as nested gue=
+st)
+>> - Nested virtualization ASID management
+> 
+> For these last two points - maybe we really need a mixed model?
+> 
 
+Mixed model would not allow future support for broadcast TLB 
+invalidation (even for hypervisor use) with e.g AMD INVLPGB or (future) 
+Intel Remote Action Request.
 
+>> ---
+>>   xen/arch/x86/flushtlb.c                |  31 +++---
+>>   xen/arch/x86/hvm/asid.c                | 148 +++++++++----------------
+>>   xen/arch/x86/hvm/emulate.c             |   2 +-
+>>   xen/arch/x86/hvm/hvm.c                 |  14 ++-
+>>   xen/arch/x86/hvm/nestedhvm.c           |   6 +-
+>>   xen/arch/x86/hvm/svm/asid.c            |  77 ++++++++-----
+>>   xen/arch/x86/hvm/svm/nestedsvm.c       |   1 -
+>>   xen/arch/x86/hvm/svm/svm.c             |  36 +++---
+>>   xen/arch/x86/hvm/svm/svm.h             |   4 -
+>>   xen/arch/x86/hvm/vmx/vmcs.c            |   5 +-
+>>   xen/arch/x86/hvm/vmx/vmx.c             |  68 ++++++------
+>>   xen/arch/x86/hvm/vmx/vvmx.c            |   5 +-
+>>   xen/arch/x86/include/asm/flushtlb.h    |   7 --
+>>   xen/arch/x86/include/asm/hvm/asid.h    |  25 ++---
+>>   xen/arch/x86/include/asm/hvm/domain.h  |   1 +
+>>   xen/arch/x86/include/asm/hvm/hvm.h     |  15 +--
+>>   xen/arch/x86/include/asm/hvm/svm/svm.h |   5 +
+>>   xen/arch/x86/include/asm/hvm/vcpu.h    |  10 +-
+>>   xen/arch/x86/include/asm/hvm/vmx/vmx.h |   4 +-
+>>   xen/arch/x86/mm/hap/hap.c              |   6 +-
+>>   xen/arch/x86/mm/p2m.c                  |   7 +-
+>>   xen/arch/x86/mm/paging.c               |   2 +-
+>>   xen/arch/x86/mm/shadow/hvm.c           |   1 +
+>>   xen/arch/x86/mm/shadow/multi.c         |  12 +-
+>>   xen/include/xen/sched.h                |   2 +
+>>   25 files changed, 227 insertions(+), 267 deletions(-)
+> 
+> I think I said this to Vaishali already: This really wants splitting up s=
+ome,
+> to become halfway reviewable.
+> 
 
---=-zHLb1MPjvn559jOTiXef
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
+Indeed, I am looking for a approach for splitting the change without 
+breaking things in-between patches.
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCD9Aw
-ggSOMIIDdqADAgECAhAOmiw0ECVD4cWj5DqVrT9PMA0GCSqGSIb3DQEBCwUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBDQTAeFw0yNDAxMzAwMDAwMDBaFw0zMTEx
-MDkyMzU5NTlaMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYDVQQDExdWZXJv
-a2V5IFNlY3VyZSBFbWFpbCBHMjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMjvgLKj
-jfhCFqxYyRiW8g3cNFAvltDbK5AzcOaR7yVzVGadr4YcCVxjKrEJOgi7WEOH8rUgCNB5cTD8N/Et
-GfZI+LGqSv0YtNa54T9D1AWJy08ZKkWvfGGIXN9UFAPMJ6OLLH/UUEgFa+7KlrEvMUupDFGnnR06
-aDJAwtycb8yXtILj+TvfhLFhafxroXrflspavejQkEiHjNjtHnwbZ+o43g0/yxjwnarGI3kgcak7
-nnI9/8Lqpq79tLHYwLajotwLiGTB71AGN5xK+tzB+D4eN9lXayrjcszgbOv2ZCgzExQUAIt98mre
-8EggKs9mwtEuKAhYBIP/0K6WsoMnQCcCAwEAAaOCAVwwggFYMBIGA1UdEwEB/wQIMAYBAf8CAQAw
-HQYDVR0OBBYEFIlICOogTndrhuWByNfhjWSEf/xwMB8GA1UdIwQYMBaAFEXroq/0ksuCMS1Ri6en
-IZ3zbcgPMA4GA1UdDwEB/wQEAwIBhjAdBgNVHSUEFjAUBggrBgEFBQcDBAYIKwYBBQUHAwIweQYI
-KwYBBQUHAQEEbTBrMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQwYIKwYB
-BQUHMAKGN2h0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRJRFJvb3RD
-QS5jcnQwRQYDVR0fBD4wPDA6oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0
-QXNzdXJlZElEUm9vdENBLmNybDARBgNVHSAECjAIMAYGBFUdIAAwDQYJKoZIhvcNAQELBQADggEB
-ACiagCqvNVxOfSd0uYfJMiZsOEBXAKIR/kpqRp2YCfrP4Tz7fJogYN4fxNAw7iy/bPZcvpVCfe/H
-/CCcp3alXL0I8M/rnEnRlv8ItY4MEF+2T/MkdXI3u1vHy3ua8SxBM8eT9LBQokHZxGUX51cE0kwa
-uEOZ+PonVIOnMjuLp29kcNOVnzf8DGKiek+cT51FvGRjV6LbaxXOm2P47/aiaXrDD5O0RF5SiPo6
-xD1/ClkCETyyEAE5LRJlXtx288R598koyFcwCSXijeVcRvBB1cNOLEbg7RMSw1AGq14fNe2cH1HG
-W7xyduY/ydQt6gv5r21mDOQ5SaZSWC/ZRfLDuEYwggWbMIIEg6ADAgECAhAH5JEPagNRXYDiRPdl
-c1vgMA0GCSqGSIb3DQEBCwUAMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYD
-VQQDExdWZXJva2V5IFNlY3VyZSBFbWFpbCBHMjAeFw0yNDEyMzAwMDAwMDBaFw0yODAxMDQyMzU5
-NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqGSIb3DQEBAQUAA4IC
-DwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZeYAS/SRV6zmfXlXaZ
-sNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2zkC9S7/yHDYnqegqt
-w4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qGpgFdZEk2/c//ZvUN
-i12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41vav1RhZJzYan4a1gU0
-kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0cvnO8FM6PTqsnSbcc
-0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PWPU6zfQTOMZ9uLQRR
-ci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXtREF5lLXxp+CJ6KKS
-blPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQrlR0gO3lBzuyPPArV
-hvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7IqaAovAX0d+f1YjbmC
-VsAwjhLmveFjNwIDAQABo4IBsDCCAawwHwYDVR0jBBgwFoAUiUgI6iBOd2uG5YHI1+GNZIR//HAw
-HQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3bXcyQGluZnJhZGVh
-ZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEBMA4GA1UdDwEB/wQE
-AwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwewYDVR0fBHQwcjA3oDWgM4YxaHR0
-cDovL2NybDMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDA3oDWgM4YxaHR0
-cDovL2NybDQuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDB2BggrBgEFBQcB
-AQRqMGgwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBABggrBgEFBQcwAoY0
-aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNydDANBgkq
-hkiG9w0BAQsFAAOCAQEAQXc4FPiPLRnTDvmOABEzkIumojfZAe5SlnuQoeFUfi+LsWCKiB8Uextv
-iBAvboKhLuN6eG/NC6WOzOCppn4mkQxRkOdLNThwMHW0d19jrZFEKtEG/epZ/hw/DdScTuZ2m7im
-8ppItAT6GXD3aPhXkXnJpC/zTs85uNSQR64cEcBFjjoQDuSsTeJ5DAWf8EMyhMuD8pcbqx5kRvyt
-JPsWBQzv1Dsdv2LDPLNd/JUKhHSgr7nbUr4+aAP2PHTXGcEBh8lTeYea9p4d5k969pe0OHYMV5aL
-xERqTagmSetuIwolkAuBCzA9vulg8Y49Nz2zrpUGfKGOD0FMqenYxdJHgDCCBZswggSDoAMCAQIC
-EAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQELBQAwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoT
-B1Zlcm9rZXkxIDAeBgNVBAMTF1Zlcm9rZXkgU2VjdXJlIEVtYWlsIEcyMB4XDTI0MTIzMDAwMDAw
-MFoXDTI4MDEwNDIzNTk1OVowHjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJ
-KoZIhvcNAQEBBQADggIPADCCAgoCggIBANqWLse95HW2F7FhfH9bugyT/danKmmXrbMnz5GZNAfj
-Jl5gBL9JFXrOZ9eVdpmw04Tp6aDxZctFLoEDvSWKi367Q7Sg+ci+fH4KwwfQ8Pi0IpIKx2n5emEg
-nbOQL1Lv/IcNiep6Cq3DiyaSpSp/RZf+CAfUNySHS8eWmhLU6jGpSD6hxTpYKye7PmrmvMWwfGEP
-WoamAV1kSTb9z/9m9Q2LXa89aKmTxNwnAfD3Ohn9mtU3JukwILRMewn9QRXK7KzM+01h5hkCE4nj
-W9q/VGFknNhqfhrWBTSQoE9CSVylASGrjzCgS7XmKy/BaH3/7mOOHQv5g1o3Qj/+cdKnpT0I5Qb1
-nRy+c7wUzo9OqydJtxzSP4ZyHA4dELto/a3m/ay1XHcpum1pgTOLgxAfGb/T4dCkwRUstSKLMmpL
-g9Y9TrN9BM4xn24tBFFyL5znGG0wQGzOVAM68RBzIQb6Fz758fjsr4yZnPbVsU1+gHEs/puNHrG0
-9e1EQXmUtfGn4InoopJuU8p5VGD9S3Ikd4UoBlc7xl5yjtNlQxUeYrRlnUSmdlucCEoTX1n4UmtA
-9CuVHSA7eUHO7I88CtWG9bGOU7tLgOZoSEvNqtaL/N7sQbBZK4jZ4Rr/zNTQg1SwYjjLB7u96lDP
-sipoCi8BfR35/ViNuYJWwDCOEua94WM3AgMBAAGjggGwMIIBrDAfBgNVHSMEGDAWgBSJSAjqIE53
-a4blgcjX4Y1khH/8cDAdBgNVHQ4EFgQUXGIam3Bs59Y60yTmWgfDu6pZQ6cwMAYDVR0RBCkwJ4ET
-ZHdtdzJAaW5mcmFkZWFkLm9yZ4EQZGF2aWRAd29vZGhvdS5zZTAUBgNVHSAEDTALMAkGB2eBDAEF
-AQEwDgYDVR0PAQH/BAQDAgXgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDB7BgNVHR8E
-dDByMDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
-Y3JsMDegNaAzhjFodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
-Y3JsMHYGCCsGAQUFBwEBBGowaDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29t
-MEAGCCsGAQUFBzAChjRodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVt
-YWlsRzIuY3J0MA0GCSqGSIb3DQEBCwUAA4IBAQBBdzgU+I8tGdMO+Y4AETOQi6aiN9kB7lKWe5Ch
-4VR+L4uxYIqIHxR7G2+IEC9ugqEu43p4b80LpY7M4KmmfiaRDFGQ50s1OHAwdbR3X2OtkUQq0Qb9
-6ln+HD8N1JxO5nabuKbymki0BPoZcPdo+FeRecmkL/NOzzm41JBHrhwRwEWOOhAO5KxN4nkMBZ/w
-QzKEy4PylxurHmRG/K0k+xYFDO/UOx2/YsM8s138lQqEdKCvudtSvj5oA/Y8dNcZwQGHyVN5h5r2
-nh3mT3r2l7Q4dgxXlovERGpNqCZJ624jCiWQC4ELMD2+6WDxjj03PbOulQZ8oY4PQUyp6djF0keA
-MYIDuzCCA7cCAQEwVTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMX
-VmVyb2tleSBTZWN1cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJYIZIAWUDBAIBBQCg
-ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI1MDgyOTE0MDQ1
-NVowLwYJKoZIhvcNAQkEMSIEIEpanTi8XQ7EHLtSRRiyy2Xu2EfV6nLI/q/+AG8BIIkvMGQGCSsG
-AQQBgjcQBDFXMFUwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoTB1Zlcm9rZXkxIDAeBgNVBAMTF1Zl
-cm9rZXkgU2VjdXJlIEVtYWlsIEcyAhAH5JEPagNRXYDiRPdlc1vgMGYGCyqGSIb3DQEJEAILMVeg
-VTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMXVmVyb2tleSBTZWN1
-cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIAl+l/arxCG3cY
-XVULLfcwN33XM9BlXx5imRGBNxlXlrv7SwDrkB2pLkgDVmWIcqr9gGCeFOa3xvfli+orJb3qC9Hk
-Ky9ncrbmzIGJYCHXoJrMmsagfQ+ju8bgHCJx3ddqgmUAtIhJtCUx/uiY0Ien5Az5sjBjf3xk51XN
-/yQPsrrlb14LrVa6uz+WEkoSGcxR32IMmsla4nVNA69uhJmQT2S1OcynEr+2ANYGQla1lxU8XGln
-pSXTTW5Ds1IOPmhQCbVc9sfWRtBZDoEktLTmqHUisKhXhOVuU8VSl1RiHVQFqcu05+4CTdQ++L4j
-RD+QXL4Vvs9u+HpxeJqARJQ7xh/po9tGISgtAv2SNTy5YwUNu/b053j/aYc9/OUgkhSasUywYLks
-+hKXBgu4zbnxRDutN8fiHZ8xRGmGuT3XW9DxdLZTEnd2sR8YXZBzPv368QTneJ2FZG7ytK6CV4e6
-dqXZKB7M/RXx5nLDlFjG4wCyptnYI3ylOvp2JF1Bj0jmx/nefqlBocvJP2BpwAPanA2ogbJUZIE7
-7LFMgPhbdIIQSqSA2icP8k7+Am1aqF2bZQlIVrBpmU3uOro5JbX2Rcdb/VE8GSO0OZCSC/AKushu
-CN1acW/Q70U7FxGWA7wftc4LX/obyTstq1AM9GpcPoNQz/e9OIET1wt682EVsqQAAAAAAAA=
+> Jan
+> 
+
+Teddy
 
 
---=-zHLb1MPjvn559jOTiXef--
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
 
