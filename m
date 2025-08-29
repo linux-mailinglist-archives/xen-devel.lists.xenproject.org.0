@@ -2,36 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE5F9B3BD05
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 16:00:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1101457.1454526 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46F67B3BD1D
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 16:05:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1101480.1454536 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urze5-0001xl-B2; Fri, 29 Aug 2025 14:00:01 +0000
+	id 1urzix-0003lW-SV; Fri, 29 Aug 2025 14:05:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1101457.1454526; Fri, 29 Aug 2025 14:00:01 +0000
+Received: by outflank-mailman (output) from mailman id 1101480.1454536; Fri, 29 Aug 2025 14:05:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urze5-0001vh-7H; Fri, 29 Aug 2025 14:00:01 +0000
-Received: by outflank-mailman (input) for mailman id 1101457;
- Fri, 29 Aug 2025 13:59:59 +0000
+	id 1urzix-0003iM-PV; Fri, 29 Aug 2025 14:05:03 +0000
+Received: by outflank-mailman (input) for mailman id 1101480;
+ Fri, 29 Aug 2025 14:05:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ybbg=3J=bounce.vates.tech=bounce-md_30504962.68b1b25c.v1-ddf99863b663417988695163812732b3@srs-se1.protection.inumbo.net>)
- id 1urze3-0001vZ-Md
- for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 13:59:59 +0000
-Received: from mail187-26.suw11.mandrillapp.com
- (mail187-26.suw11.mandrillapp.com [198.2.187.26])
+ <SRS0=400J=3J=casper.srs.infradead.org=BATV+dd1ac6718a2a76904583+8041+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1urziv-0003iF-Da
+ for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 14:05:02 +0000
+Received: from casper.infradead.org (unknown [2001:8b0:10b:1236::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 71e5366b-84e0-11f0-8dd7-1b34d833f44b;
- Fri, 29 Aug 2025 15:59:57 +0200 (CEST)
-Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail187-26.suw11.mandrillapp.com (Mailchimp) with ESMTP id
- 4cD0JX0nKczKsbXM9
- for <xen-devel@lists.xenproject.org>; Fri, 29 Aug 2025 13:59:56 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- ddf99863b663417988695163812732b3; Fri, 29 Aug 2025 13:59:56 +0000
+ id 254d9831-84e1-11f0-8dd7-1b34d833f44b;
+ Fri, 29 Aug 2025 16:04:59 +0200 (CEST)
+Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ helo=u09cd745991455d.ant.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
+ id 1urzip-0000000CtIW-3snb; Fri, 29 Aug 2025 14:04:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,81 +40,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71e5366b-84e0-11f0-8dd7-1b34d833f44b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1756475996; x=1756745996;
-	bh=Qh6Kj/etTCT+4I4zZbOCaJjPaHBfztd3pkvoO9utYqg=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=eeHG2c7iC0yt+5rRJI5Rohb4J6yJH9nJLFsLcbnna/h2tW1BzLaDOA+PKv86dUMR1
-	 fiEDw3+hoToVVXpvIxBjkVjJCiNSgWrludg5/qyQ/aAV2ZwZDDNYih0PtUv56SJXTl
-	 os5/wwc9qAgG1whAhj5vTN+CVsd0r4cJn3qjeilJYClNYIAGDW/3xj6m3OH9AEIXl6
-	 dQ+vvm53YPKpCsAuCUpc2Kx5tBJwChJUbPnMAU7BoQRZT7P0p0Hl3EzKTUJCpjjT/P
-	 JBO+vczSYncdyEEm/acI3glYlqZnUvvZUBaRtCmUDXJ0kaDIYeBd9sVWyCE+GVAp6H
-	 CN2H/YmshQkUA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1756475996; x=1756736496; i=teddy.astie@vates.tech;
-	bh=Qh6Kj/etTCT+4I4zZbOCaJjPaHBfztd3pkvoO9utYqg=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=mPLDiPZmsuvVZs9OjZbU4K+fGHA+S6k5dl7M41iaEtYJMJqluZuzm3pCuoNKST0bQ
-	 K1AaRt6tYSb6IGP78TfJDn5Tty+YqNl8wekeTmmHkUxejIXSlIaDjVgKkBKHWq9pxr
-	 HysbTHIThpsbwhgfKFGiPO+OBuClebaB3xM+/YIp1H4Cu4b866o2Z534p2eEhaXF0j
-	 B45vPDGdX3cGdtVYM9cftEccV7FVrWiwtTzF0JJTAaPk4kyLBZjSQQWuNEvFvehOX1
-	 jNOr8TwbiGY8xgEwN56XLpSIMtBWifB5+xrGb+mXD0ukjXY0PnyepZO/pR5bYvSbX2
-	 SrJohSthLyFSA==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[RFC=20PATCH=205/9]=20docs/x86:=20Introduce=20FastABI?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1756475994874
-Message-Id: <c5e62944-d519-4931-af20-1a737099148b@vates.tech>
-To: "Jan Beulich" <jbeulich@suse.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1755785258.git.teddy.astie@vates.tech> <64800d22220f31bf052713ce61ecedeaa8a36b6f.1755785258.git.teddy.astie@vates.tech> <2fcdb264-15a3-47f7-915d-83d1c1e06765@suse.com>
-In-Reply-To: <2fcdb264-15a3-47f7-915d-83d1c1e06765@suse.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.ddf99863b663417988695163812732b3?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250829:md
-Date: Fri, 29 Aug 2025 13:59:56 +0000
+X-Inumbo-ID: 254d9831-84e1-11f0-8dd7-1b34d833f44b
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:Date:Cc:To:
+	From:Subject:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=lAIUJUTzkAwuls3+jeEJSojGD/Rj6dhLVj3jUD0gqoQ=; b=vs4DMyMelavKmOBFB7100qq88H
+	IhPyGFkTajwjjlHz6Ae0OROeoU3Zv/QmGQbwnHGk+ILZwmxOK3TKShjPUIB2Gm9Gz491VayvuML09
+	OWbMahnfmnfjSERZautJaK4+cut1bHR6hhJT/14gZNcmQ0Y+mmRPSJUZnRDUGv8aYDogV7tRrzhUO
+	nDKwXr1jn2GtLcRo0qsl8sD9tPb4FLW0cddxSAR5zRZfbkm5hGtmIzJfZZ3oLWr9G1r9Hfd9RTnGv
+	PkQ0PatCsoiflV8lTpOFIxonXplSB/U8jugkTLKOu8G5aHmEKp00SCyuAmrBKd0GZt1d3cp8YjcOn
+	2BSTsgKA==;
+Message-ID: <9912a9c26aa322623b09ace7a01c7a86665e147a.camel@infradead.org>
+Subject: [PATCH] i386/xen: Advertise XEN_HVM_CPUID_EXT_DEST_ID for Xen
+ guests where supported
+From: David Woodhouse <dwmw2@infradead.org>
+To: qemu-devel@nongnu.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Marcelo Tosatti
+ <mtosatti@redhat.com>,  kvm@vger.kernel.org, xen-devel
+ <xen-devel@lists.xenproject.org>, Roger Pau =?ISO-8859-1?Q?Monn=E9?=
+ <roger.pau@citrix.com>, =?ISO-8859-1?Q?J=FCrgen?= Gross <jgross@suse.com>
+Date: Fri, 29 Aug 2025 15:04:55 +0100
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-zHLb1MPjvn559jOTiXef"
+User-Agent: Evolution 3.52.3-0ubuntu1 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+
+
+--=-zHLb1MPjvn559jOTiXef
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le 28/08/2025 =C3=A0 14:35, Jan Beulich a =C3=A9crit=C2=A0:
-> On 21.08.2025 17:25, Teddy Astie wrote:
->> FastABI is a alternative ABI designed with performance and coco-enabled
->> guest in mind. It is register-oriented instead of refering to C structur=
-es
->> in the guest memory (through a virtual memory pointer).
->>
->> It only focuses on kernel-side hypercalls, it doesn't aim to provide too=
-lstack
->> operations.
-> 
-> And even there it excludes certain pretty relevant ones, like many of the
-> gnttabop sub-ops. As alluded to by a reply to an earlier patch, I don't
-> think having an ABI for just a subset of the hypercalls is going to help.
-> 
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-Many hypercalls are missing in current RFC, including the grant 
-map/unmap ones. But a part of the idea is to still having some 
-hypercalls out of scope (mainly legacy and toolstack-specific ones) to 
-reduce the complexity.
+The 15-bit MSI enlightenment which allows for up to 32768 vCPUs without a
+virtual IOMMU is documented at http://david.woodhou.se/ExtDestId.pdf and
+has been supported for native KVM guests since QEMU v6.0.
 
-> Jan
-> 
+Although Xen itself has only defined the CPUID bit and not yet implemented
+it because of complexity in the interface between QEMU and Xen for MSI
+handling, there's no reason why it can't work when QEMU/KVM is hosting Xen
+guests. Advertise it accordingly.
+
+Tested with a standard Linux guest (which has supported this under Xen
+since v5.17) and QEMU command line including -M q35 -smp 4,maxcpus=3D288
+ -device host-x86_64-cpu,socket-id=3D0,core-id=3D257,thread-id=3D0
+ -cpu host,+xen-vapic
+
+We need +xen-vapic to test it properly, or the guest turns every MSI and
+I/O APIC interrupt into an event channel. Testing shows that both line
+interrupts and MSIs can be set affine to the fifth CPU and are delivered
+correctly.
+
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+---
+ target/i386/kvm/kvm.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/target/i386/kvm/kvm.c b/target/i386/kvm/kvm.c
+index 369626f8c8..1401d7a903 100644
+--- a/target/i386/kvm/kvm.c
++++ b/target/i386/kvm/kvm.c
+@@ -2221,6 +2221,7 @@ int kvm_arch_init_vcpu(CPUState *cs)
+=20
+             if (cs->kvm_state->xen_version >=3D XEN_VERSION(4, 17)) {
+                 c->eax |=3D XEN_HVM_CPUID_UPCALL_VECTOR;
++                c->eax |=3D XEN_HVM_CPUID_EXT_DEST_ID;
+             }
+         }
+=20
+--=20
+2.49.0
 
 
 
-Teddy Astie | Vates XCP-ng Developer
+--=-zHLb1MPjvn559jOTiXef
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
 
-XCP-ng & Xen Orchestra - Vates solutions
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCD9Aw
+ggSOMIIDdqADAgECAhAOmiw0ECVD4cWj5DqVrT9PMA0GCSqGSIb3DQEBCwUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBDQTAeFw0yNDAxMzAwMDAwMDBaFw0zMTEx
+MDkyMzU5NTlaMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYDVQQDExdWZXJv
+a2V5IFNlY3VyZSBFbWFpbCBHMjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMjvgLKj
+jfhCFqxYyRiW8g3cNFAvltDbK5AzcOaR7yVzVGadr4YcCVxjKrEJOgi7WEOH8rUgCNB5cTD8N/Et
+GfZI+LGqSv0YtNa54T9D1AWJy08ZKkWvfGGIXN9UFAPMJ6OLLH/UUEgFa+7KlrEvMUupDFGnnR06
+aDJAwtycb8yXtILj+TvfhLFhafxroXrflspavejQkEiHjNjtHnwbZ+o43g0/yxjwnarGI3kgcak7
+nnI9/8Lqpq79tLHYwLajotwLiGTB71AGN5xK+tzB+D4eN9lXayrjcszgbOv2ZCgzExQUAIt98mre
+8EggKs9mwtEuKAhYBIP/0K6WsoMnQCcCAwEAAaOCAVwwggFYMBIGA1UdEwEB/wQIMAYBAf8CAQAw
+HQYDVR0OBBYEFIlICOogTndrhuWByNfhjWSEf/xwMB8GA1UdIwQYMBaAFEXroq/0ksuCMS1Ri6en
+IZ3zbcgPMA4GA1UdDwEB/wQEAwIBhjAdBgNVHSUEFjAUBggrBgEFBQcDBAYIKwYBBQUHAwIweQYI
+KwYBBQUHAQEEbTBrMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQwYIKwYB
+BQUHMAKGN2h0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRJRFJvb3RD
+QS5jcnQwRQYDVR0fBD4wPDA6oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0
+QXNzdXJlZElEUm9vdENBLmNybDARBgNVHSAECjAIMAYGBFUdIAAwDQYJKoZIhvcNAQELBQADggEB
+ACiagCqvNVxOfSd0uYfJMiZsOEBXAKIR/kpqRp2YCfrP4Tz7fJogYN4fxNAw7iy/bPZcvpVCfe/H
+/CCcp3alXL0I8M/rnEnRlv8ItY4MEF+2T/MkdXI3u1vHy3ua8SxBM8eT9LBQokHZxGUX51cE0kwa
+uEOZ+PonVIOnMjuLp29kcNOVnzf8DGKiek+cT51FvGRjV6LbaxXOm2P47/aiaXrDD5O0RF5SiPo6
+xD1/ClkCETyyEAE5LRJlXtx288R598koyFcwCSXijeVcRvBB1cNOLEbg7RMSw1AGq14fNe2cH1HG
+W7xyduY/ydQt6gv5r21mDOQ5SaZSWC/ZRfLDuEYwggWbMIIEg6ADAgECAhAH5JEPagNRXYDiRPdl
+c1vgMA0GCSqGSIb3DQEBCwUAMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYD
+VQQDExdWZXJva2V5IFNlY3VyZSBFbWFpbCBHMjAeFw0yNDEyMzAwMDAwMDBaFw0yODAxMDQyMzU5
+NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqGSIb3DQEBAQUAA4IC
+DwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZeYAS/SRV6zmfXlXaZ
+sNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2zkC9S7/yHDYnqegqt
+w4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qGpgFdZEk2/c//ZvUN
+i12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41vav1RhZJzYan4a1gU0
+kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0cvnO8FM6PTqsnSbcc
+0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PWPU6zfQTOMZ9uLQRR
+ci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXtREF5lLXxp+CJ6KKS
+blPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQrlR0gO3lBzuyPPArV
+hvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7IqaAovAX0d+f1YjbmC
+VsAwjhLmveFjNwIDAQABo4IBsDCCAawwHwYDVR0jBBgwFoAUiUgI6iBOd2uG5YHI1+GNZIR//HAw
+HQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3bXcyQGluZnJhZGVh
+ZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEBMA4GA1UdDwEB/wQE
+AwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwewYDVR0fBHQwcjA3oDWgM4YxaHR0
+cDovL2NybDMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDA3oDWgM4YxaHR0
+cDovL2NybDQuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDB2BggrBgEFBQcB
+AQRqMGgwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBABggrBgEFBQcwAoY0
+aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNydDANBgkq
+hkiG9w0BAQsFAAOCAQEAQXc4FPiPLRnTDvmOABEzkIumojfZAe5SlnuQoeFUfi+LsWCKiB8Uextv
+iBAvboKhLuN6eG/NC6WOzOCppn4mkQxRkOdLNThwMHW0d19jrZFEKtEG/epZ/hw/DdScTuZ2m7im
+8ppItAT6GXD3aPhXkXnJpC/zTs85uNSQR64cEcBFjjoQDuSsTeJ5DAWf8EMyhMuD8pcbqx5kRvyt
+JPsWBQzv1Dsdv2LDPLNd/JUKhHSgr7nbUr4+aAP2PHTXGcEBh8lTeYea9p4d5k969pe0OHYMV5aL
+xERqTagmSetuIwolkAuBCzA9vulg8Y49Nz2zrpUGfKGOD0FMqenYxdJHgDCCBZswggSDoAMCAQIC
+EAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQELBQAwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoT
+B1Zlcm9rZXkxIDAeBgNVBAMTF1Zlcm9rZXkgU2VjdXJlIEVtYWlsIEcyMB4XDTI0MTIzMDAwMDAw
+MFoXDTI4MDEwNDIzNTk1OVowHjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJ
+KoZIhvcNAQEBBQADggIPADCCAgoCggIBANqWLse95HW2F7FhfH9bugyT/danKmmXrbMnz5GZNAfj
+Jl5gBL9JFXrOZ9eVdpmw04Tp6aDxZctFLoEDvSWKi367Q7Sg+ci+fH4KwwfQ8Pi0IpIKx2n5emEg
+nbOQL1Lv/IcNiep6Cq3DiyaSpSp/RZf+CAfUNySHS8eWmhLU6jGpSD6hxTpYKye7PmrmvMWwfGEP
+WoamAV1kSTb9z/9m9Q2LXa89aKmTxNwnAfD3Ohn9mtU3JukwILRMewn9QRXK7KzM+01h5hkCE4nj
+W9q/VGFknNhqfhrWBTSQoE9CSVylASGrjzCgS7XmKy/BaH3/7mOOHQv5g1o3Qj/+cdKnpT0I5Qb1
+nRy+c7wUzo9OqydJtxzSP4ZyHA4dELto/a3m/ay1XHcpum1pgTOLgxAfGb/T4dCkwRUstSKLMmpL
+g9Y9TrN9BM4xn24tBFFyL5znGG0wQGzOVAM68RBzIQb6Fz758fjsr4yZnPbVsU1+gHEs/puNHrG0
+9e1EQXmUtfGn4InoopJuU8p5VGD9S3Ikd4UoBlc7xl5yjtNlQxUeYrRlnUSmdlucCEoTX1n4UmtA
+9CuVHSA7eUHO7I88CtWG9bGOU7tLgOZoSEvNqtaL/N7sQbBZK4jZ4Rr/zNTQg1SwYjjLB7u96lDP
+sipoCi8BfR35/ViNuYJWwDCOEua94WM3AgMBAAGjggGwMIIBrDAfBgNVHSMEGDAWgBSJSAjqIE53
+a4blgcjX4Y1khH/8cDAdBgNVHQ4EFgQUXGIam3Bs59Y60yTmWgfDu6pZQ6cwMAYDVR0RBCkwJ4ET
+ZHdtdzJAaW5mcmFkZWFkLm9yZ4EQZGF2aWRAd29vZGhvdS5zZTAUBgNVHSAEDTALMAkGB2eBDAEF
+AQEwDgYDVR0PAQH/BAQDAgXgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDB7BgNVHR8E
+dDByMDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
+Y3JsMDegNaAzhjFodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
+Y3JsMHYGCCsGAQUFBwEBBGowaDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29t
+MEAGCCsGAQUFBzAChjRodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVt
+YWlsRzIuY3J0MA0GCSqGSIb3DQEBCwUAA4IBAQBBdzgU+I8tGdMO+Y4AETOQi6aiN9kB7lKWe5Ch
+4VR+L4uxYIqIHxR7G2+IEC9ugqEu43p4b80LpY7M4KmmfiaRDFGQ50s1OHAwdbR3X2OtkUQq0Qb9
+6ln+HD8N1JxO5nabuKbymki0BPoZcPdo+FeRecmkL/NOzzm41JBHrhwRwEWOOhAO5KxN4nkMBZ/w
+QzKEy4PylxurHmRG/K0k+xYFDO/UOx2/YsM8s138lQqEdKCvudtSvj5oA/Y8dNcZwQGHyVN5h5r2
+nh3mT3r2l7Q4dgxXlovERGpNqCZJ624jCiWQC4ELMD2+6WDxjj03PbOulQZ8oY4PQUyp6djF0keA
+MYIDuzCCA7cCAQEwVTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMX
+VmVyb2tleSBTZWN1cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJYIZIAWUDBAIBBQCg
+ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI1MDgyOTE0MDQ1
+NVowLwYJKoZIhvcNAQkEMSIEIEpanTi8XQ7EHLtSRRiyy2Xu2EfV6nLI/q/+AG8BIIkvMGQGCSsG
+AQQBgjcQBDFXMFUwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoTB1Zlcm9rZXkxIDAeBgNVBAMTF1Zl
+cm9rZXkgU2VjdXJlIEVtYWlsIEcyAhAH5JEPagNRXYDiRPdlc1vgMGYGCyqGSIb3DQEJEAILMVeg
+VTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMXVmVyb2tleSBTZWN1
+cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIAl+l/arxCG3cY
+XVULLfcwN33XM9BlXx5imRGBNxlXlrv7SwDrkB2pLkgDVmWIcqr9gGCeFOa3xvfli+orJb3qC9Hk
+Ky9ncrbmzIGJYCHXoJrMmsagfQ+ju8bgHCJx3ddqgmUAtIhJtCUx/uiY0Ien5Az5sjBjf3xk51XN
+/yQPsrrlb14LrVa6uz+WEkoSGcxR32IMmsla4nVNA69uhJmQT2S1OcynEr+2ANYGQla1lxU8XGln
+pSXTTW5Ds1IOPmhQCbVc9sfWRtBZDoEktLTmqHUisKhXhOVuU8VSl1RiHVQFqcu05+4CTdQ++L4j
+RD+QXL4Vvs9u+HpxeJqARJQ7xh/po9tGISgtAv2SNTy5YwUNu/b053j/aYc9/OUgkhSasUywYLks
++hKXBgu4zbnxRDutN8fiHZ8xRGmGuT3XW9DxdLZTEnd2sR8YXZBzPv368QTneJ2FZG7ytK6CV4e6
+dqXZKB7M/RXx5nLDlFjG4wCyptnYI3ylOvp2JF1Bj0jmx/nefqlBocvJP2BpwAPanA2ogbJUZIE7
+7LFMgPhbdIIQSqSA2icP8k7+Am1aqF2bZQlIVrBpmU3uOro5JbX2Rcdb/VE8GSO0OZCSC/AKushu
+CN1acW/Q70U7FxGWA7wftc4LX/obyTstq1AM9GpcPoNQz/e9OIET1wt682EVsqQAAAAAAAA=
 
-web: https://vates.tech
 
-
+--=-zHLb1MPjvn559jOTiXef--
 
