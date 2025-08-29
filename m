@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5460CB3B362
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 08:30:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1100602.1453969 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2588AB3B3BA
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 09:00:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1100631.1453980 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urscU-0007HQ-7x; Fri, 29 Aug 2025 06:29:54 +0000
+	id 1urt4r-0003Wq-EW; Fri, 29 Aug 2025 06:59:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1100602.1453969; Fri, 29 Aug 2025 06:29:54 +0000
+Received: by outflank-mailman (output) from mailman id 1100631.1453980; Fri, 29 Aug 2025 06:59:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urscU-0007Fn-5B; Fri, 29 Aug 2025 06:29:54 +0000
-Received: by outflank-mailman (input) for mailman id 1100602;
- Fri, 29 Aug 2025 06:29:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1urt4r-0003UO-Ax; Fri, 29 Aug 2025 06:59:13 +0000
+Received: by outflank-mailman (input) for mailman id 1100631;
+ Fri, 29 Aug 2025 06:59:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xaUo=3J=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1urscS-0006zk-KH
- for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 06:29:52 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 91205e77-84a1-11f0-8dd7-1b34d833f44b;
- Fri, 29 Aug 2025 08:29:50 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-afeceee8bb1so251358766b.3
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 23:29:50 -0700 (PDT)
+ id 1urt4q-0003UI-3Y
+ for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 06:59:12 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a9cba614-84a5-11f0-8adc-4578a1afcccb;
+ Fri, 29 Aug 2025 08:59:10 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-afcb731ca8eso280566766b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 23:59:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afefca0e0basm131617866b.39.2025.08.28.23.29.49
+ 4fb4d7f45d1cf-61cfc214bb7sm1165506a12.13.2025.08.28.23.59.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Aug 2025 23:29:49 -0700 (PDT)
+ Thu, 28 Aug 2025 23:59:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 91205e77-84a1-11f0-8dd7-1b34d833f44b
+X-Inumbo-ID: a9cba614-84a5-11f0-8adc-4578a1afcccb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756448990; x=1757053790; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756450750; x=1757055550; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NKPuM8A6pdXjZulZnYRD439gNJuM9nVaFGmGH2Ryd1w=;
-        b=RnzCnl69Tggumc85G4xipX5ybH9yjyBznjB4wf5oNymJZxG1rQKfgoF7hlcyzlhY+7
-         LE5R1dSs4xs9tJNq+X5sBiPdFIOs5fAOPBh3REYViBqBwm6mHCEJT489yevJZ9O6ozaQ
-         sqPtQM56vYxwICbA3UJfSne1jSIGxkGYzgkkWlVIPMSfMjhMWF6XSp7PLoGx3J44RUZR
-         YxpNGlPH08Nrgb21gXyOF+o691UAnolowRT7CE89G7JTPT3gT3r0+rMiahJDhSPSvYxe
-         uL+78eE8rcrHAeNCbyEHBQM4Ga4SMGPzkn91v0G3mH/3EE/dU/Irx4kc6MXo+QzLw2eQ
-         dyZQ==
+        bh=aNfvUShnH51qG42u7rH1FlK2GxWYroXXoNrl2DwQrcU=;
+        b=alJSJBRZfImITIrYDAJKdUM1N70jSggcu6fA3puRkHk/c33WMit+OtdTmRhrmhi7fB
+         +kpbTQ3SYYSgxR6uG2rMWf25kunxJuCsEo4QIRCQRbVoxwAtYQ5+63NXZFxeGpE5X0Ow
+         ALR1+YQNYZonLFKBFQIBuhzqkWYOLid9FgM2DqQKTzJw6/i+fx14+ylOEwigIv4vubW2
+         TSm97Vir4qQdRFG+xLWHHIld5/hgxz5FarIzP5vj6M2xuDk5tyZ2sg5fjKDQcYzxl/og
+         1uIdPJ1XS+ZhtYvrb/HYGe3Am2xo7dKiV1qlBNKG6umMFdCr+8LLeowGZyJ+n1qpDgjM
+         /Bbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756448990; x=1757053790;
+        d=1e100.net; s=20230601; t=1756450750; x=1757055550;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NKPuM8A6pdXjZulZnYRD439gNJuM9nVaFGmGH2Ryd1w=;
-        b=U84ETxOAUN5L/CaTCV5sAUz0TMxmNTAy4f55kiLnoIIe57uqJG0OpJ8g8a4l3DjIyg
-         pnXRo8vnMjJ1bhVzdlyTatNXw/jMDATuGHJfMCSBJlCV0tMdV8WjRFvFMEx0QqPM+2QG
-         gV6t8uGQj8+QJs/sNZk9O1yfpUmaWu5/6Ad9RdYZ1wO49sIxvjsJm63pzIuyTHpNsc8T
-         uV/Ft4FQ2W9Wxsf8TnHo5el0RD0pyFoG6eAp2wXaJmF5gSe+Ncwaeku19FW8/EAHnLV7
-         4LnFO0pw77eXxuv2Ow7J2iQRpukhl4RDdqvHsaZXaQULr4WPg3edlW+7MJkgBHeDcWs6
-         mxAw==
-X-Forwarded-Encrypted: i=1; AJvYcCWjUZWSq3be1Wofy7zaEFUFRsc3x1p5a8ssyfK2M1N7upf1yfAVjr9Owl9JqP5NQh5XOv9W9BfkknY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzjASQZcDUekb3vTwmIH/chx4yl3NkTjWXoHREq8BfkRaxJmQzE
-	W2uC62xU35u07ou2Qw0PgLwKfmhnUmnvjw57vvDE08i8R6CuLDiquOcioqGS8UBE2g==
-X-Gm-Gg: ASbGncuxjjEYRektRgH2FLCpaHB/vITMFmh2VG79677cFw5tL+9BgJFwYJUCPXmqobW
-	ofoYy7Td+fRQkK/oe1BDyDzn25MXb3MTlY5LTlqCJ3+s3Xqgx6eoP099PiAOmIHVSZn3lGlh/WJ
-	Eyb4MQ+Bc3wZdB2t5eBIDpwWiWd2ez5+xPePUHcNVWlu58ykw4WtdQidlWTepDQD0X/G9151YsQ
-	iEAgaOEA/xCXoL0ZONyTDf6X0aqspWBUVTJi/4N39L+MzpjOyvAvmt9Ul+6zF2IGQJnQVMzBEwJ
-	92ISyd/fT1Yo1uLNt4ZYd0pRbbWY0oadyL9hU1cyN8q9s6Ck4gTQ87EVjqiUaQjvy9FjdyE86Kl
-	d3A5qqN1pCg37EQe/vqesY7z/OjpLrcqCdNa5XXqmrjwcUkoUJoFKsjs1jtARDjX7uje2NyNWmW
-	7QO7c6IHs=
-X-Google-Smtp-Source: AGHT+IF+/WaFyPVArHuBEtqNrGhAAzVnbk/ZU9kCfN4nsXGLiQ//JCCMgfmyLCNNBZKhZJmLYXlsKQ==
-X-Received: by 2002:a17:907:2d10:b0:afe:c1e4:5554 with SMTP id a640c23a62f3a-afec1e457b6mr854676066b.38.1756448990175;
-        Thu, 28 Aug 2025 23:29:50 -0700 (PDT)
-Message-ID: <2b34c868-7562-4824-8a1a-72df7348dbea@suse.com>
-Date: Fri, 29 Aug 2025 08:29:48 +0200
+        bh=aNfvUShnH51qG42u7rH1FlK2GxWYroXXoNrl2DwQrcU=;
+        b=gr1XB7nrMez9QizZN6qwmwijh69Vkw7tUXEZH/j9LWOWBJzIvhRQFTK/9gaYNtnOgT
+         rsYowfwLS6TLhP0XNc1b1TketxQZvXYy/T+EFb1gZloFfacVlh+O9mJxkhhTsD5zysYN
+         m6lkU2idagSrtj4Ou71fB4iVl7lADyov0LPpIGVJf+W5TdbqYrlmNfIYjdAPS/t+yvh6
+         oZNIdvvNTD8MRU5j4tRfwkNAJjfwEZiYmM/yJ9sp2nlIF5313wBSZ31mofmuPDMCSIq1
+         ciyZe9HiVwhpEilVGTqvL9z4InRL1a7GsqHpSbB4zwWoW4GHGHwvCSWt2fuzECm5+eoq
+         tJRw==
+X-Forwarded-Encrypted: i=1; AJvYcCX8q58aQoAV3bYFX35XrtL8oUKXGj2WtHbrNTQzoblr0bHYYSE7jInyBqA4LGz/wxy/kEJBCMnK95U=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxM2leL1cHw7lyFVaEqTAnP8g8RdNLrjFdFkFNxhGrsu+00oeyQ
+	Qo3/L5YPRYWaAyB7V+80f1NxwyZEBCJ6foP+ZoI8NqPyDmg1PSO5iSCONTqdMHdxDg==
+X-Gm-Gg: ASbGncuuDtfOyDUGaveknpiGyHBCN1se0k3d9hao57i7LXzQcC6byJ41uC0ntBugGVA
+	C3luzueq0BzXSv+l1A0y8+KGoc397yZ4mgwTFboLbD20OKySm1EJceskt1Z86bMhtfLCPMQixsf
+	aoB8yWV3o3rZdAYd4tC+OSJLV7C3DPCM+MxQweXMBwSNHkILelJQP93iTGukILFGuG6aHi5QrmY
+	p/eedIYFkogIEK/3Znd0hLpj8ep4/DjBuYYJKKTVk8AEOR0kR/4lvJWhArInIM/zkwMhdhLUNf4
+	ugJhjie32e2nkBIA7PCJTNXke3VOPIsqDMlEWSqYrYZ8BsrSs017xgulRwBadz/O+gl95Rta/5q
+	+YIznijy7I1qHzPfbNm1Xh3qzxQApaD9bvMu2pYsHPqDPjCuMfl8C+u5OEC4EhiixWKpyzHO89K
+	jkcFrlnyrTksSVzdvCnw==
+X-Google-Smtp-Source: AGHT+IFz9sxg9C77Ggj2NVlcm3Ou9mrbrqVgUIpDUsyOF/HJytqGmZZdPqs9Kn42L41s+lM4PVLT+Q==
+X-Received: by 2002:a17:907:3d8e:b0:afe:b872:b991 with SMTP id a640c23a62f3a-afeb872c1bbmr849167066b.22.1756450749605;
+        Thu, 28 Aug 2025 23:59:09 -0700 (PDT)
+Message-ID: <289851bd-95c5-485c-8b3c-d31452ad204f@suse.com>
+Date: Fri, 29 Aug 2025 08:59:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: introduce "hot" and "cold" page copying functions
+Subject: Re: [PATCH v2 3/5] symbols: arrange to know where functions end
 To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <1b9e5d46-20a8-4b5f-b938-e28a0429c770@suse.com>
- <4d06bd13-6f75-4dcf-aa4d-c225139c2575@amd.com>
+References: <ceef1876-8759-465c-9a74-309b6b92f773@suse.com>
+ <10e116c5-5a62-4abc-a52a-e2ca12118cfe@suse.com>
+ <24fd00b5-3053-43ae-8342-887eee94869a@amd.com>
+ <d934d8a8-93c0-4cb6-baa4-f2aedb719f25@suse.com>
+ <e9eaf331-4a32-4c80-8b0a-5f36d8fd9022@suse.com>
+ <773a5f4e-2f73-4b84-bc56-90aee660acd2@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,55 +127,76 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4d06bd13-6f75-4dcf-aa4d-c225139c2575@amd.com>
+In-Reply-To: <773a5f4e-2f73-4b84-bc56-90aee660acd2@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.08.2025 23:33, Jason Andryuk wrote:
-> On 2025-08-28 05:17, Jan Beulich wrote:
->> The present copy_page_sse2() is useful in case the destination page isn't
->> going to get touched again soon, or if we want to limit churn on the
->> caches. Just rename it, to fit the corresponding {clear,scrub}_page_*()
->> naming scheme.
+On 28.08.2025 19:16, Jason Andryuk wrote:
+> On 2025-08-28 12:11, Jan Beulich wrote:
+>> On 28.08.2025 09:28, Jan Beulich wrote:
+>>> On 28.08.2025 03:03, Jason Andryuk wrote:
+>>>> On 2025-04-02 09:58, Jan Beulich wrote:
+>>>>> --- a/xen/tools/symbols.c
+>>>>> +++ b/xen/tools/symbols.c
+>>>>
+>>>>> @@ -318,24 +334,42 @@ static void write_src(void)
+>>>>>    	printf("#else\n");
+>>>>>    	output_label("symbols_offsets");
+>>>>>    	printf("#endif\n");
+>>>>> -	for (i = 0; i < table_cnt; i++) {
+>>>>> +	for (i = 0, ends = 0; i < table_cnt; i++) {
+>>>>>    		printf("\tPTR\t%#llx - SYMBOLS_ORIGIN\n", table[i].addr);
+>>>>> +
+>>>>> +		table[i].addr_idx = i + ends;
+>>>>> +
+>>>>> +		if (!want_symbol_end(i)) {
+>>>>> +			/* If there's another symbol at the same address,
+>>>>> +			 * propagate this symbol's size if the next one has
+>>>>> +			 * no size, or if the next one's size is larger. */
+>>>>
+>>>> Why do we want to shrink the next symbol's size?
+>>>
+>>> First (see related post-commit-message remarks): In principle section symbols
+>>> could come with a size, too. That would break everything as long as we don't
+>>> strip those.
+>>>
+>>> The main reason though is that imo smallest granularity is what we want here,
+>>> together with predictability. One symbol with a huge size could cover
+>>> multiple other symbols with smaller sizes. We could omit that part of the
+>>> change here, but then the processing in the hypervisor would need to change,
+>>> to fish out the "best suitable" symbol when dealing with multiple ones at the
+>>> same address. Other changes may then also be needed to the tool, to have such
+>>> symbols come in a well-defined order (to keep the then-new code in the
+>>> hypervisor as simple as possible). Look for "aliased symbol" in
+>>> common/symbols.c to see how simplistic respective code is right now.
 >>
->> For cases where latency is the most important aspect, or when it is
->> expected that sufficiently large parts of a destination page will get
->> accessed again soon after the copying, introduce a "hot" alternative.
->> Again use alternatives patching to select between a "legacy" and an ERMS
->> variant.
->>
->> Don't switch any callers just yet - this will be the subject of subsequent
->> changes.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> Furthermore remember that we can't record sizes, but instead we insert fake
+>> symbols. Obviously there can be only one (at least in the present scheme).
+>> If we used too large a size, chances would increase that the end symbol (in
+>> the sorted table) would have to live past some other symbol, thus becoming
+>> that one's "end".
 > 
-> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-
-Thanks.
-
->> To avoid the NOP padding (also in clear_page_hot()) we could use a double
->> REP prefix in the replacement code (accounting for the REX one in the code
->> being replaced).
+> The scenario I thought about is something like:
 > 
-> Did my tool chain do it automatically?
+> a 0x100-0x10f
+> b 0x100-0x1ff
+> c 0x200-0x2ff
 > 
-> 0000000000000000 <.altinstr_replacement>:
->     0:	b9 00 10 00 00       	mov    $0x1000,%ecx
->     5:	f3 f3 a4             	repz rep movsb %ds:(%rsi),%es:(%rdi)
+> If you shrink b, you are creating a hole that would otherwise be 
+> assigned to b.
+> 
+> But I agree avoiding huge sizes covering multiple small variables would 
+> better be avoided.
+> 
+> Do you have concrete examples to help illustrate the problem?
 
-Interesting. That looks like a bug to me, when source code merely has
+a 0x100-0x1ff
+b 0x100-0x10f
+c 0x110-0x11f
 
-        rep movsb
-
-Did you also check what copy_page_movsq (i.e. "rep movsq") expands to?
-What gas version is this? With 2.45 I get
-
-0000000000000000 <.altinstr_replacement>:
-   0:	b9 00 10 00 00       	mov    $0x1000,%ecx
-   5:	f3 a4                	rep movsb (%rsi),(%rdi)
-
-(the omission of segment indicators when there's no segment override is
-indeed a change in 2.45).
+If we inserted an "end" label based on a's size, that would effectively be
+c's 2nd end symbol (and there may not be two "end" symbols in a row, unless
+we want to further complicate the symbol lookup logic).
 
 Jan
 
