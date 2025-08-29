@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FBFAB3B344
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 08:20:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1100591.1453950 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 499D4B3B363
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 08:30:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1100601.1453961 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ursTT-0006HQ-2o; Fri, 29 Aug 2025 06:20:35 +0000
+	id 1urscM-00072x-Tw; Fri, 29 Aug 2025 06:29:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1100591.1453950; Fri, 29 Aug 2025 06:20:35 +0000
+Received: by outflank-mailman (output) from mailman id 1100601.1453961; Fri, 29 Aug 2025 06:29:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ursTS-0006Ea-W0; Fri, 29 Aug 2025 06:20:34 +0000
-Received: by outflank-mailman (input) for mailman id 1100591;
- Fri, 29 Aug 2025 06:20:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xaUo=3J=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ursTR-0006EB-HL
- for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 06:20:33 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 441dbe53-84a0-11f0-8adc-4578a1afcccb;
- Fri, 29 Aug 2025 08:20:32 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-61cb9f6dbe7so3096619a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 23:20:32 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61cfc22dfa1sm1153279a12.22.2025.08.28.23.20.31
+	id 1urscM-0006zq-QL; Fri, 29 Aug 2025 06:29:46 +0000
+Received: by outflank-mailman (input) for mailman id 1100601;
+ Fri, 29 Aug 2025 06:29:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OeP6=3J=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1urscL-0006zk-0y
+ for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 06:29:45 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8c4d8889-84a1-11f0-8dd7-1b34d833f44b;
+ Fri, 29 Aug 2025 08:29:42 +0200 (CEST)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-55f4410f7c9so2098497e87.2
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 23:29:42 -0700 (PDT)
+Received: from [192.168.0.110] ([91.123.151.69])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-55f676dbb91sm389582e87.24.2025.08.28.23.29.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Aug 2025 23:20:31 -0700 (PDT)
+ Thu, 28 Aug 2025 23:29:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,147 +45,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 441dbe53-84a0-11f0-8adc-4578a1afcccb
+X-Inumbo-ID: 8c4d8889-84a1-11f0-8dd7-1b34d833f44b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756448432; x=1757053232; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SwL8ZSyp2xvdczBMLmzpIMgQu7XvJRUCLOwwoh43KYs=;
-        b=ItcPzFZFfrFEEqxLNfhVRBZeYMq54Alpgg21abgx6IyzlCQMOWfublKEGTXAlX2oYw
-         IfRld0YA/DFaWeJchvWdTDNtcUSHUnR7clFL33T61SA876HE//MMgEQz33VLKTnnEcy3
-         SGzvPpnd4UTV1rdlpJOJFvxSaFZjgPlozzAfb5uzRngeWI6DB019zX6tVHHG4RcjZEf1
-         cVaTepiHA9EEESBr3/YTP0i+TZ+TL2JCwFM5hlcVazhKzq2pme9aktJSSe52F0O1OTnp
-         /Ps93qtwcloggSbfBCBSj1U6cln+p8XQOr0+BF3p+YTIPJEvMJGyLVEbZAiJuRhfRUcA
-         rl6Q==
+        d=gmail.com; s=20230601; t=1756448982; x=1757053782; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=kMcCZQ6c8ymlBTBy+VwpEVk0KKPxGqG9B3ghzAq7FEM=;
+        b=IwOQkBBGBKQ8hJx9RURke0mjFvc5vLZGhnJryx0cIvI5fOdKyX0HObkxYIcYwuD6AK
+         G3lzFj38FoTdX6jHeAGp9DeR2noPiq+SNFmbiKuLT78rBSM2Qpnn/sZhNE2IDz5p0LUT
+         BUFeOmz76Y1d5WQEaIU5HSidIDYN9Tzb+usADGJJWsG4eQoD27ue5irfZ5mXdNpRNA9C
+         tHNNiLpWb21hsdlYvC2JWqvZbx9Iwawyu/WuSOYNyMXV8ZdzZbXU/Tde6Ed8dBvGmc4W
+         XYD1lotUbuUntOzBxKg4uFlxMAfSsB/J8/kRAX4M9cUXJGN4Fz9Axws4tZUwKkiwYgKl
+         qipw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756448432; x=1757053232;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SwL8ZSyp2xvdczBMLmzpIMgQu7XvJRUCLOwwoh43KYs=;
-        b=k5kOYtcZZPdei8MkC+ReQSxuOHk+Jhtkg1bjo/f28NU/537ceD7/7wtfUTIDeq9uVh
-         QXvP/knE2modwKxAhx1r6vERF2RO9BOBQQbJNjyMlL3TuNDHxyLOpYpyEoz+olGZyIrw
-         o2szXVvIw0Q0z5RFcNAUsUfIeM7TwGwx3ahBndlgafWtipHmL8yjBqqH910b9tq1xie9
-         cWZkRXk9BKn+lCGT41J15sQn4R3OryoZGQRqA9tM/YoXxi/ZWOfdNVoAflDVSgs5Czwh
-         sVRDksHvEVnyTEOJJMRP/xDc+6ipa0XQ9p9fo8HsOMd6YdXASeLxsRyCxsyQnJ4tqukO
-         ZEbg==
-X-Forwarded-Encrypted: i=1; AJvYcCXjvQDoJTYwaI2wz1mgk0NubpHkBGSgtLc6Q7vu9eWKgNqRcxLu2WXwlshP2GLsHU0xtTM5aTyg+mo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YymychhMylWok5dH56+4HWONDcVtug6ZCpjF2Wg8F+GF3N2qbia
-	paB5+kJ1u/GHBjTfEHzDa5hy91pPORL4vGxTDFlKsQ7vWdARh3VVzRnh4eQpTfqntg==
-X-Gm-Gg: ASbGncvTfsG9aY8c0dMxLrqnRejkTod1v422EIgRS7wciCufGml12D9+6MushtTVxo3
-	Yra0w3MwBQirxMLy0BxSjE51gs6/a8OnmlkxGCGqpFUXKSexJNKXFJ8YCgbsB1jzVCVMhz3G3Rg
-	4N02VhwnZ8c5rzvAW7e56uNrtJKGgX9w341Fh1vdU2X3F7VghX7klgXdKgGy8UOp49Flw7oAZ4v
-	vfz/oI+OhAudpoW0O6U5MvCbv/4k7JVA/FO6GuYErwEP6XYdd1exCmThoEpSWUUBLlGKxaoXgP4
-	pmXX4YKSyaREoBHK4mtWuv+zBW6uefoyurATby4A4ID0FCMivQOBOnEYoVh9kZB8I6j0ksRE/P5
-	ssSYOMA9nl9fnG6SmzNuPM0lwcAW2HJIYDR5cHesx2B8mLPwPxGsdm4r4FHf8onaH1xJEFYHaHY
-	agaKNRqBKw0VowVuAfmg==
-X-Google-Smtp-Source: AGHT+IHIpvhmevXzID993Jjkojmc1EXIeV+k2RSEEPf5zr2LxpJIGPp22+UmKRdyOtiOYtRAvWixkQ==
-X-Received: by 2002:a05:6402:2114:b0:61d:13b:3c6d with SMTP id 4fb4d7f45d1cf-61d013b4883mr1142029a12.24.1756448431764;
-        Thu, 28 Aug 2025 23:20:31 -0700 (PDT)
-Message-ID: <8fbe910a-d6ff-4ddf-8375-f1c008ffde42@suse.com>
-Date: Fri, 29 Aug 2025 08:20:30 +0200
+        d=1e100.net; s=20230601; t=1756448982; x=1757053782;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=kMcCZQ6c8ymlBTBy+VwpEVk0KKPxGqG9B3ghzAq7FEM=;
+        b=Psh5MsBXJRO0KDzYMbsfc23ixOBsASzMhHGBBlNj1WKy0HI3FDrh8Y7+EEgSnxFKNl
+         ky1tEOWASOyY9Pdjbc9ZLngOyBkvdQcdEMWoY5E4qUjKq6z+Kgo1EccxkRw8xzhj5jWv
+         BXl5BNUlsYep570vHMNiuE2uPhSbdt9G/niKRpa/GBZhm/515jlfESMKHRkeBOYsBL0r
+         oKeYaNsWDzGYmrQ0RfnlOZCSSZ2TKPhAa9/2NLes+9Wu6bAvPVxxQKrMhQH7AVbH86vH
+         aOyPgCDvWBk9wnvHSwXyB+xBOScpYfrVFEVV9R9xJw+LiR4XIBWgaxcv6HSQ9jB0U12p
+         SlGQ==
+X-Gm-Message-State: AOJu0Yy0tiZtscYh2lgwW3PWxiLGqvAkLw9+MqiHpbbqd1SRzm4VRoES
+	lxDYexq4L5ZyohlVxSVsd1UCoCgF3hRY9/cEu4UOhBYvcEQY13VK9dCa
+X-Gm-Gg: ASbGncuepXvhlHoWKxLYKEtxy+v2RlKj3CflyQ+c96b7scqPhOAuwj/refoiD+JkFq3
+	EnIL2nuj5mR/DNvKMvPKspJqr7nk5md81d1XlqhFtg9GmdNtbWo67w0b+I6Pc93gVLRaDd82cpG
+	HREDPTmCUhHTXNtqvMpQbDgad1IDtf1xWRqZgDw0AZlAHUX2yDFwf2nhWRBVHMU/myOdZOPgj1v
+	0rt5N43mT+TI+PiWHvOkU6SM9yxUwSJ2ohGumZNZWhUJCOeka9IiaCM4wQCWWrnSOYyNkra2LGA
+	F476wEIflEmvMQu6vA3xt6yy3Mn9IcGe6x1SVzIi+w6aaWZALz8xT0hJ15WtMvLrkNqy0oJVxaz
+	I9aFwzEKcSlMLf7rpraxIIHBFCBTkE4gKmgu4cyeEO8VARFc=
+X-Google-Smtp-Source: AGHT+IEJFVdEAlxEqP7rIULQaNI4ss9DnnyGsnvHE47nJ8lz+ylG9RIzrBB+ytK3YyhCEbYYcEDkdA==
+X-Received: by 2002:a05:6512:404b:b0:55f:501e:7bf7 with SMTP id 2adb3069b0e04-55f501e7df8mr3638562e87.57.1756448981731;
+        Thu, 28 Aug 2025 23:29:41 -0700 (PDT)
+Message-ID: <a564f8fd-2084-42c4-8d49-41be24c864f8@gmail.com>
+Date: Fri, 29 Aug 2025 09:29:38 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 3/8] xen/cpufreq: implement amd-cppc driver for CPPC in
- passive mode
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- Penny Zheng <Penny.Zheng@amd.com>
-References: <20250828100306.1776031-1-Penny.Zheng@amd.com>
- <20250828100306.1776031-4-Penny.Zheng@amd.com>
- <b2712815-97c2-4473-bcf6-aae8517aad37@suse.com>
- <24474024-0542-48e5-a1b8-bb534c7eeb4b@amd.com>
+Subject: Re: [PATCH v5] xen/char: implement suspend/resume calls for SCIF
+ driver
+To: Mykola Kvach <xakep.amatop@gmail.com>
+Cc: xen-devel@lists.xenproject.org,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Mykola Kvach <mykola_kvach@epam.com>
+References: <e57133182b9bcecb519911c8b3f0d871955d6fef.1754540991.git.mykola_kvach@epam.com>
+ <60c0b456-bfda-430d-a1e9-f64c9a49ac54@gmail.com>
+ <CAGeoDV9ov_SfbOFVGZ25a=-g9tjus6Wg2-8cXQaJDWk3_QOg1Q@mail.gmail.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <24474024-0542-48e5-a1b8-bb534c7eeb4b@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+In-Reply-To: <CAGeoDV9ov_SfbOFVGZ25a=-g9tjus6Wg2-8cXQaJDWk3_QOg1Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 29.08.2025 02:16, Jason Andryuk wrote:
-> On 2025-08-28 07:22, Jan Beulich wrote:
->> On 28.08.2025 12:03, Penny Zheng wrote:
->>> +static int cf_check amd_cppc_cpufreq_target(struct cpufreq_policy *policy,
->>> +                                            unsigned int target_freq,
->>> +                                            unsigned int relation)
->>> +{
->>> +    unsigned int cpu = policy->cpu;
->>> +    const struct amd_cppc_drv_data *data = per_cpu(amd_cppc_drv_data, cpu);
+
+
+On 29.08.25 00:36, Mykola Kvach wrote:
+> Hi Oleksandr,
+
+
+Hello Mykola
+
+> 
+> Thank you for your review.
+> 
+> On Tue, Aug 26, 2025 at 6:51 PM Oleksandr Tyshchenko
+> <olekstysh@gmail.com> wrote:
 >>
->> I fear there's a problem here that I so far overlooked. As it happens, just
->> yesterday I made a patch to eliminate cpufreq_drv_data[] global. In the
->> course of doing so it became clear that in principle the CPU denoted by
->> policy->cpu can be offline. Hence its per-CPU data is also unavailable. See
->> cpufreq_add_cpu()'s invocation of .init() and cpufreq_del_cpu()'s invocation
->> of .exit(). Is there anything well-hidden (and likely lacking some suitable
->> comment) which guarantees that no two CPUs (threads) will be in the same
->> domain? If not, I fear you simply can't use per-CPU data here.
+>>
+>>
+>> On 07.08.25 08:16, Mykola Kvach wrote:
+>>
+>>
+>> Hello Mykola,
+>>
+>> In general patch looks good to me, just one question below ...
+>>
+>>> From: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+>>>
+>>> Implement suspend and resume callbacks for the SCIF UART driver,
+>>> enabled when CONFIG_SYSTEM_SUSPEND is set. This allows proper
+>>> handling of UART state across system suspend/resume cycles.
+>>>
+>>> Tested on Renesas R-Car H3 Starter Kit.
+>>>
+>>> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+>>> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+>>> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+>>> ---
+>>> In patch v5, there are no changes at all;
+>>> it was done just to trigger a review.
+>>
+>> I think, you could ping on V4.
+>>
+>>
+>>>
+>>> In patch v4, enhance commit message, no functional changes
+>>>
+>>> In patch v2, I just added a CONFIG_SYSTEM_SUSPEND check around
+>>> the suspend/resume functions in the SCIF driver.
+>>> ---
+>>>    xen/drivers/char/scif-uart.c | 40 ++++++++++++++++++++++++++++++++++--
+>>>    1 file changed, 38 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/xen/drivers/char/scif-uart.c b/xen/drivers/char/scif-uart.c
+>>> index 757793ca45..888821a3b8 100644
+>>> --- a/xen/drivers/char/scif-uart.c
+>>> +++ b/xen/drivers/char/scif-uart.c
+>>> @@ -139,9 +139,8 @@ static void scif_uart_interrupt(int irq, void *data)
+>>>        }
+>>>    }
+>>>
+>>> -static void __init scif_uart_init_preirq(struct serial_port *port)
+>>> +static void scif_uart_disable(struct scif_uart *uart)
+>>>    {
+>>> -    struct scif_uart *uart = port->uart;
+>>>        const struct port_params *params = uart->params;
+>>>
+>>>        /*
+>>> @@ -155,6 +154,14 @@ static void __init scif_uart_init_preirq(struct serial_port *port)
+>>>
+>>>        /* Reset TX/RX FIFOs */
+>>>        scif_writew(uart, SCIF_SCFCR, SCFCR_RFRST | SCFCR_TFRST);
+>>> +}
+>>> +
+>>> +static void scif_uart_init_preirq(struct serial_port *port)
+>>> +{
+>>> +    struct scif_uart *uart = port->uart;
+>>> +    const struct port_params *params = uart->params;
+>>> +
+>>> +    scif_uart_disable(uart);
+>>>
+>>>        /* Clear all errors and flags */
+>>>        scif_readw(uart, params->status_reg);
+>>> @@ -271,6 +278,31 @@ static void scif_uart_stop_tx(struct serial_port *port)
+>>>        scif_writew(uart, SCIF_SCSCR, scif_readw(uart, SCIF_SCSCR) & ~SCSCR_TIE);
+>>>    }
+>>>
+>>> +#ifdef CONFIG_SYSTEM_SUSPEND
+>>> +
+>>> +static void scif_uart_suspend(struct serial_port *port)
+>>> +{
+>>> +    struct scif_uart *uart = port->uart;
+>>> +
+>>> +    scif_uart_stop_tx(port);
+>>
+>>    ... I wonder, whether the call above (that disables Transmit
+>> interrupt) is really needed as the call below disables all interrupts
+>> anyway?
 > 
-> Sorry, I'm confused by your use of "domain" here.
-
-I agree it's confusing, but that's the terminology used in cpufreq.c (see
-e.g. "struct cpufreq_dom" or "const struct xen_psd_package *domain_info").
-
->  Do you mean a 
-> per_cpu(..., policy->cpu) access racing with a cpu offline?
-
-Yes (I wouldn't call it "racing" though, as it's not a timing issue).
-
->  I'm not 
-> away of anything preventing that, though I'm not particularly familiar 
-> with it.
-
-
-
-> do_pm_op() has:
->      if ( op->cpuid >= nr_cpu_ids || !cpu_online(op->cpuid) )
->          return -EINVAL;
->      pmpt = processor_pminfo[op->cpuid];
+> I have checked the relevant documentation and did not find any requirement
+> to clear TIE before disabling the rest of the SCSCR bits, according to the
+> R-Car Series, 3rd Generation User’s Manual: Hardware, Rev. 0.52.
 > 
-> and do_get_pm_info() has:
->      if ( !op || (op->cpuid >= nr_cpu_ids) || !cpu_online(op->cpuid) )
->          return -EINVAL;
->      pmpt = processor_pminfo[op->cpuid];
+> However, based on how the serial subsystem works, I believe this call is
+> justified.
 > 
-> But those are only at entry.
+> Disabling TX IRQs before fully stopping the serial prevents new data
+> from being added to the FIFO by the IRQ handler during suspend (see
+> serial_tx_interrupt). This ensures the FIFO is flushed (loop inside
+> scif_uart_disable) and no further transmissions occur.
+> 
+> If a flush handler were implemented for this driver, we could avoid
+> calling scif_uart_stop_tx and remove the loop inside scif_uart_disable,
+> as the flush handler would ensure the FIFO is empty after any invocation
+> of serial_tx_interrupt.
 
-That's not accessing struct cpufreq_policy, though. Per-CPU accesses
-using policy->cpu are the problematic ones, as - from all I can tell -
-the CPU named there can have gone offline, with the policy surviving
-when some other CPU is also part of the same "domain".
 
-As said in the reply to Penny, main question is whether the data
-controlling what a "domain" covers may be constrained in the HWP case,
-demanding that no two CPUs (threads) can be in the same "domain". Then
-adding merely a sanity check somewhere would suffice.
+thanks for the investigation, the explanation is ok to me.
 
-Jan
+Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+
+> 
+>>
+>>
+>>> +    scif_uart_disable(uart);
+>>> +}
+>>
+>> [snip]
+> 
+> Best regards,
+> Mykola
+
 
