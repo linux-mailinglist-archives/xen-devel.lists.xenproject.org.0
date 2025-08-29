@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78A36B3B5F0
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 10:24:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1100866.1454140 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E12FEB3B648
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 10:48:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1100879.1454149 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uruOl-00082G-WE; Fri, 29 Aug 2025 08:23:52 +0000
+	id 1urumM-0002ik-QE; Fri, 29 Aug 2025 08:48:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1100866.1454140; Fri, 29 Aug 2025 08:23:51 +0000
+Received: by outflank-mailman (output) from mailman id 1100879.1454149; Fri, 29 Aug 2025 08:48:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uruOl-0007zo-T2; Fri, 29 Aug 2025 08:23:51 +0000
-Received: by outflank-mailman (input) for mailman id 1100866;
- Fri, 29 Aug 2025 08:23:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1urumM-0002gi-NX; Fri, 29 Aug 2025 08:48:14 +0000
+Received: by outflank-mailman (input) for mailman id 1100879;
+ Fri, 29 Aug 2025 08:48:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LjVN=3J=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uruOl-0007zi-9i
- for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 08:23:51 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7da14f8a-84b1-11f0-8adc-4578a1afcccb;
- Fri, 29 Aug 2025 10:23:50 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-afcb78f5df4so310706866b.1
- for <xen-devel@lists.xenproject.org>; Fri, 29 Aug 2025 01:23:50 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afefc7eedb5sm154643166b.6.2025.08.29.01.23.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 29 Aug 2025 01:23:48 -0700 (PDT)
+ <SRS0=I7Ro=3J=cloud.com=mark.syms@srs-se1.protection.inumbo.net>)
+ id 1urumL-0002gc-9q
+ for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 08:48:13 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e4541b52-84b4-11f0-8dd7-1b34d833f44b;
+ Fri, 29 Aug 2025 10:48:11 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-afebe21a1a3so311309566b.0
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Aug 2025 01:48:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,90 +40,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7da14f8a-84b1-11f0-8adc-4578a1afcccb
+X-Inumbo-ID: e4541b52-84b4-11f0-8dd7-1b34d833f44b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756455829; x=1757060629; darn=lists.xenproject.org;
-        h=subject:from:to:content-language:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2BzkoZZ1sFyAEbwIhMMuSx1QvORDq+Ump/i0mVSkRos=;
-        b=TWcTv0yzTRON4cdzMwJLXQZsW6AhG0ZyiGCAfkOt7UFjd0PhVw4PQKDpFhNI0ruG0n
-         l16LiS0IXWmGFMWR9lGjEUb4fgt33G8nSB3hLb5R4TgCv/prXhOnX/ZDxSUD65WVlaBF
-         aLDvqfd8eoyrTGk7DJPBqum/gE3TRCwcyaeWHUZ0sg2/23VpOBMExVZnRk+X9JV4tXzZ
-         oZ05p7JzcGgnLfph1Jdr9HMZAdVCk5bFkQyfGR5REEnKqRUFjus1trHzAfJWz99eZrU/
-         ftAxyflgKbOjqPtghK7ZTkocg2csAw8T+/8BnNE2utpfWg0v0VlvzOVz6AixxqK+Jnbx
-         /WTw==
+        d=cloud.com; s=cloud; t=1756457290; x=1757062090; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/wR86rOeovbcehjRsjPioiloHDl9UqjtMkmefBWaXrU=;
+        b=BSP8sq+qJrMVa9AdUDEOUWHSatXLxJcLtUT1LdygjQiQHdDfZcDI7bKO/nlvM9w5k/
+         r71z58cuQMAfe6vCaKLSvNQRcSH1sOXmPXhSeKl4YqABYRq0KxEtcFU2Eqx2XZ+8DkdT
+         MS/ZBvGNSYA8QLlGGSaTAYg+fl+L5b855qul8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756455829; x=1757060629;
-        h=subject:from:to:content-language:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=2BzkoZZ1sFyAEbwIhMMuSx1QvORDq+Ump/i0mVSkRos=;
-        b=ZhA4OSw/0l3AlZkdIczzPwkoEbo1L7YsBft1PrU1ZCjFm3g8uoPyKP/ln6Yj5+LBBv
-         7XBPwMp/viZLZR9x1cU2wowgPIKfUz+dxU7IjA6PF8yxyMMsSRkPzC22mITUh5mwO71c
-         OpHZarvUNEvNy9FjpxXqZufMtwFpSHyjP86mlH8UTIitJAq86m/hLLo+SaNByDMsDUtw
-         EyT/sQcngTP0ejBtOOr//4PSj4JLhVHGM17V6T8fOOlKJs4HP2LwtVcvtnDHsrn0Vh5W
-         Bwi5ceNo/ksCsUyjnzekSyt2GABVmE6SkTZTq8eDAWUv5crh2908QpjkvbIrXDQJ34Re
-         fMmw==
-X-Gm-Message-State: AOJu0YzY7qarCAa6Cj7gjE6WsKHq/fgb5gdamEJSkDK80gBmL+vH3rub
-	YrIUNEeP/8vS84ix1O7ZAQzGRDqmA5wPZlEgpYz0yoyzrMl2TGpwdLmDqschgQ==
-X-Gm-Gg: ASbGncs80tD3peftttmpxXoATNQbv8m+SbiBH6AkveNKebrWZdpbY5tEitGnwhssl+l
-	p4R7TaGJ/vWkYjkHXrj9oZ9D5tioLxwJDoSGDEy8d0NFzWixw2aENMR1bMprJVx+efETraiTIaR
-	oB3Ov+UTvmmQ8fTT8X+ubgf52prIfKsZOk8FX5qbl629ptAI79eY07BS9zBweYpYTka9PjxZG9F
-	0/nGBb1zVpRAZ2m9qu4KookahW0/xp05gaHxFDlZncDzfPlhwgj8VUdf6DM0w/gIsnMvBFWtpCn
-	b6h7nPF+xegtGxaX3/oH0cJ/yjkCwfHo3Q0vdaWejSHUCgsaRKY4YhUCA3RjOJxczOFNd7/r0+y
-	jCdq9Bw7lmBzm3xmMDloOmxt3CLGGXl2K/vsWwjjLgl6oD5bN1C+EwMaMA5u9tLmhkXR6Y9I=
-X-Google-Smtp-Source: AGHT+IHIliGvjzXdjJKlt/hCx5okVr+QM/vdOeHWZkYwyyWKbKavy5zAbJVUC01CO2MYlLTTxftKmA==
-X-Received: by 2002:a17:907:96a9:b0:aff:8fe:357e with SMTP id a640c23a62f3a-aff08fe3952mr110091266b.60.1756455828889;
-        Fri, 29 Aug 2025 01:23:48 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------0PZZI9GL0C2lCw8WsorB5PHG"
-Message-ID: <4c248773-0f14-425b-b784-d5e9801f43f8@gmail.com>
-Date: Fri, 29 Aug 2025 10:23:47 +0200
+        d=1e100.net; s=20230601; t=1756457290; x=1757062090;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=/wR86rOeovbcehjRsjPioiloHDl9UqjtMkmefBWaXrU=;
+        b=uvQEzg4wpij3haVHBu3qKPJcBaMXq/6QHJoP9YuzPC4a56uOZQeTO+ywr5zKxKTo7o
+         1SqtUKXPlXdXE8KKJ+exjfeylDQwiNSNdGWFAWW1MH2il9IWWwKXwNIDcWRtbgj4ObND
+         0oaXEzdCEP2wEPv85XeuJWKcFNknYP3YCgms/7XySgYN7EdLFDv139DJEn4MFHW6s3uo
+         4MiF0dvE4FlwiFUCi2Gs9mph4XWVbZci0Zqpz75wNUrsCUQ/LP6AnaOgDvz9CZR/T3xg
+         sHo25aBNBXL/72rxwynWd2wX3dcaI/HExdIIuKTeRRVWhM8nh4GVhb2bn5J0+nIgTWzD
+         Ok5A==
+X-Forwarded-Encrypted: i=1; AJvYcCWtA2p2kTKwS7OWSz9QpwiQLCHIIEVHA+MF9AXMlidlvDpOWm0H3UjAdCccptzU09rMivvrlJdiw+8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyPSRW4w7qEMDSw9ErSORnDoc6sR50r2r9nFe/vMuwDtzR0QVb5
+	Xr5/ZRgYylG7jmtrBma5NaT0CuLKBp/AfrIVa2G1FjCmFNbLUudmsX+uiEdUFdsSuqTNY621gmb
+	HSwBlXrEQ+kV4XEdTp32YFCnQbu9c0EFPppZGw2kQN3LIgl5k+9UoL/U=
+X-Gm-Gg: ASbGncsbIstn2GaY/Yqi0Lb1inK2xkKtcvBEhOPi5u/x8kBoJ+Y3jeYEOP4QZAweb2R
+	uY/GzDAjBd/bckBFCSkGE5Po46AKlHa2+EjOSROFSaHV30Q+S5iV0BknMKrD11d0Z1xBU0hdwJ3
+	xmrw9nre1I4jAURUz5Pu5SW+VOO6MHxfC6pp1fuQ3HQAZVS10b6lH3disfTyL0CLwqwPJ+Ky3rH
+	ehmq5MyqDtZVDgdfsw=
+X-Google-Smtp-Source: AGHT+IFnYmLPFs8b90UDmuWXrBJG3qnSC/RPieImWqQ3J5srYn4cU8bHIaHq1DvGA5C9/a+UlPVQ1gOZmAUC1jWBwN4=
+X-Received: by 2002:a17:906:c104:b0:afe:82d3:4499 with SMTP id
+ a640c23a62f3a-afeafec64c5mr1088112266b.25.1756457290283; Fri, 29 Aug 2025
+ 01:48:10 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Xen-devel <xen-devel@lists.xenproject.org>,
- Community Manager <community.manager@xenproject.org>,
- "committers@xenproject.org" <committers@xenproject.org>
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Feature Freeze Extension until September 5, 2025
+References: <20250828093821.372024-1-mark.syms@cloud.com> <aLFZrnHpul61b-5E@Mac.lan>
+In-Reply-To: <aLFZrnHpul61b-5E@Mac.lan>
+From: Mark Syms <mark.syms@cloud.com>
+Date: Fri, 29 Aug 2025 09:47:57 +0100
+X-Gm-Features: Ac12FXwiyXFqkPvlUh7iebr9fijXTflgdDtFwPAnBLxwdVeDAbYg62tr2IB6wdQ
+Message-ID: <CAPYKksWZGnYSGyzgHVoOzVZAVWP4YPa8DEm7GEjAYHwDWTmovQ@mail.gmail.com>
+Subject: Re: [PATCH] Clarify the cases where BLKIF_RSP_EOPNOTSUPP can be returned.
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: jgross@suse.com, andrew.cooper3@citrix.com, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This is a multi-part message in MIME format.
---------------0PZZI9GL0C2lCw8WsorB5PHG
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+On Fri, 29 Aug 2025 at 08:41, Roger Pau Monn=C3=A9 <roger.pau@citrix.com> w=
+rote:
+> I think there's no need to mention the specific operations. FWIW,
+> blkback will return BLKIF_RSP_EOPNOTSUPP for any request type it
+> doesn't understand (see dispatch_other_io()), which covers any
+> possible request type that's not yet defined:
+>
+> /* Operation not supported. */
+> #define BLKIF_RSP_EOPNOTSUPP  -2
+>
+> Should be fine.
 
-Hello Community,
-
-I would like to announce that the Feature Freeze period is extended until
-*Friday, September 5, 2025*, as we have a number of patch series that
-are very close to being merged.
-
-Have a good day.
-
-Best regards,
-  Oleksii
-
---------------0PZZI9GL0C2lCw8WsorB5PHG
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <pre data-start="147" data-end="177">Hello Community,</pre>
-    <pre data-start="179" data-end="364">I would like to announce that the Feature Freeze period is extended until
-<strong data-start="253" data-end="282">Friday, September 5, 2025</strong>, as we have a number of patch series that
-are very close to being merged.</pre>
-    <pre data-start="366" data-end="384">Have a good day.</pre>
-    <pre data-start="386" data-end="411">Best regards,
- Oleksii</pre>
-  </body>
-</html>
-
---------------0PZZI9GL0C2lCw8WsorB5PHG--
+OK, I'll reduce that comment to the minimum then, I was just trying to
+be helpful to future us :)
 
