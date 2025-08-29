@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF050B3B48A
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 09:41:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1100756.1454080 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2C23B3B496
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 09:45:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1100767.1454091 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urtjv-0006qn-GN; Fri, 29 Aug 2025 07:41:39 +0000
+	id 1urtnE-0007Qu-Uu; Fri, 29 Aug 2025 07:45:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1100756.1454080; Fri, 29 Aug 2025 07:41:39 +0000
+Received: by outflank-mailman (output) from mailman id 1100767.1454091; Fri, 29 Aug 2025 07:45:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urtjv-0006o0-D5; Fri, 29 Aug 2025 07:41:39 +0000
-Received: by outflank-mailman (input) for mailman id 1100756;
- Fri, 29 Aug 2025 07:41:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oFyT=3J=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1urtjt-0006nu-Mf
- for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 07:41:37 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 97a6c133-84ab-11f0-8adc-4578a1afcccb;
- Fri, 29 Aug 2025 09:41:36 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3d0dd9c9381so186414f8f.1
- for <xen-devel@lists.xenproject.org>; Fri, 29 Aug 2025 00:41:36 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3cf346811b3sm2239482f8f.63.2025.08.29.00.41.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 Aug 2025 00:41:35 -0700 (PDT)
+	id 1urtnE-0007Nl-Rv; Fri, 29 Aug 2025 07:45:04 +0000
+Received: by outflank-mailman (input) for mailman id 1100767;
+ Fri, 29 Aug 2025 07:45:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xaUo=3J=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1urtnD-0007Nf-1T
+ for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 07:45:03 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 11497976-84ac-11f0-8dd7-1b34d833f44b;
+ Fri, 29 Aug 2025 09:45:00 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-61d106ce455so53189a12.1
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Aug 2025 00:45:00 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-61cfc1c7a8fsm1254516a12.3.2025.08.29.00.44.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 29 Aug 2025 00:44:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,88 +45,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 97a6c133-84ab-11f0-8adc-4578a1afcccb
+X-Inumbo-ID: 11497976-84ac-11f0-8dd7-1b34d833f44b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1756453296; x=1757058096; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=tO6DrzD+quTdHqqvNMI0g01HFf8ZC0nX9Q1ohDDwCd4=;
-        b=EksjdCffJV3cwlX9LxJmdIXARdMitLMGgUCQqSgmij3QcX0QT7du9HXcJ9TJNB/xiV
-         tXLAx7mJUQTXyZ+09O2GPUKUiUHHeeVC6hr/7s5OKQi7RGskHZ4IadxPn1FllOVGIe4E
-         dYbDQeFsGvhdny7st0F6tK26AoM/xAwf3fI8Q=
+        d=suse.com; s=google; t=1756453500; x=1757058300; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=KUQNYHjvq/lfSfmCOxvdyijSCczGChZhaUAQSNqQJ5o=;
+        b=QbRXiz3x+h3p0hsPJp617mK83ZIsxc3ZxQu2pU5ZD0e2jAlcqq2S+pD7ZhsMmWfLfO
+         /zavWogn1gteLJzVdusQpW6IUQypwTH8xq0LDJhEc9J7gyuWNCAE1nXKnv+ONWuml5ud
+         iq37/3Cv0H3AY2xtc0icTiQL7HkvfkpT/hhYPP4BOoa8OZntKq4VloRE8z95EKkx60+x
+         GH2fbny/w8MAYWDJu67NZasz2RChm1tq3RsGYHBMibnxh1mKx4TNoQtiVaIkroBFPD8P
+         o0Y21q7DD4xdBkeS8bZ9RFeQolWVGV36se8j7rKjGvyALVSJMoaJHwixYnaIhqFAW5xV
+         7D1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756453296; x=1757058096;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1756453500; x=1757058300;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tO6DrzD+quTdHqqvNMI0g01HFf8ZC0nX9Q1ohDDwCd4=;
-        b=nBcDRmVCgPgQE118cD6/sU97DBsVrHpDrStSmQma0K16kmKVlbjqy1JxizXsq3/zvm
-         W605PBx6uCF071Nh3AV16uJ7l9ZDPznwwPEGFkqxt7UkWjNQhR/a4ziOdeohXcKABMji
-         HCP5vp9C37SnVq937B76p4E02fLgNWnX/fyZxTRHjO3qb31D9ru0nU2MMjU8TVRMXDZS
-         VdULZHl22BsNlAXrvsfyrqJwPBkb7FYtEoVsIdbbgs6yqFb93hynAiw5mWi8w54lEnr2
-         T8Y3oyYeNDQM8y8wJeiJj6t9YGvL6SJGizySvrdHpHb0we653efjBhX4Zl3exYTU1xAw
-         AvDg==
-X-Forwarded-Encrypted: i=1; AJvYcCUd5piYQ2r7Sdj5hO1uPeUO17ks6BSaomY2vBCupuO+2k4GWtP07t0NUfFqxCqkXzgNfQt5fQMck/4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzSzXct5O3iAJJ1BBxnmjEerI7/zTF0gpPX27K1H9SDXvnyFK8l
-	u1/lZTiJVGnSFDcX/KBHZq3jEVGkBFNWJW4ACSuwBSh2IVJqxwFBRUdP3N1ZQ4Hr4xs=
-X-Gm-Gg: ASbGncvEcNB7BFAPbovtj109SJ/hcxcRhxlQU+pzREgiqOfbDBRx+HizRNI7fOPl8WH
-	j8U0W/Cndc8XGzQzIUSaofCCo+Zd8MFw+XvRO1i9oOuGXJomMQXt/FKZeDFboZnuXXv7AT4gnTR
-	PRwir4TwJRw++wutHzrMvpmtYNNu+B+eie/9vXjVYzAVvCaAWKLNF+5M0JfZ6xIon+cjUdmgNbK
-	fIAIc/bZocmsII8QWGwJpzHqHcB5dZgBBji9YY0mHq7/ncbJnfdp5GVe5HaHT5ciSz4axUUDlJ4
-	mHJIMUIdyADPSACW11nSeVAfFPWlZFGEgILKj8DEUeOkNFY9DYUW5AzKt3tn6PAVDQupXlGpZBW
-	7mmAwzUzwpJqyGXtlYS6nt0+o7RNEh6yFhVXT89A4O+hrHckv8O0fuQ/2PprAwwUECfd/9KdJEd
-	gxnY85MsUJivQ=
-X-Google-Smtp-Source: AGHT+IGHi84RNslvo4EpNQJM+DDbiydjnPJ4n/OIbw5ZoEm9L0dwqzKUERtcuoXt4DQrs6Vu6ZY0lg==
-X-Received: by 2002:a5d:5887:0:b0:3b7:88f5:eaae with SMTP id ffacd0b85a97d-3c5dc542ac7mr19864259f8f.39.1756453295989;
-        Fri, 29 Aug 2025 00:41:35 -0700 (PDT)
-Date: Fri, 29 Aug 2025 09:41:34 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Mark Syms <mark.syms@cloud.com>
-Cc: jgross@suse.com, andrew.cooper3@citrix.com,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] Clarify the cases where BLKIF_RSP_EOPNOTSUPP can be
- returned.
-Message-ID: <aLFZrnHpul61b-5E@Mac.lan>
-References: <20250828093821.372024-1-mark.syms@cloud.com>
+        bh=KUQNYHjvq/lfSfmCOxvdyijSCczGChZhaUAQSNqQJ5o=;
+        b=ckLF9rd3f99gkNdIH6V3+negUSBd9da84bzueAioQ8dCR0Wgb9E3Wxt6Eht3zkSqLq
+         aNsllGvf6wYKBvEwCUraub86TgnV797U13faVF5bAwa8y8bgn3tjYjnZH4gAOF5768cj
+         1KKebwRHL8RU5nS5/w+iaGNaFyrblMbavthPZBckysZz6gxnWHLj1jeV956GMic29SsA
+         mj8cPuhK6qJx3z5FRBNm3pqCY+7IT7qe8oNg4lNganUz5mkvjvN3LEcukQXA6zKrVNLp
+         tLrstKQpcLXNFRJBwnKZuP+74e29onN+6ojaz5bHQTeMQZesA5gnTk2RT5EtlzKuPBQn
+         XstQ==
+X-Gm-Message-State: AOJu0Yw820+JhLrtl83UWbP+7zXAV6e7bc9/bfrHEMPn634TgaL2JRD1
+	q/zjpg2EtP5pAAt3rqVqtCCQL74ViSrpr0aGRgZ2CloFE4ua6GZs05jbgBrwuhYaww==
+X-Gm-Gg: ASbGncvw7+X8j2jKytEv9ELcUReJadRcAqkxhxut8lJYoo2mOBt3c/n45AD8Yd/Zct8
+	tUNmxGK14he6NHHh3iCswdqs1bkBFetFDTh6nkEC1qh/bgCyRPvBGS+fxvllOJe+KXprYz4VS2p
+	yAxjYstEPfH9w4t0OxjD5adGvnRTOYRj7OciRXP/k2Wm4YYr7L+7eE8r5x/NcsYUPeo+SSyprwi
+	HmOcFs2rkdksc+/VBxHJk4xryCggnncQ+yPoyv1wRJPIq2YGWwnr1WX2WtDXU3h/IiuxfqKGyij
+	eUqXKj+J6hx+Zgod6vF0Vnj+Y0NeGdJjkWoBxg0QV8Tjbl/EWY1MNzenwJhDQTikdJWYeKeK1Gi
+	RmtQLtJWSdE1gMfAMLdTECP8oZE3SuRuYG0wtUF9Toj2fqNd+cNH0SQGJpZPvlsKEAVqHYJT4U1
+	2x6geTJT6qNV8isPLojQ==
+X-Google-Smtp-Source: AGHT+IGtvMGmt/atoN1U7CXX6irxKhbV7RPuNViV9oNpPBvBWXz9mGzFkUZFnC7zy1tqjNZsVHC2BA==
+X-Received: by 2002:a05:6402:210a:b0:618:4a1b:e311 with SMTP id 4fb4d7f45d1cf-61c983b7f5dmr10720109a12.3.1756453500270;
+        Fri, 29 Aug 2025 00:45:00 -0700 (PDT)
+Message-ID: <a64cff9f-df5f-467b-a944-74e803c64ab9@suse.com>
+Date: Fri, 29 Aug 2025 09:44:58 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20250828093821.372024-1-mark.syms@cloud.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 1/4] xen/arm: Implement PSCI SYSTEM_SUSPEND call for
+ guests
+To: Mykola Kvach <xakep.amatop@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Mykola Kvach <Mykola_Kvach@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1756392094.git.mykola_kvach@epam.com>
+ <bb53d9911b00879c7b25f5258d0e3e48005671f9.1756392094.git.mykola_kvach@epam.com>
+ <87ecsvz9sx.fsf@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <87ecsvz9sx.fsf@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 28, 2025 at 10:38:21AM +0100, Mark Syms wrote:
-> Previously this said it would only happen on barrier writes. Except
-> the documentation blocks for
->  * feature-flush-cache
->  * feature-discard
+On 28.08.2025 18:32, Volodymyr Babchuk wrote:
+> Mykola Kvach <xakep.amatop@gmail.com> writes:
+>> @@ -880,6 +883,25 @@ void arch_domain_creation_finished(struct domain *d)
+>>      p2m_domain_creation_finished(d);
+>>  }
+>>  
+>> +int arch_domain_resume(struct domain *d)
+>> +{
+>> +    int rc;
+>> +    typeof(d->arch.resume_ctx) *ctx = &d->arch.resume_ctx;
+>> +
+>> +    if ( !d->is_shutting_down || d->shutdown_code != SHUTDOWN_suspend )
+>> +    {
+>> +        dprintk(XENLOG_WARNING,
+>> +                "%pd: Invalid domain state for resume: is_shutting_down=%d, shutdown_code=%d\n",
+>> +                d, d->is_shutting_down, d->shutdown_code);
+>> +        return -EINVAL;
+>> +    }
 > 
-> Also say that they can return this error.
-> 
-> Signed-off-by: Mark Syms <mark.syms@cloud.com>
-> ---
->  xen/include/public/io/blkif.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/xen/include/public/io/blkif.h b/xen/include/public/io/blkif.h
-> index 8407453324..5e617b0c67 100644
-> --- a/xen/include/public/io/blkif.h
-> +++ b/xen/include/public/io/blkif.h
-> @@ -710,7 +710,7 @@ typedef struct blkif_response blkif_response_t;
->  /*
->   * STATUS RETURN CODES.
->   */
-> - /* Operation not supported (only happens on barrier writes). */
-> + /* Operation not supported, see feature-barrier, feature-flush-cache, feature-discard. */
->  #define BLKIF_RSP_EOPNOTSUPP  -2
+> This check probably can go into common domain_resume() function, as
+> there is nothing arch-specific in here. Probably this can be done during
+> commit, to save us from v12? If commiters are okay with this.
 
-I think there's no need to mention the specific operations. FWIW,
-blkback will return BLKIF_RSP_EOPNOTSUPP for any request type it
-doesn't understand (see dispatch_other_io()), which covers any
-possible request type that's not yet defined:
+Seeing this, I'm learning that ->is_shutting_down can actually go from
+true to false. Which I think is a problem (not of this series, but a pre-
+existing one, see [1]). Code elsewhere assumes this to not be possible,
+see e.g. __domain_crash(), but I'm also unconvinced that e.g. the shutdown
+deferral logic is prepared to deal with such a case.
 
-/* Operation not supported. */
-#define BLKIF_RSP_EOPNOTSUPP  -2
+Jan
 
-Should be fine.
-
-Thanks, Roger.
+[1] e105919b0120 ("Add resumedomain domctl to resume a domain after checkpoint")
 
