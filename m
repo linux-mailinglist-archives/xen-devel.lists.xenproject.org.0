@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F252B3BBD8
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 15:02:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1101309.1454422 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 049EFB3BC08
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 15:11:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1101328.1454431 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uryjF-0006vu-VZ; Fri, 29 Aug 2025 13:01:17 +0000
+	id 1urysc-0000Lp-QJ; Fri, 29 Aug 2025 13:10:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1101309.1454422; Fri, 29 Aug 2025 13:01:17 +0000
+Received: by outflank-mailman (output) from mailman id 1101328.1454431; Fri, 29 Aug 2025 13:10:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uryjF-0006tS-SV; Fri, 29 Aug 2025 13:01:17 +0000
-Received: by outflank-mailman (input) for mailman id 1101309;
- Fri, 29 Aug 2025 13:01:16 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <anthony@xenproject.org>) id 1uryjE-0006sC-Pi
- for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 13:01:16 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1uryjE-00CcM2-0E;
- Fri, 29 Aug 2025 13:01:16 +0000
-Received: from [2a01:e0a:1da:8420:b77:bd5:6e45:7633] (helo=l14)
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1uryjD-007a8N-3D;
- Fri, 29 Aug 2025 13:01:16 +0000
+	id 1urysc-0000IF-N8; Fri, 29 Aug 2025 13:10:58 +0000
+Received: by outflank-mailman (input) for mailman id 1101328;
+ Fri, 29 Aug 2025 13:10:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8vvX=3J=bounce.vates.tech=bounce-md_30504962.68b1a6dd.v1-7e61a5dbb2204fd0963032aef2ef34ee@srs-se1.protection.inumbo.net>)
+ id 1urysa-0007gN-Ru
+ for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 13:10:56 +0000
+Received: from mail187-26.suw11.mandrillapp.com
+ (mail187-26.suw11.mandrillapp.com [198.2.187.26])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9834e8c8-84d9-11f0-8adc-4578a1afcccb;
+ Fri, 29 Aug 2025 15:10:55 +0200 (CEST)
+Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail187-26.suw11.mandrillapp.com (Mailchimp) with ESMTP id
+ 4cCzCx5ZM6zKsbWBR
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Aug 2025 13:10:53 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 7e61a5dbb2204fd0963032aef2ef34ee; Fri, 29 Aug 2025 13:10:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,185 +43,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date;
-	bh=pF0jNmdgrhbfhCcgs1W8GKx9YMshyZK1L3qJ0UpkwNE=; b=GS63mCmjn4lQ+JuMiewsVNtKUW
-	/hTMsaNHBsOVD1GfMS3CniK4oVItYeC23bVhaT9gW5xp2kJ/aLDScQZR0dmpaY4lStdwsZfWxkkUo
-	PTZNG4VELd4WrswrWoQmGShtG8kt4uouXlaTxzWjBs4Hlx4XoIq4cW9Vp41GVGLy25a0=;
-Date: Fri, 29 Aug 2025 15:01:14 +0200
-From: Anthony PERARD <anthony@xenproject.org>
-To: Jahan Murudi <jahan.murudi.zg@renesas.com>
-Cc: xen-devel@lists.xenproject.org,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: Re: [RFC PATCH v3] tools/xentop: Add physical CPU statistics support
-Message-ID: <aLGkmhRp-N91Cf-V@l14>
-References: <20250804130643.1046157-1-jahan.murudi.zg@renesas.com>
+X-Inumbo-ID: 9834e8c8-84d9-11f0-8adc-4578a1afcccb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1756473053; x=1756743053;
+	bh=S8wgDu3X/LCTlKqHP2Q5RIW5ZS/B6RyV2RZ2Lo/o/Eg=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=fRXlBfBGQ9l5F4D6nAmk6wAUIAc6cpQ2LyjMM2VTPezVK4VnZMtkcRaGYitwvutxw
+	 eBIAkRaWvVTdMRD7Dhu7IN5P74Znt5japZJO5Y+b5tpeSPUbC5BAcUsHeyhHYcilUf
+	 ZLJKAGHfTjcsJNisVM9R5F0TTPl3620qdVlhs8s9msold9yWIHhYJ7fJSGfp8eBn+o
+	 cbCoUk38IhM4ycBtyLX/G5S7luPR1KhLh9L8VaZsel56HCLS0MGjUSHMSxAEzWNflG
+	 y4m0SmfYykDxAObS47ysYtyOsHcl7GfbpQEJoQHe0xa96/08RxwmMYB1yQwzYbCmhn
+	 InAGZ4rYg02sg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1756473053; x=1756733553; i=teddy.astie@vates.tech;
+	bh=S8wgDu3X/LCTlKqHP2Q5RIW5ZS/B6RyV2RZ2Lo/o/Eg=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=zvcDmkghTh/L7oC5uLBgV6ZBp9UwqzACxiNQcim2ujLV7Vp/zfBqRVARVWfH7C0Lg
+	 TfRMNjmRBqjl8YT3fsy4Wn+P3VtU0ZSQgZm+uc2ffCDgrY5zVCBFVeVmvLOlRPyiU1
+	 7pwLxm79zoq1KSv4+vAb+lhBryIwFXpjfGrP/t8BVYk/dJnW9Xl5BEKLlyA4sUEfCo
+	 +8q4+rqgRXn/TN1HlbgtfB93AzxTF5zvyc1MgpRN3FRVv/3O8sP3KjTPY1xUpscWeP
+	 ASwT837TYwtlChTzMnjcy74l9n76CEA3F7AdgP/vsPjwIaTbpOE+EbvonLncsQoWXX
+	 y5OGiggIDJhYA==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20[RFC=20PATCH=201/9]=20x86/hvm:=20Use=20direct=20structures=20instead=20of=20guest=20handles?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1756473052643
+Message-Id: <5a7a560d-3792-4c31-a9f4-6a6aedff63b4@vates.tech>
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+References: <cover.1755785258.git.teddy.astie@vates.tech> <de595114d532e0fa6c885c47cf2b3551ad495525.1755785258.git.teddy.astie@vates.tech> <d934464e-03f5-4133-8b87-d5bb1b031d9b@suse.com>
+In-Reply-To: <d934464e-03f5-4133-8b87-d5bb1b031d9b@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.7e61a5dbb2204fd0963032aef2ef34ee?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250829:md
+Date: Fri, 29 Aug 2025 13:10:53 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250804130643.1046157-1-jahan.murudi.zg@renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 04, 2025 at 06:36:43PM +0530, Jahan Murudi wrote:
-> diff --git a/tools/xentop/pcpu.c b/tools/xentop/pcpu.c
-> new file mode 100644
-> index 0000000000..53d6b9c30c
-> --- /dev/null
-> +++ b/tools/xentop/pcpu.c
-> @@ -0,0 +1,152 @@
-[..]
-> +int update_pcpu_stats(const struct timeval *now, unsigned int delay_sec)
-> +{
-> +    struct xen_sysctl_cpuinfo info[MAX_PCPUS];
-> +    int detected_cpus = 0;
-> +    int ret, i;
-> +    uint64_t current_time = (uint64_t)now->tv_sec * 1000000ULL + now->tv_usec;
-> +
-> +    if (!xc_handle) {
-> +        xc_handle = xc_interface_open(NULL, NULL, 0);
-> +        if (!xc_handle) {
-> +            report_pcpu_error("xc_interface_open failed");
-> +            return -1;
-> +        }
-> +    }
-> +
-> +    ret = xc_getcpuinfo(xc_handle, MAX_PCPUS, info, &detected_cpus);
-> +    if (ret < 0) {
-> +        report_pcpu_error("xc_getcpuinfo failed");
-> +        return -1;
-> +    }
-> +
-> +    /* Allocate/reallocate memory if needed */
-> +    if (!pcpu_stats || detected_cpus > allocated_pcpus) {
-> +        pcpu_stat_t *new_stats = realloc(pcpu_stats,
-> +                        detected_cpus * sizeof(*pcpu_stats));
-> +        if (!new_stats) goto alloc_error;
+Le 28/08/2025 =C3=A0 14:16, Jan Beulich a =C3=A9crit=C2=A0:
+> On 21.08.2025 17:25, Teddy Astie wrote:
+>> Make these functions work with hypervisor-owned pointer rather than
+>> guest handles, so the function parameters don't have to live in guest me=
+mory.
+> 
+> This is odd to read - the function parameters (arguments) didn't live in
+> guest memory before either.
+> 
 
-From here, `pcpu_stats` is an invalid pointer. You need
-`pcpu_stats = new_stats` to avoid double free that would happen in
-free_pcpu_stats(). And then, no need to do anything different for the
-error handling of the other realloc(), that is, no need for any of the
-free(new_*) calls.
+I agree, I should reword that so that it's less confusing.
 
-> +        uint64_t *new_prev_idle = realloc(prev_idle,
-> +                        detected_cpus * sizeof(*prev_idle));
-> +        if (!new_prev_idle) {
-> +            free(new_stats);
-> +            goto alloc_error;
-> +        }
-> +
-> +        uint64_t *new_prev_time = realloc(prev_time,
-> +                        detected_cpus * sizeof(*prev_time));
-> +        if (!new_prev_time) {
-> +            free(new_stats);
-> +            free(new_prev_idle);
-> +            goto alloc_error;
-> +        }
-> +
-> +        pcpu_stats = new_stats;
-> +        prev_idle = new_prev_idle;
-> +        prev_time = new_prev_time;
-> +        allocated_pcpus = detected_cpus;
-> +
-> +        /* Initialize new entries */
-> +        for (i = 0; i < detected_cpus; i++) {
-> +            prev_idle[i] = info[i].idletime / 1000; /* ns->us */
-> +            prev_time[i] = current_time;
-> +            pcpu_stats[i].usage_pct = 0.0;
-> +        }
-> +        return 0;
-> +    }
-> +
-> +    /* Calculate CPU usage with delay normalization */
-> +    for (i = 0; i < detected_cpus; i++) {
-> +        uint64_t current_idle = info[i].idletime / 1000;
-> +        uint64_t idle_diff = current_idle - prev_idle[i];
-> +        uint64_t time_diff = current_time - prev_time[i];
+>> No functional changes intended.
+>>
+>> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+>> ---
+>>   xen/arch/x86/hvm/hvm.c | 126 +++++++++++++++++++++++------------------
+>>   1 file changed, 70 insertions(+), 56 deletions(-)
+>>
+>> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+>> index 56c7de3977..8bf59c63fe 100644
+>> --- a/xen/arch/x86/hvm/hvm.c
+>> +++ b/xen/arch/x86/hvm/hvm.c
+>> @@ -4142,19 +4142,14 @@ static int hvmop_flush_tlb_all(void)
+>>       return paging_flush_tlb(NULL) ? 0 : -ERESTART;
+>>   }
+>>   
+>> -static int hvmop_set_evtchn_upcall_vector(
+>> -    XEN_GUEST_HANDLE_PARAM(xen_hvm_evtchn_upcall_vector_t) uop)
+>> +static int hvmop_set_evtchn_upcall_vector(xen_hvm_evtchn_upcall_vector_=
+t op)
+> 
+> Please can we avoid passing structures by value?
+> 
 
-Do we need to calculate `time_diff` for every cpu? It looks like
-prev_time[i] is always the same value, which is `current_time` from the
-previous call of update_pcpu_stats().
+We could, but we would end up having to modify more code to go there i.e 
+replacing all op.* with op->* which I tried to avoid here.
 
-> +
-> +        /* Use configured delay when actual interval is too small */
+> More generally: This one-by-one adjustment is what I'd really like to avo=
+id
+> with any new interface. It would be far better if ...
+> 
+>>   {
+>> -    xen_hvm_evtchn_upcall_vector_t op;
+>>       struct domain *d =3D current->domain;
+>>       struct vcpu *v;
+>>   
+>>       if ( !is_hvm_domain(d) )
+>>           return -EINVAL;
+>>   
+>> -    if ( copy_from_guest(&op, uop, 1) )
+>> -        return -EFAULT;
+> 
+> ... copy_from_guest() could transparantly handle both cases (virtual and
+> physical addresses being used). And yes, this would exclude an "everying =
+in
+> registers" approach.
+> 
 
-I can't figure out why this would be necessary. Why a value of less
-than 100000 would be too small for `time_diff`? Why would we want to use
-`delay_sec` here, surely that would mean that we would calculate the
-wrong `usage`?
+A part of the goal here is to split the ABI part from the hypercall 
+logic; such as it gets possible to have ABI that don't need to refer to 
+guest addresses (either virtual or physical); and could help dealing 
+with current 32-bits vs 64-bits ABIs. All without duplicating the main 
+hypercall logic.
 
-> +        if (time_diff < 100000) {
-> +            time_diff = delay_sec * 1000000ULL;
-> +        }
-> +
-> +        if (time_diff > 0) {
-> +            double usage = 100.0 * (1.0 - ((double)idle_diff / time_diff));
-> +            /* Clamp between 0-100% */
-> +            pcpu_stats[i].usage_pct = (usage < 0) ? 0.0 :
-> +                                     (usage > 100) ? 100.0 : usage;
-> +        } else {
-> +            pcpu_stats[i].usage_pct = 0.0;
-> +        }
-> +
-> +        prev_idle[i] = current_idle;
-> +        prev_time[i] = current_time;
-> +    }
-> +
-> +    return 0;
-> +
-> +alloc_error:
-> +    free_pcpu_stats();
-> +    errno = ENOMEM;
-> +    report_pcpu_error("memory allocation failed");
-> +    return -1;
-> +}
-> +
-> +void print_pcpu_stats(void)
-> +{
-> +    if (!pcpu_stats || allocated_pcpus == 0) {
-> +        printf("\r\nNo PCPU data available\r\n");
-> +        return;
-> +    }
-> +
-> +    printf("\r\nPhysical CPU Usage:\r\n");
-> +    printf("+-------+--------+\r\n");
-> +    printf("| Core  | Usage  |\r\n");
-> +    printf("+-------+--------+\r\n");
+>> @@ -5115,28 +5087,70 @@ long do_hvm_op(unsigned long op, XEN_GUEST_HANDL=
+E_PARAM(void) arg)
+>>       switch ( op )
+>>       {
+>>       case HVMOP_set_evtchn_upcall_vector:
+>> -        rc =3D hvmop_set_evtchn_upcall_vector(
+>> -            guest_handle_cast(arg, xen_hvm_evtchn_upcall_vector_t));
+>> +    {
+>> +        struct xen_hvm_evtchn_upcall_vector op;
+>> +
+>> +        if ( copy_from_guest(&op, arg, 1) )
+>> +        {
+>> +            rc =3D -EFAULT;
+>> +            break;
+>> +        }
+>> +
+>> +        rc =3D hvmop_set_evtchn_upcall_vector(op);
+>>           break;
+>> +    }
+>>       
+>>       case HVMOP_set_param:
+>> -        rc =3D hvmop_set_param(
+>> -            guest_handle_cast(arg, xen_hvm_param_t));
+>> +    {
+>> +        struct xen_hvm_param op;
+>> +
+>> +        if ( copy_from_guest(&op, arg, 1) )
+>> +        {
+>> +            rc =3D -EFAULT;
+>> +            break;
+>> +        }
+>> +
+>> +        rc =3D hvmop_set_param(op);
+>>           break;
+>> +    }
+>>   
+>>       case HVMOP_get_param:
+>> -        rc =3D hvmop_get_param(
+>> -            guest_handle_cast(arg, xen_hvm_param_t));
+>> +    {
+>> +        struct xen_hvm_param op;
+>> +
+>> +        if ( copy_from_guest(&op, arg, 1) )
+>> +        {
+>> +            rc =3D -EFAULT;
+>> +            break;
+>> +        }
+>> +
+>> +        rc =3D hvmop_get_param(&op);
+>> +
+>> +        if ( !rc && copy_to_guest(arg, &op, 1) )
+> 
+> Why would the original __copy_to_guest() need to change to copy_to_guest(=
+)?
+> 
 
-I don't think that the right way to print information on the screen in
-non-batch mode. It kind of work, but it pushes the bottom bar (with help
-on how to activate more stat) out of the screen. And in batch mode,
-there's no need for \r.
+That doesn't need to.
 
-There's a print() function in xentop.c which seems to take care of batch
-vs ncurse mode.
+> Jan
 
-> +
-> +    for (int i = 0; i < allocated_pcpus; i++) {
-> +        printf("| %-5d | %5.1f%% |\r\n", i, pcpu_stats[i].usage_pct);
-> +    }
-> +
-> +    printf("+-------+--------+\r\n");
-> +}
-> +
-> +void free_pcpu_stats(void)
-> +{
-> +    if (xc_handle) {
-> +        xc_interface_close(xc_handle);
-> +        xc_handle = NULL;
-> +    }
-> +    free(pcpu_stats);
-> +    free(prev_idle);
-> +    free(prev_time);
-> +    pcpu_stats = NULL;
-> +    prev_idle = NULL;
-> +    prev_time = NULL;
-> +    allocated_pcpus = 0;
-> +}
+Teddy
 
 
-Thanks,
+Teddy Astie | Vates XCP-ng Developer
 
--- 
-Anthony PERARD
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
 
