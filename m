@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2588AB3B3BA
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 09:00:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1100631.1453980 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD2EBB3B3C1
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 09:04:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1100650.1453989 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urt4r-0003Wq-EW; Fri, 29 Aug 2025 06:59:13 +0000
+	id 1urt9k-0005J8-Vh; Fri, 29 Aug 2025 07:04:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1100631.1453980; Fri, 29 Aug 2025 06:59:13 +0000
+Received: by outflank-mailman (output) from mailman id 1100650.1453989; Fri, 29 Aug 2025 07:04:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urt4r-0003UO-Ax; Fri, 29 Aug 2025 06:59:13 +0000
-Received: by outflank-mailman (input) for mailman id 1100631;
- Fri, 29 Aug 2025 06:59:12 +0000
+	id 1urt9k-0005Gp-Sd; Fri, 29 Aug 2025 07:04:16 +0000
+Received: by outflank-mailman (input) for mailman id 1100650;
+ Fri, 29 Aug 2025 07:04:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xaUo=3J=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1urt4q-0003UI-3Y
- for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 06:59:12 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mo2k=3J=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1urt9i-0005Fh-Co
+ for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 07:04:14 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2009::601])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a9cba614-84a5-11f0-8adc-4578a1afcccb;
- Fri, 29 Aug 2025 08:59:10 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-afcb731ca8eso280566766b.0
- for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 23:59:10 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61cfc214bb7sm1165506a12.13.2025.08.28.23.59.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Aug 2025 23:59:09 -0700 (PDT)
+ id 5def9469-84a6-11f0-8adc-4578a1afcccb;
+ Fri, 29 Aug 2025 09:04:13 +0200 (CEST)
+Received: from BYAPR01CA0037.prod.exchangelabs.com (2603:10b6:a03:94::14) by
+ SA3PR12MB9225.namprd12.prod.outlook.com (2603:10b6:806:39e::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.17; Fri, 29 Aug
+ 2025 07:04:06 +0000
+Received: from SJ1PEPF0000231D.namprd03.prod.outlook.com
+ (2603:10b6:a03:94:cafe::7e) by BYAPR01CA0037.outlook.office365.com
+ (2603:10b6:a03:94::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9073.19 via Frontend Transport; Fri,
+ 29 Aug 2025 07:03:58 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF0000231D.mail.protection.outlook.com (10.167.242.234) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9073.11 via Frontend Transport; Fri, 29 Aug 2025 07:04:06 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 29 Aug
+ 2025 02:04:03 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.1748.10; Fri, 29 Aug
+ 2025 00:04:03 -0700
+Received: from [10.252.147.171] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Fri, 29 Aug 2025 02:04:00 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,158 +63,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a9cba614-84a5-11f0-8adc-4578a1afcccb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756450750; x=1757055550; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=aNfvUShnH51qG42u7rH1FlK2GxWYroXXoNrl2DwQrcU=;
-        b=alJSJBRZfImITIrYDAJKdUM1N70jSggcu6fA3puRkHk/c33WMit+OtdTmRhrmhi7fB
-         +kpbTQ3SYYSgxR6uG2rMWf25kunxJuCsEo4QIRCQRbVoxwAtYQ5+63NXZFxeGpE5X0Ow
-         ALR1+YQNYZonLFKBFQIBuhzqkWYOLid9FgM2DqQKTzJw6/i+fx14+ylOEwigIv4vubW2
-         TSm97Vir4qQdRFG+xLWHHIld5/hgxz5FarIzP5vj6M2xuDk5tyZ2sg5fjKDQcYzxl/og
-         1uIdPJ1XS+ZhtYvrb/HYGe3Am2xo7dKiV1qlBNKG6umMFdCr+8LLeowGZyJ+n1qpDgjM
-         /Bbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756450750; x=1757055550;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=aNfvUShnH51qG42u7rH1FlK2GxWYroXXoNrl2DwQrcU=;
-        b=gr1XB7nrMez9QizZN6qwmwijh69Vkw7tUXEZH/j9LWOWBJzIvhRQFTK/9gaYNtnOgT
-         rsYowfwLS6TLhP0XNc1b1TketxQZvXYy/T+EFb1gZloFfacVlh+O9mJxkhhTsD5zysYN
-         m6lkU2idagSrtj4Ou71fB4iVl7lADyov0LPpIGVJf+W5TdbqYrlmNfIYjdAPS/t+yvh6
-         oZNIdvvNTD8MRU5j4tRfwkNAJjfwEZiYmM/yJ9sp2nlIF5313wBSZ31mofmuPDMCSIq1
-         ciyZe9HiVwhpEilVGTqvL9z4InRL1a7GsqHpSbB4zwWoW4GHGHwvCSWt2fuzECm5+eoq
-         tJRw==
-X-Forwarded-Encrypted: i=1; AJvYcCX8q58aQoAV3bYFX35XrtL8oUKXGj2WtHbrNTQzoblr0bHYYSE7jInyBqA4LGz/wxy/kEJBCMnK95U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxM2leL1cHw7lyFVaEqTAnP8g8RdNLrjFdFkFNxhGrsu+00oeyQ
-	Qo3/L5YPRYWaAyB7V+80f1NxwyZEBCJ6foP+ZoI8NqPyDmg1PSO5iSCONTqdMHdxDg==
-X-Gm-Gg: ASbGncuuDtfOyDUGaveknpiGyHBCN1se0k3d9hao57i7LXzQcC6byJ41uC0ntBugGVA
-	C3luzueq0BzXSv+l1A0y8+KGoc397yZ4mgwTFboLbD20OKySm1EJceskt1Z86bMhtfLCPMQixsf
-	aoB8yWV3o3rZdAYd4tC+OSJLV7C3DPCM+MxQweXMBwSNHkILelJQP93iTGukILFGuG6aHi5QrmY
-	p/eedIYFkogIEK/3Znd0hLpj8ep4/DjBuYYJKKTVk8AEOR0kR/4lvJWhArInIM/zkwMhdhLUNf4
-	ugJhjie32e2nkBIA7PCJTNXke3VOPIsqDMlEWSqYrYZ8BsrSs017xgulRwBadz/O+gl95Rta/5q
-	+YIznijy7I1qHzPfbNm1Xh3qzxQApaD9bvMu2pYsHPqDPjCuMfl8C+u5OEC4EhiixWKpyzHO89K
-	jkcFrlnyrTksSVzdvCnw==
-X-Google-Smtp-Source: AGHT+IFz9sxg9C77Ggj2NVlcm3Ou9mrbrqVgUIpDUsyOF/HJytqGmZZdPqs9Kn42L41s+lM4PVLT+Q==
-X-Received: by 2002:a17:907:3d8e:b0:afe:b872:b991 with SMTP id a640c23a62f3a-afeb872c1bbmr849167066b.22.1756450749605;
-        Thu, 28 Aug 2025 23:59:09 -0700 (PDT)
-Message-ID: <289851bd-95c5-485c-8b3c-d31452ad204f@suse.com>
-Date: Fri, 29 Aug 2025 08:59:07 +0200
+X-Inumbo-ID: 5def9469-84a6-11f0-8adc-4578a1afcccb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sAI+BhYN3n9d6+fs+QZk8d732s+izqvtmEI8+j0rrJFkd4fd5Ny3KUn+UDLVNeCXeyjBX9+UMmrnPDvL3tFEAlXfejywvDrvzNBem2IEiaIJQzafqSumeXnKbYmMU1wb/GRQ8Ay1a7iVyJ95oJDLCjphkJdQwR6fi4h4SZ7DVrE2O6XaWjbYuwghM6AfSnwANmMkebwdpnGPGfwwx18J7iXxs3u4JKfg+EhiPiQg+ZiImmk+Q18fthtQ6zS1j2MhK/pQr+6m14ypxtkjdkXKOFbRbBdkSGP2cUpj9QT4PmSIxA3FQ8wJq8LW5jbi9lopGuCVtnh6YdCLN9vMFIgDZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=c0aDw56Ks0qLUMD5JL6Bv8O/0/8nij4QzHfOTQaOd9s=;
+ b=v0GkPkUY54x5n2wkw8gMF8PziM+DGhqJ46FH9rn0ET4rPSHkMOUzuiDRWJyHaozXpExNbTuVIXDcDCa6vewOVHaznnj75AyG/rkK2dfw1/IZN0E5sy2aH0rO2geykO21VMaanWwFTJCw4AsuqZLESmM/Nh8z5fhVXA+rGmjNadFN1RzPHsXjtWpeWN2faEBp26+nvKrRZeWXn6Cy9JijnmzXiebP82wuumpZvuL6d4q4gwvPAEQz5QdirxITX/oH3FcTGh7rfhfJv/aJyPXJGJWrk57sXaGkHjaV885D0F2nUD7l2pM7gDB/Mcf5qy3HGZ2JzNZK90Elk8VirnbaEw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=c0aDw56Ks0qLUMD5JL6Bv8O/0/8nij4QzHfOTQaOd9s=;
+ b=2Sue4ewBetwYV+HoHGBMhqumxuBurpYZ2RSC7pWQ+EllF5RNNfh5BaksPiPp2nTKO1MlxotyD1wO4+CX8f0zZC0nJ66BegOGQIC8CEQbtk7lSGLH6rDXRZXl9FfARz0lYAnCva2TKqEji/mQqbjQ0xxCEvQMgD0Lz+AqhVV97iA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <cf9f35a5-5c67-48b9-851a-67736050230a@amd.com>
+Date: Fri, 29 Aug 2025 09:04:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/5] symbols: arrange to know where functions end
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <ceef1876-8759-465c-9a74-309b6b92f773@suse.com>
- <10e116c5-5a62-4abc-a52a-e2ca12118cfe@suse.com>
- <24fd00b5-3053-43ae-8342-887eee94869a@amd.com>
- <d934d8a8-93c0-4cb6-baa4-f2aedb719f25@suse.com>
- <e9eaf331-4a32-4c80-8b0a-5f36d8fd9022@suse.com>
- <773a5f4e-2f73-4b84-bc56-90aee660acd2@amd.com>
+Subject: Re: [PATCH v3 5/5] xen/arm: map static memory on demand
+To: Hari Limaye <hari.limaye@arm.com>, <xen-devel@lists.xenproject.org>
+CC: <luca.fancellu@arm.com>, Penny Zheng <Penny.Zheng@arm.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+	"Bertrand Marquis" <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Chen
+	<wei.chen@arm.com>
+References: <cover.1756379422.git.hari.limaye@arm.com>
+ <30cbc79f765c21759d74377e55cc471210fc2575.1756379422.git.hari.limaye@arm.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <773a5f4e-2f73-4b84-bc56-90aee660acd2@amd.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <30cbc79f765c21759d74377e55cc471210fc2575.1756379422.git.hari.limaye@arm.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231D:EE_|SA3PR12MB9225:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1ee3b914-cafd-4989-a336-08dde6ca3e7e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|7416014|82310400026|36860700013|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?R1gwMUlVZ0xUR09oejdzY3gveUtEaWZ3MWRQTk1DN0xVRlgyWENodW80NjBv?=
+ =?utf-8?B?RlZFQ0JoZHJIUEVyM3ZkUW9zaGdpWEdFTmhWaHowZ1V1SWx2ZWpGUE11Z0Zw?=
+ =?utf-8?B?R0V1YTNSTG1mdnREOEZMbjdMM1g5ZVpUQVR6b1BGZE5FYzNTTWx4V2pISVBo?=
+ =?utf-8?B?YWsrTWxsaGNPWjQ4QjhhTWhYR2FLWHo3blV5MHVmQnlJdS9kaWZVcWJ3TWRT?=
+ =?utf-8?B?N3VOVzl4RWxzU2sxQ3N0NVBCVWNTSndxMmsxWDFXb3R6a3ZGblMwL0pjZGpF?=
+ =?utf-8?B?TmpsM0g2RkFveTFidE1NYlBZRDZPT0JiSVRCeHZ6SEtUVTdsOWlPVVpJMENj?=
+ =?utf-8?B?NUhoMXoyZjhQN21kTHRWeXUrM2FqWnVZSXZnZG5reVNkUlNYa1VkTFFGUmI3?=
+ =?utf-8?B?anlRRHByM2U2VXJMY241N0JTdVBwQ1ZoWEd4dWJRK09XZDVPT3JGNGVOS3Rn?=
+ =?utf-8?B?ZFlUbFpVL2JjenJvaVovakZjeG5XYmcxY0hQeFZkWFVXbG1RZldld2F6aXRG?=
+ =?utf-8?B?SXBWY04xeE9zWG9LdEFvNjlWUkVERjNHZXZCRzB5SE1xTXJwOUZ5Slo3c1pI?=
+ =?utf-8?B?WTd1b0R3VzhrM1NXNWsrQkpKYmp5dzkvdVF0YWJZbS9ZZCtaRnBwSU5kQWI5?=
+ =?utf-8?B?VnJvWnkwTG5GUEhYcU5qV2ZpVnBOYmgzUnlpaUJ6RGxuNG1ONU9seDZiSG1z?=
+ =?utf-8?B?Q3NmS0w4TUNtamU2cTMzLy9PdzdTdFdqMjV2cTFscm5pUEgySmFSUWJhTjBL?=
+ =?utf-8?B?QWdGdDBOR3RjdzBFejMxeHZWUmFzcnBMR2VGNnVYbjJteVpaTEFnNHZURXZ3?=
+ =?utf-8?B?dk10NWgvWlVLMjN4WE1ESnJscVp4dkY2YlBRNFJpNnRMZnZBNkJCdnBrU1Jw?=
+ =?utf-8?B?c0Q4WnMvOFZoWlVON0lXOVNqbTVVSk42ejlnellQZWRLd0ErYnFFSUpXNEYv?=
+ =?utf-8?B?MkNETlVlVFVXSU5iTUh2NFMzTkZJYVRDWHZXa0lmQkU0RlA0NDJTZC9pVXda?=
+ =?utf-8?B?eTlxei9kb3g0TjE0dENnRWpLNSs5ZThnaGRBd3NzR0trbkZCNzdrQ2hFOFF5?=
+ =?utf-8?B?MmFZQVBjMlI3T3hQN2hxampSdnZidmluTEdkWjd2WXhaVjJYZU1ha1d4OGNi?=
+ =?utf-8?B?QnVHTzBwL2t3d0ZPM0lMVm94K0lORUpEUDlSZGJQTDFzS0VqcDQxZ2w5YU11?=
+ =?utf-8?B?SzRVOG5aVE1Fekp5WTBFVzluQ2VWNFBtY1FVRFJSeVBVNVpTR1ViVHFUUHBq?=
+ =?utf-8?B?RitRK25qbjdDL0VpaDlLRy9pdWpuOVIweHk4OXVWY21PNDdjV1RUTzdFblpF?=
+ =?utf-8?B?Zit3ME40ZHJEd3BBQ3BhT1RzTXJMWFd6dXE2SWVOSENDR3AzeFdRSGdBQ0JE?=
+ =?utf-8?B?Q3BEb1RIM0VuRDJlVkRvSWpTV1BOeFBUNWNka1djTFloUFpZUTM4Qk8vWlVq?=
+ =?utf-8?B?S2c2UkZ0Um1YSTJBaXdLSHpDaHlvRFlHN3pYWjA1ZEhLQ1FoNEREZFF6OTV5?=
+ =?utf-8?B?bEd3R01OSm9WdEs5WVNQVjkrNUZ6N3VxY0V2S25GT05DZE8yUGdGOUZoOTV3?=
+ =?utf-8?B?V2ZERkZzTWFGVUVrNDNMcnRXQ2k1aFVkNGJaU3h1UGk3MklPc2lnc2VzdGox?=
+ =?utf-8?B?S3h1bWRaQ0JaT0lUSkk5Tm1uUGdMYytvdUE0bHpPVDBKMEc4MTJsSDVlaWRq?=
+ =?utf-8?B?TmxxUTlxdGdPU0VvdUhtSEE3SmRSUUx4YTlMWnNzdW5ucEI0dzBNTVR2OUFO?=
+ =?utf-8?B?QmJod3p6UUNERFVFM0tlSkdtcTFqY1NuMkExVFdCdHNKWmhFbkF0ZWdNRUsx?=
+ =?utf-8?B?eE84QjlCdnBxZE1TUjdSbWRoMUVHQ3RHZnZENGk1Q2wxaEl0akJVVGpkQjF1?=
+ =?utf-8?B?UE84RXRSZ282dTEvTlZCcW5nQW03cUlNU2VSTVJTUXpsZFdJNzhrRDlNNjlH?=
+ =?utf-8?B?M2V2dGdDV3hIbkFyV0svZXgxekdOWmkyTUhqdEpJRnBVaEN3ZGdvQ0dvakY0?=
+ =?utf-8?B?bHlvMEx1aVhFYWl0UFZZd0xsdnBmc0FkYzBnSGpZTlNkZGhHQkN1emVOd1lD?=
+ =?utf-8?Q?MKUW9Y?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(82310400026)(36860700013)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2025 07:04:06.1394
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ee3b914-cafd-4989-a336-08dde6ca3e7e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF0000231D.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9225
 
-On 28.08.2025 19:16, Jason Andryuk wrote:
-> On 2025-08-28 12:11, Jan Beulich wrote:
->> On 28.08.2025 09:28, Jan Beulich wrote:
->>> On 28.08.2025 03:03, Jason Andryuk wrote:
->>>> On 2025-04-02 09:58, Jan Beulich wrote:
->>>>> --- a/xen/tools/symbols.c
->>>>> +++ b/xen/tools/symbols.c
->>>>
->>>>> @@ -318,24 +334,42 @@ static void write_src(void)
->>>>>    	printf("#else\n");
->>>>>    	output_label("symbols_offsets");
->>>>>    	printf("#endif\n");
->>>>> -	for (i = 0; i < table_cnt; i++) {
->>>>> +	for (i = 0, ends = 0; i < table_cnt; i++) {
->>>>>    		printf("\tPTR\t%#llx - SYMBOLS_ORIGIN\n", table[i].addr);
->>>>> +
->>>>> +		table[i].addr_idx = i + ends;
->>>>> +
->>>>> +		if (!want_symbol_end(i)) {
->>>>> +			/* If there's another symbol at the same address,
->>>>> +			 * propagate this symbol's size if the next one has
->>>>> +			 * no size, or if the next one's size is larger. */
->>>>
->>>> Why do we want to shrink the next symbol's size?
->>>
->>> First (see related post-commit-message remarks): In principle section symbols
->>> could come with a size, too. That would break everything as long as we don't
->>> strip those.
->>>
->>> The main reason though is that imo smallest granularity is what we want here,
->>> together with predictability. One symbol with a huge size could cover
->>> multiple other symbols with smaller sizes. We could omit that part of the
->>> change here, but then the processing in the hypervisor would need to change,
->>> to fish out the "best suitable" symbol when dealing with multiple ones at the
->>> same address. Other changes may then also be needed to the tool, to have such
->>> symbols come in a well-defined order (to keep the then-new code in the
->>> hypervisor as simple as possible). Look for "aliased symbol" in
->>> common/symbols.c to see how simplistic respective code is right now.
->>
->> Furthermore remember that we can't record sizes, but instead we insert fake
->> symbols. Obviously there can be only one (at least in the present scheme).
->> If we used too large a size, chances would increase that the end symbol (in
->> the sorted table) would have to live past some other symbol, thus becoming
->> that one's "end".
-> 
-> The scenario I thought about is something like:
-> 
-> a 0x100-0x10f
-> b 0x100-0x1ff
-> c 0x200-0x2ff
-> 
-> If you shrink b, you are creating a hole that would otherwise be 
-> assigned to b.
-> 
-> But I agree avoiding huge sizes covering multiple small variables would 
-> better be avoided.
-> 
-> Do you have concrete examples to help illustrate the problem?
 
-a 0x100-0x1ff
-b 0x100-0x10f
-c 0x110-0x11f
 
-If we inserted an "end" label based on a's size, that would effectively be
-c's 2nd end symbol (and there may not be two "end" symbols in a row, unless
-we want to further complicate the symbol lookup logic).
+On 28/08/2025 13:12, Hari Limaye wrote:
+> From: Penny Zheng <Penny.Zheng@arm.com>
+> 
+> In the function `init_staticmem_pages` we need to have mapped static
+> memory banks for initialization. Unlike on an MMU system, we cannot map
+> the entire RAM on an MPU system as we have a limited number of MPU
+> memory regions. To solve this, transiently map the static memory banks
+> for initialization.
+> 
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> Signed-off-by: Hari Limaye <hari.limaye@arm.com>
+> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+Given that the freeze date will likely be extended, I'd prefer to take this tag
+back and request this patch to be changed due to reasons listed below.
 
-Jan
+> ---
+> Changes from v2:
+> - Add Michal's R-b
+> ---
+>  xen/arch/arm/include/asm/mmu/mm.h |  3 +++
+>  xen/arch/arm/include/asm/mpu/mm.h |  4 ++++
+>  xen/arch/arm/mpu/setup.c          | 11 +++++++++++
+>  xen/include/xen/static-memory.h   |  8 ++++++++
+>  4 files changed, 26 insertions(+)
+> 
+> diff --git a/xen/arch/arm/include/asm/mmu/mm.h b/xen/arch/arm/include/asm/mmu/mm.h
+> index 7f4d59137d..645a0ea3cb 100644
+> --- a/xen/arch/arm/include/asm/mmu/mm.h
+> +++ b/xen/arch/arm/include/asm/mmu/mm.h
+> @@ -110,6 +110,9 @@ void dump_pt_walk(paddr_t ttbr, paddr_t addr,
+>  extern void switch_ttbr(uint64_t ttbr);
+>  extern void relocate_and_switch_ttbr(uint64_t ttbr);
+>  
+> +static inline void map_staticmem_pages_to_xen(paddr_t start, paddr_t end) {}
+> +static inline void unmap_staticmem_pages_to_xen(paddr_t start, paddr_t end) {}
+> +
+>  #endif /* __ARM_MMU_MM_H__ */
+>  
+>  /*
+> diff --git a/xen/arch/arm/include/asm/mpu/mm.h b/xen/arch/arm/include/asm/mpu/mm.h
+> index efb0680e39..4cc769418e 100644
+> --- a/xen/arch/arm/include/asm/mpu/mm.h
+> +++ b/xen/arch/arm/include/asm/mpu/mm.h
+> @@ -123,6 +123,10 @@ void *map_mm_range(paddr_t base, paddr_t limit, unsigned int flags);
+>   */
+>  void unmap_mm_range(paddr_t base);
+>  
+> +/* {un}map_staticmem_pages_to_xen used while initializing static memory banks */
+> +void map_staticmem_pages_to_xen(paddr_t start, paddr_t end);
+> +void unmap_staticmem_pages_to_xen(paddr_t start, paddr_t end);
+> +
+>  /*
+>   * Checks whether a given memory range is present in the provided table of
+>   * MPU protection regions.
+> diff --git a/xen/arch/arm/mpu/setup.c b/xen/arch/arm/mpu/setup.c
+> index 163573b932..dbc3107333 100644
+> --- a/xen/arch/arm/mpu/setup.c
+> +++ b/xen/arch/arm/mpu/setup.c
+> @@ -83,6 +83,17 @@ void * __init early_fdt_map(paddr_t fdt_paddr)
+>      return fdt_virt;
+>  }
+>  
+> +void __init map_staticmem_pages_to_xen(paddr_t start, paddr_t end)
+> +{
+> +    if ( !map_mm_range(start, end, PAGE_HYPERVISOR) )
+> +        panic("Unable to map staticmem pages to Xen!");
+> +}
+> +
+> +void __init unmap_staticmem_pages_to_xen(paddr_t start, paddr_t end)
+> +{
+> +    unmap_mm_range(start);
+> +}
+> +
+>  /*
+>   * copy_from_paddr - copy data from a physical address
+>   * @dst: destination virtual address
+> diff --git a/xen/include/xen/static-memory.h b/xen/include/xen/static-memory.h
+> index e445aa8057..d99abac113 100644
+> --- a/xen/include/xen/static-memory.h
+> +++ b/xen/include/xen/static-memory.h
+> @@ -18,7 +18,15 @@ static inline void init_staticmem_bank(const struct membank *bank)
+>      if ( mfn_x(bank_end) <= mfn_x(bank_start) )
+>          return;
+>  
+> +    /* Map temporarily before initialization */
+> +    map_staticmem_pages_to_xen(mfn_to_maddr(bank_start),
+> +                               mfn_to_maddr(bank_end));
+Static memory is not Arm only feature, it is common and as such should not (and
+does not) make calls to Arm only functions. If at all, such helpers should be
+made generic so other arches that could enable static memory can re-define them
+if needed (as you pointed out, on MMU you don't need to map/unmap this region
+temporarily).
+
+~Michal
+
 
