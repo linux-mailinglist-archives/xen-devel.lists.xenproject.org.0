@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75634B3B2A3
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 07:44:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1100525.1453920 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4CF1B3B305
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 08:12:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1100565.1453930 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urrtf-00006R-Qs; Fri, 29 Aug 2025 05:43:35 +0000
+	id 1ursL2-00049p-TM; Fri, 29 Aug 2025 06:11:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1100525.1453920; Fri, 29 Aug 2025 05:43:35 +0000
+Received: by outflank-mailman (output) from mailman id 1100565.1453930; Fri, 29 Aug 2025 06:11:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urrtf-0008Vl-NZ; Fri, 29 Aug 2025 05:43:35 +0000
-Received: by outflank-mailman (input) for mailman id 1100525;
- Fri, 29 Aug 2025 05:43:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cTkY=3J=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1urrte-0008Ve-Gu
- for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 05:43:34 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 18769459-849b-11f0-8adc-4578a1afcccb;
- Fri, 29 Aug 2025 07:43:31 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 507D24EE3C0D;
- Fri, 29 Aug 2025 07:43:30 +0200 (CEST)
+	id 1ursL2-00047o-Pg; Fri, 29 Aug 2025 06:11:52 +0000
+Received: by outflank-mailman (input) for mailman id 1100565;
+ Fri, 29 Aug 2025 06:11:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xaUo=3J=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ursL1-00047i-6W
+ for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 06:11:51 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0c2bb7fe-849f-11f0-8dd7-1b34d833f44b;
+ Fri, 29 Aug 2025 08:11:48 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-6188b5b113eso2470228a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Aug 2025 23:11:48 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-afefcc1c75csm127415566b.84.2025.08.28.23.11.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 28 Aug 2025 23:11:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,250 +45,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18769459-849b-11f0-8adc-4578a1afcccb
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1756446210;
-	b=EwU7H6flSghzegfLGZHs5Vq2FY4kNnwfHhrwrEdONgE+V5ofXl0AncipZTFPXvTZ9qa6
-	 4V5oiy16H47bM/UYoShUT28XjrEddCccIMAAEXwwixK32rmvM/Yg5TmA4eslFxksNdWRb
-	 HXexzXzJLWwWAQyvBACNl/T36ugM9F+uUXGUuxvBRmg+KVTAelLkas2GDoFyZ/H3RyEfW
-	 CTMEk3gpmfFJVPxGkBC+Uw5rK3j3k0snPhwYG/Gt1hApmPkvW6tW7BNm0/FLYgyijOQti
-	 ZAFjy0gU1hgTcP9blAUuOgjHKLymyAVcMR9FNV3/oSf3WEeeBhFKA+mzcrE7df795TVMh
-	 xa9jiLlk81aFVo34Mv2ka8J/d+kwLpEupZKEssscOxv0q0I/r8QGzRQ8l8y/CD/1NKP5H
-	 D0QeEj2kfhCqMWDy5kU9Hhi6TAoX9sg9n52dBL1mmyLwBOoRkIAh+rvSWeeiKxMZu18MW
-	 4YjirWtwr97GuNPh1c8p/RwW5AFIAh7nRQsCh4ojfZ/OfQvLXWTHduJi2dHECCqpj62N3
-	 zyFLyX4zbbLC1KU8pXbCJVml7S+ykg8fwwwjrqPEW6KCsFh/oobMuO4VDDnxemGaWZAsK
-	 1aQAXCvq92QJFyCBIEGTASN/esvGLgY8NTry7QTFR7iZedqUvYcAdloApiG9fgg=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1756446210;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=M/pl1D0HoTbrkXKeJQRj59Agn1yMB9bXAaWmtMKEvP8=;
-	b=vFYqWJWdur5SvqriAlXxydxD3xaZBSwIhEL8GKtCxLGaHXDx+zQY1cneK9aCTSNFsTLU
-	 H24BGWXHXr0m2zpw9zhlm8sLQbULGgcJVwKmYCOuD6R+3+eLODzuX9ot89P9RVNAPF9pb
-	 YQCuB0QM67HE8B1x/UX4WayDkrd9MTnhdwhd17GCLa2dVAASAL2X7lm9646AoCt/O6uG4
-	 PN8qXr3qia3gQWDnLTg/gBjSa8RUWh5uNf2/O14iVds2v8LqrR0WMYdr/7wpIdfR6Iojw
-	 5L9wvF2nHh9OlGnbv+jwe4TvudcUlhyrZZMUMGRhcZkXcjJf5cmdbJkeHM7DLeg5Gdowc
-	 hQDW/t83u3eobwsccyPAVyG+sfl6mhKOnN3xlI0W7xoCI1XGTCd+cXEr0kfYvtMFShjYN
-	 pCIwzRKmwlWn7bCvoBTMxFBo9MxB33kYhqmXpZzNirikTBXqR402mdEDns78t3PCueDmA
-	 qvjAgJcDN2pLL3+H7otQJZRBn22/PweGt25WLQb4NvbAVeKEFZWxGBhLLQ+Bh/xdu4MsT
-	 yP3pBDdL8Dy1Ph+FBiUxc+6/iek6Vu2jMe5wU+E+mXsucpGRRMF+0PPctjWA0BIa/pxx1
-	 FOhTY8YyHcQ/++nzKsNsivkfcX1XxBoFHRD0TfM/hz6lhTPoiD/+Jk0vCWo9XvY=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1756446210; bh=mq9By8w3RXOlXXE/R+h9P91Ws8FEjFBTt3DP5K6PTVU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=rhFWAHfbb5Sqc6qpt4hFsym7DWOoqp9/Pk4pU/GtQU9U+AwnastOnhnc5NBCvRG+H
-	 jCQU46EjKHK6NfiLDpzfsV3xJvmlEjNp1Uw6TMQBZPxdXASlzSafZq3xGuljwDFsVn
-	 MNPoD97tYPjeJURcuFlXjF2MiEUYYjUHb7dyMscZy73uAUcczGez2HDZ0j3WtflG5P
-	 NGdvJeALa6/rHeaLot6fRoeNwResQfOC2hEiBhM0UWDb/n0h5Zcj+bmT0gJ4in/eQg
-	 tCtt1PlDywxN1C3vX4XEKyMzhO28Jt+HE1EMmaTvIuEy+rlPf/FOM4A1v1dN/58JRo
-	 taMtLmlc3VJ4w==
+X-Inumbo-ID: 0c2bb7fe-849f-11f0-8dd7-1b34d833f44b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1756447908; x=1757052708; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=doZyjIjeTOVM+BViPQyDUiH5kKVjr2hzxAi0ahYVTkE=;
+        b=RtMtoHk87jQz5V0U6fQHaMuYBz0LQOQiPzgH0Ip/XrkIpMdJCs2pNbkfylFaXusVeL
+         fnlDSnL/6s6Vmyllv0r7+podmOaujqi6YjVxQzx+an+ZTllfSeMUsaaloWbsVb6ZR3B6
+         nL+9ht9GaMHpTZ/nL3uJ1Kgz37wSjTB3kK9D0seYpFcOuER3rB1ca7gjXKe/lG1ghkru
+         P0+i7YVNMheb7rV5QKyLoycDAr07Y/3jpmO/3dk9C00vOCUWpaG8bNGVtRfiE8vdBgWd
+         wZaStqww5LPqrKt2Hj5ovbDugci6kczLYEvkUrHm8/bT+46jbkzpCAlB1oHv9rNNt8S/
+         JbtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756447908; x=1757052708;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=doZyjIjeTOVM+BViPQyDUiH5kKVjr2hzxAi0ahYVTkE=;
+        b=hBsE66ozKtJSzZGaAZLYGvA2/kDNWpacsrCoFJB2QwGCV1mGj+ur0Ju5apLDQv8wNc
+         svEz1TqN9RhWmJXrpkkmfWaXASUzb8qvdQSrGUy+tdsqlwqR8WCK6DubbVpiDQ9/obMD
+         xrQ6MAWZaEdXdmvVqXdsK96bROOf2Apm7rR5vYHzPDUM4uMPIr2ZYDhlZu9M7Azvpt4y
+         3ujs5fUZ0VPpzmL+3CfN1YsP1VR6S2PdpL/18apQR3FMg9AWS3eV4QaTbYsTulJqVDdJ
+         EQ8X48Qdr7NVz1CAAG7pJP5yJKxp0sFvu2zeCRNDBIT02zZ2hBfq5STqq5Z2oFYv2Uz8
+         vDjQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWGSFxFQFkAPIKRcDidWolTMfoK2Zj0jYQ1vcJR+gfVIgaLd17dZX5HXq3yCjtMhzo0N/qTNe2B4fE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwqnxP5C4+oA+DtGP/z1NNc/zIdQLl2NWzPl3kDDD/AIiDbQSiM
+	D7DRLuG+Zsi4CCv+J0DEcY5itz3F6KcIbfLg/7emUETZ0KZscNqvjhRQ+aerkVWC5Q==
+X-Gm-Gg: ASbGncsBzv3K7n5HbMkiikrnjNx3gcoJYX7rfMfJHsakThCyTP/lBKZJX0KWXaX5Ud4
+	Uv1HqHOd2jeQWlgFuVjGNqsWHRNlytS95iZKDOchrUqUd/+YnSK7Gd/y8Z3699GztSl32lSZjxn
+	iAxenJWM5WXF2UIN17PomLDrlmNFYybGFi3GeeYvsTYlGMBjUVAkaRIoa6gBVLUX9VB1uxODnOZ
+	eiNT4n6oyWL9ZQvfIxJsszORfpa7C9zzC8BPlUdZcUijFSVJAzht/Rv9Q/WTN++eKo1l/9n+osr
+	2BgXh5Lsk3cCm3Gdyr52uvNg5i5ejgx9lUNJYSrPFyLEIBeVD7QuGKOEcOd3sKbBcDZMmdfx93W
+	OuOqjJC6KfMxkTDy8zeJywRowtvzXtyHpbY8Ko24mK/rm/ia9nfL9Y6H9/6f+V89QXVqwVnqoBA
+	0Jy8H/Fe0=
+X-Google-Smtp-Source: AGHT+IHfRnYqey61DT/LRitGGGiBME7Gy+20dQ6ENpsfs5qkiVYnhpAAIciToLLeFezTyT7B12CX/g==
+X-Received: by 2002:a17:907:1c17:b0:ae9:8dc8:511c with SMTP id a640c23a62f3a-afe28ffbea0mr2486689866b.13.1756447908211;
+        Thu, 28 Aug 2025 23:11:48 -0700 (PDT)
+Message-ID: <1ad85430-2aa7-4834-be56-67515ca51310@suse.com>
+Date: Fri, 29 Aug 2025 08:11:46 +0200
 MIME-Version: 1.0
-Date: Fri, 29 Aug 2025 07:43:30 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Doug Goldstein <cardoe@cardoe.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 3/8] xen/cpufreq: implement amd-cppc driver for CPPC in
+ passive mode
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] misra: consider conversion from UL or (void*) to function
- pointer as safe
-In-Reply-To: <63a8e9f8-61c7-4443-a114-82db08c45f69@epam.com>
-References: <9e5e4ff2c7ba0a90a6ac403e2de9318e18949274.1755628705.git.dmytro_prokopchuk1@epam.com>
- <90fb95a3-4b32-4785-a77c-373e5b9da6ed@suse.com>
- <e1e2abdf0ef8708097aa78440eeb7147@bugseng.com>
- <6b912698-b871-4819-ac30-14325d0be146@epam.com>
- <498f9629d2dda3f305c11512908b1325@bugseng.com>
- <d1fd1bbc474aad5a6a9841a8c109126a@bugseng.com>
- <63a8e9f8-61c7-4443-a114-82db08c45f69@epam.com>
-Message-ID: <965bef5c7cc9d50493916bb6ef1e3678@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
+ Anthony PERARD <anthony.perard@vates.tech>,
+ "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "Andryuk, Jason" <Jason.Andryuk@amd.com>
+References: <20250828100306.1776031-1-Penny.Zheng@amd.com>
+ <20250828100306.1776031-4-Penny.Zheng@amd.com>
+ <b2712815-97c2-4473-bcf6-aae8517aad37@suse.com>
+ <DM4PR12MB8451D6ACE480227632A8156FE13AA@DM4PR12MB8451.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <DM4PR12MB8451D6ACE480227632A8156FE13AA@DM4PR12MB8451.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 2025-08-28 17:54, Dmytro Prokopchuk1 wrote:
-> On 8/25/25 16:08, Nicola Vetrini wrote:
->> On 2025-08-25 14:53, Nicola Vetrini wrote:
->>> On 2025-08-22 18:34, Dmytro Prokopchuk1 wrote:
->>>> On 8/21/25 11:25, Nicola Vetrini wrote:
->>>>> On 2025-08-21 10:01, Jan Beulich wrote:
->>>>>> On 19.08.2025 20:55, Dmytro Prokopchuk1 wrote:
->>>>>>> Rule 11.1 states as following: "Conversions shall not be 
->>>>>>> performed
->>>>>>> between a pointer to a function and any other type."
->>>>>>> 
->>>>>>> The conversion from unsigned long or (void *) to a function 
->>>>>>> pointer
->>>>>>> is safe in Xen because the architectures it supports (e.g., x86 
->>>>>>> and
->>>>>>> ARM) guarantee compatible representations between these types.
->>>>>> 
->>>>>> I think we need to be as precise as possible here. The 
->>>>>> architectures
->>>>>> guarantee nothing, they only offer necessary fundamentals. In the
->>>>>> Windows x86 ABI, for example, you can't convert pointers to/from 
->>>>>> longs
->>>>>> without losing data. What we build upon is what respective ABIs 
->>>>>> say,
->>>>>> possibly in combination of implementation specifics left to 
->>>>>> compilers.
->>>>>> 
->>>>> 
->>>>> +1, a mention of the compilers and targets this deviation relies
->>>>> upon is
->>>>> needed.
->>>> 
->>>> Maybe with this wording:
->>>> 
->>>> This deviation is based on the guarantees provided by the specific 
->>>> ABIs
->>>> (e.g., ARM AAPCS) and compilers (e.g., GCC) supported in Xen. These 
->>>> ABIs
->>> 
->>> s/supported in/supported by/
->>> 
->>>> guarantee compatible representations for 'void *', 'unsigned long' 
->>>> and
->>>> function pointers for the supported target platforms. This behavior 
->>>> is
->>> 
->>> It's not just about the guarantees of the ABIs: it's the behavior of
->>> the compiler for those ABIs that makes this safe or unsafe. If
->>> present, such documentation should be included
->>> 
->> 
->> In any case, provided that the wording can be adjusted:
->> 
->> Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+On 29.08.2025 05:30, Penny, Zheng wrote:
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Thursday, August 28, 2025 7:23 PM
+>>
+>> On 28.08.2025 12:03, Penny Zheng wrote:
+>>> +static int cf_check amd_cppc_cpufreq_target(struct cpufreq_policy *policy,
+>>> +                                            unsigned int target_freq,
+>>> +                                            unsigned int relation) {
+>>> +    unsigned int cpu = policy->cpu;
+>>> +    const struct amd_cppc_drv_data *data = per_cpu(amd_cppc_drv_data,
+>>> +cpu);
+>>
+>> I fear there's a problem here that I so far overlooked. As it happens, just
+>> yesterday I made a patch to eliminate cpufreq_drv_data[] global. In the course of
+>> doing so it became clear that in principle the CPU denoted by
+>> policy->cpu can be offline. Hence its per-CPU data is also unavailable.
+>> policy->See
+>> cpufreq_add_cpu()'s invocation of .init() and cpufreq_del_cpu()'s invocation
+>> of .exit(). Is there anything well-hidden (and likely lacking some suitable
+>> comment) which guarantees that no two CPUs (threads) will be in the same
+>> domain? If not, I fear you simply can't use per-CPU data here.
+>>
 > 
-> Updated wording:
-> 
-> This deviation from Rule 11.1 relies on both ABI definitions and 
-> compiler
-> implementations supported by Xen. The System V x86_64 ABI and the 
-> AArch64
-> ELF ABI define consistent and compatible representations (i.e., having
-> the same size and memory layout) for 'void *', 'unsigned long', and 
-> function
-> pointers, enabling safe conversions between these types without data 
-> loss
-> or corruption. Additionally, GCC and Clang, faithfully implement the 
-> ABI
-> specifications, ensuring that the generated machine code conforms to 
-> these
-> guarantees. Developers must note that this behavior is not universal 
-> and
-> depends on platform-specific ABIs and compiler implementations.
-> 
+> Correct me if I understand you wrongly:
+> No, my env is always per pcpu per cpufreq domain. So it never occurred to me that cpus, other than the first one in domain, will never call .init(), and of course, no per_cpu(amd_cppc_drv_data) ever gets allocated then.
 
-LGTM.
+Well, the question is how domains are organized when using the CPPC driver.
+Aiui that's still driven by data passed in by Dom0, so in turn the question
+is whether there are any constraints on what ACPI may surface. If there are,
+all that may be necessary is adding a check. If there aren't, ...
 
-> References:
-> - System V x86_64 ABI:
-> https://gitlab.com/x86-psABIs/x86-64-ABI/-/jobs/artifacts/master/raw/x86-64-ABI/abi.pdf?job=build
-> - AArch64 ELF ABI: https://github.com/ARM-software/abi-aa/releases
-> - GCC: https://gcc.gnu.org/onlinedocs/gcc/ARM-Options.html
-> - Clang: https://clang.llvm.org/docs/CrossCompilation.html
+>> Since initially I was thinking of using per-CPU data also in my patch, I'm
+>> reproducing this in raw form below, for your reference. It's generally only
+>> 4.22 material now, of course. Yet in turn for your driver the new drv_data field
+>> may want to become a union, with an "acpi" and a "cppc" sub-struct.
 > 
-> Thanks,
-> Dmytro.
->> 
->>>> architecture-specific and may not be portable outside of supported
->>>> environments.
->>>> 
->>>>> 
->>>>>>> --- a/docs/misra/deviations.rst
->>>>>>> +++ b/docs/misra/deviations.rst
->>>>>>> @@ -370,6 +370,16 @@ Deviations related to MISRA C:2012 Rules:
->>>>>>>         to store it.
->>>>>>>       - Tagged as `safe` for ECLAIR.
->>>>>>> 
->>>>>>> +   * - R11.1
->>>>>>> +     - The conversion from unsigned long or (void \*) to a 
->>>>>>> function
->>>>>>> pointer does
->>>>>>> +       not lose any information or violate type safety 
->>>>>>> assumptions
->>>>>>> if unsigned
->>>>>>> +       long or (void \*) type is guaranteed to be the same bit 
->>>>>>> size
->>>>>>> as a
->>>>>>> +       function pointer. This ensures that the function pointer 
->>>>>>> can
->>>>>>> be fully
->>>>>>> +       represented without truncation or corruption. The macro
->>>>>>> BUILD_BUG_ON is
->>>>>>> +       integrated into xen/common/version.c to confirm 
->>>>>>> conversion
->>>>>>> compatibility
->>>>>>> +       across all target platforms.
->>>>>>> +     - Tagged as `safe` for ECLAIR.
->>>>>> 
->>>>>> Why the escaping of * here, when ...
->>>>>> 
->>>>>>> --- a/docs/misra/rules.rst
->>>>>>> +++ b/docs/misra/rules.rst
->>>>>>> @@ -431,7 +431,13 @@ maintainers if you want to suggest a change.
->>>>>>>       - All conversions to integer types are permitted if the
->>>>>>> destination
->>>>>>>         type has enough bits to hold the entire value. 
->>>>>>> Conversions to
->>>>>>> bool
->>>>>>>         and void* are permitted. Conversions from 'void noreturn 
->>>>>>> (*)
->>>>>>> (...)'
->>>>>>> -       to 'void (*)(...)' are permitted.
->>>>>>> +       to 'void (*)(...)' are permitted. Conversions from 
->>>>>>> unsigned
->>>>>>> long or
->>>>>>> +       (void \*) to a function pointer are permitted if the 
->>>>>>> source
->>>>>>> type has
->>>>>>> +       enough bits to restore function pointer without 
->>>>>>> truncation or
->>>>>>> corruption.
->>>>>>> +       Example::
->>>>>>> +
->>>>>>> +           unsigned long func_addr = (unsigned 
->>>>>>> long)&some_function;
->>>>>>> +           void (*restored_func)(void) = (void 
->>>>>>> (*)(void))func_addr;
->>>>>> 
->>>>>> ... context here suggests they work fine un-escaped, and you even 
->>>>>> add
->>>>>> some un-
->>>>>> escaped instances as well. Perhaps I'm simply unaware of some
->>>>>> peculiarity?
->>>>>> 
->>>>> 
->>>>> This is a literal rst block, while the other is not (* acts as a 
->>>>> bullet
->>>>> point in rst iirc)
->>>> 
->>>> This is how "sphinx-build" tool interprets this.
->>>> 1. * inside single quotes '' -> looks normal, e.g. ‘void (*)(…)’
->>>> 2. * without quotes -> warning
->>>> deviations.rst:369: WARNING: Inline emphasis start-string without
->>>> end-string. [docutils]
->>>> 3. \* -> looks normal, e.g. (void *)
->>>> 
->>>> Because that we need such format: \*
->>>> 
->>>> Dmytro.
->>>> 
->>>>> 
->>>>>> Jan
->>>>> 
->> 
+> How about I embed my new driver data " struct amd_cppc_drv_data * " into cpufreq policy, maybe pointer is enough?
+> Later, maybe, all "cppc", "acpi" and "hwp" could constitute an union in policy.
 
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+... I'd prefer to go the union approach right away. Whether then to take my
+patch as a prereq is tbd; that largely depends on what (if anything) is
+needed on the HWP side. If HWP needs fixing, that wants to to come first, as
+it would want backporting.
+
+Jan
 
