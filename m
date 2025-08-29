@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B582BB3C449
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 23:43:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1102232.1454936 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0AC8B3C44E
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 23:46:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1102244.1454946 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1us6sZ-0001YM-JV; Fri, 29 Aug 2025 21:43:27 +0000
+	id 1us6ve-000272-0A; Fri, 29 Aug 2025 21:46:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1102232.1454936; Fri, 29 Aug 2025 21:43:27 +0000
+Received: by outflank-mailman (output) from mailman id 1102244.1454946; Fri, 29 Aug 2025 21:46:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1us6sZ-0001W8-Fa; Fri, 29 Aug 2025 21:43:27 +0000
-Received: by outflank-mailman (input) for mailman id 1102232;
- Fri, 29 Aug 2025 21:43:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1us6vd-00024k-Sm; Fri, 29 Aug 2025 21:46:37 +0000
+Received: by outflank-mailman (input) for mailman id 1102244;
+ Fri, 29 Aug 2025 21:46:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7zkx=3J=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1us6sY-0001W2-Du
- for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 21:43:26 +0000
+ id 1us6vc-00024e-A2
+ for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 21:46:36 +0000
 Received: from sea.source.kernel.org (sea.source.kernel.org
  [2600:3c0a:e001:78e:0:1991:8:25])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2fe7fd49-8521-11f0-8adc-4578a1afcccb;
- Fri, 29 Aug 2025 23:43:24 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a0baf28b-8521-11f0-8dd7-1b34d833f44b;
+ Fri, 29 Aug 2025 23:46:34 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 99AA044A21;
- Fri, 29 Aug 2025 21:43:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37321C4CEF0;
- Fri, 29 Aug 2025 21:43:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4057B44215;
+ Fri, 29 Aug 2025 21:46:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D640CC4CEF0;
+ Fri, 29 Aug 2025 21:46:30 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,18 +42,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2fe7fd49-8521-11f0-8adc-4578a1afcccb
+X-Inumbo-ID: a0baf28b-8521-11f0-8dd7-1b34d833f44b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1756503802;
-	bh=2uf2blFovqY8HQJrYtITKAAYgmjs/gqGV6IxKRWJsRE=;
+	s=k20201202; t=1756503992;
+	bh=PjkMEGi1H+4ki7FX9kIWFIQKDzxdvWZKsyBMMQFYer4=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=UsLALkWixVDxC14HzK0BkqwIynkIXdVTVzLX/NQ6utifgPgz/HrCfInLsCxAm1PtO
-	 ty8LWWaveb/hWRHeBkkdfVYoT3BLKrbKcI4d+IuDWO/No83CPmUEmQlu9aeDS7UNBa
-	 G4mSsgloOi9W6xXI6+LVgjAyeSdexY0FnaqROsfFJJKNWHSmflNFCSIiIx59VtF3k8
-	 B1AatJKbwp8Evu5XM242IG4p5O4quu6d+XnP8/V2XZkBorstiBsSRLT8ZPn/PadLOp
-	 fv4X5O+hBvUawZBN/jZkI9Cu3tqCqlRaraoK0TdnQaxY94jZ8OOVTlq+cT3DxtFbdQ
-	 SdnwUAbKs9QLw==
-Date: Fri, 29 Aug 2025 14:43:18 -0700 (PDT)
+	b=sLdqBSCqzU7mXTpX5Azvhgbyul64sCDKmbXl60EZgOEyEAw7JnqIPLkNp9EN4cD4k
+	 c+XHj+/Mn4c+bVGOssGQavJTI5eCECyn8JReDmV9AWEy/Uh4Fke43C1tiIQd+i+guk
+	 o0AJpz6P4GNScjJLPJ9T51JWVmCelGAlEaRPFOjW4M04QosQFBjNcroDH4j4Z/2101
+	 zeBqwddYkRimF+JXfwxtFVTV839HjXnBvyJmA+zBKnR/VrL8gYxuHZOJSCHRecTJup
+	 bUT3WYap0kxWbDHj964IhtMsuDFBW5nUHYNC+LfCozCKJjDr9+Ckmuv0mYdVkwtARN
+	 wwxxlB3USMtww==
+Date: Fri, 29 Aug 2025 14:46:29 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: dmukhin@xen.org
@@ -61,11 +61,11 @@ cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
     anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, 
     michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, 
     dmukhin@ford.com
-Subject: Re: [PATCH v5 13/15] x86/domain: enable per-domain I/O port
- bitmaps
-In-Reply-To: <20250828235409.2835815-14-dmukhin@ford.com>
-Message-ID: <alpine.DEB.2.22.394.2508291441220.341243@ubuntu-linux-20-04-desktop>
-References: <20250828235409.2835815-1-dmukhin@ford.com> <20250828235409.2835815-14-dmukhin@ford.com>
+Subject: Re: [PATCH v5 14/15] xen/domain: allocate d->irq_caps before
+ arch-specific initialization
+In-Reply-To: <20250828235409.2835815-15-dmukhin@ford.com>
+Message-ID: <alpine.DEB.2.22.394.2508291445300.341243@ubuntu-linux-20-04-desktop>
+References: <20250828235409.2835815-1-dmukhin@ford.com> <20250828235409.2835815-15-dmukhin@ford.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -73,617 +73,147 @@ Content-Type: text/plain; charset=US-ASCII
 On Thu, 28 Aug 2025, dmukhin@xen.org wrote:
 > From: Denis Mukhin <dmukhin@ford.com> 
 > 
-> Current design enables all HVM domains share the same I/O port bitmap.
+> Make sure that NS16550 emulator does not share virtual device IRQ with the
+> physical one. This is needed for enabling NS16550 emulator for PVH hwdom
+> (dom0).
 > 
-> It is necessary for domains crafting its own I/O port address space depending
-> on the user configuration.
-> 
-> Ensure NS16550 emulator does not share I/O ports with the physical I/O ports,
-> which is essential for emulation in PVH hwdom case (dom0).
-> 
-> Not a functional change.
+> To do that, move per-domain interrupt rangeset allocation before arch-specific
+> code. Add irqs_setup_access() to setup the initial rangeset.
 > 
 > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 > ---
 > Changes since v4:
-> - new patch 
-> - Link tp v4: https://lore.kernel.org/xen-devel/20250731192130.3948419-4-dmukhin@ford.com/
+> - new patch
+> - Link to original patch in v4: https://lore.kernel.org/xen-devel/20250731192130.3948419-4-dmukhin@ford.com/
 > ---
->  xen/arch/x86/Makefile                    |   1 +
->  xen/arch/x86/dom0_build.c                | 111 +--------------
->  xen/arch/x86/hvm/hvm.c                   |  35 +----
->  xen/arch/x86/hvm/nestedhvm.c             |   8 +-
->  xen/arch/x86/hvm/quirks.c                |   3 -
->  xen/arch/x86/hvm/svm/nestedsvm.c         |   2 +-
->  xen/arch/x86/hvm/vmx/vvmx.c              |   4 +-
->  xen/arch/x86/include/asm/hvm/nestedhvm.h |   3 +-
->  xen/arch/x86/include/asm/hvm/support.h   |   2 -
->  xen/arch/x86/include/asm/iocap.h         |   2 +
->  xen/arch/x86/ioport.c                    | 163 +++++++++++++++++++++++
->  xen/arch/x86/pv/dom0_build.c             |   4 +
->  xen/common/emul/vuart/ns16x50.c          |  11 ++
->  13 files changed, 200 insertions(+), 149 deletions(-)
->  create mode 100644 xen/arch/x86/ioport.c
+>  xen/arch/x86/dom0_build.c       | 1 -
+>  xen/arch/x86/hvm/dom0_build.c   | 7 +++++++
+>  xen/arch/x86/include/asm/irq.h  | 2 ++
+>  xen/arch/x86/irq.c              | 8 ++++++++
+>  xen/arch/x86/pv/dom0_build.c    | 3 +++
+>  xen/common/domain.c             | 8 ++++++--
+>  xen/common/emul/vuart/ns16x50.c | 9 +++++++++
+>  7 files changed, 35 insertions(+), 3 deletions(-)
 > 
-> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-> index 9d67ea7cd4a8..5726ecc180eb 100644
-> --- a/xen/arch/x86/Makefile
-> +++ b/xen/arch/x86/Makefile
-> @@ -44,6 +44,7 @@ obj-y += msi.o
->  obj-y += msr.o
->  obj-$(CONFIG_INDIRECT_THUNK) += indirect-thunk.o
->  obj-$(CONFIG_RETURN_THUNK) += indirect-thunk.o
-> +obj-y += ioport.o
->  obj-$(CONFIG_PV) += ioport_emulate.o
->  obj-y += irq.o
->  obj-$(CONFIG_KEXEC) += machine_kexec.o
 > diff --git a/xen/arch/x86/dom0_build.c b/xen/arch/x86/dom0_build.c
-> index 0b467fd4a4fc..26202b33345c 100644
+> index 26202b33345c..9dc87efbf3e8 100644
 > --- a/xen/arch/x86/dom0_build.c
 > +++ b/xen/arch/x86/dom0_build.c
-> @@ -298,9 +298,6 @@ int __init parse_arch_dom0_param(const char *s, const char *e)
->      return 0;
->  }
+> @@ -442,7 +442,6 @@ int __init dom0_setup_permissions(struct domain *d)
 >  
-> -static char __initdata opt_dom0_ioports_disable[200] = "";
-> -string_param("dom0_ioports_disable", opt_dom0_ioports_disable);
-> -
->  static bool __initdata ro_hpet = true;
->  boolean_param("ro-hpet", ro_hpet);
->  
-> @@ -433,122 +430,20 @@ unsigned long __init dom0_compute_nr_pages(
->      return nr_pages;
->  }
->  
-> -static void __init process_dom0_ioports_disable(struct domain *dom0)
-> -{
-> -    unsigned long io_from, io_to;
-> -    char *t, *s = opt_dom0_ioports_disable;
-> -    const char *u;
-> -
-> -    if ( *s == '\0' )
-> -        return;
-> -
-> -    while ( (t = strsep(&s, ",")) != NULL )
-> -    {
-> -        io_from = simple_strtoul(t, &u, 16);
-> -        if ( u == t )
-> -        {
-> -        parse_error:
-> -            printk("Invalid ioport range <%s> "
-> -                   "in dom0_ioports_disable, skipping\n", t);
-> -            continue;
-> -        }
-> -
-> -        if ( *u == '\0' )
-> -            io_to = io_from;
-> -        else if ( *u == '-' )
-> -            io_to = simple_strtoul(u + 1, &u, 16);
-> -        else
-> -            goto parse_error;
-> -
-> -        if ( (*u != '\0') || (io_to < io_from) || (io_to >= 65536) )
-> -            goto parse_error;
-> -
-> -        printk("Disabling dom0 access to ioport range %04lx-%04lx\n",
-> -            io_from, io_to);
-> -
-> -        if ( ioports_deny_access(dom0, io_from, io_to) != 0 )
-> -            BUG();
-> -    }
-> -}
-> -
-> +/* Modify I/O memory access permissions. */
->  int __init dom0_setup_permissions(struct domain *d)
->  {
->      unsigned long mfn;
-> -    unsigned int i, offs;
-> -    int rc;
-> +    unsigned int i;
-> +    int rc = 0;
->  
->      if ( pv_shim )
->          return 0;
->  
-> -    /* The hardware domain is initially permitted full I/O capabilities. */
-> -    rc = ioports_permit_access(d, 0, 0xFFFF);
 >      rc |= iomem_permit_access(d, 0UL,
 >                                PFN_DOWN(1UL << domain_max_paddr_bits(d)) - 1);
->      rc |= irqs_permit_access(d, 1, nr_irqs_gsi - 1);
+> -    rc |= irqs_permit_access(d, 1, nr_irqs_gsi - 1);
 >  
-> -    /* Modify I/O port access permissions. */
-> -
-> -    for ( offs = 0, i = ISOLATE_LSB(i8259A_alias_mask) ?: 2;
-> -          offs <= i8259A_alias_mask; offs += i )
-> -    {
-> -        if ( offs & ~i8259A_alias_mask )
-> -            continue;
-> -        /* Master Interrupt Controller (PIC). */
-> -        rc |= ioports_deny_access(d, 0x20 + offs, 0x21 + offs);
-> -        /* Slave Interrupt Controller (PIC). */
-> -        rc |= ioports_deny_access(d, 0xA0 + offs, 0xA1 + offs);
-> -    }
-> -
-> -    /* ELCR of both PICs. */
-> -    rc |= ioports_deny_access(d, 0x4D0, 0x4D1);
-> -
-> -    /* Interval Timer (PIT). */
-> -    for ( offs = 0, i = ISOLATE_LSB(pit_alias_mask) ?: 4;
-> -          offs <= pit_alias_mask; offs += i )
-> -        if ( !(offs & ~pit_alias_mask) )
-> -            rc |= ioports_deny_access(d, PIT_CH0 + offs, PIT_MODE + offs);
-> -
-> -    /* PIT Channel 2 / PC Speaker Control. */
-> -    rc |= ioports_deny_access(d, 0x61, 0x61);
-> -
-> -    /* INIT# and alternative A20M# control. */
-> -    rc |= ioports_deny_access(d, 0x92, 0x92);
-> -
-> -    /* IGNNE# control. */
-> -    rc |= ioports_deny_access(d, 0xF0, 0xF0);
-> -
-> -    /* ACPI PM Timer. */
-> -    if ( pmtmr_ioport )
-> -        rc |= ioports_deny_access(d, pmtmr_ioport, pmtmr_ioport + 3);
-> -
-> -    /* Reset control. */
-> -    rc |= ioports_deny_access(d, 0xCF9, 0xCF9);
-> -
-> -    /* PCI configuration space (NB. 0xCF8 has special treatment). */
-> -    rc |= ioports_deny_access(d, 0xCFC, 0xCFF);
-> -
-> -#ifdef CONFIG_HVM
-> -    if ( is_hvm_domain(d) )
-> -    {
-> -        /* ISA DMA controller, channels 0-3 (incl possible aliases). */
-> -        rc |= ioports_deny_access(d, 0x00, 0x1F);
-> -        /* ISA DMA controller, page registers (incl various reserved ones). */
-> -        rc |= ioports_deny_access(d, 0x80 + !!hvm_port80_allowed, 0x8F);
-> -        /* ISA DMA controller, channels 4-7 (incl usual aliases). */
-> -        rc |= ioports_deny_access(d, 0xC0, 0xDF);
-> -
-> -        /* HVM debug console IO port. */
-> -        rc |= ioports_deny_access(d, XEN_HVM_DEBUGCONS_IOPORT,
-> -                                  XEN_HVM_DEBUGCONS_IOPORT);
-> -        if ( amd_acpi_c1e_quirk )
-> -            rc |= ioports_deny_access(d, acpi_smi_cmd, acpi_smi_cmd);
-> -    }
-> -#endif
-> -    /* Command-line I/O ranges. */
-> -    process_dom0_ioports_disable(d);
-> -
-> -    /* Modify I/O memory access permissions. */
-> -
 >      /* Local APIC. */
 >      if ( mp_lapic_addr != 0 )
->      {
-> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-> index 26760cf995df..12736fc61c11 100644
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -51,6 +51,7 @@
->  #include <asm/hvm/vm_event.h>
->  #include <asm/hvm/vpt.h>
->  #include <asm/i387.h>
-> +#include <asm/iocap.h>
->  #include <asm/mc146818rtc.h>
->  #include <asm/mce.h>
->  #include <asm/monitor.h>
-> @@ -81,14 +82,6 @@ integer_param("hvm_debug", opt_hvm_debug_level);
+> diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
+> index 5551f9044836..245a42dec9aa 100644
+> --- a/xen/arch/x86/hvm/dom0_build.c
+> +++ b/xen/arch/x86/hvm/dom0_build.c
+> @@ -1348,6 +1348,13 @@ int __init dom0_construct_pvh(const struct boot_domain *bd)
+>           */
+>          pvh_setup_mmcfg(d);
 >  
->  struct hvm_function_table __ro_after_init hvm_funcs;
->  
-> -/*
-> - * The I/O permission bitmap is globally shared by all HVM guests except
-> - * the hardware domain which needs a more permissive one.
-> - */
-> -#define HVM_IOBITMAP_SIZE (3 * PAGE_SIZE)
-> -unsigned long __section(".bss.page_aligned") __aligned(PAGE_SIZE)
-> -    hvm_io_bitmap[HVM_IOBITMAP_SIZE / BYTES_PER_LONG];
-> -
->  /* Xen command-line option to enable HAP */
->  static bool __initdata opt_hap_enabled = true;
->  boolean_param("hap", opt_hap_enabled);
-> @@ -205,15 +198,6 @@ static int __init cf_check hvm_enable(void)
->      if ( opt_hvm_fep )
->          warning_add(warning_hvm_fep);
->  
-> -    /*
-> -     * Allow direct access to the PC debug ports 0x80 and 0xed (they are
-> -     * often used for I/O delays, but the vmexits simply slow things down).
-> -     */
-> -    memset(hvm_io_bitmap, ~0, sizeof(hvm_io_bitmap));
-> -    if ( hvm_port80_allowed )
-> -        __clear_bit(0x80, hvm_io_bitmap);
-> -    __clear_bit(0xed, hvm_io_bitmap);
-> -
->      register_cpu_notifier(&cpu_nfb);
->  
->      return 0;
-> @@ -645,19 +629,12 @@ int hvm_domain_initialise(struct domain *d,
->  
->      rwlock_init(&d->arch.hvm.pl_time->pt_migrate);
->  
-> -    /* Set the default IO Bitmap. */
-> -    if ( is_hardware_domain(d) )
-> +    rc = ioports_setup_access(d);
-> +    if ( rc )
->      {
-> -        d->arch.hvm.io_bitmap = _xmalloc(HVM_IOBITMAP_SIZE, PAGE_SIZE);
-> -        if ( d->arch.hvm.io_bitmap == NULL )
-> -        {
-> -            rc = -ENOMEM;
-> -            goto fail1;
-> -        }
-> -        memset(d->arch.hvm.io_bitmap, ~0, HVM_IOBITMAP_SIZE);
-> +        printk("%pd failed to setup I/O bitmap: %d\n", d, rc);
-> +        goto fail1;
->      }
-> -    else
-> -        d->arch.hvm.io_bitmap = hvm_io_bitmap;
->  
->      register_g2m_portio_handler(d);
->      register_vpci_portio_handler(d);
-> @@ -684,6 +661,8 @@ int hvm_domain_initialise(struct domain *d,
->          break;
->      }
->  
-> +    BUG_ON(!d->arch.ioport_caps);
-> +
->      vpic_init(d);
->  
->      rc = vioapic_init(d);
-> diff --git a/xen/arch/x86/hvm/nestedhvm.c b/xen/arch/x86/hvm/nestedhvm.c
-> index bddd77d8109b..d4e03123d910 100644
-> --- a/xen/arch/x86/hvm/nestedhvm.c
-> +++ b/xen/arch/x86/hvm/nestedhvm.c
-> @@ -107,7 +107,7 @@ nestedhvm_vmcx_flushtlb(struct p2m_domain *p2m)
->   * The users of the bitmap patterns are in SVM/VMX specific code.
->   *
->   * bitmap        port 0x80  port 0xed
-> - * hvm_io_bitmap cleared    cleared
-> + * hvm.io_bitmap cleared    cleared
->   * iomap[0]      cleared    set
->   * iomap[1]      set        cleared
->   * iomap[2]      set        set
-> @@ -115,7 +115,7 @@ nestedhvm_vmcx_flushtlb(struct p2m_domain *p2m)
->  
->  static int __init cf_check nestedhvm_setup(void)
->  {
-> -    /* Same format and size as hvm_io_bitmap (Intel needs only 2 pages). */
-> +    /* Same format and size as hvm.io_bitmap (Intel needs only 2 pages). */
->      unsigned nr = cpu_has_vmx ? 2 : 3;
->      unsigned int i, order = get_order_from_pages(nr);
->  
-> @@ -165,7 +165,7 @@ static int __init cf_check nestedhvm_setup(void)
->  __initcall(nestedhvm_setup);
->  
->  unsigned long *
-> -nestedhvm_vcpu_iomap_get(bool ioport_80, bool ioport_ed)
-> +nestedhvm_vcpu_iomap_get(struct vcpu *v, bool ioport_80, bool ioport_ed)
->  {
->      int i;
->  
-> @@ -174,7 +174,7 @@ nestedhvm_vcpu_iomap_get(bool ioport_80, bool ioport_ed)
->  
->      if (ioport_80 == 0) {
->          if (ioport_ed == 0)
-> -            return hvm_io_bitmap;
-> +            return v->domain->arch.hvm.io_bitmap;
->          i = 0;
->      } else {
->          if (ioport_ed == 0)
-> diff --git a/xen/arch/x86/hvm/quirks.c b/xen/arch/x86/hvm/quirks.c
-> index 9202f5a47fe9..f4d95441fcff 100644
-> --- a/xen/arch/x86/hvm/quirks.c
-> +++ b/xen/arch/x86/hvm/quirks.c
-> @@ -73,9 +73,6 @@ static int __init cf_check check_port80(void)
->  
->      dmi_check_system(hvm_no_port80_dmi_table);
->  
-> -    if ( !hvm_port80_allowed )
-> -        __set_bit(0x80, hvm_io_bitmap);
-> -
->      return 0;
->  }
->  __initcall(check_port80);
-> diff --git a/xen/arch/x86/hvm/svm/nestedsvm.c b/xen/arch/x86/hvm/svm/nestedsvm.c
-> index dc2b6a42534a..cc8500b61665 100644
-> --- a/xen/arch/x86/hvm/svm/nestedsvm.c
-> +++ b/xen/arch/x86/hvm/svm/nestedsvm.c
-> @@ -381,7 +381,7 @@ static int nsvm_vmrun_permissionmap(struct vcpu *v, bool viopm)
->          hvm_unmap_guest_frame(ns_viomap, 0);
->      }
->  
-> -    svm->ns_iomap = nestedhvm_vcpu_iomap_get(ioport_80, ioport_ed);
-> +    svm->ns_iomap = nestedhvm_vcpu_iomap_get(v, ioport_80, ioport_ed);
->  
->      nv->nv_ioport80 = ioport_80;
->      nv->nv_ioportED = ioport_ed;
-> diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
-> index e4f3a5fe4c71..4da3e6e90e6c 100644
-> --- a/xen/arch/x86/hvm/vmx/vvmx.c
-> +++ b/xen/arch/x86/hvm/vmx/vvmx.c
-> @@ -554,7 +554,7 @@ unsigned long *_shadow_io_bitmap(struct vcpu *v)
->      port80 = bitmap[0x80 >> 3] & (1 << (0x80 & 0x7)) ? 1 : 0;
->      portED = bitmap[0xed >> 3] & (1 << (0xed & 0x7)) ? 1 : 0;
->  
-> -    return nestedhvm_vcpu_iomap_get(port80, portED);
-> +    return nestedhvm_vcpu_iomap_get(v, port80, portED);
->  }
->  
->  static void update_msrbitmap(struct vcpu *v, uint32_t shadow_ctrl)
-> @@ -622,7 +622,7 @@ void nvmx_update_exec_control(struct vcpu *v, u32 host_cntrl)
->               * L1 VMM doesn't intercept IO instruction.
->               * Use host configuration and reset IO_BITMAP
->               */
-> -            bitmap = hvm_io_bitmap;
-> +            bitmap = v->domain->arch.hvm.io_bitmap;
->          }
->          else {
->              /* use IO bitmap */
-> diff --git a/xen/arch/x86/include/asm/hvm/nestedhvm.h b/xen/arch/x86/include/asm/hvm/nestedhvm.h
-> index ea2c1bc328c7..d691ccb07dd6 100644
-> --- a/xen/arch/x86/include/asm/hvm/nestedhvm.h
-> +++ b/xen/arch/x86/include/asm/hvm/nestedhvm.h
-> @@ -50,7 +50,8 @@ int nestedhvm_hap_nested_page_fault(struct vcpu *v, paddr_t *L2_gpa,
->                                      struct npfec npfec);
->  
->  /* IO permission map */
-> -unsigned long *nestedhvm_vcpu_iomap_get(bool ioport_80, bool ioport_ed);
-> +unsigned long *nestedhvm_vcpu_iomap_get(struct vcpu *v,
-> +                                        bool ioport_80, bool ioport_ed);
->  
->  /* Misc */
->  #define nestedhvm_paging_mode_hap(v) (!!nhvm_vmcx_hap_enabled(v))
-> diff --git a/xen/arch/x86/include/asm/hvm/support.h b/xen/arch/x86/include/asm/hvm/support.h
-> index 2a7ba36af06f..7e36d00cc188 100644
-> --- a/xen/arch/x86/include/asm/hvm/support.h
-> +++ b/xen/arch/x86/include/asm/hvm/support.h
-> @@ -41,8 +41,6 @@ extern unsigned int opt_hvm_debug_level;
->  #define HVM_DBG_LOG(level, _f, _a...) do {} while (0)
->  #endif
->  
-> -extern unsigned long hvm_io_bitmap[];
-> -
->  enum hvm_translation_result {
->      HVMTRANS_okay,
->      HVMTRANS_bad_linear_to_gfn,
-> diff --git a/xen/arch/x86/include/asm/iocap.h b/xen/arch/x86/include/asm/iocap.h
-> index f948b7186e95..1083f6171cf7 100644
-> --- a/xen/arch/x86/include/asm/iocap.h
-> +++ b/xen/arch/x86/include/asm/iocap.h
-> @@ -22,6 +22,8 @@
->  #define cache_flush_permitted(d) \
->      (has_arch_io_resources(d) || has_arch_pdevs(d))
->  
-> +int ioports_setup_access(struct domain *d);
-> +
->  static inline int ioports_permit_access(struct domain *d, unsigned long s,
->                                          unsigned long e)
->  {
-> diff --git a/xen/arch/x86/ioport.c b/xen/arch/x86/ioport.c
-> new file mode 100644
-> index 000000000000..dbcd52d37a4f
-> --- /dev/null
-> +++ b/xen/arch/x86/ioport.c
-> @@ -0,0 +1,163 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Guest I/O port address space configuration.
-> + *
-> + * Copyright 2025 Ford Motor Company
-> + */
-> +
-> +#include <xen/domain.h>
-> +#include <xen/param.h>
-> +
-> +#include <asm/amd.h>
-> +#include <asm/acpi.h>
-> +#include <asm/io-ports.h>
-> +#include <asm/iocap.h>
-> +#include <asm/pv/shim.h>
-> +#include <asm/setup.h>
-> +
-> +static char __initdata opt_dom0_ioports_disable[200] = "";
-> +string_param("dom0_ioports_disable", opt_dom0_ioports_disable);
-> +
-> +/*
-> + * The I/O permission bitmap size.
-> + * See: comment in nestedhvm_setup()
-> + */
-> +#define HVM_IOBITMAP_SIZE (3 * PAGE_SIZE)
-> +
-> +/* Hide user-defined I/O ports from the guest OS. */
-> +static void process_dom0_ioports_disable(struct domain *dom0)
-> +{
-> +    unsigned long io_from, io_to;
-> +    char *t, *s = opt_dom0_ioports_disable;
-> +    const char *u;
-> +
-> +    if ( *s == '\0' )
-> +        return;
-> +
-> +    while ( (t = strsep(&s, ",")) != NULL )
-> +    {
-> +        io_from = simple_strtoul(t, &u, 16);
-> +        if ( u == t )
+> +        rc = irqs_setup_access(d);
+> +        if ( rc )
 > +        {
-> +        parse_error:
-> +            printk("Invalid ioport range <%s> "
-> +                   "in dom0_ioports_disable, skipping\n", t);
-> +            continue;
+> +            printk("%pd unable to setup IRQ rangeset: %d\n", d, rc);
+> +            return rc;
 > +        }
 > +
-> +        if ( *u == '\0' )
-> +            io_to = io_from;
-> +        else if ( *u == '-' )
-> +            io_to = simple_strtoul(u + 1, &u, 16);
-> +        else
-> +            goto parse_error;
+>          /*
+>           * Setup permissions early so that calls to add MMIO regions to the
+>           * p2m as part of vPCI setup don't fail due to permission checks.
+> diff --git a/xen/arch/x86/include/asm/irq.h b/xen/arch/x86/include/asm/irq.h
+> index 8c81f66434a8..8bffec3bbfee 100644
+> --- a/xen/arch/x86/include/asm/irq.h
+> +++ b/xen/arch/x86/include/asm/irq.h
+> @@ -231,4 +231,6 @@ int allocate_and_map_gsi_pirq(struct domain *d, int index, int *pirq_p);
+>  int allocate_and_map_msi_pirq(struct domain *d, int index, int *pirq_p,
+>                                int type, struct msi_info *msi);
+>  
+> +int irqs_setup_access(struct domain *d);
 > +
-> +        if ( (*u != '\0') || (io_to < io_from) || (io_to >= 65536) )
-> +            goto parse_error;
+>  #endif /* _ASM_HW_IRQ_H */
+> diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
+> index 556134f85aa0..079277be719d 100644
+> --- a/xen/arch/x86/irq.c
+> +++ b/xen/arch/x86/irq.c
+> @@ -3046,3 +3046,11 @@ int allocate_and_map_msi_pirq(struct domain *d, int index, int *pirq_p,
+>  
+>      return ret;
+>  }
 > +
-> +        printk("Disabling dom0 access to ioport range %04lx-%04lx\n",
-> +            io_from, io_to);
-> +
-> +        if ( ioports_deny_access(dom0, io_from, io_to) != 0 )
-> +            BUG();
-> +    }
-> +}
-> +
-> +/* Set the default IO Bitmap. */
-> +int ioports_setup_access(struct domain *d)
+> +int irqs_setup_access(struct domain *d)
 > +{
-> +    unsigned int i, offs;
-> +    int rc;
+> +    if ( is_hardware_domain(d) )
+> +        return irqs_permit_access(d, 1, nr_irqs_gsi - 1);
 > +
-> +    if ( pv_shim )
-> +        return 0;
-> +
-> +#ifdef CONFIG_HVM
-> +    d->arch.hvm.io_bitmap = _xmalloc(HVM_IOBITMAP_SIZE, PAGE_SIZE);
-> +    if ( d->arch.hvm.io_bitmap == NULL )
-> +        return -ENOMEM;
-> +
-> +    memset(d->arch.hvm.io_bitmap, ~0, HVM_IOBITMAP_SIZE);
-> +
-> +    if ( !is_hardware_domain(d) )
-> +    {
-> +        /*
-> +         * Allow direct access to the PC debug ports 0x80 and 0xed (they are
-> +         * often used for I/O delays, but the vmexits simply slow things down).
-> +         */
-> +        if ( hvm_port80_allowed )
-> +            __clear_bit(0x80, d->arch.hvm.io_bitmap);
-> +
-> +        __clear_bit(0xed, d->arch.hvm.io_bitmap);
-> +
-> +        return 0;
-> +    }
-> +#endif
-> +
-> +    /* The hardware domain is initially permitted full I/O capabilities. */
-> +    rc = ioports_permit_access(d, 0, 0xFFFF);
-> +
-> +    /* Modify I/O port access permissions. */
-> +
-> +    for ( offs = 0, i = ISOLATE_LSB(i8259A_alias_mask) ?: 2;
-> +          offs <= i8259A_alias_mask; offs += i )
-> +    {
-> +        if ( offs & ~i8259A_alias_mask )
-> +            continue;
-> +        /* Master Interrupt Controller (PIC). */
-> +        rc |= ioports_deny_access(d, 0x20 + offs, 0x21 + offs);
-> +        /* Slave Interrupt Controller (PIC). */
-> +        rc |= ioports_deny_access(d, 0xA0 + offs, 0xA1 + offs);
-> +    }
-> +
-> +    /* ELCR of both PICs. */
-> +    rc |= ioports_deny_access(d, 0x4D0, 0x4D1);
-> +
-> +    /* Interval Timer (PIT). */
-> +    for ( offs = 0, i = ISOLATE_LSB(pit_alias_mask) ?: 4;
-> +          offs <= pit_alias_mask; offs += i )
-> +        if ( !(offs & ~pit_alias_mask) )
-> +            rc |= ioports_deny_access(d, PIT_CH0 + offs, PIT_MODE + offs);
-> +
-> +    /* PIT Channel 2 / PC Speaker Control. */
-> +    rc |= ioports_deny_access(d, 0x61, 0x61);
-> +
-> +    /* INIT# and alternative A20M# control. */
-> +    rc |= ioports_deny_access(d, 0x92, 0x92);
-> +
-> +    /* IGNNE# control. */
-> +    rc |= ioports_deny_access(d, 0xF0, 0xF0);
-> +
-> +    /* ACPI PM Timer. */
-> +    if ( pmtmr_ioport )
-> +        rc |= ioports_deny_access(d, pmtmr_ioport, pmtmr_ioport + 3);
-> +
-> +    /* Reset control. */
-> +    rc |= ioports_deny_access(d, 0xCF9, 0xCF9);
-> +
-> +    /* PCI configuration space (NB. 0xCF8 has special treatment). */
-> +    rc |= ioports_deny_access(d, 0xCFC, 0xCFF);
-> +
-> +#ifdef CONFIG_HVM
-> +    if ( is_hvm_domain(d) )
-> +    {
-> +        /* ISA DMA controller, channels 0-3 (incl possible aliases). */
-> +        rc |= ioports_deny_access(d, 0x00, 0x1F);
-> +        /* ISA DMA controller, page registers (incl various reserved ones). */
-> +        rc |= ioports_deny_access(d, 0x80 + !!hvm_port80_allowed, 0x8F);
-> +        /* ISA DMA controller, channels 4-7 (incl usual aliases). */
-> +        rc |= ioports_deny_access(d, 0xC0, 0xDF);
-> +
-> +        /* HVM debug console IO port. */
-> +        rc |= ioports_deny_access(d, XEN_HVM_DEBUGCONS_IOPORT,
-> +                                  XEN_HVM_DEBUGCONS_IOPORT);
-> +        if ( amd_acpi_c1e_quirk )
-> +            rc |= ioports_deny_access(d, acpi_smi_cmd, acpi_smi_cmd);
-> +    }
-> +#endif
-> +
-> +    /* Command-line I/O ranges. */
-> +    process_dom0_ioports_disable(d);
-> +
-> +    return rc;
+> +    return 0;
 > +}
 > diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
-> index 21158ce1812e..2b8b4d869ee7 100644
+> index 2b8b4d869ee7..1a092b802833 100644
 > --- a/xen/arch/x86/pv/dom0_build.c
 > +++ b/xen/arch/x86/pv/dom0_build.c
-> @@ -17,6 +17,7 @@
->  #include <asm/bootinfo.h>
->  #include <asm/bzimage.h>
->  #include <asm/dom0_build.h>
-> +#include <asm/iocap.h>
->  #include <asm/guest.h>
->  #include <asm/page.h>
->  #include <asm/pv/mm.h>
-> @@ -1033,6 +1034,9 @@ static int __init dom0_construct(const struct boot_domain *bd)
->      if ( test_bit(XENFEAT_supervisor_mode_kernel, parms.f_required) )
->          panic("Dom0 requires supervisor-mode execution\n");
+> @@ -1037,6 +1037,9 @@ static int __init dom0_construct(const struct boot_domain *bd)
+>      rc = ioports_setup_access(d);
+>      BUG_ON(rc != 0);
 >  
-> +    rc = ioports_setup_access(d);
+> +    rc = irqs_setup_access(d);
 > +    BUG_ON(rc != 0);
 > +
 >      rc = dom0_setup_permissions(d);
 >      BUG_ON(rc != 0);
 >  
+> diff --git a/xen/common/domain.c b/xen/common/domain.c
+> index 104e917f07e3..eb83e3198f37 100644
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -950,6 +950,11 @@ struct domain *domain_create(domid_t domid,
+>      radix_tree_init(&d->pirq_tree);
+>  #endif
+>  
+> +    err = -ENOMEM;
+> +    d->irq_caps = rangeset_new(d, "Interrupts", 0);
+> +    if ( !d->irq_caps )
+> +        goto fail;
+> +
+>      if ( (err = arch_domain_create(d, config, flags)) != 0 )
+>          goto fail;
+>      init_status |= INIT_arch;
+> @@ -959,8 +964,7 @@ struct domain *domain_create(domid_t domid,
+>  
+>      err = -ENOMEM;
+>      d->iomem_caps = rangeset_new(d, "I/O Memory", RANGESETF_prettyprint_hex);
+> -    d->irq_caps   = rangeset_new(d, "Interrupts", 0);
+> -    if ( !d->iomem_caps || !d->irq_caps )
+> +    if ( !d->iomem_caps )
+>          goto fail;
+>  
+>      if ( (err = xsm_domain_create(XSM_HOOK, d, config->ssidref)) != 0 )
 > diff --git a/xen/common/emul/vuart/ns16x50.c b/xen/common/emul/vuart/ns16x50.c
-> index 5c1be854b544..8860f25ffdeb 100644
+> index 8860f25ffdeb..aea38304b60c 100644
 > --- a/xen/common/emul/vuart/ns16x50.c
 > +++ b/xen/common/emul/vuart/ns16x50.c
-> @@ -780,9 +780,20 @@ static int ns16x50_init(void *arg)
->      struct vuart_ns16x50 *vdev = arg;
->      const struct vuart_info *info = vdev->info;
->      struct domain *d = vdev->owner;
-> +    int rc;
+> @@ -794,6 +794,15 @@ static int ns16x50_init(void *arg)
+>          return rc;
+>      }
 >  
->      ASSERT(vdev);
->  
-> +    /* Disallow sharing physical I/O port */
-> +    rc = ioports_deny_access(d, info->base_addr,
-> +                             info->base_addr + info->size - 1);
-
-I would be tempted to move ioports_deny_access to hvm_domain_initialise
-before vuart_init
-
-
+> +    /* Disallow sharing physical IRQ */
+> +    rc = irq_deny_access(d, info->irq);
 > +    if ( rc )
 > +    {
-> +        ns16x50_err(info, " virtual I/O port range [0x%04lx"PRIx64"..0x%04lx"PRIx64"]: conflict w/ physical range\n",
-> +                    info->base_addr, info->base_addr + info->size - 1);
-
-0x%04lx"PRIx64 seems wrong
-
-
+> +        ns16x50_err(info, "virtual IRQ#%d: conflict w/ physical IRQ: %d\n",
+> +                    info->irq, rc);
 > +        return rc;
 > +    }
-> +
+
+Also this one I wonder if it could be in hvm_domain_initialise, it would
+make more sense to keep the irq_deny_access there, compared to here
+which is supposed to be a generic emulator
+
+
 >      /* NB: report 115200 baud rate. */
 >      vdev->regs[NS16X50_REGS_NUM + UART_DLL] = divisor & 0xff;
 >      vdev->regs[NS16X50_REGS_NUM + UART_DLM] = (divisor >> 8) & 0xff;
