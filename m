@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98FB1B3BD45
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 16:13:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1101500.1454546 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 314E4B3BD72
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Aug 2025 16:24:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1101510.1454556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urzqp-0005oF-KM; Fri, 29 Aug 2025 14:13:11 +0000
+	id 1us01i-0007gG-JN; Fri, 29 Aug 2025 14:24:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1101500.1454546; Fri, 29 Aug 2025 14:13:11 +0000
+Received: by outflank-mailman (output) from mailman id 1101510.1454556; Fri, 29 Aug 2025 14:24:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1urzqp-0005lN-H7; Fri, 29 Aug 2025 14:13:11 +0000
-Received: by outflank-mailman (input) for mailman id 1101500;
- Fri, 29 Aug 2025 14:13:10 +0000
+	id 1us01i-0007dQ-G7; Fri, 29 Aug 2025 14:24:26 +0000
+Received: by outflank-mailman (input) for mailman id 1101510;
+ Fri, 29 Aug 2025 14:24:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ygma=3J=bounce.vates.tech=bounce-md_30504962.68b1b571.v1-dd6999c02dca4e5a854cb5b08c11e3e1@srs-se1.protection.inumbo.net>)
- id 1urzqn-0005lH-QL
- for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 14:13:10 +0000
-Received: from mail180-6.suw31.mandrillapp.com
- (mail180-6.suw31.mandrillapp.com [198.2.180.6])
+ <SRS0=oFyT=3J=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1us01h-0007dK-B0
+ for xen-devel@lists.xenproject.org; Fri, 29 Aug 2025 14:24:25 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 48867209-84e2-11f0-8adc-4578a1afcccb;
- Fri, 29 Aug 2025 16:13:07 +0200 (CEST)
-Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail180-6.suw31.mandrillapp.com (Mailchimp) with ESMTP id 4cD0bj5tCBz2K23lM
- for <xen-devel@lists.xenproject.org>; Fri, 29 Aug 2025 14:13:05 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- dd6999c02dca4e5a854cb5b08c11e3e1; Fri, 29 Aug 2025 14:13:05 +0000
+ id dc54ee24-84e3-11f0-8adc-4578a1afcccb;
+ Fri, 29 Aug 2025 16:24:24 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-45b84367affso194635e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Aug 2025 07:24:24 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-45b732671b7sm49329625e9.3.2025.08.29.07.24.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 29 Aug 2025 07:24:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,180 +45,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 48867209-84e2-11f0-8adc-4578a1afcccb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1756476785; x=1756746785;
-	bh=kAEN+eWtgHOy6UQP9yE2az89wh+Dh7LQuiy7kOxQfGs=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=ogt4Q29aknVNxLiwUwP0tI/PlDX8NyP0YQg3R2z8tvhF8ZwiVJMT3iWxwRx7yb/rQ
-	 7t3to7/JK2naU+iCiOfkuE6okfizu0Fp73UWn413qPr411q2IsHRkHSh9w3JuiqwQh
-	 umawy/AeznZngixwjPM4p9pXYUuZWlkvKm4gaAcdCEz6jg7tVZeZe0toKRRWuggMqq
-	 kgrisLzsKnPpUSvGlEaoz0dPsP0iBZxC+zWGisL+haMHdKsjaGPXTzb/LGudCqBFbQ
-	 kEHQbYIEr5t9wOHiVFBsT+rBj2TIJ8J5+L//oH6JFuId40lI15413rpXVNSIbXvfxY
-	 57GtLnXVGTcOw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1756476785; x=1756737285; i=teddy.astie@vates.tech;
-	bh=kAEN+eWtgHOy6UQP9yE2az89wh+Dh7LQuiy7kOxQfGs=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=tDBzhBIXt1/IPYLLlBXPfIcmdAvMSXuMvNF6S5MkhZFNaSS1O1mQ0t2EWyFhBZNWF
-	 Mm6S3jFwqDJqpADhJITV1QrSsEbMmRBuOdiLfQZEzVvC9Opg6+xpG3t9akaRHJARfo
-	 S/lSwDoPlevL7HMTjY9VsJVgi61MOj6MQb6/nQdSJuXgMdNUZpA+AKdvDCxk7Yh6yw
-	 BooYiRDAtRSk6Yr1/jOM6jifGv/wDjfF2r0FbISWbROtvukq8tcwxPInQGS0dBXg73
-	 NOvxOvfFjWcbQvneD4i9zW5fbaQr7WxQ/rrY+fT2HA6YTeC2Lwm+z23vGU4tFRHXFO
-	 CO4Do/T6/LMjw==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[RFC=20PATCH=20v3=203/3]=20x86/hvm:=20Introduce=20Xen-wide=20ASID=20allocator?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1756476784413
-Message-Id: <2c16b9f8-580e-4df2-9790-1c3e327b349d@vates.tech>
-To: "Jan Beulich" <jbeulich@suse.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Julien Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, "Vaishali Thakkar" <vaishali.thakkar@suse.com>, "Oleksii Kurochko" <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
-References: <cover.1750770621.git.teddy.astie@vates.tech> <81169a40fdc8c124b1656e451ac2e81f4e8edd2d.1750770621.git.teddy.astie@vates.tech> <7d9fd72a-39b7-43b0-875f-859a7a45c4fb@suse.com>
-In-Reply-To: <7d9fd72a-39b7-43b0-875f-859a7a45c4fb@suse.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.dd6999c02dca4e5a854cb5b08c11e3e1?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250829:md
-Date: Fri, 29 Aug 2025 14:13:05 +0000
+X-Inumbo-ID: dc54ee24-84e3-11f0-8adc-4578a1afcccb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1756477463; x=1757082263; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=HSY4lFCPLQwuYqlpLNgxvukBPjKyjCSieNIik9azPXg=;
+        b=ptV5a2h6zIxYT4+OZagyH3y5OcN85LcGApQaW50DhYtWQZ1yswHcTcOS6HM9LLYPUH
+         geczecJJ5jFp0z6Rwl88uDqi/Ya3pE2RiqIUczpYguCD+YBla8YtDBTXa5K8fVyiCpIR
+         7m/cZAV8p7mBQ7aPr845ivfT1DP8B0DVcBLMI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756477463; x=1757082263;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=HSY4lFCPLQwuYqlpLNgxvukBPjKyjCSieNIik9azPXg=;
+        b=BwmJU0sqzyLpLrSUtzaFlafa6MeY9hlQLjiympu7i3ifnf4BrDnJcvJIHhDzFC3rs/
+         QhxFrR8IjbSn24SwqF7wBvsCKbtBgAeKbvJx1PERDD5iHrE3wFWzL5e5FostC5o5wkhk
+         roOBVnzyyHIpMUYutmPjx49k1I/X+Arqios/LAYMmtk9MRRiwKEvSRg8WLwkCbt7TKL5
+         +NTQUCFgwD/p+yE/xX76Z+Qp4n4Wpq21OHKrxDBMXDOKd8fWB7w3x0nQscbc7Q/sCOOz
+         Wdea9FX82I4tOuShcI6zUl+qWlrZbGGKvggIGmnTFzdZTvYyyzar8oEteTziax0pLm/4
+         k0yw==
+X-Gm-Message-State: AOJu0Yz4cSUkUyq7YEgyD4mGnJHYxKynRxKRIDULUpJjCrYfZHqflHqu
+	a2F0MUvFdygK9L0cG7JTthlYhAW6Pl+kaxmB7A91xQVHjv8FWKLeJJTTTg2/yTxs4Xw=
+X-Gm-Gg: ASbGncuJ4FiuDnxiJ8SYjCoO/xf2KcQVKyTIiCQU4x86wqrs2uARIdCelUu+P0MdJz1
+	+VbOizSk8TVqeekx61seP6fLCFipEzvPbplRxDhcXYmj9PYwofo8DxxuuRv5HIAfH6u8E6pc/KG
+	a2PJt313/IVHFS7sm3jka/TSYcpryZjlQxowBCC3ZiODEMVaqnAFaFrDsJLJUaMquXpNipzXeQa
+	vHhpNRPDt+6a1FbiHxSXVeoON3jfycScwkiG9UDeVmUXagULx7N4s9vSvMxeL1EkcVonPV9FLs6
+	rgyT/lGLR0N7etP/nLxk8ukh/Pb+mT8PQMCHo3+dWuKOB/kmrg+D9h/wbmZQpR9UFf9jk5Go8aT
+	aZcENlJAg5f14CgwCWTKMinVDBUiZbqW4S+y4JyQG0LbK13icL43itjFCVBoWizmtGWU7NyNHln
+	5U
+X-Google-Smtp-Source: AGHT+IE2rBHKdeb/VlJKYtnwtd6k+CXnt413B65xP25iFOHMuiA4QIU7qkPFl0TeNBrCQlSs14w8Vg==
+X-Received: by 2002:a05:600c:4f44:b0:45b:7f6d:1271 with SMTP id 5b1f17b1804b1-45b7f6d1419mr25090895e9.15.1756477463312;
+        Fri, 29 Aug 2025 07:24:23 -0700 (PDT)
+Date: Fri, 29 Aug 2025 16:24:21 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>
+Subject: Re: [PATCH v2 1/5] symbols: add minimal self-test
+Message-ID: <aLG4FdcHSLW6oaVA@Mac.lan>
+References: <ceef1876-8759-465c-9a74-309b6b92f773@suse.com>
+ <879646dd-b55e-4b42-b637-d3b14570b880@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <879646dd-b55e-4b42-b637-d3b14570b880@suse.com>
 
-Le 28/08/2025 =C3=A0 15:05, Jan Beulich a =C3=A9crit=C2=A0:
-> On 26.06.2025 16:01, Teddy Astie wrote:
->> From: Vaishali Thakkar <vaishali.thakkar@suse.com> (formely vates.tech)
->>
->> Currently ASID generation and management is done per-PCPU. This
->> scheme is incompatible with SEV technologies as SEV VMs need to
->> have a fixed ASID associated with all vcpus of the VM throughout
->> it's lifetime.
->>
->> This commit introduces a Xen-wide allocator which initializes
->> the asids at the start of xen and allows to have a fixed asids
->> throughout the lifecycle of all domains. Having a fixed asid
->> for non-SEV domains also presents us with the opportunity to
->> further take use of AMD instructions like TLBSYNC and INVLPGB
->> for broadcasting the TLB invalidations.
->>
->> Introduce vcpu->needs_tlb_flush attribute to schedule a guest TLB
->> flush for the next VMRUN/VMENTER. This will be later be done using
->> either TLB_CONTROL field (AMD) or INVEPT (Intel). This flush method
->> is used in place of the current ASID swapping logic.
->>
->> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
->> Signed-off-by: Vaishali Thakkar <vaishali.thakkar@suse.com> (formely vat=
-es.tech)
+On Wed, Apr 02, 2025 at 03:57:57PM +0200, Jan Beulich wrote:
+> ... before making changes to the involved logic.
 > 
-> Not sure whether you may legitimately alter pre-existing S-o-b. In
-> any event the two S-o-b looks to be in the wrong order; like most
-> other tags they want to be sorted chronologically.
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> While Andrew validly suggests cf_check isn't a requirement for selecting
+> which function(s) to use (with the non-upstream gcc patch that we're
+> using in CI), that's only because of how the non-upstream patch works.
+> Going function-pointer -> unsigned long -> function-pointer without it
+> being diagnosed that the cf_check is missing is a shortcoming there, and
+> might conceivably be fixed at some point. (Imo any address-taking on a
+> function should require it to be cf_check.) Hence I'd like to stick to
+> using cf_check functions only for passing to test_lookup().
 > 
-
-Yes, I misordered it, will fix it for the next version.
-
->> ---
->> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->>
->> Should the ASID/VPID/VMID management logic code being shared accross
->> x86/ARM/RISC-V ?
+> With this FAST_SYMBOL_LOOKUP may make sense to permit enabling even
+> when LIVEPATCH=n. Thoughts? (In this case "symbols: centralize and re-
+> arrange $(all_symbols) calculation" would want pulling ahead.)
 > 
-> If all present and future architectures agree on how exactly they want
-> to use these IDs. Which I'm unsure of. RISC-V is now vaguely following
-> the original x86 model.
-> 
->> Is it possible to have multiples vCPUs of a same domain simultaneously
->> scheduled on top of a single pCPU ? If so, it would need a special
->> consideration for this corner case, such as we don't miss a TLB flush
->> in such cases.
-> 
-> No, how would two entities be able to run on a single pCPU at any single
-> point in time?
-> 
+> --- a/xen/common/symbols.c
+> +++ b/xen/common/symbols.c
+> @@ -260,6 +260,41 @@ unsigned long symbols_lookup_by_name(con
+>      return 0;
+>  }
+>  
+> +#ifdef CONFIG_SELF_TESTS
+> +
+> +static void __init test_lookup(unsigned long addr, const char *expected)
+> +{
+> +    char buf[KSYM_NAME_LEN + 1];
+> +    const char *name, *symname;
+> +    unsigned long size, offs;
+> +
+> +    name = symbols_lookup(addr, &size, &offs, buf);
+> +    if ( !name )
+> +        panic("%s: address not found\n", expected);
+> +    if ( offs )
+> +        panic("%s: non-zero offset (%#lx) unexpected\n", expected, offs);
 
-It was more concerning regarding having 2 vCPUs of the same domain (thus 
-sharing the same ASID) running consecutively, e.g having on the same core
-   dom1.vcpu1 -> dom1.vcpu2
+If there's a non-zero offset returned, could you also print the
+returned name? (so use %s+%#lx) there's a change the returned name
+doesn't match what we expect if there's a non-zero offset.
 
-without a appropriate TLB flush; because the address space may not be 
-consistent between 2 vCPUs.
+The rest LGTM:
 
-I found a approach to fix it by tracking per domain which vCPU last ran 
-on each pCPU so that in case of mismatch, we need to TLB flush. Along 
-with explictely flush the TLB when the vCPU is migrated, because in the 
-case too the TLB can be inconsistent for the ASID.
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
->> I get various stability when testing shadow paging in these patches, uns=
-ure
->> what's the exact root case. HAP works perfectly fine though.
->>
->> TODO:
->> - Intel: Don't assign the VPID at each VMENTER, though we need
->>    to rethink how we manage VMCS with nested virtualization / altp2m
->>    for changing this behavior.
->> - AMD: Consider hot-plug of CPU with ERRATA_170. (is it possible ?)
->> - Consider cases where we don't have enough ASIDs (e.g Xen as nested gue=
-st)
->> - Nested virtualization ASID management
-> 
-> For these last two points - maybe we really need a mixed model?
-> 
-
-Mixed model would not allow future support for broadcast TLB 
-invalidation (even for hypervisor use) with e.g AMD INVLPGB or (future) 
-Intel Remote Action Request.
-
->> ---
->>   xen/arch/x86/flushtlb.c                |  31 +++---
->>   xen/arch/x86/hvm/asid.c                | 148 +++++++++----------------
->>   xen/arch/x86/hvm/emulate.c             |   2 +-
->>   xen/arch/x86/hvm/hvm.c                 |  14 ++-
->>   xen/arch/x86/hvm/nestedhvm.c           |   6 +-
->>   xen/arch/x86/hvm/svm/asid.c            |  77 ++++++++-----
->>   xen/arch/x86/hvm/svm/nestedsvm.c       |   1 -
->>   xen/arch/x86/hvm/svm/svm.c             |  36 +++---
->>   xen/arch/x86/hvm/svm/svm.h             |   4 -
->>   xen/arch/x86/hvm/vmx/vmcs.c            |   5 +-
->>   xen/arch/x86/hvm/vmx/vmx.c             |  68 ++++++------
->>   xen/arch/x86/hvm/vmx/vvmx.c            |   5 +-
->>   xen/arch/x86/include/asm/flushtlb.h    |   7 --
->>   xen/arch/x86/include/asm/hvm/asid.h    |  25 ++---
->>   xen/arch/x86/include/asm/hvm/domain.h  |   1 +
->>   xen/arch/x86/include/asm/hvm/hvm.h     |  15 +--
->>   xen/arch/x86/include/asm/hvm/svm/svm.h |   5 +
->>   xen/arch/x86/include/asm/hvm/vcpu.h    |  10 +-
->>   xen/arch/x86/include/asm/hvm/vmx/vmx.h |   4 +-
->>   xen/arch/x86/mm/hap/hap.c              |   6 +-
->>   xen/arch/x86/mm/p2m.c                  |   7 +-
->>   xen/arch/x86/mm/paging.c               |   2 +-
->>   xen/arch/x86/mm/shadow/hvm.c           |   1 +
->>   xen/arch/x86/mm/shadow/multi.c         |  12 +-
->>   xen/include/xen/sched.h                |   2 +
->>   25 files changed, 227 insertions(+), 267 deletions(-)
-> 
-> I think I said this to Vaishali already: This really wants splitting up s=
-ome,
-> to become halfway reviewable.
-> 
-
-Indeed, I am looking for a approach for splitting the change without 
-breaking things in-between patches.
-
-> Jan
-> 
-
-Teddy
-
-
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
-
+Thanks, Roger.
 
