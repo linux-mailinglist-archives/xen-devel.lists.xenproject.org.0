@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34B66B3CBE2
-	for <lists+xen-devel@lfdr.de>; Sat, 30 Aug 2025 17:24:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1102996.1455056 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B308B3CFC6
+	for <lists+xen-devel@lfdr.de>; Sun, 31 Aug 2025 00:12:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1103289.1455082 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1usNQ7-0007cC-O5; Sat, 30 Aug 2025 15:23:11 +0000
+	id 1usTnf-0004FP-P9; Sat, 30 Aug 2025 22:11:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1102996.1455056; Sat, 30 Aug 2025 15:23:11 +0000
+Received: by outflank-mailman (output) from mailman id 1103289.1455082; Sat, 30 Aug 2025 22:11:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1usNQ7-0007Z3-KF; Sat, 30 Aug 2025 15:23:11 +0000
-Received: by outflank-mailman (input) for mailman id 1102996;
- Sat, 30 Aug 2025 15:23:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1usTnf-0004Dd-Hg; Sat, 30 Aug 2025 22:11:55 +0000
+Received: by outflank-mailman (input) for mailman id 1103289;
+ Sat, 30 Aug 2025 22:11:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dd82=3K=epam.com=Sergiy_Kibrik@srs-se1.protection.inumbo.net>)
- id 1usNQ5-0007Yx-SL
- for xen-devel@lists.xenproject.org; Sat, 30 Aug 2025 15:23:10 +0000
-Received: from DB3PR0202CU003.outbound.protection.outlook.com
- (mail-northeuropeazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c200::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3ae18bae-85b5-11f0-8adc-4578a1afcccb;
- Sat, 30 Aug 2025 17:23:07 +0200 (CEST)
-Received: from AS8PR03MB9192.eurprd03.prod.outlook.com (2603:10a6:20b:5c0::11)
- by FRWPR03MB10957.eurprd03.prod.outlook.com (2603:10a6:d10:170::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9052.20; Sat, 30 Aug
- 2025 15:23:04 +0000
-Received: from AS8PR03MB9192.eurprd03.prod.outlook.com
- ([fe80::baa9:29b3:908:ed7d]) by AS8PR03MB9192.eurprd03.prod.outlook.com
- ([fe80::baa9:29b3:908:ed7d%5]) with mapi id 15.20.9052.014; Sat, 30 Aug 2025
- 15:23:04 +0000
+ <SRS0=IC44=3K=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1usTne-0004DI-22
+ for xen-devel@lists.xenproject.org; Sat, 30 Aug 2025 22:11:54 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 53c537bd-85ee-11f0-8dd7-1b34d833f44b;
+ Sun, 31 Aug 2025 00:11:50 +0200 (CEST)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-33682342180so29166271fa.0
+ for <xen-devel@lists.xenproject.org>; Sat, 30 Aug 2025 15:11:50 -0700 (PDT)
+Received: from yp-VivoBook-ASUSLaptop-M1503QA-M1503QA.. ([95.67.15.120])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-336d0e3f39dsm4662091fa.45.2025.08.30.15.11.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 30 Aug 2025 15:11:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,158 +45,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3ae18bae-85b5-11f0-8adc-4578a1afcccb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BMjYtqEy965P5dU2s+wIt/4FSYCahjk9oDn036drtew1dew4GGIXCbEt0ss46UsfrkobzxziApb98ToCLRQ7xD85F7GB+HAPyUyK+M3co8RcEPaeccOji14vDecezgsBwt7SKYTzlTEeMgWyebih+0n2CYEqPQU5ZhCQDsBZkv7hfm/QzW7OiwUziRKRj2sZ8vvAb4nTCuUCAAK9RPB1xhjno/9Mnrp9Ct+sBrY6g0AB/d/WWqQUlRxUlguSgovjsy45HEKBZ+yloyGMkAUGbzc1dF6X9ws4611aFfXsDHJebTsksBxne8LuNCMs1vACUFcIbD+Vxs5jgHP3psWwZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RXPaRT1qT0GMAyOhGXjgCFnE3h10qNG6IscIq1YCa2s=;
- b=y3Wro/8e2H2HNIYMcHuGuboJlazkhmQhmVGMT/lmAsyii6WpnVSJ3lovO/h8Bv8/r8mn6nCN6vb0wAuf84HLjczOmFRbfPmmTSgw/60U+2ftRtWO34LHAFlg/XRNR8+nrAL7GlO9BaHT6XUmAYNHZQYXnkWWZtif1DW5ONAKgiScG4iyscIxn6IV1NjS+i8UBBaxd9wJd+W2PjX4Yb/9UE7//kXVo+qzaSXR1MzMe3eiU5jM/ZUKvr8YEXnUkJKa+2mkvZbLmeYELz9f0OxCoFAX1QCViTK/WhqBu8J0kf5RkF4zU/ZThjLmdOgPp6luCHG93wEl714+OT+WfV7jNQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RXPaRT1qT0GMAyOhGXjgCFnE3h10qNG6IscIq1YCa2s=;
- b=C8RiUclrmxrzHpWEBXrxqR/pzq8US95UfxM3tNMY1BG1R/tWOeYynhXvnVbo7CwyPOcxRyldTiKJpfRdF0JgyFr7J21X09dCHD5RnQdnJAtKL/aKqKBX5TD7V/Mq3jHGi7HjY9EBBD2dI+qlJKmnbiuzlqPYxYsrRF4lzg/6Tlkrk6qn53T4bPIAXwOOvt6Dib/WUYsUJsuRbPWN64V0XfrURciwOxLX1U2U5MKmEusR5ADr66k79JqMA694ujZFJj9rkLkLi1e+S30OkFrJNXBt+8BeZm59tYcUra+7wq0kyoOlCQy1LcwYQHv+vFHuUIjYcGTDASfHfjZykbN1qQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <b24cf3dd-2f82-4470-8c6e-1f32e0564cbd@epam.com>
-Date: Sat, 30 Aug 2025 18:23:01 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v1] xen/flask: limit sidtable size
-To: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20250822095123.998313-1-Sergiy_Kibrik@epam.com>
- <1797679c-582f-4b75-a036-ad3bb00bad4d@suse.com>
- <1d34d0ae-f3f3-4b25-ae67-6c4f6be2e2bb@epam.com>
- <59e884d4-e111-474c-9794-dcb190de8eab@suse.com>
-Content-Language: en-US
-From: Sergiy Kibrik <sergiy_kibrik@epam.com>
-In-Reply-To: <59e884d4-e111-474c-9794-dcb190de8eab@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: WA1P291CA0021.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:19::21) To AS8PR03MB9192.eurprd03.prod.outlook.com
- (2603:10a6:20b:5c0::11)
+X-Inumbo-ID: 53c537bd-85ee-11f0-8dd7-1b34d833f44b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1756591909; x=1757196709; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=qZp0lPgPe4HlwnbMcyoSq9Puvmd7k9VTEkM+R0CcSMc=;
+        b=AN8s9+0UJmYQlDl8iA5prt3/KPozBOpwwIXUX9r1E1ZRQ117uJtWWCXNEvhmercVA/
+         7+7xKDyEmOBc6frt18Gf0q6mZtgJCuvss4l2GY/PR2yeU42cVSc9Gio7adL+t1Exy+6Q
+         AApuPpg2Ld8A0Bs7a7Y06fjDEX7fA75HOW1m2XdCjOVHJPZuSb36coQgV07Y4o6hFmoD
+         kjuAa/ZzAx5OjOAjrWmZkDU3q4ljOrZOCsYki1YwKjQRQUr/M5HAT8b+XjfmE+zZVLQH
+         udjCON5iiaJ5ijLQMF9eBoesKwciblI1mtuN/lghZjbQmVCXxCCdPxaVAC4Rzxrvd6CG
+         6NOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756591909; x=1757196709;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=qZp0lPgPe4HlwnbMcyoSq9Puvmd7k9VTEkM+R0CcSMc=;
+        b=nY1xzZ9T+p6kYN+yBHgm6AVIIPj2IcQBA4M3hwVuwRm1+iJPfN1M+RZ4xgVFNiLBj6
+         wO0Xz6aC9L/ca5B4gIwWDsvhIl9ZY7gWcAUr1dkw0GOrVj9jBVLN0ZHnvXkTFpkPfOxO
+         89OFQOIfdqwWzkns6nmc31Lx2DFzCepX/uUliTaPNXyi2CECoqj4aLrDF2/zfIU7MiMZ
+         rh0Bs7fDdmcUZh/venA10ZFlHMt3BEly+Q1P9H0Q11W3Y4Da0s7tr34XaNMbNHPPDpZu
+         bwuldRaNLiv97oMd66bzU6M1IXiQ6qPtR60O9pfM87PhChblqxTTAgQfmwdDdHEAS2W/
+         xCrA==
+X-Gm-Message-State: AOJu0YzK5z+W8htjDksVHgHAMbrf3Q02n/K1HwXDLeNYQrLhq3s/K4eS
+	UzuqJDf1p9yYKWUHlMxI+/Lvcxsn7OFibar9p4bqdcW3Eeu6WUE/VktJdSlxsXcU
+X-Gm-Gg: ASbGncsdjE1UzDNJQRsnu32e1g6X1liJMYm0e9154yjQHgCQX4JZcesgPvVEpbEljhZ
+	Pyyjh6IopfUpe2nn41Xt5UBBjIudcLJDF6LbNBNPTDX9yQyIWhQAWEV2jJEPiaQU1mXyCDNd6wq
+	liSWwJhOCR6AtgOnVwpgI5lr5jALafP5SWQN6nfoyrrJkgAvSRIlfqPCiVzkcDeX0kr3FnJBGrv
+	U4Ts6AhYpVP3BfrdkGo5YoM5pZwpX5dM6rx6VSDqQAWa854DF6k4f6g6IliVyfKIVmcyMNKqrgp
+	dikx19749ybP1MaEXioP6HIh4DKHX1uzbEtdsaL17/fqAWuCNjytMtYgjIS8Cmn8HP38zsWMe99
+	XVvFOekTzeEwSlr85o+XemerGrQwbYWp00QuOk9h1iN/E1bafOyqYeLQXVIYRrA==
+X-Google-Smtp-Source: AGHT+IGpiA0Ene6qFKdtJFpXJCjSNsEg7lgYEnD7D8AoqBEsq6/9Y69yteNTjlSgxc+3GIY7LPjJ/A==
+X-Received: by 2002:a05:651c:19a3:b0:336:527a:5b4d with SMTP id 38308e7fff4ca-336caac9b8dmr6766541fa.19.1756591909184;
+        Sat, 30 Aug 2025 15:11:49 -0700 (PDT)
+From: Mykola Kvach <xakep.amatop@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Mykola Kvach <mykola_kvach@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Juergen Gross <jgross@suse.com>,
+	Community Manager <community.manager@xenproject.org>
+Subject: [PATCH v12 0/4] Enable guest suspend/resume support on ARM via vPSCI
+Date: Sun, 31 Aug 2025 01:10:27 +0300
+Message-ID: <cover.1756586648.git.mykola_kvach@epam.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8PR03MB9192:EE_|FRWPR03MB10957:EE_
-X-MS-Office365-Filtering-Correlation-Id: fd984174-2cbf-46af-9c8d-08dde7d91d23
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?TCswZ0FhVDZFRnhBNDJSTmhWa3AvVWRBYTMwcFBJaFl0dFgrMWgvZ1M1Vjhn?=
- =?utf-8?B?ay8ydDR5LzNBbWZZNWFTSEZZMGNmVU9rZWovTjFWWE9qbkhBQ3kvKzdDdCsr?=
- =?utf-8?B?dEE5dWszZ3hFcS9lR1cvTTZUNWRzRUJmU0RpVmttZlo5ZDc1V3p4YXFoMVhx?=
- =?utf-8?B?ejZOa0V2R3ZFV1lCYWdqZVJhcVJOcWlmUS9MZGtPSDJFOGlacTl1WmlveDBi?=
- =?utf-8?B?bW1sdGJYelY0aWNnMTNTTXpnTTBnVmQ4T09FVndHN1hWVitQd0xqb3RqaWpO?=
- =?utf-8?B?K013MEd1ZEFYSWtQSTBLN21EeElEYUFZZ29JdW9QeW8rcExoaXlPSEJ5enFr?=
- =?utf-8?B?UFpRRmJJU282V0twc3ZhRDJSNHdMSjRwL3V3NjFUZTRmMVo0aXVMNjlFYVZr?=
- =?utf-8?B?WnRpYzJ1VmJkSlBGdTVYSnBjMVpra0MwbElFNzZtZlN6REdYbmpFelcwVU9i?=
- =?utf-8?B?YldNUVgzV210MThpaFpkSGZWYzlnNy9GQVZCcXA5S0tUSkppMnBzS2xWYnRF?=
- =?utf-8?B?WlAyMUJaVGZBZHBSSDFSdkN4ZGpJd291RE5HQ3pLYmN0SXZjaTI1cEZXd3Nu?=
- =?utf-8?B?ZE5QRGxQTGlxT2N2R2RzMGtuYjBObmpYelFTSjdNMW1CWFRqNFBlbE9vUzRk?=
- =?utf-8?B?VzhhRXc5bU9ETmN0SEFOTUU1OXZmRGhrNW0xcGp4MHhOQlAwbTJIUHRTZUc0?=
- =?utf-8?B?RC9LMkpWeE1nclV5M2t2Uy9IcWRjU1U4SFhrSU1SL3RjdGdmSm5rMGc3L1dy?=
- =?utf-8?B?ZXgxNXlXb05jVmNJOCsreEVFRTRUV2lsTkdRVkJpeGM5QjJ4S3R6TDFUOUlw?=
- =?utf-8?B?eHZGQlhkOUVKQjdWaDhkWnF3dzlWQ2hCUFlyK0kzOGdyNWFGOEV4Yy90Wm5W?=
- =?utf-8?B?M05qU0pRY2Vud25ZK0RrTndrazBJblFtS1k1aWZMQ2p5ZXFOQk1NMkFiN21I?=
- =?utf-8?B?eU81azZGTDNvK2dUUHFtM0gwMmp1UEVXYUVkMGF6NDc1alN3VjJCN1hVbGJ2?=
- =?utf-8?B?SFppM0dXbGxGS3Y2dGdoTmtEbSs5cmYwcFNvanhHM3d3Z3BJNzdhajhpZ3FD?=
- =?utf-8?B?Rld3M2NJdEpKV0hrcjdlTnQyeUhVcHk3TFllN0h6WVFISzlHcXBKb1VRb3hp?=
- =?utf-8?B?UTVZQzZHYk41QS83Wjg4Nk0waTVSbGY4b2xaNUZINDBOSUl4R3Z6Z0JpTHM5?=
- =?utf-8?B?RnR1R1pjR2EraTg0QTFlVEk4MGMxcC8xTkp2Ynhjc0p5eW9KbTJFdzJGZlo4?=
- =?utf-8?B?TzZXWXExcnVOMDEwSlg1V3J2elY4ZGdld2Q1STBsTVUvbkdmNWNHbDd3RWw2?=
- =?utf-8?B?RlEzRzZuZFZMNWZjb3ZtNXRIK3hiZVg5dmhldVhvTExjQm1hc3JBS0N0ZkdJ?=
- =?utf-8?B?NnI4Z1VaUmVmS2QyNU9aSkFWZW9ubUE1NjY5MUh2OTcrMUxGWElJZXdnU1Nl?=
- =?utf-8?B?cy9zcVRON0tMeFJPclBKaXJaeEtsSHBjcXpQNGZhRkozcTVEZXJLci9YZkU3?=
- =?utf-8?B?RzEzRFZwVVRwUWdLVXVBbVNlZFloeHNkamlxMHQzTWk0RUJEcnZSaU93a1Yw?=
- =?utf-8?B?a1pSK2c0NkF2emYwVEJqTTljUDBjOGVycG1tVXNaOE1QR0M3STFBWitVT21t?=
- =?utf-8?B?M21NelZxVnNOZHRGMGVHNUZ3eUVaL0ZjdUdyZU1uTjJRK3VHell0U0lpY3FC?=
- =?utf-8?B?UEVEcGZqa0dUczRtcnJOQVZkRXZpUHZkWjgybGFtOTJGUVZGUGFxekJwKzRx?=
- =?utf-8?B?WVg1c25MdkVCT1BJY2RaN3lkdCtFaVpxUE1BNWdSUTJQVzFLYkhXeFJMaFFF?=
- =?utf-8?B?NUtSWGN0cEw3dGd5UEhmd3ZaSE45eS9uazRLQk9GV0wzdlEwRWpiTVRORTZT?=
- =?utf-8?B?UkhucUlqSm1ZSVZYQXlnWXlwTFhsVFhZbEo1MU4xdXhOaER1aFNsUVVqUDlx?=
- =?utf-8?Q?p4hXixy6mDU=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR03MB9192.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NmlYYTdHQTJaU3RRVFFlbUtITlJXSGR3VzN0clh6NUlYZVRkZERTUGxHcVlY?=
- =?utf-8?B?UnJUSE9lYzRJNlRsVnRnNFRrc25tMExSQ1RJZ0FiZzVDMEhJMVE5Njg5WlFR?=
- =?utf-8?B?SzAzdjB3UHhwOGZKbU1VUnVzeHlyYlFsQVFnWDQxQkRxOUs0V1poZFJIT2NK?=
- =?utf-8?B?SUlrM3FiTnlobnJBeXBIcnhIVXNmVUlSVmxVZU5rV1VXUDUxeEdzOG5DbFhk?=
- =?utf-8?B?YlAvN0xvQzg5dFpJWTdibm5rVnM2WFJrMHlkb0ptYm1FRGxhQi85ZXNjN2x6?=
- =?utf-8?B?TGhjWmNCVEpVL1BEWXNiTG8wN21HUDNJSnRqZlgxRktNRnpzWVJDc05NaStw?=
- =?utf-8?B?SkkvQTBldHdHbjBxWGVXVFkycjl4WUFTL00rRHB2cWxybGZoMUJicGI0QnJi?=
- =?utf-8?B?bWZZRndUbk56bDVDbGsrc1BBbzYyQWdvSXBFUkdTbGxPeFV3U2ptMm1leWdW?=
- =?utf-8?B?YTd5K2phUFJDeTkzeENQdzhvaXp5eVFxVWtWRDViTFVGME9kRndrRnIzTmZD?=
- =?utf-8?B?NGVBcERZb1lsMktyUUxBZzArMTltK21hdE1MUDE4SlpXV1RTV0t3c205bng5?=
- =?utf-8?B?TmwyVDFMZ3ViQVVydXZoNFV0SklEVk1jbVNFTDRtMmtqL2cybWswT3ZZUzgx?=
- =?utf-8?B?MGVKU1YzWU5OVHVxRldaV0xoL2ZFMTVjcEQ0UWJNRFljM0l2MFNTdXFobVNK?=
- =?utf-8?B?UFkrbWNFSzFEZ3oxWTllbVRrNzlNalgxWUpBRXZEUkJBeEhxWkpIeTVpWjlF?=
- =?utf-8?B?Z2Rtakp2bjFEZ2wwakZtZWJ6WjFCNk1QV0djTTE2WVJGTEQ3dGlNQkowcjhp?=
- =?utf-8?B?eFAxcTMrNlMvemJPclVDa2hoTllQVCtoL3ZjVjEvalNNcm5PSDg3MVBoUTE2?=
- =?utf-8?B?Mkt2NktSWU5Odmc5VzRHSWVnN0VLR1krVGNlUFB2QnIxNVhuOWxBcURFRUhT?=
- =?utf-8?B?WDVmckl3a1NXeE5XblYwWGYxZnZXdXVlaHVuaktablhUalZUeTVwRVNubmJX?=
- =?utf-8?B?bVlCTVRadFA1QUxjTzhZRlduRkRmNHF2R1RDOEVKa2JjRzVLa0tTbnZYNDcr?=
- =?utf-8?B?RC9BbFR2aFAxUi9yd3lSTDNuUVZmQ1ZFdVg3YmVLcWhyYitZTWZNOTFkU3BI?=
- =?utf-8?B?bVRaNTNmY3pCYUo3THlFL1BnSWd0Y20wakFYWVRxN0pMY0dvSTBlQW4vQTUr?=
- =?utf-8?B?Z25rN0ZIS3kxUnVxcTQwUUVvcWcrNUtRaEh1NlYxZ1hBcDBFV1QvMlY5SmtM?=
- =?utf-8?B?Q1pDOGZEMjBIeWFVQXFQZGV3V1BkblRjdG84RkJLcmE0WjNLRkhXZEMxZE9s?=
- =?utf-8?B?L2hEYTRJNDY4SHorMStBVERDZFhzOTF1UUY1dW5neGk1NFRmaEIrWEpkM1JU?=
- =?utf-8?B?SEM1QWp1Z2EyMzVlTXpCQSsrcndRQk1kcHhGakhieUlUUU96VjArQmpUZmFr?=
- =?utf-8?B?eEtSWjNaU0orMFJlOGszTUFRRVFzdExKR3FtRGpFZGhaTkdaUzZvZWlZdTNS?=
- =?utf-8?B?NG1laHBwWllOWUMwV0ZmNlNGUDVtUTRpUHF6NGI1ZkdDbStCcVRFNGc4OGN0?=
- =?utf-8?B?WGdCQ016QjNSMFRWa0ZMYzRCam5zVjJrNC85RTlVK2Z2bmp6WkhjcHJaeTZL?=
- =?utf-8?B?eXI0WEdCR2hhSlBSNFpHeTdXNjFBa0NWandELy9ZMys4UFVrRXF4MXFuQjNN?=
- =?utf-8?B?UTJBUDlTUFc4SDN1ZWE4dysrd1duS0pUaUJBTk5qdlA4cEdUR3Q0bHFBSzhW?=
- =?utf-8?B?Q0FKZUREaTZOQ2tpcFY1U1VCUkt0NXBOcG1nY3VGUnFNcmk3MmZySmRybXlT?=
- =?utf-8?B?K0l3RTNLK3Y4b1JwTFpXdjF4NkxBd1RVZm5XNGQzSkdaYkNDWGJPWnZtZkFU?=
- =?utf-8?B?UVJ1YUwyWkMzT0gyMHo3dXg3dEtnVlRuM2pQb2lFVVpXWktNOE5rY0pUZ1VN?=
- =?utf-8?B?SEhJdXQ1RHV6TDNWRCtnbWdtemwwa3l3aEt6YkF0UllQUWVBOTMrcDdwNU1x?=
- =?utf-8?B?VzB4TzIxOVVaL1A0WjFOcTZKclY5dk9jOWVWbEVTZU5odk1Rb0pFS1FjZHdR?=
- =?utf-8?B?UUFyWXFmRkZQYlpSaUVNTy9tenNrZldYY1BVSVFCL1pMemlveWJwVm1pbGRp?=
- =?utf-8?B?L05ZRTFYeDcrZUlCYTJoR1R2cDl5bkc4eXBVbTZBSEJwNzVsd2VlYVRIRXZw?=
- =?utf-8?B?dXc9PQ==?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd984174-2cbf-46af-9c8d-08dde7d91d23
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR03MB9192.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Aug 2025 15:23:04.0912
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /aCiyTy5feBEDvUkcAP4alt07ugGnbJX3Vvu5mFP4Fp0cm11sBToFpgDUNPJJ12dKFQzx3yHR5xOyg0IMwDdVw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRWPR03MB10957
+Content-Transfer-Encoding: 8bit
 
-29.08.25 14:44, Jan Beulich:
-> On 29.08.2025 13:33, Sergiy Kibrik wrote:
->> 25.08.25 15:00, Jan Beulich:
->>> On 22.08.2025 11:51, Sergiy Kibrik wrote:
->>>> --- a/xen/common/Kconfig
->>>> +++ b/xen/common/Kconfig
->>>
->>> I wonder whether we wouldn't better move XSM's controls to a dedicated Kconfig
->>> file there.
->>
->> you mean something like Kconfig.xsm in the same common/ directory? Or
->> move this Kconfig out into xsm/ directory with the rest of flask code?
-> 
-> The latter would be preferable imo.
+From: Mykola Kvach <mykola_kvach@epam.com>
 
-then it probably will have to be moved outside Common Features menu and 
-into the main configuration menu, while having 6-7 items. Is it ok to 
-keep such small submenu for that?
+This patch series introduces the initial support for guest suspend
+and resume on ARM platforms using the PSCI SYSTEM_SUSPEND interface. The main
+goal is to allow ARM guests to request suspension using PSCI and be resumed
+by the control domain (e.g., via "xl resume").
 
-  -Sergiy
+### Background
+
+The PSCI SYSTEM_SUSPEND call is part of the PSCI v1.0+ specification and is
+used by guests to enter the deepest possible power state. On Xen/ARM, we
+emulate this interface in the virtual PSCI (vPSCI) layer for guests.
+
+This series includes:
+
+1. A new vPSCI implementation of the PSCI SYSTEM_SUSPEND function for guests
+2. Documentation updates to SUPPORT.md to reflect PSCI and vPSCI support status
+3. Enabling "xl resume" command compilation for ARM, which was previously disabled
+
+### Usage
+
+For Linux-based guests:
+  - Suspend can be triggered using: "echo mem > /sys/power/state" or "systemctl suspend"
+  - Resume can be performed from control domain using: "xl resume <domain>"
+
+For more information, refer to the official Linux kernel documentation on power management.
+
+Note that currently, SYSTEM_SUSPEND is supported only for guest domains (not for
+the hardware domain).
+---
+
+This is the first part of previous patch series and originally consist only
+with necessary changes needed for guest domain suspend.
+
+The second part can be found here:
+    https://patchew.org/Xen/cover.1754943874.git.mykola._5Fkvach@epam.com/
+---
+
+Changes in v12:
+- Use the input vCPU from vpsci_vcpu_up_prepare function argument instead of current.
+- Add a check for the wake_cpu pointer on resume.
+- Call arch_domain_resume() under shutdown_lock.
+- Drop redundant vgic_clear_pending_irqs() call from vpsci_vcpu_up_prepare().
+
+Changes in V11:
+- introduce arch_domain_resume() and vpsci_vcpu_up_prepare(), which are now
+called on the resume path to avoid extra modifications to common code.
+The vCPU context is now updated during domain resume.
+
+Changes in V10:
+- An ARM-specific helper (domain_resume_nopause_helper)
+- An isb() is added before p2m_save_state
+- The is_64bit_domain check is dropped when masking the upper part of entry
+  point and cid for SMC32 SYSTEM_SUSPEND PSCI calls
+- Status of vPSCI SYSTEM_SUSPEND changed from "Experimental" to "Tech Preview"
+
+Changes in V9:
+- no functional changes
+- enhance commit message and add extra comment to the code after review
+
+Changes in V8:
+- GIC and virtual timer context saved when the domain suspends
+- rework locking
+- minor changes after code review
+
+Changes in V7:
+- add proper locking
+- minor changes after code review
+
+Main changes in V6:
+- Skip execution of ctxt_switch_from for VCPUs in paused domains.
+- Implement domain_resume_nopause
+- Add a helper to determine if a VCPU is in suspended domain.
+- Ignore upper 32 bits of arguments for 64-bit domains calling SMC32 SYSTEM_SUSPEND.
+- Macro renamed from LIBXL_HAVE_NO_SUSPEND_RESUME to LIBXL_HAVE_NO_SUSPEND for clarity.
+- Documentation now focuses only on the SYSTEM_SUSPEND function, with improved wording and structure.
+- Changelog and commit messages refined for clarity and to remove redundant explanations.
+
+Main change in V5:
+  - Reverted the logic related to suspending domains. Instead of the standby
+    mode introduced in v4, domains now resume execution at the point provided
+    during suspend
+
+The rest of the minor changes are described in the changelog of each commit.
+
+Previous versions of this patch series:
+  V1: https://lists.xenproject.org/archives/html/xen-devel/2018-11/msg01093.html
+  V2: https://marc.info/?l=xen-devel&m=166514782207736&w=2
+  V3: https://lists.xenproject.org/archives/html/xen-devel/2025-03/msg00168.html
+
+Mykola Kvach (4):
+  xen/arm: Implement PSCI SYSTEM_SUSPEND call for guests
+  tools/xl: Allow compilation of 'xl resume' command on Arm
+  SUPPORT.md: Document PSCI SYSTEM_SUSPEND support for guests
+  CHANGELOG: Document guest suspend/resume to RAM support on Arm
+
+ CHANGELOG.md                          |   2 +
+ SUPPORT.md                            |   5 +-
+ tools/include/libxl.h                 |   1 -
+ tools/xl/xl.h                         |   4 +-
+ tools/xl/xl_cmdtable.c                |   4 +-
+ tools/xl/xl_migrate.c                 |   2 +-
+ tools/xl/xl_saverestore.c             |   2 +-
+ tools/xl/xl_vmcontrol.c               |  12 +--
+ xen/arch/arm/domain.c                 |  37 ++++++++
+ xen/arch/arm/include/asm/domain.h     |   6 ++
+ xen/arch/arm/include/asm/perfc_defn.h |   1 +
+ xen/arch/arm/include/asm/psci.h       |   2 +
+ xen/arch/arm/include/asm/vpsci.h      |   5 +-
+ xen/arch/arm/vpsci.c                  | 116 +++++++++++++++++++++-----
+ xen/arch/ppc/stubs.c                  |   5 ++
+ xen/arch/riscv/stubs.c                |   5 ++
+ xen/arch/x86/domain.c                 |   5 ++
+ xen/common/domain.c                   |   9 ++
+ xen/include/xen/domain.h              |   2 +
+ 19 files changed, 188 insertions(+), 37 deletions(-)
+
+-- 
+2.48.1
+
 
