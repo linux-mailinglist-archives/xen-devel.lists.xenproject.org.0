@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B023B3D3D3
-	for <lists+xen-devel@lfdr.de>; Sun, 31 Aug 2025 16:09:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1103754.1455151 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3E16B3D3E9
+	for <lists+xen-devel@lfdr.de>; Sun, 31 Aug 2025 16:35:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1103776.1455162 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1usijm-0003Xx-T9; Sun, 31 Aug 2025 14:08:54 +0000
+	id 1usj9T-0007Tb-13; Sun, 31 Aug 2025 14:35:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1103754.1455151; Sun, 31 Aug 2025 14:08:54 +0000
+Received: by outflank-mailman (output) from mailman id 1103776.1455162; Sun, 31 Aug 2025 14:35:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1usijm-0003WS-QK; Sun, 31 Aug 2025 14:08:54 +0000
-Received: by outflank-mailman (input) for mailman id 1103754;
- Sun, 31 Aug 2025 14:08:53 +0000
+	id 1usj9S-0007QQ-Tv; Sun, 31 Aug 2025 14:35:26 +0000
+Received: by outflank-mailman (input) for mailman id 1103776;
+ Sun, 31 Aug 2025 14:35:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=I8SH=3L=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1usijl-0003WM-R1
- for xen-devel@lists.xenproject.org; Sun, 31 Aug 2025 14:08:53 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
+ <SRS0=I8wL=3L=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1usj9R-0007QI-HA
+ for xen-devel@lists.xenproject.org; Sun, 31 Aug 2025 14:35:25 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2061d.outbound.protection.outlook.com
+ [2a01:111:f403:2009::61d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 05afb370-8674-11f0-8adc-4578a1afcccb;
- Sun, 31 Aug 2025 16:08:52 +0200 (CEST)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-55f6bb0a364so2343136e87.1
- for <xen-devel@lists.xenproject.org>; Sun, 31 Aug 2025 07:08:51 -0700 (PDT)
-Received: from [192.168.0.110] ([91.123.151.69])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55f7692f6ecsm705165e87.95.2025.08.31.07.08.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 31 Aug 2025 07:08:50 -0700 (PDT)
+ id ba2aaa72-8677-11f0-8adc-4578a1afcccb;
+ Sun, 31 Aug 2025 16:35:23 +0200 (CEST)
+Received: from MN2PR08CA0006.namprd08.prod.outlook.com (2603:10b6:208:239::11)
+ by PH8PR12MB6699.namprd12.prod.outlook.com (2603:10b6:510:1ce::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9031.23; Sun, 31 Aug
+ 2025 14:35:16 +0000
+Received: from BN2PEPF000055E0.namprd21.prod.outlook.com
+ (2603:10b6:208:239:cafe::98) by MN2PR08CA0006.outlook.office365.com
+ (2603:10b6:208:239::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9073.26 via Frontend Transport; Sun,
+ 31 Aug 2025 14:35:15 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN2PEPF000055E0.mail.protection.outlook.com (10.167.245.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9115.0 via Frontend Transport; Sun, 31 Aug 2025 14:35:15 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sun, 31 Aug
+ 2025 09:35:15 -0500
+Received: from [172.17.238.12] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Sun, 31 Aug 2025 09:35:14 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,306 +59,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05afb370-8674-11f0-8adc-4578a1afcccb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756649331; x=1757254131; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ymxuWFBdkbyelysuz+qdLUoYoIL1JRtAwBGX0twc+XI=;
-        b=kEcrZuz0NDZsGCi+wXwy79wDrDhG/NAU7y08tcRZHPs0qQFDkKsqJ/KRgWcUUQxyJh
-         gzN9ZdE+9LDtknd3GzRnDCn6TgYwuzcjxyKLTdrHloIFotAiQsLMqCykR1l7pKJFqeyA
-         saYwjeHOexmoosgImEyP71CpkX+0pB6LItajfNS67oLY5ZpoFi91Au516kXlhE5CYwM7
-         NF3VWCuGtyDgWzH9Lh0+7bUxwJQKrCOX2SuFMmScRS01AwomG6SB5ved2dlFuPMcH9nz
-         orL3adJ2VQO7NNlNvAIe638RDpYA/AItpPX3dkABw/1DwGqjDtLkbCeQDkE6i3Lqz4Fw
-         RTsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756649331; x=1757254131;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ymxuWFBdkbyelysuz+qdLUoYoIL1JRtAwBGX0twc+XI=;
-        b=wVbptQvilAt1FlijWSTEPSl/J2vq1kiyuK2y3yzc48cxJNGB1qdGqUOQf60r+tRQR+
-         41Re58BEI0a0Dszt/KDNZ2BVgjg/mmqGkItEtKrz6RvEN/48MPQtxcJtCq38sbFlwwcU
-         uJEhiTQjOzjI8szbOsH2TWCSwsihOylpktYZcTkVbEp0WO1hpFGLuYT4PRiKGbzMbkg2
-         Hhbku5XFpsPaqFp0ANiAOWFUHzFJloXA631CqTy4b5ZBGc2m3wNURUJ8lrA2FUq3jXCT
-         FpVHjdUGVeqOhAo6wDZrOkhyxbVSwgiNnOn6qtXPGoQwTcEuzWHrMxZvLTnmF0+0mBi3
-         f8nw==
-X-Forwarded-Encrypted: i=1; AJvYcCVZIOpQXrdpiPXw6vwGQNlEdCwOgmBA+bjDlEPvkRn97lGzKcqC/L0AVDv/4H31OoOLI5qix+FhRYY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyuBjOtb0/M04rhBsBupAlsCEmDisQH8EDK26efDKAk+qs+Krxk
-	0vlIjwcV8If4vKJwCahTPTtW4oYlONR/EUmaZGiLnHAduWzYyqQImugG
-X-Gm-Gg: ASbGncvsy9lVoyxLKskcMJP+yj0RuqdpRSH8IG3NEQpenHouHhyyp2Z0mbY6+ZlPm+9
-	YBEZqkBX1BBA3nbZp/WGSGWfxZdKqud2I0m8CyuY4HmQ3wWr4cuWEL3JwEhiAH1Ibayoc3OR/RM
-	mEmgSHAcyB6AOBpdrBZ/bCBs6gRfgKWxMWp73R7buRbIChg8E3uQ5e2VHk6Cgot4szHgGan7+JP
-	/C7Xmp3XSXTQLYYHS77GAMmnabxrsCvFcO0QzcP1/sdDzCpv6Y1G8vVmiQ5PtOjD2I0rVEKOgBl
-	/DcLPjGuAhXV0+RZiCU6JnObt5sgdKMrY8m3aTXDpr6NLqQvU860MW/zgdTgVRmBMeDTxTYmu+M
-	3ObWL9bKWdjqQlatxbMfQfhMIkQ==
-X-Google-Smtp-Source: AGHT+IEENYWsLrPZ1v1dcAA2DkDrvl6xrWBccs2srhUoy4G98n9gjvUmL3S+PYrGsCu15J6u7jsDNA==
-X-Received: by 2002:a05:6512:3c97:b0:55f:6a49:6e71 with SMTP id 2adb3069b0e04-55f708ecdadmr1159298e87.29.1756649330923;
-        Sun, 31 Aug 2025 07:08:50 -0700 (PDT)
-Message-ID: <c21ff32a-fc9d-4980-8d26-a3d6c1f2548c@gmail.com>
-Date: Sun, 31 Aug 2025 17:08:47 +0300
+X-Inumbo-ID: ba2aaa72-8677-11f0-8adc-4578a1afcccb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Jakm3OEYiuwN2tfru19EQi1Dtj0cuboG9YtyS9W2KDOlJ+tuEUsDvz8fkD92qHXm94jfZwxG78fNcA1giLKnmKyLN2w/IUAZA9zYncImh30lhpxjJFO66StbhCpTRawkdaCBIr9tmYa3V2t9wkLl5AZzUwqhNL0HXNqpkbcUjAjP0yXD7Oap8pPy83RcyWJnne7ktwIFc22R5sqMK22FZtP19qSp3sD0N30HmSH4iGEaBxkRLVCg8E6APxeyXzVbDzr05JigxthGyFcnORKsaiN2V0kYodSlu1xmvSh5HPlJ0EG5l/m+DsoBygh3GmIatGTXKiUT8k5DlCj7Pr023w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7dE9DnoVnOVI1m088z1sg438Ww/eIrpKQP3iWBcN8Ow=;
+ b=vzvLgxyHvH7mSSrXBSHd4lSxsTGrgxDGnV7Jecki6R9WyUb2jvIalHbpdQ31sr7764P17ij9n6BWTTt4Aso65t0Q4aH+NAA8nly3dWjqS95n3cFGXptnbDSScZeK3As1tQazilDwoLWAMZ4XCPpzqsm8Y7izUCrCuFnwrHQUvS+6T19k5CKEgg3GUdPzDbuKA3aPgGfTUW8DJUmLF5yBHU3FobwzYlf3wVo4BfLhv/QBNraFMu2ylrpLMsjv+JVPbFwZuL8z+04uvpbY6GxQMvBxTA7KrlPq32IQk3acu8QxyBDkp1ZCYIluT5CQQVsSXzgirYb5TjxAp6ZIKUjOSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7dE9DnoVnOVI1m088z1sg438Ww/eIrpKQP3iWBcN8Ow=;
+ b=ECZfKQmi21Z5/GZcSWxW/KOSwmOQikuZp8rZDye1NkIenGjppwOH5ZqdtFzfkl0QUVb7lxvyN7dvNgZXt2IxE7z9sgepZ3BLDODgykSKPSwgV+CKewEoQ+LXM8ZYSPqp6fY+Q2KGsk6cId2evNl2JCPiRD6Cvi/pq0JhB160MYY=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <61e45049-5e55-40c3-b4ad-593c1a4205e3@amd.com>
+Date: Sun, 31 Aug 2025 10:35:14 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 04/12] xen/arm/irq: add handling for IRQs in the eSPI
- range
-To: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>
-Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
-References: <cover.1756481577.git.leonid_komarianskyi@epam.com>
- <e0f76a1533332cef68bfaacbdf57fd05f27764a6.1756481577.git.leonid_komarianskyi@epam.com>
- <87tt1pykqz.fsf@epam.com>
+Subject: Re: [PATCH] x86: introduce "hot" and "cold" page copying functions
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <1b9e5d46-20a8-4b5f-b938-e28a0429c770@suse.com>
+ <4d06bd13-6f75-4dcf-aa4d-c225139c2575@amd.com>
+ <2b34c868-7562-4824-8a1a-72df7348dbea@suse.com>
 Content-Language: en-US
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-In-Reply-To: <87tt1pykqz.fsf@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <2b34c868-7562-4824-8a1a-72df7348dbea@suse.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055E0:EE_|PH8PR12MB6699:EE_
+X-MS-Office365-Filtering-Correlation-Id: 66fa7186-a750-4911-9ef3-08dde89b99e9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|376014|1800799024|82310400026|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?VlhtSDhieHkwRmNaRmh0cTRFUDlrZEpiMCtqNWV4K0x1MDY0SlFBNktlS3VW?=
+ =?utf-8?B?ZFM2STRkT29WQ2ZsQnNDOWRlNFl4YjE0UHI1ejltNGM4N1BqVGxlVDFSVDUr?=
+ =?utf-8?B?WUdUN2V5M0FlWGtPQWxzL3NVSWUrMEhhSE9wUW9idG8xR1d4eEg2blRYT1lo?=
+ =?utf-8?B?b24vZUF1Q3JKaDN0M0pIYlNvb292cDRZbFgyQzJFSGVEUzdhcElzWHIvVEZu?=
+ =?utf-8?B?SEFsbVJBRklBcjJjQnllcEJnT0ZSaDU0UnFWd09VL2thNC9jSzhieEJJZDk2?=
+ =?utf-8?B?SlZtdE05STVXc2Rkb0syblo3ZTZ6cjhGY1FTc2RsZVo3Ylc0bUQ3VzFvZHM4?=
+ =?utf-8?B?TEVDZGFDeE1pL0VnUlVhUmJMVnRhYWRmYWRUdjh1bHM3dXdkblFoazNJL0dk?=
+ =?utf-8?B?UTBHaGV6ZjljQnQ4Q0hTci9Gb0YvZTlnZlVnSjFTOExRYjUzc3dKcDBPajFW?=
+ =?utf-8?B?ZzBSaE1oYkJ2NEFWNlVaQXh0ZzBVS2ZxTkVXZ2ZCQ0VDSlhhd2hVMEo5MXlT?=
+ =?utf-8?B?a1pHeWl4WGxEbzd4MGxBeUpjK1VXNlFYdmtERVBNK05ieWpWSHQvcncvV2JU?=
+ =?utf-8?B?N1NMT09HTGt5dGl4ZTlWMG9BaU9lRmZHelpMVzlkVmZTNGtXTzJ5U0gyS2Za?=
+ =?utf-8?B?bkZPcE96QWNPYUliV0N4LzQ4amJpRnVKcGdyMitOUXI4VUlaRDhLSEo2dzg3?=
+ =?utf-8?B?czBCQ005VkY4a2ZZaXpBaSt6WUJxMzkzeDI0RCtnN29KVS9BT2hrMzc3dE5I?=
+ =?utf-8?B?SDd5bGFkRWZXc2xhenZYOFV6QlZzaXBlZUJFblRaZU8yUEI4UDYvSlh6SERx?=
+ =?utf-8?B?UlZqQ3B5SzhGNm9TUzRSRnFTVTBZRTdSRUhVV2dyU2VLeSs5OUFtOWpNbEVC?=
+ =?utf-8?B?NVI1TWtXMWMvRDlSNk1aSHlWc2pzUzhYQ0N4K3JmTmo2MHJndVhUbTVHd2E3?=
+ =?utf-8?B?dnI3UTQ4dzF3a0xqSjhWWXpJajlBSUpxM01ZYU5Id0oyUlQzaFEySlFvdGVm?=
+ =?utf-8?B?TkdzSEgwa3dENHhFNGpMNzF4YjBxZXI5eTEvZGFRTGJ4ZVYzRlB5ZlF6NWkv?=
+ =?utf-8?B?R01UMStZTGRsa2VSUWV3eXQzenpFRGRvNTJtelNxajNFMXFmLzZ5SUs5VUNy?=
+ =?utf-8?B?ZnEyMWFNcWRKcUJVRW9mdS9uU0Z5RVdUL2RTanBKTk8zb0lIeVpVR2cza3JU?=
+ =?utf-8?B?MDNjSjRMVmJoaHdudFFaMTNxUDBxYmFBN0dGdS8wdUNZZ3lKRnUycVlYaFVx?=
+ =?utf-8?B?bjRPVWlOYTZYVjQvL2V0T0hlaTY1MkJ6aWJIVjdqMHhuL0tybVpOMWJXWm9J?=
+ =?utf-8?B?QUdzbWg1eHZrMUxVTm1DMW5lK0N6SmdWNytxaHI0Rkg3VFNpcXNkNFlrQjhB?=
+ =?utf-8?B?VlVwZHVmZ3lNQktva0hPRUxvL3ltWWJYYzJFeThLZGpsOEpYcEF0OUdiOWJY?=
+ =?utf-8?B?Ym5NK1FCZFhoeWt2YnJKUmwxZk5ZbmZERk1IdHF2NUFwOCtoWFhrWlNXQy9Z?=
+ =?utf-8?B?QWJFemh6RHVGbkNRWE0vdVBtTEs2NEpwRmVqY29VekhqMmZFQWlkbW5aOGYx?=
+ =?utf-8?B?MkNmTHNIaktjZGZHQUNJT3BEVlRlOWgwRVlzQnRNNEo2NEk4ejFVM3Nkbkpo?=
+ =?utf-8?B?VmVhM0VieXVpMzZIeTRrQzhVeWtTTlcwNkxNcDFMVzc5ZElXcldEeGJuS00r?=
+ =?utf-8?B?dVFoODUyZlpZRU05WlJub3g1SWw2TWRTV3hwSGZ0MFh5NSs1ZG82MmpLRVVZ?=
+ =?utf-8?B?RVMxRWVQSUFnU1AyK1Bnb21udHV1V2tJY0l6M3grWCtxdGs1bTZWa1huSkJ4?=
+ =?utf-8?B?WjIxVU56bFlnRzlsSzVQSzlQaC9IRVJSS2JIYzhSbzZ4M0s3NkI5MWY4ZTJi?=
+ =?utf-8?B?S2YzSGJmVWFVRyt2WXRTSk9Wdnd5L3U5UUhxZnRGN0Q2SFdCczdHb2JvZXk0?=
+ =?utf-8?B?YkNIQTJLWkMyNVNjeEUrZEFKUVFyR2tHWkhFaEE1Tk15d3J1VTdxeVlZamZt?=
+ =?utf-8?B?MXRHTUFIeXMxYmcva0gyLytaYnh5ZjNCbDBmakNMbmFEWmYzZGVocklhd0s3?=
+ =?utf-8?Q?JoaNon?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2025 14:35:15.5801
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66fa7186-a750-4911-9ef3-08dde89b99e9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF000055E0.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6699
 
-
-
-On 29.08.25 22:45, Volodymyr Babchuk wrote:
-> 
-> Hi Leonid,
-
-Hello Leonid
-
-> 
-> Leonid Komarianskyi <Leonid_Komarianskyi@epam.com> writes:
-> 
->> Currently, Xen does not support eSPI interrupts, leading
->> to a data abort when such interrupts are defined in the DTS.
+On 2025-08-29 02:29, Jan Beulich wrote:
+> On 28.08.2025 23:33, Jason Andryuk wrote:
+>> On 2025-08-28 05:17, Jan Beulich wrote:
+>>> The present copy_page_sse2() is useful in case the destination page isn't
+>>> going to get touched again soon, or if we want to limit churn on the
+>>> caches. Just rename it, to fit the corresponding {clear,scrub}_page_*()
+>>> naming scheme.
+>>>
+>>> For cases where latency is the most important aspect, or when it is
+>>> expected that sufficiently large parts of a destination page will get
+>>> accessed again soon after the copying, introduce a "hot" alternative.
+>>> Again use alternatives patching to select between a "legacy" and an ERMS
+>>> variant.
+>>>
+>>> Don't switch any callers just yet - this will be the subject of subsequent
+>>> changes.
+>>>
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 >>
->> This patch introduces a separate array to initialize up to
->> 1024 interrupt descriptors in the eSPI range and adds the
->> necessary defines and helper function. These changes lay the
->> groundwork for future implementation of full eSPI interrupt
->> support. As this GICv3.1 feature is not required by all vendors,
->> all changes are guarded by ifdefs, depending on the corresponding
->> Kconfig option.
->>
->> Signed-off-by: Leonid Komarianskyi <leonid_komarianskyi@epam.com>
->>
->> ---
->> Changes in V5:
->> - no functional changes introduced by this version compared with V4, only
->>    minor fixes and removal of ifdefs for macroses
->> - added TODO comment, suggested by Oleksandr Tyshchenko
->> - changed int to unsigned int for irqs
->> - removed ifdefs for eSPI-specific defines and macros to reduce the
->>    number of ifdefs and code duplication in further changes
->> - removed reviewed-by as moving defines from ifdefs requires additional
->>    confirmation from reviewers
-
-
-Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-
-with the following addressed ...
-
-
->>
->> Changes in V4:
->> - removed redundant line with 'default n' in Kconfig, as it is disabled
->>    by default, without explicit specification
->> - added reviewed-by from Volodymyr Babchuk
->>
->> Changes in V3:
->> - introduced a new define NR_ESPI_IRQS to avoid confusion, like in the
->>    case of using NR_IRQS for espi_desc array
->> - implemented helper functions espi_to_desc and init_espi_data to make
->>    it possible to add stubs with the same name, and as a result, reduce
->>    the number of #ifdefs
->> - disable CONFIG_GICV3_ESPI default value to n
->>
->> Changes in V2:
->> - use (ESPI_MAX_INTID + 1) instead of (ESPI_BASE_INTID + NR_IRQS)
->> - remove unnecessary comment for nr_irqs initialization
->> ---
->>   xen/arch/arm/Kconfig           |  8 +++++
->>   xen/arch/arm/include/asm/irq.h | 24 +++++++++++++++
->>   xen/arch/arm/irq.c             | 56 +++++++++++++++++++++++++++++++++-
->>   3 files changed, 87 insertions(+), 1 deletion(-)
->>
->> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
->> index 17df147b25..43b05533b1 100644
->> --- a/xen/arch/arm/Kconfig
->> +++ b/xen/arch/arm/Kconfig
->> @@ -135,6 +135,14 @@ config GICV3
->>   	  Driver for the ARM Generic Interrupt Controller v3.
->>   	  If unsure, use the default setting.
->>   
->> +config GICV3_ESPI
->> +	bool "Extended SPI range support"
->> +	depends on GICV3 && !NEW_VGIC
->> +	help
->> +	  Allow Xen and domains to use interrupt numbers from the extended SPI
->> +	  range, from 4096 to 5119. This feature is introduced in GICv3.1
->> +	  architecture.
->> +
->>   config HAS_ITS
->>           bool "GICv3 ITS MSI controller support (UNSUPPORTED)" if UNSUPPORTED
->>           depends on GICV3 && !NEW_VGIC && !ARM_32
->> diff --git a/xen/arch/arm/include/asm/irq.h b/xen/arch/arm/include/asm/irq.h
->> index 5bc6475eb4..4443799648 100644
->> --- a/xen/arch/arm/include/asm/irq.h
->> +++ b/xen/arch/arm/include/asm/irq.h
->> @@ -32,6 +32,13 @@ struct arch_irq_desc {
->>   #define SPI_MAX_INTID   1019
->>   #define LPI_OFFSET      8192
->>   
->> +#define ESPI_BASE_INTID 4096
->> +#define ESPI_MAX_INTID  5119
->> +#define NR_ESPI_IRQS    1024
->> +
->> +#define ESPI_INTID2IDX(intid) ((intid) - ESPI_BASE_INTID)
->> +#define ESPI_IDX2INTID(idx)   ((idx) + ESPI_BASE_INTID)
->> +
->>   /* LPIs are always numbered starting at 8192, so 0 is a good invalid case. */
->>   #define INVALID_LPI     0
->>   
->> @@ -39,7 +46,15 @@ struct arch_irq_desc {
->>   #define INVALID_IRQ     1023
->>   
->>   extern const unsigned int nr_irqs;
->> +#ifdef CONFIG_GICV3_ESPI
->> +/*
->> + * This will also cover the eSPI range, as some critical devices
->> + * for booting Xen (e.g., serial) may use this type of interrupts.
->> + */
->> +#define nr_static_irqs (ESPI_MAX_INTID + 1)
->> +#else
->>   #define nr_static_irqs NR_IRQS
->> +#endif
->>   
->>   struct irq_desc;
->>   struct irqaction;
->> @@ -55,6 +70,15 @@ static inline bool is_lpi(unsigned int irq)
->>       return irq >= LPI_OFFSET;
->>   }
->>   
->> +static inline bool is_espi(unsigned int irq)
->> +{
->> +#ifdef CONFIG_GICV3_ESPI
+>> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 > 
-> Taking into account that with CONFIG_GICV3_ESPI=n we should never have
-> "irq" in eSPI range, do you really need this #ifdef? I think that
-> ASSERT_UNREACHABLE in espi_to_desc() is sufficient guard.
+> Thanks.
 > 
-> Also, IRQ line number belongs to eSPI range regardless of CONFIG_GICV3_ESPI,
-> value, so in my opinion is_espi() should always return correct value for
-> a given "irq".
-
-  ... I agree with Volodymyr's suggestion for is_espi() to always return 
-correct value for a given "irq".
-
-
+>>> To avoid the NOP padding (also in clear_page_hot()) we could use a double
+>>> REP prefix in the replacement code (accounting for the REX one in the code
+>>> being replaced).
+>>
+>> Did my tool chain do it automatically?
+>>
+>> 0000000000000000 <.altinstr_replacement>:
+>>      0:	b9 00 10 00 00       	mov    $0x1000,%ecx
+>>      5:	f3 f3 a4             	repz rep movsb %ds:(%rsi),%es:(%rdi)
 > 
->> +    return (irq >= ESPI_BASE_INTID && irq <= ESPI_MAX_INTID);
+> Interesting. That looks like a bug to me, when source code merely has
 > 
-> Also, you don't need parentheses here.
+>          rep movsb
 > 
->> +#else
->> +    return false;
->> +#endif
->> +}
->> +
->>   #define domain_pirq_to_irq(d, pirq) (pirq)
->>   
->>   bool is_assignable_irq(unsigned int irq);
->> diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
->> index b8eccfc924..61c915c3f9 100644
->> --- a/xen/arch/arm/irq.c
->> +++ b/xen/arch/arm/irq.c
->> @@ -19,7 +19,11 @@
->>   #include <asm/gic.h>
->>   #include <asm/vgic.h>
->>   
->> +#ifdef CONFIG_GICV3_ESPI
->> +const unsigned int nr_irqs = ESPI_MAX_INTID + 1;
->> +#else
->>   const unsigned int nr_irqs = NR_IRQS;
->> +#endif
->>   
->>   static unsigned int local_irqs_type[NR_LOCAL_IRQS];
->>   static DEFINE_SPINLOCK(local_irqs_type_lock);
->> @@ -46,6 +50,53 @@ void irq_end_none(struct irq_desc *irq)
->>   }
->>   
->>   static irq_desc_t irq_desc[NR_IRQS - NR_LOCAL_IRQS];
->> +#ifdef CONFIG_GICV3_ESPI
->> +/*
->> + * TODO: Consider allocating an array dynamically if
->> + * there is a need to enable GICV3_ESPI by default.
->> + */
->> +static irq_desc_t espi_desc[NR_ESPI_IRQS];
->> +
->> +static struct irq_desc *espi_to_desc(unsigned int irq)
->> +{
->> +    return &espi_desc[ESPI_INTID2IDX(irq)];
->> +}
->> +
->> +static int __init init_espi_data(void)
->> +{
->> +    unsigned int irq;
->> +
->> +    for ( irq = ESPI_BASE_INTID; irq <= ESPI_MAX_INTID; irq++ )
->> +    {
->> +        struct irq_desc *desc = irq_to_desc(irq);
->> +        int rc = init_one_irq_desc(desc);
->> +
->> +        if ( rc )
->> +            return rc;
->> +
->> +        desc->irq = irq;
->> +        desc->action  = NULL;
->> +    }
->> +
->> +    return 0;
->> +}
->> +#else
->> +/*
->> + * This function is stub and will not be called if CONFIG_GICV3_ESPI=n,
->> + * because in this case, is_espi will always return false.
-
-  This comment should also be updated.
-
->> + */
->> +static struct irq_desc *espi_to_desc(unsigned int irq)
->> +{
->> +    ASSERT_UNREACHABLE();
->> +    return NULL;
->> +}
->> +
->> +static int __init init_espi_data(void)
->> +{
->> +    return 0;
->> +}
->> +#endif
->> +
->>   static DEFINE_PER_CPU(irq_desc_t[NR_LOCAL_IRQS], local_irq_desc);
->>   
->>   struct irq_desc *__irq_to_desc(unsigned int irq)
->> @@ -53,6 +104,9 @@ struct irq_desc *__irq_to_desc(unsigned int irq)
->>       if ( irq < NR_LOCAL_IRQS )
->>           return &this_cpu(local_irq_desc)[irq];
->>   
->> +    if ( is_espi(irq) )
->> +        return espi_to_desc(irq);
->> +
->>       return &irq_desc[irq-NR_LOCAL_IRQS];
->>   }
->>   
->> @@ -79,7 +133,7 @@ static int __init init_irq_data(void)
->>           desc->action  = NULL;
->>       }
->>   
->> -    return 0;
->> +    return init_espi_data();
->>   }
->>   
->>   static int init_local_irq_data(unsigned int cpu)
+> Did you also check what copy_page_movsq (i.e. "rep movsq") expands to?
+> What gas version is this? With 2.45 I get
 > 
+> 0000000000000000 <.altinstr_replacement>:
+>     0:	b9 00 10 00 00       	mov    $0x1000,%ecx
+>     5:	f3 a4                	rep movsb (%rsi),(%rdi)
+> 
+> (the omission of segment indicators when there's no segment override is
+> indeed a change in 2.45).
 
+Oh, sorry, I forgot I had the extra rep in when I looked at the 
+disassembly.  It is as you show.
+
+Sorry for the noise.
+
+-Jason
 
