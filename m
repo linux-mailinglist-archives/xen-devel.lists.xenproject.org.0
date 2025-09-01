@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BD73B3E68A
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 16:03:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1104912.1455932 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B823B3E6D9
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 16:18:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1104946.1455951 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut57K-0003H1-14; Mon, 01 Sep 2025 14:02:42 +0000
+	id 1ut5Lx-00060q-IB; Mon, 01 Sep 2025 14:17:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1104912.1455932; Mon, 01 Sep 2025 14:02:41 +0000
+Received: by outflank-mailman (output) from mailman id 1104946.1455951; Mon, 01 Sep 2025 14:17:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut57J-0003E3-Tc; Mon, 01 Sep 2025 14:02:41 +0000
-Received: by outflank-mailman (input) for mailman id 1104912;
- Mon, 01 Sep 2025 14:02:40 +0000
+	id 1ut5Lx-0005zA-FO; Mon, 01 Sep 2025 14:17:49 +0000
+Received: by outflank-mailman (input) for mailman id 1104946;
+ Mon, 01 Sep 2025 14:17:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=noMw=3M=epam.com=Oleksandr_Tyshchenko@srs-se1.protection.inumbo.net>)
- id 1ut57I-0003Dx-GE
- for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 14:02:40 +0000
-Received: from AM0PR83CU005.outbound.protection.outlook.com
- (mail-westeuropeazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c201::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=UGQU=3M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ut5Lw-0005z4-1G
+ for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 14:17:48 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 513cd045-873c-11f0-8dd7-1b34d833f44b;
- Mon, 01 Sep 2025 16:02:38 +0200 (CEST)
-Received: from PA4PR03MB7038.eurprd03.prod.outlook.com (2603:10a6:102:e1::6)
- by PA4PR03MB6782.eurprd03.prod.outlook.com (2603:10a6:102:e3::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.21; Mon, 1 Sep
- 2025 14:02:32 +0000
-Received: from PA4PR03MB7038.eurprd03.prod.outlook.com
- ([fe80::62a8:3ed7:1b8e:677b]) by PA4PR03MB7038.eurprd03.prod.outlook.com
- ([fe80::62a8:3ed7:1b8e:677b%4]) with mapi id 15.20.9073.026; Mon, 1 Sep 2025
- 14:02:32 +0000
+ id 6d4bacbc-873e-11f0-8dd7-1b34d833f44b;
+ Mon, 01 Sep 2025 16:17:44 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-afcb7a16441so682661166b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 07:17:44 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b04312fc8eesm206241566b.59.2025.09.01.07.17.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 01 Sep 2025 07:17:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,175 +45,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 513cd045-873c-11f0-8dd7-1b34d833f44b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q/jtqrcNx7Uos3GBXRtj0DETlRmRItZfGhqCD1Ksol8t8BZY2GrVGMpVAqCQt6bH3tNn2n7FV3aYmr4ekelSayMT3hQjR+/npzK2N6mS1OsWofPewTBH0AID8O7UncphJGGTaKe6hL7jtUGlQ11U3qUJpPGl6e3dfPrlTPszFWJj5sAntmmPpyPMpW6LfGb3t4UOGMjmZ08ss5OpkGQhg2dKLvWv4JwaMrDYHgMrrZCClwGt+s1poIsKXeV0udECqAY5Jhj822V6IWgUuMeiRjfAEgd0xG/nhuMV/A4Z54ByzZHxjZUVloEoDh7noS+BITtzWz5C9ivxqqTgVF8Dcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=B0kqapVvPaKhbnW+HIkL0/A0sxyvBcPC+2xYi+c0WuU=;
- b=wTxhdi9/pAQXZk1XS3O7bJdCcRtqNalwTuNKqP8PBeS1opPm8GFcjpsoxRMnLpyHsaoWdM+0Wm9fhKY4/ZWDcykXb9IkMMVr+P3dSOOxpMHWQ6dcg/uSU5fLRxA+OxBNo/bGiPo9URRdz/pVSOTOU87ix1eR0stLu+ANaZ179jT/YcRzCoFXXZk2TAWC/oenW/QsCoNqbk5Rd9t4n7jwol3trj2gQIdjWqtNkWymdWO1OBRGLjY+rGNV7kpYIn+haOnC968AQWCXAMghRdeYbv9ksMoTLw4wbQYQzL/sa/PJf3ZShrwagi5BoDweJOqv5d1lmsvQ/onbufDzEusMoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B0kqapVvPaKhbnW+HIkL0/A0sxyvBcPC+2xYi+c0WuU=;
- b=kcCz6AsVnA6KBhRfdeotLn3jwmOHvfKbcbRmyyaWyZyAKCN9nR+kNP/JeQxDWkOZ+OV7Q+TmjX6lFDKogA90+ry1mBeunnJdrY1QTr5hy3LVYZBPlJ7/mklo0M30AHVmbuzzJkJfneAk++MIQRgM5DvO7I6v18LVWntVckBHYMs8VJ9dcexytJWbByfR6n8Pmf7HhKtOdSScTHelxWwt5gD10p6oVDa6V2909NIzFoMUhtAvGC9uUlq4N1oICd2pLNwhFGLIh710CTJDgbWr64LS54rYbQlKkZYy+bdK+JqhXeEznHRmh/mCqjL56nEX7/2lw2lVdTsz/uIcadyKMA==
-From: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
-	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH] xen/arm: platform: Select GICV3 dependency for RCAR4
-Thread-Topic: [PATCH] xen/arm: platform: Select GICV3 dependency for RCAR4
-Thread-Index: AQHcG0kPDoyzfEe8LUCSfOma0fVaUg==
-Date: Mon, 1 Sep 2025 14:02:32 +0000
-Message-ID: <20250901140231.1322170-1-oleksandr_tyshchenko@epam.com>
-Accept-Language: en-US, ru-RU
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PA4PR03MB7038:EE_|PA4PR03MB6782:EE_
-x-ms-office365-filtering-correlation-id: e7a45d58-4967-4692-1754-08dde9603255
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|42112799006|376014|1800799024|38070700018;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?Ep1uFyrqeiMUL6r7fxQQiBCOL2JjpFmdZ+O481Ui/7kMGYnOf2zMEtVNXk?=
- =?iso-8859-1?Q?WPcqdbOf3Gm547r7hmGuLLxYFL2nu+5X0Rqq00bZcYgQvCk9b/QYED128/?=
- =?iso-8859-1?Q?ZAVzKc2JBwIbuTgHMBSwlPluxH9ytIhRwWfHlVX0+pfM1vpfCDQYzjzIfU?=
- =?iso-8859-1?Q?eyFu9WmB0i10To16MnBWrLTQ8g1uwcHF7a5h1JlwdbPtZn/UilT8QAGXy7?=
- =?iso-8859-1?Q?K2EJ11jzHmW8HfakpEACdikcCihBavL6ycNEx4kkL3YZErzxN6/1zyj26u?=
- =?iso-8859-1?Q?CWE5xyjhDdafPFnR3BJYvrstSygQmxmETlkHQWsfZodsuSQBvdAv8wzM0r?=
- =?iso-8859-1?Q?FOWoSryjEIu06FwBx8j1xalzEuaWMUtp+g1z0JQ0Evxkjj6T6TJ2cs1JQv?=
- =?iso-8859-1?Q?i6DKOTBJ0KD+5k/xP8xGO6OLQ1KhCnfqTsBvJefG6qtfbvwD5tnJ3y9PY5?=
- =?iso-8859-1?Q?I4ErdmiBdmeDQnzIT7tQOm+WMj2XLYrIbs1OOXoApoUVJz4lQT8g1PPO9v?=
- =?iso-8859-1?Q?koiaK+5uyOEbfOqz8ceJZeV+ei3CcQGtwGwuaZY8rDZFfOJd20DtcunrpH?=
- =?iso-8859-1?Q?hMZsCQp/glkFOxaYJAQk21BVAXaNzQcSdYAWlye/B2CgXTBM6C5/1VFJQr?=
- =?iso-8859-1?Q?Z5lWNg76I5F5x/SMu81CTcuKb5PtMHEtuXWNwWO9i4mhhm3H7oTqjaYBcq?=
- =?iso-8859-1?Q?NuaSdLF3dwCkgBDqKuRuofjLo+0Kiqk/l1qvbQacog1/sOLdAZNaxUA+uy?=
- =?iso-8859-1?Q?uojGQw3kQ/AhmfM98ecAV4vy5mKwedY5UPLgGBns0NAbWaHKynkRnjrxnR?=
- =?iso-8859-1?Q?5tn3nadQrPOr9LO9WdgMkJ6d+DXyWZfhUcqjoYnP4GxVBsEt1SGRky+jSo?=
- =?iso-8859-1?Q?SVGWw/ycFwGCyrUXb80ewiQXqclVhettMGkIgSL89/TDAIXPVkSKkA3cwg?=
- =?iso-8859-1?Q?nhxINDD9O1Ep5J8wZXYRz+vMFumF6y5d/ksiy+NdU+Ylp23oUi1wSICU2w?=
- =?iso-8859-1?Q?Rq8DvbFkq+MRxClEW0UkHqm8tWQtMz3moovUAFX+JB/aGX5RWHP7MUCugu?=
- =?iso-8859-1?Q?qtZPJxRpW7ExXh76A3ioun+gGEmI1njtP5b5ANuT1jnEyMy5TBes4AmKXk?=
- =?iso-8859-1?Q?+v7vvgWeoU/13ZbnbVSljBvBgH+H9AVKk4LoQldjXZ8pfKkh0hiqWyw6GU?=
- =?iso-8859-1?Q?QYlWvuvPtO2hLH/iUzi8G6WkrUqE8EiuEc7JqQpmTvpG+7Hz7dPU5ZHSIg?=
- =?iso-8859-1?Q?CGuEQCwIQuYoi5STIhsevdqpUR2uX0REKd0WqKF4BaWayqMFrZWS4LCk48?=
- =?iso-8859-1?Q?y5lsUR0TuQt6JFQDw5c1i4h0LLNMOiD0M+y1cSpWMIMIToe3gCTXWlSxB5?=
- =?iso-8859-1?Q?zjtDrd4cnqX7AKh6ln7j75cj9w/ocJCrXMjN5aVOtVSJz52ziUTPw7qvQL?=
- =?iso-8859-1?Q?NzlvM268zX5+1PvRABjgf4N4NhnmAejAmNebtuJ7TvcNY69BqZTIiPuD0/?=
- =?iso-8859-1?Q?LAOTeFRUeELKiiCPfvo17EZ1E/E03MZLfpjgwjZzxG0w=3D=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR03MB7038.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(42112799006)(376014)(1800799024)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?QI+APgQg0nfP3i+HVP3WBtvtVuZk/Dm4BGnhxG63jQARY2IUbX8l8Yw/0T?=
- =?iso-8859-1?Q?gnuy6awMTXFGrSj0wyWJH/0Q4RPIC/anqyLkNZmT4CRlWAgOB2pLs+Lrcf?=
- =?iso-8859-1?Q?jRA5H5PTx5ZxfLHxQYr34gOWYq4wVlu/RHmfD0/N2jwT0+abdalxNgGQy4?=
- =?iso-8859-1?Q?xfrhtgxvG6rQVObOpeIT978RiNq9ykzapYyAJodxh03otKTfdzLiX49zhD?=
- =?iso-8859-1?Q?dVETjcC9lAt7+BY08jhoJofFokSZSuaEI5B2N1V+ly6y2WngXp0kSdWD9j?=
- =?iso-8859-1?Q?V2f+TmY1Siq2EbQ/gRIquZS+S3U7vzJsU45i55O0HEZ8ILIik3o+MxFgxH?=
- =?iso-8859-1?Q?WQwUTSA5cxokRGuK8BQwuqoYe9xbMn68APZuMgIx49zQFWKb+951u72Huc?=
- =?iso-8859-1?Q?Zex+USK8XJ02kP3FIIoBcc65ZQqcKNq6tTITT78nMx5LpI3AUoi9isrjVX?=
- =?iso-8859-1?Q?0B+LUPDC9OlXQiOyxABHh1UrRcRHHSh0JXI3KPxwxdzmJoDKcuCD2wm+I3?=
- =?iso-8859-1?Q?oqrLMQRJ6AlY9tQINA1MnVEziiPwm+GUug16Itm/EsYPlfVf1AfrpcHWCV?=
- =?iso-8859-1?Q?WuJl5TyFqq+kxeF3Zr1ATYmGjeBJx60QbvnXMsyz57VpNVbN3u10n1x+LW?=
- =?iso-8859-1?Q?8nblS7Is7NpiVyDvjvdN7FgHB4Ht2xOy0GyJo6CPEhzv2S5ukQedN2FlNL?=
- =?iso-8859-1?Q?tpcl2LDZK7yV/ZSRbV1ZfSHoPC2yIQ9+NfqYRGU4SBH4wqr1jFd8wJ+5j2?=
- =?iso-8859-1?Q?NMzejnFmf41XM1/BeOmFqsiNXsKzEFpqtnbGeAMcLzmhzP+9TJggcqVSad?=
- =?iso-8859-1?Q?24PMHmEYfFEbdE5P0xB7Ok7XF9MKpa7mbeogHU1RbbnDYXgq4qowWymK7m?=
- =?iso-8859-1?Q?SaKu8/rhsWPBORaXUIM/6Kjxd/O5yX97ZwYIruFJZtvUomiBTUcK20cYLN?=
- =?iso-8859-1?Q?Za+IhbSS8s7iGQkNoQtTcRlg9MH0ocHfSJDWLDbkLErs7+XE3boOD5qEdS?=
- =?iso-8859-1?Q?Wfn86wcvQ2DKNMaWBvFh86MdRSW7Nk1CUFkazSKhWR0/icZ2DNxFcKP2no?=
- =?iso-8859-1?Q?Gzu04NvZp1obqyRiPt+D6zpfNTSZv+PJ6VP02c7JuAkeNse2Kkfde8U+5W?=
- =?iso-8859-1?Q?vEE68wgay9A+45duo9nR58g+odnIecVEvm1oQJZykT2bo2JtImFC7539Oc?=
- =?iso-8859-1?Q?Y/9kB2ntmdLyK9OF9uJrJVcAjFk9qnBoGbReVNt6qjoA7KRmjCw6gsDpZE?=
- =?iso-8859-1?Q?dX3ZTxYoWsXmzzHNZjsW1+Ba06eK7PxyW+Ubhv+d8qwd3JvJOnFHYL1pmy?=
- =?iso-8859-1?Q?TpO2FOuEJi8PI9vC3qY4QEWFzA7BOBiHWJ6GAJPK/xBHCe2GQI5joSSH7C?=
- =?iso-8859-1?Q?pgOehHPZAcE/dqVGqShmzHuDJNFxYHvVfaC2v/hx2n6PSH4rbA7f7AyBsG?=
- =?iso-8859-1?Q?Mvk9kdCYTxvPadXAYuFpxz+7I7EPGkE5i9lavDWBFUszvzyqPSw0abFxqI?=
- =?iso-8859-1?Q?7hZntqNaeD6H/tGM5VxSkQuVyYT+f/IU//74/NsmgChZO7CgqsbCfuwwW8?=
- =?iso-8859-1?Q?MK4tgE1Nw92tgHQgFtFoPZ1syXhkl4yXI0Z9KoYw5PuGbXH7TaBYmVBARj?=
- =?iso-8859-1?Q?C+skCSIo0rekpM14kB3IJR0NtKMJ3lZml2n1NQy1cPckta9iWDpDxbYIDE?=
- =?iso-8859-1?Q?0Q4ezR17VX8Z9VvFFFI=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 6d4bacbc-873e-11f0-8dd7-1b34d833f44b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1756736263; x=1757341063; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=MYp/6n2FjRcTOZTBHgjlU3II5P2L4FoA2cfXoLeKOEo=;
+        b=PHuS0yf0Vb8bEHtA4zuvmnm8Q0yHgsXAtFplxw+raupYs568RIbh9ndTb8gGGuwmSv
+         e2894QNucSDc6WMpkKY/N8SUbA8luRBmbIPgRaHXAQF2vPbnK8eCwQnzMf7nbqIBvgBo
+         gZz3HfIDfb2FeKp4+vw20iOdHDeFQPcgM7WHn1G3+7BNgCq/u87DT9GDx3urC0ZOW2+O
+         TeegVkE8jYZdNWKEzMA8duyd+rontDq4MxQGjTcGnnFS4x7I/rshNveA8GtWCZD/gd9x
+         kmIYHwTVQ6qYVkYvMeYqfLEV+D0MMnXdWUs6EuiehrYQPi0+5c58R0waJDj+N1HPi5Ws
+         o1rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756736263; x=1757341063;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=MYp/6n2FjRcTOZTBHgjlU3II5P2L4FoA2cfXoLeKOEo=;
+        b=Wu5iYC/oTLHO6Qtw3Zke9wI8es2Q9aSRZKvI607EU8fzb4Uka3NJS7rNN7z28xNWte
+         ZBX+6njJGWBrD59VNx1CY6gUdH4yUIkTAIY6hwcMV0XhTvAAZvfx9S6ZMmjgMs7qljqi
+         CJndZ1Fl6UY1N0SuaYpxUhN7fd+GNCche/AiECBaunTDGFGKcxS2XTt3+hhXY6vx/8S2
+         3QyfwtdiWJ/MC7UDWx8uokcJEWMlDsKQSNTPNLXqVfhekGO92o/merhUoGQm8Aedcdxy
+         /yLQ8L1OYPTxynNOSACJvXfegilVu9YSmSwuz5hrXuqoD+HhDHi0Bj6ESHRu5hwNotxp
+         wiAA==
+X-Forwarded-Encrypted: i=1; AJvYcCWmyqYmDt8xpL+PBAZuZRiWnoTkjLrJSiIbwTtNIwYd/IZj1WsinfMHFSZ1JGQ6IKLlyJnmU67TPYY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzJp0XY5xCWtCBDD4W+ESoHl6CwUENG1DrI0pgaWwN+fMHPtUay
+	eLnhz6i2o6w+Kc9tRweXbkD7o9g6+wEBmxYpEhcUPnvtfFiGHxwK5Q/7X9gkoyPNFzWzClTIEHR
+	dN0c=
+X-Gm-Gg: ASbGnct1dAPq21vctyAwxAE+ZCO/MQXaygBng3u/wrQF9gv9wRw9J0pXOpEcrH+UOFs
+	clfg0miWS9vrr48t9qewUqDOuEzOTPEmnctafUjY7NkcUJAE2rK926vqnTDCS1akq8LquIw5NvW
+	f6cF3jcLbgawDF8uhvaFGUFfYEibPghIjApe+oiuiE+QEh/QrnVc2l4bfYxGhtxNaJcuXNXY9Gc
+	bnBgE9yGcYE53Yoks36+PF2P2cWJFaIYCy15/A/DE015jDF/acBd16DYdAzApobk7uSRol1qCYi
+	7oDxyokuAjQx2dWuc0Q/xyUL0zed/v4PChOW/U8giVX4Hz2bZjcC2ikfG8cL0VJiD8kGYxrOWle
+	Ft/Pf9EjudL/8m0OOc6oD/lLHw823QBN5FiHSPCCbrpxcihRPjeavSzB9eqp0J3uAZ8hqIag9R1
+	2V9FXBSuEjSmr8WpVcog==
+X-Google-Smtp-Source: AGHT+IHzhjs/1H45IS3BGqVfo7ynlzuAVR+M4B1TH4b/4tLxq2Qa+Z7ZGUE5gvdh+aFe7Pd6cA9P4A==
+X-Received: by 2002:a17:907:2d27:b0:b04:27a9:cfe1 with SMTP id a640c23a62f3a-b0427a9df6dmr327800066b.47.1756736263378;
+        Mon, 01 Sep 2025 07:17:43 -0700 (PDT)
+Message-ID: <02689181-5d1a-453b-9abb-c0d7664758b7@suse.com>
+Date: Mon, 1 Sep 2025 16:17:42 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR03MB7038.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e7a45d58-4967-4692-1754-08dde9603255
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Sep 2025 14:02:32.6702
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xgqVOskkBkkQPpW7D1DtqPKfPLs1N8NYQJF8m8YQR15Dfg4sBfRGy4Z0mdSi7b3ADwbcGl/joEnby8bv1JqoWg2GDBdFvxvLwnlmznHCs98=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR03MB6782
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 23/23] x86/pv: Adjust eflags handling for FRED mode
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250828150409.901315-1-andrew.cooper3@citrix.com>
+ <20250828150409.901315-24-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250828150409.901315-24-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The Renesas R-Car Gen4 platform requires the GICv3 driver,
-including support for the Interrupt Translation Service (ITS).
+On 28.08.2025 17:04, Andrew Cooper wrote:
+> ERETU, unlike IRET, requires the sticky-1 bit (bit 2) be set, and reserved
+> bits to be clear.  Notably this means that dom0_construct() must set
+> X86_EFLAGS_MBS it in order for a PV dom0 to start.
+> 
+> Adjust arch_set_info_guest*() and hypercall_iret() which consume flags to
+> clamp the reserved bits.
+> 
+> This is a minor ABI change, but by the same argument as commit
+> 9f892f84c279 ("x86/domctl: Stop using XLAT_cpu_user_regs()"), this change will
+> happen naturally when the vCPU schedules.
 
-Without explicitly selecting GICV3, it was possible to create a
-configuration with RCAR4=3Dy and GICV3=3Dn, leading to a build failure
-due to unmet dependencies.
+It's no that similar, is it? MBS will be observed set once guest context is
+entered, irrespective of any scheduling. So it's entirely benign if we set
+it up-front, except of course for a back-to-back set/get.
 
-GICv3 driver (GICV3) [Y/n/?] (NEW) n
-WARNING: unmet direct dependencies detected for HAS_ITS
-  Depends on [n]: GICV3 [=3Dn] && !NEW_VGIC [=3Dn] && !ARM_32 [=3Dn]
-  Selected by [y]:
-  - RCAR4 [=3Dy] && <choice> && ARM_64 [=3Dy]
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> v2:
+>  * New
+> 
+> The handling of VM is complicated.
+> 
+> It turns out that it's simply ignored by IRET in Long Mode (i.e. clearing it
+> commit 0e47f92b0725 ("x86: force EFLAGS.IF on when exiting to PV guests")
+> wasn't actually necessary) but ERETU does care.
+> 
+> But, it's unclear how to handle this in in arch_set_info().  We must preserve
+> it for HVM guests (whih can use vm86 mode).  PV32 has special handling but
+> only in hypercall_iret(), not in arch_set_info().
 
-...
+I think we need to either reject or clear VM, NT, IOPL, and whatever else
+would make ERETU unhappy (for IOPL we already do so). It simply is of no
+use to ...
 
-arch/arm/gic-v3-its.c: In function 'gicv3_its_map_guest_device':
-arch/arm/gic-v3-its.c:729:41: error: 'struct vgic_dist' has no member named=
- 'its_devices'
-  729 |     struct rb_node **new =3D &d->arch.vgic.its_devices.rb_node, *pa=
-rent =3D NULL;
-      |                                         ^
-arch/arm/gic-v3-its.c:755:28: error: 'struct vgic_dist' has no member named=
- 'its_devices_lock'
-  755 |     spin_lock(&d->arch.vgic.its_devices_lock);
-      |                            ^
-arch/arm/gic-v3-its.c:768:54: error: 'struct vgic_dist' has no member named=
- 'its_devices'
-  768 |                 rb_erase(&temp->rbnode, &d->arch.vgic.its_devices);
-      |                                                      ^
-In file included from ./include/xen/sched.h:6,
-                 from ./include/xen/iocap.h:10,
-                 from arch/arm/gic-v3-its.c:13:
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -1273,7 +1273,7 @@ int arch_set_info_guest(
+>          v->arch.user_regs.rax               = c.nat->user_regs.rax;
+>          v->arch.user_regs.rip               = c.nat->user_regs.rip;
+>          v->arch.user_regs.cs                = c.nat->user_regs.cs;
+> -        v->arch.user_regs.rflags            = c.nat->user_regs.rflags;
+> +        v->arch.user_regs.rflags            = (c.nat->user_regs.rflags & X86_EFLAGS_ALL) | X86_EFLAGS_MBS;
+>          v->arch.user_regs.rsp               = c.nat->user_regs.rsp;
+>          v->arch.user_regs.ss                = c.nat->user_regs.ss;
+>          v->arch.pv.es                       = c.nat->user_regs.es;
+> @@ -1297,7 +1297,7 @@ int arch_set_info_guest(
+>          v->arch.user_regs.eax               = c.cmp->user_regs.eax;
+>          v->arch.user_regs.eip               = c.cmp->user_regs.eip;
+>          v->arch.user_regs.cs                = c.cmp->user_regs.cs;
+> -        v->arch.user_regs.eflags            = c.cmp->user_regs.eflags;
+> +        v->arch.user_regs.eflags            = (c.cmp->user_regs.eflags & X86_EFLAGS_ALL) | X86_EFLAGS_MBS;
+>          v->arch.user_regs.esp               = c.cmp->user_regs.esp;
+>          v->arch.user_regs.ss                = c.cmp->user_regs.ss;
+>          v->arch.pv.es                       = c.cmp->user_regs.es;
 
-...
+... accept the bits here, just for the first exit to guest mode to fault on
+the ERETU. The guest would have a hard time to recover from that, I expect.
+Yet perhaps we should do this only conditionally when FRED is active. Then
+again a VM migrating from a pre-FRED host to a FRED one might observe the
+(minor) behavioral change later on.
 
-Fix this by adding "select GICV3" to the RCAR4 Kconfig entry.
+> --- a/xen/arch/x86/hvm/domain.c
+> +++ b/xen/arch/x86/hvm/domain.c
+> @@ -194,7 +194,7 @@ int arch_set_info_hvm_guest(struct vcpu *v, const struct vcpu_hvm_context *ctx)
+>          uregs->rsi    = regs->esi;
+>          uregs->rdi    = regs->edi;
+>          uregs->rip    = regs->eip;
+> -        uregs->rflags = regs->eflags;
+> +        uregs->rflags = (regs->eflags & X86_EFLAGS_ALL) | X86_EFLAGS_MBS;
+>  
+>          v->arch.hvm.guest_cr[0] = regs->cr0;
+>          v->arch.hvm.guest_cr[3] = regs->cr3;
+> @@ -245,7 +245,7 @@ int arch_set_info_hvm_guest(struct vcpu *v, const struct vcpu_hvm_context *ctx)
+>          uregs->rsi    = regs->rsi;
+>          uregs->rdi    = regs->rdi;
+>          uregs->rip    = regs->rip;
+> -        uregs->rflags = regs->rflags;
+> +        uregs->rflags = (regs->rflags & X86_EFLAGS_ALL) | X86_EFLAGS_MBS;
 
-Fixes: 336fc7a19b49 ("xen/arm: platform: Add support for R-Car Gen4")
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
----
- xen/arch/arm/platforms/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+Why would the HVM code need changing at all? We never ERETU there.
 
-diff --git a/xen/arch/arm/platforms/Kconfig b/xen/arch/arm/platforms/Kconfi=
-g
-index c8bc0bfae3..888d0b85d5 100644
---- a/xen/arch/arm/platforms/Kconfig
-+++ b/xen/arch/arm/platforms/Kconfig
-@@ -33,6 +33,7 @@ config RCAR3
- config RCAR4
- 	bool "Renesas R-Car Gen4 support"
- 	depends on ARM_64
-+	select GICV3
- 	select HAS_SCIF
- 	select HAS_ITS
- 	select IPMMU_VMSA
---=20
-2.34.1
+Jan
 
