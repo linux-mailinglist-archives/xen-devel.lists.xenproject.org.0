@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39310B3F0DE
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 00:10:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1105407.1456409 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C0BDB3F0E0
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 00:10:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1105408.1456417 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utCjU-0007Kg-SE; Mon, 01 Sep 2025 22:10:36 +0000
+	id 1utCjV-0007Wv-Nk; Mon, 01 Sep 2025 22:10:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1105407.1456409; Mon, 01 Sep 2025 22:10:36 +0000
+Received: by outflank-mailman (output) from mailman id 1105408.1456417; Mon, 01 Sep 2025 22:10:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utCjU-0007FB-Fc; Mon, 01 Sep 2025 22:10:36 +0000
-Received: by outflank-mailman (input) for mailman id 1105407;
- Mon, 01 Sep 2025 22:10:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1utCjV-0007M9-6O; Mon, 01 Sep 2025 22:10:37 +0000
+Received: by outflank-mailman (input) for mailman id 1105408;
+ Mon, 01 Sep 2025 22:10:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=pPXY=3M=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1utCjS-00055o-NV
+ id 1utCjS-0005XP-Vp
  for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 22:10:34 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7a98470c-8780-11f0-8dd7-1b34d833f44b;
- Tue, 02 Sep 2025 00:10:33 +0200 (CEST)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-55f7a34fb35so1270886e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 15:10:33 -0700 (PDT)
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7b522cba-8780-11f0-8adc-4578a1afcccb;
+ Tue, 02 Sep 2025 00:10:34 +0200 (CEST)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-55f69cf4b77so3061874e87.2
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 15:10:34 -0700 (PDT)
 Received: from yp-VivoBook-ASUSLaptop-M1503QA-M1503QA.. ([95.67.15.120])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5608279307asm123038e87.75.2025.09.01.15.10.31
+ 2adb3069b0e04-5608279307asm123038e87.75.2025.09.01.15.10.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Sep 2025 15:10:31 -0700 (PDT)
+ Mon, 01 Sep 2025 15:10:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a98470c-8780-11f0-8dd7-1b34d833f44b
+X-Inumbo-ID: 7b522cba-8780-11f0-8adc-4578a1afcccb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756764632; x=1757369432; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1756764634; x=1757369434; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Seeyes3vY54fd1iXGBX0pVpgCs7BHM5X3gEx1tAo94Y=;
-        b=BK6ECKdm0QAJkSxTS9j1iOvns+W8+lf78lpJaGTdVEsmKOhtKnQcqUfC9vpK/znma6
-         f2e/+0xZtY+g3ixFop3ISP6P30XFNziscIDRemlk2sW2vIK8VBDUC4vOwNl6uknzHw1y
-         /pJ3y6Q1MfDRqPDR5ZvB9vS6wXw1BfRpmDrz/HkrH5Qf2JdIlXGJrLxN1KooSjwqF2u5
-         D1BqWJxKkUAVXhzyHsEta9d/WapEfkWYCDvRho01qr48nia3kKFqIFCtaQ5peWrCg75h
-         wJTWs2UKCCS3z3sMoCVhNkKuA4OHWI/HQUc8gKm4Ey+G4TlNWXRM5fWbEARi48UpZ2nq
-         n2mQ==
+        bh=RUm3eao0nv7lQDT5rWWvwgkJGYkE0FYcno3r5As+ock=;
+        b=gMC/XyEF3f85vCpaLUurs0tmK7pd5exHkoE5EKQwKE2lGnHCkfJLvkGn9S6vQlBoqU
+         ty9E01XQsuqUc3UnruMF/dYVUVX/BE+Q58ArXY6MPHYXRuf9Vm9EERGD+sCbonW8EafB
+         jfx3aMVaPq7zPPHIt84JlznJ9SuedQzpfhw9AXc2ji6b/RDg8/jivCWQO7cLz4s3z1HI
+         E7Y1W4A8fgCs035XNPLoxV9lM9ClG+11FqlNH4A+r7WIXDDDPdqmipsp88Ek65g+T2NK
+         1zffexZunfGprfoYyE01iBlEEzZ8scxO/PTwyiDGiQ2Emg4/byV7zrMGiRYdeGKAXwmi
+         mrqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756764632; x=1757369432;
+        d=1e100.net; s=20230601; t=1756764634; x=1757369434;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Seeyes3vY54fd1iXGBX0pVpgCs7BHM5X3gEx1tAo94Y=;
-        b=mkPNlY7UVqcraRGSq9VmjqswVpZNWZpRWMfNDGDoBactoGcXYPrLVSf7TIQv6+9rMX
-         puhEe4M8QvsHH2abmvQ7lMWtdUCvO920DWXzW+bgmYo8YjtaV9YxQM7CwgOOdlS4gryy
-         YuMs+U+9XRz/3Zqw8WoGMxsk6wYvoJpMSB7/ypKll5cWFrUtD0lbGkyTllNRMlSt3ERr
-         afIh0NqXWfK1k7taR+YE4FzG08QyISd1qg9v1WTBYC0xBXBQZuyOSCCkEnfw79uzJ5mn
-         wSusw6RkZKwGjyxRF69tQSGRGOH8gb2Ic7YgFR3KzDsSkq1Aos4mjylJq7aCOf0tUKV2
-         Cw0Q==
-X-Gm-Message-State: AOJu0YyKyLzdhP1zTt++TWi4CDyVrp2NmEnh91ggPQSSDCWx5El8rRor
-	2mMbRDKSqLYZ3ePjo7/B+M0AuRTk5Aqs5bbgJOuWikqx9ZRS+mzifPI3gjHFUhqa
-X-Gm-Gg: ASbGncuYWVxgRzsQQYEJsB1yljoJ2IIoNydfHSCCA+eQ8NBT5xR3taAZX1aUAwqPLjA
-	NYAbBQMrpNDvE0Bg85vBaFGARIyOWAJAKps/o2Pa4DmrsC1BkL7H+0IuaYlzju5V9yNs/SPAn6e
-	ARQT27PIWwoDAfezLR7tYlQSIdKDo4qLn9sxwOSiHvY36CwxthGh79vQ4tZbUZZNISUAKCykNKq
-	CCeRnCSOrvwRFs0yhqgOVjlLuQXHKa+12GYNZfs9Hov56l2w6yR0v7ULGhuCAk3YlUF3BKP1/sw
-	TWhR3iE0vlUy6zP/YQzvuggyHtSt5w/Tn4whPMHVt0PsSZsIsKfp1GZSCXvvJ4j42FjhjK2+Ei5
-	mUzEfE5iA8okyvaxf49AxpzqAhj+w7+mH488CtYAQkYrippCr1hvQJmUzGVJ/n9TlvdO61P33
-X-Google-Smtp-Source: AGHT+IH5uEVLs+KWjRNFUSLQfbCaJILBg0f9f4JMQd0Q0IH2Ub2fAbgyI59Wkme8wRbZraFL+Nofsw==
-X-Received: by 2002:a05:6512:6512:b0:55f:391b:54df with SMTP id 2adb3069b0e04-55f70955022mr2152500e87.47.1756764632215;
-        Mon, 01 Sep 2025 15:10:32 -0700 (PDT)
+        bh=RUm3eao0nv7lQDT5rWWvwgkJGYkE0FYcno3r5As+ock=;
+        b=riQ+hJsV8GHqJVzZF48YEaWn/4MzprJ3lAl/JX5U4uMs7WeFlC7Y3wYojFfMDyWE7A
+         K/zCnZ9Fw60P8T3WOl6oSBXTDM+tyk0zjNGGoWl2iQwBfP7tOeFqyovoaJT/oKQqZzz3
+         UUR8r3W3eI+u4WA8E1O73VCTbl00JMtBWo3Ol5MtGWIXRSXBzOqHF3WzmMk3+CbqGflJ
+         IQS7/Tg8tmPsYOVaksadNHOK2wE6Exs8oe5AfNIt/x1r5KbXxL/wH5twh3rZVOTQYfjN
+         VqvJJs27NAopjmhguDv5JKL0crH1oxB4PbR02fV+LFq8uk4c+54A9l6nlg6mFbT0l2F+
+         u3yw==
+X-Gm-Message-State: AOJu0Yz2CRpcDQ1ROc+jyIezzseLAsh79HcSa9hKcYTIaQOHnb8a1XHf
+	2c+n7PJ7mAGGv1yPDmxiTT+GXpm650HROYYYSFnB3gv9FSx2wtV3KscBJoDE2Op4
+X-Gm-Gg: ASbGncs9lGJ+pSUa9kLWkxVrDOrzraYXMF0lxZP1BfmfTbNaVBJKJoVTyxe/LmabJyl
+	Rvob/a/BuECbt49f9H2bzF5nC5PAbpP7yMQuN/XYgm1rIBXPoYGOdqu+LtXCf5KWU7/jPC48h2C
+	npOJMXs5jgWP1IgSgoFacqpvXru7n8l3IH6rRP2AuDb7Ujy1dbaByuhqpcX2y6cxG8yY1yuvt2w
+	agArvQsi5oTNE7qaC8BZFbjVug5yjrXAl7HCfgiak7Eg4ukwfZzj80+gKo4xhrNtENjQU/UtEvZ
+	aAcOMY7I3uXE0Ws2vOy6LQXNRPRqLU6xmf5W8yHqYPUNkaYITy4OZ6Wr68E/QEZhaCVGd75CH4J
+	6cGv/D/2NsHqiWa8wAbA/G11cteJd1mRVoxyi6yLmfYptFDdTfL+kwoIcgchZKAT9b+WC2VvD
+X-Google-Smtp-Source: AGHT+IH5UsKj5cGBhn+itOcgkLe6OXnp3JP492VPrs/+mbJzdvslmcWUzDDr1Sm7tPeTMH53B2gN1A==
+X-Received: by 2002:a05:6512:2212:b0:55f:6649:45c5 with SMTP id 2adb3069b0e04-55f7089c32bmr2494605e87.11.1756764633457;
+        Mon, 01 Sep 2025 15:10:33 -0700 (PDT)
 From: Mykola Kvach <xakep.amatop@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Mirela Simonovic <mirela.simonovic@aggios.com>,
@@ -92,9 +92,9 @@ Cc: Mirela Simonovic <mirela.simonovic@aggios.com>,
 	Saeed Nowshadi <saeed.nowshadi@xilinx.com>,
 	Mykyta Poturai <mykyta_poturai@epam.com>,
 	Mykola Kvach <mykola_kvach@epam.com>
-Subject: [PATCH v6 09/13] xen/arm: Resume memory management on Xen resume
-Date: Tue,  2 Sep 2025 01:10:13 +0300
-Message-ID: <a120a97c79f3ae174b3b6649c889efbb8afcd9ae.1756763487.git.mykola_kvach@epam.com>
+Subject: [PATCH v6 10/13] xen/arm: Save/restore context on suspend/resume
+Date: Tue,  2 Sep 2025 01:10:14 +0300
+Message-ID: <bdb526ea0490729159aeecf154ee5d8294848a94.1756763487.git.mykola_kvach@epam.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <cover.1756763487.git.mykola_kvach@epam.com>
 References: <cover.1756763487.git.mykola_kvach@epam.com>
@@ -103,13 +103,25 @@ Content-Transfer-Encoding: 8bit
 
 From: Mirela Simonovic <mirela.simonovic@aggios.com>
 
-The MMU must be enabled during the resume path before restoring context,
-as virtual addresses are used to access the saved context data.
+The context of CPU general purpose and system control registers must be
+saved on suspend and restored on resume. This is implemented in
+prepare_resume_ctx and before the return from the hyp_resume function.
+The prepare_resume_ctx must be invoked just before the PSCI system suspend
+call is issued to the ATF. The prepare_resume_ctx must return a non-zero
+value so that the calling 'if' statement evaluates to true, causing the
+system suspend to be invoked. Upon resume, the context saved on suspend
+will be restored, including the link register. Therefore, after
+restoring the context, the control flow will return to the address
+pointed to by the saved link register, which is the place from which
+prepare_resume_ctx was called. To ensure that the calling 'if' statement
+does not again evaluate to true and initiate system suspend, hyp_resume
+must return a zero value after restoring the context.
 
-This patch adds MMU setup during resume by reusing the existing
-enable_secondary_cpu_mm function, which enables data cache and the MMU.
-Before the MMU is enabled, the content of TTBR0_EL2 is changed to point
-to init_ttbr (page tables used at runtime).
+Note that the order of saving register context into cpu_context structure
+must match the order of restoring.
+
+Support for ARM32 is not implemented. Instead, compilation fails with a
+build-time error if suspend is enabled for ARM32.
 
 Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
 Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
@@ -117,57 +129,197 @@ Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 ---
 Changes in v6:
-- moved changes related to set_init_ttbr to commit that implements
-  system_suspend call
+- Rename hyp_suspend to prepare_resume_ctx
+- moved invocation of prepare_resume_ctx to commit which
+  implements system_suspend call
 
 Changes in v4:
-- Drop unnecessary DAIF masking; interrupts are already masked on resume
-- Remove leftover TLB flush instructions; flushing is done in enable_mmu
-- Avoid setting x19 in hyp_resume; not needed
-- Replace prepare_secondary_mm with set_init_ttbr; call it from system_suspend
-
-Changes in v3:
-- Update commit message for clarity
-- Replace create_page_tables, enable_mmu, and mmu_init_secondary_cpu
-  with enable_secondary_cpu_mm
-- Move prepare_secondary_mm to start_xen to avoid crash
-- Add early UART init during resume
-
-Changes in v2:
-- Move hyp_resume to head.S to keep resume logic together
-- Simplify hyp_resume using existing helpers: check_cpu_mode, cpu_init,
-  create_page_tables, enable_mmu
+- Produce build-time error for ARM32 when CONFIG_SYSTEM_SUSPEND is enabled
+- Use register_t instead of uint64_t in cpu_context structure
 ---
- xen/arch/arm/arm64/head.S | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ xen/arch/arm/Makefile              |  1 +
+ xen/arch/arm/arm64/head.S          | 90 +++++++++++++++++++++++++++++-
+ xen/arch/arm/include/asm/suspend.h | 22 ++++++++
+ xen/arch/arm/suspend.c             | 14 +++++
+ 4 files changed, 126 insertions(+), 1 deletion(-)
+ create mode 100644 xen/arch/arm/suspend.c
 
+diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+index f833cdf207..3f6247adee 100644
+--- a/xen/arch/arm/Makefile
++++ b/xen/arch/arm/Makefile
+@@ -51,6 +51,7 @@ obj-y += setup.o
+ obj-y += shutdown.o
+ obj-y += smp.o
+ obj-y += smpboot.o
++obj-$(CONFIG_SYSTEM_SUSPEND) += suspend.o
+ obj-$(CONFIG_SYSCTL) += sysctl.o
+ obj-y += time.o
+ obj-y += traps.o
 diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
-index 3522c497c5..596e960152 100644
+index 596e960152..c6594c0bdd 100644
 --- a/xen/arch/arm/arm64/head.S
 +++ b/xen/arch/arm/arm64/head.S
-@@ -564,6 +564,22 @@ END(efi_xen_start)
+@@ -562,6 +562,52 @@ END(efi_xen_start)
+ #endif /* CONFIG_ARM_EFI */
+ 
  #ifdef CONFIG_SYSTEM_SUSPEND
++/*
++ * int prepare_resume_ctx(struct cpu_context *ptr)
++ *
++ * x0 - pointer to the storage where callee's context will be saved
++ *
++ * CPU context saved here will be restored on resume in hyp_resume function.
++ * prepare_resume_ctx shall return a non-zero value. Upon restoring context
++ * hyp_resume shall return value zero instead. From C code that invokes
++ * prepare_resume_ctx, the return value is interpreted to determine whether
++ * the context is saved (prepare_resume_ctx) or restored (hyp_resume).
++ */
++FUNC(prepare_resume_ctx)
++        /* Store callee-saved registers */
++        stp     x19, x20, [x0], #16
++        stp     x21, x22, [x0], #16
++        stp     x23, x24, [x0], #16
++        stp     x25, x26, [x0], #16
++        stp     x27, x28, [x0], #16
++        stp     x29, lr, [x0], #16
++
++        /* Store stack-pointer */
++        mov     x2, sp
++        str     x2, [x0], #8
++
++        /* Store system control registers */
++        mrs     x2, VBAR_EL2
++        str     x2, [x0], #8
++        mrs     x2, VTCR_EL2
++        str     x2, [x0], #8
++        mrs     x2, VTTBR_EL2
++        str     x2, [x0], #8
++        mrs     x2, TPIDR_EL2
++        str     x2, [x0], #8
++        mrs     x2, MDCR_EL2
++        str     x2, [x0], #8
++        mrs     x2, HSTR_EL2
++        str     x2, [x0], #8
++        mrs     x2, CPTR_EL2
++        str     x2, [x0], #8
++        mrs     x2, HCR_EL2
++        str     x2, [x0], #8
++
++        /* prepare_resume_ctx must return a non-zero value */
++        mov     x0, #1
++        ret
++END(prepare_resume_ctx)
  
  FUNC(hyp_resume)
-+        /* Initialize the UART if earlyprintk has been enabled. */
-+#ifdef CONFIG_EARLY_PRINTK
-+        bl    init_uart
-+#endif
-+        PRINT_ID("- Xen resuming -\r\n")
+         /* Initialize the UART if earlyprintk has been enabled. */
+@@ -580,7 +626,49 @@ FUNC(hyp_resume)
+         b     enable_secondary_cpu_mm
+ 
+ mmu_resumed:
+-        b .
++        /* Now we can access the cpu_context, so restore the context here */
++        ldr     x0, =cpu_context
 +
-+        bl    check_cpu_mode
-+        bl    cpu_init
++        /* Restore callee-saved registers */
++        ldp     x19, x20, [x0], #16
++        ldp     x21, x22, [x0], #16
++        ldp     x23, x24, [x0], #16
++        ldp     x25, x26, [x0], #16
++        ldp     x27, x28, [x0], #16
++        ldp     x29, lr, [x0], #16
 +
-+        ldr   x0, =start
-+        adr   x20, start             /* x20 := paddr (start) */
-+        sub   x20, x20, x0           /* x20 := phys-offset */
-+        ldr   lr, =mmu_resumed
-+        b     enable_secondary_cpu_mm
++        /* Restore stack pointer */
++        ldr     x2, [x0], #8
++        mov     sp, x2
 +
-+mmu_resumed:
-         b .
++        /* Restore system control registers */
++        ldr     x2, [x0], #8
++        msr     VBAR_EL2, x2
++        ldr     x2, [x0], #8
++        msr     VTCR_EL2, x2
++        ldr     x2, [x0], #8
++        msr     VTTBR_EL2, x2
++        ldr     x2, [x0], #8
++        msr     TPIDR_EL2, x2
++        ldr     x2, [x0], #8
++        msr     MDCR_EL2, x2
++        ldr     x2, [x0], #8
++        msr     HSTR_EL2, x2
++        ldr     x2, [x0], #8
++        msr     CPTR_EL2, x2
++        ldr     x2, [x0], #8
++        msr     HCR_EL2, x2
++        isb
++
++        /*
++         * Since context is restored return from this function will appear
++         * as return from prepare_resume_ctx. To distinguish a return from
++         * prepare_resume_ctx which is called upon finalizing the suspend,
++         * as opposed to return from this function which executes on resume,
++         * we need to return zero value here.
++         */
++        mov x0, #0
++        ret
  END(hyp_resume)
  
+ #endif /* CONFIG_SYSTEM_SUSPEND */
+diff --git a/xen/arch/arm/include/asm/suspend.h b/xen/arch/arm/include/asm/suspend.h
+index 7e04c6e915..29eed4ee7f 100644
+--- a/xen/arch/arm/include/asm/suspend.h
++++ b/xen/arch/arm/include/asm/suspend.h
+@@ -3,9 +3,31 @@
+ #ifndef __ASM_ARM_SUSPEND_H__
+ #define __ASM_ARM_SUSPEND_H__
+ 
++#include <asm/types.h>
++
+ #ifdef CONFIG_SYSTEM_SUSPEND
+ 
++#ifdef CONFIG_ARM_64
++struct cpu_context {
++    register_t callee_regs[12];
++    register_t sp;
++    register_t vbar_el2;
++    register_t vtcr_el2;
++    register_t vttbr_el2;
++    register_t tpidr_el2;
++    register_t mdcr_el2;
++    register_t hstr_el2;
++    register_t cptr_el2;
++    register_t hcr_el2;
++} __aligned(16);
++#else
++#error "Define cpu_context structure for arm32"
++#endif
++
++extern struct cpu_context cpu_context;
++
+ void hyp_resume(void);
++int prepare_resume_ctx(struct cpu_context *ptr);
+ 
+ #endif /* CONFIG_SYSTEM_SUSPEND */
+ 
+diff --git a/xen/arch/arm/suspend.c b/xen/arch/arm/suspend.c
+new file mode 100644
+index 0000000000..5093f1bf3d
+--- /dev/null
++++ b/xen/arch/arm/suspend.c
+@@ -0,0 +1,14 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++
++#include <asm/suspend.h>
++
++struct cpu_context cpu_context;
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
 -- 
 2.48.1
 
