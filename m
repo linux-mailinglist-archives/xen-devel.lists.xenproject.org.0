@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96581B3DC13
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 10:14:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1104122.1455261 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9540B3DC27
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 10:20:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1104140.1455272 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uszgA-0003U4-6a; Mon, 01 Sep 2025 08:14:18 +0000
+	id 1uszld-000467-Ot; Mon, 01 Sep 2025 08:19:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1104122.1455261; Mon, 01 Sep 2025 08:14:18 +0000
+Received: by outflank-mailman (output) from mailman id 1104140.1455272; Mon, 01 Sep 2025 08:19:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uszgA-0003Rq-3g; Mon, 01 Sep 2025 08:14:18 +0000
-Received: by outflank-mailman (input) for mailman id 1104122;
- Mon, 01 Sep 2025 08:14:16 +0000
+	id 1uszld-000436-Lk; Mon, 01 Sep 2025 08:19:57 +0000
+Received: by outflank-mailman (input) for mailman id 1104140;
+ Mon, 01 Sep 2025 08:19:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UGQU=3M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uszg8-0003Ri-U9
- for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 08:14:16 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
+ id 1uszlc-000430-Q8
+ for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 08:19:56 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a12eb794-870b-11f0-8dd7-1b34d833f44b;
- Mon, 01 Sep 2025 10:14:06 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-61cb9e039d9so7977709a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 01:14:06 -0700 (PDT)
+ id 70b3e366-870c-11f0-8dd7-1b34d833f44b;
+ Mon, 01 Sep 2025 10:19:55 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-61e930b27bcso992368a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 01:19:55 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61cfc1c7ed1sm6740456a12.1.2025.09.01.01.14.05
+ 4fb4d7f45d1cf-61cfc21542asm6521577a12.18.2025.09.01.01.19.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Sep 2025 01:14:05 -0700 (PDT)
+ Mon, 01 Sep 2025 01:19:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a12eb794-870b-11f0-8dd7-1b34d833f44b
+X-Inumbo-ID: 70b3e366-870c-11f0-8dd7-1b34d833f44b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756714446; x=1757319246; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756714794; x=1757319594; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LnTjTlkxSTo+O8IMNavi+odu+EOnDJITVeZaSR4UGi0=;
-        b=DFaqBW0gDzUBbx8GjSMRt0w+v/sYKt1sVl1uzTpTocK/NKGYEuj0QyiQ5sBPbp4a9R
-         rKSGSYRgNdODz++gwaOkhBL8mJqWHgI2kNjsJXYZjBqXT1etM8OtTcbiUkXeHwm3VSd6
-         Mp3A+mbKkL1tjQgaXIjNMITZEUViT3jXu7J7I6cuHKBAVkXcYld3UQjfnSH2p/pOiXUK
-         qJQMnqOGPidb3JLt/yx26r5VTbSoIyppvaiHJSBAta6fTUiAc4RfnmdNmjN0BsBTQkva
-         EuZGysg1XMGZyU6ryIUlZwZsNvb4PPQPe95AP+9nNc/HbY0VewXv1J4dmlzD6BGMrpw6
-         latQ==
+        bh=/Ntv9uhtttoRB/Uk0kOrGp5s8MDYYihLI8Ig8hc7xww=;
+        b=CnPE+fd6xo08I10k+2CDWol1M9iSYSVrM1srkGEBRE0tTEksETuf++7xFowmSCWcJ7
+         fNKjtjMzy6qrij0/FxicjS/B1av/jSqKrT8jQjpWMZELD6ygA1fQ/VgX/FLwEAj3B8Ev
+         PCQXVMp+VvWZmEl1eqrYOQXvRfd6WvZ8eIC5hG+JxS0dbTivd0HWvmGsU4+iCaMDGVFP
+         PI+ydHtI8I3v8eV6oN4Gzquf70Kw/ldIPgkcHdMi5ScdwQMOzJIevKOcvIqrgdca/IeA
+         9U03AYzKchqDtD8x6fpRLUeGp6I2JBsdJRf2d57OlBgAl0m3a0Wnx9JOIe4X+p1ORqd/
+         Clog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756714446; x=1757319246;
+        d=1e100.net; s=20230601; t=1756714794; x=1757319594;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LnTjTlkxSTo+O8IMNavi+odu+EOnDJITVeZaSR4UGi0=;
-        b=XRsnYf+FjgbUouW4qTAsLNzigAYqQ+nKW8lMo519kU9n6vTw4koVVW/LmcNqtZJK94
-         81nrj1vAwqPylqy2Xe3jfDnReC09DPOzZZhGTef+HYOBORbaX3D2oS4pfBGbNk07nQMO
-         kBEVofMhLxSWZEv3unYGvWuYDsUpgM3fU30FfVeYBfxI/NjnXw3eXlzunPbwe3vUhSmI
-         KqhOnuig2tlV1brPBv+wbbq1DZ81nr32j40cwcWpOYBEAZePFX1mF1xFkRpBBOSqTajx
-         s++ETz95pJFaAJ5si3VMSvp59XkTaL9ufrf0l9Ia/kBS88PLIAIWI2OgrO6KdDKSKcgE
-         4hPw==
-X-Gm-Message-State: AOJu0Yw3E7OJqqGJMmSTTyrpu57KPBYbqaGzsspM3B+rSrt/HJ22o2pd
-	zwyrXS3sDAdfiIbOeoDLIMSlX25GDt/seX9t8wZ5OfZmfsVbUpVyFMH/nX07ArrSjA==
-X-Gm-Gg: ASbGncusKvpvt4VzK+fWyTy5T0y/8vEo4Sge6UXiIbxrkBKiVxQtWcSkMEXKN98xXLQ
-	wy4h03Dqd0wJt5/qeurHav8uj3UHTo4fimFGd2VTY/JcwVQUlz4OalzstM82v5mYmLsq5J20c6j
-	xqEqBEXGVngAcY5DNPNSkjhRccl0iBGyfx9xFuCeSdZr06TaBxApg8SSqdGcHaZdeLVHBGRCRJj
-	cgESCIEC8API5z7UWvAyPYFVGjZBnyE9Y0r/RUEsIG0QH5AKkZW/avIcsiNiMoRUuHNXz5Ua4dP
-	fbQ5aS2RI4+8LTHNyRrSwI3Szb7Vpt6kNEmsmUIdXr9MCtv+jaDT/NnaXISTI+jICX+pAOR3lGt
-	0dXfF+GT84g+VMXUxC662hqqAosDw+HzJImO9c5jWF+/bzXQ1SNcuKNxikHzulMcGDcHLZ7JW9S
-	zltTM7F4g=
-X-Google-Smtp-Source: AGHT+IFiEgu6xSz7DpSTXM0ahWBr1zkYJU4a358sdzlU7a2z8pbLSb6JNQ8LYYzE34Bshe3eMauFqg==
-X-Received: by 2002:a05:6402:304f:b0:61c:5756:c2b8 with SMTP id 4fb4d7f45d1cf-61d269a7bc7mr5345308a12.9.1756714446261;
-        Mon, 01 Sep 2025 01:14:06 -0700 (PDT)
-Message-ID: <37f4c1af-29e3-44eb-a238-a3e2e4641f10@suse.com>
-Date: Mon, 1 Sep 2025 10:14:04 +0200
+        bh=/Ntv9uhtttoRB/Uk0kOrGp5s8MDYYihLI8Ig8hc7xww=;
+        b=w6cftrebZw7YHdXO/78HFTYlbzmMorbOnx98lVwb0AagLRGkfEdbAQ93Kq9h15kprQ
+         jAH74r2tWHuiGqAZTDAqX6QTKbrRLOEsVnRw90iqE5p6Ut1rfHklz/bXXd5pIeV2N77W
+         R0a7oaAhVuRSAgRTiCNa1mGXWeyUN+SybVYF/30qoSJzOLbVQ+NbKiTXMfBlh8hwjP7W
+         3RaNMUe9pTFG4+aDPuHSmRMzSwB+92c22emTEJEFj/9qq+qD28lHmVeAgY2vCWUvogya
+         N0BwCLjfRatkyxjnW3opR0B3UBpmcUNTgNSt6cgY0YrwkuN4zs/v8D4mtDFKcEtef+LM
+         j31A==
+X-Forwarded-Encrypted: i=1; AJvYcCXunNJewkENAvQgoEHZq8Y0vM73gZV1pslIiiyEOcR5dhuxD0Z3bFjBcsIkmkhCbWx/JVuHBbSpVjg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwZcUr8AFbTUi2jWK+YpmEdzeoWNiM5VNXYY4GQOvyEwRC1sUry
+	ry5r00rJ9H3p09xWdpPKBYqFn/sZHdxTrQu54Cq2mtsnK91R6LsqkK4PcUOwaIRp+w==
+X-Gm-Gg: ASbGncsfXdtDLCxHlvoJGtaAv//mHZaz/6xOEXYNDeOtjgAxt4deIZo+bgHZGQqZvJE
+	KtyE11qYHERFPudPEVRwxF/TaXW1JiobqZilo+eeX1Scn4OPRGFCar3zu+LrPtmYHySLRrPJ3cK
+	JEAklOO+T5N1JQ7qcuPbehYjCIn8hWk2pZZrW/JWrlpYNpGINI65f6u1fcv0xMBo+csqcppVYsc
+	ICz+LH8Lc73oPha1NpA/0FcFE5nk/PcE9YlgD9TAlgZfb2S6sWiM33H4+l90hQloluICuiuPK4Y
+	zSw4lPn2R3ltj+8aKEKv9yT3b+tbVP4nofZ98P2qhcROEwiRyT3/3ByyIOV4Cl351aSGbwG1q3h
+	sgSW7KD7BTQgQei3nnX55eHMViEQCCmEGnuv4D9cVOAPodaSCB9a9Arx3zS3JlnzeqkKKXqf+mU
+	0bgREPZ10=
+X-Google-Smtp-Source: AGHT+IGo/hOvPVUkuNCT1cCLjOXwjV+SqRx3dA1ygpYVdQpy6xs9Sf71w5x/yaBvGpvt/sabV3et1A==
+X-Received: by 2002:a05:6402:2110:b0:61c:d606:9ce5 with SMTP id 4fb4d7f45d1cf-61d268724d3mr6121205a12.4.1756714794317;
+        Mon, 01 Sep 2025 01:19:54 -0700 (PDT)
+Message-ID: <9b72e0a6-9c7a-4788-abc7-ea20fc8db0e5@suse.com>
+Date: Mon, 1 Sep 2025 10:19:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 01/15] emul/vuart: introduce framework for UART
- emulators
-To: Stefano Stabellini <stefano.stabellini@amd.com>
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
- anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com,
- roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com,
- dmukhin@xen.org
-References: <20250828235409.2835815-1-dmukhin@ford.com>
- <20250828235409.2835815-2-dmukhin@ford.com>
- <alpine.DEB.2.22.394.2508291217110.341243@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH] x86/gen-cpuid: Fix debugging for cycle detection
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250829192939.1090358-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,53 +118,44 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2508291217110.341243@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20250829192939.1090358-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29.08.2025 21:27, Stefano Stabellini wrote:
-> On Thu, 28 Aug 2025, dmukhin@xen.org wrote:
->> --- /dev/null
->> +++ b/xen/common/emul/vuart/vuart.c
->> @@ -0,0 +1,156 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +/*
->> + * UART emulator framework.
->> + *
->> + * Copyright 2025 Ford Motor Company
->> + */
->> +
->> +#include <xen/err.h>
->> +#include <xen/sched.h>
->> +#include <xen/vuart.h>
->> +#include <xen/xvmalloc.h>
->> +
->> +#define for_each_emulator(e) \
->> +    for ( e = vuart_array_start; e < vuart_array_end; e++ )
->> +
->> +extern const struct vuart_emulator vuart_array_start[];
->> +extern const struct vuart_emulator vuart_array_end[];
->> +
->> +static const struct vuart_emulator *
->> +vuart_match_by_compatible(struct domain *d, const char *compat)
->> +{
->> +    const struct vuart_emulator *emulator;
->> +
->> +    if ( d->console.vuart )
->> +        return NULL;
->> +
->> +    for_each_emulator(emulator)
->> +        if ( emulator->compatible &&
->> +             !strncmp(emulator->compatible, compat,
->> +                      strlen(emulator->compatible)) )
+On 29.08.2025 21:29, Andrew Cooper wrote:
+> Jan reports the following exception when using the cycle debugging:
 > 
-> strncmp will continue until the given count even if compat is shorter
+>   Feature IBRSB, seen [IBRSB, STIBP, INTEL_PSFD, EIBRS, IPRED_CTRL, RRSBA_CTRL, RRSBA, BHI_CTRL], to_process [SSBD]
+>   Traceback (most recent call last):
+>     File "/local/xen.git/xen/../xen/tools/gen-cpuid.py", line 594, in <module>
+>       sys.exit(main())
+>                ^^^^^^
+>     File "/local/xen.git/xen/../xen/tools/gen-cpuid.py", line 588, in main
+>       crunch_numbers(state)
+>     File "/local/xen.git/xen/../xen/tools/gen-cpuid.py", line 366, in crunch_numbers
+>       (state.names[feat], repl(seen), repl(to_process)))
+>                                       ^^^^^^^^^^^^^^^^
+>     File "/local/xen.git/xen/../xen/tools/gen-cpuid.py", line 364, in repl
+>       return "[" + ", ".join((state.names[x] for x in l)) + "]"
+>                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>     File "/local/xen.git/xen/../xen/tools/gen-cpuid.py", line 364, in <genexpr>
+>       return "[" + ", ".join((state.names[x] for x in l)) + "]"
+>                               ~~~~~~~~~~~^^^
+>   KeyError: 534
+>   make[2]: *** [/local/xen.git/xen/include/xen/lib/x86/Makefile:9: cpuid-autogen.h] Error 1
+> 
+> This is caused by commit ce8c930851a5 ("x86/cpu-policy: MSR_ARCH_CAPS feature
+> names") being rather lazy and marking dependenices on unknown features.
+> 
+> Introduce a helper to pick the known features in a range, and use it for
+> ARCH_CAPS.
+> 
+> Additionally, remove trailing whitepsace from the debug print.
+> 
+> Reported-by: Jan Beulich <jbeulich@suse.com>
+> Fixes: ce8c930851a5 ("x86/cpu-policy: MSR_ARCH_CAPS feature names")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Not really, one string having a nul char and the other not having one is a
-difference, at which point comparison will stop. There would be a problem
-if "compat" didn't point to a nul-terminated string, though (and I didn't
-check that aspect, not the least because then "shorter" doesn't really
-make much sense without a length passed in).
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
 
