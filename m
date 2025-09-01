@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 159EDB3DEB1
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 11:39:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1104297.1455382 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC391B3DEC4
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 11:41:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1104308.1455392 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut0zy-0002Rg-PN; Mon, 01 Sep 2025 09:38:50 +0000
+	id 1ut12h-00048W-5x; Mon, 01 Sep 2025 09:41:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1104297.1455382; Mon, 01 Sep 2025 09:38:50 +0000
+Received: by outflank-mailman (output) from mailman id 1104308.1455392; Mon, 01 Sep 2025 09:41:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut0zy-0002PM-M3; Mon, 01 Sep 2025 09:38:50 +0000
-Received: by outflank-mailman (input) for mailman id 1104297;
- Mon, 01 Sep 2025 09:38:49 +0000
+	id 1ut12h-00045c-2z; Mon, 01 Sep 2025 09:41:39 +0000
+Received: by outflank-mailman (input) for mailman id 1104308;
+ Mon, 01 Sep 2025 09:41:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UGQU=3M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ut0zx-0002PG-9T
- for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 09:38:49 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ id 1ut12g-00045W-B4
+ for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 09:41:38 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 75f3a5f2-8717-11f0-8adc-4578a1afcccb;
- Mon, 01 Sep 2025 11:38:48 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-61c26f3cf0dso6292835a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 02:38:48 -0700 (PDT)
+ id dab64b64-8717-11f0-8adc-4578a1afcccb;
+ Mon, 01 Sep 2025 11:41:37 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-afcb7ae31caso793060966b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 02:41:37 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61cfc4bbc9asm6800364a12.25.2025.09.01.02.38.41
+ a640c23a62f3a-b040a410817sm471886466b.101.2025.09.01.02.41.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Sep 2025 02:38:42 -0700 (PDT)
+ Mon, 01 Sep 2025 02:41:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75f3a5f2-8717-11f0-8adc-4578a1afcccb
+X-Inumbo-ID: dab64b64-8717-11f0-8adc-4578a1afcccb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756719528; x=1757324328; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756719697; x=1757324497; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=X8LlKiSqE8EFYbpZWwoVUZhPsnuckq0t875M4ppmnB8=;
-        b=KtSzmaixTF/LWDvjC223kAa6xGyPVDlUIZDjkI0fnnQBAQbXIqeE8sJRvOdBD6nPOR
-         ZLWcBoPGukfK3FtQc16tLtav3wZ8onWPPrbHLuHu/PBu6b/NnGLeWLJo/XhgKV4V2Wth
-         DStpBrtocs5FQMfvq8jwEzuJtbHvsGTObNPgxbTi4L4Lp7DyJW+LPOGCqvUa6d3ltv0p
-         SmY1wIQmmWI3Ps1cXpo1WR3/77o8PwuIxdPXWrKESqf6gxT9Em6fgNs+bMRu0UvhU8z9
-         d8FJnajgNG7v1alFFW1lZB7qiq2ltzFu3xWOxBDxC4hAHaPu9Hk98WLPb7Wkur9UNit6
-         Zrww==
+        bh=4+BM3Xhn1MZ492LnnsElsyd9BhW7vSGWsjJA7PcFLak=;
+        b=RvTm5Dn27oB4nk+P4UPJrua25ud2csw6ceSVLD9VSWwhBtNpT8Atd/RaW40wzhiWoe
+         Cfv5zkKAK4nxRR2C3REIpHPvZRgYv71lGhwdmC6SCXcLIo9MYNaDcq/dIqpe0WnfPQ+z
+         B42ClVLZeiGZdegE5pzhkh3+skGbCSKcQpOp21/u+HHdklw+ZvSWeAOvgNoyf3duYNN9
+         g4TJ6iv6LFKNuoAWc+zxkVau7rtzUtu698CXU8sWukulPhB+9oqpw4uAu9MOeUCY1YOJ
+         k7Thhy2ozbaKfyLT1DS56p5rH4EVw9HG23b9ikUewvTn5Up1HCE38bDTv0RLGLPmN3zD
+         3ozg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756719528; x=1757324328;
+        d=1e100.net; s=20230601; t=1756719697; x=1757324497;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=X8LlKiSqE8EFYbpZWwoVUZhPsnuckq0t875M4ppmnB8=;
-        b=MGtGojR1ess5rCk7ZWJrZQmtwgDMejalLav8dHjcsvp/E9jyDQjRbA95Tk680XCwVo
-         IWxlP71m+XEQgWczwiYW44bz13SJMLfeHvd9ZAo5gupD9hn0unwow1GokG/WgBf4z2bP
-         IgK/LiWmOnNHmAbvYU0472eYfB85i8WDqTG4NN9tj3T0gmVwCCvf8BAmLVg60KX67LF0
-         MpGNRvDbsoZMgOIoNEH/FTa1RYrVP/OqePEK3a9fZ3BhIRBvFMv+ilOTjIz++hONKz/G
-         w6heLWSZbFkaOhdfoWk2ZI2Ptq/YRNAZOL4mkGDsbvArGQKLHac8A3Bywv6yOfsZMPtv
-         +keA==
-X-Forwarded-Encrypted: i=1; AJvYcCXxaqmCfw0UQQQAFh0eTtcDyJcpFwgHJICweZ8QTkZg7tQFTEDeR9owQW/2tnAJHFOTnom8n02YawA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyIrZ8RRpb2ES63uDzrUeONLwbYCz2RFk3+feDct+0R48Qf/C08
-	87c/bloe+8O6fktP6rxVRP6/sPLFNDlKSsG7im6hVpHDodtTWD5c+7Dx2MDms1Jjtg==
-X-Gm-Gg: ASbGncspxVMZiHEq8329cweE9vbSRP04BJjIN9rjioxksmwE9TWcIExbdXgO2EkFmJX
-	hFMzLmkYS7dkPhngWaEIbMzn+lRjJat0H4XR1Kp0osWk8bPCO/9xR6zAsm9yuFwvK/ozfOBBvuP
-	gW16dAxIulwPoeEaYZfST3Z9W2UgSWZlAQPb8Th2pNzbmvoEZT5EpDR5PiU6G0Y4mg9Wt1aw01i
-	iucH/EBIkjMaORKfMfK2jTlx5v8oNS9rvbju0ZKhyUigjmtcr6c5v6W3wJzZjYfWrvMzu9NvfBs
-	5ihBSMY1dUA3GrCYHXmdLcZjr8oaZ2IhyTlL3jMTpQoH4z7pShomqoVCOMqAsugpS2BuxAuqJOK
-	cXhACVSnLIV5+rxS48ySxBfNyWiv6QYFcZ5GE05xu9oiktaA/nmq7TfVxkv0nVuY3tc6LNJ8y6p
-	QSxdZQ4iw=
-X-Google-Smtp-Source: AGHT+IFmOz5s08wc9COxAKyznPeHwoEn51QwTGvYprLxJ/D2/8c9EMEeVxC3+7T5PfrmM7xMz3XEoQ==
-X-Received: by 2002:a05:6402:1e8f:b0:61c:931a:6cc1 with SMTP id 4fb4d7f45d1cf-61d2689312bmr7288086a12.13.1756719522533;
-        Mon, 01 Sep 2025 02:38:42 -0700 (PDT)
-Message-ID: <77fd4eae-042f-40be-80d2-952b0f532dd9@suse.com>
-Date: Mon, 1 Sep 2025 11:38:41 +0200
+        bh=4+BM3Xhn1MZ492LnnsElsyd9BhW7vSGWsjJA7PcFLak=;
+        b=xF9OLs8eG6G84xO18zVg6qHQ6PEtDTdhjefp08oMYS0MmrUxzsTuq2Ztf3oZ7hxRKN
+         vQ6v7tTLPuamcQ/6AmWfPV1ZAkwfNY3dvolpzsZHAUUOKP2DnyX3YebN2dvn8ej5CtwY
+         VEDV26sWrw77QHUvfIOH4hp7jnxBM/38fJfbJsYKm0R6W8O3jrTcjjwS//f8TviSby4P
+         GpBX8j2FfMjnvH33rJ1EK4+mA+rfcH4sWrJQ8vY6vdneVMTfIHETUxYNJgXblC9gSDwq
+         31ZTZzp2KEVGRFJmYzZ2btVLk0SRSKtORD2cXb40ZGt+Txops/0Yuw0DBLja6n/UUvZZ
+         Lo7Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXytbaQVOADsueGZIsEXTeC+U6M2dX9wBENNnFRrnXPXgZB7C2hEAVW2/3QnTcFHnNbnk0ofT8TEOs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyemssz9fM99SZ7x0m/yD060epzbQXyHMo69XTSIST0KOFDH62s
+	xVOS3z0gdRcUYrGhhA4O6U7D0Uj35kfVz57YBlgn2hH7GuUMMgV0M9sE0rVjN8hxRQ==
+X-Gm-Gg: ASbGncupHSiJ7n8LWPhIfxTM/98O7aglmcMRZP80KFAvOIxoT4FM9Vu/fkY/HqhAEHk
+	Y5253FYQS9JbF+x0TZIOom3bXu44TtcAlsN4El5XyyENX+YqfQx30iJoK04/b4BegE1L9Yfr8T7
+	loxENvbUqOiySfTqsyh/7qOv2J4OL0GfqVj2vjPFm0p/ELguX1BUbzwDzUSHVgPYU/tTsDOHGJD
+	OY+Fx84+DwQ85tcLEldmehobtmaigXfpKBBKXc1fsFOZzTP/Kt0I+28mJUEEcRyaOtA5qkKNLjV
+	m0TolkUT6zVr/lprBFMF9/Adan841av+O/sxqHDLWauX5Ocr33//fTZnhyyWpTVQSV9Yz+1U7GH
+	hX+2YyFTkfxfYTSPgmXIEry+iFlIiu/EJT6k3UpyLp2+YL6dwbEKUOJsOsx0a4/T8lXrAE6fC1X
+	swS5btzR7MXbS81ZHPog==
+X-Google-Smtp-Source: AGHT+IEEuXg2lLbJFkKz8+oBt/XPgCrpzq2VIfhpdTMd4tcNtC3jBqZim2TzIv98B+Q8+J0K86H3cw==
+X-Received: by 2002:a17:907:3f8d:b0:afe:b827:ca0b with SMTP id a640c23a62f3a-b01d8a25c5emr757780366b.10.1756719696662;
+        Mon, 01 Sep 2025 02:41:36 -0700 (PDT)
+Message-ID: <e6f65ab3-2c5a-4fee-b477-db1d2dcb4f9a@suse.com>
+Date: Mon, 1 Sep 2025 11:41:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/23] x86/traps: Skip Supervisor Shadow Stack tokens
- in FRED mode
+Subject: Re: [PATCH v2 10/23] x86/traps: Make an IDT-specific #DB helper
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250828150409.901315-1-andrew.cooper3@citrix.com>
- <20250828150409.901315-10-andrew.cooper3@citrix.com>
+ <20250828150409.901315-11-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,44 +119,23 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250828150409.901315-10-andrew.cooper3@citrix.com>
+In-Reply-To: <20250828150409.901315-11-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 28.08.2025 17:03, Andrew Cooper wrote:
-> FRED doesn't use Supervisor Shadow Stack tokens.  Skip setting them up.
+> FRED provides PENDING_DBG in the the stack frame, avoiding the need to read
+> %dr6 manually.
+> 
+> Rename do_debug() to handle_DB(), and update it to take a dbg field using
+> positive polarity.
+> 
+> Introduce a new handle_DB_IDT() which reads %dr6.
+> 
+> No functional change.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-In principle
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-However, ...
-
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -1920,10 +1920,6 @@ void asmlinkage __init noreturn __start_xen(void)
->  
->      system_state = SYS_STATE_boot;
->  
-> -    bsp_stack = cpu_alloc_stack(0);
-> -    if ( !bsp_stack )
-> -        panic("No memory for BSP stack\n");
-> -
->      console_init_ring();
->      vesa_init();
->  
-> @@ -2077,6 +2073,10 @@ void asmlinkage __init noreturn __start_xen(void)
->  
->      traps_init(); /* Needs stubs allocated. */
->  
-> +    bsp_stack = cpu_alloc_stack(0); /* Needs to know IDT vs FRED */
-> +    if ( !bsp_stack )
-> +        panic("No memory for BSP stack\n");
-
-... while this is the earliest possible point now, can we please consider
-moving it yet further down? E.g. next to the setting of system_state to
-SYS_STATE_smp_boot, i.e. in particular past IRQ and spin-debug enabling?
-
-Jan
 
