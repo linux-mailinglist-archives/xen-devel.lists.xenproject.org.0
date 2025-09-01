@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53940B3E741
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 16:34:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1105009.1456002 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7900B3E748
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 16:35:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1105020.1456011 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut5bb-0002uw-PB; Mon, 01 Sep 2025 14:33:59 +0000
+	id 1ut5dF-0003Q6-2P; Mon, 01 Sep 2025 14:35:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1105009.1456002; Mon, 01 Sep 2025 14:33:59 +0000
+Received: by outflank-mailman (output) from mailman id 1105020.1456011; Mon, 01 Sep 2025 14:35:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut5bb-0002rq-MR; Mon, 01 Sep 2025 14:33:59 +0000
-Received: by outflank-mailman (input) for mailman id 1105009;
- Mon, 01 Sep 2025 14:33:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ut5dE-0003Nz-Vx; Mon, 01 Sep 2025 14:35:40 +0000
+Received: by outflank-mailman (input) for mailman id 1105020;
+ Mon, 01 Sep 2025 14:35:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UGQU=3M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ut5ba-0002ri-Mq
- for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 14:33:58 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b1723494-8740-11f0-8adc-4578a1afcccb;
- Mon, 01 Sep 2025 16:33:57 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-61cc281171cso7508754a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 07:33:57 -0700 (PDT)
+ id 1ut5dD-0003Np-DE
+ for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 14:35:39 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ed262057-8740-11f0-8dd7-1b34d833f44b;
+ Mon, 01 Sep 2025 16:35:37 +0200 (CEST)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-b0431c12df3so141402266b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 07:35:37 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61cfc1c7848sm7593361a12.2.2025.09.01.07.33.56
+ a640c23a62f3a-b0416e878a2sm420837566b.95.2025.09.01.07.35.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Sep 2025 07:33:56 -0700 (PDT)
+ Mon, 01 Sep 2025 07:35:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1723494-8740-11f0-8adc-4578a1afcccb
+X-Inumbo-ID: ed262057-8740-11f0-8dd7-1b34d833f44b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756737237; x=1757342037; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756737337; x=1757342137; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=a7lB359ETCGiG9kQCfcmnUl1OXWX0fwwbYZJASA5IX0=;
-        b=ZFS1qpw1tAWWw1HcUjxYuzBaQCqi71mlt2gsuLwSbCVIedgZx6SwgUi6J1Q9L9as9M
-         SsdLRuGcM9HF4hR2goiNDvNSiKYGotMMBjnYbiSdcQrTx7KrAB41cG4ojWucfU89X4dr
-         nDQ2BCCYpzKiLp2WffAYz4/O8NKSpNhi/EVGSPQ6F67YOz0Gx97TTjHuanQ3V2vOd7/U
-         6VE504DagyOhHXMwXpefaoWRXMUrF+kRy8cNlliftAMluIA/BwLn/4SIlq5Ado2b5U6A
-         c6Npb6GLiAloLh3p8Qua+FkDK6bg+qrUEpzVwMbntwTZMKLCGiJ9mIvwCu0iAMbg9cOc
-         WBaA==
+        bh=W8Vq3X22cq1z0AO8Qpb5DTb9Jg/EwQI2gYZ3eSHW/1k=;
+        b=EiRZruzwbOhXGVizEyVAmrGfEqddbE3rB/cfSTs15aVRebQy19jKfKdlwrWGcY9UM+
+         RoeEI/J8hIEY1iIIESgOen6wflkzojIa+0FUYyKwYsy3VwRxojlFgyOjiGSN5G4zPgS4
+         90oYYctYrs8Dt/XNhsWo9D7U+zfWIBc51IcLd6Oa9JubCBdT8t75Ol6anv+jruVwudxC
+         EuI+ys4/jOhzO/dPxcFE1Awu0+7fagYPVeGVZCAYicb9lZTndAYS/SORN+KERGYu8H1R
+         ot5MBAoeyc/XSbf/ldFcvWJDS49GfTFdFI5rvtz5fqax18Aj501IbMODtf8dBzli7JPc
+         qK6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756737237; x=1757342037;
+        d=1e100.net; s=20230601; t=1756737337; x=1757342137;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=a7lB359ETCGiG9kQCfcmnUl1OXWX0fwwbYZJASA5IX0=;
-        b=RHAOOCKuBmze2asTNdWnxT9UBHRGCUDA9A73Mbq5i/LMxmQyN3fiLuUt09Lby208AH
-         jV6ZQBlbBn0P45d2w32rzfunz+s5is0GVP78X6Sc6K7ZEmwgUk2Xq4J8fhKuL05pABAt
-         1XRQl+Pp4uLFUHMSzwgubEL8/FxnU4P6OPKiBMzEREDrR7ALeNdx2VYEYVhIAyp1+O1r
-         YXwbAnU8zgdRGNCslwO5G7Ka7m6312S+jbPce6H1n7YrCK52Je/FJ18ZOgSrjZys/3BD
-         3thoxnwU+ykhdl/glEGJtnvzzDlZuEwDIkEZzo8D4GB7ZAFg2IjFfFPWIoNquJYsJ3NA
-         +R6g==
-X-Forwarded-Encrypted: i=1; AJvYcCWdIeMzkTD+bv6TdL69DrcSDmHT3bQ9TtgpB7Meu/ikz4OHUcjyE5Z1wMHcTTYM2BBUyp4YOtkQkP8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YytEpskHYPeo7QqUdurAdvFoptqfdje7Nva0xNrASqajythBn6K
-	D8VcRvAtFQxNv445BbuW5nOD2PV1TJNE8Wit3Uf6uvB3M7XHNs4mDJvt1PUTWuCx+g==
-X-Gm-Gg: ASbGncusnw8oDgTt7Uwr+yI/KUX8Fak6UlD+49GNkMRCtZBetsB8MQUs5bP8m0Z6099
-	MbGXH/zCRl6zIAos06u/oWzi+Q7v77Qzf5tKne03pG30pnSlINoneApn6bgsHKF9HdZzVHTQFz+
-	CNhCieVZ/5bf95fRAXVA6Dgu+hr4N0YMuRoA+CzpQKs4tN7ooq52GitgCwNhKU+ePdZwsLckEFZ
-	qbSIGcW0IbNxY0Emyl1N2JSs17H/NU8BVfcqbj7VQytVWPC3eu31a3QQcLycrNwR0uyR/Lr1Hgx
-	4rGutHWJIfukKUReV+TM2Oy6ndZv/3Fi9c92/+7XnY35ocdT5BqMFRKfQG5JeDytbUKtByyXp5F
-	xqOxoaSEC6NxB0K2flJNvijCbboL1MudPcXvpr51hlm9bMSyu9RgnNnF7P+PVmjdxerGaiCUK1/
-	LehJ9Vl7uibmITYaApxQ==
-X-Google-Smtp-Source: AGHT+IGvf8w1reX8IyfP+pyiLLuey9HpirPMXoN8K5vaDD6ZyHpdiLS5XzBeq904yNOBZA31nchdUA==
-X-Received: by 2002:a05:6402:d0d:b0:608:f493:871c with SMTP id 4fb4d7f45d1cf-61d26aa2be2mr6781682a12.14.1756737237004;
-        Mon, 01 Sep 2025 07:33:57 -0700 (PDT)
-Message-ID: <3ab662ea-295d-4796-9bf9-d16b5ec0cb46@suse.com>
-Date: Mon, 1 Sep 2025 16:33:55 +0200
+        bh=W8Vq3X22cq1z0AO8Qpb5DTb9Jg/EwQI2gYZ3eSHW/1k=;
+        b=UbSwMutfXsBR/LKrPndZdSu0G4zlWJLnkzMpzuoD0DctsnuNdaaoIKvYg75jK7GRCP
+         x1aT7kr3zY0NdSlrmPhGsLJ8N45MSmD1pueUuH4S4j0wUwaBamuUy6zDbf0ik8SEgIjW
+         n5gw+Qgr5jK7E48C1wTC+CIC0haSioRtQWzGIrFLxa2DtgEquAdXcak3/VHsihiJEH9l
+         j3X4cdnafGDlTkHw31RsOyIa/xiC9xLm7TinrqhA8rN9oHc/Mo0xUzDPj519ka+ANneL
+         UQ8Chiepz5kkxBr/8CevhfhvO0A5gjNzQ4MQvT+yY3TpijSfCwhMuOMbg8kECTlNeXnx
+         T+1g==
+X-Forwarded-Encrypted: i=1; AJvYcCVUkIKD7yeEpOVwj8kj5fyncZ1G1mFhExE0mRoHdqsuMbGnxolXhte9DBuaK6b+PLjoG5VYpXUloQc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywcl0YA/Cmue/a1GyyEMnsz109IGwfbEkAt9bq8tHB+MdiURYgT
+	vaOwDRZikzPTy3pwBxrI2qcGAU3fDWy1lWWzb1nepOvYKXwOARWISu3l4dXP5vGH2Q==
+X-Gm-Gg: ASbGncssshnvGbm3D+RA0HFOs8QMK9pLeUQbo2mti7zZUGlka6ZkZKLBV9tAMfuu7oB
+	D4ObzNaih1Y9dIMm9nSMYE5RDq5JRa4qpA6QD10r7nnP9aFv9BgELiycNR9jzKnisQu1xJdULCV
+	idaq+AsJ1HXrEg8FxfK3Mp1xKe5DLUIEE/jtQxV2R6nUi5wQa8a/t5avSm/1sqJCaPCWL/EdDx/
+	NMopRcG6U4ygk4C6BdqUgAnvSXOgMZYlgl5UzE4xhXmgVB/tMmkHtgjBHCdMnKBHAiHQnEZRv/G
+	MKvuMct0sJqrdDzEonqSdmm8e5RF5AjGN19qQkI3BVAmQrRda0bL1J9W5zT1IoodGxLK3u5TCf3
+	PKYKBVaEPlq/3xbQBERfx4kmmPsPYbsWVTUtKJbcJyxKfNe9xZ2ahVSPUimle5w6N09TcEXP8kT
+	F4T5BoDG1OddfM2WYu+A==
+X-Google-Smtp-Source: AGHT+IGFCSfGNeTKZ90u4o1CV7D2UIcbc1x9pjjyayilYfz/BHb+rxWVZ0H5/Hp+0diyH0ATo8PVfw==
+X-Received: by 2002:a17:906:1c4b:b0:b04:20c0:b1f9 with SMTP id a640c23a62f3a-b0420c0b498mr404263166b.52.1756737337013;
+        Mon, 01 Sep 2025 07:35:37 -0700 (PDT)
+Message-ID: <82d2264f-8d44-471b-875b-4b6f432a6f81@suse.com>
+Date: Mon, 1 Sep 2025 16:35:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v3 3/3] x86/hvm: Introduce Xen-wide ASID allocator
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Vaishali Thakkar <vaishali.thakkar@suse.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
-References: <cover.1750770621.git.teddy.astie@vates.tech>
- <81169a40fdc8c124b1656e451ac2e81f4e8edd2d.1750770621.git.teddy.astie@vates.tech>
- <7d9fd72a-39b7-43b0-875f-859a7a45c4fb@suse.com>
- <2c16b9f8-580e-4df2-9790-1c3e327b349d@vates.tech>
+Subject: Re: [PATCH v2] x86/bitops: Optimise arch_ffs{,l}() some more on AMD
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250527222930.1452674-1-andrew.cooper3@citrix.com>
+ <20250826174135.605220-1-andrew.cooper3@citrix.com>
+ <3ec7b53e-aef6-4a00-acb3-19cbbe6543c9@suse.com>
+ <fa534ac9-21db-4d26-94f7-e7a016f31edf@citrix.com>
+ <8e7293e9-6479-4904-8072-8eec9f1d5751@suse.com>
+ <33ad597d-82e1-4e74-971b-0afee9307a55@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,60 +123,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2c16b9f8-580e-4df2-9790-1c3e327b349d@vates.tech>
+In-Reply-To: <33ad597d-82e1-4e74-971b-0afee9307a55@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 29.08.2025 16:13, Teddy Astie wrote:
-> Le 28/08/2025 à 15:05, Jan Beulich a écrit :
->> On 26.06.2025 16:01, Teddy Astie wrote:
->>> Is it possible to have multiples vCPUs of a same domain simultaneously
->>> scheduled on top of a single pCPU ? If so, it would need a special
->>> consideration for this corner case, such as we don't miss a TLB flush
->>> in such cases.
+On 01.09.2025 16:31, Andrew Cooper wrote:
+> On 01/09/2025 3:26 pm, Jan Beulich wrote:
+>> Hmm, okay, it is of course in principle possible that one flavor is screwed
+>> while the other isn't.
 >>
->> No, how would two entities be able to run on a single pCPU at any single
->> point in time?
->>
+>> Acked-by: Jan Beulich <jbeulich@suse.com>
 > 
-> It was more concerning regarding having 2 vCPUs of the same domain (thus 
-> sharing the same ASID) running consecutively, e.g having on the same core
->    dom1.vcpu1 -> dom1.vcpu2
-> 
-> without a appropriate TLB flush; because the address space may not be 
-> consistent between 2 vCPUs.
-> 
-> I found a approach to fix it by tracking per domain which vCPU last ran 
-> on each pCPU so that in case of mismatch, we need to TLB flush. Along 
-> with explictely flush the TLB when the vCPU is migrated, because in the 
-> case too the TLB can be inconsistent for the ASID.
+> Thanks, but I now have both R-by and A-by you on this patch.  Which
+> would you prefer?
 
-Yet that wants constraining to the case where the address spaces are indeed
-at risk of being different, i.e. when distinct P2Ms are in use on the two
-vCPU-s.
-
->>> I get various stability when testing shadow paging in these patches, unsure
->>> what's the exact root case. HAP works perfectly fine though.
->>>
->>> TODO:
->>> - Intel: Don't assign the VPID at each VMENTER, though we need
->>>    to rethink how we manage VMCS with nested virtualization / altp2m
->>>    for changing this behavior.
->>> - AMD: Consider hot-plug of CPU with ERRATA_170. (is it possible ?)
->>> - Consider cases where we don't have enough ASIDs (e.g Xen as nested guest)
->>> - Nested virtualization ASID management
->>
->> For these last two points - maybe we really need a mixed model?
->>
-> 
-> Mixed model would not allow future support for broadcast TLB 
-> invalidation (even for hypervisor use) with e.g AMD INVLPGB or (future) 
-> Intel Remote Action Request.
-
-Why? For a VM using the traditional model we wouldn't be able to leverage
-those, but for others we could. And imo it's better to be able to run a VM
-at all, even if not with all possible accelerations, than to refuse running
-it.
+Oh, sorry, I checked whether I sent an ack to v2, not paying attention to v2
+already having a tag. Please keep the R-b.
 
 Jan
 
