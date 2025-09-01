@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 809AAB3F0D6
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 00:10:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1105401.1456356 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DB5FB3F0D9
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 00:10:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1105402.1456371 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utCjO-0005rF-Go; Mon, 01 Sep 2025 22:10:30 +0000
+	id 1utCjQ-0006MN-QI; Mon, 01 Sep 2025 22:10:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1105401.1456356; Mon, 01 Sep 2025 22:10:30 +0000
+Received: by outflank-mailman (output) from mailman id 1105402.1456371; Mon, 01 Sep 2025 22:10:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utCjO-0005iZ-AZ; Mon, 01 Sep 2025 22:10:30 +0000
-Received: by outflank-mailman (input) for mailman id 1105401;
- Mon, 01 Sep 2025 22:10:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1utCjQ-0006Jl-LE; Mon, 01 Sep 2025 22:10:32 +0000
+Received: by outflank-mailman (input) for mailman id 1105402;
+ Mon, 01 Sep 2025 22:10:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=pPXY=3M=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1utCjM-0005XP-O4
- for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 22:10:28 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 77a58396-8780-11f0-8adc-4578a1afcccb;
- Tue, 02 Sep 2025 00:10:28 +0200 (CEST)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-55f78f32580so1211845e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 15:10:28 -0700 (PDT)
+ id 1utCjP-00055o-5I
+ for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 22:10:31 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 787b9eec-8780-11f0-8dd7-1b34d833f44b;
+ Tue, 02 Sep 2025 00:10:29 +0200 (CEST)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-55f720ffe34so2422009e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 15:10:29 -0700 (PDT)
 Received: from yp-VivoBook-ASUSLaptop-M1503QA-M1503QA.. ([95.67.15.120])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5608279307asm123038e87.75.2025.09.01.15.10.26
+ 2adb3069b0e04-5608279307asm123038e87.75.2025.09.01.15.10.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Sep 2025 15:10:26 -0700 (PDT)
+ Mon, 01 Sep 2025 15:10:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77a58396-8780-11f0-8adc-4578a1afcccb
+X-Inumbo-ID: 787b9eec-8780-11f0-8dd7-1b34d833f44b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756764627; x=1757369427; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1756764629; x=1757369429; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Imh9qPLbn5GldmbHLssYKpBvOdimEk2erOhkD1ZB1X8=;
-        b=la9/h4wyXouvgPLBUiIb+PFQZaA45R6xOBbtN4m5II8VC1xAlw/sWb3NjgQtnkD5pD
-         90aisZLNF9fZnxtDuD5wtofyTWfP9UaJKrHSstT4ja/gVDIl0tLTmwozNQSbfcDg2xRv
-         /MJDalRCcA2Qq/cMxkL1FAV/EmCA+QneMsPIMrOrXHvOcrYmVfPVijrAbcEi9r/bFs5q
-         OR1DJXr7f9W7CHs2kt30rJ1payZaEOsoM1jyZetqqUrFTnxgStnWRUvxu1D15DSXcy+c
-         R+oxUOt8NHtem+mtWuHF5zbzi0XDXDXurm4qOpEzIbmBZJJhyyKmA8KvqHsWMqPanoEt
-         mrog==
+        bh=h+LNbMBKwYezbM5EFVtZ7DgCmMZXO6MyvOXCUpxJxe0=;
+        b=bCJownRWF8EZOLTdvoJVuxGdEXwx3yuoi+/VNSQxmVMKJfJrmeNXqFU7OYEolzIZRX
+         EQwvlwdu0UBku8xSb63HPpD5hrl77TKs63OHnZDjBI0WvbALfM4IYOBNALZOc1YVCdxu
+         fXG+zl/fMhEDyYel4+d8E09S0V0nvFekHkgKvfWguEI1v2GXXHaNGrkKkt3fUyEZzHmb
+         fL48eTzwjAIK384Bu0v6ej5uE4nZlk5nsCSICqtbAu4hc7QUd2ZR839EUiLtnKjv7SKM
+         5v5uLtqpRUCL8y1+WS5P3REYHoEeq8isE5wfKhalXk8tteGwKmU3mMrccfc+Ire3UP+v
+         BEag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756764627; x=1757369427;
+        d=1e100.net; s=20230601; t=1756764629; x=1757369429;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Imh9qPLbn5GldmbHLssYKpBvOdimEk2erOhkD1ZB1X8=;
-        b=DTuGhUIXLcToMy6Qgo5XdlwYJkmXTf8XtOuYlG4wiFw5810G5pbGeBy2NjEbSK1XZF
-         LFzrPf7wur0RF/BVWiUsE+2g5mMOuLFf9hci5gjdJt5asmoyvYTxlISovSoWnJa7GmbU
-         2axd8kn38uSyz2Aqsy1icKuexqacB4KxqBZU9xtkl8z8T6frcuAcQ0iaLka6y7N7xlZ+
-         w09F3bzcTwZ6JPOB4cUWr/CPpZv4msSaB4SZ+f+IzYBrMvGM/Z5Oq9SZ+S0FT/7yERP4
-         M+3f1K5o6FCTGteQz5jl9+ykAv3969sWQvOeDBWwPIeVr+ViDi/g7/db/H2wAOZEbybH
-         4E4w==
-X-Gm-Message-State: AOJu0Ywd3M5ROClHBIx89fCVlJ6l614G1cUNbwHDCUn6OdwRwvmoIFPE
-	LQRSlSRO/I/aer3jDfnzUL1i0dsC/dJhz8sfM/UymTp4/AGq0jiwh3BKu+0Rum0l
-X-Gm-Gg: ASbGncuWAQtCPgMwZLfrpEm2fzX9E5YPH9bI5tg4WhEzEhPKS1VH03t5roP6Rw8YDaL
-	EFLo2D1uQ3MpkdrYLdVxMs8QIlEA6skAndZrVJArhiodhh0XKWwZmJ0Pty5vSZOh7P5XJFziasL
-	MHoZAyGCsmqDSzwo4V4NrE1lF6FvgIrsqcXKVX7J978T7MkfaQbvyN7az+dM0AofSBtrTvfB3oa
-	wgD8dWpAFDmmkZAIZ0yYQ5FTmfTyB2KyFH/v81OZJeIrYvzw2FbD5yYBAn+n+hB9wHWZlYi/ECA
-	uUanhG8EA2bd45IIvFkQOHkm5pCRtzR1U5KlZpjVeap5ELlmPmcwxFAPJnyQsrHN/mJlG/pdrgi
-	qFE89X00YVz8tmeoEqWSx3QVGB1rTEbg9Ct6U3oSDi1aqHJknj7Qw1zqBOZJj+878PcRlp0vC
-X-Google-Smtp-Source: AGHT+IGv4DeyaoILJLzD1OzBQ513bzoPPJ1uc4pXtpi4SvI8+NvOPK8grxlS2JGjHTs+MQgDr7xIIw==
-X-Received: by 2002:a05:6512:2248:b0:55f:5195:9251 with SMTP id 2adb3069b0e04-55f708ec42bmr2709277e87.28.1756764627392;
-        Mon, 01 Sep 2025 15:10:27 -0700 (PDT)
+        bh=h+LNbMBKwYezbM5EFVtZ7DgCmMZXO6MyvOXCUpxJxe0=;
+        b=YYDUWaKos6KSJJMqtP7ktLNif3UiDsHeMQMCC15zBJ9znowBZSXQYtKovCwHJgPpfe
+         d2jVLDTU3p2oNSwg6kx1ugc9tIcpSpODKhO9L8TwBym5K3yuV2MMRYbREdM0gmeCIyRN
+         BOYg0AlTt3969JgzmbSgrHc4U7TcyBRRpo1l12utrdoJxvwy6Jmi7xC8fuCwnhPrO0KB
+         yEBTvIVs+wxJW6SdgonjfMu6i1pU7jCRS/t3j2cTRGQBwXODKXN9UeHH1kmpVHiG91Vp
+         JWNpsWFOj70g02qCHHQc6Ulc7EqwwVAAvGqC4AjyrCpcbEy04ihhN7RgleauDWESeemv
+         HjDA==
+X-Gm-Message-State: AOJu0YzyNsbX4ZFM0X1y7xdZpYBxsZi0wfJLe0pW/ELoM45zG/0yW3RN
+	DSHvpFv0OtOhyQnk0V4KY3X8PlgwtS/MAs9lx0qI86dym0c/yXSp4d0nZ6PGFGPF
+X-Gm-Gg: ASbGnctnHwkRWqsMmslDb1PCSHDiUBY+yn31zweN4qCkBeAfsmN27RbplFwfmbPnZaQ
+	1IPlJukAKC9nB8DLY2HiA+G5tiVEC4BfK0mT6JPPRGdY0tZG4C8r9bxnEEbsHcTxutZb/cnybNx
+	3ghrR5SLK9C/LTnpGdafWf99Q1ojccX/LSaef3GItazVHpL5OHCKqzwd21xghCdfrM2Ca7z83/R
+	GwWFqp/RHC8uCCsf5BL1BP6aQ3Xljh9lWiNBH6yYry8Y8K6OAeaqzInPI1JtRXC3LCHLI8Fl/6E
+	VXmZ0gKUggoKSQ70BJId0TETYYyaVOWUkh0tiDHL2Kg3nqsZ/TI2NNYw0VL7JyuvtTJEqX7oHeW
+	JnYhHh/IQ9Vdbf0QSGMDDd87LH3mS6KeTjIMSMLI2vp4PJCEkyEHy00jJrPDH/cxH7+6L1SbXd1
+	fs7zvq3Bc=
+X-Google-Smtp-Source: AGHT+IEa5RjJ2GSGquDO+Z4AQEB5nVu4GpDaAJNmK102svb69HNEnk3KnmcyEzQrF2S0OM2mun/7QA==
+X-Received: by 2002:ac2:58e9:0:b0:55f:67c6:be48 with SMTP id 2adb3069b0e04-55f6f6ab662mr1948372e87.1.1756764628474;
+        Mon, 01 Sep 2025 15:10:28 -0700 (PDT)
 From: Mykola Kvach <xakep.amatop@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Mykola Kvach <mykola_kvach@epam.com>,
@@ -88,11 +89,10 @@ Cc: Mykola Kvach <mykola_kvach@epam.com>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-Subject: [PATCH v6 05/13] xen/arm: irq: avoid local IRQ descriptors reinit on system resume
-Date: Tue,  2 Sep 2025 01:10:09 +0300
-Message-ID: <84acac884fa1df0ea64eef2253e75918d4b9245f.1756763487.git.mykola_kvach@epam.com>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v6 06/13] xen/arm: irq: Restore state of local IRQs during system resume
+Date: Tue,  2 Sep 2025 01:10:10 +0300
+Message-ID: <18c51957660441c945d51b02be965fbcc19c7c2b.1756763487.git.mykola_kvach@epam.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <cover.1756763487.git.mykola_kvach@epam.com>
 References: <cover.1756763487.git.mykola_kvach@epam.com>
@@ -101,39 +101,85 @@ Content-Transfer-Encoding: 8bit
 
 From: Mykola Kvach <mykola_kvach@epam.com>
 
-On ARM, during system resume, CPUs are brought online again. This normally
-triggers init_local_irq_data, which reinitializes IRQ descriptors for
-banked interrupts (SGIs and PPIs).
+On ARM, the first 32 interrupts (SGIs and PPIs) are banked per-CPU
+and not restored by gic_resume (for secondary cpus).
 
-These descriptors are statically allocated per CPU and retain valid
-state across suspend/resume cycles. Re-initializing them on resume is
-unnecessary and may result in loss of interrupt configuration or
-restored state.
+This patch introduces restore_local_irqs_on_resume, a function that
+restores the state of local interrupts on the target CPU during
+system resume.
 
-This patch skips init_local_irq_data when system_state is set to
-SYS_STATE_resume to preserve banked IRQ descs state during resume.
+It iterates over all local IRQs and re-enables those that were not
+disabled, reprogramming their routing and affinity accordingly.
+
+The function is invoked from start_secondary, ensuring that local IRQ
+state is restored early during CPU bring-up after suspend.
 
 Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-Reviewed-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 ---
- xen/arch/arm/irq.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Changes in V6:
+- Call handler->disable() instead of just setting the _IRQ_DISABLED flag
+- Move the system state check outside of restore_local_irqs_on_resume()
+---
+ xen/arch/arm/irq.c | 39 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
 diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
-index 361496a6d0..6c899347ca 100644
+index 6c899347ca..ddd2940554 100644
 --- a/xen/arch/arm/irq.c
 +++ b/xen/arch/arm/irq.c
-@@ -125,6 +125,10 @@ static int cpu_callback(struct notifier_block *nfb, unsigned long action,
-     switch ( action )
-     {
-     case CPU_UP_PREPARE:
-+        /* Skip local IRQ cleanup on resume */
-+        if ( system_state == SYS_STATE_resume )
-+            break;
+@@ -116,6 +116,41 @@ static int init_local_irq_data(unsigned int cpu)
+     return 0;
+ }
+ 
++/*
++ * The first 32 interrupts (PPIs and SGIs) are per-CPU,
++ * so call this function on the target CPU to restore them.
++ *
++ * SPIs are restored via gic_resume.
++ */
++static void restore_local_irqs_on_resume(void)
++{
++    int irq;
 +
-         rc = init_local_irq_data(cpu);
-         if ( rc )
++    spin_lock(&local_irqs_type_lock);
++
++    for ( irq = 0; irq < NR_LOCAL_IRQS; irq++ )
++    {
++        struct irq_desc *desc = irq_to_desc(irq);
++
++        spin_lock(&desc->lock);
++
++        if ( test_bit(_IRQ_DISABLED, &desc->status) )
++        {
++            spin_unlock(&desc->lock);
++            continue;
++        }
++
++        /* Disable the IRQ to avoid assertions in the following calls */
++        desc->handler->disable(desc);
++        gic_route_irq_to_xen(desc, GIC_PRI_IRQ);
++        desc->handler->startup(desc);
++
++        spin_unlock(&desc->lock);
++    }
++
++    spin_unlock(&local_irqs_type_lock);
++}
++
+ static int cpu_callback(struct notifier_block *nfb, unsigned long action,
+                         void *hcpu)
+ {
+@@ -134,6 +169,10 @@ static int cpu_callback(struct notifier_block *nfb, unsigned long action,
              printk(XENLOG_ERR "Unable to allocate local IRQ for CPU%u\n",
+                    cpu);
+         break;
++    case CPU_STARTING:
++        if ( system_state == SYS_STATE_resume )
++            restore_local_irqs_on_resume();
++        break;
+     }
+ 
+     return notifier_from_errno(rc);
 -- 
 2.48.1
 
