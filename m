@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC391B3DEC4
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 11:41:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1104308.1455392 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED47CB3DEFA
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 11:47:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1104320.1455401 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut12h-00048W-5x; Mon, 01 Sep 2025 09:41:39 +0000
+	id 1ut17s-0004hv-OA; Mon, 01 Sep 2025 09:47:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1104308.1455392; Mon, 01 Sep 2025 09:41:39 +0000
+Received: by outflank-mailman (output) from mailman id 1104320.1455401; Mon, 01 Sep 2025 09:47:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut12h-00045c-2z; Mon, 01 Sep 2025 09:41:39 +0000
-Received: by outflank-mailman (input) for mailman id 1104308;
- Mon, 01 Sep 2025 09:41:38 +0000
+	id 1ut17s-0004fI-LW; Mon, 01 Sep 2025 09:47:00 +0000
+Received: by outflank-mailman (input) for mailman id 1104320;
+ Mon, 01 Sep 2025 09:46:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UGQU=3M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ut12g-00045W-B4
- for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 09:41:38 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ id 1ut17r-0004fC-Gf
+ for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 09:46:59 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dab64b64-8717-11f0-8adc-4578a1afcccb;
- Mon, 01 Sep 2025 11:41:37 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-afcb7ae31caso793060966b.3
- for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 02:41:37 -0700 (PDT)
+ id 9a39f5d0-8718-11f0-8adc-4578a1afcccb;
+ Mon, 01 Sep 2025 11:46:58 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-b042cc3953cso88966266b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 02:46:58 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b040a410817sm471886466b.101.2025.09.01.02.41.36
+ a640c23a62f3a-aff138a8d76sm647187766b.104.2025.09.01.02.46.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Sep 2025 02:41:36 -0700 (PDT)
+ Mon, 01 Sep 2025 02:46:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dab64b64-8717-11f0-8adc-4578a1afcccb
+X-Inumbo-ID: 9a39f5d0-8718-11f0-8adc-4578a1afcccb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756719697; x=1757324497; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756720018; x=1757324818; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4+BM3Xhn1MZ492LnnsElsyd9BhW7vSGWsjJA7PcFLak=;
-        b=RvTm5Dn27oB4nk+P4UPJrua25ud2csw6ceSVLD9VSWwhBtNpT8Atd/RaW40wzhiWoe
-         Cfv5zkKAK4nxRR2C3REIpHPvZRgYv71lGhwdmC6SCXcLIo9MYNaDcq/dIqpe0WnfPQ+z
-         B42ClVLZeiGZdegE5pzhkh3+skGbCSKcQpOp21/u+HHdklw+ZvSWeAOvgNoyf3duYNN9
-         g4TJ6iv6LFKNuoAWc+zxkVau7rtzUtu698CXU8sWukulPhB+9oqpw4uAu9MOeUCY1YOJ
-         k7Thhy2ozbaKfyLT1DS56p5rH4EVw9HG23b9ikUewvTn5Up1HCE38bDTv0RLGLPmN3zD
-         3ozg==
+        bh=BJ6F+aQyVrvB/LlVapH5CK/OgUF5efu6JGzji+l4emg=;
+        b=MGaujecAORP0G3YzR4L3JOYBhGTiVBBdDnzWby7Crwrp/YcO3V69FX3RFo7ukFthQV
+         VjEwJH4iONw+/+Cr7sgmAw0EwJiPEz8BE2GUwt/+k6/aJNcc7cYf6f2UmUZSXggRXqWt
+         EJe6O4lEJVGGr4tOhj03KAM5+oJNiO03kmJe7CUk7q26BxPp8J37AwhP7pyTV+8ARr2L
+         YugH+OaEc2itjQkv8lbsCuf1OOJQG2WPJ9ae1HHbc4ZNa1inkH9en4PyhMGJTjAR4ZgO
+         QC9z2A890P3Is81VU++WlkbWoikAlTLRDSAb2baSor5cRpr4xRpdRHmMbQ3391gcSOiq
+         rfDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756719697; x=1757324497;
+        d=1e100.net; s=20230601; t=1756720018; x=1757324818;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4+BM3Xhn1MZ492LnnsElsyd9BhW7vSGWsjJA7PcFLak=;
-        b=xF9OLs8eG6G84xO18zVg6qHQ6PEtDTdhjefp08oMYS0MmrUxzsTuq2Ztf3oZ7hxRKN
-         vQ6v7tTLPuamcQ/6AmWfPV1ZAkwfNY3dvolpzsZHAUUOKP2DnyX3YebN2dvn8ej5CtwY
-         VEDV26sWrw77QHUvfIOH4hp7jnxBM/38fJfbJsYKm0R6W8O3jrTcjjwS//f8TviSby4P
-         GpBX8j2FfMjnvH33rJ1EK4+mA+rfcH4sWrJQ8vY6vdneVMTfIHETUxYNJgXblC9gSDwq
-         31ZTZzp2KEVGRFJmYzZ2btVLk0SRSKtORD2cXb40ZGt+Txops/0Yuw0DBLja6n/UUvZZ
-         Lo7Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXytbaQVOADsueGZIsEXTeC+U6M2dX9wBENNnFRrnXPXgZB7C2hEAVW2/3QnTcFHnNbnk0ofT8TEOs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyemssz9fM99SZ7x0m/yD060epzbQXyHMo69XTSIST0KOFDH62s
-	xVOS3z0gdRcUYrGhhA4O6U7D0Uj35kfVz57YBlgn2hH7GuUMMgV0M9sE0rVjN8hxRQ==
-X-Gm-Gg: ASbGncupHSiJ7n8LWPhIfxTM/98O7aglmcMRZP80KFAvOIxoT4FM9Vu/fkY/HqhAEHk
-	Y5253FYQS9JbF+x0TZIOom3bXu44TtcAlsN4El5XyyENX+YqfQx30iJoK04/b4BegE1L9Yfr8T7
-	loxENvbUqOiySfTqsyh/7qOv2J4OL0GfqVj2vjPFm0p/ELguX1BUbzwDzUSHVgPYU/tTsDOHGJD
-	OY+Fx84+DwQ85tcLEldmehobtmaigXfpKBBKXc1fsFOZzTP/Kt0I+28mJUEEcRyaOtA5qkKNLjV
-	m0TolkUT6zVr/lprBFMF9/Adan841av+O/sxqHDLWauX5Ocr33//fTZnhyyWpTVQSV9Yz+1U7GH
-	hX+2YyFTkfxfYTSPgmXIEry+iFlIiu/EJT6k3UpyLp2+YL6dwbEKUOJsOsx0a4/T8lXrAE6fC1X
-	swS5btzR7MXbS81ZHPog==
-X-Google-Smtp-Source: AGHT+IEEuXg2lLbJFkKz8+oBt/XPgCrpzq2VIfhpdTMd4tcNtC3jBqZim2TzIv98B+Q8+J0K86H3cw==
-X-Received: by 2002:a17:907:3f8d:b0:afe:b827:ca0b with SMTP id a640c23a62f3a-b01d8a25c5emr757780366b.10.1756719696662;
-        Mon, 01 Sep 2025 02:41:36 -0700 (PDT)
-Message-ID: <e6f65ab3-2c5a-4fee-b477-db1d2dcb4f9a@suse.com>
-Date: Mon, 1 Sep 2025 11:41:35 +0200
+        bh=BJ6F+aQyVrvB/LlVapH5CK/OgUF5efu6JGzji+l4emg=;
+        b=pitHVQfTQvqO8lz/2hp+plihEidQvmF2OSd/PyQswsOaQBzpm/dfdZtknVvX+suYdV
+         pWeMozPB9YurD7WAyXWewfAnISeAvWOPyfsGxm5GvTm7KH8RuAhI7klN8RP5rTl6OCWG
+         Vhckm6l01PCg/i6Bl0L0U1MeByhlAK2/MPv1a4rdc+sfdKeb2awDwHqrdxLHMS7a8mCn
+         SYRxcG5/6IvQA2KE7hetFWUaCWE2xbiv5vvhqi0vzGSq1CqNVzXvKXU67voZ7F6x9GbO
+         tcAvnDSRT8pFfcKgS9P638818NfpiE+xB3DH9CN7/IBW3dgoknZF5eoecawv7SLOMtZN
+         HS/w==
+X-Forwarded-Encrypted: i=1; AJvYcCV2FlZv5JNe7MBQh5wUYir3SO6AtAFjc0cL6WCicPr/Efo+5WywOSs0RZn0gBm8Inhnz0qcGptg8Eg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzbGU0HN89KgVnoUD0XTTXH243ICtqbRGr161EMFb9xkWnKv55O
+	x32DBie6ag2032JWlzFXk/Id4+5XEQinbmSvPHQXfo5cEAO9eMxLpmDFjvnDa5CfM9YLJeAe/+P
+	o654=
+X-Gm-Gg: ASbGnctnP6RmQIAp/HoGLN2on77Sdsur9R0WQjkgAhJVkVa66vLkFPV5cGtKEWFfXnx
+	lUuTYXbJ4vtEYHxY4b+OJ92eQ7nj86nbk2DvS2S21RxvxAC2hiEX7+R3+5KuJI+qWN1PBmmkn21
+	o1KbDcwyJfCYX7VBsVz5PZN5q9x64W+gteGquWAgRr5RCzLFexzd3CiPwwNw08wE3sJddP1gAgq
+	tZSktKJNPqX4WX/R6gTMRmlXlvlymyna3i0FM8Ue8C4merPAnyvc2x/oSU/imiUjey4bce0AqLp
+	zfd9hv05mgKnTIKjQwONGS4uE0DhsBPbzWya8zOyYTeoEikTvR8ZX6vu8q9qUNWjGOp7WdgWdq6
+	Oi1KEO/sdsSh1I9gG4wu10lT50px+9EY8BlnVitHaSEVxRJQ9EXpxjxKOWZLD3jOt5IlM6IOYbU
+	9HkmbTmEIG7tDzJcxfGQ==
+X-Google-Smtp-Source: AGHT+IH8eX6qnIh209AHzFZ3trUjBXKVMsxN9lYxZIjEyfq2IwOrd1qwbTCWFSQiMHckd1LD7djbPQ==
+X-Received: by 2002:a17:906:c142:b0:afe:bb6d:1caf with SMTP id a640c23a62f3a-b01f20fbb68mr777004266b.62.1756720017988;
+        Mon, 01 Sep 2025 02:46:57 -0700 (PDT)
+Message-ID: <5c0cb015-b2e7-467d-9c1f-2314bcb66ad6@suse.com>
+Date: Mon, 1 Sep 2025 11:46:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/23] x86/traps: Make an IDT-specific #DB helper
+Subject: Re: [PATCH v2 11/23] x86/traps: Make an IDT-specific #PF helper
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250828150409.901315-1-andrew.cooper3@citrix.com>
- <20250828150409.901315-11-andrew.cooper3@citrix.com>
+ <20250828150409.901315-12-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,23 +120,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250828150409.901315-11-andrew.cooper3@citrix.com>
+In-Reply-To: <20250828150409.901315-12-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 28.08.2025 17:03, Andrew Cooper wrote:
-> FRED provides PENDING_DBG in the the stack frame, avoiding the need to read
-> %dr6 manually.
+> FRED provides %cr2 in the the stack frame, avoiding the need to read %cr2
+> manually.
 > 
-> Rename do_debug() to handle_DB(), and update it to take a dbg field using
-> positive polarity.
+> Rename do_page_fault() to handle_PF(), and update it to take cr2, still named
+> addr for consistency.
 > 
-> Introduce a new handle_DB_IDT() which reads %dr6.
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Introduce a new handle_PF_IDT() which reads %cr2 and conditionally re-enables
+> interrupts.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Why does this IRQ-re-enabling move to the IDT-specific function? Do you intend
+to do the re-enabling yet earlier in FRED mode?
 
+Jan
 
