@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B80DCB3EB97
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 17:56:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1105177.1456132 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15D1CB3EBF6
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 18:11:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1105189.1456143 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut6sk-00031u-8f; Mon, 01 Sep 2025 15:55:46 +0000
+	id 1ut77o-0006YY-H2; Mon, 01 Sep 2025 16:11:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1105177.1456132; Mon, 01 Sep 2025 15:55:46 +0000
+Received: by outflank-mailman (output) from mailman id 1105189.1456143; Mon, 01 Sep 2025 16:11:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut6sk-0002zD-5o; Mon, 01 Sep 2025 15:55:46 +0000
-Received: by outflank-mailman (input) for mailman id 1105177;
- Mon, 01 Sep 2025 15:55:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ut77o-0006VQ-Dx; Mon, 01 Sep 2025 16:11:20 +0000
+Received: by outflank-mailman (input) for mailman id 1105189;
+ Mon, 01 Sep 2025 16:11:19 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=UGQU=3M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ut6sj-0002z7-JF
- for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 15:55:45 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1e37465c-874c-11f0-8adc-4578a1afcccb;
- Mon, 01 Sep 2025 17:55:44 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-b043da5a55fso93288066b.0
- for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 08:55:44 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b042a4b3110sm280325466b.49.2025.09.01.08.55.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Sep 2025 08:55:43 -0700 (PDT)
+ (envelope-from <julien@xen.org>) id 1ut77n-0006VK-2K
+ for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 16:11:19 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1ut77m-001Etf-0g;
+ Mon, 01 Sep 2025 16:11:18 +0000
+Received: from [2a02:8012:3a1:0:e5e9:9db0:73a2:cd65]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1ut77m-00C2kZ-0h;
+ Mon, 01 Sep 2025 16:11:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,118 +39,279 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1e37465c-874c-11f0-8adc-4578a1afcccb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756742144; x=1757346944; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wc1IbT75z30hfNaM4eYm7WwvCn86qqWn0tIobmwcmDU=;
-        b=Zb+9Fj1cl6sxR1npZsgDL/RXabfau8fw0nfpPjBA40HAwMFIN2w7hlmrwQELfZlS7J
-         fHRq4s5FDdTX66pV609pFCKSEkBquAx9cGet/XTnYqryAPDUfSIZGpZV84IhapPJM2aM
-         7plH3WosqrUdB7MBfJSwPlv6ckdEuRCgMRSu5F+3vO3sQv3oeK/xX0Xyu+SF7NyXvOGU
-         aeg+8aonguDk2H77Ozi4upS67jYxJ3fADDzh33URZFfreuPNiAtFE8RpwiATq5d5Gomh
-         GBsqCM+iLOlTYJ+35qG9wdNZeeUbq4BTzgI4sLyFP3HJV5tepRzOjq9QRFvQdkCmehal
-         zTlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756742144; x=1757346944;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wc1IbT75z30hfNaM4eYm7WwvCn86qqWn0tIobmwcmDU=;
-        b=PPHhJbZd5q5Qr/QoYc45tsLvIx0EZTr1k/H9U03AOy/FWOJxMCsUmzt512VDPJxo8U
-         UFexs88Tk3602yv+RojjRisTFpAeuMr0dTFZZqlLKGhJIunTA4LrYGzDn7fm7mLxpNZR
-         qN2mZCfPQzbhOhn9Ozmkke5HQbh/h6LOpXQog2UAQAfYHNSXEstfX751LNdEmCjkOIhm
-         DKEidz0a+ScDuVls0ExcnpjtTqDdRlsx0j13wFHHzXIi4PftWWNubY9kW0H1bhcE7GER
-         Dby0oT+L3SKwEsM/UABD2IUTNoE9Da1LTDJd72aj/dQFnZyzs3jP9IhsclK4jmj9fD+O
-         kTDw==
-X-Forwarded-Encrypted: i=1; AJvYcCXAo4G8gaIq0JQYu2swY1xMJzY1n2EdW/ugTYW20cPVws13mlAmDesPUj9mJR9qExh5ZLr0Uy+d2N0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzt0pfKRDy1k0MPwAPrsIIRbzYX/oWBmZIYEAOyuHOi8n6pqbu/
-	85J0/Eggrlt6RyllOJ8vsoNZ54Owzpieh8JqLpxza6eK8oBOR0EscsITm1Jan4KA5g==
-X-Gm-Gg: ASbGncsI1xrH8Z7C0aKj6hGhI88G6cR4pF+UfAlg+CsbM6DXXYDipDg+0kSxeZ3OJ0r
-	Xg3bhrIYqPCOHQFUMt5/7XIqUttuYdvRwBFndGz9D9YpWdHZgxrVrYD0n0pi+bXCjvX3tRQ7ipA
-	xA/XGceKl1qdQTNh+AGoPK4HUB8zDqW1fUfqjaiEUTnRMChWpPLSCEulxOBzyxvgE2iF7oCDOB5
-	Pm4wEg+xAK7AliMCqbU0jxm3d5sIJsG6L+XRhyLqR2LjEQdSmTTAhDtplgeZa8TEEuaJ7tsekRn
-	bpD7KBSVAHli65xfxpONe2B8Z9wlf6RGjpVdkQH2qW0fNrLd+2lNu5qu3ergNBuHUE73eAqUDP2
-	32ccq84W7qVpexzyWDoc7bfUwl7J4YfNNd1B8K4Mp7d+WwxgPXehVQP+JXNMGCKx5PQXM/BnuDW
-	W9PBSo3Lc=
-X-Google-Smtp-Source: AGHT+IFO5bSXwMTfEORZKm7GOoDf5t74C32F2t948i4P9mlKdH/mSSYWcXlP3Kk8Su7WE3RNlAPUfQ==
-X-Received: by 2002:a17:907:fd15:b0:afe:ef48:ee41 with SMTP id a640c23a62f3a-b01da23e859mr889305666b.58.1756742143856;
-        Mon, 01 Sep 2025 08:55:43 -0700 (PDT)
-Message-ID: <d4fb77fe-e956-4c3b-b7be-06fc36fe4be4@suse.com>
-Date: Mon, 1 Sep 2025 17:55:42 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=O+uwXkWmJIqFCYhYk0EbVwGCQFr0La7xSx8HvhWQliI=; b=WFk02pcSrGWctjTxspPH/zgIF0
+	28om3MKX0+9oj051PDvkRCfG5E2s57FAmYojFxlxlIWTKmyVnb9oxroOkinUtQrbAsMyUostUNngh
+	Cha6wTTquG82l7PODzu+DeXzEso5ImLb0oR7AFDxbGP8XzbPIaM8v3OJwcfHJo5oSgJI=;
+Message-ID: <2e91a95a-3109-46ae-b796-1a1c50a9ac2d@xen.org>
+Date: Mon, 1 Sep 2025 17:11:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND PATCH v2 1/3] xen: Define xen_domain_handle_t encoding
- and formatting
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Community Manager <community.manager@xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1756460430.git.teddy.astie@vates.tech>
- <a12f705dae18ae2b87c9e21027d14c4e60bff146.1756460430.git.teddy.astie@vates.tech>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a12f705dae18ae2b87c9e21027d14c4e60bff146.1756460430.git.teddy.astie@vates.tech>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v5 04/12] xen/arm/irq: add handling for IRQs in the eSPI
+ range
+Content-Language: en-GB
+To: Leonid Komarianskyi <Leonid_Komarianskyi@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: "olekstysh@gmail.com" <olekstysh@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1756481577.git.leonid_komarianskyi@epam.com>
+ <e0f76a1533332cef68bfaacbdf57fd05f27764a6.1756481577.git.leonid_komarianskyi@epam.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <e0f76a1533332cef68bfaacbdf57fd05f27764a6.1756481577.git.leonid_komarianskyi@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 29.08.2025 11:58, Teddy Astie wrote:
-> --- a/CHANGELOG.md
-> +++ b/CHANGELOG.md
-> @@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->     - For x86, GCC 5.1 and Binutils 2.25, or Clang/LLVM 11
->     - For ARM32 and ARM64, GCC 5.1 and Binutils 2.25
->   - Linux based device model stubdomains are now fully supported.
-> + - Clarify guest UUIDs as being big-endian encoded.
+Hi Leonid,
 
-Is something like this really in need of having a ChangeLog entry?
+On 29/08/2025 17:06, Leonid Komarianskyi wrote:
+> Currently, Xen does not support eSPI interrupts, leading
+> to a data abort when such interrupts are defined in the DTS.
+> 
+> This patch introduces a separate array to initialize up to
+> 1024 interrupt descriptors in the eSPI range and adds the
+> necessary defines and helper function. These changes lay the
+> groundwork for future implementation of full eSPI interrupt
+> support. As this GICv3.1 feature is not required by all vendors,
+> all changes are guarded by ifdefs, depending on the corresponding
+> Kconfig option.
+> 
+> Signed-off-by: Leonid Komarianskyi <leonid_komarianskyi@epam.com>
+> 
+> ---
+> Changes in V5:
+> - no functional changes introduced by this version compared with V4, only
+>    minor fixes and removal of ifdefs for macroses
+> - added TODO comment, suggested by Oleksandr Tyshchenko
+> - changed int to unsigned int for irqs
+> - removed ifdefs for eSPI-specific defines and macros to reduce the
+>    number of ifdefs and code duplication in further changes
+> - removed reviewed-by as moving defines from ifdefs requires additional
+>    confirmation from reviewers
+> 
+> Changes in V4:
+> - removed redundant line with 'default n' in Kconfig, as it is disabled
+>    by default, without explicit specification
+> - added reviewed-by from Volodymyr Babchuk
+> 
+> Changes in V3:
+> - introduced a new define NR_ESPI_IRQS to avoid confusion, like in the
+>    case of using NR_IRQS for espi_desc array
+> - implemented helper functions espi_to_desc and init_espi_data to make
+>    it possible to add stubs with the same name, and as a result, reduce
+>    the number of #ifdefs
+> - disable CONFIG_GICV3_ESPI default value to n
+> 
+> Changes in V2:
+> - use (ESPI_MAX_INTID + 1) instead of (ESPI_BASE_INTID + NR_IRQS)
+> - remove unnecessary comment for nr_irqs initialization
+> ---
+>   xen/arch/arm/Kconfig           |  8 +++++
+>   xen/arch/arm/include/asm/irq.h | 24 +++++++++++++++
+>   xen/arch/arm/irq.c             | 56 +++++++++++++++++++++++++++++++++-
+>   3 files changed, 87 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+> index 17df147b25..43b05533b1 100644
+> --- a/xen/arch/arm/Kconfig
+> +++ b/xen/arch/arm/Kconfig
+> @@ -135,6 +135,14 @@ config GICV3
+>   	  Driver for the ARM Generic Interrupt Controller v3.
+>   	  If unsure, use the default setting.
+>   
+> +config GICV3_ESPI
+> +	bool "Extended SPI range support"
+> +	depends on GICV3 && !NEW_VGIC
+> +	help
+> +	  Allow Xen and domains to use interrupt numbers from the extended SPI
+> +	  range, from 4096 to 5119. This feature is introduced in GICv3.1
+> +	  architecture.
+> +
+>   config HAS_ITS
+>           bool "GICv3 ITS MSI controller support (UNSUPPORTED)" if UNSUPPORTED
+>           depends on GICV3 && !NEW_VGIC && !ARM_32
+> diff --git a/xen/arch/arm/include/asm/irq.h b/xen/arch/arm/include/asm/irq.h
+> index 5bc6475eb4..4443799648 100644
+> --- a/xen/arch/arm/include/asm/irq.h
+> +++ b/xen/arch/arm/include/asm/irq.h
+> @@ -32,6 +32,13 @@ struct arch_irq_desc {
+>   #define SPI_MAX_INTID   1019
+>   #define LPI_OFFSET      8192
+>   
+> +#define ESPI_BASE_INTID 4096
+> +#define ESPI_MAX_INTID  5119
+> +#define NR_ESPI_IRQS    1024
+> +
+> +#define ESPI_INTID2IDX(intid) ((intid) - ESPI_BASE_INTID)
+> +#define ESPI_IDX2INTID(idx)   ((idx) + ESPI_BASE_INTID)
 
-Jan
+NIT: I would consider adding sanity check (i.e. ASSERT()) to confirm 
+that both ``intid`` and ``idx`` are within the bounds.
 
-> --- a/xen/include/public/xen.h
-> +++ b/xen/include/public/xen.h
-> @@ -973,6 +973,13 @@ typedef struct dom0_vga_console_info {
->  #define xen_vga_console_info dom0_vga_console_info
->  #define xen_vga_console_info_t dom0_vga_console_info_t
->  
+> +
+>   /* LPIs are always numbered starting at 8192, so 0 is a good invalid case. */
+>   #define INVALID_LPI     0
+>   
+> @@ -39,7 +46,15 @@ struct arch_irq_desc {
+>   #define INVALID_IRQ     1023
+>   
+>   extern const unsigned int nr_irqs;
+> +#ifdef CONFIG_GICV3_ESPI
 > +/*
-> + * The domain handle is chosen by the toolstack, and intended to hold a UUID
-> + * conforming to RFC 9562 (i.e. big endian).
-> + *
-> + * Certain cases (e.g. SMBios) transform it to a Microsoft GUID (little
-> + * endian) for presentation to the guest.
+> + * This will also cover the eSPI range, as some critical devices
+> + * for booting Xen (e.g., serial) may use this type of interrupts.
 > + */
->  typedef uint8_t xen_domain_handle_t[16];
->  
->  __DEFINE_XEN_GUEST_HANDLE(uint8,  uint8_t);
+
+Reading this again, I still don't quite understand why we are mentioning 
+Xen devices. Looking at the code, for Arm, we only seem to use 
+nr_static_irqs to configure nr_pirqs and XSM. Both are ony used by domains.
+
+So I think this needs to be clarified.
+
+> +#define nr_static_irqs (ESPI_MAX_INTID + 1)
+> +#else
+>   #define nr_static_irqs NR_IRQS
+> +#endif
+>   
+>   struct irq_desc;
+>   struct irqaction;
+> @@ -55,6 +70,15 @@ static inline bool is_lpi(unsigned int irq)
+>       return irq >= LPI_OFFSET;
+>   }
+>   
+> +static inline bool is_espi(unsigned int irq)
+> +{
+> +#ifdef CONFIG_GICV3_ESPI
+> +    return (irq >= ESPI_BASE_INTID && irq <= ESPI_MAX_INTID);
+> +#else
+> +    return false;
+> +#endif
+> +}
+> +
+>   #define domain_pirq_to_irq(d, pirq) (pirq)
+>   
+>   bool is_assignable_irq(unsigned int irq);
+> diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
+> index b8eccfc924..61c915c3f9 100644
+> --- a/xen/arch/arm/irq.c
+> +++ b/xen/arch/arm/irq.c
+> @@ -19,7 +19,11 @@
+>   #include <asm/gic.h>
+>   #incl#ude <asm/vgic.h>
+>   
+> +#ifdef CONFIG_GICV3_ESPI
+> +const unsigned int nr_irqs = ESPI_MAX_INTID + 1;
+> +#else
+>   const unsigned int nr_irqs = NR_IRQS;
+> +#endif
+
+NIT: I think you can use:
+
+const unsigned int nr_irqs = IS_ENABLED(CONFIG_GICV3_ESPI)? 
+(ESPI_MAX_INTID + 1) : NR_IRQS;
+
+That said, I think we need to rethink about the use of nr_irqs and 
+nr_static_irqs because they don't entirely make sense for Arm as we 
+don't support PIRQs.
+
+I would at least try to get rid of one of the variable (maybe nr_irqs) 
+if not both.
+
+This could be done as a follow-up.
+
+>   
+>   static unsigned int local_irqs_type[NR_LOCAL_IRQS];
+>   static DEFINE_SPINLOCK(local_irqs_type_lock);
+> @@ -46,6 +50,53 @@ void irq_end_none(struct irq_desc *irq)
+>   }
+>   
+>   static irq_desc_t irq_desc[NR_IRQS - NR_LOCAL_IRQS];
+> +#ifdef CONFIG_GICV3_ESPI
+> +/*
+> + * TODO: Consider allocating an array dynamically if
+> + * there is a need to enable GICV3_ESPI by default.
+> + */
+
+I know this was suggested by Oleksandr, however most likely distro will 
+want to enable this feature so they can be booted on a wide range of 
+platform. So I think "if there is a need to enable GICV3_ESPI by 
+default" should be removed.
+
+ > +static irq_desc_t espi_desc[NR_ESPI_IRQS];> +
+> +static struct irq_desc *espi_to_desc(unsigned int irq)
+> +{
+> +    return &espi_desc[ESPI_INTID2IDX(irq)];
+> +}
+> +
+> +static int __init init_espi_data(void)
+> +{
+> +    unsigned int irq;
+> +
+> +    for ( irq = ESPI_BASE_INTID; irq <= ESPI_MAX_INTID; irq++ )
+> +    {
+> +        struct irq_desc *desc = irq_to_desc(irq);
+> +        int rc = init_one_irq_desc(desc);
+> +
+> +        if ( rc )
+> +            return rc;
+> +
+> +        desc->irq = irq;
+> +        desc->action  = NULL;
+> +    }
+> +
+> +    return 0;
+> +}
+> +#else
+> +/*
+> + * This function is stub and will not be called if CONFIG_GICV3_ESPI=n,
+> + * because in this case, is_espi will always return false.
+> + */
+
+Is this is not mean to be called, then can we only define the prototype 
+like we do for __bad_atomic_read()?
+
+> +static struct irq_desc *espi_to_desc(unsigned int irq)
+> +{
+> +    ASSERT_UNREACHABLE();
+> +    return NULL;
+> +}
+> +
+> +static int __init init_espi_data(void)
+> +{
+> +    return 0;
+> +}
+> +#endif
+> +
+>   static DEFINE_PER_CPU(irq_desc_t[NR_LOCAL_IRQS], local_irq_desc);
+>   
+>   struct irq_desc *__irq_to_desc(unsigned int irq)
+> @@ -53,6 +104,9 @@ struct irq_desc *__irq_to_desc(unsigned int irq)
+>       if ( irq < NR_LOCAL_IRQS )
+>           return &this_cpu(local_irq_desc)[irq];
+>   
+> +    if ( is_espi(irq) )
+> +        return espi_to_desc(irq);
+> +
+>       return &irq_desc[irq-NR_LOCAL_IRQS];
+>   }
+>   
+> @@ -79,7 +133,7 @@ static int __init init_irq_data(void)
+>           desc->action  = NULL;
+>       }
+>   
+> -    return 0;
+> +    return init_espi_data();
+>   }
+>   
+>   static int init_local_irq_data(unsigned int cpu)
+
+Cheers,
+
+-- 
+Julien Grall
 
 
