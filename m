@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8388AB3E0D8
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 13:03:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1104426.1455491 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0524BB3E0F2
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 13:06:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1104450.1455502 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut2Ja-0002DI-0F; Mon, 01 Sep 2025 11:03:10 +0000
+	id 1ut2Me-00030n-Di; Mon, 01 Sep 2025 11:06:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1104426.1455491; Mon, 01 Sep 2025 11:03:09 +0000
+Received: by outflank-mailman (output) from mailman id 1104450.1455502; Mon, 01 Sep 2025 11:06:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut2JZ-0002B4-TU; Mon, 01 Sep 2025 11:03:09 +0000
-Received: by outflank-mailman (input) for mailman id 1104426;
- Mon, 01 Sep 2025 11:03:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ut2Me-0002zI-AU; Mon, 01 Sep 2025 11:06:20 +0000
+Received: by outflank-mailman (input) for mailman id 1104450;
+ Mon, 01 Sep 2025 11:06:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wdOO=3M=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1ut2JZ-0001se-4N
- for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 11:03:09 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3e201230-8723-11f0-8adc-4578a1afcccb;
- Mon, 01 Sep 2025 13:03:08 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-45b83ae1734so14627315e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 04:03:08 -0700 (PDT)
+ id 1ut2Md-0002zB-68
+ for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 11:06:19 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ae8ff5f8-8723-11f0-8dd7-1b34d833f44b;
+ Mon, 01 Sep 2025 13:06:17 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-45b7d497ab9so36303875e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 04:06:17 -0700 (PDT)
 Received: from [192.168.1.183] (host-195-149-20-212.as13285.net.
  [195.149.20.212]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b7e7ef7cfsm152172945e9.6.2025.09.01.04.03.07
+ ffacd0b85a97d-3d0b9402299sm13918384f8f.18.2025.09.01.04.06.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Sep 2025 04:03:07 -0700 (PDT)
+ Mon, 01 Sep 2025 04:06:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e201230-8723-11f0-8adc-4578a1afcccb
+X-Inumbo-ID: ae8ff5f8-8723-11f0-8dd7-1b34d833f44b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1756724588; x=1757329388; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1756724777; x=1757329577; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=hRxxRlc8f7vs7NUAtup/ZJTAGg+HDAk3DXtmybgTsfo=;
-        b=rzK6nFqHC92R2VfL8a+DloxJqeSBoRriLAczID21m4mf7YO81b4J+Wakt1QKHccXUQ
-         WVbD+3ZQA0DdNeeHRCLFRx/YusqvxYjJf6WvzU9L05bElr0JboHoRrAIuhkM7itAlE4p
-         YcNL8PxLPMpwNZAiJnTax2RaEBBss0bOPjq0c=
+        bh=yjy4r8CxSau9HWpgnwP6xnZso1qjHrdX2I5alpTzcQI=;
+        b=I9/vbXwyV4336w3offsjXt/E0uBAuXXjgjTHymHcBQ6n2iY/0AUnj0LLBONsANhXEX
+         +s2gn2aqcaqZDBpl6zw7WaYEQI/5979rbmPyL2vtQhC/R1rUs9X+I/UtoWLZnEASRqhB
+         mEZ8tQV0kdtTK5IygFbaEeVP9hCwrgSRomXL4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756724588; x=1757329388;
+        d=1e100.net; s=20230601; t=1756724777; x=1757329577;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hRxxRlc8f7vs7NUAtup/ZJTAGg+HDAk3DXtmybgTsfo=;
-        b=jrrUhnxSLhMsdyZ1k/Jbigfi3QG1WITwCA4sTi8d8O81SuuaIbhPj4XZxdUxHkCLkI
-         NJIotFvhhtCY4xQvhCsNtrNDWQXeQt4qOGVu29VzqcsazGvvhjSB6XyaFowvG/LIvAMt
-         6p/6d8bw5uCp0/4GRpmH4xzyRs0M67pCVR8aucHyuV8tTa70O6Dor7WqYwx1xlrn/fgK
-         tOHBxk+v38pV2GKDYUkeKw+0EzWIvysInxyqJA0Ioa4ebC5om1MaudErIxKn9bEYfRgL
-         OKUgO9WFlDbKKLM60iFeZZy+E42SgCdm7BSw17355E4W2bCtrxYp33Y/gzJd20MJJ7G1
-         NRog==
-X-Forwarded-Encrypted: i=1; AJvYcCXTYNIFGqaAxUFifsfeB7p5OgcU8TJ3sCLbK+LtghyLGOrx8ZoZZCZPtSryhJyU2niFNEvQY3QjhtA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy/4iaPe3aYOI2m57i+Emd+26VavoCZjCR751dKojuU2pXAsvEZ
-	mBPCb1V5oJiYGn9mrr1qK788DV6igVXwS9mKQl2LOPIXfacMM9yXBZ+/HKsUh6rlYBw=
-X-Gm-Gg: ASbGncvqIligd6Xrxv/FPvsAHH06WrpWw09W7jQPnWOQbGD6sgcUtRskKQ3Q4BnKahP
-	eIqNUVpsV/1OuGC+JBIU8tz0yryFMwSqVlUeU2gsu1uFSYgLxiMBbIL+5pA+81O3lAMePwV6A2Z
-	ZqlfCcADBHpIFElqy4XAwnzoGaQoAY2imtn9XvcXd9uPwpC6e8bCEFWjAUTwVsJk47qRg35l//y
-	K0fdtuMyjAlm/39ghDwcO6hei6Be2vIiN8kPzqhgTteRiVvZlgA8/FhhPxmWWkqhwgQqSDUWBgm
-	AxTqLa0zBpcwBG+8XcJJh2bazNAY6bqMdlwgrakDUBQbv286w2rheL598Llsj/ZDrEPioU6EkXR
-	A3JYGKMrTFbjvI2lSztEf6OggMrCfxy4rLPJduM29I6XO22hYzotAeWApBY8ncvzdWYiDsVh5nU
-	zSu0Q=
-X-Google-Smtp-Source: AGHT+IFNTSEjme0s9CaqKVt6iDXPKQNaxTGx36RHeg0Amss0+ggzDbKkcHQ1CHKEArX34ZN0L+Soew==
-X-Received: by 2002:a05:600c:4f89:b0:45b:8f11:8de3 with SMTP id 5b1f17b1804b1-45b8f118fc2mr17946925e9.16.1756724587830;
-        Mon, 01 Sep 2025 04:03:07 -0700 (PDT)
-Message-ID: <da85b22c-e176-412c-9d13-b7abcf4f3def@citrix.com>
-Date: Mon, 1 Sep 2025 12:03:06 +0100
+        bh=yjy4r8CxSau9HWpgnwP6xnZso1qjHrdX2I5alpTzcQI=;
+        b=ailEy8l5jM4c+h/whB0cIAG/SI3rRncYyUl2yVKbUSN8NdjYvl1wFt9uY2OIJMfRl3
+         yuz5m9SO63ZDOe9oYTG7zc/fxSTV4mgZ981mjRAEhnoj1kcEf0nUmt68PgxUsAn6B2sM
+         MMawAkJwA0nyyRYsjrX+hE84y9D4j36AcU1rL8S2a650hXrKuvN59x+zC0HbnTPZ8M6I
+         OhZ5AMz6+WiP2PCM+WZA0fUH9tnsNnW62HqJiVAF8LWIWAL3B99pfwtL3/fBiVbmg3VM
+         icu/FJgB54DQe1yVsdfQm0JHbgs/pu1FhNjGZ/BxmsrPF6OU8L/XVdT9wDEOUH9M6tLC
+         R0gQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUcr96eCCajbXN90D2auDNSujI0aKkxGksiJlgbnGsIn+zZEr4uhLBiA43wn5L9zoBFvD+na/1cYeg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwqHSyyecoIN9V6XH1sH5V+fe/LysbqgRjPwCXHERB3g8dcRdgO
+	esf3Jt+bnVWzsFL8bLa36a+hlmN4FVoBH7qDLpyipP9XsCExoVKMgGWJht+btuNrh7g=
+X-Gm-Gg: ASbGncudijkrT2TK/Z25S8JygSoVbbRPNKqFp+mKj3tfzmsJoFjW8VdKp1af/HvTMZj
+	FpqBPb66ihuLKqDXTag8MyZjOMIo/buCUCeYJGScE7PxJpSjCNjxWyK2isFChwiTD3qPrvlmp7i
+	ENHSZPYnL9y/Oz+jCvFfZw2wZNO2vW8OjWekXTryh0ffDSfqysLz4qDrLhjnVn2xs0Aq550OO+M
+	XyrY6PzpaOSoCE25mqXvlCPYFwpF/0C0EsWNaXyqturpkExY90yyrs3Wo2/98ERKTJwsbSM+RkS
+	6f9HAI0ugxiQEGx3PBMFvmz68tEB6ZFDntabGxK9OYTILlSTU7x/CKkQlzT7u9OWTniuQsA9auo
+	Jgpk6ynnZgesz2Su+2RRWW9de5PV39mCvr8XJzG6ru+LS1cB4vHRg6R3oGfUo9s6sBkuOCVXm1M
+	FkPoI=
+X-Google-Smtp-Source: AGHT+IEplDcJAkQVkk7Z/wNtbk8hnX050Ak0zbsjhu8/2pr0ZoTKCrvgrrF7OtivxAlrSTla9JtjrQ==
+X-Received: by 2002:a05:600c:1e87:b0:45b:47e1:ef68 with SMTP id 5b1f17b1804b1-45b855bec6emr58422695e9.35.1756724776573;
+        Mon, 01 Sep 2025 04:06:16 -0700 (PDT)
+Message-ID: <b382c150-d3e9-4536-85fc-f4a11bc270fb@citrix.com>
+Date: Mon, 1 Sep 2025 12:06:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/apic: Get rid of get_physical_broadcast()
+Subject: Re: [PATCH v2] x86/gen-cpuid: correct cycle detection
 To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250829161710.1056772-1-andrew.cooper3@citrix.com>
- <20250829161710.1056772-2-andrew.cooper3@citrix.com>
- <7d1bf3ca-b7fd-4c42-a9af-157120828d6c@suse.com>
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <41ba214a-6137-4d8f-9f4f-3a362940d8a8@suse.com>
+ <327eb40c-8fcb-42dc-a0b2-3b756a566b23@citrix.com>
+ <a0f6d7fb-2442-47b6-a0bc-c8b9b3b34079@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -137,36 +137,56 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <7d1bf3ca-b7fd-4c42-a9af-157120828d6c@suse.com>
+In-Reply-To: <a0f6d7fb-2442-47b6-a0bc-c8b9b3b34079@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 01/09/2025 9:33 am, Jan Beulich wrote:
-> On 29.08.2025 18:17, Andrew Cooper wrote:
->> This is a port of Linux commit 517234446c1a ("x86/apic: Get rid of
->> get_physical_broadcast()") to Xen.  Thomas Gleixner notes:
->>
->>   There is no point for this function. The only case where this is used is
->>   when there is no XAPIC available, which means the broadcast address is 0xF.
->>
->> In Linux, users of get_physical_broadcast() have already been hidden behind
->> CONFIG_X86_32 suggesting we can drop all of this, but that's a task for some
->> other time.
->>
->> In Xen as with Linux, setup_ioapic_ids_from_mpc() and io_apic_get_unique_id()
->> are only called in pre-xAPIC cases, so can use a broadcast ID of 0xf.  The
->> only other user is __print_IO_APIC() for diagnostics, which can simply drop
->> the check.
-> For setup_ioapic_ids_from_mpc() in Linux that's partly because it gained an
-> Intel && !APIC_XAPIC() check which we don't have.
+On 01/09/2025 12:02 pm, Jan Beulich wrote:
+> On 01.09.2025 12:31, Andrew Cooper wrote:
+>> On 01/09/2025 9:56 am, Jan Beulich wrote:
+>>> With the processing done linearly (rather than recursively), checking
+>>> whether any of the features was previously seen is wrong: That would
+>>> e.g. trigger for this simple set of dependencies
+>>>
+>>>     X: [A, B]
+>>>     A: [C]
+>>>     B: [C]
+>>>
+>>> (observed in reality when making AMX-AVX512 dependent upon both
+>>> AMX-TILE and AVX512F, causing XSAVE to see AMX-AVX512 twice in its list
+>>> of dependents). But checking the whole accumulated set also isn't
+>>> necessary - just checking the feature we're processing dependents of is
+>>> sufficient. We may detect a cycle later that way, but we still will
+>>> detect it. What we need to avoid is adding a feature again when we've
+>>> already seen it.
+>>>
+>>> As a result, seeding "seen[]" with "feat" isn't necessary anymore.
+>>>
+>>> Fixes: fe4408d180f4 ("xen/x86: Generate deep dependencies of features")
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>, with one further
+>> minor adjustment.
+> Thanks.
+>
+>>> --- a/xen/tools/gen-cpuid.py
+>>> +++ b/xen/tools/gen-cpuid.py
+>>> @@ -379,14 +379,17 @@ def crunch_numbers(state):
+>>>  
+>>>              f = to_process.pop(0)
+>>>  
+>>> +            if f == feat:
+>>> +                raise Fail("ERROR: Cycle found when processing %s" % \
+>> No need for the \ here.
+> Okay, but then why is there one in the commented out code you touch in the
+> other patch?
 
-In Xen, setup_ioapic_ids_from_mpc() has a comment and an xAPIC check at
-the start of the function.
+Oh, that's wrong too.
 
-We're lacking Linux commit a38c5380ef9f "x86: io_apic: Split
-setup_ioapic_ids_from_mpc()" which moved the check to the caller.
+That will have originally been a print statement (no brackets in py2,
+thus needing the line continuation) which I refactored to
+sys.stderr.write() (has brackets) and didn't clean up correctly.
 
-Perhaps I should s/called/used/ in the commit message?
+I'll adjust it in my patch, as I'm dropping the trailing whitespace as well.
 
 ~Andrew
 
