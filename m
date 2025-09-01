@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05997B3DB9F
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 09:58:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1104108.1455252 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96581B3DC13
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 10:14:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1104122.1455261 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uszR6-0000DD-RM; Mon, 01 Sep 2025 07:58:44 +0000
+	id 1uszgA-0003U4-6a; Mon, 01 Sep 2025 08:14:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1104108.1455252; Mon, 01 Sep 2025 07:58:44 +0000
+Received: by outflank-mailman (output) from mailman id 1104122.1455261; Mon, 01 Sep 2025 08:14:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uszR6-0000B9-Of; Mon, 01 Sep 2025 07:58:44 +0000
-Received: by outflank-mailman (input) for mailman id 1104108;
- Mon, 01 Sep 2025 07:58:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uszgA-0003Rq-3g; Mon, 01 Sep 2025 08:14:18 +0000
+Received: by outflank-mailman (input) for mailman id 1104122;
+ Mon, 01 Sep 2025 08:14:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UGQU=3M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uszR4-0000B1-Jw
- for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 07:58:42 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 79adbb7d-8709-11f0-8adc-4578a1afcccb;
- Mon, 01 Sep 2025 09:58:41 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-6188b7550c0so4794340a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 00:58:41 -0700 (PDT)
+ id 1uszg8-0003Ri-U9
+ for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 08:14:16 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a12eb794-870b-11f0-8dd7-1b34d833f44b;
+ Mon, 01 Sep 2025 10:14:06 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-61cb9e039d9so7977709a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 01:14:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b0431832a98sm133994266b.80.2025.09.01.00.58.40
+ 4fb4d7f45d1cf-61cfc1c7ed1sm6740456a12.1.2025.09.01.01.14.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Sep 2025 00:58:40 -0700 (PDT)
+ Mon, 01 Sep 2025 01:14:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79adbb7d-8709-11f0-8adc-4578a1afcccb
+X-Inumbo-ID: a12eb794-870b-11f0-8dd7-1b34d833f44b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756713521; x=1757318321; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756714446; x=1757319246; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xdIUtIQmXUoYqJt3tM/kewKZM5sAxU84JgTSFymboaU=;
-        b=Dx1+mTjp63pV5/Hw+xyBaSka7haVZKaD82WXuLrqlviDKqdYywnrqAOUmtkKA5vpoJ
-         lRJQdCfgLmIGV+WnyA6pXKiA7r/mzV8vvVWFAWRpfCis0ktznqxWyJz1EdwRbyrHWi0F
-         PUsTCZaj264lvcGXrWiFFyEOqFSO1gqi8dkQ/HXbO5QuoJqksJn5SvC2RkLFMr0j4RgC
-         ahFFtTjbcz6+5ZQb8J9y8Wrg48o6oSMl0y45OC0q7OgbJE9G8AWjvL+rWWLjsG657Hsw
-         aWZwYe04uVdgoD40z4RLQQbfpcTkzPo2x+4gAav9qGLnz5VcCnNJrorNJ8zLkXGJs0zq
-         wSSw==
+        bh=LnTjTlkxSTo+O8IMNavi+odu+EOnDJITVeZaSR4UGi0=;
+        b=DFaqBW0gDzUBbx8GjSMRt0w+v/sYKt1sVl1uzTpTocK/NKGYEuj0QyiQ5sBPbp4a9R
+         rKSGSYRgNdODz++gwaOkhBL8mJqWHgI2kNjsJXYZjBqXT1etM8OtTcbiUkXeHwm3VSd6
+         Mp3A+mbKkL1tjQgaXIjNMITZEUViT3jXu7J7I6cuHKBAVkXcYld3UQjfnSH2p/pOiXUK
+         qJQMnqOGPidb3JLt/yx26r5VTbSoIyppvaiHJSBAta6fTUiAc4RfnmdNmjN0BsBTQkva
+         EuZGysg1XMGZyU6ryIUlZwZsNvb4PPQPe95AP+9nNc/HbY0VewXv1J4dmlzD6BGMrpw6
+         latQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756713521; x=1757318321;
+        d=1e100.net; s=20230601; t=1756714446; x=1757319246;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xdIUtIQmXUoYqJt3tM/kewKZM5sAxU84JgTSFymboaU=;
-        b=hIe4820svqMRoMnp/BGrJ1xtePkjc2o/7oWJ+w+u5nZfzMrMakdYREhwMh+VLsq/Kb
-         mh3MuZ3M35syCVSkSWWcg7EpF+kbyAQwVQ0qhur/7Jcsixw0nodiDtpf2eXU3TNf5qfP
-         8RVx/t8Z5cnXnFhQYJTgWqhb1S4BGciIjIyOIOVHLVFJfxENpIM1jCH/jD48Zq0z7I7c
-         ztSnfSfn5zn8K8Dil1T8ZVsJYvqPYyJjWyBh1bDJvA1k3uF+VMtFMH5ToC1FPa5TiRCo
-         fZXgpJVqa4ojp6nwVR5rxvynvr8NSvNcvGZ4C3T8Ph7DBtX4LAUV90LBCxaW2PdodZiS
-         OUhQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVef4zsXUl2oa78oDgd3IgN5TelfoIGSH6xni0eCsYGnLiI7owpg6VYkdB1nj5G1OfT5G7DEwsdWCw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzYd7H0l9dGqPx6MUaiYRsgQ7gYPAMMIB0kcIYHiREnLxD9AuHP
-	yiCjerAHei+N6G7EZzbqDT/wqoAih/Xp/6jltRNy8isjCa92B5E2HeDOp5Y6m5ndBw==
-X-Gm-Gg: ASbGncsHILW54RidZObi02YudpoXP93lfyj7Ol1YwcJY8AWnK77af42/r66Zlz/add7
-	jGJC1S0JO1Xu1Pn0ozmGDSEYU94ddvKhAFuC98D4PxcCOavrs7fP6wM+S83X5DgCINHDfhHAPmY
-	G0mIr4trt1/EtxbaQRBL4dd3RJo4y1G3SGLDdsCS6dfjThdefEKAOsQW5D8ancTkI0BMKJbn2x2
-	Bsf5/nqK6HflXo8MgjB+hY+ZIoawHXNG1fzyaJtWFRlUIzZ07das01BjwZ0dRRXdcX7WBgJ+OKQ
-	ueXiYxBJ1lIJYjbWEmhbO/ISq5BzqBv6RbVddrCWTsy7k87p+8su4iZjvV7aE1rvyPbEwg5g3mG
-	B7OQLyRSeb8EeuOalNGJQUNgS6dzGEr4TuDBKD6MvyzlCTxvcNinqO9G9HKbntY7dPkAlrVgpTf
-	E2CSag5Ln8gsK43MFGcgwrZ3IYHUvk
-X-Google-Smtp-Source: AGHT+IF59r9hGGFlmOyLRZDcXBrdwW6KX8FBY3CnlMdkjGFOaLxEjhpzTkXEoM5O5eAI4h7QsZoLZA==
-X-Received: by 2002:a17:906:9f92:b0:afe:a615:39ef with SMTP id a640c23a62f3a-b01d8a2667emr663142966b.9.1756713521006;
-        Mon, 01 Sep 2025 00:58:41 -0700 (PDT)
-Message-ID: <16bd9d1c-66da-4526-8489-8b075678c4bb@suse.com>
-Date: Mon, 1 Sep 2025 09:58:39 +0200
+        bh=LnTjTlkxSTo+O8IMNavi+odu+EOnDJITVeZaSR4UGi0=;
+        b=XRsnYf+FjgbUouW4qTAsLNzigAYqQ+nKW8lMo519kU9n6vTw4koVVW/LmcNqtZJK94
+         81nrj1vAwqPylqy2Xe3jfDnReC09DPOzZZhGTef+HYOBORbaX3D2oS4pfBGbNk07nQMO
+         kBEVofMhLxSWZEv3unYGvWuYDsUpgM3fU30FfVeYBfxI/NjnXw3eXlzunPbwe3vUhSmI
+         KqhOnuig2tlV1brPBv+wbbq1DZ81nr32j40cwcWpOYBEAZePFX1mF1xFkRpBBOSqTajx
+         s++ETz95pJFaAJ5si3VMSvp59XkTaL9ufrf0l9Ia/kBS88PLIAIWI2OgrO6KdDKSKcgE
+         4hPw==
+X-Gm-Message-State: AOJu0Yw3E7OJqqGJMmSTTyrpu57KPBYbqaGzsspM3B+rSrt/HJ22o2pd
+	zwyrXS3sDAdfiIbOeoDLIMSlX25GDt/seX9t8wZ5OfZmfsVbUpVyFMH/nX07ArrSjA==
+X-Gm-Gg: ASbGncusKvpvt4VzK+fWyTy5T0y/8vEo4Sge6UXiIbxrkBKiVxQtWcSkMEXKN98xXLQ
+	wy4h03Dqd0wJt5/qeurHav8uj3UHTo4fimFGd2VTY/JcwVQUlz4OalzstM82v5mYmLsq5J20c6j
+	xqEqBEXGVngAcY5DNPNSkjhRccl0iBGyfx9xFuCeSdZr06TaBxApg8SSqdGcHaZdeLVHBGRCRJj
+	cgESCIEC8API5z7UWvAyPYFVGjZBnyE9Y0r/RUEsIG0QH5AKkZW/avIcsiNiMoRUuHNXz5Ua4dP
+	fbQ5aS2RI4+8LTHNyRrSwI3Szb7Vpt6kNEmsmUIdXr9MCtv+jaDT/NnaXISTI+jICX+pAOR3lGt
+	0dXfF+GT84g+VMXUxC662hqqAosDw+HzJImO9c5jWF+/bzXQ1SNcuKNxikHzulMcGDcHLZ7JW9S
+	zltTM7F4g=
+X-Google-Smtp-Source: AGHT+IFiEgu6xSz7DpSTXM0ahWBr1zkYJU4a358sdzlU7a2z8pbLSb6JNQ8LYYzE34Bshe3eMauFqg==
+X-Received: by 2002:a05:6402:304f:b0:61c:5756:c2b8 with SMTP id 4fb4d7f45d1cf-61d269a7bc7mr5345308a12.9.1756714446261;
+        Mon, 01 Sep 2025 01:14:06 -0700 (PDT)
+Message-ID: <37f4c1af-29e3-44eb-a238-a3e2e4641f10@suse.com>
+Date: Mon, 1 Sep 2025 10:14:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 3/8] xen/cpufreq: implement amd-cppc driver for CPPC in
- passive mode
-To: "Penny, Zheng" <penny.zheng@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "Andryuk, Jason" <Jason.Andryuk@amd.com>
-References: <20250828100306.1776031-1-Penny.Zheng@amd.com>
- <20250828100306.1776031-4-Penny.Zheng@amd.com>
- <b2712815-97c2-4473-bcf6-aae8517aad37@suse.com>
- <DM4PR12MB8451D6ACE480227632A8156FE13AA@DM4PR12MB8451.namprd12.prod.outlook.com>
- <1ad85430-2aa7-4834-be56-67515ca51310@suse.com>
- <DM4PR12MB845109DC4B0822344D2DC72CE107A@DM4PR12MB8451.namprd12.prod.outlook.com>
+Subject: Re: [PATCH v5 01/15] emul/vuart: introduce framework for UART
+ emulators
+To: Stefano Stabellini <stefano.stabellini@amd.com>
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
+ anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com,
+ roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com,
+ dmukhin@xen.org
+References: <20250828235409.2835815-1-dmukhin@ford.com>
+ <20250828235409.2835815-2-dmukhin@ford.com>
+ <alpine.DEB.2.22.394.2508291217110.341243@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,78 +122,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB845109DC4B0822344D2DC72CE107A@DM4PR12MB8451.namprd12.prod.outlook.com>
+In-Reply-To: <alpine.DEB.2.22.394.2508291217110.341243@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 01.09.2025 05:21, Penny, Zheng wrote:
-> [Public]
+On 29.08.2025 21:27, Stefano Stabellini wrote:
+> On Thu, 28 Aug 2025, dmukhin@xen.org wrote:
+>> --- /dev/null
+>> +++ b/xen/common/emul/vuart/vuart.c
+>> @@ -0,0 +1,156 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +/*
+>> + * UART emulator framework.
+>> + *
+>> + * Copyright 2025 Ford Motor Company
+>> + */
+>> +
+>> +#include <xen/err.h>
+>> +#include <xen/sched.h>
+>> +#include <xen/vuart.h>
+>> +#include <xen/xvmalloc.h>
+>> +
+>> +#define for_each_emulator(e) \
+>> +    for ( e = vuart_array_start; e < vuart_array_end; e++ )
+>> +
+>> +extern const struct vuart_emulator vuart_array_start[];
+>> +extern const struct vuart_emulator vuart_array_end[];
+>> +
+>> +static const struct vuart_emulator *
+>> +vuart_match_by_compatible(struct domain *d, const char *compat)
+>> +{
+>> +    const struct vuart_emulator *emulator;
+>> +
+>> +    if ( d->console.vuart )
+>> +        return NULL;
+>> +
+>> +    for_each_emulator(emulator)
+>> +        if ( emulator->compatible &&
+>> +             !strncmp(emulator->compatible, compat,
+>> +                      strlen(emulator->compatible)) )
 > 
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Friday, August 29, 2025 2:12 PM
->> To: Penny, Zheng <penny.zheng@amd.com>
->> Cc: Huang, Ray <Ray.Huang@amd.com>; Andrew Cooper
->> <andrew.cooper3@citrix.com>; Roger Pau Monné <roger.pau@citrix.com>;
->> Anthony PERARD <anthony.perard@vates.tech>; Orzel, Michal
->> <Michal.Orzel@amd.com>; Julien Grall <julien@xen.org>; Stefano Stabellini
->> <sstabellini@kernel.org>; xen-devel@lists.xenproject.org; Andryuk, Jason
->> <Jason.Andryuk@amd.com>
->> Subject: Re: [PATCH v8 3/8] xen/cpufreq: implement amd-cppc driver for CPPC in
->> passive mode
->>
->> On 29.08.2025 05:30, Penny, Zheng wrote:
->>>> -----Original Message-----
->>>> From: Jan Beulich <jbeulich@suse.com>
->>>> Sent: Thursday, August 28, 2025 7:23 PM
->>>>
->>>> On 28.08.2025 12:03, Penny Zheng wrote:
->>>>> +static int cf_check amd_cppc_cpufreq_target(struct cpufreq_policy *policy,
->>>>> +                                            unsigned int target_freq,
->>>>> +                                            unsigned int relation) {
->>>>> +    unsigned int cpu = policy->cpu;
->>>>> +    const struct amd_cppc_drv_data *data =
->>>>> +per_cpu(amd_cppc_drv_data, cpu);
->>>>
->>>> I fear there's a problem here that I so far overlooked. As it
->>>> happens, just yesterday I made a patch to eliminate
->>>> cpufreq_drv_data[] global. In the course of doing so it became clear
->>>> that in principle the CPU denoted by
->>>> policy->cpu can be offline. Hence its per-CPU data is also unavailable.
->>>> policy->See
->>>> cpufreq_add_cpu()'s invocation of .init() and cpufreq_del_cpu()'s
->>>> invocation of .exit(). Is there anything well-hidden (and likely
->>>> lacking some suitable
->>>> comment) which guarantees that no two CPUs (threads) will be in the
->>>> same domain? If not, I fear you simply can't use per-CPU data here.
->>>>
->>>
->>> Correct me if I understand you wrongly:
->>> No, my env is always per pcpu per cpufreq domain. So it never occurred to me
->> that cpus, other than the first one in domain, will never call .init(), and of course, no
->> per_cpu(amd_cppc_drv_data) ever gets allocated then.
->>
->> Well, the question is how domains are organized when using the CPPC driver.
->> Aiui that's still driven by data passed in by Dom0, so in turn the question is whether
->> there are any constraints on what ACPI may surface. If there are, all that may be
->> necessary is adding a check. If there aren't, ...
->>
-> 
-> According to ACPI spec, _PSD controls both P-state or CPPC, so in my implementation of getting CPPC data passed by Dom0(set_cppc_pminfo()), I demand both entry exist, _PSD and _CPC.
-> ```
->         if ( cppc_data->flags == (XEN_CPPC_PSD | XEN_CPPC_CPC) )
->         {
->                 ...
->                 pm_info->init = XEN_CPPC_INIT;
->                 ret = cpufreq_cpu_init(cpuid);
->                 ...
->         }
-> ```
+> strncmp will continue until the given count even if compat is shorter
 
-That's only about presence of the data though. My remark, otoh, was about its
-content. It could in principle be specified somewhere that no domain may cover
-more than a single CPU / thread. In the absence of such, the case needs
-handling correctly.
+Not really, one string having a nul char and the other not having one is a
+difference, at which point comparison will stop. There would be a problem
+if "compat" didn't point to a nul-terminated string, though (and I didn't
+check that aspect, not the least because then "shorter" doesn't really
+make much sense without a length passed in).
 
 Jan
 
