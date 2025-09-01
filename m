@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C393B3F0E1
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 00:10:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1105412.1456440 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFF05B3F0E3
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 00:10:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1105417.1456451 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utCjZ-0008Tt-SR; Mon, 01 Sep 2025 22:10:41 +0000
+	id 1utCjc-0000cl-Fy; Mon, 01 Sep 2025 22:10:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1105412.1456440; Mon, 01 Sep 2025 22:10:41 +0000
+Received: by outflank-mailman (output) from mailman id 1105417.1456451; Mon, 01 Sep 2025 22:10:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utCjZ-0008Pb-JL; Mon, 01 Sep 2025 22:10:41 +0000
-Received: by outflank-mailman (input) for mailman id 1105412;
- Mon, 01 Sep 2025 22:10:39 +0000
+	id 1utCjc-0000Vb-5G; Mon, 01 Sep 2025 22:10:44 +0000
+Received: by outflank-mailman (input) for mailman id 1105417;
+ Mon, 01 Sep 2025 22:10:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=pPXY=3M=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1utCjX-00055o-TK
- for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 22:10:39 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
+ id 1utCjZ-00055o-Tq
+ for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 22:10:41 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7d232868-8780-11f0-8dd7-1b34d833f44b;
- Tue, 02 Sep 2025 00:10:37 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-55f69cf4b77so3061906e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 15:10:37 -0700 (PDT)
+ id 7ddf5df5-8780-11f0-8dd7-1b34d833f44b;
+ Tue, 02 Sep 2025 00:10:38 +0200 (CEST)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-55f687fd3bdso4496391e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 15:10:38 -0700 (PDT)
 Received: from yp-VivoBook-ASUSLaptop-M1503QA-M1503QA.. ([95.67.15.120])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5608279307asm123038e87.75.2025.09.01.15.10.35
+ 2adb3069b0e04-5608279307asm123038e87.75.2025.09.01.15.10.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Sep 2025 15:10:36 -0700 (PDT)
+ Mon, 01 Sep 2025 15:10:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,170 +45,271 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7d232868-8780-11f0-8dd7-1b34d833f44b
+X-Inumbo-ID: 7ddf5df5-8780-11f0-8dd7-1b34d833f44b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756764637; x=1757369437; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1756764638; x=1757369438; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7jLnGK/W9IzxOZ6CLKOO5BPor3o3fyjNQvRa1agLv/o=;
-        b=iTP2GJ/agVaLRIl9CbyxtbmKv9vK0Kmfc0vQvD9UJJ+VsWHnwm0C91teejA5069jbj
-         lvFqrgdbERgifdjCWjURa5l9Bu8c9emdO4e8DqxZj/ebimOAlGs4BZfd5yFcFhvquTeq
-         3WEwZw9jewRdjaDmWlnViXn/8J7ukMTjdNha7uVsH2IPYGmmWmbyfOIJmcaLwd3ZFrBu
-         D/00UtgdFwaF+rNmxT0mDBvPftWN4BWm4PH+wJadGkCpR+z2S3Jk+1j7lpNbf43tAw5D
-         oTMCxYXZacmJUr+LstIXKxlSy7FlwXJczRaazLnvNJdP04Y/B1SLm12N05aetx+kk1Ul
-         fL2Q==
+        bh=BjizghnjyTk2+1djq5Y5MywqYNIMRO2uUzS6ohxl4Eg=;
+        b=iMnv7d1krAOipiWYOMc5/CdfPYAp+xruycgxo6Z5turoVv+X/bUoVJIWVqqbz5r2MQ
+         YfQyIYzY1Rl0/sszIviPZcFJcrAC7OGzDFnfsUaTft4iwi7iis5F1HRT2wd19cyEbH6i
+         oIXwSMuTY7SF3EbSiN2nOhVX6zJdlSX9cw1OYoKBf5rxvvzy17fwAxaKmJNADvuHVaF4
+         M636tMvq4Qayln8HU5aNVQPFqBFy6a6cL837OLOpTK6Pwl3EAzslH3JELnnk6E9ZOMCp
+         bmTUKJmuu5lIvwRxqBmKaUSrWIAo5G+dynzmPIjgGPfc/UCm6itQl5jmNT6E5ZRSSTop
+         wegw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756764637; x=1757369437;
+        d=1e100.net; s=20230601; t=1756764638; x=1757369438;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=7jLnGK/W9IzxOZ6CLKOO5BPor3o3fyjNQvRa1agLv/o=;
-        b=Kl6XnjXUI5L8r90NrRQ6pL1FYqA9VjslaIcnFvcd+wC8o9gGLZEe/FJ0cHe/za5YHG
-         +O864eobkRAnUpfO1ym45/ZAuwi0/FaYxXtFK+I+mkrztqMa3AL8iAV7VMNt35OSnMPp
-         Ry/YbM7saD1Ns1eW3j4lMLJnxnw9Y8Ji6Tyf33pHCAqlEEz/uOeGV4XvY+KKp6vB3TeR
-         Dd6e6vf1OJtgVUGIVGgmWS7ZMVMuE53iw4O2KTUIzEG/I7B+Iaozo4tYgSIZWVXnE2Vo
-         CcBl3a1d8j4d8hnAvL7/SScYfFGOSYQgaNSsUYBIEhTB3bYgPeJHCtzL1REO22f4WBhb
-         uFhg==
-X-Gm-Message-State: AOJu0Yx7K6ZRTJAE2/O1XtvM83f05XC1xVpsDmedUEbd0E0wWaorTb3a
-	pGesJ2r/BX7HGZ0n1i6LQdF9Gfkh0mGmuH5wwfycrQKKgN4gZz4FArsxL7nnyiTS
-X-Gm-Gg: ASbGnct64cGiOEmevkj+8JPF/y1Zve+X5FLAzDZ2VjPvBHf8PxHlAKXg/uoJtNBuHCf
-	Z28SAmUyv5sDYQjdNzuJOaWqnJnSGkfDOgCcPo8QWEBXx/dCdsm9eGMgkZJD9z+OTunwz4Qmv8i
-	Ew1GmlKramjC2vUOe2hMo9n5pCHVhxnMvfaZ6egEettEf48Jt+9I+JaAXyj+fjnMtroKISWA5si
-	WdKWQMznb/eJAs0vV9mYyOez/H6NWAnC2ZWoqD4JvnqenRSwiTXXB1O12camonfEZ3Hiec7n/Y2
-	MppBAalrq4m39+HD0PlQmDuGPnJKzGU7daSBslhCnvQlglIxr/yZoAyd8gEgV0+D1+oj9xAnvBg
-	NSZJkkmlotKRwVF5qEoOKGv6mQ5n4vNoXeEKcHAw8RX8k6PvDQ0YtVWjkzaLZnQ==
-X-Google-Smtp-Source: AGHT+IGXdEdoSAzn5JEBY3rqDuehu56DiyGTfp49x/4lqJkOcHbolBJuNKUoq29Yojmc/eQDmAjVSQ==
-X-Received: by 2002:a05:6512:3c97:b0:55f:6a49:6e71 with SMTP id 2adb3069b0e04-55f708ecdadmr2606498e87.29.1756764636522;
-        Mon, 01 Sep 2025 15:10:36 -0700 (PDT)
+        bh=BjizghnjyTk2+1djq5Y5MywqYNIMRO2uUzS6ohxl4Eg=;
+        b=XEyVF/3UMcWRFni44Mh81eM3xlSIVA3AKZyLVZPq5G0SWhb6bss9aIxcppuUCIa6cC
+         NVoRZV9XA+Uwcr+hKezaV/nkWx/kDMX8Stnztz3JSFooCQGt95Sus8ADegMstQ0SWncB
+         EItTwiZtNr/ouNLa42MctZqLLb3+rQKaR4uMvSn3ytKUf1fOufYVYPnHabSvLHOaEmmh
+         wf3I4NOmGM5kozKgkNOydpqMSBJzxJ8aAvdhutVI86BeAX2hXje4H6p7QZDke+UJpcJv
+         5ivV06Z5lSTOMLY72YwVHNQRRraZKsZ6EUFn9m81Fv1jxvyNTspc2g0tpH+MvS9PO3c5
+         /6Sg==
+X-Gm-Message-State: AOJu0YxMHrmcfuWNUsg0Hi8iEUp//1fgY/h0n9sjJy6f3mYrjoPGQX1+
+	v8tQyb8GK06XCDmn8zYLJj21pgM2OckYfBmZDJRHcpVw/IY3lu8he2xcEM3dE6nU
+X-Gm-Gg: ASbGncvxONl76xFllWIjApp9rBvonkZK+TvkMxoOnrlvNYPSMV8Qqlx0iThIJcifI3V
+	FMyNPTvos0sEUrmTuLitdq6bfFLZxm5DGKC1ZYGAmqt2rRhgAUCFTshj/qnyM48OzkyCqa6tN8u
+	qaHs43LLRqT+yMx2HqPoS8cLyCrZR34t0g/1ahVYV4CR0VUKHuZzkIvBtAb+byqL3hZ6hU2xvXo
+	UxLKM1672aTdRQGzDwwGEt1gUAmVAhqzC/Fb/0DZ6D+r6dZFX/dbpyTreMATPXPI8/VHpQT/ksZ
+	JCux90fO8hvM3qfR0StG/RCN0A3q7qQR2qmtn7+XZ2xnR8Y5lQzn44RqOKB45uQpVCl3eFvWg6z
+	Pv22SE1Tf07DlvmWnNQ5/0pu5d9fffPhz4Hhg8nktmsxzOVmuIt4m2VMSyXiuLw==
+X-Google-Smtp-Source: AGHT+IEn9+xcjXygXejhEa0wyNG2hkVDUF3pRbujhPECoHvmyQVKBSuBe7768CCtbszL4fNE5HZPEA==
+X-Received: by 2002:a05:6512:3ca4:b0:55f:501e:7bf7 with SMTP id 2adb3069b0e04-55f709bdaa0mr2975906e87.57.1756764637835;
+        Mon, 01 Sep 2025 15:10:37 -0700 (PDT)
 From: Mykola Kvach <xakep.amatop@gmail.com>
 To: xen-devel@lists.xenproject.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+Cc: Mykola Kvach <mykola_kvach@epam.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Rahul Singh <rahul.singh@arm.com>,
-	Mykola Kvach <mykola_kvach@epam.com>
-Subject: [PATCH v6 12/13] xen/arm: Suspend/resume IOMMU on Xen suspend/resume
-Date: Tue,  2 Sep 2025 01:10:16 +0300
-Message-ID: <a846121bf586667f9a7a984955589acb9026bd68.1756763487.git.mykola_kvach@epam.com>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v6 13/13] xen/arm: gic-v3: Add suspend/resume support for eSPI registers
+Date: Tue,  2 Sep 2025 01:10:17 +0300
+Message-ID: <cabe6a50fbb963eb4503580c479eca34819a215d.1756763487.git.mykola_kvach@epam.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <cover.1756763487.git.mykola_kvach@epam.com>
 References: <cover.1756763487.git.mykola_kvach@epam.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+From: Mykola Kvach <mykola_kvach@epam.com>
 
-This is done using generic iommu_suspend/resume functions that cause
-IOMMU driver specific suspend/resume handlers to be called for enabled
-IOMMU (if one has suspend/resume driver handlers implemented).
+Add suspend/resume handling for GICv3 eSPI registers.
 
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 ---
-Changes in V6:
-- Drop iommu_enabled check from host system suspend.
----
- xen/arch/arm/suspend.c                | 11 +++++++++++
- xen/drivers/passthrough/arm/smmu-v3.c | 10 ++++++++++
- xen/drivers/passthrough/arm/smmu.c    | 10 ++++++++++
- 3 files changed, 31 insertions(+)
+Note: The main eSPI patch series is still under review.
 
-diff --git a/xen/arch/arm/suspend.c b/xen/arch/arm/suspend.c
-index 35b20581f1..f3a3b831c5 100644
---- a/xen/arch/arm/suspend.c
-+++ b/xen/arch/arm/suspend.c
-@@ -5,6 +5,7 @@
+This commit is intended to be applied after the main eSPI series:
+[PATCH v5 00/12] Introduce eSPI support
+https://patchew.org/Xen/cover.1756481577.git.leonid._5Fkomarianskyi@epam.com/
+---
+ xen/arch/arm/gic-v3.c | 141 +++++++++++++++++++++++++++++-------------
+ 1 file changed, 97 insertions(+), 44 deletions(-)
+
+diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+index 9f1be7e905..57403c82a8 100644
+--- a/xen/arch/arm/gic-v3.c
++++ b/xen/arch/arm/gic-v3.c
+@@ -1782,17 +1782,14 @@ static bool gic_dist_supports_lpis(void)
+ struct gicv3_ctx {
+     struct dist_ctx {
+         uint32_t ctlr;
+-        /*
+-         * This struct represent block of 32 IRQs
+-         * TODO: store extended SPI configuration (GICv3.1+)
+-         */
++        /* This struct represent block of 32 IRQs */
+         struct irq_regs {
+             uint32_t icfgr[2];
+             uint32_t ipriorityr[8];
+             uint64_t irouter[32];
+             uint32_t isactiver;
+             uint32_t isenabler;
+-        } *irqs;
++        } *irqs, *espi_irqs;
+     } dist;
  
- #include <xen/console.h>
- #include <xen/cpu.h>
-+#include <xen/iommu.h>
- #include <xen/llc-coloring.h>
- #include <xen/sched.h>
- #include <xen/tasklet.h>
-@@ -62,6 +63,13 @@ static void cf_check system_suspend(void *data)
- 
-     time_suspend();
- 
-+    status = iommu_suspend();
-+    if ( status )
+     /* have only one rdist structure for last running CPU during suspend */
+@@ -1831,8 +1828,26 @@ static void __init gicv3_alloc_context(void)
+         gicv3_ctx.dist.irqs = xzalloc_array(typeof(*gicv3_ctx.dist.irqs),
+                                             blocks - 1);
+         if ( !gicv3_ctx.dist.irqs )
++        {
+             printk(XENLOG_ERR "Failed to allocate memory for GICv3 suspend context\n");
++            return;
++        }
+     }
++
++#ifdef CONFIG_GICV3_ESPI
++    if ( !gicv3_info.nr_espi )
++        return;
++
++    gicv3_ctx.dist.espi_irqs = xzalloc_array(typeof(*gicv3_ctx.dist.espi_irqs),
++                                             gicv3_info.nr_espi / 32);
++    if ( !gicv3_ctx.dist.espi_irqs )
 +    {
-+        system_state = SYS_STATE_resume;
-+        goto resume_time;
++        xfree(gicv3_ctx.dist.irqs);
++        gicv3_ctx.dist.irqs = NULL;
++
++        printk(XENLOG_ERR "Failed to allocate memory for GICv3 eSPI suspend context\n");
 +    }
-+
-     console_start_sync();
-     status = console_suspend();
-     if ( status )
-@@ -118,6 +126,9 @@ static void cf_check system_suspend(void *data)
-     console_resume();
-     console_end_sync();
- 
-+    iommu_resume();
-+
-+ resume_time:
-     time_resume();
- 
-  resume_nonboot_cpus:
-diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
-index 81071f4018..f887faf7dc 100644
---- a/xen/drivers/passthrough/arm/smmu-v3.c
-+++ b/xen/drivers/passthrough/arm/smmu-v3.c
-@@ -2854,6 +2854,13 @@ static void arm_smmu_iommu_xen_domain_teardown(struct domain *d)
- 	xfree(xen_domain);
++#endif
  }
  
-+#ifdef CONFIG_SYSTEM_SUSPEND
-+static int arm_smmu_suspend(void)
-+{
-+	return -ENOSYS;
-+}
-+#endif
-+
- static const struct iommu_ops arm_smmu_iommu_ops = {
- 	.page_sizes		= PAGE_SIZE_4K,
- 	.init			= arm_smmu_iommu_xen_domain_init,
-@@ -2866,6 +2873,9 @@ static const struct iommu_ops arm_smmu_iommu_ops = {
- 	.unmap_page		= arm_iommu_unmap_page,
- 	.dt_xlate		= arm_smmu_dt_xlate,
- 	.add_device		= arm_smmu_add_device,
-+#ifdef CONFIG_SYSTEM_SUSPEND
-+	.suspend		= arm_smmu_suspend,
-+#endif
- };
- 
- static __init int arm_smmu_dt_init(struct dt_device_node *dev,
-diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
-index 22d306d0cb..45f29ef8ec 100644
---- a/xen/drivers/passthrough/arm/smmu.c
-+++ b/xen/drivers/passthrough/arm/smmu.c
-@@ -2947,6 +2947,13 @@ static void arm_smmu_iommu_domain_teardown(struct domain *d)
- 	xfree(xen_domain);
+ static void gicv3_disable_redist(void)
+@@ -1852,6 +1867,65 @@ static void gicv3_disable_redist(void)
+     while ( (readl_relaxed(waker) & GICR_WAKER_ChildrenAsleep) == 0 );
  }
  
-+#ifdef CONFIG_SYSTEM_SUSPEND
-+static int arm_smmu_suspend(void)
++#define GET_SPI_REG_OFFSET(name, is_espi) \
++    ((is_espi) ? GICD_##name##nE : GICD_##name)
++
++static void gicv3_store_spi_irq_block(typeof(gicv3_ctx.dist.irqs) irqs,
++                                      unsigned int i, bool is_espi)
 +{
-+	return -ENOSYS;
++    void __iomem *base;
++    unsigned int irq;
++
++    base = GICD + GET_SPI_REG_OFFSET(ICFGR, is_espi) + 8 * i;
++    irqs->icfgr[0] = readl_relaxed(base);
++    irqs->icfgr[1] = readl_relaxed(base + 4);
++
++    base = GICD + GET_SPI_REG_OFFSET(IPRIORITYR, is_espi) + 32 * i;
++    for ( irq = 0; irq < 8; irq++ )
++        irqs->ipriorityr[irq] = readl_relaxed(base + 4 * irq);
++
++    base = GICD + GET_SPI_REG_OFFSET(IROUTER, is_espi) + 32 * i;
++    for ( irq = 0; irq < 32; irq++ )
++        irqs->irouter[irq] = readq_relaxed_non_atomic(base + 8 * irq);
++
++    base = GICD + GET_SPI_REG_OFFSET(ISACTIVER, is_espi) + 4 * i;
++    irqs->isactiver = readl_relaxed(base);
++
++    base = GICD + GET_SPI_REG_OFFSET(ISENABLER, is_espi) + 4 * i;
++    irqs->isenabler = readl_relaxed(base);
 +}
++
++static void gicv3_restore_spi_irq_block(typeof(gicv3_ctx.dist.irqs) irqs,
++                                        unsigned int i, bool is_espi)
++{
++    void __iomem *base;
++    unsigned int irq;
++
++    base = GICD + GET_SPI_REG_OFFSET(ICFGR, is_espi) + 8 * i;
++    writel_relaxed(irqs->icfgr[0], base);
++    writel_relaxed(irqs->icfgr[1], base + 4);
++
++    base = GICD + GET_SPI_REG_OFFSET(IPRIORITYR, is_espi) + 32 * i;
++    for ( irq = 0; irq < 8; irq++ )
++        writel_relaxed(irqs->ipriorityr[irq], base + 4 * irq);
++
++    base = GICD + GET_SPI_REG_OFFSET(IROUTER, is_espi) + 32 * i;
++    for ( irq = 0; irq < 32; irq++ )
++        writeq_relaxed_non_atomic(irqs->irouter[irq], base + 8 * irq);
++
++    base = GICD + GET_SPI_REG_OFFSET(ICENABLER, is_espi) + i * 4;
++    writel_relaxed(GENMASK(31, 0), base);
++
++    base = GICD + GET_SPI_REG_OFFSET(ISENABLER, is_espi) + i * 4;
++    writel_relaxed(irqs->isenabler, base);
++
++    base = GICD + GET_SPI_REG_OFFSET(ICACTIVER, is_espi) + i * 4;
++    writel_relaxed(GENMASK(31, 0), base);
++
++    base = GICD + GET_SPI_REG_OFFSET(ISACTIVER, is_espi) + i * 4;
++    writel_relaxed(irqs->isactiver, base);
++}
++
+ static int gicv3_suspend(void)
+ {
+     unsigned int i;
+@@ -1871,6 +1945,14 @@ static int gicv3_suspend(void)
+         return -ENOMEM;
+     }
+ 
++#ifdef CONFIG_GICV3_ESPI
++    if ( gicv3_info.nr_espi && !gicv3_ctx.dist.espi_irqs )
++    {
++        printk(XENLOG_ERR "GICv3: eSPI suspend context is not allocated!\n");
++        return -ENOMEM;
++    }
 +#endif
 +
- static const struct iommu_ops arm_smmu_iommu_ops = {
-     .page_sizes = PAGE_SIZE_4K,
-     .init = arm_smmu_iommu_domain_init,
-@@ -2960,6 +2967,9 @@ static const struct iommu_ops arm_smmu_iommu_ops = {
-     .map_page = arm_iommu_map_page,
-     .unmap_page = arm_iommu_unmap_page,
-     .dt_xlate = arm_smmu_dt_xlate_generic,
-+#ifdef CONFIG_SYSTEM_SUSPEND
-+    .suspend = arm_smmu_suspend,
-+#endif
- };
+     /* Save GICC configuration */
+     gicv3_ctx.cpu.ctlr     = READ_SYSREG(ICC_CTLR_EL1);
+     gicv3_ctx.cpu.pmr      = READ_SYSREG(ICC_PMR_EL1);
+@@ -1903,25 +1985,12 @@ static int gicv3_suspend(void)
+     gicv3_ctx.dist.ctlr = readl_relaxed(GICD + GICD_CTLR);
  
- static struct arm_smmu_device *find_smmu(const struct device *dev)
+     for ( i = 1; i < DIV_ROUND_UP(gicv3_info.nr_lines, 32); i++ )
+-    {
+-        typeof(gicv3_ctx.dist.irqs) irqs = gicv3_ctx.dist.irqs + i - 1;
+-        unsigned int irq;
++        gicv3_store_spi_irq_block(gicv3_ctx.dist.irqs + i - 1, i, false);
+ 
+-        base = GICD + GICD_ICFGR + 8 * i;
+-        irqs->icfgr[0] = readl_relaxed(base);
+-        irqs->icfgr[1] = readl_relaxed(base + 4);
+-
+-        base = GICD + GICD_IPRIORITYR + 32 * i;
+-        for ( irq = 0; irq < 8; irq++ )
+-            irqs->ipriorityr[irq] = readl_relaxed(base + 4 * irq);
+-
+-        base = GICD + GICD_IROUTER + 32 * i;
+-        for ( irq = 0; irq < 32; irq++ )
+-            irqs->irouter[irq] = readq_relaxed_non_atomic(base + 8 * irq);
+-
+-        irqs->isactiver = readl_relaxed(GICD + GICD_ISACTIVER + 4 * i);
+-        irqs->isenabler = readl_relaxed(GICD + GICD_ISENABLER + 4 * i);
+-    }
++#ifdef CONFIG_GICV3_ESPI
++    for ( i = 0; i < gicv3_info.nr_espi / 32; i++ )
++        gicv3_store_spi_irq_block(gicv3_ctx.dist.espi_irqs + i, i, true);
++#endif
+ 
+     return 0;
+ }
+@@ -1938,28 +2007,12 @@ static void gicv3_resume(void)
+         writel_relaxed(GENMASK(31, 0), GICD + GICD_IGROUPR + (i / 32) * 4);
+ 
+     for ( i = 1; i < DIV_ROUND_UP(gicv3_info.nr_lines, 32); i++ )
+-    {
+-        typeof(gicv3_ctx.dist.irqs) irqs = gicv3_ctx.dist.irqs + i - 1;
+-        unsigned int irq;
++        gicv3_restore_spi_irq_block(gicv3_ctx.dist.irqs + i - 1, i, false);
+ 
+-        base = GICD + GICD_ICFGR + 8 * i;
+-        writel_relaxed(irqs->icfgr[0], base);
+-        writel_relaxed(irqs->icfgr[1], base + 4);
+-
+-        base = GICD + GICD_IPRIORITYR + 32 * i;
+-        for ( irq = 0; irq < 8; irq++ )
+-            writel_relaxed(irqs->ipriorityr[irq], base + 4 * irq);
+-
+-        base = GICD + GICD_IROUTER + 32 * i;
+-        for ( irq = 0; irq < 32; irq++ )
+-            writeq_relaxed_non_atomic(irqs->irouter[irq], base + 8 * irq);
+-
+-        writel_relaxed(GENMASK(31, 0), GICD + GICD_ICENABLER + i * 4);
+-        writel_relaxed(irqs->isenabler, GICD + GICD_ISENABLER + i * 4);
+-
+-        writel_relaxed(GENMASK(31, 0), GICD + GICD_ICACTIVER + i * 4);
+-        writel_relaxed(irqs->isactiver, GICD + GICD_ISACTIVER + i * 4);
+-    }
++#ifdef CONFIG_GICV3_ESPI
++    for ( i = 0; i < gicv3_info.nr_espi / 32; i++ )
++        gicv3_restore_spi_irq_block(gicv3_ctx.dist.espi_irqs + i, i, true);
++#endif
+ 
+     writel_relaxed(gicv3_ctx.dist.ctlr, GICD + GICD_CTLR);
+     gicv3_dist_wait_for_rwp();
 -- 
 2.48.1
 
