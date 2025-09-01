@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D2A1B3DC80
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 10:34:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1104170.1455292 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A22EB3DD23
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 10:57:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1104184.1455301 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uszzY-0007RL-9w; Mon, 01 Sep 2025 08:34:20 +0000
+	id 1ut0LS-0001z8-0v; Mon, 01 Sep 2025 08:56:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1104170.1455292; Mon, 01 Sep 2025 08:34:20 +0000
+Received: by outflank-mailman (output) from mailman id 1104184.1455301; Mon, 01 Sep 2025 08:56:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uszzY-0007OB-6L; Mon, 01 Sep 2025 08:34:20 +0000
-Received: by outflank-mailman (input) for mailman id 1104170;
- Mon, 01 Sep 2025 08:34:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ut0LR-0001wb-Tu; Mon, 01 Sep 2025 08:56:57 +0000
+Received: by outflank-mailman (input) for mailman id 1104184;
+ Mon, 01 Sep 2025 08:56:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UGQU=3M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uszzW-0006r1-64
- for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 08:34:18 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 72cb20ca-870e-11f0-8adc-4578a1afcccb;
- Mon, 01 Sep 2025 10:34:17 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-b0225483ca0so273338266b.2
- for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 01:34:17 -0700 (PDT)
+ id 1ut0LQ-0001wV-AC
+ for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 08:56:56 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9b78469e-8711-11f0-8dd7-1b34d833f44b;
+ Mon, 01 Sep 2025 10:56:54 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-b0411b83aafso210699166b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 01:56:54 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b04252103f2sm237629466b.50.2025.09.01.01.34.16
+ a640c23a62f3a-aff15fccad1sm627989566b.108.2025.09.01.01.56.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Sep 2025 01:34:16 -0700 (PDT)
+ Mon, 01 Sep 2025 01:56:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 72cb20ca-870e-11f0-8adc-4578a1afcccb
+X-Inumbo-ID: 9b78469e-8711-11f0-8dd7-1b34d833f44b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756715657; x=1757320457; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Bzs3DliRmIjLErCH2j6BVqbwr8WkQ89CfiGMPQYpA5Q=;
-        b=cXn+m5DUGYTN7NY6BWIMkOXmCHgD+bVNn1NUQRgwtE52Qxu+IuHF7PEVE+fn4aRbXs
-         r/Ab/QcZpJGwH/wWS0LVuagOdibxHi6qQl/bw+vpxztZYOjVIufXkViowwowMuGsDXzb
-         jdMu2yy94d6Hej29ioHeK7eFyEzUT8svVsnPcqR97tj0wkP/FuCAQU3o52y3O7bjmAWu
-         pnp2oFlKa+NzCjpmXJEmVEszW6EEC+J5Oik2UuWZkPNYtThFljEtit5wBFducy/zB/4N
-         gHOde9k8Gy7mzyvGoXVtKJRgqsE8UaWyT2hW+aDzDCDCXIVOB6CML/rKrbVES996tBAk
-         4nFw==
+        d=suse.com; s=google; t=1756717014; x=1757321814; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=N9SDNFNNmkHRjQNNVUzXHvawpqEnyUdSDygomNw7bmY=;
+        b=P17YsNH7GpMASb/7eVWFtwFwPG68w9Lwgii9WbnISW48lftAK0r0o88w8IXSjhk/PJ
+         gfBfU+a3FnuGGXPVqf4KZgQLlsZOvUlSeQ7IiWlRF+o+eATWTb3yAzFT9YU0ZyZmpBmL
+         gNVJS8Gsp8IWEe3P4mKZG1Ya4qL9tCtGZoxSYW7CSouXHP5CSWisfP8HaSnF1ultP9N0
+         eYpVxh4mfKln8CNrAU2AHlLpDZ+58MCoKmMgyLfnciumNt0nbeP3APWHHY30HoLF0dR1
+         ZnPov1xz3nSqYU9m21HiwqA3ryEogdHmpaks0hR47gF+oiTk5tHByWqn8nm+kBeAoHAP
+         bB2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756715657; x=1757320457;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Bzs3DliRmIjLErCH2j6BVqbwr8WkQ89CfiGMPQYpA5Q=;
-        b=LqYzeoLX9uuGntyQTWlVIgWngkmZLHCOccgyCWQmWY/BkX7wm/o3dKfB3NxvzMLCBx
-         4t5etvBMT2XJL/tOcT5akG1N02qDR/i/jPBkYICyJF0x+vibrsmuoZbNJtrVEBq54oy4
-         zviodWe+hy5IdPdkQJxG06mPpewu7byJC1VRsT+tr+POIaDQHp2yehUnieV1zQKJINcS
-         nfPWIVJrIfQnE8kClUXwGCCGJmN2UG4yrN3ZJV/0bo+Y9pC9jRV6m1Bcj5NwE/LE1u+K
-         xL3mKzkVZFAMZ4za0HAru+DoW10kIYYsjF2DdnB5RmZJnZ7OdIlrd4jkq4swqJvT+LSc
-         m6xg==
-X-Forwarded-Encrypted: i=1; AJvYcCWz7HfRsUIFDCBiv1aaLlW+cgDkSN/F3pa76QvP+98CqPd+dcMkgwnXlLZA7+6oSaDCdrkh86CMbpg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yycy9kcM5DqtI9FQXDpTQwp+Jkm316fYiILRNgJrdheHOUAD7q+
-	KkS0kmI5fPXnrAko7Y0m99vcl7Grdzt1HOa6ybHrQsy6Wz0Ar5lXwtdIY5TEmi/0qkJQoUikbSv
-	4G0A=
-X-Gm-Gg: ASbGncshjCGrGwkl6eD+xwM+yV665/EsmEEsSypKzDtxm/ubgA/iJ5j0yWBnjWoYbjx
-	CFnrUNssPRVIGgBHi5KsobaEEoX5U4RHMLBh9VKuCoOrWxcVsi2HU3QFIjWY75Umq8gT0T2QGL5
-	7vuikDRLOWbPE8RlZWxvBXtqAnuvIEe7D18Gr+EyL45qZOQeFoeImg/cJ3QEujQeboObDeJIA4x
-	ohXymwWQ9nfku3GRUBe7sDK2JMjBH2mkKF9wsGtDck8/lMaN5qMAs7NaHIi+yZVUJ5PqHSavaw7
-	m3R2Ue35KkUVvPbvjJdfNAO3KjH/OrgqhPNw7wa3D63DDwnUIsl15nlkJ++toRGZ4uDAyCOO6iA
-	f4jCESu/aqWYR9dwotEHGaGTzm9sIKAlHZIk56MAfK4nWtDo5FyPjBWgX4IC/pmYM+lbhG0iO0y
-	vwhNOv+pk=
-X-Google-Smtp-Source: AGHT+IFiCDQ8wy24nd+Fc3RoVP5bZKib55cVbT9gGqmzQHeF/yT9Stk8YoT81s9/oGDNxtXXmpkl2A==
-X-Received: by 2002:a17:906:2819:b0:b04:27de:12ec with SMTP id a640c23a62f3a-b0427de140emr288313266b.4.1756715656853;
-        Mon, 01 Sep 2025 01:34:16 -0700 (PDT)
-Message-ID: <8dcb1c27-d638-4334-a4d1-943d1a5d0d64@suse.com>
-Date: Mon, 1 Sep 2025 10:34:16 +0200
+        d=1e100.net; s=20230601; t=1756717014; x=1757321814;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=N9SDNFNNmkHRjQNNVUzXHvawpqEnyUdSDygomNw7bmY=;
+        b=p7sYQQ+HCv0G/G+8Ls4jkGsV2yubWnwJgP6T0dn+jxqY5t4yx+NC94kUU/zXf1zSvQ
+         4jcd/tBgJlezCSycoOl6KhDyQUitNmE5hON4ME27pHKPK9ybC6WAb0sB5JSiG4mEn5lY
+         4XFZjKaLzbj3UZ4H4ydWo9epQWprkPckvbpFcgD00oA85X8d9YBw/liztOrTcM9yAyIr
+         nrk75ktvYCAB4lAiprfCJc895aiXIZ/uBt6PWJv0CinB8RVuoocXLSGnU7L10HpS2Ske
+         vXuEMbrL4z7CPlEVix+fC5zXnDhd8jXkIYZyrRmBsT/299fwQewd14dvseuzUV+Oqhkz
+         RwYA==
+X-Gm-Message-State: AOJu0Yzn0CYHcy409rAuKF11K0dazAid8Xgi0GRVDX/WHXKWqS6XWAyE
+	XlziuUkW1+Zb56R1fKvQN4xZFTKOZjg1fgsqsAT+FKSAKXq9eDMcpsc6X9bbcLlLtmQSQSms9Ev
+	7zqM=
+X-Gm-Gg: ASbGncvaUBlihGAkc9TzXxBas2Ah0rftG2Rb0Ydzr/tptwZoxF4Oy9DHZ4e1JgwUA71
+	RlD+ewgsQujMwfjVgP/UbKzJL1col6Fyl3oI++J4e92ppOukZPUVx+gshu8acUgCgI2/PXqvaRt
+	qCWyRHsg0+d/hFMVIRAh1dnCTVUwHvOXo9y3G5EYPAP0r2N+2aJMVkURnsIKpzotvdMslNR/tzE
+	KQ30+/IztMeXRAMz7VMem+rQ7e1sr8NW3mPN+B5KvuGCw37qCQ5m/PguqRHtozfwt8uvOBQgRyv
+	yTAOsuyQ9oT1qUDgoCDhnMsh7Vg48/4ECcC8yYhcnVu+DUHuAldvbSV5NwaiqeCz6Ei22BgzocF
+	z5XrNCmVE9p1v17fSgiPQaAPMnXuF5gw9YRl5yhj80syQygArustZwsfZHMY0QwGnjtfR0gsoE/
+	0pYUC1x10=
+X-Google-Smtp-Source: AGHT+IHx+eZb5Ns66uHXiuh9bYCarqdoK0NWtQ7X43CRFoR3TLSpYHoaWMFt6J6DWm6fxy+6Ghu8mw==
+X-Received: by 2002:a17:907:720f:b0:afe:c1e4:5561 with SMTP id a640c23a62f3a-b01d8c802bcmr716634066b.25.1756717013650;
+        Mon, 01 Sep 2025 01:56:53 -0700 (PDT)
+Message-ID: <41ba214a-6137-4d8f-9f4f-3a362940d8a8@suse.com>
+Date: Mon, 1 Sep 2025 10:56:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86/apic: Drop sync_Arb_IDs()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250829161710.1056772-1-andrew.cooper3@citrix.com>
- <20250829161710.1056772-3-andrew.cooper3@citrix.com>
-Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v2] x86/gen-cpuid: correct cycle detection
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -120,20 +116,70 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250829161710.1056772-3-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29.08.2025 18:17, Andrew Cooper wrote:
-> It is not obvious at first glance, but this is dead logic.
-> 
-> On Intel, xAPIC (which is what modern_apic() is really checking for) predates
-> 64bit support, while the Family 0xf check on AMD is the K8 processor.
-> 
-> Simply drop the logic, rather than trying to adjust vendor/family logic.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+With the processing done linearly (rather than recursively), checking
+whether any of the features was previously seen is wrong: That would
+e.g. trigger for this simple set of dependencies
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    X: [A, B]
+    A: [C]
+    B: [C]
 
+(observed in reality when making AMX-AVX512 dependent upon both
+AMX-TILE and AVX512F, causing XSAVE to see AMX-AVX512 twice in its list
+of dependents). But checking the whole accumulated set also isn't
+necessary - just checking the feature we're processing dependents of is
+sufficient. We may detect a cycle later that way, but we still will
+detect it. What we need to avoid is adding a feature again when we've
+already seen it.
+
+As a result, seeding "seen[]" with "feat" isn't necessary anymore.
+
+Fixes: fe4408d180f4 ("xen/x86: Generate deep dependencies of features")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Doing AMX-AVX512's dependencies like mentioned above still isn't quite
+right; we really need AVX512F || AVX10, which can't be expressed right
+now. I'm now handling this by some custom code in the AVX10 series.
+
+This contextually collides with patch 2 of "x86/cpu-policy: minor
+adjustments", posted almost 2 years ago and still pending (afair) any
+kind of feedback.
+---
+v2: Adjust an error message. Reduce diff / indentation some.
+
+--- a/xen/tools/gen-cpuid.py
++++ b/xen/tools/gen-cpuid.py
+@@ -366,7 +366,7 @@ def crunch_numbers(state):
+ 
+     for feat in deep_features:
+ 
+-        seen = [feat]
++        seen = []
+         to_process = list(deps[feat])
+ 
+         while len(to_process):
+@@ -379,14 +379,17 @@ def crunch_numbers(state):
+ 
+             f = to_process.pop(0)
+ 
++            if f == feat:
++                raise Fail("ERROR: Cycle found when processing %s" % \
++                           (state.names[f], ))
++
+             if f in seen:
+-                raise Fail("ERROR: Cycle found with %s when processing %s"
+-                           % (state.names[f], state.names[feat]))
++                continue
+ 
+             seen.append(f)
+             to_process = list(set(to_process + deps.get(f, [])))
+ 
+-        state.deep_deps[feat] = seen[1:]
++        state.deep_deps[feat] = seen
+ 
+     state.deep_features = deps.keys()
+     state.nr_deep_deps = len(state.deep_deps.keys())
 
