@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08CBCB3EB5F
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 17:49:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1105148.1456111 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1441B3EB7E
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 17:52:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1105163.1456122 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut6mL-0000ea-8x; Mon, 01 Sep 2025 15:49:09 +0000
+	id 1ut6pf-0002QR-NO; Mon, 01 Sep 2025 15:52:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1105148.1456111; Mon, 01 Sep 2025 15:49:09 +0000
+Received: by outflank-mailman (output) from mailman id 1105163.1456122; Mon, 01 Sep 2025 15:52:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut6mL-0000cT-5R; Mon, 01 Sep 2025 15:49:09 +0000
-Received: by outflank-mailman (input) for mailman id 1105148;
- Mon, 01 Sep 2025 15:49:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ut6pf-0002OI-Ji; Mon, 01 Sep 2025 15:52:35 +0000
+Received: by outflank-mailman (input) for mailman id 1105163;
+ Mon, 01 Sep 2025 15:52:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UGQU=3M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ut6mJ-0000c9-6o
- for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 15:49:07 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2ca4fd5b-874b-11f0-8adc-4578a1afcccb;
- Mon, 01 Sep 2025 17:48:59 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-b0431c12df3so153055866b.1
- for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 08:48:59 -0700 (PDT)
+ id 1ut6pd-0002OC-FX
+ for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 15:52:33 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ab3d8fa5-874b-11f0-8dd7-1b34d833f44b;
+ Mon, 01 Sep 2025 17:52:31 +0200 (CEST)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-61e8fe26614so2533114a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 08:52:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b02d8812161sm599091866b.73.2025.09.01.08.48.57
+ 4fb4d7f45d1cf-61cfc1c775fsm7582253a12.4.2025.09.01.08.52.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Sep 2025 08:48:58 -0700 (PDT)
+ Mon, 01 Sep 2025 08:52:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ca4fd5b-874b-11f0-8adc-4578a1afcccb
+X-Inumbo-ID: ab3d8fa5-874b-11f0-8dd7-1b34d833f44b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756741738; x=1757346538; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756741951; x=1757346751; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+hPA0mW/bm6dUbRMya6CeQQl1OcdMHsjeOFXQMYk/+c=;
-        b=e4ay2zBeCyjV3fixgNtm9FHX53lY8Xw8WXqLwy9PbGRzXi0DeyabR/jSZt4r6vNm9g
-         vyidTmIOFoi8yHrKtE+lcy+BGaLZJz4zsmVAhXWjGhUF5tMWcWCt6ptkRVN1kTPti0w+
-         NKysu6ZmH9BqmwPbO0MyoG6tspkljKwTPlgscI2fqL3fZnzi0dlmFfXdtJpgLOVnK0Er
-         LmnbCXFP+GDXiAptKP0YNQMDwmHspqk8qhAnwSLvjRKNzDDygFrGasVey2WOZdIx6ZP4
-         vCw2Vitlqh2V3RT/TXL+dvFObKEPOzkATNFwwNWS80EfS72oLXPReELcJBBAUO0eDybm
-         5Jmg==
+        bh=rYLyisd9bmPMm7TCrLfdkb3IkCPhuSy+bd/S5yno8yc=;
+        b=Nn+4zdbmK3xkKDH5ZZhLU0d8U5vsImmagzG3dNsLWdqam6UQRJeflBWCFK/JpNXyf/
+         Gs52gvse4lGhemsV4Gs9a+LvVkp7sPzbfdZF2vfk+sIiYUIt6+Y0ZeBogfy2LbBGUdL3
+         t3FOvj65n+xMagJdHvgg6q17HVnekm/146d0uU2gv6/QRqEUF2nsQZKVOwMq03OItf80
+         r7mttqlaR+HA+dTPOYG5IO7eRatIz00y9cNPtaFHRxe61LrxVnAB85twN1oziBGg6G3D
+         eyG6YDzGHGn7wm4Z1tjw5roYJ5QncIo6f98WYU4ML4Xjbj6npb1wNu2A0lbyri3ZVpbq
+         FlYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756741738; x=1757346538;
+        d=1e100.net; s=20230601; t=1756741951; x=1757346751;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+hPA0mW/bm6dUbRMya6CeQQl1OcdMHsjeOFXQMYk/+c=;
-        b=RvzDVvvsYJO5vcVbblowK/im567kBEYonnjd0v8mB/GIUbZk7JNrt+JEs2dFY6EWUZ
-         9nld242yGBOnwKN2nFbSBwuGmzi8fOjQUuEVi6Fp8hn4DKFujdeR1Pk+x7kdI8LKDrcy
-         Beu4SOgk0VWRky97L2qw4Qttx8fgcNb3YsyxQsxYNDPSP8vKlkrzuxgQKYYe3QrvvwBv
-         REhNjP6B7asZPQNxIi89CukCVcozsFiHVFlNOUNlq+pSiEJMrbcuHTbEOtSHbvIn6qan
-         3hm9g6E6jGJqS6X2XtD7sGAHvMgCXudeNzLR6A64Jl46i8vJAmEZ9+ZPrjRrvgQX8aPT
-         Pr1g==
-X-Forwarded-Encrypted: i=1; AJvYcCUsN+8AiJ9U6bkr6cs9dsNA9QcuG/hryAplBpO412TzjCm0WRibe5a4BMNYEiYr85CO+im3WNfsaDc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxX+3/dH++hxGwjvwcNZ/RN9f4tkaNyRxln9ldyBjyw0t/khoOW
-	gfygdToOTTkZ3RUIUc3YR+LhJoc1vVprlgXzhYW3HetgEdfMMT5X3WG2eJICfwb2QA==
-X-Gm-Gg: ASbGnctylVKV1jCefrcLSin2XTQzGod+OKWA3uAbAvSkQxx65dbz7eLordpQaYYXrGR
-	TOoIhoAR/f1FNiXnk0zIpfbrPPG/CI+Qzvtiz3b/MsruaMlf0opHk64sHApPpOBFBZ2jXl7E0vS
-	1rpvdY97KcM8K0QTn/YGqsmn1D6gB8rTvYFvRcVtA9GQUVTRsG+f92g5C18Rl2m3HYsPAG8Dk3O
-	WmnRG4jtlR/7m87lSxPnvzsXsr7jn92nk4IDkduSpXKC65R1/NuAPDhN9W5/lZ++kav2goovBbi
-	TDqQJRle06htMjIdUSSYKRRGkej8Y8TrgRvXJJLt25CZ82kPLlu1Vfh8Fb/VzRiFB+WvvyIKp78
-	niyCehNDOmGV/uMDJnP8IJbKCCi1KoA/qMuWsiACn8oOPZ6jiEmf6Chw8Wln5V95n+/abcRSKPt
-	aFR7UvnpKEDPDGCnQZSg==
-X-Google-Smtp-Source: AGHT+IFu+oWE/Hh4nPjOIM6dPr4n/hwOkU9PeQYgS8C92nSRqtsBpidK+7wDtCDUDqLSvp3dDSfStA==
-X-Received: by 2002:a17:907:944c:b0:afe:d49d:2888 with SMTP id a640c23a62f3a-b01f20e0d46mr805705366b.65.1756741738527;
-        Mon, 01 Sep 2025 08:48:58 -0700 (PDT)
-Message-ID: <0fa33a24-a6a4-40d9-88a8-af48350e1f4f@suse.com>
-Date: Mon, 1 Sep 2025 17:48:57 +0200
+        bh=rYLyisd9bmPMm7TCrLfdkb3IkCPhuSy+bd/S5yno8yc=;
+        b=rmMqNREqPEFj3OE1xeQRvd9X7SxlaEPovjFcQUjIbJw0fUmzoab1LoJecXSDOVArEr
+         zFSOC00B5a9ErEdJx+rqOM25YMuK3yCWFEIXGtTQTXT/i/QII+Y53lEpquZnbN0AiiH6
+         tMD24Jul/N1H+whPaaMg7zyj6ZC1RV0s8HMJ+/N41DtA42cD6SMuSvIMEQScIq8SaAap
+         WMmohdPtt39FyP+pf7m7aHmYkzhqAo4TNrzZwrzydO2DPL0+3lwutrFwKNe3BS8rSzkJ
+         fbwG3dfGd40t+eojMDAwAgp1gYjbaOfBhKBipbGjrdAttgiSjFfXgkRKYL8A+L5q8hQK
+         iRUg==
+X-Forwarded-Encrypted: i=1; AJvYcCXfJZqp6QJ37jcgdpEoLg60LQBEIpufmWZAotR+1Nvi0LUXVListloUloeQbELJ/FBi2tVSsPZ43EA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzWsOeJB1qNLDex5Ffm4rNNp333IowQxoyqajkeT+ksZqk1+8cL
+	O+3ancETa6UCVD8SgpbB9e/WFEdv12lDOoQIm1j1A18fKA7bHqu0g4yK+IYYiTEMAw==
+X-Gm-Gg: ASbGncvMI/d6qwr5hNg84JzaDJxEcgRX4wCiHq474V1nFfdIT23kkLLt6YMWV6DRH8e
+	cg0FADYBIV5sgpAYttpnli5soSl/ady5VyiQL+tkkeYoYruhKHwqiEfqCWWnxYkF3nd7d4DmcFy
+	V8KyF9fpRGflz3fhKdjfbg/qutqKI8nZlQNg/OB3AHqP4ahHy5kJ/wcNOmUcJswiR4H+qSH+4kz
+	21UaeLtRvrR4+AzSKnwExqYM41PoFHpDBF7uKfqNceWPjOm8vDqbDz7z51EzQXLWjD2J7eIemL7
+	bTOxYsF4oWdQNaVnpuJY1FLxhVA2fPPZnNHZeoWKyvE/sAOnsHseh8h3kpgTxG5nY0Xdle3bKir
+	DHW6luV26J6lVBHLr8BOctK7ka7udfULRs3mmqzqxnbKuw9/Fu0ZCajsFrLHlbfNkIWxStAKVMR
+	77psbbNiU=
+X-Google-Smtp-Source: AGHT+IHRawh4zG+e4nfwX3uF1okGQnJjaQq4t9rpRDxT/TXijxTm1iO4ny3U+6tbR+9/1eubElm4ug==
+X-Received: by 2002:a05:6402:5210:b0:61c:9852:bbb0 with SMTP id 4fb4d7f45d1cf-61d26c3e514mr6521655a12.19.1756741950871;
+        Mon, 01 Sep 2025 08:52:30 -0700 (PDT)
+Message-ID: <9695f099-456c-4ec0-9eaf-847134823353@suse.com>
+Date: Mon, 1 Sep 2025 17:52:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 4/9] hvm: Introduce "fixed memory layout" feature
+Subject: Re: [RFC PATCH 5/9] docs/x86: Introduce FastABI
 To: Teddy Astie <teddy.astie@vates.tech>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
- <jgross@suse.com>, xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1755785258.git.teddy.astie@vates.tech>
- <640223e5e7ee18a73f62152dd27883bf5978fbfe.1755785258.git.teddy.astie@vates.tech>
- <5ba550db-5e36-4d98-bce7-cbb3e2d874b9@suse.com>
- <b3c490fc-e1ca-488e-b96c-e059bdbdb466@vates.tech>
+ <64800d22220f31bf052713ce61ecedeaa8a36b6f.1755785258.git.teddy.astie@vates.tech>
+ <2fcdb264-15a3-47f7-915d-83d1c1e06765@suse.com>
+ <c5e62944-d519-4931-af20-1a737099148b@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,56 +124,44 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b3c490fc-e1ca-488e-b96c-e059bdbdb466@vates.tech>
+In-Reply-To: <c5e62944-d519-4931-af20-1a737099148b@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 29.08.2025 15:32, Teddy Astie wrote:
-> Le 28/08/2025 à 14:30, Jan Beulich a écrit :
+On 29.08.2025 15:59, Teddy Astie wrote:
+> Le 28/08/2025 à 14:35, Jan Beulich a écrit :
 >> On 21.08.2025 17:25, Teddy Astie wrote:
->>> @@ -686,10 +691,31 @@ static int domain_construct_memmap(libxl__gc *gc,
->>>       /* We always own at least one lowmem entry. */
->>>       unsigned int e820_entries = 1;
->>>       struct e820entry *e820 = NULL;
->>> +    uint64_t highmem_start = ((uint64_t)1 << 32);
->>>       uint64_t highmem_size =
->>>                       dom->highmem_end ? dom->highmem_end - (1ull << 32) : 0;
->>>       uint32_t lowmem_start = dom->device_model ? GUEST_LOW_MEM_START_DEFAULT : 0;
->>>       unsigned page_size = XC_DOM_PAGE_SIZE(dom);
->>> +    /* Special region starts at the first 1G boundary after the highmem */
->>> +    uint64_t special_region_start =
->>> +        (highmem_start + highmem_size + GB(1) - 1) & ~(GB(1) - 1);
+>>> FastABI is a alternative ABI designed with performance and coco-enabled
+>>> guest in mind. It is register-oriented instead of refering to C structures
+>>> in the guest memory (through a virtual memory pointer).
+>>>
+>>> It only focuses on kernel-side hypercalls, it doesn't aim to provide toolstack
+>>> operations.
 >>
->> That is, inaccessible before entering PAE mode?
-> 
-> Yes, I expect this to be only used by newer guests which hopefully 
-> aren't limited to 4G range (i.e supports PAE or long mode). The issue of 
-> trying to put that below 4G is that much of the space is already taken 
-> for the MMIO hole, so that area would quite complicated with more 
-> special regions.
-
-Which excludes any boot loaders simple enough to not even require entering
-paging mode.
-
->>> --- a/xen/include/public/arch-x86/hvm/start_info.h
->>> +++ b/xen/include/public/arch-x86/hvm/start_info.h
->>> @@ -99,6 +99,13 @@
->>>   #define XEN_HVM_MEMMAP_TYPE_DISABLED  6
->>>   #define XEN_HVM_MEMMAP_TYPE_PMEM      7
->>>   
->>> +/* Xen-specific types (OEM-specific range of the ACPI spec) */
->>> +#define XEN_HVM_MEMMAP_TYPE_SHARED_INFO   0xF0000001 /* Shared info page */
->>> +#define XEN_HVM_MEMMAP_TYPE_GRANT_TABLE   0xF0000002 /* Grant table pages */
->>> +#define XEN_HVM_MEMMAP_TYPE_GNTTAB_STATUS 0xF0000003 /* Grant table status page (v2) */
->>> +#define XEN_HVM_MEMMAP_TYPE_FOREIGN_REG   0xF0000004 /* Suitable region for grant mappings */
->>> +                                                     /* and foreign mappings */
+>> And even there it excludes certain pretty relevant ones, like many of the
+>> gnttabop sub-ops. As alluded to by a reply to an earlier patch, I don't
+>> think having an ABI for just a subset of the hypercalls is going to help.
 >>
->> I question it being legitimate for us to introduce new E820 types.
 > 
-> These E820 types are (at least in ACPI specification) in the OEM-defined 
-> range which seems appropriate for me to use for Xen-specific mappings.
+> Many hypercalls are missing in current RFC, including the grant 
+> map/unmap ones.
 
-Just that we're not an OEM.
+Yet the built-in batching that these come with would make it particularly
+interesting to see how you envision to support them without needing to
+access guest memory. (I simply can't see how that could work.)
 
 Jan
+
+> But a part of the idea is to still having some 
+> hypercalls out of scope (mainly legacy and toolstack-specific ones) to 
+> reduce the complexity.
+> 
+> Teddy Astie | Vates XCP-ng Developer
+> 
+> XCP-ng & Xen Orchestra - Vates solutions
+> 
+> web: https://vates.tech
+> 
+> 
+
 
