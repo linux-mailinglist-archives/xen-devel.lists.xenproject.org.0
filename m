@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBA5AB3E09A
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 12:50:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1104394.1455452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FA8CB3E09C
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 12:51:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1104405.1455461 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut27L-0007PI-8A; Mon, 01 Sep 2025 10:50:31 +0000
+	id 1ut28L-0007zk-HY; Mon, 01 Sep 2025 10:51:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1104394.1455452; Mon, 01 Sep 2025 10:50:31 +0000
+Received: by outflank-mailman (output) from mailman id 1104405.1455461; Mon, 01 Sep 2025 10:51:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut27L-0007Mq-5Q; Mon, 01 Sep 2025 10:50:31 +0000
-Received: by outflank-mailman (input) for mailman id 1104394;
- Mon, 01 Sep 2025 10:50:29 +0000
+	id 1ut28L-0007xU-En; Mon, 01 Sep 2025 10:51:33 +0000
+Received: by outflank-mailman (input) for mailman id 1104405;
+ Mon, 01 Sep 2025 10:51:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=UGQU=3M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ut27J-0007MC-Du
- for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 10:50:29 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=5RBY=3M=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1ut28J-0007MC-Fm
+ for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 10:51:31 +0000
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2060e.outbound.protection.outlook.com
+ [2a01:111:f403:2409::60e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7885196c-8721-11f0-8dd7-1b34d833f44b;
- Mon, 01 Sep 2025 12:50:27 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-b0415e03e25so152174066b.0
- for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 03:50:27 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-aff0681aefdsm774185966b.8.2025.09.01.03.50.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Sep 2025 03:50:26 -0700 (PDT)
+ id 9ceb9303-8721-11f0-8dd7-1b34d833f44b;
+ Mon, 01 Sep 2025 12:51:29 +0200 (CEST)
+Received: from SJ0PR13CA0075.namprd13.prod.outlook.com (2603:10b6:a03:2c4::20)
+ by DM4PR12MB6111.namprd12.prod.outlook.com (2603:10b6:8:ac::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9073.24; Mon, 1 Sep
+ 2025 10:51:24 +0000
+Received: from CY4PEPF0000EDD0.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c4:cafe::e3) by SJ0PR13CA0075.outlook.office365.com
+ (2603:10b6:a03:2c4::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9094.14 via Frontend Transport; Mon,
+ 1 Sep 2025 10:51:21 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD0.mail.protection.outlook.com (10.167.241.196) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.9073.11 via Frontend Transport; Mon, 1 Sep 2025 10:51:23 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 1 Sep
+ 2025 05:51:20 -0500
+Received: from [10.252.147.171] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Mon, 1 Sep 2025 05:51:19 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,209 +59,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7885196c-8721-11f0-8dd7-1b34d833f44b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756723827; x=1757328627; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6d9FTwOsIjtgog//yAxgk5Yz4RZ5ywhBqfV+xhi/VNU=;
-        b=gVycCv4qL9LnmoXlb81VjX7XpOjTJONXmP56IvQNja5/Hip/ZRIthEpaBbn+SFbTuN
-         PZ2WDK6UdykQ/eFJf5ZapvNoiiNwrAMDlezvsBoLBrxtAkh8XwckW+Ou3bSVRpT9M6Yq
-         sCg0GPrnN0Hh7w8GmjGl9NbUdOLlNfep5f9/pIzlR8IYvsiuwbXlMXhfj1tIToVOQ0ov
-         WjGhdglTPnUZeQuYNu5JV0UcYYVynfofijhY0OIK32Z/5z8wnBuLiQ7nhGEeX3TAjkCt
-         3gUbWP5bUk34fiMjSL6jf8NBYBVNmFLLwV5O6lFbwP+y9p9QrBKiKftU3wXnDEpP/RIS
-         SRsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756723827; x=1757328627;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6d9FTwOsIjtgog//yAxgk5Yz4RZ5ywhBqfV+xhi/VNU=;
-        b=kajPcrHpUw5ZwkN//+ufwCZ6d81rPS+4c3Kr4d9b+pW9g7RKMGBJKFmQKea243VviP
-         LVB8RqUl+8I3s4XCJnmQWA1LZa0MbBugg4E1YVYjPy2Dt+j1Z/fQE0QLSryX4hU/nVUG
-         cpT2XVgNcSs+fqIh6ijtXilq/YRfdv9Xf2vY3L6ZMl8NmQfnqHuILayDFSidyVHeQ7JF
-         CM+wzQ+UkrAHxxxhrGPMPteaealxW35Se/dMVv/sL/xnWqUGV6oXakeB5Tzqg4e3EBqe
-         hRaTaBPMe9hyCW4xYyr/wyMiLXPQK7lQSOFuU2VRRoRM8/dKiEHe/zv/N4M4mUmjeyIG
-         pq8g==
-X-Forwarded-Encrypted: i=1; AJvYcCXHyvMirNk3Pfm7xryuYJ4EUMdX5tTXeBn3jDD+jwscwJNzkGhVpJE/3EB1KHIXIksC0iVM4yNu7wU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw5DY2V66J6+Ldc1JbrtzOvquMBXS30cw4PAhSaKwOuz4v9lGzK
-	tetUi9n54zk/klp3QAvYU7O/JZ0+6/969QdZoc8BFY9RtnI2KZ7USzwkB13/W7M3Uw==
-X-Gm-Gg: ASbGnct4A6fnecD8zN5I/3tp3KHoBzZHV0kY7xPrLgHjVN8G39O6CgTj41SG25DQ/ib
-	s/u4RzJCVWt5CHX9nVr4HInPMbRI7DIsRdRXf9eED9TPGi+vF5uKORjVqkHGkgushxNBa53NOXo
-	FbjmIf6/eMONaV205popjLHSCV82VGz0U28AsgcoVDJZ72mbwqY/21LtZZmeaVbvlXzlJQzr2EU
-	r2YQeLK9MLfURth3AFwa6+nN8toozCY7aLfuXcVgBwjzdolKjW+ncpWQu065Pa/ZoxYz0TpZuzO
-	DyxDJbxFuC0ExnfQFgdadqbuOZu/guGMmAQCXkqf2cR0cvDa5p88CcY6ERJBAxbNzEAEqWsa/co
-	mxudgqvSRc8C2z4+UDvppKn6CnFPcs4T0Zp3Q05aOaiv8mrgfE8X5MUloP/0LU1vKzym8XG8E45
-	ifJtbJAOB8Hzbc6sTA0Q==
-X-Google-Smtp-Source: AGHT+IHkx3ELT9yqKVJK86Q6A2sjt0uicsn9i3Lbek1FfZ7AGMAuO0px/S4yr6ge3eqEaYjHyCAxsw==
-X-Received: by 2002:a17:907:97c7:b0:afe:b3be:90f3 with SMTP id a640c23a62f3a-b01d8a2fdc5mr781327266b.10.1756723826767;
-        Mon, 01 Sep 2025 03:50:26 -0700 (PDT)
-Message-ID: <b6adcd89-0a5e-4de8-b72d-8f20534b639a@suse.com>
-Date: Mon, 1 Sep 2025 12:50:25 +0200
+X-Inumbo-ID: 9ceb9303-8721-11f0-8dd7-1b34d833f44b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=P2+qwlO2ejaTL5JkaafZkvPpwpzIKc8Rw/Kk5iWMt6aDhGoRX++HoLXFHn0ps366onzcxixKlwQrdn1h1DoFAYURnAdavHwpbjmgZxRMTC7aIoql/lx/O+YYaHW2ivHMjlH4m66Zk46YgAlEDl73XMsGjq0ag712Edoa33oWIETwKzEdLIiKuhguybFns9G54xfHWevyariQNUqpwKL6sWDm9bvYMlWis2YCK57EfMpFuvWuo/mB2ERk9QyNEi008SSPx6MC7ugmjgt2YtEskATnAyEsxMRoKic2VNsIUbTiNrparKNEoZcH6lX4MPP5WU9XplA15HtLBw9858yHHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=p+Yxk7jc3b5WPUKFLYqIYBiG+mHtJeAvRcajD3ti/Xo=;
+ b=em6tY4iTJxpft5lO5Jx1FyNGWgSJxrb0PNzEZEXG36f9MVT1Sx4n3CaKlosCLwEm7ih6+dTk20KcwjlyGVNbgwElwGMwFQQUeDC6bLsgf0Ax4np++POqagRLww1NYnaSZjN1BwnA+r0gbGdNYuR9XsRWtIXCTHJmEVTE00vKo8OEP2y8Ov5rS/MqIeGrHfWu10l0uqj9N086VdsdLZr+st/3ssXCbof715yAtlx78HBqKpDmn6I8pR1GQDh8IrinfX3uMhi5IqIxgRfASTVUL8CbWDL3G0DnsFLuaniTdVGcdx3L7ZVcK2vNT+2pzGxnyHga3/NICJlGQDNPTuNR9Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=epam.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p+Yxk7jc3b5WPUKFLYqIYBiG+mHtJeAvRcajD3ti/Xo=;
+ b=s0c18v/j/RwKztZxjR4MyaB62aGsnv9HJcIqdBeHOzQggM5Ik41K45D4tw24xA1GGleuRHsC+JJvPJPTAdbvP+SeTHXqOsyL/2bUvk+i1lNLrZULwtU2O4ihxeT3RhJkoPILvzrXOGjfmxpH6HYl6PIIJPSaLCxEylYBuVeAwy8=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <de880f1c-7874-43e6-b229-7630113f273d@amd.com>
+Date: Mon, 1 Sep 2025 12:51:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 14/23] x86/traps: Enable FRED when requested
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250828150409.901315-1-andrew.cooper3@citrix.com>
- <20250828150409.901315-15-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v3] device-tree: fix infinite loop issue in
+ 'assign_shared_memory()'
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>
+References: <41cbf42c319a95c92517b6042414de6d13dda077.1756718656.git.dmytro_prokopchuk1@epam.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250828150409.901315-15-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <41cbf42c319a95c92517b6042414de6d13dda077.1756718656.git.dmytro_prokopchuk1@epam.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB03.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD0:EE_|DM4PR12MB6111:EE_
+X-MS-Office365-Filtering-Correlation-Id: f9f4bd05-8330-4864-e191-08dde9457e76
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?ei9Gd3lOSXJNSFBMeUZKZUZBcGdKMEViaVVoWmY5Sm5mMlVkcUs4N1czaVNh?=
+ =?utf-8?B?VktWMGNOZ29PdmJ6bitZdjZqWk5uTlR3b2dQNWlka3lJS0l1Y0J1eVBXbHNj?=
+ =?utf-8?B?K05hMXpOL3RyYk51aEk3WDFxdGU4cmc5N3VZbTBidlVNMmJLTFIxZDlxMm0v?=
+ =?utf-8?B?Szl4aVI1V3JEYzZPUVJ3ZWJHOTZIZ2U2ekxXOGtWbnpHNUFGd3MwTlh0dEV5?=
+ =?utf-8?B?WTFnQ0ZmaEVPMElyVWpGQVhLUk0yZjFVY3VlWWE0czZFNy92ZThDYkRxVXZm?=
+ =?utf-8?B?OWFuTXFkZml6c2J2TFAyLzZ4cUVVTVVjTWQreGtrOGhxdkplWXVtZ2N0UFV2?=
+ =?utf-8?B?cjFuaWkxcGtNZVFUNGpZTUFkVGlTWkpLS1RIa0ViRnV6OW41QmtJUjJQNEky?=
+ =?utf-8?B?WTFnV200N2NvMm9ueVFHVXBTNmpqOUxuSXUvWVdIUU1PVk5OUzkybXJPSW5t?=
+ =?utf-8?B?aDNJeXpvVUZnUmdCNEJFZjVjWDBhYkNZSHJLOFJKMzFpOUJ6STRNVDgrTjhJ?=
+ =?utf-8?B?cUZLMmFpQmdTcXVNdnliMk93TXZWaStpOGpVd1dQaHg3V2tSSCtrdUFRQ0k0?=
+ =?utf-8?B?U00yd0hldll5TVNCSkVUMGMrMHdwbHEyU0E1SGticmJhR1dUL3lLaCt4K1Fx?=
+ =?utf-8?B?YXNaQUtLMUtYaUZyc25oMVJOejdsaEpsa3ByRUNaSElxUGZEV2ZhR1lLNmJC?=
+ =?utf-8?B?SjdtVTdhTVZTbXRMeTlHcmhjVVMzeVgwWUJlSUVYeEROTloyMzJTTHZhZEpJ?=
+ =?utf-8?B?SUhSR0NyU0RmSXZZa3VLMGFSU0lNSTU3eDhtRFo5RWllL0hrVGp6VW43cWFQ?=
+ =?utf-8?B?MklrYk9OdFRIcjFVUDJ3K1BFVjA0b21Pc1N5RHRnVkxUZzlDVWpCQlNaT3JU?=
+ =?utf-8?B?aWMvbDcwQU9pMXNWazM1aXpOajg2Y0VxbUtTeVc4Y2xuNC9lT3dZa3VyT1l2?=
+ =?utf-8?B?djBvNnAxVHE5SmpNT3d1UkpyckJ5UHhxYnNycmFhVExJUjNMNktjbFFROUNz?=
+ =?utf-8?B?dDRnVVBnOStIUGJSZVFrTmdSSHNwYjR2eE9SZStFUCs2NjViRjhEbHFNb1BT?=
+ =?utf-8?B?eGtrYTQ3MVVZRXVId1R1ZmpjeFo3OW9iRUtraFE0VDF1NUVMZXhMYzlkVXFs?=
+ =?utf-8?B?S3BmVkgzR1pzNUVsWjl4ajNYV2xoMTZwc0lhUGwvaUpUb2JXeXJoK1lnaTBM?=
+ =?utf-8?B?d1pMTWdLajR1YUtqeEwxbmhIVHdISTF0NzFKeC9wSExNQ1EyMm15bWxxQkVM?=
+ =?utf-8?B?SE9HdCtCSGZTYWordUpEbnQyejB1YWx5WmdqZ3QyQ3RpSE9BZDRQbTRjNjVE?=
+ =?utf-8?B?MGx0aG5xRllncVMxa2ozN0wzTHVRNXBIZnhCTG44cjFWSGFTT1FsODF5cmVk?=
+ =?utf-8?B?RGZTTVl4elRrYk56ZnY4a3BCWGpHeW0xZGdhem5CVmcwS0NSSU5UT3hxNENH?=
+ =?utf-8?B?WHJJdXBaTnF1WnB6Qm5yTzluVWlNaEtGTy9iU01wQzRxRml5NUFmM3NVelNv?=
+ =?utf-8?B?TnIxYTZLeGtyM0xiRmRHeHVic3I4bEJFYkNubXhMZzNQdHJMZTRNaFVUYk1k?=
+ =?utf-8?B?ZHRqcUFueC96aitSVGRLZzJZWE8wbGxDMXJFSzA1WThRSVN2QnU5TTN2YjlR?=
+ =?utf-8?B?SmRGNXlTczIxbGxVYUJwR3VqWTMzU2JjNk82eStYUUF4SmRxSEIxMUVwZFRw?=
+ =?utf-8?B?ajZIYm05WnJaZ0w3dWlmRVRBZ2JWUlFVNlBoQWRvNW9tOTdFQ2V3YVNoa1JF?=
+ =?utf-8?B?aWQyR1pYT0tHUnRFMytrdTBreWtsa2wra1I0WERjUWdMZityUUpYa050eFFa?=
+ =?utf-8?B?MFlTTGdsZ0EwWnVFVDRRY3cwTGZ3NGxvSXpBSkdTYWF1S0RHNW94WE5ETXBT?=
+ =?utf-8?B?U3FOY1NYcTc2ekpKUi8weWxPY3d6bVdVUWJFZ2lBMlgwWHlkN1UxZmlOUEtU?=
+ =?utf-8?B?T1RwWHRzQzVaOFZyTHJ5eUo3RHN1R3VJeDByaUxmMmNLQm02ZkJJSzFqMUxD?=
+ =?utf-8?B?NHNHRE5uWXF4dFUzVUFvSFRxaWJvSWhwSUlwazlwTVRZV2c1T2xqanlhUFdI?=
+ =?utf-8?Q?l6mpgL?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2025 10:51:23.9321
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9f4bd05-8330-4864-e191-08dde9457e76
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000EDD0.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6111
 
-On 28.08.2025 17:04, Andrew Cooper wrote:
-> With the shadow stack and exception handling adjustements in place, we can now
-> activate FRED when appropriate.  Note that opt_fred is still disabled by
-> default.
+
+
+On 01/09/2025 11:26, Dmytro Prokopchuk1 wrote:
+> Fix an issue in the 'fail:' cleanup path of the 'assign_shared_memory()'
+> function where the use of an unsigned long 'i' with the condition
+> '--i >= 0' caused an infinite loop. Update the loop to use 'i--',
+> ensuring correct loop termination.
 > 
-> Introduce init_fred() to set up all the MSRs relevant for FRED.  FRED uses
-> MSR_STAR (entries from Ring3 only), and MSR_FRED_SSP_SL0 aliases MSR_PL0_SSP
-> when CET-SS is active.  Otherwise, they're all new MSRs.
+> This change adheres to MISRA C Rule 14.3: "Controlling expressions shall
+> not be invariant."
 > 
-> With init_fred() existing, load_system_tables() and legacy_syscall_init()
-> should only be used when setting up IDT delivery.  Insert ASSERT()s to this
-> effect, and adjust the various *_init() functions to make this property true.
-> 
-> Per the documentation, ap_early_traps_init() is responsible for switching off
-> the boot GDT, which needs doing even in FRED mode.
-> 
-> Finally, set CR4.FRED in {bsp,ap}_early_traps_init().
+> Fixes: 041957bad382 ("xen/arm: Add additional reference to owner domain when the owner is allocated")
+> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+Acked-by: Michal Orzel <michal.orzel@amd.com>
 
-Nit: That's {bsp,percpu}_traps_init() now, aiui.
+~Michal
 
-> --- a/xen/arch/x86/include/asm/traps.h
-> +++ b/xen/arch/x86/include/asm/traps.h
-> @@ -16,6 +16,8 @@ void traps_init(void);
->  void bsp_traps_reinit(void);
->  void percpu_traps_init(void);
->  
-> +void nocall entry_FRED_R3(void);
-
-Can't we constrain this decl to the sole C file needing it?
-
-> @@ -268,6 +272,52 @@ static void __init init_ler(void)
->      setup_force_cpu_cap(X86_FEATURE_XEN_LBR);
->  }
->  
-> +/*
-> + * Set up all MSRs relevant for FRED event delivery.
-> + *
-> + * Xen does not use any of the optional config in MSR_FRED_CONFIG, so all that
-> + * is needed is the entrypoint.
-> + *
-> + * Because FRED always provides a good stack, NMI and #DB do not need any
-> + * special treatment.  Only #DF needs another stack level, and #MC for the
-> + * offchance that Xen's main stack suffers an uncorrectable error.
-> + *
-> + * This makes Stack Level 1 unused, but we use #DB's stacks, and with the
-> + * regular and shadow stacks reversed as posion to guarantee that any use
-> + * escalates to #DF.
-> + *
-> + * FRED reuses MSR_STAR to provide the segment selector values to load on
-> + * entry from Ring3.  Entry from Ring0 leave %cs and %ss unmodified.
-> + */
-> +static void init_fred(void)
-> +{
-> +    unsigned long stack_top = get_stack_bottom() & ~(STACK_SIZE - 1);
-> +
-> +    ASSERT(opt_fred == 1);
-> +
-> +    wrmsrns(MSR_STAR, XEN_MSR_STAR);
-> +    wrmsrns(MSR_FRED_CONFIG, (unsigned long)entry_FRED_R3);
-> +
-> +    /*
-> +     * MSR_FRED_RSP_* all come with an 64-byte alignment check, avoiding the
-> +     * need for an explicit BUG_ON().
-> +     */
-> +    wrmsrns(MSR_FRED_RSP_SL0, (unsigned long)(&get_cpu_info()->_fred + 1));
-> +    wrmsrns(MSR_FRED_RSP_SL1, stack_top + (IST_DB * IST_SHSTK_SIZE)); /* Poison */
-
-So the use of IST_SHSTK_SIZE here (and PAGE_SIZE below) is to have the SL1
-stacks "the wrong way round". I first thought this was a mistake, not the
-least also due to the typo below. I think this wants commenting upon.
-
-> +    wrmsrns(MSR_FRED_RSP_SL2, stack_top + (1 + IST_MCE)  * PAGE_SIZE);
-> +    wrmsrns(MSR_FRED_RSP_SL3, stack_top + (1 + IST_DF)   * PAGE_SIZE);
-> +    wrmsrns(MSR_FRED_STK_LVLS, ((2UL << (X86_EXC_MC * 2)) |
-> +                                (3UL << (X86_EXC_DF * 2))));
-> +
-> +    if ( cpu_has_xen_shstk )
-> +    {
-> +        wrmsrns(MSR_FRED_SSP_SL0, stack_top + (PRIMARY_SHSTK_SLOT + 1) * PAGE_SIZE);
-> +        wrmsrns(MSR_FRED_RSP_SL1, stack_top + (1 + IST_DF)  * PAGE_SIZE); /* Poison */
-
-MSR_FRED_SSP_SL1 and presumably IST_DB?
-
-Also (nit) both of these lines are too long; the double blank ahead of * on
-the latter one probably also wants dropping.
-
-> +        wrmsrns(MSR_FRED_SSP_SL2, stack_top + (IST_MCE * IST_SHSTK_SIZE));
-> +        wrmsrns(MSR_FRED_SSP_SL3, stack_top + (IST_DF  * IST_SHSTK_SIZE));
-> +    }
-> +}
-
-Because of the intentional asymmetry for SL1, maybe the writing of
-MSR_FRED_STK_LVLS would better move below here?
-
-> @@ -356,8 +410,13 @@ void __init traps_init(void)
->   */
->  void __init bsp_traps_reinit(void)
->  {
-> -    load_system_tables();
-> -    percpu_traps_init();
-> +    if ( opt_fred )
-> +        init_fred();
-> +    else
-> +    {
-> +        load_system_tables();
-> +        percpu_traps_init();
-
-Doesn't this need to stay outside of the if/else, ...
-
-> +    }
->  }
->  
->  /*
-> @@ -366,7 +425,8 @@ void __init bsp_traps_reinit(void)
->   */
->  void percpu_traps_init(void)
->  {
-> -    legacy_syscall_init();
-> +    if ( !opt_fred )
-> +        legacy_syscall_init();
->  
->      if ( cpu_has_xen_lbr )
->          wrmsrl(MSR_IA32_DEBUGCTLMSR, IA32_DEBUGCTLMSR_LBR);
-
-... for this to still be done?
-
-Jan
 
