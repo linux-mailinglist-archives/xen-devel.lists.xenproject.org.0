@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFDDBB3F0DF
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 00:10:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1105403.1456377 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA820B3F0DD
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Sep 2025 00:10:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1105404.1456391 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utCjR-0006Ta-8I; Mon, 01 Sep 2025 22:10:33 +0000
+	id 1utCjS-0006qc-Lp; Mon, 01 Sep 2025 22:10:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1105403.1456377; Mon, 01 Sep 2025 22:10:33 +0000
+Received: by outflank-mailman (output) from mailman id 1105404.1456391; Mon, 01 Sep 2025 22:10:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1utCjR-0006MQ-3N; Mon, 01 Sep 2025 22:10:33 +0000
-Received: by outflank-mailman (input) for mailman id 1105403;
- Mon, 01 Sep 2025 22:10:31 +0000
+	id 1utCjS-0006kP-El; Mon, 01 Sep 2025 22:10:34 +0000
+Received: by outflank-mailman (input) for mailman id 1105404;
+ Mon, 01 Sep 2025 22:10:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=pPXY=3M=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1utCjP-0005XP-Gv
- for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 22:10:31 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
+ id 1utCjQ-0005XP-Gp
+ for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 22:10:32 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7927e6f3-8780-11f0-8adc-4578a1afcccb;
- Tue, 02 Sep 2025 00:10:30 +0200 (CEST)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-55f7b6e4145so1330704e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 15:10:30 -0700 (PDT)
+ id 79e20492-8780-11f0-8adc-4578a1afcccb;
+ Tue, 02 Sep 2025 00:10:31 +0200 (CEST)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-55f7ad815ceso1676658e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 15:10:31 -0700 (PDT)
 Received: from yp-VivoBook-ASUSLaptop-M1503QA-M1503QA.. ([95.67.15.120])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5608279307asm123038e87.75.2025.09.01.15.10.28
+ 2adb3069b0e04-5608279307asm123038e87.75.2025.09.01.15.10.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Sep 2025 15:10:28 -0700 (PDT)
+ Mon, 01 Sep 2025 15:10:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,393 +45,206 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7927e6f3-8780-11f0-8adc-4578a1afcccb
+X-Inumbo-ID: 79e20492-8780-11f0-8adc-4578a1afcccb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756764630; x=1757369430; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1756764631; x=1757369431; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RY9tX/c5T2T5//S4piNjlgD25sf5vU9/GmLRb02Wl1w=;
-        b=XVAO+pdutTd1AVWu2A18pCKhyfR6/QhArEcEJ7X3+UTFtlM/oJ9Cy/qe6lmWvBLSnU
-         W8rfxGND1yHwimQgs/cMVsJMad1BPYGQN9y0Cl3dsFh5OvIkYTmwEJIlNhcbrIDm4UM+
-         aKw3bTlXu3zlKLUwLYXXgiQaZFhtqrHQ7pDjfKLt7bdnKGCdSncNslurzFXY9dAMXF1i
-         C6jvYlxu8fF1yR32WsIu6GzUgywRGya6P3IkLAfjFll0qjaI+n9/Xrnz1oPKkifMvrwU
-         bn/gXOcj2zsp+NPlUU1Fv8Wif8nU9DcLVpLxXB7atTrJ5qSkKCDH1XymDV5X6pezRbBK
-         gEtg==
+        bh=pux8zQR0d0n5/4MKkffDUfDraLZ/szsPvbUCV13VP9s=;
+        b=PGGhcZ/hfRBGET+34FZXXy8e9qfhTeoJKvb0IdwX+Ak+g0G97wyBa26UM7q0xp43jI
+         gq/fsySj86GTvTPOPUVlgZTyZicgN9pMkqlr85sGakaQeYQdmh9RQBjnJ4nvUUbEB3h0
+         xaicmoCEs7a8vEPdS/2PG9twkX76E1FY6mSau1bgjeLXHZVjNgqQBeY9GO2gFQB0iLwN
+         pxwUdc2pAQc0qMhab4xCzgs8wmdWf2+OQyKNrc55WRj1JMzriure58cY1J9eEKFZfu8N
+         +YnrwHNmG0lA63ccmbrXAbCoUEhESIXDN4S2HeMYTQ6x4sFKLLzepyfuVIWvcZvEXjU9
+         5tXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756764630; x=1757369430;
+        d=1e100.net; s=20230601; t=1756764631; x=1757369431;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=RY9tX/c5T2T5//S4piNjlgD25sf5vU9/GmLRb02Wl1w=;
-        b=dwpBemIhreX5Y7mic3+KIwzrMMNjTYbu63IQNz+EW8dYauFOEXBpLuwCKxSXqeWpPy
-         Jj8m0hEm5ubw4YVMU8DkYQpd8rzxg31AnuKSq2FgCQjyhA+tGeA84N6cH+Vd+BIbBbZd
-         dNlQyhGwg7jIXv6vKfYhrjNl4riMym6DP1IfU4tX0NPnB+JxVu/nfkydB/kM1KAer1pD
-         h82njPNp2bvsIBa3YZdqrm8jSWLjk5SzJ/d27MisnlUbDnRAQ94mvlwFgOJLMHDXjdfz
-         BNbCOcyzMiet/nBtzDMj5zhSHzMM0g1Ns9OLRgeQ5Ndy6Q5wTutgg3YsHBixkaKFEkZ3
-         jmEg==
-X-Gm-Message-State: AOJu0YxcAJX7JeNY3sM6JxdWw/Gd15b4CUWFrNfg3wt0Wo6aATpxJSJb
-	va5DLK7WRlAhcpKRKtc6JjAgs63yif4EC83eJO7+8Rs6bQMMAkpe3DE2hJfUV9fu
-X-Gm-Gg: ASbGnctGeLmsAG2+gOEXpO+u7BkNVmQyya/6toY8/EqzdwtGEWokrzmUYleOTQUVRsZ
-	JA0TzUy6NIyGQNn9eGA70TiB/85d+XWEDVct6eidFI5NPHhRADVugqEY3fDL8axr2PcrfMw7xwQ
-	SYzm+5plEIX0NnHmOCcO9mhtm90FneLtJ3bfN1GTbs41+E1uAIwKyxpIZb3SuKWnhcjm+7TTy0i
-	n4XaUlulaWlTRO0r/sRYk7+RvxXMZIp8N2PkvA4Z8wHbzegQU18nGExiWgxlus9ocFFilUqjDIb
-	SbPbBv2mUn4uNRngECfZKk3HEsVhAJLESm2QBIipbfSO8ZOB2GUAiFv6XelQ3pzChIJ3RkJF+JX
-	caK9ollVKydjbOMX2XJZ0s/j6Eo9ccJN62fp/ReNaM8xUgM/ZGB6qvFAY5SmAnlFJ0i1GMq2K
-X-Google-Smtp-Source: AGHT+IEkwBm4cpJTQnKBoX8tD+SaJ/XRbp9ktMXnYGjhR+0nJcJbopep6TTT4iDCLZRyqgZKntvLtQ==
-X-Received: by 2002:a05:6512:2610:b0:55f:3f03:946d with SMTP id 2adb3069b0e04-55f708b60dcmr2388583e87.23.1756764629748;
-        Mon, 01 Sep 2025 15:10:29 -0700 (PDT)
+        bh=pux8zQR0d0n5/4MKkffDUfDraLZ/szsPvbUCV13VP9s=;
+        b=uQsueeDGTNzsWjuH/K+YRLhIGDR+jjCoIml4wkolRxMpHMNvGLX3k+C5aXone2kFUu
+         +UqIWI4dfgeEmuau/BnjWUKxTyFYcPigvRe0+dQDBQ2oAPeXKQ/nlCkkl9fWGGMCbUk9
+         C549kJeWLovTEyee0a6Bpsqs4HkzUaHVo4qzSqusE/4F6qOoVpoSl+9wXSSKeowjTYzb
+         tbhFDxJwNZaWojYrd6vwgVoHEmAd2hJ2BxMrYknyHGZ+ntofIGImnkMNoXIp3i/p7Gfj
+         9QJQQBLp0tKu2jBiyKJyXzKvrCYaJ06kLx9KEYeAr8KOBeHEOOZfsdyQKlXds7iGN1ts
+         mZWg==
+X-Gm-Message-State: AOJu0YwIaqPx7/xzKFkBzl5kO6Gd937/V3oa6KsUlwZKnDpqTnZE/fB3
+	8AfeoVGjfRCLJlBQs0832tvLz39NfrMjQ3h4Fr0vw9a+pvCv5dSKnCJ/iDSzHbDm
+X-Gm-Gg: ASbGncteqzkOOGFq9iF6sSGTRZ6kyYuDVoLndEqiQ7gyXNsoO5h5vdy1ys7t8GgYqDC
+	TtNZi7CIduHgzSNDVRgbOei47yjXW3JtzqpMvg+mwuTio/BxNkribCwhzMTGMKObpYTFquNmeZJ
+	3GbpW98AURgh4zRD82lsgc4PHzl0dfCLYZjM8KuNT7O0ijJ4QaYtqnePyNtw80G0Otv33KoJYD3
+	qxSkH2z6ctMRHunXMRhvLNEx0ohtTizevPLLrd1hRYypGeyahkYK32opul8GUUJUcqbS53Usi6F
+	Ul/G2mqORPHdRUkYuzh/J0TNroyPMkvONugHsaN7GR+pE8QzoGz7c6pX/RfpXy4kbfPMJeXZkl5
+	uAD8Lh3/YR0zyyTk5yBcr6o1EN/2+0/6LbsclHZEheaa+ZNwlJT0FH7iicqklaV0H0S485yC4
+X-Google-Smtp-Source: AGHT+IHac5NYtAevecrJdPsnvQsSQwBeZX1PPUz7eIaje6LakHkn37It/dfRC3WdGHf3MYfBkW7PZQ==
+X-Received: by 2002:a05:6512:2c94:b0:55f:5b65:a3e3 with SMTP id 2adb3069b0e04-55f7093e96amr2529872e87.35.1756764631025;
+        Mon, 01 Sep 2025 15:10:31 -0700 (PDT)
 From: Mykola Kvach <xakep.amatop@gmail.com>
 To: xen-devel@lists.xenproject.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+Cc: Mirela Simonovic <mirela.simonovic@aggios.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Saeed Nowshadi <saeed.nowshadi@xilinx.com>,
+	Mykyta Poturai <mykyta_poturai@epam.com>,
 	Mykola Kvach <mykola_kvach@epam.com>
-Subject: [PATCH v6 07/13] iommu/ipmmu-vmsa: Implement suspend/resume callbacks
-Date: Tue,  2 Sep 2025 01:10:11 +0300
-Message-ID: <3a05d0f188943173703690981a7590fd12fabd4c.1756763487.git.mykola_kvach@epam.com>
+Subject: [PATCH v6 08/13] xen/arm: Implement PSCI SYSTEM_SUSPEND call (host interface)
+Date: Tue,  2 Sep 2025 01:10:12 +0300
+Message-ID: <20b6774cafc2d4d6c92c220d3aa94a666d55c930.1756763487.git.mykola_kvach@epam.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <cover.1756763487.git.mykola_kvach@epam.com>
 References: <cover.1756763487.git.mykola_kvach@epam.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+From: Mirela Simonovic <mirela.simonovic@aggios.com>
 
-Store and restore active context and micro-TLB registers.
+Invoke PSCI SYSTEM_SUSPEND to finalize Xen's suspend sequence on ARM64 platforms.
+Pass the resume entry point (hyp_resume) as the first argument to EL3. The resume
+handler is currently a stub and will be implemented later in assembly. Ignore the
+context ID argument, as is done in Linux.
 
-Tested on R-Car H3 Starter Kit.
+Only enable this path when CONFIG_SYSTEM_SUSPEND is set and
+PSCI version is >= 1.0.
 
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
+Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
+Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 ---
-Changes in V6:
-- refactor code related to hw_register struct, from now it's called
-  ipmmu_reg_ctx
----
- xen/drivers/passthrough/arm/ipmmu-vmsa.c | 257 +++++++++++++++++++++++
- 1 file changed, 257 insertions(+)
+Changes in v6:
+- move calling of call_psci_system_suspend to commit that
+  implements system_suspend call
 
-diff --git a/xen/drivers/passthrough/arm/ipmmu-vmsa.c b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-index ea9fa9ddf3..0973559861 100644
---- a/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-+++ b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-@@ -71,6 +71,8 @@
- })
- #endif
+Changes in v4:
+  - select the appropriate PSCI SYSTEM_SUSPEND function ID based on platform
+  - update comments and commit message to reflect recent changes
+
+Changes in v3:
+  - return PSCI_NOT_SUPPORTED instead of a hardcoded 1 on ARM32
+  - check PSCI version before invoking SYSTEM_SUSPEND in call_psci_system_suspend
+---
+ xen/arch/arm/arm64/head.S          |  8 ++++++++
+ xen/arch/arm/include/asm/psci.h    |  1 +
+ xen/arch/arm/include/asm/suspend.h | 22 ++++++++++++++++++++++
+ xen/arch/arm/psci.c                | 23 ++++++++++++++++++++++-
+ 4 files changed, 53 insertions(+), 1 deletion(-)
+ create mode 100644 xen/arch/arm/include/asm/suspend.h
+
+diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+index 72c7b24498..3522c497c5 100644
+--- a/xen/arch/arm/arm64/head.S
++++ b/xen/arch/arm/arm64/head.S
+@@ -561,6 +561,14 @@ END(efi_xen_start)
  
-+#define dev_dbg(dev, fmt, ...)    \
-+    dev_print(dev, XENLOG_DEBUG, fmt, ## __VA_ARGS__)
- #define dev_info(dev, fmt, ...)    \
-     dev_print(dev, XENLOG_INFO, fmt, ## __VA_ARGS__)
- #define dev_warn(dev, fmt, ...)    \
-@@ -130,6 +132,24 @@ struct ipmmu_features {
-     unsigned int imuctr_ttsel_mask;
- };
- 
-+#ifdef CONFIG_SYSTEM_SUSPEND
-+
-+struct ipmmu_reg_ctx {
-+    unsigned int imttlbr0;
-+    unsigned int imttubr0;
-+    unsigned int imttbcr;
-+    unsigned int imctr;
-+};
-+
-+struct ipmmu_vmsa_backup {
-+    struct device *dev;
-+    unsigned int *utlbs_val;
-+    unsigned int *asids_val;
-+    struct list_head list;
-+};
-+
-+#endif
-+
- /* Root/Cache IPMMU device's information */
- struct ipmmu_vmsa_device {
-     struct device *dev;
-@@ -142,6 +162,9 @@ struct ipmmu_vmsa_device {
-     struct ipmmu_vmsa_domain *domains[IPMMU_CTX_MAX];
-     unsigned int utlb_refcount[IPMMU_UTLB_MAX];
-     const struct ipmmu_features *features;
-+#ifdef CONFIG_SYSTEM_SUSPEND
-+    struct ipmmu_reg_ctx *reg_backup[IPMMU_CTX_MAX];
-+#endif
- };
- 
- /*
-@@ -547,6 +570,222 @@ static void ipmmu_domain_free_context(struct ipmmu_vmsa_device *mmu,
-     spin_unlock_irqrestore(&mmu->lock, flags);
- }
+ #endif /* CONFIG_ARM_EFI */
  
 +#ifdef CONFIG_SYSTEM_SUSPEND
 +
-+static DEFINE_SPINLOCK(ipmmu_devices_backup_lock);
-+static LIST_HEAD(ipmmu_devices_backup);
-+
-+static struct ipmmu_reg_ctx root_pgtable[IPMMU_CTX_MAX];
-+
-+static uint32_t ipmmu_imuasid_read(struct ipmmu_vmsa_device *mmu,
-+                                   unsigned int utlb)
-+{
-+    return ipmmu_read(mmu, ipmmu_utlb_reg(mmu, IMUASID(utlb)));
-+}
-+
-+static void ipmmu_utlbs_backup(struct ipmmu_vmsa_device *mmu)
-+{
-+    struct ipmmu_vmsa_backup *backup_data;
-+
-+    dev_dbg(mmu->dev, "Handle micro-TLBs backup\n");
-+
-+    spin_lock(&ipmmu_devices_backup_lock);
-+
-+    list_for_each_entry( backup_data, &ipmmu_devices_backup, list )
-+    {
-+        struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(backup_data->dev);
-+        unsigned int i;
-+
-+        if ( to_ipmmu(backup_data->dev) != mmu )
-+            continue;
-+
-+        for ( i = 0; i < fwspec->num_ids; i++ )
-+        {
-+            unsigned int utlb = fwspec->ids[i];
-+
-+            backup_data->asids_val[i] = ipmmu_imuasid_read(mmu, utlb);
-+            backup_data->utlbs_val[i] = ipmmu_imuctr_read(mmu, utlb);
-+        }
-+    }
-+
-+    spin_unlock(&ipmmu_devices_backup_lock);
-+}
-+
-+static void ipmmu_utlbs_restore(struct ipmmu_vmsa_device *mmu)
-+{
-+    struct ipmmu_vmsa_backup *backup_data;
-+
-+    dev_dbg(mmu->dev, "Handle micro-TLBs restore\n");
-+
-+    spin_lock(&ipmmu_devices_backup_lock);
-+
-+    list_for_each_entry( backup_data, &ipmmu_devices_backup, list )
-+    {
-+        struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(backup_data->dev);
-+        unsigned int i;
-+
-+        if ( to_ipmmu(backup_data->dev) != mmu )
-+            continue;
-+
-+        for ( i = 0; i < fwspec->num_ids; i++ )
-+        {
-+            unsigned int utlb = fwspec->ids[i];
-+
-+            ipmmu_imuasid_write(mmu, utlb, backup_data->asids_val[i]);
-+            ipmmu_imuctr_write(mmu, utlb, backup_data->utlbs_val[i]);
-+        }
-+    }
-+
-+    spin_unlock(&ipmmu_devices_backup_lock);
-+}
-+
-+static void ipmmu_domain_backup_context(struct ipmmu_vmsa_domain *domain)
-+{
-+    struct ipmmu_vmsa_device *mmu = domain->mmu->root;
-+    struct ipmmu_reg_ctx *regs = mmu->reg_backup[domain->context_id];
-+
-+    dev_dbg(mmu->dev, "Handle domain context %u backup\n", domain->context_id);
-+
-+    regs->imttlbr0 = ipmmu_ctx_read_root(domain, IMTTLBR0);
-+    regs->imttubr0 = ipmmu_ctx_read_root(domain, IMTTUBR0);
-+    regs->imttbcr  = ipmmu_ctx_read_root(domain, IMTTBCR);
-+    regs->imctr    = ipmmu_ctx_read_root(domain, IMCTR);
-+}
-+
-+static void ipmmu_domain_restore_context(struct ipmmu_vmsa_domain *domain)
-+{
-+    struct ipmmu_vmsa_device *mmu = domain->mmu->root;
-+    struct ipmmu_reg_ctx *regs  = mmu->reg_backup[domain->context_id];
-+
-+    dev_dbg(mmu->dev, "Handle domain context %u restore\n", domain->context_id);
-+
-+    ipmmu_ctx_write_root(domain, IMTTLBR0, regs->imttlbr0);
-+    ipmmu_ctx_write_root(domain, IMTTUBR0, regs->imttubr0);
-+    ipmmu_ctx_write_root(domain, IMTTBCR,  regs->imttbcr);
-+    ipmmu_ctx_write_all(domain,  IMCTR,    regs->imctr | IMCTR_FLUSH);
-+}
-+
-+/*
-+ * Xen: Unlike Linux implementation, Xen uses a single driver instance
-+ * for handling all IPMMUs. There is no framework for ipmmu_suspend/resume
-+ * callbacks to be invoked for each IPMMU device. So, we need to iterate
-+ * through all registered IPMMUs performing required actions.
-+ *
-+ * Also take care of restoring special settings, such as translation
-+ * table format, etc.
-+ */
-+static int __must_check ipmmu_suspend(void)
-+{
-+    struct ipmmu_vmsa_device *mmu;
-+
-+    if ( !iommu_enabled )
-+        return 0;
-+
-+    printk(XENLOG_DEBUG "ipmmu: Suspending ...\n");
-+
-+    spin_lock(&ipmmu_devices_lock);
-+
-+    list_for_each_entry( mmu, &ipmmu_devices, list )
-+    {
-+        if ( ipmmu_is_root(mmu) )
-+        {
-+            unsigned int i;
-+
-+            for ( i = 0; i < mmu->num_ctx; i++ )
-+            {
-+                if ( !mmu->domains[i] )
-+                    continue;
-+                ipmmu_domain_backup_context(mmu->domains[i]);
-+            }
-+        }
-+        else
-+            ipmmu_utlbs_backup(mmu);
-+    }
-+
-+    spin_unlock(&ipmmu_devices_lock);
-+
-+    return 0;
-+}
-+
-+static void ipmmu_resume(void)
-+{
-+    struct ipmmu_vmsa_device *mmu;
-+
-+    if ( !iommu_enabled )
-+        return;
-+
-+    printk(XENLOG_DEBUG "ipmmu: Resuming ...\n");
-+
-+    spin_lock(&ipmmu_devices_lock);
-+
-+    list_for_each_entry( mmu, &ipmmu_devices, list )
-+    {
-+        uint32_t reg;
-+
-+        /* Do not use security group function */
-+        reg = IMSCTLR + mmu->features->control_offset_base;
-+        ipmmu_write(mmu, reg, ipmmu_read(mmu, reg) & ~IMSCTLR_USE_SECGRP);
-+
-+        if ( ipmmu_is_root(mmu) )
-+        {
-+            unsigned int i;
-+
-+            /* Use stage 2 translation table format */
-+            reg = IMSAUXCTLR + mmu->features->control_offset_base;
-+            ipmmu_write(mmu, reg, ipmmu_read(mmu, reg) | IMSAUXCTLR_S2PTE);
-+
-+            for ( i = 0; i < mmu->num_ctx; i++ )
-+            {
-+                if ( !mmu->domains[i] )
-+                    continue;
-+                ipmmu_domain_restore_context(mmu->domains[i]);
-+            }
-+        }
-+        else
-+            ipmmu_utlbs_restore(mmu);
-+    }
-+
-+    spin_unlock(&ipmmu_devices_lock);
-+}
-+
-+static int ipmmu_alloc_ctx_suspend(struct device *dev)
-+{
-+    struct ipmmu_vmsa_backup *backup_data;
-+    unsigned int *utlbs_val, *asids_val;
-+    struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-+
-+    utlbs_val = xzalloc_array(unsigned int, fwspec->num_ids);
-+    if ( !utlbs_val )
-+        return -ENOMEM;
-+
-+    asids_val = xzalloc_array(unsigned int, fwspec->num_ids);
-+    if ( !asids_val )
-+    {
-+        xfree(utlbs_val);
-+        return -ENOMEM;
-+    }
-+
-+    backup_data = xzalloc(struct ipmmu_vmsa_backup);
-+    if ( !backup_data )
-+    {
-+        xfree(utlbs_val);
-+        xfree(asids_val);
-+        return -ENOMEM;
-+    }
-+
-+    backup_data->dev = dev;
-+    backup_data->utlbs_val = utlbs_val;
-+    backup_data->asids_val = asids_val;
-+
-+    spin_lock(&ipmmu_devices_backup_lock);
-+    list_add(&backup_data->list, &ipmmu_devices_backup);
-+    spin_unlock(&ipmmu_devices_backup_lock);
-+
-+    return 0;
-+}
++FUNC(hyp_resume)
++        b .
++END(hyp_resume)
 +
 +#endif /* CONFIG_SYSTEM_SUSPEND */
 +
- static int ipmmu_domain_init_context(struct ipmmu_vmsa_domain *domain)
- {
-     uint64_t ttbr;
-@@ -559,6 +798,9 @@ static int ipmmu_domain_init_context(struct ipmmu_vmsa_domain *domain)
-         return ret;
+ /*
+  * Local variables:
+  * mode: ASM
+diff --git a/xen/arch/arm/include/asm/psci.h b/xen/arch/arm/include/asm/psci.h
+index 48a93e6b79..bb3c73496e 100644
+--- a/xen/arch/arm/include/asm/psci.h
++++ b/xen/arch/arm/include/asm/psci.h
+@@ -23,6 +23,7 @@ int call_psci_cpu_on(int cpu);
+ void call_psci_cpu_off(void);
+ void call_psci_system_off(void);
+ void call_psci_system_reset(void);
++int call_psci_system_suspend(void);
  
-     domain->context_id = ret;
+ /* Range of allocated PSCI function numbers */
+ #define	PSCI_FNUM_MIN_VALUE                 _AC(0,U)
+diff --git a/xen/arch/arm/include/asm/suspend.h b/xen/arch/arm/include/asm/suspend.h
+new file mode 100644
+index 0000000000..7e04c6e915
+--- /dev/null
++++ b/xen/arch/arm/include/asm/suspend.h
+@@ -0,0 +1,22 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++
++#ifndef __ASM_ARM_SUSPEND_H__
++#define __ASM_ARM_SUSPEND_H__
++
 +#ifdef CONFIG_SYSTEM_SUSPEND
-+    domain->mmu->root->reg_backup[ret] = &root_pgtable[ret];
-+#endif
++
++void hyp_resume(void);
++
++#endif /* CONFIG_SYSTEM_SUSPEND */
++
++#endif /* __ASM_ARM_SUSPEND_H__ */
++
++ /*
++  * Local variables:
++  * mode: C
++  * c-file-style: "BSD"
++  * c-basic-offset: 4
++  * tab-width: 4
++  * indent-tabs-mode: nil
++  * End:
++  */
+diff --git a/xen/arch/arm/psci.c b/xen/arch/arm/psci.c
+index b6860a7760..c9d126b195 100644
+--- a/xen/arch/arm/psci.c
++++ b/xen/arch/arm/psci.c
+@@ -17,17 +17,20 @@
+ #include <asm/cpufeature.h>
+ #include <asm/psci.h>
+ #include <asm/acpi.h>
++#include <asm/suspend.h>
  
-     /*
-      * TTBR0
-@@ -615,6 +857,9 @@ static void ipmmu_domain_destroy_context(struct ipmmu_vmsa_domain *domain)
-     ipmmu_ctx_write_root(domain, IMCTR, IMCTR_FLUSH);
-     ipmmu_tlb_sync(domain);
- 
-+#ifdef CONFIG_SYSTEM_SUSPEND
-+    domain->mmu->root->reg_backup[domain->context_id] = NULL;
-+#endif
-     ipmmu_domain_free_context(domain->mmu->root, domain->context_id);
- }
- 
-@@ -1427,6 +1672,14 @@ static int ipmmu_add_device(u8 devfn, struct device *dev)
-     }
+ /*
+  * While a 64-bit OS can make calls with SMC32 calling conventions, for
+  * some calls it is necessary to use SMC64 to pass or return 64-bit values.
+- * For such calls PSCI_0_2_FN_NATIVE(x) will choose the appropriate
++ * For such calls PSCI_*_FN_NATIVE(x) will choose the appropriate
+  * (native-width) function ID.
+  */
+ #ifdef CONFIG_ARM_64
+ #define PSCI_0_2_FN_NATIVE(name)    PSCI_0_2_FN64_##name
++#define PSCI_1_0_FN_NATIVE(name)    PSCI_1_0_FN64_##name
+ #else
+ #define PSCI_0_2_FN_NATIVE(name)    PSCI_0_2_FN32_##name
++#define PSCI_1_0_FN_NATIVE(name)    PSCI_1_0_FN32_##name
  #endif
  
+ uint32_t psci_ver;
+@@ -60,6 +63,24 @@ void call_psci_cpu_off(void)
+     }
+ }
+ 
++int call_psci_system_suspend(void)
++{
 +#ifdef CONFIG_SYSTEM_SUSPEND
-+    if ( ipmmu_alloc_ctx_suspend(dev) )
-+    {
-+        dev_err(dev, "Failed to allocate context for suspend\n");
-+        return -ENOMEM;
-+    }
-+#endif
++    struct arm_smccc_res res;
 +
-     dev_info(dev, "Added master device (IPMMU %s micro-TLBs %u)\n",
-              dev_name(fwspec->iommu_dev), fwspec->num_ids);
- 
-@@ -1492,6 +1745,10 @@ static const struct iommu_ops ipmmu_iommu_ops =
-     .unmap_page      = arm_iommu_unmap_page,
-     .dt_xlate        = ipmmu_dt_xlate,
-     .add_device      = ipmmu_add_device,
-+#ifdef CONFIG_SYSTEM_SUSPEND
-+    .suspend         = ipmmu_suspend,
-+    .resume          = ipmmu_resume,
++    if ( psci_ver < PSCI_VERSION(1, 0) )
++        return PSCI_NOT_SUPPORTED;
++
++    /* 2nd argument (context ID) is not used */
++    arm_smccc_smc(PSCI_1_0_FN_NATIVE(SYSTEM_SUSPEND), __pa(hyp_resume), &res);
++    return PSCI_RET(res);
++#else
++    dprintk(XENLOG_WARNING,
++            "SYSTEM_SUSPEND not supported (CONFIG_SYSTEM_SUSPEND disabled)\n");
++    return PSCI_NOT_SUPPORTED;
 +#endif
- };
- 
- static __init int ipmmu_init(struct dt_device_node *node, const void *data)
++}
++
+ void call_psci_system_off(void)
+ {
+     if ( psci_ver > PSCI_VERSION(0, 1) )
 -- 
 2.48.1
 
