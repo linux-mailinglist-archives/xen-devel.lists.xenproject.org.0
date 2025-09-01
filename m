@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60D80B3DB85
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 09:53:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1104096.1455242 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05997B3DB9F
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 09:58:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1104108.1455252 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uszKq-0007zs-2d; Mon, 01 Sep 2025 07:52:16 +0000
+	id 1uszR6-0000DD-RM; Mon, 01 Sep 2025 07:58:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1104096.1455242; Mon, 01 Sep 2025 07:52:16 +0000
+Received: by outflank-mailman (output) from mailman id 1104108.1455252; Mon, 01 Sep 2025 07:58:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uszKp-0007xk-VM; Mon, 01 Sep 2025 07:52:15 +0000
-Received: by outflank-mailman (input) for mailman id 1104096;
- Mon, 01 Sep 2025 07:52:14 +0000
+	id 1uszR6-0000B9-Of; Mon, 01 Sep 2025 07:58:44 +0000
+Received: by outflank-mailman (input) for mailman id 1104108;
+ Mon, 01 Sep 2025 07:58:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UGQU=3M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uszKo-0007xe-67
- for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 07:52:14 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ id 1uszR4-0000B1-Jw
+ for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 07:58:42 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 91fb39d6-8708-11f0-8adc-4578a1afcccb;
- Mon, 01 Sep 2025 09:52:12 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-61cf0901a72so5614296a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 00:52:12 -0700 (PDT)
+ id 79adbb7d-8709-11f0-8adc-4578a1afcccb;
+ Mon, 01 Sep 2025 09:58:41 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-6188b7550c0so4794340a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 00:58:41 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-61ded4749aesm2528521a12.32.2025.09.01.00.52.11
+ a640c23a62f3a-b0431832a98sm133994266b.80.2025.09.01.00.58.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Sep 2025 00:52:11 -0700 (PDT)
+ Mon, 01 Sep 2025 00:58:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 91fb39d6-8708-11f0-8adc-4578a1afcccb
+X-Inumbo-ID: 79adbb7d-8709-11f0-8adc-4578a1afcccb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756713132; x=1757317932; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756713521; x=1757318321; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=OhHt4UHlmSfKD3CpMl2L+yj0zfhifc+csgHlsFFcPww=;
-        b=gyLmh1KMCRa173mQTfliKSg4DR3PE0yPJomUx1X5ErLgRod+YS7n+UpAWM8MZYaJ0t
-         +DvkmZW2x6wSvrK4j+Q3YA+TIeE2j+tcGvqiuYLnLh1X6EY2T4SlfSB+tmr47wPxLVij
-         0fvbAM1RKjCqta6mS7s7+BudMgZiBgZObaOsXcOcnxOfZYsUxpZvsHP6qneq01kmZobs
-         wFLLtQ2mTRprzpdwhsff+zULs3xUEBJ0f/fzif3L6GGJ9A5733JFCUI623wVWNSGBjbB
-         VSjkcn2LdQTamTfugdke2NGx8NTwNTVgVFtXgR7ZWvhG6xBg26Pr5uaC8F1J3ZdAi2Sc
-         WgUw==
+        bh=xdIUtIQmXUoYqJt3tM/kewKZM5sAxU84JgTSFymboaU=;
+        b=Dx1+mTjp63pV5/Hw+xyBaSka7haVZKaD82WXuLrqlviDKqdYywnrqAOUmtkKA5vpoJ
+         lRJQdCfgLmIGV+WnyA6pXKiA7r/mzV8vvVWFAWRpfCis0ktznqxWyJz1EdwRbyrHWi0F
+         PUsTCZaj264lvcGXrWiFFyEOqFSO1gqi8dkQ/HXbO5QuoJqksJn5SvC2RkLFMr0j4RgC
+         ahFFtTjbcz6+5ZQb8J9y8Wrg48o6oSMl0y45OC0q7OgbJE9G8AWjvL+rWWLjsG657Hsw
+         aWZwYe04uVdgoD40z4RLQQbfpcTkzPo2x+4gAav9qGLnz5VcCnNJrorNJ8zLkXGJs0zq
+         wSSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756713132; x=1757317932;
+        d=1e100.net; s=20230601; t=1756713521; x=1757318321;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OhHt4UHlmSfKD3CpMl2L+yj0zfhifc+csgHlsFFcPww=;
-        b=Umzhw+r13qWyWjYf9OVSRZzu9YJVMC4oopdtWUuidxpBwYxkYVkFx/XNjBCwQWIK0P
-         TtJxwVQG05jCKs0C3PER814W3BVoKATMdf7CQPGDlXI+HIXXF1f+n/NrYJHalzQy+Sjw
-         JjglhpzC0uS8L62XhOsKyPPfRSlNHjXpZzZxTclmiZyt1LatUpTyOJ/C0F/y2QJo5baK
-         2vgUf4f+8q0h3AEmoP4H4T6Q9n9eynSa+J9ketP77i5resu0CiG0pe7CVy6k3Sc2cQsw
-         rXVFkfY23Bu1jApJ/QAAZw++zL+823n0jWT67LxlxAPZzW49JUjFIgyIFcJ/py74kdyb
-         xNoQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV2V5xH0mzOEYDcwjzPZI4AsZE4hvC7URG3HEUgUyVZ8yXKDgSrvZapqeEb9t8h5WraHCdZ8S4/nVQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzIp1AVhg24SS077tSg968cPbJAqDrjFZbI+kz+okZLc6Czy4Wm
-	413ZAJ1IzHmtNVfvhtHTgCVi7zIGM+S19bE0X0BTJsS9ruwMQRWXOv6rWNwI2e4sgg==
-X-Gm-Gg: ASbGncsx0JDCfCKhFIx3T00KU2XRhjFHAY5GF6UpI4uczJgIQRpRq9QPZErYIGFt+fJ
-	aOVcgj4OFzpeixEWaKPpslDtTosEjTLO0hDP7SCBLDUt/wAOImyNpjgugtk78WWXMCgwlfW9PIJ
-	QlUlPGAyGaJ8WCnFI8i0Sv592Krbvk51qIR+13USEtL4NVKeN8B5AIjVHH+RmkOEUWDDWO4CSmA
-	I7OY33WvjbSjP3MPC2cz/6iUWz7gwB+uDwUixS/03fNzVBPpCg0ND+DP5B+XHj8xgXPp/H/+kzo
-	I3K8alFZIb2wQLtWQ5u+CmwV5NxzA4+a/qby2PyhdAHnBBAbf1GhHNcvQQ4rZwFiUfIVa8Ryur1
-	twWbrQYxr2bYSpeQ73tSaOEa4kjVN8iFnSf5druSHHio6oScerzTBFWZTK4j77BiaufGLeHPF7L
-	SI+WlzcWw8X8lPVhTC2g6eyIe5TqLe
-X-Google-Smtp-Source: AGHT+IEI9fAsBoOnMM8dfOls3p79YvVT6iLwVBUPGftQyEF8U1QtMa87tZ33qUqVvAy7UMcut0fiEA==
-X-Received: by 2002:a05:6402:35d5:b0:618:19d2:7251 with SMTP id 4fb4d7f45d1cf-61ea14dffd0mr1653787a12.10.1756713132339;
-        Mon, 01 Sep 2025 00:52:12 -0700 (PDT)
-Message-ID: <d5c7b24a-58eb-49c7-9b5a-28729b9a6620@suse.com>
-Date: Mon, 1 Sep 2025 09:52:11 +0200
+        bh=xdIUtIQmXUoYqJt3tM/kewKZM5sAxU84JgTSFymboaU=;
+        b=hIe4820svqMRoMnp/BGrJ1xtePkjc2o/7oWJ+w+u5nZfzMrMakdYREhwMh+VLsq/Kb
+         mh3MuZ3M35syCVSkSWWcg7EpF+kbyAQwVQ0qhur/7Jcsixw0nodiDtpf2eXU3TNf5qfP
+         8RVx/t8Z5cnXnFhQYJTgWqhb1S4BGciIjIyOIOVHLVFJfxENpIM1jCH/jD48Zq0z7I7c
+         ztSnfSfn5zn8K8Dil1T8ZVsJYvqPYyJjWyBh1bDJvA1k3uF+VMtFMH5ToC1FPa5TiRCo
+         fZXgpJVqa4ojp6nwVR5rxvynvr8NSvNcvGZ4C3T8Ph7DBtX4LAUV90LBCxaW2PdodZiS
+         OUhQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVef4zsXUl2oa78oDgd3IgN5TelfoIGSH6xni0eCsYGnLiI7owpg6VYkdB1nj5G1OfT5G7DEwsdWCw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzYd7H0l9dGqPx6MUaiYRsgQ7gYPAMMIB0kcIYHiREnLxD9AuHP
+	yiCjerAHei+N6G7EZzbqDT/wqoAih/Xp/6jltRNy8isjCa92B5E2HeDOp5Y6m5ndBw==
+X-Gm-Gg: ASbGncsHILW54RidZObi02YudpoXP93lfyj7Ol1YwcJY8AWnK77af42/r66Zlz/add7
+	jGJC1S0JO1Xu1Pn0ozmGDSEYU94ddvKhAFuC98D4PxcCOavrs7fP6wM+S83X5DgCINHDfhHAPmY
+	G0mIr4trt1/EtxbaQRBL4dd3RJo4y1G3SGLDdsCS6dfjThdefEKAOsQW5D8ancTkI0BMKJbn2x2
+	Bsf5/nqK6HflXo8MgjB+hY+ZIoawHXNG1fzyaJtWFRlUIzZ07das01BjwZ0dRRXdcX7WBgJ+OKQ
+	ueXiYxBJ1lIJYjbWEmhbO/ISq5BzqBv6RbVddrCWTsy7k87p+8su4iZjvV7aE1rvyPbEwg5g3mG
+	B7OQLyRSeb8EeuOalNGJQUNgS6dzGEr4TuDBKD6MvyzlCTxvcNinqO9G9HKbntY7dPkAlrVgpTf
+	E2CSag5Ln8gsK43MFGcgwrZ3IYHUvk
+X-Google-Smtp-Source: AGHT+IF59r9hGGFlmOyLRZDcXBrdwW6KX8FBY3CnlMdkjGFOaLxEjhpzTkXEoM5O5eAI4h7QsZoLZA==
+X-Received: by 2002:a17:906:9f92:b0:afe:a615:39ef with SMTP id a640c23a62f3a-b01d8a2667emr663142966b.9.1756713521006;
+        Mon, 01 Sep 2025 00:58:41 -0700 (PDT)
+Message-ID: <16bd9d1c-66da-4526-8489-8b075678c4bb@suse.com>
+Date: Mon, 1 Sep 2025 09:58:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v1] xen/flask: limit sidtable size
-To: Sergiy Kibrik <sergiy_kibrik@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH v8 3/8] xen/cpufreq: implement amd-cppc driver for CPPC in
+ passive mode
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250822095123.998313-1-Sergiy_Kibrik@epam.com>
- <1797679c-582f-4b75-a036-ad3bb00bad4d@suse.com>
- <1d34d0ae-f3f3-4b25-ae67-6c4f6be2e2bb@epam.com>
- <59e884d4-e111-474c-9794-dcb190de8eab@suse.com>
- <b24cf3dd-2f82-4470-8c6e-1f32e0564cbd@epam.com>
+ Anthony PERARD <anthony.perard@vates.tech>,
+ "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "Andryuk, Jason" <Jason.Andryuk@amd.com>
+References: <20250828100306.1776031-1-Penny.Zheng@amd.com>
+ <20250828100306.1776031-4-Penny.Zheng@amd.com>
+ <b2712815-97c2-4473-bcf6-aae8517aad37@suse.com>
+ <DM4PR12MB8451D6ACE480227632A8156FE13AA@DM4PR12MB8451.namprd12.prod.outlook.com>
+ <1ad85430-2aa7-4834-be56-67515ca51310@suse.com>
+ <DM4PR12MB845109DC4B0822344D2DC72CE107A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,31 +130,78 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b24cf3dd-2f82-4470-8c6e-1f32e0564cbd@epam.com>
+In-Reply-To: <DM4PR12MB845109DC4B0822344D2DC72CE107A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 30.08.2025 17:23, Sergiy Kibrik wrote:
-> 29.08.25 14:44, Jan Beulich:
->> On 29.08.2025 13:33, Sergiy Kibrik wrote:
->>> 25.08.25 15:00, Jan Beulich:
->>>> On 22.08.2025 11:51, Sergiy Kibrik wrote:
->>>>> --- a/xen/common/Kconfig
->>>>> +++ b/xen/common/Kconfig
->>>>
->>>> I wonder whether we wouldn't better move XSM's controls to a dedicated Kconfig
->>>> file there.
->>>
->>> you mean something like Kconfig.xsm in the same common/ directory? Or
->>> move this Kconfig out into xsm/ directory with the rest of flask code?
->>
->> The latter would be preferable imo.
+On 01.09.2025 05:21, Penny, Zheng wrote:
+> [Public]
 > 
-> then it probably will have to be moved outside Common Features menu and 
-> into the main configuration menu, while having 6-7 items. Is it ok to 
-> keep such small submenu for that?
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Friday, August 29, 2025 2:12 PM
+>> To: Penny, Zheng <penny.zheng@amd.com>
+>> Cc: Huang, Ray <Ray.Huang@amd.com>; Andrew Cooper
+>> <andrew.cooper3@citrix.com>; Roger Pau Monné <roger.pau@citrix.com>;
+>> Anthony PERARD <anthony.perard@vates.tech>; Orzel, Michal
+>> <Michal.Orzel@amd.com>; Julien Grall <julien@xen.org>; Stefano Stabellini
+>> <sstabellini@kernel.org>; xen-devel@lists.xenproject.org; Andryuk, Jason
+>> <Jason.Andryuk@amd.com>
+>> Subject: Re: [PATCH v8 3/8] xen/cpufreq: implement amd-cppc driver for CPPC in
+>> passive mode
+>>
+>> On 29.08.2025 05:30, Penny, Zheng wrote:
+>>>> -----Original Message-----
+>>>> From: Jan Beulich <jbeulich@suse.com>
+>>>> Sent: Thursday, August 28, 2025 7:23 PM
+>>>>
+>>>> On 28.08.2025 12:03, Penny Zheng wrote:
+>>>>> +static int cf_check amd_cppc_cpufreq_target(struct cpufreq_policy *policy,
+>>>>> +                                            unsigned int target_freq,
+>>>>> +                                            unsigned int relation) {
+>>>>> +    unsigned int cpu = policy->cpu;
+>>>>> +    const struct amd_cppc_drv_data *data =
+>>>>> +per_cpu(amd_cppc_drv_data, cpu);
+>>>>
+>>>> I fear there's a problem here that I so far overlooked. As it
+>>>> happens, just yesterday I made a patch to eliminate
+>>>> cpufreq_drv_data[] global. In the course of doing so it became clear
+>>>> that in principle the CPU denoted by
+>>>> policy->cpu can be offline. Hence its per-CPU data is also unavailable.
+>>>> policy->See
+>>>> cpufreq_add_cpu()'s invocation of .init() and cpufreq_del_cpu()'s
+>>>> invocation of .exit(). Is there anything well-hidden (and likely
+>>>> lacking some suitable
+>>>> comment) which guarantees that no two CPUs (threads) will be in the
+>>>> same domain? If not, I fear you simply can't use per-CPU data here.
+>>>>
+>>>
+>>> Correct me if I understand you wrongly:
+>>> No, my env is always per pcpu per cpufreq domain. So it never occurred to me
+>> that cpus, other than the first one in domain, will never call .init(), and of course, no
+>> per_cpu(amd_cppc_drv_data) ever gets allocated then.
+>>
+>> Well, the question is how domains are organized when using the CPPC driver.
+>> Aiui that's still driven by data passed in by Dom0, so in turn the question is whether
+>> there are any constraints on what ACPI may surface. If there are, all that may be
+>> necessary is adding a check. If there aren't, ...
+>>
+> 
+> According to ACPI spec, _PSD controls both P-state or CPPC, so in my implementation of getting CPPC data passed by Dom0(set_cppc_pminfo()), I demand both entry exist, _PSD and _CPC.
+> ```
+>         if ( cppc_data->flags == (XEN_CPPC_PSD | XEN_CPPC_CPC) )
+>         {
+>                 ...
+>                 pm_info->init = XEN_CPPC_INIT;
+>                 ret = cpufreq_cpu_init(cpuid);
+>                 ...
+>         }
+> ```
 
-I think so.
+That's only about presence of the data though. My remark, otoh, was about its
+content. It could in principle be specified somewhere that no domain may cover
+more than a single CPU / thread. In the absence of such, the case needs
+handling correctly.
 
 Jan
 
