@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 263E2B3E157
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 13:19:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1104500.1455542 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2442AB3E164
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 13:22:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1104517.1455551 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut2ZK-0006bp-7u; Mon, 01 Sep 2025 11:19:26 +0000
+	id 1ut2cS-0008S4-KK; Mon, 01 Sep 2025 11:22:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1104500.1455542; Mon, 01 Sep 2025 11:19:26 +0000
+Received: by outflank-mailman (output) from mailman id 1104517.1455551; Mon, 01 Sep 2025 11:22:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut2ZK-0006Zk-4g; Mon, 01 Sep 2025 11:19:26 +0000
-Received: by outflank-mailman (input) for mailman id 1104500;
- Mon, 01 Sep 2025 11:19:25 +0000
+	id 1ut2cS-0008Q0-Hh; Mon, 01 Sep 2025 11:22:40 +0000
+Received: by outflank-mailman (input) for mailman id 1104517;
+ Mon, 01 Sep 2025 11:22:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UGQU=3M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ut2ZJ-0006Ze-CE
- for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 11:19:25 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1ut2cR-0008Pu-0M
+ for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 11:22:39 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8318963f-8725-11f0-8dd7-1b34d833f44b;
- Mon, 01 Sep 2025 13:19:23 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-afefc7be9d4so457308366b.1
- for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 04:19:23 -0700 (PDT)
+ id f6a2ed2f-8725-11f0-8dd7-1b34d833f44b;
+ Mon, 01 Sep 2025 13:22:37 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-61cb4370e7bso6308793a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 04:22:37 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b040b1cf3c9sm490536966b.5.2025.09.01.04.19.21
+ 4fb4d7f45d1cf-61cfc4e50fbsm6801912a12.38.2025.09.01.04.22.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Sep 2025 04:19:22 -0700 (PDT)
+ Mon, 01 Sep 2025 04:22:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8318963f-8725-11f0-8dd7-1b34d833f44b
+X-Inumbo-ID: f6a2ed2f-8725-11f0-8dd7-1b34d833f44b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756725563; x=1757330363; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756725756; x=1757330556; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Gex2yXvgrD5HtPtsvpELTv/Gti4vtgegLIi5pNIK3O4=;
-        b=d59zDxF3aBJMm+uXCU7ufGBL45hmTqM4jc7LWdKLx01K+oRNrnoMzWMdNYWktv7p7Q
-         5KKv8bB0BgOiLaAQqf4majNL7D+orKzWm+tnZMBiEy/RQuoxbcmn/5+d+mZa/FjV+TDh
-         rwGBdVQ5vm+sh/jMsp2Xn2qS8OZcsESVOBKr/vqcLDzt9tqy5DtKLn7FrOyEILgk+NE5
-         P81kFiFpswN+hu0xkO9YhuJltwCcy3ixunuAHxeaF3WjzFRhHGq1dZ/eNj3J/z01ZAxz
-         6WnLnLEnLx4esuA/9j7ppaUBfd6ZsMrDkK38Y854/h1FzYubOU/jMnZwIQKa5UQjFGmE
-         hGNQ==
+        bh=HBPITbBt8/h6jGGj8e5YrH8gDaO/mzRHB+KUqz/EVL0=;
+        b=TeFDvlnaf/ufcDsOx96aMFtZSAb/SHUGGS+Wbikt8+RNv+ANLMts1AYDA6rOVptcfE
+         NRonvtUUl3hCuwgVmhhQh0zY37D9FFcU7MTQbnXTZ4q2kffYso0Bc+SqYWSrd+1ChVP0
+         2s4nJpIvIRh8XN2VnfzrCF6YaDtE8ETgiROCTw0Dp6nZetoWnQQx6zoygsv9MOdjMAJP
+         HxM/m6YNHyJ3KOKEKKb2Wbxa84iwHy8AOj8YM2b9Lm54lyqqCA+VJgCXBrwMno74JD+C
+         OZgapfbP1myHIQIraCPxm/NC0l1eaQYNVPPYDTLxQ0BKOJ4gkRFyDyzWNQGo0RY69bpy
+         Eesg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756725563; x=1757330363;
+        d=1e100.net; s=20230601; t=1756725756; x=1757330556;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Gex2yXvgrD5HtPtsvpELTv/Gti4vtgegLIi5pNIK3O4=;
-        b=ekvfIesTy9luggF3kOGHvLEkJUqKcZdGKvib1RUgVK1+QbpSgnhNkNIZbvpJtmM3pX
-         MwTEjUu/b6RnVeqMDrlBHEPA22zG80F44sN+3YUX2Xh0jjCmOqm42Z/6W3AB+BWRhFwq
-         F2OK1o7kadyJn2zt/UsvIMT7bYcXit8CrTN1DpfaOtkxn2k38sOHC6+nqilmNFeyPZRF
-         RAbPtwN2SYeAFI9af/vi379uaLC6j2/OnnpCASRa3C7hSq6VBKwBIrjJoOwZEZuufkzh
-         TKNjhafz9HqrEFpFXloq7IwJ4JlgWobRgz3oQGRsKHrsWZeKzTwT/aaMllTmM4CXlssv
-         1UTg==
-X-Forwarded-Encrypted: i=1; AJvYcCUDHqS7u6PvgecX/pk2+0Mk9i/i3oZjVkwnZ6uIjiKznJAhmgJh14WPCFz0LgAAzzT34xRW6UVsssM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxvcK2YK1dbRNnxjpx6UY09fx8Pd3yrtzdbPjJv50IDh2zqLdF7
-	Eb2c/7s7dwdgTskm2W5p+mjxg4fjLhEA5n7Vj81Rv/PNhGh+V1XRm1GNj9JGrJee2w==
-X-Gm-Gg: ASbGncuXQoVBkL7V0ysWcS5v5AaFZhrWkZtMhquM686wppf1NsoBBd25b+h93HayHK+
-	XGTHsqCXb2vMgI1jTC1dT1kMYhzwnYafsiC95e4HWmagyOcCif0oxa5RhEgoeQ8Sg6jsuMNw4s3
-	r03nv3TBEeD8QrK9wGPNnv3Yp3Mn2cLoPikPZnZn7bEnT8SeCXhsPHs1sB039Y5jcy6r1IDJhXW
-	WWtI13n+8K8OiveV/UqiTRWwYr2h/E1KmlMjB0SqgAgV2u3gJeTVJh4z+BG91r2gmHFwUnao74m
-	CQBFzkyirDHb4yWOLg90pO/RaxpzrTP5lKvcOKeKv9wWViG567ZtnPPQ6iI6as6yu322WaeK30x
-	h8WdJzQst6L+qQeJKsNh4IPkoIGL7e7HivBpCci44DCQz7D59bvSkGeKkfbv3qGJ3Isf9KCAe0O
-	bI5Yfxu8SuB2SgAMdydA==
-X-Google-Smtp-Source: AGHT+IH8LkR4yOxpn299cAOVAdwb5WNRrjjagcs6zb0mdXNkoJFyT+s2hOLBBoCxfJuTAnOi+sMd4A==
-X-Received: by 2002:a17:907:3d0b:b0:adb:428f:f748 with SMTP id a640c23a62f3a-b01d8a72fddmr682364266b.21.1756725562611;
-        Mon, 01 Sep 2025 04:19:22 -0700 (PDT)
-Message-ID: <4012a431-0d1d-400e-a0f4-b2ece3439441@suse.com>
-Date: Mon, 1 Sep 2025 13:19:21 +0200
+        bh=HBPITbBt8/h6jGGj8e5YrH8gDaO/mzRHB+KUqz/EVL0=;
+        b=PtQc7Hf28fPpLDuPX74LhDRUNS/iSXNLDwiJVCFxTqJRKgfWSoErmYTWqr77s24eZw
+         Z7ehlw28nWjsLxTJyFCFMrMqEPgpabGpNz6Akv7muXufF1ltl0Kfv31nOZW6vlIrLc4O
+         NnQpY+zuNp0MRrnMEnuQSeZIZ4qCr98rIig432qNHqF7WtX+U9QbJ4or/0IXmLP7K/JW
+         OVvslxNr8rbyYijw2Np7kfrEGAd5o7r1/kLEhiCizxq/KVHLDvsJecUSWWR4OdmdNqmo
+         YvXdzVxV9q+jwTMt55nBGgw3J3Hvgl5XKGizb/Y5ffpCXGZTXhZaGQtHhdSy6x4Imhds
+         olCw==
+X-Forwarded-Encrypted: i=1; AJvYcCUR4msIac2IyHiI2EIKyMfZl9Il4XD2XeE5HAH5TRxr5SLt2oHyaBQlj4MY4R59w9Ji+qWBch4VrbE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzFil2NmY2hA7Clj7XD1UsaQ028MBfb83EUGIJGYHbWvk9u8mKk
+	YQe3YY43IdrAuuHmsE6QldtLBMaG0j/KImfQrD26YPjrzaqxesqZd4+EGznzRXzyPg==
+X-Gm-Gg: ASbGncu1eNcZNcpKXce7e5yN11iijM+aZ8VFaKwoxBrC+1rPFdbMt5uU76VvGjhSal1
+	s8mwEX4ssIRp6EuZWTlXGs3kXhc0ZF4DKZqePgeaXCR4dDndke0xBV9cVH4vSbZDKbMfjgJITft
+	QrkHi+r6au+gm5Qd1+JUzOyiP2eGy+4SgCuOG3AfIz5C698a7HwJkxDiTF7rAZoFFf0d+nTwi1P
+	qoll4tfsITOxQA48Dh/UQUbnmFL6iAQd1SoicvaryUccyJPVBxtF0Y5g/CNZBDvvIku/4f/55Tn
+	0hBO6+lrhgO4t1AVtpEBh9C7YzU0wtp9MWTJv1pBlasABpStXaIUiPvU2IxD+O6GoFhCpjJUwjk
+	6kQO2uyV7kFPpF8IQK/K8Gd0SKJsVZSkwwEhoQRtew8zdpjGn/nLR08n9uCBuXBCg6WQieQDDo0
+	h+b/kTmF9iCbt3D9gPXA==
+X-Google-Smtp-Source: AGHT+IEKpRahnbTItiJC/2uLP4UOpmNKBpVTG2Qqbqa/ODlaFBSrjFqQ/AYCNh9Dx5AMEXhiayOEIQ==
+X-Received: by 2002:a05:6402:84e:b0:61d:976:81a1 with SMTP id 4fb4d7f45d1cf-61d26d78d31mr5736846a12.20.1756725756533;
+        Mon, 01 Sep 2025 04:22:36 -0700 (PDT)
+Message-ID: <ce24ee6d-9a3a-4a0d-9384-8fb96aa2d7b3@suse.com>
+Date: Mon, 1 Sep 2025 13:22:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: Fix AMD_SVM and INTEL_VMX dependency
-To: Michal Orzel <michal.orzel@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20250901104329.25693-1-michal.orzel@amd.com>
+Subject: Re: [PATCH v2 15/23] x86/pv: Deduplicate is_canonical_address() in
+ do_set_segment_base()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250828150409.901315-1-andrew.cooper3@citrix.com>
+ <20250828150409.901315-16-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,51 +120,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250901104329.25693-1-michal.orzel@amd.com>
+In-Reply-To: <20250828150409.901315-16-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 01.09.2025 12:43, Michal Orzel wrote:
-> Commit e3ed540f2e9f was meant to make AMD_SVM dependent on AMD and
-> INTEL_VMX on INTEL. Such dependency should be done using 'depends on'
-> and not 'if' next to prompt that deals only with the visibility of the
-> given Kconfig option. This makes it impossible to e.g. disable INTEL_VMX
-> when INTEL is disabled (option is hidden).
+On 28.08.2025 17:04, Andrew Cooper wrote:
+> This is really a rearrangement to make adding FRED support easier.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> v2:
+>  * New
+> 
+> There is a marginal code size improvement:
+> 
+>   add/remove: 0/0 grow/shrink: 0/1 up/down: 0/-46 (-46)
+>   Function                                     old     new   delta
+>   do_set_segment_base                          496     450     -46
 
-Hmm, yes, just that ...
-
-> --- a/xen/arch/x86/hvm/Kconfig
-> +++ b/xen/arch/x86/hvm/Kconfig
-> @@ -16,7 +16,8 @@ menuconfig HVM
->  if HVM
->  
->  config AMD_SVM
-> -	bool "AMD-V" if AMD && EXPERT
-> +	bool "AMD-V" if EXPERT
-> +	depends on AMD
->  	default y
->  	help
->  	  Enables virtual machine extensions on platforms that implement the
-> @@ -25,7 +26,8 @@ config AMD_SVM
->  	  If in doubt, say Y.
->  
->  config INTEL_VMX
-> -	bool "Intel VT-x" if INTEL && EXPERT
-> +	bool "Intel VT-x" if EXPERT
-> +	depends on INTEL
->  	default y
->  	select ARCH_VCPU_IOREQ_COMPLETION
->  	help
-
-... now it becomes impossible to _enable_ INTEL_VMX when INTEL is disabled,
-yet which may be of interest if you target some other vendor's VMX
-implementation. Perhaps really we should have
-
-config INTEL_VMX
-	bool "Intel VT-x" if EXPERT
- 	default INTEL
-
-?
+While this is quite nice, the nested switch()es aren't as much. Still
+Acked-by: Jan Beulich <jbeulich@suse.com>
+with possibly a default case added to the new inner switch(), just to
+please Misra.
 
 Jan
 
