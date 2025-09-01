@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DF11B3E706
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 16:26:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1104969.1455972 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4F8CB3E71C
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 16:29:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1104983.1455981 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut5Tx-0008Pd-HE; Mon, 01 Sep 2025 14:26:05 +0000
+	id 1ut5Wx-0000a4-0r; Mon, 01 Sep 2025 14:29:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1104969.1455972; Mon, 01 Sep 2025 14:26:05 +0000
+Received: by outflank-mailman (output) from mailman id 1104983.1455981; Mon, 01 Sep 2025 14:29:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut5Tx-0008Md-E5; Mon, 01 Sep 2025 14:26:05 +0000
-Received: by outflank-mailman (input) for mailman id 1104969;
- Mon, 01 Sep 2025 14:26:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ut5Ww-0000Xn-UM; Mon, 01 Sep 2025 14:29:10 +0000
+Received: by outflank-mailman (input) for mailman id 1104983;
+ Mon, 01 Sep 2025 14:29:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UGQU=3M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ut5Tv-0008MX-VD
- for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 14:26:03 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9669d4fd-873f-11f0-8adc-4578a1afcccb;
- Mon, 01 Sep 2025 16:26:02 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-afec5651966so173606366b.2
- for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 07:26:02 -0700 (PDT)
+ id 1ut5Wv-0000Xh-1Z
+ for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 14:29:09 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0443ecb8-8740-11f0-8dd7-1b34d833f44b;
+ Mon, 01 Sep 2025 16:29:06 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-61e8fe26614so2394227a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 07:29:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b0423ed35e4sm315315866b.25.2025.09.01.07.26.01
+ 4fb4d7f45d1cf-61cfc1c7caesm7206122a12.9.2025.09.01.07.29.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Sep 2025 07:26:01 -0700 (PDT)
+ Mon, 01 Sep 2025 07:29:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9669d4fd-873f-11f0-8adc-4578a1afcccb
+X-Inumbo-ID: 0443ecb8-8740-11f0-8dd7-1b34d833f44b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756736762; x=1757341562; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1756736946; x=1757341746; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UpGPCVo0O2UxfenHY1cBlPDMbjb8GNJeXc8iIh5vx2U=;
-        b=ENhqS4USUT3wHKC4NOxmF7c4v/nu3+qPGv/mejAVRiuHphowDVHYKE6fODC6Z1mM1l
-         0kECFKJBFEhUWn5X272rrMpbCwlxRJXFDF7/9r44k9fDF0aSyN3T37rsjbO5PcJxMsBk
-         AqpWoXr966K1dOT2QLGiKRA/BGKoX1LrPELfj2JbEoJmcSBV3nCjz1TRNpEG9/SufxVc
-         xQh3db+cC3QoUOAk06KvjIEdPk/hH4klN3GkF0HDaRI5reg2+3TCzwsETUq86+2wa9s2
-         TYeag5fvlVgTvNHuOav8ZA30MxGWnahySF5Wb9YxXjgOF3wHkt/JeBI2GcuMHD63sU8P
-         moQw==
+        bh=TzOk6SAA6p957knAbsW86a3TWL0WMTG76ApNaL0LRxg=;
+        b=gq7yCcNKfmmugQmIUA88/yUDHuRR2w2BE0GZEFmwWomucVQjMnKE2iQWm+Jmkqlt8F
+         wDQ3ne17yvWp0k76N1mAf2xDwznMswtyPwNAyjlBzT38VrBlOnngFyuw5aKq3hi6+C+q
+         HZGqfqxmsUzy9kYEK6adFGyFCt/utkw93DuCh2vNZSvoa78XutwzcdhfqA5fF6sZpzy0
+         JyBpZvvwD7/uFKjCV8Dp88HUPu9jw3WV9Z3JyBZWZsFpCU0+BB+/QrhzWSvfZD+mUNad
+         NXrT7IYIoLAGI5CMQ6AnFqQL/J0IA3bEXUFF6awv4RF5Blf85he0UUKTCW+0Q2BIoLzM
+         +bAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756736762; x=1757341562;
+        d=1e100.net; s=20230601; t=1756736946; x=1757341746;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UpGPCVo0O2UxfenHY1cBlPDMbjb8GNJeXc8iIh5vx2U=;
-        b=c5X66se02g/WRabNElpgNVTdJlh44SJnqCGOkZB84WsGZiNPY9kfxvtw1uLOZ+J/m5
-         s1NjLneU6v4bB+gs/L0jrDNK8OJ4IZm+oe7HYJcMebLtdr36/SqtjG4YAQ5R/JrxrPGK
-         PLsoeN9qGGUPmGlRvKxxwBxTTEl/8uI2pLwCG8CYEKdjYzBbWzafMOJCKMug1ERkPxvP
-         rtbOU1DvV/CxyowLSb/SlLILOowr9z8c/xuCyUmlQ3MIGYvhnUqyX0ZwGSUPUXviJZlp
-         7jLm6ctcW/Xz6ojp3YGp4esqwcr+18lLwrRsqWH1xu5xAO/tseCtaYWigcrtQivvawad
-         QqUA==
-X-Forwarded-Encrypted: i=1; AJvYcCWfyjYZEZBO5R51xpBRSg1v5ZYPwRSkolP66gyRnNoNcoq2911ZiGV6u+D+Wkm+PrlbUurxEx6/ohw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzyvw9IZyJt0TEMz+hNWMcyuSsm/nvrUWFo+7B3Im/vp8TZ2pyz
-	8UwF1Swjss3ai3uBhTtQHshL1SiWI1xrHzCbgldMb/ibCSVLm9eY2kl1mpZofjkXVw==
-X-Gm-Gg: ASbGnctmDsDOqLtXGhcQW8ZOKmP0jHUbKjGFFhUR3kh3L26VY4Q1+ZIgkXE0tNylU5K
-	84lasuuSJpuyU4LgjtRrUmiPtw1wWw69Vo1DnWzfiuwVG1b5acTy58LhcBP25ZCbXJEWmMHMgAT
-	ExqRfboXZdV47eBfXU3tDzSs4k05pUuhlTt7ZYA24Ke1DE2nnsvFsaS6VxWXhIvCbOF0VHB5FvB
-	2Hsgyn4kZ60kdT/Ef7tvSRtX1PWI2L3PJ2T7F+67uOHbGqRjy42tFPE9siop7lhyDhi6mWZTjWZ
-	ZRlQ91f5PKIHJOHG8TEpu3kUkarwUDoQbqd1FlvxF+diWw9aYOV361Pdw2uaJ7NOnuvjX5Sz3xH
-	dm7FfmsOo4y+Qtw1cU6yjSzizZgxT1dysgs3yQ1lsMIDbAF34+pchNiHq0fNf/gawg7jmoWRkVZ
-	7oj2+1Ns8=
-X-Google-Smtp-Source: AGHT+IH1KgVa6W8gM056VpZ8Dk48jp72aIfF/qMDLeQwX93u36FLT1uAUXCpqo4cQAL9ylaRR/bkyQ==
-X-Received: by 2002:a17:907:6095:b0:afe:bbbf:f002 with SMTP id a640c23a62f3a-b01f20bfbffmr952566366b.62.1756736762147;
-        Mon, 01 Sep 2025 07:26:02 -0700 (PDT)
-Message-ID: <8e7293e9-6479-4904-8072-8eec9f1d5751@suse.com>
-Date: Mon, 1 Sep 2025 16:26:00 +0200
+        bh=TzOk6SAA6p957knAbsW86a3TWL0WMTG76ApNaL0LRxg=;
+        b=CZueo4pujn0lSb0tdczm3cEtjyXuDhHluw3WL3VNKVWnAM+SAeiymdOxoVhoQGnr9j
+         RugRlqMrJhbJUIcRZ4yVoH1/k5NBMlWYja1HfHXM7tYjazSyVe/g/4t/DhNx+3tuqNir
+         jLdcQFdDszzE2qY0zZr8jSyf1e4oCAoFkPPf4ozNFoQZVLix6kZ1tJhV6VTGypXKiM56
+         Urd5Wpv+drC88AVZM3TXrP4SKyJzw5G2UJHZiC0qODwIVLQxGBBAZVWfHnQJ4aY6Vg2X
+         kH+AzwTCjnI4674ewxewXQInk2wz55JTtQZO6evpV+ASta3r6PHTOUonIM1v1tRvDq+A
+         z6dA==
+X-Forwarded-Encrypted: i=1; AJvYcCVXHRjXwQ0nSWfLzEPhPq/Pi72bVPKhEpVgxdfPqh0IyEd6ntN/LiWx4VCmk4h7yvWohXLFL5PnyEg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yypp8KNE45i9fGhYf55/irEyZmMjtZmh9Dyxok+8Alf8u6Lvv61
+	LLN+dGbAjZNg6pCmJLazZaVAl/uZkSzOSoXCIYqh5DNVxpPCw82PAyaaeMqpDyJGsg==
+X-Gm-Gg: ASbGncstfXtJcs92fbHU/grCOEIBAterpeKOaVf4YyeNmI90EX72xMQTxUTS1o1jw2s
+	Ef5/rK6VQM5A57ayjfgyFFqAMK99urjQAvoWJ1Fwqc62ZfZQihWMp+J3qre7P/qajPy1v86SxtI
+	cNSRZ53pXLSI2IK+mQwjuhFjZ4E+hn9NveMMJeT3hWChfHlTH8PV+G7hQ1+DbZgHNE/5SQklUVl
+	oCJ+6vRn3InqCB2BorW2KoExzLqbYfCclndvlthoIAf4fwpNBtY9x8kanX0dFp3O1aUlsraUd8M
+	ctZhjiB8bNvl6ek868Jb2jkJhG2UU3EBQ9H9jX8uE2PoT+qk6Bn7zMqWOkVXBMKXat+FBEsJ0kT
+	Bn+1ZPDc+IbHK+WBVaap6lHyQBsoqPSf/vctgV2KOGBG5LQFE1f+A+LIp6+23/tWCBr96u7Qlsf
+	aAQexhBaevcSf/x4hwNg==
+X-Google-Smtp-Source: AGHT+IHomgltNeSgGJ37rb5UidC9NcBbWlBsPq4xhYChXEAovcS5A9yVCJ8PstwNTvYWlvkt32ODjw==
+X-Received: by 2002:a05:6402:2714:b0:61d:feb:67fb with SMTP id 4fb4d7f45d1cf-61d26d9c672mr6071722a12.34.1756736946254;
+        Mon, 01 Sep 2025 07:29:06 -0700 (PDT)
+Message-ID: <80c8dbfe-5240-441d-84fc-603e9c5f9812@suse.com>
+Date: Mon, 1 Sep 2025 16:29:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/bitops: Optimise arch_ffs{,l}() some more on AMD
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250527222930.1452674-1-andrew.cooper3@citrix.com>
- <20250826174135.605220-1-andrew.cooper3@citrix.com>
- <3ec7b53e-aef6-4a00-acb3-19cbbe6543c9@suse.com>
- <fa534ac9-21db-4d26-94f7-e7a016f31edf@citrix.com>
+Subject: Re: [PATCH v12 1/4] xen/arm: Implement PSCI SYSTEM_SUSPEND call for
+ guests
+To: Mykola Kvach <xakep.amatop@gmail.com>
+Cc: Mykola Kvach <mykola_kvach@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1756586648.git.mykola_kvach@epam.com>
+ <244e5c2bcebad9563595ac7564ffa105d5f568d3.1756586648.git.mykola_kvach@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,112 +131,71 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <fa534ac9-21db-4d26-94f7-e7a016f31edf@citrix.com>
+In-Reply-To: <244e5c2bcebad9563595ac7564ffa105d5f568d3.1756586648.git.mykola_kvach@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 01.09.2025 16:21, Andrew Cooper wrote:
-> On 27/08/2025 8:52 am, Jan Beulich wrote:
->> On 26.08.2025 19:41, Andrew Cooper wrote:
->>> --- a/xen/common/bitops.c
->>> +++ b/xen/common/bitops.c
->>> @@ -97,14 +97,14 @@ static void __init test_for_each_set_bit(void)
->>>      if ( ui != ui_res )
->>>          panic("for_each_set_bit(uint) expected %#x, got %#x\n", ui, ui_res);
->>>  
->>> -    ul = HIDE(1UL << (BITS_PER_LONG - 1) | 1);
->>> +    ul = HIDE(1UL << (BITS_PER_LONG - 1) | 0x11);
->>>      for_each_set_bit ( i, ul )
->>>          ul_res |= 1UL << i;
->>>  
->>>      if ( ul != ul_res )
->>>          panic("for_each_set_bit(ulong) expected %#lx, got %#lx\n", ul, ul_res);
->>>  
->>> -    ull = HIDE(0x8000000180000001ULL);
->>> +    ull = HIDE(0x8000000180000011ULL);
->>>      for_each_set_bit ( i, ull )
->>>          ull_res |= 1ULL << i;
->> How do these changes make a difference? Apart from ffs() using TZCNT, ...
->>
->>> @@ -127,6 +127,79 @@ static void __init test_for_each_set_bit(void)
->>>          panic("for_each_set_bit(break) expected 0x1008, got %#x\n", ui_res);
->>>  }
->>>  
->>> +/*
->>> + * A type-generic fls() which picks the appropriate fls{,l,64}() based on it's
->>> + * argument.
->>> + */
->>> +#define fls_g(x)                                        \
->>> +    (sizeof(x) <= sizeof(int)      ? fls(x) :           \
->>> +     sizeof(x) <= sizeof(long)     ? flsl(x) :          \
->>> +     sizeof(x) <= sizeof(uint64_t) ? fls64(x) :         \
->>> +     ({ BUILD_ERROR("fls_g() Bad input type"); 0; }))
->>> +
->>> +/*
->>> + * for_each_set_bit_reverse() - Iterate over all set bits in a scalar value,
->>> + * from MSB to LSB.
->>> + *
->>> + * @iter An iterator name.  Scoped is within the loop only.
->>> + * @val  A scalar value to iterate over.
->>> + *
->>> + * A copy of @val is taken internally.
->>> + */
->>> +#define for_each_set_bit_reverse(iter, val)             \
->>> +    for ( typeof(val) __v = (val); __v; __v = 0 )       \
->>> +        for ( unsigned int (iter);                      \
->>> +              __v && ((iter) = fls_g(__v) - 1, true);   \
->>> +              __clear_bit(iter, &__v) )
->>> +
->>> +/*
->>> + * Xen doesn't have need of for_each_set_bit_reverse() at present, but the
->>> + * construct does exercise a case of arch_fls*() not covered anywhere else by
->>> + * these tests.
->>> + */
->>> +static void __init test_for_each_set_bit_reverse(void)
->>> +{
->>> +    unsigned int  ui,  ui_res = 0, tmp;
->>> +    unsigned long ul,  ul_res = 0;
->>> +    uint64_t      ull, ull_res = 0;
->>> +
->>> +    ui = HIDE(0x80008001U);
->>> +    for_each_set_bit_reverse ( i, ui )
->>> +        ui_res |= 1U << i;
->>> +
->>> +    if ( ui != ui_res )
->>> +        panic("for_each_set_bit_reverse(uint) expected %#x, got %#x\n", ui, ui_res);
->>> +
->>> +    ul = HIDE(1UL << (BITS_PER_LONG - 1) | 0x11);
->>> +    for_each_set_bit_reverse ( i, ul )
->>> +        ul_res |= 1UL << i;
->>> +
->>> +    if ( ul != ul_res )
->>> +        panic("for_each_set_bit_reverse(ulong) expected %#lx, got %#lx\n", ul, ul_res);
->>> +
->>> +    ull = HIDE(0x8000000180000011ULL);
->>> +    for_each_set_bit_reverse ( i, ull )
->>> +        ull_res |= 1ULL << i;
->> ... even here the need for the extra setting of bit 4 remains unclear to
->> me: The thing that was missing was the testing of the reverse for-each.
->> You mention the need for an asymmetric input in the description, but isn't
->> that covered already by the first test using 0x80008001U?
-> 
-> The first test covers {arch_,}f[fl]s() only.  It happens to be safe to
-> count-from-the-wrong-end bugs, but that was by chance.
-> 
-> The second test covers {arch_,}f[fs]sl() only.  They are unsafe WRT
-> symmetry, and disjoint (coverage wise) from the first test.
-> 
-> The third test, while the same as the second test on x86, isn't the same
-> on arm32.
-> 
-> 
-> Just because one test happens to be safe (symmetry wise) and passes,
-> doesn't make the other variants tested.
+On 31.08.2025 00:10, Mykola Kvach wrote:
+> --- a/xen/arch/ppc/stubs.c
+> +++ b/xen/arch/ppc/stubs.c
+> @@ -224,6 +224,11 @@ void arch_domain_creation_finished(struct domain *d)
+>      BUG_ON("unimplemented");
+>  }
+>  
+> +int arch_domain_resume(struct domain *d)
+> +{
+> +    return 0;
+> +}
+> +
+>  int arch_set_info_guest(struct vcpu *v, vcpu_guest_context_u c)
+>  {
+>      BUG_ON("unimplemented");
+> diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
+> index 1a8c86cd8d..52532ae14d 100644
+> --- a/xen/arch/riscv/stubs.c
+> +++ b/xen/arch/riscv/stubs.c
+> @@ -198,6 +198,11 @@ void arch_domain_creation_finished(struct domain *d)
+>      BUG_ON("unimplemented");
+>  }
+>  
+> +int arch_domain_resume(struct domain *d)
+> +{
+> +    return 0;
+> +}
+> +
+>  int arch_set_info_guest(struct vcpu *v, vcpu_guest_context_u c)
+>  {
+>      BUG_ON("unimplemented");
+> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+> index 19fd86ce88..94a06bc697 100644
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -1138,6 +1138,11 @@ void arch_domain_creation_finished(struct domain *d)
+>          hvm_domain_creation_finished(d);
+>  }
+>  
+> +int arch_domain_resume(struct domain *d)
+> +{
+> +    return 0;
+> +}
+> +
+>  #ifdef CONFIG_COMPAT
+>  #define xen_vcpu_guest_context vcpu_guest_context
+>  #define fpu_ctxt fpu_ctxt.x
 
-Hmm, okay, it is of course in principle possible that one flavor is screwed
-while the other isn't.
+I definitely don't like this redundancy, and even less so that you introduce out-
+of-line calls.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+> --- a/xen/include/xen/domain.h
+> +++ b/xen/include/xen/domain.h
+> @@ -109,6 +109,8 @@ int arch_domain_soft_reset(struct domain *d);
+>  
+>  void arch_domain_creation_finished(struct domain *d);
+>  
+> +int arch_domain_resume(struct domain *d);
+
+I think this wants to move to a per-arch header, presence of which is checked by
+has_include(), with an inline fallback define once centrally here.
 
 Jan
 
