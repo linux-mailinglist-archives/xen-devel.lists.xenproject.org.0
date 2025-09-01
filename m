@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E2D7B3DE22
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 11:23:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1104235.1455332 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B6D6B3DE5B
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Sep 2025 11:26:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1104246.1455342 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut0kp-0006vi-IC; Mon, 01 Sep 2025 09:23:11 +0000
+	id 1ut0nx-0007VG-00; Mon, 01 Sep 2025 09:26:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1104235.1455332; Mon, 01 Sep 2025 09:23:11 +0000
+Received: by outflank-mailman (output) from mailman id 1104246.1455342; Mon, 01 Sep 2025 09:26:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ut0kp-0006uE-Fa; Mon, 01 Sep 2025 09:23:11 +0000
-Received: by outflank-mailman (input) for mailman id 1104235;
- Mon, 01 Sep 2025 09:23:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=UGQU=3M=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ut0ko-0006dF-1S
- for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 09:23:10 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4628383b-8715-11f0-8adc-4578a1afcccb;
- Mon, 01 Sep 2025 11:23:09 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-afcb7a16441so635875966b.2
- for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 02:23:09 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b043fd772bcsm26952666b.14.2025.09.01.02.23.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Sep 2025 02:23:08 -0700 (PDT)
+	id 1ut0nw-0007TZ-T4; Mon, 01 Sep 2025 09:26:24 +0000
+Received: by outflank-mailman (input) for mailman id 1104246;
+ Mon, 01 Sep 2025 09:26:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=pPXY=3M=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1ut0nv-0007TT-9r
+ for xen-devel@lists.xenproject.org; Mon, 01 Sep 2025 09:26:23 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b8bed9bc-8715-11f0-8dd7-1b34d833f44b;
+ Mon, 01 Sep 2025 11:26:21 +0200 (CEST)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-55f68d7a98aso2538014e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Sep 2025 02:26:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,110 +40,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4628383b-8715-11f0-8adc-4578a1afcccb
+X-Inumbo-ID: b8bed9bc-8715-11f0-8dd7-1b34d833f44b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1756718588; x=1757323388; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rm0yRkOu7F19gNlA4SI+/jJ7K1ooBbhgF7qek1U8JXs=;
-        b=eUPMNfM9/KXuQb5E97BCFyESNhoEWfsY37RKJ2NwAoiJfGGYAWRD8nJ+her1+QKn2m
-         WmOl1VBWpVcUldLNr0IBfiYtdXTz8BQEMnCp52OZIJDJAj3FRL3RfWKCCG9pjyFfifEm
-         217E8cLrkUSMdRw3XFkk4cu+3flZ7pP5ou1HhSz7Nz5Wbcw3x8XtHqMMdUR5iu2dpJNT
-         yQTDshEkIX0EvpYLWXHxhEB4PIGbcmqlEKiKcOnx5NRLhrFRWxKW1XmY4D+q8WVr5i5z
-         K4hQHYloJBSWetU230rAvEYRkoKoChb/TPliviHvNPi19FmhHQ+KbvH898DIr1L9oMN3
-         gilQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756718588; x=1757323388;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1756718781; x=1757323581; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rm0yRkOu7F19gNlA4SI+/jJ7K1ooBbhgF7qek1U8JXs=;
-        b=h0BaQETJW4Jus38IWKoAXL1+5jU0Jn48OpruqQ6tJc4z/GubVb7JzsFgEX2EbfFVLA
-         Kk6yAQBRTsa1FVytYu6nTpBeIx11XmGmHHc3aXlgrzycfkRedezXa9lZ3AWnSrECvTYN
-         PJiGItOZJ+k+ERpVzCcaSaSsRYMuj+Yqirmp55SOdeQ1leu0K7rJNDo2BlWnSn4SlhCz
-         X60Xb502Hsw6d/c9ofu5E8hhwCYAxdJSayvvy/YD+YLTQLNjLF3AfLSekhrA3C4u4Tmi
-         28xhDhLHn1hMJT6twpwy4QfvUq2HQjCmuVpsJCgbkcZ5vKu9N34flPvVt7ijiVbUh7SM
-         gj/Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVgvBGRey09wr4onRxSFKH1lwsqCrCACqgUGmAHPaGA5PX7PxvfeAU+ZhWqmfnnj3XG4zv9I1znfxE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwvXV073vkVRtnbSMTW9QPY9XwK+KSm/b6VOGL/a2ejiouMbdhQ
-	Ip/Jd0981cSQz0sjh8lVlnwXtJSZ5iyOzrKJfLL2kcknc7YoW32z607txyXDFhR2OA==
-X-Gm-Gg: ASbGncti4mn/X34Elj9WtnvrI/4BJ6c9QkAXrpdXYwgKKUf8w1sP4HL3zXKSaHUVtb3
-	R7HpR0iSYLiqd7tY5XRS8RoSlPIIST/Q21Cq+xBF0RC7veb/OvpqIKWh5+A0w/UR1L76E2sluWc
-	bgq+L5t1lPGn+9mgcZcJ0up0r9z0AaViyvx6XlAjc4DSQMP/5k5C4bHXExP9QhcVX75+UtvkkTV
-	EoSkYj4VeUyPEZfsUyd3r4UCK5X1FQQtafAPvPUZW5NQk8BNFaTyBkNYaMkt5m8pkO66mu4cX+M
-	VTi8qIdzj9+e3EVOkS2rTyZYMs1v73xEElf+EQf3MZaE9S4HmxowJhvMFLlt/vftp3nepVJ11g3
-	jlny/plzbuhZ4dI24IK922HAmHeTqWmtO0H4vwl6nIg+C8tRenDqp5fmI4vz03q6VqyaZ+fUvee
-	z36B7vsg0=
-X-Google-Smtp-Source: AGHT+IEg7K2iFBsU1Ou05wLpiyhA1jEp9yRxo034LDIm+RtYNGyqKEWnPrA3ntu013LFJ9xpMD66Mg==
-X-Received: by 2002:a17:907:3f28:b0:afc:cc64:86da with SMTP id a640c23a62f3a-b01d8c9073amr628813766b.26.1756718588462;
-        Mon, 01 Sep 2025 02:23:08 -0700 (PDT)
-Message-ID: <2ae92f1c-da23-42d0-a1cc-70dff04310cd@suse.com>
-Date: Mon, 1 Sep 2025 11:23:07 +0200
+        bh=JGeHWtWNgO705oxiOYsA+gyhdLCj4bABvxrJX/jN1iE=;
+        b=SGhdvh0CFU1+RYkJkXP8mMeKdPp0RUfYxkRbPWyWl5TWhK6YHUXnerhYsYRPKYAZYU
+         q1gLTn5tO9O6HjE4JCdi+W0BMpnM4Sy3vEgAtb5WBOy4PNTuKKMm4VUKZQ6pzB9UMGar
+         3olpmfXjx7qZoo1HpCPCTk5AQMFZHLRn4AtV6R+/RrrT3JTKOME1FAjDcCfw7Fp0AQ8v
+         oZ/+SuQL4J7zutYG5EocvsTQLBuCryOuGDPJF8HqX0nYUs5qvoY0ND1mDkdzZIdVfDrG
+         1tGBWpMlCTGpqDBOfjZCZ0uJ5crLmV59TujJPqgJneFiNfO4ZsVjj/zgdvxPU/FqxKJb
+         KWpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1756718781; x=1757323581;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=JGeHWtWNgO705oxiOYsA+gyhdLCj4bABvxrJX/jN1iE=;
+        b=io1GmJP93Pdw3ctQyeeDefmKCbwtBH4sus61SNSAOZ1VqTCF++zqjF3YmFUDJ+4GSS
+         1GekbEaVMOwc/zLzdfiRnqv0IA1bUH57XBA758WvLp9ole5FnZDnkv6t7XaUnUEqU7CB
+         WCraWGRS1F0rjRDBTFz8mexocApySwVfUZmk1qLVNI5V1ulmHNIVhJKzwOEkltJ/yo03
+         aeOy2MmGWafll6plvSwvZnbIqRdz/JCCeM5sFBWvEw6Ko12Sw+YNEgpd3ffVDc7wFhRt
+         6TN6Wkt4IBd1fNGyGGcMpKiCfJmCMV/Sto7TRzzYuy7SBF5HfvcLpS8eg3331r2Ojnug
+         n2TQ==
+X-Gm-Message-State: AOJu0YwMRLme/E1gE4jzP+hRkkTwEs0263jzUz7ULwdpzwAoSo/FfYA5
+	7p4PwDRWMmYCmtF7LkrqSnU+csuldLMgDtERgA0i21ZWHZizJLyQ+pyfDGM1alGNwgtaORhu+XI
+	1yn2tkq+bCJ+QN1UtB9HiPDYRaJRTwDI=
+X-Gm-Gg: ASbGncsS49+PI/qvtVUd7CC1SUKILwklP59Ek6EhrsM50WsdZjk5kIMe5UftxVzBLXL
+	8VprGb6dKSUdQSKymH1kvK2LE2qoY364FdT57i9OLqQ+m54JBydBQyJ29xlZmqZnEMm5Ui34i3t
+	+RV8x/UJIbpNZtGoynkw6PMT+8ka5I0w6JfDbxA6eA7GIvvmGU69ZMOYoSljZnmgx1dbNlUOFtM
+	KPC+w==
+X-Google-Smtp-Source: AGHT+IHvj0G5XcfwMnlDShmploLpRGYG/6mk1osr+cYNn99IYvrY68a8j5nnANOO0I8Sx3cAkD7ozSig6dJKZQq+gXM=
+X-Received: by 2002:a05:6512:4002:b0:55f:3e8f:ac10 with SMTP id
+ 2adb3069b0e04-55f709886f7mr2136762e87.49.1756718780307; Mon, 01 Sep 2025
+ 02:26:20 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/23] x86/traps: Set MSR_PL0_SSP in
- load_system_tables()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250828150409.901315-1-andrew.cooper3@citrix.com>
- <20250828150409.901315-7-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250828150409.901315-7-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <24567cc1630b1577c33939ff71d67fb2ebe5572f.1754491424.git.dmytro_firsov@epam.com>
+In-Reply-To: <24567cc1630b1577c33939ff71d67fb2ebe5572f.1754491424.git.dmytro_firsov@epam.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Mon, 1 Sep 2025 12:26:08 +0300
+X-Gm-Features: Ac12FXzz9oOK_kMxsFAmUfOYLAVi4KEd0wCbmt5TdL3flZ47esYmFJvD2IcE-N4
+Message-ID: <CAGeoDV-xqTe7LckqMKoCuJ0ApDdayAZ9s7w7i=BCG9jJEMayrw@mail.gmail.com>
+Subject: Re: [PATCH] xen/arm: smmuv3: Add cache maintenance for non-coherent
+ SMMU queues
+To: Dmytro Firsov <Dmytro_Firsov@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Rahul Singh <rahul.singh@arm.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 28.08.2025 17:03, Andrew Cooper wrote:
-> FRED and IDT differ by a Supervisor Token on the base of the shstk.  This
-> means that the value they load into MSR_PL0_SSP differs by 8.
-> 
-> s3_resume() in particular has logic which is otherwise invariant of FRED mode,
-> and must not clobber a FRED MSR_PL0_SSP with an IDT one.
-> 
-> This also simplifies the AP path too.  Updating reinit_bsp_stack() is deferred
-> until later.
+Hi Dmytro,
 
-This last sentence looks to be ...
+On Wed, Aug 6, 2025 at 5:59=E2=80=AFPM Dmytro Firsov <Dmytro_Firsov@epam.co=
+m> wrote:
+>
+> According to the Arm SMMUv3 spec (ARM IHI 0070), a system may have
+> SMMU(s) that is/are non-coherent to the PE (processing element). In such
+> cases, memory accesses from the PE should be either non-cached or be
+> augmented with manual cache maintenance. SMMU cache coherency is reported
+> by bit 4 (COHACC) of the SMMU_IDR0 register and is already present in the
+> Xen driver. However, the current implementation is not aware of cache
+> maintenance for memory that is shared between the PE and non-coherent
+> SMMUs. It contains dmam_alloc_coherent() function, that is added during
+> Linux driver porting. But it is actually a wrapper for _xzalloc(), that
+> returns normal writeback memory (which is OK for coherent SMMUs).
+>
+> During Xen bring-up on a system with non-coherent SMMUs, the driver did
+> not work properly - the SMMU was not functional and halted initialization
+> at the very beginning due to a timeout while waiting for CMD_SYNC
+> completion:
+>
+>   (XEN) SMMUv3: /soc/iommu@fa000000: CMD_SYNC timeout
+>   (XEN) SMMUv3: /soc/iommu@fa000000: CMD_SYNC timeout
 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Thank you for your patch.
+
+I have encountered the same issue while testing other Xen functionality
+on the Orange Pi 5 board (SoC RK3588S):
+
+(XEN) [ 0.040350] SMMUv3: /iommu@fc900000: ias 48-bit, oas 48-bit
+(features 0x00001c0f)
+(XEN) [ 0.043164] SMMUv3: /iommu@fc900000: allocated 524288 entries for cmd=
+q
+(XEN) [ 0.048505] SMMUv3: /iommu@fc900000: allocated 524288 entries for evt=
+q
+(XEN) [ 1.099335] SMMUv3: /iommu@fc900000: CMD_SYNC timeout
+
+This patch resolves the problem.
+
+Tested-by: Mykola Kvach <mykola_kvach@epam.com>
+
+>
+> To properly handle such scenarios, add the non_coherent flag to the
+> arm_smmu_queue struct. It is initialized using features reported by the
+> SMMU HW and will be used for triggering cache clean/invalidate operations=
+.
+> This flag is not queue-specific (it is applicable to the whole SMMU), but
+> adding it to arm_smmu_queue allows us to not change function signatures
+> and simplify the patch (smmu->features, which contains the required flag,
+> are not available in code parts that require cache maintenance).
+>
+> Signed-off-by: Dmytro Firsov <dmytro_firsov@epam.com>
 > ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> v2:
->  * Extend comment about clearing the busy bit.
->  * Move reinit_bsp_stack() hunk into this patch.
+>  xen/drivers/passthrough/arm/smmu-v3.c | 27 +++++++++++++++++++++++----
+>  xen/drivers/passthrough/arm/smmu-v3.h |  7 +++++++
+>  2 files changed, 30 insertions(+), 4 deletions(-)
+>
+> diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthro=
+ugh/arm/smmu-v3.c
+> index 5e9e3e048e..bf153227db 100644
+> --- a/xen/drivers/passthrough/arm/smmu-v3.c
+> +++ b/xen/drivers/passthrough/arm/smmu-v3.c
+> @@ -346,10 +346,14 @@ static void queue_write(__le64 *dst, u64 *src, size=
+_t n_dwords)
+>
+>  static int queue_insert_raw(struct arm_smmu_queue *q, u64 *ent)
+>  {
+> +       __le64 *q_addr =3D Q_ENT(q, q->llq.prod);
+> +
+>         if (queue_full(&q->llq))
+>                 return -ENOSPC;
+>
+> -       queue_write(Q_ENT(q, q->llq.prod), ent, q->ent_dwords);
+> +       queue_write(q_addr, ent, q->ent_dwords);
+> +       if (q->non_coherent)
+> +               clean_dcache_va_range(q_addr, q->ent_dwords * sizeof(*q_a=
+ddr));
+>         queue_inc_prod(&q->llq);
+>         queue_sync_prod_out(q);
+>         return 0;
+> @@ -365,10 +369,15 @@ static void queue_read(u64 *dst, __le64 *src, size_=
+t n_dwords)
+>
+>  static int queue_remove_raw(struct arm_smmu_queue *q, u64 *ent)
+>  {
+> +       __le64 *q_addr =3D Q_ENT(q, q->llq.cons);
+> +
+>         if (queue_empty(&q->llq))
+>                 return -EAGAIN;
+>
+> -       queue_read(ent, Q_ENT(q, q->llq.cons), q->ent_dwords);
+> +       if (q->non_coherent)
+> +               invalidate_dcache_va_range(q_addr, q->ent_dwords * sizeof=
+(*q_addr));
+> +
+> +       queue_read(ent, q_addr, q->ent_dwords);
+>         queue_inc_cons(&q->llq);
+>         queue_sync_cons_out(q);
+>         return 0;
+> @@ -463,6 +472,7 @@ static void arm_smmu_cmdq_skip_err(struct arm_smmu_de=
+vice *smmu)
+>         struct arm_smmu_queue *q =3D &smmu->cmdq.q;
+>         u32 cons =3D readl_relaxed(q->cons_reg);
+>         u32 idx =3D FIELD_GET(CMDQ_CONS_ERR, cons);
+> +       __le64 *q_addr =3D Q_ENT(q, cons);
+>         struct arm_smmu_cmdq_ent cmd_sync =3D {
+>                 .opcode =3D CMDQ_OP_CMD_SYNC,
+>         };
+> @@ -489,11 +499,14 @@ static void arm_smmu_cmdq_skip_err(struct arm_smmu_=
+device *smmu)
+>                 break;
+>         }
+>
+> +       if (q->non_coherent)
+> +               invalidate_dcache_va_range(q_addr, q->ent_dwords * sizeof=
+(*q_addr));
+> +
+>         /*
+>          * We may have concurrent producers, so we need to be careful
+>          * not to touch any of the shadow cmdq state.
+>          */
+> -       queue_read(cmd, Q_ENT(q, cons), q->ent_dwords);
+> +       queue_read(cmd, q_addr, q->ent_dwords);
+>         dev_err(smmu->dev, "skipping command in error state:\n");
+>         for (i =3D 0; i < ARRAY_SIZE(cmd); ++i)
+>                 dev_err(smmu->dev, "\t0x%016llx\n", (unsigned long long)c=
+md[i]);
+> @@ -504,7 +517,10 @@ static void arm_smmu_cmdq_skip_err(struct arm_smmu_d=
+evice *smmu)
+>                 return;
+>         }
+>
+> -       queue_write(Q_ENT(q, cons), cmd, q->ent_dwords);
+> +       queue_write(q_addr, cmd, q->ent_dwords);
+> +
+> +       if (q->non_coherent)
+> +               clean_dcache_va_range(q_addr, q->ent_dwords * sizeof(*q_a=
+ddr));
+>  }
+>
+>  static void arm_smmu_cmdq_insert_cmd(struct arm_smmu_device *smmu, u64 *=
+cmd)
+> @@ -1634,6 +1650,9 @@ static int __init arm_smmu_init_one_queue(struct ar=
+m_smmu_device *smmu,
+>         q->q_base |=3D FIELD_PREP(Q_BASE_LOG2SIZE, q->llq.max_n_shift);
+>
+>         q->llq.prod =3D q->llq.cons =3D 0;
+> +
+> +       q->non_coherent =3D !(smmu->features & ARM_SMMU_FEAT_COHERENCY);
+> +
+>         return 0;
+>  }
+>
+> diff --git a/xen/drivers/passthrough/arm/smmu-v3.h b/xen/drivers/passthro=
+ugh/arm/smmu-v3.h
+> index f09048812c..db936b9bd4 100644
+> --- a/xen/drivers/passthrough/arm/smmu-v3.h
+> +++ b/xen/drivers/passthrough/arm/smmu-v3.h
+> @@ -522,6 +522,13 @@ struct arm_smmu_queue {
+>
+>         u32 __iomem                     *prod_reg;
+>         u32 __iomem                     *cons_reg;
+> +
+> +       /*
+> +        * According to SMMU spec section 3.16, some systems may have
+> +        * SMMUs, that are non-coherent to PE (processing elements).
+> +        * In such case manual cache management is needed.
+> +        */
+> +       bool                            non_coherent;
+>  };
+>
+>  struct arm_smmu_cmdq {
+> --
+> 2.50.1
+>
 
-... stale, according to this. Other than that:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Jan
+Best regards,
+Mykola
 
